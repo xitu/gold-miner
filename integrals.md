@@ -4082,10 +4082,11 @@
 |------|-------|-------|
 |[Web 设计准则](https://juejin.im/post/59c9c6f66fb9a00a4d53eec7)|校对|1|
 
-## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：19 当前积分：19 二零一九：1.5
+## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：24 当前积分：24 二零一九：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[你认为“figure”怎么用？](https://juejin.im/post/5cc5ad456fb9a032233532df)|翻译|5|
 |[新愿景: 未来的程序应用平台](https://juejin.im/post/5c2cce475188256a272ac4d6)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5.5|
 |[找出可能影响性能的代码模式](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|1.5|
@@ -5844,10 +5845,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：133 当前积分：113 二零一九：51
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：138 当前积分：118 二零一九：56
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何让你的 CSS Grid 布局有良好可读性](https://juejin.im/post/5cc156a2f265da034e7e9139)|翻译|5|
 |[2019 前端工具调研](https://juejin.im/post/5cb800fce51d456e4514f550)|翻译|4|
 |[深入 React Hook 系统的原理](https://juejin.im/post/5c99a75af265da60ef635898)|翻译|5|
 |[基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770)|翻译|10|
@@ -6009,10 +6011,12 @@
 |[关于 SPA 你需要掌握的 4 层](https://juejin.im/post/5ac9ae935188255caf067974)|校对|1.5|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
 
-## 译者：[wznonstop](https://github.com/wznonstop) 历史贡献积分：29 当前积分：29 二零一九：20
+## 译者：[wznonstop](https://github.com/wznonstop) 历史贡献积分：34.5 当前积分：34.5 二零一九：25.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[创意运用 Console API！](https://juejin.im/post/5cc1517e5188252e7a0247dd)|翻译|4.5|
+|[我多希望在我学习 React.js 之前就已经知晓这些小窍门](https://juejin.im/post/5cc53af6f265da038e54b2e6)|校对|1|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|校对|2.5|
 |[如何使用 Phaser 3 和 TypeScript 在浏览器中构建一个简单的游戏](https://juejin.im/post/5c91b77ee51d4574b27c9219)|校对|1.5|
 |[正在消失的小型网站](https://juejin.im/post/5c81de696fb9a049e702e6ac)|校对|1|
@@ -6759,10 +6763,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：74.5 当前积分：19.5 二零一九：9.5
+## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：75 当前积分：20 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 closest() 函数获取正确的 DOM 元素](https://juejin.im/post/5cc811796fb9a0321c45e5e0)|校对|0.5|
 |[设计不会拯救世界](https://juejin.im/post/5c966aed5188252d9b3768df)|校对|2.5|
 |[CSS Shapes 简介](https://juejin.im/post/5c3740efe51d455211594993)|校对|1.5|
 |[Lenses：可组合函数式编程的 Getter 和 Setter](https://juejin.im/post/5c3d35f8f265da611e4de068)|校对|1.5|
@@ -7477,10 +7482,11 @@
 |------|-------|-------|
 |修订文章 https://github.com/xitu/gold-miner/pull/4753|奖励|2|
 
-## 译者：[nanjingboy](https://github.com/nanjingboy) 历史贡献积分：67 当前积分：47 二零一九：22.5
+## 译者：[nanjingboy](https://github.com/nanjingboy) 历史贡献积分：70 当前积分：50 二零一九：25.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[图片懒加载](https://juejin.im/post/5cc183436fb9a032363936c3)|翻译|3|
 |2019 年 2 月兑大 Enter 键 2 个|减去积分|20|
 |[Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)|翻译|5|
 |[Widget - State - Context - InheritedWidget](https://juejin.im/post/5c768ad2f265da2dce1f535c)|翻译|11|
@@ -8088,10 +8094,15 @@
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|翻译|4|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|2|
 
-## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：80 当前积分：80 二零一九：80
+## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：89.5 当前积分：89.5 二零一九：89.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何让你的 CSS Grid 布局有良好可读性](https://juejin.im/post/5cc156a2f265da034e7e9139)|校对|1.5|
+|[构建世界上最快的会议网站](https://juejin.im/post/5cbdafce6fb9a031fe3bc5db)|校对|1.5|
+|[图片懒加载](https://juejin.im/post/5cc183436fb9a032363936c3)|校对|1.5|
+|[我多希望在我学习 React.js 之前就已经知晓这些小窍门](https://juejin.im/post/5cc53af6f265da038e54b2e6)|翻译|3.5|
+|[你认为“figure”怎么用？](https://juejin.im/post/5cc5ad456fb9a032233532df)|校对|1.5|
 |[你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c)|翻译|9.5|
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|校对|1.5|
 |[对 React 组件进行单元测试](https://juejin.im/post/5cb9c62a6fb9a0688d2e4689)|翻译|7|
@@ -8143,10 +8154,11 @@
 |[选择 Grid 还是 Flex？](https://juejin.im/post/5c7ce781e51d4514913c5bc4)|翻译|5|
 |[如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774)|校对|2|
 
-## 译者：[hanxiansen](https://github.com/hanxiansen) 历史贡献积分：12 当前积分：12 二零一九：12
+## 译者：[hanxiansen](https://github.com/hanxiansen) 历史贡献积分：13.5 当前积分：13.5 二零一九：13.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何让你的 CSS Grid 布局有良好可读性](https://juejin.im/post/5cc156a2f265da034e7e9139)|校对|1.5|
 |[监测与调试 Vue.js 的响应式系统：计算属性树（Computed Tree）](https://juejin.im/post/5c9ca62e5188251d80672b0d)|校对|1|
 |[深入 React Hook 系统的原理](https://juejin.im/post/5c99a75af265da60ef635898)|校对|1|
 |[线框图变得不那么重要了 — 好事啊！](https://juejin.im/post/5c9269edf265da6116245ee9)|翻译|4|
@@ -8164,10 +8176,11 @@
 |[谷歌搜索操作符大全（包含 42 个高级操作符）](https://juejin.im/post/5c73744ef265da2dc675c029)|校对|2.5|
 |[用 Rust 写一个微服务](https://juejin.im/post/5c7a3777f265da2dd773fc38)|翻译|8|
 
-## 译者：[LucaslEliane](https://github.com/LucaslEliane) 历史贡献积分：20 当前积分：20 二零一九：20
+## 译者：[LucaslEliane](https://github.com/LucaslEliane) 历史贡献积分：22 当前积分：22 二零一九：22
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 closest() 函数获取正确的 DOM 元素](https://juejin.im/post/5cc811796fb9a0321c45e5e0)|翻译|2|
 |[使用网格布局实现响应式图片](https://juejin.im/post/5ca0ad80f265da30920059ae)|翻译|4.5|
 |[Vue.js 逐渐集成 第三方 JavaScript](https://juejin.im/post/5c8e5a776fb9a070d013ef71)|翻译|11|
 |[TSLint in 2019](https://juejin.im/post/5c7c0451e51d4569951518fe)|翻译|3|
@@ -8225,10 +8238,11 @@
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|1|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|校对|3|
 
-## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：18 当前积分：18 二零一九：18
+## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：19.5 当前积分：19.5 二零一九：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[图片懒加载](https://juejin.im/post/5cc183436fb9a032363936c3)|校对|1.5|
 |[我们为什么看好加密收藏品（NFT）的前景](https://juejin.im/post/5cb87819518825329e7ea61e)|翻译|3|
 |[懒加载变量在 iOS Swift](https://juejin.im/post/5ca775b26fb9a05e3527db37)|校对|1|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|校对|3|
@@ -8255,10 +8269,11 @@
 |------|-------|-------|
 |[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|校对|3.5|
 
-## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：24 当前积分：24 二零一九：24
+## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：30 当前积分：30 二零一九：30
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建世界上最快的会议网站](https://juejin.im/post/5cbdafce6fb9a031fe3bc5db)|翻译|6|
 |[使用 Shadow DOM 封装样式和结构](https://juejin.im/post/5cb3f5b95188251add7f11bc)|翻译|5|
 |[React 中的调度](https://juejin.im/post/5ca347306fb9a05e4c0e69e5)|翻译|7|
 |[从没有人告诉过我的 CSS 小知识](https://juejin.im/post/5ca2fa5551882543db10d489)|翻译|3+1|
@@ -8350,8 +8365,29 @@
 |[制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7)|校对|3|
 |[你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c)|校对|4|
 
-## 译者：[ezioyuan](https://github.com/ezioyuan) 历史贡献积分：1 当前积分：1 二零一九：1
+## 译者：[ezioyuan](https://github.com/ezioyuan) 历史贡献积分：4 当前积分：4 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建世界上最快的会议网站](https://juejin.im/post/5cbdafce6fb9a031fe3bc5db)|校对|1.5|
+|[创意运用 Console API！](https://juejin.im/post/5cc1517e5188252e7a0247dd)|校对|1.5|
 |[我们为什么看好加密收藏品（NFT）的前景](https://juejin.im/post/5cb87819518825329e7ea61e)|校对|1|
+
+## 译者：[ZYuMing](https://github.com/ZYuMing) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[使用 closest() 函数获取正确的 DOM 元素](https://juejin.im/post/5cc811796fb9a0321c45e5e0)|校对|1|
+
+## 译者：[xujiujiu](https://github.com/xujiujiu) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[我多希望在我学习 React.js 之前就已经知晓这些小窍门](https://juejin.im/post/5cc53af6f265da038e54b2e6)|校对|1|
+|[你认为“figure”怎么用？](https://juejin.im/post/5cc5ad456fb9a032233532df)|校对|2|
+
+## 译者：[Tammy-Liu](https://github.com/Tammy-Liu) 历史贡献积分：2 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[创意运用 Console API！](https://juejin.im/post/5cc1517e5188252e7a0247dd)|校对|2|
