@@ -15,9 +15,9 @@
 
 如果你曾经有幸为 Node.js 项目编写代码，那么当我说调试它以找到出错的地方并不是最简单的事情时，你就知道我在谈论什么。
 
-不像浏览器中的 JavaScript，也不像有类似 IntellJ 这样强大的 IDE 的 Java，你无法到处设置断点，刷新页面或者重启编译器，也无法慢慢审阅代码、检查对象、评估函数、查找变异或者遗漏的变量等。你无法那样去做，这真的很臭（译者注：这里实在无力翻译，自己领会吧😂）。
+不像浏览器中的 JavaScript，也不像有类似 IntelliJ 这样强大的 IDE 的 Java，你无法到处设置断点，刷新页面或者重启编译器，也无法慢慢审阅代码、检查对象、评估函数、查找变异或者遗漏的变量等。你无法那样去做，这简直太糟糕了。
 
-但 Node.js 也是可以被调试的，只是需要多花费一些肘部的油脂（译者注：这里指会多费些体力）。让我们跳过这些可选项，我会展示给你在我开发经历中遇到的最简单调试方法。
+但 Node.js 也是可以被调试的，只是需要多费些体力。让我们认真讨论这些可选方法，我会展示给你在我开发经历中遇到的最简单调试方法。
 
 ### 调试 Node.js 的一些可选方法
 
@@ -29,7 +29,7 @@
 
 * **Node.js 文档 `—-inspect`** — Node.js 文档撰写者本身明白调试不大简单，所以他们做了一些[方便的参考](https://nodejs.org/en/docs/guides/debugging-getting-started/)帮助人们开始调试。
 
-这很有用，但是老实说，除非你已经编写了一段时间的程序，否则它并不是最容易破译的。它们很快就进入了 UUID、WebSockets 和安全隐患的陷阱，我开始感到无所适从。我心里想：一定有一种不那么复杂的方法来做这件事。
+这很有用，但是老实说，除非你已经编写了一段时间的程序，否则它并不是最容易破译的。它们很快就进入了 UUIDs、WebSockets 和安全隐患的陷阱，我开始感到无所适从。我心里想：一定有一种不那么复杂的方法来做这件事。
 
 * **Chrome DevTools** — [Paul Irish](undefined) 在 2016 年撰写了一篇有关使用 Chrome 开发者工具调试 Node.js 的[博文](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27)（并在 2018 年更新）。它看起来相当简单，对于调试来说是一个很大的进步。
 
@@ -47,7 +47,7 @@ VS Code 做了其他所有选项在[调试 Node.js](https://code.visualstudio.co
 
 ![](https://cdn-images-1.medium.com/max/2000/1*8YEmou3F1ymiHrlNgVqHgQ.jpeg)
 
-抱歉，我无法抗拒这个 meme —— 它真是太合适了。好吧，让我们来配置 VS Code 来调试 Node 。我假设你已经从[这里](https://code.visualstudio.com/download)下载了 VS Code ，开始配置它吧。
+好吧，让我们来配置 VS Code 来调试 Node 。我假设你已经从[这里](https://code.visualstudio.com/download)下载了 VS Code ，开始配置它吧。
 
 打开 `Preferences > Settings` ，在搜索框中输入 `node debug` 。在 `Extensions` 选项卡下应该会有一个叫 `Node debug` 的扩展。在这里点击第一个方框： **Debug > Node: Auto Attach** ，然后设置下拉框的选项为 `on` 。你现在几乎已经配置完成了。是的，这相当的简单。
 
