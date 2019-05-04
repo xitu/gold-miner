@@ -1,3 +1,4 @@
+* [如何避免我作为初级开发者时所犯下的 7 个错误](https://juejin.im/post/5cbea729e51d456e8240dcfa) ([whatbeg](https://github.com/whatbeg) 翻译)
 * [你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c) ([xionglong58](https://github.com/xionglong58) 翻译)
 * [浏览器帧原理剖析](https://juejin.im/post/5c9c66075188251dab07413d) ([WangLeto](https://github.com/WangLeto) 翻译)
 * [开源是无法赚钱的，因为开源本身就不是为了赚钱](https://juejin.im/post/5c998753e51d456ef105ac1e) ([kasheemlew](https://github.com/kasheemlew) 翻译)

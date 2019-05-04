@@ -1,3 +1,6 @@
+* [在深度学习训练过程中如何设置数据增强？](https://juejin.im/post/5cc87ec8f265da03b446202b) ([ccJia](https://github.com/ccJia) 翻译)
+* [使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7) ([lsvih](https://github.com/lsvih) 翻译)
+* [归一化和标准化 — 量化分析](https://juejin.im/post/5cc5c0a06fb9a0321b69740a) ([ccJia](https://github.com/ccJia) 翻译)
 * [如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24) ([Daltan](https://github.com/Daltan) 翻译)
 * [哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70) ([ccJia](https://github.com/ccJia) 翻译)
 * [如何在 Keras 中使用 LSTM 神经网络创作音乐](https://juejin.im/post/5c9c19d7e51d453e7d28a173) ([HearFishle](https://github.com/HearFishle) 翻译)
