@@ -2,59 +2,59 @@
 > * 原文作者：[Arlind Aliu](https://medium.com/@arlindaliu.dev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/structuring-your-ios-app-for-split-testing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/structuring-your-ios-app-for-split-testing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
+> * 校对者：[swants](https://github.com/swants)
 
-# Structuring Your iOS App for Split Testing
+# 为你的 iOS App 构建分离测试
 
 ![](https://cdn-images-1.medium.com/max/3000/1*WZf4olsps6kCjyVj0PM7JA.jpeg)
 
-> Split testing is a method of determining which variation of an application performs better for a given goal.
+> 分离测试是为应用提供哪种方案对于给定目标表现更优决策的方法。
 >
-> Multiple variants or behaviors of an application are distributed in a random manner. After statistics gathering and analysis, we determine which version performs better.
+> 我们为应用的用户以随机的方式分发变量或行为不同的方案，通过收集数据并统计分析，确定哪个方案表现的更好。
 
-The goal of this article is to provide a simple way of structuring and organizing your application in order to achieve clean and scalable iOS code when using split testing.
+本文旨在提供一种结构化组织构建 App 的简单方法，以便你可以在使用分离测试时能获得整洁而可扩展的代码。
 
-Practical tips and examples are provided in order for this article to stay as a guideline for real-world app scenarios.
+本文提供了一些技巧和示例，你可以把它当作实际应用下的指南。
 
-## General Problems
+## 一般性问题
 
-Using split testing (also known as an A/B testing), we have endless possibilities for what to test. But in general, we can group the changes needed regarding a split test in the following order:
+使用分离测试（也称为 A/B 测试），我们拥有无限的测试可能性。但总的来说，我们可以按以下顺序对分离测试所需进行的修改进行分组：
 
-1. **Content Changes:** Changing only specific parts in a given view or adding/removing specific content based on the given test.
+1. **内容变更**：仅更改指定视图中的特定部分或根据给定的测试添加或删除特定内容。
 
-2. **Design Changes:** Testing how changes like colors, typography, or layout can affect our users’ behaviors.
+2. **设计变更**：测试颜色、排版或布局等变化会如何影响用户的行为。
 
-3. **Behavioral Changes:** Changing the behavior of a button action or a screen presentation depending on the split group
+3. **行为变更**：根据拆分组来更改按钮操作或屏幕显示的行为。
 
-The problem is that in all of these categories, huge code duplications can arise.
+但其中问题在于，所有这些类别中可能会出现大量重复的代码。
 
-We need a way to create an easily maintainable code structure for the tests—this is because we’ll have continuous requirements for adding new tests and dropping or modifying old ones. Therefore, we should design with scalability in mind.
+我们需要为测试创建一种易于维护的代码结构，这是因为我们需要不断添加新测试或删除修改旧测试，因此需要考虑它的可扩展性。
 
-## Creating a Split Testing Manager
+## 创建拆分离测试管理器
 
-We’ll try to create a generic reusable solution that we could use for our change categories described above.
+我们将尝试创建一个通用解决方案并将其用于上述的变更类别。
 
-We’ll first create a protocol that defines the rules to which an object has to conform in order to represent a split test:
+首先我们创建一个协议来定义拆分测试对象必须符合的规则：
 
-```Swift
+```swift
 protocol SplitTestProtocol {
     associatedtype ValueType: Any
-    static var identifier: String {get}
-    var value: ValueType {get}
+    static var identifier: String { get }
+    var value: ValueType { get }
     init(group: String)
 }
 ```
 
-The `value` field will represent a generic value that’ll be implemented by a concrete Split Testing Object. It will correspond to a color, font, or any attribute that we’re testing for our target goal.
+`value` 表示一个通用值，该值将由具体的分离测试对象实现。它将对应于我们为目标目标测试的颜色，字体或任何属性。
 
-Our `identifier` will simply be a unique identifier for our test.
+`identifier` 将作为测试的唯一标识符。
 
-Our `group` will represent which value of the test is currently being tested. It can be `a` and `b` or `red` and `green`. This all depends on the naming of the values that are decided for a given test.
+其中的 `group` 将代表当前正在测试的值。它可以是 `a` 和 `b` 或 `red` 和 `green`，这完全取决于为给定测试确定的值的命名。
 
-We’ll also create a manager that’s responsible for getting the value of our split test based on the group stored in our database related to the testing identifier:
+我们还将创建一个管理器，负责根据与测试标识符相关的数据库中存储的组获取拆分测试的值：
 
-```Swift
+```swift
 class SplitTestingManager {
     static func getSplitValue<Value: SplitTestProtocol>(for split: Value.Type) -> Value.ValueType {
         let group = UserDefaults.standard.value(forKey: split.self.identifier) as! String
@@ -63,50 +63,49 @@ class SplitTestingManager {
 }
 ```
 
-## Content Changes
+## 内容变更
 
 ![[https://dribbble.com/shots/5805125-Book-Reading-App](https://dribbble.com/shots/5805125-Book-Reading-App)](https://cdn-images-1.medium.com/max/3200/1*k8Pv6wbdmPGWJMx-R-mZOQ.png)
 
-Suppose that we’re working on a reading application and we decide to give users a free e-book.
+假设我们正在开发阅读类 App，我们决定为用户提供免费的电子书。
 
-Our marketing team has decided to create a split test for giving the book by first asking the users to either:
+我们的营销团队决定首先通过要求用户提供以下内容来创建分离测试：
 
-**Share our app on social media**
+**在社交媒体上分享我们的应用**
 
-or
+或者
 
-**Subscribe to our newsletter**
+**订阅我们的新闻**
 
-Both of these two cases use the same view controller, but a part of the design changes based on the given case. In our view controller, we’ll create a content view area where we’ll be adding different content views.
+这两种情况都使用相同的 View Controller，但设计的一部分会随情况而改变。在我们的 View Controller 中，我们将创建一个 Content View 区域并在其中添加不同的内容。
 
-In this case, we need to create two different views: one for social share and one for the newsletter and add them respectively to our view controller’s content defined area.
+在这种情况下，我们需要创建两个不同的 View：一个用于社交共享，另一个用于新闻稿，并分别添加到 View Controller 的 Content View 区域内。
 
-Let’s first create an object that holds our view controller style and pass it in the view controller’s initializer:
+首先创建一个保存 View Controller 样式的对象，并将其传递给 View Controller 的初始化器：
 
-```Swift
+```swift
 struct PromotionViewControllerStyle {
     let contentView: String
 }
 ```
 
-```Swift
+```swift
 init(style: PromotionViewControllerStyle) {
     self.style = style
     super.init(nibName: nil, bundle: nil)
 }
 ```
 
-Basically, the style object currently holds the xib name for the content view of our `PromotionViewController`.
+基本上，样式对象当前包含我们的 `PromotionViewController` 中 Content View 的 xib 名称。
 
-We can create our Test Object that conforms to our `SplitTestProtocol`:
+我们可以创建遵循 `SplitTestProtocol` 的测试对象：
 
-```Swift
+```swift
 class EBookPromotionSplitTest: SplitTestProtocol {
     typealias ValueType = PromotionViewControllerStyle
     static var identifier: String = "ebookPromotionTest"
     var value: PromotionViewControllerStyle
-    
-    
+
     required init(group: String) {
         self.value =
             group == "social" ?
@@ -116,9 +115,9 @@ class EBookPromotionSplitTest: SplitTestProtocol {
 }
 ```
 
-We can now easily present our view controller with either newsletter or social share content based on our split test:
+现在我们可以根据我们的分离测试轻松地向我们的 View Controller 显示新闻或社交共享的内容：
 
-```Swift
+```swift
 @IBAction func presentNextVc(_ sender: UIButton) {
     let style = SplitTestManager.getSplitValue(for: EBookPromotionSplitTest.self)
     let vc = PromotionViewController(style: style)
@@ -126,7 +125,7 @@ We can now easily present our view controller with either newsletter or social s
 }
 ```
 
-```Swift
+```swift
 func addContentView() {
     let nib = UINib(nibName: style.contentView, bundle: nil)
     let view = nib.instantiate(withOwner: nil, options: nil)[0] as! UIView
@@ -135,21 +134,21 @@ func addContentView() {
 }
 ```
 
-## Design Changes
+## 设计变更
 
-Usually, in e-commerce-based applications, it’s popular to change the call to action button design, i.e an `add to cart` button or `purchase` button to make it more appealing to the users so it gets more clicks.
+通常，在电商 App 中，更改号召性用语的按钮设计很受欢迎，即 `添加到购物车` 或 `购买` 按钮，它们能够更加吸引用户，从而能获得更多点击。
 
 ![[https://dribbble.com/shots/5546168-Gate-B](https://dribbble.com/shots/5546168-Gate-B)](https://cdn-images-1.medium.com/max/3200/1*FHM9s3d34M386PQeH10DCg.png)
 
-We can always use any object of our need for our splitting manager. In this case, suppose we need an object that holds our purchase button color as a value:
+我们总是可以使用我们需要的任何对象进行分离管理，在这种情况下，假设我们需要一个保存购买按钮颜色值的对象：
 
-```Swift
+```swift
 class PurchaseButtonColorSplitTest: SplitTestProtocol {
     typealias ValueType = UIColor
-    
+
     static var identifier: String = "purchase_button_color"
     var value: ValueType
-    
+
     required init(group: String) {
         if group == "a" {
             self.value = UIColor.red
@@ -160,40 +159,40 @@ class PurchaseButtonColorSplitTest: SplitTestProtocol {
 }
 ```
 
-and we can use it simply from our view as follows:
+如下所示，我们可以简单地从我们的角度来使用它：
 
-```Swift
+```swift
 let color = SplitTestManager.getSplitValue(for: PurchaseButtonColorSplitTest.self)
 purchaseButton.backgroundColor = color
 ```
 
-Similarly, any other attributes can be tested, like fonts and margins or any other attribute that needs to change based on our testing.
+同样，它也可以测试任何其他属性，如字体，边距或任何其他需要根据我们的测试进行更改的属性。
 
-## Behavioral changes
+## 行为变更
 
-Let’s suppose that we decide to split users into two groups regarding subscriptions in our app:
+假设我们打算将 App 中的订阅用户分成两组：
 
 ![[https://dribbble.com/shots/5058686-Potted-In-app-Purchases](https://dribbble.com/shots/5058686-Potted-In-app-Purchases)](https://cdn-images-1.medium.com/max/3200/1*xmhmJIL8hSlkxhugjPgDog.png)
 
-We want to either
+我们既希望
 
-**Present a discount dialog when opening the IAP view**
+**打开 IAP 视图时显示折扣对话框**
 
-or
+也希望
 
-**Present a default view without any dialog**
+**显示没有任何对话框的默认视图**
 
-We’ll be using the Strategy Pattern for this example to handle the discount presentation base in our strategy.
-> The strategy pattern is a design pattern used to create an interchangeable group of algorithms from which the required one is chosen at run-time.
+我们将使用此示例的策略模式来处理我们的折扣演示。
+> 策略模式是一种设计模式，用于创建可互换的算法组，你可以在运行时从中选择所需的算法。
 
-Since our `SplitTestProtocol` contains a generic value, we can create the split testing object that will hold the strategy as its value:
+由于我们的 `SplitTestProtocol` 包含一个通用值，我们可以创建将该策略作为其值保存的分离测试对象：
 
-```Swift
+```swift
 class DiscountSplitTest: SplitTestProtocol {
     typealias ValueType = DisountStrategy
     static var identifier: String = "iap_discount_type"
     var value: DisountStrategy
-    
+
 
     required init(group: String) {
         if group == "offer" {
@@ -204,16 +203,16 @@ class DiscountSplitTest: SplitTestProtocol {
 }
 ```
 
-We can then initialize and present our view controller depending on the specific strategy:
+然后我们可以根据具体策略初始化并呈现我们的 View Controller：
 
-```Swift
+```swift
 init(discountStrategy: DisountStrategy) {
     self.discountStrategy = discountStrategy
     super.init(nibName: nil, bundle: nil)
 }
 ```
 
-```Swift
+```swift
 func presentDiscoutViewController() {
     let strategy = SplitTestManager.getSplitValue(for: DiscountSplitTest.self)
     let viewController = DiscountViewController(discountStrategy: strategy)
@@ -221,56 +220,54 @@ func presentDiscoutViewController() {
 }
 ```
 
-We now can easily pass our discount responsibility to the `DiscountStrategy` object and scale it based on our needs without having to change anything in our view controller’s code:
+我们现在可以轻松地将我们的折扣责任传递给 `DiscountStrategy` 对象，并根据我们的需求进行扩展，而无需更改 View Controller 里的代码：
 
-```Swift
+```swift
 protocol DisountStrategy {
     func presentDiscountMessage()
 }
 
 struct NoDiscountStrategy: DisountStrategy {
-    //Provides handling for non discount case
+    // 提供处理非打折的情况
 }
 
 struct DefaultDiscountStrategy: DisountStrategy {
-    //Provides handling for discount case
+    // 提供处理打折的情况
 }
 ```
 
-```Swift
+```swift
 override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
     discountStrategy.presentDiscountMessage()
 }
 ```
 
-## General Tips
+## 一般性提示
 
-While doing split testing, it’s important to always be careful regarding the following points:
+当你在进行分离测试时，请务必注意以下几点：
 
-1. Always using **caching** for the test values in order for the app to stay consistent for the user.
+1. 始终使用 **缓存** 作为测试值，以使 App 在用户使用的时候保持一致。
 
-2. **Clean up** the code after one specific test is finished. Remove views, fonts, images, and whatever resources you added in the project for the split test.
+2. 在一次特定测试完成后 **清理** 测试代码，删除你在项目中为分离测试添加的视图，字体，图像和其他任何资源。
 
-3. Make sure that if something goes wrong you have control over and can **disable** the A/B test.
+3. 确保如果出现问题你可以控制并且可以 **禁用** A/B 测试。
 
-## In Conclusion
+## 总结
 
-Split testing (also known as A/B testing) is a powerful and effective tool for our apps, but it can easily create messy code if we’re not careful with our code design.
+分离测试（也称为 A/B 测试）对于我们的 App 来说是一个强大而有效的工具，但如果我们的代码设计不严谨的话，它很容易使你的代码变得一团糟。
 
-In this article, we’ve created a generic solution that can manage our split testing logic. We gave some real-world app examples and practical tips in order for this article to work as a guide when implementing split testing for your iOS applications.
+在本文中，我们创建了一个可以管理分离测试逻辑的通用解决方案。同时还提供了一些真实的 App 示例和实用技巧，以便你可以在给你的 iOS App 进行分离测试的时候参考。
 
-If you enjoyed this article make sure to **clap** to show your support.
+你可以在 **[medium](https://medium.com/@arlindaliu.dev)** 上关注我，我还写了很多篇 iOS 的高级技巧类文章。
 
-**[Follow me](https://medium.com/@arlindaliu.dev)** to view many more free articles that can take your iOS skills to the next level.
-
-If you have any questions or comments feel free to leave a note here or email me at [arlindaliu.dev@gmail.com](http://arlindaliu.dev@gmail.com).
+如果你有任何问题或者意见，请给我发送电子邮件 [arlindaliu.dev@gmail.com](http://arlindaliu.dev@gmail.com)。
 
 ***
 
-**Editor’s Note: Ready to dive into some code? Check out [Fritz on GitHub](https://github.com/fritzlabs). You’ll find open source, mobile-friendly implementations of the popular machine and deep learning models along with training scripts, project templates, and tools for building your own ML-powered iOS and Android apps.**
+**编者注：打算准备深入研究一些代码吗？你可以浏览 [Fritz](https://github.com/fritzlabs) 的 GitHub 主页。你将找到一些流行的对手机优化过的开源机器学习和深度学习的模型，你可以用它们来构建你自己的 ML 驱动的 iOS 和 Android App 的训练脚本，同时还有一些项目模板和工具。**
 
-**Join us on [Slack](https://join.slack.com/t/heartbeat-by-fritz/shared_invite/enQtNTI4MDcxMzI1MzAwLWIyMjRmMGYxYjUwZmE3MzA0MWQ0NDk0YjA2NzE3M2FjM2Y5MjQxMWM2MmQ4ZTdjNjViYjM3NDE0OWQxOTBmZWI) for help with technical problems, to share what you’re working on, or just chat with us about mobile development and machine learning. And follow us on [Twitter](https://twitter.com/fritzlabs) and [LinkedIn](https://www.linkedin.com/company/fritz-labs-inc/) for all the latest content, news, and more from the mobile machine learning world.**
+**你可以在 [Slack](https://join.slack.com/t/heartbeat-by-fritz/shared_invite/enQtNTI4MDcxMzI1MzAwLWIyMjRmMGYxYjUwZmE3MzA0MWQ0NDk0YjA2NzE3M2FjM2Y5MjQxMWM2MmQ4ZTdjNjViYjM3NDE0OWQxOTBmZWI) 上加入我们以获得技术支持，你也可以跟我们分享你的工作，或者与我们探讨移动端开发与机器学习方面的问题。同时，你可以关注我们的 [Twitter](https://twitter.com/fritzlabs) 和 [LinkedIn](https://www.linkedin.com/company/fritz-labs-inc/) 来获取所有最新内容，更多来自移动机器学习世界的东西。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
