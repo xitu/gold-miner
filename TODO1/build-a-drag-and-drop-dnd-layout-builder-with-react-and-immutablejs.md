@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-drag-and-drop-dnd-layout-builder-with-react-and-immutablejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-drag-and-drop-dnd-layout-builder-with-react-and-immutablejs.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath)
 
 # 使用 React 和 ImmutableJS 构建一个拖放布局构建器
  
@@ -15,7 +15,7 @@
 
 ## 这篇文章的最终目标是什么？
 
-我想构建一个能使用户从一系列 UI 组件中来自定义构建布局的拖放布局构建器，最终能构建出一个网站或者是 web 应用程序。 　
+我想构建一个能让用户使用一系列可定制 UI 组件来构建布局的拖放布局构建器，最终能构建出一个网站或者是 web 应用程序。 　
 
 ## 我们会用到哪些库？
 
@@ -99,7 +99,7 @@ const link: ILink = {
 link.name = 'New name';
 ```
 
-如果我们的状态是不可变的，那么上面操作不可能完成的，那么我们必须创建一个 name 属性已经被修改的新对象。
+如果我们的状态是不可变的，那么上面操作不可能完成的，那么我们必须要创建一个 name 属性已经被修改的新对象。
 
 ```js
 link = {...link, name: 'New name' };
@@ -109,7 +109,7 @@ link = {...link, name: 'New name' };
 
 上面只是基本示例，但是如果想要在复杂的 JSON 状态结构中更改嵌套了多层的属性应该怎么做？
 
-ECMA Script 6 为我们提供了一些方便的操作符和方法来改变对象，但它们对于复杂的结构并不是很友好，这就是我们需要[ImmutableJS](https://github.com/immutable-js/immutable-js)来简化我们任务的原因。 
+ECMA Script 6 为我们提供了一些方便的操作符和方法来改变对象，但它们并不适用于复杂的数据结构，这就是我们需要[ImmutableJS](https://github.com/immutable-js/immutable-js)来简化任务的原因。 
 
 稍后我们会使用 ImmutableJS，但是现在你只需要知道它具有给我们提供简便的方法用来改变复杂的状态方面的作用。
 
@@ -123,9 +123,9 @@ ECMA Script 6 为我们提供了一些方便的操作符和方法来改变对象
 
 **注意：我得知使用　HTML5　实现的 DnD 可能存在一些问题但如果没有其它的问题，这可能是一个探究课程，我们可以退出如果稍后发现有问题的话。**
 
-在这个项目中，我们拥有用户可以拖动的组件（HTML divs），我称他们为**可拖动的**。
+在这个项目中，我们拥有用户可以拖动的组件（HTML divs），我称他们为**可拖动组件**。
 
-同时我们也拥有一些允许用户放下组件的区域， 我称他们为**可放置的**。
+同时我们也拥有允许用户放置组件的区域， 我称他们为**可放置组件**。
 
 使用原生 HTML5 事件如 `onDragStart`、`onDragOver` 和 `onDragDrop`，我们也应该拥有基于 DnD 交互更改应用程序状态所需要的东西。
 
@@ -148,7 +148,7 @@ export const DraggableComponent = ({
 <div className='draggable-component' draggable={draggable} onDragStart={(ev) => onDragStart(ev, name, type)}>{name}</div>;
 ```
 
-在上面的代码片段中，我们渲染了一个 React 组件，该组件使用 `onDragStart` 事件告诉父组件我们正开始拖动组件。我们还可以通过传递 `draggable` 道具来切换拖动它的能力。
+在上面的代码片段中，我们渲染了一个 React 组件，该组件使用 `onDragStart` 事件告诉父组件我们正开始拖动组件。我们还可以通过传递 `draggable` 属性来切换拖动它的能力。
 
 **以下是一个可放置组件的实例：**
 
@@ -208,9 +208,9 @@ export interface IComponent {
 }
 ```
 
-我会使组件的定义最小化，但是你可以根据需要拓展它。我在 `renderProps` 这里定义一个对象，所以我们可以为组件提供状态来告诉它如何渲染，`children` 的属性是给我们递归的内容。
+我会使组件的定义最小化，但是你可以根据需要拓展它。我在 `renderProps` 这里定义一个对象，所以我们可以为组件提供状态来告诉它如何渲染，`children` 的属性为我们提供了递归。
 
-在更高的层次中，我会创建一个对象数组来保存组件，它们将出现在状态的根部。
+对于更高层次，我会创建一个对象数组来保存组件，它们将出现在状态的根部。
 
 为了说明这一点，我们建议将以下内容作为 HTML 中标记的有效布局：
 
@@ -287,10 +287,10 @@ const state: IContent[] = [
 
 ## 2. 拖放布局构建器
 
-布局构建器组件将执行和范围的功能，例如：
+布局构建器组件将执行一个范围内功能，例如：
 
 * 保持并更新组件状态
-* 渲染 **可拖动的** 和 **可放置的**
+* 渲染 **可拖动组件** 和 **可放置组件**
 * 渲染嵌套布局结构
 * 触发 DnD HTML5 事件
 
@@ -333,7 +333,7 @@ export class BuilderLayout extends React.Component {
 
 我们先暂时不用管 `render()` 函数，后面很快会再见到它。
 
-我们有三个事件，我们将绑定它们到我们的『可拖动的』和『可放置的』上。
+我们有三个事件，我们将绑定它们到我们的『可拖动组件』和『可放置组件』上。
 
 `onDragStart()` ——这个事件这里我们设置一些关于 `event` 对象中组件的细节，即 `name` 和 `type`。
 
