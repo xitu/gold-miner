@@ -9,9 +9,9 @@
 
 [![鸣谢!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/RomuloOliveira)
 
-一份理解 commit 信息重要性以及如何较好它们的指导手册。
+一份理解 commit 信息重要性以及如何写好它们的指导手册。
 
-It may help you to learn what a commit is, why it is important to write good messages, best practices and some tips to plan and (re)write a good commit history.它可以帮你了解什么是 commit，为什么填写好的信息说明比较重要，最佳实践、计划和重写良好的 commit 历史的一些建议。
+它可以帮你了解什么是 commit，为什么填写好的信息说明比较重要，以及提供最佳实践、计划和（重新）书写良好的 commit 历史的一些建议。
 
 ## 可参考的语言版本
 
@@ -25,7 +25,7 @@ It may help you to learn what a commit is, why it is important to write good mes
 
 简而言之，commit 就是你本地仓库中文件的一个快照。
 和一些人的想法相反，[git 不仅存储文件之间的差异，还存储所有文件的完整版本](https://git-scm.com/book/eo/v1/Ekkomenci-Git-Basics#Snapshots,-Not-Differences)。
-由于文件并不在每次提交都会发生改变，因此 git 仅存储之前已存的同一份文件的链接。
+对于从一次提交到另一次提交之间未发生改变的文件，git 仅存储之前已存的同一份文件的链接。
 
 下面的图片显示了 git 随着时间变化如何存储数据，其中每个『版本』都是一个 commit：
 
@@ -42,9 +42,9 @@ It may help you to learn what a commit is, why it is important to write good mes
 
 ## 好的实践
 
-这些是从我的经验、网络文章和其他指南中收集的一些实践案列。如果您有其他实践(或有不同意见)，请尽管随时打开 Pull 请求并贡献您的意见。
+这些是从我的经验、网络文章和其他指南中收集的一些实践案例。如果您有其他实践(或有不同意见)，请尽管随时打开 Pull Request 并贡献您的意见。
 
-### 使用必要的形式
+### 使用祈使形式
 
 ```
 # 好示例
@@ -56,11 +56,11 @@ Use InventoryBackendPool to retrieve inventory backend
 Used InventoryBackendPool to retrieve inventory backend
 ```
 
-_但为什么要使用命令式表格?_
+**但为什么要使用祈使形式？**
 
 一个 Commit 信息描述了提到的变化实际**做了**什么，它的影响，而非做的内容。
 
-[这篇来自 Chris Beams 的优秀文章](https://chris.beams.io/posts/git-commit/) 给我们一个简单的句子，可以帮助我们以命令式表格的形式来书写更好的 commit 信息：
+[这篇来自 Chris Beams 的优秀文章](https://chris.beams.io/posts/git-commit/) 给我们一个简单的句子，可以帮助我们以祈使形式来书写更好的 commit 信息：
 
 ```
 If applied, this commit will <commit message>
@@ -90,7 +90,7 @@ Add `use` method to Credit model
 add `use` method to Credit model
 ```
 
-首字母需要被大写的原因是遵守句子开头使用大写字母的语法规则。
+首字母需要大写的原因是遵守句子开头使用大写字母的语法规则。
 
 这个实践的使用可能因人而异，团队间亦可能不同，甚至不同语言的人群间也会不同。
 大写与否，一个重要的点是要保持标准一致并且遵守它。
@@ -129,7 +129,7 @@ Adjust css
 InventoryBackend 派生出的类没有
 遵循基类接口
 
-它之所以运行，是因为 cart 以错误地方式
+它之所以运行，是因为 cart 以错误的方式
 调用了后端实现。
 ```
 
@@ -137,11 +137,11 @@ InventoryBackend 派生出的类没有
 # 好示例
 Cart 中对 credit 与 json 对象间做序列化和反序列化
 
-因两个主要原因将 Credit 实例转化成 dict：
+基于两个主要原因将 Credit 实例转化成 dict：
 
   - Pickle 依赖于类的文件路径
   如果需要重构的话我们不想破坏任何东西
-  - Dict 和内建类型在默认情况下没有可比性
+  - Dict 和内建类型在默认情况下是可以通过 pickle 来序列化的
 ```
 
 ```
@@ -155,7 +155,7 @@ Add `use` method to Credit
 提交信息的主题和正文被一个空白行分割
 附加的空白行被认为是提交信息正文的一部分。
 
-类似 `-`, `*` 和 \` 的字符是用来提高可读性的元素。
+类似 `-`, `*` 和 `\` 的字符是用来提高可读性的元素。
 
 ### 避免通用消息或者没有任何上下文的消息
 
@@ -174,7 +174,7 @@ Adjust css
 
 ### 限制字符数量
 
-[推荐](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines)主题使用最多 50 个字符，消息体最多使用 72 个字符。
+[推荐](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines)主题最多使用 50 个字符，消息体最多使用 72 个字符。
 
 ### 保持语言的一致性
 
@@ -203,9 +203,9 @@ efefef Add `use` method to Credit model
 cdcdcd Agora vai
 ```
 
-### 样板
+### 模板
 
-这是一个样板, [由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html), 出现在文章[_高级 Git 手册_](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
+这是一个样板, [由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html), 出现在文章[**高级 Git 手册**](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
 
 ```
 简化变更内容到 50 字符左右或者更少
@@ -251,33 +251,33 @@ See also: #456, #789
 
 ### 合并
 
-**TL;DR:** 使用两个分支间的差异，创建新的 commit，称作（适当地）_合并提交_。
+**TL;DR:** 使用两个分支间的差异，创建新的 commit，称作（适当地）**合并提交**。
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg?cdnVersion=hq)
 
-### 为什么有些人更倾向于合并时变基？
+### 为什么有些人更倾向于合并而不是变基？
 
-我尤其更倾向于合并时变基，理由包含：
+我尤其更倾向于变基而不是合并，理由包含：
 
 * 它生成了一个『整洁的』提交历史，没有不必要的合并 commit。
-* _所见即所得_, 举例, 在一次代码审查中，所有的变更来自对应某种特殊化的标注的 commit，避免了来隐藏在合并 commit 中的变更。
+* **所见即所得**, 举例, 在一次代码审查中，所有的变更来自对应某种特殊化的标注的 commit，避免了来隐藏在合并 commit 中的变更。
 * 更多的合并被提交者解决，并且每个合并变化对应着具备合适信息的 commit。
     * 对合并类 commit 做挖掘和审核并不常见，因此避免这类操作可以确保所有的变更都归属于某个 commit。
 
-### 何时做 squash？
+### 何时做压制？
 
-『Squashing』是处理一系列 commit 的过程，将它们压缩为一个 commit。
+『Squashing』是处理一系列 commit 并将它们压缩为一个 commit 的过程。
 
 它在多种情况下都有用，例子：
 
 - 减少包含少量或者没有上下文的 commit（错误修正、格式化、遗忘的内容）
 - 将某些合并应用时更合理的独立变更结合起来
-- 重写 _正在进行中_ 这类 commit
+- 重写**正在进行中**这类 commit
 
-### 何时避免 merge 和 squash？
+### 何时避免合并和压制？
 
 避免在多人协作的公共 commit 或者共享分支中执行变基和压制。
-变基、压制重写历史记录、覆盖已有 commit，在共享分支的 commit 中执行以上操作（例子，推送的远程仓库的 commit 或者来自其他分支的 commit）可能造成混淆，并且由于分歧的树干和冲突大家可能会丢失他们的变更（本地和远程的）。
+变基、压制重写历史记录、覆盖已有 commit，在共享分支的 commit 中执行以上操作（例子，推送到远程仓库的 commit 或者来自其他分支的 commit）可能造成混淆，并且由于分歧的树干和冲突大家可能会丢失他们的变更（本地和远程的）。
 
 ## 有用的 git 命令
 
@@ -351,7 +351,7 @@ index 7b45277..6b1993c 100644
 +++ b/README.md
 @@ -186,10 +186,13 @@ bebebe Corrige nome de método na classe InventoryBackend
  ``
- # 坏示例 (mixes English and Portuguese)
+ # 坏示例 (混合英语和葡萄牙语)
  ababab Usa o InventoryBackendPool para recuperar o backend de estoque
 -efefef Add `use` method to Credit model
  cdcdcd Agora vai
@@ -361,7 +361,7 @@ index 7b45277..6b1993c 100644
 +
 +这是一个样板, [由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html), 出现在文章[_高级 Git 手册_](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
 +
- ## 贡献者
+ ## 贡献
 
  感谢任何形式的帮助，可以帮到我的主题示例：
 @@ -202,3 +205,4 @@ 感谢任何形式的帮助，可以帮到我的主题示例：
@@ -434,8 +434,8 @@ https://whatthecommit.com/
 感谢任何形式的帮助，可以帮到我的主题示例：
 
 - 语法和拼写更正
-- 翻译和其他语言
-- 参考来源的提升
+- 其他语言的翻译
+- 参考来源的改进
 - 不正确和不完备的信息
 
 ## 灵感、来源和进一步阅读材料
