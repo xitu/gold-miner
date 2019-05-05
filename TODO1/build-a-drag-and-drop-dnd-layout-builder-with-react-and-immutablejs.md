@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-drag-and-drop-dnd-layout-builder-with-react-and-immutablejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-drag-and-drop-dnd-layout-builder-with-react-and-immutablejs.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[Eternaldeath](https://github.com/Eternaldeath)
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath),[portandbridge](https://github.com/portandbridge)
 
 # 使用 React 和 ImmutableJS 构建一个拖放布局构建器
  
