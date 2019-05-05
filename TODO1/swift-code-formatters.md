@@ -7,7 +7,7 @@
 
 # Swift 代码格式化
 
-> 我刚离开了一家时髦的咖啡馆。里面有很多 iOS 开发者，他们互相窃窃私语，讨论他们是多么得等不及苹果公司为 Swift 发布得官方风格指南和格式化程序。
+> 我刚离开了一家时髦的咖啡馆。里面有很多 iOS 开发者，他们互相窃窃私语，讨论他们是多么得等不及苹果公司为 Swift 发布的官方风格指南和格式化程序。
 
 在过去的几天里，社区一直在讨论 [Tony Allevato](https://github.com/allevato) 和 [Dave Abrahams](https://github.com/dabrahams) 采用官方版的 Swift 格式化工具。
 
@@ -190,7 +190,7 @@ struct ShippingAddress: Codable {
 let applePark = ShippingAddress(recipient: "Apple, Inc.", streetAddress: "1 Apple Park Way", locality: "Cupertino", region: "CA", postalCode: "95014", country: "US")
 ```
 
-SwiftLint 可以清除最糟糕的缩进和行内间距问题，同时保留其他无关的空格。值得注意的是，格式化不是 SwiftLint 的主要作用，如果有的话，它只是附带提供可操作的代码诊断。从 **“首先，没有任何副作用”** 的角度来看，你不必在这里抱怨它处理的结果。
+SwiftLint 可以清除最糟糕的缩进和行内间距问题，同时保留其他无关的空格。值得注意的是，格式化不是 SwiftLint 的主要作用，一般情况下，它只是附带提供可操作的代码诊断。从 **“首先，没有任何副作用”** 的角度来看，你不必在这里抱怨它处理的结果。
 
 #### 性能
 
