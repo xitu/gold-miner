@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Elixir、Phoenix、Absinthe、GraphQL、React 和 Apollo：一次近乎疯狂的深度实践 —— 第二部分
+# Elixir、Phoenix、Absinthe、GraphQL、React 和 Apollo：一次近乎疯狂的深度实践 —— 第二部分（测试相关部分）
 
 如果你没有看过本系列文章的第一部分，建议你先去看第一部分：
 
@@ -14,10 +14,9 @@
 
 ## 测试 —— 服务器端
 
-Now that we’ve gotten all that code written, how do we make sure it keeps working? There’s a few different layers to think about testing here. First, we should unit test the models — do they validate correctly and do their helper methods return what’s expected? Second, we should also unit test the resolvers — do they handle different cases (success and error) and return the correct data or apply the correct change? Third, we should write some complete integration tests, sending a query to the server and expecting the response to be correct. This helps us keep a handle on the big picture, and also ensures we cover cases like the authentication logic. Fourth, we will want tests on our subscriptions — do they correctly notify the socket when relevant changes are made?
-现在我们所有的代码都已经写好了，我们要如何确保它宗能正常工作呢？
+现在我们已经完成了所有的代码部分，那我们如何确保我的的代码总能正常的工作呢？我们需要对这些下面这 5 种不同的层次进行测试。首先，我们需要对 model 层进行单元测试 —— 这些 model 是否能正确的验证（数据）？这些 model 的 helper methods 是否能返回期待的结果？第二，我们需要对 resolver 进行单元测试 —— resolver 是否能处理不同的（成功和失败）的情况？是否能返回正确的结果或者对做成正确的更改？第三，我们应该写一些完整的 integration test（整合测试），例如发送向服务器一个查询请求并期待返回正确的结果。这可以让我们从全局上更好地把控我们的应用，并且确保我们的测试包括对认证逻辑等类似部分的测试。第四，我们希望对我们的 subscription 进行测试 —— 当相关的变化发生时，它们可不可以正确的通知套接字。
 
-Elixir has a basic built-in testing library called ExUnit. It contains simple `assert`/`refute` helpers and handles running your tests. It’s also common in Phoenix to set up “case” support files; these are included in tests to run common setup tasks like connecting to the database. Beyond the defaults, there are two helper libraries that I found helpful in my tests — [ex_spec](https://hexdocs.pm/ex_spec/readme.html) and [ex_machina](https://hexdocs.pm/ex_machina/readme.html). ex_spec adds simple `describe` and `it` macros that make the testing syntax feel a little friendlier, at least from my ruby background. ex_machina provides factories which make it easy to dynamically insert test data.
+Elixir有一个非常基本的内建测试库，叫做 ExUnit。ExUnit 包括简单的 `assert`/`refute` 函数，并且也可以帮助你运行你的测试。在 Phoenix 中建立一系列 “case” support 文件的方法也非常常见。这些文件在测试中并引用，用于运行常见的初始化任务，例如链接数据库。此外，在我的测试中，我发现 [ex_spec](https://hexdocs.pm/ex_spec/readme.html) 和 [ex_machina](https://hexdocs.pm/ex_machina/readme.html) 这两个库非常有帮助。ex_spec 加入了简单的 `describe` 和 `it` 宏，对于有 ruby 相关背景的我，ex_spec 可以让测试的语法更加的友好。ex_machina 提供了 factory（工厂），这些 factory 可以让动态插入测试数据变得简单。
 
 我创建的函数工厂长这样：
 
@@ -117,7 +116,7 @@ defmodule Socializer.PostTest do
 end
 ```
 
-庆幸的是这个测试案例足够的直观。对于每个案例，我们插入所需要的测试数据，调用需要测试的函数并对结果作出 assertion（断言）。
+这个测试案例足够的直观。对于每个案例，我们插入所需要的测试数据，调用需要测试的函数并对结果作出 assertion（断言）。
 
 接下来，让我们一起看一下一个 resolver 的测试案例：
 
@@ -296,7 +295,7 @@ end
 
 非常相似，只有两点不同 —— 这次我们是通过 `AbsintheHelpers.authenticate_conn(user)`，将用户的 token 加入头字段的方式来建立连接，并且我们调用的是 `mutation_skeleton`， 而非之前的  `query_skeleton`。
 
-那对于 subscription 的测试呢？对于 subscription 的测试也需要通过一些基本的搭建，来建立一个 socket 连接，然后在这个链接中建立和测试我们的 subscription。 我找到了[这篇文章](https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe)，对我我们理解如何构建对于 subscription 的测试非常有帮助。
+那对于 subscription 的测试呢？对于 subscription 的测试也需要通过一些基本的搭建，来建立一个套接字连接，然后在这个链接中建立和测试我们的 subscription。 我找到了[这篇文章](https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe)，对我我们理解如何构建对于 subscription 的测试非常有帮助。
 
 首先，我们建立一个 case 新的文件来为 subscription 的测试做基本的搭建。代码长这样：
 
@@ -337,7 +336,7 @@ defmodule SocializerWeb.SubscriptionCase do
 end
 ```
 
-在一些基本的导入后，我们定一个 `setup` 步骤。这一步会插入一个新的用户，并通过这个用户的 token 来建立一个 websocket 连接。我们将这个 socket 和用户返回以供我们其他的测试使用。
+在一些基本的导入后，我们定一个 `setup` 步骤。这一步会插入一个新的用户，并通过这个用户的 token 来建立一个 websocket 连接。我们将这个套接字和用户返回以供我们其他的测试使用。
 
 下一步，让我们一起来看一看测试本身：
 
@@ -394,11 +393,11 @@ defmodule SocializerWeb.PostSubscriptionsTest do
 end
 ```
 
-首先，我们先写一个 subscription 的查询语句，并且推送到我们在上一步已经建立好的 socket 上。接着，我们写一个会触发 subscription 的 mutation 语句（例如，创建一个新帖子）并推送到 socket 上。 最后，我们检查 `push` 的回复，并断言，一个帖子的被新建的更新将被推送给我们。这其中设计了更多的前期搭建，但这也让我们对 subscription 的生命周期的建立的更好的整合测试。
+首先，我们先写一个 subscription 的查询语句，并且推送到我们在上一步已经建立好的套接字上。接着，我们写一个会触发 subscription 的 mutation 语句（例如，创建一个新帖子）并推送到套接字上。 最后，我们检查 `push` 的回复，并断言，一个帖子的被新建的更新将被推送给我们。这其中设计了更多的前期搭建，但这也让我们对 subscription 的生命周期的建立的更好的整合测试。
 
 ## 客户端
 
-呼，以上就是对服务端所发生的一切的一个大致的描述 —— 服务器通过在 types 中定义，在 resolvers 中实现，在 model 查询和 persist（固化）数据的方法来处理 GraphQL 查询语句。接下来，让我们一起来看一看客户端是如何建立的。
+以上就是对服务端所发生的一切的一个大致的描述 —— 服务器通过在 types 中定义，在 resolvers 中实现，在 model 查询和 persist（固化）数据的方法来处理 GraphQL 查询语句。接下来，让我们一起来看一看客户端是如何建立的。
 
 我们首先使用[create-react-app](https://facebook.github.io/create-react-app)，这是从无到有搭建 React 项目的极好的方法 —— 它会搭建一个拥有优秀的默认设定和结构，简化了大量配置的 “hello world” React 应用。
 
@@ -497,7 +496,7 @@ const WS_URI =
 // ...
 ```
 
-开始很简单，倒入一堆我们接下来需要用到的依赖，并且根据当前的环境，将 HTTP URL 和 websocket URL 设置为常量 —— 在 production 环境中指向我的 Gigalixir 实例，在 development 环境中指向 localhost
+开始很简单，倒入一堆我们接下来需要用到的依赖，并且根据当前的环境，将 HTTP URL 和 websocket URL 设置为常量 —— 在 production 环境中指向我的 Gigalixir 实例，在 development 环境中指向 localhost。
 
 ```javascript
 // client/src/util.apollo.js
@@ -529,7 +528,7 @@ export const createClient = () => {
 });
 ```
 
-An Apollo client instance requires you to provide it with a link — essentially, a connection to your GraphQL server which the Apollo client can use to make requests. There are two common kinds of links — the HTTP link, which makes requests to the GraphQL server over standard HTTP, and the websocket link, which opens a websocket connection to the server and sends queries over the socket. In our case, we actually want **both**. For regular queries and mutations, we’ll use the HTTP link and for subscriptions we’ll use the websocket link.
+Apollo 的客户端要求你提供一个链接 —— 本质上说，就是你的 Apollo 客户端所请求的 GraphQL 服务器的连接。通常有两种类型的链接 —— HTTP 链接，通过标准的 HTTP 来向 GraphQL 服务器发送请求，和 websocket 链接，开放一个 websocket 连接并通过套接字来发送请求。在我们的例子中，我们两种都使用了。对于通常的 query 和 mutation，我们将是用 HTTP 链接，对于 subscription， 我们将使用 websocket 链接。
 
 ```javascript
 // client/src/util.apollo.js
@@ -566,9 +565,9 @@ export const createClient = () => {
 };
 ```
 
-Apollo provides the `split` method which lets you route queries to different links based on the criteria of your choice — you can think of it like a ternary: if the query has a subscription, then send it through the socket link, else send it through the HTTP link.
+Apollo 提供了 `split` 函数，他可以让你根据的你的选择，将不同的查询请求路由到不同的链接上 —— 你可以把它想成一个三项式：如果请求有 subscription，就通过套接字链接来发送，其他情况则使用 HTTP 链接传送。
 
-We also might need to provide authentication for both of our links, if the user is currently logged in. When they log in, we’re going to set their authentication token to a `token` cookie (more on that in a bit). We used the `token` as a parameter when establishing the Phoenix websocket connection in the previous section, and here we use the `setContext` wrapper to set the `token` on the authorization header of requests over the HTTP link.
+如果用户已经登陆，我们可能还需要给两个链接都提供认证。当他们登陆以后，我们将他们的认证令牌设置到 `token` 的 cookie 中（下面会详细介绍）。当前一部分中与 Phoenix 建立 websocket 连接时，我们使用`token` 作为参数，在 HTTP 链接中，这里我们使用 `setContext` 包装器，将`token` 设置在请求的头字段中。
 
 ```javascript
 // client/src/util.apollo.js
@@ -582,11 +581,11 @@ export const createClient = () => {
 });
 ```
 
-And that’s just about it. In addition to the link, an Apollo client also needs a cache instance; GraphQL automatically caches the results of queries to prevent duplicate requests for the same data. The basic `InMemoryCache` is ideal for most use cases — it just keeps the cached query data in local browser state.
+如上所示，除了链接以外，一个 Apollo 的客户端还需要一个缓存的实例。GraphQL 会自动缓存请求的结果来避免对相同数据的重复请求。基本的 `InMemoryCache` 已经可以适用大部分的用户案例了 —— 它就是将查询的数据存在浏览器的本地状态中。
 
-## Using the client — our first query
+## 客户端的使用 —— 我们的第一个请求
 
-Great, so we’ve set up the Apollo client instance, and made it available throughout the application via the `ApolloProvider` HOC. Now let’s take a look at how it’s used to run queries and mutations. We’ll start with the `Posts` component, which is used to render the feed of posts on the homepage of the application.
+好哒，我们已经搭建好了 Apollo 的客户端实例，并且通过 `ApolloProvider` 的高介函数让这个实例在整个应用中都可用。现在让我们来看一看如何运行 query 和 mutation。 我们从 `Posts` 组件开始，`Posts` 组件将在我们的首页渲染一个帖子的列表。
 
 ```javascript
 // client/src/components/Posts.js
@@ -629,7 +628,7 @@ export const POSTS_SUBSCRIPTION = gql`
 // ...
 ```
 
-We start with our imports, and then write the queries we need to render the posts. There are two — the first is a basic query to fetch the list of posts (along with information about the user who wrote each post), and the second is a subscription query to notify us of any new posts, so we can live-update the screen and keep the feed up to date.
+首先是各种库的引入，接着我们需要为我们想要渲染的帖子写一些查询。这里有两个 —— 第一个是基本的获取帖子列表的 query（也包括帖子作者的信息），第二个是一个 subscription，用来告知我们新帖子的出现，让我们可以实时地更新屏幕，保证我们的列表处于最新。
 
 ```javascript
 // client/src/components/Posts.js
@@ -669,13 +668,13 @@ const Posts = () => {
 };
 ```
 
-Now we’ll implement the actual component. First, to run the base query, we render Apollo’s `<Query query={GET_POSTS}>`. It provides several render props to its child — `loading`, `error`, `data`, and `subscribeToMore`. If the query is loading, we just render a simple loading spinner. If there was an error, we render a generic `ErrorMessage` for the user. Otherwise, the query was successful, so we can render a `Feed` component (passing through the `data.posts` which contains the posts to be rendered, matching the structure of the query).
+现在我们将实现真正的组件部分。首先，执行基本的查询，我们先渲染 Apollo 的 `<Query query={GET_POSTS}>`。 它给它的子组件提供了一些渲染的 props —— `loading`， `error`， `data` 和 `subscribeToMore`。如果查询正在加载，我们就渲染一个简单的加载图片。如果有错误存在，我们渲染一个通用的 `ErrorMessage` 组件给用户。否则，就说明查询成果，我们就渲染一个 `Feed` 组件（`data.posts` 中包含着需要渲染的帖子，结构和 query 中的结构一致）。
 
-`subscribeToMore` is an Apollo helper for implementing a subscription that is only responsible for fetching new items in the collection that the user is currently viewing. It’s supposed to be invoked at the `componentDidMount` phase of the child component, which is why it’s passed through as a prop to `Feed` — `Feed` is responsible for calling `subscribeToNew` once the `Feed` has rendered. We provide `subscribeToMore` our subscription query and an `updateQuery` callback, which Apollo will invoke when it receives notice that a new post has been created. When that happens, we simply push the new post onto the existing array of posts, using [immer](https://github.com/immerjs/immer) to return a new object so the component correctly rerenders.
+`subscribeToMore` 是一个实现一个只需要从用户正在浏览的集合中获取新数据的 subscription 的 Apollo 帮助函数。它应该在子组件的 `componentDidMount` 阶段被渲染，这也是它被作为 props 传递给 `Feed` 的原因 —— `Feed` 负责调用 `subscribeToNew` 一旦 `Feed` 被渲染。我们给 `subscribeToMore` 提供了我们的 subscription 查询和一个 `updateQuery` 的回调函数，这会函数会在 Apollo 接收到新帖子被建立的通知时被调用。当那发生时，我们只需要简单将新帖子推入我们当前的帖子数组，使用 [immer](https://github.com/immerjs/immer) 可以返回一个新数组确保组件正确的渲染
 
-## Authentication (and mutations)
+## 认证（和 mutation）
 
-So now we’ve got a homepage that can render a list of posts, and can respond in realtime to new posts being created — how do new posts get created? For starters, we’ll want to allow users to sign in to an account, so we can associate them with their posts. This will require us to write a mutation — we need to send an email and password to the server, and get back a new authentication token for the user. Let’s get started with the login screen:
+现在我们已经有了一个带帖子列表的首页啦，这个首页还可以实时的对新建的帖子进行响应 —— 那我们应该如何新建帖子呢？ 首先，我们需要允许用户用他们的账户登陆，那么我们就可以把他的账户和帖子联系起来。我们需要为此写一个 mutation —— 我们需要将电子邮件和密码发送到服务器，服务器发送会一个新的认证该用户的令牌。我们从登陆页面开始：
 
 ```javascript
 // client/src/pages/Login.js
@@ -698,7 +697,7 @@ export const LOGIN = gql`
 `;
 ```
 
-The first section is similar to the query component — we import our dependencies and then write the login mutation. It accepts an email and a password, and we want to get back the ID of the authenticated user and their authentication token.
+第一部分和 query 组件十分相似 —— 我们导入需要的依赖文件，然后完成登陆的 mutation。这个 mutation 接受电子邮件和密码作为参数，然后我们希望得到认证用户的 ID 和他们的认证令牌。
 
 ```javascript
 // client/src/pages/Login.js
@@ -718,7 +717,7 @@ const Login = () => {
 };
 ```
 
-In the component body, we first fetch the current `token` and a `setAuth` function from context (more on this `AuthContext` in a second). We also set some local state using `useState`, so we can store temporary values for the user’s email, password, and whether their credentials are invalid (so we can show an error state on the form). Finally, if the user already has an auth token, they’re already logged in so we can just redirect them to the homepage.
+在组件中，我们首先去从 context 中获取当前的 `token` 和一个叫 `setAuth` 的函数（我们会在下文介绍 `setAuth`）。我们也需要使用 `useState` 来设置一些本地的状态，那样我们就可以为用户的电子邮件，密码以及他们的证书是否有效（我们就可以在表格中显示错误状态）。最后，如果用户已经有了认证令牌，说明他们已经登陆，那么我们就直接将他们跳转去首页。
 
 ```javascript
 // client/src/pages/Login.js
@@ -803,11 +802,11 @@ const Login = () => {
 export default Login;
 ```
 
-There’s a decent bit here, but don’t get overwhelmed — most of it is just rendering the Bootstrap components for the form. We start with a `Helmet` from [react-helmet](https://github.com/nfl/react-helmet) — this component is a top-level page (compared to `Posts` which is rendered as a child of the `Home` page) so we want to give it a browser title and some metadata. Next we render the `Mutation`, passing it our mutation query from above. If the mutation returns an error, we use the `onError` callback to set the state to invalid, so we can show an error in the form. The mutation passes a function to its child (named `login` here) which will invoke the mutation, and the second argument is the same array of values that we’d get from a `Query`. If `data` is populated, that means the mutation has successfully executed, so we can store our auth token and user ID with the `setAuth` function. The rest of the form is pretty standard React Bootstrap — we render inputs and update the state values on change, showing an error message if the user attempted a login but their credentials were invalid.
+这里的代码看起来很洋气，但是不要懵 —— 这里大部分得代码只是为表格做一个 Bootstrap 组件。 我们从一个叫做 `Helmet` （[react-helmet](https://github.com/nfl/react-helmet)） 组件开始 —— 这是一个顶层的表格组件（相对的 `Posts` 组件。`Posts` 是 `Home` 页面渲染的一个自组件），所以我们希望给他一个浏览器标题和一些 metadata。下一步我们来渲染 `Mutation` 组件，将我们的 mutation 语句传递给他。如果 mutation 返回一个错误，我们使用 `onError` 回调函数来将状态设为无效，来将错误显示在表格中。 Mutation 将一个函数传递给他的调用他的子组件（这里是 `login`），第二个参数是和我们从 `Query` 组件中得到的一样的数组。如果 `data` 存在，那以为着 mutation 被成功执行，那么我们就可以将我们的认证令牌和用户 ID 通过 `setAuth` 函数来储存起来。剩余的部分就是很标准的 React 组件啦 —— 我们渲染 input 并在变化时更新 state 值，在用户试图登陆，而的邮件密码无效时显示错误信息。
 
-What about that `AuthContext`? Once the user has authenticated, we need to somehow store their auth token on the client side. GraphQL wouldn’t really help here because it’s a chicken-and-the-egg problem — I need to have the auth token in order to authenticate the request in order to get the auth token. We could wire up Redux to store the token in local state, but that feels like overkill when we only need to store one value. Instead, we can just use the React context API to store the token in state at the root of our application, and make it available as needed.
+那 `AuthContext` 是干嘛的呢？当用户被成功认证后，我们需要将他们的认证令牌以某种方式存储在客户端。这里 GraphQL 并不能帮上忙，因为这就像是个鸡生蛋问题 —— 我们需要有认证令牌来认证获取的认领令牌请求。我们可以用 Redux 在本地状态中来存储令牌，但如果我只需要储存这一个值时，感觉这样做就太过于复杂了。我们可以使用 React 的 context API 来将 token 储存在我们应用的根目录，在需要时调用即可。
 
-First, let’s create a helper file which creates and exports the context:
+首先，让我们建立一个帮助函数来帮我们建立和导出 context：
 
 ```javascript
 // client/src/util/context.js
@@ -816,7 +815,7 @@ import { createContext } from "react";
 export const AuthContext = createContext(null);
 ```
 
-And then we’ll create a `StateProvider` HOC which we’ll render at the root of the application — it will be responsible for keeping and updating the authentication state.
+接下来我们来新建一个 `StateProvider` 高介函数，这个函数会在应用的根组件被渲染 —— 他将帮助我们保存和更新认证状态。
 
 ```javascript
 // client/src/containers/StateProvider.js
@@ -863,9 +862,9 @@ const StateProvider = ({ client, socket, children }) => {
 export default withApollo(StateProvider);
 ```
 
-There’s a lot of stuff going on here. First, we create state for both the `token` and the `userId` of the authenticated user. We initialize that state by reading cookies, so we can keep the user logged in across page refreshes. Then we implement our `setAuth` function. If it’s invoked with `null` then it logs the user out; otherwise it logs the user in with the provided `token` and `userId`. Either way, it updates both the local state and the cookies.
+这里发生了很多。首先，我们为认证用户的 `token` 和 `userId` 建立 state。我们通过读 cookie 来初始化 state，那样我们就可以在页面刷新后保证用户的登陆状态。接下来我们实现了我们的 `setAuth` 函数。 用 `null` 来调用该函数会将用户登出；否则就使用提供的 `token` 和 `userId`来让用户登陆。不管那种哪种方法，这个函数都会跟新本地的 state 和 cookie。
 
-There’s a major challenge with authentication and the Apollo websocket link. We initialize the websocket using either a token parameter if authenticated, or no token if the user is signed out. But when the authentication state changes, we need to reset the websocket connection to match. If the user starts out logged out and then logs in, we need to reset the websocket to be authenticated with their new token, so they can receive live updates for logged-in activities like chat conversations. If they start out logged in and then log out, we need to reset the websocket to be unauthenticated, so they don’t continue to receive websocket updates for an account that they’re no logger logged into. This actually turned out to be really hard — there is no well-documented solution and it took me a couple of hours to find something that worked. I ended up manually implementing a reset helper for the socket:
+在同时使用认证和 Apollo websocket link 时存在一个很大的难题。我们在初始化 websocket 时，如果用户被认证，我们就使用令牌，反之，如果用户登出，则不是用令牌。但是当认证状态发生变化时，我们需要根据状态重置 websocket 连接来。 如果用户是先登出再登入，我们需要用户新的令牌来重置 websocket，这样他们就可以实时地接受到需要登陆的活动的更新，比如说一个聊天对话。如果用户是先登入再登出，我们则需要将 websocket 重置成未经验证状态，那么他们就不再会实时地接受到他们已经登出的账户的更新。事实证明这真的很难 —— 因为没有一个消息记录的文档，这花了我好几个小时才解决。我最终手动地为套接字实现了一个重置​​函数：
 
 ```javascript
 // client/src/util.apollo.js
@@ -878,19 +877,19 @@ export const refreshSocket = (socket) => {
 };
 ```
 
-It disconnects the Phoenix socket, leaves the existing Phoenix channel for GraphQL updates, creates a new Phoenix channel (with the same name as the default channel that Abisnthe creates on setup), marks that the channel has not been joined yet (so Absinthe rejoins the channel on connect), and then reconnects the socket. Farther up in the file, the Phoenix socket is configured to dynamically look up the token in the cookies before each connection, so when it reconnects it will use the new authentication state. I found it frustrating that there was no good solution for what seems like a common problem, but with some manual effort I got it working well.
+这个会断开 Phoenix 套接字，将当前存在的 Phoenix 频道留给 GraphQL 更新，创建一个新的 Phoenix 频道（和Abisnthe 创建的默认频道一个名字），并将这个频道标记为为连接（那样 Absinthe 会在连接时将它重新加入），接着重新连接套接字。在文件中，Phoenix 套接字被配置为在每次连接前动态的在 cookie 中查找令牌，那样每当它重联时，它将会使用新的认证状态。让我崩溃的是，对这样一个看着很普通的问题，却并没有一个好的解决方法，当然，通过一些手动的努力，它工作得还不错。
 
-Finally, the `useEffect` in our `StateProvider` is what invokes the `refreshSocket` helper. The second argument, `[token]`, tells React to reevaluate the function every time the `token` value changes. If the user has just logged out, we also call `client.clearStore()` to make sure that the Apollo client does not continue caching queries that contain privileged data, like the user’s conversations or messages.
+最后，在我们的 `StateProvider`  中使用的  `useEffect` 是调用 `refreshSocket` 的地方。 第二个参数 `[token]`，告诉了 React 在每次 `token` 值变化时，去重新评估该函数。如果用户只是登出，我们也要执行  `client.clearStore()` 函数来确保 Apollo 客户端不会继续缓存包含着需要需要权限才能得到的数据的查询结果，比如说用户的对话或者消息。
 
-And that’s pretty much all there is for the client. You can look through the rest of the [components](https://github.com/schneidmaster/socializer/tree/master/client/src) for more examples of queries, mutations, and subscriptions, but the patterns are largely the same as what we’ve walked through so far.
+这就大概是客户端的全部了。你可以查看余下的[组件](https://github.com/schneidmaster/socializer/tree/master/client/src)来得到更多的关于 query，mutation 和 subscription 的例子，当然，它们的模式都和我们所提到的大体一致。
 
 ## 测试 —— 客户端
 
-Let’s write some tests to cover our React code. Our app comes with [jest](https://jestjs.io) built in (create-react-app includes it by default); jest is a fairly simple and intuitive test runner for JavaScript. It also includes some advanced features like snapshot testing, which we’ll put to use in our first test.
+让我们来写一些测试，来涵盖我们的 React 代码。我们的应用内置了 [jest](https://jestjs.io)（create-react-app 默认包括了它）；jest 是针对 JavaScript 的一个非常简单和直观的测试运行器。它也包括了一些高级功能，比如快照测试。我们将在我们的第一个测试案例里使用它。
 
-I’ve come to really enjoy writing React tests with [react-testing-library](https://testing-library.com/react) — it provides a simple API which encourages you to render and exercise components from the perspective of a user (without delving into the implementation details of components). Also, its helpers subtly push you to ensure your components are accessible, as it’s hard to get a handle on a DOM node to interact with it if the node is not generally accessible in some fashion (correctly labeled with text, etc.).
+我非常喜欢使用 [react-testing-library](https://testing-library.com/react) 来写 React 的测试案例 —— 它提供了一个非常简单的 API，可以帮助你从一个用户的角度来渲染和测试表格（而无需在意组件的具体实现）。此外，它的帮助函数可以在一定程度上的帮助你确保你的组件的可读性，因为如果你的 DOM 节点很难访问，那么你也很难通过直接操控 DOM 节点来与之交互（例如给文本提供正确的标签等等）。
 
-We’ll start with a simple test of our `Loading` component. The component just renders some static loading HTML so there’s not really any logic to test; we just want to make sure the HTML renders as expected.
+我们首先开始为 `Loading` 组件写一个简单的测试。该组建只是渲染一些静态的 HTML，所以并没有什么逻辑需要测试；我们只是想确保 HTML 按照我们的预期来渲染。
 
 ```javascript
 // client/src/components/Loading.test.js
@@ -906,7 +905,7 @@ describe("Loading", () => {
 });
 ```
 
-When you invoke `.toMatchSnapshot()`, jest will create a relative file under `__snapshots__/Loading.test.js.snap` to record the current state. Subsequent test runs will compare the output against the recorded snapshot, and fail the test if the snapshot doesn’t match. The snapshot file looks like this:
+当你调用 `.toMatchSnapshot()`时，jest 将会在 `__snapshots__/Loading.test.js.snap`  的相对路径下建立一个文件，来记录当前的状态。随后的测试会比较输出和我们所记录的快照，如果与快照（snapshot）不匹配，则测试失败。 快照文件长这样：
 
 ```javascript
 // client/src/components/__snapshots__/Loading.test.js.snap
@@ -930,9 +929,9 @@ exports[`Loading renders correctly 1`] = `
 `;
 ```
 
-In this case, the snapshot test is not really all that useful, since the HTML never changes — though it does serve to confirm that the component renders without error. In more advanced cases, snapshot tests can be very useful to ensure that you only change component output when you intend to do so — for example, if you’re refactoring the logic inside your component but expecting the output not to change, a snapshot test will let you know if you’ve made a mistake.
+在这个例子中，因为 HTML 永远不会比阿妈，这个快照测试并不是那么有效 —— 当然它确实确保了该组件渲染成功没有任何错误。在更高级的测试案例中，快照测试在确保组件只会在你想改变它的时候才会改变时非常的有效 —— 比如说，如果你在优化你的组件内的逻辑，但并不希望组件的输出改变时，一个快照测将会告诉你你是否翻了错误。
 
-Next, let’s have a look at a test for an Apollo-connected component. This is where things get a bit more complicated; the component expects to have an Apollo client in its context, and we need to mock out the queries to ensure the component correctly handles responses.
+下一步，让我们一起来看一个对与 Apollo 连接的组件的测试。从这里开始，会变得有些复杂；组件会期待在它的上下文中有 Apollo 的客户端，我们需要虚拟一个 query 查询语句来确保组件正确的处理回复。
 
 ```javascript
 // client/src/components/Posts.test.js
@@ -962,9 +961,9 @@ describe("Posts", () => {
 });
 ```
 
-We start out with some imports and mocks. The mock is to prevent the `Posts` component’s subscription from being registered unless we want it to. This was an area where I had a lot of frustration — Apollo has documentation for mocking queries and mutations, but not much by way of mocking subscriptions, and I frequently encountered cryptic, internal errors that were hard to track down. I never was able to figure out how to reliably mock the queries when I just wanted the component to execute its initial query (and **not** mock it out to receive an update from its subscription).
+首先是一些倒入和模拟。这里的模拟是除非我们想，否则要避免 `Posts` 组件的 subscription 被注册。在这里我很崩溃 —— Apollo 关于有模拟 query 和 mutation 的文档，但是并没有很多关于模拟 subscription 文档，并且我还会经常遇到各种神秘的，内部的，十分难解决的问题。当我只是组件执行它的初始的 query 查询时（而不是模拟来收到来自它的 subscription 的更新），我完全没能找到想到一种可靠的方法来模拟 query 查询。
 
-This does give a good opportunity to discuss mocks in jest though — they’re extremely useful for cases like this. I have a `Subscriber` component which normally invokes the `subscribeToNew` prop once it mounts and then returns its children:
+但这确实也给了一个来讨论 jest 的好机会 —— 它们对这样的案例非常的有效。我有一个 `Subscriber` 组件，通常在装载（mount）时会调用 `subscribeToNew`，然后返回它的子组件：
 
 ```javascript
 // client/src/containers/Subscriber.js
@@ -981,9 +980,9 @@ const Subscriber = ({ subscribeToNew, children }) => {
 export default Subscriber;
 ```
 
-So in my test, I’m just mocking out the implementation of this component to return the children without invoking `subscribeToNew`.
+所以，在我的测试中，我只需要模拟这个组件的实现，已返回没有调用 `subscribeToNew` 的子组件
 
-Finally, I’m using `timekeeper` to freeze the time around each test — the `Posts` component renders some text based on the relation of the post time to the current time (e.g. “two days ago”), so I need to ensure the test always runs at the “same” time, or else the snapshots will regularly fail as time progresses.
+最后，我是用了 `timekeeper` 来固定每一个测试案例的时间 —— `Posts` 根据帖子发布时间和当前时间（例如，两天以前）渲染了一些文本，那么我需要确保这个测试总是在“相同”的时间运行，否则快照测试就会因为时间进展而失败。
 
 ```javascript
 // client/src/components/Posts.test.js
@@ -1009,7 +1008,7 @@ describe("Posts", () => {
 });
 ```
 
-Our first test checks the loading state. We have to wrap it in a few HOCs — `MemoryRouter` which provides a simulated router for any React Router `Link`s and `Route`s; `AuthContext.Provider` which provides the authentication state; and `MockedProvider` from Apollo. Since we’re taking an immediate snapshot and returning, we don’t actually need to mock anything; the immediate snapshot will just capture the loading state before Apollo has had a chance to execute the query.
+我们的第一个测试检查了加载的的状态。我们必须把它包裹在几个高介函数里 —— `MemoryRouter`，给 React Router 的 `Link` 和 `Route` 提供了一个模拟的路由；`AuthContext.Provider`，提供了认证的状态，和 Apollo 的  `MockedProvider`。因为我们拍了一个即时的快照并返回，我们事实上不需要模拟任何事情；一个即时的的快照会在 Apollo 有机会执行 query 查询之前捕捉到加载的的状态。
 
 ```javascript
 // client/src/components/Posts.test.js
@@ -1059,7 +1058,7 @@ describe("Posts", () => {
 });
 ```
 
-For this test, we want to snapshot the screen once loading has finished and the posts are being displayed. For this, we have to make our test `async`, and then use react-testing-library’s `wait` to await the load to finish. `wait(() => ...)` will simply retry the function until it doesn’t error — which hopefully shouldn’t be more than a fraction of a second. Once the text has appeared, we snapshot the whole component to make sure it’s what we expect.
+对于这个测试，我们希望一旦加载结束，帖子被显示出来，就立刻快照。为了达到这个，我们必须让我们的测试 `async`，然后使用 react-testing-library 的 `wait` 来 await 加载状态的结束。`wait(() => ...)`将会简单的重试这个函数直到结果不再错误 —— 通常情况的话不会超过 0.1 秒。一旦文本显现出来，我们就立刻对整个组件快照以确保那是我们所期待的结果。
 
 ```javascript
 // client/src/components/Posts.test.js
@@ -1133,25 +1132,26 @@ describe("Posts", () => {
 });
 ```
 
-Finally, we’ll test out the subscription, to make sure the component rerenders as expected when it receives a new post. For this case, we need to update the `Subscription` mock so that it actually returns the original implementation and subscribes the component to updates. We also mock a `POSTS_SUBSCRIPTION` query to simulate the subscription receiving a new post. Finally, similar to the last test, we wait for the queries to resolve (and the text from the new post to appear) and then snapshot the HTML.
+最后，我们将会来测试 subscription，来确保当组件收到一个新的帖子时，他能够按照期待的正确的渲染。在这个测试案例中，我们需要更新 `Subscription` 的模拟那以便它实际地返回原始的实现，并且订阅组件以进行更新。我们同时模拟了一个 `POSTS_SUBSCRIPTION` query 查询来模拟 subscription 接收到一个新的帖子。最后，同上面的测试一样，我们等待查询语句的结束（并且新帖子的文本出现）并对 HTML 进行快照。
 
-And that’s pretty much it. jest and react-testing-library are very powerful and make it easy to exercise our components. Testing Apollo is a bit of trouble, but with some judicious use of mocking I was able to write a pretty solid test that exercises all of the major component state cases.
+以上就差不多是全部的内容了。jest 和 react-testing-library 都非常的强大，他们使我们对组件的测试变得简单。测试 Apollo 有一点点困难，但是通过一个明知的迷你，我们也能够写处一些非常完整的测试来测试所有主要的组件的状态。
 
-## Server-side rendering
+## 服务器端渲染
 
-There’s one more problem with our client application — all of the HTML is rendered on the client side. The HTML returned from the server is just an empty `index.html` file with a `<script>` tag to load the JavaScript that actually renders everything. This is fine in development, but not great for production — for example, many search engines are not great at running JavaScript and indexing client-rendered content. What we really want is for the server to return the fully rendered HTML for the page, and then React can take over on the client side to handle subsequent user interactions and routing.
+现在我们的客户端只有一个问题了 —— 所有的 HTML 都使在客户端被渲染的。从服务器返回的 HTML 只是一个空的 `index.html` 文件和一个 `<script>` 标签，所载入的 JavaScript 渲染了全部的内容。在开发模式下，这样可以，但这样对生产环境并不好 —— 例如说，很多的搜索引擎并不擅长运行 JavaScript 来根据客户端的渲染的内容构建索引（index）。我们真正希望的，是服务器能返回该页面的完全渲染的 HTML，然后 React 可以接管客户端，处理用户的加护的路由。
 
-This is where the concept of server-side rendering (or SSR) comes in. Essentially, instead of serving a static HTML index file, we route requests to a Node.js server. The server renders the components (resolving any queries to the GraphQL endpoint) and returns the output HTML, along with the `<script>` tag to load the JavaScript. When the JavaScript loads on the client, it “hydrates” instead of fully rendering from scratch — meaning that it keeps the existing HTML provided by the server and connects it to the matching React tree. This approach allows search engines to easily index the server-rendered HTML, and also provides a faster experience for users since they don’t have to wait for the JavaScript to download, execute, and run queries before the page content is visible.
+这里，服务器端渲染（SSR）的概念被引入进来。本质上来说，相比于提供静态的 HTML 索引文件，我们将请求路由到  Node.js 服务器端。服务器渲染组件（解析对 GraphQL 端点的任何查询）并且返回输出的 HTML，和 `<script>` 标签来加载 JavaScript。当 JavaScript 在客户端加载，它会 “hydrates” 而不是从头开始渲染 —— 意味着它会保存已存在的，服务器端提供的 HTML 并将它和相匹配的 React 树联系起来。这种方法将允许搜索引擎简单的索引服务器渲染的 HTML，并且因为用户不再需要在页面可视之前，等待 JavaScript 文件的下载，执行和进行查询，这也会为用户提供了一个更快的体验，
 
-Unfortunately, I found configuring SSR to be something of a wild west — the fundamentals are the same (run a Node.js server that renders components) but there are a number of different implementations and nothing that’s very well standardized. I lifted most of my application’s configuration from [cra-ssr](https://github.com/cereallarceny/cra-ssr), which provides a pretty comprehensive implementation of SSR for apps bootstrapped with create-react-app. I won’t delve too deep here, as cra-ssr’s tutorial provides a solid introduction. Suffice it to say that SSR is awesome and makes the app feel extremely fast to load, but getting it working is still a bit of a struggle.
+不幸的事，我发现配置 SSR 的方法有点狂野 —— 他们的基础是相同的（都是运行一个可以渲染组件的 Node.js服务器）但是存在一些不同的实现，并且没有任何实现被标准化。我
+的应用的大部分的配置都来自于 [cra-ssr](https://github.com/cereallarceny/cra-ssr)，它为 create-react-app 搭建的应用用提供了非常易于理解的 SSR 的实现。因为 cra-ssr 的教程提供相当完善的介绍，我不会在这里做更加深入的剖析。我是想说，SSR 很棒并且使得应用加载的非常快，尽管实现它确实有点点困难。
 
-## Conclusion and takeaways
+## 结论和收获
 
-Thanks for staying with me! There’s a lot of content here, but I wanted to really dive deep on a reasonably complex application, to thoroughly exercise the technology stack and work out the kinks that arise with real-world use cases. If you’ve read this far, hopefully you have a pretty good understanding of how all the pieces fit together. You can look through the full [codebase](https://github.com/schneidmaster/socializer) on GitHub, or try out the [live demo](https://socializer-demo.herokuapp.com). (The live demo is running on a free-tier Heroku dyno, so it might take 30 seconds or so to wake up when you visit it.) If you have questions, feel free to leave them in the comments and I’ll do my best to answer.
+感谢大家看到这里！这里内容超多，因为我想要真正的深入一个复杂的应用，来从头到尾的练习所有的技术，并且来解决一些在现实世界中真正遇到的问题。如果你已经读到这里了，希望你能对如何将这所有的技术用在一起有了一些不错的理解。你可以在 Github 上看到完整版的[代码](https://github.com/schneidmaster/socializer)。或者试用这个[在线演示](https://socializer-demo.herokuapp.com)。这个演示是部署免费版在 Heroku dyno 上，所以在你访问的时候，可能会需要 30 秒来唤醒服务器。如果你有任何问题，可以在演示下面的评论里留言，我会尽我的可能来回答。
 
-My development experience was not free from frustration and trouble. Some of it is to be expected as the learning curve for a new framework or library — but I think there are some areas where better documentation or tooling would have saved me a lot of time and heartache. With Apollo in particular, I had a ton of trouble figuring out how to get the websocket to reinitialize its connection when the authentication state changes; this feels like a fairly common case that should be documented somewhere, but I just could not find anything. Similarly, I had a lot of trouble around testing subscriptions, and ultimately gave up and used a mock. The documentation around testing was great for the “happy path” of basic tests, but I found it to be shallow once I started working through more advanced use cases. I was also confounded at times by the lack of basic API documentation, which falls partially on Apollo and partially on Absinthe’s client-side library. When researching how to reset the websocket connection, I couldn’t find any API documentation for Absinthe socket instances or Apollo link instances, for example; I basically just had to read through all the source code on GitHub. My experience with Apollo was much better than my experience with Relay a few years back — but next time I use it, I’ll still be bracing myself a bit for the fact that I’ll need to spend some time hacking through jungle if I have to depart from the beaten path.
+我部署的体验也充满了挫折和问题。有些是意料之中，包括一些新的框架和库的学习曲线 —— 但也有一些地方，如果有更好的文档和工具，可以节省我很多的时间，让我不那么头疼。特别是 Apollo，我在理解如果得到 websocket 和如何在认证变化后重新初始化它的连接上遇到了一大堆问题；通常情况下这些都应该在文档里写下来，但是显然我啥也找不到。相似的，我在测试 subscriptions 时也遇到很多问题，并且最终不得不放弃转而使用 mock 测试。测试的文档对于基本的测试来说是非常够的，但是我发现当我想要写更高级的测试案例时，文档太过于浅显。我怕也经常因为缺少 API 的文档而感到困惑，主要是 Apollo 和 Absinthe 客户端库的一部分文档。例如说，当我查找如果重置 websocket 的连接时，我找不到任何 Absinthe socket 实例和 Apollo link 的实例的文档。我唯一能做的就是把 GitHub 上面的源代码从头到尾读一遍。我使用 Apollo 的体验比起几年前使用 Relay 的体验要好很多 —— 但是下一次我使用它时，我不得不接受，如果我想要另辟蹊径的话，就需要话更多的时间来破解改造代码的事实。
 
-With all that said, on the whole I give this stack very high marks, and I really enjoyed working on this project. Elixir and Phoenix are refreshing to use; there’s a learning curve coming from Rails, but I really like some of Elixir’s language features such as pattern matching and the pipe operator. Elixir has a lot of fresh ideas (and many battle-tested concepts from functional programming) that make it easy to write expressive, beautiful code. Absinthe was a breeze to use; it’s very well implemented with sound documentation and it covers all of the reasonable use cases around implementing a GraphQL server. And on the whole, I found that GraphQL delivered on its fundamental promises. It was easy to query the data I needed for each page, and also easy to wire up live updates via subscriptions. I’ve always enjoyed working with React and React Router, and this time was no different — they make it easy to build complex, reactive user interfaces for the frontend. Finally, I am very satisfied with the overall result — as a user, my application is blazing fast to load and navigate, and everything live updates so I’m never out of sync. If the ultimate measure of a technology stack is the user experience that results, I’d say this combination is a smashing success.
+总而言之，我给这套技术栈很高的评分，而且我非常的喜欢这个项目。Elixir 和 Phoenix 用起来让人耳目一新；如果你来自 Rails，有一些学习的曲线，但是我真的非常喜欢 Elixir 的一些语言特点例如模式匹配和通道运算符（pipe operator）。Elixir 有很多新颖的想法（以及来许多自函数式编程的经过实战考验的概念）让写有意义的，好看的代码这件事变得十分简单。Absinthe 的使用就像是一阵清风；它实现的很好，文档极佳，几乎涵盖了所有的实现 GraphQL 服务器的合理用例，并且从总体上来说，我发现 GraphQL 的基本承诺也被很好的传递。查询每一个页面我需要的数据十分简单，通过 subscription 实现实时的更新也非常容易。我一致都非常喜欢使用 React 和 React Router，这一次也不例外 —— 它们使得构建复杂，交互的前端用户界面变得简单。最后，我十分满意整体的结果 —— 作为一名用户，我的应用的加载和浏览非常快，所欲的东西都是实时的所以我从来不需要同步。如果说对技术栈的终极衡量标准是用户的体验，那这个组合一定是一个巨大的成功。
 
 ---
 
