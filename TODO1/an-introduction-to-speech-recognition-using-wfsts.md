@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-speech-recognition-using-wfsts.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-speech-recognition-using-wfsts.md)
 > * 译者：[sisibeloved](https://github.com/sisibeloved)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)、[JackEggie](https://github.com/JackEggie)
 
 # 使用 WFST 进行语音识别
 
 > 之前，我的博客文章都是关于深度学习方法或者它们在 NLP 中的应用。而从几周前，我开始研究自动语音识别（ASR）。因此，我现在也会发布一些语音相关的文章。
 
-ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的其它问题一样）。本质上，ASR 就是对给定的语音波形进行转换，比如识别与波形对应的文本。假设 **Y** 表示从波形中获得的特征向量（注意：这个“特征提取”本身是一个十分复杂的过程，我将在另一篇文章中详述），**w** 表示任意字符串的话，可以得出以下公式：
+ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的其它算法一样）。本质上，ASR 就是对给定的语音波形进行转换，比如识别与波形对应的文本。假设 **Y** 表示从波形中获得的特征向量（注意：这个“特征提取”本身是一个十分复杂的过程，我将在另一篇文章中详述），**w** 表示任意字符串的话，可以得出以下公式：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*EaatvWv4ULPPU2ps.)
 
-公式中的两个似然率是分开训练的。第一个分量，称为**声学建模**，使用话语和语音波形并行训练。第二个分量，称为**语言建模**，通过无监督的方式从大量文本中进行训练。
+公式中的两个似然率是分开训练的。第一个分量，称为**声学建模**，使用包含话语和语音波形的平行语料库进行训练。第二个分量，称为**语言建模**，通过无监督的方式从大量文本中进行训练。
 
-虽然 ASR 训练从抽象层面看起来很简单，但实现它的实现却远要复杂得多。我们通常会使用加权有限状态传感器（WFST）来实现。在这篇文章中，我将描述 WFST 及其基础算法，并简要介绍如何将它用于语音识别。
+虽然 ASR 训练从抽象层面看起来很简单，但实现它的实现却远要复杂得多。我们通常会使用加权有限状态转换机（WFST）来实现。在这篇文章中，我将介绍 WFST 及其基础算法，并简要介绍如何将它用于语音识别。
 
 ### 加权有限状态转换机（Weighted Finite State Transducer，WFST）
 
@@ -29,9 +29,9 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 
 ![](https://cdn-images-1.medium.com/max/2000/0*1_8DJQb7LgH1abja.png)
 
-因此，WFST 是从字符串对到权重和的映射。该字符串对由沿着 WFST 的任何路径的输入/输出标签形成。对于图中不可达的对，对应的权重是无穷大。
+因此，WFST 是从字符串对到权重和的映射。该字符串对由沿着 WFST 的任何路径的输入/输出标签形成。对于图中不可达的节点对，对应边的权重是无穷大。
 
-实际生产中，绝大部分语言都有对应的实现 WFST 的库。在 C++ 中，[OpenFST](http://www.openfst.org/twiki/bin/view/FST/WebHome) 是个较为流行的库，在 [Kaldi 语音识别工具](http://kaldi-asr.org/)中也有用到。
+实际上，绝大部分语言都有对应的实现 WFST 的库。在 C++ 中，[OpenFST](http://www.openfst.org/twiki/bin/view/FST/WebHome) 是个较为流行的库，在 [Kaldi 语音识别工具](http://kaldi-asr.org/)中也有用到。
 
 原则上，我们可以不使用 WFST 实现语音识别算法。但是，这种数据结构具有[多种经过验证的结果](https://cs.nyu.edu/~mohri/pub/csl01.pdf)和算法，可直接用于 ASR，而无需担心正确性和复杂度。这些优点使得 WFST 在语音识别中几乎无可匹敌。接下来我会总结 WFST 上的一些算法。
 
@@ -39,7 +39,7 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 
 ### 合并
 
-顾名思义，合并是指将 2 个 WFST 组合形成单个 WFST 的过程。如果我们有发音和单词级语法的传感器，这种算法将使我们能够轻松地搭建一个语音转文字的系统。
+顾名思义，合并是指将 2 个 WFST 组合形成单个 WFST 的过程。如果我们有发音和单词级语法的转换机，这种算法将使我们能够轻松地搭建一个语音转文字的系统。
 
 合并遵循以下 3 个原则：
 
@@ -51,13 +51,13 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BFg7_P5AfZH-gAywtKkXxQ.png)
 
-对于边的权重来说，“总和”的定义很重要。借助于[半环](https://en.wikipedia.org/wiki/Semiring)的概念，WFST 可以接受广义上的“语言”。从基本概念上来讲，它是一组具有 2 个运算符的元素，即 ⊕ 和 ⊗。根据半环的类型，这些运算符可以代表不同的定义。例如，在热带半环中，⊕ 表示取最小值，⊗ 表示相加。此外，在任意 WFST 中，一整条路径的权重之和等于沿路径的各条边的权重相 ⊗（注意：对于热带半环来说这里的“相乘”意味着相加），多条路径的权重之和等于具有相同的符号序列的路径相 ⊕。
+对于边的权重来说，“总和”的定义很重要。借助于[半环](https://en.wikipedia.org/wiki/Semiring)的概念，WFST 可以接受广义上的“语言”。从基本概念上来讲，它是一组具有 2 个运算符的元素，即 ⊕ 和 ⊗。根据半环的类型，这些运算符可以有不同的定义。例如，在热带半环中，⊕ 表示取最小值，⊗ 表示相加。此外，在任意 WFST 中，一整条路径的权重之和等于沿路径的各条边的权重相 ⊗（注意：对于热带半环来说这里的“相乘”意味着相加），多条路径的权重之和等于具有相同的符号序列的路径相 ⊕。
 
 [这里](http://www.openfst.org/twiki/bin/view/FST/ComposeDoc)是 OpenFST 中对于合并的实现。
 
 ### 确定化
 
-确定自动机是每个状态中每种标签只有一个转移的自动机。通过这样的表达式，确定性 WFST 消除了所有冗余并大大降低了基础语法的复杂性。那么，是不是所有 WFST 都可以确定化呢？
+确定自动机是每个状态中每种标签只有一个转移的自动机。通过这样的表达式，确定化的 WFST 消除了所有冗余并大大降低了基础语法的复杂性。那么，是不是所有 WFST 都可以确定化呢？
 
 **孪生属性**：假设有一个自动机 A，A 中有两个状态 **p** 和 **q**。如果 **p** 和 **q** 都具有相同的字符串输入 **x** ，并有相同标签的循环 **y** ，则称 **p** 和 **q** 为兄弟状态。从概念上讲，到该状态为止的路径（包括循环在内）的总权重相等，则这两个兄弟状态是孪生的。 
 
@@ -71,7 +71,7 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 
 * 在每个状态下，对于每个输出标签，如果该标签有多个输出边，则将其替换为单个边，其权重为包含该标签的所有边的权重的 ⊕ 总和。
 
-由于这是一种本地算法，因此可以有效地在内存中实现。要了解如何在 OpenFST 中进行确定化，请参阅[此处](http://www.openfst.org/twiki/bin/view/FST/DeterminizeDoc)。
+由于这是一种本地算法，因此可以高效地在内存中实现。要了解如何在 OpenFST 中进行确定化，请参阅[此处](http://www.openfst.org/twiki/bin/view/FST/DeterminizeDoc)。
 
 ### 最小化
 
@@ -87,7 +87,7 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 
 在 OpenFST 中，可以在[这里](http://www.openfst.org/twiki/bin/view/FST/MinimizeDoc)找到最小化的具体实现。
 
-下图（来自<sup>[3]</sup>）展示了 WFST 优化的完整流程：
+下图（来自<sup><a href="#note1">[3]</a></sup>）展示了 WFST 优化的完整流程：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*dNGFwfEMWqiVxNKRNjV5MA.png)
 
@@ -110,7 +110,7 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 
 * [1] Gales、Mark 和 Steve Young 著《隐马尔可夫模型在语音识别中的应用》，Foundations and Trends® in Signal Processing 1.3 (2008): 195–304.
 * [2] Mohri、 Mehryar、Fernando Pereira 和 Michael Riley 著《语音识别中的加权有限状态机》，Computer Speech & Language 16.1 (2002): 69–88.
-* [3] 江辉教授（约克大学）的[课堂讲义](https://wiki.eecs.yorku.ca/course_archive/2011-12/W/6328/_media/wfst-tutorial.pdf)
+* <a name="note1"></a>[3] 江辉教授（约克大学）的[课堂讲义](https://wiki.eecs.yorku.ca/course_archive/2011-12/W/6328/_media/wfst-tutorial.pdf)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
