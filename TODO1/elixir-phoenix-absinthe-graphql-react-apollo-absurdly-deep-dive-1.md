@@ -126,7 +126,7 @@ Apollo 已经成为服务器和客户端上最受欢迎的 GraphQL 库之一。�
 
 ## 服务端
 
-我们先来构建应用程序的服务端；没有数据使用的话，客户端就没有那么有意思了。我也很好奇 GraphQL 如何能够实现在客户端编写查询语句，然后拿到所有我需要的数据。（在我实现客户端之后可能会需要回来对服务端做一些改动）。
+我们先来构建应用程序的服务端；没有数据使用的话，客户端就没有那么有意思了。我也很好奇 GraphQL 如何能够实现在客户端编写查询语句，然后拿到所有我需要的数据。（相比之前，在没有 GraphQL 之前的实现方法中，你需要回来对服务端做一些改动）。
 
 具体来说，我首先定义了应用程序的基本 model（模型）结构。在高层次抽象上，它看起来像这样：
 
@@ -158,7 +158,7 @@ Message
 - Body
 ```
 
-希望很简单明了。Phoenix 允许你编写与 Rails 非常相似的数据库迁移。以下是创建 users 表的迁移，例如：
+万幸这很简单明了。Phoenix 允许你编写与 Rails 非常相似的数据库迁移。以下是创建 users 表的迁移，例如：
 
 ```elixir
 # socializer/priv/repo/migrations/20190414185306_create_users.exs
@@ -181,7 +181,7 @@ end
 
 你可以在[这里](https://github.com/schneidmaster/socializer/tree/master/priv/repo/migrations)查看所有其他表的迁移。
 
-接下来，我实现了 model 类。Phoenix 使用一个名为 Ecto 的库作为它的 model；你可以将 Ecto 看作与 ActiveRecord 类似的东西，但它与框架的耦合程度更低。一个主要区别是 Ecto model 没有任何实例方法。Model 实例只是一个结构（就像带有预定义键的哈希）；你在 model 上定义的方法都是类的方法，它们接受一个“实例”（结构），然后用某种方式更改这个实例，再返回结果。在 Elixir 中这是一种惯用方法; 它更偏好函数式编程和不可变变量（不能二次赋值的变量）。
+接下来，我实现了 model 类。Phoenix 使用一个名为 Ecto 的库作为它的 model 的实现；你可以将 Ecto 看作与 ActiveRecord 类似的东西，但它与框架的耦合程度更低。一个主要区别是 Ecto model 没有任何实例方法。Model 实例只是一个结构（就像带有预定义键的哈希）；你在 model 上定义的方法都是类的方法，它们接受一个“实例”（结构），然后用某种方式更改这个实例，再返回结果。在 Elixir 中这是一种惯用方法; 它更偏好函数式编程和不可变变量（不能二次赋值的变量）。
 
 这是对 Post model 的分解：
 
@@ -270,7 +270,7 @@ Changeset 方法是 Ecto 提供的创建和更新记录的方法：首先是一�
 
 ## GraphQL schema
 
-接下来，我连接了服务器的 GraphQL 组件。这些组件通常可以分为两类：type（类型）和 resolver（解析器）。在 type 文件中，你使用类似 DSL 的语法来声明可以查询的对象、字段和关系。解析器用来告诉服务器如何响应任何给定查询。
+接下来，我连接了服务器的 GraphQL 组件。这些组件通常可以分为两类：type（类型）和 resolver（解析器）。在 type 文件中，你使用类似 DSL 的语法来声明可以查询的对象、字段和关系。Resolver 用来告诉服务器如何响应任何给定查询。
 
 下面是帖子 type 文件的示例：
 
@@ -327,7 +327,7 @@ defmodule SocializerWeb.Schema.PostTypes do
 end
 ```
 
-接下来，我们将声明一些涉及帖子的底层查询。`posts` 允许查询网站上的所有帖子，同时 `post` 可以按照 ID 返回单个帖子。Type 文件只是简单地声明了查询语句以及它的参数和返回值类型；实际的实现都被委托给了解析器。
+接下来，我们将声明一些涉及帖子的底层查询。`posts` 允许查询网站上的所有帖子，同时 `post` 可以按照 ID 返回单个帖子。Type 文件只是简单地声明了查询语句以及它的参数和返回值类型；实际的实现都被委托给了 resolver。
 
 ```elixir
 # socializer/lib/socializer_web/schema/post_types.ex
@@ -347,7 +347,7 @@ defmodule SocializerWeb.Schema.PostTypes do
 end
 ```
 
-在查询之后，我们声明了一个允许在网站上创建新帖子的 mutation。与查询一样，type 文件只是声明有关  mutation 的元数据，实际操作由解析器完成。
+在查询之后，我们声明了一个允许在网站上创建新帖子的 mutation。与查询一样，type 文件只是声明有关  mutation 的元数据，实际操作由 resolver 完成。
 
 ```elixir
 # socializer/lib/socializer_web/schema/post_types.ex
@@ -421,9 +421,9 @@ defmodule SocializerWeb.Schema do
 end
 ```
 
-## 解析器（Resolver）
+## Resolver（解析器）
 
-正如我上面提到的，解析器是 GraphQL 服务器的“粘合剂” —— 它们包含为查询提供数据或应用 mutation 的逻辑。让我们看一下 `post` 解析器：
+正如我上面提到的，resolver 是 GraphQL 服务器的“粘合剂” —— 它们包含为 query 提供数据的逻辑或应用 mutation 的逻辑。让我们看一下 `post` 的 resolver：
 
 ```elixir
 # lib/socializer_web/resolvers/post_resolver.ex
@@ -445,7 +445,7 @@ defmodule SocializerWeb.Resolvers.PostResolver do
 end
 ```
 
-前两个方法处理上面定义的两个查询 —— 加载所有的帖子的查询以及加载特定帖子的查询。Absinthe 希望每个解析器方法都返回一个元组 —— `{:ok, requested_data}` 或者 `{:error, some_error}`（这是 Elixir 方法的常见模式）。`show` 方法中的 `case` 声明是 Elixir 中一个很好的模式匹配的例子 —— 如果 `Post.find` 返回 `nil`，我们返回错误元组；否则，我们返回找到的帖子数据。
+前两个方法处理上面定义的两个查询 —— 加载所有的帖子的查询以及加载特定帖子的查询。Absinthe 希望每个 resolver 方法都返回一个元组 —— `{:ok, requested_data}` 或者 `{:error, some_error}`（这是 Elixir 方法的常见模式）。`show` 方法中的 `case` 声明是 Elixir 中一个很好的模式匹配的例子 —— 如果 `Post.find` 返回 `nil`，我们返回错误元组；否则，我们返回找到的帖子数据。
 
 ```elixir
 # lib/socializer_web/resolvers/post_resolver.ex
@@ -475,7 +475,7 @@ defmodule SocializerWeb.Resolvers.PostResolver do
 end
 ```
 
-接下来，我们有 `create` 解析器，其中包含创建新帖子的逻辑。这也是通过方法参数进行模式匹配的一个很好的例子 —— Elixir 允许你重载方法名称并选择第一个与声明的模式匹配的方法。在这个例子中，如果第三个参数是带有 `context` 键的映射，并且该映射中还包括一个带有 `current_user` 键值对的映射，那么就使用第一个方法；如果某个查询没有携带身份验证信息，它将匹配第二种方法并返回错误信息。
+接下来，我们有 `create` 的 resolver，其中包含创建新帖子的逻辑。这也是通过方法参数进行模式匹配的一个很好的例子 —— Elixir 允许你重载方法名称并选择第一个与声明的模式匹配的方法。在这个例子中，如果第三个参数是带有 `context` 键的映射，并且该映射中还包括一个带有 `current_user` 键值对的映射，那么就使用第一个方法；如果某个查询没有携带身份验证信息，它将匹配第二种方法并返回错误信息。
 
 ```elixir
 # lib/socializer_web/resolvers/post_resolver.ex
@@ -496,9 +496,9 @@ end
 
 最后，如果 post 的属性无效（例如，内容为空），我们有一个简单的辅助方法来返回错误响应。Absinthe 希望错误消息是一个字符串，一个字符串数组，或一个带有 `field` 和 `message` 键的关键字列表数组 —— 在我们的例子中，我们将每个字段的 Ecto 验证错误信息提取到这样的关键字列表中。
 
-## 上下文/认证
+## 上下文（context）/认证（authentication）
 
-我们在最后一节中来谈谈查询认证的概念 —— 在我们的例子中，简单地在 `authorization` 请求头用一个 `Bearer: token` 做了标记。我们如何利用这个 token 获取解析器中 `current_user`  的上下文呢？可以使用自定义插件（plug）读取头部然后查找当前用户。在 Phoenix 中，一个插件是请求管道中的一部分 —— 你可能拥有解码 JSON 的插件，添加 CORS 头的插件，或者处理请求的任何其他可组合部分的插件。我们的插件如下所示：
+我们在最后一节中来谈谈查询认证的概念 —— 在我们的例子中，简单地在请求头里的 `authorization` 属性中用了一个 `Bearer: token` 做标记。我们如何利用这个 token 获取 resolver 中 `current_user`  的上下文呢？可以使用自定义插件（plug）读取头部然后查找当前用户。在 Phoenix 中，一个插件是请求管道中的一部分 —— 你可能拥有解码 JSON 的插件，添加 CORS 头的插件，或者处理请求的任何其他可组合部分的插件。我们的插件如下所示：
 
 ```elixir
 # lib/socializer_web/context.ex
@@ -528,7 +528,7 @@ defmodule SocializerWeb.Context do
 end
 ```
 
-前两个方法只是按例行事 - 在初始化方法中没有什么有趣的事情可做（在我们的例子中，我们可能会基于配置选项利用初始化做一些工作），在调用插件方法中，我们只是想要在请求上下文中设置当前用户的信息。`build_context` 方法是最有趣的部分。`with` 声明在 Elixir 中是另一种模式匹配的写法；它允许你执行一系列不对称步骤并根据上一步的结果执行操作。在我们的例子中，首先去获得 authorization 头部； 然后解码 authentication token（使用了 [Guardian](https://github.com/ueberauth/guardian) 库）； 接着再去查找用户。如果所有步骤都成功了，那么我们将进入 `with` 函数块内部，返回一个包含当前用户信息的映射。如果任意一个步骤失败（例如，假设模式匹配失败第二步会返回一个 `{:error, ...}` 元组；假设用户不存在第三步会返回一个 `nil`），然后 `else` 代码块中的内容被执行，我们就不去设置当前用户。
+前两个方法只是按例行事 - 在初始化方法中没有什么有趣的事情可做（在我们的例子中，我们可能会基于配置选项利用初始化函数做一些工作），在调用插件方法中，我们只是想要在请求上下文中设置当前用户的信息。`build_context` 方法是最有趣的部分。`with` 声明在 Elixir 中是另一种模式匹配的写法；它允许你执行一系列不对称步骤并根据上一步的结果执行操作。在我们的例子中，首先去获得请求头里的 authorization 属性值；然后解码 authentication token（使用了 [Guardian](https://github.com/ueberauth/guardian) 库）；接着再去查找用户。如果所有步骤都成功了，那么我们将进入 `with` 函数块内部，返回一个包含当前用户信息的映射。如果任意一个步骤失败（例如，假设模式匹配失败第二步会返回一个 `{:error, ...}` 元组；假设用户不存在第三步会返回一个 `nil`），然后 `else` 代码块中的内容被执行，我们就不去设置当前用户。
 
 ---
 
