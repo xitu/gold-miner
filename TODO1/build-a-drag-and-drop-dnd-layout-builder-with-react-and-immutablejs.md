@@ -26,7 +26,7 @@
 
 ## React
 
-[React](https://reactjs.org/) 基于声明式编程，这意味着它根据状态来进行渲染。状态（State）实际上只是一个 JSON 对象，它具有告诉 React 应该怎么去渲染（样式和功能）的属性。与操作 DOM 的库（例如jQuery）不同，我们不直接改变 DOM，而是通过修改状态（state）然后让 React 去负责 DOM **（稍后会介绍 DOM ）**。
+[React](https://reactjs.org/) 基于声明式编程，这意味着它根据状态来进行渲染。状态（State）实际上只是一个 JSON 对象，它具有告诉 React 应该怎么去渲染（样式和功能）的属性。与操作 DOM 的库（例如jQuery）不同，我们不直接改变 DOM，而是通过修改状态（state）然后让 React 去负责 DOM（**稍后会介绍 DOM**）。
 
 在这个项目中，假设有一个父组件来保存布局的状态（JSON 对象），并且这个状态将被传递给其他的组件，这些组件都是 React 中的无状态组件。
 
@@ -119,9 +119,9 @@ ECMA Script 6 为我们提供了一些方便的操作符和方法来改变对象
 
 所以我们知道我们的状态是一个不可变的 JSON 对象，而 React 来负责处理组件，但我们需要有趣的用户交互体验，对吧？
 
-幸亏有了 HTML5 使得这实际上非常简单，因为它提供了我们可以用来检测拖动组件的时间和丢弃它们的位置的方法。由于 React 将原生 HTML 元素暴露给浏览器，因此我们可以使用原生的事件方法使我们的实现更加简单。
+幸亏有了 HTML5 使得这实际上非常简单，因为它提供了我们可以用来检测拖动组件的时间和放置它们的位置的方法。由于 React 将原生 HTML 元素暴露给浏览器，因此我们可以使用原生的事件方法使我们的实现更加简单。
 
-**注意：我得知使用　HTML5　实现的 DnD 可能存在一些问题但如果没有其它的问题，这可能是一个探究课程，我们可以退出如果稍后发现有问题的话。**
+**注意：我得知使用 HTML5 实现的 DnD 可能存在一些问题但如果没有其它的问题，这可能是一个探究课程，如果发现有问题的话，我们之后可以换掉它。**
 
 在这个项目中，我们拥有用户可以拖动的组件（HTML divs），我称他们为**可拖动组件**。
 
@@ -171,11 +171,11 @@ export const DroppableComponent = ({
 </div>;
 ```
 
-在上面的组件中，我们正在监听 `onDrop` 事件，因此我们可以根据放入的可放置组件的新组件来更新状态。
+在上面的组件中，我们正在监听 `onDrop` 事件，因此我们可以根据放进可放置组件的新组件来更新状态。
 
 **好的，是时候快速回顾一下，然后将他们全部放到一起：**
 
-**我们将使用 React 中基于状态对象的少量解耦无状态组件来渲染整个布局。用户交互将由 HTML5 DnD　事件来处理，这将通过使用 ImmutableJS 来触发对状态对象的更改。**
+**我们将使用 React 中基于状态对象的少量解耦无状态组件来渲染整个布局。用户交互将由 HTML5 DnD　事件来处理，而时间会使用 ImmutableJS 来触发对状态对象的更改。**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*06515Z0luWKxNzfsz8tKBw.gif)
 
@@ -195,7 +195,7 @@ export const DroppableComponent = ({
 
 我们的状态需要存储大量组件，可以通过以下接口表示：
 
-**如果你不熟悉 JavaScript 中的接口，你应该看看 [TypeScript](https://www.typescriptlang.org/) ——你可能会觉得我是它的粉丝。它很适用于 React。** 
+**如果你不熟悉 JavaScript 中的接口，你应该看看 [TypeScript](https://www.typescriptlang.org/) ——你大概能看出我是它的粉丝。它很适用于 React。** 
 
 ```ts
 export interface IComponent {
@@ -287,14 +287,14 @@ const state: IContent[] = [
 
 ## 2. 拖放布局构建器
 
-布局构建器组件将执行一个范围内功能，例如：
+布局构建器组件将执行一系列功能，例如：
 
 * 保持并更新组件状态
 * 渲染 **可拖动组件** 和 **可放置组件**
 * 渲染嵌套布局结构
 * 触发 DnD HTML5 事件
 
-下面来看看它的外观：
+代码大概是这样的：
 
 ```ts
 export class BuilderLayout extends React.Component {
@@ -337,7 +337,7 @@ export class BuilderLayout extends React.Component {
 
 `onDragStart()` ——这个事件这里我们设置一些关于 `event` 对象中组件的细节，即 `name` 和 `type`。
 
-`onDragOver()` ——我们现在没有对这个事件做任何事情，事实上我们通过 `.preventDefault()` 函数禁用浏览器的默认行为。
+`onDragOver()` ——我们现在不会对这个事件做任何事情，事实上我们通过 `.preventDefault()` 函数禁用浏览器的默认行为。
 
 这就留下了 `onDragDrop()` 事件，这就是修改不可变状态的神奇之处。为了改变状态，我们需要几条信息：
 
@@ -345,7 +345,7 @@ export class BuilderLayout extends React.Component {
 * 要放置组件的类型 —— `type` 在 `event` 对象中设置 `onDragStart()`。
 * 组件被放置的位置 —— `containerId` 从可放置的组件中传入这个方法。
 
-在 `containerId` 中必须告诉我们确切位置的状态来增加新的组件。可能有一种更简洁的方法可以做到这一点，但为了描述这个位置，我将使用一个下划线分隔的索引列表。
+在 `containerId` 中必须告诉我们，新的组件具体要放在状态里的什么位置。可能有一种更简洁的方法可以做到这一点，但为了描述这个位置，我将使用一个下划线分隔的索引列表。
 
 回顾我们的状态模型：
 
@@ -418,9 +418,9 @@ private onDragDrop(event: React.DragEvent <HTMLDivElement>, containerId: string)
 
 将它与我们的状态所代表的嵌套结构相组合，我们可以得到一个非常强大的布局构建器。
 
-现在，我只是将网格的大小固定为两列布局（即单个可放置的中的两列具有的递归）。
+现在，我只是将网格的大小固定为两列布局（即单个可放置组件中的两列具有的递归）。
 
-为了实现这一点，我们有一个可拖动的网格，它将包含两个可放置的（每列一个）。
+为了实现这一点，我们有一个可拖动组件的网格，它将包含两个可放置的（每列一个）。
 
 **这是我之前创建的一个：**
 
@@ -438,9 +438,9 @@ private onDragDrop(event: React.DragEvent <HTMLDivElement>, containerId: string)
 
  1. 循环遍历内容项（我们状态的根）并且渲染一个 `ContentBuilderDraggableComponent` 和一个 `DroppableComponent`。
 
- 2. 确定组件是否为 Grid 类型, 然后渲染 `ContentBuilderGridComponent`, 然后渲染一个常规的 `DraggableComponent`。
+ 2. 确定组件是否为 Grid 类型, 然后渲染 `ContentBuilderGridComponent`, 否则渲染一个常规的 `DraggableComponent`。
 
- 3. 使用 X 个子项中和每个中的一个 `ContentBuilderDraggableComponent` 和一个 `DroppableComponent`。
+ 3. 渲染被 X 个子项目标记的 Grid 组件，每个子项目中都有一个 `ContentBuilderDraggableComponent` 和一个 `DroppableComponent`。
 
 ```ts
 class ContentBuilderComponent... {
