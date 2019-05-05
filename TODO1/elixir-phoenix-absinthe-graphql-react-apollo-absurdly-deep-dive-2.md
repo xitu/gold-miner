@@ -186,7 +186,7 @@ end
 
 对于 resolver 的测试也相当的简单 —— 只需要对 model 之上的逻辑层做单元测试。这里我们插入任意的测试数据，调用所测试的 resolver，然后期待正确的结果被返回。
 
-整合测试有一点点小复杂。我们首先需要建立和服务器端的连接（可能需要认证），接着发送一个查询语句并且确保我们得到正确的结果。 我找到了[这篇帖子](https://tosbourn.com/testing-absinthe-exunit)，它在学习如何搭建对于 Absinthe 的整合测试非常的有帮助。
+整合测试有一点点小复杂。我们首先需要建立和服务器端的连接（可能需要认证），接着发送一个查询语句并且确保我们得到正确的结果。我找到了[这篇帖子](https://tosbourn.com/testing-absinthe-exunit)，它在学习如何搭建对于 Absinthe 的整合测试非常的有帮助。
 
 首先，我们建立一个 helper 文件，这个文件将包含一些进行整合测试所需要的常见功能：
 
@@ -293,9 +293,9 @@ defmodule SocializerWeb.Integration.PostResolverTest do
 end
 ```
 
-非常相似，只有两点不同 —— 这次我们是通过 `AbsintheHelpers.authenticate_conn(user)`，将用户的 token 加入头字段的方式来建立连接，并且我们调用的是 `mutation_skeleton`， 而非之前的  `query_skeleton`。
+非常相似，只有两点不同 —— 这次我们是通过 `AbsintheHelpers.authenticate_conn(user)`，将用户的 token 加入头字段的方式来建立连接，并且我们调用的是 `mutation_skeleton`，而非之前的  `query_skeleton`。
 
-那对于 subscription 的测试呢？对于 subscription 的测试也需要通过一些基本的搭建，来建立一个套接字连接，然后在这个链接中建立和测试我们的 subscription。 我找到了[这篇文章](https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe)，对我我们理解如何构建对于 subscription 的测试非常有帮助。
+那对于 subscription 的测试呢？对于 subscription 的测试也需要通过一些基本的搭建，来建立一个套接字连接，然后在这个链接中建立和测试我们的 subscription。我找到了[这篇文章](https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe)，对我我们理解如何构建对于 subscription 的测试非常有帮助。
 
 首先，我们建立一个 case 新的文件来为 subscription 的测试做基本的搭建。代码长这样：
 
@@ -393,7 +393,7 @@ defmodule SocializerWeb.PostSubscriptionsTest do
 end
 ```
 
-首先，我们先写一个 subscription 的查询语句，并且推送到我们在上一步已经建立好的套接字上。接着，我们写一个会触发 subscription 的 mutation 语句（例如，创建一个新帖子）并推送到套接字上。 最后，我们检查 `push` 的回复，并断言，一个帖子的被新建的更新将被推送给我们。这其中设计了更多的前期搭建，但这也让我们对 subscription 的生命周期的建立的更好的整合测试。
+首先，我们先写一个 subscription 的查询语句，并且推送到我们在上一步已经建立好的套接字上。接着，我们写一个会触发 subscription 的 mutation 语句（例如，创建一个新帖子）并推送到套接字上。最后，我们检查 `push` 的回复，并断言，一个帖子的被新建的更新将被推送给我们。这其中设计了更多的前期搭建，但这也让我们对 subscription 的生命周期的建立的更好的整合测试。
 
 ## 客户端
 
@@ -434,9 +434,9 @@ const App = () => {
 };
 ```
 
-几个值得注意的点 —— `util/apollo`这里对外输出了一个 `createClient` 函数。这个函数会创建并返回一个 Apollo 客户端的实例（我们将在下文中进行着重地介绍）。将 `createClient` 包装在 `useRef` 中，会使相同的客户端实例可以在我们应用在全部的生命周期（例如，所有的 render 函数）中使用。 `ApolloProvider` 这个高阶组件会使 client 可以在所有子组件/查询的 context 中使用。在我们浏览该应用的过程中，`BrowserRouter` 使用 HTML5 的 history API来保持 URL 的状态同步。
+几个值得注意的点 —— `util/apollo`这里对外输出了一个 `createClient` 函数。这个函数会创建并返回一个 Apollo 客户端的实例（我们将在下文中进行着重地介绍）。将 `createClient` 包装在 `useRef` 中，会使相同的客户端实例可以在我们应用在全部的生命周期（例如，所有的 render 函数）中使用。`ApolloProvider` 这个高阶组件会使 client 可以在所有子组件/查询的 context 中使用。在我们浏览该应用的过程中，`BrowserRouter` 使用 HTML5 的 history API来保持 URL 的状态同步。
 
-这里的 `Switch` 和 `Route` 需要单独对它们进行讨论。React Router 是围绕**动态**路由的概念建立的。大部分的网站使用**静态**路由，也就是说你的 URL 将匹配唯一的路由，并且根据所匹配的路由来渲染一整个页面。使用**动态**路由，路由将被分布到整个应用中，一个 URL 可以匹配多个路由。这听起来可能有些令人困惑，但事实上，当你掌握了它以后，你会觉得它**非常**棒。 它可以轻松的在构建一个包含不同组件页面，这些组件可以对路由的不同部分做出反应。例如，想象一个类似脸书的 messenger 的页面（Socializer 的聊天界面也非常相似）—— 左边是对话的列表，右边是所选择的对话。动态路由允许我这样表达：
+这里的 `Switch` 和 `Route` 需要单独对它们进行讨论。React Router 是围绕**动态**路由的概念建立的。大部分的网站使用**静态**路由，也就是说你的 URL 将匹配唯一的路由，并且根据所匹配的路由来渲染一整个页面。使用**动态**路由，路由将被分布到整个应用中，一个 URL 可以匹配多个路由。这听起来可能有些令人困惑，但事实上，当你掌握了它以后，你会觉得它**非常**棒。它可以轻松的在构建一个包含不同组件页面，这些组件可以对路由的不同部分做出反应。例如，想象一个类似脸书的 messenger 的页面（Socializer 的聊天界面也非常相似）—— 左边是对话的列表，右边是所选择的对话。动态路由允许我这样表达：
 
 ```javascript
 const App = () => {
@@ -461,10 +461,10 @@ const Chat = () => {
 };
 ```
 
-如果路径以 `/chat`  作为开头（可能以 ID 作为结尾， 例如， `/chat/123`），根层次的 `App` 会渲染 `Chat` 组件。`Chat` 会渲染对话列表栏（对话列表栏总是可见的），然后会渲染它的路由，如果路径有 ID，则显示一个 `Conversation` 组件，否则就会显示 `EmptyState` （请注意，如果缺少`?`，那么 `:id` 参数就不再是可选的）。这就是动态路由的力量 —— 它让你你可以基于当前的 URL 渐进的渲染界面的不同组件，将
+如果路径以 `/chat`  作为开头（可能以 ID 作为结尾，例如，`/chat/123`），根层次的 `App` 会渲染 `Chat` 组件。`Chat` 会渲染对话列表栏（对话列表栏总是可见的），然后会渲染它的路由，如果路径有 ID，则显示一个 `Conversation` 组件，否则就会显示 `EmptyState` （请注意，如果缺少`?`，那么 `:id` 参数就不再是可选的）。这就是动态路由的力量 —— 它让你你可以基于当前的 URL 渐进的渲染界面的不同组件，将
 基于路径的问题本地化到相关组件。
 
-即使使用了动态路由，有时你也只想要渲染一条路径（类似与传统的静态路由）。这时 `Switch` 组件就登上了舞台。如果没有 `Switch`，React Router 会渲染**每一个**匹配当前 URL 的组件，那么在上面的 `Chat` 组件中，我们就会既有 `Conversation` 组件， 又有 `EmptyState` 组件。`Switch` 会告诉 React Router， 让它指渲染第一个匹配的当前 URL 的路由并忽视掉其它的。
+即使使用了动态路由，有时你也只想要渲染一条路径（类似与传统的静态路由）。这时 `Switch` 组件就登上了舞台。如果没有 `Switch`，React Router 会渲染**每一个**匹配当前 URL 的组件，那么在上面的 `Chat` 组件中，我们就会既有 `Conversation` 组件，又有 `EmptyState` 组件。`Switch` 会告诉 React Router，让它指渲染第一个匹配的当前 URL 的路由并忽视掉其它的。
 
 ## Apollo 客户端
 
@@ -528,7 +528,7 @@ export const createClient = () => {
 });
 ```
 
-Apollo 的客户端要求你提供一个链接 —— 本质上说，就是你的 Apollo 客户端所请求的 GraphQL 服务器的连接。通常有两种类型的链接 —— HTTP 链接，通过标准的 HTTP 来向 GraphQL 服务器发送请求，和 websocket 链接，开放一个 websocket 连接并通过套接字来发送请求。在我们的例子中，我们两种都使用了。对于通常的 query 和 mutation，我们将是用 HTTP 链接，对于 subscription， 我们将使用 websocket 链接。
+Apollo 的客户端要求你提供一个链接 —— 本质上说，就是你的 Apollo 客户端所请求的 GraphQL 服务器的连接。通常有两种类型的链接 —— HTTP 链接，通过标准的 HTTP 来向 GraphQL 服务器发送请求，和 websocket 链接，开放一个 websocket 连接并通过套接字来发送请求。在我们的例子中，我们两种都使用了。对于通常的 query 和 mutation，我们将是用 HTTP 链接，对于 subscription，我们将使用 websocket 链接。
 
 ```javascript
 // client/src/util.apollo.js
@@ -585,7 +585,7 @@ export const createClient = () => {
 
 ## 客户端的使用 —— 我们的第一个请求
 
-好哒，我们已经搭建好了 Apollo 的客户端实例，并且通过 `ApolloProvider` 的高介函数让这个实例在整个应用中都可用。现在让我们来看一看如何运行 query 和 mutation。 我们从 `Posts` 组件开始，`Posts` 组件将在我们的首页渲染一个帖子的列表。
+好哒，我们已经搭建好了 Apollo 的客户端实例，并且通过 `ApolloProvider` 的高介函数让这个实例在整个应用中都可用。现在让我们来看一看如何运行 query 和 mutation。我们从 `Posts` 组件开始，`Posts` 组件将在我们的首页渲染一个帖子的列表。
 
 ```javascript
 // client/src/components/Posts.js
@@ -668,7 +668,7 @@ const Posts = () => {
 };
 ```
 
-现在我们将实现真正的组件部分。首先，执行基本的查询，我们先渲染 Apollo 的 `<Query query={GET_POSTS}>`。 它给它的子组件提供了一些渲染的 props —— `loading`， `error`， `data` 和 `subscribeToMore`。如果查询正在加载，我们就渲染一个简单的加载图片。如果有错误存在，我们渲染一个通用的 `ErrorMessage` 组件给用户。否则，就说明查询成果，我们就渲染一个 `Feed` 组件（`data.posts` 中包含着需要渲染的帖子，结构和 query 中的结构一致）。
+现在我们将实现真正的组件部分。首先，执行基本的查询，我们先渲染 Apollo 的 `<Query query={GET_POSTS}>`。它给它的子组件提供了一些渲染的 props —— `loading`，`error`，`data` 和 `subscribeToMore`。如果查询正在加载，我们就渲染一个简单的加载图片。如果有错误存在，我们渲染一个通用的 `ErrorMessage` 组件给用户。否则，就说明查询成果，我们就渲染一个 `Feed` 组件（`data.posts` 中包含着需要渲染的帖子，结构和 query 中的结构一致）。
 
 `subscribeToMore` 是一个实现一个只需要从用户正在浏览的集合中获取新数据的 subscription 的 Apollo 帮助函数。它应该在子组件的 `componentDidMount` 阶段被渲染，这也是它被作为 props 传递给 `Feed` 的原因 —— `Feed` 负责调用 `subscribeToNew` 一旦 `Feed` 被渲染。我们给 `subscribeToMore` 提供了我们的 subscription 查询和一个 `updateQuery` 的回调函数，这会函数会在 Apollo 接收到新帖子被建立的通知时被调用。当那发生时，我们只需要简单将新帖子推入我们当前的帖子数组，使用 [immer](https://github.com/immerjs/immer) 可以返回一个新数组确保组件正确的渲染
 
@@ -802,7 +802,7 @@ const Login = () => {
 export default Login;
 ```
 
-这里的代码看起来很洋气，但是不要懵 —— 这里大部分得代码只是为表格做一个 Bootstrap 组件。 我们从一个叫做 `Helmet` （[react-helmet](https://github.com/nfl/react-helmet)） 组件开始 —— 这是一个顶层的表格组件（相对的 `Posts` 组件。`Posts` 是 `Home` 页面渲染的一个自组件），所以我们希望给他一个浏览器标题和一些 metadata。下一步我们来渲染 `Mutation` 组件，将我们的 mutation 语句传递给他。如果 mutation 返回一个错误，我们使用 `onError` 回调函数来将状态设为无效，来将错误显示在表格中。 Mutation 将一个函数传递给他的调用他的子组件（这里是 `login`），第二个参数是和我们从 `Query` 组件中得到的一样的数组。如果 `data` 存在，那以为着 mutation 被成功执行，那么我们就可以将我们的认证令牌和用户 ID 通过 `setAuth` 函数来储存起来。剩余的部分就是很标准的 React 组件啦 —— 我们渲染 input 并在变化时更新 state 值，在用户试图登陆，而的邮件密码无效时显示错误信息。
+这里的代码看起来很洋气，但是不要懵 —— 这里大部分得代码只是为表格做一个 Bootstrap 组件。我们从一个叫做 `Helmet` （[react-helmet](https://github.com/nfl/react-helmet)） 组件开始 —— 这是一个顶层的表格组件（相对的 `Posts` 组件。`Posts` 是 `Home` 页面渲染的一个自组件），所以我们希望给他一个浏览器标题和一些 metadata。下一步我们来渲染 `Mutation` 组件，将我们的 mutation 语句传递给他。如果 mutation 返回一个错误，我们使用 `onError` 回调函数来将状态设为无效，来将错误显示在表格中。Mutation 将一个函数传递给他的调用他的子组件（这里是 `login`），第二个参数是和我们从 `Query` 组件中得到的一样的数组。如果 `data` 存在，那以为着 mutation 被成功执行，那么我们就可以将我们的认证令牌和用户 ID 通过 `setAuth` 函数来储存起来。剩余的部分就是很标准的 React 组件啦 —— 我们渲染 input 并在变化时更新 state 值，在用户试图登陆，而的邮件密码无效时显示错误信息。
 
 那 `AuthContext` 是干嘛的呢？当用户被成功认证后，我们需要将他们的认证令牌以某种方式存储在客户端。这里 GraphQL 并不能帮上忙，因为这就像是个鸡生蛋问题 —— 我们需要有认证令牌来认证获取的认领令牌请求。我们可以用 Redux 在本地状态中来存储令牌，但如果我只需要储存这一个值时，感觉这样做就太过于复杂了。我们可以使用 React 的 context API 来将 token 储存在我们应用的根目录，在需要时调用即可。
 
@@ -862,9 +862,9 @@ const StateProvider = ({ client, socket, children }) => {
 export default withApollo(StateProvider);
 ```
 
-这里发生了很多。首先，我们为认证用户的 `token` 和 `userId` 建立 state。我们通过读 cookie 来初始化 state，那样我们就可以在页面刷新后保证用户的登陆状态。接下来我们实现了我们的 `setAuth` 函数。 用 `null` 来调用该函数会将用户登出；否则就使用提供的 `token` 和 `userId`来让用户登陆。不管那种哪种方法，这个函数都会跟新本地的 state 和 cookie。
+这里发生了很多。首先，我们为认证用户的 `token` 和 `userId` 建立 state。我们通过读 cookie 来初始化 state，那样我们就可以在页面刷新后保证用户的登陆状态。接下来我们实现了我们的 `setAuth` 函数。用 `null` 来调用该函数会将用户登出；否则就使用提供的 `token` 和 `userId`来让用户登陆。不管那种哪种方法，这个函数都会跟新本地的 state 和 cookie。
 
-在同时使用认证和 Apollo websocket link 时存在一个很大的难题。我们在初始化 websocket 时，如果用户被认证，我们就使用令牌，反之，如果用户登出，则不是用令牌。但是当认证状态发生变化时，我们需要根据状态重置 websocket 连接来。 如果用户是先登出再登入，我们需要用户新的令牌来重置 websocket，这样他们就可以实时地接受到需要登陆的活动的更新，比如说一个聊天对话。如果用户是先登入再登出，我们则需要将 websocket 重置成未经验证状态，那么他们就不再会实时地接受到他们已经登出的账户的更新。事实证明这真的很难 —— 因为没有一个消息记录的文档，这花了我好几个小时才解决。我最终手动地为套接字实现了一个重置​​函数：
+在同时使用认证和 Apollo websocket link 时存在一个很大的难题。我们在初始化 websocket 时，如果用户被认证，我们就使用令牌，反之，如果用户登出，则不是用令牌。但是当认证状态发生变化时，我们需要根据状态重置 websocket 连接来。如果用户是先登出再登入，我们需要用户新的令牌来重置 websocket，这样他们就可以实时地接受到需要登陆的活动的更新，比如说一个聊天对话。如果用户是先登入再登出，我们则需要将 websocket 重置成未经验证状态，那么他们就不再会实时地接受到他们已经登出的账户的更新。事实证明这真的很难 —— 因为没有一个消息记录的文档，这花了我好几个小时才解决。我最终手动地为套接字实现了一个重置​​函数：
 
 ```javascript
 // client/src/util.apollo.js
@@ -879,7 +879,7 @@ export const refreshSocket = (socket) => {
 
 这个会断开 Phoenix 套接字，将当前存在的 Phoenix 频道留给 GraphQL 更新，创建一个新的 Phoenix 频道（和Abisnthe 创建的默认频道一个名字），并将这个频道标记为为连接（那样 Absinthe 会在连接时将它重新加入），接着重新连接套接字。在文件中，Phoenix 套接字被配置为在每次连接前动态的在 cookie 中查找令牌，那样每当它重联时，它将会使用新的认证状态。让我崩溃的是，对这样一个看着很普通的问题，却并没有一个好的解决方法，当然，通过一些手动的努力，它工作得还不错。
 
-最后，在我们的 `StateProvider`  中使用的  `useEffect` 是调用 `refreshSocket` 的地方。 第二个参数 `[token]`，告诉了 React 在每次 `token` 值变化时，去重新评估该函数。如果用户只是登出，我们也要执行  `client.clearStore()` 函数来确保 Apollo 客户端不会继续缓存包含着需要需要权限才能得到的数据的查询结果，比如说用户的对话或者消息。
+最后，在我们的 `StateProvider`  中使用的  `useEffect` 是调用 `refreshSocket` 的地方。第二个参数 `[token]`，告诉了 React 在每次 `token` 值变化时，去重新评估该函数。如果用户只是登出，我们也要执行  `client.clearStore()` 函数来确保 Apollo 客户端不会继续缓存包含着需要需要权限才能得到的数据的查询结果，比如说用户的对话或者消息。
 
 这就大概是客户端的全部了。你可以查看余下的[组件](https://github.com/schneidmaster/socializer/tree/master/client/src)来得到更多的关于 query，mutation 和 subscription 的例子，当然，它们的模式都和我们所提到的大体一致。
 
@@ -905,7 +905,7 @@ describe("Loading", () => {
 });
 ```
 
-当你调用 `.toMatchSnapshot()`时，jest 将会在 `__snapshots__/Loading.test.js.snap`  的相对路径下建立一个文件，来记录当前的状态。随后的测试会比较输出和我们所记录的快照，如果与快照（snapshot）不匹配，则测试失败。 快照文件长这样：
+当你调用 `.toMatchSnapshot()`时，jest 将会在 `__snapshots__/Loading.test.js.snap`  的相对路径下建立一个文件，来记录当前的状态。随后的测试会比较输出和我们所记录的快照，如果与快照（snapshot）不匹配，则测试失败。快照文件长这样：
 
 ```javascript
 // client/src/components/__snapshots__/Loading.test.js.snap
