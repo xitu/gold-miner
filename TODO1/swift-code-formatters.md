@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-code-formatters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-code-formatters.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants), [fireairforce](https://github.com/fireairforce)
 
 # Swift 代码格式化
 
@@ -27,7 +27,7 @@
 
 当我们使用空格来使代码更易于理解而不改变其行为时，此时空格就作为一个 [辅助符号](https://en.wikipedia.org/wiki/Secondary_notation)。当然，主要符号是代码本身。
 
-> 另一种辅助表示法是语法高亮，这在我们以前的 [NSHipster文章](https://nshipster.com/swiftsyntax/) 中讨论过.
+> 另一种辅助表示法是语法高亮，这在我们以前的 [NSHipster 文章](https://nshipster.com/swiftsyntax/) 中讨论过.
 
 虽然你可以通过分号在一行代码中写几乎任何东西，但是在其他条件相同的情况下，使用空格与换行来对齐代码难道不是一种更易于理解并且直观的方式吗？
 
@@ -83,7 +83,7 @@ let applePark = ShippingAddress(recipient:"Apple, Inc.", streetAddress:"1 Apple 
 
 #### 安装
 
-SwiftFormat 可以通过 [Homebrew](/homebrew/)，[Mint](https://github.com/yonaskolb/Mint) 以及 [CocoaPods](/CocoaPods/) 来安装。
+SwiftFormat 可以通过 [Homebrew](https://nshipster.com/homebrew/)，[Mint](https://github.com/yonaskolb/Mint) 以及 [CocoaPods](https://nshipster.com/CocoaPods/) 来安装。
 
 你可以通过以下命令来安装它：
 
@@ -155,7 +155,7 @@ $ time swiftformat Example.swift
 $ brew install swiftlint
 ```
 
-或者你也可以通过 [CocoaPods](/CocoaPods/)，[Mint](https://github.com/yonaskolb/Mint) 或者 [独立 pkg 安装包](https://github.com/realm/SwiftLint/releases/tag/0.31.0) 来安装。
+或者你也可以通过 [CocoaPods](https://nshipster.com/CocoaPods/)，[Mint](https://github.com/yonaskolb/Mint) 或者 [独立 pkg 安装包](https://github.com/realm/SwiftLint/releases/tag/0.31.0) 来安装。
 
 #### 使用
 
