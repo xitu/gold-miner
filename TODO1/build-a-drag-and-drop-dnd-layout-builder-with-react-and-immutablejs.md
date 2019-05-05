@@ -491,8 +491,8 @@ class ContentBuilderGridComponent... {
 * 使用服务端呈现从已保存的状态对象生成 HTML 布局
 
 **希望你能 follow 我，如果你没有，这是我在 GitHub 上的一个工作示例，希望你能欣赏它。**
-[**chriskitson/react拖放布局构建器**
-**使用React和ImmutableJS拖放（DnD）UI布局构建器 - chriskitson/react拖放布局构建器**github.com](https://github.com/chriskitson/react-drag-drop-layout-builder)
+
+- [**chriskitson/react 拖放布局构建器**：使用 React 和 ImmutableJS 拖放（DnD）UI 布局构建器](https://github.com/chriskitson/react-drag-drop-layout-builder)
 
 > 感谢您抽出宝贵时间阅读我的文章。
 
