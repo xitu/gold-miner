@@ -2,55 +2,55 @@
 > * 原文作者：[namc](http://namc.in/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/retries-timeouts-backoff.md](https://github.com/xitu/gold-miner/blob/master/TODO1/retries-timeouts-backoff.md)
-> * 译者：
-> * 校对者：
+> * 译者：[nettee](https://github.com/nettee)
+> * 校对者：[fireairforce](https://github.com/fireairforce)
 
-# Retries, Timeouts and Backoff
+# 重试、超时和退避
 
-Distributed systems are hard. While we learn a lot about making highly available systems, we often overlook resiliency in system design.
+分布式系统很难。即使我们学了很多构建高可用性系统的方法，也常常会忽略系统设计中的弹性（resiliency）。
 
-Sure we have heard about fault-tolerant, but what is “resilience” now? Personally, I like to define it a system’s ability to handle and eventually recover from unexpected conditions. There are several ways to go about making your systems resilient to failure, but in this post, we will focus on following
+我们肯定听说过容错性，但什么是“弹性”呢？个人而言，我喜欢将其定义为系统处理意外情况并最终从中恢复的能力。有很多方法使你的系统能从故障中回弹，但在这篇文章中，我们主要关注以下几点：
 
-* [Timeouts](#timeouts)
-* [Retries](#retries)
-* [Backoff](#backoffs)
-* [Idempotency in distributed system](#idempotency-in-distributed-systems)
+* [超时](#超时)
+* [重试](#重试)
+* [退避](#退避)
+* [分布式系统中的幂等性](#分布式系统中的幂等性)
 
-## Timeouts
+## 超时
 
-Timeout, simply put, is a maximum period of inactivity between two consecutive data packets.
+简单来说，超时就是两个连续的数据包之间的最大不活动时间。
 
-I suppose we have worked with database drivers and http-clients at some point of time. All clients/drivers that help connect your service to an external server has a Timeout parameter, which often defaults to zero, or -1. This means that the timeout is undefined, or infinite.
+假设我们在某个时刻已经使用过了数据库驱动和 HTTP 客户端。所有帮助你的服务连接到一个外部服务器的客户端或驱动都有 Timeout 参数。这个参数通常默认为零或 -1，表示超时时间未定义，或是无限时间。
 
-eg - See the `connectTimeout` and `socketTimeout` definition [Mysql Connector Configuration](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-configuration-properties.html)
+例如：参考 `connectTimeout` 和 `socketTimeout` 的定义 [Mysql Connector 配置](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-configuration-properties.html)
 
-Most requests to external servers should have a timeout attached. This is essential when the server is not responding in a timely manner. If this value is not set, and defaults to 0/-1 , your code may hang for minutes or even more. This happens because when you do not receive a response from application server and since your timeout is indefinite, or infintely large, the connection pool remains open. As more requests come in, more connections open up which consequently never close, thereby causing your connection pool to run out. This causes a cascading failure in your application.
+大多数对外部服务器的请求都附有一个超时时间。当外部服务器没有及时响应时，超时的设置非常有必要。如果没有设置超时，并使用默认值 0/-1，你的程序可能会阻塞几分钟或更长的时间。这是因为，当你没有收到来自应用服务器的响应，并且你的超时时间无限或非常大时，这个连接会一直开着。随着有更多的请求到来，更多的连接会打开，并永远无法关闭。这会导致你的连接池耗尽，进而导致你的应用的故障。
 
-So whenever you are configuring your application to use such connectors, please set an explicit timeout value in their configurations.
+那么，每当你使用这样的连接器来配置你的应用时，请务必在配置中设置显式的超时值。
 
-One must also implement timeouts on both, frontend and backend. That is, if a read/write operation is stuck on a rest api or socket for too long, an exception should be raised and connection should be broken. This should signal the backend to cancel the operation and close the connection, thereby preventing indefinitely open connections.
+超时必须在前端和后端中都实现。如果一个读/写操作在一个 REST API 或 socket 接口上阻塞了太长时间，它应当抛出异常，并且断开连接。这可以通知后端取消操作并关闭连接，从而防止连接始终打开。
 
-## Retries
+## 重试
 
-We might need to understand a little about **transient failures** as we would be using that term frequently. Simply put, transient failures in your service are temporary glitches, e.g. a network congestion, database overload. Something which is perhaps correct itself given enough cool-off period.
+我们可能需要了解**瞬时故障**这个术语，因为我们后面会频繁用到它。简单地说，服务中的瞬时故障是一种暂时的失灵，例如网络拥塞，数据库过载，是一种在有足够的冷却周期之后也许能自己恢复的故障。
 
-**How to determine if a failure is transient?**
+**如何判断一个故障是否是瞬时的？**
 
-The answer lies in implementation detail of your API/Server responses. If you have a rest API, return a [503 Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.1) instead of other 5xx/4xx error messages. This will let the client know that the timeout is being caused by “a temporary overload” - not because of a code-level error.
+答案取决于你的 API/Server 响应的实现细节。如果你有一个 REST API，请返回 [503 Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.1)，而不是其他 5xx/4xx 错误码。这可以让客户端知道超时是由“临时的过载”引起的，而不是由于代码层面的错误。
 
-Retries, although helpful, are a bit notorious if not configured properly. Here’s how you can figure out the correct way to use retries.
+重试虽然有用，但如果没有正确地配置，则会让人讨厌。下面阐述了如何找出正确的重试方法。
 
-**Retry**
+**重试**
 
-If the error received from the server is transient, e.g. a network packet got currupted while being transmitted, the application could retry the request immediately because the failure is unlike to happen again.
+如果从服务器收到的错误是瞬时的，例如网络数据包在传输时损坏，应用程序可以立即重试请求，因为故障不太可能再次发生。
 
-This is however very agressive, and could prove to be detrimental to your service, which might already be running at capacity, or unavailable completely. It also degrades the application response time as your service would be trying to perform a failing operation continuously.
+然而，这种方法非常激进。如果你的服务已经满负荷运行，或是已经完全不可用，这种方法可能对你的服务有害。这种方法还会拖慢应用的响应时间，因为你的服务会尝试不断执行一个失败的操作。
 
-If your business logic requires this retry policy, it is best to limit the number of retries to prevent further requests going to the same source.
+如果你的业务逻辑需要这样的重试策略，你最好限制重试的次数，不向同一个源头发送过多的请求。
 
-**Retry after delay**
+**带延迟的重试**
 
-If the fault is caused due to connectivity failures or due to excess traffic on the network, the application should add a delay period as per business logic before retrying the requests.
+如果是连接失败或网络上的过大流量导致的故障，应用程序则应当根据业务逻辑，在重试请求之前添加延迟时间。
 
 ```
 for(int attempts = 0; attempts < 5; attempts++)
@@ -61,30 +61,29 @@ for(int attempts = 0; attempts < 5; attempts++)
         break;
     }
     catch { }
-    Thread.Sleep(50); // Delay
+    Thread.Sleep(50); // 延迟
 }
 ```
     
+当使用一个连接至外部服务的库时，请检查它是否实现了重试策略，允许你配置重试的最大次数、重试之间的延迟等。
 
-When using a library that connects to external services, please check if it implements retry policies, allowing you to configure maximum number of retries, delay between retries etc.
+你还可以通过设置 [Retry-After](https://tools.ietf.org/html/rfc7231#section-7.1.3) 响应头，在服务器端实现重试的策略。
 
-You can also implement retry policy on server-side, by setting a [Retry-After](https://tools.ietf.org/html/rfc7231#section-7.1.3) in response header.
+用日志记录操作失败的原因也很重要。有时候操作失败是因为缺少资源，这可以通过添加更多的服务实例来解决。也有时候操作失败可能是因为内存泄漏或空指针异常。那么，添加日志跟踪你的应用程序的行为就很重要了。
 
-It is also important to log why the operation might be failing. Some times it is due to lack of resources which can handled by adding more instances of that service. Other times it could be due to a memory leak, or a null-pointer exceptions. Hence, it is imperative to add logs and track the performance of your application.
+## 退避
 
-## Backoffs
+如上所述，我们可以向重试策略中添加延迟。这种延迟通常称为**线性退避**。这可能不是实现一个重试策略的最佳方法。
 
-As we saw above, we can add delay to the retry policy. This delay is often referred to as _linear backoff_. This approach may not be the best way to implement a retry policy.
+考虑这种情况：你的服务因为数据库的过载发生了故障。我们的请求很可能在几次重试之后会成功。但不断发送的请求也可能**加重**你的数据库服务器的过载问题。因此，数据库服务会在过载状态停留更长时间，也会需要更多的时间从过载状态中恢复。
 
-Consider the case where the fault in your service could be happening because the database is overloaded. It is quite possible that after some retries our request might succeed. It is also possible that consequent requests might be **adding to the overload** of your database server.Thus, the service would be in overloaded state far longer and will take more time to recover from this state.
+有几种策略可以用于解决这个问题。
 
-There are several strategies that can be used to solve this problem.
+**1. [指数退避](https://en.wikipedia.org/wiki/Exponential_backoff)**
 
-**1. [Exponential Backoff](https://en.wikipedia.org/wiki/Exponential_backoff)**
+顾名思义，指数退避不是在重试之间进行周期性的延迟（例如 5 秒），而是指数性地增加延迟时间。重试会一直进行到最大次数限制。如果请求始终失败，就告诉客户端请求失败了。
 
-As the name suggests. instead of period delay of, say 5 seconds, between retries, increase the delay between requests exponentially. We do this till we reach the maximum retry limit. If the request continues to fail, let the client know that the request has failed.
-
-You must also set a limit on how large the delay can be. Exponential backoff might result in setting a delay which is very large, thereby keeping the request socket open indefinitely, and making the thread sleep for “eternity”. This will drain the system resources, thereby causing more problems with connection pools.
+你还必须设置最大延迟时间的限制。指数退避可能导致出现非常大的延迟时间，导致请求的 socket 保持无限期开启，并使线程“永远”休眠。这会耗尽系统资源，导致连接池的更多问题。
 
 ```
 int delay = 50
@@ -98,23 +97,22 @@ for(int attempts = 0; attempts < 5; attempts++)
     catch { }
     
     Thread.sleep(delay);
-    if (delay < MAX_DELAY)      // MAX_DELAY could depend upon application and business logic 
+    if (delay < MAX_DELAY)      // MAX_DELAY 可能依赖于应用程序和业务逻辑
     {
         delay *= 2;
     }
 }
 ```
     
+指数退避在分布式系统中的一个主要缺点是，**在同一时间开始退避的请求，也会在同一时间进行重试**。这导致了请求簇的出现。那么，我们并没有减少每一轮进行竞争的客户端数量，而是引入了没有客户端竞争的时期。固定的指数退避并不能减少很多竞争，并会生成**负载峰值**。
 
-One major drawback of exponential backoff is seen in distributed systems, where **requests that backoff at the same time, also retry at the same time**. This causes clusters of calls. Therefore, instead of reducing number of clients competing in every round, we have now introduced periods when no client is competing. A fixed progression exponential backoff does not reduce the contention much, and generates **peaks of loads**.
+**2. [带抖动的退避](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/)**
 
-**2. [Backoff with jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/)**
+为了处理指数退避的负载峰值问题，我们向退避策略中添加**抖动**。抖动是一种去相关性策略，在重试的间隔中添加随机性，从而分摊了负载，避免了出现网络请求簇。
 
-In order to deal with load of spikes as mentioned in exponential backoff, we add _jitter_ to our backoff strategy. Jitter is a decorrelation strategy, it adds randomness to retry intervals and spreads out the load. This avoids cluster of network calls.
+抖动通常不是任何一项配置属性，需要客户端来实现。抖动所需要的只是一个可以加入随机性的函数，可以在重试之前动态地计算出等待的时间。
 
-Jitter is usually not part of any configuration property and needs to implemented by the client. All it only requires is a function which can add randomness, and dynamically calculate the duration to wait before retrying.
-
-By introducing jitter, the initial group of failing requests may be clustered in a very small window, say 100ms, but with each retry cycle, the cluster of requests spreads into a larger and larger time window, thereby reducing the size of the spike at a given time. The service is likely to be able to handle the requests when spread over a sufficiently large window.
+引入抖动之后，最初的一组失败的请求可能聚集在一个很小的窗口中，例如 100 ms。但是在每个重试周期之后，请求簇会摊开到越来越大的时间窗口中。当请求分摊在足够大的窗口上时，服务就很可能能够处理这些请求。
 
 ```
 int delay = 50
@@ -128,19 +126,19 @@ for(int attempts = 0; attempts < 5; attempts++)
     catch { }
     
     Thread.sleep(delay);
-    delay *= random.randrange(0, min(MAX_DELAY, delay * 2 ** i)) // just a simple random number generation
+    delay *= random.randrange(0, min(MAX_DELAY, delay * 2 ** i)) // 只是生成一个简单的随机数
 }
 ```
 
-In case of **long-lasting transient failures**, retries of any kind might not be the best approach. This could be due to a connectivity failure, power outtage (yes, they are very real) etc. The client would end up retrying several times, wasting system resources, further leading to cascading failures across multiple systems.
+在**长时间的瞬时故障**的情况下，任何的重试可能都不是最好的方法。这种故障可能是由于连接失效，电力中断（是的，非常真实的情况）导致的。客户端最终会重试若干次，浪费了系统资源，并进一步导致了更多系统中的故障。
 
-So we need a mechanism to determine if the failure is long-lasting, and implement a solution to handle it.
+那么，我们需要一种可以确定故障是否会长期持续的机制，并实现一种应对该情况的解决方案。
 
-**3. [Circuit Breakers](https://en.wikipedia.org/wiki/Circuit_breaker_design_pattern)**
+**3. [断路器](https://en.wikipedia.org/wiki/Circuit_breaker_design_pattern)**
 
-Circuit Breaker pattern is useful for handling long-lasting transient failures of a service by determining its availability, preventing the client from retrying requests that are bound to fail.
+断路器模式在处理服务的长时间瞬时故障时非常有用。它通过确定服务的可用性，防止客户端重试注定会失败的请求。
 
-Circuit breaker design pattern requires that the state of the connection be retained over a series of requests. Lets look at this [Circuit breaker implementation by failsafe](https://github.com/jhalterman/failsafe#circuit-breakers)
+断路器设计模式要求在一系列的请求中保留连接的状态。让我们看看 [failsafe 实现的断路器](https://github.com/jhalterman/failsafe#circuit-breakers)
 
 ```
 CircuitBreaker breaker = new CircuitBreaker()
@@ -151,56 +149,56 @@ CircuitBreaker breaker = new CircuitBreaker()
 Failsafe.with(breaker).run(() -> connect());
 ``` 
 
-When everything runs as expected, there are no outtages, the circuit breaker remains in a closed state.
+当一切正常运行时，没有故障，断路器保持在关闭状态。
 
-When a threshold of executation failures occur, the circuit breaker trips and goes into **open** state, which means, all consequent requests will continue to fail without going through retry logic.
+当达到执行故障的阈值时，断路器跳闸并进入**打开**状态。这意味着，后续的所有请求会直接失败，不会经过重试的逻辑。
 
-After a delay (1 minute as mentioned above), the circuit will go into **half-open** state, just to test if the problem with network call still exists, thereby deciding if the circuit should be closed or opened. If it succeeds, the circuit resets to **closed** state, else it is set as **open** again.
+经过一段延迟之后（如上述设置的 1 分钟），断路器会进入**半开**状态，测试网络请求的问题是否依然存在，并决定断路器是应当关闭还是打开。如果请求成功，断路器会重置为**关闭**状态，否则会重新置为**打开**状态。
 
-This helps in avoiding cluster of retry executions during long lasting faults, saving system resources.
+这有助于在长时间的故障中避免重试执行的聚集，节省系统资源。
 
-While this can be maintained locally in a state variable, you might need an external storage layer if you have a **distributed system**. In a multi-node setup, the state of application server will need to shared across all instances. In such a scenario, you can use Redis, memcached to keep a record of the availability of external services. Before making any requests to external service, the state of service is queried from the persistent storage.
+虽然断路器可以用一个状态变量在本地维护。但是如果你有一个**分布式系统**，你可能需要一个外部存储层。在多节点的配置中，应用服务器的状态需要在多个实例之间共享。在这种场景下，你可以使用 Redis、memcached 来记录外部服务的可用性。在向外部服务发送任何请求之前，从持久存储中查询服务的状态。
 
-## Idempotency in distributed systems
+## 分布式系统中的幂等性
 
-A service is idempotent when clients can make same requests repeatedly while producing same end-result. While the operation would produce same result on the server, it might not give the same response to client.
+幂等的服务是指客户端可以重复地发起相同的请求，并得到相同的最终结果。虽然服务器会对此操作产生相同的结果，但客户端不一定作出相同的反应。
 
-In case of REST APIs, you need to remember -
+对于 REST API 而言，你需要记住 ——
 
-* **POST** is NOT idempotent - POST causes new resources to be created on server. “n” POST requests result in creating “n” new resources on the server.
-* **GET**, **HEAD**, **OPTIONS** and **TRACE** methods NEVER change the resource state on server. Hence, they are always idempotent.
-* **PUT** requests are idempotent. “n” put requests will overwrite the same resource “n-1” times.
-* **DELETE** is idempotent because it would return 200 (OK) initially, and 204 (No Content) or 404 (Not Found) on subsequent calls.
+* **POST** **不是**幂等的 —— POST 导致在服务器上创建新资源。n 个 POST 请求会在服务器上创建 n 个新的资源。
+* **GET**、**HEAD**、**OPTIONS** 和 **TRACE** 方法**永远**不会改变服务器上资源的状态。因此，它们总是幂等的。
+* **PUT** 请求是幂等的。n 个 PUT 请求会覆盖相同的资源 n-1 次。
+* **DELETE** 是幂等的，因为它一开始会返回 200（OK），而后续的调用会返回 204（No Content）或 404（Not Found）。
 
-**Why care about idempotent operations?**
+**为什么关注幂等操作呢？**
 
-In a distributed system, there are several server and client nodes. If you make a request from Client to Server A which fail, or times out, then you would like to able to simply make that request again, without worrying if the previous request had any side-effects.
+在分布式系统中，有多个服务器和客户端节点。如果你从客户端向服务器 A 发送了请求，请求失败或超时了，那么你想能够简单地再次发送该请求，而不必担心先前的请求是否有任何副作用。
 
-This is extremely essential in micro-services where a lot of components operate independently.
+这在微服务中是极其重要的，因为有很多独立工作的组件。
 
-Some key benefits of idempotency are -
+幂等性的一些主要好处有 ——
 
-* **Minimal complexity** - No need to worry about side effects, any request can be simply retried, and same end-result is achieved.
-* **Easier to implement** - You would not need to add logic to handle previous failed requests in your retry mechanism.
-* **Easier to test** - Each action result in same result, no surprises.
+* **最小的复杂性** —— 不需要担心副作用，可以简单地重试任何请求，并得到相同的最终结果。
+* **易于实现** —— 你不需要添加逻辑来处理你的重试机制中先前失败的请求。
+* **易于测试** —— 每个动作都会产生相同的结果，没有意外。
 
-## Final notes
+## 结语
 
-We went through a bunch of ways you can build a more fault-tolerant system. However, that is not all. In closing, I would like to add a few pointers you can look into, which might help make your systems more available and tolerant to failures.
+我们梳理了一系列构建更容错系统的方法。然而，这些方法并不是全部。最后，我想指出几个供你查看的要点，或许能帮助提高你系统的可用性和容错性。
 
-* In a multi-node setup, if a client is retrying several times, the requests are likely to hit the same server. When this happens, it is best to give a failure response and making the client try again from scratch.
-* Profile your systems, keep them prepared for the worst. You might want to check out [Chaos Monkey by Netlifx](https://github.com/Netflix/chaosmonkey) - its a resiliency tool which triggers random failures in your system. This keeps you prepared for faults that might occur, helping you build a resilient system.
-* If your systems are under excessive loads for some reason, you can try distributing it by load shedding. Google did a brilliant [case study](https://cloud.google.com/blog/products/gcp/using-load-shedding-to-survive-a-success-disaster-cre-life-lessons) which can serve as a good starting point.
+* 在多节点配置中，如果一个客户端重试了多次，这些请求很可能到达同一个服务器。此时，最好返回一个失败的响应，让客户端从头重试。
+* 对你的系统做性能统计，让它们时刻准备最坏的情况。你可以查看 [Netflix 的 Chaos Monkey](https://github.com/Netflix/chaosmonkey) —— 这是一个在系统中触发随机故障的弹性测试工具。这能让你为可能发生的故障做好准备，构建一个有弹性的系统。
+* 如果你的系统由于某种原因处于过载状态，你可以尝试通过减载（load shedding）来分布负载。Google 做了一个很棒的[案例研究](https://cloud.google.com/blog/products/gcp/using-load-shedding-to-survive-a-success-disaster-cre-life-lessons)，可以作为一个很好的起点。
 
 * * *
 
-Resources:
+一些资源：
 
-* [Patterns for distributed systems](https://www.dre.vanderbilt.edu/~schmidt/patterns-ace.html)
-* [Retry Patterns - Microsoft](https://docs.microsoft.com/en-us/azure/architecture/patterns/retry)
-* [Martin Fowler Circuit Breaker](https://martinfowler.com/bliki/CircuitBreaker.html)
+* [分布式系统中的模式](https://www.dre.vanderbilt.edu/~schmidt/patterns-ace.html)
+* [重试模式 - Microsoft](https://docs.microsoft.com/en-us/azure/architecture/patterns/retry)
+* [Martin Fowler - 断路器](https://martinfowler.com/bliki/CircuitBreaker.html)
 
-Thank you! ❤
+感谢！❤
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
