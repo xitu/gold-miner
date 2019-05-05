@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-drag-and-drop-dnd-layout-builder-with-react-and-immutablejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-drag-and-drop-dnd-layout-builder-with-react-and-immutablejs.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[Eternaldeath](https://github.com/Eternaldeath),[portandbridge](https://github.com/portandbridge)
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath), [portandbridge](https://github.com/portandbridge)
 
 # 使用 React 和 ImmutableJS 构建一个拖放布局构建器
  
@@ -26,7 +26,7 @@
 
 ## React
 
-[React](https://reactjs.org/) 基于声明式编程，这意味着它根据状态来进行渲染。状态（State）实际上只是一个 JSON 对象，它具有告诉 React 应该怎么去渲染（样式和功能）的属性。与操作 DOM 的库（例如jQuery）不同，我们不直接改变 DOM，而是通过修改状态（state）然后让 React 去负责 DOM（**稍后会介绍 DOM**）。
+[React](https://reactjs.org/) 基于声明式编程，这意味着它根据状态来进行渲染。状态（State）实际上只是一个 JSON 对象，它具有告诉 React 应该怎么去渲染（样式和功能）的属性。与操作 DOM 的库（例如 jQuery）不同，我们不直接改变 DOM，而是通过修改状态（state）然后让 React 去负责 DOM（**稍后会介绍 DOM**）。
 
 在这个项目中，假设有一个父组件来保存布局的状态（JSON 对象），并且这个状态将被传递给其他的组件，这些组件都是 React 中的无状态组件。
 
@@ -109,7 +109,7 @@ link = {...link, name: 'New name' };
 
 上面只是基本示例，但是如果想要在复杂的 JSON 状态结构中更改嵌套了多层的属性应该怎么做？
 
-ECMA Script 6 为我们提供了一些方便的操作符和方法来改变对象，但它们并不适用于复杂的数据结构，这就是我们需要[ImmutableJS](https://github.com/immutable-js/immutable-js)来简化任务的原因。 
+ECMA Script 6 为我们提供了一些方便的操作符和方法来改变对象，但它们并不适用于复杂的数据结构，这就是我们需要 [ImmutableJS](https://github.com/immutable-js/immutable-js) 来简化任务的原因。 
 
 稍后我们会使用 ImmutableJS，但是现在你只需要知道它具有给我们提供简便的方法用来改变复杂的状态方面的作用。
 
@@ -175,7 +175,7 @@ export const DroppableComponent = ({
 
 **好的，是时候快速回顾一下，然后将他们全部放到一起：**
 
-**我们将使用 React 中基于状态对象的少量解耦无状态组件来渲染整个布局。用户交互将由 HTML5 DnD　事件来处理，而时间会使用 ImmutableJS 来触发对状态对象的更改。**
+**我们将使用 React 中基于状态对象的少量解耦无状态组件来渲染整个布局。用户交互将由 HTML5 DnD 事件来处理，而时间会使用 ImmutableJS 来触发对状态对象的更改。**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*06515Z0luWKxNzfsz8tKBw.gif)
 
@@ -195,7 +195,7 @@ export const DroppableComponent = ({
 
 我们的状态需要存储大量组件，可以通过以下接口表示：
 
-**如果你不熟悉 JavaScript 中的接口，你应该看看 [TypeScript](https://www.typescriptlang.org/) ——你大概能看出我是它的粉丝。它很适用于 React。** 
+**如果你不熟悉 JavaScript 中的接口，你应该看看 [TypeScript](https://www.typescriptlang.org/) — 你大概能看出我是它的粉丝。它很适用于 React。** 
 
 ```ts
 export interface IComponent {
@@ -438,7 +438,7 @@ private onDragDrop(event: React.DragEvent <HTMLDivElement>, containerId: string)
 
  1. 循环遍历内容项（我们状态的根）并且渲染一个 `ContentBuilderDraggableComponent` 和一个 `DroppableComponent`。
 
- 2. 确定组件是否为 Grid 类型, 然后渲染 `ContentBuilderGridComponent`, 否则渲染一个常规的 `DraggableComponent`。
+ 2. 确定组件是否为 Grid 类型，然后渲染 `ContentBuilderGridComponent`，否则渲染一个常规的 `DraggableComponent`。
 
  3. 渲染被 X 个子项目标记的 Grid 组件，每个子项目中都有一个 `ContentBuilderDraggableComponent` 和一个 `DroppableComponent`。
 
@@ -490,9 +490,9 @@ class ContentBuilderGridComponent... {
 * 使网格组件可配置
 * 使用服务端呈现从已保存的状态对象生成 HTML 布局
 
-**希望你能 follow 我，如果你没有，这是我在GitHub上的一个工作示例，希望你能欣赏它。**
-
-- [**chriskitson/react 拖放布局构建器**：使用 React 和 ImmutableJS 拖放（DnD）UI 布局构建器](https://github.com/chriskitson/react-drag-drop-layout-builder)
+**希望你能 follow 我，如果你没有，这是我在 GitHub 上的一个工作示例，希望你能欣赏它。**
+[**chriskitson/react拖放布局构建器**
+**使用React和ImmutableJS拖放（DnD）UI布局构建器 - chriskitson/react拖放布局构建器**github.com](https://github.com/chriskitson/react-drag-drop-layout-builder)
 
 > 感谢您抽出宝贵时间阅读我的文章。
 
