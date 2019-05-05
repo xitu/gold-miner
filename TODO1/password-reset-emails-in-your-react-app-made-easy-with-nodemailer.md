@@ -30,6 +30,7 @@ When I decided to tackle sending password reset links via email (just like real 
 Once I started googling around looking for solutions to my password reset feature, I came across a number of articles recommending [Nodemailer](https://nodemailer.com/about/).
 
 When I visited the website, the first lines I read were:
+
 > Nodemailer is a module for Node.js applications to allow easy as cake email sending. The project got started back in 2010 when there was no sane option to send email messages, today it is the solution most Node.js users turn to by default. — Nodemailer
 
 And you know what? It wasn’t kidding. Easy as cake isn’t too far wrong.
@@ -39,13 +40,9 @@ Of course, before I got started, I did a little more digging to make sure I was 
 Nodemailer has:
 
 * Over 615,000 weekly downloads from NPM,
-
 * Over 10,000 stars on Github,
-
 * 206 releases to date,
-
 * Over 2,500 dependent packages,
-
 * And it’s been around in some form or fashion since 2010.
 
 Ok, that seemed good enough for me to give it a shot in my own project.
@@ -55,11 +52,8 @@ Ok, that seemed good enough for me to give it a shot in my own project.
 I didn’t need anything fancy for my password reset, just:
 
 * a way to send an email to a user’s address,
-
 * and that email would contain a link that would redirect them to a protected page on my site where they could reset their password,
-
 * and then they could log in using their new password.
-
 * I also wanted the password reset link to expire after a certain time period for better security.
 
 Here’s how I did it.
@@ -227,9 +221,7 @@ Thanks for reading, I hope this gives you an idea of how to use Nodemailer to se
 **If you enjoyed reading this, you may also enjoy some of my other blogs:**
 
 * [The Absolute Easiest Way to Debug Node.js — with VS Code](https://itnext.io/the-absolute-easiest-way-to-debug-node-js-with-vscode-2e02ef5b1bad)
-
 * [Implementing JSON Web Tokens & Passport.js in a JavaScript Application with React](https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436)
-
 * [Sequelize: Like Mongoose But for SQL](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
 
 ***
@@ -237,11 +229,8 @@ Thanks for reading, I hope this gives you an idea of how to use Nodemailer to se
 **References and Further Resources:**
 
 * Nodemailer: [https://nodemailer.com/about/](https://nodemailer.com/about/)
-
 * Nodemailer, Github: [https://github.com/nodemailer/nodemailer](https://github.com/nodemailer/nodemailer)
-
 * Nodemailer, NPM: [https://www.npmjs.com/package/nodemailer](https://www.npmjs.com/package/nodemailer)
-
 * MERN App with Nodemailer Repo: [https://github.com/paigen11/mysql-registration-passport](https://github.com/paigen11/mysql-registration-passport)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
