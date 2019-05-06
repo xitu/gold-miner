@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/room-coroutines.md](https://github.com/xitu/gold-miner/blob/master/TODO1/room-coroutines.md)
 > * 译者：[Feximin](https://github.com/Feximin)
-> * 校对者：
+> * 校对者：[fireairforce](https://github.com/fireairforce)
 
 # Room 🔗 Coroutines
 
@@ -23,7 +23,7 @@ implementation "androidx.room:room-coroutines:${versions.room}"
 
 你还需要 Kotlin 1.3.0 和 [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) 1.0.0 及以上版本。
 
-现在可以更新 DAO 方法来使用挂起函数了：
+现在，你可以更新 DAO 方法来使用挂起函数了：
 
 ```
 @Dao
@@ -71,15 +71,15 @@ abstract class UsersDao {
 
 具有挂起事务功能的 DAO
 
-Room 会根据是否在事务中调用挂起方法进行区别对待：
+Room 会根据是否在事务内调用挂起方法进行区别对待：
 
-**1. 事务中**
+**1. 事务内**
 
 Room 不会对触发数据库语句的协程上下文（CoroutineContext）做任何处理。方法调用者有责任确保当前不是在 UI 线程。由于 `suspend` 方法只能在其他 `suspend` 方法或协程中调用，因此需确保你使用的 `Dispatcher` 是 [`Dispatchers.IO`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html) 或自定义的，而不是 [`Dispatcher.Main`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html)。
 
 **2. 事务外**
 
-Romm 会确保数据库语句是在架构组件 I/O `Dispatcher` 上被触发。该 `Dispatcher` 是基于使处于后台工作的 `LiveData` 运行起来的同一 I/O `Executor` 而创建的。
+Room 会确保数据库语句是在架构组件 I/O `Dispatcher` 上被触发。该 `Dispatcher` 是基于使处于后台工作的 `LiveData` 运行起来的同一 I/O `Executor` 而创建的。
 
 ### 测试 DAO 挂起方法
 
@@ -157,9 +157,9 @@ public Object insertUserSuspend(final User user,
 
 Room 对挂起插入生成的实现代码
 
-不过有趣的是 `CoroutinesRoom.execute` 方法，这是一个根据数据库是否打开以及是否处于事务中来处理上下文切换的方法。
+不过有趣的是 `CoroutinesRoom.execute` 方法，这是一个根据数据库是否打开以及是否处于事务内来处理上下文切换的方法。
 
-**情形 1. 数据库被打开同时处于事务中**
+**情形 1. 数据库被打开同时处于事务内**
 
 这种情况下只触发了 call 方法，即用户在数据库中的实际插入操作
 
