@@ -443,7 +443,7 @@ https://whatthecommit.com/
 - [如何书写 Git 的 Commit 信息](https://chris.beams.io/posts/git-commit/)
 - [高级 Git 手册 —— Commit 指导](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines)
 - [关于 Git 的 Commit 信息的注意事项](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-- [Merge 与 Rebase ](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+- [Merge 与 Rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 - [高级 Git 手册 —— 重写历史](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
