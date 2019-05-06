@@ -427,7 +427,7 @@ https://whatthecommit.com/
 
 ## 喜欢吗？
 
-[谢谢!](https://saythanks.io/to/RomuloOliveira)
+[点赞！](https://saythanks.io/to/RomuloOliveira)
 
 ## 贡献
 
