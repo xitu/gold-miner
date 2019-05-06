@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-speech-recognition-using-wfsts.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-speech-recognition-using-wfsts.md)
 > * 译者：[sisibeloved](https://github.com/sisibeloved)
-> * 校对者：[xionglong58](https://github.com/xionglong58)、[JackEggie](https://github.com/JackEggie)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [JackEggie](https://github.com/JackEggie)
 
 # 使用 WFST 进行语音识别
 
@@ -59,7 +59,7 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 
 确定自动机是每个状态中每种标签只有一个转移的自动机。通过这样的表达式，确定化的 WFST 消除了所有冗余并大大降低了基础语法的复杂性。那么，是不是所有 WFST 都可以确定化呢？
 
-**孪生属性**：假设有一个自动机 A，A 中有两个状态 **p** 和 **q**。如果 **p** 和 **q** 都具有相同的字符串输入 **x** ，并有相同标签的循环 **y** ，则称 **p** 和 **q** 为兄弟状态。从概念上讲，到该状态为止的路径（包括循环在内）的总权重相等，则这两个兄弟状态是孪生的。 
+**孪生属性**：假设有一个自动机 A，A 中有两个状态 **p** 和 **q**。如果 **p** 和 **q** 都具有相同的字符串输入 **x**，并有相同标签的循环 **y**，则称 **p** 和 **q** 为兄弟状态。从概念上讲，到该状态为止的路径（包括循环在内）的总权重相等，则这两个兄弟状态是孪生的。 
 
 > 当所有兄弟状态是孪生的时，这个 WFST 是可以被确定化的。
 
@@ -92,8 +92,6 @@ ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的�
 ![](https://cdn-images-1.medium.com/max/2000/1*dNGFwfEMWqiVxNKRNjV5MA.png)
 
 ### WFST 在语音识别中的应用
-
-***
 
 在语音识别中，多个 WFST 会被串行组合，顺序如下：
 
