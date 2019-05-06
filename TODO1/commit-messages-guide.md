@@ -21,7 +21,7 @@
 - [西班牙语版](README_es-AR.md)
 - [意大利语版](README_it-IT.md)
 
-## 什么是『commit』?
+## 什么是 “commit”？
 
 简而言之，commit 就是你本地仓库中文件的一个快照。
 和一些人的想法相反，[git 不仅存储文件之间的差异，还存储所有文件的完整版本](https://git-scm.com/book/eo/v1/Ekkomenci-Git-Basics#Snapshots,-Not-Differences)。
@@ -66,7 +66,7 @@ Used InventoryBackendPool to retrieve inventory backend
 If applied, this commit will <commit message>
 ```
 
-示例:
+示例：
 
 ```
 # 好示例
@@ -155,7 +155,7 @@ Add `use` method to Credit
 提交信息的主题和正文被一个空白行分割
 附加的空白行被认为是提交信息正文的一部分。
 
-类似 `-`, `*` 和 `\` 的字符是用来提高可读性的元素。
+类似 `-`，`*` 和 `\` 的字符是用来提高可读性的元素。
 
 ### 避免通用消息或者没有任何上下文的消息
 
@@ -190,14 +190,14 @@ bebebe Fix method name of InventoryBackend child classes
 ```
 
 ```
-# 好示例 (葡萄牙语示例)
+# 好示例（葡萄牙语示例）
 ababab Adiciona o método `use` ao model Credit
 efefef Usa o InventoryBackendPool para recuperar o backend de estoque
 bebebe Corrige nome de método na classe InventoryBackend
 ```
 
 ```
-# 坏示例 (混合了英语和葡萄牙语)
+# 坏示例（混合了英语和葡萄牙语）
 ababab Usa o InventoryBackendPool para recuperar o backend de estoque
 efefef Add `use` method to Credit model
 cdcdcd Agora vai
@@ -205,7 +205,7 @@ cdcdcd Agora vai
 
 ### 模板
 
-这是一个样板, [由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html), 出现在文章[**高级 Git 手册**](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
+这是一个样板，[由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)，出现在文章[**高级 Git 手册**](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project)。
 
 ```
 简化变更内容到 50 字符左右或者更少
@@ -214,7 +214,7 @@ cdcdcd Agora vai
 将它包装成大约 72 个字符左右。
 在某些情况下，第一行被视为 commit 的信息主题，余下文字被认为信息正文。
 将摘要和正文分离开的空白行很有必要（除非你忽略了整个正文）；
-不同的工具像『log』、『shortlog』、『rebase』，
+不同的工具像 `log`、`shortlog`、`rebase`，
 可能会变得混乱，如果你同时运行两个。
 
 解释本次 commit 正在解决的问题。
@@ -237,21 +237,21 @@ Resolves: #123
 See also: #456, #789
 ```
 
-## rebase 与 merge
+## Rebase 与 Merge
 
-这节是 Atlassian 优秀教程中的一个 **TL;DR** ， [『 merge 与 rebase 』](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)。
+这节是 Atlassian 优秀教程中的一个 **TL;DR**，[“Merge 与 Rebase”](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)。
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:01b0b04e-64f3-4659-af21-c4d86bc7cb0b/01.svg?cdnVersion=hq)
 
-### rebase
+### Rebase
 
 **TL;DR:** 把你的分支中的 commit 一个接一个地应用到 base 分支，生成一个新树。
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:5b153a22-38be-40d0-aec8-5f2fffc771e5/03.svg?cdnVersion=hq)
 
-### merge
+### Merge
 
-**TL;DR:** 使用两个分支间的差异，创建新的 commit，称作（适当地）**合并提交**。
+**TL;DR:** 使用两个分支间的差异，创建新的 commit，称作（适当地）**merge 提交**。
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg?cdnVersion=hq)
 
@@ -259,14 +259,14 @@ See also: #456, #789
 
 我尤其更倾向于 rebase 而不是 merge，理由包含：
 
-* 它生成了一个『整洁的』提交历史，没有不必要的合并 commit。
-* **所见即所得**, 举例, 在一次代码审查中，所有的变更来自对应某种特殊化的标注的 commit，避免了来隐藏在合并 commit 中的变更。
+* 它生成了一个『整洁的』提交历史，没有不必要的 merge commit。
+* **所见即所得**，举例，在一次代码审查中，所有的变更来自对应某种特殊化的标注的 commit，避免了来隐藏在 merge commit 中的变更。
 * 更多的 merge 被提交者解决，并且每个 merge 变化对应着具备合适信息的 commit。
     * 对 merge 类 commit 做挖掘和审核并不常见，因此避免这类操作可以确保所有的变更都归属于某个 commit。
 
 ### 何时做 squash？
 
-『Squashing』是处理一系列 commit 并将它们压缩为一个 commit 的过程。
+“Squashing” 是处理一系列 commit 并将它们压缩为一个 commit 的过程。
 
 它在多种情况下都有用，例子：
 
@@ -274,10 +274,10 @@ See also: #456, #789
 - 将某些合并应用时更合理的独立变更结合起来
 - 重写**正在进行中**这类 commit
 
-### 何时避免 merge 和 squash？
+### 何时避免 rebase 和 squash？
 
 避免在多人协作的公共 commit 或者共享分支中执行 rebase 和 squash。
- rebase 、 squash 重写历史记录、覆盖已有 commit，在共享分支的 commit 中执行以上操作（例子，推送到远程仓库的 commit 或者来自其他分支的 commit）可能造成混淆，并且由于分歧的树干和冲突大家可能会丢失他们的变更（本地和远程的）。
+rebase、squash 重写历史记录、覆盖已有 commit，在共享分支的 commit 中执行以上操作（例子，推送到远程仓库的 commit 或者来自其他分支的 commit）可能造成混淆，并且由于分歧的树干和冲突大家可能会丢失他们的变更（本地和远程的）。
 
 ## 有用的 git 命令
 
@@ -331,7 +331,7 @@ pick 9b81c72 Add "Rebase vs Merge" section
 
 它非常适用于在发布到错误分支上的 commit，无须再次编码。
 
-示例:
+示例：
 
 ```
 $ git cherry-pick 790ab21
@@ -351,7 +351,7 @@ index 7b45277..6b1993c 100644
 +++ b/README.md
 @@ -186,10 +186,13 @@ bebebe Corrige nome de método na classe InventoryBackend
  ``
- # 坏示例 (混合英语和葡萄牙语)
+ # 坏示例（混合英语和葡萄牙语）
  ababab Usa o InventoryBackendPool para recuperar o backend de estoque
 -efefef Add `use` method to Credit model
  cdcdcd Agora vai
@@ -359,7 +359,7 @@ index 7b45277..6b1993c 100644
 
 +### 样板
 +
-+这是一个样板, [由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html), 出现在文章[_高级 Git 手册_](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
++这是一个样板，[由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)，出现在文章 [**高级 Git 手册**](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project)。
 +
  ## 贡献
 
@@ -390,7 +390,7 @@ index 7b45277..6b1993c 100644
  cdcdcd Agora vai
  ``
 
-暂存这个区块 [y,n,q,a,d,/,j,J,g,e,?]?
+暂存这个区块 [y,n,q,a,d,/,j,J,g,e,?]？
 ```
 
 #### 区块 2
@@ -403,12 +403,12 @@ index 7b45277..6b1993c 100644
 
 +### 样板
 +
-+这是一个样板, [由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html), 出现在文章 [_高级 Git 手册_](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project)。
++这是一个样板，[由 Tim Pope 编写](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)，出现在文章 [**高级 Git 手册**](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project)。
 +
  ## 贡献
 
 感谢任何形式的帮助，可以帮到我的主题示例：
-暂存这个区块 [y,n,q,a,d,/,K,j,J,g,e,?]?
+暂存这个区块 [y,n,q,a,d,/,K,j,J,g,e,?]？
 ```
 
 #### 区块 3
@@ -443,7 +443,7 @@ https://whatthecommit.com/
 - [如何书写 Git 的 Commit 信息](https://chris.beams.io/posts/git-commit/)
 - [高级 Git 手册 —— Commit 指导](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines)
 - [关于 Git 的 Commit 信息的注意事项](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-- [ merge 与 rebase ](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+- [Merge 与 Rebase ](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 - [高级 Git 手册 —— 重写历史](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
