@@ -2,28 +2,28 @@
 > * 原文作者：[Florina Muntenescu](https://medium.com/@florina.muntenescu)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/room-coroutines.md](https://github.com/xitu/gold-miner/blob/master/TODO1/room-coroutines.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Feximin](https://github.com/Feximin)
+> * 校对者：[fireairforce](https://github.com/fireairforce)
 
 # Room 🔗 Coroutines
 
 ![Illustration by [Virginia Poltrack](https://twitter.com/vpoltrack)](https://cdn-images-1.medium.com/max/8418/1*6RyWETnyL2sG7wVUST49YQ.png)
 
-Room 2.1 (currently in alpha) adds support for Kotlin coroutines. DAO methods can now be marked as suspending to ensure that they are not executed on the main thread. By default, Room will use the Architecture Components I/O `Executor` as the `Dispatcher` to run SQL statements, but you can also [supply](https://developer.android.com/reference/androidx/room/RoomDatabase.Builder.html#setQueryExecutor%28java.util.concurrent.Executor%29) your own `Executor` when building the `RoomDatabase`. Read on to see how to use this, how it works under the hood and how to test this new functionality.
+Room 2.1（目前为 alpha 版本）添加了对 Kotlin 协程的支持。DAO 方法现在可以被标记为挂起以确保他们不会在主线程执行。默认情况下，Room 会使用架构组件 I/O `Executor` 作为 `Dispatcher` 来执行 SQL 语句，但在构建 `RoomDatabase` 的时候你也可以[提供](https://developer.android.com/reference/androidx/room/RoomDatabase.Builder.html#setQueryExecutor%28java.util.concurrent.Executor%29)自己的 `Executor`。请继续阅读以了解如何使用它、引擎内部的工作原理以及如何测试该项新功能。
 
-> Coroutines support for Room is currently under heavy development, with more features planned to be supported in the future versions of the library.
+> 目前，Coroutines 对 Room 的支持正在大力开发中，该库的未来版本中将会增加更多的特性。
 
-### Add some suspense to your database
+### 给你的数据库添加 suspense 特性
 
-To use coroutines and Room in your app, update to Room 2.1 and add the new dependency to your `build.gradle` file:
+为了在你的 app 中使用协程和 Room，需将 Room 升级为 2.1 版本并在 `build.gradle` 文件中添加新的依赖：
 
 ```
 implementation "androidx.room:room-coroutines:${versions.room}"
 ```
 
-You’ll also need Kotlin 1.3.0 and [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) 1.0.0 or newer.
+你还需要 Kotlin 1.3.0 和 [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) 1.0.0 及以上版本。
 
-You can now update your DAO methods to use suspension functions:
+现在，你可以更新 DAO 方法来使用挂起函数了：
 
 ```
 @Dao
@@ -47,9 +47,9 @@ interface UsersDao {
 }
 ```
 
-DAO with `suspend` methods
+具有 `suspend` 方法的 DAO
 
-[`@Transaction`](https://developer.android.com/reference/android/arch/persistence/room/Transaction) methods can also be suspending and they can call other suspending DAO functions:
+[`@Transaction`](https://developer.android.com/reference/android/arch/persistence/room/Transaction) 方法也可以挂起，并且可以调用其他挂起的 DAO 方法：
 
 ```
 @Dao
@@ -69,21 +69,21 @@ abstract class UsersDao {
 }
 ```
 
-DAO with suspend transaction function
+具有挂起事务功能的 DAO
 
-Room treats suspending functions differently, based on whether they are called within a transaction or not:
+Room 会根据是否在事务内调用挂起方法进行区别对待：
 
-**1. In a transaction**
+**1. 事务内**
 
-Room doesn’t do any handling of the CoroutineContext on which the database statement is triggered. It’s the responsibility of the caller of the function to make sure that this is not on a UI thread. Since `suspend` functions can only be called from other `suspend` functions or from coroutines, make sure that the `Dispatcher` you’re using is not [`Dispatcher.Main`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html), rather [`Dispatchers.IO`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html) or your own custom one.
+Room 不会对触发数据库语句的协程上下文（CoroutineContext）做任何处理。方法调用者有责任确保当前不是在 UI 线程。由于 `suspend` 方法只能在其他 `suspend` 方法或协程中调用，因此需确保你使用的 `Dispatcher` 是 [`Dispatchers.IO`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html) 或自定义的，而不是 [`Dispatcher.Main`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html)。
 
-**2. Not in a transaction**
+**2. 事务外**
 
-Room makes sure that the database statement is triggered on the Architecture Components I/O `Dispatcher`. This `Dispatcher` is created based on the same I/O `Executor` used to run `LiveData` work on a background thread.
+Room 会确保数据库语句是在架构组件 I/O `Dispatcher` 上被触发。该 `Dispatcher` 是基于使处于后台工作的 `LiveData` 运行起来的同一 I/O `Executor` 而创建的。
 
-### Testing DAO suspension functions
+### 测试 DAO 挂起方法
 
-Testing a DAO suspending function is no different from testing any other suspending function. For example, to check that after inserting a user we are able to retrieve it, we wrap the test in a [`runBlocking`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) block:
+测试 DAO 的挂起方法与测试其他挂起方法一般无二。例如，为了测试在插入一个用户后我们还可以取到它，我们将测试代码包含在一个 [`runBlocking`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) 代码块中：
 
 ```
 @Test fun insertAndGetUser() = runBlocking {
@@ -98,11 +98,11 @@ Testing a DAO suspending function is no different from testing any other suspend
 }
 ```
 
-Testing DAO suspend functions
+测试 DAO 的挂起方法
 
-### Under the hood
+### 原理
 
-To see what’s under the hood, let’s take a look at the DAO class implementation Room generates for a synchronous and for a suspending insert:
+为了能够了解原理，让我们看一下 Room 为同步的和挂起的插入方法生成的 DAO 实现类：
 
 ```
 @Insert
@@ -112,9 +112,9 @@ fun insertUserSync(user: User)
 suspend fun insertUser(user: User)
 ```
 
-Synchronous and suspending insert functions
+同步的和挂起的插入方法
 
-For the synchronous insert, the generated code starts a transaction, executes the insert, marks the transaction as successful and ends it. The synchronous method will just execute the insert on whatever thread it’s called from.
+对于同步插入而言，生成的代码开启了一个事务，执行插入操作，将事务标记为成功并结束。同步方法只会在调用它的线程中执行插入操作。
 
 ```
 @Override
@@ -129,11 +129,11 @@ public void insertUserSync(final User user) {
 }
 ```
 
-Room synchronous insert generated implementation
+Room 对同步插入生成的实现代码
 
-Now let’s see how adding the suspend modifier changes things: the generated code will make sure that your data gets inserted but also that this happens off of the UI thread.
+再看一下添加 suspend 修饰符后发生的变化：生成的代码会确保数据在非 UI 线程上被插入。
 
-The generated code passes a continuation and the data to be inserted. The same logic from the synchronous insert method is used but within a `Callable#call` method.
+生成的代码传入了一个 continution 和待插入的数据。使用了和同步插入方法相同的逻辑，不同的是它在一个 `Callable#call` 方法中执行。
 
 ```
 @Override
@@ -155,17 +155,17 @@ public Object insertUserSuspend(final User user,
 }
 ```
 
-Room suspending insert generated implementation
+Room 对挂起插入生成的实现代码
 
-The interesting part though is the `CoroutinesRoom.execute` function, since this is the one that handles the context switch, depending on whether the database is opened and we are in a transaction or not.
+不过有趣的是 `CoroutinesRoom.execute` 方法，这是一个根据数据库是否打开以及是否处于事务内来处理上下文切换的方法。
 
-**Case 1. The database is opened and we are in a transaction**
+**情形 1. 数据库被打开同时处于事务内**
 
-Here we’re just triggering the call method — i.e. the actual insertion of the user in the database
+这种情况下只触发了 call 方法，即用户在数据库中的实际插入操作
 
-**Case 2. We’re not in a transaction**
+**情形 2. 非事务**
 
-Room makes sure that the work done in the `Callable#call` method is performed on a background thread by using the Architecture Components IO `Executor`.
+Room 通过架构组件 IO `Executor` 来确保 `Callable#call` 中的操作是在后台线程中完成的。
 
 ```
 suspend fun <R> execute(db: RoomDatabase, callable: Callable<R>): R {
@@ -178,13 +178,13 @@ suspend fun <R> execute(db: RoomDatabase, callable: Callable<R>): R {
 }
 ```
 
-CoroutinesRoom.execute implementation
+CoroutinesRoom.execute 实现
 
 * * *
 
-Start using Room and coroutines in your app, the database work is guaranteed to be run on a non-UI Dispatcher. Mark your DAO method with the `suspend` modifier and call them from other suspend functions or coroutines!
+现在就开始在你的 app 中使用 Room 和协程吧，保证数据库的操作在一个非 UI 分发器上执行。在 DAO 方法上添加 `suspend` 修饰符并在其他 supend 方法或者协程中调用。
 
-Thanks to [Chris Banes](https://medium.com/@chrisbanes?source=post_page) and [Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_page).
+感谢 [Chris Banes](https://medium.com/@chrisbanes?source=post_page) 和 [Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
