@@ -9,7 +9,7 @@
 
 ![Illustration by [Virginia Poltrack](https://twitter.com/vpoltrack)](https://cdn-images-1.medium.com/max/8418/1*6RyWETnyL2sG7wVUST49YQ.png)
 
-Room 2.1 （目前为 alpha 版本） 添加了对 Kotlin 协程的支持。 DAO 方法现在可以被标记为挂起以确保他们不会在主线程执行。默认情况下，Room 会使用架构组件 I/O `Executor` 作为 `Dispatcher` 来执行 SQL 语句，但在构建 `RoomDatabase` 的时候你也可以[提供](https://developer.android.com/reference/androidx/room/RoomDatabase.Builder.html#setQueryExecutor%28java.util.concurrent.Executor%29)自己的 `Executor`。请继续阅读以了解如何使用它、引擎内部的工作原理以及如何测试该项新功能。
+Room 2.1（目前为 alpha 版本）添加了对 Kotlin 协程的支持。DAO 方法现在可以被标记为挂起以确保他们不会在主线程执行。默认情况下，Room 会使用架构组件 I/O `Executor` 作为 `Dispatcher` 来执行 SQL 语句，但在构建 `RoomDatabase` 的时候你也可以[提供](https://developer.android.com/reference/androidx/room/RoomDatabase.Builder.html#setQueryExecutor%28java.util.concurrent.Executor%29)自己的 `Executor`。请继续阅读以了解如何使用它、引擎内部的工作原理以及如何测试该项新功能。
 
 > 目前，Coroutines 对 Room 的支持正在大力开发中，该库的未来版本中将会增加更多的特性。
 
