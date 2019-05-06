@@ -2,36 +2,36 @@
 > * 原文作者：[Kristian Poslek](https://medium.com/@bojzi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-in-modern-javascript-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-in-modern-javascript-development.md)
-> * 译者：
+> * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：
 
-# Design patterns in modern JavaScript development
+# 现代  JavaScript 开发中的设计模式
 
-> Thoughts on effective communication in the design of software projects
+> 软件项目设计中有效沟通的思考
 
 ![](https://cdn-images-1.medium.com/max/7296/1*nfNi7oUIZBakAdyXXcmirw.jpeg)
 
-## Patterns? Design? Are we still talking about software development?
+## 模式？设计？我们是在讨论软件开发么？
 
-**Definitely.**
+**当然是啦。**
 
-As is the case with object-oriented programming, we, the developers, are trying to model the world surrounding us. As such, it makes sense to also try and use the world surrounding us as a tool to describe our craft.
+就像面向对象编程一样，我们开发人员正试图为我们周围的世界建模。因此，也有必要尝试并使用我们周围的世界作为工具来描述我们的作品。
 
-In this case, we take a page from architecture (the one with buildings and bridges) and the seminal architecture book called **A Pattern Language: Towns, Buildings, Construction** ****by**** **Christopher Alexander, Sara Ishikawa, Murray Silverstein** where patterns are described as follows:
+在本例中，我们效仿建筑架构（具有建筑和桥梁的）来举例。正如具有开创性的建筑架构书籍**《建筑模式语言》**（**Christopher Alexander，Sara Ishikawa，Murray Silverstein** ****著****）中对"模式"所描述的那样：
 
-> Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice.
+> 模式描述了在我们的环境中一次又一次发生的问题，然后描述了该问题解决方案的核心，以这样的方式，您可以多次使用此解决方案，而不必以相同的方式重复使用两次。
 
-In software development, architecture is the process of constructing an application in a healthy, robust and maintainable way and patterns provide a way of giving names to solutions for common problems. These solutions can range from abstract/conceptual to very precise and technical and allow developers to effectively communicate with each other.
+In software development, architecture is the process of constructing an application in a healthy, robust and maintainable way and patterns provide a way of giving names to solutions for common problems.在软件开发中，架构是以健康、健壮和可维护的方式构建应用程序的过程，模式提供了一种命名常见问题解决方案的方法。 These solutions can range from abstract/conceptual to very precise and technical and allow developers to effectively communicate with each other.
 
-![Efficient.](https://cdn-images-1.medium.com/max/8000/1*pdCoxUhmMHI5tBnGVdnNJQ.jpeg)
+![高效](https://cdn-images-1.medium.com/max/8000/1*pdCoxUhmMHI5tBnGVdnNJQ.jpeg)
 
 If two or more developers on a team are knowledgeable about patterns, talking about solutions to problems becomes very efficient. If only one developer knows about patterns, explaining them to the rest of the team is usually easy.
 
 **The goal of this article is to whet your appetite for a somewhat formal representation of knowledge in software development by introducing you to the idea of software design patterns and presenting a couple of patterns which are interesting because they get used considerably in modern JavaScript projects.**
 
-## Singleton pattern
+## 单例模式
 
-### The what
+### 是什么
 
 The singleton pattern isn’t one of the most widely used ones, but we’re starting here because it’s relatively easy to grasp.
 
@@ -43,13 +43,13 @@ In software, it simply means that we limit the instantiation of a class to a sin
 
 ![Who needs two superheroes when there is Batman?](https://cdn-images-1.medium.com/max/5652/1*JsnR25Uewd4wZLzZ-a9frg.png)
 
-### The why
+### 为什么
 
 Apart from allowing us to only have one superhero ever (which would obviously be Batman), why would we ever use the singleton pattern?
 
 Although the singleton pattern isn’t without its problems (it’s been called evil before with singletons being [called pathological liars](http://misko.hevery.com/2008/08/17/singletons-are-pathological-liars/)), it still has its uses. The most notable one would be for instantiating configuration objects. You probably only want one configuration instance for your application, unless a feature of your application is providing multiple configurations.
 
-### The where
+### 用在哪里
 
 Angular’s services are a prime example of the singleton pattern being used in a big popular framework. There is a [dedicated page in Angular’s documentation](https://angular.io/guide/singleton-services) explaining how to make sure that a service is always provided as a singleton.
 
@@ -66,9 +66,9 @@ You should keep track of the number of button presses in one object which provid
 
 If that object wasn’t a singleton (and the buttons would each get their own instance) the click count wouldn’t be correct. Also, which of the counting instances would you provide to the component showing the current count?
 
-## Observer pattern
+## 观察者模式
 
-### The what
+### 是什么
 
 The observer pattern is defined as follows:
 
@@ -89,7 +89,7 @@ In JavaScript terms, you wouldn’t be looping and asking for the result until y
 
 The nice thing is — you don’t have to be the only subscriber. As you would be disappointed by missing your newspaper, so would other people, too. That’s why multiple observers can subscribe to the subject.
 
-### The why
+### 为什么
 
 The observer pattern has many use cases but generally, it should be used when you want to create a one-to-many dependency between objects which isn’t tightly coupled and have the possibility to let an open-ended number of objects know when a state has changed.
 
@@ -101,7 +101,7 @@ JavaScript is a great place for the observable pattern because everything is eve
 
 The big payoff from learning about the observer pattern is that you can implement your own subject or grasp an already existing solution much faster.
 
-### The where
+### 用在哪里
 
 Implementing a basic observable shouldn’t be too hard, but there is a great library being used by many projects and that’s [ReactiveX](http://reactivex.io/) of which [RxJS](https://github.com/ReactiveX/rxjs) is its JavaScript counterpart.
 
@@ -109,9 +109,9 @@ RxJS allows you not only to subscribe to subjects, but also gives you the possib
 
 Apart from the observer pattern, ReactiveX also prides itself with implementing the iterator pattern which gives subjects the possibility of letting its subscribers know when a subscription ended, effectively ending the subscription from the subject’s side. I am not going to be explaining the iterator pattern in this article, but it would be a great exercise for you to learn more about it and see how it fits in with the observable pattern.
 
-## Facade pattern
+## 外观模式
 
-### The what
+### 是什么
 
 The facade pattern is a pattern which takes its name from architecture. In architecture:
 
@@ -119,7 +119,7 @@ The facade pattern is a pattern which takes its name from architecture. In archi
 
 As the facade in architecture is an exterior of the building, hiding its inner workings, the facade pattern in software development tries to hide the underlying complexity behind a front, effectively allowing you to work with an API which is easier to grasp while providing the possibility to change the underlying code however you want.
 
-### The why
+### 为什么
 
 You can use the facade pattern in a myriad of situations but the most notable ones would be to make your code easier to understand (hide complexity) and to make dependencies as loosely coupled as possible.
 
@@ -129,7 +129,7 @@ It is easy to see why a facade object (or layer with multiple objects) would be 
 
 Another great thing that we can do here is change out the dragon from the background without ever touching the rest of the application. Let’s say that you want to change that dragon out with a kitten. It still has claws, but is much easier kept fed. Changing it out is a matter of rewriting the code in the facade without changing any of the dependent objects.
 
-### The where
+### 用在哪里
 
 A place where you will see facades often is Angular using its services as a means of simplifying background logic. But it doesn’t have to only be Angular, as you will see in the next example.
 
@@ -150,7 +150,7 @@ After that, you can tackle the facade and write the code which is going to trans
 
 ![Might as well be dragons…](https://cdn-images-1.medium.com/max/5376/1*O3pSZ9xOfBkk7lO0CtGCPA.png)
 
-## Where to go from here
+## 拓展
 
 You’ve probably noticed that there was no code or implementation of the design patterns I’ve talked about. That’s because each of these design patterns could be at least a chapter in a book for itself.
 
