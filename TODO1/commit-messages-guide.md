@@ -7,7 +7,7 @@
 
 # commit 提交指南
 
-[![鸣谢!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/RomuloOliveira)
+[![鸣谢！](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/RomuloOliveira)
 
 一份理解 commit 信息重要性以及如何写好它们的指导手册。
 
