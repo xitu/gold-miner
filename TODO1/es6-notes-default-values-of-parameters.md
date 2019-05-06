@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/es6-notes-default-values-of-parameters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/es6-notes-default-values-of-parameters.md)
 > * 译者：[Chorer](https://github.com/chorer)
-> * 校对者：
+> * 校对者：[fireairforce](https://github.com/fireairforce),[xingqiwu55555](https://github.com/xingqiwu55555)
 
 # 笔记 6. ES6：参数默认值
 
-在这篇文章中我们会涉及另一个 ES6 的特性，带**默认值**的函数参数。正如我们将看到的，有一些微妙的案例。
+在这篇文章中我们会介绍另一个 ES6 的特性，带**默认值**的函数参数。正如我们将看到的，有一些微妙的案例。
 
 ## ES5 及更低版本的手动默认值
 
@@ -23,7 +23,7 @@ log('low memory'); // warning: low memory
 log('out of memory', 'error'); // error: out of memory
 ```
 
-为了避免潜在的“假值”，通常可以看到有 `typeof` 检查：
+为了避免参数未传递的情况，通常可以看到 `typeof` 检查：
 
 ```
 if (typeof level == 'undefined') {
@@ -54,11 +54,11 @@ log('low memory'); // warning: low memory
 log('out of memory', 'error'); // error: out of memory
 ```
 
-这种默认参数用法相当随意，但是却很方便。让我们深入实现细节来理清默认参数可能带来的困惑。
+这种默认参数用法相当随意，但是却很方便。接下来，让我们深入实现细节来理清默认参数可能带来的困惑。
 
 ## 实现细节
 
-以下是关于 ES6 函数默认参数值的实现细节的一些特性。
+以下是一些关于 ES6 函数默认参数值的实现细节。
 
 ### 执行阶段的重新计值
 
@@ -69,9 +69,9 @@ def foo(x = []):
   x.append(1)
   return x
  
-# 我们可以看到默认值只被创建一次，即
-# 在定义函数时，并且仅作为
-# 函数的一个属性被保存起来
+# 我们可以看到默认值在函数定义时
+# 只创建了一次，并且保存于
+# 函数对象的属性中
 print(foo.__defaults__) # ([],)
  
 foo() # [1]
@@ -100,7 +100,7 @@ foo() # [1]
 print(foo.__defaults__) # ([None],)
 ```
 
-但是，这同样是不方便的手动处理实际默认值的方式，并且最初的案例让人感到疑惑。因此，为了避免这种情况，ECMAScript 会在每次函数执行时计算默认值：
+但是，这与手动处理实际默认值的方式是一样不方便的，并且最初的案例让人感到疑惑。因此，为了避免这种情况，ECMAScript 会在每次函数执行时计算默认值：
 
 ```
 function foo(x = []) {
@@ -113,7 +113,7 @@ foo(); // [1]
 foo(); // [1]
 ```
 
-一切都很好，很直观。现在我们来看下不了解工作机制时，ES 语义何时会让我们感到困惑。
+一切都很好，很直观。接下来你会发现，如果我们不了解默认值的工作机制，ES 语义可能会让我们感到困惑。
 
 ### 外部作用域的遮蔽
 
@@ -145,7 +145,7 @@ function foo(x = x) { // 抛出错误！
 }
 ```
 
-我们上面提到的赋值 `= x` 在参数作用域中解析 `x` ，遮蔽了全局 `x` 。 但是，参数 `x` 位于 TDZ 内，在初始化之前无法访问。显然，它无法初始化为自身。
+我们上面提到的赋值 `= x` 在参数作用域中解析 `x` ，遮蔽了全局 `x` 。 但是，参数 `x` 位于 TDZ 内，在初始化之前无法访问。因此，它无法初始化为自身。
 
 注意，上面带有 `y` 的例子是有效的，因为 `x` 已经初始化（为隐式默认值 `undefined` ）了。我们再来看一下：
 
@@ -186,7 +186,7 @@ console.log(x); // 1
 -> {x: 1} // 全局
 ```
 
-我们可以看到，当函数 `y` 执行时，它在最近的环境（即相同的环境）中解析 `x` ，甚至无视了函数的作用域。
+我们可以看到，当函数 `y` 执行时，它在最近的环境（即参数环境）中解析 `x` ，函数作用域对其并不可见。
 
 #### 转译为 ES5
 
@@ -298,7 +298,7 @@ foo(undefined, undefined); // undefined, 2
 foo(1, undefined); // 1, 2
 ```
 
-通常的编程语言中，带默认值的参数在必需参数之后，但是，上述事实允许我们在 JavaScript 中使用如下结构：
+通常，在编程语言中带默认值的参数在必需参数之后，但是，上述事实允许我们在 JavaScript 中使用如下结构：
 
 ```
 function foo(x = 2, y) {
