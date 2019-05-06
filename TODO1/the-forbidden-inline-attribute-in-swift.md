@@ -126,8 +126,8 @@ Follow me on my Twitter - [@rockthebruno](https://twitter.com/rockthebruno), and
 
 ## References and Good reads
 
-[Inline Functions](https://en.wikipedia.org/wiki/Inline_function)  
-[[swift-users] @inline Thread](https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20170227/004883.html)
+- [Inline Functions](https://en.wikipedia.org/wiki/Inline_function)  
+- [[swift-users] @inline Thread](https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20170227/004883.html)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
