@@ -237,34 +237,34 @@ Resolves: #123
 See also: #456, #789
 ```
 
-## 变基与合并
+## rebase 与 merge
 
-这节是 Atlassian 优秀教程中的一个 **TL;DR** ， [『合并与变基』](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)。
+这节是 Atlassian 优秀教程中的一个 **TL;DR** ， [『 merge 与 rebase 』](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)。
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:01b0b04e-64f3-4659-af21-c4d86bc7cb0b/01.svg?cdnVersion=hq)
 
-### 变基
+### rebase
 
 **TL;DR:** 把你的分支中的 commit 一个接一个地应用到 base 分支，生成一个新树。
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:5b153a22-38be-40d0-aec8-5f2fffc771e5/03.svg?cdnVersion=hq)
 
-### 合并
+### merge
 
 **TL;DR:** 使用两个分支间的差异，创建新的 commit，称作（适当地）**合并提交**。
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg?cdnVersion=hq)
 
-### 为什么有些人更倾向于合并而不是变基？
+### 为什么有些人更倾向于 merge 而不是 rebase？
 
-我尤其更倾向于变基而不是合并，理由包含：
+我尤其更倾向于 rebase 而不是 merge，理由包含：
 
 * 它生成了一个『整洁的』提交历史，没有不必要的合并 commit。
 * **所见即所得**, 举例, 在一次代码审查中，所有的变更来自对应某种特殊化的标注的 commit，避免了来隐藏在合并 commit 中的变更。
-* 更多的合并被提交者解决，并且每个合并变化对应着具备合适信息的 commit。
-    * 对合并类 commit 做挖掘和审核并不常见，因此避免这类操作可以确保所有的变更都归属于某个 commit。
+* 更多的 merge 被提交者解决，并且每个 merge 变化对应着具备合适信息的 commit。
+    * 对 merge 类 commit 做挖掘和审核并不常见，因此避免这类操作可以确保所有的变更都归属于某个 commit。
 
-### 何时做压制？
+### 何时做 squash？
 
 『Squashing』是处理一系列 commit 并将它们压缩为一个 commit 的过程。
 
@@ -274,10 +274,10 @@ See also: #456, #789
 - 将某些合并应用时更合理的独立变更结合起来
 - 重写**正在进行中**这类 commit
 
-### 何时避免合并和压制？
+### 何时避免 merge 和 squash？
 
-避免在多人协作的公共 commit 或者共享分支中执行变基和压制。
-变基、压制重写历史记录、覆盖已有 commit，在共享分支的 commit 中执行以上操作（例子，推送到远程仓库的 commit 或者来自其他分支的 commit）可能造成混淆，并且由于分歧的树干和冲突大家可能会丢失他们的变更（本地和远程的）。
+避免在多人协作的公共 commit 或者共享分支中执行 rebase 和 squash。
+ rebase 、 squash 重写历史记录、覆盖已有 commit，在共享分支的 commit 中执行以上操作（例子，推送到远程仓库的 commit 或者来自其他分支的 commit）可能造成混淆，并且由于分歧的树干和冲突大家可能会丢失他们的变更（本地和远程的）。
 
 ## 有用的 git 命令
 
@@ -324,7 +324,7 @@ pick 9b81c72 Add "Rebase vs Merge" section
 
 #### fixup
 
-使用它轻松地清理 commit 并且无须一个更复杂的变基操作。
+使用它轻松地清理 commit 并且无须一个更复杂的 rebase 操作。
 [这篇文章](http://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html)提供了如何以及何时这么做的很好的示例。
 
 ### cherry-pick
@@ -443,7 +443,7 @@ https://whatthecommit.com/
 - [如何书写 Git 的 Commit 信息](https://chris.beams.io/posts/git-commit/)
 - [高级 Git 手册 —— Commit 指导](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines)
 - [关于 Git 的 Commit 信息的注意事项](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-- [合并与变基](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+- [ merge 与 rebase ](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 - [高级 Git 手册 —— 重写历史](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
