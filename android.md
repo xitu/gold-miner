@@ -1,3 +1,7 @@
+* [通过 Play Cloud 的 ART 优化配置提升应用性能](https://juejin.im/post/5cc297f36fb9a0323d6e0be2) ([nanjingboy](https://github.com/nanjingboy) 翻译)
+* [用 Flutter 打造一个圆形滑块（Slider）](https://juejin.im/post/5cbec995f265da03576ec5a1) ([DevMcryYu](https://github.com/DevMcryYu) 翻译)
+* [Kotlin 标准方法备忘](https://juejin.im/post/5cc290e6e51d456e7b3720db) ([Feximin](https://github.com/Feximin) 翻译)
+* [依赖注入在多模块工程中的应用](https://juejin.im/post/5cc15dae5188252dcf5d4c68) ([Mirosalva](https://github.com/Mirosalva) 翻译)
 * [Workmanager 简介](https://juejin.im/post/5ca3463bf265da308939f9b1) ([gs666](https://github.com/gs666) 翻译)
 * [Data Binding 库使用的经验教训](https://juejin.im/post/5cb1a5dfe51d456e831f68eb) ([Mirosalva](https://github.com/Mirosalva) 翻译)
 * [Plaid 应用迁移到 AndroidX 的实践经历](https://juejin.im/post/5cb567cc6fb9a068a17c9728) ([Mirosalva](https://github.com/Mirosalva) 翻译)

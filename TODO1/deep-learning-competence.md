@@ -2,362 +2,362 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deep-learning-competence.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deep-learning-competence.md)
-> * 译者：
-> * 校对者：         
+> * 译者：[Hearfishle](https://github.com/Hearfishle)
+> * 校对者：[portandbridge](https://github.com/portandbridge), [ezioyuan](https://github.com/ezioyuan)
 
-# 3 Levels of Deep Learning Competence
+# 深度学习能力的三个等级
 
-[Deep learning](https://machinelearningmastery.com/what-is-deep-learning/) is not a magic bullet, but the techniques have shown to be highly effective in a large number of very challenging problem domains.
+[深度学习](https://machinelearningmastery.com/what-is-deep-learning/)不是一颗灵丹妙药，但是在许多非常具有挑战性的领域里它已经证明了自己的高效。
 
-This means that there is a ton of demand by businesses for effective deep learning practitioners.
+这意味着企业对高效的深度学习从业者的需求量巨大。
 
-The problem is, how can the average business differentiate between good and bad practitioners?
+问题是，一般的企业如何去鉴别这些从业者的好坏？
 
-As a deep learning practitioner, how can you best demonstrate that you can deliver skillful deep learning models?
+作为一名深度学习的从业者，你如何用最好的方式去证明你可以提供熟练的深度学习模型？
 
-In this post, you will discover the three levels of deep learning competence, and as a practitioner, what you must demonstrate at each level.
+在这篇文章中，你将了解胜任深度学习的三级能力，并且作为一个从业者你需要在每一层次具有怎样的表现。
 
-After reading this post, you will know:
+在阅读本文之后你将了解：
 
-*   The problem of evaluating deep learning competence can best be addressed through project portfolios.
-*   A hierarchy of three competency levels can be used to sort practitioners and provide a framework for identifying the expected skills.
-*   The most common mistake that beginners make is starting at level 3, meaning they are trying to learn all levels at once, leading to confusion and frustration.
+*   评估深度学习能力水平的问题，最好是通过项目作品集去解决。
+*   三个能力级别的层次结构可被使用去给从业者分类，并且提供一个框架去明确从业者所应具备的技能。
+*   初学者最常犯的错误是认为刚开始学就想达到等级 3，他们想一次学会所有的能力，从而导致了困惑和挫败感。
 
-Let’s get started.
+让我们开始吧。
 
-![The Three Levels of Deep Learning Competence](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/The-Three-Levels-of-Deep-Learning-Competence.jpg)
+![深度学习能力的三个等级](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/The-Three-Levels-of-Deep-Learning-Competence.jpg)
 
-The Three Levels of Deep Learning Competence  
-Photo by [Bernd Thaller](https://www.flickr.com/photos/bernd_thaller/45309108974/), some rights reserved.
+深度学习能力的三个等级
+照片由 [Bernd Thaller] 拍摄，所属权归拍摄者
 
-## Overview
+## 概述
 
-This post is divided into three parts; they are:
+本文分为三个部分，分别是：
 
-1.  The Problem of Assessing Competence
-2.  Develop a Deep Learning Portfolio
-3.  Levels of Deep Learning Competence
+1.  如何评估（深度学习）能力
+2.  建立深度学习作品集
+3.  深度学习能力的等级
 
-## The Problem of Assessing Competence
+## 如何评估（深度学习）能力
 
-How do you know if a practitioner is competent with deep learning?
+你如何知道一个从业者有能力做深度学习？
 
-It is a hard problem.
+这是个艰难的问题。
 
-*   An academic may be able to describe techniques well mathematically and provide a list of papers.
-*   A developer may also be able to describe techniques well using intuitive explanations and a list of APIs.
+*   一个科研人员也许可以把一个技术的数学性讲述的很好并且提供一系列的论文。
+*   一个开发人员使用直观的解释和一系列的 API 也能把技术讲明白。 
 
-Both are good signs of understanding.
+他们都看似非常懂。
 
-But, on real business projects, we don’t need explanations.
+但是，一个真正的商业项目是不需要解释的。
 
-We need working models that make skillful predictions. We need results.
+我们需要使用模型去做有效的预测，我们需要的是结果。
 
-Results trump almost everything.
+结果胜过一切。
 
-Certainly results trump classical signals of competence such as education pedigree, work history, and experience level.
+就是这样，结果胜过那些传统的能够代表能力的东西，诸如教育背景，工作履历和经验水平。
 
-Most developers and developer hiring managers know this already.
+大部分开发者和招聘开发者的经理已经明白了这个道理。
 
-Some don’t.
+但一些人还没有。
 
-## Develop a Deep Learning Portfolio
+## 建立一个深度学习作品集
 
-The best way to answer the question of whether a practitioner is competent or not is to show, not tell.
+回答从业者是否胜任这一问题，最好的方法是去展示（能力）而不是告知（招聘者）。
 
-The practitioner must provide evidence to demonstrate that they understand how to apply deep learning techniques and use them to develop skillful models.
+从业者必须提供证据去证明他们理解如何去应用深度学习的技术，并且使用他们去开发高效的模型。
 
-This means developing a [public portfolio of projects](https://machinelearningmastery.com/build-a-machine-learning-portfolio/) using open source libraries and publicly available datasets.
+这意味着要使用开源仓库和可用的公共数据集去开发一个[公开作品集](https://machinelearningmastery.com/build-a-machine-learning-portfolio/)。
 
-This has benefits for a number of reasons:
+这样做有很多的好处，因为：
 
-*   Skillful models can be presented.
-*   Code can be reviewed.
-*   Design decisions can be defended.
+*   展示你倾注技巧搭建的模型。
+*   让别人审阅代码。
+*   捍卫你的设计决定。
 
-An honest discussion of real projects will quickly shed light on whether the practitioner knows what they are doing, or not.
+（在作品集中）如实地讨论真实项目，就能让人很快弄清，从业者是不是真的理解这些项目。
 
-*   Employers must require and then focus on a portfolio of completed work in order to assess competence.
-*   Deep learning practitioners must develop and maintain a portfolio of completed projects in order to demonstrate competence.
+*   为了评估这个能力，雇主必须要求从业者提交包含已完成工作的作品集，然后着重进行查阅。
+*   为了证明这个能力，深度学习的从业者必须建立和维护一个已完成的项目的作品集。
 
-As a practitioner, the question becomes: what are the levels of competence and what are the expectations at each level?
+作为一个从业者，问题变成了：有哪几个能力等级，每个等级又有什么样的能力期望？
 
-## Levels of Deep Learning Competence
+## 深度学习能力的等级
 
-Projects can be carefully chosen in order to both develop and, in turn, demonstrate specific skills.
+从业者应该认真的选择要开发的项目，因为它还可以用来去证明你的技术能力。
 
-In this section, we’ll outline the levels of deep learning competence and the types of projects that you, as a practitioner, can develop and implement in order to learn, acquire and demonstrate each level of competence.
+在本节中，我们将概述深度学习能力的等级以及作为一名从业者，您可以开发和实施的项目类型，以便从中学习、获取和展示每一级能力水平。
 
-There are three levels of deep learning competence; they are:
+深度学习能力分为三个等级，分别是：
 
-*   **Level 1**: Modeling
-*   **Level 2**: Tuning
-*   **Level 3**: Applications
+*   **等级 1**：建立模型
+*   **等级 2**：调试
+*   **等级 3**：应用
 
-This may not be complete, but provides a good starting point for practitioners in a business setting.
+这可能不完整，但是为商业开发中的从业者提供了一个良好的出发点。
 
-Some notes about this hierarchy:
+对等级划分的一些解释：
 
-*   The levels assume you are already a machine learning practitioner, probably not starting from scratch.
-*   Not all businesses require or could make best use of a Level 3 practitioner.
-*   Many practitioners dive in at Level 3, and try to figure out levels 1 and 2 on the fly.
-*   Level 2 is often neglected, but I think is critical in order to demonstrate a deeper understanding.
+*   假设你早已是一个机器学习从业者，并不是从零开始。
+*   并不是所有的商业开发都要或者可以完美使用等级 3 的从业者。
+*   许多从业者想一开始就进入第 3 级，并且想很快搞清楚 1 级和 2 级的事情。
+*   等级 2 常常被忽视，但是我认为它是关键，（因为可以）证明有更深入的理解。
 
-Other levels might capture topics not discussed such as coding algorithms from scratch, handling big data or streaming data, GPU programming, developing novel methods, etc.
+其他没有被讨论到的可能和能力相关的话题还有从零开始写代码、处理大数据和数据流、GPU 编程、开发新的方法，等等。
 
-If you have more ideas of levels of competence or projects, please let me know in the comments below.
+如果你有关于能力等级或者项目的想法。请在下面的评论里展示出来让我知道。
 
-Now, let’s take a closer look at each level in turn.
+现在让我们把目光放回到每个等级上。
 
-## Level 1: Modeling
+## 等级 1：建模
 
-This level of competence with deep learning assumes that you are already a machine learning practitioner.
+能达到这一深度学习能力的等级意味着你早已是一个机器学习从业者了。
 
-It is the lowest level and shows that you can use the tools and methods effectively on a classical machine learning type project.
+这是最低的等级并且意味着你可以在传统的机器学习项目中高效地使用工具和方法。
 
-It does not mean that you are expected to have advanced degrees or that you are a master practitioner. Instead, it means that you are familiar with the basics of applied machine learning and the process of working through a predictive modeling project end-to-end.
+但这并不意味着要你去有个更高级的证书或者你是什么项目大牛。相反，这意味着你熟悉应用机器学习的基础知识和能够从头到尾的建立预测性建模项目端到端工作的过程。
 
-This is not a strict prerequisite as these elements can quickly be learned at this level if needed.
+这并不是一个严格的先决条件。因为如果需要的话，这些元素可以被快速的学会。
 
-Competence at this level demonstrates the following:
+这一等级的能力，会有以下表现：
 
-*   **Library Competence**: That you know how to use an open source deep learning library to develop a model.
-*   **Modeling Competence**: That you know how to apply the applied machine learning process with neural network models.
+*   **库能力**：你（应该）知道如何去使用一个开源的深度学习库去开发一个模型。
+*   **建模能力**：你知道如何去应用使用神经网络去开发机器学习的过程。
 
-### Library Competence
+### 库能力
 
-Library competence means that you know how to set up the development environment and use the most common aspects of the API in order to define, fit, and use neural network models to make predictions.
+库能力意味着你知道如何去搭建一个开发环境并且使用最普遍的 API 层去定义，加载，并且使用神经网络模型去预测。
 
-It also means that you know the basic differences between each type of neural network model and when it might be appropriate to use it.
+这也意味着你知道每种神经网络模型最基本的差异，以及使用它的最佳时机。
 
-It does not mean that you know every function call and every parameter. It also does not mean that you know the mathematical description for specific techniques.
+这并不意味着你知道每种函数过程和每种参数。这也不意味着你知道具体技术的数学描述。
 
-### Modeling Competence
+### 建模能力
 
-Modeling competence means that you know how to work through a machine learning project end-to-end using neural network models.
+建模能力意味着你知道如何使用神经网络模型从头到尾地去完成一个机器学习项目。
 
-Specifically, it means that you are able to complete tasks such as:
+具体而言，这意味着你有能力完成如下事情：
 
-*   Defining the supervised learning problem and gathering the relevant data.
-*   Preparing data, including feature selection, imputing missing values, scaling, and other transforms.
-*   Evaluating a suite of models and model configurations using an objective test harness.
-*   Selecting and preparing a final model and using it to make predictions on new data.
+*   判断监督学习问题并且收集相关数据。
+*   准备数据，包括特征选择，输入损失值，缩放和其他转换。
+*   使用目标测试工具评估一套模型和模型架构。
+*   选择和准备一个最终的模型并且使用它去对新数据进行预测。
 
-It means that you can effectively harness neural networks on new projects in developing and using a skillful model.
+这些能力意味着你可以高效的驾驭神经网络使之用于新项目的开发和建立有效模型上。
 
-It does not mean that you’re an expert at using all or even some neural network techniques or that you can achieve the best possible result. It also does not mean that you are familiar with all data types.
+这一能力并不表示，你是应用所有或者一些神经网络技术的专家，或者你可以获得最好的结果。这也不意味着你熟悉所有数据类型。
 
-### Projects
+### 项目
 
-Projects to demonstrate this level of competence should use an open source deep learning library (such as Keras) and show each step of the applied machine learning process on public tabular machine learning datasets.
+展示这种能力水平的项目应该是使用开源的深度学习库（比如 Keras），并在公开的机器学习数据集上显示应用机器学习过程的每一步。
 
-This does not mean achieving the best possible result for a dataset or even that using a neural network is the best possible model for the dataset. Instead, the goal is to demonstrate the capability of using neural networks, most likely simpler model types such as Multilayer Perceptrons.
+这并不意味着要去实现对数据集的最佳预测结果，甚至不意味着使用神经网络是数据集的最佳可能模型。相反，你的目标应该是展示自己使用神经网络的能力，而最有可能用到的是比较简单的模型，比如多层感知机。
 
-A good source of datasets are the small in-memory datasets used widely in the 1990s and 2000s to demonstrate machine learning and even neural network performance, such as those listed on the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php).
+一个不错的数据集资源是在 1990 年到 2000 年被广泛使用的小型内存数据集。可以用它去证明机器学习甚至是神经网络的表现。例如在 [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php)列表中的一些。
 
-The fact that the datasets are small and easily fit in memory means that the scope of the projects is also small, permits the use of robust model evaluation schemes such as k-fold cross-validation, and may require careful model design in order to avoid overfitting.
+数据集很小，很容易在内存中容纳，这意味着项目的范围也很小，允许使用健壮的模型评估方案。如 k-折叠交叉验证，并且可能需要仔细的模型设计，以避免过拟合。
 
-I would expect a range of projects handling the normal concerns of standard predictive modeling projects, such as:
+我希望有一系列项目能够处理标准预测建模项目的普遍问题，例如：
 
-Varied input data in order to demonstrate data preparation suitable for neural networks:
+改变输入数据，从而展现出适用于神经网络的数据预处理技能：
 
-*   Input variables with the same scale.
-*   Input variables with differing scales.
-*   Mixture of numerical and categorical variables.
-*   Variables with missing values.
-*   Data with redundant input features.
+*   输入具有相同范围的变量。
+*   输入不同比例的变量。
+*   混合了数字类型和分类类型的变量。
+*   变量失去部分值。
+*   具有冗余输入功能的数据。
 
-Varied target variables in order to demonstrate a suitable model configuration:
+处理多种目标变量，从而展现出合适的模型架构技能：
 
-*   Binary classification tasks.
-*   Multiclass classification tasks.
-*   Regression tasks.
+*   二分类任务。
+*   多类分类任务。
+*   回归任务。
 
-## Level 2: Tuning
+## 等级 2：调试
 
-This level of competence assumes Level 1 competence and shows that you can use classical as well as modern techniques in order to get the most from deep learning neural network models.
+假设具有的能力等级为 1，然后展示你可以使用传统和现代的技术从深度学习神经网络模型中发挥最大的功效。
 
-It demonstrates the following:
+它演示了下列事情：
 
-*   **Learning Competence**. That you can improve the training process of neural network models.
-*   **Generalization Competence**. That you can reduce overfitting of the training data and reduce the generalization error on out of sample data.
-*   **Prediction Competence**. That you can reduce the variance in the prediction of final models and lift model skill.
+*   **学习能力**。你可以改进神经网络模型的训练过程。
+*   **泛化能力**。你可以减少训练数据的过度拟合还有减少样本外数据的泛化误差。
+*    **预测能力**。你可以降低最终预测模型的方差和提升模型的技能。
 
-### Learning Competence
+### 学习能力
 
-Learning competence means that you know how to configure and tune the hyperparameters of the learning algorithm in order to get good or better performance.
+学习能力就是说，你知道如何去配置和调整学习算法的超参数来让程序达到更好的表现。
 
-This means skill in tuning hyperparameters of stochastic gradient descent, such as:
+这意味着在调整随机梯度下降超参数方面的技能，例如：
 
-*   Batch size.
-*   Learning rate.
-*   Learning rate schedules
-*   Adaptive learning rates.
+*   批量大小
+*   学习速率
+*   学习速率计划
+*   适应学习速率
 
-This means skill in tuning aspects that influence model capability, such as:
+这意味着调整影响模型能力方面的技能，例如：
 
-*   Model choice.
-*   Choice of activation functions.
-*   Number of nodes.
-*   Number of layers.
+*   模型选择
+*   激活函数的选择
+*   节点的数量
+*   层的数量
 
-This means skill in defusing problems with learning, such as:
+化解（机器）学习过程中的相关问题的技能，例如：
 
-*   Vanishing gradients.
-*   Exploding gradients.
+*   梯度消失
+*   梯度爆炸
 
-It also means skill with techniques to accelerate learning, such as:
+它也意味着用技术去加速学习的技能，例如：
 
-*   Batch normalization.
-*   Layer-wise training.
-*   Transfer learning.
+*   批处理规范化
+*   分层培训
+*   迁移学习
 
-### Generalization Competence
+### 泛化能力
 
-Generalization competence means that you know how to configure and tune a model in order to reduce overfitting and improve model performance on out of sample data.
+泛化能力意味着，你知道如何去配置和调整一个模型去减少过拟合，去提升模型在样本外数据的表现。
 
-This includes classical techniques such as:
+这包括经典的技术例如：
 
-*   Weight regularization.
-*   Adding noise.
-*   Early Stopping.
+*   权重正则化
+*   增加噪声
+*   提前停止
 
-This also includes modern techniques such as:
+这也包括一些现代的技术例如：
 
-*   Weight constraints.
-*   Activity regularization.
-*   Dropout.
+*   权重约束
+*   活动规范化
+*   随机失活
 
-### Prediction Competence
+### 预测能力
 
-Predictive competence means that you know how to use techniques to reduce the variance of a chosen model when making predictions and combine models in order to lift performance.
+预测能力意味着你知道如何使用技术去减少预测时所选模型的方差，并结合模型以提高性能。
 
-This means use of ensemble techniques, such as:
+这意味着要使用集成技术，例如：
 
-*   Model averaging.
-*   Stacking ensembles.
-*   Weight averaging.
+*   模型均衡
+*   堆栈集成
+*   权重均衡
 
-### Projects
+### 项目
 
-Projects that demonstrate this level of competence may be less focused on all of the steps in the process of applied machine learning and instead may focus on a specific problem and technique or range of techniques designed to alleviate it.
+证明这一能力水平的项目可能不太关注应用机器学习过程中的所有步骤，而是关注特定的问题，还有以缓解问题为设计目标的一个或多个技术。
 
-For the three areas of competence, these could be:
+与这三方面的能力相称的问题，可能包括：
 
-*   A problem of poor or slow learning by a model.
-*   A problem of overfitting a training dataset.
-*   A problem of high variance predictions.
+*   模型训练太慢的问题
+*   对训练数据集过拟合的问题
+*   方差过高的问题
 
-Again, this does not mean achieving the best possible performance on a specific problem, only demonstrating the correct use of a technique and its ability to address the identified issue.
+再说一次，这并不意味着在一个具体的问题里实现最佳的表现，仅仅是显示技术的正确使用方法和它处理已确定问题的能力。
 
-Choice of datasets and even problem type may matter less than the clear manifestation of the issue that is being investigated.
+清楚展示项目中研究的问题，比选择数据集甚至问题类型都更重要。
 
-Some datasets naturally introduce problems; for example, small training datasets and imbalanced datasets can result in overfitting.
+一些数据集自然会带来一些问题，例如，小的训练集和不平衡的数据集会带来过拟合的结果。
 
-Standard machine learning datasets could be used. Alternately, problems can be contrived to demonstrate the issue or dataset generators could be used.
+可以使用标准机器学习数据集。也可以人为设计问题然后再去证明它，或者还可以使用数据集生成器。
 
-## Level 3: Applications
+## 等级 3：应用
 
-This level of competence assumes Level 1 and 2 competence and shows that you can use deep learning neural network techniques in specialized problem domains.
+这个能力等级高于能力等级 1 和 2，并且展示你可以在具体问题里使用深度学习神经网络技术。
 
-This is the demonstration of deep learning techniques beyond simple tabular datasets.
+这就是说，要在 simple tabular datasets 以外的场合展现深度学习的技术。
 
-This is also the demonstration of deep learning on the types of problem domains and specific problem instances where the techniques may perform well or even be state-of-the-art.
+这也是对问题领域里不同类型和特定问题实例的深入学习的演示。在这些领域中，这些技术可能表现良好，甚至是最先进的。
 
-It demonstrates the following:
+它演示如下事情：
 
-*   **Data Handling Competence**. That you can load and prepare domain-specific data ready for modeling with neural networks.
-*   **Technique Competence**. That you can compare and select appropriate domain-specific neural network models.
+*   **数据处理能力**。你可以为神经网络加载和准备具体问题的数据。
+*   **技术能力**。你可以为具体问题比较和选择合适的神经网络模型。
 
-### Data Handling Competence
+### 数据处理能力
 
-Data handling competence means that you can acquire, load, use, and prepare the data for modeling.
+数据处理能力意味着你可以获得，加载，使用和准备模型所使用的数据。
 
-This will very likely demonstrate competence with standard libraries for handling the data and standard techniques for preparing the data.
+这很可能证明运用标准库处理数据，以及运用标准技术准备数据的能力。
 
-Some examples of domains and data handling might include:
+问题域和对数据的处理可能包括：
 
-*   **Time Series Forecasting**. Code for framing time series problems as supervised learning problems.
-*   **Computer Vision**. APIs for loading images and transforms to resize, perhaps standardize, pixels.
-*   **Natural Language Processing**. APIs for loading text data and transforms for encoding characters or words.
+*   **时间序列预测**。将时间序列问题处理为监督学习问题的代码。
+*   **计算机视觉**。用于加载图像和转换以调整像素大小（可能是标准化）的API。
+*   **自然语言处理**。用于加载文本数据和转换译码字符或者单词的 API。
 
-### Technique Competence
+### 技术能力
 
-Technique competence means that you can correctly identify the techniques, models, and model architectures that are appropriate for a given domain-specific modeling problem.
+技术能力意味着你可以准确识别适合特定领域建模问题的技术、模型和模型体系结构。
 
-This will very likely require a familiarity with common methods used in the academic literature and/or industry for general classes of problems in the domain.
+这将很可能需要你熟悉学术文献和/或行业中针对该领域一般类问题使用的常用方法。
 
-Some examples of domains and domain-specific methods might include:
+问题域和针对具体问题的方法可能包括：
 
-*   **Time Series Forecasting**. Use of sequence prediction models such as convolutional and recurrent neural network models.
-*   **Computer Vision**. Use of deep convolutional neural network models and use of specific architectures.
-*   **Natural Language Processing**. Use of deep recurrent neural network models and use of specific architectures.
+*   **预测时间序列**。使用序列预测模型。比如卷积神经网络模型和循环神经网络模型。
+*   **计算机视觉**。使用深度卷积神经网络和使用特殊体系结构。
+*   **自然语言处理**。使用深度循环神经网络模型和使用特殊体系结构。
 
-### Projects
+### 项目
 
-Projects that demonstrate this level of competence must cover the applied machine learning process, include careful model tuning (aspects of competence Levels 1 and 2), and must focus on domain-specific datasets.
+能表现出这一能力水平的项目，必须涵盖应用机器学习过程，用上细致的模型调整方法（等级 1 和 2 的能力），还必须将重点放在特定领域的数据集上。
 
-Datasets may be sourced from:
+数据集来源于这里：
 
-*   Standard datasets used in academia to demonstrate methods.
-*   Datasets used on competitive machine learning websites.
-*   Original datasets defined and collected by you.
+*   被使用在学术领域去验证方法的标准数据集
+*   机器学习竞赛网站的数据集
+*   由你收集和定义的独特数据集。
 
-There may be a large range of problems that belong to a given problem domain, although there will be a subset that is perhaps more common or prominent and these can be the focus of demonstration projects.
+可能存在大量属于给定问题域的问题。尽管会有一个更常见或更突出的子集，这些可能是示范项目的重点。
 
-Some example of domains and prominent sub-problems might include:
+域和突出的子问题的一些示例可能包括：
 
-*   **Time Series Forecasting**. Univariate, multivariate, multi-step, and classification.
-*   **Computer Vision**. Object classification, object localization, and object description.
-*   **Natural Language Processing**. Text classification, text translation, and text summarization.
+*   **时间序列预测**。单一变量，多元变量，多步和分类。
+*   **计算机视觉**。物体分类，物体定位和物体描述。
+*   **自然语言处理**。文本分类，文本翻译和文本概括。
 
-It may be desirable to demonstrate competence at a high level across multiple domains, and the data handling, modeling techniques, and skills will translate well.
+可取的做法或许是，在跨领域的高水平层面上展示能力，这样就能让数据处理手法、建模技术和技能很好地表现出来。
 
-It may also be desirable to specialize in a domain and to narrow down to demonstration projects on subtle sub-problems after the most prominent problems and techniques have been addressed.
+在解决了最突出的问题和技术之后，也可能需要专门研究某个领域，并缩小对细微子问题的演示项目的范围。
 
-Because projects of this type may demonstrate the broader appeal of deep learning (e.g. the ability to outperform classical methods), there is a danger in jumping straight to this level.
+因为这种类型的项目可能表现出深度学习的更广泛吸引力（例如，超越经典方法的能力），直接跳到这一水平是有危险的。
 
-It may be possible for experienced practitioners, with ether deeper knowledge and experience with other machine learning methods or with deeper knowledge and experience with the domain.
+有经验的从业者，要是在其他机器学习方法或者该专门领域具备更深入的知识和经验，或许能做到这一点。
 
-Nevertheless, it is significantly harder as you may have to learn and you must harness and demonstrate all three levels of competence at once.
+然而，这是非常困难的，因为你可能不得不学习并且必须一次驾驭和证明所有三个等级的能力。
 
-This is by far the biggest mistake of beginners who dive into domain-specific projects and crash into roadblock after roadblock given they are not yet competent with the library, the process of working through a project, and the process of improving model performance, let alone the specific data handling and modeling techniques used in the domain.
+这是迄今为止初学者犯的最大的错误。他们钻研特定领域的项目并遇到一个又一个的障碍。因为他们对库的用法、从头到尾完成一个项目的流程以及提高模型表现的过程这几个方面还掌握得不好，更别说所涉领域中运用的特定数据处理技术和建模技术了。
 
-Again, it is possible to start at this level; it just triples the workload and may result in frustration.
+再说一次，可以从这一个等级开始，但给你带来的可能仅仅是三倍的工作量和挫败感。
 
-Did this competence framework resonate? Do you think there are any holes?  
-Let me know in the comments.
+你对能力框架产生共鸣了吗？你认为这很空洞吗？
+请在评论区让我知道。
 
-## Further Reading
+## 扩展阅读
 
-This section provides more resources on the topic if you are looking to go deeper.
+如果你想研究的更深入，这一节为你提供此课题下更多的资源。
 
-### Posts
+### 帖子
 
-*   [Build a Machine Learning Portfolio](https://machinelearningmastery.com/build-a-machine-learning-portfolio/)
-*   [What is Deep Learning?](https://machinelearningmastery.com/what-is-deep-learning/)
-*   [8 Inspirational Applications of Deep Learning](https://machinelearningmastery.com/inspirational-applications-deep-learning/)
-*   [7 Applications of Deep Learning for Natural Language Processing](https://machinelearningmastery.com/applications-of-deep-learning-for-natural-language-processing/)
+*   [建立一个机器学习文件夹](https://machinelearningmastery.com/build-a-machine-learning-portfolio/)
+*   [深度学习是什么](https://machinelearningmastery.com/what-is-deep-learning/)
+*   [8 启发性的深度学习应用](https://machinelearningmastery.com/inspirational-applications-deep-learning/)
+*   [7 自然语言处理服务的深度学习应用](https://machinelearningmastery.com/applications-of-deep-learning-for-natural-language-processing/)
 
-### Articles
+### 文章
 
-*   [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php)
-*   [List of datasets for machine learning research, Wikipedia](https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research).
-*   [Deep Learning Datasets](http://deeplearning.net/datasets/)
-*   [25 Open Datasets for Deep Learning Every Data Scientist Must Work With, Analytics Vidhya](https://www.analyticsvidhya.com/blog/2018/03/comprehensive-collection-deep-learning-datasets/).
+*   [UC Irvine 深度学习仓库](https://archive.ics.uci.edu/ml/index.php)
+*   [研究机器学习的一些数据集, 维基百科](https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research)
+*   [深度学习数据集](http://deeplearning.net/datasets/)
+*   [25 开放式数据集，供每个数据科学家深入学习, Analytics Vidhya](https://www.analyticsvidhya.com/blog/2018/03/comprehensive-collection-deep-learning-datasets/).
 
-## Summary
+## 总结
 
-In this post, you discovered the three levels of deep learning competence and as a practitioner, what you must demonstrate at each level.
+在这篇文章中，你发现了深度学习能力的三个等级，作为一个从业者，你必须在每一个等级上证明什么
 
-Specifically, you learned:
+具体而言，你学习了：
 
-*   The problem of evaluating deep learning competence can best be addressed through project portfolios.
-*   A hierarchy of three competency levels can be used to sort practitioners and provide a framework for identifying the expected skills
-*   The most common mistake that beginners make is starting at level 3, meaning they are trying to learn all levels at once, leading to confusion and frustration.
+*   深度学习的能力最好是通过项目组合去评估。
+*   三个能力级别的层次结构可用于对从业者进行分类，并提供一个识别预期技能的框架。
+*   最普通的错误是新手从 3 级就开始，意味着他们试图一下就学到所有的等级，导致困惑和挫折感。
 
-Do you have any questions?  
-Ask your questions in the comments below and I will do my best to answer.
+你有问题吗？
+在下方评论区提问，我将尽我所能去回答。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

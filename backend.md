@@ -1,3 +1,6 @@
+* [减少 Python 中循环的使用](https://juejin.im/post/5cc8e012e51d453b6d4d13fd) ([qiuyuezhong](https://github.com/qiuyuezhong) 翻译)
+* [Node.js 提供百万的活跃 WebSocket 连接](https://juejin.im/post/5cbeb2f45188250ab65f1d0c) ([Mirosalva](https://github.com/Mirosalva) 翻译)
+* [Node.js 会永远只是慢的 Golang 吗？](https://juejin.im/post/5cc811fc6fb9a0322415a70d) ([steinliber](https://github.com/steinliber) 翻译)
 * [用 Rust 打造你的第一个命令行工具](https://juejin.im/post/5cb33b94e51d456e63760453) ([JackEggie](https://github.com/JackEggie) 翻译)
 * [Spring 的分布式事务实现 — 使用和不使用XA — 第三部分](https://juejin.im/post/5caee1ee6fb9a068890f1eff) ([radialine](https://github.com/radialine) 翻译)
 * [Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3) ([xiantang](https://github.com/xiantang) 翻译)
