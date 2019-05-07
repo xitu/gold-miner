@@ -169,7 +169,7 @@ var x = 1;
 function foo(x, y = function() { x = 2; }) {
   var x = 3;
   y(); // `x` 被共用了吗？
-  console.log(x); // 没有，依然是 3，不是 2 
+  console.log(x); // 没有，依然是 3，不是 2
 }
  
 foo();
