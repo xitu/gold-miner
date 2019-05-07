@@ -31,7 +31,7 @@ if (typeof level == 'undefined') {
 }
 ```
 
-有时，你也可以检查 `arguments.length` :
+有时，你也可以检查 `arguments.length`：
 
 ```
 if (arguments.length == 1) {
