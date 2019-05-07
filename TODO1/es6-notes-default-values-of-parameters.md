@@ -284,7 +284,7 @@ function foo(x = 5) {
 
 ### `undefined` 检查
 
-还要注意另一个有趣的事实，是否应用默认值，取决于对参数初始值（其赋值发生在[一进入上下文](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/#entering-the-execution-context)时）的检查结果是否为值 `undefined` 。我们来证明一下： 
+还要注意另一个有趣的事实，是否应用默认值，取决于对参数初始值（其赋值发生在[一进入上下文](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/#entering-the-execution-context)时）的检查结果是否为值 `undefined`。我们来证明一下： 
 
 ```
 function foo(x, y = 2) {
