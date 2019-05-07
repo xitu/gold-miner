@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/es6-notes-default-values-of-parameters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/es6-notes-default-values-of-parameters.md)
 > * 译者：[Chorer](https://github.com/chorer)
-> * 校对者：[fireairforce](https://github.com/fireairforce),[xingqiwu55555](https://github.com/xingqiwu55555)
+> * 校对者：[fireairforce](https://github.com/fireairforce), [xingqiwu55555](https://github.com/xingqiwu55555)
 
 # 笔记 6. ES6：参数默认值
 
