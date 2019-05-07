@@ -260,7 +260,7 @@ function foo(x, y) {
   }
   var x = 3;
   y(); // `x` 被共用了吗？
-  console.log(x); // 是的！ 2
+  console.log(x); // 是的！2
 }
  
 foo();
