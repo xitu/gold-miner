@@ -5,7 +5,7 @@
 > * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：
 
-# 现代  JavaScript 开发中的设计模式
+# [译] 现代  JavaScript 开发中的设计模式
 
 > 软件项目设计中有效沟通的思考
 
