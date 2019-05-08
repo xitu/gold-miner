@@ -7,7 +7,7 @@
 
 # Tips to use VSCode more efficiently
 
-[![vscode customized](https://sudolabs.io/static/9c2742ceaf5b57f1c81558b3c19baee6/c4067/vscode-customized.png)](/static/9c2742ceaf5b57f1c81558b3c19baee6/5642a/vscode-customized.png) 
+[![vscode customized](https://sudolabs.io/static/9c2742ceaf5b57f1c81558b3c19baee6/c4067/vscode-customized.png)](https://sudolabs.io/static/9c2742ceaf5b57f1c81558b3c19baee6/5642a/vscode-customized.png) 
 
 Say you’ve already been using VSCode for some time now. You’ve changed the color theme (if not, I highly recommend [material theme](https://material-theme.site/)), you’ve tweaked some essential settings and installed a couple of popular extensions.
 
@@ -38,7 +38,7 @@ One of the most overlooked essential features of VSCode is `jsconfig.json`. If y
 
 **Note: If you already know where to find VSCode settings and how to edit them, jump to the next section**
 
-VSCode stores settings in a JSON-like (the so-called [`jsonc`](https://code.visualstudio.com/docs/languages/json#_json-with-comments) \- JSON with comments mode) file. It can be accessed with `⌘ ,` shortcut, or through `Code > Preferences > Settings`. ([Go here](https://code.visualstudio.com/docs/getstarted/settings) to learn more about VSCode settings)
+VSCode stores settings in a JSON-like (the so-called [`jsonc`](https://code.visualstudio.com/docs/languages/json#_json-with-comments) - JSON with comments mode) file. It can be accessed with `⌘`, shortcut, or through `Code > Preferences > Settings`. ([Go here](https://code.visualstudio.com/docs/getstarted/settings) to learn more about VSCode settings)
 
 After you open up the settings, you won’t see the raw JSON right away. VSCode has received a nice UI for them lately, but for the purpose of this article it’s easier to share the settings in raw key-value form, so we won’t be using it.
 
@@ -46,7 +46,7 @@ You can access the settings JSON by clicking on the `{ }` icon in the tab bar.
 
 In case it’s empty (you haven’t made any modification to the default settings yet), let’s create an empty object, so it’s a valid JSON:
 
-[![vscode settings](https://sudolabs.io/static/f078c5e598c1d3b816baf18a94fb234b/c4067/vscode-settings.png)](/static/f078c5e598c1d3b816baf18a94fb234b/5642a/vscode-settings.png) 
+[![vscode settings](https://sudolabs.io/static/f078c5e598c1d3b816baf18a94fb234b/c4067/vscode-settings.png)](https://sudolabs.io/static/f078c5e598c1d3b816baf18a94fb234b/5642a/vscode-settings.png) 
 
 ### Theme
 
@@ -56,11 +56,11 @@ As I’ve already mentioned, I’m using [Material Theme](https://material-theme
 
 One more thing - those nice file / folder icons are achieved through [Material Theme Icons](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme-icons) extension:
 
-[![sidebar customized](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png)](/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png) 
+[![sidebar customized](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png)](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png) 
 
 This is how your settings (and editor) now look like:
 
-[![vscode settings edited](https://sudolabs.io/static/7d24d00917578b6586ae5630164973a8/c4067/vscode-settings-edited.png)](/static/7d24d00917578b6586ae5630164973a8/5642a/vscode-settings-edited.png) 
+[![vscode settings edited](https://sudolabs.io/static/7d24d00917578b6586ae5630164973a8/c4067/vscode-settings-edited.png)](https://sudolabs.io/static/7d24d00917578b6586ae5630164973a8/5642a/vscode-settings-edited.png) 
 
 Nice right?
 
@@ -68,7 +68,7 @@ Quick tip: You can change Material Theme accent color by searching „accent“ 
 
 ### Font
 
-The right font can make your code more legible and pleasant to look at. My programming font of choice is [`Fira Code`](https://github.com/tonsky/FiraCode) \- a robust & well-made programming font with beautiful ligatures. [Try it](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)! Did I mention it’s free?
+The right font can make your code more legible and pleasant to look at. My programming font of choice is [`Fira Code`](https://github.com/tonsky/FiraCode) - a robust & well-made programming font with beautiful ligatures. [Try it](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)! Did I mention it’s free?
 
 ### Indentation
 
@@ -95,31 +95,30 @@ VSCode [ships with Emmet](https://code.visualstudio.com/docs/editor/emmet) suppo
 So, by default, you’d have to use `.jsx` file extension, to get Emmet support for JSX files. Say you only work with `.js` files, so you have two options:
 
 1. tell Emmet to run in `.js` files:
-    
-    ```json
-    "emmet.includeLanguages": {
-    "javascript": "javascriptreact",
-    }
-    ```
-    
-    (enable `javascriptreact` Emmet syntax in `javascript` files)
-    
+
+```json
+"emmet.includeLanguages": {
+"javascript": "javascriptreact",
+}
+```
+
+(enable `javascriptreact` Emmet syntax in `javascript` files)
+
 2. tell VSCode to treat any `.js` file just like `.jsx` (it means to use `javascriptreact` syntax for all `.js` files as well), so Emmet sees is as if it was a `.jsx` file:
-    
-    ```json
-    "files.associations": {
-    "*.js": "javascriptreact"
-    }
-    ```
-    
+
+```json
+"files.associations": {
+"*.js": "javascriptreact"
+}
+```
 
 I went for the second one - I never use `.jsx` file extension, so I want to have VSCode React support in `.js` files anyway.
 
 These Emmet commands are my most-used ones:
 
-* `expand abbreviation` \- to expand string to JSX element
-* `wrap with abbreviation` \- to wrap existing JSX with another element
-* `split / join tag` \- making self-closing tags from tag pairs (e.g. from the output of `expand abbreviation`) and vice versa
+* `expand abbreviation` - to expand string to JSX element
+* `wrap with abbreviation` - to wrap existing JSX with another element
+* `split / join tag` - making self-closing tags from tag pairs (e.g. from the output of `expand abbreviation`) and vice versa
 
 Emmet is really powerful and can save you a lot of time, so I highly recommend you checking out their demos on emmet.io site.
 
@@ -137,11 +136,11 @@ To achieve this, set the following:
 "workbench.editor.enablePreviewFromQuickOpen": false
 ```
 
-Now try to `⌘ P` \- your file will no longer open in preview mode.
+Now try to `⌘ P` - your file will no longer open in preview mode.
 
 ### Breadcrumbs
 
-[![vscode breadcrumbs](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/c4067/vscode-breadcrumbs.png)](/static/a81dc2739c14f1ebcd95b79df42096d1/a260b/vscode-breadcrumbs.png) 
+[![vscode breadcrumbs](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/c4067/vscode-breadcrumbs.png)](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/a260b/vscode-breadcrumbs.png) 
 
 Breadcrumbs (displayed underneath the title bar) is a useful feature of VSCode that shows your location in the codebase. If you click on one of the segments, it shows you your current location, and files / symbols on the same level, serving as a quick navigation as well.
 
@@ -153,8 +152,8 @@ Enable them with this setting:
 
 There are two useful shortcuts when it comes to breadcrumbs:
 
-* `⌘ ⇧ .` \- Focus Breadcrumbs: It will select that last element and open a dropdown that allows you to navigate to a sibling file or symbol.
-* `⌘ ⇧ ;` \- Focus last element of Breadcrumbs without opening it - so you can move inside the path hierarchy with arrows.
+* `⌘ ⇧ .` - Focus Breadcrumbs: It will select that last element and open a dropdown that allows you to navigate to a sibling file or symbol.
+* `⌘ ⇧ ;` - Focus last element of Breadcrumbs without opening it - so you can move inside the path hierarchy with arrows.
 
 Quick tip: You can type inside the breadcrumb popup to filter files and folders / symbols, and focus on them with `↵`.
 
@@ -185,7 +184,7 @@ You can see all available options [here](https://code.visualstudio.com/docs/gets
 
 You probably know the famous minimap widget from Sublime Text. It’s turned on by default, but looks quite awful:
 
-[![minimap default](https://sudolabs.io/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png)](/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png) 
+[![minimap default](https://sudolabs.io/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png)](https://sudolabs.io/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png) 
 
 Lets’ improve it.
 
@@ -197,7 +196,7 @@ First, let’s use color blocks instead of minified characters. Then set the max
 "editor.minimap.showSlider": "always"
 ```
 
-[![minimap customized](https://sudolabs.io/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png)](/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png) 
+[![minimap customized](https://sudolabs.io/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png)](https://sudolabs.io/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png) 
 
 ### Whitespace
 
