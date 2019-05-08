@@ -7,8 +7,7 @@
 
 # Keras Cheat Sheet: Neural Networks in Python
 
-Make your own neural networks with this Keras cheat sheet to deep learning in Python for beginners, with code samples.
----------------
+## Make your own neural networks with this Keras cheat sheet to deep learning in Python for beginners, with code samples.
 
 [Keras](http://keras.io/) is an easy-to-use and powerful library for Theano and TensorFlow that provides a high-level neural networks API to develop and evaluate deep learning models.
 
@@ -47,12 +46,12 @@ Keras is a powerful and easy-to-use deep learning library for Theano and TensorF
 >>>  model.fit(data,labels,epochs=10,batch_size=32)
 >>>  predictions = model.predict(data)
 ```
+
 ### Data
 
 Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideally, you split the data in training and test sets, for which you can also resort to the `train_test_split` module of `sklearn.cross_validation`.
 
 #### Keras Data Sets
-
 
 ```
 >>> from keras.datasets import boston_housing, mnist, cifar10, imdb
