@@ -301,8 +301,8 @@ Another suggestion that Tierney had is to run Node with `systemd`. I don’t und
 
 Tierney also wants you to know that Worker Threads are coming in Node. This will allow you to start your app on multiple “workers” (threads) thusly negating the need for something like pm2. Maybe. I don’t know. I didn’t really read the article.
 
-[**Node.js v11.14.0 Documentation**](https://nodejs.org/api/worker_threads.html)  
-[The worker_threads module enables the use of threads that execute JavaScript in parallel. To access it: const worker =…](https://nodejs.org/api/worker_threads.html)
+- [**Node.js v11.14.0 Documentation**](https://nodejs.org/api/worker_threads.html)  
+- [The worker_threads module enables the use of threads that execute JavaScript in parallel. To access it: const worker =…](https://nodejs.org/api/worker_threads.html)
 
 ### Be an Adult
 
