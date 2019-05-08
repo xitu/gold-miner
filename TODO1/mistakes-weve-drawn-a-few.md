@@ -65,7 +65,7 @@
 
 ![… what?](https://cdn-images-1.medium.com/max/2560/1*Ilu1H37M1soUh1GHhDa_IA.png)
 
-在**经济学人**, 我们鼓励去制造一些具有发散性思维的新闻。但是，有时我们做的太过了。[上表](https://www.economist.com/briefing/2017/01/21/peter-navarro-is-about-to-become-one-of-the-worlds-most-powerful-economists)展示了美国货物贸易逆差和工厂雇佣员工数量的关系。
+在**经济学人**，我们鼓励去制造一些具有发散性思维的新闻。但是，有时我们做的太过了。[上表](https://www.economist.com/briefing/2017/01/21/peter-navarro-is-about-to-become-one-of-the-worlds-most-powerful-economists)展示了美国货物贸易逆差和工厂雇佣员工数量的关系。
 
 这个图表是令人发指的难以理解。它有两个主要问题。首先，贸易逆差的全部数据都是负值，而工厂雇佣人数全部是正值。在没有将两组数据归一化到同一尺度的情况下，将他们组合到一张表中表达是不合适的。这种直白的处理方式导致了第二个问题：两组数据没有共享同一个基线。贸易逆差的基线是图表顶部左半段的红线，而右边尺度的基线又在图表的底部。
 
