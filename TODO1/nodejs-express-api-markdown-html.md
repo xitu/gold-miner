@@ -26,7 +26,6 @@ Assuming you’ve already installed Node.js on your system, create a directory t
 ```bash
 $ mkdir markdown-api
 $ cd markdown-api
-
 ```
 
 Use the npm init command to create a **package.json** file for your application. This command prompts you for a number of things like the name and version of your application.
