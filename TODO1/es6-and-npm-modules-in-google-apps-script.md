@@ -8,8 +8,8 @@
 # Using ES6 and npm modules in Google Apps Script
 
 > Google’s Apps Script should be of interest to all JavaScript developers.  
-Apps Script is good for automation. Through it, you can directly access Google’s many services, such as Google Sheets, Gmail, Google Docs, Google Calendar, and more.  
-With a little bit of imagination, you can create very exciting Apps and add-ons using Google Apps Script.
+> Apps Script is good for automation. Through it, you can directly access Google’s many services, such as Google Sheets, Gmail, Google Docs, Google Calendar, and more.  
+> With a little bit of imagination, you can create very exciting Apps and add-ons using Google Apps Script.
 
 Unlike AppEngine, which first asks you for your credit card, Apps Script remains free so far. At the very least, Apps Script is good for quickly creating “proof of concept” mockups or even prototypes.
 
