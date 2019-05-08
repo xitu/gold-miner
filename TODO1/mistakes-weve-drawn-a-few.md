@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mistakes-weve-drawn-a-few.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mistakes-weve-drawn-a-few.md)
 > * 译者：[ccJia](https://github.com/ccJia)
-> * 校对者：
+> * 校对者：[Charlo-O](https://github.com/Charlo-O), [cyz980908](https://github.com/cyz980908)
 
 # 在数据可视化中，我们曾经“画”下的那些败笔
 
-> 学习我们数据可视化中犯的错误
+> 从败笔中学习数据可视化
 
 在**经济学人**，我们会很认真的对待数据可视化。我们每周都会通过印刷品、网站或者应用程序发布大概 40 张图表。对于每一个图表，我们都尽可能的让它更精确从而最好的支撑我们所要描述的主题。但有的的时候我们也会犯错。如果我们从这些错误中吸取教训，我们在未来可以做的更好，同时其他人也可以从中学到一些东西。
 
@@ -65,7 +65,7 @@
 
 ![… what?](https://cdn-images-1.medium.com/max/2560/1*Ilu1H37M1soUh1GHhDa_IA.png)
 
-在**经济学人**, 我们鼓励去制造一些发散性的新闻。但是，有时我们做的太过了。[上表](https://www.economist.com/briefing/2017/01/21/peter-navarro-is-about-to-become-one-of-the-worlds-most-powerful-economists)展示了美国货物贸易逆差和工厂雇佣员工数量的关系。
+在**经济学人**, 我们鼓励去制造一些具有发散性思维的新闻。但是，有时我们做的太过了。[上表](https://www.economist.com/briefing/2017/01/21/peter-navarro-is-about-to-become-one-of-the-worlds-most-powerful-economists)展示了美国货物贸易逆差和工厂雇佣员工数量的关系。
 
 这个图表是令人发指的难以理解。它有两个主要问题。首先，贸易逆差的全部数据都是负值，而工厂雇佣人数全部是正值。在没有将两组数据归一化到同一尺度的情况下，将他们组合到一张表中表达是不合适的。这种直白的处理方式导致了第二个问题：两组数据没有共享同一个基线。贸易逆差的基线是图表顶部左半段的红线，而右边尺度的基线又在图表的底部。
 
@@ -104,7 +104,7 @@
 
 ![**I give up.**](https://cdn-images-1.medium.com/max/2560/1*7GJIxnYsyFSGgQV537Ittg.png)
 
-由于空间的限制，我们经常性的把数据强行塞到一个很小的细条上。虽然节省了空间，但是也会有像这个[图表(来自 2017 年 3 月)](https://www.economist.com/science-and-technology/2017/03/11/science-remains-male-dominated)一样的影响。这个案例展示了科学刊物是由男性主导的现象。所有的数据都同样的意义并且和主题相关。但是这么多的数据（包含了四个研究领域以及发明人）是很难在这里展示出来的。
+由于空间的限制，我们经常性的把数据强行塞到一个很小的细条上。虽然节省了空间，但是也会有像这个[图表(来自 2017 年 3 月)](https://www.economist.com/science-and-technology/2017/03/11/science-remains-male-dominated)一样的后果。这个案例展示了科学刊物是由男性主导的现象。所有的数据都同样的意义并且和主题相关。但是这么多的数据（包含了四个研究领域以及发明人）是很难在这里展示出来的。
 
 在深思熟虑之后，我决定还是不要重新设计这个图表了。如果我保存了所有的数据，那么图表会很臃肿从而没法简洁的表达主题。在这种情况下，最好的方式是砍掉一部分数据。比如，我们可以展示一个测量均值，或者使用所有领域的女性出版物的平均值来代替。**（如果你可以在这个狭小的空间上做的更好！那么请告诉我，我很乐意知道你的想法。）**
 
@@ -112,7 +112,7 @@
 
 ***
 
-数据可视化的实现方法正在快速发展：那些今天有效的方法，明天不一定有效。每时每刻都有新的技术涌现出来。你有没有犯过一些很容易被修整的错误？快来告诉我们！
+数据可视化的最佳实现方法正在快速发展：那些今天有效的方法，明天不一定有效。每时每刻都有新的技术涌现出来。你有没有犯过一些很容易被修整的错误？快来告诉我们！
 
 **经济学人数据可视化记者 Sarah Leo**.
 
