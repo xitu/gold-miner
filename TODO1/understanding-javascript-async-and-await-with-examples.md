@@ -2,10 +2,10 @@
 > * 原文作者：[Arfat Salman](https://medium.com/@arfatsalman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-async-and-await-with-examples.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-async-and-await-with-examples.md)
-> * 译者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
-# Deeply Understanding JavaScript Async and Await with Examples
+# 通过一些例子深入了解 JavaScript 的 Async 和 Await
 
 ![](https://cdn-images-1.medium.com/max/3840/1*3kAwfTZXxNynBOB5O6VQtg.jpeg)
 
