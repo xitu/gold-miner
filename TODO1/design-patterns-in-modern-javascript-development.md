@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-in-modern-javascript-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-in-modern-javascript-development.md)
 > * 译者：[Hyde Song](https://github.com/HydeSong)
-> * 校对者：
+> * 校对者：[xujiujiu](https://github.com/xujiujiu)、[ezioyuan](https://github.com/ezioyuan)
 
 # 现代 JavaScript 开发中的设计模式
 
