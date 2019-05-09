@@ -19,7 +19,7 @@ Now that we got that out of the way, let's start. First of all let us define an 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*qs2p-_jNvBDeGMEVqrqK9A.png)
 
-Which is quite straight forward, minimizing a function *f*subject to some constraints (the s.t. is short for subject to). Now, in the optimization world this can be arbitrarily difficult based on how the objective function looks like and the constraints. The constraints can, of course, be equality constraints or inequality constraints based on the problem. Needless to say, non-convex functions in an optimization problem are hard to optimize over, but in the case where we have convex functions we can solve the problem efficiently and fast. Anyway, it is so significant that your reaction to finding convexity in your problem should look like this:
+Which is quite straight forward, minimizing a function *f* subject to some constraints (the s.t. is short for subject to). Now, in the optimization world this can be arbitrarily difficult based on how the objective function looks like and the constraints. The constraints can, of course, be equality constraints or inequality constraints based on the problem. Needless to say, non-convex functions in an optimization problem are hard to optimize over, but in the case where we have convex functions we can solve the problem efficiently and fast. Anyway, it is so significant that your reaction to finding convexity in your problem should look like this:
 
 ![](https://cdn-images-1.medium.com/max/1600/0*5jrHW-EJDsRPZVBx.jpg)
 
