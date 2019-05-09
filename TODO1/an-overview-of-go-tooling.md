@@ -2,67 +2,67 @@
 > * 原文作者：[Alex Edwards](https://www.alexedwards.net/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md)
-> * 译者：
+> * 译者：[iceytea](https://github.com/iceytea)
 > * 校对者：
 
-# An Overview of Go's Tooling
+# Go 语言工具概述
 
-Occasionally I get asked **“why do you like using Go?”** And one of the things I often mention is the thoughtful tooling that exists alongside the language as part of the `go` command. There are some tools that I use everyday — like `go fmt` and `go build` — and others like `go tool pprof` that I only use to help solve a specific issue. But in all cases I appreciate the fact that they make managing and maintaining my projects easier.
+我偶尔会被问到：**“你为什么喜欢使用 Go 语言？”** 我经常提到的一件事情是，作为 `go` 命令的一部分 —— 与 Go 语言一同存在的周到的工具 —— 比如 `go fmt` 和 `go build`，以及其它像 `go tool pprof` 这样只用来帮助解决特定问题的工具。但在任何情况下，我都很欣赏它们使我的项目管理和维护更容易的事实。
 
-In this post I hope to provide a little background and context about the tools I find most useful, and importantly, explain how they can fit into the workflow of a typical project. I hope it'll give you a good start if you're new to Go.
+在这篇文章中，我希望能提供一些我认为最有用的工具的设定背景和关系。更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望它会给你带来一个良好的开端。
 
-Or if you've been working with Go for a while, and that stuff's not applicable to you, hopefully you'll still discover a command or flag that you didn't know existed before : )
+如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但也希望你能在这里发现之前不知道的命令和标记😀
 
-The information in this post is written for Go 1.12 and assumes that you're working on a project which has [modules enabled](https://github.com/golang/go/wiki/Modules#quick-start).
+本文中的信息是针对 Go 1.12 编写的，并假设您正在开发一个[模块启用](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
 
-1. **[Installing Tooling](#installing-tooling)**
-2. **[Viewing Environment Information](#viewing-environment-information)**
-3. **[Development](#development)**
-    * [Running Code](#running-code)
-    * [Fetching Dependencies](#fetching-dependencies)
-    * [Refactoring Code](#refactoring-code)
-    * [Viewing Go Documentation](#viewing-go-documentation)
-4. **[Testing](#testing)**
-    * [Running Tests](#running-tests)
-    * [Profiling Test Coverage](#profiling-test-coverage)
-    * [Stress Testing](#stress-testing)
-    * [Testing all Dependencies](#testing-all-dependencies)
-5. **[Pre-Commit Checks](#pre-commit-checks)**
-    * [Formatting Code](#formatting-code)
-    * [Performing Static Analysis](#performing-static-analysis)
-    * [Linting Code](#linting-code)
-    * [Tidying and Verifying your Dependencies](#tidying-and-verifying-your-dependencies)
-6. **[Build and Deployment](#build-and-deployment)**
-    * [Building an Executable](#building-an-executable)
-    * [Cross-Compilation](#cross-compilation)
-    * [Using Compiler and Linker Flags](#using-compiler-and-linker-flags)
-7. **[Diagnosing Problems and Making Optimizations](#diagnosing-problems-and-making-optimizations)**
-    * [Running and Comparing Benchmarks](#running-and-comparing-benchmarks)
-    * [Profiling and Tracing](#profiling-and-tracing)
-    * [Checking for Race Conditions](#checking-for-race-conditions)
-8. **[Managing Dependencies](#managing-dependencies)**
-9. **[Upgrading to a New Go Release](#upgrading-to-a-new-go-release)**
-10. **[Reporting Bugs](#reporting-bugs)**
-11. **[Cheatsheet](#cheatsheet)**
+1. **[安装工具](#安装工具)**
+2. **[查看环境信息](#查看环境信息)**
+3. **[开发](#开发)**
+    * [运行代码](#运行代码)
+    * [获取依赖关系](#获取依赖关系)
+    * [重构代码](#重构代码)
+    * [查看 Go 文档](#查看-Go-文档)
+4. **[测试](#测试)**
+    * [运行测试](#运行测试)
+    * [分析测试覆盖率](#分析测试覆盖率)
+    * [压力测试](#压力测试)
+    * [测试全部依赖关系](#测试全部依赖关系)
+5. **[预提交检查](#预提交检查)**
+    * [格式化代码](#格式化代码)
+    * [执行静态分析](#执行静态分析)
+    * [Linting 代码](#linting-代码)
+    * [整理和验证依赖关系](#整理和验证依赖关系)
+6. **[构建与部署](#构建与部署)**
+    * [构建可执行文件](#构建可执行文件)
+    * [交叉编译](#交叉编译)
+    * [使用编译器和链接器标记](#使用编译器和链接器标记)
+7. **[诊断问题和优化](#诊断问题和优化)**
+    * [运行和比较基准](#运行和比较基准)
+    * [分析和跟踪](#分析和跟踪)
+    * [检查竞态条件](#检查竞态条件)
+8. **[管理依赖](#管理依赖)**
+9. **[升级到新版本](#升级到新版本)**
+10. **[报告问题](#报告问题)**
+11. **[速查表](#速查表)**
 
-## Installing Tooling
+## 安装工具
 
-In this post I'll mainly be focusing on tools that are a part of the `go` command. But there are a few I'll be mentioning which aren't part of the standard Go 1.12 release.
+这篇文章中，我将主要关注作为 `go` 命令一部分的工具。但这里也将提到一些不属于标准 Go 12.2 发行版部分的内容。
 
-To install these while using Go 1.12 you'll first need to make sure that you're **outside** of a module-enabled directory (I usually just change into `/tmp`). Then you can use the `GO111MODULE=on go get` command to install the tool. For example:
+当你在 Go 12.2 版本下安装工具时，你首先需要确定你当前在启用模块的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令安装工具。例如：
 
 ```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 ```
 
-This will download the relevant package and dependencies, build the executable and add it to your `GOBIN` directory. If you haven't explicitly set a `GOBIN` directory, then the executable will be added to your `GOPATH/bin` folder. Either way, you should make sure that the appropriate directory is on your system path.
+这条命令将会下载相关的包和依赖项、构建可执行文件，并将它添加到你设置的 `GOBIN` 目录下。如果你没有显式设定 `GOBIN` 目录，可执行文件将会被添加到 `GOPATH/bin` 目录下。无论如何，你都应当确保系统路径上有对应的目录。
 
-Note: This process is a bit clunky and will hopefully improve in future versions of Go. [Issue 30515](https://github.com/golang/go/issues/30515) is tracking the discussion about this.
+注意：这个过程有些笨拙，希望能在未来的 Go 版本中有所改进。你可以在 [Issue 30515](https://github.com/golang/go/issues/30515) 跟踪有关此问题的讨论。
 
-## Viewing Environment Information
+## 查看环境信息
 
-You can use the `go env` tool to display information about your current Go operating environment. This can be particularly useful if you're working on an unfamiliar machine.
+你可以使用 `go env` 工具显示当前 Go 操作环境。如果你在不熟悉的计算机上工作，这可能很有用。
 
 ```shell
 $ go env
@@ -94,7 +94,7 @@ PKG_CONFIG="pkg-config"
 GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build245740092=/tmp/go-build -gno-record-gcc-switches"
 ```
 
-If there are specific values that you're interested in, you can pass them as arguments to `go env`. For example:
+如果你对某些特定值感兴趣，则可以将这些值作为参数传递给 `go env` 。例如：
 
 ```shell
 $ go env GOPATH GOOS GOARCH
@@ -103,45 +103,46 @@ linux
 amd64
 ```
 
-To show documentation for all `go env` variables and values you can run:
+要显示 `go env` 命令的所有变量和值的文档，你可以运行：
 
 ```shell
 $ go help environment
 ```
 
-## Development
+## 开发
 
-### Running Code
+### 运行代码
 
-During development the `go run` tool is a convenient way to try out your code. It's essentially a shortcut that compiles your code, creates an executable binary in your `/tmp` directory, and then runs this binary in one step.
+在开发过程中，`go run` 工具是尝试运行代码的便捷方法。它本质上是一个编译代码的快捷方式，在 `/tmp` 目录下创建一个可执行二进制文件，并在一个步骤中运行它。
 
 ```shell
-$ go run .          # Run the package in the current directory
-$ go run ./cmd/foo  # Run the package in the ./cmd/foo directory
+$ go run .          # 运行当前目录下的包
+$ go run ./cmd/foo  # 运行 ./cmd/foo 目录下的包
 ```
 
-Note: As of Go 1.11 you can pass the [path of a package](https://golang.org/doc/go1.11#run) to `go run`, like we have above. This means that you no longer have to use workarounds like `go run *.go` wildcard expansion to run multiple files. I like this improvement a lot!
+注意：在 Go 1.11 版本，当你执行 `go run` 命令时，你可以[传入包的路径](https://golang.org/doc/go1.11#run)，就像我们上面提到的那样。这意味着不再需要使用像 `go run *.go` 这样包含通配符扩展的变通方法运行多个文件。我非常喜欢这个改进。
 
-### Fetching Dependencies
+### 获取依赖关系
 
-Assuming that you've got [modules enabled](https://github.com/golang/go/wiki/Modules#quick-start), when you use `go run` (or `go test` or `go build` for that matter) any external dependencies will automatically (and recursively) be downloaded to fulfill the `import` statements in your code. By default the latest tagged release of the dependency will be downloaded, or if no tagged releases are available, then the dependency at the latest commit.
+假设你让[模块启用](https://github.com/golang/go/wiki/Modules#quick-start)，那当你使用 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新标记版本，如果没有可用的标记版本，则使用最新提交的依赖项。
 
-If you know in advance that you need a specific version of a dependency (instead of the one that Go would fetch by default) you can use `go get` with the relevant version number or commit hash. For example:
+如果你事先知道需要特定版本的依赖项（而不是 Go 默认获取的依赖项），则可以在使用 `go get` 同时带上相关版本号或提交 hash 。例如：
 
 ```shell
 $ go get github.com/foo/bar@v1.2.3
 $ go get github.com/foo/bar@8e1b8d3
 ```
 
-If the dependency being fetched has a `go.mod` file, then **its dependencies** won't be listed in **your** `go.mod` file. In contrast, if the dependency you're downloading doesn't have a `go.mod` file, then it's dependencies **will** be listed in your `go.mod` file with an `// indirect` comment next to them.
+如果被提取的依赖项有一个`go.mod`文件，那么**它的依赖项**将不会列在你的**`go.mod`文件中。 相反，如果你正在下载的依赖项没有`go.mod`文件，那么它的依赖项**将在你的`go.mod`文件中列出，旁边有一个`// indirect`注释 他们。
 
-So that means your `go.mod` file doesn't necessarily show all the dependencies for your project in one place. Instead, you can view them all using the `go list` tool like so:
+如果获取到的依赖项包含一个 `go.mod` 文件，那么**它的依赖项**将不会列在**你的** `go.mod` 文件中。相反，如果你正在下载的依赖项不包含 `go.mod` 文件，那么它的依赖项**将会**在你的 `go.mod` 文件中列出，并且会伴随着一个 `//indirect` 注释。
+
+这就意味着你的 `go.mod` 文件不一定会在一个地方显示项目的所有依赖项，但是你可以使用 `go list` 工具查看它们，如下所示：
 
 ```shell
 $ go list -m all
 ```
-
-Sometimes you might wonder **why is that a dependency?** You can answer this with the `go mod why` command, which will show you the shortest path from a package in your main module to a given dependency. For example:
+有时候你可能会想知道**为什么它是一个依赖？**你可以使用 `go mod why` 命令回答这个问题。这条命令会显示从主模块的包到给定依赖项的最短路径。例如：
 
 ```shell
 $ go mod why -m golang.org/x/sys
@@ -151,23 +152,23 @@ golang.org/x/crypto/argon2
 golang.org/x/sys/cpu
 ```
 
-Note: The `go mod why` command will return an answer for most, but not all, dependencies. [Issue 27900](https://github.com/golang/go/issues/27900) is tracking this.
+注意：`go mod why` 命令将返回大多数（但不是所有依赖项）的回答。你可以在 [Issue 27900](https://github.com/golang/go/issues/27900) 跟踪这个问题。
 
-If you're interested in analyzing or visualizing the dependencies for your application, then you might want to also check out the `go mod graph` tool. There's a great tutorial and example code for generating visualizations [here](https://github.com/go-modules-by-example/index/tree/master/018_go_list_mod_graph_why).
+如果你对分析应用程序的依赖关系或将其可视化感兴趣，你可能还想查看 `go mod graph` 工具。在[这里](https://github.com/go-modules-by-example/index/tree/master/018_go_list_mod_graph_why)有一个很棒的生成可视化依赖关系的教程和示例代码。
 
-Lastly, downloaded dependencies are stored in the **module cache** located at `GOPATH/pkg/mod`. If you ever need to clear the module cache you can use the `go clean` tool. But be aware: this will remove the downloaded dependencies for **all projects** on your machine.
+最后，下载的依赖项存储在位于 `GOPATH/pkg/mod` 的**模块缓存**中。如果你需要清除模块缓存，可以使用 `go clean` 工具。但请注意：这将删除计算机上**所有项目**的已下载依赖项。
 
 ```shell
 $ go clean -modcache
 ```
 
-### Refactoring Code
+### 重构代码
 
-Chances are you're probably familiar with using the `gofmt` tool to automatically format your code. But it also supports **rewrite rules** that you can use to help refactor your code. I'll demonstrate.
+你可能熟悉使用 `gofmt` 工具。它可以自动格式化代码，但是它也支持去**重写规则**。你可以使用它来帮助重构代码。我将在下面证明这一点。
 
-Let's say that you have the following code and you want to change the `foo` variable to `Foo` so it is exported.
+假设你有以下代码，你希望将 `foo` 变量更改为 `Foo` ，以便将其导出。
 
-```
+```go
 var foo int
 
 func bar() {
@@ -176,7 +177,7 @@ func bar() {
 }
 ```
 
-To do this you can use `gofmt` with the `-r` flag to implement a rewrite rule, the `-d` flag to display a diff of the changes, and the `-w` flag to make the changes **in place**, like so:
+要实现这一点，你可以使用 `gofmt` 的 `-r` 标记实现重写规则，`-d` 标记显示更改差异，`-w` 标记实现**就地**更改，像这样：
 
 ```shell
 $ gofmt -d -w -r 'foo -> Foo' .
@@ -190,90 +191,91 @@ $ gofmt -d -w -r 'foo -> Foo' .
  }
 ```
 
-Notice how this is smarter than a find-and-replace? The `foo` variable has been changed, but the `"foo"` string in the `fmt.Println()` statement has been left unchanged. Another thing to note is that the `gofmt` command works recursively, so the above command will run on all `*.go` files in your current directory and subdirectories.
+注意到这比查找和替换更聪明了吗？`foo` 变量已被更改，但 `fmt.Println()` 语句中的 `"foo"` 字符串没有被替换。另外需要注意的是 `gofmt` 命令是递归工作的，因此上面的命令会在当前目录和子目录中的所有 `*.go` 文件上执行。
 
-If you want to use this functionality, I recommend running rewrite rules **without** the `-w` flag first, and checking the diff first to make sure that the changes to the code are what you expect.
+如果你想使用这个功能，我建议你首先不带 `-w` 标记运行重写规则，并先检查 diff ，以确保代码的更改如你所愿。
 
-Let's take a look at a slightly more complicated example. Say you want to update your code to use the new Go 1.12 [strings.ReplaceAll()](https://golang.org/pkg/strings/#ReplaceAll) function instead of [strings.Replace()](https://golang.org/pkg/strings/#Replace). To make this change you can run:
+让我们来看一个稍复杂的例子。假设你要更新代码，以使用新的 Go 1.12 版本中携带的 [strings.ReplaceAll()](https://golang.org/pkg/strings/#ReplaceAll) 方法替换掉之前的 [strings.Replace()](https://golang.org/pkg/strings/#Replace) 方法。要进行此更改，你可以运行：
 
 ```shell
 $ gofmt -w -r 'strings.Replace(a, b, c, -1) -> strings.ReplaceAll(a, b, c)' .
 ```
 
-In rewrite rules, single lowercase characters act as wildcards matching arbitrary expressions, and those expressions will be substituted-in in the replacement.
+在重写规则中，单个小写字符用作匹配任意表达式的通配符，这些被匹配到的表达式将会被替换。
 
-### Viewing Go Documentation
+### 查看 Go 文档
 
-You can view documentation for the standard library packages via your terminal using the `go doc` tool. I often use this during development to quickly check something — like the name or signature of a specific function. I find it faster than navigating the [web-based documentation](https://golang.org/pkg) and it's always available offline too.
-
-```shell
-$ go doc strings            # View simplified documentation for the strings package
-$ go doc -all strings       # View full documentation for the strings package
-$ go doc strings.Replace    # View documentation for the strings.Replace function
-$ go doc sql.DB             # View documentation for the database/sql.DB type
-$ go doc sql.DB.Query       # View documentation for the database/sql.DB.Query method
-```
-
-You can also include the `-src` flag to display the relevant Go source code. For example:
+你可以使用 `go doc` 工具，在终端中查看标准库包的文档。我经常在开发过程中使用来快速查询某些东西 —— 比如特定功能的名称或签名。我觉得这比浏览[基于网络的文档](https://golang.org/pkg)更快，而且它可以离线查阅。
 
 ```shell
-$ go doc -src strings.Replace   # View the source code for the strings.Replace function
+$ go doc strings            # 查看 string 包的简略版文档 
+$ go doc -all strings       # 查看 string 包的完整版文档 
+$ go doc strings.Replace    # 查看 strings.Replace 函数的文档
+$ go doc sql.DB             # 查看 database/sql.DB 类型的文档 
+$ go doc sql.DB.Query       # 查看 database/sql.DB.Query 方法的文档
 ```
 
-## Testing
-
-### Running Tests
-
-You can use the `go test` tool to run tests in your project like so:
+你也可以使用 `-src` 标记来展示相关的 Go 源码。例如：
 
 ```shell
-$ go test .          # Run all tests in the current directory
-$ go test ./...      # Run all tests in the current directory and sub-directories
-$ go test ./foo/bar  # Run all tests in the ./foo/bar directory
+$ go doc -src strings.Replace   # 查看 strings.Replace 函数的源码
 ```
 
-Typically I run my tests with Go's [race detector](https://golang.org/doc/articles/race_detector.html) enabled, which can help pick up **some** of the data races that might occur in real-life usage. Like so:
+## 测试
+
+### 运行测试
+
+你可以使用 `go test` 工具测试项目中的代码，像这样：
+
+```shell
+$ go test .          # 运行当前目录下的全部测试
+$ go test ./...      # 运行当前目录和子目录下的全部测试
+$ go test ./foo/bar  # 运行 ./foo/bar 目录下的全部测试
+```
+
+通常我会在启用 Go 的 [race detector（竞态情况检测器）](https://golang.org/doc/articles/race_detector.html) 的情况下运行我的测试，这可以帮助我找到在实际使用中可能出现的一些数据竞态情况。就像这样：
+
 
 ```shell
 $ go test -race ./...
 ```
 
-It's important to note that enabling the race detector will increase the overall running time of your tests. So if you're running tests very frequently part of a TDD workflow, you might prefer to save using this for a pre-commit test run only.
+这里有很重要的一点要特别注意，启用竞态情况检测器将增加测试的总体运行时间。因此，如果你经常在 TDD（测试驱动开发）工作流中运行测试，你可能会使用此方法进行预提交测试运行。
 
-Since 1.10, Go [caches test results](https://golang.org/doc/go1.10#test) at the package-level. If a package hasn't changed between test runs — and you're using the same, cachable, flags for `go test` — then the cached test result will be displayed with a `"(cached)"` next to it. This is hugely helpful in speeding up the test runtime for large codebases. If you want force your tests to run in full (and avoid the cache) you can use the `-count=1` flag, or clear all cached test results by using the `go clean` tool.
-
-```shell
-$ go test -count=1 ./...    # Bypass the test cache when running tests
-$ go clean -testcache       # Delete all cached test results
-```
-
-Note: Cached test results are stored alongside cached build results in your `GOCACHE` directory. Check `go env GOCACHE` if you're not sure where this is on your machine.
-
-You can limit `go test` to running specific tests (and sub-tests) by using the `-run` flag. This accepts a regular expression, and only tests which have names that match the regular expression will be run. I like to combine this with the `-v` flag to enable verbose mode, so the names of running tests and sub-tests are displayed. It's a useful way to make sure that I haven't screwed up the regexp and that the tests I expect are actually being run!
+从 1.10 版本起，Go 在包级别[缓存测试结果](https://golang.org/doc/go1.10#test)。如果一个包在测试运行期间没有发生改变，并且你正在使用相同的、可缓存的 `go test` 工具，那么将会展示缓存的测试结果，并用 `"(cached)"` 标记注明。这对于加速大型代码库的测试运行非常有用。如果要强制测试完全运行（并避免缓存），可以使用 `-count=1` 标记，或使用 `go clean` 工具清除所有缓存的测试结果。
 
 ```shell
-$ go test -v -run=^TestFooBar$ .          # Run the test with the exact name TestFooBar
-$ go test -v -run=^TestFoo .              # Run tests whose names start with TestFoo
-$ go test -v -run=^TestFooBar$/^Baz$ .    # Run the Baz subtest of the TestFooBar test only
+$ go test -count=1 ./...    # 运行测试时绕过测试缓存
+$ go clean -testcache       # 删除所有的测试结果缓存
 ```
+注意：缓存的测试结果与构建结果被一同存储在你的 `GOCACHE` 目录中。 如果你不确定 `GOCACHE` 目录在机器上的位置，请输入 `go env GOCACHE` 检查。
 
-A couple more flags that it's good to be aware of are `-short` (which you can use to [skip long-running tests](https://golang.org/pkg/testing/#hdr-Skipping)) and `-failfast` (which will stop running further tests after the first failure). Note that `-failfast` will prevent test results from being cached.
+你可以使用 `-run` 标记将 `go test` 限制为只运行特定测试（和子测试）。`-run` 标记接受正则表达式，并且只运行具有与正则表达式匹配的名称的测试。我喜欢将它与 `-v` 标记结合起来以启用详细模式，这样会显示正在运行的测试和子测试的名称。这是一个有用的方法，以确保我没有搞砸正则表达式，并确保我期望的测试正在运行！
 
 ```shell
-$ go test -short ./...      # Skip long running tests
-$ go test -failfast ./...   # Don't run further tests after a failure.
+$ go test -v -run=^TestFooBar$ .          # 运行名字为 TestFooBar 的测试
+$ go test -v -run=^TestFoo .              # 运行那些名字以 TestFoo 开头的测试
+$ go test -v -run=^TestFooBar$/^Baz$ .    # 只运行 TestFooBar 的名为 Baz 的子测试
 ```
 
-### Profiling Test Coverage
+值得注意的几个标记是`-short`（可以用来[跳过长时间运行的测试]（https://golang.org/pkg/testing/#hdr-Skipping））和` -failfast`（在第一次失败后将停止运行进一步的测试）。 请注意，`-failfast`将阻止缓存测试结果。
 
-You can enable coverage analysis when running tests by using the `-cover` flag. This will display the percentage of code covered by the tests in the output for each package, similar to this:
+值得注意的两个标记是 `-short`（可以用来[跳过长时间运行的测试](https://golang.org/pkg/testing/#hdr-Skipping)）和 `-failfast`（第一次失败后停止运行进一步的测试）。请注意，`-failfast` 将阻止缓存测试结果。
+
+```shell
+$ go test -short ./...      # 跳过长时间运行的测试
+$ go test -failfast ./...   # 第一次失败后停止运行进一步的测试
+```
+
+### 分析测试覆盖率
+
+当你在运行测试时使用 `-cover` 标记，你就可以开启测试覆盖率分析。这将显示每个包的输出中测试所涵盖的代码百分比，类似于：
 
 ```shell
 $ go test -cover ./...
 ok  	github.com/alexedwards/argon2id	0.467s	coverage: 78.6% of statements
 ```
-
-You can also generate a **coverage profile** using the `-coverprofile` flag and view it in your web browser by using the `go tool cover -html` command like so:
+你也可以通过使用 `-coverprofile` 标记生成覆盖率总览，并使用 `go tool cover -html` 命令在浏览器中查看。像这样：
 
 ```shell
 $ go test -coverprofile=/tmp/profile.out ./...
@@ -282,22 +284,22 @@ $ go tool cover -html=/tmp/profile.out
 
 ![](https://www.alexedwards.net/static/images/tooling-1.png)
 
-This will gives you a navigable listing of all the test files, with code covered by the tests displayed in green, and uncovered code in red.
+这将为你提供所有测试文件的可导航列表，其中绿色代码是被测试覆盖到的，红色代码未被测试覆盖。
 
-If you want you can go a step further and set the `-covermode=count` flag to make the coverage profile record the exact **number of times** that each statement is executed during the tests.
+如果你愿意的话，可以再进一步。设置 `-covermode=count` 标记，使覆盖率配置文件记录测试期间每条语句执行的确切**次数**。
 
 ```shell
 $ go test -covermode=count -coverprofile=/tmp/profile.out ./...
 $ go tool cover -html=/tmp/profile.out
 ```
 
-When viewed in the browser, statements which are executed more frequently are shown in a more saturated shade of green, similar to this:
+在浏览器中查看时，更频繁执行的语句以更饱和的绿色阴影显示，类似于：
 
 ![](https://www.alexedwards.net/static/images/tooling-2.png)
 
-Note: If you’re using the `t.Parallel()` command in any of your tests, then you should use the flag `-covermode=atomic` instead of `-covermode=count` instead to ensure an accurate count.
+注意：如果你在测试中使用了 `t.Parallel()` 命令，你应该用 `-covermode=atomic` 替换掉 `-covermode=count` 以确保计数准确。
 
-Lastly, if you don't have a web browser available to view a coverage profile, you can see a breakdown of test coverage by function/method in your terminal with the command:
+最后，如果你没有可用于查看覆盖率配置文件的 Web 浏览器，则可以使用以下命令在终端中按功能/方法查看测试覆盖率的细分：
 
 ```shell
 $ go tool cover -func=/tmp/profile.out
@@ -306,30 +308,29 @@ github.com/alexedwards/argon2id/argon2id.go:96:		ComparePasswordAndHash	85.7%
 ...
 ```
 
-### Stress Testing
+### 压力测试
 
-You can use the `go test -count` command to run a test multiple times in succession, which can be useful if you want to check for sporadic or intermittent failures. For example:
+你可以使用 `go test -count` 命令连续多次运行测试。如果想检查偶发或间歇性故障，这可能很有用。例如：
 
 ```shell
 $ go test -run=^TestFooBar$ -count=500 .
 ```
 
-In this example, the `TestFooBar` test will be repeated 500 times in a row. But it's important to note that the test will be repeated **in serial** — even if it contains a `t.Parallel()` instruction. So if your test is doing something relatively slow, like making a round trip to a database, hard disk or the internet, running a large number of tests can take quite a long time.
+在这个例子中，`TestFooBar` 测试将连续重复 500 次。但有一点你要特别注意，测试将串行**重复**执行 —— 即便它包含一个 `t.Parallel()` 命令。因此，如果你的测试要做的事相对较慢，例如读写数据库、磁盘或与互联网有频繁的交互，那么运行大量测试可能会需要相当长的时间。
 
-In that case you might want to use the [`stress`](golang.org/x/tools/cmd/stress) tool to repeat the same test multiple times **in parallel** instead. You can install it like so:
+这种情况下，你可能希望使用 [`stress`](golang.org/x/tools/cmd/stress) 工具并行执行重复相同的测试。你可以像这样安装它：
 
 ```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 ```
 
-To use the `stress` tool, you'll first need to compile a **test binary** for the specific package you want to test. You can do using the `go test -c` command. For example, to create a test binary for the package in your current directory:
+要使用 `stress` 工具，首先需要为要测试的特定包编译**测试二进制**文件。你可以使用 `go test -c` 命令。例如，为当前目录中的包创建测试二进制文件：
 
 ```shell
 $ go test -c -o=/tmp/foo.test .
 ```
-
-In this example, the test binary will be outputted to `/tmp/foo.test`. You can then use the `stress` tool to execute a specific test in the test binary like so:
+在这个例子中，测试二进制文件将输出到 `/tmp/foo.test` 。之后你可以使用 `stress` 工具在该文件中执行特定测试，如下所示：
 
 ```shell
 $ stress -p=4 /tmp/foo.test -test.run=^TestFooBar$
@@ -338,166 +339,167 @@ $ stress -p=4 /tmp/foo.test -test.run=^TestFooBar$
 ...
 ```
 
-Note: In the example above I've used the `-p` flag to restrict the number of parallel processes used by `stress` to 4. Without this flag, the tool will default to using a number of processes equal to `runtime.NumCPU()`.
+注意：在上面的例子中，我使用 `-p` 标记来限制 `stress` 使用的并行进程数为 4 。如果没有这个标记，该工具将默认使用和 `runtime.NumCPU()` 方法执行结果相同数量的进程（当前系统的 CPU 核数量的进程数）。
 
-### Testing all Dependencies
+### 测试全部依赖关系
 
-Before you build an executable for release or deployment, or distribute your code publicly, you may want to run the `go test all` command:
+在为发布或部署构建可执行文件或公开发布代码之前，你可能希望运行 `go test all` 命令：
 
 ```shell
 $ go test all
 ```
 
-This will run tests on all packages in your module and all dependencies — include testing **test dependencies** and the necessary **standard library packages** — and it can help validate that the exact versions of the dependencies being used are compatible with each other. This can take quite a long time to run, but the results cache well so any subsequent tests should be faster in the future. If you want, you could also use `go test -short all` to skip any long-running tests.
+这将对模块中的所有包和依赖项运行测试 —— 包括对**测试依赖项**和必要的**标准库包**的测试 —— 它可以帮助验证所使用的依赖项的确切版本是否互相兼容。可能需要相当长的时间才能运行，但测试结果可以很好地缓存，因此任何将来的后续测试都会更快。如果你愿意，你也可以使用 `go test -short all` 跳过任何需要长时间运行的测试。
 
-## Pre-Commit Checks
+## 预提交检查
 
-### Formatting Code
+### 格式化代码
 
-Go provides two tools to automatically format your code according to the Go conventions: `gofmt` and `go fmt`. Using these helps keep your code consistent across your files and projects, and — if you use them before committing code — helps reduce noise when examining a diff between file versions.
+Go 提供了两个工具 `gofmt` 和 `go fmt` 来根据 Go 约定自动格式化代码。使用这些有助于保持代码在文件和项目中保持一致，并且 —— 在提交代码之前使用它们 —— 有助于在检查文件版本之间的差异时减少干扰项。
 
-I like to use the `gofmt` tool with the following flags:
+我喜欢使用带有以下标记的 `gofmt` 工具：
 
 ```shell
-$ gofmt -w -s -d foo.go  # Format the foo.go file
-$ gofmt -w -s -d .       # Recursively format all files in the current directory and sub-directories
+$ gofmt -w -s -d foo.go  # 格式化 foo.go 文件
+$ gofmt -w -s -d .       # 递归格式化当前目录和子目录中的所有文件
 ```
 
-In these commands, the `-w` flag instructs the tool to rewrite files in place, the `-s` instructs the tool to apply [simplifications](https://golang.org/cmd/gofmt/#hdr-The_simplify_command) to the code where possible, and the `-d` flag instructs the tool to output diffs of the changes (because I'm curious to see what is changed). If you want to only display the names of changed files, instead of diffs, you can swap this for the `-l` flag instead.
+在这些命令中，`-w` 标记指示工具重写文件，`-s` 标记指示工具尽可能的[简化](https://golang.org/cmd/gofmt/#hdr-The_simplify_command)代码，`-d` 标记指示工具输出变化的差异（因为我很想知道改变了什么）。 如果你只想显示已更改文件的名称而不是差异，则可以将其替换为 `-l` 标记。
 
-Note: The `gofmt` command works recursively. If you pass it a directory like `.` or `./cmd/foo` it'll format all `.go` files under the directory.
+注意：`gofmt` 命令以递归方式工作。 如果你传递一个类似 `.` 或 `./cmd/foo`的目录，它将格式化目录下的所有 `.go` 文件。
 
-The other formatting tool — `go fmt` — tool is a wrapper which essentially calls `gofmt -l -w` on a specified file or directory. You can use it like this:
+另一种格式化工具 `go fmt` 是一个包装器，它在指定的文件或目录上调用 `gofmt -l -w` 。你可以像这样使用它：
 
 ```shell
 $ go fmt ./...
 ```
 
-### Performing Static Analysis
+### 执行静态分析
 
-The `go vet` tool carries out static analysis of your code and warns you of things which **might** be wrong with your code but wouldn't be picked up by the compiler. Issues like unreachable code, unnecessary assignments and badly-formed build tags. You can use it like so:
+`go vet` 工具对你的代码进行静态分析，并对你**可能**是代码错误但不被编译器指出（语法正确）的东西提出警告。诸如无法访问的代码，不必要的分配和格式错误的构建标记等问题。你可以像这样使用它：
 
 ```shell
-$ go vet foo.go     # Vet the foo.go file
-$ go vet .          # Vet all files in the current directory
-$ go vet ./...      # Vet all files in the current directory and sub-directories
-$ go vet ./foo/bar  # Vet all files in the ./foo/bar directory
+$ go vet foo.go     # 对 foo.go 文件进行静态分析 
+$ go vet .          # 对当前目录下的所有文件进行静态分析
+$ go vet ./...      # 对当前目录以及子目录下的所有文件进行静态分析
+$ go vet ./foo/bar  # 对 ./foo/bar 目录下的所有文件进行静态分析
 ```
 
-Behind the scenes, `go vet` runs a bunch of different analyzers which are [listed here](https://golang.org/cmd/vet/) and you can disable specific ones on a case-by-case basis. For example to disable the `composite` analyzer you can use:
+`go vet` 在背后运行了许多[不同的分析器](https://golang.org/cmd/vet/)，你可以根据具体情况禁用特定的分析器。例如，要禁用 `composite` 分析器，你可以使用：
 
 ```shell
 $ go vet -composites=false ./...
 ```
 
-There are a couple of experimental analyzers in [golang.org/x/tools](https://godoc.org/golang.org/x/tools) which you might want to try: [nilness](https://godoc.org/golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness) (which checks for redundant or impossible nil comparisons) and [shadow](https://godoc.org/golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow) (which check for possible unintended shadowing of variables). If you want to use these, you'll need to install and run them separately. For example, to install `nilness` you would run:
+在 [golang.org/x/tools](https://godoc.org/golang.org/x/tools) 中有几个实验性的分析器，你可能想尝试一下：
+
+- [nilness](https://godoc.org/golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness) ：检查多余或不可能的零比较
+- [shadow](https://godoc.org/golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow) ： 检查可能的非预期变量阴影
+
+如果要使用这些，则需要单独安装和运行它们。例如，如果安装 `nilness` ，你需要运行：
 
 ```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness
 ```
 
-And you can then use it like so:
+之后你可以这样使用：
 
 ```shell
 $ go vet -vettool=$(which nilness) ./...
 ```
 
-Note: when the `-vettool` flag is used it will **only** run the specified analyzer — all the other `go vet` analyzers won't be run.
-
-As a side note, since Go 1.10 the `go test` tool automatically executes a small, high-confidence, subset of the `go vet` checks before running any tests. You can turn this behavior off when running tests like so:
+注：自 Go 1.10 版本起， `go test` 工具会在运行任何测试之前自动运行 `go vet` 检查的一个小的、高可信度的子集。你可以在运行测试时像这样关闭此行为：
 
 ```shell
 $ go test -vet=off ./...
 ```
 
-### Linting Code
+### Linting 代码
 
-You can use the `golint` tool to identify **style mistakes** in your code. Unlike `go vet`, this isn't concerned with **correctness** of the code, but helps you to align your code with the style conventions in [Effective Go](https://golang.org/doc/effective_go.html) and the Go [CodeReviewComments](https://golang.org/wiki/CodeReviewComments).
+你可以使用 `golint` 工具识别代码中的**样式错误**。与 `go vet` 不同，这与代码的**正确性**无关，但可以帮助你将代码与 [Effective Go](https://golang.org/doc/effective_go.html) 和 Go [CodeReviewComments](https://golang.org/wiki/CodeReviewComments) 中的样式约定对齐。
 
-It's not part of the standard library, so you'll need to install it like so:
+它不是标准库的一部分，你需要执行如下命令安装：
 
 ```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/lint/golint
 ```
 
-You can then run it as follows:
+之后你可以这样运行：
 
 ```shell
-$ golint foo.go     # Lint the foo.go file
-$ golint .          # Lint all files in the current directory
-$ golint ./...      # Lint all files in the current directory and sub-directories
-$ golint ./foo/bar  # Lint all files in the ./foo/bar directory
+$ golint foo.go     # Lint foo.go 文件
+$ golint .          # Lint 当前目录下的所有文件
+$ golint ./...      # Lint 当前目录及其子目录下的所有文件
+$ golint ./foo/bar  # Lint ./foo/bar 目录下的所有文件
 ```
 
-### Tidying and Verifying your Dependencies
+### 整理和验证依赖关系
 
-Before you commit any changes to your code I recommend running the following two commands to tidy and verify your dependencies:
+在你对代码进行任何更改之前，我建议你运行以下两个命令来整理和验证你的依赖项：
 
 ```shell
 $ go mod tidy
 $ go mod verify
 ```
+`go mod tidy` 命令将修剪你的 `go.mod` 和 `go.sum` 文件中任何未使用的依赖项，并更新文件以包含所有可能的构建标记/系统/体系结构组合的依赖项（注意：`go run`，`go test`，`go build` 等命令是“懒惰的”，只会获取当前构建标记/系统/体系结构所需的包。在每次提交之前运行此命令将使你更容易确定哪些代码更改负责在查看版本控制历史记录时添加或删除哪些依赖项。
 
-The `go mod tidy` command will prune any unused dependencies from your `go.mod` and `go.sum` files, and update the files to include dependencies for all possible build tags/OS/architecture combinations (note: `go run`, `go test`, `go build` etc are ‘lazy' and will only fetch packages needed for the current build tags/OS/architecture). Running this before each commit will make it easier to determine which of your code changes were responsible for adding or removing which dependencies when looking at the version control history.
+我还建议使用 `go mod verify` 命令来检查计算机上的依赖关系是否已被意外（或故意）更改，因为它们已被下载并且它们与 `go.sum` 文件中的加密哈希值相匹配。运行此命令有助于确保所使用的依赖项是你期望的完全依赖项，并且该提交的任何构建将可以在以后重现。
 
-I also recommend using the `go mod verify` command to check that the dependencies on your computer haven't accidentally (or purposely) been changed since they were downloaded and that they match the cryptographic hashes in your `go.sum` file. Running this helps ensure that the dependencies being used are the exact ones that you expect, and any build for that commit will be reproducible at a later point.
+## 构建与部署
 
-## Build and Deployment
+### 构建可执行文件
 
-### Building an Executable
-
-To compile a `main` package and create an executable binary you can use the `go build` tool. Typically I use it in conjunction with the `-o` flag, which let's you explicitly set the output directory and name of the binary like so:
+要编译 `main` 包并创建可执行二进制文件，可以使用 `go build` 工具。 通常可以将它与`-o`标记结合使用，这允许你明确设置输出目录和二进制文件的名称，如下所示：
 
 ```shell
-$ go build -o=/tmp/foo .            # Compile the package in the current directory
-$ go build -o=/tmp/foo ./cmd/foo    # Compile the package in the ./cmd/foo directory
+$ go build -o=/tmp/foo .            # 编译当前目录下的包 
+$ go build -o=/tmp/foo ./cmd/foo    # 编译 ./cmd/foo 目录下的包
 ```
 
-In these examples, `go build` will **compile** the specified package (and any dependent packages), then invoke the **linker** to generate an executable binary, and output this to `/tmp/foo`.
+在这些示例中，`go build` 将**编译**指定的包（以及任何依赖包），然后调用**链接器**以生成可执行二进制文件，并将其输出到 `/tmp/foo` 。
 
-It's important to note that, as of Go 1.10, the `go build` tool caches build output in the **[build cache](https://golang.org/cmd/go/#hdr-Build_and_test_caching)**. This cached output will be reused again in future builds where appropriate, which can significantly speed up the overall build time. This new caching behavior means that the [old maxim](https://peter.bourgon.org/go-best-practices-2016/#build-and-deploy) of “prefer `go install` to `go build` to improve caching” no longer applies.
+值得注意的是，从 Go 1.10 开始，`go build` 工具在[**构建缓存**](https://golang.org/cmd/go/#hdr-Build_and_test_caching)中缓存构建输出。此缓存输出将在将来的构建中适当时刻重用，这可以显著加快整体构建时间。这种新的缓存行为意味着“使用 `go install` 替换 `go build` 改进缓存”的[老旧准则](https://peter.bourgon.org/go-best-practices-2016/#build-and-deploy)不再适用。
 
-If you're not sure where your build cache is, you can check by running the `go env GOCACHE` command:
+如果你不确定构建缓存的位置，可以通过运行 `go env GOCACHE` 命令进行检查：
 
 ```shell
 $ go env GOCACHE
 /home/alex/.cache/go-build
 ```
 
-Using the build cache comes with one [important caveat](https://golang.org/pkg/cmd/go/internal/help/) — it does not detect changes to C libraries imported with `cgo`. So if your code imports a C library via `cgo` and you've made changes to it since the last build, you'll need to use the `-a` flag which forces all packages to be rebuilt. Alternatively, you could use `go clean` to purge the cache:
+使用构建缓存有一个[重要警告](https://golang.org/pkg/cmd/go/internal/help/) - 它不会检测用 `cgo` 导入的 C 语言库的更改。因此，如果你的代码通过 `cgo` 导入 C 语言库，并且自上次构建以来你对其进行了更改，则需要使用 `-a` 标记来强制重建所有包。或者，你可以使用 `go clean` 来清除缓存：
 
 ```shell
-$ go build -a -o=/tmp/foo .     # Force all packages to be rebuilt
-$ go clean -cache               # Remove everything from the build cache
+$ go build -a -o=/tmp/foo .     # 强制重新构建所有包
+$ go clean -cache               # 移除所有构建缓存
 ```
 
-Note: Running `go clean -cache` will delete cached test results too.
+注意：运行 `go clean -cache` 也会删除测试缓存。
 
-If you're interested in what `go build` is doing behind the scenes, you might like to use the following commands:
+如果你对 `go build` 在背后执行的过程感兴趣，你可能想用下面的命令：
 
 ```shell
-$ go list -deps . | sort -u     # List all packages that are used to build the executable
-$ go build -a -x -o=/tmp/foo .  # Rebuild everything and show the commands that are run
+$ go list -deps . | sort -u     # 列出在构建可执行文件过程中用到的所有包
+$ go build -a -x -o=/tmp/foo .  # 全部重新构建，并展示运行的所有命令
 ```
+最后，如果你在非 `main` 包上运行 `go build` ，它将被编译在一个临时位置，并且结果将再次存储在构建缓存中。这个过程不会生成可执行文件。
 
-Finally, if you run `go build` on a non-`main` package, it will be compiled in a temporary location and again, the result will be stored in the build cache. No executable is produced.
+### 交叉编译
 
-### Cross-Compilation
+这是我最喜欢的 Go 功能之一。
 
-This is one of my favorite features of Go.
+默认情况下，`go build` 将输出适合你当前操作系统和体系结构的二进制文件。但它也支持交叉编译，因此你可以生成适合在不同机器上使用的二进制文件。如果你在一个操作系统上进行开发并在另一个操作系统上进行部署，这将特别有用。
 
-By default `go build` will output a binary suitable for use on your current operating system and architecture. But it also supports cross-compilation, so you can generate a binary suitable for use on a different machine. This is particularly useful if you're developing on one operating system and deploying on another.
-
-You can specify the operating system and architecture that you want to create the binary for by setting the `GOOS` and `GOARCH` environment variables respectively. For example:
+你可以通过分别设置 `GOOS` 和 `GOARCH` 环境变量来指定要为其创建二进制文件的操作系统和体系结构。例如：
 
 ```shell
 $ GOOS=linux GOARCH=amd64 go build -o=/tmp/linux_amd64/foo .
 $ GOOS=windows GOARCH=amd64 go build -o=/tmp/windows_amd64/foo.exe .
 ```
 
-To see a list of all supported OS/architecture combinations you can run `go tool dist list`:
+如果想查看所有支持的操作系统和体系结构，你可以运行 `go tool dist list` ：
 
 ```shell
 $ go tool dist list
@@ -511,106 +513,105 @@ darwin/amd64
 ...
 ```
 
-Hint: You can use Go's cross-compilation to [create WebAssembly binaries](https://github.com/golang/go/wiki/WebAssembly).
+暗示：你可以使用 Go 的交叉编译[创建 WebAssembly 二进制文件](https://github.com/golang/go/wiki/WebAssembly)。
 
-For a bit more in-depth information about cross compilation I recommend reading [this excellent post](https://rakyll.org/cross-compilation/).
+想了解更深入的交叉编译信息，推荐你阅读[这篇精彩的文章](https://rakyll.org/cross-compilation/)。
 
-### Using Compiler and Linker Flags
+### 使用编译器和链接器标记
 
-When building your executable you can use the `-gcflags` flag to change the behavior of the compiler and see more information about what it's doing. You can see a complete list of available compiler flags by running:
+在构建可执行文件时，你可以使用 `-gcflags` 标记来更改编译器的行为，并查看有关它正在执行的操作的更多信息。你可以通过运行以下命令查看可用编译器标记的完整列表：
 
 ```shell
 $ go tool compile -help
 ```
-
-One flag that you might find interesting is `-m`, which triggers the printing of information about optimization decisions made during compilation. You can use it like this:
+你可能会感兴趣的一个标记是 `-m`，它会触发打印有关编译期间所做的优化决策信息。你可以像这样使用它：
 
 ```shell
-$ go build -gcflags="-m -m" -o=/tmp/foo . # Print information about optimization decisions
+$ go build -gcflags="-m -m" -o=/tmp/foo . # 打印优化决策信息
 ```
 
-In the above example I used the `-m` flag twice to indicate that I want to print decision information two-levels deep. You can get simpler output by using just one.
+在上面的例子中，我两次使用了 `-m` 标记，这表示我想打印两级深度的决策信息。如果只使用一个，就可以获得更简单的输出。
 
-Also, as of Go 1.10, compiler flags only apply to the specific packages passed to `go build` — which in the example above is the package in the current directory (represented by `.`). If you want to print optimization decisions for all packages including dependencies can use this command instead:
+此外，从 Go 1.10 开始，编译器标记仅适用于传递给 `go build` 的特定包 —— 在上面的示例中，它是当前目录中的包（由 `.` 表示）。如果要为所有包（包括依赖项）打印优化决策信息，可以使用以下命令：
 
 ```shell
 $ go build -gcflags="all=-m" -o=/tmp/foo .
 ```
 
-As of Go 1.11, you should find it [easier to debug optimized binaries](https://golang.org/doc/go1.11#debugging) than before. However, you can still use the flags `-N` to disable optimizations and `-l` to disable inlining if you need to. For example:
+从 Go 1.11 开始，你会发现[调试优化的二进制文件](https://golang.org/doc/go1.11#debugging)比以前更容易。但如果有必要的话，你仍然可以使用标记 `-N` 来禁用优化，使用 `-l` 来禁用内联。例如：
 
 ```shell
 $ go build -gcflags="all=-N -l" -o=/tmp/foo .  # Disable optimizations and inlining
 ```
 
-You can see a list of available linker flags by running:
+通过运行以下命令，你可以看到可用链接标记列表：
 
 ```shell
 $ go tool link -help
 ```
 
-Probably the most well-known of these is the `-X` flag, which allows you to "burn in" a (string) value to a specific variable in your application. This is commonly used to [add a version number or commit hash](https://blog.alexellis.io/inject-build-time-vars-golang/). For example:
+其中最著名的可能是 `-X` 标记，它允许你将（字符串）值“烧入”应用程序中的特定变量。这通常用于[添加版本号或提交 hash](https://blog.alexellis.io/inject-build-time-vars-golang/) 。例如：
 
 ```shell
 $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
 ```
 
-For more information about the `-X` flag and some sample code see [this StackOverflow question](https://stackoverflow.com/questions/11354518/golang-application-auto-build-versioning) and this post and [this post](https://blog.alexellis.io/inject-build-time-vars-golang/).
+有关 `-X` 标记和示例代码的更多信息，请参阅[这个 StackOverflow 问题](https://stackoverflow.com/questions/11354518/golang-application-auto-build-versioning)和[这篇文章](https://blog.alexellis.io/inject-build-time-vars-golang/)。
 
-You may also be interested in using the `-s` and `-w` flags to strip debugging information from the binary. This typically shaves about 25% off the final size. For example:
-
-```shell
-$ go build -ldflags="-s -w" -o=/tmp/foo .  # Strip debug information from the binary
-```
-
-Note: If binary size is something that you need to optimize for you might want to use [upx](https://upx.github.io/) to compress it. See [this post](https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/) for more information.
-
-## Diagnosing Problems and Making Optimizations
-
-### Running and Comparing Benchmarks
-
-A nice feature of Go is that it makes it easy to benchmark your code. If you're not familiar with the general process for writing benchmarks there are good guides [here](https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go) and [here](https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go).
-
-To run benchmarks you'll need to use the `go test` tool, with the `-bench` flag set to a regular expression that matches the benchmarks you want to execute. For example:
+你可能还有兴趣使用 `-s` 和 `-w` 标记来从二进制文件中删除调试信息。这通常会削减 25% 的最终尺寸。例如：
 
 ```shell
-$ go test -bench=. ./...                        # Run all benchmarks and tests
-$ go test -run=^$ -bench=. ./...                # Run all benchmarks (and no tests)
-$ go test -run=^$ -bench=^BenchmarkFoo$ ./...   # Run only the BenchmarkFoo benchmark (and no tests)
+$ go build -ldflags="-s -w" -o=/tmp/foo .  # 从二进制文件中删除调试信息
 ```
 
-I almost always run benchmarks using the `-benchmem` flag, which forces memory allocation statistics to be included in the output.
+注意：如果你需要优化二进制大小，可能需要使用 [upx](https://upx.github.io/) 来压缩它。详细信息请参阅 [这篇文章](https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/) 。
+
+## 诊断问题和优化
+
+### 运行和比较基准
+
+Go 可以轻松的对代码进行基准测试，这是一个很好的功能。如果你不熟悉编写基准测试的一般过程，你可以在[这里](https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go)和[这里](https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go)阅读优秀指南。
+
+要运行基准测试，你需要使用 `go test` 工具，将 `-bench` 标记设置为与你要执行的基准匹配的正则表达式。例如：
+
+```shell
+$ go test -bench=. ./...                        # 进行基准检查和测试
+$ go test -run=^$ -bench=. ./...                # 只进行基准检查，不测试
+$ go test -run=^$ -bench=^BenchmarkFoo$ ./...   # 只进行 BenchmarkFoo 的基准检查，不进行测试
+```
+
+我几乎总是使用 `-benchmem` 标记运行基准测试，这会在输出中强制包含内存分配统计信息。
 
 ```shell
 $  go test -bench=. -benchmem ./...
 ```
 
-By default, each benchmark test will be run for **a minimum** of 1 second, once only. You can change this with the `-benchtime` and `-count` flags:
+默认情况下，每个基准测试一次运行**最少**一秒。你可以使用 `-benchtime` 和 `-count` 标记来更改它：
 
 ```shell
-$ go test -bench=. -benchtime=5s ./...       # Run each benchmark test for at least 5 seconds
-$ go test -bench=. -benchtime=500x ./...     # Run each benchmark test for exactly 500 iterations
-$ go test -bench=. -count=3 ./...            # Repeat each benchmark test 3 times over
+$ go test -bench=. -benchtime=5s ./...       # 每个基准测试运行最少 5 秒
+$ go test -bench=. -benchtime=500x ./...     # 运行每个基准测试 500 次
+$ go test -bench=. -count=3 ./...            # 每个基准测试重复三次以上
 ```
 
-If the code that you're benchmarking uses concurrency, you can use the `-cpu` flag to see the performance impact of changing your `GOMAXPROCS` value (essentially, the number of OS threads that can execute your Go code simultaneously). For example, to run benchmarks with `GOMAXPROCS` set to 1, 4 and 8:
+如果你并发执行基准测试的代码，则可以使用 `-cpu` 标记来查看更改 `GOMAXPROCS` 值（实质上是可以同时执行 Go 代码的 OS 线程数）对性能的影响。例如，要将 `GOMAXPROCS` 设置为 1 、4 和 8 来运行基准测试：
 
 ```shell
 $ go test -bench=. -cpu=1,4,8 ./...
 ```
 
-To compare changes between benchmarks you might want to use the [benchcmp](https://godoc.org/golang.org/x/tools/cmd/benchcmp) tool. This isn't part of the standard `go` command, so you'll need to install it like so:
+要比较基准测试之间的更改，你可能需要使用 [benchcmp](https://godoc.org/golang.org/x/tools/cmd/benchcmp) 工具。这不是标准 `Go` 命令的一部分，所以你需要像这样安装它：
 
 ```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/benchcmp
 ```
 
-You can then use it like this:
+然后你就可以这样使用：
 
 ```shell
 $ go test -run=^$ -bench=. -benchmem ./... > /tmp/old.txt
-# make changes
+# 做出改变
 $ go test -run=^$ -bench=. -benchmem ./... > /tmp/new.txt
 $ benchcmp /tmp/old.txt /tmp/new.txt
 benchmark              old ns/op     new ns/op     delta
@@ -623,15 +624,15 @@ benchmark              old bytes     new bytes     delta
 BenchmarkExample-8     8240          3808          -53.79%
 ```
 
-### Profiling and Tracing
+### 分析和跟踪
 
-Go makes it possible to create diagnostic **profiles** for CPU use, memory use, goroutine blocking and mutex contention. You can use these to dig a bit deeper and see exactly how your application is using (or waiting on) resources.
+Go 可以为 CPU 使用，内存使用，goroutine 阻塞和互斥争用创建诊断**配置文件**。 你可以使用这些来深入挖掘并确切了解你的应用程序如何使用（或等待）资源。
 
-There are three ways to generate profiles:
+有三种方法可以生成配置文件：
 
-* If you have a web application you can import the [`net/http/pprof`](https://golang.org/pkg/net/http/pprof/) package. This will register some handlers with the `http.DefaultServeMux` which you can then use to generate and download profiles for your running application. [This post](https://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/) provides a good explanation and some sample code.
-* For other types of applications, you can profile your running application using the `pprof.StartCPUProfile()` and `pprof.WriteHeapProfile()` functions. See the [`runtime/pprof`](https://golang.org/pkg/runtime/pprof/) documentation for sample code.
-* Or you can generate profiles while running benchmarks or tests by using the various `-***profile` flags like so:
+* 如果你有一个 Web 应用程序，你可以导入 [`net/http/pprof`](https://golang.org/pkg/net/http/pprof/) 包。这将使用 `http.DefaultServeMux` 注册一些处理程序，然后你可以使用它来为正在运行的应用程序生成和下载配置文件。[这篇文章](https://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/)很好的提供了解释和一些示例代码。
+* 对于其他类型的应用程序，你可以使用 `pprof.StartCPUProfile()` 和 `pprof.WriteHeapProfile()` 函数来分析正在运行的应用程序 有关示例代码，请参阅 [`runtime/pprof`](https://golang.org/pkg/runtime/pprof/) 文档。
+* 或者你可以在运行基准测试或测试时使用各种 `-***profile` 标记生成配置文件，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -cpuprofile=/tmp/cpuprofile.out .
@@ -640,15 +641,15 @@ $ go test -run=^$ -bench=^BenchmarkFoo$ -blockprofile=/tmp/blockprofile.out .
 $ go test -run=^$ -bench=^BenchmarkFoo$ -mutexprofile=/tmp/mutexprofile.out .
 ```
 
-Note: Using the `-***profile` flags when running benchmarks or tests will result in a test binary being outputted to your current directory. If you want to output this to an alternative location you should use the `-o` flag like so:
+注意：运行基准测试或测试时使用 `-***profile` 标志将会把测试二进制文件输出到当前目录。如果要将其输出到备用位置，则应使用 `-o` 标志，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -o=/tmp/foo.test -cpuprofile=/tmp/cpuprofile.out .
 ```
 
-Whichever way you choose to create a profile, when profiling is enabled your Go program will stop about 100 times per second and take a snapshot at that moment in time. These **samples** are collected together to form a **profile** that you can analyze using the `pprof` tool.
+无论您选择何种方式创建配置文件，启用配置文件时，您的 Go 程序将每秒停止大约 100 次，并在该时刻拍摄快照。 这些**样本**被收集在一起形成**轮廓**，您可以使用 `pprof` 工具进行分析。
 
-My favourite way to inspect a profile is to use the `go tool pprof -http` command to open it in a web browser. For example:
+我最喜欢检查配置文件的方法是使用 `go tool pprof -http` 命令在 Web 浏览器中打开它。例如：
 
 ```shell
 $ go tool pprof -http=:5000 /tmp/cpuprofile.out
@@ -656,13 +657,13 @@ $ go tool pprof -http=:5000 /tmp/cpuprofile.out
 
 ![](https://www.alexedwards.net/static/images/tooling-3.png)
 
-This will default to displaying a **graph** showing the execution tree for the sampled aspects of your application, which makes it possible to quickly get a feel for any resource usage 'hotspots'. In the graph above, we can see that the hotspots in terms of CPU usage are two system calls originating from `ioutil.ReadFile()`.
+这将默认显示**图表**，显示应用程序的采样方面的执行树，这使得可以快速了解任何“热门”使用资源。 在上图中，我们可以看到 CPU 使用率方面的热点是来自 `ioutil.ReadFile()` 的两个系统调用。
 
-You can also navigate to other **views** of the profile including top usage by function and source code.
+您还可以导航到配置文件的其他**视图**，包括功能和源代码的最高使用情况。
 
 ![](https://www.alexedwards.net/static/images/tooling-4.png)
 
-If the amount of information is overwhelming, you might want to use the `--nodefraction` flag to ignore nodes that account for less than a certain percentage of samples. For example to ignore nodes that use appear in less than 10% of samples you can run `pprof` like so:
+如果信息量太大，您可能希望使用 `--nodefraction` 标志来忽略占小于一定百分比样本的节点。例如，要忽略在少于 10% 的样本中出现的节点，您可以像这样运行 `pprof` ：
 
 ```shell
 $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
@@ -670,64 +671,64 @@ $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
 
 ![](https://www.alexedwards.net/static/images/tooling-5.png)
 
-This makes the graph a lot less 'noisy' and if you [zoom in on this screenshot](/static/images/tooling-5b.svg), it's now much clearer to see and understand where the CPU usage hotspots are.
+这让图形更加“嘈杂”，如果你[放大这个截图](/static/images/tooling-5b.svg)，就可以更清楚的看到和了解 CPU 使用的热点位置。
 
-Profiling and optimizing resource usage is big, nuanced, topic and I've barely scratched the surface here. If you're interested in knowing more then I encourage you to read the following blog posts:
+分析和优化资源使用是一个很大的，细微的，主题，我在这里只涉及到一点表面的内容。如果您有兴趣了解更多信息，我建议您阅读以下博文：
 
-* [Profiling and optimizing Go web applications](https://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/)
-* [Debugging performance issues in Go programs](https://github.com/golang/go/wiki/Performance)
-* [Daily code optimization using benchmarks and profiling](https://medium.com/@hackintoshrao/daily-code-optimization-using-benchmarks-and-profiling-in-golang-gophercon-india-2016-talk-874c8b4dc3c5)
-* [Profiling Go programs with pprof](https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/)
+* [分析和优化 Go Web 应用程序](https://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/)
+* [调试 Go 程序中的性能问题](https://github.com/golang/go/wiki/Performance)
+* [使用基准和分析的每日代码优化](https://medium.com/@hackintoshrao/daily-code-optimization-using-benchmarks-and-profiling-in-golang-gophercon-india-2016-talk-874c8b4dc3c5)
+* [使用 pprof 分析 Go 程序](https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/)
 
-Another tool that you can use to help diagnose issues is the **runtime execution tracer**. This gives you a view of how Go is creating and scheduling goroutines to run, when the garbage collector is running, and information about blocking syscall/network/sync operations.
+另一个可以用来帮助你诊断问题的工具是**运行时执行跟踪器**。 这使您可以了解 Go 如何创建和安排运行垃圾收集器时运行的 goroutine ，以及有关阻止系统调用/网络/同步操作的信息。
 
-Again, you can generate trace from your tests or benchmarks, or use `net/http/pprof` to create and download a trace for your web application. You can then use `go tool trace` to view the output in your web browser like so:
+同样，您可以从测试或基准测试中生成跟踪，或使用 `net/http/pprof` 为您的 Web 应用程序创建和下载跟踪。 然后，您可以使用 `go tool trace` 在 Web 浏览器中查看输出，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -trace=/tmp/trace.out .
 $ go tool trace /tmp/trace.out
 ```
 
-Important: This is currently only viewable in Chrome/Chromium.
+重要提示：目前只能在 Chrome/Chromium 中查看。
 
 ![](https://www.alexedwards.net/static/images/tooling-6.png)
 
-For more information about Go's execution tracer and how to interpret the output please see [Rhys Hiltner's dotGo 2016 talk](https://www.youtube.com/watch?v=mmqDlbWk_XA) and this [excellent blog post](https://making.pusher.com/go-tool-trace/).
+有关 Go 的执行跟踪器以及如何解释输出的更多信息，请参阅 [Rhys Hiltner 的 dotGo 2016 演讲](https://www.youtube.com/watch?v=mmqDlbWk_XA)和[优秀博客文章](https://making.pusher.com/go-tool-trace/)。
 
-### Checking for Race Conditions
+### 检查竞态条件
 
-I talked earlier about enabling Go's race detector during tests by using `go test -race`. But you can also enable it for running programs when building a executable, like so:
+我之前谈过在测试期间使用 `go test -race` 启用 Go 的竞态条件检测器。但是，你还可以在构建可执行文件时启用它来运行程序，如下所示：
 
 ```shell
 $ go build -race -o=/tmp/foo .
 ```
 
-It's critical to note that race-detector-enabled binaries will use more CPU and memory than normal, so you shouldn't use the `-race` flag when building binaries for production under normal circumstances.
+至关重要的是要注意，启用竞态条件检测器的二进制文件将使用比正常情况更多的 CPU 和内存，因此在正常情况下为生产环境构建二进制文件时，不应使用 `-race` 标记。
 
-But you may want to deploy a race-detector-enabled binary on one server within a pool of many. Or use it to help track down a suspected race-condition by using a load-test tool to throw traffic concurrently at a race-detector-enabled binary.
+但是，你可能希望在多个池中的一个服务器上部署启用了竞态条件检测器的二进制文件，或者使用它来帮助追踪可疑的竞态条件。方法是使用负载测试工具在启用竞态条件检测器的二进制文件的同时投放流量。
 
-By default, if any races are detected while the binary is running a log will be written to `stderr`. You can change this by using the `GORACE` environment variable if necessary. For example, to run the binary located at `/tmp/foo` and output any race logs to `/tmp/race.<pid>` you can use:
+默认情况下，如果在二进制文件运行时检测到任何竞态条件，则日志将写入 `stderr` 。如有必要，可以使用 `GORACE` 环境变量来更改此设置。例如，要运行位于 `/tmp/foo` 的二进制文件并将任何竞态日志输出到 `/tmp/race.<pid>` ，你可以使用：
 
 ```shell
 $ GORACE="log_path=/tmp/race" /tmp/foo
 ```
 
-## Managing Dependencies
+## 管理依赖
 
-You can use the `go list` tool to check whether a specific dependency has a newer version available like so:
+你可以使用 `go list` 工具检查特定依赖项是否具有更新版本，如下所示：
 
 ```shell
 $ go list -m -u github.com/alecthomas/chroma
 github.com/alecthomas/chroma v0.6.2 [v0.6.3]
 ```
 
-This will output the dependency name and version that you're currently using, followed by the latest version in square brackets `[]`, if a newer one exists. You can also use `go list` to check for updates to all dependencies (and sub-dependencies) like so:
+这将输出你当前正在使用的依赖项名称和版本，如果存在较新的版本，则输出方括号 `[]` 中的最新版本。你还可以使用 `go list` 来检查所有依赖项（和子依赖项）的更新，如下所示：
 
 ```shell
 $ go list -m -u all
 ```
 
-You can upgrade (or downgrade) a dependency to the latest version, specific tagged-release or commit hash with the `go get` command like so:
+你可以使用 `go get` 命令将依赖项升级（或降级）到最新版本、特定标记版本或提交 hash ，如下所示：
 
 ```shell
 $ go get github.com/foo/bar@latest
@@ -735,22 +736,22 @@ $ go get github.com/foo/bar@v1.2.3
 $ go get github.com/foo/bar@7e0369f
 ```
 
-If the dependency you're updating has a `go.mod` file, then based on the information in this `go.mod` file, updates to any **sub-dependencies** will also be downloaded if necessary. If you use the `go get -u` flag, the contents of the `go.mod` file will be ignored and all sub-dependencies will be upgraded to their latest minor/patch version… even if the `go.mod` specifies a different version.
+如果你要更新的依赖项具有 `go.mod` 文件，那么根据此 `go.mod` 文件中的信息，如果需要，还将下载对任何**子依赖项**的更新。如果使用 `go get -u` 标记，`go.mod` 文件的内容将被忽略，所有子依赖项将升级到最新的 minor/patch 版本，即使已经在 `go.mod` 中指定了不同的版本。
 
-After upgrading or downgrading any dependencies it's a good idea to tidy your modfiles. And you might also want to run the tests for all packages to help check for incompatibilities. Like so:
+在升级或降级任何依赖项后，最好整理你的 modfiles 。你可能还希望为所有程序包运行测试以帮助检查不兼容性。像这样：
 
 ```shell
 $ go mod tidy
 $ go test all
 ```
 
-Occasionally you might want to use a local version of a dependency (for example, you need to use a local fork until a patch is merged upstream). To do this, you can use the `go mod edit` command to replace a dependency in your `go.mod` file with a local version. For example:
+有时，你可能希望使用本地版本的依赖项（例如，在上游合并修补程序之前，你需要使用本地分支）。为此，你可以使用 `go mod edit` 命令将 `go.mod` 文件中的依赖项替换为本地版本。例如：
 
 ```shell
 $ go mod edit -replace=github.com/alexedwards/argon2id=/home/alex/code/argon2id
 ```
 
-This will add a **replace rule** to your `go.mod` file like so, and any future invocations of `go run`, `go build` etc will use the local version.
+这将在你的 `go.mod` 文件中添加一个**替换规则**，并且当以后调用 `go run` 、`go build` 等命令时，将使用本地版本依赖。
 
 File: go.mod
 
@@ -764,47 +765,46 @@ require github.com/alexedwards/argon2id v0.0.0-20190109181859-24206601af6c
 replace github.com/alexedwards/argon2id => /home/alex/Projects/playground/argon2id
 ```
 
-Once it's no longer necessary, you can remove the replace rule with the command:
+一旦不再需要，你可以使用以下命令删除替换规则：
 
 ```shell
 $ go mod edit -dropreplace=github.com/alexedwards/argon2id
 ```
 
-You can use the [same general technique](https://github.com/golang/go/wiki/Modules#can-i-work-entirely-outside-of-vcs-on-my-local-filesystem) to import packages that exist **only** on your own file system. This can be useful if you're working on multiple modules in development at the same time, one of which depends on the other.
+你可以使用[same general technique](https://github.com/golang/go/wiki/Modules#can-i-work-entirely-outside-of-vcs-on-my-local-filesystem)导入**只在你自己的文件系统上存在**的包。如果你同时处理开发中的多个模块，其中一个模块依赖于另一个模块，则此功能非常有用。
 
-Note: If you don't want to use the `go mod edit` command, you can edit your `go.mod` file manually to make these changes. Either way will work.
+注意：如果你不想使用 `go mod edit` 命令，你也可以可以手动编辑 `go.mod` 文件以进行这些更改。两种方式都是可行的。
 
-## Upgrading to a New Go Release
+## 升级到新版本
 
-The `go fix` tool was originally released back in 2011 (when regular changes were still being made to Go's API) to help users automatically update their old code to be compatible with the latest version of Go. Since then, Go's [compatibility promise](https://golang.org/doc/go1compat) means if you're upgrading from one Go 1.x version to a newer 1.x version everything should Just Work and using `go fix` should generally be unnecessary.
+`go fix` 工具最初于 2011 年发布（当时仍在对 Go 的 API 进行定期更改），以帮助用户自动更新旧代码以与最新版的 Go 兼容。从那以后，Go 的[兼容性承诺](https://golang.org/doc/go1compat)意味着如果你从 Go 1.x 版本升级到更新的 Go 1.x 版本，一切都应该正常工作，并且通常没有必要使用 `go fix`
 
-However, there are a handful of very specific issues that it does deal with. You can see a summary of them by running `go tool fix -help`. If you decide that you want or need to run `go fix` after upgrading, you should you run the following command, then inspect a diff of the changes before you commit them.
+但是，在某些具体的问题上，`go fix` 的确起到了作用。你可以通过运行 `go tool fix -help` 来查看它们的摘要，如果你决定在升级后需要运行 `go fix` ，则应该运行以下命令，然后在提交之前检查更改的差异。
 
 ```shell
 $ go fix ./...
 ```
 
-## Reporting Bugs
+## 报告问题
 
-If you're confident that you've found an unreported issue with Go's standard library, tooling or documentation, you can use the `go bug` command to create a new Github issue.
+如果你确信在 Go 的标准库、工具和文档中找到了未报告的问题，则可以使用 `Go bug` 命令提出新的 Github issue 。
 
 ```shell
 $ go bug
 ```
+这将会打开一个包含了系统信息和报告模板的 issue 填写页面。
 
-This will open a browser window containing an issue pre-filled with your system information and reporting template.
+## 速查表
 
-## Cheatsheet
-
-**Update 2019-04-19: [@FedirFR](https://twitter.com/FedirFR) has kindly made a cheatsheet based on this post. You can [download it here](https://github.com/fedir/go-tooling-cheat-sheet/blob/master/go-tooling-cheat-sheet.pdf).**
+**2019-04-19 更新: [@FedirFR](https://twitter.com/FedirFR) 基于这篇文章制作了一个速查表。你可以[点击这里下载](https://github.com/fedir/go-tooling-cheat-sheet/blob/master/go-tooling-cheat-sheet.pdf).**
 
 [![](https://www.alexedwards.net/static/images/tooling-7.png)](https://github.com/fedir/go-tooling-cheat-sheet/blob/master/go-tooling-cheat-sheet.pdf)
 
-If you enjoyed this blog post, don't forget to check out my new book about how to [build professional web applications with Go](https://lets-go.alexedwards.net/)!
+如果你喜欢这篇文章，请不要忘记查看我的新书《如何[用 Go 构建专业的 Web 应用程序](https://lets-go.alexedwards.net/)》。
 
-Follow me on Twitter [@ajmedwards](https://twitter.com/ajmedwards).
+你可以在 Twitter 上关注我 [@ajmedwards](https://twitter.com/ajmedwards) 。
 
-All code snippets in this post are free to use under the [MIT Licence](http://opensource.org/licenses/MIT).
+文中的所有代码片段均可在 [MIT 许可证](http://opensource.org/licenses/MIT)下自由使用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
