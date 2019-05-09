@@ -43,8 +43,8 @@ Keras 是一个基于 Theano 和 TensorFlow 的易于使用且功能强大的库
 >>> model.add(Dense(32, activation='relu', input_dim=100))
 >>> model.add(Dense(1, activation='sigmoid'))
 >>> model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
->>>  model.fit(data,labels,epochs=10,batch_size=32)
->>>  predictions = model.predict(data)
+>>> model.fit(data,labels,epochs=10,batch_size=32)
+>>> predictions = model.predict(data)
 ```
 
 ### 数据
