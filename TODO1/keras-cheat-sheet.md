@@ -9,17 +9,17 @@
 
 ## 使用 Keras 速查表构建你自己的神经网络，便于初学者在 Python 中进行深度学习，附有代码示例
 
-[Keras](http://keras.io/) 是基于 Theano 和 TensorFlow 的一个易于使用且功能强大的库，它提供了一些高层的神经网络接口，用于开发和评估深度学习模型。
+[Keras](http://keras.io/) 是一个基于 Theano 和 TensorFlow 的易于使用且功能强大的库，它提供了一些高层的神经网络接口，用于开发和评估深度学习模型。
 
 我们最近推出了第一个使用 Keras 2.0 开发的在线交互深度学习课程，叫做“[Deep Learning in Python](https://www.datacamp.com/courses/deep-learning-in-python/)”。
 
 现在，DataCamp 为那些已经上过这门课但仍然需要一页参考资料的人，或者那些需要一个额外的推动力才能开始学习的人，创建了 Keras 速查表。
 
-很快，这个速查表就会让你熟悉如何从这个库中加载数据集、如何预处理数据、如何构造一个模型结构以及如何编译、训练和评估它。由于在如何搭建自己的模型上有着相当大的自由度，你会看到这个速查表展示了一些简单关键的 Keras 代码示例，只有了解这些你才能开始用 Python 搭建自己的神经网络。
+很快，这个速查表就会让你熟悉如何从这个库中加载数据集、如何预处理数据、如何构造一个模型结构以及如何编译、训练和评估它。由于在如何搭建自己的模型上有着相当大的自由度，你会看到这个速查表展示了一些简单的关键 Keras 代码示例，只有了解这些你才能开始用 Python 搭建自己的神经网络。
 
-此外，你还可以看到一些关于如何检查你的模型，如何保存和加载模型的示例。最后，你也会找到一些关于如何对测试数据做预测，以及如何通过调节优化参数和早停的方式来微调的示例。
+此外，你还可以看到一些关于如何检查你的模型，如何保存和加载模型的示例。最后，你也会找到一些关于如何对测试数据做预测，以及如何通过调节优化参数和早停的方式来微调模型的示例。
 
-简而言之，你会看到这个速查表并不是仅仅是向你展示了使用 Keras 库在 Python 中构建神经网络的六个步骤。
+简而言之，你会看到这个速查表并不仅仅是向你展示了使用 Keras 库在 Python 中构建神经网络的六个步骤而已。
 
 [![keras cheat sheet](http://community.datacamp.com.s3.amazonaws.com/community/production/ckeditor_assets/pictures/516/content_button-cheatsheet-keras.png)](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Keras_Cheat_Sheet_Python.pdf)
 
@@ -29,7 +29,7 @@
 
 ## Python 数据科学速查表：Keras
 
-Keras 是基于 Theano 和 TensorFlow 的一个易于使用且功能强大的库，它提供了一些高层的神经网络接口，用于开发和评估深度学习模型。
+Keras 是一个基于 Theano 和 TensorFlow 的易于使用且功能强大的库，它提供了一些高层的神经网络接口，用于开发和评估深度学习模型。
 
 ### 一个基础例子
 
@@ -49,7 +49,7 @@ Keras 是基于 Theano 和 TensorFlow 的一个易于使用且功能强大的库
 
 ### 数据
 
-你的数据需要储存为 Numpy arrays 或者 Numpy arrays 列表的格式。理想中，数据会分为训练集和测试集，你可以借助 `sklearn.cross_validation` 下的 `train_test_split` 模块来实现。
+你的数据需要以 Numpy arrays 或者 Numpy arrays 列表的格式储存。理想情况下，数据会分为训练集和测试集，你可以借助 `sklearn.cross_validation` 下的 `train_test_split` 模块来实现。
 
 #### Keras 数据集
 
