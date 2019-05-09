@@ -2,36 +2,36 @@
 > * 原文作者：[Karlijn Willems](https://www.datacamp.com/profile/karlijn)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/keras-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keras-cheat-sheet.md)
-> * 译者：
+> * 译者：[Minghao23](https://github.com/Minghao23)
 > * 校对者：
 
-# Keras Cheat Sheet: Neural Networks in Python
+# Keras 速查表：使用 Python 构建神经网络
 
-## Make your own neural networks with this Keras cheat sheet to deep learning in Python for beginners, with code samples.
+## 使用 Keras 速查表构建你自己的神经网络，便于初学者在 Python 中进行深度学习，附有代码示例
 
-[Keras](http://keras.io/) is an easy-to-use and powerful library for Theano and TensorFlow that provides a high-level neural networks API to develop and evaluate deep learning models.
+[Keras](http://keras.io/) 是基于 Theano 和 TensorFlow 的一个易于使用且功能强大的库，它提供了一些高层的神经网络接口，用于开发和评估深度学习模型。
 
-We recently launched one of the first online interactive deep learning course using Keras 2.0, called "[Deep Learning in Python](https://www.datacamp.com/courses/deep-learning-in-python/)".
+我们最近推出了第一个使用 Keras 2.0 开发的在线交互深度学习课程，叫做“[Deep Learning in Python](https://www.datacamp.com/courses/deep-learning-in-python/)”。
 
-Now, DataCamp has created a Keras cheat sheet for those who have already taken the course and that still want a handy one-page reference or for those who need an extra push to get started.
+现在，DataCamp 为那些已经上过这门课但仍然需要一页参考资料的人，或者那些需要一个额外的推动力才能开始学习的人，创建了 Keras 速查表。
 
-In no time, this Keras cheat sheet will make you familiar with how you can load datasets from the library itself, preprocess the data, build up a model architecture, and compile, train, and evaluate it. As there is a considerable amount of freedom in how you build up your models, you'll see that the cheat sheet uses some of the simple key code examples of the Keras library that you need to know to get started with building your own neural networks in Python.
+很快，这个速查表就会让你熟悉如何从这个库中加载数据集、如何预处理数据、如何构造一个模型结构以及如何编译、训练和评估它。由于在如何搭建自己的模型上有着相当大的自由度，你会看到这个速查表展示了一些简单关键的 Keras 代码示例，只有了解这些你才能开始用 Python 搭建自己的神经网络。
 
-Furthermore, you'll also see some examples of how to inspect your model, and how you can save and reload it. Lastly, you’ll also find examples of how you can predict values for test data and how you can fine tune your models by adjusting the optimization parameters and early stopping.
+此外，你还可以看到一些关于如何检查你的模型，如何保存和加载模型的示例。最后，你也会找到一些关于如何对测试数据做预测，以及如何通过调节优化参数和早停的方式来微调的示例。
 
-In short, you'll see that this cheat sheet not only presents you with the six steps that you can go through to make neural networks in Python with the Keras library.
+简而言之，你会看到这个速查表并不是仅仅是向你展示了使用 Keras 库在 Python 中构建神经网络的六个步骤。
 
 [![keras cheat sheet](http://community.datacamp.com.s3.amazonaws.com/community/production/ckeditor_assets/pictures/516/content_button-cheatsheet-keras.png)](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Keras_Cheat_Sheet_Python.pdf)
 
-In short, this cheat sheat will boost your journey with deep learning in Python: you'll have preprocessed, created, validated and tuned your deep learning models in no time thanks to the code examples!    
+总之，这个速查表会加快你的 Python 深度学习旅程：有了这些代码示例的帮助，你很快就可以对你的深度学习模型进行预处理，创建，检验和调优！
 
-**(Click above to download a printable version or read the online version below.) **
+**（点击上图下载可打印的版本，或阅读下面的在线版本）**
 
-## Python For Data Science Cheat Sheet: Keras
+## Python 数据科学速查表：Keras
 
-Keras is a powerful and easy-to-use deep learning library for Theano and TensorFlow that provides a high-level neural networks API to develop and evaluate deep learning models.
+Keras 是基于 Theano 和 TensorFlow 的一个易于使用且功能强大的库，它提供了一些高层的神经网络接口，用于开发和评估深度学习模型。
 
-### A Basic Example
+### 一个基础例子
 
 ```
 >>> import numpy as np
@@ -47,11 +47,11 @@ Keras is a powerful and easy-to-use deep learning library for Theano and TensorF
 >>>  predictions = model.predict(data)
 ```
 
-### Data
+### 数据
 
-Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideally, you split the data in training and test sets, for which you can also resort to the `train_test_split` module of `sklearn.cross_validation`.
+你的数据需要储存为 Numpy arrays 或者 Numpy arrays 列表的格式。理想中，数据会分为训练集和测试集，你可以借助 `sklearn.cross_validation` 下的 `train_test_split` 模块来实现。
 
-#### Keras Data Sets
+#### Keras 数据集
 
 ```
 >>> from keras.datasets import boston_housing, mnist, cifar10, imdb
@@ -62,7 +62,7 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> num_classes = 10
 ```
 
-#### Other
+#### 其他
 
 ```
 >>> from urllib.request import urlopen
@@ -71,9 +71,9 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> y = data [:,8]
 ```
 
-### Preprocessing
+### 预处理
 
-#### Sequence Padding
+#### 序列填充
 
 ```
 >>> from keras.preprocessing import sequence
@@ -81,7 +81,7 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> x_test4 = sequence.pad_sequences(x_test4,maxlen=80)
 ```
 
-#### One-Hot Encoding
+#### One-Hot 编码
 
 ```
 >>> from keras.utils import to_categorical
@@ -91,14 +91,14 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> Y_test3 = to_categorical(y_test3, num_classes)
 ```
 
-#### Train And Test Sets
+#### 训练和测试集
 
 ```
 >>> from sklearn.model_selection import train_test_split
 >>> X_train5, X_test5, y_train5, y_test5 = train_test_split(X, y, test_size=0.33, random_state=42)
 ```
 
-### Standardization/Normalization
+### 标准化/归一化
 
 ```
 >>> from sklearn.preprocessing import StandardScaler
@@ -107,9 +107,9 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> standardized_X_test = scaler.transform(x_test2)
 ```
 
-### Model Architecture
+### 模型结构
 
-#### Sequential Model
+#### 序贯模型
 
 ```
 >>> from keras.models import Sequential
@@ -118,9 +118,9 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> model3 = Sequential()
 ```
 
-#### Multi-Layer Perceptron (MLP)
+#### 多层感知机（MLP）
 
-**Binary Classification**
+**二分类**
 
 ```
 >>> from keras.layers import Dense
@@ -129,7 +129,7 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> model.add(Dense(1, kernel_initializer='uniform', activation='sigmoid'))
 ```
 
-**Multi-Class Classification**
+**多分类**
 
 ```
 >>> from keras.layers import Dropout
@@ -140,14 +140,14 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> model.add(Dense(10,activation='softmax'))
 ```
 
-**Regression**
+**回归**
 
 ```
 >>> model.add(Dense(64, activation='relu', input_dim=train_data.shape[1]))
 >>> model.add(Dense(1))
 ```
 
-#### Convolutional Neural Network (CNN)
+#### 卷积神经网路（CNN）
 
 ```
 >>> from keras.layers import Activation, Conv2D, MaxPooling2D, Flatten
@@ -171,7 +171,7 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> model2.add(Activation('softmax'))
 ```
 
-#### Recurrent Neural Network (RNN)
+#### 循环神经网络（RNN）
 
 ```
 >>> from keras.klayers import Embedding,LSTM
@@ -180,80 +180,80 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 >>> model3.add(Dense(1,activation='sigmoid'))
 ```
 
-### Inspect Model
+### 检查模型
 
-Model output shape
+模型输出的 shape
 
 ```
 >>> model.output_shape
 ```
 
-Model summary representation
+模型描述
 
 ```
 >>> model.summary()
 ```
 
-Model configuration
+模型配置
 
 ```
 >>> model.get_config()
 ```
 
-List all weight tensors in the model
+列出模型中所有的权重张量
 
 ```
 >>> model.get_weights()
 ```
 
-### Compile Model
+### 编译模型
 
-#### Multi-Layer Perceptron (MLP)
+#### 多层感知机（MLP）
 
-**MLP: Binary Classification**
+**多层感知机：二分类**
 
 ```
 >>> model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 ```
 
-**MLP: Multi-Class Classification**
+**多层感知机：多分类**
 
 ```
 >>> model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 ```
 
-**MLP: Regression**
+**多层感知机：回归**
 
 ```
 >>> model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
 ```
 
-#### Recurrent Neural Network (RNN)
+#### 循环神经网络（RNN）
 
 ```
 >>> model3.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 ```
 
-### Model Training
+### 模型训练
 
 ```
 >>> model3.fit(x_train4, y_train4, batch_size=32, epochs=15, verbose=1, validation_data=(x_test4, y_test4))
 ```
 
-### Evaluate Your Model's Performance
+### 评估你的模型表现
 
 ```
 >>> score = model3.evaluate(x_test, y_test, batch_size=32)
 ```
 
-### Prediction
+### 预测
 
 ```
 >>> model3.predict(x_test4, batch_size=32)
 >>> model3.predict_classes(x_test4,batch_size=32)
 ```
 
-### Save/Reload Models
+### 保存/加载模型
 
 ```
 >>> from keras.models import load_model
@@ -261,9 +261,9 @@ List all weight tensors in the model
 >>> my_model = load_model('my_model.h5')
 ```
 
-### Model Fine-Tuning
+### 模型微调
 
-#### Optimization Parameters
+#### 优化参数
 
 ```
 >>> from keras.optimizers import RMSprop
@@ -271,7 +271,7 @@ List all weight tensors in the model
 >>> model2.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 ```
 
-#### Early Stopping
+#### 早停
 
 ```
 >>> from keras.callbacks import EarlyStopping
@@ -279,11 +279,11 @@ List all weight tensors in the model
 >>> model3.fit(x_train4, y_train4, batch_size=32, epochs=15, validation_data=(x_test4, y_test4), callbacks=[early_stopping_monitor])
 ```
 
-### Going Further
+### 进一步探索
 
-Begin with [our Keras tutorial for beginners](https://www.datacamp.com/community/tutorials/deep-learning-python), in which you'll learn in an easy, step-by-step way how to explore and preprocess the wine quality data set, build up a multi-layer perceptron for classification and regression tasks, compile, fit and evaluate the model and fine-tune the model that you have built.
+从 [Keras 新手教程](https://www.datacamp.com/community/tutorials/deep-learning-python)开始，您将以一种简单、循序渐进的方式学习如何探索和预处理一个关于葡萄酒质量的数据集，为分类和回归任务构建多层感知机，编译、拟合和评估模型，并对所构建的模型进行微调。
 
-Also, don't miss out on our[ Scikit-Learn cheat sheet](https://www.datacamp.com/community/blog/scikit-learn-cheat-sheet/), [NumPy cheat sheet](https://www.datacamp.com/community/blog/python-numpy-cheat-sheet/) and [Pandas cheat sheet](https://www.datacamp.com/community/blog/python-pandas-cheat-sheet/)!
+除此之外，不要错过我们的 [Scikit-Learn 速查表](https://www.datacamp.com/community/blog/scikit-learn-cheat-sheet/)，[NumPy 速查表](https://www.datacamp.com/community/blog/python-numpy-cheat-sheet/)和 [Pandas 速查表](https://www.datacamp.com/community/blog/python-pandas-cheat-sheet/)！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
