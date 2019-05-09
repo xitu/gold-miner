@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/keras-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keras-cheat-sheet.md)
 > * 译者：[Minghao23](https://github.com/Minghao23)
-> * 校对者：
+> * 校对者：[Xuyuey](https://github.com/Xuyuey), [lsvih](https://github.com/lsvih)
 
 # Keras 速查表：使用 Python 构建神经网络
 
