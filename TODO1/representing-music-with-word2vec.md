@@ -7,18 +7,11 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/0*5vTITPYMya0GrTaN)
 
-Representing music with Word2vec?
-=================================
-
-[![Go to the profile of Dorien Herremans](https://cdn-images-1.medium.com/fit/c/100/100/2*lHawuLk_oxi8JXigaxTfWg.png)](https://towardsdatascience.com/@dorien.herremans?source=post_header_lockup)
-
-[Dorien Herremans](https://towardsdatascience.com/@dorien.herremans)Follow
-
-May 7
+# Representing music with Word2vec?
 
 Machine learning algorithms have transformed the field of vision and NLP. But what about music? These last few years, the field of music information retrieval (MIR) has been experiencing a rapid growth. We will be looking at how some of these techniques from NLP can be ported to the field of music. In a recent paper by [Chuan, Agres, & Herremans (2018)](http://link.springer.com/article/10.1007/s00521-018-3923-1), they explore how a popular technique from NLP, namely word2vec, can be used to represent polyphonic music. Let's dive into how this was done...
 
-### Word2vec
+## Word2vec
 
 Word embedding models make it possible for us to represent words in a meaningful way such that machine learning models can more easily process them. They allow us to represent words by a vector that represents semantic meaning. Word2vec is a popular vector embedding model developed by Mikolov et al. (2013), that can create semantic vector spaces in a very efficient manner.
 
@@ -34,7 +27,7 @@ The traditional training objective of this type of network includes a softmax fu
 
 Once a word2vec model is trained, the weights of the hidden layer basically represent the learned, multidimensional, embeddings.
 
-### Music as words?
+## Music as words?
 
 Music and language are intrinsically related. Both consist of a series of sequential events that follow a set of grammatical rules. More importantly, they both create expectation. Imagine that I say: "I am going to the pizzeria to buy a ...". This generates a clear expectation... pizza. Now imagine I hum you the melody line of Happy Birthday, but I stop just before the last note... Just like a sentence, melodies generate expectations. So much expectatio, that it can be measured by EEGs as, for instance, N400 event-related potentials in the brain (Besson & Schön, 2002).
 
@@ -46,19 +39,19 @@ The figure below shows an example of how slices are determined for the first bar
 
 Figure from [Chuan et al (2018) ](http://link.springer.com/article/10.1007/s00521-018-3923-1)--- Creating words from slices of music
 
-### Word2vec learns tonality --- distributional semantics hypothesis for music
+## Word2vec learns tonality --- distributional semantics hypothesis for music
 
 In language, the distributional semantics hypothesis drives the motivation behind vector embeddings. It states that "words that appear in the same contexts tend to have similar meanings" (Harris, 1954). Translated to vector spaces, this means that these words will be geometrically close to each other. Let's discover if the word2vec model learns a similar representation for music.
 
-#### Dataset
+### Dataset
 
 Chuan et al. use a [MIDI dataset](https://www.reddit.com/r/datasets/comments/3akhxy/the_largest_midi_collection_on_the_internet) that contains a mix of eight different genres (from classical to metal). From a total of 130,000 pieces, only 23,178 pieces were selected based on the presence of a genre label. Within these pieces, there were 4,076 unique slices
 
-#### Hyperparameters
+### Hyperparameters
 
 The model was trained using only the 500 most occurring slices (or words), a dummy word was used to replace the others. This procedure augments the accuracy of the model as more information (occurrences) is available of the included words. Other hyperparameters include a learning rate of 0.1, skip window size of 4, number of training steps (1,000,000), and 256 as the size of the embeddings.
 
-#### Chords
+### Chords
 
 To evaluate whether semantic meaning of the musical slices is captured by the model, let's look at chords.
 
@@ -82,7 +75,7 @@ The distance between a I triad to V, IV, and vi are smaller! This corresponds to
 
 *It seems that the cosine distance between chords in word2vec space reflects the functional roles of chords in music theory!*
 
-#### Keys
+### Keys
 
 Looking at Bach's Well-Tempered Clavier (WTC)'s 24 preludes, which contain a piece in each of the 24 keys (major and minor), we can study if the new embedding space captured information about key.
 
@@ -94,7 +87,7 @@ The resulting cosine distances between each centroid of pieces in different keys
 
 Figure from [Chuan et al (2018)](http://link.springer.com/article/10.1007/s00521-018-3923-1)--- similarity matrix based on cosine distance between pairs of preludes in different keys.
 
-#### Analogy
+### Analogy
 
 One of the striking examples of word2vec is the [image](https://www.distilled.net/uploads/word2vec_chart.jpg) that shows translations between king → queen, and man → women, in the vector space (Mikolov et al., 2013c). This shows that meaning can be brought forward through a vector translation. Does this work for music too?
 
@@ -104,7 +97,7 @@ We first detect the chords from polyphonic slices, and look at a chord-pair vect
 
 Figure from [Chuan et al (2018)](http://link.springer.com/article/10.1007/s00521-018-3923-1) --- angle between chord-pair vectors.
 
-#### Other applications --- music generation?
+### Other applications --- music generation?
 
 Chuan et al. (2018) briefly look at how the model can be used to replace slices of music to form new music. They indicate that this is just a preliminary test, but the system could be used as a representation method in a more comprehensive system, e.g. LSTM. More details are given in the scientific paper, but the figure below gives an impression of the result.
 
@@ -112,25 +105,19 @@ Chuan et al. (2018) briefly look at how the model can be used to replace slices 
 
 Figure from [Chuan et al (2018)](http://link.springer.com/article/10.1007/s00521-018-3923-1) --- Replacing slices with geometrically close slices.
 
-### Conclusion
+## Conclusion
 
 Chuan, Agres, and Herremans (2018) built a word2vec model that captures tonal properties of polyphonic music, without ever feeding the actual notes into the model. The article shows convincing evidence that information about chords and keys can be found in the novel embeddings, so to answer the question i the title: Yes we can represent polyphonic music with word2vec! Now the road is open for embedding this representation into other models that also capture time aspects of music.
 
-### References
+## References
 
-Besson M, Schön D (2001) Comparison between language and music. Ann N Y Acad Sci 930(1):232--258.
-
-Chuan, C. H., Agres, K., & Herremans, D. (2018). From context to concept: exploring semantic relationships in music with word2vec. *Neural Computing and Applications --- Special issue on Deep Learning for Music and Audio*, 1--14. [Arxiv preprint](https://arxiv.org/abs/1811.12408).
-
-Gutmann MU, Hyvärinen A (2012) Noise-contrastive estimation of unnormalized statistical models, with applications to natural image statistics. J Mach Learn Res 13(Feb):307--361
-
-Harris ZS (1954) Distributional structure. Word 10(2--3):146--162.
-
-Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient estimation of word representations in vector space. *arXiv preprint arXiv:1301.3781.*
-
-Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J (2013b) Distributed representations of words and phrases and their compositionality. In: Proceedings of advances in neural information processing systems (NIPS), pp 3111--3119
-
-Mikolov T, Yih Wt, Zweig G (2013c) Linguistic regularities in continuous space word representations. In: Proceedings of the 2013 conference of the North American chapter of the association for computational linguistics: human language technologies, pp 746--751
+- Besson M, Schön D (2001) Comparison between language and music. Ann N Y Acad Sci 930(1):232--258.
+- Chuan, C. H., Agres, K., & Herremans, D. (2018). From context to concept: exploring semantic relationships in music with word2vec. *Neural Computing and Applications --- Special issue on Deep Learning for Music and Audio*, 1--14. [Arxiv preprint](https://arxiv.org/abs/1811.12408).
+- Gutmann MU, Hyvärinen A (2012) Noise-contrastive estimation of unnormalized statistical models, with applications to natural image statistics. J Mach Learn Res 13(Feb):307--361
+- Harris ZS (1954) Distributional structure. Word 10(2--3):146--162.
+- Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient estimation of word representations in vector space. *arXiv preprint arXiv:1301.3781.*
+- Mikolov T, Sutskever I, Chen K, Corrado GS, Dean J (2013b) Distributed representations of words and phrases and their compositionality. In: Proceedings of advances in neural information processing systems (NIPS), pp 3111--3119
+- Mikolov T, Yih Wt, Zweig G (2013c) Linguistic regularities in continuous space word representations. In: Proceedings of the 2013 conference of the North American chapter of the association for computational linguistics: human language technologies, pp 746--751
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
