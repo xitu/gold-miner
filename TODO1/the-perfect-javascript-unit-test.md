@@ -123,7 +123,7 @@ it('filters products based on the query-string filters', () => {
 
 这是最好的一步！是你所有的努力得到回报的地方，我们在这里检查事情有没有按照我们期望的进行。
 
-我称之为断言步骤，因为我们在这里做一些断言，但是现在我倾向于使用 Jest 和它的 `expect` 函数，所以如果你愿意的话你也可以称之为 “期望步骤”。
+我称之为断言步骤，因为我们在这里做一些断言，但是现在我倾向于使用 Jest 和它的 `expect` 函数，所以如果你愿意的话你也可以称之为“期望步骤”。
 
 ```
 it('filters products based on the query-string filters', () => {
