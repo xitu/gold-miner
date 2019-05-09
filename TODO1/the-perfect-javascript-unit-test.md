@@ -2,84 +2,84 @@
 > * 原文作者：[javascriptplayground.com](https://javascriptplayground.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-perfect-javascript-unit-test.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-perfect-javascript-unit-test.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Xuyuey](https://github.com/Xuyuey)
+> * 校对者：[xujiujiu](https://github.com/xujiujiu), [Fengziyin1234](https://github.com/Fengziyin1234)
 
-# The perfect JavaScript unit test
+# 完美的 Javascript 单元测试
 
-Today we're talking about how to write the perfect unit test and how to ensure your tests stay readable, usable and maintainable.
+今天我们讨论的是如何编写完美的单元测试以及如何确保测试的可读性，可用性和可维护性。
 
-There’s a common theme I find with people who tell me that they don’t find unit testing useful, and it’s normally that they are writing bad tests. This is completely understandable, particularly if you’re newer to unit testing. It’s _hard_ to write good tests and it takes practice to get there. All the things we’re going to talk about today were learned the hard way; the pain of bad unit tests lead me to creating my own rules for how to write a good unit test. It’s these rules that we’re going to talk about today.
+我发现有一个共性，那些告诉我单元测试没用的人，通常都在编写糟糕的单元测试。特别对于那些刚刚接触单元测试的新手，这完全可以理解。写出很棒的单元测试**很难**，它需要你经常练习才可以。我们今天要讨论的所有事情都是通过很艰难的方式学到的; 不良单元测试的痛苦致使我为如何编写好的单元测试创​​建了自己的规则。我们今天要讨论的就是这些规则。
 
-## Why are bad tests so bad?
+## 为什么糟糕的测试非常致命？
 
-When you have application code that is messy, it’s hard to work with. But hopefully you have some tests alongside it, and those help you. It’s OK to work with hard code if you’ve got tests backing you up. That confidence tests give you can go along way to erasing the effect of bad code.
+如果你拿到的程序代码很混乱，那么就会很难处理。但万幸的是你可以为你的代码写一些单元测试，它们可以帮到你。如果能有测试支持你，那么处理那种混乱的代码还 OK。测试可以帮助你消除不良代码的影响。
 
-Bad tests don’t have any code to help you work with them. You don’t write tests for your tests. You _could_, but then you’d have to write tests for your tests for your tests and that’s a spiral none of us want to go down…
+但是不会有任何代码可以帮你处理一个糟糕的测试。你不能为你的测试再去编写测试。你也**可以**，但是接下来你就必须为你的测试的测试编写测试，一个无穷无尽的循环，没有人想要这样……
 
-## Characteristics of bad tests
+## 不良测试的特点
 
-It’s hard to define a set of traits that make a bad test, because a bad test is really any test that doesn’t follow the rules we’re about to talk about.
+很难定义一组不良测试的特征，因为不良测试不符合我们即将要讨论的任何规则。
 
-If you’ve ever looked at a test and had no idea what it’s testing, or you can’t obviously spot the assertion, that’s a bad test. A test with a poorly written description (`it('works')` is a personal favourite) is a bad test.
+如果你曾经看过一个测试并且不知道它正在测试什么，或者你无法明显地识别它的断言，那就是一个糟糕的测试。如果一个测试的描述写的不好（我最喜欢用 `it('works')`），那它就是一个糟糕的测试。
 
-Tests are bad if _you don’t find them useful_. The _entire point_ of having tests is to increase your productivity, workflow and confidence in your codebase. If a test isn’t doing that (or actively making it worse), it’s a bad test.
+如果**你发现测试没有用**，那么它也是一个糟糕的测试。测试的**全部目的**是提高你的生产力、工作流程和对代码库的信心。如果测试做不到这些（或者让它变得更糟），那么它肯定是一个糟糕的测试。
 
-I firmly believe that bad tests _are worse_ than no tests.
+我坚信糟糕的测试比没有测试**更糟糕**。
 
-## A good test starts with a good name
+## 好的测试都有一个好名字
 
-The good news is that the rules of a good test are easy to remember and very intuitive once you’ve got used to them!
+好消息是，一旦你习惯了测试，那些好的测试规则很容易记住，而且非常直观！
 
-A good test has a _succinct, descriptive name_. If you can’t come up with a short name, prefer clarity over saving on line length.
+一个好的测试有一个**简洁、描述性**的名称。如果你不能想出一个简短的名字，那么最好选择清晰明确的名称而不是仅仅省下了每行的长度。
 
 ```
 it('filters products based on the query-string filters', () => {})
 ```
 
-You should be able to know just from the description what a test’s purpose is for. You’ll sometimes see people name `it` tests based on the method it tests instead:
+你应该能够从描述中了解到测试的目的是什么。你有时会看到下面这种写法，基于要测试的方法名称给 `it` 测试命名：
 
 ```
 it('#filterProductsByQueryString', () => {})
 ```
 
-But this doesn’t help - imagine being new to this code and trying to figure out exactly what the function does. In this case the name is pretty descriptive, but an actual human readable string is always better if you can come up with one.
+但这并没有帮助 —— 想象一下如果你刚刚接触这些代码，你还得费力找出这个函数到底有什么功能。在这种情况下，方法名称是非常具有描述性的，但是一个真正人类可读的字符串总是更好，前提是你能想出来一个。
 
-Another guide line for naming tests is to ensure you can read the sentence with the `it` at the beginning. So if I’m reading the test below, in my head I read one big sentence:
+为测试命名的另一个指导方针是：确保你可以在 `it` 开头读取到句子。所以，如果我正在阅读下面的测试，我会读到一句话：
 
-> “it filters products based on the query-string filters”
+> “it filters products based on the query-string filters（它基于查询字符串过滤器过滤产品）”
 
 ```
 it('filters products based on the query-string filters', () => {})
 ``` 
 
-Tests that don’t do this, even if the string is descriptive, feel clunky:
+看看下面这个描述，即使这个描述非常有描述性，但是测试并不是用来执行这个操作的，所以这个描述会感觉非常别扭：
 
 ```
 it('the query-string is used to filter products', () => {})
 ```
 
-## The three parts of a good test
+## 完美测试的三个步骤
 
-Once you’ve got your test named well it’s time to focus on the body. A good test follows the same pattern every single time:
+当我们为测试起好了名字，我们就该开始关注测试主体了。一个好的测试每次都遵循相同的模式：
 
 ```
 it('filters products based on the query-string filters', () => {
-  // STEP ONE: SETUP
-  // STEP TWO: INVOKE CODE
-  // STEP THREE: ASSERT
+  // 第一步：初始化
+  // 第二步：调用代码
+  // 第三步：断言
 })
 ```
 
-Let’s go through each of those steps in turn.
+让我们依次看看这些步骤。
 
-## Setup
+## 初始化
 
-The first stage of any unit test is the setup: this is where you get your test data in order, or mock any functions that you might need to for this test to run.
+任何单元测试的第一个阶段都是初始化：这是你按顺序获取测试数据的地方，也是模拟运行此测试可能需要的任何功能的地方。
 
 ```
 it('filters products based on the query-string filters', () => {
-  // STEP ONE: SETUP
+  // 第一步：初始化
   const queryString = '?brand=Nike&size=M'
 
   const products = [
@@ -88,20 +88,20 @@ it('filters products based on the query-string filters', () => {
     { brand: 'Nike', size: 'M', type: 't-shirt' },
   ]
 
-  // STEP TWO: INVOKE CODE
-  // STEP THREE: ASSERT
+  // 第二步：调用代码
+  // 第三步：断言
 })
 ```
 
-The set up should establish _everything you need_ to perform the test. In this case I’m creating the query string and the list of products that I’m going to use to test against. Notice my choice of data for the products too: I’ve got items that deliberately don’t match the query string, along with one that does. If I only had products that matched the query string, this test wouldn’t prove that the filtering works.
+初始化这步应该构建执行测试**所需的一切**。在上面的例子中，我创建了查询字符串和我将用于测试的产品列表。注意我为产品列表挑选的测试数据：我有一些故意与查询字符串不匹配的数据，以及一个完全匹配的数据。如果我只有与查询字符串匹配的数据，那么这个测试不能证明过滤是有效的。
 
-## Invoke code
+## 调用代码
 
-This step is normally the shortest: you should call the function that you need to test. Your test data will have been created by the first step, so you should just be passing variables into a function at this point.
+这步通常是最短的：你应该在这里调用需要测试的函数。第一步中你应该已经构造了测试数据，所以在这里你可以直接将它们作为变量传递给函数。
 
 ```
 it('filters products based on the query-string filters', () => {
-  // STEP ONE: SETUP
+  // 第一步：初始化
   const queryString = '?brand=Nike&size=M'
 
   const products = [
@@ -110,24 +110,24 @@ it('filters products based on the query-string filters', () => {
     { brand: 'Nike', size: 'M', type: 't-shirt' },
   ]
 
-  // STEP TWO: INVOKE CODE
+  // 第二步：调用代码
   const result = filterProductsByQueryString(products, queryString)
 
-  // STEP THREE: ASSERT
+  // 第三步：断言
 })
 ```
 
-> If the test data is very short, I might merge step one and two, but most of the time I find the value in splitting the steps out very explicitly to be worth the extra lines it takes up.
+> 如果测试数据非常少，我可能会合并第一步和第二步，但大部分时间我都发现将它们明确地按步骤拆分非常有价值，值得多写几行。
 
-## Assert
+## 断言
 
-This is the best step! It’s where all your hard work pays off and we check that what we’re expecting to happen actually did.
+这是最好的一步！是你所有的努力得到回报的地方，我们在这里检查事情有没有按照我们期望的进行。
 
-I call this the assert step as we’re making assertions, but these days I tend to use Jest and it’s `expect` function, so you could call this the “Expectation Step” too if you wanted.
+我称之为断言步骤，因为我们在这里做一些断言，但是现在我倾向于使用 Jest 和它的 `expect` 函数，所以如果你愿意的话你也可以称之为“期望步骤”。
 
 ```
 it('filters products based on the query-string filters', () => {
-  // STEP ONE: SETUP
+  // 第一步：初始化
   const queryString = '?brand=Nike&size=M'
 
   const products = [
@@ -136,24 +136,24 @@ it('filters products based on the query-string filters', () => {
     { brand: 'Nike', size: 'M', type: 't-shirt' },
   ]
 
-  // STEP TWO: INVOKE CODE
+  // 第二步：调用代码
   const result = filterProductsByQueryString(products, queryString)
 
-  // STEP THREE: ASSERT
+  // 第三步：断言
   expect(result).toEqual([{ brand: 'Nike', size: 'M', type: 't-shirt' }])
 })
 ```
 
-And with that, we have a perfect unit test:
+经过上面这些操作，现在我们有了一个完美的单元测试：
 
-1.  It has a descriptive name that reads clearly and is succinct.
-2.  It has a clear setup phase where we construct test data.
-3.  The invoking step is limited to simply calling our function with our test data.
-4.  Our assertion is clear and demonstrates the behaviour we’re testing clearly.
+1.  它有一个描述性的名称，读起来非常清楚，简洁。
+2.  它有一个明确的初始化阶段，我们在这里构建测试数据。
+3.  调用步骤仅限于调用我们的函数并使用我们的测试数据。
+4.  我们的断言非常明确，清楚地验证了我们正在测试的功能。
 
-## Small improvements
+## 小改进
 
-Whilst I wouldn’t actually include the `// STEP ONE: SETUP` comments in my real tests, I do find it useful to put a blank line between all three parts. So if this test was in my codebase for real, it would look like this:
+虽然实际上我不会在实际测试中包含 `// STEP ONE: SETUP` 这些注释，但是我发现在三个部分之间加上一个空行非常有用。所以，如果这个测试真的出现在我的代码库中，那么它应该是下面这样：
 
 ```
 it('filters products based on the query-string filters', () => {
@@ -170,7 +170,7 @@ it('filters products based on the query-string filters', () => {
 })
 ```
 
-If we’re building a system that has products in it, I’d look to create an easier way to create these products. I created the [test-data-bot](https://github.com/jackfranklin/test-data-bot) library to do exactly this. I won’t dive into how it works, but it lets you easily create _factories_ to create test data. If we had that setup (the `README` has full instructions) we could have this test like so:
+如果我们正在构建一个包含产品的系统，我希望创建一种更简单的方法来创建这些产品。所以我构建了 [test-data-bot](https://github.com/jackfranklin/test-data-bot) 库，它可以轻松做到上面的事情。我不会深入介绍它的工作原理，但它可以让你轻松地创建**工厂模式（factories）**来构建测试数据。如果我们用了这个构建工具（`README` 有详细的说明），我们可以像下面这样重写测试：
 
 ```
 it('filters products based on the query-string filters', () => {
@@ -189,13 +189,13 @@ it('filters products based on the query-string filters', () => {
 })
 ```
 
-By doing this we remove all the details of products that are irrelevant to this test (notice how the `type` field is not present in our test now) and lets us easily keep our test data in sync with the real data by updating our factory.
+通过这样做，我们移除了所有与测试无关的产品的细节（注意 `type` 字段现在并不在我们的测试中），然后通过更新工厂，我们可以轻松地让测试数据和真实数据保持同步。
 
-I also pull the product that I want to match out into its own constant so we can reuse it in the assertion step. This avoids duplication and makes the test clearer - having a piece of test data titled `productThatMatches` is a strong hint that it’s what we’re expecting our function to return.
+我还为我想要匹配的产品创建了一个常量，这样我们就可以在断言步骤中复用它。避免了重复的代码并使测试更加清晰 —— 命名为 `productThatMatches` 的测试数据本身就是一个强烈的暗示，告诉我们这就是期望函数返回的内容。
 
-## Conclusion
+## 总结
 
-If you have these rules in mind whilst writing unit tests I’m confident that you’ll find your tests easier to work with and more useful in your development workflow. Testing is just like anything else: it takes time and practice. Remember the three steps: `setup`, `invoke`, `assert` and you’ll be writing perfect unit tests before you know it 👌.
+如果你在编写测试的时候遵循了上面的规则，我相信你一定会发现你的测试更容易使用，而且对你的开发流程更有帮助。测试和其它任何事情一样：需要时间和练习。记住三个步骤：`setup`、`invoke` 和 `assert`，你一定可以写出完美的单元测试😼。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
