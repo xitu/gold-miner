@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-array-push-is-945x-faster-than-array-concat.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-array-push-is-945x-faster-than-array-concat.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：
+> * 校对者：[钱俊颖](https://github.com/Baddyo), [MLS](https://github.com/hzdaqo)
 
-# Javascript Array.push 比 Array.concat 快 945 倍！🤯🤔
+# Javascript Array.push 要比 Array.concat 快 945 倍！🤯🤔
 
 如果要合并拥有上千个元素的数组，使用 `arr1.push(...arr2)` 可比 `arr1 = arr1.concat(arr2)` 节省时间。如果你想要再快一点，你甚至可以编写自己的函数来实现合并数组的功能。
 
 ## 等一下……用 `.concat` 合并 15000 个数组要花多长时间呢？
 
-最近，我们有一个用户抱怨他在使用 [UI-licious](https://uilicious.com) 对他们的 UI 进行测试时，速度明显慢了很多。通常，每一个 `I.click` `I.fill` `I.see` 命令需要大约 1 秒的时间完成（后期处理，例如截屏），现在需要 40 秒才能完成，因此通常在 20 分钟内可以完成的测试现在需要花费数小时才能完成，这严重地限制了他们的部署进程。
+最近，我们有一个用户抱怨他在使用 [UI-licious](https://uilicious.com) 对他们的 UI 进行测试时，速度明显慢了很多。通常，每一个 `I.click` `I.fill` `I.see` 命令需要大约 1 秒的时间完成（后期处理，例如截屏），现在需要超过 40 秒才能完成，因此通常在 20 分钟内可以完成的测试现在需要花费数小时才能完成，这严重地限制了他们的部署进程。
 
-我花了好长的时间设置定时器，缩小代码范围，来确认是代码的哪一部分导致速度变慢，但当我找到罪魁祸首时，我着实吃了一惊：
+我很快就设置好了定时器，锁定了导致速度缓慢的那部分代码，但当我找到罪魁祸首时，我着实吃了一惊：
 
 ```
 arr1 = arr1.concat(arr2)
@@ -107,7 +107,7 @@ arr1.push(...arr2)
 
 显然答案与它们的运行机制有很大的关系：在合并数组的时候，`.concat` 创建了一个新的数组，而 `.push` 只是修改了第一个数组。这些额外的操作（将第一个数组的元素添加到返回的数组里）就是拖慢了 `.concat` 速度的关键。
 
-> @picocreator: "Serious, just try writing some naive implementations of .concat vs .push then!"
+> 我：“纳尼？不可能吧？就是这样而已？但为什么会这么慢？不可能啊！”
 > @picocreator：“我可没开玩笑，试着写下 .concat 和 .push 的原生实现你就知道了！”
 
 所以我按照他说的试了试，写了几种实现方式，又加上了和 [lodash](https://lodash.com/) 的 `_.concat` 的对比：
@@ -288,7 +288,7 @@ I.see("Eugene Cheah")
 
 ### 注意：公共服务公告 —— 请保持小数量的 DOM！
 
-不幸的是，由于人们正在使用现代前端框架来构建越来越复杂和动态的应用程序，DOM 树有越来越大的趋势。框架是一把双刃剑，它允许我们更快地开发，但是人们常常忘记了到底添加了多少臃肿的框架。在检查各种网站的源代码时，我有时都会畏惧那些包含其他元素的元素。
+不幸的是，由于人们正在使用现代前端框架来构建越来越复杂和动态的应用程序，DOM 树有越来越大的趋势。框架是一把双刃剑，它允许我们更快地开发，但是人们常常忘记框架平添了多少累赘。在检查各种网站的源代码时，那些单纯为了包裹其他元素而存在的元素的数量经常会吓到我。
 
 如果你想知道你的网站是否有太多 DOM 节点，你可以运行 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) 查看。
 
