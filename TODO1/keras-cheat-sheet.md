@@ -7,7 +7,7 @@
 
 # Keras 速查表：使用 Python 构建神经网络
 
-## 使用 Keras 速查表构建你自己的神经网络，便于初学者在 Python 中进行深度学习，附有代码示例
+> 使用 Keras 速查表构建你自己的神经网络，便于初学者在 Python 中进行深度学习，附有代码示例
 
 [Keras](http://keras.io/) 是一个基于 Theano 和 TensorFlow 的易于使用且功能强大的库，它提供了一些高层的神经网络接口，用于开发和评估深度学习模型。
 
@@ -23,7 +23,7 @@
 
 [![keras cheat sheet](http://community.datacamp.com.s3.amazonaws.com/community/production/ckeditor_assets/pictures/516/content_button-cheatsheet-keras.png)](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Keras_Cheat_Sheet_Python.pdf)
 
-总之，这个速查表会加快你的 Python 深度学习旅程：有了这些代码示例的帮助，你很快就可以对你的深度学习模型进行预处理，创建，检验和调优！
+总之，这个速查表会加快你的 Python 深度学习旅程：有了这些代码示例的帮助，你很快就可以对你的深度学习模型进行预处理、创建、检验和调优！
 
 **（点击上图下载可打印的版本，或阅读下面的在线版本）**
 
