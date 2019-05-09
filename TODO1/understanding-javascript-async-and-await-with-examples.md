@@ -9,9 +9,9 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*3kAwfTZXxNynBOB5O6VQtg.jpeg)
 
-In the beginning, there were callbacks. **A callback is nothing special but a function that is executed at some later time.** Due to JavScript’s asynchronous nature, a callback is required in many places, where the results are not available immediately.
+  首先来了解下回调函数。**回调函数会在被调用后的某一时刻执行，除此之外与其他普通函数并无差别。**由于 JS 的异步特征，在一些不能立即获得函数返回值的地方都需要使用回调函数。
 
-Here’s an example of reading a file in Node.js (asynchronously) —
+下面是一个 Node.js 读取文件时的示例（异步操作）——
 
 ```
 fs.readFile(__filename, 'utf-8', (err, data) => {
@@ -21,24 +21,23 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
   console.log(data);
 });
 ```
+但当我们要处理多重异步操作时就会凸显出问题。假设有下面的应用场景（其中的所有操作都是异步的）——
 
-Problems arise when we want to do multiple async operations. Imagine this hypothetical scenario (where all operations are async) —
+* 在数据库中查找用户 `Arfat`，读取 `profile_img_url` 数据，然后把图片从 `someServer.com` 上下载下来。
+* 在获取图片之后，我们将其转换成其它不同的格式，比如把 PNG 格式转换至 JPEG 格式。
+* 如果图片格式转换成功，则向用户 `Arfat` 发送 email。
+* 将此次任务记录在文件 `transformations.log` 并加上时间戳。
 
-* We query our database for the user `Arfat`. We read the `profile_img_url` and fetch the image from `someServer.com`.
-* After fetching the image, we transform it into a different format, say PNG to JPEG.
-* If the transformation is successful, we send the user an email.
-* We log this task in our file `transformations.log` with the timestamp.
-
-The code for something like this would like —
+上述过程的代码大致如下——
 
 ![Example of Callback hell.](https://cdn-images-1.medium.com/max/2000/1*uYstZyc0A4ZSO2Xxh-ASIg.png)
 
-**Note the nesting of callbacks and the staircase of** `})` **at the end.** This is affectionately called as **[Callback Hell](http://callbackhell.com/)** or [**Pyramid of Doom**](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) due to its namesake resemblance. Some disadvantages of this are —
+**Note the nesting of callbacks and the staircase of** `})` **at the end.** 鉴于结构上的相似性，这种方式被形象地称作[**回调地狱**](http://callbackhell.com/)** 或 [**回调金字塔**](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))。这种方式的一些缺点是——
 
-* The code becomes harder to read as one has to move from left to right to understand.
-* Error handling is complicated and often leads to bad code.
+* 不得不从左至右去理解代码，使得代码变得更难以阅读。
+* 处理错误变得更加复杂，并且容易引发错误代码。
 
-To overcome this problem, JavaScript gods created [**Promises**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). **Now, instead of nesting callbacks inward, we can chain them.** Here’s an example —
+为了解决上述问题，JS 提出了[**Promises**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。 **现在，我们可以使用链式结构取代嵌套回调函数的结构。** 下面是一个例子——
 
 ![Using Promises](https://cdn-images-1.medium.com/max/2000/1*RMxmAiwD-QFKspkHx_nKmA.png)
 
