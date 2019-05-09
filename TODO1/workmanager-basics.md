@@ -11,7 +11,7 @@
 
 插图来自 [Virginia Poltrack](https://twitter.com/VPoltrack)
 
-欢迎来到我们 WorkManager 系列的第二篇文章。[WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/) 是一个 [Android Jetpack](https://developer.android.com/jetpack/) 库，当工作的约束条件被满足时，用来运行可延迟、需要保障的后台工作。对于许多类型的后台工作，WorkManager 是当前的最佳实践方案。[在第一篇博文中](https://juejin.im/post/5ca3463bf265da308939f9b1)，我们讨论了 WorkManager 是什么以及何时使用 WorkManager。
+欢迎来到我们 WorkManager 系列的第二篇文章。[WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/) 是一个 [Android Jetpack](https://developer.android.com/jetpack/) 库，当满足工作的约束条件时，用来运行可延迟、需要保障的后台工作。对于许多类型的后台工作，WorkManager 是当前的最佳实践方案。[在第一篇博文中](https://juejin.im/post/5ca3463bf265da308939f9b1)，我们讨论了 WorkManager 是什么以及何时使用 WorkManager。
 
 在这篇博文中，我将介绍：
 
@@ -34,13 +34,13 @@
 这个例子正是具有以下特点的任务：
 
 *   **可延迟的**，因为你不需要它立即执行，而且实际上可能希望等待某些约束被满足(例如等待网络连接)。
-*   需要是**确保**能够运行，无论应用程序是否退出，因为如果加了滤镜后的图像永远没能与世界共享，你的用户会非常不满意！
+*   需要**确保**能够运行，无论应用程序是否退出，因为如果加了滤镜后的图像永远没能与世界共享，你的用户会非常不满意！
 
 这些特点使我们的图像加滤镜和上传任务成为 WorkManager 的完美用例。
 
 ### 添加 WorkManager 依赖
 
-本文使用 Kotlin 书写代码，使用 KTX 库（KoTlin eXtensions）。KTX 版本的库提供了 [扩展函数](https://developer.android.com/reference/kotlin/androidx/work/package-summary#extension-functions-summary) 为了更简洁和习惯的使用 Kotlin。你可以添加如下依赖使用 KTX 版本的 WorkManager：
+本文使用 Kotlin 书写代码，使用 KTX 库（KoTlin eXtensions）。KTX 版本的库提供了 [扩展函数](https://developer.android.com/reference/kotlin/androidx/work/package-summary#extension-functions-summary) 为了更简洁和习惯的使用 Kotlin。你可以添加如下依赖来使用 KTX 版本的 WorkManager：
 
 ```
 dependencies {
@@ -58,7 +58,7 @@ dependencies {
 `Worker`s:
 
 *   定义你的工作实际**做了**什么。
-*   接受输入并产生输出。输入和输出都表示为键值对。
+*   接受输入并产生输出。输入和输出都以键值对表示。
 *   始终返回表示成功，失败或重试的值。
 
 这是一个示例，展示了如何实现上传图像的 `Worker`：
@@ -257,9 +257,9 @@ val compressWorkRequest = OneTimeWorkRequestBuilder<CompressWorker>()
 
 ### 监视你的 WorkRequest 状态
 
-观察工作的最简单方法是使用 [`LiveData`](https://developer.android.com/reference/android/arch/lifecycle/LiveData) 类。如果你不熟悉 LiveData，它是一个生命周期感知的可观察数据持有者 —— [这里](https://developer.android.com/topic/libraries/architecture/livedata) 对此有更详细的描述。
+监视工作的最简单方法是使用 [`LiveData`](https://developer.android.com/reference/android/arch/lifecycle/LiveData) 类。如果你不熟悉 LiveData，它是一个生命周期感知的可监视数据持有者 —— [这里](https://developer.android.com/topic/libraries/architecture/livedata) 对此有更详细的描述。
 
-调用 [`getWorkInfoByIdLiveData`](https://developer.android.com/reference/androidx/work/WorkManager.html#getWorkInfoById%28java.util.UUID%29) 返回一个  [`WorkInfo`](https://developer.android.com/reference/androidx/work/WorkInfo) 的 `LiveData`。`WorkInfo` 包含输出的数据和表示工作状态的枚举。当工作顺利完成后，它的 [`State`](https://developer.android.com/reference/kotlin/androidx/work/State) 就会是 `SUCCEEDED`。因此，例如，你可以通过编写一些观察代码来实现当工作完成时自动显示该图像：
+调用 [`getWorkInfoByIdLiveData`](https://developer.android.com/reference/androidx/work/WorkManager.html#getWorkInfoById%28java.util.UUID%29) 返回一个  [`WorkInfo`](https://developer.android.com/reference/androidx/work/WorkInfo) 的 `LiveData`。`WorkInfo` 包含输出的数据和表示工作状态的枚举。当工作顺利完成后，它的 [`State`](https://developer.android.com/reference/kotlin/androidx/work/State) 就会是 `SUCCEEDED`。因此，例如，你可以通过编写一些监视代码来实现当工作完成时自动显示该图像：
 
 ```
 // In your UI (activity, fragment, etc)
@@ -275,9 +275,9 @@ WorkManager.getInstance().getWorkInfoByIdLiveData(uploadWorkRequest.id)
 有几点需要注意：
 
 *    每个 `WorkRequest` 都有一个[唯一的 id](https://developer.android.com/reference/androidx/work/WorkRequest.html#getId%28%29)，该唯一 id 是查找关联 `WorkInfo` 的一种方法。
-*    `WorkInfo` 更改时进行观察并被通知的能力是 `LiveData` 提供的功能。
+*    `WorkInfo` 更改时进行监视并被通知的能力是 `LiveData` 提供的功能。
 
-工作有一个由不同 [`State`](https://developer.android.com/reference/kotlin/androidx/work/State) 代表的生命周期。观察 `LiveData<WorkInfo>` 时，你会看到这些状态；例如，你可能会看到：
+工作有一个由不同 [`State`](https://developer.android.com/reference/kotlin/androidx/work/State) 代表的生命周期。监视 `LiveData<WorkInfo>` 时，你会看到这些状态；例如，你可能会看到：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ygDDGGdiBm8_c2_u3rXWkQ.png)
 
