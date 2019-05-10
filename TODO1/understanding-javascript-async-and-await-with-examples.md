@@ -9,9 +9,9 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*3kAwfTZXxNynBOB5O6VQtg.jpeg)
 
-  首先来了解下回调函数。**回调函数会在被调用后的某一时刻执行，除此之外与其他普通函数并无差别。**由于 JS 的异步特征，在一些不能立即获得函数返回值的地方都需要使用回调函数。
+  首先来了解下回调函数。**回调函数会在被调用后的某一时刻执行，除此之外与其他普通函数并无差别。** 由于 JS 的异步特征，在一些不能立即获得函数返回值的地方都需要使用回调函数。
 
-下面是一个 Node.js 读取文件时的示例（异步操作）——
+下面是一个 Node.js 读取文件时的示例（异步操作）—
 
 ```
 fs.readFile(__filename, 'utf-8', (err, data) => {
@@ -21,14 +21,14 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
   console.log(data);
 });
 ```
-但当我们要处理多重异步操作时就会凸显出问题。假设有下面的应用场景（其中的所有操作都是异步的）——
+但当我们要处理多重异步操作时就会凸显出问题。假设有下面的应用场景（其中的所有操作都是异步的）—
 
 * 在数据库中查找用户 `Arfat`，读取 `profile_img_url` 数据，然后把图片从 `someServer.com` 上下载下来。
 * 在获取图片之后，我们将其转换成其它不同的格式，比如把 PNG 格式转换至 JPEG 格式。
 * 如果图片格式转换成功，则向用户 `Arfat` 发送 email。
 * 将此次任务记录在文件 `transformations.log` 并加上时间戳。
 
-上述过程的代码大致如下——
+上述过程的代码大致如下 —
 
 ![Example of Callback hell.](https://cdn-images-1.medium.com/max/2000/1*uYstZyc0A4ZSO2Xxh-ASIg.png)
 
@@ -37,25 +37,25 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 * 不得不从左至右去理解代码，使得代码变得更难以阅读。
 * 处理错误变得更加复杂，并且容易引发错误代码。
 
-为了解决上述问题，JS 提出了[**Promises**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。 **现在，我们可以使用链式结构取代嵌套回调函数的结构。** 下面是一个例子——
+为了解决上述问题，JS 提出了[**Promises**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。 **现在，我们可以使用链式结构取代嵌套回调函数的结构。** 下面是一个例子 -
 
 ![Using Promises](https://cdn-images-1.medium.com/max/2000/1*RMxmAiwD-QFKspkHx_nKmA.png)
 
-The flow has become a familiar **top-to-bottom** rather than **left-to-right** as in callbacks, which is a plus. However, Promises still suffer from some problems —
+回调流程变成熟悉的**自上而下**，而不是**从左至右**，这是一个优点。但是 Peomise 仍然有一些缺点 —
 
-* We still have to give a callback to every `.then`.
-* Instead of using a normal `try/catch`, we have to use `.catch` for error handling.
-* **Looping over multiple promises in a sequence is challenging and non-intuitive.**
+* 我们仍然不得不在每一个 `.then` 中处理回调。
+* 不同于使用 `try/catch`，我们不得不使用 `.catch` 处理错误。
+* **在循环体中顺序执行多个 promise 具有挑战且不直观。**
 
-As a demonstration of the last point, **try this challenge**!
+我们为了证明上面个的最后一个缺点，**尝试下面的挑战吧**！
 
-### The Challenge
+### 挑战
 
-**Let’s assume that we have a `for` loop that prints 0 to 10 at random intervals (0 to n seconds). We need to modify it using promises to print sequentially 0 to 10. For example, if 0 takes 6 seconds to print and 1 takes two seconds to print, then 1 should wait for 0 to print and so on.**
+**假设要在 for 循环中以任意时间间隔（0 到 n 秒）输出数字 0 到 10。我们将使用 promise 去顺序打印 0 到 10，比如打印 0 需要 6 秒，打印 1 要延迟 2 秒，而 1 需要 0 打印完成之后才能打印，其它数字打印过程也类似。** 
 
-Needless to say, don’t use `async/await` or `.sort` function. We’ll have a solution towards the end.
+当然, 不要使用 `async/await` 或 `.sort` 方法，We’ll have a solution towards the end.
 
-## Async Functions
+## Async 函数
 
 Introduced in **ES2017**(ES8), async functions make working with promises much easier.
 
