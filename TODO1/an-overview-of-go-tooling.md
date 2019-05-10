@@ -11,7 +11,7 @@
 
 在这篇文章中，我希望能提供一些我认为最有用的工具的设定背景和关系。更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望它是一个良好的开端。
 
-如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但也希望你能在这里发现之前不知道的命令和标记😀
+如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但也希望你能在这里发现之前不知道的命令和参数😀
 
 本文中的信息是针对 Go 1.12 编写的，并假设您正在开发一个[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
 
@@ -39,7 +39,7 @@
 7. **[诊断问题和优化](#诊断问题和优化)**
     * [运行和比较基准](#运行和比较基准)
     * [分析和跟踪](#分析和跟踪)
-    * [检查竞态条件](#检查竞态条件)
+    * [竞争检测](#竞争检测)
 8. **[管理依赖](#管理依赖)**
 9. **[升级到新版本](#升级到新版本)**
 10. **[报告问题](#报告问题)**
@@ -175,7 +175,7 @@ func bar() {
 }
 ```
 
-要实现这一点，你可以使用 `gofmt` 的 `-r` 标记实现重写规则，`-d` 标记显示更改差异，`-w` 标记实现**就地**更改，像这样：
+要实现这一点，你可以使用 `gofmt` 的 `-r` 参数实现重写规则，`-d` 参数显示更改差异，`-w` 参数实现**就地**更改，像这样：
 
 ```shell
 $ gofmt -d -w -r 'foo -> Foo' .
@@ -191,7 +191,7 @@ $ gofmt -d -w -r 'foo -> Foo' .
 
 注意到这比查找和替换更聪明了吗？`foo` 变量已被更改，但 `fmt.Println()` 语句中的 `"foo"` 字符串没有被替换。另外需要注意的是 `gofmt` 命令是递归工作的，因此上面的命令会在当前目录和子目录中的所有 `*.go` 文件上执行。
 
-如果你想使用这个功能，我建议你首先不带 `-w` 标记运行重写规则，并先检查 diff ，以确保代码的更改如你所愿。
+如果你想使用这个功能，我建议你首先不带 `-w` 参数运行重写规则，并先检查 diff ，以确保代码的更改如你所愿。
 
 让我们来看一个稍复杂的例子。假设你要更新代码，以使用新的 Go 1.12 版本中携带的 [strings.ReplaceAll()](https://golang.org/pkg/strings/#ReplaceAll) 方法替换掉之前的 [strings.Replace()](https://golang.org/pkg/strings/#Replace) 方法。要进行此更改，你可以运行：
 
@@ -213,7 +213,7 @@ $ go doc sql.DB             # 查看 database/sql.DB 类型的文档
 $ go doc sql.DB.Query       # 查看 database/sql.DB.Query 方法的文档
 ```
 
-你也可以使用 `-src` 标记来展示相关的 Go 源码。例如：
+你也可以使用 `-src` 参数来展示相关的 Go 源码。例如：
 
 ```shell
 $ go doc -src strings.Replace   # 查看 strings.Replace 函数的源码
@@ -240,7 +240,7 @@ $ go test -race ./...
 
 这里有很重要的一点要特别注意，启用竞争检测将增加测试的总体运行时间。因此，如果你经常在 TDD（测试驱动开发）工作流中运行测试，你可能会使用此方法进行预提交测试运行。
 
-从 1.10 版本起，Go 在包级别[缓存测试结果](https://golang.org/doc/go1.10#test)。如果一个包在测试运行期间没有发生改变，并且你正在使用相同的、可缓存的 `go test` 工具，那么将会展示缓存的测试结果，并用 `"(cached)"` 标记注明。这对于加速大型代码库的测试运行非常有用。如果要强制测试完全运行（并避免缓存），可以使用 `-count=1` 标记，或使用 `go clean` 工具清除所有缓存的测试结果。
+从 1.10 版本起，Go 在包级别[缓存测试结果](https://golang.org/doc/go1.10#test)。如果一个包在测试运行期间没有发生改变，并且你正在使用相同的、可缓存的 `go test` 工具，那么将会展示缓存的测试结果，并用 `"(cached)"` 标记注明。这对于加速大型代码库的测试运行非常有用。如果要强制测试完全运行（并避免缓存），可以使用 `-count=1` 参数，或使用 `go clean` 工具清除所有缓存的测试结果。
 
 ```shell
 $ go test -count=1 ./...    # 运行测试时绕过测试缓存
@@ -248,7 +248,7 @@ $ go clean -testcache       # 删除所有的测试结果缓存
 ```
 注意：缓存的测试结果与构建结果被一同存储在你的 `GOCACHE` 目录中。 如果你不确定 `GOCACHE` 目录在机器上的位置，请输入 `go env GOCACHE` 检查。
 
-你可以使用 `-run` 标记将 `go test` 限制为只运行特定测试（和子测试）。`-run` 标记接受正则表达式，并且只运行具有与正则表达式匹配的名称的测试。我喜欢将它与 `-v` 标记结合起来以启用详细模式，这样会显示正在运行的测试和子测试的名称。这是一个有用的方法，以确保我没有搞砸正则表达式，并确保我期望的测试正在运行！
+你可以使用 `-run` 参数将 `go test` 限制为只运行特定测试（和子测试）。`-run` 参数接受正则表达式，并且只运行具有与正则表达式匹配的名称的测试。我喜欢将它与 `-v` 参数结合起来以启用详细模式，这样会显示正在运行的测试和子测试的名称。这是一个有用的方法，以确保我没有搞砸正则表达式，并确保我期望的测试正在运行！
 
 ```shell
 $ go test -v -run=^TestFooBar$ .          # 运行名字为 TestFooBar 的测试
@@ -256,7 +256,7 @@ $ go test -v -run=^TestFoo .              # 运行那些名字以 TestFoo 开头
 $ go test -v -run=^TestFooBar$/^Baz$ .    # 只运行 TestFooBar 的名为 Baz 的子测试
 ```
 
-值得注意的两个标记是 `-short`（可以用来[跳过长时间运行的测试](https://golang.org/pkg/testing/#hdr-Skipping)）和 `-failfast`（第一次失败后停止运行进一步的测试）。请注意，`-failfast` 将阻止测试结果缓存。
+值得注意的两个参数是 `-short`（可以用来[跳过长时间运行的测试](https://golang.org/pkg/testing/#hdr-Skipping)）和 `-failfast`（第一次失败后停止运行进一步的测试）。请注意，`-failfast` 将阻止测试结果缓存。
 
 ```shell
 $ go test -short ./...      # 跳过长时间运行的测试
@@ -265,13 +265,13 @@ $ go test -failfast ./...   # 第一次失败后停止运行进一步的测试
 
 ### 分析测试覆盖率
 
-当你在运行测试时使用 `-cover` 标记，你就可以开启测试覆盖率分析。这将显示每个包的输出中测试所涵盖的代码百分比，类似于：
+当你在运行测试时使用 `-cover` 参数，你就可以开启测试覆盖率分析。这将显示每个包的输出中测试所涵盖的代码百分比，类似于：
 
 ```shell
 $ go test -cover ./...
 ok  	github.com/alexedwards/argon2id	0.467s	coverage: 78.6% of statements
 ```
-你也可以通过使用 `-coverprofile` 标记生成覆盖率总览，并使用 `go tool cover -html` 命令在浏览器中查看。像这样：
+你也可以通过使用 `-coverprofile` 参数生成覆盖率总览，并使用 `go tool cover -html` 命令在浏览器中查看。像这样：
 
 ```shell
 $ go test -coverprofile=/tmp/profile.out ./...
@@ -282,7 +282,7 @@ $ go tool cover -html=/tmp/profile.out
 
 这将为你提供所有测试文件的可导航列表，其中绿色代码是被测试覆盖到的，红色代码未被测试覆盖。
 
-如果你愿意的话，可以再进一步。设置 `-covermode=count` 标记，使覆盖率配置文件记录测试期间每条语句执行的确切**次数**。
+如果你愿意的话，可以再进一步。设置 `-covermode=count` 参数，使覆盖率配置文件记录测试期间每条语句执行的确切**次数**。
 
 ```shell
 $ go test -covermode=count -coverprofile=/tmp/profile.out ./...
@@ -335,7 +335,7 @@ $ stress -p=4 /tmp/foo.test -test.run=^TestFooBar$
 ...
 ```
 
-注意：在上面的例子中，我使用 `-p` 标记来限制 `stress` 使用的并行进程数为 4 。如果没有这个标记，该工具将默认使用和 `runtime.NumCPU()` 方法执行结果相同数量的进程（当前系统的 CPU 核数量的进程数）。
+注意：在上面的例子中，我使用 `-p` 参数来限制 `stress` 使用的并行进程数为 4 。如果没有这个参数，该工具将默认使用和 `runtime.NumCPU()` 方法执行结果相同数量的进程（当前系统的 CPU 核数量的进程数）。
 
 ### 测试全部依赖关系
 
@@ -353,14 +353,14 @@ $ go test all
 
 Go 提供了两个工具 `gofmt` 和 `go fmt` 来根据 Go 约定自动格式化代码。使用这些有助于保持代码在文件和项目中保持一致，并且 —— 在提交代码之前使用它们 —— 有助于在检查文件版本之间的差异时减少干扰项。
 
-我喜欢使用带有以下标记的 `gofmt` 工具：
+我喜欢使用带有以下参数的 `gofmt` 工具：
 
 ```shell
 $ gofmt -w -s -d foo.go  # 格式化 foo.go 文件
 $ gofmt -w -s -d .       # 递归格式化当前目录和子目录中的所有文件
 ```
 
-在这些命令中，`-w` 标记指示工具重写文件，`-s` 标记指示工具尽可能的[简化](https://golang.org/cmd/gofmt/#hdr-The_simplify_command)代码，`-d` 标记指示工具输出变化的差异（因为我很想知道改变了什么）。 如果你只想显示已更改文件的名称而不是差异，则可以将其替换为 `-l` 标记。
+在这些命令中，`-w` 参数指示工具重写文件，`-s` 参数指示工具尽可能的[简化](https://golang.org/cmd/gofmt/#hdr-The_simplify_command)代码，`-d` 参数指示工具输出变化的差异（因为我很想知道改变了什么）。 如果你只想显示已更改文件的名称而不是差异，则可以将其替换为 `-l` 参数。
 
 注意：`gofmt` 命令以递归方式工作。 如果你传递一个类似 `.` 或 `./cmd/foo`的目录，它将格式化目录下的所有 `.go` 文件。
 
@@ -447,7 +447,7 @@ $ go mod verify
 
 ### 构建可执行文件
 
-要编译 `main` 包并创建可执行二进制文件，可以使用 `go build` 工具。 通常可以将它与`-o`标记结合使用，这允许你明确设置输出目录和二进制文件的名称，如下所示：
+要编译 `main` 包并创建可执行二进制文件，可以使用 `go build` 工具。 通常可以将它与`-o`参数结合使用，这允许你明确设置输出目录和二进制文件的名称，如下所示：
 
 ```shell
 $ go build -o=/tmp/foo .            # 编译当前目录下的包 
@@ -465,7 +465,7 @@ $ go env GOCACHE
 /home/alex/.cache/go-build
 ```
 
-使用构建缓存有一个[重要警告](https://golang.org/pkg/cmd/go/internal/help/) - 它不会检测用 `cgo` 导入的 C 语言库的更改。因此，如果你的代码通过 `cgo` 导入 C 语言库，并且自上次构建以来你对其进行了更改，则需要使用 `-a` 标记来强制重建所有包。或者，你可以使用 `go clean` 来清除缓存：
+使用构建缓存有一个[重要警告](https://golang.org/pkg/cmd/go/internal/help/) - 它不会检测用 `cgo` 导入的 C 语言库的更改。因此，如果你的代码通过 `cgo` 导入 C 语言库，并且自上次构建以来你对其进行了更改，则需要使用 `-a` 参数来强制重建所有包。或者，你可以使用 `go clean` 来清除缓存：
 
 ```shell
 $ go build -a -o=/tmp/foo .     # 强制重新构建所有包
@@ -515,32 +515,32 @@ darwin/amd64
 
 ### 使用编译器和链接器标记
 
-在构建可执行文件时，你可以使用 `-gcflags` 标记来更改编译器的行为，并查看有关它正在执行的操作的更多信息。你可以通过运行以下命令查看可用编译器标记的完整列表：
+在构建可执行文件时，你可以使用 `-gcflags` 参数来更改编译器的行为，并查看有关它正在执行的操作的更多信息。你可以通过运行以下命令查看可用编译器参数的完整列表：
 
 ```shell
 $ go tool compile -help
 ```
-你可能会感兴趣的一个标记是 `-m`，它会触发打印有关编译期间所做的优化决策信息。你可以像这样使用它：
+你可能会感兴趣的一个参数是 `-m`，它会触发打印有关编译期间所做的优化决策信息。你可以像这样使用它：
 
 ```shell
 $ go build -gcflags="-m -m" -o=/tmp/foo . # 打印优化决策信息
 ```
 
-在上面的例子中，我两次使用了 `-m` 标记，这表示我想打印两级深度的决策信息。如果只使用一个，就可以获得更简单的输出。
+在上面的例子中，我两次使用了 `-m` 参数，这表示我想打印两级深度的决策信息。如果只使用一个，就可以获得更简单的输出。
 
-此外，从 Go 1.10 开始，编译器标记仅适用于传递给 `go build` 的特定包 —— 在上面的示例中，它是当前目录中的包（由 `.` 表示）。如果要为所有包（包括依赖项）打印优化决策信息，可以使用以下命令：
+此外，从 Go 1.10 开始，编译器参数仅适用于传递给 `go build` 的特定包 —— 在上面的示例中，它是当前目录中的包（由 `.` 表示）。如果要为所有包（包括依赖项）打印优化决策信息，可以使用以下命令：
 
 ```shell
 $ go build -gcflags="all=-m" -o=/tmp/foo .
 ```
 
-从 Go 1.11 开始，你会发现[调试优化的二进制文件](https://golang.org/doc/go1.11#debugging)比以前更容易。但如果有必要的话，你仍然可以使用标记 `-N` 来禁用优化，使用 `-l` 来禁用内联。例如：
+从 Go 1.11 开始，你会发现[调试优化的二进制文件](https://golang.org/doc/go1.11#debugging)比以前更容易。但如果有必要的话，你仍然可以使用参数 `-N` 来禁用优化，使用 `-l` 来禁用内联。例如：
 
 ```shell
 $ go build -gcflags="all=-N -l" -o=/tmp/foo .  # Disable optimizations and inlining
 ```
 
-通过运行以下命令，你可以看到可用链接标记列表：
+通过运行以下命令，你可以看到可用链接参数列表：
 
 ```shell
 $ go tool link -help
@@ -552,9 +552,9 @@ $ go tool link -help
 $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
 ```
 
-有关 `-X` 标记和示例代码的更多信息，请参阅[这个 StackOverflow 问题](https://stackoverflow.com/questions/11354518/golang-application-auto-build-versioning)和[这篇文章](https://blog.alexellis.io/inject-build-time-vars-golang/)。
+有关 `-X` 参数和示例代码的更多信息，请参阅[这个 StackOverflow 问题](https://stackoverflow.com/questions/11354518/golang-application-auto-build-versioning)和[这篇文章](https://blog.alexellis.io/inject-build-time-vars-golang/)。
 
-你可能还有兴趣使用 `-s` 和 `-w` 标记来从二进制文件中删除调试信息。这通常会削减 25% 的最终大小。例如：
+你可能还有兴趣使用 `-s` 和 `-w` 参数来从二进制文件中删除调试信息。这通常会削减 25% 的最终大小。例如：
 
 ```shell
 $ go build -ldflags="-s -w" -o=/tmp/foo .  # 从二进制文件中删除调试信息
@@ -568,7 +568,7 @@ $ go build -ldflags="-s -w" -o=/tmp/foo .  # 从二进制文件中删除调试�
 
 Go 可以轻松的对代码进行基准测试，这是一个很好的功能。如果你不熟悉编写基准测试的一般过程，你可以在[这里](https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go)和[这里](https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go)阅读优秀指南。
 
-要运行基准测试，你需要使用 `go test` 工具，将 `-bench` 标记设置为与你要执行的基准匹配的正则表达式。例如：
+要运行基准测试，你需要使用 `go test` 工具，将 `-bench` 参数设置为与你要执行的基准匹配的正则表达式。例如：
 
 ```shell
 $ go test -bench=. ./...                        # 进行基准检查和测试
@@ -576,13 +576,13 @@ $ go test -run=^$ -bench=. ./...                # 只进行基准检查，不测
 $ go test -run=^$ -bench=^BenchmarkFoo$ ./...   # 只进行 BenchmarkFoo 的基准检查，不进行测试
 ```
 
-我几乎总是使用 `-benchmem` 标记运行基准测试，这会在输出中强制包含内存分配统计信息。
+我几乎总是使用 `-benchmem` 参数运行基准测试，这会在输出中强制包含内存分配统计信息。
 
 ```shell
 $  go test -bench=. -benchmem ./...
 ```
 
-默认情况下，每个基准测试一次运行**最少**一秒。你可以使用 `-benchtime` 和 `-count` 标记来更改它：
+默认情况下，每个基准测试一次运行**最少**一秒。你可以使用 `-benchtime` 和 `-count` 参数来更改它：
 
 ```shell
 $ go test -bench=. -benchtime=5s ./...       # 每个基准测试运行最少 5 秒
@@ -590,7 +590,7 @@ $ go test -bench=. -benchtime=500x ./...     # 运行每个基准测试 500 次
 $ go test -bench=. -count=3 ./...            # 每个基准测试重复三次以上
 ```
 
-如果你并发执行基准测试的代码，则可以使用 `-cpu` 标记来查看更改 `GOMAXPROCS` 值（实质上是可以同时执行 Go 代码的 OS 线程数）对性能的影响。例如，要将 `GOMAXPROCS` 设置为 1 、4 和 8 来运行基准测试：
+如果你并发执行基准测试的代码，则可以使用 `-cpu` 参数来查看更改 `GOMAXPROCS` 值（实质上是可以同时执行 Go 代码的 OS 线程数）对性能的影响。例如，要将 `GOMAXPROCS` 设置为 1 、4 和 8 来运行基准测试：
 
 ```shell
 $ go test -bench=. -cpu=1,4,8 ./...
@@ -628,7 +628,7 @@ Go 可以为 CPU 使用，内存使用，goroutine 阻塞和互斥争用创建�
 
 * 如果你有一个 Web 应用程序，你可以导入 [`net/http/pprof`](https://golang.org/pkg/net/http/pprof/) 包。这将使用 `http.DefaultServeMux` 注册一些处理程序，然后你可以使用它来为正在运行的应用程序生成和下载配置文件。[这篇文章](https://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/)很好的提供了解释和一些示例代码。
 * 对于其他类型的应用程序，你可以使用 `pprof.StartCPUProfile()` 和 `pprof.WriteHeapProfile()` 函数来分析正在运行的应用程序 有关示例代码，请参阅 [`runtime/pprof`](https://golang.org/pkg/runtime/pprof/) 文档。
-* 或者你可以在运行基准测试或测试时使用各种 `-***profile` 标记生成配置文件，如下所示：
+* 或者你可以在运行基准测试或测试时使用各种 `-***profile` 参数生成配置文件，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -cpuprofile=/tmp/cpuprofile.out .
@@ -643,7 +643,7 @@ $ go test -run=^$ -bench=^BenchmarkFoo$ -mutexprofile=/tmp/mutexprofile.out .
 $ go test -run=^$ -bench=^BenchmarkFoo$ -o=/tmp/foo.test -cpuprofile=/tmp/cpuprofile.out .
 ```
 
-无论您选择何种方式创建配置文件，启用配置文件时，您的 Go 程序将每秒停止大约 100 次，并在该时刻拍摄快照。 这些**样本**被收集在一起形成**轮廓**，您可以使用 `pprof` 工具进行分析。
+无论您选择何种方式创建配置文件，启用配置文件时，您的 Go 程序将每秒暂停大约 100 次，并在该时刻拍摄快照。 这些**样本**被收集在一起形成**轮廓**，您可以使用 `pprof` 工具进行分析。
 
 我最喜欢检查配置文件的方法是使用 `go tool pprof -http` 命令在 Web 浏览器中打开它。例如：
 
@@ -691,17 +691,17 @@ $ go tool trace /tmp/trace.out
 
 有关 Go 的执行跟踪器以及如何解释输出的更多信息，请参阅 [Rhys Hiltner 的 dotGo 2016 演讲](https://www.youtube.com/watch?v=mmqDlbWk_XA)和[优秀博客文章](https://making.pusher.com/go-tool-trace/)。
 
-### 检查竞态条件
+### 竞争检测 
 
-我之前谈过在测试期间使用 `go test -race` 启用 Go 的竞态条件检测器。但是，你还可以在构建可执行文件时启用它来运行程序，如下所示：
+我之前谈过在测试期间使用 `go test -race` 启用 Go 的竞争检测。但是，你还可以在构建可执行文件时启用它来运行程序，如下所示：
 
 ```shell
 $ go build -race -o=/tmp/foo .
 ```
 
-至关重要的是要注意，启用竞态条件检测器的二进制文件将使用比正常情况更多的 CPU 和内存，因此在正常情况下为生产环境构建二进制文件时，不应使用 `-race` 标记。
+至关重要的是要注意，启用竞争检测的二进制文件将使用比正常情况更多的 CPU 和内存，因此在正常情况下为生产环境构建二进制文件时，不应使用 `-race` 参数。
 
-但是，你可能希望在一台服务器部署多个启用竞态检测的二进制文件，或者使用它来帮助追踪可疑的竞态条件。方法是使用负载测试工具在启用竞态条件检测器的二进制文件的同时投放流量。
+但是，你可能希望在一台服务器部署多个启用竞争检测的二进制文件，或者使用它来帮助追踪可疑的竞态条件。方法是使用负载测试工具在启用竞争检测的二进制文件的同时投放流量。
 
 默认情况下，如果在二进制文件运行时检测到任何竞态条件，则日志将写入 `stderr` 。如有必要，可以使用 `GORACE` 环境变量来更改此设置。例如，要运行位于 `/tmp/foo` 的二进制文件并将任何竞态日志输出到 `/tmp/race.<pid>` ，你可以使用：
 
@@ -732,7 +732,7 @@ $ go get github.com/foo/bar@v1.2.3
 $ go get github.com/foo/bar@7e0369f
 ```
 
-如果你要更新的依赖项具有 `go.mod` 文件，那么根据此 `go.mod` 文件中的信息，如果需要，还将下载对任何**子依赖项**的更新。如果使用 `go get -u` 标记，`go.mod` 文件的内容将被忽略，所有子依赖项将升级到最新的 minor/patch 版本，即使已经在 `go.mod` 中指定了不同的版本。
+如果你要更新的依赖项具有 `go.mod` 文件，那么根据此 `go.mod` 文件中的信息，如果需要，还将下载对任何**子依赖项**的更新。如果使用 `go get -u` 参数，`go.mod` 文件的内容将被忽略，所有子依赖项将升级到最新的 minor/patch 版本，即使已经在 `go.mod` 中指定了不同的版本。
 
 在升级或降级任何依赖项后，最好整理你的 modfiles 。你可能还希望为所有程序包运行测试以帮助检查不兼容性。像这样：
 
