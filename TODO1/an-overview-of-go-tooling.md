@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md)
 > * 译者：[iceytea](https://github.com/iceytea)
-> * 校对者：
+> * 校对者：[jianboy](https://github.com/jianboy)
 
 # Go 语言命令概览
 
@@ -11,7 +11,7 @@
 
 在这篇文章中，我希望能提供一些我认为很有用的命令的设定背景和关系，更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望这是一个良好的开端。
 
-如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但同样希望你能在这里发现之前不了解的命令和参数😀
+如果你已经使用 Go 语言有一段时间，这篇文章可能不适合你，但同样希望你能在这里发现之前不了解的命令和参数😀
 
 本文中的信息是针对 Go 1.12 编写的，并假设你正在开发一个[启用模块](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
 
