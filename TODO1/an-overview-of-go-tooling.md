@@ -5,15 +5,15 @@
 > * 译者：[iceytea](https://github.com/iceytea)
 > * 校对者：
 
-# Go 语言工具概览
+# Go 语言命令概览
 
-我偶尔会被问到：**“你为什么喜欢使用 Go 语言？”** 我经常提到的一件事情是，作为 `go` 命令的一部分 —— 与 Go 语言一同存在的周到的工具 —— 比如 `go fmt` 和 `go build`，以及其它像 `go tool pprof` 这样只用来帮助解决特定问题的工具。但在任何情况下，我都很欣赏它们使我的项目管理和维护更容易的事实。
+我偶尔会被人问到：**“你为什么喜欢使用 Go 语言？”** 我经常提到的一件事情是，作为 `go` 命令的一部分 —— 与 Go 语言一同存在的周到的工具 —— 比如 `go fmt` 和 `go build`，以及其它像 `go tool pprof` 这样只用来帮助解决特定问题的工具。但在任何情况下，我都很感谢它们使我的项目管理和维护更容易。
 
-在这篇文章中，我希望能提供一些我认为最有用的工具的设定背景和关系。更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望它是一个良好的开端。
+在这篇文章中，我希望能提供一些我认为很有用的工具的设定背景和关系，更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望这是一个良好的开端。
 
-如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但也希望你能在这里发现之前不知道的命令和参数😀
+如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但同样希望你能在这里发现之前不了解的命令和参数😀
 
-本文中的信息是针对 Go 1.12 编写的，并假设您正在开发一个[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
+本文中的信息是针对 Go 1.12 编写的，并假设你正在开发一个[启用模块](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
 
 1. **[安装工具](#安装工具)**
 2. **[查看环境信息](#查看环境信息)**
@@ -47,18 +47,18 @@
 
 ## 安装工具
 
-这篇文章中，我将主要关注 go 命令这部分的工具。但这里也将提到一些不属于标准 Go 12.2 发行版的内容。
+这篇文章中，我将主要关注 go 命令这部分的工具。但这里也将提到一些不属于 Go 12.2 标准发行版的内容。
 
-当你在 Go 12.2 版本下安装工具时，你首先需要确定你当前 module-enabled 的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令来安装工具。例如：
+当你在 Go 12.2 版本下安装工具时，你首先需要确定当前在 module-enabled 的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令来安装工具。例如：
 
 ```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 ```
 
-这条命令将会下载相关的包和依赖项、构建可执行文件，并将它添加到你设置的 `GOBIN` 目录下。如果你没有显式设定 `GOBIN` 目录，可执行文件将会被添加到 `GOPATH/bin` 目录下。无论如何，你都应当确保系统路径上有对应的目录。
+这条命令将会下载相关的包和依赖项、构建可执行文件，并将它添加到你设置的 `GOBIN` 目录下。如果你没有显式设定 `GOBIN` 目录，可执行文件将会被添加到 `GOPATH/bin` 目录下。但无论如何，你都应当确保系统路径上有对应的目录。
 
-注意：这个过程有些笨拙，希望能在未来的 Go 版本中有所改进。你可以在 [Issue 30515](https://github.com/golang/go/issues/30515) 跟踪有关此问题的讨论。
+注意：这个过程有些笨拙，希望能在将来的 Go 版本中有所改进。你可以在 [Issue 30515](https://github.com/golang/go/issues/30515) 跟踪有关此问题的讨论。
 
 ## 查看环境信息
 
@@ -124,7 +124,7 @@ $ go run ./cmd/foo  # 运行 ./cmd/foo 目录下的包
 
 ### 获取依赖关系
 
-假设你已经[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)，那当你运行 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新标记版本，如果没有可用的标记版本，则使用最新提交的依赖项。
+假设你已经[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)，那当你运行 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新 tag 版本，如果没有可用的 tag 版本，则使用最新提交的依赖项。
 
 如果你事先知道需要特定版本的依赖项（而不是 Go 默认获取的依赖项），则可以在使用 `go get` 同时带上相关版本号或 commit hash 。例如：
 
@@ -150,7 +150,7 @@ golang.org/x/crypto/argon2
 golang.org/x/sys/cpu
 ```
 
-注意：`go mod why` 命令将返回大多数（但不是所有依赖项）的回答。你可以在 [Issue 27900](https://github.com/golang/go/issues/27900) 跟踪这个问题。
+注意：`go mod why` 命令将返回大多数（但不是所有依赖项）的应答。你可以在 [Issue 27900](https://github.com/golang/go/issues/27900) 跟踪这个问题。
 
 如果你对分析应用程序的依赖关系或将其可视化感兴趣，你可能还想查看 `go mod graph` 工具。在[这里](https://github.com/go-modules-by-example/index/tree/master/018_go_list_mod_graph_why)有一个很棒的生成可视化依赖关系的教程和示例代码。
 
@@ -189,7 +189,7 @@ $ gofmt -d -w -r 'foo -> Foo' .
  }
 ```
 
-注意到这比查找和替换更聪明了吗？`foo` 变量已被更改，但 `fmt.Println()` 语句中的 `"foo"` 字符串没有被替换。另外需要注意的是 `gofmt` 命令是递归工作的，因此上面的命令会在当前目录和子目录中的所有 `*.go` 文件上执行。
+注意到这比单纯的查找和替换更聪明了吗？ `foo` 变量已被更改，但 `fmt.Println()` 语句中的 `"foo"` 字符串没有被替换。另外需要注意的是 `gofmt` 命令是递归工作的，因此上面的命令会在当前目录和子目录中的所有 `*.go` 文件上执行。
 
 如果你想使用这个功能，我建议你首先不带 `-w` 参数运行重写规则，并先检查 diff ，以确保代码的更改如你所愿。
 
@@ -232,7 +232,6 @@ $ go test ./foo/bar  # 运行 ./foo/bar 目录下的全部测试
 ```
 
 通常我会在启用 Go 的 [竞争检测](https://golang.org/doc/articles/race_detector.html) 的情况下运行我的测试，这可以帮助我找到在实际使用中可能出现的一些数据竞态情况。就像这样：
-
 
 ```shell
 $ go test -race ./...
@@ -546,7 +545,7 @@ $ go build -gcflags="all=-N -l" -o=/tmp/foo .  # Disable optimizations and inlin
 $ go tool link -help
 ```
 
-其中最著名的可能是 `-X` 参数，它允许你将（字符串）值“烧入”应用程序中的特定变量。这通常用于[添加版本号或提交 hash](https://blog.alexellis.io/inject-build-time-vars-golang/) 。例如：
+其中最著名的可能是 `-X` 参数，它允许你将（字符串）值“插入”应用程序中的特定变量。这通常用于[添加版本号或提交 hash](https://blog.alexellis.io/inject-build-time-vars-golang/) 。例如：
 
 ```shell
 $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
@@ -741,7 +740,7 @@ $ go mod tidy
 $ go test all
 ```
 
-有时，你可能希望使用本地版本的依赖项（例如，在上游合并修补程序之前，你需要使用本地分支）。为此，你可以使用 `go mod edit` 命令将 `go.mod` 文件中的依赖项替换为本地版本。例如：
+有时，你可能希望使用本地版本的依赖项（例如，在云端合并修补程序之前，你需要使用本地分支）。为此，你可以使用 `go mod edit` 命令将 `go.mod` 文件中的依赖项替换为本地版本。例如：
 
 ```shell
 $ go mod edit -replace=github.com/alexedwards/argon2id=/home/alex/code/argon2id
