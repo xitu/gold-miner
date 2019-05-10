@@ -13,7 +13,7 @@
 
 可能你感觉这种程度足以满足日常工作需求。这很棒，但这样你就很可能与 VS Code 的诸多功能擦肩而过了。
 
-本文荟萃了一些设置、插件和窍门，它们都对我的Web开发工作有莫大帮助。
+本文荟萃了一些设置、插件和窍门，它们都对我的 Web 开发工作有莫大帮助。
 
 ### jsconfig.json
 
@@ -40,9 +40,9 @@ VS Code 的基本功能中，`jsconfig.json` 是最容易被忽视的一个。�
 
 VS Code 把配置信息放在一个类 JSON 格式（所谓的 [`jsonc`](https://code.visualstudio.com/docs/languages/json#_json-with-comments) —— 带注释模式的 JSON）的文件中。可以通过 `⌘` 键、快捷方式，或者 `文件 > 首选项 > 设置` 打开。（[点击这里](https://code.visualstudio.com/docs/getstarted/settings)了解更多设置）
 
-打开设置页面后，你不会直接看到原本的 JSON 文件。VS Code 精心优化了设置页面的界面，但本文出于便于分享的目的，将不使用该界面，而是以键值对的形式展现。
+打开设置页面后，你不会直接看到源 JSON 文件。VS Code 精心优化了设置页面的界面，但本文出于便于分享的目的，将不使用该界面，而是以键值对的形式展现。
 
-你可以通过点击标签页栏上的 `{ }` 按钮来切换到 JSON 文件。
+你可以通过点击标签栏上的 `{ }` 按钮来打开 JSON 配置文件。
 
 如果该文件是空的（你还没有针对默认设置做任何修改），那我们需要创建一个空对象，它得是有效的 JSON 格式：
 
@@ -50,11 +50,11 @@ VS Code 把配置信息放在一个类 JSON 格式（所谓的 [`jsonc`](https:/
 
 ### 主题
 
-这个设置项似乎很基础，但并不代表它不重要。你看代码的时间会很长，所以你还是花点时间选一款让眼睛舒适的主题吧，这也能让代码看起来更帅气。
+这个设置项似乎很基础，但并不代表它不重要。你有大量的时间在看代码，所以不妨再花点时间选一款让眼睛舒适的主题，这也能让代码看起来更悦目。
 
-正如上文提到的，我在用 [Material](https://material-theme.site/) 主题的 Ocean 高对比度版本。这些年我试用过很多主题，最终还是钟爱这一款。
+正如上文提到的，我在用 [Material](https://material-theme.site/) 主题下的 Ocean High Contrast。这些年我试用过很多主题，最终还是钟爱这一款。
 
-还有一件事 —— [Material Theme Icons](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme-icons) 插件收集了很多好看的文件/文件夹图标：
+另外 —— [Material Theme Icons](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme-icons) 插件收集了很多好看的文件/文件夹图标：
 
 [![自定义侧边栏](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png)](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png) 
 
@@ -64,15 +64,15 @@ VS Code 把配置信息放在一个类 JSON 格式（所谓的 [`jsonc`](https:/
 
 很棒，对吧？
 
-快速提示：你可以通过在命令行面板中搜索“accent”，来更改 Material 主题的高亮色。
+快速提示：你可以通过在命令面板中搜索 "accent"，来更改 Material 主题的高亮色。
 
 ### 字体
 
-合适的字体能让你的代码看起来更清晰优美。我选择的代码字体是 [`Fira Code`](https://github.com/tonsky/FiraCode) —— 一款连字漂亮的精良字体。[快试试吧](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)！我会说它是免费字体吗？
+合适的字体能让你的代码看起来更清晰优美。我选择的代码字体是 [`Fira Code`](https://github.com/tonsky/FiraCode) —— 一款连字漂亮的精良字体。[快试试吧](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)！我刚刚说过它是免费的吧？
 
 ### 缩进
 
-无论你站在“tab 或空格”之争的哪一边，你都可以像这样设置：
+无论你站在“tabs vs spaces”之争的哪一边，你都可以像这样设置：
 
 ```json
 "editor.detectIndentation": true,
@@ -82,17 +82,17 @@ VS Code 把配置信息放在一个类 JSON 格式（所谓的 [`jsonc`](https:/
 
 ### 在编辑器和文件管理器之间切换
 
-使用 `⌘ ⇧ E` 快捷键，你可以轻松切换代码编辑器和项目文件管理器。当你处于文件管理器中，你可以像在 Mac OS 的 Finder 中那样用相同的快捷键进行日常操作，比如用方向键导航、用 `↵` 键给文件或文件夹重命名、用 `⌘ ↓` 打开当前文件等。
+使用 `⌘ ⇧ E` 快捷键，你可以轻松切换代码编辑器和项目文件管理器。当你处于文件管理器中，你可以像在 Mac OS 的 Finder 中那样用相同的快捷键进行常规操作，比如用方向键导航、用 `↵` 键给文件或文件夹重命名、用 `⌘ ↓` 打开当前文件等。
 
-快速提示：在原生 Mac OS 中，用 `⌥ ⌘ R` 组合键显示被选中的文件或文件夹。
+快速提示：在 VS Code 中，通过 `⌥ ⌘ R` 组合键使用 macOS Finder 快速定位到当前选中的文件或文件夹。
 
 ### Emmet
 
 [Emmet](https://emmet.io/) 是一个支持众多流行编辑器的插件，通过提供智能缩写、扩展、常规操作（如以元素包裹其他元素）等功能，它显著改善了 HTML 和 CSS 的工作流。也许你会说你并没有直接用 HTML 开发，但它经过简单配置就能兼容诸如 React 和 Vue 这类框架，因为它们用的都是相似的类 HTML 标记语言。
 
-VS Code [配备 Emmet](https://code.visualstudio.com/docs/editor/emmet) 后，支持快速创建 `html`、`haml`、`jade`、`slim`、`jsx`、`xml`、`xsl`、`css`、`scss`、`sass`、`less` 等代码块以及 `stylus` 文件。
+[集成 Emmet](https://code.visualstudio.com/docs/editor/emmet) 的 VS Code 无需配置即可支持 `html`、`haml`、`jade`、`slim`、`jsx`、`xml`、`xsl`、`css`、`scss`、`sass`、`less` 和 `stylus` 文件。
 
-因此，默认情况下，你需要用 `.jsx` 文件扩展名来使得 Emmet 支持 JSX 文件。要是你只用到 `.js` 文件，那么你有两种选择：
+因此，默认情况下，你需要用 `.jsx` 文件扩展名来获得 Emmet 支持。要是你只用到 `.js` 文件，那么你有两种选择：
 
 1. 让 Emmet 在 `.js` 中运行：
 
@@ -102,9 +102,9 @@ VS Code [配备 Emmet](https://code.visualstudio.com/docs/editor/emmet) 后，�
 }
 ```
 
-(使 `javascriptreact` 这个 Emmet 语法在 `javascript` 文件中生效)
+（使 `javascriptreact` 这个 Emmet 语法在 `javascript` 文件中生效）
 
-2. 让 VS Code 像处理 `.jsx` 语法那样处理 `.js` 文件（即对所有 `.js` 文件使用 `javascriptreact` 语法），这样 Emmet 就会把 `.js` 文件视为 `.jsx` 文件：
+2. 让 VS Code 像处理 `.jsx` 文件那样处理 `.js` 文件（即对所有 `.js` 文件使用 `javascriptreact` 语法），这样 Emmet 就会把 `.js` 文件视为 `.jsx` 文件：
 
 ```json
 "files.associations": {
@@ -112,23 +112,23 @@ VS Code [配备 Emmet](https://code.visualstudio.com/docs/editor/emmet) 后，�
 }
 ```
 
-我个人选第二种 —— 我从来不用 `.jsx` 文件扩展名，因此我要让 VS Code  总是在 `.js` 文件中支持 React 语法。
+我个人选第二种 —— 我从来不用 `.jsx` 文件扩展名，因此我要让 VS Code 总是在 `.js` 文件中支持 React 语法。
 
-以下为最常用的 Emmet 命令：
+以下是我最常用的 Emmet 命令：
 
 * `expand abbreviation` —— 把字符串扩展为 JSX 元素
 * `wrap with abbreviation` —— 用另一个元素包裹已有元素
-* `split / join tag` —— 把标签对变为自闭合标签（例如从 `expand abbreviation` 的输出变为自闭合），反之亦然
+* `split / join tag` —— 把标签组变为自闭合标签（例如从 `expand abbreviation` 的输出变为自闭合），反之亦然
 
-Emmet 着实强大，能为你节省大量时间，因此我强烈推荐你看看 Emmet 官网的 demo。
+Emmet 着实强大，能为你节省大量时间，因此我强烈推荐你看看 [Emmet 官网](https://emmet.io/) 的 demo。
 
 ### 真正的秒开文件
 
-让我们用 `⌘ P`  打开一个文件。
+让我们用 `⌘ P` 打开一个文件。
 
-注意标签页栏 —— 文件名为斜体代表着当前标签页处于**预览**模式。默认情况下，如果你从侧边栏选中或者按 `⌘ P` 打开某文件，然后再选中或者 `⌘ P` 打开另一个文件，你会发现新打开的文件直接占用了上一个**预览**模式的标签页，除非它被“钉”住（发生双击、编辑操作）。
+注意标签栏 —— 文件名为斜体代表着当前标签页处于**预览**模式。默认情况下，如果你从侧边栏选中或者按 `⌘ P` 打开某文件，然后再选中或者 `⌘ P` 打开另一个文件，你会发现新打开的文件直接占用了上一个**预览**模式的标签页，除非它被「钉」住了（发生双击或编辑操作）。
 
-当你在侧边栏中浏览文件，可能只想瞥一眼文件内容，那么这种方式就很合理，但有时候，你会想要真正地“快速打开”它。
+当你在侧边栏中浏览文件，可能只想瞥一眼文件内容，那么这种方式就很合理，但有时候，你会想要真正地「快速打开」它。
 
 要满足该需求，可以这样设置：
 
@@ -138,11 +138,11 @@ Emmet 着实强大，能为你节省大量时间，因此我强烈推荐你看�
 
 现在你再试试 `⌘ P`  —— 文件不再以预览模式打开。
 
-### 面包屑导航
+### 导航路径
 
-[![VS Code 面包屑导航](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/c4067/vscode-breadcrumbs.png)](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/a260b/vscode-breadcrumbs.png) 
+[![VS Code 导航路径](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/c4067/vscode-breadcrumbs.png)](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/a260b/vscode-breadcrumbs.png) 
 
-面包屑导航（在标题栏下方显示）是一个有用的功能，它展示了当前代码在代码库中的位置。如果你点击面包屑导航中的一段，它会显示你的当前位置、同级文件或标记，亦可做为快速导航使用。
+导航路径（在标题栏下方显示）是一个有用的功能，它展示了当前代码在代码库中的位置。如果你点击面包屑导航中的一段，它会显示你的当前位置、同级文件或标记，亦可做为快速导航使用。
 
 激活方法如下：
 
@@ -150,12 +150,12 @@ Emmet 着实强大，能为你节省大量时间，因此我强烈推荐你看�
 "breadcrumbs.enabled": true
 ```
 
-以下是面包屑导航的两个有用的快捷键：
+以下是导航路径的两个有用的快捷键：
 
-* `⌘ ⇧ .` — 聚焦面包屑导航：选中末尾元素，打开下拉菜单供你导航到同级文件或标记。
-* `⌘ ⇧ ;` — 聚焦面包屑导航的末尾元素但不打开，这样就可以用方向键在路径层次结构中移动了
+* `⌘ ⇧ .` — 聚焦导航路径：选中末尾元素，打开下拉菜单供你导航到同级文件或标记。
+* `⌘ ⇧ ;` — 聚焦导航路径的末尾元素但不打开，这样就可以用方向键在路径层次结构中移动了
 
-快速提示：你可以在面包屑弹窗中输入关键词来过滤文件、文件夹和标记，并用 `↵` 来聚焦。
+快速提示：你可以在导航路径中输入关键词来过滤文件、文件夹和标记，并用 `↵` 来聚焦。
 
 ### 隐藏“打开的编辑器”窗格
 
@@ -220,7 +220,7 @@ VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目
 "editor.cursorBlinking": "phase"
 ```
 
-让光标移动时带有小动画，这样让我们的目光很容易追随到它：
+让光标移动时带有小动画，这样让我们的目光很容易追踪到它：
 
 ```json
 "editor.cursorSmoothCaretAnimation": true
@@ -228,13 +228,13 @@ VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目
 
 ### 文件末尾另起一行
 
-在文件末尾处留出一个空行，这是一个[惯例](https://unix.stackexchange.com/a/18789/315296)
+在文件末尾处插入一个空行，这是一个[惯例](https://unix.stackexchange.com/a/18789/315296)
 
 ```json
 "files.insertFinalNewline": true
 ```
 
-### 祛除尾部空格
+### 剪裁尾部空格
 
 ```json
 "files.trimTrailingWhitespace": true
@@ -279,7 +279,7 @@ VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目
 }
 ```
 
-### 隐藏底栏的状态笑脸
+### 隐藏底部状态栏的反馈笑脸图标
 
 ```json
 "workbench.statusBar.feedback.visible": false
