@@ -9,7 +9,7 @@
 
 > “[web 的艺术设计](https://www.smashingmagazine.com/printed-books/art-direction-for-the-web/)” 的设计师及作者 Andy Clarke，在使用 CSS 创造令人兴奋的新设计时，从未害怕突破边界。在本教程中，他超越了基本的 CSS 形状，并展示了如何使用它们为您针对艺术的设计创建五种独特且有趣的布局。
 
-去年，Rachel Andrew 写了一篇文章，[重新审视 CSS Shapes](https://www.smashingmagazine.com/2018/09/css-shapes/)，其中为读者重新介绍了使用 CSS Shapes 的基础. 对于任何热衷于理解如何使用 `shape-outside`， `shape-margin`，和 `shape-image-threshold` 等属性的人来说，这篇文章是理想的入门读物。
+去年，Rachel Andrew 写了一篇文章，[重新审视 CSS Shapes](https://www.smashingmagazine.com/2018/09/css-shapes/)，其中为读者重新介绍了使用 CSS Shapes 的基础。对于任何热衷于理解如何使用 `shape-outside`、 `shape-margin` 和 `shape-image-threshold` 等属性的人来说，这篇文章是理想的入门读物。
 
 我曾经见过很多用这些属性的例子，但是很少见到 Shapes 的高级用法，包括 `circle()`， `ellipse()`， `inset()`。甚至使用 `polygon()` 的例子也远远少于它们。考虑到 CSS Shapes 提供的创造性机会，这也太令人失望了。但是，我确信只要有一点灵感和想象力，我们就可以制作出更具特色和吸引力的设计。所以，我将向您展示如何使用 CSS Shapes 创建以下五种不同类型的布局：
 
