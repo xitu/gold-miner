@@ -2,64 +2,64 @@
 > * 原文作者：[Jeremy](http://jeremymikkola.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/rules-for-autocomplete.md](https://github.com/xitu/gold-miner/blob/master/TODO1/rules-for-autocomplete.md)
-> * 译者：
-> * 校对者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [Endone](https://github.com/Endone)
 
-# Rules for Autocomplete
+# 自动补全规则
 
-Autocompleting text with known values seems like an easy problem to solve, but so so so many UIs get it wrong. I see this frequently enough that, rather than complain about them individually, I though I’d just write down the set of rules they often break.
+使用已知值去进行自动补全文本似乎是一个很容易解决的问题，但是很多很多的界面设计都错了。我经常看到这样的错误，与其逐一抱怨，我决定写下一些它们经常违背的规则。
 
-There may be cases where some of these rules aren’t the best thing to do, but there should be a good reason for breaking one of these rules (for example, some of these rules don’t apply if a field must be filled with a value from a fixed set, like the list of US states). Following these rules should always result in at very least a sane experience:
+可能这些规则中的某些并不是最好的，但是打破这些规则应该需要一个很好的理由（例如，如果所填的值都必须来自一个固定集合，那么就不必遵守其中的一些规则，例如美国的州列表）。遵循这些规则至少能有不错的体验：
 
-*   Exact matches always come first. If the user types in an option exactly, other options must always go below the one matching what they typed.
+*   精确匹配总是第一位的。如果用户准确输入一个选项，则其他选项必须始终低于用户输入内容的选项。
 
-*   Besides exact matches, prefix matches come first. If I type “Fr” I want “Fresno” not “San Francisco.”
+*   除了精确匹配之外，最先被考虑的应该是前缀匹配。如果我输入 “Fr”，我想要的是 “Fresno”，而不是  “San Francisco”。
 
-*   After prefix matches, it can fall back to substring matches. Starting with substring matches would almost always be the wrong thing to do since users start typing words at the beginning not somewhere in the middle.
+*   在前缀匹配之后，再进行字符串匹配。从子字符串开始匹配基本上都是错误的，因为用户开始输入单词时是在开头而不是在中间的某个地方。
 
-*   If there are no substring matches, it can optionally fall back to subsequence matching. This is only useful in some cases.
+*   如果没有子字符串匹配，则可以选择回退到子序列匹配。这仅仅在某些情况下有用。
 
-*   If there are no subsequence/substring matches, it can optionally fall back to approximate matches. This is rarely necessary to provide.
+*   如果没有子序列/子字符串匹配，则可以选择回退到近似匹配。这种情况一般很少很少出现。
 
-*   Matches should be sorted alphabetically.
+*   匹配应该按照字典序进行排序。
 
-*   When one option is the prefix of another, put the _shortest one first_.
+*   当一个选项是另一个选项的前缀时，把**最短的选项放在最前面**。
 
-*   The matching should probably be case insensitive unless there are two options that differ only by case. In that case (pun intended), prefer the one that more closely matches the user’s input.
+*   匹配应该不分大小写，除非有两个选项只是大小写不同。在这种情况下，选择和用户输入最匹配的。
 
-*   The action to make use of the selection (e.g. to search the term) must be a different key than the action to accept the first suggestion _unless_ you have to do something first to start using autocomplete suggestions (e.g. hit the down arrow). The user should never have to take extra steps to _not_ use autocomplete.
+*   使用选择的操作（例如搜索术语）必须与接受第一个建议的操作不同，**除非**你必须先进行一些操作来开始使用自动补全的建议（例如，按向下箭头）。用户永远需要采取额外步骤来使用自动补全。
 
-*   The tab key should always accept the current autocomplete option, if there is one (whether it is highlighted in a dropdown or suggested inline).
+*   如果有当前自动补全选项，tab 键应该始终接受这个选项（无论是在下拉菜单中突出显示，还是在行内显示）。
 
-*   If an autocomplete selection is highlighted, pressing enter should always make use of that selection. It should never revert to a default selection, even if part of the page is loading. If something is still loading, it is better to ignore the enter press than to navigate to the wrong destination.
+*   如果自动补全选项是突出显示的，那么按 Enter 键应该始终使用该选项。即使有一部分页面还没有完全加载，它也永远不该恢复为默认选项。如果某些内容还在加载，最好忽略 Enter 按键而不是选择错误的选项。
 
-*   Autocomplete should almost never activate on keypresses when the field using autocomplete is not focused.
+*   当使用自动补全的字段没有被聚焦时，自动补全不会被按键激活。
 
-*   The results should come in <100ms in the common case.
+*   一般情况下，结果应该在 100 毫秒内呈现出来。
 
-*   It’s OK to pause autocompleting when the user is rapidly typing additional letters, but don’t show results from the middle of that burst of letters after the user has finished typing. It’s better to wait longer and change the results once than to show results that appear finished but aren’t. (I admit that this rule is quite subjective.)
+*   当用户快速输入其他字母时，可以暂停自动补全，但是不要在用户输入补全之后显示这一串字母中间的结果。最好等待更长的时间然后更改一次结果，而不是显示看上去完成实际上还没有完成的结果（我承认这条规则相当主观）。
 
-*   If an option is highlighted, never change it, even if new data is loaded.
+*   如果某个选项被突出显示，那就永远不要更改它，即使加载了新数据也是如此。
 
-There are some optional features that make sense in certain kinds of autocompletion and not others. I’m sure there are more correct names for these features than what I listed.
+有些可选功能在某些确切类型的自动补全中有意义，而在其他类型则未必如此。我确信对这些功能，会有比我所给出的更正确的名称。
 
-*   Show options I’ve used before when I focus the field but haven’t entered anything yet.
+*   当我聚焦输入框但是还没有输入任何内容时，显示我之前使用的选项。
 
-*   Autocompletion to the nearest ambiguous prefix. If I type “g” and that matches both “Google” and “GoodReads”, this operation would fill in the two “o”s, allowing me to then type either “g” or “d” to select the option I want.
+*   自动补全到最近的模糊前缀。如果我输入 “g” 并且匹配 “Google” 和 “GoodReads”，那么这个操作将填入两个 “o”，然后允许我输入 “g” 或 “d” 来选择我想要的选项。 
 
-*   Multipart matching. This is useful for autocompleting file paths, where I might enter “e/b/a” to autocomplete “env/bin/activate”. `ZSH` does this well.
+*   多部分匹配。这对于自动补全文件路径很有用，我可以输入 “e/b/a” 来自动补全 “env/bin/activate”。`ZSH` 做得很好。
 
-*   Recursive matching. Since autocompletion sometimes serves dual purpose as a quick way to browse options, sometimes you want to start with a broad filter and then search within those results. For example, if I enter “.pdf” to see all pdf files, I can then hit some key (perhaps comma) to start searching within those results, even though what I am now typing actually appears in the name _before_ what I typed previously.
+*   递归匹配。由于自动补全有时作为快速浏览选项的一种方式有双重用途，所以有时你希望从一个广泛的过滤器开始，然后在这些结果中进行搜索。例如，如果我输入 “.pdf” 来查看所有的 pdf 文件，那么我就可以按某个键（也许是逗号）开始在这些结果中搜索，即使我现在输入的内容实际上已经在我之前输入的文件名中出现过。
 
-*   Spelling correction. This tends to be useful in search engines.
+*   拼写纠正。这往往在搜索引擎中很有用。
 
-*   Aliases. When trying to autocomplete a username, the person’s first/last name could be allowed to autocomplete to their username. The same goes for state abbreviations suggesting the full state.
+*   别名。尝试自动补全用户名时，可以允许此人的姓/名自动补全他的用户名。对于表示完整状态的州的缩写也是如此。
 
-*   Additional information in the results. If you are autocompleting function names, it is nice to see a list of the arguments they take.
+*   结果中的其他信息。如果你是自动补全函数名称，那么如果能够看到它们的参数列表，用户会很高兴。
 
-*   Context-aware suggestions. This is useful when autocompleting code or a word (usually on a mobile phone) where the context is very predictive of what the desired result is likely to be.
+*   上下文感知建议。这在自动补全代码或单词（通常在移动电话上）时非常有用，其中上下文可以预测所需要的结果可能是什么。
 
-*   Make it possible to go back to what I’ve typed after accepting an autocomplete suggestion. (The up arrow key tends to be a nice way to allow this.)
+*   接受自动补全建议后，可以返回我输入的内容。（使用向上箭头来进行这个操作是一个比较好的方法）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
