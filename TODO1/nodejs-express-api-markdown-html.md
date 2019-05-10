@@ -5,7 +5,7 @@
 > * 译者：[Baddyo](https://github.com/Baddyo)
 > * 校对者：
 
-# 化 Markdown 为 HTML：用　Node.js 和 Express 搭建接口
+# 化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口
 
 > 快速摘要：搭建一个把 Markdown 语法转换为 HTML 的应用，通过该实践来学习如何使用 Node.js 和 Express 框架创建接口端点。
 
