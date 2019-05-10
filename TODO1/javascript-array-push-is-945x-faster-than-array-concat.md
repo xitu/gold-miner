@@ -5,13 +5,13 @@
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
 > * 校对者：[钱俊颖](https://github.com/Baddyo), [MLS](https://github.com/hzdaqo)
 
-# Javascript Array.push 要比 Array.concat 快 945 倍！🤯🤔
+# Javascript 中 Array.push 要比 Array.concat 快 945 倍！🤯🤔
 
 如果要合并拥有上千个元素的数组，使用 `arr1.push(...arr2)` 可比 `arr1 = arr1.concat(arr2)` 节省时间。如果你想要再快一点，你甚至可以编写自己的函数来实现合并数组的功能。
 
 ## 等一下……用 `.concat` 合并 15000 个数组要花多长时间呢？
 
-最近，我们有一个用户抱怨他在使用 [UI-licious](https://uilicious.com) 对他们的 UI 进行测试时，速度明显慢了很多。通常，每一个 `I.click` `I.fill` `I.see` 命令需要大约 1 秒的时间完成（后期处理，例如截屏），现在需要超过 40 秒才能完成，因此通常在 20 分钟内可以完成的测试现在需要花费数小时才能完成，这严重地限制了他们的部署进程。
+最近，我们有一个用户抱怨他在使用 [UI-licious](https://uilicious.com) 对他们的 UI 进行测试时，速度明显慢了很多。通常，每一个 `I.click` `I.fill` `I.see` 命令需要大约 1 秒的时间完成（后期处理，例如截屏），现在需要超过 40 秒才能完成，因此通常在 20 分钟内可以完成的测试现在需要花费数小时才能完成，这严重地拖慢了他们的部署进程。
 
 我很快就设置好了定时器，锁定了导致速度缓慢的那部分代码，但当我找到罪魁祸首时，我着实吃了一惊：
 
@@ -21,7 +21,7 @@ arr1 = arr1.concat(arr2)
 
 数组的 `.concat` 方法。
 
-为了允许在编写测试的时候可以使用简单的指令，如 `I.click("Login")`，而不是使用 CSS 或是 XPATH 选择器，如 `I.click("#login-btn")`，UI-licious 基于网站的语义、可访问性属性以及各种流行但不标准的模式，使用动态代码分析（模式）来分析 DOM 树，从而确定我们应该测试网站的什么内容以及如何进行测试。这些 `.concat` 操作被用来压扁 DOM 树进行分析，但是当 DOM 树非常大而且非常深时，性能非常糟糕，这就是我们的用户最近更新他们的应用程序时发生的事情，这波更新也导致了他们的页面明显臃肿起来（这是他们那边的性能问题，是另外的话题了）。
+为了允许在编写测试的时候可以使用简单的指令，如 `I.click("Login")`，而不是使用 CSS 或是 XPATH 选择器，如 `I.click("#login-btn")`，UI-licious 基于网站的语义、可访问性属性以及各种流行但不标准的模式，使用动态代码分析（模式）来分析 DOM 树，从而确定网站的测试内容和测试方法。这些 `.concat` 操作被用来压扁 DOM 树进行分析，但是当 DOM 树非常大而且非常深时，性能非常糟糕，这就是我们的用户最近更新他们的应用程序时发生的事情，这波更新也导致了他们的页面明显臃肿起来（这是他们那边的性能问题，是另外的话题了）。
 
 **使用 `.concat` 合并 15000 个平均拥有 5 个元素的数组需要花费 6 秒的时间。**
 
@@ -85,7 +85,7 @@ Array.prototype.push.apply(arr1, arr2)
 
 `.push` 仍然比 `.concat` 快, 但这次是 9 倍.
 
-虽然没有 1/945 倍那么慢，但已经很慢了。
+虽然没有戏剧性的慢上 945 倍，但已经很慢了。
 
 * * *
 
@@ -103,11 +103,11 @@ arr1.push(...arr2)
 
 ## 但是为什么 `Array.concat` 这么慢？
 
-它和 Javascript 引擎有很大的关系，我也不知道确切的答案，所以我问了我的朋友 [@picocreator](https://dev.to/picocreator)，他是 [GPU.js](http://gpu.rocks/) 的联合创始人，因为他之前花了很多时间研究 V8 的源码。[@picocreator](https://dev.to/picocreator) 还把他的宝贝游戏 PC 借给我跑 JsPerf 的测试，那可是他用来对 GPU.js 做基准测试的，因为我的 MacBook 甚至没有那么大的内存来使用 `.concat` 合并两个长度为 50000 的数组。
+它和 Javascript 引擎有很大的关系，我也不知道确切的答案，所以我问了我的朋友 [@picocreator](https://dev.to/picocreator) —— [GPU.js](http://gpu.rocks/) 的联合创始人，他之前花了很多时间研究 V8 的源码。因为我的 MacBook 内存不足以运行 `.concat` 合并两个长度为 50000 的数组，[@picocreator](https://dev.to/picocreator) 还把他用来对 GPU.js 做基准测试的宝贝游戏 PC 借给我跑 JsPerf 的测试。
 
 显然答案与它们的运行机制有很大的关系：在合并数组的时候，`.concat` 创建了一个新的数组，而 `.push` 只是修改了第一个数组。这些额外的操作（将第一个数组的元素添加到返回的数组里）就是拖慢了 `.concat` 速度的关键。
 
-> 我：“纳尼？不可能吧？就是这样而已？但为什么会这么慢？不可能啊！”
+> 我：“纳尼？不可能吧？就是这样而已？但为什么差距这么大？不可能啊！”
 > @picocreator：“我可没开玩笑，试着写下 .concat 和 .push 的原生实现你就知道了！”
 
 所以我按照他说的试了试，写了几种实现方式，又加上了和 [lodash](https://lodash.com/) 的 `_.concat` 的对比：
@@ -157,7 +157,7 @@ for(var i = 0; i < arr2Length; i++){
 *   `.concat` : 536 ops/sec
 *   `.push` : 11,104 ops/sec (快 20 倍)
 
-结果证明我自己写的 `concat` 和 `push` 还比它们的常规实现方法快……但我们可以看到，仅仅是简单地创建一个新数组并将第一个数组的内容复制给它就可以使整个过程明显变慢。
+结果证明我自己写的 `concat` 和 `push` 比它们的常规实现方法还快……但我们可以看到，仅仅是简单地创建一个新数组并将第一个数组的内容复制给它就可以使整个过程明显变慢。
 
 ### 原生实现方式 2（预分配最终数组的大小）
 
@@ -267,7 +267,7 @@ Lodash 一样做了重载，支持两种传参方式，lodash 将所有的参数
 
 [![Uilicious Snippet dev.to test](https://res.cloudinary.com/practicaldev/image/fetch/s--5llcnkKt--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/gyrtj5lk2b2bn89z7ra1.gif)](https://snippet.uilicious.com/test/public/1cUHCW368zsHrByzHCkzLE)
 
-从工作原理上来说，UI-licious 测试引擎扫描目标应用程序的 DOM 树，评估语义、可访问属性和其他常见模式，以确定目标元素是什么以及如何测试它。
+从工作原理上来说，UI-licious 测试引擎扫描目标应用程序的 DOM 树，评估语义、可访问属性和其他常见模式，来确定目标元素以及测试方法。
 
 这样我们就可以确保像下面这样简单地编写测试：
 
