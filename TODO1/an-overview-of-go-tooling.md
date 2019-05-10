@@ -5,15 +5,15 @@
 > * 译者：[iceytea](https://github.com/iceytea)
 > * 校对者：
 
-# Go 语言工具概述
+# Go 语言工具概览
 
 我偶尔会被问到：**“你为什么喜欢使用 Go 语言？”** 我经常提到的一件事情是，作为 `go` 命令的一部分 —— 与 Go 语言一同存在的周到的工具 —— 比如 `go fmt` 和 `go build`，以及其它像 `go tool pprof` 这样只用来帮助解决特定问题的工具。但在任何情况下，我都很欣赏它们使我的项目管理和维护更容易的事实。
 
-在这篇文章中，我希望能提供一些我认为最有用的工具的设定背景和关系。更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望它会给你带来一个良好的开端。
+在这篇文章中，我希望能提供一些我认为最有用的工具的设定背景和关系。更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望它是一个良好的开端。
 
 如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但也希望你能在这里发现之前不知道的命令和标记😀
 
-本文中的信息是针对 Go 1.12 编写的，并假设您正在开发一个[模块启用](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
+本文中的信息是针对 Go 1.12 编写的，并假设您正在开发一个[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
 
 1. **[安装工具](#安装工具)**
 2. **[查看环境信息](#查看环境信息)**
@@ -47,9 +47,9 @@
 
 ## 安装工具
 
-这篇文章中，我将主要关注作为 `go` 命令一部分的工具。但这里也将提到一些不属于标准 Go 12.2 发行版部分的内容。
+这篇文章中，我将主要关注 go 命令这部分的工具。但这里也将提到一些不属于标准 Go 12.2 发行版的内容。
 
-当你在 Go 12.2 版本下安装工具时，你首先需要确定你当前在启用模块的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令安装工具。例如：
+当你在 Go 12.2 版本下安装工具时，你首先需要确定你当前 module-enabled 的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令来安装工具。例如：
 
 ```shell
 $ cd /tmp
@@ -62,7 +62,7 @@ $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 
 ## 查看环境信息
 
-你可以使用 `go env` 工具显示当前 Go 操作环境。如果你在不熟悉的计算机上工作，这可能很有用。
+你可以使用 `go env` 命令显示当前 Go 工作环境。如果你在不熟悉的计算机上工作，这可能很有用。
 
 ```shell
 $ go env
@@ -103,7 +103,7 @@ linux
 amd64
 ```
 
-要显示 `go env` 命令的所有变量和值的文档，你可以运行：
+要显示 `go env` 命令的所有变量和值的内容，你可以运行：
 
 ```shell
 $ go help environment
@@ -113,7 +113,7 @@ $ go help environment
 
 ### 运行代码
 
-在开发过程中，`go run` 工具是尝试运行代码的便捷方法。它本质上是一个编译代码的快捷方式，在 `/tmp` 目录下创建一个可执行二进制文件，并在一个步骤中运行它。
+在开发过程中，`go run` 命令执行代码十分方便。它本质上是一个编译代码的快捷方式，在 `/tmp` 目录下创建一个可执行二进制文件，并一步运行它。
 
 ```shell
 $ go run .          # 运行当前目录下的包
@@ -124,16 +124,14 @@ $ go run ./cmd/foo  # 运行 ./cmd/foo 目录下的包
 
 ### 获取依赖关系
 
-假设你让[模块启用](https://github.com/golang/go/wiki/Modules#quick-start)，那当你使用 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新标记版本，如果没有可用的标记版本，则使用最新提交的依赖项。
+假设你已经[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)，那当你运行 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新标记版本，如果没有可用的标记版本，则使用最新提交的依赖项。
 
-如果你事先知道需要特定版本的依赖项（而不是 Go 默认获取的依赖项），则可以在使用 `go get` 同时带上相关版本号或提交 hash 。例如：
+如果你事先知道需要特定版本的依赖项（而不是 Go 默认获取的依赖项），则可以在使用 `go get` 同时带上相关版本号或 commit hash 。例如：
 
 ```shell
 $ go get github.com/foo/bar@v1.2.3
 $ go get github.com/foo/bar@8e1b8d3
 ```
-
-如果被提取的依赖项有一个`go.mod`文件，那么**它的依赖项**将不会列在你的**`go.mod`文件中。 相反，如果你正在下载的依赖项没有`go.mod`文件，那么它的依赖项**将在你的`go.mod`文件中列出，旁边有一个`// indirect`注释 他们。
 
 如果获取到的依赖项包含一个 `go.mod` 文件，那么**它的依赖项**将不会列在**你的** `go.mod` 文件中。相反，如果你正在下载的依赖项不包含 `go.mod` 文件，那么它的依赖项**将会**在你的 `go.mod` 文件中列出，并且会伴随着一个 `//indirect` 注释。
 
@@ -205,7 +203,7 @@ $ gofmt -w -r 'strings.Replace(a, b, c, -1) -> strings.ReplaceAll(a, b, c)' .
 
 ### 查看 Go 文档
 
-你可以使用 `go doc` 工具，在终端中查看标准库包的文档。我经常在开发过程中使用来快速查询某些东西 —— 比如特定功能的名称或签名。我觉得这比浏览[基于网络的文档](https://golang.org/pkg)更快，而且它可以离线查阅。
+你可以使用 `go doc` 工具，在终端中查看标准库的文档。我经常在开发过程中使用它来快速查询某些东西 —— 比如特定功能的名称或签名。我觉得这比浏览[网页文档](https://golang.org/pkg)更快，而且它可以离线查阅。
 
 ```shell
 $ go doc strings            # 查看 string 包的简略版文档 
@@ -233,14 +231,14 @@ $ go test ./...      # 运行当前目录和子目录下的全部测试
 $ go test ./foo/bar  # 运行 ./foo/bar 目录下的全部测试
 ```
 
-通常我会在启用 Go 的 [race detector（竞态情况检测器）](https://golang.org/doc/articles/race_detector.html) 的情况下运行我的测试，这可以帮助我找到在实际使用中可能出现的一些数据竞态情况。就像这样：
+通常我会在启用 Go 的 [竞争检测](https://golang.org/doc/articles/race_detector.html) 的情况下运行我的测试，这可以帮助我找到在实际使用中可能出现的一些数据竞态情况。就像这样：
 
 
 ```shell
 $ go test -race ./...
 ```
 
-这里有很重要的一点要特别注意，启用竞态情况检测器将增加测试的总体运行时间。因此，如果你经常在 TDD（测试驱动开发）工作流中运行测试，你可能会使用此方法进行预提交测试运行。
+这里有很重要的一点要特别注意，启用竞争检测将增加测试的总体运行时间。因此，如果你经常在 TDD（测试驱动开发）工作流中运行测试，你可能会使用此方法进行预提交测试运行。
 
 从 1.10 版本起，Go 在包级别[缓存测试结果](https://golang.org/doc/go1.10#test)。如果一个包在测试运行期间没有发生改变，并且你正在使用相同的、可缓存的 `go test` 工具，那么将会展示缓存的测试结果，并用 `"(cached)"` 标记注明。这对于加速大型代码库的测试运行非常有用。如果要强制测试完全运行（并避免缓存），可以使用 `-count=1` 标记，或使用 `go clean` 工具清除所有缓存的测试结果。
 
@@ -258,9 +256,7 @@ $ go test -v -run=^TestFoo .              # 运行那些名字以 TestFoo 开头
 $ go test -v -run=^TestFooBar$/^Baz$ .    # 只运行 TestFooBar 的名为 Baz 的子测试
 ```
 
-值得注意的几个标记是`-short`（可以用来[跳过长时间运行的测试]（https://golang.org/pkg/testing/#hdr-Skipping））和` -failfast`（在第一次失败后将停止运行进一步的测试）。 请注意，`-failfast`将阻止缓存测试结果。
-
-值得注意的两个标记是 `-short`（可以用来[跳过长时间运行的测试](https://golang.org/pkg/testing/#hdr-Skipping)）和 `-failfast`（第一次失败后停止运行进一步的测试）。请注意，`-failfast` 将阻止缓存测试结果。
+值得注意的两个标记是 `-short`（可以用来[跳过长时间运行的测试](https://golang.org/pkg/testing/#hdr-Skipping)）和 `-failfast`（第一次失败后停止运行进一步的测试）。请注意，`-failfast` 将阻止测试结果缓存。
 
 ```shell
 $ go test -short ./...      # 跳过长时间运行的测试
@@ -443,7 +439,7 @@ $ golint ./foo/bar  # Lint ./foo/bar 目录下的所有文件
 $ go mod tidy
 $ go mod verify
 ```
-`go mod tidy` 命令将修剪你的 `go.mod` 和 `go.sum` 文件中任何未使用的依赖项，并更新文件以包含所有可能的构建标记/系统/体系结构组合的依赖项（注意：`go run`，`go test`，`go build` 等命令是“懒惰的”，只会获取当前构建标记/系统/体系结构所需的包。在每次提交之前运行此命令将使你更容易确定哪些代码更改负责在查看版本控制历史记录时添加或删除哪些依赖项。
+`go mod tidy` 命令将删除你的 `go.mod` 和 `go.sum` 文件中任何未使用的依赖项，并更新文件以包含所有可能的构建标记/系统/体系结构组合的依赖项（注意：`go run`，`go test`，`go build` 等命令是“懒惰的”，只会获取当前构建标记/系统/体系结构所需的包。在每次提交之前运行此命令将使你更容易确定哪些代码更改负责在查看版本控制历史记录时添加或删除哪些依赖项。
 
 我还建议使用 `go mod verify` 命令来检查计算机上的依赖关系是否已被意外（或故意）更改，因为它们已被下载并且它们与 `go.sum` 文件中的加密哈希值相匹配。运行此命令有助于确保所使用的依赖项是你期望的完全依赖项，并且该提交的任何构建将可以在以后重现。
 
@@ -460,7 +456,7 @@ $ go build -o=/tmp/foo ./cmd/foo    # 编译 ./cmd/foo 目录下的包
 
 在这些示例中，`go build` 将**编译**指定的包（以及任何依赖包），然后调用**链接器**以生成可执行二进制文件，并将其输出到 `/tmp/foo` 。
 
-值得注意的是，从 Go 1.10 开始，`go build` 工具在[**构建缓存**](https://golang.org/cmd/go/#hdr-Build_and_test_caching)中缓存构建输出。此缓存输出将在将来的构建中适当时刻重用，这可以显著加快整体构建时间。这种新的缓存行为意味着“使用 `go install` 替换 `go build` 改进缓存”的[老旧准则](https://peter.bourgon.org/go-best-practices-2016/#build-and-deploy)不再适用。
+值得注意的是，从 Go 1.10 开始，`go build` 工具在[**构建缓存**](https://golang.org/cmd/go/#hdr-Build_and_test_caching)中被缓存。此缓存将在将来的构建中适当时刻重用，这可以显著加快整体构建时间。这种新的缓存行为意味着“使用 `go install` 替换 `go build` 改进缓存”的[老旧准则](https://peter.bourgon.org/go-best-practices-2016/#build-and-deploy)不再适用。
 
 如果你不确定构建缓存的位置，可以通过运行 `go env GOCACHE` 命令进行检查：
 
@@ -513,7 +509,7 @@ darwin/amd64
 ...
 ```
 
-暗示：你可以使用 Go 的交叉编译[创建 WebAssembly 二进制文件](https://github.com/golang/go/wiki/WebAssembly)。
+提示：你可以使用 Go 的交叉编译[创建 WebAssembly 二进制文件](https://github.com/golang/go/wiki/WebAssembly)。
 
 想了解更深入的交叉编译信息，推荐你阅读[这篇精彩的文章](https://rakyll.org/cross-compilation/)。
 
@@ -550,7 +546,7 @@ $ go build -gcflags="all=-N -l" -o=/tmp/foo .  # Disable optimizations and inlin
 $ go tool link -help
 ```
 
-其中最著名的可能是 `-X` 标记，它允许你将（字符串）值“烧入”应用程序中的特定变量。这通常用于[添加版本号或提交 hash](https://blog.alexellis.io/inject-build-time-vars-golang/) 。例如：
+其中最著名的可能是 `-X` 参数，它允许你将（字符串）值“烧入”应用程序中的特定变量。这通常用于[添加版本号或提交 hash](https://blog.alexellis.io/inject-build-time-vars-golang/) 。例如：
 
 ```shell
 $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
@@ -558,13 +554,13 @@ $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
 
 有关 `-X` 标记和示例代码的更多信息，请参阅[这个 StackOverflow 问题](https://stackoverflow.com/questions/11354518/golang-application-auto-build-versioning)和[这篇文章](https://blog.alexellis.io/inject-build-time-vars-golang/)。
 
-你可能还有兴趣使用 `-s` 和 `-w` 标记来从二进制文件中删除调试信息。这通常会削减 25% 的最终尺寸。例如：
+你可能还有兴趣使用 `-s` 和 `-w` 标记来从二进制文件中删除调试信息。这通常会削减 25% 的最终大小。例如：
 
 ```shell
 $ go build -ldflags="-s -w" -o=/tmp/foo .  # 从二进制文件中删除调试信息
 ```
 
-注意：如果你需要优化二进制大小，可能需要使用 [upx](https://upx.github.io/) 来压缩它。详细信息请参阅 [这篇文章](https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/) 。
+注意：如果你需要优化可执行文件的大小，可能需要使用 [upx](https://upx.github.io/) 来压缩它。详细信息请参阅 [这篇文章](https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/) 。
 
 ## 诊断问题和优化
 
@@ -705,7 +701,7 @@ $ go build -race -o=/tmp/foo .
 
 至关重要的是要注意，启用竞态条件检测器的二进制文件将使用比正常情况更多的 CPU 和内存，因此在正常情况下为生产环境构建二进制文件时，不应使用 `-race` 标记。
 
-但是，你可能希望在多个池中的一个服务器上部署启用了竞态条件检测器的二进制文件，或者使用它来帮助追踪可疑的竞态条件。方法是使用负载测试工具在启用竞态条件检测器的二进制文件的同时投放流量。
+但是，你可能希望在一台服务器部署多个启用竞态检测的二进制文件，或者使用它来帮助追踪可疑的竞态条件。方法是使用负载测试工具在启用竞态条件检测器的二进制文件的同时投放流量。
 
 默认情况下，如果在二进制文件运行时检测到任何竞态条件，则日志将写入 `stderr` 。如有必要，可以使用 `GORACE` 环境变量来更改此设置。例如，要运行位于 `/tmp/foo` 的二进制文件并将任何竞态日志输出到 `/tmp/race.<pid>` ，你可以使用：
 
@@ -728,7 +724,7 @@ github.com/alecthomas/chroma v0.6.2 [v0.6.3]
 $ go list -m -u all
 ```
 
-你可以使用 `go get` 命令将依赖项升级（或降级）到最新版本、特定标记版本或提交 hash ，如下所示：
+你可以使用 `go get` 命令将依赖项升级到最新版本、调整为特定 tag 或 hash 的版本，如下所示：
 
 ```shell
 $ go get github.com/foo/bar@latest
