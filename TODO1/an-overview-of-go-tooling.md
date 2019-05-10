@@ -7,15 +7,15 @@
 
 # Go 语言命令概览
 
-我偶尔会被人问到：**“你为什么喜欢使用 Go 语言？”** 我经常提到的一件事情是，作为 `go` 命令的一部分 —— 与 Go 语言一同存在的周到的工具 —— 比如 `go fmt` 和 `go build`，以及其它像 `go tool pprof` 这样只用来帮助解决特定问题的工具。但在任何情况下，我都很感谢它们使我的项目管理和维护更容易。
+我偶尔会被人问到：**“你为什么喜欢使用 Go 语言？”** 我经常提到的一件事情是，作为 `go` 命令的一部分 —— 与 Go 语言一同存在的 —— `go fmt` 和 `go build`，以及其它像 `go tool pprof` 这样只用来帮助解决特定问题的命令。但在任何情况下，我都很感谢它们使我的项目管理和维护更容易。
 
-在这篇文章中，我希望能提供一些我认为很有用的工具的设定背景和关系，更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望这是一个良好的开端。
+在这篇文章中，我希望能提供一些我认为很有用的命令的设定背景和关系，更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望这是一个良好的开端。
 
 如果你已经使用 Go 语言有一段时间，这些东西可能不适合你，但同样希望你能在这里发现之前不了解的命令和参数😀
 
 本文中的信息是针对 Go 1.12 编写的，并假设你正在开发一个[启用模块](https://github.com/golang/go/wiki/Modules#quick-start)的项目。
 
-1. **[安装工具](#安装工具)**
+1. **[安装命令](#安装命令)**
 2. **[查看环境信息](#查看环境信息)**
 3. **[开发](#开发)**
     * [运行代码](#运行代码)
@@ -45,11 +45,11 @@
 10. **[报告问题](#报告问题)**
 11. **[速查表](#速查表)**
 
-## 安装工具
+## 安装命令
 
-这篇文章中，我将主要关注 go 命令这部分的工具。但这里也将提到一些不属于 Go 12.2 标准发行版的内容。
+这篇文章中，我将主要关注 go 命令这部分。但这里也将提到一些不属于 Go 12.2 标准发行版的内容。
 
-当你在 Go 12.2 版本下安装工具时，你首先需要确定当前在 module-enabled 的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令来安装工具。例如：
+当你在 Go 12.2 版本下安装命令时，你首先需要确定当前在 module-enabled 的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令来安装。例如：
 
 ```shell
 $ cd /tmp
@@ -113,7 +113,7 @@ $ go help environment
 
 ### 运行代码
 
-在开发过程中，`go run` 命令执行代码十分方便。它本质上是一个编译代码的快捷方式，在 `/tmp` 目录下创建一个可执行二进制文件，并一步运行它。
+在开发过程中，用 `go run` 命令执行代码十分方便。它本质上是一个编译代码的快捷方式，在 `/tmp` 目录下创建一个可执行二进制文件，并一步运行它。
 
 ```shell
 $ go run .          # 运行当前目录下的包
@@ -124,7 +124,7 @@ $ go run ./cmd/foo  # 运行 ./cmd/foo 目录下的包
 
 ### 获取依赖关系
 
-假设你已经[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)，那当你运行 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新 tag 版本，如果没有可用的 tag 版本，则使用最新提交的依赖项。
+假设你已经[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)，那当你运行 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新 tag ，如果没有可用的 tag ，则使用最新提交的依赖项。
 
 如果你事先知道需要特定版本的依赖项（而不是 Go 默认获取的依赖项），则可以在使用 `go get` 同时带上相关版本号或 commit hash 。例如：
 
@@ -636,13 +636,13 @@ $ go test -run=^$ -bench=^BenchmarkFoo$ -blockprofile=/tmp/blockprofile.out .
 $ go test -run=^$ -bench=^BenchmarkFoo$ -mutexprofile=/tmp/mutexprofile.out .
 ```
 
-注意：运行基准测试或测试时使用 `-***profile` 标志将会把测试二进制文件输出到当前目录。如果要将其输出到备用位置，则应使用 `-o` 标志，如下所示：
+注意：运行基准测试或测试时使用 `-***profile` 参数将会把测试二进制文件输出到当前目录。如果要将其输出到备用位置，则应使用 `-o` 参数，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -o=/tmp/foo.test -cpuprofile=/tmp/cpuprofile.out .
 ```
 
-无论您选择何种方式创建配置文件，启用配置文件时，您的 Go 程序将每秒暂停大约 100 次，并在该时刻拍摄快照。 这些**样本**被收集在一起形成**轮廓**，您可以使用 `pprof` 工具进行分析。
+无论你选择何种方式创建配置文件，启用配置文件时，你的 Go 程序将每秒暂停大约 100 次，并在该时刻拍摄快照。 这些**样本**被收集在一起形成**轮廓**，你可以使用 `pprof` 工具进行分析。
 
 我最喜欢检查配置文件的方法是使用 `go tool pprof -http` 命令在 Web 浏览器中打开它。例如：
 
@@ -654,11 +654,11 @@ $ go tool pprof -http=:5000 /tmp/cpuprofile.out
 
 这将默认显示**图表**，显示应用程序的采样方面的执行树，这使得可以快速了解任何“热门”使用资源。 在上图中，我们可以看到 CPU 使用率方面的热点是来自 `ioutil.ReadFile()` 的两个系统调用。
 
-您还可以导航到配置文件的其他**视图**，包括功能和源代码的最高使用情况。
+你还可以导航到配置文件的其他**视图**，包括功能和源代码的最高使用情况。
 
 ![](https://www.alexedwards.net/static/images/tooling-4.png)
 
-如果信息量太大，您可能希望使用 `--nodefraction` 标志来忽略占小于一定百分比样本的节点。例如，要忽略在少于 10% 的样本中出现的节点，您可以像这样运行 `pprof` ：
+如果信息量太大，你可能希望使用 `--nodefraction` 参数来忽略占小于一定百分比样本的节点。例如，要忽略在少于 10% 的样本中出现的节点，你可以像这样运行 `pprof` ：
 
 ```shell
 $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
@@ -668,16 +668,16 @@ $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
 
 这让图形更加“嘈杂”，如果你[放大这个截图](/static/images/tooling-5b.svg)，就可以更清楚的看到和了解 CPU 使用的热点位置。
 
-分析和优化资源使用是一个很大的，细微的，主题，我在这里只涉及到一点表面的内容。如果您有兴趣了解更多信息，我建议您阅读以下博文：
+分析和优化资源使用是一个很大很细微的，主题，我在这里只涉及到一点表面的内容。如果你有兴趣了解更多信息，我建议你阅读以下文章：
 
 * [分析和优化 Go Web 应用程序](https://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/)
 * [调试 Go 程序中的性能问题](https://github.com/golang/go/wiki/Performance)
 * [使用基准和分析的每日代码优化](https://medium.com/@hackintoshrao/daily-code-optimization-using-benchmarks-and-profiling-in-golang-gophercon-india-2016-talk-874c8b4dc3c5)
 * [使用 pprof 分析 Go 程序](https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/)
 
-另一个可以用来帮助你诊断问题的工具是**运行时执行跟踪器**。 这使您可以了解 Go 如何创建和安排运行垃圾收集器时运行的 goroutine ，以及有关阻止系统调用/网络/同步操作的信息。
+另一个可以用来帮助你诊断问题的工具是**运行时执行跟踪器**。 这使你可以了解 Go 如何创建和安排运行垃圾收集器时运行的 goroutine ，以及有关阻止系统调用/网络/同步操作的信息。
 
-同样，您可以从测试或基准测试中生成跟踪，或使用 `net/http/pprof` 为您的 Web 应用程序创建和下载跟踪。 然后，您可以使用 `go tool trace` 在 Web 浏览器中查看输出，如下所示：
+同样，你可以从测试或基准测试中生成跟踪，或使用 `net/http/pprof` 为你的 Web 应用程序创建和下载跟踪。 然后，你可以使用 `go tool trace` 在 Web 浏览器中查看输出，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -trace=/tmp/trace.out .
