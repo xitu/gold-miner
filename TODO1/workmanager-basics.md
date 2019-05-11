@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/workmanager-basics.md](https://github.com/xitu/gold-miner/blob/master/TODO1/workmanager-basics.md)
 > * 译者：[Rickon](https://github.com/gs666)
-> * 校对者：
+> * 校对者：[Feximin](https://github.com/Feximin)
 
 # WorkManager 基础入门
 
@@ -33,7 +33,7 @@
 
 这个例子正是具有以下特点的任务：
 
-*   **可延迟的**，因为你不需要它立即执行，而且实际上可能希望等待某些约束被满足(例如等待网络连接)。
+*   **可延迟的**，因为你不需要它立即执行，而且实际上可能希望等待某些约束被满足（例如等待网络连接）。
 *   需要**确保**能够运行，无论应用程序是否退出，因为如果加了滤镜后的图像永远没能与世界共享，你的用户会非常不满意！
 
 这些特点使我们的图像加滤镜和上传任务成为 WorkManager 的完美用例。
@@ -53,7 +53,7 @@ dependencies {
 
 ### 定义你的 work 做什么
 
-在我们将多个任务连接在一起之前，让我们关注如何执行一项工作。我将会着重细说上传任务。首先，你需要创建自己的 [`Worker`](https://developer.android.com/reference/androidx/work/Worker)  实现类。我将会把我们的类命名为 `UploadWorker`，然后重写 [`doWork()`](https://developer.android.com/reference/androidx/work/Worker.html#doWork%28%29) 方法。
+在我们将多个任务连接在一起之前，让我们关注如何执行一项工作。我将会着重细说上传任务。首先，你需要创建自己的 [`Worker`](https://developer.android.com/reference/androidx/work/Worker) 实现类。我将会把我们的类命名为 `UploadWorker`，然后重写 [`doWork()`](https://developer.android.com/reference/androidx/work/Worker.html#doWork%28%29) 方法。
 
 `Worker`s:
 
@@ -180,10 +180,10 @@ WorkManager.getInstance().enqueue(uploadWorkRequest)
 
 ### 在幕后 —— 工作是怎么运行的
 
-那么，`WorkManager` 能为您做些什么呢?默认情况下，`WorkManager` 会：
+那么，`WorkManager` 能为您做些什么呢？默认情况下，`WorkManager` 会：
 
 *   **脱离主线程**运行你的工作（假设你正在继承 `Worker` 类，如上面的 `UploadWorker` 所示）。
-*   **保障** 你的工作将会运行（它不会忘记运行你的工作，即使你重启设备或应用程序退出）。
+*   **保障** 你的工作将会运行（即使你重启设备或应用程序退出，它也不会忘记运行你的工作）。
 *   根据**用户 API 级别的最佳实践**运行（如[上一篇文章](https://medium.com/androiddevelopers/introducing-workmanager-2083bcfc4712)所述）。
 
 让我们探讨一下 WorkManager 如何确保你的工作脱离主线程运行并保证执行。在幕后，WorkManager 包括以下部分：
@@ -197,7 +197,7 @@ WorkManager.getInstance().enqueue(uploadWorkRequest)
 
 ![](https://cdn-images-1.medium.com/max/800/1*1Wbw_Hi1u5SJ1QtJYemV4g.png)
 
-来自： [Working with WorkManager](https://youtu.be/83a4rYXsDs0) Android 开发者大会展示 2018
+来自：[Working with WorkManager](https://youtu.be/83a4rYXsDs0) Android 开发者大会展示 2018
 
 当你安排 `WorkRequest`：
 
@@ -247,7 +247,7 @@ val compressWorkRequest = OneTimeWorkRequestBuilder<CompressWorker>()
 
 请注意，`InputMerger` 是添加到 `compressWorkRequest` 中的，而不是并行的三个滤镜请求中的。
 
-假设每个滤镜工作请求的输出是映射到图像 URI 的键“KEY_IMAGE_URI”。添加 `ArrayCreatingInputMerger` 的作用是并行请求的输出，当这些输出具有匹配的**键**时，它会创建一个包含所有输出值的数组，映射到单个键。可视化图表如下：
+假设每个滤镜工作请求的输出是映射到图像 URI 的键 “KEY_IMAGE_URI”。添加 `ArrayCreatingInputMerger` 的作用是并行请求的输出，当这些输出具有匹配的**键**时，它会创建一个包含所有输出值的数组，映射到单个键。可视化图表如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ft-4gVTZVjVtz6xIaEtNOg.png)
 
@@ -274,8 +274,8 @@ WorkManager.getInstance().getWorkInfoByIdLiveData(uploadWorkRequest.id)
 
 有几点需要注意：
 
-*    每个 `WorkRequest` 都有一个[唯一的 id](https://developer.android.com/reference/androidx/work/WorkRequest.html#getId%28%29)，该唯一 id 是查找关联 `WorkInfo` 的一种方法。
-*    `WorkInfo` 更改时进行监视并被通知的能力是 `LiveData` 提供的功能。
+*   每个 `WorkRequest` 都有一个[唯一的 id](https://developer.android.com/reference/androidx/work/WorkRequest.html#getId%28%29)，该唯一 id 是查找关联 `WorkInfo` 的一种方法。
+*   `WorkInfo` 更改时进行监视并被通知的能力是 `LiveData` 提供的功能。
 
 工作有一个由不同 [`State`](https://developer.android.com/reference/kotlin/androidx/work/State) 代表的生命周期。监视 `LiveData<WorkInfo>` 时，你会看到这些状态；例如，你可能会看到：
 
@@ -285,10 +285,10 @@ WorkManager.getInstance().getWorkInfoByIdLiveData(uploadWorkRequest.id)
 
 工作状态经历的 “happy path” 如下：
 
-1.  `BLOCKED` ：只有当工作在链中并且不是链中的下一个工作时才会出现这种状态。
-2.  `ENQUEUED` ：只要工作是工作链中的下一个并且有资格运行，工作就会进入这个状态。这项工作可能仍在等待 `Constraint` 被满足。
-3.  `RUNNING` ：在这种状态时，工作正在运行。对于 `Worker`，这意味着 `doWork()` 方法已经被调用。
-4.  `SUCCEEDED` ：当 `doWork()` 返回 `Result.success()` 时，工作进入这种最终状态。
+1.  `BLOCKED`：只有当工作在链中并且不是链中的下一个工作时才会出现这种状态。
+2.  `ENQUEUED`：只要工作是工作链中的下一个并且有资格运行，工作就会进入这个状态。这项工作可能仍在等待 `Constraint` 被满足。
+3.  `RUNNING`：在这种状态时，工作正在运行。对于 `Worker`，这意味着 `doWork()` 方法已经被调用。
+4.  `SUCCEEDED`：当 `doWork()` 返回 `Result.success()` 时，工作进入这种最终状态。
 
 现在，当工作处于 `RUNNING` 状态，你可以调用 `Result.retry()`。这将会导致工作退回 `ENQUEUED` 状态。工作也可能随时被 `CANCELLED`。
 
@@ -296,7 +296,7 @@ WorkManager.getInstance().getWorkInfoByIdLiveData(uploadWorkRequest.id)
 
 ![](https://cdn-images-1.medium.com/max/800/1*nliDtycHUhVVlKlWO-oQ2Q.png)
 
-(来自： [Working with WorkManager](https://youtu.be/83a4rYXsDs0) Android 开发者峰会 2018)
+（来自：[Working with WorkManager](https://youtu.be/83a4rYXsDs0) Android 开发者峰会 2018）
 
 想看精彩的视频讲解，请查看 [WorkManager Android 开发者峰会演讲](https://youtu.be/83a4rYXsDs0?t=1144)。
 
@@ -311,19 +311,19 @@ WorkManager.getInstance().getWorkInfoByIdLiveData(uploadWorkRequest.id)
 *   创建复杂链式相互依赖的工作，可以顺序运行和并行运行。
 *   使用 `WorkInfo` 监视你的 `WorkRequest` 的状态。
 
-想亲自试试WorkManager吗?查看 codelab，包含 [Kotlin](https://codelabs.developers.google.com/codelabs/android-workmanager-kt/index.html?index=..%2F..index#0) 和 [Java](https://codelabs.developers.google.com/codelabs/android-workmanager/index.html?index=..%2F..index#0) 代码。
+想亲自试试 WorkManager 吗？查看 codelab，包含 [Kotlin](https://codelabs.developers.google.com/codelabs/android-workmanager-kt/index.html?index=..%2F..index#0) 和 [Java](https://codelabs.developers.google.com/codelabs/android-workmanager/index.html?index=..%2F..index#0) 代码。
 
 随着我们继续更新本系列，请继续关注有关 WorkManager 主题的更多博客文章。 有什么问题或者你希望我们写到的东西吗？请在评论区告诉我们！
 
-**感谢** [**Pietro Maggi.**](https://medium.com/@pmaggi)
+**感谢 [Pietro Maggi](https://medium.com/@pmaggi)**
 
 ### WorkManager 相关资源
 
 *   [官方文档](https://developer.android.com/topic/libraries/architecture/workmanager/)
 *   [参考指南](https://developer.android.com/reference/androidx/work/package-summary)
 *   [WorkManager 1.0.0-beta02 Release notes](https://developer.android.com/jetpack/docs/release-notes#january_15_2019)
-*   Codelab: [Kotlin](https://codelabs.developers.google.com/codelabs/android-workmanager-kt/index.html?index=..%2F..index#0) and [Java](https://codelabs.developers.google.com/codelabs/android-workmanager/index.html?index=..%2F..index#0).
-*   [源码(AOSP 的一部分)](https://android.googlesource.com/platform/frameworks/support/+/master/work)
+*   Codelab：[Kotlin](https://codelabs.developers.google.com/codelabs/android-workmanager-kt/index.html?index=..%2F..index#0) 和 [Java](https://codelabs.developers.google.com/codelabs/android-workmanager/index.html?index=..%2F..index#0).
+*   [源码（AOSP 的一部分）](https://android.googlesource.com/platform/frameworks/support/+/master/work)
 *   [Working with WorkManager (Android 开发者峰会 2018) presentation](https://www.youtube.com/watch?v=83a4rYXsDs0)
 *   [Issue Tracker](https://issuetracker.google.com/issues?q=componentid:409906)
 *   [StackOverflow 上面的 WorkManager 相关问题](https://stackoverflow.com/questions/tagged/android-workmanager)
