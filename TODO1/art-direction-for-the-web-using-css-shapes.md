@@ -363,7 +363,7 @@ article:nth-of-type(2) p:nth-of-type(2)::before {
 * “[重新审视 CSS Shapes](https://www.smashingmagazine.com/2018/09/css-shapes/)” Rachel Andrew 著
 * “[CSS Shapes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Shapes)” MDN 网络文档, Mozilla
 * “[在 CSS 上编辑形状路径](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_CSS_shapes)” MDN 网络文档, Mozilla
-* “[Web 的艺术设计: 一本新的畅销书](https://www.smashingmagazine.com/2019/03/art-direction-release/)” Smashing 杂志
+* “[Web 的艺术设计：一本新的畅销书](https://www.smashingmagazine.com/2019/03/art-direction-release/)” Smashing 杂志
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
