@@ -91,7 +91,7 @@ func play(song: Song) {
 
 在这种情况下，可能因为该方法在 App 里广泛使用，所以编译器决定不内联它。这种决定就造成了一个安全漏洞，使得 App 能够很容易地被逆向工程破解。
 
-现在看看给 `isUserSubscribed（_ :)` 添加了 `@inline(__always)` 后会发生什么：
+现在看看给 `isUserSubscribed(_ :)` 添加了 `@inline(__always)` 后会发生什么：
 
 ```swift
 @inline(__always) func isUserSubscribed() -> Bool {
