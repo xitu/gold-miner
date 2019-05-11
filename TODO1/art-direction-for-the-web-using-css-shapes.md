@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/art-direction-for-the-web-using-css-shapes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/art-direction-for-the-web-using-css-shapes.md)
 > * 译者：[xujiujiu](https://github.com/xujiujiu)
-> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)、[cyz980908](https://github.com/cyz980908)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [cyz980908](https://github.com/cyz980908)
 
 # Web 使用 CSS Shapes 的艺术设计
 
