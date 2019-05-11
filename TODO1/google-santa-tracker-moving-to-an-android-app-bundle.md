@@ -2,101 +2,101 @@
 > * 原文作者：[Chris Banes](https://medium.com/@chrisbanes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/google-santa-tracker-moving-to-an-android-app-bundle.md](https://github.com/xitu/gold-miner/blob/master/TODO1/google-santa-tracker-moving-to-an-android-app-bundle.md)
-> * 译者：
-> * 校对者：
+> * 译者：[phxnirvana](https://github.com/phxnirvana)
+> * 校对者：[portandbridge](https://github.com/portandbridge)
 
-# Google Santa Tracker — Moving to an Android App Bundle
+# 谷歌寻踪圣诞老人应用（Santa Tracker）迁移到 Android App Bundle 记录
 
 ![](https://cdn-images-1.medium.com/max/4240/1*ksxyyNT2V-A2N626DZ9D7A.png)
 
-**This post is the first in the series which explores the improvements made to the Google Santa Tracker Android app for 2018.**
+**本文是 2018 谷歌寻踪圣诞老人应用改进探索系列文章的第一篇。**
 
-Santa Tracker is an app which Google releases every year, allowing users to track Santa as he makes his way around the globe. Unfortunately Santa Tracker has drastically grown in size over the years, resulting in a hefty **60MB** download size in 2017. Our goal for the recent holiday season was to drastically reduce that, and this post talks through how we did that.
+寻踪圣诞老人是谷歌每年都会发布的一款应用，这款应用让人们可以在全球追寻圣诞老人的足迹。不幸的是，这款应用在经过几年的迭代后，体积剧增，2017 年甚至达到了 **60MB**。我们在刚刚过去的圣诞季的目标是帮它大量减肥，本文讲述了我们实现该目标的过程。
 
 ***
 
-If you’ve used the [Google Santa Tracker Android app](https://play.google.com/store/apps/details?id=com.google.android.apps.santatracker) you’ll know that it has two main features, the “Tracker” which allows users to track Santa as he makes his journey across the globe, and a collection of mini-games which are available to play throughout December, designed to help users to get into the holiday spirit 🎄.
+如果读者体验过 [寻踪圣诞老人应用](https://play.google.com/store/apps/details?id=com.google.android.apps.santatracker) 的话，就会发现该应用有两大特色，「追踪器」让用户得以在全球范围内寻觅圣诞老人，另外一系列在十二月提供的小游戏来帮助用户享受圣诞季🎄。
 
-The “Tracker” is the primary feature of the app and is where most of our usage comes from. The feature is actually only available for the 26 hours* before Christmas (December 24th), and during that time the tracker is the most used feature. To give you an idea of numbers, **37%** of all screen views (during December) happened on the 24th December, and over **65%** of screen views on that day were on the tracker.
+「追踪器」是该应用的主要功能，也是最多被用户使用的功能。该功能事实上只在圣诞节前 26 小时（12 月 24 日）可用，在此期间，追踪器是最多被使用的功能。更准确地说，在 12 月的所有界面使用统计中，**37%** 是在 12 月 24 日 使用的，而那一天，追踪器的使用率超过了 **65%**。
 
-So why is this important? Knowing what our primary feature was allowed us to think about what parts of the app were critical in the initial install, and which parts were secondary and could potentially be split out into separate modules which could be dynamically installed, making our initial install smaller. The 2017 app was released as a single APK which contained everything, including all of the games, even if the user did not play them.
+那么，为什么这项功能如此重要呢？只有了解我们的主要特色是什么，才能让我们想明白，哪些是应用首次安装时最关键的功能，哪些是次要的、可以移到另外 module 中动态下发的功能，这样就使得我们的首次安装体积变小。2017 年发布的 app 包含全部功能，其中包括全部的游戏，即使用户根本不玩这些游戏。
 
-We knew it was time for Santa Tracker to go on a diet, so we set a goal of shrinking our initial download size down to **just** 10MB 😥.
+是时候对寻踪圣诞老人动刀子了，我们设立了将首次下载体积减少到**仅仅** 10MB 的目标😥。
 
-Why that size you ask? Well it is shown to have a 30% higher conversion rate than a 100MB sized app. Santa Tracker is not an app where we track conversion rate but a lot of apps do. 10MB was also a very low goal to try and achieve, to see if it was even possible. For more info on the stats behind this, read this article from the [Google Play team](https://medium.com/googleplaydev):
+什么，为什么是这个数字？因为数据显示，相比 100MB 的应用，10MB 的应用提高了 30% 的转化率。当然，尽管许多应用都在追踪转化率，寻踪圣诞老人却并不是我们追踪转化率的 app。10MB 也是一个尝试起来很难达到的目标，我们想看看这究竟是不是可行的。关于更多统计背后的信息，可以阅读 [Google Play 团队](https://medium.com/googleplaydev) 的这篇文章：
 
-- [**Shrinking APKs, growing installs**: How your app’s APK size impacts install conversion rates](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)
+- [**体积越小，安装率越高**：应用 APK 的体积是如何影响安装率的](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)
 
-## Dynamic Delivery
+## 动态分发
 
-You may have heard about the new [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) format, which allows the Google Play store to dynamically deliver a customized app with only the parts relevant to the device. This was an easy first step for us. By simply uploading an AAB (Android App Bundle) instead of an APK, we instantly managed to reduce the download size by nearly **20%** to **48.5MB** (from 60MB). That’s a **huge** saving for the **tiny** amount of work we had to do!
+读者可能听说过 [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) 这项新技术，该技术使得 Google Play 商店可以动态下发仅仅和用户设备相关的定制应用。这项技术也帮助我们开了个好头。只需上传 AAB（Android App Bundle）来代替 APK，我们就马上让下载体积减少了将近 **20%** ，达到了 **48.5MB**（从 60MB）。们只不过是花了**一小步**的功夫，就在缩减体积方面迈进了**一大步**！
 
-> If you only take away one thing from reading this post, make sure it is to try uploading an AAB instead of an APK for your app. The chances are high that this small change will save your users time and money.
+> 如果只打算从本文中学一项技术，一定得是上传 AAB 来取代 APK。这一小改动有很大机会来节省用户的时间和金钱。
 
-So how does Google Play achieve that saving? By being able to deliver something optimized for a single device, the infrastructure can remove all of the language resources, density resources, and native libraries which are not applicable for the device. Example, if your device set to `fr-FR`, has a `xxhdpi` display, with an `arm64-v8a` CPU, the APK delivered will only include the necessary resources, and not for example, any strings localized to Spanish. You’d be surprised at how much space things like localized strings can take up.
+Google Play 是怎么实现这种瘦身的呢？这一做法能够分发针对个别设备的优化包，这么一来，相应工具就能从安装包中移除所有不适用于设备的语言资源、分辨率资源以及本地库。比如，如果你的设备设置是 `fr-FR`（法语），分辨率是 `xxhdpi` ，CPU是 `arm64-v8a` 架构的，下发的 APK 便只会包含必要的资源，而不会包含诸如针对西班牙语本地化的字符串之类的东西。当发现本地化字符串占用的空间有多大时，你一定会大吃一惊。
 
-Make sure to watch the ‘[Optimize Your App Size](https://www.youtube.com/watch?v=QdoEcfibG-s)’ talk from [Android Dev Summit ’18](https://developer.android.com/dev-summit/) for more info:
+不要忘了观看 [Android 开发大会 ’18](https://developer.android.com/dev-summit/) 上的 ‘[优化应用的体积](https://www.youtube.com/watch?v=QdoEcfibG-s)’ 演讲来获取更多信息：
 
 - YouTube 视频链接：https://youtu.be/QdoEcfibG-s
 
-## Feature modules
+## 功能模块
 
-While we made a good start, we were quite far away from our goal of 10MB! So we started thinking about which features of the app could be split out as dynamic feature modules, where they could be fetched on demand using the [Play Core library](https://developer.android.com/guide/app-bundle/playcore). Luckily our app was already logically split out into nice separate chunks: the games 🎮.
+尽管我们有着良好的开头，却仍距离 10MB 的目标十万八千里！所以我们开始考虑哪些功能可以被拆到动态功能模块中，用户可以通过 [Play Core library](https://developer.android.com/guide/app-bundle/playcore) 来获取所需的模块。好消息是我们已经按逻辑分离了一大模块：游戏🎮。
 
-A plan formed to convert each game into a separate feature module, and install them only when the user first chose to play that particular game. Sounds great, right? Well while logically the games were all separate, the code base was… **not**. It had grown over several years into a tangled heap of interdependent modules, layers of libraries modules underneath everything, and duplicate resources everywhere.
+于是便有了如下的计划：将每个游戏拆分到单独的功能模块中，并只当用户第一次打开特定游戏的时候才安装。听起来很棒，不是么？尽管逻辑上游戏都分离了，但基础代码却**并没有**分离。经过数年的功能变迁，它们已经缠缠绵绵难以分离了。应用中的库模块层层叠叠，而且到处是重复的资源。
 
-Our first job was to fix the tight coupling and assert some clean separation between the game modules. We painstakingly untangled all of the game modules so that each was a completely separate module, using the new `com.android.dynamic-feature` Gradle plugin. For any games which had shared dependencies (e.g, the ‘Penguin Swim’ and ‘Elf Jetpack’ games share a lot of code), the dependencies were added into the ‘base’ module so that they would be only installed once.
+我们的首要工作是将其解耦和，并在游戏模块之间建立足够清晰的边界。我们小心翼翼地分离了全部的游戏模块，通过使用新的 `com.android.dynamic-feature` Gradle 插件，现在每个游戏都是完全独立的模块了。对于那些有着相同依赖的游戏（比如 ‘Penguin Swim’ 和 ‘Elf Jetpack’ 共享了许多代码），依赖被添加到 ‘base’ 模块中，这样一来，就可以只安装一次（同时玩两个游戏）了。
 
-### Implementing feature modules
+### 功能模块的实现
 
-As discussed above, the majority of the work in moving to feature modules is actually organizing existing code, but there is still some integration which needs to be done with the [Play Core library](https://developer.android.com/guide/app-bundle/playcore) to hook it all up.
+正如之前说过的那样，模块迁移中占大头的工作是已有代码的重新组织，另外也有一些小的整合工作需要通过 [Play Core library](https://developer.android.com/guide/app-bundle/playcore) 来将其穿插起来。
 
-First let’s talk about the UX when a user launches a game. We start a ‘splash screen’ activity, which displays the logo and title of the game, and then after a brief period it launches the game. All of the information about the game to launch is passed to the splash activity as intent extras. This behavior has been the same in the app for a number of years and wasn’t something that we wanted to change. It did however provide a very nice integration point for fetching dynamic feature modules.
+首先是用户启动游戏时的 UX。我们首先打开显示 logo 和游戏标题的 ‘启动页（splash screen）’ activity，过一小段时间再运行游戏。运行游戏需要的全部信息都作为 intent extras 传送到启动页了。数年来该行为都没有变化，我们也并不打算修改这一行为。相反，我们从中找到了动态分发功能模块的切入点。
 
-For 2018 we updated the splash behavior so that we send four key pieces of information, the title of the game, game icon, Activity class to launch, and the ID of the feature module it is in. Once the splash activity is shown, it checks whether the relevant feature module is installed. If it is, it just launches the game as normal. If not, it requests an install via the Play Core library, displaying a progress bar indicating the ongoing download:
+2018 年我们更新了启动行为，发送了四点信息：游戏标题、游戏图标、要运行的 Activity 类以及该功能模块的 ID。一旦启动页展示出来，就检查是否安装了相关模块。如果安装了，就直接运行，反之则通过 Play Core library 请求安装，并展示下载进度条：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KPoBN-zNlJPVmjrIy8A8jQ.gif)
 
-We found out early on in testing that you need to be careful about the conditions in which you install a feature module. We did not want to inadvertently cost the user money by installing feature modules while they were on their mobile network. To combat that we added a confirmation dialog when we detected that the device was connected to a metered network (such as a mobile network):
+我们在早期测试中发现需要小心处理下载安装时的场景。我们并不想因为在用户处于移动网络时安装功能模块，而无意中让他们花钱。为了应对这种情形，我们在检测到当前网络是流量网络（如移动网络）时增加了确认对话框：
 
-![Confirmation dialog shown when the device is connected to a metered network](https://cdn-images-1.medium.com/max/2160/1*2qCP_mHG0gr4eKJ0Md0H1A.png)
+![当连接到流量网络时的确认对话框](https://cdn-images-1.medium.com/max/2160/1*2qCP_mHG0gr4eKJ0Md0H1A.png)
 
-The overall logic for this looks like this:
+整体逻辑如下：
 
 ```
 /* Copyright 2018 Google LLC.
    SPDX-License-Identifier: Apache-2.0 */
 
 override fun onCreate(savedInstanceState: Bundle?) {
-    // ... setup
+    // ... 安装
 
-    // Feature Module Id which contains the game
+    // 游戏功能模块的 Id 
     val featureModuleId = intent.getStringExtra(...)
 
     if (featureModuleName in splitInstallManager.installedModules) {
-        // The feature module is already installed, so just launch the game
+        // 功能模块已经安装，直接运行
         launchTargetActivity()
     } else {
-        // The feature is not installed so we need to request an install
+        // 功能模块没有安装，请求安装
         val mgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (mgr.activeNetworkInfo?.isConnected == true) {
-            // We have an active network...
+            // 有网络...
             if (mgr.isActiveNetworkMetered) {
-                // TODO ...but it is metered. Confirm with the user first
+                // TODO ...流量网络，请求用户确认
                 showMeteredNetworkConfirmDialog()
             } else {
-                // ...otherwise, just download the module
+                // ...否则，直接下载
                 startModuleInstall(featureModuleId)
             }
         } else {
-            // We have no network connection. Show a failure and finish
+            // 没有网络，显示错误框并退出
             onFeatureModuleLaunchFailure()
         }
     }
 }
 ```
 
-The `startModuleInstall()` method is a little more complex due to how the Play Core API works. You need to attach a listener which will be invoked during an install, and then request an install, like so:
+由于 Play Core API 的缘故，`startModuleInstall()` 的方法看起来有些复杂。需要在安装时添加一个用于回调的 listener，然后再请求安装，如下所示：
 
 ```
 /* Copyright 2018 Google LLC.
@@ -106,14 +106,14 @@ private lateinit var splitInstallManager: SplitInstallManager
 private lateinit var installListener: SplitInstallStateUpdatedListener
 
 private fun startModuleInstall(featureModuleId: String) {
-    // Start showing progress bar now
+    // 显示进度条
     progressbar.isVisible = true
     progressbar.isIndeterminate = true
 
-    // First attach our listener
+    // 添加 listener
     splitInstallManager.registerListener(installListener)
     
-    // And finally create a request and start the install
+    // 发送请求，开始安装
     val request = SplitInstallRequest.newBuilder()
             .addModule(featureModuleId)
             .build()
@@ -121,33 +121,33 @@ private fun startModuleInstall(featureModuleId: String) {
 }
 ```
 
-The listener will later receive an install complete signal, and finally we launch the game. You can find the complete code [here](https://github.com/google/santa-tracker-android/tree/master/santa-tracker/src/main/java/com/google/android/apps/santatracker/games/SplashActivity.kt).
+listener 会监听到安装完成的信号，然后运行游戏。可以在 [这里](https://github.com/google/santa-tracker-android/tree/master/santa-tracker/src/main/java/com/google/android/apps/santatracker/games/SplashActivity.kt) 找到完整代码。
 
-## Results
+## 成果
 
-If you’ve got this far into the post you probably want to see how we did…
+如果你读到这里了，一定会想知道我们的成果如何……
 
-Android Studio has a great way to analyze your App Bundles (and APKs), to drill down and see a download size value for each feature module. Using that we can see that our initial download size is 11.6MB (missing out on our 10MB goal), and our total download size is 25.5MB.
+Android Studio 分析 App Bundle（以及 APK）的工具相当好用，可以深入观察每个功能模块的下载体积。我们可以在其中看到我们应用的初始下载体积是  11.6MB （并没有达到 10MB 的目标），总下载体积是 25.5MB。
 
-![**Download size calculated using Analyze Bundle feature in Android Studio**](https://cdn-images-1.medium.com/max/3652/1*z6BiUOLlfqpwx58ywfSsVw.png)
+![**使用 Android Studio 中 Analyze Bundle 功能计算的下载体积**](https://cdn-images-1.medium.com/max/3652/1*z6BiUOLlfqpwx58ywfSsVw.png)
 
-![Chart showing how the module sizes compare](https://cdn-images-1.medium.com/max/3592/1*aamb-oJ9fhE-7VPpvHh-bA.png)
+![展示模块体积对比的图表](https://cdn-images-1.medium.com/max/3592/1*aamb-oJ9fhE-7VPpvHh-bA.png)
 
-But…. these values are only looking at the generated Android App Bundle archive, and do not take into account any savings which Google Play can provide through Dynamic Delivery (which we discussed above). The most sure way to see the download size for a particular device is by looking on the [Google Play Developer Console](https://play.google.com/apps/publish/). After uploading an App Bundle, you can see the delivered size for a typical device under ‘Release Management’ -> ‘Artifact Library’:
+但……这些值只展示了生成的 Android App Bundle 文件，并没有计算 Google Play 动态下发（上文讨论过）节省的体积。观察特定设备下载体积最准确的方式是在 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 中。上传 App Bundle 后，就可以在 ‘Release Management’ -> ‘Artifact Library’ 看到特定设备的下发包体积：
 
-![And the survey says…](https://cdn-images-1.medium.com/max/2516/1*yno3GA8adiZ14mVoxpwTVw.png)
+![计算结果是……](https://cdn-images-1.medium.com/max/2516/1*yno3GA8adiZ14mVoxpwTVw.png)
 
-You can see that we hit our 10MB goal and then some, with a download size of only **9.21MB**! Compared to the 2017 app, at 60MB, we’ve managed to reduce the size by **85%**! 🎉🎆
+可以看到我们达到了 10MB 的目标，下载体积只有 **9.21MB**！相比 2017 年 60MB 的应用，我们减少了 **85%** 的体积！ 🎉🎆
 
-![Actual footage from Santa HQ](https://cdn-images-1.medium.com/max/2048/1*UT_XNkjswxZIyvLT2l-nyg.gif)
+![高画质的实际截图](https://cdn-images-1.medium.com/max/2048/1*UT_XNkjswxZIyvLT2l-nyg.gif)
 
-### Benefits for all
+### 普惠众生
 
-Hopefully this post has shown you that moving to App Bundles can have massive benefits for your users. Yes, it can be a non-trivial amount of work to split out all of your modules, but the benefits of that work also enforce good code practices like cohesive and decoupled modules.
+希望本文展示了迁移到 App Bundle 可以带给用户的巨大收益。尽管分离模块并不是什么举手之劳，但好的代码实践诸如高内聚低耦合也会收益良多。
 
-One small caveat to the numbers above is that they also contain the results of the other size reduction techniques we used, including asset compression and moving to R8. We will discuss this more in the next blog post.
+关于上面的数字还有一小点要注意的是，其中也有我们使用的其他体积压缩技术的功劳，包括 asset 压缩和迁移到 R8。我们会在下篇文章中讨论这些。
 
-* **You might be wondering why 26 hours instead of 24? This is because the International date line [is not a straight line](https://en.wikipedia.org/wiki/International_Date_Line#/media/File:International_Date_Line.png). Kiribati has a timezone of [UTC+14](https://www.timeanddate.com/worldclock/difference.html?p1=274), which means a 26 hour time difference to Howland and Baker Islands, which use UTC-12.**
+* **读者可能会好奇为什么是 26 个小时而不是 24？这是因为国际日期变更线 [并不是一条直线](https://en.wikipedia.org/wiki/International_Date_Line#/media/File:International_Date_Line.png)。基里巴斯的时区是 [UTC+14](https://www.timeanddate.com/worldclock/difference.html?p1=274)，这意味着它和豪兰岛和贝克岛（UTC-12 时区）间有 26 小时的时差。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
