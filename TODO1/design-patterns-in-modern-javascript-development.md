@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-in-modern-javascript-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-in-modern-javascript-development.md)
 > * 译者：[Hyde Song](https://github.com/HydeSong)
-> * 校对者：[xujiujiu](https://github.com/xujiujiu)、[ezioyuan](https://github.com/ezioyuan)
+> * 校对者：[xujiujiu](https://github.com/xujiujiu), [ezioyuan](https://github.com/ezioyuan)
 
 # 现代 JavaScript 开发中的设计模式
 
@@ -17,7 +17,7 @@
 
 就像面向对象编程一样，我们开发人员正试图为我们周围的世界建模。因此，尝试并使用我们周围的世界作为工具来描述我们的作品同样有意义。
 
-在本例中，我们效仿建筑架构（有建筑和桥梁的）来举例。正如具有开创性的建筑架构书籍**《建筑模型语言》**（**Christopher Alexander，Sara Ishikawa，Murray Silverstein 著**）中对"模式"所描述的那样：
+在本例中，我们效仿建筑架构（有建筑和桥梁的）来举例。正如具有开创性的建筑架构书籍**《建筑模型语言》**（**Christopher Alexander，Sara Ishikawa，Murray Silverstein 著**）中对“模式”所描述的那样：
 
 > 每个模式都描述了我们环境中反复出现的问题，然后描述了该问题解决方案的核心，以这样的方式，你可以多次使用此解决方案，而不必以相同的方式重复使用两次。
 
@@ -130,9 +130,9 @@ RxJS 不仅允许你订阅主题，而且还允许你以可以想象的任何方
 
 你经常可以看到外观模式的地方是 Angular，它使用其服务作为简化背后潜在逻辑的一种方法。但是并不只 Angular 里有，在下一个例子中你会看到。
 
-假设你想要将状态管理添加到应用程序中。你可以选择 Redux，NgRx，Akita，MobX，Apollo 或者任何一个新成员，在这个代码块里到处出现。那么，为什么不把它们都挑出来，带着它们去兜一圈呢?
+假设你想要将状态管理添加到应用程序中。你可以选择 Redux、NgRx、Akita、MobX、Apollo 或者任何一个新成员，在这个代码块里到处出现。那么，为什么不把它们都挑出来，带着它们去兜一圈呢？
 
-状态管理库将为你提供哪些基本功能?
+状态管理库将为你提供哪些基本功能？
 
 可能是：
 
@@ -141,7 +141,7 @@ RxJS 不仅允许你订阅主题，而且还允许你以可以想象的任何方
 
 听起来还不错。
 
-现在，以你掌握的外观模式的能力，你可以为状态的每个部分编写外观，这将为你提供一个很好的 API —— 比如 `facade.startSpinner()`，`facade.stopSpinner()` 和 `facade.getSpinnerState()`。 这些方法真的很容易理解。
+现在，以你掌握的外观模式的能力，你可以为状态的每个部分编写外观，这将为你提供一个很好的 API —— 比如 `facade.startSpinner()`，`facade.stopSpinner()` 和 `facade.getSpinnerState()`。这些方法真的很容易理解。
 
 在此之后，你可以处理外观并编写代码，那段代码将转换你的代码，以便与 Apollo 一起工作（使用 GraphQL 管理状态——现在非常流行）。你可能会注意到它根本不适合你的编码风格，或者必须编写单元测试的方式真的不是你喜欢的。没问题，编写一个新的外观来支持 MobX。
 
@@ -153,13 +153,13 @@ RxJS 不仅允许你订阅主题，而且还允许你以可以想象的任何方
 
 既然我们在讨论书籍，那么深入研究一两种设计模式也无妨。
 
-首先强烈推荐的书必须是[**《设计模式：可重用面向对象软件的元素》**](http://wiki.c2.com/?DesignPatternsBook)，作者是 **Erich Gamma**、**Richard Helm**、**Ralph Johnson **和 **John Vlisside**，也称为**四人帮**。这本书价值连城，是**实际意义上**的软件设计模式圣经。
+首先强烈推荐的书必须是**[《设计模式：可重用面向对象软件的元素》](http://wiki.c2.com/?DesignPatternsBook)**，作者是 **Erich Gamma**、**Richard Helm**、**Ralph Johnson** 和 **John Vlisside**，也称为**四人帮**。这本书价值连城，是**实际意义上**的软件设计模式圣经。
 
 如果你想找一些更容易理解的东西，可以参考 **Bert Bates**、**Kathy Sierra**、**Eric Freeman** 和 **Elisabeth Robson** 的[《Head First 设计模式》](https://www.goodreads.com/book/show/58128.Head_First_Design_Patterns)。这是一本非常好的书，它试图通过视觉角度传达设计模式的概念。
 
 **最后但同样重要的是，没有什么比搜索谷歌，阅读和尝试不同的方法更好的了。即使你最终从未使用过一种模式或技术，你也会学到一些东西，并以意想不到的方式成长。**
 
-**插图中使用的对话气泡是由 [starline — www.freepik.com](https://www.freepik.com/free-photos-vectors/frame) 创作的**
+**插图中使用的对话气泡是由 [starline — www.freepik.com](https://www.freepik.com/free-photos-vectors/frame) 创作的。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
