@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/google-santa-tracker-moving-to-an-android-app-bundle.md](https://github.com/xitu/gold-miner/blob/master/TODO1/google-santa-tracker-moving-to-an-android-app-bundle.md)
 > * 译者：[phxnirvana](https://github.com/phxnirvana)
-> * 校对者：[portandbridge](https://github.com/portandbridge), 
+> * 校对者：[portandbridge](https://github.com/portandbridge)
 
 # 谷歌寻踪圣诞老人应用（Santa Tracker）迁移到 Android App Bundle 记录
 
