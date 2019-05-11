@@ -49,7 +49,7 @@ dependencies {
 }
 ```
 
- 你可以在[这里](https://developer.android.com/topic/libraries/architecture/adding-components#workmanager)找到该库的最新版本。如果你想使用 Java 依赖，那就移除“-ktx”。
+你可以在 这里](https://developer.android.com/topic/libraries/architecture/adding-components#workmanager) 到该库的最新版本。如果你想使用 Java 依赖，那就移除“-ktx”。
 
 ### 定义你的 work 做什么
 
@@ -193,7 +193,7 @@ WorkManager.getInstance().enqueue(uploadWorkRequest)
 *   **WorkerFactory**：一个默认工厂，用于创建 `Worker` 的实例。我们将在以后的博文中介绍为什么以及如何配置它。
 *   **Default Executor**：一个默认的执行程序，运行你的工作，除非你另行指定。这确保在默认情况下，你的工作是同步运行的，并且在主线程之外运行。
 
-* 这些部分可以被覆盖以具有不同的行为。
+* 这些部分可以被重写以具有不同的行为。
 
 ![](https://cdn-images-1.medium.com/max/800/1*1Wbw_Hi1u5SJ1QtJYemV4g.png)
 
@@ -207,15 +207,15 @@ WorkManager.getInstance().enqueue(uploadWorkRequest)
 
 通过这种方式，默认情况下，你的工作都可以保证执行脱离主线程运行。
 
-现在，如果你想使用除默认 `Executor` 之外的一些其他机制来运行你的工作，也是可以的！对协同程序（`CoroutineWorker`）和 RxJava（[`RxWorker`](https://developer.android.com/reference/androidx/work/RxWorker)）的开箱即用支持作为工作的手段。
+现在，如果你想使用除默认 `Executor` 之外的一些其他机制来运行你的工作，也是可以的！对协程（`CoroutineWorker`）和 RxJava（[`RxWorker`](https://developer.android.com/reference/androidx/work/RxWorker)）的开箱即用支持作为工作的手段。
 
 或者，你可以使用 [`ListenableWorker`](https://developer.android.com/reference/androidx/work/ListenableWorker) 准确指定工作的执行方式。`Worker` 实际上是 `ListenableWorker` 的一个实现，它默认在默认的 `Executor` 上运行你的工作，因此是同步的。所以，如果你想要完全控制工作的线程策略或异步运行工作，你可以将 `ListenableWorker` 子类化（具体细节将在后面的文章中讨论）。
 
-WorkManager 虽然将所有工作信息保存到数据库中有些麻烦，但它还是会做，这使得它成了非常适合需要保障执行的任务。这也是使得 WorkManager 轻松应对对于不需要保障且只需要在后台线程上执行的任务的的原因。例如，假设你已经下载了图像，并且希望根据该图像更改 UI 部分的颜色。这是应该脱离主线程运行的工作，但是，因为它与UI直接相关，所以如果关闭应用程序则不需要继续。所以在这样的情况下，不要使用 WorkManager —— 坚持使用像 [Kotlin 协同程序](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)那样轻量的东西或创建自己的 `Executor`。
+WorkManager 虽然将所有工作信息保存到数据库中有些麻烦，但它还是会做，这使得它成了非常适合需要保障执行的任务。这也是使得 WorkManager 轻松应对对于不需要保障且只需要在后台线程上执行的任务的的原因。例如，假设你已经下载了图像，并且希望根据该图像更改 UI 部分的颜色。这是应该脱离主线程运行的工作，但是，因为它与 UI 直接相关，所以如果关闭应用程序则不需要继续。所以在这样的情况下，不要使用 WorkManager —— 坚持使用像 [Kotlin 协程](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)那样轻量的东西或创建自己的 `Executor`。
 
 ### 使用链进行依赖性工作
 
-我们的滤镜示例包含的不仅仅是一个任务 —— 我们想要给多个图像加滤镜，然后压缩并上传。如果要一个接一个地或并行地运行一系列 `WorkRequests`，则可以使用[链](https://developer.android.com/topic/libraries/architecture/workmanager/advanced#chained)。示例图显示了一个链，其中有三个并行运行的滤镜任务，后面是压缩任务和上传任务，按顺序运行：
+我们的滤镜示例包含的不仅仅是一个任务 —— 我们想要给多个图像加滤镜，然后压缩并上传。如果要一个接一个地或并行地运行一系列 `WorkRequests`，则可以使用 [链](https://developer.android.com/topic/libraries/architecture/workmanager/advanced#chained)。示例图显示了一个链，其中有三个并行运行的滤镜任务，后面是压缩任务和上传任务，按顺序运行：
 
 ![](https://cdn-images-1.medium.com/max/800/0*4VeMy6t8hLS1OyrM)
 
@@ -255,7 +255,7 @@ val compressWorkRequest = OneTimeWorkRequestBuilder<CompressWorker>()
 
 因此，`compressWorkRequest` 的输入将最终成为映射到滤镜图像 URI 数组的 “KEY_IMAGE_URI” 对。
 
-### 监视你的 WorkRequest 状态
+### 观察你的 WorkRequest 状态
 
 监视工作的最简单方法是使用 [`LiveData`](https://developer.android.com/reference/android/arch/lifecycle/LiveData) 类。如果你不熟悉 LiveData，它是一个生命周期感知的可监视数据持有者 —— [这里](https://developer.android.com/topic/libraries/architecture/livedata) 对此有更详细的描述。
 
