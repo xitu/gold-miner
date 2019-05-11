@@ -2,8 +2,8 @@
 > * 原文作者：[Chris Banes](https://medium.com/@chrisbanes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/google-santa-tracker-moving-to-an-android-app-bundle.md](https://github.com/xitu/gold-miner/blob/master/TODO1/google-santa-tracker-moving-to-an-android-app-bundle.md)
-> * 译者：
-> * 校对者：
+> * 译者：[phxnirvana](https://github.com/phxnirvana)
+> * 校对者：[portandbridge](https://github.com/portandbridge), 
 
 # 谷歌寻踪圣诞老人应用（Santa Tracker）迁移到 Android App Bundle 记录
 
@@ -11,13 +11,13 @@
 
 **本文是 2018 谷歌寻踪圣诞老人应用改进探索系列文章的第一篇。**
 
-寻踪圣诞老人是谷歌每年都会发布的一款应用，这款应用让人们可以在全球追寻圣诞老人的足迹。不幸的是，这款应用在经过几年的迭代后，体积剧增，2017年甚至达到了 **60MB**。 我们在刚刚过去的圣诞季的目标是帮它大量减肥，本文讲述了我们实现该目标的过程。
+寻踪圣诞老人是谷歌每年都会发布的一款应用，这款应用让人们可以在全球追寻圣诞老人的足迹。不幸的是，这款应用在经过几年的迭代后，体积剧增，2017 年甚至达到了 **60MB**。我们在刚刚过去的圣诞季的目标是帮它大量减肥，本文讲述了我们实现该目标的过程。
 
 ***
 
 如果读者体验过 [寻踪圣诞老人应用](https://play.google.com/store/apps/details?id=com.google.android.apps.santatracker) 的话，就会发现该应用有两大特色，「追踪器」让用户得以在全球范围内寻觅圣诞老人，另外一系列在十二月提供的小游戏来帮助用户享受圣诞季🎄。
 
-「追踪器」是该应用的主要功能，也是最多被用户使用的功能。该功能事实上只在圣诞节前 26 小时*\（12 月 24 日）可用，在此期间，追踪器是最多被使用的功能。更准确地说，在 12 月的所有界面使用统计中，**37%** 是在 12 月 24 日 使用的，而那一天，追踪器的使用率超过了 **65%** 。
+「追踪器」是该应用的主要功能，也是最多被用户使用的功能。该功能事实上只在圣诞节前 26 小时（12 月 24 日）可用，在此期间，追踪器是最多被使用的功能。更准确地说，在 12 月的所有界面使用统计中，**37%** 是在 12 月 24 日 使用的，而那一天，追踪器的使用率超过了 **65%**。
 
 那么，为什么这项功能如此重要呢？只有了解我们的主要特色是什么，才能让我们想明白，哪些是应用首次安装时最关键的功能，哪些是次要的、可以移到另外 module 中动态下发的功能，这样就使得我们的首次安装体积变小。2017 年发布的 app 包含全部功能，其中包括全部的游戏，即使用户根本不玩这些游戏。
 
@@ -25,7 +25,7 @@
 
 什么，为什么是这个数字？因为数据显示，相比 100MB 的应用，10MB 的应用提高了 30% 的转化率。当然，尽管许多应用都在追踪转化率，寻踪圣诞老人却并不是我们追踪转化率的 app。10MB 也是一个尝试起来很难达到的目标，我们想看看这究竟是不是可行的。关于更多统计背后的信息，可以阅读 [Google Play 团队](https://medium.com/googleplaydev) 的这篇文章：
 
-- [**体积越小，安装率越高**: 应用 APK 的体积是如何影响安装率的](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)
+- [**体积越小，安装率越高**：应用 APK 的体积是如何影响安装率的](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)
 
 ## 动态分发
 
@@ -127,7 +127,7 @@ listener 会监听到安装完成的信号，然后运行游戏。可以在 [这
 
 如果你读到这里了，一定会想知道我们的成果如何……
 
-Android Studio 分析 App Bundle （以及 APK）的工具相当好用，可以深入观察每个功能模块的下载体积。我们可以在其中看到我们应用的初始下载体积是  11.6MB （并没有达到 10MB 的目标），总下载体积是 25.5MB。
+Android Studio 分析 App Bundle（以及 APK）的工具相当好用，可以深入观察每个功能模块的下载体积。我们可以在其中看到我们应用的初始下载体积是  11.6MB （并没有达到 10MB 的目标），总下载体积是 25.5MB。
 
 ![**使用 Android Studio 中 Analyze Bundle 功能计算的下载体积**](https://cdn-images-1.medium.com/max/3652/1*z6BiUOLlfqpwx58ywfSsVw.png)
 
