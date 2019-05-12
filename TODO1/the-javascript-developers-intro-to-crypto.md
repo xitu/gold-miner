@@ -2,57 +2,57 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-javascript-developers-intro-to-crypto.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-javascript-developers-intro-to-crypto.md)
-> * 译者：
+> * 译者：[Xuyuey](https://github.com/Xuyuey)
 > * 校对者：
 
-# The JavaScript Developer’s Intro to Crypto
+# 属于 JavaScript 开发者的 Crypto 简介
 
-### How to Build Apps on the Internet of Value
+### 如何在价值互联网（the Internet of Value）上构建 App
 
 ![Andrew M Whitman — Bristol Hot Air Balloon Festival 2015 (CC BY-NC-ND 2.0)](https://cdn-images-1.medium.com/max/4096/1*05ZhqragwnsDBx-9wK0EJw.jpeg)
 
-Over the next 2–4 years, the world of software development is going to change a lot. App users are expressing frustration about privacy violations and how little control they have over their own data. In the meantime, many industries are held back by process inefficiencies which are the result of centralization of power, money, and control.
+在接下来的 2-4 年中，软件开发的世界将会发生很大变化。用户对于隐私权的侵犯以及如何保护自己的数据表示很失望。与此同时，许多行业都受到低效流程的阻碍，这都是权利、金钱以及控制集中化的结果。
 
-Bitcoin disrupted that in 2009, and in the 10 years since, the foundations of a new internet have been forming: the internet of value. It’s now possible to buy, sell, loan, and transact money over the internet with no bank or central company in the middle, with radically lower fees than any company has ever offered before.
+2009 年比特币出现了，在此后的 10 年里，新的互联网基础已经形成：价值互联网。现在可以通过互联网购买、出售、贷款和交易货币，中间没有银行或者中央公司，其费用比以往任何公司都要低。
 
-The digital storage and transfer of value has opened up new economic models that were not possible before, such as [Theta Network](https://www.thetatoken.org/), which pays watchers to share their video bandwidth, building a high performance, decentralized video streaming platform. Theta is currently rewarding watchers with a cryptocurrency called TFUEL, which can be used to donate earnings to streamers (gamers who stream their live gameplay), or purchase items in a shop on [Sliver.tv](https://www.sliver.tv/win/theta). Eventually, TFUEL or currencies like it might be used to purchase in-game items: already a multi-billion dollar industry.
+对于价值的数字化存储和转移开辟了以前无法实现的新经济模式，例如 [Theta Network](https://www.thetatoken.org/)，它为观看者分享他们的视频带宽，构建高性能、分散的视频流平台付费。目前 Theta 正在通过一种名为 TFUEL 的加密货币来奖励观看者，它可以用来向 Streamer（那些以视频的方式上传自己游戏玩法的玩家）捐赠收入，或者在 Sliver.tv 的商店里购买物品。最终，TFUEL 或类似的货币可能会被用于购买游戏内的物品：这已经成为了一个价值数十亿美元的行业。
 
-## Smart Contracts — Replacing the Middle Man
+## 智能合约（Smart Contract） —— 取代中间人
 
-A smart contract is a program that runs on a decentralized architecture (such as a [blockchain](https://en.wikipedia.org/wiki/Blockchain) like [Ethereum](https://en.wikipedia.org/wiki/Ethereum)), which is capable of locking, unlocking, issuing, and transferring digital assets. For instance, it’s possible to issue your own cryptocurrency on top of networks like Ethereum. When you do, a smart contract governs those tokens, defining how many there are, how new supply is issued or limited, and how transfers of tokens are controlled.
+智能合约是一种在分散式架构（例如像 [Ethereum](https://en.wikipedia.org/wiki/Ethereum) 这样的 [blockchain](https://en.wikipedia.org/wiki/Blockchain)）上运行的程序，它能够对数字化资产进行加锁、解锁、发布以及传输。例如，可以在像 Ethereum 这样的网络上发布自己的加密货币。当你这样做时，智能合约会管理这些代币（token）（译者注：可流通的数字权益证明），定义代币的数量，如何发行代币或限制新的供应，以及如何控制代币的转移。
 
-You can also create a smart contract that represents fractional ownership in a building, or a smart contract that represents promises to supply computing services, such as information storage, bandwidth, or CPU power. The latter can be used to create economic incentives to supply decentralized versions of AWS, Google Cloud Platform, or Microsoft Azure. See [Storj.io](https://storj.io/) and [iExec](https://iex.ec/) for examples.
+你还可以创建一份表示某幢建筑物的部分所有权，或者一份代表承诺提供计算服务（例如信息存储、带宽或 CPU 功率）的智能合约。后者可用于为那些给 AWS、Google Cloud Platform 或 Microsoft Azure 提供分散版本的人进行经济奖励。有关示例，请参见 [Storj.io](https://storj.io/)和 [iExec](https://iex.ec/)。
 
-Smart contracts are beginning to replace the middleman. For example, if you have some ETH (Ethereum’s native cryptocurrency), [you can lend yourself money today](https://compound.finance/) and keep your ETH in the market while you use the loaned amount to buy a car or solve temporary cash flow issues.
+智能合约现在开始取代中间人。例如，如果你有一些 ETH（Ethereum 的本地加密货币），[你就可以在今天借钱给自己](https://compound.finance/)，并且当你使用贷款买车或解决临时现金流问题时，你还可以保持你的 ETH 在市场中流通。
 
-## Building Crypto Apps (DApps)
+## 构建加密应用程序（DApps）
 
-“Crypto” is short for “cryptography”, but it’s become the short way of saying “the industry dealing with blockchain, cryptocurrencies, decentralized applications, and decentralized ledger technologies”.
+“Crypto” 是 “cryptography” 的缩写，它已经成为“行业处理区块链、加密货币、分散式应用和分散式分类账技术”的简称。
 
-If you want to build an app that doesn’t rely on Amazon for hosting, or Facebook for social graph, or Google for user authentication, that can be open-sourced and could continue to operate as long as there are community members willing to run nodes, (think BitTorrent) you’re in the right place.
+如果你想构建一个不依赖 Amazon 进行托管的应用程序，或者用于社交图谱的 Facebook，或者用于用户身份验证的 Google，只要有社区成员愿意运行（和维护），它就可以成为开源的并且可以持续运行下去，（想想 BitTorrent）你来对了地方。
 
-We’ll start with Ethereum, although these days, Ethereum isn’t the only choice. Ethereum is a blockchain designed to host Turing-complete smart contracts capable of supporting DApps (Decentralized Applications).
+我们将从 Ethereum 开始，尽管如今，Ethereum 不是唯一的选择。Ethereum 是一种区块链，旨在托管能够支持图灵完备智能合约的 DApps（分散式应用）。
 
-My first tip if you’re new to building DApps is that if you want to build DApps, first learn HTML, CSS, and JavaScript. Ethereum uses a virtual machine, and the most popular programming language for the Ethereum Virtual Machine (EVM) is Solidity.
+如果你想构建 DApps，但又是第一次接触，那我建议你先学习 HTML、CSS 和 JavaScript。Ethereum 使用虚拟机，而 Ethereum 虚拟机（EVM）最流行的编程语言是 Solidity。
 
-I don’t recommend thinking of your app in terms of Solidity and what you can do with the EVM. Instead, try to imagine what you can do when there are digital assets which can be securely transmitted to other people without a bank or broker in the middle. Try to imagine the most user-friendly way to represent those capabilities in your app.
+我建议不要从 Solidity 或者 EVM 能做些什么开始考虑你的应用。相反，试着想象一下，当数字资产可以安全地传输给其他人而没有中间的银行或经纪人时，你可以做些什么。试着想象一下在应用中如何用对用户友好的方式表示这些功能。
 
-The one thing that is difficult to get around without building a wallet right into your application is interacting with wallet APIs. For example, on Ethereum, you’d use the [Web3 API](https://web3js.readthedocs.io/en/1.0/) to trigger wallet transactions that require interaction from the user. Up until now, that has been mostly bad news, because it requires users to download the [Metamask extension](https://metamask.io/), or an Ethereum-capable browser such as the [Trust Wallet](https://trustwallet.com/) or [Coinbase Wallet](https://wallet.coinbase.com/). Both Trust Wallet and Coinbase Wallet are really just Web3-aware browsers with built-in wallets and transaction approval UIs.
+如果不在应用中构建钱包，那么和钱包 API 进行交互将会很难处理。例如，在 Ethereum 上，你必须使用 [Web3 API](https://web3js.readthedocs.io/en/1.0/) 来触发需要用户交互的钱包交易。到目前为止，好像一直都是坏消息，因为它要求用户下载 [Metamask 扩展](https://metamask.io/) ，或者支持 Ethereum 的浏览器，如 [Trust Wallet](https://trustwallet.com/) 或 [Coinbase Wallet](https://wallet.coinbase.com/)。Trust Wallet 和Coinbase Wallet 都仅仅只是具有内置钱包和交易批准 UI 的 Web3 感知浏览器。
 
-Getting users to install and use an extension or a whole new browser is really hard, and very close to zero percent of your potential users will do it. That has crippled the DApp industry to date, and has severely limited the Web3 userbase.
+让用户安装和使用扩展程序或是全新的浏览器非常困难，几乎没有潜在用户会这样做。到目前为止，这已经严重影响了 DApp 行业，并严重限制了 Web3 的用户群体。
 
-Recently, some of the most popular DApps (like [Sliver.tv](https://www.sliver.tv/)) have integrated wallets right inside the DApp. In those cases, you don’t need a 3rd party wallet integration. You can make your app work in Chrome. The downside is that it’s more centralized: users need to place more faith in your DApp — which places more security responsibility on the DApp developer.
+最近，一些最受欢迎的 DApps（如 [Sliver.tv](https://www.sliver.tv/)）在 DApp 内部内置了钱包。在这些情况下，你不需要第三方钱包集成。你可以在 Chrome 中使用自己的应用。缺点是它更集中化：用户需要更加信任你的 DApp —— 这使得 DApp 开发人员必须肩负更多的安全责任。
 
-It would probably be crazy for every DApp that wants to work natively in Chrome to build its own integrated wallet. Luckily, new solutions are emerging. [Fortmatic](https://fortmatic.com/) is a JavaScript Software Development Kit (SDK) which provides Web3 capabilities inside Chrome. No need for your users to download extensions or special browsers.
+对于每一个想要以原生的方式在 Chrome 中构建自己的集成钱包 DApp 来说，这几乎是疯狂的。幸运的是，新的解决方案正在兴起。[Fortmatic](https://fortmatic.com/) 是一个 JavaScript 软件开发工具包（SDK），它在 Chrome 中提供 Web3 功能。你的用户将无需下载扩展程序或者特殊浏览器。
 
-Let’s build a simple DApp that works in Chrome without any extensions or separate downloads required.
+让我们来构建一个无需任何扩展或单独下载，可以在 Chrome 中运行的简易 DApp。
 
-## Project Setup
-> **Note:** Details like this tend to change quickly. If they don’t work for you, leave a comment. Maybe somebody can help you figure it out.
+## 项目设置
+> **注意：** 这样的小细节往往会更新得很快。如果它们不工作了，请在下面留言。也许有人可以帮你搞清楚。
 
-1. Open a [terminal](https://www.codecademy.com/learn/learn-the-command-line). Make sure you have Node installed (I like to [install Node with nvm](https://github.com/nvm-sh/nvm#installation-and-update)).
+1. 打开一个 [终端](https://www.codecademy.com/learn/learn-the-command-line)。确保安装了 Node（我喜欢用 [nvm 安装 Node](https://github.com/nvm-sh/nvm#installation-and-update)）。
 
-2. Create your project directory and install some dependencies:
+2. 创建项目目录并安装一些项目依赖：
 
 ```
 mkdir hello-eth
@@ -70,7 +70,7 @@ npm install --save-dev @babel/core @babel/register \
   eslint-plugin-react-hooks prettier riteway watch tap-nirvana
 ```
 
-3. Open `package.json` and replace the “scripts” value with the following:
+3. 打开 `package.json` 并按照下面的内容替换 “scripts” 值：
 
 ```
 {
@@ -83,7 +83,7 @@ npm install --save-dev @babel/core @babel/register \
 }
 ```
 
-4. Create some directories:
+4. 创建一些目录：
 
 ```
 mkdir pages
@@ -91,7 +91,7 @@ mkdir src
 mkdir src/views
 ```
 
-5. Add some files to the project root directory.
+5. 将这些文件添加到项目根目录下：
 
 `.babelrc`:
 
@@ -158,7 +158,7 @@ node_modules
 
 ## Hello, World!
 
-Now create `src/views/index.js`:
+现在创建 `src/views/index.js`：
 
 ```
 import React from 'react';
@@ -168,37 +168,37 @@ const Hello = () => <h1>Hello, world!</h1>;
 export default Hello;
 ```
 
-With [Next.js](https://nextjs.org/), any file you drop in `/pages` will create a route automatically at `/\<page-name>` minus the `.js` file extension. It also does automatic server-rendering, automatic bundle creation and optimization, and when you deploy with Zeit Now, it will do a lot of cool things to automatically optimize client delivery. This is all good news when it’s time to ship your app to production, but the real reason we’ve used Next.js is because it’s my favorite way to bootstrap a working React app.
+使用 [Next.js](https://nextjs.org/)，你放入 `/pages` 下的任何文件将在 `/<page-name>` 下自动创建一个减去 `.js` 文件扩展名的路由。它还可以做到自动化的服务端渲染、自动化的 bundle 构建和优化，当你使用 Zeit Now 进行部署时，它会做很多很酷的事情来自动优化客户端交付。当你的应用切换到生产模式时，这都是好消息，但我们使用 Next.js 的真正原因是因为它是我最喜欢的辅助 React 应用的方法。
 
-Next.js has built-in CSS support with `\<style jsx>` and you don’t need to figure out how to manually wire up your routing. Let’s get our index view routing right now. Just create a new file called `pages/index.js`:
+Next.js 具有内置的 `\<style jsx>` CSS 支持，而且你不用知道如何手动连接路由。现在让我们现在来获取 index 的视图路由。你只需创建一个名为 `pages/index.js` 的新文件：
 
 ```
 import Home from '../src/views';
 export default Home;
 ```
+ 
+只需导入视图，然后再将它导出，仅此而已。我喜欢将真正的组件定义保存在 `src/` 目录树中，这样我就可以轻松地将相关文件放在同一个位置，而不会意外地为它们创建一堆路由。换句话说，`/pages` 仅用于路由。`/src` 用于存放真正的源代码。
 
-That’s it. Just import the view, and export the same view. I like to keep the actual component definitions in the `src/` directory tree so that I can easily colocate related files in the same spot without accidentally creating a bunch of routes for them. In other words, `/pages` is for routing-only. `/src` is for the real source code.
+## 给我展示一下 Crypto 部分
 
-## Show Me the Crypto
+到目前为止，你刚刚看到的是 JavaScript 和 React 代码。对于 crypto/DApp 开发人员来说，好消息是至少有 75％ 的项目代码（可能更多）都是用 JavaScript 编写的，而 React 是一个很棒的 UI 代码框架。但是，如果你要在价值互联网上进行交易，你可能需要使用一些 crypto API。
 
-So far you’ve just seen JavaScript and React code. The good news for crypto/DApp developers is that at least 75% of your project code (probably a lot more) will be written in JavaScript, and React is a great framework for UI code. But if you’re going to transact on the internet of value, you’ll probably need to work with some crypto APIs.
+在刚开始进行设置时，我们使用 `npm` 安装了 Fortmatic 和 Web3。现在我们将它们导入我们的 index 页面，以便我们可以在代码中使用它们。首先，你需要[设置 Fortmatic 帐户](https://dashboard.fortmatic.com/login)才能获得你的 API 密钥。
 
-At the beginning of the setup, we installed Fortmatic and Web3 with `npm`. Now we’re going to import them into our index page so we can use them. First, you’ll need to [set up a Fortmatic account](https://dashboard.fortmatic.com/login) to get your API key.
+你应该能够使用 [GitHub](https://github.com/) 注册，然后立即就可以获取到你的 testnet 密钥。Fortmatic 会自动在 testnet 上发送新用户的 ETH 进行试验。
 
-You should be able to sign up with [GitHub](https://github.com/) and immediately grab your testnet key. Fortmatic will automatically send new users ETH on testnet to experiment with.
+Fortmatic 是 Ethereum 区块链 API 服务的监管提供商，还提供了非常友好的用户登录体验。用户可以使用电话号码登录你的应用。他们将获得一个安全码 SMS，然后用它来验证你的应用。完成后，你就可以获得用户的钱包地址。
 
-Fortmatic is a custodial provider of Ethereum blockchain API services, including a very user-friendly sign-in experience. Users sign into your app by supplying their phone number. They’ll get a security code SMS, which they’ll use to authenticate with your app. You’ll get the user’s wallet address when that’s done.
+Fortmatic 使用由 Fortmatic 硬件安全模块（HSM）保护的加密锚安全架构来存储用户私钥。
 
-Fortmatic stores user private keys using the cryptographic anchor security architecture safeguarded by Fortmatic’s Hardware Security Modules (HSMs).
+作为想要真正黏住用户的 DApp 开发人员来说，这很有吸引力，因为作为先决条件，将存储密钥的责任和复杂性推给用户并不是一种对用户友好的方式。自己处理它是有风险的。Fortmatic 为我们提供了一个很好的缓冲区。
 
-As a DApp developer looking for real user traction, this is attractive because pushing the responsibility and complexity of key storage onto users as a prerequisite is not a friendly way to onboard users. Handling it yourself is risky. Fortmatic provides a great middle ground.
-
-You can still allow users to claim custody of assets from their Fortmatic wallets by allowing them to transfer those assets to their own privately managed wallets. Let’s add Fortmatic authentication to our `src/views/index.js` component:
+通过允许用户将这些资产转移到他们自己的私人托管钱包中，你仍然可以允许用户来声明他自己的 Fortmatic 钱包资产保管权。让我们为我们的 `src/views/index.js` 组件添加 Fortmatic 身份验证：
 
 ```
 import React, { useEffect } from 'react';
 
-// import web3 providers
+// 导入 web3
 import Fortmatic from 'fortmatic';
 import Web3 from 'web3';
 
@@ -209,17 +209,17 @@ const initializeWeb3 = () => {
   const web3 = new Web3(fm.getProvider());
   window.web3 = web3;
 
-  // Get current user account address.
-  // Will authenticate the user if needed.
+  // 获取当前用户帐户地址。
+  // 如果需要，验证用户身份。
   web3.eth.getAccounts().then(accounts => {
-    // You can use the wallet address as a key
-    // to store and retrieve user data for your DApp.
+    // 你可以使用钱包地址作为密钥
+    // 来存储和检索 DApp 的用户数据。
     console.log(accounts);
   });
 };
 
 const Hello = () => {
-  // React hook fires once, when the component mounts
+  // 当组件挂载时，React hook 会被触发；
   useEffect(initializeWeb3, []);
 
   return <h1>Hello, world!</h1>;
@@ -228,15 +228,15 @@ const Hello = () => {
 export default Hello;
 ```
 
-Once a user is logged in with Fortmatic, you have the Web3 API at your disposal. You can [build wallet UIs](https://repl.it/@fortmatic/demo-wallet) on top of it, have the users cryptographically sign data, and [issue method calls](https://developers.fortmatic.com/docs/generic-contract-call) on Ethereum smart contracts.
+一旦用户使用 Fortmatic 登录，你就可以使用 Web3 API。你可以在其上[构建钱包 UI](https://repl.it/@fortmatic/demo-wallet)，让用户以加密方式签署数据，并在 Ethereum 智能合约上[发布调用方法](https://developers.fortmatic.com/docs/generic-contract-call)。
 
-## Tips for Scaling DApps
+## 扩展 DApps 的技巧
 
-The first rule of blockchains is you should do as little as possible on the blockchain. Storing data on the blockchain is expensive (See [IPFS](https://ipfs.io/) instead).
+区块链的第一条规则是在区块链你应该尽可能少做事。在区块链上存储数据非常昂贵（请参阅 [IPFS](https://ipfs.io/)）。
 
-Batch transactions if you can. Learn how to anchor [signed verifiable claims](https://w3c.github.io/vc-data-model/) using [Merkle Trees](https://en.wikipedia.org/wiki/Merkle_tree). Check out [The Graph protocol](https://thegraph.com/) for efficient blockchain queries.
+如果可以的话，尽量选择批量交易。了解如何使用 [Merkle Trees](https://en.wikipedia.org/wiki/Merkle_tree)锚定[已签名的可验证声明](https://w3c.github.io/vc-data-model/)。查看 [Graph 协议](https://thegraph.com/) 来获取有效的区块链查询方法。
 
-You may need to build your own smart contracts to pull off your idea. That’s a lesson for another day.
+你可能需要建立自己的智能合约以实现你的想法。这个会在以后的文章中细说。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
