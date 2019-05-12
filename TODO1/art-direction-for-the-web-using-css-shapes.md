@@ -130,9 +130,9 @@ main p:first-child::before {
 
 当从左到右，从上到下阅读时，Z 型是我们眼睛所遵循的熟悉路径。通过沿着 Z 形的隐藏线放置内容，有助于引导读者沿着我们希望的路径阅读，例如 Call-To-Action（行动召唤）。低调的做法是用焦点或具有更高视觉重量的元素暗示，明显的做法则是使用 CSS Shapes。
 
-![在两个形状之间放入一小段文本，会形成一个 Z 形，它表明了在驾驶这款标志性小型车时，人们会感受到速度和乐趣](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57236ebd-12ee-4e43-8bde-55ee99b7de76/img-8.png)
+![在两个形状之间放入一小段文本，会形成一个 Z 形，它表明了在驾驶这款标志性小型车时，人们会感受到的速度和乐趣](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57236ebd-12ee-4e43-8bde-55ee99b7de76/img-8.png)
 
-在两个形状之间放入一小段文本，会形成一个 Z 形，它表明了在驾驶这款标志性小型车时，人们会感受到速度和乐趣。
+在两个形状之间放入一小段文本，会形成一个 Z 形，它表明了在驾驶这款标志性小型车时，人们会感受到的速度和乐趣。
 
 在这个设计中，一个不明显的 Z 型形成如下:
 
@@ -219,7 +219,7 @@ CSS Shapes 最迷人的一个方面是如何使用部分透明图像中的 alpha
 
 #### 更多的边距
 
-为这种弯曲的设计添加移动文本不仅仅依赖于 CSS 形状。使用视口宽度单位，我为标题，图像和运行文本提供不同的左边距，每个边距与视口的宽度成比例。这会从我的标题后面到汽车前部形成一条对角线：
+为这种弯曲的设计添加移动文本不仅仅依赖于 CSS 形状。使用视口宽度单位，我为标题，图像和运行文本提供不同的左边距，每个边距与视口的宽度成比例。这会从我的标题尾部到汽车头部形成一条对角线：
 
 ```css
 h1 {
@@ -355,7 +355,7 @@ article:nth-of-type(2) p:nth-of-type(2)::before {
 
 像 CSS Shapes 这样的工具现在为我们提供了无数可以利用艺术设计吸引读者的注意力并让他们保持参与的机会。我希望你现在和我一样兴奋！
 
-**编者注: Andy 的新书，Web 艺术设计（[预购地址](https://www.smashingmagazine.com/printed-books/art-direction-for-the-web/)），探索了 100 年的艺术设计，以及我们如何利用这些知识和最新的网络技术来创造更好的数字产品。[阅读摘录章节](http://provide.smashingmagazine.com/eBooks/Art-direction-FTW-excerpt.pdf?_ga=2.206394323.1550887490.1554923173-204951999.1554923173)，了解这本书的内容。**
+**编者注: Andy 的新书，《Web 艺术设计》（[预购地址](https://www.smashingmagazine.com/printed-books/art-direction-for-the-web/)），探索了 100 年的艺术设计，以及我们如何利用这些知识和最新的网络技术来创造更好的数字产品。[阅读摘录章节](http://provide.smashingmagazine.com/eBooks/Art-direction-FTW-excerpt.pdf?_ga=2.206394323.1550887490.1554923173-204951999.1554923173)，了解这本书的内容。**
 
 #### 更多资源
 
