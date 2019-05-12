@@ -27,7 +27,7 @@
 
 你可以在意想不到的地方找到灵感，例如这些古董广告。
 
-在过去几年里，我已经将灵感填满了 Dropbox 文件夹，我真的应该把这些实例转移到 Pinterest 上。幸运的是, 比我勤奋的 Kristopher Van Sant 已经在收集一个充满启发性的 [‘形状文本’的例子](https://www.pinterest.co.uk/kisstafurr/shapes-of-text/) 的 Pinterest 板了。
+在过去几年里，我已经在 Dropbox 文件夹放满了我的灵感，我真的应该把这些实例转移到 Pinterest 上。幸运的是，比我勤奋的 Kristopher Van Sant 已经在收集一个充满启发性的 [‘形状文本’的例子](https://www.pinterest.co.uk/kisstafurr/shapes-of-text/) 的 Pinterest 板了。
 
 形状为设计增加了活力，而且这种操作吸引了人们。它们有助于**将观众与你的故事联系起来**，并在你的视觉和书面内容之间建立更紧密的联系。
 
@@ -60,9 +60,9 @@ img {
 
 ### 1. V 型
 
-对于我来说，现代 CSS 中最令人难以置信的一个方面是我不需要绘制多边形路径就可以从部分透明图像的 alpha 通道创建一个形状。我仅需要创建一个图像，剩下的事情浏览器都可以处理。
+对我来说，现代 CSS 一个超棒的地方就是，我不用绘制多边形路径，就可以用部分透明图像的 alpha 通道创建一个形状。我仅需要创建一个图像，剩下的事情浏览器都可以处理。
 
-我认为这是 CSS 中最令人惊喜的补充之一，它使得拓展 Web 艺术方向更加简单，特别是在你开发内容管理系统或动态生成的内容时。
+我认为这是 CSS 中最令人惊喜的补充之一，它使得开发 Web 艺术设计更加简单，特别是在你开发内容管理系统或动态生成的内容时。
 
 ![左：没有 CSS 形状，这种设计感觉枯燥无生气。右图：创建 V 形使这种设计更具特色和吸引力。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/165e495e-1a22-449a-9d86-192fa6dec7be/img-3-4.png)
 
@@ -90,7 +90,7 @@ img {
 
 ![一个 CSS 形状的例子](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/292b2666-7718-49b4-b82a-54052f1bbfc7/img-4.png)
 
-使用图像开发形状时，请注意 CORS（跨源资源共享）。你必须在与产品或网站相同的域中托管图像。如果你使用 CDN ，请确保它发送正确的标头以启用形状。值得注意的是，在本地测试形状的唯一方法是使用 Web 服务器。`file://` 协议根本不起作用。
+使用图像开发形状时，请注意 CORS（跨源资源共享）。图像必须与产品或网站托管在同一个域里。如果你使用 CDN，请确保它发送正确的标头以启用形状。值得注意的是，在本地测试形状的唯一方法是使用 Web 服务器。`file://` 协议根本不起作用。
 
 #### Generated Content 模块
 
@@ -98,7 +98,7 @@ img {
 
 > “你还可以使用图像作为形状的路径来创建弯曲文本的效果，但不包括页面上的图像。但是，你仍需要浮动内容，因此，我们可以使用 Generated Content 模块。”
 
-作为 alpha 通道的替代，我可以使用 Generated Content — 应用于两个伪元素 - 一个用于左边的多边形，另一个用于右边。运行的文本将在两个生成的形状之间流动：
+作为 alpha 通道的替代，我可以使用 Generated Content — 应用于两个伪元素 — 一个用于左边的多边形，另一个用于右边。运行的文本将在两个生成的形状之间流动：
 
 ```css
 main::before {
@@ -124,19 +124,19 @@ main p:first-child::before {
 
 ![在多个允许展示文本形状的转折点处调整 alpha 图像的宽度以完美匹配其视口。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e55053ee-9096-4093-8bd5-4fd93a4e3411/img-5-6.png)
 
-在多个允许展示文本形状的转折点处调整 alpha 图像的宽度以完美匹配其视口。
+在多个转折点处调整 alpha 图像的宽度，使之能够展示文本形状，以完美匹配其视口。
 
 ### 2. Z 型
 
-当从左到右，从上到下阅读时，Z 型是我们眼睛所遵循的熟悉路径。通过沿着 Z 形的隐藏线放置内容，有助于引导读者沿着我们希望的路径阅读，例如 Call-To-Action（行动召唤）。Z 型也是严谨的 - 由焦点或具有更高视觉重量的元素暗示 - 或者使用 CSS Shapes。
+当从左到右，从上到下阅读时，Z 型是我们眼睛所遵循的熟悉路径。通过沿着 Z 形的隐藏线放置内容，有助于引导读者沿着我们希望的路径阅读，例如 Call-To-Action（行动召唤）。低调的做法是用焦点或具有更高视觉重量的元素暗示，明显的做法则是使用 CSS Shapes。
 
 ![通过在两个形状之间驱动一小段文本来创建的 Z 形表明了驾驶这款标志性小型车时的速度和乐趣。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57236ebd-12ee-4e43-8bde-55ee99b7de76/img-8.png)
 
-通过在两个形状之间驱动一小段文本来创建的 Z 形表明了驾驶这款标志性小型车时的速度和乐趣。
+在两个形状之间放入一小段文本，会形成一个 Z 形，它表明了在驾驶这款标志性小型车时，人们会感受到速度和乐趣的速度和乐趣。
 
-在这个设计中, 一个严谨的 Z 型形成如下:
+在这个设计中，一个不明显的 Z 型形成如下:
 
-1. 大图片横穿整个页面宽度，断点强调右对齐的标题。
+1. 大图片横穿整个页面宽度，右对齐的标题强调 end-point。
 2. 运行文本块由两个 CSS Shapes 组成。
 3. 作为页脚的图形上的厚顶边框完成了 Z 型。
 
@@ -159,7 +159,7 @@ main p:first-child::before {
 </figure>
 ```
 
-我的页面宽度横跨标题和图形的设计没什么需要说明的，但是两个多边形之间的流动文本设计有点复杂。为了实现这种 z 型设计，我选择将两个 1 x 1 px 的微小图像，放置到使用 `shape-outside` 的两个大的形状图像上。通过给这些图像设置 `aria-hidden` 属性，浏览器就不会绘制他们。
+横跨整页的标题和图形的设计没什么需要说明的，但是两个多边形之间的流动文本设计有点复杂。为了实现这种 z 型设计，我选择将两个 1 x 1 px 的微小图像，放置到使用 `shape-outside` 的两个大的形状图像上。通过给这些图像设置 `aria-hidden` 属性，浏览器就不会绘制他们。
 
 给两个形状图像提供相同的尺寸后，我向左浮动一个图像，向右浮动另一个图像，这样我的运行文本就可以在它们之间流动：
 
@@ -186,11 +186,11 @@ main p:first-child::before {
 
 左图：一种缺乏活力的可展现但却很普通的设计。右图：使用 CSS Shapes 展示了乐趣和速度。
 
-标志性的 mini Cooper 驾驶起来快速而有趣。我的设计在没有通过 CSS Shapes 产生的 Z 型下也能完美呈现，但这种布局看起来很普通并且缺乏活力。通过在两个形状之间操作一小段流动文本创建的 Z 型暗示了驾驶这辆标志性小型车时的速度和乐趣。
+标志性的 Mini Cooper 驾驶起来快速而有趣。我的设计在没有通过 CSS Shapes 产生的 Z 型下也能完美呈现，但这种布局看起来很普通并且缺乏活力。通过在两个形状之间操作一小段流动文本创建的 Z 型暗示了驾驶这辆标志性小型车时的速度和乐趣。
 
 ### 3. 弯曲型
 
-CSS Shapes 最迷人的一个方面是如何使用部分透明图像中的 alpha 通道创建优雅的形状。这种形状可以使我想象到的任何东西。我只需要创建一个图像，浏览器将会在它周围流动内容。
+CSS Shapes 最迷人的一个方面是如何使用部分透明图像中的 alpha 通道创建优雅的形状。这种形状可以是我想象到的任何东西。我只需要创建一个图像，浏览器将会在它周围流动内容。
 
 虽然 [CSS Shapes 模块 2 级规范](https://drafts.csswg.org/css-shapes-2/) 中已经提出将内容限制在形状内，但目前无法知道是否以及何时可以在浏览器中实现。然而 `shape-inside` 不可用（目前！），这并不意味着我无法使用 `shape-outside` 创建类似的结果。
 
@@ -209,7 +209,7 @@ CSS Shapes 最迷人的一个方面是如何使用部分透明图像中的 alpha
 }
 ```
 
-为了在我的形状和在其周围流动的内容之间留出一些距离，`shape-margin` p属性在第一个形状的轮廓之外绘制出更多的形状。我可以使用任何 CSS 绝对长度单位 - 毫米，厘米，英寸，派卡，像素和点 - 或相对单位（ `ch`、`em`、`ex`、`rem`、`vh` 和 `vw`）：
+为了在我的形状和在其周围流动的内容之间留出一些距离，`shape-margin` 属性在第一个形状的轮廓之外绘制出更多的形状。我可以使用任何 CSS 绝对长度单位 - 毫米，厘米，英寸，派卡，像素和点 - 或相对单位（ `ch`、`em`、`ex`、`rem`、`vh` 和 `vw`）：
 
 ```css
 [src*="curve"] {
@@ -237,7 +237,7 @@ p {
 
 ### 4. 对角线型
 
-角度可以使布局看起来不那么结构化，感觉更有生机。没有明确的结构能让视野在组合物周围自由漫游。这种操作也能产生一种有活力的布局。
+角度可以使布局看起来不那么结构化，感觉更有生机。不设置明确的结构，能让视野在组合物周围自由漫游。这种操作也能产生一种有活力的布局。
 
 我每天看到都是绕水平轴和垂直轴设置的设计，基于对角线的很稀少。每隔一段时间，我就会看到一个有角度的元素 - 也许是一个底部倾斜的横幅图形 - 但它对设计来说并没有什么必要。
 
@@ -273,7 +273,7 @@ p {
 
 ### 5. 旋转型
 
-为什么给混合添加变换时只使用 CSS Grid 和 Shapes 就可以实现几年前难以想象的布局？在最后一个例子中，围绕图像中的汽车流动文本，同时旋转整个需要这些属性的所有组合的布局。
+为什么给混合添加变换时使用 CSS Grid 和 Shapes 就能勉强实现几年前难以想象的布局？在最后一个例子中，围绕图像中的汽车流动文本，同时旋转整个需要这些属性的所有组合的布局。
 
 ![为什么只使用 CSS Grid 和 Shapes？](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/72c40e9f-fe9c-4253-a146-022ad53778c1/img-13.png)
 
@@ -296,7 +296,7 @@ p {
 }
 ```
 
-你可能已经注意到我的两个图像都包含了我顺时针旋转了 10 度的元素。这些图像就位后，我可以在相反的方向上旋转整个布局 10 度，以给出我的图像直立的错觉：
+你可能已经注意到我的两个图像都包含了我顺时针旋转了 10 度的元素。这些图像就位后，我可以朝相反的方向上旋转整个布局 10 度，以给出我的图像直立的错觉：
 
 ```css
 body {
@@ -359,10 +359,10 @@ article:nth-of-type(2) p:nth-of-type(2)::before {
 
 #### 更多资源
 
-* “[Web 的艺术设计](http://artdirectionfortheweb.com)” Andy Clarke 著
-* “[重新审视 CSS Shapes](https://www.smashingmagazine.com/2018/09/css-shapes/)” Rachel Andrew 著
-* “[CSS Shapes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Shapes)” MDN 网络文档, Mozilla
-* “[在 CSS 上编辑形状路径](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_CSS_shapes)” MDN 网络文档, Mozilla
+* “[《Web 的艺术设计》](http://artdirectionfortheweb.com)” Andy Clarke 著
+* “[《重新审视 CSS Shapes》](https://www.smashingmagazine.com/2018/09/css-shapes/)” Rachel Andrew 著
+* “[CSS Shapes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Shapes)” MDN 网络文档，Mozilla
+* “[在 CSS 上编辑形状路径](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_CSS_shapes)” MDN 网络文档，Mozilla
 * “[Web 的艺术设计：一本新的畅销书](https://www.smashingmagazine.com/2019/03/art-direction-release/)” Smashing 杂志
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
