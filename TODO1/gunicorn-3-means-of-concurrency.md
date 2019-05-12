@@ -7,10 +7,10 @@
 
 # 通过优化 Gunicorn 配置提高性能
 
-	> 关于如何配置 Gunicorn 的实用建议
+> 关于如何配置 Gunicorn 的实用建议
 
-> **概要，对于 CPU 受限的应用应该提升集群数量或者核心数量。但对于 I/O 受限的应用应该使用“伪线程”。
-> 
+> **概要，对于 CPU 受限的应用应该提升集群数量或者核心数量。但对于 I/O 受限的应用应该使用“伪线程”。**
+ 
 ![](https://cdn-images-1.medium.com/max/3078/1*39XEUZgpoUUzahu7giTlAw.png)
 
 [Gunicorn](http://gunicorn.org/) 是一个 Python 的 WSGI HTTP 服务器。它所在的位置通常是在[反向代理](https://en.wikipedia.org/wiki/Reverse_proxy) (如, [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)) 或者 [负载均衡](https://f5.com/glossary/load-balancer) (如，[AWS ELB](https://aws.amazon.com/elasticloadbalancing/)) 和一个 web 应用（比如 Django 或者 Flask）之间。
