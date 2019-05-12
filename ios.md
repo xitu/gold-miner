@@ -1,3 +1,6 @@
+* [Swift 里的强制 @inline 注解](https://juejin.im/post/5cd67d64518825686244635a) ([iWeslie](https://github.com/iWeslie) 翻译)
+* [Swift 代码格式化](https://juejin.im/post/5ccea148f265da038e54bbf2) ([iWeslie](https://github.com/iWeslie) 翻译)
+* [为你的 iOS App 构建分离测试](https://juejin.im/post/5ccd6b55f265da037d4fbc41) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [iOS 里的 MVVM 和 RxSwift](https://juejin.im/post/5cb833abf265da03ac0d04d1) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [实用的 MVVM 和 RxSwift](https://juejin.im/post/5cb80f9c6fb9a06876103744) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [Swift 模块中的 API 污染](https://juejin.im/post/5cb80f1f6fb9a0686a224a18) ([iWeslie](https://github.com/iWeslie) 翻译)
