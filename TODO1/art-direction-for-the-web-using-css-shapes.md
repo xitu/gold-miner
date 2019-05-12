@@ -122,7 +122,7 @@ main p:first-child::before {
 
 **注意： Bennett Feely 的 [CSS clip-path 制作](http://bennettfeely.com/clippy/) 是一个很棒的工具，用于计算与 CSS Shapes 一起使用的坐标值。**
 
-![在多个允许展示文本形状的转折点处调整 alpha 图像的宽度以完美匹配其视口。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e55053ee-9096-4093-8bd5-4fd93a4e3411/img-5-6.png)
+![在多个转折点处调整 alpha 图像的宽度，使之能够展示文本形状，以完美匹配其视口。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e55053ee-9096-4093-8bd5-4fd93a4e3411/img-5-6.png)
 
 在多个转折点处调整 alpha 图像的宽度，使之能够展示文本形状，以完美匹配其视口。
 
