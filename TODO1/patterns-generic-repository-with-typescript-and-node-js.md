@@ -2,46 +2,46 @@
 > * 原文作者：[Erick Wendel](https://medium.com/@erickwendel)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/patterns-generic-repository-with-typescript-and-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/patterns-generic-repository-with-typescript-and-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
-# Patterns — Generic Repository with Typescript and Node.js
+# 模式 —— 使用 Typescript 和 Node.js 的通用仓储
 
-![Become a master of Codes](https://cdn-images-1.medium.com/max/2000/1*dffdGxirQfDyHJjWM3p47Q.png)
+![成为代码之王](https://cdn-images-1.medium.com/max/2000/1*dffdGxirQfDyHJjWM3p47Q.png)
 
-If you work with **Node.js/Javascript** and you have many replicated codes for different data models or create **CRUDs (Create, Read, Update and Delete**) at all times, then this post is for you!
+如果你使用 **Node.js/Javascript**，并且有很多应付不同数据模型的重复代码或者不厌其烦地创建 **CRUD(Create, Read, Update and Delete)**，那么这篇文章适合你！
 
 ***
 
-### Generic Repository Pattern
+### 通用仓储模式
 
-Working with Javascript applications, we have some problems to share similar code between the application, and in many times we create the same code for different applications. That pattern gives to you a power to write an abstraction of data, when we have one abstract class (or many classes) and reuse the implementations independent of your Data Model, passing only your types to someone classes.
+在写 Javascript 应用的时候，我们存在在不同应用中共享相似代码的问题，并且有些时候，我们为不同的应用写相同的代码。当我们有一个（或更多）抽象类，并重用与数据模型解耦的实现时，这种模式赋予你编写数据抽象的能力，只需为某些类传入类型。
 
-Talking about the **Repository pattern**, it is a representation where you can keep all operations of your database (like a Create, Read, Update and Delete Operations) in one local per Business Entity, when you need to do operations with Database, don’t call directly database drivers and if you have more one database, or differently databases to one transaction, you application only calls the method of repository and is transparently for who calls.
+谈到 **仓储模式**，它指当你需要对数据库进行操作时，你可以将所有的数据库操作（Create、Read、Update 和 Delete 操作）对保存在每个本地唯一的业务实体中，而不是直接调用数据库驱动。如果你有多于一个数据库，或者一个事务涉及到多个数据库，你的应用应当只调用仓储中的方法，那么谁调用了方法也显而易见。
 
-Therefore, the **Generic Repository** is similar but now you have only one abstraction, one Base Class which have all common operations and your **EntityRepository** only extends the base class with all implementations of database operations. Following the **SOLID** principles, that pattern follows the [**Open / Closed** **principle**](https://en.wikipedia.org/wiki/Open/closed_principle), when your **baseClass** is open for extension, but closed for modification.
+因此，**通用仓储** 与之类似，不同的是，现在你只有一个抽象，一个具有所有常见操作的基类。而你的 **实体仓储**仅拓展基类以及基类中所有的数据库操作实现。遵循 **SOLID** 原则，该模式遵循 [**开放/封闭** **原则**](https://en.wikipedia.org/wiki/Open/closed_principle)，你的**基类**对拓展开放，而对于修改是关闭的。
 
-### When to use a Generic Repository ?
+### 何时使用通用仓储？
 
-Depends on your Business Model, and critical level of your applications. My opinion about this pattern it’s about the extensibility and enabling you to create only one class to write all common operations, such **CRUDs**, when all **Entities** of your application should have a **CRUD** or similar operations.
+取决于你的业务类型和应用程序的关键级别。我认为这种模式的具有可拓展性。当你用用程序的所有**实体**都要有 **CURD** 或者类似操作的时候，它可以让你只需要创建一个类来编写所有常见操作，诸如 **CURD**。
 
-### When don’t use Generic Repository ?
+### 什么时候不要使用通用仓储？
 
-The same way that you have a power, you have dangerous implicit codes, an clean example for that is:
+与拥有的能力相同，你也会有危险的隐含代码（不要使用通用仓储），一个简单的例子就是：
 
-* You have two Entity Classes: **People** and **Account.**
+* 你有两个实体类：**People** 和 **Account**。
 
-* Users can remove **People.**
+* 用户可以删除 **People**。
 
-* Users can’t update information about **Account** (like add more money to account)
+* 用户无法更新 **Account** 的相关信息（例如向账户增加更多的钱）
 
-* If both classes extends from **BaseClass**, that haves **update()** and **remove()** methods**,** the programmer should remember of that rule and not expose **remove** or **update** methods to service, or your business case is wrong and dangerous.
+* 如果两个类都拓展自具有 **update()** 和 **remove()** 方法的**基类**，那么程序员必须谨记那一点，并且不要把 **remove** 或者 **update** 方法暴露给服务，负责你的业务案例将会是危险并错误的。
 
-### Generics with Typescript
+### Typescript 的泛型
 
-> Components that are capable of working on the data of today as well as the data of tomorrow will give you the most flexible capabilities for building up large software systems — [typescriptlang.org/docs/handbook/generics.html](https://www.typescriptlang.org/docs/handbook/generics.html)
+> 能够处理当前乃至未来数据的组件将为你提供构建大型软件系统的最灵活的功能 —— [typescriptlang.org/docs/handbook/generics.html](https://www.typescriptlang.org/docs/handbook/generics.html)
 
-Following the Typescript's documentation, generics gives the power to build flexible and generic components (or types). From their docs, we have a better example about how it works:
+遵循 Typescript 的文档，泛型提供了构建灵活和通用组件（或类型）的能力，从他们的文档中，我们有一个更好的例子来说明它如何工作：
 
 ```js
 function identity(arg: number): number {
@@ -49,9 +49,9 @@ function identity(arg: number): number {
 }
 ```
 
-So, we have a **concrete method**, which receives one number and returns the same type. If you want pass one string to this method you need to create another method with the same implementation and repeat your code.
+所以，我们有一个**成熟的方法**，他接收一个数字并返回相同类型。如果要将一个字符串传递给此方法，则需要使用相同的实现创建另一个方法并重复代码。
 
-With the **Generics** Implementation, we have the aleatory word to says what is the generic implementation (for convention, uses **T** to say that is a generic type)
+通过**泛型**实现，我们用一个明确的词来说明什么是泛型实现（约定，使用 **T** 来表示它是泛型类型）
 
 ```js
 function identity<T>(arg: T): T {
@@ -71,11 +71,11 @@ console.log('number is ', resultNumber);
  */
  ```
 
-### Creating a real project with Generic Repository and Node.js
+### 使用通用仓储和 Node.js 来创建一个真实的项目
 
-Lets go! If you don’t understated yet, with the next section you’ll be able be to get the idea.
+Lets go! 如果你还没有理解（译者注：这里原本的词是 understated，应该是 understand？），通过下一部分的学习你应该就会理解了。
 
-**Requirements:**
+**要求：**
 
 * [Node.js 8+](https://nodejs.org/en/)
 
@@ -85,33 +85,33 @@ Lets go! If you don’t understated yet, with the next section you’ll be able 
 
 * [VSCode](https://code.visualstudio.com/)
 
-**Testing your environment**
+**测试你的环境**
 
-After install all environment requirements, test in your terminal if it is all ok.
+安装完所有的环境要求之后，如果一切正常，请在 terminal 中运行测试。
 
-```
+```bash
 npm --v && node --version
 ```
 
 ![Output of commands to view Node.js version and npm versions](https://cdn-images-1.medium.com/max/2386/1*s02l_kV76Bcl9-4MBuEBbQ.png)
 
-To verify if your MongoDB is fine, run on another terminal tab, `sudo mongod`
+要验证 MongoDB 是否正常，请在另一个 terminal tab 上运行，`sudo mongod`
 
 ![MongoDB Instance Starting](https://cdn-images-1.medium.com/max/2734/1*2VJwmyHZSC9bdCeL2paShA.png)
 
-Then, in another tab run `mongo` to enter em your database.
+然后，另一个 tab 上运行 `mongo` 以进入你的数据库。
 
 ![Entering em MongoDB database](https://cdn-images-1.medium.com/max/2044/1*QmpUdPued8_J4B2rfSZH_Q.png)
 
-Then, install the global package` typescript`, to compile your typescript projects. Run `npm install -g typescript`
+然后，全局安装 `typescript`，以编译你的 typescript 项目。运行 `npm install -g typescript`
 
 ![Output of typescript globally package installed](https://cdn-images-1.medium.com/max/2676/1*9uiIrlCysRJdbm9Q58PKbg.png)
 
-Once you’re done with that, we are ready to move forward :D
+一旦你已经完成，我们就可以继续前进 :D
 
 ***
 
-Now, we need to create one folder and initializate a **Node.js** project.
+现在，我们需要创建一个文件夹并且初始化一个 **Node.js** 项目。
 
 ```
 mkdir warriors-project
@@ -120,7 +120,7 @@ npm init -y #to init nodejs app without wizard
 tsc --init  #to init config file to typescript
 ```
 
-After that, should open the **vscode** within your project folder. To create our project, you need create some folders for better organization of our application. We are going to use the folder structure bellow:
+之后，应该在 **vscode** 中打开你的项目文件夹。要创建我们的项目，你得创建一些文件夹以便更好地构建我们的应用程序。我们将使用以下的文件夹结构：
 
 ```
 .
@@ -132,9 +132,9 @@ After that, should open the **vscode** within your project folder. To create our
 └── tsconfig.json
 ```
 
-Entering in `tsconfig.json` file, in the section of property `"lib": []` modify the value to `"lib": [` “es2015”`]`, we alter that property of a **json file**, to work with **es2015** modules, like **Promises** in Typescript. Alter the `outDir` property to **“outDir”: “lib”** to generate **.js** files in a separated folder.
+进入 `tsconfig.json` 文件，将属性 `"lib": []` 部分值修改为 `"lib": [ "es2015"]`，我们改变 `json 文件`的属性，以使用 **es2015** 模块，例如 Typescript 中的 **Promises**。将 `outDir` 属性修改为 `"outDir": "lib"` 以便在另一个文件夹中生成 **.js** 文件。
 
-About our folders, when `entities` folder is about your data models, `repositories` folder is about our database operations and `interfaces` our operations' contracts. Now, we should create our entities, in **entities** folder, create a `Spartan.ts` file with the following code:
+关于我们的文件夹，`entities` 文件夹是存放你的数据模型，`repositories` 文件夹关于数据库操作，`interfaces` 是我们操作的合同（contracts）。现在，我们应该在 **entities** 文件夹中创建我们的实体，使用以下代码创建 `Spartan.ts` 文件：
 
 ```js
 export class Spartan {
@@ -148,7 +148,7 @@ export class Spartan {
 }
 ```
 
-Now, on **repositories/interfaces** folder, we'll create two files, following the **single responsability,** undefinedthese files will have our contracts that the abstract classes must be. Our contracts, should follow the generic pattern, that can be written without a fixed type, but, when anyone implements this interfaces, should pass the type for them.
+现在，在 **repositories/interfaces** 文件夹，我们将创建两个文件, 遵循 **单一功能（Single responsibility）** 这些文件将具有抽象类必须有的合同。我们的合同应该遵循通用模式，可以在没有固定类型的情况下编写，但是，当任何人实现此接口时，应该为它们传递类型。
 
 ```js
 export interface IWrite<T> {
@@ -165,15 +165,15 @@ export interface IRead<T> {
 }
 ```
 
-After creating our interface, we should create the **BaseClass**, an abstract class that implements all generic interfaces and has our common implementation for all entities. In **base** folder, create a `BaseRepository.ts` with following code
+在创建接口之后，我们应该创建**基类**，这是一个实现所有通用接口的抽象类，并且具有我们对所有实体的通用实现。在 **base** 文件夹中，我们使用下面的代码创建 `BaseRepository.ts`
 
 ![Creating BaseRepository with Interfaces imported](https://cdn-images-1.medium.com/max/2098/1*J1IoDdwIQAVw9_kvkfdz2g.png)
 
-After you importing the interfaces you need to implements the signature of your interfaces, for that, you can press `ctrl .` to show options of **vscode** to show options to fix problems and click in “**Implements Interface IWrite\<T> (Fix all in file)”** undefinedto add all implementations.
+导入接口（interface）之后，需要实现接口的签名。为此可以按 `ctrl .` 显示 **vscode** 的选项来修复有问题的地方。然后单击 “**Implements Interface IWrite<T> (Fix all in file)”** 来添加所有实现。
 
 ![After open options and select fix all in files](https://cdn-images-1.medium.com/max/2216/1*uIRLvbJEVIK9ZxPtMdUh3Q.png)
 
-Now we have a class similar to code bellow
+现在我们有一个类似下面代码的类
 
 ```js
 // import all interfaces
@@ -200,9 +200,9 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
 }
 ```
 
-We should now create the implementations for all methods. Our **BaseRepository** class, should know how is the database and collection that you can access. At this point, you need to install the **mongodb driver package,** for that, return to your terminal on project folder and runs npm i -S mongodb @types/mongodb to add **mongodb** undefineddriver and typescript definition of package.
+我们现在应该为所有的方法创建实现。**BaseRepository** 类应该知道如何访问你可使用的数据库和集合。此时，你需要安装 **Mongodb 驱动包**。所以你需要返回到 terminal 中的项目文件夹，运行 `npm i -S mongodb @types/mongodb` 添加 **mongodb** 驱动和 typescript 的定义包。
 
-In **constructor,** we add two arguments, **db** and **collectionName**. Your class implementation should like a following code
+在 **constructor** 中，我们添加两个参数，**db** 和 **collectionName**。类的实现应该和下面的代码差不多
 
 ```js
 // import all interfaces
@@ -248,7 +248,7 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
 }
 ```
 
-Now, we created the **Repository** file to specific entity in **repositories** folder**.**
+现在，我们在 **repositories** 文件夹中为特定实体创建了 **Repository** 文件。
 
 ```js
 import { BaseRepository } from "./base/BaseRepository";
@@ -264,7 +264,7 @@ export class SpartanRepository extends BaseRepository<Spartan>{
 }
 ```
 
-Now, to test our repository and all logic event. We need in root of project, create a `Index.ts` file, that call all repositories.
+现在，去测试仓储和所有的逻辑事件。我们需要在项目根路径下创建一个 `Index.ts` 文件，来调用所有的仓储。
 
 ```js
 // importing mongoClient to connect at mongodb
@@ -302,9 +302,9 @@ import { Spartan } from './entities/Spartan';
 })();
 ```
 
-You need to transpile your **Typescript** to **Javascript** files, running the `tsc` command from terminal, you have now in `lib` folder all `javascript files `and now, you can run your application with `node lib/Index.js.`
+你需要将你的 **Typescript** 转换成 **Javascript** 文件，在 terminal 中运行 `tsc` 命令。现在 `lib` 文件夹中你拥有了全部的 `javascript 文件`，如此这般，你可以通过 `node lib/Index.js.` 运行你的程序。
 
-To you see the power of **Generic Repositories**, we go to create more one repository for `Heroes` with name `HeroesRepository.ts` and one **entity class**, that represents a **Hero**.
+为了让你领略到**通用仓储**的强大之处，我们将为名为 `HeroesRepository.ts` 的 `Heroes`，以及一个**实体类**创建更多的仓储，这代表一位 **Hero**。
 
 ```js
 // entities/Hero.ts
@@ -331,7 +331,7 @@ export class HeroRepository extends BaseRepository<Hero>{
 }
 ```
 
-Now, we just call that repository in our **Index.ts,** undefinedfollowing the complete code below.
+现在，我们只需要在 **Index.ts** 中调用仓储，下面是完整代码。
 
 ```js
 // importing mongoClient to connect at mongodb
@@ -378,13 +378,13 @@ import { Hero } from './entities/Hero';
 })();
 ```
 
-### Conclusion
+### 总结
 
-With one class, we have many implementations to use and to work more easily, for me, the **Generics** feature in **TypeScript** is one of most powerful features to work. All the code that you see here is available in the GitHub repo that you can find in the links section below, don’t forget to check it out :D
+对于一个类，我们有很多实现可以采用并且让工作更容易。对于我来说，**TypeScript** 中的**泛型**功能是最强大的功能之一。你在此处看到的所有代码都可以在 GitHub 的 repo 中找到。你可以在下面的链接中找出它们，不要忘记查看 :D
 
-If you got up to this point, don’t forget to comment, share with your friends and leave some feedback. Please be mindful that this is my first English post so feel free to correct me with some private notes if you happen to spot any error :D
+如果你到了这儿，不要吝啬你的评论，分享给你的朋友并留下反馈。当然这是我的第一篇英文帖子，如果你碰巧发现任何错误，请通过私信纠正我 :D
 
-Don’t forget too, to click and claps on post.
+不要忘了点赞哦！
 
 ![](https://cdn-images-1.medium.com/max/4000/1*rzQNDQ7ixuA3qcyydCGs5g.png)
 

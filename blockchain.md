@@ -1,5 +1,6 @@
 **更多区块链相关译文，请到 [掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner)**
 
+* [我们为什么看好加密收藏品（NFT）的前景](https://juejin.im/post/5cb87819518825329e7ea61e) ([portandbridge](https://github.com/portandbridge) 翻译)
 * [2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5) ([gs666](https://github.com/gs666) 翻译)
 * [以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3) ([gs666](https://github.com/gs666) 翻译)
 * [以太坊入门：互联网政府](https://juejin.im/post/5c03c68851882551236eaa82) ([newraina](https://github.com/newraina) 翻译)
