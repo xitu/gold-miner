@@ -59,26 +59,26 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 
 Introduced in **ES2017**(ES8), async functions make working with promises much easier.
 
-* **It is important to note the async functions work on top of promises.**
-* They are not a fundamentally different concept.
-* They can be thought of as an alternate way of writing promise-based code.
-* We can **avoid chaining promise** altogether using async/await.
-* They allow asynchronous execution while **maintaining a regular,** synchronous **feel**.
+* **注意到 async 函数是基于 promise 这一点很重要。**
+* async/await 并不是完全全新的概念。
+* async/await async/await 可以被理解为基于 promise 实现异步代码的一种替代方案。
+* 我们可以使用 async/await 来避免使用**链式调用 promise**。
+* async/await 允许代码异步执行的同时**保持正常的**、同步式的**感觉**。
 
-Hence, an **understanding of promises is required** before you can fully understand async/await concepts.
+因此，在理解 async/await 概念之前你**必须要对 promise 有所了解**。
 
-### Syntax
+### 语法
 
-They consist of two main keywords- async and await. **`async` is used to make a function asynchronous.** It **unlocks** the use of `await` inside these functions. Using `await` in any other case is a syntax error.
+async/await 包含两个关键字 async 和 await。**`async` 用来使得函数异步执行。** It **unlocks** the use of `await` inside these functions. Using `await` in any other case is a syntax error.
 
 ```
-// With function declaration
+// 应用到普通函数声明
 
 async function myFn() {
   // await ...
 }
 
-// With arrow function
+// 应用到箭头函数
 
 const myFn = async () => {
   // await ...
@@ -89,12 +89,12 @@ function myFn() {
 }
 ```
 
-Notice the use of `async` keyword **at the beginning** of the function declaration. In the case of arrow function, `async` is put after the `=` sign and before the parentheses.
+注意，在函数声明中 `async` 关键字位于**声明的前面**。在箭头函数中，`async` 关键字则位于 `=` 和 圆括号的中间。
 
-Async functions can also be put on an object as methods, or in class declarations as follows.
+async 函数还能作为对象的方法，或是像下面代码一样位于类中。
 
 ```
-// As an object's method
+// 作为对象方法
 
 const obj = {
   async getName() {
@@ -102,7 +102,7 @@ const obj = {
   }
 }
 
-// In a class
+// 位于类中
 
 class Obj {
   async getResource() {
@@ -111,7 +111,7 @@ class Obj {
 }
 ```
 
-**Note: Class constructors and [getters/setters](https://blog.bitsrc.io/diving-deeper-in-javascripts-objects-318b1e13dc12)** cannot **be async.**
+**注意：类的构造函数和 [getters/setters](https://blog.bitsrc.io/diving-deeper-in-javascripts-objects-318b1e13dc12)** 不能**作为 async 函数。**
 
 ## Semantics and Evaluation Rules
 
