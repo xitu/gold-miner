@@ -15,20 +15,20 @@ Markdown 是一种轻量级的文本标记语言，能将带标记的文本转�
 
 ### 一个基于 Node.js 的 Markdown 应用
 
-我们把这个小巧玲珑的应用叫做“Markdown 变身器”，我们把 Markdown 语法的文本上传给它，然后得到 HTML 格式的版本。该应用使用 Node.js 的框架 Express 实现，并支持对转换请求的验证。
+我们把这个小巧玲珑的应用叫做 “Markdown 变身器”，我们把 Markdown 语法的文本上传给它，然后得到 HTML 格式的版本。该应用使用 Node.js 的框架 Express 实现，并支持对转换请求的验证。
 
 我们会化整为零地实现这个应用 —— 先用 Express 创建一个骨架，然后再添加验证机制等功能。那就让我们开始搭建骨架吧！
 
 ### 第一阶段：初始化 Express
 
-假设你已经在操作系统里安装了 Node.js，现在我们创建一个文件夹（就叫它“`markdown-api`”吧）来存放代码，并进入该文件夹：
+假设你已经在操作系统里安装了 Node.js，现在我们创建一个文件夹（就叫它 “`markdown-api`” 吧）来存放代码，并进入该文件夹：
 
 ```bash
 $ mkdir markdown-api
 $ cd markdown-api
 ```
 
-使用 npm 初始化命令创建一个 **package.json** 文件。该命令会提示你输入诸如应用名称、版本之类的信息。
+使用 npm init 命令创建一个 **package.json** 文件。该命令会提示你输入诸如应用名称、版本之类的信息。
 
 就本次实践来说，你只需按下 Enter 键使用那些默认信息就好。我把 **index.js** 做为默认入口文件，但你也可以按自己喜好设置成 **app.js** 或别的文件。
 
@@ -41,7 +41,7 @@ $ npm install express --save
 在当前目录（`markdown-api`）创建一个 **index.js** 文件，把下列代码添加进去来测试 Express 框架是否安装成功：
 
 ```javascript
-Const express = require('express');
+const express = require('express');
 var app = express();
  
 app.get('/', function(req, res){
@@ -51,7 +51,7 @@ app.get('/', function(req, res){
 app.listen(3000);
 ```
 
-访问 `http://localhost:3000` ，看看测试文件是否正确运行起来了。如果一切顺利，我们能在浏览器中看到“Hello World!”字样，那接下来就可以构建 Markdown 转 HTML 的基本接口了。
+访问 `http://localhost:3000` ，看看测试文件是否成功运行起来了。如果一切顺利，我们能在浏览器中看到 “Hello World!” 字样，那接下来就可以构建 Markdown 转 HTML 的基本接口了。
 
 ### 第二阶段：构建基本接口
 
@@ -62,7 +62,7 @@ app.listen(3000);
 
 `login` 端点用来验证有效请求；`convert` 端点用来进行 Markdown 到 HTML 的转换。
 
-以下是调用两个端点的基本接口代码。调用 `login` 会返回一个“Authenticated”字符串，而调用 `convert` 会返回你上传的 Markdown 文本。主方法仅返回一个“Hello World!”字符串。
+以下是调用两个端点的基本接口代码。调用 `login` 会返回一个 “Authenticated” 字符串，而调用 `convert` 会返回你上传的 Markdown 文本。主方法仅返回一个 “Hello World!” 字符串。
 
 ```javascript
 const express = require("express");
@@ -135,17 +135,17 @@ $ node index.js
 
 为了测试基本接口代码，我们要用 Postman 调用接口。注意，我们用 POST 方法把要转换的文本传给应用。
 
-我们的应用通过 POST 方法的 `content` 参数接收待转换的文本。我们把它做为 URL 编码格式传递。字符串以 JSON 的格式返回 —— 第一个字段总会返回字符串 `markdown`，而第二个字段返回转换后的文本。
+我们的应用通过 POST 方法的 `content` 参数接收待转换的文本。我们把它做为 URL 编码格式传递。字符串以 JSON 的格式返回 —— 第一个字段总会返回字符串 `markdown`，而第二个字段返回转换后的文本。然后，当我们添加了 Markdown 处理代码，它就会返回转换后的文本。
 
 ### 第三阶段：添加 Markdown 转换代码
 
-应用的骨架搭建好了，我们就来看看 `Showdown` 这个 JavaScript 库，我们要用此库把 Markdown 转换为 HTML。`Showdown` 是用 JavaScript语言实现的，支持 Markdown 和 HTML 之间的双向转换。
+应用的骨架搭建好了，我们就来看看 `showdown` 这个 JavaScript 库，我们要用此库把 Markdown 转换为 HTML。`showdown` 是用 JavaScript语言实现的，支持 Markdown 和 HTML 之间的双向转换。
 
 [![用 Postman 测试](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)
 
 ([高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png))
 
-用 npm 安装 `Showdown`：
+用 npm 安装 `showdown`：
 
 ```bash
 $ npm install showdown
