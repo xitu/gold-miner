@@ -2,24 +2,24 @@
 > * 原文作者：[sudolabs](https://sudolabs.io)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tips-to-use-VSCode-more-efficiently.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tips-to-use-VSCode-more-efficiently.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Baddyo](https://github.com/Baddyo)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [hzdaqo](https://github.com/hzdaqo)
 
-# Tips to use VSCode more efficiently
+# 帮你高效使用 VS Code 的秘诀
 
-[![vscode customized](https://sudolabs.io/static/9c2742ceaf5b57f1c81558b3c19baee6/c4067/vscode-customized.png)](https://sudolabs.io/static/9c2742ceaf5b57f1c81558b3c19baee6/5642a/vscode-customized.png) 
+[![VS Code 自定义配置](https://sudolabs.io/static/9c2742ceaf5b57f1c81558b3c19baee6/c4067/vscode-customized.png)](https://sudolabs.io/static/9c2742ceaf5b57f1c81558b3c19baee6/5642a/vscode-customized.png) 
 
-Say you’ve already been using VSCode for some time now. You’ve changed the color theme (if not, I highly recommend [material theme](https://material-theme.site/)), you’ve tweaked some essential settings and installed a couple of popular extensions.
+假设你已经用过一段时间的 VS Code 了。你已经更改了颜色主题（如果还没有，那我强烈推荐 [material 主题](https://material-theme.site/)），调整了基本设置，并且安装了一些流行的插件。
 
-Maybe you know your way around it enough to get the work done. That’s perfectly fine, but there’s a good chance you’re missing out on some of its many features
+可能你感觉这种程度足以满足日常工作需求。这很棒，但这样你就很可能与 VS Code 的诸多功能擦肩而过了。
 
-This is a collection of settings, extensions and shortcuts, that proved especially useful for my job as a web developer.
+本文荟萃了一些设置、插件和窍门，它们都对我的 Web 开发工作有莫大帮助。
 
 ### jsconfig.json
 
-One of the most overlooked essential features of VSCode is `jsconfig.json`. If you open your JS project in VSCode, it doesn’t know the files in it are related. It treats every file as an individual unit. You can tell it about your project by creating `jsconfig.json` file at the root of your project.
+VS Code 的基本功能中，`jsconfig.json` 是最容易被忽视的一个。当你在 VS Code 中打开 JS 项目，VS Code 并不知道项目中的文件是相关联的。它把每个文件当作单独个体。而通过在项目根目录创建 `jsconfig.json` 文件，你可以把项目信息传达给 VS Code。
 
-`jsconfig.json` (among other things ) enables smart go to definition, that works with various module resolution algorithms. In practice - it means that you can now `⌘ click` on various references in your code, and it’ll take you to the definitions of them. I highly recommend you [reading more about it](https://code.visualstudio.com/docs/languages/jsconfig), but this is what I use most of the time:
+`jsconfig.json`（连同其他配置一起）实现了“智能跳转到定义处”的功能，此中用到了各种模块解析算法。在实践过程中，你可以对代码中的各种引用使用组合键 `⌘ 点击`，然后就能跳转到该引用定义之处。我强烈建议你读读[官方文档](https://code.visualstudio.com/docs/languages/jsconfig)，而我个人最常用的配置是这样的：
 
 ```js
 {
@@ -34,45 +34,45 @@ One of the most overlooked essential features of VSCode is `jsconfig.json`. If y
 }
 ```
 
-### A settings primer
+### 配置入门
 
-**Note: If you already know where to find VSCode settings and how to edit them, jump to the next section**
+**注意：若你已经知道从何找到 VS Code 的设置，也知道如何编辑设置，就直接跳过本段吧。**
 
-VSCode stores settings in a JSON-like (the so-called [`jsonc`](https://code.visualstudio.com/docs/languages/json#_json-with-comments) - JSON with comments mode) file. It can be accessed with `⌘`, shortcut, or through `Code > Preferences > Settings`. ([Go here](https://code.visualstudio.com/docs/getstarted/settings) to learn more about VSCode settings)
+VS Code 把配置信息放在一个类 JSON 格式（所谓的 [`jsonc`](https://code.visualstudio.com/docs/languages/json#_json-with-comments) —— 带注释模式的 JSON）的文件中。可以通过 `⌘` 键、快捷方式，或者 `文件 > 首选项 > 设置` 打开。（[点击这里](https://code.visualstudio.com/docs/getstarted/settings)了解更多设置）
 
-After you open up the settings, you won’t see the raw JSON right away. VSCode has received a nice UI for them lately, but for the purpose of this article it’s easier to share the settings in raw key-value form, so we won’t be using it.
+打开设置页面后，你不会直接看到源 JSON 文件。VS Code 精心优化了设置页面的界面，但本文出于便于分享的目的，将不使用该界面，而是以键值对的形式展现。
 
-You can access the settings JSON by clicking on the `{ }` icon in the tab bar.
+你可以通过点击标签栏上的 `{ }` 按钮来打开 JSON 配置文件。
 
-In case it’s empty (you haven’t made any modification to the default settings yet), let’s create an empty object, so it’s a valid JSON:
+如果该文件是空的（你还没有针对默认设置做任何修改），那我们需要创建一个空对象，它得是有效的 JSON 格式：
 
-[![vscode settings](https://sudolabs.io/static/f078c5e598c1d3b816baf18a94fb234b/c4067/vscode-settings.png)](https://sudolabs.io/static/f078c5e598c1d3b816baf18a94fb234b/5642a/vscode-settings.png) 
+[![VS Code 设置](https://sudolabs.io/static/f078c5e598c1d3b816baf18a94fb234b/c4067/vscode-settings.png)](https://sudolabs.io/static/f078c5e598c1d3b816baf18a94fb234b/5642a/vscode-settings.png) 
 
-### Theme
+### 主题
 
-This might seem basic, but it doesn’t mean it’s not important. You spend a lot of time looking at code, so you might as well spend some time choosing a theme that’s easy on your eyes, and make the code look pretty as well.
+这个设置项似乎很基础，但并不代表它不重要。你有大量的时间在看代码，所以不妨再花点时间选一款让眼睛舒适的主题，这也能让代码看起来更悦目。
 
-As I’ve already mentioned, I’m using [Material Theme](https://material-theme.site/) Ocean High Contrast variant. I’ve tried many over the years, but settled on this one.
+正如上文提到的，我在用 [Material](https://material-theme.site/) 主题下的 Ocean High Contrast。这些年我试用过很多主题，最终还是钟爱这一款。
 
-One more thing - those nice file / folder icons are achieved through [Material Theme Icons](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme-icons) extension:
+另外 —— [Material Theme Icons](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme-icons) 插件收集了很多好看的文件/文件夹图标：
 
-[![sidebar customized](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png)](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png) 
+[![自定义侧边栏](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png)](https://sudolabs.io/static/64c815da3b7aa728bc4f2430596ddbe1/05210/sidebar-customized.png) 
 
-This is how your settings (and editor) now look like:
+现在，你的设置信息（以及编辑器）应该是这样的：
 
-[![vscode settings edited](https://sudolabs.io/static/7d24d00917578b6586ae5630164973a8/c4067/vscode-settings-edited.png)](https://sudolabs.io/static/7d24d00917578b6586ae5630164973a8/5642a/vscode-settings-edited.png) 
+[![更改设置后的 VS Code](https://sudolabs.io/static/7d24d00917578b6586ae5630164973a8/c4067/vscode-settings-edited.png)](https://sudolabs.io/static/7d24d00917578b6586ae5630164973a8/5642a/vscode-settings-edited.png) 
 
-Nice right?
+很棒，对吧？
 
-Quick tip: You can change Material Theme accent color by searching „accent“ in command palette.
+快速提示：你可以通过在命令面板中搜索 "accent"，来更改 Material 主题的高亮色。
 
-### Font
+### 字体
 
-The right font can make your code more legible and pleasant to look at. My programming font of choice is [`Fira Code`](https://github.com/tonsky/FiraCode) - a robust & well-made programming font with beautiful ligatures. [Try it](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)! Did I mention it’s free?
+合适的字体能让你的代码看起来更清晰优美。我选择的代码字体是 [`Fira Code`](https://github.com/tonsky/FiraCode) —— 一种强大而制作精良的编程字体，带有漂亮的连字。[快试试吧](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)！我刚刚说过它是免费的吧？
 
-### Indentation
+### 缩进
 
-Whatever side in “tabs vs spaces” debate you’re on, you can set it up like this:
+无论你站在 “tabs vs spaces” 之争的哪一边，你都可以像这样设置：
 
 ```json
 "editor.detectIndentation": true,
@@ -80,21 +80,21 @@ Whatever side in “tabs vs spaces” debate you’re on, you can set it up like
 "editor.tabSize": 2
 ```
 
-### Switching between editor and explorer
+### 在编辑器和文件管理器之间切换
 
-You can easily toggle between code editor and project files explorer with `⌘ ⇧ E` shortcut. When you’re inside the explorer, you can use the same keys for common operations as in MacOS finder - arrow keys to navigate, `↵` to rename file / folder and `⌘ ↓` to open current file.
+使用 `⌘ ⇧ E` 快捷键，你可以轻松切换代码编辑器和项目文件管理器。当你处于文件管理器中，你可以像在 macOS 的 Finder 中那样用相同的快捷键进行常规操作，比如用方向键导航、用 `↵` 键给文件或文件夹重命名、用 `⌘ ↓` 打开当前文件等。
 
-Quick tip: Reveal the focused file / folder in native MacOS finder with `⌥ ⌘ R`.
+快速提示：在 VS Code 中，通过 `⌥ ⌘ R` 组合键使用 macOS Finder 快速定位到当前选中的文件或文件夹。
 
 ### Emmet
 
-[Emmet](https://emmet.io/) is a plugin for many popular text editors which greatly improves HTML & CSS workflow by enabling clever abbreviations, expansions, common actions (wrapping element inside other element) and so on. You may argue you’re not writing HTML directly, but it can be easily configured to play nicely with frameworks like React and Vue, because they use similar html-like markup.
+[Emmet](https://emmet.io/) 是一个支持众多流行编辑器的插件，通过提供智能缩写、扩展、常规操作（如以元素包裹其他元素）等功能，它显著改善了 HTML 和 CSS 的工作流。也许你会说你并没有直接用 HTML 开发，但它经过简单配置就能兼容诸如 React 和 Vue 这类框架，因为它们用的都是相似的类 HTML 标记语言。
 
-VSCode [ships with Emmet](https://code.visualstudio.com/docs/editor/emmet) support out of the box for `html`, `haml`, `jade`, `slim`, `jsx`, `xml`, `xsl`, `css`, `scss`, `sass`, `less` and `stylus` files.
+[集成 Emmet](https://code.visualstudio.com/docs/editor/emmet) 的 VS Code 无需配置即可支持 `html`、`haml`、`jade`、`slim`、`jsx`、`xml`、`xsl`、`css`、`scss`、`sass`、`less` 和 `stylus` 文件。
 
-So, by default, you’d have to use `.jsx` file extension, to get Emmet support for JSX files. Say you only work with `.js` files, so you have two options:
+因此，默认情况下，你需要用 `.jsx` 文件扩展名来获得 Emmet 支持。要是你只用到 `.js` 文件，那么你有两种选择：
 
-1. tell Emmet to run in `.js` files:
+1. 让 Emmet 在 `.js` 中运行：
 
 ```json
 "emmet.includeLanguages": {
@@ -102,9 +102,9 @@ So, by default, you’d have to use `.jsx` file extension, to get Emmet support 
 }
 ```
 
-(enable `javascriptreact` Emmet syntax in `javascript` files)
+（使 `javascriptreact` 这个 Emmet 语法在 `javascript` 文件中生效）
 
-2. tell VSCode to treat any `.js` file just like `.jsx` (it means to use `javascriptreact` syntax for all `.js` files as well), so Emmet sees is as if it was a `.jsx` file:
+2. 让 VS Code 像处理 `.jsx` 文件那样处理 `.js` 文件（即对所有 `.js` 文件使用 `javascriptreact` 语法），这样 Emmet 就会把 `.js` 文件视为 `.jsx` 文件：
 
 ```json
 "files.associations": {
@@ -112,83 +112,83 @@ So, by default, you’d have to use `.jsx` file extension, to get Emmet support 
 }
 ```
 
-I went for the second one - I never use `.jsx` file extension, so I want to have VSCode React support in `.js` files anyway.
+我个人选第二种 —— 我从来不用 `.jsx` 文件扩展名，因此我要让 VS Code 总是在 `.js` 文件中支持 React 语法。
 
-These Emmet commands are my most-used ones:
+以下是我最常用的 Emmet 命令：
 
-* `expand abbreviation` - to expand string to JSX element
-* `wrap with abbreviation` - to wrap existing JSX with another element
-* `split / join tag` - making self-closing tags from tag pairs (e.g. from the output of `expand abbreviation`) and vice versa
+* `expand abbreviation` —— 把字符串扩展为 JSX 元素
+* `wrap with abbreviation` —— 用另一个元素包裹已有元素
+* `split / join tag` —— 把标签组变为自闭合标签（例如从 `expand abbreviation` 的输出变为自闭合），反之亦然
 
-Emmet is really powerful and can save you a lot of time, so I highly recommend you checking out their demos on emmet.io site.
+Emmet 着实强大，能为你节省大量时间，因此我强烈推荐你看看 [Emmet 官网](https://emmet.io/) 的 demo。
 
-### Quick-Open files for real
+### 真正的秒开文件
 
-Let’s open a file using Quick Open command: `⌘ P`.
+让我们用 `⌘ P` 打开一个文件。
 
-Notice the tab bar - file name being written in italics means the tab is in **preview** mode. By default, if you select the file from the sidebar or quick open (`⌘ P`), and then select / quick open another one, it reuses the preview tab, until it’s **pinned** (double-clicked, or the file is edited).
+注意标签栏 —— 文件名为斜体代表着当前标签页处于**预览**模式。默认情况下，如果你从侧边栏选中或者按 `⌘ P` 打开某文件，然后再选中或者 `⌘ P` 打开另一个文件，你会发现新打开的文件直接占用了上一个**预览**模式的标签页，除非它被「钉」住了（发生双击或编辑操作）。
 
-This behavior makes sense if you’re going through files in sidebar, possibly just peeking into files, but if you want to quick-open something, you probably know you want to have it open „for real“.
+当你在侧边栏中浏览文件，可能只想瞥一眼文件内容，那么这种方式就很合理，但有时候，你会想要真正地「快速打开」它。
 
-To achieve this, set the following:
+要满足该需求，可以这样设置：
 
 ```json
 "workbench.editor.enablePreviewFromQuickOpen": false
 ```
 
-Now try to `⌘ P` - your file will no longer open in preview mode.
+现在你再试试 `⌘ P`  —— 文件不再以预览模式打开。
 
-### Breadcrumbs
+### 导航路径
 
-[![vscode breadcrumbs](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/c4067/vscode-breadcrumbs.png)](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/a260b/vscode-breadcrumbs.png) 
+[![VS Code 导航路径](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/c4067/vscode-breadcrumbs.png)](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/a260b/vscode-breadcrumbs.png) 
 
-Breadcrumbs (displayed underneath the title bar) is a useful feature of VSCode that shows your location in the codebase. If you click on one of the segments, it shows you your current location, and files / symbols on the same level, serving as a quick navigation as well.
+导航路径（显示在标题栏下方）是一个有用的功能，它展示了当前代码在代码库中的位置。如果你点击导航路径其中一个节点，它会显示你的当前位置、同级文件或标记，亦可做为快速导航使用。
 
-Enable them with this setting:
+激活方法如下：
 
 ```json
 "breadcrumbs.enabled": true
 ```
 
-There are two useful shortcuts when it comes to breadcrumbs:
+以下是导航路径的两个有用的快捷键：
 
-* `⌘ ⇧ .` - Focus Breadcrumbs: It will select that last element and open a dropdown that allows you to navigate to a sibling file or symbol.
-* `⌘ ⇧ ;` - Focus last element of Breadcrumbs without opening it - so you can move inside the path hierarchy with arrows.
+* `⌘ ⇧ .` — 聚焦导航路径：选中末尾元素，打开下拉菜单供你导航到同级文件或标记。
+* `⌘ ⇧ ;` — 聚焦导航路径的末尾元素但不打开，通过方向键在路径层次中移动。
 
-Quick tip: You can type inside the breadcrumb popup to filter files and folders / symbols, and focus on them with `↵`.
+快速提示：你可以在导航路径中输入关键词来过滤文件、文件夹和标记，并用 `↵` 来聚焦。
 
-### Hide Open Editors section
+### 隐藏「打开的编辑器」窗格
 
-You see open files in tabs anyway.
+这样就能总是在标签页中打开文件
 
 ```json
   "explorer.openEditors.visible": 0
 ```
 
-### Customize the title bar
+### 自定义标题栏
 
-Default VSCode title is not very useful. It only shows current file name and project name. Here’s how you can improve it:
+VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目名。优化方法如下：
 
 ```json
 "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}"
 ```
 
-* `${dirty}`: a dirty indicator if the active editor is dirty.
-* `${activeEditorMedium}`: the path of the file relative to the workspace folder (e.g. `myFolder/myFileFolder/myFile.txt`)
-* `${separator}`: a conditional separator (” - ”) that only shows when surrounded by variables with values or static text.
-* `${rootName}`: name of the workspace (e.g. myFolder or myWorkspace).
+* `${dirty}`: 当文件修改后未保存时，显示一个圆点。
+* `${activeEditorMedium}`: 当前文件相对于工作区文件夹的路径（例如 `myFolder/myFileFolder/myFile.txt`）
+* `${separator}`: 一个条件分隔符（"-"），仅当被带有值或静态文本的变量包围时才显示。
+* `${rootName}`: 工作区名称（例如 "myFolder" 或 "myWorkspace"）。
 
-You can see all available options [here](https://code.visualstudio.com/docs/getstarted/settings).
+在[这里](https://code.visualstudio.com/docs/getstarted/settings)可以看到所有可供配置的选项。
 
-### Minimap
+### 代码缩略图
 
-You probably know the famous minimap widget from Sublime Text. It’s turned on by default, but looks quite awful:
+也许你知道 Sublime Text 的著名工具“代码缩略图”。它默认开启，但十分难看：
 
-[![minimap default](https://sudolabs.io/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png)](https://sudolabs.io/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png) 
+[![默认的代码缩略图](https://sudolabs.io/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png)](https://sudolabs.io/static/05493f1269f9601e0205ab6a894238cb/722f5/minimap-default.png) 
 
-Lets’ improve it.
+让我们来优化一下吧。
 
-First, let’s use color blocks instead of minified characters. Then set the max horizontal columns, and finally, always show the “slider” so we can glance at the minimap to see where in the file is the screen located.
+首先，用色块代替缩小的字符。然后，设置水平最大列数，最后，始终显示「滑块」以便瞥一眼就能知道当前代码在文件中的位置。
 
 ```json
 "editor.minimap.renderCharacters": false,
@@ -196,72 +196,72 @@ First, let’s use color blocks instead of minified characters. Then set the max
 "editor.minimap.showSlider": "always"
 ```
 
-[![minimap customized](https://sudolabs.io/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png)](https://sudolabs.io/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png) 
+[![自定义的代码缩略图](https://sudolabs.io/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png)](https://sudolabs.io/static/cd8fc34e366c20ecbd38366bc02266c2/722f5/minimap-customized.png) 
 
-### Whitespace
+### 空格
 
-You probably want to see all the characters:
+也许你希望所有字符都可见：
 
 ```json
 "editor.renderWhitespace": "all"
 ```
 
-### Smooth scrolling
+### 平滑滚动
 
 ```json
 "editor.smoothScrolling": true
 ```
 
-### Caret improvements
+### 优化插入符
 
-There’s something oddly satisfying about the cursor that’s phasing instead of blinking:
+把光标的动画从 "blink" 改为 "phase" ，那种一明一灭的动画让人有种奇怪的愉悦感：
 
 ```json
 "editor.cursorBlinking": "phase"
 ```
 
-Also, the cursor is easier to follow, when there’s a slight animation on its movement:
+让光标移动时带有小动画，这样让我们的目光很容易追踪到它：
 
 ```json
 "editor.cursorSmoothCaretAnimation": true
 ```
 
-### Final new line
+### 文件末尾另起一行
 
-It’s a [common practice](https://unix.stackexchange.com/a/18789/315296) to include a new line at the end of your file:
+在文件末尾处插入一个空行，这是一个[惯例](https://unix.stackexchange.com/a/18789/315296)
 
 ```json
 "files.insertFinalNewline": true
 ```
 
-### Trim trailing whitespace
+### 剪裁尾部空格
 
 ```json
 "files.trimTrailingWhitespace": true
 ```
 
-### [Telemetry](https://code.visualstudio.com/docs/supporting/FAQ#_how-to-disable-telemetry-reporting)
+### [遥测](https://code.visualstudio.com/docs/supporting/FAQ#_how-to-disable-telemetry-reporting)
 
-I like to have telemetry disabled:
+我个人倾向于禁用上传数据（崩溃报告、使用数据、错误）到 Microsoft 联机服务：
 
 ```json
 "telemetry.enableCrashReporter": false
 "telemetry.enableTelemetry": false,
 ```
 
-also, there’s [Natural language search](https://code.visualstudio.com/blogs/2018/04/25/bing-settings-search) enabled by default, which [sends your keystrokes](https://github.com/Microsoft/vscode/issues/49161) to Bing when searching settings. In case you want to turn it off as well, add this to your settings:
+另外，[自然语言搜索](https://code.visualstudio.com/blogs/2018/04/25/bing-settings-search)也是默认激活的，在你搜索设置时，该功能会把你的[键盘动作](https://github.com/Microsoft/vscode/issues/49161)发送给 Bing。要是你也想把这个关闭，就增加如下配置信息：
 
 ```json
 "workbench.settings.enableNaturalLanguageSearch": false
 ```
 
-### Copy file path
+### 复制文件路径
 
-When talking about code, it’s often useful to be able to point to a specific file. VSCode offers copying both absolute and relative file paths of active file through command palette `⌘ P`, but it’s quicker to [set your own keyboard shortcuts](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-editor).
+说起代码，能够指向一个特定的文件往往大有裨益。借助命令面板 `⌘ P`，VS Code 可提供活动文件的绝对路径和相对路径，但[设置自己的快捷键](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-editor)要更快一些。
 
-Open your keyboard shortcuts file with `⌘ K, ⌘ S` (commad + K immediately followed by commad + S), and add the following (or any key combination you like)
+按组合键 `⌘ K` 后紧接着按 ` ⌘ S`，可以打开快捷键配置文件，添加如下配置信息（或者任意你想要的组合）：
 
-copy relative path
+复制相对路径
 
 ```json
 {
@@ -270,7 +270,7 @@ copy relative path
 }
 ```
 
-copy absolute path
+复制绝对路径
 
 ```json
 {
@@ -279,15 +279,15 @@ copy absolute path
 }
 ```
 
-### Hide feedback smiley in the bottom bar
+### 隐藏底部状态栏的反馈笑脸图标
 
 ```json
 "workbench.statusBar.feedback.visible": false
 ```
 
-## Extensions
+## 插件
 
-[Rich extensions ecosystem](https://marketplace.visualstudio.com/) is one of the reasons VSCode took off. Here are the ones that proved themselves useful:
+[丰富的插件生态](https://marketplace.visualstudio.com/)是 VS Code 流行的原因之一。下面列出一些切实有用的插件：
 
 * [Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync)
 * [Babel JavaScript](https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel)
