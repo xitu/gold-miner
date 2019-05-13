@@ -68,11 +68,11 @@ VS Code 把配置信息放在一个类 JSON 格式（所谓的 [`jsonc`](https:/
 
 ### 字体
 
-合适的字体能让你的代码看起来更清晰优美。我选择的代码字体是 [`Fira Code`](https://github.com/tonsky/FiraCode) —— 一款连字漂亮的精良字体。[快试试吧](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)！我刚刚说过它是免费的吧？
+合适的字体能让你的代码看起来更清晰优美。我选择的代码字体是 [`Fira Code`](https://github.com/tonsky/FiraCode) —— 一种强大而制作精良的编程字体，带有漂亮的连字。[快试试吧](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)！我刚刚说过它是免费的吧？
 
 ### 缩进
 
-无论你站在“tabs vs spaces”之争的哪一边，你都可以像这样设置：
+无论你站在 “tabs vs spaces” 之争的哪一边，你都可以像这样设置：
 
 ```json
 "editor.detectIndentation": true,
@@ -82,7 +82,7 @@ VS Code 把配置信息放在一个类 JSON 格式（所谓的 [`jsonc`](https:/
 
 ### 在编辑器和文件管理器之间切换
 
-使用 `⌘ ⇧ E` 快捷键，你可以轻松切换代码编辑器和项目文件管理器。当你处于文件管理器中，你可以像在 Mac OS 的 Finder 中那样用相同的快捷键进行常规操作，比如用方向键导航、用 `↵` 键给文件或文件夹重命名、用 `⌘ ↓` 打开当前文件等。
+使用 `⌘ ⇧ E` 快捷键，你可以轻松切换代码编辑器和项目文件管理器。当你处于文件管理器中，你可以像在 macOS 的 Finder 中那样用相同的快捷键进行常规操作，比如用方向键导航、用 `↵` 键给文件或文件夹重命名、用 `⌘ ↓` 打开当前文件等。
 
 快速提示：在 VS Code 中，通过 `⌥ ⌘ R` 组合键使用 macOS Finder 快速定位到当前选中的文件或文件夹。
 
@@ -142,7 +142,7 @@ Emmet 着实强大，能为你节省大量时间，因此我强烈推荐你看�
 
 [![VS Code 导航路径](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/c4067/vscode-breadcrumbs.png)](https://sudolabs.io/static/a81dc2739c14f1ebcd95b79df42096d1/a260b/vscode-breadcrumbs.png) 
 
-导航路径（在标题栏下方显示）是一个有用的功能，它展示了当前代码在代码库中的位置。如果你点击面包屑导航中的一段，它会显示你的当前位置、同级文件或标记，亦可做为快速导航使用。
+导航路径（显示在标题栏下方）是一个有用的功能，它展示了当前代码在代码库中的位置。如果你点击导航路径其中一个节点，它会显示你的当前位置、同级文件或标记，亦可做为快速导航使用。
 
 激活方法如下：
 
@@ -153,11 +153,11 @@ Emmet 着实强大，能为你节省大量时间，因此我强烈推荐你看�
 以下是导航路径的两个有用的快捷键：
 
 * `⌘ ⇧ .` — 聚焦导航路径：选中末尾元素，打开下拉菜单供你导航到同级文件或标记。
-* `⌘ ⇧ ;` — 聚焦导航路径的末尾元素但不打开，这样就可以用方向键在路径层次结构中移动了
+* `⌘ ⇧ ;` — 聚焦导航路径的末尾元素但不打开，通过方向键在路径层次中移动。
 
 快速提示：你可以在导航路径中输入关键词来过滤文件、文件夹和标记，并用 `↵` 来聚焦。
 
-### 隐藏“打开的编辑器”窗格
+### 隐藏「打开的编辑器」窗格
 
 这样就能总是在标签页中打开文件
 
@@ -174,9 +174,9 @@ VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目
 ```
 
 * `${dirty}`: 当文件修改后未保存时，显示一个圆点。
-* `${activeEditorMedium}`: 文件的路径与工作空间文件夹相关联（例如 `myFolder/myFileFolder/myFile.txt`）
-* `${separator}`: 一个条件分隔符（“-”），仅当被带有值或静态文本的变量包围时才出现。
-* `${rootName}`: 工作空间的名字（例如 “myFolder”或“myWorkspace”）。
+* `${activeEditorMedium}`: 当前文件相对于工作区文件夹的路径（例如 `myFolder/myFileFolder/myFile.txt`）
+* `${separator}`: 一个条件分隔符（"-"），仅当被带有值或静态文本的变量包围时才显示。
+* `${rootName}`: 工作区名称（例如 "myFolder" 或 "myWorkspace"）。
 
 在[这里](https://code.visualstudio.com/docs/getstarted/settings)可以看到所有可供配置的选项。
 
@@ -188,7 +188,7 @@ VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目
 
 让我们来优化一下吧。
 
-首先，用色块代替缩小的字符。然后，设置水平最大列数，最后，始终显示“滑块”以便瞥一眼就能知道当前代码在文件中的位置。
+首先，用色块代替缩小的字符。然后，设置水平最大列数，最后，始终显示「滑块」以便瞥一眼就能知道当前代码在文件中的位置。
 
 ```json
 "editor.minimap.renderCharacters": false,
@@ -214,7 +214,7 @@ VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目
 
 ### 优化插入符
 
-把光标的动画从“blink”改为“phase”，那种一明一灭的动画让人有种奇怪的愉悦感：
+把光标的动画从 "blink" 改为 "phase" ，那种一明一灭的动画让人有种奇怪的愉悦感：
 
 ```json
 "editor.cursorBlinking": "phase"
