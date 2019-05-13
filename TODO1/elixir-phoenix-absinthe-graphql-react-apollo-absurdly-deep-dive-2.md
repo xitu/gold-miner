@@ -14,9 +14,9 @@
 
 ## 测试 —— 服务器端
 
-现在我们已经完成了所有的代码部分，那我们如何确保我的的代码总能正常的工作呢？我们需要对下面这几种不同的层次进行测试。首先，我们需要对 model 层进行单元测试 —— 这些 model 是否能正确的验证（数据）？这些 model 的 helper methods 是否能返回期待的结果？第二，我们需要对 resolver 进行单元测试 —— resolver 是否能处理不同的（成功和失败）的情况？是否能返回正确的结果或者根据结果作出正确的更改？第三，我们应该编写一些完整的 integration test（集成测试），例如发送向服务器一个查询请求并期待返回正确的结果。这可以让我们更好地从全局上把控我们的应用，并且确保这些测试涵盖认证逻辑等案例。第四，我们希望对我们的 subscription 进行测试 —— 当相关的变化发生时，它们可否正确的通知套接字。
+现在我们已经完成了所有的代码部分，那我们如何确保我的代码总能正常的工作呢？我们需要对下面几种不同的层次进行测试。首先，我们需要对 model 层进行单元测试 —— 这些 model 是否能正确的验证（数据）？这些 model 的 helper 函数是否能返回预期的结果？第二，我们需要对 resolver 层进行单元测试 —— resolver 是否能处理不同的（成功和失败）的情况？是否能返回正确的结果或者根据结果作出正确的数据库更新？第三，我们应该编写一些完整的 integration test（集成测试），例如发送向服务器一个查询请求并期待返回正确的结果。这可以让我们更好地从全局上把控我们的应用，并且确保这些测试涵盖认证逻辑等案例。第四，我们希望对我们的 subscription 层进行测试 —— 当相关的变化发生时，它们可否可以正确地通知套接字。
 
-Elixir 有一个非常基本的内置测试库，叫做 ExUnit。ExUnit 包括简单的 `assert`/`refute` 函数，也可以帮助你运行你的测试。在 Phoenix 中建立一系列 “case” support 文件的方法也非常常见。这些文件在测试中被引用，用于运行常见的初始化任务，例如连接数据库。此外，在我的测试中，我发现 [ex_spec](https://hexdocs.pm/ex_spec/readme.html) 和 [ex_machina](https://hexdocs.pm/ex_machina/readme.html) 这两个库非常有帮助。ex_spec 加入了简单的 `describe` 和 `it` 宏，对于有 ruby 相关背景的我，ex_spec 可以让测试的语法更加的友好。ex_machina 提供了 factory（工厂），这些 factory 可以让动态插入测试数据变得更简单。
+Elixir 有一个非常基本的内置测试库，叫做 ExUnit。ExUnit 包括简单的 `assert`/`refute` 函数，也可以帮助你运行你的测试。在 Phoenix 中建立一系列 “case” support 文件的方法也很常见。这些文件在测试中被引用，用于运行常见的初始化任务，例如连接数据库。此外，在我的测试中，我发现 [ex_spec](https://hexdocs.pm/ex_spec/readme.html) 和 [ex_machina](https://hexdocs.pm/ex_machina/readme.html) 这两个库非常有帮助。ex_spec 加入了简单的 `describe` 和 `it` ，对于有 ruby 相关背景的我来说，ex_spec 可以让编写测试所用的语法更加的友好。ex_machina 提供了函数工厂（factory），这些函数工厂可以让动态插入测试数据变得更简单。
 
 我创建的函数工厂长这样：
 
@@ -116,9 +116,9 @@ defmodule Socializer.PostTest do
 end
 ```
 
-这个测试案例足够的直观。对于每个案例，我们插入所需要的测试数据，调用需要测试的函数并对结果作出 assertion（断言）。
+这个测试案例很直观。对于每个案例，我们插入所需要的测试数据，调用需要测试的函数并对结果作出断言（assertion）。
 
-接下来，让我们一起看一下面这个 resolver 的测试案例：
+接下来，让我们一起看一下下面这个 resolver 的测试案例：
 
 ```elixir
 # test/socializer_web/resolvers/post_resolver_test.exs
@@ -293,9 +293,9 @@ defmodule SocializerWeb.Integration.PostResolverTest do
 end
 ```
 
-非常相似，只有两点不同 —— 这次我们是通过 `AbsintheHelpers.authenticate_conn(user)` 将用户的 token 加入头字段的方式来建立连接，并且我们调用的是 `mutation_skeleton`，而非之前的  `query_skeleton`。
+非常相似，只有两点不同 —— 这次我们是通过 `AbsintheHelpers.authenticate_conn(user)` 将用户的 token 加入头字段的方式来建立连接，并且我们调用的是 `mutation_skeleton`，而非之前的 `query_skeleton`。
 
-那对于 subscription 的测试呢？对于 subscription 的测试也需要通过一些基本的搭建，来建立一个套接字连接，然后就可以建立并测试我们的 subscription。我找到了[这篇文章](https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe)，对我们理解如何为 subscription 构建测试非常有帮助。
+那对于 subscription 的测试呢？对于 subscription 的测试也需要通过一些基本的搭建，来建立一个套接字连接，然后就可以建立并测试我们的 subscription。我找到了[这篇文章](https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe)，它对我们理解如何为 subscription 构建测试非常有帮助。
 
 首先，我们建立一个新的 case 文件来为 subscription 的测试做基本的搭建。代码长这样：
 
@@ -393,15 +393,15 @@ defmodule SocializerWeb.PostSubscriptionsTest do
 end
 ```
 
-首先，我们先写一个 subscription 的查询语句，并且推送到我们在上一步已经建立好的套接字上。接着，我们写一个会触发 subscription 的 mutation 语句（即，创建一个新帖子）并推送到套接字上。最后，我们检查 `push` 的回复，并断言一个帖子的被新建的更新信息将被推送给我们。这其中设计了更多的前期搭建，但这也让我们对 subscription 的生命周期的建立的更好的集成测试。
+首先，我们先写一个 subscription 的查询语句，并且推送到我们在上一步已经建立好的套接字上。接着，我们写一个会触发 subscription 的 mutation 语句（例如，创建一个新帖子）并推送到套接字上。最后，我们检查 `push` 的回复，并断言一个帖子的被新建的更新信息将被推送给我们。这其中设计了更多的前期搭建，但这也让我们对 subscription 的生命周期的建立的更好的集成测试。
 
 ## 客户端
 
-以上就是对服务端所发生的一切的大致的描述 —— 服务器通过在 types 中定义，在 resolvers 中实现，在 model 查询和 persist（固化）数据的方法来处理 GraphQL 查询语句。接下来，让我们一起来看一看客户端是如何建立的。
+以上就是对服务端所发生的一切的大致的描述 —— 服务器通过在 types 中定义，在 resolvers 中实现，在 model 查询和固化（persist）数据的方法来处理 GraphQL 查询语句。接下来，让我们一起来看一看客户端是如何建立的。
 
-我们首先使用 [create-react-app](https://facebook.github.io/create-react-app)，这是从无到有搭建 React 项目的极好的方法 —— 它会搭建一个拥有优秀的默认设定和结构，简化了大量配置的 “hello world” React 应用。
+我们首先使用 [create-react-app](https://facebook.github.io/create-react-app)，这是从 0 到 1 搭建 React 项目的好方法 —— 它会搭建一个 “hello world” React 应用，包含默认的设定和结构，并且简化了大量配置。
 
-这里我使用了 [React Router](https://reacttraining.com/react-router) 来实现我的应用的路由；它将允许我们的用户在帖子列表页面、单一帖子页面和聊天页面等进行浏览。我们的应用的根组件应该长这样：
+这里我使用了 [React Router](https://reacttraining.com/react-router) 来实现应用的路由；它将允许用户在帖子列表页面、单一帖子页面和聊天页面等进行浏览。我们的应用的根组件应该长这样：
 
 ```javascript
 // client/src/App.js
@@ -461,7 +461,7 @@ const Chat = () => {
 };
 ```
 
-如果路径以 `/chat` 开头（可能以 ID 结尾，例如，`/chat/123`），根层次的 `App` 会渲染 `Chat` 组件。`Chat` 会渲染对话列表栏（对话列表栏总是可见的），然后会渲染它的路由，如果路径有 ID，则显示一个 `Conversation` 组件，否则就会显示 `EmptyState`（请注意，如果缺少 `?`，那么 `:id` 参数就不再是可选的）。这就是动态路由的力量 —— 它让你可以基于当前的 URL 渐进的渲染界面的不同组件，将基于路径的问题本地化到相关组件。
+如果路径以 `/chat` 开头（可能以 ID 结尾，例如，`/chat/123`），根层次的 `App` 会渲染 `Chat` 组件。`Chat` 会渲染对话列表栏（对话列表栏总是可见的），然后会渲染它的路由，如果路径有 ID，则显示一个 `Conversation` 组件，否则就会显示 `EmptyState`（请注意，如果缺少了 `?`，那么 `:id` 参数就不再是可选参数）。这就是动态路由的力量 —— 它让你可以基于当前的 URL 渐进地渲染界面的不同组件，将基于路径的问题本地化到相关的组件中。
 
 即使使用了动态路由，有时你也只想要渲染一条路径（类似于传统的静态路由）。这时 `Switch` 组件就登上了舞台。如果没有 `Switch`，React Router 会渲染**每一个**匹配当前 URL 的组件，那么在上面的 `Chat` 组件中，我们就会既有 `Conversation` 组件，又有 `EmptyState` 组件。`Switch` 会告诉 React Router，让它只渲染第一个匹配当前 URL 的路由并忽视掉其它的。
 
@@ -564,9 +564,9 @@ export const createClient = () => {
 };
 ```
 
-Apollo 提供了 `split` 函数，它可以让你根据你选择的标准，将不同的查询请求路由到不同的链接上 —— 你可以把它想成一个三项式：如果请求有 subscription，就通过套接字链接来发送，其他情况则使用 HTTP 链接传送。
+Apollo 提供了 `split` 函数，它可以让你根据你选择的标准，将不同的查询请求路由到不同的链接上 —— 你可以把它想成一个三项式：如果请求有 subscription，就通过套接字链接来发送，其他情况（Query 或者 Mutation）则使用 HTTP 链接传送。
 
-如果用户已经登陆，我们可能还需要给两个链接都提供认证。当用户登陆以后，我们将其认证令牌设置到 `token` 的 cookie 中（下面会详细介绍）。当前一部分中与 Phoenix 建立 websocket 连接时，我们使用`token` 作为参数，在 HTTP 链接中，这里我们使用 `setContext` 包装器，将`token` 设置在请求的头字段中。
+如果用户已经登陆，我们可能还需要给两个链接都提供认证。当用户登陆以后，我们将其认证令牌设置到 `token` 的 cookie 中（下文会详细介绍）。与 Phoenix 建立 websocket 连接时，我们使用`token` 作为参数，在 HTTP 链接中，这里我们使用 `setContext` 包装器，将`token` 设置在请求的头字段中。
 
 ```javascript
 // client/src/util.apollo.js
@@ -716,7 +716,7 @@ const Login = () => {
 };
 ```
 
-在组件中，我们首先去从 context 中获取当前的 `token` 和一个叫 `setAuth` 的函数（我们会在下文介绍 `setAuth`）。我们也需要使用 `useState` 来设置一些本地的状态，那样我们就可以为用户的电子邮件，密码以及他们的证书是否有效存储临时值（这样我们就可以在表单中显示错误状态）。最后，如果用户已经有了认证令牌，说明他们已经登陆，那么我们就直接让他们跳转去首页。
+在组件中，我们首先去从 context 中获取当前的 `token` 和一个叫 `setAuth` 的函数（我们会在下文中介绍 `setAuth`）。我们也需要使用 `useState` 来设置一些本地的状态，那样我们就可以为用户的电子邮件，密码以及他们的证书是否有效来存储临时值（这样我们就可以在表单中显示错误状态）。最后，如果用户已经有了认证令牌，说明他们已经登陆，那么我们就直接让他们跳转去首页。
 
 ```javascript
 // client/src/pages/Login.js
@@ -863,7 +863,7 @@ export default withApollo(StateProvider);
 
 这里有很多东西。首先，我们为认证用户的 `token` 和 `userId` 建立 state。我们通过读 cookie 来初始化 state，那样我们就可以在页面刷新后保证用户的登陆状态。接下来我们实现了我们的 `setAuth` 函数。用 `null` 来调用该函数会将用户登出；否则就使用提供的 `token` 和 `userId`来让用户登陆。不管哪种方法，这个函数都会更新本地的 state 和 cookie。
 
-在同时使用认证和 Apollo websocket link 时存在一个很大的难题。我们在初始化 websocket 时，如果用户被认证，我们就使用令牌，反之，如果用户登出，则不是用令牌。但是当认证状态发生变化时，我们需要根据状态重置 websocket 连接来。如果用户是先登出再登入，我们需要用户新的令牌来重置 websocket，这样他们就可以实时地接受到需要登陆的活动的更新，比如说一个聊天对话。如果用户是先登入再登出，我们则需要将 websocket 重置成未经验证状态，那么他们就不再会实时地接受到他们已经登出的账户的更新。事实证明这真的很难 —— 因为没有一个详细记录的下的解决方案，这花了我好几个小时才解决。我最终手动地为套接字实现了一个重置​​函数：
+在同时使用认证和 Apollo websocket link 时存在一个很大的难题。我们在初始化 websocket 时，如果用户被认证，我们就使用令牌，反之，如果用户登出，则不是用令牌。但是当认证状态发生变化时，我们需要根据状态重置 websocket 连接来。如果用户是先登出再登入，我们需要用户新的令牌来重置 websocket，这样他们就可以实时地接受到需要登陆的活动的更新，比如说一个聊天对话。如果用户是先登入再登出，我们则需要将 websocket 重置成未经验证状态，那么他们就不再会实时地接受到他们已经登出的账户的更新。事实证明这真的很难 —— 因为没有一个详细记录的下的解决方案，这花了我好几个小时才解决。我最终手动地为套接字实现了一个重置函数：
 
 ```javascript
 // client/src/util.apollo.js
@@ -1131,7 +1131,7 @@ describe("Posts", () => {
 });
 ```
 
-最后，我们将会来测试 subscription，来确保当组件收到一个新的帖子时，它能够按照所期待地结果进行正确地渲染。在这个测试案例中，我们需要更新 `Subscription` 的模拟，以便它实际地返回原始的实现，并为组件订阅所发生的变化（新建帖子）。我们同时模拟了一个 `POSTS_SUBSCRIPTION` query 查询来模拟 subscription 接收到一个新的帖子。最后，同上面的测试一样，我们等待查询语句的结束（并且新帖子的文本出现）并对 HTML 进行快照。
+最后，我们将会来测试 subscription，来确保当组件收到一个新的帖子时，它能够按照所期待地结果进行正确地渲染。在这个测试案例中，我们需要更新 `Subscription` 的模拟，以便它实际地返回原始的实现，并为组件订阅所发生的变化（新建帖子）。我们同时模拟了一个叫 `POSTS_SUBSCRIPTION` 地查询来模拟 subscription 接收到一个新的帖子。最后，同上面的测试一样，我们等待查询语句的结束（并且新帖子的文本出现）并对 HTML 进行快照。
 
 以上就差不多是全部的内容了。jest 和 react-testing-library 都非常的强大，它们使我们对组件的测试变得简单。测试 Apollo 有一点点困难，但是通过明智地使用模拟数据，我们也能够写出一些非常完整的测试来测试所有主要组件的状态。
 
@@ -1149,7 +1149,7 @@ describe("Posts", () => {
 
 我部署的体验也充满了挫折和问题。有些是意料之中，包括一些新的框架和库的学习曲线 —— 但也有一些地方，如果有更好的文档和工具，可以节省我很多的时间，让我不那么头疼。特别是 Apollo，我在理解如果让 websocket 在认证变化后重新初始化它的连接上遇到了一大堆问题；通常情况下这些都应该在文档里写下来，但是显然我啥也找不到。相似的，我在测试 subscriptions 时也遇到很多问题，并且最终不得不放弃转而使用 mock 测试。测试的文档对于基本的测试来说是非常够的，但是我发现当我想要写更高级的测试案例时，文档太过于浅显。我怕也经常因为缺少 API 的文档而感到困惑，主要是 Apollo 和 Absinthe 客户端库的一部分文档。例如说，当我研究如果重置 websocket 连接时，我找不到任何 Absinthe socket 实例和 Apollo link 实例的文档。我唯一能做的就是把 GitHub 上面的源代码从头到尾读一遍。我使用 Apollo 的体验比起几年前使用 Relay 的体验要好很多 —— 但是下一次我使用它时，我不得不接受，如果我想要另辟蹊径的话，就需要花更多的时间来破解改造代码的事实。
 
-总而言之，我给这套技术栈很高的评分，而且我非常的喜欢这个项目。Elixir 和 Phoenix 用起来让人耳目一新；如果你来自 Rails，会有一些学习的曲线，但是我真的非常喜欢 Elixir 的一些语言特点，例如模式匹配和通道运算符（pipe operator）。Elixir 有很多新颖的想法（以及来许多来自函数式编程，经过实战考验的概念），让编写有意义的，好看的代码这件事变得十分简单。Absinthe 的使用就像是一阵春风拂面；它实现的很好，文档极佳，几乎涵盖了所有实现 GraphQL 服务器的合理用例，并且从总体上来说，我发现 GraphQL 的基本承诺也被很好的传递。查询每一个页面我需要的数据十分简单，通过 subscription 实现实时的更新也非常容易。我一直都非常喜欢使用 React 和 React Router，这一次也不例外 —— 它们使得构建复杂，交互的前端用户界面变得简单。最后，我十分满意整体的结果 —— 作为一名用户，应用的加载和浏览非常快，所有的东西都是实时的所以可以一直保持同步。如果说对技术栈的终极衡量标准是用户的体验，那这个组合一定是一个巨大的成功。
+总而言之，我给这套技术栈很高的评分，而且我非常的喜欢这个项目。Elixir 和 Phoenix 用起来让人耳目一新；如果你来自 Rails，会有一些学习的曲线，但是我真的非常喜欢 Elixir 的一些语言特点，例如模式匹配和通道运算符（pipe operator）。Elixir 有很多新颖的想法（以及来许多来自函数式编程，经过实战考验的概念），让编写有意义的，好看的代码这件事变得十分简单。Absinthe 的使用就像是一阵春风拂面；它实现的很好，文档极佳，几乎涵盖了所有实现 GraphQL 服务器的合理用例，并且从总体上来说，我发现 GraphQL 的核心概念也被很好地传递。查询每一个页面我需要的数据十分简单，通过 subscription 实现实时地更新也非常容易。我一直都非常喜欢使用 React 和 React Router，这一次也不例外 —— 它们使得构建复杂，交互的前端用户界面变得简单。最后，我十分满意整体的结果 —— 作为一名用户，应用的加载和浏览非常快，所有的东西都是实时的所以可以一直保持同步。如果说对技术栈的终极衡量标准是用户的体验，那这个组合一定是一个巨大的成功。
 
 ---
 
