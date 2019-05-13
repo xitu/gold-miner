@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/art-direction-for-the-web-using-css-shapes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/art-direction-for-the-web-using-css-shapes.md)
 > * 译者：[xujiujiu](https://github.com/xujiujiu)
-> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [cyz980908](https://github.com/cyz980908)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [cyz980908](https://github.com/cyz980908), [portandbridge](https://github.com/portandbridge)
 
 # Web 使用 CSS Shapes 的艺术设计
 
@@ -96,7 +96,7 @@ img {
 
 正如 Rachel 在她文章中说的那样：
 
-> “你还可以使用图像作为形状的路径来创建弯曲文本的效果，但不包括页面上的图像。但是，你仍需要浮动内容，因此，我们可以使用 Generated Content 模块。”
+> “你还可以用一张图片作为形状的路径来做出弯曲文本的效果，而且在页面上可以不显示这张图片。但是，你仍需要浮动一些内容，因此，我们可以使用 Generated Content 模块。”
 
 作为 alpha 通道的替代，我可以使用 Generated Content — 应用于两个伪元素 — 一个用于左边的多边形，另一个用于右边。运行的文本将在两个生成的形状之间流动：
 
@@ -124,7 +124,7 @@ main p:first-child::before {
 
 ![在多个转折点处调整 alpha 图像的宽度，使之能够展示文本形状，以完美匹配其视口。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e55053ee-9096-4093-8bd5-4fd93a4e3411/img-5-6.png)
 
-在多个转折点处调整 alpha 图像的宽度，使之能够展示文本形状，以完美匹配其视口。
+在多个转折点处调整 alpha 图像的宽度，就能让流动文本的形状完美匹配其视口。
 
 ### 2. Z 型
 
@@ -186,13 +186,13 @@ main p:first-child::before {
 
 左图：一种缺乏活力的可展现但却很普通的设计。右图：使用 CSS Shapes 展示了乐趣和速度。
 
-标志性的 Mini Cooper 驾驶起来快速而有趣。我的设计在没有通过 CSS Shapes 产生的 Z 型下也能完美呈现，但这种布局看起来很普通并且缺乏活力。通过在两个形状之间操作一小段流动文本创建的 Z 型暗示了驾驶这辆标志性小型车时的速度和乐趣。
+标志性的 Mini Cooper 驾驶起来快速而有趣。即使不用 CSS Shapes 做出的 Z 型布局也能完美呈现页面，但这种设计看起来很普通并且缺乏活力。但通过操作两个形状之间的一小段流动文本，便可以创建的 Z 型布局，这种布局暗示了驾驶这辆标志性小型车时的速度和乐趣。
 
 ### 3. 弯曲型
 
 CSS Shapes 最迷人的一个方面是如何使用部分透明图像中的 alpha 通道创建优雅的形状。这种形状可以是我想象到的任何东西。我只需要创建一个图像，浏览器将会在它周围流动内容。
 
-虽然 [CSS Shapes 模块 2 级规范](https://drafts.csswg.org/css-shapes-2/) 中已经提出将内容限制在形状内，但目前无法知道是否以及何时可以在浏览器中实现。然而 `shape-inside` 不可用（目前！），这并不意味着我无法使用 `shape-outside` 创建类似的结果。
+虽然 [CSS Shapes 模块 2 级规范](https://drafts.csswg.org/css-shapes-2/) 中已经提出将内容限制在形状内，但目前无法知道是否以及何时可以在浏览器中实现。不过，虽然 `shape-inside` （暂时）不可用，这并不代表我用 `shape-outside` 创建不出类似的结果。
 
 ![左：另一个可展示但普通的设计。右：使用 CSS Shapes 创建更独特的外观。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4913ceec-6073-42f4-bd21-03b6f0ffe3e0/img-9-10.png)
 
@@ -273,11 +273,11 @@ p {
 
 ### 5. 旋转型
 
-为什么给混合添加变换时使用 CSS Grid 和 Shapes 就能勉强实现几年前难以想象的布局？在最后一个例子中，围绕图像中的汽车流动文本，同时旋转整个需要这些属性的所有组合的布局。
+为什么要满足于只使用 CSS Grid 和 Shapes 呢？ 有些几年前难以想象的布局，现在只要再引入 Transforms 就能做出来了。在最后一个例子中，要做到围绕图像中的汽车流动文本，同时旋转整个布局，需要这些属性的所有组合。
 
 ![为什么只使用 CSS Grid 和 Shapes？](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/72c40e9f-fe9c-4253-a146-022ad53778c1/img-13.png)
 
-为什么只使用CSS Grid 和 Shapes？
+为什么只使用 CSS Grid 和 Shapes？
 
 由于这些汽车的图像没有透明的 alpha 通道，因此，在形状周围的流动文本需要包含仅包含 alpha 通道信息的第二个图像。
 
@@ -308,7 +308,7 @@ body {
 
 我将此布局旋转到足以使设计更具吸引力的角度，但却不会牺牲可读性。
 
-### 福利例子：多边形形状塑造列
+### 栗子免费送：多边形形状塑造列
 
 **摘自 2019 年 3 月 26 日的“网上艺术指南”**
 
