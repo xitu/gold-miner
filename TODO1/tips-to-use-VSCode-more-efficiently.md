@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tips-to-use-VSCode-more-efficiently.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tips-to-use-VSCode-more-efficiently.md)
 > * 译者：[Baddyo](https://github.com/Baddyo)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58), [hzdaqo](https://github.com/hzdaqo)
 
 # 帮你高效使用 VS Code 的秘诀
 
@@ -19,7 +19,7 @@
 
 VS Code 的基本功能中，`jsconfig.json` 是最容易被忽视的一个。当你在 VS Code 中打开 JS 项目，VS Code 并不知道项目中的文件是相关联的。它把每个文件当作单独个体。而通过在项目根目录创建 `jsconfig.json` 文件，你可以把项目信息传达给 VS Code。
 
-`jsconfig.json`（连同其他配置一起）实现了“智能跳转到定义处”的功能，此中用到了各种模块解析算法。在实践过程中，你可以对代码中的各种引用使用组合键 `⌘ 点击` ，然后就能跳转到该引用定义之处。我强烈建议你读读[官方文档](https://code.visualstudio.com/docs/languages/jsconfig)，而我个人最常用的配置是这样的：
+`jsconfig.json`（连同其他配置一起）实现了“智能跳转到定义处”的功能，此中用到了各种模块解析算法。在实践过程中，你可以对代码中的各种引用使用组合键 `⌘ 点击`，然后就能跳转到该引用定义之处。我强烈建议你读读[官方文档](https://code.visualstudio.com/docs/languages/jsconfig)，而我个人最常用的配置是这样的：
 
 ```js
 {
@@ -324,6 +324,3 @@ VS Code 的默认标题栏不是很得力。它只显示当前文件名和项目
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
-  [1]: https://github.com/Baddyo
