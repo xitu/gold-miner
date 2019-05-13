@@ -7421,7 +7421,7 @@
 |------|-------|-------|
 |[修订译文 https://github.com/xitu/gold-miner/pull/4636](https://github.com/xitu/gold-miner/pull/4636)|奖励|1|
 
-## 译者：[LuvJia](https://github.com/LuvJia) 历史贡献积分：4 当前积分：4
+## 译者：[GeoLibra](https://github.com/GeoLibra) 历史贡献积分：4 当前积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
