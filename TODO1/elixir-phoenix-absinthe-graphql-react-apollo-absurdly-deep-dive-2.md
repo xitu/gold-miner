@@ -14,9 +14,9 @@
 
 ## 测试 —— 服务器端
 
-现在我们已经完成了所有的代码部分，那我们如何确保我的的代码总能正常的工作呢？我们需要对下面这 5 种不同的层次进行测试。首先，我们需要对 model 层进行单元测试 —— 这些 model 是否能正确的验证（数据）？这些 model 的 helper methods 是否能返回期待的结果？第二，我们需要对 resolver 进行单元测试 —— resolver 是否能处理不同的（成功和失败）的情况？是否能返回正确的结果或者根据结果作出正确的更改？第三，我们应该编写一些完整的 integration test（集成测试），例如发送向服务器一个查询请求并期待返回正确的结果。这可以让我们更好地从全局上把控我们的应用，并且确保这些测试涵盖认证逻辑等案例。第四，我们希望对我们的 subscription 进行测试 —— 当相关的变化发生时，它们可否正确的通知套接字。
+现在我们已经完成了所有的代码部分，那我们如何确保我的的代码总能正常的工作呢？我们需要对下面这几种不同的层次进行测试。首先，我们需要对 model 层进行单元测试 —— 这些 model 是否能正确的验证（数据）？这些 model 的 helper methods 是否能返回期待的结果？第二，我们需要对 resolver 进行单元测试 —— resolver 是否能处理不同的（成功和失败）的情况？是否能返回正确的结果或者根据结果作出正确的更改？第三，我们应该编写一些完整的 integration test（集成测试），例如发送向服务器一个查询请求并期待返回正确的结果。这可以让我们更好地从全局上把控我们的应用，并且确保这些测试涵盖认证逻辑等案例。第四，我们希望对我们的 subscription 进行测试 —— 当相关的变化发生时，它们可否正确的通知套接字。
 
-Elixir 有一个非常基本的内置测试库，叫做 ExUnit。ExUnit 包括简单的 `assert`/`refute` 函数，也可以帮助你运行你的测试。在 Phoenix 中建立一系列 “case” support 文件的方法也非常常见。这些文件在测试中并引用，用于运行常见的初始化任务，例如连接数据库。此外，在我的测试中，我发现 [ex_spec](https://hexdocs.pm/ex_spec/readme.html) 和 [ex_machina](https://hexdocs.pm/ex_machina/readme.html) 这两个库非常有帮助。ex_spec 加入了简单的 `describe` 和 `it` 宏，对于有 ruby 相关背景的我，ex_spec 可以让测试的语法更加的友好。ex_machina 提供了 factory（工厂），这些 factory 可以让动态插入测试数据变得更简单。
+Elixir 有一个非常基本的内置测试库，叫做 ExUnit。ExUnit 包括简单的 `assert`/`refute` 函数，也可以帮助你运行你的测试。在 Phoenix 中建立一系列 “case” support 文件的方法也非常常见。这些文件在测试中被引用，用于运行常见的初始化任务，例如连接数据库。此外，在我的测试中，我发现 [ex_spec](https://hexdocs.pm/ex_spec/readme.html) 和 [ex_machina](https://hexdocs.pm/ex_machina/readme.html) 这两个库非常有帮助。ex_spec 加入了简单的 `describe` 和 `it` 宏，对于有 ruby 相关背景的我，ex_spec 可以让测试的语法更加的友好。ex_machina 提供了 factory（工厂），这些 factory 可以让动态插入测试数据变得更简单。
 
 我创建的函数工厂长这样：
 
@@ -184,7 +184,7 @@ defmodule SocializerWeb.PostResolverTest do
 end
 ```
 
-对于 resolver 的测试也相当的简单 —— 只需要对 model 之上的逻辑层做单元测试。这里我们插入任意的测试数据，调用所测试的 resolver，然后期待正确的结果被返回。
+对于 resolver 的测试也相当的简单 —— 它们也是单元测试，运行于 model 之上的一层。这里我们插入任意的测试数据，调用所测试的 resolver，然后期待正确的结果被返回。
 
 集成测试有一点点小复杂。我们首先需要建立和服务器端的连接（可能需要认证），接着发送一个查询语句并且确保我们得到正确的结果。我找到了[这篇帖子](https://tosbourn.com/testing-absinthe-exunit)，它对学习如何为 Absinthe 构建集成测试非常有帮助。
 
@@ -218,7 +218,7 @@ defmodule Socializer.AbsintheHelpers do
 end
 ```
 
-这个文件里包括了三个 helper 函数。第一个函数接受一个连接对象和一个用户对象作为参数，通过在 HTTP 的 header 中加入已认证的用户 token 来认证连接。第二个和第三个函数都接受一个查询语句作为参数，并且返回一个 JSON 对象。我们可以通过两个函数包装 GraphQL 查询语句并通过网络连接发送给服务器。
+这个文件里包括了三个 helper 函数。第一个函数接受一个连接对象和一个用户对象作为参数，通过在 HTTP 的 header 中加入已认证的用户 token 来认证连接。第二个和第三个函数都接受一个查询语句作为参数，当你通过网络连接发送查询语句给服务器时，这两个函数会返回一个包含该查询语句结果在内的 JSON 结构对象。
 
 然后回到测试本身：
 
