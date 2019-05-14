@@ -21,7 +21,7 @@ At Google, we’ve put together our learnings on sound design for anyone to appl
 
 Designing sound and silence not only empowers teams to compose a well-tempered product, but fosters a more sensory user experience — that starts by listening.
 
-…
+***
 
 Sound good? Explore Google’s [Material Sound guidelines](https://material.io/design/sound/about-sound.html) for more.
 
