@@ -22,9 +22,13 @@ Vue JS 中的 Mixins 基本上就是一堆定义的逻辑，它们以 Vue 规定
 你需要：
 
 - 安装了 Node.js 10.x 或者更高的版本。你可以在你的终端运行 node -v 来校验你的版本。
+
 - 已经安装了 Node Package Manager 6.7 或者更高的版本（NPM）。
+
 - 一个代码编辑器：高度推荐 Visual Studio Code 。 ([推荐理由](https://blog.bitsrc.io/a-convincing-case-for-visual-studio-code-c5bcc18e1693?source=your_stories_page---------------------------))
+
 - 在你的设备上全局安装了 Vue 的最新版本。
+
 - 在你的设备上安装了 Vue CLI 3.0。在做这个之前，先卸载旧版本的 CLI 工具：
 
 ```
@@ -53,8 +57,11 @@ npm install
 ## 为什么 Mixins 是重要的
 
 1. 使用 Vue mixins， 你可以十分简单地在编程中遵循 DRY 原则(译者注: Don't Repeat Yourself)，他会确保你不会重复自己的代码。
+
 2. 使用 Vue mixins，你也可以变得十分的灵活，一个 mixins 对象包含有 Vue 组件的选项，所以我们可以将 mixin 与 组件混合使用。
+
 3. Vue mixins 也是很安全的，如果你写的很好，那么它们是不会对超出定义范围的变更产生影响的。
+
 4. 它们是一个很好的平台来实现代码的可复用性。
 
 > Mixins 是一种灵活的方式来实现为 Vue 组件分发可复用功能。 — 官方文档
@@ -164,7 +171,7 @@ var component = new Component(); // => "hello from mixin!"
 
 你现在要使用 Vue mixins 来重写我们在文章一开始初始使用的两个组件来说明这个问题。在一个 Vue 应用中使用 mixins，你必须通过以下四个阶段：
 
-- 撞见混入文件。
+- 创建 mixin 文件。
 - 在需要的组件中引入 mixin 文件。
 - 在组件中移除重复的逻辑。
 - 注册 mixin。
