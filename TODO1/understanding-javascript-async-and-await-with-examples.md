@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*3kAwfTZXxNynBOB5O6VQtg.jpeg)
 
-  首先来了解下回调函数。**回调函数会在被调用后的某一时刻执行，除此之外与其他普通函数并无差别。** 由于 JS 的异步特征，在一些不能立即获得函数返回值的地方都需要使用回调函数。
+  首先来了解下回调函数。**回调函数会在被调用后的某一时刻执行，除此之外与其他普通函数并无差别。**由于 JS 的异步特征，在一些不能立即获得函数返回值的地方都需要使用回调函数。
 
 下面是一个 Node.js 读取文件时的示例（异步操作）—
 
@@ -32,36 +32,36 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 
 ![Example of Callback hell.](https://cdn-images-1.medium.com/max/2000/1*uYstZyc0A4ZSO2Xxh-ASIg.png)
 
-**Note the nesting of callbacks and the staircase of** `})` **at the end.** 鉴于结构上的相似性，这种方式被形象地称作[**回调地狱**](http://callbackhell.com/)** 或 [**回调金字塔**](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))。这种方式的一些缺点是——
+**Note the nesting of callbacks and the staircase of** `})` **at the end.** 鉴于结构上的相似性，这种方式被形象地称作[**回调地狱**](http://callbackhell.com/)或[**回调金字塔**](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))。这种方式的一些缺点是 —
 
 * 不得不从左至右去理解代码，使得代码变得更难以阅读。
 * 处理错误变得更加复杂，并且容易引发错误代码。
 
-为了解决上述问题，JS 提出了[**Promises**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。 **现在，我们可以使用链式结构取代嵌套回调函数的结构。** 下面是一个例子 -
+为了解决上述问题，JS 提出了 [**Promise**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。**现在，我们可以使用链式结构取代回调函数嵌套的结构。**下面是一个例子 —
 
 ![Using Promises](https://cdn-images-1.medium.com/max/2000/1*RMxmAiwD-QFKspkHx_nKmA.png)
 
-回调流程变成熟悉的**自上而下**，而不是**从左至右**，这是一个优点。但是 Peomise 仍然有一些缺点 —
+回调流程变成熟悉的**自上而下**，而不是**从左至右**，这是一个优点。但是 promise 仍然有一些缺点 —
 
-* 我们仍然不得不在每一个 `.then` 中处理回调。
-* 不同于使用 `try/catch`，我们不得不使用 `.catch` 处理错误。
+* 我们仍然得在每一个 `.then` 中处理回调。
+* 不同于使用 `try/catch`，我们需要使用 `.catch` 处理错误。
 * **在循环体中顺序执行多个 promise 具有挑战且不直观。**
 
-我们为了证明上面个的最后一个缺点，**尝试下面的挑战吧**！
+我们为了证明上面的最后一个缺点，**尝试一下下面的挑战吧！**
 
 ### 挑战
 
 **假设要在 for 循环中以任意时间间隔（0 到 n 秒）输出数字 0 到 10。我们将使用 promise 去顺序打印 0 到 10，比如打印 0 需要 6 秒，打印 1 要延迟 2 秒，而 1 需要 0 打印完成之后才能打印，其它数字打印过程也类似。** 
 
-当然, 不要使用 `async/await` 或 `.sort` 方法，We’ll have a solution towards the end.
+当然，不要使用 `async/await` 或 `.sort` 方法，We’ll have a solution towards the end.
 
 ## Async 函数
 
 Introduced in **ES2017**(ES8), async functions make working with promises much easier.
 
-* **注意到 async 函数是基于 promise 这一点很重要。**
+* **注意到 async 函数是基于 promise 的这一点很重要。**
 * async/await 并不是完全全新的概念。
-* async/await async/await 可以被理解为基于 promise 实现异步代码的一种替代方案。
+* async/await 可以被理解为基于 promise 实现异步代码的一种替代方案。
 * 我们可以使用 async/await 来避免使用**链式调用 promise**。
 * async/await 允许代码异步执行的同时**保持正常的**、同步式的**感觉**。
 
@@ -115,9 +115,9 @@ class Obj {
 
 ## Semantics and Evaluation Rules
 
-Async functions are normal JavaScript functions with the following differences —
+async 函数与普通 JavaScript 函数相比有以下区别 —
 
-### An async function always returns a promise.
+### 一个 async 函数总是返回 promise。
 
 ```
 async function fn() {
@@ -128,9 +128,9 @@ fn().then(console.log)
 // hello
 ```
 
-The function `fn` returns `'hello'`. Because we have used `async`, the return value `'hello'` is **wrapped in a promise** (via `Promise.resolve`).
+函数 `fn` 返回值 `'hello'`，由于我们使用了 `async` 关键字，返回值 `'hello'` 是**一个新的 promise 对象**（通过 `Promise.resolve` 实现）。
 
-Here’s an **equivalent alternate representation** without using `async `—
+因此，不使用 `async` 关键字的**具有同等作用的替代方案**可写作 —
 
 ```
 function fn() {
@@ -141,14 +141,14 @@ fn().then(console.log);
 // hello
 ```
 
-In this, we are **manually returning a promise** instead of using `async`.
+在上面的代码中我们**手动返回了一个 promise 对象**用于替换 `async` 关键字。
 
-A slightly more accurate way to say the same thing — **The return value of an async function is always wrapped in a `Promise.resolve`.**
+确切地说，**async 函数的返回值将会被传递到 `Promise.resolve` 方法中。**
 
-If the return value is primitive, `Promise.resolve` returns a **promise-wrapped version of the value.** However, when the return value is a promise object, **the same object is returned without any wrapping.**
+如果返回值是一个原始值，`Promise.resolve` 则返回该值的一个 **promise 版本** 但是，如果返回值是 promise 对象，那么 `Promise.resolve` 将**原封不动地返回这个对象**
 
 ```
-// in case of primitive values
+// 返回值是原始值的情况
 
 const p = Promise.resolve('hello')
 p instanceof Promise; 
@@ -160,9 +160,9 @@ Promise.resolve(p) === p;
 // true
 ```
 
-**What happens when you** throw an error **inside an async function?**
+**在 async 函数中**抛出一个错误**会发生什么？**
 
-For example —
+比如 —
 
 ```
 async function foo() {
