@@ -351,7 +351,7 @@ app.listen(3000, function() {
 
 [![用 Postman 测试最终应用](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)
 
-用 Postman 测试最终应用([高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png))
+用 Postman 测试最终应用（[高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)）
 
 在此可见，我们上传了一段 Markdown 语法的文本，然后得到了经过正确转换的 HTML 版本的结果。我们只是测试了一行文本，但这个接口是有转换大段文本的能力的。
 
