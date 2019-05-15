@@ -7,7 +7,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖[区块链](#区块链)、[人工智能](#ai--deep-learning--machine-learning)、[Android](#android)、[iOS](#ios)、[前端](#前端)、[后端](#后端)、[设计](#设计)、[产品](#产品)和[其他](#其他) 等领域，以及各大型优质 [官方文档及手册](#官方文档及手册)，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [1520](#近期文章列表) 篇文章，官方文档及手册 [13](#官方文档及手册) 个，共有 [1000](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译和校对。
+掘金翻译计划目前翻译完成 [1574](#近期文章列表) 篇文章，官方文档及手册 [13](#官方文档及手册) 个，共有 [1000](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译和校对。
 
 > ## [🥇掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner)
 
@@ -27,7 +27,10 @@
 
 <a href="http://www.ituring.com.cn/" target="_blank"><img src="https://i.loli.net/2018/03/21/5ab1c8723d6de.jpg" width="130px;"/></a>
 <a href="https://www.zcfy.cc/" target="_blank"><img src="https://s4.ssl.qhres.com/static/4c3fe1d5645dd9e8.svg" width="240px;" target="_blank"/></a>
-<a href="https://e.coding.net/?utm_source=javascript-tutorial-zh&utm_medium=banner&utm_campaign=march2019" target="_blank"><img src="https://user-images.githubusercontent.com/26959437/54417064-135d4400-473c-11e9-8004-4b33b710e35a.png" width="220px;" target="_blank"/></a>
+
+<!--
+<a href="https://coding.net/?utm_source=javascript-tutorial-zh&utm_medium=banner&utm_campaign=march2019" target="_blank"><img src="https://user-images.githubusercontent.com/26959437/56273145-c56aa000-612e-11e9-9137-a1388ef18cf2.png" width="220px;" target="_blank"/></a>
+-->
 
 > 合作事宜请扫描 [二维码](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg) 联系管理员
 

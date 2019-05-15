@@ -2,36 +2,36 @@
 > * 原文作者：[Caleb Williams](https://css-tricks.com/author/calebdwilliams/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ANFOUNNYSOUL](https://github.com/yzw7489757)
+> * 校对者：[portandbridge](https://github.com/portandbridge), [wznonstop](https://github.com/wznonstop)
 
-# Creating a Custom Element from Scratch
+# 从 0 创建自定义元素
 
-In the [last article](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md), we got our hands dirty with Web Components by creating an HTML template that is in the document but not rendered until we need it.
+在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)，我们在文档中创建了 HTML 模板，希望它们在需要时才呈现，这让我们开始接触 Web 组件。
 
-Next up, we’re going to continue our quest to create a custom element version of the dialog component below which currently only uses `HTMLTemplateElement`:
+接下来，我们将继续创建对话框组件的自定义元素版本，该自定义元素版本目前仅使用 `HTMLTemplateElement`。
 
-See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+请在 [CodePen](https://codepen.io) 上查看由 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) 创建的[带有脚本的模板对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/) Demo。
 
-So let’s push ahead by creating a custom element that consumes our `template#dialog-template` element in real-time.
+因此，下一步我们将创建一个自定义元素，该元素实时使用我们的 `template#dialog-template` 元素。
 
-#### Article Series:
+#### 系列文章：
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [Crafting Reusable HTML Templates](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [Creating a Custom Element from Scratch (_This post_)](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [Encapsulating Style and Structure with Shadow DOM](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+2.  [编写可复用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从 0 开始创建自定义元素（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 * * *
 
-### Creating a custom element
+### 添加一个自定义元素
 
-The bread and butter of Web Components are **custom elements**. The `customElements` API gives us a path to define custom HTML tags that can be used in any document that contains the defining class.
+Web 组件的基础元素是**自定义元素**。该 `customElements` 的 API 为我们提供了创建自定义 HTML 标签的途径，这些标签可以在包含定义类的任何文档中使用。
 
-Think of it like a React or Angular component (e.g. `<MyCard />`), but without the React or Angular dependency. Native custom elements look like this: `<my-card></my-card>`. More importantly, think of it as a standard element that can be used in your React, Angular, Vue, [insert-framework-you’re-interested-in-this-week] applications without much fuss.
+可以把它想象成 React 或 Angular 组件（例如 `<MyCard />`），但实际上它不依赖于 React 或 Angular。原生自定义组件是这样的：`<my-card></my-card>`。更重要的是，将它视为一个标准元素，可以在你的 React、Angular、Vue、[insert-framework-you’re-interested-in-this-week] 应用中使用，而不必大惊小怪。
 
-Essentially, a custom element consists of two pieces: a **tag name** and a **class** that extends the built-in `HTMLElement` class. The most basic version of our custom element would look like this:
+从本质上讲，一个自定义元素分为两个部分组成：一个**标签名称**和一个 **Class** 类扩展内置 `HTMLElement` 类。我们自定义元素的简易 demo 版本如下所示：
 
 ```
 class OneDialog extends HTMLElement {
@@ -43,11 +43,11 @@ class OneDialog extends HTMLElement {
 customElements.define('one-dialog', OneDialog);
 ```
 
-Note: throughout a custom element, the `this` value is a reference to the custom element instance.
+注意：在整个自定义元素中，this 值是对自身自定义元素实例的引用。
 
-In the example above, we defined a new standards-compliant HTML element, `<one-dialog></one-dialog>`. It doesn’t do much… yet. For now, using the `<one-dialog>` tag in any HTML document will create a new element with an `<h1>` tag reading “Hello, World!”
+在上面的示例中，我们定义了一个符合标准的新 HTML 元素，`<one-dialog></one-dialog>`。它现在暂时还做不了什么...，在任何 HTML 文档中使用 `<one-dialog>` 标签将会创建一个带着 `<h1>` 标签显示 “Hello, World!” 的新元素。
 
-We are definitely going to want something more robust, and we’re in luck. In the [last article](https://css-tricks.com/crafting-reusable-html-templates), we looked at creating a template for our dialog and, since we will have access to that template, let’s utilize it in our custom element. We added a script tag in that example to do some dialog magic. let’s remove that for now since we’ll be moving our logic from the HTML template to inside the custom element class.
+我们肯定想把它做的更 NB，很幸运。在[上一篇文章中](https://css-tricks.com/crafting-reusable-html-templates)，我们为弹出框创建模板，并且能够拿到模板，让我们在自定义元素中使用它。我们在该示例中添加了一个 script 标签来执行一些对话框魔术。我们暂时删除它，因为我们将把逻辑从 HTML 模板移到自定义元素类中。
 
 ```
 class OneDialog extends HTMLElement {
@@ -59,23 +59,23 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-Now, our custom element (`<one-dialog>`) is defined and the browser is instructed to render the content contained in the HTML template where the custom element is called.
+现在，定义了自定义元素（`<one-dialog>`）并指示浏览器呈现包含在调用自定义元素的 HTML 模板中的内容。
 
-Our next step is to move our logic into our component class.
+下一步是将我们的逻辑转移到组件类中。
 
-### Custom element lifecycle methods
+### 自定义元素生命周期方法
+ 
+与 React 或 Angular 一样，自定义元素具有**生命周期方法**。笔者已经向各位介绍过 `connectedCallback`，当我们的元素被添加到 DOM 的时候调用它。
 
-Like React or Angular, custom elements have **lifecycle methods**. You’ve already been passively introduced to `connectedCallback`, which is called when our element gets added to the DOM.
+`connectedCallback` 与元素的 `constructor` 是分开的。函数用于设置元素的基本骨架，而 `connectedCallback` 通常用于向元素添加内容、设置事件监听器或以其他方式初始化组件。
 
-The `connectedCallback` is separate from the element’s `constructor`. Whereas the constructor is used to set up the bare bones of the element, the `connectedCallback` is typically used for adding content to the element, setting up event listeners or otherwise initializing the component.
+实际上，构造函数不能用于设计或修改或操作元素的属性，如果我们要使用对话框创建新实例，`document.createElement` 则会调用构造函数。元素的使用者需要一个没有插入属性或内容的简单节点。
 
-In fact, the constructor can’t be used to modify or manipulate the element’s attributes by design. If we were to create a new instance of our dialog using `document.createElement`, the constructor would be called. A consumer of the element would expect a simple node with no attributes or content inserted.
+该 createElement 函数没有可以用于配置将返回的元素的选项。这是符合情理的，那么话说回来了，既然这个函数没有选项可以配置会返回的元素，那我们唯一的选择就是 `connectedCallback`。
 
-The `createElement` function has no options for configuring the element that will be returned. It stands to reason, then, that the constructor shouldn't have the ability to modify the element that it creates. That leaves us with the `connectedCallback` as the place to modify our element.
+在标准内置元素中，元素的状态通常通过元素上存在的属性和这些属性的值来反映。对于我们的示例，我们将仅查看一个属性：`[open]`。为此，我们需要观察该属性的更改，我们需要 `attributeChangedCallback` 来做到这一点。只要其中一个元素构造函数 `observedAttributes` 之一的属性发生变化就会触发第二个生命周期方法。
 
-With standard built-in elements, the element’s state is typically reflected by what attributes are present on the element and the values of those attributes. For our example, we’re going to look at exactly one attribute: `[open]`. In order to do this, we’ll need to watch for changes to that attribute and we’ll need `attributeChangedCallback` to do that. This second lifecycle method is called whenever one of the element constructor’s `observedAttributes` are updated.
-
-That might sound intimidating, but the syntax is pretty simple:
+这可能听起来难以实现，但语法非常简单：
 
 ```
 class OneDialog extends HTMLElement {
@@ -97,11 +97,11 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-In our case above, we only care if the attribute is set or not, we don’t care about a value (this is similar to the HTML5 `required` attribute on inputs). When this attribute is updated, we update the element’s `open` property. A property exists on a JavaScript object whereas an attribute exists on an HTMLElement, this lifecycle method helps us keep the two in sync.
+在上面的例子中，我们只关心属性是否设置，我们不关心具体的值（这类似于 HTML5 input 输入框上的 `required` 属性）。更新此属性时，我们更新元素的 `open` 属性。属性（property）存在于 JavaScript 对象上，HTML Elements 也具有属性（attribute）；这个生命周期方法可以帮助我们让两种属性保持同步。
 
-We wrap the updater inside the `attributeChangedCallback` inside a conditional checking to see if the new value and old value are equal. We do this to prevent an infinite loop inside our program because later we are going to create a property getter and setter that will keep the property and attributes in sync by setting the element’s attribute when the element’s property gets updated. The `attributeChangedCallback` does the inverse: updates the property when the attribute changes.
+我们将 updater 包含在 `attributeChangedCallback` 内部的条件检查中，以查看新值和旧值是否相等。我们这样做是为了防止程序中出现无限循环，因为稍后我们将创建一个 getter 和 setter 属性，它将通过在元素的属性（property）更新时设置元素的属性（attribute）来保持属性（attribute）和属性（property）的同步。`attributeChangedCallback` 反向执行：当属性更改时更新属性。
 
-Now, an author can consume our component and the presence of the `open` attribute will dictate whether or not the dialog will be open by default. To make that a bit more dynamic, we can add custom getters and setters to our element’s open property:
+现在，开发者可以使用我们的组件，并且利用 `open` 属性决定对话框是否默认打开。为了使它更具动态性，我们可以在元素的 `open` 属性中添加自定义 getter 和 setter：
 
 ```
 class OneDialog extends HTMLElement {
@@ -133,19 +133,19 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-Our getter and setter will keep the `open` attribute (on the HTML element) and property (on the DOM object) values in sync. Adding the `open` attribute will set `element.open` to `true` and setting `element.open` to `true` will add the `open` attribute. We do this to make sure that our element’s state is reflected by its properties. This isn’t technically required, but is considered a best practice for authoring custom elements.
+getter 和 setter 将保证（HTML 元素节点上）的 `open` 特性和属性（在 DOM 对象上）的值同步。添加 `open` 特性会将 `element.open` 设置为 `true`，同理，将 `element.open` 设置为 `true` 会添加 `open` 属性。我们这样做是为了确保元素的状态由其属性反映出来。虽然在技术层面上不一定需要，但被认为是创建自定义元素的最优办法。
 
-This _does_ inevitably lead to a bit of boilerplate, but creating an abstract class that keeps these in sync is a fairly trivial task by looping over the observed attribute list and using `Object.defineProperty`.
+虽然这难免引入一些样板文件，但是通过循环观察到的属性列表并使用 `Object.defineProperty` 创建一个保持这些属性同步的抽象类是一项相当简单的任务。
 
 ```
 class AbstractClass extends HTMLElement {
   constructor() {
     super();
-    // Check to see if observedAttributes are defined and has length
+    // 检查观察到的属性是否已定义并具有长度
     if (this.constructor.observedAttributes && this.constructor.observedAttributes.length) {
-      // Loop through the observed attributes
+      // 通过观察到的属性进行循环
       this.constructor.observedAttributes.forEach(attribute => {
-        // Dynamically define the property getter/setter
+        // 动态定义 getter/setter 原型
         Object.defineProperty(this, attribute, {
           get() { return this.getAttribute(attribute); },
           set(attrValue) {
@@ -161,19 +161,19 @@ class AbstractClass extends HTMLElement {
   }
 }
 
-// Instead of extending HTMLElement directly, we can now extend our AbstractClass
-class SomeElement extends AbstractClass { /** Omitted */ }
+// 我们可以扩展抽象类，而不是直接扩展 HTMLElement
+class SomeElement extends AbstractClass { /** 省略 **/ }
 
 customElements.define('some-element', SomeElement);
 ```
 
-The above example isn't perfect, it doesn't take into account the possibility of attributes like `open` which don't have a value assigned to them but rely only on the presence of the attribute. Making a perfect version of this would be beyond the scope of this article.
+上面的例子并不完美，它没有考虑实现像 `open` 这样的属性的可能性，这些属性没有被赋值，而仅仅依赖于属性的存在。做一个完美的版本将超出本文的范围。
 
-Now that we know whether or not our dialog is open, let’s add some logic to actually do the showing and hiding:
+现在我们已经知道我们的对话框是否打开了，让我们添加一些逻辑来实际地进行显示和隐藏：
 
 ```
 class OneDialog extends HTMLElement {  
-  /** Omitted */
+  /** 省略 */
   constructor() {
     super();
     this.close = this.close.bind(this);
@@ -212,19 +212,19 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-There’s a lot going on here, but let’s walk through it. The first thing we do is grab our wrapper and toggle the `.open` class based on `isOpen`. To keep our element accessible, we need to toggle the `aria-hidden` attribute as well.
+这里发生了很多事情，让我们来梳理一下。我们要做的第一件事就是获取我们的容器，在 `isOpen` 的基础上切换 `.open` 类。为了使我们的元素可以访问，我们还需要切换 `aria-hidden` 属性。
 
-If the dialog is open, then we want to save a reference to the previously-focused element. This is to account for accessibility standards. We also add a keydown listener to the document called `watchEscape` that we have bound to the element’s `this` in the constructor in a pattern similar to how React handles method calls in class components.
+如果对话框已经打开了，那么我们希望保存对先前聚焦元素的引用。这是为了考虑可访问性标准。我们还将一个 keydown 监听器添加到名为 `WatEscape` 的文档中，该文档在构造函数中绑定元素的 `this`，其模式类似于 React 处理类组件中的方法调用的方式。
 
-We do this not only to ensure the proper binding for `this.close`, but also because `Function.prototype.bind` returns an instance of the function with the bound call site. By saving a reference to the newly-bound method in the constructor, we’re able to then remove the event when the dialog is disconnected (more on that in a moment). We finish up by focusing on our element and setting the focus on the proper element in our shadow root.
+我们这样做不仅是为了确保正确绑定 `this.close`，还因为 `Function.prototype.bind` 返回带绑定调用栈的函数的实例。通过在构造函数中保存对新绑定方法的引用，我们可以在对话框断开时删除事件（稍后将详细介绍）。最后，我们将注意力集中在元素上，并将焦点设置在 shadow root 中的适当元素上。
 
-We also create a nice little utility method for closing our dialog that dispatches a custom event alerting some listener that the dialog has been closed.
+我们还创建了一个很好的小实用工具方法来关闭我们的对话框，它分派一个自定义事件来通知某个监听器对话框已经关闭。
 
-If the element is closed (i.e. `!open`), we check to make sure the `this._wasFocused` property is defined and has a `focus` method and call that to return the user’s focus back to the regular DOM. Then we remove our event listener to avoid any memory leaks.
+如果元素是关闭的（即 `!open`），我们检查以确保 `this._wasFocused` 属性已定义并具有 `focus` 方法并调用该方法以将用户的焦点返回到常规 DOM。然后我们删除我们的事件监听器以避免任何内存泄漏。
 
-Speaking of cleaning up after ourselves, that takes us to yet another lifecycle method: `disconnectedCallback`. The `disconnectedCallback` is the inverse of the `connectedCallback` in that the method is called once the element is removed from the DOM and allows us to clean up any event listeners or `MutationObservers` attached to our element.
+说到为自己的代码做好清理善后，就自然也要说下我们采用了另一种生命周期方法：`disconnectedCallback`。`disconnectedCallback` 与 `connectedCallback` 相反，因为一旦从 DOM 中删除了元素，该方法就会被调用，它允许我们清理附加到元素的任何事件监听器或 `MutationObservers`。
 
-It just so happens we have a few more event listeners to wire up:
+碰巧的是，我们还有几个事件侦听器要连接起来：
 
 ```
 class OneDialog extends HTMLElement {
@@ -242,19 +242,19 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-Now we have a well-functioning, mostly accessible dialog element. There are a few bits of polish we can do, like capturing focus on the element, but that’s outside the scope of what we’re trying to learn here.
+现在我们有一个运行良好，大部分可访问的对话框元素。我们可以做一些修饰，比如将焦点集中在元素上，但这超出了我们在本文学习的范围。
 
-There is one more lifecycle method that doesn’t apply to our element, the `adoptedCallback`, which fires when the element is adopted into another part of the DOM.
+还有一个生命周期方法 `adoptedCallback`。它不适用于我们的元素，其作用是元素被采用（插入）到 DOM 的另一部分时触发。
 
-In the following example, you will now see that our template element is being consumed by a standard `<one-dialog>` element.
+在下面的示例中，您将看到我们的模板元素正被一个标准元素 `<one-dialog>` 所使用。
 
-See the Pen [Dialog example using template](https://codepen.io/calebdwilliams/pen/vbVXqv/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+请在 [CodePen](https://codepen.io) 上查看由 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) 创建的[对话框组件使用模板](https://codepen.io/calebdwilliams/pen/vbVXqv/) Demo。
 
-### Another thing: non-presentational components
+### 另一个概念：非演示组件
 
-The `<one-template>` we have created so far is a typical custom element in that it includes markup and behavior that gets inserted into the document when the element is included. However, not all elements need to render visually. In the React ecosystem, components are often used to manage application state or some other major functionality, like `<Provider />` in [react-redux](https://redux.js.org/basics/usage-with-react).
+到目前为止，我们创建的 `<one-template>` 是一个典型的自定义元素，它包含了当元素包含在文档中时被插入到文档中的标记和行为。然而，并不是所有的元素都需要直观地呈现。在 React 生态系统中，组件通常用于管理应用程序状态或其他一些主要功能，像[react-redux](https://redux.js.org/basics/usage-with-react) 里的 `<Provider />`。
 
-Let’s imagine for a moment that our component is part of a series of dialogs in a workflow. As one dialog is closed, the next one should open. We could make a wrapper component that listens for our `dialog-closed` event and progresses through the workflow.
+让我们想象一下，我们的组件是工作流中一系列对话框的一部分。当一个对话框关闭时，下一个对话框应该打开。我们可以创建一个容器组件来监听我们的 `dialog-closed` 事件并在整个工作流程中进行：
 
 ```
 class DialogWorkflow extends HTMLElement {
@@ -277,25 +277,25 @@ class DialogWorkflow extends HTMLElement {
 }
 ```
 
-This element doesn’t have any presentational logic, but serves as a controller for application state. With a little effort, we could recreate a Redux-like state management system using nothing but a custom element that could manage an entire application’s state in the same one that React’s Redux wrapper does.
+这个元素没有任何表示逻辑，但它充当了应用程序状态的控制器。只需稍加努力，我们就可以重新创建类似 Redux 的状态管理系统，只使用一个自定义元素，可以在 React 的 Redux 容器组件所在的同一个应用程序中管理整个应用程序的状态。
 
-### That’s a deeper look at custom elements
+### 这是对自定义元素的深入了解
 
-Now we have a pretty good understanding of custom elements and our dialog is starting to come together. But it still has some problems.
+现在我们对自定义元素有了很好的理解，我们的对话框开始融合在一起。但它仍然存在一些问题。
 
-Notice that we’ve had to add some CSS to restyle the dialog button because our element’s styles are interfering with the rest of the page. While we could utilize naming strategies (like BEM) to ensure our styles won’t create conflicts with other components, there is a more friendly way of isolating styles. Spoiler! It’s shadow DOM and that’s what we’re going to look at in the next part of this series on Web Components.
+请注意，我们必须添加一些 CSS 来重新设置对话框按钮，因为元素的样式会干扰页面的其余部分。虽然我们可以利用命名策略（如 BEM）来确保我们的样式不会与其他组件产生冲突，但是有一种更友好的方式来隔离样式。那就是 shadow DOM。本文系列 Web Components 专题的下一篇文章就会谈到它。
 
-Another thing we need to do is define a new template for _every_ component or find some way to switch templates for our dialog. As it stands, there can only be one dialog type per page because the template that it uses must always be present. So either we need some way to inject dynamic content or a way to swap templates.
+**我们需要做的另一件事是为每个组件定义一个新模板，或者为我们的对话框找到一些切换模板的方法。就目前而言，每页只能有一个对话框类型，因为它使用的模板必须始终存在。因此，我们要么需要注入动态内容的方法，要么需要替换模板的方法。**
 
-In the next article, we will look at ways to increase the usability of the `<one-dialog>` element we just created by incorporating style and content encapsulation using the shadow DOM.
+在下一篇文章中，我们将研究如何通过使用 shadow DOM 合并样式和内容封装来提高我们刚刚创建的 `<one-dialog>` 元素的可用性。
 
-#### Article Series:
+#### 系列文章：
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [Crafting Reusable HTML Templates](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [Creating a Custom Element from Scratch (_This post_)](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [Encapsulating Style and Structure with Shadow DOM](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+2.  [编写可重复使用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从 0 开始创建自定义元素（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

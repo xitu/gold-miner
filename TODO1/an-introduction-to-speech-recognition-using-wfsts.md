@@ -2,115 +2,113 @@
 > * 原文作者：[Desh Raj](https://medium.com/@rdesh26)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-speech-recognition-using-wfsts.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-speech-recognition-using-wfsts.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sisibeloved](https://github.com/sisibeloved)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [JackEggie](https://github.com/JackEggie)
 
-# An Introduction to Speech Recognition using WFSTs
+# 使用 WFST 进行语音识别
 
-> Until now, all of my blog posts have been about deep learning methods or their application to NLP. Since the last couple of weeks, however, I have started learning about Automatic Speech Recognition (ASR). Therefore, I will also include speech-related articles in this publication now.
+> 之前，我的博客文章都是关于深度学习方法或者它们在 NLP 中的应用。而从几周前，我开始研究自动语音识别（ASR）。因此，我现在也会发布一些语音相关的文章。
 
-The ASR logic is very simple (it’s just Bayes rule, like most other things in machine learning). Essentially, given a speech waveform, the objective is to transcribe it, i.e., identify a text which aligns with the waveform. Suppose **Y** represents the feature vectors obtained from the waveform (Note: this “feature extraction” itself is an involved procedure, and I will describe it in detail in another post), and **w** undefineddenotes an arbitrary string of words. Then, we have the following.
+ASR 的逻辑非常简单（就是贝叶斯理论，如同机器学习领域的其它算法一样）。本质上，ASR 就是对给定的语音波形进行转换，比如识别与波形对应的文本。假设 **Y** 表示从波形中获得的特征向量（注意：这个“特征提取”本身是一个十分复杂的过程，我将在另一篇文章中详述），**w** 表示任意字符串的话，可以得出以下公式：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*EaatvWv4ULPPU2ps.)
 
-The two likelihoods in the term are trained separately. The first component, known as **acoustic modeling**, is trained using a parallel corpus of utterances and speech waveforms. The second component, called **language modeling**, is trained in an unsupervised fashion from a large corpus of text.
+公式中的两个似然率是分开训练的。第一个分量，称为**声学建模**，使用包含话语和语音波形的平行语料库进行训练。第二个分量，称为**语言建模**，通过无监督的方式从大量文本中进行训练。
 
-Although the ASR training appears simple from this abstract level, the implementation is arguably more complex, and is usually done using Weighted Finite State Transducers (WFSTs). In this post, I’ll describe WFSTs, some of their basic algorithms, and give a brief introduction to how they are used for speech recognition.
+虽然 ASR 训练从抽象层面看起来很简单，但实现它的实现却远要复杂得多。我们通常会使用加权有限状态转换机（WFST）来实现。在这篇文章中，我将介绍 WFST 及其基础算法，并简要介绍如何将它用于语音识别。
 
-### Weighted Finite State Transducers (WFSTs)
+### 加权有限状态转换机（Weighted Finite State Transducer，WFST）
 
-If you have taken any Theory of Computation course before, you’d probably already be aware what an **automata** undefinedis. Essentially, a finite automaton accepts a language (which is a set of strings). They are represented by directed graphs as shown below.
+如果你之前上过计算机理论课程（译者注：大多数人可能是在编译原理这门课上学的），你可能已经了解了**自动机**的概念。从概念上来说，有限自动机接受一种语言（一组字符串）作为输入。它们由有向图表示，如下所示。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*tEJQn7jtZ0ZjUAge.gif)
 
-Each such automaton has a start state, one or more final states, and labeled edges connecting the states. A string is accepted if it ends in a final state after traversing through some path in the graph. For instance in the above DFA (deterministic finite automata), **a**, **ac**, and **ae** are allowed.
+每个自动机由一个开始状态，一个或多个最终状态，以及用于连接状态的带有标号的边组成。如果字符串在遍历图中的某个路径后以最终状态结束，则接受该字符串。例如，在上述 DFA（deterministic finite automata，确定有限状态自动机）中，**a**、**ac** 和 **ae** 会被接受。
 
-So an **acceptor** maps any input string to a binary class {0,1} depending on whether or not the string is accepted. A **transducer**, on the other hand, has 2 labels on each edge — an input label, and an output label. Furthermore, a **weighted** undefinedfinite state transducer has weights corresponding to each edge and every final state.
+因此**接受器**将任何输入字符串映射成二进制类 {0,1}，具体取决于字符串是否被接受。而**转换机**在每条边上有 2 个标签 —— 输入标签和输出标签。**加权**状态转换机，则更进一步，具有对应于每个边和每个最终状态的权重。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*1_8DJQb7LgH1abja.png)
 
-Therefore, a WFST is a mapping from a pair of strings to a weight sum. The pair is formed from the input/output labels along any path of the WFST. For pairs which are not possible in the graph, the corresponding weight is infinite.
+因此，WFST 是从字符串对到权重和的映射。该字符串对由沿着 WFST 的任何路径的输入/输出标签形成。对于图中不可达的节点对，对应边的权重是无穷大。
 
-In practice, there are libraries available in every language to implement WFSTs. For C++, [OpenFST](http://www.openfst.org/twiki/bin/view/FST/WebHome) is a popular library, which is also used in the [Kaldi speech recognition toolkit](http://kaldi-asr.org/).
+实际上，绝大部分语言都有对应的实现 WFST 的库。在 C++ 中，[OpenFST](http://www.openfst.org/twiki/bin/view/FST/WebHome) 是个较为流行的库，在 [Kaldi 语音识别工具](http://kaldi-asr.org/)中也有用到。
 
-In principle, it is possible to implement speech recognition algorithms without using WFSTs. However, these data structures have [several proven results](https://cs.nyu.edu/~mohri/pub/csl01.pdf) and algorithms which can directly be used in ASRs without having to worry about correctness and complexity. These advantages have made WFSTs almost omniscient in speech recognition. I’ll now summarize some algorithms on WFSTs.
+原则上，我们可以不使用 WFST 实现语音识别算法。但是，这种数据结构具有[多种经过验证的结果](https://cs.nyu.edu/~mohri/pub/csl01.pdf)和算法，可直接用于 ASR，而无需担心正确性和复杂度。这些优点使得 WFST 在语音识别中几乎无可匹敌。接下来我会总结 WFST 上的一些算法。
 
-## Some basic algorithms on WFSTs
+## WFST 中的基础算法
 
-### Composition
+### 合并
 
-Composition, as the name suggests, refers to the process of combining 2 WFSTs to form a single WFST. If we have transducers for pronunciation and word-level grammar, such an algorithm would enable us to form a phone-to-word level system easily.
+顾名思义，合并是指将 2 个 WFST 组合形成单个 WFST 的过程。如果我们有发音和单词级语法的转换机，这种算法将使我们能够轻松地搭建一个语音转文字的系统。
 
-Composition is done using 3 rules:
+合并遵循以下 3 个原则：
 
-1. Initial state in the new WFST are formed by combining the initial states of the old WFSTs into pairs
-2. Similarly, final states are combined into pairs.
-3. For every pair of edges such that the o-label of the first WFST is the i-label of the second, we add an edge from the source pair to the destination pair. The edge weight is summed using the sum rules.
+1. 将原先的 WFST 的初始状态结合成对，形成新 WFST 的初始状态。
+2. 类似地，将最终状态结合成对。
+3. 如果存在第一个 WFST 的输出标签等于第二个 WFST 的输入标签这种情况，从起点对添加一条边到终点对。边的权重为原始权重之“和”。
 
-An example of composition is shown below.
+以下是一个合并示例：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BFg7_P5AfZH-gAywtKkXxQ.png)
 
-At this point, it may be important to define what “sum” means for edge weights. Formally, the “languages” accepted by WFSTs are generalized through the notion of [**semirings**](https://en.wikipedia.org/wiki/Semiring). Basically, it is a set of elements with 2 operators, namely ⊕ and ⊗. Depending on the type of semiring, these operators can take on different definitions. For example, in a tropical semiring, ⊕ denotes min, and ⊗ denotes sum. Furthermore, in any WFST, weights are ⊗-multiplied along paths (Note: here “multiplied” would mean summed for a tropical semiring) and ⊕-summed over paths with identical symbol sequence.
+对于边的权重来说，“总和”的定义很重要。借助于[半环](https://en.wikipedia.org/wiki/Semiring)的概念，WFST 可以接受广义上的“语言”。从基本概念上来讲，它是一组具有 2 个运算符的元素，即 ⊕ 和 ⊗。根据半环的类型，这些运算符可以有不同的定义。例如，在热带半环中，⊕ 表示取最小值，⊗ 表示相加。此外，在任意 WFST 中，一整条路径的权重之和等于沿路径的各条边的权重相 ⊗（注意：对于热带半环来说这里的“相乘”意味着相加），多条路径的权重之和等于具有相同的符号序列的路径相 ⊕。
 
-See [here](http://www.openfst.org/twiki/bin/view/FST/ComposeDoc) for OpenFST implementation of composition.
+[这里](http://www.openfst.org/twiki/bin/view/FST/ComposeDoc)是 OpenFST 中对于合并的实现。
 
-### Determinization
+### 确定化
 
-A deterministic automaton is one in which there is only one transition for each label in every state. By such a formulation, a deterministic WFST removes all redundancy and greatly reduces the complexity of the underlying grammar. But, are all WFSTs determinizable?
+确定自动机是每个状态中每种标签只有一个转移的自动机。通过这样的表达式，确定化的 WFST 消除了所有冗余并大大降低了基础语法的复杂性。那么，是不是所有 WFST 都可以确定化呢？
 
-**The Twins Property:** Let us consider an automaton A. Two states **p** and **q** in A are said to be siblings if both can be reached by string **x** and both have cycles with label **y**. Essentially, siblings are twins if the total weight for the paths until the states, as well as that including the cycle, are equal for both.
+**孪生属性**：假设有一个自动机 A，A 中有两个状态 **p** 和 **q**。如果 **p** 和 **q** 都具有相同的字符串输入 **x**，并有相同标签的循环 **y**，则称 **p** 和 **q** 为兄弟状态。从概念上讲，到该状态为止的路径（包括循环在内）的总权重相等，则这两个兄弟状态是孪生的。 
 
-> A WFST is determinizable if all its siblings are twins.
+> 当所有兄弟状态是孪生的时，这个 WFST 是可以被确定化的。
 
-This is an example of what I said earlier regarding WFSTs being an efficient implementation of the algorithms used in ASR. There are several methods to determinize a WFST. One such algorithm is shown below.
+这是我之前所说的关于 WFST 是 ASR 中使用的算法的有效实现的一个例子。有几种方法可以确定化 WFST。其中一种算法如下所示：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ArXaKyN2_YiarDX46tPAAQ.png)
 
-In simpler steps, this algorithm does the following:
+该算法简化后的步骤如下：
 
-* At each state, for every outgoing label, if there are multiple outgoing edges for that label, replace them with a single edge with weight as the ⊕-sum of all edge weights containing that label.
+* 在每个状态下，对于每个输出标签，如果该标签有多个输出边，则将其替换为单个边，其权重为包含该标签的所有边的权重的 ⊕ 总和。
 
-Since this is a local algorithm, it can be efficiently implemented in-memory. To see how to perform determinization in OpenFST, see [here](http://www.openfst.org/twiki/bin/view/FST/DeterminizeDoc).
+由于这是一种本地算法，因此可以高效地在内存中实现。要了解如何在 OpenFST 中进行确定化，请参阅[此处](http://www.openfst.org/twiki/bin/view/FST/DeterminizeDoc)。
 
-### Minimization
+### 最小化
 
-Although minimization is not as essential as determinization, it is still a nice optimization technique. It refers to minimizing the number of states and transitions in a deterministic WFST.
+尽管最小化不如确定化那样重要，但它仍然是一种很好的优化技术。它用于最小化确定的 WFST 中的状态和转移的数量。
 
-Minimization is carried out in 2 steps:
+最小化的步骤分为两步：
 
-1. Weight pushing: All weights are pushed towards the start state. See the following example.
+1. 权重推移：所有权重都被推往开始状态。请参阅以下示例。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0Hp5qXMWHsyvvFGfLz03vQ.png)
 
-2. After this is done, we combine those states which have identical paths to any final state. For example in the above WFST, states 1 and 2 have become identical after weight pushing, so they are combined into one state.
+2. 完成此操作后，我们将到最终状态的路径相同的状态组合。例如，在上述 WFST 中，状态 1 和 2 在权重推移后变得相同，因此它们被组合成了一个状态。
 
-In OpenFST, the implementation details for minimization can be found [here](http://www.openfst.org/twiki/bin/view/FST/MinimizeDoc).
+在 OpenFST 中，可以在[这里](http://www.openfst.org/twiki/bin/view/FST/MinimizeDoc)找到最小化的具体实现。
 
-The following (taken from [3]) shows the complete pipeline for a WFST reduction.
+下图（来自<sup><a href="#note1">[3]</a></sup>）展示了 WFST 优化的完整流程：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*dNGFwfEMWqiVxNKRNjV5MA.png)
 
-### WFSTs in speech recognition
+### WFST 在语音识别中的应用
 
-***
+在语音识别中，多个 WFST 会被串行组合，顺序如下：
 
-Several WFSTs are composed in sequence for use in speech recognition. These are:
+1. 语法（**G**）：使用大型语料库训练的语言模型。
+2. 词汇表（**L**）：用于将不包含上下文的语音的似然度的信息编码。
+3. 依赖上下文的语音处理（**C**）：类似 n 元语言模型，唯一的不同点是它作用于语音处理。
+4. HMM 架构（**H**）：用于处理波形的模型。
 
-1. Grammar (**G**): This is the language model trained on large text corpus.
-2. Lexicon (**L**): This encodes information about the likelihood of phones without context.
-3. Context-dependent phonetics (**C** ): This is similar to n-gram language modeling, except that it is for phones.
-4. HMM structure (**H**): This is the model for the waveform.
+总体上，将转换机按 **H** o **C** o **L** o **G** 组合可以表示完整的语音识别的流程。其中每个部分都可以单独改进，从而改善整个 ASR 系统。
 
-In general, the composed transducer **H** o **C** o **L** o **G** undefinedrepresents the entire pipeline of speech recognition. Each of the components can individually be improved, so that the entire ASR system gets improved.
+**WFST 是 ASR 系统的重要组成部分，这篇文章只是简要地对 WFST 作了介绍。在其它与语音相关的帖子中，我会讨论诸如特征提取，流行的 GMM-HMM 模型和最新的深度学习进展之类的事情。我也在阅读[这些](http://jrmeyer.github.io/asr/2017/04/05/seminal-asr-papers.html)论文，以便更好地了解 ASR 多年来的发展历程。**
 
-**This was just a brief introduction to WFSTs which are an important component in ASR systems. In further posts on speech, I hope to discuss things such as feature extraction, popular GMM-HMM models, and latest deep learning advances. I am also reading papers mentioned [here](http://jrmeyer.github.io/asr/2017/04/05/seminal-asr-papers.html) to get a good overview of how ASR has progressed over the years.**
+## 参考文献
 
-## References
-
-* [1] Gales, Mark, and Steve Young. “The application of hidden Markov models in speech recognition.” Foundations and Trends® in Signal Processing 1.3 (2008): 195–304.
-* [2] Mohri, Mehryar, Fernando Pereira, and Michael Riley. “Weighted finite-state transducers in speech recognition.” Computer Speech & Language 16.1 (2002): 69–88.
-* [3] [Lecture slides](https://wiki.eecs.yorku.ca/course_archive/2011-12/W/6328/_media/wfst-tutorial.pdf) from Prof. Hui Jiang (York University)
+* [1] Gales、Mark 和 Steve Young 著《隐马尔可夫模型在语音识别中的应用》，Foundations and Trends® in Signal Processing 1.3 (2008): 195–304.
+* [2] Mohri、 Mehryar、Fernando Pereira 和 Michael Riley 著《语音识别中的加权有限状态机》，Computer Speech & Language 16.1 (2002): 69–88.
+* <a name="note1"></a>[3] 江辉教授（约克大学）的[课堂讲义](https://wiki.eecs.yorku.ca/course_archive/2011-12/W/6328/_media/wfst-tutorial.pdf)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
