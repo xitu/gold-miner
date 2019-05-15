@@ -113,7 +113,7 @@ Postman 是一种接口开发工具，使用其网页版或者桌面客户端（
 
 [![Postman 的界面](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)
 
-([高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png))
+（[高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)）
 
 要想调用一个接口端点，你需要遵循以下步骤：
 
