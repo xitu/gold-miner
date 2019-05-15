@@ -55,7 +55,7 @@ app.listen(3000);
 
 ### 第二阶段：构建基本接口
 
-该接口的主要作用是把 Markdown 转为 HTML ，它将有两个端点：
+该接口的主要作用是把 Markdown 转为 HTML，它将有两个端点：
 
 * `/login`
 * `/convert`
