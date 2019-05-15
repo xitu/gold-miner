@@ -139,7 +139,7 @@ $ node index.js
 
 ### 第三阶段：添加 Markdown 转换代码
 
-应用的骨架搭建好了，我们就来看看 `showdown` 这个 JavaScript 库，我们要用此库把 Markdown 转换为 HTML。`showdown` 是用 JavaScript语言实现的，支持 Markdown 和 HTML 之间的双向转换。
+应用的基本框架搭建好了，我们就来看看 `showdown` 这个 JavaScript 库，我们要用此库把 Markdown 转换为 HTML。`showdown` 是用 JavaScript语言实现的，支持 Markdown 和 HTML 之间的双向转换。
 
 [![用 Postman 测试](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)
 
