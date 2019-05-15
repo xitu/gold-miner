@@ -225,7 +225,7 @@ Google home <http://www.google.com/>
 
 还有很多配置项可以控制 Markdown 的转换过程。你可以在[这里](https://www.npmjs.com/package/showdown)找到完整的配置项列表。
 
-现在，我们实现了一个能将 Markdown 转为 HTML 的“变身器”端点。让我们继续深入来添加验证功能吧。
+现在，我们实现了一个能将 Markdown 转为 HTML 的“转换器”端点。让我们继续深入来添加验证功能吧。
 
 ### 第四阶段：用 Passport 实现接口验证功能
 
