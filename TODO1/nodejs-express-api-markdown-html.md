@@ -369,7 +369,7 @@ $ npm install request --save
 
 在运行下列脚本之前，你要确保接口应用已经处于运行状态。你需要在另外的命令窗口中运行脚本。
 
-**注意**：**在变量 `textToConvert` 中，我们使用了 “ ` ”符号来包裹多行 JavaScript 代码，它不是单引号哦。**
+**注意：在变量 `textToConvert` 中，我们使用了 “ ` ” 符号来包裹多行 JavaScript 代码，它不是单引号哦。**
 
 ```javascript
 var Request = require("request");
