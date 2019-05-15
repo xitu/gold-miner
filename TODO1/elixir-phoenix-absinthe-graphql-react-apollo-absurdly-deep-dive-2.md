@@ -2,7 +2,7 @@
 > * 原文作者：[Zach Schneider](https://www.github.com/schneidmaster)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/elixir-phoenix-absinthe-graphql-react-apollo-absurdly-deep-dive-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/elixir-phoenix-absinthe-graphql-react-apollo-absurdly-deep-dive-2.md)
-> * 译者：
+> * 译者：[Fengziyin1234](https://github.com/Fengziyin1234)
 > * 校对者：
 
 # Elixir、Phoenix、Absinthe、GraphQL、React 和 Apollo：一次近乎疯狂的深度实践 —— 第二部分（测试相关部分）
