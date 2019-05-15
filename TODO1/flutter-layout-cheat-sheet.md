@@ -29,7 +29,7 @@ If you have an issue with “layouting” your Flutter or you wanna share your s
   * border: Border
   * borderRadius: BorderRadius
   * shape: BoxShape
-  * boxShadow: List\<BoxShadow>
+  * boxShadow: List<BoxShadow>
   * gradient: RadialGradient
   * backgroundBlendMode: BlendMode
 * SizedBox
@@ -749,7 +749,7 @@ Scaffold(
 );
 ```
 
-### boxShadow: List\<BoxShadow>
+### boxShadow: List<BoxShadow>
 
 Adds shadow to the Container.
 
