@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/password-reset-emails-in-your-react-app-made-easy-with-nodemailer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/password-reset-emails-in-your-react-app-made-easy-with-nodemailer.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：
+> * 校对者：[portandbridge](https://github.com/portandbridge)
 
 # 使用 Nodemailer 轻松构建能通过电子邮件重置密码的 React 应用程序
 
