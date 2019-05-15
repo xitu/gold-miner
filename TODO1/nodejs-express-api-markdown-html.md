@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-express-api-markdown-html.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-express-api-markdown-html.md)
 > * 译者：[Baddyo](https://github.com/Baddyo)
-> * 校对者：
+> * 校对者：[fireairforce](https://github.com/fireairforce) [JackEggie](https://github.com/JackEggie)
 
 # 化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口
 
@@ -369,7 +369,7 @@ $ npm install request --save
 
 在运行下列脚本之前，你要确保接口应用已经处于运行状态。你需要在另外的命令窗口中运行脚本。
 
-**注意**: **在变量 `textToConvert` 中，我们使用了 “ ` ”符号来包裹多行 JavaScript 代码，它不是单引号哦。**
+**注意**：**在变量 `textToConvert` 中，我们使用了 “ ` ”符号来包裹多行 JavaScript 代码，它不是单引号哦。**
 
 ```javascript
 var Request = require("request");
