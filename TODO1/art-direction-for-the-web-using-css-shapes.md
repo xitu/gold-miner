@@ -11,17 +11,17 @@
 
 去年，Rachel Andrew 写了一篇文章，[重新审视 CSS Shapes](https://www.smashingmagazine.com/2018/09/css-shapes/) ，其中为读者重新介绍了 CSS Shapes 基础的使用。对于任何渴望了解如何使用 `shape-outside`、`shape-margin` 和 `shape-image-threshold` 等属性的人来说，这篇文章是理想的入门读物。
 
-我曾经见过很多用这些属性的例子，但是很少见到 Shapes 的高级用法，包括 `circle()`、`ellipse()`、`inset()` 。甚至连使用 `polygon()` 的例子少之更少。考虑到 CSS Shapes 提供的创造性机会，这种现象也太令人失望了。但是，我确信只要有一点灵感和想象力，我们就可以制作出更具特色和吸引力的设计。所以，接下来，我将向你展示如何使用 CSS Shapes 创建以下五种不同类型的布局：
+我曾经见过很多用这些属性的例子，但是很少见到 Shapes 的高级用法，包括 `circle()`、`ellipse()`、`inset()`。甚至连使用 `polygon()` 的例子少之更少。考虑到 CSS Shapes 提供的创造性机会，这种现象也太令人失望了。但是，我确信只要有一点灵感和想象力，我们就可以制作出更具特色和吸引力的设计。所以，接下来，我将向你展示如何使用 CSS Shapes 创建以下五种不同类型的布局：
 
-1. [V 型](#V-型)
-2. [Z 型](#Z-型)
-3. [弯曲型](#弯曲型)
-4. [对角线型](#对角线型)
-5. [旋转型](#对角线型)
+1. [V 型](#1-v-型)
+2. [Z 型](#2-Z-型)
+3. [弯曲型](#3-弯曲型)
+4. [对角线型](#4-对角线型)
+5. [旋转型](#5-对角线型)
 
 ### 一点启发
 
-遗憾的是，你在一些使用 CSS Shapes 的网站中找不到许多令人有启发的例子。但这并不意味着那里没有灵感 - 你只需要往深处寻找，比如广告、杂志和海报的设计。然而，如果只是模仿上一个时代的媒体对我们来说是愚蠢的。
+遗憾的是，你在一些使用 CSS Shapes 的网站中找不到许多令人有启发的例子。但这并不意味着那里没有灵感 — 你只需要往深处寻找，比如广告、杂志和海报的设计。然而，如果只是模仿上一个时代的媒体对我们来说是愚蠢的。
 
 ![你可以在意想不到的地方找到灵感，例如这些古董广告。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a92a6d6e-3e23-44dd-83ac-7d67831e81f4/img-1.png)
 
@@ -120,7 +120,7 @@ main p:first-child::before {
 }
 ```
 
-**注意： Bennett Feely 的 [CSS clip-path 制作](http://bennettfeely.com/clippy/) 是一个很棒的工具，用于计算与 CSS Shapes 一起使用的坐标值。**
+**注意：Bennett Feely 的 [CSS clip-path 制作](http://bennettfeely.com/clippy/) 是一个很棒的工具，用于计算与 CSS Shapes 一起使用的坐标值。**
 
 ![在多个转折点处调整 alpha 图像的宽度，使之能够展示文本形状，以完美匹配其视口。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e55053ee-9096-4093-8bd5-4fd93a4e3411/img-5-6.png)
 
@@ -192,7 +192,7 @@ main p:first-child::before {
 
 CSS Shapes 最迷人的一个方面是如何使用部分透明图像中的 alpha 通道创建优雅的形状。这种形状可以是我想象到的任何东西。我只需要创建一个图像，浏览器将会在它周围流动内容。
 
-虽然 [CSS Shapes 模块 2 级规范](https://drafts.csswg.org/css-shapes-2/) 中已经提出将内容限制在形状内，但目前无法知道是否以及何时可以在浏览器中实现。不过，虽然 `shape-inside` （暂时）不可用，这并不代表我用 `shape-outside` 创建不出类似的结果。
+虽然 [CSS Shapes 模块 2 级规范](https://drafts.csswg.org/css-shapes-2/) 中已经提出将内容限制在形状内，但目前无法知道是否以及何时可以在浏览器中实现。不过，虽然 `shape-inside`（暂时）不可用，这并不代表我用 `shape-outside` 创建不出类似的结果。
 
 ![左：另一个可展示但普通的设计。右：使用 CSS Shapes 创建更独特的外观。](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4913ceec-6073-42f4-bd21-03b6f0ffe3e0/img-9-10.png)
 
@@ -209,7 +209,7 @@ CSS Shapes 最迷人的一个方面是如何使用部分透明图像中的 alpha
 }
 ```
 
-为了在我的形状和在其周围流动的内容之间留出一些距离，`shape-margin` 属性在第一个形状的轮廓之外绘制出更多的形状。我可以使用任何 CSS 绝对长度单位 - 毫米，厘米，英寸，派卡，像素和点 - 或相对单位（ `ch`、`em`、`ex`、`rem`、`vh` 和 `vw`）：
+为了在我的形状和在其周围流动的内容之间留出一些距离，`shape-margin` 属性在第一个形状的轮廓之外绘制出更多的形状。我可以使用任何 CSS 绝对长度单位 — 毫米、厘米、英寸、派卡、像素和点 — 或相对单位（`ch`、`em`、`ex`、`rem`、`vh` 和 `vw`）：
 
 ```css
 [src*="curve"] {
@@ -243,7 +243,7 @@ p {
 
 ![在印刊设计中经常看到内容在形状周围流动，在 CSS Shapes 之前，这在 web 上是不可能实现的](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b8ab6fcc-9f78-470b-aa03-1b87ec597c6b/img-11-12.png)
 
-在印刊设计中经常看到内容在形状周围流动，在 CSS Shapes 之前，这在 web 上是不可能实现的
+在印刊设计中经常看到内容在形状周围流动，在 CSS Shapes 之前，这在 web 上是不可能实现的。
 
 即使 CSS Grid 只涉及到列和行的设置，也没有理由不使用它来创建动态对角线。下一个设计只需要一个标题和主要元素：
 
@@ -273,7 +273,7 @@ p {
 
 ### 5. 旋转型
 
-为什么要满足于只使用 CSS Grid 和 Shapes 呢？ 有些几年前难以想象的布局，现在只要再引入 Transforms 就能做出来了。在最后一个例子中，要做到围绕图像中的汽车流动文本，同时旋转整个布局，需要这些属性的所有组合。
+为什么要满足于只使用 CSS Grid 和 Shapes 呢？有些几年前难以想象的布局，现在只要再引入 Transforms 就能做出来了。在最后一个例子中，要做到围绕图像中的汽车流动文本，同时旋转整个布局，需要这些属性的所有组合。
 
 ![为什么只使用 CSS Grid 和 Shapes？](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/72c40e9f-fe9c-4253-a146-022ad53778c1/img-13.png)
 
@@ -310,7 +310,7 @@ body {
 
 ### 栗子免费送：多边形形状塑造列
 
-**摘自 2019 年 3 月 26 日的“网上艺术指南”**
+**摘自 2019 年 3 月 26 日的“网上艺术指南”。**
 
 你可以创建仅具有类型的强大结构形状。结合 `polygon()` 形状和伪元素，你可以从运行文本的实体块中创建形状，就像 [Alexey Brodovitch](https://en.wikipedia.org/wiki/Alexey_Brodovitch) 的风格和他对 Harper’s Bazaar 有影响力的作品一样。
 
