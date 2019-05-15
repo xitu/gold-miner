@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/elixir-phoenix-absinthe-graphql-react-apollo-absurdly-deep-dive-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/elixir-phoenix-absinthe-graphql-react-apollo-absurdly-deep-dive-2.md)
 > * 译者：[Fengziyin1234](https://github.com/Fengziyin1234)
-> * 校对者：
+> * 校对者：[Xuyuey](https://github.com/Xuyuey), [portandbridge](https://github.com/portandbridge)
 
 # Elixir、Phoenix、Absinthe、GraphQL、React 和 Apollo：一次近乎疯狂的深度实践 —— 第二部分（测试相关部分）
 
@@ -16,7 +16,7 @@
 
 现在我们已经完成了所有的代码部分，那我们如何确保我的代码总能正常的工作呢？我们需要对下面几种不同的层次进行测试。首先，我们需要对 model 层进行单元测试 —— 这些 model 是否能正确的验证（数据）？这些 model 的 helper 函数是否能返回预期的结果？第二，我们需要对 resolver 层进行单元测试 —— resolver 是否能处理不同的（成功和失败）的情况？是否能返回正确的结果或者根据结果作出正确的数据库更新？第三，我们应该编写一些完整的 integration test（集成测试），例如发送向服务器一个查询请求并期待返回正确的结果。这可以让我们更好地从全局上把控我们的应用，并且确保这些测试涵盖认证逻辑等案例。第四，我们希望对我们的 subscription 层进行测试 —— 当相关的变化发生时，它们可否可以正确地通知套接字。
 
-Elixir 有一个非常基本的内置测试库，叫做 ExUnit。ExUnit 包括简单的 `assert`/`refute` 函数，也可以帮助你运行你的测试。在 Phoenix 中建立一系列 “case” support 文件的方法也很常见。这些文件在测试中被引用，用于运行常见的初始化任务，例如连接数据库。此外，在我的测试中，我发现 [ex_spec](https://hexdocs.pm/ex_spec/readme.html) 和 [ex_machina](https://hexdocs.pm/ex_machina/readme.html) 这两个库非常有帮助。ex_spec 加入了简单的 `describe` 和 `it` ，对于有 ruby 相关背景的我来说，ex_spec 可以让编写测试所用的语法更加的友好。ex_machina 提供了函数工厂（factory），这些函数工厂可以让动态插入测试数据变得更简单。
+Elixir 有一个非常基本的内置测试库，叫做 ExUnit。ExUnit 包括简单的 `assert`/`refute` 函数，也可以帮助你运行你的测试。在 Phoenix 中建立一系列 “case” support 文件的方法也很常见。这些文件在测试中被引用，用于运行常见的初始化任务，例如连接数据库。此外，在我的测试中，我发现 [ex_spec](https://hexdocs.pm/ex_spec/readme.html) 和 [ex_machina](https://hexdocs.pm/ex_machina/readme.html) 这两个库非常有帮助。ex_spec 加入了简单的 `describe` 和 `it`，对于有 ruby 相关背景的我来说，ex_spec 可以让编写测试所用的语法更加的友好。ex_machina 提供了函数工厂（factory），这些函数工厂可以让动态插入测试数据变得更简单。
 
 我创建的函数工厂长这样：
 
@@ -1007,7 +1007,7 @@ describe("Posts", () => {
 });
 ```
 
-我们的第一个测试检查了加载的的状态。我们必须把它包裹在几个高阶函数里 —— `MemoryRouter`，给 React Router 的 `Link` 和 `Route` 提供了一个模拟的路由；`AuthContext.Provider`，提供了认证的状态，和 Apollo 的  `MockedProvider`。因为我们已拍了一个即时的快照并返回，我们事实上不需要模拟任何事情；一个即时的快照会在 Apollo 有机会执行 query 查询之前捕捉到加载的状态。
+我们的第一个测试检查了加载的的状态。我们必须把它包裹在几个高阶函数里 —— `MemoryRouter`，给 React Router 的 `Link` 和 `Route` 提供了一个模拟的路由；`AuthContext.Provider`，提供了认证的状态，和 Apollo 的 `MockedProvider`。因为我们已拍了一个即时的快照并返回，我们事实上不需要模拟任何事情；一个即时的快照会在 Apollo 有机会执行 query 查询之前捕捉到加载的状态。
 
 ```javascript
 // client/src/components/Posts.test.js
