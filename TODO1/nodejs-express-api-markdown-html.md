@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-express-api-markdown-html.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-express-api-markdown-html.md)
 > * 译者：[Baddyo](https://github.com/Baddyo)
-> * 校对者：[fireairforce](https://github.com/fireairforce) [JackEggie](https://github.com/JackEggie)
+> * 校对者：[fireairforce](https://github.com/fireairforce), [JackEggie](https://github.com/JackEggie)
 
 # 化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口
 
