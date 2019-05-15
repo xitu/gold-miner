@@ -5,7 +5,7 @@
 > * 译者：[fireairforce](https://github.com/fireairforce)
 > * 校对者：
 
-# 使用 Nodemailer 轻松构建能通过电子邮件的重置密码 React 应用程序
+# 使用 Nodemailer 轻松构建能通过电子邮件重置密码的 React 应用程序
 
 > 重置 JavaScript 应用程序中的密码没那么复杂
 
@@ -214,7 +214,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 
 乍一看，通过电子邮件链接重置用户密码似乎有点令人生畏。但 Nodemailer 帮我们简化了一个主要部分（处理电子邮件）。一旦完成，它只是服务器端的几条路由，并在客户端输入，以便为用户更新密码。
 
-几周之后再回来我的博客看看，我会写关于使用 Puppeteer 和 headeless Chrome 进行端到端的测试或其它和 web 开发相关的内容，所以请关注我，以免你错过。
+几周之后再回来（我的博客）看看，我会写关于使用 Puppeteer 和 headeless Chrome 进行端到端的测试或其它和 web 开发相关的内容，所以请关注我，以免你错过。
 
 感谢阅读，我希望这能让你了解如何使用 Nodemailer 为 MERN 应用程序发送密码重置电子邮件。点赞和分享我将会非常感谢。
 
