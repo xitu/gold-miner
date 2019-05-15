@@ -97,7 +97,7 @@ app.listen(3000, function() {
 
 我们使用中间件 `body-parser` 来辅助解析收到的请求。该中间件将解析结果放在 `req.body` 属性中供你使用。虽说不借助中间件也能解析请求，但那样就太麻烦了。
 
-用 npm 就可以安装 `body-parser` ：
+用 npm 就可以安装 `body-parser`：
 
 ```javascript
 $ npm install body-parser
