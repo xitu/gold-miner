@@ -2,46 +2,46 @@
 > * 原文作者：[Sameer Borate](https://www.smashingmagazine.com/author/sameer-borate)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-express-api-markdown-html.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-express-api-markdown-html.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Baddyo](https://github.com/Baddyo)
+> * 校对者：[fireairforce](https://github.com/fireairforce), [JackEggie](https://github.com/JackEggie)
 
-# Building A Node.js Express API To Convert Markdown To HTML
+# 化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口
 
-> Learn how to use Node.js and the Express framework in order to create an API endpoint — in the context of building an application that converts Markdown syntax to HTML.
+> 快速摘要：搭建一个把 Markdown 语法转换为 HTML 的应用，通过该实践来学习如何使用 Node.js 和 Express 框架创建接口端点。
 
-Markdown is a lightweight text markup language that allows the marked text to be converted to various formats. The original goal of creating Markdown was of enabling people “to write using an easy-to-read and easy-to-write plain text format” and to optionally convert it to structurally valid XHTML (or HTML). Currently, with WordPress supporting Markdown, the format has become even more widely used.
+Markdown 是一种轻量级的文本标记语言，能将带标记的文本转换为各种格式。发明 Markdown 的初衷，是为了让人们能“用易读易写的纯文本格式来书写”，并可以按需转换为有效的 XHTML（或者 HTML）。目前，随着 WordPress 的支持，Markdown 语法越来越流行了。
 
-The purpose of writing the article is to show you how to use Node.js and the Express framework to create an API endpoint. The context in which we will be learning this is by building an application that converts Markdown syntax to HTML. We will also be adding an authentication mechanism to the API so as to prevent misuse of our application.
+本文旨在向读者展示如何用 Node.js 和 Express 框架创建接口端点。我们会搭建一个将 Markdown 转换为 HTML 的应用，在搭建过程中学习 Node.js 和 Express。我们还会给接口添加验证机制，以防我们的应用被滥用。
 
-### A Markdown Node.js Application
+### 一个基于 Node.js 的 Markdown 应用
 
-Our teeny-tiny application, which we will call ‘Markdown Converter’, will enable us to post Markdown-styled text and retrieve an HTML version. The application will be created using the Node.js Express framework, and support authentication for conversion requests.
+我们把这个小巧玲珑的应用叫做 “Markdown 转换器”，我们把 Markdown 语法的文本上传给它，然后得到 HTML 格式的版本。该应用使用 Node.js 的框架 Express 实现，并支持对转换请求的验证。
 
-We will build the application in small stages — initially creating a scaffold using Express and then adding various features like authentication as we go along. So let us start with the initial stage of building the application by creating a scaffold.
+我们会化整为零地实现这个应用 —— 先用 Express 创建一个基本框架，然后再添加验证机制等功能。那就让我们开始搭建基本框架吧！
 
-### Stage 1: Installing Express
+### 第一阶段：初始化 Express
 
-Assuming you’ve already installed Node.js on your system, create a directory to hold your application (let’s call it “`markdown-api`”), and switch to that directory:
+假设你已经在操作系统里安装了 Node.js，现在我们创建一个文件夹（就叫它 “`markdown-api`” 吧）来存放代码，并进入该文件夹：
 
 ```bash
 $ mkdir markdown-api
 $ cd markdown-api
 ```
 
-Use the npm init command to create a **package.json** file for your application. This command prompts you for a number of things like the name and version of your application.
+使用 npm init 命令创建一个 **package.json** 文件。该命令会提示你输入诸如应用名称、版本之类的信息。
 
-For now, simply hit Enter to accept the defaults for most of them. I’ve used the default entry point file as **index.js**, but you could try **app.js** or some other depending on your preferences.
+就本次实践来说，你只需按下 Enter 键使用那些默认信息就好。我把 **index.js** 做为默认入口文件，但你也可以按自己喜好设置成 **app.js** 或别的文件。
 
-Now install Express in the `markdown-api` directory and save it in the dependencies list:
+现在我们在 `markdown-api` 目录下安装 Express，并将其列入依赖包列表：
 
 ```bash
 $ npm install express --save
 ```
 
-Create an **index.js** file in the current directory (`markdown-api`) and add the following code to test if the Express framework is properly installed:
+在当前目录（`markdown-api`）创建一个 **index.js** 文件，把下列代码添加进去来测试 Express 框架是否安装成功：
 
 ```javascript
-Const express = require('express');
+const express = require('express');
 var app = express();
  
 app.get('/', function(req, res){
@@ -51,18 +51,18 @@ app.get('/', function(req, res){
 app.listen(3000);
 ```
 
-Now browse to the URL `http://localhost:3000` to check whether the test file is working properly. If everything is in order, we will see a Hello World!’ greeting in the browser and we can proceed to build a base API to convert Markdown to HTML.
+访问 `http://localhost:3000` ，看看测试文件是否成功运行起来了。如果一切顺利，我们能在浏览器中看到 “Hello World!” 字样，那接下来就可以构建 Markdown 转 HTML 的基本接口了。
 
-### Stage 2: Building A Base API
+### 第二阶段：构建基本接口
 
-The primary purpose of our API will be to convert text in a Markdown syntax to HTML. The API will have two endpoints:
+该接口的主要作用是把 Markdown 转为 HTML，它将有两个端点：
 
 * `/login`
 * `/convert`
 
-The `login` endpoint will allow the application to authenticate valid requests while the `convert` endpoint will convert (obviously) Markdown to HTML.
+`login` 端点用来验证有效请求；`convert` 端点用来进行 Markdown 到 HTML 的转换。
 
-Below is the base API code to call the two endpoints. The `login` call just returns an “Authenticated” string, while the `convert` call returns whatever Markdown content you submitted to the application. The home method just returns a ‘Hello World!’ string.
+以下是调用两个端点的基本接口代码。调用 `login` 会返回一个 “Authenticated” 字符串，而调用 `convert` 会返回你上传的 Markdown 文本。主方法仅返回一个 “Hello World!” 字符串。
 
 ```javascript
 const express = require("express");
@@ -95,63 +95,63 @@ app.listen(3000, function() {
 });
 ```
 
-We use the `body-parser` middleware to make it easy to parse incoming requests to the applications. The middleware will make all the incoming requests available to you under the `req.body` property. You can do without the additional middleware but adding it makes it far easier to parse various incoming request parameters.
+我们使用中间件 `body-parser` 来辅助解析收到的请求。该中间件将解析结果放在 `req.body` 属性中供你使用。虽说不借助中间件也能解析请求，但那样就太麻烦了。
 
-You can install `body-parser` by simply using npm:
+用 npm 就可以安装 `body-parser`：
 
 ```javascript
 $ npm install body-parser
 ```
 
-Now that we have our dummy stub functions in place, we will use Postman to test the same. Let’s first begin with a brief overview of Postman.
+现在万事俱备，我们得用 Postman 测试一下。先简单介绍一下 Postman 吧。
 
-#### Postman Overview
+#### Postman 简介
 
-Postman is an API development tool that makes it easy to build, modify and test API endpoints from within a browser or by downloading a desktop application (browser version is now deprecated). It has the ability to make various types of HTTP requests, i.e. GET, POST, PUT, PATCH. It is available for Windows, macOS, and Linux.
+Postman 是一种接口开发工具，使用其网页版或者桌面客户端（网页版下架了）可以极为方便地搭建、修改以及测试接口端点。它可以生成各种类型的 HTTP 请求，例如 GET、POST、PUT 和 PATCH。Postman 支持 Windows、macOS 和 Linux。
 
-Here’s a taste of Postman’s interface:
+来一睹 Postman 的风采吧：
 
-[![Postman interface](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)
+[![Postman 的界面](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)
 
-([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png))
+（[高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/462c5b77-18e5-498d-a06e-f59276859c4f/nodejs-express-api-markdown-html-postman-intro.png)）
 
-To query an API endpoint, you’ll need to do the following steps:
+要想调用一个接口端点，你需要遵循以下步骤：
 
-1. Enter the URL that you want to query in the URL bar in the top section;
-2. Select the HTTP method on the left of the URL bar to send the request;
-3. Click on the ‘Send’ button.
+1. 在顶部的地址栏输入目标 URL；
+2. 在地址栏左侧选择 HTTP 方法；
+3. 点击“发送”按钮。
 
-Postman will then send the request to the application, retrieve any responses and display it in the lower window. This is the basic mechanism on how to use the Postman tool. In our application, we will also have to add other parameters to the request, which will be described in the following sections.
+Postman 会把请求发送给应用，取得响应信息并显示在界面下方的窗口中。这就是 Postman 的基本用法。在我们的应用中，我们还要给请求添加其他参数，这一块内容后面会说到。
 
-### Using Postman
+### 使用 Postman
 
-Now that we have seen an overview of Postman, let’s move forward on using it for our application.
+大概熟悉了 Postman 之后，我们就要实际使用它了。
 
-Start your `markdown-api` application from the command-line:
+用命令行启动 `markdown-api` 应用：
 
 ```bash
 $ node index.js
 ```
 
-To test the base API code, we make API calls to the application from Postman. Note that we use the POST method to pass the text to convert to the application.
+为了测试基本接口代码，我们要用 Postman 调用接口。注意，我们用 POST 方法把要转换的文本传给应用。
 
-The application at present accepts the Markdown content to convert via the `content` POST parameter. This we pass as a URL encoded format. The application, currently, returns the string verbatim in a JSON format — with the first field always returning the string `markdown` and the second field returning the converted text. Later, when we add the Markdown processing code, it will return the converted text.
+我们的应用通过 POST 方法的 `content` 参数接收待转换的文本。我们把它作为 URL 编码格式传递。字符串以 JSON 的格式返回 —— 第一个字段总会返回字符串 `markdown`，而第二个字段返回转换后的文本。然后，当我们添加了 Markdown 处理代码，它就会返回转换后的文本。
 
-### Stage 3: Adding Markdown Converter
+### 第三阶段：添加 Markdown 转换代码
 
-With the application scaffold now built, we can look into the `Showdown` JavaScript library which we will use to convert Markdown to HTML. Showdown is a bidirectional Markdown to HTML converter written in JavaScript which allows you to convert Markdown to HTML and back.
+应用的基本框架搭建好了，我们就来看看 `showdown` 这个 JavaScript 库，我们要用此库把 Markdown 转换为 HTML。`showdown` 是用 JavaScript语言实现的，支持 Markdown 和 HTML 之间的双向转换。
 
-[![Testing with Postman](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)
+[![用 Postman 测试](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png)
 
-([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png))
+([高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7634b6ea-e153-48cc-8001-67c21e08e3ac/nodejs-express-api-markdown-html-base-postman-test.png))
 
-Install the package using npm:
+用 npm 安装 `showdown`：
 
 ```bash
 $ npm install showdown
 ```
 
-After adding the required showdown code to the scaffold, we get the following result:
+添加所需的 showdown 代码后，我们的代码应该是这样的：
 
 ```javascript
 const express        = require("express");
@@ -188,7 +188,7 @@ app.listen(3000, function() {
 });
 ```
 
-The main converter code is in the `/convert` endpoint as extracted and shown below. This will convert whatever Markdown text you post to an HTML version and return it as a JSON document.
+转换格式的核心代码在 `/convert` 端点中，如下所示。这段代码会把你上传的 Markdown 文本转换为 HTML 版本，并返回 JSON 格式的结果。
 
 ```javascript
 ...
@@ -199,72 +199,72 @@ The main converter code is in the `/convert` endpoint as extracted and shown bel
     }
 ```
 
-The method that does the conversion is `converter.makeHtml(text)`. We can set various options for the Markdown conversion using the `setOption` method with the following format:
+`converter.makeHtml(text)` 就是负责转换的方法。用 `setOption` 方法可以对转换过程进行各种配置：
 
 ```javascript
 converter.setOption('optionKey', 'value');
 ```
 
-So, for example, we can set an option to automatically insert and link a specified URL without any markup.
+例如，可以配置成自动插入特定的 URL 而不用任何标记。
 
 ```javascript
 converter.setOption('simplifiedAutoLink', 'true');
 ```
 
-As in the Postman example, if we pass a simple string (such as `Google home http://www.google.com/`) to the application, it will return the following string if `simplifiedAutoLink` is enabled:
+在 Postman 的例子中，如果我们把 `simplifiedAutoLink` 的值配置为 `true`，传一个简单的字符串（例如 `Google home http://www.google.com/`）时就会返回如下结果：
 
 ```html
 <p>Google home <a href="http://www.google.com/">http://www.google.com/</a></p>
 ```
 
-Without the option, we will have to add markup information to achieve the same results:
+否则，要实现相同效果，我们必须要添加标记信息才行：
 
 ```markup
 Google home <http://www.google.com/>
 ```
 
-There are many options to modify how the Markdown is processed. A complete list can be found on the [Showdown](https://www.npmjs.com/package/showdown) website.
+还有很多配置项可以控制 Markdown 的转换过程。你可以在[这里](https://www.npmjs.com/package/showdown)找到完整的配置项列表。
 
-So now we have a working Markdown-to-HTML converter with a single endpoint. Let us move further and add authentication to have application.
+现在，我们实现了一个能将 Markdown 转为 HTML 的“转换器”端点。让我们继续深入来添加验证功能吧。
 
-### Stage 4: Adding API Authentication Using Passport
+### 第四阶段：用 Passport 实现接口验证功能
 
-Exposing your application API to the outside world without proper authentication will encourage users to query your API endpoint with no restrictions. This will invite unscrupulous elements to misuse your API and also will burden your server with unmoderated requests. To mitigate this, we have to add a proper authentication mechanism.
+不给接口添加恰当的验证机制就把它扔出去给别人使用，就是在鼓励使用者无限制地使用你的接口。这会招致某些无耻之徒滥用接口，蜂拥而至的请求会拖垮你的服务器。为了避免这样的局面，我们必须给接口添加恰当的验证机制。
 
-We will be using the Passport package to add authentication to our application. Just like the `body-parser` middleware we encountered earlier, Passport is an authentication middleware for Node.js. The reason we will be using Passport is that it has a variety of authentication mechanisms to work with (username and password, Facebook, Twitter, and so on) which gives the user the flexibility on choosing a particular mechanism. A Passport middleware can be easily dropped into any Express application without changing much code.
+我们将用 Passport 包来实现验证机制。正如之前用到的 `body-parser` 中间件一样，Passport 是一个基于 Node.js 的验证中间件。使用它的原因在于，它支持各种验证机制（用户名和密码验证、Facebook 账号验证、Twitter 账号验证等等），这样我们可以灵活选择验证方式。添加 Passport 中间件很简单，无需更改过多代码。
 
-Install the package using npm.
+用 npm 安装 Passport：
 
 ```bash
 $ npm install passport
 ```
 
-We will also be using the `local` strategy, which will be explained later, for authentication. So install it, too.
+我们还要使用 `local` 策略来进行验证，稍后我会详细说明。因此要把 `passport-local` 也安装上。
 
 ```bash
 $ npm install passport-local
 ```
 
-You will also need to add the JWT(JSON Web Token) encode and decode module for Node.js which is used by Passport:
+你还需要编码/解码模块 JWT（JSON Web Token）：
 
 ```bash
 $ npm install jwt-simple
 ```
 
-#### Strategies In Passport
+#### Passport 中的策略
 
-Passport uses the concept of strategies to authenticate requests. Strategies are various methods that let you authenticate requests and can range from the simple case as verifying username and password credentials, authentication using OAuth (Facebook or Twitter), or using OpenID. Before authenticating requests, the strategy used by an application must be configured.
+Passport 中间件使用策略的概念来验证请求。这里所谓的策略就是一系列方法，它们帮你验证各种请求，从简单的用户名密码验证，到开放授权验证（Facebook 或 Twitter 账号验证），再到 OpenID 验证，皆可胜任。一个应用所使用的验证策略需要预先配置才能去验证请求。
 
-In our application, we will use a simple username and password authentication scheme, as it is simple to understand and code. Currently, Passport supports more than 300 strategies which can be found here.
+在我们自己的应用中，我们会用个简单的用户名密码验证方案，这样便于理解和编码。目前，Passport 支持超过 300 种验证策略。
 
-Although the design of Passport may seem complicated, the implementation in code is very simple. Here is an example that shows how our `/convert` endpoint is decorated for authentication. As you will see, adding authentication to a method is simple enough.
+虽然 Passport 的设计很复杂，但实际使用却很简单。下面的例子就展示了 `/convert` 端点如何添加验证机制。如你所见，轻而易举。
 
 ```javascript
 app.post("/convert", 
          passport.authenticate('local',{ session: false, failWithError: true }), 
          function(req, res, next) {
-        // If this function gets called, authentication was successful.
-        // Also check if no content is sent
+        // 若此函数被调用，说明验证成功。
+        // 请求内容为空与否。
         if(typeof req.body.content == 'undefined' || req.body.content == null) {
             res.json(["error", "No data found"]);
         } else {
@@ -272,17 +272,17 @@ app.post("/convert",
             html = converter.makeHtml(text);
             res.json(["markdown", html]);
         }}, 
-        // Return a 'Unauthorized' message back if authentication failed.
+        // 验证失败，返回 “Unauthorized” 字样
         function(err, req, res, next) {
             return res.status(401).send({ success: false, message: err })
         });
 ```
 
-Now, along with the Markdown string to be converted, we also have to send a username and password. This will be checked with our application username and password and verified. As we are using a local strategy for authentication, the credentials are stored in the code itself.
+现在，除了要转换的 Markdown 字符串，我们还要发送用户名和密码，与应用的用户名密码比对验证。因为我们使用的是本地验证策略，验证凭证就会存储在代码本身中。
 
-Although this may sound like a security nightmare, for demo applications this is good enough. This also makes it easier to understand the authentication process in our example. Incidentally, a common security method used is to store credentials in environment variables. Still, many people may not agree with this method, but I find this relatively secure.
+可能这样的验证手段看起来太简陋了，但对于一个 demo 级别的应用来说已经足够。简单的例子也有助于我们理解验证过程。顺便说一句，有种常见的安全措施是把凭证存到环境变量中。当然，很多人对这种方式不以为然，但我觉得这是个相对安全的方法。
 
-The complete example with authentication is shown below.
+验证功能的完整示例如下：
 
 ```javascript
 const express = require("express");
@@ -318,8 +318,8 @@ app.get('/', function(req, res){
  
 app.post('/login', passport.authenticate('local',{ session: false }),
                 function(req, res) {
-                // If this function gets called, authentication was successful.
-                // Send a 'Authenticated' string back.
+                // 若此函数被调用，说明验证成功。
+                // 返回 “Authenticated” 字样。
                 res.send("Authenticated");
   });
   
@@ -327,8 +327,8 @@ app.post('/login', passport.authenticate('local',{ session: false }),
 app.post("/convert", 
          passport.authenticate('local',{ session: false, failWithError: true }), 
          function(req, res, next) {
-        // If this function gets called, authentication was successful.
-        // Also check if no content is sent
+        // 若此函数被调用，说明验证成功。
+        // 请求内容为空与否。
         if(typeof req.body.content == 'undefined' || req.body.content == null) {
             res.json(["error", "No data found"]);
         } else {
@@ -336,7 +336,7 @@ app.post("/convert",
             html = converter.makeHtml(text);
             res.json(["markdown", html]);
         }}, 
-        // Return a 'Unauthorized' message back if authentication failed.
+        // 验证失败，返回 “Unauthorized” 字样
         function(err, req, res, next) {
             return res.status(401).send({ success: false, message: err })
         });
@@ -347,34 +347,34 @@ app.listen(3000, function() {
 });
 ```
 
-A Postman session that shows conversion with authentication added is shown below.
+一个带验证的 Postman 会话如下所示：
 
-[![Final application testing with Postman](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)
+[![用 Postman 测试最终应用](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)
 
-Final application testing with Postman ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png))
+用 Postman 测试最终应用（[高清大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ae32fa60-d46d-4065-8966-b5e9ce0b32b9/nodejs-express-api-markdown-html-base-postman-auth.png)）
 
-Here we can see that we have got a proper HTML converted string from a Markdown syntax. Although we have only requested to convert a single line of Markdown, the API can convert a larger amount of text.
+在此可见，我们上传了一段 Markdown 语法的文本，然后得到了经过正确转换的 HTML 版本的结果。我们只是测试了一行文本，但这个接口是有转换大段文本的能力的。
 
-This concludes our brief foray into building an API endpoint using Node.js and Express. API building is a complex topic and there are finer nuances that you should be aware of while building one, which sadly we have no time for here but will perhaps cover in future articles.
+这就是我们此次对 Node.js 和 Express 的浅尝 —— 搭建一个接口端点。构建接口是一个复杂的课题，在你想构建一个接口的时候，有些细节你应该清楚，但时间有限，很抱歉不能在本文中展开了，但可能会在后续文章中详细探讨。
 
-### Accessing Our API From Another Application
+### 在其他应用中访问我们的接口
 
-Now that we have built an API, we can create a small Node.js script that will show you how the API can be accessed. For our example, we will need to install the `request` npm package that provides a simple way to make HTTP requests. (You will Most probably already have this installed.)
+既然已经搭建好了接口，那我们就可以写一个基于 Node.js 的小脚本来证明接口可用。在本例中，我们需要安装 `request` 包以便于发送 HTTP 请求。（很可能你已经安装过了）
 
 ```bash
 $ npm install request --save
 ```
 
-The example code to send a request to our API and get the response is given below. As you can see, the `request` package simplifies the matter considerably. The markdown to be converted is in the `textToConvert` variable.
+下面所示代码向我们的接口发送了一个请求，并得到了响应。如你所见，`request` 包大大简化了步骤。待转换的 Markdown 文本存放于 `textToConvert` 变量中。
 
-Before running the following script, make sure that the API application we created earlier is already running. Run the following script in another command window.
+在运行下列脚本之前，你要确保接口应用已经处于运行状态。你需要在另外的命令窗口中运行脚本。
 
-**Note**: **We are using the** `(back-tick)` **sign to span multiple JavaScript lines for the** `textToConvert` **variable. This is not a single-quote.**
+**注意：在变量 `textToConvert` 中，我们使用了 “ ` ” 符号来包裹多行 JavaScript 代码，它不是单引号哦。**
 
 ```javascript
 var Request = require("request");
  
-// Start of markdown
+// Markdown 文本的开头
 var textToConvert = `Heading
 =======
 ## Sub-heading
@@ -390,7 +390,7 @@ Text attributes _italic_,
 A [link](http://example.com).
 Horizontal rule:`;
  
-// End of markdown
+// Markdown 文本的结尾
                     
 Request.post({
     "headers": { "content-type": "application/json" },
@@ -401,16 +401,16 @@ Request.post({
         "password": "smagazine"
     })
 }, function(error, response, body){
-    // If we got any connection error, bail out.
+    // 连接失败时，退出。
     if(error) {
         return console.log(error);
     }
-    // Else display the converted text
+    // 显示转换后的文本
     console.dir(JSON.parse(body));
 });
 ```
 
-When we make a POST request to our API, we provide the Markdown text to be converted along with the credentials. If we provide the wrong credentials, we will be greeted with an error message.
+当发送 POST 请求到接口时，我们需要提供要转换的 Markdown 文本和身份凭证。如果凭证错误，我们会收到错误提示信息。
 
 ```javascript
 {
@@ -423,7 +423,7 @@ When we make a POST request to our API, we provide the Markdown text to be conve
 }
 ```
 
-For a correctly authorized request, the above sample Markdown will be converted to the following:
+对于一个验证通过的请求，上述 Markdown 样例会被转换为如下格式：
 
 ```html
 [ 'markdown',
@@ -438,13 +438,13 @@ For a correctly authorized request, the above sample Markdown will be converted 
   Horizontal rule:</p>` ]
 ```
 
-Although we have hardcoded the Markdown here, the text can come from various other sources — file, web forms, and so on. The request process remains the same.
+在例子中我们刻意写了一段 Markdown 文本，实际情况中的文本可能来自文件、web 表单等多种来源。但请求过程都是一样的。
 
-Note that as we are sending the request as an `application/json` content type; we need to encode the body using json, hence the `JSON.stringify` function call. As you can see, it takes a very small example to test or API application.
+注意：当我们使用 `application/json` 格式发送请求时，我们需要用 JSON 格式解析响应体，故而要调用 `JSON.stringify` 函数。如你所见，测试或者接口应用仅需一个小例子，在此不赘述。
 
-### Conclusion
+### 总结
 
-In this article, we embarked on a tutorial with the goal of learning on how to use Node,js and the Express framework to build an API endpoint. Rather than building some dummy application with no purpose, we decided to create an API that converts Markdown syntax to HTML, which anchors or learning in a useful context. Along the way, we added authentication to our API endpoint, and we also saw ways to test our application endpoint using Postman.
+在本文中，我们以学习使用 Node.js 和 Express 框架搭建接口为目的组织了一次教程。与其漫无目的地做一些没意思的应用，不如搭建一个把 Markdown 转换为 HTML 的接口，这才算是有用的实践。通过整个过程的实践，我们学会了给接口端点添加验证机制，还学会了用 Postman 测试应用的几种方式。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
