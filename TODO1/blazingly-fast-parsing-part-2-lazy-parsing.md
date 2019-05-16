@@ -1,5 +1,5 @@
 > * 原文地址：[Blazingly fast parsing, part 2: lazy parsing](https://v8.dev/blog/preparser)
-> * 原文作者：[]()
+> * 原文作者：[https://v8.dev](https://v8.dev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/blazingly-fast-parsing-part-2-lazy-parsing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/blazingly-fast-parsing-part-2-lazy-parsing.md)
 > * 译者：
