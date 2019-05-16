@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-mixins-in-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-mixins-in-vue-js.md)
 > - 译者：[MacTavish Lee](https://github.com/Reaper622)
-> - 校对者：[Baddyo](https://github.com/Baddyo)
+> - 校对者：[Baddyo](https://github.com/Baddyo),[jilanlan](https://github.com/jilanlan)
 
 # 理解 Vue.js 中的 Mixins
 
@@ -13,7 +13,7 @@
 
 ## 什么是 Mixins？
 
-Vue JS 中的 Mixins 基本上就是一段定义好的逻辑代码，它们以 Vue 规定的特殊方式存储，它们可以反复使用来为 Vue 实例和组件添加功能。因此，Vue mixins 可以在多个 Vue 组件之间共享，而不需要重复写代码块。如果你之前用过 Sass 这个 CSS 预处理器，那么你会对 mixins 有很好的理解。
+Vue JS 中的 Mixins 基本上是定义一大堆逻辑的地方，它们以 Vue 规定的特殊方式存储，它们可以反复使用来为 Vue 实例和组件添加功能。因此，Vue mixins 可以在多个 Vue 组件之间共享，而不需要重复写代码块。如果你之前用过 Sass 这个 CSS 预处理器，那么你会对 mixins 有很好的理解。
 
 ## 写在开始前
 
@@ -59,7 +59,7 @@ npm install
 
 > Mixins 能够灵活地实现为 Vue 组件分发可复用功能。 — 官方文档
 
-## mixins 帮助我们解决了什么问题
+## Mixins 帮助我们解决了什么问题
 
 想要充分理解 Vue 中 mixins 的重要性，有一个方式：看看在实际开发中遇到的重用问题。如果你有两个组件，二者中各有一个目的一致或功能相同的方法，就像在下面这个简单的示例中：
 
