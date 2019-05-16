@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md)
 > * 译者：[iceytea](https://github.com/iceytea)
-> * 校对者：[jianboy](https://github.com/jianboy)
+> * 校对者：[jianboy](https://github.com/jianboy)、[cyril](https://github.com/shixi-li)
 
 # Go 语言命令概览
 
-我偶尔会被人问到：**“你为什么喜欢使用 Go 语言？”** 我经常提到的一件事情是，作为 `go` 命令的一部分 —— 与 Go 语言一同存在的 —— `go fmt` 和 `go build`，以及其它像 `go tool pprof` 这样只用来帮助解决特定问题的命令。但在任何情况下，我都很感谢它们使我的项目管理和维护更容易。
+我偶尔会被人问到：**“你为什么喜欢使用 Go 语言？”** 我经常会提到的就是 `go` 工具命令，它是与语言一同存在的一部分。有一些命令 —— 比如 `go fmt` 和 `go build` —— 我每天都会用到，还有一些命令 —— 就像 `go tool pprof` —— 我用它们解决特定的问题。但在所有的场景下，我都很感谢 go 命令让我的项目管理和维护变得更加容易。
 
-在这篇文章中，我希望能提供一些我认为很有用的命令的设定背景和关系，更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望这是一个良好的开端。
+在这篇文章中，我希望提供一些关于我认为最有用的命令的背景和上下文，更重要的是，解释它们如何适应典型项目的工作流程。如果你刚刚接触 Go 语言，我希望这是一个良好的开端。
 
 如果你已经使用 Go 语言有一段时间，这篇文章可能不适合你，但同样希望你能在这里发现之前不了解的命令和参数😀
 
@@ -49,14 +49,14 @@
 
 这篇文章中，我将主要关注 go 命令这部分。但这里也将提到一些不属于 Go 12.2 标准发行版的内容。
 
-当你在 Go 12.2 版本下安装命令时，你首先需要确定当前在 module-enabled 的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令来安装。例如：
+当你在 Go 12.2 版本下安装命令时，你首先需要确保当前在 module-enabled 的目录**之外**（我通常跳转到 `/tmp` 目录下）。之后你可以使用 `GO111MODULE=on go get` 命令来安装。例如：
 
 ```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 ```
 
-这条命令将会下载相关的包和依赖项、构建可执行文件，并将它添加到你设置的 `GOBIN` 目录下。如果你没有显式设定 `GOBIN` 目录，可执行文件将会被添加到 `GOPATH/bin` 目录下。但无论如何，你都应当确保系统路径上有对应的目录。
+这条命令将会下载相关的包和依赖项、构建可执行文件，并将它添加到你设置的 `GOBIN` 目录下。如果你没有显式设定 `GOBIN` 目录，可执行文件将会被添加到 `GOPATH/bin` 目录下。但无论哪种方式，你都应当确保系统路径上有对应的目录。
 
 注意：这个过程有些笨拙，希望能在将来的 Go 版本中有所改进。你可以在 [Issue 30515](https://github.com/golang/go/issues/30515) 跟踪有关此问题的讨论。
 
@@ -189,9 +189,9 @@ $ gofmt -d -w -r 'foo -> Foo' .
  }
 ```
 
-注意到这比单纯的查找和替换更聪明了吗？ `foo` 变量已被更改，但 `fmt.Println()` 语句中的 `"foo"` 字符串没有被替换。另外需要注意的是 `gofmt` 命令是递归工作的，因此上面的命令会在当前目录和子目录中的所有 `*.go` 文件上执行。
+注意到这比单纯的查找和替换更智能了吗？ `foo` 变量已被更改，但 `fmt.Println()` 语句中的 `"foo"` 字符串没有被替换。另外需要注意的是 `gofmt` 命令是递归工作的，因此上面的命令会在当前目录和子目录中的所有 `*.go` 文件上执行。
 
-如果你想使用这个功能，我建议你首先不带 `-w` 参数运行重写规则，并先检查 diff ，以确保代码的更改如你所愿。
+如果你想使用这个功能，我建议你首先不带 `-w` 参数运行重写规则，并先检查差异，以确保代码的更改如你所愿。
 
 让我们来看一个稍复杂的例子。假设你要更新代码，以使用新的 Go 1.12 版本中携带的 [strings.ReplaceAll()](https://golang.org/pkg/strings/#ReplaceAll) 方法替换掉之前的 [strings.Replace()](https://golang.org/pkg/strings/#Replace) 方法。要进行此更改，你可以运行：
 
@@ -636,7 +636,7 @@ $ go test -run=^$ -bench=^BenchmarkFoo$ -blockprofile=/tmp/blockprofile.out .
 $ go test -run=^$ -bench=^BenchmarkFoo$ -mutexprofile=/tmp/mutexprofile.out .
 ```
 
-注意：运行基准测试或测试时使用 `-***profile` 参数将会把测试二进制文件输出到当前目录。如果要将其输出到备用位置，则应使用 `-o` 参数，如下所示：
+注意：运行基准测试或测试时使用 `-***profile` 参数将会把测试二进制文件输出到当前目录。如果要将其输出到其它位置，则应使用 `-o` 参数，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -o=/tmp/foo.test -cpuprofile=/tmp/cpuprofile.out .
@@ -668,7 +668,7 @@ $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
 
 这让图形更加“嘈杂”，如果你[放大这个截图](/static/images/tooling-5b.svg)，就可以更清楚的看到和了解 CPU 使用的热点位置。
 
-分析和优化资源使用是一个很大很细微的，主题，我在这里只涉及到一点表面的内容。如果你有兴趣了解更多信息，我建议你阅读以下文章：
+分析和优化资源使用是一个庞大且复杂的问题，我在这里只涉及到一点皮毛。如果你有兴趣了解更多信息，我建议你阅读以下文章：
 
 * [分析和优化 Go Web 应用程序](https://artem.krylysov.com/blog/2017/03/13/profiling-and-optimizing-go-web-applications/)
 * [调试 Go 程序中的性能问题](https://github.com/golang/go/wiki/Performance)
@@ -698,7 +698,7 @@ $ go tool trace /tmp/trace.out
 $ go build -race -o=/tmp/foo .
 ```
 
-至关重要的是要注意，启用竞争检测的二进制文件将使用比正常情况更多的 CPU 和内存，因此在正常情况下为生产环境构建二进制文件时，不应使用 `-race` 参数。
+尤其重要的是，启用竞争检测的二进制文件将使用比正常情况更多的 CPU 和内存，因此在正常情况下为生产环境构建二进制文件时，不应使用 `-race` 参数。
 
 但是，你可能希望在一台服务器部署多个启用竞争检测的二进制文件，或者使用它来帮助追踪可疑的竞态条件。方法是使用负载测试工具在启用竞争检测的二进制文件的同时投放流量。
 
@@ -774,7 +774,7 @@ $ go mod edit -dropreplace=github.com/alexedwards/argon2id
 
 `go fix` 工具最初于 2011 年发布（当时仍在对 Go 的 API 进行定期更改），以帮助用户自动更新旧代码以与最新版的 Go 兼容。从那以后，Go 的[兼容性承诺](https://golang.org/doc/go1compat)意味着如果你从 Go 1.x 版本升级到更新的 Go 1.x 版本，一切都应该正常工作，并且通常没有必要使用 `go fix`
 
-但是，在某些具体的问题上，`go fix` 的确起到了作用。你可以通过运行 `go tool fix -help` 来查看它们的摘要，如果你决定在升级后需要运行 `go fix` ，则应该运行以下命令，然后在提交之前检查更改的差异。
+但是，在某些具体的问题上，`go fix` 的确起到了作用。你可以通过运行 `go tool fix -help` 来查看命令概述。如果你决定在升级后需要运行 `go fix` ，则应该运行以下命令，然后在提交之前检查更改的差异。
 
 ```shell
 $ go fix ./...
