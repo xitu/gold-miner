@@ -19,7 +19,7 @@
 
 顺便一提，我年纪越大，那个小点就会越小。
 
-[Alicia Liu](https://medium.com/counter-intuition/overcoming-impostor-syndrome-bdae04e46ec5) 创建了一个更好的图表，改变了我的生活。她说这种情况更像是。。。
+[Alicia Liu](https://medium.com/counter-intuition/overcoming-impostor-syndrome-bdae04e46ec5) 创建了一个更好的图表，改变了我的生活。她说这种情况更像是...
 
 ![](https://cdn-images-1.medium.com/max/2000/1*N7vv39ri9yC0l6krsSFlQA.png)
 
@@ -119,7 +119,7 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 我们有几个选择。
 
-其中之一就是在生产中简单地使用类似 `supervisor` 或 `nodemon` 的工具，就像我们在开发中使用它们一样。这可行，但这些工具有点轻量级。更好的选择是 pm2 。
+其中之一就是在生产中简单地使用类似 `supervisor` 或 `nodemon` 的工具，就像我们在开发中使用它们一样。这可行，但这些工具有点轻量级。更好的选择是 pm2。
 
 ### pm2 支援
 
@@ -290,12 +290,12 @@ Tierney 建议你不要使用 Node 进程管理器来运行应用程序。相反
 
 ### systemd
 
-Tierney 的另一个建议是使用 `systemd` 运行 Node。我不是很了解（或者说根本不知道） `systemd`，我已经把这句话弄错过一次了，所以我会用 Tierney 自己的原话来表述：
+Tierney 的另一个建议是使用 `systemd` 运行 Node。我不是很了解（或者说根本不知道）`systemd`，我已经把这句话弄错过一次了，所以我会用 Tierney 自己的原话来表述：
 
 > 只有在部署中访问 Linux 并控制 Node 在服务级别上启动的方式时，才有可能实现此选项。如果你在一个长时间运行的 Linux 虚拟机中运行 node.js 进程，比如说 Azure 虚拟机，那么使用 systemd 运行 node.js 是个不错的选择。如果你只是将文件部署到类似于 Azure AppService 或 Heroku 的服务中，或者运行在类似于 Azure 容器实例的容器化环境中，那么你可以避开此选项。
 
-[**使用 Systemd 运行 Node.js 应用程序 —— 第一部分**](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)  
-[你已经在 Node 中编写了下一个很棒的应用程序，并且你已经准备发布它。这意味着你可以...](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)
+- [**使用 Systemd 运行 Node.js 应用程序 —— 第一部分**](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)  
+- [你已经在 Node 中编写了下一个很棒的应用程序，并且你已经准备发布它。这意味着你可以...](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)
 
 ### Node.js 工作线程
 
