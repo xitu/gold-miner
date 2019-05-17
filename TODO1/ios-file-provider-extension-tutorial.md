@@ -5,7 +5,6 @@
 > - 译者：
 > - 校对者：
 
-
 # iOS File Provider Extension Tutorial
 
 In this tutorial, you will learn about the File Provider framework and how to implement your own File Provider extension to expose your app’s own content.
@@ -31,7 +30,7 @@ To get started, click the **Download Materials** button at the top or bottom of 
 The app presents a basic view that educates the user about how to enable the File Provider extension since you won’t actually be doing anything within the app itself. Each time you build and run the app in this tutorial, you’ll then return to the home screen and open the **Files** app to access your extension.
 
 > **Note**: If you want to run the sample project on a real device, in addition to setting a development team for both targets, you must edit **Favart.xcconfig** inside the **Configuration** folder. Update the bundle identifier to a unique value.
-
+>
 > The sample project uses this value for the `PRODUCT_BUNDLE_IDENTIFIER` build setting in both targets as well as the App Group identifier in **Provider.entitlements** and the associated `NSExtensionFileProviderDocumentGroup` value in **Info.plist**. If you don’t keep the values updated consistently in the project, you might see obscure and hard to debug errors. Using custom build settings is a great way to keep things running smoothly.
 
 The sample project includes the basic components that you’ll use for your File Provider extension:
@@ -42,7 +41,6 @@ The sample project includes the basic components that you’ll use for your File
 *   **Models** is a group that contains the models needed to complete the extension.
 
 ## Setting Up the Back End With Heroku
-
 
 To get started, you’ll need your own instance of the back end server. Fortunately, this is easy with a **Heroku Button**. Click the button below to access the **Heroku** dashboard.
 
@@ -66,7 +64,6 @@ That completes the server configuration. Next, you’ll define the model which t
 
 ## Defining an NSFileProviderItem
 
-
 First, the File Provider needs a model that conforms to `NSFileProviderItem`. This model will provide information about files managed by the File Provider. The starter project contains `FileProviderItem` in **FileProviderItem.swift** you’ll use for this, but it requires a bit of work before you conform to the protocol.
 
 While this protocol has twenty seven properties, only four are required. The optional properties provide the File Provider framework with more detailed information about each file and enable other capabilities. For this tutorial, you’ll focus on the required properties: `itemIdentifier`, `parentItemIdentifier`, `filename` and `typeIdentifier`.
@@ -81,9 +78,8 @@ You’ll use `MediaItemReference` in this tutorial for two reasons:
 
 1.  The back end hosted on Heroku is simple. It can’t provide all of the information required by `NSFileProviderItem` so you need to get it elsewhere.
 2.  The File Provider extension is also going to be simple. A more complete File Provider extension would need to persist the information returned by the back end locally, using something like Core Data, in order to refer to it later in the extension’s lifecycle.
-    
-    To keep the focus of the tutorial on the File Provider extension itself, you’ll use `MediaItemReference` to **cheat** by embedding the data for the four required properties into a `URL` object. You’ll then base64-encode that URL into a `NSFileProviderItemIdentifier`. You won’t need to persist anything yourself because `NSFileProviderExtension` will handle it for you.
-    
+
+To keep the focus of the tutorial on the File Provider extension itself, you’ll use `MediaItemReference` to **cheat** by embedding the data for the four required properties into a `URL` object. You’ll then base64-encode that URL into a `NSFileProviderItemIdentifier`. You won’t need to persist anything yourself because `NSFileProviderExtension` will handle it for you.
 
 To start constructing the model open **Provider/MediaItemReference.swift** and add the following in `MediaItemReference`:
 
@@ -116,7 +112,7 @@ init(path: String, filename: String) {
     withAllowedCharacters: .urlPathAllowed
   ) ?? absolutePath
   
-  self.init(urlRepresentation: URL(string: "itemReference://\\(absolutePath)")!)
+  self.init(urlRepresentation: URL(string: "itemReference://\(absolutePath)")!)
 }
 ```
 
@@ -159,7 +155,9 @@ For the other items, the URL representation is retrieved by converting the raw v
 
 Now that the initializers are out of the way, it’s time to add some properties to this model. First, add the following `import` at the top of the file:
 
+```swift
 import MobileCoreServices
+```
 
 This provides access to file types. Next, add the following at the end of the struct:
 
@@ -259,9 +257,9 @@ extension FileProviderItem: NSFileProviderItem {
   // 2
   var capabilities: NSFileProviderItemCapabilities {
     if reference.isDirectory {
-      return \[.allowsReading, .allowsContentEnumerating\]
+      return [.allowsReading, .allowsContentEnumerating]
     } else {
-      return \[.allowsReading\]
+      return [.allowsReading]
     }
   }
   
@@ -347,7 +345,7 @@ Next, replace `urlForItem(withPersistentIdentifier:)` and `persistentIdentifierF
 ```swift
 // 1
 override func urlForItem(withPersistentIdentifier
-  identifier: NSFileProviderItemIdentifier) -\> URL? {
+  identifier: NSFileProviderItemIdentifier) -> URL? {
   guard let item = try? item(for: identifier) else {
     return nil
   }
@@ -358,7 +356,7 @@ override func urlForItem(withPersistentIdentifier
 }
 
 // 2
-override func persistentIdentifierForItem(at url: URL) -\> NSFileProviderItemIdentifier? {
+override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
   let identifier = url.deletingLastPathComponent().lastPathComponent
   return NSFileProviderItemIdentifier(identifier)
 }
@@ -387,7 +385,7 @@ try fileManager.createDirectory(
   attributes: nil
 )
 
-// 3 
+// 3  
 let placeholderURL = NSFileProviderManager.placeholderURL(for: url)
 let item = FileProviderItem(reference: reference)
   
@@ -455,18 +453,18 @@ Add the following below `enumerator(for:)`:
 // MARK: - Thumbnails
   
 override func fetchThumbnails(
-  for itemIdentifiers: \[NSFileProviderItemIdentifier\],
+  for itemIdentifiers: [NSFileProviderItemIdentifier],
   requestedSize size: CGSize,
   perThumbnailCompletionHandler: 
-    @escaping (NSFileProviderItemIdentifier, Data?, Error?) -\> Void,
-  completionHandler: @escaping (Error?) -\> Void) 
-    -\> Progress {
+    @escaping (NSFileProviderItemIdentifier, Data?, Error?) -> Void,
+  completionHandler: @escaping (Error?) -> Void) 
+    -> Progress {
   // 1
   let progress = Progress(totalUnitCount: Int64(itemIdentifiers.count))
 
   for itemIdentifier in itemIdentifiers {
     // 2
-    let itemCompletion: (Data?, Error?) -\> Void = { data, error in
+    let itemCompletion: (Data?, Error?) -> Void = { data, error in
       perThumbnailCompletionHandler(itemIdentifier, data, error)
 
       if progress.isFinished {
@@ -541,7 +539,7 @@ Like the thumbnail generation, there is only a single method needed to view an i
 
 override func startProvidingItem(
   at url: URL, 
-  completionHandler: @escaping ((_ error: Error?) -\> Void)) {
+  completionHandler: @escaping ((_ error: Error?) -> Void)) {
   // 1
   guard !fileManager.fileExists(atPath: url.path) else {
     completionHandler(nil)
@@ -625,5 +623,3 @@ I hope you enjoyed this tutorial! If you have any questions or comments, please 
 ------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
