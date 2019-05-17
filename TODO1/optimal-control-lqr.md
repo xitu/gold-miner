@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimal-control-lqr.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimal-control-lqr.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：[ezioyuan](https://github.com/ezioyuan)，[TUARAN](https://github.com/TUARAN)
+> * 校对者：[ezioyuan](https://github.com/ezioyuan), [TUARAN](https://github.com/TUARAN)
 
 # 最优控制：LQR
 
@@ -32,7 +32,6 @@
 ![](https://cdn-images-1.medium.com/max/1600/1*FUpZDyx377ChcaYhcrEWvw.png)
 
 在这几个式子中，Q、R 和 E 是代价矩阵，它们决定了多项式系数。我们也可以用矩阵的形式写出每一个时间点的代价，使得表达式更加简单。
-
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Q5ZAP09bX_o3BYGONcLE2A.png)
 
