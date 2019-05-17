@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md)
 > * 译者：[iceytea](https://github.com/iceytea)
-> * 校对者：[jianboy](https://github.com/jianboy)、[cyril](https://github.com/shixi-li)
+> * 校对者：[jianboy](https://github.com/jianboy), [cyril](https://github.com/shixi-li)
 
 # Go 语言命令概览
 
@@ -94,7 +94,7 @@ PKG_CONFIG="pkg-config"
 GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build245740092=/tmp/go-build -gno-record-gcc-switches"
 ```
 
-如果你对某些特定值感兴趣，则可以将这些值作为参数传递给 `go env` 。例如：
+如果你对某些特定值感兴趣，则可以将这些值作为参数传递给 `go env`。例如：
 
 ```shell
 $ go env GOPATH GOOS GOARCH
@@ -124,9 +124,9 @@ $ go run ./cmd/foo  # 运行 ./cmd/foo 目录下的包
 
 ### 获取依赖关系
 
-假设你已经[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)，那当你运行 `go run` 、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新 tag ，如果没有可用的 tag ，则使用最新提交的依赖项。
+假设你已经[启用了模块](https://github.com/golang/go/wiki/Modules#quick-start)，那当你运行 `go run`、`go test` 或者 `go build` 类似的命令时，所有外部依赖项将会自动（或递归）下载，以实现代码中的 `import` 语句。默认情况下，将下载依赖项的最新 tag，如果没有可用的 tag，则使用最新提交的依赖项。
 
-如果你事先知道需要特定版本的依赖项（而不是 Go 默认获取的依赖项），则可以在使用 `go get` 同时带上相关版本号或 commit hash 。例如：
+如果你事先知道需要特定版本的依赖项（而不是 Go 默认获取的依赖项），则可以在使用 `go get` 同时带上相关版本号或 commit hash。例如：
 
 ```shell
 $ go get github.com/foo/bar@v1.2.3
@@ -164,7 +164,7 @@ $ go clean -modcache
 
 你可能熟悉使用 `gofmt` 工具。它可以自动格式化代码，但是它也支持去**重写规则**。你可以使用它来帮助重构代码。我将在下面证明这一点。
 
-假设你有以下代码，你希望将 `foo` 变量更改为 `Foo` ，以便将其导出。
+假设你有以下代码，你希望将 `foo` 变量更改为 `Foo`，以便将其导出。
 
 ```go
 var foo int
@@ -239,13 +239,13 @@ $ go test -race ./...
 
 这里有很重要的一点要特别注意，启用竞争检测将增加测试的总体运行时间。因此，如果你经常在 TDD（测试驱动开发）工作流中运行测试，你可能会使用此方法进行预提交测试运行。
 
-从 1.10 版本起，Go 在包级别[缓存测试结果](https://golang.org/doc/go1.10#test)。如果一个包在测试运行期间没有发生改变，并且你正在使用相同的、可缓存的 `go test` 工具，那么将会展示缓存的测试结果，并用 `"(cached)"` 标记注明。这对于加速大型代码库的测试运行非常有用。如果要强制测试完全运行（并避免缓存），可以使用 `-count=1` 参数，或使用 `go clean` 工具清除所有缓存的测试结果。
+从 1.10 版本起，Go 在包级别 [缓存测试结果](https://golang.org/doc/go1.10#test)。如果一个包在测试运行期间没有发生改变，并且你正在使用相同的、可缓存的 `go test` 工具，那么将会展示缓存的测试结果，并用 `"(cached)"` 标记注明。这对于加速大型代码库的测试运行非常有用。如果要强制测试完全运行（并避免缓存），可以使用 `-count=1` 参数，或使用 `go clean` 工具清除所有缓存的测试结果。
 
 ```shell
 $ go test -count=1 ./...    # 运行测试时绕过测试缓存
 $ go clean -testcache       # 删除所有的测试结果缓存
 ```
-注意：缓存的测试结果与构建结果被一同存储在你的 `GOCACHE` 目录中。 如果你不确定 `GOCACHE` 目录在机器上的位置，请输入 `go env GOCACHE` 检查。
+注意：缓存的测试结果与构建结果被一同存储在你的 `GOCACHE` 目录中。如果你不确定 `GOCACHE` 目录在机器上的位置，请输入 `go env GOCACHE` 检查。
 
 你可以使用 `-run` 参数将 `go test` 限制为只运行特定测试（和子测试）。`-run` 参数接受正则表达式，并且只运行具有与正则表达式匹配的名称的测试。我喜欢将它与 `-v` 参数结合起来以启用详细模式，这样会显示正在运行的测试和子测试的名称。这是一个有用的方法，以确保我没有搞砸正则表达式，并确保我期望的测试正在运行！
 
@@ -325,7 +325,7 @@ $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 ```shell
 $ go test -c -o=/tmp/foo.test .
 ```
-在这个例子中，测试二进制文件将输出到 `/tmp/foo.test` 。之后你可以使用 `stress` 工具在该文件中执行特定测试，如下所示：
+在这个例子中，测试二进制文件将输出到 `/tmp/foo.test`。之后你可以使用 `stress` 工具在该文件中执行特定测试，如下所示：
 
 ```shell
 $ stress -p=4 /tmp/foo.test -test.run=^TestFooBar$
@@ -334,7 +334,7 @@ $ stress -p=4 /tmp/foo.test -test.run=^TestFooBar$
 ...
 ```
 
-注意：在上面的例子中，我使用 `-p` 参数来限制 `stress` 使用的并行进程数为 4 。如果没有这个参数，该工具将默认使用和 `runtime.NumCPU()` 方法执行结果相同数量的进程（当前系统的 CPU 核数量的进程数）。
+注意：在上面的例子中，我使用 `-p` 参数来限制 `stress` 使用的并行进程数为 4。如果没有这个参数，该工具将默认使用和 `runtime.NumCPU()` 方法执行结果相同数量的进程（当前系统的 CPU 核数量的进程数）。
 
 ### 测试全部依赖关系
 
@@ -359,11 +359,11 @@ $ gofmt -w -s -d foo.go  # 格式化 foo.go 文件
 $ gofmt -w -s -d .       # 递归格式化当前目录和子目录中的所有文件
 ```
 
-在这些命令中，`-w` 参数指示工具重写文件，`-s` 参数指示工具尽可能的[简化](https://golang.org/cmd/gofmt/#hdr-The_simplify_command)代码，`-d` 参数指示工具输出变化的差异（因为我很想知道改变了什么）。 如果你只想显示已更改文件的名称而不是差异，则可以将其替换为 `-l` 参数。
+在这些命令中，`-w` 参数指示工具重写文件，`-s` 参数指示工具尽可能的[简化](https://golang.org/cmd/gofmt/#hdr-The_simplify_command)代码，`-d` 参数指示工具输出变化的差异（因为我很想知道改变了什么）。如果你只想显示已更改文件的名称而不是差异，则可以将其替换为 `-l` 参数。
 
-注意：`gofmt` 命令以递归方式工作。 如果你传递一个类似 `.` 或 `./cmd/foo`的目录，它将格式化目录下的所有 `.go` 文件。
+注意：`gofmt` 命令以递归方式工作。如果你传递一个类似 `.` 或 `./cmd/foo`的目录，它将格式化目录下的所有 `.go` 文件。
 
-另一种格式化工具 `go fmt` 是一个包装器，它在指定的文件或目录上调用 `gofmt -l -w` 。你可以像这样使用它：
+另一种格式化工具 `go fmt` 是一个包装器，它在指定的文件或目录上调用 `gofmt -l -w`。你可以像这样使用它：
 
 ```shell
 $ go fmt ./...
@@ -388,10 +388,10 @@ $ go vet -composites=false ./...
 
 在 [golang.org/x/tools](https://godoc.org/golang.org/x/tools) 中有几个实验性的分析器，你可能想尝试一下：
 
-- [nilness](https://godoc.org/golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness) ：检查多余或不可能的零比较
-- [shadow](https://godoc.org/golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow) ： 检查可能的非预期变量阴影
+- [nilness](https://godoc.org/golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness)：检查多余或不可能的零比较
+- [shadow](https://godoc.org/golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow)： 检查可能的非预期变量阴影
 
-如果要使用这些，则需要单独安装和运行它们。例如，如果安装 `nilness` ，你需要运行：
+如果要使用这些，则需要单独安装和运行它们。例如，如果安装 `nilness`，你需要运行：
 
 ```shell
 $ cd /tmp
@@ -404,7 +404,7 @@ $ GO111MODULE=on go get golang.org/x/tools/go/analysis/passes/nilness/cmd/nilnes
 $ go vet -vettool=$(which nilness) ./...
 ```
 
-注：自 Go 1.10 版本起， `go test` 工具会在运行任何测试之前自动运行 `go vet` 检查的一个小的、高可信度的子集。你可以在运行测试时像这样关闭此行为：
+注：自 Go 1.10 版本起，`go test` 工具会在运行任何测试之前自动运行 `go vet` 检查的一个小的、高可信度的子集。你可以在运行测试时像这样关闭此行为：
 
 ```shell
 $ go test -vet=off ./...
@@ -446,14 +446,14 @@ $ go mod verify
 
 ### 构建可执行文件
 
-要编译 `main` 包并创建可执行二进制文件，可以使用 `go build` 工具。 通常可以将它与`-o`参数结合使用，这允许你明确设置输出目录和二进制文件的名称，如下所示：
+要编译 `main` 包并创建可执行二进制文件，可以使用 `go build` 工具。通常可以将它与`-o`参数结合使用，这允许你明确设置输出目录和二进制文件的名称，如下所示：
 
 ```shell
 $ go build -o=/tmp/foo .            # 编译当前目录下的包 
 $ go build -o=/tmp/foo ./cmd/foo    # 编译 ./cmd/foo 目录下的包
 ```
 
-在这些示例中，`go build` 将**编译**指定的包（以及任何依赖包），然后调用**链接器**以生成可执行二进制文件，并将其输出到 `/tmp/foo` 。
+在这些示例中，`go build` 将**编译**指定的包（以及任何依赖包），然后调用**链接器**以生成可执行二进制文件，并将其输出到 `/tmp/foo`。
 
 值得注意的是，从 Go 1.10 开始，`go build` 工具在[**构建缓存**](https://golang.org/cmd/go/#hdr-Build_and_test_caching)中被缓存。此缓存将在将来的构建中适当时刻重用，这可以显著加快整体构建时间。这种新的缓存行为意味着“使用 `go install` 替换 `go build` 改进缓存”的[老旧准则](https://peter.bourgon.org/go-best-practices-2016/#build-and-deploy)不再适用。
 
@@ -479,7 +479,7 @@ $ go clean -cache               # 移除所有构建缓存
 $ go list -deps . | sort -u     # 列出在构建可执行文件过程中用到的所有包
 $ go build -a -x -o=/tmp/foo .  # 全部重新构建，并展示运行的所有命令
 ```
-最后，如果你在非 `main` 包上运行 `go build` ，它将被编译在一个临时位置，并且结果将再次存储在构建缓存中。这个过程不会生成可执行文件。
+最后，如果你在非 `main` 包上运行 `go build`，它将被编译在一个临时位置，并且结果将再次存储在构建缓存中。这个过程不会生成可执行文件。
 
 ### 交叉编译
 
@@ -494,7 +494,7 @@ $ GOOS=linux GOARCH=amd64 go build -o=/tmp/linux_amd64/foo .
 $ GOOS=windows GOARCH=amd64 go build -o=/tmp/windows_amd64/foo.exe .
 ```
 
-如果想查看所有支持的操作系统和体系结构，你可以运行 `go tool dist list` ：
+如果想查看所有支持的操作系统和体系结构，你可以运行 `go tool dist list`：
 
 ```shell
 $ go tool dist list
@@ -545,7 +545,7 @@ $ go build -gcflags="all=-N -l" -o=/tmp/foo .  # Disable optimizations and inlin
 $ go tool link -help
 ```
 
-其中最著名的可能是 `-X` 参数，它允许你将（字符串）值“插入”应用程序中的特定变量。这通常用于[添加版本号或提交 hash](https://blog.alexellis.io/inject-build-time-vars-golang/) 。例如：
+其中最著名的可能是 `-X` 参数，它允许你将（字符串）值“插入”应用程序中的特定变量。这通常用于[添加版本号或提交 hash](https://blog.alexellis.io/inject-build-time-vars-golang/)。例如：
 
 ```shell
 $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
@@ -559,7 +559,7 @@ $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
 $ go build -ldflags="-s -w" -o=/tmp/foo .  # 从二进制文件中删除调试信息
 ```
 
-注意：如果你需要优化可执行文件的大小，可能需要使用 [upx](https://upx.github.io/) 来压缩它。详细信息请参阅 [这篇文章](https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/) 。
+注意：如果你需要优化可执行文件的大小，可能需要使用 [upx](https://upx.github.io/) 来压缩它。详细信息请参阅 [这篇文章](https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/)。
 
 ## 诊断问题和优化
 
@@ -621,7 +621,7 @@ BenchmarkExample-8     8240          3808          -53.79%
 
 ### 分析和跟踪
 
-Go 可以为 CPU 使用，内存使用，goroutine 阻塞和互斥争用创建诊断**配置文件**。 你可以使用这些来深入挖掘并确切了解你的应用程序如何使用（或等待）资源。
+Go 可以为 CPU 使用，内存使用，goroutine 阻塞和互斥争用创建诊断**配置文件**。你可以使用这些来深入挖掘并确切了解你的应用程序如何使用（或等待）资源。
 
 有三种方法可以生成配置文件：
 
@@ -642,7 +642,7 @@ $ go test -run=^$ -bench=^BenchmarkFoo$ -mutexprofile=/tmp/mutexprofile.out .
 $ go test -run=^$ -bench=^BenchmarkFoo$ -o=/tmp/foo.test -cpuprofile=/tmp/cpuprofile.out .
 ```
 
-无论你选择何种方式创建配置文件，启用配置文件时，你的 Go 程序将每秒暂停大约 100 次，并在该时刻拍摄快照。 这些**样本**被收集在一起形成**轮廓**，你可以使用 `pprof` 工具进行分析。
+无论你选择何种方式创建配置文件，启用配置文件时，你的 Go 程序将每秒暂停大约 100 次，并在该时刻拍摄快照。这些**样本**被收集在一起形成**轮廓**，你可以使用 `pprof` 工具进行分析。
 
 我最喜欢检查配置文件的方法是使用 `go tool pprof -http` 命令在 Web 浏览器中打开它。例如：
 
@@ -652,13 +652,13 @@ $ go tool pprof -http=:5000 /tmp/cpuprofile.out
 
 ![](https://www.alexedwards.net/static/images/tooling-3.png)
 
-这将默认显示**图表**，显示应用程序的采样方面的执行树，这使得可以快速了解任何“热门”使用资源。 在上图中，我们可以看到 CPU 使用率方面的热点是来自 `ioutil.ReadFile()` 的两个系统调用。
+这将默认显示**图表**，显示应用程序的采样方面的执行树，这使得可以快速了解任何“热门”使用资源。在上图中，我们可以看到 CPU 使用率方面的热点是来自 `ioutil.ReadFile()` 的两个系统调用。
 
 你还可以导航到配置文件的其他**视图**，包括功能和源代码的最高使用情况。
 
 ![](https://www.alexedwards.net/static/images/tooling-4.png)
 
-如果信息量太大，你可能希望使用 `--nodefraction` 参数来忽略占小于一定百分比样本的节点。例如，要忽略在少于 10% 的样本中出现的节点，你可以像这样运行 `pprof` ：
+如果信息量太大，你可能希望使用 `--nodefraction` 参数来忽略占小于一定百分比样本的节点。例如，要忽略在少于 10% 的样本中出现的节点，你可以像这样运行 `pprof`：
 
 ```shell
 $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
@@ -666,7 +666,7 @@ $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
 
 ![](https://www.alexedwards.net/static/images/tooling-5.png)
 
-这让图形更加“嘈杂”，如果你[放大这个截图](/static/images/tooling-5b.svg)，就可以更清楚的看到和了解 CPU 使用的热点位置。
+这让图形更加“嘈杂”，如果你[放大这个截图](https://www.alexedwards.net/static/images/tooling-5b.svg)，就可以更清楚的看到和了解 CPU 使用的热点位置。
 
 分析和优化资源使用是一个庞大且复杂的问题，我在这里只涉及到一点皮毛。如果你有兴趣了解更多信息，我建议你阅读以下文章：
 
@@ -675,9 +675,9 @@ $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
 * [使用基准和分析的每日代码优化](https://medium.com/@hackintoshrao/daily-code-optimization-using-benchmarks-and-profiling-in-golang-gophercon-india-2016-talk-874c8b4dc3c5)
 * [使用 pprof 分析 Go 程序](https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/)
 
-另一个可以用来帮助你诊断问题的工具是**运行时执行跟踪器**。 这使你可以了解 Go 如何创建和安排运行垃圾收集器时运行的 goroutine ，以及有关阻止系统调用/网络/同步操作的信息。
+另一个可以用来帮助你诊断问题的工具是**运行时执行跟踪器**。这使你可以了解 Go 如何创建和安排运行垃圾收集器时运行的 goroutine，以及有关阻止系统调用/网络/同步操作的信息。
 
-同样，你可以从测试或基准测试中生成跟踪，或使用 `net/http/pprof` 为你的 Web 应用程序创建和下载跟踪。 然后，你可以使用 `go tool trace` 在 Web 浏览器中查看输出，如下所示：
+同样，你可以从测试或基准测试中生成跟踪，或使用 `net/http/pprof` 为你的 Web 应用程序创建和下载跟踪。然后，你可以使用 `go tool trace` 在 Web 浏览器中查看输出，如下所示：
 
 ```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -trace=/tmp/trace.out .
@@ -702,7 +702,7 @@ $ go build -race -o=/tmp/foo .
 
 但是，你可能希望在一台服务器部署多个启用竞争检测的二进制文件，或者使用它来帮助追踪可疑的竞态条件。方法是使用负载测试工具在启用竞争检测的二进制文件的同时投放流量。
 
-默认情况下，如果在二进制文件运行时检测到任何竞态条件，则日志将写入 `stderr` 。如有必要，可以使用 `GORACE` 环境变量来更改此设置。例如，要运行位于 `/tmp/foo` 的二进制文件并将任何竞态日志输出到 `/tmp/race.<pid>` ，你可以使用：
+默认情况下，如果在二进制文件运行时检测到任何竞态条件，则日志将写入 `stderr`。如有必要，可以使用 `GORACE` 环境变量来更改此设置。例如，要运行位于 `/tmp/foo` 的二进制文件并将任何竞态日志输出到 `/tmp/race.<pid>`，你可以使用：
 
 ```shell
 $ GORACE="log_path=/tmp/race" /tmp/foo
@@ -733,7 +733,7 @@ $ go get github.com/foo/bar@7e0369f
 
 如果你要更新的依赖项具有 `go.mod` 文件，那么根据此 `go.mod` 文件中的信息，如果需要，还将下载对任何**子依赖项**的更新。如果使用 `go get -u` 参数，`go.mod` 文件的内容将被忽略，所有子依赖项将升级到最新的 minor/patch 版本，即使已经在 `go.mod` 中指定了不同的版本。
 
-在升级或降级任何依赖项后，最好整理你的 modfiles 。你可能还希望为所有程序包运行测试以帮助检查不兼容性。像这样：
+在升级或降级任何依赖项后，最好整理你的 modfiles。你可能还希望为所有程序包运行测试以帮助检查不兼容性。像这样：
 
 ```shell
 $ go mod tidy
@@ -774,7 +774,7 @@ $ go mod edit -dropreplace=github.com/alexedwards/argon2id
 
 `go fix` 工具最初于 2011 年发布（当时仍在对 Go 的 API 进行定期更改），以帮助用户自动更新旧代码以与最新版的 Go 兼容。从那以后，Go 的[兼容性承诺](https://golang.org/doc/go1compat)意味着如果你从 Go 1.x 版本升级到更新的 Go 1.x 版本，一切都应该正常工作，并且通常没有必要使用 `go fix`
 
-但是，在某些具体的问题上，`go fix` 的确起到了作用。你可以通过运行 `go tool fix -help` 来查看命令概述。如果你决定在升级后需要运行 `go fix` ，则应该运行以下命令，然后在提交之前检查更改的差异。
+但是，在某些具体的问题上，`go fix` 的确起到了作用。你可以通过运行 `go tool fix -help` 来查看命令概述。如果你决定在升级后需要运行 `go fix`，则应该运行以下命令，然后在提交之前检查更改的差异。
 
 ```shell
 $ go fix ./...
@@ -782,22 +782,23 @@ $ go fix ./...
 
 ## 报告问题
 
-如果你确信在 Go 的标准库、工具和文档中找到了未报告的问题，则可以使用 `Go bug` 命令提出新的 Github issue 。
+如果你确信在 Go 的标准库、工具和文档中找到了未报告的问题，则可以使用 `Go bug` 命令提出新的 Github issue。
 
 ```shell
 $ go bug
 ```
+
 这将会打开一个包含了系统信息和报告模板的 issue 填写页面。
 
 ## 速查表
 
-**2019-04-19 更新: [@FedirFR](https://twitter.com/FedirFR) 基于这篇文章制作了一个速查表。你可以[点击这里下载](https://github.com/fedir/go-tooling-cheat-sheet/blob/master/go-tooling-cheat-sheet.pdf).**
+**2019-04-19 更新：[@FedirFR](https://twitter.com/FedirFR) 基于这篇文章制作了一个速查表。你可以[点击这里下载](https://github.com/fedir/go-tooling-cheat-sheet/blob/master/go-tooling-cheat-sheet.pdf)。**
 
 [![](https://www.alexedwards.net/static/images/tooling-7.png)](https://github.com/fedir/go-tooling-cheat-sheet/blob/master/go-tooling-cheat-sheet.pdf)
 
 如果你喜欢这篇文章，请不要忘记查看我的新书《如何[用 Go 构建专业的 Web 应用程序](https://lets-go.alexedwards.net/)》。
 
-你可以在 Twitter 上关注我 [@ajmedwards](https://twitter.com/ajmedwards) 。
+你可以在 Twitter 上关注我 [@ajmedwards](https://twitter.com/ajmedwards)。
 
 文中的所有代码片段均可在 [MIT 许可证](http://opensource.org/licenses/MIT)下自由使用。
 
