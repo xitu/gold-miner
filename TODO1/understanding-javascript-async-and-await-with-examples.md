@@ -21,7 +21,7 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
   console.log(data);
 });
 ```
-但当我们要处理多重异步操作时就会凸显出问题。假设有下面的应用场景（其中的所有操作都是异步的）—
+但当我们要处理多重异步操作时问题就会凸显出来。假设有下面的应用场景（其中的所有操作都是异步的）—
 
 * 在数据库中查找用户 `Arfat`，读取 `profile_img_url` 数据，然后把图片从 `someServer.com` 上下载下来。
 * 在获取图片之后，我们将其转换成其它不同的格式，比如把 PNG 格式转换至 JPEG 格式。
@@ -61,7 +61,7 @@ Introduced in **ES2017**(ES8), async functions make working with promises much e
 
 * **注意到 async 函数是基于 promise 的这一点很重要。**
 * async/await 并不是完全全新的概念。
-* async/await 可以被理解为基于 promise 实现异步代码的一种替代方案。
+* async/await 可以被理解为基于 promise 实现异步方案的一种替代方案。
 * 我们可以使用 async/await 来避免使用**链式调用 promise**。
 * async/await 允许代码异步执行的同时**保持正常的**、同步式的**感觉**。
 
@@ -72,7 +72,7 @@ Introduced in **ES2017**(ES8), async functions make working with promises much e
 async/await 包含两个关键字 async 和 await。**`async` 用来使得函数异步执行。** It **unlocks** the use of `await` inside these functions. Using `await` in any other case is a syntax error.
 
 ```
-// 应用到普通函数声明
+// 应用到普通的声明函数
 
 async function myFn() {
   // await ...
@@ -172,17 +172,16 @@ async function foo() {
 foo().catch(console.log);
 ```
 
-`foo()` will return a **rejected** promise if the error is **uncaught**. Instead of `Promise.resolve`, `Promise.reject` wraps the error and is returned. See E**rror Handling** section later.
+如果错误**未被捕获**，`foo()` 函数会返回一个状态为 **rejected** 的 promise。不同于 `Promise.resolve`，`Promise.reject` wraps the error and is returned. See E**rror Handling** section later.
 
-The net effect is that you return whatever you want, **you will always get a promise out of an async function**.
+最终结果是，无论你想要返回什么结果，最终在 async 函数外，**你都会得到一个 promise。**
 
-### Async functions pause at each await \<expression>.
+### async 函数在执行 await \<表达式>时会中止
 
-An `await` acts on an **expression.** When the expression is a promise, **the evaluation of the async function halts until the promise is resolved.** When the expression is a non-promise value, it is converted to a promise using `Promise.resolve` and then resolved.
+`await` 命令就像一个**表达式一样。**当 await 后面跟着一个 promise 时，**async 函数遇到 await 会中止运行，直到相应的 promise 状态变成 resolved。**当 await 后面跟的是原始值时，原始值会被传入 `Promise.resolve` 而转变成一个 promise 对象，并且状态为 resolved。
 
 ```
-// utility function to cause delay
-// and get random value
+// 多功能函数：获取随机值/延时
 
 const delayAndGetRandom = (ms) => {
   return new Promise(resolve => setTimeout(
@@ -202,19 +201,19 @@ async function fn() {
   return a + b * c;
 }
 
-// Execute fn
+// 执行函数 fn
 fn().then(console.log);
 ```
 
-Let’s examine the function `fn` line by line —
+然我们来逐行检验函数 `fn` —
 
-* When `fn` is executed, the first line to be evaluated is `const a = await 9;`. It is **internally transformed** into const a = await Promise.resolve(9);.
+* 当函数 `fn` 被调用时，首先被执行的是 `const a = await 9;`。它被**隐式地转换成** `const a = await Promise.resolve(9);`。
 
-* Since we are using `await`, `fn` **pauses until the variable** `a` gets a value. In this case, the **promise resolves it to** `9`.
+* 由于我们使用了 `await` 命令，`fn` 函数会在此时会**暂停到变量 a 获得值为止**。In this case, the **promise resolves it to** `9`.
 
-* `delayAndGetRandom(1000)` causes `fn` to pause until the function `delayAndGetRandom` is resolved which is after 1 second. So, `fn` effectively pauses for 1 second.
+* `delayAndGetRandom(1000)` 函数使得 `fn` 中的其它程序暂停执行，直到 1 秒钟之后 `delayAndGetRandom` 状态转变成 resolved。 所以，`fn` 函数的执行有效地暂停了 1 秒钟。
 
-* Also, `delayAndGetRandom` resolves with a random value. Whatever is passed in the `resolve` function, that is assigned to the variable `b`.
+* 此外，`delayAndGetRandom` 中的 resolve 函数返回一个随机值。无论往 `resolve` 函数中传入什么值, 都会赋值给变量 `b`。
 
 * `c` gets the value of `5` similarly and we delay for 1 second again using `await delayAndGetRandom(1000)`. We don’t use the resolved value in this case.
 
