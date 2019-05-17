@@ -48,7 +48,8 @@
 让我们来构建一个无需任何扩展或单独下载，可以在 Chrome 中运行的简易 DApp。
 
 ## 项目设置
-> **注意：** 这样的小细节往往会更新得很快。如果它们不工作了，请在下面留言。也许有人可以帮你搞清楚。
+
+> **注意**：这样的小细节往往会更新得很快。如果它们不工作了，请在下面留言。也许有人可以帮你搞清楚。
 
 1. 打开一个 [终端](https://www.codecademy.com/learn/learn-the-command-line)。确保安装了 Node（我喜欢用 [nvm 安装 Node](https://github.com/nvm-sh/nvm#installation-and-update)）。
 
