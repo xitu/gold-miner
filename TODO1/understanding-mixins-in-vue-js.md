@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-mixins-in-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-mixins-in-vue-js.md)
 > - 译者：[MacTavish Lee](https://github.com/Reaper622)
-> - 校对者：[Baddyo](https://github.com/Baddyo),[jilanlan](https://github.com/jilanlan)
+> - 校对者：[Baddyo](https://github.com/Baddyo), [jilanlan](https://github.com/jilanlan)
 
 # 理解 Vue.js 中的 Mixins
 
@@ -136,9 +136,10 @@ export default {
 ## 介绍 Vue Mixins
 
 Vue 的团队现在已经将 mixins 作为这个问题的一个非常好的解决方案，通过 mixins 你可以封装一部分的代码或者功能，然后你可以在需要时将其引入各种组件。
+
 ## Mixin 语法
 
-从定义到使用 Vue Mixin 的方式如下：：
+从定义到使用 Vue Mixin 的方式如下：
 
 ```Vue
 // 定义一个 mixin 对象
@@ -187,7 +188,7 @@ export default {
 
 ### 在组件中导入 mixin 文件
 
-现在一个 mixin 已经被创建了，下一步就是在需要它的组件 —— 需要弹出警告框功能的组件 —— 中注入它。在我们上面的演示中，要插入 mixin 之处就是在文章开头创建的两个组件内部。用下面的代码在两个组件中引入 clickMixin 。
+现在一个 mixin 已经被创建了，下一步就是在需要它的组件 —— 需要弹出警告框功能的组件 —— 中注入它。在我们上面的演示中，要插入 mixin 之处就是在文章开头创建的两个组件内部。用下面的代码在两个组件中引入 clickMixin。
 
 ```
 import clickMixin from ‘../Mixins/clickMixin’
@@ -336,6 +337,6 @@ Vue.mixin({
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-------
+---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
