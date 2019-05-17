@@ -2,47 +2,47 @@
 > * 原文作者：[Burke Holland](https://medium.com/@burkeholland)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/you-should-never-ever-run-directly-against-node-js-in-production-maybe.md](https://github.com/xitu/gold-miner/blob/master/TODO1/you-should-never-ever-run-directly-against-node-js-in-production-maybe.md)
-> * 译者：
-> * 校对者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
+> * 校对者：[HearFishle](https://github.com/HearFishle), [JasonLinkinBright](https://github.com/JasonLinkinBright)
 
-# You should never ever run directly against Node.js in production. Maybe.
+# 如果可以，永远不要在生产中直接运行 Node.js
 
 ![](https://cdn-images-1.medium.com/max/5120/1*Lh8JaRfiqPj9bTrd8a3xgQ.png)
 
-Sometimes I wonder if I know much of anything at all.
+有时候我也在想我是否真的知道很多东西。
 
-Just a few weeks ago I was talking to a friend who mentioned off-hand, “you would never run an application directly against Node in production”. I nodded vigorously to signal that I **also** would never ever run against Node in production because…hahaha….everyone knows that. But I didn’t know that! Should I have known that?!?? AM I STILL ALLOWED TO PROGRAM?
+就在几周前，我正在和一个朋友谈话，他不经意间提到，“你永远都不会在生产中直接使用 Node 来运行程序”。我强烈点头，表示我**也**不会在生产中直接运行 Node，原因可能每个人都知道。但是我并不知道，我应该知道原因吗？我还能继续写代码吗？
 
-If I was to draw a Venn Diagram of what I know vs what I feel like everyone else knows, it would look like this…
+如果让我绘制一个维恩图来表示我所知道的和其他人都知道的东西，它看起来就像这样：
 
 ![](https://cdn-images-1.medium.com/max/2204/1*ThJbM2JMjrnTuHczo0tLqw.png)
 
-By the way, that tiny dot gets smaller the older I get.
+顺便一提，我年纪越大，那个小点就会越小。
 
-There is a better diagram created by [Alicia Liu](https://medium.com/counter-intuition/overcoming-impostor-syndrome-bdae04e46ec5) that kind of changed my life. She says that it’s more like this…
+[Alicia Liu](https://medium.com/counter-intuition/overcoming-impostor-syndrome-bdae04e46ec5) 创建了一个更好的图表，改变了我的生活。她说这种情况更像是...
 
 ![](https://cdn-images-1.medium.com/max/2000/1*N7vv39ri9yC0l6krsSFlQA.png)
 
-I love this diagram so much because I want it to be true. I don’t want to spend the rest of my life as a tiny, shrinking blue dot of insignificance.
+我非常喜欢这个图表，因为我希望它是真实的。我不想把余生都过得像一个微不足道的萎缩蓝点一样。
 
-SO DRAMATIC. Blame Pandora. I don’t control what gets played next while I’m writing this article and [Dashboard Confessional](https://www.youtube.com/watch?v=ixG3DgrPC3c) is a helluva drug.
+太戏剧化了。怪潘多拉。当我写这篇文章的时候，我无法控制接下来要发生什么。而 [Dashboard Confessional](https://www.youtube.com/watch?v=ixG3DgrPC3c) 真是一副毒药。
 
-Well, assuming that Alicia’s diagram is true, I would like to share with you what I **now** know about running Node apps in production. Perhaps our relative Venn Diagrams don’t overlap on this subject.
+好吧，假设 Alicia 的图表是真的，我想与大家分享一下我**现在**对在生产中运行 Node 应用程序的一些认识。也许在这个问题上我们的相对维恩图没有重叠。
 
-First off, let’s address the statement “never run apps directly against Node in production”.
+首先，让我们弄清楚“永远不要在生产中直接通过 Node 运行程序”的说法。
 
-### Never run directly against Node in production
+### 永远不要直接运行生产中的 Node
 
-Maybe. But maybe not. Let’s talk about the reasoning behind this statement. First, let’s look at why not.
+这个说法可能对，也可能不对。我们一起来探讨下这个说法是怎么得到的。首先，让我们看看为什么不对。
 
-Say we have a simple Express server. The simplest Express server I can think of…
+假设我们有一个简单的 Express 服务器。我能想到的最简单的 Express 服务器如下：
 
 ```JavaScript
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
-// viewed at http://localhost:3000
+// 查看 http://localhost:3000
 app.get("/", function(req, res) {
   res.send("Again I Go Unnoticed");
 });
@@ -50,7 +50,7 @@ app.get("/", function(req, res) {
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 ```
 
-We would run this with a start script in the `package.json` file.
+通过定义在 `package.json` 中的启动脚本来运行它。  
 
 ```
 "scripts": {
@@ -61,11 +61,11 @@ We would run this with a start script in the `package.json` file.
 
 ![](https://cdn-images-1.medium.com/max/2784/1*VceC98Qk5zKqzBmiu1szDQ.png)
 
-There are sort of two problems here. The first is a development problem and the second is a production problem.
+这里会有两个问题。第一个是开发问题，还有一个是生产问题。
 
-The development problem is that when we change the code, we have to stop and start the application to get our changes picked up.
+开发问题指的是当我们修改代码的时候，我们必须停止并且再次启动应用程序来得到我们更改后的效果。
 
-To solve that, we usually use some sort of Node process manager like `supervisor` or `nodemon`. These packages will watch our project and restart our server whenever we make changes. I usually do that like this…
+我们通常会使用某种 Node 进程管理器，例如 `supervisor` 或 `nodemon` 来解决这个问题。这些包会监听我们的项目，并会在我们提交更改时重启服务器。我通常都会这样做。
 
 ```
 "scripts": {
@@ -74,11 +74,11 @@ To solve that, we usually use some sort of Node process manager like `supervisor
 }
 ```
 
-Then I run `npm run dev`. Note that I’m running `npx supervisor` here which allows me to use the `supervisor` package without having to install it. I ❤️ 2019. Mostly.
+然后运行 `npm run dev`。请注意，我在这里运行 `npx supervisor`，它允许我们在未安装 `supervisor` 包的情况下使用它。
 
-Our other problem is that we’re still running directly against Node and we already said that was bad and now we’re about to find out why.
+我们的另外一个问题是我们仍然直接在针对 Node 运行，我们已经说过这很糟糕，现在我们将要找出原因。
 
-I’m going to add another route here that attempts to read a file from disk that does not exist. This is an error that could easily show up in any real-world application.
+我要在这里添加另一个路由，尝试从不存在的磁盘读取文件。这是一个很容易在任何实际应用程序中出现的错误。
 
 ```JavaScript
 const express = require("express");
@@ -86,46 +86,46 @@ const app = express();
 const fs = require("fs");
 const port = process.env.PORT || 3000;
 
-// viewed at http://localhost:3000
+// 查看 http://localhost:3000
 app.get("/", function(req, res) {
   res.send("Again I Go Unnoticed");
 });
 
 app.get("/read", function(req, res) {
-  // this does not exist
+  // 这个路由不存在
   fs.createReadStream("my-self-esteem.txt");
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 ```
 
-If we run this directly against Node with `npm start` and navigate to the `read `endpoint, we get an error because that file doesn’t exist.
+如果我们直接针对 Node 运行 `npm start` 并且导航到 `read` 端点，页面会报错，因为这个文件不存在。
 
 ![](https://cdn-images-1.medium.com/max/2784/1*pAUoJV-LRJwxs7MRegnuoA.png)
 
-Which — no big deal right? It’s one error. It happens.
+这没什么大不了的，对吧？这只是一个错误，碰巧发生了。
 
-NO. Big deal. If you go back to your terminal you will see that the application is completely down.
+不。这很重要。如果你返回终端，你会看到应用程序已经完全关闭了。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*69LuEt53W2isIXP34vUlYA.png)
 
-Which means if you go back to the browser and try to go to the root URL of the site, you get the same error page. One error in one method took the application down for **everyone**.
+这意味着，如果你回到浏览器并尝试访问站点的根 URL，你会得到相同的错误页面。一个方法中的错误导致应用中**所有的路由**都失效了。
 
-That’s bad. Like really bad. This is one of the main reasons why people say **“never run directly against Node in production”**.
+这是很糟糕的。这就是人们说 **“永远都不要直接在生产中运行 Node”**
 
-OK. So if we can’t run against Node in production, what is the right way to run Node in production?
+好。如果我们无法在生产中直接运行 Node，那么在生产中运行 Node 的正确方法是什么？
 
-### Options for production Node
+### 生产中 Node 的选项
 
-We’ve got a few options.
+我们有几个选择。
 
-One of them would be to simply use something like `supervisor` or `nodemon` in production the same way we are using them in dev. That would work, but these tools are a little on the lightweight side. A better option is something called pm2.
+其中之一就是在生产中简单地使用类似 `supervisor` 或 `nodemon` 的工具，就像我们在开发中使用它们一样。这可行，但这些工具有点轻量级。更好的选择是 pm2。
 
-### pm2 the rescue
+### pm2 支援
 
-pm2 is a Node process manager that has lots of bells and whistles. Just like everything else “JavaScript”, you install it (globally) from `npm` — or you can just use `npx` again. I don’t want to tell you how to live your life.
+pm2 是一个 Node 进程管理器，有很多有用的功能。就像其他的 “JavaScript” 库一样，你可以使用 `npm` 全局安装它 —— 或者你也可以再次使用 `npx`。这里不再赘述。
 
-There are a lot of ways to run your app with pm2. The simplest way is to just call `pm2 start` on your entry point.
+有很多使用 pm2 运行程序的方法。最简单的就是在入口文件调用 `pm2 start`。
 
 ```
 "scripts": {
@@ -134,17 +134,17 @@ There are a lot of ways to run your app with pm2. The simplest way is to just ca
 },
 ```
 
-And you’ll see something like this in the terminal…
+终端会显示这些内容：
 
 ![](https://cdn-images-1.medium.com/max/2560/1*uvsnmQahRBHtnh0X7tt_xA.png)
 
-That’s our process running in the background monitored by pm2. If you visit the `read` endpoint and crash the application, pm2 will automatically restart it. You won’t see any of that in the terminal because it’s running in the background. If you want to watch pm2 do its thing, you gotta run `pm2 log 0`. The `0` is the ID of the process we want to see logs for.
+这是我们在 pm2 监控的后台运行的进程。如果你访问 `read` 端点把程序搞崩了，pm2 将自动重新启动它。你在终端不会看到任何内容，因为它在后台运行。如果你想看到 pm2 正在做什么，你可以运行 `pm2 log 0`。这个 `0` 是我们想要查看日志的进程的 ID。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*AbR1eyySpr2IllYtA4wE-Q.png)
 
-There we go! You can see pm2 restart the application when it goes down because of our unhandled error.
+接下来！你可以看到，pm2 会在应用程序由于未处理的错误而停机时重新启动应用程序。
 
-We can also pull out our dev command and have pm2 watch files for us and restart on any changes.
+我们还可以提取开发命令，并为我们准备PM2监视文件，在任何更改发生时重新启动程序。
 
 ```
 "scripts": {
@@ -153,52 +153,25 @@ We can also pull out our dev command and have pm2 watch files for us and restart
 },
 ```
 
-Note that because pm2 runs things in the background, you can’t just `ctrl+c` your way out of a running pm2 process. You have to stop it by passing the ID or the name.
+请注意，因为 pm2 在后台运行，所以你不能只是通过 `ctrl+c` 来终止正在运行的 pm2 进程。你必须通过传递进程的 ID 或者名称来停止进程。
 
 `pm2 stop 0`
 
 `pm2 stop index`
 
-Also, note that pm2 retains a reference to the process so you can restart it.
+另请注意，pm2 会保存对进程的引用，以便你可以重新启动它。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*Z4yLru6TmwUVQv84DkZDAQ.png)
 
-If you want to delete that process reference, you need to run `pm2 delete`. You can stop and delete a process in one command with `delete`.
+如果要删除该进程引用，则需要运行 `pm2 delete`。你可以使用一个命令 `delete` 来停止和删除进程。
 
 `pm2 delete index`
 
-We can also use pm2 to run multiple processes of our application. pm2 will automatically balance the load across those instances.
+我们也可以使用 pm2 来运行我们应用程序的多个进程。pm2 会自动平衡这些实例的负载。
 
-### Multiple processes with pm2 fork mode
+### 使用 pm2 fork 模式的多个进程
 
-pm2 has a ton of configuration options and those are contained in an “ecosystem” file. To create one, run `pm2 init`. You’ll get something like this…
-
-```JavaScript
-module.exports = {
-  apps: [
-    {
-      name: "Express App",
-      script: "index.js",
-      instances: 4,
-      autorestart: true,
-      watch: true,
-      max_memory_restart: "1G",
-      env: {
-        NODE_ENV: "development"
-      },
-      env_production: {
-        NODE_ENV: "production"
-      }
-    }
-  ]
-};
-```
-
-I’m going to ignore the “deploy” section in this article because I have no idea what it does.
-
-The “apps” section is where you define the apps you want pm2 to run and monitor. You can run more than one. A lot of these configuration settings are probably self-explanatory. The one that I want to focus on here is the **instances** setting.
-
-pm2 can run multiple instances of your application. You can pass in a number of instances that you want to run and pm2 will spin up that many. So if we wanted to run 4 instances, we could have the following configuration file.
+pm2 有很多配置选项，它们包含在一个 “ecosystem” 文件中。可以通过运行 `pm2 init`来创建一个。你会得到以下的内容：
 
 ```JavaScript
 module.exports = {
@@ -221,11 +194,38 @@ module.exports = {
 };
 ```
 
-Then we just run it with `pm2 start`.
+本文不会去讲关于“部署”的内容，因为我对“部署”也不太了解。
+
+“应用程序”部分定义了希望 pm2 运行和监视的应用程序。你可以运行不止一个应用程序。许多这些配置设置可能是不言而喻的。这里我要关注的是**实例**设置。
+
+pm2 可以运行你的应用程序的多个实例。你可以传入多个你想运行的实例，pm2 都可以启动它们。因此，如果我们想运行 4 个实例，我们可以创建以下配置文件。
+
+```JavaScript
+module.exports = {
+  apps: [
+    {
+      name: "Express App",
+      script: "index.js",
+      instances: 4,
+      autorestart: true,
+      watch: true,
+      max_memory_restart: "1G",
+      env: {
+        NODE_ENV: "development"
+      },
+      env_production: {
+        NODE_ENV: "production"
+      }
+    }
+  ]
+};
+```
+
+然后我们使用 `pm2 start` 来运行它。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*_rYp7NMQTCMmOfBV0w0RTw.png)
 
-pm2 is now running in “cluster” mode. Each of these processes is running on a different CPU on my machine, depending on how many cores I have. If we wanted to run a process for each core without knowing how many cores we have, we can just pass the `max` parameter to the `instances` value.
+pm2 现在会以“集群”模式运行。这些进程中的每一个都会在我的计算机上的不同 CPU 上运行，具体取决于我拥有的内核数量。如果我们想在不知道拥有多个内核的情况下为每个内核运行一个进程，我们就可以将 `max` 参数传递给 `instances` 参数来进行配置。
 
 ```
 {
@@ -235,41 +235,41 @@ pm2 is now running in “cluster” mode. Each of these processes is running on 
 }
 ```
 
-Let’s find out how many cores I’ve got in this machine.
+让我们看看我的这台机器上有几个内核。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*nhjuG0xFsMgkYB382_xfyw.png)
 
-8 CORES! Holy crap. I’m gonna install Subnautica on my Microsoft issued machine. Don’t tell them I said that.
+8个内核！哇。我要在我的微软发行的机器上安装 Subnautica。别告诉他们我说过。 
 
-The good thing about running processes on separate CPU’s is that if you have a process that runs amok and takes up 100% of the CPU, the others will still function. If you pass in more instances than you have cores, pm2 will double up processes on CPU’s as necessary.
+在分隔的 CPU 上运行进程的好处是，即使有一个进程运行异常，占用了 100% 的 CPU，其他进程依然可以保持运行。pm2 将根据需要将 CPU 上的进程加倍。
 
-You can do a WHOLE lot more with pm2, including monitoring and otherwise wrangling those pesky [environment variables](https://medium.freecodecamp.org/).
+你可以使用 pm2 进行更多操作，包括监视和以其他方式处理那些讨厌的 [environment variables](https://medium.freecodecamp.org/)。
 
-One other item of note: if for some reason you want pm2 to run your `npm start` script, you can do that by running npm as the process and passing the `-- start`. The space before the “start” is super important here.
+另外一个注意事项：如果由于某种原因，你希望 pm2 运行 `npm start` 指令。你可以通过运行 npm 作为进程并传递 `-- start`。“start” 之前的空格在这里非常重要。
 
 ```
 pm2 start npm -- start
 ```
 
-In [Azure AppService](https://docs.microsoft.com/en-us/azure/app-service/?WT.mc_id=medium-blog-buhollan), we include pm2 by default in the background. If you want to use pm2 in Azure, you don’t need to include it in your `package.json` file. You can just add an ecosystem file and you’re good to go.
+在 [Azure AppService](https://docs.microsoft.com/en-us/azure/app-service/?WT.mc_id=medium-blog-buhollan) 中，默认在后台包含 pm2。如果要在 Azure 中使用 pm2，则无需将其包含在 `package.json` 文件中。你可以添加一个 ecosystem 文件，然后就可以使用了。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*TYOm2q57lXad3te35tGwqg.png)
 
-OK! Now that we’ve learned all about pm2, let’s talk about why you may not want to use it and it might indeed be ok to run directly against Node.
+好！既然我们已经了解了关于 pm2 的所有内容，那么让我们谈谈为什么你可能不想使用它，而且它可能确实可以直接针对 Node 运行。
 
-### Running directly against Node in production
+### 在生产中直接针对 Node 运行
 
-I had some questions on this so I reached out to [Tierney Cyren](https://twitter.com/bitandbang) who is part of the enormous orange circle of knowledge, especially when it comes to Node.
+我对此有一些疑问，所以我联系了 [Tierney Cyren](https://twitter.com/bitandbang)，它是巨大的橙色知识圈的一部分，特别是在 Node 方面。
 
-Tierney pointed out a few drawbacks to using Node based process managers like pm2.
+Tierney 指出使用基于 Node 的进程管理器（如 pm2）有一些缺点。
 
-The main reason is that you shouldn’t use Node to monitor Node. You don’t want to use the thing that you are monitoring to monitor that thing. It’s kind of like you asking my teenage son to supervise himself on a Friday night: Will that end badly? It might, and it might not. But you’re about to find out the hard way.
+主要原因是不应该使用 Node 来监视 Node。你肯定不希望用你正在监视的东西监视它自己。就像你在周五晚上让我十几岁的儿子监督他自己一样：结果会很糟糕吗？可能，也可能不会。。
 
-Tierney recommends that you not have a Node process manager running your application at all. Instead, have something at a higher level which watches multiple separate instances of your application. For example, an ideal setup would be if you had a Kubernetes cluster with your app running on separate containers. Kubernetes can then monitor those containers and if any of them go down, it can bring them back and report on their health.
+Tierney 建议你不要使用 Node 进程管理器来运行应用程序。相反，在更高级别上有一些东西可以监视应用程序的多个单独实例。例如，一个理想的设置是，如果你有一个 Kubernetes 集群，你的应用程序在不同的容器上运行。然后 Kubernetes 可以监控这些容器，如果其中任何容器发生故障，它可以将它们恢复并且报告健康状况。
 
-In this case, you **can** run directly against Node because you are monitoring at a higher level.
+在这种情况下，你可以直接针对Node运行，因为你正在更高级别进行监视。
 
-As it turns out, Azure is already doing this. If we don’t push a pm2 ecosystem file to Azure, it will start the application with our `package.json` file start script and we can run directly against Node.
+事实证明，Azure 已经在做这件事了。如果我们不将 pm2 ecosystem 文件推送到 Azure，它将使用我们的 `package.json` 文件运行脚本来启动应用程序，我们可以直接针对Node运行。
 
 ```
 "scripts": {
@@ -277,46 +277,46 @@ As it turns out, Azure is already doing this. If we don’t push a pm2 ecosystem
 }
 ```
 
-In this case, we are running directly against Node and it’s OK. If the application were to crash, you’ll notice that it comes back. That’s because in Azure, your app runs in a container. Azure is orchestrating the container in which your app is running and knows when it faceplants.
+在这种情况下，我们直接针对 Node 运行，没关系。如果应用程序崩溃，你会发现它又回来了。那是因为在 Azure 中，你的应用程序在一个容器中运行。Azure 负责容器调度，并知道何时去更新。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*YSvtZOR4DIt1McSdDChVew.png)
 
-But you still only have one instance here. It takes the container a second to come back online after it crashes meaning that there could be a few seconds of downtime for your users.
+但这里仍然只有一个实例。容器崩溃后需要一秒钟才能重新联机，这意味着你的用户可能会有几秒钟的停机时间。
 
-Ideally, you would want more than one container running. The solution to this would be to deploy multiple instances of your application to multiple Azure AppService sites and then use Azure Front Door to load balance the apps behind a single IP address. Front Door will know when a container is down and will route traffic to other healthy instances of your application.
+理想情况下，你希望运行多个容器。解决方案是将应用程序的多个实例部署到多个 Azure AppService 站点，然后使用 Azure Front Door 在单个 IP 地址下对应用程序进行负载均衡。Front Door 知道容器何时关闭，并且将流量路由到应用程序的其他健康实例。
 
 [**Azure Front Door Service | Microsoft Azure**](https://azure.microsoft.com/en-us/services/frontdoor/?WT.mc_id=medium-blog-buhollan)  
-[Deliver, protect and track the performance of your globally distributed microservice applications with Azure Front Door…](https://azure.microsoft.com/en-us/services/frontdoor/?WT.mc_id=medium-blog-buhollan)
+[使用 Azure Front Door 交付，保护和跟踪全球分布式微服务应用程序的性能](https://azure.microsoft.com/en-us/services/frontdoor/?WT.mc_id=medium-blog-buhollan)
 
 ### systemd
 
-Another suggestion that Tierney had is to run Node with `systemd`. I don’t understand too much (or anything at all) about `systemd` and I’ve already messed this phrasing up once already, so I’ll let Tierney say it in his own words…
+Tierney 的另一个建议是使用 `systemd` 运行 Node。我不是很了解（或者说根本不知道）`systemd`，我已经把这句话弄错过一次了，所以我会用 Tierney 自己的原话来表述：
 
-> This option is only possible if you have access to Linux in your deployment and you control the way that Node is started on a service level. If you’re running your Node.js process in a long-running Linux VM, like Azure VMs, you’re in a good place to run Node.js with systemd. If you are just deploying your files to a service like Azure AppService or Heroku or running inside of a containerized environment like Azure Container Instances, you should probably steer clear of this option.
+> 只有在部署中访问 Linux 并控制 Node 在服务级别上启动的方式时，才有可能实现此选项。如果你在一个长时间运行的 Linux 虚拟机中运行 node.js 进程，比如说 Azure 虚拟机，那么使用 systemd 运行 node.js 是个不错的选择。如果你只是将文件部署到类似于 Azure AppService 或 Heroku 的服务中，或者运行在类似于 Azure 容器实例的容器化环境中，那么你可以避开此选项。
 
-[**Running Your Node.js App With Systemd - Part 1**](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)  
-[You've written the next great application, in Node, and you are ready to unleash it upon the world. Which means you can…](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)
+- [**使用 Systemd 运行 Node.js 应用程序 —— 第一部分**](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)  
+- [你已经在 Node 中编写了下一个很棒的应用程序，并且你已经准备发布它。这意味着你可以...](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)
 
-### Node.js Worker Threads
+### Node.js 工作线程
 
-Tierney also wants you to know that Worker Threads are coming in Node. This will allow you to start your app on multiple “workers” (threads) thusly negating the need for something like pm2. Maybe. I don’t know. I didn’t really read the article.
+Tierney 还希望你知道 Node 中有工作线程，这可以让你在多个线程上启动你的应用程序，从而无需像 pm2 这样的东西。也许吧。我不知道，我没看过这篇文章。
 
 - [**Node.js v11.14.0 Documentation**](https://nodejs.org/api/worker_threads.html)  
 - [The worker_threads module enables the use of threads that execute JavaScript in parallel. To access it: const worker =…](https://nodejs.org/api/worker_threads.html)
 
-### Be an Adult
+### 做个成熟的开发者
 
-Tierney’s last suggestion was to just handle the error and write some tests like an adult. But who has time for that?
+Tierney 的最后一个建议就是像一个成熟的开发者一样处理错误和编写测试。但是谁有时间呢？
 
-### The tiny circle abides
+### 小圆圈永驻
 
-Now you know most of what is in the tiny blue circle. The rest is just useless facts about emo bands and beer.
+现在你知道这个蓝色小圆圈里的大部分东西了。剩下的只是关于 emo 乐队和啤酒的无用事情。
 
-For more information on pm2, Node and Azure, check out the following resources…
+有关 pm2, Node 和 Azure 的更多信息，请查看以下资源：
 
 * [http://pm2.keymetrics.io/](http://pm2.keymetrics.io/)
-* [Node.js deployment on VS Code](https://code.visualstudio.com/tutorials/nodejs-deployment/getting-started?WT.mc_id=medium-blog-buhollan)
-* [Deploy a simple Node site to Azure](https://azurecasts.com/2019/03/31/002-node-vscode/)
+* [VS Code 上的 Node.js 部署](https://code.visualstudio.com/tutorials/nodejs-deployment/getting-started?WT.mc_id=medium-blog-buhollan)
+* [将简单的 Node 站点部署到 Azure](https://azurecasts.com/2019/03/31/002-node-vscode/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
