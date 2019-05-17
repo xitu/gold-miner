@@ -37,19 +37,19 @@
 
 当然在我开始之前，我做了更多的调查来确保我对这项技术更有信心，而我在 [NPM](https://www.npmjs.com/package/nodemailer) 和 [Github](https://github.com/nodemailer/nodemailer) 上看见的让我放心。
 
-Nodemailer 有:
+Nodemailer 有：
 
-* NPM 每周下载量超过 615,000 次,
-* Github 上超过 10,000 个 star,
-* 截止目前已有 206 个版本,
-* 超过 2,500 个依赖包,
+* NPM 每周下载量超过 615,000 次，
+* Github 上超过 10,000 个 star，
+* 截止目前已有 206 个版本，
+* 超过 2,500 个依赖包，
 * 自 2010 年以来，它以某种形式或时尚存在。
 
 好吧，这似乎值得我在自己的项目里面试一试。
 
 ### 在代码中实现 Nodemailer（前端和后端）
 
-我的密码重置功能不需要很多花哨的东西，只需要:
+我的密码重置功能不需要很多花哨的东西，只需要：
 
 * 一种将电子邮件发送到用户地址的方法，
 * 邮件会包含一个链接，链接会重定向到我的网站上的受保护页面，用户在这些页面中重置密码，
@@ -66,7 +66,7 @@ Nodemailer 有:
 
 ![](https://cdn-images-1.medium.com/max/2704/1*r9V8XUjaYw-QBnLqv4kPiA.png)
 
-好吧，我知道这是一个很大的截图，但我会将其分解（我在 VS Code 中使用了 [Polacode](https://github.com/octref/polacode) 来制作这个漂亮的截图，仅供参考）。如果要复制/粘贴实际代码，可以去看看[仓库](https://github.com/paigen11/mysql-registration-passport) 。
+好吧，我知道这是一个很大的截图，但我会将其分解（我在 VS Code 中使用了 [Polacode](https://github.com/octref/polacode) 来制作这个漂亮的截图，仅供参考）。如果要复制/粘贴实际代码，可以去看看[仓库](https://github.com/paigen11/mysql-registration-passport)。
 
 你真正应该关注的是组件的 `sendEmail` 方法和 `render` 方法。其余的代码只是设置初始状态和变量，以及按钮和元素的样式。
 
@@ -82,7 +82,7 @@ Nodemailer 有:
 
 所有的 HTTP 请求都是使用 [Axios](https://www.npmjs.com/package/axios) 来完成的，这使得服务器进行 AJAX 调用非常容易，在我看来，这甚至比内置的 Web API `fetch()` 都简单。
 
-当用户输入他们的电子邮件时，会向服务器发出一个 POST 请求，并等待服务器响应。如果邮件地址找不到，我可以告诉用户地址输错了；或者用户还没注册，他们可以进入一个注册页面并创建一个新的账户；如果邮件地址与我们数据库中的地址匹配，他们将会收到提示密码重置链接已成功发送到他们的电子邮件地址的消息。 
+当用户输入他们的电子邮件时，会向服务器发出一个 POST 请求，并等待服务器响应。如果邮件地址找不到，我可以告诉用户地址输错了；或者用户还没注册，他们可以进入一个注册页面并创建一个新的账户；如果邮件地址与我们数据库中的地址匹配，他们将会收到提示密码重置链接已成功发送到他们的电子邮件地址的消息。
 
 我们现在转到后端代码
 
@@ -102,9 +102,9 @@ Nodemailer 有:
 
 ![](https://cdn-images-1.medium.com/max/2604/1*WB1CE9-HxjkbUXMuKX5gkA.png)
 
-确认电子邮件已经关联到数据库的某个用户之后，第一步要做的，是生成可以关联到用户账户的令牌，并设置该令牌的有效时间。 
+确认电子邮件已经关联到数据库的某个用户之后，第一步要做的，是生成可以关联到用户账户的令牌，并设置该令牌的有效时间。
 
-Node.js 有一个叫做 [Crypto](https://nodejs.org/api/crypto.html#crypto_crypto) 的内置模块，它提供加​​密功能，这是一种高级的说法，我可以用 `crypto.randomBytes(20).toString('hex');` 这行代码很简单的生成一个唯一的哈希令牌。然后，我将这个新令牌保存到数据库中用户的配置文件中，名为 `resetPasswordToken`。我还设置了该令牌有效期的时间戳。发送链接后，我使链接的有效期为 1 小时 —— `Date.now() + 36000`。
+Node.js 有一个叫做 [Crypto](https://nodejs.org/api/crypto.html#crypto_crypto) 的内置模块，它提供加密功能，这是一种高级的说法，我可以用 `crypto.randomBytes(20).toString('hex');` 这行代码很简单的生成一个唯一的哈希令牌。然后，我将这个新令牌保存到数据库中用户的配置文件中，名为 `resetPasswordToken`。我还设置了该令牌有效期的时间戳。发送链接后，我使链接的有效期为 1 小时 —— `Date.now() + 36000`。
 
 **第 2 步：创建 Nodemailer 传输**
 
@@ -130,13 +130,13 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 
 ![](https://cdn-images-1.medium.com/max/2624/1*_w-0XM0OV5DLmylhmOh5vg.png)
 
-这个文件的最后一步实际上是把我之前创建的代码片段放在一起: `transporter`，`mailOptions` 和 `token` 并且使用 Nodemailer 的 `sendMail()` 功能。如果它工作了，我会得到返回码为 200 的响应，然后我用这个响应来触发对客户端的成功调用，如果出错，我会在日志里记录下错误以便查看哪里出错了。  
+这个文件的最后一步实际上是把我之前创建的代码片段放在一起: `transporter`、`mailOptions` 和 `token` 并且使用 Nodemailer 的 `sendMail()` 功能。如果它工作了，我会得到返回码为 200 的响应，然后我用这个响应来触发对客户端的成功调用，如果出错，我会在日志里记录下错误以便查看哪里出错了。
 
 ### 启用 Gmail 发送重置电子邮件
 
-在设置传输器电子邮件时，至少在使用Gmail时，需要注意一个额外的陷阱，即所有电子邮件都是从传输器发送过来的。
+在设置传输器电子邮件时，至少在使用 Gmail 时，需要注意一个额外的陷阱，即所有电子邮件都是从传输器发送过来的。
 
-为了能够从帐户发送电子邮件，必须禁用两步验证，并且必须将 “Allow less secure apps” 的设置切换为开启。见下面的截图。为此，从[这里](https://myaccount.google.com/lesssecureapps))进入了设置中心，并将其打开。
+为了能够从帐户发送电子邮件，必须禁用两步验证，并且必须将 “Allow less secure apps” 的设置切换为开启。见下面的截图。为此，从[这里](https://myaccount.google.com/lesssecureapps)进入了设置中心，并将其打开。
 
 现在，我可以很顺利地发送重置电子邮件。如果您遇到问题，请查看 Nodemailer 的常见问题解答以获取更多帮助。
 
@@ -166,7 +166,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 
 一旦进入页面中，这个方法就会被触发。它从 URL 查询参数中提取令牌，并将其传给服务器的 `reset` 路由来验证令牌是否合法。
 
-然后，如果服务器响应 ”a-ok“，这个令牌是有效的并会与用户关联，如果响应 ”no“，那么这个令牌会因为某些原因而失效。
+然后，如果服务器响应 “a-ok”，这个令牌是有效的并会与用户关联，如果响应 “no”，那么这个令牌会因为某些原因而失效。
 
 **更改密码功能**
 
@@ -182,7 +182,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 
 如果链接在某种程度上是无效的，则 `error` 消息将显示在屏幕上，其中包含返回主屏幕或忘记密码页面的链接。
 
-如果用户有权重置密码，他们会有一个输入新的密码输入功能的叫做 `updatePassword()` 方法，一旦服务器响应成功更新密码，`update` 布尔值会被设置为 true ，并显示 `Your password has been successfully reset...` 的消息和登录按钮。
+如果用户有权重置密码，他们会有一个输入新的密码输入功能的叫做 `updatePassword()` 方法，一旦服务器响应成功更新密码，`update` 布尔值会被设置为 true，并显示 `Your password has been successfully reset...` 的消息和登录按钮。
 
 ### 后端代码 —— 重置密码和更新密码
 
@@ -194,7 +194,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 
 这是在 `componentDidMount` 客户端上调用生命周期方法的路由。它检查从链接的查询参数的 `resetPasswordToken` 和日期时间戳传递的内容，以确保一切正常。
 
-你会注意到 `resetPasswordExpires` 参数具有奇怪的 `$gt: Date.now()` 参数。 这是一个 [运算符别名比较器](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases),[Sequelize](http://docs.sequelizejs.com/) 允许我使用它， 所有的 `$gt:` 代表的都是“优先级高于”，无论它和谁去比较，在这种情况下，它将当前时间与发送重置密码电子邮件时保存到数据库的到期时间戳进行比较，以确保在发送电子邮件后不到一小时内重置密码。
+你会注意到 `resetPasswordExpires` 参数具有奇怪的 `$gt: Date.now()` 参数。这是一个 [运算符别名比较器](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases)，[Sequelize](http://docs.sequelizejs.com/) 允许我使用它，所有的 `$gt:` 代表的都是“优先级高于”，无论它和谁去比较，在这种情况下，它将当前时间与发送重置密码电子邮件时保存到数据库的到期时间戳进行比较，以确保在发送电子邮件后不到一小时内重置密码。
 
 只要两个参数都对该用户有效，就会向客户端发送成功的响应，并且用户可以继续密码重置。
 
@@ -206,7 +206,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 
 再一次，我发现数据库中的用户（`username` 从 `reset` 上的路由传回客户端并保持在应用程序的状态，直到调用更新函数），我使用我的 `bcrypt` 模块散列新的密码（就像我的 Passport.js 中间件在最初将新用户写入数据库时执行），用新的散列值更新数据库中该用户的 `password`，并将 `resetPasswordToken` 和 `resetPasswordExpires` 列设置为 null，因此同一个链接不能多次使用。
 
-一旦完成，服务器就会给客户端返回一个状态码为 200 的响应，其中包含成功消息 ”Password updated“。
+一旦完成，服务器就会给客户端返回一个状态码为 200 的响应，其中包含成功消息 “Password updated”。
 
 你已经通过电子邮件成功重置用户的密码。并不难。
 
@@ -222,7 +222,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 
 * [调试 Node.js 的绝对最简单的方法 —— 使用 VS Code](https://itnext.io/the-absolute-easiest-way-to-debug-node-js-with-vscode-2e02ef5b1bad)
 * [使用 React 在 JavaScrip t应用程序中实现 JSON Web Tokens 和 Passport.js](https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436)
-* [Sequelize: 像 Mongoose 但是相对于 SQL](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
+* [Sequelize：像 Mongoose 但是相对于 SQL](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
 
 ***
 
@@ -231,7 +231,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 * Nodemailer: [https://nodemailer.com/about/](https://nodemailer.com/about/)
 * Nodemailer, Github: [https://github.com/nodemailer/nodemailer](https://github.com/nodemailer/nodemailer)
 * Nodemailer, NPM: [https://www.npmjs.com/package/nodemailer](https://www.npmjs.com/package/nodemailer)
-* 使用 Nodemailer Repo 的MERN应用程序：: [https://github.com/paigen11/mysql-registration-passport](https://github.com/paigen11/mysql-registration-passport)
+* 使用 Nodemailer Repo 的MERN应用程序: [https://github.com/paigen11/mysql-registration-passport](https://github.com/paigen11/mysql-registration-passport)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
