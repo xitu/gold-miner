@@ -2,67 +2,67 @@
 > * 原文作者：[Lena Reinhard](https://twitter.com/lrnrd)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-we-ve-learned-about-hiring-engineering-managers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-we-ve-learned-about-hiring-engineering-managers.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JackEggie](https://github.com/JackEggie)
+> * 校对者：[portandbridge](https://github.com/portandbridge), [Baddyo](https://github.com/Baddyo)
 
-# What we've learned about hiring engineering managers
+# 我们从招聘技术经理的过程中学到了什么
 
 ![](https://circleci.com/blog/media/EngineeringManagers.png)
 
-Over the last year, we have made some critical shifts in our understanding of what we believe makes a great engineering manager at CircleCI, and learned a lot about our needs and values as an organization along the way. We’ve changed our hiring process substantially, and through these efforts we’ve hired some fabulous people, doubling our engineering management team. Today, we want to share all these learnings with you.
+在过去的一年里，我们对于理解负责 CircleCI 的技术经理所需的优秀品质有了重要的转变，并从中了解到我们作为一个组织的需求和价值观。我们大幅改变了招聘流程，通过这些努力，我们聘用了一些出色的人才，使我们技术管理团队的人数翻了一番。现在，我们想和大家分享这些经验。
 
-### Hiring engineering managers like we hire engineers
+### 用与招聘工程师类似的方法招聘技术经理
 
-Last year, we shared “[How we interview engineers](https://circleci.com/blog/how-we-interview-engineers-at-circleci/)”. This was our process at the time, which we used for both engineers and engineering managers. Overall in 2018, we had hundreds of candidates pass through our engineering hiring process. Our process for hiring engineers worked as follows:
+去年，我们分享了“[我们是如何面试工程师的](https://circleci.com/blog/how-we-interview-engineers-at-circleci/)”。这是我们当时同时用在工程师和技术经理身上的流程。在整个 2018 年中，有数百名候选人通过了我们的技术招聘流程。我们的工程师招聘流程如下：
 
-![Hiring Process Before](https://circleci.com/blog/media/HiringProcessBefore1.png)
+![之前的招聘流程](https://circleci.com/blog/media/HiringProcessBefore1.png)
 
-**Applicant Review > Hiring Manager Phone Screen > Kata > Macro Skills > Final Round(Collaborative Exercise, CTO Conversation, Product Interview) For more details about this process, see this [blog post](https://circleci.com/blog/how-we-interview-engineers-at-circleci/).**
+**申请人简历审查 > 招聘经理电话筛选 > 编码风格评估 > 整体能力评估 > 最后一轮面试（考察团队协作、CTO 谈话、产品面试）。有关此流程的更多细节，请参见[博客文章](https://circleci.com/blog/how-we-interview-engineers-at-circleci/)。**
 
-At the start of 2018, we used the same hiring process for both engineers and engineering managers. At the time, our job postings for engineering managers were heavily focused on alignment between their technical background and the technical work of their team. As we wrote in our original post, “we include a coding problem because it’s so important to find out if the candidate’s values and priorities align with those of the team they will be managing.” We went through this hiring process with a few engineering manager applicants, and realized that we frequently got to the onsite stage, and only found out during pairing that their management skills weren’t matching our expectations – far too late to find this out.
+在 2018 年初，我们对工程师和技术经理采用了相同的招聘流程。当时，我们招聘技术经理时重点关注的是候选人的技术背景与团队的技术工作是否匹配。正如我们在之前的文章中所写的那样，“我们把一个编程问题加了进来，因为我们需要了解一项非常重要的东西 —— 候选人的价值观和优势是否与他们将要管理的团队保持一致。”我们对几个应聘技术经理的候选人采用了该招聘流程，发现大部分情况下都会到现场面试阶段，但在现场考察的过程中，我们发现他们的管理技能与我们所期望的不匹配 —— 而发现这一点的时候已经太晚了。
 
-This shone a light onto a bigger issue: it made us realize that our attempt to align all our hiring processes had led us to focusing on, and optimizing for, the wrong skill set. There was a time when we thought having very technical managers would be a good thing. We were going for an adaptation of the [Spotify model](https://blog.crisp.se/wp-content/uploads/2012/11/SpotifyScaling.pdf), where we’d have delivery teams and managers across different teams aligned by discipline. As our take on this organizational model evolved to align with our needs as a distributed engineering organization, we realized we wanted to distribute leadership more.
+这让我们看到了一个更大的问题：它让我们意识到，我们试图统一招聘流程的做法，让我们把关注点和优化方向放在了错误的技能上。曾经有一段时间，我们认为技术经理精通技术是一件好事。我们当时打算采用 [Spotify 模式](https://blog.crisp.se/wp-content/uploads/2012/11/SpotifyScaling.pdf)，这能让不同部门的交付团队和经理通过某种规定来达成一致。随着我们在使用该组织模型的过程中对其的不断改进，也为了适应我们作为一个分散式技术组织的需求，我们意识到我们必须要更多地分散领导权。
 
-We introduced additional roles to support our teams in different areas: team leads, responsible for their team’s delivery, and tech leads, responsible for facilitating technical work. With our new [Engineering Competency Matrix](https://circleci.com/blog/why-we-re-designed-our-engineering-career-paths-at-circleci/), we also codified our expectation of leadership from all engineers, across all levels. The early successes we witnessed from these changes encouraged us to continue evolving our understanding of what makes a good engineering manager.
+我们引入了额外的角色来支持我们团队的不同职责：团队领导，负责其所在团队的交付；技术领导，负责推进技术工作。我们还将所有工程师对各级领导的期望编成新的[技术能力模型](https://circleci.com/blog/why-we-re-designed-our-engineering-career-paths-at-circleci/)。我们见证了这些改进的成效，这也鼓励我们继续深入理解一名好的技术经理需要哪些品质。
 
-### Better support for our engineers
+### 更好地支持工程师
 
-Management is not engineering. Engineering management is a fundamentally different job that necessitates different skills, and we need to treat it as such. Engineering managers at CircleCI are now dedicated to people management: focused on development of a set of engineers, tech leads, and team leads. They hold regular 1:1s and career growth conversations with the engineers who report to them, and are responsible for goal setting, feedback, coaching, and mentoring for them. They also work across a set of teams to ensure team health, knowledge sharing, business value delivery and alignment across teams. This means that our engineers have managers who have great interest and investment in their personal and professional growth, and teams have someone to coach them through the product delivery process.
+管理与技术大不相同。我们需要把技术管理工作与普通的管理工作区别开，它们需要不同的工作技能。CircleCI 的技术经理现在致力于人员的管理中：关注工程师、技术负责人、团队负责人的职业发展。他们会与其下属工程师们进行定期的一对一职业发展谈话，并负责他们的目标设定、反馈和职业生涯指导。他们还会跨团队交流，以保证团队的健康、知识共享、践行公司的价值观和各个团队间目标的一致性。这意味着我们工程师的经理对其下属的职业发展有着很大的兴趣和投入，团队中也会有专人指导他们完成产品交付过程。
 
-### Adapting our process to our re-focused values
+### 使我们的流程适用于我们新的价值观
 
-As a result of learning what really matters to us in engineering management, we adapted our open positions to roles focused on both people and business value delivery. We also changed our hiring process and the design of each interview stage to explore these areas earlier in the interview process. At the same time, we moved to a more structured, behavior-based interview process for all applicants.
+在我们了解了技术管理中真正重要的能力之后，我们针对人员管理能力和能否践行公司的价值观调整了应聘职位。我们还改变了招聘流程和每个面试阶段的内容，以便在面试过程中及早确定应聘者在以上领域的能力。同时，我们为所有的应聘者调整了面试流程，现在的面试流程结构性更强、更注重面试时的行为了。
 
-This is what our hiring process for engineering managers looks like now:
+这是我们现在招聘技术经理的流程：
 
-![Engineering Manager Hiring Process After](https://circleci.com/blog/media/HiringProcessAfter1.png)
+![调整之后的技术经理招聘流程](https://circleci.com/blog/media/HiringProcessAfter1.png)
 
-**Applicant Review > Hiring Manager Phone Screen > Pairing Exercise > Product Thinking & Work Breakdown Discussion > Final Round (Engineering Team Member Interview, Management Skills Deep Dive, Product Interview)** **Note: we’re always looking for ways to improve our processes, so be aware that these stages may change**
+**申请人简历审查 > 招聘经理电话筛选 > 面对面解题 > 产品思维和工作拆分能力研讨 > 最后一轮面试（技术团队成员面试、管理技能挖掘、产品面试）。** **注：我们一直在寻找改进该流程的方式，所以这些阶段可能会变化**
 
-Using the new process, which puts emphasis on people management and business value delivery, we assess for these skills as follows:
+新的流程强调人员管理和践行公司的价值观，我们通过下面的步骤来评估这些能力：
 
-**1. Hiring manager phone screen:** The hiring manager for this role talks with the candidate about their management experience across different areas.  
-**2. Collaborative exercise:** This is a collaborative interview, in which the candidate is paired with one of our engineering managers. Together, they work through two challenges that we faced as an organization in the past, and which could still occur again today. Like with our technical pairing exercises, we want to make sure to reflect the actual work we’re doing – and talking through challenges and developing solutions together as an engineering management team is very important to our daily work together. This interview helps us understand a bit more the candidate’s approach to organizational challenges, and how they’d collaborate with a peer.  
-**3. Product thinking and work breakdown discussion:** In this interview, the candidate and another member of our engineering management team discuss some questions related to their ability to understand work and delivery, and guide discussions from a customer value perspective.  
-**4. Engineering team member interview:** This is a conversation with a senior engineer with whom the candidate would be working. Together, they discuss collaboration challenges that our teams have faced in the past. We look for candidates’ ability to mentor and add value to technical discussions while understanding their own limitations, supporting a technical decision without acting as a decision-maker.  
-**5. Management skills deep dive:** This conversation is usually with a senior member of the engineering management team, and a deeper discussion of important leadership skills and the candidate’s management experience.  
-**6. Product interview:** This last interview is with a member of our product team, and focuses on the candidate’s perspective on product, process, and building healthy engineering teams.
+1. **招聘经理电话筛选：** 该职位的招聘经理会和应聘者谈论他们在不同领域的管理经验。
+2. **考察团队协作：** 这是一轮协作面试，应聘者会与我们的一名技术经理搭档。他们会一起想办法，解决我们团队以前所面临的两个难题，这两个问题仍然可能再次出现。就像我们的技术结对考察一样，我们希望面试能反映出我们正在做的工作 —— 作为一个技术管理团队，一起讨论问题和寻找解决方案在我们的日常工作中是非常重要的。这个阶段的面试帮助我们更多地了解应聘者会如何应对团队的问题，以及他们是如何与同事合作的。
+3. **产品思维和工作拆分能力评估：** 在这一轮面试中，应聘者会和我们的技术管理团队的另一名成员讨论一些工作和交付的能力相关的问题，从客户价值的角度来讨论该问题。
+4. **技术团队成员面试：** 应聘者会与他将要共事的一名高级工程师谈话。他们也会一起探讨团队在过去所面临的协作问题。我们希望应聘者的能力足以在了解自身局限性的情况下仍能指导、帮助并参与技术团队的工作讨论，也能在尽量避免直接做决策情况下支持技术团队作出自己的决策。
+5. **管理技能挖掘：** 这一阶段的谈话通常是与技术管理团队的高级成员进行的，会深入讨论领导技能和应聘者的管理经验。
+6. **产品面试：** 最后一轮面试是与一名产品团队的成员进行的，重点考察应聘者对产品、流程和构建健康的技术团队的看法。
 
-### What’s next
+### 下一阶段的计划
 
-Changing our process this way has helped us screen for the right values and skills, and determine which candidates align with them early on. Ultimately, it has enabled us to hire great managers who care, whose values align with ours as an organization, and who can help us take our engineering organization through its next growth phases.
+以这种方式改变我们的流程有助于我们筛选应聘者的正确价值观和技能，并能及早确定哪些候选人符合这些价值观和技能。最后，它能使我们能够雇佣到优秀的管理者，他们关心整个团队，他们的价值观与团队的价值观相一致，他们能够帮助、带领我们的技术团队进入下一个成长阶段。
 
-At the moment, we’re working on ensuring full alignment of this process with our newly-adopted Engineering Management Competency Matrix (this matrix is not public yet, but we’re aiming to share it soon).
+目前，我们正在努力使该流程与我们新采用的技术管理能力模型保持完全一致（该模型还没有公布，但是我们很快就会把它共享出来）。
 
-If our values and the role of an engineering manager sound like something you’d enjoy, please get in touch – we’re hiring [engineering managers in Europe](https://boards.greenhouse.io/circleci/jobs/4195911002) and [North America](https://boards.greenhouse.io/circleci/jobs/4200209002)! And if working with a great team and a manager who’s invested in your growth is interesting to you, join us [as an engineer](https://boards.greenhouse.io/circleci)!
+如果你对我们的价值观和技术经理职位感兴趣，请联系我们 —— [欧洲技术经理](https://boards.greenhouse.io/circleci/jobs/4195911002)和[北美技术经理](https://boards.greenhouse.io/circleci/jobs/4200209002)热招中！如果你希望与一个优秀的团队和一位对你的成长有帮助的经理共事感兴趣，欢迎[以工程师的身份](https://boards.greenhouse.io/circleci)加入我们！
 
-Do you have feedback about our process? I’d love to hear your comments. Email me: lena@circleci.com
+欢迎评论我们的招聘流程，如果你对此有任何反馈，请发送 Email 至：lena@circleci.com
 
-Read more:
+扩展阅读：
 
-* [Why we redesigned our career paths at CircleCI](https://circleci.com/blog/why-we-re-designed-our-engineering-career-paths-at-circleci/)
-* [Interviewing as an outsider: how I finally got seen in tech](https://circleci.com/blog/interviewing-as-an-outsider-how-i-finally-got-seen-in-tech/)
-* [Onboarding onto a distributed team: reach out and ask someone](https://circleci.com/blog/onboarding-onto-a-distributed-team/)
+* [为什么我们要在 CircleCI 重新做职业规划](https://circleci.com/blog/why-we-re-designed-our-engineering-career-paths-at-circleci/)
+* [以局外人的身份进行面试：我最终如何在科技界崭露头角](https://circleci.com/blog/interviewing-as-an-outsider-how-i-finally-got-seen-in-tech/)
+* [加入分散式团队：主动提问](https://circleci.com/blog/onboarding-onto-a-distributed-team/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
