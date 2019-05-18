@@ -2,8 +2,8 @@
 > * 原文作者：[Jon Tsao](https://medium.com/@jontsao)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/android-studio-project-marble-apply-changes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/android-studio-project-marble-apply-changes.md)
-> * 译者：
-> * 校对者：
+> * 译者：[qiuyuezhong](https://github.com/qiuyuezhong)
+> * 校对者：[phxnirvana](https://github.com/phxnirvana)
 
 # Android Studio Project Marble: Apply Changes
 
@@ -13,15 +13,15 @@
 
 **Android Studio 团队有一系列深入探讨 [Project Marble](https://android-developers.googleblog.com/2019/01/android-studio-33.html) 细节和幕后情况的文章，本文是其中的第一篇。从发布 [Android Studio 3.3](https://android-developers.googleblog.com/2019/01/android-studio-33.html) 开始，Project Marble 就致力于保证 IDE 基本功能的稳定性和流畅度。这篇文章是由 Apply Changes 团队的 Jon Tsao（产品经理），Esteban de la Canal（技术负责人），Fabien Sanglard（工程师）和 Alan Leung（工程师）共同完成。**
 
-Android Studio 的一个主要目标是为你的 app 提供快速的代码编辑和验证工具。当我们创建 Instant Run 的时候，我们希望能够明显加速你的开发流程，但是现在看来它并没有达到预期目标。作为 Project Marble 的一部分，我们一直在重新思考 Instant Run，并提出了一个更实用的替代方案 Apply Changes。在 Android Studio 3.5 的 Canary Channel [预览](https://androidstudio.googleblog.com/2019/01/android-studio-35-canary-1-available.html)中，Apply Changes 作为一个可以加快开发流程的新方法，最初在 Android Studio 3.5 的 Canary Channel [发布预览](https://androidstudio.googleblog.com/2019/01/android-studio-35-canary-1-available.html)。在这篇文章中，我们想深入聊聊它是如何工作的，以及到现在为止我们都经历了什么。
+Android Studio 的一个主要目标是为你的 app 提供快速的代码编辑和验证工具。当我们创建 Instant Run 的时候，我们希望它能够明显加速你的开发流程，但是现在看来它并没有达到预期目标。作为 Project Marble 的一部分，我们一直在重新思考 Instant Run，并提出了一个更实用的替代方案 Apply Changes。Apply Changes 作为一个可以加快开发流程的新方法，最初在 Android Studio 3.5 的 Canary Channel [发布预览](https://androidstudio.googleblog.com/2019/01/android-studio-35-canary-1-available.html)。在这篇文章中，我们想深入聊聊它是如何工作的，以及迄今为止我们的工作。
 
 ## Instant Run
 
 通过 Instant Run，我们想解决两个问题：1）节省构建和部署应用程序到设备上的时间，2）使应用程序在不丢失运行状态的情况下部署更改。为了在 Instant Run 中做到这一点，我们在构建的时候重写你的 APK 来注入钩子，以便在运行的时候进行类的替换。要更详细的了解 Instant Run 背后的架构，可以参考几年前 [Medium 上的这篇文章](https://medium.com/google-developers/instant-run-how-does-it-work-294a1633367f)。
 
-对于简单的 app，这个方案一般都表现很好，但是对于更复杂的 app 来说，它可能会使构建时间变长，或者会由于 app 与 Instant Run 构建过程之间有冲突而导致令人头疼的错误。随着这些问题的出现，我们继续在后续的版本中改进提升 Instant Run。但是，我们无法完全解决这些问题，让它符合我们的期望。
+对于简单的 app，这个方案一般都表现很好，但是对于更复杂的 app 来说，它可能会使构建时间变长，或者会由于 app 与 Instant Run 构建过程之间有冲突而导致令人头疼的错误。随着这些问题的出现，我们在后续的版本中持续改进提升 Instant Run。但是，我们无法完全解决这些问题，让它符合我们的期望。
 
-我们后退了一步，决定从头开始构建一个新的架构，它就是 Apply Changes。和 Instant Run 不同，Apply Changes 不会在构建的时候修改你的 APK。取而代之，我们用 Android 8.0 （Oreo）上支持的 Runtime Instrumentation 在运行时重定义类。
+我们后退了一步，决定从头开始构建一个新的架构，它就是 Apply Changes。和 Instant Run 不同，Apply Changes 不会在构建的时候修改你的 APK。取而代之，我们用 Android 8.0 （Oreo）上支持的 Runtime Instrumentation 以及更新的设备和模拟器在运行时重定义类。
 
 ## Apply Changes
 
@@ -39,9 +39,9 @@ Android Studio 的一个主要目标是为你的 app 提供快速的代码编辑
 
 基于在 Instant Run 上的经验和反馈，我们采用了一些原则来指导我们的架构设计和决策：
 
-1. **将构建/部署的速度和状态丢失两者独立开**。我们想将节省构建和部署的时间，与在不丢失运行状态的情况下部署更改这两个问题分开。不管是一般的运行或者调试，或者代码的热替换，快速构建和部署应该是**所有**部署类型的目标。作为构建 Apply Changes 的一部分，我们发现了很多可以优化构建和部署速度的领域，在后面的文章中，我们会详细介绍它们。
+1. **将构建/部署的速度和状态丢失两者独立开**。我们想将节省构建和部署的时间，与在不丢失运行状态的情况下部署更改这两个目标分开。不管是一般的运行或者调试，或者代码的热替换，快速构建和部署应该是**所有**部署类型的目标。作为构建 Apply Changes 的一部分，我们发现了很多可以优化构建和部署速度的领域，在后面的文章中，我们会详细介绍它们。
 
-2. **稳定性至关重要**。即便在 100 次中这个功能以极快的速度运行了 99 次，如果你的 app 因为这个功能而崩溃了一次，并且你花半个小时来尝试找出原因，那么其他 99 次获得的收益都已经不在了。由于我们坚持这一原则，Apply Changes 不会像 Instant Run 那样在构建期间修改你的 APK。带来的副作用是，在我们进行稳定性优化的早期版本中，Apply Changes 会比 Instant Run 的平均速度稍慢，但是我们将继续提高构建和部署的速度。
+2. **稳定性至关重要**。即便在 100 次中这个功能以极快的速度运行了 99 次，如果你的 app 因为这个功能而崩溃了一次，并且你花半个小时来尝试找出原因，那么其他 99 次获得的收益也就全部被抵消了。由于我们坚持这一原则，Apply Changes 不会像 Instant Run 那样在构建期间修改你的 APK。带来的副作用是，在我们进行稳定性优化的早期版本中，Apply Changes 会比 Instant Run 的平均速度稍慢，但是我们将继续提高构建和部署的速度。
 
 3. **透明**。Instant Run 按钮会自动决定是否在必要时重启你的 app 或者 Activity，对于这样不可预测性和行为不一致性的反馈，我们也考虑了进来。我们希望在任何时候你都能清楚透明的了解 Apply Changes 要做什么，如果你的代码有不兼容的修改会发生什么。因此如果有检测到与 Apply Changes 不兼容的修改，我们现在会明确提示你。
 
@@ -65,11 +65,11 @@ Android 8.0 的 Android Runtime 提供了替换已加载类的字节码的能力
 这个情况是上面两种情况的组合。先处理代码的部分，如果成功了，会和新的资源一起安装。为了加载新的资源，主 Activity 会被重启。这是一个全做或全不做的操作，如果代码的改变不能成功地应用，正在运行的 app 什么都不会改变。
 
 **更改其他东西**。
-这是最遭的情况，比如 AndroidManifest.xml 或者 native .so 这些文件被更改了。在这种情况下，是不可能不重启应用程序来应用更改的。“Apply Changes” 和 “Apply Code Changes”这两个操作都不会试图去部署它，它们会告诉用户应用程序需要重启。
+这是最糟的情况，比如 AndroidManifest.xml 或者 native .so 这些文件被更改了。在这种情况下，是不可能不重启应用程序来应用更改的。“Apply Changes” 和 “Apply Code Changes”这两个操作都不会试图去部署它，它们会告诉用户应用程序需要重启。
 
 ![**Flow of the architecture described above**](https://cdn-images-1.medium.com/max/2240/1*aD1y7EprEnSzM-3FwbUsRQ.png)
 
-**关于架构的更多详细信息，请收听 Android Developers Backstage 播客的[最新一集](http://androidbackstage.blogspot.com/2019/02/episode-108-instant-re-run.html)，技术负责人 Esteban de la Canal 对 Apply Changes 进行了深刻探讨。**
+**关于架构的更多详细信息，请收听 Android Developers Backstage 播客的[最新一集](http://androidbackstage.blogspot.com/2019/02/episode-108-instant-re-run.html)，技术负责人 Esteban de la Canal 对 Apply Changes 进行了深入探讨。**
 
 ## 比较 .dex 文件
 
@@ -77,15 +77,14 @@ Android 8.0 的 Android Runtime 提供了替换已加载类的字节码的能力
 
 ## Delta push
 
-如上所述，只有更改了的文件才会被发送到设备上，我们称之为 “ delta push”。与上面提到的 DEX 文件对比类似，Apply Changes 计算已安装的 APK 和最近构建的 APK 之间的差异，而不需要从设备获取所有内容。这次，它只获取压缩文件的 [Central Directory](https://en.wikipedia.org/wiki/Zip_(file_format)#Central_directory_file_header)，并保守估计相应 APK 之间的差异。通过只传输已经改变的部分，Android Studio 传输的数据比完整的 APK 上传要少很多。在大多数情况下，总传输数据减少到几 KiB 而不是多少 MiB。
+如上所述，只有更改了的文件才会被发送到设备上，我们称之为 “ delta push”。与上面提到的 DEX 文件对比类似，Apply Changes 计算已安装的 APK 和最近构建的 APK 之间的差异，而不需要从设备获取所有内容。这次，它只获取压缩文件的 [Central Directory](https://en.wikipedia.org/wiki/Zip_(file_format)#Central_directory_file_header)，并保守估计相应 APK 之间可能存在的差异。通过只传输已经改变的部分，Android Studio 传输的数据比完整的 APK 上传要少很多。在大多数情况下，总传输数据从几 MiB 减少到几 KiB。
 
 ## 接下来
 
-Apply Changes 现在可以在 Android Studio 3.5 的 Canary release channel 中找到。我们欢迎[下载最新的 Android Studio](https://developer.android.com/studio/preview/install-preview)，将 Apply Changes 使用到你的项目中，并向我们提出早期的反馈。作为提醒，你可以同时[运行 Android Studio 的稳定版本和 canary release 版本](https://developer.android.com/studio/preview/install-preview#install_alongside_your_stable_version) 。如果你在使用 Apply Changes 时遇到任何问题，请[提交一个 bug](https://issuetracker.google.com/issues/new?component=550294&template=1207130) 并附上对应的 [idea.log 文件](https://intellij-support.jetbrains.com/hc/en-us/articles/207241085-Locating-IDE-log-files)。我们会持续优化部署性能，修复 bug，并听取你的建议和反馈。
+现在可以在 Android Studio 3.5 的 Canary release channel 中使用 Apply Changes。我们欢迎[下载最新的 Android Studio](https://developer.android.com/studio/preview/install-preview)，将 Apply Changes 使用到你的项目中，并向我们提出早期的反馈。作为提醒，你可以同时[运行 Android Studio 的稳定版本和 canary release 版本](https://developer.android.com/studio/preview/install-preview#install_alongside_your_stable_version) 。如果你在使用 Apply Changes 时遇到任何问题，请[提交一个 bug](https://issuetracker.google.com/issues/new?component=550294&template=1207130) 并附上对应的 [idea.log 文件](https://intellij-support.jetbrains.com/hc/en-us/articles/207241085-Locating-IDE-log-files)。我们会持续优化部署性能，修复 bug，并听取你的建议和反馈。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
