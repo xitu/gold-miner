@@ -85,7 +85,7 @@ In this case, the **blue dots** are people for whom the model has inferred an in
 
 > What is interesting to note here is that the dataset is visualized in [**Facets Dive**](https://pair-code.github.io/facets/). Facets Dive is a part of the **FACETS**’ tool developed again by the PAIR team and helps us to understand the various features of data and explore them. In case you are not familiar with the tool, you may want to refer to this article on FACETS’ capabilities, which I had written a while ago.
 
-- [**Visualising Machine Learning Datasets with Google’s FACETS.** An open source tool from Google to easily learn patterns from large amounts of data**](https://towardsdatascience.com/visualising-machine-learning-datasets-with-googles-facets-462d923251b3)
+- [**Visualising Machine Learning Datasets with Google’s FACETS.** An open source tool from Google to easily learn patterns from large amounts of data](https://towardsdatascience.com/visualising-machine-learning-datasets-with-googles-facets-462d923251b3)
 
 One can also organize the data points in tons of different ways including confusion matrices, scatter plots, histograms and small multiples of plots by simply selecting the fields from the drop-down menu. A few examples have been presented below.
 
