@@ -7,7 +7,7 @@
 
 # 超快速的分析器（一）：优化扫描器
 
-要运行 JavaScript 程序，首先要处理源代码，让 V8 能理解它。V8 首先将源代码解析为一个抽象语法树（AST），这是用来表示程序结构的一系列对象。Ignition 会将它编译为字节码（bytecode）。语法分析+编译的这两个步骤的性能很重要，因为 V8 只有等编译完成才能运行代码。在这个系列的博客文章中，我们关注语法分析阶段，以及 V8 为提供一个超快速的分析器所做的工作。
+要运行 JavaScript 程序，首先要处理源代码，让 V8 能理解它。V8 首先将源代码解析为一个抽象语法树（AST），这是用来表示程序结构的一系列对象。Ignition 会将它编译为字节码（bytecode）。语法分析 + 编译的这两个步骤的性能很重要，因为 V8 只有等编译完成才能运行代码。在这个系列的博客文章中，我们关注语法分析阶段，以及 V8 为提供一个超快速的分析器所做的工作。
 
 实际上我们的系列文章始于语法分析器的前一阶段。V8 的语法分析器接收**扫描器**（也就是词法分析器 —— 译注）提供的标记（token）作为输入。Token 是由一个或多个字符相连而成、有单一语义含义的字符块，例如字符串、标识符，或像 `++` 这样的操作符。扫描器通过组合底层字符流中的连续字符来构造这些 token。
 
@@ -17,7 +17,7 @@
 
 扫描器和字符流之间的接口是一个叫做 [`Utf16CharacterStream::Advance()`](https://cs.chromium.org/chromium/src/v8/src/scanner.h?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=54) 的方法。它要么返回下一个 UTF-16 码元，要么返回 `-1` 来标识输入的结束。UTF-16 无法将每一个 Unicode 字符都编码在单个码元中。[Basic Multilingual Plane](https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane) 之外的字符要编码为两个码元，它们也叫做代理对（surrogate pair）。扫描器在 Unicode 字符上进行工作，而不是 UTF-16 码元，所以它使用 [`Scanner::Advance()`](https://cs.chromium.org/chromium/src/v8/src/scanner.h?sq=package:chromium&g=0&rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=569) 方法包装底层流接口。这个方法将 UTF-16 码元解码为完整的 Unicode 字符。当前解码出的字符会被缓冲，然后被 [`Scanner::ScanString()`](https://cs.chromium.org/chromium/src/v8/src/scanner.cc?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=775) 之类的扫描方法取走。
 
-扫描器会最多向前看 4 个字符 —— 这是 JavaScript 中歧义字符序列的最大长度[[1]](#fn1) —— 以此[选择](https://cs.chromium.org/chromium/src/v8/src/scanner.cc?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=422)特定的扫描器方法或 token。一旦选定了像 `ScanString` 这样的方法，它会取走这个 token 余下的字符，并将不属于这个 token 的第一个字符缓冲，留给下一个扫描的 token。在 `ScanString` 的情况中，它还将扫描到的字符拷贝到一个编码为 Latin1 或 UTF-16 的缓冲区中，同时解码转义序列。
+扫描器会最多向前看 4 个字符 —— 这是 JavaScript 中歧义字符序列的最大长度 [[1]](#fn1) —— 以此[选择](https://cs.chromium.org/chromium/src/v8/src/scanner.cc?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=422)特定的扫描器方法或 token。一旦选定了像 `ScanString` 这样的方法，它会取走这个 token 余下的字符，并将不属于这个 token 的第一个字符缓冲，留给下一个扫描的 token。在 `ScanString` 的情况中，它还将扫描到的字符拷贝到一个编码为 Latin1 或 UTF-16 的缓冲区中，同时解码转义序列。
 
 ## 空白
 
@@ -29,7 +29,7 @@ token 之前可以由多种空白符分隔，如换行、空格、制表符、�
 
 ## 扫描标识符
 
-[标识符](https://tc39.github.io/ecma262/#prod-Identifier)是最复杂同时也最常见的 token，在 JavaScript 中用作变量名。标识符以具有 [`ID_Start`](https://cs.chromium.org/chromium/src/v8/src/unicode.cc?rcl=d4096d05abfc992a150de884c25361917e06c6a9&l=807) 属性的 Unicode 字符开头，后跟一串（可选的）具有 [`ID_Continue`](https://cs.chromium.org/chromium/src/v8/src/unicode.cc?rcl=d4096d05abfc992a150de884c25361917e06c6a9&l=947) 属性的字符。查看一个 Unicode 字符是否有 `ID_Start` 或 `ID_Continue` 属性非常昂贵。我们可以通过添加一个从字符到它们的属性的映射作为缓存来稍微加速。
+[标识符](https://tc39.github.io/ecma262/#prod-Identifier)是最复杂同时也最常见的 token，在 JavaScript 中用作变量名（以及其他内容）。标识符以具有 [`ID_Start`](https://cs.chromium.org/chromium/src/v8/src/unicode.cc?rcl=d4096d05abfc992a150de884c25361917e06c6a9&l=807) 属性的 Unicode 字符开头，后跟一串（可选的）具有 [`ID_Continue`](https://cs.chromium.org/chromium/src/v8/src/unicode.cc?rcl=d4096d05abfc992a150de884c25361917e06c6a9&l=947) 属性的字符。查看一个 Unicode 字符是否有 `ID_Start` 或 `ID_Continue` 属性非常耗性能。我们可以通过添加一个从字符到它们的属性的映射作为缓存来稍微加速。
 
 不过，大多数 JavaScript 源代码是用 ASCII 字符编写的。在 ASCII 范围的字符中，只有 `a-z`、`A-Z`、`$` 以及 `_` 是标识符的起始字符。`ID_Continue` 还另外包括 `0-9`。我们通过为 128 个 ASCII 字符构建一个表来加速标识符的扫描。这个表中有标志位，表示一个字符是否是 `ID_Start`、是否是 `ID_Continue` 等。因为我们查找的字符是在 ASCII 范围内，我们可以用一个分支来查看表中相应的标志位，判断字符的属性。在我们找到第一个没有 `ID_Continue` 属性的字符之前，所有的字符都是标识符的一部分。
 
@@ -67,7 +67,7 @@ token 之前可以由多种空白符分隔，如换行、空格、制表符、�
 
 ![](https://v8.dev/_img/scanner/advanceuntil.svg)
 
-`AdvanceUntil` 对于加快那些需要处理大量字符的扫描函数尤其有用。我们使用它来加速之前提到的标识符，同时还同来加速字符串[[2]](#fn2) 和注释。
+`AdvanceUntil` 对于加快那些需要处理大量字符的扫描函数尤其有用。我们使用它来加速之前提到的标识符，同时还同来加速字符串 [[2]](#fn2) 和注释。
 
 ## 结语
 
