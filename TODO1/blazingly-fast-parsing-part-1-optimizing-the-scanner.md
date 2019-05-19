@@ -19,7 +19,7 @@
 
 扫描器会最多向前看 4 个字符 —— 这是 JavaScript 中歧义字符序列的最大长度 [[1]](#fn1) —— 以此[选择](https://cs.chromium.org/chromium/src/v8/src/scanner.cc?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=422)特定的扫描器方法或 token。一旦选定了像 `ScanString` 这样的方法，它会取走这个 token 余下的字符，并将不属于这个 token 的第一个字符缓冲，留给下一个扫描的 token。在 `ScanString` 的情况中，它还将扫描到的字符拷贝到一个编码为 Latin1 或 UTF-16 的缓冲区中，同时解码转义序列。
 
-## 空白
+## 空白符
 
 token 之前可以由多种空白符分隔，如换行、空格、制表符、单行注释、多行注释等等。一类空白符可以跟随其他类型的空白符。如果空白符导致了两个 token 之前的换行，会增加含义：这可能导致[自动插入分号](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion)。因此，在扫描下一个 token 之前，会跳过所有的空白符，并记录是否遇到了换行。大多数真实生产环境中的 JavaScript 代码都进行了缩小化（minify），所以幸运地，多字符的空白不是很常见。出于这个原因，V8 统一独立地扫描出每种空白符，就像是常规 token 一样。例如，如果 token 的第一个字符是 `/` ，第二个字符也是 `/`，V8 会将其扫描为单行注释，返回 `Token::WHITESPACE`。这个过程会一直重复，[直到](https://cs.chromium.org/chromium/src/v8/src/scanner.cc?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=671)我们找到了一个不是 `Token::WHITESPACE` 的 token。这意味着，如果下一个 token 前面没有空白符，我们立即开始扫描相关的 token，而不需要显式检查空白符。
 
