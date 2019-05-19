@@ -13,7 +13,7 @@
 
 与首先要求你提供信用卡的 AppEngine 不同，Apps 脚本目前仍是免费的。至少，Apps 脚本适用于快速创建“概念验证”模型或原型。
 
-Apps 脚本有不同的用例。它主要用于为 Google 表格，文档，或 表单创建插件。但是，它也可以创建“独立”的 web 应用。
+Apps 脚本有不同的用例。它主要用于为 Google 表格，文档，或表单创建插件。但是，它也可以创建“独立”的 web 应用。
 
 我们将探究创建独立的 web 应用这一使用场景。
 
@@ -221,7 +221,7 @@ Webpack 将 lib.js 代码（以及你导入的其它模块）编译并打包到�
 
 然后我们可以使用 “clasp” 上传代码。
 
-参考 package.json 文件中的 脚本 “deploy”。
+参考 package.json 文件中的脚本 “deploy”。
 
 它运行 webpack，然后执行 “clasp push” 和 “clasp open” 命令。
 
@@ -257,7 +257,7 @@ Apps 脚本的一个限制特性是没有简单的方法可以将 npm 之类的�
 
 例如，你可能想在项目中使用 [momentjs](https://momentjs.com/) 来处理日期，或者 [lodash](https://lodash.com/) 工具集方法。
 
-实际上，[Apps 脚本是有库功能的](https://developers.google.com/apps-script/guides/libraries)，但是它有几个限制。我们不会在这篇文章中探索这个库；我们将安装 npm 模块并使用 webpack 打包这些模块来创建与 Apps 脚本兼容的包。
+实际上，[Apps 脚本是有库功能的](https://developers.google.com/apps-script/guides/libraries)，但是它有几个限制。我们不会在这篇文章中探索这个库的功能；我们将安装 npm 模块并使用 webpack 打包这些模块来创建与 Apps 脚本兼容的包。
 
 因为我们已经开始使用 webpack 来创建可以集成到 apps 脚本的包，所以我们现在添加一些 npm 包应该更容易。让我们开始使用 moment.js 吧！
 
@@ -388,9 +388,9 @@ npm run deploy
 
 既然添加 npm 包到你的 Apps 脚本项目中如此容易，那我们可以开始创建一些 npm 包了。
 
-包装 Google APIs、Gmail、Google 表格、Google Docs和其它公共的 API 的包，将会带来很多的乐趣！
+封装 Google APIs、Gmail、Google 表格、Google Docs和其它公共的 API 的包，将会带来很多的乐趣！
 
-另一个重要的部分还没说到。目前我们只看到 web 应用 一个简单的文本界面。试试使用现代化 CSS 框架，bootstrap，bulma，material design 以及 VueJS，React，并用 Apps 脚本创建一些单页面 Web 应用？对，我们会这样做的。我们会在客户端使用 bootstrap、Vuejs，在服务端使用 Apps 脚本，并构建一个单页应用。
+另一个重要的部分还没说到。目前我们看到 web 应用只是一个简单的文本界面。试试使用现代化 CSS 框架，bootstrap，bulma，material design 以及 VueJS，React，并用 Apps 脚本创建一些单页面 Web 应用？对，我们会这样做的。我们会在客户端使用 bootstrap、Vuejs，在服务端使用 Apps 脚本，并构建一个单页应用。
 
 多么令人兴奋啊！请继续关注本系列的文章。
 
