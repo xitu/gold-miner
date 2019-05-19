@@ -21,13 +21,13 @@ Android Studio 的一个主要目标是为你的 app 提供快速的代码编辑
 
 对于简单的 app，这个方案一般都表现很好，但是对于更复杂的 app 来说，它可能会使构建时间变长，或者会由于 app 与 Instant Run 构建过程之间有冲突而导致令人头疼的错误。随着这些问题的出现，我们在后续的版本中持续改进提升 Instant Run。但是，我们无法完全解决这些问题，让它符合我们的期望。
 
-我们后退了一步，决定从头开始构建一个新的架构，它就是 Apply Changes。和 Instant Run 不同，Apply Changes 不会在构建的时候修改你的 APK。取而代之，我们用 Android 8.0 （Oreo）上支持的 Runtime Instrumentation 以及更新的设备和模拟器在运行时重定义类。
+我们后退了一步，决定从头开始构建一个新的架构，它就是 Apply Changes。和 Instant Run 不同，Apply Changes 不会在构建的时候修改你的 APK。取而代之，我们用 Android 8.0（Oreo）上支持的 Runtime Instrumentation 以及更新的设备和模拟器在运行时重定义类。
 
 ## Apply Changes
 
 对于运行在 Android 8.0 或者更新版本上的设备和虚拟机，Android Studio 现在有三个按钮来控制应用程序重启的程度：
 
-*  **Run** 会部署所有的改动并重启应用程序。
+* **Run** 会部署所有的改动并重启应用程序。
 
 * **Apply Changes** 会尝试应用资源和代码的更改，并只重启 Activity 而不是重启应用程序。
 
