@@ -2,86 +2,87 @@
 > - 原文作者：[Ryan Ackermann](https://www.raywenderlich.com/u/naturaln0va)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ios-file-provider-extension-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ios-file-provider-extension-tutorial.md)
-> - 译者：
+> - 译者：[iWeslie](https://github.com/iWeslie)
 > - 校对者：
 
-# iOS File Provider Extension Tutorial
+# iOS 中的 File Provider 拓展
 
-In this tutorial, you will learn about the File Provider framework and how to implement your own File Provider extension to expose your app’s own content.
+在本教程中，你将学习 File Provider 拓展以及如何使用它把你 App 的内容暴露出来。
 
-First introduced in iOS 11, a File Provider extension provides access to content managed by your app via the iOS **Files** app. Additionally, other apps can access your app’s data by using either the [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) or [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) classes.
+File Provider 在 iOS 11 中引进，它通过 iOS 的 **Files** App 来访问你 App 管理的内容。此外，其他 App 也可以使用 [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) 或 [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) 类来访问你 App 的数据。
 
-The main tasks of a File Provider extension are to:
+File Provider 拓展的主要任务是：
 
-*   Create file placeholders that represent the remote content.
-*   Intercept reads from the host app so that the documents can download or update.
-*   Fire a notification after an update to a document occurs so that the changes can upload to the remote server.
-*   Enumerate the stored documents and directories.
-*   Perform actions on a document such as renaming, moving, or deleting.
+* 创建表示远端内容的文件占位符。
+* 拦截从宿主 App 的读取内容来进行下载或更新文件。
+* 在更新文件后发出通知来把更新上传到远程服务器。
+* 枚举存储的文件和目录。
+* 对文档执行操作，例如重命名、移动或删除。
 
-You’ll use a [Heroku Button](https://blog.heroku.com/heroku-button) to configure the server that hosts your files. Once the server setup completes, you’ll configure the extension to enumerate the contents of the server.
+你将使用 [Heroku Button](https://blog.heroku.com/heroku-button) 来配置托管文件的服务器。在服务器设置完成后，你需要配置扩展来对服务器的内容进行枚举。
 
-## Getting Started
+## 着手开始
 
-To get started, click the **Download Materials** button at the top or bottom of this tutorial. In the downloaded folder, navigate into the **Favart-Starter** folder and open **Favart.xcodeproj** in Xcode. Make sure you’ve selected the **Favart** scheme, then build and run the app, and you’ll see the following:
+首先，请先 [下载资源](https://koenig-media.raywenderlich.com/uploads/2019/05/Favart-5-16-19.zip)，完成后找到 **Favart-Starter** 文件夹并打开 **Favart.xcodeproj**。确保您已选择 **Favart** 的 scheme，然后编译并运行该 App，你会看到以下内容：
 
 ![The container app for your File Provider.](https://koenig-media.raywenderlich.com/uploads/2019/01/01-container-app-281x500.png)
 
-The app presents a basic view that educates the user about how to enable the File Provider extension since you won’t actually be doing anything within the app itself. Each time you build and run the app in this tutorial, you’ll then return to the home screen and open the **Files** app to access your extension.
+该 App 提供了一个基础的 View 来告诉用户如何启用 File Provider 扩展，因为你实际上不会在 App 内执行任何操作。每次在本教程中编译运行 App 时，你都将返回主屏幕并打开 **Files** 这个 App 来访问你的扩展。
 
-> **Note**: If you want to run the sample project on a real device, in addition to setting a development team for both targets, you must edit **Favart.xcconfig** inside the **Configuration** folder. Update the bundle identifier to a unique value.
+> **注意**：如果要在真机上运行该项目，除了为两个 target 设置开发者信息外，还需要在 **Configuration** 文件夹中编辑 **Favart.xcconfig**。将 Bundle ID 更新为唯一值。
 >
-> The sample project uses this value for the `PRODUCT_BUNDLE_IDENTIFIER` build setting in both targets as well as the App Group identifier in **Provider.entitlements** and the associated `NSExtensionFileProviderDocumentGroup` value in **Info.plist**. If you don’t keep the values updated consistently in the project, you might see obscure and hard to debug errors. Using custom build settings is a great way to keep things running smoothly.
+> 示例项目将这个值用于两个 target 中 build setting 里的 `PRODUCT_BUNDLE_IDENTIFIER`，**Provider.entitlements** 里的 App Groups 标识符，还有 **Info.plist** 中的 `NSExtensionFileProviderDocumentGroup`。在项目中如果没有同步更新它们，你将会得到模糊并且让人摸不着头脑编译报错信息。使用自定义的 build settings 将会是一个讨巧的方法。
 
-The sample project includes the basic components that you’ll use for your File Provider extension:
+示例项目中已经包含了你将用于 File Provider 扩展的基本组件：
 
-*   **NetworkClient.swift** contains a network client for talking to the Heroku server.
-*   **FileProviderExtension.swift** has the File Provider extension itself.
-*   **FileProviderEnumerator.swift** contains the enumerator, which is used to list the contents of a directory.
-*   **Models** is a group that contains the models needed to complete the extension.
+* **NetworkClient.swift** 包含用于与 Heroku 服务器通信的网络请求客户端。
+* **FileProviderExtension.swift** 就是 File Provider 拓展本身。
+* **FileProviderEnumerator.swift** 包含了枚举器，用于枚举目录的内容。
+* **Models** 是一组用来完成扩展所需的模型。
 
-## Setting Up the Back End With Heroku
+## 使用 Heroku 设置后端
 
-To get started, you’ll need your own instance of the back end server. Fortunately, this is easy with a **Heroku Button**. Click the button below to access the **Heroku** dashboard.
+首先，你需要一个自己的后端服务器实例。幸运的是，使用 **Heroku Button** 将很容易完成这个操作。单击下面的按钮访问 **Heroku** 的 dashboard。
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/naturaln0va/favart-api/tree/master)
 
-After you either sign up for a free account or sign in to **Heroku**, you’ll end up on a page similar to the following.
+在你注册完 **Heroku** 的免费账号后，你将看到以下页面：
 
 ![Deploy to Heroku](https://koenig-media.raywenderlich.com/uploads/2019/01/03-backend-deploy-setup.png)
 
-On this page, there is an option to name your application. You may choose a name, or **Heroku** will generate a name for you if you leave the field blank. Since there are no other configurations to worry about, click the **Deploy app** button and after a few moments, your back end will be up and running.
+在此页面上，你可以给你的 App 取一个名字，也可以将该字段留空，**Heroku** 将为你自动生成一个名称。不必配置其他东西，现在你可以点击 **Deploy app** 按钮，一会儿之后你的后端就会启动并运行。
 
 ![Deploy successful](https://koenig-media.raywenderlich.com/uploads/2019/01/02-backend-deploy-success.png)
 
-Once Heroku finishes deploying the application, click the **View** button at the bottom. This will take you to the URL that hosts your instance of the back end. At the root of the application, you should see a JSON message reading the familiar **Hello world!**.
+在 Heroku 完成部署 App 之后，单击底部的 **View**。这会跳转到你托管实例的后端 URL。在根目录下，您应该看到一条 JSON 数据，是你熟悉的 **Hello world!**。
 
-Finally, you need to copy the URL of your **Heroku** instance. You only want the domain portion, which should look like this: **{app-name}.herokuapp.com**.
+最后，您需要复制 **Heroku** 实例的 URL，但是只需要其中的域名部分：**{app-name}.herokuapp.com**。
 
-In the starter project, open **Provider/NetworkClient.swift**. Towards the top of the file, you should see a warning telling you to **Add your Heroku URL here**. Remove the warning and replace the `components.host` placeholder string with your URL.
+在 starter 项目中，打开 **Provider/NetworkClient.swift**。在文件的顶部，你应该会看到一条警告，告诉你 **Add your Heroku URL here**。删除这个警告并用你的 URL 替换 `components.host` 占位符字符串。
 
-That completes the server configuration. Next, you’ll define the model which the File Provider relies on.
+现在你就完成了服务器配置。接下来，你将定义 File Provider 所依赖的模型。
 
-## Defining an NSFileProviderItem
+## 定义 NSFileProviderItem
 
-First, the File Provider needs a model that conforms to `NSFileProviderItem`. This model will provide information about files managed by the File Provider. The starter project contains `FileProviderItem` in **FileProviderItem.swift** you’ll use for this, but it requires a bit of work before you conform to the protocol.
+首先，File Provider 需要一个遵循了 `NSFileProviderItem` 协议的模型。此模型将提供有关文件提供程序管理的文件的信息。starter 项目在 **FileProviderItem.swift** 中已经定义了 `FileProviderItem`，在使用它之前需要遵循一些协议。
 
-While this protocol has twenty seven properties, only four are required. The optional properties provide the File Provider framework with more detailed information about each file and enable other capabilities. For this tutorial, you’ll focus on the required properties: `itemIdentifier`, `parentItemIdentifier`, `filename` and `typeIdentifier`.
+虽然该协议含有 27 个属性，但我们只需要其中 4 个。可选的一些属性为 File Provider 提供有关每个文件的详细信息以及一些其他功能。在本教程中，你将用到以四个属性：`itemIdentifier`，`parentItemIdentifier`，`filename` 和 `typeIdentifier`。
 
-`itemIdentifier` provides a uniquely identifiable key for the model. The File Provider uses `parentIdentifier` to keep track of its place in the extension’s hierarchy.
+`itemIdentifier` 给模型提供了唯一可识别的密钥。File Provider 使用 `parentIdentifier` 来跟踪它在扩展的层次结构中的位置。
 
-`filename` is the item’s name as displayed in the **Files/em> app<. finally>typeIdentifier is the [uniform type identifier](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html), or UTI, for the item.**
+`filename` 是 **Files** 里显示的 App 名字。
+`typeIdentifier` 是 item 的 [统一类型标识符（UTI）](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html)。
 
-Before `FileProviderItem` can conform to `NSFileProviderItem`, it needs a way to work with the data coming from the back end. `MediaItem` defines a simple model that returns from the back end. Instead of using this model directly inside `FileProviderItem`, `MediaItemReference` will handle some additional logic for the extension to bridge the gap.
+在 `FileProviderItem` 可以遵循 `NSFileProviderItem` 协议，它需要一个处理来自后端的数据的方法。`MediaItem` 定义了一个后端数据的简单模型。我们并不是直接在 `FileProviderItem` 中使用这个模型，而是使用 `MediaItemReference` 来处理 File Provider 扩展的一些额外逻辑从而把其中的坑填上。
 
-You’ll use `MediaItemReference` in this tutorial for two reasons:
+你将在本教程中使用 `MediaItemReference` 有两个原因：
 
-1.  The back end hosted on Heroku is simple. It can’t provide all of the information required by `NSFileProviderItem` so you need to get it elsewhere.
-2.  The File Provider extension is also going to be simple. A more complete File Provider extension would need to persist the information returned by the back end locally, using something like Core Data, in order to refer to it later in the extension’s lifecycle.
+1. 在 Heroku 上托管的后端非常简洁，它无法提供 `NSFileProviderItem` 所需的所有信息，因此你需要在其他地方获取它。
+2. 这个 File Provider 扩展也很简单，更完整的 File Provider 扩展需要使用诸如 Core Data 之类的东西在本地持久化存储后端返回的数据，让它能在该扩展的生命周期结束后引用它。
 
-To keep the focus of the tutorial on the File Provider extension itself, you’ll use `MediaItemReference` to **cheat** by embedding the data for the four required properties into a `URL` object. You’ll then base64-encode that URL into a `NSFileProviderItemIdentifier`. You won’t need to persist anything yourself because `NSFileProviderExtension` will handle it for you.
+为了将教程的重心放到 File Provider 扩展本身上，你将使用 `MediaItemReference` 来快速入门，你需要将四个必填字段嵌入到 `URL` 对象中。然后将该 URL 编码成 `NSFilProviderItemIdentifier`。你不需要手动存储其他东西，因为 `NSFileProviderExtension` 会为你处理它。
 
-To start constructing the model open **Provider/MediaItemReference.swift** and add the following in `MediaItemReference`:
+打开 **Provider/MediaItemReference.swift** 并把以下代码添加到 `MediaItemReference` 里：
 
 ```swift
 // 1
@@ -89,194 +90,181 @@ private let urlRepresentation: URL
 
 // 2
 private var isRoot: Bool {
-  return urlRepresentation.path == "/"
+    return urlRepresentation.path == "/"
 }
 
 // 3
 private init(urlRepresentation: URL) {
-  self.urlRepresentation = urlRepresentation
+    self.urlRepresentation = urlRepresentation
 }
 
 // 4
 init(path: String, filename: String) {
-  let isDirectory = filename.components(separatedBy: ".").count == 1
-  let pathComponents = path.components(separatedBy: "/").filter {
-    !$0.isEmpty
-  } + [filename]
-  
-  var absolutePath = "/" + pathComponents.joined(separator: "/")
-  if isDirectory {
-    absolutePath.append("/")
-  }
-  absolutePath = absolutePath.addingPercentEncoding(
-    withAllowedCharacters: .urlPathAllowed
-  ) ?? absolutePath
-  
-  self.init(urlRepresentation: URL(string: "itemReference://\(absolutePath)")!)
+    let isDirectory = filename.components(separatedBy: ".").count == 1
+    let pathComponents = path.components(separatedBy: "/").filter { !$0.isEmpty } + [filename]
+
+    var absolutePath = "/" + pathComponents.joined(separator: "/")
+    if isDirectory {
+        absolutePath.append("/")
+    }
+    absolutePath = absolutePath.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? absolutePath
+
+    self.init(urlRepresentation: URL(string: "itemReference://\(absolutePath)")!)
 }
 ```
 
-Here’s what you did:
+以下是代码的详解：
 
-1.  For this tutorial, a URL will represent most of the information needed for the `NSFileProviderItem`.
-2.  This computed property determines if the current item is the root of the file system.
-3.  You made this initializer private to prevent usage from outside the model.
-4.  You’ll use this initializer when reading the data from the back end. You assume that if the filename doesn’t contain a period it must be a directory, since the initializer can’t infer its type.
+1. 在本教程中，URL 将包含 `NSFileProviderItem` 所需的大部分信息。
+2. 此计算属性判断当前项是否是文件系统的根目录。
+3. 你将此初始化方法设为私有以防止从模型外部调用。
+4. 从后端读取数据时，你将调用此初始化方法。如果文件名不包含点，则它必须是目录，因为初始化方法并不能自动推断其类型。
 
-Before adding the final initializer, replace the import statement at the top of the file with the following:
+在添加最终初的始化器之前，请把文件顶部的 import 语句替换成：
 
 ```swift
 import FileProvider
 ```
 
-Next, add the following initializer below the previous code:
+接下来在刚刚那段代码下面添加以下初始化器：
 
 ```swift
 init?(itemIdentifier: NSFileProviderItemIdentifier) {
-  guard itemIdentifier != .rootContainer else {
-    self.init(urlRepresentation: URL(string: "itemReference:///")!)
-    return
-  }
-  
-  guard 
-    let data = Data(base64Encoded: itemIdentifier.rawValue),
-    let url = URL(dataRepresentation: data, relativeTo: nil) 
+    guard itemIdentifier != .rootContainer else {
+        self.init(urlRepresentation: URL(string: "itemReference:///")!)
+        return
+    }
+
+    guard let data = Data(base64Encoded: itemIdentifier.rawValue),
+        let url = URL(dataRepresentation: data, relativeTo: nil)
     else {
-      return nil
-  }
-  
-  self.init(urlRepresentation: url)
+        return nil
+    }
+
+    self.init(urlRepresentation: url)
 }
 ```
 
-Most of the extension will use this initializer. Take note of the scheme `itemReference://`. You handle the root container identifier separately to ensure its URL path is properly set.
+大部分扩展都将使用此初始化器。注意开头的 `itemReference://`。你可以单独处理根目录的标识符以确保能正确设置其 URL 的路径。
 
-For the other items, the URL representation is retrieved by converting the raw value of the identifier to base64-encoded data. The information in the URL comes from the network request that first enumerated the instance.
+对于其他项，你可以将标识符的原始值转换为 base64 编码后的数据来检索 URL。URL 中的信息来自第一次对实例进行枚举的网络请求。
 
-Now that the initializers are out of the way, it’s time to add some properties to this model. First, add the following `import` at the top of the file:
+既然现在初始化器已经设置好了，是时候为这个模型添加一些属性了。首先，在文件顶部添加如下 `import`：
 
 ```swift
 import MobileCoreServices
 ```
 
-This provides access to file types. Next, add the following at the end of the struct:
+这将让你可以访问文件类型，在这个结构体里继续添加：
 
 ```swift
 // 1
 var itemIdentifier: NSFileProviderItemIdentifier {
-  if isRoot {
-    return .rootContainer
-  } else {
-    return NSFileProviderItemIdentifier(
-      rawValue: urlRepresentation.dataRepresentation.base64EncodedString()
-    )
-  }
+    if isRoot {
+        return .rootContainer
+    } else {
+        return NSFileProviderItemIdentifier(rawValue: urlRepresentation.dataRepresentation.base64EncodedString())
+    }
 }
 
 var isDirectory: Bool {
-  return urlRepresentation.hasDirectoryPath
+    return urlRepresentation.hasDirectoryPath
 }
 
 var path: String {
-  return urlRepresentation.path
+    return urlRepresentation.path
 }
 
 var containingDirectory: String {
-  return urlRepresentation.deletingLastPathComponent().path
+    return urlRepresentation.deletingLastPathComponent().path
 }
 
 var filename: String {
-  return urlRepresentation.lastPathComponent
+    return urlRepresentation.lastPathComponent
 }
 
 // 2
 var typeIdentifier: String {
-  guard !isDirectory else {
-    return kUTTypeFolder as String
-  }
-  
-  let pathExtension = urlRepresentation.pathExtension
-  let unmanaged = UTTypeCreatePreferredIdentifierForTag(
-    kUTTagClassFilenameExtension,
-    pathExtension as CFString,
-    nil
-  )
-  let retained = unmanaged?.takeRetainedValue()
-  
-  return (retained as String?) ?? ""
+    guard !isDirectory else {
+        return kUTTypeFolder as String
+    }
+
+    let pathExtension = urlRepresentation.pathExtension
+    let unmanaged = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as CFString, nil)
+    let retained = unmanaged?.takeRetainedValue()
+
+    return (retained as String?) ?? ""
 }
 
 // 3
 var parentReference: MediaItemReference? {
-  guard !isRoot else {
-    return nil
-  }
-  return MediaItemReference(
-    urlRepresentation: urlRepresentation.deletingLastPathComponent()
-  )
+    guard !isRoot else {
+        return nil
+    }
+    return MediaItemReference(urlRepresentation: urlRepresentation.deletingLastPathComponent())
 }
 ```
 
-Keep in mind:
+你需要知道记住以下几点：
 
-1.  `itemIdentifier` must be unique per item managed by the FileProvider. If the item reference is the root, then it uses `NSFileProviderItemIdentifier.rootContainer`. If not, it creates an identifier from the reference’s URL.
-2.  Here it creates an identifier based on the path extension of the URL. The odd looking `UTTypeCreatePreferredIdentifierForTag` is a C function that returns a UTI type for a given input.
-3.  When working in a directory structure, it’s useful to reference the parent. This represents the folder that contains the current reference. It’s optional because the root reference doesn’t have a parent.
+1. 对于 FileProvider 管理的每一项，`itemIdentifier` 必须是唯一的。如果是根目录，那么它使用 `NSFileProviderItemIdentifier.rootContainer`，否则从 URL 创建一个标识符。
+2. 这里它根据拓展路径的 URL 创建一个标识符，看上去很奇怪的 `UTTypeCreatePreferredIdentifierForTag` 实际上是一个返回给定输入的 UTI 类型的 C 函数。
+3. 在处理目录型结构时，对于父级的引用非常有用。这个属性表示了包含当前引用的文件夹。它是一个可选类型，因为根目录是没有父级的。
 
-You added a few additional properties here that don’t require much explanation but will be useful when creating a `NSFileProviderItem`. With that, the reference model is complete. It’s time to hook everything up in `FileProviderItem`.
+你在此处添加了一些其他属性，这些属性不需要太多解释，但在创建 `NSFileProviderItem` 时非常有用。现在参考模型已经创建完成了，是时候把所有东西与 `FileProviderItem` 进行挂钩了。
 
-Open **FileProviderItem.swift** and add the following at the top of the file:
+打开 **FileProviderItem.swift** 并在顶部添加：
 
 ```swift
 import FileProvider
 ```
 
-Then, add the following to the bottom of the file, outside the class implementation:
+然后在文件的最底部添加：
 
 ```swift
 // MARK: - NSFileProviderItem
 
 extension FileProviderItem: NSFileProviderItem {
-  // 1
-  var itemIdentifier: NSFileProviderItemIdentifier {
-    return reference.itemIdentifier
-  }
-  
-  var parentItemIdentifier: NSFileProviderItemIdentifier {
-    return reference.parentReference?.itemIdentifier ?? itemIdentifier
-  }
-  
-  var filename: String {
-    return reference.filename
-  }
-  
-  var typeIdentifier: String {
-    return reference.typeIdentifier
-  }
-  
-  // 2
-  var capabilities: NSFileProviderItemCapabilities {
-    if reference.isDirectory {
-      return [.allowsReading, .allowsContentEnumerating]
-    } else {
-      return [.allowsReading]
+    // 1
+    var itemIdentifier: NSFileProviderItemIdentifier {
+        return reference.itemIdentifier
     }
-  }
-  
-  // 3
-  var documentSize: NSNumber? {
-    return nil
-  }
+
+    var parentItemIdentifier: NSFileProviderItemIdentifier {
+        return reference.parentReference?.itemIdentifier ?? itemIdentifier
+    }
+
+    var filename: String {
+        return reference.filename
+    }
+
+    var typeIdentifier: String {
+        return reference.typeIdentifier
+    }
+
+    // 2
+    var capabilities: NSFileProviderItemCapabilities {
+        if reference.isDirectory {
+            return [.allowsReading, .allowsContentEnumerating]
+        } else {
+            return [.allowsReading]
+        }
+    }
+
+    // 3
+    var documentSize: NSNumber? {
+        return nil
+    }
 }
 ```
 
-`FileProviderItem` now conforms to `NSFileProviderItem` and implements all required properties. Going through the code:
+`FileProviderItem` 现在已经遵循 `NSFileProviderItem` 并实现了所有必须的属性。以上代码的详解如下：
 
-1.  Most of the required properties simply map over logic you previously added to `MediaItemReference`.
-2.  `NSFileProviderItemCapabilities` indicates what actions can be taken on the item in the document browser – such as reading and deleting. For this app, you only need to allow reading and enumerating directories. In a real-world use case, you’d likely use the `.allowsAll` capability since a user would expect all actions to work.
-3.  This tutorial won’t use the document size, but it’s included to prevent a crash in `NSFileProviderManager.writePlaceholder(at:withMetadata:)`. This is likely a bug with the framework, and fortunately, a typical app’s File Extension would provide a `documentSize` anyway.
+1. 大多数必须的属性映射了你之前添加到 `MediaItemReference` 的逻辑。
+2. `NSFileProviderItemCapabilities` 表示可以对文档浏览器中的项目执行哪些操作，例如读取和删除。对于该 App，你只需要允许读取和枚举目录。在实际项目中，你可能会使用 `.allowsAll`，因为用户希望所有操作都可以进行。
+3. 本教程不会用到文档的大小，把它包含在里面以防止 `NSFileProviderManager.writePlaceholder(at:withMetadata:)` 会崩溃。这可能是框架的一个错误，但是一般情况下 App 的文件扩展无论如何都会提供 `documentSize`。
 
-That’s it for the model. `NSFileProviderItem` has more properties, but what you’ve implemented will suffice for this tutorial.
+以上就是模型，`NSFileProviderItem` 还有更多其他属性，但是你目前实现的已经足够了。
 
 ## Enumerating Documents
 
@@ -296,19 +284,19 @@ Next, replace the contents of `enumerateItems(for:startingAt:)` with the followi
 
 ```swift
 let task = NetworkClient.shared.getMediaItems(atPath: path) { results, error in
-  guard let results = results else {
-    let error = error ?? FileProviderError.noContentFromServer
-    observer.finishEnumeratingWithError(error)
-    return
-  }
+    guard let results = results else {
+        let error = error ?? FileProviderError.noContentFromServer
+        observer.finishEnumeratingWithError(error)
+        return
+    }
 
-  let items = results.map { mediaItem -> FileProviderItem in
-    let ref = MediaItemReference(path: self.path, filename: mediaItem.name)
-    return FileProviderItem(reference: ref)
-  }
+    let items = results.map { mediaItem -> FileProviderItem in
+        let ref = MediaItemReference(path: self.path, filename: mediaItem.name)
+        return FileProviderItem(reference: ref)
+    }
 
-  observer.didEnumerate(items)
-  observer.finishEnumerating(upTo: nil)
+    observer.didEnumerate(items)
+    observer.finishEnumerating(upTo: nil)
 }
 
 currentTask = task
@@ -344,21 +332,20 @@ Next, replace `urlForItem(withPersistentIdentifier:)` and `persistentIdentifierF
 
 ```swift
 // 1
-override func urlForItem(withPersistentIdentifier
-  identifier: NSFileProviderItemIdentifier) -> URL? {
-  guard let item = try? item(for: identifier) else {
-    return nil
-  }
-  
-  return NSFileProviderManager.default.documentStorageURL
-    .appendingPathComponent(identifier.rawValue, isDirectory: true)
-    .appendingPathComponent(item.filename)
+override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
+    guard let item = try? item(for: identifier) else {
+      return nil
+    }
+
+    return NSFileProviderManager.default.documentStorageURL
+      .appendingPathComponent(identifier.rawValue, isDirectory: true)
+      .appendingPathComponent(item.filename)
 }
 
 // 2
 override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
-  let identifier = url.deletingLastPathComponent().lastPathComponent
-  return NSFileProviderItemIdentifier(identifier)
+    let identifier = url.deletingLastPathComponent().lastPathComponent
+    return NSFileProviderItemIdentifier(identifier)
 }
 ```
 
@@ -371,29 +358,21 @@ There are two methods coming up that require you to reference a file placeholder
 
 ```swift
 // 1
-guard 
-  let identifier = persistentIdentifierForItem(at: url),
-  let reference = MediaItemReference(itemIdentifier: identifier) 
-  else {
+guard let identifier = persistentIdentifierForItem(at: url),
+    let reference = MediaItemReference(itemIdentifier: identifier)
+else {
     throw FileProviderError.unableToFindMetadataForPlaceholder
 }
- 
-// 2
-try fileManager.createDirectory(
-  at: url.deletingLastPathComponent(),
-  withIntermediateDirectories: true,
-  attributes: nil
-)
 
-// 3  
+// 2
+try fileManager.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+
+// 3
 let placeholderURL = NSFileProviderManager.placeholderURL(for: url)
 let item = FileProviderItem(reference: reference)
-  
+
 // 4
-try NSFileProviderManager.writePlaceholder(
-  at: placeholderURL,
-  withMetadata: item
-)
+try NSFileProviderManager.writePlaceholder(at: placeholderURL, withMetadata: item)
 ```
 
 Here is what’s going on:
@@ -407,10 +386,10 @@ Next, replace the contents of `providePlaceholder(at:completionHandler:)` with t
 
 ```swift
 do {
-  try providePlaceholder(at: url)
-  completionHandler(nil)
+    try providePlaceholder(at: url)
+    completionHandler(nil)
 } catch {
-  completionHandler(error)
+    completionHandler(error)
 }
 ```
 
@@ -420,13 +399,11 @@ As a user navigates directories, the File Provider will call `enumerator(for:)` 
 
 ```swift
 if containerItemIdentifier == .rootContainer {
-  return FileProviderEnumerator(path: "/")
+    return FileProviderEnumerator(path: "/")
 }
 
-guard 
-  let ref = MediaItemReference(itemIdentifier: containerItemIdentifier),
-  ref.isDirectory 
-  else {
+guard let ref = MediaItemReference(itemIdentifier: containerItemIdentifier), ref.isDirectory
+else {
     throw FileProviderError.notAContainer
 }
 
@@ -451,63 +428,51 @@ Add the following below `enumerator(for:)`:
 
 ```swift
 // MARK: - Thumbnails
-  
-override func fetchThumbnails(
-  for itemIdentifiers: [NSFileProviderItemIdentifier],
-  requestedSize size: CGSize,
-  perThumbnailCompletionHandler: 
-    @escaping (NSFileProviderItemIdentifier, Data?, Error?) -> Void,
-  completionHandler: @escaping (Error?) -> Void) 
-    -> Progress {
-  // 1
-  let progress = Progress(totalUnitCount: Int64(itemIdentifiers.count))
 
-  for itemIdentifier in itemIdentifiers {
-    // 2
-    let itemCompletion: (Data?, Error?) -> Void = { data, error in
-      perThumbnailCompletionHandler(itemIdentifier, data, error)
+override func fetchThumbnails(for itemIdentifiers: [NSFileProviderItemIdentifier], requestedSize size: CGSize,
+                              perThumbnailCompletionHandler: @escaping (NSFileProviderItemIdentifier, Data?, Error?) -> Void,
+                              completionHandler: @escaping (Error?) -> Void) -> Progress {
+    // 1
+    let progress = Progress(totalUnitCount: Int64(itemIdentifiers.count))
 
-      if progress.isFinished {
-        DispatchQueue.main.async {
-          completionHandler(nil)
+    for itemIdentifier in itemIdentifiers {
+        // 2
+        let itemCompletion: (Data?, Error?) -> Void = { data, error in
+            perThumbnailCompletionHandler(itemIdentifier, data, error)
+
+            if progress.isFinished {
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
         }
-      }
-    }
 
-    guard 
-      let reference = MediaItemReference(itemIdentifier: itemIdentifier),
-      !reference.isDirectory 
-      else {
-        progress.completedUnitCount += 1
+        guard let reference = MediaItemReference(itemIdentifier: itemIdentifier), !reference.isDirectory
+        else {
+            progress.completedUnitCount += 1
 
-        let error = NSError.fileProviderErrorForNonExistentItem(
-          withIdentifier: itemIdentifier
-        )
-        itemCompletion(nil, error)
-        continue
-    }
-
-    let name = reference.filename
-    let path = reference.containingDirectory
-
-    // 3
-    let task = NetworkClient.shared
-      .downloadMediaItem(named: name, at: path) { url, error in
-        guard 
-          let url = url,
-          let data = try? Data(contentsOf: url, options: .alwaysMapped) 
-          else {
+            let error = NSError.fileProviderErrorForNonExistentItem(withIdentifier: itemIdentifier)
             itemCompletion(nil, error)
-            return
+            continue
         }
-        itemCompletion(data, nil)
+
+        let name = reference.filename
+        let path = reference.containingDirectory
+
+        // 3
+        let task = NetworkClient.shared.downloadMediaItem(named: name, at: path) { url, error in
+            guard let url = url, let data = try? Data(contentsOf: url, options: .alwaysMapped) else {
+                itemCompletion(nil, error)
+                return
+            }
+            itemCompletion(data, nil)
+        }
+
+        // 4
+        progress.addChild(task.progress, withPendingUnitCount: 1)
     }
 
-    // 4
-    progress.addChild(task.progress, withPendingUnitCount: 1)
-  }
-
-  return progress
+    return progress
 }
 ```
 
@@ -537,43 +502,37 @@ Like the thumbnail generation, there is only a single method needed to view an i
 ```swift
 // MARK: - Providing Items
 
-override func startProvidingItem(
-  at url: URL, 
-  completionHandler: @escaping ((_ error: Error?) -> Void)) {
-  // 1
-  guard !fileManager.fileExists(atPath: url.path) else {
-    completionHandler(nil)
-    return
-  }
-
-  // 2
-  guard 
-    let identifier = persistentIdentifierForItem(at: url),
-    let reference = MediaItemReference(itemIdentifier: identifier) 
-    else {
-      completionHandler(FileProviderError.unableToFindMetadataForItem)
-      return
-  }
-
-  // 3
-  let name = reference.filename
-  let path = reference.containingDirectory
-  NetworkClient.shared
-    .downloadMediaItem(named: name, at: path, isPreview: false) { fileURL, error in
-    // 4
-    guard let fileURL = fileURL else {
-      completionHandler(error)
-      return
+override func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
+    // 1
+    guard !fileManager.fileExists(atPath: url.path) else {
+        completionHandler(nil)
+        return
     }
 
-    // 5
-    do {
-      try self.fileManager.moveItem(at: fileURL, to: url)
-      completionHandler(nil)
-    } catch {
-      completionHandler(error)
+    // 2
+    guard let identifier = persistentIdentifierForItem(at: url), let reference = MediaItemReference(itemIdentifier: identifier) else {
+        completionHandler(FileProviderError.unableToFindMetadataForItem)
+        return
     }
-  }
+
+    // 3
+    let name = reference.filename
+    let path = reference.containingDirectory
+    NetworkClient.shared.downloadMediaItem(named: name, at: path, isPreview: false) { fileURL, error in
+        // 4
+        guard let fileURL = fileURL else {
+            completionHandler(error)
+            return
+        }
+
+        // 5
+        do {
+            try self.fileManager.moveItem(at: fileURL, to: url)
+            completionHandler(nil)
+        } catch {
+            completionHandler(error)
+        }
+    }
 }
 ```
 
