@@ -2,18 +2,18 @@
 > * 原文作者：[Prasanth Janardanan](http://blog.gsmart.in/author/prasanth3628/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/es6-and-npm-modules-in-google-apps-script.md](https://github.com/xitu/gold-miner/blob/master/TODO1/es6-and-npm-modules-in-google-apps-script.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xingqiwu55555](https://github.com/xingqiwu55555)
+> * 校对者：[Baddyo](https://github.com/Baddyo) [shixi-li](https://github.com/shixi-li)
 
 # 在 Google Apps 脚本中使用 ES6 和 npm 模块
 
 > 所有的 JavaScript 开发者都应该对 Google 的 Apps 脚本感兴趣。  
-> Apps 脚本有利于实现自动化。通过它，你可以直接访问 Google 的很多服务，比如 Google 表格，Google 邮箱，Google 文档和 Google 日历等。
+> Apps 脚本有利于实现自动化。通过它，你可以直接访问 Google 的很多服务，比如 Google 表格、Google 邮箱、Google 文档和 Google 日历等。
 > 只需要一点点想象力，你就可以使用 Google Apps 脚本创建非常激动人心的 Apps 和 插件。
 
 与首先要求你提供信用卡的 AppEngine 不同，Apps 脚本目前仍是免费的。至少，Apps 脚本适用于快速创建“概念验证”模型或原型。
 
-Apps 脚本有不同的用例。它主要用于为 Google 表格，文档，或表单创建插件。但是，它也可以创建“独立”的 web 应用。
+Apps 脚本有不同的用例。它主要用于为 Google 表格、文档或表单创建插件。但是，它也可以创建“独立”的 web 应用。
 
 我们将探究创建独立的 web 应用这一使用场景。
 
@@ -23,7 +23,7 @@ Apps 脚本有不同的用例。它主要用于为 Google 表格，文档，或�
 2. 没有直接的方式来使用 npm modules（但还是有办法可用的，下面我会向你展示）。
 3. 创建一个好的 UI 界面（使用 bootstrap、Vue，甚至是自定义 CSS）是相当困难的。我们必须找到将自定义脚本内联到 HTML 页面中的方法。
 4. 你的 web app 的访问地址将会是一串冗长而丑陋的 URL。难以分享，更别提用这样的地址提供商业服务。
-5. “Apps 脚本” 这个名字真让人难受。顺便说一下，正确的名字确实是 “Apps” 后面跟空格，然后是 “Script”。对于这件事来说，没有比这更缺乏想象力的名字了。有些人可能喜欢这个名字，但我还没有遇到声称喜欢它的人！ 当你在网上搜索 Apps 脚本功能的参考或示例时，你会更加讨厌它。有一个流行的缩略：GAS  （Google Apps Script）。 但是，如果你搜索“在表格中使用 GAS”，我真的怀疑就连 Google 自己也不能弄明白。
+5. “Apps 脚本” 这个名字真让人难受。顺便说一下，正确的名字确实是 “Apps” 后面跟空格，然后是 “Script”。对于这件事来说，没有比这更缺乏想象力的名字了。有些人可能喜欢这个名字，但我还没有遇到声称喜欢它的人！ 当你在网上搜索 Apps 脚本功能的参考或示例时，你会更加讨厌它。有一个流行的缩略：GAS （Google Apps Script）。但是，如果你搜索“在表格中使用 GAS”，我真的怀疑就连 Google 自己也不能弄明白。
 
 本系列文章旨在规避 Apps 脚本的限制，并为“独立”的 web apps 和插件添加一些非常棒的功能。
 
@@ -106,7 +106,7 @@ clasp open  --webapp
 
 ## 创建包 —— 使用 WebPack 和 Babel
 
-接下来我们在 Apps 脚本中使用 [ES6](https://en.wikipedia.org/wiki/ECMAScript)。我们将使用 [babel](https://babeljs.io/) 对 ES6 进行编译并使用 [webpack](https://webpack.js.org/) 对生成的代码进行分块打包。
+接下来我们在 Apps 脚本中使用 [ES6](https://en.wikipedia.org/wiki/ECMAScript)。我们将使用 [babel](https://babeljs.io/) 对 ES6 进行编译并使用 [webpack](https://webpack.js.org/) 并对生成的代码进行分块打包。
 
 我这有一个简单的 Apps 脚本项目：
 
@@ -116,7 +116,7 @@ clasp open  --webapp
 
 ![](http://blog.gsmart.in/wp-content/uploads/2019/03/word-image-90.png)
 
-“server” 子文件夹包含代码。api.js 文件包暴露给 Apps 脚本的函数。
+“server” 子文件夹包含代码。api.js 文件包含暴露给 Apps 脚本的函数。
 
 在 **lib.js** 文件里我们会看到 es6 代码。在 lib 模块，我们可以引入其他 es6 文件和 npm 包。
 
@@ -390,15 +390,14 @@ npm run deploy
 
 封装 Google APIs、Gmail、Google 表格、Google Docs和其它公共的 API 的包，将会带来很多的乐趣！
 
-另一个重要的部分还没说到。目前我们看到 web 应用只是一个简单的文本界面。试试使用现代化 CSS 框架，bootstrap，bulma，material design 以及 VueJS，React，并用 Apps 脚本创建一些单页面 Web 应用？对，我们会这样做的。我们会在客户端使用 bootstrap、Vuejs，在服务端使用 Apps 脚本，并构建一个单页应用。
+另一个重要的部分还没说到。目前我们看到 web 应用只是一个简单的文本界面。试试使用现代化 CSS 框架，bootstrap、bulma、material design 以及 VueJS 和 React，并用 Apps 脚本创建一些单页面 Web 应用？对，我们会这样做的。我们会在客户端使用 bootstrap 和 Vuejs，在服务端使用 Apps 脚本，并构建一个单页应用。
 
 多么令人兴奋啊！请继续关注本系列的文章。
 
 ### 更新
 
 在第二部分，我们将使用 bootstrap 和 VueJS 构建我们的 web 应用的客户端。点击此处阅读全部：  
-
-- [在 Google Apps 脚本中（使用 Vue 和 Bootstrap）构建单页应用](http://blog.gsmart.in/single-page-apps-vue-bootstrap-on-google-apps-script/)
+[在 Google Apps 脚本中（使用 Vue 和 Bootstrap）构建单页应用](http://blog.gsmart.in/single-page-apps-vue-bootstrap-on-google-apps-script/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
