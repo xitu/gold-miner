@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/designing-sound-and-silence.md](https://github.com/xitu/gold-miner/blob/master/TODO1/designing-sound-and-silence.md)
 > * 译者：[CLOXnu](https://github.com/CLOXnu/)
-> * 校对者：
+> * 校对者：[Baddyo](https://github.com/Baddyo), [Charlo-O](https://github.com/Charlo-O)
 
 # 声音设计与无声设计
 
