@@ -327,8 +327,6 @@ export default ({ vector, text, color, project }) => {
 }
 ```
 
-[Next part ->](https://medium.com/@geekrodion/linear-algebra-vectors-f7610e9a0f23)
-
 ***
 
 A lot of interesting stuff can be done by combining **React** and **SVG**, and in this series, we are going to add more features to this project to visualize examples that are coming next. There is also a similar article, about making of sophisticated bar charts with **React** and **SVG**, you can check out it [here](https://medium.com/@geekrodion/bar-chart-with-react-3b20b7907633).
