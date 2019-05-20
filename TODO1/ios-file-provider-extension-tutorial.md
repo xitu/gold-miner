@@ -9,7 +9,7 @@
 
 在本教程中，你将学习 File Provider 拓展以及如何使用它把你 App 的内容暴露出来。
 
-File Provider 在 iOS 11 中引进，它通过 iOS 的 **Files** App 来访问你 App 管理的内容。此外，其他 App 也可以使用 [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) 或 [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) 类来访问你 App 的数据。
+File Provider 在 iOS 11 中引进，它通过 iOS 的 **文件** App 来访问你 App 管理的内容。此外，其他 App 也可以使用 [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) 或 [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) 类来访问你 App 的数据。
 
 File Provider 拓展的主要任务是：
 
@@ -27,7 +27,7 @@ File Provider 拓展的主要任务是：
 
 ![The container app for your File Provider.](https://koenig-media.raywenderlich.com/uploads/2019/01/01-container-app-281x500.png)
 
-该 App 提供了一个基础的 View 来告诉用户如何启用 File Provider 扩展，因为你实际上不会在 App 内执行任何操作。每次在本教程中编译运行 App 时，你都将返回主屏幕并打开 **Files** 这个 App 来访问你的扩展。
+该 App 提供了一个基础的 View 来告诉用户如何启用 File Provider 扩展，因为你实际上不会在 App 内执行任何操作。每次在本教程中编译运行 App 时，你都将返回主屏幕并打开 **文件** 这个 App 来访问你的扩展。
 
 > **注意**：如果要在真机上运行该项目，除了为两个 target 设置开发者信息外，还需要在 **Configuration** 文件夹中编辑 **Favart.xcconfig**。将 Bundle ID 更新为唯一值。
 >
@@ -70,7 +70,7 @@ File Provider 拓展的主要任务是：
 
 `itemIdentifier` 给模型提供了唯一可识别的密钥。File Provider 使用 `parentIdentifier` 来跟踪它在扩展的层次结构中的位置。
 
-`filename` 是 **Files** 里显示的 App 名字。
+`filename` 是 **文件** 里显示的 App 名字。
 `typeIdentifier` 是 item 的 [统一类型标识符（UTI）](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html)。
 
 在 `FileProviderItem` 可以遵循 `NSFileProviderItem` 协议，它需要一个处理来自后端的数据的方法。`MediaItem` 定义了一个后端数据的简单模型。我们并不是直接在 `FileProviderItem` 中使用这个模型，而是使用 `MediaItemReference` 来处理 File Provider 扩展的一些额外逻辑从而把其中的坑填上。
@@ -266,21 +266,21 @@ extension FileProviderItem: NSFileProviderItem {
 
 以上就是模型，`NSFileProviderItem` 还有更多其他属性，但是你目前实现的已经足够了。
 
-## Enumerating Documents
+## 枚举文件
 
-Now that the model is in place, it’s time to put it to use. To display the items defined by the model to the user, you need to tell the system about your app’s content.
+现在模型已经完善好了，可以拿来使用了。你需要告诉系统你 App 里有什么内容才能向用户展示模型。
 
-`NSFileProviderEnumerator` defines the relationship between the system and the app’s content. In a bit, you’ll see how the system requests an enumerator by providing an `NSFileProviderItemIdentifier` which represents the current context. If the user is viewing the root of your extension, the system will supply the `.rootContainer` identifier. When the user navigates inside a directory, the system then passes in the identifier for that item defined by your model.
+`NSFileProviderEnumerator` 定义系统和 App 内容间的关系。你稍后将看到系统是如何通过提供表示当前上下文的 `NSFileProviderItemIdentifier` 从而请求枚举器的。如果用户当前在根目录下，系统将会提供 `.rootContainer` 标识符。在其他目录下时，系统则会传入你模型定义的项目的标识符。
 
-First, you’ll build out the enumerator provided in the starter. Open **Provider/FileProviderEnumerator.swift** and add the following below `path`:
+首先，在 starter 里构建枚举器。打开 **Provider/FileProviderEnumerator.swift** 并在 `path` 下添加：
 
 ```swift
 private var currentTask: URLSessionTask?
 ```
 
-This property will store a reference to the current network task. This provides the ability to cancel the request.
+此属性将存储对当前网络请求任务的引用。这提可以让你随时取消请求。
 
-Next, replace the contents of `enumerateItems(for:startingAt:)` with the following:
+接下来把 `enumerateItems(for:startingAt:)` 里的内容替换成：
 
 ```swift
 let task = NetworkClient.shared.getMediaItems(atPath: path) { results, error in
@@ -302,39 +302,39 @@ let task = NetworkClient.shared.getMediaItems(atPath: path) { results, error in
 currentTask = task
 ```
 
-Here, the provided network client code fetches all the items at a specified path. Upon a successful request, the enumerator’s observer returns new data by calling `didEnumerate` followed by `finishEnumerating(upTo:)` to indicate the end of the batch of items. It notifies the enumerator’s observer if an error occurs from the request by calling `finishEnumeratingWithError`.
+这里实现了 NetworkClient 单例获取指定路径的内容。请求成功后，枚举器的观察者通过调用 `didEnumerate` 和 `finishEnumerating(upTo:)` 来返回新的数据。通过 `finishEnumeratingWithError` 来通知枚举器的观察者请求到的结果是否有错误。
 
-> **Note**: A production application might use pagination to fetch data. It would use the `NSFileProviderPage` method parameter to do this. In this scenario, an application would use integers as page indices which would then get serialized and stored in the `NSFileProviderPage` struct.
+> **注意**：实际的 App 可能使用分页来获取数据，这就会用到 `NSFileProviderPage` 来执行此操作。首先 App 将使用整数作为页面索引，然后将其序列化并存储在 `NSFileProviderPage` 结构体中。
 
-The last step in completing the enumerator is to add the following to `invalidate()`:
+最后你讲把下面的内容添加到 `invalidate()` 来完成这个枚举器：
 
 ```swift
 currentTask?.cancel()
 currentTask = nil
 ```
 
-This will cancel the current network request if needed. It’s always a good idea to be conscious of resource use on a user’s device, such as networking or location access.
+如果有需要，那就会取消当前的网络请求，因为有些情况下可能需要访问用户的网络状态或者当前的位置，也可能是一些一些资源的使用情况。
 
-With that method complete, it’s time to use this enumerator to access data stored in the back end. The remainder of the app’s logic will go inside your `FileProviderExtension` class.
+完成该方法后，你就可以使用此枚举器访问后端服务器的数据，接下来就会进入 `FileProviderExtension` 类。
 
-Open **Provider/FileProviderExtension.swift** and replace the contents of `item(for:)` with the following:
+打开 **Provider/FileProviderExtension.swift** 并把 `item(for:)` 的代码替换成：
 
 ```swift
 guard let reference = MediaItemReference(itemIdentifier: identifier) else {
-  throw NSError.fileProviderErrorForNonExistentItem(withIdentifier: identifier)
+    throw NSError.fileProviderErrorForNonExistentItem(withIdentifier: identifier)
 }
 return FileProviderItem(reference: reference)
 ```
 
-The system provides the identifier passed to this method, and you return a `FileProviderItem` for that identifier. The guard statement ensures the identifier creates a valid `MediaItemReference`.
+系统会提供 identifier 参数，并且你需要给那个 identifier 返回一个 `FileProviderItem`。这个 guard 语句确保了创建的 `MediaItemReference` 是有效的。
 
-Next, replace `urlForItem(withPersistentIdentifier:)` and `persistentIdentifierForItem(at:)` with the following:
+接下来，把 `urlForItem(withPersistentIdentifier:)` 和 `persistentIdentifierForItem(at:)` 替换成以下内容：
 
 ```swift
 // 1
 override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
     guard let item = try? item(for: identifier) else {
-      return nil
+        return nil
     }
 
     return NSFileProviderManager.default.documentStorageURL
@@ -349,12 +349,12 @@ override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIden
 }
 ```
 
-Going over this:
+以下是代码详解：
 
-1.  You validate the item to ensure that the given identifier resolves to an instance of the extension’s model. You then return a file URL specifying where to store the item within the file manager’s document storage directory.
-2.  Each URL returned by `urlForItem(withPersistentIdentifier:)` needs to map back to the `NSFileProviderItemIdentifier` it was originally set out to represent. In that method, you built the URL in the format `<documentStorageURL>/<itemIdentifier>/<filename>`, so here you will take the second to last path component as the item identifier.
+1. 验证一下来确保给定的 identifier 能解析为扩展模型的实例。然后返回一个文件 URL，它是将项目存储在文件管理器里的位置。
+2. 由 `urlForItem(withPersistentIdentifier:)` 返回的每个 URL 都需要映射回最初设置的 `NSFileProviderItemIdentifier`。在该方法中，你要以以 `<documentStorageURL>/<itemIdentifier>/<filename>` 的格式构建 URL 并采用 `<itemIdentifier>` 作为项目标识符。
 
-There are two methods coming up that require you to reference a file placeholder URL that references a remote file. First, you’re going to create a helper method to create this placeholder. Add the following to `providePlaceholder(at:)`:
+现在有两个方法都需要你传入一个指向远端文件的占位符 URL 。首先你将创建一个帮助辅助方法来完成这个功能，将以下内容添加到 `providePlaceholder(at:)`：
 
 ```swift
 // 1
@@ -375,14 +375,14 @@ let item = FileProviderItem(reference: reference)
 try NSFileProviderManager.writePlaceholder(at: placeholderURL, withMetadata: item)
 ```
 
-Here is what’s going on:
+以上代码完成的功能如下：
 
-1.  First, you create an identifier and a reference from the provided URL. If that fails, throw an error.
-2.  When creating placeholders, you must ensure the enclosing directory exists or else you’ll run into problems. So, use `NSFileManager` to do so.
-3.  The `url` passed into this method is for the image to be displayed, not the placeholder. So you create a placeholder URL with `placeholderURL(for:)` and obtain the `NSFileProviderItem` that this placeholder will represent.
-4.  Write the placeholder item to the file system.
+1. 首先你从提供的 URL 创建 identifier 和 reference。如果失败了则抛出错误。
+2. 创建占位符时，必须确保这个目录是存在的，否则就会遇到问题，使用 `NSFileManager` 来执行此操作。
+3. 这个 `url` 参数是用来显示图像的，而不是占位符。因此你要使用 `placeholderURL(for:)` 来创建占位符 URL，并获取此占位符将表示的 `NSFileProviderItem`。
+4. 将占位符写入文件系统。
 
-Next, replace the contents of `providePlaceholder(at:completionHandler:)` with the following:
+接下来把 `providePlaceholder(at:completionHandler:)` 的内容替换成：
 
 ```swift
 do {
@@ -393,9 +393,9 @@ do {
 }
 ```
 
-The File Provider will call `providePlaceholder(at:completionHandler:)` when it requires a placeholder URL. In it, you attempt to create a placeholder with the helper you built above, and if there’s an error, you pass it to the `completionHandler`. On success, you don’t need to pass anything – the File Provider just expects you to write the placeholder URL, as you did in `providePlaceholder(at:)`.
+当 File Provider 需要一个占位符 URL 时，它将调用 `providePlaceholder(at:completionHandler:)`。你将尝试使用上面的辅助方法创建占位符，如果抛出错误，则将其传递给 `completionHandler`。就像在 `providePlaceholder(at:)` 中一样，这个步骤成功之后就不需要传递任何内容，File Provider 只需要你的占位符 URL。
 
-As a user navigates directories, the File Provider will call `enumerator(for:)` to ask for a `FileProviderEnumerator` for a given identifier. Replace the contents of this stubbed out method with the following:
+当用户在目录下切换时，File Provider 将调用 `enumerator(for:)` 来请求给定 identifier 的 `FileProviderEnumerator`。用以下内容替换该法的内容：
 
 ```swift
 if containerItemIdentifier == .rootContainer {
@@ -410,21 +410,21 @@ else {
 return FileProviderEnumerator(path: ref.path)
 ```
 
-This method ensures that the item for the supplied identifier is a directory. If the identifier is the root item an enumerator is still created since the root is a valid directory.
+此方法确保了给定 identifier 对应的是一个目录。如果是根目录，则仍然创建枚举器，因为根目录也是有效目录。
 
-Build and run. After the app gets launched, switch to the **Files** app and enable the app’s extension. Tap the **Browse** tab bar item twice to navigate to the root of **Files**. Select **More Locations** and toggle **Provider**, which is the name of the extension.
+编译并运行，App 启动后，打开 **文件** App 并启用扩展程序。点击两次右下角的 **浏览**，你就会进入 **文件** 的根目录。选择 **更多位置** 里的 **提供者** 并启用该拓展。
 
-> **Note**: If you couldn’t find **Provider** listed under **More Locations**, tap the **Edit** button in the top right corner to ensure that the disabled extensions show in the list.
+> **注意**： If you couldn’t find **Provider** listed under **More Locations**, tap the **Edit** button in the top right corner to ensure that the disabled extensions show in the list.如果找不到 **更多位置** 下列出的 **提供者**，请点击右上角的 **编辑** 按钮，确保列表中显示已禁用的扩展名。
 
 ![First look at the extension.](https://koenig-media.raywenderlich.com/uploads/2019/01/04-first-enumeration-281x500.png)
 
-You now have a working File Provider extension! There are a few important things missing, but you’ll add those next.
+你现在有一个有效的 File Provider 扩展了，但是还缺少一些重要的东西，接下来你将添加它们。
 
-## Providing Thumbnails
+## 提供缩略图
 
-Since this app should show images from the back end, it’s important to show thumbnails for the images. There is a single method to override that will take care of thumbnail generation for the extension.
+因为 App 会显示后端请求来的图片，因此显示出图像的缩略图非常重要，你可以重写一个方法来生成缩略图。
 
-Add the following below `enumerator(for:)`:
+在 `enumerator(for:)` 下面添加：
 
 ```swift
 // MARK: - Thumbnails
@@ -476,28 +476,28 @@ override func fetchThumbnails(for itemIdentifiers: [NSFileProviderItemIdentifier
 }
 ```
 
-While this method is quite lengthy, its logic is simple:
+虽然这种方法非常冗长，但其逻辑很简单：
 
-1.  This method returns a `Progress` object that tracks the state of each thumbnail request.
-2.  It defines a completion block for each `itemIdentifier`. The block will take care of calling each per item block required by this method as well as calling the final block at the end.
-3.  The thumbnail file gets downloaded from the server to a temporary file using the `NetworkClient` included with the starter project. When the download completes, the completion handler passes the downloaded `data` to the `itemCompletion` closure.
-4.  Each download task gets added as a dependency to the parent progress object.
+1. 此方法返回一个 `Progress` 对象，该对象会记录每个缩略图请求的状态。
+2. 它为每个 `itemIdentifier` 定义了一个 completion 闭包，该闭包将负责调用此方法所需的每个项的闭包以及最后调用最后一个闭包。
+3. 使用 starter 项目附带的 `NetworkClient` 将缩略图文件从服务器下载到临时文件。在下载完成后，completion handler 将下载的 `data` 传递给 `itemCompletion` 闭包。
+4. 每个下载任务都作为依赖项添加到父进程对象。
 
-> **Note**: Making an individual network request for each placeholder might take some time when working with larger data sets. So if possible, your back end integration should provide a way to batch download images in a single request.
+> **注意**：在处理较大的数据时，为每个占位符都发出单独的网络请求可能需要耗费一些时间。因此如果可能的话，你的后端应提供单个请求中的批量下载图像方法。
 
-Build and run. Open the extension in **Files** and you should see thumbnails load in.
+编译并运行。打开 **文件** 里的拓展就能看到你的缩略图了：
 
 ![The thumbnails are now working.](https://koenig-media.raywenderlich.com/uploads/2019/03/thumbnails-working-281x500.png)
 
-## Viewing Items
+## 显示完整图片
 
-Right now when you select an item the app presents a blank view without the full image:
+现在当你选择一个项目时，该 App 将会显示一个没有完整图像的空白视图：
 
 ![No content.](https://koenig-media.raywenderlich.com/uploads/2019/01/06-blank-view-281x500.png)
 
-So far, you’ve only implemented the display of preview thumbnails — now it’s time to add the ability to view the full content!
+到目前为止，你只实现了预览缩略图的显示，还需要添加完整图片的显示。
 
-Like the thumbnail generation, there is only a single method needed to view an item’s content and that is `startProvidingItem(at:completionHandler:)`. Add the following to the bottom of the `FileProviderExtension` class:
+与缩略图生成一样，让完整的图片显示只需要一个方法，即 `startProvidingItem(at:completionHandler:)`。将以下内容添加到 `FileProviderExtension` 类的底部：
 
 ```swift
 // MARK: - Providing Items
@@ -536,46 +536,46 @@ override func startProvidingItem(at url: URL, completionHandler: @escaping ((_ e
 }
 ```
 
-Here’s what this code does:
+以上的代码功能是：
 
-1.  Checks if an item already exists at the specified URL to prevent requesting the same data again. In a real world case use, you should check modification dates and file versions to be sure that you have the latest data. However, there is no need to do that in this tutorial since it doesn’t support versioning.
-2.  Obtains the `MediaItemReference` for the associated `URL` so you know which file you need to fetch from the back end.
-3.  Extracts the name and path from the reference to request the file contents from the back end.
-4.  Fails if there was an error downloading the file.
-5.  Moves the file from its temporary download directory into the document storage URL specified by the extension.
+1. 检查指定 URL 中是否已存在某项，防止再次请求相同的数据。在实际项目中，你应该检查修改日期和文件版本号，确保你获得的是最新数据。但是，在本教程中没有必要这样做，因为它并不支持版本控制。
+2. 获取相关 `URL` 的 `MediaItemReference` 来确认需要从后端请求哪个文件。
+3. 从 reference 中提取文件名称和路径，然后进行请求。
+4. 如果下载文件时出错，则把错误传给错误处理闭包。
+5. 将文件从其临时下载目录移动到扩展名指定的文档存储 URL。
 
-Build and run. After opening the extension, select an item to view the full version.
+编译并运行，打开扩展后选择任何一张图，你可以看到完整的图片。
 
 ![A full image is loaded.](https://koenig-media.raywenderlich.com/uploads/2019/01/07-full-doughnut-281x500.png)
 
-As you open more files the extension will need to handle the removal of the downloaded files. The File Provider extension has this feature built in.
+当你打开更多文件时，该扩展程序需要删除已经下载了的文件，File Provider 扩展内置了这个功能。
 
-You must override `stopProvidingItem(at:)` to clean up the file as well as provide a new placeholder for it. Add the following at the bottom of the `FileProviderExtension` class:
+你必须重写 `stopProvidingItem(at:)`，这样才能清理下载了的文件并提供新的占位符。在 `FileProviderExtension` 类的底部添加以下内容：
 
 ```swift
 override func stopProvidingItem(at url: URL) {
-  try? fileManager.removeItem(at: url)
-  try? providePlaceholder(at: url)
+    try? fileManager.removeItem(at: url)
+    try? providePlaceholder(at: url)
 }
 ```
 
-This removes the item, and calls `providePlaceholder(at:)` to generate a new placeholder.
+这样就能删除图片，并调用 `providePlaceholder(at:)` 来生成一个新的占位符。
 
-That completes the most basic functionality of the File Provider. File enumeration, thumbnail previews, and viewing the file content are the essential components of this extension.
+以上就完成了 File Provider 的最基本功能。文件枚举，缩略图预览以及查看文件内容是此扩展的基本组件。
 
-Congratulations, the File Provider is complete and functional!
+到现在为止，你的 File Provider 的功能就齐全了。
 
-## Where to Go From Here?
+## 接下来该干嘛？
 
-You now have an app with a working File Provider extension. The extension can enumerate and view items from a back end.
+你现在已经拥有了一个包含了有效的 File Provider 的 App，这个扩展程序可以枚举以及显示后端服务器的东西。
 
-You can download the completed version of the project using the **Download Materials** button at the top or bottom of this tutorial.
+你可以点击 [下载资源](https://koenig-media.raywenderlich.com/uploads/2019/05/Favart-5-16-19.zip) 来下载完整版的项目。
 
-Learn about more actions you can implement for your File Provider in [Apple’s Documentation about File Providers](https://developer.apple.com/documentation/fileprovider). You can also add custom UI to the File Provider using another extension and you can read more about that [here](https://developer.apple.com/documentation/fileproviderui).
+你可以在 [Apple 关于 File Provider 的文档](https://developer.apple.com/documentation/fileprovider) 中了解更多有关 File Provider 的操作。你还可以使用其他扩展程序将自定义 UI 添加到 File Provider，你可以从 [这里](https://developer.apple.com/documentation/fileproviderui) 可以阅读到更多相关信息。
 
-Checkout this tutorial on [Document-Based Apps](https://www.raywenderlich.com/5244-document-based-apps-tutorial-getting-started) if you’re interested in more ways to work with files on iOS.
+如果你对其他在 iOS 上使用文件的操作感兴趣，你可以查看 的更多方式感兴趣，请查看 [基于文档的 App](https://www.raywenderlich.com/5244-document-based-apps-tutorial-getting-started)。
 
-I hope you enjoyed this tutorial! If you have any questions or comments, please join the discussion below.
+希望你喜欢这个教程！如果您有任何问题或意见，可以加入 [原文](https://www.raywenderlich.com/697468-ios-file-provider-extension-tutorial) 最下面的讨论组。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
