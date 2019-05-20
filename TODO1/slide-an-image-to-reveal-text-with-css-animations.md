@@ -54,7 +54,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  z-index: 2; /* Makes sure this is on top */
+  z-index: 2; /* 确保图片在上 */
 }
 
 /* 第一个 div 中的图片 */
