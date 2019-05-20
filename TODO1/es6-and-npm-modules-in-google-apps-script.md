@@ -397,7 +397,8 @@ npm run deploy
 ### 更新
 
 在第二部分，我们将使用 bootstrap 和 VueJS 构建我们的 web 应用的客户端。点击此处阅读全部：  
-[在 Google Apps 脚本中（使用 Vue 和 Bootstrap）构建单页应用](http://blog.gsmart.in/single-page-apps-vue-bootstrap-on-google-apps-script/)
+
+- [在 Google Apps 脚本中（使用 Vue 和 Bootstrap）构建单页应用](http://blog.gsmart.in/single-page-apps-vue-bootstrap-on-google-apps-script/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
