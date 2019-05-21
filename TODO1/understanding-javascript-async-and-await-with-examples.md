@@ -229,14 +229,14 @@ fn().then(console.log);
 
 我们定义了一个 async 函数 `finishMyTask`，使用 `await` 去等待 `queryDatabase`、`sendEmail`、`logTaskInFile` 的操作结果。
 
-如果我们将 async/await 解决方案与 promise If we contrast this solution with the solutions using promises above, we find that **it is roughly the same line of code**. However, async/await has made it simpler in terms of syntactical complexity. **There aren’t multiple callbacks and `.then` /`.catch` to remember.**
+如果我们将 async/await 解决方案与使用 promise 的方案进行对比之后发现**代码的数量很相近**。但是 async/await 使得代码在语法复杂性方面变得更简单， **不用去记忆多层回调函数以及 `.then` /`.catch` 。**
 
-Now, let’s solve the **challenge of numbers** listed above. Here are two implementations —
+现在，就让我们解决上面所列的打印数字的挑战。下面是两种不同的解决方法 —
 
 ```JavaScript
 const wait = (i, ms) => new Promise(resolve => setTimeout(() => resolve(i), ms));
 
-// Implementation One (Using for-loop)
+// 方法一 （使用 for 循环）
 const printNumbers = () => new Promise((resolve) => {
   let pr = Promise.resolve(0);
   for (let i = 1; i <= 10; i += 1) {
@@ -248,7 +248,7 @@ const printNumbers = () => new Promise((resolve) => {
   resolve(pr);
 });
 
-// Implementation Two (Using Recursion)
+// 方法二 （使用回调）
 
 const printNumbersRecursive = () => {
   return Promise.resolve(0).then(function processNextPromise(i) {
@@ -265,9 +265,9 @@ const printNumbersRecursive = () => {
 };
 ```
 
-If you want, you can run them yourself at [**repl.it**** console**](https://repl.it/@ArfatSalman1/blogsequentialnumbers).
+你可以在 [**repl.it**** console**](https://repl.it/@ArfatSalman1/blogsequentialnumbers)上运行上面的代码。
 
-If you were allowed async function, the task would have been much simpler.
+如果允许你使用 async 函数，那么这个挑战解决起来将会简单的多。
 
 ```
 async function printNumbersUsingAsync() {
@@ -278,11 +278,11 @@ async function printNumbersUsingAsync() {
 }
 ```
 
-This implementation is also provided in the **repl.it** [**console**](https://repl.it/@ArfatSalman1/blogsequentialnumbers).
+同样，该方法也可以在 **repl.it** [**console**](https://repl.it/@ArfatSalman1/blogsequentialnumbers)上运行。
 
-## Error Handling
+## 错误处理
 
-As we saw in the **Semantics** section, an **uncaught** `Error()` is wrapped in a rejected promise. However, we can use `try-catch` in async functions to **handle errors** **synchronously**. Let’s begin with this utility function —
+如同我们在**语法**部分所见，一个**未捕获**的 `Error()` 被包装在一个 rejected promise 中。但是，我们可以在 async 函数中 **同步地**使用 `try-catch` **处理错误**。让我们从这一实用的函数开始 —
 
 ```
 async function canRejectOrReturn() {
@@ -298,9 +298,9 @@ return 'perfect number';
 }
 ```
 
-`canRejectOrReturn()` is an async function and it will either **resolve with** `'perfect number'` or **reject with** Error('Sorry, number too big').
+`canRejectOrReturn()` 是一个 async 函数，他可能返回`'perfect number'` 也可能抛出错误（'Sorry, number too big'）。
 
-Let’s look at the code example —
+我们来看看示例代码 —
 
 ```
 async function foo() {
@@ -312,9 +312,9 @@ async function foo() {
 }
 ```
 
-Since we are awaiting `canRejectOrReturn`, **its own rejection will be turned into a throw** and the `catch` block will execute. That is, `foo` will **either resolve with** `undefined` (because we are not returning anything in `try`) or **it will resolve with** `'error caught'`. It will never reject since we used a `try-catch` block to handle the error in the `foo` function itself.
+因为我们在等待执行 `canRejectOrReturn` 函数的时候, **canRejectOrReturn 函数体内的 promise 会转移到 rejected 状态而抛出错误**，这将导致 `catch` 代码块被执行。也就是说 `foo` 函数中 promise 会转移到 **resolved 状态**，值为 `undefined` （因为我们在 `try` 中没有返回值）或者 'error caught'`。 因为我们在 `foo` 函数中使用了 `try-catch` 处理错误，所以说 `foo` 函数中 promise 永远都不会转移到 rejected 状态。
 
-Here’s another example —
+下面是另外一个版本的例子 —
 
 ```
 async function foo() {
@@ -326,9 +326,9 @@ async function foo() {
 }
 ```
 
-Note that **we are returning** (and not awaiting) `canRejectOrReturn` from `foo` this time. `foo` will either **resolve with `'perfect number'`** or **reject with** Error('Sorry, number too big'). **The `catch` block will never be executed.**
+注意这一次我们使用了 **return** （而不是 await）将函数`canRejectOrReturn` 从 `foo` 函数中返回。`foo` 函数中状态会转移为**resolved，返回值为`'perfect number'` **或者值为 Error('Sorry, number too big')。**`catch` 代码块永远都不会被执行。**
 
-It is because we **return the promise returned** by `canRejectOrReturn`. Hence, the resolution of `foo` becomes the resolution of `canRejectOrReturn`. You can break `return canRejectOrReturn()` into two lines to see clearly (**Note the missing await** in the first line)—
+这是因为函数`foo`返回了 `canRejectOrReturn` 返回的 promise 对象。因此 `foo` 的 resolved 状态变成了 `canRejectOrReturn` 的 resolved 状态。你可以将 `return canRejectOrReturn()` 等价为下面两行程序去理解（**注意第一行没有 await**）—
 
 ```
 try {
@@ -337,7 +337,7 @@ try {
 }
 ```
 
-Let’s see the usage of `await` and `return` together —
+让我们看看 `await` 和 `return` 搭配使用时的情况 —
 
 ```
 async function foo() {
@@ -349,9 +349,9 @@ async function foo() {
 }
 ```
 
-In this case, `foo` **resolves with either** `'perfect number'` or **resolve with** `'error caught'`. **There is no rejection.** It is like the first example above with just `await`. Except, we **resolve with the value that** `canRejectOrReturn` produces rather than `undefined`.
+在上面的例子中，`foo` 函数的In this case, `foo` **resolves with either** `'perfect number'` or **resolve with** `'error caught'`. **There is no rejection.** It is like the first example above with just `await`. Except, we **resolve with the value that** `canRejectOrReturn` produces rather than `undefined`.
 
-You can break return await canRejectOrReturn(); to see the effect —
+你可以将语句 return await canRejectOrReturn();拆开再看看效果 —
 
 ```
 try {
@@ -361,13 +361,13 @@ try {
 // ...
 ```
 
-## Common Mistakes and Gotchas
+## 常见错误和陷阱
 
-Because of an intricate play of Promise-based and async/await concepts, there are some subtle errors that can creep into the code. Let’s look at them —
+由于涉及 promise 和 async/await 之间错综复杂的操作，程序中可能会潜藏一些细微的差错。让我们一起看看吧 —
 
-### Not using await
+### 没有使用 await 关键字
 
-In some cases, **we forget to use** the `await` keyword before a promise or return it. Here’s an example —
+有时候，在 promise 对象之前**我们忘记了使用** `await` 关键字，或者是忘记将 promise 对象返回。如下所示 —
 
 ```
 async function foo() {
@@ -379,11 +379,11 @@ async function foo() {
 }
 ```
 
-Note that we are not using `await` or `return`. `foo` **will always resolve with `undefined` without** **waiting for 1 second**. However, the promise **does start** its execution. If there are side-effects, **they will happen**. If it throws an error or rejects, then UnhandledPromiseRejectionWarning will be issued.
+注意我们并没有使用 `await` 或 `return`。`foo` 函数将一直返回 **will always resolve with `undefined` without** **waiting for 1 second**. However, the promise **does start** its execution. If there are side-effects, **they will happen**. If it throws an error or rejects, then UnhandledPromiseRejectionWarning will be issued.
 
-### async functions in callbacks
+### 在回调中使用 async 函数
 
-We often use async functions in `.map` or `.filter` as callbacks. Let’s take an example — Suppose we have a function fetchPublicReposCount(username) that fetched the number of public GitHub repositories a user has. We have three users whose counts we want to fetch. Let’s see the code —
+我们经常把 async 函数作为`.map` 或 `.filter` 方法的回调。让我们举个例子 — 假设我们有一个函数 fetchPublicReposCount(username) 可以获取一个 github 用户拥有的公开仓库的数量。我们想要获得三名不同用户的公开仓库数量，让我们来看代码 —
 
 ```
 const url = 'https://api.github.com/users';
@@ -396,7 +396,7 @@ const fetchPublicReposCount = async (username) => {
 }
 ```
 
-We want to fetch repo counts of ['ArfatSalman', 'octocat', 'norvig']. We may do something like this —
+想要获得三名用户 ['ArfatSalman', 'octocat', 'norvig'] 的公开仓库数量。我们可能会这样做 —
 
 ```
 const users = [
@@ -411,11 +411,9 @@ const counts = users.map(async username => {
 });
 ```
 
-Note the `async` in the callback to the `.map`. We might expect that `counts` variable will contain the numbers of repos. However, as we have seen earlier, **all async functions return promises.** Hence, `counts` is actually **an array of promises.** `.map` calls the anonymous callback with every `username`, and a promise is returned with every invocation which `.map` keeps in the resulting array.
+注意 `async` 在 `.map`方法中。我们可能希望变量 `counts` 存储着的公开仓库数量。但是，就如我们之前所见，**所有的 async 函数均返回 promise 对象。** 因此，`counts` 实际上是一个**promise 对象数组。** `.map` 为每一个 `username` 调用异步函数，`.map` 方法将每次调用返回的 promise 结果保存在数组中。
 
-### Too sequential using await
-
-We may also think of a solution such as —
+我们可能也会有其它解决方法，比如 —
 
 ```
 async function fetchAllCounts(users) {
@@ -431,9 +429,9 @@ async function fetchAllCounts(users) {
 
 We are manually fetching each count, and appending them in the `counts` array. The **problem with this code** is that until the first username’s count is fetched, **the next will not start.** At a time, **only one repo count** is fetched.
 
-If a single fetch takes 300 ms, then `fetchAllCounts` will take ~900ms for 3 users. As we can see that time usage will linearly grow with user counts. Since the **fetching of repo counts is not co-dependent**, we can **parallelize the operation.**
+如果一个 fetch 操作耗时 300 ms，那么 `fetchAllCounts` 函数耗时大概在 900ms 左右。由此可见，程序耗时会随着用户数量的增加而线性增加。因为**获取不同用户公开仓库数量之间没有依赖**，我们可以**将操作并行处理。**
 
-We can fetch users concurrently instead of doing them sequentially. We are going to utilize `.map` and `[**Promise.all**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)`.
+我们可以同时获取用户的公开仓库数量，而不是顺序获取。我们将使用 `.map` 方法和 `[**Promise.all**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)`。
 
 ```
 async function fetchAllCounts(users) {
@@ -445,11 +443,11 @@ async function fetchAllCounts(users) {
 }
 ```
 
-`Promise.all` receives an array of promises as input and returns a promise as output. The returned promise resolves with **an array of all promise resolutions or rejects with the first rejection.** However, it may not be feasible to start all promises at the same time. Maybe you want to complete promises in batches. You can look at **[p-map](https://github.com/sindresorhus/p-map)** for limited concurrency.
+`Promise.all` 接受一个 promise 对象数组作为输入，返回一个 promise 对象。当所有 promise 对象的状态都转变成 resolved 时，返回值为**所有 promise 对应返回值组成的 promise 数组**，只要有一个 promise 对象被 rejected，`Promise.all` 的返回值为**第一个被 rejected 的 promise 对象对应的返回值。**** 但是，同时运行所有 promise 的操作可能行不通。可能你想批量执行 promise。你可以考虑下使用 **[p-map](https://github.com/sindresorhus/p-map)** 实现首先的并发。
 
-## Conclusion
+## 结论
 
-Async functions have become really important. With the introduction of [Async Iterators](https://github.com/tc39/proposal-async-iteration), async functions will see more adoption. It is important to have a good understanding of them for modern JavaScript developer. I hope this article sheds some light on that. :)
+async 函数变得很重要。随着 [Async Iterators](https://github.com/tc39/proposal-async-iteration) 的引入，async 函数将会应用得越来越广。对于现代 JavaScript 开发人员来说深入理解 async 函数至关重要。我希望这篇文章能对你有所启发。:)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
