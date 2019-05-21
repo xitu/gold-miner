@@ -2,8 +2,7 @@
 > * 原文作者：[Omar Rayward](https://medium.com/@orayward)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/gunicorn-3-means-of-concurrency.md](https://github.com/xitu/gold-miner/blob/master/TODO1/gunicorn-3-means-of-concurrency.md)
-> * 译者：
-> * 校对者：
+> * 译者：[shixi-li](https://github.com/shixi-li)
 
 # 通过优化 Gunicorn 配置提高性能
 
@@ -13,7 +12,7 @@
  
 ![](https://cdn-images-1.medium.com/max/3078/1*39XEUZgpoUUzahu7giTlAw.png)
 
-[Gunicorn](http://gunicorn.org/) 是一个 Python 的 WSGI HTTP 服务器。它所在的位置通常是在[反向代理](https://en.wikipedia.org/wiki/Reverse_proxy) (如, [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)) 或者 [负载均衡](https://f5.com/glossary/load-balancer) (如，[AWS ELB](https://aws.amazon.com/elasticloadbalancing/)) 和一个 web 应用（比如 Django 或者 Flask）之间。
+[Gunicorn](http://gunicorn.org/) 是一个 Python 的 WSGI HTTP 服务器。它所在的位置通常是在[反向代理](https://en.wikipedia.org/wiki/Reverse_proxy)（如 [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)）或者 [负载均衡](https://f5.com/glossary/load-balancer)（如 [AWS ELB](https://aws.amazon.com/elasticloadbalancing/)）和一个 web 应用（比如 Django 或者 Flask）之间。
 
 ## Gunicorn 架构
 
@@ -33,7 +32,7 @@ Gunicorn 实现了一个 UNIX 的预分发 web 服务端。
 
 每个 worker 都是一个加载 Python 应用程序的 UNIX 进程。worker 之间没有共享内存。
 
-建议的 [`workers` 数量](http://docs.gunicorn.org/en/latest/design.html#how-many-workers)是 `(2*CPU)+1`.
+建议的 [`workers` 数量](http://docs.gunicorn.org/en/latest/design.html#how-many-workers)是 `(2*CPU)+1`。
 
 对于一个双核（两个CPU）机器，5 就是建议的 worker 数量。
 
@@ -47,13 +46,13 @@ gunicorn --workers=5 main:app
 
 Gunicorn 还允许每个 worker 拥有多个线程。在这种场景下，Python 应用程序每个 worker 都会加载一次，同一个 worker 生成的每个线程共享相同的内存空间。
 
-为了在 Gunicorn 中使用多线程。我们使用了 `threads` 模式。每一次我们使用 `threads` 模式，worker 的类就会是 `gthread`:
+为了在 Gunicorn 中使用多线程。我们使用了 `threads` 模式。每一次我们使用 `threads` 模式，worker 的类就会是 `gthread`：
 
 ```bash
 gunicorn --workers=5 --threads=2 main:app
 ```
 
-![Gunicorn 的多线程模式就是使用了 worker 的 gthread 类。请注意图片中的第四行“Using worker: threads”.](https://cdn-images-1.medium.com/max/2786/1*hkpM7HoS_4PClLOVH9lCew.png)
+![Gunicorn 的多线程模式就是使用了 worker 的 gthread 类。请注意图片中的第四行 “Using worker: threads”。](https://cdn-images-1.medium.com/max/2786/1*hkpM7HoS_4PClLOVH9lCew.png)
 
 上一条命令等同于：
 
@@ -61,7 +60,7 @@ gunicorn --workers=5 --threads=2 main:app
 gunicorn --workers=5 --threads=2 --worker-class=gthread main:app
 ```
 
-在我们的例子里面最大的并发请求数就是 worker * 线程，也就是10。
+在我们的例子里面最大的并发请求数就是 `worker * 线程`，也就是10。
 
 在使用 worker 和多线程模式时建议的最大并发数量仍然是`(2*CPU)+1`。
 
@@ -71,9 +70,9 @@ gunicorn --workers=5 --threads=2 --worker-class=gthread main:app
 gunicorn --workers=3 --threads=3 main:app
 ```
 
-### 第三种并发方式（"伪线程"）
+### 第三种并发方式（“伪线程”）
 
-有一些 Python 库比如（[gevent](http://www.gevent.org/) 和 [Asyncio](https://docs.python.org/3/library/asyncio.html)）可以在 Python 中启用多并发。那是基于[协程](https://en.wikipedia.org/wiki/Coroutine)实现的”伪线程“。
+有一些 Python 库比如（[gevent](http://www.gevent.org/) 和 [Asyncio](https://docs.python.org/3/library/asyncio.html)）可以在 Python 中启用多并发。那是基于[协程](https://en.wikipedia.org/wiki/Coroutine)实现的“伪线程”。
 
 Gunicrn 允许通过设置对应的 worker 类来使用这些异步 Python 库。
 
@@ -102,10 +101,10 @@ gunicorn --worker-class=gevent --worker-connections=1000 --workers=3 main:app
 
 通过调整Gunicorn设置，我们希望优化应用程序性能。
 
- 1. 如果这个应用是 [I/O 受限](https://en.wikipedia.org/wiki/I/O_bound), 通常可以通过使用”伪线程“（gevent 或 asyncio）来得到最佳性能。正如我们了解到的，Gunicorn 通过设置合适的 **worker 类** 并将 `**workers**`数量调整到`(2*CPU)+1`来支持这种编程范式。
- 2. 如果这个应用是 [CPU 受限](https://en.wikipedia.org/wiki/CPU-bound)，那么应用程序处理多少并发请求就并不重要。唯一重要的是并行请求的数量。因为 [Python’s GIL](https://wiki.python.org/moin/GlobalInterpreterLock), 线程和“伪线程”并不能以并行模式执行。实现并行性的唯一方法是增加**`workers`** 的数量到建议的`(2*CPU)+1`，理解到最大的并行请求数量其实就是核心数。
- 3. 如果不确定应用程序的[内存占用](https://en.wikipedia.org/wiki/Memory_footprint), 使用 **`多线程`** 以及相应的 **gthread worker 类** 会产生更好的性能，因为应用程序会在每个 worker 上都加载一次，并且在同一个 worker 上运行的每个线程都会共享一些内存，但这需要一些额外的 CPU 消耗。
- 4. 如果你不知道你自己应该选择什么就从最简单的配置开始，就只是`**workers**` 数量设置为 `(2*CPU)+1` 并且不用考虑 `多线程`。从这个点开始，就是所有测试和错误的基准环境。如果瓶颈在内存上，就开始引入多线程。如果瓶颈在 I/O 上，就考虑使用不同的 Python 编程范式。如果瓶颈在 CPU 上，就考虑添加更多内核并且调整`**workers**`数量。
+ 1. 如果这个应用是 [I/O 受限](https://en.wikipedia.org/wiki/I/O_bound)，通常可以通过使用“伪线程”（gevent 或 asyncio）来得到最佳性能。正如我们了解到的，Gunicorn 通过设置合适的 **worker 类** 并将 `workers`数量调整到 `(2*CPU)+1` 来支持这种编程范式。
+ 2. 如果这个应用是 [CPU 受限](https://en.wikipedia.org/wiki/CPU-bound)，那么应用程序处理多少并发请求就并不重要。唯一重要的是并行请求的数量。因为 [Python’s GIL](https://wiki.python.org/moin/GlobalInterpreterLock)，线程和“伪线程”并不能以并行模式执行。实现并行性的唯一方法是增加**`workers`** 的数量到建议的 `(2*CPU)+1`，理解到最大的并行请求数量其实就是核心数。
+ 3. 如果不确定应用程序的[内存占用](https://en.wikipedia.org/wiki/Memory_footprint)，使用 **`多线程`** 以及相应的 **gthread worker 类** 会产生更好的性能，因为应用程序会在每个 worker 上都加载一次，并且在同一个 worker 上运行的每个线程都会共享一些内存，但这需要一些额外的 CPU 消耗。
+ 4. 如果你不知道你自己应该选择什么就从最简单的配置开始，就只是 `workers` 数量设置为 `(2*CPU)+1` 并且不用考虑 `多线程`。从这个点开始，就是所有测试和错误的基准环境。如果瓶颈在内存上，就开始引入多线程。如果瓶颈在 I/O 上，就考虑使用不同的 Python 编程范式。如果瓶颈在 CPU 上，就考虑添加更多内核并且调整 `workers` 数量。
 
 ## 构建系统
 
@@ -113,7 +112,7 @@ gunicorn --worker-class=gevent --worker-connections=1000 --workers=3 main:app
 
 有时候调整 HTTP 服务器的设置，使用更多资源或通过别的编程范式重新设计应用程序都是我们提升应用程序性能的解决方案。
 
-在这种情况下，**构建系统**意味着理解我们应该灵活应用部署高性能应用程序的计算资源类型（进程，线程和”伪线程“）。
+在这种情况下，**构建系统**意味着理解我们应该灵活应用部署高性能应用程序的计算资源类型（进程，线程和“伪线程”）。
 
 通过使用正确的理解，架构和实施正确的技术解决方案，我们可以避免陷入尝试通过优化应用程序代码来提高性能的陷阱。
 
