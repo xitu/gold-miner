@@ -2,12 +2,12 @@
 > * 原文作者：[Jesper Ekstrom](https://css-tricks.com/author/legshaker/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/slide-an-image-to-reveal-text-with-css-animations.md](https://github.com/xitu/gold-miner/blob/master/TODO1/slide-an-image-to-reveal-text-with-css-animations.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[portandbridge](https://github.com/portandbridge), [Baddyo](https://github.com/Baddyo)
 
 # 如何用 CSS Animations 实现滑动图片展现文字的效果
 
-在这篇文章中，我希望能带领大家了解一下 [CSS animation property](https://css-tricks.com/almanac/properties/a/animation/)，以及详细地解释我的[个人网站](https://jesperekstrom.com/portfolio/malteser/)中的一个效果：让文字在移动的物体后出现。如果你想要看最后的成果，这里有一个[例子](https://codepen.io/jesper-ekstrom/pen/GPjGzy) 。
+在这篇文章中，我希望能带领大家了解一下 [CSS animation property](https://css-tricks.com/almanac/properties/a/animation/)，以及详细地解释我的[个人网站](https://jesperekstrom.com/portfolio/malteser/)中的一个效果：让文字在移动的物体后出现。如果你想要看最后的成果，这里有一个[例子](https://codepen.io/jesper-ekstrom/pen/GPjGzy)。
 
 我们将从下面这里开始：
 
@@ -35,7 +35,7 @@
 </div>
 ```
 
-我们将使用一个靠谱的[转换小技巧](https://css-tricks.com/centering-percentage-widthheight-elements/)，来在的父元素中，用 position: absolute; 使两个 div 在父容器的水平和垂直方向上都居中。因为我们希望我们的图片显示在文字之前，这里我们给图片一个更大的 `z-index` 值。 
+我们将使用一个靠谱的[转换小技巧](https://css-tricks.com/centering-percentage-widthheight-elements/)，来在的父元素中，用 position: absolute; 使两个 div 在父容器的水平和垂直方向上都居中。因为我们希望我们的图片显示在文字之前，这里我们给图片一个更大的 `z-index` 值。
 
 ```CSS
 /* 父元素占据整个页面。 */
@@ -48,7 +48,7 @@
 }
 
 /* 内含图片的 div  */
-/* 居中小技巧: https://css-tricks.com/centering-percentage-widthheight-elements/ */
+/* 居中小技巧：https://css-tricks.com/centering-percentage-widthheight-elements/ */
 .image-container {
   position: absolute;
   top: 50%;
@@ -124,7 +124,7 @@
 下面我们将开始有趣的部分了！我们将使用 [animation property](https://css-tricks.com/almanac/properties/a/animation/) 和它的 `@keyframes` 功能来开始帮我们的目标加入动画效果。让我们先来创建两个不同的 `@keyframes`，一个给我们的图片，一个给我们的文字。代码如下：
 
 ``` CSS
-/* 把图片从左侧（-250px）滑到右侧（150px */
+/* 把图片从左侧（-250px）滑到右侧（150px）*/
 @keyframes image-slide {
   0% { transform: translateX(-250px) scale(0); }
   60% { transform: translateX(-250px) scale(1); }
@@ -143,7 +143,7 @@
 
 > 我建议将所有的 `@keyframes` 添加到 CSS 文件的顶端，这样的文件的结构会更好，当然这只是我的个人喜好。
 
-我只使用 `@keyframes` 很小一部分百分比值（主要是从 60% 到 100%）的原因是我选择在相同的时间段对两个物体设置动画，而不是为它们添加一个 [`animation-delay`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay) 。这只是我的个人喜好。如果你选择和我一样的方法，一定记得要为 0% 和 100% 设值；否则，动画效果就会开始循环或者是造成一些很奇怪的结果。
+我只使用 `@keyframes` 很小一部分百分比值（主要是从 60% 到 100%）的原因是我选择在相同的时间段对两个物体设置动画，而不是为它们添加一个 [`animation-delay`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay)。这只是我的个人喜好。如果你选择和我一样的方法，一定记得要为 0% 和 100% 设值；否则，动画效果就会开始循环或者是造成一些很奇怪的结果。
 
 为了在我们的 class 中启用 `@keyframes`，我们需要在 CSS 属性 `animation` 上调用我们的动画名称。例如，要将 `image-slide` 加入图片元素上，我们得这样做：
 
@@ -158,7 +158,7 @@
 
 如果这里的 `cubic-bezier` 部分让你感到头大，那就快看看 Michelle Barker 的[这个帖子](https://css-tricks.com/reversing-an-easing-curve/)。她深度的解释了这个话题。如果只是想要达到本文演示的目的，我觉得我这么说就够了：这是一个为物体的整个移动过程创建一个自定义动画曲线的方法。[cubic-bezier.com](http://cubic-bezier.com/#.5,.5,0,1) 网站是一个很好的可以帮助你生成这些值（而不是靠猜）的网站。
 
-我们之前提及了我们希望避免循环动画。我们可以通过使用  `animation-fill-mode` 子属性来强行让物体在动画进度到达 100% 后就不再移动。
+我们之前提及了我们希望避免循环动画。我们可以通过使用 `animation-fill-mode` 子属性来强行让物体在动画进度到达 100% 后就不再移动。
 
 ``` CSS
 .image-container img {
@@ -204,7 +204,7 @@
 
 我在之前保证过我会介绍一种不一样的隐藏文字方法。我们现在来介绍它。
 
-与其使用一个全新的 div ─── `<div class="fading-effect">`，我们可以使用一个小技巧实用化 `background-clip` 将背景的颜色通过文字透出来：
+与其使用一个全新的 div ─ `<div class="fading-effect">`，我们可以使用一个小技巧实用化 `background-clip` 将背景的颜色通过文字透出来：
 
 ``` CSS
 .text-container {
