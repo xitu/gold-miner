@@ -547,6 +547,8 @@ One peculiar thing you may have noticed is the validateCounter. We need to track
 
 When all is said and done, here is the functional result.
 
+- https://codesandbox.io/embed/x964kxp2vo
+
 React Hooks provide a neat solution to form validation. This is my first experimentation with the proposed API and I have found it powerful, but a little awkward. The interface is peculiar, with a bit too much magic for my liking. However, once I accepted its blemishes, it proved quite capable.
 
 I did feel it was lacking a few features, namely a callback mechanism to indicate when a useState setter has finished updating the state and also a way to inspect prop deltas in the useEffect hook.
