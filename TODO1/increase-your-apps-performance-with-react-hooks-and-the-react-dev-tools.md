@@ -5,7 +5,7 @@
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：[wuyanan](https://github.com/wuyanan)，[Jerry-FD](https://github.com/Jerry-FD)
 
-# 用 React 的钩子函数和调试工具提升应用性能
+# 用 React Hook 和调试工具提升应用性能
 
 ![](https://cdn-images-1.medium.com/max/5120/1*fftOIi1nxu9tJZ74EaLMMg.png)
 
@@ -84,11 +84,11 @@
 
 ## 提升组件性能
 
-为防止浪费性渲染的发生，我们可以通过备忘技术优化组件。我们要使用 `React.memo` 来记忆组件，用 React 的备忘钩子函数 `useMemo` 和 `useCallback` 记忆变量和函数。
+为防止浪费性渲染的发生，我们可以通过备忘技术优化组件。我们要使用 `React.memo` 来记忆组件，用 React 的备忘 Hook `useMemo` 和 `useCallback` 记忆变量和函数。
 
 ### React.memo
 
-从 `16.6.0` 版本起，React 就支持高阶组件 [`React.memo`](https://reactjs.org/docs/react-api.html#reactmemo) 了。它等价于 `React.PureComponent`，但只适用于函数组件。社区正逐步从类组件转向带钩子函数的函数风格组件，而 `React.memo` 正是这种组件。
+从 `16.6.0` 版本起，React 就支持高阶组件 [`React.memo`](https://reactjs.org/docs/react-api.html#reactmemo) 了。它等价于 `React.PureComponent`，但只适用于函数组件。社区正逐步从类组件转向带 Hook 的函数风格组件，而 `React.memo` 正是这种组件。
 
 当你用 `React.memo` 包裹一个函数组件时，它会将传入的 props 进行浅层比较。当比较的 props 不一致时，才会重新渲染组件。你也可以自己写一个比较函数，作为第二个参数传入。但要慎用，以避免意外故障。
 
@@ -102,11 +102,11 @@ const RangeSlider = React.memo(props => {
 });
 ```
 
-### 备忘钩子函数
+### 备忘 Hook
 
-React `16.8.0` 版本为我们带来功能强大的钩子函数，有了钩子函数，我们可以轻松备忘组件中的值和回调函数。在钩子函数之前，你当然也可以用一个单独的库实现备忘功能，但自从它成为 React 原生库的一部分，集成和塑造工作流变得更加简单易行。
+React `16.8.0` 版本为我们带来功能强大的 Hook，有了 Hook，我们可以轻松备忘组件中的值和回调函数。在引入 Hook 之前，你当然也可以用一个单独的库实现备忘功能，但自从它成为 React 原生库的一部分，集成和塑造工作流变得更加简单易行。
 
-[`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) 会记忆一个值，这样就不用在下一轮渲染中重新计算它了。[`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) 记忆的则是回调函数。你可以给二者传入一个依赖数组，该数组包含了组件作用域的值（比如属性和状态），这些值将在钩子函数内部被用到。每次渲染时，React 都会比较这些依赖值，一旦它们发生改变，React 就会更新备忘的值或函数。
+[`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) 会记忆一个值，这样就不用在下一轮渲染中重新计算它了。[`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) 记忆的则是回调函数。你可以给二者传入一个依赖数组，该数组包含了组件作用域的值（比如属性和状态），这些值将在 Hook 内部被用到。每次渲染时，React 都会比较这些依赖值，一旦它们发生改变，React 就会更新备忘的值或函数。
 
 > 注意：React 为了尽可能快地进行比较，使用了比较算法 [Object.is](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description)。也就是说，如果你把对象或数组的新实例作为属性传入，比较时该算法会返回 `false` ，并重新计算备忘的值。
 
@@ -144,7 +144,7 @@ const value = useMemo(() => [minValue, maxValue], [minValue, maxValue]);
 
 我对 `Histogram` 组件做了同样的优化，`Histogram` 组件把属性传到 `HistogramBuckets` 子组件中。
 
-> 小提示：要想快速找出两次渲染中哪些属性发生了变化，可以用这个精巧的钩子函数：[useWhyDidYouUpdate](https://usehooks.com/useWhyDidYouUpdate/)。
+> 小提示：要想快速找出两次渲染中哪些属性发生了变化，可以用这个精巧的 Hook：[useWhyDidYouUpdate](https://usehooks.com/useWhyDidYouUpdate/)。
 
 ## 成果
 
