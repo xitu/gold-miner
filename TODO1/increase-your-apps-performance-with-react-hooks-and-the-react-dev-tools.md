@@ -5,11 +5,11 @@
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：[wuyanan](https://github.com/wuyanan)，[Jerry-FD](https://github.com/Jerry-FD)
 
-# 用 React Hook 和调试工具提升应用性能
+# 用 React Hooks 和调试工具提升应用性能
 
 ![](https://cdn-images-1.medium.com/max/5120/1*fftOIi1nxu9tJZ74EaLMMg.png)
 
-在构建 React 应用时，你会发现随着嵌套组件增多，用户界面的某些部分开始变得缓慢迟滞。这是因为，被改变状态的元素在组件树中的层级越高，浏览器需要重绘的组件越多。
+在构建 React 应用时，你会发现随着嵌套组件增多，用户界面的某些部分开始变得缓慢迟滞。这是因为，被改变 state 的元素在组件树中的层级越高，浏览器需要重绘的组件越多。
 
 本文将告诉你如何**通过备忘（[memoization](https://en.wikipedia.org/wiki/Memoization)）技术避免不必要的重绘，让你的 React 应用快如闪电。⚡**
 
@@ -23,13 +23,13 @@
 
 ## 抽丝剥茧
 
-只有明白用户拖拽操纵杆时的内部运作原理，才能确定从何处下手调试。React 使用[虚拟 DOM](https://www.codecademy.com/articles/react-virtual-dom) 来代表 DOM 中真实的元素。每当用户操作界面元素，应用的状态都会改变。React 会遍历所有受状态改变影响的组件，计算生成新的虚拟 DOM。React 将新旧版本的虚拟 DOM 进行比较，若发现二者有差异，就将对应的变化更新到真实 DOM 上。该过程叫做 [reconciliation](https://reactjs.org/docs/reconciliation.html)。
+只有明白用户拖拽操纵杆时的内部运作原理，才能确定从何处下手调试。React 使用[虚拟 DOM](https://www.codecademy.com/articles/react-virtual-dom) 来代表 DOM 中真实的元素。每当用户操作界面元素，应用的 state 都会改变。React 会遍历所有受 state 改变影响的组件，计算生成新的虚拟 DOM。React 将新旧版本的虚拟 DOM 进行比较，若发现二者有差异，就将对应的变化更新到真实 DOM 上。该过程叫做 [reconciliation](https://reactjs.org/docs/reconciliation.html)。
 
-操纵 DOM 元素可是一个非常耗费资源的任务。同时，把所有受影响的组件的 `render` 函数都运行一遍也很耗费时间，`render` 函数中的计算量很大时尤其如此。因此我们要尽量减少这些**浪费性渲染**。
+操纵 DOM 元素可是一个非常耗费资源的任务。同样，遍历所有受影响组件的 render 函数也很耗时，`render` 函数中的计算量很大时尤其如此。因此我们要尽量减少这些**浪费性渲染**。
 
 ***
 
-现在回到我们的案例：因为过滤器组件的状态由其父组件掌控，所以我的推论是可能发生了不必要的渲染和计算。为了快速确诊，我们要使用 Chrome 调试工具。它有个 **Paint Flashing** 功能，可以将发生改变的 DOM 高亮显示。你可以在 **Rendering** 标签页临时激活该功能：
+现在回到我们的案例：因为过滤器组件的 state 由其父组件掌控，所以我的推论是可能发生了不必要的渲染和计算。为了快速确诊，我们要使用 Chrome 调试工具。它有个 **Paint Flashing** 功能，可以将发生改变的 DOM 高亮显示。你可以在 **Rendering** 标签页临时激活该功能：
 
 ![在 Chrome 调试工具中激活 Paint Flashing 功能](https://cdn-images-1.medium.com/max/2000/1*ZmzAER8ng6Xo4a67bmV_vw.png)
 
@@ -45,14 +45,14 @@
 
 ![用 Highlight Updates 功能高亮过滤器组件](https://cdn-images-1.medium.com/max/2000/1*xdxAnoef3kv0yqa7yE2v-Q.gif)
 
-> React 调试工具使你能够检查 React 组件层级，以及对应组件的属性和状态。<br />
+> React 调试工具使你能够检查 React 组件层级，以及对应组件的 props 和 state。<br />
 > 它有浏览器插件（支持 [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) 和 [Firefox](https://addons.mozilla.org/firefox/addon/react-devtools/)）和[独立应用](https://github.com/facebook/react-devtools/tree/master/packages/react-devtools)（支持 Safari、IE、和 React Native 等运行环境）两种形式。
 
 ***
 
 **这里就清晰地揭示了问题所在：当我在一个过滤器上拖拽，包含直方图的另一个过滤器也被重绘了。** 这就是应该被避免的处理器资源浪费。像直方图这样的笨重组件尤其如此。
 
-现在我们知道了问题所在，但还不知道导致界面响应缓慢的原因。为了找到原因，我们可以使用 Chrome 调试工具的 **Performance** 面板。它可以帮你记录特定行为，在特定范围内锁定浏览器执行的特定任务。
+现在我们知道了问题所在，但还不知道导致界面响应缓慢的原因。为了找到原因，我们可以使用 Chrome 调试工具的 **Performance** 面板。它可以帮助你查看在浏览器在执行某一特定任务的过程中，每一帧具体做了什么。
 
 **关于 Performance 面板的使用细节，不在本文讨论范围之内。但你可以在[这里](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/)找到教程。**
 
@@ -84,15 +84,15 @@
 
 ## 提升组件性能
 
-为防止浪费性渲染的发生，我们可以通过备忘技术优化组件。我们要使用 `React.memo` 来记忆组件，用 React 的备忘 Hook `useMemo` 和 `useCallback` 记忆变量和函数。
+为防止浪费性渲染的发生，我们可以通过备忘技术优化组件。我们要使用 `React.memo` 来记忆组件，用 React 的备忘 hooks `useMemo` 和 `useCallback` 记忆变量和函数。
 
 ### React.memo
 
-从 `16.6.0` 版本起，React 就支持高阶组件 [`React.memo`](https://reactjs.org/docs/react-api.html#reactmemo) 了。它等价于 `React.PureComponent`，但只适用于函数组件。社区正逐步从类组件转向带 Hook 的函数风格组件，而 `React.memo` 正是这种组件。
+从 `16.6.0` 版本起，React 就支持高阶组件 [`React.memo`](https://reactjs.org/docs/react-api.html#reactmemo) 了。它等价于 `React.PureComponent`，但只适用于函数组件。社区正逐步从 class 的组件风格转向带有 hooks 的函数组件风格，而 `React.memo` 正是这种组件。
 
 当你用 `React.memo` 包裹一个函数组件时，它会将传入的 props 进行浅层比较。当比较的 props 不一致时，才会重新渲染组件。你也可以自己写一个比较函数，作为第二个参数传入。但要慎用，以避免意外故障。
 
-我们可以将组件分解为更小的组件，并把每个更小的组件都用 `React.memo` 包裹起来。如此你能保证当属性更新，仅有组件的一部分重新渲染了。但也不要把所有东西都做备忘，因为比较 **props** 所花时间可能要比渲染组件的时间还要长。
+我们可以将组件分解为更小的组件，并把每个更小的组件都用 `React.memo` 包裹起来。如此你能保证当 props 更新，仅有组件的一部分重新渲染了。但也不要把所有东西都做备忘，因为比较 **props** 所花时间可能要比渲染组件的时间还要长。
 
 在本文案例中，我用 `React.memo` 包裹了过滤器组件（`RangeSlider`）和 `Histogram` 组件。此外，我把直方图分解为包裹组件和 `HistogramBuckets` 组件两部分，将逻辑部分和展现部分剥离开来。
 
@@ -102,17 +102,17 @@ const RangeSlider = React.memo(props => {
 });
 ```
 
-### 备忘 Hook
+### 备忘 hooks
 
-React `16.8.0` 版本为我们带来功能强大的 Hook，有了 Hook，我们可以轻松备忘组件中的值和回调函数。在引入 Hook 之前，你当然也可以用一个单独的库实现备忘功能，但自从它成为 React 原生库的一部分，集成和塑造工作流变得更加简单易行。
+React `16.8.0` 版本为我们带来功能强大的 hooks，有了 hooks，我们可以轻松备忘组件中的值和回调函数。在引入 hooks 之前，你当然也可以用一个单独的库实现备忘功能，但自从它成为 React 原生库的一部分，集成和塑造工作流变得更加简单易行。
 
-[`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) 会记忆一个值，这样就不用在下一轮渲染中重新计算它了。[`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) 记忆的则是回调函数。你可以给二者传入一个依赖数组，该数组包含了组件作用域的值（比如属性和状态），这些值将在 Hook 内部被用到。每次渲染时，React 都会比较这些依赖值，一旦它们发生改变，React 就会更新备忘的值或函数。
+[`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) 会记忆一个值，这样就不用在下一轮渲染中重新计算它了。[`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) 记忆的则是回调函数。你可以给二者传入一个依赖数组，该数组包含了组件作用域的值（比如 props 和 state），这些值将在 hooks 内部被用到。每次渲染时，React 都会比较这些依赖值，一旦它们发生改变，React 就会更新备忘的值或函数。
 
-> 注意：React 为了尽可能快地进行比较，使用了比较算法 [Object.is](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description)。也就是说，如果你把对象或数组的新实例作为属性传入，比较时该算法会返回 `false` ，并重新计算备忘的值。
+> 注意：React 为了尽可能快地进行比较，使用了比较算法 [Object.is](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description) 来优化比较的速度。也就是说，如果你把对象或数组的新实例作为 props 传入，比较时该算法会返回 `false` ，并重新计算备忘的值。
 
-### 传入备忘的属性
+### 传入备忘的 props
 
-在本例中，未经使用 `React.memo` 的过滤器组件需要优化。这曾是父组件设置属性的方式：
+在本例中，未经使用 `React.memo` 的过滤器组件需要优化。这曾是父组件设置 props 的方式：
 
 ```javascript
 function handleChange(value => {
@@ -125,7 +125,7 @@ function handleChange(value => {
 />
 ```
 
-每渲染一次，都要创建 `handleChange` 的一个实例，并传入一个新的数组实例作为属性。这就导致 `RangeSlider` 组件总是更新，尽管有 `React.memo` 包裹，因为 `Object.is()` 比较算法总是返回 `false`。 为了精确优化，我得用下列代码重构：
+每渲染一次，都要创建 `handleChange` 的一个实例，并传入一个新的数组实例作为 props。这就导致 `RangeSlider` 组件总是更新，尽管有 `React.memo` 包裹，因为 `Object.is()` 比较算法总是返回 `false`。 为了精确优化，我得用下列代码重构：
 
 ```javascript
 const handleChange = useCallback((value) => {
@@ -140,11 +140,11 @@ const value = useMemo(() => [minValue, maxValue], [minValue, maxValue]);
 />
 ```
 
-现在，由于依赖数组是空的，`handleChange` 仅在挂载时更新。无论 `minValue` 或 `maxValue` 何时更改，`value` 总会返回一个新数组。
+如果依赖数组为空，那么 `handleChange` 则仅在挂载时更新。无论 `minValue` 或 `maxValue` 何时更改，`value` 总会返回一个新数组。
 
-我对 `Histogram` 组件做了同样的优化，`Histogram` 组件把属性传到 `HistogramBuckets` 子组件中。
+我对 `Histogram` 组件做了同样的优化，`Histogram` 组件把 props 传到 `HistogramBuckets` 子组件中。
 
-> 小提示：要想快速找出两次渲染中哪些属性发生了变化，可以用这个精巧的 Hook：[useWhyDidYouUpdate](https://usehooks.com/useWhyDidYouUpdate/)。
+> 小提示：要想快速找出两次渲染中哪些 props 发生了变化，可以用这个精巧的 hooks：[useWhyDidYouUpdate](https://usehooks.com/useWhyDidYouUpdate/)。
 
 ## 成果
 
