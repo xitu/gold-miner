@@ -53,7 +53,7 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 
 **假设要在 for 循环中以任意时间间隔（0 到 n 秒）输出数字 0 到 10。我们将使用 promise 去顺序打印 0 到 10，比如打印 0 需要 6 秒，打印 1 要延迟 2 秒，而 1 需要 0 打印完成之后才能打印，其它数字打印过程也类似。** 
 
-当然，不要使用 `async/await` 或 `.sort` 方法，We’ll have a solution towards the end.
+当然，不要使用 `async/await` 或 `.sort` 方法，随后我们将会解决这一问题。
 
 ## Async 函数
 
@@ -215,21 +215,21 @@ fn().then(console.log);
 
 * 此外，`delayAndGetRandom` 中的 resolve 函数返回一个随机值。无论往 `resolve` 函数中传入什么值, 都会赋值给变量 `b`。
 
-* `c` gets the value of `5` similarly and we delay for 1 second again using `await delayAndGetRandom(1000)`. We don’t use the resolved value in this case.
+* 相似的，变量 `c` 值为 `5` ，然后使用 `await delayAndGetRandom(1000)` 又延时了 1 秒钟。在这个例子中我们并没有使用 `Promise.resolve` 返回值。
 
-* Finally, we compute the result `a + b * c` which is wrapped in a Promise using `Promise.resolve`. This wrapped promise is returned.
+* 最后我们计算 `a + b * c` 的结果，通过 `Promise.resolve` 将该结果包装成一个 promise，并将作为 async 函数的返回值。
 
-**Note:** If this pause and resume are reminding you of ES6 [**generators**](https://codeburst.io/understanding-generators-in-es6-javascript-with-examples-6728834016d5), it’s because there are [**good reasons**](https://github.com/tj/co) for it.
+**注意：** If this pause and resume are reminding you of ES6 [**generators**](https://codeburst.io/understanding-generators-in-es6-javascript-with-examples-6728834016d5), it’s because there are [**good reasons**](https://github.com/tj/co) for it.
 
-### The Solution
+### 解决方案
 
-Let’s use async/await for the hypothetical problem listed at the beginning of the article —
+让我们使用 async/await 解决在前面提出的假设问题 —
 
 ![Using async/await](https://cdn-images-1.medium.com/max/2000/1*AUT5DU_0gzjWMTT00Yc0zw.png)
 
-We make an async function `finishMyTask` and use `await` to wait for the result of operations such as `queryDatabase`, `sendEmail`, `logTaskInFile` etc.
+我们定义了一个 async 函数 `finishMyTask`，使用 `await` 去等待 `queryDatabase`、`sendEmail`、`logTaskInFile` 的操作结果。
 
-If we contrast this solution with the solutions using promises above, we find that **it is roughly the same line of code**. However, async/await has made it simpler in terms of syntactical complexity. **There aren’t multiple callbacks and `.then` /`.catch` to remember.**
+如果我们将 async/await 解决方案与 promise If we contrast this solution with the solutions using promises above, we find that **it is roughly the same line of code**. However, async/await has made it simpler in terms of syntactical complexity. **There aren’t multiple callbacks and `.then` /`.catch` to remember.**
 
 Now, let’s solve the **challenge of numbers** listed above. Here are two implementations —
 
