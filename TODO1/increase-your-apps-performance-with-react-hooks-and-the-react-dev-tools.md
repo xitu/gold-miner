@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/increase-your-apps-performance-with-react-hooks-and-the-react-dev-tools.md](https://github.com/xitu/gold-miner/blob/master/TODO1/increase-your-apps-performance-with-react-hooks-and-the-react-dev-tools.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[wuyanan](https://github.com/wuyanan)，[Jerry-FD](https://github.com/Jerry-FD)
 
 # 用 React 的钩子函数和调试工具提升应用性能
 
@@ -11,7 +11,7 @@
 
 在构建 React 应用时，你会发现随着嵌套组件增多，用户界面的某些部分开始变得缓慢迟滞。这是因为，被改变状态的元素在组件树中的层级越高，浏览器需要重绘的组件越多。
 
-本文将告诉你如何**通过备忘（[memoization](https://en.wikipedia.org/wiki/Memoization)）技术避免不必要的重绘，让 React 快如闪电。⚡**
+本文将告诉你如何**通过备忘（[memoization](https://en.wikipedia.org/wiki/Memoization)）技术避免不必要的重绘，让你的 React 应用快如闪电。⚡**
 
 ***
 
@@ -50,7 +50,7 @@
 
 ***
 
-**这里就清晰地揭示了问题所在：当我在一个过滤器上拖拽，另个一过滤器连同直方图都被重绘了。** 这就是应该被避免的处理器资源浪费。像直方图这样的笨重组件尤其如此。
+**这里就清晰地揭示了问题所在：当我在一个过滤器上拖拽，包含直方图的另一个过滤器也被重绘了。** 这就是应该被避免的处理器资源浪费。像直方图这样的笨重组件尤其如此。
 
 现在我们知道了问题所在，但还不知道导致界面响应缓慢的原因。为了找到原因，我们可以使用 Chrome 调试工具的 **Performance** 面板。它可以帮你记录特定行为，在特定范围内锁定浏览器执行的特定任务。
 
