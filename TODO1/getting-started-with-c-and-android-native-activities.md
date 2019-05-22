@@ -55,7 +55,7 @@ NativeActivity 自 Android Gingerbread 开始就有了，如果你刚开始学�
 
 ![](https://cdn-images-1.medium.com/max/800/0*3174Sy0lsdV_izN8)
 
-命名为 CMakeLists.txt:
+命名为 CMakeLists.txt：
 
 ![](https://cdn-images-1.medium.com/max/800/0*UjYrafAf-GIjfcp1)
 
@@ -72,7 +72,7 @@ add_library(helloworld-c
 
 我们声明了在 Android Studio 中使用最新版本的 CMake（3.6.0），将构建一个名为 hellworld-c 的共享库。我还添加了一个必须要创建的源文件。
 
-为什么是共享库而不是可执行文件呢？Android 使用一个名为 Zygote 的进程来加速在 Android Runtime 内部启动的应用或服务的过程。这对 Android 内所有面向用户的进程都适用，因此你的代码首次运行的地方是在一个虚拟机内。然后代码必须加载一个含有你的逻辑的共享库文件，如果你使用了本地 Activity，该共享库将为你处理。与之相反，当构建一个可执行文件时，我们希望操作系统直接加载你的程序并运行一个名为“main”的 C 方法。在 Android 里也有可能，但是我还没找到这方面的任何实践用途。
+为什么是共享库而不是可执行文件呢？Android 使用一个名为 Zygote 的进程来加速在 Android Runtime 内部启动的应用或服务的过程。这对 Android 内所有面向用户的进程都适用，因此你的代码首次运行的地方是在一个虚拟机内。然后代码必须加载一个含有你的逻辑的共享库文件，如果你使用了本地 Activity，该共享库将为你处理。与之相反，当构建一个可执行文件时，我们希望操作系统直接加载你的程序并运行一个名为 “main” 的 C 方法。在 Android 里也有可能，但是我还没找到这方面的任何实践用途。
 
 现在创建 C++ 文件：
 
@@ -106,7 +106,7 @@ add_library(helloworld-c
 
 ![](https://cdn-images-1.medium.com/max/800/0*SpKDW8ZXatIV2ioE)
 
-至于在你的构建脚本中发生了什么变化，如果你打开 app 下的 build.gradle 文件，你会看到  `externalNativeBuild` ：
+至于在你的构建脚本中发生了什么变化，如果你打开 app 下的 build.gradle 文件，你会看到 `externalNativeBuild`：
 
 ```
 android {
@@ -210,7 +210,7 @@ void android_main(struct android_app *pApp) {
 
 这段代码最主要的是 `android_main`。当你的应用启动的时候这个方法会被 `android_native_app_glue` 调用。我们首先将 `pApp->onAppCmd` 指向我们的消息循环以便让系统消息有一个可去的地方。
 
-接着我们用 `ALooper_pollAll` 处理所有已排队的系统事件，第一个参数是超时参数。如果上述方法返回的值大于或等于 0 ，我们需要借助 `pSource` 来处理事件，否则，我们将继续直到应用程序关闭。
+接着我们用 `ALooper_pollAll` 处理所有已排队的系统事件，第一个参数是超时参数。如果上述方法返回的值大于或等于 0，我们需要借助 `pSource` 来处理事件，否则，我们将继续直到应用程序关闭。
 
 现在依然不能运行这个 Activity，却可以随意构建以确保一切正常。
 
@@ -358,7 +358,7 @@ void android_main(struct android_app *pApp) {
 
 最后，如果有了一个渲染器（即：窗口已创建），我从 `android_app` 中获取并使其执行渲染操作。否则只是继续处理这个循环。
 
-### 总结Conclusion
+### 总结
 
 现在你可以像在其他平台一样使用 OpenGL ES 3 了。如果你需要更多资源或教程的话，下面是一些有用的链接：
 
