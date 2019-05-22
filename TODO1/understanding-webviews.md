@@ -19,7 +19,7 @@
 
 ![](https://www.kirupa.com/apps/images/native_app_200.png)
 
-> 换句话说，应用不是指在浏览器中运行的跨平台网络应用。相反，你的应用主要是用像 Swift，Objective-C，Java，C++，C# 的语言来编写的。这种工作方式与系统更加贴近。在这样的背景下，你使用的大多数应用都应该是原生应用。许多流行的应用，比如你的台式机/笔记本上的 Microsoft Office 也是如此。
+> 换句话说，应用不是指在浏览器中运行的跨平台网络应用。相反，你的应用主要是用像 Swift、Objective-C、Java、C++、C# 语言来编写的。这种工作方式与系统更加贴近。在这样的背景下，你使用的大多数应用都应该是原生应用。许多流行的应用，比如你的台式机/笔记本上的 Microsoft Office 也是如此。
 
 2.  第二个处需要注意的是**嵌入式浏览器**。我们都知道浏览器是什么。它是让我们可以在网上冲浪的独立应用：
 
@@ -91,7 +91,7 @@ Twitter 和 Facebook 都没有在默认浏览器中加载链接的内容。他�
 
 ### 原生应用扩展
 
-你将看到 WebView 使用的最后一个大类与可扩展性有关。许多原生应用（尤其是桌面应用）为你提供了一种通过安装加载项或扩展程序来扩展其功能的方法。由于 Web 技术的简单性和强大，这些加载项和扩展通常以 HTML，CSS 和 JavaScript 而不是 C++，C# 或其他方式构建。一个流行的例子是 Microsoft Office。构成 Microsoft Office 的各种应用尽可能是原生和经典的方式，但是为其构建扩展的方法之一就涉及 Web 技术。例如，一个流行的此类扩展是[维基百科应用](https://appsource.microsoft.com/en-us/product/office/WA104099688?tab=Overview)：
+你将看到 WebView 使用的最后一个大类与可扩展性有关。许多原生应用（尤其是桌面应用）为你提供了一种通过安装加载项或扩展程序来扩展其功能的方法。由于 Web 技术的简单性和强大，这些加载项和扩展通常以 HTML、CSS 和 JavaScript 而不是 C++，C# 或其他方式构建。一个流行的例子是 Microsoft Office。构成 Microsoft Office 的各种应用尽可能是原生和经典的方式，但是为其构建扩展的方法之一就涉及 Web 技术。例如，一个流行的此类扩展是[维基百科应用](https://appsource.microsoft.com/en-us/product/office/WA104099688?tab=Overview)：
 
 ![](https://www.kirupa.com/apps/images/wikipedia_window2.PNG)
 
