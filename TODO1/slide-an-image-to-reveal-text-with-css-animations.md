@@ -2,43 +2,43 @@
 > * 原文作者：[Jesper Ekstrom](https://css-tricks.com/author/legshaker/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/slide-an-image-to-reveal-text-with-css-animations.md](https://github.com/xitu/gold-miner/blob/master/TODO1/slide-an-image-to-reveal-text-with-css-animations.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[portandbridge](https://github.com/portandbridge), [Baddyo](https://github.com/Baddyo)
 
-# Slide an Image to Reveal Text with CSS Animations
+# 如何用 CSS Animations 实现滑动图片展现文字的效果
 
-I want to take a closer look at the [CSS animation property](https://css-tricks.com/almanac/properties/a/animation/) and walk through an effect that I used on my own [portfolio website](https://jesperekstrom.com/portfolio/malteser/): making text appear from behind a moving object. Here’s an [isolated example](https://codepen.io/jesper-ekstrom/pen/GPjGzy) if you’d like to see the final product.
+在这篇文章中，我希望能带领大家了解一下 [CSS animation property](https://css-tricks.com/almanac/properties/a/animation/)，以及详细地解释我的[个人网站](https://jesperekstrom.com/portfolio/malteser/)中的一个效果：让文字在移动的物体后出现。如果你想要看最后的成果，这里有一个[例子](https://codepen.io/jesper-ekstrom/pen/GPjGzy)。
 
-Here’s what we're going to work with:
+我们将从下面这里开始：
 
-See the Pen [Revealing Text Animation Part 4 - Responsive](https://codepen.io/jesper-ekstrom/pen/GPjGzy/) by Jesper Ekstrom ([@jesper-ekstrom](https://codepen.io/jesper-ekstrom)) on [CodePen](https://codepen.io).
+这里请查看 [Jesper Ekstrom](https://codepen.io/jesper-ekstrom) 的 [Revealing Text Animation Part 4 - Responsive](https://codepen.io/jesper-ekstrom/pen/GPjGzy/) 案例。
 
-Even if you’re not all that interested in the effect itself, this will be an excellent exercise to expand your CSS knowledge and begin creating unique animations of your own. In my case, digging deep into animation helped me grow more confident in my CSS abilities and increased my creativity, which got me more interested in front-end development as a whole.
+即使你对这个效果不是非常感兴趣，这仍将是一个可以扩展你 CSS 知识的好练习，你可以从这个效果开始创建属于你自己的动画效果。就我而言，深入地学习研究动画，让我对自己的 CSS 能力有了更多的自信，并且让我更加有想象力，也让我对于整个前端开发都更加感兴趣了。
 
-Ready? Set. Let’s go!
+准备好了么？让我们一起开始吧。
 
-### Step 1: Markup the main elements
+## 步骤一：标记你的主元素
 
-Before we start with the animations, let's create a parent container that covers the full viewport. Inside it, we're adding the text and the image, each in a separate div so it’s easier to customize them later on. The HMTL markup will look like this:
+在我们开始制作动画效果之前，首先让我们创建一个包含了整个视口（viewport）的父元素。在这个元素中，我们在两的 div 中分别添加文字和图片，以方便之后的自定义。HTML 将如下：
 
-```
-<!-- The parent container -->
+```HTML
+<!-- 父容器 -->
 <div class="container"> 
-  <!-- The div containing the image -->
+  <!-- 包含图片的 div -->
   <div class="image-container">
   <img src="https://jesperekstrom.com/wp-content/uploads/2018/11/Wordpress-folder-purple.png" alt="wordpress-folder-icon">
   </div>
-  <!-- The div containing the text that's revealed -->
+  <!-- 包含将展示的文字的 div -->
   <div class="text-container">
     <h1>Animation</h1>
   </div>
 </div>
 ```
 
-We are going to use this trusty [transform trick](https://css-tricks.com/centering-percentage-widthheight-elements/) to make the divs center both vertically and horizontally with a `position: absolute;` inside our parent container, and since we want the image to display in front of the text, we're adding a higher `z-index` value to it.
+我们将使用一个靠谱的[转换小技巧](https://css-tricks.com/centering-percentage-widthheight-elements/)，来在的父元素中，用 position: absolute; 使两个 div 在父容器的水平和垂直方向上都居中。因为我们希望我们的图片显示在文字之前，这里我们给图片一个更大的 `z-index` 值。
 
-```
-/* The parent container taking up the full viewport */
+```CSS
+/* 父元素占据整个页面。 */
 .container {
   width: 100%;
   height: 100vh;
@@ -47,49 +47,49 @@ We are going to use this trusty [transform trick](https://css-tricks.com/centeri
   overflow: hidden;
 }
 
-/* The div that contains the image  */
-/* Centering trick: https://css-tricks.com/centering-percentage-widthheight-elements/ */
+/* 内含图片的 div  */
+/* 居中小技巧：https://css-tricks.com/centering-percentage-widthheight-elements/ */
 .image-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  z-index: 2; /* Makes sure this is on top */
+  z-index: 2; /* 确保图片在上 */
 }
 
-/* The image inside the first div */
+/* 第一个 div 中的图片 */
 .image-container img {
   -webkit-filter: drop-shadow(-4px 5px 5px rgba(0,0,0,0.6));
   filter: drop-shadow(-4px 5px 5px rgba(0,0,0,0.6));
   height: 200px;
 }
 
-/* The div that holds the text that will be revealed */
-/* Same centering trick */
+/* 包括将要被显示出来的文字的 div */
+/* 同样的居中方法 */
 .text-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  z-index: 1; /* Places this below the image container */
+  z-index: 1; /* 将此 div 置于图片容器之下 */
   margin-left: -100px;
 }
 ```
 
-> We're leaving vendor prefixes out the code examples throughout this post, but they should definitely be considered if using this in production environment.
+> 我们在整篇文章所有的例子中都没有保留浏览器前缀，但如果你在生产环境中使用这些效果，请务必考虑加上前缀。
 
-Here’s what that gives us so far, which is basically our two elements stacked one on top of the other.
+现在我们的例子应该长这样，基本上来说就是图片元素在文字元素之上。
 
-See the Pen [Revealing Text Animation Part 1 - Mail Elements](https://codepen.io/jesper-ekstrom/pen/zMgjwj/) by Jesper Ekstrom ([@jesper-ekstrom](https://codepen.io/jesper-ekstrom)) on [CodePen](https://codepen.io).
+这里请查看 [Revealing Text Animation Part 1 - Mail Elements](https://codepen.io/jesper-ekstrom/pen/zMgjwj/) 案例。
 
-### Step 2: Hide the text behind a block
+## 步骤二：将文字藏在一个 div 后面
 
-To make our text start displaying from left to right, we need to add another div inside our `.text-container`:
+为了使我们的文字能从左到右显示，我们将在我们的 `.text-container` 中添加另一个 div。
 
-```
+``` HTML
 <!-- ... -->
 
-  <!-- The div containing the text that's revealed -->
+  <!-- 包括将要被显示出来的文字的 div -->
   <div class="text-container">
     <h1>Animation</h1>
     <div class="fading-effect"></div>
@@ -98,9 +98,9 @@ To make our text start displaying from left to right, we need to add another div
 <!-- ... -->
 ```
 
-...and add these CSS properties and values to it:
+然后加入下列 CSS 属性并给其赋值：
 
-```
+``` CSS
 .fading-effect {
   position: absolute;
   top: 0;
@@ -111,20 +111,20 @@ To make our text start displaying from left to right, we need to add another div
 }
 ```
 
-As you can see, the text is hiding behind this block now, which has a white background color to blend in with our parent container.
+正如你所见，这个 div 的背景是白的，可以融入父元素中，而文字则藏在它后面。
 
-If we try changing the width of the block, the text starts to appear. Go ahead and try playing with it in the Pen:
+如果我们试一下改改这个 div 的长度，文字就会开始出现。你可以在我们下面的例子中来尝试一下：
 
-See the Pen [Revealing Text Animation Part 2 - Hiding Block](https://codepen.io/jesper-ekstrom/pen/JwRZaG/) by Jesper Ekstrom ([@jesper-ekstrom](https://codepen.io/jesper-ekstrom)) on [CodePen](https://codepen.io).
+这里请查看 [Revealing Text Animation Part 2 - Hiding Block](https://codepen.io/jesper-ekstrom/pen/JwRZaG/)。
 
-> There is another way of making this effect without adding an extra block with a background over it. I will cover that method later in the article. 🙂
+> 还有另外一个不需要添加额外有背景的 div 就可以达到同样效果的方法。我会在文章后面中介绍它。🙂
 
-### Step 3: Define the animation keyframes
+## 步骤三：定义 animation keyframes
 
-We are now ready for the fun stuff! To start animating our objects, we're going to make use of the [animation property](https://css-tricks.com/almanac/properties/a/animation/) and its `@keyframes` function. Let’s start by creating two different `@keyframes`, one for the image and one for the text, which will end up looking like this:
+下面我们将开始有趣的部分了！我们将使用 [animation property](https://css-tricks.com/almanac/properties/a/animation/) 和它的 `@keyframes` 功能来开始帮我们的目标加入动画效果。让我们先来创建两个不同的 `@keyframes`，一个给我们的图片，一个给我们的文字。代码如下：
 
-```
-/* Slides the image from left (-250px) to right (150px) */
+``` CSS
+/* 把图片从左侧（-250px）滑到右侧（150px）*/
 @keyframes image-slide {
   0% { transform: translateX(-250px) scale(0); }
   60% { transform: translateX(-250px) scale(1); }
@@ -132,7 +132,7 @@ We are now ready for the fun stuff! To start animating our objects, we're going 
   100% { transform: translateX(150px) scale(1); }  
 }
 
-/* Slides the text by shrinking the width of the object from full (100%) to nada (0%) */
+/* 把目标缩小至消失（100% 到 0%）来滑动文字 */
 @keyframes text-slide {
   0% { width: 100%; }
   60% { width: 100%; }
@@ -141,41 +141,41 @@ We are now ready for the fun stuff! To start animating our objects, we're going 
 }
 ```
 
-> I prefer to add all `@keyframes` on the top of my CSS file for a better file structure, but it’s just a preference.
+> 我建议将所有的 `@keyframes` 添加到 CSS 文件的顶端，这样的文件的结构会更好，当然这只是我的个人喜好。
 
-The reason why the `@keyframes` only use a small portion of their percent value (mostly from 60-100%) is that I have chosen to animate both objects over the same duration instead of adding an [`animation-delay`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay) to the class it’s applied to. That’s just my preference. If you choose to do the same, keep in mind to always have a value set for 0% and 100%; otherwise the animation can start looping backward or other weird interactions will pop up.
+我只使用 `@keyframes` 很小一部分百分比值（主要是从 60% 到 100%）的原因是我选择在相同的时间段对两个物体设置动画，而不是为它们添加一个 [`animation-delay`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay)。这只是我的个人喜好。如果你选择和我一样的方法，一定记得要为 0% 和 100% 设值；否则，动画效果就会开始循环或者是造成一些很奇怪的结果。
 
-To enable the `@keyframes` to our classes, we’ll call the animation name on the CSS property `animation`. So, for example, adding the `image-slide` animation to the image element, we’d do this:
+为了在我们的 class 中启用 `@keyframes`，我们需要在 CSS 属性 `animation` 上调用我们的动画名称。例如，要将 `image-slide` 加入图片元素上，我们得这样做：
 
-```
+``` CSS
 .image-container img {
-  /* [animation name] [animation duration] [animation transition function] */
+  /* [动画名称] [动画时间] [动画变形方法] */
   animation: image-slide 4s cubic-bezier(.5,.5,0,1);
 }
 ```
 
-> The name of the `@keyframes` works the same as creating a class. In other words the name doesn’t really matter as long as it’s called the same on the element where it’s applied.
+> `@keyframes` 的名称的使用就像创建一个 class 一样。换句话说，这里的动画名称是什么并不重要，只要确保你在想要使用该动画的元素上使用一样的名称就可以了。
 
-If that `cubic-bezier` part causes head scratching, then check out [this post by Michelle Barker](https://css-tricks.com/reversing-an-easing-curve/). She covers the topic in depth. For the purposes of this demo, though, it’s suffice to say that it is a way to create a custom animation curve for how the object moves from start to finish. The site [cubic-bezier.com](http://cubic-bezier.com/#.5,.5,0,1) is a great place to generate those values without all the guesswork.
+如果这里的 `cubic-bezier` 部分让你感到头大，那就快看看 Michelle Barker 的[这个帖子](https://css-tricks.com/reversing-an-easing-curve/)。她深度的解释了这个话题。如果只是想要达到本文演示的目的，我觉得我这么说就够了：这是一个为物体的整个移动过程创建一个自定义动画曲线的方法。[cubic-bezier.com](http://cubic-bezier.com/#.5,.5,0,1) 网站是一个很好的可以帮助你生成这些值（而不是靠猜）的网站。
 
-We talked a bit about wanting to avoid a looping animation. We can force the object to stay put once the animation reaches 100% with the `animation-fill-mode` sub-property:
+我们之前提及了我们希望避免循环动画。我们可以通过使用 `animation-fill-mode` 子属性来强行让物体在动画进度到达 100% 后就不再移动。
 
-```
+``` CSS
 .image-container img {
   animation: image-slide 4s cubic-bezier(.5,.5,0,1);
   animation-fill-mode: forwards;
 }
 ```
 
-So far, so good!
+目前为止一切都很好！
 
-See the Pen [Revealing Text Animation Part 3 - @keyframes](https://codepen.io/jesper-ekstrom/pen/WYqRLx/) by Jesper Ekstrom ([@jesper-ekstrom](https://codepen.io/jesper-ekstrom)) on [CodePen](https://codepen.io).
+这里请查看 [Revealing Text Animation Part 3 - @keyframes](https://codepen.io/jesper-ekstrom/pen/WYqRLx/)。
 
-### Step 4: Code for responsiveness
+## 步骤四：实现响应效果（responsiveness）
 
-Since the animations are based on fixed (pixels) sizing, playing the viewport width will cause the elements to shift out of place, which is a bad thing when we’re trying to hide and reveal elements based on their location. We could create multiple animations on different media queries to handle it (that’s what I did at first), but it’s no fun managing several animations at once. Instead, we can use the same animation and change its properties at specific breakpoints.
+因为动画是基于固定的大小（像素），改变视口的宽度会造成元素们偏离，这不利于我们根据元素的位置来隐藏和展现它们。我们可以在不同的 media queries 上创建多个动画来解决这个问题（这也是我最初的做法），但是一次处理这么多的动画可不是什么好玩的事。我们可以使用相同的动画，通过在特点的断点改变它的属性来解决这个问题。
 
-For example:
+例如：
 
 ```
 @keyframes image-slide {
@@ -185,7 +185,7 @@ For example:
   100% { transform: translatex(150px) scale(1); }
 }
 
-/* Changes animation values for viewports up to 1000px wide */
+/* 改变动画的参数来适应大至 1000 像素的宽度 */
 @media screen and (max-width: 1000px) {
   @keyframes image-slide {
     0% { transform: translatex(-150px) scale(0); }
@@ -196,17 +196,17 @@ For example:
 }
 ```
 
-Here we are, all responsive!
+这样就可以啦。都是响应式哒！
 
-See the Pen [Revealing Text Animation Part 4 - Responsive](https://codepen.io/jesper-ekstrom/pen/GPjGzy/) by Jesper Ekstrom ([@jesper-ekstrom](https://codepen.io/jesper-ekstrom)) on [CodePen](https://codepen.io).
+这里请查看 [Revealing Text Animation Part 4 - Responsive](https://codepen.io/jesper-ekstrom/pen/GPjGzy/)。
 
-### Alternative method: Text animation without colored background
+## 替代方法：使用文字的动画而非不透明的 div
 
-I promised earlier that I’d show a different method for the fade effect, so let’s touch on that.
+我在之前保证过我会介绍一种不一样的隐藏文字方法。我们现在来介绍它。
 
-Instead of using creating a whole new div — `<div class="fading-effect">` — we can use a little color trickery to clip the text and blend it into the background:
+与其使用一个全新的 div ─ `<div class="fading-effect">`，我们可以使用一个小技巧实用化 `background-clip` 将背景的颜色通过文字透出来：
 
-```
+``` CSS
 .text-container {
   background: black;
   -webkit-background-clip: text;
@@ -214,15 +214,15 @@ Instead of using creating a whole new div — `<div class="fading-effect">` — 
 }
 ```
 
-This makes the text transparent which allows the background color behind it to bleed in and effectively hide it. And, since this is a background, we can change the background width and see how the text gets cut by the width it’s given. This also makes it possible to add linear gradient colors to the text or even a background image display inside it.
+透明的文字允许背后背景的颜色渗透过来，可以很有效的隐藏文字。并且，因为是用背景隐藏文字，我们可以改变背景的宽度并观察文字如何根据所给定的宽度被切割。这同样使得给文字添加线性渐变颜色，甚至是背景图片成为可能。
 
-The reason I didn't go this route in the demo is because it isn't compatible with Internet Explorer (note those `-webkit` vendor prefixes). The method we covered in the actual demo makes it possible to switch out the text for another image or any other object.
+我没有在之前的演示中使用这个方法，因为它不能很好地兼容 IE（你看，代码里有 -webkit 这个浏览器前缀）。在我们实际演示中使用的方法，果把文字换成图片或者任何元素，仍然有效。
 
 * * *
 
-Pretty neat little animation, right? It’s relatively subtle and acts as a nice enhancement to UI elements. For example, I could see it used to reveal explanatory text or even photo captions. Or, a little JavaScript could be used to fire the animation on click or scroll position to make things a little more interactive.
+非常简单的小动画，是不是？它相当的细微，并且可以你的 UI 元素添色。例如，它可以用作揭示解释类文字甚至图片的标题。或者，可以用一点 JavaScript 代码来监听点击或滚动事件，从而触发动画，使网页的交互方式更丰富。
 
-Have questions about how any of it works? See something that could make it better? Let me know in the comments!
+对我们的动画有任何的问题嘛？有一些让它们变得更好的建议嘛？快发在下面的评论中来告诉我吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
