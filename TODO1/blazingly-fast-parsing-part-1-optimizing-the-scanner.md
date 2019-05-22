@@ -11,7 +11,7 @@
 
 实际上我们的系列文章始于语法分析器的前一阶段。V8 的语法分析器接收**扫描器**（也就是词法分析器 —— 译注）提供的标记（token）作为输入。Token 是由一个或多个字符相连而成、有单一语义含义的字符块，例如字符串、标识符，或像 `++` 这样的操作符。扫描器通过组合底层字符流中的连续字符来构造这些 token。
 
-扫描器接收 Unicode 字符流。这些 Unicode 字符总是从一个有 UTF-16 码元（code unit）的流中解码。为了避免扫描器和语法分析器面对不同编码的特殊处理，我们只支持一种编码。我们选择 UTF-16 是因为它是 JavaScript 字符串的编码。并且源码位置需要相对于该编码而提供。[`UTF16CharacterStream`](https://cs.chromium.org/chromium/src/v8/src/scanner.h?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=46)  提供了（可能是缓冲的）UTF-16 视图，该视图构建于 V8 从 Chrome 接收的 Latin1、UTF-8 或 UTF-16 编码之上。除了可以支持多种编码，这种扫描器和字符流分离的方式使 V8 在扫描时可以如同整个源代码都可用一样，即使可能只通过网络接收了一部分代码。
+扫描器接收 Unicode 字符流。这些 Unicode 字符总是从一个有 UTF-16 码元（code unit）的流中解码。为了避免扫描器和语法分析器面对不同编码的特殊处理，我们只支持一种编码。我们选择 UTF-16 是因为它是 JavaScript 字符串的编码。并且源码位置需要相对于该编码而提供。[`UTF16CharacterStream`](https://cs.chromium.org/chromium/src/v8/src/scanner.h?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=46) 提供了（可能是缓冲的）UTF-16 视图，该视图构建于 V8 从 Chrome 接收的 Latin1、UTF-8 或 UTF-16 编码之上。除了可以支持多种编码，这种扫描器和字符流分离的方式使 V8 在扫描时可以如同整个源代码都可用一样，即使可能只通过网络接收了一部分代码。
 
 ![](https://v8.dev/_img/scanner/overview.svg)
 
@@ -21,7 +21,7 @@
 
 ## 空白符
 
-token 之前可以由多种空白符分隔，如换行、空格、制表符、单行注释、多行注释等等。一类空白符可以跟随其他类型的空白符。如果空白符导致了两个 token 之前的换行，会增加含义：这可能导致[自动插入分号](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion)。因此，在扫描下一个 token 之前，会跳过所有的空白符，并记录是否遇到了换行。大多数真实生产环境中的 JavaScript 代码都进行了缩小化（minify），所以幸运地，多字符的空白不是很常见。出于这个原因，V8 统一独立地扫描出每种空白符，就像是常规 token 一样。例如，如果 token 的第一个字符是 `/` ，第二个字符也是 `/`，V8 会将其扫描为单行注释，返回 `Token::WHITESPACE`。这个过程会一直重复，[直到](https://cs.chromium.org/chromium/src/v8/src/scanner.cc?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=671)我们找到了一个不是 `Token::WHITESPACE` 的 token。这意味着，如果下一个 token 前面没有空白符，我们立即开始扫描相关的 token，而不需要显式检查空白符。
+token 之前可以由多种空白符分隔，如换行、空格、制表符、单行注释、多行注释等等。一类空白符可以跟随其他类型的空白符。如果空白符导致了两个 token 之前的换行，会增加含义：这可能导致[自动插入分号](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion)。因此，在扫描下一个 token 之前，会跳过所有的空白符，并记录是否遇到了换行。大多数真实生产环境中的 JavaScript 代码都进行了缩小化（minify），所以幸运地，多字符的空白不是很常见。出于这个原因，V8 统一独立地扫描出每种空白符，就像是常规 token 一样。例如，如果 token 的第一个字符是 `/`，第二个字符也是 `/`，V8 会将其扫描为单行注释，返回 `Token::WHITESPACE`。这个过程会一直重复，[直到](https://cs.chromium.org/chromium/src/v8/src/scanner.cc?rcl=edf3dab4660ed6273e5d46bd2b0eae9f3210157d&l=671)我们找到了一个不是 `Token::WHITESPACE` 的 token。这意味着，如果下一个 token 前面没有空白符，我们立即开始扫描相关的 token，而不需要显式检查空白符。
 
 然而，这种循环会增加每个扫描出的 token 的开销 —— 它需要分支来判断刚扫描出的 token。更好的方案是，只在我们刚扫描出的 token 有可能是 `Token::WHITESPACE` 的时候才继续这个循环，否则就跳出循环。我们通过将循环本身放在一个单独的[辅助方法](https://cs.chromium.org/chromium/src/v8/src/parsing/scanner-inl.h?rcl=d62ec0d84f2ec8bc0d56ed7b8ed28eaee53ca94e&l=178)中来做到这一点。在这个方法中，我们在确信 token 不会是 `Token::WHITESPACE` 的时候就立即返回。也许这看起来只是一些小变动，但这能减少每一个扫描的 token 的额外开销。这对于标点符号之类的非常短的 token 尤其有用：
 
