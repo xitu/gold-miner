@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/project-worlds-achieving-god-mode-in-digital-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/project-worlds-achieving-god-mode-in-digital-design.md)
 > * 译者：[Charlo-O](https://github.com/Charlo-O)
-> * 校对者：[Baddyo](https://github.com/Baddyo) [LeviDing](https://github.com/leviding)
+> * 校对者：[Baddyo](https://github.com/Baddyo)
 
 # 项目世界 —— 在数字设计中实现上帝模式
 
