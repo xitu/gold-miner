@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/blazingly-fast-parsing-part-1-optimizing-the-scanner.md](https://github.com/xitu/gold-miner/blob/master/TODO1/blazingly-fast-parsing-part-1-optimizing-the-scanner.md)
 > * 译者：[nettee](https://github.com/nettee)
-> * 校对者：
+> * 校对者：[suhanyujie](https://github.com/suhanyujie)
 
 # 超快速的分析器（一）：优化扫描器
 
