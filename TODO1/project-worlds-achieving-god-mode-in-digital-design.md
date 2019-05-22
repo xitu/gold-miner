@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/project-worlds-achieving-god-mode-in-digital-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/project-worlds-achieving-god-mode-in-digital-design.md)
 > * 译者：[Charlo-O](https://github.com/Charlo-O)
-> * 校对者：[Baddyo](https://github.com/Baddyo)
+> * 校对者：[Baddyo](https://github.com/Baddyo) [LeviDing](https://github.com/leviding)
 
 # 项目世界 —— 在数字设计中实现上帝模式
 
-> 一种对系统抽象的、简单的，却十分有效的基于我们如何感知周围的世界的思考方式。
+>一种对系统抽象的、简单的，却十分有效的基于我们如何感知周围的世界的思考方式。
 
 ![](https://cdn-images-1.medium.com/max/6400/1*-VcoMexO96JKZvvujUxPUg.png)
 
@@ -21,7 +21,7 @@
 
 ## 模块统治世界
 
-岁月如梭，日新月异。 我们周围的一切都在不断地变化 —— 行星绕着太阳转，天气不断地变化，你的身体也在不断地变化……每时每刻，每一种情况都是独一无二的。
+岁月如梭，日新月异。我们周围的一切都在不断地变化 —— 行星绕着太阳转，天气不断地变化，你的身体也在不断地变化……每时每刻，每一种情况都是独一无二的。
 
 为了让我们的大脑在这样一个瞬息万变的浩瀚宇宙中生存，我们必须去繁就简。我们变得非常善于识别模块，因为它们让我们的大脑走捷径，让我们的生活更容易(实际上更宜居），而不会让我们不知所措。
 
@@ -33,7 +33,8 @@
 
 这让我想到 —— 为了使设计工具更强大，我们可能需要**从底层**重建它们。我开始问自己，设计系统中是否有一套完整的基本因子或规则，如果设置正确，可以在更高的层级上增加复杂性，而不需要真正的获得上级权威的指导。
 
-[涌现 —— 愚蠢的个体如何变成聪明的集体](https://www.youtube.com/embed/16W7c0mb-rE?wmode=opaque&widget_referrer=https%3A%2F%2Fuxdesign.cc%2Fmedia%2Fa36a89cab939e54dfc586d0093b67301%3FpostId%3Db7242dbe5770&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)：强烈推荐关于涌现概念的视频。说真的，去看吧!
+[涌现 —— 愚蠢的个体如何变成聪明的集体](https://www.youtube.com/embed/16W7c0mb-rE?wmode=opaque&widget_referrer=https%3A%2F%2Fuxdesign.cc%2Fmedia%2Fa36a89cab939e54dfc586d0093b67301%3FpostId%3Db7242dbe5770&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)：强烈推荐关于涌现概念的视频。说真的，去看吧！
+
 
 ### 混沌理论
 
@@ -75,7 +76,7 @@
 
 ## 世界的维度与状态
 
-**维度**，或通常称为**属性**的东西，是组合在一起定义世界状态的可能性的列表。它们使世界充满活力的因素。 维度越多（即尺寸，颜色，重量等）—— 或维度的值越（8px、20px、8%、20%、#000000、#efefef 等） —— 世界可能的状态就越多。
+**维度**，或通常称为**属性**的东西，是组合在一起定义世界状态的可能性的列表。它们使世界充满活力的因素。 维度越多（即尺寸，颜色，重量等）—— 或维度的值越（8px、20px、8%、20%、#000000 和 #efefef 等）—— 世界可能的状态就越多。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*AA0dQhoMx7rVUzSm358UXg.png)
 
@@ -147,7 +148,7 @@ S **=** Vₐ **\*** Vₐ * Vₐ * …
 
 ![](https://cdn-images-1.medium.com/max/2800/1*UKkedP_SD2UENNiIeukLtQ.png)
 
-……如果不是纯粹的0和1(但这对我们来说并不重要，因为它太细微了)。
+……如果不是纯粹的 0 和 1（但这对我们来说并不重要，因为它太细微了）。
 
 ## 创造你自己的世界
 
@@ -187,7 +188,7 @@ S **=** Vₐ **\*** Vₐ * Vₐ * …
 
 ![](https://cdn-images-1.medium.com/max/2800/1*r40twjR3-Ma5MUniMsdnEg.png)
 
-![Examples of structure in HTML and React components](https://cdn-images-1.medium.com/max/2800/1*kkMKItZe6idW0JnhYd_-vA.png)
+![示例：HTML 结构和 React 组件](https://cdn-images-1.medium.com/max/2800/1*kkMKItZe6idW0JnhYd_-vA.png)
 
 但是一旦你认真考虑到这**万物皆独特**的哲学，它开始变得有点复杂了，并不是真正的树状。类树形结构只从一个视角看所有的东西，但是对于设计系统，可能有数百万个视角。
 
@@ -273,11 +274,11 @@ S **=** Vₐ **\*** Vₐ * Vₐ * …
 
 ![](https://cdn-images-1.medium.com/max/2800/1*ucD9XP00wym2U087n7WvSg.png)
 
-## AB测试
+## AB 测试
 
 测试并选择最佳版本是设计过程的另一部分，可以从系统化中受益。想象一下，可以选择将整个设计系统分成两个或多个平行的宇宙，以便看到它们之间的区别，并测试哪一个更好。类似 git，内置在我们的设计工具的核心中，但是更好。
 
-![Splitting design system into multiverses based on choices to be made](https://cdn-images-1.medium.com/max/2800/1*FT-a96s9BTh1D8d3yXhSsQ.png)
+![基于抉择将设计系统分解为多元宇宙](https://cdn-images-1.medium.com/max/2800/1*FT-a96s9BTh1D8d3yXhSsQ.png)
 
 因为我们跟踪了每一个组件，每个设计系统中的规则，使这一切都成为可能。你可以继续对任何一个多元宇宙进行更改，进行更新迭代，因为这个差异也是一个独立于其他规则的惟一规则（或一组规则）。例如，你可以测试一个应用程序的许多不同的视觉主题，这些主题，完全独立于设置屏幕流的整个交互过程。
 
@@ -299,7 +300,7 @@ S **=** Vₐ **\*** Vₐ * Vₐ * …
 
 我选择不谈这个是因为：a)我还没有理清我对交互的想法；b)谈论它将是一个浩大而漫长的任务，所以这会是另一篇文章。请继续关注。
 
-但我确定的是 —— 此刻你可能会说：”真的吗？“ —— 通过增加时间作为另一个维度，交互性以更高的层从所有这些设计系统的离散组件中涌现。我敢把交互定义为一个观察者，**可以在这些被允许状态时间流中穿越** —— 例如，一个应用程序的交互实例，测试一个特定按键的工作方式，或者只是检查蓝色的颜色样本：
+但我确定的是 —— 此刻你可能会说：“真的吗？” —— 通过增加时间作为另一个维度，交互性以更高的层从所有这些设计系统的离散组件中涌现。我敢把交互定义为一个观察者，**可以在这些被允许状态时间流中穿越** —— 例如，一个应用程序的交互实例，测试一个特定按键的工作方式，或者只是检查蓝色的颜色样本：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*CFHHcYr2VIV3a0pgC5Wv-g.png)
 
@@ -355,13 +356,13 @@ S **=** Vₐ **\*** Vₐ * Vₐ * …
 
 2. 世界接收输入，对其执行操作并输出结果。
 
-3. 世界是由输入的可操纵**维度**的定义的。这些维度的所有值一起定义其**状态**。
+3. 世界是由名为**维度**的可操纵输入定义的。这些维度的所有值一起定义其**状态**。
 
 4. 通过跟踪所有这些独特的世界，你会发现一些非常强大的东西。。你只能做一次更改（规则、颜色、形状、图像、名称、不透明度），并将其应用于所有其他事物。
 
 5. 添加时间这个维度来观察这些组件以形成交互。这个庞大课题留到下次探讨。
 
-![It’s all worlds in worlds in worlds in worlds…](https://cdn-images-1.medium.com/max/2800/1*GwzN3f_DAige-7OPwQRNRw.png)
+![世界嵌套世界，无穷匮也](https://cdn-images-1.medium.com/max/2800/1*GwzN3f_DAige-7OPwQRNRw.png)
 
 现在的设计工具试图从（A）一切都被绘制，绘画和静态的地方进入到（B）一切都被编程，动态和可互动的有交互地方。我相信还有另一种更好的方法。对于项目世界，我是从抽象的思维状态开始的（C），在那里纯粹的信息被表示和处理。
 
@@ -382,8 +383,3 @@ S **=** Vₐ **\*** Vₐ * Vₐ * …
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
-
-
-
