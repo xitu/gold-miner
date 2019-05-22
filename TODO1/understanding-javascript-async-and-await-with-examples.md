@@ -32,7 +32,7 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 
 ![Example of Callback hell.](https://cdn-images-1.medium.com/max/2000/1*uYstZyc0A4ZSO2Xxh-ASIg.png)
 
-**Note the nesting of callbacks and the staircase of** `})` **at the end.** 鉴于结构上的相似性，这种方式被形象地称作[**回调地狱**](http://callbackhell.com/)或[**回调金字塔**](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))。这种方式的一些缺点是 —
+**注意回调函数的嵌套和程序末尾** `})` **的层级。** 鉴于结构上的相似性，这种方式被形象地称作[**回调地狱**](http://callbackhell.com/)或[**回调金字塔**](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))。这种方式的一些缺点是 —
 
 * 不得不从左至右去理解代码，使得代码变得更难以阅读。
 * 处理错误变得更加复杂，并且容易引发错误代码。
@@ -47,7 +47,7 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 * 不同于使用 `try/catch`，我们需要使用 `.catch` 处理错误。
 * **在循环体中顺序执行多个 promise 具有挑战且不直观。**
 
-我们为了证明上面的最后一个缺点，**尝试一下下面的挑战吧！**
+为了证明上面的最后一个缺点，**尝试一下下面的挑战吧！**
 
 ### 挑战
 
@@ -57,7 +57,7 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 
 ## Async 函数
 
-Introduced in **ES2017**(ES8), async functions make working with promises much easier.
+async 函数在 **ES2017**(ES8) 中引入，使得 promise 的应用更加简单。
 
 * **注意到 async 函数是基于 promise 的这一点很重要。**
 * async/await 并不是完全全新的概念。
@@ -69,7 +69,7 @@ Introduced in **ES2017**(ES8), async functions make working with promises much e
 
 ### 语法
 
-async/await 包含两个关键字 async 和 await。**`async` 用来使得函数异步执行。** It **unlocks** the use of `await` inside these functions. Using `await` in any other case is a syntax error.
+async/await 包含两个关键字 async 和 await。**`async` 用来使得函数可以异步执行。`async` 使得在函数中可以使用 `await` 关键字，除此之外，在任何地方使用 `awiait` 都属于语法错误。
 
 ```
 // 应用到普通的声明函数
@@ -113,7 +113,7 @@ class Obj {
 
 **注意：类的构造函数和 [getters/setters](https://blog.bitsrc.io/diving-deeper-in-javascripts-objects-318b1e13dc12)** 不能**作为 async 函数。**
 
-## Semantics and Evaluation Rules
+## 语义和评估准则
 
 async 函数与普通 JavaScript 函数相比有以下区别 —
 
@@ -172,9 +172,9 @@ async function foo() {
 foo().catch(console.log);
 ```
 
-如果错误**未被捕获**，`foo()` 函数会返回一个状态为 **rejected** 的 promise。不同于 `Promise.resolve`，`Promise.reject` wraps the error and is returned. See E**rror Handling** section later.
+如果错误**未被捕获**，`foo()` 函数会返回一个状态为 **rejected** 的 promise。不同于 `Promise.resolve`，`Promise.reject` 会包装错误并返回。详情请看稍后的**错误处理**部分
 
-最终结果是，无论你想要返回什么结果，最终在 async 函数外，**你都会得到一个 promise。**
+最终结果是，不论你想要返回什么结果，最终在 async 函数外，**你都会得到一个 promise。**
 
 ### async 函数在执行 await \<表达式>时会中止
 
@@ -209,9 +209,9 @@ fn().then(console.log);
 
 * 当函数 `fn` 被调用时，首先被执行的是 `const a = await 9;`。它被**隐式地转换成** `const a = await Promise.resolve(9);`。
 
-* 由于我们使用了 `await` 命令，`fn` 函数会在此时会**暂停到变量 a 获得值为止**。In this case, the **promise resolves it to** `9`.
+* 由于我们使用了 `await` 命令，`fn` 函数会在此时会**暂停到变量 a 获得值为止**。在该情况下 **`Promise.resolve` 方法返回值**为 9。
 
-* `delayAndGetRandom(1000)` 函数使得 `fn` 中的其它程序暂停执行，直到 1 秒钟之后 `delayAndGetRandom` 状态转变成 resolved。 所以，`fn` 函数的执行有效地暂停了 1 秒钟。
+* `delayAndGetRandom(1000)` 函数使得 `fn` 中的其它程序暂停执行，直到 1 秒钟之后 `delayAndGetRandom` 状态转变成 resolved。所以，`fn` 函数的执行有效地暂停了 1 秒钟。
 
 * 此外，`delayAndGetRandom` 中的 resolve 函数返回一个随机值。无论往 `resolve` 函数中传入什么值, 都会赋值给变量 `b`。
 
@@ -219,7 +219,7 @@ fn().then(console.log);
 
 * 最后我们计算 `a + b * c` 的结果，通过 `Promise.resolve` 将该结果包装成一个 promise，并将作为 async 函数的返回值。
 
-**注意：** If this pause and resume are reminding you of ES6 [**generators**](https://codeburst.io/understanding-generators-in-es6-javascript-with-examples-6728834016d5), it’s because there are [**good reasons**](https://github.com/tj/co) for it.
+**注意：** 如果上面程序的暂停和恢复操作让你想起了 ES6 的 [**generator**](https://codeburst.io/understanding-generators-in-es6-javascript-with-examples-6728834016d5)，那是因为 generator 也有[**很多优点**](https://github.com/tj/co)。
 
 ### 解决方案
 
@@ -312,7 +312,7 @@ async function foo() {
 }
 ```
 
-因为我们在等待执行 `canRejectOrReturn` 函数的时候, **canRejectOrReturn 函数体内的 promise 会转移到 rejected 状态而抛出错误**，这将导致 `catch` 代码块被执行。也就是说 `foo` 函数中 promise 会转移到 **resolved 状态**，值为 `undefined` （因为我们在 `try` 中没有返回值）或者 'error caught'`。 因为我们在 `foo` 函数中使用了 `try-catch` 处理错误，所以说 `foo` 函数中 promise 永远都不会转移到 rejected 状态。
+因为我们在等待执行 `canRejectOrReturn` 函数的时候, **canRejectOrReturn 函数体内的 promise 会转移到 rejected 状态而抛出错误**，这将导致 `catch` 代码块被执行。也就是说 `foo` 函数运行结果为 `rejected`，返回值为 `undefined` （因为我们在 `try` 中没有返回值）或者 'error caught'`。 因为我们在 `foo` 函数中使用了 `try-catch` 处理错误，所以说 `foo` 函数的结果永远不会是 rejected 。
 
 下面是另外一个版本的例子 —
 
@@ -326,9 +326,9 @@ async function foo() {
 }
 ```
 
-注意这一次我们使用了 **return** （而不是 await）将函数`canRejectOrReturn` 从 `foo` 函数中返回。`foo` 函数中状态会转移为**resolved，返回值为`'perfect number'` **或者值为 Error('Sorry, number too big')。**`catch` 代码块永远都不会被执行。**
+注意这一次我们使用了 **return** （而不是 await）将函数`canRejectOrReturn` 从 `foo` 函数中返回。`foo` 函数运行结果是**resolved，返回值为`'perfect number'` **或者值为 Error('Sorry, number too big')。**`catch` 代码块永远都不会被执行。**
 
-这是因为函数`foo`返回了 `canRejectOrReturn` 返回的 promise 对象。因此 `foo` 的 resolved 状态变成了 `canRejectOrReturn` 的 resolved 状态。你可以将 `return canRejectOrReturn()` 等价为下面两行程序去理解（**注意第一行没有 await**）—
+这是因为函数`foo`返回了 `canRejectOrReturn` 返回的 promise 对象。因此 `foo` 的 resolved 变成了 `canRejectOrReturn` 的 resolved 。你可以将 `return canRejectOrReturn()` 等价为下面两行程序去理解（**注意第一行没有 await**）—
 
 ```
 try {
@@ -349,7 +349,7 @@ async function foo() {
 }
 ```
 
-在上面的例子中，`foo` 函数的In this case, `foo` **resolves with either** `'perfect number'` or **resolve with** `'error caught'`. **There is no rejection.** It is like the first example above with just `await`. Except, we **resolve with the value that** `canRejectOrReturn` produces rather than `undefined`.
+在上面的例子中，`foo` 函数**运行结果为 resolved，**返回值为 'perfect number'` 或 `'error caught'`。 **`foo` 函数的结果永远不会是 rejected。** 这就像上面那个只有 `await` 的例子。只是这里将函数 `canRejectOrReturn` 的 rejected 结果返回了，而不是返回了 `undefined`。
 
 你可以将语句 return await canRejectOrReturn();拆开再看看效果 —
 
@@ -379,7 +379,7 @@ async function foo() {
 }
 ```
 
-注意我们并没有使用 `await` 或 `return`。`foo` 函数将一直返回 **will always resolve with `undefined` without** **waiting for 1 second**. However, the promise **does start** its execution. If there are side-effects, **they will happen**. If it throws an error or rejects, then UnhandledPromiseRejectionWarning will be issued.
+注意我们并没有使用 `await` 或 `return`。`foo` 函数运行结果为**返回值是 `undefined` 的 resolved**，并且函数执行不会**延迟 1 秒钟**。但是canRejectOrReturn() 中的 promise 的确被执行了。如果没有副作用产生，**这的确会发生**。如果 canRejectOrReturn() 抛出错误或者状态转移为 rejected， UnhandledPromiseRejectionWarning 错误将会产生。
 
 ### 在回调中使用 async 函数
 
@@ -427,9 +427,9 @@ async function fetchAllCounts(users) {
 }
 ```
 
-We are manually fetching each count, and appending them in the `counts` array. The **problem with this code** is that until the first username’s count is fetched, **the next will not start.** At a time, **only one repo count** is fetched.
+我们手动获取了每一个 count，并将它们 append 到 `counts` 数组中。**程序的问题在于**第一个用户的 count 被获取之后，第二个用户的 count 才能被获取。同一时间，只有一个**公开仓库数量**可以被获取。
 
-如果一个 fetch 操作耗时 300 ms，那么 `fetchAllCounts` 函数耗时大概在 900ms 左右。由此可见，程序耗时会随着用户数量的增加而线性增加。因为**获取不同用户公开仓库数量之间没有依赖**，我们可以**将操作并行处理。**
+如果一个 fetch 操作耗时 300 ms，那么 `fetchAllCounts` 函数耗时大概在 900ms 左右。由此可见，程序耗时会随着用户数量的增加而线性增加。因为**获取不同用户公开仓库数量之间没有依赖**，我们可以将**操作并行处理。**
 
 我们可以同时获取用户的公开仓库数量，而不是顺序获取。我们将使用 `.map` 方法和 `[**Promise.all**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)`。
 
@@ -443,7 +443,7 @@ async function fetchAllCounts(users) {
 }
 ```
 
-`Promise.all` 接受一个 promise 对象数组作为输入，返回一个 promise 对象。当所有 promise 对象的状态都转变成 resolved 时，返回值为**所有 promise 对应返回值组成的 promise 数组**，只要有一个 promise 对象被 rejected，`Promise.all` 的返回值为**第一个被 rejected 的 promise 对象对应的返回值。**** 但是，同时运行所有 promise 的操作可能行不通。可能你想批量执行 promise。你可以考虑下使用 **[p-map](https://github.com/sindresorhus/p-map)** 实现首先的并发。
+`Promise.all` 接受一个 promise 对象数组作为输入，返回一个 promise 对象。当所有 promise 对象的状态都转变成 resolved 时，返回值为**所有 promise 对应返回值组成的 promise 数组**，只要有一个 promise 对象被 rejected，`Promise.all` 的返回值为**第一个被 rejected 的 promise 对象对应的返回值。**** 但是，同时运行所有 promise 的操作可能行不通。可能你想批量执行 promise。你可以考虑下使用 **[p-map](https://github.com/sindresorhus/p-map)** 实现受限的并发。
 
 ## 结论
 
