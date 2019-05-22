@@ -9,21 +9,21 @@
 
 在本教程中，你将学习 File Provider 拓展以及如何使用它把你 App 的内容暴露出来。
 
-File Provider 在 iOS 11 中引进，它通过 iOS 的 **文件** App 来访问你 App 管理的内容。此外，其他 App 也可以使用 [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) 或 [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) 类来访问你 App 的数据。
+File Provider 在 iOS 11 中引进，它通过 iOS 的 **文件** App 来访问你 App 管理的内容。同时其他的 App 也可以使用 [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) 或 [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) 来访问你 App 的数据。
 
 File Provider 拓展的主要任务是：
 
-* 创建表示远端内容的文件占位符。
+* 创建表示远端服务器内容的文件占位符。
 * 拦截从宿主 App 的读取内容来进行下载或更新文件。
-* 在更新文件后发出通知来把更新上传到远程服务器。
+* 在更新文件后发出通知来把更新上传到服务器。
 * 枚举存储的文件和目录。
 * 对文档执行操作，例如重命名、移动或删除。
 
-你将使用 [Heroku Button](https://blog.heroku.com/heroku-button) 来配置托管文件的服务器。在服务器设置完成后，你需要配置扩展来对服务器的内容进行枚举。
+你将使用 [Heroku 按钮](https://blog.heroku.com/heroku-button) 来配置托管文件的服务器。在服务器设置完成后，你需要配置扩展来对服务器的内容进行枚举。
 
 ## 着手开始
 
-首先，请先 [下载资源](https://koenig-media.raywenderlich.com/uploads/2019/05/Favart-5-16-19.zip)，完成后找到 **Favart-Starter** 文件夹并打开 **Favart.xcodeproj**。确保您已选择 **Favart** 的 scheme，然后编译并运行该 App，你会看到以下内容：
+首先，请先 [下载资源](https://koenig-media.raywenderlich.com/uploads/2019/05/Favart-5-16-19.zip)，完成后找到 **Favart-Starter** 文件夹并打开 **Favart.xcodeproj**。确保你已选择 **Favart** 的 scheme，然后编译并运行该 App，你会看到以下内容：
 
 ![The container app for your File Provider.](https://koenig-media.raywenderlich.com/uploads/2019/01/01-container-app-281x500.png)
 
@@ -31,7 +31,7 @@ File Provider 拓展的主要任务是：
 
 > **注意**：如果要在真机上运行该项目，除了为两个 target 设置开发者信息外，还需要在 **Configuration** 文件夹中编辑 **Favart.xcconfig**。将 Bundle ID 更新为唯一值。
 >
-> 示例项目将这个值用于两个 target 中 build setting 里的 `PRODUCT_BUNDLE_IDENTIFIER`，**Provider.entitlements** 里的 App Groups 标识符，还有 **Info.plist** 中的 `NSExtensionFileProviderDocumentGroup`。在项目中如果没有同步更新它们，你将会得到模糊并且让人摸不着头脑编译报错信息。使用自定义的 build settings 将会是一个讨巧的方法。
+> 示例项目将这个值用于两个 target 中 build setting 里的 `PRODUCT_BUNDLE_IDENTIFIER`，**Provider.entitlements** 里的 App Groups 标识符，还有 **Info.plist** 中的 `NSExtensionFileProviderDocumentGroup`。在项目中如果没有同步更新它们，你将会得到模糊并且让人没法调试的编译报错信息，而使用自定义的 build settings 将会是一个讨巧的方法。
 
 示例项目中已经包含了你将用于 File Provider 扩展的基本组件：
 
@@ -54,9 +54,9 @@ File Provider 拓展的主要任务是：
 
 ![Deploy successful](https://koenig-media.raywenderlich.com/uploads/2019/01/02-backend-deploy-success.png)
 
-在 Heroku 完成部署 App 之后，单击底部的 **View**。这会跳转到你托管实例的后端 URL。在根目录下，您应该看到一条 JSON 数据，是你熟悉的 **Hello world!**。
+在 Heroku 完成部署 App 之后，单击底部的 **View**。这会跳转到你托管实例的后端 URL。在根目录下，你应该看到一条 JSON 数据，是你熟悉的 **Hello world!**。
 
-最后，您需要复制 **Heroku** 实例的 URL，但是只需要其中的域名部分：**{app-name}.herokuapp.com**。
+最后，你需要复制 **Heroku** 实例的 URL，但是只需要其中的域名部分：**{app-name}.herokuapp.com**。
 
 在 starter 项目中，打开 **Provider/NetworkClient.swift**。在文件的顶部，你应该会看到一条警告，告诉你 **Add your Heroku URL here**。删除这个警告并用你的 URL 替换 `components.host` 占位符字符串。
 
@@ -66,14 +66,14 @@ File Provider 拓展的主要任务是：
 
 首先，File Provider 需要一个遵循了 `NSFileProviderItem` 协议的模型。此模型将提供有关文件提供程序管理的文件的信息。starter 项目在 **FileProviderItem.swift** 中已经定义了 `FileProviderItem`，在使用它之前需要遵循一些协议。
 
-虽然该协议含有 27 个属性，但我们只需要其中 4 个。可选的一些属性为 File Provider 提供有关每个文件的详细信息以及一些其他功能。在本教程中，你将用到以四个属性：`itemIdentifier`，`parentItemIdentifier`，`filename` 和 `typeIdentifier`。
+虽然该协议含有 27 个属性，但我们只需要其中 4 个。其他一些可选属性为 File Provider 提供有关每个文件的详细信息以及一些其他功能。在本教程中，你将用到以四个属性：`itemIdentifier`，`parentItemIdentifier`，`filename` 和 `typeIdentifier`。
 
 `itemIdentifier` 给模型提供了唯一可识别的密钥。File Provider 使用 `parentIdentifier` 来跟踪它在扩展的层次结构中的位置。
 
 `filename` 是 **文件** 里显示的 App 名字。
-`typeIdentifier` 是 item 的 [统一类型标识符（UTI）](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html)。
+`typeIdentifier` 是一个 [统一类型标识符（UTI）](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html)。
 
-在 `FileProviderItem` 可以遵循 `NSFileProviderItem` 协议，它需要一个处理来自后端的数据的方法。`MediaItem` 定义了一个后端数据的简单模型。我们并不是直接在 `FileProviderItem` 中使用这个模型，而是使用 `MediaItemReference` 来处理 File Provider 扩展的一些额外逻辑从而把其中的坑填上。
+在 `FileProviderItem` 可以遵循 `NSFileProviderItem` 协议之前，它还需要一个处理来自后端数据的方法。`MediaItem` 定义了一个后端数据的简单模型。我们并不是直接在 `FileProviderItem` 中使用这个模型，而是使用 `MediaItemReference` 来处理 File Provider 扩展的一些额外逻辑从而把其中的坑填上。
 
 你将在本教程中使用 `MediaItemReference` 有两个原因：
 
@@ -352,7 +352,7 @@ override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIden
 以下是代码详解：
 
 1. 验证一下来确保给定的 identifier 能解析为扩展模型的实例。然后返回一个文件 URL，它是将项目存储在文件管理器里的位置。
-2. 由 `urlForItem(withPersistentIdentifier:)` 返回的每个 URL 都需要映射回最初设置的 `NSFileProviderItemIdentifier`。在该方法中，你要以以 `<documentStorageURL>/<itemIdentifier>/<filename>` 的格式构建 URL 并采用 `<itemIdentifier>` 作为项目标识符。
+2. 由 `urlForItem(withPersistentIdentifier:)` 返回的每个 URL 都需要映射回最初设置的 `NSFileProviderItemIdentifier`。在该方法中，你要以以 `<documentStorageURL>/<itemIdentifier>/<filename>` 的格式构建 URL 并采用 `<itemIdentifier>` 作为标识符。
 
 现在有两个方法都需要你传入一个指向远端文件的占位符 URL 。首先你将创建一个帮助辅助方法来完成这个功能，将以下内容添加到 `providePlaceholder(at:)`：
 
@@ -412,9 +412,9 @@ return FileProviderEnumerator(path: ref.path)
 
 此方法确保了给定 identifier 对应的是一个目录。如果是根目录，则仍然创建枚举器，因为根目录也是有效目录。
 
-编译并运行，App 启动后，打开 **文件** App 并启用扩展程序。点击两次右下角的 **浏览**，你就会进入 **文件** 的根目录。选择 **更多位置** 里的 **提供者** 并启用该拓展。
+编译并运行，App 启动后，打开 **文件** App，点击两次右下角的 **浏览**，你就会进入 **文件** 的根目录。选择 **更多位置**，会出现 **提供者** 或展开一个列表，点击开启你 App 的拓展。
 
-> **注意**： If you couldn’t find **Provider** listed under **More Locations**, tap the **Edit** button in the top right corner to ensure that the disabled extensions show in the list.如果找不到 **更多位置** 下列出的 **提供者**，请点击右上角的 **编辑** 按钮，确保列表中显示已禁用的扩展名。
+> **注意**：如果找不到 **更多位置** 展开的项目不能点击，你可以再点击一下右上角的 **编辑** 按钮。
 
 ![First look at the extension.](https://koenig-media.raywenderlich.com/uploads/2019/01/04-first-enumeration-281x500.png)
 
@@ -575,7 +575,7 @@ override func stopProvidingItem(at url: URL) {
 
 如果你对其他在 iOS 上使用文件的操作感兴趣，你可以查看 的更多方式感兴趣，请查看 [基于文档的 App](https://www.raywenderlich.com/5244-document-based-apps-tutorial-getting-started)。
 
-希望你喜欢这个教程！如果您有任何问题或意见，可以加入 [原文](https://www.raywenderlich.com/697468-ios-file-provider-extension-tutorial) 最下面的讨论组。
+希望你喜欢这个教程！如果你有任何问题或意见，可以加入 [原文](https://www.raywenderlich.com/697468-ios-file-provider-extension-tutorial) 最下面的讨论组。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
