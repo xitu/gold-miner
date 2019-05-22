@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/getting-started-with-c-and-android-native-activities.md](https://github.com/xitu/gold-miner/blob/master/TODO1/getting-started-with-c-and-android-native-activities.md)
 > * 译者：[Feximin](https://github.com/Feximin)
-> * 校对者：
+> * 校对者：[twang1727](https://github.com/twang1727)
 
 # C++ 和 Android 本地 Activity 初探
 
@@ -11,17 +11,17 @@
 
 我会带你完成一个简单的 Android 本地 Activity。我将介绍一下基本的设置，并尽力将进一步学习所需的工具提供给你。
 
-虽然我的重点是游戏编程，但我不会告诉你如何写一个 OpenGL 应用或者如何构建一款自己的游戏引擎。书本上有很多关于这些东西的讨论。
+虽然我的重点是游戏编程，但我不会告诉你如何写一个 OpenGL 应用或者如何构建一款自己的游戏引擎。这些东西得写整本书来讨论。
 
 ### 为什么用 C++
 
 在 Android 上，系统及其所支持的基础设施旨在支持那些用 Java 或 Kotlin 写的程序。用这些语言编写的程序得益于深度嵌入系统底层架构的工具。Android 系统很多核心的特性，比如 UI 界面和 Intent 处理，只通过 Java 接口公开。
 
-使用 C++ 并不会比 Kotlin 或 Java 这类语言使 Android “更本地化”。与直觉相反，你通过某种方式编写了一个只有 Android 部分特性可用的程序。对于大多数程序，Koltin 这类语言会更合适。
+使用 C++ 并不会比 Kotlin 或 Java 这类语言对 Android 来说更“本地化”。与直觉相反，你通过某种方式编写了一个只有 Android 部分特性可用的程序。对于大多数程序，Koltin 这类语言会更合适。
 
 然而此规则有一些意外情况。对我来说最接近的就是游戏开发。由于游戏一般会使用自定义的渲染逻辑（通常使用 OpenGL 或 Vulkan 编写），所以预计游戏看起来会与标准的 Android 程序不同。当你还考虑到 C 和 C++ 几乎在所有平台上都通用，以及相关的支持游戏开发的 C 库时，使用本地开发可能更合理。
 
-如果你想从头开始或者在现有游戏的基础上开发一款游戏，Android 本地开发包（NDK）已备好待用。实际上，即将展示给你的本地 activity 提供了一键式操作，你可以在其中设置 OpenGL 画布并开始收集用户的输入。你可能会发现，尽管 C 有学习成本，但一些常见的类似从游戏数据中构建顶点属性数组这样的代码难题使用 C++ 会比高级语言更容易。
+如果你想从头开始或者在现有游戏的基础上开发一款游戏，Android 本地开发包（NDK）已备好待用。实际上，即将展示给你的本地 activity 提供了一键式操作，你可以在其中设置 OpenGL 画布并开始收集用户的输入。你可能会发现，尽管 C 有学习成本，但使用 C++ 解决一些常见代码难题，比如从游戏数据中构建顶点属性数组，会比用高级语言更容易。
 
 ### 我不打算讲的内容
 
@@ -47,7 +47,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*5gtGSseWGEljglcK)
 
-NativeActivity 自 Android Gingerbread 开始就有了，如果你刚开始学习，建议选择最高可用的目标。
+NativeActivity 自 Android Gingerbread 开始就有了，如果你刚开始学习，建议选择当前可用的最高目标版本。
 
 ![](https://cdn-images-1.medium.com/max/800/0*EHxm6XZy9PFoX1BJ)
 
@@ -59,7 +59,7 @@ NativeActivity 自 Android Gingerbread 开始就有了，如果你刚开始学�
 
 ![](https://cdn-images-1.medium.com/max/800/0*UjYrafAf-GIjfcp1)
 
-创建一个简单的 CMake 文件：And make a simple CMake file:
+创建一个简单的 CMake 文件：
 
 ```
 cmake_minimum_required(VERSION 3.6.0)
@@ -92,7 +92,7 @@ add_library(helloworld-c
 #include <jni.h>
 ```
 
-最后让我们把这个 C 工程链接到我们的应用上：
+最后让我们把这个 C++ 工程链接到我们的应用上：
 
 ![](https://cdn-images-1.medium.com/max/800/0*peP9yeLNekk5o0Yg)
 
@@ -168,7 +168,7 @@ target_link_libraries(helloworld-c
 
 现在，我想在在 Android 的 Logcat 中打印一些内容。只使用与普通 C 或 C++ 应用中那样的标准的输出（如：`std::cout` 或 `printf`）是无效的。使用 `find_library` 去定位 `log`，我们缓存了 Android 的日志库以便稍后使用。
 
-最后我们告诉 CMake 构建 `helloworld-c` 要依赖 `native_app_glue`、`native_app_glue` 还有通过 `target_link_libraries` 被命名为 `log-lib` 的库。如此可以在我们的 C++ 工程中引用本地应用的逻辑。在 `add_library` 之前的 `set` 也确保 helloworld-c 不会实现名为 `ANativeActivity_onCreate` 的方法，该方法由 `android_native_app_glue` 提供。
+最后我们通过 target_link_libraries 告诉 CMake，helloworld-c 要依赖 native_app_glue、native_app_glue 和被命名为 log-lib 的库。如此可以在我们的 C++ 工程中引用本地应用的逻辑。在 `add_library` 之前的 `set` 也确保 helloworld-c 不会实现名为 `ANativeActivity_onCreate` 的方法，该方法由 `android_native_app_glue` 提供。
 
 ### 写一个简单的本地 Activity
 
@@ -365,7 +365,7 @@ void android_main(struct android_app *pApp) {
 *   Google 的 Android NDK 示例在本教程的编写上给了我极大的帮助：[https://github.com/googlesamples/android-ndk/](https://github.com/googlesamples/android-ndk/)
 *   本地 Activity：[https://github.com/googlesamples/android-ndk/tree/master/native-activity](https://github.com/googlesamples/android-ndk/tree/master/native-activity)
 *   CMake 是我在 Android 上使用 C++ 时首选的构建系统，可以在这里找到参考页面：[https://cmake.org/](https://cmake.org/)
-*   如果你刚开始学 CMake，或者你对 `target_include_directories` 的了解比 `include_directories` 少，建议你看一下 “modern” 版本的 CMake：[https://cliutils.gitlab.io/modern-cmake/](https://cliutils.gitlab.io/modern-cmake/)
+*   如果你刚开始学 CMake，或者你对以 target_include_directories 替代 include_directories 的用法不甚了解，建议你看一下 “modern” 版本的 CMake：[https://cliutils.gitlab.io/modern-cmake/](https://cliutils.gitlab.io/modern-cmake/)
 *   OpenGL ES 3 参考：[https://www.khronos.org/registry/OpenGL-Refpages/es3.0/](https://www.khronos.org/registry/OpenGL-Refpages/es3.0/)
 *   Android 上 OpenGL 的 Java 版本的教程。它以 Java 为中心，但是讨论了很多 Android 特有的问题：[https://developer.android.com/training/graphics/opengl/](https://developer.android.com/training/graphics/opengl/)
 *   NeHe 的 OpenGL 教程有点过时且侧重于较旧的 OpenGL 桌面版本。我还没找到一个比这个更好的 OpenGL 入门教程：[http://nehe.gamedev.net/](http://nehe.gamedev.net/)
