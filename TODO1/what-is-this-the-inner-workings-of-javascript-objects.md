@@ -113,12 +113,6 @@ Remember also that in JavaScript, you can do a lot without ever using `this`. In
 
 That said, `this` is sometimes useful. For instance, to share methods between a large number of objects. Even in functional programming, `this` can be useful to access other methods on the object to implement algebraic derivations to build new algebras on top of existing ones. For instance, a generic `.flatMap()` can be derived by accessing `this.map()` and `this.constructor.of()`.
 
-***
-
-**Eric Elliott** is a distributed systems expert and author of the books, [“Composing Software”](https://leanpub.com/composingsoftware) and [“Programming JavaScript Applications”](http://pjabook.com). As co-founder of [DevAnywhere.io](https://devanywhere.io), he teaches developers the skills they need to work remotely and embrace work/life balance. He builds and advises development teams for crypto projects, and has contributed to software experiences for **Adobe Systems, Zumba Fitness,** **The Wall Street Journal,** **ESPN,** **BBC,** and top recording artists including **Usher, Frank Ocean, Metallica,** and many more.
-
-**He enjoys a remote lifestyle with the most beautiful woman in the world.**
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
