@@ -5,25 +5,25 @@
 > * 译者：
 > * 校对者：
 
-# Blazingly fast parsing, part 2: lazy parsing
+# 超快速的分析器（二）：惰性解析
 
-This is the second part of our series explaining how V8 parses JavaScript as fast as possible. The first part explained how we made V8’s [scanner](https://github.com/xitu/gold-miner/blob/master/TODO1/blazingly-fast-parsing-part-1-optimizing-the-scanner.md) fast.
+这是 V8 如何尽可能快地解析 JavaScript 系列文章的第二部分。在第一部分中已经讲解了如何让 V8 [扫描器](https://github.com/xitu/gold-miner/blob/master/TODO1/blazingly-fast-parsing-part-1-optimizing-the-scanner.md)更快。
 
-Parsing is the step where source code is turned into an intermediate representation to be consumed by a compiler (in V8, the bytecode compiler [Ignition](https://v8.dev/blog/ignition-interpreter)). Parsing and compiling happens on the critical path of web page startup, and not all functions shipped to the browser are immediately needed during startup. Even though developers can delay such code with async and deferred scripts, that’s not always feasible. Additionally, many web pages ship code that’s only used by certain features which may not be accessed by a user at all during any individual run of the page.
+解析是编译器提供的将源代码转换成中间表示的步骤（ V8 中，字节码编译器 [Ignition](https://v8.dev/blog/ignition-interpreter) ）。解析和编译发生在 web 页面开始渲染的关键过程中，而不是在页面渲染期间立即需要提供给浏览器的功能。尽管开发人员可以使用异步和延迟脚本，但这不是一直都能工作的。此外，许多 web 页面只提供某些功能所使用的的代码，在页面个别的运行期间，用户可能根本无法使用这些功能。
 
-Eagerly compiling code unnecessarily has real resource costs:
+急于编译不必要的代码可能带来实际的资源消耗:
 
-*   CPU cycles are used to create the code, delaying the availability of code that’s actually needed for startup.
-*   Code objects take up memory, at least until [bytecode flushing](https://v8.dev/blog/v8-release-74#bytecode-flushing) decides that the code isn’t currently needed and allows it to be garbage-collected.
-*   Code compiled by the time the top-level script finishes executing ends up being cached on disk, taking up disk space.
+* CPU 周期用于创建代码，从而在启动时，实际上延迟了代码的有效性。
+* 代码对象占用内存，至少在[字节码刷新](https://v8.dev/blog/v8-release-74#bytecode-flushing)确定当前不需要该代码并允许对其进行垃圾回收之前是这样的。
+* 顶层脚本执行完成时，编译的代码最终被缓存在磁盘上，占用磁盘空间。
 
-For these reasons, all major browsers implement _lazy parsing_. Instead of generating an abstract syntax tree (AST) for each function and then compiling it to bytecode, the parser can decide to “pre-parse” functions it encounters instead of fully parsing them. It does so by switching to [the preparser](https://cs.chromium.org/chromium/src/v8/src/parsing/preparser.h?l=921&rcl=e3b2feb3aade83c02e4bd2fa46965a69215cd821), a copy of the parser that does the bare minimum needed to be able to otherwise skip over the function. The preparser verifies that the functions it skips are syntactically valid, and produces all the information needed for the outer functions to be compiled correctly. When a preparsed function is later called, it is fully parsed and compiled on-demand.
+由于这些原因，素有主流浏览器都实现了“惰性解析”。解析器不是为每个函数都生成一个抽象语法树，然后将其编译为字节码，而是根据实际遇到的函数进行“预解析”，而不是全部都解析。这是通过切换到[预解析器](https://cs.chromium.org/chromium/src/v8/src/parsing/preparser.h?l=921&rcl=e3b2feb3aade83c02e4bd2fa46965a69215cd821)来做到的，它是一个解析器的副本，只做最基本的工作，否则就跳过函数。预解析器验证它跳过函数是语法有效的，并产生正确编译外部函数所需的所有信息。之后调用预解析的函数时，将根据需要，对其进行完全的解析和编译。
 
-## Variable allocation
+## 变量分配
 
-The main thing that complicates pre-parsing is variable allocation.
+让预解析复杂化的主要问题是变量分配。
 
-For performance reasons, function activations are managed on the machine stack. E.g., if a function `g` calls a function `f` with arguments `1` and `2`:
+处于性能原因考虑，在机器的栈上管理函数的激活。例如，如果一个函数 `g` 使用参数 `1` 和 `2` 调用了函数 `f` ：
 
 ```
 function f(a, b) {
@@ -33,12 +33,12 @@ function f(a, b) {
 
 function g() {
   return f(1, 2);
-  // The return instruction pointer of `f` now points here
-  // (because when `f` `return`s, it returns here).
+  // 这里返回的是 `f` 的指针调用，返回结果指向这儿
+  // （因为当 `f` 返回时，它会返回到这里）。
 }
 ```
 
-First the receiver (i.e. the `this` value for `f`, which is `globalThis` since it’s a sloppy function call) is pushed on the stack, followed by the called function `f`. Then arguments `1` and `2` are pushed on the stack. At that point the function `f` is called. To execute the call, we first save the state of `g` on the stack: the “return instruction pointer” (`rip`; what code we need to return to) of `f` as well as the “frame pointer” (`fp`; what the stack should look like on return). Then we enter `f`, which allocates space for the local variable `c`, as well as any temporary space it may need. This ensures that any data used by the function disappears when the function activation goes out of scope: it’s simply popped from the stack.
+首先将接收者（比如 `f` 的 `this` 值，就是 `globalThis` ，因为它是一个随意的函数调用）推入栈中，然后是被调用的函数 `f` 。然后参数 `1` 和 `2` 被推入栈。这时函数 `f` 被调用。为了执行调用，我们首先在栈上保存 `g` 的状态：返回的指针（`rip`；我们需要返回什么代码） `f` 以及“帧指针”（`fp`；返回时栈应该是什么样的）。然后我们输入 `f` ，它为局部变量 `c` 分配空间，以及它可能需要的任何临时空间。这确保了函数被调用时如果超出作用域，那么函数使用的数据都会消失：只是从栈中弹出。
 
 ![](https://v8.dev/_img/preparser/stack-1.svg)
 
