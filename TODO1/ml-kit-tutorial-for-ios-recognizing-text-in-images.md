@@ -94,7 +94,7 @@ pod install
 
 [![初始项目](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel-650x376.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel.png)
 
-这个应用暂时还做不了什么；它只能让你用右上方的动作按钮分享已经写死的文字。你要用 ML Kit to bring this app to life.
+它暂时还做不了什么，只能让你用右上方的动作按钮分享已经写死的文字。你要用 ML Kit 帮它成长为真正的~~男人~~应用。
 
 ### 检测基本文本（Basic Text）
 
@@ -368,7 +368,7 @@ processor.process(in: imageView) { text, elements in
 
 注意上图里面缩放尺寸与实际尺寸之间的差异。你可以看到，图中的 frame 是与实际尺寸一致的。要把 frame 的位置放对，你就要计算出图像相对于视图的缩放比例。
 
-公式挺简单的 (👀…...大概吧):
+公式挺简单的（👀…大概吧）:
 
 1.  计算出视图和图像的分辨率。
 2.  比较两个分辨率，定出缩放比例。
