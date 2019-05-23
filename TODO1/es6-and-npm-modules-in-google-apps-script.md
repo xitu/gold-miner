@@ -2,62 +2,62 @@
 > * 原文作者：[Prasanth Janardanan](http://blog.gsmart.in/author/prasanth3628/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/es6-and-npm-modules-in-google-apps-script.md](https://github.com/xitu/gold-miner/blob/master/TODO1/es6-and-npm-modules-in-google-apps-script.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xingqiwu55555](https://github.com/xingqiwu55555)
+> * 校对者：[Baddyo](https://github.com/Baddyo) [shixi-li](https://github.com/shixi-li)
 
-# Using ES6 and npm modules in Google Apps Script
+# 在 Google Apps 脚本中使用 ES6 和 npm 模块
 
-> Google’s Apps Script should be of interest to all JavaScript developers.  
-> Apps Script is good for automation. Through it, you can directly access Google’s many services, such as Google Sheets, Gmail, Google Docs, Google Calendar, and more.  
-> With a little bit of imagination, you can create very exciting Apps and add-ons using Google Apps Script.
+> 所有的 JavaScript 开发者都应该对 Google 的 Apps 脚本感兴趣。  
+> Apps 脚本有利于实现自动化。通过它，你可以直接访问 Google 的很多服务，比如 Google 表格、Google 邮箱、Google 文档和 Google 日历等。
+> 只需要一点点想象力，你就可以使用 Google Apps 脚本创建非常激动人心的 Apps 和 插件。
 
-Unlike AppEngine, which first asks you for your credit card, Apps Script remains free so far. At the very least, Apps Script is good for quickly creating “proof of concept” mockups or even prototypes.
+与首先要求你提供信用卡的 AppEngine 不同，Apps 脚本目前仍是免费的。至少，Apps 脚本适用于快速创建“概念验证”模型或原型。
 
-There are different use cases for Apps Script. Primarily, it can be used to create add-ons for Google Sheets, Docs, or Forms. However, it can also create “standalone” web apps.
+Apps 脚本有不同的用例。它主要用于为 Google 表格、文档或表单创建插件。但是，它也可以创建“独立”的 web 应用。
 
-We will explore the standalone web app option in this article.
+我们将探究创建独立的 web 应用这一使用场景。
 
-Although there is much to be excited about with Apps Script, it nonetheless has some very painful limitations
+虽然使用 Apps 脚本有很多令人兴奋的地方，但是它仍有一些令人非常痛苦的限制，比如：
 
-1. Apps Script supports a very old version of JavaScript (JavaScript 1.6). Many of the modern JavaScript features that you may want to use are thus not available in Apps Script.
-2. There is no direct way to use npm modules (it is still possible, though, and I will show you how).
-3. It is quite difficult to create a good UI (with bootstrap, Vue, or even custom CSS). We have to find ways to inline custom script into HTML pages.
-4. You get a long, ugly URL as the address of your web app. It is difficult to share, and forget hosting a commercial offering on such an address.
-5. The “Apps Script” is rather painful. The correct name, by the way, is indeed “Apps,” followed by a space, then “Script.” There couldn’t be a less imaginative name for the thing. Some may like the name, but I’ve yet to meet anyone who claims to love it! Your hate will intensify when you start googling for an Apps Script function reference or example. There is a somewhat popular abbreviation: GAS (Google Apps Script). However, I really doubt whether even Google itself will be able to figure out what you mean if you search “use GAS in sheets.”
+1. Apps 脚本支持很老版本的 JavaScript（JavaScript 1.6）。因此，你可能想要使用的许多现代化的 JavaScript 特性在 Apps 脚本中都是不可用的。
+2. 没有直接的方式来使用 npm modules（但还是有办法可用的，下面我会向你展示）。
+3. 创建一个好的 UI 界面（使用 bootstrap、Vue，甚至是自定义 CSS）是相当困难的。我们必须找到将自定义脚本内联到 HTML 页面中的方法。
+4. 你的 web app 的访问地址将会是一串冗长而丑陋的 URL。难以分享，更别提用这样的地址提供商业服务。
+5. “Apps 脚本” 这个名字真让人难受。顺便说一下，正确的名字确实是 “Apps” 后面跟空格，然后是 “Script”。对于这件事来说，没有比这更缺乏想象力的名字了。有些人可能喜欢这个名字，但我还没有遇到声称喜欢它的人！ 当你在网上搜索 Apps 脚本功能的参考或示例时，你会更加讨厌它。有一个流行的缩略：GAS （Google Apps Script）。但是，如果你搜索“在表格中使用 GAS”，我真的怀疑就连 Google 自己也不能弄明白。
 
-This article series is my attempt to circumvent Apps Script’s limitations and add some cool awesomeness to “standalone” web apps and add-ons.
+本系列文章旨在规避 Apps 脚本的限制，并为“独立”的 web apps 和插件添加一些非常棒的功能。
 
-First, we will use webpack and babel and create a bundle from ES6 Javascript code. In the next step, we will use npm packages in our Apps Script project. And in the next part of the series, we will develop modern UIs that make use of CSS frameworks and VueJS or ReactJS in your Apps Script project. Let’s dive into it!
+首先，我们会使用 webpack 和 babel，从 ES6 Javascript 代码创建一个包。接下来，我会在我们的 Apps 脚本项目中使用 npm 包。并在本系列的下面部分，在你的 Apps 脚本项目中我们利用 CSS 框架和 VueJS 或 ReactJS 来开发现代化的用户界面。让我们深入探讨吧！
 
-## Setting up your local Apps Script Environment
+## 设置你的本地 Apps 脚本环境
 
-First, you have to get familiar with the Apps Script environment. Google provides a command line tool called **clasp** to manage Apps Script Projects locally.
+首先，你必须熟悉 Apps 脚本环境。Google 提供了一个命令行工具叫 **clasp** 来在本地管理 Apps 脚本项目。
 
-Install clasp command line tool:
+安装 clasp 命令行工具：
 
 ```
 npm install @google/clasp -g
 ```
 
-Once installed, login to your Google account.
+安装后，登录你的 Google 账号。
 
 ```
 clasp login
 ```
 
-This will open an authorisation page in your browser. You have to complete the steps.
+这将在你的浏览器里打开一个授权页面。你必须完成这些步骤。
 
-Once these steps are done, you are ready to create your first Apps Script Project.
+授权完成后，你已经做好了创建你的第一个 Apps 脚本项目的准备。
 
-## A simple Apps Script “stand alone” web app
+## 一个简单的基于 Apps 脚本的独立 web app
 
-Create a new folder. Open terminal and go to the new folder. Run the following command to create a new Apps Script project:
+新建一个文件夹。打开终端并转到这个新建的文件夹。运行下面的命令来创建一个新的 Apps 脚本项目：
 
 ```
 clasp create --type standalone --title "first GAS App"
 ```
 
-Create a new file app.js in the same folder. Add the following function in app.js file:
+在同样的文件夹里新建一个 app.js。并在 app.js 文件里添加下面的函数：
 
 app.js
 
@@ -67,10 +67,10 @@ function  doGet(){
 }
 ```
 
-For a webapp type Appscript project you need to have a function named doGet(). doGet() is the function that does the rendering of the webpage.  
-In the example above, the output is a simple text. A common webapp should return a complete HTML page. We will go with the simple text for keeping this first project as simple as possible.
+为了 webapp 类型的 Appscript 项目，你需要有一个名为 doGet() 的函数。doGet() 是执行页面渲染的函数。  
+在上面的例子里，输出结果是一段简单的文本。常见的 webapp 应该返回一个完整的 HTML 页面。为了保持第一个项目尽可能简单，我们将继续使用简单的文本。
 
-Open appscript.json. This file contains the settings for your apps script project.Update the file as shown below:
+打开 appscript.json。这个文件包含你的 apps 脚本设置。更新文件，如下所示：
 
 appscript.json
 
@@ -87,52 +87,52 @@ appscript.json
 }
 ```
 
-Save the files.  
-Go to the terminal and enter the following command to push the files back to Google servers:
+保存文件。  
+转到终端且输入下面的命令将这个文件推送回 Google 服务器：
 
 ```
 clasp push
 ```
 
-Then enter the following command to open the project in the browser
+然后输入下面的命令在浏览器中打开项目
 
 ```
 clasp open  --webapp
 ```
 
-This should open your browser with your new web app.
+该命令会打开浏览器，展示刚刚创建的 web 应用。
 
 ![](http://blog.gsmart.in/wp-content/uploads/2019/03/word-image-89.png)
 
-## Creating the Bundle – using WebPack and Babel
+## 创建包 —— 使用 WebPack 和 Babel
 
-Our next step is to use [ES6](https://en.wikipedia.org/wiki/ECMAScript) in Apps Script. We will use [babel](https://babeljs.io/) to cross compile from ES6 and will use [webpack](https://webpack.js.org/) to create a bundle from the generated code.
+接下来我们在 Apps 脚本中使用 [ES6](https://en.wikipedia.org/wiki/ECMAScript)。我们将使用 [babel](https://babeljs.io/) 对 ES6 进行编译并使用 [webpack](https://webpack.js.org/) 并对生成的代码进行分块打包。
 
-I have a sample Apps Script Project here:
+我这有一个简单的 Apps 脚本项目：
 
 [https://github.com/gsmart-in/AppsCurryStep1](https://github.com/gsmart-in/AppsCurryStep1)
 
-Let’s look into the project structure.
+让我们来看看这个项目的结构。
 
 ![](http://blog.gsmart.in/wp-content/uploads/2019/03/word-image-90.png)
 
-The “server” sub-folder contains the code. api.js file contains the functions that we expose to Apps Script.
+“server” 子文件夹包含代码。api.js 文件包含暴露给 Apps 脚本的函数。
 
-In the file **lib.js** we have es6 code. From this lib module, we can import other es6 files and npm packages.
+在 **lib.js** 文件里我们会看到 es6 代码。在 lib 模块，我们可以引入其他 es6 文件和 npm 包。
 
 ![](http://blog.gsmart.in/wp-content/uploads/2019/03/word-image-91.png)
 
-We use webpack to bundle the code and babel to do the cross compilation.
+我们使用 webpack 来对代码进行分块打包，并使用 babel 来编译。
 
-Let us now look at the webpack.gas.js file:
+现在我们看看 webpack.gas.js 文件：
 
-This is the webpack configuration file. In summary, what this configuration file tells webpack is
+这是 webpack 配置文件。总之，这个配置文件告诉 webpack 的是
 
-* Compile the server/lib.js file in to Javascript compatible with old Javascript using babel. Then place the bundle in a folder “dist”
-* Copy the file api.js without any change to output folder ‘dist’
-* Copy some configuration files (appsscript.js and .clasp.json to the output folder ‘dist’)
+* 使用 babel 将 server/lib.js 文件编译为向后兼容的 Javascript 代码。然后把打包后的文件放在 “dist” 目录下
+* 复制 api.js 文件且不更改输入文件夹 “dist”
+* 复制一些配置文件（appsscript.js 和 .clasp.json 文件到输出文件夹 ‘dist’ 目录下）
 
-One important thing to notice is these lines:
+重点注意这几行代码：
 
 webpack.gas.js
 
@@ -151,9 +151,9 @@ module.exports  =  {
 }
 ```
 
-This means that webpack will expose a global variable AppLib through which you can access the classes and functions exported in the bundle.
+这意味着 webpack 将暴露一个全局变量 AppLib，通过该变量可以访问打包后文件可以导出的类和函数。
 
-Now see the file api.js.
+现在来看 api.js 文件。
 
 api.js
 ```JavaScript
@@ -163,7 +163,7 @@ function  doGet(){
 }
 ```
 
-See server/lib.js file
+server/lib.js 文件
 
 lib.js
 
@@ -178,9 +178,9 @@ export  {
 };
 ```
 
-We are using Object.assign() which is not supported by Apps Script. When babel cross-compiles lib.js, it will generate compatible code that works on Apps Script.
+我们正在使用 Apps 脚本不支持的 Object.assign() 方法。当使用 babel 编译成 lib.js 文件时，它将生成 Apps 脚本支持的兼容代码。
 
-Let us now see package.json
+现在让我们看看 package.json 文件
 
 package.json
 
@@ -211,65 +211,65 @@ package.json
 }
 ```
 
-When you run
+当你运行如下命令时：
 
 ```
 $>  npm run gas
 ```
 
-Webpack compiles and bundles the lib.js code (and any additional modules you have imported) in to a single javascript file and places it in the “dist” folder.
+Webpack 将 lib.js 代码（以及你导入的其它模块）编译并打包到单个 JavaScript 文件中，并将文件放在 “dist” 文件夹中。
 
-Then we can just use “clasp” to upload the code .
+然后我们可以使用 “clasp” 上传代码。
 
-See the script “deploy” in package.json.
+参考 package.json 文件中的脚本 “deploy”。
 
-It runs webpack , then does “clasp push” and “clasp open”
+它运行 webpack，然后执行 “clasp push” 和 “clasp open” 命令。
 
-## Deploying “AppsCurryStep1”
+## 部署 “AppsCurryStep1”
 
-If not done, clone the sample project repository locally
+如果上面步骤未完成，请在本地克隆示例项目代码库。
 
 ```
 git clone  git@github.com:gsmart-in/AppsCurryStep1.git
 ```
 
-Open terminal and go to the folder AppsCurryStep1
+打开终端并转到 AppsCurryStep1 目录下。
 
-run the following command
+执行下面的命令：
 
 ```
 clasp create  --type standalone  --title  "Apps Script with Webpack and babel"
 ```
 
-This will create a standalone script project in your account
+这将在你的账户中创建一个独立的脚本项目。
 
-Now run :
+现在执行：
 
 ```
 npm run deploy
 ```
 
-This will open your web app in your browser
+这将在你的浏览器中打开你的 web app。
 
-## Integrating npm modules with your Apps Script Project
+## 将 npm 模块与你的 Apps 脚本项目集成
 
-One of the limiting features of Apps Script is that there is no easy way to integrate npm like packages to your project.
+Apps 脚本的一个限制特性是没有简单的方法可以将 npm 之类的包集成到你的项目中。
 
-For example, you may want to use [momentjs](https://momentjs.com/) to play with date, or [lodash](https://lodash.com/) utility functions in your script.
+例如，你可能想在项目中使用 [momentjs](https://momentjs.com/) 来处理日期，或者 [lodash](https://lodash.com/) 工具集方法。
 
-There, indeed, is a [Library feature in Apps Script](https://developers.google.com/apps-script/guides/libraries) but that option has several limitations. We will not explore the library option of Apps Script in this article; we will install npm modules and bundle those modules using webpack to create an Apps Script compatible package.
+实际上，[Apps 脚本是有库功能的](https://developers.google.com/apps-script/guides/libraries)，但是它有几个限制。我们不会在这篇文章中探索这个库的功能；我们将安装 npm 模块并使用 webpack 打包这些模块来创建与 Apps 脚本兼容的包。
 
-Since we already started using webpack to create bundles that we can integrate to apps script, it should be easier now to add some npm packages. Let us start with momentjs
+因为我们已经开始使用 webpack 来创建可以集成到 apps 脚本的包，所以我们现在添加一些 npm 包应该更容易。让我们开始使用 moment.js 吧！
 
-Open terminal, go to the AppsCurryStep1 folder you created in the last step and add momentjs to the mix
+打开终端，转到你上一步创建的 AppsCurryStep1 目录下，添加 momentjs。
 
 ```
 npm install moment  --save
 ```
 
-Now let us use some momentjs features in our Apps Script project.
+现在让我们在 Apps 脚本项目中使用一些 momentjs 的功能。
 
-Let us add a new function in lib.js
+在 lib.js 文件中添加一个新的函数。
 
 server/lib.js
 
@@ -293,9 +293,9 @@ function getTodaysDateLongForm() {
 export { getObjectValues, getTodaysDateLongForm };
 ```
 
-**Hint:** Don’t forget to export the new function
+**提示：** 不要忘记导出新函数。
 
-Now let’s use this new function in api.js
+现在让我们在 api.js 文件中使用这个新函数吧。
 
 server/api.js
 
@@ -307,15 +307,15 @@ function doGet() {
 }
 ```
 
-Go to the command line and enter
+转到终端并输入：
 
 ```
 npm run deploy
 ```
 
-The updated script should open in the browser and print today’s date
+这个更新了的脚本会打开浏览器，并打印今天的日期。
 
-There is not much fun getting todays date. Let us add another function that has a little more to do
+打印今天的日期并没有多少乐趣。让我们添加另一个有更多功能的函数。
 
 server/lib.js
 
@@ -325,7 +325,7 @@ function  getDaysToAnotherDate(y,m,d){
 }
 ```
 
-Now in api.js update doGet() and call getDaysToAnotherDate()
+现在在 api.js 文件中更新 doGet() 并调用 getDaysToAnotherDate()。
 
 server/api.js
 
@@ -337,15 +337,15 @@ function  doGet(){
 }
 ```
 
-Next, let us add lodash to the mix
+下面，让我们添加 lodash。
 
-First , run
+首先，执行下面的命令：
 
 ```
 npm install lodash  --save
 ```
 
-Let us add a random number generator with the help of lodash
+然后我们使用 lodash 添加一个随机数生成器。
 
 server/lib.js
 
@@ -358,7 +358,7 @@ function  printSomeNumbers(){
 }
 ```
 
-Let us call this new function from api.js
+让我们在 api.js 中调用该函数：
 
 server/api.js
 
@@ -373,31 +373,31 @@ function  doGet(){
 }
 ```
 
-Deploy the project again
+再次部署这个项目：
 
 ```
 npm run deploy
 ```
 
-You should see the random numbers in your web app page online
+你应该可以在线上看到你的 web 应用页面的随机数字。
 
-The source of this part 2 (integrated with npm module) is available here:  
+第 2 部分的源代码（与 npm 模块集成）可在此处获得： 
 [https://github.com/gsmart-in/AppsCurryStep2](https://github.com/gsmart-in/AppsCurryStep2)
 
-## Next steps
+## 下一步
 
-Now that it is so easy to add npm packages to your Apps Script project, we can start making some npm packages
+既然添加 npm 包到你的 Apps 脚本项目中如此容易，那我们可以开始创建一些 npm 包了。
 
-Packages that wrap the Google APIs, Gmail, Google Sheets, Google Docs, other public APIs Oh we are going to have lots of fun!
+封装 Google APIs、Gmail、Google 表格、Google Docs和其它公共的 API 的包，将会带来很多的乐趣！
 
-Another important half is remaining though. So far we have seen only a simple text interface for our web apps. How about using modern CSS frameworks, bootstrap, bulma, material design, and also VueJS, React and building some single Page Web apps on Apps Script? Yeah, we will do it. We will use bootstrap, Vuejs in client side and Apps Script on server side and will build a single page app.
+另一个重要的部分还没说到。目前我们看到 web 应用只是一个简单的文本界面。试试使用现代化 CSS 框架，bootstrap、bulma、material design 以及 VueJS 和 React，并用 Apps 脚本创建一些单页面 Web 应用？对，我们会这样做的。我们会在客户端使用 bootstrap 和 Vuejs，在服务端使用 Apps 脚本，并构建一个单页应用。
 
-How exciting is that? Stay tuned for the next part of this series
+多么令人兴奋啊！请继续关注本系列的文章。
 
-### Updates
+### 更新
 
-In the second part, we will build the client side of the web app using bootstrap and VueJS. Read the whole story here:  
-[Building Single Page Apps (with Vue and Bootstrap) on Google Apps Script](http://blog.gsmart.in/single-page-apps-vue-bootstrap-on-google-apps-script/)
+在第二部分，我们将使用 bootstrap 和 VueJS 构建我们的 web 应用的客户端。点击此处阅读全部：  
+[在 Google Apps 脚本中（使用 Vue 和 Bootstrap）构建单页应用](http://blog.gsmart.in/single-page-apps-vue-bootstrap-on-google-apps-script/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
