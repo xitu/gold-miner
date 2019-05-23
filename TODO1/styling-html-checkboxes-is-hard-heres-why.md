@@ -2,14 +2,14 @@
 > * 原文作者：[Areknawo](https://areknawo.com/author/areknawo/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/styling-html-checkboxes-is-hard-heres-why.md](https://github.com/xitu/gold-miner/blob/master/TODO1/styling-html-checkboxes-is-hard-heres-why.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jilanlan](https://github.com/jilanlan)
+> * 校对者：[shixi-li](https://github.com/shixi-li), [Baddyo](https://github.com/Baddyo)
 
 # 为什么 HTML 中复选框样式难写 —— 本文给你答案
 
 ![](https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ)
 
-在当今世界，大多数网页开发者认为掌握 **JavaScript** 是优先选择，这理所当然，因为 JS 是**浏览器脚本语言**。虽然 HTML 和 CSS 决定网站的样式，但是 JS 凭借它能调用 HTML 和 CSS API，优良性能以及它的多功能性，深受网页开发者喜爱。像 React，Vue，and Angular 等第三方**库**或框架，还有像 **CSS-in-JS** 等旨在简化样式编写的解决方案，都证实了前面所说的趋势。
+在当今世界，大多数网页开发者认为掌握 **JavaScript** 是优先选择，这理所当然，因为 JS 是**浏览器脚本语言**。虽然 HTML 和 CSS 决定网站的样式，但是 JS 凭借它能调用 HTML 和 CSS API，优良性能以及它的多功能性，深受网页开发者喜爱。像 React、Vue、和 Angular 等第三方**库**或框架，还有像 **CSS-in-JS** 等旨在简化样式编写的解决方案，都证实了前面所说的趋势。
 
 遗憾的是，万物皆有双面刃。一些包括我在内的网页开发者们，直接就上手使用例如 React 等第三方框架，而不是先**学习 HTML**。更有甚者，我们越来越依赖于使用 **UI 组件库**，因为它完美地封装了所有我们所需要的功能。当然，这些库或者框架的本质是好的，它们遵循了 DRY 规则，开发者们没必要什么都自己写。但是，从我个人经验来讲，过多地依赖框架会让我们忽略 HTML 的一些要点的存在。
 
@@ -112,7 +112,7 @@ SVG 图标本身就是一种图标。这里我们将使用简洁圆滑的复选�
 
 上面代码充分利用了 CSS 的 `~` 选择器，能够把样式应用到每个紧随着指定元素的那些元素。下一步，我们让复选框图标可见，并且旋转复选框到它原始位置。完整代码可以在下方的 CodePen 中查看。
 
-在 [CodePen](https://codepen.io) 中查看来自 Arek Nawo（[@areknawo](https://codepen.io/areknawo)）的 [CSS 复选框](https://codepen.io/areknawo/pen/GaRLYm/) 代码示例 。
+在 [CodePen](https://codepen.io) 中查看来自 Arek Nawo（[@areknawo](https://codepen.io/areknawo)）的 [CSS 复选框](https://codepen.io/areknawo/pen/GaRLYm/) 代码示例。
 
 ## JS 方式
 
@@ -165,9 +165,9 @@ checkboxes.forEach(checkbox => {
 }
 ```
 
-上面就是我们的 CSS 代码，我觉得这样的 CSS 代码很 **“平整”** 。上面代码中我们做了以下调整：去掉了 `~` 选择器，目的是简化 CSS 子类 `checked` ，调整了一些别的样式，包括选中状态的图标的样式，目的是准备实现的 **JS 动画**。
+上面就是我们的 CSS 代码，我觉得这样的 CSS 代码很 **“平整”**。上面代码中我们做了以下调整：去掉了 `~` 选择器，目的是简化 CSS 子类 `checked`，调整了一些别的样式，包括选中状态的图标的样式，目的是准备实现的 **JS 动画**。
 
-这样的方式自然有它的好处。CSS **结构**就是主要好处之一。如此**平整**的CSS，没有半点复杂的选择器，更容易在各种 **CSS-in-JS** 库中实现，并且众所周知，这方法还能够让我们的 CSS 代码更加**易读易管理**。
+这样的方式自然有它的好处。CSS **结构**就是主要好处之一。如此**平整**的 CSS，没有半点复杂的选择器，更容易在各种 **CSS-in-JS** 库中实现，并且众所周知，这方法还能够让我们的 CSS 代码更加**易读易管理**。
 
 ```javascript
 // ...
