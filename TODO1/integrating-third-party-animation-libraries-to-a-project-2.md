@@ -18,9 +18,9 @@
 
 ### 插入单个元素
 
-对于本例，我们仍然使用 Animate.css。因此我要用 `fadeInDown` 动画。
+对于本例，我们继续使用 Animate.css,并会用到 fadeInDown 动画。
 
-在 DOM 中插入元素有很多种方式，在此不再赘述。我仅会展示如何用动画优雅流畅地插入元素，而非让元素生硬地突现。使用 Animate.css（或其他库）插入元素十分简单。
+在 DOM 中插入元素有很多种方式，在此不再赘述。我仅会展示如何用动画优雅流畅地插入元素，而非让元素生硬地突现。对于 Animate.css（或其他类似的库）来说，这个功能十分简单。
 
 ```javascript
 let insertElement = document.createElement('div');
@@ -34,7 +34,7 @@ insertElement.addEventListener('animationend', function () {
 document.body.append(insertElement);
 ```
 
-你如何创建该元素不重要，关键在于确保元素插入之前添加了所需的类。然后，此元素就会以优雅的动画登场。我还监听了 `animationend` 事件，用于移除动画类。常来说，实现此效果的方式不一而足，而这种方式是最直接的方式了。移除动画类是为了方便实现退场效果。我们不想让退场动画和进场动画相互冲突。
+你如何创建该元素不重要，关键在于确保元素插入之前添加了所需的类。然后，此元素就会以优雅的动画登场。我还监听了 `animationend` 事件，用于移除动画类。通常来说，实现此效果的方式不一而足，而这种方式是最直接的方式了。移除动画类是为了方便实现退场效果。我们不想让退场动画和进场动画相互冲突。
 
 ### 移除单个元素
 
@@ -61,7 +61,7 @@ removeElement.classList.add('animated', 'fadeOutDown');
 
 参见 [CodePen](https://codepen.io) 上来自 Travis Almand（[@talmand](https://codepen.io/talmand)）的代码示例：[第三方动画库：双元素过渡](https://codepen.io/talmand/pen/JqPLbm/)。
 
-我会把 JavaScript 代码分块开讲解其原理。首先，我们把一个按钮和两个元素的容器的引用做个缓存。然后，创建两个用来在容器中切换元素的盒子。
+我会把 JavaScript 代码分块来讲解其原理。首先，我们创建 button、container 变量分别存储对应的两个 DOM 节点。然后，我们创建 box1、box2 来存储在 container 中要交换的两个元素。
 
 ```javascript
 let button = document.querySelector('button');
@@ -121,9 +121,9 @@ button.addEventListener('click', function () {
 }
 ```
 
-这个例子眼下有个问题：其代码是专门为这一情况写死的。当然了，它也很容易变得能扩展和适应不同情况。故此，该例子只是用来理解如何实现这一功能的。还好，一些诸如 [MotionUI](https://zurb.com/playground/motion-ui) 这样的动画库支持用 JavaScript 操纵元素的过渡动画。另外，像 [VueJS](https://vuejs.org/v2/guide/transitions.html) 这类 JavaScript 框架也支持切换元素的过渡动画。
+这个例子眼下有个问题：其代码是专门为这一情况写死的。当然了，它也很易于扩展，也能适应不同场景。故此，该例子只是用来理解如何实现这一功能的。还好，一些诸如 [MotionUI](https://zurb.com/playground/motion-ui) 这样的动画库支持用 JavaScript 操纵元素的过渡动画。另外，像 [VueJS](https://vuejs.org/v2/guide/transitions.html) 这类 JavaScript 框架也支持切换元素的过渡动画。
 
-我在另一个例子中展示了一个更灵活的系统。它由一个容器构成，该容器存放着用 data 属性引用的切入和切出动画。容器中的两个元素按照命令切换位置。这个例子的原理是，通过 JavaScript 控制 data 属性可以轻松改变动画。Demo 中还有两个容器，一个用的是 Animate.css 实现动画；另一个用的则是 Animista。这个例子很大，因此我不会在本文中讲解代码，但这个例子的注释很充足，感兴趣的话可以看看。
+我在另一个例子中展示了一个更灵活的系统。它由一个容器构成，该容器存放着用 data 属性引用的切入和切出动画。容器中的两个元素按照命令切换位置。这个例子的原理是，通过 JavaScript 控制 data 属性可以轻松改变动画。Demo 中还有两个容器，一个用的是 Animate.css 实现动画；另一个用的则是 Animista。这个例子代码量较大，我将不在本文中讲解，但这个例子的注释很充足，感兴趣的话可以看看。
 
 参见 [CodePen](https://codepen.io) 上来自 Travis Almand（[@talmand](https://codepen.io/talmand)）的代码示例：[第三方动画库：自定义动画示例](https://codepen.io/talmand/pen/mYdeBb/)。
 
