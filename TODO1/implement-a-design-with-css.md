@@ -1,7 +1,7 @@
 > * 原文地址：[Implementing a Mockup: CSS Layout Step by Step](https://daveceddia.com/implement-a-design-with-css/)
 > * 原文作者：[Dave Ceddia](https://daveceddia.com/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implement-a-design-with-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implement-a-design-with-css.md)
 > * 译者：
 > * 校对者：
 
