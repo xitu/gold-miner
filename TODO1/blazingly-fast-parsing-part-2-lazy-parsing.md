@@ -38,18 +38,18 @@ function g() {
 }
 ```
 
-首先将接收者（比如 `f` 的 `this` 值，就是 `globalThis` ，因为它是一个随意的函数调用）推入栈中，然后是被调用的函数 `f` 。然后参数 `1` 和 `2` 被推入栈。这时函数 `f` 被调用。为了执行调用，我们首先在栈上保存 `g` 的状态：返回的指针（`rip`；我们需要返回什么代码） `f` 以及“帧指针”（`fp`；返回时栈应该是什么样的）。然后我们输入 `f` ，它为局部变量 `c` 分配空间，以及它可能需要的任何临时空间。这确保了函数被调用时如果超出作用域，那么函数使用的数据都会消失：只是从栈中弹出。
+首先将接收者（比如 `f` 的 `this` 值，就是 `globalThis` ，因为它是一个随意的函数调用）推入栈中，然后是被调用的函数 `f` 。然后参数 `1` 和 `2` 被推入栈。这时函数 `f` 被调用。为了执行调用，我们首先在栈上保存 `g` 的状态：返回的指针（`rip`；我们需要返回什么代码） `f` 以及“帧指针”（`fp`；返回时栈应该是什么样的）。然后我们输入 `f` ，它为局部变量 `c` 分配空间，以及它可能需要的任何临时空间。这确保了函数被调用时如果超出作用域，那么函数使用的数据都会消失：只是简单地从栈中弹出。
 
 ![](https://v8.dev/_img/preparser/stack-1.svg)
 
-Stack layout of a call to function `f` with arguments `a`, `b`, and local variable `c` allocated on the stack.
+调用函数 `f` 的栈布局，在栈上分配参数 `a`、`b` 以及局部变量 `c` 。
 
-The problem with this setup is that functions can reference variables declared in outer functions. Inner functions can outlive the activation in which they were created:
+这种情形的问题是函数可以引用在函数外部声明的变量。内部函数，可以比创建他们的调用，有效期更长：
 
 ```
-function make_f(d) { // ← declaration of `d`
+function make_f(d) { // ← `d` 的声明
   return function inner(a, b) {
-    const c = a + b + d; // ← reference to `d`
+    const c = a + b + d; // ← `d` 的引用
     return c;
   };
 }
@@ -61,7 +61,7 @@ function g() {
 }
 ```
 
-In the above example, the reference from `inner` to the local variable `d` declared in `make_f` is evaluated after `make_f` has returned. To implement this, VMs for languages with lexical closures allocate variables referenced from inner functions on the heap, in a structure called a “context”.
+在上面的例子中，从 `inner` 到 `make_f` 中声明的局部变量 `d` 的引用在 `make_f` 返回后才计算的。为了实现这一点，使用词法闭包的语言虚拟机在一个称为“上下文”的结构中分配变量的引用，该引用来自堆上的内部函数。
 
 ![](https://v8.dev/_img/preparser/stack-2.svg)
 
