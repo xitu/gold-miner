@@ -2,50 +2,50 @@
 > * 原文作者：[Mateusz Rybczonek](https://css-tricks.com/author/mateuszrybczonek/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-get-a-progressive-web-app-into-the-google-play-store.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-get-a-progressive-web-app-into-the-google-play-store.md)
-> * 译者：
+> * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# How to Get a Progressive Web App into the Google Play Store
+# 如何在 Google Play 应用商店中发布 PWA
 
-[PWA (Progressive Web Apps)](https://developers.google.com/web/progressive-web-apps/) have been with us for some time now. Yet, each time I try explaining it to clients, the same question pops up: "Will my users be able to install the app using app stores?" The answer has traditionally been no, but this changed with Chrome 72 which shipped a new feature called [TWA (Trusted Web Activities)](https://developers.google.com/web/updates/2019/02/using-twa).
+[PWA（Progressive Web Apps，渐进式网络应用）](https://developers.google.com/web/progressive-web-apps/)已经面世了有一段时间了。然而，每当我向客户介绍 PWA 时，他们都会问同样的问题：“我的客户能从应用商店下载安装这种 PWA 吗？” 以前的答案是不能，但自从 Chrome 发布了第 72 版本后就不一样了，因为该版本增加了一种叫做 [TWA（Trusted Web Activities，受信式网络应用）](https://developers.google.com/web/updates/2019/02/using-twa)的新功能。
 
-> **Trusted Web Activities** are a new way to integrate your web-app content such as your PWA with yourAndroid app using a protocol based on Custom Tabs.
+> **TWA** 是一种集成 Web 应用内容 —— 如 PWA 和 Android 应用 —— 的全新方式，它采用了一种基于定制标签页（Custom Tabs）的协议。
 
-In this article, I will use [Netguru’s](https://www.netguru.com/) existing PWA ([Wordguru](https://wordguru.netguru.com/)) and explain step-by-step what needs to be done to make the application available and ready to be installed straight from the Google Play app store.
+在本文中，我会借助 [Netguru](https://www.netguru.com/) 的现成 PWA（[Wordguru](https://wordguru.netguru.com/)）来逐步说明如何使 PWA 支持直接从 Google Play 应用商店安装。
 
-Some of the things we cover here may sound silly to any Android Developers out there, but this article is written from the perspective of a front-end developer, particularly one who has never used Android Studio or created an Android Application. Also, please do note that a lot of what we're covering here is still extremely experimental since it's limited to Chrome 72.
+对 Android 开发者来说，某些我们将要提及的内容可能听起来很傻，但本文是从前端开发者的角度写就的，特别是没有用过 Android Studio 或者做过 Android 应用的前端开发者。同时要注意，我们在本文中探讨的很多概念都仅支持于 Chrome第 72 及以上版本，因此很有实验性、很超前。
 
-### Step 1: Set up a Trusted Web Activity
+### 步骤一：配置一个 TWA 项目
 
-Setting up a TWA doesn’t require you to write any Java code, but you will need to have [Android Studio](https://developer.android.com/studio/). If you’ve developed iOS or Mac software before, this is a lot like Xcode in that it provides a nice development environment designed to streamline Android development. So, grab that and meet me back here.
+配置 TWA 并不需要写 Java 代码，但你需要安装 [Android Studio](https://developer.android.com/studio/)（译者注：原文给出的 Android Studio 链接打不开，可访问 [https://developer.android.google.cn/studio](https://developer.android.google.cn/studio)）。如果你之前开发过 iOS 或 Mac 软件，那你会感觉到 Android Studio 非常像 Xcode，它提供了良好的开发环境，旨在简化 Android 开发过程。那么，快去安装吧，咱们稍后再见。
 
-#### Create a new TWA project in Android Studio
+#### 在 Android Studio 中新建一个 TWA 项目
 
-Did you get Android Studio? Well, I can’t actually hear or see you, so I’ll assume you did. Go ahead and crack it open, then click on "Start a new Android Studio project." From there, let’s choose the "Add No Activity" option, which allows us to configure the project.
+把 Android Studio 安装妥当了吗？嗯……我也听不到你的回答，就当你已经装好了吧。打开 Android Studio，点击 “开始一个新的 Android Studio 项目（Start a new Android Studio project）”。在这里，我们选择 “不添加 Activity（Add No Activity）” 选项，以便我们手动配置项目。
 
-The configuration is fairly straightforward, but it’s always good to know what is what:
+尽管配置过程相当直观，但还是要明白下面这些概念：
 
-* **Name** The name of the application (but I bet you knew that).
-* **Package name:** An [identifier](https://developer.android.com/guide/topics/manifest/manifest-element#package) for Android applications on the [Play Store](https://play.google.com). It must be unique, so I suggest using the URL of the PWA in reverse order (e.g. `com.netguru.wordguru`).
-* **Save location:** Where the project will exist locally.
-* **Language:** This allows us to select a specific code language, but there’s no need for that since our app is already, you know, written. We can leave this at Java, which is the default selection.
-* **Minimum API level:** This is the version of the Android API we’re working with and is required by the support library (which we’ll cover next). Let’s use API 19.
+* **名称（Name）**：应用的名称（你肯定知道）。
+* **包名称（Package name）**：Android 应用在 [Play 应用商店](https://play.google.com)的[唯一标识](https://developer.android.com/guide/topics/manifest/manifest-element#package)。这个包名称必须是独一无二的，因此我建议你用 PWA 的 URL 的倒序字符串（如 `com.netguru.wordguru`）。
+* **保存位置（Save location）**：项目在本地的保存位置。
+* **语言（Language）**：是设置一种特定的编程语言，但因为我们用到的应用已经是写好的了，所以此项不用设置。保留默认选项 —— Java —— 就好。
+* **最低 API 版本（Minimum API level）**：这是我们用到的 Android API 版本，支持库（后面会说到）需要该配置项。我们选择 API 19 版本。
 
-There are few checkboxes below these options. Those are irrelevant for us here, so leave them all unchecked, then move on to Finish.
+在这些选项下面还有几个复选框。它们与本次实践无关，所以让它们保持未选中状态，然后点击 “完成（Finish）”。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/s_B0873689EA50413EA11DE0E251C79D95AC091600D224AE9E30EBEB80DF5C9068_1550759941286_Screenshot2019-02-21at15.38.48.png)
 
-#### Add TWA Support Library
+#### 添加 TWA 支持库
 
-A support library is required for TWAs. The good news is that we only need to modify two files to fill that requirement and the both live in the same project directory: `Gradle Scripts`. Both are named `build.gradle`, but we can distinguish which is which by looking at the description in the parenthesis.
+TWA 不能没有支持库。好在我们仅需修改两个文件就行了，并且这两个文件都在同一个项目文件夹中：`Gradle Scripts`。它们俩的文件名都是 `build.gradle`，但我们可以通过原括号中的描述文字区分二者。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/play-02.jpg)
 
-There’s a Git package manager called [JitPack](https://jitpack.io/) that’s made specifically for Android apps. It’s pretty robust, but the bottom line is that it makes publishing our web app a breeze. It is a paid service, but I’d say it’s worth the cost if this is your first time getting something into the Google Play store.
+在此我要介绍一款 Android 应用专用的 Git 包管理工具，叫做 [JitPack](https://jitpack.io/)。它功能很强大，而最基本的功能就是使应用轻量发布。它是付费服务，但如果这是你首次在 Google Play 应用商店发布应用，我得说这笔开销物有所值。
 
-**Editor Note:** This isn’t a sponsored plug for JitPack. It’s worth calling out because this post is assuming little-to-no familiarity with Android Apps or submitting apps to Google Play and it has less friction for managing an Android App repo that connects directly to the store. That said, it’s totally not a requirement.
+**笔者提示**：这里不是给 JitPack 打广告。之所以值得一提，是因为本文是写给不熟悉 Android 应用开发、没有在 Google Play 应用商店发布过应用的人看的，本文读者使用它来管理一个与应用商店直连的 Android 应用代码库会很轻松。言外之意，这个工具并非开发必需品。
 
-Once you’re in JitPack, let’s connect our project to it. Open up that `build.gradle (Project: Wordguru)` file we just looked at and tell it to look at JitPack for the app repository:
+打开 JitPack 后，就可以把自己的项目接入了。打开刚才看到的 `build.gradle (Project: Wordguru)` 文件，做如下修改以便让 JitPack 管理应用代码库。
 
 ```javascript
 allprojects {
@@ -57,10 +57,10 @@ allprojects {
 }
 ```
 
-OK, now let’s open up that other `build.gradle` file. This is where we can add any required dependencies for the project and we do indeed have one:
+现在打开另一个 `build.gradle` 文件。我们可在此文件中添加项目所需的依赖包，当然我们确实要添加一个：
 
 ```javascript
-// build.gradle (Module: app)
+// build.gradle (模块：app)
 
 dependencies {
   ...
@@ -69,10 +69,10 @@ dependencies {
 }
 ```
 
-TWA library uses Java 8 features, so we’re going to need enable Java 8. To do that we need to add `compileOptions` to the same file:
+TWA 使用 Java 8 的功能，因此我们要启用 Java 8。我们要在刚才的文件中添加 `compileOptions` 字段：
 
 ```javascript
-// build.gradle (Module: app)
+// build.gradle (模块：app)
 
 android {
   ...
@@ -84,10 +84,10 @@ android {
 }
 ```
 
-There are also variables called `manifestPlaceholders` that we’ll cover in the next section. For now, let’s add the following to define where the app is hosted, the default URL and the app name:
+还要添加 `manifestPlaceholders` 这一组变量，我们在下一小节再细说它们。就目前而言，权且先把下列代码加上，用来定义应用的托管域名、默认 URL 和应用名称：
 
 ```javascript
-// build.gradle (Module: app)
+// build.gradle (模块：app)
 
 android {
   ...
@@ -104,37 +104,37 @@ android {
 }
 ```
 
-#### Provide app details in the Android App Manifest
+#### 在 Android 应用说明中提供应用细节
 
-Every Android app has an [Android App Manifest](https://developer.android.com/guide/topics/manifest/manifest-intro) (`AndroidManifest.xml`) which provides essential details about the app, like the operating system it’s tied to, package information, device compatibility, and many other things that help Google Play display the app’s requirements.
+每个 Android 应用都有一个 [Android 应用说明（Android App Manifest）](https://developer.android.com/guide/topics/manifest/manifest-intro)，它提供了应用的基本细节，例如操作系统支持、包信息、设备兼容性等有助于 Google Play 应用商店显示该应用的要求的其他信息。
 
-The thing we’re really concerned with here is [Activity](https://developer.android.com/guide/topics/manifest/activity-element) (`<activity>`). This is what implements the user interface and is required for the "Activities" in "Trusted Web Activities."
+这里我们真正关心的是 [Activity](https://developer.android.com/guide/topics/manifest/activity-element)（`<activity>`）。Activity 被用于实现用户界面，代表的正是 “TWA” 中的 “A”。
 
-Funny enough, we selected the "Add No Activity" option when setting up our project in Android Studio and that’s because our manifest is empty and contains only the application tag.
+有趣的是，我们在 Android Studio 中配置项目时，却选择了 “不添加 Activity（Add No Activity）” 选项，那是因为我们的应用说明是空的，只包含应用标签。
 
-Let’s start by opening up the manfifest file. We’ll replace the existing `package` name with our own application ID and the `label` with the value from the `manifestPlaceholders` variables we defined in the previous section.
+先打开 manifest 文件。我们要把已有的 `package` 值换成自己的应用 ID，并把 `label` 值换成对应的 `launcherName` 变量 —— 上个小节中我们在 `manifestPlaceholders` 变量组中定义过。
 
-Then, we’re going to actually add the TWA activity by adding an `<activity>` tag inside the `<application>` tag.
+接着，我们要真正给 TWA 添加 Activity 组件了，即在 `<application>` 标签中添加一个 `<activity>` 标签。
 
 ```html
 <manifest
   xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.netguru.wordguru"> // highlight
+  package="com.netguru.wordguru"> // 重点
 
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
-    android:label="${launcherName}" // highlight
+    android:label="${launcherName}" // 重点
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
     <activity
       android:name="android.support.customtabs.trusted.LauncherActivity"
-      android:label="${launcherName}"> // highlight
+      android:label="${launcherName}"> // 重点
 
       <meta-data
         android:name="android.support.customtabs.trusted.DEFAULT_URL"
-        android:value="${defaultUrl}" /> // highlight
+        android:value="${defaultUrl}" /> // 重点
 
       
       <intent-filter>
@@ -149,25 +149,25 @@ Then, we’re going to actually add the TWA activity by adding an `<activity>` t
         <category android:name="android.intent.category.BROWSABLE"/>
         <data
           android:scheme="https"
-          android:host="${hostName}"/> // highlight
+          android:host="${hostName}"/> // 重点
       </intent-filter>
     </activity>
   </application>
 </manifest>
 ```
 
-And that, my friends, is Step 1. Let’s move on to Step 2.
+到这里，乡亲们，咱们就完成第一步了。接着走第二步。
 
-### Step 2: Verify the relationship between the website and the app
+### 步骤二：验证网站与应用之间的关系
 
-TWAs require a connection between the Android application and the PWA. To do that, we use [Digital Asset Links](https://developers.google.com/digital-asset-links/v1/getting-started).
+TWA 需要把 Android 应用和 PWA 联结起来。因此我们要用到[数字资产链接（Digital Asset Links）](https://developers.google.com/digital-asset-links/v1/getting-started)。
 
-The connection must be set on both ends, where TWA is the application and PWA is the website.
+该连接必须联结两端，TWA 是应用端，而 PWA 是网站端。
 
-To establish that connection we need to modify our `manifestPlaceholders` again. This time, we need to add an extra element called `assetStatements` that keeps the information about our PWA.
+我们得再次修改 `manifestPlaceholders` ，才能建立连接。这回，我们要添加一个额外的元素，叫做 `assetStatements`，它记录着 PWA 的相关信息。
 
 ```javascript
-// build.gradle (Module: app)
+// build.gradle (模块：app)
 
 android {
   ...
@@ -185,7 +185,7 @@ android {
 }
 ```
 
-Now, we need to add a new `meta-data` tag to our `application` tag. This will inform the Android application that we want to establish the connection with the application specified in the `manifestPlaceholders`.
+此时我们要新增一个 `meta-data` 标签到 `application` 中。此标签告知 Android 应用，我们想要用 `manifestPlaceholders` 中指定的应用建立连接。
 
 ```javascript
 <manifest
@@ -202,41 +202,41 @@ Now, we need to add a new `meta-data` tag to our `application` tag. This will in
 </manifest>
 ```
 
-That’s it! we just established the application to website relationship. Now let’s jump into the conversion of website to application.
+这就行了！我们已经建立了应用到网站的连接关系。现在进入从网站到应用的联结过程。
 
-To establish the connection in the opposite direction, we need to create a `.json` file that will be available in the app’s `/.well-known/assetlinks.json` path. The file can be created using a generator that’s built into Android Studio. See, I told you Android Studio helps streamline Android development!
+要想建立反方向的连接关系，我们得创建一个 `.json` 文件，该文件的路径为应用的 `/.well-known/assetlinks.json`。该文件可用 Android Studio 内置的生成器生成。你看，我没骗你吧，Android Studio 能简化开发过程！
 
-We need three values to generate the file:
+生成此文件需要设置 3 个值：
 
-* **Hosting site domain:** This is our PWA URL (e.g. `https://wordguru.netguru.com/`).
-* **App package name:** This is our TWA package name (e.g. `com.netguru.wordguru`).
-* **App package fingerprint (SHA256):** This is a unique cryptographic hash that is generated based on Google Play Store keystore.
+* **托管网站域名（Hosting site domain）**：这是 PWA 的 URL（如 `https://wordguru.netguru.com/`）。
+* **应用包名称（App package name）**：这是 TWA 的包名称（如 `com.netguru.wordguru`）。
+* **应用包密钥（App package fingerprint）（SHA256）**：这是一个唯一的加密哈希值，基于 Google Play 应用商店的密钥库生成。
 
-We already have first and second value. We can get the last one using Android Studio.
+我们已经有了前两个值。而最后一个值，要借助 Android Studio 生成。
 
-First we need to generate signed APK. In the Android Studio go to: Build → Generate Signed Bundle or APK → APK.
+先要生成带签名的 APK。在 Android Studio 中找到：构建（Build） → 生成带签名的包或 APK（Generate Signed Bundle or APK） → APK：
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/s_B0873689EA50413EA11DE0E251C79D95AC091600D224AE9E30EBEB80DF5C9068_1550496798628_Screenshot2019-02-18at14.33.09.png)
 
-Next, use the existing keystore, if you already have one. If you need one, go to "Create new…" first.
+接下来，如果你已经有了密钥库，就使用已有的；如果没有，那就点击 “新建（Create new）…” 创建一个。
 
-Then let’s fill out the form. Be sure to remember the credentials as those are what the application will be signed with and they confirm your ownership of the application.
+接着就把表单填完。务必记住这些凭证，它们是你的应用的签名，能够确认你对应用的拥有权。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/play-03.jpg)
 
-This will create a keystore file that is required to generate the app package fingerprint (SHA256). **This file is extremely important** as it is works as a proof that you are the owner of the application. If this file is lost, you will not be able to do any further updates to your application in the store.
+上述操作会创建一个密钥库文件，该文件被用来生成应用包密钥（SHA256）。**此文件及其重要**，因为它能证明你拥有此应用。如果此文件丢失，你将再也无法在应用商店更新对应的应用。
 
-Next up, let’s select type of bundle. In this case, we’re choosing "release" because it gives us a production bundle. We also need to check the signature versions.
+接着我们来选包（bundle）的类型。这里要选 “release”，因为我们要生成成品包。我们还需要检查签名版本。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/s_B0873689EA50413EA11DE0E251C79D95AC091600D224AE9E30EBEB80DF5C9068_1550496985643_Screenshot2019-02-18at14.36.03.png)
 
-This will generate our APK that will be used later to create a release in Google Play store. After creating our keystore, we can use it to generate required app package fingerprint (the SHA256).
+这步操作将生成 APK 文件，稍后会把它发布在 Google Play 应用商店里。创建密钥库后，就要用它生成所需的应用包密钥（SHA256 格式）。
 
-Let’s head back to Android Studio, and go to Tools → App Links Assistant. This will open a sidebar that shows the steps that are required to create a relationship between the application and website. We want to go to Step 3, "Declare Website Association" and fill in required data: `Site domain` and `Application ID`. Then, select the keystore file generated in the previous step.
+再回到 Android Studio，找到 工具（Tools） → 应用链接助手（App Links Assistant）。来到第 3 步，“发起网站连接（Declare Website Association）”，填写所需信息：`Site domain` 和 `Application ID`。之后，选择上一步生成的密钥库文件。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/s_B0873689EA50413EA11DE0E251C79D95AC091600D224AE9E30EBEB80DF5C9068_1550760222016_Screenshot2019-02-21at15.43.26.png)
 
-After filling the form press "Generate Digital Asset Links file" which will generate our `assetlinks.json` file. If we open that up, it should look something like this:
+表单填写完毕后，点击 “生成数字资产链接文件（Generate Digital Asset Links file）”，就会生成 `assetlinks.json` 文件。如果你打开该文件，你会看到这样的内容：
 
 ```javascript
 [{
@@ -249,44 +249,44 @@ After filling the form press "Generate Digital Asset Links file" which will gene
 }]
 ```
 
-This is the file we need to make available in our app’s `/.well-known/assetlinks.json` path. I will not describe how to make it available on that path as it is too project-specific and outside the scope of this article.
+这正是我们需要在应用的 `/.well-known/assetlinks.json` 路径下使用的文件。我无法描述怎样在该路径使用这个文件，因为这因项目而异，超出本文讨论范畴。
 
-We can test the relationship by clicking on the "Link and Verify" button. If all goes well, we get a confirmation with "Success!"
+我们可以点击 “连接并验证（Link and Verify）” 按钮来测试连接关系。如果一切顺利，你就能看到 “成功（Success）！” 这样的确认信息。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/s_B0873689EA50413EA11DE0E251C79D95AC091600D224AE9E30EBEB80DF5C9068_1550497970710_9.png)
 
-Yay! We’ve established a two-way relationship between our Android application and our PWA. It’s all downhill from here, so let’s drive it home.
+666！我们成功地在 Android 应用和 PWA 之间建立了双向连接关系。完成了这一步，前途就一片光明了。
 
-### Step 3: Get required assets
+### 步骤三：上传必需物料（assets）
 
-Google Play requires a few assets to make sure the app is presented nicely in the store. Specifically, here’s what we need:
+Google Play 应用商店需要一些物料来确保应用能够详尽展示。具体来说，我们需要：
 
-* **App Icons:** We need a variety of sizes, including 48x48, 72x72, 96x96, 144x144, 192x192… or we can use an [adaptive icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive).
-* **High-res Icon:** This is a 512x512 PNG image that is used throughout the store.
-* **Feature Graphic:** This is a 1024x500 JPG or 24-bit PNG (no alpha) banner that Google Play uses on the app details view.
-* **Screenshots:** Google Play will use these to show off different views of the app that users can check out prior to downloading it.
+* **应用图标（App Icons）**：我们需要各种尺寸的图标，包括 48 x 48、72 x 72、96 x 96、144 x 144 和 192 x 192 等等。或者我们可以使用 [适应性 icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)。
+* **高清图标（High-res Icon）**：这是一个尺寸为 512 x 512 的 PNG 图片，在应用商店里到处都会用到它。
+* **功能图（Feature Graphic）**：这是一个尺寸为 1024 x 500 的 JPG 图片或者 24 位的 PNG（无 alpha 通道）图片，应用商店用来展示应用的具体功能。
+* **截屏（Screenshots）**：Google Play 应用商店会用这些截屏图片来展示应用的不同界面，以便用户在下载前查看。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/play-05.jpg)
 
-Having all those, we can proceed to the [Google Play Store developers console](https://play.google.com/apps/publish) and publish the application!
+做完这些工作，我们就可以进入 [Google Play 应用商店的开发者控制台](https://play.google.com/apps/publish)发布应用啦！
 
-### Step 4: Publish to Google Play!
+### 步骤四：光荣发布！
 
-Let’s go to the last step and finally push our app to the store.
+让我们临门一脚，上传应用到应用商店吧。
 
-Using the APK that we generated earlier (which is located in the `AndroidStudioProjects` directory), we need to go to the [Google Play console](https://play.google.com/apps/publish/) to publish our application. I will not describe the process of publishing an application in the store as the wizard makes it pretty straightforward and we are provided step-by-step guidance throughout the process.
+我们需要在 [Google Play 控制台](https://play.google.com/apps/publish/) 中，把之前生成的 APK 文件（在 `AndroidStudioProjects` 目录下）上传。上传过程恕不赘述，因为引导程序很清晰明了，会一步一步地指导我们完成发布过程。
 
-It may take few hours for the application to be reviewed and approved, but when it is, it will finally appear in the store.
+应用的审查和核准可能需要几个小时，核准后就会陈列在应用商店中了。
 
-If you can’t find the APK, you can create a new one by going to Build → Generate signed bundle / APK → Build APK, passing our existing keystore file and filling the alias and password that we used when we generated the keystore. After the APK is generated, a notice should appear and you can get to the file by clicking on the "Locate" link.
+如果你找不到 APK 文件了，你可以再新建一个：构建（Build） → 生成带签名的包或 APK（Generate signed bundle / APK） → 构建 APK（Build APK）、传入已经生成的密钥库文件、填写生成密钥库时用的别名和密码即可。生成 APK 文件后，你会看到一个提示窗口，点击其中的 “文件位置（Locate）” 链接，就能直达文件目录。
 
-### Congrats, your app is in Google Play!
+### 恭喜恭喜，你的应用在 Google Play 应用商店发布啦！
 
-That’s it! We just pushed our PWA to the Google Play store. The process is not as intuitive as we would like it to be, but still, with a bit of effort it is definitely doable, and believe me, it gives that great filling at the end when you see your app displayed in the wild.
+成功！我们成功地把 PWA 发布到 Google Play 应用商店了。这个过程没有我们想得那么难，但还是付出了一些努力的，相信我，当你看见你自己做的应用跻身于大千世界中，你会得到极大的满足感。
 
-It is worth pointing out that this feature is still very much **early phase** and I would consider it **experimental** for some time. I would **not** recommend going with a production release of your application for now because this only works with Chrome 72 and above — any version before that will be able to install the app, but the app itself will crash instantly which is not the best user experience.
+有必要指出，这项功能仍是非常超前的，我暂时把它看作是**实验性**功能。我**不推荐**你现在就用这项功能发布产品，因为它仅支持于 Chrome 第 72 及以上版本 —— 低于第 72 版本的 Chrome 中，也能安装 TWA，但应用会立即崩溃，这可不是什么最佳用户体验。
 
-Also, the official release of `custom-tabs-client` does not support TWA yet. If you were wondering why we used raw GitHub link instead of the official library release, well, that’s why.
+而且，官方发布的 `custom-tabs-client` 目前还不支持 TWA。如果你好奇为何我们不用官方库版本，反而用 GitHub 的原生链接，喏，这就是原因。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
