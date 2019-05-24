@@ -2,28 +2,28 @@
 > * 原文作者：[Areknawo](https://areknawo.com/author/areknawo/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/styling-html-checkboxes-is-hard-heres-why.md](https://github.com/xitu/gold-miner/blob/master/TODO1/styling-html-checkboxes-is-hard-heres-why.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jilanlan](https://github.com/jilanlan)
+> * 校对者：[shixi-li](https://github.com/shixi-li), [Baddyo](https://github.com/Baddyo)
 
-# Styling HTML checkboxes is hard - here's why
+# 为什么 HTML 中复选框样式难写 —— 本文给你答案
 
 ![](https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ)
 
-In today's world, most web developers consider mastering **JavaScript** as the main priority, and for a good reason. JS is **the scripting language** of the web. While HTML and CSS make the websites look... how they look, JS with the access to HTML and CSS API, very good performance and its versatility is web developers' favorite. This trend can be seen with **libraries** and frameworks such as React, Vue, and Angular or solution like **CSS-in-JS** that aim to make managing our styles easier.
+在当今世界，大多数网页开发者认为掌握 **JavaScript** 是优先选择，这理所当然，因为 JS 是**浏览器脚本语言**。虽然 HTML 和 CSS 决定网站的样式，但是 JS 凭借它能调用 HTML 和 CSS API，优良性能以及它的多功能性，深受网页开发者喜爱。像 React、Vue、和 Angular 等第三方**库**或框架，还有像 **CSS-in-JS** 等旨在简化样式编写的解决方案，都证实了前面所说的趋势。
 
-Sadly, all this goodness also has some side-effects. With web developers immediately going for using e.g. React, instead of **learning HTML** first - me being one of them. Going even further we see the growing reliance on **UI components libraries** that just provide everything one needs in a nice package. It's all good - it follows the DRY rule, developers don't have to do the whole work themselves and etc. But, from what I've personally experienced, such practices can leave us not even knowing about some important aspects of HTML...
+遗憾的是，万物皆有双面刃。一些包括我在内的网页开发者们，直接就上手使用例如 React 等第三方框架，而不是先**学习 HTML**。更有甚者，我们越来越依赖于使用 **UI 组件库**，因为它完美地封装了所有我们所需要的功能。当然，这些库或者框架的本质是好的，它们遵循了 DRY 规则，开发者们没必要什么都自己写。但是，从我个人经验来讲，过多地依赖框架会让我们忽略 HTML 的一些要点的存在。
 
-## HTML form elements
+## HTML 表单元素
 
-To the point then. Recently I started to create a component library of my own. To not get too much inspired (copy-paste), I decided to skip all framework-bound component libraries and first try to implement some **CSS-only** ones. This let me to noticing how all form-related components were separated and how some libraries didn't really style **checkboxes** at all! For HTML pros out there this might be something really casual but, for me, what I came to realize later, was completely unexpected - styling checkboxes is harder than one could think!
+下面回归正题。最近，我开始着手独立创建一个组件库。为了不吸取太多灵感（复制 —— 粘贴），我决定不使用任何基于框架的组件库，并且开始尝试实现一些**纯 CSS** 的东西。在这过程中我注意到，表单相关组件之间是如何独立开的，并且一些组件库其实并没有真正地改变**复选框**的样式。至此，一些 HTML 专家可能就一带而过，但我后来意识到，给复选框添加样式的难度超乎任何人想象，这完全令人意想不到。
 
-Because of the way it's come to exist, HTML isn't really an expressive language on its own. **Form elements**, like checkboxes, radio buttons, and switches, due to their dynamic nature, have a hard time fitting in with the rest of HTML elements. This can especially be seen when trying to style one of these elements. Although there are tutorials about that on the internet, in this post, we're going to style HTML checkbox **step-by-step** (instead of just throwing code in your face) both in **raw CSS** and, in an easier way - with the help of **JavaScript**.
+原因在于它的存在方式，HTML 本质不是一门真正的表达性语言。例如复选框、单选按钮和开关等**表单元素**，由于它们的动态本质，很难与其他 HTML 元素适应。尤其是在尝试给表单元素添加样式时。尽管网上有关于给表单元素添加样式的教程，但在这篇文章中，我们将通过两种方式**一步步**地（而不是直接将代码扔你面前）改变复选框的样式，一种是**纯 CSS** 实现，另一种比较简单 —— 借助 **JavaScript** 来实现。
 
-## CSS-only way
+## 纯 CSS 方式
 
-### Base
+### 基础
 
-Basic styling of the checkbox on modern browsers can be done with nothing more than just some CSS and `:checked` pseudo-class. If you want some deeper customization tho (like custom icon), or want to support older browsers, things start to get complicated. In this case, we'll tackle this problem by hiding the original checkbox and **creating our own**, nice-looking version on top of it, while still listening to events on the original one. Let's start with full-fledged HTML first.
+我们只要使用一些 CSS 代码和 `:checked` 伪类就可以在现代浏览器上控制复选框的样式了。如果你想深入定制（像自定义图标），或者想支持老版本浏览器，那实现起来就变得复杂了。在本篇文章中，我们将隐藏原生复选框，**自己创建复选框**，它比原生更加美观，同时还能监听原生复选框事件。下面让我们先从完整的 HTML 代码开始吧。
 
 ```html
 <label class="checkbox">
@@ -34,9 +34,9 @@ Basic styling of the checkbox on modern browsers can be done with nothing more t
 </label>  
 ```
 
-With the code above we're wrapping our original checkbox element and its inline overlay (`<span/>` element) in one element. Also, we set up our **SVG check icon** for later use. Now, it's time to write some CSS!
+上面的代码是将原生复选框和用来覆盖原生复选框的行内元素（`<span/>` 标签）包裹在一个元素之中。同时还创建了 **SVG 复选框图标**供后面使用。现在我们开始写 CSS 样式吧！
 
-### Hide original
+### 隐藏原生复选框
 
 ```css
 .checkbox input {
@@ -45,11 +45,11 @@ With the code above we're wrapping our original checkbox element and its inline 
 }
 ```
 
-Here, we're hiding the original checkbox element by setting its `opacity` to `0`. Other tricks, such as setting `display` to `none` or `visibility` to `hidden` won't work as they'll make some (or all) events of the checkbox not working which, in our case, is a requirement.
+上面代码是通过设置 `opacity` 为 `0` 来隐藏原生复选框元素。这里如果使用其他方法，例如设置 `display` 为 `none` 或者 `visibility` 为 `hidden` 都是不行的，因为这些方法会使复选框的部分（或者所有）事件无效，但在这篇文章中，复选框事件有效是必要条件。
 
-### Unchecked state
+### 未选中状态
 
-From this point on, there's nothing more left to do than just style our overlay accordingly for the checked and unchecked state.
+至此，我们只需要设置覆盖元素的样式来控制选中或者未选中的状态。
 
 ```css
 .checkbox .overlay {
@@ -71,11 +71,11 @@ From this point on, there's nothing more left to do than just style our overlay 
 }
 ```
 
-First, let's style our unchecked checkbox. All the above CSS is generally mostly cosmetic and just makes our form element look cooler. For example, we sneakily added some transforms and transitions (remember prefixes for older browsers!) to add at least some **motion** to out checkbox. But, apparently, the `display: none` applied to our icon is the most important detail. Here, as we don't need to listen to icon's events, we can hide it completely using `display` property.
+首先，我们来设置未选中状态的复选框样式。上面的 CSS 样式很具有装饰性，其实就是让表单元素看上去更酷罢了。例如，我们悄悄地增加了一些动画和过渡效果（使用老版本浏览器记得加前缀），这至少让我们的复选框变得更**动态**化。但是我们明显的感受到，在图标上设置的 `display: none` 才是重点。这里我们完全可以通过设置 `display` 属性来隐藏图标，因为我们不需要监听图标的事件。
 
-## SVG icon
+## SVG 图标
 
-This brings us to the icon itself. Here, we'll be using simple, nicely rounded check **vector icon** taken straightly from a nice set of MIT-licensed icons called **[Feather](https://feathericons.com/)**. Here's how it looks like code-wise:
+SVG 图标本身就是一种图标。这里我们将使用简洁圆滑的复选框**矢量图标**，这图标可以直接从名叫 **[Feather](https://feathericons.com/)** 的图标库下载。Feather 是一套采用 MIT 开源协议的图标库。下面是 SVG 图标的完整代码展示：
 
 ```html
 <svg xmlns="http://www.w3.org/2000/svg"
@@ -92,9 +92,9 @@ This brings us to the icon itself. Here, we'll be using simple, nicely rounded c
 </svg>
 ```
 
-### Checked state
+### 选中状态
 
-Finally, for our checked state:
+最后设置复选框选中状态样式：
 
 ```css
 .checkbox input:checked ~ .overlay {
@@ -110,19 +110,19 @@ Finally, for our checked state:
 }
 ```
 
-Here, we make good use of CSS `~` selector, applying styles to each element that is preceded by the one specified before it. Next, we make our check icon visible and rotate the checkbox to its original position. For the complete code, you can view the CodePen below.
+上面代码充分利用了 CSS 的 `~` 选择器，能够把样式应用到每个紧随着指定元素的那些元素。下一步，我们让复选框图标可见，并且旋转复选框到它原始位置。完整代码可以在下方的 CodePen 中查看。
 
-See the Pen [CSS Checkbox](https://codepen.io/areknawo/pen/GaRLYm/) by Arek Nawo ([@areknawo](https://codepen.io/areknawo)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看来自 Arek Nawo（[@areknawo](https://codepen.io/areknawo)）的 [CSS 复选框](https://codepen.io/areknawo/pen/GaRLYm/) 代码示例。
 
-## JS method
+## JS 方式
 
-### Why?
+### 为什么？
 
-Now, there are some things to note here. Some examples use a **rotated rectangle** with a small border and some CSS pseudo-classes, instead of SVG for their check icons. In the code above we've used the SVG icon as it allows for more customization (e.g. rounded corners) and is just simpler to use. Next, we only apply some small rotation and color change animation, but if you want to do something more, I recommend trying out `stroke-dasharray`, `stroke-dashoffset`, and some **keyframe animations** to make your SVG icon appear smoothly. But, keep in mind that as you add more and more features to your checkbox, your CSS can rapidly become more and **more bloated**. Sure, CSS is easy on computing power, but it doesn't make that much of a difference when compared to JS - especially on modern devices. With that said, if you want to truly unleash your creativity, you'll most likely need to use some JS.
+此时，这里有些地方要注意了。在有些例子中，复选框图标是通过**旋转矩形**结合小边框和 CSS 伪类实现的，而不是利用 SVG 图标。本文前面就是使用 SVG 图标的方法，因为它能支持更多的个性化设置（例如圆角），并且上手也简单。然后，我们只是设置了一些小旋转和颜色变换动画，如果你想更进一步，我推荐尝试 `stroke-dasharray`、`stroke-dashoffset` 和一些 **keyframe 动画**，这能让你的 SVG 图标显得流畅。但是，你要知道，你往复选框上加的特性越多，你的 CSS 代码也会随即变的越来越**臃肿**。当然，CSS 的计算能力很强，但是和 JS 比起来还是存在一些差距，特别是在一些现代设备中表现得尤为明显。也就是说，如果你想真正展示你的创造力，可能就需要借助 JS。
 
-### Setup
+### 设置
 
-With no CSS-only limitation, we don't have to be so much creative with our selectors. We'll keep our existing HTML structure and start by accessing all required elements inside the **JS code**.
+在没有纯 CSS 的限制的情况下，我们没必要对选择器做太多工作。我们将保留上面写的 HTML 代码结构，在 **JS 代码**中获取到所有需要的元素。
 
 ```
 const checkboxes = document.querySelectorAll(".checkbox");
@@ -133,9 +133,9 @@ checkboxes.forEach(checkbox => {
 });
 ```
 
-We use the code to apply our JS to every existing checkbox, but keep in mind that you most likely won't do it that way in **"production"**. Instead, with a **component-based library** like React, you'll be creating your checkboxes as components and using e.g. advanced **animation libraries** to keep things ticking. But, for an example as simple as the one here, it would be pointless to use such big libraries. Let's stick to the basics.
+我们可以通过 JS 拿到所有存在的复选框元素，但是切记，在**生产环境**最好不要用上面这种方式。相反，如果在项目中使用例如 React 这样**基于组件的库**，你就要把你的复选框封装成一个组件，使用例如先进的**动画库**来保持项目正常运转。但我这里只是做一个简单的例子，没必要去用这么大的第三方库。让我们继续使用基础的 JavaScript 就好。
 
-### CSS changes
+### CSS 调整
 
 ```css
 .checkbox input {
@@ -165,9 +165,9 @@ We use the code to apply our JS to every existing checkbox, but keep in mind tha
 }
 ```
 
-Now, here's our CSS, but **"flattened"**, as I like to call it. Changes that we did here include the removal of `~` selectors in favor of simple CSS sub-class named `checked`, and some other styling including the one for checked icon in favor of our up-coming **JS animations**.
+上面就是我们的 CSS 代码，我觉得这样的 CSS 代码很 **“平整”**。上面代码中我们做了以下调整：去掉了 `~` 选择器，目的是简化 CSS 子类 `checked`，调整了一些别的样式，包括选中状态的图标的样式，目的是准备实现的 **JS 动画**。
 
-Such an approach comes with its own benefits. The main one being its **structure**. Such **"flattened"** CSS, without any complex selectors included, is much easier to implement in various **CSS-in-JS** libraries and, as we all know, such solution makes our CSS much more **expressive** and **manageable** at the same time.
+这样的方式自然有它的好处。CSS **结构**就是主要好处之一。如此**平整**的 CSS，没有半点复杂的选择器，更容易在各种 **CSS-in-JS** 库中实现，并且众所周知，这方法还能够让我们的 CSS 代码更加**易读易管理**。
 
 ```javascript
 // ...
@@ -183,17 +183,17 @@ input.addEventListener("change", () => {
 // ...
 ```
 
-### Event listeners
+### 事件侦听器
 
-On JS side, we can listen to `change` event that occurs whenever any kind of change takes place. It's supported by most, if not all, form elements. Then, with the help of `checked` property that exists on all input elements with type equal to `checkbox` we decide whether we should add or remove our classes. As a side-note, the `classList` property, in its basic form, [is supported](https://caniuse.com/#feat=classlist) by all **modern browsers** - including IE 10!
+通过 JS，不论何时发生何种变化，我们都能监听到 `change` 事件，这是大部分表单元素都支持的。然后，借助每个 `type='checked'` 的 input 元素都有的 `checkbox` 属性，来决定是否应该添加或者移除我们的样式类。附注一点，所有**现代浏览器**包括 IE 10 在内，都支持[基本形式的 `classList`](https://caniuse.com/#feat=classlist) 属性。
 
-And finally, to make use of the power that JS provides us, we make our SVG appear smoothly - just like a good check icon should. For this part and the complete code with some more changes, you can check out the CodePen below.
+最后，我们借助 JS 让 SVG 图标的交互效果显得流畅，就像一个完好的复选框图标。这个部分代码有很多调整，你可以在下方 CodePen 中查看完整代码。
 
-See the Pen [JS Checkbox](https://codepen.io/areknawo/pen/BeyLeJ/) by Arek Nawo ([@areknawo](https://codepen.io/areknawo)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看来自 Arek Nawo（[@areknawo](https://codepen.io/areknawo)）的 [JS 复选框](https://codepen.io/areknawo/pen/BeyLeJ/)代码示例。
 
-## Do you like this one?
+## 你喜欢这篇文章吗？
 
-So, I hope this **quick tutorial** made you know more about checkboxes and HTML in general. There's a lot to uncover - especially when not talking about libraries of any kind. I hope you enjoy this short, but a nice read. Let me know in **the comment section** and with **a reaction** below if you'd like to **see more** of such type of content on this blog. If you want to consider **sharing this tutorial**, **following me** [**on Twitter**](https://twitter.com/areknawo), **[on my Facebook page](https://www.facebook.com/areknawoblog)** and signing up for the **weekly newsletter**. Thank you very much for reading this one through and I'll see you in **the next one**!
+嗯，总之，我希望这份**快速上手指南**能够帮助你了解更多关于复选框元素和 HTML 的知识。还有很多知识等我们去发掘，特别是在不提及任何类型的第三方库的时候。我希望你们能喜欢这篇短小精悍的文章。如果你想**看更多**关于这方面内容的博客，请在下方**评论区评论**告诉我。如果你想**分享这篇文章**，请关注我的 [**Twitter**](https://twitter.com/areknawo)、**[我的 Facebook 主页](https://www.facebook.com/areknawoblog)**，并注册 **weekly newsletter**。非常感谢你们能够通读这篇文章，我们**下篇文章**见！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
