@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-frozen-enums.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-frozen-enums.md)
 > - 译者：[iWeslie](https://github.com/iWeslie)
-> - 校对者：
+> - 校对者：[Lobster-King](https://github.com/Lobster-King)
 
 # Swift 5 中的枚举冻结
 
@@ -55,7 +55,7 @@ case .regular:
 
 ### 冻结和非冻结的枚举
 
-**Swift 中的一个 `switch` 语句必须是详尽的或者包含一个默认的 default case 来处理其他所有情况。** 我原来的 switch 语句把在 Apple 在 iOS 12 的 `UIKit` 中定义的 `UIUserInterfaceSizeClass` 的所有可能值都进行了枚举。
+**Swift 中的一个 `switch` 语句必须是详尽的或者包含一个默认的 default case 来处理其他所有情况**。我原来的 switch 语句把在 Apple 在 iOS 12 的 `UIKit` 中定义的 `UIUserInterfaceSizeClass` 的所有可能值都进行了枚举。
 
 如果 Apple 在 iOS 13 中引入了 `.tiny` 或 `.large`，那会发生什么呢？使用新版本的 SDK 编译时，编译器会因 switch 语句不再详尽而报错。解决错误的的一种方法是引入一个 `default:` case。我可以重写我的 switch 语句：
 
@@ -86,7 +86,7 @@ case .regular:
 }
 ```
 
-**`@unknown default:` 这个 case 只能用于让枚举变得详尽，并匹配添加到枚举的任何新案例。** 它依旧会为这些新 case 生成警告，以便你可以决定采取怎么样的操作。这不同于使用 `default:` 和一个非详尽的枚举，它不会提示你有新的 case 未处理。
+**`@unknown default:` 这个 case 只能用于让枚举变得详尽，并匹配添加到枚举的任何新案例**。它依旧会为这些新 case 生成警告，以便你可以决定采取怎么样的操作。这不同于使用 `default:` 和一个非详尽的枚举，它不会提示你有新的 case 未处理。
 
 #### 冻结枚举
 
@@ -137,7 +137,7 @@ case .horizontal:
     // ...
 case .vertical:
     // ...
-@unknown default：
+@unknown default:
     // ...
 }
 ```
