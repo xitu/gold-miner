@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-flutter-page-route-transition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-flutter-page-route-transition.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[Charlo-O](https://github.com/Charlo-O)
 
 # 关于 Flutter 页面路由过渡动画，你所需要知道的一切
 
@@ -26,9 +26,9 @@ pop 操作：
 Navigator.pop(context);
 ```
 
-**就这么简单。但是这样做，路由跳转就是无聊的页面切换，完全没有动画效果** 😦 **。**
+**就这么简单。但是这样做，路由跳转就是无聊的页面切换，完全没有动画效果 😦**
 
-当我们在 [Winkl](http://bit.ly/2KNpLo4) 开始第一次应用动画效果，我们意识到，页面跳转的过渡效果可以让你的用户交互界面变得很好看。如果你想要一个像 iOS 上那样的滑动页面切换，你可以用 **CupertinoPageRoute。**只有这个，没有其他的了。
+当我们在 [Winkl](http://bit.ly/2KNpLo4) 开始第一次应用动画效果，我们意识到，页面跳转的过渡效果可以让你的用户交互界面变得很好看。如果你想要一个像 iOS 上那样的滑动页面切换，你可以用 **CupertinoPageRoute**。只有这个，没有其他的了。
 
 ```
 Navigator.push(
@@ -37,7 +37,7 @@ Navigator.push(
 
 但是，对于用户自定义的过渡效果，Flutter 提供了不同的方案：[动画组件](https://flutter.dev/docs/development/ui/widgets/animation)。下面我们一起来看看如何应用它。
 
-我们知道，**Navigator.push** 接受两个参数 **(BuildContext context, Route<T> route)。**我们可以使用一些过渡动画来创建自定义的页面路由跳转。我们先从一些简单的例子开始，比如滑动过渡。
+我们知道，**Navigator.push** 接受两个参数 **(BuildContext context, Route<T> route)**。我们可以使用一些过渡动画来创建自定义的页面路由跳转。我们先从一些简单的例子开始，比如滑动过渡。
 
 ### 滑动过渡
 
@@ -240,7 +240,7 @@ class FadeRoute extends PageRouteBuilder {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WVzbhZapoLuCPQ508tF_HQ.gif)
 
-**棒棒哒！！**现在我们学习过了所有基础的过渡效果。
+**棒棒哒！！** 现在我们学习过了所有基础的过渡效果。
 
 ***
 
