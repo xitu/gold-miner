@@ -430,7 +430,7 @@ async function fetchAllCounts(users) {
 
 如果一个 fetch 操作耗时 300 ms，那么 `fetchAllCounts` 函数耗时大概在 900 ms 左右。由此可见，程序耗时会随着用户数量的增加而线性增加。因为**获取不同用户公开仓库数量之间没有依赖**，我们可以将**操作并行处理。**
 
-我们可以同时获取用户的公开仓库数量，而不是顺序获取。我们将使用 `.map` 方法和 `[**Promise.all**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)`。
+我们可以同时获取用户的公开仓库数量，而不是顺序获取。我们将使用 `.map` 方法和 **[`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)**。
 
 ```
 async function fetchAllCounts(users) {
