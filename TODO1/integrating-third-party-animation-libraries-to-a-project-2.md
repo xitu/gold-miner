@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/integrating-third-party-animation-libraries-to-a-project-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/integrating-third-party-animation-libraries-to-a-project-2.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[lgh757079506](https://github.com/lgh757079506)
 
 # 在项目中集成第三方动画库 —— 第二部分
 
