@@ -8323,7 +8323,7 @@
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|1|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|校对|3|
 
-## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：57 当前积分：57 二零一九：57
+## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：56 当前积分：56 二零一九：56
 
 |文章|类型|积分|
 |------|-------|-------|
