@@ -409,6 +409,7 @@ const counts = users.map(async username => {
 });
 ```
 ### 过于按顺序使用 await
+
 注意 `async` 在 `.map`方法中。我们可能希望变量 `counts` 存储着的公开仓库数量。但是，就如我们之前所见，**所有的 async 函数均返回 promise 对象。** 因此，`counts` 实际上是一个 **promise 对象数组。**`.map` 为每一个 `username` 调用异步函数，`.map` 方法将每次调用返回的 promise 结果保存在数组中。
 
 我们可能也会有其它解决方法，比如 ——
