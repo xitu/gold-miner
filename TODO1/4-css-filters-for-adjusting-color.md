@@ -21,7 +21,7 @@ Four different CSS filter-functions exist to replicate effects you can create wi
 
 Here are the four CSS filters.
 
-- grayscale()
+- grayscale();
 - hue-rotate();
 - saturate();
 - sepia();
