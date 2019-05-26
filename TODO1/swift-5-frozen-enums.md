@@ -26,7 +26,7 @@ func configure(for sizeClass: UIUserInterfaceSizeClass) {
 }
 ```
 
-当我把项目升级到 Swift 5之后，Xcode 会报出一些警告：
+当我把项目升级到 Swift 5 之后，Xcode 会报出一些警告：
 
 ![additional unknown values warning](https://useyourloaf.com/assets/images/2019/2019-04-05-001.png)
 
