@@ -1,5 +1,4 @@
-TypeScript 3.0: The unknown Type
-================================
+# TypeScript 3.0: The unknown Type
 
 TypeScript 3.0 introduced a new `unknown` type which is the type-safe counterpart of the `any` type.
 
@@ -7,8 +6,7 @@ The main difference between `unknown` and `any` is that `unknown` is much 
 
 This post focuses on the practical aspects of the `unknown` type, including a comparison with the `any` type. For a comprehensive code example showing the semantics of the `unknown` type, check out Anders Hejlsberg's [original pull request](https://github.com/Microsoft/TypeScript/pull/24439).
 
-The `any` Type
----------------------------------------------------------------------------------------------
+## The `any` Type
 
 Let's first look at the `any` type so that we can better understand the motivation behind introducing the `unknown` type.
 
@@ -31,7 +29,6 @@ value = null;             // OK
 value = undefined;        // OK
 value = new TypeError();  // OK
 value = Symbol("type");   // OK
-
 ```
 
 The `any` type is essentially an escape hatch from the type system. As developers, this gives us a ton of freedom: TypeScript lets us perform any operation we want on values of type `any` without having to perform any kind of checking beforehand.
@@ -52,8 +49,7 @@ In many cases, this is too permissive. Using the `any` type, it's easy to writ
 
 What if there were a top type that was safe by default? This is where `unknown`comes into play.
 
-The `unknown` Type
------------------------------------------------------------------------------------------------------
+## The `unknown` Type
 
 Just like all types are assignable to `any`, all types are assignable to `unknown`. This makes `unknown` another top type of TypeScript's type system (the other one being `any`).
 
@@ -72,7 +68,6 @@ value = null;             // OK
 value = undefined;        // OK
 value = new TypeError();  // OK
 value = Symbol("type");   // OK
-
 ```
 
 All assignments to the `value` variable are considered type-correct.
@@ -90,7 +85,6 @@ let value5: string = value;    // Error
 let value6: object = value;    // Error
 let value7: any[] = value;     // Error
 let value8: Function = value;  // Error
-
 ```
 
 The `unknown` type is only assignable to the `any` type and the `unknown` type itself. Intuitively, this makes sense: only a container that is capable of holding values of arbitrary types can hold a value of type `unknown`; after all, we don't know anything about what kind of value is stored in `value`.
@@ -111,8 +105,7 @@ With the `value` variable typed as `unknown`, none of these operations are co
 
 This is the main value proposition of the `unknown` type: TypeScript won't let us perform arbitrary operations on values of type `unknown`. Instead, we have to perform some sort of type checking first to narrow the type of the value we're working with.
 
-Narrowing the `unknown` Type
--------------------------------------------------------------------------------------------------------------------------
+## Narrowing the `unknown` Type
 
 We can narrow the `unknown` type to a more specific type in different ways, including the `typeof` operator, the `instanceof` operator, and custom type guard functions. All of these narrowing techniques contribute to TypeScript's [control flow based type analysis](https://mariusschulz.com/blog/typescript-2-0-control-flow-based-type-analysis).
 
@@ -163,8 +156,7 @@ if (isNumberArray(unknownValue)) {
 
 Notice how `unknownValue` has type `number[]` within the `if` statement branch although it is declared to be of type `unknown`.
 
-Using Type Assertions with `unknown`
------------------------------------------------------------------------------------------------------------------------------------------
+## Using Type Assertions with `unknown`
 
 In the previous section, we've seen how to use `typeof`, `instanceof`, and custom type guard functions to convince the TypeScript compiler that a value has a certain type. This is the safe and recommended way to narrow values of type `unknown` to a more specific type.
 
@@ -188,8 +180,7 @@ const otherString = someString.toUpperCase();  // BOOM
 
 The `value` variable holds a number, but we're pretending it's a string using the type assertion `value as string`. Be careful with type assertions!
 
-The `unknown` Type in Union Types
------------------------------------------------------------------------------------------------------------------------------------
+## The `unknown` Type in Union Types
 
 Let's now look at how the `unknown` type is treated within union types. In the next section, we'll also look at intersection types.
 
@@ -210,8 +201,7 @@ type UnionType5 = unknown | any;  // any
 
 So why does `unknown` absorb every type (aside from `any`)? Let's think about the `unknown | string` example. This type represents all values that are assignable to type `unknown` plus those that are assignable to type `string`. As we've learned before, all types are assignable to `unknown`. This includes all strings, and therefore, `unknown | string` represents the same set of values as `unknown` itself. Hence, the compiler can simplify the union type to `unknown`.
 
-The `unknown` Type in Intersection Types
--------------------------------------------------------------------------------------------------------------------------------------------------
+## The `unknown` Type in Intersection Types
 
 In an intersection type, every type absorbs `unknown`. This means that intersecting any type with `unknown` doesn't change the resulting type:
 
@@ -225,8 +215,7 @@ type IntersectionType5 = unknown & any;        // any
 
 Let's look at `IntersectionType3`: the `unknown & string` type represents all values that are assignable to both `unknown` and `string`. Since every type is assignable to `unknown`, including `unknown` in an intersection type does not change the result. We're left with just `string`.
 
-Using Operators with Values of Type `unknown`
------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Using Operators with Values of Type `unknown`
 
 Values of type `unknown` cannot be used as operands for most operators. This is because most operators are unlikely to produce a meaningful result if we don't know the types of the values we're working with.
 
@@ -239,8 +228,7 @@ The only operators you can use on values of type `unknown` are the four equali
 
 If you want to use any other operators on a value typed as `unknown`, you have to narrow the type first (or force the compiler to trust you using a type assertion).
 
-Example: Reading JSON from `localStorage`
---------------------------------------------------------------------------------------------------------------------------------------------------
+## Example: Reading JSON from `localStorage`
 
 Here's a real-world example of how we could use the `unknown` type.
 
@@ -312,7 +300,7 @@ if (result.success) {
 
 Note that the `tryDeserializeLocalStorageItem` function can't simply return `null` to signal that the deserialization failed, for the following two reasons:
 
-1.  The value `null` is a valid JSON value. Therefore, we would not be able to distinguish whether we deserialized the value `null` or whether the entire operation failed because of a missing item or a syntax error.
-2.  If we were to return `null` from the function, we could not return the error at the same time. Therefore, callers of our function would not know why the operation failed.
+1. The value `null` is a valid JSON value. Therefore, we would not be able to distinguish whether we deserialized the value `null` or whether the entire operation failed because of a missing item or a syntax error.
+2. If we were to return `null` from the function, we could not return the error at the same time. Therefore, callers of our function would not know why the operation failed.
 
 For the sake of completeness, a more sophisticated alternative to this approach is to use [typed decoders](https://dev.to/joanllenas/decoding-json-with-typescript-1jjc) for safe JSON parsing. A decoder lets us specify the expected schema of the value we want to deserialize. If the persisted JSON turns out not to match that schema, the decoding will fail in a well-defined manner. That way, our function always returns either a valid or a failed decoding result and we could eliminate the `unknown` type altogether.
