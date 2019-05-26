@@ -2,72 +2,72 @@
 > * 原文作者：[Keith Cirkel](https://twitter.com/keithamus)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-2-reflect.md](https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-2-reflect.md)
-> * 译者：
-> * 校对者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia) [ParadeTo](https://github.com/ParadeTo)
 
-# Metaprogramming in ES6: Part 2 - Reflect
+# ES6 中的元编程：第二部分 —— 反射（Reflect）
 
-In [my last post we had a look at Symbols](/metaprogramming-in-es6-symbols/), and how they add useful new metaprogramming features to JavaScript. This time, we’re (finally!) going to talk all about Reflect. If you haven’t read [Part 1: Symbols](/metaprogramming-in-es6-symbols/), then I’d recommend you do. In the last post, I made a key point which I’m going to reiterate:
+在我的[上一篇博文](/metaprogramming-in-es6-symbols/)，我们探索了 Symbols，以及它们是如何为 JavaScript 添加了有用的元编程特性。这一次，我们（终于！）要开始讨论反射了。如果你尚未读过 [第一部分：Symbols](/metaprogramming-in-es6-symbols/)，那我建议你先去读读。在上一篇文章中，我不厌其烦地强调一点：
 
-> * Symbols are all about Reflection within implementation - you sprinkle them on your existing classes and objects to change the behaviour.
-> * Reflect is all about Reflection through introspection - used to discover very low level information about your code.
-> * Proxy is all about Reflection through intercession - wrapping objects and intercepting their behaviours through traps.
+* Symbols 是 **实现了的反射（Reflection within implementation）**—— 你将 Symbols 应用到你已有的类和对象上去改变它们的行为。
+* Reflect 是 **通过自省（introspection）实现反射（Reflection through introspection）** —— 通常用来探索非常底层的代码信息。
+* Proxy 是 **通过调解（intercession）实现反射（Reflection through intercession）** —— 包裹对象并通过自陷（trap）来拦截对象行为。
 
-`Reflect` is a new global Object (like `JSON` or `Math`) that provides a bunch of useful introspection methods (introspection is really just a fancy word for “looking at stuff”). Introspection tools already exist in JavaScript; `Object.keys`, `Object.getOwnPropertyNames`, etc. So why the need for a new API when these could just be added to `Object`?
+`Reflect` 是一个新的全局对象（类似 `JSON` 或者 `Math`），该对象提供了大量有用的内省（introspection）方法（内省是 “看看那个东西” 的一个非常华丽的表述）。内省工具已经存在于 JavaScript 了，例如 `Object.keys`，`Object.getOwnPropertyNames` 等等。所以，为什么我们仍然新的 API ，而不是直接在 Object 上做扩展呢？ 
 
-## “Internal Methods”
+## “内置方法”
 
-All JavaScript specs, and therefore engines, come with a series of “internal methods”. Effectively these let the JavaScript engine perform essential operations on your Objects as it hops around your code. If you read through the spec, you’ll find these everywhere, things like `[[Get]]`, `[[Set]]`, `[[HasOwnProperty]]` and so on (if you’re having trouble sleeping, the full list of internal methods in [ES5 Section 8.12](https://es5.github.io/#x8.12)/[ES6 Section 9.1](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-ordinary-object-internal-methods-and-internal-slots)).
+所有的 JavaScript 规范，以及因此诞生的引擎，都来源于一系列的 “内置方法”。这些内置方法能够有效地让 JavaScript 引擎在对象上执行一些遍布你代码的基础操作。如果你通读了规范，你会发现这些方法散落各处，例如 `[[Get]]`、`[[Set]]`、`[[HasOwnProperty]]` 等等（如果你没有耐心通读所有规范，那么这些内置方法列表在 [ES5 8.12 部分](https://es5.github.io/#x8.12) 以及 [ES6 9.1 部分](https://www.ecma-international.org/ecma-262/6.0/index.html#sec-ordinary-object-internal-methods-and-internal-slots) 可以查阅到）。
 
-Some of these “internal methods” were hidden from JavaScript code, others were applied in part by some methods, and even if there were available, they were tucked away inside various crevices, for example `Object.prototype.hasOwnProperty` is an implementation of `[[HasOwnProperty]]`, except not every object inherits from Object, and so you have to perform convoluted incantations just to use it - for example:
+其中一些 “内置方法” 对 JavaScript 代码是隐藏的，另一些则应用在了其他方法中，即使这些方法可用，它们仍被隐藏于难于窥见的缝隙之中。例如，`Object.prototype.hasOwnProperty` 是 `[[HasOwnProperty]]` 的一个实现，但不是所有的对象都继承自 Object，为此，有时你不得不写出一些古怪的代码才能用上 `hasOwnProperty`，如下例所示：
 
-```
-var myObject = Object.create(null); // Happens more often than you might think (especially with new ES6 classes)
+```js
+var myObject = Object.create(null); // 这段代码比你想象得更加常见（尤其是在使用了新的 ES6 的类的时候）
 assert(myObject.hasOwnProperty === undefined);
-// If you want to use hasOwnProperty on `myObject`:
+// 如果你想在 `myObject` 上使用 hasOwnProperty：
 Object.prototype.hasOwnProperty.call(myObject, 'foo');
 ```
 
-As another example, the `[[OwnPropertyKeys]]` internal method gets all of an Objects String keys and Symbol keys as one Array. The only way to get these (outside of Reflect) is to combined the results of `Object.getOwnPropertyNames` and `Object</span><span class="p">.getOwnPropertySymbols`:
+再看到另一个例子，`[[OwnPropertyKeys]]` 这一内置方法能获得对象上所有的字符串 key 和 Symbol key，并作为一个数组返回。在不使用 Reflect 的情况下，能一次性获得这些 key 的方式只有连接 `Object.getOwnPropertyNames` 和 `Object.getOwnPropertySymbols` 的结果：
 
-```
+```js
 var s = Symbol('foo');
 var k = 'bar';
 var o = { [s]: 1, [k]: 1 };
-// Simulate [[OwnPropertyKeys]]
+// 模拟 [[OwnPropertyKeys]]
 var keys = Object.getOwnPropertyNames(o).concat(Object.getOwnPropertySymbols(o));
 assert.deepEqual(keys, [k, s]);
 ```
 
-## Reflect methods
+## 反射方法
 
-Reflect is effectively a collection of all of those _“internal methods”_ that were available exclusively through the JavaScript engine internals, now exposed in one single, handy object. You might be thinking “yeah, but why not just attach these to Object like `Object.keys`, `Object.getOwnPropertyNames` etc are?”. Here is why:
+反射是一个非常有用的集合，它囊括了所有 JavaScript 引擎内部专有的 **“内部方法”**，现在被暴露为了一个单一、方便的对象 —— Reflect。你可能会问：“这听起来不错，但是为什么不直接将内置方法绑定到 Object 上呢？就像 `Object.keys`、`Object.getOwnPropertyNames` 这样”。现在，我告诉你这么做的理由：
 
-1. Reflect has methods that are not meant just for Objects, for example `Reflect.apply` - which targets a Function. Calling `Object.apply(myFunction)` would just look weird.
-2. Having a single object to house these methods is a great way to keep the rest of JavaScript clean, rather than dotting Reflection methods throughout constructors and prototypes - or worse - globals.
-3. `typeof`, `instanceof`, and `delete` already exist as Reflection operators - adding new keywords like this is not only cumbersome for developers, but also a nightmare for backwards compatibility and explodes the number of reserved words.
+1. 反射拥有的方法不仅针对于 Object，还可能针对于函数，例如 `Reflect.apply`，毕竟调用 `Object.apply(myFunction)` 看起来太怪了。  
+2. 用一个单一对象贮存内置方法能保持 JavaScript 其余部分的纯净性，这要优于将反射方法通过点操作符挂载到构造函数或者原型上，更要优于直接使用全局变量。 
+3. `typeof`、`instanceof` 以及 `delete` 已经作为反射运算符存在了 —— 为此添加同样功能的新关键字将会加重开发者的负担，同时，对于向后兼容性也是一个梦魇，并且会让 JavaScript 中的保留字数量急速膨胀。
 
-### Reflect.apply ( target, thisArgument [, argumentsList] )
+### Reflect.apply ( target, thisArgument [, argumentList] )
 
-`Reflect.apply` is pretty much just `Function#apply` - it takes a function, and calls it with a context, and an array of arguments. From this point on you _could_ consider the `Function#call`/`Function#apply` versions deprecated. This isn’t mind blowing, but it makes good sense. Here’s how you use it:
+`Reflect.apply` 与 `Function#apply` 类似 —— 它接受一个函数，一个调用该函数的上下文以及一个参数数组。从现在开始，你 **可以** 认为 `Function#call`/`Function#apply` 的已经是过时版本了。这不是翻天覆地的变化，但却有很大意义。下面展示了 `Reflect.apply` 的用法：
 
-```
+```js
 var ages = [11, 33, 12, 54, 18, 96];
 
-// Function.prototype style:
+// Function.prototype 风格：
 var youngest = Math.min.apply(Math, ages);
 var oldest = Math.max.apply(Math, ages);
 var type = Object.prototype.toString.call(youngest);
 
-// Reflect style:
+// Reflect 风格：
 var youngest = Reflect.apply(Math.min, Math, ages);
 var oldest = Reflect.apply(Math.max, Math, ages);
 var type = Reflect.apply(Object.prototype.toString, youngest);
 ```
 
-The real benefit of Reflect.apply over Function.prototype.apply is defensibility: any code could trivially change the functions `call` or `apply` method, leaving you stuck with broken code or horrible workarounds. This doesn’t really end up being a huge deal in the real world, but code like the following could certainly exist:
+从 Function.prototype.apply 到 Reflect.apply 的变迁的真正益处是防御性：任何代码都能够尝试改变函数的 `call` 或者 `apply` 方法，这会让你受困于崩溃的代码或者某些糟糕的情境。在现实世界中，这不会成为一件大事，但是下面这样的代码可能真正存在：
 
-```
+```js
 function totalNumbers() {
   return Array.prototype.reduce.call(arguments, function (total, next) {
     return total + next;
@@ -77,23 +77,23 @@ totalNumbers.apply = function () {
   throw new Error('Aha got you!');
 }
 
-totalNumbers.apply(null, [1, 2, 3, 4]); // throws Error('Aha got you!');
+totalNumbers.apply(null, [1, 2, 3, 4]); // 抛出 Error('Aha got you!');
 
-// The only way to defensively do this in ES5 code is horrible:
+// ES5 中保证防御性的代码看起来很糟糕：
 Function.prototype.apply.call(totalNumbers, null, [1, 2, 3, 4]) === 10;
 
-//You could also do this, which is still not much cleaner:
+// 你也可以这样做，但看起来还是不够整洁：
 Function.apply.call(totalNumbers, null, [1, 2, 3, 4]) === 10;
 
-// Reflect.apply to the rescue!
+// Reflect.apply 会是救世主！
 Reflect.apply(totalNumbers, null, [1, 2, 3, 4]) === 10;
 ```
 
 ### Reflect.construct ( target, argumentsList [, constructorToCreateThis] )
 
-Similar to `Reflect.apply` - this lets you call a Constructor with a set of arguments. This will work with Classes, and sets up the correct object so that Constructors have the right `this` object with the matching prototype. In ES5 land, you’d use the `Object.create(Constructor.prototype)` pattern, and pass that to `Constructor.call` or `Constructor.apply`. The difference with `Reflect.construct` is that rather than passing an object, you just pass the constructor - and `Reflect.construct` will handle all that jazz (alternatively, just omit it and it’ll default to the `target` argument). The old style of doing this was quite cumbersome, the new style can be much more succinct, as little as a one liner:
+类似于 `Reflect.apply` —— `Reflect.construct` 让你传入一系列参数来调用构造函数。它能够服务于类，并且设置正确的对象来使 Constructor 有正确的 `this` 引用以匹配对应的原型。在 ES5 时期，你会使用 `Object.create(Constructor.prototype)` 模式，然后传递对象到 `Constructor.call` 或者 `Constructor.apply`。 `Reflect.construct` 的不同之处在于，你只需要传递构造函数，而不需要传递对象 —— `Reflect.construct` 处理好一切（如果省略第三个参数，那么构造的对象原型将默认绑定到 `target` 参数）。在之前的风格中，完成对象构造是一件繁重的事儿，而在新的风格之下，这事儿简单到一行代码即可完成：
 
-```
+```js
 class Greeting {
 
     constructor(name) {
@@ -101,52 +101,52 @@ class Greeting {
     }
 
     greet() {
-      return `Hello ${name}`;
+      return Hello ${this.name};
     }
 
 }
 
-// ES5 style factory:
+// ES5 风格的工厂函数：
 function greetingFactory(name) {
     var instance = Object.create(Greeting.prototype);
     Greeting.call(instance, name);
     return instance;
 }
 
-// ES6 style factory
+// ES6 风格的工厂函数：
 function greetingFactory(name) {
     return Reflect.construct(Greeting, [name], Greeting);
 }
 
-// Or, omit the third argument, and it will default to the first argument.
+// 如果省略第三个参数，那么默认绑定对象原型到第一个参数
 function greetingFactory(name) {
   return Reflect.construct(Greeting, [name]);
 }
 
-// Super slick ES6 one liner factory function!
+// ES6 下顺滑无比的线性工厂函数：
 const greetingFactory = (name) => Reflect.construct(Greeting, [name]);
 ```
 
 ### Reflect.defineProperty ( target, propertyKey, attributes )
 
-`Reflect.defineProperty` pretty much takes over from `Object.defineProperty` - it lets you define metadata about a property. It fits much better here because Object.* implies that it acts on object literals (it is, after all, the Object literal constructor), while Reflect.defineProperty just implies that what you’re doing is Reflection, which is more semantic.
+`Reflect.definedProperty` 很大程度上源于 `Object.defineProperty` —— 它允许你定义一个属性的元信息。 相较于 `Object.defineProperty`，`Reflect.defineProperty` 要更加适合，因为 Obejct.* 暗示了它是作用在对象字面量上（毕竟 Object 是对象字面量的构造函数），然而 Reflect.defineProperty 仅只暗示了你正在做反射，这要更加的语义化。
 
-An important note is that `Reflect.defineProperty` - just like `Object.defineProperty` - will throw a `TypeError` for invalid `target`s, such Number or String primitives ( `Reflect.defineProperty(1, 'foo')`). This is a good thing, because throwing errors for wrong argument types notifies you of problems much better than silently failing.
+要留心的是 `Reflect.defineProperty` —— 正如 `Object.defineProperty` 一样 —— 对于无效的 `target`，例如 Number 或者 String 原始值（`Reflect.defineProperty(1, 'foo')`），将抛出一个 `TypeError`。相较于静默失败，当参数类型错误时，抛出错误以引起你的注意是一件更好的事儿。
 
-Once again, you could consider `Object.defineProperty` pretty much deprecated from here on out. Use `Reflect.defineProperty` instead.
+再重复一次，你可以认为 `Object.defineProperty` 从现在起过时了，并使用 `Reflect.defineProperty` 代替：
 
-```
+```js
 function MyDate() {
   /*…*/
 }
 
-// Old Style, weird because we're using Object.defineProperty to define
-// a property on Function (why isn't there a Function.defineProperty?)
+// 老的风格下，我们使用 Object.defineProperty 来定义一个函数的属性，显得很奇怪
+// （为什么我们不用 Function.defineProperty ？）
 Object.defineProperty(MyDate, 'now', {
   value: () => currentms
 });
 
-// New Style, not weird because Reflect does Reflection.
+// 新的风格下，语义就通畅得多，因为 Reflect 只是在做反射。
 Reflect.defineProperty(MyDate, 'now', {
   value: () => currentms
 });
@@ -154,9 +154,9 @@ Reflect.defineProperty(MyDate, 'now', {
 
 ### Reflect.getOwnPropertyDescriptor ( target, propertyKey )
 
-This, once again, pretty much replaces `Object.getOwnPropertyDescriptor`, getting the descriptor metadata of a property. The key difference is that while `Object.getOwnPropertyDescriptor(1, 'foo')` silently fails, returning `undefined`, `Reflect.getOwnPropertyDescriptor(1, 'foo')` will throw a `TypeError` - it throws for invalid arguments, just like `Reflect.defineProperty` does. You’re probably getting the idea by now - but `Reflect.getOwnPropertyDescriptor` pretty much deprecates `Object.getOwnPropertyDescriptor`.
+同上面一样，我们优先使用 `Reflect.getOwnPropertyDescriptor` 代替 `Object.getOwnPropertyDescriptor` 来获得一个属性的描述子元信息。与 `Object.getOwnPropertyDescriptor(1, 'foo')` 会静默失败，返回 `undefined` 不同，`Reflect.getOwnPropertyDescriptor(1, 'foo')` 将抛出一个 `TypeError` 错误 —— 与 `Reflect.defineProperty` 一样，该错误是针对于 `target` 无效抛出的。你现在也知道了，我们可以使用 `Reflect.getOwnPropertyDescriptor` 替换掉 `Object.getOwnPropertyDescriptor` 了：
 
-```
+```js
 var myObject = {};
 Object.defineProperty(myObject, 'hidden', {
   value: true,
@@ -165,7 +165,7 @@ Object.defineProperty(myObject, 'hidden', {
 var theDescriptor = Reflect.getOwnPropertyDescriptor(myObject, 'hidden');
 assert.deepEqual(theDescriptor, { value: true, enumerable: true });
 
-// Old style
+// 老的风格
 var theDescriptor = Object.getOwnPropertyDescriptor(myObject, 'hidden');
 assert.deepEqual(theDescriptor, { value: true, enumerable: true });
 
@@ -175,9 +175,9 @@ Reflect.getOwnPropertyDescriptor(1, 'foo'); // throws TypeError
 
 ### Reflect.deleteProperty ( target, propertyKey )
 
-`Reflect.deleteProperty` will, surprise surprise, delete a property off of the target object. Pre ES6, you’d typically write `delete obj.foo`, now you can write `Reflect.deleteProperty(obj, 'foo')`. This is slightly more verbose, and the semantics are slightly different to the delete keyword, but it has the same basic effect for objects. Both of them call the internal `target[[Delete]](propertyKey)` method - but the `delete` operator also “works” for non-object references (i.e. variables), and so it does more checking on the operand passed to it, and has more potential to throw:
+非常非常令人兴奋，`Reflect.deleteProperty` 能够删除目标对象上的一个属性。在 ES6 之前，你一般是通过 `delete obj.foo`，现在，你可以使用 `Reflect.deleteProperty(obj, 'foo')` 来删除对象属性了。`Reflect.deleteProperty` 稍显冗长，在语义上与 `delete` 关键字有些不同，但对于删除对象却有相同的作用。二者都是调用内置的 `target[[Delete]](propertyKey)` 方法 —— 但是 `delete` 运算也能 “工作” 在非对象引用上（例如变量），因此它会对传递给它的运算数做更多的检查，潜在地，也就存在抛出错误的可能性：
 
-```
+```js
 var myObj = { foo: 'bar' };
 delete myObj.foo;
 assert(myObj.hasOwnProperty('foo') === false);
@@ -187,17 +187,17 @@ Reflect.deleteProperty(myObj, 'foo');
 assert(myObj.hasOwnProperty('foo') === false);
 ```
 
-Once again, you could consider this to be the “new way” to delete properties - if you wanted to. It’s certainly more explicit to its intention.
+再重复一遍，如果你想的话，你可以考虑使用这个 “新的方式” 来删除属性。这个方式显然意图更加明确，就是删除属性。
 
 ### Reflect.getPrototypeOf ( target )
 
-The theme of replacing/deprecating Object methods continues - this time `Object.getPrototypeOf`. Just like its siblings, the new `Reflect.getPrototypeOf` method will throw a `TypeError` if you give it an invalid `target` such as a Number or String literal, `null` or `undefined`, where `Object.getPrototypeOf` coerces the `target` to be an object - so `'a'` becomes `Object('a')`. Syntax otherwise, is exactly the same.
+关于替代/淘汰 Object 方法的议题还在继续 —— 这一次该是 `Object.getPrototypeOf` 了。正如其兄妹方法一样，如果你传入了一个诸如 Number 和 String 字面量、`null` 或者是 `undefined` 这样无效的 `target`，`Reflect.getPropertyOf` 将抛出一个 `TypeError` 错误，而 `Object.getPropertyOf` 强制转化 `target` 为一个对象 —— 所以 `'a'` 变为了 `Object('a')`。除了语法以外，二者几乎相同：
 
-```
+```js
 var myObj = new FancyThing();
 assert(Reflect.getPrototypeOf(myObj) === FancyThing.prototype);
 
-// Old style
+// 老的风格
 assert(Object.getPrototypeOf(myObj) === FancyThing.prototype);
 
 Object.getPrototypeOf(1); // undefined
@@ -206,14 +206,14 @@ Reflect.getPrototypeOf(1); // TypeError
 
 ### Reflect.setPrototypeOf ( target, proto )
 
-Of course, you couldn’t have `getPrototypeOf` without `setPrototypeOf`. Now, `Object.setPrototypeOf` will throw for non-objects, but it tries to coerce the given argument into an Object, and also if the `[[SetPrototype]]` internal operation fails, it’ll throw a `TypeError`, if it succeeds it’ll return the `target` argument. `Reflect.setPrototypeOf` is much more basic - if it receives a non-object it’ll throw a `TypeError`, but other than that, it’ll just return the result of `[[SetPrototypeOf]]` - which is a Boolean indicating if the operation was successful. This is useful because then you can manage the outcome without resorting to using a `try`/`catch` which will also catch any other `TypeErrors` from passing in incorrect arguments.
+当然，`getProtopertyOf` 不能没了 `setPropertyOf`。现在，`Object.setPrototypeOf` 对于传入非对象参数，将抛出错误，但它会尝试将传入参数强制转换为 Object，并且如果内置的 `[[SetPrototype]]` 操作失败，将抛出 `TypeError`，而如果成功的话，将返回 `target` 参数。`Reflect.setPrototypeOf` 则更加简单基础 —— 如果其收到了一个非对象参数，它就将抛出一个 `TypeError` 错误，但除此之外，它还会返回 `[[SetPrototypeOf]]` 的结果 —— 这是一个 Boolean 值，指出了操作是否错误。这是很有用的，因为你可以直接知晓操作错误与否，而不需要使用 `try`/`catch`，这将会俘获其他由于参数传递错误造成的 `TypeErrors`。 
 
-```
+```js
 var myObj = new FancyThing();
 assert(Reflect.setPrototypeOf(myObj, OtherThing.prototype) === true);
 assert(Reflect.getPrototypeOf(myObj) === OtherThing.prototype);
 
-// Old style
+// 老的风格
 assert(Object.setPrototypeOf(myObj, OtherThing.prototype) === myObj);
 assert(Object.getPrototypeOf(myObj) === FancyThing.prototype);
 
@@ -229,65 +229,65 @@ assert(Reflect.setPrototypeOf(myFrozenObj) === false);
 
 ### Reflect.isExtensible (target)
 
-Ok, once again this one is just a replacement of `Object.isExtensible` - but its a bit more complicated than that. Prior to ES6 (so… ES5) `Object.isExtensible` threw a `TypeError` if you fed it a non-object (`typeof target !== 'object'`). ES6 semantics have changed this (Gasp! A change to the existing API!) so that passing in a non-object to `Object.isExtensible` will now return `false` - because non-objects are all not extensible. So code like `Object.isExtensible(1) === false` would throw, whereas ES6 runs the statement like you’d expect (evaluating to true).
+再一次强调这是用来替代 `Object.isExtensible` 的 —— 但是它比后者要更加复杂。在 ES6 之前（例如说 ES5），如果你传入了非对象参数（`typeof target !== object`），`Object.isExtensible` 会抛出一个 `TypeError`。ES6 则在语义上发生了改变（天哪！居然改变了现有的 API！）使得传入非对象参数时，`Object.isExtensible` 返回 `false` —— 因为非对象确实就是不可扩展。所以在 ES6 下，这个早先会抛出错误的语句：`Object.isExtensible(1) === false` 现在表现得如你所想，语义更加准确。
 
-The point of the brief history lesson is that `Reflect.isExtensible` uses the old behavior, of throwing on non-objects. I’m not really sure why it does, but it does. So technically `Reflect.isExtensible` changes the semantics against `Object.isExtensible`, but `Object.isExtensible` changed anyway. Here’s some code to illustrate:
+上面简短的历史回顾引出关键点就是 `Reflect.isExtensible` 使用的是老旧行为，即当传入非对象参数时，抛出错误。我不真正确定为什么它要这么做，但它确实这么做了。所以技术上 `Reflect.isExtensible` 改变了 `Object.isExtensible` 的语义，但是 `Object.isExtensible` 自己也发生了语义改变。下面的代码说明了这些：
 
-```
+```js
 var myObject = {};
 var myNonExtensibleObject = Object.preventExtensions({});
 
 assert(Reflect.isExtensible(myObject) === true);
 assert(Reflect.isExtensible(myNonExtensibleObject) === false);
-Reflect.isExtensible(1); // throws TypeError
-Reflect.isExtensible(false);  // throws TypeError
+Reflect.isExtensible(1); // 抛出 TypeError
+Reflect.isExtensible(false);  // 抛出 TypeError
 
-// Using Object.isExtensible
+// 使用 Object.isExtensible
 assert(Object.isExtensible(myObject) === true);
 assert(Object.isExtensible(myNonExtensibleObject) === false);
 
-// ES5 Object.isExtensible semantics
-Object.isExtensible(1); // throws TypeError on older browsers
-Object.isExtensible(false);  // throws TypeError on older browsers
+// ES5 Object.isExtensible 语义
+Object.isExtensible(1); // 在老版本的浏览器下，会抛出 TypeError
+Object.isExtensible(false);  // 在老版本的浏览器下，会抛出 TypeError
 
-// ES6 Object.isExtensible semantics
-assert(Object.isExtensible(1) === false); // only on newer browsers
-assert(Object.isExtensible(false) === false); // only on newer browsers
+// ES6 Object.isExtensible 语义
+assert(Object.isExtensible(1) === false); // 只工作在新的浏览器
+assert(Object.isExtensible(false) === false); // 只工作在新的浏览器
 ```
 
 ### Reflect.preventExtensions ( target )
 
-This is the last method in the Reflection object that borrows from Object. This follows the same story as `Reflect.isExtensible`; ES5’s `Object.preventExtensions` used to throw on non-objects, but now in ES6 it returns the value back, while `Reflect.preventExtensions` follows the old ES5 behaviour - throwing on non-objects. Also, while `Object.preventExtensions` has the potential to throw, `Reflect.preventExtensions` will simply return `true` or `false`, depending on the success of the operation, allowing you to gracefully handle the failure scenario.
+这是最后一个反射对象从 Object 上借鉴的方法。它和 `Reflect.isExtensible` 有类似的故事；ES5 的 `Object.preventExtensions` 过去会对非对象参数抛出错误，但是现在，在 ES6 中，它会返回传入值，而 `Reflect.preventExtensions` 遵从的则是老的 ES5 行为 —— 即对非对象参数抛出错误。另外，在操作成功的情况下，`Object.preventExtensions` 可能抛出错误，但 `Reflect.preventExtension` 仅简单地返回 true 或者 false，允许你优雅地操控失败场景：
 
-```
+```js
 var myObject = {};
 var myObjectWhichCantPreventExtensions = magicalVoodooProxyCode({});
 
 assert(Reflect.preventExtensions(myObject) === true);
 assert(Reflect.preventExtensions(myObjectWhichCantPreventExtensions) === false);
-Reflect.preventExtensions(1); // throws TypeError
-Reflect.preventExtensions(false);  // throws TypeError
+Reflect.preventExtensions(1); // 抛出 TypeError
+Reflect.preventExtensions(false);  // 抛出 TypeError
 
-// Using Object.isExtensible
-assert(Object.isExtensible(myObject) === true);
-Object.isExtensible(myObjectWhichCantPreventExtensions); // throws TypeError
+// 使用 Object.preventExtensions
+assert(Object.preventExtensions(myObject) === true);
+Object.preventExtensions(myObjectWhichCantPreventExtensions); // throws TypeError
 
-// ES5 Object.isExtensible semantics
-Object.isExtensible(1); // throws TypeError
-Object.isExtensible(false);  // throws TypeError
+// ES5 Object.preventExtensions 语义
+Object.preventExtensions(1); // 抛出 TypeError
+Object.preventExtensions(false);  // 抛出 TypeError
 
-// ES6 Object.isExtensible semantics
-assert(Object.isExtensible(1) === false);
-assert(Object.isExtensible(false) === false);
+// ES6 Object.preventExtensions 语义
+assert(Object.preventExtensions(1) === 1);
+assert(Object.preventExtensions(false) === false);
 ```
 
 ### Reflect.enumerate ( target )
 
-> Update: This was removed in ES2016 (aka ES7). `myObject[Symbol.iterator]()` is the only way to enumerate an Object’s keys or values now.
+> 更新：在 ES2016（也称 ES7）中，这被删除了。`myObject[Symbol.iterator]()` 是在对象 key 或者 value 上迭代的唯一方式。
 
-Finally a completely new Reflect method! `Reflect.enumerate` uses the same semantics as the new `Symbol.iterator` function (discussed in the previous article), both use the hidden `[[Enumerate]]` method that JavaScript engines are aware of. In other words, the only alternative to `Reflect.enumerate` is `myObject[Symbol.iterator]()`, except of course the `Symbol.iterator` can be overridden, while `Reflect.enumerate` can never be overridden. Used like so:
+最后，将引出一个全新的 Reflect 方法！`Reflect.enumerate` 使用了和新的 `Symbol.iterator` 函数（在前一章节，已对此有过讨论） 一样的语法，二者都使用了隐藏的，只有 JavaScript 引擎知道的 `[[Enumerate]]` 方法。换句话说，`Reflect.enumerate` 的唯一替代只是 `myObject[Symbol.iterator()]`，只是后者可以被重写，而前者不行。使用范例如下：
 
-```
+```js
 var myArray = [1, 2, 3];
 myArray[Symbol.enumerate] = function () {
   throw new Error('Nope!');
@@ -301,9 +301,9 @@ for (let item of Reflect.enumerate(myArray)) {
 
 ### Reflect.get ( target, propertyKey [ , receiver ])
 
-Reflect.get is also a completely new method. It’s quite a simple method; it effectively calls  `target[propertyKey]`. If `target` is a non-object, the function call will throw - which is good because currently if you were to do something like `1['foo']` it just silently returns `undefined`, `while Reflect.get(1, 'foo')` will throw a `TypeError`! One interesting part of `Reflect.get` is the receiver argument, which essentially acts as the `this` argument if `target[propertyKey]` is a getter function, for example:
+`Reflect.get` 也是一个全新的方法。它是一个非常简单的方法，其有效地调用了 `target[propertyKey]`。如果 `target` 是一个非对象，函数调用将抛出错误 —— 这是很有用的，因为目前如果你写了 `1['foo']` 这样的代码，它只会静默返回 `undefined`，而 `Reflect.get(1, 'foo')` 将抛出一个 `TypeError` 错误！`Reflect.get` 一个有趣的部分是它的 `receiver` 参数，如果 `target[propertyKey]` 是一个 getter 函数，它则作为该函数的 this，例子如下所示：
 
-```
+```js
 var myObject = {
   foo: 1,
   bar: 2,
@@ -323,20 +323,20 @@ var myReceiverObject = {
 };
 assert(Reflect.get(myObject, 'baz', myReceiverObject) === 8);
 
-// Non-objects throw:
-Reflect.get(1, 'foo'); // throws TypeError
-Reflect.get(false, 'foo'); // throws TypeError
+// 非对象将抛出错误
+Reflect.get(1, 'foo'); // 抛出 TypeError
+Reflect.get(false, 'foo'); // 抛出 TypeError
 
-// These old styles don't throw:
+// 老的风格下，静默返回 `undefined`：
 assert(1['foo'] === undefined);
 assert(false['foo'] === undefined);
 ```
 
 ### Reflect.set ( target, propertyKey, V [ , receiver ] )
 
-You can probably guess what this method does. It’s the sibling to `Reflect.get`, and it takes one extra argument - the value to set. Just like `Reflect.get`, `Reflect.set` will throw on non-objects, and has a special `receiver` argument which acts as the `this` value if `target[propertyKey]` is a setter function. Obligatory code example:
+你大致能够猜出该方法是做什么的。它是 `Reflect.get` 的兄弟方法，它接收另外一个参数 —— 需要被设置的值。如 `Reflect.get` 一样，`Reflect.set` 将在传入非对象参数时，抛出错误，并且也有一个 `receiver` 参数指明 `target[propertyKey]` 为 setter 函数时使用的 `this`。必须上个代码示例：
 
-```
+```js
 var myObject = {
   foo: 1,
   set bar(value) {
@@ -359,11 +359,11 @@ assert(Reflect.set(myObject, 'bar', 1, myReceiverObject));
 assert(myObject.foo === 4);
 assert(myReceiverObject.foo === 1);
 
-// Non-objects throw:
-Reflect.set(1, 'foo', {}); // throws TypeError
-Reflect.set(false, 'foo', {}); // throws TypeError
+// 非对象将抛出错误
+Reflect.set(1, 'foo', {}); // 抛出 TypeError
+Reflect.set(false, 'foo', {}); // 抛出 TypeError
 
-// These old styles don't throw:
+// 老的风格下，静默返回 `undefined`：
 1['foo'] = {};
 false['foo'] = {};
 assert(1['foo'] === undefined);
@@ -372,9 +372,9 @@ assert(false['foo'] === undefined);
 
 ### Reflect.has ( target, propertyKey )
 
-`Reflect.has` is an interesting one, because it is essentially the same functionality as the `in` operator (outside of a loop). Both use the `[[HasProperty]]` internal method, and both throw if the `target` isn’t an object. Because of this there’s little point in using `Reflect.has` over `in` unless you prefer the function-call style, but it has important use in other parts of the language, which will become clear in the next post. Anyway, here’s how you use it:
+`Reflect.has` 是一个非常有趣的方法，因为它本质上与 `in` 运算符有一样的功能（在循环之外）。二者都使用了内置的 `[[HasProperty]]`，并且都会在 `target` 不为对象时抛出错误。除非你更偏向于函数调用的风格，相较于 `in`，没有多少使用 `Reflect.has` 的理由，但是它在语言的其他方面有重要的使用，这将在下一章有清楚的讲述。无论如何，先看看怎么用它：
 
-```
+```js
 myObject = {
   foo: 1,
 };
@@ -385,13 +385,13 @@ Object.setPrototypeOf(myObject, {
   baz: 3,
 });
 
-// Without Reflect.has
+// 不使用 Reflect.has：
 assert(('foo' in myObject) === true);
 assert(('bar' in myObject) === true);
 assert(('baz' in myObject) === true);
 assert(('bing' in myObject) === false);
 
-// With Reflect.has:
+// 使用 Reflect.has：
 assert(Reflect.has(myObject, 'foo') === true);
 assert(Reflect.has(myObject, 'bar') === true);
 assert(Reflect.has(myObject, 'baz') === true);
@@ -400,9 +400,9 @@ assert(Reflect.has(myObject, 'bing') === false);
 
 ### Reflect.ownKeys ( target )
 
-This has already been discussed a tiny bit in this article, you see `Reflect.ownKeys` implements `[[OwnPropertyKeys]]` which if you recall above is a combination of `Object.getOwnPropertyNames` and `Object.getOwnPropertySymbols`. This makes `Reflect.ownKeys` uniquely useful. Lets see shall we:
+该方法已经在本文有所提及了，你可以看到 `Reflect.ownKeys` 实现了 `[[OwnPropertyKeys]]`，你回想一下上文的内容，你知道它连接了 `Object.getOwnPropertyNames` 和 `Object.getOwnPropertySymbols` 的结果。这让 `Reflect.ownKeys` 有着不可替代的作用。下面看到用法： 
 
-```
+```js
 var myObject = {
   foo: 1,
   bar: 2,
@@ -413,26 +413,25 @@ var myObject = {
 assert.deepEqual(Object.getOwnPropertyNames(myObject), ['foo', 'bar']);
 assert.deepEqual(Object.getOwnPropertySymbols(myObject), [Symbol.for('baz'), Symbol.for('bing')]);
 
-// Without Reflect.ownKeys:
+// 不使用 Reflect.ownKeys：
 var keys = Object.getOwnPropertyNames(myObject).concat(Object.getOwnPropertySymbols(myObject));
 assert.deepEqual(keys, ['foo', 'bar', Symbol.for('baz'), Symbol.for('bing')]);
 
-// With Reflect.ownKeys:
+// 使用 Reflect.ownKeys：
 assert.deepEqual(Reflect.ownKeys(myObject), ['foo', 'bar', Symbol.for('baz'), Symbol.for('bing')]);
 ```
 
-## Conclusion
+## 结论
 
-We’ve pretty exhaustively gone over every Reflect method. We’ve seen some are newer versions of common existing methods, sometimes with a few tweaks, and some are entirely new methods - allowing new levels of Reflection within JavaScript. If you want to - you could totally ditch `Object`.`*/Function.*` methods and use the new `Reflect` ones instead, if you don’t want to - don’t sweat it, nothing bad will happen.
+我们对各个 Reflect 方法进行了彻底的讨论。我们看到了一些现有方法的新版本，一些做了微调，一些则是完完全全新的方法 —— 这将 JavaScript 的反射提升到了一个新的层面。如果你想的话，大可以完全的抛弃 `Object`.`*/Function.*` 方法，用 `Reflect` 替代之，如果你不想的话，别担心，不用就不用，什么都不会改变。
 
-Now, I don’t want you to go away empty handed. If you want to use `Reflect`, then I’ve got your back - as part of the work behind this post, I submitted a [pull request to eslint](https://github.com/eslint/eslint/pull/2996) and as of `v1.0.0`, [ESlint has a](http://eslint.org/docs/rules/prefer-reflect) `prefer-reflect` [rule](http://eslint.org/docs/rules/prefer-reflect) which you can use to get ESLint to tell you off when you use the older version of Reflect methods. You could also take a look at my [eslint-config-strict](https://github.com/keithamus/eslint-config-strict) config, which has the `prefer-reflect` turned on (plus a bunch of others). Of course, if you decide you want to use Reflect, you’ll probably need to polyfill it; luckily there’s some good polyfills out there, such as [core-js](https://github.com/zloirock/core-js) and [harmony-reflect](https://github.com/tvcutsem/harmony-reflect).
+现在，我不想你看完两手空空，毫无所获。如果你想要使用 `Reflect`，我们已经给予了你支持 —— 作为这个文章背后工作的一部分，我提交了一个 [pull request 到 eslint](https://github.com/eslint/eslint/pull/2996)，在 `v1.0.0` 版本，[ESlint 有了一个](http://eslint.org/docs/rules/prefer-reflect) `prefer-reflect` [规则](http://eslint.org/docs/rules/prefer-reflect)，这可以让你在使用老旧版本的 Reflect 方法时，得到 ESLint 的提示。你也可以看下我的 [eslint-config-strict](https://github.com/keithamus/eslint-config-strict) 配置，该开启 `prefer-reflect` 规则（也添加了许多额外的规则）。当然，如果你决定你想要使用 Reflect，你可能需要 polyfill 它；幸运的是，现在已经有了一些好的 polyfill，如 [core-js](https://github.com/zloirock/core-js) 和 [harmony-reflect](https://github.com/tvcutsem/harmony-reflect)。
 
-What do you think about the new Reflect API? Plan on using it in your project? Let me know, in the comments below or on Twitter, where I’m [@keithamus](https://twitter.com/keithamus).
+对于新的 Reflect API ，你是怎么看待的 ？计划在你的项目中使用它了 ？可以在我的 Twitter 给我留言，我是 [@keithamus](https://twitter.com/keithamus)。
 
-Oh - also don’t forget, the third and final part of this series - Part 3 Proxies - will be out soon, and I’ll try not to take 2 months to release it again!
+也别忘了，这个系列的第三部分 —— 代理（Proxy）也快发布了，我不会再拖延两个月了。
 
-Lastly, thanks to [@mttshw](https://twitter.com/mttshw) and [@WebReflection](https://twitter.com/WebReflection) for scrutinising my work and making this post much better than it would have been.
-
+最后，要谢谢 [@mttshw](https://twitter.com/mttshw) 和 [@WebReflection](https://twitter.com/WebReflection) 对我工作的审视，才让文章比预计的更加高质。
 
 ---
 

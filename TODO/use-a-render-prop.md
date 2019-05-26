@@ -2,40 +2,42 @@
 > * 原文作者：[Michael Jackson](https://cdb.reacttraining.com/@mjackson?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/use-a-render-prop.md](https://github.com/xitu/gold-miner/blob/master/TODO/use-a-render-prop.md)
-> * 译者：
-> * 校对者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [Usey95](https://github.com/Usey95)
 
-# Use a Render Prop!
+# 用 Render props 吧！
 
-_Update:_ [_I made a PR to add Render Props to the official React docs_](https://github.com/facebook/react/pull/10741)_._
+**更新**：[我提交了一个 PR 到 React 官方文档，为其添加了 Render props](https://github.com/facebook/react/pull/10741)。
 
-_Update 2: Added some language to clarify that “children as a function” is the same concept, just a different prop name._
+**更新2**：添加一部分内容来说明 “children 作为一个函数” 也是相同的概念，只是 prop 名称不同罢了。
 
 * * *
 
-A few months ago, I tweeted:
+几个月前，我发了一个 twitter：
 
 ![](https://ws1.sinaimg.cn/large/006LnBnPly1fliue6zyrcj30ed068jri.jpg)
 
-I was suggesting that the [higher-order component pattern](https://facebook.github.io/react/docs/higher-order-components.html) that is a popular method of code reuse in many React codebases could be replaced 100% of the time with a regular component with a “render prop”. The “come fight me” part was a friendly taunt to the rest of the React community, and a good discussion ensued, but I was ultimately frustrated by my inability to fully express what I was trying to say in bursts of 140 chars apiece. I [determined instead that I’d need to write something longer](https://twitter.com/mjackson/status/885918220154134528) at some point in the future to really do it justice.
+> 译注：@reactjs 我可以在一个普通组件上使用一个 render prop 来完成 HOC（高阶组件） 能够做到的事情。不服来辩。
 
-When [Tyler](https://twitter.com/tylercollier) invited me to speak at the [Phoenix ReactJS meetup](https://www.meetup.com/Phoenix-ReactJS/events/242296327/) two weeks ago, I thought it’d be a great chance to explore the idea further. I was already going to be in Phoenix running [our React Fundamentals and Advanced React workshops](https://reacttraining.com) that week, and I’d heard great things about the meetup from my business partner [Ryan](https://medium.com/@ryanflorence) who [spoke there in April](https://www.youtube.com/watch?v=hEGg-3pIHlE).
+我认为，[高阶组件模式](https://facebook.github.io/react/docs/higher-order-components.html) 作为一个在许多基于 React 的代码中流行的代码复用手段，是可以被一个具有 “render prop” 的普通组件 100% 地替代的。“不服来辩” 一词是我对 React 社区朋友们的友好 “嘲讽”，随之而来的是一个系列好的讨论，但最终，我对我自己无法用 140 字来完整描述我想说的而感到失望。 我 [决定在未来的某个时间点写一篇更长的文章](https://twitter.com/mjackson/status/885918220154134528) 来公平公正的探讨这个主题。
 
-At the meetup, I gave a talk with the most click-bait-y title (sorry!) I could think of: _Never Write Another HOC_. You can watch the talk [on Phoenix ReactJS’ YouTube channel](https://www.youtube.com/watch?v=BcVAq3YFiuc), or in the embed below:
+两周前，当 [Tyler](https://twitter.com/tylercollier) 邀请我到 [Phoenix ReactJS](https://www.meetup.com/Phoenix-ReactJS/events/242296327/) 演讲时，我认为是时候去对此进行更进一步的探讨了。那周我已经到达 Phoenix 去启动 [我们的 React 基础和进阶补习课](https://reacttraining.com) 了，而且我还从我的商业伙伴 [Ryan](https://medium.com/@ryanflorence) 听到了关于大会的好消息，他在[四月份做了演讲](https://www.youtube.com/watch?v=hEGg-3pIHlE)。
+
+在大会上，我的演讲似乎有点标题党的嫌疑：**不要再写另一个 HOC 了**。你可以在 [Phoenix ReactJS 的 YouTube 官方频道](https://www.youtube.com/watch?v=BcVAq3YFiuc) 上观看我的演讲，也可以通过下面这个内嵌的视频进行观看：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/BcVAq3YFiuc" frameborder="0" gesture="media" allowfullscreen></iframe>
 
-What follows is a brief summary of the talk in case you’d prefer to read it without watching the video. But seriously: watch the video. It’s more fun. 😀
+如果你不想看视频的话，可以阅读后文对于演讲主要内容的介绍。但是严肃地说：视频要有趣多了 😀。
 
-If you skip the video and start reading, but you don’t quite grasp what I’m talking about, please _go watch the video_ instead. There’s a lot more nuance in the spoken word!
+如果你直接跳过视频开始阅读，但并没有领会我所说的意思，就**折回去看视频**吧。演讲时的细节会更丰富。
 
-### The Problem with Mixins
+### Mixins 存在的问题
 
-I started the talk by discussing the main problem that higher-order components were designed to solve: **code reuse**.
+我的演讲始于高阶组件主要解决的问题：**代码复用**。
 
-Let’s back up a little bit to 2015–to the days of `React.createClass`. Let’s say you have a simple React app that tracks the mouse position and displays it on the page. The following is an example of how you might have built it:
+让我们回到 2015 年使用 `React.createClass` 那会儿。假定你现在有一个简单的 React 应用需要跟踪并在页面上实时显示鼠标位置。你可能会构建一个下面这样的例子：
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -65,18 +67,16 @@ const App = React.createClass({
 ReactDOM.render(<App/>, document.getElementById('app'))
 ```
 
-Now, let’s imagine that we want to track the mouse position in another component as well. Can we reuse any of the code from our `<App>`?
+现在，假定我们在另一个组件中也需要跟踪鼠标位置。我们可以重用 `<App>` 中的代码吗？
 
-In the `createClass` paradigm, the problem of code reuse was solved using a technique called “mixins”. Let’s create a `MouseMixin` that anyone can use to track the mouse position.
+在 `createClass` 这个范式中，代码重用问题是通过被称为 “mixins” 的技术解决的。我们创建一个 `MouseMixin`，让任何人都能通过它来追踪鼠标位置。
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// This mixin contains the boilerplate code that
-// you'd need in any app that tracks the mouse position.
-// We can put it in a mixin so we can easily share
-// this code with other components!
+// mixin 中含有了你需要在任何应用中追踪鼠标位置的样板代码。
+// 我们可以将样板代码放入到一个 mixin 中，这样其他组件就能共享这些代码
 const MouseMixin = {
   getInitialState() {
     return { x: 0, y: 0 }
@@ -91,7 +91,7 @@ const MouseMixin = {
 }
 
 const App = React.createClass({
-  // Use the mixin!
+  // 使用 mixin！
   mixins: [ MouseMixin ],
   
   render() {
@@ -108,23 +108,23 @@ const App = React.createClass({
 ReactDOM.render(<App/>, document.getElementById('app'))
 ```
 
-Problem solved, right?! Now anyone can simply “mix in” `MouseMixin` to their component class to get the `x` and `y` of the mouse in `this.state`!
+问题解决了，对吧？现在，任何人都能轻松地将 `MouseMixin` 混入他们的组件中，并通过 `this.state` 属性获得鼠标的 `x` 和 `y` 坐标。
 
-### HOCs Are the New Mixins
+### HOC 是新的 Mixin
 
-Then last year, [ES6 classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) arrived and ultimately the React team decided to move away from using `createClass` to use them instead. It was a wise decision. Who wants to maintain their own class model when JavaScript already has one built-in?
+去年，随着[ES6 class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) 的到来，React 团队最终决定使用 ES6 class 来代替 `createClass`。这是一个明智的决定，没有人会在 JavaScript 都内置了 class 时还会维护自己的类模型。
 
-But there was a problem: **ES6 classes don’t support mixins**. Also, besides the fact they aren’t part of the ES6 class spec, mixins have other shortcomings too, many of which [Dan](https://medium.com/@dan_abramov) discussed at length in [a post on the React blog](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
+但就存在一个问题：**ES6 class 不支持 mixin**。除了不是 ES6 规范的一部分，Dan 已经在[一篇 React 博客](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html)上发布的博文上详细讨论了 mixin 存在的其他问题。
 
-To summarize, problems with mixins are:
+minxins 的问题总结下来就是
 
-*   **ES6 classes**. They don’t support mixins.
-*   **Indirection**. Mixins that modify state make it tricky to tell where that state is coming from, especially when there’s more than one mixin.
-*   **Naming collisions**. Two mixins that try to update the same piece of state may overwrite one another. The `createClass` API included a check that would warn you if two mixins had a `getInitialState` value with the same keys, but it wasn’t airtight.
+* **ES6 class**。其不支持 mixins。
+* **不够直接**。minxins 改变了 state，因此也就很难知道一些 state 是从哪里来的，尤其是当不止存在一个 mixins 时。
+* **名字冲突**。两个要更新同一段 state 的 mixins 可能会相互覆盖。`createClass` API 会对两个 mixins 的 `getInitialState` 是否具有相同的 key 做检查，如果具有，则会发出警告，但该手段并不牢靠。
 
-So instead of using mixins, many in the React community eventually settled on an alternative technique for code reuse known as [higher-order components](https://facebook.github.io/react/docs/higher-order-components.html), or HOCs. In this paradigm, code is shared using a similar technique to [**decorators**](https://en.wikipedia.org/wiki/Decorator_pattern); you start with the component that defines the bulk of the markup to be rendered and then wrap it in more components that contain the behavior you’d like to share. Instead of _mixing in_ the behavior you need, you can just _decorate_ your component! 😎
+所以，为了替代 mixin，React 社区中的不少开发者最终决定用[高阶组件](https://facebook.github.io/react/docs/higher-order-components.html)（简称 HOC）来做代码复用。在这个范式下，代码通过一个类似于 [**装饰器（decorator）**](https://en.wikipedia.org/wiki/Decorator_pattern) 的技术进行共享。首先，你的一个组件定义了大量需要被渲染的标记，之后用若干具有你想用共享的行为的组件包裹它。因此，你现在是在 **装饰** 你的组件，而不是**混入**你需要的行为！
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -151,8 +151,7 @@ const withMouse = (Component) => {
 
 const App = React.createClass({
   render() {
-    // Instead of maintaining our own state,
-    // we get the mouse position as a prop!
+    // 现在，我们得到了一个鼠标位置的 prop，而不再需要维护自己的 state
     const { x, y } = this.props.mouse
 
     return (
@@ -163,56 +162,54 @@ const App = React.createClass({
   }
 })
 
-// Just wrap your component in withMouse and
-// it'll get the mouse prop!
+// 主需要用 withMouse 包裹组件，它就能获得 mouse prop
 const AppWithMouse = withMouse(App)
 
 ReactDOM.render(<AppWithMouse/>, document.getElementById('app'))
 ```
 
-Goodbye mixins, hello HOCs!
+让我们和 mixin 说再见，去拥抱 HOC 吧。
 
-It was a good solution that solved the problem of code reuse elegantly in the brave new world of ES6 classes, and the community adopted it in droves.
+在 ES6 class 的新时代下，HOC 的确是一个能够优雅地解决代码重用问题方案，社区也已经广泛采用它了。
 
-At this point I’d like to stop and ask: what did we gain by moving to higher-order components? Did we solve any of the problems we had with mixins?
+此刻，我想问一句：是什么驱使我们迁移到 HOC ? 我们是否解决了在使用 mixin 时遇到的问题？
 
-Let’s see:
+让我们看下：
 
-*   **ES6 classes**. Yep! No problems here. We can use HOCs with components created using ES6 classes.
-*   **Indirection**. We still have the same problem with indirection that we had when we were using mixins. Except this time instead of wondering where our state comes from we’re wondering which HOC provides which props.
-*   **Naming collisions**. Unfortunately we still have this problem too. Two HOCs that try to use the same prop name will collide and overwrite one another, except this time it’s slightly more insidious because React won’t warn us about the prop name collision. 😳
+* **ES6 class**。这里不再是问题了，ES6 class 创建的组件能够和 HOC 结合。
+* **不够直接**。即便用了 HOC，这个问题仍然存在。在 mixin 中，我们不知道 state 从何而来，在 HOC 中，我们不知道 props 从何而来。
+* **名字冲突**。我们仍然会面临该问题。两个使用了同名 prop 的 HOC 将遭遇冲突并且彼此覆盖，并且这次问题会更加隐晦，因为 React 不会在 prop 重名是发出警告。
 
-Another problem that both mixins and HOCs share is that they use **static composition** instead of **dynamic composition**. Ask yourself: where is the composition happening in the HOC paradigm? Static composition happens once, when the component class is created (e.g. `AppWithMouse` in the previous example).
+另一个 HOC 和 mixin 都有的问题就是，二者使用的是 **静态组合** 而不是 **动态组合**。问问你自己：在 HOC 这个范式下，组合是在哪里发生的？当组件类（如上例中的的 `AppWithMouse`）被创建后，发生了一次静态组合。
 
-You don’t use mixins or HOCs in your `render` method, which is a key piece of React’s **dynamic** composition model. When you compose in `render`, you get to take advantage of the full React lifecycle. This point is subtle, and probably deserves its own blog post at some point in the future, but I digress. 😅
+你无法在 `render` 方法中使用 mixin 或者 HOC，而这恰是 React **动态** 组合模型的关键。当你在 `render` 中完成了组合，你就可以利用到所有 React 生命期的优势了。动态组合或许微不足道，但兴许某天也会出现一篇专门探讨它的博客，等等，我有点离题了。😅
 
-So in summary: **using a HOC with ES6 classes poses many of the same problems that mixins did with** `**createClass**`**, just re-arranged a bit**.
+总而言之：**使用 ES6 class 创建的 HOC 仍然会遇到和使用 `createClass` 时一样的问题，它只能算一次重构。**
 
-Welcome to the new mixins! 🤗
+现在不要说拥抱 HOC 了，我们不过在拥抱新的 mixin！🤗
 
-In addition to these drawbacks, **HOCs introduce a lot of ceremony** due to the fact that they _wrap_ components and create new onesinstead of being _mixed in_ to existing components. The component that is returned from the HOC needs to act as similarly as it can to the component that it wraps (it should take the same props, etc.) This fact alone requires a lot of boilerplate code just to build a robust HOC.
+除了上述缺陷，由于 HOC 的实质是**包裹**组件并创建了一个**混入**现有组件的 mixin 替代，因此，**HOC 将引入大量的繁文缛节**。从 HOC 中返回的组件需要表现得和它包裹的组件尽可能一样（它需要和包裹组件接收一样的 props 等等）。这一事实使得构建健壮的 HOC 需要大量的样板代码（boilerplate code）。
 
-You can see a good example of what I’m talking about in [the](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/withRouter.js) `[withRouter](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/withRouter.js)` [HOC](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/withRouter.js) that ships with [React Router](https://github.com/ReactTraining/react-router). The [prop passing](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L14), the `[wrappedComponentRef](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L22)`, the [hoisting of the wrapped component’s static properties](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L25), and other things are all part of the dance you need to do if you’re going to ship a HOC with your React library.
+上面我所讲到的，以 [React Router](https://github.com/ReactTraining/react-router) 中的 [`withRouter` HOC](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/withRouter.js) 为例，你可以看到 [props 传递](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L14)、[wrappedComponentRef](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L22)、[被包裹组件的静态属性提升（hoist）](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L25)等等这样的样板代码，当你需要为你的 React 添加 HOC 时，就不得不撰写它们。
 
 ### Render Props
 
-There is another technique for sharing code that avoids the drawbacks of mixins and HOCs. At [React Training](https://reacttraining.com), we call this technique “Render Props”.
+现在，有了另外一门技术来做代码复用，该技术可以规避 mixin 和 HOC 的问题。在 [React Training](https://reacttraining.com) 中，称之为 “Render Props”。
 
-The first time I ever saw a render prop was in [Cheng Lou](https://medium.com/@chenglou)’s [talk on react-motion](https://www.youtube.com/watch?v=1tavDv5hXpo) at React Europe where he talked about the `<Motion children>` API that they were using to share interpolated animation values with the parent component. If I had to try and define it, I’d say something like this:
+我第一次见到 render prop 是在 [ChengLou](https://medium.com/@chenglou) 在 React Europe 上 [关于 react-motion 的演讲](https://www.youtube.com/watch?v=1tavDv5hXpo)，大会上，他提到的 `<Motion children>` API 能让组件与它的父组件共享 interpolated animation。如果让我来定义 render prop，我会这么定义：
 
-> A render prop is a function prop that a component uses to know what to render.
+> 一个 render prop 是一个类型为函数的 prop，它让组件知道该渲染什么。
 
-More generally speaking, the idea is this: instead of “mixing in” or decorating a component to share behavior, **just render a regular component with a function prop that it can use to share some state with you**.
+更通俗的说法是：不同于通过 “混入” 或者装饰来共享组件行为，**一个普通组件只需要一个函数 prop 就能够进行一些 state 共享**。
 
-Continuing with the example above, we can simplify the `withMouse` HOC to a regular `<Mouse>` component with a `render` prop that is a function. Then, inside `<Mouse>`'s `render`, we can use that prop to know what to render!
+继续到上面的例子，我们将通过一个类型为函数的 `render` 的 prop 来简化 `withMouse` HOC 到一个普通的 `<Mouse>` 组件。然后，在 `<Mouse>` 的 `render` 方法中，我们可以使用一个 render prop 来让组件知道如何渲染：
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
-// Instead of using a HOC, we can share code using a
-// regular component with a render prop!
+// 与 HOC 不同，我们可以使用具有 render prop 的普通组件来共享代码
 class Mouse extends React.Component {
   static propTypes = {
     render: PropTypes.func.isRequired
@@ -241,8 +238,7 @@ const App = React.createClass({
     return (
       <div style={{ height: '100%' }}>
         <Mouse render={({ x, y }) => (
-          // The render prop gives us the state we need
-          // to render whatever we want here.
+          // render prop 给了我们所需要的 state 来渲染我们想要的
           <h1>The mouse position is ({x}, {y})</h1>
         )}/>
       </div>
@@ -253,27 +249,27 @@ const App = React.createClass({
 ReactDOM.render(<App/>, document.getElementById('app'))
 ```
 
-The main concept to understand here is that the `<Mouse>` component essentially exposes its state to the `<App>` component by calling its `render` prop. Therefore, `<App>` can render whatever it wants with that state. Pretty cool. 😎
+这里需要明确的概念是，`<Mouse>` 组件实际上是调用了它的 `render` 方法来将它的 state 暴露给 `<App>` 组件。因此，`<App>` 可以随便按自己的想法使用这个 state，这太美妙了。😎
 
-I should clarify at this point that “children as a function” is _the exact same concept_, just using the `children` prop instead of `render`. When I say “render prop” I’m not talking specifically about a prop _named_ `render`, but rather the concept of having a prop that you use to render something. 😅
+在此，我想说明，“children as a function” 是一个 **完全相同的概念**，只是用 `children` prop 替代了 `render` prop。我挂在嘴边的 `render prop` 并不是在强调一个 **名叫** `prop` 的 prop，而是在强调你使用一个 prop 去进行渲染的概念。
 
-This technique avoids all of the problems we had with mixins and HOCs:
+该技术规避了所有 mixin 和 HOC 会面对的问题：
 
-*   **ES6 classes**. Yep, not a problem. We can use render props with components that are created using ES6 classes.
-*   **Indirection**. We don’t have to wonder where our state or props are coming from. We can see them in the render prop’s argument list.
-*   **Naming collisions**. There is no automatic merging of property names, so there is no chance for a naming collision.
+* **ES6 class**。不成问题，我们可以在 ES6 class 创建的组件中使用 render prop。
+* **不够直接**。我们不必再担心 state 或者 props 来自哪里。我们可以看到通过 render prop 的参数列表看到有哪些 state 或者 props 可供使用。
+* **名字冲突**。现在不会有任何的自动属性名称合并，因此，名字冲突将全无可乘之机。
 
-And there’s absolutely **no ceremony** required to use a render prop because you’re not _wrapping_ or _decorating_ some other component. It’s just a function! Actually, if you’re using [TypeScript](https://www.typescriptlang.org/) or [Flow](https://flow.org/), you’ll probably find it much easier to write a type definition for your component with a render prop than its equivalent HOC. Again, a topic for a separate post!
+并且，render prop 也不会引入 **任何繁文缛节**，因为你不会 **包裹** 和 **装饰** 其他的组件。它仅仅是一个函数！如果你使用了 [TypeScript](https://www.typescriptlang.org) 或者 [Flow](https://flow.org/)，你会发现相较于 HOC，现在很容易为你具有 render prop 的组件写一个类型定义。当然，这是另外一个话题了。
 
-Additionally, **the composition model here is _dynamic_**! Everything happens inside of render, so we get to take full advantage of the React lifecycle and the natural flow of props & state.
+另外，这里的组合模型是 **动态的**！每次组合都发生在 render 内部，因此，我们就能利用到 React 生命周期以及自然流动的 props 和 state 带来的优势。
 
-Using this pattern, you can replace **any** HOC with a regular component with a render prop. And we can prove it, too! 😅
+使用这个模式，你可以将 **任何** HOC 替换一个具有 render prop 的一般组件。这点我们可以证明！😅
 
 ### Render Props > HOCs
 
-One of the most convincing pieces of evidence that render props are a more powerful pattern than HOCs is the fact that any HOC can be implemented using a render prop, but the inverse is not true. The following is an implementation of our `withMouse` HOC using a regular ol’ `<Mouse>`:
+一个更将强有力的，能够证明 render prop 比 HOC 要强大的证据是，任何 HOC 都能使用 render prop 替代，反之则不然。下面的代码展示了使用一个一般的、具有 render prop 的 `<Mouse>` 组件来实现的 `withMouse` HOC：
 
-```
+```js
 const withMouse = (Component) => {
   return class extends React.Component {
     render() {
@@ -285,12 +281,11 @@ const withMouse = (Component) => {
 }
 ```
 
-Observant readers may have already noticed that the `withRouter` HOC in the React Router codebase is actually implemented with … wait for it … [a render prop](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L13)!
+有心的读者可能已经意识到了 `withRouter` HOC 在 React Router 代码库中确实就是通过[**一个 render prop **](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L13) 实现的！
 
-So go ahead, try out render props in your codebase! Go and find some HOC and turn it into a regular component with a render prop. As you do, you should see a lot of the HOC ceremony code melt away and you’ll start to take better advantage of the dynamic composition model that React gives us, which is extremely cool. 😎
+所以还不心动？快去你自己的代码中使用 render prop 吧！尝试使用具有 render prop 组件来替换 HOC。当你这么做了之后，你将不再受困于 HOC 的繁文缛节，并且你也将利用到 React 给予的动态组合模型的好处，那是特别酷的特性。😎
 
-[_Michael_](https://twitter.com/mjackson) _is a partner at_ [_React Training_](https://reacttraining.com) _and a prolific_ [_OSS contributor_](https://github.com/mjackson) _in the React community. To learn more about upcoming training workshops and courses, please_
-
+[**Michael**](https://twitter.com/mjackson) 是 [**React Training**](https://reacttraining.com) 的成员，也是 React 社区中一个多产的[开源软件贡献者](https://github.com/mjackson)。想了解最新的培训和课程就[订阅邮件推送](subscribe to the mailing list) 并 [在 Twitter 上关注 React Training](https://twitter.com/reacttraining)。
 
 ---
 

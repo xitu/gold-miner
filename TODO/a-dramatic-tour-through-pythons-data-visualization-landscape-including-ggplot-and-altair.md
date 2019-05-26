@@ -16,7 +16,7 @@
 
 我最近偶然发现了 Brian Granger 和 Jake VanderPlas 开发的 Altair，一个非常有潜力的新可视化库。Altair 似乎非常适合用来表达 Python 对 ggplot 的羡慕，而它采用了 JavaScript 的 Vega-Lite 语法，这意味着后者开发的新功能（比如提示框和缩放）都能被 Altair 所用，而且看样子是免费的！
 
-我甚至是太喜欢 Altair 了，都想把本文的主题改成：**「嘿，用 Altair 吧。」**
+我甚至是太喜欢 Altair 了，都想把本文的主题改成: **「嘿，用 Altair 吧。」**
 
 不过我随后开始反思自以为更 Pythonic 的可视化习惯，在这相当痛苦的自我反思中，我发现自己错得一塌糊涂：为了应对手头的工作我用了一大堆工具还有乱七八糟的技术，通常是随便选一个第一个能完成工作的库 <sup>1</sup>。 
 
@@ -91,7 +91,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 * * *
 
-**matplotlib: ** 哈！哈哈！不能再简单了。虽然我可以用很多复杂的方式搞定这个，不过我明白你们的笨脑子是无法理解其中的精妙的。所以我退而求其次给你们展示两个简单的方法。第一个方法，我循环使用你们虚构的矩阵，我相信你们这些人把它叫做「数据框」，取其子集传给相关的时间序列。然后调用 `plot` 方法，传入子集中的相关列。
+**matplotlib**:  哈！哈哈！不能再简单了。虽然我可以用很多复杂的方式搞定这个，不过我明白你们的笨脑子是无法理解其中的精妙的。所以我退而求其次给你们展示两个简单的方法。第一个方法，我循环使用你们虚构的矩阵，我相信你们这些人把它叫做「数据框」，取其子集传给相关的时间序列。然后调用 `plot` 方法，传入子集中的相关列。
 
 ``` python
 # MATPLOTLIB
@@ -136,7 +136,7 @@ dfp.head()
 
 
 
-**MPL: ** 将数据转换为有四个列的索引 —— 每一列都对应待画的线 —— 我用一步就可以搞定这一切（比如，调用一次 `plot` 函数）。
+**MPL**:  将数据转换为有四个列的索引 —— 每一列都对应待画的线 —— 我用一步就可以搞定这一切（比如，调用一次 `plot` 函数）。
 
 ``` python
 # MATPLOTLIB
@@ -173,9 +173,9 @@ ax.legend(loc=2)
 fig.autofmt_xdate()
 ```
 
-**pandas: ** 结果看上去完全一样，所以我就不展示了。
+**pandas**:  结果看上去完全一样，所以我就不展示了。
 
-**Seaborn（抽着烟，调整着贝雷帽）：** 唔。看上去区区一个折线图就让你们做了这么多数据处理。我是说，for 循环和轴向旋转？这不是九十年代的微软 Excel（译者注：pivot table 即 Excel 的数据透视表）。我在国外学到一个叫做 FacetGrid 的东西。你们大概从来没有听说过……
+**Seaborn（抽着烟，调整着贝雷帽）**:  唔。看上去区区一个折线图就让你们做了这么多数据处理。我是说，for 循环和轴向旋转？这不是九十年代的微软 Excel（译者注：pivot table 即 Excel 的数据透视表）。我在国外学到一个叫做 FacetGrid 的东西。你们大概从来没有听说过……
 
 ``` python
 # SEABORN
@@ -191,11 +191,11 @@ g.fig.autofmt_xdate()
 
 **SB:** 看懂了吗？直接给 FacetGrid 传入未处理的整洁数据。在这里，将 `kind` 赋给 `hue` 参数的意思是绘出四条不同的线 —— 每条线对应 `kind` 的一个水平。而真正画出这四条线，得把 FacetGrid 映射到到庸俗的（**示意 matplotlib**） plot 函数，再传入 `x` 和 `y` 参数。显然，这些东西得牢记，就像添加图例一样，但是也不会太难。好吧，对有些人来说没有什么东西有挑战性……
 
-**ggplot: ** 哇，赞！我的方法和她差不多，但是我做起来更像我的大哥。你们听过他吗？他超级酷 ——
+**ggplot**:  哇，赞！我的方法和她差不多，但是我做起来更像我的大哥。你们听过他吗？他超级酷 ——
 
-**SB: ** 谁邀请了这个孩子？
+**SB**:  谁邀请了这个孩子？
 
-**GG: ** 快来看看！
+**GG**:  快来看看！
 
 ``` python
 # GGPLOT
@@ -211,9 +211,9 @@ g
 
 ![](https://dansaber.files.wordpress.com/2016/09/a0vxdiqolaa4aaaaaelftksuqmcc.png)
 
-**GG (拿起 Hadley Wickham 写的 《ggplot2》读出声来): ** 每一幅图都由数据（比如 `ds`），图形映射（比如 `x`，`y` 和 `color`）和几何图形（比如 `geom_line`）组成，而后者将数据和图形映射转换成真正的可视化。
+**GG (拿起 Hadley Wickham 写的 《ggplot2》读出声来)**:  每一幅图都由数据（比如 `ds`），图形映射（比如 `x`，`y` 和 `color`）和几何图形（比如 `geom_line`）组成，而后者将数据和图形映射转换成真正的可视化。
 
-**Altair: ** 没错，我也是这么做的。
+**Altair**:  没错，我也是这么做的。
 
 ``` python
 # ALTAIR
@@ -227,7 +227,7 @@ c
 
 ![](https://dansaber.files.wordpress.com/2016/09/snca9dqgreqat6epbiuncigaiigaiigaiiqa8cekkkcxeqareqareqargqsfimiiaiiiaiiiaiieaxappjkszjr4maciiaciiacdsmgerswxwuc0vaberaberabiorkegqxklhiyaiiiaiiiainiyarfldhc5zruaereaereaeihh4f8agjg7cmx0y.png)
 
-**ALT: ** 给我的 Chart 类同样的数据，告诉它你要哪种可视化：这里就是 `mark_line`。然后指定想要的图形映射：x 轴是 `data`，y 轴是 `value`；因为我们想要按 `kind` 分组，所以把 `kind` 传给 `color`。就跟你一样，GG（**拨乱 GG 的头发**）。哦，这样一来，要用你们都用的配色方案也轻而易举了：
+**ALT**:  给我的 Chart 类同样的数据，告诉它你要哪种可视化：这里就是 `mark_line`。然后指定想要的图形映射：x 轴是 `data`，y 轴是 `value`；因为我们想要按 `kind` 分组，所以把 `kind` 传给 `color`。就跟你一样，GG（**拨乱 GG 的头发**）。哦，这样一来，要用你们都用的配色方案也轻而易举了：
 
 ``` python
 # ALTAIR
@@ -278,7 +278,7 @@ c
 
 * * *
 
-**MPL（看上去有点震惊）：** 我是说，你可以继续用 for 循环，当然了。这样也没什么问题。当然。懂了吗？（**压低声音小声说**）只要记得显式地设定好颜色变量，不然所有的点都是蓝的……
+**MPL（看上去有点震惊）**:  我是说，你可以继续用 for 循环，当然了。这样也没什么问题。当然。懂了吗？（**压低声音小声说**）只要记得显式地设定好颜色变量，不然所有的点都是蓝的……
 
 ``` python
 # MATPLOTLIB
@@ -298,7 +298,7 @@ ax.legend(loc=2)
 
 ![](https://dansaber.files.wordpress.com/2016/09/b8zayrghoixaaaaaelftksuqmcc.png)
 
-**MPL: ** 可是，呃，（**假装充满自信**）我有个更好的主意！看这个：
+**MPL**:  可是，呃，（**假装充满自信**）我有个更好的主意！看这个：
 
 ``` python
 # MATPLOTLIB
@@ -320,17 +320,17 @@ ax.legend(loc=2)
 
 ![](https://dansaber.files.wordpress.com/2016/09/a2clfjm5bkunaaaaaelftksuqmcc.png)
 
-**MPL: ** 我在这定义了 `scatter` 函数。它用 pandas 的 groupby 对象得到分组，然后在 x 轴上画出花瓣长度，y 轴则是花瓣宽度。每组都如此处理一番！厉害吧！
+**MPL**:  我在这定义了 `scatter` 函数。它用 pandas 的 groupby 对象得到分组，然后在 x 轴上画出花瓣长度，y 轴则是花瓣宽度。每组都如此处理一番！厉害吧！
 
-**P: ** 真不错，Mat！真不错！基本上和我的方法差不多，所以我就坐这里不展示了。
+**P**:  真不错，Mat！真不错！基本上和我的方法差不多，所以我就坐这里不展示了。
 
-**SB (咧嘴笑): ** 这次怎么没用轴向旋转？
+**SB (咧嘴笑)**:  这次怎么没用轴向旋转？
 
-**P: ** 嗯，这个例子里要用轴向旋转的话比较复杂。因为不像处理时序数据一样有一个通用的索引，所以……
+**P**:  嗯，这个例子里要用轴向旋转的话比较复杂。因为不像处理时序数据一样有一个通用的索引，所以……
 
-**MPL: ** 嘘！我们没必要跟她解释。
+**MPL**:  嘘！我们没必要跟她解释。
 
-**SB: ** 随便你了。不管怎样，在我看来这个问题和上一个没有什么区别。还是构建一个 FacetGrid，只是这次将 `plt.plot` 换成 `plt.scatter`。
+**SB**:  随便你了。不管怎样，在我看来这个问题和上一个没有什么区别。还是构建一个 FacetGrid，只是这次将 `plt.plot` 换成 `plt.scatter`。
 
 ``` python
 # SEABORN
@@ -341,7 +341,7 @@ g.ax.set_title('Petal Width v. Length -- by Species')
 
 ![](https://dansaber.files.wordpress.com/2016/09/h8v9t5kv2yf2aaaaaelftksuqmcc.png)
 
-**GG: ** 对！对！就是这样！我的写法就是把 `geom_line` 换成 `geom_point`！
+**GG**:  对！对！就是这样！我的写法就是把 `geom_line` 换成 `geom_point`！
 
 ``` python
 # GGPLOT
@@ -355,7 +355,7 @@ g
 
 ![](https://dansaber.files.wordpress.com/2016/09/w9ikwkwfhhl2qaaaabjru5erkjggg.png)
 
-**ALT (一脸茫然): ** 是的，只要把 `mark_line` 换成 `mark_point`。
+**ALT (一脸茫然)**:  是的，只要把 `mark_line` 换成 `mark_point`。
 
 ``` python
 # ALTAIR
@@ -383,7 +383,7 @@ c
 
 * * *
 
-**MPL: ** 那么，嗯，一旦你掌握了 for 循环 —— 显然我就掌握了 —— 只需要简单调整一下之前的代码就行了。我用 `subplot` 方法画了三个轴，而不是一个。接下来就跟以前一样遍历一遍，用类似取数据子集的方法来取相关的 Axes 对象的子集。
+**MPL**:  那么，嗯，一旦你掌握了 for 循环 —— 显然我就掌握了 —— 只需要简单调整一下之前的代码就行了。我用 `subplot` 方法画了三个轴，而不是一个。接下来就跟以前一样遍历一遍，用类似取数据子集的方法来取相关的 Axes 对象的子集。
 
 （**重拾自信）我敢打赌你们各位没有更简单的方法！（举起双臂，差点打到了 pandas）**
 
@@ -407,11 +407,11 @@ fig.tight_layout()
 
 **SB 和笑起来的 ALT 交换了目光；GG 仿佛听到笑话了笑了起来**
 
-**MPL: ** 怎么啦？！
+**MPL**:  怎么啦？！
 
-**Altair: ** 老兄，看看你的 x 轴和 y 轴。所有图像的坐标轴范围都不一样。
+**Altair**:  老兄，看看你的 x 轴和 y 轴。所有图像的坐标轴范围都不一样。
 
-**MPL (脸红了): ** 呃，是，当然啊。我就是想看看你们有没有注意听我说话。你当然可以在 `subplot` 函数中指定坐标轴范围，保证所有的子图坐标轴范围是统一的。
+**MPL (脸红了)**:  呃，是，当然啊。我就是想看看你们有没有注意听我说话。你当然可以在 `subplot` 函数中指定坐标轴范围，保证所有的子图坐标轴范围是统一的。
 
 ``` python
 # MATPLOTLIB
@@ -434,9 +434,9 @@ fig.tight_layout()
 
 ![](https://dansaber.files.wordpress.com/2016/09/h8ufmi6a3gmrwaaaabjru5erkjggg.png?w=768&h=244)
 
-**P（叹气）：** 我也是这么做的。跳过我吧。
+**P（叹气）**:  我也是这么做的。跳过我吧。
 
-**SB: ** 改写 FacetGrid 然后用在这个例子上很简单。就像使用 `hue` 变量一样，我们可以简单加一个 `col` 变量（比如 colum）。这会告诉 FacetGrid 不仅给每个种类一个唯一的颜色，还把每个种类都画在唯一的子图上，按列排列。（只要将 `col` 变量换成 `row` 就可以按行排列。）
+**SB**:  改写 FacetGrid 然后用在这个例子上很简单。就像使用 `hue` 变量一样，我们可以简单加一个 `col` 变量（比如 colum）。这会告诉 FacetGrid 不仅给每个种类一个唯一的颜色，还把每个种类都画在唯一的子图上，按列排列。（只要将 `col` 变量换成 `row` 就可以按行排列。）
 
 ``` python
 # SEABORN
@@ -504,7 +504,7 @@ fig.tight_layout()
 
 ![](https://dansaber.files.wordpress.com/2016/09/tl2cujb3xeuaaaaasuvork5cyii.png)
 
-*   为了用正规的可视化表达式：**呸**。如果用 Altair 的话一切都变得非常简单。
+*   为了用正规的可视化表达式**: 呸**。如果用 Altair 的话一切都变得非常简单。
 
 ``` python
 # ALTAIR
@@ -533,7 +533,7 @@ c.configure_cell(height=200, width=200)
 
 * * *
 
-**MPL （信心明显不足了）：** 好吧，如果我们要画箱线图——我们真的要箱线图吗？——我知道怎么画。不过非常愚蠢；你肯定不会喜欢。不过我给 `boxplot` 方法传入一个数组组成的数组，每个数组就都会得到一个箱线图。你可能需要手动标注 X 轴的刻度。
+**MPL （信心明显不足了）**:  好吧，如果我们要画箱线图——我们真的要箱线图吗？——我知道怎么画。不过非常愚蠢；你肯定不会喜欢。不过我给 `boxplot` 方法传入一个数组组成的数组，每个数组就都会得到一个箱线图。你可能需要手动标注 X 轴的刻度。
 
 ``` python
 # MATPLOTLIB
@@ -569,7 +569,7 @@ ax.legend(loc=1)
 
 ![](https://dansaber.files.wordpress.com/2016/09/wcef9iodihxkaaaaabjru5erkjggg.png)
 
-**P (看上去不同寻常的骄傲）：** 哈！哈哈哈哈！该我大显身手了！你们都觉得我一无是处，只是 `matplotlib` 的替罪羊。虽然我目前都只是套用他的 `plot` 方法，但我也拥有一些特殊的函数可以处理箱线图**和**柱状图。用他们来可视化分布简直就是小菜一碟！你只需要提供两个列名：第一，用来分组的列名；第二，待分布统计的列名。分别把它们传给 `by` 和 `column` 参数，图马上就画好了！
+**P (看上去不同寻常的骄傲）**:  哈！哈哈哈哈！该我大显身手了！你们都觉得我一无是处，只是 `matplotlib` 的替罪羊。虽然我目前都只是套用他的 `plot` 方法，但我也拥有一些特殊的函数可以处理箱线图**和**柱状图。用他们来可视化分布简直就是小菜一碟！你只需要提供两个列名：第一，用来分组的列名；第二，待分布统计的列名。分别把它们传给 `by` 和 `column` 参数，图马上就画好了！
 
 ``` python
 # PANDAS
@@ -591,7 +591,7 @@ df.hist(column='petalWidth', by='species', grid=None, ax=ax)
 
 **GG和ALT举手击掌然后祝贺P；高呼「棒极了！」，「就该这样！」，「就这么干！」**
 
-**SB (假装很热情)：** 喔喔喔。很赞。同时呢，分布对我非常重要，所以我为它准备了一些特殊方法。比如，我的 `boxplot` 方法只需要 x 变量、y 变量和数据就可以得到这个：
+**SB (假装很热情)**:  喔喔喔。很赞。同时呢，分布对我非常重要，所以我为它准备了一些特殊方法。比如，我的 `boxplot` 方法只需要 x 变量、y 变量和数据就可以得到这个：
 
 ``` python
 # SEABORN
@@ -619,7 +619,7 @@ g.set(xlabel='Petal Width',
 
 ![](https://dansaber.files.wordpress.com/2016/09/hkcyxmylufaqaaaabjru5erkjggg.png)
 
-**SB: ** 不过…… 管他呢。
+**SB**:  不过…… 管他呢。
 
 **GG:** 这些只不过是新的几何对象！`GEOM_BOXPLOT` 来画箱线图，`GEOM_HISTOGRAM` 来画直方图！换用它俩就行了！（**绕着餐桌跑了起来**）
 
@@ -647,7 +647,7 @@ g
 
 ![](https://dansaber.files.wordpress.com/2016/09/j1b6tsghmsaaaaabjru5erkjggg.png)
 
-**ALT （看上去坚定又自信）：** 我要忏悔……
+**ALT （看上去坚定又自信）**:  我要忏悔……
 
 **四周安静了下来 —— GG停了下来，把盘子撞到了地上。**
 
@@ -665,7 +665,7 @@ c
 
 ![](https://dansaber.files.wordpress.com/2016/09/cwkeozqaaaabjru5erkjggg.png)
 
-**ALT: ** 乍一看代码会觉得有点怪，但是不要担心。这里实际是在说：「嘿，直方图事实上就是条形图」。X 轴对应着 `bin`，我们可以用 `Bin` 类来定义；同时 y 轴对应到数据集里落到对应 Bin 的数据的数量。用 SQL 语言来说 y 就是 `count(*)`。
+**ALT**:  乍一看代码会觉得有点怪，但是不要担心。这里实际是在说：「嘿，直方图事实上就是条形图」。X 轴对应着 `bin`，我们可以用 `Bin` 类来定义；同时 y 轴对应到数据集里落到对应 Bin 的数据的数量。用 SQL 语言来说 y 就是 `count(*)`。
 
 #### 第四场的分析
 
@@ -757,7 +757,7 @@ dfg
 
 * * *
 
-**MPL (表情严肃): ** 一句话也没说。
+**MPL (表情严肃)**:  一句话也没说。
 
 ``` python
 # MATPLOTLIB
@@ -805,7 +805,7 @@ plt.show()
 
 **其他人都开始摇头**
 
-**P: ** 我得先对数据进行一些处理 —— 也就是 `group by` 和 `pivot` —— 处理完就可以用非常帅气的条形图方法了，比上面这些简单得多！哇，我现在自信多了，我把其他人都比下去了！<sup>5</sup>
+**P**:  我得先对数据进行一些处理 —— 也就是 `group by` 和 `pivot` —— 处理完就可以用非常帅气的条形图方法了，比上面这些简单得多！哇，我现在自信多了，我把其他人都比下去了！<sup>5</sup>
 
 ``` python
 # PANDAS
@@ -837,7 +837,7 @@ g.ax.set_title('Fare by survival and class')
 
 ![](https://dansaber.files.wordpress.com/2016/09/fj0ntpzaxcwf0nbq4ulimbqn1rwmiilssclciyiiiiiiwidmximiiiiiifiawpwiiiiiiigfkfyjiiiiiihygmkviiiiiiiibshciyiiiiiiwidclyiiiiiiiauoximiiiiiifiawpwiiiiiiigfkfyjiiiiiihywp8dgbfcaznotkiaaaaasuvork.png)
 
-**SB: ** 跟之前一样，先将未处理过的数据传给数据框，再搞明白自己要按照什么进行分组，这里就是 `class` 和 `survived`，它们对应 `x` 和 `hue` 变量。然后搞明白要对哪个数据列进行摘要统计，这里就是 `fare`，对应到 `y` 变量。默认的摘要统计方法是求平均数，不过 `factorplot` 提供了 `estimator` 参数，可以通过它指定想要的函数，比如求和，标准差，中位数等等。而选择的函数会决定每个柱的高度。
+**SB**:  跟之前一样，先将未处理过的数据传给数据框，再搞明白自己要按照什么进行分组，这里就是 `class` 和 `survived`，它们对应 `x` 和 `hue` 变量。然后搞明白要对哪个数据列进行摘要统计，这里就是 `fare`，对应到 `y` 变量。默认的摘要统计方法是求平均数，不过 `factorplot` 提供了 `estimator` 参数，可以通过它指定想要的函数，比如求和，标准差，中位数等等。而选择的函数会决定每个柱的高度。
 
 当然，有很多方法可以可视化这个信息，条形图只有一种。同样我还提供了 `kind` 参数用来指定不同的可视化方法。
 
@@ -847,13 +847,13 @@ g.ax.set_title('Fare by survival and class')
 
 **ggplot2 停下兰博基尼，走了进来**
 
-**ggplo2: ** 嘿，你们看到 ——
+**ggplo2**:  嘿，你们看到 ——
 
-**GG: ** 嘿，大哥。
+**GG**:  嘿，大哥。
 
-**GG2: ** 嘿，小家伙。我们得走了。
+**GG2**:  嘿，小家伙。我们得走了。
 
-**GG: ** 等一下，我得马上把这个条形图画好，不过遇到麻烦了。你会怎么做呢？
+**GG**:  等一下，我得马上把这个条形图画好，不过遇到麻烦了。你会怎么做呢？
 
 **GG2 (阅读手册)**_: 哦，就像这样：
 
@@ -873,13 +873,13 @@ ggplot(df, aes(x=factor(survived), y=fare)) +
 
 ![](https://dansaber.files.wordpress.com/2016/09/4_r_example.png)
 
-**GG2: ** 看懂了吗？你要像我之前说的一样定义好图形映射，不过得把 `y` 映射到平均费用上。这就得叫我的好兄弟 `stat_summary_bin` 帮忙了，我只要把 `mean` 传给 `fun.y` 参数就行了。
+**GG2**:  看懂了吗？你要像我之前说的一样定义好图形映射，不过得把 `y` 映射到平均费用上。这就得叫我的好兄弟 `stat_summary_bin` 帮忙了，我只要把 `mean` 传给 `fun.y` 参数就行了。
 
-**GG （惊讶地睁大眼睛）：** 哦，呃…… 我发现我还没有 `stat_summary_bin` 呢。我想想 —— pandas 你能帮帮我吗？
+**GG （惊讶地睁大眼睛）**:  哦，呃…… 我发现我还没有 `stat_summary_bin` 呢。我想想 —— pandas 你能帮帮我吗？
 
-**P: ** 呃，当然可以。
+**P**:  呃，当然可以。
 
-**GG: ** 好诶！
+**GG**:  好诶！
 
 ``` python
 # GGPLOT
@@ -898,15 +898,15 @@ g
 
 ![](https://dansaber.files.wordpress.com/2016/09/fstddeuezjp0qt06nej55xztl544yv06dilq4ymycuxx5xxxnnltavrq4u96cmwfzadaaaqef5zqaaabsugaaagiisawaaufbiaaaackomaabaqykbaaaokdeaaaaf9f8dsdfayigfytuaaaaasuvork5cyii.png)
 
-**GG2: ** 噢，不完全是图形式语法，不过我觉得只要 Hadley 还没有发现，这样也能用…… 特别是你不应该在可视化之前就对数据进行汇总。我也不是特别懂这个上下文中 `weight` 是什么意思……
+**GG2**:  噢，不完全是图形式语法，不过我觉得只要 Hadley 还没有发现，这样也能用…… 特别是你不应该在可视化之前就对数据进行汇总。我也不是特别懂这个上下文中 `weight` 是什么意思……
 
-**GG: ** 是这样，我的条形图形对象默认会使用简单计数，所以如果没有 `weight` 的话所有柱子的高度都是 `1`。
+**GG**:  是这样，我的条形图形对象默认会使用简单计数，所以如果没有 `weight` 的话所有柱子的高度都是 `1`。
 
-**GG2: ** 噢，我懂了…… 我们以后再讨论吧。
+**GG2**:  噢，我懂了…… 我们以后再讨论吧。
 
 **GG 和 GG2 道别并离开了晚宴**
 
-**ALT: ** 噢，现在**这**可是我的安身立命之道。非常简单。
+**ALT**:  噢，现在**这**可是我的安身立命之道。非常简单。
 
 
 
@@ -1019,6 +1019,3 @@ c.configure_facet_cell(strokeWidth=0, height=250)
 4. 坦率地说，我不是**完全**确定单独进行分面操作是为了意识形态上的纯洁，或者只是单纯出于实用的考虑。虽然我的 ggplot 角色声称他是前者（他的理解来自匆匆读完的[这篇论文](http://vita.had.co.nz/papers/layered-grammar.pdf)），也有可能是因为（实际上） ggplot2 对分面的支持太丰富了，所以需要当作是独立的步骤。如果我描述的角色违反了任何图形语法规则，请务必告诉我，我会去找个新的。
 
 5. 绝对不是这个故事的道德准则。
-
-
-

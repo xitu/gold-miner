@@ -1,8 +1,8 @@
->* 原文链接 : [Unit tests with Mockito - Tutorial](http://www.vogella.com/tutorials/Mockito/article.html)
-* 原文作者 : [vogella](http://www.vogella.com/)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [edvardhua](https://github.com/edvardHua/)
-* 校对者: [hackerkevin](https://github.com/hackerkevin), [futureshine](https://github.com/futureshine) 
+> * 原文链接 : [Unit tests with Mockito - Tutorial](http://www.vogella.com/tutorials/Mockito/article.html)
+> * 原文作者 : [vogella](http://www.vogella.com/)
+> * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者 : [edvardhua](https://github.com/edvardHua/)
+> * 校对者: [hackerkevin](https://github.com/hackerkevin), [futureshine](https://github.com/futureshine) 
 
 # 使用强大的 Mockito 测试框架来测试你的代码
 
@@ -310,40 +310,41 @@ Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以
 
 `ArgumentCaptor`类允许我们在verification期间访问方法的参数。得到方法的参数后我们可以使用它进行测试。
 
-    import static org.hamcrest.Matchers.hasItem;
-    import static org.junit.Assert.assertThat;
-    import static org.mockito.Mockito.mock;
-    import static org.mockito.Mockito.verify;
+```
+import static org.hamcrest.Matchers.hasItem;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-    import java.util.Arrays;
-    import java.util.List;
+import java.util.Arrays;
+import java.util.List;
 
-    import org.junit.Rule;
-    import org.junit.Test;
-    import org.mockito.ArgumentCaptor;
-    import org.mockito.Captor;
-    import org.mockito.junit.MockitoJUnit;
-    import org.mockito.junit.MockitoRule;
+import org.junit.Rule;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
-    public class MockitoTests {
+public class MockitoTests {
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
 
-            @Rule public MockitoRule rule = MockitoJUnit.rule();
+    @Captor
+    private ArgumentCaptor<List<String>> captor;
 
-            @Captor
-        private ArgumentCaptor> captor;
+    @Test
+    public final void shouldContainCertainListItem() {
+        List<String> asList = Arrays.asList("someElement_test", "someElement");
+        final List<String> mockedList = mock(List.class);
+        mockedList.addAll(asList);
 
-            @Test
-        public final void shouldContainCertainListItem() {
-            List asList = Arrays.asList("someElement_test", "someElement");
-            final List mockedList = mock(List.class);
-            mockedList.addAll(asList);
-
-            verify(mockedList).addAll(captor.capture());
-            final List capturedArgument = captor.>getValue();
-            assertThat(capturedArgument, hasItem("someElement"));
-        }
+        verify(mockedList).addAll(captor.capture());
+        final List<String> capturedArgument = captor.getValue();
+        assertThat(capturedArgument, hasItem("someElement"));
     }
-
+}
+```
 
 ### 4.8\. Mockito的限制
 

@@ -2,54 +2,64 @@
 > * 原文作者：[Xiaohan Zeng](https://medium.com/@XiaohanZeng?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/i-interviewed-at-five-top-companies-in-silicon-valley-in-five-days-and-luckily-got-five-job-offers.md](https://github.com/xitu/gold-miner/blob/master/TODO/i-interviewed-at-five-top-companies-in-silicon-valley-in-five-days-and-luckily-got-five-job-offers.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Rambo Zhu](https://github.com/freerambo)
+> * 校对者：[hadeswith666](https://github.com/hadeswith666)，[Germxu](https://github.com/Germxu)   
 
-# I interviewed at five top companies in Silicon Valley in five days, and luckily got five job offers
+
+# 我的硅谷之路-五天拿下五家顶级互联网公司 offer
 
 ![](https://cdn-images-1.medium.com/max/800/1*4IYF3JVZqF9GnuGzNgkSPA.png)
 
-**In the five days from July 24th to 28th 2017, I interviewed at LinkedIn, Salesforce Einstein, Google, Airbnb, and Facebook, and got all five job offers.**
+**从 2017 年 7 月 24 号到 28 号的五天，我面试了 LinkedIn ，Salesforce Einstein ，Google ，Airbnb 和 Facebook ，并拿到了全部五家公司的 offer 。**
 
-It was a great experience, and I feel fortunate that my efforts paid off, so I decided to write something about it. I will discuss how I prepared, review the interview process, and share my impressions about the five companies.
+这是一段神奇的经历，我很幸运因为我的努力得到了回报。于是我决定写点什么来讲述我是如何准备，面试的过程以及分享我对着五家公司的感受。
+
 
 * * *
 
-### **How it started**
 
-I had been at Groupon for almost three years. It’s my first job, and I have been working with [an amazing team](http://www.builtinchicago.org/2017/07/14/data-science-engineering-Groupon) and on [awesome projects](https://www.linkedin.com/feed/update/urn:li:activity:6324643825717481472). We’ve been building cool stuff, making impact within the company, publishing papers and all that. But I felt my learning rate was being annealed (read: slowing down) yet my mind was craving more. Also as a software engineer in Chicago, there are so many great companies that all attract me in the Bay Area.
+### **如何开始**
 
-Life is short, and professional life shorter still. After talking with my wife and gaining her full support, I decided to take actions and make my first ever career change.
+我在 Groupon 混了近三年了。 这是我的第一份工作，我一直在和很[牛逼的团队](http://www.builtinchicago.org/2017/07/14/data-science-engineering-Groupon)做着[了不起的项目](https://www.linkedin.com/feed/update/urn:li:activity:6324643825717481472)。
+我们团队一直在做很酷的事情，在公司内部很有影响也发表了一些论文等等。
+尽管我一直渴望学习更多但我觉得我的学习速率开始下降了。作为一名芝加哥的软件工程师，湾区的那么多伟大的公司总是强有力的诱惑着我。
 
-### **Preparation**
+人生短暂，职业生涯更短。在跟我的老婆交谈并得到她的全力支持后我决定采取行动开始了我职业生涯的第一次跳槽。
 
-Although I’m interested in machine learning positions, the positions at the five companies are slightly different in the title and the interviewing process. Three are machine learning engineer (LinkedIn, Google, Facebook), one is data engineer (Salesforce), and one is software engineer in general (Airbnb). Therefore I needed to prepare for three different areas: coding, machine learning, and system design.
 
-Since I also have a full time job, it took me 2–3 months in total to prepare. Here is how I prepared for the three areas.
+### **充分准备**
 
-#### Coding
 
-While I agree that coding interviews might not be the best way to assess all your skills as a developer, there is arguably no better way to tell if you are a good engineer in a short period of time. IMO it is the necessary evil to get you that job.
+尽管我一直着迷机器学习的职位，可这些职位在上述五家公司的名称和面试流程有着些微的不同。其中三家的职位是机器学习工程师，Salesforce 是数据工程师，而 Airbnb 职位里则是普通的软件工程师。由此我不得不准备三个不同领域的知识：编码， 机器学习和系统设计。
 
-I mainly used Leetcode and Geeksforgeeks for practicing, but Hackerrank and Lintcode are also good places. I spent several weeks going over common data structures and algorithms, then focused on areas I wasn’t too familiar with, and finally did some frequently seen problems. Due to my time constraints I usually did two problems per day.
+我还有个全职的工作，这使我总共花费了两三月的时间准备。下面将给出我是如何准备这三个领域的。
 
-Here are some thoughts:
+#### 编码
 
-1.  Practice, a lot. There is no way around it.
-2.  But rather than doing all 600 problems on Leetcode, cover all types and spend time understanding each problem thoroughly. I did around 70 problems in total and felt that was enough for me. My thought is that if 70 problems isn’t helpful then you may not be doing it right and 700 won’t be helpful either.
-3.  Go for the hardest ones. After those the rest all become easy.
-4.  If stuck on one problem for over two hours, check out the solutions. More time might not be worth it.
-5.  After solving one problem, check out the solutions. I was often surprised by how smart and elegant some solutions are, especially the Python one-liners.
-6.  Use a language that you are most familiar with and that is common enough to be easily explained to your interviewer.
 
-#### System design
+尽管我也认同编码面试可能不是最好的方式来评估面试者的技能，但无可争辩的是没有比这更好的方法在短时间内来证明面试者是不是一个好的程序员。
+在我看来，想要得到程序员的工作编码测试是不可避免 
 
-This area is more closely related to the actual working experience. Many questions can be asked during system design interviews, including but not limited to system architecture, object oriented design，database schema design，distributed system design，scalability, etc.
+我主要使用 LeetCode 和 Geeksforgeeks 来练习。  Hackerrank 和 Lintcode 也是不错的练习工具。
+我花了几周的时间过了下常见的数据结构和算法。然后重点关注了我之前不熟悉的领域，最后做了一些常见问题的练习。因为时间所限通常一天我只做两题。
 
-There are many resources online that can help you with the preparation. For the most part I read articles on system design interviews, architectures of large-scale systems, and case studies.
 
-Here are some resources that I found really helpful:
+谈谈的一下想法，
 
+1. 多练，这没有什么可说的
+2. 尽可能覆盖不同类型的题，每个类型花时间搞透它。不要试图把 Leetcode 上所有题都刷完。我在 Leetcode 上刷了总共差不多 70 题，我觉得做得足够了。在我看来如果 70 道题还不行那只能说明你方法不对，就算刷 700 道题也没用
+3. 刷最难的那些题，其余的就简单了
+4. 如果一个题卡壳超过两小时，去查看别人的解决方案吧，再多花时间可能不值得的
+5. 做出来后，和别人提交的答案对比一下。我就经常震惊于别人家孩子的那些充满智慧且优雅的解决方案，尤其是一行 Python 代码解决的问题娃儿们
+6. 用你最熟悉的编程语言答题，并通俗易懂的解释给你的面试官
+
+
+#### 系统设计
+
+这个领域更多的和实际工作经验相关。许多问题会在系统设计面试中被问到，包括但不限于系统架构，面向对象设计，数据库设计，分布式系统设计，高扩展系统等。
+
+有很多线上资源可以帮助我们练习。大部分时候我是通过阅读关于系统设计以及分布式系统设计面试的文章和一些设计案例的分析。下面我给出一些有用的资源供参考。
+ 
 *   [http://blog.gainlo.co](http://blog.gainlo.co)
 *   [http://horicky.blogspot.com](http://horicky.blogspot.com)
 *   [https://www.hiredintech.com/classrooms/system-design/lesson/52](https://www.hiredintech.com/classrooms/system-design/lesson/52)
@@ -57,165 +67,202 @@ Here are some resources that I found really helpful:
 *   [http://tutorials.jenkov.com/software-architecture/index.html](http://tutorials.jenkov.com/software-architecture/index.html)
 *   [http://highscalability.com/](http://highscalability.com/)
 
-Although system design interviews can cover a lot of topics, there are some general guidelines for how to approach the problem:
 
-1.  Understand the requirements first, then lay out the high-level design, and finally drill down to the implementation details. Don’t jump to the details right away without figuring out what the requirements are.
-2.  There are no perfect system designs. Make the right trade-off for what is needed.
+尽管系统设计面试涵盖很多主题，一些常用的套路可以帮助我们解决这些问题。
 
-With all that said, the best way to practice for system design interviews is to actually sit down and design a system, i.e. your day-to-day work. Instead of doing the minimal work, go deeper into the tools, frameworks, and libraries you use. For example, if you use HBase, rather than simply using the client to run some DDL and do some fetches, try to understand its overall architecture, such as the read/write flow, how HBase ensures strong consistency, what minor/major compactions do, and where LRU cache and Bloom Filter are used in the system. You can even compare HBase with Cassandra and see the similarities and differences in their design. Then when you are asked to design a distributed key-value store, you won’t feel ambushed.
+1.  首先要弄明白需求，然后在画出高层概要设计，最后列出实现细节。不要没弄清需求而上来就进入细节。
+2.  没有完美的系统设计，要正确考虑实际需求
 
-Many blogs are also a great source of knowledge, such as Hacker Noon and engineering blogs of some companies, as well as the official documentation of open source projects.
+说了这么多，应对系统设计面试最好的方式还是坐下来实际设计一个系统，例如在你的日常工作中不要总做些表面工作，可以试着深入了解使用的工具，框架和第三方类库。
+再比如你用 HBase ，与其简单的使用客户端执行些 DDL 和查询操作不如试着去搞懂它的整体架构，读写的流程，HBase 如何保证了强一致性，有哪些主要或细小的封装，系统是如何使用的 LRU 缓存和布隆过滤器来提升效率的。
+你甚至可以去比较 HBase 和 Cassandra 在设计上的相同和不同之处。这样当你在被问到设计一个分布式 key-value 存储时，你就可以从容应对了。
 
-The most important thing is to keep your curiosity and modesty. Be a sponge that absorbs everything it is submerged into.
+许多博客也是好的知识来源如 Hacker Noon 以及一些公司的技术博客，还有很多开源项目的官方文档。
+最重要的是保持谦虚和好奇心，像海绵一样吸收一切有用的知识。
 
-#### Machine learning
+#### 机器学习
 
-Machine learning interviews can be divided into two aspects, theory and product design.
+机器学习面试通常分为两部分：理论和产品设计。
 
-Unless you are have experience in machine learning research or did really well in your ML course, it helps to read some textbooks. Classical ones such as the Elements of Statistical Learning and Pattern Recognition and Machine Learning are great choices, and if you are interested in specific areas you can read more on those.
+读一些机器学习相关的书籍是很有帮助的，除非你有机器学习研究的经验或者ML课程学的很好。比较经典的书如 《机器学习之路》，《模式识别》和《机器学习》都是非常不错的选择。如果你对特定领域感兴趣可以选择更多该领域的书籍。
+ 
+要确保你懂得那些基本概念，例如偏差方差平衡，过度拟合，梯度下降，L1/L2 正则化，贝叶斯理论，集成学习，协同过滤，降维等。
+熟悉常见的公式如贝叶斯方程和流行的推导模型，如逻辑回归和 SVM 。试着去实现以下简单模型如决策树和 K-means 聚类。
+如果你放了一些模型在你的简历上，那务必确保你完全懂得并能给出这些模型的优缺点。 
 
-Make sure you understand basic concepts such as bias-variance trade-off, overfitting, gradient descent, L1/L2 regularization，Bayes Theorem，bagging/boosting，collaborative filtering，dimension reduction, etc. Familiarize yourself with common formulas such as Bayes Theorem and the derivation of popular models such as logistic regression and SVM. Try to implement simple models such as decision trees and K-means clustering. If you put some models on your resume, make sure you understand it thoroughly and can comment on its pros and cons.
+关于机器学习的产品设计，懂得构建一个机器学习产品的一般过程，这里给出了我的做法。
 
-For ML product design, understand the general process of building a ML product. Here’s what I tried to do:
+1.  明确我们的目标：预测，推荐，分类和检索等
+2.  找到适合的算法：监督 vs. 非监督、分类 vs. 回归、一般线性模型、决策树、神经网络等。并要能够给出选择的理由。
+3.  找出可用数据的相关特征
+4.  给出模型的性能指标
+5.  评价在实际项目应用中如何优化上如模型（可选择的）
 
-1.  Figure out what the objective is: prediction, recommendation, clustering, search, etc.
-2.  Pick the right algorithm: supervised vs unsupervised, classification vs regression, generalized linear model / decision tree / neural network / etc. Be able to reason about the choice.
-3.  Pick / engineer relevant features based on available data.
-4.  Pick metrics for model performance.
-5.  Optionally, comment on how to optimize the model for production.
+这里我想再次强调保持好奇心和持续学习。不要仅仅是调用 Spark MLlib 或者 XGBoost 的 API ，
+要试着去弄懂背后的原理。例如为什么随机梯度下降适合于分布式训练，
+为什么 XGBoost 与传统的 GBDT 不同，它的损失函数有何特殊之处，为什么它需要计算二阶导数等等。
 
-Here I want to emphasize again on the importance of remaining curious and learning continuously. Try not to merely using the API for Spark MLlib or XGBoost and calling it done, but try to understand why stochastic gradient descent is appropriate for distributed training, or understand how XGBoost differs from traditional GBDT, e.g. what is special about its loss function, why it needs to compute the second order derivative, etc.
+### 面试流程
 
-### The interview process
+从回复 Linkedin 上 HR 的消息和寻求推荐开始。在尝试一次申请某明星创业公司失败后（后文中我会谈到），
+我开始了几个月的艰苦准备。在招聘人员的帮助下，我安排了在湾区一周的现场面试。
+我周日飞往硅谷，这样我有五天时间和世界上那些最牛的技术公司进行约 30 场面试。
+非常幸运地是，我拿到了他们中的五家公司的录用通知。
 
-I started by replying to HR’s messages on LinkedIn, and asking for referrals. After a failed attempt at a rock star startup (which I will touch upon later), I prepared hard for several months, and with help from my recruiters, I scheduled a full week of onsites in the Bay Area. I flew in on Sunday, had five full days of interviews with around 30 interviewers at some best tech companies in the world, and very luckily, got job offers from all five of them.
 
-#### Phone screening
+#### 电话面试
 
-All phone screenings are standard. The only difference is in the duration: For some companies like LinkedIn it’s one hour, while for Facebook and Airbnb it’s 45 minutes.
+电话面试是这些公司的标配，不同的是面试时长。一些公司如 LInkedin 要一个小时，而 Facebook 和 Airbnb 则是 45 分钟。
 
-Proficiency is the key here, since you are under the time gun and usually you only get one chance. You would have to very quickly recognize the type of problem and give a high-level solution. Be sure to talk to the interviewer about your thinking and intentions. It might slow you down a little at the beginning, but communication is more important than anything and it only helps with the interview. Do not recite the solution as the interviewer would almost certainly see through it.
 
-For machine learning positions some companies would ask ML questions. If you are interviewing for those make sure you brush up your ML skills as well.
 
-To make better use of my time, I scheduled three phone screenings in the same afternoon, one hour apart from each. The upside is that you might benefit from the hot hand and the downside is that the later ones might be affected if the first one does not go well, so I don’t recommend it for everyone.
+专业性是电面关键。因为你只有的有限的时间而且通常只有一次机会。你必须要很快的识别出问题的类型并给出高水平的解决方案。
+要确保告诉面试官你的想法和意图，在一开始这可能会降低你的速度，但沟通是面试中最重要的也是最有帮助的。不要背诵你的答案这很容易让面试官看穿。 
 
-One good thing about interviewing with multiple companies at the same time is that it gives you certain advantages. I was able to skip the second round phone screening with Airbnb and Salesforce because I got the onsite at LinkedIn and Facebook after only one phone screening.
 
-More surprisingly, Google even let me skip their phone screening entirely and schedule my onsite to fill the vacancy after learning I had four onsites coming in the next week. I knew it was going to make it extremely tiring, but hey, nobody can refuse a Google onsite invitation!
+对于机器学习岗位有些公司会问 ML 的问题，如果你被面试这些确保你准备好了这些技能点。
 
-#### Onsite
+为了更好的利用我的时间，我在同一下午安排了三个电话面试，每个间隔一小时。
+这样的好处是我一直处于手热的状态，不好的地方是如果第一个没发挥好可能会影响接下来的表现。所以我不推荐大家都这么做。
+
+
+
+同时面试多家公司的一个好处会给你带来一定的优势。一次电面以后我就成功的跳过了 Airbnb 和 Salesforce 的第二轮电面因为我已经获得了 LInkedin 和 Facebook 的现场面试
+
+
+更让人惊喜的是 Google 在得知我下周有四个现场面试后竟然让我跳过了他们的电面直接安排我现场面试。我知道这将使我非常劳累，不过没有人能够拒绝 Google 的现场邀请。
+
+#### 现场面试
 
 **LinkedIn**
 
 ![](https://cdn-images-1.medium.com/max/800/1*JjnojejxqDmKWdDvF7JccQ.png)
 
-This is my first onsite and I interviewed at the Sunnyvale location. The office is very neat and people look very professional, as always.
+这是我在 Sunnyvale 的第一个现场面试，这里办公室总是窗明几净人们看起来非常专业。
 
-The sessions are one hour each. Coding questions are standard, but the ML questions can get a bit tough. That said, I got an email from my HR containing the preparation material which was very helpful, and in the end I did not see anything that was too surprising. I heard the rumor that LinkedIn has the best meals in the Silicon Valley, and from what I saw if it’s not true, it’s not too far from the truth.
+每轮面一个小时，编码问题中规中矩，但 ML 的问题有点难度。尽管如此，我从 HR 哪里收到的准备资料起到了很大的帮助。直到面试结束，并没有让我太吃惊的问题。
+我听说 Linkedin 有着硅谷最好的伙食，如我所察如果不是真的，也差不远了。
+ 
+被微软并购以后，看来 Linkedin 甩掉了财政负担，他们开始甩开膀子做真正酷的事，让人心动的新特征如视频，专业广告等。作为一个关注专业发展的公司，Linkedin 优先增长它的员工。
+很多团队如广告和订阅相关的都在扩张，所以抓紧行动如果你想加入。
 
-Acquisition by Microsoft seems to have lifted the financial burden from LinkedIn, and freed them up to do really cool things. New features such as videos and professional advertisements are exciting. As a company focusing on professional development, LinkedIn prioritizes the growth of its own employees. A lot of teams such as ads relevance and feed ranking are expanding, so act quickly if you want to join.
 
 **Salesforce Einstein**
 
 ![](https://cdn-images-1.medium.com/max/800/1*XNUUSjrUo-n7eU5ZOGeHog.png)
 
-Rock star project by rock star team. The team is pretty new and feels very much like a startup. The product is built on the Scala stack, so type safety is a real thing there! Great talks on the Optimus Prime library by Matthew Tovbin at Scala Days Chicago 2017 and Leah McGuire at Spark Summit West 2017.
+明星团队做的明星项目。这是个相当新的团队，感觉像一个创业公司。产品是构建在 Scala Stack 上的， 所以在那里类型安全是实实在在的。Matthew Tovbin 在 Scala Days Chicago 2017，Leah McGuire 在 Spark Summit West 2017 进行过伟大的演讲。 
 
-I interviewed at their Palo Alto office. The team has a cohesive culture and work life balance is great there. Everybody is passionate about what they are doing and really enjoys it. With four sessions it is shorter compared to the other onsite interviews, but I wish I could have stayed longer. After the interview Matthew even took me for a walk to the HP garage :)
+我的面试是在 Palo Alto 的办公室。 他们团队有很强的文化凝聚力和非常好的工作生活平衡。每个人都对在做的事情充满激情很真正喜欢。四轮面试下来，整体上比其他公司要短，但我多希望我能待得再长一点。面试完后，Matthew 甚至带我到惠普的车库转了一下。 
+
 
 **Google**
 
 ![](https://cdn-images-1.medium.com/max/800/1*VYDw0n3CgPOsrX1j-tchbw.png)
 
-Absolutely the industry leader, and nothing to say about it that people don’t already know. But it’s huge. Like, really, really HUGE. It took me 20 minutes to ride a bicycle to meet my friends there. Also lines for food can be too long. Forever a great place for developers.
 
-I interviewed at one of the many buildings on the Mountain View campus, and I don’t know which one it is because it’s HUGE.
+绝对的行业老大，无需多言妇孺皆知的 Google 。但它真的非常非常的大。 花费了我 20 分钟的时间骑车去见我的朋友。 排队点餐的人也很多，对程序员而言这永远是一个美好的地方。
 
-My interviewers all look very smart, and once they start talking they are even smarter. It would be very enjoyable to work with these people.
 
-One thing that I felt special about Google’s interviews is that the analysis of algorithm complexity is really important. Make sure you really understand what Big O notation means!
+我在 Mountain View 园区众多楼宇中的一座里进行的面试，我不知道具体是哪一个，因为实在是太大了。
+
+我的面试官们看起来很聪明。当他们开始谈论的时候你会发现他们更加聪明。如果和这帮人一起工作那将是多么的愉悦。
+
+Google 的面试我觉得一点特别是对时间复杂度的分析特别重要。确保你真的明白大 O 的涵义。
+
 
 **Airbnb**
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y9tdU5fecN2XIUqE3bC3gA.png)
 
-Fast expanding unicorn with a unique culture and arguably the most beautiful office in the Silicon Valley. New products such as Experiences and restaurant reservation, high end niche market, and expansion into China all contribute to a positive prospect. Perfect choice if you are risk tolerant and want a fast growing, pre-IPO experience.
+迅速增长的独角兽企业，有着独特的企业文化和号称湾区最美的办公环境。新产品如餐厅预定，高端细分市场，中国市场的扩张等都预示着公司光明的前景。如果希望快速成长和 pre-IPO 的体验，并能忍受风险，这将是一个完美的选择。
 
-Airbnb’s coding interview is a bit unique because you’ll be coding in an IDE instead of whiteboarding, so your code needs to compile and give the right answer. Some problems can get really hard.
 
-And they’ve got the one-of-a-kind cross functional interviews. This is how Airbnb takes culture seriously, and being technically excellent doesn’t guarantee a job offer. For me the two cross functionals were really enjoyable. I had casual conversations with the interviewers and we all felt happy at the end of the session.
+Airbnb 的代码测验有一点特别，因为你将在 IDE 上而不是白板上写，所以你的代码要能够编译并给出正确答案。有些问题确实非常困难。 
 
-Overall I think Airbnb’s onsite is the hardest due to the difficulty of the problems, longer duration, and unique cross-functional interviews. If you are interested, be sure to understand their culture and core values.
+他们还有所谓一种跨职能面试。这是 Airbnb 重视公司文化的方式，仅仅技术上优秀并不能保证被录用。两轮跨职能面试让我飞常愉悦。我和面试官进行了轻松的交谈，会话结束后我们都很愉快。 
+
+
+整体上我觉得 Airbnb 的现场面试是最难的，因为问题很难，时间也很长并且有跨职能的面试。如果你有兴趣，务必了解他们的文化和核心价值。
+
+
 
 **Facebook**
 
 ![](https://cdn-images-1.medium.com/max/800/1*wgM997D8y7JHguhRESY8pA.png)
 
-Another giant that is still growing fast, and smaller and faster-paced compared to Google. With its product lines dominating the social network market and big investments in AI and VR, I can only see more growth potential for Facebook in the future. With stars like Yann LeCun and Yangqing Jia, it’s the perfect place if you are interested in machine learning.
+和 Google 相比，Facebook 另一个还在快速增长的巨头，小但快节奏。它的产品线垄断了社交网络，并且重点投资了 AI 和 VR ，显然未来 Facebook 有着巨大的增长潜力。和大牛们如 Yann LeCun 和 Yangqing Jia ，这机器学习人士工作的乐土。
 
-I interviewed at Building 20, the one with the rooftop garden and ocean view and also where Zuckerberg’s office is located.
+我在 20 号楼进行的面试了，那里有楼顶花园和美丽的海景。扎克伯格的办公室也在那里。
 
-I’m not sure if the interviewers got instructions, but I didn’t get clear signs whether my solutions were correct, although I believed they were.
+我不确定面试官是不是得到指示，但我没有得到明确的提示关于我的答案是否正确。我还是相信公司指示他们不要评价候选者答案的正确性。
 
-By noon the prior four days started to take its toll, and I was having a headache. I persisted through the afternoon sessions but felt I didn’t do well at all. I was a bit surprised to learn that I was getting an offer from them as well.
+前四天的劳碌给我身体带来了影响，中午我开始头疼，我坚持把下午的面试进行完。我觉得自己一点没发挥好。当收到他们给的录用通知时我确实有点小吃惊。
 
-Generally I felt people there believe the company’s vision and are proud of what they are building. Being a company with half a trillion market cap and growing, Facebook is a perfect place to grow your career at.
+总体上我觉得这里的人相信他们公司的愿景，也都为他们做的事情而骄傲。作为一个市值五千亿美金并且快速增长的公司，Facebook 是开始你职业生涯的理想公司。
 
-### Negotiation
 
-This is a big topic that I won’t cover in this post, but I found [this article](https://medium.freecodecamp.org/how-not-to-bomb-your-offer-negotiation-c46bb9bc7dea) to be very helpful.
+### 薪资谈判
 
-Some things that I do think are important:
+这是一个宏大主题，在这我不去谈论。 有兴趣的可以参照[这篇文章](https://medium.freecodecamp.org/how-not-to-bomb-your-offer-negotiation-c46bb9bc7dea)。
+                            
+一些我认为重要的事：                            
 
-1.  Be professional.
-2.  Know your leverages.
-3.  Be genuinely interested in the teams and projects.
-4.  Keep your patience and confidence.
-5.  Be determined but polite.
-6.  Never lie.
+1.  表现要专业
+2.  利用你的资源
+3.  对项目和团队真正的兴趣
+4.  保持耐心和自信
+5.  决绝但有礼貌
+6.  不要撒谎
 
-### **My failed interview with Databricks**
+### **我失败的面试经历 - Databricks**
 
 ![](https://cdn-images-1.medium.com/max/800/1*8ihczqhKMJ_dTZmRvMTAGg.png)
 
-All successes start with failures, including interviews. Before I started interviewing for these companies, I failed my interview at Databricks in May.
+失败是成功之母，当然也包括面试。
+在开启上述硅谷面试之旅前，五月份时我面试 Databridck 失败了。
 
-Back in April, Xiangrui contacted me via LinkedIn asking me if I was interested in a position on the Spark MLlib team. I was extremely thrilled because 1) I use Spark and love Scala, 2) Databricks engineers are top-notch, and 3) Spark is revolutionizing the whole big data world. It is an opportunity I couldn’t miss, so I started interviewing after a few days.
+四月的时候， Xiangrui 通过 Linkedin 联系我，问我是否对 Spark MLlib 团队的职位有兴趣， 这让我非常心动。因为 1) 我使用 Spark 热爱 Scala, 2) Databridck 的工程师是最一流的，
+3) Spark 彻底改变了整个大数据世界。这是一个不能错过的机会，所以几天后我开始了这次面试。
 
-The bar is very high and the process is quite long, including one pre-screening questionnaire, one phone screening, one coding assignment, and one full onsite.
+Databridck 的门槛相当高处理流程也相当的长，包括一次初审问卷表，一次电话面试，一次代码测试和一次现场面试。
 
-I managed to get the onsite invitation, and visited their office in downtown San Francisco, where Treasure Island can be seen.
+我成功的获得了现场面试的邀请，并访问了他们在三藩市市中心的办公地点，在那我们能看到金银岛。
 
-My interviewer were incredibly intelligent yet equally modest. During the interviews I often felt being pushed to the limits. It was fine until one disastrous session, where I totally messed up due to insufficient skills and preparation, and it ended up a fiasco. Xiangrui was very kind and walked me to where I wanted to go after the interview was over, and I really enjoyed talking to him.
+我的面试官是个极具聪明才智又同等谦逊的人。面试过程中我经常感觉被逼到了极限。面试还算进行的顺利直到一轮灾难性的面试，我完全搞砸了因为技能不过硬和准备不充分，最终惨败。
+Xiangrui 真的很善解人意，面试结束后陪我走了一段，我非常感谢和他的交谈。
 
-I got the rejection several days later. It was expected but I felt frustrated for a few days nonetheless. Although I missed the opportunity to work there, I wholeheartedly wish they will continue to make greater impact and achievements.
+几天以后我收到了拒信。和预想的一样，尽管如此这还是让我沮丧了好几天。虽然错去了在 Databricks 工作的机会，我还是衷心的希望他们能够继续取得更大的影响和成功。
 
-### Afterthoughts
 
-1.  Life is short. Professional life is shorter. Make the right move at the right time.
-2.  Interviews are not just interviews. They are a perfect time to network and make friends.
-3.  Always be curious and learn.
-4.  Negotiation is important for job satisfaction.
-5.  Getting the job offer only means you meet the minimum requirements. There are no maximum requirements. Keep getting better.
+### 一点感想
 
-From the first interview in May to finally accepting the job offer in late September, my first career change was long and not easy.
+1.  Life is short. Professional life is shorter. Make the right move at the right time. 人生短暂，职业生涯更短。正确的时间做正确的选择
+2.  Interviews are not just interviews. They are a perfect time to network and make friends. 面试不仅仅是面试，更是扩展人脉和交朋友的最佳时机
+3.  Always be curious and learn. 始终保持强烈的求知欲
+4.  Negotiation is important for job satisfaction. 想获得满意的工作，谈判技巧很重要
+5.  Getting the job offer only means you meet the minimum requirements. There are no maximum requirements. Keep getting better. 被录用只是证明你达到了最低要求。人生没有上限，做更好的自己
 
-It was difficult for me to prepare because I needed to keep doing well at my current job. For several weeks I was on a regular schedule of preparing for the interview till 1am, getting up at 8:30am the next day and fully devoting myself to another day at work.
 
-Interviewing at five companies in five days was also highly stressful and risky, and I don’t recommend doing it unless you have a very tight schedule. But it does give you a good advantage during negotiation should you secure multiple offers.
+从五月的第一次面试到最终九月底拿到录用通知，我的第一次跳槽是这么漫长和不易。
 
-I’d like to thank all my recruiters who patiently walked me through the process, the people who spend their precious time talking to me, and all the companies that gave me the opportunities to interview and extended me offers.
+这对我真的不容易，因为我需要保证我现在的工作按期完成。连续几个周我都是准备面试到凌晨一点然后第二天早上八点半起来全身心准备一天的工作。
+五天面试五家工作非常的有压力和冒险，我不建议大家这样做除非你日程特别赶。但是这样做也确实有一个好处，就是在手握多个 offer 时，你会在谈判的时候更具优势。 
 
-Lastly but most importantly, I want to thank my family for their love and support — my parents for watching me taking the first and every step, my dear wife for everything she has done for me, and my daughter for her warming smile.
+我在这里要感谢我所有的招聘者，感谢他们耐心的帮我安排所有的流程，感谢他们的时间跟我交流并安排面试的机会以及最终给我录用通知。
+沁人心扉
+最后也是最重要的是，我要感谢我的家庭，感谢他们对我的爱和支持。感谢我的父母，他们一直在关注我迈出的每一步。感谢我亲爱的老婆为我做的一切还有我亲爱的女儿和她暖人心扉的微笑。
 
-Thanks for reading through this long post.
 
-You can find me on [LinkedIn](https://www.linkedin.com/in/xiaohanzeng/) or [Twitter](https://twitter.com/XiaohanZeng).
+也感谢这篇长文的读者们。
+
+你们可在 [LinkedIn](https://www.linkedin.com/in/xiaohanzeng/) 或 [Twitter](https://twitter.com/XiaohanZeng) 上找到我.
 
 Xiaohan Zeng
 
 10/22/17
+
+> 译者更新：作者最终选择了 Airbnb 的 offer ， 并将于 11 月入职。
 
 
 ---

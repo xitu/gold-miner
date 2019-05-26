@@ -2,41 +2,39 @@
 > * 原文作者：[Nazmul Idris (Naz)](https://medium.com/@nazmul?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[oaosj](https://github.com/oaosj)
 
-# Understanding Audio Focus (Part 3 / 3)
+# 理解音频焦点 (第 3/3 部分)：三个步骤实现音频聚焦
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
-## 3 steps to implementing Audio Focus in your app
 
-The goal of this series of articles is to give you a deep understanding of what audio focus is, why it’s important to deliver a good media UX, and how to use it. This is the final part of the series that includes:
+本系列文章旨在让您深入理解音频焦点的含义，使用方法和其对用户体验的重要性。本篇文章是该系列的最后一部分，该系列三篇文章包含了：
 
-1.  [The importance of being a good media citizen and the most common Audio Focus use cases](https://medium.com/@nazmul/audio-focus-1-6b32689e4380)
-2.  [Other use cases where Audio Focus is important to your media app’s UX](https://medium.com/@nazmul/audio-focus-2-42244043863a)
-3.  Three steps to implementing Audio Focus in your app (**_this article_**)
+1.  [最常见的音频焦点用例和成为一个优秀的媒体使用者的重要性](https://medium.com/@nazmul/audio-focus-1-6b32689e4380)
+2.  [其它一些能体现音频焦点对应用体验的重要性的用例](https://medium.com/@nazmul/audio-focus-2-42244043863a)
+3.  在您的应用中实现音频焦点的三个步骤 (**此篇文章**)
 
-If you don’t handle audio focus properly, the following diagram depicts what your user might experience on their phone.
+如果您不妥善处理好音频聚焦，您的用户可能受到下图所示的困扰。
 
-![](https://cdn-images-1.medium.com/max/800/1*53tFOWaJmR_hrJq8QL0DHg.png)
+![如果您不处理音频焦点会发生什么呢](https://cdn-images-1.medium.com/max/800/1*53tFOWaJmR_hrJq8QL0DHg.png)
 
-Now that you know the importance of your app being a good media citizen for the user to have a good media experience on their phone, let’s go thru steps that will allow your app to handle audio focus properly.
+现在您已经知道音频聚焦的重要性，让我们通过一些步骤来让您的应用程序正确处理音频焦点。
 
-Before jumping into the code, the following diagram summarizes the steps that we are going to take to implement audio focus in your app.
+开始代码示例之前，先看看下图，它展示了实现步骤：
 
 ![](https://cdn-images-1.medium.com/max/800/1*KdcNZbndhRg5ne18kquBKA.png)
 
-### Step 1 : Make the focus request
+### 步骤一 ：请求音频焦点
 
-The first step in getting audio focus is making the request of the Android system to acquire it. Keep in mind that just because you have made the request doesn’t mean that it will be granted. In order to make the request to acquire audio focus you have to declare your “intention” to the system. Here are some examples.
+获取音频焦点的第一个步骤是先向系统发出申请焦点的消息。注意这只是发出请求，并非直接获取。为了申请到音频聚焦，您必须向系统描述好您的意图。介绍四个常见音频焦点类型：
 
-*   Is your app a media player or podcast player that will hold the audio focus for an indefinite period of time (as long as the user choose to play audio from your app)? This is `[AUDIOFOCUS_GAIN](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN)`.
-*   Or does your app temporarily need audio focus (with the option to duck), since it needs to play an audio notification, or a turn by turn spoken direction, or it needs to record audio from the user for a short period of time? This is `[AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)`.
-*   Does your app temporarily need audio focus (but for an unknown duration, without the option to duck) like a phone app would once a call is connected? This is `[AUDIOFOCUS_GAIN_TRANSIENT](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT)`.
-*   Does your app temporarily need audio focus (for an unknown duration, during which no other sounds should be generated) since it needs to record audio like a voice memo app? This is `[AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE)`.
+*   [AUDIOFOCUS_GAIN](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN)的使用场景：应用需要聚焦音频的时长会根据用户的使用时长改变，属于不确定期限。例如：多媒体播放或者播客等应用。
+*   [AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)的使用场景：应用只需短暂的音频聚焦，来播放一些提示类语音消息，或录制一段语音。例如：闹铃，导航等应用。
+*  [AUDIOFOCUS_GAIN_TRANSIENT](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT)的使用场景：应用只需短暂的音频聚焦，但包含了不同响应情况，例如：电话、QQ、微信等通话应用。
+*  [AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE) 的使用场景：同样您的应用只是需要短暂的音频聚焦。未知时长，但不允许被其它应用截取音频焦点。例如：录音软件。
 
-On Android O and later you have to create an `[AudioFocusRequest](https://developer.android.com/reference/android/media/AudioFocusRequest.html)` object (using a `[builder](https://developer.android.com/reference/android/media/AudioFocusRequest.Builder.html)`). And in this object you will have to specify how long your app needs to acquire audio focus. The following code snippet declares the intention to permanently acquire audio focus from the system.
+在 Android O 或者更新的版本上您必须使用 [builder](https://developer.android.com/reference/android/media/AudioFocusRequest.Builder.html) 来实例化一个 [AudioFocusRequest](https://developer.android.com/reference/android/media/AudioFocusRequest.html) 类。（在 builder 中必须指明请求的音频焦点类型）
 
 ```
 AudioManager mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
@@ -54,19 +52,20 @@ AudioFocusRequest mAudioFocusRequest =
 int focusRequest = mAudioManager.requestAudioFocus(mAudioFocusRequest);
 switch (focusRequest) {
    case AudioManager.AUDIOFOCUS_REQUEST_FAILED:
-       // don’t start playback
+       // 不允许播放
    case AudioManager.AUDIOFOCUS_REQUEST_GRANTED:
-       // actually start playback
+       // 开始播放
 }
 ```
 
-Notes on the code:
+音频焦点类型要点:
 
-1.  The `[AudioManager.AUDIOFOCUS_GAIN](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN)` is what requests permanent audio focus from the system. You can also pass it it other int values, such as `[AUDIOFOCUS_GAIN_TRANSIENT](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT)`, or `[AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)` if you just wanted temporary audio focus.
-2.  You have to pass a `[AudioManager.OnAudioFocusChangeListener](https://developer.android.com/reference/android/media/AudioManager.OnAudioFocusChangeListener.html)` implementation to the `[setOnAudioFocusChangeListener()](https://developer.android.com/reference/android/media/AudioFocusRequest.Builder.html#setOnAudioFocusChangeListener%28android.media.AudioManager.OnAudioFocusChangeListener%29)` method. This is the part of your code that will deal with audio focus changes which are driven by events happening in the system. These might be started from user interactions in other apps. For example, your app might have gained permanent audio focus, but then the user launches another app which takes it away. This listener is where your app would have to deal with this focus loss.
-3.  Once you have created the `[AudioFocusRequest](https://developer.android.com/reference/android/media/AudioFocusRequest.html)` object, you can now use it in order to ask the `AudioManager` for audio focus by calling `[requestAudioFocus(…)](https://developer.android.com/reference/android/media/AudioManager.html#requestAudioFocus%28android.media.AudioFocusRequest%29)`. This will return an integer value representing whether your audio focus request was granted or not. Only if that value is `[AUDIOFOCUS_REQUEST_GRANTED](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_REQUEST_GRANTED)` should you start playback immediately. And if it’s `[AUDIOFOCUS_REQUEST_FAILED](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_REQUEST_FAILED)`, then the system has denied your app acquisition of audio focus in that moment.
+1.  [AudioManager.AUDIOFOCUS_GAIN](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN)：请求长时间音频聚焦。如果只是临时需要音频焦点可以选用这几个：[AUDIOFOCUS_GAIN_TRANSIENT](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT)或[AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)。
+2. 您必须通过 [setOnAudioFocusChangeListener()](https://developer.android.com/reference/android/media/AudioFocusRequest.Builder.html#setOnAudioFocusChangeListener%28android.media.AudioManager.OnAudioFocusChangeListener%29) 方法来实现 [AudioManager.OnAudioFocusChangeListener](https://developer.android.com/reference/android/media/AudioManager.OnAudioFocusChangeListener.html) 接口。用来响应音频焦点状态的变化，如被其它应用截取了音频焦点，或者其它应用释放焦点，都会在这里回调。
+3. 调用 AudioManager 的 [requestAudioFocus(…)](https://developer.android.com/reference/android/media/AudioManager.html#requestAudioFocus%28android.media.AudioFocusRequest%29) 方法，需要用到实例化好的 [AudioFocusRequest](https://developer.android.com/reference/android/media/AudioFocusRequest.html)。 请求结果以一个 int 变量返回：[AUDIOFOCUS_REQUEST_GRANTED](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_REQUEST_GRANTED) 表示获得授权，
+[AUDIOFOCUS_REQUEST_FAILED](https://developer.android.com/reference/android/media/AudioManager.html#AUDIOFOCUS_REQUEST_FAILED) 表示被系统拒绝。
 
-On Android N and earlier you can declare this intention without using the `AudioFocusRequest` object as shown below. You still have to implement `AudioManager.OnAudioFocusChangeListener`. Here’s the equivalent code to the snippet above.
+在 Android N 及其更早的版本中，不需要用到 AudioFocusRequest，只需实现 AudioManager.OnAudioFocusChangeListener 接口。代码如下：
 
 ```
 AudioManager mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
@@ -82,13 +81,13 @@ switch (focusRequest) {
 }
 ```
 
-Next, we have to implement the `AudioManager.OnAudioFocusChangeListener` so that the app can react to changes in audio focus gain and loss.
+上述皆为音频焦点的申请，接下来我们将介绍 AudioManager.OnAudioFocusChangeListener 如何实现，以此来响应音频焦点的状态。
 
-### Step 2 : Respond to audio focus state changes
+### 步骤二 ：响应音频焦点的状态改变
 
-Once audio focus has been granted to your app (whether this is temporary or permanent) it can change at any time. And your app must react to this change. This is what happens in your `OnAudioFocusChangeListener` implementation.
+一旦获得音频聚焦，您的应用要马上做出响应，因为它的状态可能在任何时间发生改变（丢失或重新获取），您可以实现 **OnAudioFocusChangeListener** 来响应状态改变。
 
-The following code snippet contains an implementation of this interface for an app that plays audio. And it handles ducking for transient audio focus loss. It also handles audio focus change due to the user pausing playback, vs another app ([like the Google Assistant](https://developer.android.com/guide/topics/media-apps/interacting-with-assistant.html)) causing transient audio focus loss.
+以下代码展示了 OnAudioFocusChangeListener 接口的实现，它处理了与 [Google Assistant](https://developer.android.com/guide/topics/media-apps/interacting-with-assistant.html) 应用协同工作的时候，音频焦点的各种状态的变化。
 
 ```
 private final class AudioFocusHelper
@@ -126,16 +125,16 @@ private void abandonAudioFocus() {
 }
 ```
 
-The app should behave differently when the user initiates the pause of playback, from when another app requests transient audio focus and playback is paused as a result (instead of just ducking). When the user initiates pausing playback, your app should abandon audio focus. However, if your app pauses playback in response to a transient loss of audio focus, then it should not abandon audio focus. Here are some use cases to illustrate this.
+关于暂停播放，应用程序的行为应该是不同的。如果用户主动暂停播放时，您的应用应释放音频焦点。如果是为了响应音频焦点的暂时丢失而暂停播放，则不应释放音频焦点。 这里有一些用例来说明这一点。
 
-Let’s say you have an audio playback app that plays audio in the background.
+分析上面接口 **mPlayOnAudioFocus** 的场景，您的音频应用正在后台播放音乐：
 
-1.  When the user presses play, your app requests permanent audio focus. Let’s say that it’s granted audio focus by the system.
-2.  Now they long press the home button and it starts the Google Assistant. The Assistant will request to gain transient audio focus.
-3.  Once the system grants this to the Assistant, your `OnAudioFocusChangeListener` will get a `AUDIOFOCUS_LOSS_TRANSIENT` event. And here, you would pause playback, since the Assistant needs to record audio.
-4.  Once the Assistant is done, it will abandon its audio focus, and your app will be granted `AUDIOFOCUS_GAIN` in the `OnAudioFocusChangeListener`. This is where you have to decide whether to resume playback or not. And this is what the `mPlayOnAudioFocus` flag does in the code snippet above.
+1.  用户点击播放，您的应用向系统申请音频聚焦，假如系统授权了。
+2.  现在用户长按 HOME 键启动 Google Assistant。Google Assistant 会向系统申请一个短暂的音频聚焦。
+3.  一旦系统授权给 Google Assistant，您的 **OnAudioFocusChangeListener** 接口会收到 **AUDIOFOCUS_LOSS_TRANSIENT** 事件回调。您在这个回调里处理暂停音乐播放。
+4.  当 Google Assistant 使用结束，您的 **OnAudioFocusChangeListener** 会收到 **AUDIOFOCUS_GAIN** 事件回调。 在这里您可以处理是否让音乐恢复播放。
 
-The following code snippet is what the user initiated pause method might look like in this audio player app.
+以下代码展示如何释放音频焦点：
 
 ```
 public final void pause() {
@@ -146,17 +145,17 @@ public final void pause() {
 }
 ```
 
-As you can see it abandons audio focus when the user initiates pausing playback, but not when other apps cause it to happen (when they acquire `AUDIOFOCUS_GAIN_TRANSIENT`).
+您可以看到释放焦点是在用户暂停播放的时候，而非其它应用请求焦点 **AUDIOFOCUS_GAIN_TRANSIENT** 导致他们释放焦点。
 
-#### Ducking vs pausing on transient audio focus loss
+#### 应对焦点丢失
 
-You can choose to pause playback or temporarily reduce the volume of your audio playback in the `OnAudioFocusChangeListener`, depending on what UX your app needs to deliver. Android O supports auto ducking, where the system will reduce the volume of your app automatically without you having to write any extra code. In your `OnAudioFocusChangeListener`, just ignore the `AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK` event.
+选择在 **OnAudioFocusChangeListener** 中暂停还是降低音量,取决于您应用的交互方式。在 Android O 上，系统会自动地帮您降低音量，所以您可以忽略 **OnAudioFocusChangeListener** 接口的 **AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK** 事件。
 
-In Android N and earlier, you have to implement ducking yourself (as shown in the code snippet above).
+在 Android O 以下的版本，您需要自己用代码实现，具体实现方式如上面代码所示。
 
-#### Delayed gain
+#### 延迟聚焦
 
-Android O introduced the concept of delayed audio focus gain. In order to implement this, when you request audio focus, you can get a `AUDIOFOCUS_REQUEST_DELAYED` result, as shown below.
+Android O 介绍了延迟聚焦这个概念，您可以在申请音频聚焦的时候来响应 **AUDIOFOCUS_REQUEST_DELAYED** 这个结果，如下所示：
 
 ```
 public void requestPlayback() {
@@ -172,7 +171,7 @@ public void requestPlayback() {
 }
 ```
 
-In your `OnAudioFocusChangeListener` implementation, you will then have to check for the `mAudioFocusPlaybackDelayed` variable when you respond to `AUDIOFOCUS_GAIN`, as shown below.
+在您 **OnAudioFocusChangeListener** 的实现,您需要检查 **mAudioFocusPlaybackDelayed** 这个变量，当您响应 **AUDIOFOCUS_GAIN** 音频聚焦的时候, 如下所示：
 
 ```
 private void onAudioFocusChange(int focusChange) {
@@ -202,40 +201,41 @@ private void onAudioFocusChange(int focusChange) {
 }
 ```
 
-### Step 3 : Remember to abandon audio focus
+### 步骤三 ：释放音频焦点
 
-When your app has completed playing it’s audio, then it should abandon audio focus by calling `[AudioManager.abandonAudioFocus(…)](https://developer.android.com/reference/android/media/AudioManager.html#abandonAudioFocus%28android.media.AudioManager.OnAudioFocusChangeListener%29)`. In the previous step we ran into the situation of an app abandoning audio focus when the user initiates pausing playback, but the app retaining audio focus when it’s interrupted temporarily by other apps.
+播放完音频，记得使用 [AudioManager.abandonAudioFocus(…)](https://developer.android.com/reference/android/media/AudioManager.html#abandonAudioFocus%28android.media.AudioManager.OnAudioFocusChangeListener%29) 来释放掉音频焦点。在前面的步骤中，我们遇到了一个应用暂停播放应该释放音频焦点的情况，但是这个应用依旧保留了音频焦点。
 
-### Code samples
+### 代码示例
 
-#### Gist that you can use in your app
+#### 几个您可以在您应用使用的案例
 
-You can find 3 classes in this [GitHub gist](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521) that covers audio focus code that you might be able to use in your apps.
+在 [GitHub gist](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521) 上有三个类关于音频焦点的使用，这可能对您的代码有帮助。
 
-*   `[AudioFocusRequestCompat](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocusrequestcompat-java)` — Use this class to describe the type of audio focus that your app needs.
-*   `[AudioFocusHelper](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocushelper-java)` — This class actually handles audio focus for you. You can include it in your app, but you have to make sure that your audio playback service uses the interface below.
-*   `[AudioFocusAwarePlayer](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocusawareplayer-java)` — This interface should be implemented by the service that manages your media player (`MediaPlayer` or `ExoPlayer`) and it will allow the `AudioFocusHelper` class to make it work with audio focus.
+*   [AudioFocusRequestCompat](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocusrequestcompat-java)：使用这个类来描述您的音频焦点类型
+*   [AudioFocusHelper](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocushelper-java)：这个类帮助您处理音频焦点，您可以把它加入您的代码，但是必须确保在您的播放 service 中使用 AudioFocusAwarePlayer 这个接口。
+*   [AudioFocusAwarePlayer](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocusawareplayer-java)：这个接口应该在 service 中实现，来管理您的播放组件（MediaPlayer或者ExoPlayer），它可以确保 AudioFocusHelper 正常工作。
 
-#### Complete code sample
+#### 完整的代码示例
 
-The `[android-MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)` sample showcases how you can handle audio focus in an Android app that uses the `MediaPlayer` to actually play audio in the background. It also uses `MediaSession`.
+[android-MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService) 完整展示了音频焦点的处理，使用 **MediaPlayer** 来播放音乐，同时使用了 **MediaSession** 。
 
-The sample has a `[PlayerAdapter](https://github.com/googlesamples/android-MediaBrowserService/blob/master/app/src/main/java/com/example/android/mediasession/service/PlayerAdapter.java)` class that showcases audio focus best practices. Please take a look at at the `pause()` and `onAudioFocusChange(int)` method implementations.
+[PlayerAdapter](https://github.com/googlesamples/android-MediaBrowserService/blob/master/app/src/main/java/com/example/android/mediasession/service/PlayerAdapter.java)展示了音频聚焦的最佳实践，请注意 **pause()** 和 **onAudioFocusChange(int)** 方法的实现。
 
-### Test your code
+### 测试您的代码
 
-Once you’ve implemented audio focus in your app, you can use the Android Media Controller Tool to test how your app reacts to focus gain and loss. You can get it on [GitHub](https://github.com/googlesamples/android-media-controller#audio-focus).
+一旦您在应用中实现了音频焦点的处理，您可以使用安卓媒体控制工具来测试您的应用对音频聚焦的真实反映，具体使用方法请查阅 [GitHub/Android Media Controller](https://github.com/googlesamples/android-media-controller#audio-focus).
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZiD8Wht_tAyFC4WDwVhcjg.png)
 
-### Android Media Resources
+### Android多媒体开发资源
 
-*   [Sample code — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
-*   [Sample code — MediaSession Controller Test (with support for audio focus testing)](https://github.com/googlesamples/android-media-controller)
-*   [Understanding MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
-*   [Media API Guides — Media Apps Overview](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
-*   [Media API Guides — Working with a MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
-*   [Building a simple audio playback app using MediaPlayer](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
+*   [示例代码 — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
+*   [示例代码 — MediaSession Controller Test （带有音频焦点测试）](https://github.com/googlesamples/android-media-controller)
+*   [了解 MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
+*   [多媒体 API 指南 — 多媒体应用程序概述](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
+*   [多媒体 API 指南 — 使用 MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
+*   [使用 MediaPlayer 构建简单的音频应用程序](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
+
 
 
 ---

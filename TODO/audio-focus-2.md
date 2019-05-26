@@ -2,90 +2,88 @@
 > * 原文作者：[Nazmul Idris (Naz)](https://medium.com/@nazmul?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[oaosj](https://github.com/oaosj)
 
-# Understanding Audio Focus (Part 2 / 3)
+# 理解音频焦点 (第 2/3 部分)：更多的音频焦点用例
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
-## More Audio Focus use cases
 
-The goal of this series of articles is to give you a deep understanding of what audio focus is, why it’s important to deliver a good media UX, and how to use it. This is the second part of the series that includes:
+本系列文章旨在让您深入理解音频焦点的含义，使用方法和其对用户体验的重要性。本篇文章是该系列的第一部分，该系列三篇文章包含了：
 
-1.  [The importance of being a good media citizen and the most common Audio Focus use cases](https://medium.com/@nazmul/audio-focus-1-6b32689e4380)
-2.  Other use cases where Audio Focus is important to your media app’s UX (**_this article_**)
-3.  [Three steps to implementing Audio Focus in your app](https://medium.com/@nazmul/audio-focus-3-cdc09da9c122)
+1.  [最常见的音频焦点用例和成为一个优秀的媒体使用者的重要性](https://medium.com/@nazmul/audio-focus-1-6b32689e4380)
+2.  其它一些能体现音频焦点对应用体验的重要性的用例 (**此篇文章**)
+3.  [在您的应用中实现音频焦点的三个步骤](https://medium.com/@nazmul/audio-focus-3-cdc09da9c122)
 
-The first article in the series covered two of the most common use cases that you might encounter where audio focus is critical to the UX of your media app. This article will cover a few more, and introduce the notion of the type of audio focus that your app can request to help fine-tune the behavior of audio apps.
+本系列的第一篇文章介绍了您可能遇到的两种最常见的使用情况，其中音频焦点对您应用的用户体验至关重要。本文将继续介绍一些用例，并介绍应用可以请求的音频焦点类型的概念，以帮助应用微调音频。
 
-### Use case 1 — A navigation app running in the background gives turn-by-turn directions while another app plays audio
+### 用例一 ：当后台运行的导航程序正在播报转向语音的时候，另一个应用正在播放音乐。 
 
-#### **_What happens if your app doesn’t handle audio focus_**
+#### **您的应用不处理音频焦点的情况下：**
 
-The navigation directions and music will overlap which is distracting for the user.
+导航语音和音乐混在一起播放将会使用户分心。
 
-#### **_What should happen with your app handling audio focus_**
+#### **您的应用处理了音频焦点的情况下：**
 
-When the navigation app speaks the next direction, your app should respond to the transient audio focus loss with ducking (since this is being requested by the navigation app).
+当导航开始播报语音的时候,您的应用需要响应音频焦点丢失，选择回避模式，降低声音。
 
-Your app should _duck_ (or lower the volume to about 20%) to respond to this transient loss of audio focus. The exception is if your app is playing audiobooks, podcasts, or spoken words, in which case you should pause playback.
+这里所说的回避模式，没有约束规定，建议您做到把音量调节到百分之二十。有一些特殊的情况，如果应用是有声读物，播客或口语类应用，建议暂停声音播放。
 
-When the directions have been spoken, the navigation app will abandon audio focus, and your app will gain it again. And it should restore the volume to the original level as a response to this gain of focus.
+当语音播报完，导航应用会释放掉音频焦点，您的应用可以再次获得音频聚焦，然后恢复到原有音量播放（选择降低音量的回避模式时），或者恢复播放（选择暂停的回避模式时）。
 
-### Use case 2 — The user launches a game (that plays audio) while on a phone call
+### 用例二 ：用户在打电话的时候启动游戏（游戏播放音频）
 
-#### **_What happens if your app doesn’t handle audio focus_**
+#### **您的应用不处理音频焦点的情况下：**
 
-The user will have a bad experience with music and phone conversation overlapping.
+通话声音和游戏声音的重叠播放同样会让用户的体验非常糟糕。
 
-#### **_What should happen with your app handling audio focus_**
+#### **您的应用处理了音频焦点的情况下：**
 
-In Android O, there’s an audio focus feature called _delayed audio focus gain_ that was created for just such a scenario. An example of this is a game that the user starts while they are on a phone call, that they want to keep playing without hearing any audio, but when the call has ended they want to hear audio from the game.
+在 Android O 中，有一个应对诸如本用例的音频焦点的功能，叫做**延迟音频聚焦**。
 
-If your app supports this, and it tries to play audio while the user is in a phone call (which has acquired transient audio focus), then two things will happen.
+假如当用户在通话中打开游戏，他们想玩游戏，不想听到游戏声音。但是当他们通话结束的时候他们想听到游戏声音（通话应用暂时持有音频焦点）。如果您的应用支持**延迟音频聚焦**，会发生如下情况：
 
-1.  When your app requests permanent audio focus it will be denied the grant of focus, since it’s locked. The phone app has already acquired transient audio focus. And your app should not start playback (it will actually be granted audio focus at some later time). However, in the case your app is a game, it could just keep working without audio.
-2.  When the phone call ends, your app will be granted _audio focus gain_. This grant is delayed by some period of time AFTER the initial request was made (while the user was in a phone call). You can handle this in the same was as your would after gaining audio focus after a transitive loss. In this case, it would start audio playback.
+1. 当您的应用申请音频焦点的时候，会被拒绝并锁住，通话应用继续持有音频焦点，您的应用因此不播放音频。因为您的应用是游戏，可以正常继续操作，只是没有声音。
+2. 当通话结束，您的应用会被授权**延迟音频聚焦**。这个授权是来自刚才申请音频聚焦被拒绝后锁住的那个请求，它只是被延迟一段时间后再授权给您。您可以像上文建议应对音频焦点得失的处理方式那样处理，在本例中，此时便可以开始恢复播放。
 
-Versions of Android prior to Oreo don’t support _delayed audio focus gain_. On these versions, when your app attempts to start audio playback while the user is in a phone call, the audio focus request would simply not be granted, and playback would not start even after they ended the phone call.
+目前低于 Android O 的版本是不支持**延迟音频聚焦**这个功能的，所以本用例在其它版本下，应用并不会延迟获得音频焦点。
 
-### Use case 3 — Navigation app, or any app generating an audio notification or reminder
+### 用例三 ：导航应用或其它能生成音频通知的应用程序
 
-If you’re building an app that generates audio in bursts for short periods of time then audio focus is a very important thing for you to get right in order to deliver a good UX to your users. Examples of apps that do this are ones that generate a notification sound or a reminder sound. Or apps that generate spoken turn by turn by turn directions in the background.
+如果您正在开发一款能够在短时间内以突发的方式生成音频的应用程序，提供良好的音频焦点用户体验是非常重要的。类似的应用程序功能如：生成通知声音，提醒声音或一次又一次地在后台生成口语播放的应用程序。
 
-Let’s say that your app is running in the background and is about to generate some audio. And the user is listening to music or a podcast, and your app generates audio for a short period of time
+假设您的应用正在后台运行，并且即将生成一些音频。 用户正在收听音乐或播客，而您的应用正好在短时间内生成音频：
 
-Before your app generates audio, it should request transient audio focus (with option to duck). Only when it’s been granted focus should it play audio. And the well behaved music app should respect its transient loss of audio focus, and duck; if the other app was a podcast app, then it might consider pausing until it regains audio focus to resume playback. Failure to request audio focus will result in the user hearing their music or podcast and your app’s audio at the same time.
+在您的应用程序生成音频之前，它应该请求短暂的音频焦点。 只有当它被授予焦点时，才能播放音频。优秀的应用程序应该遵守音频焦点的短暂丢失选择降低音量，如果抢占音频焦点的应用程序是播客应用程序，则您可以考虑暂停，直到重新获得音频焦点以恢复播放为止。未能正确请求音频焦点将导致用户同时听到音乐（或播客）和您的应用音频。
 
-### Use case 4 — Voice recorder app or speech recognition app
+### 用例四 ：录音应用程序或语音识别应用程序
 
-If you’re building an app that needs to record audio for a period of time during which the system or other apps should not make any sounds (notifications or other media playback) then handling audio focus is critical to you delivering a good UX. Examples of apps that do this are voice memo recording app or a speech recognition app.
+如果您正在开发一款需要在一段时间内录制音频的应用程序，在这段时间内系统或其他应用程序不应该发出任何声音（通知或其他媒体播放），这时处理好音频焦点对于提供良好的用户体验至关重要。需要做到这些的程序如：录音或语音识别应用程序
 
-Your app should request to gain transient and exclusive audio focus. If this is granted by the system, then you can start recording audio, knowing that no other sounds generated by the system will pollute your recording. During this period of recording, if other apps were to request audio focus, then they would be denied it. When your user has completed their recording, you should abandon audio focus, so that the system can play sounds normally.
+您的应用应当请求暂时的、独占的音频焦点，如果是来自于系统授权的，那么便可以安心地开始录制，因为系统了解并确保手机在此期间可能生成或存在的其它音频不会干扰到您的录制。在此期间，来自于其它应用的音频焦点申请都会被系统拒绝。当录制完成记得释放音频焦点，以便系统授权其它应用正常播放声音。
 
-### Summary
+### 总结
 
-When your app needs to output audio, it should request audio focus (and there are different types of focus it can request).
+当您的应用程序需要输出音频时，应该请求音频焦点（并且可以请求不同类型的焦点）。
 
-Only after it has been granted focus, it should play sound. However, after you acquire audio focus you may not be able to keep it until your app has completed playing audio.
+只有在获得音频焦点之后，才能播放声音。但是，在获取音频焦点之后，您的应用程序在完成播放音频之前可能无法一直保留它。
 
-Another app can request focus, which preempts your hold on audio focus. In this case your app should either pause playing or lower its volume (ducking) to let users hear the new audio source more easily.
+另一个应用程序可以请求并抢占音频焦点。在这种情况下，您的应用程序应该暂停播放或降低其音量，以便让用户更清晰地听到新的音频来源。
 
-On Android O, if your app isn’t able to get audio focus when it asks, the system can give it to the app when it becomes available (delayed focus).
+在 Android O 上，如果您的应用程序在请求音频焦点时被拒，系统可以等音频焦点空闲时发送给您的应用程序（延迟聚焦）。
 
-To learn more about how to implement audio focus in your app read the [final article in this series](https://medium.com/@nazmul/audio-focus-3-cdc09da9c122).
+想详细了解如何在您的应用中用代码实现音频焦点，请阅读 [第三篇文章](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)。
 
-[**Understanding Audio Focus (Part 3 / 3) - Nazmul Idris (Naz) - Medium**](https://medium.com/@nazmul/audio-focus-3-cdc09da9c122)
+[**理解音频焦点 (第 3/3 部分) - Nazmul Idris (Naz) - Medium**](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)
 
-### Android Media Resources
+### Android多媒体开发资源
 
-*   [Sample code — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
-*   [Sample code — MediaSession Controller Test (with support for audio focus testing)](https://github.com/googlesamples/android-media-controller)
-*   [Understanding MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
-*   [Media API Guides — Media Apps Overview](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
-*   [Media API Guides — Working with a MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
-*   [Building a simple audio playback app using MediaPlayer](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
+*   [示例代码 — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
+*   [示例代码 — MediaSession Controller Test（带有音频焦点测试）](https://github.com/googlesamples/android-media-controller)
+*   [了解 MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
+*   [多媒体 API 指南 — 多媒体应用程序概述](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
+*   [多媒体 API 指南 — 使用MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
+*   [使用 MediaPlayer 构建简单的音频应用程序](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
 
 
 ---
