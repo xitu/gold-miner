@@ -7,7 +7,7 @@
 
 # Swift 5 中的枚举冻结
 
-你是否已经将你的 Xcode 升级到了兼容 Swift 5？此举基本上是无痛的，但你可能遇到一些关于使用其他未知值切换枚举的警告。
+你是否已经将你的 Xcode 工程升级到了兼容 Swift 5？升级 Swift 5 基本不会有大问题，但当你用 switch 语句去枚举一个未知值的时候可能会遇到很多警告。。
 
 ### 其他未知值的警告
 
@@ -26,7 +26,7 @@ func configure(for sizeClass: UIUserInterfaceSizeClass) {
 }
 ```
 
-随着我们把项目语言更新到了 Swift 5，Xcode 会发出一些警告：
+当我把项目升级到 Swift 5之后，Xcode 会报出一些警告：
 
 ![additional unknown values warning](https://useyourloaf.com/assets/images/2019/2019-04-05-001.png)
 
