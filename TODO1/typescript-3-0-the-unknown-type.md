@@ -1,3 +1,10 @@
+> * 原文地址：[TypeScript 3.0: The unknown Type](https://mariusschulz.com/blog/typescript-3-0-the-unknown-type)
+> * 原文作者：[Marius Schulz](https://mariusschulz.com) 
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-3-0-the-unknown-type.md](https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-3-0-the-unknown-type.md)
+> * 译者：
+> * 校对者
+
 # TypeScript 3.0: The unknown Type
 
 TypeScript 3.0 introduced a new `unknown` type which is the type-safe counterpart of the `any` type.
@@ -304,3 +311,9 @@ Note that the `tryDeserializeLocalStorageItem` function can't simply return `
 2. If we were to return `null` from the function, we could not return the error at the same time. Therefore, callers of our function would not know why the operation failed.
 
 For the sake of completeness, a more sophisticated alternative to this approach is to use [typed decoders](https://dev.to/joanllenas/decoding-json-with-typescript-1jjc) for safe JSON parsing. A decoder lets us specify the expected schema of the value we want to deserialize. If the persisted JSON turns out not to match that schema, the decoding will fail in a well-defined manner. That way, our function always returns either a valid or a failed decoding result and we could eliminate the `unknown` type altogether.
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
