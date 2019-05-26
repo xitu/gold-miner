@@ -1,5 +1,4 @@
-4 CSS Filters For Adjusting Color
-=================================
+# 4 CSS Filters For Adjusting Color
 
 SVG offers a non-destructive way to change some color properties of an image or graphic. Unfortunately some of those changes are more cumbersome to make than others. CSS filters allow you to non-destructively change some properties of color as well and in a less cumbersome way than SVG.
 
@@ -7,8 +6,7 @@ The last couple of weeks I've been talking about CSS filters as an alternative t
 
 Today I want to walk you through four more CSS filter-functions all of which are shortcuts to different types and values of the SVG filter primitive feColorMatrix.
 
-The feColorMatrix Filter Primitive
-----------------------------------
+## The feColorMatrix Filter Primitive
 
 The feColorMatrix primitive can be used as a general way to change some of the [fundamental properties of color](http://vanseodesign.com/web-design/hue-saturation-and-lightness/) in an element. As the name implies, the primitive makes use of a matrix of values to add different filter effects.
 
@@ -25,8 +23,7 @@ Let's walk through each of them and change the colors of what is likely a famili
 
 ![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
 
-The grayscale() filter-function
--------------------------------
+## The grayscale() filter-function
 
 The grayscale() filter-function converts an image to grayscale.
 
@@ -61,8 +58,7 @@ For comparison here's the matrix the filter-function replaces. To be fair there'
 
 Still, this is definitely a case where the CSS filter-function is a lot easier to use. The only reason I knew to use this particular matrix is because I found an example using it online. I didn't need to search for the value 1 in the filter-function.
 
-The hue-rotate() filter-function
---------------------------------
+## The hue-rotate() filter-function
 
 The hue-rotate() filter-function changes the hue of every pixel in the element by the amount you specify.
 
@@ -92,8 +88,7 @@ Here's the SVG filter for comparison. The CSS is still simpler, however in this 
 </filter>
 ```
 
-The saturate() filter-function
-------------------------------
+## The saturate() filter-function
 
 CSS also provides a saturate() filter-function that you can use to saturate or desaturate an element.
 
@@ -129,8 +124,7 @@ Like saturate(), the corresponding SVG filter is relatively simple.
 
 I mentioned earlier that you can set the type attribute to saturate for a simpler way to use feColorMatrix to create a grayscale image. All you have to do is set the value to 0 to completely desaturate the image, which produces the same as setting it to 100% grayscale.
 
-The sepia() filter-function
----------------------------
+## The sepia() filter-function
 
 Finally there's the sepia() filter-function, which converts an image to sepia.
 
@@ -167,8 +161,7 @@ There is no sepia type for feColorMatrix so to get the same sepia effect you nee
 
 I take it you agree that using the CSS filter-function is again the easier of the two options, even if the SVG offers greater flexibility in what you can do.
 
-Closing Thoughts
-----------------
+## Closing Thoughts
 
 All four of the CSS filter-functions I walked through today are shortcuts for the feColorMatrix filter primitive. Two of them replace complicated matrices and the other two replace a specific type of the primitive.
 
