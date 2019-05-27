@@ -37,7 +37,7 @@ fs.readFile(__filename, 'utf-8', (err, data) => {
 * 不得不从左至右去理解代码，使得代码变得更难以阅读。
 * 错误处理变得更加复杂，并且容易引发错误代码。
 
-为了解决上述问题，JavaScript 提出了 [**Promise**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。**现在，我们可以使用链式结构取代回调函数嵌套的结构。**下面是一个例子 ——
+为了解决上述问题，JavaScript 提出了 [**Promise**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。**现在，我们可以使用链式结构取代回调函数嵌套的结构**。下面是一个例子 ——
 
 ![使用 promise](https://cdn-images-1.medium.com/max/2000/1*RMxmAiwD-QFKspkHx_nKmA.png)
 
@@ -265,7 +265,7 @@ const printNumbersRecursive = () => {
 };
 ```
 
-你可以在 [**repl.it**** console**](https://repl.it/@ArfatSalman1/blogsequentialnumbers) 上运行上面的代码。
+你可以在 [**repl.it console**](https://repl.it/@ArfatSalman1/blogsequentialnumbers) 上运行上面的代码。
 
 如果允许你使用 async 函数，那么这个挑战解决起来将会简单得多。
 
