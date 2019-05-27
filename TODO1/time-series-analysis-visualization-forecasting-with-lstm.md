@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-visualization-forecasting-with-lstm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-visualization-forecasting-with-lstm.md)
 > * 译者：[Minghao23](https://github.com/Minghao23)
-> * 校对者：
+> * 校对者：[Xuyuey](https://github.com/Xuyuey)
 
 # 时间序列分析、可视化、和使用 LSTM 预测
 
@@ -17,7 +17,7 @@
 
 ## 数据
 
-该数据是对一个家庭在近四年的时间里以一分钟采样率测量的电力消耗，可以在[这里](https://www.kaggle.com/uciml/electric-power-consumption-data-set)进行下载。
+该数据是在近四年的时间里对一个家庭以一分钟采样率测量的电力消耗，可以在[这里](https://www.kaggle.com/uciml/electric-power-consumption-data-set)下载。
 
 数据包括不同的电量值和一些分表的数值。然而，我们只关注 Global_active_power 这个变量。
 
@@ -232,7 +232,7 @@ ax5.tick_params(axis='both', which='major');
 
 ![图 5](https://cdn-images-1.medium.com/max/2930/1*CFEGvZ4t-iPKZH8ciOjEew.png)
 
-通常来说，我们的时间序列不会存在上升或下降的趋势。最高的平均耗电量似乎是在 2007 年之前，实际上这是因为我们在 2007 年只有 12 月的数据，而那个月是用电高峰月。也就是说，如果我们逐年比较，这个序列其实较为平稳。
+通常来说，我们的时间序列不会存在上升或下降的趋势。最高的平均耗电量似乎是在 2007 年之前，实际上这是因为我们在 2007 年只有 12 月的数据（译者注：原文有误，应该是只有 2006 年 12 月的数据），而那个月是用电高峰月。也就是说，如果我们逐年比较，这个序列其实较为平稳。
 
 ## 绘制总体有功功率均值图，并以年、季、月和天分组
 
@@ -321,9 +321,9 @@ plt.legend(loc='upper right');
 
 ## Dickey-Fuller 检验
 
-[**零检验**](https://en.wikipedia.org/wiki/Null_hypothesis)（H0）：表明时间序列有一个单位根，意味着它是非平稳的。它包含一些时间相关的成分。
+[**零检验**](https://en.wikipedia.org/wiki/Null_hypothesis)（H0）：表明时间序列有一个单位根，意味着它是非平稳的。它包含一些和时间相关的成分。
 
-[**备择检验**](https://en.wikipedia.org/wiki/Alternative_hypothesis)（H1）：表明时间序列不存在单位根，意味着它是平稳的。它不包含时间相关的成分。
+[**备择检验**](https://en.wikipedia.org/wiki/Alternative_hypothesis)（H1）：表明时间序列不存在单位根，意味着它是平稳的。它不包含和时间相关的成分。
 
 p-value > 0.05：接受零检验（H0），数据有单位根且是非平稳的。
 
@@ -403,7 +403,7 @@ X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 
 ## 模型结构
 
-* 定义 LSTM 模型，第一个隐藏层含有 100 个神经元，输出层含有 1 个神经元，用于预测 Global_active_power。输入的维度是包含 30 个特征的一个时间步长。
+* 定义 LSTM 模型，第一个隐藏层含有 100 个神经元，输出层含有 1 个神经元，用于预测 Global_active_power。输入的维度是一个包含 30 个特征的时间步长。
 * 随机失活 20%。
 * 使用均方差损失函数，和改进于随机梯度下降的效率更高的 Adam。
 * 模型将会进行 20 个 epochs 的训练，每个 batch 的大小为 70。
