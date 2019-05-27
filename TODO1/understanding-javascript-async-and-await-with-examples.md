@@ -69,7 +69,7 @@ async 函数在 **ES2017** (ES8) 中引入，使得 promise 的应用更加简�
 
 ### 语法
 
-async/await 包含两个关键字 async 和 await。**`async`** **用来使得函数可以异步执行**。`async` 使得在函数中可以使用 `await` 关键字，除此之外，在任何地方使用 `await` 都属于语法错误。
+async/await 包含两个关键字 async 和 await。**`async` 用来使得函数可以异步执行**。`async` 使得在函数中可以使用 `await` 关键字，除此之外，在任何地方使用 `await` 都属于语法错误。
 
 ```
 // 应用到普通的声明函数
