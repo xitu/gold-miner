@@ -2,58 +2,58 @@
 > * 原文作者：[Dave Ceddia](https://daveceddia.com/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implement-a-design-with-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implement-a-design-with-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[cyz980908](https://github.com/cyz980908)，[Moonliujk](https://github.com/Moonliujk)
 
-# Implementing a Mockup: CSS Layout Step by Step
+# 从原型图到成品：步步深入 CSS 布局
 
-![Implementing a mockup with CSS](https://daveceddia.com/images/css-layout-header.png)
+![用 CSS 将原型实现](https://daveceddia.com/images/css-layout-header.png)
 
-Creating layouts is one of the hardest parts of front end development for a lot of people.
+对很多人来说，创建布局是前端开发领域中最难啃的骨头之一。
 
-You can spend **hours** trying random CSS properties, copying and pasting from Stack Overflow, and hoping to stumble upon that **magical combination** that will produce the layout you want.
+你肯定经历过耗费数个小时，换着花样地尝试所有可能起作用的 CSS 属性、一遍遍地从 Stack Overflow 上复制粘贴代码，寄希望于误打误撞地赌中那个能实现预期效果的**魔幻组合**。
 
-If your usual strategy is to approach layout in an item-by-item way – put A over **here**, and now that A is in its place, I want to put B over **there**… well, that’s a guaranteed route to frustration. CSS doesn’t work like Sketch or Photoshop.
+如果你的惯用策略就是按部就班地组合布局 —— 先把 A 元素放在这儿，好了，A 元素就位了，我再看怎么把 B 放在那儿 …… 那你没有挫败感才怪呢。CSS 的玩法可与 SKetch 或者 Photoshop 的玩法不一样。
 
-In this post I want to show you a way to approach layouts wholistically, as a cohesive problem to be solved.
+在本文中，我将向你展示如何以统筹全局的思维实现 CSS 布局，根治布局难产的顽疾。
 
-We’ll go through a small example, start to finish, and I’ll explain all the CSS along the way – so even if you don’t know or remember how `position` and `display` work, or you can’t tell your `align-items` from your `justify-content`, you’ll get something out of this.
+我们将用一个小案例贯穿全文，我会把所有的 CSS 代码都解释给你听，因此即使你不知道或者忘记了 `position` 和 `display` 的用法，即使你分不清 `align-items` 和 `justify-content` 的区别，你仍会有所斩获。
 
-We’re also gonna use plain HTML and CSS here, so you don’t need to know anything about React/Vue/Angular/CSS-in-JS or even JavaScript.
+而且我们会用纯 HTML 和 CSS 代码来演示，因此你不需要 React、Vue、Angular、CSS-in-JS 甚至是 JavaScript 方面的知识储备。
 
-Sound good? Let’s get into it.
+听起来很棒吧？那就开始吧。
 
-## A Small Layout Example
+## 布局小例子
 
-For this post we’re going to replicate something that looks like a tweet:
+在本文中，我们要比照 Twitter 的推文组件自己仿写一个：
 
-![Sketch of a tweet](https://daveceddia.com/images/tweet-sketch.jpg)
+![推文组件的草图](https://daveceddia.com/images/tweet-sketch.jpg)
 
-Whether you’re starting from a sketch like this, or a pixel-perfect mockup, it’s a good idea to have **something** to go off of.
+不论是一个像这样的草图，还是一个细节精美的原型图，“有章可循” 总是个好主意。
 
-CSS layout goes more smoothly when you’re not trying to cobble it together in the browser while simultaneously designing it in your head. You absolutely **can** get to that level! But if you’re reading this, I’ll assume you’re not there **yet** :)
+要避免一边在脑海里设计，一边在浏览器中七拼八凑地攒布局，这样的开发过程才会更顺畅。你当然**可以**达到那种手脑合一的境界！但鉴于你还在乖乖地读这篇文章，我可以假设你**还没有**那么神通广大。:)
 
-## First Step: Identify the Pieces
+## 第一步：分而治之
 
-Before we write any HTML or CSS, we’ll highlight the individual parts of this layout:
+在动手敲代码之前，我们先把布局的各个单元区分开来：
 
-![Tweet with component parts highlighted](https://daveceddia.com/images/tweet-highlighted.jpg)
+![划分推文组件的各个单元](https://daveceddia.com/images/tweet-highlighted.jpg)
 
-When laying things out with CSS I find it helpful to think in terms of rows and columns. So you either have elements going **down** the page one-after-another, or a series of elements arranged left-to-right. Thinking in terms of rows and columns maps nicely to two layout techniques CSS gives us: Flexbox and Grid.
+在用 CSS 铺排布局时，用行和列的形式去构思大有裨益。因此，要么你把元素从上到下排列，要么从左到右排列。这种行和列的思路完美对应了 CSS 中两种布局技术：Flexbox 和 Grid。
 
-This layout doesn’t really look like rows and columns, though. There’s an image flush-left, and a jumble of stuff to the right of it.
+当然了，我们的示例布局并不是中规中矩的行列。它有一张图片镶嵌在左侧，其他元素排列在右侧。
 
-## Second Step: Draw Boxes Around Stuff
+## 第二步：沿着各个单元画方框
 
-Let’s draw some boxes around the elements and see if we can get this into some semblance of rows and columns. We’ll put boxes around the parts that are flowing in the same direction.
+画一些方框把这些元素框起来，看看行和列是否初具规模。我们把方向一致的单元归到同一个方框中。
 
-![Tweet with boxes around sections](https://daveceddia.com/images/tweet-first-level-layout-boxes.jpg)
+![将推文组件的不同单元框起来](https://daveceddia.com/images/tweet-first-level-layout-boxes.jpg)
 
-Every element you place on the page with HTML is **basically** a rectangle. Sure, sometimes they have rounded corners, or they’re circles, or fancy SVG shapes… Often you don’t actually **see** a bunch of rectangles on the page. But you can always draw a bounding box around a thing. So it helps to imagine everything as a rectangle.
+在页面中的 HTML 元素基本上都可视为矩形。当然，有些元素有圆角，有些元素是圆形，或者是复杂的 SVG 形状等。通常你**看不到**页面上有一堆矩形。但你可以用矩形边框的模式去分析它们。这样的想象能帮你理解布局。
 
-I mention the rectangles because if you have a set of items you need to align – like the first row with the Name/@handle/Time or the last row with the icons – you can always wrap them in a box for styling purposes, to make it easier to arrange them.
+之所以提到矩形，是因为你要把一系列元素对齐 —— 如第一行的用户名、@handle（译者注：handle 属于专有名词，指 Twitter 中的用户 ID，所以在本文中保留不译。详见 [https://www.urbandictionary.com/define.php?term=twitter%20handle](https://www.urbandictionary.com/define.php?term=twitter%20handle)）和时间以及最后一行的图标 —— 把它们用方框包起来便于规划。
 
-If we were to stop here, and code this up in HTML, we’d have something like this:
+按目前的规划，把布局用 HTML 代码实现出来大概如下所示：
 
 ```html
 <article>
@@ -78,19 +78,19 @@ If we were to stop here, and code this up in HTML, we’d have something like th
 </article>
 ```
 
-And you’d see something like this (here’s a [sandbox](https://codesandbox.io/embed/wo6wvvynlw)):
+展示出的效果是这样的（可以点击[这里](https://codesandbox.io/embed/wo6wvvynlw)调试代码）：
 
-![Screenshot of tweet with default styling](https://daveceddia.com/images/tweet-default-layout.png)
+![推文组件的默认样式](https://daveceddia.com/images/tweet-default-layout.png)
 
-…which is not even close to what we want. But! All the content is there. And some of the clusters of elements are even flowing in the right direction.
+这离我们想要的效果还远呢。但是！所有所需的内容都齐全了。有些元素还以从左到右的顺序排列。
 
-You could make the case that this layout gets the point across even **without** further styling, and that’s a great benchmark to aim for with HTML.
+我们可以认为，即使不用进一步设置样式，目前的布局效果也能达到网页想表达的要点，这也是一个优秀的 HTML 应该达到检查标准。
 
-### A Note on Semantic HTML
+### 关于语义化 HTML 的说明
 
-You might wonder why I picked those particular elements – the `article`, the `p`, etc. Why not make everything a `div`?
+你可能会好奇，为何我选的是那些元素 —— `article`、`p` 等等。为何不都用 `div` 呢？
 
-Why this…
+为何要这样写：
 
 ```html
 <article>
@@ -109,7 +109,7 @@ Why this…
 </article>
 ```
 
-Instead of this?
+而不这样写？
 
 ```html
 <div>
@@ -126,75 +126,75 @@ Instead of this?
 </div>
 ```
 
-Well, the names of HTML elements actually have meanings, and it’s a good idea to use elements that semantically match the thing they represent.
+其实，每个 HTML 元素的名称都有其特定含义，在不同场景中恰如其分地使用语义上与它们所表示的内容匹配的元素，是很好的语义化实践。
 
-It’s good for humans, like the programmer trying to decipher the code, and the viewer using an assistive technology like a screenreader. It’s also good for search engines, which are trying to decipher what the page **means**, so they can show relevant ads and make a ton of money help searchers find what they’re looking for.
+这种写法，首先，有助于开发者理解代码；其次，对使用屏幕阅读器等辅助设备的用户比较友好。同时这样用标签也有利于 SEO —— 搜索引擎会试着理解这个页面的含义，以便于显示相关广告来盈利、帮助搜索者找到满意结果。
 
-The `article` tag represents an article-like thing, and a tweet is sorta like an article if you squint hard enough.
+`article` 标签代表文章类内容，而你可以认为推文这种东西有点类似于一篇文章。
 
-A `p` tag represents a paragraph, and the text of the tweet is sorta like a paragraph.
+`p` 标签代表段落，而推文的内容文本有点类似于一个段落。
 
-The `ul` tag represents an unordered list of things (as opposed to an ordered, or numbered, list), and in this case it holds a list of actions you can take.
+`ul` 标签代表无序列表（与有序列表或数字序号列表相对应），在本示例中，你可以用它来存放列表信息。
 
-The semantic meanings of HTML elements and which specific ones to use in specific situations is… not straightforward. But for the most part, a semantic element – even a very loosely-related one – will be better than a `div`, which just denotes “a division”.
+我们无法用只言片语就说清楚 HTML 元素的语义，以及何种情况用何种标签。但大多数情况下，一个语义化元素即使其语义再不贴切，也比用 `div` 强，`div` 标签只代表 “一块区域”。
 
-### Default Styling of Elements
+### 元素的默认样式
 
-What makes it look the way it does? Why are some elements on their own line, while others appear side-by-side?
+是什么决定了元素的样式？为什么有的元素独占一行，而有的元素能共处一行？
 
-![Screenshot of tweet with default styling](https://daveceddia.com/images/tweet-default-layout.png)
+![默认样式下的推文组件](https://daveceddia.com/images/tweet-default-layout.png)
 
-This happens because of the **default styling** applied to the elements, and it brings us to our first bit of CSS knowledge: **inline** versus **block** elements.
+这要归因于元素的**默认样式**，这其中就有我们要探讨的第一个 CSS 知识点：**行内元素**和**块级元素**。
 
-**Inline elements** will squeeze next to each other on one line (and wrap if they have to, just like words in a sentence). A `span`, a `button`, and an `img` are all inline elements, according to default browser styling.
+**行内元素**们肩并肩挤在一行里（就像句子中的词一样，必要时会折行）。根据再浏览器中的默认样式划分，`span`、`button` 以及 `img` 都是行内元素。
 
-**Block elements**, on the other hand, like to stand alone. In terms of console output, you could think of a block element as having a `\n` newline before and after it. It’s like a `console.log("\ndiv\n")`. The `article`, `div`, `li`, `ul`, and `p` tags are block-level elements.
+而**块级元素**，总是踽踽独行。以控制台输出的方式去理解，你可以认为块级元素前后各有一个换行符 `\n`。就好像`console.log("\ndiv\n")`。`article`、`div`、`li`、`ul` 以及 `p` 标签都是块级元素。
 
-In the example above, notice how the avatar image is on its own line, even though the `img` tag is inline? That’s because the `div` below it is a block element.
+注意，在上面的例子中，为什么即使 `img` 标签是行内元素，头像图片依然独占一行？因为它下方的 `div` 是块级元素。
 
-Then, notice how the @handle, Name, and time are all on one line? That’s because they’re inside `span` tags, which are inline.
+然后要注意，为什么 @handle、用户名和时间都在同一行？原因是它们都在 `span` 标签中，而 `span` 是行内元素。
 
-Those three are on a separate line from the “insightful message” because (a) they’re within a `div`, which will have a newline after it and (b) the `p` tag is **also** a block element, so it would’ve forced a newline too. (you don’t see 2 newlines though, for the same reason that HTML combines adjacent whitespace).
+这三个 `span` 和 文字 “insightful message” 处于不同行，因为（a）它们被包在一个 `div` 中，`div` 后面自然要另起一行；（b）`p` 标签同样是块级元素，它自然从新行开始排列。（之所有没有出现两个空行，是因为 HTML 合并了相邻的空行，与相邻空格同理。）
 
-If you look closely, you’ll notice the space above and below the “insightful message” is **bigger** than the space between the avatar image and the handle/name/time below it. That space is controlled by the default styles too: `p` tags have a top and bottom **margin**.
+如果你再看得仔细点，你会发现 “insightful message” 的上下方空间，要比头像图片以及 handle、用户名、时间的上下方空间要大。此空间的大小也由默认样式控制：`p` 标签的顶部和底部都有 **margin**。
 
-You’ll also notice the bullets on the list of buttons, and that the bulleted list is indented. That’s all default styling too. We’re gonna turn it off in a bit.
+你也会注意到按钮列表的圆点，以及列表的缩进行为。这些也都是默认样式。我们马上就要修改这些默认样式了。
 
-## Step Three: More Boxes
+## 第三步：再画一些方框
 
-We want to arrange the avatar image on the left, and everything else to the right. Given what you know about inline and block elements, you might think you could just wrap the right-side stuff in an inline element like a `span`.
+我们想把头像图片放在左侧，其余元素放在右侧。你可能会根据刚刚探讨的行内和块级知识来推断，认为只要把右侧的元素都包裹到一个如 `span` 标签般的行内元素中，就完事大吉了。
 
-That won’t work, though. An inline element won’t prevent block elements inside it from breaking the line.
+但这是行不通的。行内元素并不能阻止其内部的块级元素另起一行。
 
-To arrange elements the way we want, we’re going to need something more powerful, like Flexbox or Grid layout. We’ll solve this one with flexbox.
+为了把这些元素收拾得服服帖帖，我们需要用一些更强大的技术，比如 Flexbox 或者 Grid 布局。这次我们选用 Flexbox 来解决。
 
-### How Flexbox Works
+### Flexbox 的原理
 
-CSS “flex” layouts can arrange items into rows **or** columns. It’s a one-dimensional layout system. In order to have alternating rows and columns (like in our tweet design), we’ll need to add a few wrapper elements to flip the direction.
+CSS 的 Flex 布局能够把元素以行**或者**列的形式排布。这是一种单向的布局系统。为了实现交叉的行和列（正如推文组件的设计那样），我们需要添加一些容器元素来扭转方向。
 
-![Tweet with boxes around every layer of the layout](https://daveceddia.com/images/tweet-all-layout-boxes.jpg)
+![每一层布局都用方框包围](https://daveceddia.com/images/tweet-all-layout-boxes.jpg)
 
-You can turn on flex layout for a container by setting the property `display: flex;`. The container itself will then be a block-level element (so it’ll get its own line), and the elements **inside** the container will become “flex items” – meaning they’re no longer inline or block; they’re controlled by the flex container.
+你可以在容器上设置 `display: flex;` 来启用 Flex 布局。容器本身是块级元素（得以独占一行），其内部元素会成为 “Flex 子项” —— 即它们不再是行内或块级元素了；它们都受 Flex 容器控制。
 
-In our case, we’ll have a few flex containers nested within each other, so that we can arrange some of them into rows and some into columns.
+在本例中，我们会设置一些嵌套的 Flex 容器，让该成行的成行，该成列的成列。
 
-We’ll arrange the outer wrapper (the green box) into columns, then the blue box will be arranged into rows, and each of the red boxes will be columns again.
+我们把外层容器（绿色方框）设置为列，蓝色方框设置为行，而红色方框中的元素排布在列中。
 
-![Tweet with arrows showing flex directions](https://daveceddia.com/images/tweet-layout-arrows.jpg)
+![箭头方向即为 Flex 布局方向](https://daveceddia.com/images/tweet-layout-arrows.jpg)
 
-### Why Flexbox Instead of Grid?
+### 为何选 Flexbox 布局，不选 Grid 布局？
 
-I’m using flexbox here instead of CSS Grid for a few reasons. I think flexbox is a bit easier to learn, and it’s also better-suited to small layouts than grid. Flexbox is especially good for layouts where things are **mostly rows** or **mostly columns**.
+由于一些原因，我决定用 Flexbox 布局而不用 Grid 布局。我觉得 Flexbox 布局更易于学习，也更适用于轻量级的布局。当布局中**主要是行**或者**主要是列**时，Flexbox 布局的表现更出色。
 
-The other important thing to know is that even though Grid is newer than Flexbox, Grid does not **replace** Flexbox. They are each well-suited to different kinds of layouts, and it’s good to know both. In some layouts you might even use both – say, Grid to lay out a page and Flexbox for a contact form within the page.
+另一个重点就是，即使 Grid 布局比 Flexbox 布局年轻，前者也撼动不了后者的地位。它们各自适用于不同的场景，对于二者，我们都要学习，技不压身。有些情况你甚至会同时使用二者 —— 例如 Grid 布局排布整体页面，而 Flexbox 布局调控页面中的一个表单。
 
-I know, I know… in other corners of web dev, the “new hotness” always replaces the “old and busted”, but CSS doesn’t work that way. Flexbox and Grid happily coexist.
+没错没错，在 Web 开发的世界，普遍的更替法则是后浪推前浪，但 CSS 并不如此。Flexbox 和 Grid 能够和谐共存。
 
-There’s usually more than one way to solve a problem with CSS!
+用 CSS 解决问题，条条大路通罗马！
 
-### Step Four: Apply Flexbox
+### 第四步：应用 Flexbox
 
-Alright, now that we have a plan, let’s apply some styles. I’ve gone and wrapped the left-side stuff in a `div`, and given a `class` to most of the elements to make them easier to target with CSS.
+好了，既然我们已经打定主意，那就开动吧。我把左侧元素包进一个 `div`，并给元素们设置类名，便于应用 CSS 选择器。
 
 ```html
 <article class="tweet">
@@ -222,15 +222,15 @@ Alright, now that we have a plan, let’s apply some styles. I’ve gone and wra
 </article>
 ```
 
-([here’s the CodeSandbox](https://codesandbox.io/s/0y98qov0rn))
+（[代码在这里](https://codesandbox.io/s/0y98qov0rn)）
 
-Visually, it still looks the same.
+看着好像没有变化。
 
-![Screenshot of tweet with default styling](https://daveceddia.com/images/tweet-default-layout.png)
+![默认样式下的推文组件](https://daveceddia.com/images/tweet-default-layout.png)
 
-That’s because `div`s, aside from being block elements (and introducing a newline if there wasn’t one) are otherwise invisible. When you need something to contain other elements, and there’s not a more semantic option, a `div` makes a great wrapper.
+这是因为 `div` 作为块级元素（如果没有空行就引入一个）是看不见的。当你需要一个包裹其他元素的容器，除了 `div` 之外没有更贴合语义的选择了。
 
-Here’s our first bit of CSS, which we’ll put inside a `style` tag inside the `head` tag of the document:
+下面咱们的第一段 CSS 代码，我们会把它放在 HTML 文档中 `head` 标签的 `style` 里：
 
 ```css
 .tweet {
@@ -238,21 +238,21 @@ Here’s our first bit of CSS, which we’ll put inside a `style` tag inside the
 }
 ```
 
-It’s a step in the right direction! We’re using a **class selector** to target **all elements** with the class of `tweet`. We only have one such element, but if we had ten of ‘em, they would all be flex containers now.
+干得漂亮！我们用**类选择器**锁定了**所有**类名为 `tweet` 的元素。当然目前只有一个这样的元素，但如果有十个，那它们将都会是 Flex 容器了。
 
-The leading `.` in CSS means it’s a class selector. Why a `.`? I dunno. You’ll just have to commit that one to memory.
+CSS 中以 `.` 开头的选择器代表类选择器。为什么是 `.`？我可不知道。你只要记住这条规则就行了。
 
-![Screenshot of tweet with display:flex](https://daveceddia.com/images/tweet-display-flex.png)
+![设置了 display:flex](https://daveceddia.com/images/tweet-display-flex.png)
 
-Now the content is to the right of the avatar… but the image is skewed pretty weird.
+现在文字内容都到头像右侧去了。问题是头像图片都扭曲变形了。
 
-This is because, by default, a flex container will:
+因为 Flex 容器会默认：
 
-* arrange its items side-by-side
-* make them only as wide as the content they contain, and
-* set all of their heights based on the tallest one.
+* 把子项排成一行；
+* 让子项与其内容等宽，并 ——
+* 把所有子项的高度拉平为最高子项的高度。
 
-We can control their vertical alignment with the `align-items` property.
+我们可以用 `align-items` 属性来控制垂直方向的对齐方式。
 
 ```css
 .tweet {
@@ -261,23 +261,23 @@ We can control their vertical alignment with the `align-items` property.
 }
 ```
 
-The default for `align-items` was `stretch`, but setting it to `flex-start` shoves them up to the top, **and** it lets the items govern their own heights.
+`align-items` 的默认值是 `stretch`，而将其设为 `flex-start` 后，会让子项沿着容器顶部对齐，**并且**让子项保持各自的高度。
 
-### Direction: Row or Column?
+### 方向的辩证：行还是列？
 
-By the way, the default direction for flex containers is `flex-direction: row;`. Yes, it’s called “row,” even though, depending on how you look at it, you might be inclined to call that 2 columns. Think of it instead as a **row** of items side-by-side and it’ll make more sense.
+另外，Flex 容器的默认排列方向是 `flex-direction: row;`。是的，这个方向是 “行”，即使我们可能感觉那更像是两列。要把它想成是子项们排成一**行**，这样理解就舒服多了。
 
-Kind of like this picture of a vase. Or two faces. Whatever.
+有点像这张花瓶的图片，或者说两张脸的图片。横看成岭侧成峰。
 
-![Rubin's vase](https://daveceddia.com/images/Rubins-vase.jpg)
+![Rubin 的花瓶](https://daveceddia.com/images/Rubins-vase.jpg)
 
 [Wikipedia](https://en.wikipedia.org/wiki/Rubin_vase)
 
-### Content Should Take More Space
+### 给文字内容更多的空间
 
-The flex items only take as much horizontal space as they need, but we’d like the `content` area to take up as much width as possible.
+Flex 布局的子项仅取其所需宽度，但我们需要 `content` 区域尽量宽敞一些。
 
-To do that, we’ll apply the `flex: 1;` property to the `content` div. (Since it has a class, we’ll use another class selector!)
+因此，我们要给 `content` 这个 div 设置 `flex: 1;` 属性。（该 div 有类名，那我们就又可以用类选择器啦！）
 
 ```css
 .content {
@@ -285,7 +285,7 @@ To do that, we’ll apply the `flex: 1;` property to the `content` div. (Since i
 }
 ```
 
-And we’ll also add some space between the avatar and the content, by giving the avatar a little margin:
+我们也要给头像设置 `margin`，好在头像和文字之间加点空隙：
 
 ```css
 .avatar {
@@ -293,41 +293,41 @@ And we’ll also add some space between the avatar and the content, by giving th
 }
 ```
 
-![Screenshot of tweet with display:flex](https://daveceddia.com/images/tweet-with-avatar-margin.png)
+![设置了 display:flex](https://daveceddia.com/images/tweet-with-avatar-margin.png)
 
-Looking a little better!
+看起来顺眼一些了吧！
 
-### margin vs padding
+### margin 和 padding
 
-So… why `margin` instead of `padding`? And why put it on the right of the avatar, instead of the left of the content?
+那…… 为什么用 `margin` 而不用 `padding`？为什么要设置在头像右侧，而不是文字内容左侧呢？
 
-As a general rule: put margins on the right and bottom of things, instead of left and top.
+这是一条约定俗成的规则：在元素右侧和下方设置 margin，不去碰左侧和上方的 margin。
 
-At least for layouts like English, things flow from right to left and top to bottom, so in a sense, each element “depends on” the one to its left, or the one above it.
+至少是在英文界面的布局中，文档流的方向是从左到右、从上到下的，因此，每个元素都 “依赖” 其左侧和上方的元素。
 
-With CSS, every item’s position is affected by those “before” it. (at least until you start messing with `position: absolute` and friends)
+在 CSS 中，每个元素的定位都受到其左侧和上方的元素的影响。（至少在你遇见 `position: absolute` 那帮家伙之前是这样的。）
 
-### Separation of Concerns
+### [SoC 原则（Separation of Concerns）](https://www.cnblogs.com/wenhongyu/archive/2017/12/06/7992028.html)
 
-Technically, in this case, where & how we place the gap between the `avatar` and the `content` doesn’t really matter. Space is space, and there are no borders to interfere (`padding` goes inside borders; `margin` goes outside).
+从技术实现的角度来说，怎样设置 `avatar` 和 `content` 之间的空隙都一样。该是多宽就是多宽，没有 `border` 的干扰（`padding` 在 `border` 的内侧；而 `margin` 在外侧）。
 
-But it does matter in terms of maintainability, and in terms of how you **think about** the elements from the standpoint of organization.
+但当事关可维护性、对元素的全局观时，这就有区别了。
 
-I try to think of each element as a standalone thing, with the same intention as having a JavaScript function that only does One Thing: if each thing only has one job to do, it’s easier to write the code, and easier to debug when it goes wrong.
+我曾尝试把元素理解为一个个独立个体，就像每个 JavaScript 函数只实现单一功能一样：如果它们都仅仅扮演单一的角色，那么写起代码来就很容易，报错时调试也很容易。
 
-If we had added the margin to the left of the `content`, and then one day decided to delete the `avatar`, we’d be left with that space. We’d have to hunt down what was causing the extra space (the surrounding `tweet`? the `content`?) and get rid of it.
+如果我们把 margin 设置到 `content` 的左侧，后来有一天我们去掉了 `avatar`，可是以前的缝隙还留在那。我们还得排查导致额外空间的原因（是来自 `tweet` 容器吗？ 还是来自 `content` 呢？）并把它处理掉。
 
-Or, if the `content` had the left margin and we decided to replace the `content` with some **other** thing, we’d need to remember to **add the space back** to whatever took its place.
+或者，如果 `content` 设置了左侧的 margin，而我们想要把 `content` 替换成别的元素，我们还要记着再**把之前那个空隙补上**。
 
-Ok, that was a lot to say about 10 pixels. Put the margins on the right and bottom. Let’s get back to styling.
+好了好了，为了 10 像素的事，没必要费这么多口舌，干脆就把 margin 设在头像的右侧和下方。让我们继续埋头敲代码吧。
 
-### Removing the List Style
+### 移除列表的样式
 
-The `ul` unordered list and the `li` list items inside it come stock with a bunch of space on the left, and bullets. We don’t want any of that.
+无序列表 `ul` 和其中的列表项 `li` 在左侧窝藏了很大空间，还有一些圆点。这都不是我们想要的效果。
 
-The unordered list has a lot of left padding that we can turn off. Let’s also make it a flex container, so that the buttons will be arranged side-by-side (in a row, remember… with `flex-direction: row` by default)
+我们可以把无序列表左侧的空隙都清除掉。我们还要把它变成一个 Flex 容器，这样里面的按钮就能排成一行了（用 `flex-direction: row`）。
 
-The list items have a `list-style-type` of `disc` which shows the bullets, and we can turn that off by setting `list-style: none;` (`list-style` is a **shorthand property** that sets multiple other properties, including `list-style-type`, at the same time).
+列表项有个属性是 `list-style-type`，默认值为 `disc`，使得每个列表项以圆点开头，我们用 `list-style: none;` （`list-style` 是一个**缩写属性**，整合了几个其他属性，其中就包括 `list-style-type`）将该效果关闭。
 
 ```css
 .actions {
@@ -339,31 +339,31 @@ The list items have a `list-style-type` of `disc` which shows the bullets, and w
 }
 ```
 
-![Screenshot of tweet with actions side-by-side](https://daveceddia.com/images/tweet-actions-display-flex.png)
+![按钮排成一排](https://daveceddia.com/images/tweet-actions-display-flex.png)
 
-The `.actions` selector is just another class selector. Nothing special there.
+`.actions` 又是一个类选择器。原汁原味。
 
-The `.actions li` selector, though, says “all `li` elements **anywhere inside** elements with class `actions`”. It’s a combination of a class selector (`.actions`) and an element selector (`li`).
+而 `.actions li` 选择器，意即 “`actions` 类元素中所有的 `li` 元素”。它是类选择器和元素选择器的结合。
 
-Separating selectors with a space like that **narrows down the selection** with each one. CSS actually reads selectors in reverse order. It goes “find all the `li`s on the page” and then “ok now only target the `li`s that are somewhere inside an element with class of `actions`”. You can think about it either way and you’ll get the same result. (more on the reasoning behind it [at StackOverflow](https://stackoverflow.com/questions/5797014/why-do-browsers-match-css-selectors-from-right-to-left))
+复合选择器中用以分隔的空格代表着**选择范围的缩小**。事实上，CSS 是以倒序读取选择器的。其过程是 “先找到页面中所有的 `li`，然后在这些 `li` 中找到类名是 `actions` 的那些”。但无论你用正序还是倒序的方式去理解，结果都是一样的。（在 [StackOverflow](https://stackoverflow.com/questions/5797014/why-do-browsers-match-css-selectors-from-right-to-left) 查看更多详解）
 
-### Spread out the Buttons
+### 横排按钮
 
-We can spread out the buttons a few ways.
+要横排按钮有好几种方式。
 
-One would be by setting the **justification** of the flex items. You’re probably familiar with these buttons at the top of pretty much every rich text editor ever:
+一种就是设置 Flex 子项的对齐方式。你应该对设置对齐方式很熟悉，每个富文本编辑器顶部都有这种功能的按钮：
 
-![Justification buttons for left/center/right/justify](https://daveceddia.com/images/justify-buttons.png)
+![对齐按钮：左对齐/居中对齐/右对齐/两端对齐](https://daveceddia.com/images/justify-buttons.png)
 
-They justify the content in your document to the left, center, right, or, uhh, “justified” a.k.a. full-width.
+它们把文本进行左对齐、居中对齐、右对齐以及 “两端对齐”，也就是铺满整行。
 
-In flexbox you can do the this with the `justify-content` attribute. When you’re in `flex-direction: row` (the default, and the one we’ve been using so far), `justify-content` will move the items left and right. It defaults to `flex-start` (so everything is squeezed to the left). If we set `justify-content: space-between` on the `.actions` it will distribute them evenly across the entire width, like this:
+在 Flexbox 布局中，你可以用 `justify-content` 属性来实现对齐。设置了 `flex-direction: row`（默认值，也是本文中一直在用的设置）后，可以通过 `justify-content` 把子项进行或左或右地对齐。`justify-content` 的默认值为 `flex-start`（因此所有元素都向左看齐）。如果我们给 `.actions` 元素设置 `justify-content: space-between`，它们就会均匀地铺满整行，就像这样：
 
-![Tweet with buttons justified space-between](https://daveceddia.com/images/tweet-justify-content-space-between.png)
+![按钮对齐：justify-content:space-between](https://daveceddia.com/images/tweet-justify-content-space-between.png)
 
-That’s not quite what we want, though. It’d be better if they didn’t span the whole width. So take that out.
+可我们想要的不是这样的效果。如果这几个按钮可以不占满整行会更好。所以得换一种方式。
 
-Instead, we can apply a right margin to each of the list items to space them out. Let’s also give the whole tweet a border so we can tell what’s going on. `1px solid #ccc` will make it 1 pixel wide, a solid line (as opposed to dotted or dashed) and gray.
+这次，我们给每个列表项设置一个右侧的 margin，把它们分隔开来。还要给整个推文组件设置一个边框，以便我们能够直观地衡量效果。用 `1px solid #ccc` 设置一个 1 像素宽的灰色实线边框。
 
 ```css
 .tweet {
@@ -377,11 +377,11 @@ Instead, we can apply a right margin to each of the list items to space them out
 }
 ```
 
-Now it looks like this:
+现在效果如下：
 
-![Tweet with a border, and buttons spaced out](https://daveceddia.com/images/tweet-bordered-buttons-spaced.png)
+![组件带边框，按钮分隔排列](https://daveceddia.com/images/tweet-bordered-buttons-spaced.png)
 
-The buttons look better, but the border highlights the fact that everything is right up against the edge of that `tweet` container. Let’s give it some space with `padding`.
+按钮的排列看起来优雅多了，但灰色边框告诉我们，所有元素都过于靠左了。还是用 `padding` 分配点空间吧。
 
 ```css
 .tweet {
@@ -392,15 +392,15 @@ The buttons look better, but the border highlights the fact that everything is r
 }
 ```
 
-Now the tweet has some padding, but there’s also some extra space coming from somewhere. If we highlight the elements in the browser’s developer tools, you’ll notice margins above and below the `p` and `ul` elements (in Chrome devtools, margins are orange and padding is green):
+现在推文组件有内边距了，但有些地方还是很空。如果我们用浏览器调试工具将元素高亮显示，就会发现 `p` 和 `ul` 元素有默认的上下 margin（在 Chrome 的调试工具中，margin 以橙色显示，而 padding 以绿色显示）：
 
-![Tweet with padding, showing padding around p and ul](https://daveceddia.com/images/tweet-showing-padding.gif)
+![p 和 ul 周围的间隔](https://daveceddia.com/images/tweet-showing-padding.gif)
 
-It’s also interesting that the margin **between** the lines is the same as above and below – it’s not doubled up! That’s because CSS **collapses margins** vertically. When two margins touch top-to-bottom like this, the bigger one wins. Read more about [collapsing margins at CSS-Tricks](https://css-tricks.com/what-you-should-know-about-collapsing-margins/).
+还有一处有意思的细节；**行与行之间**的上下 margin 是等距的 —— 并没有叠加出双倍间距！因为 CSS 在竖直方向上有 **margin 坍塌**现象。当上下两个 margin 短兵相接时，数值大的 margin 会 “吃掉” 小的。详情参见 [CSS 技巧：margin 坍塌](https://css-tricks.com/what-you-should-know-about-collapsing-margins/)。
 
-For this layout, I’ll change the margin manually on those 3 elements on the right: the `.author-meta`, `p`, and `ul`. For a real site layout you might consider pulling in a [CSS reset](https://bitsofco.de/a-look-at-css-resets-in-2018/) to give you a common starting point across the different browsers.
+对于本例的布局，我会手动调整 `.author-meta`、`p` 和 `ul` 的右侧 margin。如果要真刀真枪地开发网站，建议你考虑用 [CSS reset](https://bitsofco.de/a-look-at-css-resets-in-2018/) 作为开发基础，有利于跨浏览器兼容。
 
-```
+```css
 p, ul {
   margin: 0;
 }
@@ -409,15 +409,15 @@ p, ul {
 }
 ```
 
-Separating selectors with commas `,` is a way to apply a set of properties to multiple selectors at once. So `p, ul` says “all `p` elements, AND all `ul` elements”. It’s a union of both.
+用 `,` 将选择器隔开，可以一次性把样式应用到多个选择器上。因此 `p , ul` 的含义就是 “所有的 `p` 元素，以及所有的 `ul` 元素”。亦即二者的合集。
 
-We’re also using a new unit here, the `em` in `1em`. One `em` is equal to the body font size in pixels. The default font size is `16px` (16 pixels high), so in our case `1em == 16px`. As the font size changes, the `em` scale changes with it, so `1em` is a nice way to express “I want the margin below the text to be as tall as the text, whatever that is.”
+在这里我们使用了新的尺寸单位，`1em` 中的 `em`。一个单位的 `em` 等于 `body` 标签上的以像素为单位的字号大小。`body` 标签的默认字号为 `16px`（16 像素高），所以本例中的 `1em` 相当于 `16px`。`em` 随字号改变而改变，因此可以用 `1em` 来表达 “我想让文字下方的 margin 和文字的高度一样，不论文字高度是多少”。
 
-And now we have this:
+现在的效果如下：
 
-![Tweet with margins](https://daveceddia.com/images/tweet-margins-fixed.png)
+![设置 margin](https://daveceddia.com/images/tweet-margins-fixed.png)
 
-Now let’s make the image a bit smaller, and turn it into a circle. We’ll make it 48px, which is the same size Twitter uses.
+现在让我们把图片缩小一些，并将其设置为圆形。我们将其宽高设置为 48 像素，正和 Twitter 的头像宽高一样。
 
 ```css
 .avatar {
@@ -427,19 +427,19 @@ Now let’s make the image a bit smaller, and turn it into a circle. We’ll mak
 }
 ```
 
-The `border-radius` property lets us round the corners of boxes, and there are a few ways to specify its value. You can give it a number in `px` or `em` or another unit, if you want a small radius. Here’s `border-radius: 5px` for instance:
+我们用 `border-radius` 属性来设置圆角，有好几种方式来定义该属性的值。如果你想要小圆角效果，可以用带 `px`、`em` 或其他单位名称的数字赋值。例如 `border-radius: 5px` 的效果：
 
-![Gravatar with border radius of 5 pixels](https://daveceddia.com/images/border-radius-5px.png)
+![圆角半径为 5 像素的头像](https://daveceddia.com/images/border-radius-5px.png)
 
-If we set the border radius to half the width and height (24px in this case) we’ll get a circle. But an easier way is to set it to `50%`, which will figure out the correct size to make a circle without us having to know the exact size ahead of time. And, bonus, if the size changes later, we don’t need to touch the `border-radius` at all!
+如果将 `border-radius` 设为宽和高的一半（在本例中即为 24 像素），其效果就是一个圆形。但更方便的写法是 `border-radius:50%`，这样我们就不必知道具体尺寸，CSS 会计算出确切结果。甚至，如果以后宽高值变了，也无需重新修改属性值了！
 
-![Tweet with a round avatar](https://daveceddia.com/images/tweet-round-avatar.png)
+![圆形头像](https://daveceddia.com/images/tweet-round-avatar.png)
 
-## Draw the Rest of the Owl
+## 再接再厉
 
-There are a few more changes we can make to polish up the final product.
+眼下还有一些需要润色之处。
 
-We’ll set the font to Helvetica (the one Twitter uses), bring the font size down a bit, bold the Name, and, um, flip the order of the “@handle Name” (in the HTML) because that’s not how it looks on Twitter :D
+我们要把字体设为 Helvetica（Twitter 用的那一款）、把字号缩小一些、把用户名加粗，还有，翻转 “@handle 用户名 的顺序（在 HTML 代码中），使之与 Twitter 一模一样。:D
 
 ```css
 .tweet {
@@ -448,9 +448,9 @@ We’ll set the font to Helvetica (the one Twitter uses), bring the font size do
   border: 1px solid #ccc;
   padding: 10px;
   /* 
-    Change the font and size.
-    Setting it on .tweet changes it for all child elements.
-    (except the buttons. buttons are weird)
+    更改字体和字号。
+    在 .tweet 选择器上设置的 CSS 效果，其所有子元素都会继承。
+    （除了按钮。按钮不太合群）
   */
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -466,11 +466,11 @@ We’ll set the font to Helvetica (the one Twitter uses), bring the font size do
 }
 ```
 
-Using `font-weight: 600;` is the same as `font-weight: bold;` Some fonts come in lots of different weights, and you can specify from 100 to 900 (thinnest to boldest). `normal` (the default) is the same as 400.
+`font-weight: 600;` 的效果等同于 `font-weight: bold;`。字体有很多不同程度的字重，范围是从 100 到 900（最淡到最浓）。`normal`（默认值）等价于 400。
 
-**By the way**… CSS technically does not allow comments to start with `//` like in JS and other langauges. The `//` style will work in some browsers, but it’s not safe across all of them. Surround your comments with the C-style `/* */` and you’ll be all set.
+**另外**，CSS 中的注释写法与 JavaScript 或其他语言不用，不允许以 `//` 开头。某些浏览器支持 `//` 风格的 CSS 注释，但并非所有浏览器都如此。用 C 语言风格的 `/* */` 包围注释内容即可高枕无忧。
 
-One more little trick: we’ll add a raised dot between the “handle” and the “time” by using a **pseudo-element**. Since the dot is purely stylistic, it makes sense to do it in CSS without muddying up the HTML.
+还有一个小窍门：可以用 **伪元素**在 “handle” 与 “时间” 之间添加一个凸点。这个凸点符号单纯为了装饰，不具有具体语义，所以用 CSS 实现不会污染 HTML 语义结构。
 
 ```css
 .handle::after {
@@ -478,11 +478,11 @@ One more little trick: we’ll add a raised dot between the “handle” and the
 }
 ```
 
-The `::after` part creates a pseudo-element which gets placed inside `.handle`, but at the end of it (“after” the content). You can also use `::before`. The `content` attribute can be set to any text, including Unicode characters. You can go wild styling pseudo elements, same as any other. They can be handy for things like badges, notification indicators, or other little flourishes.
+`::after` 创建了一个伪元素，它位于 `.handle` 元素内部的最后方（“落后” 于元素的内容）。你还可以用 `::before` 创建伪元素。可以给 `content` 属性赋值任何文字内容，包括 Unicode 字符。你可以恣意发挥，像给任何其他元素设置样式一样。伪元素用来实现标记（badge）、消息提醒或其他小花样最合适不过了。
 
-### Icon Buttons
+### 图标按钮
 
-We’ll do one more thing, which is to replace the buttons with icons. We’ll add Font Awesome inside the `head` tag:
+还有一项工作要做，那就是用图标替换按钮。我们要在 `head` 标签里添加 Font Awesome 图标字体：
 
 ```html
 <link
@@ -493,7 +493,7 @@ We’ll do one more thing, which is to replace the buttons with icons. We’ll a
 />
 ```
 
-And then replace the actions `ul` with this one, where each button has an icon and some hidden text:
+然后用下列代码替换原来的 `ul`，新列表中的每个按钮里有图标和隐藏文字：
 
 ```html
 <ul class="actions">
@@ -533,16 +533,16 @@ And then replace the actions `ul` with this one, where each button has an icon a
 </ul>
 ```
 
-Font Awesome is an icon font, and it co-opts the `i` “italic” tag to display icons. Since it’s a font, CSS properties that apply to text (like `color` and `font-size`) will work on the icons too.
+Font Awesome 是一款图标字体，它配合斜体标签 `i` 可以展示图标。正因为它是字体，那些可以用于文字的 CSS 属性（例如 `color` 和 `font-size`）都适用于图标字体。
 
-Here we’ve added a few small tweaks to make the buttons accessible:
+我们在这儿做了些微调，来提升按钮的可访问性：
 
-* The `aria-hidden="true"` attribute tells screen readers to ignore the icon.
-* The `sr-only` class is provided by Font Awesome. It visually hides elements that it’s applied to, while leaving them accessible to screen readers.
+* 特性 `aria-hidden="true"` 使屏幕阅读器忽略此图标。
+* `sr-only` 类是 Font Awesome 内置的类。它让元素在你眼前隐身，但屏幕阅读器能读取到它。
 
-Here’s an excellent [free egghead lesson from Marcy Sutton about creating accessible icon buttons](https://egghead.io/lessons/css-accessible-icon-buttons).
+这里有一门由 Marcy Sutton 讲授的[关于图标按钮可访问性的免费 Egghead 课程](https://egghead.io/lessons/css-accessible-icon-buttons)。
 
-Now we’ll add a little bit of style to the buttons – removing the border, giving them a better color, and enlarging the font a bit. We’ll also set `cursor: pointer` which will turn the mouse cursor into the “hand” you usually see when you hover over a link. Finally, `.actions button:hover` will target buttons that are being hovered-over, and color them blue.
+现在我们将要给按钮添加一些样式 —— 移除边框、上色以及加大字号。还要设置 `cursor: pointer`，把鼠标光标变成 “手” 型，就像超链接的效果那样。最后，用 `.actions button:hover` 选择处于 hover 状态的按钮，把它们变成蓝色。
 
 ```css
 .actions button {
@@ -556,19 +556,19 @@ Now we’ll add a little bit of style to the buttons – removing the border, gi
 }
 ```
 
-Here is the final styled tweet in all its glory:
+下面就是推文组件光芒四射的最终效果：
 
-![Finished Tweet](https://daveceddia.com/images/tweet-finished-hover-button.png)
+![最终效果](https://daveceddia.com/images/tweet-finished-hover-button.png)
 
-And [here’s the CodeSandbox](https://codesandbox.io/s/q88k8n337w) if you want to play around with it yourself.
+如果你想自己调试代码，到[沙箱](https://codesandbox.io/s/q88k8n337w)里来。
 
-## How to Get Better at CSS
+## 如何精进 CSS 水平
 
-The biggest thing you can do to improve your CSS skills is to practice.
+最能提高 CSS 水平的就是实践。
 
-Pick existing sites that you like, and copy them. Designers and artists call this “copy work”. I wrote an article about [how to learn React with copywork](https://daveceddia.com/learn-react-with-copywork/) and the principles all apply to CSS as well.
+仿写你喜欢的网站。设计者和艺术家称其为 “临摹”。我写过一篇[用临摹的方法学 React](https://daveceddia.com/learn-react-with-copywork/)，其中的原则也适用于 CSS。
 
-Pick layouts that look interesting, and a bit outside your comfort zone. Recreate them with HTML and CSS. When you get stuck, use your browser’s developer tools to inspect the existing sites and figure out their tricks. Lather, rinse, repeat :)
+选一些有意思的、你觉得难度大的样式效果。用 HTML 和 CSS 临摹该效果。如果卡壳了，用浏览器的调试工具看看原网站的效果是如何实现的。“栽秧苗、腿跟上、抬头看看直不直。” :)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
