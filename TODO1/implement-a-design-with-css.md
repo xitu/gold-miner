@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implement-a-design-with-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implement-a-design-with-css.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[cyz980908](https://github.com/cyz980908)，[Moonliujk](https://github.com/Moonliujk)
 
 # 从原型图到成品：步步深入 CSS 布局
 
 ![用 CSS 将原型实现](https://daveceddia.com/images/css-layout-header.png)
 
-对很多人来说，创建布局都是前端开发领域中最难啃的骨头之一。
+对很多人来说，创建布局是前端开发领域中最难啃的骨头之一。
 
 你肯定经历过耗费数个小时，换着花样地尝试所有可能起作用的 CSS 属性、一遍遍地从 Stack Overflow 上复制粘贴代码，寄希望于误打误撞地赌中那个能实现预期效果的**魔幻组合**。
 
@@ -51,7 +51,7 @@
 
 在页面中的 HTML 元素基本上都可视为矩形。当然，有些元素有圆角，有些元素是圆形，或者是复杂的 SVG 形状等。通常你**看不到**页面上有一堆矩形。但你可以用矩形边框的模式去分析它们。这样的想象能帮你理解布局。
 
-之所以提到矩形，是因为你要把一系列元素对齐 —— 如第一行的用户名、@handle（译者注：handle 属于专有名词，指 Twitter 中的用户 ID，所以在本文中保留不译。详见 [https://www.urbandictionary.com/define.php?term=twitter%20handle](https://www.urbandictionary.com/define.php?term=twitter%20handle)） 和时间以及最后一行的图标 —— 把它们用方框包起来便于规划。
+之所以提到矩形，是因为你要把一系列元素对齐 —— 如第一行的用户名、@handle（译者注：handle 属于专有名词，指 Twitter 中的用户 ID，所以在本文中保留不译。详见 [https://www.urbandictionary.com/define.php?term=twitter%20handle](https://www.urbandictionary.com/define.php?term=twitter%20handle)）和时间以及最后一行的图标 —— 把它们用方框包起来便于规划。
 
 按目前的规划，把布局用 HTML 代码实现出来大概如下所示：
 
@@ -84,7 +84,7 @@
 
 这离我们想要的效果还远呢。但是！所有所需的内容都齐全了。有些元素还以从左到右的顺序排列。
 
-我们可以认为，不用进一步设置样式，目前的布局效果也能体现出本文的要旨，这也是一个很好的 HTML 基准测试。
+我们可以认为，即使不用进一步设置样式，目前的布局效果也能达到网页想表达的要点，这也是一个优秀的 HTML 应该达到检查标准。
 
 ### 关于语义化 HTML 的说明
 
@@ -126,7 +126,7 @@
 </div>
 ```
 
-其实，每个 HTML 元素的名称都有其特定含义，在不同场景中恰如其分地使用不同元素，是很好的语义化实践。
+其实，每个 HTML 元素的名称都有其特定含义，在不同场景中恰如其分地使用语义上与它们所表示的内容匹配的元素，是很好的语义化实践。
 
 这种写法，首先，有助于开发者理解代码；其次，对使用屏幕阅读器等辅助设备的用户比较友好。同时这样用标签也有利于 SEO —— 搜索引擎会试着理解这个页面的含义，以便于显示相关广告来盈利、帮助搜索者找到满意结果。
 
@@ -307,7 +307,7 @@ Flex 布局的子项仅取其所需宽度，但我们需要 `content` 区域尽�
 
 在 CSS 中，每个元素的定位都受到其左侧和上方的元素的影响。（至少在你遇见 `position: absolute` 那帮家伙之前是这样的。）
 
-### [SoC原则（Separation of Concerns）](https://www.cnblogs.com/wenhongyu/archive/2017/12/06/7992028.html)
+### [SoC 原则（Separation of Concerns）](https://www.cnblogs.com/wenhongyu/archive/2017/12/06/7992028.html)
 
 从技术实现的角度来说，怎样设置 `avatar` 和 `content` 之间的空隙都一样。该是多宽就是多宽，没有 `border` 的干扰（`padding` 在 `border` 的内侧；而 `margin` 在外侧）。
 
@@ -439,7 +439,7 @@ p, ul {
 
 眼下还有一些需要润色之处。
 
-我们要把字体设为 Helvetica（Twitter 用的那一款）、把字号缩小一些、把用户名用黑体显示，还有，翻转 “@handle 用户名 的顺序（在 HTML 代码中），使之与 Twitter 一模一样。:D
+我们要把字体设为 Helvetica（Twitter 用的那一款）、把字号缩小一些、把用户名加粗，还有，翻转 “@handle 用户名 的顺序（在 HTML 代码中），使之与 Twitter 一模一样。:D
 
 ```css
 .tweet {
@@ -466,7 +466,7 @@ p, ul {
 }
 ```
 
-`font-weight: 600;` 的效果等同于 `font-weight: bold;`。字体有很多不同程度的黑度，范围是从 100 到 900（最淡到最浓）。`normal`（默认值）等价于 400。
+`font-weight: 600;` 的效果等同于 `font-weight: bold;`。字体有很多不同程度的字重，范围是从 100 到 900（最淡到最浓）。`normal`（默认值）等价于 400。
 
 **另外**，CSS 中的注释写法与 JavaScript 或其他语言不用，不允许以 `//` 开头。某些浏览器支持 `//` 风格的 CSS 注释，但并非所有浏览器都如此。用 C 语言风格的 `/* */` 包围注释内容即可高枕无忧。
 
