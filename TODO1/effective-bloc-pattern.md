@@ -96,7 +96,7 @@ class MoviesBloc {
 
 ## 只有当有复杂逻辑需要处理的时候，才使用 RxDart
 
-如果你之前使用过 BLoC 模式的话，那么你一定听说过 `[RxDart]（https://github.com/ReactiveX/rxdart)` 库。这个库是 Google Dart 的响应式函数式编程库。这个库只是 Dart 提供的一个 `Stream` API 的包装器。我建议你仅在需要处理，类似于链接多个网络请求这样的复杂逻辑时，才使用这个库。对于一些简单的实现，使用 Dart 语言提供的 `Stream` API 就足够了，因为这个 API 已经非常成熟了。下面我添加了一个 BLoC，它使用了 `Stream` API 而不是 `RxDart` 库，这样会让操作变得非常简单，我们不需要额外的库来实现同样的事情：
+如果你之前使用过 BLoC 模式的话，那么你一定听说过 `[RxDart](https://github.com/ReactiveX/rxdart)` 库。这个库是 Google Dart 的响应式函数式编程库。这个库只是 Dart 提供的一个 `Stream` API 的包装器。我建议你仅在需要处理，类似于链接多个网络请求这样的复杂逻辑时，才使用这个库。对于一些简单的实现，使用 Dart 语言提供的 `Stream` API 就足够了，因为这个 API 已经非常成熟了。下面我添加了一个 BLoC，它使用了 `Stream` API 而不是 `RxDart` 库，这样会让操作变得非常简单，我们不需要额外的库来实现同样的事情：
 
 ```dart
 import 'dart:async';
