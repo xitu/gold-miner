@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-get-a-progressive-web-app-into-the-google-play-store.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-get-a-progressive-web-app-into-the-google-play-store.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[linxiaowu66](https://github.com/linxiaowu66)
 
 # 如何在 Google Play 应用商店中发布 PWA
 
-[PWA（Progressive Web Apps，渐进式网络应用）](https://developers.google.com/web/progressive-web-apps/)已经面世了有一段时间了。然而，每当我向客户介绍 PWA 时，他们都会问同样的问题：“我的客户能从应用商店下载安装这种 PWA 吗？” 以前的答案是不能，但自从 Chrome 发布了第 72 版本后就不一样了，因为该版本增加了一种叫做 [TWA（Trusted Web Activities，受信式网络应用）](https://developers.google.com/web/updates/2019/02/using-twa)的新功能。
+[PWA（Progressive Web Apps，渐进式网络应用）](https://developers.google.com/web/progressive-web-apps/)已经面世了有一段时间了。然而，每当我向客户介绍 PWA 时，他们都会问同样的问题：“我的客户能从应用商店下载安装这种 PWA 吗？” 以前的答案是不能，但自从 Chrome 72 发布之后答案就不一样了，因为该版本增加了一种叫做 [TWA（Trusted Web Activities，受信式网络应用）](https://developers.google.com/web/updates/2019/02/using-twa)的新功能。
 
 > **TWA** 是一种集成 Web 应用内容 —— 如 PWA 和 Android 应用 —— 的全新方式，它采用了一种基于定制标签页（Custom Tabs）的协议。
 
-在本文中，我会借助 [Netguru](https://www.netguru.com/) 的现成 PWA（[Wordguru](https://wordguru.netguru.com/)）来逐步说明如何使 PWA 支持直接从 Google Play 应用商店安装。
+在本文中，我会借助 [Netguru](https://www.netguru.com/) 现有的 PWA（[Wordguru](https://wordguru.netguru.com/)）来逐步说明如何使 PWA 支持直接从 Google Play 应用商店安装。
 
-对 Android 开发者来说，某些我们将要提及的内容可能听起来很傻，但本文是从前端开发者的角度写就的，特别是没有用过 Android Studio 或者做过 Android 应用的前端开发者。同时要注意，我们在本文中探讨的很多概念都仅支持于 Chrome第 72 及以上版本，因此很有实验性、很超前。
+对 Android 开发者来说，某些我们将要提及的内容可能听起来很傻，但本文是从前端开发者的角度来写的，特别是没有用过 Android Studio 或者做过 Android 应用的前端开发者。同时要注意，我们在本文中探讨的很多概念都仅支持 Chrome 72 及以上版本，因此很有实验性、很超前。
 
 ### 步骤一：配置一个 TWA 项目
 
@@ -25,10 +25,10 @@
 
 尽管配置过程相当直观，但还是要明白下面这些概念：
 
-* **名称（Name）**：应用的名称（你肯定知道）。
+* **名称（Name）**：应用的名称（我敢打赌你肯定知道这个）。
 * **包名称（Package name）**：Android 应用在 [Play 应用商店](https://play.google.com)的[唯一标识](https://developer.android.com/guide/topics/manifest/manifest-element#package)。这个包名称必须是独一无二的，因此我建议你用 PWA 的 URL 的倒序字符串（如 `com.netguru.wordguru`）。
 * **保存位置（Save location）**：项目在本地的保存位置。
-* **语言（Language）**：是设置一种特定的编程语言，但因为我们用到的应用已经是写好的了，所以此项不用设置。保留默认选项 —— Java —— 就好。
+* **语言（Language）**：允许你选择一门特定的编程语言，但因为我们用到的应用已经是写好的了，所以此项不用设置。保留默认选项 —— Java —— 就好。
 * **最低 API 版本（Minimum API level）**：这是我们用到的 Android API 版本，支持库（后面会说到）需要该配置项。我们选择 API 19 版本。
 
 在这些选项下面还有几个复选框。它们与本次实践无关，所以让它们保持未选中状态，然后点击 “完成（Finish）”。
@@ -37,13 +37,13 @@
 
 #### 添加 TWA 支持库
 
-TWA 不能没有支持库。好在我们仅需修改两个文件就行了，并且这两个文件都在同一个项目文件夹中：`Gradle Scripts`。它们俩的文件名都是 `build.gradle`，但我们可以通过原括号中的描述文字区分二者。
+TWA 不能没有支持库。好在我们仅需修改两个文件就行了，并且这两个文件都在同一个项目文件夹中：`Gradle Scripts`。它们俩的文件名都是 `build.gradle`，但我们可以通过圆括号中的描述文字区分二者。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/play-02.jpg)
 
-在此我要介绍一款 Android 应用专用的 Git 包管理工具，叫做 [JitPack](https://jitpack.io/)。它功能很强大，而最基本的功能就是使应用轻量发布。它是付费服务，但如果这是你首次在 Google Play 应用商店发布应用，我得说这笔开销物有所值。
+在此我要介绍一款 Android 应用专用的 Git 包管理工具，叫做 [JitPack](https://jitpack.io/)。它功能很强大，而最基本的功能就是可以让应用的发布变得轻而易举。虽然它是付费服务，但如果这是你首次在 Google Play 应用商店发布应用，我得说这笔开销物有所值。
 
-**笔者提示**：这里不是给 JitPack 打广告。之所以值得一提，是因为本文是写给不熟悉 Android 应用开发、没有在 Google Play 应用商店发布过应用的人看的，本文读者使用它来管理一个与应用商店直连的 Android 应用代码库会很轻松。言外之意，这个工具并非开发必需品。
+**笔者提示**：这里不是给 JitPack 打广告。之所以值得一提，是因为本文是写给不熟悉 Android 应用开发或者没有在 Google Play 应用商店发布过应用的人看的，本文读者使用它来管理一个与应用商店直连的 Android 应用代码库会很轻松。言外之意，这个工具并非开发必需品。
 
 打开 JitPack 后，就可以把自己的项目接入了。打开刚才看到的 `build.gradle (Project: Wordguru)` 文件，做如下修改以便让 JitPack 管理应用代码库。
 
@@ -104,7 +104,7 @@ android {
 }
 ```
 
-#### 在 Android 应用说明中提供应用细节
+#### 在 Android 应用配置清单（Manifest）中提供应用细节
 
 每个 Android 应用都有一个 [Android 应用说明（Android App Manifest）](https://developer.android.com/guide/topics/manifest/manifest-intro)，它提供了应用的基本细节，例如操作系统支持、包信息、设备兼容性等有助于 Google Play 应用商店显示该应用的要求的其他信息。
 
@@ -162,7 +162,7 @@ android {
 
 TWA 需要把 Android 应用和 PWA 联结起来。因此我们要用到[数字资产链接（Digital Asset Links）](https://developers.google.com/digital-asset-links/v1/getting-started)。
 
-该连接必须联结两端，TWA 是应用端，而 PWA 是网站端。
+该连接的两端都必须设置，TWA 是应用端，而 PWA 是网站端。
 
 我们得再次修改 `manifestPlaceholders` ，才能建立连接。这回，我们要添加一个额外的元素，叫做 `assetStatements`，它记录着 PWA 的相关信息。
 
@@ -226,7 +226,7 @@ android {
 
 上述操作会创建一个密钥库文件，该文件被用来生成应用包密钥（SHA256）。**此文件及其重要**，因为它能证明你拥有此应用。如果此文件丢失，你将再也无法在应用商店更新对应的应用。
 
-接着我们来选包（bundle）的类型。这里要选 “release”，因为我们要生成成品包。我们还需要检查签名版本。
+接着我们来选包（bundle）的类型。这里要选 “release”，因为它可以为我们生成一个生产环境的应用。我们还需要检查签名版本。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/04/s_B0873689EA50413EA11DE0E251C79D95AC091600D224AE9E30EBEB80DF5C9068_1550496985643_Screenshot2019-02-18at14.36.03.png)
 
@@ -249,7 +249,7 @@ android {
 }]
 ```
 
-这正是我们需要在应用的 `/.well-known/assetlinks.json` 路径下使用的文件。我无法描述怎样在该路径使用这个文件，因为这因项目而异，超出本文讨论范畴。
+这正是我们需要在应用的 `/.well-known/assetlinks.json` 路径下使用的文件。我就不讲解怎么在该路径下使用该文件了，因为这因项目而异，超出本文讨论范畴。
 
 我们可以点击 “连接并验证（Link and Verify）” 按钮来测试连接关系。如果一切顺利，你就能看到 “成功（Success）！” 这样的确认信息。
 
