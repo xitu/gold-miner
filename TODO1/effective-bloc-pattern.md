@@ -7,7 +7,7 @@
 
 # 高效地使用 BLoC 模式
 
-朋友们，我已经写了很多关于 Flutter 的文章。在完成了两篇关于 BLoC 模式的文章之后，我花了一些时间，分析了社区对于这种模式的使用情况，在回答了一些关于 BLoC 模式实现的一些问题之后，我发现大家对于 BLoC 模式存在很多疑惑。所以，我提出了一系列*“经验方法”*，可以遵循这一系列方法来正确地实现 BLoC 模式，这会帮助开发人员在实现的时候避免犯下一些常见的错误。所以，我今天向大家介绍一下在使用 BLoC 模式时必须要遵循的 * 8 个黄金点*。
+朋友们，我已经写了很多关于 Flutter 的文章。在完成了两篇关于 BLoC 模式的文章之后，我花了一些时间，分析了社区对于这种模式的使用情况，在回答了一些关于 BLoC 模式实现的一些问题之后，我发现大家对于 BLoC 模式存在很多疑惑。所以，我提出了一系列 **“经验方法”**，可以遵循这一系列方法来正确地实现 BLoC 模式，这会帮助开发人员在实现的时候避免犯下一些常见的错误。所以，我今天向大家介绍一下在使用 BLoC 模式时必须要遵循的 **8 个黄金点**。
 
 ![](https://cdn-images-1.medium.com/max/3770/1*XUDik4jakpEcQ6ZVm5jo3A@2x.png)
 
@@ -21,7 +21,7 @@
 
 ## 和 BLoC 相遇的故事
 
-我知道，BLoC 模式是一个很难去理解和实现的模式。我看过了很多开发人员的帖子，问*哪里是学习 BLoC 模式的最佳资源呢？*，看过了不同的帖子和评论之后，我觉得以下几点是每个人在理解这个问题时常见的阻碍。
+我知道，BLoC 模式是一个很难去理解和实现的模式。我看过了很多开发人员的帖子，问 **哪里是学习 BLoC 模式的最佳资源呢？**，看过了不同的帖子和评论之后，我觉得以下几点是每个人在理解这个问题时常见的阻碍。
 
 1. 响应式地思考。
 
@@ -39,7 +39,7 @@
 
 ## 每一个页面都有其自己的 BLoC
 
-这是需要记住的最终要的一个点。每当你创建了一个新的页面，例如登录页，注册页，配置文件页等涉及到数据处理的页面的时候，你必须要为其*创建一个新的 BLoC*。不要将全局 BLoC 用于处理应用中的所有页面。你可能会认为，如果我们有一个全局的 BLoC，就可以轻松的处理跨页面的数据了。这很不好，因为你的库应当将这些公共数据提供给 BLoC。BLoC 获取数据并且将其注入到页面中，来向用户展示。
+这是需要记住的最终要的一个点。每当你创建了一个新的页面，例如登录页，注册页，配置文件页等涉及到数据处理的页面的时候，你必须要为其 **创建一个新的 BLoC**。不要将全局 BLoC 用于处理应用中的所有页面。你可能会认为，如果我们有一个全局的 BLoC，就可以轻松的处理跨页面的数据了。这很不好，因为你的库应当将这些公共数据提供给 BLoC。BLoC 获取数据并且将其注入到页面中，来向用户展示。
 
 ![左图是正确的使用模式](https://cdn-images-1.medium.com/max/2000/1*0z3wjE8m89iI4ppbeNe2Jg.png)
 
@@ -67,13 +67,13 @@ class MoviesBloc {
 
 ## 不要在 BLoC 中使用 StatelessWidget
 
-每当你想要创建一个传递数据到 BLoC 或者从 BLoC 中获取数据的页面的时候，*请使用 `StatefulWidget`*。使用 `StatefulWidget` 相比于使用 `StatelessWidget` 的最大优点在于 `StatefulWidget` 中的生命周期方法。在文章的后面，我们会讨论在使用 BLoC 模式时需要覆盖的两个最重要的方法。`StatelessWidget` 很适合制作页面的小的静态部分，例如显示图像或者是硬编码的文本。如果你想要通过 `StatelessWidget` 实现 BLoC 模式，请看上面推荐的文章的*第一部分*和*第二部分*，我为什么要从 `StatelessWidget` 迁移到 `StatefulWidget`。
+每当你想要创建一个传递数据到 BLoC 或者从 BLoC 中获取数据的页面的时候，**请使用 `StatefulWidget`**。使用 `StatefulWidget` 相比于使用 `StatelessWidget` 的最大优点在于 `StatefulWidget` 中的生命周期方法。在文章的后面，我们会讨论在使用 BLoC 模式时需要覆盖的两个最重要的方法。`StatelessWidget` 很适合制作页面的小的静态部分，例如显示图像或者是硬编码的文本。如果你想要通过 `StatelessWidget` 实现 BLoC 模式，请看上面推荐的文章的 **第一部分** 和 **第二部分**，我为什么要从 `StatelessWidget` 迁移到 `StatefulWidget`。
 
 ## 重写 didChangeDependencies() 来初始化 BLoC
 
 如果你需要在初始化的时候需要一个 `context` 来初始化 BLoC 对象，那么这个方法就是在 `StatefulWidget` 中需要重写的最重要的方法。你可以将其视为初始化方法（仅适用于 BLoC的初始化）。你可以说，我们有 `initState()` 方法，那么为什么我们要使用 `didChangeDependencies()` 方法。根据文档中提到的，从 `didChangeDependencies()` 来调用 [BuildContext.inheritFromWidgetOfExactType](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html) 是安全的。下面是使用这个方法的一个简单的例子：
 
-```dart
+```dart
 @override
   void didChangeDependencies() {
     bloc = MovieDetailBlocProvider.of(context);
