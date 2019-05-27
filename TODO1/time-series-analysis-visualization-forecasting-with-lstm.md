@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-visualization-forecasting-with-lstm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-visualization-forecasting-with-lstm.md)
 > * 译者：[Minghao23](https://github.com/Minghao23)
-> * 校对者：[Xuyuey](https://github.com/Xuyuey)
+> * 校对者：[Xuyuey](https://github.com/Xuyuey)，[TrWestdoor](https://github.com/TrWestdoor)
 
 # 时间序列分析、可视化、和使用 LSTM 预测
 
@@ -58,12 +58,12 @@ df.head(5)
 
 ![Table 1](https://cdn-images-1.medium.com/max/2790/1*_uhygRBN14RxN6nVGTPDpA.png)
 
-需要完成以下数据预处理和特征工程步骤：
+以下数据预处理和特征工程步骤需要完成：
 
 * 将日期和时间合并到同一列，并转换为 datetime 类型。
-* 将 Global_active_power 转换为数值型，并移除缺失点（1.2%）。
+* 将 Global_active_power 转换为数值型，并移除缺失值（1.2%）。
 * 创建年、季度、月和日的特征。
-* 创建周的特征，“0”表示周六和周日，“1”表示周一到周五。
+* 创建周的特征，“0”表示周末，“1”表示工作日。
 
 ```python
 df['date_time'] = pd.to_datetime(df['Date'] + ' ' + df['Time'])
@@ -93,7 +93,7 @@ print('The time series ends on: ', df.date_time.max())
 
 ## 统计正态性检验
 
-有一些统计测试方法可以用来量化数据是否看起来像是抽样于高斯分布。我们将会使用 [D’Agostino’s K² 检验](https://en.wikipedia.org/wiki/D%27Agostino%27s_K-squared_test)。
+有一些统计测试方法可以用来量化我们的数据是否看起来像高斯分布采样。我们将会使用 [D’Agostino’s K² 检验](https://en.wikipedia.org/wiki/D%27Agostino%27s_K-squared_test)。
 
 在 [SciPy](http://scipy.github.io/devdocs/index.html) 对这个检验的实现中，我们对 p 值做出如下解释。
 
@@ -357,7 +357,7 @@ test_stationarity(df2.Global_active_power.dropna())
 
 ![图 10](https://cdn-images-1.medium.com/max/2334/1*teCNF7iDamLWXTVFWOF3ew.png)
 
-从以上结论可得，我们会拒绝零检验 H0，数据没有单位根且是平稳的。
+从以上结论可得，我们会拒绝零检验 H0，因为数据没有单位根且是平稳的。
 
 ## LSTM
 
@@ -396,7 +396,7 @@ look_back = 30
 X_train, Y_train = create_dataset(train, look_back)
 X_test, Y_test = create_dataset(test, look_back)
 
-# reshape input to be [samples, time steps, features]
+# 将输入维度转化为 [samples, time steps, features]
 X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
 X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 ```
@@ -404,7 +404,7 @@ X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 ## 模型结构
 
 * 定义 LSTM 模型，第一个隐藏层含有 100 个神经元，输出层含有 1 个神经元，用于预测 Global_active_power。输入的维度是一个包含 30 个特征的时间步长。
-* 随机失活 20%。
+* Dropout 20%。
 * 使用均方差损失函数，和改进于随机梯度下降的效率更高的 Adam。
 * 模型将会进行 20 个 epochs 的训练，每个 batch 的大小为 70。
 
@@ -426,7 +426,7 @@ model.summary()
 ```python
 train_predict = model.predict(X_train)
 test_predict = model.predict(X_test)
-# invert predictions
+# 预测值求逆
 train_predict = scaler.inverse_transform(train_predict)
 Y_train = scaler.inverse_transform([Y_train])
 test_predict = scaler.inverse_transform(test_predict)
@@ -466,7 +466,7 @@ aa=[x for x in range(200)]
 plt.figure(figsize=(8,4))
 plt.plot(aa, Y_test[0][:200], marker='.', label="actual")
 plt.plot(aa, test_predict[:,0][:200], 'r', label="prediction")
-# plt.tick_params(left=False, labelleft=True) #remove ticks
+# plt.tick_params(left=False, labelleft=True) # 移除 ticks
 plt.tight_layout()
 sns.despine(top=True)
 plt.subplots_adjust(left=0.07)
@@ -478,7 +478,7 @@ plt.show();
 
 ![图 12](https://cdn-images-1.medium.com/max/2000/1*fNpJ18MfE32UD0ib3LnrfA.png)
 
-LSTMs 太令人惊奇了！
+LSTMs 太神奇了！
 
 [Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb) 可以在 [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb) 中找到。享受这一周余下的时光吧！
 
