@@ -178,7 +178,7 @@ foo().catch(console.log);
 
 ### async 函数在执行 await \<表达式>时会中止
 
-`await` 命令就像一个**表达式一样。**当 await 后面跟着一个 promise 时，**async 函数遇到 await 会中止运行，直到相应的 promise 状态变成 resolved**。当 await 后面跟的是原始值时，原始值会被传入 `Promise.resolve` 而转变成一个 promise 对象，并且状态为 resolved。
+`await` 命令就像一个**表达式一样**。当 await 后面跟着一个 promise 时，**async 函数遇到 await 会中止运行，直到相应的 promise 状态变成 resolved**。当 await 后面跟的是原始值时，原始值会被传入 `Promise.resolve` 而转变成一个 promise 对象，并且状态为 resolved。
 
 ```
 // 多功能函数：获取随机值/延时
