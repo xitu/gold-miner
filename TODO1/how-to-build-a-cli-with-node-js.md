@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-cli-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-cli-with-node-js.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[suhanyujie](https://github.com/suhanyujie)
 
-# 如何使用 Node.js 构建一个命令行界面（CLI）
+# 如何使用 Node.js 构建一个命令行应用（CLI）
 
 ![atZ3n9vMFjjXDl_XxDtL_FCRSOt6EF0d8LnbMRCCJQUesMme8lzdGpCyMr4-wt1nlIGuoT29EI_tkVpuD_P2mxzbfhbn-ZPcqmZ5QCY_nM9d4ywWEYQxKYc9mjxUnp_uFJzMOMnr](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/atZ3n9vMFjjXDl_XxDtL_FCRSOt6EF0d8LnbMRCCJQUesM.width-808.png)
 
-Node.js 内建的命令行界面（CLI）让你能够在使用其庞大的生态系统的同时自动化地执行重复性的任务。并且，多亏了像 [`npm`](https://www.npmjs.com/) 和 [`yarn`](https://yarnpkg.com/) 这样的包管理工具，让这些命令行界面可以很容易就在多个平台上分发和使用。在本篇文章中，我将会讲述为何需要写 CLI，如何使用 Node.js 完成它，一些实用的包，以及你如何发布你新写好的 CLI。
+Node.js 内建的命令行应用（CLI）让你能够在使用其庞大的生态系统的同时自动化地执行重复性的任务。并且，多亏了像 [`npm`](https://www.npmjs.com/) 和 [`yarn`](https://yarnpkg.com/) 这样的包管理工具，让这些命令行应用可以很容易就在多个平台上分发和使用。在本篇文章中，我将会讲述为何需要写 CLI，如何使用 Node.js 完成它，一些实用的包，以及你如何发布你新写好的 CLI。
 
-## 为什么要用 Node.js 创建命令行界面
+## 为什么要用 Node.js 创建命令行应用
 
 Node.js 能够如此流行的原因之一就是它有丰富的包生态系统，如今在 [`npm` 注册处](https://npmjs.com) 已经有超过 900000 个包。通过在 Node.js 中写你自己的 CLI，你就可以进入这个生态系统，而其中也包含了巨额数目的针对 CLI 的包。包括：
 
@@ -68,7 +68,7 @@ yarn create flex-plugin
 
 如果你更喜欢看视频学习，[点击这里在 YouTube 观看教程](https://www.youtube.com/watch?v=s2h28p4s-Xs)。
 
-目前我们已经解释过用 Node.js 创建 CLI 的优势，现在就让我们开始构建一个 CLI 吧。在本篇教程里，我们会使用 `npm`，但如果你想用 `yarn`，绝大多数的命令也都是相同的。确保你的系统中已经安装了 [Node.js](https://nodejs.org/en/download/) 和 [`npm`](https://www.npmjs.com/)。
+目前我们已经解释过用 Node.js 创建 CLI 的原因，现在就让我们开始构建一个 CLI 吧。在本篇教程里，我们会使用 `npm`，但如果你想用 `yarn`，绝大多数的命令也都是相同的。确保你的系统中已经安装了 [Node.js](https://nodejs.org/en/download/) 和 [`npm`](https://www.npmjs.com/)。
 
 本篇教程中，我们将会创建一个 CLI，通过运行命令 `npm init @your-username/project`，它可以根据你的偏好构建一个新的项目。
 
@@ -134,7 +134,7 @@ npm install esm
 }
 ```
 
-如果你注意到 `bin` 属性，你会发现我们将其定义为一个具有两个键值对的对象。这个对象内定义的是包管理器将会安装的 CLI 命令。在上述的例子中，我们为同一段脚本注册了两个命令。一个通过加上了我们的用户名来使用自己的 `npm` 作用域，另一个通用的 `create-project` 命令则更便于使用。
+如果你注意到 `bin` 属性，你会发现我们将其定义为一个具有两个键值对的对象。这个对象内定义的是包管理器将会安装的 CLI 命令。在上述的例子中，我们为同一段脚本注册了两个命令。一个通过加上了我们的用户名来使用自己的 `npm` 作用域，另一个是为了方便使用的通用的 `create-project` 命令。
 
 做好了这些，我们可以测试脚本了。最简单的测试方法是使用 [`npm link`](https://docs.npmjs.com/cli/link.html) 命令。在你的项目终端中运行：
 
@@ -373,7 +373,7 @@ export async function cli(args) {
 }
 ```
 
-如果想要检测程序，在你的系统中某个位置例如 `~/test-dir` 中创建一个新目录，然后在这个文件夹内使用某个模版运行命令。比如：
+为了测试我们的进度，在你的系统中某个位置例如 `~/test-dir` 中创建一个新目录，然后在这个文件夹内使用某个模版运行命令。比如：
 
 ```
 create-project typescript --git
