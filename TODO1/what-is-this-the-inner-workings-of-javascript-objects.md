@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-this-the-inner-workings-of-javascript-objects.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-this-the-inner-workings-of-javascript-objects.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[ezioyuan](https://github.com/ezioyuan)
+> * 校对者：[ezioyuan](https://github.com/ezioyuan), [Baddyo](https://github.com/Baddyo)
 
 # 什么是 `this`？JavaScript 对象的内部工作原理
 
@@ -43,21 +43,21 @@ const answers = [
 ];
 ```
 
-在继续阅读之前，请你先把答案写出来。完成后再用 `console.log()` 来检查你的答案是否正确？你答对了吗？
+在继续阅读之前，请你先把答案写出来。完成后再用 `console.log()` 来检查你的答案是否正确。你答对了吗？
 
 我们先从第一个例子开始，然后依次解释下面的样例。`obj.getThis()` 返回了 `undefined`, 但是为什么呢？因为箭头函数永远都没有自己的 `this` 绑定。作为替代的是，它总是会委托给词法作用域。在 ES6 模块的根作用域中，这个例子里面的词法作用域将具有未定义的 `this`。 那么 `obj.getThis.call(a)` 同样也会返回 undefined。对于箭头函数来说，即使使用 `.call()` 或 `.bind()`，也不能重新修改 `this`。它总是会去委托词法作用域里面的 `this`。 
 
-`obj.getThis2()` 通过常规方法调用过程来获取 `this` 的绑定。如果函数以前没有绑定 `this`，那么它可以有 `this` 绑定（该函数不是箭头函数），`this` 会使用 `.` 或 `[squareBracket]` 属性访问语法来绑定到调用改方法的对象上。
+`obj.getThis2()` 通过常规方法调用过程来获取 `this` 的绑定。如果函数以前没有绑定 `this`，那么它可以有 `this` 绑定（该函数不是箭头函数），`this` 会使用 `.` 或方括号 `[ ]` 属性访问语法来绑定到调用改方法的对象上。
 
-`obj.getThis2.call(a)` 有点不好分析。`call()` 方法使用给定的 `this` 值和可选参数调用函数。换句话说，这个函数通过 `.call()` 的参数来获取到 `this` 的绑定，因此 `obj.getThis2.call(a)` 会返回 `a` 对象。
+`obj.getThis2.call(a)` 有点不好分析。`call()` 方法使用给定的 `this` 值和可选参数调用函数。换句话说，这个函数通过 `.call()` 的参数来获取绑定到 `this` ，因此 `obj.getThis2.call(a)` 会返回 `a` 对象。
 
-我们试图绑定一个箭头函数通过 `obj.getThis3 = obj.getThis.bind(obj);` ，前面我们已经确定这里不会起作用，所以 `obj.getThis3()` 和 `obj.getThis3.call(a)` 都会返回 `undefined`。
+我们试图通过 `obj.getThis3 = obj.getThis.bind(obj);` 来绑定一个箭头函数，前面我们已经确定这里不会起作用，所以 `obj.getThis3()` 和 `obj.getThis3.call(a)` 都会返回 `undefined`。
 
 我们可以绑定常规的方法，因此 `obj.getThis4()` 方法会按照预期返回 `obj`，因为它已经通过 `obj.getThis4 = obj.getThis2.bind(obj)` 绑定了 `this`，所以 `obj.getThis4.call(a)` 会优先返回第一次绑定时的 `obj` 而不是 `a`。
 
 ## 弧线球
 
-同样的挑战，但这一次，`class` 会使用公共字段语法(在写本文的[第三阶段](https://github.com/tc39/proposal-class-fields)时, 默认情况下可以在 Chrome 中使用，并且可以使用 `@babel/plugin-proposal-class-properties`):
+同样的挑战，但这一次，我们使用带公共字段语法（本文撰写时，该语法已推进到 TC39 委员会的[第三阶段](https://github.com/tc39/proposal-class-fields), 默认支持 Chrome 和 @babel/plugin-proposal-class-properties）的 `class`:
 
 ```js
 class Obj {
@@ -83,11 +83,11 @@ const answers2 = [
 ];
 ```
 
-在继续之前先写下你的答案？
+在继续之前先写下你的答案。
 
 准备好检查答案了吗？
 
-除了 `obj2.getThis2.call(a)` 这些都会返回对象的实例。异常返回 `a` 对象。箭头函数**仍然会去绑定词法作用域的 `this`**。区别只是在于词法的 `this` 属性不同。在这种情况下，类属性复制会被编译成类似下面这样的东西：
+除了 `obj2.getThis2.call(a)`，这些调用都会返回对象的实例。`obj2.getThis2.call(a)` 返回 `a` 对象。箭头函数**仍然会去绑定词法作用域的 `this`**。区别只是在于词法的 `this` 属性不同。在这种情况下，类属性复制会被编译成类似下面这样的东西：
 
 ```js
 class Obj {
@@ -97,17 +97,17 @@ class Obj {
 ...
 ```
 
-换句话说，箭头函数是在 **构造函数的上下文中** 被定义的。由于它是一个类，创建实例的唯一方法使用 `new` 关键字（忽略 new 将抛出错误）。
+换句话说，箭头函数是在**构造函数的上下文中**被定义的。由于它是一个类，创建实例的唯一方法是使用 `new` 关键字（忽略 new 将抛出错误）。
 
-`new` 关键字最重要的一个作用是实例化一个新的对象并且在构造函数绑定 `this`。这种行为，结合我们之间提到的其他行为应该可以解释剩下的例子了。
+`new` 关键字最重要的一个作用是实例化一个新的对象并且在构造函数中绑定 `this`。这种行为，结合我们之间提到的其他行为应该可以解释剩下的例子了。
 
 ## 结论
 
-你是怎么理解的？你有理解上面的内容吗？很好的理解 JavaScript 中 `this` 的行为能够为你节省大量的时间来调试棘手的问题。如果上面你有任何错误的答案，那么你应该好好练习一下。仔细琢磨这些例子，然后再来测试自己，直到你能完全通过测试，并且能够像其他人解释为什么这些方法会返回相应的内容。 
+你是怎么理解的？你有理解上面的内容吗？对 JavaScript 中 `this` 的透彻理解，能够大大缩短调试棘手的问题的时间。如果上面你有任何错误的答案，那么你应该好好练习一下。仔细琢磨这些例子，然后再来测试自己，直到你能完全通过测试，并且能够向其他人解释为什么这些方法会返回相应的内容。 
 
 如果你觉得这比你想象中的难，这并不是你一个人会这样。我针对这些问题测试过不少的开发人员，到目前为止只有一个开发人员能够很好的解释这些问题。
 
-随着 `class` 或者箭头函数的增加，使用 `.call()`、`.bind()` 或 `.apply()` 重定向的动态方法查找变得更加复杂。稍微划分一下可能会有所帮助。请记住，箭头函数总是会将 `this` 委托给词法作用域，而这个 `class` `this` 实际上在词法上限定了作用域到引擎盖下的构造函数。如果你还对 `this` 是什么有疑惑，记住使用调式器来验证对象是否是你认为的对象。
+随着 `class` 或者箭头函数的增加，使用 `.call()`、`.bind()` 或 `.apply()` 重定向的动态方法查找变得更加复杂。稍微划分一下可能会有所帮助。请记住，箭头函数总是会将 `this` 委托给词法作用域，而 `class` 中的 `this` 实际上在词法上把作用域限定在构造函数中了。如果你还对 `this` 是什么有疑惑，记住使用调式工具来验证对象是否是你认为的对象。
 
 同时也记住，在 JavaScript 中，你也可以在不使用 `this` 的情况下做很多事情。根据我的经验，几乎所有东西都可以使用纯函数来重新实现，它们可以将其所应用的参数都设为显式的参数（你可以把 `this` 理解为具有可变状态的隐式参数）。封装在纯函数中的逻辑具有确定性，这使得它更易于测试，并且没有副作用，这意味着与操作 `this` 不同，你不太可能破坏其它的东西。每次当你转换 `this` 时，你都要冒依赖于 `this` 值相关的内容会崩溃的风险。
 
