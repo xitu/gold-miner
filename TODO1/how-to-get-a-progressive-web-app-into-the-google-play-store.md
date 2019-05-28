@@ -9,7 +9,7 @@
 
 [PWA（Progressive Web Apps，渐进式网络应用）](https://developers.google.com/web/progressive-web-apps/)已经面世了有一段时间了。然而，每当我向客户介绍 PWA 时，他们都会问同样的问题：“我的客户能从应用商店下载安装这种 PWA 吗？” 以前的答案是不能，但自从 Chrome 72 发布之后答案就不一样了，因为该版本增加了一种叫做 [TWA（Trusted Web Activities，受信式网络应用）](https://developers.google.com/web/updates/2019/02/using-twa)的新功能。
 
-> **TWA** 使用一种全新的方式来集成你的 Web 应用内容（比如 PWA 到 Android 应用），它使用了一种基于 Custom Tabs 的协议。
+> **TWA** 使用一种全新的方式来集成你的 Web 应用内容（比如 PWA）到 Android 应用，它使用了一种基于 Custom Tabs 的协议。
 
 在本文中，我会借助 [Netguru](https://www.netguru.com/) 现有的 PWA（[Wordguru](https://wordguru.netguru.com/)）来逐步说明如何使 PWA 支持直接从 Google Play 应用商店安装。
 
