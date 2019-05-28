@@ -1,3 +1,6 @@
+* [Android Studio Project Marble: Apply Changes](https://juejin.im/post/5ce2c40d6fb9a07ec754ee13) ([qiuyuezhong](https://github.com/qiuyuezhong) 翻译)
+* [WorkManager 基础入门](https://juejin.im/post/5ce4da6a6fb9a07ea712e712) ([gs666](https://github.com/gs666) 翻译)
+* [C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63) ([Feximin](https://github.com/Feximin) 翻译)
 * [Room 🔗 Coroutines](https://juejin.im/post/5cd12adef265da03634564e1) ([Feximin](https://github.com/Feximin) 翻译)
 * [谷歌寻踪圣诞老人应用（Santa Tracker）迁移到 Android App Bundle 记录](https://juejin.im/post/5cd62bcef265da03ad056f2a) ([phxnirvana](https://github.com/phxnirvana) 翻译)
 * [通过 Play Cloud 的 ART 优化配置提升应用性能](https://juejin.im/post/5cc297f36fb9a0323d6e0be2) ([nanjingboy](https://github.com/nanjingboy) 翻译)
