@@ -97,7 +97,7 @@ print('The time series ends on: ', df.date_time.max())
 
 在 [SciPy](http://scipy.github.io/devdocs/index.html) 对这个检验的实现中，我们对 p 值做出如下解释。
 
-* p \<= alpha：拒绝 H0，非正态。
+* p <= alpha：拒绝 H0，非正态。
 * p > alpha：不拒绝 H0，正态。
 
 ```python
@@ -126,9 +126,9 @@ print( 'Skewness of normal distribution: {}'.format(stats.skew(df.Global_active_
 
 正态分布的峰度接近于 0。如果峰度大于 0，则分布尾部较重。如果峰度小于 0，则分布尾部较轻。我们计算出的峰度是大于 0 的。
 
-**偏度**: 度量分布的不对称性
+**偏度**：度量分布的不对称性
 
-如果偏度介于 -0.5 和 0.5 之间，则数据是基本对称的。如果偏度介于 -1 和 -0.5 之间或者 0.5 和 1 之间，则数据是稍微偏斜的。如果偏度小于 -1 或大于 1， 则数据是高度偏斜的。我们计算出的偏度是大于 1 的。
+如果偏度介于 -0.5 和 0.5 之间，则数据是基本对称的。如果偏度介于 -1 和 -0.5 之间或者 0.5 和 1 之间，则数据是稍微偏斜的。如果偏度小于 -1 或大于 1，则数据是高度偏斜的。我们计算出的偏度是大于 1 的。
 
 ## 第一个时间序列图像
 
@@ -483,7 +483,8 @@ LSTMs 太神奇了！
 [Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb) 可以在 [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb) 中找到。享受这一周余下的时光吧！
 
 参考：
-[**Multivariate Time Series Forecasting with LSTMs in Keras**](https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/)
+
+- [**Multivariate Time Series Forecasting with LSTMs in Keras**](https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
