@@ -17,7 +17,7 @@ React 16.3 版本一发布，宣称新的 Context API 将要取缔 Redux 的文�
 
 在这篇文章中，我想向大家介绍一下新的 Context API 是如何工作的，它与 Redux 的相似之处，什么情况下可以使用 Context API **而不是** Redux，以及为什么不是所有情况下 Context API 都可以替换 Redux 的原因。
 
-**如果你只是想了解 Context 的概述，可以[跳转到这一节](#how-to-use-the-react-context-api)。**
+**如果你只是想了解 Context 的概述，可以[跳转到这一节](#如何使用-react-context-api)。**
 
 ## 一个简单的 React 例子
 
