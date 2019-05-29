@@ -171,7 +171,7 @@ interface SearchComponent : BaseActivityComponent<SearchActivity>
 
 你可以深入到代码中来查看我们如何使用 Dagger 解决 Plaid 中的依赖注入问题。
 
-`[CoreComponent](https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/dagger/CoreComponent.kt)` 是一个好的阅读开端，`[AboutComponent](https://github.com/nickbutcher/plaid/blob/master/about/src/main/java/io/plaidapp/about/dagger/AboutComponent.kt)` 也是，因为它没有太多的外部依赖。
+[`CoreComponent`](https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/dagger/CoreComponent.kt) 是一个好的阅读开端，[`AboutComponent`](https://github.com/nickbutcher/plaid/blob/master/about/src/main/java/io/plaidapp/about/dagger/AboutComponent.kt) 也是，因为它没有太多的外部依赖。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
