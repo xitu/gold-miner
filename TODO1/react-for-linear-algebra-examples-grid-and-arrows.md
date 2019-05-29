@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-for-linear-algebra-examples-grid-and-arrows.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-for-linear-algebra-examples-grid-and-arrows.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Baddyo](https://github.com/Baddyo)
 
 # 用 React 制作线性代数教程示例：网格与箭头
 
-本文是“[JavaScript 线性代数](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”教程的第一部分。
+本文是“[JavaScript 线性代数](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”教程的一部分。
 
-![](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
+![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-最近我开始撰写这个线代教程的第一节。在开始动笔前，我有了一个想法：使用 React 开发一个项目，来为这个系列的所有示例提供可视化功能一定很好玩！因此便有了本文。本系列的所有代码都存放于[此 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)，本文相关代码的提交记录位于[此处](https://github.com/RodionChachura/linear-algebra/tree/813cfecfda70cb3a9415c21ead97e09242e08f49)。
+最近我开始撰写这个线代教程的[第一节](https://medium.com/@geekrodion/linear-algebra-vectors-f7610e9a0f23)。在新篇开始动笔前，我有了一个想法：使用 React 开发一个项目，来为这个系列的所有示例提供可视化功能一定很好玩！本系列的所有代码都存放于[此 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)，本文相关代码的提交记录位于[此处](https://github.com/RodionChachura/linear-algebra/tree/813cfecfda70cb3a9415c21ead97e09242e08f49)。
 
 ## 目标
 
@@ -21,7 +21,7 @@
 
 ## 创建 React App
 
-本节其实讲述了一个完整的故事：“什么是创建 react 项目的最佳实践”。不过在本文中，我们将尽可能减少依赖的库，并将设置过程最简化。
+其实有一篇关于创建 React 项目的最佳实践的详细文章可供参考，不过在本文中，我们将尽可能减少依赖的库，并将设置过程最简化。
 
 ```bash
 create-react-app linear-algebra-demo
@@ -29,7 +29,7 @@ cd linear-algebra-demo
 npm install --save react-sizeme styled-components
 ```
 
-上面的脚本安装了两个库。第一个库 `react-sizeme` 可以让窗体大小发生变化时，重新渲染网格组件。第二个库 `styled-components` 则能更轻松地让我们编写组件的样式。此外，要用到我们正在开发的 **linear-algebra** 库，需要在 **package.json** 中进行如下引用：
+上面的脚本安装了两个库。第一个库 `react-sizeme` 可以让窗体大小发生变化时，重新渲染网格组件。第二个库 `styled-components` 则能让我们更轻松地编写组件的样式。此外，要用到我们正在开发的 **linear-algebra** 库，需要在 **package.json** 中进行如下引用：
 
 ```
 "dependencies": {
@@ -42,7 +42,7 @@ npm install --save react-sizeme styled-components
 
 ![项目结构](https://cdn-images-1.medium.com/max/2000/1*EWFF0Gih-K8lchpTLnGemQ.png)
 
-本系列为每个示例都在 `views` 目录中创建了各自的组件。我们在 **index.js** 中导出一个以示例名称为键，以对应组件为值的对象。
+本系列为每个示例都在 `views` 目录中创建了各自的组件。我们在 **index.js** 中导出一个以示例名称为键、以对应组件为值的对象。
 
 ```JavaScript
 import { default as VectorLength } from './vector-length'
@@ -262,7 +262,7 @@ export default withTheme(VectorsAddition)
 
 ## 箭头组件
 
-箭头组件由 3 个 **SVG** 元素组成：**line** 用于显示箭头的线、**polygon** 用于显示箭头的头，**text** 用于显示向量名称。此外，我们需要接受 **project** 函数，用于将箭头放在网格中正确的位置上。
+箭头组件由 3 个 **SVG** 元素组成：**line** 用于显示箭头的线、**polygon** 用于显示箭头的头、**text** 用于显示向量名称。此外，我们需要接受 **project** 函数，用于将箭头放在网格中正确的位置上。
 
 ```JavaScript
 import React from 'react'
