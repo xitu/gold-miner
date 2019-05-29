@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/context-api-vs-redux.md](https://github.com/xitu/gold-miner/blob/master/TODO1/context-api-vs-redux.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：
+> * 校对者：[Minghao](https://github.com/Minghao23), [Baddyo](https://github.com/Baddyo)
 
 # Redux vs. React 的 Context API
 
@@ -13,9 +13,9 @@ React 在 16.3 版本里面引入了新的 Context API —— 说它是**新的*
 
 但是，现在 Context API 摇身一变成为了 React 中的一等公民，对所有人开放（不像是之前那样，现在是被官方所提倡使用的）。
 
-React 16.3 版本一发布，宣称新的 Context API 将要取缔 Redux 的文章在网上铺天盖地而来。但是，如果你去问问 Redux，我认为它会说“我的死亡报告被[极度夸大了](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/)”。
+React 16.3 版本一发布，宣称新的 Context API 将要取缔 Redux 的文章在网上铺天盖地而来。但是，如果你去问问 Redux，我认为它会说“那些宣告我会死亡的报道实在是[言过其实](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/)”。
 
-在这篇文章中，我想向大家介绍一下新的 Context API 如何工作，它与 Redux 的相似之处，什么情况下可以使用 Context API **而不是** Redux，以及为什么不是所有情况下 Context API 都可以替换 Redux 的原因。
+在这篇文章中，我想向大家介绍一下新的 Context API 是如何工作的，它与 Redux 的相似之处，什么情况下可以使用 Context API **而不是** Redux，以及为什么不是所有情况下 Context API 都可以替换 Redux 的原因。
 
 **如果你只是想了解 Context 的概述，可以[跳转到这一节](#how-to-use-the-react-context-api)。**
 
@@ -25,15 +25,15 @@ React 16.3 版本一发布，宣称新的 Context API 将要取缔 Redux 的文�
 
 让我们看一个可以让大多数人接触 Redux 的例子。我们将从一个单纯的 React 版本开始介绍，然后看看它在 Redux 中的样子，最后是 Context。
 
-![The component hierarchy](https://daveceddia.com/images/context-v-redux-app-screenshot.png)
+![组件层级](https://daveceddia.com/images/context-v-redux-app-screenshot.png)
 
-在该应用中用户信息显示在两个位置：导航栏的右上角以及主要内容的侧边栏。
+在该应用中用户信息显示在两个位置：导航栏的右上角以及主要内容旁边的侧边栏。
 
 （你可能会注意到它看起来很像 Twitter。这绝对不是碰巧的！磨练 React 技能的最佳方法之一就是通过[复制 —— 构建现有应用的副本](https://daveceddia.com/learn-react-with-copywork/)）。
 
 组件结构如下所示：
 
-![The component hierarchy](https://daveceddia.com/images/context-v-redux-app-tree.png)
+![组件层级](https://daveceddia.com/images/context-v-redux-app-tree.png)
 
 使用纯 React（仅仅是常规的 props），我们需要在组件树中足够高的位置存储用户信息，这样我们才可以将它向下传递给每一个需要它的组件。在我们的例子中，用户信息必须存储在 `App` 中。
 
@@ -118,23 +118,23 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 在这里，`App` [初始化 state](https://daveceddia.com/where-initialize-state-react/) 时已经包含了 “user” 对象 —— 但是在真实应用中你可能会需要[从服务器上获取该数据](https://daveceddia.com/ajax-requests-in-react/)并将它保存在 state 中，以便渲染。
 
-在 prop drilling（译者注：属性的向下传递）方面，这并不**可怕**。它工作的还不错。并不是所有情况下都不鼓励 “prop drilling”；它是一种完美的有效模式，是支持 React 工作的核心。但是如果组件的层次太深，在你编写的时候就会有点烦人。特别是当你不仅仅向下传递一个属性，而是一大堆的时候，它会变得更加烦人。
+这种 prop drilling（译者注：属性的向下传递）的方式，并非**糟糕**的做法。它工作的还不错。并不是所有情况下都不鼓励 “prop drilling”；它是一种完美的有效模式，是支持 React 工作的核心。但是如果组件的层次太深，在你编写的时候就会有点烦人。特别是当你向下传递不止一个属性，而是一大堆的时候，它会变得更加烦人。
 
 然而，这种 “prop drilling” 策略有一个更大的缺点：它会让本应该独立的组件耦合在一起。在上面的例子中，`Nav` 组件需要接收一个 “user” 属性，再将它传递给 `UserAvatar`，即使 `Nav` 中没有任何其它的地方需要用到 `user` 属性。
 
-紧密耦合的组件（就像那些向它们的子组件传递属性的组件）更加难以被复用，因为无论什么时候你要在新的地方使用它，你都必须将它们和新的父母联系起来。
+紧密耦合的组件（就像那些向它们的子组件传递属性的组件）更加难以被复用，因为无论什么时候你要在新的地方使用它，你都必须将它们和新的父组件联系起来。
 
 让我们来看看如何改进。
 
 ## 在使用 Context 或者 Redux 之前……
 
-如果你可以找到一种方法来**合并**应用的结构，并利用好 `children` 属性，这样，无需借助 deep prop drilling **或是 Context，或是 Redux**，你也可以让代码结构变得更清晰。
+如果你可以找到一种方法来**合并**应用的结构，并利用好 `children` 属性，这样，无需借助深层次的 prop drilling **或是 Context，或是 Redux**，你也可以让代码结构变得更清晰。
 
 对于那些需要使用通用占位符的组件，例如本例中的 `Nav`、`Sidebar` 和 `Body`，children 属性是一个很好的解决方案。还要知道，你可以传递 JSX 元素给**任意**属性，并不仅仅是 “children” —— 所以如果你想使用不止一个 “slot” 来插入组件时，请记住这一点。
 
-这个例子中 `Nav`、`Sidebar` 和 `Body` 接收 children，然后按照它们的样子渲染出来。这样，组件的用户不用担心传递给组件的特定数据 —— 他只需要使用组件内定义的数据，并按照组件的原始需求简单地渲染组件。这个例子中还说明了怎样使用**任意**属性传递 children。
+这个例子中 `Nav`、`Sidebar` 和 `Body` 接收 children，然后按照它们的样子渲染出来。这样，组件的使用者不用担心传递给组件的特定数据 —— 他只需要使用组件内定义的数据，并按照组件的原始需求简单地渲染组件。这个例子中还说明了怎样使用**任意**属性传递 children。
 
-（感谢 Dan Abramov 的[这个建议](https://twitter.com/dan_abramov/status/1021850499618955272)!)
+（感谢 Dan Abramov 的[这个建议](https://twitter.com/dan_abramov/status/1021850499618955272)！)
 
 ```
 import React from "react";
@@ -229,7 +229,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 我们使用的还是上面的 React 应用，这里我们将它重构为 Redux 版本。`user` 信息被移入了 Redux 存储，这意味着我们可以使用 react-redux 的 `connect` 函数，直接将 `user` 属性注入到需要它的组件中。
 
-这在解耦方面是一个巨大的胜利。看看 `Nav`、`Sidebar` 和 `Body`，你会发现它们不再接收和向下传递 `user` 属性了。不再玩 props 这块烫手山芋。当然也不会有更多不必要的耦合。
+这在解耦方面是一个巨大的胜利。看看 `Nav`、`Sidebar` 和 `Body`，你会发现它们不再接收和向下传递 `user` 属性了。不用再玩 props 这块烫手山芋了。当然也不会有更多不必要的耦合。
 
 这里的 reducer 没有做很多工作；非常的简单。我在其它地方有更多关于 [Redux Reducer 如何工作](https://daveceddia.com/what-is-a-reducer/)以及[如何编写其中的不可变代码](https://daveceddia.com/react-redux-immutability-guide/)的文章，你可以看看。
 
@@ -237,7 +237,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 import React from "react";
 import ReactDOM from "react-dom";
 
-// 我们需要 createStore, connect, and Provider:
+// 我们需要 createStore、connect 和 Provider:
 import { createStore } from "redux";
 import { connect, Provider } from "react-redux";
 
@@ -355,13 +355,13 @@ ReactDOM.render(
 
 [查看 CodeSandbox 中的在线示例](https://codesandbox.io/s/943yr0qp3o)。
 
-现在你可能想知道 Redux 如何能实现这样神奇的功能。“想知道”是一件好事情。React 不支持向多个组件层次传递属性，那为何 Redux 可以实现呢？
+现在你可能想知道 Redux 如何能实现这样神奇的功能。“想知道”是一件好事情。React 不支持跨越多个层级传递属性，那为何 Redux 可以实现呢？
 
 答案是 Redux 使用了 React 的 **context（上下文）**特性。不是现在我们说的 Context API（还不是）—— 而是旧的那个。就是 React 文档说不要使用的那个，除非你在写库文件或者你知道在做什么。
 
-Context 就像一个在每个组件背后运行的电子总线：接收传递给它的电源（数据），你只需要插入它就好。而（React-）Redux 的 `connect` 函数就是做这件事的。
+Context 就像一个在每个组件背后运行的电子总线：要接收它传递的电源（数据），你只需要插入插头就好。而（React-）Redux 的 `connect` 函数就是做这件事的。
 
-不过，Redux 的这个功能只是冰山一角。可以在所有地方传递数据只是 Redux 最**明显**的功能。以下是开箱即用的其他一些好处：
+不过，Redux 的这个功能只是冰山一角。可以在所有地方传递数据只是 Redux 最**明显**的功能。以下是你可以开箱即用的其他一些好处：
 
 ### `connect` 使你的组件很纯粹
 
@@ -371,13 +371,13 @@ Context 就像一个在每个组件背后运行的电子总线：接收传递给
 
 虽然写 action 和 reducer 有一点复杂，但是我们可以使用它提供给我们的强大调试能力来平衡这一点。
 
-使用 [Redux DevTools 扩展](https://github.com/zalmoxisus/redux-devtools-extension)，你可以自动记录应用程序执行的每个操作。你可以随时打开它，查看触发的操作，有效负载是什么，以及操作发生前后的 state。
+使用 [Redux DevTools 扩展](https://github.com/zalmoxisus/redux-devtools-extension)，应用程序执行的每个操作都会被自动记录下来。你可以随时打开它，查看触发的操作，有效负载是什么，以及操作发生前后的 state。
 
-![Redux devtools demo](https://daveceddia.com/images/redux-devtools.gif)
+![Redux 调试工具示例](https://daveceddia.com/images/redux-devtools.gif)
 
-Redux DevTools 提供了另一个很棒的功能 —— **time travel debugging（时间旅行调试）**，也就是说，你可以点击任何过去的动作并跳转到那个时间点，它基本上可以重放每一个动作，包括现在的那个，但不包括还没有触发的动作。它可以工作是因为每个动作都会**不可变**地更新 state，所以你可以拿到记录了 state 更新的列表并重放它们，跳转到你想去的地方，而且没有任何副作用。
+Redux DevTools 提供了另一个很棒的功能 —— **time travel debugging（时间旅行调试）**，也就是说，你可以点击任何过去的动作并跳转到那个时间点，它基本上可以重放每一个动作，包括现在的那个，但不包括还没有触发的动作。其原理是每个动作都会**不可变**地更新 state，所以你可以拿到记录了 state 更新的列表并重放它们，跳转到你想去的地方，而且没有任何副作用。
 
-而且目前有像 [LogRocket](https://logrocket.com/) 这样的工具，可以为你的每一个用户在**生产环境**中提供一个永远在线的 Redux DevTools。有 bug 报告？没关系。在 LogRocket 中查找该用户的会话，你可以看到他们所做的所有事情以及确切触发的操作。
+而且目前有像 [LogRocket](https://logrocket.com/) 这样的工具，可以为你的每一个用户在**生产环境**中提供一个永远在线的 Redux DevTools。有 bug 报告？没关系。在 LogRocket 中查找该用户的会话，你可以看到他们所做的所有事情以及确切触发的操作。这一切都可以通过使用 Redux 的操作流来实现。
 
 ### 使用中间件自定义 Redux
 
@@ -394,15 +394,15 @@ Redux 支持**中间件（middleware）**的概念，代表着“每次调度某
 
 ## 如何使用 React Context API
 
-但是，也许你不需要 Redux 所有那些奇特的功能。也许你不关心简单调试、自定义或是性能的自动化提升 —— 你想做的只是轻松地传递数据。也许你的应用很小，或者现在你只是需要让应用运转起来，以后再去考虑那些奇特的东西。
+但是，也许你不需要 Redux 所有那些花哨的功能。也许你不关心简单调试、自定义或是性能的自动化提升 —— 你想做的只是轻松地传递数据。也许你的应用很小，或者现在你只是需要让应用运转起来，以后再去考虑那些花哨的东西。
 
 React 的新 Context API 可能符合你的要求。让我们看看它是如何工作的。
 
-如果你更愿意看视频（3:43）而不是读文章，我在 Egghead 上发布了一个快速的 Context API 课程：
+如果你更愿意看视频（时长 3:43）而不是读文章，我在 Egghead 上发布了一个简短的 Context API 课程：
 
-[![Context API lesson on Egghead.io](https://daveceddia.com/images/context-api-egghead-video.png)](https://egghead.io/lessons/react-pass-props-through-multiple-levels-with-react-s-context-api)
+[![Egghead.io 上的 Context API 课程](https://daveceddia.com/images/context-api-egghead-video.png)](https://egghead.io/lessons/react-pass-props-through-multiple-levels-with-react-s-context-api)
 
-context API 中有 3 个重要的部分：
+Context API 中有 3 个重要的部分：
 
 *   `React.createContext` 函数：创建上下文
 *   `Provider`（由 `createContext` 返回）：在组件树中构建“电子总线”
@@ -511,13 +511,13 @@ const Ctx = React.createContext(yourDefaultValue);
 
 Redux 的 `connect` 函数是一个高阶组件（或简称 HoC）。它**包裹**另外一个组件，并将 props 传递给它。
 
-上下文的 `Consumer` 相反，它期望子组件是一个函数。然后它在渲染的时候调用这个函数，将它从包裹它的 `Provider` 上获得的值（或上下文的默认值，如果你没有传入默认值，那也可能是 `undefined`）传给子组件。
+上下文的 `Consumer` 则相反，它期望子组件是一个函数。然后它在渲染的时候调用这个函数，将它从包裹它的 `Provider` 上获得的值（或上下文的默认值，如果你没有传入默认值，那也可能是 `undefined`）传给子组件。
 
-### Provider 接收一个值
+### Provider 接收单个值
 
-它接收 `value` 属性，仅此一个值。但请记住这个值可以是任何东西。实际上，如果你想要向下传递多个值，你必须创建一个包含这些值的对象，再将**这个对象**传递下去。
+它接收 `value` 属性，仅此一个值。但请记住这个值可以是任何东西。在实践中，如果你想要向下传递多个值，你必须创建一个包含这些值的对象，再将**这个对象**传递下去。
 
-这几乎是 Context API 的基本要素。
+这几乎是 Context API 的最核心的东西。
 
 ## 灵活的 Context API
 
@@ -555,7 +555,7 @@ const UserAvatar = withUser(({ size, user }) => (
 
 BOOM，上下文可以像 Redux 的 `connect` 那样工作。让你的组件很纯粹。
 
-这里是 [带有这个高阶组件的 CodeSandbox 示例](https://codesandbox.io/s/jpy76nm1v)。
+这里是[带有这个高阶组件的 CodeSandbox 示例](https://codesandbox.io/s/jpy76nm1v)。
 
 ### 用 Provider 保存 state
 
@@ -611,7 +611,7 @@ ReactDOM.render(
 
 这是一个新例子：一个简单的房间，带有一个可以切换背景颜色的开关 —— 抱歉，我的意思是灯光。
 
-![the fire is dead. the room is freezing.](https://daveceddia.com/images/lightswitch-app.gif)
+![灯灭屋黑。](https://daveceddia.com/images/lightswitch-app.gif)
 
 State 被保存在 store 中，store 中还有切换灯光的函数。State 和函数都通过上下文传递。
 
@@ -683,17 +683,17 @@ ReactDOM.render(
 
 ## 应该使用 Context 还是 Redux？
 
-既然你已经看过两种方式了 —— 那你应该使用哪种方式呢？好吧，这里有一件事会让你的应用**更好**并且**写起来更有趣**，那就是**做决策**。我知道你可能只想要“答案”，但我很遗憾地告诉你，“这取决于你”。
+既然你已经看过两种方式了 —— 那你应该使用哪种方式呢？好吧，这里有一件事会让你的应用**更好**并且**写起来更有趣**，那就是**做决策**。我知道你可能只想要“答案”，但我很遗憾地告诉你，“这视情况而定”。
 
-这取决于你的应用程序有多大或将会变成多大。有多少人会参与其中 —— 只有你还是有更大的团队？你或你的团队对于函数式概念（Redux 所依赖的，如不变性和纯函数）的经验。
+这取决于你的应用程序有多大或将会变成多大。有多少人会参与其中 —— 只有你还是有更大的团队？你或你的团队对于 Redux 所依赖的函数式概念（如不变性和纯函数）的经验。
 
-在 JavaScript 生态系统中存在的一个巨大的恶性谬论是**竞争**的概念。有观点认为，每一次选择都是一个总和为零的游戏；如果你使用**库 A**，你就不能使用**它的竞争对手库 B**。这个想法是说当出现了一个在某种程度上更好的新库，它必须取代现有的库。这是一种或者……或者……的感觉，你必须选择目前最好的库或者和过去的人一起使用之前的库。
+在 JavaScript 生态系统中存在的一个巨大的恶性谬论是**竞争**的概念。有观点认为，每一次选择都是一个零和游戏；如果你使用**库 A**，你就不能使用**它的竞争对手库 B**。这个想法是说当出现了一个在某种程度上更好的新库，它必须取代现有的库。这是一种「或者……或者……」的感觉，你必须选择目前最好的库，或者和过去的人一起使用之前的库。
 
 更好的方法是拥有一个像是你的**工具箱**一样的东西，可以把你的选择项都放进去。就像是选择使用螺丝刀还是冲击钻。对于 80% 的工作，使用冲击钻拧螺丝都比螺丝刀更快。但对于另外的 20%，螺丝刀实际上是更好的选择 —— 或许因为空间比较狭小，或是物品很精细。当我有一个冲击钻时，我并没有立即扔掉我的螺丝刀，甚至是我的非冲击钻。冲击钻没有**取代**它们，它只是给了我另外一种选择。另外一种解决问题的方法。
 
-React 会“替换” Angular 或 jQuery，但 Context 不会像这样“替换” Redux。哎呀，当我需要快速完成一些事情时，我仍然会使用 jQuery。我有时仍会使用服务器渲染的 EJS 模板，而不是使用整个 React 应用程序。有时 React 比你的手上的任务需求更庞大。有时 Redux 里也会有你不需要的功能。
+React 会“替代” Angular 或 jQuery，但 Context 不会像这样“替代” Redux。哎呀，当我需要快速完成一些事情时，我仍然会使用 jQuery。我有时仍会使用服务器渲染的 EJS 模板，而不是使用整个 React 应用程序。有时 React 比你手上的任务需求更庞大。有时 Redux 里也会有你不需要的功能。
 
-今天，当 Redux 超出你的需求时，你可以使用 Context。
+现在，当 Redux 超出你的需求时，你可以使用 Context。
 
 ### 翻译
 
