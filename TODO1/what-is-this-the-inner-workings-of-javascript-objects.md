@@ -45,11 +45,11 @@ const answers = [
 
 在继续阅读之前，请你先把答案写出来。完成后再用 `console.log()` 来检查你的答案是否正确。你答对了吗？
 
-我们先从第一个例子开始，然后依次解释下面的样例。`obj.getThis()` 返回了 `undefined`, 但是为什么呢？因为箭头函数永远都没有自己的 `this` 绑定。作为替代的是，它总是会委托给词法作用域。在 ES6 模块的根作用域中，这个例子里面的词法作用域将具有未定义的 `this`。 那么 `obj.getThis.call(a)` 同样也会返回 undefined。对于箭头函数来说，即使使用 `.call()` 或 `.bind()`，也不能重新修改 `this`。它总是会去委托词法作用域里面的 `this`。 
+我们先从第一个例子开始，然后依次解释下面的样例。`obj.getThis()` 返回了 `undefined`, 但是为什么呢？因为箭头函数永远都没有自己的 `this` 绑定。作为替代的是，它总是会委托给词法作用域。在 ES6 模块的根作用域中，这个例子里面的词法作用域将具有未定义的 `this`。那么 `obj.getThis.call(a)` 同样也会返回 undefined。对于箭头函数来说，即使使用 `.call()` 或 `.bind()`，也不能重新修改 `this`。它总是会去委托词法作用域里面的 `this`。
 
 `obj.getThis2()` 通过常规方法调用过程来获取 `this` 的绑定。如果函数以前没有绑定 `this`，那么它可以有 `this` 绑定（该函数不是箭头函数），`this` 会使用 `.` 或方括号 `[ ]` 属性访问语法来绑定到调用改方法的对象上。
 
-`obj.getThis2.call(a)` 有点不好分析。`call()` 方法使用给定的 `this` 值和可选参数调用函数。换句话说，这个函数通过 `.call()` 的参数来获取绑定到 `this` ，因此 `obj.getThis2.call(a)` 会返回 `a` 对象。
+`obj.getThis2.call(a)` 有点不好分析。`call()` 方法使用给定的 `this` 值和可选参数调用函数。换句话说，这个函数通过 `.call()` 的参数来获取绑定到 `this`，因此 `obj.getThis2.call(a)` 会返回 `a` 对象。
 
 我们试图通过 `obj.getThis3 = obj.getThis.bind(obj);` 来绑定一个箭头函数，前面我们已经确定这里不会起作用，所以 `obj.getThis3()` 和 `obj.getThis3.call(a)` 都会返回 `undefined`。
 
@@ -57,7 +57,7 @@ const answers = [
 
 ## 弧线球
 
-同样的挑战，但这一次，我们使用带公共字段语法（本文撰写时，该语法已推进到 TC39 委员会的[第三阶段](https://github.com/tc39/proposal-class-fields), 默认支持 Chrome 和 @babel/plugin-proposal-class-properties）的 `class`:
+同样的挑战，但这一次，我们使用带公共字段语法（本文撰写时，该语法已推进到 TC39 委员会的[第三阶段](https://github.com/tc39/proposal-class-fields), 默认支持 Chrome 和 @babel/plugin-proposal-class-properties）的 `class`：
 
 ```js
 class Obj {
@@ -103,7 +103,7 @@ class Obj {
 
 ## 结论
 
-你是怎么理解的？你有理解上面的内容吗？对 JavaScript 中 `this` 的透彻理解，能够大大缩短调试棘手的问题的时间。如果上面你有任何错误的答案，那么你应该好好练习一下。仔细琢磨这些例子，然后再来测试自己，直到你能完全通过测试，并且能够向其他人解释为什么这些方法会返回相应的内容。 
+你是怎么理解的？你有理解上面的内容吗？对 JavaScript 中 `this` 的透彻理解，能够大大缩短调试棘手的问题的时间。如果上面你有任何错误的答案，那么你应该好好练习一下。仔细琢磨这些例子，然后再来测试自己，直到你能完全通过测试，并且能够向其他人解释为什么这些方法会返回相应的内容。
 
 如果你觉得这比你想象中的难，这并不是你一个人会这样。我针对这些问题测试过不少的开发人员，到目前为止只有一个开发人员能够很好的解释这些问题。
 
