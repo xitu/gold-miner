@@ -2,20 +2,20 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-this-the-inner-workings-of-javascript-objects.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-this-the-inner-workings-of-javascript-objects.md)
-> * 译者：
-> * 校对者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
+> * 校对者：[ezioyuan](https://github.com/ezioyuan), [Baddyo](https://github.com/Baddyo)
 
-# What is `this`? The Inner Workings of JavaScript Objects
+# 什么是 `this`？JavaScript 对象的内部工作原理
 
 ![**Photo: Curious by Liliana Saeb (CC BY 2.0)**](https://cdn-images-1.medium.com/max/3200/1*q-p49V6XkQRrvh5w4vauSg.jpeg)
 
-JavaScript is a multi-paradigm language that supports object-oriented programming and dynamic binding. Dynamic binding is a powerful concept which allows the structure of your JavaScript code to change at runtime, but that extra power and flexibility comes at the cost of some confusion, and a lot of that confusion is centered around how this behaves in JavaScript.
+JavaScript 是一种支持面向对象编程和动态绑定的多范型语言。动态绑定是一个强大的概念，它允许 JavaScript 代码的结构在运行时改变，但是这种额外的功能和灵活性是以一些混乱为代价的，并且很多混乱主要集中在 JavaScript 的行为方式上。
 
-## Dynamic Binding
+## 动态绑定
 
-Dynamic binding is the process of determining the method to invoke at runtime rather than compile time. JavaScript accomplishes that with `this` and the prototype chain. In particular, the meaning of `this` inside a method is determined at runtime, and the rules change depending on how that method was defined.
+动态绑定指的是在运行时而不是编译时，确定要调用的方法的过程。JavaScript 通过 `this` 和原型链来实现这点。特别是，方法内部 `this` 的指向是在运行时确认的，而且指向会根据方法的定义而改变。
 
-Let’s play a game. I call this game “What is `this`?"
+下面来玩个游戏。游戏的名字叫做“什么是 `this`”？
 
 ```js
 const a = {
@@ -43,21 +43,21 @@ const answers = [
 ];
 ```
 
-Before you continue, write down your answers. After you’ve done so, `console.log()` your answers to check them. Did you guess right?
+在继续阅读之前，请你先把答案写出来。完成后再用 `console.log()` 来检查你的答案是否正确。你答对了吗？
 
-Let’s start with the first case and work our way down. `obj.getThis()` returns `undefined`, but why? Arrow functions can never have their own `this` bound. Instead, they always delegate to the lexical scope. In the root scope of an ES6 module, the lexical scope in this case would have an undefined `this`. `obj.getThis.call(a)` is also undefined, for the same reason. For arrow functions, `this` can't be reassigned, even with `.call()` or `.bind()`. It will always delegate to the lexical `this`.
+我们先从第一个例子开始，然后依次解释下面的样例。`obj.getThis()` 返回了 `undefined`, 但是为什么呢？因为箭头函数永远都没有自己的 `this` 绑定。作为替代的是，它总是会委托给词法作用域。在 ES6 模块的根作用域中，这个例子里面的词法作用域将具有未定义的 `this`。那么 `obj.getThis.call(a)` 同样也会返回 undefined。对于箭头函数来说，即使使用 `.call()` 或 `.bind()`，也不能重新修改 `this`。它总是会去委托词法作用域里面的 `this`。
 
-`obj.getThis2()` gets its binding via the normal method invocation process. If there is no previous `this` binding, and the function can have `this` bound (i.e., it's not an arrow function), `this` gets bound to the object the method is invoked on with the `.` or `[squareBracket]` property access syntax.
+`obj.getThis2()` 通过常规方法调用过程来获取 `this` 的绑定。如果函数以前没有绑定 `this`，那么它可以有 `this` 绑定（该函数不是箭头函数），`this` 会使用 `.` 或方括号 `[ ]` 属性访问语法来绑定到调用改方法的对象上。
 
-`obj.getThis2.call(a)` is a little trickier. The `call()` method calls a function with a given `this` value and optional arguments. In other words, it gets its `this` binding from the `.call()` parameter, so `obj.getThis2.call(a)` returns the `a`object.
+`obj.getThis2.call(a)` 有点不好分析。`call()` 方法使用给定的 `this` 值和可选参数调用函数。换句话说，这个函数通过 `.call()` 的参数来获取绑定到 `this`，因此 `obj.getThis2.call(a)` 会返回 `a` 对象。
 
-With obj.getThis3 = obj.getThis.bind(obj);, we're trying to bind an arrow function, which we've already determined will not work, so we're back to `undefined` for both `obj.getThis3()`, and `obj.getThis3.call(a)`.
+我们试图通过 `obj.getThis3 = obj.getThis.bind(obj);` 来绑定一个箭头函数，前面我们已经确定这里不会起作用，所以 `obj.getThis3()` 和 `obj.getThis3.call(a)` 都会返回 `undefined`。
 
-You can bind regular methods, so `obj.getThis4()` returns `obj`, as expected, and because it's already been bound with obj.getThis4 = obj.getThis2.bind(obj);, `obj.getThis4.call(a)` respects the first binding and returns `obj` instead of `a`.
+我们可以绑定常规的方法，因此 `obj.getThis4()` 方法会按照预期返回 `obj`，因为它已经通过 `obj.getThis4 = obj.getThis2.bind(obj)` 绑定了 `this`，所以 `obj.getThis4.call(a)` 会优先返回第一次绑定时的 `obj` 而不是 `a`。
 
-## Curve Ball
+## 弧线球
 
-Same challenge, but this time, with `class` using the public fields syntax ([Stage 3](https://github.com/tc39/proposal-class-fields) at the time of this writing, available by default in Chrome and with @babel/plugin-proposal-class-properties):
+同样的挑战，但这一次，我们使用带公共字段语法（本文撰写时，该语法已推进到 TC39 委员会的[第三阶段](https://github.com/tc39/proposal-class-fields), 默认支持 Chrome 和 @babel/plugin-proposal-class-properties）的 `class`：
 
 ```js
 class Obj {
@@ -83,11 +83,11 @@ const answers2 = [
 ];
 ```
 
-Write your answers down before you continue.
+在继续之前先写下你的答案。
 
-Ready?
+准备好检查答案了吗？
 
-With the exception of `obj2.getThis2.call(a)`, these all return the object instance. The exception returns the `a` object. The arrow function **still delegates to lexical `this`.** The difference is that lexical `this` is different for class properties. Under the hood, that class property assignment is being compiled to something like this:
+除了 `obj2.getThis2.call(a)`，这些调用都会返回对象的实例。`obj2.getThis2.call(a)` 返回 `a` 对象。箭头函数**仍然会去绑定词法作用域的 `this`**。区别只是在于词法的 `this` 属性不同。在这种情况下，类属性复制会被编译成类似下面这样的东西：
 
 ```js
 class Obj {
@@ -97,21 +97,21 @@ class Obj {
 ...
 ```
 
-In other words, the arrow function is being defined **inside the context of the constructor function.** Since it’s a class, the only way to create an instance is to use the `new` keyword (omitting `new` will throw an error).
+换句话说，箭头函数是在**构造函数的上下文中**被定义的。由于它是一个类，创建实例的唯一方法是使用 `new` 关键字（忽略 new 将抛出错误）。
 
-One of the most important things that the `new` keyword does is instantiate a new object instance and bind `this` to it in the constructor. This behavior, combined with the other behaviors we've already mentioned above should explain the rest.
+`new` 关键字最重要的一个作用是实例化一个新的对象并且在构造函数中绑定 `this`。这种行为，结合我们之间提到的其他行为应该可以解释剩下的例子了。
 
-## Conclusion
+## 结论
 
-How did you do? Did you get them all right? A good understanding of how `this` behaves in JavaScript will save you a lot of time debugging tricky issues. If you got any of the answers wrong, it would serve you well to practice. Play with the examples, then come back and test yourself again until you can both ace the test, and explain to somebody else why the methods return what they return.
+你是怎么理解的？你有理解上面的内容吗？对 JavaScript 中 `this` 的透彻理解，能够大大缩短调试棘手的问题的时间。如果上面你有任何错误的答案，那么你应该好好练习一下。仔细琢磨这些例子，然后再来测试自己，直到你能完全通过测试，并且能够向其他人解释为什么这些方法会返回相应的内容。
 
-If that was harder than you expected, you’re not alone. I’ve tested quite a few developers on this topic, and I think only one developer has aced it so far.
+如果你觉得这比你想象中的难，这并不是你一个人会这样。我针对这些问题测试过不少的开发人员，到目前为止只有一个开发人员能够很好的解释这些问题。
 
-What started as dynamic method lookups that you could redirect with `.call()`, `.bind()`, or `.apply()` has become significantly more complex with the addition of `class` and arrow function behavior. It may be helpful to compartmentalize a little. Remember that arrow functions always delegate `this` to the lexical scope, and that `class` `this` is actually lexically scoped to the constructor functions under the hood. If you're ever in doubt about what `this` is, remember to use your debugger to verify the object is what you think it is.
+随着 `class` 或者箭头函数的增加，使用 `.call()`、`.bind()` 或 `.apply()` 重定向的动态方法查找变得更加复杂。稍微划分一下可能会有所帮助。请记住，箭头函数总是会将 `this` 委托给词法作用域，而 `class` 中的 `this` 实际上在词法上把作用域限定在构造函数中了。如果你还对 `this` 是什么有疑惑，记住使用调式工具来验证对象是否是你认为的对象。
 
-Remember also that in JavaScript, you can do a lot without ever using `this`. In my experience, almost anything can be reimplemented in terms of pure functions which take all the arguments they apply to as explicit parameters (you can think of `this` as an implicit parameter with mutable state). Logic encapsulated in pure functions is deterministic, which makes it more testable, and has no side-effects, which means that unlike manipulating `this`, you're unlikely to break anything else. Every time you mutate `this`, you take the chance that something else dependent on the value of `this` will break.
+同时也记住，在 JavaScript 中，你也可以在不使用 `this` 的情况下做很多事情。根据我的经验，几乎所有东西都可以使用纯函数来重新实现，它们可以将其所应用的参数都设为显式的参数（你可以把 `this` 理解为具有可变状态的隐式参数）。封装在纯函数中的逻辑具有确定性，这使得它更易于测试，并且没有副作用，这意味着与操作 `this` 不同，你不太可能破坏其它的东西。每次当你转换 `this` 时，你都要冒依赖于 `this` 值相关的内容会崩溃的风险。
 
-That said, `this` is sometimes useful. For instance, to share methods between a large number of objects. Even in functional programming, `this` can be useful to access other methods on the object to implement algebraic derivations to build new algebras on top of existing ones. For instance, a generic `.flatMap()` can be derived by accessing `this.map()` and `this.constructor.of()`.
+即便如此，`this` 有时也是有用的。例如，在大量对象之间共享方法。即使是在函数式编程中，`this` 也可用于访问对象上的其它方法，以实现代数派生，从而在现有代数的基础上构建新的代数。例如，可以通过访问 `this.map()` 和 `this.constructor.of()` 派生一个通用的 `.flatMap()`。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
