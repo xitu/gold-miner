@@ -46,8 +46,8 @@ There are two ways in which FACETS can be used with data:
 #### Web App
 
 It can be used directly from its demo page whose link is embedded below.
-[**Facets - Visualizations for ML datasets**
-**Dive provides an interactive interface for exploring the relationship between data points across all of the different…**pair-code.github.io](https://pair-code.github.io/facets/)
+
+[**Facets - Visualizations for ML datasets**](https://pair-code.github.io/facets/)
 
 This website allows anyone to visualize their own datasets directly in the browser without the need for any software installation or setup, without the data ever leaving your computer.
 
