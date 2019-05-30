@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-get-a-progressive-web-app-into-the-google-play-store.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-get-a-progressive-web-app-into-the-google-play-store.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[linxiaowu66](https://github.com/linxiaowu66)
+> * 校对者：[linxiaowu66](https://github.com/linxiaowu66), [Xuyuey](https://github.com/Xuyuey)
 
 # 如何在 Google Play 应用商店中发布 PWA
 
