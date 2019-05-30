@@ -102,6 +102,18 @@ Please note the **startTime** column, which states the time image loading was de
 
 Auto cat loaded automatically
 
+| Metric / Request | #1          |
+| ---------------- | ----------- |
+| encodedBodySize  | 20718 bytes |
+| decodedBodySize  | 20718 bytes |
+| transferSize     | 0 bytes     |
+| startTime        | 54 ms       |
+| requestStart     | 592 ms      |
+| responseStart    | 596 ms      |
+| responseEnd      | 601 ms      |
+| timeToFirstByte  | 4 ms        |
+| downloadDuration | 5 ms        |
+
 Setting the `loading` attribute to `auto` (or simply leaving the value blank, as in `loading=""`) lets the **browser decide** whether or not to lazy-load an image. It takes many things into consideration to make that decision, like the platform, whether Data Saver mode is enabled, network conditions, image size, image vs. iframe, the CSS `display` property, among others. (See [How it works](#article-header-id-7)) for info about why all this is important.)
 
 ### The eager value
@@ -115,6 +127,18 @@ Setting the `loading` attribute to `auto` (or simply leaving the value blank, as
 
 Eager cat loaded eagerly
 
+| Metric / Request | #1          |
+| ---------------- | ----------- |
+| encodedBodySize  | 24019 bytes |
+| decodedBodySize  | 24019 bytes |
+| transferSize     | 0 bytes     |
+| startTime        | 54 ms       |
+| requestStart     | 592 ms      |
+| responseStart    | 600 ms      |
+| responseEnd      | 605 ms      |
+| timeToFirstByte  | 7 ms        |
+| downloadDuration | 5 ms        |
+
 The `eager` value provides a hint to the browser that an image **should be loaded immediately**. If loading was already deferred (e. g. because it had been set to `lazy` and was then changed to `eager` by JavaScript), the browser should start loading the image immediately.
 
 ### The lazy value
@@ -127,6 +151,18 @@ The `eager` value provides a hint to the browser that an image **should be loade
 ![Lazy cat loaded lazily](https://demo.tiny.pictures/native-lazy-loading/lazy-cat.jpg?width=452)
 
 Lazy cat loaded lazily
+
+| Metric / Request | #1          |
+| ---------------- | ----------- |
+| encodedBodySize  | 12112 bytes |
+| decodedBodySize  | 12112 bytes |
+| transferSize     | 0 bytes     |
+| startTime        | 54 ms       |
+| requestStart     | 593 ms      |
+| responseStart    | 599 ms      |
+| responseEnd      | 604 ms      |
+| timeToFirstByte  | 6 ms        |
+| downloadDuration | 5 ms        |
 
 The `lazy` value provides a hints to the browser that an image should be lazy-loaded. It's up to the browser to interpret what exactly this means, but the [explainer document](https://github.com/scott-little/lazyload) states that it should start loading **when the user scrolls "near" the image** such that it is probably loaded once it actually comes into view.
 
