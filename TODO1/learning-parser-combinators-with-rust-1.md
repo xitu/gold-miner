@@ -5,37 +5,37 @@
 > * 译者：
 > * 校对者：
 
-# Learning Parser Combinators With Rust - Part 1
+# 通过 Rust 学习解析器组合器 - （一）
 
-This article teaches the fundamentals of parser combinators to people who are already Rust programmers. It assumes no other knowledge, and will explain everything that isn't directly related to Rust, as well as a few of the more unexpected aspects of using Rust for this purpose. It will not teach you Rust if you don't already know it, and, if so, it probably also won't teach you parser combinators very well. If you would like to learn Rust, I recommend the book [The Rust Programming Language](https://doc.rust-lang.org/book/).
+本文面向会使用Rust编程的人员，提供一些解析器的基础知识。如果不具备其他知识，我们将会介绍和 Rust 没有直接关系的所有内容，以及使用 Rust 实现这个会更加超出预期的一些方面。如果你还不了解 Rust，这个文章也不会讲如何使用它，如果你已经了解了，那它也不能打包票能教会你解析器组合器的知识。如果你想学习 Rust ，我推荐阅读[Rust编程语言](https://doc.rust-lang.org/book/)。
 
-### Beginner's Mind
+## 初学者的独白
 
-There comes a point in the life of every programmer when they find themselves in need of a parser.
+在很多程序员的职业生涯中，可能都会有这样一个时刻，发现自己需要一个解析器。
 
-The novice programmer will ask, "what is a parser?"
+小白程序员可能会问，“解析器是什么？”
 
-The intermediate programmer will say, "that's easy, I'll write a regular expression."
+中级程序员会说，“这很简单，我会写正则表达式。”
 
-The master programmer will say, "stand back, I know lex and yacc."
+高级程序员会说：闪开，我知道 `lex` 和 `yacc` 。
 
-The novice has the right idea.
+小白的心态是正确的。
 
-Not that regular expressions aren't great. (But please don't try writing a complicated parser as a regular expression.) Not that there's no joy to be had in employing powerful tools like parser and lexer generators that have been honed to perfection over millennia. But learning about parsers from the ground up is **fun**. It's also something you'll be missing out on if you stampede directly towards regular expressions or parser generators, both of which are only abstractions over the real problem at hand. In the beginner's mind, [as the man said](https://en.wikipedia.org/wiki/Shunry%C5%AB_Suzuki#Quotations), there are many possibilities. In the expert's mind, there's only the one the expert got used to.
+并不说正则不好。（但请不要尝试将一个复杂的解析器写成正则表达式。）也不是说使用像解析器和 `lexer` 生成器等这种功能强大的工具就没有乐趣了，这些工具经过长久的迭代和改进，已经达到了非常好的程度。但从 0 开始学解析器是 **很有趣** 的。而如果你直接走正则表达式或解析器生成器的方向，你将会错过很多精彩的东西，因为它们只是对当前实际问题的抽象后形成的工具。正如[某人](https://en.wikipedia.org/wiki/Shunry%C5%AB_Suzuki#Quotations)所说，在初学者的脑袋中，是充满可能性的。而在专家的头脑中，可能就习惯于那一种想法。
 
-In this article, we're going to learn how to build a parser from the ground up using a technique common in functional programming languages known as **parser combinators**. They have the advantage of being remarkably powerful once you grasp the basic idea of them, while at the same time staying very close to first principles, as the only abstractions here will be the ones you build yourself on top of the basic combinators - all of which you'll also have to build before you get to use them.
+在本文中，我们将学习怎样从头开始使用函数式编程语言中常见的技术构建一个解析器，这种技术被称为 **解析器组合器**。它们具有很好的优点，一旦你掌握其中的基本思想，和基本原理，你将在基本组合器之上建立自己的抽象，这里也将作为唯一的抽象 —— 所有这些必须建立在你使用它们之前开始进行构思。
 
-### How To Work Through This Article
+### 怎样学习好这篇文章
 
-It's highly recommended that you start a fresh Rust project and type the code snippets into `src/lib.rs` as you read (you can paste it directly from the page, but typing it in is better, as the act of doing so automatically ensures you read the code in its entirety). Every piece of code you're going to need is introduced by the article in order. Mind that it sometimes introduces **changed** versions of functions you've written previously, and that in these cases you should replace the old version with the new one.
+强烈建议你新建一个新的 Rust 项目，并在阅读时，将代码片段键入到文件 `src/lib.rs` 中 （您可以直接从页面复制代码片段，但最好手敲，因为这样会确保你完整的阅读代码）。本文会按顺序介绍你需要的每一段代码。请注意，它可能会引入你之前编写的函数 **已修改** 版本，这种情况下，你应该使用新版本的代码替换旧版本的。
 
-The code was written for `rustc` version 1.34.0 using the 2018 edition of the language. You should be able to follow along using any version of the compiler that is more recent, as long as you make sure you're using the 2018 edition (check that your `Cargo.toml` contains `edition = "2018"`). The code needs no external dependencies.
+代码是基于 2018 版次的 `rustc 1.34.0` 版本的编译器的。你应该能够使用最新版本的编译器，只要确保你使用的是2018（检查 `Cargo.toml` 是否包含了 `edition = "2018"` ）的版次。代码无需外部依赖。
 
-To run the tests introduced in the article, as you might expect, you use `cargo test`.
+如你所料，要运行文章中介绍的测试，可以使用 `cargo test`
 
-### The Xcruciating Markup Language
+### XML 文本
 
-We're going to write a parser for a simplified version of XML. It looks like this:
+我们将为简化版的 `XML` 编写一个解析器。它类似于这样：
 
 ```
 <parent-element>
@@ -43,11 +43,11 @@ We're going to write a parser for a simplified version of XML. It looks like thi
 </parent-element>
 ```
 
-XML elements open with the symbol `<` and an identifier consisting of a letter followed by any number of letters, numbers and `-`. This is followed by some whitespace, and an optional list of attribute pairs: another identifier as defined previously, followed by a `=` and a double quoted string. Finally, there is either a closing `/>` to signify a single element with no children, or a `>` to signify there is a sequence of child elements following, and finally a closing tag starting with `</`, followed by an identifier which must match the opening tag, and a final `>`.
+`XML` 元素以符号 `<` 和一个标识符开始，标识符由若干字母、数字或 `-` 组成。其后是一些空格，或一些可选的属性列表：前面定义的另一个标识符，这个标识符后跟随一个 `=` 和双引号包含一些字符串。最后，可能有一个 `/>` 进行结束，表示没有子元素的单个元素，也可能有一个 `>` 表示后面有一些子元素，最后使用一个以 `</` 开头的结束标记，后面跟一个标识符，该标识符必须在与开始标识符标记相匹配，最后使用 `>` 闭合。
 
-That's all we're going to support. No namespaces, no text nodes, none of the rest, and **definitely** no schema validation. We're not even going to bother supporting escape quotes for those strings - they start at the first double quote and they end at the next one, and that's it. If you want double quotes inside your actual strings, you can take your unreasonable demands somewhere else.
+这就是我们要做的。没有名称空间，没有文本节点，没有其他节点，而且 **肯定** 没有模式验证。我们甚至不需要为这些字符串支持转义引号 —— 它们从第一个双引号开始，到下一个双引号结束，就是这样。如果你想要在实际的字符串中使用双引号，你可以将难处理的需求放到以后处理。
 
-We're going to parse those elements into a struct that looks like this:
+我们将把这些元素解析成类似于这样的结构：
 
 ```
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -58,41 +58,47 @@ struct Element {
 }
 ```
 
-No fancy types, just a string for a name (that's the identifier at the start of each tag), attributes as pairs of strings (identifier and value), and a list of child elements that look exactly the same as the parent.
+没有泛型，只有一个带有名称的字符串（即每个标记开头的标识符）、一些字符串的属性（标识符和值），和一个看起来和父元素完全一样的子元素列表。
 
-(If you're typing along, make sure you include those derives. You're going to need them later.)
+（如果你正在键入代码，请确保包含这些 derives 。稍后你会需要用到的。）
 
-### Defining The Parser
+### 定义解析器
 
-Well, then, it's time to write the parser.
+那么，是时候开始编写解析器了。
 
-Parsing is a process of deriving structure from a stream of data. A parser is something which teases out that structure.
+解析是从数据流派生出结构的过程。解析器就是用来将它们梳理出结构的东西。
 
-In the discipline we're about to explore, a parser, in its simplest form, is a function which takes some input and returns either the parsed output along with the remainder of the input, or an error saying "I couldn't parse this."
+在我们将要探讨的规程中，解析器最简单的形式就是一个函数，它接收一些输入并返回已解析的内容和输入的剩余部分，或者一个错误提示：“无法解析”。
 
 It turns out that's also, in a nutshell, what a parser looks like in its more complicated forms. You might complicate what the input, the output and the error all mean, and if you're going to have good error messages you'll need to, but the parser stays the same: something that consumes input and either produces some parsed output along with what's left of the input or lets you know it couldn't parse the input into the output.
+简而言之，这也是解析器在更复杂的场景中也是这个样子。你可能会使输入、输出和错误复杂化，如果你要有好的错误信息，你需要它，但是解析器保持不变：处理输入并将解析的结果和其他输入的剩余内容进行输出，或者提示出它无法将输入解析并显示信息。
 
-Let's write that down as a function type.
+我们把它标记为函数类型
 
 ```
 Fn(Input) -> Result<(Input, Output), Error>
 ```
 
 More concretely, in our case, we'll want to fill out the types so we get something like this, because what we're about to do is convert a string into an `Element` struct, and at this point we don't want to get into the intricacies of error reporting, so we'll just return the bit of the string that we couldn't parse as an error:
+更详细的说，在我们的例子中，我们要填充类型，就会得到类似下面的结果，因为我们要做的是将一个字符串转换成一个元素结构，这一点上，我们不想将错误复杂地显示出来，所以我们只将我们无法解析的错误作为字符串返回：
 
 ```
 Fn(&str) -> Result<(&str, Element), &str>
 ```
 
 We use a string slice because it's an efficient pointer to a piece of a string, and we can slice it up further however we please, "consuming" the input by slicing off the bit that we've parsed and returning the remainder along with the result.
+我们使用字符串 slice ，因为它是指向一个字符串片段的有效指针，我们可以通过 slice 的方式引用它，无论怎么做，处理输入的字符串 slice ，并返回剩余内容和处理结果。
 
 It might have been cleaner to use `&[u8]` (a slice of bytes, corresponding to characters if we restrict ourselves to ASCII) as the input type, especially because string slices behave a little differently from most slices - especially in that you can't index them with a single number `input[0]`, you have to use a slice `input[0..1]`. On the other hand, they have a lot of methods that are useful for parsing strings that slices of bytes don't have.
+使用 `&[u8]` （一个字节的 slice ，假设我们限制自己使用 ASCII 对应的字符） 作为输入的类型可能会更简洁，特别是因为一个字符串 slice 的行为不同于其他类型的 slice ，尤其是在不能用数字索引对字符串进行索引的情况下，你必须像这样使用一个字符串 slice `input[0..1]` 。另一方面，对于解析字符串它们提供许多方法，而字符数组 slice 没有。
 
 In fact, in general we're going to be relying on those methods rather than indexing it like that, because, well, Unicode. In UTF-8, and all Rust strings are UTF-8, these indexes don't always correspond to single characters, and it's better for all parties concerned that we ask the standard library to just please deal with this for us.
+实际上，大多数情况下，我们将依赖这些方法，而不是对其进行索引，因为， `Unicode` 。在 utf-8 中，所有rust字符串都是 utf-8 的，这些索引并不能总是对应于单个字符，最好让标准库帮我们处理这个问题。
 
-### Our First Parser
+### 我们的第一个解析器
 
 Let's try writing a parser which just looks at the first character in the string and decides whether or not it's the letter `a`.
+让我们尝试编写一个解析器，它只查看字符串中的第一个字符，并判断它是否是字母 `a`。
 
 ```
 fn the_letter_a(input: &str) -> Result<(&str, ()), &str> {
@@ -104,16 +110,22 @@ fn the_letter_a(input: &str) -> Result<(&str, ()), &str> {
 ```
 
 First, let's look at the input and output types: we take a string slice as input, as we've discussed, and we return a `Result` of either `(&str, ())` or the error type `&str`. The pair of `(&str, ())` is the interesting bit: as we've talked about, we're supposed to return a tuple with the next bit of input to parse and the result. The `&str` is the next input, and the result is just the unit type `()`, because if this parser succeeds, it could only have had one result (we found the letter `a`), and we don't particularly need to return the letter `a` in this case, we just need to indicate that we succeeded in finding it.
+首先，我们看下输入和输出的类型：我们将一个字符串 slice 作为输入，正如我们讨论的，我们返回一个包含 `(&str, ())` 的 `Result` 或者 `&str` 类型的错误。有趣的是 `(&str, ())` 这部分：正如我们所讨论的，我们应该返回一个能够分析下一个输入的结果的元组。 `&str` 是下一个输入，处理的结果则是单独的 `()` 类型，因为如果这个解析器成功运行，它将只能得到一个结果（找到了字母 `a` ），并且在这种情况下，我们不特别需要返回字母 `a` ，我们只需要指出已经成功的找到了它就行。
 
 And so, let's look at the code for the parser itself. We start by getting the first character of the input: `input.chars().next()`. We weren't kidding about leaning on the standard library to avoid giving us Unicode headaches - we ask it to get us an iterator `chars()` over the characters of the string, and we pull the first item off it. This will be an item of type `char`, wrapped in an `Option`, so `Option<char>`, where `None` means we tried to pull a `char` off an empty string.
+因此，我们看看解析器本身的代码。首先获取输入的第一个字符：`input.chars().next()` 。我们并没有尝试性的依赖标准库来避免带来 `Unicode` 的问题——我们调用它为字符串的字符提供的一个 `chars()` 迭代器，然后从其中取出第一个字符。这就是一个 `char` 类型的项，并且通过 `Option` 包装着，即 `Option<char>` ，如果是 `None` 类型的 `Option` 则意味着我们获取到的是一个空字符串。
 
 To make matters worse, a `char` isn't necessarily even what you think of as a character in Unicode. That would most likely be what Unicode calls a "[grapheme cluster](http://www.unicode.org/glossary/#grapheme_cluster)," which can be composed of several `char`s, which in fact represent "[scalar values](http://www.unicode.org/glossary/#unicode_scalar_value)," about two levels down from grapheme clusters. However, that way lies madness, and for our purposes we honestly aren't even likely to see any `char`s outside the ASCII set, so let's leave it there.
+更糟糕的是，获取到的字符甚至可能不是我们想象中的 `Unicode` 字符。这很可能就是 `Unicode` 中的 "[grapheme cluster](http://www.unicode.org/glossary/#grapheme_cluster)" ，它可以由几个 `char` 类型的字符组成，这些字符实际上表示 "[scalar values](http://www.unicode.org/glossary/#unicode_scalar_value)" ，它比 "grapheme cluster" 差不多还低2个层次。但是，这种方法未免也太激进了，就我们的目的而言，我们甚至不太可能看到 `ASCII` 字符集以外的字符，所以暂且不管这个问题。
 
 We pattern match on `Some('a')`, which is the specific result we're looking for, and if that matches, we return our success value: `Ok((&input['a'.len_utf8()..], ()))`. That is, we remove the bit we just parsed (the `'a'`) from the string slice and return the rest, along with our parsed value, which is just the empty `()`. Ever mindful of the Unicode monster, we ask the standard library for the length of `'a'` in UTF-8 before slicing - it's 1, but never, ever presume about the Unicode monster.
+我们匹配一下 `Some('a')`，这就是我们正在寻找的特定结果，如果匹配成功，我们将返回成功 `Ok((&input['a'.len_utf8]()..], ()))` 。也就是说，我们从字符串 slice 中移出的解析的项（ 'a' ），并返回其余的字符，以及解析后的值，也就是 `()` 类型。考虑到 `Unicode` 字符集问题，在对字符串 `slice` 前，我们用标准库中的方法查询一下字符 `a` 在 UTF-8 中的长度——长度是1，但绝不要去猜测 Unicode 字符长度。
 
 If we get any other `Some(char)`, or if we get `None`, we return an error. As you'll recall, our error type right now is just going to be the string slice at the point where parsing failed, which is the one that we got passed in as `input`. It didn't start with `a`, so that's our error. It's not a great error, but at least it's marginally better than just "something is wrong somewhere."
+如果我们得到其他类型的结果 `Some(char)` ，或者 `None` ，我们将返回一个 error 。正如之前提到的，我们现在的错误类型就是解析失败时的字符串 `slice` ，也就是我们我们传入的输入。它不是以 `a` 开头，所以返回错误给我们。这不是一个很严重的错误，但至少比“一些地方出了严重错误”要好一些。
 
 We don't actually need this parser to parse XML, though, but the first thing we need to do is look for that opening `<`, so we're going to need something very similar. We're also going to need to parse `>`, `/` and `=` specifically, so maybe we can make a function which builds a parser for the character we want?
+实际上，尽管我们不需要这个解析器解析这个 `XML` ，但是我们需要做的第一件事是寻找开始的 `<` ，所以我们需要一些类似的东西。特别的，我们还需要解析 `>` ,`/` 和 `=` ，所以，也许我们可以创建一个函数来构建一个解析器来解析我们想要解析的字符。
 
 ### A Parser Builder
 
