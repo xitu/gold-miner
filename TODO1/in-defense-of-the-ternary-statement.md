@@ -27,7 +27,7 @@ I realize that Linus is a bit of a polarizing figure, and you might not agree wi
 
 > Cleanliness is godliness. And god is empty. Just like me.
 > 
-> \- Billy Corgan, "Zero"
+> - Billy Corgan, "Zero"
 
 So dark! But what an [amazing album](https://en.wikipedia.org/wiki/Mellon_Collie_and_the_Infinite_Sadness).
 
