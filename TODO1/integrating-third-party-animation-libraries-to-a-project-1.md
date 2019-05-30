@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# Integrating Third-Party Animation Libraries to a Project - Part 1
+# 将第三方动画库集成到项目中 —— 第 1 部分
 
-Creating CSS-based animations and transitions can be a challenge. They can be complex and time-consuming. Need to move forward with a project with little time to tweak the perfect transition? Consider a third-party CSS animation library with ready-to-go animations waiting to be used. Yet, you might be thinking: What are they? What do they offer? How do I use them?
+创建以 CSS 为基础的动画可能是一个挑战。它们可能是复杂且耗时的。你是否需要在时间紧迫的情况下调整出一个完美的动画（库）来推进项目？考虑一个第三方的 CSS 动画库，其中有现成的动画插件等待着你来使用。可是，你仍然会想:它们是什么？它们提供了什么？我如何使用它们呢？
 
-Well, let’s find out.
+就让我们来看看吧。
 
-## A (sort of) brief history of :hover
+## 简短的历史：hover
 
-Once there was a time that the concept of a hover state was a trivial example of what is offered today. In fact, the idea of having a reaction to the cursor passing on top of an element was more-or-less nonexistent. Different ways to provide this feature were proposed and implemented. This small feature, in a way, opened the door to the idea of CSS being capable of animations for elements on the page. Over time, the increasing complexity possible with these features have led to CSS animation libraries.
+曾经有一段时间，hover 状态的概念是一个不太重要的举例。实际上，对于在元素上浮动的光标进行响应的想法是或多或少存在的。对此，实现该特性的不同方法被提了出来。在某种程度上来讲，这个小特性为 CSS 能够在页面上的元素创建动画打开了大门。随着时间的推移，这些特性可能越来越复杂，导致 CSS 动画库的产生。
 
-**Macromedia’s Dreamweaver** was introduced in [December 1997](https://en.wikipedia.org/wiki/Adobe_Dreamweaver) and offered what was a simple feature, an image swap on hover. This feature was implemented with a JavaScript function that would be embedded in the HTML by the editor. This function was named `MM_swapImage()` and has become a bit of web design folklore. It was an easy script to use, even outside of Dreamweaver, and it’s popularity has resulted in it still being in use even today. In my initial research for this article, I found a question pertaining to this function from 2018 on **Adobe’s Dreamweaver** (Adobe acquired Macromedia in 2005) help forum.
+**Macromedia’s Dreamweaver** 于[ 1997 年 12 月](https://en.wikipedia.org/wiki/Adobe_Dreamweaver)推出，并提供了一个简单的功能，即悬停时的图像变换。这个特性是通过一个 JavaScript 函数实现的，该函数被编辑器嵌入到 HTML 中。这个函数被命名为`MM_swapImage()`，并且它已经成为一个 web 设计的民间传说。它是一个易于使用的脚本，即使在 Dreamweaver 之外也是如此，它的流行性使得它直到今天还在使用。在本文的初步研究中，我在 **Adobe’s Dreamweaver**（Adobe 于 2005 年收购了 Macromedia）帮助论坛上发现了一个与此功能相关的问题。
 
-The JavaScript function would swap an image with another image through changing the src attribute based on **mouseover** and **mouseout** events. When implemented, it looked something like this:
+JavaScript 函数将根据**mouseover** 和**mouseout**事件更改 src 属性，从而将一个图像与另一个图像交换。实现时，它看起来是这样的:
 
 ```html
 <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('ImageName','','newImage.jpg',1)">
@@ -25,73 +25,73 @@ The JavaScript function would swap an image with another image through changing 
 </a>
 ```
 
-By today’s standards, it would be fairly easy to accomplish this with JavaScript and many of us could practically do this in our sleep. But consider that JavaScript was still this new scripting language at the time (created in 1995) and sometimes looked and behaved differently from browser to browser. Creating cross-browser JavaScript was not always an easy task and not everyone creating web pages even wrote JavaScript. ([Though that has certainly changed.](https://css-tricks.com/the-great-divide/)) Dreamweaver offered this functionality through a menu in the editor and the web designer didn’t even need to write the JavaScript. It was based around a set of "behaviors" that could be selected from a list of different options. These options could be filtered by a set of targeted browsers; 3.0 browsers, 4.0 browsers, IE 3.0, IE 4.0, Netscape 3.0, Netscape 4.0. Ah, the [good old days](https://css-tricks.com/the-ecological-impact-of-browser-diversity/).
+按照今天的标准，用 JavaScript 实现这一点是相当容易的，我们中的许多人实际上都可以在睡梦中完成这一点。但是，考虑到 JavaScript 在当时（创建于1995年）仍然是一种新的脚本语言，而且有时在不同浏览器之间的外观和行为都有所不同。创建跨浏览器 JavaScript 并不是一件容易的事情，甚至不是每个创建 web 页面的人都编写 JavaScript。Dreamweaver 通过编辑器中的菜单提供了这一功能，而 web 设计师甚至不需要编写 JavaScript。它基于可以从不同选项列表中选择的一组“行为”。这些选项可以被一组目标浏览器过滤；3.0浏览器，4.0浏览器，IE 3.0, IE 4.0, Netscape 3.0, Netscape 4.0。啊，[过去的美好时光](https://css-tricks.com/the-ecological-impact-of-browser-diversity/)。
 
-![A screenshot of a Netscape browser window.](https://css-tricks.com/wp-content/uploads/2019/05/mm_browsers.png)
+![Netscape 浏览器窗口的屏幕截图.](https://css-tricks.com/wp-content/uploads/2019/05/mm_browsers.png)
 
-Choosing Behaviors based on browser versions, circa 1997.
+大约在 1997 年，就可根据浏览器版本选择行为。
 
-![A screenshot from the Dreamweaver application that shows the options panel for toggling an element's behavior in HTML.](https://css-tricks.com/wp-content/uploads/2019/05/s_EBCAC238906FAA6EECC38BE5A80726DC08BADA1B9C984153FFCE3F96AC775B6A_1554670455957_mm_swap.png)
+![来自 Dreamweaver 应用程序的屏幕截图，显示了在HTML中切换元素行为的选项面板.](https://css-tricks.com/wp-content/uploads/2019/05/s_EBCAC238906FAA6EECC38BE5A80726DC08BADA1B9C984153FFCE3F96AC775B6A_1554670455957_mm_swap.png)
 
-The Swap Image Behaviors panel in Macromedia Dreamweaver 1.2a
+Macromedia Dreamweaver 1.2a 中的交换图像行为面板
 
-About a year after Dreamweaver was first released, the CSS2 specification from W3C mentioned `:hover` in a working draft dated [January 1998](https://www.w3.org/TR/1998/WD-css2-19980128/). It was specifically mentioned in terms of anchor links, but the language suggests it could have possibly been applied to other elements. For most purposes it would seem this pseudo selector would be the beginning of an easy alternative to `MM_swapImage()`, since `background-image` was in the same draft. Although browser support was an issue as it took years before enough browsers properly supported CSS2 to make it a viable option for many web designers. There was finally a W3C recommendation of CSS2.1, this could be considered to be the basis of "modern" CSS as we know it, which was published in [June 2011](https://www.w3.org/TR/CSS2/).
+Dreamweaver 首次发布大约一年后，W3C 的 CSS2 规范在 [1998 年 1 月](https://www.w3.org/TR/1998/WD-css2-19980128/)的工作草案中提到了 `:hover`。它在锚点链接方面被特别提到，但是语言表明它可能被应用于其他元素。在大多数情况下，这个伪选择器似乎是 `MM_swapImage()`的一个简单替代方法的开始，因为 `background-image`也在同一草案中。尽管浏览器支持是一个问题，因为在足够多的浏览器正确支持 CSS2 之前，它已经花费了数年的时间，使其成为许多 web 设计人员的一个可行选项。[2011年6月](https://www.w3.org/TR/CSS2/)，终于有了 W3C 推荐的CSS2.1，这可以被认为是我们所知的“现代” CSS 的基础。
 
-In the middle of all this, **jQuery** came along in [2006](https://en.wikipedia.org/wiki/JQuery). Thankfully, jQuery went a long way in simplifying JavaScript among the different browsers. One thing of interest for our story, the first version of jQuery offered the [`animate()`](https://api.jquery.com/animate/) method. With this method, you could animate CSS properties on any element at any time; not just on hover. By its sheer popularity, this method exposed the need for a more robust CSS solution baked into the browser — a solution that wouldn’t require a JavaScript library that was not always very performant due to browser limitations.
+在这中间，**jQuery**出现在 [2006](https://en.wikipedia.org/wiki/JQuery)。幸运的是，jQuery 在简化不同浏览器之间的 JavaScript 方面走了很长的路。我们的故事中有一件有趣的事情，jQuery 的第一个版本提供了[`animate()`](https://api.jquery.com/animate/)方法。使用这种方法，您可以在任何时候对任何元素的 CSS 属性进行动画的操作；不只是悬停。由于它的流行，这个方法暴露了在浏览器中嵌入一个更健壮的 CSS 解决方案的需要——这个解决方案不需要 JavaScript 库，因为浏览器的限制，JavaScript 库的性能并不是一直都很好。
 
-The `:hover` pseudo-class only offered a hard swap from one state to another with no support for a smooth transition. Nor could it animate changes in elements outside of something as basic as hovering over an element. jQuery’s `animate()` method offered those features. It paved the way and there was no going back. As things go in the dynamic world of web development, a working draft for solving this was well underway before the recommendation of CSS2.1 was published. The first working draft for [CSS Transitions Module Level 3](https://www.w3.org/TR/2009/WD-css3-transitions-20090320/) was first published by the W3C in March 2009. The first working draft for [CSS Animations Module Level 3](https://www.w3.org/TR/2009/WD-css3-animations-20090320/) was published at roughly the same time. Both of these CSS modules are still in a working draft status as of October 2018, but of course, we are already making heavy use of them
+`:hover`伪类只提供了从一种状态到另一种状态的生硬转换，不支持平稳的转换。它也不能使元素在像悬停在元素上这样的基本元素之外的变化产生动画效果。jQuery 的`animate()`方法提供了这些特性。它铺平了道路，并一直前进着。在 web 开发的动态世界中，解决这个问题的工作草案在 CSS2.1 的建议发布之前就已经开始了。[CSS Transitions Module Level 3](https://www.w3.org/TR/2009/WD-css3-transitions-20090320/)的第一份工作草案于 2009 年 3 月由 W3C 首次发布。第一个工作草案[CSS Animations Module Level 3](https://www.w3.org/TR/2009/WD-css3-animations-20090320/)是在大致相同的时间发布的。截止到 2018 年 10月，这两个 CSS 模块仍然处于工作草案状态，当然，我们已经大量使用了它们。
 
-So, what first started as a JavaScript function provided by a third-party, just for a simple hover state, has led to transitions and animations in CSS that allow for elaborate and complex animations — complexity that many developers wouldn’t necessarily wish to consider as they need to move quickly on new projects. We have gone full circle; today many third-party CSS animation libraries have been created to offset this complexity.
+首先是第三方提供的 JavaScript 函数,只是为了一个简单的悬停状态,导致转换和动画在 CSS 允许复杂的和复杂的动画——复杂性,许多开发人员不一定会愿意认为他们需要迅速推进新项目。我们已经绕了一圈;今天，许多第三方 CSS 动画库已经被创建用来抵消这种复杂性。
 
-## Three different types of third-party animation libraries
+## 三种不同类型的第三方动画库
 
-We are in this new world capable of powerful, exciting, and complex animations in our web pages and apps. Several different ideas have come to the forefront on how to approach these new tasks. It’s not that one approach is better than any other; indeed, there is a good bit of overlap in each. The difference is more about how we implement and write code for them. Some are full-blown JavaScript-only libraries while others are CSS-only collections.
+在这个新的世界里，我们可以在网页和应用程序中实现强大、令人兴奋和复杂的动画。关于如何处理这些新任务，出现了几个不同的想法。并不是一种方法比另一种更好;事实上，两者之间有很多重叠之处。不同之处在于我们如何为它们实现和编写代码。有些是成熟的 javascript 专用库，而另一些则是 css 专用集合。
 
-### JavaScript libraries
+### JavaScript 库
 
-Libraries that operate solely through JavaScript often offer capabilities beyond what common CSS animations provide. Usually, there is overlap as the libraries may actually use CSS features as part of their engine, but that would be abstracted away in favor of the API. Examples of such libraries are [Greensock](https://greensock.com/) and [Anime.js](https://animejs.com/). You can see the extent of what they offer by looking at the demos they provide (Greensock has a [nice collection over on CodePen](https://codepen.io/GreenSock/)). They’re mostly intended for highly complex animations, but can be useful for more basic animations as well.
+仅通过 JavaScript 操作的库通常提供的功能超出了常见的 CSS 动画所提供的功能。通常，会有重叠，因为库实际上可能使用 CSS 特性作为其引擎的一部分，但这将被抽象出来，以支持 API。例如 [Greensock](https://greensock.com/) 和 [Anime.js](https://animejs.com/)。通过查看他们提供的演示，您可以看到他们提供的内容的范围( Greensock 有一个 [CodePen 上的 nice 集合](https://codepen.io/GreenSock/))。它们主要用于高度复杂的动画，但也可以用于更基本的动画。
 
-### JavaScript and CSS libraries
+### JavaScript 和 CSS 库
 
-There are third-party libraries that primarily include CSS classes but provide some JavaScript for easy use of the classes in your projects. One library, [Micron.js](https://webkul.github.io/micron/), provides both a JavaScript API and data attributes that can be used on elements. This type of library allows for easy use of pre-built animations that you can just select from. Another library, [Motion UI,](https://zurb.com/blog/introducing-the-new-motion-ui) is intended to be used with a JavaScript framework. Although, it also works on a similar notion of a mixture of a JavaScript API, pre-built classes, and data attributes. These types of libraries provide pre-built animations and an easy way to wire them up.
+有一些第三方库主要包括 CSS 类，但也提供了一些 JavaScript，以便在项目中轻松使用这些类。一个库 [mic.js](https://webkul.github.io/micron/) 提供了一个JavaScript API 和可以在元素上使用的数据属性。这种类型的库允许您轻松地使用预先构建的动画，您可以从中选择动画。另一个库 [Motion UI,](https://zurb.com/blog/introducing-the-new-motion-ui) 打算与 JavaScript 框架一起使用。尽管如此，它也适用于类似的概念，即 JavaScript API、预构建类和数据属性的混合。这些类型的库提供了预构建的动画，并提供了一种将它们连接起来的简单方法。
 
-#### CSS libraries
+#### CSS 库
 
-The third kind of library is CSS-only. Typically, this is just a CSS file that you load via a link tag in your HTML. You then apply and remove specific CSS classes to make use of the provided animations. Two examples of this type of library are [Animate.css](https://daneden.github.io/animate.css/) and [Animista](http://animista.net/). That said, there are even major differences between these two particular libraries. Animate.css is a total CSS package while Animista provides a slick interface to choose the animations you want with provided code. These libraries are often easy to implement but you have to write code to make use of them. These are the type of libraries this article will focus on.
+第三种库是只支持 css 的。通常，这只是通过 HTML 中的链接标签加载的 CSS 文件。然后应用并删除特定的CSS类来使用所提供的动画。这类库的两个例子是  [Animate.css](https://daneden.github.io/animate.css/) 和 [Animista](http://animista.net/)。也就是说，这两个特殊的库之间甚至有很大的差异。CSS是一个完整的CSS包，而 Animista 提供了一个光滑的界面来选择你想要的动画代码。这些库通常很容易实现，但是您必须编写代码才能使用它们。这些是本文将重点讨论的库类型。
 
-## Three different types of CSS animations
+## 三种不同类型的CSS动画
 
-Yes, there’s a pattern; the [rule of threes](https://en.wikipedia.org/wiki/Rule_of_three_(writing)) is everywhere, after all.
+是的，有这么样的一个模式；毕竟，[三条写作的原则](https://en.wikipedia.org/wiki/Rule_of_three_(writing))无处不在。
 
-In most cases, there are three types of animations to consider when making use of third-party libraries. Each type suits a different purpose and has different ways to make use of them.
+在大多数情况下，使用第三方库时需要考虑三种类型的动画。每种类型适合不同的目的，并有不同的方法来使用它们。
 
-### Hover animations
+### 悬浮动画
 
-![An illustration of a black button on the left and an orange button with a mouse cursor over it as a hover effect.](https://css-tricks.com/wp-content/uploads/2019/05/button-hover.png)
+![图中左边是一个黑色按钮和一个橙色按钮，上面有一个鼠标光标作为悬停效果。](https://css-tricks.com/wp-content/uploads/2019/05/button-hover.png)
 
-These animations are intended to be involved in some sort of hover state. They’re often used with buttons, but another possibility is using them to highlight sections the cursor happens to be on. They can also be used for focus states.
+这些动画被设计成某种悬停状态。它们通常与按钮一起使用，但另一种可能性是使用它们突出显示光标所在的部分。它们还可以用于聚焦状态。
 
-### Attention animations
+### 注意动画
 
-![An illustration of a webpage with gray boxes and a red alert at the top of the screen to show an instance of an element that seeks attention.](https://css-tricks.com/wp-content/uploads/2019/05/attention.png)
+![一个网页的插图，上面有灰色的方框和屏幕顶部的红色警告，以显示一个元素的实例，该元素寻求关注.](https://css-tricks.com/wp-content/uploads/2019/05/attention.png)
 
-These animations are intended to be used on elements that are normally outside of the visual center of the person viewing the page. An animation is applied to a section of the display that needs attention. Such animations could be subtle in nature for things that need eventual attention but not dire in nature. They could also be highly distracting for when immediate attention is required.
+这些动画用于通常位于查看页面的人的视觉中心之外的元素。动画应用于需要注意的显示部分。这样的动画在本质上可能是微妙的，需要最终的关注，但在本质上并不可怕。当需要立即集中注意力时，它们也会高度分散注意力。
 
-### Transition animations
+### 过渡动画
 
-![An illustration of concentric circles stacked vertically going from gray to black in ascending order.](https://css-tricks.com/wp-content/uploads/2019/05/transition.png)
+![同心圆垂直堆叠的插图，按升序由灰色变为黑色。](https://css-tricks.com/wp-content/uploads/2019/05/transition.png)
 
-These animations are often intended to have an element replace another in the view, but can be used for one element as well. These will usually include an animation for "leaving" the view and mirror animation for "entering" the view. Think of fading out and fading in. This is commonly needed in single page apps as one section of data would transition to another set of data, for example.
+这些动画通常打算让视图中的一个元素替换另一个元素，但也可以用于一个元素。这些通常包括用于“离开”视图的动画和用于“进入”视图的镜像动画。想想淡入淡出。这在单页应用程序中是很常见的，例如，数据的一部分将转换到另一组数据。
 
-So, let’s go over examples of each of these type of animations and how one might use them.
+那么，让我们来看看每种类型动画的例子，以及如何使用它们。
 
-## Let’s hover it up!
+## 让我们把它悬停起来!
 
-Some libraries may already be set for hover effects, while some have hover states as their main purpose. One such library is [Hover.css](http://ianlunn.github.io/Hover/), which is a drop-in solution that provides a nice range of hover effects applied via class names. Sometimes, though, we want to make use of an animation in a library that doesn’t directly support the `:hover` pseudo-class because that might conflict with global styles.
+有些库可能已经设置了悬停效果，而有些库则将悬停状态作为其主要用途。其中一个这样的库是 [Hover.css](http://ianlunn.github.io/Hover/)，这是一个下拉式解决方案，提供了通过类名应用的一系列悬停效果。不过，有时我们希望在不直接支持`:hover`伪类的库中使用动画，因为这可能与全局样式冲突。
 
-For this example, I shall use the **tada** animation that [Animate.css](https://daneden.github.io/animate.css/) provides. It’s intended more as an attention seeker, but it will nicely suffice for this example. If you were to [look through the CSS of the library](https://github.com/daneden/animate.css/blob/master/animate.css), you’ll find that there’s no `:hover` pseudo-class to be found. So, we’ll have to make it work in that manner on our own.
+对于这个例子，我将使用[Animate.css](https://daneden.github.io/animate.css/)提供的**tada** animation。它更多的是作为一个注意力的寻求者，但是对于这个例子来说，它已经足够了。如果您要[查看库的 CSS](https://github.com/daneden/animate.css/blob/master/animate.css)，您将发现没有要查找的`:hover`伪类。所以，我们必须让它以我们自己的方式工作。
 
-The `tada` class by itself is simply this:
+`tada`类本身很简单:
 
 ```css
 .tada {
@@ -99,7 +99,7 @@ The `tada` class by itself is simply this:
 }
 ```
 
-A low-lift approach to make this react to a hover state is to make our own local copy of the class, but extend it just a bit. Normally, Animate.css is a drop-in solution, so we won’t necessarily have the option to edit the original CSS file; although you could have your own local copy of the file if you wish. Therefore, we only create the code we require to be different and let the library handle the rest.
+让它对悬停状态做出反应的一种低升力方法是创建我们自己的类的本地副本，但是稍微扩展一下。通常，Animate.css 是一个下拉式解决方案，所以我们不一定有编辑原始CSS文件的选项;尽管如果您愿意，您可以拥有自己的本地文件副本。因此，我们只创建需要不同的代码，其余的代码由库处理。
 
 ```css
 .tada-hover:hover {
@@ -107,9 +107,9 @@ A low-lift approach to make this react to a hover state is to make our own local
 }
 ```
 
-We probably shouldn’t override the original class name in case we actually want to use it elsewhere. So, instead, we make a variation that we can place the `:hover` pseudo-class on the selector. Now we just use the library’s required `animated` class along with our custom `tada-hover` class to an element and it will play that animation on hover.
+我们可能不应该覆盖原来的类名，以防我们想在其他地方使用它。因此，我们做了一个变化，我们可以把'`:hover`伪类放在选择器上。现在，我们只需使用库中必需的`animated` 类以及自定义的 `tada-hover` 类来创建一个元素，它将在悬停时播放动画。
 
-If you wouldn’t want to create a custom class in this way, but prefer a JavaScript solution instead, there’s a relatively easy way to handle that. Oddly enough, it’s a similar method to the `MM_imageSwap()` method from Dreamweaver we discussed earlier.
+如果您不希望以这种方式创建自定义类，而希望使用 JavaScript 解决方案，那么有一种相对简单的方法来处理它。奇怪的是，它与我们前面讨论过的 Dreamweaver 中的`MM_imageSwap()`方法类似。
 
 ```javascript
 // Let's select elements with ID #js_example
@@ -126,19 +126,19 @@ js_example.addEventListener('mouseout', function () {
 });
 ```
 
-There are actually multiple ways to handle this, depending on the context. Here, we create some event listeners to wait for the mouse-over and mouse-out events. These listeners then apply and remove the library’s `animated` and `tada` classes as needed. As you can see, extending a third-party library just a bit to suit our needs can be accomplished in relatively easy fashion.
+根据上下文，实际上有多种方法可以处理这个问题。在这里，我们创建一些事件监听器来等待鼠标经过和鼠标离开事件。这些侦听器然后根据需要应用和删除库的`animated`和 `tada`类。正如您所看到的，只需稍微扩展一下第三方库以满足我们的需求，就可以相对容易地完成。
 
-## Can I please have your attention?
+## 请大家注意一下好吗?
 
-Another type of animation that third-party libraries can assist with are attention seekers. These animations are useful for when you wish to draw attention to an element or section of the page. Some examples of this could be notifications or unfilled required form inputs. These animations can be subtle or direct. Subtle for when something needs eventual attention but does not need to be resolved immediately. Direct for when something needs resolution now.
+第三方库可以帮助的另一种类型的动画是注意力寻求者。当您希望将注意力吸引到页面的某个元素或部分时，这些动画非常有用。这方面的一些例子可以是通知或未填充的必需表单输入。这些动画可以是微妙的，也可以是直接的。当某件事情需要最终的关注，但不需要立即解决时，这是很微妙的。直接用于现在需要解决的事情。
 
-Some libraries have such animations as part of the whole package, while some are built specifically for this purpose. Both Animate.css and Animista have attention seeking animations, but they are not the main purpose for those libraries. An example of a library built for this purpose would be [CSShake](https://elrumordelaluz.github.io/csshake/). Which library to use depends on the needs of the project and how much time you wish to invest in implementing them. For example, CSShake is ready to go with little trouble on your part — simply apply classes as needed. Although, if you were already using a library such as Animate.css, then you’re likely not going to want to introduce a second library (for performance, reliance on dependencies, and such).
+有些库将动画作为整个包的一部分，而有些库是专门为此目的构建的。css 和 Animista 都具有寻找动画的功能，但它们并不是这些库的主要用途。为此目的构建的库的一个例子是 [CSShake](https://elrumordelaluz.github.io/csshake/)。使用哪个库取决于项目的需要以及您希望在实现它们上投入多少时间。例如，CSShake 已经为您准备好了，您只需根据需要应用类即可。不过，如果您已经在使用 Animate 之类的库。然后，您可能不希望引入第二个库(用于性能、依赖关系等)。
 
-So, a library such as Animate.css can be used but needs a little more setup. The library’s [GitHub page has examples](https://github.com/daneden/animate.css) of how to go about doing this. Depending on the needs of a project, implementing these animations as attention seekers is rather straightforward.
+因此，可以使用 Animate.css 这样的库，但需要更多的设置。库的[ GitHub 页面有一些示例](https://github.com/daneden/animate.css)介绍了如何实现这一点。根据项目的需要，将这些动画实现为吸引注意力的工具非常简单。
 
-For a subtle type of animation, we could have one that just repeats a set number of times and stops. This usually involves adding the library’s classes, applying an animation iteration property to CSS, and waiting for the animation end event to clear the library’s classes.
+对于一种微妙的动画类型，我们可以有一个只是重复一定数量的次数和停止。这通常包括添加库的类，将 animation iteration 属性应用于CSS，并等待animation end 事件清除库的类。
 
-Here’s a simple example that follows the same pattern we looked at earlier for hover states:
+下面是一个简单的例子，与我们之前看到的悬停状态相同:
 
 ```javascript
 var pulse = document.querySelector('#pulse');
@@ -154,7 +154,7 @@ pulse.addEventListener('animationend', function () {
 playPulse();
 ```
 
-The library classes are applied when the `playPulse` function is called. There’s an event listener for the `animationend` event that will remove the library’s classes. Normally, this would only play once, but you might want to repeat multiple times before stopping. Animate.css doesn’t provide a class for this, but it’s easy enough to apply a CSS property for our element to handle this.
+库类在调用`playPulse`函数时应用`animationend`事件有一个事件监听器，它将删除库的类。通常，这只会播放一次，但您可能希望在停止之前重复多次。CSS 没有为此提供一个类，但是为我们的元素应用 CSS 属性来处理它是很容易的。
 
 ```css
 #pulse {
@@ -162,9 +162,9 @@ The library classes are applied when the `playPulse` function is called. There�
 }
 ```
 
-This way, the animation will play three times before stopping. If we needed to stop the animation sooner, we can manually remove the library classes outside of the `animationend` function. The library’s documentation actually provides an example of a reusable function for applying the classes that removes them after the animation; very similar to the above code. It would even be rather easy to extend it to apply the iteration count to the element.
+这样，动画将播放三次才会停止。如果我们需要更早地停止动画，我们可以手动删除 `animationend`函数之外的库类。库的文档实际上提供了一个可重用函数的例子，用于应用在动画之后删除它们的类;与上面的代码非常相似。甚至可以很容易地扩展它，将迭代计数应用于元素。
 
-For a more direct approach, let’s say an infinite animation that won’t stop until after some sort of user interaction takes place. Let’s pretend that clicking the element is what starts the animation and clicking again stops it. Keep in mind that however you wish to start and stop the animation is up to you.
+对于更直接的方法，让我们说一个无限的动画，直到用户交互发生后才会停止。让我们假设单击元素是动画的开始，然后再次单击停止动画。请记住，动画的启动和停止取决于您自己。
 
 ```javascript
 var bounce = document.querySelector('#bounce');
@@ -178,7 +178,7 @@ bounce.addEventListener('click', function () {
 });
 ```
 
-Simple enough. Clicking the element tests if the library’s "animated" class has been applied. If it has not, we apply the library classes so it starts the animation. If it has the classes, we remove them to stop the animation. Notice that `infinite` class on the end of the `classList`. Thankfully, Animate.css provides this for us out-of-the-box. If your library of choice doesn’t offer such a class, then this is what you need in your CSS:
+很简单。如果应用了库的"animated"类，单击元素测试。如果没有，我们应用库类，这样它就会启动动画。如果它有类，我们删除它们来停止动画。注意`classList`末尾的`infinite`类。幸运的是，Animate.css 为我们提供了开箱即用的功能。如果你选择的库没有提供这样的类，那么这就是你需要在你的 CSS：
 
 ```css
 #bounce {
@@ -186,9 +186,9 @@ Simple enough. Clicking the element tests if the library’s "animated" class ha
 }
 ```
 
-Here’s a demo showing how this code behaves:
+下面的演示表达了这段代码的行为:
 
-See the Pen [3rd Party Animation Libraries: Attention Seekers](https://codepen.io/talmand/pen/pmzLzR/) by Travis Almand ([@talmand](https://codepen.io/talmand)) on [CodePen](https://codepen.io).
+请参阅Travis Almand[@talmand](https://codepen.io/talmand/pen/pmzlzr/)在[codepen](https://codepen.io)上的笔记 [3rd party animation libraries:attention seekers](https://codepen.io/talmand/)。
 
 > - [Integrating Third-Party Animation Libraries to a Project - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/integrating-third-party-animation-libraries-to-a-project-1.md)
 > - [Integrating Third-Party Animation Libraries to a Project - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/integrating-third-party-animation-libraries-to-a-project-2.md)
