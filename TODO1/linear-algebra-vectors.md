@@ -424,9 +424,7 @@ One of the most important concepts in the study of vectors is the concept of a *
 
 ![vector with respect to basis **{ê₁, ê₂, ê₃}**](https://cdn-images-1.medium.com/max/2538/0*dw49nY-jTmHb_63J)
 
-The vector **v⃗** is obtained by measuring out a distance **v₁** in the **ê₁**
-direction, a distance **v₂** in the **ê₂** direction, and a distance **v₃** in the
-**ê₃** direction.
+The vector **v⃗** is obtained by measuring out a distance **v₁** in the **ê₁** direction, a distance **v₂** in the **ê₂** direction, and a distance **v₃** in the **ê₃** direction.
 
 A triplet of coefficients by itself does not mean anything unless we know the basis being used. A basis is required to convert mathematical object like the triplet **(a, b, c)** into real-world ideas like colors, probabilities or locations.
 
