@@ -2957,10 +2957,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：344.5 当前积分：278.5 二零一九：49.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：347.5 当前积分：281.5 二零一九：52.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 React 制作线性代数教程示例：网格与箭头](https://juejin.im/post/5cefbc37f265da1bd260d129)|翻译|3|
 |[用 Word2vec 表示音乐？](https://juejin.im/post/5cdcdd9ee51d456e8240ddc3)|校对|2|
 |[机器学习可以建模简单的数学函数吗？](https://juejin.im/post/5ccd6d30e51d453ae03507da)|校对|1|
 |[Keras 速查表：使用 Python 构建神经网络](https://juejin.im/post/5cd40d24f265da038412a8be)|校对|1|
@@ -4966,10 +4967,11 @@
 |------|-------|-------|
 |[使用 CSS Grid：以兼容不支持栅格化布局的浏览器](https://juejin.im/post/5a3f494d6fb9a0450a678f8d)|校对|2|
 
-## 译者：[proYang](https://github.com/proYang) 历史贡献积分：3 当前积分：3
+## 译者：[proYang](https://github.com/proYang) 历史贡献积分：4 当前积分：4 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[推荐多篇优秀英文文章奖励]()|奖励|3|
 
 ## 译者：[ClarenceC](https://github.com/ClarenceC) 历史贡献积分：13 当前积分：13
@@ -6804,10 +6806,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：75 当前积分：20 二零一九：10
+## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：77 当前积分：22 二零一九：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从原型图到成品：步步深入 CSS 布局](https://juejin.im/post/5cebb52651882530be7b16a4)|校对|2|
 |[使用 closest() 函数获取正确的 DOM 元素](https://juejin.im/post/5cc811796fb9a0321c45e5e0)|校对|0.5|
 |[设计不会拯救世界](https://juejin.im/post/5c966aed5188252d9b3768df)|校对|2.5|
 |[CSS Shapes 简介](https://juejin.im/post/5c3740efe51d455211594993)|校对|1.5|
@@ -7503,10 +7506,11 @@
 |推荐优秀英文文章两篇|奖励|2|
 |[从现有的代码库创建 Swift 包管理器](https://juejin.im/post/5bec2b735188253b6e5c132a)|翻译|4|
 
-## 译者：[Mcskiller](https://github.com/Mcskiller) 历史贡献积分：39 当前积分：39 二零一九：23.5
+## 译者：[Mcskiller](https://github.com/Mcskiller) 历史贡献积分：40.5 当前积分：40.5 二零一九：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|[通过一些例子深入了解 JavaScript 的 Async 和 Await](https://juejin.im/post/5cec8a475188255816489878)|校对|1.5|
 |[2019 前端工具调研](https://juejin.im/post/5cb800fce51d456e4514f550)|校对|0.5|
 |[Vue.js 逐渐集成 第三方 JavaScript](https://juejin.im/post/5c8e5a776fb9a070d013ef71)|校对|3|
 |[如何心平气和的阅读代码](https://juejin.im/post/5c9c521b5188252d876e5dcb)|翻译|4+1|
@@ -7923,10 +7927,11 @@
 |[Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：4 当前积分：4 二零一九：4
+## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 React 的钩子函数和调试工具提升应用性能](https://juejin.im/post/5ce974d76fb9a07f0420250e)|校对|1.5|
 |[X 为啥不是 hook？](https://juejin.im/post/5c6ca856f265da2dce1f3af9)|翻译|3|
 |推荐英文文章一篇|奖励|1|
 
@@ -8171,10 +8176,11 @@
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|翻译|4|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|2|
 
-## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：92 当前积分：92 二零一九：92
+## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：99 当前积分：99 二零一九：99
 
 |文章|类型|积分|
 |------|-------|-------|
+|[通过一些例子深入了解 JavaScript 的 Async 和 Await](https://juejin.im/post/5cec8a475188255816489878)|翻译|7|
 |[帮你高效使用 VS Code 的秘诀](https://juejin.im/post/5cd8fcedf265da03761eaa45)|校对|1|
 |[使用 WFST 进行语音识别](https://juejin.im/post/5cd7f7c56fb9a03218556ea4)|校对|1.5|
 |[如何让你的 CSS Grid 布局有良好可读性](https://juejin.im/post/5cc156a2f265da034e7e9139)|校对|1.5|
@@ -8368,10 +8374,13 @@
 |------|-------|-------|
 |[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|校对|3.5|
 
-## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：59 当前积分：59 二零一九：59
+## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：69 当前积分：69 二零一九：69
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Redux vs. React 的 Context API](https://juejin.im/post/5cee43ad518825526b294a32)|翻译|7.5|
+|[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|1.5|
+|推荐英文文章一篇|奖励|1|
 |[属于 JavaScript 开发者的 Crypto 简介](https://juejin.im/post/5ce0c39a51882525f07ef0fa)|翻译|6|
 |[Elixir、Phoenix、Absinthe、GraphQL、React 和 Apollo：一次近乎疯狂的深度实践 —— 第二部分](https://juejin.im/post/5ce4dae36fb9a07ed524755d)|校对|4|
 |推荐英文文章一篇|奖励|2|
@@ -8471,10 +8480,11 @@
 |[制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7)|校对|3|
 |[你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c)|校对|4|
 
-## 译者：[ezioyuan](https://github.com/ezioyuan) 历史贡献积分：12 当前积分：12 二零一九：12
+## 译者：[ezioyuan](https://github.com/ezioyuan) 历史贡献积分：13 当前积分：13 二零一九：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么是 `this`？JavaScript 对象的内部工作原理](https://juejin.im/post/5cedfdbd5188252fbc37f920)|校对|1|
 |[最优控制：LQR](https://juejin.im/post/5cdfe49c6fb9a07eee5e9de6)|校对|1|
 |[深度学习能力的三个等级](https://juejin.im/post/5cce97ec6fb9a031fe3bd85d)|校对|3|
 |[现代 JavaScript 开发中的设计模式](https://juejin.im/post/5cd62b9d6fb9a032321999ec)|校对|1.5|
@@ -8544,19 +8554,22 @@
 |------|-------|-------|
 |[如何避免我作为初级开发者时所犯下的 7 个错误](https://juejin.im/post/5cbea729e51d456e8240dcfa)|校对|1.5|
 
-## 译者：[Minghao23](https://github.com/Minghao23) 历史贡献积分：12.5 当前积分：12.5 二零一九：12.5
+## 译者：[Minghao23](https://github.com/Minghao23) 历史贡献积分：15 当前积分：15 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Redux vs. React 的 Context API](https://juejin.im/post/5cee43ad518825526b294a32)|校对|2.5|
 |[用 Word2vec 表示音乐？](https://juejin.im/post/5cdcdd9ee51d456e8240ddc3)|翻译|5|
 |[机器学习可以建模简单的数学函数吗？](https://juejin.im/post/5ccd6d30e51d453ae03507da)|翻译|2.5|
 |[Keras 速查表：使用 Python 构建神经网络](https://juejin.im/post/5cd40d24f265da038412a8be)|翻译|3|
 |[在深度学习训练过程中如何设置数据增强？](https://juejin.im/post/5cc87ec8f265da03b446202b)|校对|2|
 
-## 译者：[fireairforce](https://github.com/fireairforce) 历史贡献积分：36 当前积分：36 二零一九：36
+## 译者：[fireairforce](https://github.com/fireairforce) 历史贡献积分：40.5 当前积分：40.5 二零一九：40.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么是 `this`？JavaScript 对象的内部工作原理](https://juejin.im/post/5cedfdbd5188252fbc37f920)|翻译|3|
+|[通过一些例子深入了解 JavaScript 的 Async 和 Await](https://juejin.im/post/5cec8a475188255816489878)|校对|1.5|
 |[使用 Nodemailer 轻松构建能通过电子邮件的重置密码 React 应用程序](https://juejin.im/post/5cdea6e3e51d4510b51279b3)|翻译|7|
 |[化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口](https://juejin.im/post/5cdcc216e51d453a543f9e68)|校对|2|
 |[如果可以，永远不要在生产中直接运行 Node.js](https://juejin.im/post/5cdeb1306fb9a07efd46dbe5)|翻译|7.5|
@@ -8581,18 +8594,27 @@
 |[ES6：理解参数默认值的实现细节](https://juejin.im/post/5cd0eab95188251b984d8abe)|翻译|3.5|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：5 当前积分：5 二零一九：5
+## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：7 当前积分：7 二零一九：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从原型图到成品：步步深入 CSS 布局](https://juejin.im/post/5cebb52651882530be7b16a4)|校对|2|
 |[Web 使用 CSS Shapes 的艺术设计](https://juejin.im/post/5cdba21051882568841f0f47)|校对|2|
 |[在数据可视化中，我们曾经“画”下的那些错误](https://juejin.im/post/5cd39e1de51d453a3a0acb7b)|校对|1.5|
 |[使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)|校对|1.5|
 
-## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：34.5 当前积分：34.5 二零一九：34.5
+## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：70 当前积分：70 二零一九：70
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从原型图到成品：步步深入 CSS 布局](https://juejin.im/post/5cebb52651882530be7b16a4)|翻译|9|
+|[用 React 的钩子函数和调试工具提升应用性能](https://juejin.im/post/5ce974d76fb9a07f0420250e)|翻译|5.5|
+|[在项目中集成第三方动画库 —— 第二部分](https://juejin.im/post/5ce973a75188257ac625162b)|翻译|5|
+|[什么是 `this`？JavaScript 对象的内部工作原理](https://juejin.im/post/5cedfdbd5188252fbc37f920)|校对|1.5|
+|[Redux vs. React 的 Context API](https://juejin.im/post/5cee43ad518825526b294a32)|校对|3|
+|[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|翻译|6.5|
+|[通过一些例子深入了解 JavaScript 的 Async 和 Await](https://juejin.im/post/5cec8a475188255816489878)|校对|4|
+|[用 React 制作线性代数教程示例：网格与箭头](https://juejin.im/post/5cefbc37f265da1bd260d129)|校对|1|
 |[声音设计与无声设计](https://juejin.im/post/5ce354bee51d4510727c7fd1)|校对|1.5|
 |[项目世界 — 在数字设计中实现上帝模式](https://juejin.im/post/5ce63193518825332978ef65)|校对|6|
 |[我们从招聘技术经理的过程中学到了什么](https://juejin.im/post/5cdcf463f265da0392580820)|校对|1.5|
@@ -8632,10 +8654,11 @@
 |[超快速的分析器（一）：优化扫描器](https://juejin.im/post/5ce8cbd9e51d4556bb4cd2f9)|校对|2|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[wuyanan](https://github.com/wuyanan) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[wuyanan](https://github.com/wuyanan) 历史贡献积分：3 当前积分：3 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 React 的钩子函数和调试工具提升应用性能](https://juejin.im/post/5ce974d76fb9a07f0420250e)|校对|1|
 |[理解 WebView](https://juejin.im/post/5ce76ee4f265da1b8d15f700)|校对|2|
 
 ## 译者：[jilanlan](https://github.com/jilanlan) 历史贡献积分：5 当前积分：5 二零一九：5
@@ -8650,3 +8673,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63)|翻译|2|
+
+## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[用 React 制作线性代数教程示例：网格与箭头](https://juejin.im/post/5cefbc37f265da1bd260d129)|校对|1|
+
+## 译者：[linxiaowu66](https://github.com/linxiaowu66) 历史贡献积分：2 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|2|
+
+## 译者：[lgh757079506](https://github.com/lgh757079506) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[在项目中集成第三方动画库 —— 第二部分](https://juejin.im/post/5ce973a75188257ac625162b)|校对|1.5|
