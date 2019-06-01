@@ -2,10 +2,9 @@
 > * 原文作者：[Manuel Vivo](https://medium.com/@manuelvicnt)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/easy-coroutines-in-android-viewmodelscope.md](https://github.com/xitu/gold-miner/blob/master/TODO1/easy-coroutines-in-android-viewmodelscope.md)
-> * 译者：twang1727
-> * 校对者：
+> * 译者：[twang1727](https://github.com/twang1727)
 
-# Android中的简易协程: viewModelScope
+# Android中的简易协程：viewModelScope
 
 ![](https://cdn-images-1.medium.com/max/2560/1*8Dyf1lQkPqZa08juZk6lKw.png)
 
@@ -13,11 +12,11 @@
 
 取消不再需要的协程（coroutine）是件容易被遗漏的任务，它既枯燥又会引入大量模版代码。`viewModelScope` 对[结构化并发](https://kotlinlang.org/docs/reference/coroutines/basics.html#structured-concurrency) 的贡献在于将一项[扩展属性](https://kotlinlang.org/docs/reference/extensions.html#extension-properties)加入到 ViewModel 类中，从而在 ViewModel 销毁时自动地取消子协程。 
 
-**声明**: `viewModelScope` 将会在尚在 alpha 阶段的 AndroidX Lifecycle v2.1.0 中引入。正因为在 alpha 阶段，API 可能会更改，可能会有 bug。点[这里](https://issuetracker.google.com/issues?q=componentid:413132)报错。
+**声明**：`viewModelScope` 将会在尚在 alpha 阶段的 AndroidX Lifecycle v2.1.0 中引入。正因为在 alpha 阶段，API 可能会更改，可能会有 bug。点[这里](https://issuetracker.google.com/issues?q=componentid:413132)报错。
 
 ### ViewModel的作用域
 
-[CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/) 会跟踪所有它创建的协程。因此，当你取消一个作用域的时候，所有它创建的协程也会被取消。当你在 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 中运行协程的时候这一点尤其重要。 如果你的 ViewModel 即将被销毁，那么它所有的异步工作也必须被停止。否则，你将浪费资源并有可能泄漏内存。如果你觉得某项异步任务应该在 ViewModel 销毁后保留，那么这项任务应该放在应用架构的较低一层。
+[CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/) 会跟踪所有它创建的协程。因此，当你取消一个作用域的时候，所有它创建的协程也会被取消。当你在 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 中运行协程的时候这一点尤其重要。如果你的 ViewModel 即将被销毁，那么它所有的异步工作也必须被停止。否则，你将浪费资源并有可能泄漏内存。如果你觉得某项异步任务应该在 ViewModel 销毁后保留，那么这项任务应该放在应用架构的较低一层。
 
 创建一个新作用域，并传入一个将在 `onCleared()` 方法中取消的 [SupervisorJob](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-supervisor-job.html)，这样你就在 ViewModel 中添加了一个 CoroutineScope。此作用域中创建的协程将会在 ViewModel 使用期间一直存在。代码如下：
 
@@ -32,7 +31,7 @@ class MyViewModel : ViewModel() {
     
     /**
      * 这是 MainViewModel 启动的所有协程的主作用域。
-     * 因为我们传入了 viewModelJob, 你可以通过调用viewModelJob.cancel() 
+     * 因为我们传入了 viewModelJob，你可以通过调用viewModelJob.cancel() 
      * 来取消所有 uiScope 启动的协程。
      */
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -98,7 +97,7 @@ implementation “androidx.lifecycle.lifecycle-viewmodel-ktx$lifecycle_version�
 
 ###  深入viewModelScope
 
-[AOSP有分享](https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt)的代码. `viewModelScope` 是这样实现的:
+[AOSP有分享](https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt)的代码。`viewModelScope` 是这样实现的：
 
 ```
 private const val JOB_KEY = "androidx.lifecycle.ViewModelCoroutineScope.JOB_KEY"
@@ -116,13 +115,13 @@ val ViewModel.viewModelScope: CoroutineScope
 
 ViewModel 类有个 `ConcurrentHashSet` 属性来存储任何类型的对象。CoroutineScope 就存储在这里。如果我们看下代码，`getTag(JOB_KEY)` 方法试图从中取回作用域。如果取回值为空，它将以前文提到的方式创建一个新的 CoroutineScope 并将其加标签存储。
 
-当 ViewModel 被清空时，它会运行 `clear()` 方法进而调用如果不用 viewModelScope 我们就得重写的 `onCleared()` 方法。在 `clear()` 方法中，ViewModel 会取消 `viewModelScope` 中的任务。[完整的 ViewModel 代码在此](https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java)，但我们只会讨论大家关心的部分:
+当 ViewModel 被清空时，它会运行 `clear()` 方法进而调用如果不用 viewModelScope 我们就得重写的 `onCleared()` 方法。在 `clear()` 方法中，ViewModel 会取消 `viewModelScope` 中的任务。[完整的 ViewModel 代码在此](https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/lifecycle/viewmodel/src/main/java/androidx/lifecycle/ViewModel.java)，但我们只会讨论大家关心的部分：
 
 ```
 @MainThread
 final void clear() {
     mCleared = true;
-    // 因为 clear() 是 final 的, 这个方法在模拟对象上仍会被调用，
+    // 因为 clear() 是 final 的，这个方法在模拟对象上仍会被调用，
     // 且在这些情况下，mBagOfTags 为 null。但它总会为空，
     // 因为 setTagIfAbsent 和 getTag 不是
     // final 方法所以我们不用清空它。
@@ -136,7 +135,7 @@ final void clear() {
 }
 ```
 
-这个方法遍历所有对象并调用 `closeWithRuntimeException`，此方法检查对象是否属于 `Closeable` 类型，如果是就关闭它。为了使作用域被 ViewModel 关闭，它应当实现 `Closeable` 接口。这就是为什么 `viewModelScope` 的类型是 `**CloseableCoroutineScope**`，这一类型扩展了 `CoroutineScope`、重写了 `coroutineContext` 并且实现了 `Closeable` 接口。
+这个方法遍历所有对象并调用 `closeWithRuntimeException`，此方法检查对象是否属于 `Closeable` 类型，如果是就关闭它。为了使作用域被 ViewModel 关闭，它应当实现 `Closeable` 接口。这就是为什么 `viewModelScope` 的类型是 **`CloseableCoroutineScope`**，这一类型扩展了 `CoroutineScope`、重写了 `coroutineContext` 并且实现了 `Closeable` 接口。
 
 ```
 internal class CloseableCoroutineScope(
@@ -151,9 +150,9 @@ internal class CloseableCoroutineScope(
 }
 ```
 
-### 默认使用Dispatchers.Main
+### 默认使用 Dispatchers.Main
 
-`Dispatchers.Main` 是 `viewModelScope` 的默认 [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html).
+`Dispatchers.Main` 是 `viewModelScope` 的默认 [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html)。
 
 ```
 val scope = CloseableCoroutineScope(SupervisorJob() + Dispatchers.Main)
@@ -203,7 +202,7 @@ class MainViewModelUnitTest {
 }
 ```
 
-请注意这是有可能变的。[TestCoroutineContext](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.test/-test-coroutine-context/) 与结构化并发集成的工作正在进行中，详细信息请看这个 [issue](https://github.com/Kotlin/kotlinx.coroutines/issues/541).
+请注意这是有可能变的。[TestCoroutineContext](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.test/-test-coroutine-context/) 与结构化并发集成的工作正在进行中，详细信息请看这个 [issue](https://github.com/Kotlin/kotlinx.coroutines/issues/541)。
 
 * * *
 
