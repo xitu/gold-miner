@@ -2,50 +2,50 @@
 > * 原文作者：[Burke Holland](https://css-tricks.com/author/burkeholland/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/in-defense-of-the-ternary-statement.md](https://github.com/xitu/gold-miner/blob/master/TODO1/in-defense-of-the-ternary-statement.md)
-> * 译者：
+> * 译者：[ZavierTang](https://github.com/ZavierTang)
 > * 校对者：
 
-# In Defense of the Ternary Statement
+# 支持 JavaScript 三元运算符
 
-Some months ago I was on Hacker News (as one does) and I ran across a (now deleted) article about not using `if` statements. If you’re new to this idea (like I was), you’re in a for a real treat. Just search for "if statements" on Hacker News. You'll get articles proposing that [you might not need them](https://hackernoon.com/you-might-not-need-if-statements-a-better-approach-to-branching-logic-59b4f877697f#.ruqzpakyw), articles that refer to them as a [code smell](https://blog.jetbrains.com/idea/2017/09/code-smells-if-statements/) and even the quintessential ["considered harmful](https://blog.deprogramandis.co.uk/2013/03/20/if-statements-considered-harmful-or-gotos-evil-twin-or-how-to-achieve-coding-happiness-using-null-objects/)." Listen, you know a programming concept is legit when people start suggesting that using it is actually gonna hurt somebody.
+几个月前，我在 Hacker News 上浏览到一篇（现已删除）关于不要使用 `if` 语句的文章。如果你像我一样对这个观点还不太了解，那值得你去看一下。只要在 Hacker News 上搜索 “if 语句” 即可。你将可能会看到一篇文章说：“[你可能不需要 `if` 语句](https://hackernoon.com/you-might-not-need-if-statements-a-better-approach-to-branching-logic-59b4f877697f#.ruqzpakyw)”，或者是称 `if` 语句为 “[可疑代码](https://blog.jetbrains.com/idea/2017/09/code-smells-if-statements/)”，甚至是 “[有害代码](https://blog.deprogramandis.co.uk/2013/03/20/if-statements-considered-harmful-or-gotos-evil-twin-or-how-to-achieve-coding-happiness-using-null-objects/)” 的文章。听着，你应该知道不同的编程思想都是值得尊重的，尽管他们宣称使用 `if` 会伤害到别人。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/03/s_FD4D827367230AB6A2D0F680A6D86BB8C31A84DDD157823CB9061772EC8F0BFC_1552145481604_an-if-statement.jpg)
 
-And if that's not enough for you, there is always the "[Anti-If Campaign](https://francescocirillo.com/pages/anti-if-campaign#campaign)." If you join, you get a nifty banner and your name on the website. IF you join. Oh the sweet, sweet irony.
+如果这对你来说还不够，还有 “[反 `if` 运动](https://francescocirillo.com/pages/anti-if-campaign#campaign)”。如果你加入，你会得到一个漂亮的横幅并且你的名字也会放在网上。对！如果你加入的话，那会是多么的有意思。
 
-The first time that I ran across this bizarre "if anathema" phenomenon, I thought it was interesting, but probably just more people mad on the internet. You are always one Google search away from finding someone who is mad about anything. Like [this person who hates kittens](http://www.cracked.com/article_19007_6-reasons-kittens-suck-learned-while-raising-them.html). KITTENS.
+当我第一次遇到这种奇怪的 “反对 `if`” 现象时，我觉得很有趣，但可能只不过是一些人在网上发疯了。如果你想找一个对任何事情都很生气的人，你总是需要花很长时间去 Google 上寻找。比如[这个讨厌小猫的人](https://www.cracked.com/article_19007_6-reasons-kittens-suck-learned-while-raising-them.html)。KITTENS.
 
-Some time later, I was watching [Linus Torvald's TED interview](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux#t-858390). In that interview, he shows two slides. The first slide contains code that he deems is "bad taste."
+一段时间后，我看了 [Linus Torvald 的 TED 演讲](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux#t-858390)。在那次演讲中，他展示了两张幻灯片。第一张幻灯片贴出了他认为是 “bad taste” 的代码。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/03/s_FD4D827367230AB6A2D0F680A6D86BB8C31A84DDD157823CB9061772EC8F0BFC_1552145588491_linus-bad-taste.png)
 
-And the second is that same code, but in what Linus would consider, "good taste."
+第二个是相同功能的代码，但是在 Linus 看来是 “good taste”。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/03/s_FD4D827367230AB6A2D0F680A6D86BB8C31A84DDD157823CB9061772EC8F0BFC_1552145608899_linus-good-taste.png)
 
-I realize that Linus is a bit of a polarizing figure, and you might not agree with the "good taste" vs. "bad taste" phrasing. But I think we can universally agree that the second slide is just easier on the old eye balls. It's concise, has fewer logical paths to follow, and contains no `if` statement. I want my code to look like that. It doesn't have to be some genius algorithm (it never will be), but I think it can be clean, and remember what Billy Corgan of Smashing Pumpkins said about cleanliness...
+我意识到 Linus 是一个有点两极化的人物，你可能不同意 “good taste” 与 “bad taste” 的描述。但我认为，一般来说，第二张幻灯片对新手来说更容易理解。它简洁、逻辑少且不包含 `if` 语句。我希望我的代码应该是这样的。它不一定是什么天才算法（永远不会），但我希望它是逻辑简介的，还记得 Smashing Pumpkins 乐队的 Billy Corgan 是如何描述简单的······
 
 > Cleanliness is godliness. And god is empty. Just like me.
 > 
 > - Billy Corgan, "Zero"
 
-So dark! But what an [amazing album](https://en.wikipedia.org/wiki/Mellon_Collie_and_the_Infinite_Sadness).
+太可怕了！但[这张专辑](https://en.wikipedia.org/wiki/Mellon_Collie_and_the_Infinite_Sadness)很棒。
 
-Aside from making your code look cluttered, `if` statements, or "branching logic," requires your brain to hold and evaluate two separate paths at one time along with all of the things that might occur on those paths. If you nest `if` statements, the problem intensifies because you are creating and tracking a decision tree and your brain has to bounce around all over that tree like a drunk monkey. This kind of thing is what makes code hard to read. And remember, you should write your code thinking of the moron who comes after you that is going to have to maintain it. And that moron is probably you.
+除了让代码看起来杂乱之外，`if` 语句或 “分支逻辑” 还要求你的大脑同时去计算两条独立的逻辑路径，以及这些路径上可能发生的所有事情。如果你还嵌套使用了 `if` 语句，问题就会变得更加困难，因为你在生成和计算一个判定分支，而你的大脑必须像喝醉酒的猴子一样在树上跳来跳去。这样会大大降低代码的可读性。记住，在编写代码时，你应该考虑在你之后要去维护它的是哪个傻瓜。也许，那个傻瓜就是你自己。
 
-As my own favorite moron, I've been making a conscious effort lately to avoid writing `if` statements in my JavaScript. I don't always succeed, but what I've noticed is that at the very least, it forces me to think about solving the problem from an entirely different angle. It makes me a better developer because it compels me to engage a part of my brain that is otherwise sitting on a beanbag eating peanut M&M's while the `if` statement does all the work.
+作为必须要去维护自己代码的傻瓜，我最近一直有意识地避免在 JavaScript 中编写 `if` 语句。我并不总是能够成功，但我注意到，至少它迫使我从一个完全不同的角度来思考解决问题的方法。它使我成为一个更好的开发人员，因为它迫使我参与到我大脑思考的一部分，否则我将会悠闲地坐在豆袋上吃花生，而让 `if` 语句去完成所有的工作。
 
-In the process of **not** writing `if` statements, I’ve discovered my love for the way JavaScript lets you compose conditional logic with ternary statements and logical operators. What I would like to propose to you now is that ternary has gotten a bad rap, and you can use it along with the `&&` and `||` operators to write some pretty concise and readable code.
+在避免编写 `if` 语句的过程中，我发现我喜欢 JavaScript 中的三元运算符和逻辑操作符组合使用的方式。我现在想建议你的是不太受欢迎的三元运算符，你可以使用它与 `&&` 和 `||` 操作符一起编写一些非常简洁和具有可读性的代码。
 
-### The much maligned ternary
+### 不受欢迎的三元运算符
 
-When I first started as a programmer, people used to say, "Never use a ternary. They are too complex." So I didn’t use them. Ever. I never used a ternary. I never even bothered to question whether or not those people were right.
+当我刚开始学习编程时，人们常说，“永远不要使用三元运算符”，它们太复杂了。所以我没有使用它。一直都没有。我从来没用过三元运算符也从未费心去质疑那些人的说法是否正确。
 
-I don't think they were.
+但现在，我不这么认为。
 
-Ternaries are just one-line `if` statements. Suggesting that they are implicitly too complicated in any form is just... not true. I mean, I'm not the frostiest donut in the box, but I have no problems at all understanding a simple ternary. Is it possible that we are infantilizing ourselves here just a tad when we say to **always** avoid them. I think that a well-structured ternary beats an `if` statement every time.
+三元运算符只是一行代码表示的 `if` 语句而已。绝对的说它们在任何情况下都太过复杂是……不正确的。我的意思是，我不是盒子里最冷的甜甜圈，但我可以完全理解一个简单的三元运算符。当我们说要永远去避免使用它们的时候，我们是不是有点儿孩子气了呢？我认为一个结构良好的三元运算符是可以胜过一个 `if` 语句的。
 
-Let’s take a simple example. Say we have an application where we want to test and see if the user is logged in. If they are, we send them to their profile page. Otherwise, we send them to the home page. Here is the standard `if` statement to do that...
+让我们举一个简单的例子。假设我们有一个应用程序，我们想在其中检查用户的登录状态。如果已登录，我们就跳转到他们的个人主页。否则，我们将跳转到登录页面。下面是标准的 `if` 逻辑语句：
 
 ```javascript
 if (isLogggedIn) {
@@ -56,52 +56,52 @@ else {
 }
 ```
 
-That's a damn simple operation to split out over six lines. SIX LINES. Remember that every time you move through a line of code, you have to remember the code that came above it and how it affects the code below it.
+用这 6 行代码来完成工作是非常简单的。6 行，请记住，每次计算 1 行代码时，必须记住上面代码的运算结果以及它如何影响下面的代码。
 
-Now the ternary version...
+下面是三元运算符的实现代码：
 
 ```javascript
 isLoggedIn ? navigateTo('profile') : navigateTo('unauthorized');
 ```
 
-Your brain only has to evaluate one line here, not six. You don’t have to move between lines, remembering what was on the line before.
+你的大脑只需要计算这一行，而不是 6 行。你不需要在代码上下行之间移动，也不需要记住之前的内容。
 
-One of the drawbacks to the ternary, though, is that you cannot evaluate for only one condition. Working from the previous example, if you wanted to navigate to the profile page if the user was logged in, but take no action at all if they weren't, this won't work...
+不过，三元运算符的一个缺点是不能只针对一种情况进行逻辑判断。还是刚刚的例子，如果你想在用户已登录时跳转到他的个人主页，而如果没有登录，则不采取任何操作，下面的代码将不起作用：
 
 ```javascript
-// !! Doesn't Compile !!
+// !! 报错 !!
 logggedIn ? navigateTo('profile')
 ```
 
-You would have to write out an actual `if` statement here. Or would you?
+你必须在这里使用 `if` 语句来完成工作。你会这样做吗？
 
-There is a trick that you can use in JavaScript when you only want to evaluate one side of the condition and you don't want to use an `if` statement. You do this by leveraging the way JavaScript works with the `||` (or) and `&&` (and) operators.
+当你只想处理逻辑条件的一个分支但又不想使用 `if` 语句时，可以在 JavaScript 中使用这样一个技巧。你可以利用 JavaScript 中的 `||`（或）和 `&&`（与）运算符一起工作的方式来实现这一点。
 
 ```javascript
 loggedIn && navigateTo('profile');
 ```
 
-How does that work!?
+这是如何实现的？
 
-What we're doing here is asking JavaScript, "Are both of these things true?" If the first item is false, there is no reason for the JavaScript virtual machine to execute the second. We already know that both of them aren't true because one of them is false. We're exploiting the fact that JavaScript won't bother to evaluate the second item if the first one is false. This is the equivalent of saying, "If the first condition is true, execute the second."
+我们在这里实际是在判断：”这两个语句都是 `true` 吗？”如果第一项为 `false`，JavaScript 引擎就没有理由去执行第二项了。因为其中一个已经是 `false` 了，所以我们知道结果不是 `true`。我们利用了这个机制：如果第一项为 `false`，JavaScript 就不会去执行第二项。也就是说，“如果第一项为 `true`，那么就去执行第二项”。
 
-Now what if we wanted to flip this around? What if we wanted to navigate to the profile page only if the user is **not** logged in? You could just slap a `!` in front of the `loggedIn` variable, but there is another way.
+如果我想换过来呢？如果我们只想在用户没有登录的情况下导航到用户主页，该怎么办呢？你可以直接在 `loggedIn` 变量前面使用 `!`，但也有另一种方法。
 
 ```javascript
 loggedIn || navigateTo('profile');
 ```
 
-What this says is, "Are either of these things true?" If the first one is false, it **has** to evaluate the second to know for sure. If the first one is true though, it will never execute the second because it already knows that one of them is true; therefore the whole statement is true.
+这句代码的意思是，“这两个语句会有一个是 `true` 吗？”如果第一项是 `false`，就必须对第二项进行计算才能确定。如果第一项为 `true`，就永远不会去执行第二项，因为已经知道其中一项为 `true` 了，因此整个语句的结果是 `false`。
 
-Now, is that better than just doing this?
+那下面这种方式如何呢？
 
 ```javascript
 if (!loggedIn) navigateTo('profile');
 ```
 
-No. In that form, it is not. But here’s the thing: once you know that you can use the `&&` and `||` operators to evaluate equality outside of `if` statements, you can use them to vastly simplify your code.
+不，在这种情况下，不推荐使用。所以，一旦知道可以使用 `&&` 和 `||` 运算符来实现 `if` 语句的功能，就可以使用它们来极大地简化我们的代码。
 
-Here is a more complex example. Say we have a login function where we pass a user object. That object may be null, so we need to check local storage to see if the user has a saved session there. If they do, and they are an admin user, then we direct them to a dashboard. Otherwise, we send them to a page that tells them they are unauthorized. Here is what that looks like as a straight-up `if` statement.
+下面是一个更复杂的例子。假设我们有一个 `login` 函数，接收一个 `user` 对象作为参数。该对象可能为空，因此我们需要检查本地存储，以查看用户是否在本地保存了会话。如果保存了，并且他是一个管理员用户，那么我们将跳转到首页。否则，我们将把它们导航到另一个页面，该页面提示他们还未经授权。下面是一个简单的 `if` 语句的实现。
 
 ```javascript
 function login(user) {
@@ -122,7 +122,7 @@ function login(user) {
 }
 ```
 
-Ouch. This is complicated because we're doing a lot of null condition checking on the `user` object. I don't want this post to be too strawman-y, so let's simplify this down since there is a lot of redundant code here that we would likely refactor into other functions.
+噢。这也许很复杂，因为我们对 `user` 对象做了很多是否为空的条件判断。我不希望我的代码太过复杂，所以让我们简化一下，因为这里有很多冗余的代码，我们需要封装一些函数。
 
 ```javascript
 function checkUser(user) {
@@ -151,9 +151,9 @@ function login(user) {
 }
 ```
 
-The main login function is simpler, but that's actually more code and not necessarily “cleaner” when you consider the whole and not just the `login` function.
+`login` 函数更简单了，但实际上代码更多了，当你考虑到整个代码而不仅仅是 `login` 函数时，它并不一定是更简洁的。
 
-I would like to propose that we can do all of this in two lines if we forgo the `if` statements, embrace the ternary, and use logical operators to determine equality.
+我想建议，我们应该放弃使用 `if` 语句，而使用三元运算符，并且使用逻辑运算符，那么我们可以在两行代码中完成所有这些操作。
 
 ```javascript
 function login(user) {
@@ -162,7 +162,7 @@ function login(user) {
 }
 ```
 
-That's it. All of that noise generated by `if` statements collapses down into two lines. If the second line feels a bit long and unreadable to you, wrap it so that the conditions are on their own line.
+也可以这样。所有条件分支都可以单独一行。如果第二行代码感觉有点长，并且影响阅读，那么修改一下，使它们位于独立的一行。
 
 ```javascript
 function login(user) {
@@ -173,7 +173,7 @@ function login(user) {
 }
 ```
 
-If you are worried that maybe the next person won't know about how the `&&` and `||` operators work in JavaScript, add some comments, a little white space and a happy tree. Unleash your inner Bob Ross.
+如果你担心别人可能不知道 `&&` 和 `||` 运算符在 JavaScript 中是如何工作的，请添加一些注释并格式化你的代码。
 
 ```javascript
 function login(user) {
@@ -189,47 +189,47 @@ function login(user) {
 }
 ```
 
-### Other things you can do
+### 其他
 
-While we’re at it, here are some other tricks you can play with JavaScript conditionals.
+也许，你还可以使用一些其他技巧来处理 JavaScript 条件判断。
 
-#### Assignment
+#### 赋值
 
-One of my favorite tricks (which I used above), is a one-liner to check if an item is null and then reassign it if it is. You do this with an `||` operator.
+我最喜欢的技巧之一（我在上面使用过）是一个单行代码来判断一个变量是否为空，然后如果为空就重新赋值。使用 `||` 运算符来完成。
 
 ```javascript
 user = user || getFromLocalStorage('user');
 ```
 
-And you can go on forever like this...
+你可以一直判断下去…
 
 ```javascript
 user = user || getFromLocalStorage('user') || await getFromDatabase('user') || new User();
 ```
 
-This also works with the ternary...
+这也适用于三元运算符…
 
 ```javascript
 user = user ? getFromLocalStorage('user') : new User();
 ```
 
-#### Multiple conditions
+#### 组合条件
 
-You can provide multiple conditions to a ternary. For instance, if we want to log that the user has logged in and then navigate, we can do that without needing to abstract all of that into another function. Wrap it in some parentheses and provide a comma.
+你可以为三元运算符提供多个执行语句。例如，如果我们想要同时记录用户已经登录的日志，然后跳转页面，就可以这样做，而不需要将所有这些操作抽象到另一个函数中。如下，使用括号括起来，并用逗号隔开。
 
 ```javascript
 isLoggedIn ? (log('Logged In'), navigateTo('dashboard')) : navigateTo('unauthorized');
 ```
 
-This also works with your `&&` and `||` operators...
+这也适用于 `&&` 和 `||` 操作符：
 
 ```javascript
 isLoggedIn && (log('Logged In'), navigateTo('dashboard'));
 ```
 
-#### Nesting ternary expressions
+#### 嵌套三元运算符
 
-You can nest your ternary expressions. In his [excellent article on the ternary](https://medium.com/javascript-scene/nested-ternaries-are-great-361bddd0f340), Eric Elliot demonstrates that with the following example...
+你可以嵌套使用三元运算符。Eric Elliot 在[关于三元组的文章](https://medium.com/javascript-scene/nested-ternaries-are-great-361bddd0f340)中通过下面的例子说明了这一点：
 
 ```javascript
 const withTernary = ({
@@ -243,7 +243,7 @@ const withTernary = ({
 );
 ```
 
-The most interesting thing Eric is doing there is negating the first condition so that you don’t end up with the question marks and colons together, which makes it harder to read. I would take this a step further and add a little indentation. I also added the curly braces and an explicit return because seeing one parenthesis and then immediately another makes my brain start to anticipate a function invocation that is never coming.
+Eric 在这里做的最有趣的一点是否定了第一个条件，这样你就不会把问号和冒号放在一起，不然就会难于阅读。我要更进一步，给代码添加一些缩进。我还添加了大括号和显式的返回语句，因为看到一个括号，然后可以立即找到对应的另一个括号，这让我的大脑开始去预期一个永远不会到来的函数调用。
 
 ```javascript
 const withTernary = ({ conditionA, conditionB }) => {
@@ -257,11 +257,11 @@ const withTernary = ({ conditionA, conditionB }) => {
 }
 ```
 
-As a general rule, I think that you should consider not nesting ternaries or `if` statements. Any of the above articles on Hacker News will shame you into the same conclusion. Although I’m not here to shame you, only to suggest that perhaps (and just maybe) you will thank yourself later if you don’t.
+一般来说，你不应该嵌套使用三元运算符或 `if` 语句。以上任何一篇 Hacker News 的文章都会让你羞愧地得出同样的结论。虽然我不是来羞辱你的，但我只想说，如果你不再过度使用 `if` 语句，或许（只是或许）你以后会感谢你自己的。
 
 ---
 
-That’s my pitch on the misunderstood ternary and logical operators. I think that they help you write clean, readable code and avoid `if` statements entirely. Now if only we could get Linus Torvalds to sign off on all this as being “good taste.” I could retire early and and live the rest of my life in peace.
+这就是我对被误解的三元运算符和逻辑运算符的看法。我认为它们可以帮助你编写简洁、可读的代码，并完全避免 `if` 语句。现在，我们可以像 Linus Torvalds 一样用 “good taste” 来结束这一切了。我也可以早点退休，然后平静地度过余生。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
