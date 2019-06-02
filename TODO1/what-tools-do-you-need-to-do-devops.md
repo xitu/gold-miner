@@ -2,50 +2,50 @@
 > * 原文作者：[June Jung](https://circleci.com/blog/what-tools-do-you-need-to-do-devops/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-tools-do-you-need-to-do-devops.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-tools-do-you-need-to-do-devops.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[suhanyujie](https://github.com/suhanyujie)
 
-# Moving to DevOps: what tools do you really need?
+# 开始尝试 DevOps：最适合你的是什么样的工具？
 
 ![](https://circleci.com/blog/media/tools.png)
 
-DevOps has been the latest in a long succession of problem-solving processes that each come with a digital garage full of tools: CI/CD systems, testing frameworks, monitoring tools, and security audit tools to name a few. Which of these tools do you need? Which will solve the problems, pains, and slowdowns your organization faces? In my time helping teams of all sizes, I kept hearing the same two questions: “What organizational structure do we need to have? What tools should we implement?”
+DevOps 是一系列问题的最新解决方案，每一个问题的解决方案都有许多数字化工具库：CI/CD 系统，测试框架，监控工具和安全审计工具等。哪些工具才是你所需要的？哪些可以解决你的组织所遇到的问题，痛点？在帮助各种规模的团队时，我经常听到的两个问题是“我们需要拥有什么样的组织结构？我们应该使用哪些工具？”
 
-Neither of these are bad questions, but asked in isolation they miss the point. When you go straight to these questions, you are thinking about solutions before you’ve really assessed the problem that you are trying to solve in your organization.
+这两个都不算是问题，但单独问时，它们都没有抓住重点来问。在你直接回答这些问题的时候，你应该先评估你的组织需要解决的问题，然后再考虑解决方案。
 
-Organizations often think that the top-down model (“Use this! Do this!”) will get their teams innovating faster. Eager team leads will bring in a new CI/CD tool and get everyone up and running on it. Providing proper tooling for individual contributors to follow an adopted practice is important, but the problem comes when team leads will bring in tools without fully understanding its value or why they are doing it. Often even the people who ordered the change will forget why they put it in place to begin with, or what they wanted to get out of it. The sad truth is how easy it is to start misusing tools once the original reasoning is obscured, creating lost or even negative value.
+组织常常认为自上而下的模式（“使用这个！这样做！”）会让他们的团队创新的更快。优秀的团队领导会带来一个新的 CI/CD 工具，让每个人都能工作余上。有能力的团队领导在引入新的 CI/CD 工具时，会确保每个人都能掌握并运用它。而团队领导在不能完全理解其价值或为什么要这样做的情况下引入工具时，问题就出现了。甚至会出现一开始提出改变的人也忘了使用工具的初衷，期望得到的效益。令人遗憾的是，一旦初衷被遗忘，很容易造成工具的滥用，导致各方面的损失，以及负面价值。
 
-### We want DevOps!
+### 我们需要 DevOps！
 
-I’ve been brought into countless organizations who were convinced that DevOps was the solution to all their problems, if only they could get it up and running quickly.
+我了解了许多确认 DevOps 是他们所有问题的解决方案的组织，只要他们能够快速启动并运行即可。
 
-If you find yourself in this position, ask yourself, “Why do we want DevOps in our organization? What value do we think it will bring?”
+如果你现在处于这个位置上，问问自己“为什么要在组织中使用 DevOps？我们想让它为我们带来什么价值”。
 
-At this point, let’s briefly talk about what DevOps is, and isn’t.
+在这个点上，我们讨论下，DevOps 是什么，而不是什么。
 
-DevOps is a very specific collaboration between developers and operations teams. In essence, it indicates that you’ve culturally adopted development practices into your infrastructure, and operational practices into your development cycle. What does this look like in practice? It can mean maintaining infrastructure as code, or creating immutable infrastructure by building reusable components so you can tear down or up whenever you want, giving you version control and a history of changes you’ve made. It also means getting all product contributors to care more about the end result of what they’re working on - how does it function in the world? How are users interacting with it? Getting people to truly care about quality means caring about both business value and usability. When everyone who is building a product cares about both aspects of quality, cares about what happens when it gets deployed and gets exposed to the end user. That’s the result of true DevOps adoption.
+DevOps 是开发团队和运维团队之间的具体协作方案。本质上，它表明你已经在文化上将开发实践应用到你的基础架构中，并将实践应用到你的开发周期中。这在实践中是什么效果呢？这可能意味着将基础设置作为代码来维护，或通过构建可重用的组件来创建不可变的基础结构，以便你可以随意删除或启用它们，从而提供版本控制和更改的历史记录。这也意味着让所有的产品贡献者更关注他们工作的最终结果 —— 它们是如何运作的？用户如何与它们进行交互。让人们关心质量意味着关心其商业价值和可用性。当构建产品的每个人最后都关心质量的两个方面，部署后会发生什么以及最终暴露给用户时发生什么，这才是真正使用 DevOps 的目的。
 
-In my experience, this kind of widespread buy-in has been particularly difficult for software teams to achieve because it requires a lot of cooperation from people with different skills and domain expertise. Pulling this off requires both cross-functional team structure and thoughtful communication skills. For example, if an engineer needs to talk to someone on the business side about a database problem, she needs to not just show the data she’s working from, but give necessary context and focus that person’s attention on what they should care about and why.
+在我的经验中，这种广泛的支持对于软件团队来说，尤其困难，因为它需要来自具有不同技能和领域专长的人的配合。要做到这一点，既需要跨职能的团队结构，也需要深思熟虑的沟通技巧。比如，如果工作上需要与业务方面的人讨论数据库问题，那么他不仅需要告知他正在处理的数据，而且要给出必要的问题背景，并将该人的注意力集中在他们应该关心的内容和原因上。
 
-So, should you bring in that new tool? The answer is: maybe. Tools can sometimes seem like a quick fix, but they are not a one-size-fits-all solution. In my experience, keeping these considerations in mind **before** you bring in a new DevOps tool will increase your chances of success.
+是否应该引入新工具？答案或许是：可能。工具有时更像是一个快速修复而不是通用的解决方案。在我的经验中，在引入新的 DevOps 工具**之前**，记住这些注意事项会增加成功的机会。
 
-### Before beginning your transformation:
+### 开始转变之前：
 
-**1. Make sure everyone is on the same page** with respect to what you’re trying to achieve with this transformation. Everyone should agree on the problem you’re trying to solve, and that you are aligned on the pain points.
+**1. 确保所有人意见一致**。关于你试图通过这种改变来达到目的的想法，每个人在这个问题都应该达成一致，并在痛点上有所共鸣。
 
-**2. Always start small.** Don’t try to make entire organization into a model DevOps model team overnight. Instead, start with one team, and see if the process changes works within your organization. If you see improvements, keep moving incrementally.
+**2. 慢慢开始**。不要妄想让这个组织在一夜之间成为 DevOps 模型的团队。相反，从一个团队开始，看看处理方式的改变，是否更适用于你的组织。如果看到了积极的改进，就可以保持继续改进。
 
-**3. Do what works for you.** Know that DevOps might not be the right solution for your organization. Some companies have been successful for a long time without DevOps, and it might not be right for them, given their culture or their product needs. I’ve personally seen waterfall work really well for some very successful organizations. For example, if confidentiality is a big part of your company’s product strategy, then shipping incrementally to get feedback would not work for you, as you’d need to keep all product details under lock and key up until a big launch. In that environment, it would be very difficult to build a DevOps culture.
+**3. 明白你所要做的工作**。要明白，DevOps 可能并不是解决你的组织问题的正确方案。有些公司在没有 DevOps 的情况下都取得了成功，考虑到他们的文化和产品，这些可能并不适用于他们。我个人觉得瀑布工作流会更适用于那些成功的组织。比如，如果机密性是公司产品策略的一个重要部分，那么以增量方式交付来获得反馈对你来说，就会行不通，因为直到发布前，你都需要将所有产品的详细信息都封锁，直至一个大型的发布。在这种情况下，构建 DevOps 文化会异常艰难。
 
-**4. Always measure.** Before you start any improvement plan, get accurate metrics for where you’re currently at (i.e. our dev cycle takes X time). Do this before you’ve invited an SRE onto the development team. Then after a small amount of time, you’ll be able to see whether it’s been effective. Measure before and after you make a change, and consistently measure to see if you’ve improved. As an example: When a lot of Agile transformation was happening, a lot of companies adopted standups, without really understanding why, or measuring whether it had a positive effect on their team. This likely wasted more time than it saved.
+**4. 保证衡量**。在你开始任何改进计划之前，请获取你当前状态的指标（即，开发周期的时长）。在邀请 SRE 进入开发团队之前，请先这样做。一段时间后，就可以看到它是否有效。在你做出改变的前后进行衡量，看看是否有所改变。比如，在众多敏捷转型时，很多公司采用了 standups，却没有真正理解原因，也没有衡量它是否对他们的团队产生了积极的影响。这可能导致浪费的时间比节省的时间还要多。
 
-**5. Do not try to automate everything.** At least not all at once. One misconception about DevOps is that all the infrastructure provisioning and the configuration management must be done automatically. This is referred to as “infrastructure as code.” But some things work better when they are manual; automation is not the solution for everything. Also, think about how many times you’re going to run that automation script and how much time it would take you to automate it. Will you use it thousands of times or only three ? Additionally, sometimes you have to start the manual way to even figure out what would be the best solution for automation. Still itching to automate? Dockerizing your application is a great way to automate because the work you put in is likely to be re-used. Automating pre-production environment creation is another great way to implement automation. For another example: are you trying to automate firewall setup? That might not be worth it given the lack of API support on a lot of current firewall software. While it’s good that you are preparing for disaster, you’d probably be putting so much more value into it than you’ll ever get out of it.
+**5. 并不是所有事情都适合自动化**。至少不是一次性地向全自动化进行转变。DevOps 的一个误解是，所有的基础设施和配置管理都必须自动化完成。这些被称作“基础设施即代码”。但有些东西的手动操作效果会更好。自动化并不是解决所有问题的方法。 考虑一下，你将运行这个自动化脚本多少次，以及你需要多少时间来实现自动化。你会频繁使用自动化还是只是偶尔使用？有时，你必须用手动的方式，甚至找出什么是最好的自动化解决方案。仍然渴望自动化么？让应用程序 Docker 化，是一种优秀的自动化解决方案，因为你努力付出的结果可以被重复使用。自动化预生产环境是实现自动化的另一种好方法。再举例说明，你是否尝试过防火墙自动化设置？考虑到目前许多防火墙软件缺乏 API 支持，这样的尝试可能并不值得。尽管对于灾备来说，这样有意义，但实际上来说，你从中所获取的价值，可能远不如你所付出的努力。
 
-### What’s next?
+### 接下来呢？
 
-If your org is thinking about DevOps transformation, start thinking about your speed of delivery and quality of product. What’s getting in your way today? Knowing the answers to these questions will help everyone in your organization understand what your pain points are, so you’ll be in the best position to start improving on them.
+如果你的组织正在考虑是否使用 DevOps，请先考虑下你们的交付速度和产品质量的问题。你们现在所遇到的真正问题是什么？了解这些问题的答案，有助于你们组织的每个人来了解现在的痛点所在，从而帮助你们在最正确的地方来改变它们。
 
-In future posts, I’ll walk through some exercises to help you [pinpoint where your organization’s problem areas are](https://github.com/xitu/gold-miner/blob/master/TODO1/path-to-production-how-and-where-to-segregate-test-environments.md), and give you the confidence to assess which tools or processes will be of the most value in solving those problems.
+在之后的文章中，我会通过一些实战来帮助你们[发现自己组织现如今的问题所在](https://github.com/xitu/gold-miner/blob/master/TODO1/path-to-production-how-and-where-to-segregate-test-environments.md)，帮你提高评估哪些工具或处理方法是解决这些问题的最优解的自信心。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
