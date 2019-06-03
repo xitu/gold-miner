@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ios-file-provider-extension-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ios-file-provider-extension-tutorial.md)
 > - 译者：[iWeslie](https://github.com/iWeslie)
-> - 校对者：
+> - 校对者：[swants](https://github.com/swants)
 
 # iOS 中的 File Provider 拓展
 
@@ -66,12 +66,11 @@ File Provider 拓展的主要任务是：
 
 首先，File Provider 需要一个遵循了 `NSFileProviderItem` 协议的模型。此模型将提供有关 File Provider 所管理的文件的信息。starter 项目在 **FileProviderItem.swift** 中已经定义了 `FileProviderItem`，在使用它之前需要遵循一些协议。
 
-虽然该协议含有 27 个属性，但我们只需要其中 4 个。其他一些可选属性为 File Provider 提供有关每个文件的详细信息以及一些其他功能。在本教程中，你将用到以四个属性：`itemIdentifier`，`parentItemIdentifier`，`filename` 和 `typeIdentifier`。
+虽然该协议含有 27 个属性，但我们只需要其中 4 个。其他一些可选属性为 File Provider 提供有关每个文件的详细信息以及一些其他功能。在本教程中，你将用到以四个属性：`itemIdentifier`、`parentItemIdentifier`、`filename` 和 `typeIdentifier`。
 
 `itemIdentifier` 给模型提供了唯一标示符。File Provider 使用 `parentIdentifier` 来跟踪它在扩展的层次结构中的位置。
 
-`filename` 是 **文件** 里显示的 App 名字。
-`typeIdentifier` 是一个 [统一类型标识符（UTI）](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html)。
+`filename` 是 **文件** 里显示的 App 名字。`typeIdentifier` 是一个 [统一类型标识符（UTI）](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html)。
 
 在 `FileProviderItem` 可以遵循 `NSFileProviderItem` 协议之前，它还需要一个处理来自后端数据的方法。`MediaItem` 定义了一个后端数据的简单模型。我们并不是直接在 `FileProviderItem` 中使用这个模型，而是使用 `MediaItemReference` 来处理 File Provider 扩展的一些额外逻辑从而把其中的坑填上。
 
