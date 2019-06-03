@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-built-an-async-form-validation-library-in-100-lines-of-code-with-react-hooks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-built-an-async-form-validation-library-in-100-lines-of-code-with-react-hooks.md)
 > * 译者：[Jerry-FD](https://github.com/Jerry-FD)
-> * 校对者：
+> * 校对者：[yoyoyohamapi](https://github.com/yoyoyohamapi)，[Xuyuey](https://github.com/Xuyuey)，[xiaonizi1994](https://github.com/xiaonizi1994)
 
 # 如何用 React Hooks 打造一个不到 100 行代码的异步表单校验库
 
 ![](https://cdn-images-1.medium.com/max/2706/1*EGRMyNT8x7gb0LdLmj4xMQ.png)
 
-表单校验是一件很棘手的事情。深入了解表单的实现之后，你会发现有大量的细节问题要处理。幸运的是，市面上已经有很多提供了工具和方法的表单校验库来帮助我们实现一个健壮的表单检验库。但我要使用 [React Hooks API](https://reactjs.org/docs/hooks-reference.html) (currently in alpha) 来打造一个 100 行代码以下的表单校验库来挑战自我。虽然 React Hooks 还在实验性阶段，但是这是一个 React Hooks 实现表单校验的证明。
+表单校验是一件很棘手的事情。深入了解表单的实现之后，你会发现有大量的边界场景要处理。幸运的是，市面上有很多表单校验库，它们提供了必要的表计量（译注：如 dirty、invalid、inItialized、pristine 等等）和处理函数，来让我们实现一个健壮的表单。但我要使用 [React Hooks API](https://reactjs.org/docs/hooks-reference.html) (currently in alpha) 来打造一个 100 行代码以下的表单校验库来挑战自我。虽然 React Hooks 还在实验性阶段，但是这是一个 React Hooks 实现表单校验的证明。
 
-我要声明的是，我写的这个**库**确实是不到 100 行代码。但这个教程有 200 行左右代码的原因，是因为我需要阐释清楚这个库是如何使用的。
+我要声明的是，我写的这个**库**确实是不到 100 行代码。但这个教程却有 200 行左右的代码，是因为我需要阐释清楚这个库是如何使用的。
 
-我看过的大多数表单库的新手教程都离不开三个核心话题：**异步校验**，某些表单项的校验需要在**其他表单项改变时**触发，**表单校验效率**的性能优化。我非常反感那些教程把使用场景固定，而忽略其他可变因素的影响的做法。因为在真实场景中往往事与愿违，所以我的教程会尽量覆盖更多真实场景。
+我看过的大多数表单库的新手教程都离不开三个核心话题：**异步校验**，表单联动：某些表单项的校验需要在**其他表单项改变时**触发，**表单校验效率**的优化。我非常反感那些教程把使用场景固定，而忽略其他可变因素的影响的做法。因为在真实场景中往往事与愿违，所以我的教程会尽量覆盖更多真实场景。
 
-我们的目标是需要满足:
+我们的目标需要满足:
 
 * 同步校验单个表单项，包括当表单项的值发生变化时，会跟随变化的有依赖的表单项
 
@@ -29,11 +29,11 @@
 
 * 给开发者提供校验表单的函数，让开发者能够在合适的时机，比如 onBlur 的时候校验表单
 
-* 允许单个表单的多重校验
+* 允许单个表单项的多重校验
 
 * 当表单校验未通过时禁止提交
 
-* 表单的错误信息只在有变化或者尝试提交表单的时候才展示出来
+* 表单的错误信息只在有错误信息变化或者尝试提交表单的时候才展示出来
 
 我们将会通过实现一个包含用户名，密码，密码二次确认的账户注册表单来覆盖这些场景。下面是个简单的界面，我们来一起打造这个库吧。
 
@@ -74,7 +74,7 @@ const confirmPasswordField = useField("confirmPassword", form, {
 // const { name, value, onChange, errors, setErrors, pristine, validate, validating } = usernameField
 ```
 
-这是一个非常简单的 API，但着实给了我们很大的灵活性。你可能已经意识到了，这个接口包含两个名字很像的函数, validation 和 validate。validation 被定义成一个函数，它以表单数据和表单项的 name 为参数，如果验证出了问题，则返回一个错误信息，与此同时它会返回一个虚值。另一方面，validate 函数会执行这个表单项的所有 validation 函数，并且更新这个表单项的错误列表。
+这是一个非常简单的 API，但着实给了我们很大的灵活性。你可能已经意识到了，这个接口包含两个名字很像的函数, validation 和 validate。validation 被定义成一个函数，它以表单数据和表单项的 name 为参数，如果验证出了问题，则返回一个错误信息，与此同时它会返回一个虚值（译者注：可转换为 false 的值）。另一方面，validate 函数会执行这个表单项的所有 validation 函数，并且更新这个表单项的错误列表。
 
 重中之重，我们需要一个来处理表单值的变化和表单提交的骨架。我们的第一次尝试不会包含任何校验，它仅仅用来处理表单的状态。
 
@@ -156,7 +156,7 @@ const App = props => {
 };
 ```
 
-这里没有太难理解的代码。 表单的值是我们唯一所关心的。每个表单项在它初始化结束之前把自身注册在表单上。我们的 onChange 函数也很简单。这里最复杂的函数就是 getFormData， 即便如此，这也无法跟抽象的 reduce 语法相比。getFormData 遍历所有表单项，并返回一个 plain object 来表示表单的值。最后值得一提的就是在表单提交的时候，我们需要调用 preventDefault 来阻止页面重新加载。
+这里没有太难理解的代码。表单的值是我们唯一所关心的。每个表单项在它初始化结束之前把自身注册在表单上。我们的 onChange 函数也很简单。这里最复杂的函数就是 getFormData，即便如此，这也无法跟抽象的 reduce 语法相比。getFormData 遍历所有表单项，并返回一个 plain object 来表示表单的值。最后值得一提的就是在表单提交的时候，我们需要调用 preventDefault 来阻止页面重新加载。
 
 事情发展的很顺利，现在我们来把验证加上吧。当表单项的值发生变化或者提交表单的时候，我们不是指明哪些具体的表单项需要被校验，而是校验所有的表单项。
 
@@ -309,9 +309,11 @@ const App = props => {
 
 ```
 
-上面的代码是改进版，大体浏览一下似乎可以跑起来了，但是要做到[交付给用户还远远不够](https://codesandbox.io/s/wy074qmk98?module=%2Fsrc%2FformHooks.js)。这个版本丢掉了很多用于隐藏错误信息的标记态（译者注: flag），这些错误信息可能会出现在不恰当的时机。比如在用户还没修改完输入信息的时候，表单就立马校验并展示相应的错误信息了。
+上面的代码是改进版，大体浏览一下似乎可以跑起来了，但是要做到[交付给用户](https://codesandbox.io/s/wy074qmk98?module=%2Fsrc%2FformHooks.js)还远远不够。这个版本丢掉了很多用于隐藏错误信息的标记态（译者注: flag），这些错误信息可能会在不恰当的时机出现。比如在用户还没修改完输入信息的时候，表单就立马校验并展示相应的错误信息了。
 
-我们需要一个标记态来记录用户尝试提交表单了，以及一个标记态来记录表单正在提交中或者表单项正在进行异步校验。你可能也想弄清楚我们为什么要在 useEffect 的内部调用 validateFields，而不是在 onChange 里调用。我们需要 useEffect 是因为 setValue 是异步发生的，它既不会返回一个 promise，也不会提供一个 callback 给我们。因此，唯一能让我们确定 setValue 是否完成的方法，只能是通过 useEffect 来监听值的变化。
+最基本的，我们需要一些基础的标记状态来告知 UI，如果用户没有修改表单项的值，那么就不展示错误信息。再进一步，除了这些基础的，我们还需要一些额外的标记状态。
+
+我们需要一个标记态来记录用户已经尝试提交表单了，以及一个标记态来记录表单正在提交中或者表单项正在进行异步校验。你可能也想弄清楚我们为什么要在 useEffect 的内部调用 validateFields，而不是在 onChange 里调用。我们需要 useEffect 是因为 setValue 是异步发生的，它既不会返回一个 promise，也不会给我们提供一个 callback。因此，唯一能让我们确定 setValue 是否完成的方法，就是通过 useEffect 来监听值的变化。
 
 现在我们一起来实现这些所谓的标记态吧。用它们来更好的完善 UI 和细节。
 
@@ -539,7 +541,7 @@ const App = props => {
 };
 ```
 
-最后一次尝试，我们加了很多东西进去。包括四个标记态：pristine, validating, submitted 和 submitting。还添加了 fieldsToValidateOnChange，将它传给 validateFields 来声明当表单的值发生变化的时候哪些表单项需要被校验。我们在 UI 层通过这些标记状态来控制何时展示错误信息和加载动画以及禁用提交按钮。
+最后一次尝试，我们加了很多东西进去。包括四个标记态：pristine、validating、submitted 和 submitting。还添加了 fieldsToValidateOnChange，将它传给 validateFields 来声明当表单的值发生变化的时候哪些表单项需要被校验。我们在 UI 层通过这些标记状态来控制何时展示错误信息和加载动画以及禁用提交按钮。
 
 你可能注意到了一个很特别的东西 validateCounter。我们需要记录 validate 函数的调用次数，因为 validate 在当前的调用完成之前，它有可能会被再次调用。如果是这种场景的话，我们应该放弃当前调用的结果，而只使用最新一次的调用结果来更新表单项的错误状态。
 
@@ -548,13 +550,13 @@ const App = props => {
 
 - https://codesandbox.io/embed/x964kxp2vo
 
-React Hooks 提供了一个简洁的表单校验解决方案。这是我使用这个 API 的第一次尝试。尽管有一点瑕疵，但是我依然感到了它的强大。 这个界面有些奇怪，因为是按照我喜欢的样子来的。然而除了这些瑕疵，它的功能还是很强大的。
+React Hooks 提供了一个简洁的表单校验解决方案。这是我使用这个 API 的第一次尝试。尽管有一点瑕疵，但是我依然感到了它的强大。这个接口有些奇怪，因为是按照我喜欢的样子来的。然而除了这些瑕疵以外，它的功能还是很强大的。
 
-我觉得它还少了一些特性，比如需要添加一个 callback 来表明何时 useState 更新 state 完毕，这也是一个在 useEffect hook 中检查对比 prop 变化的方法。
+我觉得它还少了一些特性，比如一个 callback 机制来表明何时 useState 更新 state 完毕，这也是一个在 useEffect hook 中检查对比 prop 变化的方法。
 
 ### 后记
 
-为了保证这个教程的易于上手，我刻意省略了一些参数的校验和异常错误处理。比如，我没有校验传入的 form 参数是否真的是一个 form 对象。如果我能明确的校验它的类型并抛出一个详细的异常信息会更好。事实上，我已经写了，代码会像这样报错。
+为了保证这个教程的易于上手，我刻意省略了一些参数的校验和异常错误处理。比如，我没有校验传入的 form 参数是否真的是一个 form 对象。如果我能明确地校验它的类型并抛出一个详细的异常信息会更好。事实上，我已经写了，代码会像这样报错。
 
 ```
 Cannot read property ‘addField’ of undefined
