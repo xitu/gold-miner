@@ -2,8 +2,8 @@
 > * 原文作者：[Milos Protic](https://devinduct.com/blogpost/20/13-javascript-methods-useful-for-dom-manipulation)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md](https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md)
-> * 译者：
-> * 校对者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
+> * 校对者： 
 
 # 13 种用于 DOM 操作的 JavaScript 方法
 
