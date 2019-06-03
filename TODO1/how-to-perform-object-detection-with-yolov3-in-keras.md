@@ -450,7 +450,7 @@ Running the example returns a list of three NumPy arrays, the shape of which is 
 These arrays predict both the bounding boxes and class labels but are encoded. They must be interpreted.
 
 ```
-[(1, 13, 13, 255), (1, 26, 26, 255), (1, 52, 52, 255)\]
+[(1, 13, 13, 255), (1, 26, 26, 255), (1, 52, 52, 255)]
 ```
 
 ### Make a Prediction and Interpret Result
