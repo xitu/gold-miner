@@ -105,7 +105,7 @@ We can now define the Keras model for YOLOv3.
 
 ```
 # define the model
-model  =  make\_yolov3\_model()
+model  =  make_yolov3_model()
 ```
 
 Next, we need to load the model weights. The model weights are stored in whatever format that was used by DarkNet. Rather than trying to decode the file manually, we can use the _WeightReader_ class provided in the script.
@@ -301,7 +301,6 @@ weight_reader = WeightReader('yolov3.weights')
 weight_reader.load_weights(model)
 # save the model to file
 model.save('model.h5')
-
 ```
 Running the example may take a little less than one minute to execute on modern hardware.
 
@@ -593,7 +592,7 @@ We can then call this function to plot our final result.
 
 ```
 # draw what we found
-draw_boxes(photo_filename,  v_boxes,  v_labels,  v_scores)
+draw_boxes(photo_filename, v_boxes, v_labels, v_scores)
 ```
 
 We now have all of the elements required to make a prediction using the YOLOv3 model, interpret the results, and plot them for review.
@@ -832,8 +831,7 @@ A plot of the photograph is created and the three bounding boxes are plotted. We
 
 Photograph of Three Zebra Each Detected with the YOLOv3 Model and Localized with Bounding Boxes
 
-Further Reading
----------------
+## Further Reading
 
 This section provides more resources on the topic if you are looking to go deeper.
 
@@ -861,8 +859,7 @@ This section provides more resources on the topic if you are looking to go deepe
 *   [qqwweee/keras-yolo3, GitHub](https://github.com/qqwweee/keras-yolo3).
 *   [xiaochus/YOLOv3 GitHub](https://github.com/xiaochus/YOLOv3).
 
-Summary
--------
+## Summary
 
 In this tutorial, you discovered how to develop a YOLOv3 model for object detection on new photographs.
 
