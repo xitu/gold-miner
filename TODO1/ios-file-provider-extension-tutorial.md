@@ -7,14 +7,14 @@
 
 # iOS 中的 File Provider 拓展
 
-在本教程中，你将学习 File Provider 拓展以及如何使用它把你 App 的内容暴露出来。
+在本教程中，你将学习 File Provider 拓展以及如何使用它把你 App 的内容公开出来。
 
-File Provider 在 iOS 11 中引进，它通过 iOS 的 **文件** App 来访问你 App 管理的内容。同时其他的 App 也可以使用 [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) 或 [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) 来访问你 App 的数据。
+File Provider 在 iOS 11 中引入，它通过 iOS 的 **文件** App 来访问你 App 管理的内容。同时其他的 App 也可以使用 [`UIDocumentBrowserViewController`](https://developer.apple.com/documentation/uikit/uidocumentbrowserviewcontroller) 或 [`UIDocumentPickerViewController`](https://developer.apple.com/documentation/uikit/uidocumentpickerviewcontroller) 来访问你 App 的数据。
 
 File Provider 拓展的主要任务是：
 
-* 创建表示远端服务器内容的文件占位符。
-* 拦截从宿主 App 的读取内容来进行下载或更新文件。
+* 创建表示云端内容的占位文件。
+* 当有 App 访问文件内容时先对文件进行下载或上传。
 * 在更新文件后发出通知来把更新上传到服务器。
 * 枚举存储的文件和目录。
 * 对文档执行操作，例如重命名、移动或删除。
@@ -31,7 +31,7 @@ File Provider 拓展的主要任务是：
 
 > **注意**：如果要在真机上运行该项目，除了为两个 target 设置开发者信息外，还需要在 **Configuration** 文件夹中编辑 **Favart.xcconfig**。将 Bundle ID 更新为唯一值。
 >
-> 示例项目将这个值用于两个 target 中 build setting 里的 `PRODUCT_BUNDLE_IDENTIFIER`，**Provider.entitlements** 里的 App Groups 标识符，还有 **Info.plist** 中的 `NSExtensionFileProviderDocumentGroup`。在项目中如果没有同步更新它们，你将会得到模糊并且让人没法调试的编译报错信息，而使用自定义的 build settings 将会是一个讨巧的方法。
+> 示例项目将这个值用于两个 target 中 build setting 里的 `PRODUCT_BUNDLE_IDENTIFIER`，**Provider.entitlements** 里的 App Groups 标识符，还有 **Info.plist** 中的 `NSExtensionFileProviderDocumentGroup`。在项目中如果没有同步更新它们，你将会得到模糊并且让人没法调试的编译报错信息，而使用自定义的 build settings 将会是一个聪明的方法。
 
 示例项目中已经包含了你将用于 File Provider 扩展的基本组件：
 
@@ -64,11 +64,11 @@ File Provider 拓展的主要任务是：
 
 ## 定义 NSFileProviderItem
 
-首先，File Provider 需要一个遵循了 `NSFileProviderItem` 协议的模型。此模型将提供有关文件提供程序管理的文件的信息。starter 项目在 **FileProviderItem.swift** 中已经定义了 `FileProviderItem`，在使用它之前需要遵循一些协议。
+首先，File Provider 需要一个遵循了 `NSFileProviderItem` 协议的模型。此模型将提供有关 File Provider 所管理的文件的信息。starter 项目在 **FileProviderItem.swift** 中已经定义了 `FileProviderItem`，在使用它之前需要遵循一些协议。
 
 虽然该协议含有 27 个属性，但我们只需要其中 4 个。其他一些可选属性为 File Provider 提供有关每个文件的详细信息以及一些其他功能。在本教程中，你将用到以四个属性：`itemIdentifier`，`parentItemIdentifier`，`filename` 和 `typeIdentifier`。
 
-`itemIdentifier` 给模型提供了唯一可识别的密钥。File Provider 使用 `parentIdentifier` 来跟踪它在扩展的层次结构中的位置。
+`itemIdentifier` 给模型提供了唯一标示符。File Provider 使用 `parentIdentifier` 来跟踪它在扩展的层次结构中的位置。
 
 `filename` 是 **文件** 里显示的 App 名字。
 `typeIdentifier` 是一个 [统一类型标识符（UTI）](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html)。
@@ -118,7 +118,7 @@ init(path: String, filename: String) {
 1. 在本教程中，URL 将包含 `NSFileProviderItem` 所需的大部分信息。
 2. 此计算属性判断当前项是否是文件系统的根目录。
 3. 你将此初始化方法设为私有以防止从模型外部调用。
-4. 从后端读取数据时，你将调用此初始化方法。如果文件名不包含点，则它必须是目录，因为初始化方法并不能自动推断其类型。
+4. 从后端读取数据时，你将调用此初始化方法。如果文件名不包含文件后缀，则它一定是个文件夹，因为初始化方法并不能自动推断其类型。
 
 在添加最终初的始化器之前，请把文件顶部的 import 语句替换成：
 
@@ -268,7 +268,7 @@ extension FileProviderItem: NSFileProviderItem {
 
 ## 枚举文件
 
-现在模型已经完善好了，可以拿来使用了。你需要告诉系统你 App 里有什么内容才能向用户展示模型。
+现在模型已经完善好了，可以拿来使用了。你需要告诉系统你 App 里有什么内容才能向用户展示模型定义的 item。
 
 `NSFileProviderEnumerator` 定义系统和 App 内容间的关系。你稍后将看到系统是如何通过提供表示当前上下文的 `NSFileProviderItemIdentifier` 从而请求枚举器的。如果用户当前在根目录下，系统将会提供 `.rootContainer` 标识符。在其他目录下时，系统则会传入你模型定义的项目的标识符。
 
@@ -352,7 +352,7 @@ override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIden
 以下是代码详解：
 
 1. 验证一下来确保给定的 identifier 能解析为扩展模型的实例。然后返回一个文件 URL，它是将项目存储在文件管理器里的位置。
-2. 由 `urlForItem(withPersistentIdentifier:)` 返回的每个 URL 都需要映射回最初设置的 `NSFileProviderItemIdentifier`。在该方法中，你要以以 `<documentStorageURL>/<itemIdentifier>/<filename>` 的格式构建 URL 并采用 `<itemIdentifier>` 作为标识符。
+2. 由 `urlForItem(withPersistentIdentifier:)` 返回的每个 URL 都需要映射回最初设置的 `NSFileProviderItemIdentifier`。在该方法中，你要以 `<documentStorageURL>/<itemIdentifier>/<filename>` 的格式构建 URL 并采用 `<itemIdentifier>` 作为标识符。
 
 现在有两个方法都需要你传入一个指向远端文件的占位符 URL 。首先你将创建一个帮助辅助方法来完成这个功能，将以下内容添加到 `providePlaceholder(at:)`：
 
