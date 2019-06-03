@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2706/1*EGRMyNT8x7gb0LdLmj4xMQ.png)
 
-表单校验是一件很棘手的事情。深入了解表单的实现之后，你会发现有大量的边界场景要处理。幸运的是，市面上有很多表单校验库，它们提供了必要的表计量（译注：如 dirty、invalid、inItialized、pristine 等等）和处理函数，来让我们实现一个健壮的表单。但我要使用 [React Hooks API](https://reactjs.org/docs/hooks-reference.html) (currently in alpha) 来打造一个 100 行代码以下的表单校验库来挑战自我。虽然 React Hooks 还在实验性阶段，但是这是一个 React Hooks 实现表单校验的证明。
+表单校验是一件很棘手的事情。深入了解表单的实现之后，你会发现有大量的边界场景要处理。幸运的是，市面上有很多表单校验库，它们提供了必要的表计量（译注：如 dirty、invalid、inItialized、pristine 等等）和处理函数，来让我们实现一个健壮的表单。但我要使用 [React Hooks API](https://reactjs.org/docs/hooks-reference.html)来打造一个 100 行代码以下的表单校验库来挑战自我。虽然 React Hooks 还在实验性阶段，但是这是一个 React Hooks 实现表单校验的证明。
 
 我要声明的是，我写的这个**库**确实是不到 100 行代码。但这个教程却有 200 行左右的代码，是因为我需要阐释清楚这个库是如何使用的。
 
