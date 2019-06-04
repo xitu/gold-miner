@@ -1,7 +1,7 @@
 > * 原文地址：[JavaScript Clean Code - Best Practices](https://devinduct.com/blogpost/22/javascript-clean-code-best-practices)
 > * 原文作者：[Milos Protic](https://devinduct.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-clean-code-best-practices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-clean-code-best-practices.md)
 > * 译者：
 > * 校对者：
 
