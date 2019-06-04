@@ -94,7 +94,7 @@ pod install
 
 [![初始项目](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel-650x376.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel.png)
 
-它暂时还做不了什么，只能让你用右上方的动作按钮分享已经写死的文字。你要用 ML Kit 帮它成长为真正的~~男人~~应用。
+它暂时还做不了什么，只能让你用右上方的动作按钮分享已经写死的文字。你要用 ML Kit 把它做成一个真正有用的 App。
 
 ### 检测基本文本
 
@@ -240,7 +240,7 @@ for block in result.blocks {
 
 就这篇教程而言，你要用到的是元素这一粒度层次。元素通常对应的是一个单词。这样一来，你就可以在每个单词上方进行绘制，向用户展示出图像中每个单词的位置。
 
-最后一个循环会对文本块中每一行的元素进行迭代。这些元素包含 `frame`（，它是个简单的 `CGRect`。运用这个 frame，你就可以在图像的文字周围绘制外框。
+最后一个循环会对文本块中每一行的元素进行迭代。这些元素包含 `frame`，它是个简单的 `CGRect`。运用这个 frame，你就可以在图像的文字周围绘制外框。
 
 ### 突出显示文本的 frame
 
