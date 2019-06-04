@@ -3,34 +3,34 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ml-kit-tutorial-for-ios-recognizing-text-in-images.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ml-kit-tutorial-for-ios-recognizing-text-in-images.md)
 > * 译者：[portandbridge](https://github.com/portandbridge)
-> * 校对者：
+> * 校对者：[Lobster-King](https://github.com/Lobster-King)，[iWeslie](https://github.com/iWeslie)
 
-# 写给 iOS 的 ML Kit 教程：识别图像中的文字
+# 用于 iOS 的 ML Kit 教程：识别图像中的文字
 
-在这篇 ML Kit 教程里面，你会学习使用 Google 的 ML Kit 进行文字检测和识别的方法。
+在这篇 ML Kit 教程里面，你会学习如何使用 Google 的 ML Kit 进行文字检测和识别。
 
-几年前，机器学习开发者分成两类：高级开发者是一类，其他的人全都划归第二类。机器学习的底层部分有可能很难，因为它涉及很多数学知识，还用到**逻辑回归（logistic regression）、稀疏性（sparsity）和神经网络（neural nets）**这样的艰深字眼。不过，也不是一定要搞得那么难的。
+几年前，机器学习开发者分成两类：高级开发者是一类，其余的人则是另一类。机器学习的底层部分有可能很难，因为它涉及很多数学知识，还用到**逻辑回归（logistic regression）、稀疏性（sparsity）和神经网络（neural nets）**这样的艰深字眼。不过，也不是一定要搞得那么难的。
 
-你也可以成为机器学习开发者的！就其核心而言，机器学习并不难。应用机器学习时，你是通过教软件模型发现规律来解决问题，而不是将你能想到的每种情况和极端情形都写死（hard coding）到模型里面。然而，一开始做的时候有可能会让人却步，而这正是你可以运用现有工具的时机。
+你也可以成为机器学习开发者的！就其核心而言，机器学习并不难。应用机器学习时，你是通过教软件模型发现规律来解决问题，而不是将你能想到的每种情况都硬编码到模型里面。然而，一开始做的时候有可能会让人却步，而这正是你可以运用现有工具的时机。
 
 #### 机器学习与工具配套（Tooling）
 
 和 iOS 开发一样，机器学习与工具配套息息相关。你不会自己搭建一个 UITableView，或者说，至少你不应该那么做；你会用一个框架，比如 UIKit。
 
-机器学习也是一样的道理。机器学习有一个正蓬勃发展的工具配套生态系统。举个例子，**Tensorflow** 可以简化训练及运行模型的过程。**TensorFlow Lite** 则可以给 iOS 和 Android 设备带来对模型的支持。.
+机器学习也是一样的道理。机器学习有一个正蓬勃发展的工具配套生态系统。举个例子，**Tensorflow** 可以简化训练及运行模型的过程。**TensorFlow Lite** 则可以给 iOS 和 Android 设备带来对模型的支持。
 
-这些工具的每一种用起来都需要一定的机器学习方面的经验。假如你不是机器学习的专家，但又想解决某个具体问题，该怎么办呢？**ML Kit** 就适用于这些情况。
+这些工具用起来全都需要一定的机器学习方面的经验。假如你不是机器学习的专家，但又想解决某个具体问题，该怎么办呢？这时候你就可以用 **ML Kit**。
 
 ### ML Kit
 
-ML Kit 是个移动端的 SDK，可以将 Google 强大的机器学习技术带到你的应用中。ML Kit 的 API 有两大部分，可以用于普通使用场景和自定义模型；而不管使用者的经验如何，它们用起来都不难。
+ML Kit 是个移动端的 SDK，可以将 Google 强大的机器学习技术带到你的 App 中。ML Kit 的 API 有两大部分，可以用于普通使用场景和自定义模型；而不管使用者的经验如何，它们用起来都不难。
 
 [![ML Kit](https://koenig-media.raywenderlich.com/uploads/2018/08/ML-Kit-for-Firebase-badge-light.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ML-Kit-for-Firebase-badge-light.png)
 
 现有的 API 目前支持：
 
 *   [识别文字](https://firebase.google.com/docs/ml-kit/ios/recognize-text)
-*   [检测脸孔](https://firebase.google.com/docs/ml-kit/ios/detect-faces)
+*   [人脸检测](https://firebase.google.com/docs/ml-kit/ios/detect-faces)
 *   [识别地标建筑](https://firebase.google.com/docs/ml-kit/ios/recognize-landmarks)
 *   [扫描条形码](https://firebase.google.com/docs/ml-kit/ios/read-barcodes)
 *   [为图像加标签](https://firebase.google.com/docs/ml-kit/ios/label-images)
@@ -39,17 +39,17 @@ ML Kit 是个移动端的 SDK，可以将 Google 强大的机器学习技术带�
 
 ### 预备工作
 
-在本教程中，你会编写一个名为 **Extractor**（译者注：意为“抽取器”）的 app。你有没有试过，只是为了把文字内容写下来，就去给标志或者海报拍照呢？如果有个应用能够把文字从标志上面“剥离”、储存，让你随时可用，那就好了！比方说，这样你给一个写有地址的信封拍个照，就能把上面的地址保存下来了。接下来你要在这个项目里面做的，正正就是这样的 app！快做好准备吧！
+在本教程中，你会编写一个名为 **Extractor** 的 App。你有没有试过，只是为了把文字内容写下来，就去给标志或者海报拍照呢？如果有个 App 能够把图片上的文字抠下来并转换成真正的文字格式，那就太好了！比方说，你只需要给带有地址的一个信封拍照，就可以提取上面的地址信息。接下来你要在这个项目里面做的，正就是这样的 App！快做好准备吧！
 
 你首先要做的，是下载本教程要用到的项目材料。点击教程最上方或者底部的“Download Materials”按钮就可以下载啦。
 
 本项目使用 CocoaPods 对依赖进行管理。
 
-### 设置好 ML Kit
+### 配置 ML Kit 环境
 
-每个 ML Kit API 都有一套不同的 CocoaPods 依赖。这蛮有用的，因为你只需要打包你的应用所需的依赖。比方说，如果你不打算识别地标建筑，你的应用就不需要有那个模型。在 Extractor 里，你要用到的是**文字识别 API**。
+每个 ML Kit API 都有一套不同的 CocoaPods 依赖。这蛮有用的，因为你只需要打包你的 App 所需的依赖。比方说，如果你不打算识别地标建筑，你的 App 就不需要有那个模型。在 Extractor 里，你要用到的是**文字识别 API**。
 
-假如要在你的应用里面加入文字识别 API，你需要在 Podfile 里面加入以下几行。不过做这个初始项目的时候就不用了，因为 Podfile 里面已经写好啦；你可以自己打开看看。
+假如要在你的 App 里面加入文字识别 API，你需要在 Podfile 里面加入以下几行。不过做这个初始项目的时候就不用了，因为 Podfile 里面已经写好啦，你可以自己打开看看。
 
 ```
 pod 'Firebase/Core' => '5.5.0'
@@ -57,7 +57,7 @@ pod 'Firebase/MLVision' => '5.5.0'
 pod 'Firebase/MLVisionTextModel' => '5.5.0'
 ```
 
-需要你做的呢，是打开 Terminal，进入项目的文件夹，运行下面的命令，从而安装项目要用到的 CocoaPods：
+需要你做的呢，是打开终端，进入项目的文件夹，运行下面的命令，从而安装项目要用到的 CocoaPods：
 
 ```
 pod install
@@ -65,7 +65,7 @@ pod install
 
 安装好 CocoaPods 之后，在 Xcode 中打开 **Extractor.xcworkspace**。
 
-> **注意**：你可能会发现，项目的文件夹里有一个名为 **Extractor.xcodeproj** 的项目文件，和一个名为 **Extractor.xcworkspace** 的 workspace 文件。 你要在 Xcode 打开的是后者。不要打开项目文件，因为里面没有编译这个应用所必需的额外 CocoaPods 项目。
+> **注意**：你可能会发现，项目的文件夹里有一个名为 **Extractor.xcodeproj** 的项目文件，和一个名为 **Extractor.xcworkspace** 的 workspace 文件。你需要在 Xcode 打开后者，因为前者没有包含编译时所需的 CocoaPods 依赖库。
 >
 > 如果你不熟悉 CocoaPods，我们的 [CocoaPods 教程](https://www.raywenderlich.com/626-cocoapods-tutorial-for-swift-getting-started) 可以带你初步了解下。
 
@@ -90,21 +90,21 @@ pod install
 
 > **注意**: 你需要设置好 Firebase，为最终项目和初始项目创建自己的 **GoogleService-Info.plist** 文件。
 
-构建好应用再运行，你会看到它长这个样子：
+编译 App 再运行，你会看到它长这个样子：
 
 [![初始项目](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel-650x376.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel.png)
 
 它暂时还做不了什么，只能让你用右上方的动作按钮分享已经写死的文字。你要用 ML Kit 帮它成长为真正的~~男人~~应用。
 
-### 检测基本文本（Basic Text）
+### 检测基本文本
 
-准备好进行第一次文本检测啦！你一开始可以做的，是向用户展示这个应用的用法。
+准备好进行第一次文本检测啦！你一开始可以做的，是向用户展示这个 App 的用法。
 
-一个不错的展示方法，就是在应用第一次启动的时候，扫描一幅示例图片。资源文件夹里附带了一幅叫做 **scanned-text** 的图片，它现在是视图控制器的 `UIImageView` 所显示的默认图片。你会用它来做示例图片。
+一个不错的展示方法，就是在 App 第一次启动的时候，扫描一幅示例图片。资源文件夹里附带了一幅叫做 **scanned-text** 的图片，它现在是视图控制器的 `UIImageView` 所显示的默认图片，你会用它来做示例图片。
 
-不过一开始呢，你需要有一个可以检测图片内文字的文字检测器。
+不过一开始呢，你需要有一个可以检测图片内文字的文本检测器。
 
-#### 建立文字检测器
+#### 创建文本检测器
 
 新建一个名为 **ScaledElementProcessor.swift** 的文件，填入以下代码：
 
@@ -116,7 +116,7 @@ class ScaledElementProcessor {
 }
 ```
 
-好啦，搞定啦！……才怪。在这个类里面添加一个 text-detector 属性:
+好啦，搞定啦！……才怪。你要在这个类里面添加一个 text-detector 属性：
 
 ```
 let vision = Vision.vision()
@@ -157,13 +157,13 @@ func process(in imageView: UIImageView,
 
 1.  检查 `imageView` 当中是否真的包含图片。没有的话，直接返回就可以了。不过理想的做法还是，显示或者自己编写一段得体的错误信息。
 2.  ML Kit 使用一个特别的 `VisionImage` 类型。它很好用，因为可以包含像是图片方向之类的具体元数据，让 ML Kit 用来处理图像。
-3.  `textRecognizer` 带有一个 `process` 方法， 这个方法会输入 `VisionImage`，然后以a parameter passed to a closure 的形式返回文本结果的阵列。
+3.  `textRecognizer` 带有一个 `process` 方法， 这个方法会输入 `VisionImage`，然后返回文本结果的阵列，将其作为参数传递给闭包。
 4.  结果可以是 `nil`；那样的话，你最好为回调返回一个空字串。
 5.  最后，触发回调，从而传递识别出的文字。
 
 #### 使用文字识别器
 
-打开 **ViewController.swift**，然后在类本体（class body）代码顶端的 outlet 后面，将 `ScaledElementProcessor` 的一个实例作为属性添加进去：
+打开 **ViewController.swift**，然后在类本体代码顶端的 outlet 后面，将 `ScaledElementProcessor` 的一个实例作为属性添加进去：
 
 ```
 let processor = ScaledElementProcessor()
@@ -196,9 +196,9 @@ here
 
 [![从图像中检测出的文字](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-basic-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-basic-no-bezel.png)
 
-#### 搞懂这里的类
+#### 理解这些类
 
-> **注意**：你不需要复制这一节里面的代码，这些代码只是用来帮忙解释概念的。到了下一节，你才需要往应用里面添加代码。
+> **注意**：你不需要复制这一节里面的代码，这些代码只是用来帮忙解释概念的。到了下一节，你才需要往 App 里面添加代码。
 
 **VisionText**
 
@@ -284,7 +284,7 @@ private enum Constants {
 
 这段代码的作用是：
 
-1.  `CAShapeLayer` 并没有可以输入 `CGRect` 的初始化器（initializer）。所以，你要建立一个包含 `CGRect` 的 `UIBezierPath`，然后将形状图层的 `path` 设置为这个 `UIBezierPath`。
+1.  `CAShapeLayer` 并没有可以输入 `CGRect` 的初始化器。所以，你要建立一个包含 `CGRect` 的 `UIBezierPath`，然后将形状图层的 `path` 设置为这个 `UIBezierPath`。
 2.  通过 `Constants` 枚举类型，设置颜色和宽度方面的图像属性。
 3.  这一枚举类型可以让颜色和宽度保持不变。
 
@@ -354,11 +354,11 @@ processor.process(in: imageView) { text, elements in
 
 `ViewController` 具有一个附着于 `imageView` 的 `frameSublayer` 属性。你要在这里将每个元素的形状图层添加到子图层中，这样一来，iOS 就会自动在图像上绘制形状。
 
-构建应用，然后运行。欣赏下自己的大作吧。
+编译 App，然后运行。欣赏下自己的大作吧。
 
 [![与图像的比例不一致的外框](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-no-bezel.png)
 
-哟……这是啥？同学你这说不上是莫奈风格，倒有点毕加索的味道呀。（译者注：毕加索是立体主义画家，其画作将物体不同角度的样貌缩放拼合，使其显得支离破碎）这是哪里出错了呢？呃，或许是时候讲讲缩放比例这个问题了。
+哟……这是啥？同学你这说不上是莫奈风格，倒有点毕加索的味道呀。（译者注：毕加索的绘画风格是将物体不同角度的样貌缩放拼合，使其显得支离破碎）这是哪里出错了呢？呃，或许是时候讲讲缩放比例这个问题了。
 
 ### 理解图像的缩放
 
@@ -433,7 +433,7 @@ private func createScaledFrame(
 6.  新原点的计算方法是，用缩放比例乘以未缩放的原点，再加上 X 和 Y 点的缩放值。
 7.  返回经过缩放、依照计算出的原点和尺寸配置好的 `CGRect`。
 
-有了缩放好的 `CGRect`，就可以大大提升你的绘制技能，达到 sgraffito 的水平啦。[对的，我就是要教你个新单词](https://www.google.com/search?q=sgraffito)，下次玩 Scrabble 填字游戏的时候可要谢谢我呀。
+有了缩放好的 `CGRect`，就可以大大提升你的绘制技能，达到 sgraffito 的水平啦。[对的，我就是要教你个新单词](https://www.britannica.com/art/sgraffito)，下次玩 Scrabble 填字游戏的时候可要谢谢我呀。
 
 前往 **ScaledElementProcessor.swift** 中的 `process(in:callback:)`，修改最内层的 `for` 循环，让它使用下面的代码：
 
@@ -452,7 +452,7 @@ for element in line.elements {
 
 刚刚加入的线条会建立一个缩放好的 frame，而代码会使用外框建立位置正确的形状图层。
 
-构建应用，然后运行。frame 应该出现在正确的地方啦。你真是个绘框大师呢。
+编译 App，然后运行。frame 应该出现在正确的地方啦。你真是个绘框大师呢。
 
 [![与图像缩放一致的外框](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-fixed-picasso-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-fixed-picasso-no-bezel.png)
 
@@ -460,7 +460,7 @@ for element in line.elements {
 
 ### 用照相机拍照
 
-项目已经包含设置好的相机及图库选图代码，它们位于 **ViewController.swift** 底部的一个扩展里。如果你现在就用用看，你会发现 frame 全都会错位。这是因为应用还在使用预载图像中的 frame。你要移除这些旧 frame，然后在拍摄或者选取照片的时候绘制新的 frame。
+项目已经包含设置好的相机及图库选图代码，它们位于 **ViewController.swift** 底部的一个扩展里。如果你现在就用用看，你会发现 frame 全都会错位。这是因为 App 还在使用预载图像中的 frame。你要移除这些旧 frame，然后在拍摄或者选取照片的时候绘制新的 frame。
 
 把下面的方法添加到 `ViewController`：
 
@@ -516,7 +516,7 @@ drawFeatures(in: imageView)
 
 拍摄或者选取新照片的时候，这段代码可以确保将之前绘制的 frame 移除，再用新照片的 frame 进行替换。
 
-构建应用，然后运行。如果你是用真实设备运行（而不是模拟器的话），拍一副带文字的照片吧。这时或许会出现奇怪的结果：
+编译 App，然后运行。如果你是用真实设备运行（而不是模拟器的话），拍一副带文字的照片吧。这时或许会出现奇怪的结果：
 
 [![检测出乱码](https://koenig-media.raywenderlich.com/uploads/2018/07/gibberish.png)](https://koenig-media.raywenderlich.com/uploads/2018/07/gibberish.png)
 
@@ -526,17 +526,17 @@ drawFeatures(in: imageView)
 
 ### 处理图像的朝向
 
-这个应用是锁定于竖向模式的。在设备旋转方向的时候重绘 frame 很麻烦。目前的话，还是给用户设定一些限制，这样做起来比较简单。
+这个 App 是锁定于竖向模式的。在设备旋转方向的时候重绘 frame 很麻烦。目前的话，还是给用户设定一些限制，这样做起来比较简单。
 
 有这条限制，用户就必须拍摄纵向照片。`UICameraPicker` 会在幕后将纵向照片旋转 90 度。你不会看见旋转过程，因为 `UIImageView` 会帮你旋转成原来的样子。但是，文字检测器所获取的，则是旋转后的 `UIImage`。
 
 [![旋转后的图片](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-raw.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-raw.jpg)
 
-这样就会出现让人困惑的结果。ML Kit 可以让你在 `VisionMetadata` 对象中设置照片的朝向。设置正确的朝向，应用就会返回正确的文本，但是 frame 还是依照旋转后的图片绘制的。
+这样就会出现让人困惑的结果。ML Kit 可以让你在 `VisionMetadata` 对象中设置照片的朝向。设置正确的朝向，App 就会返回正确的文本，但是 frame 还是依照旋转后的图片绘制的。
 
 [![ML Kit 看到的照片是这样的，所以绘制的外框都是错的](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-placed-image.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-placed-image.jpg)
 
-所以呢，你需要处理照片朝向的问题，让它总是“朝上”。本项目包含一个名为 **+UIImage.swift** 的扩展。这个扩展会在 `UIImage` 加入一个方法，它可以将任何照片的朝向更改为纵向。图像的朝向摆正之后，整个应用就可以顺畅运行啦。
+所以呢，你需要处理照片朝向的问题，让它总是“朝上”。本项目包含一个名为 **+UIImage.swift** 的扩展。这个扩展会在 `UIImage` 加入一个方法，它可以将任何照片的朝向更改为纵向。图像的朝向摆正之后，整个 App 就可以顺畅运行啦。
 
 打开 **ViewController.swift**，在 `imagePickerController(_:didFinishPickingMediaWithInfo:)` 之中，用下面的代码替换掉 `imageView.image = pickedImage`：
 
@@ -552,13 +552,13 @@ imageView.image = fixedImage
 1.  把刚刚选中的图像 `pickedImage` 旋转到朝上的位置。
 2.  然后，将旋转好的图像分配到 `imageView`。
 
-构建应用，然后运行。再拍一次照。这次所有东西的位置应该都没问题了。
+编译 App，然后运行。再拍一次照。这次所有东西的位置应该都没问题了。
 
 [![Working ML Kit frames](https://koenig-media.raywenderlich.com/uploads/2018/07/final-version.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/final-version.jpg)
 
 ### 分享文本
 
-最后一步你什么都不用做。是不是棒棒哒？这个应用已经整合了 `UIActivityViewController`。去看看 `shareDidTouch()`：
+最后一步你什么都不用做。是不是棒棒哒？这个 App 已经整合了 `UIActivityViewController`。去看看 `shareDidTouch()`：
 
 ```
 @IBAction func shareDidTouch(_ sender: UIBarButtonItem) {
@@ -574,7 +574,7 @@ imageView.image = fixedImage
 
 ### 之后可以干点啥？
 
-恭喜！你已经是一名机器学习开发者啦！点击本文页首或者文末的 **Download Materials** 按钮，可以取得完整版本的 Extractor 应用。不过要注意的是，下载最终版本的项目文件之后，还需要添加你自己的 **GoogleService-Info.plist**；这点我在上文也说过啦。你也需要依据你在 Firebase 控制台中的设置，将 bundle ID 更改为合适的值。
+恭喜！你已经是一名机器学习开发者啦！点击本文页首或者文末的 **Download Materials** 按钮，可以取得完整版本的 Extractor。不过要注意的是，下载最终版本的项目文件之后，还需要添加你自己的 **GoogleService-Info.plist**；这点我在上文也说过啦。你也需要依据你在 Firebase 控制台中的设置，将 bundle ID 更改为合适的值。
 
 在这个教程里，你做到了：
 
@@ -585,7 +585,7 @@ imageView.image = fixedImage
 
 如果你想再多多了解 Firebase 和 ML Kit，请查阅 [官方文档](https://developers.google.com/ml-kit/)。
 
-如果你对这份 Firebase 教程、Firebase、ML Kit 或者示例应用有任何意见或疑问，欢迎你加入到下面的讨论中！
+如果你对这份 Firebase 教程、Firebase、ML Kit 或者示例 App 有任何意见或疑问，欢迎你加入到下面的讨论中！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
