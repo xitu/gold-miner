@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md](https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者： 
+> * 校对者：[ZavierTang](https://github.com/ZavierTang)
 
-# 13 种用于 DOM 操作的 JavaScript 方法
+# 13 种有用的 DOM 操作
 
 ## 介绍
 
-DOM 或文档对象模型是网页上所有对象的根。它表示文档的结构，并且是页面和编程语言之间的桥梁。它被构造成逻辑树。每个分支以节点结束，每个节点包含有子节点。DOM API 有很多，在本文里面，我仅介绍一些我认为最有用的 API。
+DOM（Document Object Model）是网页上所有对象的基础。它描述文档的结构，并且为编程语言提供操作页面的接口。它被构造成逻辑树。每个分支以节点结束，每个节点包含有子节点。DOM API 有很多，在本文里面，我仅介绍一些我认为最有用的 API。
 
 ## document.querySelector / document.querySelectorAll
 
-`document.querySelector` 方法返回文档中与给定选择器匹配的第一个元素。
+`document.querySelector` 方法返回文档中与给定选择器组匹配的第一个元素。
 
-`document.querySelectorAll` 方法返回一个节点列表，表示与给定选择器匹配的元素的集合。
+`document.querySelectorAll` 返回与给定选择器组匹配的文档中的元素列表。
 
 ```js
 // 返回第一个元素
@@ -30,12 +30,12 @@ const elements = document.querySelectorAll('div.info, div.warning');
 
 ## Node.appendChild
 
-`Node.appendChild()` 这个方法能够将节点添加到给定父节点的子节点列表的末尾。请注意，如果给定子项是文档中现有节点的引用，则它将会被移动到新的位置。
+`Node.appendChild()` 这个方法能够将节点添加到给定父节点的子节点列表的末尾。请注意，如果给定要添加的子节点是文档中现有节点的引用，则它将会被移动到子节点列表的末尾。
 
 让我们看看这两种方法的作用：
 
 ```js
-let list = document.createElement('ul'); // 创建一个新的列表
+let list = document.createElement('ul'); // 创建一个新的 ul 元素
 ['Paris', 'London', 'New York'].forEach(city => {
     let listItem = document.createElement('li');
     listItem.innerText = city;
@@ -46,7 +46,7 @@ document.body.appendChild(list);
 
 ## Node.insertBefore
 
-这个方法在指定父节点内的子引用节点之前插入给定节点（并返回插入的节点）。下面是使用该方法的一个伪代码:
+这个方法在指定父节点内的某个子节点之前插入给定节点（并返回插入的节点）。下面是使用该方法的一个伪代码:
 
 1. Paris
 2. London
@@ -65,7 +65,7 @@ Node.insertBefore(San Francisco, Paris)
 
 ```js
 let list = document.querySelector('ul');
-let firstCity = list.querySelector('ul > li'); // 这里我们可以使用 list.firstChild，但是这篇文章的目的是介绍 DOM API 方法
+let firstCity = list.querySelector('ul > li'); // 这里我们可以使用 list.firstChild，但是这篇文章的目的是介绍 DOM API
 let newCity = document.createElement('li');
 newCity.textContent = 'San Francisco';
 list.insertBefore(newCity, firstCity);
@@ -73,7 +73,7 @@ list.insertBefore(newCity, firstCity);
 
 ## Node.removeChild
 
-该 `Node.removeChild` 方法从 DOM 中删除子节点并且返回已删除的节点。请注意返回的节点已经不再是 DOM 的一部分，但仍然存在内存里面。如果处理不当，可能会导致内存泄漏。
+该 `Node.removeChild` 方法从 DOM 中删除子节点并且返回已删除的节点。请注意返回的节点已经不再是 DOM 的一部分，但仍然保存在内存中。如果处理不当，可能会导致内存泄漏。
 
 ```js
 let list = document.querySelector('ul');
@@ -83,7 +83,7 @@ let removedItem = list.removeChild(firstItem);
 
 ## Node.replaceChild
 
-该方法用于替换父节点中的子节点（并且会返回替换的旧子节点）。请注意，如果处理不当，这个方法可能回像 `Node.removeChild` 一样导致内存泄漏。
+该方法用于替换父节点中的子节点（并且会返回被替换的子节点）。请注意，如果处理不当，这个方法可能会像 `Node.removeChild` 一样导致内存泄漏。
 
 ```js
 let list = document.querySelector('ul');
@@ -95,7 +95,7 @@ let replacedItem = list.replaceChild(newItem, oldItem);
 
 ## Node.cloneNode
 
-这个方法用于用于创建使用此方法的给定节点的副本。当你需要在页面上创建一个与现有元素相同的新元素时非常有用。它接受一个可选的 `boolean` 参数，该参数用于指示是否克隆子节点。
+这个方法用于用于创建调用此方法的给定节点的副本。当你需要在页面上创建一个与现有元素相同的新元素时非常有用。它接受一个可选的 `boolean` 类型的参数，该参数用于表示是否对子节点进行深度克隆。
 
 ```js
 let list = document.querySelector('ul');
@@ -104,18 +104,18 @@ let clone = list.cloneNode();
 
 ## Element.getAttribute / Element.setAttribute
 
-`Element.getAttribute` 该方法返回元素上给定属性的值，反之亦然，`Element.setAttribute` 方法用于设置给定元素上属性的值。
+`Element.getAttribute` 该方法返回元素上给定属性的值，与之对应的，`Element.setAttribute` 方法用于设置给定元素上属性的值。
 
 ```js
 let list = document.querySelector('ul');
 list.setAttribute('id', 'my-list');
 let id = list.getAttribute('id');
-console.log(id); // 输出我的列表
+console.log(id); // 输出 my-list
 ```
 
 ## Element.hasAttribute / Element.removeAttribute
 
-`Element.hasAttribute` 方法用于检查给定元素是否具有指定的属性。返回值是 `boolean` 类型。通过调用 `Element.removeAttribute`，我们可以从元素中删除具有给定名称的属性。
+`Element.hasAttribute` 方法用于检查给定元素是否具有指定的属性。返回值是 `boolean` 类型。同时，通过调用 `Element.removeAttribute`，我们可以从元素中删除给定名称的属性。
 
 ```js
 let list = document.querySelector('ul');
@@ -127,7 +127,7 @@ if (list.hasAttribute('id')) {
 
 ## Element.insertAdjacentHTML
 
-改方法将制定的文本解析为 HTML，并将结果节点插入到给定位置的 DOM 树中。它不会破坏插入新 HTML 元素中的现有节点。该位置可以是以下字符串之一：
+该方法将制定的文本解析为 HTML，并将 HTML 元素节点插入到 DOM 树中的给定位置。它不会破坏要插入的新 HTML 元素中的现有节点。插入的位置可以是以下字符串之一：
 
 1. `beforebegin`
 2. `afterbegin`
@@ -151,13 +151,13 @@ var list = document.querySelector('ul');
 list.insertAdjacentHTML('afterbegin', '<li id="first-item">First</li>');
 ```
 
-请注意，使用此方法的时候，我们需要清理给定的 HTML。
+请注意，使用此方法的时候，我们需要适当的格式化给定的 HTML 元素。
 
-## 结论和进一步阅读
+## 结论和了解更多
 
-我希望这篇文章对你有帮助，它会有助于你理解 DOM。正确处理 DOM 树是非常重要的，如果不正确地执行它可能会给你带来一些严重的后果。确保始终进行内存清理并正确清理 HTML/XML 字符串。
+我希望这篇文章对你有帮助，它会有助于你理解 DOM。正确处理 DOM 树是非常重要的，如果不正确地使用它可能会给你带来一些严重的后果。确保始终进行内存清理并适当格式化 HTML/XML 字符串。
 
-如果需要进一步阅读，请查看官方 [w3c 页面](https://www.w3.org/TR/?tag=dom).
+如果需要了解更多，请查看官方 [w3c 页面](https://www.w3.org/TR/?tag=dom).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
