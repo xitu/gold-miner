@@ -1,3 +1,5 @@
+* [如何使用 Node.js 构建一个命令行界面（CLI）](https://juejin.im/post/5cf2111b5188250d2850f884) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
+* [Node.js 日志记录指南](https://juejin.im/post/5cf213e4e51d4577407b1cda) ([fireairforce](https://github.com/fireairforce) 翻译)
 * [超快速的分析器（一）：优化扫描器](https://juejin.im/post/5ce8cbd9e51d4556bb4cd2f9) ([nettee](https://github.com/nettee) 翻译)
 * [通过优化 Gunicorn 配置提高性能](https://juejin.im/post/5ce8cab8e51d4577523f22f8) ([shixi-li](https://github.com/shixi-li) 翻译)
 * [Go 语言工具概述](https://juejin.im/post/5ce4dc17518825240245be5b) ([iceytea](https://github.com/iceytea) 翻译)

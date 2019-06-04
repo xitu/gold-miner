@@ -2,84 +2,84 @@
 > * 原文作者：[dkundel](https://twitter.com/dkundel?lang=en)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-cli-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-cli-with-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[suhanyujie](https://github.com/suhanyujie)
 
-# How to build a CLI with Node.js
+# 如何使用 Node.js 构建一个命令行应用（CLI）
 
 ![atZ3n9vMFjjXDl_XxDtL_FCRSOt6EF0d8LnbMRCCJQUesMme8lzdGpCyMr4-wt1nlIGuoT29EI_tkVpuD_P2mxzbfhbn-ZPcqmZ5QCY_nM9d4ywWEYQxKYc9mjxUnp_uFJzMOMnr](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/atZ3n9vMFjjXDl_XxDtL_FCRSOt6EF0d8LnbMRCCJQUesM.width-808.png)
 
-Command-line interfaces (CLIs) built in Node.js allow you to automate repetitive tasks while leveraging the vast Node.js ecosystem. And thanks to package managers like [`npm`](https://www.npmjs.com/) and [`yarn`](https://yarnpkg.com/), these can be easily distributed and consumed across multiple platforms. In this post we'll look at why you might want to write a CLI, how to use Node.js for it, some useful packages and how you can distribute your new CLI.
+Node.js 内建的命令行应用（CLI）让你能够在使用其庞大的生态系统的同时自动化地执行重复性的任务。并且，多亏了像 [`npm`](https://www.npmjs.com/) 和 [`yarn`](https://yarnpkg.com/) 这样的包管理工具，让这些命令行应用可以很容易就在多个平台上分发和使用。在本篇文章中，我将会讲述为何需要写 CLI，如何使用 Node.js 完成它，一些实用的包，以及你如何发布你新写好的 CLI。
 
-## Why create CLIs with Node.js
+## 为什么要用 Node.js 创建命令行应用
 
-One of the reasons why Node.js got so popular is the rich package ecosystem with over 900,000 packages in the [`npm` registry](https://npmjs.com). By writing your CLIs in Node.js you can tap into this ecosystem including it's big amount of CLI-focused packages. Among others:
+Node.js 能够如此流行的原因之一就是它有丰富的包生态系统，如今在 [`npm` 注册处](https://npmjs.com) 已经有超过 900000 个包。通过在 Node.js 中写你自己的 CLI，你就可以进入这个生态系统，而其中也包含了巨额数目的针对 CLI 的包。包括：
 
-* [`inquirer`](http://npm.im/inquirer), [`enquirer`](http://npm.im/enquirer) or [`prompts`](https://npm.im/prompts) for complex input prompts
-* [`email-prompt`](http://npm.im/email-prompt) for convenient email input prompts
-* [`chalk`](http://npm.im/chalk) or [`kleur`](https://npm.im/kleur) for colored output
-* [`ora`](http://npm.im/ora) for beautiful spinners
-* [`boxen`](http://npm.im/boxen) for drawing boxes around your output
-* [`stmux`](http://npm.im/stmux) for a `tmux` like UI
-* [`listr`](http://npm.im/listr) for progress lists
-* [`ink`](http://npm.im/ink) to build CLIs with React
-* [`meow`](http://npm.im/meow) or [`arg`](http://npm.im/arg) for basic argument parsing
-* [ `commander`](http://npm.im/commander) and [`yargs`](https://www.npmjs.com/package/yargs) for complex argument parsing and subcommand support
-* [`oclif`](https://oclif.io/) a framework for building extensible CLIs by Heroku ([`gluegun`](https://infinitered.github.io/gluegun/#/) as an alternative)
+* [`inquirer`](http://npm.im/inquirer)，[`enquirer`](http://npm.im/enquirer) 或者 [`prompts`](https://npm.im/prompts)，可用于处理复杂的输入提示
+* [`email-prompt`](http://npm.im/email-prompt) 可方便地提示邮箱输入
+* [`chalk`](http://npm.im/chalk) 或 [`kleur`](https://npm.im/kleur) 可用于彩色输出
+* [`ora`](http://npm.im/ora) 是一个好看的加载提示
+* [`boxen`](http://npm.im/boxen) 可以用于在你的输出外加上边框
+* [`stmux`](http://npm.im/stmux) 可以提供一个和 `tmux` 类似的多终端界面
+* [`listr`](http://npm.im/listr) 可以展示进程列表
+* [`ink`](http://npm.im/ink) 可以使用 React 构建 CLI
+* [`meow`](http://npm.im/meow) 或者 [`arg`](http://npm.im/arg) 可以用于基本的参数解析
+* [ `commander`](http://npm.im/commander) 和 [`yargs`](https://www.npmjs.com/package/yargs) 可以用来比较复杂的参数解析，并支持子命令
+* [`oclif`](https://oclif.io/) 是一个用于构建可扩展 CLI 的框架，作者是 Heroku（[`gluegun`](https://infinitered.github.io/gluegun/#/) 可作为替换方案）
 
-Additionally there are many convenient ways to consume CLIs published to `npm` from both `yarn` and `npm`. Take as an example `create-flex-plugin`, a CLI that you can use to bootstrap a plugin for [Twilio Flex](https://twilio.com/flex). You can install it as a global command:
+还有很多方便的方法可以用来使用 CLI，它们都发布在 `npm` 上，可以同时使用 `yarn` 和 `npm` 进行管理。例如 `create-flex-plugin`，是一个可以用来为 [Twilio Flex](https://twilio.com/flex) 创建插件的 CLI。你可以使用全局命令来安装它：
 
 ```
-# Using npm:
+# 使用 npm 安装：
 npm install -g create-flex-plugin
-# Using yarn:
+# 使用 yarn 安装：
 yarn global add create-flex-plugin
-# Afterwards you will be able to consume it:
+# 安装之后你就可以使用了：
 create-flex-plugin
 ```
 
-Or as project specific dependencies:
+或者它也可以作为项目依赖：
 
 ```
-# Using npm:
+# 使用 npm 安装：
 npm install create-flex-plugin --save-dev
-# Using yarn:
+# 使用 yarn 安装：
 yarn add create-flex-plugin --dev
-# Afterwards the command will be in
+# 安装之后命令将被保存在
 ./node_modules/.bin/create-flex-plugin
-# Or via npx using npm:
+# 或者通过由 npm 支持的 npx 使用：
 npx create-flex-plugin
-# And via yarn:
+# 以及通过 yarn 使用：
 yarn create-flex-plugin
 ```
 
-In fact `npx` supports executing CLIs even when they are not installed yet. Simply run `npx create-flex-plugin` and it will download it into a cache if it can't find a locally- or globally-installed version.
+事实上，`npx` 能支持在没有安装的时候就执行 CLI。只需要运行 `npx create-flex-plugin`，这时候如果找不到本地或者全局的已安装版本，它将会自动下载这个包并放入缓存中。
 
-Lastly since `npm` version 6.1, `npm init` and `yarn` supports a way for you to bootstrap projects using CLIs that are named `create-*`. As an example, for our `create-flex-plugin` really all we have to call is:
+从 `npm` 6.1 版本后，`npm init` 和 `yarn` 都支持使用 CLI 来构建项目，命令的名字形如 `create-*`。例如，刚才说的 `create-flex-plugin`，我们要做的就是：
 
 ```
-# Using Node.js
+# 使用 Node.js：
 npm init flex-plugin
-# Using Yarn:
+# 使用 Yarn：
 yarn create flex-plugin
 ```
 
-## Setup Your First CLI
+## 构建第一个 CLI
 
-If you prefer following along a video tutorial, [check out this tutorial on our YouTube](https://www.youtube.com/watch?v=s2h28p4s-Xs).
+如果你更喜欢看视频学习，[点击这里在 YouTube 观看教程](https://www.youtube.com/watch?v=s2h28p4s-Xs)。
 
-Now that we covered why you might want to create a CLI using Node.js, let's start building one. We'll use `npm` in this tutorial but there are equivalent commands for most things in `yarn`. Make sure you have [Node.js](https://nodejs.org/en/download/) and [`npm`](https://www.npmjs.com/) installed on your system.
+目前我们已经解释过用 Node.js 创建 CLI 的原因，现在就让我们开始构建一个 CLI 吧。在本篇教程里，我们会使用 `npm`，但如果你想用 `yarn`，绝大多数的命令也都是相同的。确保你的系统中已经安装了 [Node.js](https://nodejs.org/en/download/) 和 [`npm`](https://www.npmjs.com/)。
 
-In this tutorial we'll create a CLI that bootstraps new projects to your own preferences by running `npm init @your-username/project`.
+本篇教程中，我们将会创建一个 CLI，通过运行命令 `npm init @your-username/project`，它可以根据你的偏好构建一个新的项目。
 
-Start a new Node.js project by running:
+通过运行如下代码，开始一个新的 Node.js 项目：
 
 ```
 mkdir create-project && cd create-project
 npm init --yes
 ```
 
-Afterwards create a directory called `src/` in the root of your project and place a file called `cli.js` into it with the following code:
+之后在项目的根目录下创建一个名为 `src/` 的目录，然后将一个名为 `cli.js` 的文件放在这个目录下，并在文件中写入代码：
 
 ```js
 export function cli(args) {
@@ -87,7 +87,7 @@ export function cli(args) {
 }
 ```
 
-This will be the part where we'll later parse our logic and then trigger our actual business logic. Next we'll need to create our entry point for our CLI. Create a new directory `bin/` in the root of our project and create a new file inside it called `create-project`. Place the following lines of code into it:
+在这个函数中，我们将会解析参数逻辑并触发实际需要的业务逻辑。接下来，我们需要创建 CLI 的入口。在项目根目录下创建目录 `bin/` 然后创建一个名为 `create-project` 的文件。写入代码：
 
 ```js
 #!/usr/bin/env node
@@ -96,15 +96,15 @@ require = require('esm')(module /*, options*/);
 require('../src/cli').cli(process.argv);
 ```
 
-There's a few things going on in this small snippet. First we require a module called `esm` that enables us to use `import` in the other files. This is not directly related to building CLIs but we will be using [ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) in this tutorial and the `esm` package allows us to do so without the need to transpile for Node.js versions without the support. Afterwards we'll require our `cli.js` file and call the `cli` function exposed with [`process.argv`](https://nodejs.org/api/process.html#process_process_argv) which is an array of all the arguments passed to this script from the command line. 
+在这一小片代码中，完成了几件事情。首先，我们引入了一个名为 `esm` 的模块，这个模块让我们能在其他文件中使用 `import`。这和构建 CLI 并不直接相关，但是本篇教程中我们需要使用 [ES 模块](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)，而包 `esm` 让我们能在 Node.js 版本不支持时无需代码转换而使用 ES 模块。然后我们引入 `cli.js` 文件并调用函数 `cli`，并将 [`process.argv`](https://nodejs.org/api/process.html#process_process_argv) 传入，它是从命令行传入函数脚本的参数数组。
 
-Before we can test our script we'll need to install our `esm` dependency by running:
+在我们测试脚本之前，需要通过运行如下命令安装 `esm` 依赖：
 
 ```
 npm install esm
 ```
 
-We'll also have to inform the package manager that we are exposing a CLI script. We do this by adding the appropriate entry in our `package.json`. Don't forget to also update the `description`, `name`, `keyword` and `main` properties accordingly:
+另外，我们还要将暴露 CLI 脚本的需求同步给包管理器。方法是在 `package.json` 文件中添加合适的入口。别忘了也要更新属性 `description`、`name`、`keyword` 和 `main`：
 
 ```js
 {
@@ -134,34 +134,34 @@ We'll also have to inform the package manager that we are exposing a CLI script.
 }
 ```
 
-If you look at the `bin` key, we are passing in an object with two key/value pairs. Those define the CLI commands that your package manager will install. In our case we'll register the same script for two commands. Once using our own `npm` scope by using our username and once as the generic `create-project` command for convenience.
+如果你注意到 `bin` 属性，你会发现我们将其定义为一个具有两个键值对的对象。这个对象内定义的是包管理器将会安装的 CLI 命令。在上述的例子中，我们为同一段脚本注册了两个命令。一个通过加上了我们的用户名来使用自己的 `npm` 作用域，另一个是为了方便使用的通用的 `create-project` 命令。
 
-Now that we have this done, we can test our script. To do so, the easiest way is to use the [`npm link`](https://docs.npmjs.com/cli/link.html) command. Run in your terminal inside your project:
+做好了这些，我们可以测试脚本了。最简单的测试方法是使用 [`npm link`](https://docs.npmjs.com/cli/link.html) 命令。在你的项目终端中运行：
 
 ```
 npm link
 ```
 
-This will globally install a symlink linking to your current project so there's no need for you to re-run this when we update our code. After running `npm link` you should have your CLI commands available. Try running:
+这个命令将会全局地安装你当前项目的链接，所以当你更新代码的时候，也并不需要重新运行 `npm link` 命令。在运行 `npm link` 命令后，你的 CLI 命令应该已经可用了。试着运行：
 
 ```
 create-project
 ```
 
-You should see an output similar to this:
+你应该可以看到类似的输出：
 
 ```js
 [ '/usr/local/Cellar/node/11.6.0/bin/node',
   '/Users/dkundel/dev/create-project/bin/create-project' ]
 ```
 
-Note that both paths will be different for you depending on where your project lies and where you have Node.js installed. This array will be longer with every argument that you add to this. Try running:
+注意，这两个地址依赖于你的项目地址和 Node.js 安装地址，并会随之变化而不同。并且这个数组会随着你增加参数而变长。试试运行：
 
 ```
 create-project --yes
 ```
 
-And the output should reflect the new argument:
+此时输出可以反映出添加了新的参数：
 
 ```
 [ '/usr/local/Cellar/node/11.6.0/bin/node',
@@ -169,22 +169,22 @@ And the output should reflect the new argument:
   '--yes' ]
 ```
 
-## Parsing Arguments and Handling Input
+## 参数解析与输入处理
 
-We are now ready to parse the arguments that are being passed to our script and we can start making sense of them. Our CLI will support one argument and a few options:
+现在我们准备解析传入脚本的参数，并赋予其逻辑意义。我们的 CLI 支持一个参数及多个选项：
 
-* `[template]`: We'll support different templates out of the box. If this is not passed we'll prompt the user to select a template
-* `--git`: This will run `git init` to instantiate a new git project
-* `--install`: This will automatically install all the dependencies for the project
-* `--yes`: This will skip all prompts and go for default options
+* `[template]`：我们支持开箱即用的多模版。如果用户没有传入这个参数，我们将给出提示让用户选择
+* `--git`：它将会运行 `git init`，来实例化一个新的 git 项目
+* `--install`：它将会自动地为项目安装所有依赖
+* `--yes`：它将会跳过所有提示，直接使用默认选项
 
-For our project we'll use `inquirer` to prompt for missing values and the `arg` library to parse our CLI arguments. Install the missing dependencies by running:
+对于我们的项目，将会使用 `inquirer` 来提示输入参数，并使用 `arg` 库来解析 CLI 参数。通过运行如下命令来安装依赖：
 
 ```
 npm install inquirer arg
 ```
 
-Let's first write the logic that will parse our arguments into an `options` object that we can work with. Add the following code to your `cli.js`:
+首先我们来写解析参数的逻辑，解析过程将会把参数解析为一个 `options` 对象，供我们使用。将如下代码加入到 `cli.js` 中：
 
 ```js
 import arg from 'arg';
@@ -217,9 +217,9 @@ export function cli(args) {
 }
 ```
 
-Try running `create-project --yes` and you should see `skipPrompt` to turn to `true` or try passing another argument in like `create-project cli` and the `template` property should be set.
+运行 `create-project --yes`，你将能看到 `skipPrompt` 会变成 `true`，或者试着传递其他参数例如 `create-project cli`，那么 `template` 属性就会被设置。
 
-Now that we are able to parse the CLI arguments, we'll need to add the functionality to prompt for the missing information as well as skip the prompt and resort to default arguments if the `--yes` flag is passed. Add the following code to your `cli.js` file:
+现在我们已经能解析 CLI 参数了，我们还需要添加方法来提示用户输入参数信息，以及当 `--yes` 标志被输入的时候，略过提示信息并使用默认参数。将如下代码加入 `cli.js` 文件：
 
 ```js
 import arg from 'arg';
@@ -273,11 +273,11 @@ export async function cli(args) {
 }
 ```
 
-Save the file and run `create-project` and you should be prompted with a template selection prompt:
+保存文件并运行 `create-project`，你将会看到这样的模版选择提示：
 
 ![](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/yfGSsiUKImPbvqn6_YlDO5TyLhCF9qT953-6KN4vStg5Wl.width-500.png)
 
-And afterwards you'll be prompted with a question whether you want to initialize `git`. Once you selected both you should see output like this printed:
+之后，你将会被询问是否要初始化 `git`。两个问题都作出先择后，你将看到打印出了这样的输出：
 
 ```
 { skipPrompts: false,
@@ -286,23 +286,23 @@ And afterwards you'll be prompted with a question whether you want to initialize
   runInstall: false }
 ```
 
-Try to run the same command with `-y` and the prompts should be skipped. Instead you'll immediately see the determined options output.
+尝试运行 `create-project -y` 命令，此时所有的提示都会被忽略。你将会马上看到命令行输入的选项：
 
 ![](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/JhCdQpSDKZzTbIW7stxZScvwr5ak8IZzjvlyLtPihPovb-.width-500.png)
 
-## Writing the Logic
+## 编写代码逻辑
 
-Now that we are able to determine the respective options through prompts and command-line arguments, let's write the actual logic that will create our projects. Our CLI will write into an existing directory similar to `npm init` and it will copy all files from a `templates` directory in our project. We'll allow the target directory to be also modified via the options in case you want to re-use the same logic inside another project.
+现在我们已经可以通过提示信息以及命令行参数来决定对应的逻辑选项，下面我们来写能够创建项目的逻辑代码。我们的 CLI 将会和 `npm init` 命令类似，写入一个已经存在的目录，并会将所有在 `templates` 目录下的文件拷贝到项目中。我们也允许通过选项修改目标目录地址，这样你可以在其他项目中重用这段逻辑。
 
-Before we write the actual logic, create a `templates` directory in the root of our project and place two directories with the names `typescript` and `javascript` into it. Those are the lower-cased versions of the two values that we prompted the user to pick from. This post will use these names but feel free to use other names you'd like. Inside that directory place any `package.json` that you would like to use as the base of your project and any kind of files you want to have copied into your project. Our code will later simply copy those files into the new project. If you need some inspiration, you can check out my files at github.com/dkundel/create-project.
+在我们写逻辑代码之前，在项目根目录下创建一个名为 `templates` 的目录，并将目录 `typescript` 和 `javascript` 放在此目录下。它们的名字都是小写的版本，我们将会提示用户从中选择一个。在本篇文章中，我们就使用这两个名字，但其实你可以使用你任意喜欢的命名。在这个目录下，放入文件 `package.json` 并加入任意你需要的项目基础依赖，以及任意你需要拷贝到项目中的文件。之后我们的代码将会把这些文件全都拷贝到新的项目中。如果你需要一些创作灵感，你可以在 github.com/dkundel/create-project 查看我使用的文件。
 
-In order to do recursive copying of the files we'll use a library called `ncp`. This library supports recursive copying cross-platform and even has a flag to force override existing files. Additionally we'll install `chalk` for colored output. To install the dependencies run:
+为了递归的拷贝所有的文件，我们将会使用一个名为 `ncp` 的库。这个库能够支持跨平台的递归拷贝，甚至有标识可以支持强制覆盖已有文件。另外，为了能够展示彩色输出，我们还将安装 `chalk`。运行如下代码来安装依赖：
 
 ```
 npm install ncp chalk
 ```
 
-We'll place all of our core logic into a `main.js` file inside the `src/` directory of our project. Create the new file and add the following code:
+我们将会把项目核心的逻辑都放到 `src/` 目录下的 `main.js` 文件中。创建新文件并将如下代码加入：
 
 ```js
 import chalk from 'chalk';
@@ -349,9 +349,9 @@ export async function createProject(options) {
 }
 ```
 
-This code will export a new function called `createProject` that will first check if the specified template is indeed an available template, by checking the `read` access (`fs.constants.R_OK`) using [`fs.access`](https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callback) and then copy the files into the target directory using `ncp`. Additionally we'll log some colored output saying `DONE Project ready` when we successfully copied the files.
+这段代码会导出一个名为 `createProject` 的新函数，这个函数会首先检查指定的模版是否是可用的，检查的方法是使用 [`fs.access`](https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callback) 来检查文件的可读性（`fs.constants.R_OK`），然后使用 `ncp` 将文件拷贝到指定的目录下。另外，在拷贝成功后，我们还要输出一些带颜色的日志，内容为 `DONE Project ready`。
 
-Afterwards update your `cli.js` to call the new `createProject` function:
+之后，更新 `cli.js`，加入对新函数 `createProject` 的调用：
 
 ```js
 import arg from 'arg';
@@ -373,27 +373,29 @@ export async function cli(args) {
 }
 ```
 
-To test our progress, create a new directory somewhere like `~/test-dir` on your system and run inside it the command using one of your templates. For example:
+为了测试我们的进度，在你的系统中某个位置例如 `~/test-dir` 中创建一个新目录，然后在这个文件夹内使用某个模版运行命令。比如：
 
 ```
 create-project typescript --git
 ```
 
-You should see a confirmation that the project has been created and the files should be copied over to the directory.
+你应该能看到一个通知，表明项目已经被创建，并且文件已经被拷贝到了这个目录下。
 
-![](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/hJhXfoE6BvWWHNFzomCs4YD5D4fLUWQqHmR-am2wzAGszS.width-500.png)Now there are two more steps we want our CLI to do. We want to optionally initialize `git` and install our dependencies. For this we'll use three more dependencies:
+![](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/hJhXfoE6BvWWHNFzomCs4YD5D4fLUWQqHmR-am2wzAGszS.width-500.png)
 
-* [`execa`](http://npm.im/execa) which allows us to easily run external commands like `git`
-* [`pkg-install`](http://npm.im/pkg-install) to trigger either `yarn install` or `npm install` depending on what the user uses
-* [`listr`](http://npm.im/listr) which let's us specify a list of tasks and gives the user a neat progress overview
+现在还有另外两步需要做。我们希望可配置的初始化 `git` 并安装依赖。为了完成这个，我们需要另外三个依赖：
 
-Install the dependencies by running:
+* [`execa`](http://npm.im/execa) 用于让我们能在代码中很便捷的运行像 `git` 这样的外部命令
+* [`pkg-install`](http://npm.im/pkg-install) 用于基于用户使用什么而触发命令 `yarn install` 或 `npm install`
+* [`listr`](http://npm.im/listr) 让我们能指定任务列表，并给用户一个整齐的进程概览
+
+通过运行如下命令来安装依赖：
 
 ```
 npm install execa pkg-install listr
 ```
 
-Afterwards update your `main.js` to contain the following code:
+之后更新 `main.js`，加入如下代码：
 
 ```js
 import chalk from 'chalk';
@@ -473,34 +475,34 @@ export async function createProject(options) {
 }
 ```
 
-This will run `git init` whenever `--git` is passed or the user chooses `git` in the prompt and it will run `npm install` or `yarn` whenever the user passes `--install`, otherwise it will skip the task with a message informing the user to pass `--install` if they want automatic install.
+这段代码将会在传入 `--git` 或者用户在提示中选择了 `git` 的时候运行 `git init`，并且会在传入 `--install` 的时候运行 `npm install` 或者 `yarn`，否则它将会跳过这两个任务，并用一段消息通知用户如果他们想要自动安装，请传入 `--install`。
 
-Give it a try by deleting your existing test folder first and creating a new one. Then run:
+首先删除掉已经存在的测试文件夹然后创建一个新的，然后试一下效果如何。运行命令：
 
 ```
 create-project typescript --git --install
 ```
 
-You should see now both a `.git` folder in your folder indicating that `git` has been initialized and a `node_modules` folder with your dependencies that were specified in the `package.json` installed.
+在你的文件夹中，你应该能看到 `.git` 文件夹和 `node_modules` 文件夹，表示 `git` 已经被初始化，以及 `package.json` 中指定的依赖已经被安装了。
 
 ![](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/_vaH2-wgo0HxH7o6NVcQwlb-h7MihVzFVO_6MsTcw71qB8.width-500.png)
 
-Congratulations you got your first CLI ready to go!
+恭喜你，你的第一个 CLI 已经整装待发了！
 
 ![](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/original_images/Hlw2ROeuFERjiDODTmaGu6z7YtmcGN0yTWiPeRLRRr6EENm7HJ8s3laAGZGdd54NefTAJPut5nZCDe)
 
-If you want to make your code consumable as an actual module so that others can reuse your logic in their code, we'll have to add an `index.js` file to our `src/` directory that exposes the content from `main.js`:
+如果你希望你的代码能作为实际的模块使用，这样其他人可以在他们的代码中复用你的逻辑，你还需要在目录 `src/` 下添加文件 `index.js`，这个文件暴露出了 `main.js` 的内容：
 
 ```js
 require = require('esm')(module);
 require('../src/cli').cli(process.argv);
 ```
 
-## What's Next?
+## 接下来做什么？
 
-Now that you have your CLI code ready there are a few ways you can go from here. If you just want to use this yourself and don't want to share it with the world you can just keep on going along the path of using `npm link`. In fact try running `npm init project` and it should trigger your code.
+现在你的 CLI 代码已经准备好，你可以由此为基础，向更多的方向发展。如果你仅仅想自己使用，而不想和其他人分享，那么你就需要继续沿用 `npm link` 即可。事实上，运行 `npm init project` 试试看，你的代码也将被触发。
 
-If you want to share your templates with the world either push your code to GitHub and consume it from there or even better push it as a scoped package to the `npm` registry with [`npm publish`](https://docs.npmjs.com/cli/publish). Before you do so, you should make sure to add a `files` key in your `package.json` to specify which files should be published.
+如果你想要和其他人分享你的代码模版，你可以将代码推送到 GitHub 来供参阅，或者更好的方法是，使用 [`npm publish`](https://docs.npmjs.com/cli/publish) 将它作为一个包推送到 `npm` 注册处。在你发布之前，你还需要确保在 `package.json` 文件中添加一个 `files` 属性，来指明那些文件应该被发布：
 
 ```js
  },
@@ -512,16 +514,16 @@ If you want to share your templates with the world either push your code to GitH
 }
 ```
 
-If you want to check which files will be published, run `npm pack --dry-run` and check the output. Afterwards use `npm publish` to publish your CLI. You can find my project under [`@dkundel/create-project`](http://npm.im/@dkundel/create-project) or try run `npm init @dkundel/project`.
+如果你想要检查那个文件将会被发布，运行 `npm pack --dry-run` 然后查看输出。之后使用 `npm publish` 来发布你的 CLI。你可以在 [`@dkundel/create-project`](http://npm.im/@dkundel/create-project) 找到我的项目，或者试试看运行 `npm init @dkundel/project`。
 
-There's also lots of functionality that you can add. In my case I added some additional dependencies that will create a `LICENSE`, `CODE_OF_CONDUCT.md` and `.gitignore` file for me. You can [find the source code for it on GitHub](http://github.com/dkundel/create-project) or check out some of the libraries mentioned above for some additional functionality. If you have a library I didn't list and you believe it should totally be in the list or if you want to show me your own CLI, feel free to send me a message!
+还有很多的功能你可以加入进来。在我的项目中，我还添加了一些依赖，用于为我创建 `LICENSE`、`CODE_OF_CONDUCT.md` 和 `.gitignore`。你可以[在 GitHub 找到实现这些功能的源代码](http://github.com/dkundel/create-project)，或着查看上面提到的仓库来扩充附加功能。如果你发现某个你觉得应该被列出在文章中而我并没有列出的库，或者想要给我看你的 CLI，尽管发送消息给我！
 
-* Email: [dkundel@twilio.com](mailto:dkundel@twilio.com)
-* Twitter: [@dkundel](https://twitter.com/dkundel?lang=en)
-* GitHub: [dkundel](https://github.com/dkundel)
+* Email：[dkundel@twilio.com](mailto:dkundel@twilio.com)
+* Twitter：[@dkundel](https://twitter.com/dkundel?lang=en)
+* GitHub：[dkundel](https://github.com/dkundel)
 * [dkundel.com](https://dkundel.com/)
 
-Build More With JavaScript
+使用 JavaScript 还可以构建更多：
 
 * [Changelog: Twilio Chat JavaScript SDK](https://www.twilio.com/docs/chat/javascript/changelog)
 * [Sync SDK for JavaScript](https://www.twilio.com/docs/sync/javascript-sdk-changelog)
