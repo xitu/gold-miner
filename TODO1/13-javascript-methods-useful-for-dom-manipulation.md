@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md](https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[ZavierTang](https://github.com/ZavierTang)
+> * 校对者：[ZavierTang](https://github.com/ZavierTang),[smilemuffie](https://github.com/smilemuffie)
 
-# 13 种有用的 DOM 操作
+# 13 种有用的 JavaScript DOM 操作
 
 ## 介绍
 
