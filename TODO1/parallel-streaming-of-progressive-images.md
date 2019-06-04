@@ -2,108 +2,108 @@
 > * 原文作者：[Andrew Galloni](https://blog.cloudflare.com/author/andrew-galloni/), [Kornel Lesiński.](https://blog.cloudflare.com/author/kornel/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/parallel-streaming-of-progressive-images.md](https://github.com/xitu/gold-miner/blob/master/TODO1/parallel-streaming-of-progressive-images.md)
-> * 译者：
+> * 译者：twang1727
 > * 校对者：
 
-# Parallel streaming of progressive images
+# 利用并行流渐进加载图片
 
 ![](https://blog.cloudflare.com/content/images/2019/05/880BAE29-39B3-4733-96DA-735FE76443D5.png)
 
-Progressive image rendering and HTTP/2 multiplexing technologies have existed for a while, but now we've combined them in a new way that makes them much more powerful. With Cloudflare progressive streaming **images appear to load in half of the time, and browsers can start rendering pages sooner**.
+渐进式图片渲染和 HTTP/2 多路复用技术已经问世一段时间，但是现在我们将两者以新的方式结合从而发挥出更大的力量。利用 Cloudflare 的渐进式流，**图片加载可以缩短一半时间，而浏览器可以更早开始渲染页面**。
 
 - 视频：https://crates.rs/cf-test/comparison.mp4
 
-In HTTP/1.1 connections, servers didn't have any choice about the order in which resources were sent to the client; they had to send responses, as a whole, in the exact order they were requested by the web browser. HTTP/2 improved this by adding multiplexing and prioritization, which allows servers to decide exactly what data is sent and when. We’ve taken advantage of these new HTTP/2 capabilities to improve perceived speed of loading of progressive images by sending the most important fragments of image data sooner.
+建立 HTTP/1.1 连接的服务器对向客户端发送资源的顺序没有决定权；响应作为无法分割的整体，准确的按照浏览器端请求的顺序来发送。HTTP/2 在这方面的改进在于增加了多路复用和优先，使服务器可以决定数据发送的选择和时间。我们利用这些新的 HTTP/2 功能，通过优先发送图片数据中最重要的片段，来提升渐进式图片的感知加载速度。
 
-> This feature is compatible with all major browsers, and doesn’t require any changes to page markup, so it’s very easy to adopt. Sign up for the [Beta](https://forms.gle/G2iHC4qWB8XHN3Ly6) to enable it on your site!
+> 这个功能与所有的主要浏览器相容，并且不需要页面标记做任何更改，很容易使用。参加 [Beta](https://forms.gle/G2iHC4qWB8XHN3Ly6) 注册，让你的网站也能使用这一功能吧！
 
-### What is progressive image rendering?
+### 什么是渐进式图片渲染？
 
-Basic images load strictly from top to bottom. If a browser has received only half of an image file, it can show only the top half of the image. Progressive images have their content arranged not from top to bottom, but from a low level of detail to a high level of detail. Receiving a fraction of image data allows browsers to show the entire image, only with a lower fidelity. As more data arrives, the image becomes clearer and sharper.
+普通的图片加载严格按照从上到下的顺序。如果浏览器只收到了图片文件的一半，那么它只会显示图片的上半部分。渐进式图片的内容的排列不是按从上到下的顺序，而是按细节级别从低到高的排序。即使浏览器只收到一部分数据，它也可以显示整张图片，只是逼真度有损失。随着更多数据接收成功，图片会变的更清晰。
 
 ![](https://blog.cloudflare.com/content/images/2019/05/image6.jpg)
 
-This works great in the JPEG format, where only about 10-15% of the data is needed to display a preview of the image, and at 50% of the data the image looks almost as good as when the whole file is delivered. Progressive JPEG images contain exactly the same data as baseline images, merely reshuffled in a more useful order, so progressive rendering doesn’t add any cost to the file size. This is possible, because JPEG doesn't store the image as pixels. Instead, it represents the image as frequency coefficients, which are like a set of predefined patterns that can be blended together, in any order, to reconstruct the original image. The inner workings of JPEG are really fascinating, and you can learn more about them from my recent [performance.now() conference talk](https://www.youtube.com/watch?v=jTXhYj2aCDU).
+这一功能对 JPEG 格式很有用，因为显示图片预览只需 10-15% 的数据，而当 50% 的数据加载之后，图片看起来几乎和整个文件都到达时一样清晰了。渐进式 JPEG 图片的数据和普通图片一致，只是以一种更易用的方式排序，所以渐进式渲染并不增加文件的大小。这是可以实现的，因为 JPEG 并不以像素形式存储图片。它用频率系数来代表图像，就像是一系列预定义的样式，以任意顺序混合都能可以重新构建原图想。JPEG 的内部构造十分有趣，你可以从我的 [permormance.now() 会议演讲](https://www.youtube.com/watch?v=jTXhYj2aCDU) 了解更多。
 
-The end result is that the images can look almost fully loaded in half of the time, for free! The page appears to be visually complete and can be used much sooner. The rest of the image data arrives shortly after, upgrading images to their full quality, before visitors have time to notice anything is missing.
+最终结果是，图像用了一半的时间就看起来几乎与加载完毕没区别了，而且不花钱。页面视觉效果完整，而且可以更快投入使用。剩下的图像数据会很快到达，并在浏览者注意到任何缺省之前将图像升级成最高质量。
 
-### HTTP/2 progressive streaming
+### HTTP/2 渐进式流
 
-But there's a catch. Websites have more than one image (sometimes even hundreds of images). When the server sends image files naïvely, one after another, the progressive rendering doesn’t help that much, because overall the images still load sequentially:
+但是这有个问题。网站会有多于一张图片（有时甚至是几百张图片）。当服务器以原始的方式一张一张传输图片时，渐进式渲染帮不上什么忙，因为总的来讲图片仍是被序列加载：
 
 ![](https://blog.cloudflare.com/content/images/2019/05/image5.gif)
 
-Having complete data for half of the images (and no data for the other half) doesn't look as good as having half of the data for all images.
+收到一半图片的所有数据（但没收到剩下一半图片的任何数据）看起来不如收到所有图片的一半数据。
 
-And there's another problem: when the browser doesn't know image sizes yet, it lays the page out with placeholders instead, and relays out the page when each image loads. This can make pages jump during loading, which is inelegant, distracting and annoying for the user.
+而且还有另外一个问题：当浏览器未知图像大小的时候，它用占位符布局，再在每张图加载的时候重布局。这会让页面在加载过程中跳动，这样做很唐突，让用户感到分神、厌烦。
 
-Our new progressive streaming feature greatly improves the situation: we can send all of the images at once, in parallel. This way the browser gets size information for all of the images as soon as possible, can paint a preview of all images without having to wait for a lot of data, and large images don’t delay loading of styles, scripts and other more important resources.
+我们的渐进式流新功能对这种情况大幅改进：我们可以一次性并行发送所有图片。这样浏览器可以尽快的得到所有图片的尺寸信息，进而可以无需等待大量数据就绘制所有图片的预览，而且大图片也不会延迟样式、脚本和其他重要资源的加载。
 
-This idea of streaming of progressive images in parallel is as old as HTTP/2 itself, but it needs special handling in low-level parts of web servers, and so far this hasn't been implemented at a large scale.
+并行流渐进式加载图片的概念和 HTTP/2 本身一样古老，但是它需要网络服务器底层部件的特殊处理，所以目前为止这一技术还没被大规模应用。
 
-When we were improving [our HTTP/2 prioritization](https://blog.cloudflare.com/better-http-2-prioritization-for-a-faster-web), we realized it can be also used to implement this feature. Image files as a whole are neither high nor low priority. The priority changes within each file, and dynamic re-prioritization gives us the behavior we want:
+当我们改进 [HTTP/2 优先](https://blog.cloudflare.com/better-http-2-prioritization-for-a-faster-web)时，我们意识到它也可以被用来改进这一功能。图片文件作为整体时既不是高优先级也不是低优先级。每个文件优先级不同，动态调整优先级给予我们所需的行为：
 
-* The image header that contains the image size is very high priority, because the browser needs to know the size as soon as possible to do page layout. The image header is small, so it doesn't hurt to send it ahead of other data.
+* 含有图片大小的图片头优先级极高，因为浏览器需要尽早知道大小来布局页面。图片头很小，而且早于其他数据发送它没有坏处。
 
 ![Known image sizes make layout stable](https://blog.cloudflare.com/content/images/2019/05/image7.jpg)
 
-* The minimum amount of data in the image required to show a preview of the image has a medium priority (we'd like to plug "holes" left for unloaded images as soon as possible, but also leave some bandwidth available for scripts, fonts and other resources)
+* 展示图片预览所需的最小量图像数据具有中等优先级（我们得为尽早完成未加载图片预留空间，但是也要为脚本，字体和其他资源留下足够带宽）。
 
 ![Half of the data looks good enough](/content/images/2019/05/secondhalf.png)
 
-* The remainder of the image data is low priority. Browsers can stream it last to refine image quality once there's no rush, since the page is already fully usable.
+* 剩下的图像数据是低优先级的。浏览器可以在无关紧要的时候接受它来提高图片质量，因为网页已经完全可用了。
 
-Knowing the exact amount of data to send in each phase requires understanding the structure of image files, but it seemed weird to us to make our web server parse image responses and have a format-specific behavior hardcoded at a protocol level. By framing the problem as a dynamic change of priorities, were able to elegantly separate low-level networking code from knowledge of image formats. We can use Workers or offline image processing tools to analyze the images, and instruct our server to change HTTP/2 priorities accordingly.
+* 要了解在每一阶段发送的准确数据量，你需要理解图像文件的结构，但是让网络服务器来解析图像响应，并且把基于格式的行为在协议层级上硬编码，看起来就会很怪异。而把这个问题当作优先级的动态改变来处理，我们就可以优雅的将底层网络编码与图像格式信息分割开来。我们可以用 Worker 或者是线下的图像处理工具来分析图片，并指导服务器相应的改变 HTTP/2 优先级。
 
-The great thing about parallel streaming of images is that it doesn’t add any overhead. We’re still sending the same data, the same amount of data, we’re just sending it in a smarter order. This technique takes advantage of existing web standards, so it’s compatible with all browsers.
+图片并行流的好处在于它不增加任何开支。我们仍然发送同样的数据，相同量的数据，我们只是以一种更聪明的方式来发送它。这个技巧利用了现存网络标准，所以在所有浏览器上都相容。
 
-### The waterfall
+### 瀑布图
 
-Here are waterfall charts from [WebPageTest](https://webpagetest.org) showing comparison of regular HTTP/2 responses and progressive streaming. In both cases the files were exactly the same, the amount of data transferred was the same, and the overall page loading time was the same (within measurement noise). In the charts, blue segments show when data was transferred, and green shows when each request was idle.
+以下是从 [WebPageTest](https://webpagetest.org) 得到的瀑布图，展示了普通 HTTP/2 响应和渐进式流的比较。两种情况中的文件一致，传输的数据量一致，总的页面加载时间也一致（在测量误差内）。图中，蓝色片段表示数据正在传输，绿色表示请求等待。
 
 ![](https://blog.cloudflare.com/content/images/2019/05/image8.png)
 
-The first chart shows a typical server behavior that makes images load mostly sequentially. The chart itself looks neat, but the actual experience of loading that page was not great — the last image didn't start loading until almost the end.
+第一张图展示了图片依次加载的典型服务器行为。图看起来整齐，但是实际的页面加载感觉并不好 ———— 最后一张图直到将近最后才开始加载。
 
-The second chart shows images loaded in parallel. The blue vertical streaks throughout the chart are image headers sent early followed by a couple of stages of progressive rendering. You can see that useful data arrived sooner for all of the images. You may notice that one of the images has been sent in one chunk, rather than split like all the others. That’s because at the very beginning of a TCP/IP connection we don't know the true speed of the connection yet, and we have to sacrifice some opportunity to do prioritization in order to maximize the connection speed.
+第二张图展示的是图片并行加载。图上蓝色的垂直线表示的是早期的图片头发送，以及之后渐进式渲染的几个阶段。你可以看出所有图片的数据的有用部分都到达的更早。你可能还会注意到有一张图片是一次性发送的，而不是像其他图片一样分批完成的。那是因为在 TCP/IP 连接建立之初我们还不知道连接的真实速度，我们只好牺牲一些优先处理的机会来最大化连接速度。
 
-### The metrics compared to other solutions
+### 与其他方法相比的指标
 
-There are other techniques intended to provide image previews quickly, such as low-quality image placeholder (LQIP), but they have several drawbacks. They add unnecessary data for the placeholders, and usually interfere with browsers' preload scanner, and delay loading of full-quality images due to dependence on JavaScript needed to upgrade the previews to full images.
+有一些其它的技术也用来更快的提供图片预览，比如低质量图片占位（LQIP），但是它们是有一些缺点的。他们为占位符增加了不必要的数据，而且通常会干扰浏览器的预加载扫描，并且延迟完整图片的加载，因为将预览更替到完全图依赖于 JavaScript。
 
-* Our solution doesn't cause any additional requests, and doesn't add any extra data. Overall page load time is not delayed.
-* Our solution doesn't require any JavaScript. It takes advantage of functionality supported natively in the browsers.
-* Our solution doesn't require any changes to page's markup, so it's very safe and easy to deploy site-wide.
+* 我们的方法不增加请求，也不增加更多数据。页面总加载时间不会延迟。
+* 我们的方法不需要 JavaScript。它利用了浏览器原生的功能。
+* 我们的方法不需要改变页面标记，所以全站部署是安全并简单的。
 
-The improvement in user experience is reflected in performance metrics such as **SpeedIndex** metric and and time to visually complete. Notice that with regular image loading the visual progress is linear, but with the progressive streaming it quickly jumps to mostly complete:
+用户体验的改进可以在例如 **SpeedIndex** 的性能指标，以及视觉上的完成时间上表现出来。请注意到普通的图片下载的过程看起来是线性的，但是渐进流使它可以很快的进行到将近完成:
 
 ![](https://blog.cloudflare.com/content/images/2019/05/image1-5.png)
 
 ![](https://blog.cloudflare.com/content/images/2019/05/image4.png)
 
-### Getting the most out of progressive rendering
+### 保证渐进式渲染发挥作用
 
-Avoid ruining the effect with JavaScript. Scripts that hide images and wait until the `onload` event to reveal them (with a fade in, etc.) will defeat progressive rendering. Progressive rendering works best with the good old `<img>` element.
+避免让 JavaScript 损坏效果。隐藏图片直至 `onload` 事件才显示（利用淡入等）的脚本会使渐进式渲染无效。渐进式渲染用传统的 `<img>` 元素效果最好。
 
-### Is it JPEG-only?
+### 只有 JPEG 可以吗？
 
-Our implementation is format-independent, but progressive streaming is useful only for certain file types. For example, it wouldn't make sense to apply it to scripts or stylesheets: these resources are rendered as all-or-nothing.
+我们的应用是不依赖于格式的，但是渐进流只对某些文件类型有用。比如说，对脚本或样式应用它是不可行的：这些资源只有未渲染或全部渲染两个状态。
 
-Prioritizing of image headers (containing image size) works for all file formats.
+优先发送图片头（包括图片大小）对所有格式都适用。
 
-The benefits of progressive rendering are unique to JPEG (supported in all browsers) and JPEG 2000 (supported in Safari). GIF and PNG have interlaced modes, but these modes come at a cost of worse compression. WebP doesn't even support progressive rendering at all. This creates a dilemma: WebP is usually 20%-30% smaller than a JPEG of equivalent quality, but progressive JPEG **appears** to load 50% faster. There are next-generation image formats that support progressive rendering better than JPEG, and compress better than WebP, but they're not supported in web browsers yet. In the meantime you can choose between the bandwidth savings of WebP or the better perceived performance of progressive JPEG by changing Polish settings in your Cloudflare dashboard.
+渐进式渲染的益处对 JPEG（所有浏览器都支持）和 JPEG 2000（Safari 支持）是得天独厚的。GIF 和 PNG 有交错模式，但是这些模式和糟糕的压缩相伴生。WebP 根本不支持渐进式渲染。这就造成了这样一种两难： WebP 通常比同等质量的 JPEG 小 20% 到 30%，但是渐进式 JPEG **看起来** 加载得快 50%。 有些下一代图像格式对渐进式渲染的支持优于 JPEG，比 WebP 压缩更优，但是浏览器还不支持这些格式。同时你们可以通过修改 Cloudflare 面板的 Polish 设置，在节省带宽的 WebP 和可感知性能更好的渐进式 JPEG 之间选择。
 
-### Custom header for experimentation
+### 试验用自定义头
 
-We also support a custom HTTP header that allows you to experiment with, and optimize streaming of other resources on your site. For example, you could make our servers send the first frame of animated GIFs with high priority and deprioritize the rest. Or you could prioritize loading of resources mentioned in `<head>` of HTML documents before `<body>` is loaded.
+我们也支持自定义 HTTP 头来进行试验，来优化网站的其他资源的流播。比如，你可以让我们的服务器优先发送动画 GIF 的第一帧，而剩余的帧延后。或者你可以在 HTML 文档 `<body>` 加载前优先加载 `<head>` 标签里提到的资源。  
 
-The custom header can be set only from a Worker. The syntax is a comma-separated list of file positions with priority and concurrency. The priority and concurrency is the same as in the whole-file cf-priority header described in the previous blog post.
+自定义头只能在 Worker 中设置。句法是用逗号隔开的包括优先级和并发选项的文件位置清单。优先级和并发选项与前一篇博客提到的整文件 cf-优先级头一样。
 
 ```http
 cf-priority-change: <offset in bytes>:<priority>/<concurrency>, ...
 ```
 
-For example, for a progressive JPEG we use something like (this is a fragment of JS to use in a Worker):
+比如，对于渐进式 JPEG 我们用这个（Worker 中的 JavaScript 片段）：
 
 ```javascript
 let headers = new Headers(response.headers);
@@ -112,13 +112,13 @@ headers.set("cf-priority-change", "512:20/1, 15000:10/n");
 return new Response(response.body, {headers});
 ```
 
-Which instructs the server to use priority 30 initially, while it sends the first 512 bytes. Then switch to priority 20 with some concurrency (`/1`), and finally after sending 15000 bytes of the file, switch to low priority and high concurrency (`/n`) to deliver the rest of the file.
+它会告诉服务器，当一开始发送最先的 512 字节时用 30 作为优先级。 然后切换到优先级 20 以及一定程度的并发（`/1`），最后当发送文件的 15000 字节之后，切换到低优先级高并发（`/n`）把文件的剩余部分发送完。 
 
-We’ll try to split HTTP/2 frames to match the offsets specified in the header to change the sending priority as soon as possible. However, priorities don’t guarantee that data of different streams will be multiplexed exactly as instructed, since the server can prioritize only when it has data of multiple streams waiting to be sent at the same time. If some of the responses arrive much sooner from the upstream server or the cache, the server may send them right away, without waiting for other responses.
+我们试着分割 HTTP/2 帧来匹配标头中的数值，从而尽快改变发送的优先级。但是，优先级并不保证不同流上的数据会被严格按照指示复用，因为服务器只是在多路流同时需要发送数据时才应用优先级。如果某些请求从上游浏览器或缓存到达的更早，服务器可能会立即发送它们，而不是等待其他请求。
 
-### Try it!
+### 试一试！
 
-You can use our Polish tool to convert your images to progressive JPEG. Sign up for the [beta](https://forms.gle/G2iHC4qWB8XHN3Ly6) to have them elegantly streamed in parallel.
+你可以用我们的 Polish 工具来把你的图片转化成渐进式 JPEG。加入 [beta](https://forms.gle/G2iHC4qWB8XHN3Ly6) 来优雅的并行流播图片。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
