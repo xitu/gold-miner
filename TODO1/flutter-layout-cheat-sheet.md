@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-layout-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-layout-cheat-sheet.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[smilemuffie](https://github.com/smilemuffie)
 
 # Flutter 布局备忘录
 
@@ -274,7 +274,7 @@ Row /*或 Column*/(
 
 ## IntrinsicWidth 和 IntrinsicHeight
 
-想要某行或列中所有不见和最高或者最宽的齐平？不要乱找了，答案在这里！
+想要某行或列中所有部件和最高/最宽的部件一样高/宽？不要乱找了，答案在这里！
 
 当你有这种样式的布局：
 
@@ -306,7 +306,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-但是你希望所有的按钮都和**最宽**的等**宽**，只需要使用 `IntrinsicWidth`：
+但是你希望所有的按钮都和**最宽**的按钮等**宽**，只需要使用 `IntrinsicWidth`：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JS9b6Cvb-o2FGGgIC6zPiQ.png)
 
@@ -339,7 +339,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-如果你需要的是让所有部件和**最高**的等**高**，可以结合使用 `IntrinsicHeight` 和 `Row` 部件。
+如果你需要的是让所有部件和**最高的部件**等**高**，可以结合使用 `IntrinsicHeight` 和 `Row` 部件。
 
 ***
 
