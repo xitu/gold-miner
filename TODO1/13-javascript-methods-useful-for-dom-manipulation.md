@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md](https://github.com/xitu/gold-miner/blob/master/TODO1/13-javascript-methods-useful-for-dom-manipulation.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[ZavierTang](https://github.com/ZavierTang),[smilemuffie](https://github.com/smilemuffie)
+> * 校对者：[ZavierTang](https://github.com/ZavierTang), [smilemuffie](https://github.com/smilemuffie)
 
 # 13 种有用的 JavaScript DOM 操作
 
@@ -157,7 +157,7 @@ list.insertAdjacentHTML('afterbegin', '<li id="first-item">First</li>');
 
 我希望这篇文章对你有帮助，它会有助于你理解 DOM。正确处理 DOM 树是非常重要的，如果不正确地使用它可能会给你带来一些严重的后果。确保始终进行内存清理并适当格式化 HTML/XML 字符串。
 
-如果需要了解更多，请查看官方 [w3c 页面](https://www.w3.org/TR/?tag=dom).
+如果需要了解更多，请查看官方 [w3c 页面](https://www.w3.org/TR/?tag=dom)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
