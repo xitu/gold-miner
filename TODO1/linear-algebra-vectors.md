@@ -2,22 +2,20 @@
 > * 原文作者：[Rodion Chachura](https://medium.com/@geekrodion)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-vectors.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-vectors.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[Endone](https://github.com/Endone)
 
-# Linear Algebra: Vectors
+# JavaScript 线性代数：向量
 
-## Linear Algebra with JavaScript: Vectors
+本文是“[JavaScript 线性代数](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”教程的一部分。
 
-This is part of the course “[Linear Algebra with JavaScript](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”.
+![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-![[GitHub Repository with Source Code](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
-
-**Vectors** are the precise way to describe directions in space. They are built from numbers, which form the **components** of the vector. In the picture below, you can see the vector in two-dimensional space that consists of two components. In the case of three-dimensional space vector will consists of three components.
+**向量**是用于精确表示空间中方向的方法。向量由一系列数值构成，每维数值都是向量的一个**分量**。在下图中，你可以看到一个由两个分量组成的、在 2 维空间内的向量。在 3 维空间内，向量会由 3 个分量组成。
 
 ![the vector in 2D space](https://cdn-images-1.medium.com/max/2544/0*aXVg8akmNbxJo7zW)
 
-We can write class for vector in 2D and call it **Vector2D** and then write one for 3D space and call it **Vector3D**, but what if we face a problem where vectors represent not a direction in the physical space. For example, we may need to represent color(RGBA) as a vector, that will have four components — red, green, blue and alpha channel. Or, let’s say we have vector that gives fractions of proportions out of **n** choices, for example, the vector that describes the probability of each out five horses winning the race. So we make a class that not bound to dimensions and use it like this:
+我们可以为 2 维空间的向量创建一个 **Vector2D** 类，然后为 3 维空间的向量创建一个 **Vector3D** 类。但是这么做有一个问题：向量并不仅用于表示物理空间中的方向。比如，我们可能需要将颜色（RGBA）表示为向量，那么它会有 4 个分量：红色、绿色、蓝色和 alpha 通道。或者，我们要用向量来表示有不同占比的 **n** 种选择（比如表示 5 匹马赛马，每匹马赢得比赛的概率的向量）。因此，我们会创建一个不指定维度的类，并像这样使用它：
 
 ```JavaScript
 class Vector {
@@ -32,23 +30,25 @@ const color = new Vector(0.5, 0.4, 0.7, 0.15)
 const probabilities = new Vector(0.1, 0.3, 0.15, 0.25, 0.2)
 ```
 
-## Vector Operations
+## 向量运算
 
-Consider two vectors, and assume that **α ∈ R** is an arbitrary constant. The following operations are defined for these vectors:
+考虑有两个向量的情况，可以对它们定义以下运算：
 
 ![basic vector operations](https://cdn-images-1.medium.com/max/5808/1*kLbYie-GprAHvlQCvgY1_w.jpeg)
 
-Visualizations of all of this operations, except of cross product you can find [here](https://rodionchachura.github.io/linear-algebra/). In [GitHub repository](https://github.com/RodionChachura/linear-algebra) alongside with library lives React project, where library we are building used to create visualizations. If you are interested in learning how these two-dimensional visualizations made with React and SVG, check out this [story](https://medium.com/@geekrodion/react-for-linear-algebra-examples-grid-and-arrows-f34c07132921).
+其中，**α ∈ R** 为任意常数。
 
-### Addition and Subtraction
+我们对除了叉积之外的运算进行了可视化，你可以在[此处](https://rodionchachura.github.io/linear-algebra/)找到相关示例。[此 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)里有用来创建这些可视化示例的 React 项目和相关的库。如果你想知道如何使用 React 和 SVG 来制作这些二维可视化示例，请参考[本文](https://juejin.im/post/5cefbc37f265da1bd260d129)。
 
-Just like numbers, you can add vectors and subtract them. Performing arithmetic calculations on vectors simply requires carrying out arithmetic operations on their components.
+### 加法与减法
+
+与数值运算类似，你可以对向量进行加法与减法运算。对向量进行算术运算时，可以直接对向量各自的分量进行数值运算得到结果：
 
 ![vectors addition](https://cdn-images-1.medium.com/max/2000/1*XI4LEqCht3hWpDIysF99sA.png)
 
 ![vectors subtraction](https://cdn-images-1.medium.com/max/2000/1*gWvb-fsuZhFrIs_yF1Ycsw.png)
 
-Methods for addition receives other vector and return new vectors build from sums of corresponding components. In subtraction, we are doing the same but replace plus on minus.
+加法函数接收另一个向量作为参数，并将对应的向量分量相加，返回得出的新向量。减法函数与之类似，不过会将加法换成减法：
 
 ```JavaScript
 class Vector {
@@ -76,13 +76,13 @@ console.log(one.subtract(other))
 // Vector { components: [ 0, 2 ] }
 ```
 
-## Scaling
+## 缩放
 
-We can also scale a vector by any number **α ∈ R**, where each component is multiplied by the scaling factor **α**. If **α > 1** the vector will get longer, and if **0 ≤ α \< 1** then the vector will become shorter. If α is a negative number, the scaled vector will point in the opposite direction.
+我们可以对一个向量进行缩放，缩放比例可为任意数值 **α ∈ R**。缩放时，对所有向量分量都乘以缩放因子 **α**。当 **α > 1** 时，向量会变得更长；当 **0 ≤ α \< 1** 时，向量会变得更短。如果 **α** 是负数，缩放后的向量将会指向原向量的反方向。
 
 ![scaling vector](https://cdn-images-1.medium.com/max/2000/1*mCRgP95wHL50QzajvaB_dw.png)
 
-In **scaleBy** method, we return a new vector with all components multiplied by a number passed as a parameter.
+在 **scaleBy** 方法中，我们对所有的向量分量都乘上传入参数的数值，得到新的向量并返回：
 
 ```JavaScript
 class Vector {
@@ -107,13 +107,13 @@ console.log(vector.scaleBy(-1))
 // Vector { components: [ -1, -2 ] }
 ```
 
-## Length
+## 长度
 
-A vector length is obtained from Pythagoras’ theorem.
+向量长度可由勾股定理导出：
 
 ![vectors length](https://cdn-images-1.medium.com/max/2000/1*EN7SuK49mQ6ImghmR7HWxg.png)
 
-Length method is very simple since Math already have a function we need.
+由于在 JavaScript 内置的 Math 对象中有现成的函数，因此计算长度的方法非常简单：
 
 ```JavaScript
 class Vector {
@@ -132,13 +132,13 @@ console.log(vector.length())
 // 3.6055512754639896
 ```
 
-## Dot Product
+## 点积
 
-The dot product tells us how similar two vectors are to each other. It takes two vectors as input and produces a single number as an output. The dot product between two vectors is the sum of the products of corresponding components.
+点积可以计算出两个向量的相似程度。点积方法接收两个向量作为输入，并输出一个数值。两个向量的点积等于它们各自对应分量的乘积之和。
 
 ![dot product](https://cdn-images-1.medium.com/max/2000/1*ZPRCCgiLSdgboxiidedH5A.png)
 
-In the **dotProduct** method we receive another vector as a parameter and via reduce method obtain the sum of the products of corresponding components.
+在 **dotProduct** 方法中，接收另一个向量作为参数，通过 reduce 方法来计算对应分量的乘积之和：
 
 ```JavaScript
 class Vector {
@@ -158,7 +158,7 @@ console.log(one.dotProduct(other))
 // 10
 ```
 
-Before we look at how vectors directions relate to each other, we implement the method that will return a vector with length equal to one. Such vectors are useful in many contexts. When we want to specify a direction in space, we use a normalized vector in that direction.
+在我们观察几个向量间的方向关系前，需要先实现一种将向量长度归一化为 1 的方法。这种归一化后的向量在许多情景中都会用到。比如说当我们需要在空间中指定一个方向时，就需要用一个归一化后的向量来表示这个方向。
 
 ```JavaScript
 class Vector {
@@ -182,7 +182,7 @@ console.log(normalized.length())
 
 ![using dot product](https://cdn-images-1.medium.com/max/2540/0*omakgizb3jmeJ2d-)
 
-If we take the dot product of two normalized vectors and the result is equal to one it means that they have the same direction. To compare two float numbers, we will use the **areEqual** function.
+如果两个归一化后的向量的点积结果等于 1，则意味着这两个向量的方向相同。我们创建了 **areEqual** 函数用来比较两个浮点数：
 
 ```JavaScript
 const EPSILON = 0.00000001
@@ -208,7 +208,7 @@ console.log(one.haveSameDirectionWith(other))
 // true
 ```
 
-If we take the dot product of two normalized vectors and the result is equal to minus one it means that they have exact opposite direction.
+如果两个归一化后的向量点积结果等于 -1，则表示它们的方向完全相反：
 
 ```JavaScript
 class Vector {
@@ -228,7 +228,7 @@ console.log(one.haveOppositeDirectionTo(other))
 // true
 ```
 
-If we take the dot product of two normalized vectors and the result is zero, it means that they are perpendicular.
+如果两个归一化后的向量的点积结果为 0，则表示这两个向量是相互垂直的：
 
 ```JavaScript
 class Vector {
@@ -249,13 +249,13 @@ console.log(one.isPerpendicularTo(other))
 // true
 ```
 
-## Cross Product
+## 叉积
 
-The cross product is only defined for three-dimensional vectors and produces a vector that is perpendicular to both input vectors.
+叉积仅对三维向量适用，它会产生垂直于两个输入向量的向量：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*Q5qG6O2_tqQ0DjHA.png)
 
-In our implementation of the cross product we assume that method used only for vectors in three-dimensional space.
+我们实现叉积时，假定它只用于计算三维空间内的向量。
 
 ```JavaScript
 class Vector {
@@ -264,7 +264,7 @@ class Vector {
   }
   // ...
   
-  // 3D vectors only
+  // 只适用于 3 维向量
   crossProduct({ components }) {
     return new Vector(
       this.components[1] * components[2] - this.components[2] * components[1],
@@ -282,18 +282,18 @@ console.log(other.crossProduct(one))
 // Vector { components: [ 0, 3, -3 ] }
 ```
 
-## Other useful methods
+## 其它常用方法
 
-In real-life applications those methods will not be enough, for example, we may want to find an angle between two vectors, negate vector, or project one to another.
+在现实生活的应用中，上述方法是远远不够的。比如说，我们有时需要找到两个向量的夹角、将一个向量反向，或者计算一个向量在另一个向量上的投影等。
 
-Before we proceed with those methods, we need to write two functions to convert an angle from radians to degrees and back.
+在开始编写上面说的方法前，需要先写下面两个函数，用于在角度与弧度间相互转换：
 
 ```JavaScript
 const toDegrees = radians => (radians * 180) / Math.PI
 const toRadians = degrees => (degrees * Math.PI) / 180
 ```
 
-### Angle Between
+### 夹角
 
 ```JavaScript
 class Vector {
@@ -318,9 +318,9 @@ console.log(one.angleBetween(other))
 // 45.00000000000001
 ```
 
-### Negate
+### 反向
 
-To make a vector directing to the negative direction we need to scale it by minus one.
+当需要将一个向量的方向指向反向时，我们可以对这个向量进行 -1 缩放：
 
 ```JavaScript
 class Vector {
@@ -339,7 +339,7 @@ console.log(vector.negate())
 // Vector { components: [ -2, -2 ] }
 ```
 
-## Project On
+## 投影
 
 ![project v on d](https://cdn-images-1.medium.com/max/2546/0*bBy_TzPH8XoNC6hK)
 
@@ -362,9 +362,9 @@ console.log(other.projectOn(one))
 // Vector { components: [ 6, 3 ] }
 ```
 
-### With Length
+### 设定长度
 
-Often we may need to make our vector a specific length.
+当需要给向量指定一个长度时，可以使用如下方法：
 
 ```JavaScript
 class Vector {
@@ -385,9 +385,9 @@ const modified = one.withLength(10)
 console.log(modified.length())
 ```
 
-### Equal To
+### 判断相等
 
-To check if two vectors are equal we will use **areEqual** function for all components.
+为了判断两个向量是否相等，可以对它们对应的分量使用  **areEqual** 函数：
 
 ```JavaScript
 class Vector {
@@ -410,23 +410,23 @@ console.log(one.equalTo(another))
 // false
 ```
 
-## Unit Vector and Basis
+## 单位向量与基底
 
-We can think of a vector as a command to “go a distance **vx** in the x-direction, a distance **vy** in the y-direction and **vz** in z-direction.” To write this set of commands more explicitly, we can use multiples of the vectors **̂i, ̂j,** and **̂k**. These are the **unit vectors** pointing in the **x**, **y**, and **z** directions, respectively:
+我们可以将一个向量看做是“在 x 轴上走 **vx** 的距离、在 y 轴上走 **vy** 的距离、在 z 轴上走 **vz** 的距离”。我们可以使用 **̂i**、** ̂j** 和 **̂k** 分别乘上一个值更清晰地表示上述内容。下图分别是 **x**、**y**、**z** 轴上的**单位向量**：
 
 ![standard basis {**i, ̂j, ̂k}**](https://cdn-images-1.medium.com/max/2542/0*Sona4GGrMK42oWX1)
 
-Any number multiplied by **̂i** corresponds to a vectors with that number in the first coordinate. For example:
+任何数值乘以 **̂i** 向量，都可以得到一个第一维分量等于该数值的向量。例如：
 
 ![](https://cdn-images-1.medium.com/max/2540/0*ZDBCiT4GzaoMUMKK)
 
-One of the most important concepts in the study of vectors is the concept of a **basis**. Consider the space of three-dimensional vectors **ℝ³**. A basis for **ℝ³** is a set of vectors **{ê₁, ê₂ , ê₃}** which can be used as a coordinate system for **ℝ³**. If the set of vectors **{ê₁, ê₂, ê₃}** is a basis then we can represent any vector **v⃗∈ℝ³** as coefficients **(v₁, v₂, v₃)** with respect to that basis:
+向量中最重要的一个概念是**基底**。设有一个 3 维向量 **ℝ³**，它的基底是一组向量：**{ê₁, ê₂ , ê₃}**，这组向量也可以作为 **ℝ³** 的坐标系统。如果 **{ê₁, ê₂, ê₃}** 是一组基底，则可以将任何向量 **v⃗∈ℝ³** 表示为该基底的系数 **(v₁, v₂, v₃)**：
 
 ![vector with respect to basis **{ê₁, ê₂, ê₃}**](https://cdn-images-1.medium.com/max/2538/0*dw49nY-jTmHb_63J)
 
-The vector **v⃗** is obtained by measuring out a distance **v₁** in the **ê₁** direction, a distance **v₂** in the **ê₂** direction, and a distance **v₃** in the **ê₃** direction.
+向量 **v⃗** 是通过在 **ê₁** 方向上测量 **v₂** 的距离、在 **ê₂** 方向上测量 **v₁** 的距离、在 **ê₃** 方向上测量 **v₃** 的距离得出的。
 
-A triplet of coefficients by itself does not mean anything unless we know the basis being used. A basis is required to convert mathematical object like the triplet **(a, b, c)** into real-world ideas like colors, probabilities or locations.
+在不知道一个向量的基底前，向量的系数三元组并没有什么意义。只有知道向量的基底，才能将类似于 **(a, b, c)** 三元组的数学对象转化为现实世界中的概念（比如颜色、概率、位置等）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
