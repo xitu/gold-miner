@@ -17,7 +17,7 @@ In Android studio, we want to make you the most productive developer you can be.
 
 In this article, we’ll share some of the new analytics* we’ve put in place to better pinpoint what is really affecting build speed and share more about what we’re doing about it, as well as what you can do today to help prevent your build from slowing down.
 
-*** This is possible thanks to many developers opting-in to sharing their usage statistics with us in “preference > data sharing”**
+* **This is possible thanks to many developers opting-in to sharing their usage statistics with us in “preference > data sharing”**
 
 ## Measuring speed differently
 
@@ -29,7 +29,7 @@ For example, here is the benchmark looking at build speed impact of code change,
 
 We also looked at “real-world” data, focusing on build speed of a couple of debug build right before and right after an upgrade of the Android Gradle plugin. We used this as a proxy of the actual improvement of a new release.
 
-This showed really good improvement with new releases**,** helping reduce build time by almost 50% since 2.3.**
+This showed really good improvement with new releases,** helping reduce build time by almost 50% since 2.3.**
 
 ![](https://cdn-images-1.medium.com/max/2992/0*l55G21vNHzBc-D7D)
 
@@ -49,9 +49,9 @@ While we knew that project growth — with more code, more resource usage, more 
 4. **Use of Java 8** language features will cause desugaring to happen, which will impact build time. However, we have mitigated the desugaring impact with D8.
 5. **Use of Kotlin**, especially annotation processing in Kotlin (KAPT), can also impact build performance. We are continuing to work with JetBrains to minimize the impact here.
 
-*** Those projects, unlike real world projects, are not growing over time. The benchmarks simulate changes and undo them afterwards to only measure impact of our plugin over time.**
+* **Those projects, unlike real world projects, are not growing over time. The benchmarks simulate changes and undo them afterwards to only measure impact of our plugin over time.**
 
-**** 3.3 focused on foundational work for future improvements (eg., namespaced resources, incremental annotation processor enablement, Gradle workers) hence the 0% improvement.**
+* **3.3 focused on foundational work for future improvements (eg., namespaced resources, incremental annotation processor enablement, Gradle workers) hence the 0% improvement.**
 
 ## What are we doing about it?
 
