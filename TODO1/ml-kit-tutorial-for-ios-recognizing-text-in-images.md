@@ -88,7 +88,7 @@ pod install
 
 这个流程做起来不难，不过要是真的有什么搞不定，上面提到的指南可以帮你解决问题。
 
-> **注意**: 你需要设置好 Firebase，为最终项目和初始项目创建自己的 **GoogleService-Info.plist** 文件。
+> **注意**：你需要设置好 Firebase，为最终项目和初始项目创建自己的 **GoogleService-Info.plist** 文件。
 
 编译 App 再运行，你会看到它长这个样子：
 
@@ -220,7 +220,7 @@ for block in result.blocks {
 
 **VisionTextElement**
 
-`VisionTextBlock` 纯粹是个包含一系列分行文字（文字就像是树枝上的叶子）的对象，它们每一个都由 `VisionTextElement` 实例进行代表。 你可以在这幅由各对象组成的嵌套图里，看清已识别文字的层级结构。
+`VisionTextBlock` 纯粹是个包含一系列分行文字（文字就像是树枝上的叶子）的对象，它们每一个都由 `VisionTextElement` 实例进行代表。你可以在这幅由各对象组成的嵌套图里，看清已识别文字的层级结构。
 
 [![](https://koenig-media.raywenderlich.com/uploads/2018/07/vision-hierarchy-2x-1-573x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/07/vision-hierarchy-2x-1.png)
 
@@ -368,7 +368,7 @@ processor.process(in: imageView) { text, elements in
 
 注意上图里面缩放尺寸与实际尺寸之间的差异。你可以看到，图中的 frame 是与实际尺寸一致的。要把 frame 的位置放对，你就要计算出图像相对于视图的缩放比例。
 
-公式挺简单的（👀…大概吧）:
+公式挺简单的（👀…大概吧）：
 
 1.  计算出视图和图像的分辨率。
 2.  比较两个分辨率，定出缩放比例。
@@ -423,7 +423,7 @@ private func createScaledFrame(
   }
 ```
 
-代码所做的东西包括:
+代码所做的东西包括：
 
 1.  这个方法会输入 `CGRect`，从而获取图像的原本尺寸、显示尺寸，以及 `UIImageView` 的 frame。
 2.  计算视图和图像的分辨率时，分别用它们各自的宽度除以自身的高度。
