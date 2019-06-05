@@ -13,7 +13,7 @@
 
 ## 前提
 
-我希望读者应该知道 BLoC 模式是什么，或者使用模式创建了一个应用（至少做过 `CTRL + C` 和 `CTRL + V`）。如果你是第一次听到 **BLoC** 这个词，那么下面三篇文章可以很好地帮助你理解这个模式。
+我心目中的读者，应该知道 BLoC 模式是什么，或者使用模式创建了一个应用（至少做过 `CTRL + C` 和 `CTRL + V`）。如果你是第一次听到 **BLoC** 这个词，那么下面三篇文章可以很好地帮助你理解这个模式。
 
 1. 使用 BLoC 模式构建 Flutter 项目[第一部分](https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1)和[第二部分](https://medium.com/flutterpub/architect-your-flutter-project-using-bloc-pattern-part-2-d8dd1eca9ba5)
 
