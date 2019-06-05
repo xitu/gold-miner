@@ -45,8 +45,11 @@ Let’s tackle the first bug.
 Here are the steps to reproduce it:
 
 ✦ Run the application → the first 10 posts are loaded.
+
 ✦ Scroll down to load more posts.
+
 ✦ Scroll up to the top of the table view, and pull down to refresh.
+
 ✦ New posts are **not** reloaded and the old posts still exist & the posts count is not reset.
 
 A typical approach to fix this bug is to investigate what happens inside the selector method that is assigned to the dedicated UIRefreshControl of the table view controller. Head to `**PostsTableViewController**` and navigate to the section with the pragma mark `Refresh control support`. We can deduce from the`setupRefreshControl` function that the selector dedicated for the refresh control is the `reloadNewPosts` function. Let’s add a breakpoint at the first line of this function and debug exactly what’s going on in there. Now scroll to the top of the table view and pull down to refresh it.
@@ -102,8 +105,11 @@ As you’ve just resolved the first bug, pick up your anti-bugs weapons and proc
 Here are the steps to reproduce this one:
 
 ✦ Turn off your iPhone’s/Simulator’s internet connection.
+
 ✦ Scroll to the top of the table view, and pull down to refresh.
+
 ✦ No new posts are loaded due to network error.
+
 ✦ A network error alert controller is not presented to the user.
 
 Head to **PostsTableViewController** and navigate to the section with the pragma mark `Networking`. It only includes one function which is `loadPosts`. It utilizes a shared instance of a networking manager to execute a GET HTTP request that returns an array of posts object via a “success” completion handler or an instance of `NSError` via a “failure” completion handler.
