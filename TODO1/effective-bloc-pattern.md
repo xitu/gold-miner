@@ -2,8 +2,8 @@
 > * 原文作者：[Sagar Suri](https://medium.com/@sagarsuri56)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/effective-bloc-pattern.md](https://github.com/xitu/gold-miner/blob/master/TODO1/effective-bloc-pattern.md)
-> * 译者 [LucaslEliane](https://github.com/LucaslEliane)
-> * 校对者：
+> * 译者：[LucaslEliane](https://github.com/LucaslEliane)
+> * 校对者：[portandbridge](https://github.com/portandbridge)
 
 # 高效地使用 BLoC 模式
 
@@ -21,7 +21,7 @@
 
 ## 和 BLoC 相遇的故事
 
-我知道，BLoC 模式是一个很难去理解和实现的模式。我看过了很多开发人员的帖子，询问 **哪里是学习 BLoC 模式的最佳资源呢？**，读完了不同的帖子和评论之后，我觉得大家在理解这个问题的阻碍有以下几点。
+我知道，BLoC 模式是一个很难去理解和实现的模式。我看过了很多开发人员的帖子，询问 **哪里是学习 BLoC 模式的最佳资源呢**？读完了不同的帖子和评论之后，我觉得大家在理解这个问题的阻碍有以下几点。
 
 1. 响应式地思考。
 
