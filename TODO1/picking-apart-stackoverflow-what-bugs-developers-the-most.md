@@ -34,11 +34,8 @@ But what **exactly** are these developers asking about? What are the most questi
 To do this, we:
 
 1. extracted 1,000 of the most upvoted Stack Overflow questions for each of the 11 programming languages listed above.
-    
 2. did a bit of data cleaning in Python (pandas, naturally)
-    
 3. fed these 11,000 questions total (over 96,000 individual words) into a JavaScript word cloud algorithm to give us a birds-eye-view of the general pain points that arise in different languages.
-    
 
 Here are the results.
 
