@@ -11,7 +11,7 @@ One of the very intriguing sessions carried out by some of Apple’s finest debu
 
 In this 3 parts tutorial, I’ll walk you through most of what has been concluded in that WWDC session. I created a demo project specifically to elaborate on how to use different types of breakpoints alongside the LLDB to fix bugs in your project/application.
 
-> Demo Project
+## Demo Project
 
 I developed a project of conventional tasks that most of the iOS developers out there have definitely dealt with at some point. It’s important to learn about its features/rules before proceeding with this article. Here’s what the demo project is all about:
 
@@ -92,6 +92,7 @@ expression self.isPullDownToRefreshEnabled = true
 The next thing you should do is checking the “Automatically continue after evaluating actions” box. This will cause the debugger **not** to pause at the breakpoint for each and every-time it gets triggered and automatically continue after evaluating the expression you just added.
 
 Now scroll to the top of the table view and pull down to refresh.
+
 **voilà** new ****posts have been retrieved, replacing the old ones, and hence the posts count got updated.
 
 As you’ve just resolved the first bug, pick up your anti-bugs weapons and proceed to the second one.
@@ -162,7 +163,7 @@ Both tasks were achieved at runtime. We didn’t really need to stop the compile
 
 ## Where to go?
 
-Check out the [**second part**](https://medium.com/@fadiderias/xcode-and-lldb-advanced-debugging-tutorial-part-2-8bfeae4cdfdb) of this tutorial to fix extra bugs and learn about a special type of breakpoints, that is watchpoints.
+Check out the [**second part**](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md) of this tutorial to fix extra bugs and learn about a special type of breakpoints, that is watchpoints.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
