@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-linear-transformation-matrix.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-linear-transformation-matrix.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Mcskiller](https://github.com/Mcskiller)
 
 # JavaScript 线性代数：线性变换与矩阵
 
@@ -184,7 +184,7 @@ const matrix = new Matrix(
 
 对 3D 空间内的对象进行变换也与此类似。你可以在下图中看到一个红色方块变换成一个蓝色的平行六边形的动画。
 
-![shear 3D](https://cdn-images-1.medium.com/max/2432/1*zoTrp_lm1p2HQClkaOdMOQ.gif)
+![3D 剪切变换](https://cdn-images-1.medium.com/max/2432/1*zoTrp_lm1p2HQClkaOdMOQ.gif)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
