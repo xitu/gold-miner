@@ -180,7 +180,7 @@ const matrix = new Matrix(
 
 ![旋转](https://cdn-images-1.medium.com/max/2002/1*vZ5Sblw5oPaq8OCw07ligg.png)
 
-![缩放](https://cdn-images-1.medium.com/max/2004/1*naUftl-XYETBUtcAYujT0w.png)
+![剪切变换](https://cdn-images-1.medium.com/max/2004/1*naUftl-XYETBUtcAYujT0w.png)
 
 对 3D 空间内的对象进行变换也与此类似。你可以在下图中看到一个红色方块变换成一个蓝色的平行六边形的动画。
 
