@@ -139,7 +139,7 @@ console.log(vector2D.transform(matrix2x3D))
 
 ## 示例
 
-现在，我们将尝试对二维的对象应用线性变换。首先，需要创建一个新的 **Contour**（轮廓）类，它在 constructor 中接收一系列的向量（在 2D 平面中形成一个轮廓），然后用唯一的方法 - **transform** 对轮廓中的所有向量坐标进行变换，最后返回一个新的轮廓。
+现在，我们将尝试对二维的对象应用线性变换。首先，需要创建一个新的 **Contour**（轮廓）类，它在 constructor 中接收一系列的向量（在 2D 平面中形成一个轮廓），然后用唯一的方法 —— **transform** 对轮廓中的所有向量坐标进行变换，最后返回一个新的轮廓。
 
 ```JavaScript
 class Contour {
