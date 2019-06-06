@@ -9,7 +9,7 @@
 
 当今的网站上充斥着大量媒体资源，例如图片和视频。图片约占[网站平均通信量的 50%](https://httparchive.org/reports/page-weight#bytesImg)。然而这些图片中的大部分都没机会进入用户的视野，因为它们位于网站页面的[头版](https://en.wikipedia.org/wiki/Above_the_fold)之外。
 
-看到本文标题你会问「懒加载是什么东西？」CSS-Tricks 网站中有非常多的[探讨**懒加载**的文章](https://css-tricks.com/?s=lazy+load&orderby=relevance&post_type=post%2Cpage%2Cguide)，其中有一篇非常详尽的《[用 JavaScript 花式实现懒加载的指南文档](https://css-tricks.com/the-complete-guide-to-lazy-loading-images/)》。简言之，我们要讨论的是一种延迟网络资源加载的机制，在该机制下，网页内容按需加载，或者说得更直白些，当网页内容进入用户视野时再触发加载。
+看到本文标题你会问「懒加载是什么东西？」CSS-Tricks 网站中有非常多的探讨**懒加载**的[文章](https://css-tricks.com/?s=lazy+load&orderby=relevance&post_type=post%2Cpage%2Cguide)，其中有一篇非常详尽的《[用 JavaScript 花式实现懒加载的指南文档](https://css-tricks.com/the-complete-guide-to-lazy-loading-images/)》。简言之，我们要讨论的是一种延迟网络资源加载的机制，在该机制下，网页内容按需加载，或者说得更直白些，当网页内容进入用户视野时再触发加载。
 
 这样做有什么好处？压缩初始页面的体积以提升加载速度；免于为用户根本不会看到的内容浪费网络请求。
 
@@ -85,7 +85,7 @@
 
 `img` 和 `iframe` 元素都支持 `loading` 特性。切记，`loading` 特性的值不是让浏览器严格执行的命令，而是帮助浏览器自己决定是否要懒加载图片或者框架。
 
-下面会介绍 `loading` 特性可取的三个值。在下文中的每张图片下面，你都可以看到一张表格，其中列着每个图片资源的加载时序。**范围请求**（译者注：原文用词为 Range response，疑似笔误）指的是一种预检图片局部的请求，用来确定图片文件的大小（参见详细[原理](#article-header-id-7)）。如果该列有内容，证明浏览器成功发出了范围请求。
+下面会介绍 `loading` 特性可取的三个值。在下文中的每张图片下面，你都可以看到一张表格，其中列着每个图片资源的加载时序。**范围请求**（译者注：原文用词为 Range response，疑似笔误）指的是一种预检图片局部的请求，用来确定图片文件的大小（参见详细[原理](https://github.com/xitu/gold-miner/pull/5886#loading-%E7%89%B9%E6%80%A7%E7%9A%84%E5%8E%9F%E7%90%86)）。如果该列有内容，证明浏览器成功发出了范围请求。
 
 请注意 **startTime** 列，该列表明了在 DOM 解析后，图片的加载被推迟了多长时间。你可以使用强制刷新（CTRL + Shift + R）重新触发范围请求。
 
@@ -114,7 +114,7 @@
 | timeToFirstByte  | 4 ms        |
 | downloadDuration | 5 ms        |
 
-把 `loading` 设为 `auto`（或者将其置空：`loading=""`），可以让**浏览器自己决定**是否懒加载图片。决定是否懒加载要考虑很多因素，例如平台、是否处于 Data Saver 模式（译者注：Chrome 已于 2019 年 5 月 6 日废弃了该功能）、网络状况、图片大小、是图片还是 iframe 以及 CSS 的 `display` 属性等等。（关于考虑这些因素的原因，参见[此处](#article-header-id-7)。）
+把 `loading` 设为 `auto`（或者将其置空：`loading=""`），可以让**浏览器自己决定**是否懒加载图片。决定是否懒加载要考虑很多因素，例如平台、是否处于 Data Saver 模式（译者注：Chrome 已于 2019 年 5 月 6 日废弃了该功能）、网络状况、图片大小、是图片还是 iframe 以及 CSS 的 `display` 属性等等。（关于考虑这些因素的原因，参见[此处](https://github.com/xitu/gold-miner/pull/5886#loading-%E7%89%B9%E6%80%A7%E7%9A%84%E5%8E%9F%E7%90%86)。）
 
 ### 急脾气的值：`eager`
 
@@ -139,7 +139,7 @@
 | timeToFirstByte  | 7 ms        |
 | downloadDuration | 5 ms        |
 
-`eager` 告诉浏览器这张图片需要立即加载。如果加载已经被延迟了（比如初始值为 `lazy`，后来用 JavaScript 改成了`eager`），那么浏览器也应该立即加载图片。
+`eager` 告诉浏览器这张图片需要**立即**加载。如果加载已经被延迟了（比如初始值为 `lazy`，后来用 JavaScript 改成了`eager`），那么浏览器也应该立即加载图片。
 
 ### 懒洋洋的值：`lazy`
 
@@ -174,7 +174,7 @@
 
 > 从今以后，浏览器因获取图片而发出的请求的数量可能会翻倍。每张图片对应两个请求：先是范围请求，再是完整请求。要确保你的服务器支持 HTTP `Range: 0-2047` 请求头，而响应状态码要用 `206（部分内容）`，防止整个图片被传送两次。
 
-每个用户都会发送大量的后续请求，因此网络服务器很有必要支持 HTTP/2 协议。
+每个用户都会发送大量的后续请求，因此 Web 服务器对 HTTP/2 协议的支持变得越来越重要。
 
 现在我们来聊聊延迟的内容。Chrome 浏览器的渲染引擎 [Blink](https://en.wikipedia.org/wiki/Blink_(browser_engine)) 采用启发式技术来确定哪些内容应该延迟加载、延迟多久。Scott Little 在他的[设计文档](https://docs.google.com/document/d/1e8ZbVyUwgIkQMvJma3kKUDg8UUkLRRdANStqKuOIvHg/)中全面地列出了确定延迟策略的条件。下面是确定延迟对象的简短策略：
 
@@ -229,7 +229,7 @@ if ("loading" in HTMLImageElement.prototype) {
 
 想想吧，随着在不同的 Chrome 平台中逐渐推广、`auto` 值成为默认选项，**世界上最流行的浏览器即将对视口外的图片和框架应用懒加载技术**。决堤般的通信量会大面积击溃那些健壮性不足的网站，而且，蜂拥而至的图片探测请求也会伤及网络服务器。
 
-接下来遭殃的就是追踪技术: 假设那些深受信赖的追踪像素和追踪框架都无法加载，那么数据分析领域及其周边产业将面临被动局面。我们只能希望他们千万别惊慌失措，千万别给每个图片都加上 `loading="eager"` 这项伟大功能，这样添加 `loading` 特性根本不是为了服务网站用户，实在暴殄天物。他们更应该改写代码，以便于被[启发式技术](#article-header-id-7)识别为追踪像素。
+接下来遭殃的就是追踪技术: 假设那些深受信赖的追踪像素和追踪框架都无法加载，那么数据分析领域及其周边产业将面临被动局面。我们只能希望他们千万别惊慌失措，千万别给每个图片都加上 `loading="eager"` 这项伟大功能，这样添加 `loading` 特性根本不是为了服务网站用户，实在暴殄天物。他们更应该改写代码，以便于被[启发式技术](https://github.com/xitu/gold-miner/pull/5886#loading-%E7%89%B9%E6%80%A7%E7%9A%84%E5%8E%9F%E7%90%86)识别为追踪像素。
 
 > Web 开发者、数据分析经理和运营经理应该立即检查自己的网站，确保前端支持原生懒加载、后端支持范围请求和 HTTP/2 协议。
 
