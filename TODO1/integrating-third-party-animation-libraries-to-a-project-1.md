@@ -2,8 +2,8 @@
 > * 原文作者：[Travis Almand](https://css-tricks.com/author/travisalmand/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/integrating-third-party-animation-libraries-to-a-project-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/integrating-third-party-animation-libraries-to-a-project-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[TUARAN](https://github.com/TUARAN)
+> * 校对者：[lihaobhsfer](https://github.com/lihaobhsfer)
 
 # 将第三方动画库集成到项目中 —— 第 1 部分
 
@@ -17,7 +17,7 @@
 
 **Macromedia’s Dreamweaver** 于 [1997 年 12 月](https://en.wikipedia.org/wiki/Adobe_Dreamweaver)推出，并提供了一个简单的功能，即悬停时的图像变换。这个特性是通过一个 JavaScript 函数实现的，该函数被编辑器嵌入到 HTML 中。这个函数被命名为 `MM_swapImage()`，并且它已经成为一个 web 设计的民间传说。这个脚本易于使用，即使在 Dreamweaver 之外也是如此，它的流行性使得它直到今天还在使用。在本文的初步研究中，我在 **Adobe’s Dreamweaver**（Adobe 于 2005 年收购了 Macromedia）帮助论坛上发现了一个与此功能相关的问题。
 
-JavaScript 函数将根据 **mouseover** 和 **mouseout** 事件更改 src 属性，从而将一个图像与另一个图像交换。实现时，它看起来是这样的:
+JavaScript 函数将根据 **mouseover** 和 **mouseout** 事件更改 src 属性，从而将一个图像与另一个图像交换。实现时，它看起来是这样的：
 
 ```html
 <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('ImageName','','newImage.jpg',1)">
@@ -25,31 +25,31 @@ JavaScript 函数将根据 **mouseover** 和 **mouseout** 事件更改 src 属�
 </a>
 ```
 
-按照今天的标准，用 JavaScript 实现这一点是相当容易的，我们中的许多人实际上都可以在睡梦中完成这一点。但是，考虑到 JavaScript 在当时（创建于1995年）仍然是一种新的脚本语言，而且有时在不同浏览器之间的外观和行为都有所不同。创建跨浏览器 JavaScript 并不是一件容易的事情，甚至不是每个创建 web 页面的人都编写 JavaScript。(这一点显然已经改变了)Dreamweaver 通过编辑器中的菜单提供了这一功能，而 web 设计师甚至不需要编写 JavaScript。它基于可以从不同选项列表中选择的一组“行为”。这些选项可以被一组目标浏览器过滤；3.0 浏览器，4.0 浏览器，IE 3.0, IE 4.0, Netscape 3.0, Netscape 4.0。啊，[过去的美好时光](https://css-tricks.com/the-ecological-impact-of-browser-diversity/)。
+按照今天的标准，用 JavaScript 实现这一点是相当容易的，我们中的许多人实际上都可以在睡梦中完成这一点。但是，考虑到 JavaScript 在当时（创建于 1995 年）仍然是一种新的脚本语言，而且有时在不同浏览器之间的外观和行为都有所不同。创建跨浏览器 JavaScript 并不是一件容易的事情，甚至不是每个创建 web 页面的人都编写 JavaScript。（[这一点显然已经改变了](https://css-tricks.com/the-great-divide/)）Dreamweaver 通过编辑器中的菜单提供了这一功能，而 web 设计师甚至不需要编写 JavaScript。它基于可以从不同选项列表中选择的一组“行为”。这些选项可以被一组目标浏览器过滤；3.0 浏览器，4.0 浏览器，IE 3.0，IE 4.0，Netscape 3.0，Netscape 4.0。啊，[过去的美好时光](https://css-tricks.com/the-ecological-impact-of-browser-diversity/)。
 
-![Netscape 浏览器窗口的屏幕截图.](https://css-tricks.com/wp-content/uploads/2019/05/mm_browsers.png)
+![Netscape 浏览器窗口的屏幕截图。](https://css-tricks.com/wp-content/uploads/2019/05/mm_browsers.png)
 
 大约在 1997 年，就可根据浏览器版本选择行为。
 
-![来自 Dreamweaver 应用程序的屏幕截图，显示了在HTML中切换元素行为的选项面板.](https://css-tricks.com/wp-content/uploads/2019/05/s_EBCAC238906FAA6EECC38BE5A80726DC08BADA1B9C984153FFCE3F96AC775B6A_1554670455957_mm_swap.png)
+![来自 Dreamweaver 应用程序的屏幕截图，显示了在HTML中切换元素行为的选项面板。](https://css-tricks.com/wp-content/uploads/2019/05/s_EBCAC238906FAA6EECC38BE5A80726DC08BADA1B9C984153FFCE3F96AC775B6A_1554670455957_mm_swap.png)
 
 Macromedia Dreamweaver 1.2a 中的交换图像行为面板
 
-Dreamweaver 首次发布大约一年后，W3C 的 CSS2 规范在 [1998 年 1 月](https://www.w3.org/TR/1998/WD-css2-19980128/)的工作草案中提到了 `:hover`。它在锚点链接方面被特别提到，但是语言表明它可能被应用于其他元素。在大多数情况下，这个伪选择器似乎是 `MM_swapImage()` 的一个简单替代方法的开始，因为 `background-image`也在同一草案中。尽管浏览器支持是一个问题，因为在足够多的浏览器正确支持 CSS2 之前，它已经花费了数年的时间，使其成为许多 web 设计人员的一个可行选项。[2011 年 6 月](https://www.w3.org/TR/CSS2/)，终于有了 W3C 推荐的 CSS2.1，这可以被认为是我们所知的“现代” CSS 的基础。
+Dreamweaver 首次发布大约一年后，W3C 的 CSS2 规范在 [1998 年 1 月](https://www.w3.org/TR/1998/WD-css2-19980128/)的工作草案中提到了 `:hover`。它在锚点链接方面被特别提到，但是语言表明它可能被应用于其他元素。在大多数情况下，这个伪选择器似乎是 `MM_swapImage()` 的一个简单替代方法的开始，因为 `background-image` 也在同一草案中。尽管浏览器支持是一个问题，因为在足够多的浏览器正确支持 CSS2 之前，它已经花费了数年的时间，使其成为许多 web 设计人员的一个可行选项。[2011 年 6 月](https://www.w3.org/TR/CSS2/)，终于有了 W3C 推荐的 CSS2.1，这可以被认为是我们所知的“现代” CSS 的基础。
 
-在这中间，**jQuery**出现在 [2006](https://en.wikipedia.org/wiki/JQuery)。幸运的是，jQuery 在简化不同浏览器之间的 JavaScript 方面走了很长的路。我们的故事中有一件有趣的事情，jQuery 的第一个版本提供了 [`animate()`](https://api.jquery.com/animate/) 方法。使用这种方法，您可以在任何时候对任何元素的 CSS 属性进行动画的操作；不只是悬停。由于它的流行，这个方法暴露了在浏览器中嵌入一个更健壮的 CSS 解决方案的需要——这个解决方案不需要 JavaScript 库，因为浏览器的限制，JavaScript 库的性能并不是一直都很好。
+在这中间，**jQuery** 出现在 [2006](https://en.wikipedia.org/wiki/JQuery)。幸运的是，jQuery 在简化不同浏览器之间的 JavaScript 方面走了很长的路。我们的故事中有一件有趣的事情，jQuery 的第一个版本提供了 [`animate()`](https://api.jquery.com/animate/) 方法。使用这种方法，您可以在任何时候对任何元素的 CSS 属性进行动画的操作；不只是悬停。由于它的流行，这个方法暴露了在浏览器中嵌入一个更健壮的 CSS 解决方案的需要——这个解决方案不需要 JavaScript 库，因为浏览器的限制，JavaScript 库的性能并不是一直都很好。
 
-`:hover` 伪类只提供了从一种状态到另一种状态的生硬转换，不支持平滑的转换。它也不能使元素在像悬停在元素上这样的基本元素之外的变化产生动画效果。jQuery 的 `animate()` 方法提供了这些特性。它铺平了道路，并一直前进着。在 web 开发的动态世界中，解决这个问题的工作草案在 CSS2.1 的建议发布之前就已经开始了。[CSS Transitions Module Level 3](https://www.w3.org/TR/2009/WD-css3-transitions-20090320/) 的第一份工作草案于 2009 年 3 月由 W3C 首次发布。第一个工作草案[CSS Animations Module Level 3](https://www.w3.org/TR/2009/WD-css3-animations-20090320/)是在大致相同的时间发布的。截止到 2018 年 10 月，这两个 CSS 模块仍然处于工作草案状态，当然，我们已经大量使用了它们。
+`:hover` 伪类只提供了从一种状态到另一种状态的生硬转换，不支持平滑的转换。它也不能使元素在像悬停在元素上这样的基本元素之外的变化产生动画效果。jQuery 的 `animate()` 方法提供了这些特性。它铺平了道路，并一直前进着。在 web 开发的动态世界中，解决这个问题的工作草案在 CSS2.1 的建议发布之前就已经开始了。[CSS Transitions Module Level 3](https://www.w3.org/TR/2009/WD-css3-transitions-20090320/) 的第一份工作草案于 2009 年 3 月由 W3C 首次发布。第一个工作草案 [CSS Animations Module Level 3](https://www.w3.org/TR/2009/WD-css3-animations-20090320/) 是在大致相同的时间发布的。截止到 2018 年 10 月，这两个 CSS 模块仍然处于工作草案状态，当然，我们已经大量使用了它们。
 
-一开始一个由第三方提供的、仅仅为了一个简单的悬停状态的 JavaScript 函数，逐渐变成了 CSS 中精巧复杂的过渡和动画——这一复杂性，许多开发者都不愿在他们需要快速推进新项目的时候花时间考虑。我们已经绕了一圈;今天，许多第三方 CSS 动画库已经被创建用来抵消这种复杂性。
+一开始一个由第三方提供的、仅仅为了一个简单的悬停状态的 JavaScript 函数，逐渐变成了 CSS 中精巧复杂的过渡和动画——这一复杂性，许多开发者都不愿在他们需要快速推进新项目的时候花时间考虑。我们已经绕了一圈；今天，许多第三方 CSS 动画库已经被创建用来抵消这种复杂性。
 
 ## 三种不同类型的第三方动画库
 
-在这个新的世界里，我们可以在网页和应用程序中实现强大、令人兴奋的、复杂的动画。关于如何处理这些新任务，出现了几个不同的想法。并不是一种方法比另一种更好;事实上，两者之间有很多重叠之处。不同之处在于我们如何为它们实现和编写代码。有些是成熟的 JavaScript 专用库，而另一些则是 css 专用集合。
+在这个新的世界里，我们可以在网页和应用程序中实现强大、令人兴奋的、复杂的动画。关于如何处理这些新任务，出现了几个不同的想法。并不是一种方法比另一种更好；事实上，两者之间有很多重叠之处。不同之处在于我们如何为它们实现和编写代码。有些是成熟的 JavaScript 专用库，而另一些则是 css 专用集合。
 
 ### JavaScript 库
 
-仅通过 JavaScript 操作的库通常提供的功能超出了常见的 CSS 动画所提供的功能。通常，会有重叠，因为库实际上可能使用 CSS 特性作为其引擎的一部分，但这将被抽象出来，以支持 API。例如 [Greensock](https://greensock.com/) 和 [Anime.js](https://animejs.com/)。通过查看他们提供的演示，您可以看到他们提供的内容的范围( Greensock 有一个 [CodePen 上的 nice 集合](https://codepen.io/GreenSock/))。它们主要用于高度复杂的动画，但也可以用于更基本的动画。
+仅通过 JavaScript 操作的库通常提供的功能超出了常见的 CSS 动画所提供的功能。通常，会有重叠，因为库实际上可能使用 CSS 特性作为其引擎的一部分，但这将被抽象出来，以支持 API。例如 [Greensock](https://greensock.com/) 和 [Anime.js](https://animejs.com/)。通过查看他们提供的演示，您可以看到他们提供的内容的范围（Greensock 有一个 [CodePen 上的 nice 集合](https://codepen.io/GreenSock/)）。它们主要用于高度复杂的动画，但也可以用于更基本的动画。
 
 ### JavaScript 和 CSS 库
 
