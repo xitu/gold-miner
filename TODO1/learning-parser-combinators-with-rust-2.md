@@ -186,15 +186,15 @@ fn match_literal<'a>(expected: &'static str) -> impl Parser<'a, ()> {
 }
 ```
 
-In addition to changing the return type, we also have to make sure the input type on the closure is `&'a str`, or rustc gets upset.
+除了改变返回值类型外，我们还必须确保闭包的输入参数类型是 `&'a str` ，否则编译器可能会报错。
 
-For `identifier`, just change the return type and you're done, inference takes care of the lifetimes for you:
+对于 `identifier`，只需要更改返回类型，就可以了，编译器会帮助你推断出生命周期：
 
 ```
 fn identifier(input: &str) -> ParseResult<String> {
 ```
 
-And now the test, satisfyingly absent that ungainly `()` in the result.
+现在测试一下，很不错，返回结果不再是 `()`
 
 ```
 #[test]
@@ -210,18 +210,19 @@ fn right_combinator() {
 ```
 
 ### One Or More
+### 一个或多个空格的处理
 
-Let's continue parsing that element tag. We've got the opening `<`, and we've got the identifier. What's next? That should be our first attribute pair.
+我们继续解析这个元素标签。我们获取了开始的 `<` ，并且也获取了标识符。接下来呢？接下来应该是属性。
 
-No, actually, those attributes are optional. We're going to have to find a way to deal with things being optional.
+不，实际上，这些属性是可选的。我们必须找到一个正确处理可选的方法。
 
-No, wait, hold on, there's actually something we have to deal with even **before** we get as far as the first optional attribute pair: whitespace.
+等一下，实际上在我们开始处理属性 **之前**，先要处理可选的属性：空格。
 
-Between the end of the element name and the start of the first attribute name (if there is one), there's a space. We need to deal with that space.
+在元素名称结尾，和第一个属性名的开始部分（如果有属性的话）之间有一个空格。我们需要处理这个空格。
 
-It's even worse than that - we need to deal with **one or more spaces**, because `<element      attribute="value"/>` is valid syntax too, even if it's a bit over the top with the spaces. So this seems to be a good time to think about whether we could write a combinator that expresses the idea of **one or more** parsers.
+比这更不好的是，我们需要处理 **一个甚至更多空格**，因为形如 `<element      attribute="value"/>` 的写法也是合法的，虽然空格多了点。那么，接下来我们要好好考虑我们是否可以编写一个组合器，它可以应对 **一个或多个** 解析器的场景。
 
-We've dealt with this already in our `identifier` parser, but it was all done manually there. Not surprisingly, the code for the general idea isn't all that different.
+我们已经在 `identifier` 解析器中做过处理，但那是通过手动完成的。一点也不奇怪，这种代码的逻辑和常见思路没什么不同。
 
 ```
 fn one_or_more<'a, P, A>(parser: P) -> impl Parser<'a, Vec<A>>
@@ -248,11 +249,11 @@ where
 }
 ```
 
-First of all, the return type of the parser we're building from is `A`, and the return type of the combined parser is `Vec<A>` - any number of `A`s.
+首先，我们正在构建的解析器的返回类型是 `A`，组合解析器的返回类型是 `Vec<A>` —— 任意数量的 `A` 类型集合。
 
-The code does indeed look very similar to `identifier`. First, we parse the first element, and if it's not there, we return with an error. Then we parse as many more elements as we can, until the parser fails, at which point we return the vector with the elements we collected.
+代码看起来确实和处理 `identifier` 的那段很像。首先我们解析第一个元素，如果没有，我们返回一个错误。然后我们解析尽可能多的元素，知道解析器遇到错误，这时我们返回迭代收集到的所有元素也就是数组。
 
-Looking at that code, how easy would it be to adapt it to the idea of **zero** or more? We just need to remove that first run of the parser:
+看看这段代码，是不是很容易就能将其调整为符合 **0** 个或者更多的逻辑？我们只需移除解析器的第一次运行的相关代码：
 
 ```
 fn zero_or_more<'a, P, A>(parser: P) -> impl Parser<'a, Vec<A>>
@@ -272,7 +273,7 @@ where
 }
 ```
 
-Let's write some tests to make sure those two work.
+我们来编写一些测试来确保这两个方法能正常运行：
 
 ```
 #[test]
@@ -292,9 +293,9 @@ fn zero_or_more_combinator() {
 }
 ```
 
-Note the difference between the two: for `one_or_more`, finding an empty string is an error, because it needs to see at least one case of its sub-parser, but for `zero_or_more`, an empty string just means the zero case, which is not an error.
+注意两者之间的区别：对于 `one_or_more`，查找空字符串是一个错误，因为它至少需要考虑到它的子解析器众多情况下的一种情况，但对于 `zero_or_more`，空字符串只表示 0 的情况，这不是错误。
 
-At this point, it's reasonable to start thinking about ways to generalise these two, because one is an exact copy of the other with just one bit removed. It might be tempting to express `one_or_more` in terms of `zero_or_more` with something like this:
+在这一点，考虑一下如何归纳这两种情况是合理而必要的，因为其中一个是另一个的副本，只是删除了一个位。可能很容易就能用 `zero_or_more` 来表示 `one_or_more` ，如下所示：
 
 ```
 fn one_or_more<'a, P, A>(parser: P) -> impl Parser<'a, Vec<A>>
@@ -308,29 +309,29 @@ where
 }
 ```
 
-Here, we run into Rust Problems, and I don't even mean the problem of not having a `cons` method for `Vec`, but I know every Lisp programmer reading that bit of code was thinking it. No, it's worse than that: it's ownership.
+在这里，我们遇到了关于 Rust 的一些问题，我不是说 `Vec` 类型没有 `cons` 方法的问题，但我知道每个 Lisp 程序员在读这段代码时都会想到这个。事实上情况比这还严重：那就是所有权。
 
-We own that parser, so we can't go passing it as an argument twice, the compiler will start shouting at you that you're trying to move an already moved value. So can we make our combinators take references instead? No, it turns out, not without running into another whole set of borrow checker troubles - and we're not going to even go there right now. And because these parsers are functions, they don't do anything so straightforward as to implement `Clone`, which would have saved the day very tidily, so we're stuck with a constraint that we can't repeat our parsers easily in combinators.
+我们有了这个解析器，但我们不能将一个参数传递两次，编译器会告诉你这行不通：你在试着移除一个已经移除的值。那么，我们能让我们的组合器使用参数的引用吗？不行的，事实证明，如果没有完整严格的借用检查机制，我们就不会遇到这种情况 —— 所以我们不用现在去直面这个问题。因为这些解析器就是一些函数，所以它们不会直接实现克隆，如果用克隆则会很省事，我们现在遇到困难了，我们不能在组合器中那么轻松的拷贝解析器。
 
-That isn't necessarily a **big** problem, though. It means we can't express `one_or_more` using combinators, but it turns out those two are usually the only combinators you need anyway which tend to reuse parsers, and, if you wanted to get really fancy, you could write a combinator that takes a `RangeBound` in addition to a parser and repeats it according to a range: `range(0..)` for `zero_or_more`, `range(1..)` for `one_or_more`, `range(5..=6)` for exactly five or six, wherever your heart takes you.
+不过这也没什么 **大** 不了的。尽管，这意味着我们无法使用组合器实现 `one_or_more`，但事实证明这两个东西是你经常使用的组合器，也时常被复用，而且，如果你真的想要，你可以使用 `RangeBound` 编写一个组合器，额外附加一个解析器并根据 `range(0..)` 的方式，如  `zero_or_more`, `range(1..)`，如 `one_or_more`, `range(5..=6)` 又或完整的五个、六个，总之随意而为。
 
-Let's leave that as an exercise for the reader, though. Right now, we're going to be perfectly fine with just `zero_or_more` and `one_or_more`.
+让我们把他留给读者作为练习。现在，我们只需要处理好 `zero_or_more` 和 `one_or_more`。
 
-Another exercise might be to find a way around those ownership issues - maybe by wrapping a parser in an `Rc` to make it clonable?
+另一个练习是，尝试找到一个解决这些所有权问题的方法 —— 也许通过在 `Rc` 中包装一个解析器使其可被克隆。
 
-- [Learning Parser Combinators With Rust - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
-- [Learning Parser Combinators With Rust - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-- [Learning Parser Combinators With Rust - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-- [Learning Parser Combinators With Rust - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
+- [通过 Rust 学习解析器组合器 - 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
+- [通过 Rust 学习解析器组合器 - 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
+- [通过 Rust 学习解析器组合器 - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
+- [通过 Rust 学习解析器组合器 - 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
-## Licence
+## 许可证
 
-This work is copyright Bodil Stokke and is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Licence. To view a copy of this licence, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+本作品版权归 Bodil Stokke 所有，在知识共享署名-非商业性-相同方式共享 4.0 协议之条款下提供授权许可。要查看此许可证，请访问 http://creativecommons.org/licenses/by-nc-sa/4.0/。
 
-## Footnotes
+## 脚注
 
-1: He isn't really your uncle.
-2: Please don't be that person at parties.
+1: 他不是你真正的叔叔。
+2: 请不要成为聚会上的那个人。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
