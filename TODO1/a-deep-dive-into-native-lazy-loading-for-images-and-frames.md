@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-into-native-lazy-loading-for-images-and-frames.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-into-native-lazy-loading-for-images-and-frames.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[Mcskiller](https://github.com/Mcskiller)
 
 # 深入理解图片和框架的原生懒加载功能
 
