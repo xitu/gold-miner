@@ -2,82 +2,82 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/convolutional-layers-for-deep-learning-neural-networks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/convolutional-layers-for-deep-learning-neural-networks.md)
-> * 译者：
-> * 校对者：
+> * 译者：[QiaoN](https://github.com/QiaoN)
+> * 校对者：[HearFishle](https://github.com/HearFishle), [shixi-li](https://github.com/shixi-li)
 
-# A Gentle Introduction to Convolutional Layers for Deep Learning Neural Networks
+# 浅析深度学习神经网络的卷积层
 
-Convolution and the convolutional layer are the major building blocks used in convolutional neural networks.
+卷积和卷积层是卷积神经网络中使用的主要构建模块。
 
-A convolution is the simple application of a filter to an input that results in an activation. Repeated application of the same filter to an input results in a map of activations called a feature map, indicating the locations and strength of a detected feature in an input, such as an image.
+卷积是将输入简单通过滤波器进行激活。重复对输入使用同一个滤波器得到的激活后的图称为特征图/特征映射（feature map），表示输入（比如一张图像）中检测到的特征的位置和强度。
 
-The innovation of convolutional neural networks is the ability to automatically learn a large number of filters in parallel specific to a training dataset under the constraints of a specific predictive modeling problem, such as image classification. The result is highly specific features that can be detected anywhere on input images.
+卷积神经网络在特定的预测建模问题（如图像分类）的约束下，能创新的针对训练数据集并行自动学习大量滤波器。结果是可以在输入图像的任何位置检测到高度特定的特征。
 
-In this tutorial, you will discover how convolutions work in the convolutional neural network.
+在本教程中，你将了解卷积在卷积神经网络中是如何工作的。
 
-After completing this tutorial, you will know:
+完成本教程后，你将知道：
 
-*   Convolutional neural networks apply a filter to an input to create a feature map that summarizes the presence of detected features in the input.
-*   Filters can be handcrafted, such as line detectors, but the innovation of convolutional neural networks is to learn the filters during training in the context of a specific prediction problem.
-*   How to calculate the feature map for one- and two-dimensional convolutional layers in a convolutional neural network.
+* 卷积神经网络使用滤波器从输入中得到特征映射，该特征映射汇总了输入中检测到的特征的存在。
+* 滤波器可以手工设计，例如线条检测器，但卷积神经网络的创新是，训练期间在特定预测问题的背景下学习滤波器。
+* 在卷积神经网络中如何计算一维和二维卷积层的特征映射。
 
-Let’s get started.
+让我们开始吧。
 
-![A Gentle Introduction to Convolutional Layers for Deep Learning Neural Networks](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/A-Gentle-Introduction-to-Convolutional-Layers-for-Deep-Learning-Neural-Networks.jpg)
+![浅析深度学习神经网络的卷积层](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/A-Gentle-Introduction-to-Convolutional-Layers-for-Deep-Learning-Neural-Networks.jpg)
 
-A Gentle Introduction to Convolutional Layers for Deep Learning Neural Networks  
-Photo by [mendhak](https://www.flickr.com/photos/mendhak/5059410544/), some rights reserved.
+浅析深度学习神经网络的卷积层
+照片由 [mendhak](https://www.flickr.com/photos/mendhak/5059410544/) 拍摄，版权所有。
 
-## Tutorial Overview
+## 教程概述
 
-This tutorial is divided into four parts; they are:
+本教程分为四个部分，分别为：
 
-1.  Convolution in Convolutional Neural Networks
-2.  Convolution in Computer Vision
-3.  Power of Learned Filters
-4.  Worked Example of Convolutional Layers
+1. 卷积神经网络中的卷积
+2. 计算机视觉中的卷积
+3. 学习到的滤波器的能力
+4. 卷积层的样例
 
-## Convolution in Convolutional Neural Networks
+## 卷积神经网络中的卷积
 
-The convolutional neural network, or CNN for short, is a specialized type of neural network model designed for working with two-dimensional image data, although they can be used with one-dimensional and three-dimensional data.
+卷积神经网络，简称 CNN，是一种专门用于处理二维图像数据的神经网络模型，尽管其也可用于一维和三维数据。
 
-Central to the convolutional neural network is the convolutional layer that gives the network its name. This layer performs an operation called a “_convolution_“.
+卷积神经网络的核心是卷积层，这也是卷积神经网络命名的由来。该层执行的操作称为“**卷积**”。
 
-In the context of a convolutional neural network, a convolution is a linear operation that involves the multiplication of a set of weights with the input, much like a traditional neural network. Given that the technique was designed for two-dimensional input, the multiplication is performed between an array of input data and a two-dimensional array of weights, called a filter or a kernel.
+在卷积神经网络的语境中，卷积是涵盖了一组权重与输入相乘的线性操作，很像传统的神经网络。由于该技术是为二维输入设计的，这个乘法会在输入数据阵列和二维权重阵列之间进行，称为滤波器或核。
 
-The filter is smaller than the input data and the type of multiplication applied between a filter-sized patch of the input and the filter is a dot product. A [dot product](https://en.wikipedia.org/wiki/Dot_product) is the element-wise multiplication between the filter-sized patch of the input and filter, which is then summed, always resulting in a single value. Because it results in a single value, the operation is often referred to as the “_scalar product_“.
+滤波器小于输入数据，在滤波器大小的输入区块和滤波器之间应用的乘法被称作点积。[点积](https://en.wikipedia.org/wiki/Dot_product)是滤波器大小的输入区块和滤波器之间的对应元素相乘，然后求和产生的单一值。因为它产生单一值，所以该操作通常被称为“**标积**”。
 
-Using a filter smaller than the input is intentional as it allows the same filter (set of weights) to be multiplied by the input array multiple times at different points on the input. Specifically, the filter is applied systematically to each overlapping part or filter-sized patch of the input data, left to right, top to bottom.
+我们故意使用小于输入的滤波器，因为它允许相同的滤波器（权重集）在输入的不同点处多次乘以输入阵列。具体而言，滤波器从左到右、从上到下，系统地应用于输入数据的每个重叠部分或滤波器大小的区块。
 
-This systematic application of the same filter across an image is a powerful idea. If the filter is designed to detect a specific type of feature in the input, then the application of that filter systematically across the entire input image allows the filter an opportunity to discover that feature anywhere in the image. This capability is commonly referred to as translation invariance, e.g. the general interest in whether the feature is present rather than where it was present.
+在图像上系统地应用相同的滤波器是一个强大的想法。如果滤波器设计为检测输入中的特定类型的特征，那么在整个输入图像上系统地应用该滤波器能有机会在图像中的任何位置发现该特征。这种能力通常被称为平移不变性，比如说，关注该特征是否存在，而不是在哪里存在。
 
-> Invariance to local translation can be a very useful property if we care more about whether some feature is present than exactly where it is. For example, when determining whether an image contains a face, we need not know the location of the eyes with pixel-perfect accuracy, we just need to know that there is an eye on the left side of the face and an eye on the right side of the face.
+> 如果我们更关心某个特征是否存在而不是存在的确切位置，那么本地平移不变性会是非常有用的属性。例如，当判定图像是否包含面部时，我们不需要知道眼睛的像素级准确位置，我们只需要知道面部左侧和右侧分别有一只眼睛。
 
-— Page 342, [Deep Learning](https://amzn.to/2Dl124s), 2016.
+—— 第 342 页，[深度学习](https://amzn.to/2Dl124s)，2016。
 
-The output from multiplying the filter with the input array one time is a single value. As the filter is applied multiple times to the input array, the result is a two-dimensional array of output values that represent a filtering of the input. As such, the two-dimensional output array from this operation is called a “_feature map_“.
+将滤波器与输入阵列相乘一次，可得到单一值。由于滤波器多次应用于输入阵列，因此结果是一个表示输入滤波后的二维阵列输出值，这个结果被称为“**特征映射**”。
 
-Once a feature map is created, we can pass each value in the feature map through a nonlinearity, such as a ReLU, much like we do for the outputs of a fully connected layer.
+特征映射创建后，我们可以通过非线性函数（例如 ReLU ）传递特征映射中的每个值，就像我们对全连接层的输出所做的那样。
 
-![Example of a Filter Applied to a Two-Dimensional Input to Create a Filter Map](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/Example-of-a-Filter-Applied-to-a-Two-Dimensional-input-to-create-a-Feature-Map.png)
+![对二维输入创建特征映射的滤波器示例](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/Example-of-a-Filter-Applied-to-a-Two-Dimensional-input-to-create-a-Feature-Map.png)
 
-Example of a Filter Applied to a Two-Dimensional Input to Create a Feature Map
+对二维输入创建特征映射的滤波器示例
 
-If you come from a digital signal processing field or related area of mathematics, you may understand the convolution operation on a matrix as something different. Specifically, the filter (kernel) is flipped prior to being applied to the input. Technically, the convolution as described in the use of convolutional neural networks is actually a “_cross-correlation”_. Nevertheless, in deep learning, it is referred to as a “_convolution_” operation.
+如果你来自数字信号处理领域或相关的数学领域，你可能会将矩阵的卷积运算理解为不同的东西。尤其应用输入前先翻转滤波器（核）。理论上，在卷积神经网络中说的卷积实际上是“**互相关**”。然而在深度学习中，它被称为“**卷积**”操作。
 
-> Many machine learning libraries implement cross-correlation but call it convolution.
+> 很多机器学习库实现的互相关被称为卷积。
 
-— Page 333, [Deep Learning](https://amzn.to/2Dl124s), 2016.
+—— 第 333 页，[深度学习](https://amzn.to/2Dl124s)，2016。
 
-In summary, we have a _input_, such as an image of pixel values, and we have a _filter_, which is a set of weights, and the filter is systematically applied to the input data to create a _feature map_.
+总之，我们有一个**输入**，例如一个像素值图像，我们还有一个滤波器，它也是一组权重，滤波器系统地应用于输入数据从而创建出**特征映射**。
 
-## Convolution in Computer Vision
+## 计算机视觉中的卷积
 
-The idea of applying the convolutional operation to image data is not new or unique to convolutional neural networks; it is a common technique used in computer vision.
+对卷积神经网络来说，用卷积处理图像数据的想法并不新颖或独特，它是计算机视觉中的常用技术。
 
-Historically, filters were designed by hand by computer vision experts, which were then applied to an image to result in a feature map or output from applying the filter then makes the analysis of the image easier in some way.
+历史上，滤波器是由计算机视觉专家手工设计的，然后将其应用于图像以产生特征映射或滤波后的输出，这在某种程度上使图像分析更容易。
 
-For example, below is a hand crafted 3×3 element filter for detecting vertical lines:
+例如，下面是一个手工 3×3 元素的滤波器，用于检测垂直线：
 
 ```
 0.0, 1.0, 0.0
@@ -87,11 +87,11 @@ For example, below is a hand crafted 3×3 element filter for detecting vertical 
 0.0, 1.0, 0.0
 ```
 
-Applying this filter to an image will result in a feature map that only contains vertical lines. It is a vertical line detector.
+将此滤波器应用于图像将生成仅包含垂直线的特征映射。这是一个垂直线检测器。
 
-You can see this from the weight values in the filter; any pixels values in the center vertical line will be positively activated and any on either side will be negatively activated. Dragging this filter systematically across pixel values in an image can only highlight vertical line pixels.
+你能从滤波器的权重值中看到这一点：中心垂直线上的任何像素值都将被正激活，其它侧的任何像素值将被负激活。在图像的像素值上系统地拖拽此滤波器只能突出显示垂直线像素。
 
-A horizontal line detector could also be created and also applied to the image, for example:
+我们还可以创建水平线检测器并将其应用于图像，例如：
 
 ```
 0.0, 0.0, 0.0
@@ -101,87 +101,87 @@ A horizontal line detector could also be created and also applied to the image, 
 0.0, 0.0, 0.0
 ```
 
-Combining the results from both filters, e.g. combining both feature maps, will result in all of the lines in an image being highlighted.
+综合两个滤波器的结果，比如综合两个特征映射，将会突出显示图像中的所有的线。
 
-A suite of tens or even hundreds of other small filters can be designed to detect other features in the image.
+可以设计一套数十甚至数百个其它的小型滤波器来检测图像中的其它特征。
 
-The innovation of using the convolution operation in a neural network is that the values of the filter are weights to be learned during the training of the network.
+在神经网络中使用卷积运算的创新之处在于，滤波器的值是网络训练中需要学习到的权重。
 
-The network will learn what types of features to extract from the input. Specifically, training under stochastic gradient descent, the network is forced to learn to extract features from the image that minimize the loss for the specific task the network is being trained to solve, e.g. extract features that are the most useful for classifying images as dogs or cats.
+网络将学习到从输入中提取的特征类型。具体而言，在随机梯度下降的训练中，网络定会学习从图像中提取特征，该特征最小化了网络被训练要解决的特定任务的损失，例如，提取将图像分类为狗或猫最有用的特征。
 
-In this context, you can see that this is a powerful idea.
+在这种情况下，你会看到这是一个很强大的想法。
 
-## Power of Learned Filters
+## 学习到的滤波器的能力
 
-Learning a single filter specific to a machine learning task is a powerful technique.
+学习针对机器学习任务的单个滤波器是一种强大的技术。
 
-Yet, convolutional neural networks achieve much more in practice.
+然而，卷积神经网络在实践中实现了更多。
 
-### Multiple Filters
+### 多个滤波器
 
-Convolutional neural networks do not learn a single filter; they, in fact, learn multiple features in parallel for a given input.
+卷积神经网络不只学习单个滤波器。事实上，它们对给定输入并行学习多个特征。
 
-For example, it is common for a convolutional layer to learn from 32 to 512 filters in parallel for a given input.
+例如，对于给定输入，卷积层通常并行地学习 32 到 512 个滤波器。
 
-This gives the model 32, or even 512, different ways of extracting features from an input, or many different ways of both “_learning to see_” and after training, many different ways of “_seeing_” the input data.
+这样提供给模型 32 甚至 512 种不同的从输入中提取特征的方式，或者说“**学习看**”的许多不同方式，以及训练后“**看**”输入数据的许多不同方式。
 
-This diversity allows specialization, e.g. not just lines, but the specific lines seen in your specific training data.
+这种多样性允许定制化，比如不仅是线条，还有特定训练数据中的特定线条。
 
-### Multiple Channels
+### 多个通道
 
-Color images have multiple channels, typically one for each color channel, such as red, green, and blue.
+彩色图像具有多个通道，通常每个颜色通道有一个，例如红色，绿色和蓝色。
 
-From a data perspective, that means that a single image provided as input to the model is, in fact, three images.
+从数据的角度来看，这意味着作为输入的单个图像在模型上实际是三个图像。
 
-A filter must always have the same number of channels as the input, often referred to as “_depth_“. If an input image has 3 channels (e.g. a depth of 3), then a filter applied to that image must also have 3 channels (e.g. a depth of 3). In this case, a 3×3 filter would in fact be 3x3x3 or \[3, 3, 3\] for rows, columns, and depth. Regardless of the depth of the input and depth of the filter, the filter is applied to the input using a dot product operation which results in a single value.
+滤波器必须始终具有与输入相同的通道数量，通常称为“**深度**”。如果输入图像有 3 个通道（深度为 3），则应用于该图像的滤波器也必须有 3 个通道（深度为3）.这种情况下，一个 3×3 滤波器实际上行、列和深度为 3x3x3 或 [3, 3, 3]。无论输入和滤波器的深度如何，都使用点积运算将滤波器应用于输入来产生单一值。
 
-This means that if a convolutional layer has 32 filters, these 32 filters are not just two-dimensional for the two-dimensional image input, but are also three-dimensional, having specific filter weights for each of the three channels. Yet, each filter results in a single feature map. Which means that the depth of the output of applying the convolutional layer with 32 filters is 32 for the 32 feature maps created.
+这意味着如果卷积层具有 32 个滤波器，则这 32 个滤波器对二维图像输入不仅是二维的，还是三维的，对于三个通道中的每一个都具有特定的滤波器权重。然而，每个滤波器都会生成一个特征映射,这意味着对于创建的32个特征映射，应用 32 个滤波器的卷积层的输出深度为 32。
 
-### Multiple Layers
+### 多个层
 
-Convolutional layers are not only applied to input data, e.g. raw pixel values, but they can also be applied to the output of other layers.
+卷积层不仅应用于输入数据如原始像素值，也可以应用于其他层的输出。
 
-The stacking of convolutional layers allows a hierarchical decomposition of the input.
+卷积层的堆叠允许输入的层次分解。
 
-Consider that the filters that operate directly on the raw pixel values will learn to extract low-level features, such as lines.
+考虑直接对原始像素值进行操作的滤波器将学习提取低级特征，例如线条。
 
-The filters that operate on the output of the first line layers may extract features that are combinations of lower-level features, such as features that comprise multiple lines to express shapes.
+在第一线层的输出上操作的滤波器可能提取综合低级特征的特征，比如可表示形状的多条线的特征。
 
-This process continues until very deep layers are extracting faces, animals, houses, and so on.
+这个过程会一直持续到非常深的层，提取面部、动物、房屋等。
 
-This is exactly what we see in practice. The abstraction of features to high and higher orders as the depth of the network is increased.
+这些正是我们在实践中看到的。随着网络深度的增加，特征的抽取会越来越高阶。
 
-## Worked Example of Convolutional Layers
+## 卷积层的样例
 
-The Keras deep learning library provides a suite of convolutional layers.
+深度学习库 Keras 提供了一系列卷积层。
 
-We can better understand the convolution operation by looking at some worked examples with contrived data and handcrafted filters.
+通过看一些人为数据和手工滤波器的样例，我们可以更好地理解卷积运算。
 
-In this section, we’ll look at both a one-dimensional convolutional layer and a two-dimensional convolutional layer example to both make the convolution operation concrete and provide a worked example of using the Keras layers.
+在本节中，我们将同时研究一维卷积层和二维卷积层的例子，两者都具体化了卷积操作，也提供了使用 Keras 层的示范。
 
-### Example of 1D Convolutional Layer
+### 一维卷积层的样例
 
-We can define a one-dimensional input that has eight elements all with the value of 0.0, with a two element bump in the middle with the values 1.0.
+我们可以定义一个具有八个元素的一维输入，正中间两个凸起元素值为 1.0，其余元素值为 0.0。
 
 ```
 [0, 0, 0, 1, 1, 0, 0, 0]
 ```
 
-The input to Keras must be three dimensional for a 1D convolutional layer.
+对于一维卷积层，Keras 的输入必须是三维的。
 
-The first dimension refers to each input sample; in this case, we only have one sample. The second dimension refers to the length of each sample; in this case, the length is eight. The third dimension refers to the number of channels in each sample; in this case, we only have a single channel.
+第一维指每个输入样本，在本例中我们只有一个样本。第二个维度指每个样本的长度，在本例中长度是 8。第三维指每个样本中的通道数，在本例中我们只有一个通道。
 
-Therefore, the shape of the input array will be \[1, 8, 1\].
+因此，输入阵列的 shape 为 [1, 8, 1]。
 
 ```
 # define input data
-data  =  asarray(\[0,  0,  0,  1,  1,  0,  0,  0\])
+data  =  asarray([0,  0,  0,  1,  1,  0,  0,  0])
 data  =  data.reshape(1,  8,  1)
 ```
 
-We will define a model that expects input samples to have the shape \[8, 1\].
+我们将定义一个模型，其输入样本的 shape 为 [8, 1]。
 
-The model will have a single filter with the shape of 3, or three elements wide. Keras refers to the shape of the filter as the _kernel_size_.
+该模型将具有一个滤波器，shape 为 3，或者说三个元素宽。Keras 将滤波器的 shape 称为 **kernel_size**。
 
 ```
 # create model
@@ -189,17 +189,17 @@ model  =  Sequential()
 model.add(Conv1D(1,  3,  input_shape=(8,  1)))
 ```
 
-By default, the filters in a convolutional layer are initialized with random weights. In this contrived example, we will manually specify the weights for the single filter. We will define a filter that is capable of detecting bumps, that is a high input value surrounded by low input values, as we defined in our input example.
+默认情况下，卷积层中的滤波器使用随机权重进行初始化。在这个人为例子中，我们将手动设定单个滤波器的权重。我们将定义一个能够检测凸起的滤波器，这是一个由低输入值包围的高输入值，正如我们在输入示例中定义的那样。
 
-The three element filter we will define looks as follows:
+我们将三元素滤波器定义如下：
 
 ```
 [0, 1, 0]
 ```
 
-The convolutional layer also has a bias input value that also requires a weight that we will set to zero.
+卷积层还具有偏差输入值，该值也需要我们设置一个为 0 的权重。
 
-Therefore, we can force the weights of our one-dimensional convolutional layer to use our handcrafted filter as follows:
+因此，我们可以强制我们的一维卷积层的权重使用如下所示的手工滤波器：
 
 ```
 # define a vertical line detector
@@ -208,18 +208,18 @@ weights = [asarray([[[0]],[[1]],[[0]]]), asarray([0.0])]
 model.set_weights(weights)
 ```
 
-The weights must be specified in a three-dimensional structure, in terms of rows, columns, and channels. The filter has a single row, three columns, and one channel.
+权重必须以行、列、通道的三维结构被设定，滤波器有一行、三列、和一个通道。
 
-We can retrieve the weights and confirm that they were set correctly.
+我们可以检索权重并确认它们被正确设置。
 
 ```
 # confirm they were stored
 print(model.get_weights())
 ```
 
-Finally, we can apply the single filter to our input data.
+最后，我们可将单个滤波器应用于输入数据。
 
-We can achieve this by calling the _predict()_ function on the model. This will return the feature map directly: that is the output of applying the filter systematically across the input sequence.
+我们可以通过在模型上调用 **predict()** 函数来实现这一点。这将直接返回特征映射：这是在输入序列中系统地应用滤波器的输出。
 
 ```
 # apply filter to input data
@@ -227,7 +227,7 @@ yhat  =  model.predict(data)
 print(yhat)
 ```
 
-Tying all of this together, the complete example is listed below.
+将所有这些结合在一起，完整的样例如下所列。
 
 ```
 # example of calculation 1d convolutions
@@ -251,9 +251,9 @@ yhat = model.predict(data)
 print(yhat)
 ```
 
-Running the example first prints the weights of the network; that is the confirmation that our handcrafted filter was set in the model as we expected.
+运行该样例，首先打印网络的权重，这证实了我们的手工滤波器在模型中是按照我们的预期设置的。
 
-Next, the filter is applied to the input pattern and the feature map is calculated and displayed. We can see from the values of the feature map that the bump was detected correctly.
+接下来，滤波器应用到输入模式，计算并显示出特征映射。我们可以从特征映射的值中看到凸起被正确检测到。
 
 ```
 [array([[[0.]],
@@ -268,52 +268,52 @@ Next, the filter is applied to the input pattern and the feature map is calculat
   [0.]]]
 ```
 
-Let’s take a closer look at what happened here.
+让我们仔细看看发生了什么。
 
-Recall that the input is an eight element vector with the values: \[0, 0, 0, 1, 1, 0, 0, 0\].
+回想一下，输入是一个八元素向量，其值为：[0, 0, 0, 1, 1, 0, 0, 0]。
 
-First, the three-element filter \[0, 1, 0\] was applied to the first three inputs of the input \[0, 0, 0\] by calculating the dot product (“.” operator), which resulted in a single output value in the feature map of zero.
+首先，通过计算点积（“.”运算符）将三元素滤波器 [0, 1, 0] 应用于输入的前三个输入 [0, 0, 0]，得到特征映射中的单个输出值 0。
 
-Recall that a dot product is the sum of the element-wise multiplications, or here it is (0 x 0) + (1 x 0) + (0 x 0) = 0. In NumPy, this can be implemented manually as:
+回想一下，点积是对应元素相乘的总和，在这它是 (0 x 0) + (1 x 0) + (0 x 0) = 0。在 NumPy 中，这可以手动实现为：
 
 ```
 from numpy import asarray
 print(asarray([0, 1, 0]).dot(asarray([0, 0, 0])))
 ```
 
-In our manual example, this is as follows:
+在我们的手动示例中，具体如下：
 
 ```
 [0, 1, 0] . [0, 0, 0] = 0
 ```
 
-The filter was then moved along one element of the input sequence and the process was repeated; specifically, the same filter was applied to the input sequence at indexes 1, 2, and 3, which also resulted in a zero output in the feature map.
+然后滤波器沿着输入序列的一个元素移动，并重复该过程。具体而言，在索引 1，2 和 3 处对输入序列应用相同的滤波器，得到特征映射中的输出为 0。
 
 ```
 [0, 1, 0] . [0, 0, 1] = 0
 ```
 
-We are being systematic, so again, the filter is moved along one more element of the input and applied to the input at indexes 2, 3, and 4. This time the output is a value of one in the feature map. We detected the feature and activated appropriately.
+我们是系统的，所以再一次，滤波器沿着输入的另一个元素移动，并应用于索引 2、3 和 4 处的输入。这次在特征映射中输出值是 1。我们检测到该特征并相应的激活。
 
 ```
 [0, 1, 0] . [0, 1, 1] = 1
 ```
 
-The process is repeated until we calculate the entire feature map.
+重复该过程，直到我们计算出整个特征映射。
 
 ```
 [0, 0, 1, 1, 0, 0]
 ```
 
-Note that the feature map has six elements, whereas our input has eight elements. This is an artefact of how the filter was applied to the input sequence. There are other ways to apply the filter to the input sequence that changes the shape of the resulting feature map, such as padding, but we will not discuss these methods in this post.
+请注意，特征映射有六个元素，而我们的输入有八个元素。这是滤波器应用于输入序列的手工结果。还有其它方法可以将滤波器应用于输入序列可得到不同 shape 的特征映射，例如填充，但我们不会在本文中讨论这些方法。
 
-You can imagine that with different inputs, we may detect the feature with more or less intensity, and with different weights in the filter, that we would detect different features in the input sequence.
+你可以想象，通过不同的输入，我们可以检测到具有不同强度的特征，且在滤波器中具有不同的权重，那么我们将检测到输入序列中的不同特征。
 
-### Example of 2D Convolutional Layer
+### 二维卷积层的样例
 
-We can expand the bump detection example in the previous section to a vertical line detector in a two-dimensional image.
+我们可以将上一节的凸起检测样例扩展为二维图像的垂直线检测器。
 
-Again, we can constrain the input, in this case to a square 8×8 pixel input image with a single channel (e.g. grayscale) with a single vertical line in the middle.
+同样的，我们可以约束输入，在这里为一个具有单个通道（如灰度）的正方形 8×8 像素的输入图像，其中间有一个垂直线。
 
 ```
 [0, 0, 0, 1, 1, 0, 0, 0]
@@ -326,11 +326,11 @@ Again, we can constrain the input, in this case to a square 8×8 pixel input ima
 [0, 0, 0, 1, 1, 0, 0, 0]
 ```
 
-The input to a Conv2D layer must be four-dimensional.
+Conv2D（二维卷积层）的输入必须是四维的。
 
-The first dimension defines the samples; in this case, there is only a single sample. The second dimension defines the number of rows; in this case, eight. The third dimension defines the number of columns, again eight in this case, and finally the number of channels, which is one in this case.
+第一个维度定义样本，在本例中只有一个样本。第二个维度定义行数，在本例中是 8。第三维定义列数，在本例中还是 8。最后定义通道数，本例中是 1。
 
-Therefore, the input must have the four-dimensional shape \[samples, columns, rows, channels\] or \[1, 8, 8, 1\] in this case.
+因此，输入必须具有四维 shape [样本，列，行，通道]，在本例中是 [1, 8, 8, 1]。
 
 ```
 # define input data
@@ -346,9 +346,9 @@ data = asarray(data)
 data = data.reshape(1, 8, 8, 1)
 ```
 
-We will define the Conv2D with a single filter as we did in the previous section with the Conv1D example.
+我们将用单个滤波器定义 Conv2D，就像我们在上一节对 Conv1D 样例所做的那样。
 
-The filter will be two-dimensional and square with the shape 3×3. The layer will expect input samples to have the shape \[columns, rows, channels\] or \[8,8,1\].
+滤波器将是二维的，一个 shape 3×3 的正方形。该层将期望输入样本具有 shape [列，行，通道]，在本例中为 [8, 8, 1]。
 
 ```
 # create model
@@ -356,9 +356,9 @@ model = Sequential()
 model.add(Conv2D(1, (3,3), input_shape=(8, 8, 1)))
 ```
 
-We will define a vertical line detector filter to detect the single vertical line in our input data.
+我们将定义一个垂直线检测器的滤波器来检测输入数据中的单个垂直线。
 
-The filter looks as follows:
+滤波器如下所示：
 
 ```
 0, 1, 0
@@ -366,7 +366,7 @@ The filter looks as follows:
 0, 1, 0
 ```
 
-We can implement this as follows:
+我们可以实现如下：
 
 ```
 # define a vertical line detector
@@ -380,14 +380,14 @@ model.set_weights(weights)
 print(model.get_weights())
 ```
 
-Finally, we will apply the filter to the input image, which will result in a feature map that we would expect to show the detection of the vertical line in the input image.
+最后，我们将滤波器应用于输入图像，将得到一个特征映射，表明对输入图像中垂直线的检测，如我们希望的那样。
 
 ```
 # apply filter to input data
 yhat = model.predict(data)
 ```
 
-The shape of the feature map output will be four-dimensional with the shape \[batch, rows, columns, filters\]. We will be performing a single batch and we have a single filter (one filter and one input channel), therefore the output shape is \[1, ?, ?, 1\]. We can pretty-print the content of the single feature map as follows:
+特征映射的输出 shape 将是四维的，[批，行，列，滤波器]。我们将执行单个批处理，并且我们有一个滤波器（一个滤波器和一个输入通道），因此输出 shape 为 [1, ?, ?, 1]。我们可以完美打印出单个特征映射的内容，如下所示：
 
 ```
 for r in range(yhat.shape[1]):
@@ -395,7 +395,7 @@ for r in range(yhat.shape[1]):
 	print([yhat[0,r,c,0] for c in range(yhat.shape[2])])
 ```
 
-Tying all of this together, the complete example is listed below.
+将所有这些结合在一起，完整的样例如下所列。
 
 ```
 # example of calculation 2d convolutions
@@ -432,9 +432,9 @@ for r in range(yhat.shape[1]):
 	print([yhat[0,r,c,0] for c in range(yhat.shape[2])])
 ```
 
-Running the example first confirms that the handcrafted filter was correctly defined in the layer weights
+运行该样例，首先确认手工滤波器已在层权重中被正确定义。
 
-Next, the calculated feature map is printed. We can see from the scale of the numbers that indeed the filter has detected the single vertical line with strong activation in the middle of the feature map.
+接下来，打印计算出的特征映射。从数字的规模我们可以看到，滤波器确实在特征映射的中间检测到具有单个强激活的垂直线。
 
 ```
 [array([[[[0.]],
@@ -455,9 +455,9 @@ Next, the calculated feature map is printed. We can see from the scale of the nu
 [0.0, 0.0, 3.0, 3.0, 0.0, 0.0]
 ```
 
-Let’s take a closer look at what was calculated.
+让我们仔细看看计算了什么。
 
-First, the filter was applied to the top left corner of the image, or an image patch of 3×3 elements. Technically, the image patch is three dimensional with a single channel, and the filter has the same dimensions. We cannot implement this in NumPy using the [dot()](https://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html) function, instead, we must use the [tensordot()](https://docs.scipy.org/doc/numpy/reference/generated/numpy.tensordot.html) function so we can appropriately sum across all dimensions, for example:
+首先，将滤波器应用于图像的左上角，或者说 3×3 元素的图像区块。理论上，图像区块是三维的，具有单个通道，滤波器具有相同的尺寸。在 NumPy 中我们不能使用 [dot()](https://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html)  函数实现它，我们必须使用 [tensordot()](https://docs.scipy.org/doc/numpy/reference/generated/numpy.tensordot.html) 函数代替，以便我们可以适当地对所有维度求和，例如：
 
 ```
 from numpy import asarray
@@ -471,9 +471,9 @@ m2 = asarray([[0, 0, 0],
 print(tensordot(m1, m2))
 ```
 
-This calculation results in a single output value of 0.0, e.g., the feature was not detected. This gives us the first element in the top-left corner of the feature map.
+该计算得到单个输出值 0.0，也就是未检测到特征。这给了我们特征映射左上角的第一个元素。
 
-Manually, this would be as follows:
+手动如下所示：
 
 ```
 0, 1, 0     0, 0, 0
@@ -481,7 +481,7 @@ Manually, this would be as follows:
 0, 1, 0     0, 0, 0
 ```
 
-The filter is moved along one column to the left and the process is repeated. Again, the feature is not detected.
+滤波器沿着一列向左移动，并重复该过程。同样的，未检测到该特征。
 
 ```
 0, 1, 0     0, 0, 1
@@ -489,7 +489,7 @@ The filter is moved along one column to the left and the process is repeated. Ag
 0, 1, 0     0, 0, 1
 ```
 
-One more move to the left to the next column and the feature is detected for the first time, resulting in a strong activation.
+再向左移动到下一列，第一次检测到该特征并强激活。
 
 ```
 0, 1, 0     0, 1, 1
@@ -497,46 +497,46 @@ One more move to the left to the next column and the feature is detected for the
 0, 1, 0     0, 1, 1
 ```
 
-This process is repeated until the edge of the filter rests against the edge or final column of the input image. This gives the last element in the first full row of the feature map.
+重复此过程，直到滤波器的边缘位于输入图像的边缘或最后一列上。这给出了特征映射的第一个完整行中的最后一个元素。
 
 ```
 [0.0, 0.0, 3.0, 3.0, 0.0, 0.0]
 ```
 
-The filter then moves down one row and back to the first column and the process is related from left to right to give the second row of the feature map. And on until the bottom of the filter rests on the bottom or last row of the input image.
+然后滤波器向下移动一行并返回到第一列，从左到右重复如上过程，给出特征映射的第二行。直到滤波器的底部位于输入图像的底部或最后一行。
 
-Again, as with the previous section, we can see that the feature map is a 6×6 matrix, smaller than the 8×8 input image because of the limitations of how the filter can be applied to the input image.
+与上一节一样，我们可以看到特征映射是一个 6×6 矩阵，比 8×8 的输入图像小，因为滤波器应用于输入图像的限制。
 
-## Further Reading
+## 延伸阅读
 
-This section provides more resources on the topic if you are looking to go deeper.
+如果你希望更深入，本节将提供此主题的更多资源。
 
-### Posts
+### 文章
 
-*   [Crash Course in Convolutional Neural Networks for Machine Learning](https://machinelearningmastery.com/crash-course-convolutional-neural-networks/)
+* [机器学习卷积神经网络的速成课程](https://machinelearningmastery.com/crash-course-convolutional-neural-networks/)
 
-### Books
+### 书
 
-*   Chapter 9: Convolutional Networks, [Deep Learning](https://amzn.to/2Dl124s), 2016.
-*   Chapter 5: Deep Learning for Computer Vision, [Deep Learning with Python](https://amzn.to/2Dnshvc), 2017.
+* 第 9 章：卷积网络，[深度学习（Deep Learning）](https://amzn.to/2Dl124s)，2016。
+* 第 5 章：计算机视觉的深度学习，[使用 Python 深度学习（Deep Learning with Python）](https://amzn.to/2Dnshvc)，2017。
 
 ### API
 
-*   [Keras Convolutional Layers API](https://keras.io/layers/convolutional/)
-*   [numpy.asarray API](https://docs.scipy.org/doc/numpy/reference/generated/numpy.asarray.html)
+* [Keras Convolutional Layers API](https://keras.io/layers/convolutional/)
+* [numpy.asarray API](https://docs.scipy.org/doc/numpy/reference/generated/numpy.asarray.html)
 
-## Summary
+## 总结
 
-In this tutorial, you discovered how convolutions work in the convolutional neural network.
+在本教程中，你了解到卷积在卷积神经网络中是如何工作的。
 
-Specifically, you learned:
+具体来说，你学到了：
 
-*   Convolutional neural networks apply a filter to an input to create a feature map that summarizes the presence of detected features in the input.
-*   Filters can be handcrafted, such as line detectors, but the innovation of convolutional neural networks is to learn the filters during training in the context of a specific prediction problem.
-*   How to calculate the feature map for one- and two-dimensional convolutional layers in a convolutional neural network.
+* 卷积神经网络使用滤波器从输入中得到特征映射，该特征映射汇总了输入中检测到的特征的存在。
+* 滤波器可以手工设计，例如线条检测器，但卷积神经网络的创新是，在训练期间在特定预测问题的背景下学习滤波器。
+* 在卷积神经网络中如何计算一维和二维卷积层的特征映射。
 
-Do you have any questions?  
-Ask your questions in the comments below and I will do my best to answer.
+你有什么问题？
+在下面的评论中提出您的问题，我会尽力回答。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

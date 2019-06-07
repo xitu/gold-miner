@@ -2,24 +2,24 @@
 > * 原文作者：[Susan Li](https://medium.com/@actsusanli)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-visualization-forecasting-with-lstm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-visualization-forecasting-with-lstm.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Minghao23](https://github.com/Minghao23)
+> * 校对者：[Xuyuey](https://github.com/Xuyuey)，[TrWestdoor](https://github.com/TrWestdoor)
 
-# Time Series Analysis, Visualization & Forecasting with LSTM
+# 时间序列分析、可视化、和使用 LSTM 预测
 
-> Statistics normality test, Dickey–Fuller test for stationarity, Long short-term memory
+> 统计正态性检验，平稳性 Dickey-Fuller 检验，长短期记忆网络
 
 ![Photo credit: Unsplash](https://cdn-images-1.medium.com/max/9824/1*mtho0xL9Qu-cXu61XeLrdA.jpeg)
 
-The title says it all.
+标题已经阐述了一切。
 
-Without further ado, let’s roll!
+闲话少说，让我们直接开始吧！
 
-## The Data
+## 数据
 
-The data is the measurements of electric power consumption in one household with a one-minute sampling rate over a period of almost 4 years that can be downloaded from [here](https://www.kaggle.com/uciml/electric-power-consumption-data-set).
+该数据是在近四年的时间里对一个家庭以一分钟采样率测量的电力消耗，可以在[这里](https://www.kaggle.com/uciml/electric-power-consumption-data-set)下载。
 
-Different electrical quantities and some sub-metering values are available. However, we are only interested in Global_active_power variable.
+数据包括不同的电量值和一些分表的数值。然而，我们只关注 Global_active_power 这个变量。
 
 ```python
 import numpy as np
@@ -58,18 +58,18 @@ df.head(5)
 
 ![Table 1](https://cdn-images-1.medium.com/max/2790/1*_uhygRBN14RxN6nVGTPDpA.png)
 
-The following data pre-processing and feature engineering steps need to be done:
+以下数据预处理和特征工程步骤需要完成：
 
-* Merge Date & Time into one column and change to datetime type.
-* Convert Global_active_power to numeric and remove missing values (1.2%).
-* Create year, quarter, month and day features.
-* Create weekday feature, “0” is weekend and “1” is weekday.
+* 将日期和时间合并到同一列，并转换为 datetime 类型。
+* 将 Global_active_power 转换为数值型，并移除缺失值（1.2%）。
+* 创建年、季度、月和日的特征。
+* 创建周的特征，“0”表示周末，“1”表示工作日。
 
 ```python
 df['date_time'] = pd.to_datetime(df['Date'] + ' ' + df['Time'])
 df['Global_active_power'] = pd.to_numeric(df['Global_active_power'], errors='coerce')
 df = df.dropna(subset=['Global_active_power'])
-df['date_time']=pd.to_datetime(df['date_time']) 
+df['date_time']=pd.to_datetime(df['date_time'])
 df['year'] = df['date_time'].apply(lambda x: x.year)
 df['quarter'] = df['date_time'].apply(lambda x: x.quarter)
 df['month'] = df['date_time'].apply(lambda x: x.month)
@@ -87,18 +87,18 @@ print('The time series ends on: ', df.date_time.max())
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6J4X7Ft17os7DYKYYF-HEQ.png)
 
-After removing the missing values, the data contains 2,049,280 measurements gathered between December 2006 and November 2010 (47 months).
+移除缺失值之后，数据包括从 2006 年 12 月到 2010 年 11 月（47 个月）共 2,049,280 个测量值。
 
-The initial data contains several variables. We will here focus on a single value : a house’s Global_active_power history, that is, household global minute-averaged active power in kilowatt.
+初始数据包括多个变量。这里我们只会关注一个单独的变量：房屋的 Global_active_power 历史记录，也就是整个房屋平均每分钟消耗的有功功率，单位是千瓦。
 
-## Statistical Normality Test
+## 统计正态性检验
 
-There are several statistical tests that we can use to quantify whether our data looks as though it was drawn from a Gaussian distribution. And we will use [D’Agostino’s K² Test](https://en.wikipedia.org/wiki/D%27Agostino%27s_K-squared_test).
+有一些统计测试方法可以用来量化我们的数据是否看起来像高斯分布采样。我们将会使用 [D’Agostino’s K² 检验](https://en.wikipedia.org/wiki/D%27Agostino%27s_K-squared_test)。
 
-In the [SciPy](http://scipy.github.io/devdocs/index.html) implementation of the test, we will interpret the p value as follows.
+在 [SciPy](http://scipy.github.io/devdocs/index.html) 对这个检验的实现中，我们对 p 值做出如下解释。
 
-* p \<= alpha: reject H0, not normal.
-* p > alpha: fail to reject H0, normal.
+* p <= alpha：拒绝 H0，非正态。
+* p > alpha：不拒绝 H0，正态。
 
 ```python
 stat, p = stats.normaltest(df.Global_active_power)
@@ -112,25 +112,25 @@ else:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JQpoCL2OxTKrfzdHkXG4AA.png)
 
-We can also calculate [**Kurtosis**](https://en.wikipedia.org/wiki/Kurtosis) and [**Skewness**](https://en.wikipedia.org/wiki/Skewness), to determine if the data distribution departs from the normal distribution.
+同时我们也会计算[**峰度**](https://en.wikipedia.org/wiki/Kurtosis)和[**偏度**](https://en.wikipedia.org/wiki/Skewness)，以确定数据分布是否偏离正态分布。
 
-```
+```python
 sns.distplot(df.Global_active_power);
 print( 'Kurtosis of normal distribution: {}'.format(stats.kurtosis(df.Global_active_power)))
 print( 'Skewness of normal distribution: {}'.format(stats.skew(df.Global_active_power)))
 ```
 
-![Figure 1](https://cdn-images-1.medium.com/max/2000/1*9ju6xA26lyG1B0PvgtF2gA.png)
+![图 1](https://cdn-images-1.medium.com/max/2000/1*9ju6xA26lyG1B0PvgtF2gA.png)
 
-**Kurtosis**: describes heaviness of the tails of a distribution
+**峰度**：描述分布的尾重
 
-Normal Distribution has a kurtosis of close to 0. If the kurtosis is greater than zero, then distribution has heavier tails. If the kurtosis is less than zero, then the distribution is light tails. And our Kurtosis is greater than zero.
+正态分布的峰度接近于 0。如果峰度大于 0，则分布尾部较重。如果峰度小于 0，则分布尾部较轻。我们计算出的峰度是大于 0 的。
 
-**Skewness**: measures asymmetry of the distribution
+**偏度**：度量分布的不对称性
 
-If the skewness is between -0.5 and 0.5, the data are fairly symmetrical. If the skewness is between -1 and — 0.5 or between 0.5 and 1, the data are moderately skewed. If the skewness is less than -1 or greater than 1, the data are highly skewed. And our skewness is greater than 1.
+如果偏度介于 -0.5 和 0.5 之间，则数据是基本对称的。如果偏度介于 -1 和 -0.5 之间或者 0.5 和 1 之间，则数据是稍微偏斜的。如果偏度小于 -1 或大于 1，则数据是高度偏斜的。我们计算出的偏度是大于 1 的。
 
-## First Time Series Plot
+## 第一个时间序列图像
 
 ```python
 df1=df.loc[:,['date_time','Global_active_power']]
@@ -144,11 +144,11 @@ sns.despine(top=True)
 plt.show();
 ```
 
-![Figure 2](https://cdn-images-1.medium.com/max/2638/1*WjRLv5UzelL3t4e07pBrUg.png)
+![图 2](https://cdn-images-1.medium.com/max/2638/1*WjRLv5UzelL3t4e07pBrUg.png)
 
-Apparently, this plot is not a good idea. Don’t do this.
+很明显，这个图像并不是我们想要的。不要这么做。
 
-## Box Plot of Yearly vs. Quarterly Global Active Power
+## 年度和季度总体有功功率箱形图对比
 
 ```python
 plt.figure(figsize=(14,5))
@@ -168,13 +168,13 @@ sns.despine(left=True)
 plt.tight_layout();
 ```
 
-![Figure 3](https://cdn-images-1.medium.com/max/2964/1*9ty6iztGg97CEwi4abPISg.png)
+![图 3](https://cdn-images-1.medium.com/max/2964/1*9ty6iztGg97CEwi4abPISg.png)
 
-When we compare box plot side by side for each year, we notice that the median global active power in 2006 is much higher than the other years’. This is a little bit misleading. If you remember, we only have December data for 2006. While apparently December is the peak month for household electric power consumption.
+当并排比较每年的箱形图时，我们注意到 2006 年的总体有功功率的中位数相比于其他年份高很多。其实这里会有一点误导。如果你还记得，我们只有 2006 年 12 月的数据。而很明显 12 月是一个家庭电力消耗的高峰月。
 
-This is consistent with the quarterly median global active power, it is higher in the 1st and 4th quarters (winter), and it is the lowest in the 3rd quarter (summer).
+季度总体有功功率的中位数就比较符合预期，第一、四季度（冬季）较高，第三季度（夏季）最低。
 
-## Global Active Power Distribution
+## 总体有功功率分布
 
 ```python
 plt.figure(figsize=(14,6))
@@ -187,13 +187,13 @@ stats.probplot(df['Global_active_power'], plot=plt);
 df1.describe().T
 ```
 
-![Figure 4](https://cdn-images-1.medium.com/max/2612/1*LLMi_qQpE5Tb1P8O63P9Zg.png)
+![图 4](https://cdn-images-1.medium.com/max/2612/1*LLMi_qQpE5Tb1P8O63P9Zg.png)
 
-Normal probability plot also shows the data is far from normally distributed.
+正态概率图也显示这个数据与正态分布偏离很大。
 
-## Average Global Active Power Resampled Over Day, Week, Month, Quarter and Year
+## 按照天、周、月、季度和年重新抽样平均总体有功功率
 
-```Python
+```python
 fig = plt.figure(figsize=(18,16))
 fig.subplots_adjust(hspace=.4)
 ax1 = fig.add_subplot(5,1,1)
@@ -230,13 +230,13 @@ ax5.tick_params(axis='both', which='major');
 
 ![](https://cdn-images-1.medium.com/max/2942/1*m70T6psxaS64c_GWt7uj-w.png)
 
-![Figure 5](https://cdn-images-1.medium.com/max/2930/1*CFEGvZ4t-iPKZH8ciOjEew.png)
+![图 5](https://cdn-images-1.medium.com/max/2930/1*CFEGvZ4t-iPKZH8ciOjEew.png)
 
-In general, our time series does not have a upward or downward trend. The highest average power consumption seems to be prior to 2007, actually it was because we had only December data in 2007 and that month was a high consumption month. In another word, if we compare year by year, it has been steady.
+通常来说，我们的时间序列不会存在上升或下降的趋势。最高的平均耗电量似乎是在 2007 年之前，实际上这是因为我们在 2007 年只有 12 月的数据（译者注：原文有误，应该是只有 2006 年 12 月的数据），而那个月是用电高峰月。也就是说，如果我们逐年比较，这个序列其实较为平稳。
 
-## Plot Mean Global Active Power Grouped by Year, Quarter, Month and Day
+## 绘制总体有功功率均值图，并以年、季、月和天分组
 
-```Python
+```python
 plt.figure(figsize=(14,8))
 plt.subplot(2,2,1)
 df.groupby('year').Global_active_power.agg('mean').plot()
@@ -259,83 +259,83 @@ plt.xlabel('')
 plt.title('Mean Global active power by Day');
 ```
 
-![Figure 6](https://cdn-images-1.medium.com/max/2302/1*gg63jSml7Sm5T611PSidmQ.png)
+![图 6](https://cdn-images-1.medium.com/max/2302/1*gg63jSml7Sm5T611PSidmQ.png)
 
-The above plots confirmed our previous discoveries. By year, it was steady. By quarter, the lowest average power consumption was in the 3rd quarter. By month, the lowest average power consumption was in July and August. By day, the lowest average power consumption was around 8th of the month (don’t know why).
+以上的图像证实了我们之前的发现。以年为单位，序列较为平稳。以季度为单位，最低的平均耗电量处于第三季度。以月为单位，最低的平均耗电量处于七月和八月。以天为单位，最低的平均耗电量大约在每月的 8 号（不知道为什么）。
 
-## Global Active Power by Years
+## 每年的总体有功功率
 
-This time, we remove 2006.
+这一次，我们移除 2006 年。
 
-```
-pd.pivot_table(df.loc[df['year'] != 2006], values = "Global_active_power", 
+```python
+pd.pivot_table(df.loc[df['year'] != 2006], values = "Global_active_power",
                columns = "year", index = "month").plot(subplots = True, figsize=(12, 12), layout=(3, 5), sharey=True);
 ```
 
-![Figure 7](https://cdn-images-1.medium.com/max/2000/1*eP6V7FHLsCTT1ZZoDIqDqA.png)
+![图 7](https://cdn-images-1.medium.com/max/2000/1*eP6V7FHLsCTT1ZZoDIqDqA.png)
 
-The pattern is similar every year from 2007 to 2010.
+从 2007 年到 2010 年，每年的模式都很相似。
 
-## Global Active Power Consumption in Weekdays vs. Weekends
+## 工作日和周末的总体有功功率对比
 
 ```python
 dic={0:'Weekend',1:'Weekday'}
 df['Day'] = df.weekday.map(dic)
 
-a=plt.figure(figsize=(9,4)) 
+a=plt.figure(figsize=(9,4))
 plt1=sns.boxplot('year','Global_active_power',hue='Day',width=0.6,fliersize=3,
-                    data=df)                                                                                                                                                                                                                                                                                                                                                 
+                    data=df)
 a.legend(loc='upper center', bbox_to_anchor=(0.5, 1.00), shadow=True, ncol=2)
-sns.despine(left=True, bottom=True) 
+sns.despine(left=True, bottom=True)
 plt.xlabel('')
-plt.tight_layout()                                                                                                                  
+plt.tight_layout()
 plt.legend().set_visible(False);
 ```
 
-![Figure 8](https://cdn-images-1.medium.com/max/2000/1*fyvGi1CgsMyocGBcVkREPQ.png)
+![图 8](https://cdn-images-1.medium.com/max/2000/1*fyvGi1CgsMyocGBcVkREPQ.png)
 
-The median global active power in weekdays seems to be lower than the weekends prior to 2010. In 2010, they were identical.
+在 2010 年以前，工作日的总体有功功率的中位数要比周末低一些。在 2010 年，它们完全相等。
 
-## Factor Plot of Global Active Power by Weekday vs. Weekend
+## 工作日和周末的总体有功功率对比的因素图
 
 ```python
 plt1=sns.factorplot('year','Global_active_power',hue='Day',
-                    data=df, size=4, aspect=1.5, legend=False)                                                                                                                                                                                                                                                                                                                                             
-plt.title('Factor Plot of Global active power by Weekend/Weekday')                                                             
-plt.tight_layout()                                                                                                                  
-sns.despine(left=True, bottom=True) 
+                    data=df, size=4, aspect=1.5, legend=False)
+plt.title('Factor Plot of Global active power by Weekend/Weekday')
+plt.tight_layout()
+sns.despine(left=True, bottom=True)
 plt.legend(loc='upper right');
 ```
 
-![Figure 9](https://cdn-images-1.medium.com/max/2000/1*5XXi-NhDOonLL8yrh6QqQQ.png)
+![图 9](https://cdn-images-1.medium.com/max/2000/1*5XXi-NhDOonLL8yrh6QqQQ.png)
 
-Both weekdays and weekends follow the similar pattern over year.
+以年为单位，工作日和周末都遵循同样的模式。
 
-In principle we do not need to check for [**stationarity**](https://en.wikipedia.org/wiki/Stationary_process) nor correct for it when we are using an [**LSTM**](https://en.wikipedia.org/wiki/Long_short-term_memory). However, if the data is stationary, it will help with better performance and make it easier for the neural network to learn.
+原则上，当使用 [**LSTM**](https://en.wikipedia.org/wiki/Long_short-term_memory) 时，我们不需要去检验或修正[**平稳性**](https://en.wikipedia.org/wiki/Stationary_process)。然而，如果数据是平稳的，它会帮助模型提高性能，使神经网络更容易学习。
 
-## Stationarity
+## 平稳性
 
-In statistics, the [**Dickey–Fuller test**](https://en.wikipedia.org/wiki/Dickey%E2%80%93Fuller_test) tests the null hypothesis that a unit root is present in an autoregressive model. The alternative hypothesis is different depending on which version of the test is used, but is usually [stationarity](https://en.wikipedia.org/wiki/Stationary_process) or [trend-stationarity](https://en.wikipedia.org/wiki/Trend_stationary).
+在统计学中，[**Dickey–Fuller test**](https://en.wikipedia.org/wiki/Dickey%E2%80%93Fuller_test) 检验了一个零假设，即单位根存在于自回归模型中。备择假设依据使用的检验方法的不同而不同，但是通常为[平稳性](https://en.wikipedia.org/wiki/Stationary_process)或[趋势平稳性](https://en.wikipedia.org/wiki/Trend_stationary)。
 
-Stationary series has constant mean and variance over time. Rolling average and the rolling standard deviation of time series do not change over time.
+平稳序列的均值和方差一直是常数。时间序列在滑动窗口下的均值和标准差不随时间变化。
 
-## Dickey-Fuller test
+## Dickey-Fuller 检验
 
-[**Null Hypothesis**](https://en.wikipedia.org/wiki/Null_hypothesis) (H0): It suggests the time series has a unit root, meaning it is non-stationary. It has some time dependent structure.
+[**零检验**](https://en.wikipedia.org/wiki/Null_hypothesis)（H0）：表明时间序列有一个单位根，意味着它是非平稳的。它包含一些和时间相关的成分。
 
-[**Alternate Hypothesis**](https://en.wikipedia.org/wiki/Alternative_hypothesis) (H1): It suggests the time series does not have a unit root, meaning it is stationary. It does not have time-dependent structure.
+[**备择检验**](https://en.wikipedia.org/wiki/Alternative_hypothesis)（H1）：表明时间序列不存在单位根，意味着它是平稳的。它不包含和时间相关的成分。
 
-p-value > 0.05: Accept the null hypothesis (H0), the data has a unit root and is non-stationary.
+p-value > 0.05：接受零检验（H0），数据有单位根且是非平稳的。
 
-p-value \<= 0.05: Reject the null hypothesis (H0), the data does not have a unit root and is stationary.
+p-value \<= 0.05：拒绝零检验（H0），数据没有单位根且是平稳的。
 
-```Python
+```python
 df2=df1.resample('D', how=np.mean)
 
 def test_stationarity(timeseries):
     rolmean = timeseries.rolling(window=30).mean()
     rolstd = timeseries.rolling(window=30).std()
-    
+
     plt.figure(figsize=(14,5))
     sns.despine(left=True)
     orig = plt.plot(timeseries, color='blue',label='Original')
@@ -344,7 +344,7 @@ def test_stationarity(timeseries):
 
     plt.legend(loc='best'); plt.title('Rolling Mean & Standard Deviation')
     plt.show()
-    
+
     print ('<Results of Dickey-Fuller Test>')
     dftest = adfuller(timeseries, autolag='AIC')
     dfoutput = pd.Series(dftest[0:4],
@@ -355,26 +355,26 @@ def test_stationarity(timeseries):
 test_stationarity(df2.Global_active_power.dropna())
 ```
 
-![Figure 10](https://cdn-images-1.medium.com/max/2334/1*teCNF7iDamLWXTVFWOF3ew.png)
+![图 10](https://cdn-images-1.medium.com/max/2334/1*teCNF7iDamLWXTVFWOF3ew.png)
 
-From the above results, we will reject the null hypothesis H0, the data does not have a unit root and is stationary.
+从以上结论可得，我们会拒绝零检验 H0，因为数据没有单位根且是平稳的。
 
 ## LSTM
 
-The task here will be to predict values for a time series given the history of 2 million minutes of a household’s power consumption. We are going to use a multi-layered LSTM recurrent neural network to predict the last value of a sequence of values.
+我们的任务是根据一个家庭两百万分钟的耗电量历史记录，对这个时间序列做预测。我们将使用一个多层的 LSTM 递归神经网络来预测时间序列的最后一个值。
 
-If you want to reduce the computation time, and also get a quick result to test the model, you may want to resample the data over hour. I will keep it is in minute.
+如果你想缩减计算时间，并快速获得结果来检验模型，你可以对数据以小时为单位重新采样。在本文的实验中我会维持原单位为分钟。
 
-The following data pre-processing and feature engineering need to be done before construct the LSTM model.
+在构建 LSTM 模型之前，需要进行下列数据预处理和特征工程的工作。
 
-* Create the dataset, ensure all data is float.
-* Normalize the features.
-* Split into training and test sets.
-* Convert an array of values into a dataset matrix.
-* Reshape into X=t and Y=t+1.
-* Reshape input to be 3D (num_samples, num_timesteps, num_features).
+* 创建数据集，保证所有的数据的类型都是 float。
+* 特征标准化。
+* 分割训练集和测试集。
+* 将数值数组转换为数据集矩阵。
+* 将维度转化为 X=t 和 Y=t+1。
+* 将输入维度转化为三维 (num_samples, num_timesteps, num_features)。
 
-```Python
+```python
 dataset = df.Global_active_power.values #numpy.ndarray
 dataset = dataset.astype('float32')
 dataset = np.reshape(dataset, (-1, 1))
@@ -391,42 +391,42 @@ def create_dataset(dataset, look_back=1):
         X.append(a)
         Y.append(dataset[i + look_back, 0])
     return np.array(X), np.array(Y)
-    
+
 look_back = 30
 X_train, Y_train = create_dataset(train, look_back)
 X_test, Y_test = create_dataset(test, look_back)
 
-# reshape input to be [samples, time steps, features]
+# 将输入维度转化为 [samples, time steps, features]
 X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
 X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
 ```
 
-## Model Architecture
+## 模型结构
 
-* Define the LSTM with 100 neurons in the first hidden layer and 1 neuron in the output layer for predicting Global_active_power. The input shape will be 1 time step with 30 features.
-* Dropout 20%.
-* Use the MSE loss function and the efficient Adam version of stochastic gradient descent.
-* The model will be fit for 20 training epochs with a batch size of 70.
+* 定义 LSTM 模型，第一个隐藏层含有 100 个神经元，输出层含有 1 个神经元，用于预测 Global_active_power。输入的维度是一个包含 30 个特征的时间步长。
+* Dropout 20%。
+* 使用均方差损失函数，和改进于随机梯度下降的效率更高的 Adam。
+* 模型将会进行 20 个 epochs 的训练，每个 batch 的大小为 70。
 
-```Python
+```python
 model = Sequential()
 model.add(LSTM(100, input_shape=(X_train.shape[1], X_train.shape[2])))
 model.add(Dropout(0.2))
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 
-history = model.fit(X_train, Y_train, epochs=20, batch_size=70, validation_data=(X_test, Y_test), 
+history = model.fit(X_train, Y_train, epochs=20, batch_size=70, validation_data=(X_test, Y_test),
                     callbacks=[EarlyStopping(monitor='val_loss', patience=10)], verbose=1, shuffle=False)
 
 model.summary()
 ```
 
-## Make Predictions
+## 做出预测
 
 ```python
 train_predict = model.predict(X_train)
 test_predict = model.predict(X_test)
-# invert predictions
+# 预测值求逆
 train_predict = scaler.inverse_transform(train_predict)
 Y_train = scaler.inverse_transform([Y_train])
 test_predict = scaler.inverse_transform(test_predict)
@@ -440,7 +440,7 @@ print('Test Root Mean Squared Error:',np.sqrt(mean_squared_error(Y_test[0], test
 
 ![](https://cdn-images-1.medium.com/max/2000/1*b8JlFAzFOi6oihjc915gOg.png)
 
-## Plot Model Loss
+## 绘制模型损失
 
 ```python
 plt.figure(figsize=(8,4))
@@ -453,20 +453,20 @@ plt.legend(loc='upper right')
 plt.show();
 ```
 
-![Figure 11](https://cdn-images-1.medium.com/max/2000/1*z6VdZ3BazbPmGmDIN0P8OA.png)
+![图 11](https://cdn-images-1.medium.com/max/2000/1*z6VdZ3BazbPmGmDIN0P8OA.png)
 
-## Compare Actual vs. Prediction
+## 比较真实值和预测值
 
-For me, every time step is one minute. If you resampled the data over hour earlier, then every time step is one hour for you.
+在我的结果中，每个时间步长是 1 分钟。如果你之前以小时重新采样了数据，那么在你的结果里每个时间步长是 1 小时。
 
-I will compare the actual and predictions for the last 200 minutes.
+我将会比较最近 200 分钟的真实值和预测值。
 
 ```python
 aa=[x for x in range(200)]
 plt.figure(figsize=(8,4))
 plt.plot(aa, Y_test[0][:200], marker='.', label="actual")
 plt.plot(aa, test_predict[:,0][:200], 'r', label="prediction")
-# plt.tick_params(left=False, labelleft=True) #remove ticks
+# plt.tick_params(left=False, labelleft=True) # 移除 ticks
 plt.tight_layout()
 sns.despine(top=True)
 plt.subplots_adjust(left=0.07)
@@ -476,14 +476,15 @@ plt.legend(fontsize=15)
 plt.show();
 ```
 
-![Figure 12](https://cdn-images-1.medium.com/max/2000/1*fNpJ18MfE32UD0ib3LnrfA.png)
+![图 12](https://cdn-images-1.medium.com/max/2000/1*fNpJ18MfE32UD0ib3LnrfA.png)
 
-LSTMs are amazing!
+LSTMs 太神奇了！
 
-[Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb) can be found on [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb). Enjoy the rest of the week!
+[Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb) 可以在 [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/LSTM%20Time%20Series%20Power%20Consumption.ipynb) 中找到。享受这一周余下的时光吧！
 
-Reference:  
-[**Multivariate Time Series Forecasting with LSTMs in Keras**](https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/)
+参考：
+
+- [**Multivariate Time Series Forecasting with LSTMs in Keras**](https://machinelearningmastery.com/multivariate-time-series-forecasting-lstms-keras/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

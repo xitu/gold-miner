@@ -2,119 +2,119 @@
 > * 原文作者：[Koen Poelhekke](https://medium.com/@kpoelhekke)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/increase-your-apps-performance-with-react-hooks-and-the-react-dev-tools.md](https://github.com/xitu/gold-miner/blob/master/TODO1/increase-your-apps-performance-with-react-hooks-and-the-react-dev-tools.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[wuyanan](https://github.com/wuyanan)，[Jerry-FD](https://github.com/Jerry-FD)
 
-# Increase your App’s performance with React hooks and the React Dev Tools
+# 用 React Hooks 和调试工具提升应用性能
 
 ![](https://cdn-images-1.medium.com/max/5120/1*fftOIi1nxu9tJZ74EaLMMg.png)
 
-When building a React application you will notice that as the number of nested components grows, some parts of your interface tend to to get slow and less Reactive. This is because the browser needs to re-render more components when the user interacts with elements that change state higher in the component tree.
+在构建 React 应用时，你会发现随着嵌套组件增多，用户界面的某些部分开始变得缓慢迟滞。这是因为，被改变 state 的元素在组件树中的层级越高，浏览器需要重绘的组件越多。
 
-In this article I will tell you how you can **prevent unnecessary re-renders through memoization and make your React application lightning fast.** ⚡
-
-***
-
-For a client project at [CLEVER°FRANKE](https://www.cleverfranke.com) I’ve been working on a filter component that includes a histogram that is based on the number of steps in the filter.
-
-![HistogramFilter component](https://cdn-images-1.medium.com/max/2000/1*DEaGq8vzh_oESuid9YAlbg.png)
-
-I noticed that when dragging the filter handlers, the frame rate dropped enormously which made the component practically unusable. So I decided to investigate what was going wrong.
-
-## Investigate the problem
-
-In order to know where to start looking, it is important to understand what actually happens when the user drags the filter handler. React uses v[irtual DOM](https://www.codecademy.com/articles/react-virtual-dom)s that represent actual elements in the DOM. Whenever a user interacts with a UI element the state of the application changes. React will walk through all components that are affected by this state change to calculate a new version of the virtual DOM. It will compare the previous and the new version and if any differences are found it will update that change into the actual DOM itself. This process is called [reconciliation](https://reactjs.org/docs/reconciliation.html).
-
-The manipulation of DOM elements is a pretty expensive task. But also walking through all render methods of affected components can be very time consuming, especially when heavy calculations are being made in the render methods. So we should try to minimise these so-called **wasted renders** as much as possible.
+本文将告诉你如何**通过备忘（[memoization](https://en.wikipedia.org/wiki/Memoization)）技术避免不必要的重绘，让你的 React 应用快如闪电。⚡**
 
 ***
 
-Back to our use case: since the state of the filters is handled by a parent component my hypothesis was that there were probably unnecessary renders and calculations being made. To quickly check if this is the case we can use the Chrome Dev Tools. It has a feature called **Paint Flashing** which highlights the DOM changes that are being made. You can temporarily enable via the **Rendering** tab:
+在 [CLEVER°FRANKE](https://www.cleverfranke.com) 的一个客户端项目中，我做过一个过滤器组件，该组件包含一个展示步数的直方图。
 
-![Enable Paint Flashing in the Chrome Dev Tools](https://cdn-images-1.medium.com/max/2000/1*ZmzAER8ng6Xo4a67bmV_vw.png)
+![直方图过滤器组件](https://cdn-images-1.medium.com/max/2000/1*DEaGq8vzh_oESuid9YAlbg.png)
 
-Once enabled the browser will show you which elements are being repainted. In my case it looked like this:
+我发现每当拖拽过滤器的操纵杆，动画帧率就会骤降，导致组件失去效用。故此我决定一探究竟。
 
-![Paint Flashing filter components](https://cdn-images-1.medium.com/max/2000/1*fJNSgWgEbPRlPNeuzbkY2A.gif)
+## 抽丝剥茧
 
-This is looking as it should, only the filter component that I’m using is causing DOM manipulations. So to browser doesn’t have to do any unnecessary painting when changing the slider. We’ll have to investigate further to see what is causing the problem.
+只有明白用户拖拽操纵杆时的内部运作原理，才能确定从何处下手调试。React 使用[虚拟 DOM](https://www.codecademy.com/articles/react-virtual-dom) 来代表 DOM 中真实的元素。每当用户操作界面元素，应用的 state 都会改变。React 会遍历所有受 state 改变影响的组件，计算生成新的虚拟 DOM。React 将新旧版本的虚拟 DOM 进行比较，若发现二者有差异，就将对应的变化更新到真实 DOM 上。该过程叫做 [reconciliation](https://reactjs.org/docs/reconciliation.html)。
 
-***
-
-To get an even better view on what React components are being re-rendered we can use a somewhat similar tool which is included in the [React Dev Tools](https://github.com/facebook/react-devtools). It’s called **Highlight Updates** and it can be found in the preferences panel in the React Dev Tools. Once enabled it will highlight all components that are being rendered. The colours will even indicate if the render took a lot of time.
-
-![Highlighting updates filter components](https://cdn-images-1.medium.com/max/2000/1*xdxAnoef3kv0yqa7yE2v-Q.gif)
-
-> React Developer Tools lets you inspect the React component hierarchy, including component props and state.
-> It exists both as a browser extension (for [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) and [Firefox](https://addons.mozilla.org/firefox/addon/react-devtools/)), and as a [standalone app](https://github.com/facebook/react-devtools/tree/master/packages/react-devtools) (works with other environments including Safari, IE, and React Native).
+操纵 DOM 元素可是一个非常耗费资源的任务。同样，遍历所有受影响组件的 render 函数也很耗时，`render` 函数中的计算量很大时尤其如此。因此我们要尽量减少这些**浪费性渲染**。
 
 ***
 
-**This clearly indicates what is going wrong: when I drag one filter my application renders the other filter including the histogram as well.** That is wasted processor power and should therefore be avoided. Especially in the case of heavier components such as the histogram.
+现在回到我们的案例：因为过滤器组件的 state 由其父组件掌控，所以我的推论是可能发生了不必要的渲染和计算。为了快速确诊，我们要使用 Chrome 调试工具。它有个 **Paint Flashing** 功能，可以将发生改变的 DOM 高亮显示。你可以在 **Rendering** 标签页临时激活该功能：
 
-So now we know what is going wrong, but we do not yet know what is causing the UI to respond so slow. To see why, we can use the **Performance** panel in the Chrome Dev Tools. This lets you record a specific action and enables you to zoom in on the specific tasks the browser has to perform during a specific frame.
+![在 Chrome 调试工具中激活 Paint Flashing 功能](https://cdn-images-1.medium.com/max/2000/1*ZmzAER8ng6Xo4a67bmV_vw.png)
 
-**Going into detail about how you can use the Performance panel is outside the scope of this article. But you can find a [useful getting started tutorial here](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/).**
+一经激活，浏览器就会显示哪些元素被重绘了。在本案例中效果如下：
 
-***
+![用 Paint Flashing 功能高亮过滤器组件](https://cdn-images-1.medium.com/max/2000/1*fJNSgWgEbPRlPNeuzbkY2A.gif)
 
-I’ve used the **Performance** panel to record a single step change in the filter component. When I zoom into my mouse move action I got the following results:
-
-![Performance panel flame graphs 🔥](https://cdn-images-1.medium.com/max/2534/1*hSQUcxdZ-HHh_o8b8-yIhQ.png)
-
-As you can see it displays two flame graphs, which are both more or less the same. The first graph (under **Timings**) shows the actual mounting and updating of React components. We can see this extra graph because React makes use of the [User Timing API](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API). The second graph shows all the tasks that are performed on the main thread and is much more detailed.
-
-I prefer to use the first graph to see what components are performing poorly and the second one to dive into more detail on which actual functions and calculations are taking up more time.
+看起来合情合理，只有我操纵的组件引发了 DOM 操纵。也就是说浏览器没有做不必要的绘制。那我们就要进一步深入来探究原因了。
 
 ***
 
-The default **Performance** tab flame graph may look very intimidating when first using it. Luckily The React Dev Tools have a similar feature, which also allows you to create the same flame graph based on the User Timing API via it’s **Profiler** tab. I think it is a lot easier to understand and it gives you some nice extra features:
+为了把 React 组件重绘的情况看得更真切，我们得用 [React 调试工具](https://github.com/facebook/react-devtools)中一个类似的工具。它叫做 **Highlight Updates**，你可以在 React 调试工具的首选项面板中找到它。激活后，它会高亮显示所有正在渲染的组件。如果渲染时间过长，它还会用特殊颜色标识出来。
 
-* It allows you to get a ranked list of all components based on their rendering time (see screenshot).
-* It lets you easily skip through different recorded renders easily.
-* You can click on specific components to see what their **props** were during specific renders.
+![用 Highlight Updates 功能高亮过滤器组件](https://cdn-images-1.medium.com/max/2000/1*xdxAnoef3kv0yqa7yE2v-Q.gif)
 
-![Components ordered by render time](https://cdn-images-1.medium.com/max/2560/1*DZda1hD432v2ylP_KhNJ2g.png)
+> React 调试工具使你能够检查 React 组件层级，以及对应组件的 props 和 state。<br />
+> 它有浏览器插件（支持 [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) 和 [Firefox](https://addons.mozilla.org/firefox/addon/react-devtools/)）和[独立应用](https://github.com/facebook/react-devtools/tree/master/packages/react-devtools)（支持 Safari、IE、和 React Native 等运行环境）两种形式。
 
 ***
 
-All graphs above clearly indicate what component is causing the problem: `Histogram`. Especially rendering the second histogram (the right one) is taking up a lot of time (402.8ms!) and I’m not even dragging that one. We have detected the problem! Now it is time to fix it and optimise the components performance.
+**这里就清晰地揭示了问题所在：当我在一个过滤器上拖拽，包含直方图的另一个过滤器也被重绘了。** 这就是应该被避免的处理器资源浪费。像直方图这样的笨重组件尤其如此。
 
-> Note that I’m recording the performance with CPU throttling enabled at 4x slowdown to mimic users that are not using the latest Macbook Pro and to accentuate any performance issues.
+现在我们知道了问题所在，但还不知道导致界面响应缓慢的原因。为了找到原因，我们可以使用 Chrome 调试工具的 **Performance** 面板。它可以帮助你查看在浏览器在执行某一特定任务的过程中，每一帧具体做了什么。
 
-## Increasing component performance
+**关于 Performance 面板的使用细节，不在本文讨论范围之内。但你可以在[这里](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/)找到教程。**
 
-To prevent wasted renders from happening we can optimise our components by memoizing them. To do so we can use `React.memo` to memoize components and the memoization React hooks `useMemo` and `useCallback` to memoize variables and functions.
+***
+
+我使用 **Performance** 面板记录了过滤器组件中的一次变更。放大火焰图后，我有了以下发现：
+
+![Performance 面板中的火焰图 🔥](https://cdn-images-1.medium.com/max/2534/1*hSQUcxdZ-HHh_o8b8-yIhQ.png)
+
+如你所见，这两个火焰图大体相同。第一张图（在 **Timings** 下方）展示了 React 组件的实际的加载和更新。React 调用了[用户时间接口](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API)，所以我们能看到这张额外的图。第二张图展示了主线程上执行的所有任务，这张图更为详细。
+
+我更喜欢用第一张图来看哪些组件性能差，用第二张图深入了解具体哪个函数和计算过程耗时更多。
+
+***
+
+第一次看到 **Performance** 面板的默认火焰图，你可能会被吓到。万幸 React 调试工具也有一个相似功能，在 **Profiler** 标签页中，能够根据[用户时间接口](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API)生成同样的火焰图。我认为 React 调试工具中的火焰图更易于理解，而且它还有很多趁手的附加功能：
+
+* 你可以根据组件渲染时长将所有组件排序（见下方截图）。
+* 你可以快速浏览不同的渲染记录。
+* 你可以点击某组件查看特定渲染阶段的 **props**。
+
+![按渲染时长排列组件](https://cdn-images-1.medium.com/max/2560/1*DZda1hD432v2ylP_KhNJ2g.png)
+
+***
+
+以上图形揭露了罪魁祸首：`Histogram`。特别是渲染第二个直方图（右侧那个），耗费了很长时间（402.8 毫秒！），即使我根本没有拖拽它。我们破案了！接下来就该修复问题、优化组件性能了。
+
+> 注意：我记录性能时打开了 CPU 节流功能，用 1/4 倍速模拟那些并非使用最新版 Macbook Pro 的用户，以此来突显性能问题。
+
+## 提升组件性能
+
+为防止浪费性渲染的发生，我们可以通过备忘技术优化组件。我们要使用 `React.memo` 来记忆组件，用 React 的备忘 hooks `useMemo` 和 `useCallback` 记忆变量和函数。
 
 ### React.memo
 
-Since React `16.6.0` we can use the [`React.memo` higher order component](https://reactjs.org/docs/react-api.html#reactmemo). It is the equivalent of `React.PureComponent` but is used for function components instead. Since the React community is moving away from class components in favour of function components in combination with hooks this is the one to use.
+从 `16.6.0` 版本起，React 就支持高阶组件 [`React.memo`](https://reactjs.org/docs/react-api.html#reactmemo) 了。它等价于 `React.PureComponent`，但只适用于函数组件。社区正逐步从 class 的组件风格转向带有 hooks 的函数组件风格，而 `React.memo` 正是这种组件。
 
-When you wrap a function component with `React.memo` it will shallow compare the props that are passed. Only if the compared props are not equal it will re-render the component. You can also pass a callback function as a second parameter to write your own comparison method. This should however be used with caution because you can end up with unexpected bugs.
+当你用 `React.memo` 包裹一个函数组件时，它会将传入的 props 进行浅层比较。当比较的 props 不一致时，才会重新渲染组件。你也可以自己写一个比较函数，作为第二个参数传入。但要慎用，以避免意外故障。
 
-It makes sense to split up your components into smaller components and wrap them each of them with `React.memo`. This way you can make sure only parts of the component need to re-render when props change. Don’t go and try to memoize everything though because the **props** comparison can take up more time than the rendering itself.
+我们可以将组件分解为更小的组件，并把每个更小的组件都用 `React.memo` 包裹起来。如此你能保证当 props 更新，仅有组件的一部分重新渲染了。但也不要把所有东西都做备忘，因为比较 **props** 所花时间可能要比渲染组件的时间还要长。
 
-In my case I’ve wrapped the filter component (`RangeSlider`) and the `Histogram` component with `React.memo`. Furthermore, I’ve split up the histogram into a wrapper component and a `HistogramBuckets` component to separate logic and presentation.
+在本文案例中，我用 `React.memo` 包裹了过滤器组件（`RangeSlider`）和 `Histogram` 组件。此外，我把直方图分解为包裹组件和 `HistogramBuckets` 组件两部分，将逻辑部分和展现部分剥离开来。
 
-```
+```javascript
 const RangeSlider = React.memo(props => {
    ...
 });
 ```
 
-### Memoization hooks
+### 备忘 hooks
 
-React `16.8.0` brought us the power of hooks and with it the power to easily memoize values and callback functions inside your components. Before hooks were introduced you could of course use a separate library for that, but because it’s part of the React library itself now it is much easier to integrate and to make it part of your workflow.
+React `16.8.0` 版本为我们带来功能强大的 hooks，有了 hooks，我们可以轻松备忘组件中的值和回调函数。在引入 hooks 之前，你当然也可以用一个单独的库实现备忘功能，但自从它成为 React 原生库的一部分，集成和塑造工作流变得更加简单易行。
 
-`[useMemo](https://reactjs.org/docs/hooks-reference.html#usememo)` will memoize a value so that it doesn’t need to be recalculated during the next render. `[useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback)` does the same thing but than for callback functions. You can pass both hooks a dependency array that contains values from the component scope (such as props and state) that are being used inside the hooks. React will compare these dependencies on every render and once they change it will update the memoized value or function.
+[`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) 会记忆一个值，这样就不用在下一轮渲染中重新计算它了。[`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) 记忆的则是回调函数。你可以给二者传入一个依赖数组，该数组包含了组件作用域的值（比如 props 和 state），这些值将在 hooks 内部被用到。每次渲染时，React 都会比较这些依赖值，一旦它们发生改变，React 就会更新备忘的值或函数。
 
-> Note that React is using the [Object.is comparison algorithm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description) to do the props comparison as fast as possible. This means that if you pass new instances of Objects or Arrays as props it will return `false` during comparison and thus recalculate the memoized value.
+> 注意：React 为了尽可能快地进行比较，使用了比较算法 [Object.is](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description) 来优化比较的速度。也就是说，如果你把对象或数组的新实例作为 props 传入，比较时该算法会返回 `false`，并重新计算备忘的值。
 
-### Passing memoized props
+### 传入备忘的 props
 
-In the our example the filter components needed a few optimisations before the `React.memo` comparison worked as it should. This was basically how my parent component was setting the props:
+在本例中，未经使用 `React.memo` 的过滤器组件需要优化。这曾是父组件设置 props 的方式：
 
-```
+```javascript
 function handleChange(value => {
   ...
 });
@@ -125,9 +125,9 @@ function handleChange(value => {
 />
 ```
 
-On every render an instance of `handleChange` was created and a new Array instance was passed as the value prop. This caused the `RangeSlider` component to always update despite that it was wrapped in `React.memo`, because `Object.is()` comparison would always return `false`. To properly optimise it I had to refactor it to the following code:
+每渲染一次，都要创建 `handleChange` 的一个实例，并传入一个新的数组实例作为 props。这就导致 `RangeSlider` 组件总是更新，尽管有 `React.memo` 包裹，因为 `Object.is()` 比较算法总是返回 `false`。为了精确优化，我得用下列代码重构：
 
-```
+```javascript
 const handleChange = useCallback((value) => {
     ...
 }, []);
@@ -140,23 +140,23 @@ const value = useMemo(() => [minValue, maxValue], [minValue, maxValue]);
 />
 ```
 
-`handleChange` will now only update on mount because of the empty dependency array. `value` will return a new Array whenever `minValue` or `maxValue` changes.
+如果依赖数组为空，那么 `handleChange` 则仅在挂载时更新。无论 `minValue` 或 `maxValue` 何时更改，`value` 总会返回一个新数组。
 
-I’ve applied the same kind of optimisations in the `Histogram` component that is passing props to `HistogramBuckets`.
+我对 `Histogram` 组件做了同样的优化，`Histogram` 组件把 props 传到 `HistogramBuckets` 子组件中。
 
-> Bonus tip💡: To quickly check which props are different between renders you can use this nifty hook: [useWhyDidYouUpdate](https://usehooks.com/useWhyDidYouUpdate/).
+> 小提示：要想快速找出两次渲染中哪些 props 发生了变化，可以用这个精巧的 hooks：[useWhyDidYouUpdate](https://usehooks.com/useWhyDidYouUpdate/)。
 
-## The Result
+## 成果
 
-By adding these quick and easy optimisations I’ve been able to improve the performance of my components enormously. After memoization the render time of the `Histogram` component during the exact same user interaction is decreased to 0.5ms. **This is a ~1000 times faster** 🤩 than the original 72.7ms plus the extra 402.8ms for the second histogram. The result is a much smoother user experience with only minimal effort.
+通过方便快捷的优化，组件的性能得到了显著提升。经过备忘优化后，在相同的操作下，`Histogram` 组件的渲染时间缩短到了 0.5 毫秒。比起原来的 72.7 毫秒加上第二个直方图消耗的 402.8 毫秒，**这可是超过千倍的提速啊！🤩** 最终成果就是，仅用了极小的努力，就获得了更流畅的用户体验。
 
-![Histogram render time after memoization](https://cdn-images-1.medium.com/max/5112/1*iGs_fQ2NfXbeLNO0xVQ9GQ.png)
+![备忘优化后的直方图渲染时间](https://cdn-images-1.medium.com/max/5112/1*iGs_fQ2NfXbeLNO0xVQ9GQ.png)
 
 ***
 
-## Join C°F
+## 加入 C°F
 
-By the way, if this article has gotten you inspired, CLEVER°FRANKE is always looking to hire talent. So take a look at [our job portal](http://jobs.cleverfranke.com/) and share your superpower with us.
+另外，如果你被本文惊艳到了，CLEVER°FRANKE 的大门永远为达人敞开哦。来[我们的招聘传送门](http://jobs.cleverfranke.com/)看看，如果感兴趣，欢迎向我们展示你的超能力。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

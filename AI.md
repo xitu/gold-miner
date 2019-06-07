@@ -1,3 +1,6 @@
+* [浅析深度学习神经网络的卷积层](https://juejin.im/post/5ceeef01518825351e354747) ([QiaoN](https://github.com/QiaoN) 翻译)
+* [时间序列分析、可视化、和使用 LSTM 预测](https://juejin.im/post/5cecdbb75188252db706f4e9) ([Minghao23](https://github.com/Minghao23) 翻译)
+* [用 Word2vec 表示音乐？](https://juejin.im/post/5cdcdd9ee51d456e8240ddc3) ([Minghao23](https://github.com/Minghao23) 翻译)
 * [使用 Python Flask 框架发布机器学习 API](https://juejin.im/post/5cd7f862e51d453aa44ad6f3) ([sisibeloved](https://github.com/sisibeloved) 翻译)
 * [使用 WFST 进行语音识别](https://juejin.im/post/5cd7f7c56fb9a03218556ea4) ([sisibeloved](https://github.com/sisibeloved) 翻译)
 * [Keras 速查表：使用 Python 构建神经网络](https://juejin.im/post/5cd40d24f265da038412a8be) ([Minghao23](https://github.com/Minghao23) 翻译)
