@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/in-defense-of-the-ternary-statement.md](https://github.com/xitu/gold-miner/blob/master/TODO1/in-defense-of-the-ternary-statement.md)
 > * 译者：[ZavierTang](https://github.com/ZavierTang)
-> * 校对者：[smilemuffie](https://github.com/smilemuffie)
+> * 校对者：[smilemuffie](https://github.com/smilemuffie), [mnikn](https://github.com/mnikn)
 
 # 支持 JavaScript 三元运算符
 
-几个月前，我在 Hacker News 上浏览到一篇（现已删除）关于不要使用 `if` 语句的文章。如果你像我一样对这个观点还不太了解，那值得你去看一下。只要在 Hacker News 上搜索 “if 语句” 即可。你将可能会看到一篇文章说：“[你可能不需要 `if` 语句](https://hackernoon.com/you-might-not-need-if-statements-a-better-approach-to-branching-logic-59b4f877697f#.ruqzpakyw)”，或者是称 `if` 语句为 “[可疑代码](https://blog.jetbrains.com/idea/2017/09/code-smells-if-statements/)”，甚至是 “[有害代码](https://blog.deprogramandis.co.uk/2013/03/20/if-statements-considered-harmful-or-gotos-evil-twin-or-how-to-achieve-coding-happiness-using-null-objects/)” 的文章。听着，你应该知道不同的编程思想都是值得尊重的，尽管他们宣称使用 `if` 会伤害到别人。
+几个月前，我在 Hacker News 上浏览到一篇（现已删除）关于不要使用 `if` 语句的文章。如果你像我一样对这个观点还不太了解，那值得你去看一下。只要在 Hacker News 上搜索 “if 语句”，你就会看到一篇文章说：“[你可能不需要 `if` 语句](https://hackernoon.com/you-might-not-need-if-statements-a-better-approach-to-branching-logic-59b4f877697f#.ruqzpakyw)”，或者是称 `if` 语句为 “[可疑代码](https://blog.jetbrains.com/idea/2017/09/code-smells-if-statements/)”，甚至是 “[有害代码](https://blog.deprogramandis.co.uk/2013/03/20/if-statements-considered-harmful-or-gotos-evil-twin-or-how-to-achieve-coding-happiness-using-null-objects/)” 的文章。听着，你应该知道不同的编程思想都是值得尊重的，尽管他们宣称使用 `if` 会伤害到别人。
 
 ![](https://css-tricks.com/wp-content/uploads/2019/03/s_FD4D827367230AB6A2D0F680A6D86BB8C31A84DDD157823CB9061772EC8F0BFC_1552145481604_an-if-statement.jpg)
 
-如果这对你来说还不够，还有 “[反 `if` 运动](https://francescocirillo.com/pages/anti-if-campaign#campaign)”。如果你加入，你会得到一个漂亮的横幅并且你的名字也会放在网上。对！如果你加入的话，那会是多么的有意思。
+如果这对你来说还不够，还有 “[反 `if` 运动](https://francescocirillo.com/pages/anti-if-campaign#campaign)”。如果你加入，你会在网站上看到一个漂亮的横幅，而且你的名字也会在上面。对！如果你加入的话，那会是多么的有意思。
 
 当我第一次遇到这种奇怪的 “反对 `if`” 现象时，我觉得很有趣，但可能只不过是一些人在网上发疯了。你只需要谷歌一下，就能找到对任何事都疯狂的人。比如[这个讨厌小猫的人](https://www.cracked.com/article_19007_6-reasons-kittens-suck-learned-while-raising-them.html)。KITTENS
 
@@ -23,7 +23,7 @@
 
 ![](https://css-tricks.com/wp-content/uploads/2019/03/s_FD4D827367230AB6A2D0F680A6D86BB8C31A84DDD157823CB9061772EC8F0BFC_1552145608899_linus-good-taste.png)
 
-我意识到 Linus 是一个有点两极化的人物，你可能不同意 “good taste” 与 “bad taste” 的描述。但我认为，一般来说，第二张幻灯片对新手来说更容易理解。它简洁、逻辑少且不包含 `if` 语句。我希望我的代码应该是这样的。它不一定是什么高级的算法（永远不会），但我希望它是逻辑简洁的，还记得 Smashing Pumpkins 乐队的 Billy Corgan 是如何描述的：
+我意识到 Linus 是一个有点两极化的人物，你可能不同意 “good taste” 与 “bad taste” 的描述。但我认为，一般来说，第二张幻灯片对新手来说更容易理解。它简洁、逻辑分支少且不包含 `if` 语句。我希望我的代码应该是这样的。它不一定是什么高级的算法（永远不会），但我希望它是逻辑简洁的，还记得 Smashing Pumpkins 乐队的 Billy Corgan 是如何描述的：
 
 > Cleanliness is godliness. And god is empty. Just like me.
 > 
@@ -31,9 +31,9 @@
 
 太可怕了！但[这张专辑](https://en.wikipedia.org/wiki/Mellon_Collie_and_the_Infinite_Sadness)的确很棒。
 
-除了让代码看起来杂乱之外，`if` 语句或 “分支逻辑” 还要求你的大脑同时去计算两条独立的逻辑路径，以及这些路径上可能发生的所有事情。如果你还嵌套使用了 `if` 语句，问题就会变得更加复杂，因为你在生成和计算一个判定分支，而你的大脑必须像喝醉酒的猴子一样在树上跳来跳去。这样会大大降低代码的可读性。记住，在编写代码时，你应该考虑在你之后要去维护它的会是哪个傻瓜。也许，就是你自己。
+除了让代码看起来杂乱之外，`if` 语句或 “分支逻辑” 还要求你的大脑同时去计算两条独立的逻辑路径，以及这些路径上可能发生的所有事情。如果你还嵌套使用了 `if` 语句，问题就会变得更加复杂，因为你在生成和计算一个决策树时，你的大脑必须像喝醉酒的猴子一样在决策树上跳来跳去。这样会大大降低代码的可读性。记住，在编写代码时，你应该考虑在你之后要去维护它的会是哪个傻瓜。也许，就是你自己。
 
-作为必须要去维护自己代码的傻瓜，我最近一直有意识地避免在 JavaScript 中编写 `if` 语句。我并不总是能够成功，但我注意到，至少它迫使我从一个完全不同的角度来思考解决问题的方法。它使我成为一个更好的开发人员，因为它让我参与到我大脑思考的一部分，否则我将会悠闲地坐在豆袋上吃花生，而让 `if` 语句去完成所有的工作。
+作为必须要去维护自己代码的傻瓜，我最近一直有意识地避免在 JavaScript 中编写 `if` 语句。我并不总是能够成功，但我注意到，至少它迫使我从一个完全不同的角度来思考解决问题的方法。它使我成为一个更好的开发人员，因为它让我动脑子思考，否则我将会悠闲地坐在豆袋上吃花生，而让 `if` 语句去完成所有的工作。
 
 在避免**编写** `if` 语句的过程中，我发现我喜欢 JavaScript 中的三元运算符和逻辑操作符组合使用的方式。我现在想建议你的是不太受欢迎的三元运算符，你可以使用它与 `&&` 和 `||` 操作符一起编写一些非常简洁和具有可读性的代码。
 
@@ -56,7 +56,7 @@ else {
 }
 ```
 
-用这 6 行代码来完成工作是非常简单的。6 行，请记住，你每运行 1 行代码，必须记住上面代码的运算结果以及它如何影响下面的代码。
+用这 6 行代码来完成工作是非常简单的。**6 行**，请记住，你每运行 1 行代码，必须记住上面代码的运算结果以及它如何影响下面的代码。
 
 下面是三元运算符的实现代码：
 
@@ -73,7 +73,7 @@ isLoggedIn ? navigateTo('profile') : navigateTo('unauthorized');
 logggedIn ? navigateTo('profile')
 ```
 
-你必须在这里使用 `if` 语句来完成工作。你会这样做吗？
+你不得不在这里使用 `if` 语句来完成工作。但是还有没有其他方法？
 
 当你只想处理逻辑条件的一个分支但又不想使用 `if` 语句时，可以在 JavaScript 中使用这样一个技巧。你可以利用 JavaScript 中的 `||`（或）和 `&&`（与）运算符一起工作的方式来实现这一点。
 
@@ -101,7 +101,7 @@ if (!loggedIn) navigateTo('profile');
 
 不，在这种情况下，不推荐使用。所以，一旦知道可以使用 `&&` 和 `||` 运算符来实现 `if` 语句的功能，就可以使用它们来极大地简化我们的代码。
 
-下面是一个更复杂的例子。假设我们有一个 `login` 函数，接收一个 `user` 对象作为参数。该对象可能为空，因此我们需要检查本地存储，以查看用户是否在本地保存了会话。如果保存了，并且他是一个管理员用户，那么我们将跳转到首页。否则，我们将导航到另一个页面，该页面提示用户还未经授权。下面是一个简单的 `if` 语句的实现。
+下面是一个更复杂的例子。假设我们有一个 `login` 函数，接收一个 `user` 对象作为参数。该对象可能为空，因此我们需要检查 local storage，以查看用户是否在本地保存了会话。如果保存了，并且他是一个管理员用户，那么我们将跳转到首页。否则，我们将导航到另一个页面，该页面提示用户还未经授权。下面是一个简单的 `if` 语句的实现。
 
 ```javascript
 function login(user) {
@@ -176,7 +176,7 @@ function login(user) {
 
 ```javascript
 function login(user) {
-  // 如果 user 为空，则检查本地存储
+  // 如果 user 为空，则检查 local storage
   // 查看是否保存了 user 对象
   user = user || getFromLocalStorage("user");
   
@@ -242,7 +242,7 @@ const withTernary = ({
 );
 ```
 
-Eric 在这里做的最有趣的一点是否定了第一个条件，这样你就不会把问号和冒号放在一起，不然就会难以阅读。我要更进一步，给代码添加一些缩进。我还添加了大括号和显式的返回语句，因为看到一个括号，然后可以立即找到对应的另一个括号，这让我的大脑开始去预期一个永远不会到来的函数调用。
+Eric 在这里做的最有趣的一点是否定了第一个条件，这样你就不会把问号和冒号放在一起，不然就会难以阅读。我要更进一步，给代码添加一些缩进。同时我还添加了大括号和显式的返回语句，因为只有括号的话会让我以为正在调用一个函数，实际上并没有。
 
 ```javascript
 const withTernary = ({ conditionA, conditionB }) => {
