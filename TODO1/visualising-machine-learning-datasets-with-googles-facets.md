@@ -2,20 +2,20 @@
 > * 原文作者：[Parul Pandey](https://medium.com/@parulnith)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/visualising-machine-learning-datasets-with-googles-facets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/visualising-machine-learning-datasets-with-googles-facets.md)
-> * 译者：
+> * 译者：[QiaoN](https://github.com/QiaoN)
 > * 校对者：
 
-# Visualising Machine Learning Datasets with Google’s FACETS.
+# 使用谷歌 FACETS 可视化机器学习数据集
 
-> An open source tool from Google to easily learn patterns from large amounts of data
+> 谷歌的一个开源工具，可以轻松的从大量数据中学习模式
 
-![Photo by [Franki Chamaki](https://unsplash.com/@franki?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8064/0*AAAs7V238jAuaZp_)
+![摄影：[Franki Chamaki](https://unsplash.com/@franki?utm_source=medium&utm_medium=referral)， 出自[Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8064/0*AAAs7V238jAuaZp_)
 
-> More data beats clever algorithms, but better data beats more data : Peter Norvig
+> 大量数据比好的算法更有用，但好的数据比大量数据更有用：Peter Norvig
 
-There has been a lot of uproar as to how a large quantity of training data can have a tremendous impact on the results of a machine learning model. However, along with data quantity, it is also the quality which is critical to building a powerful and robust ML system. After all ‘GARBAGE IN: GARBAGE OUT’ i.e what you get from the system will be a representation of what you feed into the system.
+关于大量的训练数据如何对机器学习模型的结果产生巨大的影响，已经有很多的讨论。然而，随着数据量的增加，要构建一个强大且健壮的机器学习系统，数据质量也非常关键。毕竟“输入糟粕，输出糟粕”，也就是说，你从系统中得到的东西正体现出你提供给系统的东西。
 
-A Machine Learning dataset sometimes consists of data points ranging from thousands to millions which in turn may contain hundreds or thousands of features. Additionally, real-world data is messy comprising of missing values, unbalanced data, outliers etc. Therefore it becomes imperative that we clean the data before proceeding with model building. Visualising the data can help in locating these irregularities and pointing out the locations where the data actually needs cleaning. Data Visualisation gives an overview of the entire data irrespective of its quantity and helps to perform EDA in a fast and accurate manner.
+一个机器学习数据集有时包含数千到数百万的数据点，而它们可能包含成百上千个特征。此外，现实世界的数据很混乱，会有缺失值、不均衡数据、异常值等。因此，在进行模型构建之前，我们必须清理数据。可视化数据有助于找到这些不规则并定位需要清理的数据。数据可视化提供了整体数据概览（无论数据量），有助于快速准确的进行 EDA（探索性数据分析）。
 
 ---
 
@@ -23,45 +23,45 @@ A Machine Learning dataset sometimes consists of data points ranging from thousa
 
 ![](https://cdn-images-1.medium.com/max/2168/1*3tUB6KRfE-FapwbH4Lz0Vg.png)
 
-The dictionary meaning of facets boils down to a particular aspect or feature of something. In the same way, the [**FACETS**](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) tool helps us to understand the various features of data and explore them without having to explicitly code.
+在字典里facet意为某种特殊方面或某物的特征。 同样，[**FACETS**](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) 工具让我们无需明确编码即可理解并探索数据的各种功能。
 
-Facets is an open-source visualisation tool released by Google under the **[PAIR](https://ai.google/research/teams/brain/pair)(People + AI Research)** initiative. This tool helps us to understand and analyse the Machine Learning datasets. Facets consist of two visualisations, both of which help to drill down the data and provide great insights without much of work at user’s end.
+Facets是Google为了支持 [**PAIR**](https://ai.google/research/teams/brain/pair) **\(People + AI Research\)** 项目而发布的一个开源可视化工具，可以帮助我们理解和分析机器学习数据集。Facets包括两个可视化部分，这两部分均可深入挖掘数据并带来好的洞察，而无需在用户端进行大量工作。
 
 * **Facets Overview**
 
-As the name suggests, this visualisation gives an overview of the entire dataset and gives a sense of the shape of each feature of the data. Facets Overview summarizes statistics for each feature and compares the training and test datasets.
+顾名思义，此可视化部分提供了整个数据集的概览和数据每项特征的分布情况。Facets Overview 总结了每项特征的统计量并比较了训练和测试数据集。
 
 * **Facets Dive**
 
-This feature helps the user to dive deep into the individual feature/observation of the data to get more information. It helps in interactively exploring large numbers of data points at once.
+此功能可帮助用户深入理解数据的单个特征/观察，以获取更多信息。它有助于一次性交互式地探索大量数据点。
 
-> These visualizations are implemented as [Polymer](https://www.polymer-project.org/) web components, backed by [Typescript](https://www.typescriptlang.org/) code and can be easily embedded into Jupyter notebooks or web pages.
-
----
-
-## Usage & Installation
-
-There are two ways in which FACETS can be used with data:
-
-#### Web App
-
-It can be used directly from its demo page whose link is embedded below.
-
-[**Facets - Visualizations for ML datasets**](https://pair-code.github.io/facets/)
-
-This website allows anyone to visualize their own datasets directly in the browser without the need for any software installation or setup, without the data ever leaving your computer.
-
-#### Within Jupyter Notebooks/Colaboratory
-
-It is also possible to use FACETS within Jupyter Notebook/Colaboratoty. This gives more flexibility since the entire EDA and modelling can be done in a single notebook. Please refer their [Github Repository](https://github.com/pair-code/facets#setup) for complete details on installation. However later in the article, we will see how to get going with FACETS in colab.
+> 这些可视化由 [Typescript](https://www.typescriptlang.org/) 编写的 [Polymer](https://www.polymer-project.org/) Web组件实现，能够轻易嵌入 Jupyter Notebook 或是 Web 页面中。
 
 ---
 
-## Data
+## 使用 & 安装
 
-Although you can work with data provided on the demo page, I shall be working with another set of data. I will be doing EDA with FACETS on the **Loan Prediction Dataset**. The problem statement is to predict whether an applicant who has been granted a loan by a company, will repay it back or not. It is a fairly known example in the ML community.
+使用 FACETS 处理数据有两种方式：
 
-The **dataset** which has already been divided into Training and Testing set can be accessed from [**here**](https://github.com/parulnith/Data-Visualisation-Tools/tree/master/Data%20Visualisation%20with%20Facets%20). Let’s load in our data into the Colab.
+#### Web 应用
+
+它可以直接下面链接里的演示页面中使用。
+
+[**Facets —— 机器学习数据集的可视化**](https://pair-code.github.io/facets/)
+
+该网站允许任何人直接在浏览器中可视化他们自己的数据集，而无需安装或设置任何软件，数据也不会离开你的计算机。
+
+#### 在 Jupyter Notebooks/Colaboratory 中
+
+FACETS 也可以在Jupyter Notebook / Colaboratoty 中使用。这可以更灵活的使整个 EDA 和建模在同一个 notebook 中完成。有关安装的完整细节，请参阅官方 [Github 仓库](https://github.com/pair-code/facets#setup)。不过，在下文中我们将介绍如何在 colab 中使用 FACETS。
+
+---
+
+## 数据
+
+虽然你可以用演示页面上提供的数据，但我打算用另一组数据。我将用 FACETS 对**贷款预测数据集**进行 EDA。 问题陈述是预测一个已获得公司贷款的申请人是否会偿还贷款。这是机器学习社区中的一个非常知名的例子。
+
+[**这里**](https://github.com/parulnith/Data-Visualisation-Tools/tree/master/Data%20Visualisation%20with%20Facets%20)是已经分为训练集和测试集的**数据集**。让我们将数据加载到 Colab 中。
 
 ```
 import pandas as pd
@@ -69,30 +69,30 @@ train = pd.read_csv('train.csv')
 test = pd.read_csv('test.csv')
 ```
 
-Now lets us understand how we can use Facets Overview with this data.
+现在让我们来了解如何将 Facets Overview 用于此数据。
 
 #### FACETS Overview
 
-The Overview automatically gives a quick understanding of the distribution of values across the various features of the data. The distribution can also be compared across the training and testing datasets instantly. If some anomaly exists in the data, it just pops out from the data there and then.
+Overview 自动的让用户快速了解数据各项特征值的分布情况。也可以立刻在训练集和测试集中比较分布情况。如果数据中存在某些异常，它便会从异常数据的位置弹出。
 
-Some of the information that can be easily accessed through this feature are:
+通过此功能可以轻松得到的一些信息如下：
 
-* Statistics like mean, median and Standard Deviation
-* Min and Max values of a column
-* Missing data
-* Values that have zero values
-* Since it is possible to view the distributions across test dataset also, we can easily confirm if the training and testing data follow the same distributions.
+* 统计数据如均值、中位数和标准差
+* 列的最小值和最大值
+* 缺失数据
+* 有零值的值
+* 由于还可以查看测试数据集的分布，我们可以轻松确认训练数据和测试数据是否遵循相同的分布。
 
-> One would argue that we can achieve these tasks easily with Pandas and why should we invest into another tool. This is true and maybe not required when we have few data points with minimum features. However, the scenario changes when we are talking about a large dataset where it becomes kind of difficult to analyse each and every data point in multiple columns.
+> 有人会说我们可以轻松地用 Pandas 来完成这些任务，为什么要投入到另一个工具呢？没错，当我们只有少量的特征很少的数据点时，可能不需要这样做。然而，情况在我们面对大型数据集时会有所不同，很难用 Pandas 分析多列中的每一个数据点。
 
-Google Colaboaratory makes it very easy to work since we do not need to install additional things. By writing a few lines of code our work gets done.
+Google Colaboaratory 将其变得易于使用，因为我们不需要额外的安装，只用编写几行代码就好。
 
 ```
 # Clone the facets github repo to get access to the python feature stats generation code
 !git clone https://github.com/pair-code/facets.git
 ```
 
-To calculate the feature statistics, we need to use the function GenericFeatureStatisticsGenerator() which lies in a Python Script.
+要计算出特征的统计量，我们需要用 Python 脚本中的函数 GenericFeatureStatisticsGenerator()。
 
 ```
 # Add the path to the feature stats generation code.
@@ -109,7 +109,7 @@ proto = gfsg.ProtoFromDataFrames([{'name': 'train', 'table': train},
 protostr = base64.b64encode(proto.SerializeToString()).decode("utf-8")
 ```
 
-Now with the following lines of code, we can easily display the visualisation right in our notebook.
+现在用下面的代码行，我们可以轻松的在 notebook 中显示出可视化。
 
 ```
 # Display the facets overview visualization for this data
@@ -124,21 +124,21 @@ html = HTML_TEMPLATE.format(protostr=protostr)
 display(HTML(html))
 ```
 
-As soon as you type `Shift+Enter`, you are welcomed by this nice interactive visualisation:
+当你按下 “Shift + Enter”，你就能看到一个漂亮的交互式可视化：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZXS2t1A8JZDtxGsfUP3GFQ.png)
 
-Here, we see the Facets Overview visualization of the five numeric features of the Loan Prediction dataset. The features are sorted by non-uniformity, with the feature with the most non-uniform distribution at the top. Numbers in red indicate possible trouble spots, in this case, numeric features with a high percentage of values set to 0. The histograms at right allow you to compare the distributions between the training data (blue) and test data (orange).
+在图中，我们能看到对贷款预测数据集五个数值特征的 Facets Overview 可视化。这些特征按非均匀性排序，分布最不均匀的特征排在顶部。红色数字表示可能的故障点，在这里，数值特征为 0 有很高的百分比。用右侧的柱状图你可以比较训练数据（蓝色）和测试数据（橙色）的分布情况。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0yYTqIN5Vimf_0SxxB-35w.png)
 
-The above visualisation shows one of the eight categorical features of the dataset. The features are sorted by distribution distance, with the feature with the biggest skew between the training (blue) and test (orange) datasets at the top.
+上面的可视化显示了数据集的八个分类特征之一。这些特征按分布距离排序。训练数据集（蓝色）和测试数据集（橙色）间偏差最大的特征排在顶部。
 
 #### FACETS Dive
 
-[Facets Dive](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) provides an easy-to-customize, intuitive interface for exploring the relationship between the data points across the different features of a dataset. With Facets Dive, you control the position, colour and visual representation of each data point based on its feature values. If the data points have images associated with them, the images can be used as the visual representations.
+[Facets Dive](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) 提供了一个直观的可定制界面，用于探索数据集内不同特征的数据点之间的关系。使用 Facets Dive，你可以根据每个数据点的特征值来控制它的位置、颜色和视觉表示。如果数据点有相关联的图像，此图像也可用作视觉表示。
 
-To use the Dive visualisation, the data has to be transformed into JSON format.
+必须将数据转换为 JSON 格式才可使用 Dive 可视化。
 
 ```
 # Display the Dive visualization for the training data.
@@ -155,56 +155,56 @@ html = HTML_TEMPLATE.format(jsonstr=jsonstr)
 display(HTML(html))
 ```
 
-After you run the code, you should be able to see this:
+运行代码后，你应该能看到：
 
-![Facets Dive Visualisation](https://cdn-images-1.medium.com/max/2000/1*X3BYI7oGEvlZv_CejS1wZA.png)
+![Facets Dive 可视化](https://cdn-images-1.medium.com/max/2000/1*X3BYI7oGEvlZv_CejS1wZA.png)
 
-Now we can easily perform Univariate and Bivariate Analysis and let us see some of the results obtained:
+现在我们可以轻松进行单变量和双变量分析，让我们来看看一些获得的结果：
 
-#### Univariate Analysis
+#### 单变量分析
 
-Here we will look at the target variable, i.e., Loan_Status and other categorical features like gender, Marital Status, Employment status and Credit history, independently. Likewise, you can play around with other features also.
+这里我们将分别地查看目标变量，即 Loan_Status 和其它的分类特征如性别、婚姻状况、就业状况和信用记录。同样的，你也可以看看其它特征。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*bCJ-ofkzPvhO5TuMgQ7VOw.gif)
 
-#### Inferences:
+#### 推论：
 
-* Most of the applicants in the dataset are male.
-* Again a majority of the applicants in the dataset are married and have repaid their debts.
-* Also, most of the applicants have no dependents and are graduates from semi-urban areas.
+* 数据集中的大多数申请人都是男性。
+* 同样的，数据集中的大多数申请人都已婚且偿还了债务。
+* 此外，大多数申请人没有家属，大学毕业，来自城郊地区。
 
-Now let’s visualize the ordinal variables i.e Dependents, Education and Property Area.
+现在让我们可视化有序变量，即家属、教育和房产地区。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ufgW6M-AanfNCjWBjQ6Aig.gif)
 
-Following inferences can be made from the above bar plots:
+以下推论可以从上面的条形图中得出：
 
-* Most of the applicants don’t have any dependents.
-* Most of the applicants are Graduate.
-* Most of the applicants are from Semiurban area.
+* 大多数申请人没有任何家属。
+* 大多数申请人是大学毕业生。
+* 大多数申请人来自城郊。
 
-Now you can continue your analysis with the numerical data.
+现在你可以接着使用数值数据进行分析。
 
-#### Bivariate Analysis
+#### 双变量分析
 
-We will find the relationship between the target variable and categorical independent variables.
+我们来找找目标变量和分类自变量之间的关系。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*D2Tio24GXTKIdP84duZIIQ.gif)
 
-It can be inferred from the above bar plots that:
+从上面的条形图中可以推断出：
 
-* The proportion of married applicants is higher for the approved loans.
-* Distribution of applicants with 1 or 3+ dependents is similar across both the categories of Loan_Status.
-* It seems people with credit history as 1 are more likely to get their loans approved.
-* The proportion of loans getting approved in the semiurban area is higher as compared to that in rural or urban areas.
+* 已批准贷款中已婚申请人的比例较高。
+* 在 Loan_Status 的两个类别中，有1个或3个以上家属的申请人具有相似的分布情况。
+* 信用记录为1的人似乎更有可能获得贷款批准。
+* 与农村或城市地区相比，在城郊获得贷款批准的比例较
 
 ---
 
-## Conclusion
+## 结论
 
-FACETS provides an easy and intuitive environment to perform EDA for datasets and helps us derive meaningful results. The only catch is that currently it only works with **Chrome**.
+FACETS 为数据集进行 EDA 提供了一个简单直观的环境，帮助我们获得有意义的结果。唯一的问题是目前它只适用于 **Chrome**。
 
-Before ending this article, let us also see a **fun fact** highlighting how a small human labelling error in CIFAR-10 dataset was caught using the FACETS Dive. While analysing the dataset it came to notice that an image of a frog had been incorrectly labelled as a cat. Well, this is indeed some achievement since it would be an impossible task for a human eye.
+在结束本文之前，让我们看一个**有趣的事实**：下图体现出如何用 FACETS Dive 揪出 CIFAR-10 数据集中一个小小的人为标记错误。在分析数据集时，发现一个青蛙的图像被错误地标记为猫。好啦，这确实是一些成就，因为对人眼来说这是一项不可能完成的任务。
 
 ![[Source](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html)](https://cdn-images-1.medium.com/max/2000/1*VfkUBpXdGNIsK_RKT-ct1Q.gif)
 
