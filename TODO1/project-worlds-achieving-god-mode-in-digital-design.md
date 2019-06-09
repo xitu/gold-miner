@@ -2,42 +2,43 @@
 > * 原文作者：[Marek Minor](https://medium.com/@tristanminor)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/project-worlds-achieving-god-mode-in-digital-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/project-worlds-achieving-god-mode-in-digital-design.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Charlo-O](https://github.com/Charlo-O)
+> * 校对者：[Baddyo](https://github.com/Baddyo)
 
-# Project Worlds — Achieving God Mode in Digital Design
+# 项目世界 —— 在数字设计中实现上帝模式
 
-> An abstract, simple but powerful way of thinking about systems based on how we perceive the world around us.
+>一种对系统抽象的、简单的，却十分有效的基于我们如何感知周围的世界的思考方式。
 
 ![](https://cdn-images-1.medium.com/max/6400/1*-VcoMexO96JKZvvujUxPUg.png)
 
-Through this article I would like to share my findings from my ongoing 2 years of research into design systems and design tools called project **Worlds**.
+我想通过这篇文章分享这两年来我对设计系统和设计工具的研究成果，叫做项目**世界**。
 
-Having said this, I realise I didn’t reinvent the wheel. I am aware that there are similar ideas, concepts and products floating around like [React](https://reactjs.org/), [Figma](https://www.figma.com), [Sketch](https://www.sketch.com/), [Modulz](https://www.modulz.app/) or [Framer X](https://www.framer.com). All of this might be nothing new for game developers either.
+说到这儿，我意识到我没有另起炉灶。我意识到类似的想法、概念和产品也在不断涌现，比如 [React](https://reactjs.org/)、[Figma](https://www.figma.com)、[Sketch](https://www.sketch.com/)、[Modulz](https://www.modulz.app/) 或 [Framer X](https://www.framer.com)。所有这些对游戏开发者来说也许也不新鲜。
 
-However, I think there’s much to be gained when looking at design systems from a (literally) different perspective. I want to look at these systems in such a way that, 100 years from now, it’ll still feel relevant and will put no cap on what’s possible.
+但是，我认为当我们从不同的视角不同的视角（字面意思的“视角”）观察设计系统时，我们可以获得很多。我希望能以这样的一种方式来看待这些系统，即使到百年之后，这种方式仍然不过时，仍然会有无限可能。
 
-Let’s dive in.
+让我们一探究竟。
 
-## Patterns Rule The World
+## 模块统治世界
 
-Life is fluid and ever-changing. Everything around us is in a constant motion — planets orbiting around the sun, the constant weather changes, the way your body changes… Every moment, every situation is unique.
+岁月如梭，日新月异。我们周围的一切都在不断地变化 —— 行星绕着太阳转，天气不断地变化，你的身体也在不断地变化……每时每刻，每一种情况都是独一无二的。
 
-In order for our human brains to survive in such an overwhelming, ever-changing universe, we had to cut down on complexity and start simplifying. We became pretty good at recognising patterns, since they allow our brains to make shortcuts and make life easier (and actually liveable) without us getting overwhelmed.
+为了让我们的大脑在这样一个瞬息万变的浩瀚宇宙中生存，我们必须去繁就简。我们变得非常善于识别模块，因为它们让我们的大脑走捷径，让我们的生活更容易(实际上更宜居），而不会让我们不知所措。
 
-Therefore, using patterns when designing is essential. You could say that **a design system is a system with a very high frequency of patterns** — colours, sizes, shapes, numbers, percentages... Any design can have some form of a design system in it. It’s just that what we usually call **design systems** are designs that have a much higher level of organisation than others. But before we continue, let’s get familiar with a few key concepts.
+因此，在设计时使用模块是必不可少的。你可以说**一个设计系统是一个有非常高频模块出现的系统** —— 颜色、尺寸、形状、数字、百分比……任何设计都可以包含某种形式的设计系统。只是我们通常所说的**设计系统**相比其他的具有更高的组织层级。但在继续之前，让我们先熟悉几个关键概念。
 
-### Emergence
+### 涌现
 
-[Emergence](https://en.wikipedia.org/wiki/Emergence) is when more complicated stuff is **emerging** out of simpler stuff on a higher level. It’s like when a family is emerging out of its individual members, a picture is emerging out of individual pixels, or the way your body is emerging out of its individual parts. This means that **in order to build complex stuff, you need to start with smaller (dumber) parts**. How you set up your basic building blocks is really important.
+[涌现](https://en.wikipedia.org/wiki/Emergence)是指更复杂的东西在更高层次上从更简单的东西中**涌现**出来。就像一个家庭由一个个家庭成员组成，一张图片由一个个像素组成，或者身体由一个个器官组成。**这意味着为了构建复杂的东西，你需要从更小（更简单）的部分开始**。你如何搭建自己的基本组件是非常重要的。
 
-This got me thinking — in order to make design tools more powerful, we may need to rebuild them **from the bottom**. I started asking myself if there‘s a complete set of basic particles or rules in design systems that, when set right, could give rise to complexity on a higher level, without really directing it from one central authority above.
+这让我想到 —— 为了使设计工具更强大，我们可能需要**从底层**重建它们。我开始问自己，设计系统中是否有一套完整的基本因子或规则，如果设置正确，可以在更高的层级上增加复杂性，而不需要真正的获得上级权威的指导。
 
-[Emergence – How Stupid Things Become Smart Together](https://www.youtube.com/embed/16W7c0mb-rE?wmode=opaque&widget_referrer=https%3A%2F%2Fuxdesign.cc%2Fmedia%2Fa36a89cab939e54dfc586d0093b67301%3FpostId%3Db7242dbe5770&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1):A highly recommended video about the concept of emergence. No seriously, go ahead and watch it!
+[涌现 —— 愚蠢的个体如何变成聪明的集体](https://www.youtube.com/embed/16W7c0mb-rE?wmode=opaque&widget_referrer=https%3A%2F%2Fuxdesign.cc%2Fmedia%2Fa36a89cab939e54dfc586d0093b67301%3FpostId%3Db7242dbe5770&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)：强烈推荐关于涌现概念的视频。说真的，去看吧！
 
-### Chaos Theory
 
-[Chaos theory](https://fractalfoundation.org/resources/what-is-chaos-theory/) is a branch of mathematics focusing on the behaviour of dynamical systems that are highly sensitive to initial conditions. What may look chaotic at first sight can in fact be very easily described. This means that you can **create really complicated stuff with immense variations out of just a handful of simple rules**. Usually the same pattern is being repeated on and on in different scales.
+### 混沌理论
+
+[混沌理论](https://fractalfoundation.org/resources/what-is-chaos-theory/)是数学的一个分支，主要研究对初始条件高度敏感的动态系统的行为。乍一看可能很混乱的东西其实很容易描述。这意味着你可以**用一些简单的规则创造出非常复杂并且变化巨大的东西**。通常是相同的模块以不同以尺度不断重复。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sOUyfU6wbCMTgWqis-oOgw.jpeg)
 
@@ -47,335 +48,335 @@ This got me thinking — in order to make design tools more powerful, we may nee
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5E5GV8s8PGJCDbWHTvJPHg.jpeg)
 
-### Information Theory
+### 信息理论
 
-[Information theory](https://en.wikipedia.org/wiki/Information_theory) is the mathematical study of information coding through various different ways like sequences of symbols or impulses and of how rapidly this information can be transmitted. For me the main takeaway from this theory were the musings about what information really is, how meaning can be encoded and stored in basic building blocks, that in order to define something you have to explain the procedure of **how** to make it using these blocks, and this concept of an abstract world of metadata describing the world around us.
+[信息理论](https://en.wikipedia.org/wiki/Information_theory)是对信息编码的数学研究，通过各种不同的方式，如符号序列或脉冲序列，以及该信息能传输得多快。对我来说这个理论的主要结论是信息究竟是什么,如何编码并存储在基础的组件中，为了定义一些你必须解释**如何**使用这些组件的过程而这一个抽象的概念世界的元数据描述了我们周围的世界。
 
-### Relativity
+### 相对论
 
-Relativity is the absence of standards of absolute and universal application. This means there is no universal truth to be said about anything. What you observe is different depending on where you observe it from — or who you are.
+相对论缺乏绝对和普遍适用的标准。这意味着任何事情都没有普遍的真理可言。观察结果因观察点或观察者而异。
 
-## Introducing: Worlds
+## 介绍：世界
 
-Everything around us is a world of its own. A tree, a glass of water, a city, an app, a button, a colour, a typeface… Anything. We designers and developers use variables, functions, (React/Vue) components, classes, symbols or systems to encapsulate these concepts into reusable chunks. I would like to just call them **worlds**. It sounds simple and relatable, but encompassing, imaginative and powerful at the same time.
+我们周围的一切都是它自己的世界。一棵树、一杯水、一座城市、一款应用、一个按建、一种颜色、一个字体……任何东西。我们设计人员和开发人员使用变量、函数、（React / Vue）组件、类、符号或系统将这些概念封装到可反复使用的数据块中。我想把它们叫做**世界**。它听起来简单而且贴切，但同时包罗万象，富有想象，功能强大。
 
-A world is like a reusable function. A box that will take input (or what’s called **props** in React), perform a manipulation on it and render the output. A simple world (**grey-500**) could take a colour (`#ccc`) and output the same value, acting as a swatch. A more complex world could take many inputs (size, type, state, layout, etc.) and output a button.
+世界就像一个可重复的函数。一个接收输入（在 React 中称为 **props**）的盒子，对其执行操作并呈现输出。一个简单的世界（灰色-500）可以选择一种颜色（#ccc），并输出相同的值，当做一个样本。更复杂的世界可以接受许多输入（尺寸、类型、状态、布局等）并输出一个按钮。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*-AOTKkYq25BBoG7CkppIhQ.png)
 
-A popular methodology for creating design systems is [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/). While I’m not entirely **against** the methodology — which consists of atoms, molecules, organisms, templates and pages — I do think it’s limiting. By using this strict division of levels, you limit yourself to a box. Everything you do will eventually pose the same structure.
+创建设计系统的一种流行方法是 [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/)。虽然我并不完全**反对**这种由原子、分子、有机体、模板和页面组成的方法，但我确实认为它是有局限性的。通过使用这种严格的级别划分，你将自己限制在一个框中。你所做的每件事最终都会呈现出相同的结构。
 
-The simpler the foundation, the bigger the playground.
+更简单的基础，更广阔的舞台。
 
-Some worlds might be static and never change like the original **Mona Lisa** painting (at least the **idea** of it). You will always get the same thing. But most of the worlds can have their state changed. Imagine you have some controls which enable you to manipulate the output. Sometimes I imagine it’s like having a custom dashboard full of buttons and sliders and knobs, but it can be just as simple as tweaking the colour and size of a rectangle.
+有些世界可能是静态的，像**蒙娜丽莎**的原作那样永远不会改变(至少在**构思**上是这样)。你总会得到同样的结果。但世界上大多数世界都可以改变自己的状态。想象一下你有一些控件能够操纵输出。有时，我把它想象成一个定制的仪表盘，上面满是按键、滑块和旋钮，但它可以像调整矩形的颜色和大小一样简单。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*AJJLD_UVPHYALjj2ZeZXkQ.png)
 
-By tweaking these controls you are changing the state what the world is in by adjusting its properties, or what I call **dimensions.**
+通过调整这些控件，来改变世界所处的状态以适应其属性或者说**维度**。
 
-## Dimensions and States of a World
+## 世界的维度与状态
 
-**Dimensions**, or what is usually called **properties**, are lists of possibilities which combined together define what state the world is in. They are what makes worlds dynamic. The more dimensions (ie. size, colour, weight, etc.) — or dimension values (ie. `8px`, `20px`, `8%`, `20%`, `#000000`, `#efefef,` etc.) — the more possible states the world can be in.
+**维度**，或通常称为**属性**的东西，是组合在一起定义世界状态的可能性的列表。它们使世界充满活力的因素。 维度越多（即尺寸，颜色，重量等）—— 或维度的值越（8px、20px、8%、20%、#000000 和 #efefef 等）—— 世界可能的状态就越多。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*AA0dQhoMx7rVUzSm358UXg.png)
 
-A **static** world has no dimension. This means you have no control over the result and therefore you will always get the same result. An example of such a static world could be an image, if it always stays the same and you can’t perform any edits.
+**静态**世界没有维度。这意味着你无法控制结果，因此你将始终获得相同的结果。这种静态世界的一个例子可能是图像，如果图像始终保持不变就无法进行任何编辑。
 
-**Dynamic** worlds — the worlds you can manipulate — can have one or multiple dimensions. By combining these dimensions together, you can generate various versions of the same world for different occasions — for instance an icon,
+**动态世界** —— 你可以操纵的世界 —— 可以有一个或多个维度。将这些维度组合在一起，可以为不同的场合生成同一个世界的各种版本 —— 例如图标，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*nvCpBXDQlsBbxzty2jkaHQ.png)
 
-a button,
+一个按键，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*PIsjKKFu3FsL8Mr1qz2t1g.png)
 
-or a colour.
+或一种颜色。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*76-l2N0QuwF7dWosugCYYQ.png)
 
-Let’s say you want to see all the possible states of a world. For instance seeing all possible states of a button. In order for you to see it, you need to calculate it first. You would count them by multiplying all the possible values of every dimension. If **S** is the number of all possible states and **Vₐ** is the number of all possible values in dimension A, then it would go like this:
+假设你想看到一个世界的所有可能形态。例如，查看按钮的所有可能形状。为了让你看到它，你需要先计算它。你可以通过将每个维度的所有可能值相乘来计算它们。如果 S 是所有可能的形态的数量而 Vₐ 所有 A 维度下的可能值中的一个，那么它会是这样的：
 
 S **=** Vₐ **\*** Vₐ * Vₐ * …
 
-Or visually: one dimension with two possible states makes 2 possible states,
+或者视觉上：一个维度的两种可能的状态产生了两种可能的形状。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*S2HtL3rxXhdUyVcgy1dhwg.png)
 
-this makes 8 possible states (2*4),
+这种情况产生了 8 种 (2*4)，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*wA2uQ793KoBT-IqDaUSjyw.png)
 
-and this makes 16 possible states (2*4*2). Pretty straightforward stuff.
+而这种情况就产生了 16 种（2*4*2）。很简明的东西。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*0-JFRJMpqrwx3YgoaeFWsA.png)
 
-But usually, in complex worlds, there are so many states that it’s almost impossible to count them, for example a cup of water. To make things simple (and it still will be a system with a huge amount of possible states) let’s define it with just these 2 following dimensions:
+但通常，在复杂的世界中，有太多的状态，以至于几乎不可能数的清，例如一杯水。为了让事情变得简单（它仍然是一个包含大量可能状态的系统），让我们用以下两个维度来定义它：
 
-* the material of the cup (glass or plastic)
+* 杯子的材质（玻璃或塑料）
 
-* the amount of water (0–100ml)
+* 水量（0-100 ml）
 
 ![](https://cdn-images-1.medium.com/max/2800/1*930RzEm4ezNnBoVtJFihQw.png)
 
-How would you count all the possible states of this world? The number of all possible materials is 2, so that’s simple. But there are too many possible states between 0 ml and 100 ml. There is an infinite amount of states.
+你如何计算这个世界的所有可能的状态？所有可能的材料的种类是 2 种，这很简单。但在 0 ml 到 100 ml 之间可能存在的状态太多了。
 
-For us to get to the state we want it to, it makes no sense of keeping track of all the possible states. You would just like to keep track of some of them, like with a button. All you need is to know is what those dimensions are, what they define and you will generate the world out of those combinations depending on your needs.
+为了达到我们想要形态，追踪所有可能的状态是没有意义的。你只需要追踪其中的一些，就像设计一个按键。你所需要知道的就是这些维度是什么，它们定义了什么，你将根据你的需要组合得到你想要的世界。
 
-Now that we have defined worlds and their dimensions and states, let’s talk about the worlds’ trait that makes them so powerful — treating all worlds as **unique**.
+既然我们已经定义了世界以及它们的维度和状态，让我们来谈谈使它们如此强大的世界的特性 —— 把所有世界都当作**独一无二**的。
 
-## Every World Is Unique
+## 每个世界都是独一无二的
 
-There is a saying in programming: “**Don’t repeat yourself”**. That means everything you end up doing manually in a repetitive fashion should be automated. For me this also means there should be no doubles. **Everything should exist just once.** If you are referencing two entities and there is no difference between them, it’s the same individual entity. Every world, every dimension and every state of a world should be unique. A design system is in a way a network of relationships where every node exists just once.
+编程中有一句话: **“不要重复自己的劳动”**。这意味着你手工重复的方式完成的所有事情都应该是自动化的。对我来说，这也意味着不应该有第二次。**一切都应该只存在一次**。如果你正在引用两个实体，而它们之间没有任何区别，则它们是相同的独立实体。每一个体系、每一个维度、每一种状态都应该是独一无二的。设计系统在某种程度上是一个每个节点只存在一次的关系网络。
 
-For instance, if a colour `#1cc55f` is used in a Rectangle fill and Text fill, it should be pointing to the one and only colour. And I don’t mean a **colour** **style** or a **variable** — this colour exists just once, because it’s the one and same.
+例如，如果在矩形填充和文本填充中使用颜色 ＃1cc55f，则应该指向唯一的颜色。我并不是指一种**颜色样式**或一种**变量** —— 这种颜色只存在一次，因为它是同一种相同的颜色。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*jdm9tJ7H-0eMyIC23DUHzw.png)
 
-The same goes to dimensions — or what we usually call **properties**. If you are using a border radius in two objects, you are referencing it.
+同样适用于维度 —— 或者我们通常称之为**属性**。如果在两个对象中使用一个 border radius，便是在引用它。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*HWIMnJVmiivfezdwvvxDIQ.png)
 
-So every time you use a value — a colour, a number, a corner radius — to create something new out of it (i. e. a button, a switch), you are referencing it. You could look at those values you use in your worlds as worlds as well. So in a way, we are building worlds from other worlds, which are made of other worlds, all the way **inside**.
+所以每次你使用一个值 —— 一个颜色、一个数字或一个角半径 —— 来创建一个新的东西（比如一个按键、一个开关），你都在引用它。你也可以看到你世界里的各种值，和其他的体系一样。所以在某种程度上，我们正在构建的体系，源于其他的世界**内部**，总是这样。
 
-## Complex Worlds Emerging out of Simple Ones
+## 复杂的世界从简单的个体中涌现出来
 
-If you look at any design close enough, even at a microscopic level, all the way inside, it’s all made out of small, simpler worlds:
+如果你足够仔细地观察任何设计，即使是在微观层面，从内部来看，它都是由更小、更简单的世界构成的：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*EhC8Yjxk0y6VGIAR9ARO8w.png)
 
-If you look even closer, all the values are made out of numbers:
+如果看得再仔细一些，你会发现所有的值都由数字构成：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*UKkedP_SD2UENNiIeukLtQ.png)
 
-…if not pure 0’s and 1’s (but that’s not really important for us, since it’s too granular).
+……如果不是纯粹的 0 和 1（但这对我们来说并不重要，因为它太细微了）。
 
-## Creating Your Own Worlds
+## 创造你自己的世界
 
-Let’s zoom out a little bit and talk about worlds we regularly use when designing and building digital environments. On a smaller, more basic, a more “inner” level, you use simpler worlds, like Shape, Text or Image:
+让我们稍微缩小一下，谈谈我们在设计和构建数字环境时经常使用的世界。在更小、更基本、更“内在”的层面上，你在使用更简单的世界，如形状，文本或图像：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*ayRDig-GT8j1Txomu8KxSQ.png)
 
-You would use these smaller worlds to create larger worlds with some intention, like Button, Icon, Avatar,
+你可以用这些小的世界来创造更大的世界，比如按键、图标、头像，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*zE4efCJdGen1QBZjPTNdkw.png)
 
-or even larger and more complex, emerging out of more simple worlds, like List Items, Top Bars or Pages:
+或从更简单的体系中涌现更大更复杂的体系，比如列表项、顶部栏或页面：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*Sv8dv2S43k7csNB0eCOrng.png)
 
-Just like you would tweak the dimensions of Shapes, Texts or Images,
+就像你要调整形状、文本或图像的维度一样，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*xVUmYKf2vit2yzx4OUkr0g.png)
 
-our tools should give us the means to create and tweak dimensions of our own worlds, whether they are small and relatively simple like Buttons, Icons or Avatars,
+我们的工具应该为我们提供创造和调整我们自己世界的尺寸的方法，无论它们是小而且相对简单，如按钮、图标或头像，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*iDxf7nekKucg1blESDCgCQ.png)
 
-Progress Bars, custom Text or Colour,
+进度条、自定义文本或颜色，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*a0bcRffJBmGs_hbpYroFwg.png)
 
-or more complex like List Items, Bars or Pages:
+或更复杂的列表项、栏或页面：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*sXnq6MYHmFRdAn0KVRLL5w.png)
 
-Our tools should enable us to create anything out of basic already existing elementary worlds, so the complex will emerge out of just a few basic building blocks.
+我们的工具应该使我们能够从已经存在的基本系统中创建任何东西，因此复杂的东西将会从几个基础的组件中涌现。
 
-## There’s No Hierarchy — Just a List of Possibilities
+## 没有层级 —— 只有一系列的可能性
 
-So, how does this “world-in-worlds-in-worlds” structure look like? If you’re familiar with the way HTML objects are rendered in [DOM](https://en.wikipedia.org/wiki/Document_Object_Model) (Document Object Model), or with React components, you would say it resembles a tree.
+那么，这种“世界中的世界中的世界”结构是什么样子的呢？如果你熟悉 HTML 对象在 [DOM](https://en.wikipedia.org/wiki/Document_Object_Model) （文档对象模型）中呈现的方式，或熟悉 React 组件，你会说它类似于一棵树。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*r40twjR3-Ma5MUniMsdnEg.png)
 
-![Examples of structure in HTML and React components](https://cdn-images-1.medium.com/max/2800/1*kkMKItZe6idW0JnhYd_-vA.png)
+![示例：HTML 结构和 React 组件](https://cdn-images-1.medium.com/max/2800/1*kkMKItZe6idW0JnhYd_-vA.png)
 
-But once you take this **everything is unique** philosophy really seriously into consideration, it starts getting a bit more complex and not really tree-like. A tree-like structure is looking at everything from only one perspective but with design systems there could be millions of them.
+但是一旦你认真考虑到这**万物皆独特**的哲学，它开始变得有点复杂了，并不是真正的树状。类树形结构只从一个视角看所有的东西，但是对于设计系统，可能有数百万个视角。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*sQltac7lMa7NaLyF4rUJ0g.png)
 
-In an environment where everything is unique and where basically any world can use almost any world, you need to have all of them ready and accessible from any position. You need to have a list of all the worlds and what you end up using will be based on your perspective.
+在一个一切都是独一无二的，几乎任何世界都可以相互贯通的环境中，你需要准备好所有这些，并且可以从任何位置接触到它们。你需要有一个所有世界的清单，你最终使用的取决于你所处视角。
 
-To describe any design system (or system in general) you need a list of **all possible unique worlds, heavily referencing each other**.
+要描述任何设计系统（或一般的系统），你需要**一个包含所有可能的独立体系的列表，这些体系之间相互引用**。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*sGCpuG5Em2duVHM-Vn1tDg.png)
 
-You also can’t really remove a world that’s being referenced to by another world — otherwise things might break. You can’t remove a `#ccc` colour if you are using it in Rectangle, or remove Button if you are using it in Frame. You need to replace it with another world — this is what you usually do when you remove a Colour Style from an object in Figma.
+你也不能真正移除一个被另一个世界引用的世界 —— 否则事情可能会崩溃。如果在矩形中使用 #ccc颜色，则无法删除它；或者删除在 Frame 中使用的按键。你需要用另一个世界来代替它 —— 这就是你在 Figma 里常做的移除颜色框架这样的事。
 
-## Perspective Matters
+## 多角度看问题
 
-There is no hierarchy, unless you decide to observe one of the worlds. Since the list of all possible worlds in not a renderable tree, to actually render or show **something**, you need to pick one of the worlds — app, colour, size, number, button, anything. This world becomes an **observer** and you can render the view from the perspective of this world — either looking in or out.
+除非你决定观察其中一个世界，否则没有层级。由于所有可能体系的列表都不是可渲染的树形，要实际渲染或显示**某些东西**，你需要选择一个体系 —— 应用程序，颜色、大小、数字、按键、任何东西。这个世界成为一个**观察者**，你可以展现出你视角中的体系 ——无论向内还是向外。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*RMkOF2VHC6UMECOpGwvDZQ.png)
 
-This world will become the centre of your perspective. In a way, **you** and your observer are one. This means you could observe and control the view from the point of any of those worlds (colour, number, opacity, etc.) and **achieve almost impossible level of overview in your design**.
+这个体系将成为你视角的中心。在某种程度上，**你**和你的观察者是一体的。这意味着你可以从这些世界（颜色、数字、不透明度等）的任何角度观察和控制视图，并在**你的设计中实现几乎不可能的预览境界**。
 
-## The God Mode
+## 上帝模式
 
-A design system (or any system in general) could be described as a network of relationships where every node exists just once. Every world, every world’s dimension and every world’s state is unique.
+ 一个设计系统（或一般的任何系统）可以被描述为一种关系网络，其中每个节点仅存在一次。每个体系，每个体系的维度和每个体系的状态都是独一无二的。
 
-Now, if you kept track of every world as an unique document, you could change any rule just once by either changing any unique document or changing any relationship between them. No more manually adjusting of 1000+ screens after the font of list item size has been changed.
+现在，如果你将每个系统都记录为一个独特的文件，你只能更改一次规则，要么通过更改独特文件，要么通过更改文件之间的关系。更改列表项目大小的字体后，不再需要再手动调整 1000+ 的屏幕。
 
-This will allow you to look at your design system from a perspective of anything: all the colours,
+这将允许你从对任何事的看法来审视你的设计系统：所有的颜色，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*pixyXcPc7PfeIs7rCqmjlw.png)
 
-a specific colour,
+一个特定的颜色，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*vKAECrqowtMy0vFMa8GWvQ.png)
 
-or a colour swatch/style,
+或一种颜色样本/款式，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*VAPIKLi9HWkdXcEgCdshww.png)
 
-and change any one of those things just once. Boom. You can create your own world structure to create whatever kind of structure and dependency you need — worlds will act as relayers, effectively changing the traffic of information and allowing you to change any kind of rule just once everywhere at the same time.
+只要改变其中任何一件事一次。咚！你可以根据你所需要的任何类型的结构和需求创建你自己的体系结构 —— 体系将扮演中继器的角色，有效地改变信息的流量，并允许你在同一时间一次性改变任何类型的规则。
 
-Additionally to some elementary worlds like a Frame, Text or Image, you should be able to create your own worlds, pointing to other worlds — something like what we call **variables** in code or **Colour Styles** in Figma. But this should be applied to any rule, not only colour or text styles. You should be able to sync anything, for instance strings,
+除了一些基本的世界，如框架、文本或图像，你应该能够创建自己的世界，指向其他体系 —— 类似于我们在代码中的**变量**或 Figma 中的**颜色样式**。但这应该适用于任何规则，而不仅仅是颜色或文本样式。你应该能够同步到任何东西，例如字符串，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*1RcivOg9mtLmJU7EZ5UxpQ.png)
 
-percentages,
+百分比，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*17mLJo-s9DkeAUQOmaGhaA.png)
 
-or sizes,
+或尺寸，
 
 ![](https://cdn-images-1.medium.com/max/2800/1*W61O5gfqs1vxzCFSUCQTRQ.png)
 
-and do all of this manipulation in a highly visual way, with no coding required.
+并以高度可视化的方式进行所有这些操作，不需要编码。
 
-## Exploring vs. Consistency
+## 探索与一致性
 
-Just like in Figma, Framer X or Sketch, with this approach you can either explore with no rules set or set a strict set of rules in the form of symbols, components, variables or styles to build your stuff with.
+就像在 Figma、Framer X 或 Sketch 中一样，使用这种方法，你可以在没有规则集的情况下进行探索，也可以用符号、组件、变量或样式的形式设置一套严格的规则来构建你的东西。
 
-But what is really nice about this approach is that you could start exploring freely with no strings attached and then, at any given point, you can make it more strict and organised by finding the emerging patterns and encapsulating them as single individual rules. Go crazy, use any font sizes, colours or naming conventions you wish, you can always clean it up and organise at any given point. You could also do it vice versa: sprinkle a little bit of chaos into your strict design system rules.
+但是这种方法真正好的地方是，你可以开始自由地探索，不附加任何限制。然后，在任何给定的点上，你都可以通过发现新出现的模块并将它们封装为单个独立规则，从而使其更加精确更加组织性。疯狂地使用任何你想要的字体大小、颜色或命名规则，你随时都可以清理和组织它。你也可以反过来做：在精确的设计系统规则中添加一些混乱。
 
-This could be the answer for the everlasting conflict between free exploration and strict non-allowing rules of a design system — **an ability to find emerging patterns and pin them down** at any given point of the process.
+这可能是在自由探索和设计系统严格限制规则之间的永恒冲突的答案 —— **一种在过程中的任意给定点发现新出现的模块并定住它的能力**。
 
-## Design Assistant
+## 设计助手
 
-I don’t think we need to build robots that will do all of our work for us. I think that what we need more are **assistants, that will help us being better at what we do** — all of us, including people with limited knowledge of design principles. And keeping track of every node, every rule and relationship in a design system would allow to make amazing assistive algorithms.
+我不认为我们需要制造能为我们做所有工作的机器人。我认为我们更需要的是**更多的辅助，这将帮助我们更好地做好我们所做的** —— 我们所有人，包括那些对设计原则知识有限的人。只要跟踪设计系统中的每一个节点、每一条规则和每一段关系，就可以造出令人惊叹的辅助算法。
 
-You could make algorithms that will analyse your design system and suggest to you what the program predicts that you will use. It would nudge you to use the stuff that’s already been used to create more consistency. In the most simple way, it could suggest a colour or a size based on how many times it was already used:
+你可以制作一些算法来分析你的设计系统，并向你推荐你将使用的程序预测。它会促使你使用那些已经被用来创造更多一致性的东西。最简单的方法是，它可以根据已经使用了多少次来提示颜色或大小：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*pMnAa0-uIC9N9SD8LaSsww.png)
 
-As a more complex example, it might suggest a colour based on much more contextual metadata than how many times it is used — i. e. an object the colour is usually used on, the overall hue of all the colours, fill vs. stroke colour usage…
+作为一个更复杂的例子，它可能会建议一个颜色基于更多的上下文元数据，而不是它使用了多少次 —— 例如，颜色通常用于一个对象，所有颜色的整体色调，填充和描边颜色的使用……
 
 ![](https://cdn-images-1.medium.com/max/2800/1*M9NDH_DpKQ6cTiDxL1zeHQ.png)
 
-Or — when properly trained with metadata — give even more sophisticated suggestions based on various attributes:
+或者 —— 当使用元数据进行适当的适当的训练时 —— 根据不同的属性给出更复杂的建议：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*8El4Bmy2JmvbouOUxu6fPA.png)
 
-You might be able to analyse any design system (like Google’s Material Design) or a personal designer’s style and nudge the user to make choices that align with the defined “style”. This could help people that have no knowledge of design principles to learn by doing.
+你可能能够分析任何设计系统（如 Google 的 Material Design）或个人设计师的风格，并促使用户做出符合“风格”定义的选择。这可以帮助没有设计原则知识的人通过实践来学习。
 
-Our tools should nudge us into making not only more consistent choices, but also choices that contribute to accessibility and legibility. Imagine a design tool not allowing you to use an ineligible font colour — an accessibility baked right into the core of the design tool.
+我们的工具不仅应该促使我们做出更一致的选择，而且应该做出有助于易用性和易读性的选择。设想一个设计工具不允许你使用不合适的字体颜色 —— 将易用性融入设计工具的核心。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*ucD9XP00wym2U087n7WvSg.png)
 
-## ABC… Testing
+## AB 测试
 
-Testing different versions and picking the best one is another part of the design process that could benefit from systematisation. Imagine having an option to literally split the whole design system in two or more parallel universes so that you can see the difference between those and test which one is better. Something like git, built right into the core of our design tools, but better.
+测试并选择最佳版本是设计过程的另一部分，可以从系统化中受益。想象一下，可以选择将整个设计系统分成两个或多个平行的宇宙，以便看到它们之间的区别，并测试哪一个更好。类似 git，内置在我们的设计工具的核心中，但是更好。
 
-![Splitting design system into multiverses based on choices to be made](https://cdn-images-1.medium.com/max/2800/1*FT-a96s9BTh1D8d3yXhSsQ.png)
+![基于抉择将设计系统分解为多元宇宙](https://cdn-images-1.medium.com/max/2800/1*FT-a96s9BTh1D8d3yXhSsQ.png)
 
-This would be all possible thanks to us keeping track of every building block, every rule in the design system. You could continue making changes to any of the multiverses and they would all update, just because this difference is also an unique rule (or a collection of rules) acting independently of others. For instance, you could test as many different visual themes of an app totally independent from the whole UX process of setting up screen flows.
+因为我们跟踪了每一个组件，每个设计系统中的规则，使这一切都成为可能。你可以继续对任何一个多元宇宙进行更改，进行更新迭代，因为这个差异也是一个独立于其他规则的惟一规则（或一组规则）。例如，你可以测试一个应用程序的许多不同的视觉主题，这些主题，完全独立于设置屏幕流的整个交互过程。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*DPKVByhwS_2QKKtCgk7F9A.png)
 
-## What Are Screens?
+## 屏幕是什么？
 
-There is this clash between designers and programmers. When talking about flows, designers talk about **screens** or **pages** but programmers talk about **views** or **routes.** But we’re all just trying to do the same thing, right? So it should be probably one and the same. Or something in the middle. I do think there is a place in between where they meet and can coexist. I am convinced that **screens are snapshots of states of observed worlds,** created with intention — for instance to tell a story or to show an overview.
+设计师和程序员之间存在这种冲突。在谈论流程时，设计师会谈论**屏幕**或**页面**，但程序员会谈论**视图**或**路线**。但我们都只是想做相同的事情，对吧？所以它可能应该是相同的一个。或者介于两者之间。我确实认为存在一个地方，可以让两者相遇交汇。我确信**屏幕是观察体系状态的快照**，有意地创造 —— 例如讲述故事或展示概述。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*Z6HgBLYSWbK2CdOa8c8RBw.png)
 
-By snapshot of **a state** of the whole environment I mean that there could be as many screens as there are possible states of the app. It’s just that some of those states are more “interesting” and “main” than the others — you don’t show every possible combination of a calendar picker in a booking screen, you just show the default one, or another one that you want to communicate something with.
+通过整个环境**状态**的快照，我的意思是可能有与应用程序的可能状态一样多的屏幕。只是其中一些状态比其他状态更“有趣”和“重要” —— 你不会在预订屏幕中显示日历选择器的所有可能组合，你只显示默认状态或另一个你想要与之沟通的。
 
-A snapshot means that they are generated with intent. They are picked from all possible combinations to communicate a particular story. This means **you are not designing screens — you are designing dynamic worlds** and from those worlds you can generate stories or overviews by arranging a few selected snapshots next to each other. Screens are secondary, they are a byproduct of dynamic systems.
+快照的生成是带有目的的。它们是从所有可能的组合中挑选出来传达一个特定的故事。这意味着**你不是在设计屏幕——你是在设计动态的世界**，从这些体系中，你可以通过将几个选定的快照排列在一起来生成故事或概述。屏幕是次要的，它们是动态系统的副产品。
 
-## A Small Note On Interactivity
+## 一个关于交互的小说明
 
-Maybe you’ve already noticed I didn’t mention interactivity yet. So far all that I have described is a world of possibilities, where an observer can see an overview from any point of perspective but can’t really interact with it. This whole article is about **defining** design systems, not using them.
+也许你已经注意到我还没有提到交互。到目前为止，我所描述的只是一个充满可能性的体系，观察者可以在这个体系里从任何角度看到一个概览，但却无法与之真正互动。本文的主题是**定义**设计系统，而不是使用它们。
 
-I have chosen not to talk about this because: a) I haven’t got my thoughts on interactivity sorted out yet, and b) it would be a huge and long undertaking to talk about it so it’s for another article. Stay tuned.
+我选择不谈这个是因为：a)我还没有理清我对交互的想法；b)谈论它将是一个浩大而漫长的任务，所以这会是另一篇文章。请继续关注。
 
-But what I am sure about — and this may seem like a “really?” moment — is that interactivity is emerging on a higher level out of all these discrete building blocks of design systems by adding time as another dimension. I would dare to define interaction as **being an observer that can travel through these allowed states in time-flows —** for example interacting with an app instance, testing how a particular button works, or just inspecting the blue colour swatch:
+但我确定的是 —— 此刻你可能会说：“真的吗？” —— 通过增加时间作为另一个维度，交互性以更高的层从所有这些设计系统的离散组件中涌现。我敢把交互定义为一个观察者，**可以在这些被允许状态时间流中穿越** —— 例如，一个应用程序的交互实例，测试一个特定按键的工作方式，或者只是检查蓝色的颜色样本：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*CFHHcYr2VIV3a0pgC5Wv-g.png)
 
-Just like when 2D games were morphing into a 3D world, game developers initially thought it would be fairly easy to make games, given it’s just one more dimension added. This proved to be untrue, as making games in 3 dimensions brought so many new nuances into it, that it became much, much more difficult.
+就像当 2D 游戏逐渐演变成 3D 世界时，游戏开发者最初认为制作游戏是相当容易的，因为它只是增加了一个维度。这被证明是不正确的，因为在三维中制作游戏带来了许多新的细微差别，所以它变得非常非常困难。
 
-## How to Actually Build This Different Kind of a Design Tool
+## 如何实际构建这种不同类型的设计工具
 
-I have spent a huge amount of time trying to put this theory into practice and I made countless number of prototypes. This work-in-progress version I am going to show you is the closest I came to my vision. It doesn’t really matter what programming language is used to make this tool real. Or if this is a plugin for an already existing design tool. These ideas should be universal and applicable for use in any programming language or a design tool. This is my version of it.
+我花了大量的时间把这个理论付诸实践并做了无数的原型。我要给你们展示的这个正在进行中的版本是我最接近我的期望的版本。使用什么编程语言来实现这个工具并不重要。或者这是一个已经存在的设计工具的插件。这些思想应该是通用的，并且适用于任何编程语言或设计工具。这是我所期望的。
 
-### The Architecture
+### 架构
 
-In order to build a design tool based on these ideas, I started thinking about what systems I need to have in place. This is what I came up with:
+为了构建基于这些想法的设计工具，我开始考虑我需要具备哪些系统。这就是我想出的：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*oUBMNX83EI5tJ83lmR2cGA.png)
 
-* **Possibilities** — a place where you will set up **what** can exist and **how**. A place where all the masters and rules are. Think of this as a place where you **create** your design system — pick colours, font sizes, make buttons or switches, etc.
+* **可能性** —— 一个你将创建**什么**可以存在并**如何**存在的地方。一个所有管理和规则都在的地方。把它想象成你**创造**设计系统的地方 —— 选择颜色、字体大小、制作按键或开关等等。
 
-* **Instances —** a place where you manage **what really** exists. A place where you can create instances out of masters based on rules allowed in the Design System. Think of this as a place where you actually **use** the design system you are creating — for instance by making an app or a website, just like in any other design tool out there.
+* **实例** —— 一个管理**真实**存在的地方。你可以根据设计系统中允许的规则从母版创建实例的位置。您可以将其视为实际**使用**您正在创建的设计系统的地方 —— 例如，通过制作应用程序或网站，就像在任何其他设计工具中一样。
 
-* **Renderer —** algorithms that render what exists into a dynamic result in a real time.
+* **渲染器** —— 实时渲染动态结果的算法。
 
-* **(Dynamic) Result —** a place where you can interact with what you have made out of any perspective — see/manage a Button, a specific colour or the whole App.
+* **（动态）结果** —— 你可以与你所做的以任何角度互动的地方 —— 看到/管理一个按钮，一个特定的颜色或整个应用程序。
 
-Alternatively, Possibilities and Instances are mixed together in the tool’s interface so you can manage your design system by using it — just like you add a colour style straight in Figma’s toolbar without going into a separate screen. But what interface is this having is not really important — all I am saying is you need to have these systems in place. How will these systems manifest in UI is a thing of an opinion.
+或者，可能性和实例在工具界面中搭配在一起，这样你就可以使用它来管理你的设计系统 —— 就像在 Figma 的工具栏中直接添加颜色样式而无需进入单独的屏幕一样。但是这有什么样的界面并不重要 —— 我所说的只是你需要在合适位置有这些系统。这些系统如何在 UI 中显示是一种观点。
 
-### Storing The Truth in Unique Documents
+### 在独特文件中存储事实
 
-Another thing you need is a database with a list of documents for every world, dimension or state. It’s quite easy: all you need is lots and lots of documents with keys and values, where most of the keys and values are just references to other documents. In a way, **any design system (or system in general) could be seen as metadata about metadata**.
+你还需要一个数据库，其中包含每个体系、维度或状态的文件列表。这非常简单：你所需要的只是大量带有键和值的文件，其中大多数键和值只是对其他文件的引用。在某种程度上，**任何设计系统（或一般的系统）都可以看作是关于元数据的元数据**。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*XRHKmKwo0MFJH-ISK-SfCw.png)
 
-You don’t really want to design things from scratch. You need some elementary documents to build your own worlds from, for instance:
+你并不是真的想从头开始设计。你需要一些基本的文件来建立你自己的世界，例如：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*3zj0XuoGbMbWHw2jZFGY2A.png)
 
-The same goes for dimensions, for instance:
+维度也是如此，例如：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*wm1LMTkWr7L1C85z5-MUCw.png)
 
-And these elementary worlds will become documents :
+这些基本的体系将成为文件：
 
 ![](https://cdn-images-1.medium.com/max/2800/1*VP1REi3d6DkVOUVwgIY08w.png)
 
-Here’s a more detailed example for those who want to look closer:
+对于那些想要更仔细观察的人来说，这里有一个更详细的例子：
 
 ![](https://cdn-images-1.medium.com/max/10928/1*IxhWaifBfZf6CnQMtTBP3Q.png)
 
-## Summary
+## 总结
 
-In conclusion:
+结论：
 
-1. Every unique reusable building block in design system is a **world**.
+1. 设计系统中每个独特的可重复使用的组件都是一个**世界**。
 
-2. A world takes input, performs a manipulation on it and gives an output.
+2. 世界接收输入，对其执行操作并输出结果。
 
-3. Worlds are defined by their manipulable inputs called **dimensions.** All the values of these dimensions together define its **state**.
+3. 世界是由名为**维度**的可操纵输入定义的。这些维度的所有值一起定义其**状态**。
 
-4. By keeping track of all these unique worlds, some really powerful stuff happens. You could change anything (rule, colour, shape, image, name, opacity) just once, and apply it to all the other things.
+4. 通过跟踪所有这些独特的世界，你会发现一些非常强大的东西。。你只能做一次更改（规则、颜色、形状、图像、名称、不透明度），并将其应用于所有其他事物。
 
-5. Interaction is emerging out of these building blocks by adding an observer in a dimension of time. It’s a huge topic for another time.
+5. 添加时间这个维度来观察这些组件以形成交互。这个庞大课题留到下次探讨。
 
-![It’s all worlds in worlds in worlds in worlds…](https://cdn-images-1.medium.com/max/2800/1*GwzN3f_DAige-7OPwQRNRw.png)
+![世界嵌套世界，无穷匮也](https://cdn-images-1.medium.com/max/2800/1*GwzN3f_DAige-7OPwQRNRw.png)
 
-Design tools nowadays try to get from this place (A) where everything is being drawn, painted and static into an interactive place (B) where things are being programmed, dynamic and interactive. I am convinced that there is another, better way. With project Worlds I started in the abstract state of mind (C), where pure information is being represented and manipulated.
+现在的设计工具试图从（A）一切都被绘制，绘画和静态的地方进入到（B）一切都被编程，动态和可互动的有交互地方。我相信还有另一种更好的方法。对于项目世界，我是从抽象的思维状态开始的（C），在那里纯粹的信息被表示和处理。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*7Sw-OAbtvFyKy5Dg-9bZ8Q.png)
 
-I believe that if we really get to understand how we perceive the world around us in an extremely organised way and use this effectively to our advantage, nothing is out of reach.
+我相信，如果我们真正了解我们如何以极其有组织的方式感知我们周围的体系并有效地利用这一点，那么没有什么是遥不可及的。
 
 —
 
-So what do you think about this? Let me know in the comments below or follow me on [Twitter](https://twitter.com/TristanMinor).
+所以，对于这个你有什么想法？ 请在下面的评论中告诉我或在 [Twitter](https://twitter.com/TristanMinor) 上关注我。
 
 ––
 
-**Big thank you to [Daniël van der Winden](https://twitter.com/dvdwinden) and [Ivana Žišková](https://twitter.com/fluidpills) for helping out with the article.**
+**郑重感谢 [Daniël van der Winden](https://twitter.com/dvdwinden) 和 [Ivana Žišková](https://twitter.com/fluidpills) 对本文提供的帮助。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

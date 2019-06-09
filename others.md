@@ -1,3 +1,6 @@
+* [帮你高效使用 VS Code 的秘诀](https://juejin.im/post/5cd8fcedf265da03761eaa45) ([Baddyo](https://github.com/Baddyo) 翻译)
+* [我们从招聘技术经理的过程中学到了什么](https://juejin.im/post/5cdcf463f265da0392580820) ([JackEggie](https://github.com/JackEggie) 翻译)
+* [最优控制：LQR](https://juejin.im/post/5cdfe49c6fb9a07eee5e9de6) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [Commit 提交指南](https://juejin.im/post/5ccf9e60f265da039c05659d) ([Mirosalva](https://github.com/Mirosalva) 翻译)
 * [如何避免我作为初级开发者时所犯下的 7 个错误](https://juejin.im/post/5cbea729e51d456e8240dcfa) ([whatbeg](https://github.com/whatbeg) 翻译)
 * [你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c) ([xionglong58](https://github.com/xionglong58) 翻译)

@@ -2,54 +2,54 @@
 > * 原文作者：[By David East](https://www.raywenderlich.com/u/deast)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ml-kit-tutorial-for-ios-recognizing-text-in-images.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ml-kit-tutorial-for-ios-recognizing-text-in-images.md)
-> * 译者：
-> * 校对者：
+> * 译者：[portandbridge](https://github.com/portandbridge)
+> * 校对者：[Lobster-King](https://github.com/Lobster-King)，[iWeslie](https://github.com/iWeslie)
 
-# ML Kit Tutorial for iOS: Recognizing Text in Images
+# 用于 iOS 的 ML Kit 教程：识别图像中的文字
 
-In this ML Kit tutorial, you’ll learn how to leverage Google’s ML Kit to detect and recognize text.
+在这篇 ML Kit 教程里面，你会学习如何使用 Google 的 ML Kit 进行文字检测和识别。
 
-A few years ago, there were two types of machine learning (ML) developers: the advanced developers and everyone else. The lower levels of ML can be hard; it’s a lot of math, and it uses big words like **logistic regression**, **sparsity** and **neural nets**. But it doesn’t have to be that hard.
+几年前，机器学习开发者分成两类：高级开发者是一类，其余的人则是另一类。机器学习的底层部分有可能很难，因为它涉及很多数学知识，还用到**逻辑回归（logistic regression）、稀疏性（sparsity）和神经网络（neural nets）**这样的艰深字眼。不过，也不是一定要搞得那么难的。
 
-You can also be an ML developer! At its core, ML is simple. With it, you solve a problem by teaching a software model to recognize patterns instead of hard coding each situation and corner case you can think of. However, it can be daunting to get started, and this is where you can rely on existing tools.
+你也可以成为机器学习开发者的！就其核心而言，机器学习并不难。应用机器学习时，你是通过教软件模型发现规律来解决问题，而不是将你能想到的每种情况都硬编码到模型里面。然而，一开始做的时候有可能会让人却步，而这正是你可以运用现有工具的时机。
 
-#### Machine Learning and Tooling
+#### 机器学习与工具配套（Tooling）
 
-Just like iOS development, ML is about tooling. You wouldn’t build your own UITableView, or at least you shouldn’t; you would use a framework instead, like UIKit.
+和 iOS 开发一样，机器学习与工具配套息息相关。你不会自己搭建一个 UITableView，或者说，至少你不应该那么做；你会用一个框架，比如 UIKit。
 
-It’s the same way with ML. ML has a booming ecosystem of tooling. **Tensorflow**, for example, simplifies training and running models. **TensorFlow Lite** brings model support to iOS and Android devices.
+机器学习也是一样的道理。机器学习有一个正蓬勃发展的工具配套生态系统。举个例子，**Tensorflow** 可以简化训练及运行模型的过程。**TensorFlow Lite** 则可以给 iOS 和 Android 设备带来对模型的支持。
 
-Each of these tools requires some experience with ML. What if you’re not an ML expert but want to solve a specific problem? For these situations, there’s **ML Kit**.
+这些工具用起来全都需要一定的机器学习方面的经验。假如你不是机器学习的专家，但又想解决某个具体问题，该怎么办呢？这时候你就可以用 **ML Kit**。
 
 ### ML Kit
 
-ML Kit is a mobile SDK that brings Google’s ML expertise to your app. There are two main parts of ML Kit’s APIs for common use cases and custom models that are easy to use regardless of experience.
+ML Kit 是个移动端的 SDK，可以将 Google 强大的机器学习技术带到你的 App 中。ML Kit 的 API 有两大部分，可以用于普通使用场景和自定义模型；而不管使用者的经验如何，它们用起来都不难。
 
 [![ML Kit](https://koenig-media.raywenderlich.com/uploads/2018/08/ML-Kit-for-Firebase-badge-light.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ML-Kit-for-Firebase-badge-light.png)
 
-The existing APIs currently support:
+现有的 API 目前支持：
 
-*   [Recognizing text](https://firebase.google.com/docs/ml-kit/ios/recognize-text)
-*   [Detecting faces](https://firebase.google.com/docs/ml-kit/ios/detect-faces)
-*   [Identifying landmarks](https://firebase.google.com/docs/ml-kit/ios/recognize-landmarks)
-*   [Scanning barcodes](https://firebase.google.com/docs/ml-kit/ios/read-barcodes)
-*   [Labeling images](https://firebase.google.com/docs/ml-kit/ios/label-images)
+*   [识别文字](https://firebase.google.com/docs/ml-kit/ios/recognize-text)
+*   [人脸检测](https://firebase.google.com/docs/ml-kit/ios/detect-faces)
+*   [识别地标建筑](https://firebase.google.com/docs/ml-kit/ios/recognize-landmarks)
+*   [扫描条形码](https://firebase.google.com/docs/ml-kit/ios/read-barcodes)
+*   [为图像加标签](https://firebase.google.com/docs/ml-kit/ios/label-images)
 
-Each of these use cases comes with a pre-trained model wrapped in an easy-to-use API. Time to start building something!
+以上的每种使用场景都附带一个预先训练过的模型，而模型则包装在易用的 API 中。现在是时候动手做点东西啦！
 
-### Getting Started
+### 预备工作
 
-In this tutorial, you’re going to build an app called **Extractor**. Have you ever snapped a picture of a sign or a poster just to write down the text content? It would be great if an app could just peel the text off the sign and save it for you, ready to use. You could, for example, take a picture of an addressed envelope and save the address. That’s exactly what you’ll do with this project! Get ready!
+在本教程中，你会编写一个名为 **Extractor** 的 App。你有没有试过，只是为了把文字内容写下来，就去给标志或者海报拍照呢？如果有个 App 能够把图片上的文字抠下来并转换成真正的文字格式，那就太好了！比方说，你只需要给带有地址的一个信封拍照，就可以提取上面的地址信息。接下来你要在这个项目里面做的，正就是这样的 App！快做好准备吧！
 
-Start by downloading the project materials for this tutorial using the **Download Materials** button at the top or bottom of this tutorial.
+你首先要做的，是下载本教程要用到的项目材料。点击教程最上方或者底部的“Download Materials”按钮就可以下载啦。
 
-This project uses CocoaPods to manage dependencies.
+本项目使用 CocoaPods 对依赖进行管理。
 
-### Setting Up ML Kit
+### 配置 ML Kit 环境
 
-Each ML Kit API has a different set of CocoaPods dependencies. This is useful because you only need to bundle the dependencies required by your app. For instance, if you’re not identifying landmarks, you don’t need that model in your app. In Extractor, you’ll use the **Text Recognition API**.
+每个 ML Kit API 都有一套不同的 CocoaPods 依赖。这蛮有用的，因为你只需要打包你的 App 所需的依赖。比方说，如果你不打算识别地标建筑，你的 App 就不需要有那个模型。在 Extractor 里，你要用到的是**文字识别 API**。
 
-If you were adding the Text Recognition API to your app, then you would need to add the following lines to your Podfile, but you don’t have to do this for the starter project since the lines are there in the Podfile – you can check.
+假如要在你的 App 里面加入文字识别 API，你需要在 Podfile 里面加入以下几行。不过做这个初始项目的时候就不用了，因为 Podfile 里面已经写好啦，你可以自己打开看看。
 
 ```
 pod 'Firebase/Core' => '5.5.0'
@@ -57,56 +57,56 @@ pod 'Firebase/MLVision' => '5.5.0'
 pod 'Firebase/MLVisionTextModel' => '5.5.0'
 ```
 
-You do have to open the Terminal app, switch over to the project folder and run the following command to install the CocoaPods used in the project though:
+需要你做的呢，是打开终端，进入项目的文件夹，运行下面的命令，从而安装项目要用到的 CocoaPods：
 
 ```
 pod install
 ```
 
-Once the CocoaPods are installed, open **Extractor.xcworkspace** in Xcode.
+安装好 CocoaPods 之后，在 Xcode 中打开 **Extractor.xcworkspace**。
 
-> **Note**: You may notice that the project folder contains a project file named **Extractor.xcodeproj** and a workspace file named **Extractor.xcworkspace**, which is the file you’re opening in Xcode. Don’t open the project file, because it doesn’t contain the additional CocoaPods project which is required to compile the app.
+> **注意**：你可能会发现，项目的文件夹里有一个名为 **Extractor.xcodeproj** 的项目文件，和一个名为 **Extractor.xcworkspace** 的 workspace 文件。你需要在 Xcode 打开后者，因为前者没有包含编译时所需的 CocoaPods 依赖库。
 >
-> If you’re unfamiliar with CocoaPods, our [CocoaPods Tutorial](https://www.raywenderlich.com/626-cocoapods-tutorial-for-swift-getting-started) will help you get started.
+> 如果你不熟悉 CocoaPods，我们的 [CocoaPods 教程](https://www.raywenderlich.com/626-cocoapods-tutorial-for-swift-getting-started) 可以带你初步了解下。
 
-This project contains the following important files:
+本项目包含以下的重要文件：
 
-1.  **ViewController.swift**: The only controller in this project.
-2.  **+UIImage.swift**: A `UIImage` extension to fix the orientation of images.
+1.  **ViewController.swift**：本项目唯一的控制器。
+2.  **+UIImage.swift**：用于修正图像方向的 `UIImage` 扩展。
 
-### Setting Up a Firebase Account
+### 开设一个 Firebase 账号
 
-To set up a Firebase account, follow the account setup section in this [Getting Started With Firebase Tutorial](https://www.raywenderlich.com/187417/firebase-tutorial-getting-started-3). While the Firebase products are different, the account creation and setup is exactly the same.
+按照 [初步学习 Firebase 的教程](https://www.raywenderlich.com/187417/firebase-tutorial-getting-started-3) 这篇文章里面有关开设账号的部分去做，就可以开设一个 Firebase 账号。虽然涉及的 Firebase 产品不同，新建账号和设置的过程是完全一样的。
 
-The general idea is that you:
+大概的意思是让你：
 
-1.  Create an account.
-2.  Create a project.
-3.  Add an iOS app to a project.
-4.  Drag the **GoogleService-Info.plist** to your project.
-5.  Initialize Firebase in the AppDelegate.
+1.  注册账号。
+2.  创建项目。
+3.  在项目中添加一个 iOS app。
+4.  将 **GoogleService-Info.plist** 拖动到项目中。
+5.  在 AppDelegate 中初始化 Firebase。
 
-It’s simple process but, if you hit any snags, the guide above can help.
+这个流程做起来不难，不过要是真的有什么搞不定，上面提到的指南可以帮你解决问题。
 
-> **Note**: You need to set up Firebase and create your own **GoogleService-Info.plist** for both the final and starter projects.
+> **注意**：你需要设置好 Firebase，为最终项目和初始项目创建自己的 **GoogleService-Info.plist** 文件。
 
-Build and run the app, and you’ll see that it looks like this:
+编译 App 再运行，你会看到它长这个样子：
 
-[![Starter app](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel-650x376.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel.png)
+[![初始项目](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel-650x376.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-starter-nobezel.png)
 
-It doesn’t do anything yet except allow you to share the hard-coded text via the action button on the top right. You’ll use ML Kit to bring this app to life.
+它暂时还做不了什么，只能让你用右上方的动作按钮分享已经写死的文字。你要用 ML Kit 把它做成一个真正有用的 App。
 
-### Detecting Basic Text
+### 检测基本文本
 
-Get ready for your first text detection! You can begin by demonstrating to the user how to use the app.
+准备好进行第一次文本检测啦！你一开始可以做的，是向用户展示这个 App 的用法。
 
-A nice demonstration is to scan an example image when the app first boots up. There’s an image bundled in the assets folder named **scanned-text**, which is currently the default image displayed in the `UIImageView` of the view controller. You’ll use that as the example image.
+一个不错的展示方法，就是在 App 第一次启动的时候，扫描一幅示例图片。资源文件夹里附带了一幅叫做 **scanned-text** 的图片，它现在是视图控制器的 `UIImageView` 所显示的默认图片，你会用它来做示例图片。
 
-But first, you need a text detector to detect the text in the image.
+不过一开始呢，你需要有一个可以检测图片内文字的文本检测器。
 
-#### Creating a Text Detector
+#### 创建文本检测器
 
-Create a file named **ScaledElementProcessor.swift** and add the following code:
+新建一个名为 **ScaledElementProcessor.swift** 的文件，填入以下代码：
 
 ```
 import Firebase
@@ -116,7 +116,7 @@ class ScaledElementProcessor {
 }
 ```
 
-Great! You’re all done! Just kidding. Create a text-detector property inside the class:
+好啦，搞定啦！……才怪。你要在这个类里面添加一个 text-detector 属性：
 
 ```
 let vision = Vision.vision()
@@ -127,7 +127,7 @@ init() {
 }
 ```
 
-This `textRecognizer` is the main object you can use to detect text in images. You’ll use it to recognize the text contained in the image currently displayed by the `UIImageView`. Add the following detection method to the class:
+这个 `textRecognizer` 就是你用来检测图像内文本的主要对象。你要用它来识别 `UIImageView` 所显示的图片里面的文字。向刚才的类添加下面的检测方法：
 
 ```
 func process(in imageView: UIImageView, 
@@ -153,23 +153,23 @@ func process(in imageView: UIImageView,
 }
 ```
 
-Take a second to understand this chunk of code:
+我们花一点点时间搞懂上面这串代码：
 
-1.  Here, you check if the `imageView` actually contains an image. If not, simply return. Ideally, however, you would either throw or provide a graceful failure.
-2.  ML Kit uses a special `VisionImage` type. It’s useful because it can contain specific metadata for ML Kit to process the image, such as the image’s orientation.
-3.  The `textRecognizer` has a `process` method that takes in the `VisionImage`, and it returns an array of text results in the form of a parameter passed to a closure.
-4.  The result could be `nil`, and, in that case, you’ll want to return an empty string for the callback.
-5.  Lastly, the callback is triggered to relay the recognized text.
+1.  检查 `imageView` 当中是否真的包含图片。没有的话，直接返回就可以了。不过理想的做法还是，显示或者自己编写一段得体的错误信息。
+2.  ML Kit 使用一个特别的 `VisionImage` 类型。它很好用，因为可以包含像是图片方向之类的具体元数据，让 ML Kit 用来处理图像。
+3.  `textRecognizer` 带有一个 `process` 方法， 这个方法会输入 `VisionImage`，然后返回文本结果的阵列，将其作为参数传递给闭包。
+4.  结果可以是 `nil`；那样的话，你最好为回调返回一个空字串。
+5.  最后，触发回调，从而传递识别出的文字。
 
-#### Using the Text Detector
+#### 使用文字识别器
 
-Open **ViewController.swift** and, after the outlets at the top of the class body, add an instance of `ScaledElementProcessor` as a property:
+打开 **ViewController.swift**，然后在类本体代码顶端的 outlet 后面，将 `ScaledElementProcessor` 的一个实例作为属性添加进去：
 
 ```
 let processor = ScaledElementProcessor()
 ```
 
-Then, add the following code at the bottom of `viewDidLoad()` to display the detected text in the **UITextView**:
+然后在 `viewDidLoad()` 的底部添加以下的代码，作用是在 **UITextView** 中显示出检测到的文字：
 
 ```
 processor.process(in: imageView) { text in
@@ -177,9 +177,9 @@ processor.process(in: imageView) { text in
 }
 ```
 
-This small block calls `process(in:)`, passing the main `imageView` and assigning the recognized text to the `scannedText` property in the callback.
+这一小段代码会调用 `process(in:)`，传递主要的 `imageView`，然后在回调当中将识别出的文字分配给 `scannedText` 属性。
 
-Run the app, and you should see the following text right below the image:
+运行 app，你应该会在图像的下方看到下面的文字：
 
 ```
 Your
@@ -190,27 +190,27 @@ appear
 here 
 ```
 
-You might need to scroll the text view to reveal the last couple of lines.
+你可能要拖动文本视图才能看到最下面的几行。
 
-Notice how the “S” and “C” of **scanned** are uppercase. Sometimes, with specific fonts, the wrong casing can appear. This is the reason why the text is displayed in a `UITextView`, so the user can manually edit to fix detection mistakes.
+留意一下，**scanned** 里面的 S 和 C 字母都是大写的。有时对某些字体进行识别的时候，文字的大小写会出错。这就是要在 `UITextView` 显示文字的原因；要是检测出错，用户可以手动编辑文字进行改正。
 
-[![Detected text from image](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-basic-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-basic-no-bezel.png)
+[![从图像中检测出的文字](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-basic-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-basic-no-bezel.png)
 
-#### Understanding the Classes
+#### 理解这些类
 
-> **Note**: You don’t have to copy the code in this section; it just helps to explain concepts. You’ll add code to the app in the next section.
+> **注意**：你不需要复制这一节里面的代码，这些代码只是用来帮忙解释概念的。到了下一节，你才需要往 App 里面添加代码。
 
 **VisionText**
 
-Did you notice that the callback of `textRecognizer.process(in:)` in `ScaledElementProcessor` returned an object in the `result` parameter instead of plain old text? This is an instance of [`VisionText`](https://firebase.google.com/docs/reference/swift/firebasemlvision/api/reference/Classes/VisionText), a class that contains lots of useful information, such as the recognized text. But you want to do more than just get the text. **Wouldn’t it be cool to outline each frame of each recognized text element?**
+你有没有发现，`ScaledElementProcessor` 中 `textRecognizer.process(in:)` 的回调函数返回的，是 `result` 参数里面的一个对象，而不是纯粹的文字。这是 [`VisionText`](https://firebase.google.com/docs/reference/swift/firebasemlvision/api/reference/Classes/VisionText) 的一个实例；它是一种包含很多有用信息的类，比如是识别到的文字。不过，你要做的不仅仅是取得文字。**如果我们可以帮每个识别出的文本元素都画出一个外框，那不是更酷炫吗？**
 
-ML Kit provides the result in a structure similar to a tree. You need to traverse to the leaf element in order to obtain the position and size of the frame containing the recognized text. If the reference to tree structures did not make a lot of sense to you, don’t worry too much. The sections below should clarify what’s going on.
+ML Kit 所提供的结果，具有像树一样的结构。你需要到达叶元素，才能取得包含已识别文字的 frame 的位置和尺寸。如果听完树形结构这个类比你还不是很懂的话，不用担心。下面的几节会讲清楚到底发生了什么。
 
-However, if you are interested in learning more about tree data structures, you can always check out this tutorial on [Swift Tree Data Structures](https://www.raywenderlich.com/1053-swift-algorithm-club-swift-tree-data-structure).
+不过，如果你有兴趣多了解树形数据结构的话，可以随时去看看这篇教程 — [Swift 树形数据结构](https://www.raywenderlich.com/1053-swift-algorithm-club-swift-tree-data-structure)。
 
 **VisionTextBlock**
 
-When working with recognized text, you start with a `VisionText` object — this is an object (call it the tree) that can contain multiple blocks of text (like branches in a tree). You iterate over each branch, which is a `VisionTextBlock` object in the **blocks** array, like this:
+处理识别出的文字时，你首先要用到 `VisionText` 对象 — 这个对象（我所说的树）包含多个文字区块（就像树上的枝条）。每个分支都是 **blocks** 阵列里面的 `VisionTextBlock` 对象；而你需要迭代每个分支，做法如下:
 
 ```
 for block in result.blocks {
@@ -220,11 +220,11 @@ for block in result.blocks {
 
 **VisionTextElement**
 
-A `VisionTextBlock` is simply an object containing a collection of lines of text (like leaves on a branch) each represented by a `VisionTextElement` instance. This nesting doll of objects allows you to see the hierarchy of the identified text.
+`VisionTextBlock` 纯粹是个包含一系列分行文字（文字就像是树枝上的叶子）的对象，它们每一个都由 `VisionTextElement` 实例进行代表。你可以在这幅由各对象组成的嵌套图里，看清已识别文字的层级结构。
 
 [![](https://koenig-media.raywenderlich.com/uploads/2018/07/vision-hierarchy-2x-1-573x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/07/vision-hierarchy-2x-1.png)
 
-Looping through each object looks like this:
+循环遍历每个对象的时候，大概是这样：
 
 ```
 for block in result.blocks {
@@ -236,17 +236,17 @@ for block in result.blocks {
 }
 ```
 
-All objects in this hierarchy contain the frame in which the text is located. However, each object contains a different level of granularity. A block may contain multiple lines, a line may contain multiple elements, and an element may contain multiple symbols.
+这个层级结构里面的每个对象都包涵文本所在的 frame。然而，每个对象都具有不同层次的粒度。一个块（block）里面或许包括几个行。每行可能包括多个元素。而每个元素则可能包括多个符号。
 
-For this tutorial, you’ll use elements as the level of granularity. Elements will typically correspond to a word. This will allow you to draw over each word and show the user where each word is located in the image.
+就这篇教程而言，你要用到的是元素这一粒度层次。元素通常对应的是一个单词。这样一来，你就可以在每个单词上方进行绘制，向用户展示出图像中每个单词的位置。
 
-The last loop iterates over the elements in each line of the text block. These elements contain the `frame`, a simple `CGRect`. Using this frame, you can draw borders around the words on the image.
+最后一个循环会对文本块中每一行的元素进行迭代。这些元素包含 `frame`，它是个简单的 `CGRect`。运用这个 frame，你就可以在图像的文字周围绘制外框。
 
-### Highlighting the Text Frames
+### 突出显示文本的 frame
 
-#### Detecting Frames
+#### frame 检测
 
-To draw on the image, you’ll need to create a `CAShapeLayer` with the `frame` of the text element. Open **ScaledElementProcessor.swift** and add the following `struct` to the top of the file:
+要在图像上绘制，你需要建立一个具有文字元素的 `frame` 的 `CAShapeLayer`。打开 **ScaledElementProcessor.swift**，将下面的 `struct` 插入到文件的最上方：
 
 ```
 struct ScaledElement {
@@ -255,9 +255,9 @@ struct ScaledElement {
 }
 ```
 
-This `struct` is a convenience. It makes it easier to group the frame and `CAShapeLayer` to the controller. Now, you need a helper method to create a `CAShapeLayer` from the element’s frame.
+这个 `struct` 很方便好用。有了 `struct`，就可以更容易地把 frame 和 `CAShapeLayer` 与控制器组合到一起。现在，你需要一个辅助方法，利用它从元素的 frame 建立 `CAShapeLayer`。
 
-Add the following code to the end of `ScaledElementProcessor`:
+在 `ScaledElementProcessor` 的底部加入以下代码：
 
 ```
 private func createShapeLayer(frame: CGRect) -> CAShapeLayer {
@@ -282,13 +282,13 @@ private enum Constants {
 }
 ```
 
-Here’s what the code does:
+这段代码的作用是：
 
-1.  A `CAShapeLayer` does not have an initializer that takes in a `CGRect`. So, you construct a `UIBezierPath` with the `CGRect` and set the shape layer’s `path` to the `UIBezierPath`.
-2.  The visual properties for colors and widths are set via a `Constants` enum.
-3.  This enum helps keep the coloring and widths consistent.
+1.  `CAShapeLayer` 并没有可以输入 `CGRect` 的初始化器。所以，你要建立一个包含 `CGRect` 的 `UIBezierPath`，然后将形状图层的 `path` 设置为这个 `UIBezierPath`。
+2.  通过 `Constants` 枚举类型，设置颜色和宽度方面的图像属性。
+3.  这一枚举类型可以让颜色和宽度保持不变。
 
-Now, replace `process(in:callback:)` with the following:
+现在，用下面的代码替换掉 `process(in:callback:)`：
 
 ```
 // 1
@@ -331,17 +331,17 @@ func process(
 }
 ```
 
-Here’s what changed:
+代码有以下的改动：
 
-1.  The callback now takes an array of `ScaledElement` instances in addition to the recognized text.
-2.  `scaledElements` serves as a collection for frames and shape layers.
-3.  Exactly as outlined above, the code uses a `for` loop to get the frame of each element.
-4.  The innermost `for` loop creates the shape layer from the element’s frame, which is then used to construct a new `ScaledElement` instance.
-5.  Add the newly created instance to `scaledElements`.
+1.  这里的回调函数现在不但可以接受已识别的文本，也可以接受 `ScaledElement` 实例组成的阵列。
+2.  `scaledElements` 的作用是收集存放 frame 和形状图层。
+3.  和上文的简介完全一致，这段代码使用 `for` 循环取得每个元素的 frame。
+4.  最内层的 `for` 循环用元素的 frame 建立形状图层，然后又用图层来建立一个新的 `ScaledElement` 实例。
+5.  将刚刚建立的实例添加到 `scaledElements` 之中。
 
-#### Drawing
+#### 绘制
 
-The code above was getting your pencils together. Now, it’s time to draw! Open **ViewController.swift** and, in `viewDidLoad()`, replace the call to `process(in:)` with the following:
+上面这些代码的作用，是帮你预备好纸和笔。现在是时候开始画画啦。打开 **ViewController.swift**，然后把 `viewDidLoad()` 有关 `process(in:)` 的调用替换为下面的代码：
 
 ```
 processor.process(in: imageView) { text, elements in
@@ -352,34 +352,34 @@ processor.process(in: imageView) { text, elements in
 }
 ```
 
-`ViewController` has a `frameSublayer` property that is attached to the `imageView`. Here, you add each element’s shape layer to the sublayer, so that iOS will automatically draw the shape on the image.
+`ViewController` 具有一个附着于 `imageView` 的 `frameSublayer` 属性。你要在这里将每个元素的形状图层添加到子图层中，这样一来，iOS 就会自动在图像上绘制形状。
 
-Build and run. See your work of art!
+编译 App，然后运行。欣赏下自己的大作吧。
 
-[![Frames that are not scaled to the image](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-no-bezel.png)
+[![与图像的比例不一致的外框](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-no-bezel.png)
 
-Oh. What is that? It looks like you’re more of a Picasso than a Monet. What’s going on, here? Well, it’s probably time to talk about scale.
+哟……这是啥？同学你这说不上是莫奈风格，倒有点毕加索的味道呀。（译者注：毕加索的绘画风格是将物体不同角度的样貌缩放拼合，使其显得支离破碎）这是哪里出错了呢？呃，或许是时候讲讲缩放比例这个问题了。
 
-### Understanding Image Scaling
+### 理解图像的缩放
 
-The default **scanned-text.png** image is 654×999 (width x height); however, the `UIImageView` has a “Content Mode” of “Aspect Fit,” which scales the image to 375×369 in the view. ML Kit receives the actual size of the image and returns the element frames based on that size. The frames from the actual size are then drawn on the scaled size, which produces a confusing result.
+默认的 **scanned-text.png**，其大小为 654×999 (宽乘高)；但是呢，`UIImageView` 的“Content Mode”是“Aspect Fit”，这一设定会将视图中的图像缩放成 375×369。ML Kit 所获得的是图像的实际大小，它也是按照实际大小返回元素的 frame。然后，由实际尺寸得出的 frame 会绘制在缩放后的尺寸上。这样得出的结果就让人搞不懂状况。
 
 [![Compare actual size vs scaled size](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-explainer-no-bezel-650x491.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-picasso-explainer-no-bezel.png)
 
-In the picture above, notice the differences between the scaled size and the actual size. You can see that the frames match up on the actual size. To get the frames in the right place, you need to calculate the scale of the image versus the view.
+注意上图里面缩放尺寸与实际尺寸之间的差异。你可以看到，图中的 frame 是与实际尺寸一致的。要把 frame 的位置放对，你就要计算出图像相对于视图的缩放比例。
 
-The formula is fairly simple (👀…fairly):
+公式挺简单的（👀…大概吧）：
 
-1.  Calculate the resolutions of the view and image.
-2.  Determine the scale by comparing resolutions.
-3.  Calculate height, width, and origin points x and y, by multiplying them by the scale.
-4.  Use those data points to create a new CGRect.
+1.  计算出视图和图像的分辨率。
+2.  比较两个分辨率，定出缩放比例。
+3.  通过与缩放比例相乘，计算出高度、宽度、原点 x 和原点 y。
+4.  运用有关数据点，创建一个新的 CGRect。
 
-If that sounds confusing, it’s OK! You’ll understand when you see the code.
+要是听糊涂了也不要紧！你看到代码就会懂的。
 
-### Calculating the Scale
+### 计算缩放比例
 
-Open **ScaledElementProcessor.swift** and add the following method:
+打开 **ScaledElementProcessor.swift**，添加以下方法：
 
 ```
 // 1
@@ -423,19 +423,19 @@ private func createScaledFrame(
   }
 ```
 
-Here’s what’s going on in the code:
+代码所做的东西包括：
 
-1.  This method takes in `CGRect`s for the original size of the image, the displayed image size and the frame of the `UIImageView`.
-2.  The resolutions of the image and view are calculated by dividing their heights and widths respectively.
-3.  The scale is determined by which resolution is larger. If the view is larger, you scale by the height; otherwise, you scale by the width.
-4.  This method calculates width and height. The width and height of the frame are multiplied by the scale to calculate the scaled width and height.
-5.  The origin of the frame must be scaled as well; otherwise, even if the size is correct, it would be way off center in the wrong position.
-6.  The new origin is calculated by adding the x and y point scales to the unscaled origin multiplied by the scale.
-7.  A scaled `CGRect` is returned, configured with calculated origin and size.
+1.  这个方法会输入 `CGRect`，从而获取图像的原本尺寸、显示尺寸，以及 `UIImageView` 的 frame。
+2.  计算视图和图像的分辨率时，分别用它们各自的宽度除以自身的高度。
+3.  根据两个分辨率之中较大的一个来决定缩放比例。如果视图比较大，就根据高度进行缩放；反之，则根据宽度进行缩放。
+4.  这个方法会计算宽度和高度。frame 的宽和高会乘以缩放比例，从而算出缩放后的宽和高。
+5.  frame 的原点也必须进行缩放。不然的话，就算外框的尺寸搞对了，它也会位于偏离（文本）中心的错误位置。
+6.  新原点的计算方法是，用缩放比例乘以未缩放的原点，再加上 X 和 Y 点的缩放值。
+7.  返回经过缩放、依照计算出的原点和尺寸配置好的 `CGRect`。
 
-Now that you have a scaled `CGRect`, you can go from scribbles to sgraffito. Yes, that’s a thing. [Look it up](https://www.google.com/search?q=sgraffito) and thank me in your next Scrabble game.
+有了缩放好的 `CGRect`，就可以大大提升你的绘制技能，达到 sgraffito 的水平啦。[对的，我就是要教你个新单词](https://www.britannica.com/art/sgraffito)，下次玩 Scrabble 填字游戏的时候可要谢谢我呀。
 
-Go to `process(in:callback:)` in **ScaledElementProcessor.swift** and modify the innermost `for` loop to use the following code:
+前往 **ScaledElementProcessor.swift** 中的 `process(in:callback:)`，修改最内层的 `for` 循环，让它使用下面的代码：
 
 ```
 for element in line.elements {
@@ -450,19 +450,19 @@ for element in line.elements {
 }
 ```
 
-The newly added line creates a scaled frame, which the code uses to create the correctly position shape layer.
+刚刚加入的线条会建立一个缩放好的 frame，而代码会使用外框建立位置正确的形状图层。
 
-Build and run. You should see the frames drawn in the right places. What a master painter you are!
+编译 App，然后运行。frame 应该出现在正确的地方啦。你真是个绘框大师呢。
 
-[![Frames that are scaled to the image](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-fixed-picasso-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-fixed-picasso-no-bezel.png)
+[![与图像缩放一致的外框](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-fixed-picasso-no-bezel-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2018/12/rw-fixed-picasso-no-bezel.png)
 
-Enough with default photos; time to capture something from the wild!
+默认图片我们已经玩够了，是时候出门找点实物练手啦！
 
-### Taking Photos with the Camera
+### 用照相机拍照
 
-The project has the camera and library picker code already set up in an extension at the bottom of **ViewController.swift**. If you try to use it right now, you’ll notice that none of the frames match up. That’s because it’s still using the old frames from the preloaded image! You need to remove those and draw new ones when you take or select a photo.
+项目已经包含设置好的相机及图库选图代码，它们位于 **ViewController.swift** 底部的一个扩展里。如果你现在就用用看，你会发现 frame 全都会错位。这是因为 App 还在使用预载图像中的 frame。你要移除这些旧 frame，然后在拍摄或者选取照片的时候绘制新的 frame。
 
-Add the following method to `ViewController`:
+把下面的方法添加到 `ViewController`：
 
 ```
 private func removeFrames() {
@@ -473,9 +473,9 @@ private func removeFrames() {
 }
 ```
 
-This method removes all sublayers from the frame sublayer using a `for` loop. This gives you a clean canvas for the next photo.
+这个方法使用 `for` 循环移除 frame 子图层中的所有子图层。这样你在处理接下来的照片时，才会有一张干净的画布。
 
-To consolidate the detection code, add the following new method to `ViewController`:
+为了完善检测代码，我们在 `ViewController` 中加入下面的新方法：
 
 ```
 // 1
@@ -496,49 +496,49 @@ private func drawFeatures(
 }
 ```
 
-Here’s what changed:
+代码有以下改动：
 
-1.  This methods takes in the `UIImageView` and a callback so that you know when it’s done.
-2.  Frames are automatically removed before processing a new image.
-3.  Trigger the completion callback once everything is done.
+1.  这个方法会接收 `UIImageView` 和回调，这样你就能知道什么时候完成了。
+2.  frame 会在处理新图像之前自动被移除。
+3.  所有工作都完成后，触发完成回调。
 
-Now, replace the call to `processor.process(in:callback:)` in `viewDidLoad()` with the following:
-
-```
-drawFeatures(in: imageView)
-```
-
-Scroll down to the class extension and locate `imagePickerController(_:didFinishPickingMediaWithInfo:)`; add this line of code to the end of the `if` block, after `imageView.image = pickedImage`:
+现在，用下面的代码，替换掉 `viewDidLoad()` 中对 `processor.process(in:callback:)` 的调用：
 
 ```
 drawFeatures(in: imageView)
 ```
 
-When you shoot or select a new photo, this code ensures that the old frames are removed and replaced by the ones from the new photo.
+向下滚动到类扩展的位置，找出 `imagePickerController(_:didFinishPickingMediaWithInfo:)`。在 if 段落的底部，`imageView.image = pickedImage` 的后面加入这一行代码：
 
-Build and run. If you’re on a real device (not a simulator), take a picture of printed text. You might see something strange:
+```
+drawFeatures(in: imageView)
+```
 
-[![Gibberish text detection](https://koenig-media.raywenderlich.com/uploads/2018/07/gibberish.png)](https://koenig-media.raywenderlich.com/uploads/2018/07/gibberish.png)
+拍摄或者选取新照片的时候，这段代码可以确保将之前绘制的 frame 移除，再用新照片的 frame 进行替换。
 
-What’s going on here?
+编译 App，然后运行。如果你是用真实设备运行（而不是模拟器的话），拍一副带文字的照片吧。这时或许会出现奇怪的结果：
 
-You’ll cover image orientation in a second, because the above is an orientation issue.
+[![检测出乱码](https://koenig-media.raywenderlich.com/uploads/2018/07/gibberish.png)](https://koenig-media.raywenderlich.com/uploads/2018/07/gibberish.png)
 
-### Dealing With Image Orientations
+这是怎么啦？
 
-This app is locked in portrait orientation. It’s tricky to redraw the frames when the device rotates, so it’s easier to restrict the user for now.
+上面是图像朝向出问题了，所以我们马上就来讲讲图像朝向。
 
-This restriction requires the user to take portrait photos. The `UICameraPicker` rotates portrait photos 90 degrees behind the scenes. You don’t see the rotation because the `UIImageView` rotates it back for you. However, what the detector gets is the rotated `UIImage`.
+### 处理图像的朝向
 
-[![The rotated photo](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-raw.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-raw.jpg)
+这个 App 是锁定于竖向模式的。在设备旋转方向的时候重绘 frame 很麻烦。目前的话，还是给用户设定一些限制，这样做起来比较简单。
 
-This leads to some confusing results. ML Kit allows you to specify the orientation of the photo in the `VisionMetadata` object. Setting the proper orientation will return the correct text, but the frames will be drawn for the rotated photo.
+有这条限制，用户就必须拍摄纵向照片。`UICameraPicker` 会在幕后将纵向照片旋转 90 度。你不会看见旋转过程，因为 `UIImageView` 会帮你旋转成原来的样子。但是，文字检测器所获取的，则是旋转后的 `UIImage`。
 
-[![This is how ML Kit sees the photo, so the frames are drawn incorrectly.](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-placed-image.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-placed-image.jpg)
+[![旋转后的图片](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-raw.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-raw.jpg)
 
-Therefore, you need to fix the photo orientation to always be in the “up” position. The project contains an extension named **+UIImage.swift**. This extension adds a method to `UIImage` that changes the orientation of any photo to the up position. Once the photo is in the correct orientation, everything will run smoothly!
+这样就会出现让人困惑的结果。ML Kit 可以让你在 `VisionMetadata` 对象中设置照片的朝向。设置正确的朝向，App 就会返回正确的文本，但是 frame 还是依照旋转后的图片绘制的。
 
-Open **ViewController.swift** and, in `imagePickerController(_:didFinishPickingMediaWithInfo:)`, replace `imageView.image = pickedImage` with the following:
+[![ML Kit 看到的照片是这样的，所以绘制的外框都是错的](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-placed-image.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/rotated-placed-image.jpg)
+
+所以呢，你需要处理照片朝向的问题，让它总是“朝上”。本项目包含一个名为 **+UIImage.swift** 的扩展。这个扩展会在 `UIImage` 加入一个方法，它可以将任何照片的朝向更改为纵向。图像的朝向摆正之后，整个 App 就可以顺畅运行啦。
+
+打开 **ViewController.swift**，在 `imagePickerController(_:didFinishPickingMediaWithInfo:)` 之中，用下面的代码替换掉 `imageView.image = pickedImage`：
 
 ```
 // 1
@@ -547,18 +547,18 @@ let fixedImage = pickedImage.fixOrientation()
 imageView.image = fixedImage
 ```
 
-Here’s what changed:
+改动有两点：
 
-1.  The newly selected image, `pickedImage`, is rotated back to the up position.
-2.  Then, you assign the rotated image to the `imageView`.
+1.  把刚刚选中的图像 `pickedImage` 旋转到朝上的位置。
+2.  然后，将旋转好的图像分配到 `imageView`。
 
-Build and run. Take that photo again. You should see everything in the right place.
+编译 App，然后运行。再拍一次照。这次所有东西的位置应该都没问题了。
 
 [![Working ML Kit frames](https://koenig-media.raywenderlich.com/uploads/2018/07/final-version.jpg)](https://koenig-media.raywenderlich.com/uploads/2018/07/final-version.jpg)
 
-### Sharing the Text
+### 分享文本
 
-This last step requires no action from you. Aren’t those the best? The app is integrated with the `UIActivityViewController`. Look at `shareDidTouch()`:
+最后一步你什么都不用做。是不是棒棒哒？这个 App 已经整合了 `UIActivityViewController`。去看看 `shareDidTouch()`：
 
 ```
 @IBAction func shareDidTouch(_ sender: UIBarButtonItem) {
@@ -570,22 +570,22 @@ This last step requires no action from you. Aren’t those the best? The app is 
 }
 ```
 
-It’s a simple two-step process. Create a `UIActivityViewController` that contains the scanned text and image. Then call `present()` and let the user do the rest.
+这里所做的只有两步，很简单。创建一个包含扫描所得文本及图像的 `UIActivityViewController`。然后调用 `present()`，剩下的让用户搞定就可以了。
 
-### Where to Go From Here?
+### 之后可以干点啥？
 
-Congratulations! You are now an ML developer! You can get the completed version of Extractor using the **Download Materials** button at the top or bottom of this tutorial. But do note that, as mentioned at the beginning, you still have to add your own **GoogleService-Info.plist** after downloading the final project. You’ll also need to update the bundle ID to match what you configured in the Firebase console.
+恭喜！你已经是一名机器学习开发者啦！点击本文页首或者文末的 **Download Materials** 按钮，可以取得完整版本的 Extractor。不过要注意的是，下载最终版本的项目文件之后，还需要添加你自己的 **GoogleService-Info.plist**；这点我在上文也说过啦。你也需要依据你在 Firebase 控制台中的设置，将 bundle ID 更改为合适的值。
 
-In this tutorial, you learned:
+在这个教程里，你做到了：
 
-*   The basics of ML Kit by building a text detection photo app.
-*   The ML Kit text recognition API, image scale and orientation.
+*   开发具有文字检测功能的照相 app，从中学习 ML Kit 的基础知识。
+*   搞懂 ML Kit 的文字识别 API、图像缩放和图像方向。
 
-And you did all this without having an ML Ph.D. :\]
+而且你不需要拿到机器学习的博士学位就做到啦 :\]
 
-To learn more about Firebase and ML Kit, please check out the [official documentation](https://developers.google.com/ml-kit/).
+如果你想再多多了解 Firebase 和 ML Kit，请查阅 [官方文档](https://developers.google.com/ml-kit/)。
 
-If you have any comments or questions about this Firebase tutorial, Firebase, ML Kit or the sample app, please join the forum discussion below!
+如果你对这份 Firebase 教程、Firebase、ML Kit 或者示例 App 有任何意见或疑问，欢迎你加入到下面的讨论中！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
