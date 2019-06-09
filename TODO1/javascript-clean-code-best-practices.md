@@ -2,66 +2,66 @@
 > * 原文作者：[Milos Protic](https://devinduct.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-clean-code-best-practices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-clean-code-best-practices.md)
-> * 译者：
+> * 译者：[xilihuasi](https://github.com/xilihuasi)
 > * 校对者：
 
-# JavaScript Clean Code - Best Practices
+# JavaScript 简明代码 —— 最佳实践
 
-## Introduction
+## 引言
 
-If you care about the code itself and how it is written, instead only worrying does it work or not, you can say that you practice and care about the clean code. A professional developer will write the code for the future self and for the **"other guy"** not just for the machine. Any code you write is never written just once rather it will sit down and wait for the future guy and make him miserable. Hopefully, that future guy won't be you.
+如果你关注代码本身及其如何编写，而不是担心它是否能生效，可以说你在实践并且关注简明代码。专业的开发者会面向其未来以及**其他人**而不仅是为了机器编写代码。你写的任何代码都不会只写一次，而是会待在那等待未来的人，让他痛苦不堪。希望那个未来的家伙不会是你。
 
-Based on that, the clean code can be defined as the **code written in such a manner that is self-explanatory, easy to understand by humans and easy to change or extend**.
+基于上述情况，简明代码可以被定义为**代码以不言自明，易于理解且易于更改或扩展的方式编写**。
 
-Ask your self how many times did you continue someone else's work when the first impression was one of the **"WTF"** questions?
+回想一下有多少次你接手别人工作时的第一印象是下面几个 **WTF** 问题之一？
 
-**"WTF is that?"**
+**“这 TM 是啥？”**
 
-**"WTF did you do here?"**
+**“你 TM 在这干了啥”**
 
-**"WTF is this for?"**
+**“这 TM 是干啥的？”**
 
-Here is a popular image expressing the above.
+有一个很火的图片描绘了上述场景。
 
 ![img](https://camo.githubusercontent.com/2050cd696ecddcabad1380b1964c48a60597323e/687474703a2f2f7777772e6f736e6577732e636f6d2f696d616765732f636f6d6963732f7774666d2e6a7067)
 
-And a quote by **Robert C. Martin (Uncle Bob)** that should make you think about your ways.
+**Robert C. Martin (Bob 叔叔)** 的一句名言应该会启发你思考你的方式。
 
-> **Even bad code can function. But if the code isn’t clean, it can bring a development organization to its knees.**
+> **即使是糟糕的代码也能运行。但是如果代码不够简明，它会让开发组织陷入困境。**
 
-In this article, the focus will be on JavaScript, but the principles can be applied to other programming languages.
+在本文中，重点将放在 JavaScript 上，但是原则可以应用于其他编程语言。
 
-## The actual part you came here to read - Clean Code Best Practices
+## 你要的干货来了 —— 简明代码最佳实践
 
-### 1. Strong type checks
+### 1. 强类型检查
 
-Use `===` instead of `==`
+使用 `===` 而不是 `==`
 
 ```js
-// If not handled properly, it can dramatically affect the program logic. It's like, you expect to go left, but for some reason, you go right.
+// 如果处理不当，它可以极大地影响程序逻辑。就像，你期待向左走，但由于某些原因，你向右走了。
 0 == false // true
 0 === false // false
 2 == "2" // true
 2 === "2" // false
 
-// example
+// 例子
 const value = "500";
 if (value === 500) {
   console.log(value);
-  // it will not be reached
+  // 不会执行
 }
 
 if (value === "500") {
   console.log(value);
-  // it will be reached
+  // 会执行
 }
 ```
 
-### 2. Variables
+### 2. 变量
 
-Name your variables in a way that they reveal the intention behind it. This way they become searchable and easier to understand after a person sees it.
+变量命名要直接表明其背后的意图。这种方式方便代码搜索并且易于他人理解。
 
-Bad:
+糟糕示例：
 
 ```js
 let daysSLV = 10;
@@ -73,7 +73,7 @@ if (user.age > 30) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 const MAX_AGE = 30;
@@ -85,25 +85,25 @@ let currentYear = new Date().getFullYear();
 const isUserOlderThanAllowed = user.age > MAX_AGE;
 ```
 
-Don't add extra unneeded words to the variable names.
+不要给变量名称添加不必要的单词。
 
-Bad:
+糟糕示例：
 
 ```js
 let nameValue;
 let theProduct;
 ```
 
-Good:
+良好示例：
 
 ```js
 let name;
 let product;
 ```
 
-Don't enforce the need for memorizing the variable context.
+不要强制变量上下文的记忆。
 
-Bad:
+糟糕示例：
 
 ```js
 const users = ["John", "Marco", "Peter"];
@@ -114,12 +114,12 @@ users.forEach(u => {
   // ...
   // ...
   // ...
-  // Here we have the WTF situation: WTF is `u` for?
+  // 这里有 WTF 场景：`u` TM 是啥？
   register(u);
 });
 ```
 
-Good:
+良好示例：
 
 ```js
 const users = ["John", "Marco", "Peter"];
@@ -134,9 +134,9 @@ users.forEach(user => {
 });
 ```
 
-Don't add unnecessary context.
+不要添加不必要的上下文。
 
-Bad:
+糟糕示例：
 
 ```js
 const user = {
@@ -150,7 +150,7 @@ const user = {
 user.userName;
 ```
 
-Good:
+良好示例：
 
 ```js
 const user = {
@@ -164,11 +164,11 @@ const user = {
 user.name;
 ```
 
-### 3. Functions
+### 3. 函数
 
-Use long and descriptive names. Considering that it represents a certain behavior, a function name should be a verb or a phrase fully exposing the intent behind it as well as the intent of the arguments. Their name should say what they do.
+使用长而具有描述性的名称。考虑到它代表某种行为，函数名称应该是暴露其背后意图的动词或者短语，参数也是如此。它们的名称应该表明它们要做什么。
 
-Bad:
+糟糕示例：
 
 ```js
 function notif(user) {
@@ -176,7 +176,7 @@ function notif(user) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 function notifyUser(emailAddress) {
@@ -184,9 +184,9 @@ function notifyUser(emailAddress) {
 }
 ```
 
-Avoid a long number of arguments. Ideally, a function should have two or fewer arguments specified. The fewer the arguments, the easier is to test the function.
+避免使用大量参数。理想情况下，函数参数不应该超过两个。参数越少，函数越易于测试。
 
-Bad:
+糟糕示例：
 
 ```js
 function getUsers(fields, fromDate, toDate) {
@@ -194,7 +194,7 @@ function getUsers(fields, fromDate, toDate) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 function getUsers({ fields, fromDate, toDate }) {
@@ -208,9 +208,9 @@ getUsers({
 });
 ```
 
-Use default arguments instead of conditionals.
+使用默认参数代替条件语句。
 
-Bad:
+糟糕示例：
 
 ```js
 function createShape(type) {
@@ -219,7 +219,7 @@ function createShape(type) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 function createShape(type = "cube") {
@@ -227,9 +227,9 @@ function createShape(type = "cube") {
 }
 ```
 
-A function should do one thing. Avoid executing multiple actions within a single function.
+一个函数应该只做一件事。禁止在单个函数中执行多个操作。
 
-Bad:
+糟糕示例：
 
 ```js
 function notifyUsers(users) {
@@ -242,7 +242,7 @@ function notifyUsers(users) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 function notifyVerifiedUsers(users) {
@@ -255,9 +255,9 @@ function isUserVerified(user) {
 }
 ```
 
-Use `Object.assign` to set default objects.
+使用 `Object.assign` 设置默认对象。
 
-Bad:
+糟糕示例：
 
 ```js
 const shapeConfig = {
@@ -275,7 +275,7 @@ function createShape(config) {
 createShape(shapeConfig);
 ```
 
-Good:
+良好示例：
 
 ```js
 const shapeConfig = {
@@ -300,9 +300,9 @@ function createShape(config) {
 createShape(shapeConfig);
 ```
 
-Don't use flags as parameters because they are telling you that the function is doing more than it should.
+不要使用标志变量作为参数，因为这表明函数做了它不应该做的事。
 
-Bad:
+糟糕示例：
 
 ```js
 function createFile(name, isPublic) {
@@ -314,7 +314,7 @@ function createFile(name, isPublic) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 function createFile(name) {
@@ -326,9 +326,9 @@ function createPublicFile(name) {
 }
 ```
 
-Don't pollute the globals. If you need to extend an existing object use ES Classes and inheritance instead of creating the function on the prototype chain of the native object.
+不要污染全局变量。如果你要扩展一个已存在的对象，使用 ES 类继承而不是在原生对象的原型链上创建函数。
 
-Bad:
+糟糕示例：
 
 ```js
 Array.prototype.myFunc = function myFunc() {
@@ -336,7 +336,7 @@ Array.prototype.myFunc = function myFunc() {
 };
 ```
 
-Good:
+良好示例：
 
 ```js
 class SuperArray extends Array {
@@ -346,11 +346,11 @@ class SuperArray extends Array {
 }
 ```
 
-### 4. Conditionals
+### 4. 条件语句
 
-Avoid negative conditionals.
+避免否定条件。
 
-Bad:
+糟糕示例：
 
 ```js
 function isUserNotBlocked(user) {
@@ -362,7 +362,7 @@ if (!isUserNotBlocked(user)) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 function isUserBlocked(user) {
@@ -374,9 +374,9 @@ if (isUserBlocked(user)) {
 }
 ```
 
-Use conditional shorthands. This might be trivial, but it's worth mentioning. Use this approach only for boolean values and if you are sure that the value will not be `undefined` or `null`.
+使用条件语句简写。这可能不那么重要，但是值得一提。仅将此方法用于布尔值，并且确定该值不是 `undefined` 和 `null`。
 
-Bad:
+糟糕示例：
 
 ```js
 if (isValid === true) {
@@ -388,7 +388,7 @@ if (isValid === false) {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 if (isValid) {
@@ -400,9 +400,9 @@ if (!isValid) {
 }
 ```
 
-Avoid conditionals whenever possible. Use polymorphism and inheritance instead.
+尽可能避免条件语句，使用多态和继承。
 
-Bad:
+糟糕示例：
 
 ```js
 class Car {
@@ -420,7 +420,7 @@ class Car {
 }
 ```
 
-Good:
+良好示例：
 
 ```js
 class Car {
@@ -449,11 +449,11 @@ class McLaren extends Car {
 }
 ```
 
-### 5. ES Classes
+### 5. ES 类
 
-Classes are the new syntactic sugar in JavaScript. Everything works just as it did before with prototype only it now looks different and you should prefer them over ES5 plain functions.
+类是 JavaScript 中的新语法糖。一切都像之前使用原型一样现在只不过看起来不同，并且你应该喜欢它们胜过 ES5 普通函数。
 
-Bad:
+糟糕示例：
 
 ```js
 const Person = function(name) {
@@ -480,7 +480,7 @@ Student.prototype.constructor = Student;
 Student.prototype.printSchoolName = function printSchoolName() { /**/ };
 ```
 
-Good:
+良好示例：
 
 ```js
 class Person {
@@ -505,9 +505,9 @@ class Student extends Person {
 }
 ```
 
-Use method chaining. Many libraries such as jQuery and Lodash use this pattern. As a result, your code will be less verbose. In your class, simply return `this` at the end of every function, and you can chain further class methods onto it.
+使用方法链。诸如 jQuery 和 Lodash 之类的很多库都使用这个模式。这样的话，你的代码就会减少冗余。在你的类中，只用在每个函数末尾返回 `this`，然后你就可以在它上面链式调用更多的类方法了。
 
-Bad:
+糟糕示例：
 
 ```js
 class Person {
@@ -534,7 +534,7 @@ person.setAge(29);
 person.save();
 ```
 
-Good:
+良好示例：
 
 ```js
 class Person {
@@ -567,25 +567,25 @@ const person = new Person("John")
     .save();
 ```
 
-### 6. Avoid In General
+### 6. 通用原则
 
-In general, you should do your best not to repeat yourself, meaning you shouldn't write duplicate code, and not to leave tails behind you such as unused functions and dead code.
+一般来说，你应该尽力不要重复自己，意思是你不应该写重复代码，并且不要在你身后留下尾巴比如未使用的函数和死代码。
 
-You can end up with duplicate code for various reasons. For example, you can have two slightly different things that share a lot of in common and the nature of their differences or tight deadlines forces you to create separate functions containing almost the same code. Removing duplicate code in this situation means to abstract the differences and handle them on that level.
+出于各种原因，你最终可能会遇到重复的代码。例如，你有两个大致相同只有些许不同的东西，它们不同的特性或者时间紧迫使你单独创建了两个包含几乎相同代码的函数。在这种情况下删除重复代码意味着抽象差异并在该级别上处理它们。
 
-And about the dead code, well it is what its name says. Its the code sitting there in our code base not doing anything because, at some point of development, you've decided that it no longer has a purpose. You should search your code base for these parts and delete all unneeded functions and code blocks. An advice I can give to you is as soon you decide it's no longer needed, delete it. Later you might forget what it was used for.
+关于死代码，码如其名。它是在我们代码库中不做任何事情的代码，在开发的某个阶段，你决定它不再有用了。你应该在代码库中搜索这些部分然后删除所有不需要的函数和代码块。我可以给你的建议是一旦你决定不再需要它，删除它。然后你就会忘了它的用途。
 
-Here is an image illustrating the feeling you would have at that point.
+这有一张图表明你当时可能会有的感受。
 
 ![img](https://pics.me.me/sometimes-my-code-dont-know-what-it-does-but-i-49866360.png)
 
-## Conclusion
+## 结语
 
-This is only a fraction of what you could do to improve your code. In my opinion, the principles alleged here are the ones which people often don't follow. They try to, but not always succeed for various reasons. Maybe at the start of the project, the code is neat and clean but when it comes to meeting deadlines the principles are often ignored and moved into a **"TODO"** or **"REFACTOR"** section. At that point, your client would rather have you to meet the deadline instead of writing the clean code.
+这只是改进代码所能做的一小部分。在我看来，这里所说的原则是人们经常不遵循的原则。他们有过尝试，但由于各种原因并不总是奏效。可能项目刚开始代码还是整洁的，但当截止日期快到了，这些原则通常会被忽略，被移入**“待办”**或者**“重构”**部分。在那时候，客户宁愿让你赶上截止日期而不是写简明的代码。
 
-That's it!
+就这样！
 
-Thank you for reading and see you in the next article.
+感谢阅读，下篇文章见。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
