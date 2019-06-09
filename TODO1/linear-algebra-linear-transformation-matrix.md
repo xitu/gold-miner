@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-linear-transformation-matrix.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-linear-transformation-matrix.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[Mcskiller](https://github.com/Mcskiller)
+> * 校对者：[Mcskiller](https://github.com/Mcskiller), [Baddyo](https://github.com/Baddyo)
 
 # JavaScript 线性代数：线性变换与矩阵
 
@@ -15,7 +15,7 @@
 
 ![**3×2** 矩阵](https://cdn-images-1.medium.com/max/2000/1*wJjLyI2-iDRMaDqd2Sh0iw.jpeg)
 
-**Matrix** 类的构造器（constructor）接收多个行为参数。我们可以通过指定行号取出矩阵中的一行，然后再通过指定列号取出一个特定的元素。下面直接看代码：
+**Matrix** 类的构造器（constructor）接收若干行元素作为参数。我们可以通过指定行号取出矩阵中的一行，然后再通过指定列号取出一个特定的元素。下面直接看代码：
 
 ```JavaScript
 class Matrix {
@@ -49,7 +49,7 @@ console.log(matrix.rows[1][1])
 
 下图展示了将向量 **v⃗** 表示为向量 **î** 和向量 **ĵ** 的线性组合：
 
-![linear combination](https://cdn-images-1.medium.com/max/2000/1*OtdjxVPrwMaGSzUyc9wzdA.png)
+![线性组合](https://cdn-images-1.medium.com/max/2000/1*OtdjxVPrwMaGSzUyc9wzdA.png)
 
 ```JavaScript
 const i = new Vector(1, 0)
@@ -163,9 +163,9 @@ const contour = new Contour([
 
 现在，请在 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/) 项目中试试各种转换矩阵。红色方块是初始化的轮廓，蓝色形状是应用变换矩阵后的轮廓。
 
-![reflection](https://cdn-images-1.medium.com/max/2010/1*M60SUzpCBZIRfIZRb-QRBQ.png)
+![镜像](https://cdn-images-1.medium.com/max/2010/1*M60SUzpCBZIRfIZRb-QRBQ.png)
 
-![scale](https://cdn-images-1.medium.com/max/2006/1*nuZwkcbpw0RMbl1DzuQrxQ.png)
+![缩放](https://cdn-images-1.medium.com/max/2006/1*nuZwkcbpw0RMbl1DzuQrxQ.png)
 
 通过下面的方式，我们可以构建一个矩阵，用于将给定的向量旋转指定的角度。
 
