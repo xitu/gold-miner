@@ -2,22 +2,20 @@
 > * 原文作者：[Rodion Chachura](https://medium.com/@geekrodion)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-linear-transformation-matrix.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-linear-transformation-matrix.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[Mcskiller](https://github.com/Mcskiller), [Baddyo](https://github.com/Baddyo)
 
-# Linear Algebra: Linear Transformation, Matrix
+# JavaScript 线性代数：线性变换与矩阵
 
-## Linear Algebra with JavaScript: Linear Transformation, Matrix
+本文是“[JavaScript 线性代数](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”教程的一部分。
 
-This is part of the course “[Linear Algebra with JavaScript](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”.
+![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-![[GitHub Repository with Source Code](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
+**矩阵**是一种由 **m** 行 **n** 列实数组成的“矩形”数组。比如，一个 **3x2** 的矩阵如下所示：
 
-A **matrix** is a rectangular array of real numbers with **m** rows and **n** columns. For example, a **3×2** matrix looks like this:
+![**3×2** 矩阵](https://cdn-images-1.medium.com/max/2000/1*wJjLyI2-iDRMaDqd2Sh0iw.jpeg)
 
-![**3×2** matrix](https://cdn-images-1.medium.com/max/2000/1*wJjLyI2-iDRMaDqd2Sh0iw.jpeg)
-
-Let’s go right to the code. The constructor of the **Matrix** class will receive rows as a parameter. We will access a particular element in the matrix by first taking row by row index and then element by column index.
+**Matrix** 类的构造器（constructor）接收若干行元素作为参数。我们可以通过指定行号取出矩阵中的一行，然后再通过指定列号取出一个特定的元素。下面直接看代码：
 
 ```JavaScript
 class Matrix {
@@ -39,19 +37,19 @@ console.log(matrix.rows[1][1])
 // 3
 ```
 
-## Matrix-vector product
+## 矩阵与向量的乘积
 
-The **matrix-vector product** **Ax⃗** produces a linear combination of the columns of the matrix **A** with coefficients **x⃗**. For example, the product of a **3×2** matrix A and a **2D** vector **x⃗** results in a **3D** vector, which we’ll denote **y⃗: y⃗=Ax⃗**
+**矩阵与向量的乘法** —— $A\vec{x}$ 会将矩阵 $A$ 的列进行系数为 $\vec{x}$ 的线性组合。比如，一个 $3\times 2$ 的矩阵 A 与一个 **2D** 向量 **x⃗** 的乘积将得到一个 **3D** 向量，这个计算记为：$\vec{y} : \vec{y} = A\vec{x}$。
 
 ![**y⃗=Ax⃗**](https://cdn-images-1.medium.com/max/2538/0*sa84p6WtAYoAB8u0)
 
-Consider some set of vectors **{e⃗₁, e⃗₂}**, and a third vector **y⃗** that is a **linear combination** of the vectors **e⃗₁** and **e⃗₂: y⃗=αe⃗₁ + βe⃗₂.** The numbers **α, β ∈ R** are the coefficients in this linear combination.
+假设有一组向量 $\{\vec{e}_1,\vec{e}_2\}$，另一个向量 $\vec{y}$ 是 $\vec{e}_1$ 和 $\vec{e}_2$ 的**线性组合**：$\vec{y} = \alpha\vec{e}_1 + \beta \vec{e}_2$。其中，$\alpha, \beta \in \mathbb{R}$ 就是这个线性组合的系数。
 
-The matrix-vector product is defined expressly for the purpose of studying linear combinations. We can describe the above linear combination as the following matrix vector product: **y⃗=Ex⃗**. The matrix **E** has **e⃗₁** and **e⃗₂** as columns. The dimensions of the matrix will be **n×2**, where **n** is the dimension of the vectors **e⃗₁, e⃗₂** and **y⃗**.
+为了更好地学习线性组合，我们特地为此定义了矩阵向量乘法。我们可以将前面所说的线性组合记为以下矩阵向量乘法的形式：$\vec{y} = E \vec{x}$。矩阵 $E$ 有 $\vec{e}_1$、$\vec{e}_2$ 两列。矩阵的维数是 $n \times 2$，其中 $n$ 是向量 $\vec{e}_1$、$\vec{e}_2$ 与 $\vec{y}$ 的维数。
 
-In the picture below we can see vector **v⃗** represented as a linear combination of vectors **î** and ĵ.
+下图展示了将向量 $\vec{v}$ 表示为向量 $\vec{\imath}$ 和向量 $\vec{\jmath}$ 的线性组合：
 
-![linear combination](https://cdn-images-1.medium.com/max/2000/1*OtdjxVPrwMaGSzUyc9wzdA.png)
+![线性组合](https://cdn-images-1.medium.com/max/2000/1*OtdjxVPrwMaGSzUyc9wzdA.png)
 
 ```JavaScript
 const i = new Vector(1, 0)
@@ -63,11 +61,11 @@ console.log(linearCombination)
 // Vector { components: [ 2, 5 ] }
 ```
 
-## Linear Transformation
+## 线性变换
 
-The matrix-vector product corresponds to the abstract notion of a **linear transformation**, which is one of the key notions in the study of linear algebra. Multiplication by a matrix can be thought of as computing a linear transformation that takes n-dimensional vector as an input and produces m-dimensional vector as an output. We can say matrix is a certain transformation of vector in space.
+矩阵与向量的乘法是**线性变换**的抽象概念，这是学习线性代数中的关键概念之一。向量与矩阵的乘法可以视为对向量进行线性变换：将 n 维向量作为输入，并输出 m 维向量。也可以说，矩阵是定义好的某种空间变换。
 
-It will become more clear on examples, but first, let’s add a method to Matrix class that will return columns of the matrix.
+我们可以通过一个示例来更清楚地理解线性变换。首先需要给 Matrix 类加上一个方法，用于返回矩阵的列：
 
 ```JavaScript
 class Matrix {
@@ -88,7 +86,7 @@ console.log(matrix.columns())
 // [ [ 1, 4, 7 ], [ 2, 5, 8 ], [ 3, 6, 9 ] ]
 ```
 
-In the code sample below you can examples of different vector-matrix products. The dimension of the resulting vector will always be equal to the number of matrix rows. If we multiply a **2D** vector to a **3×2** matrix, we will receive a **3D** vector, and when we multiply a **3D** vector to a **2×3** matrix, we will receive a **2D** vector. If a number of columns in the matrix not equal to vector dimension, we throw an error.
+乘法得到的向量的维数将与矩阵的行数相同。如果我们将一个 **2D** 向量和一个 **3x2** 矩阵相乘，将得到一个 **3D** 的向量；如果将一个 **3D** 向量和一个 **2x3** 矩阵相乘，将得到一个 **2D** 的向量；如果在做乘法时，矩阵的列数和向量的维数不相同，将报错。在下面的代码中，你可以看到几种不同的向量与矩阵相乘的形式：
 
 ```JavaScript
 const sum = arr => arr.reduce((acc, value) => acc + value, 0)
@@ -139,9 +137,9 @@ console.log(vector2D.transform(matrix2x3D))
 // Error: Matrix columns length should be equal to vector components length.
 ```
 
-## Examples
+## 示例
 
-Now let’s try to move and change the two-dimensional object by using linear transformations. First, we will create a new class — **Contour** that will receive a list of vectors in the constructor and for now, will have only one method — **transform**, that will transform all coordinates of the contour and will return a new one.
+现在，我们将尝试对二维的对象应用线性变换。首先，需要创建一个新的 **Contour**（轮廓）类，它在 constructor 中接收一系列的向量（在 2D 平面中形成一个轮廓），然后用唯一的方法 —— **transform** 对轮廓中的所有向量坐标进行变换，最后返回一个新的轮廓。
 
 ```JavaScript
 class Contour {
@@ -163,13 +161,13 @@ const contour = new Contour([
 ])
 ```
 
-Now, let’s go to the [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/) project and try out different transformation matrices. Red square is an initial contour, and the blue one is a result of applying the transformation.
+现在，请在 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/) 项目中试试各种转换矩阵。红色方块是初始化的轮廓，蓝色形状是应用变换矩阵后的轮廓。
 
-![reflection](https://cdn-images-1.medium.com/max/2010/1*M60SUzpCBZIRfIZRb-QRBQ.png)
+![镜像](https://cdn-images-1.medium.com/max/2010/1*M60SUzpCBZIRfIZRb-QRBQ.png)
 
-![scale](https://cdn-images-1.medium.com/max/2006/1*nuZwkcbpw0RMbl1DzuQrxQ.png)
+![缩放](https://cdn-images-1.medium.com/max/2006/1*nuZwkcbpw0RMbl1DzuQrxQ.png)
 
-This way we can make a matrix that will rotate a given vector on a certain angle.
+通过下面的方式，我们可以构建一个矩阵，用于将给定的向量旋转指定的角度。
 
 ```JavaScript
 const angle = toRadians(45)
@@ -180,13 +178,13 @@ const matrix = new Matrix(
 )
 ```
 
-![rotation](https://cdn-images-1.medium.com/max/2002/1*vZ5Sblw5oPaq8OCw07ligg.png)
+![旋转](https://cdn-images-1.medium.com/max/2002/1*vZ5Sblw5oPaq8OCw07ligg.png)
 
-![shear](https://cdn-images-1.medium.com/max/2004/1*naUftl-XYETBUtcAYujT0w.png)
+![剪切变换](https://cdn-images-1.medium.com/max/2004/1*naUftl-XYETBUtcAYujT0w.png)
 
-Transformation works the same way for objects in 3D space, below you can see the animated transformation from the red cube, to blue parallelepiped.
+对 3D 空间内的对象进行变换也与此类似。你可以在下图中看到一个红色方块变换成一个蓝色的平行六边形的动画。
 
-![shear 3D](https://cdn-images-1.medium.com/max/2432/1*zoTrp_lm1p2HQClkaOdMOQ.gif)
+![3D 剪切变换](https://cdn-images-1.medium.com/max/2432/1*zoTrp_lm1p2HQClkaOdMOQ.gif)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
