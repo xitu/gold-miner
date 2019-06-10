@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-layout-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-layout-cheat-sheet.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：[smilemuffie](https://github.com/smilemuffie)
+> * 校对者：[smilemuffie](https://github.com/smilemuffie)，[suhanyujie](https://github.com/suhanyujie)
 
 # Flutter 布局备忘录
 
@@ -582,7 +582,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-### 用于装饰的 Container
+### Container 的装饰
 
 你可以使用 color 属性来改变 `Container` 的背景色，但是 `decoration` 和 `foregroundDecoration` 则可以做更多。（使用这两个属性，你可以彻底改变 `Container` 的外观，这部分我将在后续讨论，因为这部分内容很多）
 `decoration` 总会放置在 child 后面，而 `foregroundDecoration` 则在 `child` 的上面。
@@ -622,7 +622,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-### 用于变换的 Container
+### Container 的变换
 
 如果你不想使用 `Transform` 部件来改变你的布局，你可以使用 `Container` 的 `transform` 属性
 
@@ -705,7 +705,7 @@ Scaffold(
 
 让边框可以是圆角。
 
-**如果装饰的 `shape` 是 `BoxShape.circle`，那么 `borderRadius` 将无法正常工作**
+**如果装饰的 `shape` 是 `BoxShape.circle`，那么 `borderRadius` 将无效**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jTE5_KqVyQFEwL8CwGNueQ.png)
 
