@@ -11,13 +11,13 @@ SVG 提供了一种非破坏性的方式来更改图像或图形的某些颜色�
 
 过去几周我一直在谈论作为 SVG 滤镜替代品的 CSS 滤镜。首先我[大体介绍了下滤镜](http://vanseodesign.com/css/css-filters-introduction/)，并展示了滤镜函数 blur() 的示例；然后我介绍了 [url() 和 drop-shadow() 滤镜函数](http://vanseodesign.com/css/drop-shadow-filter/)并分别提供了示例。
 
-今天我想引导你完成另外四个 CSS 滤镜函数，这些函数都是 SVG 滤镜函数 feColorMatrix 不同类型和值的快捷方式。
+今天我想带你完成另外四个 CSS 滤镜函数，这些函数都是 SVG 滤镜函数 feColorMatrix 不同类型和值的快捷方式。
 
 ## feColorMatrix
 
-feColorMatrix 可用作更改元素中某些[颜色基本属性](http://vanseodesign.com/web-design/hue-saturation-and-lightness/)的一般方法。顾名思义，feColorMatrix 通过使用值矩阵来为元素添加不同的滤镜效果。
+feColorMatrix 可用作更改元素中某些[颜色基本属性](http://vanseodesign.com/web-design/hue-saturation-and-lightness/)的一般方法。顾名思义，它通过使用值矩阵来为元素添加不同的滤镜效果。
 
-有四个不同的 CSS 滤镜函数，它们可以复制使用 [feColorMatrix](http://vanseodesign.com/web-design/svg-filter-primitives-fecolormatrix/) 创建的效果。这是一个示例，其中单个 SVG 滤镜可以比任何一个 CSS 过滤器函数做得更多。
+有四个不同的 CSS 滤镜函数，它们可以复制使用 [feColorMatrix](http://vanseodesign.com/web-design/svg-filter-primitives-fecolormatrix/) 创建的效果。这是一个示例，其中单个 SVG 滤镜可以比任何一个单独的 CSS 过滤器函数做得更多。
 
 这里是 CSS 滤镜清单：
 
@@ -48,7 +48,7 @@ grayscale() = grayscale( [ <number> | <percentage> ] )
 }
 ```
 
-原始图像包含大量灰色，但我认为你可以看到过滤器的效果，因为现在所有颜色都已被删除。
+原始图像包含大量灰色，但我认为你依然可以看到滤镜的效果，因为现在所有颜色都已被删除。
 
 ![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
 
@@ -63,7 +63,7 @@ grayscale() = grayscale( [ <number> | <percentage> ] )
 </filter>
 ```
 
-尽管如此，这肯定是 CSS 滤镜功能更容易使用的情况。我知道使用这个特定矩阵的唯一原因是因为我找到了一个在线使用它的例子。我不需要在滤镜函数中搜索值 1 。
+尽管如此，这肯定是 CSS 滤镜功能更容易使用的情况。使用这个特定矩阵的唯一原因是因为我找到了一个在线使用它的例子。我不需要在滤镜函数中搜索值 1 。
 
 ## hue-rotate()
 
@@ -73,7 +73,7 @@ hue-rotate() 按指定的量更改元素中每个像素的色调。
 hue-rotate() = hue-rotate( <angle> )
 ```
 
-角度以度为单位，您需要将单位指定为 deg。 0deg 的角度使元素保持不变，360deg 的任意倍数（720deg，1080deg，1440px 等）也是如此。
+角度以度为单位，您需要将单位指定为 deg。 0deg 使元素保持不变，360deg 的任意倍数（720deg，1080deg，1440px 等）也是如此。
 
 在这个例子中，我将色调旋转了 225 度。
 
@@ -87,7 +87,7 @@ hue-rotate() = hue-rotate( <angle> )
 
 ![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
 
-这是用于比较的 SVG 过滤器。 CSS 仍然更简单，但在这种情况下，不是很多。
+这是用于比较的 SVG 滤镜。相比之下，CSS 滤镜仍然更简单，但在这种情况下的差距不大。
 
 ```html
 <filter id="hue-rotate">
@@ -103,9 +103,9 @@ CSS 还提供了 saturate() ，可用于使元素饱和或去饱和。
 saturate() = saturate( [ <number> | <percentage> ] )
 ```
 
-与灰度函数一样，该值定义了转换的比例。 0%（或0.0）导致完全去饱和元素，100%（1.0）导致元素保持不变。中间的值是效果的线性乘数。
+与灰度函数一样，该值定义了转换的比例。 0%（或0.0）使元素完全去饱和，100%（1.0）使元素保持不变。0 到 100 之间的值是效果的线性乘数。
 
-在这里，我将滤镜设置为 50% 饱和度。
+在这里，我将元素设置为 50% 饱和度。
 
 ```css
 .strawberry {
@@ -113,15 +113,15 @@ saturate() = saturate( [ <number> | <percentage> ] )
 }
 ```
 
-这导致下面的图像。
+这生成了下面的图像效果。
 
 ![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
 
-不允许使用负值，但您可以提供大于100％或1.0的值以使元素超饱和。 这是再次施加900％饱和度的图像（滤波器：饱和（9）;）。
+saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素超饱和。下面是再次施加 900% 饱和度的图像（ `filter: saturate(9);` ）。
 
 ![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
 
-像 saturate() 一样，相应的 SVG 滤镜也很简单。
+和 saturate() 对应的 SVG 滤镜也很简单。
 
 ```html
 <filter id="saturate">
@@ -129,7 +129,7 @@ saturate() = saturate( [ <number> | <percentage> ] )
 </filter>
 ```
 
-上文我曾经提到，你可以设置 type 属性以使用更简单的方法来使用 feColorMatrix 来创建灰度图像。你所要做的就是将值设置为 0 以使图像完全去饱和，这与将其设置为 100% 灰度相同。
+在之前我曾经提到，你可以设置 type 属性以使用更简单的方法来使用 feColorMatrix 来创建灰度图像。你所要做的就是将值设置为 0 以使图像完全去饱和，这与将其设置为 `saturate(100%)` 相同。
 
 ## sepia()
 
@@ -170,9 +170,9 @@ feColorMatrix 没有棕褐色类型。如果要获得相同的棕褐色效果，
 
 ## 深入思考
 
-上面提到的这四个 CSS 滤镜函数都是 feColorMatrix 的快捷方式。其中有两个替换了复杂矩阵，另外两个替换了特定类型的基元。
+上面提到的这四个 CSS 滤镜函数都是 feColorMatrix 的快捷方式。其中有两个（`grayscale()` 和 `sepia()`）替换了复杂矩阵，另外两个替换了特定类型的函数。
 
-我希望您同意所有这四个滤镜函数都很容易理解和使用。 我怀疑你在使用它们或找出用于调整图像和图形的值时会遇到很多困难。
+我希望你能了解到这四个滤镜函数都简单易用好理解。但我依然怀疑你在使用这些函数调整图像图形参数时会遇到一些困难。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
