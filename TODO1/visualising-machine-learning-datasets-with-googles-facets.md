@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/visualising-machine-learning-datasets-with-googles-facets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/visualising-machine-learning-datasets-with-googles-facets.md)
 > * 译者：[QiaoN](https://github.com/QiaoN)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 使用谷歌 FACETS 可视化机器学习数据集
 
-> 谷歌的一个开源工具，可以轻松的从大量数据中学习模式
+> FACETS 是谷歌的一个开源工具，可以轻松的从大量数据中学习模式
 
-![摄影：[Franki Chamaki](https://unsplash.com/@franki?utm_source=medium&utm_medium=referral)， 出自[Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8064/0*AAAs7V238jAuaZp_)
+![摄影：[Franki Chamaki](https://unsplash.com/@franki?utm_source=medium&utm_medium=referral)，出自[Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8064/0*AAAs7V238jAuaZp_)
 
 > 大量数据比好的算法更有用，但好的数据比大量数据更有用：Peter Norvig
 
-关于大量的训练数据如何对机器学习模型的结果产生巨大的影响，已经有很多的讨论。然而，随着数据量的增加，要构建一个强大且健壮的机器学习系统，数据质量也非常关键。毕竟“输入糟粕，输出糟粕”，也就是说，你从系统中得到的东西正体现出你提供给系统的东西。
+关于大量的训练数据如何对机器学习模型的结果产生巨大的影响，已经有很多的讨论。然而，随着数据量的增加，要构建一个强大且健壮的机器学习系统，数据质量也非常关键。毕竟“输入糟粕，输出糟粕”，也就是说，你从系统中得到的东西会体现出你提供给系统的东西。
 
-一个机器学习数据集有时包含数千到数百万的数据点，而它们可能包含成百上千个特征。此外，现实世界的数据很混乱，会有缺失值、不均衡数据、异常值等。因此，在进行模型构建之前，我们必须清理数据。可视化数据有助于找到这些不规则并定位需要清理的数据。数据可视化提供了整体数据概览（无论数据量），有助于快速准确的进行 EDA（探索性数据分析）。
+一个机器学习数据集有时包含数千到数百万的数据点，而它们可能包含成百上千个特征。此外，现实世界的数据很混乱，会有缺失值、不均衡数据、异常值等。因此，在进行模型构建之前，我们必须清理数据。可视化数据有助于找到这些离群点并定位需要清理的数据。数据可视化提供了整体数据概览（无论数据量多大），有助于快速准确的进行 EDA（探索性数据分析）。
 
 ---
 
@@ -23,9 +23,9 @@
 
 ![](https://cdn-images-1.medium.com/max/2168/1*3tUB6KRfE-FapwbH4Lz0Vg.png)
 
-在字典里facet意为某种特殊方面或某物的特征。 同样，[**FACETS**](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) 工具让我们无需明确编码即可理解并探索数据的各种功能。
+在字典里 facet 意为某种特殊方面或某物的特征。同样，[**FACETS**](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) 工具让我们无需明确编码即可理解并探索数据的各项特征。
 
-Facets是Google为了支持 [**PAIR**](https://ai.google/research/teams/brain/pair) **\(People + AI Research\)** 项目而发布的一个开源可视化工具，可以帮助我们理解和分析机器学习数据集。Facets包括两个可视化部分，这两部分均可深入挖掘数据并带来好的洞察，而无需在用户端进行大量工作。
+Facets 是谷歌为了支持 [**PAIR**](https://ai.google/research/teams/brain/pair) **\(People + AI Research\)** 项目而发布的一个开源可视化工具，可以帮助我们理解和分析机器学习数据集。Facets 包括两个可视化部分，这两部分均可深入挖掘数据并带来好的洞察，而无需在用户端进行大量工作。
 
 * **Facets Overview**
 
@@ -33,9 +33,9 @@ Facets是Google为了支持 [**PAIR**](https://ai.google/research/teams/brain/pa
 
 * **Facets Dive**
 
-此功能可帮助用户深入理解数据的单个特征/观察，以获取更多信息。它有助于一次性交互式地探索大量数据点。
+此功能可帮助用户深入理解数据的单个特征，并通过观察单个特征获取更多信息。它有助于一次性交互式地探索大量数据点。
 
-> 这些可视化由 [Typescript](https://www.typescriptlang.org/) 编写的 [Polymer](https://www.polymer-project.org/) Web组件实现，能够轻易嵌入 Jupyter Notebook 或是 Web 页面中。
+> 这些可视化由 [Typescript](https://www.typescriptlang.org/) 编写的 [Polymer](https://www.polymer-project.org/) Web 组件实现，能够轻易嵌入 Jupyter Notebook 或是 Web 页面中。
 
 ---
 
@@ -45,15 +45,15 @@ Facets是Google为了支持 [**PAIR**](https://ai.google/research/teams/brain/pa
 
 #### Web 应用
 
-它可以直接下面链接里的演示页面中使用。
+它可以直接在下面链接里的演示页面中使用：
 
 [**Facets —— 机器学习数据集的可视化**](https://pair-code.github.io/facets/)
 
-该网站允许任何人直接在浏览器中可视化他们自己的数据集，而无需安装或设置任何软件，数据也不会离开你的计算机。
+该网站允许任何人直接在浏览器中可视化他们自己的数据集，而无需安装或设置任何软件，并且你的数据不会被上传。
 
 #### 在 Jupyter Notebooks/Colaboratory 中
 
-FACETS 也可以在Jupyter Notebook / Colaboratoty 中使用。这可以更灵活的使整个 EDA 和建模在同一个 notebook 中完成。有关安装的完整细节，请参阅官方 [Github 仓库](https://github.com/pair-code/facets#setup)。不过，在下文中我们将介绍如何在 colab 中使用 FACETS。
+FACETS 也可以在 Jupyter Notebook 或 Colaboratoty 中使用。这可以更灵活的在同一个 notebook 中完成整个 EDA 和建模。有关安装的完整细节，请参阅官方 [Github 仓库](https://github.com/pair-code/facets#setup)。不过，在下文中我们将介绍如何在 colab 中使用 FACETS。
 
 ---
 
@@ -63,7 +63,7 @@ FACETS 也可以在Jupyter Notebook / Colaboratoty 中使用。这可以更灵�
 
 [**这里**](https://github.com/parulnith/Data-Visualisation-Tools/tree/master/Data%20Visualisation%20with%20Facets%20)是已经分为训练集和测试集的**数据集**。让我们将数据加载到 Colab 中。
 
-```
+```python
 import pandas as pd
 train = pd.read_csv('train.csv')
 test = pd.read_csv('test.csv')
@@ -85,7 +85,7 @@ Overview 自动的让用户快速了解数据各项特征值的分布情况。�
 
 > 有人会说我们可以轻松地用 Pandas 来完成这些任务，为什么要投入到另一个工具呢？没错，当我们只有少量的特征很少的数据点时，可能不需要这样做。然而，情况在我们面对大型数据集时会有所不同，很难用 Pandas 分析多列中的每一个数据点。
 
-Google Colaboaratory 将其变得易于使用，因为我们不需要额外的安装，只用编写几行代码就好。
+Google Colaboaratory 将 FACETS 变得易于使用，因为我们不需要额外的安装，只用编写几行代码就好。
 
 ```
 # Clone the facets github repo to get access to the python feature stats generation code
@@ -94,7 +94,7 @@ Google Colaboaratory 将其变得易于使用，因为我们不需要额外的�
 
 要计算出特征的统计量，我们需要用 Python 脚本中的函数 GenericFeatureStatisticsGenerator()。
 
-```
+```python
 # Add the path to the feature stats generation code.
 import sys
 sys.path.insert(0, '/content/facets/facets_overview/python/')
@@ -109,9 +109,9 @@ proto = gfsg.ProtoFromDataFrames([{'name': 'train', 'table': train},
 protostr = base64.b64encode(proto.SerializeToString()).decode("utf-8")
 ```
 
-现在用下面的代码行，我们可以轻松的在 notebook 中显示出可视化。
+现在用下面的代码，我们可以轻松的在 notebook 中显示出可视化。
 
-```
+```python
 # Display the facets overview visualization for this data
 from IPython.core.display import display, HTML
 
@@ -124,11 +124,11 @@ html = HTML_TEMPLATE.format(protostr=protostr)
 display(HTML(html))
 ```
 
-当你按下 “Shift + Enter”，你就能看到一个漂亮的交互式可视化：
+当你按下“Shift + Enter”，你就能看到一个漂亮的交互式可视化：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZXS2t1A8JZDtxGsfUP3GFQ.png)
 
-在图中，我们能看到对贷款预测数据集五个数值特征的 Facets Overview 可视化。这些特征按非均匀性排序，分布最不均匀的特征排在顶部。红色数字表示可能的故障点，在这里，数值特征为 0 有很高的百分比。用右侧的柱状图你可以比较训练数据（蓝色）和测试数据（橙色）的分布情况。
+在图中，我们能看到 Facets Overview 对贷款预测数据集的五个数值特征进行了可视化。这些特征按非均匀性排序，分布最不均匀的特征排在顶部。红色数字表示可能的异常点，在这里，数值特征为 0 有很高的百分比。用右侧的柱状图你可以比较训练数据（蓝色）和测试数据（橙色）的分布情况。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0yYTqIN5Vimf_0SxxB-35w.png)
 
@@ -136,11 +136,11 @@ display(HTML(html))
 
 #### FACETS Dive
 
-[Facets Dive](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) 提供了一个直观的可定制界面，用于探索数据集内不同特征的数据点之间的关系。使用 Facets Dive，你可以根据每个数据点的特征值来控制它的位置、颜色和视觉表示。如果数据点有相关联的图像，此图像也可用作视觉表示。
+[Facets Dive](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html) 提供了一个直观的可定制界面，用于探索数据集内不同特征的数据点之间的关系。使用 Facets Dive，你可以根据每个数据点的特征值来控制它的位置、颜色和视觉效果。如果数据点有相关联的图像，此图像也可用在可视化中。
 
 必须将数据转换为 JSON 格式才可使用 Dive 可视化。
 
-```
+```python
 # Display the Dive visualization for the training data.
 from IPython.core.display import display, HTML
 
@@ -194,9 +194,9 @@ display(HTML(html))
 从上面的条形图中可以推断出：
 
 * 已批准贷款中已婚申请人的比例较高。
-* 在 Loan_Status 的两个类别中，有1个或3个以上家属的申请人具有相似的分布情况。
-* 信用记录为1的人似乎更有可能获得贷款批准。
-* 与农村或城市地区相比，在城郊获得贷款批准的比例较
+* 在 Loan_Status 的两个类别中，有 1 个或 3 个以上家属的申请人具有相似的分布情况。
+* 信用记录为 1 的人似乎更有可能获得贷款批准。
+* 与农村或城市地区相比，在城郊获得贷款批准的比例较高。
 
 ---
 
@@ -204,7 +204,7 @@ display(HTML(html))
 
 FACETS 为数据集进行 EDA 提供了一个简单直观的环境，帮助我们获得有意义的结果。唯一的问题是目前它只适用于 **Chrome**。
 
-在结束本文之前，让我们看一个**有趣的事实**：下图体现出如何用 FACETS Dive 揪出 CIFAR-10 数据集中一个小小的人为标记错误。在分析数据集时，发现一个青蛙的图像被错误地标记为猫。好啦，这确实是一些成就，因为对人眼来说这是一项不可能完成的任务。
+在结束本文之前，让我们看一个**有趣的事实**：下图体现出如何用 FACETS Dive 揪出 CIFAR-10 数据集中一个小小的人为标记错误。在分析数据集时，发现一个青蛙的图像被错误地标记为猫。这确实是一些成就，因为对人眼来说这是一项不可能完成的任务。
 
 ![[Source](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html)](https://cdn-images-1.medium.com/max/2000/1*VfkUBpXdGNIsK_RKT-ct1Q.gif)
 
