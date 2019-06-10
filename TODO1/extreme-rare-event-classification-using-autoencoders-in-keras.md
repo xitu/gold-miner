@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/extreme-rare-event-classification-using-autoencoders-in-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/extreme-rare-event-classification-using-autoencoders-in-keras.md)
 > * 译者：[ccJia](https://github.com/ccJia)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 在 Keras 下使用自编码器分类极端稀有事件
 
-> 在本推文中，我们将要学习使用自编码器搭建一个稀有事件分类器.我们将使用来自[1]的一个现实场景稀有事件数据集。
+> 在本文中，我们将要学习使用自编码器搭建一个稀有事件分类器.我们将使用来自[1]的一个现实场景稀有事件数据集。
 
 ## 背景
 
