@@ -39,9 +39,9 @@ console.log(matrix.rows[1][1])
 
 ## 矩阵与向量的乘积
 
-**矩阵与向量的乘法** —— $A\vec{x}$ 会将矩阵 $A$ 的列进行系数为 $\vec{x}$ 的线性组合。比如，一个 $3\times 2$ 的矩阵 A 与一个 **2D** 向量 **x⃗** 的乘积将得到一个 **3D** 向量，这个计算记为：$\vec{y} : \vec{y} = A\vec{x}$。
+**矩阵与向量的乘法** —— $A\vec{x}$ 会将矩阵 $A$ 的列进行系数为 $\vec{x}$ 的线性组合。比如，一个 $3\times 2$ 的矩阵 A 与一个 **2D** 向量 $\vec{x}$ 的乘积将得到一个 **3D** 向量，这个计算记为：$\vec{y} : \vec{y} = A\vec{x}$。
 
-![**y⃗=Ax⃗**](https://cdn-images-1.medium.com/max/2538/0*sa84p6WtAYoAB8u0)
+![](https://cdn-images-1.medium.com/max/2538/0*sa84p6WtAYoAB8u0)
 
 假设有一组向量 $\{\vec{e}_1,\vec{e}_2\}$，另一个向量 $\vec{y}$ 是 $\vec{e}_1$ 和 $\vec{e}_2$ 的**线性组合**：$\vec{y} = \alpha\vec{e}_1 + \beta \vec{e}_2$。其中，$\alpha, \beta \in \mathbb{R}$ 就是这个线性组合的系数。
 
