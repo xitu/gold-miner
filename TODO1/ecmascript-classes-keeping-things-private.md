@@ -2,24 +2,24 @@
 > * 原文作者：[Milos Protic](https://devinduct.com/blogpost/23/ecmascript-classes-keeping-things-private)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ecmascript-classes-keeping-things-private.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ecmascript-classes-keeping-things-private.md)
-> * 译者：
+> * 译者：[ZavierTang](https://github.com/ZavierTang)
 > * 校对者：
 
-# ECMAScript Classes - Keeping Things Private
+# ECMAScript 类 - 定义私有属性
 
-## Introduction
+## 介绍
 
-As usual, we will start with a few theoretical explanations. ES Classes are the new syntactic sugar in JavaScript. They provide a neat way of writing and achieving the same thing as if we used a prototype chain. The only difference is that it looks better and, if you came from the C# or Java world, feels more natural. One might say that they are not meant for JavaScript, but for me, I don't have a problem using classes or ES5 prototype standards.
+像往常一样，我们将从一些理论知识开始介绍。ES 的类是 JavaScript 中新的语法糖。它提供了一种简洁的编写方法，并且实现了与我们使用原型链相同的功能。唯一的区别是，它看起来更像是面向对象编程了，而且，如果你是 C# 或 Java 开发者，感觉会更友好。有人可能会说它们不适合 JavaScript，但对我来说，使用类或 ES5 的原型都没有问题。
 
-They provide an easier way of encapsulation and creation of a fixed set of methods operating on that entity with the valid internal state. Basically, we can write less to achieve more, which is the whole point. With them, JavaScript is moving towards Object-Oriented way of doing things and by using them we are splitting the application into objects instead of into functions. Don't get me wrong, splitting the application into functions is not a bad thing, actually, it's a great thing and it can provide certain benefits over classes, but that is a topic for another article.
+它提供了一种更简单的方式来封装和定义多个属性，这些属性可以在具体的实例对象上被访问到。事实上，我们可以通过类的方式编写更少的代码来实现更多的功能。有了类，JavaScript 正朝着面向对象的方式发展，通过使用类，我们将应用程序拆分为对象，而不是函数。不要误解我的意思，将应用程序拆分为函数并不是一件坏事，实际上，这是一件好事，它也有一些优于类的好处，但这应该是另一篇文章要讨论的主题。
 
-In a more practical way, we could say that whenever we want to describe a model from the real world within our application we would use a class to do it. For example, a building, a car, a motorcycle...etc. They represent a real-world entity.
+举一个实际的例子，每当我们想在应用程序中定义来自真实世界的事物时，我们都会使用一个类来描述它。例如，building、car、motorcycle……它们代表一类真实的事物。
 
-## The Scope
+## 可访问范围
 
-In server-side languages, we have something called **access modifiers** or **levels of visibility** such as `public`, `private`, `protected`, `internal`, `package`...Unfortunately, only the first two, in their own way, are supported in JavaScript. We do not write access modifiers (`public` or `private`) to declare our fields and JavaScript, in a way, assumes you to have everything scoped public which is the reason why I'm writing this post.
+在后端语言中，我们有访问修饰符或可见性级别，如 `public`、`private`、`protected`、`internal`、`package`……不幸的是，JavaScript 仅以自己的方式支持前两种方法。它不编写访问修饰符（`public` 或 `private`）来声明字段，JavaScript 在某种程度上假定所有的区域都是公共的，这就是我写这篇文章的原因。
 
-Note that we have a way of declaring a private and public field on our class, but these field declarations are an experimental feature and therefore not safe to be used yet.
+注意，我们有一种方法可以在类上声明私有和公共的字段，但是这些字段声明方法还是实验性的特性，因此还不能安全的使用它。
 
 ```js
 class SimCard {
@@ -29,15 +29,15 @@ class SimCard {
 }
 ```
 
-> **The field declarations like the ones above are not supported without a compiler like, for example, Babel**.
+> **如果没有像 Babel 这样的编译器，就不支持使用上面这样的字段声明方式。**
 
-## Keeping Things Private - The Encapsulation
+## 定义私有属性 - 封装
 
-Encapsulation is the term used in programming when we want to say that something is protected or hidden from the outer world. By keeping the data private and visible only to the owner entity we are **encapsulating** it. In this article, we will use a couple of ways to encapsulate our data. Let's dive into it.
+封装是编程中的一个术语，比如它用来描述某个变量是受保护的或对外部是不可见的。通过保持数据私有并且只对内部可见，我们需要**封装**它。在本文中，我们将使用几种不同的方法来封装私有数据。让我们开始吧。
 
-### 1. By Convention
+### 1. 习惯约定
 
-This is nothing else but faking the `private` state of our data or variables. In reality, they are public and accessible to everyone. The two most common conventions for keeping things private that I've encountered are the `$` and `_` prefixes. If something is prefixed with one of these signs (usually only one is used across the application) then it should be handled as a non-public property of that specific object.
+这种方式只是假定数据或变量的 `private` 状态。实际上，它们是公开的，外部可以访问。我了解到的两种最常见的定义私有状态的习惯约定是 `$` 和 `_` 前缀。如果某个变量以这些符号作为前缀（通常在整个应用中会规定使用某一个)，那么该变量应该作为非公共属性来处理。
 
 ```js
 class SimCard {
@@ -45,20 +45,20 @@ class SimCard {
     this.number = number;
     this.type = type;
     
-    // this property is intended to be a private one
+    // 这个属性被定义为私有的
     this._pinCode = pinCode;
   }
 }
 
 const card = new SimCard("444-555-666", "Micro SIM", 1515);
 
-// here we would have access to the private _pinCode property which is not the desired behavior
-console.log(card._pinCode); // outputs 1515
+// 这里，我们将访问私有的 _pinCode 属性，这并不是我们预期的行为
+console.log(card._pinCode); // 输出 1515
 ```
 
-### 2. Privacy with Closures
+### 2. 闭包
 
-Closures are extremely useful when it comes to keeping a variable scope. They go a long way back and were used by JavaScript developers for decades. This approach gives us the real privacy and the data is not accessible to the outside world. It can be managed only by the owner entity. What we will do here is create local variables within the class constructor and capture them with closures. To make it work, the methods must be attached to the instance, not defined on the prototype chain.
+闭包对于控制变量的可访问性非常有用。它被 JavaScript 开发者使用了几十年。这种方法为我们提供了真正的私有性，数据对外部来说是无法访问的，它只能被内部访问。这里我们要做的是在类构造函数中创建局部变量，并用闭包捕获它们。要实现效果，方法必须定义到实例上，而不是在原型链上。
 
 ```js
 class SimCard {
@@ -67,7 +67,7 @@ class SimCard {
     this.type = type;
 
     let _pinCode = pinCode;
-    // this property is intended to be a private one
+    // 这个属性被定义为私有的
     this.getPinCode = () => {
         return _pinCode;
     };
@@ -75,15 +75,15 @@ class SimCard {
 }
 
 const card = new SimCard("444-555-666", "Nano SIM", 1515);
-console.log(card._pinCode); // outputs undefined
-console.log(card.getPinCode()); // outputs 1515
+console.log(card._pinCode); // 输出 undefined
+console.log(card.getPinCode()); // 输出 1515
 ```
 
-### 3. Privacy with Symbols and Getters
+### 3. Symbols 和 Getters
 
-Symbol is a new primitive data type in JavaScript. It was introduced in ECMAScript version 6. Every value returned by the `Symbol()` call is a unique one, and the main purpose of this type is to be used as an object property identifier.
+Symbol 是 JavaScript 中一种新的基本数据类型。它是在 ECMAScript 6 中引入的。`Symbol()` 返回的每个值都是唯一的，这种类型的主要目的是用作对象属性的标识符。
 
-Since our intention is to create symbols outside of the class definition and yet not global a module has been introduced. By doing this, we are able to create our private fields on the module level, attach them to the class object within the constructor and return the symbol key from the class getter. Note that instead of getter we could use standard methods created on the prototype chain. I've chosen the approach with a getter due to the fact that we do not need to invoke the function to retrieve the value.
+由于我们的意图是在类定义的外部创建 Symbol 变量，但也不是全局的，所以引入了模块。这样，我们能够在模块内部创建私有字段，将它们定义到类的构造函数中，并通过 `getter` 返回 symbol 变量对应的值。注意，我们可以使用在原型链上创建的方法来代替 `getter`。我选择了 `getter` 方法，因为这样我们就不需要调用函数来获取值了。
 
 ```js
 const SimCard = (() => {
@@ -105,21 +105,21 @@ const SimCard = (() => {
 })();
 
 const card = new SimCard("444-555-666", "Nano SIM", 1515);
-console.log(card._pinCode); // outputs undefined
-console.log(card.pinCode); // outputs 1515
+console.log(card._pinCode); // 输出 undefined
+console.log(card.pinCode); // 输出 1515
 ```
 
-One thing to point out here is the `Object.getOwnPropertySymbols` method. This method can be used to access the fields we intended to keep private. The `_pinCode` value from our class can be retrieved like this:
+这里需要指出的一点是 `Object.getOwnPropertySymbols` 方法，此方法可用于访问我们用来保存私有属性的 symbol 变量。上面的类中的 `_pinCode` 值就可以这样被获取到:
 
 ```js
 const card = new SimCard("444-555-666", "Nano SIM", 1515);
-console.log(card[Object.getOwnPropertySymbols(card)[0]]); // outputs 1515
+console.log(card[Object.getOwnPropertySymbols(card)[0]]); // 输出 1515
 
 ```
 
-### 4. Privacy with Map and Getters
+### 4. Map 和 Getters
 
-Map and WeakMap were also introduced in ECMAScript version 6. They store data in a key/value pair format which makes them a good fit for storing our private variables. In our example, a map is defined on a module level and in the class constructor each private key is set. The value is retrieved by the class getter, and again, it has been chosen due to the fact that we do not need to invoke the function to retrieve the value. Also, do note that we don't need to define a map for each private property considering the structure of the `Map` itself.
+ECMAScript 6 还引入了 `Map` 和 `WeakMap`。它们以键值对的形式存储数据，这使得它们非常适合存储我们的私有变量。在我们的示例中，`Map` 被定义在模块的内部，并且在类的构造函数中设置每个私有属性的键值。这个值被类的 `getter` 引用，同样，我们不需要调用函数来获取值。另外，请注意，考虑到 `Map` 本身的结构，我们不需要为每个私有属性定义 `Map` 映射。
 
 ```js
 const SimCard = (() => {
@@ -146,20 +146,20 @@ const SimCard = (() => {
 })();
 
 const card = new SimCard("444-555-666", "Nano SIM", 1515, 45874589);
-console.log(card.pinCode); // outputs 1515
-console.log(card.pukCode); // outputs 45874589
-console.log(card._privates); // outputs undefined
+console.log(card.pinCode); // 输出 1515
+console.log(card.pukCode); // 输出 45874589
+console.log(card._privates); // 输出 undefined
 ```
 
-Note that in this approach we could use a plain object instead of `Map` and dynamically assign the values to it inside the constructor.
+注意，在这种方法中，我们也可以使用普通对象而不是 `Map`，并在构造函数中动态地为其分配值。
 
-## Conclusion and Further Reading
+## 总结和进一步阅读
 
-Hopefully, you will find these examples useful and they will find a place somewhere in your workflow. If that is the case, and you liked what you've read, do share it. I have implemented only Twitter share button, lol :) But I'm working on the others.
+希望这些示例对你会有帮助，并且能够用到你的工作中。如果是的话，并且你也喜欢这篇文章，那欢迎分享。这里我只实现了 Twitter 的分享按钮，（哈哈）但我也正在实现其他的方式。
 
-For further reading, I would recommend the post about [JavaScript Clean Code - Best Practices](https://github.com/xitu/gold-miner/blob/master/TODO1/ecmascript-classes-keeping-things-privatejavascript-clean-code-best-practices.md).
+如果要进一步阅读，我推荐一篇文章：[JavaScript Clean Code - Best Practices](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-clean-code-best-practices.md)
 
-Thank you for reading and see you in the next post.
+感谢你的阅读，下一篇文章再见。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
