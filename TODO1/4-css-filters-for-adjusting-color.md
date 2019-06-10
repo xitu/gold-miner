@@ -117,7 +117,7 @@ saturate() = saturate( [ <number> | <percentage> ] )
 
 ![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
 
-saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素超饱和。下面是再次施加 900% 饱和度的图像（ `filter: saturate(9);` ）。
+saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素过饱和。下面是再次施加 900% 饱和度的图像（ `filter: saturate(9);` ）。
 
 ![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
 
