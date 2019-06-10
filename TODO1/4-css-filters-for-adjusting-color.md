@@ -28,7 +28,7 @@ feColorMatrix 可用作更改元素中某些[颜色基本属性](http://vanseode
 
 如果你一直在关注这个系列，那就让我们一起依次浏览这些可以改变图像颜色的滤镜吧。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![strawberry.jpg](https://i.loli.net/2019/06/11/5cfe904a4ed7316962.jpg)
 
 ## grayscale()
 
@@ -50,7 +50,7 @@ grayscale() = grayscale( [ <number> | <percentage> ] )
 
 原始图像包含大量灰色，但我认为你依然可以看到滤镜的效果，因为现在所有颜色都已被删除。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![1.jpg](https://i.loli.net/2019/06/11/5cfe8f0c2a04c14602.jpg)
 
 为了比较，这里是滤镜函数的替换矩阵。公平地说，通过将 type 属性设置为饱和，可以更轻松地使用 feColorMatrix 来删除颜色。我稍后会告诉你的。
 
@@ -85,7 +85,7 @@ hue-rotate() = hue-rotate( <angle> )
 
 该值将红色和黄色的花朵变成含有更多粉红色，紫色和蓝色的花朵。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![2.jpg](https://i.loli.net/2019/06/11/5cfe8f0c2bf0c97252.jpg)
 
 这是用于比较的 SVG 滤镜。相比之下，CSS 滤镜仍然更简单，但在这种情况下的差距不大。
 
@@ -115,11 +115,11 @@ saturate() = saturate( [ <number> | <percentage> ] )
 
 这生成了下面的图像效果。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![3.jpg](https://i.loli.net/2019/06/11/5cfe8f0c2dd0b48070.jpg)
 
 saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素过饱和。下面是再次施加 900% 饱和度的图像（ `filter: saturate(9);` ）。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![4.jpg](https://i.loli.net/2019/06/11/5cfe8f0d1d1d649096.jpg)
 
 和 saturate() 对应的 SVG 滤镜也很简单。
 
@@ -153,7 +153,7 @@ sepia() = sepia( [ <number> | <percentage> ] )
 
 下图是滤镜的效果展示：
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![5.jpg](https://i.loli.net/2019/06/11/5cfe8f0d12a1a21806.jpg)
 
 feColorMatrix 没有棕褐色类型。如果要获得相同的棕褐色效果，你需要使用另一个矩阵。
 
