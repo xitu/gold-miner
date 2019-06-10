@@ -2,42 +2,42 @@
 > * 原文作者：[Tomek Polański](https://medium.com/@tpolansk)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-layout-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-layout-cheat-sheet.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[smilemuffie](https://github.com/smilemuffie)，[suhanyujie](https://github.com/suhanyujie)
 
-# Flutter Layout Cheat Sheet
+# Flutter 布局备忘录
 
 ![](https://cdn-images-1.medium.com/max/3538/1*Ktvy6_Ldzx9CjrrK3Vg9Fw.png)
 
-Do you need simple layout samples for Flutter?
-I present you my set of Flutter layout code snippets. I will keep it short, sweet and simple with loads of visual examples.
-Still, it is work in progress — the catalog of samples will grow. I will focus more on the usage of Flutter widgets rather than showcasing the components ([Flutter Gallery](https://play.google.com/store/apps/details?id=io.flutter.gallery&hl=en) is great for that!).
-If you have an issue with “layouting” your Flutter or you wanna share your snippets with others, please drop a line!
+你需要了解 Flutter 的简单布局模版吗？
+现在我将展示给你我总结的一系列 Flutter 布局代码片段。我会尽量保证代码简短易懂，并且会给出效果图。
+但是我们仍旧需要循序渐进 —— 模版目录将会随之逐步深入。我将会将更多的篇幅集中于 Flutter 部件的应用，而不是单纯陈列组件（[Flutter Gallery](https://play.google.com/store/apps/details?id=io.flutter.gallery&hl=en) 在这一点做的很好！）
+如果你对于 Flutter 布局还有其他疑问，或者想要分享你的代码，请留言给我！
 
 ***
 
-## Table of Contents
+## 目录
 
-* Row and Column
-* IntrinsicWidth and IntrinsicHeight
+* Row 和 Column
+* IntrinsicWidth 和 IntrinsicHeight
 * Stack
 * Expanded
 * ConstrainedBox
 * Container
-  * decoration: BoxDecoration
-  * image: DecorationImage
-  * border: Border
-  * borderRadius: BorderRadius
-  * shape: BoxShape
-  * boxShadow: `List<BoxShadow>`
-  * gradient: RadialGradient
-  * backgroundBlendMode: BlendMode
+  * 装饰（decoration）：BoxDecoration
+  * 图片（image）：DecorationImage
+  * 边框（border）：Border
+  * 边框半径（borderRadius）：BorderRadius
+  * 形状（shape）：BoxShape
+  * 阴影（boxShadow）：`List<BoxShadow>`
+  * 渐变（gradient）：RadialGradient
+  * 背景混合模式（backgroundBlendMode）：BlendMode
 * SizedBox
 * SafeArea
 
 ***
 
-## Row and Column
+## Row 和 Column
 
 ### MainAxisAlignment
 
@@ -46,7 +46,7 @@ If you have an issue with “layouting” your Flutter or you wanna share your s
 ![](https://cdn-images-1.medium.com/max/2000/1*Z8Utwfw9vPALRY0XOS4uSQ.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisAlignment: MainAxisAlignment.start,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -63,7 +63,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*SDjCqaKjWtUSwTT5Ik_-Cw.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisAlignment: MainAxisAlignment.center,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -80,7 +80,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*idDcokq5qV8CHrmplUCeNA.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisAlignment: MainAxisAlignment.end,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -97,7 +97,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*vpvXC7fTvKWw-w9MGADbUg.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisAlignment: MainAxisAlignment.spaceBetween,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -114,7 +114,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*sAyW0aFJIYy4p1G3ekyrQQ.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -131,7 +131,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*U38GUiD37VN0qN_ZexkIiQ.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisAlignment: MainAxisAlignment.spaceAround,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -145,7 +145,7 @@ Row /*or Column*/(
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MtiSZgu4yK6A4fSpGv6Zkg.png)
 
-You should use `CrossAxisAlignment.baseline` if you require for the baseline of different text be aligned.
+如果你想要不同字符的基线对齐，你应该使用 `CrossAxisAlignment.baseline`。
 
 ```dart
 Row(
@@ -173,7 +173,7 @@ Row(
 ![](https://cdn-images-1.medium.com/max/2000/1*VOB1npP6r7NNXG5gKYY3LQ.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   crossAxisAlignment: CrossAxisAlignment.start,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -190,7 +190,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*q-6779AyXXa5jTtBeQdxWQ.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   crossAxisAlignment: CrossAxisAlignment.center,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -207,7 +207,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*1gS9EP_Sta161SH4G_panQ.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   crossAxisAlignment: CrossAxisAlignment.end,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -224,7 +224,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*DQgDsWne5dp8dc0ZZ911Zg.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   crossAxisAlignment: CrossAxisAlignment.stretch,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -243,7 +243,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*mgRukOgzaOutbVFWGzii-A.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisSize: MainAxisSize.max,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -260,7 +260,7 @@ Row /*or Column*/(
 ![](https://cdn-images-1.medium.com/max/2000/1*TFkYeR-yqfHDH3pECJMM4Q.png)
 
 ```dart
-Row /*or Column*/( 
+Row /*或 Column*/( 
   mainAxisSize: MainAxisSize.min,
   children: <Widget>[
     Icon(Icons.star, size: 50),
@@ -272,11 +272,11 @@ Row /*or Column*/(
 
 ***
 
-## IntrinsicWidth and IntrinsicHeight
+## IntrinsicWidth 和 IntrinsicHeight
 
-Want all the widgets inside Row or Column to be as tall/wide as the tallest/widest widget? Search no more!
+想要某行或列中所有部件和最高/最宽的部件一样高/宽？不要乱找了，答案在这里！
 
-In case you have this kind of layout:
+当你有这种样式的布局：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9Ap8DHjFJssXHwkMFOu5zw.png)
 
@@ -306,7 +306,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-But you would like to have all buttons as **wide** as **the widest**, just use `IntrinsicWidth` :
+但是你希望所有的按钮都和**最宽**的按钮等**宽**，只需要使用 `IntrinsicWidth`：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JS9b6Cvb-o2FGGgIC6zPiQ.png)
 
@@ -339,13 +339,13 @@ Widget build(BuildContext context) {
 }
 ```
 
-In case you have a similar problem but you would like to have all the widgets as **tall** as **the tallest** just use combination of `IntrinsicHeight` and `Row` widgets.
+如果你需要的是让所有部件和**最高的部件**等**高**，可以结合使用 `IntrinsicHeight` 和 `Row` 部件。
 
 ***
 
 ## Stack
 
-Perfect for overlaying Widgets on top of each other
+非常适用于将部件叠加在一起
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3E_ll9conv_Ha7xTLtIn6Q.png)
 
@@ -383,7 +383,7 @@ Widget build(BuildContext context) {
 
 ***
 
-With your own Widgets, you need to place them in `Positioned` Widget
+如果想使用自己的部件，需要将它们放置在 `Positioned` 里面
 
 ![](https://cdn-images-1.medium.com/max/2000/1*CkTumWbumdO9Ka6Mwa4S2A.png)
 
@@ -413,7 +413,7 @@ Widget build(BuildContext context) {
 
 ***
 
-If you don’t want to guess the top/bottom values you can use `LayoutBuilder` to retrieve them
+如果你不想去猜测 top 或 bottom 的值，你可以使用 `LayoutBuilder` 来检索它们
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0_0q8qAbw4T_-gChblfV-A.png)
 
@@ -448,7 +448,7 @@ Widget build(BuildContext context) {
 
 ## Expanded
 
-`Expanded` works with [Flex\Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) layout and is great for distributing space between multiple items.
+`Expanded` 可以和 [Flex\Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) 布局一起应用，并且非常适用于分配多元素的空间。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7CQEUQgzAHvbmJQwnessWA.png)
 
@@ -481,7 +481,7 @@ Row(
 
 ## ConstrainedBox
 
-By default, most of the widgets will use as little space as possible:
+默认情况下，大多数组件都会使用尽可能小的空间：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*c3l5JxXfY6-v6awf2VgggA.png)
 
@@ -491,7 +491,7 @@ Card(child: const Text('Hello World!'), color: Colors.yellow)
 
 ***
 
-`ConstrainedBox` allows a widget to use the remaining space as desired.
+`ConstrainedBox` 让部件可以使用期望的剩余空间。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QCTdn09Lb5uO4ZDuCGs1LA.png)
 
@@ -507,9 +507,9 @@ ConstrainedBox(
 
 ***
 
-Using `BoxConstraints` you specify how much space a widget can have — you specify `min`/`max` of `height`/`width`.
+你可以使用 `BoxConstraints` 指定部件可以使用多大的空间 —— 通过指定 `height`/`width` 的 `min`/`max` 属性。
 
-`BoxConstraints.expand` uses infinite (all the available) amount of space unless specified:
+`BoxConstraints.expand` 将会让组件使用无限制（所有可用）的空间，除非另有指定：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*q4nM3zvOd1PQFQMxCqZueQ.png)
 
@@ -523,7 +523,7 @@ ConstrainedBox(
 ),
 ```
 
-And it’s the same as:
+上面代码和如下代码等效：
 
 ```dart
 ConstrainedBox(
@@ -544,11 +544,11 @@ ConstrainedBox(
 
 ## Container
 
-One of the most used Widgets — and for good reasons:
+最常用的部件之一 —— 并且它之所以这么常用是有原因的：
 
-### Container as a layout tool
+### 用于布局工具的 Container
 
-When you don’t specify the `height` and the `width` of the `Container`, it will match its `child`’s size
+如果你没有指定 `Container` 的 `height` 和 `width`，它将和 `child` 的大小相同
 
 ![](https://cdn-images-1.medium.com/max/2000/1*PLsAfFDKge7Gr7yl3M_iTA.png)
 
@@ -564,7 +564,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-If you want to stretch the `Container` to match its parent, use `double.infinity` for the `height` and `width` properties
+如果你想要 `Container` 扩大到和它的父级元素相等，对 `height` 和 `width` 属性使用 `double.infinity`
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6Q_ynFTU1rDVZ65VCJsPlQ.png)
 
@@ -582,10 +582,10 @@ Widget build(BuildContext context) {
 }
 ```
 
-### Container as decoration
+### Container 的装饰
 
-You can use color property to affect `Container`’s background but `decoration `and `foregroundDecoration`. (With those two properties, you can completely change how `Containe`r looks like but I will be talking about different decorations later as it quite big topic)
-`decoration` is always placed behind the child, whereas `foregroundDecoration `is on top of the `child`
+你可以使用 color 属性来改变 `Container` 的背景色，但是 `decoration` 和 `foregroundDecoration` 则可以做更多。（使用这两个属性，你可以彻底改变 `Container` 的外观，这部分我将在后续讨论，因为这部分内容很多）
+`decoration` 总会放置在 child 后面，而 `foregroundDecoration` 则在 `child` 的上面。
 
 ![decoration](https://cdn-images-1.medium.com/max/2000/1*EEpMF6tWMyvvsFF1yY_ewg.png)
 
@@ -622,9 +622,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-### Container as Transform
+### Container 的变换
 
-If you don’t want to use `Transform` widget to change your layout, you can use `transform` property straight from the `Container`
+如果你不想使用 `Transform` 部件来改变你的布局，你可以使用 `Container` 的 `transform` 属性
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pILEI4FBwKC1o422vFVhWw.png)
 
@@ -650,11 +650,11 @@ Widget build(BuildContext context) {
 
 ## BoxDecoration
 
-Decoration is usually used on a Container widget to change how the container looks.
+装饰效果通常用于容器组件，来改变组件的外观。
 
-### image: DecorationImage
+### 图片（image）：DecorationImage
 
-Puts an image as a background:
+将图片作为背景：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_o7CH527uIZExmX1d_zb3Q.png)
 
@@ -679,9 +679,9 @@ Scaffold(
 );
 ```
 
-### border: Border
+### 边框（border）：Border
 
-Specifies how should the border of the Container look like.
+指定容器的边框样式。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VdNLdpwXhSJ1IXSl37HzZg.png)
 
@@ -701,11 +701,11 @@ Scaffold(
 );
 ```
 
-### borderRadius: BorderRadius
+### 边框半径（borderRadius）：BorderRadius
 
-Enables border corners to be rounded.
+让边框可以是圆角。
 
-**`borderRadius` does not work if the `shape` of the decoration is `BoxShape.circle`**
+**如果装饰的 `shape` 是 `BoxShape.circle`，那么 `borderRadius` 将无效**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jTE5_KqVyQFEwL8CwGNueQ.png)
 
@@ -725,11 +725,11 @@ Scaffold(
 );
 ```
 
-### shape: BoxShape
+### 形状（shape）：BoxShape
 
-Box decoration can be either a rectangle/square or an ellipse/circle.
+盒子的形状可以是长方形、正方形、椭圆或者圆形。
 
-**For any other shape, you can use `ShapeDecoration` instead of `BoxDecoration`**
+**对于其他任意形状，你应该使用 `ShapeDecoration` 而不是 `BoxDecoration`**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7dqVoqn733edfeCVlEe25A.png)
 
@@ -749,11 +749,11 @@ Scaffold(
 );
 ```
 
-### boxShadow: `List<BoxShadow>`
+### 阴影（boxShadow）：`List<BoxShadow>`
 
-Adds shadow to the Container.
+可以给容器添加阴影。
 
-This parameter is a list because you can specify multiple different shadows and merge them together.
+这个参数是一个列表，这样你就可以定义多种不同的阴影，然后将它们组合在一起。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*h6w8aT1pJvb9lUlHJWELbg.png)
 
@@ -775,9 +775,9 @@ Scaffold(
 );
 ```
 
-### gradient
+### 渐变（gradient）
 
-There are three types of gradients: `LinearGradient`, `RadialGradient` and `SweepGradient`.
+有三种类型的渐变：`LinearGradient`、`RadialGradient` 和 `SweepGradient`。
 
 ![`LinearGradient`](https://cdn-images-1.medium.com/max/2000/1*GDq_OI7bwYyOgOXQ88Dxvw.png)
 
@@ -851,14 +851,14 @@ Scaffold(
 );
 ```
 
-### backgroundBlendMode
+### 背景混合模式（backgroundBlendMode）
 
-`backgroundBlendMode` is the most complex property of `BoxDecoration`.
-It’s responsible for mixing together colors/gradients of `BoxDecoration` and whatever `BoxDecoration` is on top of.
+`backgroundBlendMode` 是 `BoxDecoration` 中最复杂的属性。
+它可以混合 `BoxDecoration` 的颜色和渐变，并且无论 `BoxDecoration` 在何种元素之上。
 
-With `backgroundBlendMode` you can use a long list of algorithms specified in `BlendMode` enum.
+有了 `backgroundBlendMode`，你可以使用 `BlendMode` 枚举类型中的一长串算法。
 
-First, let’s set `BoxDecoration` as `foregroundDecoration` which is drawn on top of `Container`’s child (whereas `decoration` is drawn behind the child).
+首先，配置 `BoxDecoration` 为 `foregroundDecoration`，它被渲染于 `Container` 子元素的上方（而 `decoration` 被渲染于子元素的后面）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*oEl3AuLzeAfwJPDguSOVkg.png)
 
@@ -886,10 +886,10 @@ Scaffold(
 );
 ```
 
-`backgroundBlendMode` does not affect only the `Container` it’s localed in.
+`backgroundBlendMode` 不仅影响它所在的 `Container`。
 
-`backgroundBlendMode` changes the color of anything that is up the widget tree from the `Container`.
-The following code has a parent `Container` that draws an `image` and child `Container` that uses `backgroundBlendMode`. Still, you would get the same effect as previously.
+`backgroundBlendMode` 能改变从 `Container` 的部件树中任意部件的颜色。
+下面这段代码中，有一个作为父级元素的 `Container`，它渲染了一张图片 `image` 和一个使用了 `backgroundBlendMode` 的子元素 `Container`。你仍旧会得到和前一段代码相同的效果。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*odhlbvPiq6RDvopcWdl2ZA.png)
 
@@ -927,11 +927,11 @@ Scaffold(
 
 ## SizedBox
 
-It’s one of the simplest but most useful Widgets
+这是最简单但是最有用的部件
 
-### SizedBox as ConstrainedBox
+### 用作 ConstrainedBox 的 SizedBox
 
-`SizedBox` can work in a similar fashion as `ConstrainedBox`
+`SizedBox` 可以实现和 `ConstrainedBox` 相似的效果
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Zc3fvnsiRq_P_8luY2_BCQ.png)
 
@@ -946,9 +946,9 @@ SizedBox.expand(
 
 ***
 
-### SizedBox as padding
+### 用作内边距的 SizedBox
 
-When in need of adding padding or margin, you might choose `Padding` or `Container` widgets. But they can be more verbose and less redeable than adding a `Sizedbox`
+如果你需要添加内边距或者外边距，你可以选择 `Padding` 或者 `Container` 部件。但是它们都不如添加 `Sizedbox` 简单易读
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UuPNTwfn0_U-PnczL0rSqg.png)
 
@@ -963,9 +963,9 @@ Column(
 ),
 ```
 
-### SizedBox as an Invisible Object
+### 用作不可见对象的 SizedBox
 
-Many time you would like to hide/show a widget depending on a `bool`
+很多时候你希望通过一个布尔值（`bool`）来控制组件的显示和隐藏
 
 ![](https://cdn-images-1.medium.com/max/2000/1*80OncmeIsFh_T__VRTtO5A.png)
 
@@ -985,17 +985,17 @@ Widget build(BuildContext context) {
 }
 ```
 
-Because `SizedBox` has a `const` constructor, using `const SizedBox()` is really cheap**.
+由于 `SizedBox` 有一个 `const` 构造函数，使用 `const SizedBox()` 就变得非常简单。
 
-** One cheaper solution would be to use `Opacity` widget and change the `opacity` value to `0.0` . The drawback of this solution is that the given widget would be only invisible, still would occupy the space.
+更简单的解决方案是使用 `Opacity` 部件，然后将 `opacity` 的值改成 `0.0`。这个方案的缺点是虽然组件不可见，但是它依旧占据空间。
 
 ***
 
 ## SafeArea
 
-On different Platforms, there are special areas like Status Bar on Android or the Notch on iPhone X that we might avoid drawing under.
+在不同的平台上，有很多特殊的位置，比如 Android 系统的状态栏，或者 iPhone X 的“齐刘海”，我们应该避免在这些位置放置元素。
 
-The solution to this problem is `SafeArea` widget (example without/with `SafeArea`)
+解决方案就是使用 `SafeArea` 部件（下面的例子分别是使用和没使用 `SafeArea` 的效果）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zaPTNnqSOLy4zj-usj-3Mw.png)
 
@@ -1016,7 +1016,7 @@ Widget build(BuildContext context) {
 
 ***
 
-**More coming soon**
+**更多内容敬请期待**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
