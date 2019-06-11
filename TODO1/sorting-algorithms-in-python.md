@@ -1,4 +1,4 @@
-> * 原文地址：[https://stackabuse.com/sorting-algorithms-in-python/](https://stackabuse.com/sorting-algorithms-in-python/)
+> * 原文地址：[Sorting Algorithms in Python](https://stackabuse.com/sorting-algorithms-in-python/)
 > * 原文作者：[Marcus Sanatan](https://stackabuse.com/author/marcus/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/sorting-algorithms-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/sorting-algorithms-in-python.md)
