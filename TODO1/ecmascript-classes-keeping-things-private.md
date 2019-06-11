@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ecmascript-classes-keeping-things-private.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ecmascript-classes-keeping-things-private.md)
 > * 译者：[ZavierTang](https://github.com/ZavierTang)
-> * 校对者：
+> * 校对者：[Xuyuey](https://github.com/Xuyuey), [lgh757079506](https://github.com/lgh757079506)
 
 # ECMAScript 类 —— 定义私有属性
 
