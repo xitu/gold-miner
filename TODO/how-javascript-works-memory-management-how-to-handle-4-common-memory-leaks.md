@@ -5,7 +5,7 @@
 > * 译者：[曹小帅](https://github.com/caoxiaoshuai1)
 > * 校对者：[PCAaron](https://github.com/PCAaron) [Usey95](https://github.com/Usey95)
 
-# JavaScript 工作原理：内存管理 + 处理常见的4种内存泄漏
+# JavaScript 是如何工作的：内存管理 + 处理常见的 4 种内存泄漏
 
 几周前，我们开始了一系列旨在深入挖掘 JavaScript 及其工作原理的研究。我们的初衷是：通过了解 JavaScript 代码块的构建以及它们之间协调工作的原理，我们将能够编写更好的代码和应用程序。
 

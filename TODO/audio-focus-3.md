@@ -9,9 +9,9 @@
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
 
-本系列文章旨在让您深入理解音频焦点的含义，使用方法和其对用户体验的重要性。本篇文章是该系列的第一部分，该系列三篇文章包含了：
+本系列文章旨在让您深入理解音频焦点的含义，使用方法和其对用户体验的重要性。本篇文章是该系列的最后一部分，该系列三篇文章包含了：
 
-1.  [最常见的音频焦点用例和成为一个优秀的媒体事业人员的重要性](https://medium.com/@nazmul/audio-focus-1-6b32689e4380)
+1.  [最常见的音频焦点用例和成为一个优秀的媒体使用者的重要性](https://medium.com/@nazmul/audio-focus-1-6b32689e4380)
 2.  [其它一些能体现音频焦点对应用体验的重要性的用例](https://medium.com/@nazmul/audio-focus-2-42244043863a)
 3.  在您的应用中实现音频焦点的三个步骤 (**此篇文章**)
 
@@ -85,7 +85,7 @@ switch (focusRequest) {
 
 ### 步骤二 ：响应音频焦点的状态改变
 
-一旦获得音频聚焦，您的应用要马上做出响应，因为它的状态可能在任何时间发生改变（丢失或重新获取），您可以实现 **OnAudioFocusChangeListener** 的来响应状态改变。
+一旦获得音频聚焦，您的应用要马上做出响应，因为它的状态可能在任何时间发生改变（丢失或重新获取），您可以实现 **OnAudioFocusChangeListener** 来响应状态改变。
 
 以下代码展示了 OnAudioFocusChangeListener 接口的实现，它处理了与 [Google Assistant](https://developer.android.com/guide/topics/media-apps/interacting-with-assistant.html) 应用协同工作的时候，音频焦点的各种状态的变化。
 
@@ -149,7 +149,7 @@ public final void pause() {
 
 #### 应对焦点丢失
 
-选择在 **OnAudioFocusChangeListener** 中暂停还是降低音量,取决于您应用的交互方式。在 Android O上，会自动的帮您降低音量，所以您可以忽略 **OnAudioFocusChangeListener** 接口的 **AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK** 事件。
+选择在 **OnAudioFocusChangeListener** 中暂停还是降低音量,取决于您应用的交互方式。在 Android O 上，系统会自动地帮您降低音量，所以您可以忽略 **OnAudioFocusChangeListener** 接口的 **AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK** 事件。
 
 在 Android O 以下的版本，您需要自己用代码实现，具体实现方式如上面代码所示。
 

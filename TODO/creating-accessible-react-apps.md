@@ -2,73 +2,73 @@
 > * 原文作者：[Scott Vinkle](http://simplyaccessible.com/article/author/scott/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/creating-accessible-react-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/creating-accessible-react-apps.md)
-> * 译者：
-> * 校对者：
+> * 译者：[llp0574](https://github.com/llp0574)
+> * 校对者：[smancang](https://github.com/smancang)，[zhaoyi0113](https://github.com/zhaoyi0113)
 
-# Creating accessible React apps
+# 创建无障碍 React 应用
 
-The React JavaScript library is a great way to create reusable modular components that can be shared among projects. But how do you ensure your React apps are usable by all kinds of people? Scott takes us through a detailed and timely tutorial on creating accessible React apps.
+使用 React 库创建可复用的模块组件在项目之间共享是一个非常好的开发方式。但是应该如何确保你的 React 应用适用于所有人？Scott 将通过一个详细且及时的教程来带领我们创建无障碍的 React 应用。
 
-## Learning React
+## 学习 React
 
 ![](http://simplyaccessible.com/wordpress/wp-content/uploads/2017/10/creating-accessible-react-apps-1.jpg)
 
-Way back in February 2017, I took a train from Kingston, Canada to downtown Toronto. Why was I making this two-hour trek? To learn about the [React](https://reactjs.org/) JavaScript library.
+时间回到 2017 年 2 月，我从加拿大的金斯顿坐火车到多伦多。为什么我要经受这两小时的长途跋涉？就是为了去学习 [React](https://reactjs.org/) 库相关的内容。
 
-By the end of the day-long course, we each developed a fully working application. One of the things that really excited me about React was how it forces you to think modular. Each component does one task, and it does this one thing really well. When building components this way, it helps you focus all your thought and energy into ensuring you get the task right—not just for your current project but for future projects, too. React components are reusable and, if well constructed, can be shared among projects. It’s just a matter of finding the correct Lego brick in the pile to piece together what you need in order to create a great user experience.
+在为期一天的课程结束之后，我们各自开发了一个完整的应用程序。其中让我感到兴奋的一件事是 React 如何迫使你以模块化的方式来思考。每个组件会做一个任务，而且会完成得非常好。当以这种方式构建组件的时候，它可以帮助你把所有的想法和精力集中，确保你不仅在为当前项目，而且也在为将来的项目做正确的事情。React 组件都是可复用的，而且如果构造得当，还可以在不同的项目之间共享。只要找到合适的乐高积木，就可以把你需要的东西拼凑在一起，从而创造出绝佳的用户体验。
 
-However, when I got back from the trip, I started wondering if the app I created that day was accessible. Could it be made to be accessible? After loading up the project on my laptop I set out to conduct some basic testing with my keyboard and VoiceOver screen reader.
+然而，当我从旅途中回来的时候，我开始思考那几天我创建的应用是否无障碍。它是否可以做成无障碍应用？用我的笔记本电脑加载项目之后，我开始用我的键盘和 VoiceOver 屏幕阅读器来对其进行一些基本的检测。
 
-There were some minor, quick-win type issues, such as using `ul` + `li` elements for the homepage link list instead of the current offering of `div` elements. Another quick win: adding an empty `alt` attribute for the callout containers with decorative images.
+有一些微小、能快速修复的问题，比如在主页链接列表使用 `ul` + `li` 元素来替代当前的 `div` 元素。另外一个可以快速修复的地方：为带有装饰性图片的插图容器添加一个空的 `alt` 属性。
 
-There were also some more challenging issues to overcome. With each new page load, the `title` element text didn’t change to reflect the new content. Not only that, but keyboard focus was very poorly managed, which would block keyboard-only users from using the app. When a new page loaded, the focus would remain on the previous page view!
+但也有一些更具挑战性的问题要解决。随着每个新页面的加载，`title` 元素内容没有发生改变。不仅如此，键盘的焦点管理也非常糟糕，这就会让那些只使用键盘的用户无法使用这个应用。当一个新页面加载之后，焦点仍旧在前一个页面视图上！
 
-> Were there any techniques to use in order to fix these more challenging accessibility issues?
+> 有没有什么技术可以用来解决这些更具挑战的无障碍问题？
 
-After spending time reading the [React docs](https://reactjs.org/docs/hello-world.html) and trying out some of the techniques acquired during the course, I was able to make the app much more accessible. In this post, I’ll walk you through the most pressing accessibility issues and how to address them, including:
+在花了一点时间阅读 [React 文档](https://reactjs.org/docs/hello-world.html)，并尝试了一些在课程当中习得的技术之后，我已经可以让这款应用更加无障碍了。在这篇文章里，我将带领大家研究一下最为紧迫的无障碍问题，以及如何解决它们，这些问题包括：
 
-* React reserved words;
-* updating the page title;
-* managing keyboard focus;
-* creating a live messaging component;
-* code linting, plus a few more thoughts on creating accessible React apps.
+* React 保留字；
+* 更新页面标题；
+* 管理键盘焦点；
+* 创建一个实时消息组件；
+* 代码分析，再加上一些关于创建无障碍 React 应用的想法。
 
-## Demo app
+## Demo 应用
 
-If seeing code in action is more your style, checkout this post’s accompanying React demo app: [TV-Db](https://simplyaccessible.github.io/tv-db/).
+如果你更偏向于看到代码最终运行成果的话，那么可以看一下伴随这篇文章的 React demo 应用：[TV-Db](https://simplyaccessible.github.io/tv-db/)。
 
 [![Screen capture of the TV-Db demo app on an iPad. Text in the middle of the screen reads, "Search TV-Db for your favourite TV shows!" A search form is below, along with a few quick links to TV show info pages.](http://simplyaccessible.com/wordpress/wp-content/uploads/2017/10/creating-accessible-react-apps-ipad-1.png)](https://simplyaccessible.github.io/tv-db/)
 
-You can also follow along when reading this post by following the in-line links to the [source code of the demo app](https://github.com/simplyaccessible/tv-db).
+你也可以在阅读这篇文章的时候查看这个 [demo 应用的源码](https://github.com/simplyaccessible/tv-db)来紧跟进度。
 
-Ready to make sure your React apps are more inclusive for people with disabilities and all kinds of users? Let’s go!
+准备好让你的 React 应用对有障碍人士及所有类型的用户都可以使用吗？开始吧！
 
-## HTML attributes and reserved words
+## HTML 属性及保留字
 
-One thing to keep in mind when writing HTML in React components is that HTML attributes need to be written in `camelCase`. This took me by surprise at first, but I quickly got used to it. If you do end up inserting an all `lowercase` attribute by accident, you’ll receive a friendly warning in the JavaScript console to adjust to `camelCase`.
+在 React 组件里些 HTML 的时候需要谨记的一点是 HTML 属性需要以驼峰式（`camelCase`）书写。这在一开始很让我吃惊，但我很快就习惯了。如果你最后不小心插入了一个全小写（`lowercase`）的属性，那就会在 JavaScript 控制台里得到一个友好的警告，让你将其调整为驼峰式。
 
-For example, the `tabindex` attribute needs to be written as `tabIndex` (notice the capitalized ‘I’ character.) The exception to this rule is any `data-*` or `aria-*` attributes are still written as you’d expect.
+举个例子，`tabindex` 这个属性需要写成 `tabIndex`（注意到大写的 “I” 字母）。这个规则的例外情况是任何 `data-*` 或 `aria-*` 类型的属性仍旧保持原来的写法。
 
-There are also a few [reserved words in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Reserved_keywords_as_of_ECMAScript_2015) which match specific HTML attribute names. These cannot be written in the same manner you’d expect:
+还有一些[ JavaScript 保留字](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Reserved_keywords_as_of_ECMAScript_2015)，它们会匹配上一些特定的 HTML 属性名。这些属性就不能按照你所期望的方式来写：
 
-* `for` is a reserved word in JavaScript which is used to loop through items. When creating `label` elements in React components, you must use the `htmlFor` attribute instead to set the explicit `label` + `input` relationship.
-* `class` is also a reserved word in JavaScript. When assigning a `class` attribute on an HTML element for styling, it must be written as `className` instead.
+* `for` 在 JavaScript 里是用来遍历项目的保留字。当在 React 组件里创建 `label` 元素的时候，你必须使用 `htmlFor` 属性来替代 `for`，从而明确地设置 `label` 和 `input` 的关系。
+* `class` 也是 JavaScript 里的保留字。当需要在一个 HTML 元素上指派一个 `class` 属性来添加样式的时候，它必须替代写成 `className`。
 
-There are likely more attributes to watch for, but so far these are the only conflicts I’ve found when it comes to JavaScript reserved words and HTML attributes. Have you come across any other conflicts? Post that in the comments, and we’ll publish a follow-up post with the whole list!
+可能会有更多的属性需要注意，但目前为止当 JavaScript 保留字和 HTML 属性发生冲突的时候我只发现了这两个属性。你有遇到过任何其他的冲突吗？把它们写在评论里，我们就将发布一个后续文章来展示完整的列表。
 
-## Setting the page title
+## 设置页面标题
 
-Since React apps are SPAs ([single page apps](https://simplyaccessible.com/article/spangular-accessibility/)) the `title` element will display the same content set throughout the browsing session; this isn’t ideal.
+因为 React 应用都是[单页面应用（SPA）](https://simplyaccessible.com/article/spangular-accessibility/))，`title` 元素将在整个浏览过程中显示相同的内容，这并不理想。
 
-> The page `title` element is usually the first piece of content announced by screen readers on page load.
+> 页面的 `title` 元素通常会是屏幕阅读器在页面加载的时候首先阅读的一块内容。
 
-It’s essential that the title reflects the content on the page, so people who depend on that and encounter that content first will know what to expect.
+标题反映出页面内容是很重要的，因为那些依赖内容并首先接触到它的人就会知道接下来该期待什么。
 
-In React apps, the content for the `title` element is set in the `public/index.html` file, and then never touched again.
+在 React 应用里，`title` 元素的内容是在 `public/index.html` 文件里设置的，而且之后就不会再修改了。
 
-We can get around this issue by dynamically setting the `title` element content in our parent components, or “pages” as required, by assigning a value to the global `document.title` property. Where we set this is within React’s `componentWillMount()` [lifecycle method](https://reactjs.org/docs/react-component.html#the-component-lifecycle). This is a function you use to run snippets of code when the page loads.
+我们可以通过在父组件里动态设置 `title` 元素的内容从而来解决这个问题，或者在所需“页面”里，通过给全局的 `document.title` 属性赋值来解决它。我们设置标题的地方是在 React 的 `componentWillMount()` [生命周期方法](https://reactjs.org/docs/react-component.html#the-component-lifecycle)。这个方法是让你在页面加载的时候运行一些代码片段。
 
-For example, if the page is a “Contact us” page with contact information or a contact form, we could call the `componentWillMount()` lifecycle method like so `{[Home.js:23](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Home.js#L23)}`:
+举个例子，如果这是个“联系我们”的页面，上面有联系信息或者联系表单，我们就会像 `{[Home.js:23](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Home.js#L23)}` 这样调用 `componentWillMount()` 这个生命周期方法：
 
 ```
 componentWillMount() {
@@ -76,21 +76,21 @@ componentWillMount() {
 }
 ```
 
-When this component “page” loads, watch as the value in the browser tab updates to “Contact us | Site Name.” Just make sure to add the same code above in order to update the `title` element for all your page components.
+当这个组件“页面”加载时，可以看到浏览器选项卡上的标题更新到了 “Contact us | Site Name”。只需确保将上面代码加入所有页面组件里，就可以更新 `title` 元素了。
 
-## Focus management, part one
+## 焦点管理（第一部分）
 
-Let’s discuss focus management, a large factor in ensuring your app is both accessible and a successful user experience. If your customers are trying to fill out a multi “page” form, and you don’t manage the focus with each view, it’s likely to cause confusion, and if they are using assistive technologies, it may be too difficult for them to continue to complete the form. You could lose them as customers entirely.
+让我们来讨论一下焦点管理，这对于确保你的应用同时具备无障碍和成功的用户体验来说是一个很重要的因素。如果你的客户试图填满一个多“页面”表单，并且你没有对每个视图进行焦点管理，那么就很可能会导致用户的困扰，而且如果他们正在使用辅助技术，那么他们可能很难继续完成这个表单。你可能会为此完全失去他们成为客户的可能。
 
-In order to set keyboard focus onto a specific element within a component, you need to create what’s called a “function ref,” or `ref` for short. If you’re just starting out learning React, you can think of a `ref` in the same light as selecting an HTML element in the DOM with jQuery and caching it in a variable, such as:
+为了在组件内的特定元素上设置键盘焦点，你需要创建一个叫 “function ref” 的东西，或者简称 `ref`。如果你只是刚开始学习 React 的话，你可以认为 `ref` 就像是使用 jQuery 来选择 DOM 上的 HTML 元素，并将其缓存在一个变量里，比如： 
 
 ```
 var myBtn = $('#myBtn');
 ```
 
-One unique thing when creating the `ref` is that it can be named anything (hopefully something that makes sense to you and the other devs on the team) and doesn’t rely on an `id` or `class` for a selector.
+而创建 `ref` 时一个独特的地方是它可以命名为任何东西（希望是能对你及团队其他开发者来说有意义的东西），并且它不依赖 `id` 或 `class` 来作为选择器。
 
-For example, if you have a loading screen, it would be ideal to send focus to the “loading” message container in order for a screen reader to announce the current app state. In your loading component, you could create a `ref` to point to the loading container `{[Loader.js:29](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Loader.js#L29)}`:
+举个例子，如果你有一个加载屏幕，那么将焦点发送到“加载”消息的容器以便屏幕阅读器读出当前应用的状态就会是理想的做法。在你的加载组件里，你可以创建一个 `ref` 指向加载容器 `{[Loader.js:29](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Loader.js#L29)}`：
 
 ```
 <div tabIndex="-1" ref="{(loadingContainer) => {this.loadingContainer = loadingContainer}}">
@@ -98,9 +98,9 @@ For example, if you have a loading screen, it would be ideal to send focus to th
 </div>
 ```
 
-When this component is rendered, the `function ref` fires and creates a “reference” to the element by creating a new class property. In this case, we create a reference to the `div` called “loadingContainer” and we pass it to a new class property via `this.loadingContainer = loadingContainer` assignment statement.
+当这个组件渲染完成后，`function ref` 就会触发并通过创建一个新的类属性来创建这个元素的一个“引用”。在这个例子里，我们对 `div` 元素创建了一个叫 “loadingContainer” 的引用，并将其值通过 `this.loadingContainer = loadingContainer` 赋值语句传递给了一个新的类属性。
 
-We use the `ref` in the `componentDidMount()` lifecycle hook to explicitly set focus to the “loading” container when the component loads `{[Loader.js:12](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Loader.js#L12)}`:
+当组件加载 {[Loader.js:12](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Loader.js#L12)} 的时候，我们在 `componentDidMount()` 生命周期钩子函数里使用 `ref`，明确地给“加载”容器设置焦点 ：
 
 ```
 componentDidMount() {
@@ -108,19 +108,19 @@ componentDidMount() {
 }
 ```
 
-At the point when the loading component is removed from view, you could use a different `ref` to shift focus elsewhere.
+当加载组件从视图中移除的时候，你可以使用不同的 `ref` 来在任何地方转移焦点。
 
-It really can’t be overstated how important it is to manage focus _to_ an element and to manage focus _from_ an element to another one. This is one of the biggest challenges when building single page apps to get accessibility right.
+管理焦点移动**到**一个元素，以及**从**一个元素转移到另一个元素，这是相当重要的，毫无夸大。在正确构建无障碍单页面应用的过程中，这是最大的挑战之一。
 
-## Live messaging
+## 实时消息
 
-Live messaging is a great way to announce state changes in your app. For example, when data has been added to the page it’s helpful to inform people with certain kinds of assistive technologies, like screen readers, that this occurrence has taken place, along with how many items are now available.
+在应用里使用实时消息来声明状态改变是一个很好方式。举个例子，当数据被添加到页面的时候，用某些辅助技术来通知用户是很有用的，比如屏幕阅读器，可以告诉用户发生了什么事情，以及现在有哪些项目是可用的。
 
-Let’s go through and create a way to handle live announcements by creating a new component. We’re going to call this new component: `Announcements`.
+让我们通过创建一个新的组件来创建一个控制实时声明的方法。我们将把这个新组件叫做：`Announcements`。
 
-When the component is rendered, the `this.props.message` value will be injected into the `aria-live` element and then this allows it to be announced by screen readers.
+当这个组件被渲染的时候，`this.props.message` 的值将被注入到 `aria-live` 元素里，这在之后允许它被屏幕阅读器读出来。
 
-The component looks something like `{[Announcements.js:12](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Announcements.js#L12)}`:
+这个组件看上去是一个像 `{[Announcements.js:12](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Announcements.js#L12)}` 的东西：
 
 ```
 import React from 'react';
@@ -138,17 +138,17 @@ class Announcements extends React.Component {
 export default Announcements;
 ```
 
-This component simply creates a `div` element with some choice accessibility-related attributes: `aria-live` and `aria-atomic`. Screen readers will read these attributes and announce any text in the `div` out loud for the person using your app to hear. The `aria-live` attribute is pretty powerful, so use it judiciously.
+这个组件简单地创建了一个 `div` 元素，并加上了一些无障碍相关的属性：`aria-live` 和 `aria-atomic`。屏幕阅读器将读取这些属性并为使用应用的用户大声朗读 `div` 里的任何文本内容使其听见。`aria-live` 属性真的非常强大，请明智地使用它。
 
-Additionally, it’s important to always render the `Announcement` component in the template as some browser/screen reader technologies will not announce content when the `aria-live` element is dynamically added to the DOM. As a result, this component should always be included in any parent components in your app.
+除此之外，一直在模板里渲染 `Announcement` 组件是很重要的，因为有些浏览器或屏幕阅读器技术在 `aria-live` 元素动态加载到 DOM 上的时候是不会朗读内容的。因此，在你的应用里，这个组件应该一直在任意父组件中引入。
 
-You’d include the `Announcement` component like so `{[Results.js:91](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Results.js#L91)}`:
+你应该像 `{[Results.js:91](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Results.js#L91)}` 一样引入 `Announcement` 组件：
 
 ```
 <Announcements message={this.state.announcementMessage} />
 ```
 
-In order to pass the message to the Announcements component, create a state property in the parent component that will be used to contain the message text `{[Results.js:22](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Results.js#L22)}`:
+为了传递消息给这些 Announcement 组件，在父组件里需要创建一个状态属性，用于存放消息文本 `{[Results.js:22](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Results.js#L22)}`：
 
 ```
 this.state = {
@@ -156,63 +156,63 @@ this.state = {
 };
 ```
 
-Then, update the state as required `{[Results.js:62](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Results.js#L62)}`:
+然后，在需要的时候更新状态，`{[Results.js:62](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Results.js#L62)}`：
 
 ```
 this.setState({announcementMessage: `Total results found: ${data.length}`});
 ```
 
-## Focus management, part two
+## 焦点管理（第二部分）
 
-We’ve already learned about managing focus using `ref`s, the React concept of creating a variable which points to an element in the DOM. Now, let’s take a look at another very important example using the same concept.
+我们已经学习过关于用 `ref` 来管理焦点的内容，这是 React 里创建一个变量指向 DOM 元素的概念。现在，让我们来看一下另一种用同样概念实现的重要例子。
 
-When linking to other pages of your app, you can use the HTML `a` element. In doing so, this will cause a full page reload as one would expected. However, if you’re using [React Router](https://reacttraining.com/react-router/) in your app, you have access to the `Link` component. The `Link` component actually replaces the tried and true `a` element in React apps.
+当链接到应用另外的页面时，你可以使用 HTML 的 `a` 元素。这样做的话，就会如同预期那样，导致整个页面的重载。但是，如果你在应用里使用 [React Router](https://reacttraining.com/react-router/) 的话，你就可以使用 `Link` 组件了。`Link` 组件在 React 应用里实际上取代了久经考验的 `a` 元素。
 
-Why would you use `Link` instead of _actual_ HTML anchor links, you ask? While it’s perfectly fine to use HTML links in React components, using the `Link` component from React Router allows your app to take advantage of React’s virtual DOM. Using the `Link` component helps to load “pages” much faster as the browser doesn’t need to refresh on a `Link` click, but they come with a catch.
+你会问，为什么你要用 `Link` 来替代**真正的** HTML 锚点链接？虽说在 React 组件里使用 HTML 链接是完全没问题的，但是使用 React Router 的 `Link` 组件可以让你的应用充分利用 React 虚拟 DOM 的优势。使用 `Link` 组件帮助我们更快地加载“页面”，因为在点击 `Link` 的时候浏览器不需要刷新了，但它们也有所限制。
 
-> When using `Link` components, you need to be aware of where the keyboard focus is placed, and where it will go when the next “page” appears.
+> 当使用 `Link` 组件的时候，你需要搞清楚键盘焦点的位置，并知道当下个“页面”出现的时候焦点会去到哪里。
 
-This is where our friend `ref` comes in to to help out.
+这里是我们的朋友 `ref` 来帮忙的地方。
 
-### Link components
+### Link 组件
 
-A typical Link component looks something like this:
+一个典型的 Link 组件看上去像下面这样：
 
 ```
 <Link to='/home'>Home</Link>
 ```
 
-The syntax should look familiar as it’s quite similar to an HTML `a` element; swap the `a` for `Link` and `href` with `to` and you’re set.
+这个语法看起来应该很熟悉，因为它和 HTML 的 `a` 元素非常相像；把 `a` 换成 `Link`，把 `href` 换成 `to` 就可以了。
 
-As I already mentioned, using `Link` components instead of HTML links doesn’t refresh the browser. Instead, React Router loads the next component as described in the `to` prop.
+如同我已经提到过的，使用 `Link` 组件替代 HTML 链接不会刷新浏览器。作为替代，React Router 会按照 `to` 属性描述的内容加载下个组件。
 
-Let’s look at how we can ensure the keyboard focus moves to an appropriate place.
+让我们来看一下如何确保键盘焦点会移动到合适的位置。
 
-### Adjusting keyboard focus
+### 调整键盘焦点
 
-When a new page loads, keyboard focus needs to be explicitly set. Otherwise, focus remains on the previous page, and who knows where focus could end up when someone starts to navigate next? How do we explicitly set focus? Our dear friend `ref`.
+当一个新页面加载的时候，键盘焦点需要明确地设置。否则，焦点会仍然在前一个页面，那么当某用户开始浏览到下一页面的时候，谁会知道焦点在哪里结束呢？我们应该如何显示地设置焦点？又要找我们的老朋友 `ref` 了。
 
-#### Setting up the ref
+#### 配置 ref
 
-To decide where the focus should go, you’ll need to examine how your components have been set up and which widgets are in use. For example, if you have “page” components with child components making up the rest of the page content, you may want to shift focus to the outermost parent element of the page, most likely a `div` element. From here, someone could navigate through the rest of the page content, much like if there was a full browser refresh.
+要决定焦点的走向，你需要检查组件是如何配置的，以及使用了哪些小部件。举个例子，如果你有一个“页面”组件，由许多子组件组成剩下的页面内容，那么你可能需要将焦点移动到页面最外层的父元素，有可能是一个 `div` 元素。从这里开始，用户就可以浏览页面内容的其他内容，就像经历了一次浏览器的整体刷新。
 
-Let’s create a `ref` called `contentContainer` on the outermost parent `div`, like so `{[Details.js:84](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Details.js#L84)}`:
+让我们来在最外层的父亲 `div` 上创建一个叫 `contentContainer` 的 `ref`，就像 `{[Details.js:84](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Details.js#L84)}`：
 
 ```
 <div ref={(contentContainer) => { this.contentContainer = contentContainer; }} tabIndex="-1" aria-labelledby="pageHeading">
 ```
 
-You may have noticed the inclusion of `tabIndex` and `aria-labelledby` attributes. The `tabIndex` with its value set to `-1` will allow the normally non-focusable `div` element to receive keyboard focus, programmatically via `ref`.
+你可能已经注意到元素还包含 `tabIndex` 和 `aria-labelledby` 属性。通过 `ref` 的程序逻辑，`tabIndex` 设为 `-1` 将允许一般不可聚焦的 `div` 元素接受键盘焦点。
 
-> Tip: Just like focus management, use `tabIndex="-1"` intentionally and according to an explicit plan.
+> 提示：就像焦点管理，有意地使用 `tabIndex="-1"` 并按照一个明确的计划来处理。
 
-The `aria-labelledby` attribute value will programmatically associate the heading of the page (perhaps an `h1` or `h2` element with the id of “pageHeading”) to help describe the current context of where the keyboard is currently focused.
+`aria-labelledby` 属性值将程序化地关联页面的标题（也许是一个 id 为 “pageHeading” 的 `h1` 或 `h2` 元素），来帮助描述当前键盘焦点位置的上下文。
 
-Now that we have the `ref` created, let’s see how we use it to _actually_ shift focus.
+既然我们创建了 `ref`，让我们来看看如何**真正地**使用它来转移焦点。
 
-#### Using the ref
+#### 使用 ref
 
-We learned earlier about the `componentDidMount()` lifecycle method. We can use this again to shift keyboard focus when the page loads inside React’s virtual DOM, using the `contentContainer` `ref` we created earlier in the component `{[Home.js:26](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Home.js#L26)}`:
+之前我们学习了关于 `componentDidMount()` 的生命周期方法。当在 React 的虚拟 DOM 里加载页面时，我们可以再次使用它来转移键盘焦点，在 `{[Home.js:26](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Home.js#L26)}` 里使用我们之前在组件里创建的 `contentContainer` 和 `ref`：
 
 ```
 componentDidMount() {
@@ -220,43 +220,43 @@ componentDidMount() {
 }
 ```
 
-The above code tells React, “on component load, shift keyboard focus to the container element.” From this point on, navigation will begin at the top of the page and content will be discoverable as if a full page refresh had occurred.
+上面的代码告诉 React：“在组件加载的时候，将键盘焦点转移到容器元素”。从这一点上，浏览会从页面的顶部开始，并且如果发生全页面刷新的话，内容就将是可以清楚看见的。
 
-## React’s accessibility code linter
+## React 的无障碍性代码分析器
 
-I couldn’t write a React post about accessibility without mentioning the incredible open-source project that is [`eslint-plugin-jsx-a11y`](https://github.com/evcohen/eslint-plugin-jsx-a11y). This is an [ESLint](https://eslint.org/) plugin, specifically for JSX and React, that watches for and reports any potential accessibility issues with your code. It comes baked in when you create a new React project, so you don’t need to worry about any setup.
+写一篇关于 React 无障碍性的文章不得不提到那个难以置信的开源项目：[`eslint-plugin-jsx-a11y`](https://github.com/evcohen/eslint-plugin-jsx-a11y)。这是一个 [ESLint](https://eslint.org/) 插件，特别为 JSX 和 React 定制的，它会监视并报告你的代码里所有潜在的无障碍性问题。当你创建一个新的 React 项目时，它就会出现，所以你不需要担心任何设置问题。
 
-For example, if you included an image in your component without an `alt` attribute, you’d see this in your browser developer tools console:
+举个例子，如果你在组件里引入一张图片而没有添加 `alt` 属性，那么你就会在浏览器开发者工具控制台里看到：
 
 [![Screen capture of Chrome’s developer tools console. A warning message states, “img elements must have an alt prop, either with meaningful text, or an empty string for decorative images. (jsx-a11y/alt-text)”](http://simplyaccessible.com/wordpress/wp-content/uploads/2017/10/creating-accessible-react-apps-console.png)](http://simplyaccessible.com/wordpress/wp-content/uploads/2017/10/creating-accessible-react-apps-console.png)
 
-Messages like these are really helpful when developing an app. Although, wouldn’t it be great to see these types of messages in your own code editor, before anything even gets to the browser? Here’s how to install and setup `eslint-plugin-jsx-a11y` for use with your editing environment.
+像这样的消息在开发应用的时候真的非常有用。即便如此，在代码编辑器看到这些类型的消息总比在浏览器看到更好一些吧？下面介绍如何在编码环境安装及配置 `eslint-plugin-jsx-a11y` 使用。
 
-### Install the ESLint plugin
+### 安装 ESLint 插件
 
-First you’ll need the ESLint plugin installed for your editor. Search your editor’s plugin repositories for “eslint”–chances are there will be something available for you to install.
+首先你需要为编辑器安装 ESLint 插件。在编辑器的插件库里搜索 “eslint” - 就有机会在那里找到可用的插件来安装。
 
-Here are some quick links for:
+下面是几个编辑器插件的快速链接：
 
 * [Atom](https://atom.io/packages/linter-eslint)
 * [Sublime Text](https://packagecontrol.io/packages/SublimeLinter-contrib-eslint)
 * [VS Code](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebAnalyzer)
 
-### Install eslint-plugin-jsx-a11y
+### 安装 eslint-plugin-jsx-a11y
 
-The next step is installing `eslint-plugin-jsx-a11y` via `npm`. Just issue the following command to install it and ESLint for use within your editor:
+下个步骤就是通过 `npm` 安装 `eslint-plugin-jsx-a11y`。只需运行以下命令即可安装它和 ESLint，并在编辑器里使用它：
 
 ```
 npm install eslint eslint-plugin-jsx-a11y --save-dev
 ```
 
-After this has finished running, update the project `.eslintrc` file so ESLint can use the `eslint-plugin-jsx-a11y` plugin.
+在这个命令运行完后，更新项目里的 `.eslintrc` 文件，接着 ESLint 就可以使用这个 `eslint-plugin-jsx-a11y` 插件了。
 
-### Update the ESLint configuration
+### 更新 ESLint 配置
 
-If there’s no `.eslintrc` file in the root directory of your project, you can simply create a new file with this as the file name. Check out [how to set up the `.eslintrc` file](https://eslint.org/docs/user-guide/configuring) and some of the [rules](https://eslint.org/docs/rules/) you can add to configure ESLint to satisfy your project’s requirements.
+如果在项目的根目录里没有 `.eslintrc` 文件，可以轻易地以这个文件名创建一个新文件。查看[如何配置 `.eslintrc` 文件](https://eslint.org/docs/user-guide/configuring)，以及一些可以添加配置 ESLint 的[规则](https://eslint.org/docs/rules/)，以此满足项目的需求。
 
-With the `.eslintrc` file in place, open it up for editing and add the following to the “plugins” section `{[.eslintrc:43](https://github.com/simplyaccessible/tv-db/blob/master/.eslintrc#L43)}`:
+在 `.eslintrc` 文件创建好之后，打开它进行编辑并在 “plugins” 部分添加下面的代码 {[.eslintrc:43](https://github.com/simplyaccessible/tv-db/blob/master/.eslintrc#L43)}：
 
 ```
 "plugins": [
@@ -264,11 +264,11 @@ With the `.eslintrc` file in place, open it up for editing and add the following
 ]
 ```
 
-This tells our local instance of ESLint to use the `jsx-a11y` plugin when linting your project files.
+这段代码告诉 ESLint 的本地实例在分析项目文件的时候使用 `jsx-a11y` 插件。
 
-In order for ESLint to look for specific accessibility related errors in our code, we also need to specify the ruleset for ESLint to use. You can configure your own rules, but I recommend using the default set, at least to get started.
+为了让 ESLint 在代码里找到无障碍相关的特定错误，我们还需要指定 ESLint 使用的规则集。你可以配置自己的规则，但我推荐至少一开始使用默认的集合。
 
-Add the following to the “extends” section of the `.eslintrc` file `{[.eslintrc:47](https://github.com/simplyaccessible/tv-db/blob/master/.eslintrc#L47)}`:
+把下面的代码添加到 `.eslintrc` 文件的 “extends” 部分 `{[.eslintrc:47](https://github.com/simplyaccessible/tv-db/blob/master/.eslintrc#L47)}`：
 
 ```
 "extends": [
@@ -276,36 +276,37 @@ Add the following to the “extends” section of the `.eslintrc` file `{[.eslin
 ]
 ```
 
-This one line tells ESLint to use the default, recommended rule set, which I find very useful.
+这一行告诉 ESLint 使用默认推荐的规则集合，并且我发现非常好用。
 
-After making these edits and restarting your editor, you should now see something like the following when there are accessibility related issues:
+在完成这些编辑及重启编辑器之后，在出现无障碍相关问题的时候，你应该就可以看到一些类似下面截图的提示：
 
 [![Screen capture of Atom text editor. A warning message appears overtop of some code with the following message, “img elements must have an alt prop, either with meaningful text, or an empty string for decorative images. (jsx-a11y/alt-text)”](http://simplyaccessible.com/wordpress/wp-content/uploads/2017/10/creating-accessible-react-apps-atom.png)](http://simplyaccessible.com/wordpress/wp-content/uploads/2017/10/creating-accessible-react-apps-atom.png)
 
-## Continue writing semantic HTML
+## 继续编写语义化 HTML
 
-In the [“Thinking in React” help doc](https://reactjs.org/docs/thinking-in-react.html), readers are encouraged to create component modules, or component-driven development; tiny, reusable snippets of code. The benefit of this is being able to reuse code from project to project. Imagine, creating an accessible widget for one site, then if the another site requires the same widget, being able to copy and paste the code!
+在 [“Thinking in React” 帮助文档](https://reactjs.org/docs/thinking-in-react.html)里，鼓励读者去创建组件模块，或者组件驱动开发，编写小型、可复用的代码片段。这么做的好处是可以在不同项目之间复用代码。想象一下，在某个站点创建了一个无障碍部件，然后如果在另一个站点需要同样的部件，只需复制粘贴代码！
 
-From here, you build up your UI using modules within modules to create larger components, and eventually a “page” comes together. This might pose a bit of a learning curve at first, but after awhile you get used to this way of thinking and might end up enjoying the breakdown process when writing your HTML.
+从这里可以看出，你通过模块套模块创建出更大的组件来构建你的 UI，然后最终拼凑成一个“页面”。起初这可能会带来一些学习曲线，但不久你就会习惯以这种方式思考，并最终在编写 HTML 的时候享受这种分解过程。
 
-> Since React uses [ES6 classes](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes) to make up its components, it’s up to you to continue to write good, clean, semantic HTML.
+> 因为 React 的组件使用 [ES6 的类](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes)组成，所以继续编写良好、干净的语义化 HTML 取决于你自己（是否掌握 ES6）。 
 
-As we touched on earlier in the article, there are a few reserved words to watch out for, such as `htmlFor` and `className`, but other than this, it’s still your responsibility as a developer to write and test your HTML UI as you normally would.
+正如我们之前在文中提到的那样，有一些保留字需要注意，如 `htmlFor` 和 `className`，但除此之外，作为开发人员，你仍然有责任按照通常的方式编写和测试 HTML UI 界面。
 
-Also, take advantage of being able to write JavaScript inside your HTML via JSX, when appropriate. It greatly helps to make your app that much more dynamic and accessible.
+另外，还可以在适当的时候通过 JSX 在 HTML 里写入 JavaScript。这将大大有助于应用更具动态性和无障碍性。
 
-## Conclusion
+## 结论
 
-You’re now fully equipped to make React apps more accessible! You possess the knowledge to:
+你现在已经完全有能力使 React 应用变得更加无障碍！
+你学到的知识有：
 
-* update the page `title` so people stay oriented within your app and understand the purpose of each view’s content;
-* manage keyboard focus so they can move smoothly through dynamic content without getting lost or confused about what just happened;
-* create a live messaging component to alert people of any important changes in state; and
-* add code linting to your project so you can catch accessibility errors as you work.
+* 更新页面 `title`，让用户在应用里保持方向感并明白每个视图内容的目的；
+* 管理键盘焦点，以便用户可以顺利地跟随动态内容变化，而不会迷失或迷惑刚刚发生了什么； 
+* 创建一个实时消息组件，提醒用户任何重要的状态变化；
+* 以及，在项目里加入代码分析，以便你可以在工作的时候及时捕获无障碍性错误。
 
-And perhaps the best accessibility tip to share with anyone developing for the web: [write semantic HTML](https://simplyaccessible.com/article/listening-web-part-two-semantics/) in your templates, as you would for any static, CMS, or framework-based website. React doesn’t get in your way when it comes to choosing which elements to create for your user interfaces. It’s up to you, dear developer, to ensure that what you create is usable and accessible for as many people as possible.
+也许与网页开发人员分享的最好的无障碍性提示就是：在做任何静态、CMS 或基于框架的网站时，在模板里[编写语义化 HTML](https://simplyaccessible.com/article/listening-web-part-two-semantics/)。在创建用户界面应该选择什么元素时，React 不会成为你的拦路虎。这完全取决于你自己，亲爱的开发者，确保你自己创建的内容尽可能对大部分用户来说是有用且无障碍的。
 
-Have you discovered any other ways to create more accessible React apps? I’d love to hear about it in the comments!
+你有没有发现过其他方式来创建更具无障碍性的 React 应用？我十分乐意在评论里听到它们！
 
 
 ---

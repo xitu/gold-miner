@@ -504,7 +504,7 @@ Firefox 上一个有趣的观察是，弹性容器的宽被视窗的宽度限制
 
 ## 问题和错误列表
 
-* [Firefox Bug 1102175: writing-mode 为 vertical-rl 的`<body>`元素子元素不向右对齐](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)
+* [Firefox Bug 1102175: writing-mode 为 vertical-rl 的`<body>`元素子元素不向右对齐](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)
 * [Firefox Bug 1189131: 当书写模式为vertical-rl时，flex align-items center会移动文本](https://bugzilla.mozilla.org/show_bug.cgi?id=1189131)
 * [Firefox Bug 1223180: Flex + 垂直书写模式: flex 元素 / 文本 消失](https://bugzilla.mozilla.org/show_bug.cgi?id=1223180)
 * [Firefox Bug 1332555: [书写模式] 垂直书写模式的子元素固有大小错误，因此重绘后大小不适](https://bugzilla.mozilla.org/show_bug.cgi?id=1332555)
