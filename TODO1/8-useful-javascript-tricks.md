@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/8-useful-javascript-tricks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/8-useful-javascript-tricks.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：
+> * 校对者：[twang1727](https://github.com/twang1727), [smilemuffie](https://github.com/smilemuffie)
 
-# 8 个有用的 JavaScript 技巧
+# 8 个实用的 JavaScript 技巧
 
 ## 介绍
 
@@ -173,7 +173,7 @@ console.log(user); // 输出 { name: "John", email: "john@doe.com" }
 
 ## 8. 字符串插值
 
-最后尤为重要的是连接字符串的新方法。如果你想在一个辅助程序中构建模版字符串，这会非常有用。它使动态连接字符串模版变得更简单了。
+最后尤为重要的是拼接字符串的新方法。如果你想在一个辅助程序中构建模版字符串，这会非常有用。它使动态连接字符串模版变得更简单了。
 
 ```js
 const user = {
