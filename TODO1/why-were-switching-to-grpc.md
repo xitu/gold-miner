@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-were-switching-to-grpc.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-were-switching-to-grpc.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[wuyanan](https://github.com/wuyanan)，[suhanyujie](https://github.com/suhanyujie)
 
 # 为什么我们要切换到 gRPC
 
@@ -48,7 +48,7 @@ message Coordinate {
 
 当然，一个真正的服务规范的内容应该要多得多，但是却不会更加复杂。只是会有更多对于方法的 `rpc` 声明和对于类型的 `message` 声明。
 
-通过 `protoc` 生成的代码也会确保客户端或者服务端发送的数据都合乎规范。这对于调试是大有帮助的。我记得之前就曾有过两次，我负责维护的服务生成了错误格式的 JSON 数据，并且由于这个格式并没有被验证，错误仅会在用户接口端出现。发现错误的唯一方法就是调试前端的 JavaScript 代码 —— 这对于一个从来没有使用过前端 JavaScript 框架的后端开发者并不容易！
+通过 `protoc` 生成的代码也会确保客户端或者服务端发送的数据都合乎规范。这对于调试是大有帮助的。我记得之前就曾有过两次，我负责维护的服务生成了错误格式的 JSON 数据，并且由于这个格式并没有被验证，错误仅会在用户界面出现。发现错误的唯一方法就是调试前端的 JavaScript 代码 —— 这对于一个从来没有使用过前端 JavaScript 框架的后端开发者并不容易！
 
 ## Swagger / OpenAPI
 
@@ -99,7 +99,7 @@ components:
           description: Longitude is the degrees longitude of the location, in the range [-180, 180].
 ```
 
-将这段代码和 gRPC 规范相比。OpenAPI 的代码就显得**非常**难以读懂！它更加详细，结构也更复杂（有八级缩进，不像 gRPC 的只有一级）。
+将这段代码和 gRPC 规范相比。OpenAPI 的代码就显得**非常**难以读懂！它更加冗长，结构也更复杂（有八级缩进，不像 gRPC 的只有一级）。
 
 使用 OpenAPI 规范进行验证也要比 gRPC 难很多。至少对于内部服务，这一切都意味着规范要么没有被写入，要么随着 API 的迭代，它们由于没有更新而变得无用了。
 
@@ -107,7 +107,7 @@ components:
 
 今年更早些的时候，我开始为我们的搜索引擎设计新的 API（想象一下我要搜索“请给我所有 2019 年 6 月 1 日从柏林到巴黎的航线”）。在我构建了第一版使用 HTTP 和 JSON 的 API 之后，我的一个同事指出，在某些情况下，我需要流式的请求结果，意味着我获取到第一个请求结果的时候，我应该开始再发送这些结果。而我设计的 API 只是返回一个简单的 JSON 数组，所以服务在获取到所有结果之前，无法发送任何请求。
 
-前端使用这样的 API 就需要客户端发起轮询请求结果。前端发起 POST 请求来设置搜索条件，然后反复发送 GET 请求来获取结果。返回结果会包含一个可以确认搜索是否已经完成的字段。这种方式可以正常运行，但是不够优雅，并且还需要服务端使用像 Redis 这样的数据存储来缓存中间结果。新的 API 可能会被大量的更小的服务应用，我并不希望强制它们都应用这样的逻辑。
+前端使用这样的 API 就需要客户端发起轮询请求结果。前端发起 POST 请求来设置搜索条件，然后反复发送 GET 请求来获取结果。返回结果会包含一个可以确认搜索是否已经完成的字段。这种方式可以正常运行，但是不够优雅，并且还需要服务端使用像 Redis 这样的数据存储来缓存中间结果。新的 API 可能会被大量的更小的服务来实现，我并不希望强制它们都实现这样的逻辑。
 
 于是，我们就决定要试一试采用 gRPC。如果你想要发送远程调用的结果，使用了 gRPC，你只需要将 `stream` 关键字添加到 `.proto` 文件中。这就是 `Search` 函数的定义：
 
@@ -121,9 +121,9 @@ rpc Search (SearchRequest) returns (stream Trip) {}
 
 另外我还想提一下，gRPC 也有些缺点。它们都与工具有关，而不是协议本身的问题。
 
-当你使用 HTTP/JSON 构建 API 的时候，你可以使用 curl、httpie 或 Postman 来做简单的测试。对于 gRPC 也有蕾丝的工具，即 [grpcurl](https://github.com/fullstorydev/grpcurl)，但是它和 gRPC 并不是那么无缝衔接的：你必须在服务端添加 [gRPC 服务映射](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md)扩展，或者在 `.proto` 文件中的每一条命令中都做好指定。我们认为在服务端添加一个小小的可以发送简单请求的命令行工具更为简便。而 `protoc` 生成的客户端代码已经让发送请求非常简单了。
+当你使用 HTTP/JSON 构建 API 的时候，你可以使用 curl、httpie 或 Postman 来做简单的测试。对于 gRPC 也有类似的工具，即 [grpcurl](https://github.com/fullstorydev/grpcurl)，但是它和 gRPC 并不是那么无缝衔接的：你必须在服务端添加 [gRPC 服务映射](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md)扩展，或者在每个命令中指定对应的 `.proto` 文件。我们认为在服务端添加一个小小的可以发送简单请求的命令行工具更为简便。而 `protoc` 生成的客户端代码已经让发送请求非常简单了。
 
-另一个更大的问题则是 Kubernete 的负载均衡，我们曾经用于 HTTP 服务的负载均衡并不非常适用于 gRPC。基本上来说，gRPC 需要的负载均衡是在应用层面而不是 TCP 连接的层面。为了解决这个问题，我们参考教程：[gRPC Load Balancing on Kubernetes without Tears](https://kubernetes.io/blog/2018/11/07/grpc-load-balancing-on-kubernetes-without-tears/)，配置了 [Linkerd](https://linkerd.io/)。
+另一个更大的问题则是 Kubernete 的负载均衡，我们曾经用于 HTTP 服务的负载均衡并不非常适用于 gRPC。基本上来说，gRPC 需要的负载均衡是在应用层面而不是 TCP 连接的层面。为了解决这个问题，我们参考教程：[gRPC Load Balancing on Kubernetes without Tears](https://kubernetes.io/blog/2018/11/07/grpc-load-balancing-on-kubernetes-without-tears/)，创建了 [Linkerd](https://linkerd.io/)。
 
 ## 总结
 
