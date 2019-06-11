@@ -13,17 +13,7 @@ Sometimes data we store or retrieve in an application can have little or no orde
 
 In this article we'll have a look at popular sorting algorithms, understand how they work and code them in Python. We'll also compare how quickly they sort items in a list.
 
-For simplicity, algorithm implementations would be sorting lists of numbers in ascending order. Of course, you're free to adapt them to your needs
-
-If you'd like to learn about a specific algorithm, you can jump to it here:
-
-- [Bubble Sort](https://stackabuse.com/sorting-algorithms-in-python/#bubblesort)
-- [Selection Sort](https://stackabuse.com/sorting-algorithms-in-python/#selectionsort)
-- [Insertion Sort](https://stackabuse.com/sorting-algorithms-in-python/#insertionsort)
-- [Merge Sort](https://stackabuse.com/sorting-algorithms-in-python/#mergesort)
-- [Heap Sort](https://stackabuse.com/sorting-algorithms-in-python/#heapsort)
-- [Quick Sort](https://stackabuse.com/sorting-algorithms-in-python/#quicksort)
-- [Sorting in Python](https://stackabuse.com/sorting-algorithms-in-python/#sortinginpython)
+For simplicity, algorithm implementations would be sorting lists of numbers in ascending order. Of course, you're free to adapt them to your needs.
 
 ## Bubble Sort
 
