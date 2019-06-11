@@ -10,13 +10,13 @@ For simplicity, algorithm implementations would be sorting lists of numbers in a
 
 If you'd like to learn about a specific algorithm, you can jump to it here:
 
--   [Bubble Sort](https://stackabuse.com/sorting-algorithms-in-python/#bubblesort)
--   [Selection Sort](https://stackabuse.com/sorting-algorithms-in-python/#selectionsort)
--   [Insertion Sort](https://stackabuse.com/sorting-algorithms-in-python/#insertionsort)
--   [Merge Sort](https://stackabuse.com/sorting-algorithms-in-python/#mergesort)
--   [Heap Sort](https://stackabuse.com/sorting-algorithms-in-python/#heapsort)
--   [Quick Sort](https://stackabuse.com/sorting-algorithms-in-python/#quicksort)
--   [Sorting in Python](https://stackabuse.com/sorting-algorithms-in-python/#sortinginpython)
+- [Bubble Sort](https://stackabuse.com/sorting-algorithms-in-python/#bubblesort)
+- [Selection Sort](https://stackabuse.com/sorting-algorithms-in-python/#selectionsort)
+- [Insertion Sort](https://stackabuse.com/sorting-algorithms-in-python/#insertionsort)
+- [Merge Sort](https://stackabuse.com/sorting-algorithms-in-python/#mergesort)
+- [Heap Sort](https://stackabuse.com/sorting-algorithms-in-python/#heapsort)
+- [Quick Sort](https://stackabuse.com/sorting-algorithms-in-python/#quicksort)
+- [Sorting in Python](https://stackabuse.com/sorting-algorithms-in-python/#sortinginpython)
 
 ## Bubble Sort
 
@@ -209,12 +209,6 @@ The `heap_sort` function iterates over the array *n* times. Therefore the ov
 ## Merge Sort
 
 This divide and conquer algorithm splits a list in half, and keeps splitting the list by 2 until it only has singular elements.
-
-### Subscribe to our Newsletter
-
-Get occassional tutorials, guides, and reviews in your inbox. No spam ever. Unsubscribe at any time.
-
-Subscribe
 
 Adjacent elements become sorted pairs, then sorted pairs are merged and sorted with other pairs as well. This process continues until we get a sorted list with all the elements of the unsorted input list.
 
