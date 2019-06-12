@@ -1,33 +1,33 @@
-> * 原文地址：[React for Linear Algebra Examples: Grid and Arrows](https://medium.com/@geekrodion/react-for-linear-algebra-examples-grid-and-arrows-fa654127c57b)
+> * 原文地址：[Linear Algebra with JavaScript: Animating Linear Transformations with ThreeJS](https://medium.com/@geekrodion/react-for-linear-algebra-examples-grid-and-arrows-fa654127c57b)
 > * 原文作者：[Rodion Chachura](https://medium.com/@geekrodion)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-for-linear-algebra-examples-grid-and-arrows.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-for-linear-algebra-examples-grid-and-arrows.md)
-> * 译者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-animating-linear-transformations-with-threejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-animating-linear-transformations-with-threejs.md)
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# Linear Algebra with JavaScript: Animating Linear Transformations with ThreeJS
+# JavaScript 线性代数：使用 ThreeJS 制作线性变换动画
 
-This is part of the course “[Linear Algebra with JavaScript](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”.
+本文是“[JavaScript 线性代数](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”教程的一部分。
 
-![[GitHub Repository with Source Code](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
+![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-Recently I finished a story about linear transformations with JavaScript, two-dimensional examples rendered on **SVG** grid(was covered in this [part](https://medium.com/@geekrodion/react-for-linear-algebra-examples-grid-and-arrows-f34c07132921)) served well, but something was missing — examples in three-dimensional space… GitHub repository can be found [there](https://github.com/RodionChachura/linear-algebra) and commit with the state of this story [there](https://github.com/RodionChachura/linear-algebra/tree/6e9b5fe7f037ec12b115c915f33b58ce5e2e9c1f).
+最近，我写了一篇关于 JavaScript 线性变换的文章，并用 **SVG** 网格实现了 2D 的示例。你可以在[此处](https://juejin.im/post/5cefbc37f265da1bd260d129)查看之前的文章。但是，那篇文章没有三维空间的示例，因此本文将补全那篇文章的缺失。你可以在[此处](https://github.com/RodionChachura/linear-algebra)查看本系列文章的 GitHub 仓库，与本文相关的 commit 可以在[此处](https://github.com/RodionChachura/linear-algebra/tree/6e9b5fe7f037ec12b115c915f33b58ce5e2e9c1f)查看。
 
-## Goal
+## 目标
 
-In this part, we want to make a component that will visualize the linear transformation of object in three-dimensional space. The final result of this part you can see below, also, you can play with it [here](https://rodionchachura.github.io/linear-algebra/).
+在本文中，我们将制作一个组件，用于对三维空间的对象的线性变换进行可视化。最终效果如下面的动图所示，或者你也可以在[此网页](https://rodionchachura.github.io/linear-algebra/)体验。
 
 ![applying different linear transformations on cube](https://cdn-images-1.medium.com/max/2532/1*BAZux9gneiVyZ-EjgkqEeg.gif)
 
-## Component
+## 组件
 
-The first library that comes to mind when we think about doing 3D in the browser is [three.js](https://threejs.org/). So let’s install it and also, library to allow user move camera.
+当我们要在浏览器中制作 3D 动画时，第一个想到的当然就是 [three.js](https://threejs.org/) 库啦。因此我们首先安装它，并让用户可以控制摄像机的位置：
 
 ```bash
 npm install --save three three-orbitcontrols
 ```
 
-We are building a component that will receive matrix in properties from the parent component and will render an animated transformation of the cube. You can see the structure of the component below. We wrap our component with functions from **styled-components** and **react-sizeme** to have access to the theme with colors and to detect when the size of the component changed.
+下面构建一个组件，它可以由父组件的属性中接收矩阵，然后将矩阵作为方块渲染变换动画。下面代码展示了这个组件的结构。我们用 **styled-components** 和 **react-sizeme** 库中的函数对这个组件进行了包装，便于使用、修改组件的主题颜色，并能检测到组件大小的变化。
 
 ```JavaScript
 import React from 'react'
@@ -50,7 +50,7 @@ class ThreeScene extends React.Component {
 const WrappedScene = withTheme(withSize({ monitorHeight: true })(ThreeScene))
 ```
 
-In the **constructor**, we initialize state that contains the size of the view, so that we can compare it with a new one in **componentWillReceiveProps** method. Since we will need to access the actual **DOM** element to inject **ThreeJS** **renderer**, we are using **ref** in **render** method.
+在**构造器**中，我们对状态进行了初始化，其中包括了视图的大小。因此，我们当接收新的状态值时，可以在 **componentWillReceiveProps** 方法中与初始状态进行对比。由于需要访问实际的 **DOM** 元素以注入 **ThreeJS** 的 **renderer**，因此需要在 **render** 方法中用到 **ref** 属性：
 
 ```JavaScript
 const View = styled.div`
@@ -74,11 +74,11 @@ class ThreeScene extends React.Component {
 }
 ```
 
-In **componentDidMount**, we initialize everything we need to animate cube transformation. First, we create a scene and position camera. Then we create the **renderer**, set color and size and append it to **View** component.
+在 **componentDidMount** 方法中，我们对方块变换动画所需要的所有东西都进行了初始化。首先，我们创建了 ThreeJS 的场景（scene）并确定好摄像机（camera）的位置，然后我们创建了 ThreeJS 的 **renderer**，为它设置好了颜色及大小，最后将 **renderer** 加入到 **View** 组件中。
 
-Then we create objects that will be rendered — axes, cube and cube edges. Since we will change matrix by ourselves, we set the **matrixAutoUpdate** property on cube and edges to false. When we are done with objects creation, we add them to the scene. To allow user move camera with the mouse, we are using **OrbitControls**.
+接下来创建需要进行渲染的对象：坐标轴、方块以及方块的边。由于我们需要手动改变矩阵，因此将方块和边的 **matrixAutoUpdate** 属性设为 false。创建好这些对象后，将它们加入场景（scene）中。为了让用户可以通过鼠标来移动摄像机位置，我们还用到了 **OrbitControls**。
 
-Then we convert matrices from our library to **ThreeJS** ones and getting functions that will return color and transformation matrix depending on time. In **componentWillUnmount**, we cancel the animation frame and remove **renderer** from the **DOM**.
+最后要做的，就是将我们的库输出的矩阵转换成 **ThreeJS** 的格式，然后用函数获取与时间相关的颜色与变换矩阵。在 **componentWillUnmount**，取消动画（即停止 anime frame）并从 **DOM** 移除 **renderer**。
 
 ```JavaScript
 class ThreeScene extends React.Component {
@@ -139,9 +139,9 @@ class ThreeScene extends React.Component {
 }
 ```
 
-Without the **animate** function, nothing will be rendered. First, we update the transformation matrix of both the cube and its edges and update the color of the cube. Then we render everything and request animation frame.
+不过此时我们还没有定义 **animate** 函数，因此什么也不会渲染。我们首先需要对方块和它的边各自的变换矩阵进行更新，然后进行渲染并请求浏览器的 animation frame（`window.requestAnimationFrame`）。
 
-In **componentWillReceiveProps**, we receive the current size of the component, and if it differs from the previous one, we update the state, change the size of renderer and camera aspect.
+**componentWillReceiveProps** 方法将接收当前组件的大小，当它发现大小发生了变化时，会更新状态，改变 renderer 的尺寸，并调整 camera 的方位。
 
 ```JavaScript
 class ThreeScene extends React.Component {
@@ -166,29 +166,9 @@ class ThreeScene extends React.Component {
 }
 ```
 
-## Animations
+## 动画
 
-To animate color change and transformation we need to write functions that will return animation functions. Before we cover them let’s look at some converters — functions from StackOverflow that convert RGB to hex and back and functions that convert matrix from our library to **ThreeJS** one and back.
-
-```JavaScript
-import * as THREE from 'three'
-import { Matrix } from 'linear-algebra/matrix'
-
-export const toMatrix4 = matrix => {
-  const matrix4 = new THREE.Matrix4()
-  matrix4.set(...matrix.components())
-  return matrix4
-}
-
-export const fromMatrix4 = matrix4 => {
-  const components = matrix4.toArray()
-  const rows = new Array(4)
-    .fill(0)
-    .map((_, i) => components.slice(i * 4, (i + 1) * 4))
-  return new Matrix(...rows)
-}
-
-```
+为了将颜色变化以及矩阵变换做成动画，需要写个函数来返回动画函数。在写这块函数前，我们先要完成以下两种转换器：将我们库的矩阵转换为 **ThreeJS** 格式矩阵的函数，以及参考 StackOverflow 上代码的将 RGB 转换为 hex 的函数：
 
 ```JavaScript
 import * as THREE from 'three'
@@ -210,9 +190,29 @@ export const fromMatrix4 = matrix4 => {
 
 ```
 
-### Color
+```JavaScript
+import * as THREE from 'three'
+import { Matrix } from 'linear-algebra/matrix'
 
-First, we need to calculate the distances between each part of the colors(red, green, blue). The function that will return new color sets timestamp on the first call. Then by knowing the distances between the pair of colors and time spend from the first call, it calculates a new **RGB** color.
+export const toMatrix4 = matrix => {
+  const matrix4 = new THREE.Matrix4()
+  matrix4.set(...matrix.components())
+  return matrix4
+}
+
+export const fromMatrix4 = matrix4 => {
+  const components = matrix4.toArray()
+  const rows = new Array(4)
+    .fill(0)
+    .map((_, i) => components.slice(i * 4, (i + 1) * 4))
+  return new Matrix(...rows)
+}
+
+```
+
+### 颜色
+
+首先，需要计算每种原色（RGB）变化的距离。下面的函数将会在第一调用时返回新的色彩与时间戳的集合；并在后续被调用时，通过颜色变化的距离以及时间的耗费，可以计算出当前时刻新的 **RGB** 颜色：
 
 ```JavaScript
 import { hexToRgb, rgbToHex } from './generic'
@@ -244,9 +244,9 @@ export const getGetAnimatedColor = (fromColor, toColor, period) => {
 }
 ```
 
-### Linear Transformation
+### 线性变换
 
-To animate linear transformation, we are doing the same steps. We find the difference between matrices and in animation function we update each component with relation to time from the first call.
+为了给线性变换做出动画效果，同样要进行上节的操作。我们首先找到矩阵变换前后的区别，然后在动画函数中，根据第一次调用 **getGetAnimatedTransformation** 时的状态，根据时间来更新各个组件的状态：
 
 ```JavaScript
 export const getGetAnimatedTransformation = (fromMatrix, toMatrix, period) => {
