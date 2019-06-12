@@ -2,120 +2,120 @@
 > * 原文作者：[Shay Geller](https://medium.com/@shayzm1)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/normalization-vs-standardization-quantitative-analysis.md](https://github.com/xitu/gold-miner/blob/master/TODO1/normalization-vs-standardization-quantitative-analysis.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ccJia](https://github.com/ccJia)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [portandbridge](https://github.com/portandbridge)
 
-# Normalization vs Standardization — Quantitative analysis
+# 对比归一化和标准化 —— 量化分析
 
-Stop using StandardScaler from Sklearn as a default feature scaling method can get you a boost of 7% in accuracy, even when you hyperparameters are tuned!
+停止使用 Sklearn 提供的 StandardScaler 作为你的特征压缩方法甚至可以让你训练好的模型有 7% 的准确率提升。
 
 ![[https://365datascience.com/standardization/](https://365datascience.com/standardization/)](https://cdn-images-1.medium.com/max/2000/1*dZlwWGNhFco5bmpfwYyLCQ.png)
 
-Every ML practitioner knows that feature scaling is an important issue (read more [here](https://medium.com/greyatom/why-how-and-when-to-scale-your-features-4b30ab09db5e)).
+每一个 ML 的从业者都知道特征的压缩是一个重要的议题（[更多](https://medium.com/greyatom/why-how-and-when-to-scale-your-features-4b30ab09db5e)）
 
-The two most discussed scaling methods are Normalization and Standardization. **Normalization** typically means rescales the values into a range of [0,1]. **Standardization** undefinedtypically means rescales data to have a mean of 0 and a standard deviation of 1 (unit variance).
+两个最热议的方法就是归一化和标准化。**归一化**通常来说是将数值压缩到 [0,1] 范围内。**标准化**指的是重新调整数据，使数据到均值为 0，标准差为 1。
 
-In this blog, I conducted a few experiments and hope to answer questions like:
+本篇博客希望通过一些实验回答以下的问题：
 
- 1. Should we always scale our features?
+1. 我们总是需要压缩特征吗？
 
- 2. Is there a single best scaling technique?
+2. 是否有一个最好的压缩方法？
 
- 3. How different scaling techniques affect different classifiers?
+3. 不同的压缩技术是如何影响不同的分类器？
 
- 4. Should we consider scaling technique as an important hyperparameter of our model?
+4. 压缩方法是否也应该被考虑为一个重要的超参？
 
-I’ll analyze the empirical results of applying different scaling methods on features in multiple experiments settings.
+我将分析多个不同压缩方法作用于不同特征的实验结果。
 
-## Table of Contests
+## 内容总览
 
-* 0. Why are we here?
-* 1. Out-of-the-box classifiers
-* 2. Classifier + Scaling
-* 3. Classifier + Scaling + PCA
-* 4. Classifier + Scaling + PCA + Hyperparameter Tuning
-* 5. All again on more datasets:
-* — 5.1 Rain in Australia dataset
-* — 5.2 Bank Marketing dataset
-* — 5.3 Income classification dataset
-* — 5.4 Income classification dataset
-* Conclusions
+* 0. 为何而来？
+* 1. 成熟的分类器
+* 2. 分类器 + 压缩
+* 3. 分类器 + 压缩 + PCA
+* 4. 分类器 + 压缩 + PCA + 超参调整
+* 5. 用更多数据集重复进行实验
+* — 5.1 Rain in Australia 数据集
+* — 5.2 Bank Marketing 数据集
+* — 5.3 Sloan Digital Sky Survey DR14 数据集
+* — 5.4 Income classification 数据集
+* 结论
 
-## 0. Why are we here?
+## 0. 为何而来？
 
-First, I was trying to understand what is the difference between Normalization and Standardization.
+首先，我尝试理解归一化与标准化之间的区别。
 
-So, I encountered this excellent [blog](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html) by Sebastian Raschka that supplies a mathematical background that satisfied my curiosity. **Please take 5 minutes to read this blog if you are not familiar with Normalization or Standardization concepts.**
+然后，我发现了这篇由 Sebastian Raschka 写的很不错的 [博客](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html)，这篇文章从数学的角度满足了我的好奇心。**如果你不熟悉归一化与标准化的概念，那么请一定花五分钟读一下这篇博客**。
 
-There is also a great explanation of the need for scaling features when dealing with classifiers that trained using gradient descendent methods( like neural networks) by famous Hinton [here](https://www.youtube.com/watch?v=Xjtu1L7RwVM&list=PLoRl3Ht4JOcdU872GhiYWf6jwrk_SNhz9&index=26).
+这里还有篇由 Hinton 大神写的[文章](https://www.youtube.com/watch?v=Xjtu1L7RwVM&list=PLoRl3Ht4JOcdU872GhiYWf6jwrk_SNhz9&index=26)解释了为什么使用梯度下降来训练的分类器（如神经网络）需要使用特征的压缩。
 
-Ok, we grabbed some math, that’s it? Not quite.
+好的，我们已经恶补了一波数学的知识，是吧？远远不够。
 
-When I checked the popular ML library Sklearn, I saw that there are lots of different scaling methods. There is a great visualization of [the effect of different scalers on data with outliers](https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py). But they didn’t show how it affects classification tasks with different classifiers.
+我发现 Sklearn 提供了很多不同的压缩方法。我们可以通过 [the effect of different scalers on data with outliers](https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py) 有一个直观的认识。但是他们没有讲清楚这些方法是如何影响不同分类器任务的。
 
-I saw a lot of ML pipelines tutorials that use StandardScaler (usually called Z-score Standardization) or MinMaxScaler (usually called min-max Normalization) to scale features. Why does no one use other scaling techniques for classification? Is it possible that StandardScaler or MinMaxScaler are the best scaling methods?
+我们阅读了很多 ML 的主线教程，一般都是使用 StandardScaler（通常叫做零均值标准化 ）或者 MinMaxScaler（通常叫做 Min-Max 归一化）来压缩特征。为什么没人用其他的压缩方法来分类呢？难道 StandardScaler 和 MinMaxScaler 已经是最好的压缩方法了？
 
-I didn’t see any explanation in the tutorials about why or when to use each one of them, so I thought I’d investigate the performance of these techniques by running some experiments. **This is what this notebook is all about**
+我在教程中没有发现关于为什么或者什么时候使用这些方法的解释。所以，我觉得应该通过实验来研究这些技术的性能。**这就是这篇文章所要讲的全部东西。**
 
-## Project details
+## 项目细节
 
-Like many Data Science projects, lets read some data and experiment with several out-of-the-box classifiers.
+和许多数据科学的工程一样，我们会读取一些数据，并使用一些成熟的分类器来做实验。
 
-### Dataset
+### 数据集
 
-[Sonar](https://www.kaggle.com/adx891/sonar-data-set) dataset. It contains 208 rows and 60 feature columns. It’s a classification task to discriminate between sonar signals bounced off a metal cylinder and those bounced off a roughly cylindrical rock.
+[Sonar](https://www.kaggle.com/adx891/sonar-data-set) 数据集包含了 208 行和 60 列特征。这个分类任务是为了判断声纳的回传信号是来自金属圆柱还是不规则的圆柱形石头。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1qjuIaF6FRElpMniHloccQ.png)
 
-It’s a balanced dataset:
+这是一个平衡的数据集：
 
 ```
-sonar[60].value_counts() # 60 is the label column name
+sonar[60].value_counts() # 60 是标签列的名字
 
 M    111
 R     97
 ```
 
-All the features in this dataset are between 0 to 1, **but** it’s not ensured that 1 is the max value or 0 is the min value in each feature.
+数据集中所有特征都在 0 和 1 之间，**但是**并不是每一个特征都能保证 1 是最大值或者 0 是最小值。
 
-I chose this dataset because, from one hand, it is small, so I can experiment pretty fast. On the other hand, it’s a hard problem and none of the classifiers achieve anything close to 100% accuracy, so we can compare meaningful results.
+我选择这个数据集有两个方面的考量，首先是这个数据集足够的小，我可以快速的完成实验。其次，这个问题比较复杂，没有一个分类器可以将准确率做到 100%，我获得的比对数据就更有意义。
 
-We will experiment with more datasets in the last section.
+在后面的章节，我们也会在其他数据集上做实验。
 
-**Code**
+**代码**
 
-As a preprocessing step, I already calculated all the results (it takes some time). So we only load the results file and work with it.
+在预处理环节，我已经计算了所有结果（这个花费了不少时间）。所以，我们只读取结果文件并在其上进行分析。
 
-The code that produces the results can be found in my GitHub:
+你可以在我的 GitHub 上获取产生结果的代码：
 [https://github.com/shaygeller/Normalization_vs_Standardization.git](https://github.com/shaygeller/Normalization_vs_Standardization.git)
 
-I pick some of the most popular classification models from Sklearn, denoted as:
+我从 Sklearn 中选取了一些最流行的分类器，如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*G0DvYlXlKH5P5WyOjYs6iw.png)
 
-(MLP is Multi-Layer Perceptron, a neural network)
+（MLP 是一种多层级的感知器，一个神经网络）
 
-The scalers I used are denoted as:
+使用的压缩方法如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*XU4abA9kv7Fohqk2WtQ2ag.png)
 
-* Do not confuse Normalizer, the last scaler in the list above with the min-max normalization technique I discussed before. The min-max normalization is the second in the list and named MinMaxScaler. The Normalizer class from Sklearn normalizes samples individually to unit norm. **It is not column based but a row based normalization technique.**
+* 不要将上表的最后一个压缩方法 Normalizer 和我们之前提到的极大极小归一化混淆了。极大极小归一化对应的是第二行的 MinMaxScalar。Sklearn 中的 Normalizer 是将样本单独归一化为一个单位范数。**这是一个基于行而非基于列的归一化方法。**
 
-## Experiment details:
+## 实验细节：
 
-* The same seed was used when needed for reproducibility.
+* 为了复现实验场景，我们使用相同的随机数种子。
 
-* I randomly split the data to train-test sets of 80%-20% respectively.
+* 训练集和测试集的比例为 8:2，并且是随机划分。
 
-* All results are accuracy scores on 10-fold random cross-validation splits from the **train set**.
+* 所有的结果的准确率都是在 10 个取自**训练集**的随机交叉验证集上得到的。
 
-* I do not discuss the results on the test set here. Usually, the test set should be kept hidden, and all of our conclusions about our classifiers should be taken only from the cross-validation scores.
+* 我们不讨论测试集上的结果。通常来讲，测试集都是不可见的，并且我们的结论都是只从分类器在交叉验证集上的得分得到的。
 
-* In part 4, I performed nested cross-validation. One inner cross-validation with 5 random splits for hyperparameter tuning, and another outer CV with 10 random splits to get the model’s score using the best parameters. Also in this part, all data taken only from the train set. A picture is worth a thousand words:
+* 在第四部分，我使用嵌套的交叉验证集。一个内部交叉验证集包含 5 个随机的分块，并由超参进行调整。外部是 10 个随机分割的交叉验证集并使用最好的模型参数获得对应得分。这一部分的数据都是源自训练集。图片是最具有说服力的：
 
 ![[https://sebastianraschka.com/faq/docs/evaluate-a-model.html](https://sebastianraschka.com/faq/docs/evaluate-a-model.html)](https://cdn-images-1.medium.com/max/2000/1*7-Y--5i-Pc6VTL7EzY0lCA.png)
 
-## Let’s read the results file
+## 我们来看看结果
 
 ```
 import os
@@ -126,7 +126,7 @@ results_df = pd.read_csv(os.path.join("..","data","processed",results_file)).dro
 results_df
 ```
 
-## 1. Out-of-the-box classifiers
+## 1. 成熟的分类器
 
 ```
 import operator
@@ -136,13 +136,13 @@ results_df.loc[operator.and_(results_df["Classifier_Name"].str.startswith("_"), 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*PY8iPAFpK7RgJpfnqMEyPw.png)
 
-Nice results. By looking at the CV_mean column, we can see that at the moment, MLP is leading. SVM has the worst performance.
+一个不错的结果，通过观察交叉验证集的均值，我们可以发现 MLP 是最棒的，而 SVM 效果最差。
 
-Standard deviation is pretty much the same, so we can judge mainly by the mean score. All the results below will be the mean score of 10-fold cross-validation random splits.
+标准差的结果都是基本一致的，所以我们主要是关注均值得分。我们使用 10 个随机分割的交叉验证集的均值作为结果。
 
-Now, let’s see how different scaling methods change the scores for each classifier
+那么，让我们来看看不同压缩方法是怎么改变每个分类器得分的。
 
-## 2. Classifiers+Scaling
+## 2. 分类器 + 压缩
 
 ```
 import operator
@@ -164,7 +164,7 @@ pivot_t_bold
 
 ![](https://cdn-images-1.medium.com/max/2000/1*O7f4vWIUgUvCpwxT24dsmg.png)
 
-The first row, the one without index name, is the algorithm without applying any scaling method.
+第一行，没有索引名称的那一行，是我们没有使用任何压缩方法的原始算法得分。
 
 ```
 import operator
@@ -176,7 +176,7 @@ for col in list(pivot_t):
     cell_val = pivot_t[col].max()
     cols_max_vals[col] = cell_val
     cols_max_row_names[col] = row_name
-    
+
 sorted_cols_max_vals = sorted(cols_max_vals.items(), key=lambda kv: kv[1], reverse=True)
 
 print("Best classifiers sorted:\n")
@@ -186,7 +186,7 @@ for model, score in sorted_cols_max_vals:
     counter +=1
 ```
 
-Best classifier from each model:
+最好的组合如下：
 
 1. SVM + StandardScaler : 0.849
 2. MLP + PowerTransformer-Yeo-Johnson : 0.839
@@ -197,20 +197,19 @@ Best classifier from each model:
 7. CART + QuantileTransformer-Uniform : 0.74
 8. RF + Normalizer : 0.723
 
-## Let’s analyze the results
+## 我们来分析一下结果
 
-1. **There is no single scaling method to rule them all.**
+1. **没有一个压缩方法可以让每一个分类器都获得最好的结果。**
 
-2. We can see that scaling improved the results. SVM, MLP, KNN, and NB got a significant boost from different scaling methods.
+2. 我们发现压缩是会带来增益的。SVM、MLP、KNN 和 NB 又分别从不同的压缩方法上获得了长足的增益。
 
-3. Notice that NB, RF, LDA, CART are unaffected **by some** of the scaling methods. This is, of course, related to how each of the classifiers works. Trees are not affected by scaling because the splitting criterion first orders the values of each feature and then calculate the gini\entropy of the split. Some scaling methods keep this order, so no change to the accuracy score. 
-NB is not affected because the model’s priors determined by the count in each class and not by the actual value. Linear Discriminant Analysis (LDA) finds it’s coefficients using the variation between the classes (check [this](https://www.youtube.com/watch?v=azXCzI57Yfc)), so the scaling doesn’t matter either.
+3. 值得注意到是**一些**压缩方法对 NB、RF、LDA 和 CART 是无效的。这个现象是和每一种分类器的工作原理是相关的。树形分类器不受影响的原因是它们在分割前会先对数值进行排序并且为每一个分组计算熵。一些压缩函数保持了这个顺序，所以不会有什么提高。NB 不受影响的原因是它模型的先验是由每个类中的计数器决定的而不是实际值。线性判别分析（[LDA](https://www.youtube.com/watch?v=azXCzI57Yfc)）是通过类间的变化寻找一个系数，所以它也不受压缩的影响。
 
-4. Some of the scaling methods, like QuantileTransformer-Uniform, doesn’t preserve the exact order of the values in each feature, hence the change in score even in the above classifiers that were agnostic to other scaling methods.
+4. 一些压缩方法，如：QuantileTransformer-Uniform，并不会保存特征的实际顺序，因此它依然会改变上述的那些与其他压缩方法无关的分类器的得分。
 
-## 3. Classifier+Scaling+PCA
+## 3. 分类器 + 压缩 + PCA
 
-We know that some well-known ML methods like PCA can benefit from scaling ([blog](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html)). Let’s try adding PCA(n_components=4) to the pipeline and analyze the results.
+我们知道一些众所周知的 ML 方法，比如像 PCA 就可以从压缩中获益（[博客](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html)）。我们试着加上一个 PCA（n_components=4）到实验中并分析结果。
 
 ```
 import operator
@@ -232,60 +231,56 @@ pivot_t_bold
 
 ![](https://cdn-images-1.medium.com/max/2000/1*CUM03Zp2PN5s8DUbkgv-kA.png)
 
-## Let’s analyze the results
+## 结果分析
 
-1. Most of the time scaling methods improve models with PCA, **but** undefinedno specific scaling method is in charge. 
-Let’s look at “QuantileTransformer-Uniform”, the method with most of the high scores. 
-In LDA-PCA it improved the results from 0.704 to 0.783 (8% jump in accuracy!), but in RF-PCA it makes things worse, from 0.711 to 0.668 (4.35% drop in accuracy!) 
-On the other hand, using RF-PCA with “QuantileTransformer-Normal”, improved the accuracy to 0.766 (5% jump in accuracy!)
+1. 大多数的情况下，压缩都改进带有 PCA 的模型， **但是，**没有指定特定的压缩方法。我们来观察一下再大多数模型上都有较好效果的 “QuantileTransformer-Uniform”。它将 LDA-PCA 的准确率从 0.704 提升到了 0.783 提高了 8%！但是对于 RF-PCA 它却起到了负增益，模型的准确率从 0.711 降到了 0.668，下降了 4.35%。另一个方面，如果使用 “QuantileTransformer-Normal” ，RF-PCA 的准确率又可以提高到 0.766 有 5% 的提高。
 
-2. We can see that PCA only improve LDA and RF, so PCA is not a magic solution.
-It’s fine. We didn’t hypertune the n_components parameter, and even if we did, PCA doesn’t guarantee to improve predictions.
+2. 我们可以发现 PCA 只提高了 LDA 和 RF，所以 PCA 也并不是一个完美的解决方案。我们并没有去调整 n_components 这个超参，其实，就算我们调整了，也不会有保证一定可以有提升。
 
-3. We can see that StandardScaler and MinMaxScaler achieve best scores only in 4 out of 16 cases. So we should think carefully what scaling method to choose, even as a default one.
+3. 同时我们会发现 StandardScaler 和 MinMaxScaler 只在 16 个实验中的 4 个得到了最好的分数，所以，我们应该考虑一下如何去选取最合适的默认压缩方法了。
 
-**We can conclude that even though PCA is a known component that benefits from scaling, no single scaling method always improved our results, and some of them even cause harm(RF-PCA with StandardScaler).**
+**我可以有如下结论，即使 PCA 作为一个众所周知会从压缩中获得增益的单元，也没有一个压缩方法可以保证可以提高所有的实验结果，它们中的一些甚至对 RF-PCA 这种模型使用 StandardScaler 还会产生负面的影响。**
 
-**The dataset is also a great factor here. To better understand the consequences of scaling methods on PCA, we should experiment with more diverse datasets (class imbalanced, different scales of features and datasets with numerical and categorical features). I’m doing this analysis in section 5.**
+**在上面的实验中，数据集也是一个重要的因素。为了能更好地理解压缩方法对 PCA 的影响，我们将在更多数据集上做实验（其中数据集会包含类别不平衡、特征尺度不同以及同时具有数值型和分类型特征的数据集）。我们会在第五节进行分析。**
 
-## 4. Classifiers+Scaling+PCA+Hyperparameter tuning
+## 4. 分类器 + 压缩 + PCA + 超参调整
 
-There are big differences in the accuracy score between different scaling methods for a given classifier. One can assume that when the hyperparameters are tuned, the difference between the scaling techniques will be minor and we can use StandardScaler or MinMaxScaler as used in many classification pipelines tutorials in the web. 
-Let’s check that!
+对于给定的分类器，不同的压缩方法会导致准确率有很大的不同。我们认为超参在调整完毕后，不同的压缩方法对模型的影响会变小，这样我们就可以像很多网上的教程那样使用 StandardScaler 或者 MinMaxScaler 作为分类器的压缩方法。
+我们来验证一下。
 
 ![](https://cdn-images-1.medium.com/max/2468/1*Cq-0CrKFMurnKqAiXZ03Qw.png)
 
-First, NB is not here, that’s because NB has no parameters to tune.
+首先，NB 没有在此章节中，因为它不存在参数调整。
 
-We can see that almost all the algorithms benefit from hyperparameter tuning compare to results from o previous step. An interesting exception is MLP that got worse results. It’s probably because neural networks can easily overfit the data (especially when the number of parameters is much bigger than the number of training samples), and we didn’t perform a careful early stopping to avoid it, nor applied any regularizations.
+我们与较早阶段的结果做对比可以发现几乎所有的算法都会从超参调整中获益。一个有趣的例外是 MLP，它变得更糟糕了。这个很可能是神经网络会很容易在数据集上过拟合（尤其是当参数量远远大于训练样本），同时我们又没有用提前停止或者正则化的方式来避免过拟合。
 
-Yet, even when the hyperparameters are tuned, there are still big differences between the results using different scaling methods. If we would compare different scaling techniques to the broadly used StandardScaler technique, we can **gain up to 7% improvement in accuracy** (KNN column) when experiencing with other techniques.
+然而，即使我们有一组调整好的超参，运用不同的压缩方法所得的结果还是有很大区别的。当我们在其他方法进行实验时会发现，用这些方法和广泛使用的 StandardScaler 在 KNN 算法上做对比，**准确度居然可以获得 7% 的提升。**
 
-**The main conclusion from this step is that even though the hyperparameters are tuned, changing the scaling method can dramatically affect the results. So, we should consider the scaling method as a crucial hyperparameter of our model.**
+**这个章节的主要结论是，即使我们有一组调试好的超参，变换不同的压缩方法仍然会对模型结果有较大的影响。所以我们应该将模型使用的压缩方法也当作一个关键的超参。**
 
-Part 5 contains a more in-depth analysis of more diverse datasets. If you don’t want to deep dive into it, feel free to jump to the conclusion section.
+第五部分我们会在更多的数据集上进行深入的分析。如果你不想再深挖这个问题，可以直接去看结论。
 
-## 5. All again on more datasets
+## 5. 用更多数据集重复进行实验
 
-To get a better understanding and to derive more generalized conclusions, we should experiment with more datasets.
+为了得到更好理解同时更为普适的结论，我们需要在更多的数据集上做更多的实验。
 
-We will apply Classifier+Scaling+PCA like section 3 on several datasets with different characteristics and analyze the results. All datasets were taken from Kaggel.
+我们会用到和第三节相似的分类器+压缩+PCA 的形式在几个具有不同特征的数据集上进行实验，并在不同的小节中分析结果。所有的数据集都来自于 Kaggel。
 
-* For the sake of convenience, I selected only the numerical columns out of each dataset. In multivariate datasets (numeric and categorical features), there is an ongoing debate about how to scale the features.
+* 为了方便起见，我从各个数据集中选择了只有数值的列。多元化的数据集（数值和分类特征）在如何进行压缩上一直有争议。
 
-* I didn’t hypertune any parameters of the classifiers.
+* 我没有调整分类器更多的参数。
 
-## 5.1 Rain in Australia dataset
+## 5.1 Rain in Australia 数据集
 
-[Link](https://www.kaggle.com/jsphyg/weather-dataset-rattle-package#weatherAUS.csv)
-**Classification task**: Predict is it’s going to rain?
-**Metric**: Accuracy
-**Dataset shape**: (56420, 18)
-**Counts for each class**:
-No 43993
-Yes 12427
+[链接](https://www.kaggle.com/jsphyg/weather-dataset-rattle-package#weatherAUS.csv)
+**分类任务**：预测是否下雨?
+**度量方法**：精度
+**数据集大小**：(56420, 18)
+**各个类别的数量**：
+不下雨 43993
+下雨 12427
 
-Here is a sample of 5 rows, we can’t show all the columns in one picture.
+这里我们展示了 5 行数据的部分列，没法在一张图中展示所有列。
 
 ![](https://cdn-images-1.medium.com/max/2386/1*NoL1AoPJa4f0qowV_wxatA.png)
 
@@ -295,31 +290,31 @@ dataset.describe()
 
 ![](https://cdn-images-1.medium.com/max/2446/1*ueOG8zIGopArwAKYh5gAYQ.png)
 
-We will suspect that scaling will improve classification results due to the different scales of the features (check min max values in the above table, it even get worse on some of the rest of the features).
+我们推测由于特征的尺度不同，压缩可能会提高分类器的效果（观察上表的最大最小值，剩余数据的尺度差异会比展示的还要大）。
 
-**Results**
+**结果**
 
 ![](https://cdn-images-1.medium.com/max/2496/1*cM5pzKhBp1dVSDYshfMV4g.png)
 
-**Results analysis**
+**结果分析**
 
-* We can see the StandardScaler never got the highest score, nor MinMaxScaler.
+* 我们会发现 StandardScaler 和 MinMaxScaler 从来没有得到过最高的分数。
 
-* We can see **differences of up to 20%** undefinedbetween StandardScaler and other methods. (CART-PCA column)
+* 我们可以发现在 CART-PCA 算法上 StandardScaler 和其他的方法甚至有 **20% 的区别**。
 
-* We can see that scaling usually improved the results. Take for example SVM that **jumped from 78% to 99%.**
+* 我们也可以发现压缩通常是有效果的。在 SVM 上准确率甚至从 **78% 涨到了 99%。**
 
-## 5.2 Bank Marketing dataset
+## 5.2 Bank Marketing 数据集
 
-[Link](https://www.kaggle.com/henriqueyamahata/bank-marketing)
-**Classification task**: Predict has the client subscribed a term deposit?
-**Metric**: AUC **( The data is imbalanced)**
-**Dataset shape**: (41188, 11)
-**Counts for each class**:
-no 36548
-yes 4640
+[链接](https://www.kaggle.com/henriqueyamahata/bank-marketing)
+**分类任务**：预测客户是否已经订购了定期存款?
+**度量方法**：AUC **（数据集不平衡）**
+**数据集大小**：(41188, 11)
+**各类别数量**：
+没订购 36548
+订购 4640
 
-Here is a sample of 5 rows, we can’t show all the columns in one picture.
+这里我们展示了 5 行数据的部分列，没法在一张图中展示所有列。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fzuln582evzvssUyszvc9g.png)
 
@@ -329,32 +324,32 @@ dataset.describe()
 
 ![](https://cdn-images-1.medium.com/max/2340/1*TkgNo_a2rekFe2BBzSZriQ.png)
 
-Again, features in different scales.
+再次说明，特征的尺度不同。
 
-**Results**
+**结果**
 
 ![](https://cdn-images-1.medium.com/max/2448/1*IXemV_c-mI260WD0Kfa1-Q.png)
 
-**Results analysis**
+**结果分析**
 
-* We can see that in this dataset, even though the features are on different scales, scaling when using PCA doesn’t always improve the results. **However,** the second-best score in each PCA column is pretty close to the best score. It might indicate that hypertune the number of components of the PCA and using scaling will improve the results over not scaling at all.
+* 我们会发现，在这个数据集上，即使特征是不同尺度的，压缩也不一定会对所有使用了 PCA 的模型带来增益。**尽管如此，** 在所有带 PCA 的模型上，第二高的得分和最高得分都十分接近。这个可能意味着调整 PCA 的最终维度同时使用压缩方法是优于所有不进行压缩的结果的。
 
-* Again, there is no one single scaling method that stood out.
+* 再次强调，依然没有一个压缩方法表现的非常优秀。
 
-* Another interesting result is that in most models, all the scaling methods didn’t affect that much (usually 1%–3% improvement). Let’s remember that this is an unbalanced dataset and we didn’t hypertune the parameters. Another reason is that the AUC score is already high (~90%), so it’s harder to see major improvements.
+* 另一个有趣的结果，所有压缩方法在大多数的模型上都没有带来非常大的提升（基本都在 1% - 3% 之间）。这是因为数据集本身是不平衡的，我们也没有调整参数。另一个原因是 AUC 的得分已经很高（在 90% 左右），这就很难再有大的提升了。
 
-## 5.3 Sloan Digital Sky Survey DR14 dataset
+## 5.3 Sloan Digital Sky Survey DR14 数据集
 
-[Link](https://www.kaggle.com/lucidlenn/sloan-digital-sky-survey)
-**Classification task**: Predict if an object to be either a galaxy, star or quasar.
-**Metric**: Accuracy (multiclass)
-**Dataset shape**: (10000, 18)
-**Counts for each class**:
-GALAXY 4998
-STAR 4152
-QSO 850
+[链接](https://www.kaggle.com/lucidlenn/sloan-digital-sky-survey)
+**分类任务**：预测目标是星系、恒星还是类星体？
+**度量方式**：准确度 (多分类)
+**数据集大小**：(10000, 18)
+**各类别数量**：
+星系 4998
+行星 4152
+类星体 850
 
-Here is a sample of 5 rows, we can’t show all the columns in one picture.
+这里我们展示了 5 行数据的部分列，没法在一张图中展示所有列。
 
 ![](https://cdn-images-1.medium.com/max/2436/1*61rtzzOrRXE6wl4RRCFgnw.png)
 
@@ -364,33 +359,33 @@ dataset.describe()
 
 ![](https://cdn-images-1.medium.com/max/2488/1*dKSKI_87l7MviX_BT25sCw.png)
 
-Again, features in different scales.
+再次说明，特征的尺度不同。
 
-**Results**
+**结果**
 
 ![](https://cdn-images-1.medium.com/max/2470/1*dAsv-KaQieauDnDO-x4C1A.png)
 
-**Results analysis**
+**结果分析**
 
-* We can see that scaling highly improved the results. We could expect it because it contains features on different scales.
+* 压缩对结果带来了很大的提升。这是我们可以预期的，是因为数据集中的特征尺度是不同的。
 
-* We can see that RobustScaler almost always wins when we use PCA. It might be due to the many outliers in this dataset that shift the PCA eigenvectors. On the other hand, those outliers don’t make such an effect when we do not use PCA. We should do some data exploration to check that.
+* 我们会发现 RobustScaler 基本上在所有使用了 PCA 的模型上都表现的很好。这可能是大量的异常点导致 PCA 的特征向量发生了平移。另一方面，这些异常点在我们不使用 PCA 时，又没有那么大的影响。这个我们需要深挖数据集才能确定。
 
-* There is up to 5% difference in accuracy if we will compare StandardScaler to the other scaling method. So it’s another indicator to the need for experiment with multiple scaling techniques.
+* StandardScaler 和其他压缩方法的准度差异可以达到 5%。这也说明我们要用多种压缩方法进行实验。
 
-* PCA almost always benefit from scaling.
+* PCA 总是可以从压缩上获得增益。
 
-## 5.4 Income classification dataset
+## 5.4 Income classification 数据集
 
-[Link](https://www.kaggle.com/lodetomasi1995/income-classification)
-**Classification task**: Predict if income is >50K, \<=50K.
-**Metric**: AUC **(imbalanced dataset)**
-**Dataset shape**: (32561, 7)
-**Counts for each class**:
- <=50K 24720
- >50K 7841
+[链接](https://www.kaggle.com/lodetomasi1995/income-classification)
+**分类任务**：收入是 >50K 还是 <=50K？
+**度量**：AUC **（不平衡数据集）**
+**数据集大小**：(32561, 7)
+**各类别数量**：
+<=50K 24720
+>50K 7841
 
-Here is a sample of 5 rows, we can’t show all the columns in one picture.
+这里我们展示了 5 行数据的部分列，没法在一张图中展示所有列。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5BgWgb3D5vsMU5SG6I1SsQ.png)
 
@@ -400,33 +395,33 @@ dataset.describe()
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1iP0766U3-WIGEU-sGIzTg.png)
 
-Again, features in different scales.
+这又是个特征的尺度不同的数据集。
 
-**Results**
+**结果**
 
 ![](https://cdn-images-1.medium.com/max/2444/1*jDGln1ifWDojhIRRZrhM7w.png)
 
-**Results analysis**
+**结果分析**
 
-* Here again, we have an imbalanced dataset, but we can see that scaling do a good job in improving the results (up to 20%!). This is probably because the AUC score is lower (~80%) compared to the Bank Marketing dataset, so it’s easier to see major improvements.
+* 再次说明，数据集是不平衡的，但是我们可以发现压缩是十分有效的可以使结果出现高达 20% 的提升。这个很可能是 AUC 的得分相较于 Bank Marketing 数据集而言比较低（80%），所以很容易获得较大的提高。
 
-* Even though StandardScaler is not highlighted (I highlighted only the first best score in each column), in many columns, it achieves the same results as the best, but not always. From the running time results(no appeared here), I can tell you that running StandatdScaler is much faster than many of the other scalers. So if you are in a rush to get some results, it can be a good starting point. But if you want to squeeze every percent from your model, you might want to experience with multiple scaling methods.
+* 虽然 StandardScaler 没有被高亮（我只标亮了每列得分最高的一项），但是在很多列它都很接近最好的结果，当然也不总是有这样的结论。在运行时（没有展示），StandardScaler 的速度比大多数的压缩方法都快。如果你比较关注速度，StandardScaler 是个很好的选择。但是如果你关注的是精度，那么你就需要试试其他压缩方法了。
 
-* Again, no single best scale method.
+* 再次强调，依然没有一个压缩方法在所有算法上都表现的非常优秀。
 
-* PCA almost always benefited from scaling
+* PCA 几乎总是可以从压缩上获得增益。
 
-## Conclusions
+## 结论
 
-* Experiment with multiple scaling methods can dramatically increase your score on classification tasks, even when you hyperparameters are tuned. **So, you should consider the scaling method as an important hyperparameter of your model.**
+* 实验表明即使在超参调整好的模型上，压缩也可以在结果上带来增益。**所以，压缩方法需要被当作一个重要的超参来考虑。**
 
-* Scaling methods affect differently on different classifiers. Distance-based classifiers like SVM, KNN, and MLP(neural network) dramatically benefit from scaling. But even trees (CART, RF), that are agnostic to some of the scaling methods, can benefit from other methods.
+* 不同的压缩方法会对不同的分类器产生影响。SVM、KNN 和 MLP（神经网络）等基于距离的分类器都会从压缩上获得较大的收益。但即使是树型（CART 和 RF）这种某些压缩技术不起作用的分类器，也可以从其它的压缩方法上获益。
 
-* Knowing the underlying math behind models\preprocessing methods is the best way to understand the results. (For example, how trees work and why some of the scaling methods didn’t affect them). It can also save you a lot of time if you know no to apply StandardScaler when your model is Random Forest.
+* 明白模型和预处理方法背后的数学理论是理解这些结果的最好方法。（举个例子，树型分类器是怎么工作的？为什么一些压缩方法对它们无效？）。这会节约你很多的时间，如果你知道在使用随机森林时不能使用 StandardScaler。
 
-* Preprocessing methods like PCA that known to be benefited from scaling, do benefit from scaling. **When it doesn’t**, it might be due to a bad setup of the number of components parameter of PCA, outliers in the data or a bad choice of a scaling method.
+* 像 PCA 这样的预处理方法确实是会从压缩上获得增益。**如果没有效果**，可能是因为 PCA 的维度设置的不好，异常点较多或者错误的选择压缩方法。
 
-If you find some mistakes or have proposals to improve the coverage or the validity of the experiments, please notify me.
+如果你发现任何的错误、实验覆盖率的改进方法或者改进意见都可以联系我。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
