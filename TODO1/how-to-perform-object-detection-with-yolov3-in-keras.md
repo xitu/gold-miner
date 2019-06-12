@@ -7,9 +7,9 @@
 
 # 如何在 Keras 中用 YOLOv3 进行对象检测
 
-对象检测是计算机视觉的一项任务，涉及对给定图像识别对象的存在性、位置、类型等等。
+对象检测是计算机视觉的一项任务，及对给定图像识别一个或多个对象的存在性、位置、类型等属性。
 
-然而对于对象识别（他们在哪）、对象定位（其程度如何）、对象分类（他们是什么）等，如何建立方法，是个挑战性的问题。
+然而，如何找到合适的方法来解决对象识别（它们在哪）、对象定位（其程度如何）、对象分类（它们是什么）的问题，是一项具有挑战性的任务。
 
 多年来，在诸如标准基准数据集和计算机视觉竞赛领域等对象识别方法等方面，深度学习技术取得了先进成果。其中值得关注的是 YOLO（You Only Look Once），这是一种卷积神经网络系列算法，通过单一端到端模型实时进行对象检测，取得了几乎是最先进的结果。
 
@@ -26,7 +26,7 @@
 ![How to Perform Object Detection With YOLOv3 in Keras](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/How-to-Perform-Object-Detection-With-YOLOv3-in-Keras.jpg)
 
 如何在 Keras 中用 YOLOv3 进行对象检测
-[David Berkowitz](https://www.flickr.com/photos/davidberkowitz/5699832418/) 图, 部分权利保留。
+[David Berkowitz](https://www.flickr.com/photos/davidberkowitz/5699832418/) 图， 部分权利保留。
 
 ## 教程概览
 
@@ -39,21 +39,21 @@
 ## 用于对象检测的YOLO
 
 
-对象检测是计算机视觉的任务，不仅涉及在单图像中对一个或多个对象定位，还涉及在该图像中对每个对象分类。
+对象检测是计算机视觉的任务，不仅涉及在单图像中对一个或多个对象定位，还涉及在该图像中对每个对象进行分类。
 
-对象检测这项富有挑战性的计算机视觉任务，不仅需要在图像中成功定位对象，来确定位置，对每个对象绘制边框，还需要对对象成功分类，预测定位对象的分类。
+对象检测这项富有挑战性的计算机视觉任务，不仅需要在图像中成功定位对象、对每个对象找到并绘制边框，还需要对定位好的对象进行正确的分类。
 
-YOLO（You Only Look Once）是一系列端到端的深度学习系列模型，用于快速对象检测，在2015年的论文[《You Only Look Once：统一实时对象检测》](https://arxiv.org/abs/1506.02640)中， 由 [Joseph Redmon](https://pjreddie.com/) 等人首次阐述。
+YOLO（You Only Look Once）是一系列端到端的深度学习系列模型，用于快速对象检测，由 [Joseph Redmon](https://pjreddie.com/) 等人于 2015 年的论文[《You Only Look Once：统一实时对象检测》](https://arxiv.org/abs/1506.02640)中首次阐述。
 
 该方法涉及单个深度卷积神经网络（最初是 GoogLeNet 的一个版本，后来更新了，称为基于 VGG 的 DarkNet），将输入分成单元网格，每个格直接预测边界框和对象分类。 结果就是，经过后处理步骤，大量候选边界框合并成为最终预测。
 
-在写本文时有三种主要变体：YOLOv1、YOLOv2、YOLOv3。 第一个版本提出通用架构，第二个版本改进设计，并利用预定义锚箱改进了边界框提议，第三个版本进一步完善模型架构和训练过程。
+在写本文时有三种主要变体：YOLOv1、YOLOv2、YOLOv3。第一个版本提出通用架构，第二个版本改进设计，并利用预定义锚框改进了边界框提议，第三个版本进一步完善模型架构和训练过程。
 
 虽然模型的准确性接近基于区域的卷积神经网络（R-CNN），但不如后者那么好，但由于它们的检测速度快，因此在对象检测中很受欢迎，通常可以在视频或摄像机的输入上实时显示。
 
-> 单神经网络是在一次评估中，直接从完整图像预测边界框和分类概率。 由于整个检测过程是基于单个网络，因此可以直接在检测性能上进行端到端优化。
+> 单神经网络是在一次评估中，直接从完整图像预测边界框和分类概率。由于整个检测过程是基于单个网络，因此可以直接在检测性能上进行端到端优化。
 
-- [You Only Look Once：统一实时对象检测](https://arxiv.org/abs/1506.02640)，2015．
+- — [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640), 2015.
 
 本教程专注于使用 YOLOv3。
 
@@ -447,7 +447,7 @@ print([a.shape for a in yhat])
 
 示例代码返回有三个 Numpy 数组的列表，其形状作为输出展现出来。
 
-这些数据既预测了边界框，又预测了标签的种类，但是是编码过的。需要翻译才行。
+这些数据既预测了边框，又预测了标签的种类，但是是编码过的。需要翻译才行。
 
 ```
 [(1, 13, 13, 255), (1, 26, 26, 255), (1, 52, 52, 255)]
@@ -455,9 +455,9 @@ print([a.shape for a in yhat])
 
 ### 做预测与结果翻译
 
-实际上模型的输出是编码过的候选边界框，这些候选边界框来源于三种不同大小的网格，框本身是由锚框的情境定义的，由基于在 MSCOCO 数据集中对对象尺寸的分析，仔细选择得来的。
+实际上模型的输出是编码过的候选边框，这些候选边框来源于三种不同大小的网格，框本身是由锚框的情境定义的，由基于在 MSCOCO 数据集中对对象尺寸的分析，仔细选择得来的。
 
-由 experincor 的脚本中有一个 **decode_netout()** 函数，可以一次一个取每个 Numpy 数组，将候选边界框和预测的分类解码。此外，所有不能有足够把握（比如概率低于某个阈值）描述对象的边界框都将被忽略掉。此处使用60%或0.6的概率。该函数返回 **BoundBox** 的实例列表，在输入图像的形状和分类概率的背景中，这些实例定义了每个边界框的角。
+由 experincor 提供的脚本中有一个 **decode_netout()** 函数，可以一次一个取每个 Numpy 数组，将候选边框和预测的分类解码。此外，所有不能有足够把握（比如概率低于某个阈值）描述对象的边框都将被忽略掉。此处使用60%或0.6的概率。该函数返回 **BoundBox** 的实例列表，在输入图像的形状和分类概率的背景中，这些实例定义了每个边框的角。
 
 ```
 # define the anchors
@@ -470,18 +470,18 @@ for i in range(len(yhat)):
 	boxes += decode_netout(yhat[i][0], anchors[i], class_threshold, input_h, input_w)
 ```
 
-接下来要将边界框拉伸至原来图像的形状。稍后将打印原始图像、画出边界框、并有希望检测到真实对象，因此这一步会很有帮助。
+接下来要将边框拉伸至原来图像的形状。稍后将打印原始图像、画出边框、并有希望检测到真实对象，因此这一步会很有帮助。
 
-由 experiencor 提供的脚本中有 **correct\_yolo\_boxes()** 函数，可以翻译边界框坐标、获取边界框列表、一开始加载图片的形状、和网络中作为参数输入的形状。边界框的坐标直接更新：
+由 experiencor 提供的脚本中有 **correct\_yolo\_boxes()** 函数，可以转换边框坐标、获取边框列表、一开始加载图片的形状、和网络中作为参数输入的形状。边框的坐标直接更新：
 
 ```
 # correct the sizes of the bounding boxes for the shape of the image
 correct _yolo_boxes(boxes,  image_h,  image_w,  input_h,  input_w)
 ```
 
-模型预测了许多边界框，大多数框是同一对象。可筛选边框列表，将那些重叠的、指向统一对象的框都合并。可将重叠数量定义为配置参数，此处是50%或0.5 。这一筛选步骤的条件并不是最严格的，而且需要更多后处理步骤。
+模型预测了许多边框，大多数框是同一对象。可筛选边框列表，将那些重叠的、指向统一对象的框都合并。可将重叠数量定义为配置参数，此处是50%或0.5 。这一筛选步骤的条件并不是最严格的，而且需要更多后处理步骤。
 
-该脚本通过 **do_nms()**  实现这一点，该函数的参数是边界框列表和阈值。该函数整理的不是重叠的边框，而是重叠类的预测概率。这样如果检测到另外的对象类型，边框仍还可用。
+该脚本通过 **do_nms()**  实现这一点，该函数的参数是边框列表和阈值。该函数整理的不是重叠的边框，而是重叠类的预测概率。这样如果检测到另外的对象类型，边框仍还可用。
 
 ```
 # suppress non-maximal boxes
@@ -537,7 +537,7 @@ for i in range(len(v_boxes)):
     print(v_labels[i], v_scores[i])
 ```
 
-也可以打印原始图片，画出每个检测出对象的边界框。通过从每个边界框找到坐标，再创建Rectangle对象实现。
+也可以打印原始图片，画出每个检测出对象的边框。通过从每个边框找到坐标，再创建Rectangle对象实现。
 
 ```
 box = v_boxes[i]
@@ -559,7 +559,7 @@ label = "%s (%.3f)" % (v_labels[i], v_scores[i])
 pyplot.text(x1, y1, label, color='white')
 ```
 
-下面的 **draw_boxes()** 函数实现了这一点，获取原始照片的文件名、对应边界框列表、标签、评分，绘制出检测到的所有对象。
+下面的 **draw_boxes()** 函数实现了这一点，获取原始照片的文件名、对应边框列表、标签、评分，绘制出检测到的所有对象。
 
 ```
 # draw all results
@@ -825,11 +825,11 @@ zebra 99.86329674720764
 zebra 96.8708872795105
 ```
 
-绘制出的图片有三个边界框，可以看出模型确实成功检测出了图片中的三匹斑马。
+绘制出的图片有三个边框，可以看出模型确实成功检测出了图片中的三匹斑马。
 
 ![Photograph of Three Zebra Each Detected with the YOLOv3 Model and Localized with Bounding Boxes](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/Photograph-of-Three-Zebra-Each-Detected-with-the-YOLOv3-Model-and-Localized-with-Bounding-Boxes-1024x768.png)
 
-用 YOLOv3 模型检测、边界框定位的斑马图片
+用 YOLOv3 模型检测、边框定位的斑马图片
 
 ## 拓展阅读
 
@@ -853,7 +853,7 @@ zebra 96.8708872795105
 *   [Huynh Ngoc Anh, experiencor, Home Page](https://experiencor.github.io/).
 *   [experiencor/keras-yolo3, GitHub](https://github.com/experiencor/keras-yolo3).
 
-### Keras项目的其他YOLO实现
+### Keras 项目的其他 YOLO 实现
 
 *   [allanzelener/YAD2K, GitHub](https://github.com/allanzelener/YAD2K).
 *   [qqwweee/keras-yolo3, GitHub](https://github.com/qqwweee/keras-yolo3).
@@ -866,7 +866,7 @@ zebra 96.8708872795105
 具体来说，你学到了：
 
 - 基于 YOLO 的卷积神经网络系列模型，用于对象检测。最新变体是 YOLOv3。
-- 针对Keras深度学习库的最佳开源库 YOLOv3 实现。
+- 针对 Keras 深度学习库的最佳开源库 YOLOv3 实现。
 - 如何使用预先训练的 YOLOv3 对新照片进行定位和检测。
 
 有问题吗？
