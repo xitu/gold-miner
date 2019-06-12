@@ -23,7 +23,7 @@ Some years later, as part of the first wave of [Architecture Components](https:/
 
 ## Step 1: Replace Observable Fields with LiveData
 
-If you are using Observable Fields directly in your data binding layout, simply replace `ObservableSomething (or `ObservableField<**Something>**`) with `LiveData<**Something>**`.
+If you are using Observable Fields directly in your data binding layout, simply replace `ObservableSomething` (or `ObservableField<Something>`) with `LiveData<Something>`.
 
 Before:
 
