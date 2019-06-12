@@ -448,7 +448,7 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/41-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/41-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
 
-灰色文字在浅灰色北京下难以阅读。当体验很不好的时候，设计再好也毫无意义。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/41-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
+灰色文字在浅灰色背景下难以阅读。当体验很不好的时候，设计再好也毫无意义。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/41-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
 低对比度文字在 PC 端难以阅读，移动端更是难上加难。想象下你走在烈日中，尝试阅读低对比度的文本。这提醒我们无障碍的视觉设计是能更好针对所有用户的设计。
 
