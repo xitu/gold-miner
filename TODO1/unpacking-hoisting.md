@@ -2,135 +2,134 @@
 > * 原文作者：[Dr. Axel Rauschmayer](http://dr-axel.de/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unpacking-hoisting.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unpacking-hoisting.md)
-> * 译者：
+> * 译者：[DEARPORK](https://https://github.com/usey95)
 > * 校对者：
 
-Quoting [a recent tweet](https://twitter.com/awbjs/status/1133756684340420609) by ES6 spec author Allen Wirfs-Brock:
+引用 ES6 规范作者 Allen Wirfs-Brock [一条最近的推特](https://twitter.com/awbjs/status/1133756684340420609)：
 
-> Hoisting is old and confused terminology. Even prior to ES6: did it mean “moved to the top of the current scope” or did it mean “move from a nested block to the closest enclosing function/script scope”? Or both?
+> 变量提升是一个陈旧且令人困惑的术语。甚至在 ES6 之前：变量提升的意思究竟是“提升至当前作用域顶部”还是“从嵌套的代码块中提升到最近的函数或脚本作用域中”？还是两者都有？
 
-This blog post proposes a different approach to describing declarations (inspired by a suggestion by Allen).
+受 Allen 启发，本文提出了一种不同的描述声明的方法。
 
-## Declarations: scope and activation
+## 声明: 作用域与激活
 
-I propose to distinguish two aspects of declarations:
+我建议区分声明的两个方面：
 
-* Scope: Where can a declared entity be seen? This is a static trait.
-* Activation: When can I access an entity? This is a dynamic trait: Some entities can be accessed as soon as we enter their scopes. For others, we have to wait until execution reaches their declarations.
+* 作用域：在哪可以看到一个声明的实体？这是一个静态特征。
+* 激活：我何时可以访问实体？这是一个动态特征：有的实体在我们进入他们作用域的时候就可以被访问，其余的我们必须等待代码执行到它们的声明。
 
-The following table summarizes how various declarations handle these aspects. “Duplicates” describes whether or not it is allowed to declare a name twice within the same scope. “Global prop.” describes if a declaration adds a property to the global object when it is executed in a **script** (a precursor to modules), in global scope. **TDZ** means **temporal dead zone** (which is explained later). Function declarations are block-scoped in strict mode (e.g. inside modules), but function-scoped in non-strict mode.
+下面的表格总结了不同的声明如何处理这两个方面。“Duplicates”表示一个变量名是否允许在同一作用域声明两次。“Global prop.”表示一个声明在全局作用域 **script** 标签中（模块的前身）执行的时候是否会给全局对象添加属性。**TDZ** 意思是**暂时死区**（我们稍后解释）。函数声明在严格模式下是块作用域（例如在模块内部），但在非严格模式下是函数作用域。
 
 ![](https://i.loli.net/2019/06/10/5cfe182adf3f968308.png)
 
-The following sections describe the behavior of some of these constructs in more detail.
+以下部分更加详细地描述了其中一些结构的行为。
 
-## `const` and `let`: temporal dead zone
+## `const` 和 `let`: 暂时死区
 
-For JavaScript, TC39 needed to decide what happens if you access a constant in its direct scope, before its declaration:
+对于 JavaScript，TC39 需要决定如果在声明之前访问其直接作用域中的常量会发生什么：
 
 ```js
 {
-  console.log(x); // What happens here?
+  console.log(x); // 这里会发生什么？
   const x;
 }
 ```
 
-Some possible approaches are:
+一些可能的方法是：
 
-1. The name is resolved in the scope surrounding the current scope.
-2. You get `undefined`.
-3. There is an error.
+1. 该变量名在包围当前作用域的作用域中解析。
+2. 你会得到 `undefined`。
+3. 报错。
 
-(1) was rejected, because there is no precedent in the language for this approach. It would therefore not be intuitive to JavaScript programmers.
+（1）被否决，因为这种方法在语言中没有先例。因此这对于 JavaScript 程序员并不直观。
+（2）被否决，因为这样 `x` 将不是一个常量 —— 在声明前和声明后它将拥有不同的值。
 
-(2) was rejected, because then `x` wouldn’t be a constant – it would have different values before and after its declaration.
+`let` 与 `const` 一样使用了方法（3），所以它们工作方式相似并且很容易在它们之间切换。
 
-`let` uses the same approach (3) as `const`, so that both work similarly and it’s easy to switch between them.
+进入变量作用域与执行声明之间的时间被称为该变量的**暂时死区**（TDZ）：
 
-The time between entering the scope of a variable and executing its declaration is called the **temporal dead zone** (TDZ) of that variable:
+* 在此期间，该变量被认为是未初始化的（就好像它有一个特殊的值）。
+* 如果你访问一个未初始化的变量，你会得到一个 `ReferenceError`。
+* 一旦你执行到了变量声明，这个变量将被设置为初始化的值（通过赋值符号指定）或者 `undefined`，如果没有初始化的话。
 
-* During this time, the variable is considered to be uninitialized (as if that were a special value it has).
-* If you access an uninitialized variable, you get a `ReferenceError`.
-* Once you reach a variable declaration, the variable is set to either the value of the initializer (specified via the assignment symbol) or `undefined` – if there is no initializer.
-
-The following code illustrates the temporal dead zone:
+以下代码阐释了暂时死区：
 
 ```js
-if (true) { // entering scope of `tmp`, TDZ starts
-  // `tmp` is uninitialized:
+if (true) { // 进入 `tmp` 的作用域, TDZ 开始
+  // `tmp` 未被初始化：
   assert.throws(() => (tmp = 'abc'), ReferenceError);
   assert.throws(() => console.log(tmp), ReferenceError);
 
-  let tmp; // TDZ ends
+  let tmp; // TDZ 结束
   assert.equal(tmp, undefined);
 }
 ```
 
-The next example shows that the temporal dead zone is truly **temporal** (related to time):
+下一个例子表明暂时死区是真的`暂时`（与时间有关）：
 
 ```js
-if (true) { // entering scope of `myVar`, TDZ starts
+if (true) { // 进入 `myVar` 作用域, TDZ 开始
   const func = () => {
-    console.log(myVar); // executed later
+    console.log(myVar); // 稍后执行
   };
 
-  // We are within the TDZ:
-  // Accessing `myVar` causes `ReferenceError`
+  // 我们在 TDZ 中：
+  // 访问 `myVar` 造成 `ReferenceError`
 
-  let myVar = 3; // TDZ ends
-  func(); // OK, called outside TDZ
+  let myVar = 3; // TDZ 结束
+  func(); // OK, 在 TDZ 外调用
 }
 ```
 
-Even though `func()` is located before the declaration of `myVar` and uses that variable, we can call `func()`. But we have to wait until the temporal dead zone of `myVar` is over.
+即使 `func()` 声明在 `myVar` 声明前且使用了该变量，我们仍然可以调用 `func()`。但是我们必须等到 `myVar` 的暂时死区结束。
 
-## Function declarations and early activation
+## 函数声明与提前激活
 
-A function declaration is always executed when entering its scope, regardless of where it is located within the scope. That enables you to call a function `foo()` before it is declared:
+一个函数的声明总是在进入它作用域时执行，不管这个函数的声明在作用域的什么位置。这使你可以在 `foo()` 函数声明前调用它。
 
 ```js
 assert.equal(foo(), 123); // OK
 function foo() { return 123; }
 ```
 
-The early activation of `foo()` means that the previous code is equivalent to:
+提前激活 `foo()` 意味着之前的代码相当于下面的代码：
 
 ```js
 function foo() { return 123; }
 assert.equal(foo(), 123);
 ```
 
-If you declare a function via `const` or `let`, then it is not activated early: In the following example, you can only use `bar()` after its declaration.
+如果你用 `const` 或 `let` 声明一个函数，那么它就不会被提前激活：在下面的例子中，你只能在 `bar()` 声明后调用它。
 
 ```js
 assert.throws(
-  () => bar(), // before declaration
+  () => bar(), // 声明前
   ReferenceError);
 
 const bar = () => { return 123; };
 
-assert.equal(bar(), 123); // after declaration 
+assert.equal(bar(), 123); // 声明后
 ```
 
-### Calling ahead without early activation
+### 未提前激活的提前调用
 
-Even if a function `g()` is not activated early, it can be called by a preceding function `f()` (in the same scope) – if we adhere to the following rule: `f()` must be invoked after the declaration of `g()`.
+即使函数 `g()` 并未提前激活，它仍可以被前面的函数 `f()`（在同一作用域中）调用 —— 如果我们遵守以下规则：`f()` 必须在声明 `g()` 之后调用。
 
 ```js
 const f = () => g();
 const g = () => 123;
 
-// We call f() after g() was declared:
+// 我们在 g() 声明后调用 f()：
 assert.equal(f(), 123);
 ```
 
-The functions of a module are usually invoked after its complete body was executed. Therefore, in modules, you rarely need to worry about the order of functions.
+模块中的函数通常在函数体执行完后才被调用。所以在模块中，你很少需要担心函数的顺序。
 
-Lastly, note how early activation automatically keeps the aforementioned rule: When entering a scope, all function declarations are executed first, before any calls are made.
+最后，注意提前激活是怎样自动执行以维持前面说到的规则：进入一个作用域时，在任何函数调用之前，所有的函数声明都会被首先执行。
 
-### A pitfall of early activation
+### 提前激活的一个陷阱
 
-If you rely on early activation to call a function before its declaration, then you need to be careful that it doesn’t access data that isn’t activated early.
+如果你依赖提前激活在声明前调用一个函数，那你需要注意它并不能访问未提前激活的数据。
 
 ```js
 funcDecl();
@@ -143,15 +142,15 @@ function funcDecl() {
 }
 ```
 
-The problem goes away if you make the call to `funcDecl()` after the declaration of `MY_STR`.
+如果你在 `MY_STR` 声明之后调用 `funcDecl()` 问题将不复存在。
 
-### The pros and cons of early activation
+### 提前激活的利弊
 
-We have seen that early activation has a pitfall and that you can get most of its benefits without using it. Therefore, it is better to avoid early activation. But I don’t feel strongly about this and, as mentioned before, often use function declarations, because I like their syntax.
+我们已经看到提前激活有一个陷阱，你可以在不使用它的情况下获得大部分好处。 因此，最好避免提前激活。但我对此感觉并不十分强烈，并且如前所述，我经常使用函数声明，因为我喜欢它们的语法。
 
-## Class declarations are not activated early
+## 类声明并不提前激活
 
-Class declarations are not activated early:
+类声明并不提前激活：
 
 ```js
 assert.throws(
@@ -163,46 +162,46 @@ class MyClass {}
 assert.equal(new MyClass() instanceof MyClass, true);
 ```
 
-Why is that? Consider the following class declaration:
+为什么呢？看看下面的类声明：
 
 ```js
 class MyClass extends Object {}
 ```
 
-`extends` is optional. Its operand is an expression. Therefore, you can do things like this:
+`extends` 是可选的。它的操作数是个表达式。因此，你可以这样做：
 
 ```js
 const identity = x => x;
 class MyClass extends identity(Object) {}
 ```
 
-Evaluating such an expression must be done at the location where it is mentioned. Anything else would be confusing. That explains why class declarations are not activated early.
+计算这样的表达式必须在它被引用的地方完成。其它行为都会使人困惑。这解释了为什么类声明不提前激活。
 
-## `var`: hoisting (partial early activation)
+## `var`：变量提升（部分提前激活）
 
-`var` is an older way of declaring variables that predates `const` and `let` (which are preferred now). Consider the following `var` declaration.
+`var` 是 `const` 和 `let`（现在更建议使用这两种方式）之前一种更老的声明变量的方式。考虑以下 `var` 声明。
 
 ```js
 var x = 123;
 ```
 
-This declaration has two parts:
+这个声明包含两个部分：
 
-* Declaration `var x`: The scope of a `var`-declared variable is the innermost surrounding function and not the innermost surrounding block, as for most other declarations. Such a variable is already active at the beginning of its scope and initialized with `undefined`.
-* Assignment `x = 123`: The assignment is always executed in place.
+* 声明 `var x`：用 `var` 声明的变量的作用域是最里面的包围函数，而不是最里面的包围块，就像大多数其他声明一样。这样的变量在它作用域的开头就已经激活并以 `undefined` 初始化。
+* 赋值 `x = 123`：赋值总是在适当位置执行。
 
-The following code demonstrates `var`:
+以下代码演示了 `var`:
 
 ```js
 function f() {
-  // Partial early activation:
+  // 部分提前激活：
   assert.equal(x, undefined);
   if (true) {
     var x = 123;
-    // The assignment is executed in place:
+    // 赋值执行到位
     assert.equal(x, 123);
   }
-  // Scope is function, not block:
+  // 作用域为函数作用域，非块级作用域。
   assert.equal(x, 123);
 }
 ```
