@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/visualising-machine-learning-datasets-with-googles-facets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/visualising-machine-learning-datasets-with-googles-facets.md)
 > * 译者：[QiaoN](https://github.com/QiaoN)
-> * 校对者：[lsvih](https://github.com/lsvih)
+> * 校对者：[lsvih](https://github.com/lsvih), [Mcskiller](https://github.com/Mcskiller)
 
 # 使用谷歌 FACETS 可视化机器学习数据集
 
@@ -189,7 +189,7 @@ display(HTML(html))
 
 我们来找找目标变量和分类自变量之间的关系。
 
-![](https://cdn-images-1.medium.com/max/2000/1*D2Tio24GXTKIdP84duZIIQ.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*D2Tio24GXTKIdP84duZIIQ.gif)
 
 从上面的条形图中可以推断出：
 
@@ -206,7 +206,8 @@ FACETS 为数据集进行 EDA 提供了一个简单直观的环境，帮助我�
 
 在结束本文之前，让我们看一个**有趣的事实**：下图体现出如何用 FACETS Dive 揪出 CIFAR-10 数据集中一个小小的人为标记错误。在分析数据集时，发现一个青蛙的图像被错误地标记为猫。这确实是一些成就，因为对人眼来说这是一项不可能完成的任务。
 
-![[Source](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html)](https://cdn-images-1.medium.com/max/2000/1*VfkUBpXdGNIsK_RKT-ct1Q.gif)
+![](https://cdn-images-1.medium.com/max/2000/1*VfkUBpXdGNIsK_RKT-ct1Q.gif)
+[原始资料](https://ai.googleblog.com/2017/07/facets-open-source-visualization-tool.html)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
