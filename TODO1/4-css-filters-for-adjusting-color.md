@@ -40,7 +40,7 @@ grayscale() = grayscale( [ <number> | <percentage> ] )
 
 你可以通过提供介于 0.0 和 1.0 之间的数字或 0% 到 100% 之间的百分比来确定转换图像的比例。100%（或 1.0 ）将图像完全转换为[灰度](http://vanseodesign.com/web-design/luminance-working-in-grayscale/)图像，0%（或 0.0 ）不会转换图像。0.0 到 1.0 （或 0% 到 100% ）之间的值是效果的线性乘数。不允许使用负值。
 
-在第一个例子中，我使用滤镜函数中的值 1 将 100% 灰度效果应用于我的草莓图像区域。
+在第一个例子中，我使用滤镜函数中的值 1 将 100% 灰度效果应用于我的 Strawberry Fields 图像区域。
 
 ```css
 .strawberry {
@@ -75,7 +75,7 @@ hue-rotate() = hue-rotate( <angle> )
 
 角度以度为单位，您需要将单位指定为 deg。 0deg 使元素保持不变，360deg 的任意倍数（720deg，1080deg，1440px 等）也是如此。
 
-在这个例子中，我将色调旋转了 225 度。
+在这个例子中，我将色相旋转了 225 度。
 
 ```css
 .strawberry {
@@ -117,7 +117,7 @@ saturate() = saturate( [ <number> | <percentage> ] )
 
 ![3.jpg](https://i.loli.net/2019/06/11/5cfe8f0c2dd0b48070.jpg)
 
-saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素过饱和。下面是再次施加 900% 饱和度的图像（ `filter: saturate(9);` ）。
+saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素过饱和。下面是再次施加 900% 饱和度的图像（`filter: saturate(9);`）。
 
 ![4.jpg](https://i.loli.net/2019/06/11/5cfe8f0d1d1d649096.jpg)
 
@@ -155,7 +155,7 @@ sepia() = sepia( [ <number> | <percentage> ] )
 
 ![5.jpg](https://i.loli.net/2019/06/11/5cfe8f0d12a1a21806.jpg)
 
-feColorMatrix 没有棕褐色类型。如果要获得相同的棕褐色效果，你需要使用另一个矩阵。
+feColorMatrix 没有棕褐色类型。如果要获得相同的棕褐色效果，你需要使用另一个模型。
 
 ```html
 <filter id="sepia">
