@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-animating-linear-transformations-with-threejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-animating-linear-transformations-with-threejs.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[lgh757079506](https://github.com/lgh757079506)
 
 # JavaScript 线性代数：使用 ThreeJS 制作线性变换动画
 
@@ -212,7 +212,7 @@ export const fromMatrix4 = matrix4 => {
 
 ### 颜色
 
-首先，需要计算每种原色（RGB）变化的距离。下面的函数将会在第一调用时返回新的色彩与时间戳的集合；并在后续被调用时，通过颜色变化的距离以及时间的耗费，可以计算出当前时刻新的 **RGB** 颜色：
+首先，需要计算每种原色（RGB）变化的幅度。第一次调用 **getGetAnimatedColor** 时会返回新的色彩与时间戳的集合；并在后续被调用时，通过颜色变化的距离以及时间的耗费，可以计算出当前时刻新的 **RGB** 颜色：
 
 ```JavaScript
 import { hexToRgb, rgbToHex } from './generic'
