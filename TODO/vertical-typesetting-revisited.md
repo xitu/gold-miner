@@ -45,11 +45,11 @@
 
 ### Chrome (64.0.3278.0 dev)
 
-![vertical-rl on Chrome](https://www.chenhuijing.com/images/posts/vertical-typesetting/chrome-640.jpg)
+![vertical-rl on Chrome](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/chrome-640.jpg)
 
 好的，这看起来非常棒。我说所有东西都被破坏了其实有点夸张。所有的文字和图片都占满，在垂直书写模式下没有重大的渲染问题。做的好，Chrome。
 
-![horizontal-tb on Chrome](https://www.chenhuijing.com/images/posts/vertical-typesetting/chrome2-640.jpg)
+![horizontal-tb on Chrome](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/chrome2-640.jpg)
 
 切换排版模式将东西都踢去了右边。我记得在垂直排版下将东西水平居中是一件让人特别痛苦的事情，所以在第一次不太顺利的尝试中我肯定用了某些 hack 手段。
 
@@ -57,21 +57,21 @@
 
 ### Firefox (59.0a1 Nightly)
 
-![vertical-rl on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox-640.jpg)
+![vertical-rl on Firefox](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/firefox-640.jpg)
 
 天哪，这，我都无语了。Firefox Nightly 是我的默认浏览器，所以我的最初反应是一切都被破坏了。一切确实都被破坏了，看看这无限滚动的水平滚动条，到底发生了什么？！
 
-![horizontal-tb on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox2-640.jpg)
+![horizontal-tb on Firefox](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/firefox2-640.jpg)
 
 让我们切换……等等，我的复选框呢？唉，这可能要等一会。不管怎么说，至少我将复选框绑在了 label 上，所以我仍然可以通过点击 label 来切换排版。所以，这绝对不是居中，但也没有太崩。两个浏览器的表现形式天差地别。
 
 ### Safari Technology Preview 44
 
-![vertical-rl on Safari TP](https://www.chenhuijing.com/images/posts/vertical-typesetting/stp-640.jpg)
+![vertical-rl on Safari TP](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/stp-640.jpg)
 
 嘿，嘿，嘿！这看起来令人惊讶的好。甚至连高度都是正确的。Safari，我可能误判你了。Safari 的渲染引擎到底是什么？好吧，WebKit。
 
-![horizontal-tb on Safari TP](https://www.chenhuijing.com/images/posts/vertical-typesetting/stp2-640.jpg)
+![horizontal-tb on Safari TP](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/stp2-640.jpg)
 
 噢噢噢，这有点居中。不看代码，我也能确定我尝试过一些很奇怪的转译来改变整个内容块，因此在每个浏览器中行为不一致。但这是个令人欣慰的惊喜。
 
@@ -79,21 +79,21 @@
 
 这是 Windows 10 内置快速通道版本，所以我想我的 Edge 浏览器应该比大多数人的版本更高。没关系，我也可以用我的手机（没错，我用的是 Windows phone，不服来战）。
 
-![vertical-rl on Edge 16](https://www.chenhuijing.com/images/posts/vertical-typesetting/edge-640.jpg)
+![vertical-rl on Edge 16](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/edge-640.jpg)
 
 无论如何，这看起来也不算太坏。只是那个复选框有点错位。更重要的是滚轮正常工作！其他所有的浏览器都不允许我用滚轮水平滚动。虽然我不知道这是 Windows 的功劳还是 Edge。
 
-![horizontal-tb on Edge 16](https://www.chenhuijing.com/images/posts/vertical-typesetting/edge2-640.jpg)
+![horizontal-tb on Edge 16](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/edge2-640.jpg)
 
 也是隐约的居中。我真的需要马上检查下我的转换代码。现在我可能对我的复选框究竟怎么了也产生了疑问。啊，使用滚轮无法垂直滚动，这就有意思了。另外，注意滚动条在左边 🤔。
 
 ### Edge 15.15254
 
-![](https://www.chenhuijing.com/images/posts/vertical-typesetting/edgem.jpg)
+![](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/edgem.jpg)
 
 Edge 15 上的 vertical-rl
 
-![](https://www.chenhuijing.com/images/posts/vertical-typesetting/edgem2.jpg)
+![](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/edgem2.jpg)
 
 Edge 15 上的 horizontal-tb
 
@@ -101,11 +101,11 @@ Edge 15 上的 horizontal-tb
 
 ### iOS 11 WebKit
 
-![](https://www.chenhuijing.com/images/posts/vertical-typesetting/ios.jpg)
+![](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/ios.jpg)
 
 iOS 11 WebKit 上的 vertical-rl
 
-![](https://www.chenhuijing.com/images/posts/vertical-typesetting/ios2.jpg)
+![](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/ios2.jpg)
 
 iOS 11 WebKit 上的 horizontal-tb 
 
@@ -141,7 +141,7 @@ iOS 11 WebKit 上的 horizontal-tb
 
 问题就在复杂度上。在同一个页面上混合使用不同的嵌套的书写模式确实会搞垮浏览器。我不是浏览器工程师，但我有足够的常识知道渲染东西不是微不足道的。但是我是一个执着的人，所以必受其苦。
 
-![](https://www.chenhuijing.com/images/posts/vertical-typesetting/diagram.svg)
+![](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/diagram.svg)
 
 一般的复选框 hack 策略
 
@@ -207,17 +207,17 @@ figcaption {
 
 如果我们将 `main` 元素的 `writing-mode` 设置为 `vertical-rl` ，在每个浏览器上，所有的文字和图像都被正确渲染了。Firefox 有 15px 轻微的垂直溢出，我怀疑是因为滚动条，不过我不能确定。其它的浏览器一点水平溢出都没有。
 
-![vertical-rl on the main element](https://www.chenhuijing.com/images/posts/vertical-typesetting/main-640.jpg)
+![vertical-rl on the main element](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/main-640.jpg)
 
 `main` 元素是垂直书写模式的同时，document 本身是水平书写模式，就会产生问题，意味着内容从左边开始，而且我们最终会看到第一次加载的文章的末尾。
 
 所以，让我们把东西提升一个层级，在 `body` 上设置 `writing-mode: vertical-rl`。Chrome，Safari 和 Edge 如我们所想从右到左渲染内容。但是 Firefox 仍然显示文章的末尾，尽管这确实修复了滚动条溢出的问题，它看起来和 [Bug 1102175](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)有关。
 
-![vertical-rl on the body element](https://www.chenhuijing.com/images/posts/vertical-typesetting/body-640.jpg)
+![vertical-rl on the body element](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/body-640.jpg)
 
 最后，如果我们将 `html` 设置 `writing-mode: vertical-rl`，Firefox 终于正常并从右到左显示了，而且没有搞笑的溢出。And lastly, if we apply `writing-mode: vertical-rl` to the `html` element, Firefox finally comes around and reads from right-to-left. Also, no funny overflowing, just vertical right-to-left goodness.
 
-![vertical-rl on the html element](https://www.chenhuijing.com/images/posts/vertical-typesetting/html-640.jpg)
+![vertical-rl on the html element](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/html-640.jpg)
 
 IE11 支持书写模式属性，只不过使用[较早的规范](https://www.w3.org/TR/2003/CR-css3-text-20030514/#Progression)中定义的旧语法 `-ms-writing-mode: tb-rl`。这工作正常，但我由于现在使用的 `main` 标签 IE11 并不支持，切换器失效了。甚至将 `main` 标签设置成 `display: block` 都无法修复。我可以为了更好的兼容性将 `main` 替换成 `div`。让我考虑一下。
 
@@ -276,7 +276,7 @@ function changeEventHandler(event) {
 }
 ```
 
-![Auto margins for vertical centring](https://www.chenhuijing.com/images/posts/vertical-typesetting/centred2-640.jpg)
+![Auto margins for vertical centring](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/centred2-640.jpg)
 
 有趣的是，在垂直书写模式，我们可以用 `margin-top: auto` 和 `margin-bottom: auto` 来垂直居中。但相信我，水平居中将比你想象的更令人痛苦。在下一个 hack 复选框的部分你将看到。
 
@@ -310,7 +310,7 @@ function changeEventHandler(event) {
 
 与此同时，依据规范，[高度和 margin 的计算](https://www.w3.org/TR/CSS2/visuren.html#relative-positioning)由各类盒模型的许多规则决定的。如果上下的值同时为 auto，它们的使用值将被解析成 `0`。
 
-![Margins resolving to zero](https://www.chenhuijing.com/images/posts/vertical-typesetting/zero-640.jpg)
+![Margins resolving to zero](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/zero-640.jpg)
 
 当我们将书写模式设置成垂直，「height」似乎在计算的时候会变成水平坐标。我说似乎是因为我并不百分百确定它真的是这样计算的。它让我觉得 Javascript 解决方案很神奇。
 
@@ -329,7 +329,7 @@ function changeEventHandler(event) {
 
 这在 Chrome，Firefox 和 Safari 上可行。不幸的是，Edge 上有点毛病，东西都歪向页面中间的某个地方以及左边。是时候记录下这个 Edge 的 bug。另外，滚动条出现在了左侧而不是右侧。
 
-![Seems to be buggy on Edge](https://www.chenhuijing.com/images/posts/vertical-typesetting/troublemaker-640.jpg)
+![Seems to be buggy on Edge](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/troublemaker-640.jpg)
 
 ## 处理图像对齐
 
@@ -393,17 +393,17 @@ function changeEventHandler(event) {
 
 但看了一眼我的源码，我才发现我给包裹图像的应该堆叠的 `div` 设置了 `display: flex`，这让图像成为了弹性容器的子元素，导致 Firefox 的垂直书写模式渲染混乱。
 
-![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/ffbug-640.jpg)
+![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/ffbug-640.jpg)
 
 使用这种方法，东西看上去都很美好，而且我测试过的 Chrome，Edge 以及 Safari 的所有版本（前面提到的列表）都可行，因此图像在垂直和水平两种模式下都居中对齐。但 Firefox 不行，真的，切换到垂直书写模式时，图片在我的页面上不可见，虽然在水平模式下很好。
 
-![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/ffbug2-640.jpg)
+![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/ffbug2-640.jpg)
 
 我已经用 `display: flex` 的 `div` 包裹了应该堆叠显示的图像，但不知为何在 Firefox 的垂直模式下搞砸了。我怀疑这个行为和这些 bug 有关：[Bug 1189131](https://bugzilla.mozilla.org/show_bug.cgi?id=1189131)， [Bug 1223180](https://bugzilla.mozilla.org/show_bug.cgi?id=1223180), [Bug 1332555](https://bugzilla.mozilla.org/show_bug.cgi?id=1332555)， [Bug 1318825](https://bugzilla.mozilla.org/show_bug.cgi?id=1318825) 和 [Bug 1382867](https://bugzilla.mozilla.org/show_bug.cgi?id=1382867)。
 
 与此同时，我对 Firefox 下，在垂直书写模式中作为弹性容器子元素的图像的效果产生了好奇。好像浏览器直接对你说不 ♀️ 🙅 💩。
 
-![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/whoa-640.jpg)
+![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/whoa-640.jpg)
 
 抛开垂直书写模式，我和 [Jen Simmons](http://jensimmons.com/) 交流过不同浏览器的 flexbox 实现，她发现在所有的浏览器中，缩小图像的处理都是不同的。[这个问题](https://github.com/w3c/csswg-drafts/issues/1322)仍在 CSS 工作组中讨论，敬请期待更新。
 
@@ -482,7 +482,7 @@ Firefox 上一个有趣的观察是，弹性容器的宽被视窗的宽度限制
 
 不幸的是，十分钟的尝试之后，我脑袋炸了。Firefox 的 grid 调试器并不能匹配我页面上的元素，但也有可能是因为页面上太多东西了。
 
-![Grid inspector tool issue in vertical writing-mode](https://www.chenhuijing.com/images/posts/vertical-typesetting/gridtool-640.jpg)
+![Grid inspector tool issue in vertical writing-mode](https://www.chenhuijing.com/assets/images/posts/vertical-typesetting/gridtool-640.jpg)
 
 我需要为使用 grid 的垂直书写模式创建一个简化的测试用例，那将是一个简单得多的 demo，我还会单独写一篇文章（可能还有相关的错误报告）。
 
