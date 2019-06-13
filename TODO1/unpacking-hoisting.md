@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unpacking-hoisting.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unpacking-hoisting.md)
 > * 译者：[DEARPORK](https://https://github.com/usey95)
-> * 校对者：[csming1995](https://github.com/csming1995) [Jalan](https://github.com/JalanJiang)
+> * 校对者：[csming1995](https://github.com/csming1995) [Jalan](http://jalan.space/)
 
 引用 ES6 规范作者 Allen Wirfs-Brock [一条最近的推特](https://twitter.com/awbjs/status/1133756684340420609)：
 
