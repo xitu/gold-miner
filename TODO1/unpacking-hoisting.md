@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unpacking-hoisting.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unpacking-hoisting.md)
 > * 译者：[DEARPORK](https://https://github.com/usey95)
-> * 校对者：[csming1995](https://github.com/csming1995) [Jalan](http://jalan.space/)
+> * 校对者：[csming1995](https://github.com/csming1995), [Jalan](http://jalan.space/)
 
 引用 ES6 规范作者 Allen Wirfs-Brock [一条最近的推特](https://twitter.com/awbjs/status/1133756684340420609)：
 
@@ -11,7 +11,7 @@
 
 受 Allen 启发，本文提出了一种不同的方法来描述变量声明。
 
-## 声明: 作用域与激活
+## 声明：作用域与激活
 
 我建议将声明分为两个方面：
 
@@ -24,7 +24,7 @@
 
 以下部分更加详细地描述了其中一些结构的行为。
 
-## `const` 和 `let`: 暂时死区
+## `const` 和 `let`：暂时死区
 
 对于 JavaScript，TC39 需要决定如果在声明之前访问其直接作用域中的常量会发生什么：
 
@@ -56,7 +56,7 @@
 以下代码阐释了暂时死区：
 
 ```js
-if (true) { // 进入 `tmp` 的作用域, TDZ 开始
+if (true) { // 进入 `tmp` 的作用域，TDZ 开始
   // `tmp` 未被初始化：
   assert.throws(() => (tmp = 'abc'), ReferenceError);
   assert.throws(() => console.log(tmp), ReferenceError);
@@ -69,7 +69,7 @@ if (true) { // 进入 `tmp` 的作用域, TDZ 开始
 下一个例子表明暂时死区是真的`暂时的`（与时间有关）：
 
 ```js
-if (true) { // 进入 `myVar` 作用域, TDZ 开始
+if (true) { // 进入 `myVar` 作用域，TDZ 开始
   const func = () => {
     console.log(myVar); // 稍后执行
   };
@@ -78,7 +78,7 @@ if (true) { // 进入 `myVar` 作用域, TDZ 开始
   // 访问 `myVar` 造成 `ReferenceError`
 
   let myVar = 3; // TDZ 结束
-  func(); // OK, 在 TDZ 外调用
+  func(); // OK，在 TDZ 外调用
 }
 ```
 
@@ -147,7 +147,7 @@ function funcDecl() {
 
 ### 提前激活的利弊
 
-我们已经看到提前激活有一个陷阱，你可以在不使用它的情况下获得大部分好处。 因此，最好避免提前激活。但我对此说法并非十分认同，如前所述，我经常使用函数声明，因为我喜欢它们的语法。
+我们已经看到提前激活有一个陷阱，你可以在不使用它的情况下获得大部分好处。因此，最好避免提前激活。但我对此说法并非十分认同，如前所述，我经常使用函数声明，因为我喜欢它们的语法。
 
 ## 类声明不会提前激活
 
@@ -191,7 +191,7 @@ var x = 123;
 * 声明 `var x`：用 `var` 声明的变量的作用域是最里面的包围函数，而不是最里面的包围块，就像大多数其他声明一样。这样的变量在它作用域的开头就已经激活并以 `undefined` 初始化。
 * 赋值 `x = 123`：赋值总是在适当位置执行。
 
-以下代码演示了 `var`:
+以下代码演示了 `var`：
 
 ```js
 function f() {
@@ -199,7 +199,7 @@ function f() {
   assert.equal(x, undefined);
   if (true) {
     var x = 123;
-    // 赋值执行到位
+    // 赋值已经执行
     assert.equal(x, 123);
   }
   // 作用域为函数作用域，非块级作用域。
