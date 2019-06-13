@@ -21,7 +21,7 @@
 
 这时，这个系统整体就会开始破裂，随着系统规模的不断扩大而逐渐崩溃。随着每个用例的添加，或者设计模式的文档化，它迷人的外观开始褪色。
 
-##为设计师提供的微服务
+## 为设计师提供的微服务
 
 近年来，**微服务**获得了巨大的发展势头。它曾被 [Uber](https://eng.uber.com/soa/)、[Netflix](https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/) 和 [Amazon](https://aws.amazon.com/microservices/) 这类提供大规模复杂服务的平台看作是解决缩放系统架构复杂性的最佳方式，由此也很容易看出其受欢迎的源头。
 
