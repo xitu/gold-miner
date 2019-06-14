@@ -1,3 +1,5 @@
+* [在 Keras 下使用自编码器分类极端稀有事件](https://juejin.im/post/5cff17296fb9a07ec63b0a7f) ([ccJia](https://github.com/ccJia) 翻译)
+* [使用谷歌 FACETS 可视化机器学习数据集](https://juejin.im/post/5d0226986fb9a07ecb0ba33a) ([QiaoN](https://github.com/QiaoN) 翻译)
 * [浅析深度学习神经网络的卷积层](https://juejin.im/post/5ceeef01518825351e354747) ([QiaoN](https://github.com/QiaoN) 翻译)
 * [时间序列分析、可视化、和使用 LSTM 预测](https://juejin.im/post/5cecdbb75188252db706f4e9) ([Minghao23](https://github.com/Minghao23) 翻译)
 * [用 Word2vec 表示音乐？](https://juejin.im/post/5cdcdd9ee51d456e8240ddc3) ([Minghao23](https://github.com/Minghao23) 翻译)
