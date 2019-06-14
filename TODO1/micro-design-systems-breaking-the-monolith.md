@@ -2,155 +2,156 @@
 > * 原文作者：[Paul van Oijen](https://medium.com/@paulvano)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-design-systems-breaking-the-monolith.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-design-systems-breaking-the-monolith.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Charlo-O](https://github.com/Charlo-O)
+> * 校对者：[Wangalan30](https://github.com/Wangalan30)
 
-# Micro Design Systems — breaking the monolith
+# 微设计系统  —  打破藩篱
 
-> It’s time for us to mature our design systems and prepare for the future.
+> 是时候完善我们的设计系统并为未来做好准备了。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*qApPa0fcHdst6M2uzLSwDQ@2x.jpeg)
 
-Designers love to talk about a **single source of truth**. A singular, universal solution that forms the foundation of everything we do. A pervasive, all-encompassing system.
+设计师喜欢谈论**单一的事实来源**。一种独特且通用的解决方案，它构成了我们所做的一切的基础。一个无处不在，无所不包的系统。
 
-A design system.
+一种设计系统。
 
-But, is that centralized, monolithic approach to structuring and documenting all things design the best way to go? I’m not sold on it.
+但是，这种集中的、统一的方法来组织和记录所有事物的设计是最好的方法吗？我不相信。
 
-Sure, structuring a design system as a one-size-fits-all repository sounds wonderful. And it might work out at first, but our teams will likely continue to expand. As our products grow, the number of designers rises. And soon enough there’s a dozen — or several dozen — designers working on the same system.
+当然，将设计系统构造为一个一站式的存储库听起来很棒。一开始可能行得通，但我们的团队会继续壮大。随着我们产品的增长，设计师的数量也在增加。很快，就有十几位 —— 或者几十位 —— 设计师在同一个系统上工作。
 
-And that’s when this monolith starts to crack, crumbling under the ever-increasing size of the design system. With every use case added, or design pattern documented, its glamorous facade starts to fade.
+这时，这个系统整体就会开始破裂，随着系统规模的不断扩大而逐渐崩溃。随着每个用例的添加，或者设计模式的文档化，它迷人的外观开始褪色。
 
-## Microservices for Designers
+## 为设计师提供的微服务
 
-In recent years, **microservices** have picked up a tremendous amount of momentum. Touted by large-scale, complex services such as [Uber](https://eng.uber.com/soa/), [Netflix](https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/), and [Amazon](https://aws.amazon.com/microservices/) as the best way to tackle the complexity of scaling system architecture, it’s easy to see where its popularity stems from.
+近年来，**微服务**获得了巨大的发展势头。它曾被 [Uber](https://eng.uber.com/soa/)、[Netflix](https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/) 和 [Amazon](https://aws.amazon.com/microservices/) 这类提供大规模复杂服务的平台看作是解决缩放系统架构复杂性的最佳方式，由此也很容易看出其受欢迎的源头。
 
-For those unfamiliar with the term, Amazon describes microservices as follows:
+对于不熟悉这个术语的人，Amazon 将微服务描述为：
 
-> Microservices are an architectural and organizational approach to software development where software is composed of small independent services that communicate over well-defined APIs.
+> 微服务是一种应用于软件开发中的架构和组织方式，软件内部由一些小型独立的服务组成，这些服务间通过定义明确的 API 进行连接。
 >
-> […] Microservices architectures make applications easier to scale and faster to develop, enabling innovation and accelerating time-to-market for new features.
+> […] 微服务架构使应用程序更容易扩展，开发速度更快，支持创新，并加快新特性的上市时间。
 >
-> AWS — [What are Microservices?](https://aws.amazon.com/microservices/)
+> AWS — [微服务是什么？](https://aws.amazon.com/microservices/)
 
-Microservices allow engineering organizations to split services into small autonomous functioning parts. Where companies used to construct a monolithic system architecture, they nowadays increasingly favor the idea of building self-contained services. This reduction in dependencies allows them to build faster, scale easier and maintain a continuous pace in innovation.
+微服务允许工程团队将服务分割成小的自运行功能模块。过去，公司常常构建一个单一的系统架构，而现在，他们越来越倾向于构建自包含服务。这种依赖性的减少使得他们能够在创新中更快的搭建系统，更简易的缩放功能模块，并维持稳定前进的步伐。
 
-Our developer counterparts are increasingly adopting the mindset of microservices. While they hack away at their monolithic systems, us designers still hold that single be-all and end-all design system as our holy grail.
+我们的开发同行越来越多地采用微服务的思想。而当他们抛弃他们的的单一系统时，我们的设计师仍然将单一的“由始至终”式的设计系统奉为圭臬。
 
-With that in mind, I propose that we rather model our design systems to form a collection of individual, purpose-driven services. By mimicking the concept of microservices, our systems can build on top of one another and increase our ability to build faster. Likewise, it will decrease our dependency on a single point of failure.
+考虑到这一点，我建议我们应该对我们的设计系统建模，以形成一组单独的、目标驱动的服务。我们可以仿照微服务的概念，在彼此之上搭建一个系统，并逐步提高搭建速度。同样，它将减少我们对单一故障点的依赖。
 
 ![](https://cdn-images-1.medium.com/max/5000/1*pOmkEFKBPAjrQHmerZhOPw.png)
 
-> Breaking Up Our Systems
+> 打破我们的系统
 
-When modularizing our design systems, turning each part into a separate cog in a larger machine, it can be beneficial to categorize each of these services according to their purpose, origin, and degree of dependency on other services. By setting out with a clear definition of what makes up a certain type of service, it becomes easier to decide when to extract a service. Rather than having to go through the painstaking process of extracting components later on.
+当我们在模块化设计系统时，将每个部件变成一个更大机器上的单独齿轮时，我们根据这些服务的用途、来源和对其他服务的依赖程度对它们进行分类是有益的。通过对特定服务类型的构成所做的清晰的定义，我们得以更容易的判断提取服务的时机。而省去了之后提取组建这个艰难的过程。
 
-There are three **service types** that we can define from the get-go. These will likely spring up as our design system continues to grow.
+我们可以从一开始就定义三种**服务类型**。随着我们的设计系统不断发展，这些可能会不断涌现。
 
-* **Core.** The foundation of each Design System.
-* **Extension.** These services extend a particular element or set of elements in the Core service. They embed extra properties, often for a handful of specific use cases.
-* **Framework.** Frameworks are purposeful services that can be re-used across our products. They consist of several interrelated components.
+* **核心**。各个设计体系的基础。
+* **扩展**。这些服务扩展核心服务中的特定元素或一组元素。它们嵌入了额外的属性，通常用于少数特定的用例。
+* **框架**。框架是有目的的服务，可以在我们的产品中重复使用。它们由几个相互关联的部分组成。
 
-At this stage, that still sounds rather vague. Let’s walk through each of the different service types one by one. Along the way, I’ll illustrate an example of the elements they can contain and how the services relate to one another
+在这个阶段，这听起来仍然相当模糊。让我们逐一介绍每种不同的服务类型。在此过程中，我将举例说明它们可以包含的元素以及服务之间的关系。
 
-![A strong core forms the heart of our design system](https://cdn-images-1.medium.com/max/5000/1*Cj8zhHlKbgvzny9IW8EAxw.png)
+![一个强大的内核构成了我们设计系统的核心](https://cdn-images-1.medium.com/max/5000/1*Cj8zhHlKbgvzny9IW8EAxw.png)
 
-> A Strong Core
+> 一个强大的核心
 
-At the center of each design system sits a `Core`. This Core is where we all set out from when mapping out use cases, defining their patterns, and laying the foundation of our products.
+在每个设计系统的中心都有一个 `核心`。我们都从这个核心开始，绘制用例、定义它们的模式以及为我们的产品奠定基础。
 
-This is the service that every designer in the organization will contribute to, borrow from, and iterate on. Our Core houses foundational elements such as `color`, `iconography`, `spacing`, and `typography`. Additionally, we can define components here that stretch across the entirety of our products. Components that will be used by every designer. Element such as `input`, `checkbox`, `button`, or `dropdown` are likely to appear every part of a product.
+这是团队中的每个设计人员都将贡献、借鉴和迭代的服务。我们的核心包含基本元素，如 `颜色`、`图标`、`间距` 和 `排版`。此外，我们可以在这里定义跨越整个产品的组件。每个设计人员都将使用的组件。`输入`、`复选框`、`按钮` 或 `下拉菜单` 等元素可能会出现在产品的每个部分。
 
-As each designer will borrow from the Core, it’s vital that we establish and maintain a certain standard of quality. After all, any changes to these parts of our design system will likely affect every area of our product.
+因为每个设计师都会从核心中借鉴，所以所以建立并维持一定的质量标准至关重要。毕竟，我们的设计系统中，这些部分所做的任何改变都可能影响到我们产品的每一个领域。
 
-Note that Core is not a definitive naming convention. Call it whatever works for you and your team, be it `Core`, `Foundation`, `Blueprint`. As long as it’s clear that these form the fundamental, essential base layer of our the product.
+请注意，核心不是明确的命名惯例。无论是 `核心`，`基础`，`蓝图`，照你和你团队的喜好来。只需要确保它们构成了我们产品基本的、重要的基础层就好。
 
-![Extending elements beyond their original scope](https://cdn-images-1.medium.com/max/5000/1*snOB5KRWCqyeRLDnFm2A5A.png)
+![扩展元素超出其原始范围](https://cdn-images-1.medium.com/max/5000/1*snOB5KRWCqyeRLDnFm2A5A.png)
 
-> Core Extensions
+> 核心扩展
 
-`Extensions` are services that borrow a component or a number of elements from our Core and extend their usage. By embedding additional properties, they enable us to utilize these components to address a different variety of use cases. These are often required to address complex issues in a specific context.
+`扩展`是从我们的核心借用一个组件或多个元素并扩展其使用的服务。通过嵌入额外的属性，它们使我们能够利用这些组件来处理不同种类的用例。这些通常需要在特定的上下文中处理复杂的问题。
 
-In the example above we see a `Table`, consisting of a `Table Header` and multiple `Table Cells`. This simple table represents a handful of data points that exist on the same level. Its purpose is to visualize a categorized selection of data.
+在上面的例子中，我们看到了一个 `表`，它由一个 `表头` 和多个 `单元格` 组成。这个简单的表格为我们呈现了少量同一级别的数据点。它的目的是实现数据分类选择的可视化。
 
-But what happens when we want to introduce more layers of complexity? What if we want to group the different data points, or append more properties to our cells, such as `Thumbnails`? We’d need to extend the original header to display the different levels. And likewise, the cells should extend to contain the actions to expand or collapse data, as well as the lines indicating depth.
+但是当我们想要引入更多的复杂层时会发生什么呢？如果我们想要对不同的数据点进行分组，或者向单元格添加更多属性，比如 `缩略图`，该怎么办?我们需要扩展原始标题来显示不同的级别。同样，单元格应该扩展到包含展开或折叠数据的操作，以及表示深度的行。
 
-It’s likely that not every table in our product would need to display such complex levels of data. So if we were to insert each variation of a cell or table header in our existing Core, we’d quickly start bloating our design system. These components aren’t actually commonplace enough to constitute an essential part of our system.
+可能并不是我们产品中的每个表都需要显示如此复杂的数据级别。因此，如果我们要在现有的核心中插入单元格或表头的每个变体，我们很快就会使设计系统膨胀。而实际上这些组件对我们的系统来说却并非不可或缺。
 
-Instead, we can extract these extended elements to a separate service. This allows us to iterate on the existing elements and build in additional properties that serve a specific purpose. All whilst maintaining a functional, minimal foundation.
+相反，我们可以将这些扩展元素提取到单独的服务中。这允许我们对现有元素进行迭代，并构建一些附加属性，以此来满足特定的服务需求。与此同时，保留一个基础的最小功能单元。
 
-![Frameworks are defined by a common purpose](https://cdn-images-1.medium.com/max/5000/1*OqwRGuBDafUfX602z5oUPQ.png)
+![框架由一个共同的目的定义](https://cdn-images-1.medium.com/max/5000/1*OqwRGuBDafUfX602z5oUPQ.png)
 
-> Purpose-driven Frameworks
+> 目的导向的框架
 
-`Frameworks` do not rely or expand on existing foundational elements. Rather, they house a collection of elements that share a common purpose. Their main objective is to streamline the design process and enable quicker design iterations.
+`框架` 不依赖或扩展现有的基本元素。相反，它们包含一系列具有共同目的的元素。他们的主要目标是简化设计过程，并加快设计迭代。
 
-The example above demonstrates a `Sidebar` Framework. The sidebar in our example contains a handful of components used to construct it. A header indicating the general purpose of a page or product area, sub-section headers to group content, and the different navigational components.
+上面的例子演示了一个 `侧栏` 框架。我们示例中的侧栏包含一些用于构造它的组件。表示页面或产品区域的一般用途的标题、用于对内容分组的子标题和不同的导航组件。
 
-The different elements of the Framework are bound together by a common purpose. They don’t hold much significance on their own. Nor are they able to communicate their intent without relying on the entirety of the Framework. This sets them apart from the foundational elements in our Core. Components such as `Buttons`, are able to communicate a specific function. We don’t need to rely on any other parts of our system to identify their purpose.
+框架的不同元素被一个共同的目的绑定在一起。它们本身没有多大意义。如果不依赖于整个框架，它们也无法传达它们的意图。这就是它们与我们核心内的基本元素的区别。我们的诸如`按钮`的组件，能够独立传达特定的功能。无需依靠系统内其他部分的帮助来确定它们的用途。
 
-Extracting Frameworks has the benefit of keeping the Core light and agile. Framing these different elements makes it easier for any designer on our team to recognize what the intended function of an element is. This circumvents the need for convoluted naming conventions.
+提取框架的好处是保持核心的轻便和敏捷。构建这些不同的元素 可以使得我们团队中的任何设计师都更容易明白一个元素的预期功能是什么。这就避免了复杂命名惯例的需求。
 
-Whereas Extensions borrow from the existing elements and insert additional layers of complexity, Frameworks form a more complete, interconnected package from the get-go. Moving that to separate service will thus result in a more immediate reduction in the number of moving parts in the Core.
+尽管扩展借用了现有的元素并插入了复杂的附加层，但是框架从一开始就建立了一个更加完整且相互关联的包。因此，将其移动到单独的服务中将导致核心中移动部件的数量直线下降。
 
-![The number of services grows as we scale our teams and products](https://cdn-images-1.medium.com/max/5000/1*0YoUoR5FNpSk6Cm-fGx08g.png)
+![随着我们扩大团队和产品的规模，服务的数量也在增长。](https://cdn-images-1.medium.com/max/5000/1*0YoUoR5FNpSk6Cm-fGx08g.png)
 
-> A Growing Number of Services
+> 越来越多的服务
 
-As our products develop, our design systems continue to expand in scale and scope. A monolithic approach can get unwieldy rather fast. Knowing that, we should aim to pro-actively extract different elements to a purposeful service.
+随着我们产品的发展，我们的设计体系在规模和范围上不断扩大。单一途径将很快变得笨拙。知道了这一点，我们应该积极主动地为有目的的服务提取不同的元素。
 
-In a perfect world, the number of different services will scale up parallel to our product development. Elements will flow at regular intervals between our foundational Core and the separate services, both upstream and downstream. Either we extract services the moment they grow so big that their size pollutes the foundation, or make a deliberate call to do so from the very start.
+在一个完美的世界里，不同服务的数量将随着我们产品的开发而增加。元素将在我们的基础核心与独立服务之间进行周期性的上下浮动。因此，我们要么在每次它们的规模扩大到足以破坏根基的时候将它们抽取出来，要么从一开始就故意这样做。
 
-By moving elements into separate modules, we leave more room for experimentation. Whilst the Core maintains the highest standard due to its pervasive nature, the smaller, pre-defined scope of the other services opens up the ability to explore different variations.
+我们将元素移动到单独的模块中，从而为实验留下了更多的空间。核心由于其普遍性，始终保持着最高标准，而那些小一些的、其他服务的预定义范围，则为探索不同提供了可能。
 
-![Expanding our service types](https://cdn-images-1.medium.com/max/5000/1*IoFWYrxMR2eX6eNbXK6I3A.png)
+![扩展我们的服务类型](https://cdn-images-1.medium.com/max/5000/1*IoFWYrxMR2eX6eNbXK6I3A.png)
 
-> Broadening the Scope
+> 拓宽范围
 
-At times we’ll come across various elements of our design systems that don’t fit the bill for either an Extension or a Framework. And that’s okay. The beauty of the proposed architecture is that there is room for expansion. Meaning we can add extra service types if we see a distinct need for them.
+有时我们会遇到设计系统的各种元素，它们既不适合扩展也不适合框架。这是好的。那些计划中的体系架构，其美好在于有扩展的空间。这意味着如果我们看到对它们的特殊需求，我们可以添加额外的服务类型。
 
-One such service type that we could come across is a `Pattern`. We’ve defined that Extensions build on top of existing components and add to their functionality. Likewise, Frameworks have a shared purpose. Patterns don’t exhibit either of these properties.
+我们可能遇到的一种服务类型就是 `模式`。我们已经定义了构建在现有组件之上并添加到它们的功能中的扩展。同样，框架也有一个共同的目的。但模式不显示这两个属性。
 
 ![](https://cdn-images-1.medium.com/max/5000/1*45fdwoORom7gb5Ychv4QhQ.png)
 
-In the example above, there’s an instance of a `Card` Pattern. It’s composed of several elements, that don’t adhere to either of the service types we defined earlier.
+在上面的示例中，有一个 `卡片` 模式的实例。它由几个元素组成，这些元素不符合我们前面定义的任何一种服务类型。
 
-Cards are in essence containers for other elements. As seen in the three examples above, they can contain a large variety of different components, with little to no mandatory elements. The actual barebones Card—the combination of `background`, `border`, and `spacing`— could very well be a foundational element.
+卡片本质上是其他元素的容器。如上面的三个例子所示，它们可以包含大量不同的组件，几乎没有强制元素。实际的裸卡 —— `背景`、`边框` 和 `间距` 的组合 —— 很可能是一个基本元素。
 
-The contents themselves aren’t bound together by a single shared purpose. Illustrations, photos, videos, and buttons can all appear in multiple different places in our products. They can appear in different setups, with or without a Card to serve as a container. As such, Patterns are neither Extension nor Framework.
+内容本身并不是由一个单一的共享目的绑定在一起的。插图、照片、视频和按钮都可以出现在我们产品的多个不同位置。它们可以出现在不同的设置中，无论它们有没有使用卡片作为容器。因此，模式既不是扩展也不是框架。
 
-Rather, they serve as building blocks or guidelines. Their aim is to provide a frame of reference on how to lay out, combine and piece together an interface of different parts. They’re templates that function as a starting point, rather than an end-to-end solution.
+相反，它们是作为构建块或指导方针。他们的目的是为如何布局、组合和拼凑一个不同部分的接口提供一个参考框架。它们是将功能作为起点的模板，而非端到端解决方案。
 
-It’s thus easy to see that as we continue to expand our design systems, we’ll come across use cases that are not categorized by the service types we set out with. And that’s exactly the point.
+因此，很容易看到，随着我们对设计系统的扩展的不断深入，我们将遇到没有按照我们开始使用的服务类型进行分类的用例。这就是问题的关键。
 
-Our systems are no longer rigid, single-category monoliths. They are instead comprised of different services that spring forth from the product development process. Different setups and companies necessitate different types and categorization. Defining service types beyond our initial set forces us to question our own classification and hierarchy.
+我们的系统不再是僵化的、单一类别的整体。相反，它们由来自产品开发过程中的不同服务组成。不同的组织和公司需要不同的类型和分类。在定义那些超出我们初始化设置的服务类型时，我们不得不开始质疑自己的分类和层级结构。
 
-## Drawbacks
+## 缺点
 
-Like any approach, this too has its fair share of drawbacks. Many of the same issues that plague microservices also surface when building these micro design systems.
+与任何方法一样，这种方法也有其缺陷。在搭建这些微设计系统时，那些困扰微服务的问题也同样会出现在这里。
 
-> The biggest disadvantage of a microservices architecture is its increased complexity over a monolithic application. The complexity of a microservices based application is directly correlated with the number of services involved.
+> 微服务体系结构的最大的缺点是，相对于单一应用程序来说，它的复杂性大大增加。对于基于微服务的应用程序来说，其复杂性与服务的数量直接相关。
 >
-> Phil Wittmer, [Tiempo Development](https://www.tiempodev.com/corporateblog/disadvantages-of-a-microservices-architecture)
+> Phil Wittmer，[Tiempo Development](https://www.tiempodev.com/corporateblog/disadvantages-of-a-microservices-architecture)
 
-Complexity is the main disadvantage for our systems as well. A growing number of different services means that the responsibility for maintaining these services is spread out, rather than centralized. Additionally, it forces us to take decisions to consciously extract existing elements out of our Core service. This means that we’d need to assign dedicated resources to do so.
+复杂性也是我们系统的主要缺点。越来越多的不同服务意味着维护这些服务的责任是分散的，而不是集中的。此外，它迫使我们做出决定，有意识地从核心服务中提取现有的元素。这意味着我们需要为此分配专门的资源。
 
-While this is certainly a drawback, it does also provide some benefits. Spreading out the responsibility of maintaining different services means less of individual workload. It also enables us to enforce a higher level of quality on the Core, while keeping a degree of independence in the extracted services. This independence allows us to develop these extractions at a faster pace. We can thus innovation and feature development.
+这当然是个缺点，但它同时也带来了一些好处。分散维护不同服务的责任意味着个人工作量的减少。同时，它能够在提取服务中保持一定程度的独立性的同时，促使我们保证核心高水平的运行质量。这种独立性使我们能够以更快的速度开发这些萃取物。因此，我们可以创新和特色发展。
 
-Luckily for us designers, recent development in design tooling allow us to realize this approach in a rather efficient manner. Tools such as [**Abstract**](https://www.abstract.com/) support this model out of the box, by allowing users to plug-and-play different Sketch Libraries per project. We can thus easily assign different Extensions and Frameworks to projects as needed.
+幸运的是，对于我们设计师来说，最近设计工具的开发使我们能够以一种相当有效的方式实现这种方法。像 [**Abstract**](https://www.abstract.com/) 这样的工具支持开箱即用的模型，允许用户在每个项目中即插即用不同的插图库。因此，我们可以根据需要轻松地为项目分配不同的扩展和框架。
 
-Lastly, micro design systems are not **true** microservices. Whereas microservices exhibit complete autonomy, our design systems still rely on a certain degree of interconnectivity. Extensions still borrow from the Core service, and our features still rely on several degrees of connectivity. These connections are unlikely to go away at any point in the future. The nature of design work — and front-end development for that matter — is intrinsically bound by this.
+最后，微设计系统并不是**真正**的微服务。微服务能够实现完全的自主性，而我们的设计系统仍然依赖于一定程度的互联。扩展仍然借用核心服务，我们的功能仍然依赖于几个程度的连接。这些联系在未来的一段时间内都将存在。设计工作的性质 —— 以次为目的的前端开发 —— 本质上都受此约束。
 
-As a counterpoint, these relationships between elements also enforce a distinct degree of visual consistency. Any given interface is likely to consist of several elements, borrowing from different services. Having these services be visually different would then become immediately clear.
+依次为对照，元素之间的这些关系同样也在不同程度上增强了视觉的一致性。任何给定的接口程序都可能由几个元素组成，这些元素借用了不同的服务。这样这些服务在视觉上有所不同，由此而立刻变得清晰起来。
 
 ***
 
-With many of our design systems still in their infancy, now is the time for us to mature our work. By modeling, categorizing and extracting the different services in our systems, we force ourselves to answer questions about the nature of different elements, set quality standards for their foundation, and prepare them for the future.
+由于我们的许多设计系统还处于起步阶段，现在是时候让我们的工作成熟起来了。通过建模、分类和提取系统中的不同服务，我们促使自己面对有关不同组件性质的问题，为它们的基础设置质量标准，并为将来做好准备。
 
-Our tools are already paving the way for us to change the way we think about our work. Following in their footsteps will allow us to establish a shared language, and improve our design systems for the better.
+我们的工具已经为我们改变思考工作的方式铺平了道路。以此为基础建立一种共享的语言，将我们的设计系统变得更好。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
