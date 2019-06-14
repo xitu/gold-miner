@@ -1533,10 +1533,11 @@
 |[iOS 开发中的 Flux 架构模式](http://gold.xitu.io/entry/57972cdcc4c97100542c2ed4)|校对|2|
 |[使用 Zopfli 优化 PNG 图片](http://gold.xitu.io/entry/578e3a34c4c971005e059ee9)|校对|1|
 
-## 译者：[siegeout](https://github.com/siegeout) 历史贡献积分：55 当前积分：40 二零一九：1
+## 译者：[siegeout](https://github.com/siegeout) 历史贡献积分：55 当前积分：5 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 06 月兑小米 LED 台灯 1 个|减去积分|35|
 |[绘制路径：Android 中矢量图渲染](https://juejin.im/post/5c75e73051882562ea724cd4)|校对|1|
 |[Constraint Layout 动画、动态 Constraint、用 Java 实现的 UI Part3](https://gold.xitu.io/entry/58b2fd59570c350069704265)|翻译|5|
 |[推荐文章『Finally understanding how references work in Android and Java』入选]()|奖励|1|
@@ -3322,10 +3323,11 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：185 当前积分：140
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：192 当前积分：147 二零一九：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|7|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|20|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[WWDC 2018：关于iOS 12、iPad Pro、新MacBooks或者更多产品的所有预测](https://juejin.im/post/5b056d485188256710601ecc)|校对|2|
@@ -5523,10 +5525,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：479 当前积分：403 二零一九：46
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：479 当前积分：203 二零一九：46
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 6 月兑 Kindle Paper White 1 个|减去积分|200|
 |[2019 前端性能优化年度总结 — 第三部分](https://juejin.im/post/5c5ccbefe51d457f95354a46)|翻译|7|
 |[HTTP/3：起源](https://juejin.im/post/5c6cb623f265da2dd37c1505)|翻译|11|
 |[利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)|翻译|5|
@@ -8382,10 +8385,11 @@
 |------|-------|-------|
 |[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|校对|3.5|
 
-## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：70.5 当前积分：70.5 二零一九：70.5
+## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：77.5 当前积分：77.5 二零一九：77.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|7|
 |[时间序列分析、可视化、和使用 LSTM 预测](https://juejin.im/post/5cecdbb75188252db706f4e9)|校对|1.5|
 |[Redux vs. React 的 Context API](https://juejin.im/post/5cee43ad518825526b294a32)|翻译|7.5|
 |[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|1.5|
@@ -8575,10 +8579,11 @@
 |[Keras 速查表：使用 Python 构建神经网络](https://juejin.im/post/5cd40d24f265da038412a8be)|翻译|3|
 |[在深度学习训练过程中如何设置数据增强？](https://juejin.im/post/5cc87ec8f265da03b446202b)|校对|2|
 
-## 译者：[fireairforce](https://github.com/fireairforce) 历史贡献积分：47 当前积分：47 二零一九：47
+## 译者：[fireairforce](https://github.com/fireairforce) 历史贡献积分：47 当前积分：16 二零一九：47
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 06 月兑掘金 T 恤 1 件，掘金笔记本 1 个，掘金桌垫 1 个|减去积分|31|
 |[Node.js 日志记录指南](https://juejin.im/post/5cf213e4e51d4577407b1cda)|翻译|6.5|
 |[什么是 `this`？JavaScript 对象的内部工作原理](https://juejin.im/post/5cedfdbd5188252fbc37f920)|翻译|3|
 |[通过一些例子深入了解 JavaScript 的 Async 和 Await](https://juejin.im/post/5cec8a475188255816489878)|校对|1.5|
@@ -8659,10 +8664,11 @@
 |[声音设计与无声设计](https://juejin.im/post/5ce354bee51d4510727c7fd1)|翻译|2+0.5|
 |[Swift 里的强制 @inline 注解](https://juejin.im/post/5cd67d64518825686244635a)|校对|1.5|
 
-## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：4.5 当前积分：4.5 二零一九：4.5
+## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[如何使用 Node.js 构建一个命令行界面（CLI）](https://juejin.im/post/5cf2111b5188250d2850f884)|校对|1.5|
 |[超快速的分析器（一）：优化扫描器](https://juejin.im/post/5ce8cbd9e51d4556bb4cd2f9)|校对|2|
 |推荐英文文章一篇|奖励|1|
@@ -8711,8 +8717,27 @@
 |------|-------|-------|
 |[Swift 5 中的枚举冻结](https://juejin.im/post/5cea9597e51d45775f5169f2)|校对|1|
 
-## 译者：[fakeinc](https://github.com/fakeinc) 历史贡献积分：3 当前积分：3 二零一九：3
+## 译者：[fakeinc](https://github.com/fakeinc) 历史贡献积分：5 当前积分：5 二零一九：5
 
 |文章|类型|积分|
 |------|-------|-------|
-|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译|3|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|2|
+|[The JavaScript Tutorial 翻译](https://github.com/javascript-tutorial/zh.javascript.info)|翻译|3|
+
+## 译者：[owlikesj](https://github.com/owlikesj) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
+
+## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：13 当前积分：13 二零一九：13
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
+
+## 译者：[smilemuffie](https://github.com/smilemuffie) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
