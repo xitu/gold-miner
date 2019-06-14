@@ -2,8 +2,8 @@
 > * 原文作者：[Andrew Galloni](https://blog.cloudflare.com/author/andrew-galloni/), [Kornel Lesiński.](https://blog.cloudflare.com/author/kornel/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/parallel-streaming-of-progressive-images.md](https://github.com/xitu/gold-miner/blob/master/TODO1/parallel-streaming-of-progressive-images.md)
-> * 译者：twang1727
-> * 校对者：
+> * 译者：[twang1727](https://github.com/twang1727)
+> * 校对者：[suhanyujie](https://github.com/suhanyujie)
 
 # 利用并行流渐进加载图片
 
@@ -91,7 +91,7 @@
 
 优先发送图片头（包括图片大小）对所有格式都适用。
 
-渐进式渲染的益处对 JPEG（所有浏览器都支持）和 JPEG 2000（Safari 支持）是得天独厚的。GIF 和 PNG 有交错模式，但是这些模式和糟糕的压缩相伴生。WebP 根本不支持渐进式渲染。这就造成了这样一种两难： WebP 通常比同等质量的 JPEG 小 20% 到 30%，但是渐进式 JPEG **看起来** 加载得快 50%。 有些下一代图像格式对渐进式渲染的支持优于 JPEG，比 WebP 压缩更优，但是浏览器还不支持这些格式。同时你们可以通过修改 Cloudflare 面板的 Polish 设置，在节省带宽的 WebP 和可感知性能更好的渐进式 JPEG 之间选择。
+渐进式渲染的益处对 JPEG（所有浏览器都支持）和 JPEG 2000（Safari 支持）是得天独厚的。GIF 和 PNG 有交错模式，但是这些模式和糟糕的压缩相伴生。WebP 根本不支持渐进式渲染。这就造成了这样一种两难：WebP 通常比同等质量的 JPEG 小 20% 到 30%，但是渐进式 JPEG **看起来** 加载得快 50%。有些下一代图像格式对渐进式渲染的支持优于 JPEG，比 WebP 压缩更优，但是浏览器还不支持这些格式。同时你们可以通过修改 Cloudflare 面板的 Polish 设置，在节省带宽的 WebP 和可感知性能更好的渐进式 JPEG 之间选择。
 
 ### 试验用的自定义头
 
@@ -112,7 +112,7 @@ headers.set("cf-priority-change", "512:20/1, 15000:10/n");
 return new Response(response.body, {headers});
 ```
 
-它会告诉服务器，当一开始发送最先的 512 字节时用 30 作为优先级。 然后切换到优先级 20 以及一定程度的并发（`/1`），最后当发送文件的 15000 字节之后，切换到低优先级高并发（`/n`）把文件的剩余部分发送完。 
+它会告诉服务器，当一开始发送最先的 512 字节时用 30 作为优先级。然后切换到优先级 20 以及一定程度的并发（`/1`），最后当发送文件的 15000 字节之后，切换到低优先级高并发（`/n`）把文件的剩余部分发送完。 
 
 我们试着分割 HTTP/2 帧来匹配标头中的指定偏移量，从而尽快改变发送的优先级。但是，优先级并不保证不同流上的数据会被严格按照指示复用，因为服务器只是在多路流同时需要发送数据时才应用优先级排序。如果某些请求从上游浏览器或缓存到达的更早，服务器可能会立即发送它们，而不是等待其他请求。
 
