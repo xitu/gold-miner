@@ -2,8 +2,8 @@
 > * 原文作者：[Steven Bradley](https://www.vanseodesign.com/about/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/4-css-filters-for-adjusting-color.md](https://github.com/xitu/gold-miner/blob/master/TODO1/4-css-filters-for-adjusting-color.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iceytea](https://github.com/iceytea)
+> * 校对者：[lgh757079506](https://github.com/lgh757079506), [Baddyo](https://github.com/Baddyo)
 
 # 4 个 CSS 调色滤镜
 
@@ -11,7 +11,7 @@ SVG 提供了一种非破坏性的方式来更改图像或图形的某些颜色�
 
 过去几周里，我一直把 CSS 滤镜作为 SVG 滤镜的备选方案来探讨。首先我[大体介绍了一下滤镜](http://vanseodesign.com/css/css-filters-introduction/)，并展示了滤镜函数 blur() 的示例；然后我介绍了 [url() 和 drop-shadow() 滤镜函数](http://vanseodesign.com/css/drop-shadow-filter/)并分别提供了示例。
 
-今天我想带你完成另外四个 CSS 滤镜函数，这些函数都是 SVG 滤镜函数 feColorMatrix 不同类型和值的快捷方式。
+今天我想带你了解另外四个 CSS 滤镜函数，这些函数都是 SVG 滤镜函数 feColorMatrix 不同类型和值的快捷方式。
 
 ## feColorMatrix
 
@@ -38,7 +38,7 @@ grayscale() 将图像转换为灰度图像。
 grayscale() = grayscale( [ <number> | <percentage> ] )
 ```
 
-你可以通过提供介于 0.0 和 1.0 之间的数字或 0% 到 100% 之间的百分比来确定转换图像的比例。100%（或 1.0 ）将图像完全转换为[灰度](http://vanseodesign.com/web-design/luminance-working-in-grayscale/)图像，0%（或 0.0 ）不会转换图像。0.0 到 1.0 （或 0% 到 100% ）之间的值是效果的线性乘数。不允许使用负值。
+你可以通过提供介于 0.0 和 1.0 之间的数字或 0% 到 100% 之间的百分比来确定转换图像的比例。100%（或 1.0）将图像完全转换为[灰度](http://vanseodesign.com/web-design/luminance-working-in-grayscale/)图像，0%（或 0.0）不会转换图像。0.0 到 1.0（或 0% 到 100%）之间的值是效果的线性乘数。不允许使用负值。
 
 在第一个例子中，我给滤镜函数传入了值 1，给图片赋予了 100% 灰度的效果。
 
@@ -50,7 +50,7 @@ grayscale() = grayscale( [ <number> | <percentage> ] )
 
 原始图像包含大量灰色，但我认为你依然可以看到滤镜的效果，因为现在所有彩色都已被擦除。
 
-![1.jpg](https://i.loli.net/2019/06/11/5cfe8f0c2a04c14602.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0c2a04c14602.jpg)
 
 为了比较，我在下面列出了与滤镜函数等效的矩阵实现方式。公平地说，使用 feColorMatrix 来删除彩色的更简便方法，是把 type 属性设置为 saturate。我稍后会告诉你的。
 
@@ -63,7 +63,7 @@ grayscale() = grayscale( [ <number> | <percentage> ] )
 </filter>
 ```
 
-尽管如此，这个示例仍是 CSS 滤镜功能更易用的有力佐证。使用这个特定矩阵，只是因为我在网上看到了该方法的一个应用示例。我不需要在滤镜函数中搜索值 1 。
+尽管如此，这个示例仍是 CSS 滤镜功能更易用的有力佐证。使用这个特定矩阵，只是因为我在网上看到了该方法的一个应用示例。我不需要在滤镜函数中搜索值 1。
 
 ## hue-rotate()
 
@@ -85,7 +85,7 @@ hue-rotate() = hue-rotate( <angle> )
 
 该值将原本是红色和黄色的花色，变得更加偏向粉色、紫色和蓝色。
 
-![2.jpg](https://i.loli.net/2019/06/11/5cfe8f0c2bf0c97252.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0c2bf0c97252.jpg)
 
 这是用于比较的 SVG 滤镜。相比之下，CSS 滤镜仍然更简单，但在这种情况下的差距不大。
 
@@ -115,11 +115,11 @@ saturate() = saturate( [ <number> | <percentage> ] )
 
 这生成了下面的图像效果。
 
-![3.jpg](https://i.loli.net/2019/06/11/5cfe8f0c2dd0b48070.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0c2dd0b48070.jpg)
 
 saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素过饱和。下面是同一张图片施加 900% 饱和度的效果（`filter: saturate(9);`）。
 
-![4.jpg](https://i.loli.net/2019/06/11/5cfe8f0d1d1d649096.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0d1d1d649096.jpg)
 
 和 saturate() 对应的 SVG 滤镜也很简单。
 
