@@ -1,3 +1,6 @@
+* [尝试 DevOps：最适合你的是什么样的工具？](https://juejin.im/post/5cfd4aa3f265da1bb277233e) ([Starriers](https://github.com/Starriers) 翻译)
+* [超快速的分析器（二）：惰性解析](https://juejin.im/post/5cf33bd751882579e53f0130) ([suhanyujie](https://github.com/suhanyujie) 翻译)
+* [通过 Rust 学习解析器组合器 — 第一部分](https://juejin.im/post/5cfddd00f265da1b7e102bee) ([suhanyujie](https://github.com/suhanyujie) 翻译)
 * [如何使用 Node.js 构建一个命令行界面（CLI）](https://juejin.im/post/5cf2111b5188250d2850f884) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [Node.js 日志记录指南](https://juejin.im/post/5cf213e4e51d4577407b1cda) ([fireairforce](https://github.com/fireairforce) 翻译)
 * [超快速的分析器（一）：优化扫描器](https://juejin.im/post/5ce8cbd9e51d4556bb4cd2f9) ([nettee](https://github.com/nettee) 翻译)
