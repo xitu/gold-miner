@@ -102,7 +102,7 @@ Ok, so we can conclude that the responsive typography approach isn’t ideal. It
 
 Viewport units have been introduced a while ago. The idea is simple, we can use the viewport height and viewport width units to define the size of anything in CSS. Including font sizes. In my opinion, the viewport units were introduced more as a way to scale specific and mostly fixed types of website layouts, similarly to how Sebastian Eberlein describes it [in his Hacker Noon article](https://hackernoon.com/using-viewport-units-to-scale-fixed-layouts-869638bb91f9).
 
-But nevertheles, viewport units have been used as a way to fluidly scale font sizes for a long time. Chris Coyier wrote about it back in 2012 and got excited about it because we know that ideal width of a line of text is around 80 characters and because “**these units allow you to get it feeling perfect and then have that experience scale to any size screen”<sup><a href="#note1">[1]</a></sup>**.
+But nevertheles, viewport units have been used as a way to fluidly scale font sizes for a long time. Chris Coyier wrote about it back in 2012 and got excited about it because we know that ideal width of a line of text is around 80 characters and because “**these units allow you to get it feeling perfect and then have that experience scale to any size screen” <sup><a href="#note1">[1]</a></sup>**.
 
 That’s all cool but it isn’t so simple in practice. Let’s say we do something like the following:
 
@@ -236,11 +236,11 @@ Did you enjoy what you just read? Great, I have much more of this stuff in my [b
 
 1. <a name="note1"></a>**Viewport Sized Typography** by Chris Coyier ([Source](https://css-tricks.com/viewport-sized-typography/))
     
-2. <a name="note2"></a>**Precise Control Over Responsive Typography** by Mike Riethmuller ([Source](https://www.madebymike.com.au/writing/precise-control-responsive-typography/)) [↩](#fnref:2)
+2. <a name="note2"></a>**Precise Control Over Responsive Typography** by Mike Riethmuller ([Source](https://www.madebymike.com.au/writing/precise-control-responsive-typography/))
     
-3. <a name="note3"></a>**Flexible Typography with CSS Locks** by Tim Brown ([Source](https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/)) [↩](#fnref:3)
+3. <a name="note3"></a>**Flexible Typography with CSS Locks** by Tim Brown ([Source](https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/))
     
-4. <a name="note4"></a>**Fluid Typography** by Geoff Graham ([Source](https://css-tricks.com/snippets/css/fluid-typography/)) [↩](#fnref:4)
+4. <a name="note4"></a>**Fluid Typography** by Geoff Graham ([Source](https://css-tricks.com/snippets/css/fluid-typography/))
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
