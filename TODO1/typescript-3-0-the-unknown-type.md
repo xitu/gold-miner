@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-3-0-the-unknown-type.md](https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-3-0-the-unknown-type.md)
 > * 译者：[shixi-li](https://github.com/shixi-li)
-> * 校对者：[Usey95](https://github.com/Usey95)、[smilemuffie](https://github.com/smilemuffie)
+> * 校对者：[Usey95](https://github.com/Usey95), [smilemuffie](https://github.com/smilemuffie)
 
 # TypeScript 3.0: unknown 类型
 
@@ -11,7 +11,7 @@ TypeScript 3.0 引入了新的`unknown` 类型，它是 `any` 类型对应的安
 
 `unknown` 和 `any` 的主要区别是 `unknown` 类型会更加严格：在对 `unknown` 类型的值执行大多数操作之前，我们必须进行某种形式的检查。而在对 `any` 类型的值执行操作之前，我们不必进行任何检查。
 
-这片文章主要关注于 `unknown` 类型的实际应用，以及包含了与 `any` 类型的比较。如果需要更全面的代码示例来了解 `unknown` 类型的语义，可以看看 Anders Hejlsberg 的 [原始拉取请求](https://github.com/Microsoft/TypeScript/pull/24439)。
+这片文章主要关注于 `unknown` 类型的实际应用，以及包含了与 `any` 类型的比较。如果需要更全面的代码示例来了解 `unknown` 类型的语义，可以看看 Anders Hejlsberg 的[原始拉取请求](https://github.com/Microsoft/TypeScript/pull/24439)。
 
 ## `any` 类型
 
@@ -19,7 +19,7 @@ TypeScript 3.0 引入了新的`unknown` 类型，它是 `any` 类型对应的安
 
 自从 TypeScript 在 2012 年发布第一个版本以来 `any` 类型就一直存在。它代表所有可能的 JavaScript 值 — 基本类型，对象，数组，函数，Error，Symbol，以及任何你可能定义的值。
 
-在 TypeScript 中，任何类型都可以被归为 any 类型。这让 `any` 类型成为了类型系统的 [*顶级类型*](https://en.wikipedia.org/wiki/Top_type) (也被称作 *全局超级类型*)。
+在 TypeScript 中，任何类型都可以被归为 any 类型。这让 `any` 类型成为了类型系统的 [**顶级类型**](https://en.wikipedia.org/wiki/Top_type) (也被称作 **全局超级类型**)。
 
 这是一些我们赋值给 `any` 类型的代码示例：
 
@@ -54,7 +54,7 @@ value[0][1];    // OK
 
 这许多场景下，这样的机制都太宽松了。使用`any`类型，可以很容易地编写类型正确但是执行异常的代码。如果我们使用 `any` 类型，就无法享受 TypeScript 大量的保护机制。
 
-但如果能有顶级类型也能默认保持安全呢？这就是 `unknown`到来的原因。
+但如果能有顶级类型也能默认保持安全呢？这就是 `unknown` 到来的原因。
 
 ## `unknown` 类型
 
@@ -110,11 +110,11 @@ value[0][1];    // Error
 
 将 `value` 变量类型设置为 `unknown` 后，这些操作都不再被认为是类型正确的。通过改变 `any` 类型到 `unknown` 类型，我们的默认设置从允许一切翻转式的改变成了几乎什么都不允许。
 
-这是`unknown`类型的主要价值主张：TypeScript不允许我们对类型为 `unknown` 的值执行任意操作。相反，我们必须首先执行某种类型检查以缩小我们正在使用的值的类型范围。
+这是 `unknown` 类型的主要价值主张：TypeScript 不允许我们对类型为 `unknown` 的值执行任意操作。相反，我们必须首先执行某种类型检查以缩小我们正在使用的值的类型范围。
 
 ## 缩小 `unknown` 类型范围
 
-我们可以通过不同的方式将`unknown`类型缩小为更具体的类型范围，包括  `typeof` 运算符，`instanceof` 运算符和自定义类型保护函数。所有这些缩小类型范围的技术都有助于 TypeScript 的[基于控制流的类型分析](https://mariusschulz.com/blog/typescript-2-0-control-flow-based-type-analysis)。
+我们可以通过不同的方式将 `unknown` 类型缩小为更具体的类型范围，包括 `typeof` 运算符，`instanceof` 运算符和自定义类型保护函数。所有这些缩小类型范围的技术都有助于 TypeScript 的[基于控制流的类型分析](https://mariusschulz.com/blog/typescript-2-0-control-flow-based-type-analysis)。
 
 以下示例说明了 `value` 如何在两个 `if` 语句分支中获得更具体的类型：
 
@@ -137,7 +137,7 @@ function stringifyForLogging(value: unknown): string {
 }
 ```
 
-除了使用`typeof`或`instanceof`运算符之外，我们还可以使用自定义类型保护函数缩小 `unknown` 类型范围：
+除了使用 `typeof` 或 `instanceof` 运算符之外，我们还可以使用自定义类型保护函数缩小 `unknown` 类型范围：
 
 ```ts
 /**
@@ -165,7 +165,7 @@ if (isNumberArray(unknownValue)) {
 
 ## 对 `unknown` 类型使用类型断言
 
-在上一节中，我们已经看到如何使用`typeof`，`instanceof`和自定义类型保护函数来说服 TypeScript 编译器某个值具有某种类型。这是将 “unknown” 类型指定为更具体类型的安全且推荐的方法。
+在上一节中，我们已经看到如何使用 `typeof`，`instanceof` 和自定义类型保护函数来说服 TypeScript 编译器某个值具有某种类型。这是将 “unknown” 类型指定为更具体类型的安全且推荐的方法。
 
 如果要强制编译器信任类型为 `unknown` 的值为给定类型，则可以使用类似这样的类型断言：
 
@@ -175,9 +175,9 @@ const someString: string = value as string;
 const otherString = someString.toUpperCase();  // "HELLO WORLD"
 ```
 
-请注意，TypeScript 事实上未执行任何特殊检查以确保类型断言实际上有效。类型检查器假定您更了解并相信您在类型断言中使用的任何类型都是正确的。
+请注意，TypeScript 事实上未执行任何特殊检查以确保类型断言实际上有效。类型检查器假定你更了解并相信你在类型断言中使用的任何类型都是正确的。
 
-如果您犯了错误并指定了错误的类型，这很容易导致在运行时抛出错误：
+如果你犯了错误并指定了错误的类型，这很容易导致在运行时抛出错误：
 
 ```ts
 const value: unknown = 42;
@@ -189,7 +189,7 @@ const otherString = someString.toUpperCase();  // BOOM
 
 ## 联合类型中的 `unknown` 类型
 
-现在让我们看一下在联合类型中如何处理`unknown`类型。在下一节中，我们还将了解交叉类型。
+现在让我们看一下在联合类型中如何处理 `unknown` 类型。在下一节中，我们还将了解交叉类型。
 
 在联合类型中，`unknown` 类型会吸收任何类型。这就意味着如果任一组成类型是 `unknown`，联合类型也会相当于 `unknown`：
 
@@ -210,7 +210,7 @@ type UnionType5 = unknown | any;  // any
 
 ## 交叉类型中的 `unknown` 类型
 
-在交叉类型中，任何类型都可以吸收 `unknown` 类型。这意味着将任何类型与`unknown`相交不会改变结果类型：
+在交叉类型中，任何类型都可以吸收 `unknown` 类型。这意味着将任何类型与 `unknown` 相交不会改变结果类型：
 
 ```ts
 type IntersectionType1 = unknown & null;       // null
@@ -226,7 +226,7 @@ type IntersectionType5 = unknown & any;        // any
 
 `unknown` 类型的值不能用作大多数运算符的操作数。这是因为如果我们不知道我们正在使用的值的类型，大多数运算符不太可能产生有意义的结果。
 
-您可以在类型为 `unknown` 的值上使用的运算符只有四个相等和不等运算符：
+你可以在类型为 `unknown` 的值上使用的运算符只有四个相等和不等运算符：
 
 -   `===`
 -   `==`
@@ -241,7 +241,7 @@ type IntersectionType5 = unknown & any;        // any
 
 假设我们要编写一个从 `localStorage` 读取值并将其反序列化为 JSON 的函数。如果该项不存在或者是无效 JSON，则该函数应返回错误结果，否则，它应该反序列化并返回值。
 
-因为我们不知道在反序列化持久化的JSON字符串后我们会得到什么类型的值。我们将使用 `unknown` 作为反序列化值的类型。这意味着我们函数的调用者必须在对返回值执行操作之前进行某种形式的检查（或者使用类型断言）。
+因为我们不知道在反序列化持久化的 JSON 字符串后我们会得到什么类型的值。我们将使用 `unknown` 作为反序列化值的类型。这意味着我们函数的调用者必须在对返回值执行操作之前进行某种形式的检查（或者使用类型断言）。
 
 这里展示了我们怎么实现这个函数：
 
@@ -281,7 +281,7 @@ function tryDeserializeLocalStorageItem(key: string): Result {
 }
 ```
 
-返回值类型 `Result` 是一个 [被标记的联合类型](https://mariusschulz.com/blog/typescript-2-0-tagged-union-types). 在其它语言中，它也可以被称作 `Maybe`，`Option` 或者 `Optional`。我们使用`Result`来清楚地模拟操作的成功和不成功的结果。
+返回值类型 `Result` 是一个[被标记的联合类型](https://mariusschulz.com/blog/typescript-2-0-tagged-union-types)。在其它语言中，它也可以被称作 `Maybe`、`Option` 或者 `Optional`。我们使用 `Result` 来清楚地模拟操作的成功和不成功的结果。
 
 `tryDeserializeLocalStorageItem` 的函数调用者在尝试使用 `value` 或 `error` 属性之前必须首先检查 `success` 属性：
 
@@ -305,7 +305,7 @@ if (result.success) {
 }
 ```
 
-请注意，`tryDeserializeLocalStorageItem`函数不能简单地通过返回`null`来表示反序列化失败，原因如下：
+请注意，`tryDeserializeLocalStorageItem` 函数不能简单地通过返回 `null` 来表示反序列化失败，原因如下：
 
 1. `null` 值是一个有效的 JSON 值。因此，我们无法区分是对值 `null` 进行了反序列化，还是由于缺少参数或语法错误而导致整个操作失败。
 2. 如果我们从函数返回 `null`，我们无法同时返回错误。因此，我们函数的调用者不知道操作失败的原因。
