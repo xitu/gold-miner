@@ -4070,7 +4070,7 @@
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
 
-## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：36 当前积分：36 二零一九：3
+## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：39 当前积分：39 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7952,7 +7952,7 @@
 |[Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：9 当前积分：9 二零一九：9
+## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：10 当前积分：10 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
