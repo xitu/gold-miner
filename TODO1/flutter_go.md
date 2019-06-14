@@ -7,7 +7,7 @@
 
 # Thought Experiment: Flutter in Go
 
-I’ve recently discovered [Flutter](https://flutter.io) – a new Google’s framework for mobile development – for myself and even had an experience of teaching Flutter basics to the person who has never been doing programming at all. Flutter is written in Dart – programming language born in a Chrome browser and then escaped to the console land – and that made me think “hey, Flutter could have been easily implemented in Go as well”!
+我最近发现了 [Flutter](https://flutter.io) —— 谷歌的一个新的移动开发框架，我甚至有曾经将 Flutter 基础知识教给从未有过编程的人的经历。Flutter 是用 Dart 编写的，这是一种诞生于 Chrome 浏览器的编程语言，后来改用到了控制台。这不禁让我想到“Flutter 也许可以很轻易地用 Go 来实现”！
 
 Why not? Both Go and Dart were born inside Google (and share some approaches that make them great), both strongly-typed, compiled languages – in a slightly different turn of events, Go could definitely have been a choice for such an ambitious project as Flutter. And Go is much easier to explain to the person who has never been programming before.
 
