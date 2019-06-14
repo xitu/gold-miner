@@ -2,45 +2,45 @@
 > * 原文作者：[Steven Bradley](https://www.vanseodesign.com/about/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/4-css-filters-for-adjusting-color.md](https://github.com/xitu/gold-miner/blob/master/TODO1/4-css-filters-for-adjusting-color.md)
-> * 译者：
-> * 校对者
+> * 译者：[iceytea](https://github.com/iceytea)
+> * 校对者：[lgh757079506](https://github.com/lgh757079506), [Baddyo](https://github.com/Baddyo)
 
-# 4 CSS Filters For Adjusting Color
+# 4 个 CSS 调色滤镜
 
-SVG offers a non-destructive way to change some color properties of an image or graphic. Unfortunately some of those changes are more cumbersome to make than others. CSS filters allow you to non-destructively change some properties of color as well and in a less cumbersome way than SVG.
+SVG 提供了一种非破坏性的方式来更改图像或图形的某些颜色属性。但不幸的是，有一些更改实现起来比较麻烦。CSS 滤镜允许你以非破坏性的方式更改某些颜色属性，并且比 SVG 滤镜更简单。
 
-The last couple of weeks I've been talking about CSS filters as an alternative to SVG filters. First I offered [an introduction](http://vanseodesign.com/css/css-filters-introduction/) and showed you an example of the blur() filter-function and then I walked through the [url() and drop-shadow() filter-functions](http://vanseodesign.com/css/drop-shadow-filter/) and provided examples for each.
+过去几周里，我一直把 CSS 滤镜作为 SVG 滤镜的备选方案来探讨。首先我[大体介绍了一下滤镜](http://vanseodesign.com/css/css-filters-introduction/)，并展示了滤镜函数 blur() 的示例；然后我介绍了 [url() 和 drop-shadow() 滤镜函数](http://vanseodesign.com/css/drop-shadow-filter/)并分别提供了示例。
 
-Today I want to walk you through four more CSS filter-functions all of which are shortcuts to different types and values of the SVG filter primitive feColorMatrix.
+今天我想带你了解另外四个 CSS 滤镜函数，这些函数都是 SVG 滤镜函数 feColorMatrix 不同类型和值的快捷方式。
 
-## The feColorMatrix Filter Primitive
+## feColorMatrix
 
-The feColorMatrix primitive can be used as a general way to change some of the [fundamental properties of color](http://vanseodesign.com/web-design/hue-saturation-and-lightness/) in an element. As the name implies, the primitive makes use of a matrix of values to add different filter effects.
+feColorMatrix 可以作为更改元素中某些[颜色基本属性](http://vanseodesign.com/web-design/hue-saturation-and-lightness/)的一般方法。顾名思义，它通过使用值矩阵来为元素添加不同的滤镜效果。
 
-Four different CSS filter-functions exist to replicate effects you can create with [feColorMatrix](http://vanseodesign.com/web-design/svg-filter-primitives-fecolormatrix/). It's one example where a single SVG primitive can do more than any one CSS filter-function.
+CSS 中有四个不同的滤镜函数，它们可以复制使用 [feColorMatrix](http://vanseodesign.com/web-design/svg-filter-primitives-fecolormatrix/) 创建的效果。这有力地证明了，单个 SVG 滤镜比任何一个单独的 CSS 滤镜函数都要强大。
 
-Here are the four CSS filters.
+以下是那四个 CSS 滤镜：
 
 - grayscale();
 - hue-rotate();
 - saturate();
 - sepia();
 
-Let's walk through each of them and change the colors of what is likely a familiar image, if you've been following along with this series.
+那就让我们依次探究这些 CSS 滤镜函数，用它们为这张熟悉的（如果你一直在关注本系列文章的话）图片改变颜色吧。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![strawberry.jpg](https://i.loli.net/2019/06/11/5cfe904a4ed7316962.jpg)
 
-## The grayscale() filter-function
+## grayscale()
 
-The grayscale() filter-function converts an image to grayscale.
+grayscale() 将图像转换为灰度图像。
 
 ```
 grayscale() = grayscale( [ <number> | <percentage> ] )
 ```
 
-You determine the proportion to convert the image by supplying either a percentage or a number between 0.0 and 1.0. 100% (or 1.0) is full conversion to [grayscale](http://vanseodesign.com/web-design/luminance-working-in-grayscale/) and 0% (or 0.0) leads to no conversion. Values between 0.0 and 1.0 or 0% and 100% are linear multipliers of the effect. Negative values are not allowed.
+你可以通过提供介于 0.0 和 1.0 之间的数字或 0% 到 100% 之间的百分比来确定转换图像的比例。100%（或 1.0）将图像完全转换为[灰度](http://vanseodesign.com/web-design/luminance-working-in-grayscale/)图像，0%（或 0.0）不会转换图像。0.0 到 1.0（或 0% 到 100%）之间的值是效果的线性乘数。不允许使用负值。
 
-In this first example I applied 100% grayscale to my Strawberry Fields image using the value 1 in the filter-function.
+在第一个例子中，我给滤镜函数传入了值 1，给图片赋予了 100% 灰度的效果。
 
 ```css
 .strawberry {
@@ -48,11 +48,11 @@ In this first example I applied 100% grayscale to my Strawberry Fields image usi
 }
 ```
 
-The original image contains a lot of gray as it is, but I think you can see the effect of the filter as now all color has been removed.
+原始图像包含大量灰色，但我认为你依然可以看到滤镜的效果，因为现在所有彩色都已被擦除。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0c2a04c14602.jpg)
 
-For comparison here's the matrix the filter-function replaces. To be fair there's an easier way to use feColorMatrix to remove color by setting the type attribute to saturate. I'll show you that in a bit.
+为了比较，我在下面列出了与滤镜函数等效的矩阵实现方式。公平地说，使用 feColorMatrix 来删除彩色的更简便方法，是把 type 属性设置为 saturate。我稍后会告诉你的。
 
 ```html
 <filter id="grayscale">
@@ -63,19 +63,19 @@ For comparison here's the matrix the filter-function replaces. To be fair there'
 </filter>
 ```
 
-Still, this is definitely a case where the CSS filter-function is a lot easier to use. The only reason I knew to use this particular matrix is because I found an example using it online. I didn't need to search for the value 1 in the filter-function.
+尽管如此，这个示例仍是 CSS 滤镜功能更易用的有力佐证。使用这个特定矩阵，只是因为我在网上看到了该方法的一个应用示例。我不需要在滤镜函数中搜索值 1。
 
-## The hue-rotate() filter-function
+## hue-rotate()
 
-The hue-rotate() filter-function changes the hue of every pixel in the element by the amount you specify.
+hue-rotate() 按指定的量更改元素中每个像素的色调。
 
 ```
 hue-rotate() = hue-rotate( <angle> )
 ```
 
-The angle is set in degrees and you do need to specify the units as deg. An angle of 0deg leaves the element unchanged as does a any multiple of 360deg (720deg, 1080deg, 1440px, etc.).
+参数 angle（角度）以度为单位，你需要将单位指定为 deg。0deg 使元素保持不变，360deg 的任意倍数（720deg、1080deg、1440px 等）也是如此。
 
-In this example I rotated the hue 225 degrees.
+在这个例子中，我将色相旋转了 225 度。
 
 ```css
 .strawberry {
@@ -83,11 +83,11 @@ In this example I rotated the hue 225 degrees.
 }
 ```
 
-The value turns the red and yellow flowers into flowers that contain more pinks, purples, and blues.
+该值将原本是红色和黄色的花色，变得更加偏向粉色、紫色和蓝色。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0c2bf0c97252.jpg)
 
-Here's the SVG filter for comparison. The CSS is still simpler, however in this case, not by a lot.
+这是用于比较的 SVG 滤镜。相比之下，CSS 滤镜仍然更简单，但在这种情况下的差距不大。
 
 ```html
 <filter id="hue-rotate">
@@ -95,17 +95,17 @@ Here's the SVG filter for comparison. The CSS is still simpler, however in this 
 </filter>
 ```
 
-## The saturate() filter-function
+## saturate()
 
-CSS also provides a saturate() filter-function that you can use to saturate or desaturate an element.
+CSS 还提供了 saturate()，可用于提高或降低元素颜色的饱和度。
 
 ```
 saturate() = saturate( [ <number> | <percentage> ] )
 ```
 
-As with the grayscale function, the value defines the proportion of the conversion. 0% (or 0.0) results in a completely desaturated element and 100% (1.0) leaves the element unchanged. Values in between are linear multipliers of the effect.
+与灰度函数一样，该函数的参数值定义了转换的比例。0%（或 0.0）使元素完全去饱和，100%（1.0）使元素保持不变。0 到 100 之间的值是效果的线性乘数。
 
-Here I set the filter to 50% saturation.
+在这里，我将元素设置为 50% 饱和度。
 
 ```css
 .strawberry {
@@ -113,15 +113,15 @@ Here I set the filter to 50% saturation.
 }
 ```
 
-Which results in the image below.
+这生成了下面的图像效果。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0c2dd0b48070.jpg)
 
-Negative values are not allowed, but you can can provide values greater than 100% or 1.0 to super-saturate the element. Here's the image again with 900% saturation applied ( filter:saturate(9); ).
+saturate() 不允许使用负值，但你可以设置大于 100% 或 1.0 的值使元素过饱和。下面是同一张图片施加 900% 饱和度的效果（`filter: saturate(9);`）。
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![](https://i.loli.net/2019/06/11/5cfe8f0d1d1d649096.jpg)
 
-Like saturate(), the corresponding SVG filter is relatively simple.
+和 saturate() 对应的 SVG 滤镜也很简单。
 
 ```html
 <filter id="saturate">
@@ -129,21 +129,21 @@ Like saturate(), the corresponding SVG filter is relatively simple.
 </filter>
 ```
 
-I mentioned earlier that you can set the type attribute to saturate for a simpler way to use feColorMatrix to create a grayscale image. All you have to do is set the value to 0 to completely desaturate the image, which produces the same as setting it to 100% grayscale.
+在之前我曾经提到，用 feColorMatrix 来创建灰度图像，有一种更简单的方式，那就是把 type 属性设为 saturate。你所要做的就是将值设置为 0 以使图像完全去饱和，这与将其设置为 `saturate(100%)` 相同。
 
-## The sepia() filter-function
+## sepia()
 
-Finally there's the sepia() filter-function, which converts an image to sepia.
+最后是 sepia()，它将图像转换为棕褐色。
 
 ```
 sepia() = sepia( [ <number> | <percentage> ] )
 ```
 
-This should be familiar by now, but the value defines the proportion of the conversion. 100% (1.0) is completely sepia while 0% (0.0) leaves the image unchanged and values in between are linear multipliers of the effect.
+现在你应该很熟悉这种写法了。这里的值定义了转换比例，100%（1.0）展现为完全棕褐色，0%（0.0）使图像效果保持不变。从 0% 到 100%，效果线性增强。
 
-Negative values are not allowed. You can supply a value greater than 100% or 1.0, but it won't increase the effect.
+这个函数不允许使用负值，你可以设置大于 100%（1.0）的值，但效果不会继续增强。
 
-Here I set the sepia function to 75%
+这里我将 sepia 设为 75%：
 
 ```css
 .strawberry {
@@ -151,11 +151,11 @@ Here I set the sepia function to 75%
 }
 ```
 
-And here's how it looks.
+下图是滤镜的效果展示：
 
-![](http://www.vanseodesign.com/blog/wp-content/uploads/2013/09/strawberry-fields.jpg)
+![5.jpg](https://i.loli.net/2019/06/11/5cfe8f0d12a1a21806.jpg)
 
-There is no sepia type for feColorMatrix so to get the same sepia effect you need to use another matrix.
+feColorMatrix 不支持棕褐色效果模式。如果要获得相同的棕褐色效果，你需要使用另一个模型。
 
 ```html
 <filter id="sepia">
@@ -166,13 +166,13 @@ There is no sepia type for feColorMatrix so to get the same sepia effect you nee
 </filter>
 ```
 
-I take it you agree that using the CSS filter-function is again the easier of the two options, even if the SVG offers greater flexibility in what you can do.
+我认为，在达成相同效果上，SVG 可以为你提供更大的灵活性，CSS 滤镜函数更简单。
 
-## Closing Thoughts
+## 结论
 
-All four of the CSS filter-functions I walked through today are shortcuts for the feColorMatrix filter primitive. Two of them replace complicated matrices and the other two replace a specific type of the primitive.
+上面提到的这四个 CSS 滤镜函数都是 feColorMatrix 的快捷方式。其中有两个（`grayscale()` 和 `sepia()`）替换了复杂矩阵，另外两个替换了特定类型的函数。
 
-I hope you agree that all four of these filter-functions are easy enough to understand and use. I doubt you'll have much difficulty working with them or figuring out what values to use to adjust your images and graphics.
+我希望你能了解到这四个滤镜函数都简单易用好理解。但恐怕你在使用这些函数调整图像图形参数时，还是会遇到一些困难。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
