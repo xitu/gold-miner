@@ -2,8 +2,8 @@
 > * 原文作者：[Marius Schulz](https://mariusschulz.com) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-3-0-the-unknown-type.md](https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-3-0-the-unknown-type.md)
-> * 译者：
-> * 校对者
+> * 译者：[shixi-li](https://github.com/shixi-li)
+> * 校对者：[Usey95](https://github.com/Usey95)、[smilemuffie](https://github.com/smilemuffie)
 
 # TypeScript 3.0: unknown 类型
 
