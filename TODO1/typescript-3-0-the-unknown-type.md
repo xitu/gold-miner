@@ -9,7 +9,7 @@
 
 TypeScript 3.0 引入了新的`unknown` 类型，它是 `any` 类型对应的安全类型。
 
-`unknown` 和 `any` 的主要区别是 `unknown` 类型会更佳严格：在对 `unknown` 类型的值执行大多数操作之前，我们必须进行某种形式的检查。而在对 `any` 类型的值执行操作之前，我们不必进行任何检查。
+`unknown` 和 `any` 的主要区别是 `unknown` 类型会更加严格：在对 `unknown` 类型的值执行大多数操作之前，我们必须进行某种形式的检查。而在对 `any` 类型的值执行操作之前，我们不必进行任何检查。
 
 这片文章主要关注于 `unknown` 类型的实际应用，以及包含了与 `any` 类型的比较。如果需要更全面的代码示例来了解 `unknown` 类型的语义，可以看看 Anders Hejlsberg 的 [原始拉取请求](https://github.com/Microsoft/TypeScript/pull/24439)。
 
@@ -17,9 +17,9 @@ TypeScript 3.0 引入了新的`unknown` 类型，它是 `any` 类型对应的安
 
 让我们首先看看 `any` 类型，这样我们就可以更好地理解引入 `unknown` 类型背后的动机。
 
-自从 TypeScript 在 2012 年发布第一个版本以来 `any` 类型就一直存在。它代表所有可能的 JavaScript 值 — 原语，对象，数组，函数，错误，符号，以及任何你可能定义的值。
+自从 TypeScript 在 2012 年发布第一个版本以来 `any` 类型就一直存在。它代表所有可能的 JavaScript 值 — 基本类型，对象，数组，函数，Error，Symbol，以及任何你可能定义的值。
 
-在 TypeScript 中，每个类型都可以被定义为 `any` 类型。every type is assignable to `any`. 这让 `any` 类型成为了类型系统的 [*顶级类型*](https://en.wikipedia.org/wiki/Top_type) (也被称作 *全局超级类型*)。
+在 TypeScript 中，任何类型都可以被归为 any 类型。这让 `any` 类型成为了类型系统的 [*顶级类型*](https://en.wikipedia.org/wiki/Top_type) (也被称作 *全局超级类型*)。
 
 这是一些我们赋值给 `any` 类型的代码示例：
 
@@ -58,7 +58,7 @@ value[0][1];    // OK
 
 ## `unknown` 类型
 
-就像所有类型都可以被定义为 `any`，所有类型也都可以被定义为 `unknown`。这使得 `unknown` 成为 TypeScript 类型系统的另一种顶级类型（另一种是  `any`）。
+就像所有类型都可以被归为 `any`，所有类型也都可以被归为 `unknown`。这使得 `unknown` 成为 TypeScript 类型系统的另一种顶级类型（另一种是  `any`）。
 
 这是我们之前看到的相同的一组赋值示例，这次使用类型为 `unknown` 的变量：
 
@@ -161,7 +161,7 @@ if (isNumberArray(unknownValue)) {
 }
 ```
 
-尽管 `unknownValue` 已经被定义为 `unknown` 类型，请注意它如何依然在 if 分支下获取到 `number[]` 类型。
+尽管 `unknownValue` 已经被归为 `unknown` 类型，请注意它如何依然在 if 分支下获取到 `number[]` 类型。
 
 ## 对 `unknown` 类型使用类型断言
 
@@ -189,9 +189,9 @@ const otherString = someString.toUpperCase();  // BOOM
 
 ## 联合类型中的 `unknown` 类型
 
-现在让我们看一下在 union 类型中如何处理`unknown`类型。在下一节中，我们还将了解交叉类型。
+现在让我们看一下在联合类型中如何处理`unknown`类型。在下一节中，我们还将了解交叉类型。
 
-在联合类型中，`unknown` 类型会吸收任何类型。这就意味着如果任何组成类型是 `unknown`，联合类型也会相当于 `unknown`：
+在联合类型中，`unknown` 类型会吸收任何类型。这就意味着如果任一组成类型是 `unknown`，联合类型也会相当于 `unknown`：
 
 ```ts
 type UnionType1 = unknown | null;       // unknown
@@ -206,7 +206,7 @@ type UnionType4 = unknown | number[];   // unknown
 type UnionType5 = unknown | any;  // any
 ```
 
-所以为什么 `unknown` 可以吸收任何类型（`any` 类型除外）？让我们来想想 `unknown | string` 这个例子。这个类型表示可以被定义为 `unknown` 类型的所有的值加上可以被定义成 `string` 类型的所有的值。就像我们之前了解到的，所有类型的值都可以被定义为 `unknown` 类型，其中也包括了所有的 `string` 类型，也就是说因此，`unknown | string` 就是表示和 `unknown` 类型本身相同的值集。因此，编译器可以将联合类型简化为 `unknown` 类型。
+所以为什么 `unknown` 可以吸收任何类型（`any` 类型除外）？让我们来想想 `unknown | string` 这个例子。这个类型可以表示任何 unkown 类型或者 string 类型的值。就像我们之前了解到的，所有类型的值都可以被定义为 `unknown` 类型，其中也包括了所有的 `string` 类型，因此，`unknown | string` 就是表示和 `unknown` 类型本身相同的值集。因此，编译器可以将联合类型简化为 `unknown` 类型。
 
 ## 交叉类型中的 `unknown` 类型
 
@@ -233,13 +233,13 @@ type IntersectionType5 = unknown & any;        // any
 -   `!==`
 -   `!=`
 
-如果要对类型为 `unknown` 的值使用任何其他运算符，则必须先指定类型（或强制编译器使用类型断言信任您）。
+如果要对类型为 `unknown` 的值使用任何其他运算符，则必须先指定类型（或使用类型断言强制编译器信任你）。
 
 ## 示例：从 `localStorage` 中读取JSON
 
 这是我们如何使用 `unknown` 类型的真实例子。
 
-假设我们要编写一个从 `localStorage` 读取值并将其反序列化为 JSON 的函数。如果该项不存在或者是无效 JSON，则该函数应返回错误结果；否则，它应该反序列化并返回值。
+假设我们要编写一个从 `localStorage` 读取值并将其反序列化为 JSON 的函数。如果该项不存在或者是无效 JSON，则该函数应返回错误结果，否则，它应该反序列化并返回值。
 
 因为我们不知道在反序列化持久化的JSON字符串后我们会得到什么类型的值。我们将使用 `unknown` 作为反序列化值的类型。这意味着我们函数的调用者必须在对返回值执行操作之前进行某种形式的检查（或者使用类型断言）。
 
@@ -307,10 +307,10 @@ if (result.success) {
 
 请注意，`tryDeserializeLocalStorageItem`函数不能简单地通过返回`null`来表示反序列化失败，原因如下：
 
-1. `null` 值是一个无效的 JSON 值。因此，我们无法区分是对值 `null` 进行了反序列化，还是由于缺少参数或语法错误而导致整个操作失败。
+1. `null` 值是一个有效的 JSON 值。因此，我们无法区分是对值 `null` 进行了反序列化，还是由于缺少参数或语法错误而导致整个操作失败。
 2. 如果我们从函数返回 `null`，我们无法同时返回错误。因此，我们函数的调用者不知道操作失败的原因。
 
-为了返回完整性，使用这种方法的更复杂的替代方案[类型解码器](https://dev.to/joanllenas/decoding-json-with-typescript-1jjc) 来用于安全的 JSON 解析。解码器需要我们指定要反序列化的值的预期数据结构。如果持久化的JSON结果与该数据结构不匹配，则解码将以明确定义的方式失败。这样，我们的函数总是返回有效或失败的解码结果，我们可以完全消除`unknown`类型。
+为了完整性，这种方法的更成熟的替代方案是使用[类型解码器](https://dev.to/joanllenas/decoding-json-with-typescript-1jjc)进行安全的 JSON 解析。解码器需要我们指定要反序列化的值的预期数据结构。如果持久化的JSON结果与该数据结构不匹配，则解码将以明确定义的方式失败。这样，我们的函数总是返回有效或失败的解码结果，就不再需要 `unknown` 类型了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
