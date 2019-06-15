@@ -1,15 +1,11 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[SOFTWARE BELOW THE POVERTY LINE](https://staltz.com/software-below-the-poverty-line.html)
+> * 原文作者：[André Staltz](https://staltz.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/software-below-the-poverty-line.md](https://github.com/xitu/gold-miner/blob/master/TODO1/software-below-the-poverty-line.md)
 > * 译者：
 > * 校对者：
 
-## [André Staltz](/)
-
-## Software below the poverty line
-
-### 13 Jun 2019
+# Software below the poverty line
 
 Most people believe that [open source sustainability is a difficult problem](https://www.fordfoundation.org/about/library/reports-and-studies/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/) to solve. As an open source developer myself, my own perspective to this problem was more optimistic: I believe in the donation model, for its simplicity and possibility to scale.
 
@@ -36,7 +32,7 @@ Then, based on the [latest StackOverflow developer survey](https://insights.stac
 
 The first chart, below, shows team size and “price” for each GitHub star.
 
-[![Open source projects, income-per-star versus team size](/img/poverty-teamsize.png)](/img/poverty-teamsize.png)
+[![Open source projects, income-per-star versus team size](https://staltz.com/img/poverty-popularity.png)](https://staltz.com/img/poverty-popularity.png)
 
 **More than 50% of projects are red**: they cannot sustain their maintainers above the poverty line. 31% of the projects are orange, consisting of developers willing to work for a salary that would be considered unacceptable in our industry. 12% are green, and only 3% are blue: Webpack and Vue.js. Income per GitHub star is important: sustainable projects generally have above $2/star. The median value, however, is $1.22/star. Team size is also important for sustainability: the smaller the team, the more likely it can sustain its maintainers.
 
@@ -44,13 +40,12 @@ The median donation per year is $217, which is substantial when understood on an
 
 The next chart shows how revenue scales with popularity.
 
-[![Open source projects, yearly revenue versus GitHub stars](/img/poverty-popularity.png)](/img/poverty-popularity.png)
+[![Open source projects, yearly revenue versus GitHub stars](https://staltz.com/img/poverty-popularity.png)](https://staltz.com/img/poverty-popularity.png)
 
 You can browse the data yourself by accessing this [Dat archive](https://datproject.org/) with a LibreOffice Calc spreadsheet:
 
 ```
 dat://bf7b912fff1e64a52b803444d871433c5946c990ae51f2044056bf6f9655ecbf
-
 ```
 
 ## Popularity versus fairness
@@ -59,29 +54,10 @@ While popularity is key to green and blue sustainability, there are popular prod
 
 Because visibility is fundamental for donation-driven sustainability, the “invisible infrastructure” projects are often in a much worse situation that the visible ones. For instance, [Core-js](https://github.com/zloirock/core-js) is less popular than [Babel](https://github.com/babel/babel), although [it is a dependency in Babel](https://babeljs.io/docs/en/next/babel-polyfill.html).
 
-Library
-
-Used by
-
-Stars
-
-'Salary'
-
-Babel
-
-350284
-
-33412٭
-
-$70016
-
-Core-js
-
-2442712
-
-8702٭
-
-$16204
+| Library | Used by | Stars | 'Salary' |
+| ------- | ------- | ----- | -------- |
+| Babel   | 350284 | 33412* | $70016   |
+| Core-js | 2442712 | 8702* | $16204   |
 
 Some proposed solutions have been to “trickle down” donations from the well-known projects to the least, guided by tools such as [BackYourStack](https://backyourstack.com/) and [GitHub’s new Contributor overview](https://github.blog/2019-05-23-announcing-github-sponsors-a-new-way-to-contribute-to-open-source/#native-to-your-github-workflow). This would work if the well-known projects had a huge surplus to share with transitive dependencies. That is hardly possible, only Vue.js has enough surplus to share, and it could only do that with 3 or 4 other developers. Vue.js is the exception, other projects cannot afford sharing their income, because that would cause everyone involved to receive poorly.
 
@@ -123,14 +99,6 @@ If you want to help open source become sustainable, rise up and help humanity wr
 * Expose the truth on how companies are behaving by publishing data studies like this one
 
 If you liked this article, consider sharing [(tweeting)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fstaltz.com%2Fsoftware-below-the-poverty-line.html&text=Software%20below%20the%20poverty%20line&tw_p=tweetbutton&url=https%3A%2F%2Fstaltz.com%2Fsoftware-below-the-poverty-line.html&via=andrestaltz "tweeting") it to your followers.
-
-[Become a Patron!](https://www.patreon.com/bePatron?u=8666785)
-
-Copyright (C) 2019 Andre 'Staltz' Medeiros, licensed under [Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), translations to other languages allowed. You can make sure that the author wrote this post by copy-pasting [this signature](https://raw.githubusercontent.com/staltz/staltz.com/master/signed_posts/2019-06-13-software-below-the-poverty-line.md.asc) into [this Keybase page](https://keybase.io/verify).
-
-[Back home](/)
-
-[Source code](https://github.com/staltz/staltz.github.io)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
