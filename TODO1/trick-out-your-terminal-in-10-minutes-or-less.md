@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/trick-out-your-terminal-in-10-minutes-or-less.md](https://github.com/xitu/gold-miner/blob/master/TODO1/trick-out-your-terminal-in-10-minutes-or-less.md)
 > * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
-> * 校对者：
+> * 校对者：[Wangalan30](https://github.com/Wangalan30), [Baddyo](https://github.com/Baddyo)
 
 # 10 分钟爆改终端
 
@@ -11,7 +11,7 @@
 
 ![图片来自于 [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3510850) 摄影：[khamkhor](https://pixabay.com/users/khamkhor-3614842/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3510850)](https://cdn-images-1.medium.com/max/3840/1*13Yt-tL66o7n-jwSTiLefA.jpeg)
 
-**盯着终端的时间无需是痛苦的**
+**让你看着自己的终端时不再痛苦**
 
 无需花费太多的时间和精力，你就能将你的终端从一个难看的白块变成一个美观、流畅、有趣又实用的强大工具。
 
@@ -65,7 +65,7 @@ touch ~/.hushlogin
 
 #### Homebrew
 
-[Homebrew](https://brew.sh/) 是你装备库中的必备神器之一。他们称自己为“Mac OS 里那个缺失的包管理器”，他们不是在开玩笑。它们可以为你安装那些你需要但 Apple 没有为你安装的东西。
+[Homebrew](https://brew.sh/) 是你装备库中的必备神器之一。他们称自己为 “Mac OS 里那个缺失的包管理器”，他们不是在开玩笑。它们可以为你安装那些你需要但 Apple 没有为你安装的东西。
 
 运行以下命令以安装 Homebrew
 
@@ -178,9 +178,9 @@ cd this/is/the/path/to/the_file/ThisOne
 z thisone
 ```
 
-这样你就可以到达这个目录！你只需几次平常操作， Z 就会知道你喜欢做什么，接下来，你就省事儿了。
+这样你就可以到达这个目录！你只需几次平常操作，Z 就会知道你喜欢做什么，接下来，你就省事儿了。
 
-举个例子，如果你经常需要访问“Repos”文件夹，随便在哪个目录下敲 `cd repos` 都不太可能会生效。
+举个例子，如果你经常需要访问 “Repos” 文件夹，随便在哪个目录下敲 `cd repos` 都不太可能会生效。
 
 ![](https://cdn-images-1.medium.com/max/2592/1*PZy0iqA2A9Q6UIHiY1DYvg.png)
 
@@ -234,11 +234,11 @@ subl .
 
 这样可以立即为你打开 Sublime！
 
-#### 让我们把它变得更美观
+#### 我们来把它变得更美观
 
 虽然你有很多的主题可以用来修改你终端窗口的外观，但你也许想从最简单的开始。
 
-打开 iTerm，在菜单栏中 iTerm 一栏中点击 “偏好设置”。这会弹出一个有很多选项的窗口。在“Colors”标签中，你可以选择你喜欢的颜色，或者你也可以选择 “Color Presets” 下拉菜单中的选项。你可以选择一个暗色主题，或者选一些简单的颜色。在“Text”标签下修改字体及字号也很简单。
+打开 iTerm，在菜单栏中 iTerm 一栏中点击“偏好设置”。这会弹出一个有很多选项的窗口。在 “Colors” 标签中，你可以选择你喜欢的颜色，或者你也可以选择 “Color Presets” 下拉菜单中的选项。你可以选择一个暗色主题，或者选一些简单的颜色。在 “Text” 标签下修改字体及字号也很简单。
 
 你随时可以导入你喜欢的主题。我一般使用 Atom 里的颜色方案，当然你也有很多选择。你可以浏览[这个 GitHub 仓库](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes)查看一些示例。
 
@@ -246,7 +246,7 @@ subl .
 
 ![](https://cdn-images-1.medium.com/max/4750/1*aOffDydw0Gr-qO4M6BZ39w.png)
 
-下一步，去“偏好设置“，点击 ”Colors“ 标签然后在 ”Color Presets“ 下拉菜单中点击 ”Import“。你可以在这选择想要的颜色主题。它会弹出一个访达窗口。如果你想用 Atom 主题，可以在你下载了的那个文件夹中，去 `schemes` 文件夹里，然后选择 `Atom.itermcolors`，然后点”打开“。
+下一步，去“偏好设置”，点击 “Colors” 标签然后在 “Color Presets” 下拉菜单中点击 “Import”。你可以在这选择想要的颜色主题。它会弹出一个访达窗口。如果你想用 Atom 主题，可以在你下载了的那个文件夹中，去 `schemes` 文件夹里，然后选择 `Atom.itermcolors`，然后点“打开”。
 
 ![](https://cdn-images-1.medium.com/max/2880/1*NB6Xu0uTYkh1ATEHK6E_KA.png)
 
