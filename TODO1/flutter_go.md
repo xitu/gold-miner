@@ -10,6 +10,7 @@
 我最近发现了 [Flutter](https://flutter.io) —— 谷歌的一个新的移动开发框架，我甚至有曾经将 Flutter 基础知识教给从未有过编程的人的经历。Flutter 是用 Dart 编写的，这是一种诞生于 Chrome 浏览器的编程语言，后来改用到了控制台。这不禁让我想到“Flutter 也许可以很轻易地用 Go 来实现”！
 
 Why not? Both Go and Dart were born inside Google (and share some approaches that make them great), both strongly-typed, compiled languages – in a slightly different turn of events, Go could definitely have been a choice for such an ambitious project as Flutter. And Go is much easier to explain to the person who has never been programming before.
+为什么不用 Go 实现呢？Go 和 Dart 都是在谷歌中诞生的（并且有很多的大会分享使他们变得更好），它们都是强类型的编译语言 —— 在一些不同的情况下
 
 So let’s pretend Flutter is written in Go already. How would the code look like?
 
