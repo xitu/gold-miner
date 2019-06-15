@@ -2,44 +2,44 @@
 > * 原文作者：[Anne Bonner](https://medium.com/@annebonner)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/trick-out-your-terminal-in-10-minutes-or-less.md](https://github.com/xitu/gold-miner/blob/master/TODO1/trick-out-your-terminal-in-10-minutes-or-less.md)
-> * 译者：lihaobhsfer
+> * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
 > * 校对者：
 
-# 不到10分钟，让你的终端变好看
+# 10 分钟爆改终端
 
-> 如何在几分钟内设置出一个更好、更快、更强、更性感的终端
+> 如何在几分钟内打造出一个更好、更快、更强、更性感的终端
 
-![Image by [khamkhor](https://pixabay.com/users/khamkhor-3614842/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3510850) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3510850)](https://cdn-images-1.medium.com/max/3840/1*13Yt-tL66o7n-jwSTiLefA.jpeg)
+![图片来自于 [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3510850) 摄影：[khamkhor](https://pixabay.com/users/khamkhor-3614842/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3510850)](https://cdn-images-1.medium.com/max/3840/1*13Yt-tL66o7n-jwSTiLefA.jpeg)
 
 **盯着终端的时间无需是痛苦的**
 
-不需要花太多时间或经历，你就可以把终端从一个令人绝望的白色方块转变成一个漂亮、快速、有趣、好用的强大工具。
+无需花费太多的时间和精力，你就能将你的终端从一个难看的白块变成一个美观、流畅、有趣又实用的强大工具。
 
-终端是一个非常棒的工具。你可以在那里面运行整个世界。何必浪费时间在你不感到那么心潮澎湃的事情上呢？
+终端是一个非常棒的工具。你可以在那里面运行整个世界。何必把时间浪费在一个你并不喜欢的工具上呢？
 
-当你刚开始你的编程旅程时，你很快会发现，你会花**很多**时间使用终端。你可能想成为一个程序员或者开发者，或者对人工智能、机器学习、数据科学，或者任何其他一种职业生涯感兴趣。无论你选择那条路，花几分钟时间适应终端、把它变成一个让你感到愉悦的地方都不失为一个好主意。
+当你刚开始你的编程旅程时，你很快会发现，你会花**很多**时间使用终端。你可能想成为一个程序员或者开发者，或者对人工智能、机器学习、数据科学，或者任何其他一种职业生涯感兴趣。无论你选择哪条路，你都该花几分钟，适应你的终端，让它变得得心应手。
 
-> 如何你在使用 Mac，是个编程新手，并痛恨那个空空如也的白色方框，那么，这就是你的菜。
+> 如果你是个使用 Mac 的编程新手，而且讨厌那个空白的白框，那么，你的救星来了。
 
-![摄影师 [Nicola Gypsicola](https://unsplash.com/@nicolagypsicola?utm_source=medium&utm_medium=referral) 于 [Unsplash 平台](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9792/0*xky7cW4UjPinIF1S)
+![图片来自于 [Unsplash 平台](https://unsplash.com?utm_source=medium&utm_medium=referral) 摄影：[Nicola Gypsicola](https://unsplash.com/@nicolagypsicola?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9792/0*xky7cW4UjPinIF1S)
 
 #### 内置的 Mac 终端
 
-如果你有 Mac，你就已经有了一个终端窗口，感谢上苍！但即使在它上面做一些基本定制，你也不想每天盯着它看很长时间：
+如果你有一台 Mac，那么你就已经有了一个终端窗口。即使你已经做了一些基础的自定义，但你一定不想整天盯着这个硕大的白框：
 
 ![](https://cdn-images-1.medium.com/max/2952/1*IWG_NGwb9448sTZ4hd_idA.png)
 
-它就在那，它能运行、功能齐全，这已经很好了。但是，几乎不用花费任何精力，你就可以把你的终端变成一个你用着的时候感到很高兴的东西，它能让你的人生变得更简单。
+它就在那，它能运行、功能齐全，这已经很好了。但是，几乎不用花费任何精力，你就可以把你的终端变成一个你乐于使用的工具，它能让你的人生变得更简单。
 
 #### Terminal vs. iTerm
 
-你不是必须用 Terminal！有一个大大改进了的终端应用叫做 [iTerm](https://www.iterm2.com/downloads.html)，它更易于定制，有着非常多很酷的特性。你可以在里面搜索，你可以分栏显示。你可以做许许多多你甚至之前都没想到过的事情。
+你不是必须用 Terminal！这里有一个大幅改良过的终端应用，叫做 [iTerm](https://www.iterm2.com/downloads.html)，它更易于定制，有着非常多很酷的特性。你可以在里面搜索，你可以分栏显示。你可以做许许多多你甚至之前都没想到过的事情。
 
-并且你可以把它变得非常性感、非常容易使用，无需费太多力气！
+你可以把它变得十分性感、实用，且无需花费太多力气！
 
 ![](https://cdn-images-1.medium.com/max/3078/1*T35YHM5YVwRY26Y7voJubQ.png)
 
-直接去[官网](https://www.iterm2.com)然后点那个大大的下载按钮。下载完成后，像任何其他应用一样打开并安装它。（如果你感兴趣，你可以点[这里](https://www.iterm2.com/version3.html)看看 iTerm3 的下载链接）
+直接去[官网](https://www.iterm2.com)，然后点那个大大的下载按钮。下载完成后，像任何其他应用一样打开并安装它。（如果你感兴趣，你可以点[这里](https://www.iterm2.com/version3.html)查看 iTerm3 的下载链接）
 
 ![](https://cdn-images-1.medium.com/max/4776/1*S6ZiopaexKNCNaSGvTU3Hw.png)
 
@@ -47,25 +47,25 @@
 
 ![](https://cdn-images-1.medium.com/max/5564/1*dqIkqInvfJE17smbf6uoxg.png)
 
-> 我们才刚刚开始
+> 我们才刚刚开始。
 
 #### 取消显示登录
 
-你可能并不喜欢每次打开终端时“最近登录”的那条信息。使用下面这条命令拜托它。
+你可能并不想看到每次打开终端时显示的那条“最近登录”的消息。执行下面这条命令关掉它：
 
 ```
 touch ~/.hushlogin
 ```
 
-#### 获取一些不错的下载
+#### 下载些不错的东西
 
-> 需要注意，要让你的修改生效，可能需要关闭再重新打开终端。
+> 注意，为使修改生效，你可能需要关闭并重启终端。
 >
-> 如果你看不到你所做的修改，请关掉终端窗口再打开一个新的。
+> 如果看不到修改效果，关掉终端并重开一个试试。
 
 #### Homebrew
 
-[Homebrew](https://brew.sh/) 是你装备库中要有的上好装备之一。他们称自己为“Mac OS 里那个缺失的包管理器”，他们不是在开玩笑。他们帮你安装苹果公司没有为你装好的东西。
+[Homebrew](https://brew.sh/) 是你装备库中的必备神器之一。他们称自己为“Mac OS 里那个缺失的包管理器”，他们不是在开玩笑。它们可以为你安装那些你需要但 Apple 没有为你安装的东西。
 
 运行以下命令以安装 Homebrew
 
@@ -73,7 +73,7 @@ touch ~/.hushlogin
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-它会停住并告诉你他在安装东西的时候到底在做什么。这一指令非常有用，我强力推荐。Homebrew 是我们的救世主。
+它会暂停并告诉你它的安装进程。这一指令非常有用，我强力推荐。Homebrew 是我们的救世主。
 
 #### Zsh
 
@@ -81,7 +81,7 @@ touch ~/.hushlogin
 
 ![](https://cdn-images-1.medium.com/max/2304/1*cMHcc4NBWhuakaGW526wyw.png)
 
-并且，Zsh 有一些非常好的不能错过的插件。它也是 Mac 预置的，但是版本似乎永远处在过时状态，所以你需要运行：
+并且，Zsh 有一些很棒的插件，你一定不想错过。它也是 Mac 预置的，但总是不能自动更新到最新版，所以你需要运行：
 
 ```
 brew install zsh
@@ -89,7 +89,7 @@ brew install zsh
 
 #### Oh-My-Zsh
 
-喜欢 Zsh？你需要安装 [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh)！它是一个开源的框架，有着上千帮助、函数、插件和主题，用于管理你的 Zsh 配置。运行如下命令以下载：
+喜欢 Zsh？那你一定要安装 [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh)！它是一个开源的框架，有着上千帮助、函数、插件和主题，用于管理你的 Zsh 配置。运行如下命令以下载：
 
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -99,11 +99,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 你可以在这里找到[完整的官方插件列表](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)。它们即装即用，你只需要在你的 `~/.zshrc` 文件中启用它们。（先不要走开，这比听上去简单很多！）
 
-要看都有什么是立即可用的，请跳转到 [插件页](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)。找一找所有的不需费力即可安装的插件。你会想要安装 Git，Github，Python，Sublime，VSCode，或者任何让你人生变得容易的工具。
+要看都有什么是立即可用的，请跳转到[插件页](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)。向下滑动可以查看有什么你可以即装即用的插件。你可能会需要 Git、Github、Python、Sublime、VSCode，或者其他更方便实用的工具。
 
-你一定会想要 Z。
+你一定会想要安装插件 Z。
 
-添加插件非常容易，但是如果你是个终端新手，那些说明可能不太好理解。如果你想做一些像这样的修改，你需要编辑 `~/.zshrc` 文件。听上去很复杂，但实际上并不是！运行如下命令以打开文件：
+添加插件非常容易，但是如果你是个终端新手，那些说明可能不太好理解。如果你想做一些像这样的修改，你需要编辑 `~/.zshrc` 文件。这听上去很复杂，但实际上很简单。运行如下命令以打开文件：
 
 ```
 open ~/.zshrc
@@ -111,9 +111,9 @@ open ~/.zshrc
 
 ![](https://cdn-images-1.medium.com/max/5764/1*t6dR5kpaYvhUqUBfMZlQOQ.png)
 
-这就会打开你要修改的文件。**一定要善待这个文件**。修改里面的内容会影响事情如何（或者到底会不会）运行。
+这就会打开你要修改的文件。**一定要善待这个文件**。这里的任何修改都会影响最终的运行。
 
-当你滚动鼠标浏览这个文件时，你会发现有一些行可以通过取消注释修改。你也会发现一些空白处供你添加自己的修改。
+当你滚动鼠标浏览这个文件时，你会发现可以通过取消注释来修改一些配置。你也可以在空白处添加自己的修改。
 
 想要添加或删除插件？向下滚动到这一部分：
 
@@ -138,7 +138,7 @@ plugins=(git z github history osx pip pyenv pylint python sublime vscode)
 
 #### 语法高亮
 
-你需要 Zsh 语法高亮。它会告诉在你运行指令之前告诉你指令是否有效。这很方便。
+你需要 Zsh 语法高亮功能。它会在运行前告诉你指令是否有效。这很方便。
 
 要启用语法高亮，运行
 
@@ -154,33 +154,33 @@ echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> 
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
 
-重启终端让你的修改生效。
+重启终端使修改生效。
 
 #### Z
 
-我很爱 Z。非常非常非常爱！Z 让我们更上一层楼。它让使用终端变得非常简单！运行如下命令安装它：
+我很爱 Z 插件。非常非常非常爱！Z 插件让我们更上一层楼。它让使用终端变得非常简单！运行如下命令安装它：
 
 ```
 brew install z
 ```
 
-（希望你已经把 Z 加进了插件列表）
+（希望你已经添加了 Z 插件。）
 
-Z 非常棒，非常聪明。如果你一直敲下面这样的命令：
+Z 非常棒，非常聪明。如果你一直敲下面这样的完整路径：
 
 ```
 cd this/is/the/path/to/the_file/ThisOne
 ```
 
-现在你可以敲：
+现在你可以这样敲：
 
 ```
 z thisone
 ```
 
-然后你就到了那个目录！你只需做几次平常做的操作，Z 就会记住你喜欢做什么，然后你就像有了氮气加速。
+这样你就可以到达这个目录！你只需几次平常操作， Z 就会知道你喜欢做什么，接下来，你就省事儿了。
 
-举个例子，你经常要跳转到你的 “Repos” 文件夹。在所有目录下敲 `cd repos` 都不太可能会生效。
+举个例子，如果你经常需要访问“Repos”文件夹，随便在哪个目录下敲 `cd repos` 都不太可能会生效。
 
 ![](https://cdn-images-1.medium.com/max/2592/1*PZy0iqA2A9Q6UIHiY1DYvg.png)
 
@@ -190,9 +190,9 @@ z thisone
 
 #### Sublime Text
 
-如果你的主要文本编辑器是 [Sublime Text](https://www.sublimetext.com/)，你可以设置一个 Sublime 快捷键让人生变得简单。这样，任何时候你想用 Sublime 打开一个文件（或者创建一个新文件并用 Sublime 打开），你可以用 `subl` 这一指令。
+如果你的首选文本编辑器是 [Sublime Text](https://www.sublimetext.com/)，你可以设置一个 Sublime 的快捷方式来简化这个过程。这样的话，每当你要用 Sublime 打开一个文件（或创建一个新文件并用 Sublime 打开）时，你便可以用 `subl` 这一指令。
 
-如果你想创建并打开一个名为 `test.txt` 的新文件，可以敲：
+如果你想创建一个名为 `test.txt` 的新文件，并用 `Sublime` 打开它，可以敲：
 
 ```
 subl test.txt
@@ -202,7 +202,7 @@ subl test.txt
 
 ![](https://cdn-images-1.medium.com/max/2592/1*EPVtMSki6OGGUG7xQ67SoQ.png)
 
-在 Mac 的 Zsh 中，[这是我找到的在让它奏效的最简单的办法](https://gist.github.com/barnes7td/3804534)。首先**请确认你的 Sublime Text 是安装在应用程序文件夹中**。让这个指令生效，运行如下命令，以在 `~/bin` 下创建一个新目录：
+在一台有 Zsh 的 Mac 上，[这是我发现的最简方法](https://gist.github.com/barnes7td/3804534)。首先**请确认你的 Sublime Text 是安装在应用程序文件夹中**。让这个指令生效，运行如下命令，以在 `~/bin` 下创建一个新目录：
 
 ```
 mkdir ~/bin
@@ -232,47 +232,47 @@ echo "export EDITOR='subl' -w" >> ~/.zshrc
 subl .
 ```
 
-这应该会为立即你打开 Sublime！
+这样可以立即为你打开 Sublime！
 
 #### 让我们把它变得更美观
 
-虽然有非常多可用的主题来修改终端窗口的外观，你可能想从简单的开始。
+虽然你有很多的主题可以用来修改你终端窗口的外观，但你也许想从最简单的开始。
 
-打开 iTerm，在菜单栏中 iTerm 一栏中点击 “偏好设置”。这会弹出一个有很多选择的窗口。在“Colors”标签中，你可以选择你喜欢的颜色，或者用“Color Presets”下拉菜单中的一个选项。你可以选择一个暗色主题，或者选一些简单的颜色。在“Text”标签下可以修改字体和字号也很容易。
+打开 iTerm，在菜单栏中 iTerm 一栏中点击 “偏好设置”。这会弹出一个有很多选项的窗口。在“Colors”标签中，你可以选择你喜欢的颜色，或者你也可以选择 “Color Presets” 下拉菜单中的选项。你可以选择一个暗色主题，或者选一些简单的颜色。在“Text”标签下修改字体及字号也很简单。
 
-你也可以在任何时候导入别的主题。我在用 **Atom** 颜色主题，不过你有成千上万种选择。在 [这个 Github 仓库](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes) 看看一些例子。
+你随时可以导入你喜欢的主题。我一般使用 Atom 里的颜色方案，当然你也有很多选择。你可以浏览[这个 GitHub 仓库](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes)查看一些示例。
 
-如果你想安装一个自定义的 iTerm 主题，直接去 [这个 Github 仓库](https://github.com/mbadolato/iTerm2-Color-Schemes) 然后点击顶部的图标来下载主题。（我直接下载了 zip 文件，下载好之后，双击以解压缩它）
+如果你想安装一个自定义的 iTerm 主题，直接去 [这个 GitHub 仓库](https://github.com/mbadolato/iTerm2-Color-Schemes) 然后点击顶部的图标来下载主题。（我直接下载了 zip 文件，下载完成后，双击解压缩）
 
 ![](https://cdn-images-1.medium.com/max/4750/1*aOffDydw0Gr-qO4M6BZ39w.png)
 
-下一步，去“偏好设置“，点击 ”Colors“ 标签然后在 ”Color Presets“ 下拉菜单中点击 ”Import“。这能让你选择你想用的颜色设置。它会弹出一个访达窗口。如果你想用 Atom 主题，可以在你下载了的那个文件夹中，去 `schemes` 文件夹里，然后选择 `Atom.itermcolors`，然后点”打开“。
+下一步，去“偏好设置“，点击 ”Colors“ 标签然后在 ”Color Presets“ 下拉菜单中点击 ”Import“。你可以在这选择想要的颜色主题。它会弹出一个访达窗口。如果你想用 Atom 主题，可以在你下载了的那个文件夹中，去 `schemes` 文件夹里，然后选择 `Atom.itermcolors`，然后点”打开“。
 
 ![](https://cdn-images-1.medium.com/max/2880/1*NB6Xu0uTYkh1ATEHK6E_KA.png)
 
-然后就可以从下拉菜单中选择 ”Atom“ 了！
+然后你就可以从下拉菜单中选择 “Atom” 了！
 
 ![](https://cdn-images-1.medium.com/max/NaN/1*Y3Xak-agj0Nr1NaOG6_iPw.png)
 
-如果你想改字体或字号，去 ”Text“ 那个标签中，然后点击 ”Change Font“ 来做调整。
+如果你想改字体或字号，去 “Text” 那个标签中，然后点击 “Change Font” 来做调整。
 
 ![](https://cdn-images-1.medium.com/max/4752/1*VQUAxh01edXPx-r9N-kv0g.png)
 
-14 号的 Monaco 看上去令人愉悦。
+14 号的 Monaco 看上去不错。
 
-你也可以轻易调整窗口的透明度。你可能想留意一下终端窗口后面运行这个东西。你可能是个编程新手，并想要确保你仔细地跟着教程走。这样就会很有帮助！
+调整窗口透明度也很简单。有时你可能需要留意被覆盖在终端窗口下面的进程。作为一个编程新手，你可能需要确保你的工作严格按照教程在走。那这个功能会对你有所帮助！
 
-去 ”Window“ 菜单，调整 ”Transparency“ 下的滑动条，找到你觉得合适的透明度。
+去 “Window” 菜单，调整 “Transparency” 下的滑动条，找到你觉得合适的透明度。
 
 ![](https://cdn-images-1.medium.com/max/NaN/1*boCIYhyPwYZcnCKr69YQNw.png)
 
 #### 做你想做的事情
 
-永远不要忘了：**你的地盘你做主**。让你的世界变得酷起来吧！这篇文章仅仅是触及了你能做的所有事情的表面。想要自定义你的终端，实际上有无限种方法。
+永远不要忘了：**你的地盘你做主**。让你的世界变得酷起来吧！这篇文章仅仅介绍了皮毛。想要自定义自己的终端，方法多得是。
 
 玩得开心！
 
-如果你搞出了一个让你心满意足的终端配置，在下面的评论中让大家看一看吧！和往常一样，任何时候都欢迎在领英上与我联系 [@annebonnerdata](https://www.linkedin.com/in/annebonnerdata/)。
+如果你搞出了一个让你心满意足的终端配置，在下面的评论中让大家看一看吧！和往常一样，任欢迎随时在领英上与我联系 [@annebonnerdata](https://www.linkedin.com/in/annebonnerdata/)。
 
 感谢阅读！
 
