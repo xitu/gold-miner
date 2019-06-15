@@ -7,7 +7,7 @@
 
 # Locale changes and the AndroidViewModel antipattern
 
-> # TL;DR: Expose resource IDs from ViewModels to avoid showing obsolete data.
+> TL;DR: Expose resource IDs from ViewModels to avoid showing obsolete data.
 
 In a ViewModel, if you’re exposing data coming from resources (strings, drawables, colors…), you have to take into account that ViewModel objects ignore configuration changes such as **locale changes**. When the user changes their locale, activities are recreated but the ViewModel objects are not.
 
@@ -27,7 +27,6 @@ public class MyViewModel extends AndroidViewModel {
         statusLabel.setValue(context.getString(R.string.labelString));
     }
 }
-
 ```
 
 The problem is that the string is resolved in the constructor only once. **If there’s a locale change, the ViewModel won’t be recreated**. This will result in our app showing obsolete data and therefore being only partially localized.
@@ -44,7 +43,6 @@ public class MyViewModel extends ViewModel {
         statusLabel.setValue(R.string.labelString);
     }
 }
-
 ```
 
 Even if you don’t plan to localize your app, it makes testing much easier and cleans up your ViewModel objects so there’s no reason not to future-proof.
