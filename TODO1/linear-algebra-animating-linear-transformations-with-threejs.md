@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-animating-linear-transformations-with-threejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-animating-linear-transformations-with-threejs.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[lgh757079506](https://github.com/lgh757079506)
+> * 校对者：[lgh757079506](https://github.com/lgh757079506), [Stevens1995](https://github.com/Stevens1995)
 
 # JavaScript 线性代数：使用 ThreeJS 制作线性变换动画
 
@@ -11,7 +11,7 @@
 
 ![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-最近，我写了一篇关于 JavaScript 线性变换的文章，并用 **SVG** 网格实现了 2D 的示例。你可以在[此处](https://juejin.im/post/5cefbc37f265da1bd260d129)查看之前的文章。但是，那篇文章没有三维空间的示例，因此本文将补全那篇文章的缺失。你可以在[此处](https://github.com/RodionChachura/linear-algebra)查看本系列文章的 GitHub 仓库，与本文相关的 commit 可以在[此处](https://github.com/RodionChachura/linear-algebra/tree/6e9b5fe7f037ec12b115c915f33b58ce5e2e9c1f)查看。
+最近我完成了一篇关于使用 JavaScript 进行线性变换的文章，并用 **SVG** 网格实现了 2D 的示例。你可以在[此处](https://juejin.im/post/5cefbc37f265da1bd260d129)查看之前的文章。但是，那篇文章没有三维空间的示例，因此本文将补全那篇文章的缺失。你可以在[此处](https://github.com/RodionChachura/linear-algebra)查看本系列文章的 GitHub 仓库，与本文相关的 commit 可以在[此处](https://github.com/RodionChachura/linear-algebra/tree/6e9b5fe7f037ec12b115c915f33b58ce5e2e9c1f)查看。
 
 ## 目标
 
@@ -21,13 +21,13 @@
 
 ## 组件
 
-当我们要在浏览器中制作 3D 动画时，第一个想到的当然就是 [three.js](https://threejs.org/) 库啦。因此我们首先安装它，并让用户可以控制摄像机的位置：
+当我们要在浏览器中制作 3D 动画时，第一个想到的当然就是 [three.js](https://threejs.org/) 库啦。所以让我们来安装它以及另一个可以让用户移动摄像机的库：
 
 ```bash
 npm install --save three three-orbitcontrols
 ```
 
-下面构建一个组件，它可以由父组件的属性中接收矩阵，然后将矩阵作为方块渲染变换动画。下面代码展示了这个组件的结构。我们用 **styled-components** 和 **react-sizeme** 库中的函数对这个组件进行了包装，便于使用、修改组件的主题颜色，并能检测到组件大小的变化。
+下面构建一个组件，它可以由父组件的属性中接收矩阵，并且渲染一个立方体的转换动画。下面代码展示了这个组件的结构。我们用 **styled-components** 和 **react-sizeme** 库中的函数对这个组件进行了包装，以访问颜色主题和检测组件尺寸的变化。
 
 ```JavaScript
 import React from 'react'
@@ -50,7 +50,7 @@ class ThreeScene extends React.Component {
 const WrappedScene = withTheme(withSize({ monitorHeight: true })(ThreeScene))
 ```
 
-在**构造器**中，我们对状态进行了初始化，其中包括了视图的大小。因此，我们当接收新的状态值时，可以在 **componentWillReceiveProps** 方法中与初始状态进行对比。由于需要访问实际的 **DOM** 元素以注入 **ThreeJS** 的 **renderer**，因此需要在 **render** 方法中用到 **ref** 属性：
+在**构造函数**中，我们对状态进行了初始化，其中包括了视图的大小。因此，我们当接收新的状态值时，可以在 **componentWillReceiveProps** 方法中与初始状态进行对比。由于需要访问实际的 **DOM** 元素以注入 **ThreeJS** 的 **renderer**，因此需要在 **render** 方法中用到 **ref** 属性：
 
 ```JavaScript
 const View = styled.div`
@@ -78,7 +78,7 @@ class ThreeScene extends React.Component {
 
 接下来创建需要进行渲染的对象：坐标轴、方块以及方块的边。由于我们需要手动改变矩阵，因此将方块和边的 **matrixAutoUpdate** 属性设为 false。创建好这些对象后，将它们加入场景（scene）中。为了让用户可以通过鼠标来移动摄像机位置，我们还用到了 **OrbitControls**。
 
-最后要做的，就是将我们的库输出的矩阵转换成 **ThreeJS** 的格式，然后用函数获取与时间相关的颜色与变换矩阵。在 **componentWillUnmount**，取消动画（即停止 anime frame）并从 **DOM** 移除 **renderer**。
+最后要做的，就是将我们的库输出的矩阵转换成 **ThreeJS** 的格式，然后获取根据时间返回颜色和转换矩阵的函数。在 **componentWillUnmount**，取消动画（即停止 anime frame）并从 **DOM** 移除 **renderer**。
 
 ```JavaScript
 class ThreeScene extends React.Component {
@@ -139,9 +139,9 @@ class ThreeScene extends React.Component {
 }
 ```
 
-不过此时我们还没有定义 **animate** 函数，因此什么也不会渲染。我们首先需要对方块和它的边各自的变换矩阵进行更新，然后进行渲染并请求浏览器的 animation frame（`window.requestAnimationFrame`）。
+不过此时我们还没有定义 **animate** 函数，因此什么也不会渲染。首先，我们更新立方体及其边缘的转换矩阵，并且更新立方体的颜色，然后进行渲染并且调用 `window.requestAnimationFrame`。
 
-**componentWillReceiveProps** 方法将接收当前组件的大小，当它发现大小发生了变化时，会更新状态，改变 renderer 的尺寸，并调整 camera 的方位。
+**componentWillReceiveProps** 方法将接收当前组件的大小，当它检测到组件尺寸发生了变化时，会更新状态，改变 renderer 的尺寸，并调整 camera 的方位。
 
 ```JavaScript
 class ThreeScene extends React.Component {
