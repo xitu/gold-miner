@@ -2,119 +2,119 @@
 > * 原文作者：[Sarah Leo](https://medium.com/@sarahleo_59097)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mistakes-weve-drawn-a-few.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mistakes-weve-drawn-a-few.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ccJia](https://github.com/ccJia)
+> * 校对者：[Charlo-O](https://github.com/Charlo-O), [cyz980908](https://github.com/cyz980908)
 
-# Mistakes, we’ve drawn a few
+# 在数据可视化中，我们曾经“画”下的那些败笔
 
-> Learning from our errors in data visualisation
+> 从败笔中学习数据可视化
 
-At **The Economist**, we take data visualisation seriously. Every week we publish around 40 charts across print, the website and our apps. With every single one, we try our best to visualise the numbers accurately and in a way that best supports the story. But sometimes we get it wrong. We can do better in future if we learn from our mistakes — and other people may be able to learn from them, too.
+在**经济学人**，我们会很认真的对待数据可视化。我们每周都会通过印刷品、网站或者应用程序发布大概 40 张图表。对于每一个图表，我们都尽可能的让它更精确从而最好的支撑我们所要描述的主题。但有的的时候我们也会犯错。如果我们从这些错误中吸取教训，我们在未来可以做的更好，同时其他人也可以从中学到一些东西。
 
-After a deep dive into our archive, I found several instructive examples. I grouped our crimes against data visualisation into three categories: charts that are (1) misleading, (2) confusing and (3) failing to make a point. For each, I suggest an improved version that requires a similar amount of space — an important consideration when drawing charts to be published in print.
+通过深挖我们的档案，我发现了一些有学习价值的例子。我对它们进行了如下三类分组：（1）误导性，（2）混淆性和（3）没能说明问题的图表。对于每一个错误分类，我都提供了一个占用空间类似的改进版本，空间的占用量在印刷版发行时是一个很重要的考量因素。
 
-**(A short disclaimer: Most of the “original” charts were published before our chart redesign. The improved charts are drawn to fit our new specs. The data are the same.)**
+**（简短的免责声明：大多数“原始”图表是在重新设计图表之前发布的。绘制改进的图表以符合我们的新规范。数据是一样的。）**
 
 ***
 
-## Misleading charts
+## 误导性的图表
 
-Let’s start with the worst of crimes in data visualisation: presenting data in a misleading way. We **never** do this on purpose! But it does happen every now and then. Let’s look at the three examples from our archive.
-> **Mistake: Truncating the scale**
+让我们从数据可视化中最糟糕的罪行开始：以误导的方式展示数据。我们**从来不会**故意的去这么做！但是它确实经常性的在发生。让我们来看以下三个来自我们案例的实例。
+> **错误：截断比例**
 
 ![A bit left-field](https://cdn-images-1.medium.com/max/2560/1*9QE_yL3boSLqopJkSBfL5A.png)
 
-[This chart](https://www.economist.com/britain/2016/08/13/the-metamorphosis) shows the average number of Facebook likes on posts by pages of the political left. The point of this chart was to show the disparity between Mr Corbyn’s posts and others.
+[这张图表](https://www.economist.com/britain/2016/08/13/the-metamorphosis)为了展示左翼政党帖子在 Facebook 上的平均点赞数。图表的目是为了体现 Corbyn 先生的帖子和其他人的差距。
 
-The original chart not only downplays the number of Mr Corbyn’s likes but also exaggerates those on other posts. In the redesigned version, we show Mr Corbyn’s bar in its entirety. All other bars remain visible. **(Avid followers of this blog will have seen [another example](https://medium.economist.com/the-challenges-of-charting-regional-inequality-a9376718348) of this bad practice.)**
+原始的图表不仅低估了 CorByn 先生帖子的点赞人数，而还且夸大了其他人帖子的点赞人数。在重新设计的版本中，我们在完整的展示 CorByn 先生的直方图的同时其他人的直方图也依旧可见。**（对这个博客有兴趣的粉丝可以看到这个错误的[另一个例子](https://medium.economist.com/the-challenges-of-charting-regional-inequality-a9376718348)。）**
 
-Another odd thing is the choice of colour. In an attempt to emulate Labour’s colour scheme, we used three shades of orange/red to distinguish between Jeremy Corbyn, other MPs and parties/groups. We don’t explain this. While the logic behind the colours might be obvious to a lot of readers, it perhaps makes little sense for those less familiar with British politics.
+另一个比较奇怪的事情是颜色的选择。为了模仿工党的配色方案，我们使用了三种暗色的橘色/红色色调来区别 Jeremy Corbyn 和其他的国会、政党/团体。我们没有解释这个。这些颜色背后的含义对大多数读者来讲是显而易见的，但是对于那些不熟悉英国政治的读者来讲就没有什么意义了。
 
-[**Download chart data**](http://infographics.economist.com/databank/Economist_corbyn.csv)
+[**下载图表数据**](http://infographics.economist.com/databank/Economist_corbyn.csv)
 
-> **Mistake: Forcing a relationship by cherry-picking scales**
+> **错误：通过精选的尺度来强调一组关系**
 
 ![**A rare perfect correlation? Not really.**](https://cdn-images-1.medium.com/max/2560/1*H21mduPmvzot3oaMThNfFQ.png)
 
-The chart above accompanied a [story on the decline of dog weights](https://www.economist.com/britain/2016/08/13/subwoofers). On first glance, it appears that the weight and neck sizes of dogs are perfectly correlated. But is this true? Only to some extent.
+上面的图表描述的是与[狗体重下降相关案例](https://www.economist.com/britain/2016/08/13/subwoofers)。乍一看，狗的体重和脖子的尺寸是强相关的。但这是事实吗？应该只是在某种程度上相关。
 
-In the original chart, both scales decrease by three units (from 21 to 18 on the left; from 45 to 42 on the right). In percentage terms, the left scale decreases by 14% while the right goes down by 7%. In the redesigned chart, I retained the double scale but adjusted their ranges to reflect a comparable proportional change.
+在原始图表中，两个尺度都下降了 3 个单位（左边的从 21 到 18，右边的从 45 到 42）。按百分比计算，左边的尺度下降了 14%，右边的尺度降低了 7%。在重新设计的图表中，我保留了两个尺度，但是我调整了变化的范围，使得结果可以更好反映一个有比较性的比例变化。
 
-Considering the jolly topic of this chart, this mistake may seem relatively minor. The message of the chart, after all, is the same in both versions. But the takeaway is important: if two series follow each other too closely, it is probably a good idea to have a closer look at the scales.
+考虑到这个娱乐性质的主题，这个错误就没有那么严重。毕竟，两个版本图表所使用的信息是一致的。但是，值得一提的是：如果两组数据紧密相关，那么仔细的考虑一下尺度的选择是个不错的主意。
 
-[**Download chart data**](http://infographics.economist.com/databank/Economist_dogs.csv)
+[**下载图表数据**](http://infographics.economist.com/databank/Economist_dogs.csv)
 
-> **Mistake: Choosing the wrong visualisation method**
+> **错误：选择了错误的可视化方法**
 
 ![**Views on Brexit almost as erratic as its negotiations**](https://cdn-images-1.medium.com/max/2560/1*9GzHVtm4y_LeVmFCjqV3Ww.png)
 
-We published this polling chart in Espresso, our daily news app. It shows attitudes to the outcome of the EU referendum, plotted as a line chart. Looking at the data, it appears as if respondents had a rather erratic view of the referendum result — increasing and decreasing by a couple of percentage points from one week to the next.
+我们在自己的每日新闻程序 Espresso 上发布了这个投票结果表。它使用折线图的方式来展示人们对欧盟公投结果的态度。通过这组数据，受访者对于公投结果的看法是很不稳定的，随着时间的推移一直在上下浮动。
 
-Instead of plotting the individual polls with a smoothed curve to show the trend, we connected the actual values of each individual poll. This happened, primarily, because our in-house charting tool does not plot smoothed lines. Until fairly recently, we were less comfortable with statistical software (like R) that allows more sophisticated visualisations. Today, all of us are able to plot a polling chart like the redesigned one above.
+我们没有使用散点加一条平滑的曲线来展示趋势，而是连接了每一个受访者的结果。这很可能是我们内部的工具没有提供绘制平滑曲线的功能所造成的。直到最近，我们仍然没有习惯使用提供更多复杂可视化工具的统计学软件（比如 R）。其实，现今我们所有人都能够绘制一个投票图，就像上面重新设计的那样。
 
-Another thing to note in this chart is the way in which the scale was broken. The original chart spreads the data wider than it should. In the redesigned version, I have left some more space between the start of the scale and the smallest data point. [Francis Gagnon](https://www.chezvoila.com/blog/yaxis) has put together a nice formula for this: aim for leaving at least 33% of the plot area free under a line chart that doesn’t start at zero.
+怎么去截断尺度是这个图表中另一个需要注意的问题。原始图表中数据的显示范围被扩展的超出了数据应有的范围。在重设计的图表中，我在尺度的起始点和最小数据点之间预留了一部分空间。[Francis Gagnon](https://www.chezvoila.com/blog/yaxis) 的博客中对此总结了一个公式：对于不从零点起始的折线图表中，至少预留 33% 的区域。
 
-[**Download chart data**](http://infographics.economist.com/databank/Economist_brexit.csv)
+[**下载图表数据**](http://infographics.economist.com/databank/Economist_brexit.csv)
 
 ***
 
-## Confusing charts
+## 混乱的图表
 
-Not quite as criminal as a misleading chart, charts that are difficult to read are a sign of a visualisation job done badly.
-> **Mistake: Taking the “mind-stretch” a little too far**
+难懂的图表不像误导性的图表那么有危害，但是也代表这个图表是一个很糟糕的可视化工作。
+> **错误：思维太过发散**
 
 ![… what?](https://cdn-images-1.medium.com/max/2560/1*Ilu1H37M1soUh1GHhDa_IA.png)
 
-At **The Economist**, we’re encouraged to produce “mind-stretching” journalism. But, sometimes, we take this too far. [The chart above](https://www.economist.com/briefing/2017/01/21/peter-navarro-is-about-to-become-one-of-the-worlds-most-powerful-economists) shows the United States’ trade deficit in goods and the number of people employed in manufacturing.
+在**经济学人**，我们鼓励去制造一些具有发散性思维的新闻。但是，有时我们做的太过了。[上表](https://www.economist.com/briefing/2017/01/21/peter-navarro-is-about-to-become-one-of-the-worlds-most-powerful-economists)展示了美国货物贸易逆差和工厂雇佣员工数量的关系。
 
-The chart is incredibly difficult to read. It has two main problems. First, the values of one data series (trade deficit) are entirely negative, while the others (manufacturing employment) are all positive. It is challenging to combine such disparities in one chart without flattening either data series. The apparent “solution” to this leads to the second problem: the two data series don’t share a common baseline. The baseline of the trade deficit is at the top of the chart (highlighted by a red line drawn across half of the chart body). The baseline of the right scale is at the bottom.
+这个图表是令人发指的难以理解。它有两个主要问题。首先，贸易逆差的全部数据都是负值，而工厂雇佣人数全部是正值。在没有将两组数据归一化到同一尺度的情况下，将他们组合到一张表中表达是不合适的。这种直白的处理方式导致了第二个问题：两组数据没有共享同一个基线。贸易逆差的基线是图表顶部左半段的红线，而右边尺度的基线又在图表的底部。
 
-The redesigned chart shows that there wasn’t any need to combine the two data series. The relationship between the trade deficit and manufacturing employment remains clear and only takes a minimal amount of extra space.
+其实将两组数据组合在一张表中是没有必要的，在我们重新设计的图表中，贸易逆差和工厂雇佣人数之间的关系更为清晰，仅仅是多占据了很小的一点额外空间。
 
-[**Download chart data**](http://infographics.economist.com/databank/Economist_us-trade-manufacturing.csv)
+[**下载图表数据**](http://infographics.economist.com/databank/Economist_us-trade-manufacturing.csv)
 
-> **Mistake: Confusing use of colour**
+> **错误：混乱的使用颜色**
 
 ![50 Shades of Blue](https://cdn-images-1.medium.com/max/2560/1*4RND--Bo31DVfiziaa-HBA.png)
 
-[This chart](https://www.economist.com/the-americas/2017/02/25/reducing-brazils-pension-burden) compares government spending on pension benefits with the share of people aged 65+ for a selection of countries, with a particular focus on Brazil. To keep the chart small, the visualiser only labelled a selection of countries and highlighted those in electric blue. The OECD average is highlighted in pale blue.
+[该图表](https://www.economist.com/the-americas/2017/02/25/reducing-brazils-pension-burden)对比了选定国家 65 岁以上人口比例和政府养老金支持的关系，重点关注了巴西。为了使图表更小，图中只标注了选中的国家并且用铁蓝色高亮了这些国家，用淡蓝色高亮了 OECD 的均值。
 
-The visualiser (me!) ignored the fact that a change of colour often implies a categorical change. On first glance, this seems to be the case in this chart too — all electric blue colours seem to belong to a different grouping to the dark blue ones. This is not the case. The only thing they have in common is that there were chosen to be labelled.
+这个可视化者（我！）忽视了这样一个事实，颜色的变化意味着种类的变化。乍一看，这个图表也是如此，所有的铁蓝色似乎是属于深蓝色的不同分组。但这不是我想要表达的事实，他们唯一的共同点只是他们被标记了。
 
-In the redesigned version, the colour of the circles remains the same for all countries. I have changed the opacity of those that aren’t labelled to make the others stand out. Typography does the rest: Brazil, the focus country, is written in bold text, and the OECD average in italics.
+在重新设计的版本中，所有国家的颜色没有变化。我改变了没有标记国家的透明度从而凸显那些标记了的国家。然后我对字体进行了调整，用粗体字来强调我们关注的巴西，用斜体字来标注 OECD。
 
-[**Download chart data**](http://infographics.economist.com/databank/Economist_pensions.csv)
+[**下载图表数据**](http://infographics.economist.com/databank/Economist_pensions.csv)
 
 ***
 
-## Charts that conceal their point
+## 观点模糊的图表
 
-The mistakes in this final category are less obvious. Charts like these are not misleading, nor are they very confusing. They merely fail to justify their existence — often because they have been visualised incorrectly or because we tried to cram too much in too little space.
-> **Mistake: Including too much detail**
+最后的这一类错误不是特别明显。像这样的图表没有误导性也不会令人困惑。它们只是没有很好的证明自己存在的意义 —— 通常是因为不正确的表现或者想在很小的空间里体现很多的信息所导致的。
+> **错误：包含太多的细节**
 
 ![**“The more colours the better!” — No good data visualiser, ever**](https://cdn-images-1.medium.com/max/2560/1*GB8vGeGzMeueEbkpGTTZVQ.png)
 
-What a rainbow! We published [this chart](https://www.economist.com/finance-and-economics/2016/09/03/more-spend-less-thrift) in a column on Germany’s budget surplus. It shows the budget balances and current-account balances for ten euro-area countries. With so many colours — some of which are quite difficult to distinguish or even see because the values are so small — the chart’s message is impossible to make out. It almost tempts you to glaze over and move on. And, more importantly, since we are not plotting all euro-area countries it doesn’t make any sense to stack the data.
+多么的色彩斑斓！我们在德国预算盈余的专栏中公布了这个[图表](https://www.economist.com/finance-and-economics/2016/09/03/more-spend-less-thrift)。它显示了 10 个欧元区国家的预算余额和现金账户余额。图标中使用了很多种颜色，再加上本身数值很小导致大量的数据非常难以区分，想通过这样的图表来传达信息是不可能的。它几乎就是让你在大雾中摸索前进。而且，更重要的是，我们之所以没有绘制全所有欧元区国家的数据，是因为这样的堆叠数据没有任何意义。
 
-I revisited the story to see if there was a way to simplify this chart a little. The column mentions Germany, Greece, the Netherlands, Spain and the euro-area total. In the redesigned version of the chart, I decided to only highlight those. To resolve the problem of stacking only a selection of countries, I added another category (“Others”) that includes all other euro-area countries. **(The total current-account balance in the redesigned chart is lower than in the original chart. This is because of a data revision from Eurostat.)**
+ 我们重温这个案例是为了看看有没有其他方式来简化这个表格。图表的列提到了德国、希腊、荷兰、西班牙和剩下的几个国家。在重新设计的版本中，我们决定只突出这些。为了解决仅堆叠一些国家的问题，我另外添加了一个包括所有其他欧元区国家类目（“其他”）。**（重新设计的图标中，现金账户余额低于原始图表是因为我们使用了欧盟统计局的修订数据。）**
 
-[**Download chart data**](http://infographics.economist.com/databank/Economist_eu-balance.csv)
+[**下载图表数据**](http://infographics.economist.com/databank/Economist_eu-balance.csv)
 
-> **Mistake: Lots of data, not enough space**
+> **错误：大量的数据，狭小的空间**
 
 ![**I give up.**](https://cdn-images-1.medium.com/max/2560/1*7GJIxnYsyFSGgQV537Ittg.png)
 
-Confined by the limited space on a page, we are often tempted to force all the data we have into a slot that’s way too small. Although this saves valuable space on the page, it has consequences — as shown in this chart, from [March 2017](https://www.economist.com/science-and-technology/2017/03/11/science-remains-male-dominated). The story is about how scientific publishing is dominated by men. All data points are equally interesting and relevant to the story. But by presenting such a lot of data — four research-field categories as well as the share of inventors — the information is hard to take in.
+由于空间的限制，我们经常性的把数据强行塞到一个很小的细条上。虽然节省了空间，但是也会有像这个[图表（来自 2017 年 3 月）](https://www.economist.com/science-and-technology/2017/03/11/science-remains-male-dominated)一样的后果。这个案例展示了科学刊物是由男性主导的现象。所有的数据都同样的意义并且和主题相关。但是这么多的数据（包含了四个研究领域以及发明人）是很难在这里展示出来的。
 
-After giving it quite a lot of thought, I decided not to redesign this chart. If I were to keep all the data, the chart would have become way too big to go with a concise story. In cases like this, it would be better to cut something. Alternatively, we could show some sort of average measure, e.g. the average share of publications by women across all fields. **(Please let me know if you have any ideas on how to visualise this in a tight space! I’d love to hear your ideas.)**
+在深思熟虑之后，我决定还是不要重新设计这个图表了。如果我保存了所有的数据，那么图表会很臃肿从而没法简洁的表达主题。在这种情况下，最好的方式是砍掉一部分数据。比如，我们可以展示一个测量均值，或者使用所有领域的女性出版物的平均值来代替。**（如果你可以在这个狭小的空间上做的更好！那么请告诉我，我很乐意知道你的想法。）**
 
-[**Download chart data**](http://infographics.economist.com/databank/Economist_women-research.csv)
+[**下载图表数据**](http://infographics.economist.com/databank/Economist_women-research.csv)
 
 ***
 
-Best practices in data visualisation are evolving fast: what may be acceptable today can be frowned upon tomorrow. New and better techniques are emerging all the time. Have you ever committed a chart crime that could have been fixed easily? Let us know!
+数据可视化的最佳实现方法正在快速发展：那些今天有效的方法，明天不一定有效。每时每刻都有新的技术涌现出来。你有没有犯过一些很容易被修整的错误？快来告诉我们！
 
-**Sarah Leo is a visual data journalist at The Economist**.
+**经济学人数据可视化记者 Sarah Leo**.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
