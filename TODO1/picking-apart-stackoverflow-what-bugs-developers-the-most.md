@@ -9,7 +9,7 @@
 
 Stack Overflow 自 2008 年成立以来，一直在迅速拯救各种类型的开发者。从那时起，开发者在所有开发领域中提出了数以百万计的不同问题。
 
-但是是哪些**类型**的问题使得开发者被迫转向 [Stack Overflow](https://www.stackoverflow.com) 求助呢?
+但是是哪些**类型**的问题使得开发者被迫转向 [Stack Overflow](https://www.stackoverflow.com) 求助呢？
 
 我们挑选了 11 种最流行的编程语言（通过 Stack Overflow 标签的频率来衡量），并进行了一项研究，试图揭示这些问题中的一些共性和差异。
 
@@ -23,7 +23,7 @@ Stack Overflow 自 2008 年成立以来，一直在迅速拯救各种类型的�
 
 [![Python 将在 2019 年取代 JavaScript 称为最常被问及的语言。](https://www.globalapptesting.com/hubfs/javascript_python_timeline-min.png)](https://www.globalapptesting.com/hubfs/javascript_python_timeline-min.png)
 
-2011 年[哈佛商业评论](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century)将数据科学家称为“21 世纪最性感的工作”。从那时起，Python -- 数据科学家的首选语言之一 -- 已经越来越受欢迎......以至于在 2019 年它已经取代了 JavaScript，成为 StackOverflows 最常被问及的编程语言。
+2011 年[哈佛商业评论](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century)将数据科学家称为“21 世纪最性感的工作”。从那时起，Python — 数据科学家的首选语言之一 — 已经越来越受欢迎......以至于在 2019 年它已经取代了 JavaScript，成为 StackOverflows 最常被问及的编程语言。
 
 （要么 Python 正在迅速成为最流行的编程语言，要么只是 Python 比其他语言拥有更大比例的新晋开发者！）
 
@@ -74,7 +74,7 @@ Ruby 最早出现在 90 年代中期，现在它找到了一个服务器端框�
 
 [![StackOverflow 上提到最多的 C# 用词。](https://www.globalapptesting.com/hubfs/c-sharp-min.png)](https://www.globalapptesting.com/hubfs/c-sharp-min.png)
 
-C#（C Sharp，2000）主要是由微软为其 .NET 框架（“**net**”, 中右）开发的。
+C#（C Sharp，2000）主要是由微软为其 .NET 框架（“**net**”，中右）开发的。
 
 ### C++
 
