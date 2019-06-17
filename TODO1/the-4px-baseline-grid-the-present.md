@@ -36,7 +36,7 @@
 
 还有一个例外，在将组件或容器中的图标或文本垂直居中排列时，我不会去使用基准网格进行布局，因为在大多数时候开发人员会使用 Flexbox 去居中元素，对于我们双方来说，这比手动调整间距都更加方便😉。
 
-![每一行的文字都使用 Sketch 中的“居中对齐”命令实现居中，没有和基准网格对齐也没关系](https://cdn-images-1.medium.com/max/2800/1*F0XgEwIP-AqqUJiuB4wWRw@2x.png)
+![每一行的文字都使用 Sketch 中的“居中对齐”命令实现居中，没有基线网格对齐也没关系](https://cdn-images-1.medium.com/max/2800/1*F0XgEwIP-AqqUJiuB4wWRw@2x.png)
 
 ---
 
