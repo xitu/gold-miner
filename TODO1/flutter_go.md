@@ -2,65 +2,64 @@
 > * 原文作者：[divan](https://divan.dev/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter_go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter_go.md)
-> * 译者：
+> * 译者：[suhanyujie](https://github.com/suhanyujie)
 > * 校对者：
 
-# Thought Experiment: Flutter in Go
+# 思考：用 Go 实现 Flutter
 
 我最近发现了 [Flutter](https://flutter.io) —— 谷歌的一个新的移动开发框架，我甚至有曾经将 Flutter 基础知识教给从未有过编程的人的经历。Flutter 是用 Dart 编写的，这是一种诞生于 Chrome 浏览器的编程语言，后来改用到了控制台。这不禁让我想到“Flutter 也许可以很轻易地用 Go 来实现”！
 
-Why not? Both Go and Dart were born inside Google (and share some approaches that make them great), both strongly-typed, compiled languages – in a slightly different turn of events, Go could definitely have been a choice for such an ambitious project as Flutter. And Go is much easier to explain to the person who has never been programming before.
-为什么不用 Go 实现呢？Go 和 Dart 都是在谷歌中诞生的（并且有很多的大会分享使他们变得更好），它们都是强类型的编译语言 —— 在一些不同的情况下
+为什么不用 Go 实现呢？Go 和 Dart 都是诞生于谷歌（并且有很多的大会分享使它们变得更好），它们都是强类型的编译语言 —— 这样做会有一些形势上的不同，因为 Go 绝对可以成为一个像 Flutter 这样热门项目的选择。而那时候 Go 会更容易地向没有编程经验的人解释或传授。 
 
-So let’s pretend Flutter is written in Go already. How would the code look like?
+假如 Flutter 已经是用 Go 开发的。那它的代码会是什么样的？
 
-[![Go Flutter in VSCode](https://divan.dev/images/go_flutter_vscode.png)](https://divan.dev/images/go_flutter_vscode_big.png)
+[![VSCode 中 Go 版的 Flutter](https://divan.dev/images/go_flutter_vscode.png)](https://divan.dev/images/go_flutter_vscode_big.png)
 
 ### The problem with Dart
 
-I’ve been following Dart development since the very beginning of its existence in Chrome, and my assumption has always been that Dart will replace JS eventually in every browser. It was extremely disappointing to read the [news about Google ditching Dart support in Chrome](https://news.dartlang.org/2015/03/dart-for-entire-web.html) back then in 2015.
+自从 Dart 在 Chrome 中出现以来，我就一直在关注它的开发情况，我也一直认为 Dart 最终会在所有浏览器中取代 JS。2015 年，得知[有关谷歌在 Chrome 中放弃 Dart 支持](https://news.dartlang.org/2015/03/dart-for-entire-web.html)的消息时，我非常沮丧。
 
-Dart is fantastic! Well, everything is fantastic when you upgrade from JS, but if you downgrade from, say, Go, it’s not that exciting, but… it’s ok. Dart has every feature possible – classes/generics/exceptions/Futures/async-await/event-loop/JIT/AOT/GC/overloads - you name it. It has special syntax for getters/setters, special syntax for auto-initialization in constructors, special syntax for special syntax and many more.
+Dart 是非常奇妙的！是的，当你从 JS 升级转向到 Dart时，一切都很好，可如果你从 Go 降级转过来，就没那么惊奇了，但是...Dart 拥有非常多的特性 —— 类、泛型、异常、Futures、异步等待、事件循环、JIT、AOT、垃圾回收、重载 —— 你能想到的它都有。它有用于 getter/setter 的特殊语法、有用于构造函数自动初始化的特殊语法、有用于特殊语句的特殊语法等。
 
-While it makes Dart more familiar to people with a background in pretty much any other language – which is great and lowers entry barrier – I found it hard to explain to the newcomer with no background.
+虽然它让能让拥有其他语言经验的人更容易熟悉 Dart —— 这很不错，也降低了入门门槛 —— 但我发现很难向没有编程经验的新手讲解它。
 
-* **Everything “special” was confusing** – **“special method named constructor”**, **“special syntax for initialization”**, **“special syntax for overriding methods”** etc.
-* **Everything “hidden” was confusing** – **“from which import this class comes from? it’s hidden, and you can’t see it by reading a code”**, **“why we write a constructor in this class but don’t write in another? it’s there, but it’s hidden”** and so on
-* **Everything “ambiguous” was confusing** – **“so should I use named or position parameter here?”**, **“should it be final or const variable?”**, **“should I use normal function syntax or ‘this short syntax’?”** etc.
+* **所有“特殊”的东西都被混淆** —— **“名为构造方法的特殊方法”**，**“用于初始化的特殊语法”**，**“用于覆盖的特殊语法”**等等。
+* **所有“隐藏”的东西都令人困惑** —— **“这个类是从哪儿导入的？它是隐藏的，你看不到它的实现代码”**，**“为什么我们在这个类中写一个构造方法而不是其他方法？它在那里，可是它是隐藏的”**等等。
+* **所有“有歧义的语法”被混淆** —— **“所以我应该在这里使用命名或者对应位置的参数吗？”**，**“应该使用 final 还是用 const 进行变量声明？”**，**“应该使用普通函数语法还是‘箭头函数语法’”**等等。
 
-This triplet - “special”, “hidden” and “ambiguous” - probably captures the essence of what people call “magic” in programming languages. Those are features designed to help us write simpler and cleaner code, but, in fact, they add more confusion and more cognitive load to reading programs.
+这三个标签 —— “特殊”、“隐藏”和“歧义” —— 可能符合人们在编程语言中所说的“魔力”的本质。这些特性旨在帮助我们编写更简单、更干净的代码，但实际上，他们给阅读程序增加了更多的混乱和心智负担。
 
-And that’s exactly where Go took a vastly different stance and guards its positions fiercely. Go is virtually non-magical language – it minimizes amount of special/hidden/ambiguous constructs to the lowest possible amount. It comes with its own list of shortages, however.
+而这正是 Go 采取了截然不同的方式，并强烈声明自己特色的地方。Go 实际上是一个非魔法的语言 —— 它将特殊、隐藏、歧义之类的东西的数量讲到最低。然而，它也有一些缺点。
 
 ### The problem with Go
 
-As we’re talking about Flutter, which is a UI framework, we have to look at Go as a tool for describing/specifying UI. UI framework is a massively complicated subject to deal with – it literally requires creating a specialized language to handle the amount of essential complexity. One of the most popular ways to do so is to create [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) \- Domain-specific Language – and the common knowledge is that Go is really bad at it.
+当我们讨论 Flutter 这种 UI 框架时，我们必须把 Go 看作一个描述/指明 UI 的工具。UI 框架是一个非常复杂的主题，它需要创建一种专门的语言来处理大量的底层复杂性。最流行的方法之一是创建 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) —— 特定领域的语言 —— 众所周知，Go 在这方面不那么尽如人意。
 
-Creating DSL means creating custom terms and verbs developer can use. The resulting code should capture the essence of UI layout and interactions, and be flexible enough to allow designers’ fantasy flow, but rigid enough to conform UI framework limitations. For example, you should be able to put buttons inside a container, then put icons and text widget inside buttons, and yet compiler should give you an error if you try to put the button into text.
+创建 DSL 意味着创建开发人员可以使用的自定义术语和谓词。生成的代码应该可以捕捉 UI 布局和交互的本质，并且足够灵活，可以应对设计师的想象流，又足够的严格，符合 UI 框架的限制。例如，你应该能够将按钮放入容器中，然后将图标和文本小部件放入按钮中，可如果你视图将按钮放入文本中，编译器应该给你提示一个错误。
 
-UI specific language is also often declarative – which, in fact, means that you should be able to use code constructs (including things like space indentation!) to visually capture the structure of the UI widgets tree and then let UI framework figure out the code to run. Uff.
+特定于 UI 的语言通常也是声明性的 —— 实际上，这意味着你应该能够使用构造代码（包括空格缩进！）来可视化的捕获 UI widget 树的结构，然后让 UI 框架找出要运行的代码。
 
-Some languages are more suitable for such a feat and Go never been designed to accomplish this kind of tasks. So, writing Flutter code in Go should be quite a challenge!
+有些语言更适合这样的使用方式，而 Go 从来没有被设计来完成这类的任务。因此，在 Go 中编写 Flutter 代码应该是一个相当大的挑战！
 
 ## Ode to Flutter
 
-If you are unfamiliar with Flutter, I highly recommend you to spend a weekend or two watching tutorials or reading docs, because it’s undoubtedly a game changer in a mobile development world. And, hopefully, not only mobile – there are renderers (embedders, in Flutter terms) for [native desktop apps](https://github.com/google/flutter-desktop-embedding), and [web apps](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8). It’s easy to learn, it’s logical, has a massive collection of [Material Design](https://material.io) powered widgets, has great community and great tooling (if you like `go build/test/run` out of the box, you get the same experience with `flutter build/test/run`) and a bunch of decent practices out of the box.
+如果你不熟悉 Flutter，我强烈建议你花一两个周末的时间来观看教程或阅读文档，因为它无疑会改变移动开发领域的游戏规则。而且，希望不仅仅是移动端 —— 还有[原生桌面应用程序]((https://github.com/google/flutter-desktop-embedding))和 [web 应用程序](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8)的渲染器（用 Flutter 的术语来说就是嵌入式）。Flutter 容易学习，它是合乎逻辑的，它汇集了大量的 [Material Design](https://material.io) 强大组件库，有活跃的社区和丰富的工具链（如果你喜欢“构建/测试/运行”的工作流，你也能在 Flutter 中找到同样的“构建/测试/运行”的工作方式）还有大量的用于实践的工具盒。
 
-A year ago I needed a relatively simple mobile app (for iOS and Android, obviously), but I realized that the complexity of becoming proficient in both platforms development is above any possible limits (the app was kinda side-project), so I had to outsource development to another team and pay money for that. Developing the mobile app was virtually unaffordable for someone like me – a developer with almost two decades of programming experience.
+在一年前我需要一个相对简单的移动应用（很明显就是 IOS 或 Android），但我深知精通这两个平台开发的复杂性是非常非常大的（至少对于这个 app 是这样的），所以我不得不将其外包给另一个团队并为此付钱。对于像我这样一个拥有近 20 年的编程经验的开发者来说，开发这样的移动应用几乎是无法忍受的。
 
-With Flutter, I wrote the same app in 3 nights, while learning this framework from scratch! It’s an order of magnitude improvement and a game changer.
+使用 Flutter，我用了 3 个晚上的时间就编写了同样的应用程序，与此同时，我是从头开始学习这个框架的！这是一个数量级的提升，也是游戏规则的巨大改变。
 
-Last time I remember seeing such a revolution in development productivity was 5 years ago when I discovered Go. And it changed my life.
+我记得上一次看到类似这种开发生产力革命是在 5 年前，当时我发现了 Go。并且它改变了我的生活。
 
-I recommend you to start with this [great video tutorial](https://www.youtube.com/watch?v=GLSG_Wh_YWc).
+我建议你从这个[很棒的视频教程](https://www.youtube.com/watch?v=GLSG_Wh_YWc)开始。
 
 ## Flutter’s Hello, world
 
-When you create a fresh Flutter project with `flutter create`, you’ll get this “Hello, world” app with text, counter and a button that increases the counter on click.
+当你用 `flutter create` 创建一个新的 Flutter 项目，你会得到这个“Hello, world”应用程序和代码文本、计数器和一个按钮，点击增加按钮计数器会增加。
 
 ![flutter hello world](https://divan.dev/images/flutter_hello.gif)
 
-I think it’s a good example to rewrite in our imaginary Flutter in Go. It has everything relevant to our subject. Take a look at the code (it’s one file):
+我认为用我们假想的 Go 版的 Flutter 重写这个例子是非常好的。它与我们的主题有密切的关联。看一下它的代码（它是一个文件）：
 
 lib/main.dart:
 
@@ -129,11 +128,11 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-Let’s break down it to pieces, analyze what does and does not map well into Go, and explore the options we have.
+我们先把它分解成几个部分，分析哪些可以映射到 Go 中，哪些不能映射，并探索目前我们拥有的选项。
 
 ### Mapping to Go
 
-The start is relatively straightforward – importing the dependency and starting `main()` function. Nothing challenging or interesting here, purely syntactical change:
+一开始是相对比较简单的 —— 导入依赖项并启动 `main()` 函数。这里没有什么挑战性也不太有意思，只是语法上的变化：
 
 ```go
 package hello
