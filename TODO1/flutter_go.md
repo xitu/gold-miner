@@ -15,7 +15,7 @@
 
 [![VSCode 中 Go 版的 Flutter](https://divan.dev/images/go_flutter_vscode.png)](https://divan.dev/images/go_flutter_vscode_big.png)
 
-### The problem with Dart
+### Dart 的问题
 
 自从 Dart 在 Chrome 中出现以来，我就一直在关注它的开发情况，我也一直认为 Dart 最终会在所有浏览器中取代 JS。2015 年，得知[有关谷歌在 Chrome 中放弃 Dart 支持](https://news.dartlang.org/2015/03/dart-for-entire-web.html)的消息时，我非常沮丧。
 
@@ -31,7 +31,7 @@ Dart 是非常奇妙的！是的，当你从 JS 升级转向到 Dart时，一切
 
 而这正是 Go 采取了截然不同的方式，并强烈声明自己特色的地方。Go 实际上是一个非魔法的语言 —— 它将特殊、隐藏、歧义之类的东西的数量讲到最低。然而，它也有一些缺点。
 
-### The problem with Go
+### Go 的问题
 
 当我们讨论 Flutter 这种 UI 框架时，我们必须把 Go 看作一个描述/指明 UI 的工具。UI 框架是一个非常复杂的主题，它需要创建一种专门的语言来处理大量的底层复杂性。最流行的方法之一是创建 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) —— 特定领域的语言 —— 众所周知，Go 在这方面不那么尽如人意。
 
@@ -41,7 +41,7 @@ Dart 是非常奇妙的！是的，当你从 JS 升级转向到 Dart时，一切
 
 有些语言更适合这样的使用方式，而 Go 从来没有被设计来完成这类的任务。因此，在 Go 中编写 Flutter 代码应该是一个相当大的挑战！
 
-## Ode to Flutter
+## Flutter 的优势
 
 如果你不熟悉 Flutter，我强烈建议你花一两个周末的时间来观看教程或阅读文档，因为它无疑会改变移动开发领域的游戏规则。而且，希望不仅仅是移动端 —— 还有[原生桌面应用程序]((https://github.com/google/flutter-desktop-embedding))和 [web 应用程序](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8)的渲染器（用 Flutter 的术语来说就是嵌入式）。Flutter 容易学习，它是合乎逻辑的，它汇集了大量的 [Material Design](https://material.io) 强大组件库，有活跃的社区和丰富的工具链（如果你喜欢“构建/测试/运行”的工作流，你也能在 Flutter 中找到同样的“构建/测试/运行”的工作方式）还有大量的用于实践的工具盒。
 
@@ -53,7 +53,7 @@ Dart 是非常奇妙的！是的，当你从 JS 升级转向到 Dart时，一切
 
 我建议你从这个[很棒的视频教程](https://www.youtube.com/watch?v=GLSG_Wh_YWc)开始。
 
-## Flutter’s Hello, world
+## Flutter 的 Hello, world
 
 当你用 `flutter create` 创建一个新的 Flutter 项目，你会得到这个“Hello, world”应用程序和代码文本、计数器和一个按钮，点击增加按钮计数器会增加。
 
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 我们先把它分解成几个部分，分析哪些可以映射到 Go 中，哪些不能映射，并探索目前我们拥有的选项。
 
-### Mapping to Go
+### 映射到 Go
 
 一开始是相对比较简单的 —— 导入依赖项并启动 `main()` 函数。这里没有什么挑战性也不太有意思，只是语法上的变化：
 
@@ -213,7 +213,7 @@ func (m *MyApp) Build(ctx flutter.BuildContext) flutter.Widget {
 
 为了实现一个 Go 版的 Flutter `Widget`，现在我们需要嵌入 `flutter.Core` 并实现 `flutter.Widget` 接口。好了，非常清楚了，我们继续往下实现。
 
-## The State
+## 状态
 
 That was the first thing I found baffling with Dart’s Flutter. There are two kinds of widgets in Flutter – `StatelessWidget` and `StatefulWidget`. Uhm, to me, the stateful widget is just a widget without a state, so why invent a new class here? Well, okay, I can live with it. But you can’t just extend `StatefulWidget` in the same way, you should do the following magic (IDEs with Flutter plugin do it for you, but that’s not the point):
 在 Dart 版的 Flutter 中，这是我发现的第一个困惑的地方。Flutter 中有两种部件 —— `StatelessWidget` 和 `StatefulWidget`。嗯，对我来说，无状态部件只是一个没有状态的部件，所以，为什么这里要创建一个新的类呢？好吧，我也能接受。但是你不能仅仅以相同的方式扩展 `StatefulWidget`，你应该执行以下神奇的操作（安装了 Flutter 插件的 IDE 都可以做到，但这不是重点）：
