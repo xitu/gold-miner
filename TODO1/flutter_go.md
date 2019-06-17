@@ -145,19 +145,19 @@ func main() {
 }
 ```
 
-The only change to note is that instead of using magical `MyApp()` function, which is constructor, which is a special function, which is hidden inside class called `MyApp`, we just call an explicitly defined function `NewApp()` – it does the same, but it’s so much easier to read, understand and make sense of.
+唯一的不同的是不适用魔法的 `MyApp()` 函数，它是一个构造方法，也是一个特殊的函数，它隐藏在被称为 `MyApp` 的类中，我们只是调用一个显示定义的 `NewApp()` 函数 —— 它做了同样的事情，但它更易于阅读、理解和弄懂。
 
-### Widget classes
+### Widget 类
 
-In Flutter, everything is a widget. In Dart-version of a Flutter, every widget is represented with a class extending Flutter’s special Widget classes.
+在 Flutter 中，一切皆 widget。在 Flutter 的 Dart 版本中，每个小部件都代表一个类，这个类扩展了 Flutter 中特殊的 Widget 类。
 
-Go doesn’t have classes and thus classes hierarchy, because the world is not object-oriented, let alone hierarchical. It may come as a hard truth to people familiar only with class-based OOP, but it’s really not. The world is a huge interconnected graph of things and relationships. It’s not chaotic, but neither perfectly structured and trying to fit everything into class hierarchies is a guaranteed way to make code unmaintainable, which is a most of world’s codebases as of today.
+Go 中没有类，因此也没有类层次，因为 Go 的世界不是面向对象的，更不必说类层次了。对于只熟悉基于类的 OOP 的人来说，这可能是一个不太好的情况，但也不尽然。这个世界是一个巨大的相互关联的事物和关系图谱。它不是混沌的，可也不是完全的结构化，并且尝试将所有内容都放入类层次结构中可能会导致代码难以维护，到目前为止，世界上的大多数代码库都是这样子的。
 
-![OOP Truth](https://divan.dev/images/oop_truth.png)
+![OOP 的真相](https://divan.dev/images/oop_truth.png)
 
-I love that Go designers put an effort to rethink this omnipresent concept of class-based OOP and came up with different OOP concept, which is, not accidentally, more closer to what OOP inventor, Alan Kay, [actually meant](https://www.quora.com/What-did-Alan-Kay-mean-by-I-made-up-the-term-object-oriented-and-I-can-tell-you-I-did-not-have-C++-in-mind).
+我喜欢 Go 的设计者们努力重新思考这个无处不在的基于 OOP 思维，并提出了与之不同的 OOP 概念，这与 OOP 的发明者  Alan Kay 的[真实意义](https://www.quora.com/What-did-Alan-Kay-mean-by-I-made-up-the-term-object-oriented-and-I-can-tell-you-I-did-not-have-C++-in-mind)更接近，这不是偶然。
 
-In Go, we represent any abstraction with a concrete type – a structure:
+在 Go 中，我们用一个具体的类型 —— 一个结构体来表示这种抽象：
 
 ```go
 type MyApp struct {
@@ -165,12 +165,12 @@ type MyApp struct {
 }
 ```
 
-In Dart-version of a Flutter, `MyApp` has to extend `StatelessWidget` class and override its `build` method, which serves two purposes:
+在一个 Flutter 的 Dart 版本中，`MyApp`必须继承于 `StatelessWidget` 类并覆盖它的 `build` 方法，这样做有两个作用：
 
-1. give our `MyApp` some widget properties/methods automagically
-2. allow Flutter to use our widget in its build/render pipeline by calling `build`
+1. 自动地给予 `MyApp` 一些 widget 属性/方法
+2. 通过调用 `build`，允许 Flutter 在其构建/渲染管道中使用跟我们的组件
 
-I don’t know Flutter internals, so let’s not question if we really need 1) and implement it in Go. For that, we have only one option – [embedding](https://golang.org/doc/effective_go.html#embedding):
+我不知道 Flutter 的内部原理，所以让我们不要怀疑我们是否能用 Go 实现它。为此，我们只有一个选择 —— [类型嵌入](https://golang.org/doc/effective_go.html#embedding)
 
 ```go
 type MyApp struct {
@@ -179,11 +179,11 @@ type MyApp struct {
 }
 ```
 
-This will add all the `flutter.Core`’s exported properties and methods to our type `MyApp`. I named it `Core` instead of `Widget`, because embedding this type doesn’t make our `MyApp` a widget yet, and, plus, that’s the choice of name I’ve seen in a [Vecty](https://github.com/gopherjs/vecty) GopherJS framework for the similar concept. I will briefly discuss similarities between Flutter and Vecty later.
+这将增加 `flutter.Core` 中所有导出的属性和方法到我们的 `MyApp` 中。我将它称为 `Core` 而不是 `Widget`，因为嵌入的这种类型还不能使我们的 `MyApp` 称为一个 widget，而且，这是我在 [Vecty](https://github.com/gopherjs/vecty) GopherJS 框架中看到的类似场景的选择。稍后我将简要的探讨 Flutter 和 Vecty 之间的相似之处。
 
-The second part – `build` method for Flutter’s engine use – surely should be implemented simply by adding method, satisfying some interface defined somewhere in Go-version of a Flutter:
+第二部分 —— Flutter 引擎中的 `build` 方法 —— 当然应该简单的通过添加方法来实现，满足在 Go 版本的 Flutter 中定义的一些接口：
 
-flutter.go:
+flutter.go 文件:
 
 ```go
 type Widget interface {
@@ -191,7 +191,7 @@ type Widget interface {
 }
 ```
 
-Our main.go:
+我们的 main.go 文件:
 
 ```go
 type MyApp struct {
@@ -199,23 +199,24 @@ type MyApp struct {
     // ...
 }
 
-// Build renders the MyApp widget. Implements Widget interface.
+// 构建渲染 MyApp 部件。实现 Widget 的接口
 func (m *MyApp) Build(ctx flutter.BuildContext) flutter.Widget {
     return flutter.MaterialApp()
 }
 ```
 
-We might notice a few differences with Dart’s Flutter here:
+我们可能会注意到这里和 Dart 版的 Flutter 有些不同：
 
-* code is more verbose – `BuildContext`, `Widget` and `MaterialApp` all have `flutter` explicitly mentioned in front of them.
-* code is less verbose – no `extends Widget` or `@override` clauses
-* Build method is uppercased because in Go it means “public” visibility. In Dart, any case will do, but to make property or method “private” you start the name with an underscore (_).
+* 代码更加冗长 —— `BuildContext`，`Widget` 和 `MaterialApp` 等方法前都明显地提到了 `flutter`。
+* 代码更简洁 —— 没有 `extends Widget` 或者 `@override` 子句。
+* Build 方法是大写开头的，因为在 Go 中它的意思是“公共”可见性。在 Dart 中，大写开头小写开头都可以，但是要使属性或方法“私有化”，名称需要使用下划线（_）开头。
 
-In order to make a Go’s Flutter `Widget` now we should embed `flutter.Core` and implement `flutter.Widget` interface. Okay, that’s clear, let’s go further.
+为了实现一个 Go 版的 Flutter `Widget`，现在我们需要嵌入 `flutter.Core` 并实现 `flutter.Widget` 接口。好了，非常清楚了，我们继续往下实现。
 
 ## The State
 
 That was the first thing I found baffling with Dart’s Flutter. There are two kinds of widgets in Flutter – `StatelessWidget` and `StatefulWidget`. Uhm, to me, the stateful widget is just a widget without a state, so why invent a new class here? Well, okay, I can live with it. But you can’t just extend `StatefulWidget` in the same way, you should do the following magic (IDEs with Flutter plugin do it for you, but that’s not the point):
+在 Dart 版的 Flutter 中，这是我发现的第一个困惑的地方。Flutter 中有两种部件 —— `StatelessWidget` 和 `StatefulWidget`。嗯，对我来说，无状态部件只是一个没有状态的部件，所以，为什么这里要创建一个新的类呢？好吧，我也能接受。但是你不能仅仅以相同的方式扩展 `StatefulWidget`，你应该执行以下神奇的操作（安装了 Flutter 插件的 IDE 都可以做到，但这不是重点）：
 
 ```dart
 class MyHomePage extends StatefulWidget {
@@ -239,17 +240,17 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-Uff, let’s try to understand not only what is written here, but why?
+呃，我们不仅仅要理解这里写的是什么，还要理解，为什么这样写？
 
-The task to solve here is to add state (`counter`) to the widget and allow Flutter to redraw widget when the state has changed. That’s the essential complexity part.
+这里要解决的任务是向部件中添加状态（`counter`）时，并允许 Flutter 在状态更改时重绘部件。这就是复杂性的根源。
 
-[Accidental complexity](https://www.quora.com/What-is-accidental-complexity) is all the rest. Dart’s Flutter approach is to introduce a new class `State` which uses generics and takes a Widget as its parameter. So `_MyAppState` is a class that extends `State of a widget MyApp`. Okay, kinda makes sense… But why `build()` method is defined on a State instead of a Widget? This question [is answered](https://flutter.io/docs/resources/faq#why-is-the-build-method-on-state-not-statefulwidget) in the Flutter’s FAQ and discussed in detailed [here](https://docs.flutter.io/flutter/widgets/State/build.html) and the short answer is: to avoid category of bugs when subclassing `StatefulWidget`. In other words, it’s a workaround of the class-based OOP design.
+其余的都是[偶然的复杂性](https://www.quora.com/What-is-accidental-complexity)。Dart 版的 Flutter 中的办法是引入一个新的 `State` 类，它使用泛型并以小部件作为参数。所以 `_MyAppState` 是一个来源于 `State of a widget MyApp` 的类。好了，有点道理...但是为什么 `build()` 方法是在一个状态而非部件上定义的呢？这个问题在 Flutter 仓库的 FAQ 中有[回答](https://flutter.io/docs/resources/faq#why-is-the-build-method-on-state-not-statefulwidget)，[这里](https://docs.flutter.io/flutter/widgets/State/build.html)也有详细的讨论，概括一下就是：子类 `StatefulWidget` 被实例化时，为了避免 bug 之类的。换句话说，它是基于类的 OOP 设计的一种变通方法。
 
-How would we design it in Go?
+我们如何用 Go 来设计它呢？
 
-First of all, I personally would try to avoid creating a new concept for `State` – we already implicitly have “state” in any concrete type – it’s just the properties (fields) of the struct. Language already possesses this concept of a state, so to speak. So creating a new one will just puzzle developers – why can’t we use a “normal state” of a type here.
+首先，我个人会尽量避免为 `State` 创建一个新概念 —— 我们已经在任意具体类型中隐式地包含了“state” —— 它只是结构体的属性（字段）。可以说，语言已经具备了这种状态的概念。因此，创建一个新状态只会让开发人员赶到困惑 —— 为什么我们不能在这里使用类型的“标准状态”。
 
-The challenge, of course, is to make Flutter engine track state changes and react on it (that’s the gist of reactive programming, after all). And instead of creating “special” methods and wrappers around state changes, we can just ask the developer to manually tell Flutter when we want to update the widget. Not all state changes require immediate redrawing – there are plenty of valid cases to that. Let’s see:
+当然，挑战在于使 Flutter 引擎跟踪状态发生变化并对其作出反应（毕竟这是响应式编程的要点）。我们不需要为状态的更改创建特殊方法和包装器，我们只需要让开发人员手动告诉 Flutter 何时需要更新小部件。并不是所有的状态更改都需要立即重绘 —— 有很多典型场景能说明这个问题。我们来看看：
 
 ```go
 type MyHomePage struct {
@@ -271,20 +272,21 @@ func (m *MyHomePage) incrementCounter() {
 }
 ```
 
-There is a number of options with naming and design here – I like `NeedsUpdate()` for explicitness and being a method of `flutter.Core` (so each widget has it), but `flutter.Rerender()` also works fine. It gives a false sense of immediate redraw, though – which is not always a case – it will be redrawn on the next frame redraw, and the frequency of state update might be much higher than frame redraw frequency.
+这里有很多命名和设计选项 —— 我喜欢其中的 `NeedsUpdate()`，因为它很明确，而且是 `flutter.Core`（每个部件都有它）的一个方法，但 `flutter.Rerender()` 也可以正常工作。它给人一种即时重绘的错觉，但是 —— 并不会经常这样 —— 它将在下一帧时重绘，状态更新的频率可能比帧的重绘的频率高的多。
 
 But the point is we just implemented the same task of adding a reactive state to the widget, without adding:
+但问题是，我们只是实现了相同的任务，也就是添加一个状态响应到小部件中，下面的还未实现：
 
-* new type
-* generics
-* special rules for reading/writing state
-* new special overridden methods
+* 新的类型
+* 泛型
+* 读/写状态的特殊规则
+* 新的特殊的方法覆盖
 
-Plus, API is cleaner and more explicit – just increase the counter and ask flutter to re-render – something not really obvious when you asked to call special function `setState` that return another function with the actual state change. Again, hidden magic hurts readability, and we managed to avoid just that. As a result, the code is simpler and twice as short.
+另外，API 更简洁也更明确 —— 只需增加计数器并请求 flutter 重新渲染 —— 当你要求调用特殊函数 `setState` 时，有些变化并不明显，该函数返回另一个实际状态更改的函数。同样，隐藏的魔术会有损可读性，我们设法避免了这一点。因此，代码更简单，并且精简了两倍。
 
 ### Stateful widgets as a children
 
-As a logical continuation, let’s take a closer look at how “stateful widget” is used within another widget in Flutter:
+继续这个逻辑，让我们仔细看看在 Flutter 中，“有状态的小部件”是如何在另一个部件中使用的：
 
 ```dart
 @override
@@ -296,9 +298,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-`MyHomePage` here is a “stateful widget” (it has a counter), and we’re creating it by calling constructor `MyHomePage(title:"...")` during the build… Wait, what?
+这里的 `MyHomePage` 是一个“有状态的小部件”（它有一个计数器），我们通过在构建过程中调用构造函数 `MyHomePage(title:"...")` 来创建它...等等，构建的是什么？
 
-`build()` is called to redraw the widget, perhaps many times per second. Why would we create a widget, let alone stateful, during each render cycle?
+调用 `build()` 重绘小部件，可能每秒有多次绘制。为什么我们要在每次渲染中创建一个小部件？更别说在每次重绘循环中，重绘有状态的小部件了。
 
 [It turns out](https://flutter.io/docs/resources/technical-overview#handling-user-interaction), Flutter uses this separation between Widget and State to hide this initialization/state-bookkeeping flow from the developer. It does create a new `MyHomePage` widget every time, but it preserves the original state (in a singleton way) and automatically find “orphaned” state to attach to the newly created `MyHomePage` widget.
 
