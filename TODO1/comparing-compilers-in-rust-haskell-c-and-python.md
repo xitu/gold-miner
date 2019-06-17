@@ -1,19 +1,11 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[Comparing the Same Project in Rust, Haskell, C++, Python, Scala and OCaml](http://thume.ca/2019/04/29/comparing-compilers-in-rust-haskell-c-and-python/)
+> * 原文作者：[Tristan](http://thume.ca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/comparing-compilers-in-rust-haskell-c-and-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/comparing-compilers-in-rust-haskell-c-and-python.md)
 > * 译者：
 > * 校对者：
 
-![](/assets/themes/thume/images/bubble-110.png)
-
-# [Tristan Hume](/)
-
-[Github](http://github.com/trishume/) [Resume + Project List](/resume) [Blog](/archive.html)
-
 # Comparing the Same Project in Rust, Haskell, C++, Python, Scala and OCaml
-
-29 April 2019
 
 During my final term at UWaterloo I took [the CS444 compilers class](https://www.student.cs.uwaterloo.ca/~cs444/) with a project to write a compiler from a substantial subset of Java to x86, in teams of up to three people with a language of the group’s choice. This was a rare opportunity to compare implementations of large programs that all did the same thing, written by friends I knew were highly competent, and have a fairly pure opportunity to see what difference design and language choices could make. I gained a lot of useful insights from this. It’s rare to encounter such a controlled comparison of languages, it’s not perfect but it’s much better than most anecdotes people use as the basis for their opinions on programming languages.
 
@@ -37,12 +29,19 @@ I’ll go over why I think this is a good comparison, some information on each p
 Now before you reply that amount of code (I compared both lines and bytes) is a terrible metric, I think that it can provide a good amount of insight in this case for a number of reasons. This is at least subjectively the most well controlled instance of different teams writing the same **large** program that I’ve ever heard of or read about.
 
 * Nobody (including me) knew I would ask this until after we were done, so nobody was trying to game the metric, everyone was just doing their best to finish the project quickly and correctly.
+
 * Everyone (with the exception of the Python project I’ll discuss later) was implementing a program with the sole goal of passing the same automated test suite by the same deadlines, so the results can’t be confounded much by some groups deciding to solve different/harder problems.
+
 * The project was done over a period of months, with a team, and needed to be gradually extended and pass both known and unknown tests. This means that it was helpful to write clean understandable code and not hack everything together.
+
 * Other than passing the course tests, the code wouldn’t be used for anything else, nobody would read it and being a compiler for a limited subset of Java to textual assembly it wouldn’t be useful.
+
 * No libraries other than the standard library were allowed, and no parsing helpers even if they’re in the standard library. This means the comparison can’t be confounded by powerful compiler libraries not used by all teams.
+
 * There were secret tests which we couldn’t see that were run once after the final submission deadline, which meant there was an incentive to write your own test code and make sure that your compiler was robust, correct and could handle tricky edge cases.
+
 * While everyone involved was a student, the teams I talk about are all composed of people I consider quite competent programmers. Everyone has at least 2 years of full time work experience doing internships, mostly at high end tech companies sometimes even working on compilers. Nearly all have been programming for 7-13 years and are enthusiasts who read a lot on the internet beyond their courses.
+
 * Generated code wasn’t counted, but grammar files and code that generated code was counted.
 
 Thus I think the amount of code provides a decent approximation of how much effort each project took, and how much there would be to maintain if it was a longer term project. I think the smaller differences are also large enough to rule out extraordinary claims, like the ones I’ve read that say writing a compiler in Haskell takes less than half the code of C++ by virtue of the language.
@@ -53,7 +52,7 @@ Me and one of my teammates had each written over 10k lines of Rust before, and m
 
 One thing I discovered is that these measures were related by approximately the same factors in the other projects where I checked, with minor exceptions that I’ll note. For the rest of the post when I refer to lines or amount I mean by `wc -l`, but this result means it doesn’t really matter (unless I note a difference) and you can convert with a factor.
 
-I wrote [another post describing our design](/2019/04/18/writing-a-compiler-in-rust/), which passed all the public and secret tests. It also included a few extra features that we did for fun and not to pass tests, that probably added around 400 extra lines. Also around 500 lines of our total was unit tests and a test harness.
+I wrote [another post describing our design](http://thume.ca/2019/04/18/writing-a-compiler-in-rust/) [[译文]](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-compiler-in-rust.md) , which passed all the public and secret tests. It also included a few extra features that we did for fun and not to pass tests, that probably added around 400 extra lines. Also around 500 lines of our total was unit tests and a test harness.
 
 ## Haskell
 
@@ -68,7 +67,9 @@ I also am inclined towards bytes as the more reasonable measure of amount of cod
 Digging into the difference in size with one of my friends on the team, we came up with the following to explain the difference:
 
 * We used a hand-written lexer and recursive descent parsing, where they used a [NFA](https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton) to [DFA](https://en.wikipedia.org/wiki/Deterministic_finite_automaton) lexer generator, and an [LR parser](https://en.wikipedia.org/wiki/LR_parser) and then a pass to turn the parse tree into an AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree), a more convenient representation of the code). This took them substantially more code, 2677 lines compared to our 1705, for about an extra 1k lines.
+
 * They used a fancy generic AST type that transitioned to different type parameters as more information was added in each pass. This is and more helper functions for rewriting are probably why their AST code has about 500 lines more than our implementation where we build with struct literals and mutate `Option<_>` fields to add information as passes progress.
+
 * They have about 400 more lines of code in their code generation that are mostly attributable to more abstraction necessary to generate and combine code in a purely functional way where we just use mutation and string writing.
 
 These differences plus the tests explain all of the difference in lines. In fact our files for middle passes like constant folding and scope resolution are very close to the same size. However that still leaves some difference in bytes because of longer average lines, which I’d guess is because they require more code to rewrite their whole tree at every pass where we just use a visitor with mutation.
@@ -118,7 +119,9 @@ This result was really surprising to me and dwarfed all the between-language dif
 It seems to come down to consistently making different design decisions. For example, their front end (lexing, parsing, AST building) is 7597 raw lines to our 2164. They used a DFA-based lexer and LALR(1) parser, but the other groups did similar things without as much code. Looking at their weeder file, I noticed a number of different design decisions:
 
 * They chose to use a fully typed parse tree instead of the standard string-based homogeneous parse tree. This presumably required a lot more type definitions and additional transformation code in the parsing stage or a more complex parser generator.
+
 * They used `TryFrom` trait implementations for converting between the parse tree types and the AST types while validating their correctness. This lead to tons of 10-20 line `impl` blocks. We used functions that returned `Result` types to accomplish the same thing, which had less line overhead and also freed us from the type structure a bit more, making parameters and re-use easier. Some things that for us were single line `match` branches were 10 line impl statements for them.
+
 * Our types were structured in a way that required less copy-pasting. For example they used separate `is_abstract`, `is_native` and `is_static` fields whose constraint checking code needed to be copy-pasted twice, once for their void-typed methods and once for their methods with a return type, with slight modifications. Whereas for us `void` was just a special type, and we came up with a taxonomy of modifiers into `mode` and `visibility` enums that enforced the constraints at the type level and constraint errors were generated in the default case of the match statement that translated the modifier sets to the mode and visibility.
 
 I didn’t look at the code of the analysis passes of their compiler, but they are similarly large. I talked to my friend and it seems they didn’t implement anything like the visitor infrastructure that we did. I’m guessing this along with some other smaller design differences account for the size difference of this part. The visitor allowed our analysis passes to only pay attention to the parts of the AST they needed instead of having to pattern match down through the entire AST structure, saving a lot of code.
@@ -158,25 +161,6 @@ That leaves 5366 lines (461 lines of which is interface files with just type dec
 ## Conclusion
 
 Overall I’m very glad I did this comparison, I learned a lot from it and was surprised many times. I think my overall takeaway is that design decisions make a much larger difference than the language, but the language matters insofar as it gives you the tools to implement different designs.
-
-[Vote on HN](http://news.ycombinator.com/submit)
-
-## Other Posts
-
-* 18 Apr 2019 » [Writing a Compiler in Rust](/2019/04/18/writing-a-compiler-in-rust/)
-* 03 Mar 2019 » [My Tungsten Cube](/2019/03/03/my-tungsten-cube/)
-* 16 Aug 2018 » [DEF CON 26 CTF Writeups: reverse, doublethink, bew, reeducation](/2018/08/16/def-con-26-ctf-writeups/)
-
-Tristan Hume  
-Programming enthusiast  
-
-[github.com/trishume](http://github.com/trishume/)  
-[\[email protected\]](/cdn-cgi/l/email-protection#1367617a6067727d53677b667e763d7072)  
-[@trishume](http://twitter.com/trishume/)  
-
- [![Subscribe to RSS Feed](/assets/themes/thume/images/rss.png)](/atom.xml) 
-
-(function(d, t) { var g = d.createElement(t), s = d.getElementsByTagName(t)\[0\]; g.src = '//hnbutton.appspot.com/static/hn.js'; s.parentNode.insertBefore(g, s); }(document, 'script')); var \_gaq = \_gaq || \[\]; \_gaq.push(\['\_setAccount', 'UA-38316132-1'\]); \_gaq.push(\['\_setDomainName', 'thume.ca'\]); \_gaq.push(\['\_setAllowLinker', true\]); \_gaq.push(\['\_trackPageview'\]); setTimeout("\_gaq.push(\['\_trackEvent', '15_seconds', 'read'\])", 15000); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')\[0\]; s.parentNode.insertBefore(ga, s); })();
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
