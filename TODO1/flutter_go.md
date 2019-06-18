@@ -215,7 +215,6 @@ func (m *MyApp) Build(ctx flutter.BuildContext) flutter.Widget {
 
 ## 状态
 
-That was the first thing I found baffling with Dart’s Flutter. There are two kinds of widgets in Flutter – `StatelessWidget` and `StatefulWidget`. Uhm, to me, the stateful widget is just a widget without a state, so why invent a new class here? Well, okay, I can live with it. But you can’t just extend `StatefulWidget` in the same way, you should do the following magic (IDEs with Flutter plugin do it for you, but that’s not the point):
 在 Dart 版的 Flutter 中，这是我发现的第一个困惑的地方。Flutter 中有两种部件 —— `StatelessWidget` 和 `StatefulWidget`。嗯，对我来说，无状态部件只是一个没有状态的部件，所以，为什么这里要创建一个新的类呢？好吧，我也能接受。但是你不能仅仅以相同的方式扩展 `StatefulWidget`，你应该执行以下神奇的操作（安装了 Flutter 插件的 IDE 都可以做到，但这不是重点）：
 
 ```dart
@@ -274,7 +273,6 @@ func (m *MyHomePage) incrementCounter() {
 
 这里有很多命名和设计选项 —— 我喜欢其中的 `NeedsUpdate()`，因为它很明确，而且是 `flutter.Core`（每个部件都有它）的一个方法，但 `flutter.Rerender()` 也可以正常工作。它给人一种即时重绘的错觉，但是 —— 并不会经常这样 —— 它将在下一帧时重绘，状态更新的频率可能比帧的重绘的频率高的多。
 
-But the point is we just implemented the same task of adding a reactive state to the widget, without adding:
 但问题是，我们只是实现了相同的任务，也就是添加一个状态响应到小部件中，下面的还未实现：
 
 * 新的类型
@@ -302,43 +300,43 @@ Widget build(BuildContext context) {
 
 调用 `build()` 重绘小部件，可能每秒有多次绘制。为什么我们要在每次渲染中创建一个小部件？更别说在每次重绘循环中，重绘有状态的小部件了。
 
-[It turns out](https://flutter.io/docs/resources/technical-overview#handling-user-interaction), Flutter uses this separation between Widget and State to hide this initialization/state-bookkeeping flow from the developer. It does create a new `MyHomePage` widget every time, but it preserves the original state (in a singleton way) and automatically find “orphaned” state to attach to the newly created `MyHomePage` widget.
+[结论是](https://flutter.io/docs/resources/technical-overview#handling-user-interaction)，Flutter 用小部件和状态之间的这种分离来隐藏这个初始化/状态记录，不让开发者过多关注。它确实每次都会创建一个新的 `MyHomePage` 部件，但它保留了原始状态（以单例的方式），并自动找到这个“唯一”状态，将其附加到新创建的 `MyHomePage` 部件上。
 
-To me it doesn’t make much sense – more hidden stuff, more magic and more ambiguity (we still can add Widgets as class properties and instantiate them once upon widget creation). I understand why it feels nice (no need to keep track of widget’s children) and it has the nice effect of simplifying refactoring (you have to delete constructor call in one place only to delete the child), but any developer attempting to really understand how does the whole thing works will be puzzled here.
+对我来说，这没有多大意义 —— 更多的隐藏，更多的魔法也更模糊（我们仍然可以添加小部件作为类属性，并在创建小部件时实例化它们）。我理解为什么这种方式不错了（不需要跟踪部件的子组件），并且它具有良好的简化重构作用（只有在一个地方删除构造函数的调用才能删除子组件），但任何开发者试图真正搞懂整个工作原理时，都可能会有些困惑。
 
-For Go version, I definitely would prefer explicit and clear initialization of widgets with the state, even if it means more verbose code. Dart’s Flutter approach probably could be done as well, but I like Go for being non-magical, and that philosophy applies to Go frameworks as well. So, my code for stateful children widgets would look like this:
+对于 Go 版的 Flutter，我肯定更倾向于状态显式和清晰的初始化的小部件，虽然这意味着代码会更冗长。Dart 的 Flutter 实现可能也可以实现这种方式，但我喜欢 Go 的非魔法特性，而这种哲学也适用于 Go 框架。因此，我的有状态子部件的代码应该类似这样：
 
 ```go
-// MyApp is our top application widget.
+// MyApp 是应用顶层的部件。
 type MyApp struct {
     flutter.Core
     homePage *MyHomePage
 }
 
-// NewMyApp instantiates a new MyApp widget
+// NewMyApp 实例化一个 MyApp 部件
 func NewMyApp() *MyApp {
     app := &MyApp{}
     app.homePage = &MyHomePage{}
     return app
 }
 
-// Build renders the MyApp widget. Implements Widget interface.
+// Build 渲染了 MyApp 部件。实现了 Widget 接口
 func (m *MyApp) Build(ctx flutter.BuildContext) flutter.Widget {
     return m.homePage
 }
 
-// MyHomePage is a home page widget.
+// MyHomePage 是一个首页部件
 type MyHomePage struct {
     flutter.Core
     counter int
 }
 
-// Build renders the MyHomePage widget. Implements Widget interface.
+// Build 渲染 MyHomePage 部件。实现 Widget 接口
 func (m *MyHomePage) Build(ctx flutter.BuildContext) flutter.Widget {
     return flutter.Scaffold()
 }
 
-// incrementCounter increments app's counter by one.
+// 增量计数器让 app 的计数器增加一
 func (m *MyHomePage) incrementCounter() {
     m.counter++
     flutter.Rerender(m)
@@ -346,14 +344,15 @@ func (m *MyHomePage) incrementCounter() {
 ```
 
 The code is more verbose, and if we had to change/replace MyHomeWidget in MyApp, we would have to touch code in 3 places, but a side effect is that we have a full and clear picture of what going on at each stage of the code execution. There is no hidden stuff happening behind the scene, we can reason about the code, about performance and dependencies of each of our types and functions with 100% confidence. And, for some, that’s the ultimate goal of writing reliable and maintainable code.
+代码更加详细清晰了，如果我们必须在 MyApp 中更改/替换 MyHomeWidget，那我们需要在 3 个地方有所改动，还有一点是，我们对代码执行的每个阶段都有一个完整而清晰的了解。没有隐藏的东西在幕后发生，我们可以 100% 自信的推断代码、性能和每个类型以及函数的依赖关系。对于一些人来说，这就是最终目标，即编写可靠且可维护的代码。
 
-By the way, Flutter has a special widget called [StatefulBuilder](https://medium.com/flutter-community/stateful-widgets-be-gone-stateful-builder-a67f139725a0), which adds even more magic for hiding state management.
+顺便说一下，Flutter 有一个名为 [StatefulBuilder](https://medium.com/flutter-community/stateful-widgets-be-gone-stateful-builder-a67f139725a0) 的特殊部件，它为隐藏的状态管理增加了更多的魔力。
 
 ## DSL
 
-Now, the fun part. How do we build a Flutter’s widget tree in Go? We want to have our widgets tree concise, readable, easy to refactor and update, describe spatial relationship between widgets and add enough flexibility to plug in custom code like button press handlers and so on.
+现在，到了有趣的部分。我们如何在 Go 中构建一个 Flutter 的部件树？我们希望我们的部件树简洁、易读、易重构并且易于更新、描述部件之间的空间关系，增加足够的灵活性来插入自定义代码，比如，按下按钮时的程序处理等等。
 
-I think Dart’s Flutter version is quite beautiful and self-explanatory:
+我认为 Dart 版的 Flutter 是非常好看的，不言自明：
 
 ```dart
 return Scaffold(
@@ -380,25 +379,25 @@ return Scaffold(
     );
 ```
 
-Every widget has a constructor function, which accepts optional parameters, and the real trick that makes this declarative way really nice is [named function parameters](https://en.wikipedia.org/wiki/Named_parameter).
+每个小部件都有一个构造方法，它接收可选的参数，而使这种声明式方法真正好用的技巧是 [函数的命名参数](https://en.wikipedia.org/wiki/Named_parameter)。
 
-### Named parameters
+### 命名参数
 
-Just in case you’re unfamiliar, in most languages parameters are called “positional parameters” because it’s their position in the function call matters:
+为了防止你不熟悉，详细说明一下，在大多数语言中，参数被称为“位置参数”，因为它们在函数调用中的参数位置很重要：
 
 ```dart
 Foo(arg1, arg2, arg3)
 ```
 
-while with named parameters, you also write their name in the function call:
+使用命名参数时，还可以在函数调用中写入它们的名称：
 
 ```dart
 Foo(name: arg1, description: arg2, size: arg3)
 ```
 
-It adds verbosity, but it saves you clicks and jumps over the code to understand what are those parameters all about.
+它虽增加了冗余性，但帮你省略了你点击跳转函数来理解这些参数的意思。
 
-In the case of UI widget tree, they play a crucial role in the readability. Consider the same code as above, without named parameters:
+对于 UI 部件树，它们在可读性方面起着至关重要的作用。考虑一下跟上面相同的代码，在没有命名参数的情况下：
 
 ```dart
 return Scaffold(
@@ -425,19 +424,20 @@ return Scaffold(
     );
 ```
 
-Meh, right? It’s not only harder to read and understand (you need to keep in your memory what each parameter mean, what’s its type and it’s a huge cognitive burden), but also leaves us with no flexibility in what parameters we really want to pass. For example, you may not want to have `FloatingButton` for you Material App, so you simply don’t pass the `floatingActionButton`. Without named parameters, you’re forced to pass it (as `null`/`nil`, perhaps), or resort to some dirty magic with reflection to figure out what parameters user passed via the constructor.
+咩，是不是？它不仅难以阅读和理解（你需要记住每个参数的含义、类型，这是一个很大的心智负担），而且我们在传递那些参数时没有灵活性。例如，你可能不希望你的 Material 应用有 `FloatingButton`，所以你只是不传递 `floatingActionButton`。如果没有命名参数，你将被迫传递它（例如可能是 `null`/`nil`），或者使用一些带有反射的脏魔法来确定用户通过构造函数传递了哪些参数。
 
-As Go doesn’t have function overloading or named parameters, that’s going to be a tough task.
+由于 Go 没有函数重载或命名参数，对此将是一个艰巨的任务。
 
-## Widgets Tree in Go
+## 用 Go 实现部件树
 
 ### Version 1
 
 The temptation here might be just to replicate Dart’s way of expressing widgets tree, but what we really need is to step back and answer the question – which is the best way to represent this type of data within the constraints of the language?
+这个版本的例子可能只是拷贝 Dart 表示部件树的方法，但我们真正需要的是后退一步并回答这个问题 —— 在语言的约束下，哪种方法是表示这种类型数据的最佳方法呢？
 
-Let’s take a closer look at the [Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html) object, which is a nice helper for building a decently looking modern UI. It has **properties** – appBar, drawer, home, bottomNavigationBar, floatingActionButton – all Widgets, by the way. And we’re creating the object of the type `Scaffold` initializing some of those properties along the way. Well, it’s not that different from any normal object instantiation, is it?
+让我们仔细看看 [Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html) 对象，它是构建外观美观的现代 UI 的好帮手。它有这些**属性** —— appBar，drawer，home，bottomNavigationBar，floatingActionButton —— 所有都是 Widget。我们创建类型为 `Scaffold` 的对象的同事初始化这些属性。这样看来，它与任何普通对象实例化没有什么不同，不是吗？
 
-Let’s try the naïve approach:
+让我们试试原生的方法：
 
 ```dart
 return flutter.NewScaffold(
@@ -467,18 +467,19 @@ return flutter.NewScaffold(
 ```
 
 Well, not the prettiest UI code, for sure. The word `flutter` is so abundant that it begs for hiding (actually, I should have named it `material`, not `flutter`), those nameless parameters are not clear, especially `nil`s.
+当然，这不是最漂亮的 UI 代码。`flutter` 这个词是如此的富有意义，以至于它要求隐藏起来（实际上，我应该把它命名为 `material` 而非 `flutter`），这些无名的参数并不清楚，尤其是 `nil`。
 
 ### Version 2
 
-As most of the code will use `flutter` import anyway, it’s fine to import `flutter` into our namespace using the import dot notation:
+由于大多数代码都会使用 `flutter` 导入，所以使用导入点符号（.）的方式将 `flutter` 导入到我们的命名空间中是没问题的：
 
 ```dart
 import . "github.com/flutter/flutter"
 ```
 
-Now, instead of writing `flutter.Text` it’ll be just `Text`. It’s usually a bad practice, but we’re working with a framework, and use this import literally on every single line, so that’s a perfect case where it’s a good practice. Another valid use case is a Go tests with [GoConvey](http://goconvey.co) framework, for example. To me, frameworks are the languages on top of other languages, so it’s ok to use dot import with frameworks.
+现在，我们不用写 `flutter.Text`，而只需要写 `Text`。这种方式通常不是很优雅，但是我们使用的是一个框架，在每一行都可以使用这种导入的内容，所以在这里是一个很好的实践。另一个有效的场景是一个基于 [GoConvey](http://goconvey.co) 框架的 Go 测试。对我来说，框架相当于其他语言之上的语言，所以在框架中使用点符号导入也是可以的。
 
-Let’s rewrite our code:
+我们继续往下写我们的代码：
 
 ```dart
 return NewScaffold(
@@ -507,11 +508,11 @@ return NewScaffold(
 )
 ```
 
-A bit cleaner, but those nils… How can we avoid requiring concrete parameters?
+比较简洁，但是那些 nil... 我们怎么才能避免那些必须传递的参数？
 
 ### Version 3
 
-Maybe reflection? Some early Go HTTP frameworks used this approach ([martini](https://github.com/go-martini/martini) for example) – you pass whatever you want via parameters, and runtime will figure out if this a known type/parameter. It’s a bad practice from many points of view - it’s unsafe, relatively slow, adds magic – but for the sake of exploration let’s try it:
+反射怎么样？一些早期的 Go Http 框架使用了这种方式（例如 [martini](https://github.com/go-martini/martini)）—— 你可以通过参数传递任何你想要传递的内容，运行时将检查这是否是一个已知的类型/参数。从多数角度看，这不是一个好办法 —— 它不安全，速度相对比较慢，还具魔法的特性 —— 但为了探索，我们还是试试：
 
 ```dart
 return NewScaffold(
@@ -535,11 +536,11 @@ return NewScaffold(
 )
 ```
 
-Okay, a bit cleaner and similar to Dart’s original version, but lack of named parameters really hinder readability in such a case with “optional” parameters. Plus, it’s the code that really smells with bad approaches.
+好吧，这跟 Dart 的原始版本有些类似，但缺少命名参数，确实会妨碍在这种情况下的可选参数的可读性。另外，代码本身就有些不好的迹象。
 
 ### Version 4
 
-Let’s rethink what’s exactly we’re doing when creating new objects and optionally defining their properties? It’s just a normal variable instantiation, so what if we try it in a different way:
+让我们重新思考一下，在创建新对象和可选的定义他们的属性时，我们究竟想做什么？这只是一个普通的变量实例，所以假如我们用另一种方式来尝试呢：
 
 ```dart
 scaffold := NewScaffold()
@@ -570,9 +571,9 @@ scaffold.FloatingActionButton = fab
 return scaffold
 ```
 
-This approach will work, and while it solves the “named parameters issue”, it really messes up the understanding of widgets tree. First of all, it reversed the order of creating widgets – the deeper the widget, the earlier it should be defined. Second, we lost our indentation-based spatial layout of code, which is a great helper of quickly building a high-level overview of the widgets tree.
+这种方法是有效的，虽然它解决了“命名参数问题”，但它也确实打乱了对部件树的理解。首先，它颠倒了创建小部件的顺序 —— 小部件越深，越应该早定义它。其次，我们丢失了基于代码缩进的空间布局，好的缩进布局对于快速构建部件树的高级预览非常有用。
 
-By the way, this approach has been used for ages with UI frameworks such as [GTK](https://www.gtk.org) and [Qt](https://www.qt.io). Take a look at the [code example from the documentation](http://doc.qt.io/qt-5/qtwidgets-mainwindows-mainwindow-mainwindow-cpp.html) to the latest Qt 5 framework.
+顺便说一下，这种方法已经在 UI 框架中使用很长时间，比如 [GTK](https://www.gtk.org) 和 [Qt](https://www.qt.io)。可以到最新的 Qt 5 框架的文档中查看[代码示例](http://doc.qt.io/qt-5/qtwidgets-mainwindows-mainwindow-mainwindow-cpp.html)。
 
 ```dart
     QGridLayout *layout = new QGridLayout(this);
