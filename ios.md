@@ -1,3 +1,5 @@
+* [iOS 中的 File Provider 拓展](https://juejin.im/post/5cff5b0af265da1b8b2b54c7) ([iWeslie](https://github.com/iWeslie) 翻译)
+* [用于 iOS 的 ML Kit 教程：识别图像中的文字](https://juejin.im/post/5cfe23af6fb9a07ee742d401) ([portandbridge](https://github.com/portandbridge) 翻译)
 * [Swift 5 中的枚举冻结](https://juejin.im/post/5cea9597e51d45775f5169f2) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [Swift 里的强制 @inline 注解](https://juejin.im/post/5cd67d64518825686244635a) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [Swift 代码格式化](https://juejin.im/post/5ccea148f265da038e54bbf2) ([iWeslie](https://github.com/iWeslie) 翻译)
