@@ -68,10 +68,6 @@ Cat Component
 
 This is the same as Higher-Order function we see in JS.
 
-**Tip**: Use **[Bit](https://bit.dev)** ([Github](https://github.com/teambit/bit)) ****to organize and share React components. Share components your team can use and develop in all your apps and build faster together. Try it out.
-[**Share reusable code components as a team · Bit**
-**Easily share reusable components between projects and applications to build faster as a team. Collaborate to develop…**bit.dev](https://bit.dev)
-
 ## Higher-Order Function
 
 HO function is a pattern in JS whereby a function takes a function and returns a function as the result. This is possible because of the compositional nature of JS. It means that:
@@ -314,15 +310,7 @@ A Higher-Order component:
 
 If you have any question regarding this or anything I should add, correct or remove, feel free to comment, email or DM me
 
-Thanks !!!
-
-## Learn More
-[**Reusable Components in React — A Practical Guide**
-**Key and examples for designing truly reusable React components.**blog.bitsrc.io](https://blog.bitsrc.io/reusable-components-in-react-a-practical-guide-ec15a81a4d71)
-[**React 16 Lifecycle Methods: How and When to Use Them**
-**A revised and up-to-date guide to the new React component lifecycle**blog.bitsrc.io](https://blog.bitsrc.io/react-16-lifecycle-methods-how-and-when-to-use-them-f4ad31fb2282)
-[**End to End Testing React Apps With Cypress**
-**How to run End-To-End testing on React apps with Cypress.**blog.bitsrc.io](https://blog.bitsrc.io/testing-react-apps-with-cypress-658bc482678)
+Thanks!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
