@@ -3,38 +3,38 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)
 > * 译者：[kirinzer](https://github.com/kirinzer)
-> * 校对者：
+> * 校对者：[iWeslie](https://github.com/iWeslie)
 
 # Xcode 和 LLDB 高级调试教程：第 1 部分
 
-在 2018 年的 WWDC 期间，一些 Apple 最优秀的调试工程师开展的非常吸引人的会议之一是[使用Xcode和LLDB进行高级调试](https://developer.apple.com/videos/play/wwdc2018/412/)。他们告诉我们一些令人印象深刻的提示和技巧， 关于每当发生开发人员遇到错误并全部修复它们时，如何利用 Xcode 的断点和低级调试器（LLDB）来优化调试过程。
+在 2018 年的 WWDC 期间，Apple 最优秀的一些调试工程师们开展了一场非常吸引人的会议[使用Xcode和LLDB进行高级调试](https://developer.apple.com/videos/play/wwdc2018/412/)。他们向我们展示了一些令人印象深刻的技巧， 关于每当发生开发人员遇到错误并全部修复它们时，如何利用 Xcode 的断点和低级调试器（LLDB）来优化调试过程。
 
-在这个 3 部分的教程中，我将向你介绍 WWDC 会议中已经完成的大部分内容。 我创建了一个演示项目专门用于阐述如何配合 LLDB 使用不同类型的断点来修复项目/应用程序中的错误。
+在这个 3 部分的教程中，我将向你介绍 WWDC 会议中已经完成的大部分内容。我创建了一个演示项目专门用于阐述如何配合 LLDB 使用不同类型的断点来修复项目/应用程序中的错误。
 
 ## 演示项目
 
-我开发了一个传统任务项目，大多数 iOS 开发人员肯定在某些时候已经处理过。 在继续本文之前，需要首先了解它的功能或规则。 以下是演示项目的全部内容：
+我写了一个常见的任务项目，大多数 iOS 开发人员肯定在某些时候已经处理过。在继续阅读本文之前，需要首先了解它的功能或规则。以下是演示项目的全部内容：
 
 1. 一个表视图控制器，在第一次打开时加载一个文章列表。
-2. 表视图控制器支持在到达底部时加载更多文章。
-3. 允许用户加载文章的次数**限制为7次 **。
-4. 用户可以通过刷新控制器重新加载新文章（下拉刷新）。
-5. 导航栏上有两个标签，它们用于指示已取回的文章数（右侧标签）以及用户已加载文章数（左侧标签）。
+2. 表视图控制器支持在到达底部时上拉加载更多文章。
+3. 限制用户加载文章的次数**7次 **。
+4. 用户可以通过下拉刷新重新加载新文章。
+5. 导航栏上有两个标签，右侧标签用于显示请求到的文章数，左侧标签则用来显示用户已加载文章数。
 
-如果你是个 Objective-C 好手可以在这里下载这个项目 [这里](https://github.com/FadyDerias/IBGPosts) 。
-Swift 好手? 从这里下载 [这里](https://github.com/FadyDerias/IBGPostsSwift). 
+如果你比较熟悉 Objective-C，可以在下载这个项目 [这里](https://github.com/FadyDerias/IBGPosts)。
+更熟悉 Swift，从这里下载 [这里](https://github.com/FadyDerias/IBGPostsSwift)。
 用 Xcode 打开并运行！ 😉
 
 ## 需要修复的错误!
 
-现在你已经准备好了项目，你也许已经注意到了下面的错误：
+现在你的项目准备就绪了，也许你已经注意到了下面的错误：
 
 1. 下拉刷新没有加载新的文章。
-2. 当用户的 HTTP 请求失败的时候，没有收到任何提示(例如警报控制器)。
-3. 用户被允许下拉刷新 **超过**7 次。
+2. 当用户网络请求失败的时候，没有收到任何提示(例如警报控制器)。
+3. 用户可以下拉刷新 **超过**7 次。
 4. 导航栏左侧指示用户加载次数的标签也没有更新。
 
-**指导原则:** 对于本文的其他剩下部分，你不必停止编译或者重新运行，你正在修复这些错误在运行时。
+**指导原则：** 在本文剩下的部分，你不必停止编译器或者重新运行应用，你可以在运行时修复这些错误。
 
 ## 表达式的力量
 
@@ -46,19 +46,19 @@ Swift 好手? 从这里下载 [这里](https://github.com/FadyDerias/IBGPostsSwi
 
 ✦ 运行应用程序 →前十个文章被加载。
 
-✦ 下滑加载更多文章。
+✦ 向下滚动加载更多文章。
 
-✦ 滑动到表视图顶部，下拉刷新。
+✦ 滚动到表视图顶部，然后下拉刷新。
 
 ✦ 新文章 **没有** 重新加载，旧文章仍让存在并且文章计数没有重置。
 
-修复此错误的常规方法是调查分配给表视图控制器的专用UIRefreshControl的选择器方法内部发生的情况。前往 `**PostsTableViewController**` 找到有 pragma mark `Refresh control support` 的部分。我们能从`setupRefreshControl` 方法推断出决定刷新的是 `reloadNewPosts` 方法。让我们给这个方法的第一行加一个断点，看看这里到底发生了什么。 现在滚动到表视图的定必，下拉刷新。
+修复此错误的常规方法是调查分配给表视图控制器的专用 UIRefreshControl 的选择器方法内部发生了什么。前往 `**PostsTableViewController**` 找到有 pragma mark `Refresh control support` 的部分。我们能从`setupRefreshControl` 方法推断出决定刷新的是 `reloadNewPosts` 方法。让我们给这个方法的第一行加一个断点，看看这里到底发生了什么。 现在滚动到表视图的顶部，下拉刷新。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/2000/1*t3vOwPZMfYXA33XraHBReQ.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/2000/1*5o64at1-25xhG8x7MOQCcQ.png)
 
-一旦释放了下拉刷新控件，调试器就会在设置断点的地方暂停。 现在，为了探查后面发生了什么，点击调试器的跨过按钮。
+一旦你释放了下拉刷新控件，调试器就会在你设置断点的地方暂停。 现在，为了探究背后发生了什么，点击调试器的跨过按钮。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/2000/1*NnCfWSc4ALsmVW4MtVDmsQ.png)
 
@@ -70,7 +70,7 @@ Swift 好手? 从这里下载 [这里](https://github.com/FadyDerias/IBGPostsSwi
 
 修复这个错误的常规做法是停止编译器， 设置 `isPullDownToRefreshEnabled` 属性为 `YES`/`true` 。 但是在真正的修改代码和停止编译器之前，就可以对这些假设做出验证会更方便。 这里有表达式语句的断点调试器的命令动作，非常方便。
 
-双击设置的断点，或右键单击，编辑断点并点击“添加动作”按钮。 选择“调试器命令”动作。
+双击设置的断点，或右键单击，编辑断点并点击“添加动作”按钮。选择“调试器命令“动作。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5Q7AfSRWER__yCY-ygHrxA.png)
 
@@ -152,7 +152,7 @@ expression self.presentNetworkFailureAlertController()
 
 勾选“评估动作后自动继续”。
 
-停用网络连接后，滚动到表视图顶部并下拉刷新，或者你可以向下滚动到表视图底部尝试加载更多。 你会得到这个  🎉🎉
+停用网络连接后，滚动到表视图顶部并下拉刷新，或者你可以向下滚动到表视图底部尝试加载更多。你会得到这个 🎉🎉
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ohh02CA-HA3rqtgmx7atPQ.png)
 
