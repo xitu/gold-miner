@@ -2,8 +2,8 @@
 > * 原文作者：[Cam Jackson](https://camjackson.net/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Jenniferyingni](https://github.com/Jenniferyingni)
+> * 校对者：[Stevens1995](https://github.com/Stevens1995), [Baddyo](https://github.com/Baddyo)
 
 # 微前端
 
@@ -11,7 +11,7 @@
 
 * * *
 
-近年来，[微服务](https://martinfowler.com/articles/microservices.html) 已经大受欢迎，许多组织使用这种架构风格来避免大型单体 (monolithic) 后端的局限性。关于如何在服务器端软件中也采用类似风格，虽然现在已经有许多相关的文章，但是许多公司仍然还是在单体前端代码库中挣扎。
+近年来，[微服务](https://martinfowler.com/articles/microservices.html) 已经大受欢迎，许多组织使用这种架构风格来避免大型单体（monolithic）后端的局限性。关于如何在服务器端软件中也采用类似风格，虽然现在已经有许多相关的文章，但是许多公司仍然还是在单体前端代码库中挣扎。
 
 也许您想构建一个渐进式或响应式 Web 应用程序，但无法找到一个方法将这些特性整合到现有代码中。也许您想要使用 JavaScript 的新特性（或者是其他的可以编译成 JavaScript 的语言），但无法在项目已有的构建流程中加入新增的构建工具。又或者您可能只是想扩展您的开发规模，以便多个团队可以同时处理一个项目，但现有单体架构中的耦合和复杂性意味着每个人负责的代码都会有不可避免的重合。这些都是真实存在的问题，这些问题都会对您有效地为客户提供高质量服务的能力产生负面影响。
 
@@ -19,11 +19,11 @@
 
 > 一种将多个可独立交付的小型前端应用聚合为一个整体的架构风格
 
-在 2016 年 11 月发表的 *ThoughtWorks 技术雷达*期刊中，我们将[微前端](https://www.thoughtworks.com/radar/techniques/micro-frontends)归为了评估等级。后来又将其提升到了试验等级，最终列为了采纳等级，这意味着，我们将微前端视为一种经过验证的方法，应该在合适的情境中采用它。
+在 2016 年 11 月发表的 **ThoughtWorks 技术雷达**期刊中，我们将[微前端](https://www.thoughtworks.com/radar/techniques/micro-frontends)归为了评估等级。后来又将其提升到了试验等级，最终列为了采纳等级，这意味着，我们将微前端视为一种经过验证的方法，应该在合适的情境中采用它。
 
-![*ThoughtWorks 技术雷达*中的微前端文章截图](https://martinfowler.com/articles/micro-frontends/radar.png)
+![**ThoughtWorks 技术雷达**中的微前端文章截图](https://martinfowler.com/articles/micro-frontends/radar.png)
 
-图 1 : 微前端在*技术雷达*中多次被提及。
+图 1：微前端在**技术雷达**中多次被提及。
 
 采用微前端的几个主要优点是：
 
@@ -33,7 +33,7 @@
 
 以上列出的优点与微服务的优点相同，这并非巧合。
 
-当然了，”天底下没有免费的午餐”，这句话在软件架构中同样适用，有些微前端实现可能导致依赖项的重复，增加了用户所需下载依赖的体积。除此之外，团队独立性的急剧增加会造成团队风格的差异。尽管如此，我们认为这些是可控的风险，并且使用微前端所带来的好处要远远多于付出的代价。
+当然了，“天底下没有免费的午餐”，这句话在软件架构中同样适用，有些微前端实现可能导致依赖项的重复，增加了用户所需下载依赖的体积。除此之外，团队独立性的急剧增加会造成团队风格的差异。尽管如此，我们认为这些是可控的风险，并且使用微前端所带来的好处要远远多于付出的代价。
 
 * * *
 
@@ -51,9 +51,9 @@
 
 ### 简单、解耦的代码库
 
-每个单独的微前端项目的源代码库会远远小于一个单体前端项目的源代码库。这些小的代码库将会更易于开发。更值得一提的是，我们避免了不相关联的组件之间无意造成的不适当的耦合。通过增强应用程序的[边界](https://martinfowler.com/bliki/BoundedContext.html) 来减少这种意外耦合的情况的出现。
+每个单独的微前端项目的源代码库会远远小于一个单体前端项目的源代码库。这些小的代码库将会更易于开发。更值得一提的是，我们避免了不相关联的组件之间无意造成的不适当的耦合。通过增强应用程序的[边界](https://martinfowler.com/bliki/BoundedContext.html)来减少这种意外耦合的情况的出现。
 
-当然了，一个独立的、高级的架构方式（例如微前端），不是用来取代规范整洁的优秀老代码的。我们不是想要逃避代码优化和代码质量提升。相反，我们加大做出错误决策的难度，增加正确决策的可能性，从而使我们进入[成功的陷阱](https://blog.codinghorror.com/falling-into-the-pit-of-success/) 。例如，我们将跨边界共享域模型变得很困难，所以开发者不太可能这样做。同样，微前端会促使您明确并慎重地了解数据和事件如何在应用程序的不同部分之间传递，这本是我们早就应该开始做的事情！
+当然了，一个独立的、高级的架构方式（例如微前端），不是用来取代规范整洁的优秀老代码的。我们不是想要逃避代码优化和代码质量提升。相反，我们加大做出错误决策的难度，增加正确决策的可能性，从而使我们进入[成功的陷阱](https://blog.codinghorror.com/falling-into-the-pit-of-success/)。例如，我们将跨边界共享域模型变得很困难，所以开发者不太可能这样做。同样，微前端会促使您明确并慎重地了解数据和事件如何在应用程序的不同部分之间传递，这本是我们早就应该开始做的事情！
 
 ### 独立部署
 
@@ -69,7 +69,7 @@
 
 ![图示：根据三个应用构成三个团队，提醒大家不要根据“样式”分队](https://martinfowler.com/articles/micro-frontends/horizontal.png)
 
-图 3 : 每个应用都由一个团队负责
+图 3：每个应用都由一个团队负责
 
 ### 总结
 
@@ -77,7 +77,7 @@
 
 我们将分期发表这篇文章。后续的文章将介绍用于实现这些功能的替代集成方法、如何处理诸如样式和应用间通信这类实现问题，我们也将讨论一些缺点，还有介绍详细的示例实现。
 
-想知道我们何时发布后续部分，请订阅 [RSS 源](https://martinfowler.com/feed.atom) 、[Cam 的 twitter ](https://twitter.com/thecamjackson) 、或者 [Martin 的 twitter ](https://twitter.com/martinfowler)。
+想知道我们何时发布后续部分，请订阅 [RSS 源](https://martinfowler.com/feed.atom)、[Cam 的 twitter](https://twitter.com/thecamjackson)、或者 [Martin 的 twitter](https://twitter.com/martinfowler)。
 
 ## 重要修改
 
