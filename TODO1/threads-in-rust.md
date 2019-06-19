@@ -14,7 +14,7 @@ A thread or 'thread of execution' is a way to run/execute parts of a software wh
 
 In rust every process has a main thread which can be accessed via:
 
-```
+```rust
 use std::thread;
 use std::time::Duration;
 
@@ -33,11 +33,11 @@ But a thread is still more costly than no thread. Which also could mean going fu
 
 Process definition from wikipedia:
 
--   processes are typically independent, while threads exist as subsets of a process
--   processes carry considerably more state information than threads, whereas multiple threads within a process share process state as well as memory and other resources
--   processes have separate address spaces, whereas threads share their address space
--   processes interact only through system-provided inter-process communication mechanisms
--   context switching between threads in the same process is typically faster than context switching between processes.
+- processes are typically independent, while threads exist as subsets of a process
+- processes carry considerably more state information than threads, whereas multiple threads within a process share process state as well as memory and other resources
+- processes have separate address spaces, whereas threads share their address space
+- processes interact only through system-provided inter-process communication mechanisms
+- context switching between threads in the same process is typically faster than context switching between processes.
 
 Lets take a short detour to the ring model of OS memory:
 
@@ -81,14 +81,14 @@ From our process perspective and our thread perspective we own all the memory th
 
 Process from an OS Perspective as an allegoric idea
 
--   System call to the OS 'hey start this'
--   OS registers address of starting point of the program in execution pages
--   OS tries to accommodate request for memory
--   OS loops over running processes and schedules execution time
--   OS listens for interrupts / sys calls
--   OS registers possible threads
--   OS provides access to certain memory spaces if for example a network package comes in and the program is allows to access it
--   OS schedules our CPU time and tries to balance it with the other running programs.
+- System call to the OS 'hey start this'
+- OS registers address of starting point of the program in execution pages
+- OS tries to accommodate request for memory
+- OS loops over running processes and schedules execution time
+- OS listens for interrupts / sys calls
+- OS registers possible threads
+- OS provides access to certain memory spaces if for example a network package comes in and the program is allows to access it
+- OS schedules our CPU time and tries to balance it with the other running programs.
 
 ### What is an OS?
 
@@ -100,15 +100,15 @@ If we look at the most basic/primitive implementation of an OS is a program runn
 
 A modern OS implementation however needs to do more
 
-1.  Security
-2.  Control over system performance
-3.  Job Scheduling
-4.  Error detection aid
-5.  Coordination between other software and users
-6.  Memory management
-7.  Processor management
-8.  Device management
-9.  File management
+1. Security
+2. Control over system performance
+3. Job Scheduling
+4. Error detection aid
+5. Coordination between other software and users
+6. Memory management
+7. Processor management
+8. Device management
+9. File management
 
 [more details](https://www.geeksforgeeks.org/functions-of-operating-system/)
 
@@ -166,9 +166,9 @@ A short disclaimer, the numbers are architecture specific so please just look at
 
 The usual task of an CPU is as follows
 
--   fetch information
--   process information
--   store information
+- fetch information
+- process information
+- store information
 
 This is what every CPU does, it's in the name, central processing unit.
 
@@ -188,18 +188,18 @@ How do can we efficiently communicate between our CPUs to ease some of the probl
 
 MESI is a statemachine that has 4 core states
 
--   Modified (hey this has been changed)
--   Exclusive (hey I am going to change this)
--   Shared (everyone can read this)
--   Invalid (Hey this has been changed, it's not valid anymore)
+- Modified (hey this has been changed)
+- Exclusive (hey I am going to change this)
+- Shared (everyone can read this)
+-  Invalid (Hey this has been changed, it's not valid anymore)
 
 This allows an inter-cache distribution and communication! It allows the cores to get information from the other caches.
 
 And If you think about rust again and how ownership works, to me this get's really close on an abstract idea of computation
 
--   you need to own it to write (exclusive)
--   you can share for read it as long (shared)
--   the modified and invalid are prohibited in the model since you either have to ARC it or RC it with atomics or constructs like mutex.
+- you need to own it to write (exclusive)
+- you can share for read it as long (shared)
+- the modified and invalid are prohibited in the model since you either have to ARC it or RC it with atomics or constructs like mutex.
 
 But the core idea of exclusive write and shared read is something I do enjoy about that language a lot.
 
@@ -235,7 +235,7 @@ An OS will always try to be 'fair' and distribute the workload greenthreading al
 
 #### 1\. basic thread spawning
 
-```
+```rust
 use std::thread;
 
 fn main() {
@@ -267,7 +267,7 @@ this basically just spawns 3 threads. since there is no guarantee for the order 
 
 #### builder
 
-```
+```rust
 // example from the rust book
 fn main() {
     let child1_thread = thread::Builder::new()
@@ -287,7 +287,7 @@ this is for naming also the stacksize can be defined. I can imagine there are us
 
 #### Sleeping in threads
 
-```
+```rust
 fn main() {
     let t1 = thread::spawn(|| {
         thread::sleep(Duration::from_secs(2));
@@ -312,7 +312,7 @@ This is something pretty common in most languages we can add a sleep command and
 
 #### thread local storage
 
-```
+```rust
 fn main() {
     use std::cell::RefCell;
 
@@ -345,7 +345,7 @@ The value also remains localized so thread0 cannot access the value of thread1 f
 
 #### Parking a thread
 
-```
+```rust
 fn main() {
     let t1 = thread::spawn(|| {
         println!("park thread");
@@ -366,7 +366,7 @@ We can park a thread and resume waiting lateron. This article is already pretty 
 
 #### Threads with Atomic bool
 
-```
+```rust
 fn main() {
     let atomic_lock = Arc::new(AtomicBool::new(true));
     let atomic_lock2 = atomic_lock.clone();
@@ -387,13 +387,13 @@ What is an Arc? Arc is the threadsafe reference counter / smart pointer that poi
 
 if we would just use
 
-```
+```rust
 let atomic_lock = Arc::new(AtomicBool::new(true));
 ```
 
 and apply
 
-```
+```rust
 let t1 = thread::spawn(move|| {
         atomic_lock.store(true, Ordering::SeqCst);
     });
@@ -403,13 +403,13 @@ we would transfer the ownership via the code-word move to the thread.
 
 so we need to invoke clone on it.
 
-```
+```rust
 let atomic_lock2 = atomic_lock.clone();
 ```
 
 this increases the reference counter to two and we can pass our second reference to our value safely to the thread. and let our main thread (fn main) share the state with our extra thread (thread::spawn).
 
-```
+```rust
 atomic_lock.store(true, Ordering::SeqCst);
 ```
 
@@ -421,11 +421,11 @@ Now we're getting to the part why the CPU and memory model can be useful.
 
 #### Atomics in rust implement the LLVM fences
 
-1.  Relaxed
-2.  Release
-3.  Acquire
-4.  AcqRel
-5.  SeqCst
+1. Relaxed
+2. Release
+3. Acquire
+4. AcqRel
+5. SeqCst
 
 They not only define the behaviour of the atomic, but also of the !!surrounding code!!. This means that guarantees about the order of the code execution between threads can be very different from what we expect
 
@@ -459,9 +459,9 @@ it is defined as monotonic order. Monotonic is a mathematical term that describe
 
 for example:
 
--   1+2+1+4+5+1+4+2 is monotonic
--   1+2*2+2*4 is monotonic
--   1+-1+2+5 is not monotonic since we 'change' direction by substracting
+- 1+2+1+4+5+1+4+2 is monotonic
+- 1+2*2+2*4 is monotonic
+- 1+-1+2+5 is not monotonic since we 'change' direction by substracting
 
 which means it can !never! return to a former state. so if we can look at our code and it shows this behaviour, relaxed would be a fitting choice. However, most of the time we will write code that does not fit this description so .... an unlikely conscious choice.
 
@@ -473,7 +473,7 @@ Now we get to something that hopefully really helps understanding what this mean
 
 Aquire is intended for loads
 
-```
+```rust
 let x = AtomicUsize::new(0);
 let mut result = x.load(Ordering::Acquire);
 result += 1;
@@ -494,7 +494,7 @@ I will however resume the threading topic with the next construct the mutex.
 
 #### Mutex
 
-```
+```rust
 fn main() {
     let state = Arc::new(Mutex::new(0));
     let shared_state1 = state.clone();
@@ -534,7 +534,7 @@ Mutex is one of the most straight forward concepts it's a basic XOR either you o
 
 #### RwLock
 
-```
+```rust
 fn main() {
     let state = Arc::new(RwLock::new(0));
     let shared_state1 = state.clone();
