@@ -58,7 +58,7 @@ If there are user journeys that span across micro frontends, then you could use 
 
 ## The example in detail
 
-Most of the rest of this article will be a detailed explanation of just one way that our example application can be implemented. We'll focus mostly on how the container application and the micro frontends [integrate together using JavaScript](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#Run-timeIntegrationViaJavascript), as that's probably the most interesting and complex part. You can see the end result deployed live at [https://demo.microfrontends.com](https://demo.microfrontends.com), and the full source code can be seen on [Github](https://github.com/micro-frontends-demo).
+Most of the rest of this article will be a detailed explanation of just one way that our example application can be implemented. We'll focus mostly on how the container application and the micro frontends [integrate together using JavaScript](https://martinfowler.com/articles/micro-frontends.html#Run-timeIntegrationViaJavascript), as that's probably the most interesting and complex part. You can see the end result deployed live at [https://demo.microfrontends.com](https://demo.microfrontends.com), and the full source code can be seen on [Github](https://github.com/micro-frontends-demo).
 
 ![A screenshot of the 'browse' landing page of the full micro frontends demo application](https://martinfowler.com/articles/micro-frontends/screenshot-browse.png)
 
@@ -96,7 +96,7 @@ We'll start with [the container](https://github.com/micro-frontends-demo/contain
 }
 ```
 
-From the dependencies on `react` and `react-scripts`, we can conclude that it's a React.js application created with [`create-react-app`](https://facebook.github.io/create-react-app/). More interesting is what's **not** there: any mention of the micro frontends that we're going to compose together to form our final application. If we were to specify them here as library dependencies, we'd be heading down the path of build-time integration, which [as mentioned previously](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#Build-timeIntegration) tends to cause problematic coupling in our release cycles.
+From the dependencies on `react` and `react-scripts`, we can conclude that it's a React.js application created with [`create-react-app`](https://facebook.github.io/create-react-app/). More interesting is what's **not** there: any mention of the micro frontends that we're going to compose together to form our final application. If we were to specify them here as library dependencies, we'd be heading down the path of build-time integration, which [as mentioned previously](https://martinfowler.com/articles/micro-frontends.html#Build-timeIntegration) tends to cause problematic coupling in our release cycles.
 
 > In version 1 of `react-scripts` it was possible to have multiple applications coexist on a single page without conflicts, but version 2 uses some webpack features that cause errors when two or more apps try to render themselves on the one page. For this reason we use `react-app-rewired` to override some of the internal webpack config of `react-scripts`. This fixes those errors, and lets us keep relying on `react-scripts` to manage our build tooling for us.
 
@@ -279,7 +279,7 @@ When using routing as our mode of communication between micro frontends, the rou
 
 ### Common content
 
-While we want our teams and our micro frontends to be as independent as possible, there are some things that should be common. We wrote earlier about how [shared component libraries](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#SharedComponentLibraries) can help with consistency across micro frontends, but for this small demo a component library would be overkill. So instead, we have a small [repository of common content](https://github.com/micro-frontends-demo/content), including images, JSON data, and CSS, which are served over the network to all micro frontends.
+While we want our teams and our micro frontends to be as independent as possible, there are some things that should be common. We wrote earlier about how [shared component libraries](https://martinfowler.com/articles/micro-frontends.html#SharedComponentLibraries) can help with consistency across micro frontends, but for this small demo a component library would be overkill. So instead, we have a small [repository of common content](https://github.com/micro-frontends-demo/content), including images, JSON data, and CSS, which are served over the network to all micro frontends.
 
 There's another thing that we can choose to share across micro frontends: library dependencies. As we will [describe shortly](#PayloadSize), duplication of dependencies is a common drawback of micro frontends. Even though sharing those dependencies across applications comes with its own set of difficulties, for this demo application it's worth talking about how it can be done.
 
