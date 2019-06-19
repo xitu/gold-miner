@@ -21,7 +21,6 @@ use std::time::Duration;
 fn main() {
     let main_thread_handle = thread::current();
 }
-
 ```
 
 This means have processes which are started by the OS that spawn threads which can be handled by the OS or a given runtime.
@@ -115,8 +114,7 @@ A modern OS implementation however needs to do more
 
 An OS can be seen as a big resource management system that provides and manages them for us.
 
-Basics of a CPU
----------------
+## Basics of a CPU
 
 ### Physics
 
@@ -263,7 +261,6 @@ fn case1() {
     t2.join();
     t3.join();
 }
-
 ```
 
 this basically just spawns 3 threads. since there is no guarantee for the order of execution of threads we most likely get the result as expected but we need to wait at the end to make sure our main thread that contains our other 3 threads does not terminate before we see our println! in action
@@ -284,7 +281,6 @@ fn main() {
             println!("Hello, world!");
         });
 }
-
 ```
 
 this is for naming also the stacksize can be defined. I can imagine there are usecases for this, but I am guessing that most of us won't use it that often.
@@ -310,7 +306,6 @@ fn main() {
     t2.join();
     t3.join();
 }
-
 ```
 
 This is something pretty common in most languages we can add a sleep command and wait for a certain amount of time. This can get interesting for time and consistency windows. or just to reduce the load.
@@ -342,7 +337,6 @@ fn main() {
         println!("{}", *value.borrow());
     })
 }
-
 ```
 
 as we can see we're using a RefCell. A RefCell is not threadsafe! What this does is creating a thread localized value storeage that can be accessed within every thread without ownership problems.
@@ -366,7 +360,6 @@ fn main() {
 
     t1.join();
 }
-
 ```
 
 We can park a thread and resume waiting lateron. This article is already pretty long so I will skip the parts where we would look in the sys calls and see what's actually happening on my system.
@@ -386,7 +379,6 @@ fn main() {
 
     println!("{}", atomic_lock.load(Ordering::SeqCst));
 }
-
 ```
 
 So lets look at this a little more in detail. we create an atomic boolean and put it in the Arc.
@@ -397,7 +389,6 @@ if we would just use
 
 ```
 let atomic_lock = Arc::new(AtomicBool::new(true));
-
 ```
 
 and apply
@@ -406,7 +397,6 @@ and apply
 let t1 = thread::spawn(move|| {
         atomic_lock.store(true, Ordering::SeqCst);
     });
-
 ```
 
 we would transfer the ownership via the code-word move to the thread.
@@ -415,14 +405,12 @@ so we need to invoke clone on it.
 
 ```
 let atomic_lock2 = atomic_lock.clone();
-
 ```
 
 this increases the reference counter to two and we can pass our second reference to our value safely to the thread. and let our main thread (fn main) share the state with our extra thread (thread::spawn).
 
 ```
 atomic_lock.store(true, Ordering::SeqCst);
-
 ```
 
 ![31xdyq.jpg](https://cdn.hashnode.com/res/hashnode/image/upload/v1559923773502/rFYl7jiuw.jpeg)
@@ -490,7 +478,6 @@ let x = AtomicUsize::new(0);
 let mut result = x.load(Ordering::Acquire);
 result += 1;
 x.store(result, Ordering::Release); // The value is now 1.
-
 ```
 
 Release is intended for stores they have to be played in order because.
@@ -533,7 +520,6 @@ fn main() {
     t1.join();
     t2.join();
 }
-
 ```
 
 What is a mutex? Mutex comes from 'mutual exclusive' and means only 1 thread is allowed to access the values at a time.
@@ -574,7 +560,6 @@ fn main() {
     t1.join();
     t2.join();
 }
-
 ```
 
 the RW lock essential gives you similar options like mutex one of the core advantages is that readlocks can be shared. So if one thread invokes the read lock, the other threads can too.
