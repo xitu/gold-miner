@@ -343,8 +343,7 @@ func (m *MyHomePage) incrementCounter() {
 }
 ```
 
-The code is more verbose, and if we had to change/replace MyHomeWidget in MyApp, we would have to touch code in 3 places, but a side effect is that we have a full and clear picture of what going on at each stage of the code execution. There is no hidden stuff happening behind the scene, we can reason about the code, about performance and dependencies of each of our types and functions with 100% confidence. And, for some, that’s the ultimate goal of writing reliable and maintainable code.
-代码更加详细清晰了，如果我们必须在 MyApp 中更改/替换 MyHomeWidget，那我们需要在 3 个地方有所改动，还有一点是，我们对代码执行的每个阶段都有一个完整而清晰的了解。没有隐藏的东西在幕后发生，我们可以 100% 自信的推断代码、性能和每个类型以及函数的依赖关系。对于一些人来说，这就是最终目标，即编写可靠且可维护的代码。
+代码更加冗长了，如果我们必须在 MyApp 中更改/替换 MyHomeWidget，那我们需要在 3 个地方有所改动，还有一个作用是，我们对代码执行的每个阶段都有一个完整而清晰的了解。没有隐藏的东西在幕后发生，我们可以 100% 自信的推断代码、性能和每个类型以及函数的依赖关系。对于一些人来说，这就是最终目标，即编写可靠且可维护的代码。
 
 顺便说一下，Flutter 有一个名为 [StatefulBuilder](https://medium.com/flutter-community/stateful-widgets-be-gone-stateful-builder-a67f139725a0) 的特殊部件，它为隐藏的状态管理增加了更多的魔力。
 
@@ -430,7 +429,7 @@ return Scaffold(
 
 ## 用 Go 实现部件树
 
-### Version 1
+### 版本 1
 
 The temptation here might be just to replicate Dart’s way of expressing widgets tree, but what we really need is to step back and answer the question – which is the best way to represent this type of data within the constraints of the language?
 这个版本的例子可能只是拷贝 Dart 表示部件树的方法，但我们真正需要的是后退一步并回答这个问题 —— 在语言的约束下，哪种方法是表示这种类型数据的最佳方法呢？
@@ -467,7 +466,7 @@ return flutter.NewScaffold(
 ```
 
 Well, not the prettiest UI code, for sure. The word `flutter` is so abundant that it begs for hiding (actually, I should have named it `material`, not `flutter`), those nameless parameters are not clear, especially `nil`s.
-当然，这不是最漂亮的 UI 代码。`flutter` 这个词是如此的富有意义，以至于它要求隐藏起来（实际上，我应该把它命名为 `material` 而非 `flutter`），这些无名的参数并不清楚，尤其是 `nil`。
+当然，这不是最漂亮的 UI 代码。这里的 `flutter` 是如此的丰富，以至于它要求隐藏起来（实际上，我应该把它命名为 `material` 而非 `flutter`），这些无名的参数并不清楚，尤其是 `nil`。
 
 ### Version 2
 
@@ -510,7 +509,7 @@ return NewScaffold(
 
 比较简洁，但是那些 nil... 我们怎么才能避免那些必须传递的参数？
 
-### Version 3
+### 版本 3
 
 反射怎么样？一些早期的 Go Http 框架使用了这种方式（例如 [martini](https://github.com/go-martini/martini)）—— 你可以通过参数传递任何你想要传递的内容，运行时将检查这是否是一个已知的类型/参数。从多数角度看，这不是一个好办法 —— 它不安全，速度相对比较慢，还具魔法的特性 —— 但为了探索，我们还是试试：
 
@@ -538,7 +537,7 @@ return NewScaffold(
 
 好吧，这跟 Dart 的原始版本有些类似，但缺少命名参数，确实会妨碍在这种情况下的可选参数的可读性。另外，代码本身就有些不好的迹象。
 
-### Version 4
+### 版本 4
 
 让我们重新思考一下，在创建新对象和可选的定义他们的属性时，我们究竟想做什么？这只是一个普通的变量实例，所以假如我们用另一种方式来尝试呢：
 
@@ -597,11 +596,11 @@ return scaffold
 
 ```
 
-So for some people, it might be a more natural way to describe UI as a code. But it’s hard to deny that it’s definitely not the best option.
+所以对于一些人来说，将 UI 用代码来描述可能是一种更自然的方式。但很难否认这肯定不是最好的选择。
 
-### Version 5
+### 版本 5
 
-One more option I considered is creating a separate type for constructor parameters. For example:
+我在想的另一个选择，是为构造方法的参数创建一个单独的类型。例如：
 
 ```dart
 func Build() Widget {
@@ -638,9 +637,9 @@ func Build() Widget {
 }
 ```
 
-Not bad, actually! Those `..Params` are verbose, but it’s not a deal breaker. In fact, this approach I encounter quite often in Go libs. It works especially fine when you have just a couple of objects need to be instantiated this way.
+还不错，真的！这些 `..Params` 显得很啰嗦，但这不是什么大问题。事实上，我在 Go 的一些库中经常遇到这种方式。当你只有数个对象需要以这种方式实例化时，这种方法尤其有效。
 
-There is a way to remove `...Params` verbosity, but it’ll require language change. There a Go proposal exists that aims to achieve exactly that - [untyped composite literals](https://github.com/golang/go/issues/12854). Basically, it means we should be able to shorten `FloattingActionButtonParameters{...}` to just `{...}`, so our code could look like that:
+有一种方法可以移除 `...Params` 这种啰嗦的东西，但这需要语言上的改变。在 Go 中有一个建议，它的目标正是实现这一点 —— [无类型的复合型字面量](https://github.com/golang/go/issues/12854)。基本上，这意味着我们能够缩短 `FloattingActionButtonParameters{...}` 成 `{...}`，所以我们的代码应该是这样：
 
 ```dart
 func Build() Widget {
@@ -676,13 +675,14 @@ func Build() Widget {
 }
 ```
 
-That’s an almost perfect similarity with Dart’s version! It will, however, require creating those parameters types for each widget.
+这和 Dart 版的几乎一样！但是，它需要为每个小部件创建这些对应的参数类型。
 
-### Version 6
+### 版本 6
 
 Another option to explore is to use chaining of widget’s methods. I forgot the name of this pattern, but it’s not important because patterns should emerge from code, not the opposite way.
+探索另一个选择是使用小部件方法的方法链。我忘记了这个模式的名称，但这不是很重要，因为模式应该从代码中产生，而不是以相反的方式。
 
-The basic idea is that upon creating a widget – say `NewButton()` – we immediately call a method like `WithStyle(...)`, which returns the same object so that we can call more and more methods, in a row (or a column):
+基本思想是，在创建一个小部件 —— 比如 `NewButton()` —— 我们立即调用一个像 `WithStyle(...)` 的方法，它返回相同的对象，我们就可以在一行（或一列）中调用越来越多的方法：
 
 ```dart
 button := NewButton().
@@ -690,7 +690,7 @@ button := NewButton().
     WithStyle(MyButtonStyle1)
 ```
 
-or
+或者
 
 ```dart
 button := NewButton().
@@ -698,7 +698,7 @@ button := NewButton().
     Style(MyButtonStyle1)
 ```
 
-Let’s try to rewrite our Scaffold-based widget that way:
+我们尝试用这种方法重写基于 Scaffold 的部件：
 
 ```dart
 // Build renders the MyHomePage widget. Implements Widget interface.
@@ -721,20 +721,20 @@ func (m *MyHomePage) Build(ctx flutter.BuildContext) flutter.Widget {
 }
 ```
 
-It’s not an alien concept – many Go libraries use a similar approach for the configuration options, for example. It’s a little bit different from original Dart’s one, but holds most of the desired properties:
+这不是一个陌生的概念 —— 例如，许多 Go 库中对配置选项使用类似的方法。这个版本跟 Dart 的版本略有不同，但它们都具备了大部分所需要的属性：
 
-* explicit building of widget tree
-* named “parameters.”
-* indentation showing “depth” of a widget in a tree
-* ability to specify handlers
+* 显示地构建部件树
+* 命名参数
+* 在部件树中以缩进的方式显示部件的深度
+* 处理指定功能的能力
 
-I also like conventional Go’s `New...()` naming pattern. It clearly communicates that it’s a function and it creates a new object. So much easier to explain to newcomers than explaining constructors: **“it’s a function with the same name as a class, but you won’t find this function, because it’s special, and you have no way to easily tell constructor from a normal function just by looking at it”**.
+我也喜欢传统的 Go 的 `New...()` 实例化方式。它清楚的表明它是一个函数，并创建了一个新对象。跟解释构造函数相比，向新手解释构造函数要更容易一些：**“它是一个与类同名的函数，但是你找不到这个函数，因为它很特殊，而且你无法通过查看构造函数就轻松地将它与普通函数区分开来”**。
 
-Anyway, from all the options I explored, the last two options are probably the most appropriate ones.
+无论如何，在我的探索的所有选项中，最后两个选项可能是最合适的。
 
-### Final version
+### 最终版
 
-Now, assembling all pieces together, that’s how I would say Flutter’s “hello, world” app looks like:
+现在，把所有的部件组装在一起，这就是我要说的 Flutter 的 “hello, world” 应用的样子：
 
 main.go
 
@@ -755,20 +755,20 @@ package hello
 
 import . "github.com/flutter/flutter"
 
-// MyApp is our top application widget.
+// MyApp 是顶层的应用部件
 type MyApp struct {
     Core
     homePage *MyHomePage
 }
 
-// NewMyApp instantiates a new MyApp widget
+// NewMyApp 初始化一个新的 MyApp 部件
 func NewMyApp() *MyApp {
     app := &MyApp{}
     app.homePage = &MyHomePage{}
     return app
 }
 
-// Build renders the MyApp widget. Implements Widget interface.
+// Build 渲染了 MyApp 部件。实现了 Widget 接口
 func (m *MyApp) Build(ctx BuildContext) Widget {
     return m.homePage
 }
@@ -784,13 +784,13 @@ import (
     . "github.com/flutter/flutter"
 )
 
-// MyHomePage is a home page widget.
+// MyHomePage 是一个主页部件
 type MyHomePage struct {
     Core
     counter int
 }
 
-// Build renders the MyHomePage widget. Implements Widget interface.
+// Build 渲染了 MyHomePage 部件。实现了 Widget 接口
 func (m *MyHomePage) Build(ctx BuildContext) Widget {
     return NewScaffold(ScaffoldParams{
         AppBar: NewAppBar(AppBarParams{
@@ -824,47 +824,47 @@ func (m *MyHomePage) Build(ctx BuildContext) Widget {
     })
 }
 
-// incrementCounter increments app's counter by one.
+// 增量计数器给 app 的计数器加一
 func (m *MyHomePage) incrementCounter() {
     m.counter++
     flutter.Rerender(m)
 }
 ```
 
-I actually quite like it.
+实际上我很喜欢它。
 
-# Conclusions
+# 结语
 
-#### Similarity with Vecty
+#### 与 Vecty 的相似点
 
-I could not help but notice how similar my final result to what [Vecty](https://github.com/gopherjs/vecty) framework provides. Basically, the general design is almost the same, it’s just Vecty outputs into DOM/CSS, while Flutter goes deeper into fully-fledged native rendering layers for providing crazy smooth 120fps experience with beautiful widgets (and solves a bunch of other problems). I think Vecty design is exemplary here, and no wonder my result ended up being a “Vecty adaptation for Flutter” :)
+我不禁注意到，我的最终探索结果跟 [Vecty](https://github.com/gopherjs/vecty) 框架所提供的非常相似。基本上，通用的设计几乎是一样的，只是向 DOM/CSS 中输出，而 Flutter 则成熟地深入到底层的渲染层，用漂亮的小部件提供非常流畅的 120fps 体验（并解决了许多其他问题）。我认为 Vecty 的设计是典范的，难怪我探索的结果也是一个“基于Flutter 的 Vecty 变种” :)
 
-#### Understanding Flutter’s design better
+#### 更好的理解 Flutter 的设计
 
-This thought experiment has been interesting by itself – not every day you have to write (and explore!) code for the library/framework that has never been written. But it also helped me to dissect Flutter’s design a little bit deeper, read some technical docs, and uncover layers of hidden magic behind Flutter.
+这个实验思路本身就很有趣 —— 你不必每天都要为尚未实现的库/框架编写（并探索）代码。但它也帮助我更深入的剖析了 Flutter 设计，阅读了一些技术文档，揭开了 Flutter 背后隐藏的魔法面纱。
 
-#### Go’s shortcomings
+#### Go 的不足之处
 
-My verdict to the question “**Can Flutter be written in Go?”** is definitely **yes**, but I’m biased, not aware of many design constraints and this question has no right answer anyway. What I was more interested in is to explore where Go do or doesn’t fail to provide the same experience as a Dart in Flutter.
+我对“ **Flutter 能用 Go 来写吗？**”的问题的答案肯定是**能**，但我也有一些偏激，没有意识到许多设计限制，而且这个问题没有标准答案。我更感兴趣的是探索 Dart 实现 Flutter 能给 Go 实现提供借鉴的地方。
 
-This thought experiment demonstrated that the **major issue Go has is purely syntactical**. Inability to call a function and pass either named parameters or untyped literals made it a bit harder and verbose to achieve clean and well-structured DSL-like widget tree creation. There are actually [Go proposals to add named parameters](https://github.com/golang/go/issues/12296) in a future Go versions, and it’s probably a backwards-compatible change. Having named parameters would definitely help for UI frameworks in Go, but it also introduces yet another thing to learn, yet another choice to make on each function definition or invocation, so the cumulative benefit is unclear.
+这次实践表明**主要问题是因为 Go 语法造成的**。无法调用函数时传递命名参数或无类型的字面量，这使得创建简洁、结构良好的类似于 DSL 的部件树变得更加困难和复杂。实际上，在未来的 Go 中，有[ Go 提议添加命名参数](https://github.com/golang/go/issues/12296)，这可能是一个向后兼容的更改。有了命名参数肯定对 Go 中的 UI 框架有所帮助，但它也引入了另一个问题即学习成本，并且对每个函数定义或调用都需要考虑另一种选择，因此这个特性所带来的好处尚不好评估。
 
-There obviously were no issues with the absence of user-defined generics in Go or lack of exceptions. I would be happy to hear about another way to achieve cleaner and more readable Go implementation of Flutter with generics – I’m genuinely curious how it would help here. Feel free to post your thoughts and code in comments.
+在 Go 中，缺少用户定义的泛型或者缺少异常机制显然不是什么大问题。我很高兴听到另一种方法，以更加简洁和更强的可读性来实现 Go 版的 Flutter —— 我真的很好奇有什么方法能提供帮助。欢迎在评论区发表你的想法和代码。
 
-#### Thoughts about Flutter future
+#### 关于 Flutter 未来的一些思考
 
-My final thoughts are that Flutter is unspeakably awesome despite all shortcomings I ranted in this post today. The “awesomeness/meh” ratio is surprisingly high in Flutter and Dart is actually quite easy to learn (if you know other programming languages). Taking into account web pedigree of Dart, I dream about a day, when every browser ships with a fast and optimized Dart VM inside and Flutter can natively serve as a framework for web apps as well (keeping an eye on [HummingBird](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8) project, but native browser support would be better anyway).
+我最后的想法是，Flutter 真的是无法形容的棒，尽管我在这篇文章中指出了它的缺点。在 Flutter 中，“awesomeness/meh” 帧率是惊人的高，而且 Dart 实际上非常易于学习（如果你学过其他编程语言）。加入 Dart 的 web 家族中，我希望有一天，每一个浏览器附带一个快速并且优异的 Dart VM，其内部的 Flutter 也可以作为一个 web 应用程序框架（密切关注 [HummingBird](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8) 项目，本地浏览器支持会更好）。
 
-Amount of incredible work done to make Flutter reality is just insane. It’s the project of a quality you dream of and seems to have a great and growing community. At least, the number of extremely well-prepared tutorials is staggering, and I hope to contribute to this awesome project one day.
+大量令人难以置信的设计和优化，使 Flutter 的现状是非常火。这是一个你梦寐以求的项目，它也有很棒并且不断增长的社区。至少，这里有很多好的教程，并且我希望有一天能为这个了不起的项目作出贡献。
 
-To me, it’s definitely a game changer, and I’m committed to learn it to its full extent and be able to make great mobile apps every now and then. I encourage you to try Flutter even if you never thought you might be developing a mobile app – it’s really a breath of fresh air.
+对我来说，它绝对是一个游戏规则的变革者，我致力于全面的学习它，并能够时不时地做出很棒的移动应用。我鼓励你尝试 Flutter，即使你从未想过你自己会去开发一个移动应用 —— 它真的犹如一股清新的空气。
 
 # Links
 
 * [https://flutter.io](https://flutter.io)
-* [Flutter Tutorial for Beginners - Build iOS and Android Apps](https://www.youtube.com/watch?v=GLSG_Wh_YWc)
-* [Go proposal: An Improved, Golang-Cohesive Design for Named Arguments](https://github.com/golang/go/issues/12296)
-* [Go proposal: spec: untyped composite literals](https://github.com/golang/go/issues/12854)
+* [给初学者的 Flutter 教程 —— 构建 iOS 和 Android 应用](https://www.youtube.com/watch?v=GLSG_Wh_YWc)
+* [关于 Go 的建议：一个改进 Golang 的命名参数设计](https://github.com/golang/go/issues/12296)
+* [关于 Go 提议：规范：无类型的复合字面量](https://github.com/golang/go/issues/12854)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
