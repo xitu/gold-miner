@@ -165,7 +165,7 @@ REST 和 GraphQL 之间的区别，就如左图 Redux + REST 之间的对话与�
 
 根据你拥有的动态数据量，你可以将内容的某些部分“外包”到 [静态站点生成器](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/)，将其推送到 CDN 并从中提供静态版本，从而避免数据库请求。你甚至可以选择基于 CDN 的[静态托管平台](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/)，通过交互式组件丰富你的页面作为增强功能（[JAMStack](https://jamstack.org/)）。事实上，其中一些生成器（如 Reats 之上的 [Gatsby](https://www.gatsbyjs.org/blog/2017-09-13-why-is-gatsby-so-fast/)）实际上是[网站编译器](https://tomdale.net/2017/09/compilers-are-the-new-frameworks/)，提供了许多自动优化功能。随着编译器随着时间的推移添加优化，编译后的输出随着时间的推移变得越来越小，越来越快。
 
-请注意，CDN 也可以提供（和卸载）动态内容。因此，不必将CDN限制为只有静态文件。仔细检查你的 CDN 是否执行压缩和转换（例如，在格式，压缩和边缘大小调整方面的图像优化），对 [服务器端工作者](https://www.filamentgroup.com/lab/servers-workers.html) 的支持，包括边缘，在 CDN 边缘组装页面的静态和动态部分（即最接近用户的服务器）和其他任务。
+请注意，CDN 也可以提供（和卸载）动态内容。因此，不必将CDN限制为只有静态文件。仔细检查你的 CDN 是否执行压缩和转换（例如，在格式，压缩和边缘大小调整方面的图像优化），对 [servers workers](https://www.filamentgroup.com/lab/servers-workers.html) 的支持，包括边缘，在 CDN 边缘组装页面的静态和动态部分（即最接近用户的服务器）和其他任务。
 
 注意：基于 Patrick Meenan 和 Andy Davies 的研究，HTTP/2 [在许多 CDN 上被破坏](https://github.com/andydavies/http2-prioritization-issues#cdns--cloud-hosting-services)，所以我们不应该对那里的性能提升过于乐观。
 

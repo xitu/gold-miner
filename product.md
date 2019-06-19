@@ -1,3 +1,5 @@
+* [制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7) ([QiaoN](https://github.com/QiaoN) 翻译)
+* [2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4) ([xionglong58](https://github.com/xionglong58) 翻译)
 * [产品管理思维模式适合每一个人](https://juejin.im/post/5c2c266ae51d4511fb7db0c7) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [苹果公司如何颠覆瑞士制表业](https://juejin.im/post/5bdc1f3c6fb9a049a9792211) ([noturnot](https://github.com/noturnot) 翻译)
 * [如何让你的设计系统被广泛采用](https://juejin.im/post/5bb6118af265da0af609c581) ([rydensun](https://github.com/rydensun) 翻译)
