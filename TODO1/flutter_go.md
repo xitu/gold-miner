@@ -5,7 +5,7 @@
 > * 译者：[suhanyujie](https://github.com/suhanyujie)
 > * 校对者：
 
-# 思考：用 Go 实现 Flutter
+# 思考实践：用 Go 实现 Flutter
 
 我最近发现了 [Flutter](https://flutter.io) —— 谷歌的一个新的移动开发框架，我甚至有曾经将 Flutter 基础知识教给从未有过编程的人的经历。Flutter 是用 Dart 编写的，这是一种诞生于 Chrome 浏览器的编程语言，后来改用到了控制台。这不禁让我想到“Flutter 也许可以很轻易地用 Go 来实现”！
 
@@ -19,31 +19,31 @@
 
 自从 Dart 在 Chrome 中出现以来，我就一直在关注它的开发情况，我也一直认为 Dart 最终会在所有浏览器中取代 JS。2015 年，得知[有关谷歌在 Chrome 中放弃 Dart 支持](https://news.dartlang.org/2015/03/dart-for-entire-web.html)的消息时，我非常沮丧。
 
-Dart 是非常奇妙的！是的，当你从 JS 升级转向到 Dart时，一切都很好，可如果你从 Go 降级转过来，就没那么惊奇了，但是...Dart 拥有非常多的特性 —— 类、泛型、异常、Futures、异步等待、事件循环、JIT、AOT、垃圾回收、重载 —— 你能想到的它都有。它有用于 getter/setter 的特殊语法、有用于构造函数自动初始化的特殊语法、有用于特殊语句的特殊语法等。
+Dart 是非常奇妙的！是的，当你从 JS 升级转向到 Dart时，一切都很好，可如果你从 Go 降级转过来，就没那么惊奇了，但是... Dart 拥有非常多的特性 —— 类、泛型、异常、Futures、异步等待、事件循环、JIT、AOT、垃圾回收、重载 —— 你能想到的它都有。它有用于 getter/setter 的特殊语法、有用于构造函数自动初始化的特殊语法、有用于特殊语句的特殊语法等。
 
 虽然它让能让拥有其他语言经验的人更容易熟悉 Dart —— 这很不错，也降低了入门门槛 —— 但我发现很难向没有编程经验的新手讲解它。
 
-* **所有“特殊”的东西都被混淆** —— **“名为构造方法的特殊方法”**，**“用于初始化的特殊语法”**，**“用于覆盖的特殊语法”**等等。
-* **所有“隐藏”的东西都令人困惑** —— **“这个类是从哪儿导入的？它是隐藏的，你看不到它的实现代码”**，**“为什么我们在这个类中写一个构造方法而不是其他方法？它在那里，可是它是隐藏的”**等等。
-* **所有“有歧义的语法”被混淆** —— **“所以我应该在这里使用命名或者对应位置的参数吗？”**，**“应该使用 final 还是用 const 进行变量声明？”**，**“应该使用普通函数语法还是‘箭头函数语法’”**等等。
+* **所有“特殊”的东西易被混淆** —— **“名为构造方法的特殊方法”**，**“用于初始化的特殊语法”**，**“用于覆盖的特殊语法”**等等。
+* **所有“隐式”的东西令人困惑** —— **“这个类是从哪儿导入的？它是隐藏的，你看不到它的实现代码”**，**“为什么我们在这个类中写一个构造方法而不是其他方法？它在那里，可是它是隐藏的”**等等。
+* **所有“有歧义的语法”易被混淆** —— **“所以我应该在这里使用命名或者对应位置的参数吗？”**，**“应该使用 final 还是用 const 进行变量声明？”**，**“应该使用普通函数语法还是‘箭头函数语法’”**等等。
 
-这三个标签 —— “特殊”、“隐藏”和“歧义” —— 可能符合人们在编程语言中所说的“魔力”的本质。这些特性旨在帮助我们编写更简单、更干净的代码，但实际上，他们给阅读程序增加了更多的混乱和心智负担。
+这三个标签 —— “特殊”、“隐式”和“歧义” —— 可能更符合人们在编程语言中所说的“魔法”的本质。这些特性旨在帮助我们编写更简单、更干净的代码，但实际上，他们给阅读程序增加了更多的混乱和心智负担。
 
-而这正是 Go 采取了截然不同的方式，并强烈声明自己特色的地方。Go 实际上是一个非魔法的语言 —— 它将特殊、隐藏、歧义之类的东西的数量讲到最低。然而，它也有一些缺点。
+而这正是 Go 采取了截然不同的方式，并强烈声明自己特色的地方。Go 实际上是一个非魔法的语言 —— 它将特殊、隐式、歧义之类的东西的数量讲到最低。然而，它也有一些缺点。
 
 ### Go 的问题
 
 当我们讨论 Flutter 这种 UI 框架时，我们必须把 Go 看作一个描述/指明 UI 的工具。UI 框架是一个非常复杂的主题，它需要创建一种专门的语言来处理大量的底层复杂性。最流行的方法之一是创建 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) —— 特定领域的语言 —— 众所周知，Go 在这方面不那么尽如人意。
 
-创建 DSL 意味着创建开发人员可以使用的自定义术语和谓词。生成的代码应该可以捕捉 UI 布局和交互的本质，并且足够灵活，可以应对设计师的想象流，又足够的严格，符合 UI 框架的限制。例如，你应该能够将按钮放入容器中，然后将图标和文本小部件放入按钮中，可如果你视图将按钮放入文本中，编译器应该给你提示一个错误。
+创建 DSL 意味着创建开发人员可以使用的自定义术语和谓词。生成的代码应该可以捕捉 UI 布局和交互的本质，并且足够灵活，可以应对设计师的想象流，又足够的严格，符合 UI 框架的限制。例如，你应该能够将按钮放入容器中，然后将图标和文本小部件放入按钮中，可如果你试图将按钮放入文本中，编译器应该给你提示一个错误。
 
-特定于 UI 的语言通常也是声明性的 —— 实际上，这意味着你应该能够使用构造代码（包括空格缩进！）来可视化的捕获 UI widget 树的结构，然后让 UI 框架找出要运行的代码。
+特定于 UI 的语言通常也是声明性的 —— 实际上，这意味着你应该能够使用构造代码（包括空格缩进！）来可视化的捕获 UI 部件树的结构，然后让 UI 框架找出要运行的代码。
 
 有些语言更适合这样的使用方式，而 Go 从来没有被设计来完成这类的任务。因此，在 Go 中编写 Flutter 代码应该是一个相当大的挑战！
 
 ## Flutter 的优势
 
-如果你不熟悉 Flutter，我强烈建议你花一两个周末的时间来观看教程或阅读文档，因为它无疑会改变移动开发领域的游戏规则。而且，希望不仅仅是移动端 —— 还有[原生桌面应用程序]((https://github.com/google/flutter-desktop-embedding))和 [web 应用程序](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8)的渲染器（用 Flutter 的术语来说就是嵌入式）。Flutter 容易学习，它是合乎逻辑的，它汇集了大量的 [Material Design](https://material.io) 强大组件库，有活跃的社区和丰富的工具链（如果你喜欢“构建/测试/运行”的工作流，你也能在 Flutter 中找到同样的“构建/测试/运行”的工作方式）还有大量的用于实践的工具盒。
+如果你不熟悉 Flutter，我强烈建议你花一两个周末的时间来观看教程或阅读文档，因为它无疑会改变移动开发领域的游戏规则。而且，可能不仅仅是移动端 —— 还有[原生桌面应用程序]((https://github.com/google/flutter-desktop-embedding))和 [web 应用程序](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8)的渲染器（用 Flutter 的术语来说就是嵌入式）。Flutter 容易学习，它是合乎逻辑的，它汇集了大量的 [Material Design](https://material.io) 强大组件库，有活跃的社区和丰富的工具链（如果你喜欢“构建/测试/运行”的工作流，你也能在 Flutter 中找到同样的“构建/测试/运行”的工作方式）还有大量其他的用于实践的工具盒。
 
 在一年前我需要一个相对简单的移动应用（很明显就是 IOS 或 Android），但我深知精通这两个平台开发的复杂性是非常非常大的（至少对于这个 app 是这样的），所以我不得不将其外包给另一个团队并为此付钱。对于像我这样一个拥有近 20 年的编程经验的开发者来说，开发这样的移动应用几乎是无法忍受的。
 
@@ -55,7 +55,7 @@ Dart 是非常奇妙的！是的，当你从 JS 升级转向到 Dart时，一切
 
 ## Flutter 的 Hello, world
 
-当你用 `flutter create` 创建一个新的 Flutter 项目，你会得到这个“Hello, world”应用程序和代码文本、计数器和一个按钮，点击增加按钮计数器会增加。
+当你用 `flutter create` 创建一个新的 Flutter 项目，你会得到这个“Hello, world”应用程序和代码文本、计数器和一个按钮，点击增加按钮，计数器会增加。
 
 ![flutter hello world](https://divan.dev/images/flutter_hello.gif)
 
@@ -145,17 +145,17 @@ func main() {
 }
 ```
 
-唯一的不同的是不适用魔法的 `MyApp()` 函数，它是一个构造方法，也是一个特殊的函数，它隐藏在被称为 `MyApp` 的类中，我们只是调用一个显示定义的 `NewApp()` 函数 —— 它做了同样的事情，但它更易于阅读、理解和弄懂。
+唯一的不同的是不使用魔法的 `MyApp()` 函数，它是一个构造方法，也是一个特殊的函数，它隐藏在被称为 `MyApp` 的类中，我们只是调用一个显示定义的 `NewApp()` 函数 —— 它做了同样的事情，但它更易于阅读、理解和弄懂。
 
 ### Widget 类
 
-在 Flutter 中，一切皆 widget。在 Flutter 的 Dart 版本中，每个小部件都代表一个类，这个类扩展了 Flutter 中特殊的 Widget 类。
+在 Flutter 中，一切皆 widget（小部件）。在 Flutter 的 Dart 版本中，每个小部件都代表一个类，这个类扩展了 Flutter 中特殊的 Widget 类。
 
 Go 中没有类，因此也没有类层次，因为 Go 的世界不是面向对象的，更不必说类层次了。对于只熟悉基于类的 OOP 的人来说，这可能是一个不太好的情况，但也不尽然。这个世界是一个巨大的相互关联的事物和关系图谱。它不是混沌的，可也不是完全的结构化，并且尝试将所有内容都放入类层次结构中可能会导致代码难以维护，到目前为止，世界上的大多数代码库都是这样子的。
 
 ![OOP 的真相](https://divan.dev/images/oop_truth.png)
 
-我喜欢 Go 的设计者们努力重新思考这个无处不在的基于 OOP 思维，并提出了与之不同的 OOP 概念，这与 OOP 的发明者  Alan Kay 的[真实意义](https://www.quora.com/What-did-Alan-Kay-mean-by-I-made-up-the-term-object-oriented-and-I-can-tell-you-I-did-not-have-C++-in-mind)更接近，这不是偶然。
+我喜欢 Go 的设计者们努力重新思考这个无处不在的基于 OOP 思维，并提出了与之不同的 OOP 概念，这与 OOP 的发明者 Alan Kay 所要表达的[真实意义](https://www.quora.com/What-did-Alan-Kay-mean-by-I-made-up-the-term-object-oriented-and-I-can-tell-you-I-did-not-have-C++-in-mind)更接近，这不是偶然。
 
 在 Go 中，我们用一个具体的类型 —— 一个结构体来表示这种抽象：
 
@@ -215,7 +215,7 @@ func (m *MyApp) Build(ctx flutter.BuildContext) flutter.Widget {
 
 ## 状态
 
-在 Dart 版的 Flutter 中，这是我发现的第一个困惑的地方。Flutter 中有两种部件 —— `StatelessWidget` 和 `StatefulWidget`。嗯，对我来说，无状态部件只是一个没有状态的部件，所以，为什么这里要创建一个新的类呢？好吧，我也能接受。但是你不能仅仅以相同的方式扩展 `StatefulWidget`，你应该执行以下神奇的操作（安装了 Flutter 插件的 IDE 都可以做到，但这不是重点）：
+在 Dart 版的 Flutter 中，这是我发现的第一个令人困惑的地方。Flutter 中有两种部件 —— `StatelessWidget` 和 `StatefulWidget`。嗯，对我来说，无状态部件只是一个没有状态的部件，所以，为什么这里要创建一个新的类呢？好吧，我也能接受。但是你不能仅仅以相同的方式扩展 `StatefulWidget`，你应该执行以下神奇的操作（安装了 Flutter 插件的 IDE 都可以做到，但这不是重点）：
 
 ```dart
 class MyHomePage extends StatefulWidget {
@@ -257,12 +257,12 @@ type MyHomePage struct {
     counter int
 }
 
-// Build renders the MyHomePage widget. Implements Widget interface.
+// Build 渲染了 MyHomePage 部件。实现了 Widget 接口
 func (m *MyHomePage) Build(ctx flutter.BuildContext) flutter.Widget {
     return flutter.Scaffold()
 }
 
-// incrementCounter increments widgets's counter by one.
+// 给计数器部件加一
 func (m *MyHomePage) incrementCounter() {
     m.counter++
     flutter.Rerender(m)
@@ -273,16 +273,16 @@ func (m *MyHomePage) incrementCounter() {
 
 这里有很多命名和设计选项 —— 我喜欢其中的 `NeedsUpdate()`，因为它很明确，而且是 `flutter.Core`（每个部件都有它）的一个方法，但 `flutter.Rerender()` 也可以正常工作。它给人一种即时重绘的错觉，但是 —— 并不会经常这样 —— 它将在下一帧时重绘，状态更新的频率可能比帧的重绘的频率高的多。
 
-但问题是，我们只是实现了相同的任务，也就是添加一个状态响应到小部件中，下面的还未实现：
+但问题是，我们只是实现了相同的任务，也就是添加一个状态响应到小部件中，下面的一些问题还未解决：
 
 * 新的类型
 * 泛型
 * 读/写状态的特殊规则
 * 新的特殊的方法覆盖
 
-另外，API 更简洁也更明确 —— 只需增加计数器并请求 flutter 重新渲染 —— 当你要求调用特殊函数 `setState` 时，有些变化并不明显，该函数返回另一个实际状态更改的函数。同样，隐藏的魔术会有损可读性，我们设法避免了这一点。因此，代码更简单，并且精简了两倍。
+另外，API 更简洁也更明确 —— 只需增加计数器并请求 flutter 重新渲染 —— 当你要求调用特殊函数 `setState` 时，有些变化并不明显，该函数返回另一个实际状态更改的函数。同样，隐式的魔法会有损可读性，我们设法避免了这一点。因此，代码更简单，并且精简了两倍。
 
-### Stateful widgets as a children
+### 有状态的子部件
 
 继续这个逻辑，让我们仔细看看在 Flutter 中，“有状态的小部件”是如何在另一个部件中使用的：
 
@@ -302,9 +302,9 @@ Widget build(BuildContext context) {
 
 [结论是](https://flutter.io/docs/resources/technical-overview#handling-user-interaction)，Flutter 用小部件和状态之间的这种分离来隐藏这个初始化/状态记录，不让开发者过多关注。它确实每次都会创建一个新的 `MyHomePage` 部件，但它保留了原始状态（以单例的方式），并自动找到这个“唯一”状态，将其附加到新创建的 `MyHomePage` 部件上。
 
-对我来说，这没有多大意义 —— 更多的隐藏，更多的魔法也更模糊（我们仍然可以添加小部件作为类属性，并在创建小部件时实例化它们）。我理解为什么这种方式不错了（不需要跟踪部件的子组件），并且它具有良好的简化重构作用（只有在一个地方删除构造函数的调用才能删除子组件），但任何开发者试图真正搞懂整个工作原理时，都可能会有些困惑。
+对我来说，这没有多大意义 —— 更多的隐式，更多的魔法也更容易令人模糊（我们仍然可以添加小部件作为类属性，并在创建小部件时实例化它们）。我理解为什么这种方式不错了（不需要跟踪部件的子组件），并且它具有良好的简化重构作用（只有在一个地方删除构造函数的调用才能删除子组件），但任何开发者试图真正搞懂整个工作原理时，都可能会有些困惑。
 
-对于 Go 版的 Flutter，我肯定更倾向于状态显式和清晰的初始化的小部件，虽然这意味着代码会更冗长。Dart 的 Flutter 实现可能也可以实现这种方式，但我喜欢 Go 的非魔法特性，而这种哲学也适用于 Go 框架。因此，我的有状态子部件的代码应该类似这样：
+对于 Go 版的 Flutter，我肯定更倾向于初始化了的状态显式且清晰的小部件，虽然这意味着代码会更冗长。Dart 版的 Flutter 可能也可以实现这种方式，但我喜欢 Go 的非魔法特性，而这种哲学也适用于 Go 框架。因此，我的有状态子部件的代码应该类似这样：
 
 ```go
 // MyApp 是应用顶层的部件。
@@ -378,7 +378,7 @@ return Scaffold(
     );
 ```
 
-每个小部件都有一个构造方法，它接收可选的参数，而使这种声明式方法真正好用的技巧是 [函数的命名参数](https://en.wikipedia.org/wiki/Named_parameter)。
+每个小部件都有一个构造方法，它接收可选的参数，而令这种声明式方法真正好用的技巧是 [函数的命名参数](https://en.wikipedia.org/wiki/Named_parameter)。
 
 ### 命名参数
 
@@ -388,7 +388,7 @@ return Scaffold(
 Foo(arg1, arg2, arg3)
 ```
 
-使用命名参数时，还可以在函数调用中写入它们的名称：
+使用命名参数时，可以在函数调用中写入它们的名称：
 
 ```dart
 Foo(name: arg1, description: arg2, size: arg3)
@@ -431,14 +431,13 @@ return Scaffold(
 
 ### 版本 1
 
-The temptation here might be just to replicate Dart’s way of expressing widgets tree, but what we really need is to step back and answer the question – which is the best way to represent this type of data within the constraints of the language?
 这个版本的例子可能只是拷贝 Dart 表示部件树的方法，但我们真正需要的是后退一步并回答这个问题 —— 在语言的约束下，哪种方法是表示这种类型数据的最佳方法呢？
 
-让我们仔细看看 [Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html) 对象，它是构建外观美观的现代 UI 的好帮手。它有这些**属性** —— appBar，drawer，home，bottomNavigationBar，floatingActionButton —— 所有都是 Widget。我们创建类型为 `Scaffold` 的对象的同事初始化这些属性。这样看来，它与任何普通对象实例化没有什么不同，不是吗？
+让我们仔细看看 [Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html) 对象，它是构建外观美观的现代 UI 的好帮手。它有这些**属性** —— appBar，drawer，home，bottomNavigationBar，floatingActionButton —— 所有都是 Widget。我们创建类型为 `Scaffold` 的对象的同时初始化这些属性。这样看来，它与任何普通对象实例化没有什么不同，不是吗？
 
-让我们试试原生的方法：
+我们用代码实现：
 
-```dart
+```go
 return flutter.NewScaffold(
     flutter.NewAppBar(
         flutter.Text("Flutter Go app", nil),
@@ -465,22 +464,21 @@ return flutter.NewScaffold(
 )
 ```
 
-Well, not the prettiest UI code, for sure. The word `flutter` is so abundant that it begs for hiding (actually, I should have named it `material`, not `flutter`), those nameless parameters are not clear, especially `nil`s.
-当然，这不是最漂亮的 UI 代码。这里的 `flutter` 是如此的丰富，以至于它要求隐藏起来（实际上，我应该把它命名为 `material` 而非 `flutter`），这些无名的参数并不清楚，尤其是 `nil`。
+当然，这不是最漂亮的 UI 代码。这里的 `flutter` 是如此的丰富，以至于要求它被隐藏起来（实际上，我应该把它命名为 `material` 而非 `flutter`），这些无名的参数并不清楚，尤其是 `nil`。
 
-### Version 2
+### 版本 2
 
 由于大多数代码都会使用 `flutter` 导入，所以使用导入点符号（.）的方式将 `flutter` 导入到我们的命名空间中是没问题的：
 
-```dart
+```go
 import . "github.com/flutter/flutter"
 ```
 
-现在，我们不用写 `flutter.Text`，而只需要写 `Text`。这种方式通常不是很优雅，但是我们使用的是一个框架，在每一行都可以使用这种导入的内容，所以在这里是一个很好的实践。另一个有效的场景是一个基于 [GoConvey](http://goconvey.co) 框架的 Go 测试。对我来说，框架相当于其他语言之上的语言，所以在框架中使用点符号导入也是可以的。
+现在，我们不用写 `flutter.Text`，而只需要写 `Text`。这种方式通常不是最佳实践，但是我们使用的是一个框架，不必逐行导入，所以在这里是一个很好的实践。另一个有效的场景是一个基于 [GoConvey](http://goconvey.co) 框架的 Go 测试。对我来说，框架相当于语言之上的其他语言，所以在框架中使用点符号导入也是可以的。
 
 我们继续往下写我们的代码：
 
-```dart
+```go
 return NewScaffold(
     NewAppBar(
         Text("Flutter Go app", nil),
@@ -513,7 +511,7 @@ return NewScaffold(
 
 反射怎么样？一些早期的 Go Http 框架使用了这种方式（例如 [martini](https://github.com/go-martini/martini)）—— 你可以通过参数传递任何你想要传递的内容，运行时将检查这是否是一个已知的类型/参数。从多数角度看，这不是一个好办法 —— 它不安全，速度相对比较慢，还具魔法的特性 —— 但为了探索，我们还是试试：
 
-```dart
+```go
 return NewScaffold(
     NewAppBar(
         Text("Flutter Go app"),
@@ -541,7 +539,7 @@ return NewScaffold(
 
 让我们重新思考一下，在创建新对象和可选的定义他们的属性时，我们究竟想做什么？这只是一个普通的变量实例，所以假如我们用另一种方式来尝试呢：
 
-```dart
+```go
 scaffold := NewScaffold()
 scaffold.AppBar = NewAppBar(Text("Flutter Go app"))
 
@@ -637,7 +635,7 @@ func Build() Widget {
 }
 ```
 
-还不错，真的！这些 `..Params` 显得很啰嗦，但这不是什么大问题。事实上，我在 Go 的一些库中经常遇到这种方式。当你只有数个对象需要以这种方式实例化时，这种方法尤其有效。
+还不错，真的！这些 `..Params` 显得很啰嗦，但不是什么大问题。事实上，我在 Go 的一些库中经常遇到这种方式。当你有数个对象需要以这种方式实例化时，这种方法尤其有效。
 
 有一种方法可以移除 `...Params` 这种啰嗦的东西，但这需要语言上的改变。在 Go 中有一个建议，它的目标正是实现这一点 —— [无类型的复合型字面量](https://github.com/golang/go/issues/12854)。基本上，这意味着我们能够缩短 `FloattingActionButtonParameters{...}` 成 `{...}`，所以我们的代码应该是这样：
 
@@ -679,12 +677,11 @@ func Build() Widget {
 
 ### 版本 6
 
-Another option to explore is to use chaining of widget’s methods. I forgot the name of this pattern, but it’s not important because patterns should emerge from code, not the opposite way.
-探索另一个选择是使用小部件方法的方法链。我忘记了这个模式的名称，但这不是很重要，因为模式应该从代码中产生，而不是以相反的方式。
+探索另一个办法是使用小部件的方法链。我忘记了这个模式的名称，但这不是很重要，因为模式应该从代码中产生，而不是以相反的方式。
 
 基本思想是，在创建一个小部件 —— 比如 `NewButton()` —— 我们立即调用一个像 `WithStyle(...)` 的方法，它返回相同的对象，我们就可以在一行（或一列）中调用越来越多的方法：
 
-```dart
+```go
 button := NewButton().
     WithText("Click me").
     WithStyle(MyButtonStyle1)
@@ -692,15 +689,15 @@ button := NewButton().
 
 或者
 
-```dart
+```go
 button := NewButton().
     Text("Click me").
     Style(MyButtonStyle1)
 ```
 
-我们尝试用这种方法重写基于 Scaffold 的部件：
+我们尝试用这种方法重写基于 Scaffold 部件：
 
-```dart
+```go
 // Build renders the MyHomePage widget. Implements Widget interface.
 func (m *MyHomePage) Build(ctx flutter.BuildContext) flutter.Widget {
     return NewScaffold().
@@ -730,7 +727,7 @@ func (m *MyHomePage) Build(ctx flutter.BuildContext) flutter.Widget {
 
 我也喜欢传统的 Go 的 `New...()` 实例化方式。它清楚的表明它是一个函数，并创建了一个新对象。跟解释构造函数相比，向新手解释构造函数要更容易一些：**“它是一个与类同名的函数，但是你找不到这个函数，因为它很特殊，而且你无法通过查看构造函数就轻松地将它与普通函数区分开来”**。
 
-无论如何，在我的探索的所有选项中，最后两个选项可能是最合适的。
+无论如何，在我探索的所有方法中，最后两个选项可能是最合适的。
 
 ### 最终版
 
@@ -837,7 +834,7 @@ func (m *MyHomePage) incrementCounter() {
 
 #### 与 Vecty 的相似点
 
-我不禁注意到，我的最终探索结果跟 [Vecty](https://github.com/gopherjs/vecty) 框架所提供的非常相似。基本上，通用的设计几乎是一样的，只是向 DOM/CSS 中输出，而 Flutter 则成熟地深入到底层的渲染层，用漂亮的小部件提供非常流畅的 120fps 体验（并解决了许多其他问题）。我认为 Vecty 的设计是典范的，难怪我探索的结果也是一个“基于Flutter 的 Vecty 变种” :)
+我不禁注意到，我的最终实现的结果跟 [Vecty](https://github.com/gopherjs/vecty) 框架所提供的非常相似。基本上，通用的设计几乎是一样的，都只是向 DOM/CSS 中输出，而 Flutter 则成熟地深入到底层的渲染层，用漂亮的小部件提供非常流畅的 120fps 体验（并解决了许多其他问题）。我认为 Vecty 的设计是典范的，难怪我实现的结果也是一个“基于Flutter 的 Vecty 变种” :)
 
 #### 更好的理解 Flutter 的设计
 
@@ -849,7 +846,7 @@ func (m *MyHomePage) incrementCounter() {
 
 这次实践表明**主要问题是因为 Go 语法造成的**。无法调用函数时传递命名参数或无类型的字面量，这使得创建简洁、结构良好的类似于 DSL 的部件树变得更加困难和复杂。实际上，在未来的 Go 中，有[ Go 提议添加命名参数](https://github.com/golang/go/issues/12296)，这可能是一个向后兼容的更改。有了命名参数肯定对 Go 中的 UI 框架有所帮助，但它也引入了另一个问题即学习成本，并且对每个函数定义或调用都需要考虑另一种选择，因此这个特性所带来的好处尚不好评估。
 
-在 Go 中，缺少用户定义的泛型或者缺少异常机制显然不是什么大问题。我很高兴听到另一种方法，以更加简洁和更强的可读性来实现 Go 版的 Flutter —— 我真的很好奇有什么方法能提供帮助。欢迎在评论区发表你的想法和代码。
+在 Go 中，缺少用户定义的泛型或者缺少异常机制显然不是什么大问题。我会很高兴听到另一种方法，以更加简洁和更强的可读性来实现 Go 版的 Flutter —— 我真的很好奇有什么方法能提供帮助。欢迎在评论区发表你的想法和代码。
 
 #### 关于 Flutter 未来的一些思考
 
