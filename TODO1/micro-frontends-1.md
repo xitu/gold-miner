@@ -1,11 +1,20 @@
 > * 原文地址：[Micro Frontends](https://martinfowler.com/articles/micro-frontends.html)
 > * 原文作者：[Cam Jackson](https://camjackson.net/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md)
 > * 译者：[Jenniferyingni](https://github.com/Jenniferyingni)
 > * 校对者：[Stevens1995](https://github.com/Stevens1995), [Baddyo](https://github.com/Baddyo)
 
-# 微前端
+# 微前端：未来前端开发的新趋势 — 第一部分
+
+**目录：**
+
+* [优点](#优点)
+    * [增量升级](#增量升级)
+    * [简单、解耦的代码库](#简单解耦的代码库)
+    * [独立部署](#独立部署)
+    * [自主的团队](#自主的团队)
+    * [总结](#总结)
 
 做好前端开发不是件容易的事情，而比这更难的是扩展前端开发规模以便于多个团队可以同时开发一个大型且复杂的产品。本文将描述一种趋势，可以将大型的前端项目分解成许多个小而易于管理的部分，也将讨论这种体系结构如何提高前端代码团队工作的有效性和效率。除了讨论各种好处和代价之外，我们还将介绍一些可用的实现方案和深入探讨一个应用该技术的完整示例应用程序。
 
@@ -78,6 +87,13 @@
 我们将分期发表这篇文章。后续的文章将介绍用于实现这些功能的替代集成方法、如何处理诸如样式和应用间通信这类实现问题，我们也将讨论一些缺点，还有介绍详细的示例实现。
 
 想知道我们何时发布后续部分，请订阅 [RSS 源](https://martinfowler.com/feed.atom)、[Cam 的 twitter](https://twitter.com/thecamjackson)、或者 [Martin 的 twitter](https://twitter.com/martinfowler)。
+
+> **建议按照顺序阅读本系列文章：**
+>
+> * [微前端：未来前端开发的新趋势 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md)
+> * [微前端：未来前端开发的新趋势 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md)
+> * [微前端：未来前端开发的新趋势 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-3.md)
+> * [微前端：未来前端开发的新趋势 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-4.md)
 
 ## 重要修改
 
