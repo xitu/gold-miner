@@ -16,32 +16,13 @@
 > * [微前端：未来前端开发的新趋势 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-3.md)
 > * [微前端：未来前端开发的新趋势 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-4.md)
 
-**目录：**
-
-- [Cross-application communication](#Cross-application-communication)
-- [Backend communication](#Backend-communication)
-- [Testing](#Testing)
-- [The example in detail](#The-example-in-detail)
-  - [The container](#The-container)
-  - [The micro frontends](#The-micro-frontends)
-  - [Cross-application communication via routing](#Cross-application-communication-via-routing)
-  - [Common content](#Common-content)
-  - [Infrastructure](#Infrastructure)
-- [Downsides](#Downsides)
-  - [Payload size](#Payload-size)
-  - [Environment differences](#Environment-differences)
-  - [Operational and governance complexity](#Operational-and-governance-complexity)
-- [Conclusion](#Conclusion)
-- [For articles on similar topics…](#For-articles-on-similar-topics)
-- [Acknowledgements](#Acknowledgements)
-
 ## Cross-application communication
 
 One of the most common questions regarding micro frontends is how to let them talk to each other. In general, we recommend having them communicate as little as possible, as it often reintroduces the sort of inappropriate coupling that we're seeking to avoid in the first place.
 
 That said, some level of cross-app communication is often needed. [Custom events](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events) allow micro frontends to communicate indirectly, which is a good way to minimise direct coupling, though it does make it harder to determine and enforce the contract that exists between micro frontends. Alternatively, the React model of passing callbacks and data downwards (in this case downwards from the container application to the micro frontends) is also a good solution that makes the contract more explicit. A third alternative is to use the address bar as a communication mechanism, which we'll explore [in more detail later](#Cross-applicationCommunicationViaRouting).
 
-If you are using redux, the usual approach is to have a single, global, shared store for the entire application. However, if each micro frontend is supposed to be its own self-contained application, then it makes sense for each one to have its own redux store. The redux docs even mention ["isolating a Redux app as a component in a bigger application"](https://redux.js.org/faq/store-setup#can-or-should-i-create-multiple-stores-can-i-import-my-store-directly-and-use-it-in-components-myself) as a valid reason to have multiple stores.
+> If you are using redux, the usual approach is to have a single, global, shared store for the entire application. However, if each micro frontend is supposed to be its own self-contained application, then it makes sense for each one to have its own redux store. The redux docs even mention ["isolating a Redux app as a component in a bigger application"](https://redux.js.org/faq/store-setup#can-or-should-i-create-multiple-stores-can-i-import-my-store-directly-and-use-it-in-components-myself) as a valid reason to have multiple stores.
 
 Whatever approach we choose, we want our micro frontends to communicate by sending messages or events to each other, and avoid having any shared state. Just like sharing a database across microservices, as soon as we share our data structures and domain models, we create massive amounts of coupling, and it becomes extremely difficult to make changes.
 
@@ -57,7 +38,7 @@ If we have separate teams working independently on frontend applications, what a
 
 There are a lot of variables to account for here. The BFF might be self contained with its own business logic and database, or it might just be an aggregator of downstream services. If there are downstream services, it may or may not make sense for the team that owns the micro frontend and its BFF, to also own some of those services. If the micro frontend has only one API that it talks to, and that API is fairly stable, then there may not be much value in building a BFF at all. The guiding principle here is that the team building a particular micro frontend shouldn't have to wait for other teams to build things for them. So if every new feature added to a micro frontend also requires backend changes, that's a strong case for a BFF, owned by the same team.
 
-![A diagram showing three pairs of frontends / backends. The first backend talks only to its own database. The other two backends talk to shared downstream services. Both approaches are valid.](micro-frontends/bff.png)
+![A diagram showing three pairs of frontends / backends. The first backend talks only to its own database. The other two backends talk to shared downstream services. Both approaches are valid.](https://martinfowler.com/articles/micro-frontends/bff.png)
 
 Figure 7: There are many different ways to structure your frontend/backend relationships
 
@@ -69,7 +50,7 @@ Another common question is, how should the user of a micro frontend application 
 
 We don't see much difference between monolithic frontends and micro frontends when it comes to testing. In general, whatever strategies you are using to test a monolithic frontend can be reproduced across each individual micro frontend. That is, each micro frontend should have its own comprehensive suite of automated tests that ensure the quality and correctness of the code.
 
-The obvious gap would then be integration testing of the various micro frontends with the container application. This can be done using your preferred choice of functional/end-to-end testing tool (such as Selenium or Cypress), but don't take things too far; functional tests should only cover aspects that cannot be tested at a lower level of the [Test Pyramid](/bliki/TestPyramid.html). By that we mean, use unit tests to cover your low-level business logic and rendering logic, and then use functional tests just to validate that the page is assembled correctly. For example, you might load up the fully-integrated application at a particular URL, and assert that the hard-coded title of the relevant micro frontend is present on the page.
+The obvious gap would then be integration testing of the various micro frontends with the container application. This can be done using your preferred choice of functional/end-to-end testing tool (such as Selenium or Cypress), but don't take things too far; functional tests should only cover aspects that cannot be tested at a lower level of the [Test Pyramid](https://martinfowler.com/bliki/TestPyramid.html). By that we mean, use unit tests to cover your low-level business logic and rendering logic, and then use functional tests just to validate that the page is assembled correctly. For example, you might load up the fully-integrated application at a particular URL, and assert that the hard-coded title of the relevant micro frontend is present on the page.
 
 If there are user journeys that span across micro frontends, then you could use functional testing to cover those, but keep the functional tests focussed on validating the integration of the frontends, and not the internal business logic of each micro frontend, which should have already been covered by unit tests. [As mentioned above,](#Cross-applicationCommunication) consumer-driven contracts can help to directly specify the interactions that occur between micro frontends without the flakiness of integration environments and functional testing.
 
@@ -77,9 +58,9 @@ If there are user journeys that span across micro frontends, then you could use 
 
 ## The example in detail
 
-Most of the rest of this article will be a detailed explanation of just one way that our example application can be implemented. We'll focus mostly on how the container application and the micro frontends [integrate together using JavaScript](#Run-timeIntegrationViaJavascript), as that's probably the most interesting and complex part. You can see the end result deployed live at [https://demo.microfrontends.com](https://demo.microfrontends.com), and the full source code can be seen on [Github](https://github.com/micro-frontends-demo).
+Most of the rest of this article will be a detailed explanation of just one way that our example application can be implemented. We'll focus mostly on how the container application and the micro frontends [integrate together using JavaScript](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#Run-timeIntegrationViaJavascript), as that's probably the most interesting and complex part. You can see the end result deployed live at [https://demo.microfrontends.com](https://demo.microfrontends.com), and the full source code can be seen on [Github](https://github.com/micro-frontends-demo).
 
-![A screenshot of the 'browse' landing page of the full micro frontends demo application](micro-frontends/screenshot-browse.png)
+![A screenshot of the 'browse' landing page of the full micro frontends demo application](https://martinfowler.com/articles/micro-frontends/screenshot-browse.png)
 
 Figure 8: The 'browse' landing page of the full micro frontends demo application
 
@@ -89,6 +70,7 @@ The demo is all built using React.js, so it's worth calling out that React does 
 
 We'll start with [the container](https://github.com/micro-frontends-demo/container), as it's the entry point for our customers. Let's see what we can learn about it from its `package.json`:
 
+```
 {
   "name": "@micro-frontends-demo/container",
   "description": "Entry point and container for a micro frontends demo",
@@ -112,49 +94,57 @@ We'll start with [the container](https://github.com/micro-frontends-demo/contain
   },
   "config-overrides-path": "node_modules/react-app-rewire-micro-frontends"
 }
+```
 
-In version 1 of `react-scripts` it was possible to have multiple applications coexist on a single page without conflicts, but version 2 uses some webpack features that cause errors when two or more apps try to render themselves on the one page. For this reason we use `react-app-rewired` to override some of the internal webpack config of `react-scripts`. This fixes those errors, and lets us keep relying on `react-scripts` to manage our build tooling for us.
+From the dependencies on `react` and `react-scripts`, we can conclude that it's a React.js application created with [`create-react-app`](https://facebook.github.io/create-react-app/). More interesting is what's **not** there: any mention of the micro frontends that we're going to compose together to form our final application. If we were to specify them here as library dependencies, we'd be heading down the path of build-time integration, which [as mentioned previously](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#Build-timeIntegration) tends to cause problematic coupling in our release cycles.
 
-From the dependencies on `react` and `react-scripts`, we can conclude that it's a React.js application created with [`create-react-app`](https://facebook.github.io/create-react-app/). More interesting is what's **not** there: any mention of the micro frontends that we're going to compose together to form our final application. If we were to specify them here as library dependencies, we'd be heading down the path of build-time integration, which [as mentioned previously](#Build-timeIntegration) tends to cause problematic coupling in our release cycles.
+> In version 1 of `react-scripts` it was possible to have multiple applications coexist on a single page without conflicts, but version 2 uses some webpack features that cause errors when two or more apps try to render themselves on the one page. For this reason we use `react-app-rewired` to override some of the internal webpack config of `react-scripts`. This fixes those errors, and lets us keep relying on `react-scripts` to manage our build tooling for us.
 
 To see how we select and display a micro frontend, let's look at `App.js`. We use [React Router](https://reacttraining.com/react-router/) to match the current URL against a predefined list of routes, and render a corresponding component:
 
+```
 <Switch>
   <Route exact path="/" component={Browse} />
   <Route exact path="/restaurant/:id" component={Restaurant} />
   <Route exact path="/random" render={Random} />
 </Switch>
+```
 
 The `Random` component is not that interesting - it just redirects the page to a randomly selected restaurant URL. The `Browse` and `Restaurant` components look like this:
 
+```
 const Browse = ({ history }) => (
   <MicroFrontend history={history} name="Browse" host={browseHost} />
 );
 const Restaurant = ({ history }) => (
   <MicroFrontend history={history} name="Restaurant" host={restaurantHost} />
 );
+```
 
 In both cases, we render a `MicroFrontend` component. Aside from the history object (which will become important later), we specify the unique name of the application, and the host from which its bundle can be downloaded. This config-driven URL will be something like `http://localhost:3001` when running locally, or `https://browse.demo.microfrontends.com` in production.
 
 Having selected a micro frontend in `App.js`, now we'll render it in `MicroFrontend.js`, which is just another React component:
 
+```
 class MicroFrontend extends React.Component {
   render() {
     return <main id={`${this.props.name}-container`} />;
   }
 }
+```
 
 This is not the entire class, we'll be seeing more of its methods soon.
 
 When rendering, all we do is put a container element on the page, with an ID that's unique to the micro frontend. This is where we'll tell our micro frontend to render itself. We use React's `componentDidMount` as the trigger for downloading and mounting the micro frontend:
 
-`componentDidMount` is a lifecycle method of React components, which is called by the framework just after an instance of our component has been 'mounted' into the DOM for the first time.
+> `componentDidMount` is a lifecycle method of React components, which is called by the framework just after an instance of our component has been 'mounted' into the DOM for the first time.
 
 class MicroFrontend…
 
+```
   componentDidMount() {
     const { name, host } = this.props;
-    const scriptId = \`micro-frontend-script-${name}\`;
+    const scriptId = `micro-frontend-script-${name}`;
 
     if (document.getElementById(scriptId)) {
       this.renderMicroFrontend();
@@ -166,24 +156,27 @@ class MicroFrontend…
       .then(manifest => {
         const script = document.createElement('script');
         script.id = scriptId;
-        script.src = `${host}${manifest\['main.js'\]}`;
+        script.src = `${host}${manifest['main.js']}`;
         script.onload = this.renderMicroFrontend;
         document.head.appendChild(script);
       });
   }
+```
 
-We have to fetch the script's URL from an asset manifest file, because `react-scripts` outputs compiled JavaScript files that have hashes in their filename to facilitate caching.
+> We have to fetch the script's URL from an asset manifest file, because `react-scripts` outputs compiled JavaScript files that have hashes in their filename to facilitate caching.
 
 First we check if the relevant script, which has a unique ID, has already been downloaded, in which case we can just render it immediately. If not, we fetch the `asset-manifest.json` file from the appropriate host, in order to look up the full URL of the main script asset. Once we've set the script's URL, all that's left is to attach it to the document, with an `onload` handler that renders the micro frontend:
 
 class MicroFrontend…
 
+```
   renderMicroFrontend = () => {
     const { name, history } = this.props;
 
-    window\[\`render${name}\`\](`${name}-container`, history);
+    window[`render${name}`](`${name}-container`, history);
     // E.g.: window.renderBrowse('browse-container, history');
   };
+```
 
 In the above code we're calling a global function called something like `window.renderBrowse`, which was put there by the script that we just downloaded. We pass it the ID of the `<main>` element where the micro frontend should render itself, and a `history` object, which we'll explain soon. **The signature of this global function is the key contract between the container application and the micro frontends**. This is where any communication or integration should happen, so keeping it fairly lightweight makes it easy to maintain, and to add new micro frontends in the future. Whenever we want to do something that would require a change to this code, we should think long and hard about what it means for the coupling of our codebases, and the maintenance of the contract.
 
@@ -191,11 +184,13 @@ There's one final piece, which is handling clean-up. When our `MicroFrontend` co
 
 class MicroFrontend…
 
+```
   componentWillUnmount() {
     const { name } = this.props;
 
-    window\[\`unmount${name}\`\](`${name}-container`);
+    window[`unmount${name}`](`${name}-container`);
   }
+```
 
 In terms of its own content, all that the container renders directly is the top-level header and navigation bar of the site, as those are constant across all pages. The CSS for those elements has been written carefully to ensure that it will only style elements within the header, so it shouldn't conflict with any styling code within the micro frontends.
 
@@ -205,6 +200,7 @@ And that's the end of the container application! It's fairly rudimentary, but th
 
 The logical place to continue this story is with the global render function we keep referring to. The home page of our application is a filterable list of restaurants, whose entry point looks like this:
 
+```
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -218,11 +214,13 @@ window.renderBrowse = (containerId, history) => {
 window.unmountBrowse = containerId => {
   ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
 };
+```
 
 Usually in React.js applications, the call to `ReactDOM.render` would be at the top-level scope, meaning that as soon as this script file is loaded, it immediately begins rendering into a hard-coded DOM element. For this application, we need to be able control both when and where the rendering happens, so we wrap it in a function that receives the DOM element's ID as a parameter, and we attach that function to the global `window` object. We can also see the corresponding un-mounting function that is used for clean-up.
 
 While we've already seen how this function is called when the micro frontend is integrated into the whole container application, one of the biggest criteria for success here is that we can develop and run the micro frontends independently. So each micro frontend also has its own `index.html` with an inline script to render the application in a “standalone” mode, outside of the container:
 
+```
 <html lang="en">
   <head>
     <title>Restaurant order</title>
@@ -236,14 +234,15 @@ While we've already seen how this function is called when the micro frontend is 
     </script>
   </body>
 </html>
+```
 
-![A screenshot of the 'order' page running as a standalone application outside of the container](micro-frontends/screenshot-order.png)
+![A screenshot of the 'order' page running as a standalone application outside of the container](https://martinfowler.com/articles/micro-frontends/screenshot-order.png)
 
 Figure 9: Each micro frontend can be run as a standalone application outside of the container.
 
 From this point onwards, the micro frontends are mostly just plain old React apps. The ['browse'](https://github.com/micro-frontends-demo/browse) application fetches the list of restaurants from the backend, provides `<input>` elements for searching and filtering the restaurants, and renders React Router `<Link>` elements, which navigate to a specific restaurant. At that point we would switch over to the second, ['order'](https://github.com/micro-frontends-demo/restaurant-order) micro frontend, which renders a single restaurant with its menu.
 
-![An architecture diagram that shows the sequence of steps for navigation, as described above](micro-frontends/demo-architecture.png)
+![An architecture diagram that shows the sequence of steps for navigation, as described above](https://martinfowler.com/articles/micro-frontends/demo-architecture.png)
 
 Figure 10: These micro frontends interact only via route changes, not directly
 
@@ -255,11 +254,15 @@ We [mentioned earlier](#Cross-applicationCommunication) that cross-application c
 
 All three React applications involved here are using React Router for declarative routing, but initialised in two slightly different ways. For the container application, we create a `<BrowserRouter>`, which internally will instantiate a `history` object. This is the same `history` object that we've been glossing over previously. We use this object to manipulate the client-side history, and we can also use it to link multiple React Routers together. Inside our micro frontends, we initialise the Router like this:
 
+```
 <Router history={this.props.history}>
+```
 
 In this case, rather than letting React Router instantiate another history object, we provide it with the instance that was passed in by the container application. All of the `<Router>` instances are now connected, so route changes triggered in any of them will be reflected in all of them. This gives us an easy way to pass “parameters” from one micro frontend to another, via the URL. For example in the browse micro frontend, we have a link like this:
 
+```
 <Link to={`/restaurant/${restaurant.id}`}>
+```
 
 When this link is clicked, the route will be updated in the container, which will see the new URL and determine that the restaurant micro frontend should be mounted and rendered. That micro frontend's own routing logic will then extract the restaurant ID from the URL and render the right information.
 
@@ -276,7 +279,7 @@ When using routing as our mode of communication between micro frontends, the rou
 
 ### Common content
 
-While we want our teams and our micro frontends to be as independent as possible, there are some things that should be common. We wrote earlier about how [shared component libraries](#SharedComponentLibraries) can help with consistency across micro frontends, but for this small demo a component library would be overkill. So instead, we have a small [repository of common content](https://github.com/micro-frontends-demo/content), including images, JSON data, and CSS, which are served over the network to all micro frontends.
+While we want our teams and our micro frontends to be as independent as possible, there are some things that should be common. We wrote earlier about how [shared component libraries](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#SharedComponentLibraries) can help with consistency across micro frontends, but for this small demo a component library would be overkill. So instead, we have a small [repository of common content](https://github.com/micro-frontends-demo/content), including images, JSON data, and CSS, which are served over the network to all micro frontends.
 
 There's another thing that we can choose to share across micro frontends: library dependencies. As we will [describe shortly](#PayloadSize), duplication of dependencies is a common drawback of micro frontends. Even though sharing those dependencies across applications comes with its own set of difficulties, for this demo application it's worth talking about how it can be done.
 
@@ -284,6 +287,7 @@ The first step is to choose which dependencies to share. A quick analysis of our
 
 As for the actual extraction, all we need to do is mark the libraries as [externals](https://webpack.js.org/configuration/externals/) in our webpack config, which we can do with a rewiring similar to the one [described earlier](#TheContainer).
 
+```
 module.exports = (config, env) => {
   config.externals = {
     react: 'React',
@@ -291,17 +295,20 @@ module.exports = (config, env) => {
   }
   return config;
 };
+```
 
 Then we add a couple of `script` tags to each `index.html` file, to fetch the two libraries from our shared content server.
 
+```
 <body>
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
-  <script src="%REACT\_APP\_CONTENT_HOST%/react.prod-16.8.6.min.js"></script>
-  <script src="%REACT\_APP\_CONTENT_HOST%/react-dom.prod-16.8.6.min.js"></script>
+  <script src="%REACT_APP_CONTENT_HOST%/react.prod-16.8.6.min.js"></script>
+  <script src="%REACT_APP_CONTENT_HOST%/react-dom.prod-16.8.6.min.js"></script>
 </body>
+```
 
 Sharing code across teams is always a tricky thing to do well. We need to ensure that we only share things that we genuinely want to be common, and that we want to change in multiple places at once. However, if we're careful about what we do share and what we don't, then there are real benefits to be gained.
 
@@ -354,27 +361,11 @@ While far from the only approach, we have seen many real-world cases where micro
 
 * * *
 
-Share:[![](/t_mini-a.png)](https://twitter.com/intent/tweet?url=https://martinfowler.com/articles/micro-frontends.html&text=Micro Frontends ➙  "Share on Twitter")[![](/fb-icon-20.png)](https://facebook.com/sharer.php?u=https://martinfowler.com/articles/micro-frontends.html "Share on Facebook")[![](/gplus-16.png)](https://plus.google.com/share?url=https://martinfowler.com/articles/micro-frontends.html "Share on Google Plus")
-
 if you found this article useful, please share it. I appreciate the feedback and encouragement
-
-## For articles on similar topics…
-
-…take a look at the following tags:
-
-[application architecture](/tags/application%20architecture.html) [front-end](/tags/front-end.html) [microservices](/tags/microservices.html)
-
-* * *
 
 ## Acknowledgements
 
-Huge thanks to Charles Korn, Andy Marks, and Willem Van Ketwich for their thorough reviews and detailed feedback.
-
-Thanks also to Bill Codding, Michael Strasser, and Shirish Padalkar for their input given on the ThoughtWorks internal mailing list.
-
-Thanks to Martin Fowler for his feedback as well, and for giving this this article a home here on his website.
-
-And finally, thanks to Evan Bottcher and Liauw Fendy for their encouragement and support.
+Huge thanks to Charles Korn, Andy Marks, and Willem Van Ketwich for their thorough reviews and detailed feedback. Thanks also to Bill Codding, Michael Strasser, and Shirish Padalkar for their input given on the ThoughtWorks internal mailing list. Thanks to Martin Fowler for his feedback as well, and for giving this this article a home here on his website. And finally, thanks to Evan Bottcher and Liauw Fendy for their encouragement and support.
 
 > **建议按照顺序阅读本系列文章：**
 >
