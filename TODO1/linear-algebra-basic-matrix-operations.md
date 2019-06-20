@@ -210,7 +210,7 @@ console.log(matrix4.determinant())
 // 20
 ```
 
-行列式可以告诉我们变换时对象被拉伸的程度。因此我们可以将其视为一个线性变换对区域改变的一个因素。为了更好地理解这个概念，请参考 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/)：
+行列式可以告诉我们变换时对象被拉伸的程度。因此我们可以将其视为线性变换改变面积的因子。为了更好地理解这个概念，请参考 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/)：
 
 在下图中，我们可以看到对红色的 **1×1** 方形进行线性变换后得到了一个 **3×2** 的长方形，面积从 **1** 变为了 **6**，这个数字与线性变换矩阵的行列式值相同。
 
