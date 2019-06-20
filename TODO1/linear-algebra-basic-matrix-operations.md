@@ -78,7 +78,7 @@ console.log(matrix.scaleBy(2))
 
 当 **A**、**B** 两个矩阵的维数是**兼容**的时候，就能对这两个矩阵进行矩阵乘法。所谓维数兼容，指的是 **A** 的列数与 **B** 的行数相同。矩阵乘法 **AB** 就是对举证 **A** 的每一行行与矩阵 **B** 的每一列分别进行点积运算：
 
-![matrix-matrix multiplication](https://cdn-images-1.medium.com/max/2544/0*je9iPoT0Mv1OeFzf)
+![矩阵乘法图解](https://cdn-images-1.medium.com/max/2544/0*je9iPoT0Mv1OeFzf)
 
 ```JavaScript
 class Matrix {
