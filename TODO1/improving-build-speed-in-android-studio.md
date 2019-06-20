@@ -2,8 +2,8 @@
 > * 原文作者：[Android Developers](https://medium.com/@AndroidDev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/improving-build-speed-in-android-studio.md](https://github.com/xitu/gold-miner/blob/master/TODO1/improving-build-speed-in-android-studio.md)
-> * 译者：
-> * 校对者：
+> * 译者：[qiuyuezhong](https://github.com/qiuyuezhong) 
+> * 校对者：[csming1995](https://github.com/csming1995) 
 
 # 改善 Android Studio 的构建速度
 
@@ -15,7 +15,7 @@
 
 在 Android Studio 中，我们希望让你成为最高效的开发者。通过与开发者的讨论和调查，我们了解到缓慢的构建速度会降低生产力。
 
-在这篇文章中，我们将分享一些新的分析方法，以便更好的指出是什么真正影响了构建速度，并分享一些我们正在为此所作的工作，以及你今天能做些什么来防止构建速度变慢。
+在这篇文章中，我们将分享一些新的分析方法，以便更好的指出是什么真正影响了构建速度，并分享一些我们正在为此所作的工作，以及你能做些什么来防止构建速度变慢。
 
 * **感谢很多开发者选择在“首选项 > 数据共享”中与我们共享他们的使用统计信息，使得这件事情变得可能。**
 
@@ -27,26 +27,26 @@
 
 ![](https://cdn-images-1.medium.com/max/2404/0*HgKjMF_Usu73_ihR)
 
-我们还研究了真实的数据，主要关注 Android Gradle 插件升级前后构建调试版本的速度。我们用它来表示新版本上构建速度实际提升。
+我们还研究了真实的数据，主要关注 Android Gradle 插件升级前后构建调试版本的速度。我们用它来体现新版本上构建速度的实际提升。
 
-这显示出在新版本上，构建速度确实改善了很多，自 2.3 版本以来，构建时间提升了将近 50%。
+这表明了在新版本上，构建速度确实改善了很多，自 2.3 版本以来，构建时间提升了将近 50%。
 
 ![](https://cdn-images-1.medium.com/max/2992/0*l55G21vNHzBc-D7D)
 
-最后，我们在不论版本如何的情况下，研究了构建时间随着时间的演变。我们用它来表示实际构建速度随时间的变化。遗憾的是，这表明构建速度随着时间的推移而减慢。
+最后，我们在忽略版本变化的情况下，研究了构建时间随着时间的演变。我们用它来表示实际构建速度随时间的变化。遗憾的是，结果表明了构建速度是随着时间的推移而减慢的。
 
 ![](https://cdn-images-1.medium.com/max/2400/0*6_PsXttatVBSBJdd)
 
 如果每个版本的构建速度确实越来越快，并且我们可以在数据中看到，那么为什么它们会随着时间的推移而变得越来越慢呢？
 
-我们研究得更深入之后，意识到在我们的生态系统中发生的事情正在导致构建速度减慢，这比我们能够提升的要快。
+我们在更深入的研究之后，意识到在我们的生态系统中发生的事情正在导致构建速度减慢，减慢的速度比我们提升的速度更快。
 
-虽然我们知道随着时间的推移，代码的增加、资源的使用、语言特性的增加，使项目的构建速度越来越慢，但我们还发现，还有许多其他因素超出了我们的直接控制范围：
+虽然我们知道随着项目的迭代，代码的增加、资源的使用、语言特性的增加，使项目的构建速度越来越慢，但我们还发现，还有许多其他因素超出了我们的直接控制范围：
 
 1. 2017年末的 **[Spectre 和 Meltdown](https://meltdownattack.com/) 补丁**对新流程和 I/O 产生了一定影响，使清除构建的速度减慢了 50% 到 140% 之间。
 2. **第三方和客制化的 Gradle 插件**：96% 的 Android Studio 开发者使用一些额外的 Gradle 插件（其中一些并没有采用[最新的最佳实践](https://developer.android.com/studio/build/optimize-your-build)）。
-3. 大多数使用的**注释处理器都是非增量化的**，每次进行编辑时都会导致代码的完全重新编译。
-4. **使用 Java 8** 语言特性会导致 desugaring，这将影响构建时间。然而，我们已经用 D8 减轻了 desugaring 的影响。
+3. 大多数使用的**注释处理器都是非增量化的**，每次进行编辑时都会导致代码重新全量编译。
+4. **使用 Java 8** 语言特性会导致需要执行去语法糖操作，这将影响构建时间。然而，我们已经用 D8 降低了去语法糖操作的影响。
 5. **使用Kotlin**，尤其是 Kotlin（KAPT）中的注释处理，也会影响构建性能。我们将继续与 JetBrains 合作，以将影响降至最低。
 
 * **和真实的项目不同，那些项目的构建时间不会随着时间的推移而增长。Benchmark 模拟更改，然后撤销更改，仅测量我们的插件随时间推移而受到的影响。**
@@ -57,11 +57,11 @@
 
 > 确定内部流程并持续提升性能。
 
-我们也承认，许多问题来自于谷歌拥有的和推广的功能，我们已经改变了内部流程，以便在发布过程的早期更好地构建回归。
+我们也承认，许多问题来自于谷歌拥有的和推广的功能，我们改变了内部流程，以便在发布过程的早期更好地获得构建反馈。
 
-我们还致力于让[注释处理器增量化](https://developer.android.com/studio/build/optimize-your-build#annotation_processors)。截止目前，Glide、Dagger 和 Auto Service 都是增量化的，并且我们还在研究其他的。
+我们还致力于让[注释处理器增量化](https://developer.android.com/studio/build/optimize-your-build#annotation_processors)。截至目前，Glide、Dagger 和 Auto Service 都是增量化的，并且我们还在研究其他的。
 
-在最近的版本中，我们还加入了 R light class generation、lazy task 和 worker API，并继续与 Gradle Inc. 和 JetBrains 合作，以继续改善总体构建性能。
+在最近的版本中，我们还加入了 R light class generation、lazy task 和 worker API，并继续与 Gradle Inc. 和 JetBrains 合作，以持续改善总体构建性能。
 
 > 属性工具
 
@@ -71,7 +71,7 @@
 
 ## 你现在能做些什么？
 
-虽然配置时间可能因变量、模块和其他因素的数量而有所不同，但我们希望将与 **Android Gradle 插件**相关联的配置时间作为参考点，并和现实数据共享。
+虽然配置时间可能因变量、模块和其他因素的数量而有所不同，但我们希望将与 **Android Gradle 插件**相关联的配置时间作为参考点，并和实际场景构建数据。
 
 ![](https://cdn-images-1.medium.com/max/2400/0*-ArOM3hHce2x6Xsl)
 
@@ -92,7 +92,7 @@ Gradle 提供了一组**免费**的[工具](https://guides.gradle.org/performanc
 配置
 
 * 仅使用配置来创建任务（使用 lazy API），避免在其中执行任何 I/O 或任何其他工作。（配置不适合查询 git、读取文件、搜索连接的设备、进行计算等）。
-* 在配置中创建所有的任务，配置不会知道实际生成了什么内容。
+* 在配置中创建所有的任务。配置不会知道实际生成了什么内容。
 
 优化任务
 
@@ -100,7 +100,7 @@ Gradle 提供了一组**免费**的[工具](https://guides.gradle.org/performanc
 * 将复杂的步骤拆分为多个任务，以帮助实现增量化和可缓存性。
 （有些任务可以是最新的，而另一些任务可以执行或并行执行）。
 * 确保任务不会写入或删除其他任务的输出。
-* 在 Java/Kotlin 中用插件或 buildSrc 编写任务，而不是在 Groovy 中直接构建。
+* 在插件或 buildSrc 中用 Java/Kotlin 编写任务，而不是在 build.gradle 中用 Groovy 直接编写。
 
 作为开发者，我们关心你的生产力。随着我们持续努力加快构建速度，希望这里的提示和指导方针能够帮助你缩短构建时间，以便让你能够更加专注于开发精彩的应用程序。
 
