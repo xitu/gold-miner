@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/websockets-vs-long-polling.md](https://github.com/xitu/gold-miner/blob/master/TODO1/websockets-vs-long-polling.md)
 > * 译者：[Jalan](http://jalan.space)
-> * 校对者：[linxiaowu66](https://github.com/linxiaowu66)、[sunui](https://github.com/sunui)
+> * 校对者：[linxiaowu66](https://github.com/linxiaowu66), [sunui](https://github.com/sunui)
 
 # WebSockets 与长轮询的较量
 
@@ -19,7 +19,7 @@
 
 ![](https://ik.imagekit.io/ably/ghost/prod/2019/06/long-polling-f6e3a73a589fe25d7c7b622a8487a2e8a27a11f00b22b574abb021fbcd7ac2db.png?tr=w-1520)
 
-随着 [浏览器大战](https://en.wikipedia.org/wiki/Browser_wars) 的升温，微软的 Internet Explorer 版本到达了版本 4 及以上，对浏览器强大特性集的争夺战导致微软在 Internet Explorer 中引入了一个新特性，这一特性最终成为了 [XMLHttpRequest](https://xhr.spec.whatwg.org/) 。十多年来，所有浏览器都普遍支持 XMLHttpRequest。
+随着 [浏览器大战](https://en.wikipedia.org/wiki/Browser_wars) 的升温，微软的 Internet Explorer 版本到达了版本 4 及以上，对浏览器强大特性集的争夺战导致微软在 Internet Explorer 中引入了一个新特性，这一特性最终成为了 [XMLHttpRequest](https://xhr.spec.whatwg.org/)。十多年来，所有浏览器都普遍支持 XMLHttpRequest。
 
 [长轮询](https://en.wikipedia.org/wiki/Push_technology#Long_polling) 本质上是原始轮询技术的一种更有效的形式。向服务器发送重复请求会浪费资源，因为必须为每个新传入的请求建立连接，必须解析请求的 HTTP 头部，必须执行对新数据的查询，并且必须生成和交付响应（通常不提供新数据）。然后必须关闭连接并清除所有资源。长轮询是一种服务器选择尽可能长的时间保持和客户端连接打开的技术，仅在数据变得可用或达到超时阙值后才提供响应，而不是在给到客户端的新数据可用之前，让每个客户端多次发起重复的请求。
 
@@ -99,7 +99,7 @@ ws.on('message', function incoming(data) {
 });
 ```
 
-服务端 (Node.js):
+服务端（Node.js）：
 
 ```
 const WebSocket = require('ws');
