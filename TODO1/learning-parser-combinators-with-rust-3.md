@@ -5,30 +5,32 @@
 > * 译者：
 > * 校对者：
 
-# Learning Parser Combinators With Rust - Part 3
+# 通过 Rust 学习解析器组合器 - 第三部分
 
 如果你没看过本系列的其他几篇文章，建议你按照顺序进行阅读：
 
-- [Learning Parser Combinators With Rust - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
-- [Learning Parser Combinators With Rust - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-- [Learning Parser Combinators With Rust - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-- [Learning Parser Combinators With Rust - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
+- [通过 Rust 学习解析器组合器 - 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
+- [通过 Rust 学习解析器组合器 - 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
+- [通过 Rust 学习解析器组合器 - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
+- [通过 Rust 学习解析器组合器 - 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
 ### A Predicate Combinator
 
 We now have the building blocks we need to parse that whitespace with `one_or_more`, and to parse the attribute pairs with `zero_or_more`.
+现在我们有了构建的代码块，我们需要通过它用 `one_or_more` 解析空格符，并且用 `zero_or_more` 解析属性对。
 
 Actually, hold on a moment. We don't really want to parse the whitespace **then** parse the attributes. If you think about it, if there are no attributes, the whitespace is optional, and we could encounter an immediate `>` or `/>`. But if there's an attribute, there **must** be whitespace first. Lucky for us, there must also be whitespace between each attribute, if there are several, so what we're really looking at here is a sequence of **zero or more** occurrences of **one or more** whitespace items followed by the attribute.
+事实上，得等一下。我们并不想先解析空格符**然后**解析属性。如果你考虑到，在没有属性的情况下，空格符也是可选的，并且我们可以会立即遇到 `>` 或  `/>`。但如果有一个属性时，我们就**必须**先解析空格符。幸运的是，每个属性之间一定会有空格，如果有多个空格的话，那么我们将会看到**零个或者多个**序列还有**一个或者多个**空格符出现在属性后。
 
-We need a parser for a single item of whitespace first. We can go one of three ways here.
+首先，我们需要一个针对单个空格的解析器。这里我们可以从三种方式选择其中一种。
 
-One, we can be silly and use our `match_literal` parser with a string containing just a single space. Why is that silly? Because whitespace is also line breaks, tabs and a whole number of strange Unicode characters which render as whitespace. We're going to have to lean on Rust's standard library again, and of course `char` has an `is_whitespace` method just like it had `is_alphabetic` and `is_alphanumeric`.
+第一，我们可以最简单的使用 `match_literal` 解析器，它带有一个只包含一个空格的字符串。这看起来是不是很傻？因为空格符也相当于是换行符、制表符和许多奇怪的 Unicode 字符，它们都是以空白的形式呈现的。我们将不得不再次依赖 Rust 的标准库，当然，`char` 有一个 `is_whitespace` 方法，也是类似于它的 `is_alphabetic` 和 `is_alphanumeric` 方法。
 
-Two, we can just write out a parser which consumes any number of whitespace characters using the `is_whitespace` predicate much like we wrote our `identifier` earlier.
+第二，我们可以编写一个解析器，它是通过 `is_whitespace` 谓词解析任意数量的空格，就像我们前面写到的 `identifier` 一样。
 
-Three, we can be clever, and we do like being clever. We could write a parser `any_char` which returns a single `char` as long as there is one left in the input, and a combinator `pred` which takes a parser and a predicate function, and combine the two like this: `pred(any_char, |c| c.is_whitespace())`. This has the added bonus of making it really easy to write the final parser we're going to need too: the quoted string for the attribute values.
+第三，我们可以更明智一点，我们确实喜欢更明智。我们可以编写一个解析器 `any_char`，它返回一个单独的 `char`，只要输入中还有空格符，接着编写一个 `pred` 组合器，它接受一个解析器和一个判定，并将它们像这样组合起来：`pred(any_char, |c| c.is_whitespace())`。这样做会有一个好处，它使我们最终的解析器的编写变得更简单：属性值使用引用字符串。
 
-The `any_char` parser is straightforward as a parser, but we have to remember to be mindful of those UTF-8 gotchas.
+`any_char` 可以看做是一个非常简单的解析器，但我们必须记住小心那些 UTF-8 陷阱。
 
 ```
 fn any_char(input: &str) -> ParseResult<char> {
@@ -39,7 +41,7 @@ fn any_char(input: &str) -> ParseResult<char> {
 }
 ```
 
-And the `pred` combinator also doesn't hold any surprises to our now seasoned eyes. We invoke the parser, then we call our predicate function on the value if the parser succeeded, and only if that returns true do we actually return a success, otherwise we return as much of an error as a failed parse would.
+对于现在我们富有经验的眼睛来说，`pred` 组合器没有给我们带来惊喜。我们调用解析器，然后在解析器执行成功时再对返回值调用判定函数，只有当该函数返回 true 时，我们才真正返回成功，否则就会返回跟解析失败一样多的错误。
 
 ```
 fn pred<'a, P, A, F>(parser: P, predicate: F) -> impl Parser<'a, A>
@@ -58,7 +60,7 @@ where
 }
 ```
 
-And a quick test to make sure everything is in order:
+快速地写一个测试用例来确保一切是有序进行的：
 
 ```
 #[test]
@@ -69,7 +71,7 @@ fn predicate_combinator() {
 }
 ```
 
-With these two in place, we can write our `whitespace_char` parser with a quick one-liner:
+针对这两个地方，我们可以用一个快速的一行代码来编写我们的 `whitespace_char` 解析器：
 
 ```
 fn whitespace_char<'a>() -> impl Parser<'a, char> {
@@ -77,7 +79,7 @@ fn whitespace_char<'a>() -> impl Parser<'a, char> {
 }
 ```
 
-And, now that we have `whitespace_char`, we can also express the idea we were heading towards, **one or more whitespace**, and its sister idea, **zero or more whitespace**. Let's indulge ourselves in some brevity and call them `space1` and `space0` respectively.
+现在，我们有了 `whitespace_char`，我们所做的更加接近我们的想法了，**一个或中多个空格**，以及类似的想法，**零个或者多个空格**。我们将其简化一下，分别将它们命名为 `space1` 和 `space0`。
 
 ```
 fn space1<'a>() -> impl Parser<'a, Vec<char>> {
@@ -89,9 +91,9 @@ fn space0<'a>() -> impl Parser<'a, Vec<char>> {
 }
 ```
 
-### Quoted Strings
+### 字符串引用
 
-With all that sorted, can we now, at last, parse those attributes? Yes, we just need to make sure we have all the individual parsers for the components of the attributes. We've got `identifier` already for the attribute name (though it's tempting to rewrite it using `any_char` and `pred` plus our `*_or_more` combinators). The `=` is just `match_literal("=")`. We're short one quoted string parser, though, so let's build that. Fortunately, we've already got all the combinators we need to do it.
+完成这些工作后，终于我们现在可以解析这些属性了吗？是的，我们只需要确保为属性组件编写好了单独的解析器。我们已经得到了属性名的 `identifier`（尽管很容易使用 `any_char` 和 `pred` 加上 `*_or_more` 组合器重写它）。`=` 也即 `match_literal("=")`。不过，我们只需要字符串解析器的引用，所以我们要构建它。幸运的是，我们已经实现了我们所需要的组合器。
 
 ```
 fn quoted_string<'a>() -> impl Parser<'a, String> {
@@ -108,23 +110,25 @@ fn quoted_string<'a>() -> impl Parser<'a, String> {
 }
 ```
 
-The nesting of combinators is getting slightly annoying at this point, but we're going to resist refactoring everything to fix it just for now, and instead focus on what's going on here.
+在这里，组合器的嵌套有点烦人，但我们暂时不打算重构它，而是将重点放在接下来要做的东西上。
 
 The outermost combinator is a `map`, because of the aforementioned annoying nesting, and it's a terrible place to start if we're going to understand this one, so let's try and find where it really starts: the first quote character. Inside the `map`, there's a `right`, and the first part of the `right` is the one we're looking for: the `match_literal("\"")`. That's our opening quote.
+最外层的组合器是一个 `map`，因为之前提到嵌套很烦人，从这里开始会变得糟糕并且我们要忍受并理解这一点，我们试着找到开始执行的地方：第一个引号字符。在 `map` 中，有一个 `right`，而 `right` 的第一部分是我们要查找的：`match_literal("\"")`。以上就是我们一开始要着手处理的东西。
 
-The second part of that `right` is the rest of the string. That's inside the `left`, and we quickly note that the **right** hand argument of that `left`, the one we ignore, is the other `match_literal("\"")` - the closing quote. So the left hand part is our quoted string.
+`right` 的第二部分是字符串剩余部分的处理。它位于 `left` 的内部，我们会很快的注意到**右侧**的 `left` 参数，是我们要忽略的，也就是另一个 `match_literal("\"")`  —— 结束的引号。所以左侧参数是我们引用的字符串。
 
 We take advantage of our new `pred` and `any_char` here to get a parser that accepts **anything but another quote**, and we put that in `zero_or_more`, so that what we're saying is as follows:
+我们利用新的 `pred` 和 `any_char` 在这里得到一个解析器，它接收**任何字符除了另一个引号**，我们把它放进 `zero_or_more`，所以我们讲的也是以下这些：
 
-* one quote
-* followed by zero or more things that are **not** another quote
-* followed by another quote
+* 一个引号
+* 随后是零个或多个**除了**结束引号以外的字符
+* 随后是结束引号
 
-And, between the `right` and the `left`, we discard the quotes from the result value and get our quoted string back.
+并且，在 `right` 和 `left` 之间，我们会在结果值中丢弃引号，并且得到引号之间的字符串。
 
-But wait, that's not a string. Remember what `zero_or_more` returns? A `Vec<A>` for the inner parser's return type `A`. For `any_char`, that's `char`. What we've got, then, is not a string but a `Vec<char>`. That's where the `map` comes in: we use it to turn a `Vec<char>` into a `String` by leveraging the fact that you can build a `String` from an `Iterator<Item = char>`, so we can just call `vec_of_chars.into_iter().collect()` and, thanks to the power of type inference, we have our `String`.
+等等，那不是字符串。还记得 `zero_or_more` 返回的是什么吗？一个类型为 `Vec<A>` 的值，其中类型为 `A` 的值是由内部解析器返回的。对于 `any_char`，返回的是 `char` 类型。那么我们得到的不是一个字符串，而是一个类型为 `Vec<char>` 的值。这是 `map` 所处的位置：我们使用它把 `Vec<char>` 转换为 `String`，基于这样一个情况，你可以构建一个产生 `String` 的迭代器 `Iterator<Item = char>`，我们称之为 `vec_of_chars.into_iter().collect()`，多亏了类型推导的力量，我们才有了 `String`。
 
-Let's just write a quick test to make sure that's all right before we go on, because if we needed that many words to explain it, it's probably not something we should leave to our faith in ourselves as programmers.
+在我们继续之前，我们先写一个快速的测试用例来确保它是正确的，因为如果我们需要这么多词来解释它，那么它可能不是我们作为程序员应该相信的东西。
 
 ```
 #[test]
@@ -136,13 +140,13 @@ fn quoted_string_parser() {
 }
 ```
 
-So, now, finally, I swear, let's get those attributes parsed.
+现在，我发誓，真的是要解析这些属性了。
 
-### At Last, Parsing Attributes
+### 最后，解析属性
 
-We can now parse whitespace, identifiers, `=` signs and quoted strings. That, finally, is all we need for parsing attributes.
+我们现在可以解析空格符、标识符，`=` 符号和带引号的字符串。最后，这就是解析属性所需的全部内容。
 
-First, let's write a parser for an attribute pair. We're going to be storing them as a `Vec<(String, String)>`, as you may recall, so it feels like we'd need a parser for that `(String, String)` to feed to our trusty `zero_or_more` combinator. Let's see if we can build one.
+首先，我们为属性对写解析器。我们将会把属性作为 `Vec<(String, String)>` 存储，你可能还记得这个类型，所以感觉可能需要一个针对 `(String, String)` 的解析器，将其提供给我们可靠的 `zero_or_more` 组合器。我们看看能否造一个。
 
 ```
 fn attribute_pair<'a>() -> impl Parser<'a, (String, String)> {
@@ -150,9 +154,10 @@ fn attribute_pair<'a>() -> impl Parser<'a, (String, String)> {
 }
 ```
 
-Without even breaking a sweat! To summarise: we already have a handy combinator for parsing a tuple of values, `pair`, so we use that with the `identifier` parser, yielding a `String`, and a `right` with the `=` sign, whose value we don't want to keep, and our fresh `quoted_string` parser, which gets us the other `String`.
+太轻松了，汗都没出一滴！总结一下：我们已经有一个便利的组合器用于解析元组的值，也就是 `pair`，我们可以将其作为 `identifier` 解析器，迭代出一个 `String`， 以及一个带有 `=` 的 `right` 解析器，它的返回值我们不想保存，并且我们刚写出来的 `quoted_string` 解析器会返回给我们 `String` 类型的值。
 
 Now, let's combine that with `zero_or_more` to build that vector - but let's not forget that whitespace in between them.
+现在，我们结合一下 `zero_or_more`，去构建一下 vector —— 但不要忘了它们之间的空格符。
 
 ```
 fn attributes<'a>() -> impl Parser<'a, Vec<(String, String)>> {
@@ -160,9 +165,9 @@ fn attributes<'a>() -> impl Parser<'a, Vec<(String, String)>> {
 }
 ```
 
-Zero or more occurrences of the following: one or more whitespace characters, then an attribute pair. We use `right` to discard the whitespace and keep the attribute pair.
+以下情况会出现零次或者多次：一个或者多个空白符，其后是一个属性对。我们通过 `right` 丢弃空白符病保留属性对。
 
-Let's test it.
+我们测试一下它。
 
 ```
 #[test]
@@ -181,14 +186,15 @@ fn attribute_parser() {
 ```
 
 Tests are green! Ship it!
+测试是通过的！先别高兴太早！
 
-Actually, no, at this point in the narrative, my rustc was complaining that my types are getting terribly complicated, and that I need to increase the max allowed type size to carry on. It's a good chance you're getting the same error at this point, and if you are, you need to know how to deal with it. Fortunately, in these situations, rustc generally gives good advice, so when it tells you to add `#![type_length_limit = "…some big number…"]` to the top of your file, just do as it says. Actually, just go ahead and make it `#![type_length_limit = "16777216"]`, which is going to let us carry on a bit further into the stratosphere of complicated types. Full steam ahead, we're type astronauts now!
+实际上，有些问题，在这个情况中，我的 rustc 已经给出提示信息表示我的类型过于复杂，我需要增加可允许的类型范围才能让编译继续。鉴于在同一点上遇到了相同的错误是有利的，如果你是这种情况，你需要知道如何处理它。幸运的是，在这些情况下，rustc 通常会给出好的建议，所以当它告诉你在文件顶部添加 `#![type_length_limit = "…some big number…"]` 注解时，照做就行了。在实际情况中，就是添加 `#![type_length_limit = "16777216"]`，这将使我们更进一步深入到复杂类型的平流层。全速前进，我们就要上天了。
 
 ### So Close Now
 
-At this point, things seem like they're just about to start coming together, which is a bit of a relief, as our types are fast approaching NP-completeness. We just have the two versions of the element tag to deal with: the single element and the parent element with children, but we're feeling pretty confident that once we have those, parsing the children will be just a matter of `zero_or_more`, right?
+在这一点上，这些东西看起来即将要组合到一起了，有些解脱了，因为我们的类型正快速接近于 NP 完全性理论。我们只需要处理两种元素标签：单个元素以及带有子元素的父元素，但我们非常有信心，一旦我们有了这些，解析子元素就只需要使用 `zero_or_more`，是吗？
 
-So let's do the single element first, deferring the question of children for a little bit. Or, even better, let's first write a parser for everything the two have in common: the opening `<`, the element name, and the attributes. Let's see if we can get a result type of `(String, Vec<(String, String)>)` out of a couple of combinators.
+那么接下来我们先处理单元素的情况，把子元素的问题放一放。或者，更进一步，我们先基于这两种元素的共性写一个解析器：开头的 `<`，元素名称，然后是属性。让我们看看能否从几个组合器中获取到 `(String, Vec<(String, String)>)` 类型的结果。
 
 ```
 fn element_start<'a>() -> impl Parser<'a, (String, Vec<(String, String)>)> {
@@ -196,7 +202,7 @@ fn element_start<'a>() -> impl Parser<'a, (String, Vec<(String, String)>)> {
 }
 ```
 
-With that in place, we can quickly tack the tag closer on it to make a parser for the single element.
+有了这些，我们就可以快速的写出代码，从而为单元素创建一个解析器。
 
 ```
 fn single_element<'a>() -> impl Parser<'a, Element> {
@@ -211,9 +217,9 @@ fn single_element<'a>() -> impl Parser<'a, Element> {
 }
 ```
 
-Hooray, it feels like we're within reach of our goal - we're actually constructing an `Element` now!
+万岁，感觉我们已经接近我们的目标了 —— 实际上我们正在构建一个 `Element`！
 
-Let's test this miracle of modern technology.
+让我们测试一下现代科技的奇迹。
 
 ```
 #[test]
