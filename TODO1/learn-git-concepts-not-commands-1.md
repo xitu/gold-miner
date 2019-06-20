@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[Usey95](https://github.com/Usey95)、[ZavierTang](https://github.com/ZavierTang)
+> * 校对者：[Usey95](https://github.com/Usey95)，[ZavierTang](https://github.com/ZavierTang)
 
 # Git：透过命令学概念 —— 第一部分
 
@@ -19,7 +19,7 @@
 
 ---
 
-> 本文的落笔点基于 Rachel M. Carmena 撰写的 [*如何教授 Git*](https://rachelcarmena.github.io/2018/12/12/how-to-teach-git.html) 一文中提及的常规概念。
+> 本文的落笔点基于 Rachel M. Carmena 撰写的 [**如何教授 Git**](https://rachelcarmena.github.io/2018/12/12/how-to-teach-git.html) 一文中提及的常规概念。
 > 
 > 网上有很多重方法轻原理的 Git 教程，但我还是挖掘到了兼得二者的宝贵资源（也是本教程的灵感源泉），那就是 [*git Book*](https://git-scm.com/book/en/v2) 和 [*Reference page*](https://git-scm.com/docs)。
 > 
@@ -27,12 +27,11 @@
 
 ---
 
-- [Git：透过命令学概念 —— 第一部分](#Git：透过命令学概念)
-  - [概览](#user-content-概览)
-  - [获取远程仓库](#user-content-获取远程仓库)
-  - [添加新文件](#user-content-添加新文件)
-  - [更改](#user-content-更改)
-  - [分支](#user-content-分支)
+- [概览](#user-content-概览)
+- [获取远程仓库](#user-content-获取远程仓库)
+- [添加新文件](#user-content-添加新文件)
+- [更改](#user-content-更改)
+- [分支](#user-content-分支)
 
 ---
 
@@ -112,7 +111,7 @@
 
 回过头来看 `Alice.txt` 文件。
 
-`Alice.txt` 文件里有一些文字，而 `Bob.txt` 文件里并没有，那我们就给 `Bob.txt` 添加上 `Hi!! I'm Bob. I'm new here.`这句话。
+`Alice.txt` 文件里有一些文字，而 `Bob.txt` 文件里并没有，那我们就给 `Bob.txt` 添加上 `Hi!! I'm Bob. I'm new here.` 这句话。
 
 如果你现在再运行 `git status` 命令，你会看到 `Bob.txt` 的状态变成了**已修改**（modified）。
 
@@ -263,7 +262,7 @@ Git 的另一个伟大之处就是分支。分支是你使用 Git 时不可或�
 
 [![切换分支后的状态](https://res.cloudinary.com/practicaldev/image/fetch/s--9Kp5zCqP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/checkout_branch.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--9Kp5zCqP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/checkout_branch.png)
 
-可能你已经注意到了，**工作目录**并没有什么变化。那是因为对`Alice.txt` 文件的**修改**还没有关联到当前分支上。
+可能你已经注意到了，**工作目录**并没有什么变化。那是因为对 `Alice.txt` 文件的**修改**还没有关联到当前分支上。
 
 现在你可以像在 **master** 分支上那样，执行 `add` 和 `commit` 命令，把更改标记为**暂存**（在这个节点，更改内容和分支仍然没有相互关联）并**提交**到 `change_alice` 分支上。
 
