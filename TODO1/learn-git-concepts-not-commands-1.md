@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[Usey95](https://github.com/Usey95)、[ZavierTang](https://github.com/ZavierTang)
 
 # Git：透过命令学概念 —— 第一部分
 
-**用互动式的教程教你 Git 的原理，而非罗列常用命令。**
+**用交互式的教程教你 Git 的原理，而非罗列常用命令。**
 
-所以，你想使用 Git，对吧？
+所以，你想正确地使用 Git 吗？
 
-但你肯定不想仅仅学一些操作命令，你想要理解其背后的理念，对吧？
+但你肯定不想仅仅学一些操作命令，你还想要理解其背后的原理，对吧？
 
 那么本文就是为你量身定做的！
 
@@ -21,40 +21,40 @@
 
 > 本文的落笔点基于 Rachel M. Carmena 撰写的 [*如何教授 Git*](https://rachelcarmena.github.io/2018/12/12/how-to-teach-git.html) 一文中提及的常规概念。
 > 
-> 网上有很多重方法轻原理的 Git 教程，但我还是挖掘到了兼得二者的宝贵资源（也是本教程的灵感源泉），那就是 [*Git 宝典*](https://git-scm.com/book/en/v2) 和 [*参考目录*](https://git-scm.com/docs)。
+> 网上有很多重方法轻原理的 Git 教程，但我还是挖掘到了兼得二者的宝贵资源（也是本教程的灵感源泉），那就是 [*git Book*](https://git-scm.com/book/en/v2) 和 [*Reference page*](https://git-scm.com/docs)。
 > 
 > 因此，如果你读完了本文还意犹未尽，就快点击上面两个链接一探究竟吧！我真心希望本教程中介绍的概念，能帮你理解另外两篇文章中详解的其他 Git 功能。
 
 ---
 
 - [Git：透过命令学概念 —— 第一部分](#Git：透过命令学概念)
-  - [粮草先行：概览](#user-content-粮草先行概览)
-  - [隔山打牛：获取远程仓库](#user-content-隔山打牛获取远程仓库)
-  - [添砖加瓦：添加新文件](#user-content-添砖加瓦添加新文件)
-  - [改弦更张：更改](#user-content-改弦更张更改)
-  - [开枝散叶：分支](#user-content-开枝散叶分支)
+  - [概览](#user-content-概览)
+  - [获取远程仓库](#user-content-获取远程仓库)
+  - [添加新文件](#user-content-添加新文件)
+  - [更改](#user-content-更改)
+  - [分支](#user-content-分支)
 
 ---
 
-## 粮草先行：概览
+## 概览
 
 下图中有四个盒子。其中一个盒子独占一隅；其他三个盒子并为一组，这三个盒子构成了**开发环境（Development Environment）**。
 
-[![Git 概念](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)
+[![Git 组成](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)
 
-先从那个单独的盒子说起。当你更新了工作成果，并想要和其他人共享你的更改内容，或者你想获取到别人更改的内容，那么**远程仓库**（Remote Repository）就是你们用来传送更改内容的地方。如果你已经用过其他的版本控制系统了，那这种流程对你来说一点都不陌生。
+先从那个单独的盒子说起。当你更新了工作内容，并想要和其他人共享你更改的内容，或者你想获取到别人更改的内容，那么**远程仓库**（Remote Repository）就是你们用来传送更改内容的地方。如果你已经用过其他的版本控制系统了，那这种流程对你来说一点都不陌生。
 
-**开发环境**则是你在电脑本地存放文件的地方。
+相对于**远程仓库**（Remote Repository），**开发环境**（Development Environment）则是你的本地仓库。
 开发环境由三部分组成：**工作目录**（Working Directory）、**暂存区**（Staging Area）和**本地仓库**（Local Repository）。在开始使用 Git 后，我们对这几块区域的理解会逐渐加深。
 
-在电脑中选一个地方存放**开发环境**。
+在电脑中选一个地方作为**开发环境**。
 在根目录或者任意你喜欢之处放置你的项目都可以。只不过不用给**开发环境**特意新建一个文件夹了。
 
-## 隔山打牛：获取远程仓库
+## 获取远程仓库
 
 现在，我们要把一个**远程仓库**的内容抓到电脑本地上。
 
-建议使用[本仓库](https://github.com/UnseenWizzard/git_training.git)（如果你不是在 GitHub 上阅读本文，就点击此链接）来实操。
+建议使用本仓库（https://github.com/UnseenWizzard/git_training.git 如果你不是在 GitHub 上阅读本文，就点击此链接来实操）。
 
 > 用 `git clone https://github.com/UnseenWizzard/git_training.git` 命令来实现这一步操作
 > 
@@ -62,7 +62,7 @@
 
 现在你获取到了笔者的**远程仓库**的副本，接下来就把该副本拉到你的电脑中。
 
-使用 `git clone https://github.com/{你的 GitHub 用户名}/git_training.git` 命令将远程仓库复制到本地。
+使用 `git clone https://github.com/{YOUR USERNAME}/git_training.git` 命令将远程仓库复制到本地。
 
 如下图所示，该命令将**远程仓库**复制到两个地方：**工作目录**和**本地仓库**。
 
@@ -72,7 +72,7 @@
 
 [![克隆远程仓库](https://res.cloudinary.com/practicaldev/image/fetch/s--NCZ2AIG5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/clone.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--NCZ2AIG5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/clone.png)
 
-## 添砖加瓦：添加新文件
+## 添加新文件
 
 **远程仓库**中已经有一个文件了。该文件名为 `Alice.txt`，在仓库中形单影只。我们来新建一个文件，命名为 `Bob.txt`，与 Alice 作伴。
 
@@ -80,7 +80,7 @@
 
 **工作目录**中有两种文件：**已跟踪**文件 —— 由 Git 看管着的文件，**未跟踪**文件 ——（暂时）没有被 Git 看管的文件。
 
-运行 `git status` 命令可以查看**工作目录**中的版本状态，输出结果会告诉你目前处于哪条分支，**本地仓库**是否与**远程仓库**同步，以及哪些文件分别处于**已跟踪**状态和**未跟踪**状态。
+运行 `git status` 命令可以查看**工作目录**中的版本状态，输出结果会告诉你目前处于哪条分支，**本地仓库**是否与**远程仓库**同步，以及哪些文件分别处于**已跟踪**（tracked）状态和**未跟踪**（untracked）状态。
 
 你会看到，`Bob.txt` 处于未跟踪状态，`git status` 命令甚至会告诉你如何改变文件状态。
 
@@ -90,25 +90,25 @@
 
 当把所有更改（目前只有 Bob.txt）都添加进暂存区，你就可以把更改**提交**（commit）到**本地仓库**了。
 
-你所**提交**的更改是一些有特定含义的工作成果，因此当运行了 `git commit` 后，你需要在自动打开的文本编辑器中写下你的更改说明。保存并关闭文本编辑器后，你的**提交内容**就被添加到**本地仓库**中了。
+你所**提交**的更改是一些有特定含义的工作内容，因此当运行了 `git commit` 后，你需要在自动打开的文本编辑器中写下你的更改说明。保存并关闭文本编辑器后，你的**提交内容**就被添加到**本地仓库**中了。
 
 [![提交到本地仓库](https://res.cloudinary.com/practicaldev/image/fetch/s--we00N_rB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/commit.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--we00N_rB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/commit.png)
 
 `git commit -m "Add Bob"` 命令让你能够直接在命令中编辑**提交说明**。但你应该养成书写[规范易读的提交说明](https://chris.beams.io/posts/git-commit/)这种良好习惯，因此不要一蹴而就，还是乖乖用文本编辑器吧。
 
-现在，你做的更改就进入本地仓库了，本地仓库适合存储那些不需要共享或暂时还不能共享的工作成果。
+现在，你做的更改就进入本地仓库了，本地仓库适合存储那些不需要共享或暂时还不能共享的工作内容。
 
 那么为了把提交的更改共享到**远程仓库**，你需要`推送`（push）一下。
 
 [![推送到远程仓库](https://res.cloudinary.com/practicaldev/image/fetch/s--XwP0hGrK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/push.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--XwP0hGrK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/push.png)
 
-一经运行 `git push` 命令后，更改内容就会被发送到**远程仓库**中。下图展示了`推送`后的仓库状态。
+运行 `git push` 命令后，更改内容就会被发送到**远程仓库**中。下图展示了`推送`后的仓库状态。
 
 [![推送更改后的仓库状态](https://res.cloudinary.com/practicaldev/image/fetch/s--Gj_DegbP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/after_push.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Gj_DegbP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/after_push.png)
 
-## 改弦更张：更改
+## 更改
 
-截至目前，我们新增了一个文件。而版本控制更有趣的部分就是更改文件。
+截至目前，我们只是新增了一个文件。而版本控制更有趣的部分就是更改文件。
 
 回过头来看 `Alice.txt` 文件。
 
@@ -151,7 +151,7 @@ index 8eb57c4..3ed0e1b 100644
 +Hi! I'm Bob. I'm new here.
 ```
 
-发生的更改正如我们所愿，接着用 `git add Bob.txt` 命令把文件当前的状态标记为`暂存`。
+发生的更改正如我们所愿，接着用 `git add Bob.txt` 命令`暂存`文件当前的状态。。
 
 现在我们可以提交刚才的更改了。这次咱们使用 `git commit -m "Add text to Bob"` 命令，因为只是做了小小的改动，写一行说明足矣。
 
@@ -203,7 +203,7 @@ Date:   Fri Jan 25 19:25:23 2019 +0100
 * 最开始添加 `Bob.txt` 文件的提交是**远程仓库**中 **master** 分支的 **HEAD**。等说到分支和拉取远程更改的部分时，我们再展开探讨这个『HEAD』。
 * **本地仓库**中最新的提交就是我们刚刚做的更改，而此刻我们知道了其哈希值是什么。
 
-> 注意，你实际操作的提交的哈希值跟文中的例子是不一样的。如果你好奇 Git 是如何精确识别那些修改标识的，可以看看[这篇有趣的文章](https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html)。
+> 注意，你实际操作的提交的哈希值跟文中的例子是不一样的。如果你好奇 Git 是如何生成那些修改 ID 的，可以看看[这篇有趣的文章](https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html)。
 
 我们可以通过 `git diff <commit>^!` 命令来比较这先后两次提交，命令中的 `^!` 告诉 Git 要比较的是指定哈希值的提交和它上一次的提交。那么我这里就是运行 `git diff 87a4ad48d55e5280aa608cd79e8bce5e13f318dc^!` 这样的命令。
 
@@ -215,23 +215,23 @@ Date:   Fri Jan 25 19:25:23 2019 +0100
 
 现在我们可以确信提交的更改正是我们想要的，可以放心大胆地运行 `git push` 命令了。
 
-## 开枝散叶：分支
+## 分支
 
 Git 的另一个伟大之处就是分支。分支是你使用 Git 时不可或缺的部分，借助分支来工作非常便利。
 
 其实，从一开始我们就已经在使用分支了。
 
-在克隆**远程仓库**时，**开发环境**会自动选中仓库的主分支 —— **master** 分支 —— 来复制。
+在克隆**远程仓库**时，**开发环境**会自动选中仓库的主分支（**master** 分支）复制。
 
 通常的 Git 工作流都是先在一个**分支**上做更改，再将其`合并`（merge）回 **master** 分支。
 
 一般情况下，你都是先在自己的**分支**上动工，等到完成现阶段的工作，并确信能够合并的时候，再合并到 **master** 分支。
 
-> 一些 Git 仓库托管平台 —— 如 **GitLab**、**GitHub** 等 —— 也提供**保护分支**的功能，意思是并非所有人都能把更改推送到受保护的分支。在这些托管平台中，**master** 分支一般都是默认受保护的。
+> 一些 Git 仓库托管平台（如 **GitLab**、**GitHub** 等）也提供保护分支的功能，意思是并非所有人都能把更改推送到受保护的分支。在这些托管平台中，**master** 分支一般都是默认受保护的。
 
 别担心，当我们需要用到这些托管平台的时候，自会深入研究其细节。
 
-眼下，我们得创建一条分支，在该分支上做一些更改。有时候你只是想要尝试自己做些东西，不想污染 **master** 分支的工作状态；有时候你没有推送更改到 **master** 分支的权限。此时，一条分支正是你所需要的。
+眼下，我们得创建一条分支，在该分支上做一些更改。有时候你只是想要尝试自己做些东西，不想污染 **master** 分支的工作状态；有时候你没有推送更改到 **master** 分支的权限。此时，一条新的分支正是你所需要的。
 
 **本地仓库**和**远程仓库**中都允许有多条分支。每个新建的分支，都是你当前所在分支中已经提交的内容的副本。
 
@@ -257,7 +257,7 @@ Git 的另一个伟大之处就是分支。分支是你使用 Git 时不可或�
 
 使用 `git checkout change_alice` 命令可以切换到新分支。本操作实质上是把 **HEAD** 移到了你所指定的分支上了。
 
-> 通常我们都是创建分支后切换到该分支上，因此可以用带有 `-b` 选项的 `checkout` 命令，一气呵成地新建完切换过去，不用分两步走了，牛仔很忙的。
+> 通常我们都是创建分支后切换到该分支上，因此可以用带有 `-b` 选项的 `checkout` 命令，一气呵成地新建完切换过去，不用分两步走了，毕竟牛仔很忙的。
 > 
 > 落实到具体操作就是运行 `git checkout -b change_alice` 命令，实现了创建并切换到 `change_alice` 分支。
 
@@ -269,7 +269,7 @@ Git 的另一个伟大之处就是分支。分支是你使用 Git 时不可或�
 
 现在只剩一步没迈出去了。你可以试试运行 `git push` 命令，把更改推送到**远程仓库**。
 
-你会看到如下报错信息和一条 —— Git 一如既往地提供的 —— 解决建议：
+你会看到如下报错信息和一条（Git 一如既往地提供的）解决建议：
 
 ```
 fatal: The current branch change_alice has no upstream branch.（严重错误：没有上游分支对应当前的 change_alice 分支。）
@@ -290,7 +290,7 @@ Git 把**本地仓库**的**远程分支**设置为你所克隆的**远程仓库
 
 > **本地仓库**可以追踪多个不同名称的**远程分支**，但本教程中，我们将紧盯住 `origin` 而不考虑其他分支。
 
-尔后，Git 复制了两条远程分支到**本地仓库**中，并最终切换到了 **master** 分支。
+而后，Git 复制了两条远程分支到**本地仓库**中，并最终切换到了 **master** 分支。
 
 同时，另一个操作暗搓搓地启动了。当`签出`（checkout）一条分支，且此分支的名称与远程分支匹配时，你会得到一条新的**本地**分支，本地和远程的分支相互关联。那么我们说，这条**远程分支**就是**本地分支**的**上游分支**（upstream branch）。
 
