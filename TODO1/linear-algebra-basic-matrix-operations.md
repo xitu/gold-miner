@@ -123,7 +123,7 @@ console.log(one.multiply(other))
 
 如果在矩阵乘法中调换 **A** 和 **B** 的顺序，我们会得到一个不同的结果，因为相当于先应用了 **B** 的剪切变换，再应用 **A** 的反射变换：
 
-![shear than rotate](https://cdn-images-1.medium.com/max/2106/1*S7XNcZbrzPq0OJbVBEs6QQ.png)
+![先剪切变换再旋转](https://cdn-images-1.medium.com/max/2106/1*S7XNcZbrzPq0OJbVBEs6QQ.png)
 
 ## 转置
 
