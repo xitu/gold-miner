@@ -2,7 +2,7 @@
 > * 原文作者：[Bodil](https://bodil.lol/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-> * 译者：
+> * 译者：[suhanyujie](https://github.com/suhanyujie)
 > * 校对者：
 
 # 通过 Rust 学习解析器组合器 - 第三部分
@@ -239,16 +239,17 @@ fn single_element_parser() {
 ```
 
 …and I think we just ran out of stratosphere.
+...我想我们已经逃离出平流层了。
 
-The return type of `single_element` is so complicated that the compiler will grind away for a very long time until it runs into the very large type size limit we gave it earlier, asking for an even larger one. It's clear we can no longer ignore this problem, as it's a rather trivial parser and a compilation time of several minutes - maybe even several hours for the finished product - seems mildly unreasonsable.
+`single_element` 返回的类型是如此的复杂，以至于编译器不能顺利的完成编译，除非我们提前给出足够大内存空间的类型，甚至要求更大的类型。很明显，我们不能再忽略这个问题了，因为它是一个非常简单的解析器，却需要数分钟的编译时间 —— 这会导致最终的产品可能需要数小时来编译 —— 这似乎有些不合理。
 
-Before proceeding, you'd better comment out those two functions and tests while we fix things…
+在继续之前，你最好将这两个函数和测试用例注释掉，便于我们进行修复...
 
 ### To Infinity And Beyond
 
-If you've ever tried writing a recursive type in Rust, you might already know the solution to our little problem.
+如果你曾经尝试过在 Rust 中编写递归类型的东西，那么你可能已经知道这个问题的解决方案。
 
-A very simple example of a recursive type is a singly linked list. You can express it, in principle, as an enum like this:
+关于递归类型的一个简单例子就是单链表。原则上，你可以把它写成类似于这样的枚举形式：
 
 ```
 enum List<A> {
@@ -257,11 +258,11 @@ enum List<A> {
 }
 ```
 
-To which rustc will, very sensibly, object that your recursive type `List<A>` has an infinite size, because inside every `List::<A>::Cons` is another `List<A>`, and that means it's `List<A>`s all the way down into infinity. As far as rustc is concerned, we're asking for an infinite list, and we're asking it to be able to **allocate** an infinite list.
+很明显，rustc 编译器会对递归类型 `List<A>` 给出报错信息，提示它具有无限的大小，因为在每个 `List::<A>::Cons` 内部都可能有另一个 `List<A>`，这意味着 `List<A>` 可以一直直到无穷大。就 rustc 编译器而言，我们需要一个无限列表，并且要求它能**分配**一个无限列表。
 
-In many languages, an infinite list isn't a problem in principle for the type system, and it's actually not for Rust either. The problem is that in Rust, as mentioned, we need to be able to **allocate** it, or, rather, we need to be able to determine the **size** of a type up front when we construct it, and when the type is infinite, that means the size must be infinite too.
+在许多语言中，对于类型系统来说，一个无限列表原则上不是问题，而且对 Rust 来说也不是什么问题。问题是，前面提到的，在 Rust 中，我们需要能够**分配**它，或者，更确切的说，我们需要能够在构造类型时先确定类型的**大小**，当类型是无限的时候，这意味着大小也必须是无限的。
 
-The solution is to employ a bit of indirection. Instead of our `List::Cons` being an element of `A` and another **list** of `A`, instead we make it an element of `A` and a **pointer** to a list of `A`. We know the size of a pointer, and it's the same no matter what it points to, and so our `List::Cons` now has a fixed and predictable size no matter the size of the list. And the way to turn an owned thing into a pointer to an owned thing on the heap, in Rust, is to `Box` it.
+解决办法是采用间接的方法。我们不是将 `List::Cons` 改为 `A` 的一个元素和另一个 `A` 的**列表**，反而是使用一个 `A` 元素和一个指向 `A` 列表的**指针**。我们已知指针的大小，不管它指向什么，它都是相同的，所以我们的 `List::Cons` 现在是一个固定大小的并且可预测的，不管列表的大小如何。把一个已有的数据变成将数据存储于堆上，并且用指针指向该堆内存的方法，在 Rust 中，就是使用 `Box` 处理它。
 
 ```
 enum List<A> {
@@ -270,11 +271,11 @@ enum List<A> {
 }
 ```
 
-Another interesting feature of `Box` is that the type inside it can be abstract. This means that instead of our by now incredibly complicated parser function types, we can let the type checker deal with a very succinct `Box<dyn Parser<'a, A>>` instead.
+`Box` 的另一个有趣特性是，其中的类型是可以抽象的。这意味着，我们可以让类型检查器处理一个非常简洁的 `Box<dyn Parser<'a, A>>`，而不是处理当前的非常复杂的解析器函数类型。
 
-That sounds great. What's the downside? Well, we might be losing a cycle or two to having to follow that pointer, and it could be that the compiler loses some opportunities to optimise our parser. But recall Knuth's admonition about premature optimisation: it's going to be fine. You can afford those cycles. You're here to learn about parser combinators, not to learn about hand written hyperspecialised [SIMD parsers](https://github.com/lemire/simdjson) (although they're exciting in their own right).
+听起来很不错。有什么缺陷吗？好吧，我们可能会因为使用指针的方式而损失一两次循环，也可能会让编译器失去一些优化解析器的机会。但是想起 Knuth 的关于过早优化的提醒：一切都会好起来的。损失这些循环是值得的。你在这里是学习关于解析器组合器，而不是学习手工编写专业的 [SIMD 解析器](https://github.com/lemire/simdjson)（尽管它们本身会令人兴奋）
 
-So let's proceed to implement `Parser` for a **boxed** parser function in addition to the bare functions we've been using so far.
+因此，抛开目前我们使用的简单函数，让我们继续基于 **即将要完成**的解析器函数来实现 `Parser`
 
 ```
 struct BoxedParser<'a, Output> {
@@ -299,23 +300,23 @@ impl<'a, Output> Parser<'a, Output> for BoxedParser<'a, Output> {
 }
 ```
 
-We create a new type `BoxedParser` to hold our box, for the sake of propriety. To create a new `BoxedParser` from any other kind of parser (including another `BoxedParser`, even if that would be pointless), we provide a function `BoxedParser::new(parser)` which does nothing more than put that parser in a `Box` inside our new type. Finally, we implement `Parser` for it, so that it can be used interchangeably as a parser.
+为了更好地实现，我们创建了一个新的类型 `BoxedParser` 用于保存 box。我们利用其它的解析器（包括另一个 `BoxedParser`，虽然这没太大作用）来创建新的 `BoxedParser`，我们提供一个新的函数 `BoxedParser::new(parser)`，它只是将解析器放在新类型的 `Box` 中。最后，我们为它实现 `Parser`，这样，它就可以作为解析器交换着使用。
 
-This leaves us with the ability to put a parser function in a `Box`, and the `BoxedParser` will work as a `Parser` just as well as the function. Now, as previously mentioned, that means moving the boxed parser to the heap and having to deref a pointer to get to it, which can cost us **several precious nanoseconds**, so we might actually want to hold off on boxing **everything**. It's enough to just box some of the more popular combinators.
+这使我们具备将解析器放入一个 `Box` 中的能力，而 `BoxedParser` 将会以函数的角色为 `Parser` 执行一些逻辑。正如前面提到的，这意味着将 Box 包装的解析器移到堆中，并且必须删除指向该堆区域的指针，这可能会多花费**几纳秒**的时间，所以实际上我们可能想先不用 Box 包装**所有数据**。只是把一些更活跃的组合器数据通过 Box 包装就够了。
 
-- [Learning Parser Combinators With Rust - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
-- [Learning Parser Combinators With Rust - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-- [Learning Parser Combinators With Rust - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-- [Learning Parser Combinators With Rust - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
+- [通过 Rust 学习解析器组合器 - 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
+- [通过 Rust 学习解析器组合器 - 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
+- [通过 Rust 学习解析器组合器 - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
+- [通过 Rust 学习解析器组合器 - 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
-## Licence
+## 许可证
 
-This work is copyright Bodil Stokke and is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Licence. To view a copy of this licence, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+本作品版权归 Bodil Stokke 所有，在知识共享署名-非商业性-相同方式共享 4.0 协议之条款下提供授权许可。要查看此许可证，请访问 http://creativecommons.org/licenses/by-nc-sa/4.0/。
 
-## Footnotes
+## 脚注
 
-1: He isn't really your uncle.
-2: Please don't be that person at parties.
+1: 他不是你真正的叔叔
+2: 请不要成为聚会上的那个人。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
