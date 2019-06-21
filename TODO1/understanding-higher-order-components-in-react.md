@@ -2,24 +2,24 @@
 > * 原文作者：[Chidume Nnamdi 🔥💻🎵🎮](https://medium.com/@kurtwanger40)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-higher-order-components-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-higher-order-components-in-react.md)
-> * 译者：
+> * 译者：[ZavierTang](https://github.com/ZavierTang)
 > * 校对者：
 
-# Understanding Higher-Order Components in React
+# 理解 React 中的高阶组件
 
-> Your complete guide to higher-order React components
+> 一篇关于 React 高阶组件的完整指南
 
 ![](https://cdn-images-1.medium.com/max/2560/1*0fo4LLhFgxrhLTugpFdsmg.jpeg)
 
-In our last post, we talked about type-checking in React; we saw how to specify the types of props in our React components despite being written in JS.
+在我的上一篇文章中，我们讨论了 React 中的类型检查（type-checking）；我们了解了如何在 React 组件中指定 props 的类型，尽管是在用 JS 编写代码。
 
-In this post we continue the streak, we will look into HOC in React.
+在这篇文章中，继续研究 React，我们将学习 React 中的 HOC。
 
-## What is HOC?
+## 高阶组件（HOC）是什么？
 
-HOC is an advanced technique in React whereby a function takes a Component argument and returns a new component.
+HOC 是 React 中的一种进阶用法，函数（组件）接收组件作为参数并返回一个新的组件。
 
-```
+```jsx
 function composeComponent(Component) {
     return class extends React.Component {
         render() {
@@ -30,47 +30,47 @@ function composeComponent(Component) {
 }
 ```
 
-Here, the function `composeComponent` accepts an argument `Component` and returns an ES6 class component. The returned class renders the Component argument. The Component arg will be a React component which will be rendered by the returned class component.
+在这里，函数 `composeComponent` 接收了一个 `Component` 变量作为参数并返回一个 ES6 class 定义的组件。返回的 class 组件中使用了参数中的 `Component` 变量。`Component` 参数会是一个 React 组件，它将被返回的 class 组件调用。
 
-For example:
+例如：
 
-```
-class CatComponent {
+```jsx
+class CatComponent extends React.Component {
     render() {
         return <div>Cat Component</div>
     }
 }
 ```
 
-We have a CatComponent that renders this:
+我们有一个 CatComponent 组件，渲染结果如下：
 
 ```
 Cat Component
 ```
 
-We can pass the CatComponet to the composeComponent function to get another component:
+我们可以将 CatComponet 作为参数传递给 composeComponent 函数得到另一个组件：
 
-```
+```js
 const composedCatComponent = composeComponent(CatComponent)
 ```
 
-The composedCatComponent can be rendered:
+所以 composedCatComponent 组件也能够被渲染：
 
-```
+```jsx
 <composedCatComponent />
 ```
 
-and the output will be:
+渲染结果如下：
 
 ```
 Cat Component
 ```
 
-This is the same as Higher-Order function we see in JS.
+这和 JS 中的高阶函数是类似的。
 
-## Higher-Order Function
+## 高阶函数
 
-HO function is a pattern in JS whereby a function takes a function and returns a function as the result. This is possible because of the compositional nature of JS. It means that:
+高阶函数是 JS 中的一种模式，函数接收一个函数作为参数并返回另一个函数作为结果。因为 JS 本身的语法特性使得这是可行的。这意味着以下类型的数据：
 
 * objects
 * arrays
@@ -79,9 +79,9 @@ HO function is a pattern in JS whereby a function takes a function and returns a
 * boolean
 * functions
 
-can be passed to functions as arguments or returned from a function.
+都可以作为参数传递给函数，也可以从函数中返回。
 
-```
+```js
 function mul(x) {
     return (y) => {
         return x * y
@@ -95,11 +95,11 @@ mulTwo(4) // 8
 mulTwo(5) // 10
 ```
 
-The `mul` function returns a function which traps `x` in a closure. This `x` is now available for the returned function to use. The `mul` is now a higher-order function because it returns a function. This means we can use it to build other, more specific functions by using different arguments.
+`mul` 函数返回了一个函数，该函数在闭包中捕获变量 `x` 的值。现在，返回的函数可以使用这个 `x`。`mul` 现在就是一个高阶函数，因为它返回了一个函数。这意味着我们可以调用它通过传递不同的参数来构造其它更具体的函数。
 
-We can use it to create a function that triples its arguments:
+我们可以用它来创建一个函数，返回参数的 3 倍：
 
-```
+```js
 function mul(x) {
     return (y) => {
         return x * y
@@ -113,19 +113,19 @@ triple(4) // 12
 triple(5) // 15
 ```
 
-**what are the benefits of HOs?** When we see ourself repeating a logic over and over. We need to find a way to place the logic in one place and use it from there. HO functions provide a pattern that we can use to implement it.
+**那高阶函数有什么好处？**当我们发现自己一遍又一遍地重复相同的逻辑时。我们需要找到一种方法把相同的逻辑封装在一起，然后从那里调用它。高阶函数就提供了一个我们可以用来实现它的模式。
 
-From the above example, if we continuously multiply by `3` in our app, we can create a function that returns a function that multiplies by `3` `triple`, so whenever we need to write a `multiplication by 3` code, we simply call `triple` passing the number to be multiplied by `3` as parameter.
+从上面的例子中，如果在我们的程序中需要多次乘以 3，我们就可以创建一个函数，返回另一个乘以参数 3 倍的函数，所以每当我们需要进行 `3 倍乘法`时，我们可以简单地调用通过传递参数 `3` 获得的 `triple` 函数。
 
 ## Cross-cutting concerns with HOC
 
-**What are the benefits of using HOCs in our React app?**
+**所以，在 React 中使用高阶组件又有什么好处呢？**
 
-During the course of our programming, we might find ourselves repeating the same logic over and over again.
+同样，我们在 React 项目的编程过程中，也可能会发现自己一次又一次地重复相同的逻辑。
 
-For example, we have an app to view and edit documents. Basically, we will want to authenticate the app the app so that the only authenticated users could access the dashboard, edit a document, view a document or delete a document. We will have our routes like this:
+例如，我们有一个应用程序是用来查看和编辑文档的。我们希望对应用程序的用户进行身份验证，这样只有经过身份验证的用户才能访问主页、编辑文档、查看文档或删除文档。我们的路由是这样设计的：
 
-```
+```jsx
 <Route path="/" component={App}>
     <Route path="/dashboard" component={Documents}/>
     <Route path="document/:id/view" component={ViewDocument} />
@@ -134,9 +134,9 @@ For example, we have an app to view and edit documents. Basically, we will want 
 </Route>
 ```
 
-We will have to auth Documents so only auth’d users can access it. We would do something like this:
+我们必须在 `Documents` 组件中进行验证，这样只有通过验证的用户才能访问它。如下：
 
-```
+```jsx
 class Doucments extends React.Component {
     componentwillMount() {
         if(!this.props.isAuth){
@@ -159,13 +159,13 @@ function mapstateToProps(state) {
 export default connect(mapStateToProps)(Documents)
 ```
 
-The state.auth holds the state of the user. IF the user is not auth’d it will be false, if auth’d it will be true. The connect function will map the state to the components isAuth props object. Then when the component tries to mount on the DOM the componentWillMount is fired, so there we check if the isAuth prop is true. If it is true the method passes down if not the method pushes route “/” the index page to the router which makes our browser load the index page inside of rendering the documents component effectively denying an unauth’d user access to it.
+`state.auth` 保存了用户的状态。如果用户没有通过验证，它的值是 `false`，如果通过验证，它将是 `true`。`connect` 函数将 `state.auth` 映射到组件 `props` 对象的 `isAuth`。然后，当组件将要挂载到 DOM 上时，`componentWillMount` 被触发，因此我们检查 `props` 的 `isAuth` 是否为真。如果为真，组件会继续渲染；否则，则该方法会将路由切换到 “/” 路径，从而使得我们的浏览器在渲染 `Documents` 组件时被重定向到了首页，从而有效地组织了未经授权的用户对它的访问。
 
-When the component tries to re-render after the initial rendering, we only do the same in the componentWillUpdate to check if the user is still auth’d, if not we load the index page.
+当组件在初始渲染之后再次渲染时，我们只在 `componentWillUpdate` 中执行相同的操作，以检查用户是否仍然具有授权，如果没有，则同样重定向到首页。
 
-Now we can gon to do the same in the ViewDocument:
+然后，我们可以在 `ViewDocument` 组件中做同样的处理：
 
-```
+```jsx
 class ViewDoucment extends React.Component {
     componentwillMount() {
         if(!this.props.isAuth){
@@ -188,9 +188,9 @@ function mapstateToProps(state) {
 export default connect(mapStateToProps)(ViewDocument)
 ```
 
-In the EditDocument:
+在 `EditDocument` 组件中：
 
-```
+```jsx
 class EditDocument extends React.Component {
     componentwillMount() {
         if(!this.props.isAuth){
@@ -213,9 +213,9 @@ function mapstateToProps(state) {
 export default connect(mapStateToProps)(EditDocument)
 ```
 
-In the DelDocument:
+在 `DelDocument` 组件中：
 
-```
+```jsx
 class DelDocument extends React.Component {
     componentwillMount() {
         if(!this.props.isAuth){
@@ -238,22 +238,22 @@ function mapstateToProps(state) {
 export default connect(mapStateToProps)(DelDocument)
 ```
 
-The pages do different things but their implementation is the same.
+不同的页面具有不同的功能，但它们的大部分实现逻辑是相同的。
 
-Each component:
+在每个组件中的操作：
 
-* connect to the state via react-redux connect.
-* map the state `auth` to their `props` `isAuth` property
-* check for authentication in the componentWillMount
-* check for authentication in the componentWillUpdate
+* 通过 react-redux 连接到 store 的 state。
+* 将 `state.auth` 映射到组件的 `props.isAuth` 属性。
+* 在 `componentWillMount` 中检查用户是否授权。
+* 在 `componentWillUpdate` 中检查用户是否授权。
 
-Imagine our project grows big into many components, we find ourselves adding the above in each component. It will be quite boring for sure.
+假设我们的项目扩展了更多其他的组件，我们发现我们在每个组件中都实现了上述的操作。这肯定会很无聊的。
 
-We need to need to find a way to define the logic in a single place. The best bet is to use HOC.
+我们需要找到只在一个地方实现逻辑的方式。最好的办法就是使用高阶组件（HOC）。
 
-To do that we move all our logic into a function that will return a component:
+为此，我们将所有的逻辑封装到一个函数中，该函数将返回一个组件：
 
-```
+```jsx
 function requireAuthentication(composedComponent) {
     class Authentication extends React.Component {
         componentwillMount() {
@@ -277,11 +277,11 @@ function requireAuthentication(composedComponent) {
 }
 ```
 
-You see that we move all the similar implementation inside the Authentication component. The requireAuthentication function will return connect the Authentication component to the store and return it. Then the Authentication will render the component passed in through ComposedCompoennt argument.
+可以看到，我们将所有相同的逻辑都封装到了 `Authentication` 组件中。`requireAuthentication` 函数将把 `Authentication` 组件连接到 store 并返回它。然后，`Authentication` 组件将渲染通过 `composedCompoennt` 参数传入的组件。
 
-Our routes will now look like this:
+我们的路由现在这样的:
 
-```
+```jsx
 <Route path="/" component={App}>
     <Route path="/dashboard" component={requireAuthentication(Documents)}/>
     <Route path="document/:id/view" component={requireAuthentication(ViewDocument)} />
@@ -290,27 +290,27 @@ Our routes will now look like this:
 </Route>
 ```
 
-So you see no matter a million routes our app will have in the future, we would not worry about adding authentication to the component, we just call the requireAuthentication function with the component passed to it.
+因此，无论我们的应用程序将来会有多少条路由，我们都不用考虑向组件添加身份验证的逻辑，我们只需调用 `requireAuthentication` 函数，并将组件作为参数传递给它。
 
-There many benefits of using HOCs. When you find yourself repeating your yourself you need to move the logic to a definite place and apply HOC.
+使用高阶组件（HOC）会有很多的好处。当你发现你在重复相同的逻辑时，你需要把相同的逻辑封装到一起，并使用高阶函数（HOC）。
 
-## Conclusion
+## 总结
 
-In summary a Higher-Order function:
+高阶函数：
 
-* returns a function
-* can be used to solve the DRY problem
+* 返回一个函数；
+* 能够解决这个无聊的问题。
 
-A Higher-Order component:
+React 高阶组件：
 
-* takes a component as an argument
-* returns another component
-* the returned component will render the original component.
-* can be used to solve the DRY problem
+* 接收一个组件作为参数；
+* 返回另一个组件；
+* 返回的组件将渲染通过参数传递的组件；
+* 能够解决这个无聊的问题。
 
-If you have any question regarding this or anything I should add, correct or remove, feel free to comment, email or DM me
+如果你对这篇文章有任何的疑问，或者你认为有任何需要添加、更正或删除的内容，请给我评论或者发邮件。
 
-Thanks!
+谢谢！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
