@@ -14,21 +14,19 @@
 - [通过 Rust 学习解析器组合器 - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
 - [通过 Rust 学习解析器组合器 - 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
-### A Predicate Combinator
+### 判定组合器
 
-We now have the building blocks we need to parse that whitespace with `one_or_more`, and to parse the attribute pairs with `zero_or_more`.
-现在我们有了构建的代码块，我们需要通过它用 `one_or_more` 解析空格符，并且用 `zero_or_more` 解析属性对。
+现在我们有了构建的代码块，我们需要通过它用 `one_or_more` 解析空格符，并用 `zero_or_more` 解析属性对。
 
-Actually, hold on a moment. We don't really want to parse the whitespace **then** parse the attributes. If you think about it, if there are no attributes, the whitespace is optional, and we could encounter an immediate `>` or `/>`. But if there's an attribute, there **must** be whitespace first. Lucky for us, there must also be whitespace between each attribute, if there are several, so what we're really looking at here is a sequence of **zero or more** occurrences of **one or more** whitespace items followed by the attribute.
-事实上，得等一下。我们并不想先解析空格符**然后**解析属性。如果你考虑到，在没有属性的情况下，空格符也是可选的，并且我们可以会立即遇到 `>` 或  `/>`。但如果有一个属性时，我们就**必须**先解析空格符。幸运的是，每个属性之间一定会有空格，如果有多个空格的话，那么我们将会看到**零个或者多个**序列还有**一个或者多个**空格符出现在属性后。
+事实上，得等一下。我们并不想先解析空格符**然后**解析属性。如果你考虑到，在没有属性的情况下，空格符也是可选的，并且我们可能会立即遇到 `>` 或 `/>`。但如果有一个属性时，在开头就**一定**会有空格符。幸运的是，每个属性之间也一定会有空格符，如果有多个的话，那么我们看看**零个或者多个**序列，该序列是在属性后跟随**一个或者多个**空格符。
 
 首先，我们需要一个针对单个空格的解析器。这里我们可以从三种方式选择其中一种。
 
 第一，我们可以最简单的使用 `match_literal` 解析器，它带有一个只包含一个空格的字符串。这看起来是不是很傻？因为空格符也相当于是换行符、制表符和许多奇怪的 Unicode 字符，它们都是以空白的形式呈现的。我们将不得不再次依赖 Rust 的标准库，当然，`char` 有一个 `is_whitespace` 方法，也是类似于它的 `is_alphabetic` 和 `is_alphanumeric` 方法。
 
-第二，我们可以编写一个解析器，它是通过 `is_whitespace` 谓词解析任意数量的空格，就像我们前面写到的 `identifier` 一样。
+第二，我们可以编写一个解析器，它是通过 `is_whitespace` 来判定解析任意数量的空格，就像我们前面写到的 `identifier` 一样。
 
-第三，我们可以更明智一点，我们确实喜欢更明智。我们可以编写一个解析器 `any_char`，它返回一个单独的 `char`，只要输入中还有空格符，接着编写一个 `pred` 组合器，它接受一个解析器和一个判定，并将它们像这样组合起来：`pred(any_char, |c| c.is_whitespace())`。这样做会有一个好处，它使我们最终的解析器的编写变得更简单：属性值使用引用字符串。
+第三，我们可以更明智一点，我们确实喜欢更明智的做法。我们可以编写一个解析器 `any_char`，它返回一个单独的 `char`，只要输入中还有空格符，接着编写一个 `pred` 组合器，它接受一个解析器和一个判定函数，并将它们像这样组合起来：`pred(any_char, |c| c.is_whitespace())`。这样做会有一个好处，它使我们最终的解析器的编写变得更简单：属性值使用引用字符串。
 
 `any_char` 可以看做是一个非常简单的解析器，但我们必须记住小心那些 UTF-8 陷阱。
 
@@ -79,7 +77,7 @@ fn whitespace_char<'a>() -> impl Parser<'a, char> {
 }
 ```
 
-现在，我们有了 `whitespace_char`，我们所做的更加接近我们的想法了，**一个或中多个空格**，以及类似的想法，**零个或者多个空格**。我们将其简化一下，分别将它们命名为 `space1` 和 `space0`。
+现在，我们有了 `whitespace_char`，我们所做的离我们的想法更近了，**一个或多个空格**，以及类似的想法，**零个或者多个空格**。我们将其简化一下，分别将它们命名为 `space1` 和 `space0`。
 
 ```
 fn space1<'a>() -> impl Parser<'a, Vec<char>> {
@@ -112,12 +110,10 @@ fn quoted_string<'a>() -> impl Parser<'a, String> {
 
 在这里，组合器的嵌套有点烦人，但我们暂时不打算重构它，而是将重点放在接下来要做的东西上。
 
-The outermost combinator is a `map`, because of the aforementioned annoying nesting, and it's a terrible place to start if we're going to understand this one, so let's try and find where it really starts: the first quote character. Inside the `map`, there's a `right`, and the first part of the `right` is the one we're looking for: the `match_literal("\"")`. That's our opening quote.
 最外层的组合器是一个 `map`，因为之前提到嵌套很烦人，从这里开始会变得糟糕并且我们要忍受并理解这一点，我们试着找到开始执行的地方：第一个引号字符。在 `map` 中，有一个 `right`，而 `right` 的第一部分是我们要查找的：`match_literal("\"")`。以上就是我们一开始要着手处理的东西。
 
 `right` 的第二部分是字符串剩余部分的处理。它位于 `left` 的内部，我们会很快的注意到**右侧**的 `left` 参数，是我们要忽略的，也就是另一个 `match_literal("\"")`  —— 结束的引号。所以左侧参数是我们引用的字符串。
 
-We take advantage of our new `pred` and `any_char` here to get a parser that accepts **anything but another quote**, and we put that in `zero_or_more`, so that what we're saying is as follows:
 我们利用新的 `pred` 和 `any_char` 在这里得到一个解析器，它接收**任何字符除了另一个引号**，我们把它放进 `zero_or_more`，所以我们讲的也是以下这些：
 
 * 一个引号
@@ -156,8 +152,7 @@ fn attribute_pair<'a>() -> impl Parser<'a, (String, String)> {
 
 太轻松了，汗都没出一滴！总结一下：我们已经有一个便利的组合器用于解析元组的值，也就是 `pair`，我们可以将其作为 `identifier` 解析器，迭代出一个 `String`， 以及一个带有 `=` 的 `right` 解析器，它的返回值我们不想保存，并且我们刚写出来的 `quoted_string` 解析器会返回给我们 `String` 类型的值。
 
-Now, let's combine that with `zero_or_more` to build that vector - but let's not forget that whitespace in between them.
-现在，我们结合一下 `zero_or_more`，去构建一下 vector —— 但不要忘了它们之间的空格符。
+现在，我们结合一下 `zero_or_more`，去构建一个 vector —— 但不要忘了它们之间的空格符。
 
 ```
 fn attributes<'a>() -> impl Parser<'a, Vec<(String, String)>> {
@@ -165,7 +160,7 @@ fn attributes<'a>() -> impl Parser<'a, Vec<(String, String)>> {
 }
 ```
 
-以下情况会出现零次或者多次：一个或者多个空白符，其后是一个属性对。我们通过 `right` 丢弃空白符病保留属性对。
+以下情况会出现零次或者多次：一个或者多个空白符，其后是一个属性对。我们通过 `right` 丢弃空白符并保留属性对。
 
 我们测试一下它。
 
@@ -185,12 +180,11 @@ fn attribute_parser() {
 }
 ```
 
-Tests are green! Ship it!
 测试是通过的！先别高兴太早！
 
-实际上，有些问题，在这个情况中，我的 rustc 已经给出提示信息表示我的类型过于复杂，我需要增加可允许的类型范围才能让编译继续。鉴于在同一点上遇到了相同的错误是有利的，如果你是这种情况，你需要知道如何处理它。幸运的是，在这些情况下，rustc 通常会给出好的建议，所以当它告诉你在文件顶部添加 `#![type_length_limit = "…some big number…"]` 注解时，照做就行了。在实际情况中，就是添加 `#![type_length_limit = "16777216"]`，这将使我们更进一步深入到复杂类型的平流层。全速前进，我们就要上天了。
+实际上，有些问题，在这个情况中，我的 rustc 编译器已经给出提示信息表示我的类型过于复杂，我需要增加可允许的类型范围才能让编译继续。鉴于我们在同一点上遇到了类似的错误，这是有利的，如果你是这种情况，你需要知道如何处理它。幸运的是，在这些情况下，rustc 通常会给出好的建议，所以当它告诉你在文件顶部添加 `#![type_length_limit = "…some big number…"]` 注解时，照做就行了。在实际情况中，就是添加 `#![type_length_limit = "16777216"]`，这将使我们更进一步深入到复杂类型的平流层。全速前进，我们就要上天了。
 
-### So Close Now
+### 现在离答案很近了
 
 在这一点上，这些东西看起来即将要组合到一起了，有些解脱了，因为我们的类型正快速接近于 NP 完全性理论。我们只需要处理两种元素标签：单个元素以及带有子元素的父元素，但我们非常有信心，一旦我们有了这些，解析子元素就只需要使用 `zero_or_more`，是吗？
 
@@ -238,14 +232,13 @@ fn single_element_parser() {
 }
 ```
 
-…and I think we just ran out of stratosphere.
 ...我想我们已经逃离出平流层了。
 
 `single_element` 返回的类型是如此的复杂，以至于编译器不能顺利的完成编译，除非我们提前给出足够大内存空间的类型，甚至要求更大的类型。很明显，我们不能再忽略这个问题了，因为它是一个非常简单的解析器，却需要数分钟的编译时间 —— 这会导致最终的产品可能需要数小时来编译 —— 这似乎有些不合理。
 
 在继续之前，你最好将这两个函数和测试用例注释掉，便于我们进行修复...
 
-### To Infinity And Beyond
+### 处理无限大的问题
 
 如果你曾经尝试过在 Rust 中编写递归类型的东西，那么你可能已经知道这个问题的解决方案。
 
@@ -262,7 +255,7 @@ enum List<A> {
 
 在许多语言中，对于类型系统来说，一个无限列表原则上不是问题，而且对 Rust 来说也不是什么问题。问题是，前面提到的，在 Rust 中，我们需要能够**分配**它，或者，更确切的说，我们需要能够在构造类型时先确定类型的**大小**，当类型是无限的时候，这意味着大小也必须是无限的。
 
-解决办法是采用间接的方法。我们不是将 `List::Cons` 改为 `A` 的一个元素和另一个 `A` 的**列表**，反而是使用一个 `A` 元素和一个指向 `A` 列表的**指针**。我们已知指针的大小，不管它指向什么，它都是相同的，所以我们的 `List::Cons` 现在是一个固定大小的并且可预测的，不管列表的大小如何。把一个已有的数据变成将数据存储于堆上，并且用指针指向该堆内存的方法，在 Rust 中，就是使用 `Box` 处理它。
+解决办法是采用间接的方法。我们不是将 `List::Cons` 改为 `A` 的一个元素和另一个 `A` 的**列表**，反而是使用一个 `A` 元素和一个指向 `A` 列表的**指针**。我们已知指针的大小，不管它指向什么，它都是相同的大小，所以我们的 `List::Cons` 现在是一个固定大小的并且可预测的，不管列表的大小如何。把一个已有的数据变成将数据存储于堆上，并且用指针指向该堆内存的方法，在 Rust 中，就是使用 `Box` 处理它。
 
 ```
 enum List<A> {
@@ -275,7 +268,7 @@ enum List<A> {
 
 听起来很不错。有什么缺陷吗？好吧，我们可能会因为使用指针的方式而损失一两次循环，也可能会让编译器失去一些优化解析器的机会。但是想起 Knuth 的关于过早优化的提醒：一切都会好起来的。损失这些循环是值得的。你在这里是学习关于解析器组合器，而不是学习手工编写专业的 [SIMD 解析器](https://github.com/lemire/simdjson)（尽管它们本身会令人兴奋）
 
-因此，抛开目前我们使用的简单函数，让我们继续基于 **即将要完成**的解析器函数来实现 `Parser`
+因此，抛开目前我们使用的简单函数，让我们继续基于**即将要完成**的解析器函数来实现 `Parser`
 
 ```
 struct BoxedParser<'a, Output> {
@@ -300,7 +293,7 @@ impl<'a, Output> Parser<'a, Output> for BoxedParser<'a, Output> {
 }
 ```
 
-为了更好地实现，我们创建了一个新的类型 `BoxedParser` 用于保存 box。我们利用其它的解析器（包括另一个 `BoxedParser`，虽然这没太大作用）来创建新的 `BoxedParser`，我们提供一个新的函数 `BoxedParser::new(parser)`，它只是将解析器放在新类型的 `Box` 中。最后，我们为它实现 `Parser`，这样，它就可以作为解析器交换着使用。
+为了更好地实现，我们创建了一个新的类型 `BoxedParser` 用于保存 Box 相关的数据。我们利用其它的解析器（包括另一个 `BoxedParser`，虽然这没太大作用）来创建新的 `BoxedParser`，我们提供一个新的函数 `BoxedParser::new(parser)`，它只是将解析器放在新类型的 `Box` 中。最后，我们为它实现 `Parser`，这样，它就可以作为解析器交换着使用。
 
 这使我们具备将解析器放入一个 `Box` 中的能力，而 `BoxedParser` 将会以函数的角色为 `Parser` 执行一些逻辑。正如前面提到的，这意味着将 Box 包装的解析器移到堆中，并且必须删除指向该堆区域的指针，这可能会多花费**几纳秒**的时间，所以实际上我们可能想先不用 Box 包装**所有数据**。只是把一些更活跃的组合器数据通过 Box 包装就够了。
 
