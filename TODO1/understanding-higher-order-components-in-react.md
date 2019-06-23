@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-higher-order-components-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-higher-order-components-in-react.md)
 > * 译者：[ZavierTang](https://github.com/ZavierTang)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58), [TiaossuP](https://github.com/TiaossuP)
 
 # 理解 React 中的高阶组件
 
