@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-basic-matrix-operations.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-basic-matrix-operations.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[JackEggie](https://github.com/JackEggie), [shixi-li](https://github.com/shixi-li)
 
 # 线性代数：矩阵基本运算
 
@@ -11,7 +11,7 @@
 
 ![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-在本文中，我们将介绍矩阵的大部分基本运算。后文将依次介绍矩阵的加减法与矩阵的标量乘法、实现矩阵与矩阵的乘法、求转置矩阵，以及深入了解矩阵的行列式运算。本文将不会涉及逆矩阵、矩阵的秩等概念，将来再探讨它们。
+在本文中，我们将介绍矩阵的大部分基本运算，依次是矩阵的加减法、矩阵的标量乘法、矩阵与矩阵的乘法、求转置矩阵，以及深入了解矩阵的行列式运算。本文将不会涉及逆矩阵、矩阵的秩等概念，将来再探讨它们。
 
 ## 矩阵的加减法
 
@@ -76,9 +76,9 @@ console.log(matrix.scaleBy(2))
 
 ## 矩阵乘法
 
-当 **A**、**B** 两个矩阵的维数是**兼容**的时候，就能对这两个矩阵进行矩阵乘法。所谓维数兼容，指的是 **A** 的列数与 **B** 的行数相同。矩阵的乘积 **AB** 是通过对 **A** 的每一行与矩阵 **B** 的每一列计算点积得到：
+当 **A**、**B** 两个矩阵的维数是**兼容**的时候，就能对这两个矩阵进行矩阵乘法。所谓维数兼容，指的是 **A** 的列数与 **B** 的行数相同。矩阵乘法 **AB** 就是对举证 **A** 的每一行行与矩阵 **B** 的每一列分别进行点积运算：
 
-![矩阵乘法图解](https://cdn-images-1.medium.com/max/2544/0*je9iPoT0Mv1OeFzf)
+![matrix-matrix multiplication](https://cdn-images-1.medium.com/max/2544/0*je9iPoT0Mv1OeFzf)
 
 ```JavaScript
 class Matrix {
@@ -123,7 +123,7 @@ console.log(one.multiply(other))
 
 如果在矩阵乘法中调换 **A** 和 **B** 的顺序，我们会得到一个不同的结果，因为相当于先应用了 **B** 的剪切变换，再应用 **A** 的反射变换：
 
-![先剪切变换再旋转](https://cdn-images-1.medium.com/max/2106/1*S7XNcZbrzPq0OJbVBEs6QQ.png)
+![shear than rotate](https://cdn-images-1.medium.com/max/2106/1*S7XNcZbrzPq0OJbVBEs6QQ.png)
 
 ## 转置
 
@@ -210,7 +210,7 @@ console.log(matrix4.determinant())
 // 20
 ```
 
-行列式可以告诉我们变换时对象被拉伸的程度。因此我们可以将其视为线性变换改变面积的因子。为了更好地理解这个概念，请参考 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/)：
+行列式可以告诉我们变换时对象被拉伸的程度。因此我们可以将其视为一个线性变换对区域改变的一个因素。为了更好地理解这个概念，请参考 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/)：
 
 在下图中，我们可以看到对红色的 **1×1** 方形进行线性变换后得到了一个 **3×2** 的长方形，面积从 **1** 变为了 **6**，这个数字与线性变换矩阵的行列式值相同。
 
