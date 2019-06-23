@@ -54,7 +54,7 @@ Cat Component
 const composedCatComponent = composeComponent(CatComponent)
 ```
 
-所以 composedCatComponent 组件也能够被渲染：
+composedCatComponent 组件也能够被渲染：
 
 ```jsx
 <composedCatComponent />
@@ -159,7 +159,7 @@ function mapstateToProps(state) {
 export default connect(mapStateToProps)(Documents)
 ```
 
-`state.auth` 保存了用户的状态。如果用户没有通过验证，它的值是 `false`，如果通过验证，它将是 `true`。`connect` 函数将 `state.auth` 映射到组件 `props` 对象的 `isAuth`。然后，当组件将要挂载到 DOM 上时，`componentWillMount` 被触发，因此我们检查 `props` 的 `isAuth` 是否为真。如果为真，组件会继续渲染；否则，则该方法会将路由切换到 “/” 路径，从而使得我们的浏览器在渲染 `Documents` 组件时被重定向到了首页，从而有效地组织了未经授权的用户对它的访问。
+`state.auth` 保存了用户的验证状态。如果用户没有通过验证，它的值是 `false`，如果通过验证，它将是 `true`。`connect` 函数将 `state.auth` 映射到组件 `props` 对象的 `isAuth`。然后，当组件将要挂载到 DOM 上时，`componentWillMount` 被触发，因此我们检查 `props` 的 `isAuth` 是否为真。如果为真，组件会继续渲染；否则，则该方法会将路由切换到 “/” 路径，从而使得我们的浏览器在渲染 `Documents` 组件时被重定向到了首页，从而有效地组织了未经授权的用户对它的访问。
 
 当组件在初始渲染之后再次渲染时，我们只在 `componentWillUpdate` 中执行相同的操作，以检查用户是否仍然具有授权，如果没有，则同样重定向到首页。
 
@@ -292,7 +292,7 @@ function requireAuthentication(composedComponent) {
 
 因此，无论我们的应用程序将来会有多少条路由，我们都不用考虑向组件添加身份验证的逻辑，我们只需调用 `requireAuthentication` 函数，并将组件作为参数传递给它。
 
-使用高阶组件（HOC）会有很多的好处。当你发现你在重复相同的逻辑时，你需要把相同的逻辑封装到一起，并使用高阶函数（HOC）。
+使用高阶组件（HOC）会有很多的好处。当你发现你在重复相同的逻辑时，你需要把相同的逻辑封装到一起，并使用高阶组件（HOC）。
 
 ## 总结
 
