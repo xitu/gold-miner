@@ -96,8 +96,9 @@ Let us beware, conversely, our own assimilation, like the once fearsome Vikings 
 
 Our foreign policy across the enterprise is to work towards not a melting pot but a mixed salad. 
 
-A simple Conflict Resolution Matrix illustrates this approach (adapted from [here](http://www.cpp.com/en/tkiproducts.aspx?pc=62)). Our stance is neither Competing (Agile wins) nor Accommodating (Agile loses) but Collaborating (the business wins).   
-[![](https://res.infoq.com/articles/agile-agile-blah-blah/en/resources/1agile 1-s-1560257873611.png)](https://res.infoq.com/articles/agile-agile-blah-blah/en/resources/agile 1-1560257874319.png)
+A simple Conflict Resolution Matrix illustrates this approach (adapted from [here](http://www.cpp.com/en/tkiproducts.aspx?pc=62)). Our stance is neither Competing (Agile wins) nor Accommodating (Agile loses) but Collaborating (the business wins).
+
+![](https://res.infoq.com/articles/agile-agile-blah-blah/en/resources/agile%201-1560257874319.png)
 
 This is an example of the Medici Effect at work. Frans Johansson’s 2006 book, The Medici Effect, was a transformative influence on my thinking. The Medici Effect, named after a 14th century Italian family that sparked The European Renaissance, refers to the breakthrough thinking and disruptive innovation that often bursts out of the big bang collision at the intersection of diverse disciplines, cultures, and industries. This idea resonated with me because I had been conducting big bang experiments since I was a kid with a chemistry set. 
 
