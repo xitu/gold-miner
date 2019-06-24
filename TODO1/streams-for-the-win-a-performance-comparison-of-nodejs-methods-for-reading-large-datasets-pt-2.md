@@ -200,9 +200,9 @@ Thanks for reading, I hope this gives you an idea of how to handle large amounts
 
 * [Using Node.js to Read Really, Really Large Datasets & Files (Pt 1)](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)
 * [Sequelize: The ORM for Sequel Databases with Node.js](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
----
-
 * [Why a Spring Cloud Config Server is Crucial to a Good CI/CD Pipeline and How To Set It Up (Pt 1)](https://medium.com/@paigen11/why-a-cloud-config-server-is-crucial-to-a-good-ci-cd-pipeline-and-how-to-set-it-up-pt-1-fa628a125776)
+
+---
 
 **References and Further Resources:**
 
