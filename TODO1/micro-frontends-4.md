@@ -187,7 +187,13 @@ if you found this article useful, please share it. I appreciate the feedback and
 
 ## Acknowledgements
 
-Huge thanks to Charles Korn, Andy Marks, and Willem Van Ketwich for their thorough reviews and detailed feedback. Thanks also to Bill Codding, Michael Strasser, and Shirish Padalkar for their input given on the ThoughtWorks internal mailing list. Thanks to Martin Fowler for his feedback as well, and for giving this this article a home here on his website. And finally, thanks to Evan Bottcher and Liauw Fendy for their encouragement and support.
+Huge thanks to Charles Korn, Andy Marks, and Willem Van Ketwich for their thorough reviews and detailed feedback.
+
+Thanks also to Bill Codding, Michael Strasser, and Shirish Padalkar for their input given on the ThoughtWorks internal mailing list.
+
+Thanks to Martin Fowler for his feedback as well, and for giving this this article a home here on his website.
+
+And finally, thanks to Evan Bottcher and Liauw Fendy for their encouragement and support.
 
 > **建议按照顺序阅读本系列文章：**
 >
