@@ -2,46 +2,46 @@
 > * 原文作者：[Dave Ceddia](https://daveceddia.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/context-api-vs-redux.md](https://github.com/xitu/gold-miner/blob/master/TODO1/context-api-vs-redux.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Xuyuey](https://github.com/Xuyuey)
+> * 校对者：[Minghao](https://github.com/Minghao23), [Baddyo](https://github.com/Baddyo)
 
-# Redux vs. The React Context API
+# Redux vs. React 的 Context API
 
 ![](https://daveceddia.com/images/context-vs-redux.png)
 
-React 16.3 added a new Context API – _new_ in the sense that the _old_ context API was a behind-the-scenes feature that most people either didn’t know about, or avoided using because the docs said to avoid using it.
+React 在 16.3 版本里面引入了新的 Context API —— 说它是**新的**是因为**老版本**的 context API 是一个幕后的试验性功能，大多数人要么不知道，要么就是依据官方文档所说，尽量避免使用它。
 
-Now, though, the Context API is a first-class citizen in React, open to all (not that it wasn’t before, but it’s, like, official now).
+但是，现在 Context API 摇身一变成为了 React 中的一等公民，对所有人开放（不像是之前那样，现在是被官方所提倡使用的）。
 
-As soon as React 16.3 came out there were articles all across the web proclaiming the death of Redux because of this new Context API. If you asked Redux, though, I think it would say “the reports of my death [are greatly exaggerated](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/).”
+React 16.3 版本一发布，宣称新的 Context API 将要取缔 Redux 的文章在网上铺天盖地而来。但是，如果你去问问 Redux，我认为它会说“那些宣告我会死亡的报道实在是[言过其实](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/)”。
 
-In this post I want to cover how the new Context API works, how it is similar to Redux, when you might want to use Context _instead of_ Redux, and why Context doesn’t replace the need for Redux in every case.
+在这篇文章中，我想向大家介绍一下新的 Context API 是如何工作的，它与 Redux 的相似之处，什么情况下可以使用 Context API **而不是** Redux，以及为什么不是所有情况下 Context API 都可以替换 Redux 的原因。
 
-**If you just want an overview of Context, you can [skip down to that](#how-to-use-the-react-context-api).**
+**如果你只是想了解 Context 的概述，可以[跳转到这一节](#如何使用-react-context-api)。**
 
-## A Plain React Example
+## 一个简单的 React 例子
 
-I’m going to assume you’ve got the basics of React down pat (props & state), but if you don’t, take my free 5-day course to learn the basics of React:
+这里假设你已经了解了 React 的基础知识（props 和 state），但是如果你还没有，你可以参加我的 5 天免费课程，来学习 React 基础知识。
 
-Let’s look at an example that would cause most people to reach for Redux. We’ll start with a plain React version, and then see what it looks like in Redux, and finally with Context.
+让我们看一个可以让大多数人接触 Redux 的例子。我们将从一个单纯的 React 版本开始介绍，然后看看它在 Redux 中的样子，最后是 Context。
 
-![The component hierarchy](https://daveceddia.com/images/context-v-redux-app-screenshot.png)
+![组件层级](https://daveceddia.com/images/context-v-redux-app-screenshot.png)
 
-This app has the user’s information displayed in two places: in the nav bar at the top-right, and in the sidebar next to the main content.
+在该应用中用户信息显示在两个位置：导航栏的右上角以及主要内容旁边的侧边栏。
 
-(You might notice it looks suspiciously like Twitter. Not an accident! One of the best ways to hone your React skills is through [copywork – building replicas of existing apps](https://daveceddia.com/learn-react-with-copywork/))
+（你可能会注意到它看起来很像 Twitter。这绝对不是碰巧的！磨练 React 技能的最佳方法之一就是通过[复制 —— 构建现有应用的副本](https://daveceddia.com/learn-react-with-copywork/)）。
 
-The component structure looks like this:
+组件结构如下所示：
 
-![The component hierarchy](https://daveceddia.com/images/context-v-redux-app-tree.png)
+![组件层级](https://daveceddia.com/images/context-v-redux-app-tree.png)
 
-With pure React (just regular props), we need to store the user’s info high enough in the tree that it can be passed down to the components that need it. In this case, the keeper of user info has to be `App`.
+使用纯 React（仅仅是常规的 props），我们需要在组件树中足够高的位置存储用户信息，这样我们才可以将它向下传递给每一个需要它的组件。在我们的例子中，用户信息必须存储在 `App` 中。
 
-Then, in order to get the user info down to the components that need it, App needs to pass it along to Nav and Body. They, in turn, need to pass it down _again_, to UserAvatar (hooray!) and Sidebar. Finally, Sidebar has to pass it down to UserStats.
+接着，为了将用户信息向下传递给需要它的组件，App 需要先将它传递给 Nav 和 Body。然后，**再次**向下传递给 UserAvatar（万岁！终于到了）和 Sidebar。最后，Sidebar 还要再将它传递给 UserStats。
 
-Let’s look at how this works in code (I’m putting everything in one file to make it easier to read, but in reality these would probably be split out into separate files following [some kind of standard structure](https://daveceddia.com/react-project-structure/)).
+让我们来看看代码是怎么工作的（为了方便阅读，我将所有的内容放在一个文件内，但实际上这些内容可能会按照[某种标准结构](https://daveceddia.com/react-project-structure/)分成几个文件）。
 
-```
+```js
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
@@ -114,29 +114,29 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.querySelector("#root"));
 ```
 
-[Here’s a working example on CodeSandbox](https://codesandbox.io/s/q8yqx48074).
+[查看 CodeSandbox 中的在线示例](https://codesandbox.io/s/q8yqx48074)。
 
-Here, `App` [initializes the state](https://daveceddia.com/where-initialize-state-react/) to contain the “user” object – in a real app you’d probably [fetch this data from a server](https://daveceddia.com/ajax-requests-in-react/) and keep it in state for rendering.
+在这里，`App` [初始化 state](https://daveceddia.com/where-initialize-state-react/) 时已经包含了 “user” 对象 —— 但是在真实应用中你可能会需要[从服务器上获取该数据](https://daveceddia.com/ajax-requests-in-react/)并将它保存在 state 中，以便渲染。
 
-In terms of prop drilling, this isn’t _terrible_. It works just fine. “Prop drilling” is not discouraged by any means; it’s a perfectly valid pattern and core to the way Reat works. But deep drilling can be a bit annoying to write. And it gets more annoying when you have to pass down a lot of props (instead of just one).
+这种 prop drilling（译者注：属性的向下传递）的方式，并非**糟糕**的做法。它工作的还不错。并不是所有情况下都不鼓励 “prop drilling”；它是一种完美的有效模式，是支持 React 工作的核心。但是如果组件的层次太深，在你编写的时候就会有点烦人。特别是当你向下传递不止一个属性，而是一大堆的时候，它会变得更加烦人。
 
-There’s a bigger downside to this “prop drilling” strategy though: it creates coupling between components that would otherwise be decoupled. In the example above, `Nav` needs to accept a “user” prop and pass it down to `UserAvatar`, even though Nav does not have any need for the `user` otherwise.
+然而，这种 “prop drilling” 策略有一个更大的缺点：它会让本应该独立的组件耦合在一起。在上面的例子中，`Nav` 组件需要接收一个 “user” 属性，再将它传递给 `UserAvatar`，即使 `Nav` 中没有任何其它的地方需要用到 `user` 属性。
 
-Tightly-coupled components (like ones that forward props down to their children) are more difficult to reuse, because you’ve gotta wire them up with their new parents whenever you plop one down in a new location.
+紧密耦合的组件（就像那些向它们的子组件传递属性的组件）更加难以被复用，因为无论什么时候你要在新的地方使用它，你都必须将它们和新的父组件联系起来。
 
-Let’s look at how we might improve it.
+让我们来看看如何改进。
 
-## Before You Reach for Context or Redux…
+## 在使用 Context 或者 Redux 之前……
 
-If you can find a way to _coalesce_ your app structure and take advantage of the `children` prop, it can lead to cleaner code without having to resort to deep prop drilling, _or Context, or Redux_.
+如果你可以找到一种方法来**合并**应用的结构，并利用好 `children` 属性，这样，无需借助深层次的 prop drilling **或是 Context，或是 Redux**，你也可以让代码结构变得更清晰。
 
-The children prop is a great solution for components that need to be generic placeholders, like `Nav`, `Sidebar`, and `Body` in this example. Also know that you can pass JSX elements into _any_ prop, not just the one named “children” – so if you need more than one “slot” to plug components into, keep that in mind.
+对于那些需要使用通用占位符的组件，例如本例中的 `Nav`、`Sidebar` 和 `Body`，children 属性是一个很好的解决方案。还要知道，你可以传递 JSX 元素给**任意**属性，并不仅仅是 “children” —— 所以如果你想使用不止一个 “slot” 来插入组件时，请记住这一点。
 
-Here’s a version of the React example where `Nav`, `Body`, and `Sidebar` accept children and render them as-is. This way, the user of the component doesn’t need to worry about passing down specific pieces of data that the component needs – the user can simply render what it needs to, in place, using the data it already has in scope. This example also shows how to use _any_ prop to pass children.
+这个例子中 `Nav`、`Sidebar` 和 `Body` 接收 children，然后按照它们的样子渲染出来。这样，组件的使用者不用担心传递给组件的特定数据 —— 他只需要使用组件内定义的数据，并按照组件的原始需求简单地渲染组件。这个例子中还说明了怎样使用**任意**属性传递 children。
 
-(Thanks to Dan Abramov for [this suggestion](https://twitter.com/dan_abramov/status/1021850499618955272)!)
+（感谢 Dan Abramov 的[这个建议](https://twitter.com/dan_abramov/status/1021850499618955272)！)
 
-```
+```js
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
@@ -162,7 +162,7 @@ const UserStats = ({ user }) => (
   </div>
 );
 
-// Accept children and render it/them
+// 接收并渲染 children
 const Nav = ({ children }) => (
   <div className="nav">
     {children}
@@ -179,8 +179,8 @@ const Sidebar = ({ children }) => (
   </div>
 );
 
-// Body needs a sidebar and content, but written this way,
-// they can be ANYTHING
+// Body 需要一个 sidebar 和 content，但是可以按照这样的方式写，
+// 它们可以是任意属性
 const Body = ({ sidebar, content }) => (
   <div className="body">
     <Sidebar>{sidebar}</Sidebar>
@@ -219,34 +219,34 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.querySelector("#root"));
 ```
 
-Here’s the [working example on CodeSandbox](https://codesandbox.io/s/mj19ywz0oy).
+[查看 CodeSandbox 中的在线示例](https://codesandbox.io/s/mj19ywz0oy)。
 
-If your app is too complex (more complex than this example!), maybe it’s tough to figure out how to adapt the `children` pattern. Let’s see how you might replace the prop drilling with Redux.
+如果你的应用太复杂了（比这个例子更复杂！），也许很难弄清楚如何调整 `children` 模式。让我们来看看如何用 Redux 替换 prop drilling。
 
-## Redux Example
+## 使用 Redux 的例子
 
-I’m going to go through the Redux example quickly so we can look more deeply at how Context works, so if you are fuzzy on Redux, read my [intro to Redux](https://daveceddia.com/how-does-redux-work/) first (or [watch the video](https://youtu.be/sX3KeP7v7Kg)).
+这里我会快速过一下 Redux 示例，这样我们可以多用点时间深入地了解 Context 的工作原理，所以如果你不是很清楚 Redux，可以先去看看我的 [Redux 简介](https://daveceddia.com/how-does-redux-work/)（或者[观看视频](https://youtu.be/sX3KeP7v7Kg)）。
 
-Here’s the React app from above, refactored to use Redux. The `user` info has been moved to the Redux store, which means we can use react-redux’s `connect` function to directly inject the `user` prop into components that need it.
+我们使用的还是上面的 React 应用，这里我们将它重构为 Redux 版本。`user` 信息被移入了 Redux 存储，这意味着我们可以使用 react-redux 的 `connect` 函数，直接将 `user` 属性注入到需要它的组件中。
 
-This is a big win in terms of decoupling. Take a look at `Nav`, `Body`, and `Sidebar` and you’ll see that they’re no longer accepting and passing dow the `user` prop. No more playing hot potato with props. No more needless coupling.
+这在解耦方面是一个巨大的胜利。看看 `Nav`、`Sidebar` 和 `Body`，你会发现它们不再接收和向下传递 `user` 属性了。不用再玩 props 这块烫手山芋了。当然也不会有更多不必要的耦合。
 
-The reducer here doesn’t do much; it’s pretty simple. I’ve got more elsewhere about [how Redux reducers work](https://daveceddia.com/what-is-a-reducer/) and [how to write the immutable code](https://daveceddia.com/react-redux-immutability-guide/) that goes in them.
+这里的 reducer 没有做很多工作；非常的简单。我在其它地方有更多关于 [Redux Reducer 如何工作](https://daveceddia.com/what-is-a-reducer/)以及[如何编写其中的不可变代码](https://daveceddia.com/react-redux-immutability-guide/)的文章，你可以看看。
 
-```
+```js
 import React from "react";
 import ReactDOM from "react-dom";
 
-// We need createStore, connect, and Provider:
+// 我们需要 createStore、connect 和 Provider:
 import { createStore } from "redux";
 import { connect, Provider } from "react-redux";
 
-// Create a reducer with an empty initial state
+// 创建一个初始 state 为空的 reducer
 const initialState = {};
 function reducer(state = initialState, action) {
   switch (action.type) {
-    // Respond to the SET_USER action and update
-    // the state accordingly
+    // 响应 SET_USER 行为并更新
+    // 相应的 state
     case "SET_USER":
       return {
         ...state,
@@ -257,11 +257,11 @@ function reducer(state = initialState, action) {
   }
 }
 
-// Create the store with the reducer
+// 使用 reducer 创建 store
 const store = createStore(reducer);
 
-// Dispatch an action to set the user
-// (since initial state is empty)
+// 触发设置 user 的行为
+// （因为 user 初始化时为空）
 store.dispatch({
   type: "SET_USER",
   user: {
@@ -272,16 +272,16 @@ store.dispatch({
   }
 });
 
-// This mapStateToProps function extracts a single
-// key from state (user) and passes it as the `user` prop
+// 函数 mapStateToProps 从 state 对象中提取 user 值
+// 并将它作为 `user` 属性传递
 const mapStateToProps = state => ({
   user: state.user
 });
 
-// connect() UserAvatar so it receives the `user` directly,
-// without having to receive it from a component above
+// connect() UserAvatar 以便它可以直接接收 `user` 属性，
+// 而无需从上层组件中获取
 
-// could also split this up into 2 variables:
+// 也可以把它分成下面 2 个变量：
 //   const UserAvatarAtom = ({ user, size }) => ( ... )
 //   const UserAvatar = connect(mapStateToProps)(UserAvatarAtom);
 const UserAvatar = connect(mapStateToProps)(({ user, size }) => (
@@ -292,9 +292,9 @@ const UserAvatar = connect(mapStateToProps)(({ user, size }) => (
   />
 ));
 
-// connect() UserStats so it receives the `user` directly,
-// without having to receive it from a component above
-// (both use the same mapStateToProps function)
+// connect() UserStats 以便它可以直接接收 `user` 属性，
+// 而无需从上层组件中获取
+// （同样使用 mapStateToProps 函数）
 const UserStats = connect(mapStateToProps)(({ user }) => (
   <div className="user-stats">
     <div>
@@ -308,7 +308,7 @@ const UserStats = connect(mapStateToProps)(({ user }) => (
   </div>
 ));
 
-// Nav doesn't need to know about `user` anymore
+// Nav 不再需要知道 `user` 属性
 const Nav = () => (
   <div className="nav">
     <UserAvatar size="small" />
@@ -319,14 +319,14 @@ const Content = () => (
   <div className="content">main content here</div>
 );
 
-// Sidebar doesn't need to know about `user` anymore
+// Sidebar 也不再需要知道 `user` 属性
 const Sidebar = () => (
   <div className="sidebar">
     <UserStats />
   </div>
 );
 
-// Body doesn't need to know about `user` anymore
+// body 同样不需要知道 `user` 属性
 const Body = () => (
   <div className="body">
     <Sidebar />
@@ -334,8 +334,8 @@ const Body = () => (
   </div>
 );
 
-// App doesn't hold state anymore, so it can be
-// a stateless function
+// App 不再需要保存 state，
+// 所以可以把它写成一个无状态组件
 const App = () => (
   <div className="app">
     <Nav />
@@ -343,8 +343,8 @@ const App = () => (
   </div>
 );
 
-// Wrap the whole app in Provider so that connect()
-// has access to the store
+// 用 Provider 包裹整个 App，
+// 以便 connect() 可以连接到 store
 ReactDOM.render(
   <Provider store={store}>
     <App />
@@ -353,78 +353,78 @@ ReactDOM.render(
 );
 ```
 
-[Here’s the Redux example on CodeSandbox](https://codesandbox.io/s/943yr0qp3o).
+[查看 CodeSandbox 中的在线示例](https://codesandbox.io/s/943yr0qp3o)。
 
-Now you might be wondering how Redux achieves this magic. It’s a good thing to wonder. How is it that React doesn’t support passing props down multiple levels, but Redux is able to do it?
+现在你可能想知道 Redux 如何能实现这样神奇的功能。“想知道”是一件好事情。React 不支持跨越多个层级传递属性，那为何 Redux 可以实现呢？
 
-The answer is, Redux uses React’s _context_ feature. Not the modern Context API (not yet) – the old one. The one the React docs said not to use unless you were writing a library or knew what you were doing.
+答案是 Redux 使用了 React 的 **context**（**上下文**）特性。不是现在我们说的 Context API（还不是）—— 而是旧的那个。就是 React 文档说不要使用的那个，除非你在写库文件或者你知道在做什么。
 
-Context is like an electrical bus running behind every component: to receive the power (data) passing through it, you need only plug in. And (React-)Redux’s `connect` function does just that.
+Context 就像一个在每个组件背后运行的电子总线：要接收它传递的电源（数据），你只需要插入插头就好。而（React-）Redux 的 `connect` 函数就是做这件事的。
 
-This feature of Redux is just the tip of the iceberg, though. Passing data around all over the place is just the most _apparent_ of Redux’s features. Here are a few other benefits you get out of the box:
+不过，Redux 的这个功能只是冰山一角。可以在所有地方传递数据只是 Redux 最**明显**的功能。以下是你可以开箱即用的其他一些好处：
 
-### `connect` is pure
+### `connect` 使你的组件很纯粹
 
-`connect` automatically makes connected components “pure,” meaning they will only re-render when their props change – a.k.a. when their slice of the Redux state changes. This prevents needless re-renders and keeps your app running fast. DIY method: Create a class that extends `PureComponent`, or implement `shouldComponentUpdate` yourself.
+`connect` 可以让被连接的组件很“纯粹”，意味着它们只需要在自己的属性改变时重新渲染 —— 也就是在它们的 Redux 状态切片发生改变时。这可以防止不必要的重复渲染，使你的应用能够快速运行。DIY 方法：创建一个类继承 `PureComponent`，或是自己实现 `shouldComponentUpdate`。
 
-### Easy Debugging with Redux
+### 使用 Redux 轻松调试
 
-The ceremony of writing actions and reducers is balanced by the awesome debugging power it affords you.
+虽然写 action 和 reducer 有一点复杂，但是我们可以使用它提供给我们的强大调试能力来平衡这一点。
 
-With the [Redux DevTools extension](https://github.com/zalmoxisus/redux-devtools-extension) you get an automatic log of every action your app performed. At any time you can pop it open and see which actions fired, what their payload was, and the state before and after the action occurred.
+使用 [Redux DevTools 扩展](https://github.com/zalmoxisus/redux-devtools-extension)，应用程序执行的每个操作都会被自动记录下来。你可以随时打开它，查看触发的操作，有效负载是什么，以及操作发生前后的 state。
 
-![Redux devtools demo](https://daveceddia.com/images/redux-devtools.gif)
+![Redux 调试工具示例](https://daveceddia.com/images/redux-devtools.gif)
 
-Another great feature the Redux DevTools enable is _time travel debugging_ a.k.a. you can click on any past action and jump to that point in time, basically replaying every action up to and including that one (but no further). The reason this can work is because each action _immutably_ update’s the state, so you can take a list of recorded state updates and replay them, with no ill effects, and end up where you expect.
+Redux DevTools 提供了另一个很棒的功能 —— **time travel debugging**（**时间旅行调试**），也就是说，你可以点击任何过去的动作并跳转到那个时间点，它基本上可以重放每一个动作，包括现在的那个，但不包括还没有触发的动作。其原理是每个动作都会**不可变**地更新 state，所以你可以拿到记录了 state 更新的列表并重放它们，跳转到你想去的地方，而且没有任何副作用。
 
-Then there are tools like [LogRocket](https://logrocket.com/) that basically give you an always-on Redux DevTools _in production_ for every one of your users. Got a bug report? Sweet. Look up that user’s session in LogRocket and you can see a replay of what they did, and exactly which actions fired. That all works by tapping into Redux’s stream of actions.
+而且目前有像 [LogRocket](https://logrocket.com/) 这样的工具，可以为你的每一个用户在**生产环境**中提供一个永远在线的 Redux DevTools。有 bug 报告？没关系。在 LogRocket 中查找该用户的会话，你可以看到他们所做的所有事情以及确切触发的操作。这一切都可以通过使用 Redux 的操作流来实现。
 
-### Customize Redux with Middleware
+### 使用中间件自定义 Redux
 
-Redux supports the concept of _middleware_, which is a fancy word for “a function that runs every time an action is dispatched.” Writing your own middleware isn’t as hard as it might seem, and it enables some powerful stuff.
+Redux 支持**中间件**（**middleware**）的概念，代表着“每次调度某个动作之前都会运行的函数”。编写自己的中间件并不像看起来那么难，它可以实现一些强大的功能。
 
-For instance…
+例如……
 
-*   Want to kick off an API request every time an action name starts with `FETCH_`? You could do that with middleware.
-*   Want a centralized place to log events to your analytics software? Middleware is a good place for that.
-*   Want to prevent certain actions from firing at certain times? You can do that with middleware, transparent to the rest of your app.
-*   Want to intercept actions that have a JWT token and save them to localStorage, automatically? Yep, middleware.
+* 想要在每个命名以 `FETCH_` 开头的操作中提交 API 请求？你可以使用中间件。
+* 想要为你的分析软件在一个集中的地方记录事件的日志？中间件是一个好地方。
+* 想要在特定的时间阻止某些行为的触发？你可以用中间件实现，而且对应用的其它部分是透明的。
+* 想要拦截具有 JWT 令牌的操作并自动将其保存到 localStorage？是的，你还可以用中间件。
 
-Here’s a good article with some [examples of how to write Redux middleware](https://medium.com/@jacobp100/you-arent-using-redux-middleware-enough-94ffe991e6).
+这里有一篇很好的文章，里面有一些[如何编写 Redux 中间件的示例](https://medium.com/@jacobp100/you-arent-using-redux-middleware-enough-94ffe991e6)。
 
-## How to Use the React Context API
+## 如何使用 React Context API
 
-But hey, maybe you don’t need all those fancy features of Redux. Maybe you don’t care about the easy debugging, the customization, or the automatic performance improvements – all you want to do is pass data around easily. Maybe your app is small, or you just need to get something working and address the fancy stuff later.
+但是，也许你不需要 Redux 所有那些花哨的功能。也许你不关心简单调试、自定义或是性能的自动化提升 —— 你想做的只是轻松地传递数据。也许你的应用很小，或者现在你只是需要让应用运转起来，以后再去考虑那些花哨的东西。
 
-React’s new Context API will probably fit the bill. Let’s see how it works.
+React 的新 Context API 可能符合你的要求。让我们看看它是如何工作的。
 
-I published a quick Context API lesson on Egghead if you’d rather watch than read (3:43):
+如果你更愿意看视频（时长 3:43）而不是读文章，我在 Egghead 上发布了一个简短的 Context API 课程：
 
-[![Context API lesson on Egghead.io](https://daveceddia.com/images/context-api-egghead-video.png)](https://egghead.io/lessons/react-pass-props-through-multiple-levels-with-react-s-context-api)
+[![Egghead.io 上的 Context API 课程](https://daveceddia.com/images/context-api-egghead-video.png)](https://egghead.io/lessons/react-pass-props-through-multiple-levels-with-react-s-context-api)
 
-There are 3 important pieces to the context API:
+Context API 中有 3 个重要的部分：
 
-*   The `React.createContext` function which creates the context
-*   The `Provider` (returned by `createContext`) which establishes the “electrical bus” running through a component tree
-*   The `Consumer` (also returned by `createContext`) which taps into the “electrical bus” to extract the data
+* `React.createContext` 函数：创建上下文
+* `Provider`（由 `createContext` 返回）：在组件树中构建“电子总线”
+* `Consumer`（同样由 `createContext` 返回）：接入“电子总线”来获取数据
 
-The `Provider` is very similar to React-Redux’s `Provider`. It accepts a `value` prop which can be whatever you want (it could even be a Redux store… but that’d be silly). It’ll most likely be an object containing your data and any actions you want to be able to perform on the data.
+这里的 `Provider` 和 React-Redux 的 `Provider` 非常相似。它接收一个 `value` 属性，这个属性可以是任何你想要的东西（甚至可以是一个 Redux store……但是这很傻）。它很可能是一个对象，包括你的数据以及你希望对数据执行的操作。
 
-The `Consumer` works a little bit like React-Redux’s `connect` function, tapping into the data and making it available to the component that uses it.
+这里的 `Consumer` 工作方式有点像 React-Redux 的 `connect` 函数，接收数据以供组件使用。
 
-Here are the highlights:
+以下是重点：
 
-```
-// Up top, we create a new context
-// This is an object with 2 properties: { Provider, Consumer }
-// Note that it's named with UpperCase, not camelCase
-// This is important because we'll use it as a component later
-// and Component Names must start with a Capital Letter
+```js
+// 在最开始，我们创建了一个新的上下文
+// 它是一个拥有两个属性 { Provider, Consumer } 的对象
+// 注意这里用的是 UpperCase 命名，不是 camelCase
+// 这很重要，因为我们一会要以组件的方式使用它
+// 而组件的名称必须以大写字母开头
 const UserContext = React.createContext();
 
-// Components that need the data tap into the context
-// by using its Consumer property. Consumer uses the
-// "render props" pattern.
+// 下面是需要从上下文中获取数据的组件
+// 可以通过使用 UserContext 的 Consumer 属性
+// Consumer 使用的是 "render props" 模式
 const UserAvatar = ({ size }) => (
   <UserContext.Consumer>
     {user => (
@@ -437,8 +437,8 @@ const UserAvatar = ({ size }) => (
   </UserContext.Consumer>
 );
 
-// Notice that we don't need the 'user' prop any more,
-// because the Consumer fetches it from context
+// 注意我们不再需要 'user' 属性了
+// 因为 Consumer 可以直接从上下文中获取
 const UserStats = () => (
   <UserContext.Consumer>
     {user => (
@@ -456,11 +456,11 @@ const UserStats = () => (
   </UserContext.Consumer>
 );
 
-// ... all those other components go here ...
-// ... (the ones that no longer need to know or care about `user`)
+// …… 所有其它的组件 ……
+// ……（就是那些不会用到 `user` 的组件）……
 
-// At the bottom, inside App, we pass the context down
-// through the tree using the Provider
+// 在最下面，App 的内部
+// 我们用 Provider 在整棵树中传递上下文
 class App extends React.Component {
   state = {
     user: {
@@ -485,51 +485,51 @@ class App extends React.Component {
 }
 ```
 
-Here’s the [full code in a CodeSandbox](https://codesandbox.io/s/q9w2qrw6q4).
+这里是 [CodeSandbox 中的完整示例](https://codesandbox.io/s/q9w2qrw6q4)。
 
-Let’s go over how this works.
+让我们来看看它是如何工作的。
 
-Remember there’s 3 pieces: the context itself (created with `React.createContext`), and the two components that talk to it (`Provider` and `Consumer`).
+记住有 3 个部分：上下文本身（由 `React.createContext` 创建），以及和它对话的两个组件（`Provider` 和 `Consumer`）。
 
-### Provider and Consumer are a Pair
+### Provider 和 Consumer 是一对好基友
 
-The Provider and Consumer are bound together. Inseperable. And they only know how to talk to _each other_. If you created two separate contexts, say “Context1” and “Context2”, then Context1’s Provider and Consumer would not be able to communicate with Context2’s Provider and Consumer.
+Provider 和 Consumer 被捆绑在一起。形影不离。而且它们只知道如何和**对方**对话。如果你创建两个单独的上下文，例如 “Context1” 和 “Context2”，那么 Context1 的 Provider 和 Consumer 是不可能和 Context2 的 Provider 和 Consumer 通信的。
 
-### Context Holds No State
+### 上下文中不保存 state
 
-Notice how the context _does not have its own state_. It is merely a conduit for your data. You have to pass a value to the `Provider`, and that exact value gets passed down to any `Consumer`s that know how to look for it (Consumers that are bound to the same context as the Provider).
+注意上下文**没有**自己的 state。它只是数据的管道。你必须将值传递给 `Provider`，然后这个确切的值会被传递给任何知道如何获取它的 `Consumer`（Consumer 和 Provider 绑定的是同一个上下文）。
 
-When you create the context, you can pass in a “default value” like this:
+创建上下文时，可以传入一个“默认值”，如下所示：
 
-```
+```js
 const Ctx = React.createContext(yourDefaultValue);
 ```
 
-This default value is what the `Consumer` will receive when it is placed in a tree with no `Provider` above it. If you don’t pass one, the value will just be `undefined`. Note, though, that this is a _default_ value, not an _initial_ value. A context doesn’t retain anything; it merely distributes the data you pass in.
+当 `Consumer` 被放在一个没有 `Provider` 包裹的树上时，它会收到这个默认值。如果你没有传入默认值，这个值会为 `undefined`。但要注意这是默认值，而不是初始值。上下文不保留任何内容；它只是分发你传入的数据。
 
-### Consumer Uses the Render Props Pattern
+### Consumer 使用 Render Props 模式
 
-Redux’s `connect` function is a higher-order component (or HoC for short). It _wraps_ another component and passes props into it.
+Redux 的 `connect` 函数是一个高阶组件（或简称 HoC）。它**包裹**另外一个组件，并将 props 传递给它。
 
-The context `Consumer`, by contrast, expects the child component to be a function. It then calls that function at render time, passing in the value that it got from the `Provider` somewhere above it (or the context’s default value, or `undefined` if you didn’t pass a default).
+上下文的 `Consumer` 则相反，它期望子组件是一个函数。然后它在渲染的时候调用这个函数，将它从包裹它的 `Provider` 上获得的值（或上下文的默认值，如果你没有传入默认值，那也可能是 `undefined`）传给子组件。
 
-### Provider Accepts One Value
+### Provider 接收单个值
 
-Just a single value, as the `value` prop. But remember that the value can be anything. In practice, if you want to pass multiple values down, you’d create an object with all the values and pass _that object_ down.
+它接收 `value` 属性，仅此一个值。但请记住这个值可以是任何东西。在实践中，如果你想要向下传递多个值，你必须创建一个包含这些值的对象，再将**这个对象**传递下去。
 
-That’s pretty much the nuts and bolts of the Context API.
+这几乎是 Context API 的最核心的东西。
 
-## Context API is Flexible
+## 灵活的 Context API
 
-Since creating a context gives us two components to work with (Provider and Consumer), we’re free to use them however we want. Here are a couple ideas.
+因为创建上下文为我们提供了两个可以使用的组件（Provider 和 Consumer），因此我们可以随意使用它们。这里有几个想法。
 
-### Turn the Consumer into a Higher-Order Component
+### 将 Consumer 变成高阶组件
 
-Not fond of the idea of adding the `UserContext.Consumer` around every place that needs it? Well, it’s your code! You can do what you want. You’re an adult.
+不喜欢在每个需要使用 `UserContext.Consumer` 的地方都添加它的用法？嗯，这是你的代码！你可以做任何你想做的事。你是个成年人了。
 
-If you’d rather receive the value as a prop, you could write a little wrapper around the `Consumer` like this:
+如果你更愿意接收一个作为属性的值，你可以为 `Consumer` 写一个包裹器，像下面这样：
 
-```
+```js
 function withUser(Component) {
   return function ConnectedComponent(props) {
     return (
@@ -541,9 +541,9 @@ function withUser(Component) {
 }
 ```
 
-And then you could rewrite, say, `UserAvatar` to use this new `withUser` function:
+然后你可以重写你的代码，比如使用了新 `withUser` 函数的 `UserAvatar` 组件：
 
-```
+```js
 const UserAvatar = withUser(({ size, user }) => (
   <img
     className={`user-avatar ${size || ""}`}
@@ -553,17 +553,17 @@ const UserAvatar = withUser(({ size, user }) => (
 ));
 ```
 
-And BOOM, context can work just like Redux’s `connect`. Minus the automatic purity.
+BOOM，上下文可以像 Redux 的 `connect` 那样工作。让你的组件很纯粹。
 
-Here’s an [example CodeSandbox with this higher-order component](https://codesandbox.io/s/jpy76nm1v).
+这里是[带有这个高阶组件的 CodeSandbox 示例](https://codesandbox.io/s/jpy76nm1v)。
 
-### Hold State in the Provider
+### 用 Provider 保存 state
 
-The context’s Provider is just a conduit, remember. It doesn’t retain any data. But that doesn’t stop you from making your _own_ wrapper to hold the data.
+记住，上下文的 Provider 只是一个管道。它不保留任何数据。但这并不能阻止你制作**自己**的包裹器来保存数据。
 
-In the example above, I left `App` holding the data, so that the only new thing you’d need to understand was the Provider + Consumer components. But maybe you want to make your own “store”, of sorts. You could create a component to hold the state and pass them through context:
+在上面的示例中，我用 `App` 保存数据，因此这里你唯一需要了解的新事物就是这个 Provider + Consumer 组件。但也许你想写一个自己的 “store”，等等。你可以创建一个组件来保存数据，并通过上下文传递它们。
 
-```
+```js
 class UserStore extends React.Component {
   state = {
     user: {
@@ -584,7 +584,7 @@ class UserStore extends React.Component {
   }
 }
 
-// ... skip the middle stuff ...
+// ……略过中间的内容……
 
 const App = () => (
   <div className="app">
@@ -601,30 +601,30 @@ ReactDOM.render(
 );
 ```
 
-Now your user data is nicely contained in its own component whose _sole_ concern is user data. Awesome. `App` can be stateless once again. I think it looks a little cleaner, too.
+现在，你的用户数据被很好地包含在它自己的组件中了，这个组件**唯一**关注的就是用户数据。很棒。`App` 又可以再次变成无状态组件了。我认为它看起来更整洁了。
 
-Here’s an [example CodeSandbox with this UserStore](https://codesandbox.io/s/jpy76nm1v).
+这里是[带有这个 UserStore 的 CodeSandbox 示例](https://codesandbox.io/s/jpy76nm1v)。
 
-### Pass Actions Down Through Context
+### 通过上下文传递操作
 
-Rememeber that the object being passed down through the `Provider` can contain whatever you want. Which means it can contain functions. You might even call them “actions.”
+记住通过 Provider 传递的对象可以包含你想要的任何东西。这意味着它可以包含函数。你甚至可以称之为“操作（action）”。
 
-Here’s a new example: a simple Room with a lightswitch to toggle the background color – err, I mean lights.
+这是一个新例子：一个简单的房间，带有一个可以切换背景颜色的开关 —— 抱歉，我的意思是灯光。
 
-![the fire is dead. the room is freezing.](https://daveceddia.com/images/lightswitch-app.gif)
+![灯灭屋黑。](https://daveceddia.com/images/lightswitch-app.gif)
 
-The state is kept in the store, which also has a function to toggle the light. Both the state and the function are passed down through context.
+State 被保存在 store 中，store 中还有切换灯光的函数。State 和函数都通过上下文传递。
 
-```
+```js
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 
-// Plain empty context
+// 简单的空上下文
 const RoomContext = React.createContext();
 
-// A component whose sole job is to manage
-// the state of the Room
+// 一个组件
+// 唯一的工作就是管理 Room 的 state
 class RoomStore extends React.Component {
   state = {
     isLit: false
@@ -635,7 +635,7 @@ class RoomStore extends React.Component {
   };
 
   render() {
-    // Pass down the state and the onToggleLight action
+    // 传递 state 和 onToggleLight 操作
     return (
       <RoomContext.Provider
         value={{
@@ -649,8 +649,8 @@ class RoomStore extends React.Component {
   }
 }
 
-// Receive the state of the light, and the function to
-// toggle the light, from RoomContext
+// 从 RoomContext 中接收灯光的 state
+// 以及切换灯光的函数
 const Room = () => (
   <RoomContext.Consumer>
     {({ isLit, onToggleLight }) => (
@@ -669,8 +669,8 @@ const App = () => (
   </div>
 );
 
-// Wrap the whole app in the RoomStore
-// this would work just as well inside `App`
+// 用 RoomStore 包裹整个 App
+// 它可以像在 `App` 内那样工作
 ReactDOM.render(
   <RoomStore>
     <App />
@@ -679,27 +679,27 @@ ReactDOM.render(
 );
 ```
 
-Here’s the [full working example in CodeSandbox](https://codesandbox.io/s/jvky9o0nvw).
+这里是 [CodeSandbox 中的完整示例](https://codesandbox.io/s/jvky9o0nvw)。
 
-## Should You Use Context, or Redux?
+## 应该使用 Context 还是 Redux？
 
-Now that you’ve seen both ways – which one should you use? Well, if there’s one thing that will make your apps _better_ and _more fun to write_, it’s **taking control of making the decisions**. I know you might just want “The Answer,” but I’m sorry to have to tell you, “it depends.”
+既然你已经看过两种方式了 —— 那你应该使用哪种方式呢？好吧，这里有一件事会让你的应用**更好**并且**写起来更有趣**，那就是**做决策**。我知道你可能只想要“答案”，但我很遗憾地告诉你，“这视情况而定”。
 
-It depends on things like how big your app is, or will grow to be. How many people will work on it – just you, or a larger team? How experienced are you or your team with functional concepts (the ones Redux relies upon, like immutability and pure functions).
+这取决于你的应用程序有多大或将会变成多大。有多少人会参与其中 —— 只有你还是有更大的团队？你或你的团队对于 Redux 所依赖的函数式概念（如不变性和纯函数）的经验。
 
-One big pernicious fallacy that pervades the JavaScript ecosystem is the idea of _competition_. The idea that every choice is a zero-sum game: if you use _Library A_, you must not use _its competitor Library B_. The idea that when a new library comes out that’s better in some way, that it must supplant an existing one. There’s a perception that everything must be either/or, that you must either choose The Best Most Recent or be relegated to the back room with the developers of yesteryear.
+在 JavaScript 生态系统中存在的一个巨大的恶性谬论是**竞争**的概念。有观点认为，每一次选择都是一个零和游戏；如果你使用**库 A**，你就不能使用**它的竞争对手库 B**。这个想法是说当出现了一个在某种程度上更好的新库，它必须取代现有的库。这是一种「或者……或者……」的感觉，你必须选择目前最好的库，或者和过去的人一起使用之前的库。
 
-A better approach is to look at this wonderful array of choices like a _toolbox_. It’s like the choice between using a screwdriver or an impact driver. For 80% of the jobs, the impact driver is gonna put the screw in faster than the screwdriver. But for that other 20%, the screwdriver is actually the better choice – maybe because the space is tight, or the item is delicate. When I got an impact driver I didn’t immediately throw away my screwdriver, or even my non-impact drill. The impact driver didn’t _replace_ them, it simply gave me another _option_. Another way to solve a problem.
+更好的方法是拥有一个像是你的**工具箱**一样的东西，可以把你的选择项都放进去。就像是选择使用螺丝刀还是冲击钻。对于 80% 的工作，使用冲击钻拧螺丝都比螺丝刀更快。但对于另外的 20%，螺丝刀实际上是更好的选择 —— 或许因为空间比较狭小，或是物品很精细。当我有一个冲击钻时，我并没有立即扔掉我的螺丝刀，甚至是我的非冲击钻。冲击钻没有**取代**它们，它只是给了我另外一种选择。另外一种解决问题的方法。
 
-Context doesn’t “replace” Redux any more than React “replaced” Angular or jQuery. Heck, I still use jQuery when I need to do something quick. I still sometimes use server-rendered EJS templates instead of spinning up a whole React app. Sometimes React is more than you need for the task at hand. Sometimes Redux is more than you need.
+React 会“替代” Angular 或 jQuery，但 Context 不会像这样“替代” Redux。哎呀，当我需要快速完成一些事情时，我仍然会使用 jQuery。我有时仍会使用服务器渲染的 EJS 模板，而不是使用整个 React 应用程序。有时 React 比你手上的任务需求更庞大。有时 Redux 里也会有你不需要的功能。
 
-Today, when Redux is more than you need, you can reach for Context.
+现在，当 Redux 超出你的需求时，你可以使用 Context。
 
-### Translations
+### 翻译
 
-*   [Russian](https://habr.com/post/419449/) (by Maxim Vashchenko)
-*   [Japanese](https://qiita.com/ossan-engineer/items/c3e5bd4d9bb4db04f80d) (by Kiichi)
-*   [Portuguese](https://www.linkedin.com/pulse/redux-vs-react-context-api-wenderson-pires/) (by Wenderson Pires)
+* [Russian](https://habr.com/post/419449/)（由 Maxim Vashchenko 提供）
+* [Japanese](https://qiita.com/ossan-engineer/items/c3e5bd4d9bb4db04f80d)（由 Kiichi 提供）
+* [Portuguese](https://www.linkedin.com/pulse/redux-vs-react-context-api-wenderson-pires/)（由 Wenderson Pires 提供）
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
