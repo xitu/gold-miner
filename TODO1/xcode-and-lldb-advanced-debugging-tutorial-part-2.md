@@ -2,35 +2,39 @@
 > * 原文作者：[Fady Derias](https://medium.com/@fadiderias)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md)
-> * 译者：
+> * 译者：[kirinzer](https://github.com/kirinzer)
 > * 校对者：
 
-# Xcode and LLDB Advanced Debugging Tutorial: Part 2
+# Xcode 和 LLDB 高级调试教程：第 2 部分
 
-In the first part of this three parts tutorial, we’ve covered how to utilize Xcode breakpoints to manipulate an existing property value and inject a new line of code via expression statements.
+在三部分教程的第一部分，我们介绍了如何利用 Xcode 断点操作现有的属性值，以及使用表达式语句注入新代码。
 
 I developed a demo project with several intentional bugs to elaborate on how to use different types of breakpoints alongside the LLDB to fix bugs in your project/application.
+我开发了一个带有几个故意错误的演示项目，详细说明了如何在LLDB旁边使用不同类型的断点来修复项目/应用程序中的错误。
 
 If you didn’t go through [**part 1**](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md) of this tutorial, it’s crucial to check it before proceeding with this part.
+如果你没有仔细检查这个教程的第一部分，在进行这一部分之前查看第一部分是很重要的。
 
 Let me remind you of the golden rule of this tutorial:
 You’re not to stop the compiler or re-run the application after running it for the very first time. You’re fixing the bugs at runtime.
+让我提醒一下你，这个教程的指导原则：
+在本文剩下的部分，你不必停止编译器或者重新运行应用，你会在运行时修复这些错误。
 
-## Watchpoints 👀
+## 观察点 👀
 
-Let’s march to our next enemy.
+让我们向敌人进军。
 
-> 3. The user is allowed to load posts **more** undefinedthan 7 times.
+> 3. 用户可以下拉刷新 **超过** 7 次。
 
-Here are the steps to reproduce this one:
+这里有复现这个错误的步骤：
 
-✦ Turn your iPhone’s/Simulator’s internet connection on.
+✦ 关闭手机或模拟器的网络连接。
 
-✦ Scroll to the bottom of the table view to load more posts.
+✦ 滚动到表视图的底部，加载更多。
 
-✦ Scrolling/loading more posts is valid for more than 7 times. (Bear in mind that for the current application, the user is only allowed to load posts for 7 times only)
+✦ 滚动加载更多文章的次数超过7次。（记住，对于当前的应用程序，用户只能加载文章7次）
 
-One approach to consider this bug is to figure out how the `pageNumber` integer property is being updated since it’s passed to the networking manager to retrieve new posts objects for a specific page. In a code base that you’re still unaware of, it would take you some time and effort to figure out where exactly this is happening.
+考虑这个错误的一个方法是弄清 `pageNumber` 这个整形属性是怎样被改变的，自从它被传入到网络管理器去取回指定页码的新文章对象后。你将会花费一些时间和精力在你还不清楚的底层代码上，并且弄清这个错误发生在哪里。
 
 Worry not! Let’s do some magic 🎩
 
