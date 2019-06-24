@@ -7,8 +7,6 @@
 
 # Streams For the Win: A Performance Comparison of NodeJS Methods for Reading Large Datasets (Pt 2)
 
-## Streams For the Win: A Performance Comparison of Node.js Methods for Reading Large Datasets (Pt 2)
-
 ## How readFile(), createReadStream() and event-stream Stack Up Against One Another
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fsseXIPGEhwmg6kfgXyIjA.jpeg)
@@ -19,7 +17,7 @@ To my surprise, it did exceptionally well with readers — this seemed (to me) l
 
 One particularly astute reader ([Martin Kock](undefined)), went so far as to ask how long it took to parse the files. It seemed as if he’d read my mind, because part two of my series on using Node.js to read really, really large files and datasets involves just that.
 
-> # Here, I’ll evaluate the three different methods in Node.js I used to read the files, to determine which is most performant.
+> Here, I’ll evaluate the three different methods in Node.js I used to read the files, to determine which is most performant.
 
 #### The Challenge From Part 1
 
@@ -40,7 +38,7 @@ Link to the data: ​[https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip]
 
 As I worked towards my ultimate end goal of processing a large dataset, I came up with three solutions in Node.js.
 
-**Solution #1: `[fs.readFile()](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)`**
+**Solution #1: [`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)**
 
 The first involved Node.js’s native method of `fs.readFile()`, and consisted of reading in the whole file, holding it in memory and performing the operations on the entire file, then returning the results. At least for smaller files, it worked, but when I got to the largest file size, my server crashed with a JavaScript `heap out of memory` error.
 
@@ -48,11 +46,11 @@ The first involved Node.js’s native method of `fs.readFile()`, and consisted o
 
 My second solution also involved another couple of methods native to Node.js: `fs.createReadStream()` and `rl.readLine()`. In this iteration, the file was streamed through Node.js in an `input` stream, and I was able to perform individual operations on each line, then cobble all those results together in the `output` stream. Again, this worked pretty well on smaller files, but once I got to the biggest file, the same error happened. Although Node.js was streaming the inputs and outputs, it still attempted to hold the whole file in memory while performing the operations (and couldn’t handle the whole file).
 
-**Solution #3: `[event-stream](https://www.npmjs.com/package/event-stream)`**
+**Solution #3: [`event-stream`](https://www.npmjs.com/package/event-stream)**
 
 In the end, I came up with only one solution in Node.js that was able to handle the full 2.55GB file I wanted to parse through, at one time.
 
-> # Fun fact: Node.js can only hold up to 1.67GB in memory at any one time, after that, it throws JavaScript `heap out of memory` error.
+> Fun fact: Node.js can only hold up to 1.67GB in memory at any one time, after that, it throws JavaScript `heap out of memory` error.
 
 My solution involved a popular NPM package called [event-stream](https://www.npmjs.com/package/event-stream), which actually let me perform operations on the **throughput stream** of data, instead of just the input and output streams, as Node.js’s native capabilities allow.
 
@@ -68,7 +66,7 @@ Since I couldn’t use the full 2.55GB file with the Node.js native solutions, I
 
 For performance testing Node.js, I came across two ways to keep track of the file and individual function processing times, and I decided to incorporate both to see how great the differences were between the two methods (and make sure I wasn’t completely off the rails with my timing).
 
-**`[console.time()](https://nodejs.org/api/console.html#console_console_time_label)` & `[console.timeEnd()](https://nodejs.org/api/console.html#console_console_timeend_label)`**
+**[`console.time()`](https://nodejs.org/api/console.html#console_console_time_label) & [`console.timeEnd()`](https://nodejs.org/api/console.html#console_console_timeend_label)**
 
 Node.js has some handy, built-in methods available to it for timing and performance testing, called `console.time()` and `console.timeEnd()`, respectively. To use these methods, I only had to pass in the same label parameter for both `time()` and `timeEnd()`, like so, and Node’s smart enough to output the time between them after the function’s done.
 
@@ -87,9 +85,9 @@ console.timeEnd('label1');
 
 That’s one method I used to figure out how long it took to process the dataset.
 
-`[**performance-now**](https://www.npmjs.com/package/performance-now)`
+[**`performance-now`**](https://www.npmjs.com/package/performance-now)
 
-The other, tried and well-liked performance testing module I came across for Node.js is hosted on NPM as `[performance-now](https://www.npmjs.com/package/performance-now)`.
+The other, tried and well-liked performance testing module I came across for Node.js is hosted on NPM as [`performance-now`](https://www.npmjs.com/package/performance-now).
 
 7+ million downloads per week from NPM, can’t be too wrong, right??
 
@@ -166,7 +164,7 @@ The percentage improvements are included at the end of the table above as well, 
 
 Below are the raw screenshots from my terminal for each of my solutions.
 
-**Solution #1: `[fs.readFile()](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)`**
+**Solution #1: [`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)**
 
 ![The solution using only: fs.readFile()](https://cdn-images-1.medium.com/max/2000/1*luMWmrPikShHXtu6yScO9g.png)
 
@@ -174,7 +172,7 @@ Below are the raw screenshots from my terminal for each of my solutions.
 
 ![The solution using fs.createReadStream() and rl.readLine()](https://cdn-images-1.medium.com/max/2000/1*rhF6hIxI7aE3VsMubmVUOQ.png)
 
-**Solution #3: `[event-stream](https://www.npmjs.com/package/event-stream)`**
+**Solution #3: [`event-stream`](https://www.npmjs.com/package/event-stream)**
 
 ![The solution using event-stream](https://cdn-images-1.medium.com/max/2000/1*WzQIXZKNvGfrZzXtEP_31g.png)
 
@@ -184,7 +182,7 @@ Here’s a screenshot of my `event-stream` solution churning through the 2.55GB 
 
 ![Look at those blazing fast speeds, even as the file size climbs by almost 6X.](https://cdn-images-1.medium.com/max/2548/1*Zxbn3FCHM59DrDvY7P6bXg.png)
 
-**Solution #3: `[event-stream](https://www.npmjs.com/package/event-stream)` (on the 2.55GB file)**
+**Solution #3: [`event-stream`](https://www.npmjs.com/package/event-stream) (on the 2.55GB file)**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*v-7OzvyTjFTjrxnO0rXYiA.png)
 
