@@ -2,244 +2,244 @@
 > * 原文作者：[Robert C. Martin](http://blog.cleancoder.com/uncle-bob/2019/06/16/ObjectsAndDataStructures.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/classes-vs-data-structures.md](https://github.com/xitu/gold-miner/blob/master/TODO1/classes-vs-data-structures.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Classes vs. Data Structures
+# 类（Class）与数据结构（Data Structures）
 
-> **What is a class?**
+> **什么是类？**
 
-A class is the specification of a set of similar objects.
+一个类就是一组相似对象的集合的规范。
 
-> **What is an object?**
+> **对象是什么？**
 
-An object is a set of functions that operate upon encapsulated data elements.
+对象是一组对封装的数据元素进行操作的函数。
 
-> **Or rather, an object is a set of functions that operate on** implied **data elements.**
+> **更确切的说，对象是一组对**隐含**的数据元素进行操作的函数。**
 
-What do you mean by **implied** data elements”?
+**隐含**的数据元素是什么意思？
 
-> **The functions of an object imply the existence of some data elements; but that data is not directly accessible or visible outside of the object.**
+> **对象提供了某些功能，就意味着这个对象包含了一些数据元素；但是这些数据并不能在对象外部直接访问，在对象外部来看，它们是不可见的。**
 
-Isn’t the data inside the object?
+那么数据不在对象内吗？
 
-> **It could be; but there’s no rule that says it must be. From the point of view of the user, an object is nothing more than a set of functions. The data that those functions operate upon must exist, but the location of that data is unknown to the user.**
+> **这是有可能的，但是并没有强制规定必须这样。从用户的角度来看，对象仅仅是一组函数。这些函数操作的数据一定存在，但是这些数据的位置对用户是保密的。**
 
-Hmmm. OK, I’ll buy that for the moment.
+嗯。好的，我明白了。
 
-> **Good. Now, what is a data structure?**
+> **很好。那么什么是数据结构呢？**
 
-A data structure is a cohesive set of data elements.
+数据结构是一组相关性很强的数据元素。
 
-> **Or, in other words, a data structure is a set of data elements operated upon by implied functions.**
+> **或者，换句话说，数据结构是一组被隐含的函数操作的数据元素。**
 
-OK, OK. I get it. The functions that operate on the data structure are not specified by the data structure but the existence of the data structure implies that some operations must exist.
+好的，我懂了。操作数据结构的函数并不被数据结构本身定义，但是它的存在暗示出，该操作函数一定存在。
 
-> **Right. Now what do you notice about those two definitions?**
+> **是的。现在，对于这两个定义，你注意到了什么吗？**
 
-They are sort of the opposite of each other.
+它们在某种程度上是相互对立的。
 
-> **Indeed. They are complements of each other. They fit together like a hand in a glove.**
+> **确实是这样。它们是互补的。它们就像手和手套一样组合在一起。**
 
-> * **An Object is a set of functions that operate upon implied data elements.**
-> * **A Data Structure is a set of data elements operated upon by implied functions**
+> **对象是操作隐含数据元素的一组函数。**
+> **数据结构是被隐含的函数操作的一组数据元素。**
 
-Wow, so objects aren’t data structures.
+哇哦，所以对象并不是数据结构。
 
-> **Correct. Objects are the opposite of data structures.**
+> **正确。对象和数据结构是相互对立的。**
 
-So a DTO – a Data Transfer Object – is not an object?
+所以，DTO —— 数据传输对象 —— 并不是对象？
 
-> **Correct. DTOs are data structures.**
+> **正确，DTO 是数据结构。**
 
-And so database tables aren’t objects either are they?
+所以数据库表也并不是对象？
 
-> **Correct again. Databases contain data structures, not objects.**
+> **正确。数据库包含了数据结构，而不是对象。**
 
-But wait. Doesn’t an ORM – And Object Relational Mapper – map database tables to objects?
+等等。ORM —— 对象关系映射 —— 不是将数据库表映射为对象了吗？
 
-> **Of course not. There is no mapping between database tables and objects. Database tables are data structures, not objects.**
+> **当然不是。数据库表和对象之间不存在映射关系。数据库表是数据结构，而不是对象。**
 
-So then what do ORMs do?
+那么 ORM 做了什么。
 
-> **They transfer data between data structures.**
+> **它们在数据结构之间传输数据。**
 
-So they don’t have anything to do with Objects?
+它们和对象毫无关系吗？
 
-> **Nothing whatever. There is no such thing as an Object Relational Mapper; because there is no mapping between database tables and objects.**
+> **是的，毫无关系。并没有所谓的对象关系映射；因为数据库表和对象之间并不存在映射关系。**
 
-But I thought ORMs built our business objects for us.
+但是我认为 ORM 为我们构建了业务对象。
 
-> **No, ORMs extract the data that our business objects operate upon. That data is contained in a data structure loaded by the ORM.**
+> **不是的，ORM 抽象出了我们的业务对象操作的数据。这些数据被 ORM 加载，存在于数据结构之中。**
 
-But then doesn’t the business object contain that data structure?
+那么并不是业务对象包含了这些数据结构？
 
-> **It might. It might not. That’s not the business of the ORM.**
+> **可能包含。也可能不包含。但这都不是 ORM 需要负责的事了。**
 
-That seems like a minor semantic point.
+看起来只是个小小的语义点。
 
-> **Not at all. The distinction has significant implications.**
+> **完全不是。这个区别有重要的意义。**
 
-Such as?
+比如说？
 
-> **Such as the design of the database schema vs. the design of the business objects. Business objects define the structure of the business** behavior. **Database schemas define the structure of the business data. Those two structures are constrained by very different forces. The structure of the business data is not necessarily the best structure for the business behavior.**
+> **比如设计数据库模式和设计业务对象。业务对象定义了业务**行为**的结构。数据库模式定义了业务数据的结构。这两个结构是被非常不同的条件约束的。业务数据的结构可能并不适用于业务行为。**
 
-Hmmm. That’s confusing.
+嗯，这很让人迷惑呀。
 
-> **Think of it this way. The database schema is not tuned for just one application; it must serve the entire enterprise. So the structure of that data is a compromise between many different applications.**
+> **你可以这样来想这个问题，数据库模式并不会仅仅为一个应用而调整；它必须要服务于整个企业。所以这些数据的结构是多种不同应用需求的折中选择。**
 
-OK, I get that.
+好的，这一点我明白了。
 
-> **Good. But now consider each individual application. The Object model of each application describes the way the behavior of those applications are structured. Each application will have a different object model, tuned to that application’s behavior.**
+> **很好。现在考虑每个单独的应用。每个应用的对象模型都描述了这些应用行为的构成方式。每个应用都有不同的对象模型，这些模型都是为每个应用的行为而量身定做的。**
 
-Oh, I see. Since the database schema is a compromise of all the various applications, that schema will not conform to the object model of any particular application.
+哦，我懂了。既然数据库模式是左右不同对象的折中选择，那么这个模式和任何一个应用的对象模型都能不恰好匹配。
 
-> **Right! Objects and Data Structures are constrained by very different forces. They seldom line up very nicely. People used to call this the Object/Relational impedance mismatch.**
+> **正确！对象和数据结构都被非常不同的条件约束。它们很少能够完美的契合。人们习惯称之为对象/关系阻抗不匹配。**
 
-I’ve heard of that. But I thought that impedance mismatch was solved by ORMs.
+我听过这个。但我之前还以为这种阻抗不匹配被 ORM 解决了。
 
-> **And now you now differently. There is no impedance mismatch because objects and data structures are complementary, not isomorphic.**
+> **现在你知道不同的答案了。并没有什么阻抗不匹配，因为对象和数据结构是互补的，不是同构的。**
 
-Say what?
+你说什么？
 
-> **They are opposites, not similar entities.**
+> **它们是对立的，而不是相似的实体。**
 
-Opposites?
+对立的？
 
-> **Yes, in a very interesting way. You see, objects and data structures imply diametrically opposed control structures.**
+> **是的，以一个非常有趣的方式对立。你看，对象和数据结构意味着截然相反的控制结构。**
 
-Wait, what?
+等一下，你说什么？
 
-> **Consider a set of object classes that all conform to a common interface. For example, imagine classes that represent two dimensional shapes that all have functions for calculating the `area` and `perimeter` of the shape.**
+> **想象一组对象类，它们全都能和一个通用接口相符合。例如，代表了两种尺寸的图片类都有计算形状的面积 `area` 和周长 `perimeter` 的方法。**
 
-Why does every software example always involve shapes?
+为什么所有软件的示例总会包含图形呢？
 
-> **Let’s just consider two different types: `Square`s and `Circle`s. It should be clear that the `area` and `permimeter` functions of these two classes operate on different implied data structures. It should also be clear that the way those operations are called is via dynamic polymorphism.**
+> **我们来考虑两个不同的形状：方形和圆形。我们都知道，这两种类的周长和面积的计算函数是操作不同的隐含的数据结构的。我们也都知道，这些操作被调用的方式是通过动态多态性。**
 
-Wait. Slow down. What?
+等等。慢一点。你说什么？
 
-> **There are two different `area` functions; one for `Square`, the other for `Circle`. When the caller invokes the `area` function on a particular object, it is that object that knows what function to call. We call that dynamic polymorphism.**
+> **有两个不同的计算面积的方法；一种用来计算方形面积，另一个则用来计算圆形的。当调用者基于特定类型的对象调用面积函数的时候，是对象决定了调用哪个函数。我们称之为动态多态性。**
 
-OK. Sure. The object knows the implementation of its methods. Sure.
+好的。是这样。对象决定了方法如何实现。这是当然的。
 
-> **Now let’s turn those objects into data structures. We’ll use Discriminated Unions.**
+> **现在，我们将对象换成数据结构。我们将会使用 Discriminated Unions。**
 
-Discoominated whats?
+Discriminated Unions 是什么？
 
-> **Discriminated Unions. In our case that’s just two different data structures. One for `Square` and the other for `Circle`. The `Circle` data structure has a center point, and a radius for data elements. It’s also got a type code that identifies it as a `Circle`.**
+> **Discriminated Unions，在这个例子中其实就是两个不同的数据结构。一个用于方形，一个用于圆形。圆形数据结构的数据元素包括一个中心点坐标，和一个半径。同时它也有一个类型代码，表示它代表圆形。**
 
-You mean like an enum?
+你是说，就像一个枚举类型？
 
-> **Sure. The `Square` data structure has the top left point, and the length of the side. It also has the type discriminator – the enum.**
+> **是的。方形的数据结构包含了左上角左边，以及边长。同时它也有类型鉴别 —— 一个枚举类型。**
 
-OK. Two data structures with a type code.
+嗯是的，两个数据结构和一个类型代码。
 
-> **Right. Now consider the `area` function. Its going to have a switch statement in it, isn’t it?**
+> **没错。现在考虑面积函数。它需要在内部切换状态，不是吗？**
 
-Um. Sure, for the two different cases. One for `Square` and the other for `Circle`. And the `perimeter` function will need a similar switch statement
+嗯，在两个不同的情境下，确实需要。一个用于计算方形面积一个用于计算圆形面积。同时计算周长的函数也需要类似的状态切换。
 
-> **Right again. Now think about the structure of those two scenarios. In the object scenarios the two implementations of the `area` function are independent of each other and belong (in some sense of the word) to the type. `Square`’s `area` function belongs to `Square` and `Circle`’s `area` function belongs to `Circle`.**
+> **没错。现在思考一下这两种场景下的结构。在对象场景下，面积函数的两种实现是互相独立的，并在一定程度上是属于类型的。方形的面积函数属于方形，而圆形面积的计算属于圆形。**
 
-OK, I see where you are going with this. In the data structure scenario the two implementations of the `area` function are together in the same function, they don’t “belong” (however you mean that word) to the type.
+是的，我知道你的思路了。在数据结构的场景下，面积函数的两种实现是在同一个函数中，它们不“属于”任何一个类型。
 
-> **It gets better. If you want to add the `Triangle` type to the object scenario, what code must change?**
+> **事情变得越来越清晰了。如果你想要为对象添加三角形类型，你必须更改哪些代码？**
 
-No code changes. You just create the new `Triangle` class. Oh, I suppose the creator of the instance has to be changed.
+不需要修改任何代码。你必须新建一个三角形的类。但是我认为创建实例的方法需要更改。
 
-> **Right. So when you add a new type, very little changes. Now suppose you want to add a new function - say the `center` function.**
+> **没错。所以当你添加一个新的类型的时候，需要修改的地方非常少。现在，比如你想要新添加一个函数 —— 计算中心点的函数。**
 
-Well then you’d have to add that to all three types, `Circle`, `Square` ,and `Triangle`.
+那么现在你必须为三种类型：圆形，方形和三角形，都加上这个函数。
 
-> **Good. So adding new functions is hard, you have to change each class.**
+> **非常好。所以，添加一个新的函数是比较困难的，你需要修改每个类。**
 
-But with data structures it’s different. In order to add `Triangle` you have to change each function to add the `Triangle` case to the switch statements.
+但是有了数据结构，就不同了。为了添加三角形这个类型，你必须为修改每个函数，为它们都加上三角形这种状态切换。
 
-> **Right. Adding new types is hard, you have to change each function.**
+> **是的。新建类型也很困难，你需要修改每个函数。**
 
-But when you add the new `center` function, nothing has to change.
+但是当你添加新的计算中心的函数时，其他没什么需要修改的。
 
-> **Yup. Adding new functions is easy.**
+> **没错。添加新函数很容易。**
 
-Wow. It’s the exact opposite.
+哇，这和前文所说的是对立的。
 
-> **It certainly is. Let’s review:**
+> **确实是。让我们来回顾一下：**
 
-> * **Adding new functions to a set of classes is hard, you have to change each class.**
-> * **Adding new functions to a set of data structures is easy, you just add the function, nothing else changes.**
-> * **Adding new types to a set of classes is easy, you just add the new class.**
-> * **Adding new types to a set of data structures is hard, you have to change each function.**
+> **为一组类添加新的函数很困难，你需要修改每个类。**
+> **为一组数据结构添加新的函数很容易，你只需要添加函数，别的不用改。**
+> **为一组类添加新的类型很容易，你只需要新添加一个类。**
+> **为一组数据结构添加新的类型很困难，你需要修改每个函数。**
 
-Yeah. Opposites. Opposites in an interesting way. I mean, if you know that you are going to be adding new functions to a set of types, you’d want to use data structures. But if you know you are going to be adding new types then you want to use classes.
+是的，确实很对立。但是是以一种很有趣的方式对立起来的。我是说，如果你是要为一组类型添加新的函数，那我就会想要选择使用数据结构。但是如果你是想要添加新的类型，那么你就会想要使用类。
 
-> **Good observation! But there’s one last thing for us to consider today. There’s yet another way in which data structures and classes are opposites. It has to do with dependencies.**
+> **你提出了很棒的意见！但是今天我们还要思考最后一件事。在另一个方面，数据结构和类也是相互对立的。和依赖有关。**
 
-Dependencies?
+依赖？
 
-> **Yes, the direction of the source code dependencies.**
+> **是的，源代码依赖这个方面。**
 
-OK, I’ll bite. What’s the difference?
+好吧，我要抓狂了。有什么区别呢？
 
-> **Consider the data structure case. Each function has a switch statement that selects the appropriate implementation based upon the type code within the discriminated union.**
+> **首先考虑数据结构的场景下。每个函数都有一个状态切换，它会基于枚举类型代码选择合适的实现。**
 
-OK, that’s true. But so what?
+是的，确实是这样。但这样有如何呢？
 
-> **Consider a call to the `area` function. The caller depends upon the `area` function, and the `area` function depends upon every specific implementation.**
+> **想象我们调用了面积函数。调用函数的对象取决于面积函数，而面积函数取决于每个特定的实现。**
 
-What do you mean by “depends”?
+如何“取决于”的呢？
 
-> **Imagine that each of the implementations of `area` is written into it’s own function. So there’s `circleArea` and `squareArea` and `triangleArea`.**
+> **想象一下，面积函数的每个实现都写于它本身的函数中。所以会有圆形面积，方形面积和三角形面积。**
 
-OK, so the switch statement just calls those functions.
+好，所以状态切换就是调用这些函数。
 
-> **Imagine those functions are in different source files.**
+> **想象一下这些函数都在不同的源文件中。**
 
-Then the source file with the switch statement would have to import, or use, or include, all those source files.
+那么这些需要做状态切换的源文件就需要导入，或者使用，或者包含所有这些源文件。
 
-> **Right. That’s a source code dependency. One source file depends upon another source file. What is the direction of that dependency?**
+> **正确。这就是源代码依赖。一个源文件依赖于另一个源文件。那么什么是这种依赖的方向呢？**
 
-The source file with the switch statement depends upon the source files that contain all the implementations.
+具有切换状态的源文件依赖于包含所有实现函数的源文件。
 
-> **And what about the caller of the `area` function?**
+> **那么面积函数的调用者又如何呢？**
 
-The caller of the `area` function depends upon the source file with the switch statement which depends upon all the implementations.
+面积函数的调用者依赖于具有状态切换的源文件，而这个文件又依赖于具有所有实现的源文件。
 
-> **Correct. All the source file dependencies point in the direction of the call, from the caller to the implementation. So if you make a tiny change to one of those implementations…**
+> **正确。所有源文件依赖都指向调用的方向，从调用者到实现。所以，如果你在这些实现中做了一个错误的修改...**
 
-OK, I see where you are going with this. A change to any one of the implementations will cause the source file with the switch statement to be recompiled, which will cause everyone who calls that switch statement – the `area` function in our case – to be recompiled.
+好的，我明白你的意思了。任何一个实现中的修改都将会导致具有切换状态的源文件被重新编译，从而导致任何使用了这个状态切换了的函数 —— 比如我们的面积计算函数 —— 被重新编译。
 
-> **Right. At least that’s true for language systems that depend upon the dates of source files to figure out which modules should be compiled.**
+> **是的。至少对于依赖于源文件的日期来确定应该编译哪些模块的语言系统来说是这样的。**
 
-That’s pretty much all of them that use static typing, right?
+它们几乎全都使用静态类型，是吧？
 
-> **Yes, and some that don’t.**
+> **是的，但是有一些不是。**
 
-That’s a lot of recompiling.
+这需要大量的重新编译啊。
 
-> **And a lot of redeploying.**
+> **同时也需要大量的重新部署。**
 
-OK, but this is reversed in the case of classes?
+好吧，但是这些缺点在使用类的场景下可以被逆转吗？
 
-> **Yes, because the caller of the `area` function depends upon an interface, and the implementation functions also depend upon that interface.**
+> **是的，因为面积函数的调用者取决于某个接口，同时负责实现的函数也依赖于这个接口。**
 
-I see what you mean. The source file of the `Square` class imports, or uses, or includes the source file of the `Shape` interface.
+我懂了。方形类的源文件引入，或者使用，或者包含了形状这个接口的源文件。
 
-> **Right. The source files of the implementation point in the opposite direction of the call. They point from the implementation to the caller. At least that’s true for statically typed languages. For dynamically typed languages the caller of the `area` function depends upon nothing at all. The linkages get worked out at run time.**
+> **是的。包含了实现的源文件指向调用相反的方向。是从实现指向调用者的。至少对于静态类型语言这是肯定的。而对于动态类型语言，面积函数的调用者根本不依赖与任何。只在运行时才能找到它的依赖。**
 
-Right. OK. So if you make a change to one of the implementations…
+没错，是这样。所以如果你修改了其中一个实现...
 
-> **Only the changed file needs to be recompiled or redeployed.**
+> **仅有被修改的文件需要重新编译或者部署。**
 
-And that’s because the dependencies between the source files point against the direction of the call.
+这是因为源文件之间的依赖的方向和调用的方向相反。
 
-> **Right. We call that Dependency Inversion.**
+> **正确。我们称之为依赖反转。**
 
-OK, so let me see if I can wrap this up. Classes and Data Structures are opposites in at least three different ways.
+好，让我来看看我是否能总结这部分内容。类和数据结构在至少三个方面互相对立。
 
-* Classes make functions visible while keeping data implied. Data structures make data visible while keeping functions implied.
-* Classes make it easy to add types but hard to add functions. Data structures make it easy to add functions but hard to add types.
-* Data Structures expose callers to recompilation and redeployment. Classes isolate callers from recompilation and redeployment.
+* 类暴露出函数而隐藏数据。数据结构暴露数据但是隐藏函数。
+* 类让增加类型容易，但是增加方法很困难。数据结构让增加函数很容易，但是增加类型困难。
+* 数据结构让调用者需要反复编译和部署。类将调用者从需要反复编译和部署的部分隔离开了。
 
-> **You got it. These are issues that every good software designer and architect needs to keep in mind.**
+> **你全都说对了。这些是每个优秀的软件设计者和架构者需要牢记于心的。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
