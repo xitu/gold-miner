@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-80-20-guide-to-json-stringify-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-80-20-guide-to-json-stringify-in-javascript.md)
 > * 译者：[JerryFD](https://github.com/Jerry-FD)
-> * 校对者：
+> * 校对者：[Usey95](https://github.com/Usey95)，[mnikn](https://github.com/mnikn)
 
 #  avaScript 中 JSON.stringify 的二八法则
 
