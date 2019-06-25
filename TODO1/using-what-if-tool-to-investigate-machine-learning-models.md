@@ -29,7 +29,7 @@ Google 开源了一个在无需编码的情况下，即可轻松分析 ML 模型
 
 ***
 
-可以通过 TensorBoard 使用该工具，也可以将其作为 Jupyter 或 [Colab](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb) notebook的拓展使用。
+可以通过 TensorBoard 使用该工具，也可以将其作为 Jupyter 或 [Colab](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb) notebook 的拓展使用。
 
 ## 优势
 
