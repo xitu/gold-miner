@@ -5,7 +5,7 @@
 > * 译者：[JerryFD](https://github.com/Jerry-FD)
 > * 校对者：[Usey95](https://github.com/Usey95)，[mnikn](https://github.com/mnikn)
 
-# avaScript 中 JSON.stringify 的二八法则
+# JavaScript 中 JSON.stringify 的二八法则
 
 [函数 `JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 是一个把 JavaScript object 转换成 [JSON](https://www.json.org/) 的标准方法。很多 JavaScript 框架在底层都使用了 `JSON.stringify()`，例如：[Express' `res.json()`](http://expressjs.com/en/4x/api.html#res.json)、[Axios' `post()`](https://github.com/axios/axios#example) 和 [Webpack stats](https://webpack.js.org/configuration/stats/) 都在底层调用了 `JSON.stringify()`。这篇文章会提供一个实用的、包含异常情况的 `JSON.stringify()` 的概述。
 
