@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-1.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：(mymmon)[https://github.com/mymmon]
+> * 校对者：[mymmon](https://github.com/mymmon)
 
 # npm 的经济风云 —— 上半部分
 
