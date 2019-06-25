@@ -1,4 +1,3 @@
-
 > * 原文地址：[Why One-Hot Encode Data in Machine Learning](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/)
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -23,7 +22,7 @@ Let’s get started.
 
 ![Why One-Hot Encode Data in Machine Learning?](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg)
 
-Why One-Hot Encode Data in Machine Learning?  
+Why One-Hot Encode Data in Machine Learning?
 Photo by [Karan Jain](https://www.flickr.com/photos/jiangkeren/8263176332/), some rights reserved.
 
 ## What is Categorical Data?
@@ -36,9 +35,9 @@ Categorical variables are often called [nominal](https://en.wikipedia.org/wiki/N
 
 Some examples include:
 
-*   A “_pet_” variable with the values: “_dog_” and “_cat_“.
-*   A “_color_” variable with the values: “_red_“, “_green_” and “_blue_“.
-*   A “_place_” variable with the values: “first”, “_second_” _and_ “_third_“.
+*   A “_pet_” variable with the values: “_dog_” and “_cat_”.
+*   A “_color_” variable with the values: “_red_”, “_green_” and “_blue_”.
+*   A “_place_” variable with the values: “first”, “_second_” _and_ “_third_”.
 
 Each value represents a different category.
 
@@ -65,7 +64,7 @@ This involves two steps:
 1.  Integer Encoding
 2.  One-Hot Encoding
 
-### 1\. Integer Encoding
+### 1. Integer Encoding
 
 As a first step, each unique category value is assigned an integer value.
 
@@ -79,7 +78,7 @@ The integer values have a natural ordered relationship between each other and ma
 
 For example, ordinal variables like the “place” example above would be a good example where a label encoding would be sufficient.
 
-### 2\. One-Hot Encoding
+### 2. One-Hot Encoding
 
 For categorical variables where no such ordinal relationship exists, the integer encoding is not enough.
 
@@ -123,7 +122,8 @@ Specifically:
 *   That most machine learning algorithms require numerical input and output variables.
 *   That an integer and one hot encoding is used to convert categorical data to integer data.
 
-Do you have any questions?  
+Do you have any questions?
+
 Post your questions to comments below and I will do my best to answer.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
