@@ -90,7 +90,7 @@ function mul(x) {
 const mulTwo = mul(2)
 
 mulTwo(2) // 4
-mulTwo(3) // 9
+mulTwo(3) // 6
 mulTwo(4) // 8
 mulTwo(5) // 10
 ```
