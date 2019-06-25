@@ -5,13 +5,13 @@
 > * 译者：[JerryFD](https://github.com/Jerry-FD)
 > * 校对者：
 
-#  JavaScript 中 JSON.stringify 的帕累托法则手册
+#  avaScript 中 JSON.stringify 的二八法则
 
 [函数 `JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 是一个把 JavaScript object 转换成 [JSON](https://www.json.org/) 的标准方法。很多 JavaScript 框架在底层都使用了 `JSON.stringify()`，例如：[Express' `res.json()`](http://expressjs.com/en/4x/api.html#res.json)、[Axios' `post()`](https://github.com/axios/axios#example) 和 [Webpack stats](https://webpack.js.org/configuration/stats/) 都在底层调用了 `JSON.stringify()`。这篇文章会提供一个实用的、包含异常情况的 `JSON.stringify()` 的概述。
 
 ## 开始
 
-几乎所有现代的 JavaScript 运行环境都支持 `JSON.stringify()`。 甚至 IE 浏览器也支持[`JSON.stringify()` 自 IE8 起支持](https://blogs.msdn.microsoft.com/ie/2008/09/10/native-json-in-ie8/)。下面是一个把普通的 object 转换成 JSON 的例子：
+几乎所有现代的 JavaScript 运行环境都支持 `JSON.stringify()`。 甚至 IE 浏览器自从 [IE8 起就支持JSON.stringify()](https://blogs.msdn.microsoft.com/ie/2008/09/10/native-json-in-ie8/)。下面是一个把普通的 object 转换成 JSON 的例子：
 
 ```javascript
 const obj = { answer: 42 };
@@ -33,18 +33,18 @@ clone === obj; // false
 
 ## 错误和边界处理
 
-[如果 `JSON.stringify()` 的调用参数是循环 object（译注：cyclical object），则会抛出一个错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Exceptions)。也就是说，如果对象 `obj` 有一个属性，这个属性的值是 `obj` 本身，那么 `JSON.stringify()` 会抛出一个错误。
+[如果 `JSON.stringify()` 的参数是 cyclical object，则会抛出一个错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Exceptions)。也就是说，如果对象 `obj` 有一个属性，这个属性的值是 `obj` 本身，那么 `JSON.stringify()` 会抛出一个错误。
 
 ```javascript
 const obj = {};
 // 循环 object 指向它自身
 obj.prop = obj;
 
-// Throws "TypeError: TypeError: Converting circular structure to JSON"
+// 抛出 "TypeError: TypeError: Converting circular structure to JSON"
 JSON.stringify(obj);
 ```
 
-这是 `JSON.stringify()` 唯一抛出异常的场景，除非你使用自定义的 `toJSON()` 函数或者替代函数. 然而即便这样，你也还是得把 `JSON.stringify()` 包在 `try/catch` 里调用，因为循环 objects 还是可能会出现。
+这是 `JSON.stringify()` 唯一抛出异常的场景，除非你使用自定义的 `toJSON()` 函数或者使用替代函数（replacer）。然而即便这样，你也还是得把 `JSON.stringify()` 包在 `try/catch` 里调用，因为循环 objects 还是可能会出现。
 
 还有很多边界场景 `JSON.stringify()` 不会抛出异常，但其结果可能不如你所想。比如， `JSON.stringify()` 会把 `NaN` 和 `Infinity` 转换成 `null`：
 
@@ -66,7 +66,7 @@ JSON.stringify(obj); // '{}'
 ## 优化输出
 
 
- `JSON.stringify()` 的第一个参数是要被序列化成 JSON 的 object。`JSON.stringify()` 接受 3 个参数，第三个参数 `spaces`（译注：空隙）。参数 `spaces` 用来将 JSON 格式化输出成方便阅读的格式。
+ `JSON.stringify()` 的第一个参数是要被序列化成 JSON 的 object。实际上 `JSON.stringify()` 接受 3 个参数，第三个参数 `spaces`（译注：空隙）。参数 `spaces` 用来将 JSON 格式化输出成方便阅读的格式。
 
 参数 `spaces` 可以是 string 或 number。如果 `spaces` 不是 undefined，那么`JSON.stringify()` 则会把 JSON 中的每一个 key 单独作为一行输出，并且加上 `spaces` 的前缀。
 
@@ -86,11 +86,11 @@ JSON.stringify(obj);
 // }
 JSON.stringify(obj, null, '  ');
 
-// 使用 2 来格式化 JSON 输出。和上面的例子等价。
+// 使用 2 个空格来格式化 JSON 输出。和上面的例子等价。
 JSON.stringify(obj, null, 2);
 ```
 
-把 `spaces` 作为字符串使用时，虽然在实际场景中大多是使用空格，但其实不限制全是空格。例如：
+把参数 `spaces` 作为字符串使用时，虽然在实际场景中大多是使用空格，但其实不限制必须全是空格。例如：
 
 ```javascript
 // {
@@ -104,7 +104,7 @@ JSON.stringify(obj, null, 2);
 JSON.stringify(obj, null, '__');
 ```
 
-## Replacers（译注：替代函数）
+## Replacers
 
 
 `JSON.stringify()` 的第二个参数是 `replacer` 函数。在上面的例子中，`replacer` 是 `null`。 JavaScript 针对 object 中的每一个 key/value 对都会调用 replacer 函数，使用函数的返回值作为属性的值。例如：
@@ -122,7 +122,7 @@ JSON.stringify(obj, function replacer(key, value) {
 });
 ```
 
-替代函数在过滤敏感词的场景非常有用。例如，假设你想过滤所有[包含 'password' 及 'password' 子字符串的 keys](https://masteringjs.io/tutorials/fundamentals/contains-substring#case-insensitive-search)：
+替代函数（译注：replacer）在过滤敏感词的场景非常有用。例如，假设你想过滤所有[包含 'password' 及 'password' 子字符串的 keys](https://masteringjs.io/tutorials/fundamentals/contains-substring#case-insensitive-search)：
 
 ```javascript
 const obj = {
@@ -161,13 +161,13 @@ const obj = {
 JSON.stringify(obj);
 ```
 
-函数 `toJSON()` 可以返回任何值，包括对象和原始类型的值，或者 `undefined`。如果 `toJSON()` 返回 `undefined`，`JSON.stringify()` 会忽略这个属性。
+函数 `toJSON()` 可以返回任何值，包括对象、原始类型的值，甚至 `undefined`。如果 `toJSON()` 返回 `undefined`，`JSON.stringify()` 会忽略这个属性。
 
 许多 JavaScript 模块使用 `toJSON()` 这一特性来保证复杂的对象能被正确的序列化。比如 [Mongoose documents](https://mongoosejs.com/docs/api.html#document_Document-toJSON) 和 [Moment objects](https://momentjs.com/docs/#/displaying/as-json/)。
 
 ## 后续
 
- 函数 `JSON.stringify()` 是 JavaScript 基础的核心。许多库和框架在底层都使用了它，所以对 `JSON.stringify()` 的扎实理解，可以帮助更好的学习你感兴趣的 npm 模块。比如，针对你的 Express REST API，可以借用自定义 `toJSON()` 函数的能力来处理原生的 `Date` 类，以此实现一个 [日期格式化](https://masteringjs.io/tutorials/fundamentals/date_format) 的替代方案，或者，当使用 Axios 发送 HTTP 请求时，确保客户端的循环对象能被正确的转换成 JSON。
+ 函数 `JSON.stringify()` 是 JavaScript 基础的核心。许多库和框架在底层都使用了它，所以对 `JSON.stringify()` 的扎实理解，可以帮助更好的学习你感兴趣的 npm 模块。比如，针对你的 Express REST API，可以借用自定义 `toJSON()` 函数的能力来处理原生的 `Date` 类，以此实现一个[日期格式化](https://masteringjs.io/tutorials/fundamentals/date_format) 的替代方案，或者，当使用 Axios 发送 HTTP 请求时，确保客户端的循环对象能被正确的转换成 JSON。
  （译注：帕累托法则即 80/20 Rule，一般指 20% 的输入，决定 80% 的结果的现象。）
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
