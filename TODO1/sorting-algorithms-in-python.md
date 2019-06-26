@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/sorting-algorithms-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/sorting-algorithms-in-python.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者: [JalanJiang](https://github.com/JalanJiang), [csming1995](https://github.com/csming1995)
+> * 校对者：[JalanJiang](https://github.com/JalanJiang), [csming1995](https://github.com/csming1995)
 
 # Python 实现排序算法
 
@@ -89,7 +89,7 @@ selection_sort(random_list_of_nums)
 print(random_list_of_nums)
 ```
 
-可以看到随着 `i` 的增加，我们需要检查的元素越来越少。。
+可以看到随着 `i` 的增加，我们需要检查的元素越来越少。
 
 ### 时间复杂度
 
@@ -141,7 +141,7 @@ print(random_list_of_nums)
 
 ### 介绍
 
-我们首先将列表转换成一个最大堆 —— 一种最大元素为根节点的二叉树。然后把我们把这个节点放在列表的尾部。然后我们重建这个少了一个值的*最大堆*，将新的最大值放在列表的最后一项之前。
+我们首先将列表转换成一个最大堆 —— 一种最大元素为根节点的二叉树。然后把我们把这个节点放在列表的尾部。然后我们重建这个少了一个值的**最大堆**，将新的最大值放在列表的最后一项之前。
 
 然后我们重复这个构建堆的过程，直到删除所有节点。
 
@@ -195,7 +195,7 @@ print(random_list_of_nums)
 
 让我们先看看 `heapify` 函数的时间复杂度。在最坏的情况下，最大元素永远不是根元素，这会导致递归调用 `heapify` 函数。虽然递归调用可能看起来非常损耗性能，但请记住，我们这里使用的是二叉树。
 
-可视化一个包含 3 个元素的二叉树，它的高度为 2。现在可视化一个包含 7 个元素的二叉树，它的高度为 3。这棵树按对数方式增长到 *n*。`heapify`　函数在 O(log(n)) 时间遍历该树。
+可视化一个包含 3 个元素的二叉树，它的高度为 2。现在可视化一个包含 7 个元素的二叉树，它的高度为 3。这棵树按对数方式增长到 *n*。`heapify` 函数在 O(log(n)) 时间遍历该树。
 
 `heap_sort` 函数迭代数组 *n* 次。因此，堆排序算法的总时间复杂度为 O(nlog(n))。
 
