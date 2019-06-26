@@ -2,138 +2,138 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-perform-object-detection-with-yolov3-in-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-perform-object-detection-with-yolov3-in-keras.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Daltan](https://github.com/Daltan)
+> * 校对者：[lsvih](https://github.com/lsvih), [zhmhhu](https://github.com/zhmhhu)
 
-# How to Perform Object Detection With YOLOv3 in Keras
+# 如何在 Keras 中用 YOLOv3 进行对象检测
 
-Object detection is a task in computer vision that involves identifying the presence, location, and type of one or more objects in a given photograph.
+对象检测是计算机视觉的一项任务，涉及对给定图像识别一个或多个对象的存在性、位置、类型等属性。
 
-It is a challenging problem that involves building upon methods for object recognition (e.g. where are they), object localization (e.g. what are their extent), and object classification (e.g. what are they).
+然而，如何找到合适的方法来解决对象识别（它们在哪）、对象定位（其程度如何）、对象分类（它们是什么）的问题，是一项具有挑战性的任务。
 
-In recent years, deep learning techniques are achieving state-of-the-art results for object detection, such as on standard benchmark datasets and in computer vision competitions. Notable is the “You Only Look Once,” or YOLO, family of Convolutional Neural Networks that achieve near state-of-the-art results with a single end-to-end model that can perform object detection in real-time.
+多年来，在诸如标准基准数据集和计算机视觉竞赛领域等对象识别方法等方面，深度学习技术取得了先进成果。其中值得关注的是 YOLO（You Only Look Once），这是一种卷积神经网络系列算法，通过单一端到端模型实时进行对象检测，取得了几乎是最先进的结果。
 
-In this tutorial, you will discover how to develop a YOLOv3 model for object detection on new photographs.
+本教程教你如何建立 YOLOv3 模型，并在新图像上进行对象检测。
 
-After completing this tutorial, you will know:
+学完本教程，你会知道：
 
-*   YOLO-based Convolutional Neural Network family of models for object detection and the most recent variation called YOLOv3.
-*   The best-of-breed open source library implementation of the YOLOv3 for the Keras deep learning library.
-*   How to use a pre-trained YOLOv3 to perform object localization and detection on new photographs.
+- 用于对象检测的、基于卷积神经网络系列模型的 YOLO 算法，和其最新变种 YOLOv3。
+- 使用 Keras 深度学习库的 YOLOv3 开源库的最佳实现。
+- 如何使用预处理过的 YOLOv3，来对新图像进行对象定位和检测。
 
-Let’s get started.
+我们开始吧。
 
 ![How to Perform Object Detection With YOLOv3 in Keras](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/How-to-Perform-Object-Detection-With-YOLOv3-in-Keras.jpg)
 
-How to Perform Object Detection With YOLOv3 in Keras  
-Photo by [David Berkowitz](https://www.flickr.com/photos/davidberkowitz/5699832418/), some rights reserved.
+如何在 Keras 中用 YOLOv3 进行对象检测
+[David Berkowitz](https://www.flickr.com/photos/davidberkowitz/5699832418/) 图，部分权利保留。
 
-## Tutorial Overview
+## 教程概览
 
-This tutorial is divided into three parts; they are:
+本教程分为三个部分，分别是：
 
-1.  YOLO for Object Detection
-2.  Experiencor YOLO3 Project
-3.  Object Detection With YOLOv3
+1. 用于对象检测的 YOLO
+2. Experiencor 的 YOLO3 项目
+3. 用 YOLOv3 进行对象检测
 
-## YOLO for Object Detection
+## 用于对象检测的 YOLO
 
 
-Object detection is a computer vision task that involves both localizing one or more objects within an image and classifying each object in the image.
+对象检测是计算机视觉的任务，不仅涉及在单图像中对一个或多个对象定位，还涉及在该图像中对每个对象进行分类。
 
-It is a challenging computer vision task that requires both successful object localization in order to locate and draw a bounding box around each object in an image, and object classification to predict the correct class of object that was localized.
+对象检测这项富有挑战性的计算机视觉任务，不仅需要在图像中成功定位对象、找到每个对象并对其绘制边框，还需要对定位好的对象进行正确的分类。
 
-The “_You Only Look Once_,” or YOLO, family of models are a series of end-to-end deep learning models designed for fast object detection, developed by [Joseph Redmon](https://pjreddie.com/), et al. and first described in the 2015 paper titled “[You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640).”
+YOLO（You Only Look Once）是一系列端到端的深度学习系列模型，用于快速对象检测，由 [Joseph Redmon](https://pjreddie.com/) 等人于 2015 年的论文[《You Only Look Once：统一实时对象检测》](https://arxiv.org/abs/1506.02640)中首次阐述。
 
-The approach involves a single deep convolutional neural network (originally a version of GoogLeNet, later updated and called DarkNet based on VGG) that splits the input into a grid of cells and each cell directly predicts a bounding box and object classification. The result is a large number of candidate bounding boxes that are consolidated into a final prediction by a post-processing step.
+该方法涉及单个深度卷积神经网络（最初是 GoogLeNet 的一个版本，后来更新了，称为基于 VGG 的 DarkNet），将输入分成单元网格，每个格直接预测边框和对象分类。得到的结果是，大量的候选边界框通过后处理步骤合并到最终预测中。
 
-There are three main variations of the approach, at the time of writing; they are YOLOv1, YOLOv2, and YOLOv3. The first version proposed the general architecture, whereas the second version refined the design and made use of predefined anchor boxes to improve bounding box proposal, and version three further refined the model architecture and training process.
+在写本文时有三种主要变体：YOLOv1、YOLOv2、YOLOv3。第一个版本提出了通用架构，而第二个版本则改进了设计，并使用了预定义的锚定框来改进边界框方案，第三个版本进一步完善模型架构和训练过程。
 
-Although the accuracy of the models is close but not as good as Region-Based Convolutional Neural Networks (R-CNNs), they are popular for object detection because of their detection speed, often demonstrated in real-time on video or with camera feed input.
+虽然模型的准确性略逊于基于区域的卷积神经网络（R-CNN），但由于 YOLO 模型的检测速度快，因此在对象检测中很受欢迎，通常可以在视频或摄像机的输入上实时显示检测结果。
 
-> A single neural network predicts bounding boxes and class probabilities directly from full images in one evaluation. Since the whole detection pipeline is a single network, it can be optimized end-to-end directly on detection performance.
+> 在一次评估中，单个神经网络直接从完整图像预测边界框和类别概率。由于整个检测管道是一个单一的网络，因此可以直接对检测性能进行端到端优化。
 
-— [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640), 2015.
+- — [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640), 2015.
 
-In this tutorial, we will focus on using YOLOv3.
+本教程专注于使用 YOLOv3。
 
-## Experiencor YOLO3 for Keras Project
+## 在 Keras 项目中实践 YOLO3
 
-Source code for each version of YOLO is available, as well as pre-trained models.
+每个版本的 YOLO 源代码以及预先训练过的模型都可以下载得到。
 
-The official [DarkNet GitHub](https://github.com/pjreddie/darknet) repository contains the source code for the YOLO versions mentioned in the papers, written in C. The repository provides a step-by-step tutorial on how to use the code for object detection.
+官方仓库 [DarkNet GitHub](https://github.com/pjreddie/darknet) 中，包含了论文中提到的 YOLO 版本的源代码，是用 C 语言编写的。该仓库还提供了分步使用教程，来教授如何用代码进行对象检测。
 
-It is a challenging model to implement from scratch, especially for beginners as it requires the development of many customized model elements for training and for prediction. For example, even using a pre-trained model directly requires sophisticated code to distill and interpret the predicted bounding boxes output by the model.
+从头开始实现这个模型确实很有挑战性，特别是对新手来说，因为需要开发很多自定义的模型元素，来进行训练和预测。例如，即使是直接使用预先训练过的模型，也需要复杂的代码来提取和解释模型输出的预测边界框。
 
-Instead of developing this code from scratch, we can use a third-party implementation. There are many third-party implementations designed for using YOLO with Keras, and none appear to be standardized and designed to be used as a library.
+我们可以使用第三方实现过的代码，而不是从头开始写代码。有许多第三方实现是为了在 Keras 中使用 YOLO 而设计的，但没有一个实现是标准化了并设计为库来使用的。
 
-The [YAD2K project](https://github.com/allanzelener/YAD2K) was a de facto standard for YOLOv2 and provided scripts to convert the pre-trained weights into Keras format, use the pre-trained model to make predictions, and provided the code required to distill interpret the predicted bounding boxes. Many other third-party developers have used this code as a starting point and updated it to support YOLOv3.
+[YAD2K 项目](https://github.com/allanzelener/YAD2K) 是事实意义上的 YOLOv2 标准，它提供了将预先训练的权重转换为 Keras 格式的脚本，使用预先训练的模型进行预测，并提供提取解释预测边界框所需的代码。许多其他第三方开发人员已将此代码用作起点，并对其进行了更新以支持 YOLOv3。
 
-Perhaps the most widely used project for using pre-trained the YOLO models is called “[keras-yolo3: Training and Detecting Objects with YOLO3](https://github.com/experiencor/keras-yolo3)” by [Huynh Ngoc Anh](https://www.linkedin.com/in/ngoca/) or experiencor. The code in the project has been made available under a permissive MIT open source license. Like YAD2K, it provides scripts to both load and use pre-trained YOLO models as well as transfer learning for developing YOLOv3 models on new datasets.
+使用预训练的 YOLO 模型最广泛使用的项目可能就是 “[keras-yolo3：使用 YOLO3 训练和检测物体](https://github.com/experiencor/keras-yolo3)”了，该项目由 [Huynh Ngoc Anh ](https://www.linkedin.com/in/ngoca/) 开发，也可称他为 Experiencor。该项目中的代码已在 MIT 开源许可下提供。与 YAD2K 一样，该项目提供了可用于加载和使用预训练的 YOLO 模型的脚本，也可在新数据集上开发基于 YOLOv3 的迁移学习模型。
 
-He also has a [keras-yolo2](https://github.com/experiencor/keras-yolo2) project that provides similar code for YOLOv2 as well as detailed tutorials on how to use the code in the repository. The [keras-yolo3](https://github.com/experiencor/keras-yolo3) project appears to be an updated version of that project.
+Experiencor 还有一个 [keras-yolo2](https://github.com/experiencor/keras-yolo2) 项目，里面的代码和 YOLOv2 很像，也有详细教程教你如何使用这个仓库的代码。[keras-yolo3](https://github.com/experiencor/keras-yolo3) 似乎是这个项目的更新版。
 
-Interestingly, experiencor has used the model as the basis for some experiments and trained versions of the YOLOv3 on standard object detection problems such as a kangaroo dataset, racoon dataset, red blood cell detection, and others. He has listed model performance, provided the model weights for download and provided YouTube videos of model behavior. For example:
+有意思的是，Experiencor 以这个模型为基础做了些实验，在诸如袋鼠数据集、racoon 数据集、红细胞检测等等标准对象检测问题上，训练了 YOOLOv3 的多种版本。他列出了模型表现结果，还给出了模型权重以供下载，甚至还发布了展示模型表现结果的 YouTube 视频。比如：
 
 *   [Raccoon Detection using YOLO 3](https://www.youtube.com/watch?v=lxLyLIL7OsU)
 
-We will use experiencor’s keras-yolo3 project as the basis for performing object detection with a YOLOv3 model in this tutorial.
+本教程以 Experiencor 的 keras-yolo3 项目为基础，使用 YOLOv3 进行对象检测。
 
-In case the repository changes or is removed (which can happen with third-party open source projects), a [fork of the code at the time of writing](https://github.com/jbrownlee/keras-yolo3) is provided.
+这里是 [创作本文时的代码分支](https://github.com/jbrownlee/keras-yolo3)，以防仓库发生变化或被删除（这在第三方开源项目中可能会发生）。
 
-## Object Detection With YOLOv3
+## 用YOLOv3进行对象检测
 
-The [keras-yolo3](https://github.com/experiencor/keras-yolo3) project provides a lot of capability for using YOLOv3 models, including object detection, transfer learning, and training new models from scratch.
+keras-yolo3 项目提供了很多使用 YOLOv3 的模型，包括对象检测、迁移学习、从头开始训练模型等。
 
-In this section, we will use a pre-trained model to perform object detection on an unseen photograph. This capability is available in a single Python file in the repository called “[yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py)” that has about 435 lines. This script is, in fact, a program that will use pre-trained weights to prepare a model and use that model to perform object detection and output a model. It also depends upon OpenCV.
+本节使用预训练模型对未见图像进行对象检测。用一个该仓库的 Python 文件就能实现这个功能，文件名是 [yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py)，有 435 行。该脚本其实是用预训练权重准备模型，再用此模型进行对象检测，最后输出一个模型。此外，该脚本依赖 OpenCV。
 
-Instead of using this program directly, we will reuse elements from this program and develop our own scripts to first prepare and save a Keras YOLOv3 model, and then load the model to make a prediction for a new photograph.
+我们不直接使用该程序，而是用该程序中的元素构建自己的脚本，先准备并保存 Keras YOLOv3 模型，然后加载并对新图像进行预测。
 
-### Create and Save Model
+### 创建并保存模型
 
-The first step is to download the pre-trained model weights.
+第一步是下载预训练的模型权重。
 
-These were trained using the DarkNet code base on the MSCOCO dataset. Download the model weights and place them into your current working directory with the filename “_yolov3.weights_.” It is a large file and may take a moment to download depending on the speed of your internet connection.
+下面是基于 MSCOCO 数据集、使用 DarNet 代码训练好的模型。下载模型权重，并置之于当前工作路径，重命名为 **yolov3.weights**。文件很大，下载下来可能需要一会，速度跟你的网络有关。
 
 *   [YOLOv3 Pre-trained Model Weights (yolov3.weights) (237 MB)](https://pjreddie.com/media/files/yolov3.weights)
 
-Next, we need to define a Keras model that has the right number and type of layers to match the downloaded model weights. The model architecture is called a “_DarkNet_” and was originally loosely based on the VGG-16 model.
+下一步是定义一个 Keras 模型，确保模型中层的数量和类型与下载的模型权重相匹配。模型构架称为 DarkNet ，最初基本上是基于 VGG-16 模型的。
 
-The “[yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py)” script provides the _make\_yolov3\_model()_ function to create the model for us, and the helper function _\_conv\_block()_ that is used to create blocks of layers. These two functions can be copied directly from the script.
+脚本文件 [yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py) 提供了 make\_yolov3\_model() 函数，用来创建模型，还有辅助函数 \_conv\_block()，用来创建层块。两个函数都能从该脚本中复制。
 
-We can now define the Keras model for YOLOv3.
+现在定义 YOLOv3 的 Keras 模型。
 
 ```
 # define the model
 model  =  make_yolov3_model()
 ```
 
-Next, we need to load the model weights. The model weights are stored in whatever format that was used by DarkNet. Rather than trying to decode the file manually, we can use the _WeightReader_ class provided in the script.
+接下来载入模型权重。DarkNet 用的权重存储形式不重要，我们也无需手动解码，用脚本中的 **WeightReader** 类就可以。
 
-To use the _WeightReader_, it is instantiated with the path to our weights file (e.g. ‘_yolov3.weights_‘). This will parse the file and load the model weights into memory in a format that we can set into our Keras model.
+要想用 **WeightReader**，先得把权重文件（比如 **yolov3.weights**）的路径实例化。下面的代码将解析文件并将模型权重加载到内存中，这样其格式可以在 Keras 模型中使用了。
 
 ```
 # load the model weights
 weight_reader  =  WeightReader('yolov3.weights')
 ```
 
-We can then call the _load_weights()_ function of the _WeightReader_ instance, passing in our defined Keras model to set the weights into the layers.
+然后调用 **WeightReader** 实例的 **load_weights()** 函数，传递定义的 Keras 模型，将权重设置到图层中。
 
 ```
 # set the model weights into the model
 weight_reader.load_weights(model)
 ```
 
-That’s it; we now have a YOLOv3 model for use.
+代码如上。现在就有 YOLOv3 模型可以用了。
 
-We can save this model to a Keras compatible .h5 model file ready for later use.
+将此模型保存为 Keras 兼容的 .h5 模型文件，以备待用。
 
 ```
 # save the model to file
 model.save('model.h5')
 ```
 
-We can tie all of this together; the complete code example including functions copied directly from the “_yolo3\_one\_file\_to\_detect\_them\_all.py_” script is listed below.
+将以上这些连在一起。代码都是从 **yolo3\_one\_file\_to\_detect\_them\_all.py** 复制过来的，包括函数的完整代码如下。
 
 ```
 # create a YOLOv3 Keras model and save it to file
@@ -302,9 +302,9 @@ weight_reader.load_weights(model)
 # save the model to file
 model.save('model.h5')
 ```
-Running the example may take a little less than one minute to execute on modern hardware.
+在现代的硬件设备中运行此示例代码，可能只需要不到一分钟的时间。
 
-As the weight file is loaded, you will see debug information reported about what was loaded, output by the _WeightReader_ class.
+当权重文件加载后，你可以看到由 **WeightReader** 类输出的调试信息报告。
 
 ```
 ...
@@ -317,35 +317,35 @@ loading weights of convolution #104
 loading weights of convolution #105
 ```
 
-At the end of the run, the _model.h5_ file is saved in your current working directory with approximately the same size as the original weight file (237MB), but ready to be loaded and used directly as a Keras model.
+运行结束时，当前工作路径下保存了 **model.h5** 文件，大小接近原始权重文件（237MB），但是可以像 Keras 模型一样可以加载该文件并直接使用。
 
-### Make a Prediction
+### 做预测
 
-We need a new photo for object detection, ideally with objects that we know that the model knows about from the [MSCOCO dataset](http://cocodataset.org/).
+我们需要一张用于对象检测的新照片，理想情况下图片中的对象是我们知道的模型从 [MSCOCO数据集](http://cocodataset.org/) 可识别的对象。
 
-We will use a photograph of three zebras taken by [Boegh](https://www.flickr.com/photos/boegh/5676993427/) on safari, and released under a permissive license.
+这里使用一张三匹斑马的图片，是 [Boegh](https://www.flickr.com/photos/boegh/5676993427/) 在旅行时拍摄的，且带有发布许可。
 
 ![Photograph of Three Zebras](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/zebra.jpg)
 
-Photograph of Three Zebras  
-Taken by Boegh, some rights reserved.
+三匹斑马图片  
+Boegh 摄，部分权利保留。
 
-*   [Photograph of Three Zebras (zebra.jpg)](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/zebra.jpg)
+*   [三匹斑马图片（zebra.jpg）](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/zebra.jpg)
 
-Download the photograph and place it in your current working directory with the filename ‘_zebra.jpg_‘.
+下载这张图片，放在当前工作路径，命名为 **zebra.jpg** 。
 
-Making a prediction is straightforward, although interpreting the prediction requires some work.
+尽管解释预测结果需要一些工作，但做出预测是直截了当的。
 
-The first step is to [load the Keras model](https://machinelearningmastery.com/save-load-keras-deep-learning-models/). This might be the slowest part of making a prediction.
+第一步是 [加载 Keras 模型](https://machinelearningmastery.com/save-load-keras-deep-learning-models/)，这可能是做预测过程中最慢的一步了。
 
 ```
 # load yolov3 model
 model  =  load_model('model.h5')
 ```
 
-Next, we need to load our new photograph and prepare it as suitable input to the model. The model expects inputs to be color images with the square shape of 416×416 pixels.
+接下来要加载新的图像，并将其整理成适合作为模型输入的形式。模型想要的输入形式是 416×416 正方形的彩色图片。
 
-We can use the _load_img()_ Keras function to load the image and the target_size argument to resize the image after loading. We can also use the _img\_to\_array()_ function to convert the loaded PIL image object into a NumPy array, and then rescale the pixel values from 0-255 to 0-1 32-bit floating point values.
+使用 **load_img() Keras** 函数加载图像，target_size 参数的作用是加载图片后调整图像的大小。也可以用 **img\_to\_array()** 函数将加载的 PIL 图像对象转换成 Numpy 数组，然后重新调整像素值，使其从 0-255 调整到 0-1 的 32 位浮点值。
 
 ```
 # load the image with the required size
@@ -357,7 +357,7 @@ image = image.astype('float32')
 image /= 255.0
 ```
 
-We will want to show the original photo again later, which means we will need to scale the bounding boxes of all detected objects from the square shape back to the original shape. As such, we can load the image and retrieve the original shape.
+我们希望稍后再次显示原始照片，这意味着我们需要将所有检测到的对象的边界框从方形形状缩放回原始形状。 这样，我们就可以加载图片并恢复原始形状了。
 
 ```
 load the image to get its shape
@@ -365,7 +365,7 @@ image  =  load_img('zebra.jpg')
 width,  height  =  image.size
 ```
 
-We can tie all of this together into a convenience function named _load\_image\_pixels()_ that takes the filename and target size and returns the scaled pixel data ready to provide as input to the Keras model, as well as the original width and height of the image.
+以上步骤可以都连在一起，写成 **load\_image\_pixels()** 函数，方便使用。该函数的输入是文件名、目标尺寸，返回的是缩放过的像素数据，这些数据可作为 Keras 模型的输入，还返回原始图像的宽度和高度。
 
 ```
 # load and prepare an image
@@ -385,7 +385,7 @@ def load_image_pixels(filename, shape):
     return image, width, height
 ```
 
-We can then call this function to load our photo of zebras.
+然后调用该函数，加载斑马图。
 
 ```
 # define the expected input shape for the model
@@ -396,7 +396,7 @@ photo_filename = 'zebra.jpg'
 image, image_w, image_h = load_image_pixels(photo_filename, (input_w, input_h))
 ```
 
-We can now feed the photo into the Keras model and make a prediction.
+将该图片给 Keras 模型做输入，进行预测。
 
 ```
 # make prediction
@@ -405,7 +405,7 @@ yhat = model.predict(image)
 print([a.shape for a in yhat])
 ```
 
-That’s it, at least for making a prediction. The complete example is listed below.
+以上就是做预测本身的过程。完整示例如下。
 
 ```
 # load yolov3 model and perform object detection
@@ -445,19 +445,19 @@ yhat = model.predict(image)
 print([a.shape for a in yhat])
 ```
 
-Running the example returns a list of three NumPy arrays, the shape of which is displayed as output.
+示例代码返回有三个 Numpy 数组的列表，其形状作为输出展现出来。
 
-These arrays predict both the bounding boxes and class labels but are encoded. They must be interpreted.
+这些数据既预测了边框，又预测了标签的种类，但是是编码过的。这些结果需要解释一下才行。
 
 ```
 [(1, 13, 13, 255), (1, 26, 26, 255), (1, 52, 52, 255)]
 ```
 
-### Make a Prediction and Interpret Result
+### 做出预测与解释结果
 
-The output of the model is, in fact, encoded candidate bounding boxes from three different grid sizes, and the boxes are defined the context of anchor boxes, carefully chosen based on an analysis of the size of objects in the MSCOCO dataset.
+实际上模型的输出是编码过的候选边框，这些候选边框来源于三种不同大小的网格，框本身是由锚框的情境定义的，由基于在 MSCOCO 数据集中对对象尺寸的分析，仔细选择得来的。
 
-The script provided by experiencor provides a function called _decode_netout()_ that will take each one of the NumPy arrays, one at a time, and decode the candidate bounding boxes and class predictions. Further, any bounding boxes that don’t confidently describe an object (e.g. all class probabilities are below a threshold) are ignored. We will use a probability of 60% or 0.6. The function returns a list of _BoundBox_ instances that define the corners of each bounding box in the context of the input image shape and class probabilities.
+由 experincor 提供的脚本中有一个 **decode_netout()** 函数，可以一次一个取每个 Numpy 数组，将候选边框和预测的分类解码。此外，所有不能有足够把握（比如概率低于某个阈值）描述对象的边框都将被忽略掉。此处使用 60% 或 0.6 的概率阈值。该函数返回 **BoundBox** 的实例列表，这个实例定义了每个边界框的角。这些边界框代表了输入图像的形状和类别概率。
 
 ```
 # define the anchors
@@ -470,27 +470,27 @@ for i in range(len(yhat)):
 	boxes += decode_netout(yhat[i][0], anchors[i], class_threshold, input_h, input_w)
 ```
 
-Next, the bounding boxes can be stretched back into the shape of the original image. This is helpful as it means that later we can plot the original image and draw the bounding boxes, hopefully detecting real objects.
+接下来要将边框拉伸至原来图像的形状。这一步很有用，因为这意味着稍后我们可以绘制原始图像并绘制边界框，希望能够检测到真实对象。
 
-The experiencor script provides the _correct\_yolo\_boxes()_ function to perform this translation of bounding box coordinates, taking the list of bounding boxes, the original shape of our loaded photograph, and the shape of the input to the network as arguments. The coordinates of the bounding boxes are updated directly.
+由 Experiencor 提供的脚本中有 **correct\_yolo\_boxes()** 函数，可以转换边框坐标，把边界框列表、一开始加载的图片的原始形状以及网络中输入的形状作为参数。边界框的坐标直接更新：
 
 ```
 # correct the sizes of the bounding boxes for the shape of the image
 correct _yolo_boxes(boxes,  image_h,  image_w,  input_h,  input_w)
 ```
 
-The model has predicted a lot of candidate bounding boxes, and most of the boxes will be referring to the same objects. The list of bounding boxes can be filtered and those boxes that overlap and refer to the same object can be merged. We can define the amount of overlap as a configuration parameter, in this case, 50% or 0.5. This filtering of bounding box regions is generally referred to as non-maximal suppression and is a required post-processing step.
+模型预测了许多边框，大多数框是同一对象。可筛选边框列表，将那些重叠的、指向统一对象的框都合并。可将重叠数量定义为配置参数，此处是50%或0.5 。这一筛选步骤的条件并不是最严格的，而且需要更多后处理步骤。
 
-The experiencor script provides this via the _do_nms()_ function that takes the list of bounding boxes and a threshold parameter. Rather than purging the overlapping boxes, their predicted probability for their overlapping class is cleared. This allows the boxes to remain and be used if they also detect another object type.
+该脚本通过 **do_nms()**  实现这一点，该函数的参数是边框列表和阈值。该函数整理的不是重叠的边框，而是重叠类的预测概率。这样如果检测到另外的对象类型，边框仍还可用。
 
 ```
 # suppress non-maximal boxes
 do_nms(boxes,  0.5)
 ```
 
-This will leave us with the same number of boxes, but only very few of interest. We can retrieve just those boxes that strongly predict the presence of an object: that is are more than 60% confident. This can be achieved by enumerating over all boxes and checking the class prediction values. We can then look up the corresponding class label for the box and add it to the list. Each box must be considered for each class label, just in case the same box strongly predicts more than one object.
+这样留下的边框数量就一样了，但只有少数有用。 我们只能检索那些强烈预测对象存在的边框：超过 60% 的置信率。 这可以通过遍历所有框并检查类预测值来实现。 然后，我们可以查找该框的相应类标签并将其添加到列表中。 每个边框需要跟每个类标签一一核对，以防同一个框强烈预测多个对象。
 
-We can develop a _get_boxes()_ function that does this and takes the list of boxes, known labels, and our classification threshold as arguments and returns parallel lists of boxes, labels, and scores.
+创建一个 **get_boxes()** 函数实现这一步，将边框列表、已知标签、分类阈值作为参数，将对应的边框列表、标签、和评分当做返回值。
 
 ```
 # get all of the results above a threshold
@@ -509,9 +509,9 @@ def get_boxes(boxes, labels, thresh):
 	return v_boxes, v_labels, v_scores
 ```
 
-We can call this function with our list of boxes.
+用边框列表当做参数调用该函数。
 
-We also need a list of strings containing the class labels known to the model in the correct order used during training, specifically those class labels from the MSCOCO dataset. Thankfully, this is provided in the experiencor script.
+我们还需要一个字符串列表，其中包含模型中已知的类标签，顺序要和训练模型时候的顺序保持一致，特别是 MSCOCO 数据集中的类标签。 值得庆幸的是，这些在 Experiencor 的脚本中也提供。
 
 ```
 # define the labels
@@ -529,7 +529,7 @@ labels = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", 
 v_boxes, v_labels, v_scores = get_boxes(boxes, labels, class_threshold)
 ```
 
-Now that we have those few boxes of strongly predicted objects, we can summarize them.
+现在有了预测对象较强的少数边框，可以对它们做个总结。
 
 ```
 # summarize what we found
@@ -537,7 +537,7 @@ for i in range(len(v_boxes)):
     print(v_labels[i], v_scores[i])
 ```
 
-We can also plot our original photograph and draw the bounding box around each detected object. This can be achieved by retrieving the coordinates from each bounding box and creating a Rectangle object.
+我们还可以绘制原始照片并在每个检测到的物体周围绘制边界框。 这可以通过从每个边界框检索坐标并创建 Rectangle 对象来实现。
 
 ```
 box = v_boxes[i]
@@ -551,7 +551,7 @@ rect = Rectangle((x1, y1), width, height, fill=False, color='white')
 ax.add_patch(rect)
 ```
 
-We can also draw a string with the class label and confidence.
+也可以用类标签和置信度以字符串形式绘制出来。
 
 ```
 # draw text and score in top left corner
@@ -559,7 +559,7 @@ label = "%s (%.3f)" % (v_labels[i], v_scores[i])
 pyplot.text(x1, y1, label, color='white')
 ```
 
-The _draw_boxes()_ function below implements this, taking the filename of the original photograph and the parallel lists of bounding boxes, labels and scores, and creates a plot showing all detected objects.
+下面的 **draw_boxes()** 函数实现了这一点，获取原始照片的文件名、对应边框列表、标签、评分，绘制出检测到的所有对象。
 
 ```
 # draw all results
@@ -588,16 +588,16 @@ def draw_boxes(filename, v_boxes, v_labels, v_scores):
 	pyplot.show()
 ```
 
-We can then call this function to plot our final result.
+然后调用该函数，绘制最终结果。
 
 ```
 # draw what we found
 draw_boxes(photo_filename, v_boxes, v_labels, v_scores)
 ```
 
-We now have all of the elements required to make a prediction using the YOLOv3 model, interpret the results, and plot them for review.
+使用 YOLOv3 模型做预测所要的所有元素，现在都有了。解释结果，并绘制出来以供审查。
 
-The full code listing, including the original and modified functions taken from the experiencor script, are listed below for completeness.
+下面列出了完整代码清单，包括原始和修改过的 xperiencor 脚本。
 
 ```
 # load yolov3 model and perform object detection
@@ -814,9 +814,9 @@ for i in range(len(v_boxes)):
 draw_boxes(photo_filename, v_boxes, v_labels, v_scores)
 ```
 
-Running the example again prints the shape of the raw output from the model.
+再次运行示例，打印出模型的原始输出。
 
-This is followed by a summary of the objects detected by the model and their confidence. We can see that the model has detected three zebra, all above 90% likelihood.
+接下来就是模型检测到的对象摘要和对应置信度。可以看出，模型检测到三匹斑马，而且相似度高于 90%。
 
 ```
 [(1, 13, 13, 255), (1, 26, 26, 255), (1, 52, 52, 255)]
@@ -825,17 +825,17 @@ zebra 99.86329674720764
 zebra 96.8708872795105
 ```
 
-A plot of the photograph is created and the three bounding boxes are plotted. We can see that the model has indeed successfully detected the three zebra in the photograph.
+绘制出的图片有三个边框，可以看出模型确实成功检测出了图片中的三匹斑马。
 
 ![Photograph of Three Zebra Each Detected with the YOLOv3 Model and Localized with Bounding Boxes](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/Photograph-of-Three-Zebra-Each-Detected-with-the-YOLOv3-Model-and-Localized-with-Bounding-Boxes-1024x768.png)
 
-Photograph of Three Zebra Each Detected with the YOLOv3 Model and Localized with Bounding Boxes
+用 YOLOv3 模型检测、边框定位的斑马图片
 
-## Further Reading
+## 拓展阅读
 
-This section provides more resources on the topic if you are looking to go deeper.
+如果想深入了解该主题，本节提供更多有关资源。
 
-### Papers
+### 论文
 
 *   [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640), 2015.
 *   [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242), 2016.
@@ -845,32 +845,32 @@ This section provides more resources on the topic if you are looking to go deepe
 
 *   [matplotlib.patches.Rectangle API](https://matplotlib.org/api/_as_gen/matplotlib.patches.Rectangle.html)
 
-### Resources
+### 资源
 
 *   [YOLO: Real-Time Object Detection, Homepage](https://pjreddie.com/darknet/yolo/).
 *   [Official DarkNet and YOLO Source Code, GitHub](https://github.com/pjreddie/darknet).
 *   [Official YOLO: Real Time Object Detection](https://github.com/pjreddie/darknet/wiki/YOLO:-Real-Time-Object-Detection).
-*   [Huynh Ngoc Anh, experiencor, Home Page](https://experiencor.github.io/).
+*   [Huynh Ngoc Anh, Experiencor, Home Page](https://experiencor.github.io/).
 *   [experiencor/keras-yolo3, GitHub](https://github.com/experiencor/keras-yolo3).
 
-### Other YOLO for Keras Projects
+### Keras 项目的其他 YOLO 实现
 
 *   [allanzelener/YAD2K, GitHub](https://github.com/allanzelener/YAD2K).
 *   [qqwweee/keras-yolo3, GitHub](https://github.com/qqwweee/keras-yolo3).
 *   [xiaochus/YOLOv3 GitHub](https://github.com/xiaochus/YOLOv3).
 
-## Summary
+## 总结
 
-In this tutorial, you discovered how to develop a YOLOv3 model for object detection on new photographs.
+本教程教你如何开发 YOLOv3 模型，用于对新的图像进行对象检测。
 
-Specifically, you learned:
+具体来说，你学到了：
 
-*  YOLO-based Convolutional Neural Network family of models for object detection and the most recent variation called YOLOv3.
-*  The best-of-breed open source library implementation of the YOLOv3 for the Keras deep learning library.
-*  How to use a pre-trained YOLOv3 to perform object localization and detection on new photographs.
+- 基于 YOLO 的卷积神经网络系列模型，用于对象检测。最新变体是 YOLOv3。
+- 针对 Keras 深度学习库的最佳开源库 YOLOv3 实现。
+- 如何使用预先训练的 YOLOv3 对新照片进行定位和检测。
 
-Do you have any questions?  
-Ask your questions in the comments below and I will do my best to answer.
+有问题吗？
+在评论区提问，我会尽可能回答的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
