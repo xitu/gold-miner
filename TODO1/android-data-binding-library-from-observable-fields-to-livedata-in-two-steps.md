@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/android-data-binding-library-from-observable-fields-to-livedata-in-two-steps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/android-data-binding-library-from-observable-fields-to-livedata-in-two-steps.md)
 > * 译者：[Rickon](https://github.com/gs666)
-> * 校对者：
 
 # Android 数据绑定库 — 从可观察域到 LiveData 仅需两步
 
@@ -13,7 +12,7 @@
 
 **默认情况下**，普通基元和字符串是**不**可被观察的，因此如果在数据绑定布局中使用它们，则在创建绑定时将使用它们的值，但对它们的后续更改会被忽略。
 
-为了使对象可被观察，我们的[数据绑定库](https://developer.android.com/topic/libraries/data-binding/)中包含了一系列可被观察的类：`ObservableBoolean` , `ObservableInt`,`ObservableDouble`和范型：`ObservableField<T>`。从现在开始，我们称这些为**可观察域**。
+为了使对象可被观察，我们的[数据绑定库](https://developer.android.com/topic/libraries/data-binding/)中包含了一系列可被观察的类：`ObservableBoolean`、`ObservableInt`、`ObservableDouble` 和范型：`ObservableField<T>`。从现在开始，我们称这些为**可观察域**。
 
 几年后，作为第一波[架构组件](https://developer.android.com/topic/libraries/architecture)的一部分，我们发布了 [**LiveData**](https://developer.android.com/topic/libraries/architecture/livedata)，这**又**是一个可被观察的。这是与数据绑定兼容的候选，因此我们添加了此功能。
 
@@ -23,8 +22,7 @@
 
 ## 第一步：使用 LiveData 代替可观察域
 
-如果你直接在数据绑定布局中使用可观察域，只需使用`LiveData<Something>`替换`ObservableSomething` (或`ObservableField<Something>`)
-。
+如果你直接在数据绑定布局中使用可观察域，只需使用 `LiveData<Something>` 替换 `ObservableSomething`（或 `ObservableField<Something>`）。
 
 修改前：
 
@@ -62,7 +60,7 @@
 
 ```
 
-或者，如果你从 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)（首选方法）或一个 presenter 层或控制器暴露可观察对象，则无需更改布局。只需在 ViewModel 中用`LiveData`替换那些 `ObservableField`。
+或者，如果你从 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)（首选方法）或一个 presenter 层或控制器暴露可观察对象，则无需更改布局。只需在 ViewModel 中用 `LiveData` 替换那些 `ObservableField`。
 
 修改前：
 
@@ -86,7 +84,7 @@ class MyViewModel : ViewModel() {
 
 ## 第二步：设置 LiveData 的生命周期所有者
 
-绑定类有一个名为`setLifecycleOwner`的方法，在从数据绑定布局中观察 LiveData 时必须调用该方法。
+绑定类有一个名为 `setLifecycleOwner` 的方法，在从数据绑定布局中观察 LiveData 时必须调用该方法。
 
 修改前：
 
