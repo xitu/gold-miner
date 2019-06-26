@@ -18,7 +18,7 @@
 
 在本文中，你将得到上述重要问题的答案，并能更好地理解机器学习应用中的数据准备工作。
 
-Let’s get started.
+让我们开始吧！
 
 ![在机器学习中为什么要进行 One-Hot 编码？](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg)
 
@@ -121,7 +121,7 @@ red, green, blue
 * 大多数机器学习算法都需要输入数值变量，并会输出数值变量。
 * 通过整数编码与 One-Hot 编码可以将类别数据转换为整型数据。
 
-你还有别的问题吗？
+还有别的问题？
 
 请在评论中留下你的问题，我会尽力回答。
 
