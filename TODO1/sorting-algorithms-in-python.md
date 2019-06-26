@@ -2,252 +2,244 @@
 > * 原文作者：[Marcus Sanatan](https://stackabuse.com/author/marcus/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/sorting-algorithms-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/sorting-algorithms-in-python.md)
-> * 译者：
-> * 校对者
+> * 译者：[fireairforce](https://github.com/fireairforce)
+> * 校对者：[JalanJiang](https://github.com/JalanJiang), [csming1995](https://github.com/csming1995)
 
-# Sorting Algorithms in Python
+# Python 实现排序算法
 
-## Introduction
+## 简介
 
-Sometimes data we store or retrieve in an application can have little or no order. We may have to rearrange the data to correctly process it or efficiently use it. Over the years, computer scientists have created many sorting algorithms to organize data.
+有时，我们在应用程序中存储或检索的数据有可能是乱序的。如果想要正确处理或者有效使用数据，我们可能需要对数据重新排序。多年来，计算机科学家创造了许多排序算法来处理数据。
 
-In this article we'll have a look at popular sorting algorithms, understand how they work and code them in Python. We'll also compare how quickly they sort items in a list.
+在本文中，我们将了解一些流行的排序算法，了解它们是如何工作的，并用 Python 来实现它们。们还将会比较它们对列表中的元素排序的速度。
 
-For simplicity, algorithm implementations would be sorting lists of numbers in ascending order. Of course, you're free to adapt them to your needs.
+为了简单起见，这些算法将对列表中的数字都进行升序排序。当然，你可以根据自己的需要来自由调整。
 
-## Bubble Sort
+## 冒泡排序
 
-This simple sorting algorithm iterates over a list, comparing elements in pairs and swapping them until the larger elements "bubble up" to the end of the list, and the smaller elements stay at the "bottom".
+这个简单的排序算法会通过迭代列表成对的比较列表中的元素，并且交换它们，直到较大的元素“冒泡”到列表的末尾，较小的元素保持在“底部”。
 
-### Explanation
+### 介绍
 
-We begin by comparing the first two elements of the list. If the first element is larger than the second element, we swap them. If they are already in order we leave them as is. We then move to the next pair of elements, compare their values and swap as necessary. This process continues to the last pair of items in the list.
+我们首先比较列表的前两个元素。如果第一个元素大于第二个元素，我们交换它们。如果它们已经排好序，我们将它们保持原样。然后我们移动到下一对元素，比较它们的值，并根据需要交换。这个过程将持续到列表中的最后一对元素。
 
-Upon reaching the end of the list, it repeats this process for every item. Though, this is highly inefficient. What if only a single swap needs to be made in the array? Why would we still iterate though it *n^2* times, even though it's already sorted?
+当到达列表的末尾时，它会对每对元素重复此过程。但是，这个过程是很低效的。如果我们只需要在数组里面进行一次交换怎么办？为什么我们仍然会迭代 *n^2* 次，即使数组已经排好序了？
 
-Obviously, to optimize the algorithm, we need to stop it when it's finished sorting.
+显然，为了优化算法，我们需要在完成排序时停止它。
 
-How would we know that we're finished sorting? If the items were in order then we would not have to swap items. So, whenever we swap values we set a flag to `True` to repeat sorting process. If no swaps occurred, the flag would remain `False` and the algorithm would stop.
+那我们怎么知道已经完成了排序？如果元素是有序的，那我们就不必继续交换。因此，每当交换值时，我们会将一个标志值设置为 `True` 以重复排序过程。如果没有发生交换，标志值将保持为 `False`，算法将停止。
 
-### Implementation
+### 实现
 
-With the optimization, we can implement the bubble sort in Python as follows:
+优化之后，我们可以通过以下的 Python 代码来实现冒泡排序：
 
 ```python
 def bubble_sort(nums):
-    # We set swapped to True so the loop looks runs at least once
+    # 我们将标志值 swapped 设为 True，以便循环能够执行至少一次
     swapped = True
     while swapped:
         swapped = False
         for i in range(len(nums) - 1):
             if nums[i] > nums[i + 1]:
-                # Swap the elements
+                # 交换元素
                 nums[i], nums[i + 1] = nums[i + 1], nums[i]
-                # Set the flag to True so we'll loop again
+                # 把标志值设为 True 以便我们能再次循环
                 swapped = True
 
-# Verify it works
+# 检查是否能够正确执行
 random_list_of_nums = [5, 2, 1, 8, 4]
 bubble_sort(random_list_of_nums)
 print(random_list_of_nums)
 ```
 
-The algorithm runs in a `while` loop, only breaking when no items are swapped. We set `swapped` to `True` in the beginning to ensure that the algorithm runs at least once.
+这个算法在一个 `while` 循环里面运行，仅当没有元素能够交换时才会跳出循环。我们在开始时将 `swapped` 设为 `True`，以确保算法至少可以执行一次。
 
-### Time Complexity
+### 时间复杂度
 
-In the worst case scenario (when the list is in reverse order), this algorithm would have to swap every single item of the array. Our `swapped` flag would be set to `True` on every iteration. Therefore, if we have *n* elements in our list, we would have *n* iterations per item - thus Bubble Sort's time complexity is O(n^2).
+在最坏的情况下（当列表处于相反的顺序时），该算法必须交换数组的每个项。每次迭代的时候，标志值 `swapped` 都会被设置为 `True`。因此，如果我们在列表中有 *n* 个元素，我们将对每个元素迭代 *n* 次，因此冒泡排序的时间复杂度为 O(n^2)。
 
-## Selection Sort
+## 选择排序
 
-This algorithm segments the list into two parts: sorted and unsorted. We continuously remove the smallest element of the unsorted segment of the list and append it to the sorted segment.
+该算法将列表分为两部分：已排序部分和未排序部分。我们不断地删除列表中未排序部分的最小元素，并将其添加到已排序部分中。
 
-### Explanation
+### 介绍
 
-In practice, we don't need to create a new list for the sorted elements, what we do is treat the leftmost part of the list as the sorted segment. We then search the entire list for the smallest element, and swap it with the first element.
+实际上，我们并不需要为已排序的元素创建一个新的列表，我们要做的是将列表最左边的部分作为已排序部分。然后我们搜索整个列表中最小的元素，并将其与第一个元素交换。
 
-Now we know that the first element of the list is sorted, we get the smallest element of the remaining items and swap it with the second element. This iterates until the last item of the list is remaining element to be examined.
+现在我们知道列表的第一个元素是有序的，我们将继续搜索剩余元素中最小的元素，并将其与第二个元素交换。这将迭代到待检查元素是剩余列表的最后一项时。
 
-### Implementation
+### 实现
 
 ```python
 def selection_sort(nums):
-    # This value of i corresponds to how many values were sorted
+    # i 的值对应于已排序值的数量
     for i in range(len(nums)):
-        # We assume that the first item of the unsorted segment is the smallest
+        # 我们假设未排序部分的第一项是最小的
         lowest_value_index = i
-        # This loop iterates over the unsorted items
+        # 这个循环用来迭代未排序的项
         for j in range(i + 1, len(nums)):
             if nums[j] < nums[lowest_value_index]:
                 lowest_value_index = j
-        # Swap values of the lowest unsorted element with the first unsorted
-        # element
+        # 将未排序元素的最小的值与第一个未排序的元素的值相交换
         nums[i], nums[lowest_value_index] = nums[lowest_value_index], nums[i]
 
-# Verify it works
+# 检验算法是否正确
 random_list_of_nums = [12, 8, 3, 20, 11]
 selection_sort(random_list_of_nums)
 print(random_list_of_nums)
 ```
 
-We see that as `i` increases, we need to need to check less items.
+可以看到随着 `i` 的增加，我们需要检查的元素越来越少。
 
-### Time Complexity
+### 时间复杂度
 
-We can easily get the time complexity by examining the `for` loops in the Selection Sort algorithm. For a list with *n* elements, the outer loop iterates *n* times. The inner loop iterate *n-1* when *i* is equal to 1, and then *n-2* as *i* is equal to 2 and so forth.
+在选择排序算法中，我们可以通过检查 `for` 循环次数来轻松得到时间复杂度。对于一个有 *n* 个元素的列表，外层循环会迭代 *n* 次。当 *i* 的值为 1 时，内层循环会迭代 *n-1* 次，*i* 值为 2 时迭代 *n-2* 次然后依此类推。
 
-The amount of comparisons are `(n - 1) + (n - 2) + ... + 1`, which gives the Selection Sort a time complexity of O(n^2).
+算法比较的次数和为 `(n - 1) + (n - 2) + ... + 1`，由此可得选择排序算法的时间复杂度为 O(n^2)。
 
-## Insertion Sort
+## 插入排序
 
-Like Selection Sort, this algorithm segments the list into sorted and unsorted parts. It iterates over the unsorted segment, and inserts the element being viewed into the correct position of the sorted list.
+与选择排序一样，该算法将列表分为已排序部分和未排序部分。它会通过迭代未排序的部分将遍历到的元素插入到排序列表中的正确位置。
 
-### Explanation
+### 介绍
 
-We assume that the first element of the list is sorted. We then go to the next element, let's call it `x`. If `x` is larger than the first element we leave as is. If `x` is smaller, we copy the value of the first element to the second position and then set the first element to `x`.
+我们假设列表的第一个元素已排序。然后我们遍历到下一个元素，我们称之为 `x`。如果 `x` 值大于第一个元素，我们将继续遍历。如果 `x` 值较小，我们将第一个元素的值复制到第二个位置，然后将第一个元素值设置为 `x`。
 
-As we go to the other elements of the unsorted segment, we continuously move larger elements in the sorted segment up the list until we encounter an element smaller than `x`or reach the end of the sorted segment, and then place `x` in it's correct position.
+当我们处理未排序部分的其他元素时，我们不断地将已排序部分中较大的元素向上移动，直到遇到小于 `x` 的元素或到达已排序部末尾的元素，然后将 `x` 放在正确的位置。
 
-### Implementation
+### 实现
 
 ```python
 def insertion_sort(nums):
-    # Start on the second element as we assume the first element is sorted
+    # 我们假设第一个元素已经排好序，然后从第二个元素开始遍历
     for i in range(1, len(nums)):
         item_to_insert = nums[i]
-        # And keep a reference of the index of the previous element
+        # 同时保留上一个元素的下标的索引
         j = i - 1
-        # Move all items of the sorted segment forward if they are larger than
-        # the item to insert
+        # 如果排序段的所有项大于要插入的项，则将其向前移动
         while j >= 0 and nums[j] > item_to_insert:
             nums[j + 1] = nums[j]
             j -= 1
-        # Insert the item
+        # 插入的元素
         nums[j + 1] = item_to_insert
 
-# Verify it works
+# 验证算法是否正确
 random_list_of_nums = [9, 1, 15, 28, 6]
 insertion_sort(random_list_of_nums)
 print(random_list_of_nums)
 ```
 
-### Time Complexity
+### 时间复杂度
 
-In the worst case scenario, an array would be sorted in reverse order. The outer `for loop`in the Insertion Sort function always iterates *n-1* times.
+在最坏的情况下，数组将按相反的顺序排序。插入排序函数中外层的 `for` 循环总是会迭代 *n-1* 次。
 
-In the worst case scenario, the inner for loop would swap once, then swap two and so forth. The amount of swaps would then be `1 + 2 + ... + (n - 3) + (n - 2) + (n - 1)` which gives the Insertion Sort a time complexity of O(n^2).
+在最坏的情况下，内部 `for` 循环将交换一次，然后交换两次，依此类推。交换的数量将是 `1 + 2 + ... + (n - 3) + (n - 2) + (n - 1)`，这使得插入排序具有 O(n^2) 的时间复杂度。
 
-## Heap Sort
+## 堆排序
 
-This popular sorting algorithm, like the Insertion and Selection sorts, segments the list into sorted and unsorted parts. It converts the unsorted segment of the list to a Heap data structure, so that we can efficiently determine the largest element.
+这种流行的排序算法，像插入排序和选择排序一样，将列表分为已排序部分和未排序部分。它将列表的未排序段转换为数据结构堆，以便我们能有效地确定最大的元素。
 
-### Explanation
+### 介绍
 
-We begin by transforming the list into a Max Heap - a Binary Tree where the biggest element is the root node. We then place that item to the end of the list. We then rebuild our *Max Heap* which now has one less value, placing the new largest value before the last item of the list.
+我们首先将列表转换成一个最大堆 —— 一种最大元素为根节点的二叉树。然后把我们把这个节点放在列表的尾部。然后我们重建这个少了一个值的**最大堆**，将新的最大值放在列表的最后一项之前。
 
-We iterate this process of building the heap until all nodes are removed.
+然后我们重复这个构建堆的过程，直到删除所有节点。
 
-### Implementation
+### 实现
 
-We create an helper function `heapify` to implement this algorithm:
+我们创建一个辅助函数 `heapify` 来帮助实现这个算法：
 
 ```python
 def heapify(nums, heap_size, root_index):
-    # Assume the index of the largest element is the root index
+    # 设最大元素索引为根节点索引
     largest = root_index
     left_child = (2 * root_index) + 1
     right_child = (2 * root_index) + 2
 
-    # If the left child of the root is a valid index, and the element is greater
-    # than the current largest element, then update the largest element
+    # 如果根节点的左子节点是有效索引，并且元素大于当前最大元素，则更新最大元素
     if left_child < heap_size and nums[left_child] > nums[largest]:
         largest = left_child
 
-    # Do the same for the right child of the root
+    # 对根节点的右子节点执行相同的操作
     if right_child < heap_size and nums[right_child] > nums[largest]:
         largest = right_child
 
-    # If the largest element is no longer the root element, swap them
+    # 如果最大的元素不再是根元素，则交换它们
     if largest != root_index:
         nums[root_index], nums[largest] = nums[largest], nums[root_index]
-        # Heapify the new root element to ensure it's the largest
+        # 调整堆以确保新的根节点元素是最大元素
         heapify(nums, heap_size, largest)
 
 def heap_sort(nums):
     n = len(nums)
 
-    # Create a Max Heap from the list
-    # The 2nd argument of range means we stop at the element before -1 i.e.
-    # the first element of the list.
-    # The 3rd argument of range means we iterate backwards, reducing the count
-    # of i by 1
+    # 利用列表创建一个最大堆
+    # range 的第二个参数表示我们将停在索引值为 -1 的元素之前，即列表中的第一个元素
+    # range 的第三个参数表示我们朝反方向迭代
+    # 将 i 的值减少1
     for i in range(n, -1, -1):
         heapify(nums, n, i)
 
-    # Move the root of the max heap to the end of
+    # 将最大堆的根元素移动到列表末尾
     for i in range(n - 1, 0, -1):
         nums[i], nums[0] = nums[0], nums[i]
         heapify(nums, i, 0)
 
-# Verify it works
+# 验证算法是否正确
 random_list_of_nums = [35, 12, 43, 8, 51]
 heap_sort(random_list_of_nums)
 print(random_list_of_nums)
 ```
 
-### Time Complexity
+### 时间复杂度
 
-Let's first look at the time complexity of the `heapify` function. In the worst case the largest element is never the root element, this causes a recursive call to `heapify`. While recursive calls might seem dauntingly expensive, remember that we're working with a binary tree.
+让我们先看看 `heapify` 函数的时间复杂度。在最坏的情况下，最大元素永远不是根元素，这会导致递归调用 `heapify` 函数。虽然递归调用可能看起来非常损耗性能，但请记住，我们这里使用的是二叉树。
 
-Visualize a binary tree with 3 elements, it has a height of 2. Now visualize a binary tree with 7 elements, it has a height of 3. The tree grows logarithmically to *n*. The `heapify`function traverses that tree in O(log(n)) time.
+可视化一个包含 3 个元素的二叉树，它的高度为 2。现在可视化一个包含 7 个元素的二叉树，它的高度为 3。这棵树按对数方式增长到 *n*。`heapify` 函数在 O(log(n)) 时间遍历该树。
 
-The `heap_sort` function iterates over the array *n* times. Therefore the overall time complexity of the Heap Sort algorithm is O(nlog(n)).
+`heap_sort` 函数迭代数组 *n* 次。因此，堆排序算法的总时间复杂度为 O(nlog(n))。
 
-## Merge Sort
+## 归并排序
 
-This divide and conquer algorithm splits a list in half, and keeps splitting the list by 2 until it only has singular elements.
+这种分而治之的算法将一个列表分成两部分，并一直将剩下的列表分别一分为二直到列表中只剩下一个元素为止。
 
-Adjacent elements become sorted pairs, then sorted pairs are merged and sorted with other pairs as well. This process continues until we get a sorted list with all the elements of the unsorted input list.
+相邻元素成为排序对，然后合并排序对并和其它排序对进行排序。这个过程将一直持续到我们得到一个对未排序输入列表中所有元素排序的排序列表为止。
 
-### Explanation
+### 介绍
 
-We recursively split the list in half until we have lists with size one. We then merge each half that was split, sorting them in the process.
+我们递归地将列表分成两半，直到得到长度为 1 的列表。然后我们合并被分割出的每一部分，在这个过程中对它们进行排序。
 
-Sorting is done by comparing the smallest elements of each half. The first element of each list are the first to be compared. If the first half begins with a smaller value, then we add that to the sorted list. We then compare the second smallest value of the first half with the first smallest value of the second half.
+排序是通过比较每一半的最小元素来完成的。每个列表的第一个元素是第一个要比较的元素。如果前半部分以较小的值开头，那么我们将其添加到排序列表中。然后我们比较前半部分的第二个最小值和后半部分的第一个最小值。
 
-Every time we select the smaller value at the beginning of a half, we move the index of which item needs to be compared by one.
+每次我们在半段的开头选择较小的值时，我们都会移动需要比较的项目。
 
-### Implementation
+### 简介
 
 ```python
 def merge(left_list, right_list):
     sorted_list = []
     left_list_index = right_list_index = 0
 
-    # We use the list lengths often, so its handy to make variables
+    # 我们经常使用列表长度，因此将它创建为变量方便使用
     left_list_length, right_list_length = len(left_list), len(right_list)
 
     for _ in range(left_list_length + right_list_length):
         if left_list_index < left_list_length and right_list_index < right_list_length:
-            # We check which value from the start of each list is smaller
-            # If the item at the beginning of the left list is smaller, add it
-            # to the sorted list
+            # 我们检查每个列表开头的哪个值较小
+            # 如果左列表开头的项较小，将它添加到已排序列表
             if left_list[left_list_index] <= right_list[right_list_index]:
                 sorted_list.append(left_list[left_list_index])
                 left_list_index += 1
-            # If the item at the beginning of the right list is smaller, add it
-            # to the sorted list
+            # 如果右列表开头的项较小，将它添加到已排序列表
             else:
                 sorted_list.append(right_list[right_list_index])
                 right_list_index += 1
 
-        # If we've reached the end of the of the left list, add the elements
-        # from the right list
+        # 如果已到达左列表的末尾，则添加右列表中的元素
         elif left_list_index == left_list_length:
             sorted_list.append(right_list[right_list_index])
             right_list_index += 1
-        # If we've reached the end of the of the right list, add the elements
-        # from the left list
+        # 如果已到达右列表的末尾，则添加左列表中的元素
         elif right_list_index == right_list_length:
             sorted_list.append(left_list[left_list_index])
             left_list_index += 1
@@ -255,56 +247,54 @@ def merge(left_list, right_list):
     return sorted_list
 
 def merge_sort(nums):
-    # If the list is a single element, return it
+    # 如果列表中只有一个元素，则返回它
     if len(nums) <= 1:
         return nums
 
-    # Use floor division to get midpoint, indices must be integers
+    # 使用向下取整获取中点，索引必须是整数
     mid = len(nums) // 2
 
-    # Sort and merge each half
+    # 对每一半进行排序和合并
     left_list = merge_sort(nums[:mid])
     right_list = merge_sort(nums[mid:])
 
-    # Merge the sorted lists into a new one
+    # 将已排序的列表合并为新列表
     return merge(left_list, right_list)
 
-# Verify it works
+# 验证算法是否正确
 random_list_of_nums = [120, 45, 68, 250, 176]
 random_list_of_nums = merge_sort(random_list_of_nums)
 print(random_list_of_nums)
 ```
 
-Note that the `merge_sort()` function, unlike the previous sorting algorithms, returns a new list that is sorted, rather than sorting the existing list.
+请注意，`merge_sort()` 函数与以前的排序算法不同，它返回一个已排序的新列表，而不是对现有列表进行排序。
 
-Therefore, Merge Sort requires space to create a new list of the same size as the input list.
+因此，归并排序需要空间来创建和输入列表大小相同的新列表。
 
-### Time Complexity
+### 时间复杂度
 
-Let's first look at the `merge` function. It takes two lists, and iterates *n* times, where *n* is the size of their combined input. The `merge_sort` function splits its given array in 2, and recursively sorts the sub-arrays. As the input being recursed is half of what was given, like binary trees this makes the time it takes to process grow logarithmically to *n*.
+我们首先看看 `merge` 函数。它需要两个列表，并迭代 *n* 次，其中 *n* 是两个列表合并后的大小。`merge_sort` 函数将给定数组拆分为 2 个，并递归地对子数组进行排序。由于递归的输入是给定数组的一半，就像二叉树一样，这使得处理所需的时间以对数方式增长到 *n*。
 
-Therefore the overall time complexity of the Merge Sort algorithm is O(nlog(n)).
+因此，归并排序算法的总体时间复杂性是 O(nlog(n))。
 
-## Quick Sort
+## 快速排序
 
-This divide and conquer algorithm is the most often used sorting algorithm covered in this article. When configured correctly, it's extremely efficient and does not require the extra space Merge Sort uses. We partition the list around a pivot element, sorting values around the pivot.
+这种分而治之的算法是本文中最常用的排序算法。如果合理地使用，那么它将具有很高的效率，并且不需要像归并排序一样使用额外的空间。我们围绕一个基准值对列表进行分区，并对基准值周围的元素进行排序。
 
-### Explanation
+### 介绍
 
-Quick Sort begins by partitioning the list - picking one value of the list that will be in its sorted place. This value is called a pivot. All elements smaller than the pivot are moved to its left. All larger elements are moved to its right.
+快速排序首先对列表进行分区 —— 选择待排序列表的第一个值。该值被称为基准值。所有小于基准值的元素都将被移到其左侧。
 
-Knowing that the pivot is in it's rightful place, we recursively sort the values around the pivot until the entire list is sorted.
+此时基准值在正确的位置，我们递归地对基准值周围的元素进行排序，直到整个列表有序。
 
-### Implementation
-
+### 实现
 ```python
-# There are different ways to do a Quick Sort partition, this implements the
-# Hoare partition scheme. Tony Hoare also created the Quick Sort algorithm.
+# 快速排序分区有不同的方法，下面实现了 Hoare 的分区方案。Tony Hoare 还创建了快速排序算法。
 def partition(nums, low, high):
-    # We select the middle element to be the pivot. Some implementations select
-    # the first element or the last element. Sometimes the median value becomes
-    # the pivot, or a random one. There are many more strategies that can be
-    # chosen or created.
+    # 我们选择中间元素作为基准值。
+    # 有些实现方法选择第一个元素或最后一个元素作为基准值。 
+    # 有时将中间元素或一个随机元素作为基准值。
+    # 还有很多可以选择或创建的方法。
     pivot = nums[(low + high) // 2]
     i = low - 1
     j = high + 1
@@ -320,40 +310,39 @@ def partition(nums, low, high):
         if i >= j:
             return j
 
-        # If an element at i (on the left of the pivot) is larger than the
-        # element at j (on right right of the pivot), then swap them
+        # 如果 i 处的元素（在基准值左侧）大于 j 处的元素（在基准值右侧），则交换它们。
         nums[i], nums[j] = nums[j], nums[i]
 
 def quick_sort(nums):
-    # Create a helper function that will be called recursively
+    # 创建一个辅助函数来进行递归调用
     def _quick_sort(items, low, high):
         if low < high:
-            # This is the index after the pivot, where our lists are split
+            # 这是基准元素后的索引，我们的列表在这里被拆分
             split_index = partition(items, low, high)
             _quick_sort(items, low, split_index)
             _quick_sort(items, split_index + 1, high)
 
     _quick_sort(nums, 0, len(nums) - 1)
 
-# Verify it works
+# 检验算法是否正确
 random_list_of_nums = [22, 5, 1, 18, 99]
 quick_sort(random_list_of_nums)
 print(random_list_of_nums)
 ```
 
-### Time Complexity
+### 时间复杂度
 
-The worst case scenario is when the smallest or largest element is always selected as the pivot. This would create partitions of size *n-1*, causing recursive calls *n-1* times. This leads us to a worst case time complexity of O(n^2).
+最坏的情况是始终选择最小或最大元素作为基准值。这将创建一个大小为 *n-1* 的分区，导致递归调用 *n-1* 次。这导致在最坏情况下的时间复杂度为 O(n^2)。
 
-While this is a terrible worst case, Quick Sort is heavily used because it's average time complexity is much quicker. While the `partition` function utilizes nested while loops, it does comparisons on all elements of the array to make its swaps. As such, it has a time complexity of O(n).
+虽然最坏的情况比较糟糕，但快速排序仍然被大量使用，因为它的平均时间复杂度比其他排序算法快得多。虽然 `partition` 函数使用嵌套的 while 循环，但它会对数组的所有元素进行比较以进行交换。因此，它的时间复杂度只有 O(n)。
 
-With a good pivot, the Quick Sort function would partition the array into halves which grows logarithmically with *n*. Therefore the average time complexity of the Quick Sort algorithm is O(nlog(n)).
+如果选择一个好的基准值，快速排序函数将把数组分成两部分，这两部分将随 *n* 呈对数增长。因此，快速排序算法的平均时间复杂度为 O(nlog(n))。
 
-### Python's Built-in Sort Functions
+### Python 的内置排序函数
 
-While it's beneficial to understand these sorting algorithms, in most Python projects you would probably use the sort functions already provided in the language.
+虽然理解这些排序算法是有益的，但在大多数 Python 项目中，你可能会使用语言中已经提供的排序函数。
 
-We can change our list to have it's contents sorted with the `sort()` method:
+我们可以更改列表，使其内容按 `sort()` 方法排序：
 
 ```python
 apples_eaten_a_day = [2, 1, 1, 3, 1, 2, 2]
@@ -361,7 +350,7 @@ apples_eaten_a_day.sort()
 print(apples_eaten_a_day) # [1, 1, 1, 2, 2, 2, 3]
 ```
 
-Or we can use the `sorted()` function to create a new sorted list:
+或者我们可以使用 `sorted()` 函数创建新的排序列表：
 
 ```python
 apples_eaten_a_day_2 = [2, 1, 1, 3, 1, 2, 2]
@@ -369,29 +358,29 @@ sorted_apples = sorted(apples_eaten_a_day_2)
 print(sorted_apples) # [1, 1, 1, 2, 2, 2, 3]
 ```
 
-They both sort in ascending order, but you can easily sort in descending order by setting the `reverse` flag to `True`:
+它们都是按升序排序的，但你可以通过将 `reverse` 标志设置为 `True` 来轻松按降序排序：
 
 ```python
-# Reverse sort the list in-place
+# 对列表进行反向排序
 apples_eaten_a_day.sort(reverse=True)
 print(apples_eaten_a_day) # [3, 2, 2, 2, 1, 1, 1]
 
-# Reverse sort to get a new list
+# 反向排序以获取新列表
 sorted_apples_desc = sorted(apples_eaten_a_day_2, reverse=True)
 print(sorted_apples_desc) # [3, 2, 2, 2, 1, 1, 1]
 ```
 
-Unlike the sorting algorithm functions we created, both these functions can sort lists of tuples and classes. The `sorted()` function can sort any iterable object, that includes - lists, strings, tuples, dictionaries, sets, and custom [iterators](https://stackabuse.com/introduction-to-python-iterators/) you can create.
+与我们创建的排序算法函数不同，这两个函数都可以对元组和类的列表进行排序。`sorted()` 函数可以对任何可迭代对象进行排序，其中包括了 —— 你可以创建的列表，字符串，元组，字典，集合，和自定义[迭代器](https://stackabuse.com/introduction-to-python-iterators/)。
 
-These sort functions implement the [Tim Sort](https://en.wikipedia.org/wiki/Timsort) algorithm, an algorithm inspired by Merge Sort and Insertion Sort.
+这些排序函数实现了 [Tim Sort](https://en.wikipedia.org/wiki/Timsort) 算法，这是一种受归并排序和插入排序启发的算法。
 
-## Speed Comparisons
+## 速度比较
 
-To get an idea of how quickly they perform, we generate a list of 5000 numbers between 0 and 1000. We then time how long it takes for each algorithm to complete. This is repeated 10 times so that we can more reliably establish a pattern of performance.
+为了了解它们的执行速度，我们生成了一个介于 0 到 1000 之间的 5000 个数字的列表。然后我们计算每个算法完成所需的时间。每个算法运行 10 次，以便我们建立更可靠的性能模型。
 
-These were the results, the time is in seconds:
+下面是结果，时间以秒为单位：
 
-| Run | Bubble | Selection | Insertion | Heap | Merge | Quick |
+| Run | 冒泡 | 选择 | 插入 | 堆 | 归并 | 快速 |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 5.53188 | 1.23152 | 1.60355 | 0.04006 | 0.02619 | 0.01639 |
 | 2 | 4.92176 | 1.24728 | 1.59103 | 0.03999 | 0.02584 | 0.01661 |
@@ -403,23 +392,23 @@ These were the results, the time is in seconds:
 | 8 | 5.08799 | 1.25808 | 1.62603 | 0.04264 | 0.02633 | 0.01705 |
 | 9 | 5.03289 | 1.24915 | 1.61446 | 0.04302 | 0.03293 | 0.01762 |
 | 10 | 5.14292 | 1.22021 | 1.57273 | 0.03966 | 0.02572 | 0.01606 |
-| Avg | 5.08488 | 1.24748 | 1.60986 | 0.04187 | 0.02809 | 0.01715 |
+| 平均 | 5.08488 | 1.24748 | 1.60986 | 0.04187 | 0.02809 | 0.01715 |
 
-You would get different values if you set up the test yourself, but the patterns observed should be the same or similar. Bubble Sort is the slowest the worst performer of all the algorithms. While it useful as an introduction to sorting and algorithms, it's not fit for practical use.
+如果你自己进行测试，你会得到不同的值，但是观察到的性能模型应该是相同或相似的。冒泡排序是所有算法中执行速度最慢、表现最差的。虽然它作为排序和算法的介绍很有用，但不适合实际使用。
 
-We also notice that Quick Sort is very fast, nearly twice as fast as Merge Sort and it wouldn't need as much space to run. Recall that our partition was based on the middle element of the list, different partitions could have different outcomes.
+我们还注意到快速排序非常快，它的速度几乎是归并排序的两倍，而且它在运行时不需要额外的空间。回想一下，我们的分区是基于列表的中间元素，不同的分区方法可能会有不同的结果。
 
-As Insertion Sort performs much less comparisons than Selection Sort, the implementations are usually quicker but in these runs Selection Sort is slightly faster.
+由于插入排序执行的比较要比选择排序少得多，因此插入排序的实现通常更快，但在我们的测试中，选择排序会稍微快一些。
 
-Insertion Sorts does much more swaps than Selection Sort. If swapping values takes up considerably more time than comparing values, then this "contrary" result would be plausible.
+插入排序比选择排序交换元素的次数更多。如果交换值比比较值占用更多的时间，那么这个“相反”的结果是可信的。
 
-Be mindful of the environment when choosing your sorting algorithm, as it will affect performance.
+选择排序算法时要注意使用场景，因为它会影响性能。
 
-## Conclusion
+## 总结
 
-Sorting algorithms gives us many ways to order our data. We looked at 6 different algorithms - Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, Heap Sort, Quick Sort - and their implementations in Python.
+排序算法为我们提供了许多排序数据的方法。我们研究了 6 种不同的算法——冒泡排序、选择排序、插入排序、归并排序、堆排序、快速排序 —— 以及它们在 Python 中的实现。。
 
-The amount of comparison and swaps the algorithm performs along with the environment the code runs are key determinants of performance. In real Python applications, it's recommended we stick with the built in Python sort functions for their flexibility on the input and speed.
+算法执行的比较和交换量以及代码运行的环境是决定性能的关键因素。在实际的 Python 应用程序中，建议我们坚持使用内置的 Python 排序函数，因为它们在输入和速度上具有灵活性。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
