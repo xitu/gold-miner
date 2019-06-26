@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-perform-object-detection-with-yolov3-in-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-perform-object-detection-with-yolov3-in-keras.md)
 > * 译者：[Daltan](https://github.com/Daltan)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih), [zhmhhu](https://github.com/zhmhhu)
 
 # 如何在 Keras 中用 YOLOv3 进行对象检测
 
@@ -17,8 +17,8 @@
 
 学完本教程，你会知道：
 
-- 基于 YOLO，用于对象检测的卷积神经网络系列模型，和其最新变体 YOLOv3。
-- 用于 Keras 深度学习库的 YOLOv3 开源库最佳实现。
+- 用于对象检测的、基于卷积神经网络系列模型的 YOLO 算法，和其最新变种 YOLOv3。
+- 使用 Keras 深度学习库的 YOLOv3 开源库的最佳实现。
 - 如何使用预处理过的 YOLOv3，来对新图像进行对象定位和检测。
 
 我们开始吧。
@@ -33,51 +33,51 @@
 本教程分为三个部分，分别是：
 
 1. 用于对象检测的 YOLO
-2. experiencor 的 YOLO3 项目
+2. Experiencor 的 YOLO3 项目
 3. 用 YOLOv3 进行对象检测
 
-## 用于对象检测的YOLO
+## 用于对象检测的 YOLO
 
 
 对象检测是计算机视觉的任务，不仅涉及在单图像中对一个或多个对象定位，还涉及在该图像中对每个对象进行分类。
 
-对象检测这项富有挑战性的计算机视觉任务，不仅需要在图像中成功定位对象、对每个对象找到并绘制边框，还需要对定位好的对象进行正确的分类。
+对象检测这项富有挑战性的计算机视觉任务，不仅需要在图像中成功定位对象、找到每个对象并对其绘制边框，还需要对定位好的对象进行正确的分类。
 
 YOLO（You Only Look Once）是一系列端到端的深度学习系列模型，用于快速对象检测，由 [Joseph Redmon](https://pjreddie.com/) 等人于 2015 年的论文[《You Only Look Once：统一实时对象检测》](https://arxiv.org/abs/1506.02640)中首次阐述。
 
-该方法涉及单个深度卷积神经网络（最初是 GoogLeNet 的一个版本，后来更新了，称为基于 VGG 的 DarkNet），将输入分成单元网格，每个格直接预测边框和对象分类。结果就是，经过后处理步骤，大量候选边边框并成为最终预测。
+该方法涉及单个深度卷积神经网络（最初是 GoogLeNet 的一个版本，后来更新了，称为基于 VGG 的 DarkNet），将输入分成单元网格，每个格直接预测边框和对象分类。得到的结果是，大量的候选边界框通过后处理步骤合并到最终预测中。
 
-在写本文时有三种主要变体：YOLOv1、YOLOv2、YOLOv3。第一个版本提出通用架构，第二个版本改进设计，并利用预定义锚框改进了边边框议，第三个版本进一步完善模型架构和训练过程。
+在写本文时有三种主要变体：YOLOv1、YOLOv2、YOLOv3。第一个版本提出了通用架构，而第二个版本则改进了设计，并使用了预定义的锚定框来改进边界框方案，第三个版本进一步完善模型架构和训练过程。
 
-虽然模型的准确性接近基于区域的卷积神经网络（R-CNN），但不如后者那么好，但由于它们的检测速度快，因此在对象检测中很受欢迎，通常可以在视频或摄像机的输入上实时显示。
+虽然模型的准确性略逊于基于区域的卷积神经网络（R-CNN），但由于 YOLO 模型的检测速度快，因此在对象检测中很受欢迎，通常可以在视频或摄像机的输入上实时显示检测结果。
 
-> 单神经网络是在一次评估中，直接从完整图像预测边边框分类概率。由于整个检测过程是基于单个网络，因此可以直接在检测性能上进行端到端优化。
+> 在一次评估中，单个神经网络直接从完整图像预测边界框和类别概率。由于整个检测管道是一个单一的网络，因此可以直接对检测性能进行端到端优化。
 
 - — [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640), 2015.
 
 本教程专注于使用 YOLOv3。
 
-##  Experiencor 的 Keras YOLO3 项目
+## 在 Keras 项目中实践 YOLO3
 
-YOLO 每个版本的源代码和预先训练的模型都可以得到。
+每个版本的 YOLO 源代码以及预先训练过的模型都可以下载得到。
 
-官方仓库 [DarkNet GitHub](https://github.com/pjreddie/darknet)  中，包含了论文中提到的 YOLO 版本的源代码，是用C语言编写的。该仓库还提供了分步使用教程，来教授如何用代码进行对象检测。
+官方仓库 [DarkNet GitHub](https://github.com/pjreddie/darknet) 中，包含了论文中提到的 YOLO 版本的源代码，是用 C 语言编写的。该仓库还提供了分步使用教程，来教授如何用代码进行对象检测。
 
-从头开始实现这个模型确实很有挑战性，特别是对新手来说，因为需要开发很多自定义的模型元素，来进行训练和预测。举个例子，即使是直接使用预训练过的模型，也需要复杂的代码来提炼和阐释模型输出的预测边边框
+从头开始实现这个模型确实很有挑战性，特别是对新手来说，因为需要开发很多自定义的模型元素，来进行训练和预测。例如，即使是直接使用预先训练过的模型，也需要复杂的代码来提取和解释模型输出的预测边界框。
 
-我们不从头写代码，而直接使用第三方实现过的。有很多第三方实现了为 Keras 的 YOLO，但没一个标准化的，也没一个设计得可用作库的。
+我们可以使用第三方实现过的代码，而不是从头开始写代码。有许多第三方实现是为了在 Keras 中使用 YOLO 而设计的，但没有一个实现是标准化了并设计为库来使用的。
 
-[YAD2K 项目](https://github.com/allanzelener/YAD2K) 是事实意义上的 YOLOv2 标准，而且提供了从预训练权值到 Keras 格式的转换脚本，来使用预训练的模型进行预测。此外还提供了代码，来提炼和解释预测的变边边框很多其他第三方开发者使用此代码作为起点，将其更新到可以支持 YOLOv3。
+[YAD2K 项目](https://github.com/allanzelener/YAD2K) 是事实意义上的 YOLOv2 标准，它提供了将预先训练的权重转换为 Keras 格式的脚本，使用预先训练的模型进行预测，并提供提取解释预测边界框所需的代码。许多其他第三方开发人员已将此代码用作起点，并对其进行了更新以支持 YOLOv3。
 
-可能用于预训练的 YOLO 模型最广泛使用的项目是 [keras-yolo3：使用YOLO3训练和检测物体](https://github.com/experiencor/keras-yolo3) 由  [Huynh Ngoc Anh ](https://www.linkedin.com/in/ngoca/)或 experiencor 开发。该项目中的代码已在 MIT 开源许可下提供。 与 YAD2K 一样，该项目提供了脚本，可用于加载和使用预训练的YOLO模型，也可用于开发在新数据集上的 YOLOv3 模型。
+使用预训练的 YOLO 模型最广泛使用的项目可能就是 “[keras-yolo3：使用 YOLO3 训练和检测物体](https://github.com/experiencor/keras-yolo3)”了，该项目由 [Huynh Ngoc Anh ](https://www.linkedin.com/in/ngoca/) 开发，也可称他为 Experiencor。该项目中的代码已在 MIT 开源许可下提供。与 YAD2K 一样，该项目提供了可用于加载和使用预训练的 YOLO 模型的脚本，也可在新数据集上开发基于 YOLOv3 的迁移学习模型。
 
-experiencor 还有一个 [keras-yolo2](https://github.com/experiencor/keras-yolo2) 项目，里面的代码和 YOLOv2 很像，也有详细教程叫你如何使用这个仓库的代码。[keras-yolo3](https://github.com/experiencor/keras-yolo3) 似乎是这个项目的更新版。
+Experiencor 还有一个 [keras-yolo2](https://github.com/experiencor/keras-yolo2) 项目，里面的代码和 YOLOv2 很像，也有详细教程教你如何使用这个仓库的代码。[keras-yolo3](https://github.com/experiencor/keras-yolo3) 似乎是这个项目的更新版。
 
-有意思的是，experiencor 以这个模型为基础做了些实验，在诸如袋鼠数据集、racoon 数据集、红细胞检测等等标准对象检测问题上，训练了 YOOLOv3 的多种版本。他列出了模型表现，还给出可以下载的下载模型权重，甚至有模型行为的 YouTube 视频。比如：
+有意思的是，Experiencor 以这个模型为基础做了些实验，在诸如袋鼠数据集、racoon 数据集、红细胞检测等等标准对象检测问题上，训练了 YOOLOv3 的多种版本。他列出了模型表现结果，还给出了模型权重以供下载，甚至还发布了展示模型表现结果的 YouTube 视频。比如：
 
 *   [Raccoon Detection using YOLO 3](https://www.youtube.com/watch?v=lxLyLIL7OsU)
 
-本教程以 experiencor 的 keras-yolo3 项目为基础，使用 YOLOv3 进行对象检测。
+本教程以 Experiencor 的 keras-yolo3 项目为基础，使用 YOLOv3 进行对象检测。
 
 这里是 [创作本文时的代码分支](https://github.com/jbrownlee/keras-yolo3)，以防仓库发生变化或被删除（这在第三方开源项目中可能会发生）。
 
@@ -85,7 +85,7 @@ experiencor 还有一个 [keras-yolo2](https://github.com/experiencor/keras-yolo
 
 keras-yolo3 项目提供了很多使用 YOLOv3 的模型，包括对象检测、迁移学习、从头开始训练模型等。
 
-本节使用预训练模型对未见图像进行对象检测。用一个该仓库的Python文件就能实现这个功能，文件名是 [yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py)，有 435 行。该脚本其实是用预训练权重准备模型，再用此模型进行对象检测，最后输出一个模型。此外，该脚本依赖OpenCV。
+本节使用预训练模型对未见图像进行对象检测。用一个该仓库的 Python 文件就能实现这个功能，文件名是 [yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py)，有 435 行。该脚本其实是用预训练权重准备模型，再用此模型进行对象检测，最后输出一个模型。此外，该脚本依赖 OpenCV。
 
 我们不直接使用该程序，而是用该程序中的元素构建自己的脚本，先准备并保存 Keras YOLOv3 模型，然后加载并对新图像进行预测。
 
@@ -93,13 +93,13 @@ keras-yolo3 项目提供了很多使用 YOLOv3 的模型，包括对象检测、
 
 第一步是下载预训练的模型权重。
 
-下面的权重都是训练好的，是基于 MSCOCO 数据集用 DarNet 代码的权重。下载模型权重，并置之于当前工作路径，重命名为 **yolov3.weights**。文件很大，下载下来可能需要一会，速度跟你的网络有关。
+下面是基于 MSCOCO 数据集、使用 DarNet 代码训练好的模型。下载模型权重，并置之于当前工作路径，重命名为 **yolov3.weights**。文件很大，下载下来可能需要一会，速度跟你的网络有关。
 
 *   [YOLOv3 Pre-trained Model Weights (yolov3.weights) (237 MB)](https://pjreddie.com/media/files/yolov3.weights)
 
-下一步是定义一个 Keras 模型，确保模型中的数字和层都正确匹配下载的模型权重。模型构架称为 DarkNet ，最初基本上是基于VGG-16模型的。
+下一步是定义一个 Keras 模型，确保模型中层的数量和类型与下载的模型权重相匹配。模型构架称为 DarkNet ，最初基本上是基于 VGG-16 模型的。
 
-脚本文件 [yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py) 提供了 make\_yolov3\_model() 函数，用来创建模型，还有辅助函数  \_conv\_block()，用来创建层块。两个函数都能从该脚本中复制。
+脚本文件 [yolo3\_one\_file\_to\_detect\_them\_all.py](https://raw.githubusercontent.com/experiencor/keras-yolo3/master/yolo3_one_file_to_detect_them_all.py) 提供了 make\_yolov3\_model() 函数，用来创建模型，还有辅助函数 \_conv\_block()，用来创建层块。两个函数都能从该脚本中复制。
 
 现在定义 YOLOv3 的 Keras 模型。
 
@@ -110,7 +110,7 @@ model  =  make_yolov3_model()
 
 接下来载入模型权重。DarkNet 用的权重存储形式不重要，我们也无需手动解码，用脚本中的 **WeightReader** 类就可以。
 
-要想用 **WeightReader**，先得用权重文件（比如 **yolov3.weights**）的路径实例化。下面的代码解析了文件，并将模型权重加载到内存中，这样其格式可以设置到 Keras 模型中了。
+要想用 **WeightReader**，先得把权重文件（比如 **yolov3.weights**）的路径实例化。下面的代码将解析文件并将模型权重加载到内存中，这样其格式可以在 Keras 模型中使用了。
 
 ```
 # load the model weights
@@ -302,9 +302,9 @@ weight_reader.load_weights(model)
 # save the model to file
 model.save('model.h5')
 ```
-在现代设备运行此示例代码，可能要不到一分钟的时间。
+在现代的硬件设备中运行此示例代码，可能只需要不到一分钟的时间。
 
-随着权重文件的加载，会显示 **WeightReader** 类输出的加载信息。
+当权重文件加载后，你可以看到由 **WeightReader** 类输出的调试信息报告。
 
 ```
 ...
@@ -317,11 +317,11 @@ loading weights of convolution #104
 loading weights of convolution #105
 ```
 
-运行结束时，当前工作路径下保存了 **模型.h5** 文件，大小接近原始权重文件（237MB），但是可以加载该文件，就像 Keras 模型一样直接用。
+运行结束时，当前工作路径下保存了 **model.h5** 文件，大小接近原始权重文件（237MB），但是可以像 Keras 模型一样可以加载该文件并直接使用。
 
 ### 做预测
 
-需要一张图片，用于对象检测，图片中的对象最好是模型之前从 [MSCOCO数据集](http://cocodataset.org/) 了解过的。
+我们需要一张用于对象检测的新照片，理想情况下图片中的对象是我们知道的模型从 [MSCOCO数据集](http://cocodataset.org/) 可识别的对象。
 
 这里使用一张三匹斑马的图片，是 [Boegh](https://www.flickr.com/photos/boegh/5676993427/) 在旅行时拍摄的，且带有发布许可。
 
@@ -334,7 +334,7 @@ Boegh 摄，部分权利保留。
 
 下载这张图片，放在当前工作路径，命名为 **zebra.jpg** 。
 
-虽然翻译预测结果还要做些工作，但是做预测本身很直接。
+尽管解释预测结果需要一些工作，但做出预测是直截了当的。
 
 第一步是 [加载 Keras 模型](https://machinelearningmastery.com/save-load-keras-deep-learning-models/)，这可能是做预测过程中最慢的一步了。
 
@@ -357,7 +357,7 @@ image = image.astype('float32')
 image /= 255.0
 ```
 
-后面是要再次显示原始图片的，也就是说，需要将检测到的对象边边框正方形调整回原来的形状。这样就需要加载图片，恢复原来的形状。
+我们希望稍后再次显示原始照片，这意味着我们需要将所有检测到的对象的边界框从方形形状缩放回原始形状。 这样，我们就可以加载图片并恢复原始形状了。
 
 ```
 load the image to get its shape
@@ -365,7 +365,7 @@ image  =  load_img('zebra.jpg')
 width,  height  =  image.size
 ```
 
-以上步骤可以都连在一起，写成 **load\_image\_pixels()** 函数，方便使用。该函数的输入是文件名、目标尺寸，返回的是缩放过的像素数据，这些数据可作为 Keras 模型的输入，还返回原始图像的宽度和长度。
+以上步骤可以都连在一起，写成 **load\_image\_pixels()** 函数，方便使用。该函数的输入是文件名、目标尺寸，返回的是缩放过的像素数据，这些数据可作为 Keras 模型的输入，还返回原始图像的宽度和高度。
 
 ```
 # load and prepare an image
@@ -447,17 +447,17 @@ print([a.shape for a in yhat])
 
 示例代码返回有三个 Numpy 数组的列表，其形状作为输出展现出来。
 
-这些数据既预测了边框，又预测了标签的种类，但是是编码过的。需要翻译才行。
+这些数据既预测了边框，又预测了标签的种类，但是是编码过的。这些结果需要解释一下才行。
 
 ```
 [(1, 13, 13, 255), (1, 26, 26, 255), (1, 52, 52, 255)]
 ```
 
-### 做预测与结果翻译
+### 做出预测与解释结果
 
 实际上模型的输出是编码过的候选边框，这些候选边框来源于三种不同大小的网格，框本身是由锚框的情境定义的，由基于在 MSCOCO 数据集中对对象尺寸的分析，仔细选择得来的。
 
-由 experincor 提供的脚本中有一个 **decode_netout()** 函数，可以一次一个取每个 Numpy 数组，将候选边框和预测的分类解码。此外，所有不能有足够把握（比如概率低于某个阈值）描述对象的边框都将被忽略掉。此处使用60%或0.6的概率。该函数返回 **BoundBox** 的实例列表，在输入图像的形状和分类概率的背景中，这些实例定义了每个边框的角。
+由 experincor 提供的脚本中有一个 **decode_netout()** 函数，可以一次一个取每个 Numpy 数组，将候选边框和预测的分类解码。此外，所有不能有足够把握（比如概率低于某个阈值）描述对象的边框都将被忽略掉。此处使用 60% 或 0.6 的概率阈值。该函数返回 **BoundBox** 的实例列表，这个实例定义了每个边界框的角。这些边界框代表了输入图像的形状和类别概率。
 
 ```
 # define the anchors
@@ -470,9 +470,9 @@ for i in range(len(yhat)):
 	boxes += decode_netout(yhat[i][0], anchors[i], class_threshold, input_h, input_w)
 ```
 
-接下来要将边框拉伸至原来图像的形状。稍后将打印原始图像、画出边框、并有希望检测到真实对象，因此这一步会很有帮助。
+接下来要将边框拉伸至原来图像的形状。这一步很有用，因为这意味着稍后我们可以绘制原始图像并绘制边界框，希望能够检测到真实对象。
 
-由 experiencor 提供的脚本中有 **correct\_yolo\_boxes()** 函数，可以转换边框坐标、获取边框列表、一开始加载图片的形状、和网络中作为参数输入的形状。边框的坐标直接更新：
+由 Experiencor 提供的脚本中有 **correct\_yolo\_boxes()** 函数，可以转换边框坐标，把边界框列表、一开始加载的图片的原始形状以及网络中输入的形状作为参数。边界框的坐标直接更新：
 
 ```
 # correct the sizes of the bounding boxes for the shape of the image
@@ -488,7 +488,7 @@ correct _yolo_boxes(boxes,  image_h,  image_w,  input_h,  input_w)
 do_nms(boxes,  0.5)
 ```
 
-这样留下的边框数量就一样了，但很无趣。于是就可以找到预测对象程度很强的边框，也就是有60%的置信度。通过遍历所有边框，核对预测值类型，可实现这一步步骤。然后找边框对应类型的标签，加入到列表中。每个边框需要跟每个类标签一一核对，这样可以避免同一边框强烈预测的对象不止一个的情况。
+这样留下的边框数量就一样了，但只有少数有用。 我们只能检索那些强烈预测对象存在的边框：超过 60% 的置信率。 这可以通过遍历所有框并检查类预测值来实现。 然后，我们可以查找该框的相应类标签并将其添加到列表中。 每个边框需要跟每个类标签一一核对，以防同一个框强烈预测多个对象。
 
 创建一个 **get_boxes()** 函数实现这一步，将边框列表、已知标签、分类阈值作为参数，将对应的边框列表、标签、和评分当做返回值。
 
@@ -511,7 +511,7 @@ def get_boxes(boxes, labels, thresh):
 
 用边框列表当做参数调用该函数。
 
-需要一个字符串字表用于存放模型已知类标签，顺序要和训练模型时候的顺序保持一致，特别是来自 MSCOCO 数据集的类标签。庆幸的时候，这在脚本中也是有的。
+我们还需要一个字符串列表，其中包含模型中已知的类标签，顺序要和训练模型时候的顺序保持一致，特别是 MSCOCO 数据集中的类标签。 值得庆幸的是，这些在 Experiencor 的脚本中也提供。
 
 ```
 # define the labels
@@ -537,7 +537,7 @@ for i in range(len(v_boxes)):
     print(v_labels[i], v_scores[i])
 ```
 
-也可以打印原始图片，画出每个检测出对象的边框。通过从每个边框找到坐标，再创建Rectangle对象实现。
+我们还可以绘制原始照片并在每个检测到的物体周围绘制边界框。 这可以通过从每个边界框检索坐标并创建 Rectangle 对象来实现。
 
 ```
 box = v_boxes[i]
@@ -597,7 +597,7 @@ draw_boxes(photo_filename, v_boxes, v_labels, v_scores)
 
 使用 YOLOv3 模型做预测所要的所有元素，现在都有了。解释结果，并绘制出来以供审查。
 
-下面列出了完整代码清单，包括原始和修改过的 experiencor 脚本。
+下面列出了完整代码清单，包括原始和修改过的 xperiencor 脚本。
 
 ```
 # load yolov3 model and perform object detection
@@ -850,7 +850,7 @@ zebra 96.8708872795105
 *   [YOLO: Real-Time Object Detection, Homepage](https://pjreddie.com/darknet/yolo/).
 *   [Official DarkNet and YOLO Source Code, GitHub](https://github.com/pjreddie/darknet).
 *   [Official YOLO: Real Time Object Detection](https://github.com/pjreddie/darknet/wiki/YOLO:-Real-Time-Object-Detection).
-*   [Huynh Ngoc Anh, experiencor, Home Page](https://experiencor.github.io/).
+*   [Huynh Ngoc Anh, Experiencor, Home Page](https://experiencor.github.io/).
 *   [experiencor/keras-yolo3, GitHub](https://github.com/experiencor/keras-yolo3).
 
 ### Keras 项目的其他 YOLO 实现
