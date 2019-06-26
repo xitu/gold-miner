@@ -1,7 +1,7 @@
 > * 原文地址：[Why One-Hot Encode Data in Machine Learning](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/)
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-one-hot-encode-data-in-machine-learning.md.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-one-hot-encode-data-in-machine-learning.md.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-one-hot-encode-data-in-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-one-hot-encode-data-in-machine-learning.md)
 > * 译者：
 > * 校对者：
 
