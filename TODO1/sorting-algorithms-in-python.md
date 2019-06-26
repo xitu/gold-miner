@@ -143,7 +143,7 @@ print(random_list_of_nums)
 
 我们首先将列表转换成一个最大堆 —— 一种最大元素为根节点的二叉树。然后把我们把这个节点放在列表的尾部。然后我们重建这个少了一个值的*最大堆*，将新的最大值放在列表的最后一项之前。
 
-然后我们迭代这个构建堆的过程，直到删除所有节点。
+然后我们重复这个构建堆的过程，直到删除所有节点。
 
 ### 实现
 
@@ -220,7 +220,7 @@ def merge(left_list, right_list):
     sorted_list = []
     left_list_index = right_list_index = 0
 
-    # 我们经常使用列表长度，因此可以方便地生成变量
+    # 我们经常使用列表长度，因此将它创建为变量方便使用
     left_list_length, right_list_length = len(left_list), len(right_list)
 
     for _ in range(left_list_length + right_list_length):
