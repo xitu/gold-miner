@@ -209,7 +209,7 @@ func (m *MyApp) Build(ctx flutter.BuildContext) flutter.Widget {
 
 * 代码更加冗长 —— `BuildContext`，`Widget` 和 `MaterialApp` 等方法前都明显地提到了 `flutter`。
 * 代码更简洁 —— 没有 `extends Widget` 或者 `@override` 子句。
-* Build 方法是大写开头的，因为在 Go 中它的意思是“公共”可见性。在 Dart 中，大写开头小写开头都可以，但是要使属性或方法“私有化”，名称需要使用下划线（_）开头。
+* Build 方法是大写开头的，因为在 Go 中它的意思是“公共”可见性。在 Dart 中，大写开头小写开头都可以，但是要使属性或方法“私有化”，名称需要使用下划线（\_）开头。
 
 为了实现一个 Go 版的 Flutter `Widget`，现在我们需要嵌入 `flutter.Core` 并实现 `flutter.Widget` 接口。好了，非常清楚了，我们继续往下实现。
 
