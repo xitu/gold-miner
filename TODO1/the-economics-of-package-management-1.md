@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-1.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[mymmon](https://github.com/mymmon)
+> * 校对者：[mymmon](https://github.com/mymmon)，[TiaossuP](https://github.com/TiaossuP)
 
 # npm 的经济风云 —— 上半部分
 
@@ -13,7 +13,7 @@
 
 这个关于 npm 的故事，**你们**也是其中的角色。我敢说你们并没有意识到这点。等我讲完，你们就会知道为什么你们也是故事的一部分，以及为什么你们的存在意义重大。
 
-这个故事涉及到金钱、资本家，以及那些利用开源软件赚钱却不曾做过开发的人。在这个故事里，你们无心插柳，我有意栽花，而这个故事，就是印证因果。
+这个故事涉及到金钱、资本家，以及那些利用开源软件赚钱却不曾贡献过代码的人。在这个故事里，你们无心插柳，我有意栽花，这是一个关于所有权、操纵与最终结果的故事。
 
 这也是一个关于权力的故事 —— 谁掌控着权力、你们的权力有多大，以及我们可以用这种权力做什么。
 
@@ -21,13 +21,13 @@
 
 故事开始于 2000 年代的中期，也就是 Yahoo 最后的光辉岁月。Yahoo 是那时候众多 JavaScript 活动的核心。它招纳了许多 JavaScript 领域的意见领袖（例如 Douglas Crockford），推动着 JavaScript 艺术的繁荣发展。或许当时的 Yahoo 还没有一套完善的商业计划，但其技术栈已足够优良。
 
-而 Yahoo 的技术栈中的一项就是 ypm，一种软件包管理工具，这个东西着实是奇技淫巧。
+而 Yahoo 的技术栈中的一项就是 ypm，一种软件包管理工具，这个东西着实是慧心巧思。
 
 得益于愈发流行的 jQuery 和遵循标准开发的浏览器，JavaScript 开始成为一种引人关注的编程语言。服务端 JavaScript 在当时是炙手可热的话题，很多项目都在努力实现它。
 
 JSConf EU 盛会见证了服务端 JavaScript 的成功。就是在 2009 年的 JSConf EU 上，Ryan Dahl 宣布了 Node.js 的诞生。
 
-Node.js 正是人们渴求的服务端 JavaScript 平台。早期的 Node 社区吸引了一群有趣的人，他们喜欢尝试前沿技术，喜欢开垦无人涉足的处女地。这群人中有几位参与了 Node 的早期研发，他们一开始就发现软件包管理在 Node 领域将会非常有用武之地，于是他们就开始各自开发包管理工具。没错，不止一人，那是群雄逐鹿的局面。
+Node.js 正是人们渴求的服务端 JavaScript 平台。早期的 Node 社区吸引了一群有趣的人，他们喜欢尝试前沿技术，喜欢开垦无人涉足的处女地。这群人中有几位参与了 Node 的早期研发，他们一开始就发现软件包管理在 Node 领域将会非常有用武之地，于是他们就开始各自开发包管理工具。没错，不止一人，那是群雄逐鹿的时代。
 
 群雄之中有一位是个痴迷于 Node.js 的 Yahoo 员工。他辞掉工作，便于专心开发包管理工具，他受到 ypm 的启发，但与 ypm 不同的是，他的包管理工具是开源且专用于 Node.js 的。这位特殊的程序员有得天独厚的优势：他深度参与了 Node 项目的开发，而这又让他可以在 Node 中实现 CommonJS 模块标准。为了打败其他包管理工具，他做了很多努力，例如给很多开源项目提 PR，吸引开发者来使用他的包管理工具。
 
@@ -39,9 +39,9 @@ Node.js 正是人们渴求的服务端 JavaScript 平台。早期的 Node 社区
 
 npm 的作者也被 Joyent 聘来开发 Node.js，但（划重点）他保留了 npmjs.org 域名、npm 源码以及源码中的任何专利的所有权，这些都是他自己的知识产权。他并没有像 Ryan Dahl 卖 Node.js 源码那样，把这些一股脑地卖给 Joyent。这个决定会对后世产生深远影响，所以你们要记在小本本上。
 
-在 2012 年，Ryan Dahl 离开了 Node 项目组，而 npm 的拥有者接替他登上了项目组的领导岗位，这时期，npm 是笑到最后的那个包管理工具。
+在 2012 年，Ryan Dahl 离开了 Node 项目组，而 npm 的拥有者接替他登上了项目组的领导岗位，到了这个时候，npm 是笑到最后的那个包管理工具。
 
-就在此刻，你们各位就络绎登场了，至少你们中一部分人吧。你们是 JavaScript 开发者，你们喜欢 JavaScript 语言。如果能用 JavaScript 实现某个工具，你们绝对不会看其他语言一眼！因此你们开始用 Javascript 开发 Node 程序，并且乐在其中。与此同时，人们（比如我）发现用 Node.js 开发多路 I/O 服务非常得心应手，因为 Node 内置的 Reactor 模式简直棒极了。耶！妈妈再也不用担心我的多线程！从 2013 年开始，更多的人加入了我们的行列，共同在 JavaScript 的快乐旅程上前行，Node 风靡一时。而 npm 自然也随之流行。
+就在此刻，你们各位（或者说，至少你们中的一部分人吧）就络绎登场了。你们是 JavaScript 开发者，你们喜欢 JavaScript 语言。如果能用 JavaScript 实现某个工具，你们绝对不会看其他语言一眼！因此你们开始用 Javascript 开发 Node 程序，并且乐在其中。与此同时，人们（比如我）发现用 Node.js 开发多路 I/O 服务非常得心应手，因为 Node 内置的 Reactor 模式简直棒极了。耶！妈妈再也不用担心我的多线程！从 2013 年开始，更多的人加入了我们的行列，共同在 JavaScript 的快乐旅程上前行，Node 风靡一时。而 npm 自然也随之流行。
 
 一派太平盛世，是不是？嗯。
 
