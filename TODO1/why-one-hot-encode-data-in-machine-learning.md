@@ -28,7 +28,7 @@
 
 类别数据是一种只有标签值而没有数值的变量。
 
-它的值通常属于一个大小固定且有限的集合。
+它的值通常属于一个大小固定的集合。
 
 类别标量也常被称为[标称值（nominal）](https://en.wikipedia.org/wiki/Nominal_category)。
 
