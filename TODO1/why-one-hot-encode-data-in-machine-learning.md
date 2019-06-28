@@ -2,93 +2,92 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-one-hot-encode-data-in-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-one-hot-encode-data-in-machine-learning.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor), [portandbridge](https://github.com/portandbridge)
 
-# Why One-Hot Encode Data in Machine Learning?
+# 在机器学习中为什么要进行 One-Hot 编码？
 
-Getting started in applied machine learning can be difficult, especially when working with real-world data.
+入门机器学习应用，尤其是需要对实际数据进行处理时，是很困难的。
 
-Often, machine learning tutorials will recommend or require that you prepare your data in specific ways before fitting a machine learning model.
+一般来说，机器学习教程会推荐你或要求你，在开始拟合模型之前，先以特定的方式准备好数据。
 
-One good example is to use a one-hot encoding on categorical data.
+其中，一个很好的例子就是对类别数据（Categorical data）进行 One-Hot 编码（又称独热编码）。
 
-*   Why is a one-hot encoding required?
-*   Why can’t you fit a model on your data directly?
+* 为什么 One-Hot 编码是必要的？
+* 为什么你不能直接使用数据来拟合模型？
 
-In this post, you will discover the answer to these important questions and better understand data preparation in general in applied machine learning.
+在本文中，你将得到上述重要问题的答案，并能更好地理解机器学习应用中的数据准备工作。
 
-Let’s get started.
+让我们开始吧！
 
-![Why One-Hot Encode Data in Machine Learning?](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg)
+![在机器学习中为什么要进行 One-Hot 编码？](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2017/07/Why-One-Hot-Encode-Data-in-Machine-Learning.jpg)
 
-Why One-Hot Encode Data in Machine Learning?
-Photo by [Karan Jain](https://www.flickr.com/photos/jiangkeren/8263176332/), some rights reserved.
+[题图 by Karan Jain，保留部分权利](https://www.flickr.com/photos/jiangkeren/8263176332/)
 
-## What is Categorical Data?
+## 什么是类别数据？
 
-Categorical data are variables that contain label values rather than numeric values.
+类别数据是一种只有标签值而没有数值的变量。
 
-The number of possible values is often limited to a fixed set.
+它的值通常属于一个大小固定且有限的集合。
 
-Categorical variables are often called [nominal](https://en.wikipedia.org/wiki/Nominal_category).
+类别变量也常被称为[标称值（nominal）](https://en.wikipedia.org/wiki/Nominal_category)。
 
-Some examples include:
+下面举例说明：
 
-*   A “_pet_” variable with the values: “_dog_” and “_cat_”.
-*   A “_color_” variable with the values: “_red_”, “_green_” and “_blue_”.
-*   A “_place_” variable with the values: “first”, “_second_” _and_ “_third_”.
+* 宠物（pet）变量包含以下几种值：狗（dog）、猫（cat）。
+* 颜色（color）变量包含以下几种值：红（red）、绿（green）、蓝（blue）。
+* 位次（place）变量包含以下几种值：第一（first）、第二（second）和第三（third）。
 
-Each value represents a different category.
+以上例子中的每个值都代表着一个不同的类别。
 
-Some categories may have a natural relationship to each other, such as a natural ordering.
+有些类别彼此间存在一定的自然关系，比如自然的排序关系。
 
-The “_place_” variable above does have a natural ordering of values. This type of categorical variable is called an ordinal variable.
+上述例子中，位次（place）变量的值就有这种自然的排序关系。这种变量被称为序数变量（ordinal variable）。
 
-## What is the Problem with Categorical Data?
+## 类别数据有什么问题？
 
-Some algorithms can work with categorical data directly.
+有些算法可以直接应用于类别数据。
 
-For example, a decision tree can be learned directly from categorical data with no data transform required (this depends on the specific implementation).
+比如，你可以不进行任何数据转换，将决策树算法直接应用于类别数据上（取决于具体实现方式）。
 
-Many machine learning algorithms cannot operate on label data directly. They require all input variables and output variables to be numeric.
+但还有许多机器学习算法并不能直接操作标签数据。这些算法要求所有的输入输出变量都是数值（numeric）。
 
-In general, this is mostly a constraint of the efficient implementation of machine learning algorithms rather than hard limitations on the algorithms themselves.
+通常来说，这种限制主要是因为这些机器学习算法的高效实现造成的，而不是算法本身的限制。
 
-This means that categorical data must be converted to a numerical form. If the categorical variable is an output variable, you may also want to convert predictions by the model back into a categorical form in order to present them or use them in some application.
+但这也意味着我们需要把类别数据转换成数值形式。如果输出变量是类别变量，那你可能还得将模型的预测值转换回类别形式，以便在一些应用中展示或使用它们。
 
-## How to Convert Categorical Data to Numerical Data?
+## 如何将类别数据转换成数值数据？
 
-This involves two steps:
+这包含两个步骤：
 
-1.  Integer Encoding
-2.  One-Hot Encoding
+1. 整数编码
+2. One-Hot 编码
 
-### 1. Integer Encoding
+### 1. 整数编码
 
-As a first step, each unique category value is assigned an integer value.
+第一步，先要给每个类别值都分配一个整数值。
 
-For example, “_red_” is 1, “_green_” is 2, and “_blue_” is 3.
+比如，用 1 表示红色（red），2 表示绿色（green），3 表示蓝色（blue）。
 
-This is called a label encoding or an integer encoding and is easily reversible.
+这种方式被称为标签编码或者整数编码，可以很轻松地将它还原回类别值。
 
-For some variables, this may be enough.
+对于某些变量来说，这种编码就足够了。
 
-The integer values have a natural ordered relationship between each other and machine learning algorithms may be able to understand and harness this relationship.
+整数之间存在自然的排序关系，机器学习算法也许可以理解并利用这种关系。
 
-For example, ordinal variables like the “place” example above would be a good example where a label encoding would be sufficient.
+比如，前面的位次（place）例子中的序数变量就是一个很好的例子。对于它我们只需要进行标签编码就够了。
 
-### 2. One-Hot Encoding
+### 2. One-Hot 编码
 
-For categorical variables where no such ordinal relationship exists, the integer encoding is not enough.
+但对于不存在次序关系的类别变量，仅使用上述的整数编码是不够的。
 
-In fact, using this encoding and allowing the model to assume a natural ordering between categories may result in poor performance or unexpected results (predictions halfway between categories).
+实际上，使用整数编码会让模型假设类别间存在自然的次序关系，从而导致结果不佳或得到意外的结果（预测值落在两个类别的中间）。
 
-In this case, a one-hot encoding can be applied to the integer representation. This is where the integer encoded variable is removed and a new binary variable is added for each unique integer value.
+这种情况下，就要对整数表示使用 One-Hot 编码了。One-Hot 编码会去除整数编码，并为每个整数值都创建一个二值变量。
 
-In the “_color_” variable example, there are 3 categories and therefore 3 binary variables are needed. A “1” value is placed in the binary variable for the color and “0” values for the other colors.
+在颜色（color）的示例中，有 3 种类别，因此需要 3 个二值变量进行编码。对应的颜色位置上将被标为“1”，其它颜色位置上会被标为“0”。
 
-For example:
+比如：
 
 ```
 red, green, blue
@@ -96,35 +95,35 @@ red, green, blue
 0, 1, 0
 0, 0, 1
 ```
-The binary variables are often called “dummy variables” in other fields, such as statistics.
 
-## One Hot Encoding Tutorials
+在统计学等领域中，这种二值变量通常被称为“虚拟变量”或“哑变量”（dummy variable）。
 
+## One-Hot 编码教程
 
-Looking for some tutorials on how to one hot encode your data in Python, see:
+如果你想了解如何在 Python 对你的数据进行 One-Hot 编码，请参阅：
 
-*   [Data Preparation for Gradient Boosting with XGBoost in Python](https://machinelearningmastery.com/data-preparation-gradient-boosting-xgboost-python/)
-*   [How to One Hot Encode Sequence Data in Python](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/)
+* [Data Preparation for Gradient Boosting with XGBoost in Python](https://machinelearningmastery.com/data-preparation-gradient-boosting-xgboost-python/) — 在 Python 中使用 XGBoost 梯度提升法前的数据准备
+* [How to One Hot Encode Sequence Data in Python](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/) — 如何使用 Python 对序列数据进行 One-Hot 编码
 
-## Further Reading
+## 拓展阅读
 
-*   [Categorical variable](https://en.wikipedia.org/wiki/Categorical_variable) on Wikipedia
-*   [Nominal category](https://en.wikipedia.org/wiki/Nominal_category) on Wikipedia
-*   [Dummy variable](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)) on Wikipedia
+* [类别变量（Categorical variable）](https://en.wikipedia.org/wiki/Categorical_variable)，Wikipedia
+* [标称分类（Nominal category）](https://en.wikipedia.org/wiki/Nominal_category)，Wikipedia
+* [虚拟变量，哑变量（Dummy variable）](https://en.wikipedia.org/wiki/Dummy_variable_(statistics))，Wikipedia
 
-## Summary
+## 总结
 
-In this post, you discovered why categorical data often must be encoded when working with machine learning algorithms.
+在本文中，你应该了解了为什么在使用机器学习算法时通常要对类别数据进行编码。
 
-Specifically:
+特别要注意：
 
-*   That categorical data is defined as variables with a finite set of label values.
-*   That most machine learning algorithms require numerical input and output variables.
-*   That an integer and one hot encoding is used to convert categorical data to integer data.
+* 类别数据的定义是由一组有限集合中的值构成的变量。
+* 大多数机器学习算法都需要输入数值变量，并会输出数值变量。
+* 通过整数编码与 One-Hot 编码可以将类别数据转换为整型数据。
 
-Do you have any questions?
+还有别的问题？
 
-Post your questions to comments below and I will do my best to answer.
+请在评论中留下你的问题，我会尽力回答。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
