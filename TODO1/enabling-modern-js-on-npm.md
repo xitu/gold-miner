@@ -11,11 +11,11 @@
 
 ![](https://res.cloudinary.com/wedding-website/image/upload/v1559234852/code-screenshot_1_zkday3.jpg)
 
-过去的几年中我们一直在写现代 JavaScript（或者 [TypeScript](https://www.typescriptlang.org/) ，它们在转译的过程中编译为 ES5。这样的做法让 JavaScript 的"最新技术"以比支持旧版浏览器时更快的速度向前发展。
+过去的几年中我们一直在写现代 JavaScript（或者 [TypeScript](https://www.typescriptlang.org/)，它们在转译的过程中编译为 ES5。这样的做法让 JavaScript 的“最新技术”以比支持旧版浏览器时更快的速度向前发展。
 
-最近，开发者已经采用差分的打包技术，其中两个或者更多个不同的 JavaScript 文件集被生成到不同目标环境中。这个技术最通用的例子是[模块/非模块模式](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)，它利用原生 JS 模块（也被认为『ES 模块』）支持它的『切割 mustard』测试：支持模块的浏览器请求现代版 JavaScript（~[ES2017](https://www.ecma-international.org/ecma-262/8.0/index.html)），同时旧版浏览器请求更加厚重的可兼容和编译的传统代码 bundle。为这套浏览器们做编译，取决于它们支持的 JS 模块类型，通过 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) 中 [targets.esmodules](https://babeljs.io/docs/en/babel-preset-env#targetsesmodules)选项可以相对简单直接地完成编译。同时 [Webpack](https://webpack.js.org/) 插件，就像 [babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin#readme) 可以轻松生成两个 JavaScript bundle。
+最近，开发者已经采用差分的打包技术，其中两个或者更多个不同的 JavaScript 文件集被生成到不同目标环境中。这个技术最通用的例子是[模块/非模块模式](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)，它利用原生 JS 模块（也被认为『ES 模块』）支持它的『切割 mustard』测试：支持模块的浏览器请求现代版 JavaScript（~[ES2017](https://www.ecma-international.org/ecma-262/8.0/index.html)），同时旧版浏览器请求更加厚重的可兼容和编译的传统代码 bundle。为这套浏览器们做编译，取决于它们支持的 JS 模块类型，通过 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) 中 [targets.esmodules](https://babeljs.io/docs/en/babel-preset-env#targetsesmodules) 选项可以相对简单直接地完成编译。同时 [Webpack](https://webpack.js.org/) 插件，就像 [babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin#readme) 可以轻松生成两个 JavaScript bundle。
 
-鉴于上述情况，所有博客文章和案例研究哪里展示了使用这种技术实现的卓越性能和 bundle 尺寸优势？ 事实证明，发送现代 JavaScript 代码需要的不仅仅是变更我们的转译目标。
+鉴于上述情况，所有博客文章和案例研究哪里展示了使用这种技术实现的卓越性能和 bundle 尺寸优势？事实证明，发送现代 JavaScript 代码需要的不仅仅是变更我们的转译目标。
 
 ## 这不是我们的代码
 
@@ -33,9 +33,9 @@
 
 ## 仅仅 JavaScript”
 
-我们发布到 npm 的模块都是『 JavaScript』，但那是任何对均匀性抱有期待终将落空的地方。几乎全球的前端开发者使用来自 npm 的 JavaScript 时都期望 JavaScript 运行『在一个浏览器中』。鉴于我们需要支持各种浏览器，我们最终会遇到这种情况：模块需要支持其消费者所用浏览器的目标支持版本的最小公分母。这种可能性的产生意味着我们明确地依赖于 `node_modules` 中所有代码需是 ECMAScript 5。在一些不常见的情况下，开发人员使用 bolted-on 的方法来检测非 ES5 模块，并且把这些模块预处理成他们需要的输出目标（这里有个你不该使用的[hacky 方法](https://gist.github.com/developit/081148d83348ebe9a1bc1ba0707e1bb8)）。作为一个社区，每个新版本 ECMAScript 的向后兼容性使我们在很大程度上忽略了它对我们应用程序的影响，尽管我们编码的语法与我们最喜欢的 npm 依赖包中的语法之间的差异越来越大。
+我们发布到 npm 的模块都是『JavaScript』，但那是任何对均匀性抱有期待终将落空的地方。几乎全球的前端开发者使用来自 npm 的 JavaScript 时都期望 JavaScript 运行『在一个浏览器中』。鉴于我们需要支持各种浏览器，我们最终会遇到这种情况：模块需要支持其消费者所用浏览器的目标支持版本的最小公分母。这种可能性的产生意味着我们明确地依赖于 `node_modules` 中所有代码需是 ECMAScript 5。在一些不常见的情况下，开发人员使用 bolted-on 的方法来检测非 ES5 模块，并且把这些模块预处理成他们需要的输出目标（这里有个你不该使用的 [hacky 方法](https://gist.github.com/developit/081148d83348ebe9a1bc1ba0707e1bb8)）。作为一个社区，每个新版本 ECMAScript 的向后兼容性使我们在很大程度上忽略了它对我们应用程序的影响，尽管我们编码的语法与我们最喜欢的 npm 依赖包中的语法之间的差异越来越大。
 
-这就使得大家普遍认同：npm 模块在向仓库发布之前需要做模块转换。作者的发布过程一般包括把资源模块打包成多种格式：JS 模块、CommonJS 和 UMD。模块作者有时使用模块的 package.json 中的一组非官方字段来表示这些不同的 bundle， 这个文件中 `"module"` 指向 `.mjs` 文件， `"unpkg"` 指向 UMD bundle，同时 `"main"` 仍被保留为引用一个 CommonJS 文件。
+这就使得大家普遍认同：npm 模块在向仓库发布之前需要做模块转换。作者的发布过程一般包括把资源模块打包成多种格式：JS 模块、CommonJS 和 UMD。模块作者有时使用模块的 package.json 中的一组非官方字段来表示这些不同的 bundle，这个文件中 `"module"` 指向 `.mjs` 文件，`"unpkg"` 指向 UMD bundle，同时 `"main"` 仍被保留为引用一个 CommonJS 文件。
 
 ```json
 {
@@ -65,13 +65,13 @@ npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaSc
 
 ### Module authoring tools hurt, too
 
-就像应用打包器被设置为对 `node_modules` 没有默认操作，改变模块的创作形式也是一个遗憾的分布式问题。因为大多数模块作者倾向于根据不同的项目需求推出自己的转译工具，因此实际上没有一套规范工具可以进行更改。[Microbundle](https://github.com/developit/microbundle) 作为一种共享方案一直在获得关注，还有最近发布的具有相似优化格式功能的 [@pika/pack](https://www.pikapkg.com/blog/introducing-pika-pack/) ，模块可以通过它发布到 npm。遗憾的是，这些工具在得以考虑广泛传播前仍需要走很长的一段路。
+就像应用打包器被设置为对 `node_modules` 没有默认操作，改变模块的创作形式也是一个遗憾的分布式问题。因为大多数模块作者倾向于根据不同的项目需求推出自己的转译工具，因此实际上没有一套规范工具可以进行更改。[Microbundle](https://github.com/developit/microbundle) 作为一种共享方案一直在获得关注，还有最近发布的具有相似优化格式功能的 [@pika/pack](https://www.pikapkg.com/blog/introducing-pika-pack/)，模块可以通过它发布到 npm。遗憾的是，这些工具在得以考虑广泛传播前仍需要走很长的一段路。
 
 假设可以影响到 Microbundle、Pika 和 Angular 的[库打包器](https://angular.io/cli/generate#library) 这样一组解决方案，或许可以使用流行模块作为示范来改变生态系统。如此规模的努力可能会遇到模块使用者的一些阻力，因为许多人还没有意识到他们的打包策略所产生的限制。然而，这些颠覆式的期望正是我们社区所需要的转变。
 
 ## 期待
 
-这并不是所有的厄运和沮丧。尽管 Webpack 和 Rollup 只是通过它们的文档来鼓励未经处理的 npm 模块，Browserify 实际上在 `node_modules` 中默认[禁用了所有的转换](https://github.com/babel/babelify#why-arent-files-in-node_modules-being-transformed)。这意味着 Browserify 可以被修改用于自动生成现代/经典 bundle，而无需每一个应用开发者更改他们的转译配置。相似地，在 Webpack 和 Rollup 上转译的脚手架工具也提供一些集中地方，我们可以在这里进行更改，将现代 JS 引入 `node_modules`。我们在 [Next.js](https://nextjs.org/)、[Create React App](https://facebook.github.io/create-react-app/docs/getting-started), [Angular CLI](https://cli.angular.io/)、 [Vue CLI](https://cli.vuejs.org/) 以及 [Preact CLI](https://github.com/developit/preact-cli) 中做这个变化，最终的转译配置将会使得相当一部分应用程序使用上述这些工具。
+这并不是所有的厄运和沮丧。尽管 Webpack 和 Rollup 只是通过它们的文档来鼓励未经处理的 npm 模块，Browserify 实际上在 `node_modules` 中默认[禁用了所有的转换](https://github.com/babel/babelify#why-arent-files-in-node_modules-being-transformed)。这意味着 Browserify 可以被修改用于自动生成现代/经典 bundle，而无需每一个应用开发者更改他们的转译配置。相似地，在 Webpack 和 Rollup 上转译的脚手架工具也提供一些集中地方，我们可以在这里进行更改，将现代 JS 引入 `node_modules`。我们在 [Next.js](https://nextjs.org/)、[Create React App](https://facebook.github.io/create-react-app/docs/getting-started), [Angular CLI](https://cli.angular.io/)、[Vue CLI](https://cli.vuejs.org/) 以及 [Preact CLI](https://github.com/developit/preact-cli) 中做这个变化，最终的转译配置将会使得相当一部分应用程序使用上述这些工具。
 
 绝大多数 JavaScript 应用的转译系统是一次性的或者为每个项目单独定制的，没有统一的中心位置可以修改它们。一个可被我们考虑的缓慢地将社区推向现代 JS-friendly 配置方法的选择是：使得当从 `node_modules` 导入的 JavaScript 资源未被处理时，修改后的 Webpack 对此显示警告。去年 Bable [宣布了一些新功能](https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages)，允许在 `node_modules` 中做一些选择性地转换，同时 Create React App 工具最近开始使用保守配置来做转换 `node_modules`。同样，可以创建工具来检查我们打包的 JavaScript，看看它有多少是过度填充或低效的传统语法。
 
@@ -100,7 +100,7 @@ npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaSc
 
 过度转换的 JavaScript 在我们发送给最终用户的代码中占比逐渐增加，影响了 Web 应用的初始加载时间和整体运行性能。我们相信这是一个需要解决的问题 ——— 一个需要模块作者**和**使用者达成一致的解决方案。问题空间相对较小，但是有许多具有独特约束条件的有趣部分。
 
-我们期待社区的帮助。您对在整个 JavaScript 开源生态系统中解决这个问题有何建议？我们期待收到您的回复，与您合作，并以可扩展的形式来帮助解决此问题，以便进行新的语法修订。在 Twitter 上与我们联系： [_developit](https://twitter.com/_developit)、 [kristoferbaxter](https://twitter.com/kristoferbaxter) 和 [nomadtechie](https://twitter.com/nomadtechie) 都期待参与讨论。
+我们期待社区的帮助。您对在整个 JavaScript 开源生态系统中解决这个问题有何建议？我们期待收到您的回复，与您合作，并以可扩展的形式来帮助解决此问题，以便进行新的语法修订。在 Twitter 上与我们联系：[`_developit`](https://twitter.com/_developit)、[kristoferbaxter](https://twitter.com/kristoferbaxter) 和 [nomadtechie](https://twitter.com/nomadtechie) 都期待参与讨论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
