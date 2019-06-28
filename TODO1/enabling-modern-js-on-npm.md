@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/enabling-modern-js-on-npm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/enabling-modern-js-on-npm.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[三月源](https://github.com/MarchYuanx)，[TiaossuP](https://github.com/TiaossuP)
 
-# 在 npm 上启用现在 JavaScript
+# 在 npm 上启用现代 JavaScript
 
-> 现代 JavaScript 语法让我们使用较少的代码做更多的事，但是我们传输给用户多少量的 JavaScript 才算是真正的现代呢？
+> 现代 JavaScript 语法让我们使用较少的代码做更多的事，然而我们传输给用户的 JavaScript，有多少是现代的呢？
 
 ![](https://res.cloudinary.com/wedding-website/image/upload/v1559234852/code-screenshot_1_zkday3.jpg)
 
-这样的做法让 JavaScript 的"最新技术"以比支持旧版浏览器时更快的速度向前发展。
+过去的几年中我们一直在写现代 JavaScript（或者 [TypeScript](https://www.typescriptlang.org/) ，它们在构建的过程中编译为 ES5。这样的做法让 JavaScript 的"最新技术"以比支持旧版浏览器时更快的速度向前发展。
 
-最近，开发者已经采用差分的打包技术，其中两个或者更多个不同的 JavaScript 文件集被生成到不同目标环境中。这个技术最通用的例子是[模块/非模块模式](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)，它利用原生 JS 模块（也被认为『ES 模块』）支持它的『切割 mustard』测试：支持模块的浏览器请求现代版 JavaScript（~[ES2017](https://www.ecma-international.org/ecma-262/8.0/index.html)），同时旧版浏览器请求更加厚重填充和编译的传统代码 bundle。为这套浏览器们做编译，取决于它们支持的 JS 模块类型，通过 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) 中 [targets.esmodules](https://babeljs.io/docs/en/babel-preset-env#targetsesmodules)选项可以相对简单直接地完成编译。同时 [Webpack](https://webpack.js.org/) 插件，就像 [babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin#readme) 可以轻松生成两个 JavaScript bundle。
+最近，开发者已经采用差分的打包技术，其中两个或者更多个不同的 JavaScript 文件集被生成到不同目标环境中。这个技术最通用的例子是[模块/非模块模式](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)，它利用原生 JS 模块（也被认为『ES 模块』）支持它的『切割 mustard』测试：支持模块的浏览器请求现代版 JavaScript（~[ES2017](https://www.ecma-international.org/ecma-262/8.0/index.html)），同时旧版浏览器请求更加厚重的可兼容和编译的传统代码 bundle。为这套浏览器们做编译，取决于它们支持的 JS 模块类型，通过 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) 中 [targets.esmodules](https://babeljs.io/docs/en/babel-preset-env#targetsesmodules)选项可以相对简单直接地完成编译。同时 [Webpack](https://webpack.js.org/) 插件，就像 [babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin#readme) 可以轻松生成两个 JavaScript bundle。
 
 鉴于上述情况，所有博客文章和案例研究哪里展示了使用这种技术实现的卓越性能和 bundle 尺寸优势？ 事实证明，发送现代 JavaScript 代码需要的不仅仅是变更我们的构建目标。
 
@@ -23,7 +23,7 @@
 
 ![](https://res.cloudinary.com/wedding-website/image/upload/v1559231502/authored_vs_installed_ev2szc.png)
 
-在许多方面，这代表了开源的胜利：开发人员能够在共享代码的共同价值上做构建，并在公共论坛里在解决问题的通用解决方案上协力合作。
+在许多方面，这代表了开源的胜利：开发人员能够在共享代码的共同价值上做构建，并在公共论坛里对需要解决的问题，协力合作出通用的解决方案。
 
 『我们从 npm 安装的依赖项在 2014 年停滞不前』
 
@@ -59,9 +59,9 @@
 4. npm 模块以 ECMAScript 5 版本发布仍被广泛接收。
 5. 对一个模块增加 JS 版本的要求意味着某些用户无法使用它。
 
-合在一起，这些原因使得一个流行模块的作者几乎不可能转成默认使用现代 JavaScript。把你自己放在一个模块作者的位置来看：在知道更新结果会破坏你大多数用户的构建或者生产部署的情况下，你会愿意发布仅有现代语法的模块吗？
+合在一起，这些原因使得一个流行模块的作者几乎不可能转为默认使用现代 JavaScript。把你自己放在一个模块作者的位置来看：在知道更新结果会破坏你大多数用户的构建或者生产部署的情况下，你会愿意发布仅有现代语法的模块吗？
 
-npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaScript 分离，导致我们无法完全拥抱 JS 模块和 ES20xx。
+npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaScript 分离的问题，都导致我们无法完全拥抱 JS 模块和 ES20xx。
 
 ### Module authoring tools hurt, too
 
@@ -71,19 +71,19 @@ npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaSc
 
 ## 期待
 
-这并不是所有的厄运和沮丧。尽管 Webpack 和 Rollup 只是通过它们的文档来鼓励未经处理的 npm 模块，Browserify 实际上在 `node_modules` 中默认[禁用了所有的转换](https://github.com/babel/babelify#why-arent-files-in-node_modules-being-transformed)。这意味着 Browserify 可以被修改用于自动生成现代/经典 bundle，而无需每一个应用开发者更改他们的构建配置。相似地，在 Webpack 和 Rollup 上构建的固定工具也提供一些集中地方，我们可以在这里进行更改，将现代 JS 引入 `node_modules`。我们在 [Next.js](https://nextjs.org/)、[Create React App](https://facebook.github.io/create-react-app/docs/getting-started), [Angular CLI](https://cli.angular.io/)、 [Vue CLI](https://cli.vuejs.org/) 以及 [Preact CLI](https://github.com/developit/preact-cli) 中做这个变化，最终的构建配置将会使得相当一部分应用程序使用上述这些工具。
+这并不是所有的厄运和沮丧。尽管 Webpack 和 Rollup 只是通过它们的文档来鼓励未经处理的 npm 模块，Browserify 实际上在 `node_modules` 中默认[禁用了所有的转换](https://github.com/babel/babelify#why-arent-files-in-node_modules-being-transformed)。这意味着 Browserify 可以被修改用于自动生成现代/经典 bundle，而无需每一个应用开发者更改他们的构建配置。相似地，在 Webpack 和 Rollup 上构建的脚手架工具也提供一些集中地方，我们可以在这里进行更改，将现代 JS 引入 `node_modules`。我们在 [Next.js](https://nextjs.org/)、[Create React App](https://facebook.github.io/create-react-app/docs/getting-started), [Angular CLI](https://cli.angular.io/)、 [Vue CLI](https://cli.vuejs.org/) 以及 [Preact CLI](https://github.com/developit/preact-cli) 中做这个变化，最终的构建配置将会使得相当一部分应用程序使用上述这些工具。
 
-绝大多数 JavaScript 应用的构建系统是一次性的或者为每个项目定制的，没有统一的中心位置可以修改它们。一个可被我们考虑的缓慢地将社区推向现代 JS-friendly 配置方法的选择是：使得当从 `node_modules` 导入的 JavaScript 资源未被处理时，修改后的 Webpack 对此显示警告。去年 Bable [宣布了一些新功能](https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages)，允许 `node_modules` 中一些选择性地转换，同时创建 React 应用最近开始使用保守配置来做转换 `node_modules`。同样，可以创建工具来检查我们打包的 JavaScript，看看它有多少是过度填充或低效的传统语法。
+绝大多数 JavaScript 应用的构建系统是一次性的或者为每个项目单独定制的，没有统一的中心位置可以修改它们。一个可被我们考虑的缓慢地将社区推向现代 JS-friendly 配置方法的选择是：使得当从 `node_modules` 导入的 JavaScript 资源未被处理时，修改后的 Webpack 对此显示警告。去年 Bable [宣布了一些新功能](https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages)，允许在 `node_modules` 中做一些选择性地转换，同时 Create React App 工具最近开始使用保守配置来做转换 `node_modules`。同样，可以创建工具来检查我们打包的 JavaScript，看看它有多少是过度填充或低效的传统语法。
 
 ## The last piece最后一块
 
-假设我们可以将自动化和指导服务构建到我们的工具中，这样做最终会将使用这些工具的成千上万（百万）个应用迁移到允许在 `node_modules` 中使用现代语法的配置上。为了使这个方法产生效果，我们需要提出一致的规范来指定他们现代 JS 资源的位置，并且在该上下文中对什么是『现代』达成共识。对于 3 年前发布的软件包，『现代』可能意味着 ES2015。对于一个现今发布的包，『现代』大概会包括 [class fields](https://developers.google.com/web/updates/2018/12/class-fields)、[BigInt](https://developers.google.com/web/updates/2018/05/bigint) 或者 [Dynamic Import](https://developers.google.com/web/updates/2017/11/dynamic-import) 吧？因为浏览器支持和规范阶段的差异，这很难说的清楚。
+假设我们可以将自动化和指导服务构建到我们的工具中，这样做最终会将使用这些工具的成千上万（甚至是百万）个应用迁移到允许在 `node_modules` 中使用现代语法的配置上。为了使这个方法产生效果，我们需要提出一致的规范来指定他们现代 JS 资源的位置，并且在该上下文中对什么是『现代』达成共识。对于 3 年前发布的软件包，『现代』可能意味着 ES2015。对于一个现今发布的包，『现代』大概会包括 [class fields](https://developers.google.com/web/updates/2018/12/class-fields)、[BigInt](https://developers.google.com/web/updates/2018/05/bigint) 或者 [Dynamic Import](https://developers.google.com/web/updates/2017/11/dynamic-import) 吧？这很难说清楚，毕竟浏览器支持程度、各个规范所处阶段都各不相同。
 
 当我们考虑到对差分打包的影响时，这就变成了一个问题。对于那些不熟悉的人，差分打包指的是一种设置，它允许我们编写现代 JavaScript，然后针对不同环境构建单独的输出 bundle 套装。在最流行的用法中，针对较新浏览器我们有一套包含 ~ES2015 语法的 bundle，然后是针对所有其他浏览器的一套『传统』bundle，它们被转换成 ES5 并被填充。
 
 ![图表显示了多个 JavaScript 源文件被打包进入单独的 JavaScript 文件集：一个用于现代浏览器，另一个用于其他所有浏览器。](https://res.cloudinary.com/wedding-website/image/upload/v1559231328/modern_legacy_transpile_qbvkdd.png)
 
-问题是：如果我们假设『现代』意味着『比 ES5 更新的东西』，则无法确定一个包中哪些语法应该做转换以满足给定的浏览器支持目标。我们可以通过为包创建一种表达它们所依赖的特定语法功能集的方法来定位上述问题，然而这仍需要维护大量不同的配置来控制每组输入到输出的语法配对：
+问题是：如果我们假设『现代』意味着『比 ES5 更新的东西』，则无法确定一个包中哪些语法应该做转换以满足给定的浏览器支持目标。我们可以通过为包创建一种表达它们所依赖的特定语法功能集的方法来定位上述问题，然而这仍需要维护大量不同的配置来控制每组输入到输出的语法对：
 
 | Package Syntax     | Output Target          | Example “Downleveling” Transformations                          |
 | ------------------ | ---------------------- | --------------------------------------------------------------- |
@@ -96,9 +96,9 @@ npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaSc
 | ES2019             | ES5 / nomodule         | rest/spread, for-await, async/await, classes & tagged templates |
 | ES2019             | `<script type=module>` | rest/spread & for-await                                         |
 
-## What would you do?你会怎么做？
+## 你会怎么做？
 
-过度转换的 JavaScript 在我们发送给最终用户的代码中占比逐渐增加，影响了 Web 应用的初始加载时间和整体运行性能。我们相信这是一个需要解决方案的问题 ——— 一个需要模块作者**和**使用者达成一致的解决方案。问题空间相对较小，但是有许多具有独特约束条件的有趣部分。
+过度转换的 JavaScript 在我们发送给最终用户的代码中占比逐渐增加，影响了 Web 应用的初始加载时间和整体运行性能。我们相信这是一个需要解决的问题 ——— 一个需要模块作者**和**使用者达成一致的解决方案。问题空间相对较小，但是有许多具有独特约束条件的有趣部分。
 
 我们期待社区的帮助。您对在整个 JavaScript 开源生态系统中解决这个问题有何建议？我们期待收到您的回复，与您合作，并以可扩展的形式来帮助解决此问题，以便进行新的语法修订。在 Twitter 上与我们联系： [_developit](https://twitter.com/_developit)、 [kristoferbaxter](https://twitter.com/kristoferbaxter) 和 [nomadtechie](https://twitter.com/nomadtechie) 都期待参与讨论。
 
