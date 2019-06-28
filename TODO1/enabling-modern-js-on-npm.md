@@ -2,40 +2,40 @@
 > * 原文作者：[Jason Miller](https://jasonformat.com/author/developit/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/enabling-modern-js-on-npm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/enabling-modern-js-on-npm.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
+> * 校对者：[三月源](https://github.com/MarchYuanx)，[TiaossuP](https://github.com/TiaossuP)
 
-# Enabling Modern JavaScript on npm
+# 在 npm 上启用现代 JavaScript
 
-> Modern JavaScript syntax lets you do more with less code, but how much of the JavaScript we ship to users is actually modern?
+> 现代 JavaScript 语法让我们使用较少的代码做更多的事，然而我们传输给用户的 JavaScript，有多少是现代的呢？
 
 ![](https://res.cloudinary.com/wedding-website/image/upload/v1559234852/code-screenshot_1_zkday3.jpg)
 
-For the past few years we’ve been writing modern JavaScript (or [TypeScript](https://www.typescriptlang.org/)), which is then transpiled to ES5 as a build step. This has let the “state of the art” of JavaScript move forward at a faster pace than could have otherwise been achieved while supporting older browsers.
+过去的几年中我们一直在写现代 JavaScript（或者 [TypeScript](https://www.typescriptlang.org/)，它们在转译的过程中编译为 ES5。这样的做法让 JavaScript 的“最新技术”以比支持旧版浏览器时更快的速度向前发展。
 
-More recently, developers have adopted differential bundling techniques where two or more distinct sets of JavaScript files are produced to target different environments. The most common example of this is the [module/nomodule pattern](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/), which leverages native JS Modules (also known as "ES Modules") support as its “cutting the mustard” test: modules-supporting browsers request modern JavaScript (~[ES2017](https://www.ecma-international.org/ecma-262/8.0/index.html)), and older browsers request the more heavily polyfilled and transpiled legacy bundles. Compiling for the set of browsers defined by their JS Modules support is made relatively straightforward courtesy of the [targets.esmodules](https://babeljs.io/docs/en/babel-preset-env#targetsesmodules) option in [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env), and [Webpack](https://webpack.js.org/) plugins like [babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin#readme) make producing two sets of JavaScript bundles mostly painless.
+最近，开发者已经采用差分的打包技术，其中两个或者更多个不同的 JavaScript 文件集被生成到不同目标环境中。这个技术最通用的例子是[模块/非模块模式](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)，它利用原生 JS 模块（也被认为『ES 模块』）支持它的『切割 mustard』测试：支持模块的浏览器请求现代版 JavaScript（~[ES2017](https://www.ecma-international.org/ecma-262/8.0/index.html)），同时旧版浏览器请求更加厚重的可兼容和编译的传统代码 bundle。为这套浏览器们做编译，取决于它们支持的 JS 模块类型，通过 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) 中 [targets.esmodules](https://babeljs.io/docs/en/babel-preset-env#targetsesmodules) 选项可以相对简单直接地完成编译。同时 [Webpack](https://webpack.js.org/) 插件，就像 [babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin#readme) 可以轻松生成两个 JavaScript bundle。
 
-Given the above, where are all the blog posts and case-studies showing the glorious performance and bundle size benefits that have been achieved using this technique? It turns out, shipping modern JavaScript requires more than changing our build targets.
+鉴于上述情况，所有博客文章和案例研究哪里展示了使用这种技术实现的卓越性能和 bundle 尺寸优势？事实证明，发送现代 JavaScript 代码需要的不仅仅是变更我们的转译目标。
 
-## It’s not our code
+## 这不是我们的代码
 
-Current solutions for producing paired modern & legacy bundles focus solely on “authored code” - the code we write that implements an application. These solutions can’t currently help with the code we install from sources like npm - that’s a problem, since [some sources](https://youtu.be/-xZHWK-vHbQ?t=2064) place the ratio of installed code to authored code is somewhere in the ballpark of 10:1. While this ratio will clearly be different for every project, we've consistently found that the JavaScript shipped to users contains a high amount of installed code. Even walking this estimate back, there are clear indications that the ecosystem favors installing existing modules over authoring new one-off modules.
+当前生成现代 bundle 与传统相对应 bundle 的解决方案仅仅关注于『业务代码』——— 我们写的应用程序代码。这些方法目前无法帮我们处理从 npm 安装的源码 ——— 这是一个问题，因为[一些代码](https://youtu.be/-xZHWK-vHbQ?t=2064)将安装类型的代码与编写类型代码的比例控制在 10:1 范围之内。尽管这个比例在每个工程内都明显不同，我们总能发现发给用户的 JavaScript 包含大量的安装类型的代码。即使回过头来看，也有明显的迹象表明生态系统倾向于安装现有模块，而非编写一次性使用模块。
 
 ![](https://res.cloudinary.com/wedding-website/image/upload/v1559231502/authored_vs_installed_ev2szc.png)
 
-In many ways this represents a triumph for Open Source: developers are able to build on the communal value of shared code and collaborate on generalized solutions to their problems in a public forum.
+在许多方面，这代表了开源的胜利：开发人员能够在共享代码的共同价值上做转译，并在公共论坛里对需要解决的问题，协力合作出通用的解决方案。
 
-“the dependencies we install from npm are stuck in 2014”
+『我们从 npm 安装的依赖项在 2014 年停滞不前』
 
-As it turns out, this amazing ecosystem also holds the most important missing piece of our modern JavaScript puzzle: **the dependencies we install from npm are stuck in 2014.**
+事实证明，这个神奇的生态系统也是我们现代 JavaScript 拼图所缺失的最重要的部分：**我们从 npm 安装的依赖项在 2014 年停滞不前**。
 
-> “the dependencies we install from npm are stuck in 2014”
+> “我们从 npm 安装的依赖项在 2014 年停滞不前”
 
-## “Just JavaScript”
+## 仅仅 JavaScript”
 
-The modules we publish to npm are “JavaScript”, but that’s where any expectation of uniformity ends. Front-end developers consuming JavaScript from npm near universally expect that JavaScript to run “in a browser”. Given the diverse set of browsers we need to support, we end up in a situation where modules need to support the Lowest Common Denominator from their consumers’ browser support targets. The eventuality that played out means we have come to explicitly depend on all code in `node_modules` being ECMAScript 5. In some very rare cases, developers use bolted-on solutions to detect non-ES5 modules and preprocess them down to their desired output target (here’s [a hacky approach](https://gist.github.com/developit/081148d83348ebe9a1bc1ba0707e1bb8) you shouldn’t use). As a community, the backwards compatibility of each new ECMAScript version has allowed us to largely ignore the effect this has had on our applications, despite an ever-widening gap between the syntax we write and the syntax found in most of our favorite npm dependencies.
+我们发布到 npm 的模块都是『JavaScript』，但那是任何对均匀性抱有期待终将落空的地方。几乎全球的前端开发者使用来自 npm 的 JavaScript 时都期望 JavaScript 运行『在一个浏览器中』。鉴于我们需要支持各种浏览器，我们最终会遇到这种情况：模块需要支持其消费者所用浏览器的目标支持版本的最小公分母。这种可能性的产生意味着我们明确地依赖于 `node_modules` 中所有代码需是 ECMAScript 5。在一些不常见的情况下，开发人员使用 bolted-on 的方法来检测非 ES5 模块，并且把这些模块预处理成他们需要的输出目标（这里有个你不该使用的 [hacky 方法](https://gist.github.com/developit/081148d83348ebe9a1bc1ba0707e1bb8)）。作为一个社区，每个新版本 ECMAScript 的向后兼容性使我们在很大程度上忽略了它对我们应用程序的影响，尽管我们编码的语法与我们最喜欢的 npm 依赖包中的语法之间的差异越来越大。
 
-This has led to a general acceptance that npm modules should be transpiled before they are published to the registry. The publishing process for authors generally involves bundling source modules to multiple formats: JS Modules, CommonJS and UMD. Module authors sometimes denote these different bundles using a set of unofficial fields in a module’s package.json, where `"module"` points to an `.mjs` file, `"unpkg"` points to the UMD bundle, and `"main"` is still left to reference a CommonJS file.
+这就使得大家普遍认同：npm 模块在向仓库发布之前需要做模块转换。作者的发布过程一般包括把资源模块打包成多种格式：JS 模块、CommonJS 和 UMD。模块作者有时使用模块的 package.json 中的一组非官方字段来表示这些不同的 bundle，这个文件中 `"module"` 指向 `.mjs` 文件，`"unpkg"` 指向 UMD bundle，同时 `"main"` 仍被保留为引用一个 CommonJS 文件。
 
 ```json
 {
@@ -45,45 +45,45 @@ This has led to a general acceptance that npm modules should be transpiled befor
 }
 ```
 
-All of these formats affect only a module’s interface - its imports and exports - and this lead to an unfortunate consensus among developers and tooling that even modern JS Modules should be transpiled to a library’s lowest support target. It has been suggested that package authors could begin allowing modern JavaScript syntax in the entry module denoted in their package.json via the `module` field. Unfortunately, this approach is incompatible with today’s tooling - more specifically, it’s incompatible with the way we’ve all configured our tooling. These configurations are different for every project, which makes this a massive undertaking since the tools themselves are not what needs to be changed. Instead, the changes would need to be made in each and every application’s build configuration.
+所有这些格式仅影响到模块的接口 ——— 它的 import 和 export ——— 并且这形成了开发人员和工具之间的一个遗憾的共识：即使现代 JS 模块也应该被转译成库的最低支持版本。有人建议包作者可以在入口模块通过它们的 package.json 中 `module` 字段标识来开始启用现代 JavaScript 语法。遗憾的是，这种方法与如今的工具不兼容 ——— 尤其是，它与我们配置自己工具的方式不兼容。这些配置对每个工程都是不同的，由于工具本身并不需要改变，使得配置工程这件事本身就是一项繁复的任务。相反，修改需要放在每个应用程序的转译配置时。
 
-The reason these constraints hold firm is in large part due to popular bundlers like Webpack and Rollup shipping without a default behavior for whether JavaScript imported from `node_modules` should be processed. These tools can be easily configured to treat `node_modules` the same as authored code, but their documentation [consistently recommends](https://webpack.js.org/loaders/babel-loader/#usage) developers [disable Babel transpilation](https://github.com/rollup/rollup-plugin-babel#usage) for `node_modules`. This recommendation is generally given citing build performance improvements, even though the slower build produces better results for end users. This makes any in-place changes to the semantics of importing code from `node_modules` exceptionally difficult to propagate through the ecosystem, since the tools don’t actually control what gets transpiled and how. This control rests in the hands of application developers, which means the problem is decentralized.
+这些约束一直坚挺的原因很大程度上是由于像 webpack 和 Rollup 这种主流打包器对是否处理从 `node_modules` 引入的 JavaScript 这件事并没有默认操作。这些工具可以轻松地配置成与原创代码相同方式处理 `node_modules` 的代码，但是它们的文档[一贯建议](https://webpack.js.org/loaders/babel-loader/#usage) 开发者为 `node_modules` [关闭 Babel 转换](https://github.com/rollup/rollup-plugin-babel#usage)。尽管较慢的转译过程为最终用户产出更好的效果，但上述建议通常在提升转译性能时会被提及。这使得从 `node_modules` 引入的代码做任何语义上的修改都非常难以在生态系统中传播，因为这些工具实际上并不控制转换的内容和方式。这种变化控制位于应用程序的开发者手中，意味着问题是分散的。
 
-## The module author’s perspective
+## 模块作者的观点
 
-The authors of our favorite npm modules are also involved. At present, there are five main reasons why module authors end up being forced to transpile their JavaScript before publishing it to npm:
+我们最喜欢的 npm 模块的作者们也参与了讨论。目前，模块作者们最终被迫在发布到 npm 之前将包进行 JavaScript 转换的五个主要原因是：
 
-1. We know app developers aren’t transpiling `node_modules` to match their support targets.
-2. We can’t rely on app developers to set up sufficient minification and optimization.
-3. Library size must be measured in bundled+minified+gzipped bytes to be realistic.
-4. There is still a widespread expectation that npm modules are delivered as ECMAScript 5.
-5. Increasing a module’s JS version requirement means the code is unavailable to some users.
+1. 我们知道应用开发者并没有转换 `node_modules` 中代码来匹配他们的支持目标。
+2. 我们不能依赖应用开发者来设置足够的代码压缩和优化。
+3. 库的大小必须以 bundled+minified+gzipped 操作之后的字节作为真实大小。
+4. 以 ECMAScript 5 发布的 npm 模块仍被广泛接受。。
+5. 对一个模块增加 JS 版本的要求意味着某些用户无法使用它。
 
-When combined, these reasons make it virtually impossible for the author of a popular module to move to modern JavaScript by default. Put yourself in the shoes of a module author: would you be willing to publish only modern syntax, knowing the resulting update would break builds or production deploys for the majority of your users?
+合在一起，这些原因使得一个流行模块的作者几乎不可能转为默认使用现代 JavaScript。把你自己放在一个模块作者的位置来看：在知道更新结果会破坏你大多数用户的转译或者生产部署的情况下，你会愿意发布仅有现代语法的模块吗？
 
-The npm ecosystem’s current state and inability to bifurcate classic vs modern JavaScript publishing is what holds us back from collectively embracing JS Modules and ES20xx.
+npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaScript 分离的问题，都导致我们无法完全拥抱 JS 模块和 ES20xx。
 
 ### Module authoring tools hurt, too
 
-Just like with application bundlers being configurable without an implied default behaviour for `node_modules`, changing the module authoring landscape is an unfortunately distributed problem. Since most module authors tend to roll their own build tooling as requirements vary from project to project, there isn’t really a set of canonical tools to which changes could be made. [Microbundle](https://github.com/developit/microbundle) has been gaining traction as a shared solution, and [@pika/pack](https://www.pikapkg.com/blog/introducing-pika-pack/) recently launched with similar goals to optimize the format in which modules are published to npm. Unfortunately, these tools still have a long way to go before being considered widespread.
+就像应用打包器被设置为对 `node_modules` 没有默认操作，改变模块的创作形式也是一个遗憾的分布式问题。因为大多数模块作者倾向于根据不同的项目需求推出自己的转译工具，因此实际上没有一套规范工具可以进行更改。[Microbundle](https://github.com/developit/microbundle) 作为一种共享方案一直在获得关注，还有最近发布的具有相似优化格式功能的 [@pika/pack](https://www.pikapkg.com/blog/introducing-pika-pack/)，模块可以通过它发布到 npm。遗憾的是，这些工具在得以考虑广泛传播前仍需要走很长的一段路。
 
-Assuming a group of solutions like Microbundle, Pika and Angular’s [library bundler](https://angular.io/cli/generate#library) could be influenced, it may be possible to shift the ecosystem using popular modules as an example. An effort on this scale would be likely to encounter some resistance from module consumers, since many are not yet aware of the limitations their bundling strategies impose. However, these upended expectations are the very shift our community needs.
+假设可以影响到 Microbundle、Pika 和 Angular 的[库打包器](https://angular.io/cli/generate#library) 这样一组解决方案，或许可以使用流行模块作为示范来改变生态系统。如此规模的努力可能会遇到模块使用者的一些阻力，因为许多人还没有意识到他们的打包策略所产生的限制。然而，这些颠覆式的期望正是我们社区所需要的转变。
 
-## Looking Forward
+## 期待
 
-It’s not all doom and gloom. While Webpack and Rollup encourage unprocessed npm module usage only through their documentation, Browserify actually [disables all transforms](https://github.com/babel/babelify#why-arent-files-in-node_modules-being-transformed) within `node_modules` by default. That means Browserify could be modified to produce modern/legacy bundles automatically, without requiring every single application developer to change their build configuration. Similarly, opinionated tools built atop Webpack and Rollup provide a few centralized places where we could make changes that bring modern JS to `node_modules`. If we made these changes within [Next.js](https://nextjs.org/), [Create React App](https://facebook.github.io/create-react-app/docs/getting-started), [Angular CLI](https://cli.angular.io/), [Vue CLI](https://cli.vuejs.org/) and [Preact CLI](https://github.com/developit/preact-cli), the resulting build configurations would eventually make their way out to a decent fraction of applications using those tools.
+这并不是所有的厄运和沮丧。尽管 Webpack 和 Rollup 只是通过它们的文档来鼓励未经处理的 npm 模块，Browserify 实际上在 `node_modules` 中默认[禁用了所有的转换](https://github.com/babel/babelify#why-arent-files-in-node_modules-being-transformed)。这意味着 Browserify 可以被修改用于自动生成现代/经典 bundle，而无需每一个应用开发者更改他们的转译配置。相似地，在 Webpack 和 Rollup 上转译的脚手架工具也提供一些集中地方，我们可以在这里进行更改，将现代 JS 引入 `node_modules`。我们在 [Next.js](https://nextjs.org/)、[Create React App](https://facebook.github.io/create-react-app/docs/getting-started), [Angular CLI](https://cli.angular.io/)、[Vue CLI](https://cli.vuejs.org/) 以及 [Preact CLI](https://github.com/developit/preact-cli) 中做这个变化，最终的转译配置将会使得相当一部分应用程序使用上述这些工具。
 
-Looking to the vast majority of build systems for JavaScript applications that are one-off or customized per-project, there is no central place to modify them. One option we could consider as a way to slowly move the community to Modern JS-friendly configurations would be to modify Webpack to show warnings when JavaScript resources imported from `node_modules` are left unprocessed. Babel [announced some new features](https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages) last year that allow selective transpiling of `node_modules`, and Create React App recently started transpiling `node_modules` using a conservative configuration. Similarly, tools could be created for inspecting our bundled JavaScript to see how much of it is shipped as over-polyfilled or inefficient legacy syntax.
+绝大多数 JavaScript 应用的转译系统是一次性的或者为每个项目单独定制的，没有统一的中心位置可以修改它们。一个可被我们考虑的缓慢地将社区推向现代 JS-friendly 配置方法的选择是：使得当从 `node_modules` 导入的 JavaScript 资源未被处理时，修改后的 Webpack 对此显示警告。去年 Bable [宣布了一些新功能](https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages)，允许在 `node_modules` 中做一些选择性地转换，同时 Create React App 工具最近开始使用保守配置来做转换 `node_modules`。同样，可以创建工具来检查我们打包的 JavaScript，看看它有多少是过度填充或低效的传统语法。
 
-## The last piece
+## The last piece最后一块
 
-Let’s assume we could build automation and guidance into our tools, and that doing so would eventually move the thousands (millions?) of applications using those tools over to configurations that allow modern syntax to be used within `node_modules`. In order for this to have any effect, we need to come up with a consistent way for package authors to specify the location of their modern JS source, and also get consensus on what “modern” means in that context. For a package published 3 years ago, “modern” could have meant ES2015. For a package published today, would “modern” include [class fields](https://developers.google.com/web/updates/2018/12/class-fields), [BigInt](https://developers.google.com/web/updates/2018/05/bigint) or [Dynamic Import](https://developers.google.com/web/updates/2017/11/dynamic-import)? It’s hard to say, since browser support and specification stage vary.
+假设我们可以将自动化和指导服务转译到我们的工具中，这样做最终会将使用这些工具的成千上万（甚至是百万）个应用迁移到允许在 `node_modules` 中使用现代语法的配置上。为了使这个方法产生效果，我们需要提出一致的规范来指定他们现代 JS 资源的位置，并且在该上下文中对什么是『现代』达成共识。对于 3 年前发布的软件包，『现代』可能意味着 ES2015。对于一个现今发布的包，『现代』大概会包括 [class fields](https://developers.google.com/web/updates/2018/12/class-fields)、[BigInt](https://developers.google.com/web/updates/2018/05/bigint) 或者 [Dynamic Import](https://developers.google.com/web/updates/2017/11/dynamic-import) 吧？这很难说清楚，毕竟浏览器支持程度、各个规范所处阶段都各不相同。
 
-This comes to a head when we consider the effect on differential bundling. For those not familiar, Differential Bundling refers to a setup that lets us write modern JavaScript, then build separate sets of output bundles targeting different environments. In the most popular usage, we have a set of bundles targeting newer browsers that contains ~ES2015 syntax, and then a “legacy” set of bundles for all other browsers that is transpiled down to ES5 and polyfilled.
+当我们考虑到对差分打包的影响时，这就变成了一个问题。对于那些不熟悉的人，差分打包指的是一种设置，它允许我们编写现代 JavaScript，然后针对不同环境转译单独的输出 bundle 套装。在最流行的用法中，针对较新浏览器我们有一套包含 ~ES2015 语法的 bundle，然后是针对所有其他浏览器的一套『传统』bundle，它们被转换成 ES5 并被填充。
 
-![Diagram showing multiple JavaScript source files being bundled into separate sets of JavaScript files: one for modern browsers, and another for all other browsers.](https://res.cloudinary.com/wedding-website/image/upload/v1559231328/modern_legacy_transpile_qbvkdd.png)
+![图表显示了多个 JavaScript 源文件被打包进入单独的 JavaScript 文件集：一个用于现代浏览器，另一个用于其他所有浏览器。](https://res.cloudinary.com/wedding-website/image/upload/v1559231328/modern_legacy_transpile_qbvkdd.png)
 
-The problem is that, if we assume “modern” to mean “anything newer than ES5”, it becomes impossible to determine what syntax a package contains that needs to be transpiled in order to meet a given browser support target. We can address this problem by establishing a way for packages to express the specific set of syntax features they rely on, however this still requires maintaining many variant configurations to handle each set of input→output syntax pairs:
+问题是：如果我们假设『现代』意味着『比 ES5 更新的东西』，则无法确定一个包中哪些语法应该做转换以满足给定的浏览器支持目标。我们可以通过为包创建一种表达它们所依赖的特定语法功能集的方法来定位上述问题，然而这仍需要维护大量不同的配置来控制每组输入到输出的语法对：
 
 | Package Syntax     | Output Target          | Example “Downleveling” Transformations                          |
 | ------------------ | ---------------------- | --------------------------------------------------------------- |
@@ -96,11 +96,11 @@ The problem is that, if we assume “modern” to mean “anything newer than ES
 | ES2019             | ES5 / nomodule         | rest/spread, for-await, async/await, classes & tagged templates |
 | ES2019             | `<script type=module>` | rest/spread & for-await                                         |
 
-## What would you do?
+## 你会怎么做？
 
-Over-transpiled JavaScript is an increasing fraction of the code we ship to end users, impacting initial load time and overall runtime performance of the web. We believe this is a problem needing a solution – a solution module authors **and** consumers can agree upon. The problem space is relatively small, but there are many interested parties with unique constraints.
+过度转换的 JavaScript 在我们发送给最终用户的代码中占比逐渐增加，影响了 Web 应用的初始加载时间和整体运行性能。我们相信这是一个需要解决的问题 ——— 一个需要模块作者**和**使用者达成一致的解决方案。问题空间相对较小，但是有许多具有独特约束条件的有趣部分。
 
-We’re looking to the community for help. What would you suggest to remediate this problem for the entire ecosystem of Open Source JavaScript? We want to hear from you, work with you, and help solve this problem in a scalable way for new syntax revisions. Reach out us on Twitter: [_developit](https://twitter.com/_developit), [kristoferbaxter](https://twitter.com/kristoferbaxter) and [nomadtechie](https://twitter.com/nomadtechie) are all eager to discuss.
+我们期待社区的帮助。您对在整个 JavaScript 开源生态系统中解决这个问题有何建议？我们期待收到您的回复，与您合作，并以可扩展的形式来帮助解决此问题，以便进行新的语法修订。在 Twitter 上与我们联系：[`_developit`](https://twitter.com/_developit)、[kristoferbaxter](https://twitter.com/kristoferbaxter) 和 [nomadtechie](https://twitter.com/nomadtechie) 都期待参与讨论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
