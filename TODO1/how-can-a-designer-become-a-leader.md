@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-a-designer-become-a-leader.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-a-designer-become-a-leader.md)
 > * 译者：[TiaossuP](https://github.com/TiaossuP)
-> * 校对者：[portandbridge](https://github.com/portandbridge)，MarchYuanx(https://github.com/MarchYuanx)
+> * 校对者：[portandbridge](https://github.com/portandbridge)，[MarchYuanx](https://github.com/MarchYuanx)
 
 # 设计师如何成长为 Leader？
 
