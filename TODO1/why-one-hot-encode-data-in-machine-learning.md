@@ -102,8 +102,8 @@ red, green, blue
 
 如果你想了解如何在 Python 对你的数据进行 One-Hot 编码，请参阅：
 
-* [Data Preparation for Gradient Boosting with XGBoost in Python](https://machinelearningmastery.com/data-preparation-gradient-boosting-xgboost-python/) - 在 Python 中使用 XGBoost 梯度提升法前的数据准备
-* [How to One Hot Encode Sequence Data in Python](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/) - 如何使用 Python 对序列数据进行 One-Hot 编码
+* [Data Preparation for Gradient Boosting with XGBoost in Python](https://machinelearningmastery.com/data-preparation-gradient-boosting-xgboost-python/) — 在 Python 中使用 XGBoost 梯度提升法前的数据准备
+* [How to One Hot Encode Sequence Data in Python](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/) — 如何使用 Python 对序列数据进行 One-Hot 编码
 
 ## 拓展阅读
 
