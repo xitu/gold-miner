@@ -290,6 +290,8 @@ We can define a function, where we pass an array `index` as an argument and retu
 
 Here’s the CodePen that uses **Option 1**.
 
+[Option 1 - Bezier Curve Tree Diagram with Vue Js](https://codepen.io/krutie/pen/eoRXWP)
+
 #### Option 2
 
 Better yet, we can extract this small SVG path markup into its own little child component and pass `index` as a prop into it — along with other required props, of course.
@@ -328,6 +330,8 @@ As you may have already seen the **Config Panel** on top-left corner in CodePen 
 ![](https://cdn-images-1.medium.com/max/2942/1*ztoHw3dN6o_0VvwI1UOpxw.png)
 
 Wondering how the code would look like now? Here’s the CodePen using **Option 2**.
+
+[Option 2 - Bezier Curve Tree Diagram with Vue Js](https://codepen.io/krutie/pen/Bexoez)
 
 ## GitHub Repo
 
