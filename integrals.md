@@ -6095,10 +6095,11 @@
 |[React & Redux 顶级开发伴侣](https://juejin.im/post/5acae8dc6fb9a028c06b1c4c)|校对|1|
 |[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
 
-## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：57 当前积分：52 二零一九：9
+## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：57 当前积分：4 二零一九：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 6 月兑小米台灯和掘金鼠标垫各 1 个|减去积分|48|
 |[2019 前端性能优化年度总结 — 第一部分](https://juejin.im/post/5c4418006fb9a049c043545e)|翻译|9|
 |[一份关于色彩无障碍性产品设计的指南](https://juejin.im/post/5c2c233d6fb9a049bd4266b7)|翻译|3|
 |[揭开 React Hooks 的神秘面纱:数组解构融成魔法](https://juejin.im/post/5bebd1bbe51d4561ce39a23b)|校对|1.5|
@@ -8673,10 +8674,11 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：8 当前积分：8 二零一九：8
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：9 当前积分：9 二零一九：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[Commit 提交指南](https://juejin.im/post/5ccf9e60f265da039c05659d)|校对|2.5|
 |推荐英文文章一篇|奖励|1|
 |[ES6：理解参数默认值的实现细节](https://juejin.im/post/5cd0eab95188251b984d8abe)|翻译|3.5|
@@ -8742,10 +8744,11 @@
 |[声音设计与无声设计](https://juejin.im/post/5ce354bee51d4510727c7fd1)|翻译|2+0.5|
 |[Swift 里的强制 @inline 注解](https://juejin.im/post/5cd67d64518825686244635a)|校对|1.5|
 
-## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：35 当前积分：35 二零一九：35
+## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：36 当前积分：36 二零一九：36
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[通过 Rust 学习解析器组合器 — 第二部分](https://juejin.im/post/5d04c3abe51d45775d516f7b)|翻译|5|
 |[利用并行流渐进加载图片](https://juejin.im/post/5d044fe3f265da1bd04eddda)|校对|2|
 |[类（Class）与数据结构（Data Structures）](https://juejin.im/post/5d12efe7e51d455c8838e193)|校对|1.5|
@@ -8774,10 +8777,11 @@
 |[理解 Vue.js 中的 Mixins](https://juejin.im/post/5cdeac5851882525f52cf662)|校对|1|
 |[为什么 HTML 中复选框样式难写 — 本文给你答案](https://juejin.im/post/5ce65dd36fb9a07ef06f6cd2)|翻译|4|
 
-## 译者：[twang1727](https://github.com/twang1727) 历史贡献积分：12.5 当前积分：12.5 二零一九：12.5
+## 译者：[twang1727](https://github.com/twang1727) 历史贡献积分：14.5 当前积分：14.5 二零一九：14.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|2|
 |[通过 Rust 学习解析器组合器 — 第二部分](https://juejin.im/post/5d04c3abe51d45775d516f7b)|校对|2|
 |[利用并行流渐进加载图片](https://juejin.im/post/5d044fe3f265da1bd04eddda)|翻译|4.5|
 |[8 个有用的 JavaScript 技巧](https://juejin.im/post/5cff97276fb9a07ea420749f)|校对|1|
@@ -8818,10 +8822,11 @@
 |[用于 iOS 的 ML Kit 教程：识别图像中的文字](https://juejin.im/post/5cfe23af6fb9a07ee742d401)|校对|2|
 |[Swift 5 中的枚举冻结](https://juejin.im/post/5cea9597e51d45775f5169f2)|校对|1|
 
-## 译者：[fakeinc](https://github.com/fakeinc) 历史贡献积分：5 当前积分：5 二零一九：5
+## 译者：[fakeinc](https://github.com/fakeinc) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|2|
 |[The JavaScript Tutorial 翻译](https://github.com/javascript-tutorial/zh.javascript.info)|翻译|3|
 
@@ -8849,10 +8854,11 @@
 |[Flutter 布局备忘录](https://juejin.im/post/5cfe0d136fb9a07efc497d7d)|校对|1.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 
-## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：8 当前积分：8 二零一九：8
+## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：9.5 当前积分：9.5 二零一九：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 |[10 分钟爆改终端](https://juejin.im/post/5d053fc56fb9a07ee85c283d)|翻译|5|
 |[将第三方动画库集成到项目中 —— 第 1 部分](https://juejin.im/post/5d037b655188252af2012702)|校对|3|
 
@@ -8864,10 +8870,11 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：17 当前积分：17 二零一九：17
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：18 当前积分：18 二零一九：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|翻译|5|
 |[Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)|校对|6.5|
 |[剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|校对|1.5|
@@ -8914,3 +8921,33 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[npm 的经济风云 —— 上半部分](https://juejin.im/post/5d146225e51d4556db694a4b)|校对|2|
+
+## 译者：[krircc](https://github.com/krircc) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一篇|奖励|1|
+
+## 译者：[Yixian15](https://github.com/Yixian15) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
+
+## 译者：[solerji](https://github.com/solerji) 历史贡献积分：2 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|2|
+
+## 译者：[Amabel](https://github.com/Amabel) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1|
+
+## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：13 当前积分：13 二零一九：13
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
