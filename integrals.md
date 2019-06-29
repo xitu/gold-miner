@@ -2838,10 +2838,11 @@
 |[如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a)|翻译|8|
 |[Pull request review 的十大错误](https://juejin.im/post/58ce3b3e61ff4b006c988f63)|校对|1|
 
-## 译者：[sunui](https://github.com/sunui) 历史贡献积分：134.5 当前积分：24.5 二零一九：25.5
+## 译者：[sunui](https://github.com/sunui) 历史贡献积分：136 当前积分：26 二零一九：27
 
 |文章|类型|积分|
 |------|-------|-------|
+|[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|校对|1.5|
 |[Node.js 提供百万的活跃 WebSocket 连接](https://juejin.im/post/5cbeb2f45188250ab65f1d0c)|校对|1.5|
 |[移动界面设计的 10 项启发式原则](https://juejin.im/post/5cbe6d3d5188250a80187a57)|校对|3|
 |[写给大家看的 Cache-Control 指令配置](https://juejin.im/post/5c9d92506fb9a070f5067b3d)|翻译|11|
@@ -2959,10 +2960,13 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：365.5 当前积分：299.5 二零一九：70.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：378 当前积分：312 二零一九：83
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204)|翻译|3|
+|[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|校对|6.5|
+|[使用 What-If 工具来研究机器学习模型](https://juejin.im/post/5d143abff265da1bb80c4005)|校对|3|
 |[JavaScript 线性代数：使用 ThreeJS 制作线性变换动画](https://juejin.im/post/5d05dba86fb9a07ece67ce76)|翻译|3|
 |[线性代数：矩阵基本运算](https://juejin.im/post/5d107b00f265da1b67211a21)|翻译|3|
 |[JavaScript 线性代数：线性变换与矩阵](https://juejin.im/post/5cfdc1fb518825361d02aa41)|翻译|2+1|
@@ -3333,10 +3337,11 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：192 当前积分：147 二零一九：7
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：196 当前积分：151 二零一九：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|校对|4|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|7|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|20|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
@@ -5543,10 +5548,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：483 当前积分：207 二零一九：50
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：488 当前积分：212 二零一九：55
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 What-If 工具来研究机器学习模型](https://juejin.im/post/5d143abff265da1bb80c4005)|翻译|5|
 |[尝试 DevOps：最适合你的是什么样的工具？](https://juejin.im/post/5cfd4aa3f265da1bb277233e)|翻译|4|
 |2019 年 6 月兑 Kindle Paper White 1 个|减去积分|200|
 |[2019 前端性能优化年度总结 — 第三部分](https://juejin.im/post/5c5ccbefe51d457f95354a46)|翻译|7|
@@ -5653,10 +5659,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：114.5 当前积分：14.5 二零一九：9
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：118.5 当前积分：18.5 二零一九：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|校对|4|
 |[Python 架构相关：我们需要更多吗？](https://juejin.im/post/5cd1db8c51882535b323a3c7)|校对|1|
 |[使用 Python Flask 框架发布机器学习 API](https://juejin.im/post/5cd7f862e51d453aa44ad6f3)|校对|1|
 |[哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70)|校对|1.5|
@@ -7133,10 +7140,12 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：34.5 当前积分：24.5 二零一九：11.5
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：37.5 当前积分：27.5 二零一九：14.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204)|校对|1|
+|[使用 What-If 工具来研究机器学习模型](https://juejin.im/post/5d143abff265da1bb80c4005)|校对|2|
 |[时间序列分析、可视化、和使用 LSTM 预测](https://juejin.im/post/5cecdbb75188252db706f4e9)|校对|1.5|
 |2019 年 02 月兑掘金水杯 2 个|减去积分|10|
 |[从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb)|翻译|5|
@@ -8218,10 +8227,11 @@
 |[在 swift 中使用 errors 作为控制流](https://juejin.im/post/5c90c0d9f265da612d6335cb)|校对|1.5|
 |[Swift 5 强制独占性原则](https://juejin.im/post/5c778b5e6fb9a049c64487e0)|校对|1.5|
 
-## 译者：[Daltan](https://github.com/Daltan) 历史贡献积分：6 当前积分：6 二零一九：6
+## 译者：[Daltan](https://github.com/Daltan) 历史贡献积分：11 当前积分：11 二零一九：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|翻译|5|
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|翻译|4|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|2|
 
@@ -8384,10 +8394,12 @@
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|1|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|校对|3|
 
-## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：70 当前积分：70 二零一九：70
+## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：76 当前积分：76 二零一九：76
 
 |文章|类型|积分|
 |------|-------|-------|
+|[可维护的 ETL: 使管道更容易支持和扩展的技巧](https://juejin.im/post/5d08e178518825166f36bf89)|校对|5|
+|[在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204)|校对|1|
 |[设计师如何成长为 Leader？](https://juejin.im/post/5d172fca6fb9a07eda032c6f)|校对|2|
 |[感受 4px 基线网格带来的便利](https://juejin.im/post/5d09e5ecf265da1b60290798)|校对|2|
 |[用于 iOS 的 ML Kit 教程：识别图像中的文字](https://juejin.im/post/5cfe23af6fb9a07ee742d401)|翻译|8|
@@ -8635,10 +8647,12 @@
 |[Keras 速查表：使用 Python 构建神经网络](https://juejin.im/post/5cd40d24f265da038412a8be)|翻译|3|
 |[在深度学习训练过程中如何设置数据增强？](https://juejin.im/post/5cc87ec8f265da03b446202b)|校对|2|
 
-## 译者：[fireairforce](https://github.com/fireairforce) 历史贡献积分：50 当前积分：19 二零一九：50
+## 译者：[fireairforce](https://github.com/fireairforce) 历史贡献积分：65 当前积分：34 二零一九：65
 
 |文章|类型|积分|
 |------|-------|-------|
+|[可维护的 ETL: 使管道更容易支持和扩展的技巧](https://juejin.im/post/5d08e178518825166f36bf89)|翻译|9|
+|[Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)|翻译|6|
 |[13 种用于 DOM 操作的 JavaScript 方法](https://juejin.im/post/5cf65369f265da1bc94edad8)|翻译|2+1|
 |2019 年 06 月兑掘金 T 恤 1 件，掘金笔记本 1 个，掘金桌垫 1 个|减去积分|31|
 |[Node.js 日志记录指南](https://juejin.im/post/5cf213e4e51d4577407b1cda)|翻译|6.5|
@@ -8728,10 +8742,12 @@
 |[声音设计与无声设计](https://juejin.im/post/5ce354bee51d4510727c7fd1)|翻译|2+0.5|
 |[Swift 里的强制 @inline 注解](https://juejin.im/post/5cd67d64518825686244635a)|校对|1.5|
 
-## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：28 当前积分：28 二零一九：28
+## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：35 当前积分：35 二零一九：35
 
 |文章|类型|积分|
 |------|-------|-------|
+|[通过 Rust 学习解析器组合器 — 第二部分](https://juejin.im/post/5d04c3abe51d45775d516f7b)|翻译|5|
+|[利用并行流渐进加载图片](https://juejin.im/post/5d044fe3f265da1bd04eddda)|校对|2|
 |[类（Class）与数据结构（Data Structures）](https://juejin.im/post/5d12efe7e51d455c8838e193)|校对|1.5|
 |[为什么我们要切换到 gRPC](https://juejin.im/post/5cff855c518825612f412526)|校对|1|
 |[通过 Rust 学习解析器组合器 — 第一部分](https://juejin.im/post/5cfddd00f265da1b7e102bee)|翻译|8.5|
@@ -8758,10 +8774,12 @@
 |[理解 Vue.js 中的 Mixins](https://juejin.im/post/5cdeac5851882525f52cf662)|校对|1|
 |[为什么 HTML 中复选框样式难写 — 本文给你答案](https://juejin.im/post/5ce65dd36fb9a07ef06f6cd2)|翻译|4|
 
-## 译者：[twang1727](https://github.com/twang1727) 历史贡献积分：6 当前积分：6 二零一九：6
+## 译者：[twang1727](https://github.com/twang1727) 历史贡献积分：12.5 当前积分：12.5 二零一九：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[通过 Rust 学习解析器组合器 — 第二部分](https://juejin.im/post/5d04c3abe51d45775d516f7b)|校对|2|
+|[利用并行流渐进加载图片](https://juejin.im/post/5d044fe3f265da1bd04eddda)|翻译|4.5|
 |[8 个有用的 JavaScript 技巧](https://juejin.im/post/5cff97276fb9a07ea420749f)|校对|1|
 |[Android中的简易协程：viewModelScope](https://juejin.im/post/5cf35ec76fb9a07ed657bbcd)|翻译|3|
 |[C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63)|翻译|2|
@@ -8777,10 +8795,11 @@
 |[ECMAScript 类 - 定义私有属性](https://juejin.im/post/5d006e406fb9a07ed22465de)|翻译|4|
 |[用 React 制作线性代数教程示例：网格与箭头](https://juejin.im/post/5cefbc37f265da1bd260d129)|校对|1|
 
-## 译者：[linxiaowu66](https://github.com/linxiaowu66) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[linxiaowu66](https://github.com/linxiaowu66) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|校对|1.5|
 |[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|2|
 
 ## 译者：[lgh757079506](https://github.com/lgh757079506) 历史贡献积分：5 当前积分：5 二零一九：5
@@ -8837,17 +8856,20 @@
 |[10 分钟爆改终端](https://juejin.im/post/5d053fc56fb9a07ee85c283d)|翻译|5|
 |[将第三方动画库集成到项目中 —— 第 1 部分](https://juejin.im/post/5d037b655188252af2012702)|校对|3|
 
-## 译者：[csming1995](https://github.com/csming1995) 历史贡献积分：3 当前积分：3 二零一九：3
+## 译者：[csming1995](https://github.com/csming1995) 历史贡献积分：5 当前积分：5 二零一九：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)|校对|2|
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：17 当前积分：17 二零一九：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|翻译|5|
+|[Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)|校对|6.5|
 |[剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|校对|1.5|
 |[类（Class）与数据结构（Data Structures）](https://juejin.im/post/5d12efe7e51d455c8838e193)|校对|2|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|2|
