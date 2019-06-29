@@ -38,7 +38,7 @@
 ### 快速浏览：什么是自编码器？
 
 * 自编码器由编码器和解码器组成。
-* 解码器用来学习过程的潜在特征。这些特征通常是由少量的维度表出。
+* 编码器用来学习过程的潜在特征。这些特征通常是由少量的维度表出。
 * 解码器可以从潜在的特征中重构出原始的数据。
 
 ![Figure 1. 自编码器的示意图。 [[Source](http://i-systems.github.io/HSE545/machine%20learning%20all/Workshop/CAE/06_CAE_Autoencoder.html): Autoencoder by Prof. Seungchul Lee

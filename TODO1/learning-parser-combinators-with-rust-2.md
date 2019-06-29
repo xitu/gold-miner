@@ -2,25 +2,25 @@
 > * 原文作者：[Bodil](https://bodil.lol/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[suhanyujie](https://github.com/suhanyujie)
+> * 校对者：[twang1727](https://github.com/twang1727)
 
-# Learning Parser Combinators With Rust - Part 2
+# 通过 Rust 学习解析器组合器 — 第二部分
 
 如果你没看过本系列的其他几篇文章，建议你按照顺序进行阅读：
 
-- [Learning Parser Combinators With Rust - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
-- [Learning Parser Combinators With Rust - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-- [Learning Parser Combinators With Rust - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-- [Learning Parser Combinators With Rust - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
+- [通过 Rust 学习解析器组合器 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
+- [通过 Rust 学习解析器组合器 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
+- [通过 Rust 学习解析器组合器 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
+- [通过 Rust 学习解析器组合器 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
-### Enter The Functor
+### 开始探究 Functor
 
-But before we go that far, let's introduce another combinator that's going to make writing these two a lot simpler: `map`.
+但在我们深入之前，让我们介绍另一个组合器，它的作用是使这两个解析器的编写变得简单很多：`map`。
 
-This combinator has one purpose: to change the type of the result. For instance, let's say you have a parser that returns `((), String)` and you wanted to change it to return just that `String`, you know, just as an arbitrary example.
+使用这个组合器有一个目的：更改结果的类型。比如你有一个返回 `((), String)` 的解析器，你希望将它改成只返回 `String`，当然，这只是举个例子。
 
-To do that, we pass it a function that knows how to convert from the original type to the new one. In our example, that's easy: `|(_left, right)| right`. More generalised, it would look like `Fn(A) -> B` where `A` is the original result type of the parser and `B` is the new one.
+为此，我们传递一个函数，这个函数知道如何将原始类型转换为新的类型。在我们的示例中，这很简单：`|(_left, right)| right`。更一般的说，它看起来类似于这样 `Fn(A) -> B`， 其中的 `A` 是解析器的原始结果类型，B 是新的类型。
 
 ```
 fn map<P, F, A, B>(parser: P, map_fn: F) -> impl Fn(&str) -> Result<(&str, B), &str>
@@ -35,11 +35,11 @@ where
 }
 ```
 
-And what do the types say? `P` is our parser. It returns `A` on success. `F` is the function we're going to use to map `P` into our return value, which looks the same as `P` except its result type is `B` instead of `A`.
+这个类型说明了什么？`P` 是我们的解析器。它在成功时返回 `A`。`F` 是我们用来将 `P` 映射成返回值的函数，它看起来和 `P` 一样，只不过它的结果类型是 `B` 而不是 `A`。
 
-In the code, we run `parser(input)` and, if it succeeds, we take the `result` and run our function `map_fn(result)` on it, turning the `A` into a `B`, and that's our converted parser done.
+在代码中，我们运行 `parser(input)`，如果它成功执行，我们得到 `result` 并在其上调用函数 `map_fn(result)`，将 `A` 转换为 `B`，这就是转换后解析器要执行的逻辑。
 
-Actually, let's indulge ourselves and shorten this function a bit, because this `map` thing turns out to be a common pattern that `Result` actually implements too:
+实际上，让我们改变一下，稍微简化这个函数，因为这个 `map` 实际上是一个常见的模式，`Result` 也实现了这个模式：
 
 ```
 fn map<P, F, A, B>(parser: P, map_fn: F) -> impl Fn(&str) -> Result<(&str, B), &str>
@@ -53,23 +53,23 @@ where
 }
 ```
 
-This pattern is what's called a "functor" in Haskell and its mathematical sibling, category theory. If you've got a thing with a type `A` in it, and you have a `map` function available that you can pass a function from `A` to `B` into to turn it into the same kind of thing but with the type `B` in it instead, that's a functor. You see this a lot of places in Rust, such as in [`Option`](https://doc.rust-lang.org/std/option/enum.Option.html#method.map), [`Result`](https://doc.rust-lang.org/std/result/enum.Result.html#method.map), [`Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map) and even [`Future`](https://docs.rs/futures/0.1.26/futures/future/trait.Future.html#method.map), without it being explicitly named as such. And there's a good reason for that: you can't really express a functor as a generalised thing in Rust's type system, because it lacks higher kinded types, but that's another story, so let's just note that these are functors, and you just need to look for the `map` function to spot one.
+这种模式在 Haskell 及其对应的数学上的范畴论中被称为“函子”。如果你有一个包含 `A` 类型的东西，并且你还有一个可用的 `map` 函数，这样你就可以把一个函数从 `A` 传到 `B` 中，把它变成包含 `B` 类型的东西，那么它就叫做“函子”。你可以在 Rust 中看到很多这样的地方，比如 [`Option`](https://doc.rust-lang.org/std/option/enum.Option.html#method.map)，[`Result`](https://doc.rust-lang.org/std/result/enum.Result.html#method.map)，[`Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map) 甚至 [`Future`](https://docs.rs/futures/0.1.26/futures/future/trait.Future.html#method.map) 中，都没有显式的将其这样命名。之所以这样，有一个原因：在 Rust 类型系统中，你没法将 `functor` 这一概念像普通事物一样概括出来，因为它缺乏高阶类型，但这是另一个话题了，所以回到原先的主题，记住这些 functor，并且你只要寻找映射它的 `map` 函数。
 
-### Time For A Trait
+### 轮到 Trait
 
-You might have noticed by now that we keep repeating the shape of the parser type signature: `Fn(&str) -> Result<(&str, Output), &str>`. You may be getting as sick of reading it written out full like that as I'm getting of writing it, so I think it's time to introduce a trait, to make things a little more readable, and to let us add some extensibility to our parsers.
+你可能已经注意到，我们一直在重复解析器的类型签名：`Fn(&str) -> Result<(&str, Output), &str>`，你可能已经厌倦了阅读这样完整的书写形式，所以我认为现在是时候介绍 trait 了，让代码更加可读，并有利于我们对解析器进行扩展。
 
-But first of all, let's make a type alias for that return type we keep using:
+但首先 ，让我们为一直在使用的返回值类型创建一个别名：
 
 ```
 type ParseResult<'a, Output> = Result<(&'a str, Output), &'a str>;
 ```
 
-So that now, instead of typing that monstrosity out all the time, we can just type `ParseResult<String>` or similar. We've added a lifetime there, because the type declaration requires it, but a lot of the time the Rust compiler should be able to infer it for you. As a rule, try leaving the lifetime out and see if rustc gets upset, then just put it in if it does.
+所以现在，我们可以输入 `ParseResult<String>` 这样的东西，而不是之前的那个乱七八糟的东西。我们在其中添加了一个生命周期，因为类型声明需要它，但是很多时候，Rust 编译器应该能够为你推断出来。作为一个规范，尝试着把生命周期去掉，看看 rustc 编译器是否会报异常，如果异常，再把生命周期加回去。
 
-The lifetime `'a`, in this case, refers specifically to the lifetime of the **input**.
+在本例中，生命周期 `'a`，特指**输入**参数的生命周期。
 
-Now, for the trait. We need to put the lifetime in here as well, and when you're using the trait the lifetime is usually always required. It's a bit of extra typing, but it beats the previous version.
+现在，谈论 trait。我们还需要在这里输入生命周期，当你使用 trait 时，通常需要生命周期。它需要多一点代码输入，但生命周期这种特性还是优于之前的版本。
 
 ```
 trait Parser<'a, Output> {
@@ -77,9 +77,9 @@ trait Parser<'a, Output> {
 }
 ```
 
-It has just the one method, for now: the `parse()` method, which should look familiar: it's the same as the parser function we've been writing.
+目前，它只有一个 `parse()` 方法，很熟悉吧：它和我们编写的解析器函数一样。
 
-To make this even easier, we can actually implement this trait for any function that matches the signature of a parser:
+为了更简单一点，我们可以为任何匹配解析器签名的函数实现这个 trait。
 
 ```
 impl<'a, F, Output> Parser<'a, Output> for F
@@ -92,9 +92,9 @@ where
 }
 ```
 
-This way, not only can we pass around the same functions we've been passing around so far as parsers fully implementing the `Parser` trait, we also open up the possibility to use other kinds of types as parsers.
+这样，我们不仅可以传递相同的函数，这个函数其实就是到目前为止完整地实现了 `Parser` trait 的解析器，还增加了用其它类型实现解析器的可能性。
 
-But, more importantly, it saves us from having to type out those function signatures all the time. Let's rewrite the `map` function to see how it works out.
+但更重要的是，它使我们无需一直键入那些冗长的函数签名。让我们重写 `map` 函数，并看看它如何工作的。
 
 ```
 fn map<'a, P, F, A, B>(parser: P, map_fn: F) -> impl Parser<'a, B>
@@ -108,9 +108,9 @@ where
 }
 ```
 
-One thing to note here in particular: instead of calling the parser as a function directly, we now have to go `parser.parse(input)`, because we don't know if the type `P` is a function, we just knows that it implements `Parser`, and so we have to stick with the interface `Parser` provides. Otherwise, the function body looks exactly the same, and the types look a lot tidier. There's the new lifetime `'a'` for some extra noise, but overall it's quite an improvement.
+尤其是这里要注意一件事：不直接将解析器作为一个函数调用，那么我们现在必须这样调用 `parser.parse(input)`，因为我们不知道类型 `P` 是不是一个函数类型，我们只知道它实现了 `Parser`，所以我们必须保证好 `Parser` 提供的接口。另外的，函数看起来也大体一样，而类型看起来也是整洁的。新的生命周期 `'a'` 看着有点乱，但总的来说，这已经改善很多了。
 
-If we rewrite the `pair` function in the same way, it's even more tidy now:
+如果我们用同样的方式重写 `pair` 函数，那就更好了。
 
 ```
 fn pair<'a, P1, P2, R1, R2>(parser1: P1, parser2: P2) -> impl Parser<'a, (R1, R2)>
@@ -128,9 +128,9 @@ where
 }
 ```
 
-Same thing here: the only changes are the tidied up type signatures and the need to go `parser.parse(input)` instead of `parser(input)`.
+这里也是一样，唯一的改变就是整理了的类型签名，并且需要使用 `parser.parse(input)` 而非 `parser(input)`。
 
-Actually, let's tidy up `pair`'s function body too, the same way we did with `map`.
+实际上，我们也整理一下 `pair` 的函数体，就像我们处理 `map` 一样。
 
 ```
 fn pair<'a, P1, P2, R1, R2>(parser1: P1, parser2: P2) -> impl Parser<'a, (R1, R2)>
@@ -147,11 +147,11 @@ where
 }
 ```
 
-The `and_then` method on `Result` is similar to `map`, except that the mapping function doesn't return the new value to go inside the `Result`, but a new `Result` altogether. The code above is identical in effect to the previous version written out with all those `match` blocks. We're going to get back to `and_then` later, but in the here and now, let's actually get those `left` and `right` combinators implemented, now that we have a nice and tidy `map`.
+`Result` 中的 `and_then` 方法和 `map` 很类似，只是，映射的函数不将返回的新值放入 `Result` 中，而是返回一个全新的 `Result`。上面代码实际上和前面版本中使用的 `match` 代码块一样。我们稍后回到 `and_then`，但现在，既然我们有了一个好用并且很简洁的 `map`，我们就来实现一下 `left` 和 `right` 组合器。
 
-### Left And Right
+### Left 和 Right
 
-With `pair` and `map` in place, we can write `left` and `right` very succinctly:
+有了 `pair` 和 `map`，我们就可以简洁地编写 `left` 和 `right`。
 
 ```
 fn left<'a, P1, P2, R1, R2>(parser1: P1, parser2: P2) -> impl Parser<'a, R1>
@@ -171,11 +171,11 @@ where
 }
 ```
 
-We use the `pair` combinator to combine the two parsers into a parser for a tuple of their results, and then we use the `map` combinator to select just the part of the tuple we want to keep.
+我们使用 `pair` 组合器将两个解析器组合到一个会产生元组结果的解析器中，然后我们使用 `map` 组合器选择我们想要保留的元组。
 
-Rewriting our test for the first two pieces of our element tag, it's now just a little bit cleaner, and in the process we've gained some important new parser combinator powers.
+重写解析前两部分元素标签的测试用例，现在更简洁了，在这个过程中，我们获得了一些重要并且新的解析器组合器的功能。
 
-We have to update our two parsers to use `Parser` and `ParseResult` first, though. `match_literal` is the more complicated one:
+不过，我们必须先更新两个解析器，来使用 `Parser` 和 `ParseResult`。而 `match_literal` 则会更加复杂：
 
 ```
 fn match_literal<'a>(expected: &'static str) -> impl Parser<'a, ()> {
@@ -186,15 +186,15 @@ fn match_literal<'a>(expected: &'static str) -> impl Parser<'a, ()> {
 }
 ```
 
-In addition to changing the return type, we also have to make sure the input type on the closure is `&'a str`, or rustc gets upset.
+除了改变返回值类型外，我们还必须确保闭包的输入参数类型是 `&'a str`，否则编译器可能会报错。
 
-For `identifier`, just change the return type and you're done, inference takes care of the lifetimes for you:
+对于 `identifier`，只需要更改返回类型，就可以了，编译器会帮助你推断出生命周期：
 
 ```
 fn identifier(input: &str) -> ParseResult<String> {
 ```
 
-And now the test, satisfyingly absent that ungainly `()` in the result.
+现在测试一下，很不错，返回结果不再是 `()`。
 
 ```
 #[test]
@@ -209,19 +209,19 @@ fn right_combinator() {
 }
 ```
 
-### One Or More
+### 一个或多个可选属性的处理
 
-Let's continue parsing that element tag. We've got the opening `<`, and we've got the identifier. What's next? That should be our first attribute pair.
+我们继续解析这个元素标签。我们获取了开始的 `<`，并且也获取了标识符。接下来呢？接下来应该是属性。
 
-No, actually, those attributes are optional. We're going to have to find a way to deal with things being optional.
+不，实际上，这些属性是可选的。我们必须找到一个正确处理可选的方法。
 
-No, wait, hold on, there's actually something we have to deal with even **before** we get as far as the first optional attribute pair: whitespace.
+等一下，实际上在我们开始处理属性**之前**，先要处理另一种可选的属性：空格。
 
-Between the end of the element name and the start of the first attribute name (if there is one), there's a space. We need to deal with that space.
+在元素名称结尾，和第一个属性名的开始部分（如果有属性的话）之间有一个空格。我们需要处理这个空格。
 
-It's even worse than that - we need to deal with **one or more spaces**, because `<element      attribute="value"/>` is valid syntax too, even if it's a bit over the top with the spaces. So this seems to be a good time to think about whether we could write a combinator that expresses the idea of **one or more** parsers.
+比这更不好的是，我们需要处理**一个甚至更多空格**，因为形如 `<element      attribute="value"/>` 的写法也是合法的，虽然空格多了点。那么，接下来我们要好好考虑我们是否可以编写一个组合器，它可以应对**一个或多个**解析器的场景。
 
-We've dealt with this already in our `identifier` parser, but it was all done manually there. Not surprisingly, the code for the general idea isn't all that different.
+我们已经在 `identifier` 解析器中做过处理，但那是通过手动完成的。一点也不奇怪，这种代码的逻辑和常见思路没什么不同。
 
 ```
 fn one_or_more<'a, P, A>(parser: P) -> impl Parser<'a, Vec<A>>
@@ -248,11 +248,11 @@ where
 }
 ```
 
-First of all, the return type of the parser we're building from is `A`, and the return type of the combined parser is `Vec<A>` - any number of `A`s.
+首先，我们正在构建的解析器的返回类型是 `A`，组合解析器的返回类型是 `Vec<A>` —— 任意数量的 `A` 类型集合。
 
-The code does indeed look very similar to `identifier`. First, we parse the first element, and if it's not there, we return with an error. Then we parse as many more elements as we can, until the parser fails, at which point we return the vector with the elements we collected.
+代码看起来确实和处理 `identifier` 的那段很像。首先我们解析第一个元素，如果没有，我们返回一个错误。然后我们解析尽可能多的元素，直到解析器遇到错误，这时我们返回迭代收集到的所有元素也就是数组。
 
-Looking at that code, how easy would it be to adapt it to the idea of **zero** or more? We just need to remove that first run of the parser:
+看看这段代码，是不是很容易就能将其调整为符合**0**个或者更多的逻辑？我们只需移除解析器的第一次运行的相关代码：
 
 ```
 fn zero_or_more<'a, P, A>(parser: P) -> impl Parser<'a, Vec<A>>
@@ -272,7 +272,7 @@ where
 }
 ```
 
-Let's write some tests to make sure those two work.
+我们来编写一些测试来确保这两个方法能正常运行：
 
 ```
 #[test]
@@ -292,9 +292,9 @@ fn zero_or_more_combinator() {
 }
 ```
 
-Note the difference between the two: for `one_or_more`, finding an empty string is an error, because it needs to see at least one case of its sub-parser, but for `zero_or_more`, an empty string just means the zero case, which is not an error.
+注意两者之间的区别：对于 `one_or_more`，查找空字符串是一个错误，因为它至少需要考虑到它的子解析器众多情况下的一种情况，但对于 `zero_or_more`，空字符串只表示 0 的情况，这不是错误。
 
-At this point, it's reasonable to start thinking about ways to generalise these two, because one is an exact copy of the other with just one bit removed. It might be tempting to express `one_or_more` in terms of `zero_or_more` with something like this:
+在这一点，考虑一下如何归纳这两种情况是合理而必要的，因为其中一个是另一个的副本，只是去掉了一些东西。如下所示，可能很容易就能用 `zero_or_more` 来表示 `one_or_more`：
 
 ```
 fn one_or_more<'a, P, A>(parser: P) -> impl Parser<'a, Vec<A>>
@@ -308,31 +308,31 @@ where
 }
 ```
 
-Here, we run into Rust Problems, and I don't even mean the problem of not having a `cons` method for `Vec`, but I know every Lisp programmer reading that bit of code was thinking it. No, it's worse than that: it's ownership.
+在这里，我们遇到了关于 Rust 的一些问题，我不是说 `Vec` 类型没有 `cons` 方法的问题，但我知道每个 Lisp 程序员在读这段代码时都会想到这个。事实上情况比这还严重：那就是所有权问题。
 
-We own that parser, so we can't go passing it as an argument twice, the compiler will start shouting at you that you're trying to move an already moved value. So can we make our combinators take references instead? No, it turns out, not without running into another whole set of borrow checker troubles - and we're not going to even go there right now. And because these parsers are functions, they don't do anything so straightforward as to implement `Clone`, which would have saved the day very tidily, so we're stuck with a constraint that we can't repeat our parsers easily in combinators.
+我们有了这个解析器，但我们不能将一个参数传递两次，编译器会告诉你这行不通：你在试着移除一个已经移除的值。那么，我们能让我们的组合器使用参数的引用吗？不行的，事实证明，因为完整严格的借用检查机制 —— 并且我们不用现在去直面这个问题。因为这些解析器就是一些函数，它们不会直接实现 `Clone`，如果用克隆则会很省事，我们现在遇到困难了，我们不能在组合器中那么轻松的重复使用解析器。
 
-That isn't necessarily a **big** problem, though. It means we can't express `one_or_more` using combinators, but it turns out those two are usually the only combinators you need anyway which tend to reuse parsers, and, if you wanted to get really fancy, you could write a combinator that takes a `RangeBound` in addition to a parser and repeats it according to a range: `range(0..)` for `zero_or_more`, `range(1..)` for `one_or_more`, `range(5..=6)` for exactly five or six, wherever your heart takes you.
+不过这也没什么**大**不了的。尽管，这意味着我们无法使用组合器实现 `one_or_more`，但事实上这两个东西通常是你需要用的组合器，该组合器还需要复用解析器，而且，如果你想变得更具想象力，你可以用 `RangeBound` 编写一个组合器，额外附加一个解析器，然后根据范围重复使用，比如 `zero_or_more` 用 `range(0..)`，对 `one_or_more` 用 `range(1..)`，对五个或六个则用 `range(5..=6)`，总之随意而为。
 
-Let's leave that as an exercise for the reader, though. Right now, we're going to be perfectly fine with just `zero_or_more` and `one_or_more`.
+让我们把它留给读者作为练习。现在，我们只需要处理好 `zero_or_more` 和 `one_or_more`。
 
-Another exercise might be to find a way around those ownership issues - maybe by wrapping a parser in an `Rc` to make it clonable?
+另一个练习是，尝试找到一个解决这些所有权问题的方法 —— 通过在 `Rc` 中包装一个解析器使其可被克隆，你觉得这个方式怎么样？
 
-- [Learning Parser Combinators With Rust - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
-- [Learning Parser Combinators With Rust - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-- [Learning Parser Combinators With Rust - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-- [Learning Parser Combinators With Rust - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
+- [通过 Rust 学习解析器组合器 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
+- [通过 Rust 学习解析器组合器 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
+- [通过 Rust 学习解析器组合器 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
+- [通过 Rust 学习解析器组合器 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
-## Licence
+## 许可证
 
-This work is copyright Bodil Stokke and is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Licence. To view a copy of this licence, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+本作品版权归 Bodil Stokke 所有，在知识共享署名-非商业性-相同方式共享 4.0 协议之条款下提供授权许可。要查看此许可证，请访问 http://creativecommons.org/licenses/by-nc-sa/4.0/。
 
-## Footnotes
+## 脚注
 
-1: He isn't really your uncle.
-2: Please don't be that person at parties.
+1：他不是你真正的叔叔。
+2：请不要成为聚会上的那个人。
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的**本文永久链接**即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 

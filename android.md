@@ -1,3 +1,6 @@
+* [Android中的简易协程：viewModelScope](https://juejin.im/post/5cf35ec76fb9a07ed657bbcd) ([twang1727](https://github.com/twang1727) 翻译)
+* [高效地在 Flutter 中使用 BLoC 模式](https://juejin.im/post/5cf7abf65188256bdd2ee76b) ([LucaslEliane](https://github.com/LucaslEliane) 翻译)
+* [Flutter 布局备忘录](https://juejin.im/post/5cfe0d136fb9a07efc497d7d) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [关于 Flutter 页面路由过渡动画，你所需要知道的一切](https://juejin.im/post/5ceb6179f265da1bc23f55d0) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [Android Studio Project Marble: Apply Changes](https://juejin.im/post/5ce2c40d6fb9a07ec754ee13) ([qiuyuezhong](https://github.com/qiuyuezhong) 翻译)
 * [WorkManager 基础入门](https://juejin.im/post/5ce4da6a6fb9a07ea712e712) ([gs666](https://github.com/gs666) 翻译)

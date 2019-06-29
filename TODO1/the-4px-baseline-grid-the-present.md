@@ -2,87 +2,87 @@
 > * 原文作者：[Ethan Wang](https://medium.com/@SashimiEthan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-4px-baseline-grid-the-present.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-4px-baseline-grid-the-present.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Mcskiller](https://github.com/Mcskiller)
+> * 校对者：[Charlo-O](https://github.com/Charlo-O)，[portandbridge](https://github.com/portandbridge)
 
-# The 4px baseline grid — the present
+# 感受 4px 基线网格带来的便利
 
 ![](https://cdn-images-1.medium.com/max/10000/1*JkmDuiUu5QoQRIB3yYolcw@2x.jpeg)
 
-> I’ve been using the 4px baseline grid for 2+ years now and have been trying to get my team to use it as well. I finally overcame my procrastination and decided to talk about it in my first Medium article. I’m looking for feedback on this method, so please let me know your thoughts! Here goes nothing.
+> 我已经使用 4px 基线网格 2 年多了，并且一直在试着让我的团队也使用它。最近我终于克服了我的拖延症并决定在我的第一篇 Medium 文章中讨论它。我正在寻求有关此方法的反馈，所以别管那么多了，请让我知道你们的想法！
 
 ---
 
-## The problem
+## 问题
 
-It drives me crazy that the text bounding box almost always brings in extra space above and below the actual text. Therefore, when the bounding box is used to measure space, it ends up being bigger than you intended. The bigger the line height, the bigger the problem. In the example below, the design was created by measuring the space between bounding boxes. When all the spacing is set to 32px (in the 1st card), visually all the vertical spacing is actually much bigger than 32px (as shown in the 2nd card), even though you meant them to be equal by setting them all to 32px.
+文本框边界总是会在文字上下占用额外的间距，这真的让我很头大。因此，当我使用边界框来测定间距的时候，就会导致最终间距比你预期的间距更大。文字行高越高，带来的问题就越明显。在下面的例子中，我们通过测量边界框间距来进行设计。当所有的间距都被设定到 32px 时（卡片一所示），视觉上的垂直间距实际上会大于 32px（卡片二所示），尽管你将它们全部设为 32px 就是想让它们的大小是一样的。
 
-![Photo by [Max Delsid](https://unsplash.com/photos/VlVhOro5tf4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/seattle?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6400/1*MT1pn5ncq6G5Lto1FRspSA@2x.png)
+![图片来自 [Unsplash](https://unsplash.com/search/photos/seattle?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上的 [Max Delsid](https://unsplash.com/photos/VlVhOro5tf4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6400/1*MT1pn5ncq6G5Lto1FRspSA@2x.png)
 
-## The solution
+## 解决方法
 
-Because of this problem, I use the 4px baseline grid to achieve a better visual accuracy. Here’s my process:
+由于这个问题，我使用 4px 基线网格来获得更好的视觉准确度。这是我的方法：
 
-1. I set up a 4px grid in the background
-2. I snap all the UI elements and **text baselines** to the baseline grid
-3. **I use the grid to measure vertical space around text instead of using the text’s bounding box.** Specifically, I measure space above text from the grid line that’s closest to the type’s cap height and space below text from the text’s baseline
-4. Additionally, I defined a set of spacing values for our team to use, inspired by this Medium article: [Space in Design Systems](https://medium.com/eightshapes-llc/space-in-design-systems-188bcbae0d62) by [Nathan Curtis](undefined)
+1. 在背景设定一个 4px 网格
+2. 对齐所有 UI 元素和 **文本基线** 到基线网格
+3. **使用网格替代文本框边界去测量垂直间距**。具体来说，我测量文本的上方间距时以最接近内容上方高度的网格线为起点，测量下方间距则以文本基线为起点
+4. 此外，受到 [Nathan Curtis](https://medium.com/@nathanacurtis) 在 Medium 上的文章 [设计系统中的间距](https://medium.com/eightshapes-llc/space-in-design-systems-188bcbae0d62) 的启发，我为我的团队定义了一组间距值
 
 ![](https://cdn-images-1.medium.com/max/4460/1*VkimOwOqN7g4ev0qepnITA@2x.png)
 
-In order for all the baselines to sit on the grid, this approach essentially rounds the visual height of the text (cap height to baseline) to a multiple of 4px (shown in the gif below). This could introduce a 1–2px error; however, it’s still more accurate than using the bounding box to decide spacing.
+为了让所有基线对齐到网格上，这种方法基本上将文本的可视高度（内容顶部到基线的高度）舍入为 4px 的倍数（如下 GIF 所示）。这也许会带来 1-2px 的误差，但是仍然比使用文本框计算间距更加准确。
 
-![Measure space above the text from the closest grid to the cap height.](https://cdn-images-1.medium.com/max/2800/1*x-cd9PiJECApKIKYr4Dkmw.gif)
+![测量文本上方到距离最近的网格的距离](https://cdn-images-1.medium.com/max/2800/1*x-cd9PiJECApKIKYr4Dkmw.gif)
 
-There is an exception: I vertically center icons or text within a component or container regardless of whether they sit on the baseline grid or not, because most of the time developers can use flexbox to center an element, and that is easier than using static spacing to do centering, for both parties 😉.
+还有一个例外，在将组件或容器中的图标或文本垂直居中排列时，我不会去使用基准网格进行布局，因为在大多数时候开发人员会使用 Flexbox 去居中元素，对于我们双方来说，这比使用固定间距都更加方便 😉。
 
-![The text in each table row is centered using the “Align layer to middle” command in Sketch, and it’s okay that the baseline doesn’t snap to the grid.](https://cdn-images-1.medium.com/max/2800/1*F0XgEwIP-AqqUJiuB4wWRw@2x.png)
+![每一行的文字都使用 Sketch 中的“居中对齐”命令实现居中，没有基线网格对齐也没关系](https://cdn-images-1.medium.com/max/2800/1*F0XgEwIP-AqqUJiuB4wWRw@2x.png)
 
 ---
 
-## The why
+## 理由
 
-The baseline grid has traditionally been used in print design to create vertical rhythm. In my day to day work designing web experiences, I haven’t encountered that many use cases where such rhythm was obviously needed to make the alignment better.
+平面设计的传统做法是，用基线网格营造出垂直方向上的节奏感。在我日常的网页设计工作中，明显需要这种节奏感才能让对齐效果更好的案例，我见得不多。
 
-To me, using the 4px baseline grid is a balance between visual accuracy (for users) and design efficiency (for me). In the Problem section, I talked about how measuring from text bounding box would introduce extra space. At the end of the day, user can’t see the bounding box. So it doesn’t really make sense to use this approach especially if it creates visual imbalance and doesn’t benefit users. On the other hand, ignoring the bounding box and measuring using the baseline grid is able to achieve better visual accuracy. See below for a comparison between these two approaches. As we can see, when the same set of spacing values (32px, 12px, 32px, 32px) is being used, the design measured using the baseline grid reflects the intended spacing much more accurately.
+对于我来说，使用 4px 基线网格是一种平衡视觉准确度（用户方面）和设计效率（设计师方面）的方式。在前面的问题部分中，我谈到了使用文本框测量会带来额外间距。并且最后用户并不能看见文本框，使用这种方法并不那么合理，特别是它还可能造成视觉上的不平衡，对用户也没有好处。另一方面，忽略边界框然后使用基线网格测量可以带来更好的视觉准确度。下面是这两种方法之间的比较。我们可以看到，当使用相同的间距值（32px、12px、32px、32px）时，使用基线网格的设计可以带来更准确的效果。
 
 ![](https://cdn-images-1.medium.com/max/4056/1*Kj12Nm-rgwHkGXQiypGulw@2x.png)
 
-One might say, if measuring from the bounding box yields too much space, then for example in the first card, reducing the first spacing value from 32px to 28px or 24px would make “Seattle”’s top and left padding look equal. But at that point, it becomes a guessing game; you would never know for sure unless you count the pixels. On the other hand, the 4px grid approach provides a more accurate and predictable way to know it’s ~32px (taking into account the 1–2px error introduced by rounding).
+有人可能会说，如果使用文本框来测量会带来更多间距，就拿第一张卡片来说，将第一个间距值从 32px 减少到 28px 或者 24px 就可以让“Seattle”的上边和左边间距看起来是相等的。但是这样一来，设计就变成了一个猜谜游戏，除非你去数像素点，否则你永远都无法确定。而另一方面，4px 网格提供了更准确并且可预测的方式来设定间距值大约为 32px（考虑到 1-2px 的误差）。
 
-In terms of design efficiency, this might seem like more work, but because of the grid, the design tool (Sketch or Figma) can help snap elements and type baseline to the grid, so aligning and spacing become relatively easy. Below is my workflow using the baseline grid to lay out text.
+从设计效率层面来说，这样做看起来会更低效，不过由于使用网格，设计工具（诸如 Sketch 或 Figma）可以帮助你让元素和文字基线与网格对齐，因此对齐和调整间距变得更加简单。下面是我使用基线网格布局文本的流程：
 
-![My workflow using the baseline grid to lay out text.](https://cdn-images-1.medium.com/max/6476/1*IRgCv9BK9HuOW3ggGSLLMg.gif)
+![我在工作中使用基线网格布局文字](https://cdn-images-1.medium.com/max/6476/1*IRgCv9BK9HuOW3ggGSLLMg.gif)
 
-Alternatively, you can choose not to use the grid and manually measure from **the cap height** (as shown in the gif below), but it would require zooming all the way in and out of the **pixel grid**. Plus, the size of the container that holds your text might not be a multiple of 4px.
+或者你可以选择不使用网格然后从 **内容顶部** 开始手动测量（如下 GIF 所示），但这样你就要不断缩放查看 **像素网格**。另外，你的画板大小可能并不是 4px 的倍数。
 
-![Above is an alternative workflow that measures directly from the cap height.](https://cdn-images-1.medium.com/max/6476/1*Idy2n4hhAG5v4t5FxKZgOw.gif)
+![以上是一个直接从顶部开始测量的流程](https://cdn-images-1.medium.com/max/6476/1*Idy2n4hhAG5v4t5FxKZgOw.gif)
 
 ---
 
-## Known issue — design-dev handoff
+## 已知问题 —— 设计到开发交接
 
-Layout measured using the baseline grid approach would have seemingly random spacing numbers when developers use redlining tools (InVision/Zeplin/Figma) to inspect the design. The design below was created using the baseline grid. The numbers show what you would get from a redlining tool:
+当开发人员使用自动标注工具（InVision、Zeplin、Figma）检查设计时，使用基线网格测量的布局的间距值看起来会很随意。下面就是使用基线网格进行的设计。数字显示了你会在自动标注工具中看见的内容。
 
 ![](https://cdn-images-1.medium.com/max/2800/1*p_dxocmqPQ5jzpfdDZDVhA@2x.png)
 
-I briefly mentioned the [Space in Design Systems](https://medium.com/eightshapes-llc/space-in-design-systems-188bcbae0d62) article above. It talks about how spacing values could be represented using CSS classes, which helps enforce consistency for both designers and developers. Unfortunately, by using the baseline grid approach, it is nearly impossible to represent the spacing numbers as a set of CSS classes because of the randomness that comes with the different combinations of types.
+我在上面简要地提到了 [设计系统中的间距](https://medium.com/eightshapes-llc/space-in-design-systems-188bcbae0d62) 一文。它讨论了如何使用 CSS 类表示间距值，这有助于保持设计师和开发人员的统一。不幸的是，因为使用基线网格产生的不同间距组合带来的随机性，我们很难用一组 CSS 类来表示间距。
 
-We also looked at a popular technique many people proposed to mitigate the randomness issue, which is to use ::before and ::after CSS pseudo-elements to “crop” the bounding box (which is essentially applying a correctional spacing to the line box). However, my code ninja boyfriend [Chris Caruso](https://medium.com/@chriscaruso) told me:
+我们还研究了许多人提到的减轻随机性问题的流行技术，即使用 ::before 和 ::after CSS 伪元素去“裁剪”边框（本质上就是设置间距，以进行校正）。然而，我的代码小能手男友 [Chris Caruso](https://medium.com/@chriscaruso) 告诉我：
 
-> Using ::before and ::after CSS pseudo-elements is not ideal because it is not consistent across different fonts, browsers, operating systems, and even screen resolutions. Targeting a single combination may lead to spacing issues in others. From the developer’s perspective, the technique does not follow good coding practices because it uses negative margins and applies extraneous elements to the DOM — both of which can lead to unintended side effects. Therefore, in production applications this technique is not worth the risk. 😑
+> 使用 ::before 和 ::after CSS 伪元素带来的效果并不理想，因为它在不同字体、浏览器、操作系统甚至不同屏幕分辨率下效果都不同。配置好一套具体使用环境，又可能导致另一套环境下的间距出问题。从开发人员的角度来看，这种编程并不是一种良好的编码习惯，因为它使用了负边距并且给 DOM 添加了额外的元素 —— 这两者都可能会带来一些我们不希望出现的副作用。因此，在生产环境中不值得去冒这个险。😑
 
-## What about localization?
+## 本地化？
 
-I once did a localization study and looked at 8 writing scripts (Latin, Chinese, Cyrillic, Devanagari, Greek, Hangul, Kana and Thai) that our product supports. Then I realized that no matter which measuring approach you use, at the end of the day, it’s the bounding box spacing that the developer takes from the redlining tool and puts into CSS. Depending on the font you use for other non-English languages, even if the line height is the same, the visual height of the type can be taller or smaller than the latin letters. Their baselines can also shift. Therefore, no matter what measurement approach you use, localization will always change the spacing a little. However as shown in the example below, all languages’ text stayed relatively centered in the white space despite those minor changes.
+我曾做过本地化研究并查看了我们的产品支持的 8 种文字系统（拉丁字母、中文汉字、西里尔字母、天城体字母、希腊字母、韩文字母、假名，以及泰文）。然后我发现无论我使用哪种测量方法，最终，开发者都是从自动标注工具中获取边框的间距然后放入 CSS 中。根据你使用的其他非拉丁字母，即便行高是相同的，它们的视觉高度也或多或少与拉丁字母有偏差。并且它们的基线也可能有偏移。因此无论你使用哪种测量方法，本地化操作总是会让间距发生细微变化。不过如下图所示，尽管间距发生了微小的变化，但是所有的文本还是保持在了相对居中的位置。
 
-(I still don’t know a lot about non-latin writing scripts, but want to learn more. Please let me know if any of the observations made above are not correct or can be improved. I only know English and Chinese. Shout out to my friends at work who helped me translate this line to the other languages!)
+（我对非拉丁字母文字还不是那么了解，不过我是想再多学点的。如果上述的一些结论有不正确或者可以改进的地方请告诉我。我只会英文和中文，所以在这里要感谢帮我把这行文字翻译成其他语言的工作伙伴。）
 
-![Design created in English and localized to the other 7 writing scripts. Photo by [Joshua Sortino](https://unsplash.com/photos/71vAb1FXB6g?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/san-francisco?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6720/1*syBC3O5uazoOp4-QP_J0qg@2x.png)
+![针对英文而做的设计方案，然后为其余 7 种文字进行本地化。图片来自 [Unsplash](https://unsplash.com/search/photos/san-francisco?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上的 [Joshua Sortino](https://unsplash.com/photos/71vAb1FXB6g?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6720/1*syBC3O5uazoOp4-QP_J0qg@2x.png)
 
-## Questions?
+## 提问？
 
-Please let me know if there’s anything that doesn’t make sense, or if you have any questions, feedback, or a better solution! I’ve been doing research on this topic for a long time now, so I would love to hear your thoughts! Please feel free to reach out to me directly through email (ethanw@microsoft.com) as well if you want to chat!
+如果文章如果有什么写的不清楚的地方，或者你有任何问题、反馈或者有更好的解决方案，请告诉我！我研究这个内容已经很长时间了，所以我很想听听你的想法！如果你想联系我请直接发送邮件到 <ethanw@microsoft.com>！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
