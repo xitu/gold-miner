@@ -1,4 +1,4 @@
-> * 原文地址：[Learn git concepts, not commands- Part 2](https://dev.to/unseenwizzard/learn-git-concepts-not-commands-4gjc)
+> * 原文地址：[Learn git concepts, not commands](https://dev.to/unseenwizzard/learn-git-concepts-not-commands-4gjc)
 > * 原文作者：[Nico Riedmann](https://dev.to/unseenwizzard)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
