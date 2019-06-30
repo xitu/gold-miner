@@ -2,10 +2,10 @@
 > * 原文作者：[CLOUD NATIVE COMPUTING FOUNDATION](https://www.cncf.io)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-childrens-illustrated-guide-to-kubernetes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-childrens-illustrated-guide-to-kubernetes.md)
-> * 译者：
+> * 译者：[Jalan](http://jalan.space)
 > * 校对者：
 
-# The Illustrated Children’s Guide to Kubernetes
+# Kubernetes 儿童插图指南
 
 ![](https://www.cncf.io/wp-content/uploads/2018/12/page1.png)
 
@@ -13,99 +13,99 @@
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-1.png)
 
-**Dedicated to all the parents who try to explain software engineering to their children.**
+**献给所有试图向孩子们解释软件工程的家长。**
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-3.png)
 
-Once upon a time there was an app named Phippy. And she was a simple app. She was written in PHP and had just one page. She lived on a hosting provider and she shared her environment with scary other apps that she didn’t know and didn’t care to associate with. She wished she had her own environment: just her and a webserver she could call home.
+很久很久以前，有一个叫 Phippy 的应用程序。她是一个简单的应用程序，由 PHP 编写且只有一个页面。她住在一个需要和其他可怕的应用程序分享环境的主机提供商中，她不认识这些应用程序并且不愿意和他们来往。她希望她能拥有一个属于自己的环境：只有她自己和她可以称之为家的 Web 服务器。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-2.png)
 
-An app has an environment that it relies upon to run. For a PHP app, that environment might include a webserver, a readable file system, and the PHP engine itself.
+应用程序有一个运行所依赖的环境。对于 PHP 应用程序来说，这个环境可能包括 Web 服务器，一个可读文件系统和 PHP 引擎本身。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-4.png)
 
-One day, a kindly whale came along. He suggested that little Phippy might be happier living in a container. And so the app moved. And the container was nice, but… It was a little bit like having a fancy living room floating in the middle of the ocean.
+有一天，一只善良的鲸鱼出现了。他建议小 Phippy 住在容器里可能会更快乐。所以应用程序 Phippy 迁移到了容器中。这个容器很棒，但是……它有点像一个漂浮在大海中央的豪华起居室。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-3.png)
 
-A container provides an isolated environment in which an app, together with its environment, can run. But those isolated containers often need to be managed and connected to the external world. Shared file systems, networking, scheduling, load balancing, and distribution are all challenges.
+容器提供了一个独立的环境，应用程序可以在这个环境中运行。但是这些孤立的容器往往需要管理并与外面的世界连接。对于孤立的容器而言，共享文件系统、网络通信、调度、负载均衡和分发都是要面对的挑战。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-5.png)
 
-The whale shrugged his shoulders. “Sorry, kid,” he said, and disappeared beneath the ocean’s surface. But before Phippy could even begin to despair, a captain appeared on the horizon, piloting a gigantic ship. The ship was made of dozens of rafts all lashed together, but from the outside, it looked like one giant ship.
+鲸鱼耸了耸肩。“对不起，孩子。”他说着，消失在海面下。就在 Phippy 甚至开始绝望时，一位驾驶着巨轮的船长出现在海平线上。这艘船由几十个绑在一起的木筏组成，但从外面来看，它就像一艘巨轮。
 
-“Hello there, friend PHP app. My name is Captain Kube” said the wise old captain.
+“你好呀，这位 PHP 应用程序朋友。我是 Kube 船长。”聪明的老船长说。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-4.png)
 
-“Kubernetes” is the Greek word for a ship’s captain. We get the words **Cybernetic** and **Gubernatorial** from it. The Kubernetes project focuses on building a robust platform for running thousands of containers in production.
+“Kubernetes” 在希腊语中是船长的意思。我们可以从这个单词中得到 **Cybernetic** 和 **Gubernatorial** 这两个词组。Kubernetes 项目专注于构建一个健壮的平台，用于在生产环境中运行数千个容器。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-6.png)
 
-“I’m Phippy,” said the little app.
+“我是 Phippy。”小应用程序说。
 
-“Nice to make your acquaintance,” said the Captain as he slapped a name tag on her.
+“很高兴认识你。”船长一边说，一边在她身上贴上了一张标有姓名的标签。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-5.png)
 
-Kubernetes uses labels as “nametags” to identify things. And it can query based on these labels. Labels are open-ended: You can use them to indicate roles, stability, or other important attributes.
+Kubernetes 使用标签作为“名牌”来标识事物。它可以根据这些标签进行查询。标签是开放性的：你可以用他们来表示角色、稳定性或其他重要的属性。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-7.png)
 
-Captain Kube suggested that the app might like to move her container to a pod on board the ship. Phippy happily moved her container inside of the pod aboard Kube’s giant ship. It felt like home.
+船长建议应用程序把她的容器移动到船上的一个船舱中。Phippy 很高兴地把她的容器搬到 Kube 船长巨轮的船舱内。Phippy 觉得这里像家一样。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-6.png)
 
-In Kubernetes, a Pod represents a runnable unit of work. Usually, you will run a single container inside of a Pod. But for cases where a few containers are tightly coupled, you may opt to run more than one container inside of the same Pod. Kubernetes takes on the work of connecting your pod to the network and the rest of the Kubernetes environment.
+在 Kubernetes 中，Pod 代表一个可运行的工作单元。通常，你会在 Pod 中运行一个容器。但是对于一些容器紧密耦合的情况，你可以选择在同一个 Pod 中运行多个容器。Kubernetes 负责将你的 Pod 和网络以及 Kubernetes 的其余环境相连。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-8.png)
 
-Phippy had some unusual interests. She was really into genetics and sheep. And so she asked the captain, “What if I want to clone myself… On demand… Any number of times?”
+Phippy 有一些不同寻常的兴趣，她很喜欢遗传学和绵羊。所以她问船长：“如果我想克隆我自己，是否可以根据需求克隆任意次数呢？”
 
-“That’s easy,” said the captain. And he introduced her to the replication controllers.
+“这很容易。”船长说。船长把 Phippy 介绍给了 Replication Controller。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-7.png)
 
-Replication controllers provide a method for managing an arbitrary number of pods. A replication controller contains a pod template, which can be replicated any number of times. Through the replication controller, Kubernetes will manage your pods’ lifecycle, including scaling up and down, rolling deployments, and monitoring.
+Replication Controller 提供一种管理任意数量 Pod 的方法。一个 Replication Controller 包含一个 Pod 模板，该模板可以被复制任意次数。通过 Replication Controller，Kubernetes 将管理 Pod 的生命周期，包括伸缩、滚动更新和监控。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-9.png)
 
-For many days and nights the little app was happy with her pod and happy with her replicas. But only having yourself for company is not all it’s cracked up to be…. even if it is N copies of yourself.
+无数个日夜，小应用程序在她的船舱中与她的复制品相处十分愉快。但与自己为伍并没有所说的那么好……即使你拥有 N 个自己的克隆体。
 
-Captain Kube smiled benevolently, “I have just the thing.”
+Kube 船长慈祥地笑了笑：“我正好有一样东西。”
 
-No sooner had he spoken than a tunnel opened between Phippy’s replication controller and the rest of the ship. With a hearty laugh, Captain Kube said, “Even when your clones come and go, this tunnel will stay here so you can discover other pods, and they can discover you!”
+他刚开口，在 Phippy 的 Replication Controller 和船的其他部分之间打开了一条隧道。Kube 船长笑着说：“即使你的克隆人来了又去，这条隧道始终会留在这里，你可以通过它发现其他 Pod，其他 Pod 也可以发现你！”
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-8.png)
 
-A service tells the rest of the Kubernetes environment (including other pods and replication controllers) what **services** your application provides. While pods come and go, the service IP addresses and ports remain the same. And other applications can find your service through Kurbenetes service discovery.
+服务告知 Kubernetes 环境的其余部分（包括其他 Pod 和 Replication Controller）你的应用程序包含了哪些服务，当 Pod 来来去去，服务的 IP 地址和端口始终保持不变。其他应用程序可以通过 Kurbenetes 服务发现找到你的服务。
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-illustration-10.png)
 
-Thanks to the services, Phippy began to explore the rest of the ship. It wasn’t long before Phippy met Goldie. And they became the best of friends. One day, Goldie did something extraordinary. She gave Phippy a present. Phippy took one look and the saddest of sad tears escaped her eye.
+多亏了这些服务，Phippy 开始探索船的其他部分。不久之后，Phippy 遇到了 Goldie。他们成了最好的朋友。有一天，Goldie 做了一件不同寻常的事。她送给 Phippy 一件礼物。Phippy 看了礼物一眼，悲伤的泪水夺眶而出。
 
-“Why are you so sad?” asked Goldie.
+“你为什么这么伤心呢？”Goldie 问道。
 
-“I love the present, but I have nowhere to put it!” sniffled Phippy.
+“我喜欢这个礼物，但我没有地方可以放它！”Phippy 抽噎道。
 
-But Goldie knew what to do. “Why not put it in a volume?”
+但 Goldie 知道该怎么做。“为什么不把它放入卷中呢？”
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-9.png)
 
-A volume represents a location where containers can access and store information. For the application, the volume appears as part of the local filesystem. But volumes may be backed by local storage, Ceph, Gluster, Elastic Block Storage, and a number of other storage backends.
+卷表示容器可以访问和存储信息的位置。对于应用程序，卷显示为本地文件系统的一部分。但卷可以由本地存储、Ceph、Gluster、持久性块存储，以及其他存储后端支持。
 
-Phippy loved life aboard Captain Kube’s ship and she enjoyed the company of her new friends (every replicated pod of Goldie was equally delightful). But as she thought back to her days on the scary hosted provider, she began to wonder if perhaps she could also have a little privacy.
+Phippy 喜欢在 Kube 船长的船上生活，她很享受来自新朋友的陪伴（Goldie 的每个克隆人都同样令人愉悦）。但是，当她回想起在可怕的服务提供商度过的日子，她开始怀疑她是否也可以拥有一点自己的隐私。
 
-“It sounds like what you need,” said Captain Kube, “is a namespace.”
+“这听起来像是你所需要的，”Kube 船长说，“这是一个命名空间。”
 
 ![](https://web.archive.org/web/20171108051103im_/https://deis.com/images/blog-images/kubernetes-illustrated-guide-diagram-10.png)
 
-A namespace functions as a grouping mechanism inside of Kubernetes. Services, pods, replication controllers, and volumes can easily cooperate within a namespace, but the namespace provides a degree of isolation from the other parts of the cluster.
+命名空间是 Kubernetes 内部的分组机制。服务、Pod、Replication Controller 和卷可以在命名空间内部轻松协作，但命名空间提供了与集群其他部分一定程度的隔离。
 
-Together with her new friends, Phippy sailed the seas on Captain Kube’s great boat. She had many grand adventures, but most importantly, Phippy had found her home.
+Phippy 与她的新朋友一起乘坐 Kube 船长的巨轮航行于大海之上。她经历了许多伟大的冒险，但最重要的是，Phippy 找到了自己的家。
 
-And so Phippy lived happily ever after.
+所以 Phippy 从此过上了幸福的生活。
 
 ![](https://www.cncf.io/wp-content/uploads/2019/01/back-1024x787.jpg)
 
