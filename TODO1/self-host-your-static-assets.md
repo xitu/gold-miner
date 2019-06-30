@@ -19,10 +19,8 @@
 
 这么做有许多显而易见的好处，但是我这篇文章的目的是驳倒这些说法，或者是表明这么做成本远大于收益。
 
-
 * **方便。** 像这样链入文件特别省事，复制粘贴一行 HTML，搞定。真简单。
 * **我们接入了 CDN。** `code.jquery.com` 是 [StackPath](https://www.stackpath.com/products/cdn/) 这个 CDN 来服务的。我们这样链接资源可以得到 CDN 级别的传输质量，还是免费的！
-
 * **用户可能已经将文件缓存好。** 如果 `website-a.com` 链接到 `https://code.jquery.com/jquery-3.3.1.slim.min.js`, 然后用户从那跳转到恰好也链接到 `https://code.jquery.com/jquery-3.3.1.slim.min.js` 的 `website-b.com`， 那么文件就已经在用户的缓存里了。
 
 ## 风险：减速和宕机
@@ -55,7 +53,6 @@
         crossorigin="anonymous"></script>
 ```
 
-
 重申一下，如果你绝对必须链接到外部托管的静态资源，那就保证它实现了 SRI。 你可以用这个[好用的生成器](https://www.srihash.org/)来自己添加 SRI。
 
 ## 扣分项：网络协商
@@ -76,7 +73,6 @@
 好吧，在还不错的网速上，托管这些静态资源用掉 311ms，或1.65倍慢于放置在自己主机上。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-off-site-cable.png)
-
 
 连接到托管静态资源的三个不同的源，我们在网络协商上总共花费了多余的 805ms。[完整测试在此。](https://www.webpagetest.org/result/190531_FY_618f9076491312ef625cf2b1a51167ae/3/details/)
 
