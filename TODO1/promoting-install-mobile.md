@@ -40,7 +40,7 @@ Application UI promotional patterns can be used for almost any kind of PWA and a
 
 Sites which are thoughtful about when they trigger promotion UI achieve a larger number of installs and avoid interfering with the journeys of users who aren’t interested in installation.
 
-### Fixed header
+### <a name="header"></a>Fixed header
 
 This is an install button that is part of the header of your site. Other header content often includes site branding such as a logo and the hamburger menu. Headers may be `position:fixed` or not depending on your site’s functionality and user needs.
 
@@ -53,7 +53,7 @@ Make sure you:
 * Evaluate the value of your installed use case for your users. Consider selective targeting to only present this promotion for users that are likely to benefit from it.
 * Use precious header space efficiently. Consider what else would be helpful to offer your user in the header, and weigh the priority of the install promotion relative to other options.
 
-### Navigation menu
+### <a name="nav"></a>Navigation menu
 
 Add an install button/promotion in a slide out navigation menu.
 
@@ -66,7 +66,7 @@ Make sure you:
 * Avoid disrupting important navigational content. Put the PWA install promotion below other menu items.
 * Offer a short, relevant pitch for why the user would benefit from installing your PWA.
 
-### Landing page
+### <a name="landing"></a>Landing page
 
 The purpose of a landing page is to promote your products & services, so this is one place where it can be appropriate to go large with promoting the benefits of installing your PWA.
 
@@ -80,7 +80,7 @@ Make sure you:
 * This is a landing page. After you’ve made your value proposition clear, make your install promotion and call to action eye catching!
 * Consider adding an install promotion within your app where users spend most of their time.
 
-### Install banner
+### <a name="banner"></a>Install banner
 
 A dismissible banner at the top of the page.
 
@@ -97,7 +97,7 @@ Make sure you:
 
 Inline promotional techniques interweave promotions with site content. This is often more subtle than promotion in application UI, which has tradeoffs. You want your promotion to stand out enough that interested users will notice it, but not so much that it detracts from the quality of your user experience.
 
-### In-feed
+### <a name="in-feed"></a>In-feed
 
 An in-feed install promotion appears between news articles or other lists of information cards in your PWA.
 
@@ -110,7 +110,7 @@ Make sure you:
 * Limit the frequency of the promotions to avoid annoying users.
 * Give your users the ability to dismiss the promotions. Remember your user’s choice to dismiss.
 
-### Booking or checkout journey
+### <a name="journey"></a>Booking or checkout journey
 
 Show an install promotion during or after a sequential journey, typical of booking or checkout flows. If you’re displaying the promotion after the user has completed the journey, you can often make it more prominent since the journey is completed.
 
@@ -122,7 +122,7 @@ Make sure you:
 * If your brand has unique offers for installed app users, be sure to mention them here.
 * Keep the promotion out of the way of next steps in your journey or you can negatively affect your journey completion rates. In the eCommerce example above, notice how the key journey call-to-action to checkout is above the app install promotion.
 
-### Sign up, sign in, or sign out flow
+### <a name="sign-up"></a>Sign up, sign in, or sign out flow
 
 This promotion is a special case of the [journey](#journey) promotional pattern where the promotion card can be a more prominent.
 
