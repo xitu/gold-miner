@@ -73,10 +73,10 @@ server {
     index index.html;
     ssi on;
 
-    # Redirect / to /browse
+    # 重定向 / 至 /browse
     rewrite ^/$ http://localhost:8080/browse redirect;
 
-    # Decide which HTML fragment to insert based on the URL
+    # 根据URL确定要插入哪个 HTML 片段
     location /browse {
       set $PAGE 'browse';
     }
@@ -87,7 +87,7 @@ server {
       set $PAGE 'profile'
     }
 
-    # All locations should render through index.html
+    # 所有位置都应经 index.html 渲染
     error_page 404 /index.html;
 }
 ```
