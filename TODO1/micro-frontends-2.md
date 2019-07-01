@@ -153,7 +153,7 @@ server {
 
 和[服务端的引入选项](#Server-sideTemplateComposition)一样，用 iframes 构建页面不是一个新的技术，而且可能不是很令人兴奋。但如果我们重温[之前提过](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md#%E4%BC%98%E7%82%B9)的微前端的好处，iframes 几乎都有，只要我们仔细考虑如何将应用分成独立部分、如何构建团队。
 
-我们经常看到很多人不愿意选择 iframes。虽然部分原因似乎是直觉感觉iframe有点“糟糕”，但人们也有很好的理由不使用它们。上面提到的简单隔离确实会使它们比其他选项更不灵活。在应用程序的不同部分之间构建集成可能很困难，因此它们使路由，历史记录和深层链接变得更加复杂，并且它们对使页面完全响应性提出了一些额外的挑战。
+我们经常看到很多人不愿意选择 iframes。虽然部分原因似乎是直觉感觉 iframe 有点“糟糕”，但人们也有很好的理由不使用它们。上面提到的简单隔离确实会使它们比其他选项更不灵活。在应用程序的不同部分之间构建集成可能很困难，因此它们使路由，历史记录和深层链接变得更加复杂，并且它们对使页面完全响应性提出了一些额外的挑战。
 
 ### 通过 JavaScript 运行时集成
 
@@ -193,8 +193,7 @@ server {
 
 以上显然是一个比较初始的例子，但它演示了基本技术。与构建时集成不同，我们可以独立部署每个 `bundle.js` 文件。与 iframe 不同，我们有充分的灵活性来以我们偏好的方式构建微前端之间的集成。我们可以通过多种方式扩展上述代码，例如，只根据需要下载每个 JavaScript 包，或者在呈现微前端时传入和传出数据。
 
-The flexibility of this approach, combined with the independent deployability, makes it our default choice, and the one that we've seen in the wild most often. We'll explore it in more detail when we get into the [full example.](#TheExampleInDetail)
-这一方法的灵活性，与独立部署性结合，是它成为了我们的默认选择，并且是最为常见的一种选择。当我们到了[完整示例](#TheExampleInDetail)时我们将会探索只里面的更多细节
+这一方法的灵活性，与独立部署性结合，是它成为了我们的默认选择，并且是最为常见的一种选择。当我们到了[完整示例](#TheExampleInDetail)时我们将会探索只这面的更多细节。
 
 ### 通过网页组件运行时集成
 
@@ -257,7 +256,6 @@ CSS 作为一种语言本质上是全局的，继承和级联的，传统上没�
 
 最明显的可供分享的组件是比较“傻”的视觉基元，如图标，标签和按钮。我们也可以共享一些复杂组件，他们可能会包含大量的 UI 逻辑，如自动补全和下拉菜单搜索框。或者是可排序、可过滤的分页表。但是，请务必确保共享组件仅包含 UI 逻辑，并且不包含业务或域逻辑。将域逻辑放入共享库时，它会在应用程序之间创建高度耦合，并增加更改的难度。因此，例如，通常不应该尝试共享一个 `ProductTable`，它会包含关于“产品”究竟是什么以及应该如何表现的各种假设。这种域建模和业务逻辑属于微前端的应用程序代码，而不是共享库中。
 
-As with any shared internal library, there are some tricky questions around its ownership and governance. One model is to say that as a shared asset, “everyone” owns it, though in practice this usually means that **no one** owns it. It can quickly become a hodge-podge of inconsistent code with no clear conventions or technical vision. At the other extreme, if development of the shared library is completely centralised, there will be a big disconnect between the people who create the components and the people who consume them. The best models that we've seen are ones where anyone can contribute to the library, but there is a [custodian](https://martinfowler.com/bliki/ServiceCustodian.html) (a person or a team) who is responsible for ensuring the quality, consistency, and validity of those contributions. The job of maintaining the shared library requires strong technical skills, but also the people skills necessary to cultivate collaboration across many teams.
 与任何共享的内部库一样，围绕其所有权和治理存在一些棘手的问题。一种模式是说作为共享资产，“每个人”拥有它，但在实践中，这通常意味着**没有人**拥有它。它很快就会充满杂乱的风格不一致的代码，没有明确的约定或技术愿景。另一方面，如果共享库的开发完全集中化，那么创建组件的人与使用它们的人之间将存在很大的脱节。我们看到的最好的模型是任何人都可以为库做出贡献的模型，但是有一个[保管人](https://martinfowler.com/bliki/ServiceCustodian.html)（一个人或一个团队）负责确保这些贡献的质量，一致性和有效性。维护共享库的工作需要强大的技术技能，还需要培养许多团队之间协作所需的人员技能。
 
 > **建议按照顺序阅读本系列文章：**
