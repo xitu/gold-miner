@@ -14,17 +14,21 @@ I developed a demo project with several intentional bugs to elaborate on how to 
 If you didn’t go through **[part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)** and **[part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md)** undefinedof this tutorial, it’s crucial to check them before proceeding with this final part.
 
 One last time, the golden rule of this tutorial:
+
 You’re not to stop the compiler or re-run the application after running it for the very first time. You’re fixing the bugs at runtime.
 
 ## Symbolic Breakpoints 🔶
 
 How are we doing so far?
+
 > 4. The left navigation bar label that indicates how many times the user did load posts is not being updated.
 
 Here are the steps to reproduce the last bug you’re to deal with:
 
 ✦ Scroll to the top of the table view, and pull down to refresh.
+
 ✦ Scroll to the bottom of the table view to load new posts. [for 7 times 😉]
+
 ✦ The left label is not being updated for every time new posts are successfully retrieved.
 
 It’s important to point out that the integer `pageNumber` property answers the question, how many times the user did load posts..? (i.e. the left label on the navigation bar should be updated by the value of the `pageNumber` property). We’re quite sure from the previous fixes that the `pageNumber` property is updated properly, hence the problem is with setting its value to the dedicated label on the navigation bar.
@@ -107,7 +111,8 @@ However, we’re going for a different approach.
 
 ### One Shot!
 
-Disable the symbolic breakpoint you’ve created. 
+Disable the symbolic breakpoint you’ve created.
+
 Logically speaking, the left navigation bar label that indicates how many times the user did load posts is updated after the posts are successfully retrieved via the HTTP GET request. Navigate to the section with the pragma mark `Networking`. Place a breakpoint inside the success completion handler of `loadPosts`. It should be **below**:
 
 **Objective-C**
