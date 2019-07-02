@@ -2,201 +2,201 @@
 > * 原文作者：[Vitaly Friedman](https://www.smashingmagazine.com/author/vitaly-friedman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wznonstop](https://github.com/wznonstop)
+> * 校对者：[TUARAN](https://github.com/TUARAN), [xilihuasi](https://github.com/xilihuasi)
 
-# Front-End Performance Checklist 2019 — 5
+# 2019 前端性能优化年度总结 — 第五部分
 
-Let’s make 2019... fast! An annual front-end performance checklist, with everything you need to know to create fast experiences today. Updated since 2016.
+让 2019 来得更迅速吧！你正在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> **[译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)**
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - **[译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)**
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
-#### Table Of Contents
+#### 目录
 
-- [Delivery Optimizations](#delivery-optimizations)
-  - [39. Do you load all JavaScript libraries asynchronously?](#39-do-you-load-all-javascript-libraries-asynchronously)
-  - [40. Lazy load expensive components with IntersectionObserver](#40-lazy-load-expensive-components-with-intersectionobserver)
-  - [41. Load images progressively](#41-load-images-progressively)
-  - [42. Do you send critical CSS?](#42-do-you-send-critical-css)
-  - [43. Experiment with regrouping your CSS rules](#43-experiment-with-regrouping-your-css-rules)
-  - [44. Do you stream responses?](#44-do-you-stream-responses)
-  - [45. Consider making your components connection-aware](#45-consider-making-your-components-connection-aware)
-  - [46. Consider making your components device memory-aware](#46-consider-making-your-components-device-memory-aware)
-  - [47. Warm up the connection to speed up delivery](#47-warm-up-the-connection-to-speed-up-delivery)
-  - [48. Use service workers for caching and network fallbacks](#48-use-service-workers-for-caching-and-network-fallbacks)
-  - [49. Are you using service workers on the CDN/Edge, e.g. for A/B testing?](#49-are-you-using-service-workers-on-the-cdnedge-eg-for-ab-testing)
-  - [50. Optimize rendering performance](#50-optimize-rendering-performance)
-  - [51. Have you optimized rendering experience?](#51-have-you-optimized-rendering-experience)
+- [交付优化](#交付优化)
+  - [39. 是否所有的 JavaScript 库都采用了异步加载？](#39-所有的-JavaScript-库是否都采用了异步的方式加载)
+  - [40. 使用 IntersectionObserver 加载开销大的组件](#40-使用-intersectionobserver-加载大型组件)
+  - [41. 渐进式加载图片](#41-渐进式加载图片)
+  - [42. 是否发送了关键的 css？](#42-你是否发送了关键的-css)
+  - [43. 尝试重组 CSS 规则](#43-尝试重组-CSS-规则)
+  - [44. 有没有将请求设为 stream？](#44-你有没有将请求设为-stream)
+  - [45. 考虑使组件具有连接感知能力](#45-考虑使组件具有连接感知能力)
+  - [46. 考虑使组件具有设备内存感知能力](#46-考虑使组件具有设备内存感知能力)
+  - [47. 做好连接的热身准备以加速交付](#47-做好连接的热身准备以加速交付)
+  - [48. 使用 service workers 进行缓存和网络后备方案](#48-使用-service-workers-进行缓存和网络后备方案)
+  - [49. 是否在 CDN/Edge 上使用了 service workers，例如，用于 A/B 测试？](#49-是否在-cdnedge-上使用了-service-workers例如用于-ab-测试)
+  - [50. 优化渲染性能](#50-优化渲染性能)
+  - [51. 是否优化了渲染体验？](#51-是否优化了渲染体验)
 
-### Delivery Optimizations
+### 交付优化
 
-#### 39. Do you load all JavaScript libraries asynchronously?
+#### 39. 是否所有的 JavaScript 库都采用了异步加载？
 
-When the user requests a page, the browser fetches the HTML and constructs the DOM, then fetches the CSS and constructs the CSSOM, and then generates a rendering tree by matching the DOM and CSSOM. If any JavaScript needs to be resolved, the browser won’t start rendering the page until it’s resolved, thus delaying rendering. As developers, we have to explicitly tell the browser not to wait and to start rendering the page. The way to do this for scripts is with the `defer` and `async` attributes in HTML.
+当用户请求页面时，浏览器获取 HTML 并构造 DOM，然后获取 CSS 并构造 CSSOM，然后通过匹配 DOM 和 CSSOM 生成渲染树。一旦出现需要解析的 JavaScript，浏览器将停止渲染，直到 JavaScript 被解析完成，从而造成渲染延迟。作为开发人员，我们必须明确告诉浏览器不要等待 JS 解析，直接渲染页面。对脚本执行此操作的方法是使用 HTML 中的 `defer` 和 `async` 属性。
 
-In practice, it turns out we should [prefer `defer` to](http://calendar.perfplanet.com/2016/prefer-defer-over-async/) `async` (at a [cost to users of Internet Explorer](https://github.com/h5bp/lazyweb-requests/issues/42) up to and including version 9, because you’re likely to break scripts for them). According to [Steve Souders](https://youtu.be/RwSlubTBnew?t=1034), once `async` scripts arrive, they are executed immediately. If that happens very fast, for example when the script is in cache aleady, it can actually block HTML parser. With `defer`, browser doesn’t execute scripts until HTML is parsed. So, unless you need JavaScript to execute before start render, it’s better to use `defer`.
+在实践中，事实证明我们应该[更倾向于使用 `defer`](http://calendar.perfplanet.com/2016/prefer-defer-over-async/)。使用 `async` 的话，[Internet Explorer 9 及其之前的版本有兼容性问题](https://github.com/h5bp/lazyweb-requests/issues/42)，可能会破坏它们的脚本。根据[Steve Souders 的讲述](https://youtu.be/RwSlubTBnew?t=1034)，一旦 `async` 脚本加载完成，它们就会立即执行。如果这种情况发生得非常快，例如当脚本处于缓存中时，它实际上可以阻止 HTML 解析器。使用 `defer` 的话，浏览器在解析 HTML 之前不会执行脚本。因此，除非在开始渲染之前需要执行 JavaScript，否则最好使用 `defer`。
 
-Also, as mentioned above, limit the impact of third-party libraries and scripts, especially with social sharing buttons and `<iframe>` embeds (such as maps). [Size Limit](https://github.com/ai/size-limit) helps you [prevent JavaScript libraries bloat](https://evilmartians.com/chronicles/size-limit-make-the-web-lighter): If you accidentally add a large dependency, the tool will inform you and throw an error. You can use [static social sharing buttons](https://www.savjee.be/2015/01/Creating-static-social-share-buttons/) (such as by [SSBG](https://simplesharingbuttons.com)) and [static links to interactive maps](https://developers.google.com/maps/documentation/static-maps/intro) instead.
+此外，如上所述，限制第三方库和脚本的可能造成的影响，尤其是社交分享按钮和嵌入式 `<iframe>`（如地图）。[Size Limit 库](https://github.com/ai/size-limit)可以帮助[防止 JavaScript 库过大](https://evilmartians.com/chronicles/size-limit-make-the-web-lighter) ：如果不小心添加了一个大的依赖项，该工具将通知你并抛出错误。可以使用[静态的社交分享按钮](https://www.savjee.be/2015/01/Creating-static-social-share-buttons/)（例如 [SSBG](https://simplesharingbuttons.com)）和[交互式地图的静态链接](https://developers.google.com/maps/documentation/static-maps/intro)。
 
-You might want to [revise your non-blocking script loader for CSP compliance](https://calendar.perfplanet.com/2018/a-csp-compliant-non-blocking-script-loader/).
+也可以试着[修改非阻塞脚本加载器以实现 CSP 合规性](https://calendar.perfplanet.com/2018/a-csp-compliant-non-blocking-script-loader/)。
 
-#### 40. Lazy load expensive components with IntersectionObserver
+#### 40. 使用 IntersectionObserver 加载大型组件
 
-In general, it’s a good idea to lazy-load all expensive components, such as heavy JavaScript, videos, iframes, widgets, and potentially images. The most performant way to do so is by using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) that provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document’s viewport. Basically, you need to create a new `IntersectionObserver` object, which receives a callback function and a set of options. Then we add a target to observe.
+一般来说，延迟加载所有大型组件是一个好主意，例如大体积的 JavaScript、视频、iframe、小部件和潜在的图像。最高效的方法是使用[Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)，它对具有祖先元素或顶级文档视口的目标元素提供了一种异步观察交叉点变化的方法。基本用法是，创建一个新的 `IntersectionObserver` 对象，该对象接收回调函数和配置对象。然后再添加一个观察目标就可以了。
 
-The callback function executes when the target becomes visible or invisible, so when it intercepts the viewport, you can start taking some actions before the element becomes visible. In fact, we have a granular control over when the observer’s callback should be invoked, with `rootMargin` (margin around the root) and `threshold` (a single number or an array of numbers which indicate at what percentage of the target’s visibility we are aiming).
+回调函数在目标变为可见或不可见时执行，因此当它截取视窗时，可以在元素变为可见之前开始执行某些操作。实际上，我们使用了 `rootMargin`（根周围的边距）和 `threshold`（单个数字或数字数组，表示目标可见性的百分比）对何时调用回调函数进行精确控制。
 
-Alejandro Garcia Anglada has published a [handy tutorial](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366) on how to actually implement it, Rahul Nanwani wrote a detailed post on [lazy-loading foreground and background images](https://css-tricks.com/the-complete-guide-to-lazy-loading-images/), and Google Fundamentals provide a [detailed tutorial on lazy loading images and video with Intersection Observer](https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/) as well. Remember art-directed storytelling long reads with moving and sticky objects? You can implement [performant scrollytelling with Intersection Observer](https://github.com/russellgoldenberg/scrollama), too.
+Alejandro Garcia Anglada 发表了一篇关于如何将其应用到实践中的[简易教程](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366)，Rahul Nanwani 写了一篇关于[延迟加载前景和背景图片的详细文章](https://css-tricks.com/the-complete-guide-to-lazy-loading-images/)，Google Fundamentals 提供了[关于 Intersection Observer 延迟加载图像和视频的详细教程](https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/)。还记得使用动静结合的物体进行艺术指导的长篇故事吗？你也可以使用 Intersection Observer 实现[高性能的滚动型讲述](https://github.com/russellgoldenberg/scrollama)。
 
-Also, watch out for the [`lazyload` attribute](https://css-tricks.com/a-native-lazy-load-for-the-web-platform/) that will allow us to specify which images and `iframe`s should be lazy loaded, natively. [Feature policy: LazyLoad](https://www.chromestatus.com/feature/5641405942726656) will provide a mechanism that allows us to force opting in or out of LazyLoad functionality on a per-domain basis (similar to how [Content Security Policies](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) work). Bonus: once shipped, [priority hints](https://twitter.com/csswizardry/status/1050717710525509633) will allow us to specify importance on scripts and preloads in the header as well (currently in Chrome Canary).
+另外，请注意 [`lazyload` 属性](https://css-tricks.com/a-native-lazy-load-for-the-web-platform/)，它将允许我们以原生的方式指定哪些图像和 `iframe` 应该是延迟加载。[功能说明：LazyLoad ](https://www.chromestatus.com/feature/5641405942726656)将提供一种机制，允许我们强制在每个域的基础上选择加入或退出 LazyLoad 功能（类似于[内容安全政策](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)的功能。惊喜：一旦启用，[优先提示 priority hints](https://twitter.com/csswizardry/status/1050717710525509633) 将允许我们在标题中指定脚本和预加载资源的权重（目前已在 Chrome Canary 中实现）。
 
-#### 41. Load images progressively
+#### 41. 渐进式加载图片
 
-You could even take lazy loading to the next level by adding [progressive image loading](https://calendar.perfplanet.com/2017/progressive-image-loading-using-intersection-observer-and-sqip/) to your pages. Similarly to Facebook, Pinterest and Medium, you could load low quality or even blurry images first, and then as the page continues to load, replace them with the full quality versions by using the [LQIP (Low Quality Image Placeholders) technique](https://www.guypo.com/introducing-lqip-low-quality-image-placeholders) proposed by Guy Podjarny.
+你甚至可以通过向页面添加[渐进式图像加载技术](https://calendar.perfplanet.com/2017/progressive-image-loading-using-intersection-observer-and-sqip/)将延迟加载提升到新的水平。与 Facebook，Pinterest 和 Medium 类似，可以先加载质量较差甚至模糊的图像，然后在页面继续加载时，使用 Guy Podjarny 提出的 [LQIP（低质量图像占位符）技术](https://www.guypo.com/introducing-lqip-low-quality-image-placeholders)将其替换为原图。
 
-Opinions differ if these techniques improve user experience or not, but it definitely improves time to first meaningful paint. We can even automate it by using [SQIP](https://github.com/technopagan/sqip) that creates a low quality version of an image as an SVG placeholder, or [Gradient Image Placeholders](https://calendar.perfplanet.com/2018/gradient-image-placeholders/) with CSS linear gradients. These placeholders could be embedded within HTML as they naturally compress well with text compression methods. In his article, Dean Hume [has described](https://calendar.perfplanet.com/2017/progressive-image-loading-using-intersection-observer-and-sqip/) how this technique can be implemented using Intersection Observer.
+对于这项技术是否提升了用户体验，大家各执一词，但它一定缩短了第一次有效的绘图时间。我们甚至可以使用 [SQIP](https://github.com/technopagan/sqip) 将其创建为 SVG 占位符或带有 CSS 线性渐变的[渐变图像占位符](https://calendar.perfplanet.com/2018/gradient-image-placeholders/)。这些占位符可以嵌入 HTML 中，因为它们可以使用文本压缩方法自然地压缩。Dean Hume 在他的文章中[描述了](https://calendar.perfplanet.com/2017/progressive-image-loading-using-intersection-observer-and-sqip/) 如何使用 Intersection Observer 实现此技术。
 
-Browser support? [Decent](https://caniuse.com/#feat=intersectionobserver), with Chrome, Firefox, Edge and Samsung Internet being on board. WebKit status is currently [supported in preview](https://webkit.org/status/#specification-intersection-observer). Fallback? If the browser doesn’t support intersection observer, we can still [lazy load](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366) a [polyfill](https://github.com/jeremenichelli/intersection-observer-polyfill) or load the images immediately. And there is even a [library](https://github.com/ApoorvSaxena/lozad.js) for it.
+浏览器支持怎么样呢？[主流浏览器](https://caniuse.com/#feat=intersectionobserver)、Chrome、Firefox、Edge 和三星的浏览器均有支持。WebKit 状态目前已在[预览中支持](https://webkit.org/status/#specification-intersection-observer)。如何优雅降级？如果浏览器不支持 intersection observer，我们仍然可以使用 [polyfill](https://github.com/jeremenichelli/intersection-observer-polyfill) 来[延迟加载](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366)或立即加载图像。甚至有一个[库](https://github.com/ApoorvSaxena/lozad.js)可以用来实现它。
 
-Want to go fancier? You could [trace your images](https://jmperezperez.com/svg-placeholders/) and use primitive shapes and edges to create a lightweight SVG placeholder, load it first, and then transition from the placeholder vector image to the (loaded) bitmap image.
+想成为一名发烧友？你可以[追踪你的图像](https://jmperezperez.com/svg-placeholders/)并使用原始形状和边框来创建一个轻量级的 SVG 占位符，首先加载它，然后把占位符矢量图像转换为（已加载的）位图图像。
 
-[![SVG lazy loading technique by José M. Pérez](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7f56052-6abb-4d18-a5aa-8d84102d812e/jmperez-composition-primitive-full.jpg)](https://jmperezperez.com/svg-placeholders/) 
+[![José M. Pérez 的 SVG 延迟加载技术](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7f56052-6abb-4d18-a5aa-8d84102d812e/jmperez-composition-primitive-full.jpg)](https://jmperezperez.com/svg-placeholders/) 
 
-SVG lazy loading technique by [José M. Pérez](https://jmperezperez.com/svg-placeholders/). ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7f56052-6abb-4d18-a5aa-8d84102d812e/jmperez-composition-primitive-full.jpg))
+[José M. Pérez](https://jmperezperez.com/svg-placeholders/)的 SVG 延迟加载技术。（[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7f56052-6abb-4d18-a5aa-8d84102d812e/jmperez-composition-primitive-full.jpg)）
 
-#### 42. Do you send critical CSS?
+#### 42. 你是否发送了关键的 css？
 
-To ensure that browsers start rendering your page as quickly as possible, it’s become a [common practice](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) to collect all of the CSS required to start rendering the first visible portion of the page (known as "critical CSS" or "above-the-fold CSS") and add it inline in the `<head>` of the page, thus reducing roundtrips. Due to the limited size of packages exchanged during the slow start phase, your budget for critical CSS is around 14 KB.
+为了确保浏览器尽快开始渲染页面，[通常做法是](https://www.smashingmagazine.com/2015/08/understanding-critical-css/)收集开始渲染页面的第一个可见部分所需的所有 CSS（称为“关键 CSS”或“首页 CSS”）并将其以内联的形式添加到页面的 “<head>” 中，从而减少往返请求。由于在慢启动阶段交换的包的大小有限，因此关键 CSS 的预算大小约为 14 KB。
 
-If you go beyond that, the browser will need additional roundtrips to fetch more styles. [CriticalCSS](https://github.com/filamentgroup/criticalCSS) and [Critical](https://github.com/addyosmani/critical) enable you to do just that. You might need to do it for every template you’re using. If possible, consider using the [conditional inlining approach](https://www.filamentgroup.com/lab/modernizing-delivery.html) used by the Filament Group, or [convert inline code to static assets on the fly](https://www.smashingmagazine.com/2018/11/pitfalls-automatically-inlined-code/).
+如果超出此范围，浏览器将需要额外的开销来获取更多样式。[CriticalCSS](https://github.com/filamentgroup/criticalCSS) 和 [Critical](https://github.com/addyosmani/critical) 使你能够做到这一点。你可能需要为正在使用的每个模板执行此操作。如果可能的话，请考虑使用 Filament Group 使用的[条件内联方法](https://www.filamentgroup.com/lab/modernizing-delivery.html)，或[动态地将内联代码转换为静态资源](https://www.smashingmagazine.com/2018/11/pitfalls-automatically-inlined-code/)。
 
-With HTTP/2, critical CSS could be stored in a separate CSS file and delivered via a [server push](https://www.filamentgroup.com/lab/modernizing-delivery.html) without bloating the HTML. The catch is that server pushing is [troublesome](https://twitter.com/jaffathecake/status/867699157150117888) with many gotchas and race conditions across browsers. It isn’t supported consistently and has some caching issues (see slide 114 onwards of [Hooman Beheshti’s presentation](http://www.slideshare.net/Fastly/http2-what-no-one-is-telling-you)). The effect could, in fact, [be negative](https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/) and bloat the network buffers, preventing genuine frames in the document from being delivered. Also, it appears that server pushing is much [more effective on warm connections](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit) due to the TCP slow start.
+使用 HTTP/2，关键的 CSS 可以存储在单独的 CSS 文件中，并通过[服务器推送](https://www.filamentgroup.com/lab/modernizing-delivery.html)传送，而不会增加 HTML 的大小。问题是，服务器推送[很麻烦](https://twitter.com/jaffathecake/status/867699157150117888) ，浏览器存在许多陷阱和竞争条件。往往并不能始终支持，且伴有一些缓存问题（参见[ Hooman Beheshti 演示文稿幻灯片的 114 页](http://www.slideshare.net/Fastly/http2-what-no-one-is-telling-you)）。事实上，这种影响可能是[负面的](https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/)，它会使网络缓冲区膨胀，从而导致文档中真实帧的传递被阻止。此外，由于 TCP 启动缓慢，服务器推送似乎[在热连接上更有效](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)。
 
-Even with HTTP/1, putting critical CSS in a separate file on the root domain [has benefits](http://www.jonathanklein.net/2014/02/revisiting-cookieless-domain.html), sometimes even more than inlining due to caching. Chrome speculatively opens a second HTTP connection to the root domain when requesting the page, which removes the need for a TCP connection to fetch this CSS (_thanks, Philip!_)
+即使使用 HTTP/1，将关键 CSS 放在根域名下的单独文件中[也是有好处的](http://www.jonathanklein.net/2014/02/revisiting-cookieless-domain.html)，由于缓存的原因，有时甚至比内联更优。Chrome 在请求页面时会尝试打开根域名下的第二个 HTTP 连接，从而无需 TCP 连接来获取此 CSS（**感谢 Philip！**）
 
-A few gotchas to keep in mind: unlike `preload` that can trigger preload from any domain, you can only push resources from your own domain or domains you are authoritative for. It can be initiated as soon as the server gets the very first request from the client. Server pushed resources land in the Push cache and are removed when the connection is terminated. However, since an HTTP/2 connection can be re-used across multiple tabs, pushed resources can be claimed by requests from other tabs as well (_thanks, Inian!_).
+需要记住的一些问题是：与可以从任何域触发预加载的“预加载”不同，你只能从自己的域或认证过的域中推送资源。一旦服务器从客户端获得了第一个请求，就可以启动该连接。服务器推送资源落在 Push 缓存中，并在连接终止时被删除。但是，由于 HTTP/2 连接可以在多个选项卡中重复使用，因此也可以使用通过其他选项卡的请求声明推送的资源（**感谢 Inian！**）。
 
-At the moment, there is no simple way for the server to know if pushed resources are already in [one of the user’s caches](https://blog.yoav.ws/tale-of-four-caches/), so resources will keep being pushed with every user’s visit. You may then need to create a [cache-aware HTTP/2 server push mechanism](https://css-tricks.com/cache-aware-server-push/). If fetched, you could try to get them from a cache based on the index of what’s already in the cache, avoiding secondary server pushes altogether.
+目前，服务器没有简单的方法可以知道要推送资源是否已经存在于[用户缓存之中](https://blog.yoav.ws/tale-of-four-caches/)中，每个用户访问的时候都会推送资源。因此，你可能需要创建 [HTTP/2 的缓存感知服务器推送机制](https://css-tricks.com/cache-aware-server-push/)。如果发现已存在，则可以尝试根据缓存中已有内容的索引从缓存中获取它们，从而避免服务器的全量推送。
 
-Keep in mind, though, that [the new `cache-digest` specification](http://calendar.perfplanet.com/2016/cache-digests-http2-server-push/) negates the need to manually build such "cache-aware" servers, basically declaring a new frame type in HTTP/2 to communicate what’s already in the cache for that hostname. As such, it could be particularly useful for CDNs as well.
+但请记住，[新的 `cache-digest` 规范](http://calendar.perfplanet.com/2016/cache-digests-http2-server-push/)否定了手动构建此类“缓存感知”服务器的需要，只需要在 HTTP/2 中声明一个新的帧类型，就可以传达该域名下缓存中已有的内容。因此，它对 CDN 也特别有用。
 
-For dynamic content, when a server needs some time to generate a response, the browser isn’t able to make any requests since it’s not aware of any sub-resources that the page might reference. For that case, we can warm up the connection and increase the TCP congestion window size, so that future requests can be completed faster. Also, all inlined assets are usually good candidates for server pushing. In fact, Inian Parameshwaran [did remarkable research comparing HTTP/2 Push vs. HTTP Preload](https://dexecure.com/blog/http2-push-vs-http-preload/), and it’s a fantastic read with all the details you might need. Server Push or Not Server Push? Colin Bendell’s [Should I Push?](https://shouldipush.com/) might point you in the right direction.
+对于动态内容，当服务器需要一些时间来生成响应时，浏览器无法发出任何请求，因为它不知道页面可能引用的任何子资源。对于这种情况，我们可以预热连接并增加 TCP 拥塞窗口的数量，以便可以更快地完成将来的请求。此外，所有内联资源通常都是服务器推送的良好候选者。事实上，Inian Parameshwaran [针对 HTTP/2 推送与 HTTP 预加载做了很棒的比较的研究](https://dexecure.com/blog/http2-push-vs-http-preload/)，这份高质量的资料包括了你可能想了解的各种细节。是否选择服务器推送？Colin Bendell 的[我是否应该进行服务器推送？](https://shouldipush.com/)可能会为你指明方向。
 
-Bottom line: As Sam Saccone [noted](https://medium.com/@samccone/performance-futures-bundling-281543d9a0d5), `preload` is good for moving the start download time of an asset closer to the initial request, while Server Push is good for cutting out a full RTT ([or more](https://blog.yoav.ws/being_pushy/), depending on your server think time) — if you have a service worker to prevent unnecessary pushing, that is.
+一句话：正如 Sam Saccone [所说](https://medium.com/@samccone/performance-futures-bundling-281543d9a0d5)，`预加载`适用于将资源的开始下载时间向初始请求靠拢，服务器推送适用于删除完整的 RTT（[等](https://blog.yoav.ws/being_pushy/)，具体取决于服务器的响应时间）- 前提是你得有一个 service worker 用来避免不必要的推送。
     
-#### 43. Experiment with regrouping your CSS rules
+#### 43. 尝试重组 CSS 规则
 
-We’ve got used to critical CSS, but there are a few optimizations that could go beyond that. Harry Roberts conducted a [remarkable research](https://csswizardry.com/2018/11/css-and-network-performance/) with quite surprising results. For example, it might be a good idea to split the main CSS file out into its individual media queries. That way, the browser will retrieve critical CSS with high priority, and everything else with low priority — completely off the critical path.
+我们已经习惯了关键的 CSS，但还有一些优化可以超越这一点。Harry Roberts 进行了一项[非凡的研究](https:/csswissdry.com/2018/11/css-and-network-performance/)，得出了相当惊人的结果。例如，将主 CSS 文件拆分为单独的媒体查询可能是个好主意。这样，浏览器将检索具有高优先级的关键 CSS，以及其他具有低优先级的所有内容 —— 最终完全脱离关键路径。
 
-Also, avoid placing `<link rel="stylesheet" />` before `async` snippets. If scripts don’t depend on stylesheets, consider placing blocking scripts above blocking styles. If they do, split that JavaScript in two and load it either side of your CSS.
+另外，避免将 `<link rel="stylesheet" />` 放在 `async` 标签之前。如果脚本不依赖于样式表，请考虑将阻塞脚本放在阻塞样式之前。如果脚本依赖样式，请将该 JavaScript 一分为二，然后对应将其加载到 CSS 的前后。
 
-Scott Jehl solved another interesting problem by [caching an inlined CSS file with a service worker](https://www.filamentgroup.com/lab/inlining-cache.html), a common problem familiar if you’re using critical CSS. Basically, we add an ID attribute onto the `style` element so that it’s easy to find it using JavaScript, then a small piece of JavaScript finds that CSS and uses the Cache API to store it in a local browser cache (with a content type of `text/css`) for use on subsequent pages. To avoid inlining on subsequent pages and instead reference the cached assets externally, we then set a cookie on the first visit to a site. _Voilà!_
+Scott Jehl 通过[使用 service worker 缓存内联 CSS 文件](https:/www.filamentGroup.com/lab/inlining-cache.html)解决了另一个有趣的问题，这是使用关键 CSS 时常见的问题。基本上，我们将 ID 属性添加到 `style` 元素中，以便使用 JavaScript 时可以轻松找到它，然后一小块 JavaScript 发现 CSS 并使用缓存 API 将其存储在本地浏览器缓存中(其内容类型为 `text/css`)，以便在后续页面中使用。为了不在后续页面上内联引用，而是从外部引用缓存的资源，我们在第一次访问站点时设置了一个 cookie。**瞧！**
 
 - YouTube 视频链接：https://youtu.be/Cjo9iq8k-bc
 
-Do we [stream reponses](https://jakearchibald.com/2016/streams-ftw/)? With streaming, HTML rendered during the initial navigation request can take full advantage of the browser’s streaming HTML parser.
+我们是否[以流的方式进行响应了](https:/jakearchibald.com/2016/stream-ftw/)？使用流，在初始导航请求期间呈现的 HTML 可以充分利用浏览器的流 HTML 解析器。
 
-#### 44. Do you stream responses?
+#### 44. 你有没有将请求设为 stream？
 
-Often forgotten and neglected, [streams](https://streams.spec.whatwg.org/) provide an interface for reading or writing asynchronous chunks of data, only a subset of which might be available in memory at any given time. Basically, they allow the page that made the original request to start working with the response as soon as the first chunk of data is available, and use parsers that are optimized for streaming to progressively display the content.
+经常被遗忘和忽略的是 [Streams](https://streams.spec.whatwg.org/)提供了一个读或写异步数据块的接口，在任何给定的时间里，内存中可能只有一部分数据块可用。基本上，它们允许发出原始请求的页面在第一块数据可用时立即开始处理响应，并使用针对流优化的解析器逐步显示内容。
 
-We could create one stream from multiple sources. For example, instead of serving an empty UI shell and letting JavaScript populate it, you can let the service worker construct a stream where the shell comes from a cache, but the body comes from the network. As Jeff Posnick [noted](https://developers.google.com/web/updates/2016/06/sw-readablestreams), if your web app is powered by a CMS that server-renders HTML by stitching together partial templates, that model translates directly into using streaming responses, with the templating logic replicated in the service worker instead of your server. Jake Archibald’s [The Year of Web Streams](https://jakearchibald.com/2016/streams-ftw/) article highlights how exactly you could build it. Performance boost is [quite noticeable](https://www.youtube.com/watch?v=Cjo9iq8k-bc).
+我们可以从多个来源创建一个流。例如，可以让 service worker 构造一个流，其中 shell 来自缓存，但主体来自网络，而不是提供一个空的 UI shell 并让 JavaScript 填充它。正如 Jeff Posnick [所说](https:/developers.google.com/web/update/2016/06/sw-readablestream)，如果你的 Web 应用程序由 CMS 提供支持，该 CMS 通过将部分模板缝合在一起呈现 HTML，则可以将该模型直接转换为使用流响应，模板逻辑将复制到 service worker而不是你的服务器中。Jake Archibald 的 [Web Streams 之年](https:/jakearchibald.com/2016/stream-ftw/)文章重点介绍了如何准确地构建它。可以为性能带来[相当明显的提升](https:/www.youtube.com/watch？v=Cjo9iq8k-bc)。
 
-One important advantage of streaming the entire HTML response is that HTML rendered during the initial navigation request can take full advantage of the browser’s streaming HTML parser. Chunks of HTML that are inserted into a document after the page has loaded (as is common with content populated via JavaScript) can’t take advantage of this optimization.
+流式处理整个 HTML 响应的一个重要优点是，在初始导航请求期间呈现的 HTML 可以充分利用浏览器的流式 HTML 解析器。页面加载后插入到文档中的 HTML 块(这在通过 JavaScript 填充的内容中很常见)则无法享受这种优化。
 
-Browser support? [Getting there](https://caniuse.com/#search=streams) with Chrome 52+, Firefox 57+ (behind flag), Safari and Edge supporting the API and Service Workers being [supported in all modern browsers](https://caniuse.com/#search=serviceworker).
+浏览器支持怎么样呢？[主流浏览器](https:/caniuse.com/#Search=Streams)，Chrome 52+、Firefox 57+、Safari 和 Edge 均支持该 API，而[所有的现代浏览器中都支持](https://caniuse.com/#search=serviceworker) Service Workers。
     
-#### 45. Consider making your components connection-aware
+#### 45. 考虑使组件具有连接感知能力
 
-Data can be [expensive](https://whatdoesmysitecost.com/) and with growing payload, we need to respect users who choose to opt into data savings while accessing our sites or apps. The [Save-Data client hint request header](https://developers.google.com/web/updates/2016/02/save-data) allows us to customize the application and the payload to cost- and performance-constrained users. In fact, you could [rewrite requests for high DPI images to low DPI images](https://css-tricks.com/help-users-save-data/), remove web fonts, fancy parallax effects, preview thumbnails and infinite scroll, turn off video autoplay, server pushes, reduce the number of displayed items and downgrade image quality, or even change how you [deliver markup](https://dev.to/addyosmani/adaptive-serving-using-javascript-and-the-network-information-api-331p). Tim Vereecke has published a very detailed article on [data-s(h)aver strategies](https://calendar.perfplanet.com/2018/data-shaver-strategies/) featuring many options for data saving.
+随着不断增长的负载，数据的开销可能[变得很大](https://whatdoesmysitecost.com/)，我们需要尊重选择在访问我们的网站或应用程序时希望节省流量的用户。[Save-Data 客户端提示请求头](https:/developers.google.com/web/update/2016/02/save-data)允许我们为受成本和性能限制的用户定制应用程序及其负载。事实上，你可以[将高 DPI 图像的请求重写为低 DPI 图像请求](https://css-tricks.com/help-users-save-data/)，删除 Web 字体、花哨的视差效果、预览缩略图和无限滚动、关闭视频自动播放、服务器推送、减少显示项目的数量并降低图像质量，甚至改变[交付标记的方式](https://dev.to/addyosmani/adaptive-serving-using-javascript-and-the-network-information-api-331p)。Tim Vereecke 发表了一篇关于 [data-s(h)aver 策略的非常详细的文章](https:/calendar.perplanet.com/2018/data-shaver-policy/)，其中介绍了许多用于数据保存的选项。
 
-The header is currently supported only in Chromium, on the Android version of Chrome or via the Data Saver extension on a desktop device. Finally, you can also use the [Network Information API](https://googlechrome.github.io/samples/network-information/) to deliver [low/high resolution images](https://justmarkup.com/log/2017/11/network-based-image-loading/) and videos based on the network type. Network Information API and specifically `navigator.connection.effectiveType` (Chrome 62+) use `RTT`, `downlink`, `effectiveType` values (and a few [others](https://wicg.github.io/netinfo/)) to provide a representation of the connection and the data that users can handle.
+目前，只有 Chromium、Android 版本的 Chrome 或桌面设备上的 Data Saver 扩展才支持标识头。最后，你还可以使用 [Network Information API](https:/googlechrome.gitrub.io/samples/network-Information/) 根据网络类型提供[高/低分辨率的图像](https://justmarkup.com/log/2017/11/network-based-image-loading/) 和视频。Network Information API，特别是`navigator.connection.effectiveType`(Chrome62+)使用 `RTT`、`downlink`、`effectiveType`（以及一些[其他值](https://wicg.github.io/netinfo/)）来为用户提供可处理的连接和数据表示。
 
-In this context, Max Stoiber speaks of [connection-aware components](https://mxb.at/blog/connection-aware-components/). For example, with React, we could write a component that renders different elements for different connection types. As Max suggested, a `<Media />` component in a news article might output:
+在这种情况下，Max Stoiber 谈到[连接感知组件](https://mxb.at/blog/connection-aware-components/)。例如，使用 React 时，我们可以编写一个为不同连接类型呈现不同元素的组件。正如 Max 建议的那样，新闻文章中的 `<Media />` 组件或许应该输出为下列的几种形式：
 
-*   `Offline`: a placeholder with `alt` text,
-*   `2G` / `save-data` mode: a low-resolution image,
-*   `3G` on non-Retina screen: a mid-resolution image,
-*   `3G` on Retina screens: high-res Retina image,
-*   `4G`: an HD video.
-    
-Dean Hume provides a [practical implementation of a similar logic](https://deanhume.com/dynamic-resources-using-the-network-information-api-and-service-workers/) using a service worker. For a video, we could display a video poster by default, and then display the "Play" icon as well as the video player shell, meta-data of the video etc. on better connections. As a fallback for non-supporting browsers, we could [listen to `canplaythrough` event](https://benrobertson.io/front-end/lazy-load-connection-speed) and use `Promise.race()` to timeout the source loading if the `canplaythrough` event doesn’t fire within 2 seconds.
+*   `Offline`：带有 `alt` 文本的占位符，
+*   `2G` / `省流` 模式：低分辨率图像，
+*   非视网膜屏的 `3G`：中等分辨率图像，
+*   视网膜屏的 `3G`：高分辨率视网膜图像，
+*   `4G`：高清视频。
 
-#### 46. Consider making your components device memory-aware
+DeanHume 提供了一个使用 service worker 的[类似逻辑的实现](https://deanhume.com/dynamic-resources-using-the-network-information-api-and-service-workers/)。对于视频，我们可以在默认情况下显示视频海报，然后显示“播放”图标，在网络更好的情况下显示视频播放器外壳、视频元数据等。作为浏览器不兼容的降级方案，我们可以[监听 `canplaythrough` 事件](https://benrobertson.io/front-end/lazy-load-connection-speed)，并在 `canplaythrough` 事件 2 秒内未触发的情况下使用 `Promise.race()` 来触发资源加载超时。
 
-Network connection gives us only one perspective at the context of the user though. Going further, you could also dynamically [adjust resources based on available device memory](https://calendar.perfplanet.com/2018/dynamic-resources-browser-network-device-memory/), with the [Device Memory API](https://developers.google.com/web/updates/2017/12/device-memory) (Chrome 63+). `navigator.deviceMemory` returns how much RAM the device has in gigabytes, rounded down to the nearest power of two. The API also features a Client Hints Header, `Device-Memory`, that reports the same value.
+#### 46. 考虑使组件具有设备内存感知能力
 
-![The priority column in DevTools](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/34f6f27f-88a9-425a-910e-39100034def3/devtools-priority-segixq.gif)
+尽管如此，网络连接也只是为我们提供了关于用户上下文的一个视角。更进一步，你还可以动态地[根据可用设备内存调整资源](https://calendar.perfplanet.com/2018/dynamic-resources-browser-network-device-memory/)，使用 [Device Memory API](https:/developers.google.com/web/update/2017/12/Device-Memory)(Chrome63+)。`navigator.deviceMemory` 返回设备的RAM容量（以 GB 为单位），四舍五入到最近的 2 次方。该 API 还具有客户端提示标头 `Device-Memory`，该标头可以提供相同的值。
 
-The 'Priority' column in DevTools. Image credit: Ben Schwarz, [The Critical Request](https://css-tricks.com/the-critical-request/)
+![DevTools 中的“优先级”列](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/34f6f27f-88a9-425a-910e-39100034def3/devtools-priority-segixq.gif)。
 
-#### 47. Warm up the connection to speed up delivery
+DevTools 中的“优先级”列。图片来源：Ben Schwarz，[关键请求](https://css-tricks.com/the-critical-request/)
 
-Use [resource hints](https://w3c.github.io/resource-hints) to save time on [`dns-prefetch`](http://caniuse.com/#search=dns-prefetch) (which performs a DNS lookup in the background), [`preconnect`](http://www.caniuse.com/#search=preconnect) (which asks the browser to start the connection handshake (DNS, TCP, TLS) in the background), [`prefetch`](http://caniuse.com/#search=prefetch) (which asks the browser to request a resource) and [`preload`](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) (which prefetches resources without executing them, among other things).
+#### 47. 做好连接的热身准备以加速交付
 
-Most of the time these days, we’ll be using at least `preconnect` and `dns-prefetch`, and we’ll be cautious with using `prefetch` and `preload`; the former should only be used if you are confident about what assets the user will need next (for example, in a purchasing funnel).
+使用[资源提示](https://w3c.github.io/resource-hints)来节省 [`dns-prefch`](http://caniuse.com/#search=dns-prefetch)（在后台执行 DNS 查找）的时间。[`preconnect`](http://www.caniuse.com/#search=preconnect) 要求浏览器在后台启动连接握手（DNS、TCP、TLS），[`prefetch`](http://caniuse.com/#search=prefetch)（要求浏览器请求资源）和 [`preload`](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/)（除此之外，它并不需要执行它们即可预获取资源）。
 
-Note that even with `preconnect` and `dns-prefetch`, the browser has a limit on the number of hosts it will look up/connect to in parallel, so it’s a safe bet to order them based on priority (_thanks Philip!_).
+现在大部分时间里，我们至少会使用 `preconnect` 和 `dns-prefetch`，并且我们会谨慎地使用 `prefetch` 和 `preload`；只有当您对用户下一步需要哪些资源（例如，当用户处于购买漏斗模型中时）有信心时，才应该使用前者。
 
-In fact, using resource hints is probably the easiest way to boost performance, and [it works well indeed](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf). When to use what? As Addy Osmani [has explained](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf), we should preload resources that we have high-confidence will be used in the current page. Prefetch resources likely to be used for future navigations across multiple navigation boundaries, e.g. Webpack bundles needed for pages the user hasn’t visited yet.
+请注意，即使使用 `preconnect` 和 `dns-prefetch`，浏览器对要并行查找/连接到的主机数量也有限制，因此基于优先级对它们进行排序是安全的（**感谢 Philip！**）。
 
-Addy’s article on ["Loading Priorities in Chrome"](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) shows how _exactly_ Chrome interprets resource hints, so once you’ve decided which assets are critical for rendering, you can assign high priority to them. To see how your requests are prioritized, you can enable a "priority" column in the Chrome DevTools network request table (as well as Safari Technology Preview).
+事实上，使用资源提示可能是提高性能的最简单的方法，而且[它确实很有效](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。什么时候用什么？正如 Addy Osmani [曾解释过的](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)，我们应该预先加载我们高度信任的资源，以便在当前页面中使用这些资源。预获取资源可能会用于未来跨边界的导航，例如用户尚未访问的页面所需的 webpack bundles。
 
-For example, since fonts usually are important assets on a page, it’s always a good idea to [request the browser to download fonts with](https://css-tricks.com/the-critical-request/#article-header-id-2) [`preload`](https://css-tricks.com/the-critical-request/#article-header-id-2). You could also [load JavaScript dynamically](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/#dynamic-loading-without-execution), effectively lazy-loading execution. Also, since `<link rel="preload">` accepts a `media` attribute, you could choose to [selectively prioritize resources](https://css-tricks.com/the-critical-request/#article-header-id-3) based on `@media` query rules.
+Addy 关于[“在 Chrome 中加载优先级”]的文章(https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)准确地展示了 Chrome 是如何解释资源提示的，因此一旦确定了哪些资源对于渲染至关重要，就可以为它们分配高优先级。要查看请求的优先级，可以在 Chrome 的  DevTools 网络请求表（以及 Safari 的 Technology Preview）中启用“优先级”列。
 
-A few [gotchas to keep in mind](https://dexecure.com/blog/http2-push-vs-http-preload/): `preload` is good for [moving the start download time of an asset](https://www.youtube.com/watch?v=RWLzUnESylc) closer to the initial request, but preloaded assets land in the memory cache which is tied to the page making the request. `preload` plays well with the HTTP cache: a network request is never sent if the item is already there in the HTTP cache.
+例如，由于字体通常是页面上的重要资源，使用[请求浏览器下载字体](https://css-tricks.com/the-critical-request/#article-header-id-2)的 [`preload`](https://css-tricks.com/the-critical-request/#article-header-id-2) 一直是个好主意。你还可以[动态加载 JavaScript](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/#dynamic-loading-without-execution)，有效地执行延迟加载。另外，由于 `<link rel="preload">` 接受一个 `media` 属性，因此可以基于 `@media` 查询规则选择[可选的资源优先级](https://css-tricks.com/the-critical-request/#article-header-id-3)。
 
-Hence, it’s useful for late-discovered resources, a hero image loaded via background-image, inlining critical CSS (or JavaScript) and pre-loading the rest of the CSS (or JavaScript). Also, a `preload` tag can initiate a preload only after the browser has received the HTML from the server and the lookahead parser has found the `preload` tag.
+一些[要记住的点](https://dexecure.com/blog/http2-push-vs-http-preload/)：`preload` 有利于[使资源的开始下载时间](https://www.youtube.com/watch?v=RWLzUnESylc)更接近初始请求，但是，预加载的资源会存在内存缓存中，该缓存绑定到发出请求的页面上。`preload` 可以很好地处理 HTTP 缓存：如果 HTTP 缓存中已经存在该资源，则永远不会针对该资源去发送网络请求。
 
-Preloading via the HTTP header is a bit faster since we don’t to wait for the browser to parse the HTML to start the request. [Early Hints](https://www.fastly.com/blog/faster-websites-early-priority-hints) will help even further, enabling preload to kick in even before the response headers for the HTML are sent and [Priority Hints](https://github.com/WICG/priority-hints) ([coming soon](https://www.chromestatus.com/feature/5273474901737472)) will help us indicate loading priorities for scripts.
+因此，对于最近发现的资源、通过后台图像加载的主页横幅、内联关键的 CSS（或 JavaScript）以及预加载 CSS（或 JavaScript）的其余部分，它非常有用。此外，`preload` 标记只能在浏览器接收到来自服务器的 HTML 并且先行解析器找到 `preload` 标记后才能启动预加载。
 
-Beware: if you’re using `preload`, `as` **must** be defined or [nothing loads](https://twitter.com/yoavweiss/status/873077451143774209), plus [preloaded fonts without the](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) [`crossorigin`](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) [attribute will double fetch](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf).
+通过 HTTP 报头预加载要快一些，因为我们不需要等待浏览器解析 HTML 来启动请求。[预提示](https://www.fastly.com/blog/faster-websites-early-priority-hints) 将提供更多帮助，即使在发送 HTML 的响应头和[优先级提示](https://github.com/WICG/priority-hints)（[即将发布](https://www.chromestatus.com/feature/5273474901737472)）之前就启用预加载，将帮助我们指示脚本的加载优先级。
 
-#### 48. Use service workers for caching and network fallbacks
+注意：如果你使用的是 `preload`，`预加载的内容` **必须被定义** 否则就[不会加载任何内容](https://twitter.com/yoavweiss/status/873077451143774209)，另外[不使用预加载字体的话](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)[`跨域`](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)[属性会两次获取数据](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。
 
-No performance optimization over a network can be faster than a locally stored cache on a user’s machine. If your website is running over HTTPS, use the "[Pragmatist’s Guide to Service Workers](https://github.com/lyzadanger/pragmatist-service-worker)" to cache static assets in a service worker cache and store offline fallbacks (or even offline pages) and retrieve them from the user’s machine, rather than going to the network. Also, check Jake’s [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) and the free Udacity course "[Offline Web Applications](https://www.udacity.com/course/offline-web-applications--ud899)."
+#### 48. 使用 service workers 进行缓存和网络降级
 
-Browser support? As stated above, it’s [widely supported](http://caniuse.com/#search=serviceworker) (Chrome, Firefox, Safari TP, Samsung Internet, Edge 17+) and the fallback is the network anyway. Does it help boost performance? [Oh yes, it does](https://developers.google.com/web/showcase/2016/service-worker-perf). And it’s getting better, e.g. with Background Fetch allowing background uploads/downloads from a service worker. [Shipped in Chrome 71](https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/z5WX-2RMulo/JQqeF3XZAgAJ).
+网络上的任何性能优化都赶不上从用户计算机上本地存储的缓存中取数据快。如果你的网站基于 HTTPS 协议，请使用“[Service Workers 的实用指南](https://github.com/lyzadanger/pragmatist-service-worker)”将静态资源缓存到 service worker 缓存中，并存储离线回退(甚至离线页)，然后从用户的计算机检索它们，而不是转向网络。此外，请查看 Jake 的[离线 Cookbook](https://jakearchibald.com/2014/offline-cookbook/) 和免费的 udacity 课程“[离线 Web 应用](https://www.udacity.com/course/offline-web-applications--ud899)”。
 
-There are a number of use cases for a service worker. For example, you could [implement "Save for offline" feature](https://una.im/save-offline/#%F0%9F%92%81), [handle broken images](https://bitsofco.de/handling-broken-images-with-service-worker/), introduce [messaging between tabs](https://www.loxodrome.io/post/tab-state-service-workers/) or [provide different caching strategies based on request types](https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c). In general, a common reliable strategy is to store the app shell in the service worker’s cache along with a few critical pages, such as offline page, frontpage and anything else that might be important in your case.
+浏览器支持怎么样呢？如上所述，它得到了[广泛支持](http://caniuse.com/#search=serviceworker)（Chrome、Firefox、Safari TP、三星浏览器、Edge 17+），降级的话就是去发网络请求。它是否有助于提高性能呢？[当然了，](https://developers.google.com/web/showcase/2016/service-worker-perf)。而且它正在变得更好，例如通过后台抓取，允许从 service worker 进行后台上传/下载等。[Chrome71 中已发布](https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/z5WX-2RMulo/JQqeF3XZAgAJ)。
 
-There are a few gotchas to keep in mind though. With a service worker in place, we need to [beware range requests in Safari](https://philna.sh/blog/2018/10/23/service-workers-beware-safaris-range-request/) (if you are using Workbox for a service worker it has a [range request module](https://developers.google.com/web/tools/workbox/modules/workbox-range-requests)). If you ever stumbled upon `DOMException: Quota exceeded.` error in the browser console, then look into Gerardo’s article [When 7KB equals 7MB](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/).
+service worker 有许多使用案例。例如，可以[实现“离线保存”功能](https://una.im/save-offline/#%F0%9F%92%81)、[处理已损坏图像](https://bitsofco.de/handling-broken-images-with-service-worker/)，介绍[选项卡之间的消息传递](https://www.loxodrome.io/post/tab-state-service-workers/)或[根据请求类型提供不同的缓存策略](https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c)。一般来说，一种常见的可靠策略是将应用程序外壳与几个关键页面一起存储在 service worker 的缓存中，例如离线页面、前端页面以及对具体场景中可能重要的任何其他页面。
 
-As Gerardo writes, “If you are building a progressive web app and are experiencing bloated cache storage when your service worker caches static assets served from CDNs, make sure the [proper CORS response header exists](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/#opaque-responses) for cross-origin resources, you [do not cache opaque responses](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/#should-opaque-responses-be-cached-at-all) with your service worker unintentionally, you [opt-in cross-origin image assets into CORS mode](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/#opt-in-to-cors-mode) by adding the `crossorigin` attribute to the `<img>` tag.”
+尽管如此，还是有几个问题需要记住。使用 service worker 时，我们需要[注意 Safari 中的范围请求](https://philna.sh/blog/2018/10/23/service-workers-beware-safaris-range-request/)（如果你使用的是 service worker 的工作框，它有一个[范围请求模块](https://developers.google.com/web/tools/workbox/modules/workbox-range-requests)）。如果你在浏览器控制台中偶然发现了 `DOMException: Quota exceeded.` 错误，那么请查看 Gerardo 的文章[当 7KB 等于 7Mb](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/)。
 
-A good starting point for using service workers would be [Workbox](https://developers.google.com/web/tools/workbox/), a set of service worker libraries built specifically for building progressive web apps.
+Gerardo 写道：“如果你正在构建一个渐进式 Web 应用程序，并且使用 service worker 缓存来自 CDN 的静态资源，并正在经历高速缓存存储膨胀，请确保跨域资源[有适当的 CORS 响应头存在](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/#opaque-responses)，[不要缓存不透明的响应](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/#should-opaque-responses-be-cached-at-all)，通过给 `<img>` 标签设置 `crossorigin` 属性，[将跨域图像资源设为 CORS 模式](https://cloudfour.com/thinks/when-7-kb-equals-7-mb/#opt-in-to-cors-mode)“。
 
-#### 49. Are you using service workers on the CDN/Edge, e.g. for A/B testing?
+使用 service worker 的一个很好的起点是 [workbox](https://developers.google.com/web/tools/workbox/)，这是一组专门为构建渐进式 Web 应用程序而构建的 service worker 库。
 
-At this point, we are quite used to running service workers on the client, but with [CDNs implementing them on the server](https://blog.cloudflare.com/introducing-cloudflare-workers/), we could use them to tweak performance on the edge as well.
+#### 49. 是否在 CDN/Edge 上使用了 service workers，例如，用于 A/B 测试？
 
-For example, in A/B tests, when HTML needs to vary its content for different users, we could [use Service Workers on the CDN servers](https://www.filamentgroup.com/lab/servers-workers.html) to handle the logic. We could also [stream HTML rewriting](https://twitter.com/patmeenan/status/1065567680298663937) to speed up sites that use Google Fonts.
+在这一点上，我们已经习惯于在客户端上运行 service worker，但是通过[在 CDN 服务器上使用它们](https://blog.cloudflare.com/introducing-cloudflare-workers/)，我们也可以实现用它们来调整边缘性能。
 
-#### 50. Optimize rendering performance
+例如，在 A/B 测试中，当 HTML 需要为不同的用户改变其内容时，我们可以[使用 CDN 服务器上的 service worker](https://www.filamentgroup.com/lab/servers-workers.html) 来处理逻辑。我们还可以通过[重写 HTML 流](https://twitter.com/patmeenan/status/1065567680298663937)来加速使用谷歌字体的站点。
 
-Isolate expensive components with [CSS containment](http://caniuse.com/#search=contain) — for example, to limit the scope of the browser’s styles, of layout and paint work for off-canvas navigation, or of third-party widgets. Make sure that there is no lag when scrolling the page or when an element is animated, and that you’re consistently hitting 60 frames per second. If that’s not possible, then at least making the frames per second consistent is preferable to a mixed range of 60 to 15. Use CSS’ [`will-change`](http://caniuse.com/#feat=will-change) to inform the browser of which elements and properties will change.
+#### 50. 优化渲染性能
 
-Also, measure [runtime rendering performance](https://aerotwist.com/blog/my-performance-audit-workflow/#runtime-performance) (for example, [in DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools/)). To get started, check Paul Lewis’ free [Udacity course on browser-rendering optimization](https://www.udacity.com/course/browser-rendering-optimization--ud860) and Georgy Marchuk’s article on [Browser painting and considerations for web performance](https://css-tricks.com/browser-painting-and-considerations-for-web-performance/).
+使用[CSS容器](http://caniuse.com/#search=contain)隔离开销大的组件 —— 例如，限制浏览器样式、画布和画图用于画布外导航或第三方小部件的范围。请确保在滚动页面或设置元素动画时没有延迟，并且始终达到每秒 60 帧。如果这无法实现，那么至少使每秒的帧数保持一致，这比 60 到 15 之间的不定值更可取。使用 CSS 的 [`will-change`](http://caniuse.com/#feat=will-change) 去通知浏览器哪些元素和属性将更改。
 
-If you want to dive deeper into the topic, Nolan Lawson has shared [tricks to accurately measure layout performance](https://nolanlawson.com/2018/09/25/accurately-measuring-layout-on-the-web/) in his article, and Jason Miller [suggested alternative techniques, too](https://twitter.com/_developit/status/1081682550865752064). We also have a lil' article by Sergey Chikuyonok on how to [get GPU animation right](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/). Quick note: changes to GPU-composited layers are the [least expensive](https://blog.algolia.com/performant-web-animations/), so if you can get away by triggering only compositing via `opacity` and `transform`, you'll be on the right track. Anna Migas has provided a lot of practical advice in her talk on [Debugging UI Rendering Performance](https://vimeo.com/302791098), too.
+此外，度量[运行时渲染性能](https://aerotwist.com/blog/my-performance-audit-workflow/#runtime-performance)（例如，[使用 DevTools 中的 rendering 工具](https://developers.google.com/web/tools/chrome-devtools/rendering-tools/)）。想要快速上手，可以查看 Paul Lewis [关于浏览器渲染优化的免费 udacity 课程](https://www.udacity.com/course/browser-rendering-optimization--ud860)和 Georgy Marchuk 关于[浏览器绘制和 Web 性能思考的文章](https://css-tricks.com/browser-painting-and-considerations-for-web-performance/)。
 
-#### 51. Have you optimized rendering experience?
+如果你想深入探讨这个话题，Nolan Lawson 在他的文章中分享了[精确测量布局性能的技巧](https://nolanlawson.com/2018/09/25/accurately-measuring-layout-on-the-web/)，Jason Miller [也给出了替代技术的建议](https://twitter.com/_developit/status/1081682550865752064)。 我们还有 Sergey Chikuyonok 撰写的一篇关于如何[正确制作 GPU 动画](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/)的文章。快速提示：对 GPU 合成层的更改是[开销最小的](https://blog.algolia.com/performant-web-animations/)，因此，如果你只通过 `opacity` 和 `transform` 触发合成，那就对了。Anna Migas 在她关于[调试 UI 呈现性能](https://vimeo.com/302791098)的演讲中也提供了很多实用的建议。 
 
-While the sequence of how components appear on the page, and the strategy of how we serve assets to the browser matter, we shouldn’t underestimate the role of [perceived performance](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/), too. The concept deals with psychological aspects of waiting, basically keeping customers busy or engaged while something else is happening. That’s where [perception management](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/), [preemptive start](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#preemptive-start), [early completion](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#early-completion) and [tolerance management](https://www.smashingmagazine.com/2015/12/performance-matters-part-3-tolerance-management/) come into play.
+#### 51. 是否优化了渲染体验？
 
-What does it all mean? While loading assets, we can try to always be one step ahead of the customer, so the experience feels swift while there is quite a lot happening in the background. To keep the customer engaged, we can test [skeleton screens](https://twitter.com/lukew/status/665288063195594752) ([implementation demo](https://twitter.com/razvancaliman/status/734088764960690176)) instead of loading indicators, add transitions/animations and basically [cheat the UX](https://blog.stephaniewalter.fr/en/cheating-ux-perceived-performance-and-user-experience/) when there is nothing more to optimize. Beware though: skeleton screens should be tested before deploying as some [tests showed that skeleton screens can perform the worst](https://www.viget.com/articles/a-bone-to-pick-with-skeleton-screens/) by all metrics.
+虽然组件在页面上的显示顺序以及我们如何将资源提供给浏览器的策略很重要，但我们不应低估[感知性能](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/)的作用。这一概念涉及到等待时的心理效应，基本上是让顾客在其他事情发生的时候保持有事可做。这就是[感知管理](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/)、[抢先启动](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#preemptive-start)、[提前完成](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#early-completion)和[容忍度管理](https://www.smashingmagazine.com/2015/12/performance-matters-part-3-tolerance-management/)开始发挥作用。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> **[译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)**
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+这一切意味着什么？在加载资源时，我们可以尝试始终领先于客户一步，这样在后台繁忙的时候，用户依然感觉页面速度很快。为了让客户参与进来，我们可以测试[框架屏幕](https://twitter.com/lukew/status/665288063195594752)（[实现演示](https://twitter.com/razvancaliman/status/734088764960690176)），而不是loading指示器。添加过渡/动画，简单的[欺骗用户体验](https://blog.stephaniewalter.fr/en/cheating-ux-perceived-performance-and-user-experience/)。不过，请注意：在部署之前应该对骨架屏幕进行测试，因为从各项指标来看，有些[测试表明，骨架屏幕的性能最差](https://www.viget.com/articles/a-bone-to-pick-with-skeleton-screens/)。
+
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - **[译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)**
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
