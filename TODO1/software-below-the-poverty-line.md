@@ -50,9 +50,9 @@ dat://bf7b912fff1e64a52b803444d871433c5946c990ae51f2044056bf6f9655ecbf
 
 ## 受欢迎度 VS 公平
 
-虽然人气是绿色和蓝色的可持续发展的关键，但红色的也有受欢迎的产品，如 [Prettier](https://github.com/prettier/prettier)，[Curl](https://github.com/curl/curl)，[Jekyll](https://github.com/jekyll/jekyll)，[Jekyll](https://github.com/jekyll/jekyll)，[Electron](https://github.com/electron/electron)（更新：） [AVA](https://github.com/avajs/)。这并不意味着从事这些项目的人很穷，因为在某些情况下，维护人员在允许贡献开源的公司工作。然而，它的真正含义是，除非企业积极地用大量资金支持开源，否则剩下的情况就是大多数开源维护者资金严重不足。仅就捐赠而言，开源在最佳状态下是可持续的（符合行业标准）：当一个团队规模足够小的流行项目知道如何从一群捐助者或赞助组织那里筹集大量资金时。公平的可持续性对这些因素相当敏感。
+虽然人气是绿色和蓝色的可持续发展的关键，但红色的也有受欢迎的产品，如 [Prettier](https://github.com/prettier/prettier)，[Curl](https://github.com/curl/curl)，[Jekyll](https://github.com/jekyll/jekyll)，[Electron](https://github.com/electron/electron)（更新：）[AVA](https://github.com/avajs/)。这并不意味着从事这些项目的人很穷，因为在某些情况下，维护人员在允许贡献开源的公司工作。然而，它的真正含义是，除非企业积极地用大量资金支持开源，否则剩下的情况就是大多数开源维护者资金严重不足。仅就捐赠而言，开源在最佳状态下是可持续的（符合行业标准）：当一个团队规模足够小的流行项目知道如何从一群捐助者或赞助组织那里筹集大量资金时。公平的可持续性对这些因素相当敏感。
 
-由于可见性是捐赠驱动的可持续性的基础，“隐形基础设施”项目往往比可见的项目更糟糕。 例如，[Core-js](https://github.com/zloirock/core-js) 不如 [Babel](https://github.com/babel/babel) 流行，尽管 [Bable 依赖于它](https://babeljs.io/docs/en/next/babel-polyfill.html)。
+由于可见性是捐赠驱动的可持续性的基础，“隐形基础设施”项目往往比可见的项目更糟糕。例如，[Core-js](https://github.com/zloirock/core-js) 不如 [Babel](https://github.com/babel/babel) 流行，尽管 [Bable 依赖于它](https://babeljs.io/docs/en/next/babel-polyfill.html)。
 
 | Library | Used by | Stars | 'Salary' |
 | ------- | ------- | ----- | -------- |
@@ -63,9 +63,9 @@ dat://bf7b912fff1e64a52b803444d871433c5946c990ae51f2044056bf6f9655ecbf
 
 在 Babel 和 Core-js 的例子中，没有太多的盈余可供分享。Henry Zhu 在讲话中指出，资金已经非常有限。在这种情况下，Babel 似乎是一个**很**显而易见的项目，但让我吃惊的是，Henry 告诉我，许多人虽然使用 Babel，却没有意识到它，因为他们可能将它用作传递依赖项。
 
-另一方面，低层库的维护者认识到需要与更多可见的项目合作，[甚至合并项目](https://twitter.com/wooorm/status/1062404997240012800)，以提高整体知名度，受欢迎程度，从而提高资金。 Titus 的 Unified 就是这样，这是一个你可能没有听说过的项目，但是在 [MDX](https://github.com/mdx-js/mdx/blob/deff36bebfedb3a9de0a0575ee9a1b55b9b8aa18/package.json#L20)， [Gatsby](https://github.com/gatsbyjs/gatsby/blob/25d4a4dab66e04717fb09dc5edb1f7b856fc41ff/packages/gatsby-transformer-remark/package.json#L26)，[Prettier](https://github.com/prettier/prettier/blob/24f161db565c1a6692ee98191193d9cf9ff31d6f/package.json#L66)，[Storybook](https://github.com/storybookjs/storybook/blob/fed2ffa5e2919220f0508e540b2eae848523fee5/package.json#L214) 和其他许多软件中使用了 Unified 和它的许多软件包。
+另一方面，低层库的维护者认识到需要与更多可见的项目合作，[甚至合并项目](https://twitter.com/wooorm/status/1062404997240012800)，以提高整体知名度，受欢迎程度，从而提高资金。Titus 的 Unified 就是这样，这是一个你可能没有听说过的项目，但是在 [MDX](https://github.com/mdx-js/mdx/blob/deff36bebfedb3a9de0a0575ee9a1b55b9b8aa18/package.json#L20)，[Gatsby](https://github.com/gatsbyjs/gatsby/blob/25d4a4dab66e04717fb09dc5edb1f7b856fc41ff/packages/gatsby-transformer-remark/package.json#L26)，[Prettier](https://github.com/prettier/prettier/blob/24f161db565c1a6692ee98191193d9cf9ff31d6f/package.json#L66)，[Storybook](https://github.com/storybookjs/storybook/blob/fed2ffa5e2919220f0508e540b2eae848523fee5/package.json#L214) 和其他许多软件中使用了 Unified 和它的许多软件包。
 
-同样，受欢迎的项目在财务上比不那么受欢迎的依赖要好，这也是不正确的。Prettier（32k stars）使用 Unified （1k stars）作为依赖项，但是 Unified 的年收入比 Prettier 高。事实上，许多依赖于 Unified 的流行项目在每个团队成员身上获得的资金都要少得多。 但是，Unified 本身接受的资金仍低于行业标准，并没有向下（或向上？）涓滴资金。
+同样，受欢迎的项目在财务上比不那么受欢迎的依赖要好，这也是不正确的。Prettier（32k stars）使用 Unified （1k stars）作为依赖项，但是 Unified 的年收入比 Prettier 高。事实上，许多依赖于 Unified 的流行项目在每个团队成员身上获得的资金都要少得多。但是，Unified 本身接受的资金仍低于行业标准，并没有向下（或向上？）涓滴资金。
 
 其他时候，很难说当项目 A 使用项目 B 时，它必须捐赠给 B，因为可能 B 也使用了 A！例如，[Babel 是 Prettier 中的依赖项](https://github.com/prettier/prettier/blob/24f161db565c1a6692ee98191193d9cf9ff31d6f/package.json#L19)，[Prettier 是 Babel 中的依赖项](https://github.com/babel/babel/blob/f92c2ae830dbb32013a36fa74facd2ef95b9947d/package.json#L59)。可能本次研究中涉及的许多项目彼此**之间**都有一个复杂的依赖关系网络，因此很难说这些项目中的资金应该如何流动。
 
@@ -73,9 +73,9 @@ dat://bf7b912fff1e64a52b803444d871433c5946c990ae51f2044056bf6f9655ecbf
 
 对所有的维护者来说，投入到开源上的总资金是不够的。如果我们把数据集中的这些项目的年收入加在一起，就是 250 万美元。工资中位数约为 $9k，低于贫困线。如果将这笔钱平均分配，大约是 $22k，仍然低于行业标准。
 
-核心问题不是开源项目没有分享所获得的资金。问题在于，从总数来看，开源并没有得到足够的资金。250万美元是不够的。从这个数字来看，创业公司通常得到的都远不止这些。
+核心问题不是开源项目没有分享所获得的资金。问题在于，从总数来看，开源并没有得到足够的资金。250 万美元是不够的。从这个数字来看，创业公司通常得到的都远不止这些。
 
-[Tidelift 已经收到了 4000 万美元](https://www.crunchbase.com/organization/tidelift) 的资金，用于“帮助开源创建者和维护者获得公平的工作报酬”[（引用）](https://tidelift.com/docs/lifting/paying)。他们有一个[ 27 人的团队](https://tidelift.com/about)，其中一些人是大公司（如 Google 和 GitHub）的前雇员。他们的工资可能没有那么低。然而，他们在网站上[展示的许多开源项目](https://tidelift.com/subscription)在捐赠收入方面都低于贫困线。实际上，我们并不清楚 Tidelift 为这些项目的维护者提供了多少资金，但是他们的[订阅价格](https://tidelift.com/subscription/pricing)非常高。不透明的价格和成本结构历来帮助企业掩盖这种不平等现象。
+[Tidelift 已经收到了 4000 万美元](https://www.crunchbase.com/organization/tidelift) 的资金，用于“帮助开源创建者和维护者获得公平的工作报酬”[（引用）](https://tidelift.com/docs/lifting/paying)。他们有一个 [27 人的团队](https://tidelift.com/about)，其中一些人是大公司（如 Google 和 GitHub）的前雇员。他们的工资可能没有那么低。然而，他们在网站上[展示的许多开源项目](https://tidelift.com/subscription)在捐赠收入方面都低于贫困线。实际上，我们并不清楚 Tidelift 为这些项目的维护者提供了多少资金，但是他们的[订阅价格](https://tidelift.com/subscription/pricing)非常高。不透明的价格和成本结构历来帮助企业掩盖这种不平等现象。
 
 GitHub 被[微软以 75 亿美元收购](https://venturebeat.com/2018/06/04/microsoft-confirms-it-will-acquire-github-for-7-5-billion/)。为了让这个数字更容易理解，微软收购 GitHub 的金额是开源社区年收益的 **3000** 多倍。换句话说，如果开源社区把他们收到的每一分钱都存起来，那么在几千年后，他们也许就有足够的钱来一起买下 GitHub。现在GitHub也有了自己的[开源经济团队 ](https://www.youtube.com/watch?v=n47rCa9dxf8)（这个团队有多大，他们的薪水是多少？），但 GitHub 新的赞助功能远不如 OpenCollective 透明。不同于 GitHub 开放数据的一贯做法（如提交日历或贡献者图表），当涉及到捐赠时，用户无法知道每个开源维护者得到了多少。它是不透明的。
 
