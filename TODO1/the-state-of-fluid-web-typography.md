@@ -18,13 +18,9 @@ Web 流式文字排版可以提升用户的网站阅读体验，但与此同时�
 回答这个问题并没有那么容易，因为原因并不是单方面的。我认为可以归结为以下几个：
 
 1. 好的响应式 Web 设计/开发仍然是困难和复杂的。
-
 2. Web 文字排版仍旧没有引起设计者/开发者的重视。
-
 3. 潜在的对浏览器无障碍访问功能的影响。
-
 4. 流式文字排版是比较难实现的。
-
 
 让我们来仔细分析下每个原因。
 
@@ -84,25 +80,21 @@ h1 {
 
 看看 CodePen 上这个[响应式布局的简单示例](https://codepen.io/matejlatin/full/oRLaXy)。在所有的浏览器中均没有无障碍访问问题，那么为什么我们还要改进它呢？字体大小只会在我们定义的断点发生改变，这是很多人会担心的问题。在上面的示例中，我们网站的用户会发现字体的大小一直为16px，直到屏幕的宽度变成了 768px 才发生变化。如果用户在平板电脑上访问我们的网站，他看到的根节点的字体大小是 18px  (112.5%)。在我看来，这个方法最主要的问题是他们过分关注了自己而忽略了用户。如果调整窗口的大小将会看到这样的现象：
 
-![响应式布局: 字体大小只会在预定义的断点处发生变化，这会导致字体像这样发生突变。](https://betterwebtype.com/assets/img/posts/state-of-fluid-web-typography/responsive.gif)
+![Responsive typography: fonts only resize at predefined breakpoints which results in drastic shifts like these.](https://betterwebtype.com/assets/img/posts/state-of-fluid-web-typography/responsive.gif)
 
 响应式布局: 字体大小只会在预定义的断点处发生变化，这会导致字体像这样发生突变。
 
-是的，字体大小只在我们定义的断点处发生变化，但是我们忘记了用户对于他们设备上的字体大小有绝对的控制权。如果他们从电脑端访问并且觉得 18px 的字体大小不够大，他们可以轻易地调整（如果我们没有使用例如 px 一样的非相对单位来覆盖默认的字体大小）
+是的，字体大小只在我们定义的断点处发生变化，但是我们忘记了用户对于他们设备上的字体大小有绝对的控制权。如果他们从电脑端访问并且觉得 18px 的字体大小不够大，他们可以轻易地调整（如果我们没有使用例如 px 一样的非相对单位来覆盖默认的字体大小）。
 
 ### 优点
 
 * 用户保持对字体大小的控制权，没有无障碍访问问题。
-
 * 运用得当的情况下，少量的媒体查询可以覆盖大部分不同屏幕宽度的设备。
-
 
 ### 缺点
 
 * 字体大小是大多数时候是维持不变的且受限于事先定义的断点（屏幕宽度）。
-
 * 大屏幕上有大量的空白，字体大小不自适应，最终的网站呈现为居中的单列布局。
-
 
 ## 纯流式文字排版
 
@@ -132,11 +124,11 @@ h1 {
 
 是否注意到了字体在移动端的屏幕大小中的变化？最终的显示效果太小了，那么我们如何能修复这个问题呢？
 
-### Pros
+### 优点
 
 * 在实践中，如果流式文字排版不和响应式布局一起使用的话，是毫无优势可言的。
 
-### Cons
+### 缺点
 
 * 对无障碍访问功能使用的影响（用户在某些浏览器中不能控制字体的大小）。
 * 会覆盖用户在浏览器中设置的默认的字体大小，这是另外一个对无障碍访问功能使用的影响。
@@ -178,7 +170,7 @@ h1 {
 
 ![Fluid + responsive typography: we limit the scaling of font sizes for small and large screens.](https://betterwebtype.com/assets/img/posts/state-of-fluid-web-typography/fluid+responsive.gif)
 
-流式布局 + 响应式布局：限制了小屏幕和大屏幕中字体大小的变化
+流式布局 + 响应式布局：限制了小屏幕和大屏幕中字体大小的变化。
 
 我不知道你怎么看，但是对我来说，这种做法的投入和产出比是不太理想的，我不否认它比纯响应式文字排版实现的效果更好，但是它也引入了其它的问题，包括无障碍访问的问题，这对我来说是无法接受的。
 
@@ -243,11 +235,8 @@ CSS 锁定了变化。字体大小只在特定的区间范围内改变。
 ---
 
 1. <a name="note1"></a>**Viewport Sized Typography** by Chris Coyier ([链接](https://css-tricks.com/viewport-sized-typography/))
-
 2. <a name="note2"></a>**Precise Control Over Responsive Typography** by Mike Riethmuller ([链接](https://www.madebymike.com.au/writing/precise-control-responsive-typography/))
-
 3. <a name="note3"></a>**Flexible Typography with CSS Locks** by Tim Brown ([链接](https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/))
-
 4. <a name="note4"></a>**Fluid Typography** by Geoff Graham ([链接](https://css-tricks.com/snippets/css/fluid-typography/))
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
