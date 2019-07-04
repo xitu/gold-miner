@@ -5,14 +5,14 @@
 > * 译者：[suhanyujie](https://github.com/suhanyujie)
 > * 校对者：
 
-# 通过 Rust 学习解析器组合器 - 第三部分
+# 通过 Rust 学习解析器组合器 — 第三部分
 
 如果你没看过本系列的其他几篇文章，建议你按照顺序进行阅读：
 
-- [通过 Rust 学习解析器组合器 - 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
-- [通过 Rust 学习解析器组合器 - 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-- [通过 Rust 学习解析器组合器 - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-- [通过 Rust 学习解析器组合器 - 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
+- [通过 Rust 学习解析器组合器 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
+- [通过 Rust 学习解析器组合器 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
+- [通过 Rust 学习解析器组合器 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
+- [通过 Rust 学习解析器组合器 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
 ### 判定组合器
 
@@ -112,7 +112,7 @@ fn quoted_string<'a>() -> impl Parser<'a, String> {
 
 最外层的组合器是一个 `map`，因为之前提到嵌套很烦人，从这里开始会变得糟糕并且我们要忍受并理解这一点，我们试着找到开始执行的地方：第一个引号字符。在 `map` 中，有一个 `right`，而 `right` 的第一部分是我们要查找的：`match_literal("\"")`。以上就是我们一开始要着手处理的东西。
 
-`right` 的第二部分是字符串剩余部分的处理。它位于 `left` 的内部，我们会很快的注意到**右侧**的 `left` 参数，是我们要忽略的，也就是另一个 `match_literal("\"")`  —— 结束的引号。所以左侧参数是我们引用的字符串。
+`right` 的第二部分是字符串剩余部分的处理。它位于 `left` 的内部，我们会很快的注意到**右侧**的 `left` 参数，是我们要忽略的，也就是另一个 `match_literal("\"")` —— 结束的引号。所以左侧参数是我们引用的字符串。
 
 我们利用新的 `pred` 和 `any_char` 在这里得到一个解析器，它接收**任何字符除了另一个引号**，我们把它放进 `zero_or_more`，所以我们讲的也是以下这些：
 
@@ -150,7 +150,7 @@ fn attribute_pair<'a>() -> impl Parser<'a, (String, String)> {
 }
 ```
 
-太轻松了，汗都没出一滴！总结一下：我们已经有一个便利的组合器用于解析元组的值，也就是 `pair`，我们可以将其作为 `identifier` 解析器，迭代出一个 `String`， 以及一个带有 `=` 的 `right` 解析器，它的返回值我们不想保存，并且我们刚写出来的 `quoted_string` 解析器会返回给我们 `String` 类型的值。
+太轻松了，汗都没出一滴！总结一下：我们已经有一个便利的组合器用于解析元组的值，也就是 `pair`，我们可以将其作为 `identifier` 解析器，迭代出一个 `String`，以及一个带有 `=` 的 `right` 解析器，它的返回值我们不想保存，并且我们刚写出来的 `quoted_string` 解析器会返回给我们 `String` 类型的值。
 
 现在，我们结合一下 `zero_or_more`，去构建一个 vector —— 但不要忘了它们之间的空格符。
 
@@ -268,7 +268,7 @@ enum List<A> {
 
 听起来很不错。有什么缺陷吗？好吧，我们可能会因为使用指针的方式而损失一两次循环，也可能会让编译器失去一些优化解析器的机会。但是想起 Knuth 的关于过早优化的提醒：一切都会好起来的。损失这些循环是值得的。你在这里是学习关于解析器组合器，而不是学习手工编写专业的 [SIMD 解析器](https://github.com/lemire/simdjson)（尽管它们本身会令人兴奋）
 
-因此，抛开目前我们使用的简单函数，让我们继续基于**即将要完成**的解析器函数来实现 `Parser`
+因此，抛开目前我们使用的简单函数，让我们继续基于**即将要完成**的解析器函数来实现 `Parser`。
 
 ```
 struct BoxedParser<'a, Output> {
@@ -297,10 +297,10 @@ impl<'a, Output> Parser<'a, Output> for BoxedParser<'a, Output> {
 
 这使我们具备将解析器放入一个 `Box` 中的能力，而 `BoxedParser` 将会以函数的角色为 `Parser` 执行一些逻辑。正如前面提到的，这意味着将 Box 包装的解析器移到堆中，并且必须删除指向该堆区域的指针，这可能会多花费**几纳秒**的时间，所以实际上我们可能想先不用 Box 包装**所有数据**。只是把一些更活跃的组合器数据通过 Box 包装就够了。
 
-- [通过 Rust 学习解析器组合器 - 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
-- [通过 Rust 学习解析器组合器 - 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
-- [通过 Rust 学习解析器组合器 - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
-- [通过 Rust 学习解析器组合器 - 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
+- [通过 Rust 学习解析器组合器 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-1.md)
+- [通过 Rust 学习解析器组合器 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-2.md)
+- [通过 Rust 学习解析器组合器 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
+- [通过 Rust 学习解析器组合器 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-4.md)
 
 ## 许可证
 
