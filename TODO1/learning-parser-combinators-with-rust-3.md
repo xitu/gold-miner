@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-parser-combinators-with-rust-3.md)
 > * 译者：[suhanyujie](https://github.com/suhanyujie)
-> * 校对者：
 
 # 通过 Rust 学习解析器组合器 — 第三部分
 
