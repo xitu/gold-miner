@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/four-ways-to-quantify-synchrony-between-time-series-data.md](https://github.com/xitu/gold-miner/blob/master/TODO1/four-ways-to-quantify-synchrony-between-time-series-data.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[zhmhhu](https://github.com/zhmhhu)
 
 # 时间序列数据间量化同步的四种方法
 
@@ -83,11 +83,11 @@ plt.suptitle("Smiling data and rolling window correlation")
 
 ## 2. 时间滞后互相关 —— 评估信号动态性
 
-时间滞后互相关（TLCC）可以定义两个信号之间的方向性，例如引导-追随关系，在这种关系中，引导信号会初始化相应，追随信号则重复它。还有一些其他方法可以探查这类关系，包括[格兰杰因果关系](https://en.wikipedia.org/wiki/Granger_causality)，它常用于经济学，但是要注意这些仍然不一定能反映真正的因果关系。但是，通过查看互相关，我们还是可以提取出哪个信号首先出现的信息。
+时间滞后互相关（TLCC）可以定义两个信号之间的方向性，例如引导-追随关系，在这种关系中，引导信号会初始化一个响应，追随信号则重复它。还有一些其他方法可以探查这类关系，包括[格兰杰因果关系](https://en.wikipedia.org/wiki/Granger_causality)，它常用于经济学，但是要注意这些仍然不一定能反映真正的因果关系。但是，通过查看互相关，我们还是可以提取出哪个信号首先出现的信息。
 
 ![[http://robosub.eecs.wsu.edu/wiki/ee/hydrophones/start](http://robosub.eecs.wsu.edu/wiki/ee/hydrophones/start)](https://cdn-images-1.medium.com/max/2000/1*mWsGTGVdAsy6KoF3n3MyLA.gif)
 
-如上图所示，TLCC 是通过逐步移动一个时间序列向量（红色线）并反复计算两个信号间的相关性测量的。如果相关性的峰值位于中心（offset=0），那就意味着两个时间序列在此时相关性最高。但是，如果一个信号在引导另一个信号，相关性的峰值就可能位于不同的坐标值上。下面这段代码应用了一个使用了 pandas 提供功能的互相关函数。同时它也可以将数据**打包**，这样相关性边界值也能通过添加信号另一边的数据而计算出来。
+如上图所示，TLCC 是通过逐步移动一个时间序列向量（红色线）并反复计算两个信号间的相关性而测量得到的。如果相关性的峰值位于中心（offset=0），那就意味着两个时间序列在此时相关性最高。但是，如果一个信号在引导另一个信号，相关性的峰值就可能位于不同的坐标值上。下面这段代码应用了一个使用了 pandas 提供功能的互相关函数。同时它也可以将数据**打包**，这样相关性边界值也能通过添加信号另一边的数据而计算出来。
 
 ```Python
 def crosscorr(datax, datay, lag=0, wrap=False):
@@ -129,7 +129,7 @@ plt.legend()
 
 上图中，我们可以从负坐标推断出，Subject 1（S1）信号在引导信号间的相互作用（当 S2 被推进了 47 帧的时候相关性最高）。但是，这个评估信号在全局层面会动态变化，例如在这三分钟内作为引导信号的信号就会如此。另一方面，我们认为信号之间的相互作用也许会波动得**更加**明显，信号是引导还是跟随，会随着时间而转换。
 
-为了评估粒度更细的动态变化，我们可以计算**加窗**的时间滞后互相关（WTLCC）。这个过程会在信号的多个时间窗内反复计算时间滞后互相关。然后我们就可以分析每个窗或将所有窗的结果综合起来，这将能提供比对两个体间引导跟随信号间相互作用的区别的评分。
+为了评估粒度更细的动态变化，我们可以计算**加窗**的时间滞后互相关（WTLCC）。这个过程会在信号的多个时间窗内反复计算时间滞后互相关。然后我们可以分析每个窗口或者取窗口上的总和，来提供比较两者之间领导者跟随者互动性差异的评分。
 
 ```Python
 # 加窗的时间滞后互相关
@@ -174,7 +174,7 @@ ax.set_xticklabels([int(item-150) for item in ax.get_xticks()]);
 
 ![Windowed time lagged cross correlation for discrete windows](https://cdn-images-1.medium.com/max/2000/1*BHfDJ8naQmCDeqg136uYwQ.png)
 
-如上图所示，是将时间序列分割成了 20 个等长的时间段，然后计算每个时间窗口的互相关。这给了我们更细粒度的视角来观察信号的相互作用。例如，在第一个窗口内（第一行），右侧的红色峰值告诉我们 S2 开始的时候在引导相互作用。但是，在第三或者第四窗口（行），我们可以发现 S1 开始更多的引导相互作用。我们也可以将此连续计算，那么就可以得出下图这样平滑的图像。
+如上图所示，是将时间序列分割成了 20 个等长的时间段，然后计算每个时间窗口的互相关。这给了我们更细粒度的视角来观察信号的相互作用。例如，在第一个窗口内（第一行），右侧的红色峰值告诉我们 S2 开始的时候在引导相互作用。但是，在第三或者第四窗口（行），我们可以发现 S1 开始更多的引导相互作用。我们也可以继续计算下去，那么就可以得出下图这样平滑的图像。
 
 ![Rolling window time lagged cross correlation for continuous windows](https://cdn-images-1.medium.com/max/2000/1*NTAbN0EpFWqNChcABsZA7Q.png)
 
