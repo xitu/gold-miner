@@ -2,88 +2,88 @@
 > * 原文作者：[Manuel Lima](https://medium.com/@mslima)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/redefining-data-visualization-at-google.md](https://github.com/xitu/gold-miner/blob/master/TODO1/redefining-data-visualization-at-google.md)
-> * 译者：
+> * 译者：[MarchYuanx](https://github.com/MarchYuanx)
 > * 校对者：
 
-# Six Principles for Designing Any Chart
+# 设计任何图表的六项原则
 
-> An introduction to Google’s new data visualization guidelines
+> Google 的新数据可视化指南简介
 
 ![](https://cdn-images-1.medium.com/max/2748/1*mXIcH44FAZKCRjX5g_lYmw.png)
 
 ---
 
-In August 2017, a group of passionate designers, researchers, and engineers at Google came together to create a comprehensive set of data visualization guidelines — covering everything from color, shape, typography, iconography, interaction, and motion. The success of this collaboration sparked the formation of Google’s first fully dedicated Data Visualization team, which kicked off in May 2018.
+2017 年 8 月，一群 Google 的热情的设计师、研究人员和工程师聚集在一起，创建了一套全面的数据可视化指南 —— 涵盖了颜色、形状、排版、图像、交互和动作等所有内容。这个合作的成功促成了谷歌第一个完全专注于数据可视化团队的形成，该团队于 2018 年 5 月成立。
 
-Over the last year, we’ve continued to work on understanding the needs, requirements, and desires shaping how people visualize and interact with information. Now, we want to share our insights with creators everywhere. We’ve launched detailed public guidelines for [creating your own data visualizations](https://goo.gle/2ITQoTY), and distilled our top principles and considerations. Below, six strategies for designing any chart.
+在过去的一年里，我们一直致力于理解需求，渴望描绘出人们如何对信息进行可视化与交互。现在，我们想与世界各地的开发者分享我们的见解。我们针对[创建您自己的数据可视化项目](https://goo.gle/2ITQoTY)推出了详细的公共指南，并提炼出了我们的首要原则和注意事项。以下是用于设计任何图表的六种策略。
 
 ---
 
-## Be honest
+## 坦诚
 
-#### Data accuracy and integrity come first. Don’t distort or confuse the information for embellishment or partiality. Emphasize clarity and transparency.
+#### 数据的准确性和完整性是首要的。不要歪曲或混淆信息以进行掩饰或偏袒。强调清晰与透明。
 
 ![](https://cdn-images-1.medium.com/max/2760/1*ydrVMlmFanX1LsuN6CzTqA.png)
 
-Provide users with the contextual elements they need to understand a given visualization. Maximize the integrity of the graphic by using clear labels, accurate axes and baselines, and supporting tooltips and legends. Motion can help reinforce relationships, but must not distort the data. Be transparent about the employed dataset, where it came from, and how it was collected and treated.
+为用户提供用于理解给定的可视化图表所需的上下文元素。通过使用清晰的标签、准确的轴和基线，支持工具提示和图例，最大限度地提高图形的完整性。图表动作可以帮助加强关系，但不能歪曲数据。对所使用的数据集保持透明，搞清楚它来自何处，以及如何收集和处理它。
 
 ---
 
-## Lend a helping hand
+## 伸出援手
 
-#### Provide context and help users navigate the data. Build affordances that prioritize data exploration and comparison.
+#### 提供上下文并帮助用户导向数据。构建优先考虑数据探索和比较的示例（affordance）。
 
 ![](https://cdn-images-1.medium.com/max/2760/1*60a7CCF8W4EytCv7idmllw.png)
 
-Design with users’ existing mental models — which may be shaped by widely used tools — in mind. Create a warm onboarding experience that makes it easy to learn how to read the chart and its information. Select visual and interactive affordances that support discoverability of core features, such as selecting, zooming, panning, and filtering. Motion and interaction should support analytical reasoning and user comprehension by revealing context, insights, associations, and causality. Leverage empty states as moments of revelation.
+设计时要考虑到用户现有的心理模型 —— 可能是由广泛使用的工具塑造的。创建良好的入手体验使用户学习如何阅读图表及其信息更轻松。选择使核心功能更易发现的视觉和交互式示例（affordance），例如选择，缩放，平移和过滤。运动和交互应通过揭示背景、见解、关联和因果关系来支持分析推理和用户理解。利用空状态作为启示的时刻。
 
 ---
 
-## Delight users
+## 取悦用户
 
-#### Always exceed expectations. Consider performance, polish, surprise, and innovation. Embrace dynamic, fast, and clever experiences.
+#### 总是超出预期。考虑性能、优化、惊喜和创新。选择动态、快速、巧妙的体验。
 
 ![](https://cdn-images-1.medium.com/max/2760/1*IpHoJvLE_87IDvRG8dQ3MQ.png)
 
-Create great visualization experiences, then improve upon them in unexpected ways. When appropriate, employ signature features and small moments of delight that guide users to what they need. Speed is as rewarding as graphical excellence. Consider motion and timing in the choreography of state transitions to aid perception of a fast and responsive system.
+创建出色的可视化体验，然后以意想不到的方式改进它们。在适当的时候，使用签名功能和小小的喜悦时刻，引导用户找到他们需要的。速度和出色的图形效果有一样的价值。考虑状态转换编排中的运动和时间，以帮助感知系统的快速响应。
 
 ---
 
-## Give clarity of focus
+## 明确重点
 
-#### Reduce cognitive load and focus on what matters. Every action, color, and visual element should support data insights and understanding.
+#### 减少感知的负担，专注于重要的事情。每个动作，颜色和视觉元素都应该支持数据洞察和理解。
 
 ![](https://cdn-images-1.medium.com/max/2760/1*VwVvqEaH-Y3Z_5Ryt481gw.png)
 
-Focus on the user’s task and all else should follow. Direct users to the essential information as quickly as possible. Maximize the data-ink ratio and avoid extraneous graphic elements. Apply color in meaningful ways to contribute to graph comprehension: label, group, highlight, or measure. Use motion sparingly–limit to subtle transitions and cues that help users understand hierarchy, data orientation, and relationships.
+专注于用户的任务，其他一切都应该遵循。尽可能更快地引导用户了解基本信息。最大化 data-ink 的比例，避免无关图形元素。以有意义的方式应用颜色来帮助理解图形：标签、分组、高光或量度。谨慎使用动作 —— 限制细微的过渡和提示，帮助用户理解层次结构、数据方向和关系。
 
 ---
 
-## Embrace scale
+## 接受扩展
 
-#### Allow the system to extend and adapt to any context. Respect different user needs on data depth, complexity, and modality.
+#### 允许系统扩展并适应任何上下文。尊重不同用户对数据深度、复杂度和形态的需求。
 
 ![](https://cdn-images-1.medium.com/max/2760/1*DF5pg4i7OlWo9fAfbi-liQ.png)
 
-Every chart should aim to be as accessible as possible. Consider how chart elements (color palettes, filter configuration, axes, panels, interactive mechanisms) might scale to accommodate a variety of users’ needs, screen sizes, and data types (from a single data point to large multivariate datasets). Think about a spectrum of possibilities rather than an immutable configuration. Apply interactive approaches to minimize complexity, such as providing details gradually (progressive disclosure), letting users change perspective, and linking different views to enable deeper insights.
+每张图表都应尽可能方便地访问。考虑图表元素（调色板、过滤器配置、轴、面板、交互机制）如何缩放以适应各种用户需求、屏幕大小和数据类型（从单个数据点到大型多变量数据集）。考虑一系列的可能性而不是不变的配置。使用交互式方法来最小化复杂性，例如逐步提供细节（渐进式披露），让用户更改视角，以及链接不同视图以实现更深入的洞察。
 
 ---
 
-## Provide structure
+## 提供结构
 
-#### Use visual attributes to convey hierarchy, provide structure, and improve consistency. Experiences should be intuitive and easy to use.
+#### 使用可视属性来传达层次结构，提供结构并提高一致性。体验应该是直观且易于使用的
 
 ![](https://cdn-images-1.medium.com/max/2760/1*XJqqL_vhSWVNRpjbi_zn1g.png)
 
-Consistency drives familiarity. Develop uniformity in graphical treatments (shape, color, iconography, typography) and interaction patterns (selection, filtering, hover states, expansion). Motion should feel controlled, giving the user a sense of stability and continuity while remaining responsive. Consider entrance and exit motion to help the user understand the visual hierarchy of elements, orientation of axes, and the data displayed. Maintain strong contextual cues, so no matter where the user navigates in the chart, they know how to get back.
+一致性促进熟悉。在图形处理（形状、颜色、图像、排版）和交互模式（选择、过滤、悬停状态、扩展）中实现一致性。运动应该感觉受到控制，在保持响应的同时为用户提供稳定性和连续性。考虑进入和退出的运动，以帮助用户了解元素的视觉层次，轴的方向和显示的数据。保持足够的上下文提示，因此无论用户在图表中导航到哪里，他们都知道如何返回。
 
-**For more insights and strategies, read our full [Data Visualization guidelines](https://goo.gle/2ITQoTY).**
+**关于更多的见解和方案,请阅读我们完整的[数据可视化指南](https://goo.gle/2ITQoTY)。**
 
 ---
 
-#### Acknowledgments
+#### 致谢
 
-This work could not have been done without the talent and dedication of countless individuals at Google. Thank you: Shuo Yang, Kent Eisenhuth, Sharona Oshana, Katherine Meizner, Hael Fisher, Ross Popoff-Walker, Ian Johnson, Joe Nagle, Ryan Vernon, Nick Bearman, Luca Paulina, Gerard Rocha, JT DiMartile, Lorena Zalles, Tom Gebauer, Hilal Koyuncu, Bethany Fong, Ann Chou, Barbara Eldredge, and Anja Laubscher.
+如果没有 Google 里无数人的才能和奉献精神，这项工作就无法完成。感谢：Shuo Yang, Kent Eisenhuth, Sharona Oshana, Katherine Meizner, Hael Fisher, Ross Popoff-Walker, Ian Johnson, Joe Nagle, Ryan Vernon, Nick Bearman, Luca Paulina, Gerard Rocha, JT DiMartile, Lorena Zalles, Tom Gebauer, Hilal Koyuncu, Bethany Fong, Ann Chou, Barbara Eldredge, and Anja Laubscher.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
