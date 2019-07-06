@@ -2,37 +2,37 @@
 > * 原文作者：[Jin Hyun Cheong](https://medium.com/@jinhyuncheong)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/four-ways-to-quantify-synchrony-between-time-series-data.md](https://github.com/xitu/gold-miner/blob/master/TODO1/four-ways-to-quantify-synchrony-between-time-series-data.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[zhmhhu](https://github.com/zhmhhu)
 
-# Four ways to quantify synchrony between time series data
+# 时间序列数据间量化同步的四种方法
 
-> Sample code and data to compute synchrony metrics including Pearson correlation, time-lagged cross correlations, dynamic time warping, and instantaneous phase synchrony.
+> 用于计算同步指标的示例代码和数据包括：皮尔逊相关，时间滞后互相关，动态时间扭曲和瞬时相位同步。
 
 ![Airplanes flying in synchrony, photo by [Gabriel Gusmao](https://unsplash.com/@gcsgpp?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8544/0*R3l4mQ_ZMwLSqqkE)
 
-In psychology, synchrony between individuals can be an important signal that provides information about the social dynamics and potential outcomes of social interactions. Synchrony between individuals has been observed in numerous domains including bodily movement ([Ramseyer & Tschacher, 2011](https://s3.amazonaws.com/academia.edu.documents/32743702/Nonverbal_synchrony_in_psychotherapy_Coordinated_body_movement_reflects_relationship_quality_and_out.pdf?AWSAccessKeyId=AKIAIWOWYYGZ2Y53UL3A&Expires=1557726122&Signature=bv5tXK0IqERSosMJUm4Rz9%2F71w4%3D&response-content-disposition=inline%3B%20filename%3DNonverbal_synchrony_in_psychotherapy_Coo.pdf)), facial expressions ([Riehle, Kempkensteffen, & Lincoln, 2017](https://link.springer.com/article/10.1007/s10919-016-0246-8)), pupil dilations ([Kang & Wheatley, 2015](https://www.dropbox.com/s/8sfzjaqqkb6996h/Pupils_ConscAttn_CC2015.pdf?dl=0)), and neural signals ([Stephens, Silbert, & Hasson, 2010](https://docs.wixstatic.com/ugd/b75639_82d46e0fa03a4f9290835c5db3888b8c.pdf)). However, the term **synchrony** can take on many meanings as there are various ways to quantify synchrony between two signals.
+在心理学当中，人与人之间的同步性是能提供社会动态和潜在社交产出的重要信息。它可以体现于众多领域，包括肢体动作（[Ramseyer & Tschacher, 2011](https://s3.amazonaws.com/academia.edu.documents/32743702/Nonverbal_synchrony_in_psychotherapy_Coordinated_body_movement_reflects_relationship_quality_and_out.pdf?AWSAccessKeyId=AKIAIWOWYYGZ2Y53UL3A&Expires=1557726122&Signature=bv5tXK0IqERSosMJUm4Rz9%2F71w4%3D&response-content-disposition=inline%3B%20filename%3DNonverbal_synchrony_in_psychotherapy_Coo.pdf)）、面部表情（[Riehle, Kempkensteffen, & Lincoln, 2017](https://link.springer.com/article/10.1007/s10919-016-0246-8)）、瞳孔的扩张（[Kang & Wheatley, 2015](https://www.dropbox.com/s/8sfzjaqqkb6996h/Pupils_ConscAttn_CC2015.pdf?dl=0)）以及神经信号（[Stephens, Silbert, & Hasson, 2010](https://docs.wixstatic.com/ugd/b75639_82d46e0fa03a4f9290835c5db3888b8c.pdf)）。无论如何，**同步性**可以提供多种的意义，同时，量化两个信号的同步性也有很多方法。
 
-In this article, I survey the pros and cons of some of the most common synchrony metrics and measurement techniques including the Pearson correlation, time lagged cross correlation (TLCC) and windowed TLCC, dynamic time warping, and instantaneous phase synchrony. To illustrate, the metrics are calculated using sample data in which smiling facial expressions were extracted from a video footage of two participants engaging in a 3 minute conversation (screenshot below). To follow along, feel free to download the [sample extracted face data](https://gist.github.com/jcheong0428/c6d6111ee1b469cf39683bd70fab1c93) and the [Jupyter notebook](https://gist.github.com/jcheong0428/4a74f801e770c6fdb08e81a906902832) containing all the example codes.
+在本篇文章中，我调研了一些最常用的同步指标的利弊，并衡量了包括：皮尔逊相关，时间滞后互相关（TLCC）以及加窗的 TLCC，动态时间扭曲和瞬时相位同步这几种技术。为了更好的说明，同步指标会使用样本数据计算，样本数据是一段三分钟且包含两个参与者对话的视频，我们将从中提取面部微笑表情（下图是一个截屏）。为了让你能更好的跟上文章的内容，可以免费下载[从样本中提取的面部数据](https://gist.github.com/jcheong0428/c6d6111ee1b469cf39683bd70fab1c93)以及包括了所有示例代码的[Jupyter 笔记](https://gist.github.com/jcheong0428/4a74f801e770c6fdb08e81a906902832)。
 
-### Outline
+### 目录
 
-1. Pearson correlation
-2. Time Lagged Cross Correlation (TLCC) & Windowed TLCC
-3. Dynamic Time Warping (DTW)
-4. Instantaneous phase synchrony
+1. 皮尔逊相关
+2. 时间滞后互相关（TLCC）以及加窗的 TLCC
+3. 动态时间扭曲（DTW）
+4. 瞬时相位同步
 
 ![Sample data is the smiling facial expression between two participants having a conversation.](https://cdn-images-1.medium.com/max/2600/1*YyIlN7rspyQmKpHXF67-zQ.png)
 
 ***
 
-## 1. Pearson correlation — simple is best
+## 1. 皮尔逊相关 —— 最简单也是最好的方法
 
-The [Pearson correlation](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) measures how two continuous signals co-vary over time and indicate the linear relationship as a number between -1 (negatively correlated) to 0 (not correlated) to 1 (perfectly correlated). It is intuitive, easy to understand, and easy to interpret. Two things to be cautious when using Pearson correlation is that 1) outliers can skew the results of the correlation estimation and 2) it assumes the data are [homoscedastic](https://en.wikipedia.org/wiki/Homoscedasticity) such that the variance of your data is homogenous across the data range. Generally, the correlation is a snapshot measure of global synchrony. Therefore it does not provide information about directionality between the two signals such as which signal leads and which follows.
+[皮尔逊相关](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient)可以衡量两个连续信号如何随时间共同变化，并且可以以数字 -1（负相关）、0（不相关）和 1（完全相关）表示出它们之间的线性关系。它很直观，容易理解，也很好解释。但是当使用皮尔逊相关的时候，有两件事情需要注意，它们分别是：第一，异常数据可能会干扰相关评估的结果；第二，它假设数据都是[同方差](https://en.wikipedia.org/wiki/Homoscedasticity)的，这样的话，数据方差在整个数据范围内都是同质的。通常情况下，相关性是全局同步性的快照测量法。所以，它不能提供关于两个信号间方向性的信息，例如，哪个信号是引导信号，哪个信号是跟随信号。
 
-The Pearson correlation is implemented in multiple packages including Numpy, Scipy, and Pandas. If you have null or missing values in your data, correlation function in Pandas will drop those rows before computing whereas you need to manually remove those data if using Numpy or Scipy’s implementations.
+很多包都应用了皮尔逊相关，包括 Numpy、Scipy 和 Pandas。如果你的数据中包含了空值或者缺失值，Pandas 中的相关性方法将会在计算前把这些行丢弃，而如果你想使用 Numpy 或者 Scipy 对于皮尔逊相关的应用，你则必须手动清除掉这些数据。
 
-The following code loads are sample data (in the same folder), computes the Pearson correlation using Pandas and Scipy and plots the median filtered data.
+如下的代码加载的就是样本数据（它和代码位于同一个文件夹下），并使用 Pandas 和 Scipy 计算皮尔逊相关，然后绘制出了中值滤波的数据。
 
 ```Python
 import pandas as pd
@@ -45,13 +45,13 @@ import scipy.stats as stats
 df = pd.read_csv('synchrony_sample.csv')
 overall_pearson_r = df.corr().iloc[0,1]
 print(f"Pandas computed Pearson r: {overall_pearson_r}")
-# out: Pandas computed Pearson r: 0.2058774513561943
+# 输出：使用 Pandas 计算皮尔逊相关结果的 r 值：0.2058774513561943
 
 r, p = stats.pearsonr(df.dropna()['S1_Joy'], df.dropna()['S2_Joy'])
 print(f"Scipy computed Pearson r: {r} and p-value: {p}")
-# out: Scipy computed Pearson r: 0.20587745135619354 and p-value: 3.7902989479463397e-51
+# 输出：使用 Scipy 计算皮尔逊相关结果的 r 值：0.20587745135619354，以及 p-value：3.7902989479463397e-51
 
-# Compute rolling window synchrony
+# 计算滑动窗口同步性
 f,ax=plt.subplots(figsize=(7,3))
 df.rolling(window=30,center=True).median().plot(ax=ax)
 ax.set(xlabel='Time',ylabel='Pearson r')
@@ -60,14 +60,14 @@ ax.set(title=f"Overall Pearson r = {np.round(overall_pearson_r,2)}");
 
 ![](https://cdn-images-1.medium.com/max/2000/1*90Wv5LqTNoLqQE23P1KeGA.png)
 
-Once again, the Overall Pearson r is a measure of **global** synchrony that reduces the relationship between two signals to a single value. Nonetheless there is a way to look at moment-to-moment, **local** synchrony, using Pearson correlation. One way to compute this is by measuring the Pearson correlation in a small portion of the signal, and repeat the process along a rolling window until the entire signal is covered. This can be somewhat subjective as it requires arbitrarily defining the window size you’d like to repeat the procedure. In the code below we use a window size of 120 frames (~4 seconds) and plot the moment-to-moment synchrony in the bottom figure.
+再次重申，所有的皮尔逊 r 值都是用来衡量**全局**同步的，它将两个信号的关系精简到了一个值当中。尽管如此，使用皮尔逊相关也有办法观察每一刻的状态，即**局部**同步性。计算的方法之一就是测量信号局部的皮尔逊相关，然后在所有滑动窗口重复该过程，直到所有的信号都被窗口覆盖过。由于可以根据你想要重复的次数任意定义窗口的宽度，这个结果会因人而异。在下面的代码中，我们使用 120 帧作为窗口宽度（4 秒左右），然后在下图展示出我们绘制的每一刻的同步结果。
 
 ```Python
-# Set window size to compute moving window synchrony.
+# 设置窗口宽度，以计算滑动窗口同步性
 r_window_size = 120
-# Interpolate missing data.
+# 插入缺失值
 df_interpolated = df.interpolate()
-# Compute rolling window synchrony
+# 计算滑动窗口同步性
 rolling_r = df_interpolated['S1_Joy'].rolling(window=r_window_size, center=True).corr(df_interpolated['S2_Joy'])
 f,ax=plt.subplots(2,1,figsize=(14,6),sharex=True)
 df.rolling(window=30,center=True).median().plot(ax=ax[0])
@@ -79,15 +79,15 @@ plt.suptitle("Smiling data and rolling window correlation")
 
 ![Sample data on top, moment-to-moment synchrony from moving window correlation on bottom.](https://cdn-images-1.medium.com/max/2000/1*NfwPdnOptoSWQDSQHfUlNg.png)
 
-Overall, the Pearson correlation is a good place to start as it provides a very simple way to compute both global and local synchrony. However, this still does not provide insights into signal dynamics such as which signal occurs first which can be measured via cross correlations.
+总的来说，皮尔逊相关是很好的入门学习教程，它提供了一个计算全局和局部同步性的很简单的方法。但是，它不能提供信号动态信息，例如哪个信号先出现，而这个可以用互相关来衡量。
 
-## 2. Time Lagged Cross Correlation — assessing signal dynamics
+## 2. 时间滞后互相关 —— 评估信号动态性
 
-Time lagged cross correlation (TLCC) can identify directionality between two signals such as a leader-follower relationship in which the leader initiates a response which is repeated by the follower. There are couple ways to do investigate such relationship including [Granger causality](https://en.wikipedia.org/wiki/Granger_causality), used in Economics, but note that these still do not necessarily reflect true causality. Nonetheless we can still extract a sense of which signal occurs first by looking at cross correlations.
+时间滞后互相关（TLCC）可以定义两个信号之间的方向性，例如引导-追随关系，在这种关系中，引导信号会初始化一个响应，追随信号则重复它。还有一些其他方法可以探查这类关系，包括[格兰杰因果关系](https://en.wikipedia.org/wiki/Granger_causality)，它常用于经济学，但是要注意这些仍然不一定能反映真正的因果关系。但是，通过查看互相关，我们还是可以提取出哪个信号首先出现的信息。
 
 ![[http://robosub.eecs.wsu.edu/wiki/ee/hydrophones/start](http://robosub.eecs.wsu.edu/wiki/ee/hydrophones/start)](https://cdn-images-1.medium.com/max/2000/1*mWsGTGVdAsy6KoF3n3MyLA.gif)
 
-As shown above, TLCC is measured by incrementally shifting one time series vector (red) and repeatedly calculating the correlation between two signals. If the peak correlation is at the center (offset=0), this indicates the two time series are most synchronized at that time. However, the peak correlation may be at a different offset if one signal leads another. The code below implements a cross correlation function using pandas functionality. It can also **wrap** the data so that the correlation values on the edges are still calculated by adding the data from the other side of the signal.
+如上图所示，TLCC 是通过逐步移动一个时间序列向量（红色线）并反复计算两个信号间的相关性而测量得到的。如果相关性的峰值位于中心（offset=0），那就意味着两个时间序列在此时相关性最高。但是，如果一个信号在引导另一个信号，相关性的峰值就可能位于不同的坐标值上。下面这段代码应用了一个使用了 pandas 提供功能的互相关函数。同时它也可以将数据**打包**，这样相关性边界值也能通过添加信号另一边的数据而计算出来。
 
 ```Python
 def crosscorr(datax, datay, lag=0, wrap=False):
@@ -127,12 +127,12 @@ plt.legend()
 
 ![Peak synchrony is not at the center, suggesting a leader-follower signal dynamic.](https://cdn-images-1.medium.com/max/2000/1*-EC1sqCatnSSCXN3cO-uRg.png)
 
-In the plot above, we can infer from the negative offset that Subject 1 (S1) is leading the interaction (correlation is maximized when S2 is pulled forward by 47 frames). But once again this assesses signal dynamics at a global level, such as who is leading during the entire 3 minute period. On the other hand we might think that the interaction may be even **more** dynamic such that the leader follower roles vary from time to time.
+上图中，我们可以从负坐标推断出，Subject 1（S1）信号在引导信号间的相互作用（当 S2 被推进了 47 帧的时候相关性最高）。但是，这个评估信号在全局层面会动态变化，例如在这三分钟内作为引导信号的信号就会如此。另一方面，我们认为信号之间的相互作用也许会波动得**更加**明显，信号是引导还是跟随，会随着时间而转换。
 
-To assess the more fine grained dynamics, we can compute the **windowed** time lagged cross correlations (WTLCC). This process repeats the time lagged cross correlation in multiple windows of the signal. Then we can analyze each window or take the sum over the windows would provide a score comparing the difference between the leader follower interaction between two individuals.
+为了评估粒度更细的动态变化，我们可以计算**加窗**的时间滞后互相关（WTLCC）。这个过程会在信号的多个时间窗内反复计算时间滞后互相关。然后我们可以分析每个窗口或者取窗口上的总和，来提供比较两者之间领导者跟随者互动性差异的评分。
 
 ```Python
-# Windowed time lagged cross correlation
+# 加窗的时间滞后互相关
 seconds = 5
 fps = 30
 no_splits = 20
@@ -149,10 +149,10 @@ sns.heatmap(rss,cmap='RdBu_r',ax=ax)
 ax.set(title=f'Windowed Time Lagged Cross Correlation',xlim=[0,300], xlabel='Offset',ylabel='Window epochs')
 ax.set_xticklabels([int(item-150) for item in ax.get_xticks()]);
 
-# Rolling window time lagged cross correlation
+# 滑动窗口时间滞后互相关
 seconds = 5
 fps = 30
-window_size = 300 #samples
+window_size = 300 #样本
 t_start = 0
 t_end = t_start + window_size
 step_size = 30
@@ -174,19 +174,19 @@ ax.set_xticklabels([int(item-150) for item in ax.get_xticks()]);
 
 ![Windowed time lagged cross correlation for discrete windows](https://cdn-images-1.medium.com/max/2000/1*BHfDJ8naQmCDeqg136uYwQ.png)
 
-The plot above splits the time series into 20 even chunks and computes the cross correlation in each window. This gives us a more fine-grained view of what is going on in the interaction. For example, in the first window (first row), the red peak to the right suggests S2 initially leads the interaction. However by the third or fourth window (row), we can see that S1 starts to lead the interaction more. We can also compute this continuously resulting in a smoother plot as shown below.
+如上图所示，是将时间序列分割成了 20 个等长的时间段，然后计算每个时间窗口的互相关。这给了我们更细粒度的视角来观察信号的相互作用。例如，在第一个窗口内（第一行），右侧的红色峰值告诉我们 S2 开始的时候在引导相互作用。但是，在第三或者第四窗口（行），我们可以发现 S1 开始更多的引导相互作用。我们也可以继续计算下去，那么就可以得出下图这样平滑的图像。
 
 ![Rolling window time lagged cross correlation for continuous windows](https://cdn-images-1.medium.com/max/2000/1*NTAbN0EpFWqNChcABsZA7Q.png)
 
-Time lagged cross correlations and windowed time lagged cross correlations are a great way to visualize the fine-grained dynamic interaction between two signals such as the leader-follower relationship and how they shift over time. However, these signals have been computed with the assumption that events are happening simultaneously and also in similar lengths which is covered in the next section.
+时间滞后互相关和加窗时间滞后互相关是查看两信号之间更细粒度动态相互作用的很好的方法，例如引导-追随关系以及它们如何随时间改变。但是，这样的对信号的计算的前提是假设事件是同时发生的，并且具有相似的长度，这些内容将会在下一部分涵盖。
 
-## 3. Dynamic Time Warping — synchrony of signals varying in lengths
+## 3. 动态时间扭曲 —— 同步长度不同的信号
 
-Dynamic time warping (DTW) is a method that computes the path between two signals that minimize the distance between the two signals. The greatest advantage of this method is that it can also deal with signals of different length. Originally devised for speech analysis (learn more in [this video](https://www.youtube.com/watch?v=_K1OsqCicBY)), DTW computes the euclidean distance at each frame across every other frames to compute the minimum path that will match the two signals. One downside is that it cannot deal with missing values so you would need to interpolate beforehand if you have missing data points.
+动态时间扭曲（DTW）是一种计算两信号间路径的方法，它能最小化两信号之间的距离。这种方法最大的优势就是他能处理不同长度的信号。最初它是为了进行语言分析而被发明出来（在[这段视频](https://www.youtube.com/watch?v=_K1OsqCicBY)中你可以了解更多），DTW 通过计算每一帧对于其他所有帧的欧几里得距离，计算出能匹配两个信号的最小距离。一个缺点就是它无法处理缺失值，所以如果你的数据点有缺失，你需要提前插入数据。
 
 ![XantaCross [CC BY-SA 3.0 ([https://creativecommons.org/licenses/by-sa/3.0](https://creativecommons.org/licenses/by-sa/3.0))]](https://cdn-images-1.medium.com/max/2000/1*LXQSbLyr_d_IkiDjiWx5nA.jpeg)
 
-To compute DTW, we will use the `dtw` Python package which will speed up the calculation.
+为了计算 DTW，我们将会使用 Python 的 `dtw` 包，它将能够加速运算。
 
 ```Python
 from dtw import dtw,accelerated_dtw
@@ -205,11 +205,11 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Jg6QtRHd7VCZR-YPtgvLyQ.png)
 
-Here we can see the minimum path shown in the white convex line. In other words, earlier Subject2 data is matched with synchrony of later Subject1 data. The minimum path cost is **d**=.33 which can be compared with that of other signals.
+如图所示我们可以看到白色凸形线绘制出的最短距离。换句话说，较早的 Subject2 数据和较晚的 Subject1 数据的同步性能够匹配。最短路径代价是 **d**=.33，可以用来和其他信号的该值做比较。
 
-## 4. Instantaneous phase synchrony.
+## 4. 瞬时相位同步
 
-Lastly, if you have a time series data that you believe may have oscillating properties (e.g. EEG, fMRI), you may also be able to measure instantaneous phase synchrony. This measure also measures moment-to-moment synchrony between two signals. It can be somewhat subjective because you need to filter the data to the wavelength of interest but you might have theoretical reasons for determining such bands. To calculate phase synchrony, we need to extract the phase of the signal which can be done by using the Hilbert transform which splits the signal into its phase and power ([learn more about Hilbert transform here](https://www.youtube.com/watch?v=VyLU8hlhI-I)). This allows us to assess if two signals are in phase (moving up and down together) or out of phase.
+最后，如果你有一段时间序列数据，你认为它可能有振荡特性（例如 EEG 和 fMRI），此时你也可以测量瞬时相位同步。它也可以计算两个信号间每一时刻的同步性。这个结果可能会因人而异因为你需要过滤数据以获得你感兴趣的波长信号，但是你可能只有未经实践的某些原因来确定这些波段。为了计算相位同步性，我们需要提取信号的相位，这可以通过使用希尔伯特变换来完成，希尔波特变换会将信号的相位和能量拆分开（[你可以在这里学习更多关于希尔伯特变换的知识](https://www.youtube.com/watch?v=VyLU8hlhI-I)）。这让我们能够评估两个信号是否同相位（两个信号一起增强或减弱）。
 
 ![Gonfer at English Wikipedia [CC BY-SA 3.0 ([https://creativecommons.org/licenses/by-sa/3.0](https://creativecommons.org/licenses/by-sa/3.0))]](https://cdn-images-1.medium.com/max/2000/1*Bo0LsXy6kq1oWcw2RAkRCA.gif)
 
@@ -247,7 +247,7 @@ al2 = np.angle(hilbert(y2),deg=False)
 phase_synchrony = 1-np.sin(np.abs(al1-al2)/2)
 N = len(al1)
 
-# Plot results
+# 绘制结果
 f,ax = plt.subplots(3,1,figsize=(14,7),sharex=True)
 ax[0].plot(y1,color='r',label='y1')
 ax[0].plot(y2,color='b',label='y2')
@@ -265,15 +265,15 @@ plt.show()
 
 ![Filtered time series (top), angle of each signal at each moment in time (middle row), and instantaneous phase synchrony measure (bottom).](https://cdn-images-1.medium.com/max/2000/1*na7RbielmedgyqvqRzfk-g.png)
 
-The instantaneous phase synchrony measure is a great way to compute moment-to-moment synchrony between two signals without arbitrarily deciding the window size as done in rolling window correlations. If you’d like to know how instantaneous phase synchrony compares to windowed correlations, [check out my earlier blog post here](http://jinhyuncheong.com/jekyll/update/2017/12/10/Timeseries_synchrony_tutorial_and_simulations.html).
+瞬时相位同步测算是计算两个信号每一刻同步性的很好的方法，并且它不需要我们像计算滑动窗口相关性那样任意规定窗口宽度。如果你想要知道瞬时相位同步和窗口相关性的比对，[可以在这里查看我更早些的博客](http://jinhyuncheong.com/jekyll/update/2017/12/10/Timeseries_synchrony_tutorial_and_simulations.html)。
 
 ***
 
-## Conclusion
+## 总结
 
-Here we covered four ways to measure synchrony between time series data: Pearson correlation, time lagged cross correlations, dynamic time warping, and instantaneous phase synchrony. Deciding the synchrony metric will be based on the type of signal you have, the assumptions you have about the data, and your objective in what synchrony information you’d like from the data. Feel free to leave any questions or comments below!
+我们讲解了四种计算时间序列数据相关性的方法：皮尔逊相关，时间滞后互相关，动态时间扭曲及瞬时相位同步。基于你的信号类型，你对信号作出的假设，以及你想要从数据中寻找什么样的同步性数据的目标，来决定使用那种相关性测量，有任何问题都可以向我提出，并欢迎在下方留言。
 
-See all the code in a Jupyter Notebook below and use with the [sample data available here](https://gist.github.com/jcheong0428/c6d6111ee1b469cf39683bd70fab1c93/archive/b2546c195e6793e00ed23c97a982ce439f4f95aa.zip).
+完整的代码在 Jupyter 笔记上，它使用的[样本数据在这里](https://gist.github.com/jcheong0428/c6d6111ee1b469cf39683bd70fab1c93/archive/b2546c195e6793e00ed23c97a982ce439f4f95aa.zip)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
