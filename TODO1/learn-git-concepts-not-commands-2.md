@@ -2,53 +2,53 @@
 > * 原文作者：[Nico Riedmann](https://dev.to/unseenwizzard)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
-> * 译者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：
 
-# Learn git concepts, not commands- Part 2
+# Git：透过命令学概念 —— 第二部分
 
-**An interactive git tutorial meant to teach you how git works, not just which commands to execute.**
+**用交互式的教程教你 Git 的原理，而非罗列常用命令。**
 
-So, you want to use git right?
+所以，你想正确地使用 Git 吗？
 
-But you don't just want to learn commands, you want to understand what you're using?
+但你肯定不想仅仅学一些操作命令，你还想要理解其背后的原理，对吧？
 
-Then this is meant for you!
+那么本文就是为你量身定做的！
 
-Let's get started!
+让我们快点开动吧！
 
 ---
 
-> Based on the general concept from Rachel M. Carmena's blog post on [How to teach Git](https://rachelcarmena.github.io/2018/12/12/how-to-teach-git.html).
-> 
-> While I find many git tutorials on the internet to be too focused on what to do instead of how things work, the most invaluable resource for both (and source for this tutorial!) are the [git Book](https://git-scm.com/book/en/v2) and [Reference page](https://git-scm.com/docs).
-> 
-> So if you're still interested when you're done here, go check those out! I do hope the somewhat different concept of this tutorial will aid you in understanding all the other git features detailed there.
+> 本文的落笔点基于 Rachel M. Carmena 撰写的 [**如何教授 Git**](https://rachelcarmena.github.io/2018/12/12/how-to-teach-git.html) 一文中提及的常规概念。
+>
+> 网上有很多重方法轻原理的 Git 教程，但我还是挖掘到了兼得二者的宝贵资源（也是本教程的灵感源泉），那就是 [*git Book*](https://git-scm.com/book/en/v2) 和 [*Reference page*](https://git-scm.com/docs)。
+>
+> 因此，如果你读完了本文还意犹未尽，就快点击上面两个链接一探究竟吧！我真心希望本教程中介绍的概念，能帮你理解另外两篇文章中详解的其他 Git 功能
 
 建议按照顺序阅读本系列文章：
 
-- [Learn git concepts, not commands - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
-- [Learn git concepts, not commands - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
-- [Learn git concepts, not commands - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
+- [Git：透过命令学概念 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
+- [Git：透过命令学概念 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
+- [Git：透过命令学概念 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
 
 ---
 
-- [Learn git concepts, not commands- Part 2](#learn-git-concepts-not-commands--part-2)
-  - [Merging](#merging)
-    - [Fast-Forward merging](#fast-forward-merging)
-    - [Merging divergent branches](#merging-divergent-branches)
-    - [Resolving conflicts](#resolving-conflicts)
-  - [Rebasing](#rebasing)
-    - [Resolving conflicts](#resolving-conflicts-1)
-  - [Updating the **Dev Environment** with remote changes](#updating-the-dev-environment-with-remote-changes)
-    - [Fetching Changes](#fetching-changes)
-    - [Pulling Changes](#pulling-changes)
-    - [Stashing changes](#stashing-changes)
-    - [Pulling with Conflicts](#pulling-with-conflicts)
+- [Git：透过命令学概念 —— 第二部分](#Git%E9%80%8F%E8%BF%87%E5%91%BD%E4%BB%A4%E5%AD%A6%E6%A6%82%E5%BF%B5--%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86)
+  - [合并](#%E5%90%88%E5%B9%B6)
+    - [快进合并](#%E5%BF%AB%E8%BF%9B%E5%90%88%E5%B9%B6)
+    - [合并不同分支](#%E5%90%88%E5%B9%B6%E4%B8%8D%E5%90%8C%E5%88%86%E6%94%AF)
+    - [解决冲突](#%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81)
+  - [变基](#%E5%8F%98%E5%9F%BA)
+    - [解决冲突](#%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81-1)
+  - [Updating the **Dev Environment** with remote changes](#Updating-the-Dev-Environment-with-remote-changes)
+    - [获取更新](#%E8%8E%B7%E5%8F%96%E6%9B%B4%E6%96%B0)
+    - [拉取更新](#%E6%8B%89%E5%8F%96%E6%9B%B4%E6%96%B0)
+    - [储藏变更](#%E5%82%A8%E8%97%8F%E5%8F%98%E6%9B%B4)
+    - [包含冲突的拉取](#%E5%8C%85%E5%90%AB%E5%86%B2%E7%AA%81%E7%9A%84%E6%8B%89%E5%8F%96)
 
 ---
 
-## Merging
+## 合并
 
 As you and everyone else will generally be working on branches, we need to talk about how to get changes from one branch into the other by **merging** them.
 
@@ -58,7 +58,7 @@ If you go and `git checkout master`, the `commit` we made on the other branch wi
 
 Note that you always `merge` some branch **into** the one you're currently at.
 
-### Fast-Forward merging
+### 快进合并
 
 As we've already `checked out` master, we can now `git merge change_alice`.
 
@@ -74,7 +74,7 @@ The second diagram shows what has changed with our `merge`.
 
 [![After fast forward merge](https://res.cloudinary.com/practicaldev/image/fetch/s--K_hHy8zA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/ff_merge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--K_hHy8zA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/ff_merge.png)
 
-### Merging divergent branches
+### 合并不同分支
 
 Let's try something more complex.
 
@@ -94,7 +94,7 @@ The new commit introduces the changes that we've made on the `change_alice` bran
 
 As you'll remember from before, revisions in git, aren't only a snapshot of your files but also contain information on where they came from from. Each `commit` has one or more parent commits. Our new `merge` commit, has both the last commit from **master** and the commit we made on the other branch as it's parents.
 
-### Resolving conflicts
+### 解决冲突
 
 So far our changes haven't interfered with each other.
 
@@ -158,7 +158,7 @@ We already know the commit for the changes we've made to resolve the conflict. I
 
 Should you ever realize in the middle of resolving conflicts that you actually don't want to follow through with the `merge`, you can just `abort` it by running `git merge --abort`.
 
-## Rebasing
+## 变基
 
 Git has another clean way to integrate changes between two branches, which is called `rebase`.
 
@@ -221,7 +221,7 @@ Using rebase you can make sure that you frequently integrate the changes other p
 
 Keeping a linear history also makes reading or looking at (try out `git log --graph` or take a look at the branch view of **GitHub** or **GitLab**) commit logs much more useful than having a history littered with **merge commits**, usually just using the default text.
 
-### Resolving conflicts
+### 解决冲突
 
 Just like for a `merge` you may run into conflicts, if you run into two commits changing the same parts of a file.
 
@@ -243,11 +243,11 @@ That fits what you'll do if you're just working on your own, but usually there'l
 
 Because it has been a while, lets have another look at the components of git:
 
-[![git components](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)
+[![git 组件](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)
 
 Just like your **Dev Environment** everyone else working on the same source code has theirs.
 
-[![many dev environments](https://res.cloudinary.com/practicaldev/image/fetch/s--l88bjwDT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/many_dev_environments.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--l88bjwDT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/many_dev_environments.png)
+[![许多开发环境](https://res.cloudinary.com/practicaldev/image/fetch/s--l88bjwDT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/many_dev_environments.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--l88bjwDT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/many_dev_environments.png)
 
 All of these **Dev Environments** have their own **working** and **staged** changes, that are at some point `committed` to the **Local Repository** and finally `pushed` to the **Remote**.
 
@@ -257,11 +257,11 @@ Go to your `fork` of this repo on [github.com](https://www.github.com) and open 
 
 Find the edit button and make and commit a change via the website.
 
-[![github edit](https://res.cloudinary.com/practicaldev/image/fetch/s--ifXKNJi7--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/github.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--ifXKNJi7--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/github.png)
+[![github 编辑](https://res.cloudinary.com/practicaldev/image/fetch/s--ifXKNJi7--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/github.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--ifXKNJi7--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/github.png)
 
 In this repository I have added a remote change to `Alice.txt` on a branch called `fetching_changes_sample`, but in your version of the repository you can of course just change the file on `master`.
 
-### Fetching Changes
+### 获取更新
 
 We still remember that when you `git push`, you synchronize changes made to the **Local Repository** into the **Remote Repository**.
 
@@ -271,7 +271,7 @@ This gets any changes on the remote - so commits as well as branches - into your
 
 Note that at this point, changes aren't integrated into the local branches and thus the **Working Directory** and **Staging Area** yet.
 
-[![Fetching changes](https://res.cloudinary.com/practicaldev/image/fetch/s--F6oFwBrc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/fetch.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--F6oFwBrc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/fetch.png)
+[![获取更新](https://res.cloudinary.com/practicaldev/image/fetch/s--F6oFwBrc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/fetch.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--F6oFwBrc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/fetch.png)
 
 If you run `git status` now, you'll see another great example of git commands telling you exactly what is going on:
 
@@ -282,14 +282,14 @@ Your branch is behind 'origin/fetching_changes_sample' by 1 commit, and can be f
 (use "git pull" to update your local branch)
 ```
 
-### Pulling Changes
+### 拉取更新
 
 As we have no **working** or **staged** changes, we could just execute `git pull` now to get the changes from the **Repository** all the way into our working area.
 
 > Pulling will implicitly also `fetch` the **Remote Repository**, but sometimes it is a good idea to do a `fetch` on it's own.
 > For example when you want to synchronize any new **remote** branches, or when you want to make sure your **Local Repository** is up to date before you do a `git rebase` on something like `origin/master`.
 
-[![Pulling in changes](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)
+[![拉取更新](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)
 
 Before we `pull`, lets change a file locally to see what happens.
 
@@ -310,7 +310,7 @@ You can not `pull` in any changes, while there are modifications to files in the
 
 While one way around this is, to just get your changes to a point where you're confident in them, `add` them to the **Staging Environment**, before you finally `commit` them, this is a good moment to learn about another great tool, the `git stash`.
 
-### Stashing changes
+### 储藏变更
 
 If at any point you have local changes that you do not yet want to put into a commit, or want to store somewhere while you try some different angle to solve a problem, you can `stash` those changes away.
 
@@ -333,7 +333,7 @@ After that, let's `git stash pop` to get the changes back.
 As both the commit we `pull`ed in and the `stash`ed change modified `Alice.txt` you wil have to resolve the conflict, just how you would in a `merge` or `rebase`.  
 When you're done `add` and `commit` the change.
 
-### Pulling with Conflicts
+### 包含冲突的拉取
 
 Now that we've understood how to `fetch` and `pull` **Remote Changes** into our **Dev Environment**, it's time to create some conflicts!
 
@@ -381,9 +381,9 @@ Of course like with a normal `rebase` (or `merge`) you'll have to resolve the co
 
 欢迎继续阅读本系列其他文章：
 
-- [Learn git concepts, not commands - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
-- [Learn git concepts, not commands - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
-- [Learn git concepts, not commands - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
+- [Git：透过命令学概念 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
+- [Git：透过命令学概念 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
+- [Git：透过命令学概念 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
