@@ -169,7 +169,7 @@ Each layer has its own **entities** which are specific to that package. Mapper i
 
 This would be the end of the post, Let me know if I missed anything. Let me conclude by:
 
-> # **Base architecture defines the solidarity of the app and yes, It depends upon the app for the appropriate architecture BUT why not just pick the most apt architecture** ahead of time **which could be scalable, robust, testable so that you don’t have to take pain in future**
+> Base architecture defines the solidarity of the app and yes, It depends upon the app for the appropriate architecture BUT why not just pick the most apt architecture** ahead of time **which could be scalable, robust, testable so that you don’t have to take pain in future.
 
 Thanks for reading :)
 
