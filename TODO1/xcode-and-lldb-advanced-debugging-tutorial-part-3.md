@@ -2,46 +2,46 @@
 > * 原文作者：[Fady Derias](https://medium.com/@fadiderias)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-3.md)
-> * 译者：
+> * 译者：[kirinzer](https://github.com/kirinzer)
 > * 校对者：
 
-# Xcode and LLDB Advanced Debugging Tutorial: Part 3
+# [译] Xcode 和 LLDB 高级调试教程：第 3 部分
 
-In the first and second parts of this three parts tutorial, we’ve covered how to utilize Xcode breakpoints to manipulate an existing property value and inject a new line of code via expression statements. We’ve also explored watchpoints that are a special type of breakpoints.
+在这三部分教程的第一部分和第二部分中，我们已经介绍了如何利用 Xcode 断点来控制一个存在的属性值，并且通过表达式语句注入新的代码行。 我们还探索了观察点这种特殊类型断点的。
 
-I developed a demo project with several intentional bugs to elaborate on how to use different types of breakpoints alongside the LLDB to fix bugs in your project/application.
+我开发了一个带有几个特殊错误的演示项目，详细说明了如何使用不同类型的断点配合 LLDB 来修复项目/应用程序中的错误。
 
-If you didn’t go through **[part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)** and **[part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md)** undefinedof this tutorial, it’s crucial to check them before proceeding with this final part.
+如果你还没有看过本教程的 **[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)** 和 **[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md)**，最好先看过它们再继续阅读本文。
 
-One last time, the golden rule of this tutorial:
+最后，本教程的重要规则是： 
 
-You’re not to stop the compiler or re-run the application after running it for the very first time. You’re fixing the bugs at runtime.
+第一次运行应用程序后，你不必停止编译器或重新运行应用程序，你会在运行时修复这些错误。
 
-## Symbolic Breakpoints 🔶
+## 符号断点 🔶
 
-How are we doing so far?
+到目前为止我们怎么样了？
 
-> 4. The left navigation bar label that indicates how many times the user did load posts is not being updated.
+> 4. 导航栏左侧指示用户加载次数的标签没有更新。
 
-Here are the steps to reproduce the last bug you’re to deal with:
+这里有一些步骤可以复现这最后一个需要处理的错误：
 
-✦ Scroll to the top of the table view, and pull down to refresh.
+✦ 滚动到表视图的顶部，然后下拉刷新。
 
-✦ Scroll to the bottom of the table view to load new posts. [for 7 times 😉]
+✦ 滚动到表视图的底部去加载更多文章。[7 次 😉]
 
-✦ The left label is not being updated for every time new posts are successfully retrieved.
+✦ 在每次成功获取到新的文章之后，左侧标签并没有被更新。
 
-It’s important to point out that the integer `pageNumber` property answers the question, how many times the user did load posts..? (i.e. the left label on the navigation bar should be updated by the value of the `pageNumber` property). We’re quite sure from the previous fixes that the `pageNumber` property is updated properly, hence the problem is with setting its value to the dedicated label on the navigation bar.
+需要指出的是整形属性 `pageNumber` 回答了这个问题，用户已经加载了文章多少次？（换句话说，导航栏左侧的标签应该被 `pageNumber` 属性的值更新）。我们可以确信的是，在之前的修复中 `pageNumber` 属性的值已经可以更新了。因此现在的问题在于没有将它的值设置给导航栏左侧的标签。
 
-In such cases, symbolic breakpoints strike in. Think of symbolic breakpoints as if the debugger is playing treasure hunt and you’re providing it with clues to get to that treasure. In your case, that happens to be the piece of code that updates the left label on the navigation bar.
+在这种情况下，符号断点会进入。想象一下，符号断点就像调试器在玩寻宝，而你会提供一些寻宝的线索。对你来说，这会发生在更新导航栏左侧标签的代码片段中。
 
-Let me show you how to do that.
+让我告诉你接下来怎么做。
 
-Show the breakpoint navigator, and click on the + button on the bottom left corner. Select symbolic breakpoint.
+展开断点导航器，接着点击左下角 + 按钮，选择符号断点。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nI_n_rCvxBS5ZILJqDVzrA.png)
 
-Add the following symbol
+添加如下符号
 
 ```
 [UILabel setText:]
@@ -49,7 +49,7 @@ Add the following symbol
 
 ![](https://cdn-images-1.medium.com/max/2052/1*bd0Xm4s2qxGAAlPafpuHgQ.png)
 
-**Don’t** check the “Automatically continue after evaluating actions” box.
+**不要** 勾选 “Automatically continue after evaluating actions” 选项框。
 
 What we’re simply doing here is informing the debugger that whenever the setText function of any UILabel is called, it should pause. Notice that after creating the symbolic breakpoint, a child has been added.
 
