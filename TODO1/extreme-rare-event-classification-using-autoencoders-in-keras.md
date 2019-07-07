@@ -2,74 +2,74 @@
 > * 原文作者：[Chitta Ranjan](https://medium.com/@cran2367)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/extreme-rare-event-classification-using-autoencoders-in-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/extreme-rare-event-classification-using-autoencoders-in-keras.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ccJia](https://github.com/ccJia)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Extreme Rare Event Classification using Autoencoders in Keras
+# 在 Keras 下使用自编码器分类极端稀有事件
 
-> In this post, we will learn how to implement an autoencoder for building a rare-event classifier. We will use a real-world rare event dataset from here [1].
+> 在本文中，我们将要学习使用自编码器搭建一个稀有事件分类器.我们将使用来自[1]的一个现实场景稀有事件数据集。
 
-## Background
+## 背景
 
-### What is an extreme rare event?
+### 什么是极端稀有事件？
 
-In a rare-event problem, we have an unbalanced dataset. Meaning, we have fewer positively labeled samples than negative. In a typical rare-event problem, the positively labeled data are around 5–10% of the total. In an extreme rare event problem, we have less than 1% positively labeled data. For example, in the dataset used here it is around 0.6%.
+在稀有事件问题中，我们面对的是一个不平衡的数据集。这代表着，相较于负样本，我们只有很少的正样本标签。典型的稀有事件问题中，正样本在全部数据中占比大概在 5-10% 之间。在极端稀有事件问题中，我们只有少于 1% 的正样本数据。比如，在我们使用的数据集中，正样本只有 0.6%。
 
-Such extreme rare event problems are quite common in the real-world, for example, sheet-breaks and machine failure in manufacturing, clicks or purchase in an online industry.
+这种极端稀有的事件在现实世界中是十分普遍的。比如，工厂中的纸张断裂和机器故障，在线销售行业中的点击或者购买。
 
-Classifying these rare events is quite challenging. Recently, Deep Learning has been quite extensively used for classification. However, **the small number of positively labeled samples prohibits Deep Learning application**. No matter how large the data, the use of Deep Learning gets limited by the amount of positively labeled samples.
+分类这些稀有事件是十分具有挑战的。最近，深度学习被广泛应用于分类问题。然而，**少量的正样本限制了深度学习的应用**。不管数据量有多大，正样本数量都会限制深度学习的效果。
 
-### Why should we still bother to use Deep Learning?
+### 为什么还要绞尽脑汁使用深度学习？
 
-This is a legitimate question. Why should we not think of using some another Machine Learning approach?
+这是一个合理的问题。我们为什么不去考虑使用其他的机器学习方法呢？
 
-The answer is subjective. We can always go with a Machine Learning approach. To make it work, we can undersample from negatively labeled data to have a close to a balanced dataset. Since we have about 0.6% positively labeled data, the undersampling will result in rougly a dataset that is about 1% of the size of the original data. A Machine Learning approach, e.g. SVM or Random Forest, will still work on a dataset of this size. However, it will have limitations in its accuracy. And we will not utilize the information present in the remaining ~99% of the data.
+答案是主观的。我们可以使用机器学习方法。为了使它工作，我们可以对负样本数据进行负采样，使得数据接近平衡。由于正样本数据只有 0.6%，降采样后的数据集大概只有原始数据集大小的 1%。一些机器学习方法，如：SVM、随机森林等，都可以在这个数据量上工作。然而，它的准确率会受到限制。这是因为我们不会使用剩下的 99% 的数据。
 
-If the data is sufficient, Deep Learning methods are potentially more capable. It also allows flexibility for model improvement by using different architectures. We will, therefore, attempt to use Deep Learning methods.
+如果数据充足，深度学习会表现的更好。它还可以通过使用不同的结构来灵活的改进模型。因此，我们准备尝试使用深度学习方法。
 
 ***
 
-In this post, **we will learn how we can use a simple dense layers autoencoder to build a rare event classifier**. The purpose of this post is to demonstrate the implementation of an Autoencoder for extreme rare-event classification. We will leave the exploration of different architecture and configuration of the Autoencoder on the user. Please share in the comments if you find anything interesting.
+在本推文中，**我们将要学习如何使用一个简单的全连接层自编码器来搭建一个稀有事件分类器**。推文的目是为了展示一个极端稀有事件分类器的自编码器实现。我们将探索不同自编码器结构和配置的工作留给读者。如果有什么有趣的发现，请分享给我们。
 
-## Autoencoder for Classification
+## 针对分类的自编码器
 
-The autoencoder approach for classification is similar to **anomaly detection**. In anomaly detection, we learn the pattern of a normal process. Anything that does not follow this pattern is classified as an anomaly. For a binary classification of rare events, we can use a similar approach using autoencoders (derived from [here](https://www.datascience.com/blog/fraud-detection-with-tensorflow) [2]).
+自编码器处理分类任务的方法类似于**异常检测**。在异常检测中，我们学习正常过程的模式。任何与这个模式不一致的东西，我们都认为是异常的。对于一个稀有事件的二分类任务，我们可以用类似的方法使用自编码器（[延伸阅读](https://www.datascience.com/blog/fraud-detection-with-tensorflow) [2]）。
 
-### Quick revision: What is an autoencoder?
+### 快速浏览：什么是自编码器？
 
-* An autoencoder is made of two modules: encoder and decoder.
-* The encoder learns the underlying features of a process. These features are typically in a reduced dimension.
-* The decoder can recreate the original data from these underlying features.
+* 自编码器由编码器和解码器组成。
+* 编码器用来学习过程的潜在特征。这些特征通常是由少量的维度表出。
+* 解码器可以从潜在的特征中重构出原始的数据。
 
-![Figure 1. Illustration of an autoencoder. [[Source](http://i-systems.github.io/HSE545/machine%20learning%20all/Workshop/CAE/06_CAE_Autoencoder.html): Autoencoder by Prof. Seungchul Lee
+![Figure 1. 自编码器的示意图。 [[Source](http://i-systems.github.io/HSE545/machine%20learning%20all/Workshop/CAE/06_CAE_Autoencoder.html): Autoencoder by Prof. Seungchul Lee
 iSystems Design Lab]](https://cdn-images-1.medium.com/max/2000/1*S_OcBPkRTpKJo0iz5IaNbQ.png)
 
-### How to use an Autoencoder rare-event classification?
+### 怎么使用自编码器来分类稀有事件？
 
-* We will divide the data into two parts: positively labeled and negatively labeled.
-* The negatively labeled data is treated as **normal** state of the process. A **normal** state is when the process is eventless.
-* We will ignore the positively labeled data, and train an Autoencoder on only negatively labeled data.
-* This Autoencoder has now learned the features of the **normal** process.
-* A well-trained Autoencoder will predict any new data that is coming from the **normal** state of the process (as it will have the same pattern or distribution).
-* Therefore, the reconstruction error will be small.
-* However, if we try to reconstruct a data from a rare-event, the Autoencoder will struggle.
-* This will make the reconstruction error high during the rare-event.
-* We can catch such high reconstruction errors and label them as a rare-event prediction.
-* This procedure is similar to anomaly detection methods.
+* 我们首先将数据分为两个部分：正样本标签和负样本标签。
+* 负样本标签被约定为过程的**正常**状态。**正常**状态是无事件的过程。
+* 我们将忽视正样本数据，同时在负样本上训练这个自编码器。
+* 现在，这个自编码器学习了所有**正常**过程的特征。
+* 一个充分训练的自编码器可以预测任何来自**正常**状态的过程（因为他们有同样的模式和分布）。
+* 因此，重构的误差会比较小。
+* 然而，如果我们重构一个来自稀有事件的数据，那么自编码器会遇到困难。
+* 这会导致重构稀有事件时，会有一个很高的重构误差。
+* 我们可以捕获这些高重构误差同时标记它们为稀有事件
+* 这个过程类似于异常检测。
 
-## Implementation
+## 实现
 
-### Data and problem
+### 数据和问题
 
-This is a binary labeled data from a pulp-and-paper mill for sheet breaks. Sheet breaks is severe problem in paper manufacturing. A single sheet break causes loss of several thousand dollars, and the mills see at least one or more break every day. This causes millions of dollors of yearly losses and work hazards.
+这是一个关于纸张断裂的二分类标签数据来自于造纸厂。在造纸厂，纸张断裂是一个严重的问题。单次的纸张断裂可能造成数千美金的损失，而且工厂每天至少会发生一次或多次纸张断裂。这导致每年数百万美元的损失和工作风险。
 
-Detecting a break event is challenging due to the nature of the process. As mentioned in [1], even a 5% reduction in the breaks will bring significant benefit to the mills.
+由于过程的性质，检测中断事件非常具有挑战性。正如[1]中提到的，即使减少 5% 的断裂也会给钢厂带来显著的好处。
 
-The data we have contains about 18k rows collected over 15 days. The column `y` contains the binary labels, with 1 denoting a sheet break. The rest columns are predictors. There are about 124 positive labeled sample (~0.6%).
+通过 15 天的收集，我们得到了包含 18K 行的数据。列 ‘y’ 包含了二分类标签，1 代表断裂。 其他列是预测器。这里有 124 个正样本（~0.6%）。
 
-Download data [here](https://docs.google.com/forms/d/e/1FAIpQLSdyUk3lfDl7I5KYK_pw285LCApc-_RcoC0Tf9cnDnZ_TWzPAw/viewform).
+从[这里]下载数据(https://docs.google.com/forms/d/e/1FAIpQLSdyUk3lfDl7I5KYK_pw285LCApc-_RcoC0Tf9cnDnZ_TWzPAw/viewform)下载数据。
 
-### Code
+### 代码
 
 Import the desired libraries.
 
@@ -106,44 +106,44 @@ rcParams['figure.figsize'] = 8, 6
 LABELS = ["Normal","Break"]
 ```
 
-Note that we are setting the random seeds for reproducibility of the result.
+注意，为了可复现结果，我们设置了随机数种子。
 
-**Data preprocessing**
+**数据处理**
 
-Now, we read and prepare the data.
+现在，我们来读取和准备数据。
 
 ```python
 df = pd.read_csv("data/processminer-rare-event-mts - data.csv")
 ```
 
-The objective of this rare-event problem is to predict a sheet-break before it occurs. We will try to predict the break 4 minutes in advance. To build this model, we will shift the labels 2 rows up (which corresponds to 4 minutes). We can do this as `df.y=df.y.shift(-2)`. However, in this problem we would want to do the shifting as: if row **n** is positively labeled,
+这个稀有事件问题的目的是在发生断裂前预测它。我们尝试提前 4 分钟预测出断裂。为了建立这个模型，我们把数据标签提前 2 行（对应于 4 分钟）。通过这行代码实现 `df.y=df.y.shift(-2)`。然而，在这个问题中，我们想做的是：判断行 n 是否会被标记为正样本，
 
-* Make row (**n**-2) and (**n**-1) equal to 1. This will help the classifier learn **up to** 4 minute ahead prediction.
+* 让 (**n**-2) 和 (**n**-1) 标记为 1。这样可以帮助分类器学习到提前 4 分钟预测。
 
-* Delete row **n**. Because we do not want the classifier to learn predicting a break when it has happened.
+* 删除 **n** 行。因为我们不想让分类器学习预测正在发生的断裂。
 
-We will develop the following UDF for this curve shifting.
+我们将为这个曲线移动开发以下 UDF。
 
 ```python
 sign = lambda x: (1, -1)[x < 0]
 
 def curve_shift(df, shift_by):
     '''
-    This function will shift the binary labels in a dataframe.
-    The curve shift will be with respect to the 1s. 
-    For example, if shift is -2, the following process
-    will happen: if row n is labeled as 1, then
-    - Make row (n+shift_by):(n+shift_by-1) = 1.
-    - Remove row n.
-    i.e. the labels will be shifted up to 2 rows up.
+    这个函数是用来偏移数据中的二分类标签。
+    平移只针对标签为 1 的数据
+    举个例子，如果偏移量为 -2，下面的处理将会发生：
+    如果是 n 行的标签为 1，那么
+    - 使 (n+shift_by):(n+shift_by-1) = 1
+    - 删除第 n 行。
+    也就是说标签会上移 2 行。
     
-    Inputs:
-    df       A pandas dataframe with a binary labeled column. 
-             This labeled column should be named as 'y'.
-    shift_by An integer denoting the number of rows to shift.
+    输入：
+    df       一个分类标签列的 pandas 数据。
+             这个标签列的名字是 ‘y’。
+    shift_by 一个整数，表示要移动的行数。
     
-    Output
-    df       A dataframe with the binary labels shifted by shift.
+    输出：
+    df       按照偏移量平移过后的数据。
     '''
 
     vector = df['y'].copy()
@@ -152,20 +152,20 @@ def curve_shift(df, shift_by):
         tmp = tmp.fillna(0)
         vector += tmp
     labelcol = 'y'
-    # Add vector to the df
+    # 添加向量到 df
     df.insert(loc=0, column=labelcol+'tmp', value=vector)
-    # Remove the rows with labelcol == 1.
+    # 删除 labelcol == 1 的行.
     df = df.drop(df[df[labelcol] == 1].index)
-    # Drop labelcol and rename the tmp col as labelcol
+    # 丢弃 labelcol 同时将 tmp 作为 labelcol。
     df = df.drop(labelcol, axis=1)
     df = df.rename(columns={labelcol+'tmp': labelcol})
-    # Make the labelcol binary
+    # 制作二分类标签
     df.loc[df[labelcol] > 0, labelcol] = 1
 
     return df
 ```
 
-Now, we divide the data into train, valid, and test sets. Then we will take the subset of data with only 0s to train the autoencoder.
+现在，我们将数据分为训练集、验证集和测试集。然后我们将只使用标签为 0 的子集来训练自编码器。
 
 ```python
 df_train, df_test = train_test_split(df, test_size=DATA_SPLIT_PCT, random_state=SEED)
@@ -187,9 +187,9 @@ df_test_0_x = df_test_0.drop(['y'], axis=1)
 df_test_1_x = df_test_1.drop(['y'], axis=1)
 ```
 
-**Standardization**
+**标准化**
 
-It is usually better to use a standardized data (transformed to Gaussian, mean 0 and variance 1) for autoencoders.
+对于自编码器，通常最好使用标准化数据(转换为高斯、均值 0 和方差 1)。
 
 ```python
 scaler = StandardScaler().fit(df_train_0_x)
@@ -201,11 +201,11 @@ df_test_0_x_rescaled = scaler.transform(df_test_0_x)
 df_test_x_rescaled = scaler.transform(df_test.drop(['y'], axis = 1))
 ```
 
-### Autoencoder Classifier
+### 自编码分类器
 
-**Initialization**
+**初始化**
 
-First, we will initialize the Autoencoder architecture. We are building a simple autoencoder. More complex architectures and other configurations should be explored.
+首先，我们将初始化自编码器框架。我们只构建一个简单的自编码器。更多复杂的结构和配置留给读者去探索。
 
 ```python
 nb_epoch = 100
@@ -223,9 +223,9 @@ decoder = Dense(input_dim, activation='relu')(decoder)
 autoencoder = Model(inputs=input_layer, outputs=decoder)
 ```
 
-**Training**
+**训练**
 
-We will train the model and save it in a file. Saving a trained model is a good practice for saving time for future analysis.
+我们将训练模型，并保存它到指定文件。存储训练模型是节省未来分析时间的好方法。
 
 ```python
 autoencoder.compile(metrics=['accuracy'],
@@ -250,15 +250,15 @@ history = autoencoder.fit(df_train_0_x_rescaled, df_train_0_x_rescaled,
                     callbacks=[cp, tb]).history
 ```
 
-![Figure 2. Loss for Autoencoder Training.](https://cdn-images-1.medium.com/max/2696/1*dMlsnQly8WLMNoJqjG9nVg.png)
+![Figure 2. 自编码器训练过程的损失值。](https://cdn-images-1.medium.com/max/2696/1*dMlsnQly8WLMNoJqjG9nVg.png)
 
-**Classification**
+**分类器**
 
-In the following, we show how we can use an Autoencoder reconstruction error for the rare-event classification.
+接下来，我们将展示我们如何使用自编码器对于稀有事件的重构误差来做分类。
 
-As mentioned before, if the reconstruction error is high, we will classify it as a sheet-break. We will need to determine the threshold for this.
+之前已经提到，如果重构误差比较高，我们将认定它是一次断裂。我们需要定一个阈值。
 
-We will use the validation set to identify the threshold.
+我们使用验证集来设置阈值。
 
 ```python
 valid_x_predictions = autoencoder.predict(df_valid_x_rescaled)
@@ -276,11 +276,11 @@ plt.legend()
 plt.show()
 ```
 
-![Figure 3. A threshold of 0.85 should provide a reasonable trade-off between precision and recall.](https://cdn-images-1.medium.com/max/2768/1*s5MCn5NruZSXSu7MAg4jNA.png)
+![Figure 3. 阈值为0.85应该在精确度和召回率之间提供一个合理的平衡。](https://cdn-images-1.medium.com/max/2768/1*s5MCn5NruZSXSu7MAg4jNA.png)
 
-Now, we will perform classification on the test data.
+现在，我们将对测试数据进行分类。
 
-> **We should not estimate the classification threshold from the test data. It will result in overfitting.**
+> **我们不应该根据测试数据来估计分类阈值。这会导致过拟合。**
 
 ```python
 test_x_predictions = autoencoder.predict(df_test_x_rescaled)
@@ -305,9 +305,9 @@ plt.xlabel("Data point index")
 plt.show();
 ```
 
-![Figure 4. Using threshold = 0.85 for classification. The orange and blue dots above the threshold line represents the True Positive and False Positive, respectively.](https://cdn-images-1.medium.com/max/3308/1*MjCGb-HIfcyiFoeFyjF2Dw.png)
+![Figure 4. 使用阈值 = 0.85 进行分类。阈值线上方的橙色和蓝色圆点分别表示真阳性和假阳性。](https://cdn-images-1.medium.com/max/3308/1*MjCGb-HIfcyiFoeFyjF2Dw.png)
 
-In Figure 4, the orange and blue dot above the threshold line represents the True Positive and False Positive, respectively. As we can see, we have good number of false positives. To have a better look, we can see a confusion matrix.
+在图 4 中，阈值线上方的橙色和蓝色圆点分别表示真阳性和假阳性。正如我们所看到的，我们有很多假阳性。为了更好的理解，我们使用混淆矩阵来表示。
 
 ```python
 pred_y = [1 if e > threshold_fixed else 0 for e in error_df.Reconstruction_error.values]
@@ -322,13 +322,13 @@ plt.xlabel('Predicted class')
 plt.show()
 ```
 
-![Figure 5. Confusion Matrix on the test predictions.](https://cdn-images-1.medium.com/max/2948/1*MSwOdDkv8coFWzgYhTCVgw.png)
+![Figure 5. 测试集预测结果的混淆矩阵。](https://cdn-images-1.medium.com/max/2948/1*MSwOdDkv8coFWzgYhTCVgw.png)
 
-We could predict 9 out of 32 breaks instances. Note that these instances include 2 or 4 minute ahead predictions. This is around 28%, which is a good recall rate for the paper industry. The False Positive Rate is around 6.3%. This is not ideal but not terrible for a mill.
+我们可以预测 32 次断裂中的 9 次。值得注意的是，这些结果是提前 2 到 4 分钟预测的。这一比率大概是 28%，这对于造纸业来说已经是一个很好的召回率了。假阳性大致是 6.3%。这并不完美，但是对于工厂而言也不坏。
 
-Still, this model can be further improved to increase the recall rate with smaller False Positive Rate. We will look at the AUC below and then talk about the next approach for improvement.
+该模型还可以进一步改进，在假阳性率较小的情况下提高召回率。我们将在下面讨论 AUC，然后讨论下一个改进方法。
 
-**ROC curve and AUC**
+**ROC 曲线和 AUC**
 
 ```python
 false_pos_rate, true_pos_rate, thresholds = roc_curve(error_df.True_class, error_df.Reconstruction_error)
@@ -348,25 +348,25 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/3420/1*GAyB6Bruo8YNBiEUiav0mw.png)
 
-The AUC is 0.624.
+AUC 的结构是 0.624。
 
-### Github repository
+### Github 仓库
 
-The entire code with comments are present [here](https://github.com/cran2367/autoencoder_classifier).
+带有注释的代码在[这里](https://github.com/cran2367/autoencoder_classifier)。
 [**cran2367/autoencoder_classifier**
 **Autoencoder model for rare event classification. Contribute to cran2367/autoencoder_classifier development by creating…**github.com](https://github.com/cran2367/autoencoder_classifier/blob/master/autoencoder_classifier.ipynb)
 
-## What can be done better here?
+## 还有什么可以做得更好呢?
 
-This is a (multivariate) time series data. We are not taking into account the temporal information/patterns in the data. In the [next post](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb), we will explore if it is possible with an RNN. We will try a [LSTM autoencoder](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb).
+这是一个（多元）时间序列数据。我们没有考虑数据中的时间信息/模式。我们将在[下一篇推文](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb)探索是否可以结合 RNN 进行分类。我们将尝试 [LSTM autoencoder](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb)。
 
-## Conclusion
+## 结论
 
-We worked on an extreme rare event binary labeled data from a paper mill to build an Autoencoder Classifier. We achieved reasonable accuracy. The purpose here was to demonstrate the use of a basic Autoencoder for rare event classification. We will further work on developing other methods, including an [LSTM Autoencoder](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb) that can extract the temporal features for better accuracy.
+我们研究了一个工作于造纸厂的极端稀有事件的二值数据的自编码分类器。我们达到了不错的准确度。我们的目的是展示自编码器对于稀有事件分类问题的基础应用。我们之后会尝试开发其它的方法，包括可以结合时空特征的 [LSTM Autoencoder](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb) 来达到一个更好的效果。
 
-The next post on LSTM Autoencoder is here, [LSTM Autoencoder for rare event classification](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb).
+下一篇关于 LSTM 自编码的推文在这里 [LSTM Autoencoder for rare event classification](https://medium.com/@cran2367/lstm-autoencoder-for-extreme-rare-event-classification-in-keras-ce209a224cfb).
 
-## References
+## 引用
 
 1. Ranjan, C., Mustonen, M., Paynabar, K., & Pourak, K. (2018). Dataset: Rare Event Classification in Multivariate Time Series. [**arXiv preprint arXiv:1809.10717**](https://arxiv.org/abs/1809.10717).
 2. [https://www.datascience.com/blog/fraud-detection-with-tensorflow](https://www.datascience.com/blog/fraud-detection-with-tensorflow)

@@ -2,26 +2,26 @@
 > * 原文作者：[Rodion Chachura](https://medium.com/@geekrodion)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-for-linear-algebra-examples-grid-and-arrows.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-for-linear-algebra-examples-grid-and-arrows.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[Baddyo](https://github.com/Baddyo), [ZavierTang](https://github.com/ZavierTang)
 
-# React for Linear Algebra Examples: Grid and Arrows
+# 用 React 制作线性代数教程示例：网格与箭头
 
-This is part of the course “[Linear Algebra with JavaScript](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”.
+本文是“[JavaScript 线性代数](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”教程的一部分。
 
-![[GitHub Repository with Source Code](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
+![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-Just recently I finished [the first story](https://medium.com/@geekrodion/linear-algebra-vectors-f7610e9a0f23) in upcoming series about linear algebra. And right before starting the new one I had a thought that would be cool to develop a React project showcasing examples from the series… GitHub repository can be found [there](https://github.com/RodionChachura/linear-algebra) and commit with the state of this story [there](https://github.com/RodionChachura/linear-algebra/tree/813cfecfda70cb3a9415c21ead97e09242e08f49).
+最近我撰写了这个线性代数系列的[开篇之作](https://medium.com/@geekrodion/linear-algebra-vectors-f7610e9a0f23)。在新篇开始动笔前，我有了一个想法：使用 React 开发一个项目，来为这个系列的所有示例提供可视化功能一定很好玩！本系列的所有代码都存放于[此 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)，本文相关代码的提交记录位于[此处](https://github.com/RodionChachura/linear-algebra/tree/813cfecfda70cb3a9415c21ead97e09242e08f49)。
 
-## Goal
+## 目标
 
-Since on the moment of writing, there is only one story that covers basic operations on vectors in series. It would be enough for now to implement components that will help us to render two-dimensional grid and vectors as arrows. The end result for this part shown below, also you can play with it [here](https://rodionchachura.github.io/linear-algebra/).
+在本系列刚开始写作时，只有一个章节涉及了向量的基本运算。所以，目前实现一个能渲染二维坐标网格以及能将向量可视化为箭头的组件就够用了。本文最后做出的效果如下图所示，你也可以在[此处](https://rodionchachura.github.io/linear-algebra/)进行体验。
 
-![basic vectors operation in two-dimensional space](https://cdn-images-1.medium.com/max/3830/1*38t6SAlScgmBGjXQn9cTuA.gif)
+![二维空间中的基本向量运算](https://cdn-images-1.medium.com/max/3830/1*38t6SAlScgmBGjXQn9cTuA.gif)
 
-## Create React App
+## 创建 React 项目
 
-There is an entire story about best practices of how to start to react project, but for this case, we will go with as little libraries as possible and with simplest setup possible.
+其实已经有关于创建 React 项目的最佳实践指南文章可供参考，不过在本文中，我们将尽可能减少依赖的库，并简化对项目的配置。
 
 ```bash
 create-react-app linear-algebra-demo
@@ -29,7 +29,7 @@ cd linear-algebra-demo
 npm install --save react-sizeme styled-components
 ```
 
-The first library will be used to re render the **Grid** component when its size changes and the second one to make styling of components easier. To use **linear-algebra** library we are developing in series, we need to reference it in **package.json**.
+上面的脚本安装了两个库。第一个库 `react-sizeme` 可以实现当窗体大小发生变化时，重新渲染网格组件。第二个库 `styled-components` 则能让我们更轻松地编写组件的样式。此外，要用到我们正在开发的 **linear-algebra** 库，需要在 **package.json** 中进行如下引用：
 
 ```
 "dependencies": {
@@ -38,11 +38,11 @@ The first library will be used to re render the **Grid** component when its size
 }
 ```
 
-## Project Structure
+## 项目结构
 
-![project structure](https://cdn-images-1.medium.com/max/2000/1*EWFF0Gih-K8lchpTLnGemQ.png)
+![项目结构](https://cdn-images-1.medium.com/max/2000/1*EWFF0Gih-K8lchpTLnGemQ.png)
 
-For each example we have it is own component in views folder. From **index.js** we export an object where the key is the name of an example and value is component.
+本系列为每个示例都在 `views` 目录中创建了各自的组件。我们在 **index.js** 中导出一个以示例名称为键、以对应组件为值的对象。
 
 ```JavaScript
 import { default as VectorLength } from './vector-length'
@@ -60,7 +60,7 @@ export default {
 }
 ```
 
-Then we can import this object in the main component and list all of its keys in the menu. After the user selects an example in the menu, the component state will be updated, and the new view will be rendered.
+接着在 `Main` 组件中导入该对象，并在菜单中展示出所有的键。当用户通过菜单选择示例后，更新组件状态，并渲染新的 `view`。
 
 ```JavaScript
 import React from 'react'
@@ -112,13 +112,13 @@ class Main extends React.Component {
 export default Main
 ```
 
-## Grid
+## 网格组件
 
-To render vectors and other stuff from upcoming stories we need to have a nice component that will provide the function to project coordinates from the format we are accustomed to — when **(0,0)** on the center of the view and the y-axis pointing up to **SVG** coordinates where **(0,0)** is in top-left corner and y- axis pointing down.
+为了在之后的示例中渲染向量和其它内容，我们设计了一个功能强大的组件，这个组件需要有这么一种投影功能：将我们熟知的直角坐标系（原点在中间，y 轴正向朝上）投影到 **SVG** 坐标系（原点在左上角，y 轴正向朝下）中。
 
 ```JavaScript
 this.props.updateProject(vector => {
-  // we don't have transformation method in vector class yet, so:
+  // 在 vector 类中没有任何用于缩放的方法，因此在这里进行计算：
   const scaled = vector.scaleBy(step)
   const withNegatedY = new Vector(
     scaled.components[0],
@@ -129,7 +129,7 @@ this.props.updateProject(vector => {
 })
 ```
 
-To catch the moment when the container of the **Grid** changes its size we wrap our component with function from the **react-size** library.
+为了捕获到网格组件容器的大小变动，我们使用 **react-size** 库提供的函数将这个组件包装起来：
 
 ```JavaScript
 ...
@@ -162,7 +162,7 @@ class Grid extends React.Component {
 export default withSize({ monitorHeight: true })(Grid)
 ```
 
-To make it easier to use the grid in different examples we write a **GridExample** component that receives two parameters — function that will render information, such as names and components of vectors, and function, that will render content on the grid, such as arrows.
+为了便于在不同的示例中使用这个网格组件，我们编写了一个 **GridExample** 组件，它可以接收两个参数：一个用于渲染信息（例如向量的名称）的函数 `renderInformation`，以及一个用于在网格上呈现内容（如后面的箭头组件）的函数 `renderGridContent`。
 
 ```JavaScript
 ...
@@ -206,7 +206,7 @@ class Main extends React.Component {
 export default Main
 ```
 
-Then we can use this component in our views. Let’s take a look at an example showing vectors addition.
+这样就能在 view 中使用这个组件了。下面以向量的加法为例测试一下：
 
 ```JavaScript
 import React from 'react'
@@ -260,9 +260,9 @@ export default withTheme(VectorsAddition)
 
 ```
 
-## Arrow
+## 箭头组件
 
-Arrow consists of three **SVG** element — **line** to represent arrow, **polygon** to represent the head of an arrow, and **text** to show the name of a vector. To place an arrow the right way relative to the grid we receive the **project** function.
+箭头组件由 3 个 **SVG** 元素组成：**line** 用于显示箭头的线、**polygon** 用于显示箭头的头、**text** 用于显示向量名称。此外，我们需要接收 **project** 函数，用于将箭头放在网格中正确的位置上。
 
 ```JavaScript
 import React from 'react'
@@ -329,7 +329,7 @@ export default ({ vector, text, color, project }) => {
 
 ***
 
-A lot of interesting stuff can be done by combining **React** and **SVG**, and in this series, we are going to add more features to this project to visualize examples that are coming next. There is also a similar article, about making of sophisticated bar charts with **React** and **SVG**, you can check out it [here](https://medium.com/@geekrodion/bar-chart-with-react-3b20b7907633).
+通过结合 **React** 与 **SVG** 可以做更多有意思的事。在本系列的后面章节中，我们会给这个可视化示例添加更多的功能。最后推荐另一篇类似的文章：[使用 **React** 与 **SVG** 制作复杂的条形图](https://medium.com/@geekrodion/bar-chart-with-react-3b20b7907633)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

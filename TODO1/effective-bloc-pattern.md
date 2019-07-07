@@ -2,18 +2,31 @@
 > * 原文作者：[Sagar Suri](https://medium.com/@sagarsuri56)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/effective-bloc-pattern.md](https://github.com/xitu/gold-miner/blob/master/TODO1/effective-bloc-pattern.md)
+<<<<<<< HEAD
 > * 译者 [LucaslEliane](https://github.com/LucaslEliane)
 > * 校对者：
 
 # 高效地使用 BLoC 模式
 
 朋友们，我已经写了很多关于 Flutter 的文章。在完成了两篇关于 BLoC 模式的文章之后，我花了一些时间，分析了社区对于这种模式的使用情况，在回答了一些关于 BLoC 模式实现的一些问题之后，我发现大家对于 BLoC 模式存在很多疑惑。所以，我提出了一系列*“经验方法”*，可以遵循这一系列方法来正确地实现 BLoC 模式，这会帮助开发人员在实现的时候避免犯下一些常见的错误。所以，我今天向大家介绍一下在使用 BLoC 模式时必须要遵循的 * 8 个黄金点*。
+=======
+> * 译者：[LucaslEliane](https://github.com/LucaslEliane)
+> * 校对者：[portandbridge](https://github.com/portandbridge)
+
+# 高效地使用 BLoC 模式
+
+朋友们，我有好长一段时间没有写过 flutter 相关的文章了。在完成了两篇关于 BLoC 模式的文章之后，我花了一些时间，分析了社区对于这种模式的使用情况，在回答了一些关于 BLoC 模式实现的一些问题之后，我发现大家对于 BLoC 模式存在很多疑惑。所以，我构思了一套方法，大家按照这一套方法来做，就可以正确地实现 BLoC 模式了，这会帮助开发人员在实现的时候避免犯下一些常见的错误。所以，我今天向大家介绍一下在使用 BLoC 模式时必须要遵循的 **8 个黄金点**。
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/3770/1*XUDik4jakpEcQ6ZVm5jo3A@2x.png)
 
 ## 前提
 
+<<<<<<< HEAD
 我希望读者应该知道 BLoC 模式是什么，或者使用模式创建了一个应用（至少做过 `CTRL + C` 和 `CTRL + V`）。如果你是第一次听到 **BLoC** 这个词，那么下面三篇文章可以很好地帮助你理解这个模式。
+=======
+我心目中的读者，应该知道 BLoC 模式是什么，或者使用模式创建了一个应用（至少做过 `CTRL + C` 和 `CTRL + V`）。如果你是第一次听到 **BLoC** 这个词，那么下面三篇文章可以很好地帮助你理解这个模式。
+>>>>>>> upstream/master
 
 1. 使用 BLoC 模式构建 Flutter 项目[第一部分](https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1)和[第二部分](https://medium.com/flutterpub/architect-your-flutter-project-using-bloc-pattern-part-2-d8dd1eca9ba5)
 
@@ -21,13 +34,21 @@
 
 ## 和 BLoC 相遇的故事
 
+<<<<<<< HEAD
 我知道，BLoC 模式是一个很难去理解和实现的模式。我看过了很多开发人员的帖子，问*哪里是学习 BLoC 模式的最佳资源呢？*，看过了不同的帖子和评论之后，我觉得以下几点是每个人在理解这个问题时常见的阻碍。
+=======
+我知道，BLoC 模式是一个很难去理解和实现的模式。我看过了很多开发人员的帖子，询问 **哪里是学习 BLoC 模式的最佳资源呢**？读完了不同的帖子和评论之后，我觉得大家在理解这个问题的阻碍有以下几点。
+>>>>>>> upstream/master
 
 1. 响应式地思考。
 
 2. 努力了解需要创建多少 BLoC 文件。
 
+<<<<<<< HEAD
 3. 害怕这个模式的范围会扩大。
+=======
+3. 害怕这个模式会造成代码复杂度的提升。
+>>>>>>> upstream/master
 
 4. 不知道 stream 在什么时候会被处理掉。
 
@@ -39,7 +60,11 @@
 
 ## 每一个页面都有其自己的 BLoC
 
+<<<<<<< HEAD
 这是需要记住的最终要的一个点。每当你创建了一个新的页面，例如登录页，注册页，配置文件页等涉及到数据处理的页面的时候，你必须要为其*创建一个新的 BLoC*。不要将全局 BLoC 用于处理应用中的所有页面。你可能会认为，如果我们有一个全局的 BLoC，就可以轻松的处理跨页面的数据了。这很不好，因为你的库应当将这些公共数据提供给 BLoC。BLoC 获取数据并且将其注入到页面中，来向用户展示。
+=======
+这是需要记住的最重要的一个点。每当你创建了一个新的页面，例如登录页，注册页，个人资料页等涉及到数据处理的页面的时候，你必须要为其 **创建一个新的 BLoC**。不要将全局 BLoC 用于处理应用中的所有页面。你可能会认为，如果我们有一个全局的 BLoC，就可以轻松地处理跨页面的数据了。这很不好，因为你的库应当将这些公共数据提供给 BLoC。BLoC 仅仅是获取数据并且将其注入到页面中，来向用户展示。
+>>>>>>> upstream/master
 
 ![左图是正确的使用模式](https://cdn-images-1.medium.com/max/2000/1*0z3wjE8m89iI4ppbeNe2Jg.png)
 
@@ -67,11 +92,19 @@ class MoviesBloc {
 
 ## 不要在 BLoC 中使用 StatelessWidget
 
+<<<<<<< HEAD
 每当你想要创建一个传递数据到 BLoC 或者从 BLoC 中获取数据的页面的时候，*请使用 `StatefulWidget`*。使用 `StatefulWidget` 相比于使用 `StatelessWidget` 的最大优点在于 `StatefulWidget` 中的生命周期方法。在文章的后面，我们会讨论在使用 BLoC 模式时需要覆盖的两个最重要的方法。`StatelessWidget` 很适合制作页面的小的静态部分，例如显示图像或者是硬编码的文本。如果你想要通过 `StatelessWidget` 实现 BLoC 模式，请看上面推荐的文章的*第一部分*和*第二部分*，我为什么要从 `StatelessWidget` 迁移到 `StatefulWidget`。
 
 ## 重写 didChangeDependencies() 来初始化 BLoC
 
 如果你需要在初始化的时候需要一个 `context` 来初始化 BLoC 对象，那么这个方法就是在 `StatefulWidget` 中需要重写的最重要的方法。你可以将其视为初始化方法（仅适用于 BLoC的初始化）。你可以说，我们有 `initState()` 方法，那么为什么我们要使用 `didChangeDependencies()` 方法。根据文档中提到的，从 `didChangeDependencies()` 来调用 [BuildContext.inheritFromWidgetOfExactType](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html) 是安全的。下面是使用这个方法的一个简单的例子：
+=======
+每当你想要创建一个传递数据到 BLoC 或者从 BLoC 中获取数据的页面的时候，**请使用 `StatefulWidget`** 。使用 `StatefulWidget` 相比于使用 `StatelessWidget` 的最大优点在于 `StatefulWidget` 中的生命周期方法。在文章的后面，我们会讨论在使用 BLoC 模式时需要覆盖的两个最重要的方法。`StatelessWidget` 很适合制作页面的小的静态部分，例如显示图像或者是硬编码的文本。如果你想要看看怎么用 `StatelessWidget` 来实现 BLoC 模式，请看上面推荐的文章的 **第一部分**，而在**第二部分**中，我讲述了自己为什么要从 `StatelessWidget` 迁移到 `StatefulWidget`。
+
+## 重写 didChangeDependencies() 来初始化 BLoC
+
+如果你需要在初始化的时候需要一个 `context` 来初始化 BLoC 对象，那么这个方法就是在 `StatefulWidget` 中需要重写的最重要的方法。你可以将其视为初始化方法（最好仅用于 BLoC 的初始化）。你或许会说，我们有 `initState()` 方法，那么为什么我们要使用 `didChangeDependencies()` 方法。文档里面清楚地提到，从 `didChangeDependencies()` 调用 [BuildContext.inheritFromWidgetOfExactType](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html) 是安全的。下面是使用这个方法的一个简单的例子：
+>>>>>>> upstream/master
 
 ```dart
 @override
@@ -84,7 +117,11 @@ class MoviesBloc {
 
 ## 重写 dispose() 方法来销毁 BLoC
 
+<<<<<<< HEAD
 就和有一个初始化方法一样，我们还需要提供一个方法，来处理我们在 BLoC 中创建的连接。`dispose()` 方法是调用与该页面相连的对应的 BLoC 的 `dispose()` 方法的最佳位置。每当你离开页面的时候，需要调用这个方法（实际上就是`StatefulWidget`被处理掉的时候）。 以下是该方法的一个小例子：
+=======
+就和有一个初始化方法一样，我们还有一个方法，来处理掉我们在 BLoC 中创建的连接。`dispose()` 方法是调用与该页面相连的对应的 BLoC 的 `dispose()` 方法的最佳位置。每当你离开页面的时候，需要调用这个方法（实际上就是`StatefulWidget`被处理掉的时候）。以下是该方法的一个小例子：
+>>>>>>> upstream/master
 
 ```dart
 @override
@@ -94,9 +131,15 @@ class MoviesBloc {
   }
 ```
 
+<<<<<<< HEAD
 ## 只有当有复杂逻辑需要处理的时候，才使用 RxDart
 
 如果你之前使用过 BLoC 模式的话，那么你一定听说过 `[RxDart]（https://github.com/ReactiveX/rxdart)` 库。这个库是 Google Dart 的响应式函数式编程库。这个库只是 Dart 提供的一个 `Stream` API 的包装器。我建议你仅在需要处理，类似于链接多个网络请求这样的复杂逻辑时，才使用这个库。对于一些简单的实现，使用 Dart 语言提供的 `Stream` API 就足够了，因为这个 API 已经非常成熟了。下面我添加了一个 BLoC，它使用了 `Stream` API 而不是 `RxDart` 库，这样会让操作变得非常简单，我们不需要额外的库来实现同样的事情：
+=======
+## 只有需要处理复杂逻辑的时候，才使用 RxDart
+
+如果你之前使用过 BLoC 模式的话，那么你一定听说过 `[RxDart](https://github.com/ReactiveX/rxdart)` 库。这个库是 Google Dart 的响应式函数式编程库，它只是一个包装器，用来包装 Dart 提供的 `Stream` API。我建议你仅在需要处理，类似于链接多个网络请求这样的复杂逻辑时，才使用这个库。对于一些简单的实现，使用 Dart 语言提供的 `Stream` API 就足够了，因为这个 API 已经非常成熟了。下面我添加了一个 BLoC，它使用了 `Stream` API 而不是 `RxDart` 库，这样会让操作变得非常简单，我们不需要额外的库来实现同样的事情：
+>>>>>>> upstream/master
 
 ```dart
 import 'dart:async';
@@ -155,7 +198,11 @@ class Bloc {
 
 ## 使用 PublishSubject 代替 BehaviorSubject
 
+<<<<<<< HEAD
 对于那些在 Flutter 项目中使用 `RxDart` 库的人来说，这一点会更加地明确。`BehaviorSubject` 是一个特殊的 `StreamController`，它会捕获到已经添加到 controller 的最新项，并且将其作为新的 listener 的第一个事件触发。即使你在 `BehaviorSubject` 上调用 `close()` 或者 `drain()`，它仍然会保留最后一项，并且在这个 listener 被订阅的时候触发。如果开发人员不了解这个功能，那么对于开发人员来说，可以说是一个噩梦。而 `PublishSubject` 不会存储最后一项，更加适合于大多数情况。在这个[项目](https://github.com/SAGARSURI/Goals)中，可以查看 `BehaviorSubject` 的功能。运行应用程序，并且跳转到 'Add Goal' 页面，在表单中输入详细信息，并且导航回来。现在，再次访问 'Add Goal' 页面，你就会发现预先填写了你之前输入的数据的表单。如果你是一个像我一样偷懒的人，那么可以看我下面附上的视频：
+=======
+对于那些在 Flutter 项目中使用 `RxDart` 库的人来说，这一点会更加地明确。`BehaviorSubject` 是一个特殊的 `StreamController`，它会捕获到已经添加到 controller 的最新项，并且将其作为新的 listener 的第一个事件触发。即使你在 `BehaviorSubject` 上调用 `close()` 或者 `drain()`，它仍然会保留最后一项，并且在这个 listener 被订阅的时候触发。如果开发人员不了解这个功能，这有可能会变成一场噩梦。而 `PublishSubject` 不会存储最后一项，更加适合于大多数情况。在这个[项目](https://github.com/SAGARSURI/Goals)中，可以查看 `BehaviorSubject` 的功能。运行应用程序，并且跳转到 'Add Goal' 页面，在表单中输入详细信息，并且跳转回来。现在，再次访问 'Add Goal' 页面，你就会发现表单里已经预先填写了你之前输入的数据。如果你和我一样懒，那么可以看我下面附上的视频：
+>>>>>>> upstream/master
 
 [Goals App Demo](https://youtu.be/N7-C3o_O1jE)
 
@@ -198,7 +245,11 @@ class MyApp extends StatelessWidget {
 
 ```
 
+<<<<<<< HEAD
 你可以清楚地看到，多个 BLoC Provider 是嵌套的。这时候，你可能会担心，如果继续在同一个链中添加更多的 BLoC，会导致一场噩梦，你可能会得出 BLoC 模式无法扩展的结论。但是，让我告诉你，当你需要在 Widget 树中访问多个 BLoC 的时候，可能会有一种特殊的情况（BLoC 只保存应用程序所需要的 UI 配置），因此，对于这种情况，上述的嵌套是完全正常的。但是我建议你在大多数的情况下，还是要避免这种嵌套的，并且只在实际需要的地方提供 BLoC。因此，比如当你需要导航到新的页面的时候，可以像这样使用 BLoC Provider：
+=======
+你可以清楚地看到，多个 BLoC Provider 是嵌套的。这时候，那么你一定会担心，如果继续在同一个链中添加更多的 BLoC，会导致一场噩梦，你可能会得出 BLoC 模式无法扩展的结论。但是，让我告诉你，当你需要在 Widget 树中访问多个 BLoC 的时候，可能会有一种特殊的情况（BLoC 只保存应用程序所需要的 UI 配置），因此，对于这种情况，上述的嵌套是完全没问题的。但是我建议你在大多数的情况下，还是要避免这种嵌套的，并且只在实际需要的地方提供 BLoC。因此，比如当你需要导航到新的页面的时候，可以像这样使用 BLoC Provider：
+>>>>>>> upstream/master
 
 ```dart
 openDetailPage(ItemModel data, int index) {
@@ -221,11 +272,19 @@ openDetailPage(ItemModel data, int index) {
   }
 ```
 
+<<<<<<< HEAD
 这样，`MovieDetailBlocProvider` 将会为 `MovieDetail` 页面提供 BLoC，而不是整个组件树。你可以看到，我将 `MovieDetailScreen` 存储在一个新的 `final variable` 中，来避免每次在 `MovieDetailScreen` 中打开或者关闭键盘的时候，都会重新创建 `MovieDetailScreen` 的问题。
 
 ## 还没有结束
 
 虽然这里是本文的结尾了，但并不是这个主题的结尾。随着我学习到更好的扩展和实现模式的方法，我将会不断为这个优化 BLoC 模式的关键点提供新的观点。我希望这些关键点可以帮助你更好地实现 BLoC 模式。Keep learning and keep coding :)。如果你喜欢这篇文章，可以通过点赞来表达你的爱。
+=======
+这样，`MovieDetailBlocProvider` 就不会为整个组件树，而是会为 `MovieDetail` 页面提供 BLoC。你可以看到，我将 `MovieDetailScreen` 存储在一个新的 `final variable` 中，来避免每次在 `MovieDetailScreen` 中打开或者关闭键盘的时候，都会重新创建 `MovieDetailScreen` 的问题。
+
+## 还没有结束
+
+虽然这里是本文的结尾了，但并不是这个主题的结尾。我也会在这个有关优化 BLoC 模式的文集中不断添加新的想法，从而继续丰富它的内容。我希望这些想法可以帮助你更好地实现 BLoC 模式。Keep learning and keep coding :)。如果你喜欢这篇文章，可以通过点赞来表达你的爱。
+>>>>>>> upstream/master
 
 有任何疑问，请在 [LinkedIn](https://www.linkedin.com/in/sagar-suri/) 与我联系，或者在 [Twitter](https://twitter.com/SagarSuri94) 上关注我。我会尽我所能解决你的问题。
 
