@@ -12,12 +12,12 @@
 A strong base architecture is extremely important for an app to scale and meet the expectation of the user base. I got a task of replacement of API with new updated and optimized API structure. For integrating this kind of change made me kind of rewrite the whole app.
 
 Why? Because the code was **deeply coupled** with response data models. At this time, I didn’t want to make the same mistakes over and over again. For resolving this problem, Clean architecture came to the rescue. It is a bit pain in the starting but might be the best option for a large app with many feature and **SOLID** approach. Let’s just try by questioning every aspect of architecture and break down into simpler bits.
-[**news-sample-app**
-**Contribute to news-sample-app development by creating an account on GitHub.**github.com](https://github.com/rakshit444/news-sample-app)
+
+* [**news-sample-app: Contribute to news-sample-app development by creating an account on GitHub.**](https://github.com/rakshit444/news-sample-app)
 
 This architecture was proposed in 2012 by Robert C. Martin(Uncle Bob) in [clean code blog](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
-> Why the cleaner approach?
+### Why the cleaner approach?
 
 1. Separation of code in different layers with **assigned responsibilities** making it easier for further modification.
 2. High level of **abstraction**
@@ -28,7 +28,7 @@ This architecture was proposed in 2012 by Robert C. Martin(Uncle Bob) in [clean 
 >
 > — Michael Feathers
 
-> What are the Layers?
+### What are the Layers?
 
 ![Dependency Flow](https://cdn-images-1.medium.com/max/2000/1*a5UQUjgYu5SZAbmkNELI_A.png)
 
@@ -38,13 +38,13 @@ This architecture was proposed in 2012 by Robert C. Martin(Uncle Bob) in [clean 
 
 **Presentation layer:** Would include both domain and data layer and is android specific which executes the UI logic.
 
-> What is Domain Layer?
+### What is Domain Layer?
 
 This will be the most generic layer of the three. It will connect the presentation layer with the data layer. This is the layer where app-related business logic will be executed.
 
 ![The domain layer structure of the application](https://cdn-images-1.medium.com/max/2000/1*m06XFPa5OTvOF6zGPC7Q0w.png)
 
-> UseCases
+### UseCases
 
 Use cases are the application logic executor. As the name depicts each functionality can have its separate use case. With more granularity of the use case creation, it can be reused more often.
 
@@ -65,11 +65,11 @@ class GetNewsUseCase(private val transformer: FlowableRxTransformer<NewsSourcesE
 
 This use case returns Flowable which can be modified according to the required observer. There are two parameters to it. One of them is **transformers** or [ObservableTransformer](http://reactivex.io/RxJava/javadoc/io/reactivex/ObservableTransformer.html) which control what thread to execute the logic and the other parameter **repository**, is the interface for the data layer. If any data has to be passed to the data layer then HashMap can be used.
 
-> Repositories
+### Repositories
 
 It specifies the functionalities required by the use cases which is implemented by the data layer.
 
-> What is Data Layer?
+### What is Data Layer?
 
 This layer is responsible for providing the data required by the application. Data layer should be designed such data it can be re-used by any application without modification in their presentation logic.
 
@@ -161,7 +161,7 @@ A data wrapper class is used onto the LiveData as a helper class so that view ge
 
 Each layer has its own **entities** which are specific to that package. Mapper is used for conversion of one layer entities to another. We are having different entities for each layer so that the layer becomes purely independent and only the required data gets passed to the subsequent layer.
 
-> Application Flow
+### Application Flow
 
 ![](https://cdn-images-1.medium.com/max/2516/1*a-AUcEVdyRJhIepo9JyJBw.png)
 
