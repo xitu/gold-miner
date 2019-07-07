@@ -2,7 +2,7 @@
 > * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/locale-changes-and-the-androidviewmodel-antipattern.md](https://github.com/xitu/gold-miner/blob/master/TODO1/locale-changes-and-the-androidviewmodel-antipattern.md)
-> * 译者：solerji
+> * 译者：[solerji](https://github.com/solerji)
 > * 校对者：
 
 # 区域设置更改和AndroidViewModel反面模式
@@ -47,7 +47,7 @@ public class MyViewModel extends ViewModel {
 
 即使你不打算本地化你的应用程序，它也会使测试变得更容易并且清空你的 ViewModel 对象，因此没有理由不去考虑它的前瞻性。
 
-我们在以Java为基础的Android架构存储库中解决了这个问题 [Java](https://github.com/googlesamples/android-architecture/pull/631) 以及在Kotlin [Kotlin](https://github.com/googlesamples/android-architecture/pull/635) 分支上。我们也把资源转移到 [数据绑定布局](https://github.com/googlesamples/android-architecture/pull/635/files#diff-7eb5d85ec3ea4e05ecddb7dc8ae20aa1R62).
+我们在以 Java 为基础的 Android 架构存储库中解决了这个问题 [Java](https://github.com/googlesamples/android-architecture/pull/631) 以及在Kotlin [Kotlin](https://github.com/googlesamples/android-architecture/pull/635) 分支上。我们也把资源转移到 [数据绑定布局](https://github.com/googlesamples/android-architecture/pull/635/files#diff-7eb5d85ec3ea4e05ecddb7dc8ae20aa1R62).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
