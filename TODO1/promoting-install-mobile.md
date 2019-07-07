@@ -5,7 +5,7 @@
 > * 译者：[Sam](<https://github.com/xutaogit>)
 > * 校对者：
 
-# 推广 PWA 安装的模式（移动端）
+# 推广安装 PWA 的模式（移动端）
 
 渐进式网页应用（PWA）是一种[模式](https://developers.google.com/web/progressive-web-apps/?hl=zh-cn)，用于创建类应用程序，即时加载的，可靠的和可安装的网站。虽然 PWA 技术适用于包括[桌面端](https://developers.google.com/web/progressive-web-apps/desktop?hl=zh-cn)在内的所有设备，本篇文章重点介绍移动端 PWA 安装推广模式。
 
