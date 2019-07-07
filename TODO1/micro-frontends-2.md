@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md)
 > * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
-> * 校对者：[动力小车](https://github.com/Stevens1995)、[柯小基](https://github.com/lgh757079506)
+> * 校对者：[动力小车](https://github.com/Stevens1995), [柯小基](https://github.com/lgh757079506)
 
 # 微前端：未来前端开发的新趋势 — 第二部分
 
@@ -151,7 +151,7 @@ server {
 </html>
 ```
 
-和[服务端的引入选项](#Server-sideTemplateComposition)一样，用 iframes 构建页面不是一个新的技术，而且可能不是很令人兴奋。但如果我们重温[之前提过](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md#%E4%BC%98%E7%82%B9)的微前端的好处，iframes 几乎都有，只要我们仔细考虑如何将应用分成独立部分、如何构建团队。
+和[服务端的引入选项](#服务端模板编写)一样，用 iframes 构建页面不是一个新的技术，而且可能不是很令人兴奋。但如果我们重温[之前提过](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md#%E4%BC%98%E7%82%B9)的微前端的好处，iframes 几乎都有，只要我们仔细考虑如何将应用分成独立部分、如何构建团队。
 
 我们经常看到很多人不愿意选择 iframes。虽然部分原因似乎是直觉感觉 iframe 有点“糟糕”，但人们也有很好的理由不使用它们。上面提到的简单隔离确实会使它们比其他选项更不灵活。在应用程序的不同部分之间构建集成可能很困难，因此它们使路由，历史记录和深层链接变得更加复杂，并且它们对使页面完全响应性提出了一些额外的挑战。
 
@@ -193,7 +193,7 @@ server {
 
 以上显然是一个比较初始的例子，但它演示了基本技术。与构建时集成不同，我们可以独立部署每个 `bundle.js` 文件。与 iframe 不同，我们有充分的灵活性来以我们偏好的方式构建微前端之间的集成。我们可以通过多种方式扩展上述代码，例如，只根据需要下载每个 JavaScript 包，或者在呈现微前端时传入和传出数据。
 
-这一方法的灵活性，与独立部署性结合，使它成为了我们的默认选择，并且是最为常见的一种选择。当我们到了[完整示例](#TheExampleInDetail)时我们将会探索只这面的更多细节。
+这一方法的灵活性，与独立部署性结合，使它成为了我们的默认选择，并且是最为常见的一种选择。当我们到了[完整示例](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#案例详解)时我们将会探索这方面的更多细节。
 
 ### 通过网页组件运行时集成
 
