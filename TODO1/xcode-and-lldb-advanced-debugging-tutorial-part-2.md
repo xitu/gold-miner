@@ -82,7 +82,7 @@
 
 3. 导致 `pageNumber` 属性实际发生改变的当前点。这是一个叫 `updateForNetworkCallEnd` 的方法。
 
-很显然每当 HTTP GET 请求成功时，只要 `state` 枚举属性处于 active 状态，`pageNumber` 属性就会加 1。 `state` 枚举属性可以是 ”active“ 或者 ”inactive“。”active“ 状态是指，用户可以继续加载更多文章(就是说没有达到上限数字)。”inactive” 状态则与之相反。结论是，我们需要在 `updateForNetworkCallEnd` 内部实现一些逻辑，可以检查 `pageNumber` 属性，并设置相应的 `state` 枚举属性。
+很显然每当 HTTP GET 请求成功时，只要 `state` 枚举属性处于 active 状态，`pageNumber` 属性就会加 1。`state` 枚举属性可以是 “active” 或者 “inactive”。“active” 状态是指，用户可以继续加载更多文章(就是说没有达到上限数字)。“inactive” 状态则与之相反。结论是，我们需要在 `updateForNetworkCallEnd` 内部实现一些逻辑，可以检查 `pageNumber` 属性，并设置相应的 `state` 枚举属性。
 
 正如你之前所学到的，最好的方式是在不停止编译器的情况下，先测试一下假设，然后再去实际的修改代码。
 
