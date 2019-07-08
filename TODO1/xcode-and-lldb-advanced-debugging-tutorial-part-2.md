@@ -28,7 +28,7 @@
 
 ✦ 滚动到表视图的底部，加载更多数据。
 
-✦ 滚动加载更多文章的次数超过7次。（记住，对于当前的应用程序，用户只能加载文章7次）
+✦ 滚动加载更多文章的次数超过 7 次。（记住，对于当前的应用程序，用户只能加载文章 7 次）
 
 考虑这个错误的一个方法是弄清 `pageNumber` 这个整形属性自从它被传入到网络管理器，去取回指定页码的新文章对象后是怎样被改变的。你将会花费一些时间和精力在你还不清楚的代码库里，并且弄清这个错误发生在哪里。
 
@@ -44,7 +44,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4464/1*PbTSXBMHhfXOKxfe_Tec8Q.png)
 
-找到 `pageNumber` 属性，右键单击，选择 “Watch _pageNumber” / “Watch pageNumber”。
+找到 `pageNumber` 属性，右键单击，选择 “Watch \_pageNumber” / “Watch pageNumber”。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/3280/1*rrJVnhAGpu-pxhNt7CFIBg.png)
 
