@@ -3,34 +3,34 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md)
 > * 译者：[kirinzer](https://github.com/kirinzer)
-> * 校对者：
+> * 校对者：[iWeslie](https://github.com/iWeslie), [JasonWu1111](https://github.com/JasonWu1111)
 
 # Xcode 和 LLDB 高级调试教程：第 2 部分
 
 在三部分教程的第一部分，我们介绍了如何利用 Xcode 断点操作现有的属性值，以及使用表达式语句注入新代码。
 
-我故意开发了一个带有几个错误的演示项目，详细说明了如何使用不同类型的断点配合 LLDB 来修复项目/应用程序中的错误。
+我特地开发了一个带有几个错误的演示项目，详细说明了如何使用不同类型的断点配合 LLDB 来修复项目/应用程序中的错误。
 
-如果你没有仔细检查这个教程的第一部分，在继续阅读本文之前查看第一部分是很重要的。
+在继续阅读本文之前，最好先看过本教程的 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)。
 
-让我提醒一下你，这个教程的指导原则：
-在本文剩下的部分，你不必停止编译器或者重新运行应用，你会在运行时修复这些错误。
+让我提醒一下你，本教程的重要规则是：
+第一次运行应用程序后，你不必停止编译器或重新运行应用程序，你会在运行时修复这些错误。
 
 ## 观察点 👀
 
-让我们向敌人进军。
+让我们向下一个敌人进军。
 
-> 3. 用户可以下拉刷新 **超过** 7 次。
+> 3. 用户可以加载文章 **超过** 7 次。
 
 这里有复现这个错误的步骤：
 
-✦ 关闭手机或模拟器的网络连接。
+✦ 打开手机或模拟器的网络连接。
 
-✦ 滚动到表视图的底部，加载更多。
+✦ 滚动到表视图的底部，加载更多数据。
 
 ✦ 滚动加载更多文章的次数超过7次。（记住，对于当前的应用程序，用户只能加载文章7次）
 
-考虑这个错误的一个方法是弄清 `pageNumber` 这个整形属性自从它被传入到网络管理器，去取回指定页码的新文章对象后是怎样被改变的。你将会花费一些时间和精力在你还不清楚的底层代码上，并且弄清这个错误发生在哪里。
+考虑这个错误的一个方法是弄清 `pageNumber` 这个整形属性自从它被传入到网络管理器，去取回指定页码的新文章对象后是怎样被改变的。你将会花费一些时间和精力在你还不清楚的代码库里，并且弄清这个错误发生在哪里。
 
 不要担心！现在让我们做一些神奇的事 🎩
 
@@ -44,7 +44,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4464/1*PbTSXBMHhfXOKxfe_Tec8Q.png)
 
-找到 `pageNumber` 属性，右键单击，选择“Watch _pageNumber” / “Watch pageNumber”。
+找到 `pageNumber` 属性，右键单击，选择 “Watch _pageNumber” / “Watch pageNumber”。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/3280/1*rrJVnhAGpu-pxhNt7CFIBg.png)
 
@@ -62,7 +62,7 @@
 
 ![](https://cdn-images-1.medium.com/max/5680/1*PEH5x-D85rp9qYo9MtwiJw.png)
 
-1. `pageNumber` 属性的新值和旧值。
+1. `pageNumber` 属性旧值和新值的日志。
 
 2. 导致 `pageNumber` 属性发生变化的方法调用栈。
 
@@ -82,11 +82,11 @@
 
 3. 导致 `pageNumber` 属性实际发生改变的当前点。这是一个叫 `updateForNetworkCallEnd` 的方法。
 
-很显然每当 HTTP GET 请求成功时，只要 `state` 枚举属性处于活跃状态，`pageNumber` 属性就会加 1。 `state` 枚举属性可以是”活跃“或者”非活跃“。”活跃“状态是指，用户可以继续加载更多文章(就是说没有达到上限数字)。”非活跃”状态则与之相反。结论是，我们需要在 `updateForNetworkCallEnd` 内部实现一些逻辑，可以检查 `pageNumber` 属性，并设置相应的 `state` 枚举属性。
+很显然每当 HTTP GET 请求成功时，只要 `state` 枚举属性处于 active 状态，`pageNumber` 属性就会加 1。 `state` 枚举属性可以是 ”active“ 或者 ”inactive“。”active“ 状态是指，用户可以继续加载更多文章(就是说没有达到上限数字)。”inactive” 状态则与之相反。结论是，我们需要在 `updateForNetworkCallEnd` 内部实现一些逻辑，可以检查 `pageNumber` 属性，并设置相应的 `state` 枚举属性。
 
 正如你之前所学到的，最好的方式是在不停止编译器的情况下，先测试一下假设，然后再去实际的修改代码。
 
-你猜对了😉
+你猜对了 😉
 
 重要的是，在 pragma mark `Support` 下面已经有了一个实现好的方法，可以设置 `state` 枚举属性。这个方法是 `setToInactiveState`。
 
