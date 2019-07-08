@@ -2,73 +2,73 @@
 > * 原文作者：[Fady Derias](https://medium.com/@fadiderias)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kirinzer](https://github.com/kirinzer)
+> * 校对者：[iWeslie](https://github.com/iWeslie), [JasonWu1111](https://github.com/JasonWu1111)
 
-# Xcode and LLDB Advanced Debugging Tutorial: Part 2
+# Xcode 和 LLDB 高级调试教程：第 2 部分
 
-In the first part of this three parts tutorial, we’ve covered how to utilize Xcode breakpoints to manipulate an existing property value and inject a new line of code via expression statements.
+在三部分教程的第一部分，我们介绍了如何利用 Xcode 断点操作现有的属性值，以及使用表达式语句注入新代码。
 
-I developed a demo project with several intentional bugs to elaborate on how to use different types of breakpoints alongside the LLDB to fix bugs in your project/application.
+我特地开发了一个带有几个错误的演示项目，详细说明了如何使用不同类型的断点配合 LLDB 来修复项目/应用程序中的错误。
 
-If you didn’t go through [**part 1**](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md) of this tutorial, it’s crucial to check it before proceeding with this part.
+在继续阅读本文之前，最好先看过本教程的 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)。
 
-Let me remind you of the golden rule of this tutorial:
-You’re not to stop the compiler or re-run the application after running it for the very first time. You’re fixing the bugs at runtime.
+让我提醒一下你，本教程的重要规则是：
+第一次运行应用程序后，你不必停止编译器或重新运行应用程序，你会在运行时修复这些错误。
 
-## Watchpoints 👀
+## 观察点 👀
 
-Let’s march to our next enemy.
+让我们向下一个敌人进军。
 
-> 3. The user is allowed to load posts **more** undefinedthan 7 times.
+> 3. 用户可以加载文章 **超过** 7 次。
 
-Here are the steps to reproduce this one:
+这里有复现这个错误的步骤：
 
-✦ Turn your iPhone’s/Simulator’s internet connection on.
+✦ 打开手机或模拟器的网络连接。
 
-✦ Scroll to the bottom of the table view to load more posts.
+✦ 滚动到表视图的底部，加载更多数据。
 
-✦ Scrolling/loading more posts is valid for more than 7 times. (Bear in mind that for the current application, the user is only allowed to load posts for 7 times only)
+✦ 滚动加载更多文章的次数超过 7 次。（记住，对于当前的应用程序，用户只能加载文章 7 次）
 
-One approach to consider this bug is to figure out how the `pageNumber` integer property is being updated since it’s passed to the networking manager to retrieve new posts objects for a specific page. In a code base that you’re still unaware of, it would take you some time and effort to figure out where exactly this is happening.
+考虑这个错误的一个方法是弄清 `pageNumber` 这个整形属性自从它被传入到网络管理器，去取回指定页码的新文章对象后是怎样被改变的。你将会花费一些时间和精力在你还不清楚的代码库里，并且弄清这个错误发生在哪里。
 
-Worry not! Let’s do some magic 🎩
+不要担心！现在让我们做一些神奇的事 🎩
 
-From part 1 of this tutorial, you learned that the GET HTTP request is executed in the section with the pragma mark `Networking`. It only includes one function which is `loadPosts`. Place a breakpoint on the first line of this function and pull down to refresh to reload new posts objects. This will trigger the breakpoint you’ve just added.
+在这个教程的第一部分，你了解到 GET HTTP 请求发生在用 pragma mark `Networking` 标记的部分。那里只有一个方法 `loadPosts`。在这个方法的第一行放置一个断点，然后下拉刷新，加载新的文章对象。这个动作会触发你刚才设置的断点。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/4052/1*yCeuuv8HfObRgYewJLwhyA.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/3256/1*czpn47AuKgaGvyIv5ImIIQ.png)
 
-In the bottom debugger window, tap on the “Show variables view button”. This will slide a new view that includes all of the properties for **PostsTableViewController**.
+在底部的调试器窗口，点击“展示变量视图按钮”。接着就会滑出一个包含了 **PostsTableViewController** 所有属性的视图。
 
 ![](https://cdn-images-1.medium.com/max/4464/1*PbTSXBMHhfXOKxfe_Tec8Q.png)
 
-Head to the `pageNumber` property, right-click, and select “Watch _pageNumber” / “Watch pageNumber”.
+找到 `pageNumber` 属性，右键单击，选择 “Watch \_pageNumber” / “Watch pageNumber”。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/3280/1*rrJVnhAGpu-pxhNt7CFIBg.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/3056/1*bayE0ZKUW5wwccGdtc7gQQ.png)
 
-That resulted in creating what is so-called a “Watchpoint” to the `pageNumber` property. A watchpoint is a type of breakpoint that pauses the debugger the next time the value of the property it’s set to get changed.
+这会为 `pageNumber` 属性创建一个叫做“观察点”的断点。观察点是一种断点，当下一次观察的属性有变化的时候它会暂停调试器。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/2000/1*CSbAyFyweJdaU3lfnXebnw.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/2000/1*qJXkvHWpGmHI7DquZW5zZA.png)
 
-Continue the program execution. The debugger will pause and you’ll see something like this:
+继续执行程序。调试器将会暂停，你将会看到一些类似下图的东西：
 
 ### Objective-C
 
 ![](https://cdn-images-1.medium.com/max/5680/1*PEH5x-D85rp9qYo9MtwiJw.png)
 
-1. Logs of the old and new values of the `pageNumber` property.
+1. `pageNumber` 属性旧值和新值的日志。
 
-2. The stack trace of the code that resulted in the change of the `pageNumber` property.
+2. 导致 `pageNumber` 属性发生变化的方法调用栈。
 
-3. The current point that is causing the actual change of the `pageNumber` property. That is the setter method of the property.
+3. 导致`pageNumber` 属性实际发生改变的当前点。这是属性的 setter 方法。
 
-If you fall back to point 1 in the stack trace, it will lead you to the following piece of code:
+如果你回到方法调用栈的第一个点，它将会引导你找到以下的代码：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6rOdWkY4TxqbzLZfTCZJeg.png)
 
@@ -76,21 +76,21 @@ If you fall back to point 1 in the stack trace, it will lead you to the followin
 
 ![](https://cdn-images-1.medium.com/max/5672/1*1AGmy4ThuDgFizPn_2mFSA.png)
 
-1. Debugger console informing you that the watchpoint you did set got hit.
+1. 调试器控制台通知你，所设置的观察点被触发。
 
-2. The stack trace of the code that resulted in the change of the `pageNumber` property.
+2. 导致 `pageNumber` 属性发生变化的方法调用栈。
 
-3. The current point that is causing the actual change of the `pageNumber` property. That is the `updateForNetworkCallEnd` function.
+3. 导致 `pageNumber` 属性实际发生改变的当前点。这是一个叫 `updateForNetworkCallEnd` 的方法。
 
-It’s obvious to conclude that for every time the HTTP GET request succeeds, the `pageNumber` property will increment by 1 as long as the `state` enum property is active. The `state` enum property can be one of two values either “active” or “inactive”. An active state refers that the user is able to load more posts (i.e didn’t reach the load limit [7]). The inactive state is the mere opposite to that. In conclusion, we need to implement some logic inside the `updateForNetworkCallEnd` that checks on the `pageNumber` property and sets the `state` enum property accordingly.
+很显然每当 HTTP GET 请求成功时，只要 `state` 枚举属性处于 active 状态，`pageNumber` 属性就会加 1。`state` 枚举属性可以是 “active” 或者 “inactive”。“active” 状态是指，用户可以继续加载更多文章(就是说没有达到上限数字)。“inactive” 状态则与之相反。结论是，我们需要在 `updateForNetworkCallEnd` 内部实现一些逻辑，可以检查 `pageNumber` 属性，并设置相应的 `state` 枚举属性。
 
-As you’ve learned, it’s quite better to test the hypothesis first and then make actual changes to your code without stopping the compiler.
+正如你之前所学到的，最好的方式是在不停止编译器的情况下，先测试一下假设，然后再去实际的修改代码。
 
-You’ve guessed it right 😉
+你猜对了 😉
 
-It’s important to note that there’s an already implemented function under the section with the pragma mark `Support` that does set the `state` enum property to inactive. That is `setToInactiveState`.
+重要的是，在 pragma mark `Support` 下面已经有了一个实现好的方法，可以设置 `state` 枚举属性。这个方法是 `setToInactiveState`。
 
-Add a breakpoint one line above the if condition. Add a debugger command action. Add the following debugger command.
+在条件语句上一行添加一个断点。接着添加一个调试器动作，然后填写如下的调试器命令。
 
 ### Objective-C
 
@@ -108,7 +108,7 @@ expression if (self.pageNumber >= 7) {setToInactiveState()}
 
 ![](https://cdn-images-1.medium.com/max/2548/1*hcNVcXsvH-sGqP5-PdMjmg.png)
 
-After doing that, you need to deactivate the very first breakpoint you did utilize to set the watchpoint. Disable the watchpoint as well.
+做完这些之后，你需要停用之前设置观察点的断点，同时也停用了观察点。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/4140/1*u9im1mihdCdGDJSoAJfAzg.png)
 
@@ -118,13 +118,13 @@ After doing that, you need to deactivate the very first breakpoint you did utili
 
 ![Swift](https://cdn-images-1.medium.com/max/2000/1*S0ttr15900z7q-6znr19yA.png)
 
-Now get back to the top of the table view, pull down to refresh, and then start scrolling down.
+现在回到表视图顶部，下拉刷新，接着向下滚动。
 
-**Don’t party yet, we still have one more bug to kill** 😄⚔️
+**不要高兴的太早，我们还有一个大问题要解决** 😄⚔️
 
-## Where to go?
+## 接下来去哪里？
 
-Check out the [**third and final part**](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-3.md) of this tutorial to fix the last bug and learn about a new type of breakpoints that is symbolic breakpoints.
+查看 [**第三部分**](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-3.md) 教程修复了最后的错误，并学习一种新的类型断点类型，符号断点。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
