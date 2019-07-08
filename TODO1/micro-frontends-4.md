@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-4.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-4.md)
 > * 译者：[DEARPORK](https://github.com/Usey95)
-> * 校对者：
+> * 校对者：[lgh757079506](https://github.com/lgh757079506), [solerji](https://github.com/solerji)
 
 # 微前端：未来前端开发的新趋势 — 第四部分
 
@@ -38,7 +38,7 @@ window.unmountBrowse = containerId => {
 };
 ```
 
-通常在 React.js 应用中，`ReactDOM.render` 的调用会在最顶层作用域，这意味着一旦脚本文件加载完成，它就会立即在一个硬编码的 DOM 元素中开始渲染。对于这个应用，我们需要能够同时控制渲染发生的时间和位置，所以我们将它包裹在一个接收 DOM 元素 ID 作为参数的函数里，并把这个函数添加到全局的 `window` 对象。相应的，我们还可以看到用于清理的卸载函数。
+通常在 React.js 应用中，`ReactDOM.render` 的调用会在最顶层作用域，这意味着一旦脚本文件加载完成，它就会立即在一个硬编码的 DOM 元素中开始渲染。对于这个应用，我们需要能够同时控制渲染发生的时间和位置，所以我们将它包裹在一个接收 DOM 元素 ID 作为参数的函数里，并把这个函数添加到全局的 `window` 对象。相应的，我们还可以看到用于清理的 un-mounting 函数。
 
 虽然我们已经看到当微前端集成到整个容器应用时这个函数将被如何调用，但这里成功的最大标准之一是我们是否能够独立地开发和运行微前端。所以每个微前端也有自己的 `index.html`，它带有内联的脚本，以便于在容器外以“独立”模式渲染应用。
 
@@ -148,7 +148,7 @@ module.exports = (config, env) => {
 
 ### 负载体积
 
-独立构建的 Javascript bundle 会造成公共依赖的重复，从而增加了我们必须通过网络发送给最终用户的字节数。例如，如果每个微前端都包含了自己的 React 副本，那么我们将迫使用户下载 React **n** 次。页面性能与用户参与/转换有[直接关系](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)，并且世界上大部分地区运行在比发达城市慢得多的网络设施上，所以我们有很多理由关系下载体积。
+独立构建的 Javascript bundle 会造成公共依赖的重复，从而增加了我们必须通过网络发送给最终用户的字节数。例如，如果每个微前端都包含了自己的 React 副本，那么我们将迫使用户下载 React **n** 次。页面性能与用户参与/转换有[直接关系](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)，并且世界上大部分地区运行在比发达城市慢得多的网络设施上，所以我们有很多理由关心下载体积。
 
 这个问题不容易解决。一方面我们希望团队独立编译他们的应用以便自主工作，另一方面又我们希望他们可以共享公共依赖，这两者之间存在内在的紧张关系。一种解决办法是[像我们前面 demo 描述的](https://martinfowler.com/articles/micro-frontends.html#CommonContent)，将我们编译后代码的常见依赖外置。一旦我们沿着这条路走下去，我们将重新引入一些微前端之间构建过程的耦合。现在它们之间有着一个隐含的合约：“我们都必须使用这些依赖的明确版本”。如果其中一个依赖产生重大改动，我们可能最终需要一个大的协调升级工作以及一次性的同步发版。这是我们使用微前端最初想要避免的一切！
 
