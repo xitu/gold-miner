@@ -2,7 +2,7 @@
 > * 原文作者：[Harry](https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fcsswizardry.com%2F2019%2F05%2Fself-host-your-static-assets%2F&ref_src=twsrc%5Etfw&region=follow_link&screen_name=csswizardry&tw_p=followbutton)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/self-host-your-static-assets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/self-host-your-static-assets.md)
-> * 译者：twang1727
+> * 译者：[twang1727](https://github.com/twang1727)
 > * 校对者：[noahziheng](https://github.com/noahziheng), [MarchYuanx](https://github.com/MarchYuanx)
 
 # 自托管你的静态资源
@@ -19,9 +19,9 @@
 
 这么做有许多显而易见的好处，但是我这篇文章的目的是驳倒这些说法，或者是表明这么做成本远大于收益。
 
-* **方便。** 像这样链入文件特别省事，复制粘贴一行 HTML，搞定。真简单。
-* **我们接入了 CDN。** `code.jquery.com` 是 [StackPath](https://www.stackpath.com/products/cdn/) 这个 CDN 来服务的。我们这样链接资源可以得到 CDN 级别的传输质量，还是免费的！
-* **用户可能已经将文件缓存好。** 如果 `website-a.com` 链接到 `https://code.jquery.com/jquery-3.3.1.slim.min.js`, 然后用户从那跳转到恰好也链接到 `https://code.jquery.com/jquery-3.3.1.slim.min.js` 的 `website-b.com`， 那么文件就已经在用户的缓存里了。
+* **方便**。像这样链入文件特别省事，复制粘贴一行 HTML，搞定。真简单。
+* **我们接入了 CDN**。`code.jquery.com` 是 [StackPath](https://www.stackpath.com/products/cdn/) 这个 CDN 来服务的。我们这样链接资源可以得到 CDN 级别的传输质量，还是免费的！
+* **用户可能已经将文件缓存好**。如果 `website-a.com` 链接到 `https://code.jquery.com/jquery-3.3.1.slim.min.js`，然后用户从那跳转到恰好也链接到 `https://code.jquery.com/jquery-3.3.1.slim.min.js` 的 `website-b.com`，那么文件就已经在用户的缓存里了。
 
 ## 风险：减速和宕机
 
@@ -53,7 +53,7 @@
         crossorigin="anonymous"></script>
 ```
 
-重申一下，如果你绝对必须链接到外部托管的静态资源，那就确保它实现了 SRI。 你可以用这个[好用的生成器](https://www.srihash.org/)来自己添加 SRI。
+重申一下，如果你绝对必须链接到外部托管的静态资源，那就确保它实现了 SRI。你可以用这个[好用的生成器](https://www.srihash.org/)来自己添加 SRI。
 
 ## 扣分项：网络协商
 
@@ -70,25 +70,25 @@
 
 这四个文件由三个不同的源来托管，所以我们需要打开三个 TCP 连接。成本是多少呢？
 
-好吧，在还不错的网速上，托管这些静态资源用掉 311 ms，或 1.65 倍慢于放置在自己主机上。
+好吧，在还不错的网速上，托管这些静态资源用掉 311ms，或 1.65 倍慢于放置在自己主机上。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-off-site-cable.png)
 
-连接到托管静态资源的三个不同的源，我们在网络协商上总共花费了多余的 805 ms。[完整测试在此。](https://www.webpagetest.org/result/190531_FY_618f9076491312ef625cf2b1a51167ae/3/details/)
+连接到托管静态资源的三个不同的源，我们在网络协商上总共花费了多余的 805ms。[完整测试在此。](https://www.webpagetest.org/result/190531_FY_618f9076491312ef625cf2b1a51167ae/3/details/)
 
-OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300 ms 延迟，[客户们每年要多花费 800 万英镑](https://wpostats.com/2016/05/04/trainline-spending.html)。这么花掉 800 万真是浪费。
+OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300ms 延迟，[客户们每年要多花费 800 万英镑](https://wpostats.com/2016/05/04/trainline-spending.html)。这么花掉 800 万真是浪费。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-self-hosted-cable.png)
 
 单单把资源移到主域，我们就可以完全去除多余的连接开支。[全文](https://www.webpagetest.org/result/190531_FX_f7d7b8ae511b02aabc7fa0bbef0e37bc/3/details/)
 
-在高延迟的连接上，情况会糟得多。3G 网络上，外部托管的版本要多花 1.765 s😭，这么做本来不是为了让网站更快吗？！
+在高延迟的连接上，情况会糟得多。3G 网络上，外部托管的版本要多花 1.765s 😭，这么做本来不是为了让网站更快吗？！
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-off-site-3g.png)
 
-在高延迟连接上，总联网开支竟达到 5.037 s。这完全可以避免的。[全文](https://www.webpagetest.org/result/190531_XE_a95eebddd2346f8bb572cecf4a8dae68/3/details/)
+在高延迟连接上，总联网开支竟达到 5.037s。这完全可以避免的。[全文](https://www.webpagetest.org/result/190531_XE_a95eebddd2346f8bb572cecf4a8dae68/3/details/)
 
-将资源移到自己的基础设施上会将加载时间从大约 5.4 s 降到仅仅 3.6 s。
+将资源移到自己的基础设施上会将加载时间从大约 5.4s 降到仅仅 3.6s。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-self-hosted-3g.png)
 
@@ -122,7 +122,7 @@ OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300 ms
 
 想要完全理解优先处理的好处，[Pat Meenan 的文章](https://calendar.perfplanet.com/2018/http2-prioritization/)很好的帮助你入门。
 
-**注意** 从技术角度讲，由于 HTTP/2 的[连接合并](https://daniel.haxx.se/blog/2016/08/18/http2-connection-coalescing/), 只要有相同的 IP 地址，不同域上的请求就会被依优先级处理。
+**注意** 从技术角度讲，由于 HTTP/2 的[连接合并](https://daniel.haxx.se/blog/2016/08/18/http2-connection-coalescing/)，只要有相同的 IP 地址，不同域上的请求就会被依优先级处理。
 
 如果我们把资源分置到多个域上，我们就要打开好几个不同的 TCP 连接。我们没法在不同连接上相互引用那些优先级，所以就会失去以这种深思熟虑、妥善设计的方式传递资源的能力。
 
