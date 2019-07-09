@@ -7,11 +7,11 @@
 
 # 自托管你的静态资源
 
-有一条为网站提速最方便的捷径，同时也是我建议我的客户们做的第一件事，虽然它有点反常识，是将所有的静态资源放在自己主机上，而不是用 CDN 或基础设施。在这篇简短并且希望称得上直白的文章中，我打算列出以 ‘off-site’ 方式托管静态资源的坏处，以及自托管的好处。
+有一条为网站提速最方便的捷径，同时也是我建议我的客户们做的第一件事，虽然它有点反常识，就是将所有的静态资源放在自己主机上，而不是用 CDN 或公共的基础设施基础设施。在这篇简短并且希望称得上直白的文章中，我打算列出以 ‘off-site’ 方式托管静态资源的坏处，以及自托管的好处。
 
 ## 我在说什么呢？
 
-链接到托管在公共或者 CDN URL 上的静态资源，比如库或者插件，是很常见的做法。比如用 jQuery 我们可以这样做：
+使用托管在公共或者 CDN URL 上的静态资源，比如库或者插件，这种做法对于开发者来说，十分常见，比如用 jQuery 我们可以这样做：
 
 ```html
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -25,27 +25,27 @@
 
 ## 风险：减速和宕机
 
-这篇文章里我不会讲得太详细，因为我写了一篇[完整的文章](https://csswizardry.com/2017/07/performance-and-resilience-stress-testing-third-parties/)来讨论第三方服务的恢复力以及相关的减速与宕机风险。可以这样说，如果你有任何重要资源放在第三方服务器上，而且服务商有减速或者，老天保佑，宕机的问题，那么就糟糕了。你也会遭殃。
+这篇文章里我不会讲得太详细，因为我写了一篇[完整的文章](https://csswizardry.com/2017/07/performance-and-resilience-stress-testing-third-parties/)来讨论第三方服务的恢复力以及相关的减速与宕机风险。可以这样说，如果你有任何重要资源放在第三方服务器上，一旦服务商出现阻塞，甚至直接宕机，那么就糟糕了。你也会遭殃。
 
-如果你用第三方域托管阻塞渲染的 CSS 或同步 JS，**现在**就把它移回自己的基础设施上。重要资源不应该放在别人的服务器上。
+如果你用第三方域托管阻塞渲染的 CSS 或同步 JS，**现在**就把它移回自己的基础设施上。重要的资源不应该放在别人的服务器上。
 
 ## 风险：服务停止
 
-虽然并不常见，但是如果服务商决定要停止服务怎么办呢？2018 年十月 [Rawgit](https://rawgit.com) 关站，然而（在本文写成时）粗略的 Github 代码检索得出，[至少一百万个](https://github.com/search?q=rawgit&type=Code)这项已经停止服务的引用，大概 20,000 个正常运行的网站正在使用它！
+虽然并不常见，但是如果服务商决定要停止服务怎么办呢？2018 年十月 [Rawgit](https://rawgit.com) 关站，然而（在本文写成时）粗略的 Github 代码检索得出，[至少一百万个](https://github.com/search?q=rawgit&type=Code)这项已经停止服务的引用，大概 20,000 个正常运行的网站仍在使用它！
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/big-query-rawgit.jpg)
 
-十分感谢 [Paul Calvano](https://twitter.com/paulcalvano) 为我提供了 [HTTPArchive 检索](https://bigquery.cloud.google.com/savedquery/226352634162:7c27aa5bac804a6687f58db792c021ee)。
+十分感谢 [Paul Calvano](https://twitter.com/paulcalvano) 为我提供了 [HTTPArchive 上的检索结果](https://bigquery.cloud.google.com/savedquery/226352634162:7c27aa5bac804a6687f58db792c021ee)。
 
 ## 风险：安全隐患
 
-另外一个需要考虑的问题是可信度。如果我们将外源内容放在页面上，我们就会希望送达的资源是我们所期望的，而且只会发挥我们所期望的作用。
+另外一个需要考虑的问题是可信度。如果我们将外源内容放在我们的页面上，我们就会希望送达的资源是我们所期望的，而且只会发挥我们所期望的作用。
 
-想象一下如果有人控制了 `code.jquery.com` 这种服务商并开始提供有漏洞的或恶意的 payload, 那样会造成多大的伤害。想都不敢想！
+想象一下如果有人控制了 `code.jquery.com` 这种服务商并开始提供有漏洞的或恶意的 payload, 那样会造成多大的损失。想都不敢想！
 
-### 缓解方案：字资源完整性
+### 缓解方案：子资源完整性
 
-本文提到的所有服务商值得称道的一点是，它们都应用了[字资源完整性](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI)。SRI 的机制通过服务商为双方期待使用的文件提供哈希值（准确得讲 Base64 编码的哈希值）来实现。浏览器会检查你收到的文件正是你所请求的那一个。
+本文提到的所有服务商值得称道的一点是，它们都应用了[子资源完整性](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI)。SRI 的机制通过服务商为双方期待使用的文件提供哈希值（准确得讲 Base64 编码的哈希值）来实现。浏览器会检查你收到的文件正是你所请求的那一个。
 
 ```html
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -53,13 +53,13 @@
         crossorigin="anonymous"></script>
 ```
 
-重申一下，如果你绝对必须链接到外部托管的静态资源，那就保证它实现了 SRI。 你可以用这个[好用的生成器](https://www.srihash.org/)来自己添加 SRI。
+重申一下，如果你绝对必须链接到外部托管的静态资源，那就确保它实现了 SRI。 你可以用这个[好用的生成器](https://www.srihash.org/)来自己添加 SRI。
 
 ## 扣分项：网络协商
 
-一个最重要最直接的扣分项就是简历新 TCP 连接的成本。我们要访问的每个新节点都需要打开连接，这消耗非常大：DNS 解析，TCP 握手，TLS 协商，所有的这一切，而且高延迟会让情况更糟。
+一个最重要最直接的扣分项就是降低新 TCP 连接的成本。我们要访问的每个新节点都需要打开连接，这些步骤的消耗非常大：DNS 解析，TCP 握手，TLS 协商，而且一旦连接的延迟提高就会让情况更糟。
 
-我会拿 Bootstrap 的[入门](https://getbootstrap.com/docs/4.3/getting-started/introduction/)当做例子。他们知道用户引入以下四个文件：
+我会拿 Bootstrap 的[入门](https://getbootstrap.com/docs/4.3/getting-started/introduction/)当做例子。他们指导用户引入以下四个文件：
 
 ```html
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="..." crossorigin="anonymous">
@@ -70,25 +70,25 @@
 
 这四个文件由三个不同的源来托管，所以我们需要打开三个 TCP 连接。成本是多少呢？
 
-好吧，在还不错的网速上，托管这些静态资源用掉 311ms，或1.65倍慢于放置在自己主机上。
+好吧，在还不错的网速上，托管这些静态资源用掉 311 ms，或 1.65 倍慢于放置在自己主机上。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-off-site-cable.png)
 
 连接到托管静态资源的三个不同的源，我们在网络协商上总共花费了多余的 805ms。[完整测试在此。](https://www.webpagetest.org/result/190531_FY_618f9076491312ef625cf2b1a51167ae/3/details/)
 
-OK，不是很遭，但是我的一个客户 Trainline 发现降低 300ms 延迟[客户们每年要多花费800万英镑](https://wpostats.com/2016/05/04/trainline-spending.html)。这么花掉800万真是浪费。
+OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300ms 延迟[客户们每年要多花费800万英镑](https://wpostats.com/2016/05/04/trainline-spending.html)。这么花掉800万真是浪费。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-self-hosted-cable.png)
 
 单单把资源移到主域，我们就可以完全去除多余的连接开支。[全文](https://www.webpagetest.org/result/190531_FX_f7d7b8ae511b02aabc7fa0bbef0e37bc/3/details/)
 
-在高延迟的连接上，情况会糟得多。3G网络上，外部托管的版本要多花 1.765s😭，这么做本来不是为了让网站更快吗？！
+在高延迟的连接上，情况会糟得多。3G 网络上，外部托管的版本要多花 1.765s😭，这么做本来不是为了让网站更快吗？！
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-off-site-3g.png)
 
 在高延迟连接上，总联网开支竟达到 5.037s。这完全可以避免的。[全文](https://www.webpagetest.org/result/190531_XE_a95eebddd2346f8bb572cecf4a8dae68/3/details/)
 
-将资源移到自己的基础设施上会将加载时间从大约 5.4s 降到仅仅 3.6s。
+将资源移到自己的基础设施上会将加载时间从大约 5.4 s 降到仅仅 3.6 s。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-self-hosted-3g.png)
 
@@ -116,7 +116,7 @@ OK，不是很遭，但是我的一个客户 Trainline 发现降低 300ms 延迟
 
 **注意** 即使你实现了 `preconnect`，你也只能挽回一小部分浪费掉的时间：你还是要打开相关连接，特别是那些高延迟的，你不太可能马上把所有的开支抵消掉。
 
-## 扣分项：失去的优先处理
+## 扣分项：优先处理策略带来的损失
 
 第二个扣分项以协议层优先处理的形式存在，而这种优先处理在我们将内容跨域存放是被破坏了。如果你用HTTP/2（你确实应该用），你就会用到优先处理。同一个 TCP 连接上的所有的流（也就是说资源）都有一个优先级，而浏览器和服务器会协作建立这些优先处理流的依赖树，从而优先递送关键资源，延迟递送不太重要的资源。
 
@@ -134,7 +134,7 @@ OK，不是很遭，但是我的一个客户 Trainline 发现降低 300ms 延迟
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-dep-tree-self-hosted.png)
 
-把所有内容放在同一个源下，我们就可以建立一个唯一的、完整的依赖树。因为所有流都在同一个树里，它们都有独特 ID。
+把所有内容放在同一个源下，我们就可以建立一个唯一的、完整的依赖树。因为所有流都在同一个树里，它们都有唯一的 ID。
 
 有趣的是，奇数 Stream ID 是从客户端起始的，偶数的是被服务器起始的。老实说我从来没见过一个偶数 ID。
 
@@ -144,7 +144,7 @@ OK，不是很遭，但是我的一个客户 Trainline 发现降低 300ms 延迟
 
 大致上说，静态资源主机很适用于建立长期 `max-age` 指令。这很自然，因为版本化 URL 上的静态资源（如上）从来不会变。因此使用适度激进的缓存策略是安全合理的。
 
-话虽这么讲，也不是所以情况都适用，而且用自托管资源设计[更订制化的缓存策略](https://csswizardry.com/2019/03/cache-control-for-civilians/)。
+话虽这么讲，也不是所有情况都适用，而且用自托管资源设计出[更有针对性的的缓存策略](https://csswizardry.com/2019/03/cache-control-for-civilians/)。
 
 ## 神话：跨域缓存
 
@@ -156,7 +156,7 @@ OK，不是很遭，但是我的一个客户 Trainline 发现降低 300ms 延迟
 
 总体上说，第三方内容不如自托管内容缓存比例高。
 
-更重要的是，[Safari完全去除了这个功能](https://andydavies.me/blog/2018/09/06/safari-caching-and-3rd-party-resources/)来避免隐私滥用，所以本文写成时共享缓存技术对[世界上 16% 的用户](http://gs.statcounter.com/)是不能应用的。
+更重要的是，[Safari 完全去除了这个功能](https://andydavies.me/blog/2018/09/06/safari-caching-and-3rd-party-resources/)来避免隐私滥用，所以本文写成时共享缓存技术对[世界上 16% 的用户](http://gs.statcounter.com/)是不能应用的。
 
 一句话，虽然理论上很美好，但是无证据表明跨域缓存是有效的。
 
@@ -170,7 +170,7 @@ OK，不是很遭，但是我的一个客户 Trainline 发现降低 300ms 延迟
 
 ## 自托管资源
 
-实在是没理由把静态资源放在别人的基础设施上。直觉上的优点经常是谎言，即使不是，权衡之后往往就不值得了。从多个源加载资源可证明更慢。接下来几天花上十分钟来检查自己的项目吧，自托管你的静态资源吧。
+实在是没理由把静态资源放在别人的基础设施上。直觉上的优点经常是谎言，即使不是，权衡之后往往就不值得了。从多个源加载资源确实很慢。接下来几天里，花上十分钟来审计一下自己的项目，重新掌控你 off-site 的静态资源吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
