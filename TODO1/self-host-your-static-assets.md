@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/self-host-your-static-assets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/self-host-your-static-assets.md)
 > * 译者：twang1727
-> * 校对者：
+> * 校对者：[noahziheng](https://github.com/noahziheng), [MarchYuanx](https://github.com/MarchYuanx)
 
 # 自托管你的静态资源
 
-有一条为网站提速最方便的捷径，同时也是我建议我的客户们做的第一件事，虽然它有点反常识，就是将所有的静态资源放在自己主机上，而不是用 CDN 或公共的基础设施基础设施。在这篇简短并且希望称得上直白的文章中，我打算列出以 ‘off-site’ 方式托管静态资源的坏处，以及自托管的好处。
+有一条为网站提速最方便的捷径，同时也是我建议我的客户们做的第一件事，虽然它有点反常识，就是将所有的静态资源放在自己主机上，而不是用 CDN 或公共的基础设施。在这篇简短并且希望称得上直白的文章中，我打算列出以 ‘off-site’ 方式托管静态资源的坏处，以及自托管的好处。
 
 ## 我在说什么呢？
 
@@ -74,19 +74,19 @@
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-off-site-cable.png)
 
-连接到托管静态资源的三个不同的源，我们在网络协商上总共花费了多余的 805ms。[完整测试在此。](https://www.webpagetest.org/result/190531_FY_618f9076491312ef625cf2b1a51167ae/3/details/)
+连接到托管静态资源的三个不同的源，我们在网络协商上总共花费了多余的 805 ms。[完整测试在此。](https://www.webpagetest.org/result/190531_FY_618f9076491312ef625cf2b1a51167ae/3/details/)
 
-OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300ms 延迟[客户们每年要多花费800万英镑](https://wpostats.com/2016/05/04/trainline-spending.html)。这么花掉800万真是浪费。
+OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300 ms 延迟，[客户们每年要多花费 800 万英镑](https://wpostats.com/2016/05/04/trainline-spending.html)。这么花掉 800 万真是浪费。
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-self-hosted-cable.png)
 
 单单把资源移到主域，我们就可以完全去除多余的连接开支。[全文](https://www.webpagetest.org/result/190531_FX_f7d7b8ae511b02aabc7fa0bbef0e37bc/3/details/)
 
-在高延迟的连接上，情况会糟得多。3G 网络上，外部托管的版本要多花 1.765s😭，这么做本来不是为了让网站更快吗？！
+在高延迟的连接上，情况会糟得多。3G 网络上，外部托管的版本要多花 1.765 s😭，这么做本来不是为了让网站更快吗？！
 
 ![](https://csswizardry.com/wp-content/uploads/2019/05/wpt-off-site-3g.png)
 
-在高延迟连接上，总联网开支竟达到 5.037s。这完全可以避免的。[全文](https://www.webpagetest.org/result/190531_XE_a95eebddd2346f8bb572cecf4a8dae68/3/details/)
+在高延迟连接上，总联网开支竟达到 5.037 s。这完全可以避免的。[全文](https://www.webpagetest.org/result/190531_XE_a95eebddd2346f8bb572cecf4a8dae68/3/details/)
 
 将资源移到自己的基础设施上会将加载时间从大约 5.4 s 降到仅仅 3.6 s。
 
@@ -118,7 +118,7 @@ OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300ms 
 
 ## 扣分项：优先处理策略带来的损失
 
-第二个扣分项以协议层优先处理的形式存在，而这种优先处理在我们将内容跨域存放是被破坏了。如果你用HTTP/2（你确实应该用），你就会用到优先处理。同一个 TCP 连接上的所有的流（也就是说资源）都有一个优先级，而浏览器和服务器会协作建立这些优先处理流的依赖树，从而优先递送关键资源，延迟递送不太重要的资源。
+第二个扣分项以协议层优先处理的形式存在，而这种优先处理在我们将内容跨域存放是被破坏了。如果你用 HTTP/2（你确实应该用），你就会用到优先处理。同一个 TCP 连接上的所有的流（也就是说资源）都有一个优先级，而浏览器和服务器会协作建立这些优先处理流的依赖树，从而优先递送关键资源，延迟递送不太重要的资源。
 
 想要完全理解优先处理的好处，[Pat Meenan 的文章](https://calendar.perfplanet.com/2018/http2-prioritization/)很好的帮助你入门。
 
@@ -144,7 +144,7 @@ OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300ms 
 
 大致上说，静态资源主机很适用于建立长期 `max-age` 指令。这很自然，因为版本化 URL 上的静态资源（如上）从来不会变。因此使用适度激进的缓存策略是安全合理的。
 
-话虽这么讲，也不是所有情况都适用，而且用自托管资源设计出[更有针对性的的缓存策略](https://csswizardry.com/2019/03/cache-control-for-civilians/)。
+话虽这么讲，也不是所有情况都适用，而且用自托管资源你可以设计出[更有针对性的的缓存策略](https://csswizardry.com/2019/03/cache-control-for-civilians/)。
 
 ## 神话：跨域缓存
 
