@@ -51,17 +51,17 @@
 
 **不要** 勾选 “Automatically continue after evaluating actions” 选项框。
 
-What we’re simply doing here is informing the debugger that whenever the setText function of any UILabel is called, it should pause. Notice that after creating the symbolic breakpoint, a child has been added.
+我们所做的只是通知调试器，当任何一个 UILabel 的 setText 方法被调用的时候，它就会暂停。注意这里在创建了一个符号断点之后，一个子断点会被添加。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pCPLepbfpWKJrNUfpprfow.png)
 
-It’s a feedback from the debugger that it was able to resolve the created symbolic breakpoint to a specific location inside `UIKitCore` framework. In other cases, the debugger might resolve the symbolic breakpoint to multiple locations.
+这是来自调试器的反馈，它能够解析这个创建的符号断点到 `UIKitCore` 框架的特定位置。在其他情况下，调试器也许会解析到多个位置。
 
-Now you’re all set, pull down to refresh the posts table view. As soon as you release, the debugger will pause, and you’ll be seeing something like this:
+现在一切就绪，下拉以刷新表视图的文章。当你释放之后，调试器就会暂停，接着你会看到如下图的东西：
 
 ![](https://cdn-images-1.medium.com/max/5676/1*qxcTdnmPUempljXsANz62Q.png)
 
-At this point, you’re looking at some assembly code of the UIKitCore framework and on the left side is the stack trace that did cause the debugger to pause. The next thing we want to do is to inspect the arguments passed into the Objective-C message the debugger did pause at. In the lldb console, type the following:
+在这时你会看到一些 UIKitCore 框架的汇编代码，在左侧的是导致调试器暂停的堆栈信息。下一步我们要做的是，检查在调试器暂停的位置传入 Objective-C 消息的参数。在 lldb 控制台输入下面的命令：
 
 ```
 po $arg1
@@ -69,9 +69,9 @@ po $arg1
 
 ![](https://cdn-images-1.medium.com/max/4448/1*V33e1RQgoWtwNI8qy-AVJQ.png)
 
-This does point out to the register that holds the first argument. We can clearly see that the receiver of that Objective-C message is a UILabel instance. The UILabel instance has a text value that refers to a post label. It’s not what we are interested in, but let’s proceed with the registers inspection.
+这会指出持有第一个参数的寄存器。我们能清除的看到接受这个 Objective-C 消息的是一个 UILabel 实例。这个 UILabel 实例有一个文本值指向一个文章的标签。这不是我们所感兴趣的，但让我们继续寄存器检查。
 
-In the lldb console, type the following:
+在 lldb 控制台，输入如下指令：
 
 ```
 po $arg2
@@ -79,9 +79,9 @@ po $arg2
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RF7qzO66OUAAZ61TwKg2GA.png)
 
-The $arg2 does always refer to the selector of the Objective-C message. In some cases, the lldb doesn’t implicitly know the types of the arguments, and hence we need to do some typecasting.
+$arg2 始终指向 Objective-C 消息的选择器。在某些情况下，lldb 并不完全的清楚参数的类型，因此我们需要做一些类型转换的工作。
 
-In the lldb console, type the following:
+在 lldb 控制台，输入如下指令：
 
 ```
 po (SEL)$arg2
@@ -89,9 +89,9 @@ po (SEL)$arg2
 
 ![](https://cdn-images-1.medium.com/max/2000/1*f7lc9OC3NZGDTpOssJ3PBQ.png)
 
-Now, we can clearly see the selector of the current Obj-c message.
+现在我们很清楚的看到了当前 Objective-C 消息的选择器。
 
-In the lldb console, type the following:
+在 lldb 控制台，输入如下指令：
 
 ```
 po $arg3
@@ -99,21 +99,21 @@ po $arg3
 
 ![](https://cdn-images-1.medium.com/max/2000/1*saKLYWOujvPhkmf3qcBD5g.png)
 
-The $arg3 does always refer to the first parameter passed into the method. In our case, that is the string that is passed to the setText method.
+$arg3 始终指向传入方法的第一个参数。在我们的情况下，传入 setText 方法的参数一个字符串。
 
-Continue the execution of the program. The debugger will pause again. Repeat the above steps and eventually, you’ll figure out that the objective-c message belongs to another label of a post in the table view. It’s quite nonsense to keep doing this over and over again till we reach the UILabel instance that we are interested in. Things can definitely be better.
+继续执行程序。调试器会再次暂停。重复前面的步骤，最终，你发现这个 Objective-C 消息属于在表视图里的另一个文章标签。直到我们找到我们感兴趣的那个 UILabel 实例前，一遍又一遍的做这个事情确实很无趣。肯定有更好的方式。
 
-One thing you can do is to set a condition for the symbolic breakpoint to pause the debugger upon the success/fulfilment of that condition. This can be checking on a boolean value or waiting for a specific state to be reached .. etc.
+你能够做的一件事就是为符号断点设置条件，以便在成功或满足条件时暂停调试器。它能够检查布尔值或者等待条件达成诸如此类。
 
 ![](https://cdn-images-1.medium.com/max/2060/1*bDOd5KQn_VzWy8mA6OEcVA.png)
 
-However, we’re going for a different approach.
+然而，我们采用一种不同的方法。
 
 ### One Shot!
 
-Disable the symbolic breakpoint you’ve created.
+将我们创建的符号断点设置为不可用。
 
-Logically speaking, the left navigation bar label that indicates how many times the user did load posts is updated after the posts are successfully retrieved via the HTTP GET request. Navigate to the section with the pragma mark `Networking`. Place a breakpoint inside the success completion handler of `loadPosts`. It should be **below**:
+讲道理，导航栏左侧的标签指示了用户加载文章的次数，它会在 HTTP GET 请求成功完成之后被更新。找到有 pragma mark `Networking` 的部分。在 `loadPosts` 成功完成的回调里放置一个断点。这个断点应该放在如下的位置：
 
 **Objective-C**
 
@@ -131,9 +131,9 @@ self.tableView.reloadData()
 
 ![](https://cdn-images-1.medium.com/max/2776/1*I69SoCZ3fAlaviM0WUWTXA.png)
 
-This will assure that the symbolic breakpoint will get triggered only after the table view has been reloaded and all of its equivalent labels have been updated.
+这会确保符号断点只有在表视图重新加载数据之后才会被触发，所有相等的标签都已经被更新。
 
-**Don’t** check the “Automatically continue after evaluating actions” box. Add the following debugger command action:
+**不要** 勾选 “Automatically continue after evaluating actions” 选项框。添加如下的调试器命令动作：
 
 ```
 breakpoint set --one-shot true -name '-[UILabel setText:]'
@@ -141,39 +141,39 @@ breakpoint set --one-shot true -name '-[UILabel setText:]'
 
 🤨🧐🤔
 
-Let’s break that command:
+让我们拆开这个命令：
 
-1. breakpoint set --one-shot true does create a “one-shot” breakpoint. A one-shot breakpoint is a type of breakpoint that only exists till it’s triggered then it gets automatically deleted.
+1. breakpoint set --one-shot true 会创建一个 “one-short” 断点。one-shot 断点是一种创建之后，首次触发就会自动删除的断点。
 
-2. `-name ‘- [UILabel setText:]’` does set a symbolic name to the created one-shot breakpoint. It’s quite similar to the one you created in the last section.
+2. `-name ‘- [UILabel setText:]’` 给创建的 one-shot 断点设置了一个符号名。这和你上一节所做的非常相似。
 
-Let me recap this part. Here’s what you did:
+让我总结一下这一部分。你所做的有：
 
-1. Adding a breakpoint (A) in the success completion handler of the function that executes the posts GET request.
+1. 在发起 GET 请求成功完成的回调里添加断点（A）。
 
-2. Adding a debugger command action to ****create**** a symbolic breakpoint (B) similar to the one you created the last section. Its symbol is the `UILabel` `setText` function.
+2. 添加调试器命令动作去 **创建** 符号断点（B）和上一节创建的很相似。这个符号是 `UILabel` `setText` 方法。
 
-3. Setting the symbolic breakpoint (B) you created to be a one-shot breakpoint. It’s guaranteed that the symbolic breakpoint will pause the debugger only once since a one-shot breakpoint gets deleted automatically after it has been triggered.
+3. 将你创建的符号断点（B）设置为一个 one-shot 断点。one-shot 断点在触发后会被自动删除，这意味着符号断点只会暂停调试器一次。
 
-4. Breakpoint (A) is located after reloading the table view so that the created symbolic breakpoint (B) doesn’t pause the debugger for any of the labels related to the table view.
+4. 断点（A）被放置在表视图加载完成之后，因此创建的符号断点（B）不会因任何和表视图相关联的标签而暂停调试器。
 
-Now pull down the table view to refresh. Here’s what you’ll get:
+现在下拉表视图去刷新。我们会得到如下内容：
 
 ![Objective-C](https://cdn-images-1.medium.com/max/2332/1*JLBQAj7srx3twyCnScnVSg.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/2044/1*2gcJPkL-VZ3HIebwOsqMZA.png)
 
-The debugger did pause at the breakpoint (A) and hence setting the one-shot symbolic breakpoint.
+由于设置了 one-shot 断点调试器停在了断点（A）的位置。
 
-Continue the program execution.
+继续执行程序。
 
-You’re back to the assembly code of the UIKitCore framework.
+你会返回到 UIKitCore 框架的汇编代码。
 
 ![](https://cdn-images-1.medium.com/max/5676/1*qxcTdnmPUempljXsANz62Q.png)
 
-Let’s inspect the Objective-C message of the symbolic breakpoint arguments.
+让我们检查一下符号断点参数的 Objective-C 消息。
 
-In the lldb console, type the following:
+在 lldb 控制台，输入如下的指令：
 
 ```
 po $arg1
@@ -181,19 +181,19 @@ po $arg1
 
 ![](https://cdn-images-1.medium.com/max/3712/1*U7on9rNp2KTxH0vBu_5pwg.png)
 
-WELL WELL WELL, looks like you finally found your treasure !! 🥇🏆🎉
+哇哦，看起来你找到了宝藏！ 🥇🏆🎉
 
-Time to shift our sights to the stack trace. **Step to point 1.**
+是时候把我们的目光转移到堆栈跟踪信息了。**走到点 1 的位置**
 
 ![Objective-C](https://cdn-images-1.medium.com/max/4728/1*kx3XCFR0kcnpD5XC1tqtng.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/3788/1*42LvhyQXygvMOF0dWphR2g.png)
 
-It led you to the piece of code that is updating the `pageNumberLabel` text. It’s quite obvious that the text is always set to a string with a format of integer value `0` rather than the `pageNumber` property. Let’s test it before we make actual changes to our code.
+它会引导你到这块更新 `pageNumberLabel` 文本的代码。这块代码很明显为文本始终设置了整形值为 `0` 而不是 `pageNumber` 属性的格式字符串。让我们在实际修改代码前先测试一下。
 
-You’re an expert now 🧢
+你现在已经是行家了 🧢
 
-Add a breakpoint in a separate line below the marked line of code. Add the following debugger command action:
+在已标记的代码分隔线下添加一个断点。添加如下的调试器命令动作：
 
 **Objective-C**
 
@@ -211,35 +211,35 @@ expression pageNumberLabel.text = String(format: "Page %tu", pageNumber)
 
 ![](https://cdn-images-1.medium.com/max/3564/1*IreVT3ZC9rTiC8B60WcxSw.png)
 
-Remove/Disable breakpoint(A), accordingly, this will disable breakpoint(B)
+移除或者停用断点（A）,相应地，断点（B）也会被停用。
 
-Now pull to refresh and scroll to load more posts. The left navigation bar label is being updated. 🎉
+现在下拉刷新和加载更多文章。左侧导航栏标签将会被更新。 🎉
 
-Mission Accomplished !! 💪 💪
+任务完成！ 💪 💪
 
-You can now stop the compiler and add the fixes we discussed in your code.
+现在你可以停止编译器并且在代码中去修复我们讨论的这些问题。
 
-### Summary
+### 总结
 
-In this tutorial, you’ve learned
+在这个教程里，你学会了
 
-1. How to use breakpoints alongside debugger action expression statements to manipulate existing values/properties.
+1. 如何使用断点配合调试器动作表达式去控制存在的属性值。
 
-2. How to use breakpoints alongside debugger action expression statements to inject lines of code.
+2. 如何使用断点配合调试器动作表达式注入代码。
 
-3. How to set watchpoints to certain properties to monitor their values when being updated.
+3. 如何为某个属性设置观察点监视属性值的变化。
 
-4. How to use symbolic breakpoints to pause the debugger based on defined symbols.
+4. 如何基于定义的符号使用符号断点暂停调试器。
 
-5. How to use one-shot breakpoints.
+5. 如何使用 one-shot 断点。
 
-6. How to use one-shot breakpoints alongside symbolic breakpoint.
+6. 如何使用 one-shot 断点配合符号断点。
 
-Happy Debugging!! 😊
+调试愉快！ 😊
 
-### Third-party tools
+### 第三方工具
 
-I’ve used the following third-party tools for the convenience of this tutorial
+为了本教程的方便，我使用了下面的第三方工具。
 
 * [typicode](https://github.com/typicode)/[json-server](https://github.com/typicode/json-server)
 
