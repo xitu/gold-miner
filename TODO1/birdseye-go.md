@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-### A bird's eye view of Go
+# A bird's eye view of Go
 
 **tl;dr: I provide a very high-level overview of what Go-the-language means vs. Go-the-ecosystem vs. Go-an-implementation. I also try to provide specific references to what documentation is most useful for what purpose. See the bottom-most section for that.**
 
