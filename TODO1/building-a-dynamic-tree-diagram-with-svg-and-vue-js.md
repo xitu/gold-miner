@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-dynamic-tree-diagram-with-svg-and-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-dynamic-tree-diagram-with-svg-and-vue-js.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：[Moonliujk](https://github.com/Moonliujk)、[shixi-li](https://github.com/shixi-li)
+> - 校对者：[Moonliujk](https://github.com/Moonliujk)、[shixi-li](https://github.com/shixi-li)、[sunui](https://github.com/sunui)
 
 # 使用 SVG 和 Vue.Js 构建动态树图
 
@@ -41,7 +41,7 @@
 让我们把这四个坐标放入 SVG 语法的 `<path>` 元素中。
 
 ```
-// Cubic Bezier path syntax
+// 三次贝塞尔曲线的路径语法
 
 <path D="M x0,y0  C x1,y1  x2,y2  x3,y3" />
 ```
@@ -68,7 +68,7 @@ size = 1000
 
  `<svg>` 元素的 `viewBox` 属性非常重要，因为它定义了 SVG 的用户坐标系。简而言之，`viewBox` 定义了用户空间的位置和维度以便于绘制 SVG。
 
-`viewBox` 由四个数字组成，顺序需要保持一致 —— ` min-x，min-y，width，height`。
+`viewBox` 由四个数字组成，顺序需要保持一致 —— ` min-x,min-y,width,height`。
 
 ```
 <svg viewBox="min-x min-y width height">...</svg>
