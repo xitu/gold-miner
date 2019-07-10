@@ -2,82 +2,84 @@
 > * 原文作者：[@gilbouhnick](https://twitter.com/GilBouhnick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * 译者：
+> * 译者：[江五渣](http://jalan.space)
 > * 校对者：
 
-# 84 cognitive biases you should exploit to design better products - Part 1
+# 利用认知偏见设计更好的产品 —— 第 1 部分
 
 ![](https://2.bp.blogspot.com/-JvOvFjdlVfE/XMhvVVa0R4I/AAAAAAAAPrM/KaVBcSKDdPgb1PLug4TlVOx07uY6YHShQCLcBGAs/s640/Cognitive%2Bbiases.png)
 
-This one is probably my longest post in my 15 years of blogging, and the result of occasional writing I've been doing in the past few months.
+这可能是 15 年来我博客中最长的文章，也是我过去几个月偶然创作的结果。
 
-**Cognitive biases** are systematic errors in our thinking process that affect our decisions making.
+**认知偏见**是我们思维过程中的系统性错误，它会影响我们的决策。
 
-As humans, we don’t always see things as they really are, or remember things as they really were. As a result, we create our own subjective social reality that affects our judgment.
+作为人类，我们并不总是看到或记住事物的本来面目。因此，我们创造了自己的主观社会现实，这影响了我们的判断。
 
 > As **product people**, we **should** to take advantage of these biases to create better products.
+> 作为**产品人**，我们**应该**利用这些偏见来创造更好的产品。
 
-Not in a bad way of course, but in a way that will allow us to get a fair chance to prove that our products are worthy. Products can exploit common cognitive biases to establish trust with the users, improve conversion rates, increase their users’ engagement level, and as a result, improve retention rates.
+这当然不是一件坏事，而是让我们有机会证明我们产品的价值。产品可以利用常见的认知偏见与用户建立信任，提高转化率和用户参与度，从而提高用户保留率。
 
 Because at the end of the day, it’s all in the packaging, and being 100% accurate and concise is simply not enough to persuade the users to give the product a chance or to try out its’ new features.
+归根结底，一切都包装在内，一个百分百精确和简洁的产品根本不足以说服用户给予它一个机会或尝试它的新功能。
 
-Users need more than that, and that’s exactly where **cognitive biases** can (and should) be used.
+用户需要的不止于此，这正是**认知偏见**可以（也应该）使用的地方。
 
-Now, I have to warn you: this list is freaking long; it includes over 80 different biases - from biases we need to **avoid**, to biases we can **leverage** to improve our product's onboarding process, increase conversion rates, improve retention and generate more revenue. 
+现在，我必须提醒你：这个清单太长了。它包括超过 80 种不同的偏见 —— 从我们需要**避免**的偏见到我们可以**利用**的偏见，通过这些偏见来改善我们产品的设计流程，提高转化率和保留率，并创造更多的收益。
 
-Luckily for you, I created **over 40 visual UI/UX examples** that will make it easier for you to skim through the list. Oh no, don't thank me! I'm just doing my job...
+幸运的是，我创建了 40 多个可视化 UI/UX 示例方便你的阅读。可别谢我！这只是我的工作……
 
-### Who should read this list? 
+### 谁需要阅读这个清单？
 
-I believe **product managers**, **marketing managers**, and **entrepreneurs** will find this list extremely useful and relevant, but in fact, anyone who deals with **software development** might find something to relate to in this list. It helps everyone involved, understand the psychology behind users behavior and how to use it to build better products.
+我相信**产品经理**、**市场经理**和**企业家**会发现这个列表与自己的工作息息相关且非常有用。但事实上，任何从事软件开发的人都可能会在这个清单中发现一些相关的内容。它可以帮助所有相关人员了解用户行为背后的用户心理，以及如何利用用户心理来构建更好的产品。
 
-Oh, and just to be clear, I did not invent these biases, I just collected them whenever I needed them in my work, and if you happen to disagree with some of them or think they don’t work, that’s probably because you are unique (or you may suffer from the Dunning-Kruger Effect as described below 😉).
+哦，先说清楚，我没有发明这些偏见，我只是在工作需要时收集它们，如果你恰好不同意其中的一些观点，或者认为它们不起作用，那可能因为你是独特的（或者你可能会受到下面描述的 Dunning-Kruger 效应的影响 😉）。
 
-OK, that turned out to be a pretty long opening. Let's begin:
+好的，这是一个相当长的开场白。我们开始吧：
 
-## Superficial, are we?
+## 我们肤浅吗？
 
-The way the information is presented has a big impact on the way we think and make decisions.
+信息的呈现方式非常影响我们的思考和决策。
 
-Sure, we say we are not superficial, but when it comes to products, the packaging plays a significant role.
+当然，我们说我们并不肤浅，但在产品方面，包装起着重要的作用。
 
-### 1. Streetlight Effect
+### 1. 路灯效应
 
-We tend to search for things where it's easiest to look.
+我们倾向于寻找最容易看到的东西。
 
-As the joke says: A policeman sees a drunk man searching for his wallet under a streetlight and asks: "_is this where you lost it?_", and the drunk replies, "_no, I lost it in the park, but this is where the light is_".
+就像笑话所说：一个警察看到一个醉汉在路灯下寻找他的钱包，问道：“这就是你丢钱包的地方吗？”，醉汉回答：“不，我把它丢在公园里了，但这里有灯光。”
 
-**Product tip**: Whatever answers you are looking for: product, marketing, user satisfaction or anything else - dig deeper. Many answers are not where "the light" is, and analyzing data is often much harder than just collecting it.
+**产品小窍门**：无论你在寻找什么答案：产品、营销、用户满意度或其他任何东西，都要深入挖掘。许多答案并不在“光”所在之处，分析数据往往比收集数据要困难得多。
 
-### 2. Perceived Value Bias
+### 2. 感知价值偏见
 
-We perceive the value of a product or service based on how it looks or how it’s served.
+我们根据产品、服务的外观或服务方式来感知其价值。
 
-As they say: it’s all in the packaging!
+正如他们所说：一切都在包装中！
 
-**Product tip**: Design is more important for the success of your product than you think. That extra space, wrong border color, and misaligned text - they all impact your conversion rates.
+**产品小窍门**：设计对产品的成功而言比你想象的更加重要。额外的空间、错误的边框颜色和不对齐的文本 —— 这些都会影响你的转化率。
 
-Make your UI design a priority.
+把你的 UI 设计放在首位。
 
-![Perceived Value Bias - we perceive the value of a product or service based on how they look](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "Perceived Value Bias - we perceive the value of a product or service based on how they look")
+![感知价值偏见 - 我们根据产品或服务的外观来感知其价值](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "Perceived Value Bias - we perceive the value of a product or service based on how they look")
 
-Small UI corrections make a big impact
+UI 的小改动会产生巨大的影响。
 
-### 3. Picture Superiority Effect
+### 3. 图优效应
 
-Pictures and images are more likely to be remembered than (a thousand) words.
+图片和图像比（一千个）单词更容易被记住。
 
-**UI tip**: Always include images in your content. If you sell products or services - great visuals will improve your conversion rates.
+**UI 小窍门**：始终在内容中包含图像。如果你销售产品或服务 —— 出色的视觉效果将提高你的转化率。
 
-### 4. Von Restorff Effect (Isolation Effect)
+### 4. 雷斯多夫效应（隔离效应）
 
-When multiple homogeneous objects are presented together, the object that differs from the rest is more likely to be remembered.
+当多个同类物品一起呈现时，与其他物品不同的物品更容易被记住。
 
-**Design tip**: Make sure the CTA button stands out using a different style, size, color, and position.
+**设计小窍门**：确保行为召唤按钮使用不同的样式、大小、颜色和位置。
 
-![Von Restorff Effect - Make sure your CTA button stands out](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "Von Restorff Effect - Make sure your CTA button stands out")
+![雷斯多夫效应 - 确保你的行为召唤按钮突出显示](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "Von Restorff Effect - Make sure your CTA button stands out")
 
-Make sure your CTA buttons stand out
+确保你的行为召唤按钮突出显示。
 
 ## More conservative than we think
 
