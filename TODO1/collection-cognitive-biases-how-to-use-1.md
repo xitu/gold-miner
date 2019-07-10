@@ -81,29 +81,29 @@ UI 的小改动会产生巨大的影响。
 
 确保你的行为召唤按钮突出显示。
 
-## More conservative than we think
+## 比我们想象的更保守
 
-We say we are innovative, we like to try new technologies, but when it comes to core instincts and quick decision making - we aim to minimize risks and stick with the things we're already familiar with.
+我们说我们是创新的，我们喜欢尝试新的技术，但当涉及到最重要的直觉和快速决策时 —— 我们的目标是降低风险，并坚持我们已经熟悉的事物。
 
-### 5. Status Quo Bias
+### 5. 现状偏差
 
-We tend to prefer a status quo over a change.
+比起改变，我们倾向于保持现状。
 
-The current baseline is taken as a reference point, and any change from that baseline is perceived as a loss.
+将当前的基准线作为参考点，与该基准线相比的任何变化都被视为一种损失。
 
-### 6. Endowment Effect
+### 6. 禀赋效应
 
-Once we own something, we value it higher than we did before we owned it.
+一旦我们拥有了某样东西，我们就会比拥有它之前更加珍惜它。
 
-As a result, we are more likely to retain an object we own than to acquire that same object if we don’t own it.
+因此，我们更有可能保留我们已经拥有的事物，而不是获取一个不属于我们的同一事物。
 
-Product tip: Free trials are the most common use of the endowment effect.
+产品小窍门：免费试用是禀赋效应最常见的用途。
 
-Once users commit to a certain product and invest time in it (i.e. build their profile etc.) it’s harder for them to let go and not upgrade their plan when the trial ends.
+一旦用户专注于某一产品并投入时间（例如建立他们的个人资料等），他们就很难在试用期结束后收手。
 
-**Onboarding tip**: Find ways for people to play with your product before signing up.
+**拉新小窍门**: 在用户注册前，让用户找到使用产品的方法。
 
-**Retention tip**: When a customer leaves you, provide examples of all the good things they’ll lose.
+**留存小窍门**: 当用户离开时，展示他们将失去的所有好处。
 
 ### 7. IKEA Effect
 
