@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-3.md)
 > * 译者：[xilihuasi](https://github.com/xilihuasi)
-> * 校对者：[Stevens1995](https://github.com/Stevens1995)、[lgh757079506](https://github.com/lgh757079506)
+> * 校对者：[Stevens1995](https://github.com/Stevens1995), [lgh757079506](https://github.com/lgh757079506)
 
 # 微前端：未来前端开发的新趋势 — 第三部分
 
@@ -139,7 +139,7 @@ class MicroFrontend extends React.Component {
 
 > `componentDidMount` 是 React 组件的生命周期函数，它只会在组件实例首次在 DOM 中“渲染”时被框架调用。
 
-MicroFrontend 类
+MicroFrontend 类……
 
 ```
   componentDidMount() {
@@ -182,7 +182,7 @@ MicroFrontend 类
 
 最后一件是处理清理工作。当我们的 `MicroFrontend` 组件卸载时（从 DOM 中移除），我们也想卸载相应的微前端。为此，每个微前端都定义了一个相应的全局函数，我们在适当的 React 生命周期方法中调用它：
 
-MicroFrontend 类
+MicroFrontend 类……
 
 ```
   componentWillUnmount() {
