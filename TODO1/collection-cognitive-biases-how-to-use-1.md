@@ -105,39 +105,40 @@ UI 的小改动会产生巨大的影响。
 
 **留存小窍门**: 当用户离开时，展示他们将失去的所有好处。
 
-### 7. IKEA Effect
+### 7. 宜家效应
 
 We place a disproportionately high value on products we created (or worked hard for).
+我们对我们创造（或付出努力）的产品给予了过高的价值。
 
-**Product tip**: let your users do something as part of the onboarding process (not too hard, but rewarding) so they can connect with your product.
+**产品小窍门**：让你的用户在参与时做一些事情（不太难，但有回报），这样他们就可以和你的产品建立起联系。
 
-### 8. Mere-Exposure Effect (Familiarity Principle)
+### 8. 多看效应 (熟悉定律)
 
-We tend to develop a preference for things we are familiar with.
+我们倾向于偏爱我们熟悉的事物。
 
-**UI tip**: Stick with familiar UI concepts, behavior, terms, signs and icons.
+**UI 小窍门**：坚持使用用户熟悉的 UI 概念、行为、术语、符号和图标。
 
-Be consistent across your marketing materials, website and product to optimize the funnel.
+在营销材料、网站和产品上保持一致来优化漏斗。
 
-**UX Writing tip**: Align with the industry jargon. Make sure your users feel comfortable.
+**用户体验设计小窍门**：和行业术语保持一致。确保你的用户感到舒适。
 
-![Mere-Exposure Effect - Stick with the UI standards](https://alexdenk.eu/blogtouch?id=1EPMg0K3076dsm2utSSKlAa4wMT-ig6H- "Mere-Exposure Effect - Stick with the UI standards")
+![多看效应 —— 坚持 UI 标准](https://alexdenk.eu/blogtouch?id=1EPMg0K3076dsm2utSSKlAa4wMT-ig6H- "Mere-Exposure Effect - Stick with the UI standards")
 
 Stick with the standards 
 
-### 9. Functional Fixedness
+### 9. 功能定势
 
-We tend to use objects in the traditional way they were used.
+我们倾向于用传统的方式使用事物。
 
-**Usability tip**: When your product challenges an existing usage tradition - it may cause some usability challenges. Keep them in mind and try to solve them in advance.
+**可用性小窍门**：当你的产品挑战现有的使用传统时 —— 它可能会带来一些可用性挑战。将它们牢记在心，并尝试提前解决。
 
-### 10. Law of Instrument (Maslow's Hammer)
+### 10. 工具规律（马斯洛的锤子）
 
-We tend to over-rely on tools we are familiar with, even in the presence of much better options.
+我们倾向于过度依赖我们熟悉的工具，即使我们有更好的选择。
 
-As they say: “_To a man with a hammer, everything looks like a nail_”
+俗话说得好：“对于一个拿着锤子的人来说，一切都像是钉子。”
 
-![To a man with a hammer - everything looks like a nail](https://alexdenk.eu/blogtouch?id=1NY8VZMcyZ9YBywLokF0wGnudItR-ZF_a "To a man with a hammer - everything looks like a nail")
+![对于一个拿着锤子的人来说 —— 一切都像是钉子](https://alexdenk.eu/blogtouch?id=1NY8VZMcyZ9YBywLokF0wGnudItR-ZF_a "To a man with a hammer - everything looks like a nail")
 
 ## Don’t call me a loser
 
