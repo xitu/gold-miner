@@ -393,7 +393,7 @@ def sum_of_squares(numbers):
     return total
 ```
 
-这里没有 `append` 同时也没有迭代器被建立。但是，如果我们创建一个平方的生成器，我们可以使用内建的 `sum` 函数去得到一样的结果。
+这里没有 `append` 同时也没有迭代器被建立。但是，如果我们创建一个平方的生成器，我们可以使用内置的 `sum` 函数去得到一样的结果。
 
 ```python
 def sum_of_squares(numbers):
