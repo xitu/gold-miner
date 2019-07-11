@@ -299,7 +299,7 @@ word_counts = Counter(
 )
 ```
 
-我们使用了一个生成器表达式，但并不需要。可以直接这样写：
+我们使用了一个生成器表达式，但我们并不需要如此。可以直接这样写：
 
 ```python
 from collections import Counter
