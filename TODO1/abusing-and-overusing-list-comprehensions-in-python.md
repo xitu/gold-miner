@@ -349,7 +349,7 @@ for ITEM in old_things:
         new_things.append(some_operation_on(ITEM))
 ```
 
-循环可以用推导式重写：
+循环可以用这样的推导式重写：
 
 ```python
 new_things = [
