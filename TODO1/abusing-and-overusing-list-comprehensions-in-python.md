@@ -340,7 +340,7 @@ with open('word_list.txt') as words_file:
 
 那么，什么时候确实应该使用推导式呢？
 
-一个简单但是不准确的回答是，当你需要写如下文[复制-粘贴推导式格式](https://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/ "List Comprehensions: Explain Visually")中所提到的代码，同时你没有其他的工具可以让你代码更精简，你就应该考虑使用列表推导式了。
+一个简单但是不准确的回答是，当你需要写如下文[复制-粘贴推导式格式](https://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/ "List Comprehensions: Explain Visually")中所提到的代码，同时你没有其他的工具可以让你的代码更精简，你就应该考虑使用列表推导式了。
 
 ```python
 new_things = []
