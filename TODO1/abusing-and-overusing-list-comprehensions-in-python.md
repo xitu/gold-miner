@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/abusing-and-overusing-list-comprehensions-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/abusing-and-overusing-list-comprehensions-in-python.md)
 > * 译者：[ccJia](https://github.com/ccJia)
-> * 校对者：[江五渣](http://jalan.space)
+> * 校对者：[江五渣](http://jalan.space) [TrWestdoor](https://github.com/TrWestdoor)
 
-# 在 Python 中过度使用列表推导式和表达式生成器
+# 列表推导式与表达式生成器在 Python 中的滥用
 
 列表推导式是我喜欢的 Python 特性之一。我非常喜爱列表推导式，为此我写过一篇关于它们的[文章](https://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/ "List Comprehensions: Explain Visually")，做过一次针对它们的[演讲](https://youtu.be/5_cJIcgM7rw "Comprehensible Comprehensions")，还在 PyCon 2018 上办过一个[三小时推导式教程](https://youtu.be/_6U1XoxyyBY "Using List Comprehensions and Generator Expressions For Data Processing")。
 
