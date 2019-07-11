@@ -2,8 +2,8 @@
 > * 原文作者：[Peter Mclachlan](https://developers.google.com/web/resources/contributors/pjmclachlan?hl=zh-cn)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/promoting-install-mobile.md](https://github.com/xitu/gold-miner/blob/master/TODO1/promoting-install-mobile.md)
-> * 译者：[Sam](<https://github.com/xutaogit>)
-> * 校对者：
+> * 译者：[Sam](https://github.com/xutaogit)
+> * 校对者：[wuyanan](https://github.com/wuyanan)，[柯小基](https://github.com/lgh757079506)
 
 # 推广安装 PWA 的模式（移动端）
 
