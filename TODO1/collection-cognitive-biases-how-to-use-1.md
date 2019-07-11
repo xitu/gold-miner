@@ -61,7 +61,7 @@ Because at the end of the day, it’s all in the packaging, and being 100% accur
 
 把你的 UI 设计放在首位。
 
-![感知价值偏见 - 我们根据产品或服务的外观来感知其价值](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "Perceived Value Bias - we perceive the value of a product or service based on how they look")
+![感知价值偏见 —— 我们根据产品或服务的外观来感知其价值](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "Perceived Value Bias - we perceive the value of a product or service based on how they look")
 
 UI 的小改动会产生巨大的影响。
 
@@ -77,7 +77,7 @@ UI 的小改动会产生巨大的影响。
 
 **设计小窍门**：确保行为召唤按钮使用不同的样式、大小、颜色和位置。
 
-![雷斯多夫效应 - 确保你的行为召唤按钮突出显示](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "Von Restorff Effect - Make sure your CTA button stands out")
+![雷斯多夫效应 —— 确保你的行为召唤按钮突出显示](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "Von Restorff Effect - Make sure your CTA button stands out")
 
 确保你的行为召唤按钮突出显示。
 
@@ -140,71 +140,71 @@ Stick with the standards 
 
 ![对于一个拿着锤子的人来说 —— 一切都像是钉子](https://alexdenk.eu/blogtouch?id=1NY8VZMcyZ9YBywLokF0wGnudItR-ZF_a "To a man with a hammer - everything looks like a nail")
 
-## Don’t call me a loser
+## 别叫我失败者
 
-We hate losing more than we like winning. The right message (at the right timing) might turn on this aversion and push us to make a biased decision.
+与其说我们喜欢成功，不如说我们讨厌失败。正确的信息（在正确的时间）可能会激起这种反感的情绪，促使我们作出有偏见的决定。
 
-### 11. Loss Aversion
+### 11. 损失规避
 
-We prefer not to lose $100 than to win $100 because the value of losing something is higher than the value of getting it (which is pretty consistent with the Endowment effect described above).
+比起赢得 100 美元，我们更不愿意损失 100 美元。因为所失去东西的价值高于得到它的价值（这与上述的禀赋效应非常一致）。
 
-**UX Writing tip**: Use negative terms to express the potential loss: “stop wasting money”.
+**用户体验设计小窍门**：使用负面词语来表达潜在的损失：“不要浪费钱”。
 
-**Product tip**: Limit your special deals (inside and outside your product) to create a sense of urgency: “this exclusive deal ends in x hours”.
+**产品小窍门**：给你的特殊优惠加上限制 (在产品内外) 来制造紧迫感：“这个独家优惠将在 x 小时后结束”。
 
-![Loss Aversion - help your users avoid losses](https://alexdenk.eu/blogtouch?id=1-mEYTiDKektNhEGo5lOvz1w9oKrXYyoD "Loss Aversion - help your users avoid losses")
+![损失规避 —— 帮助你的用户规避损失](https://alexdenk.eu/blogtouch?id=1-mEYTiDKektNhEGo5lOvz1w9oKrXYyoD "Loss Aversion - help your users avoid losses")
 
 Help your users avoid losses
 
-### 12. Zero-Risk Bias:
+### 12. 零风险偏误
 
-We love certainty even if it's counterproductive.
+我们喜欢确定性，即使它事与愿违。
 
-**Product tip**: offer money-back guarantee and risk-free trials to reduce the level of risks and make your customers feel secure.
+**产品小窍门**：提供退款保证和无风险试用来降低风险，让你的用户感到安全。
 
-![Zero-Risk Bias - Make sure all possible concerns are well addressed](https://alexdenk.eu/blogtouch?id=1pCFDq4W6nO7hR7HuCx9mIvqPiqu3y3Hm "Zero-Risk Bias - Make sure all possible concerns are well addressed")
+![零风险偏误 —— 确保所有可能的问题都能得到妥善解决](https://alexdenk.eu/blogtouch?id=1pCFDq4W6nO7hR7HuCx9mIvqPiqu3y3Hm "Zero-Risk Bias - Make sure all possible concerns are well addressed")
 
 Make sure all possible concerns are addressed
 
-### 13. Neglect of Probability
+### 13. 忽略可能性
 
-When we are under pressure, we fail to think of the probability of risks to happen.
+当我们面临压力时，我们无法考虑风险发生的可能性。
 
-As a result, minor risks might get overrated or neglected.
+因此，小风险可能会被高估或忽视。
 
-**Product rule**: during a conversion funnel - smallest uncertainties might cause the user to mistrust your product and stop. Make sure all details are clear and presented upfront.
+**产品规则**：在转化漏斗中 —— 最小的不确定性可能会导致用户不信任你的产品并停止使用。确保所有细节都清晰可见。
 
-Especially the ones that involve money such as the total cost, discounts (if exists), additional costs.
+尤其是那些涉及金钱的，例如总成本、折扣（如果存在）、附加成本。
 
-![Neglect of Probability - Make sure to remove uncertainties in your product](https://alexdenk.eu/blogtouch?id=1tN2psH2vXjV6zgWBEjMouOFSi_A-ikxX "Neglect of Probability - Make sure to remove uncertainties in your product")
+![忽略可能性 —— 确保从你的产品中移除不确定性](https://alexdenk.eu/blogtouch?id=1tN2psH2vXjV6zgWBEjMouOFSi_A-ikxX "Neglect of Probability - Make sure to remove uncertainties in your product")
 
 Clear uncertainties proactively
 
-Read: [7 must-have ingredients for creating a true mobile experience](https://www.mobilespoon.net/2019/03/7-unique-ingredients-mobile-app.html)
+阅读：[创造真正移动体验的 7 个要素](https://www.mobilespoon.net/2019/03/7-unique-ingredients-mobile-app.html)
 
-### 14. Scarcity Effect
+### 14. 稀缺效应
 
-We place a higher value on an object that is scarce and a lower value on an object that is highly available.
+物以少者为贵，多者为贱。
 
-The fear of missing out (FOMO) makes us more vulnerable to temptation and impulse and pushes us to make rush decisions.
+害怕错过（FOMO）会让我们更容易受到诱惑和冲动的影响，迫使我们匆忙做出决定。
 
-**Product tip**: decorate your products and services with “limited time offers”, “limited quantity”, etc
+**产品小窍门**：用“限时优惠”、“数量有限”来装饰你的产品和服务。
 
-Create the impression that many others are watching this item “right now!” and about to grab the last remaining items any minute.
+给人留下这样的印象：很多人都“正在！“盯着这个东西，并且随时都会买走最后剩下的物品。
 
-![Creating scarcity effect in UI](https://alexdenk.eu/blogtouch?id=15rOsh1pZOJQE_4Wb4LKFVxARJdwUpO7x "Creating scarcity effect in UI")
+![在 UI 上制造稀缺效应](https://alexdenk.eu/blogtouch?id=15rOsh1pZOJQE_4Wb4LKFVxARJdwUpO7x "Creating scarcity effect in UI")
 
-Or, as Booking.com would probably use it:
+或者，正如 Booking.com 可能会使用的那样：
 
-![Scarcity Effect - the drastic approach (as can be seen in well-known hotel booking apps](https://alexdenk.eu/blogtouch?id=1UmHrLdiyYGZhzvKGIw_etlOB-qAzveol "Scarcity Effect - the drastic approach (as can be seen in well-known hotel booking apps")
+![稀缺效应 —— 激进的方法（可以在著名酒店的预订应用程序中看到）](https://alexdenk.eu/blogtouch?id=1UmHrLdiyYGZhzvKGIw_etlOB-qAzveol "Scarcity Effect - the drastic approach (as can be seen in well-known hotel booking apps")
 
-### 15. The Simulation Heuristic
+### 15. 反事实思维
 
-We determine the likelihood of an event to happen based on how easy it is to picture the event mentally. As a result, "near misses" are more disappointing than other failures.
+我们根据从心理上想象事件的容易程度来确定事件发生的可能性。因此，“未遂事件”比其他失败更令人失望。
 
-**Product tip**: Send a “You’re almost there!” email to users that almost completed an important action in your product, but eventually didn’t. Let them know they are very close, and that the opportunity is still waiting for them.
+**产品小窍门**：当用户在你的产品中几乎要完成一个重要的操作、但最终没有完成时，向用户发送“你即将达成！”的邮件。让用户知道他们已经非常接近了，机会仍然在等着他们。
 
-Read: [Is 'the fold' still a thing in today’s scrolling and skimming culture?](https://www.mobilespoon.net/2019/05/fold-still-thing-in-todays-scrolling.html)
+阅读：[当今滚动阅读的文化下还需要“首屏”吗？](https://www.mobilespoon.net/2019/05/fold-still-thing-in-todays-scrolling.html)
 
 ## Disproportionately emotional
 
