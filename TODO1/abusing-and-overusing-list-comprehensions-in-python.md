@@ -406,7 +406,7 @@ def sum_of_squares(numbers):
 
 ## 深思熟虑后使用列表推导式
 
-列表推导式可以使你的代码更可读（如果你不信，可以这个例子 [可理解的推导式](https://youtu.be/5_cJIcgM7rw "Comprehensible Comprehensions")），但是它确实被滥用。
+列表推导式可以使你的代码更可读（如果你不相信我，可以看我的演讲[可理解的推导式](https://youtu.be/5_cJIcgM7rw "Comprehensible Comprehensions")中的例子），但是它确实被滥用。
 
 列表推导式是被用来解决特定问题的专用工具。`list` 和 `dict` 的构造函数是被用来解决更具体问题的更专用的工具。
 
