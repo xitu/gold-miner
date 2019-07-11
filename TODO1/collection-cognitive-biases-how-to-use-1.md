@@ -5,7 +5,7 @@
 > * 译者：[江五渣](http://jalan.space)
 > * 校对者：
 
-# 利用认知偏见设计更好的产品 —— 第 1 部分
+# 利用 84 种认知偏见设计更好的产品 —— 第一部分
 
 ![](https://2.bp.blogspot.com/-JvOvFjdlVfE/XMhvVVa0R4I/AAAAAAAAPrM/KaVBcSKDdPgb1PLug4TlVOx07uY6YHShQCLcBGAs/s640/Cognitive%2Bbiases.png)
 
@@ -206,79 +206,79 @@ Clear uncertainties proactively
 
 阅读：[当今滚动阅读的文化下还需要“首屏”吗？](https://www.mobilespoon.net/2019/05/fold-still-thing-in-todays-scrolling.html)
 
-## Disproportionately emotional
+## 无法解释的情绪化
 
-We try to make rational decisions, but sometimes our emotions are just stronger than we think.
+我们试图做出理性的决定，但有时我们的情绪比我们想象的要强烈。
 
-### 16. Negativity Bias
+### 16. 负面偏差
 
-We give more weight to bad experiences than to good ones.
+比起好的经历，我们更重视糟糕的经历。
 
-1 Negative Emotion = 3 x Positive Emotion
+1 负面情绪 = 3 x 积极情绪
 
 ![Negativity Bias: 1 negative emotion equals 3 positive ones](https://alexdenk.eu/blogtouch?id=1I8QoTHbfkB8tgLa0WMI1NRZpYM5hcZaF "Negativity Bias: 1 negative emotion equals 3 positive ones")
 
-**Product/marketing tip**: Illustrate your product value by the negative experience it resolves.
+**产品/营销小窍门**：通过解决负面情绪来体现产品的价值。
 
-If you hope your story to make an impact or even go viral - try emotionally negative content.
+如果希望你的故事能产生影响，甚至像病毒一样传播开来 —— 尝试写一些负面情绪的内容。
 
-![Negativity Bias - Illustrate your product value by the negative experience it resolves.](https://alexdenk.eu/blogtouch?id=18_tQrUfk6v_Q6Y3IY4QrIfIvraHYRrXP "Negativity Bias - Illustrate your product value by the negative experience it resolves.")
+![负面偏差 —— 通过强调其解决的负面体验来说明产品的价值。](https://alexdenk.eu/blogtouch?id=18_tQrUfk6v_Q6Y3IY4QrIfIvraHYRrXP "Negativity Bias - Illustrate your product value by the negative experience it resolves.")
 
 Illustrate the value of your product by emphasizing the negative experience it resolves 
 
-### 17. Base Rate Fallacy (Base Rate Neglect)
+### 17. 基本比率谬误（基本比率忽视）
 
-We tend to ignore general information and focus on specific cases.
+我们倾向于忽略一般信息并专注于具体案例。
 
-How to use: don’t just share cold information about your product. Instead, show testimonials, use cases, from people or companies others can relate with.
+使用方法：不要只分享那些关于产品的冰冷的信息。相反地，展现来自其他人或公司的评价、用例。
 
-**Work-related tip**: If you want to be more convincing - blend your quantified data with some individual stories. Use quantified data to support your opinion rationally. The specific examples will convey your message emotionally.
+**与工作相关的小窍门**：如果你想更具有说服力 —— 把你的量化数据和一些个人故事相结合。用量化数据合理地支持你的观点。具体的例子会在情感上传递你想表达的信息。
 
 > If you want to be more convincing - blend your quantified data with some individual stories. Use quantified data to support your opinion rationally. The specific examples will convey your message emotionally.
 
-### 18. Identifiable Victim Effect
+### 18. 可辨识受害者效应
 
-We tend to empathize more with a specific individual than with a large anonymous group.
+我们更倾向于同情一个特定的人，而不是一个庞大的匿名群体。
 
-**How to use it**: When you are telling the story of your product, use personal stories of individuals instead of generic statements.
+**如何使用它**：当你讲述产品故事时，使用个人的故事而不是通用的陈述。
 
-![Identifiable Victim Effect - Use personal stories of individuals instead of generic statements. ](https://alexdenk.eu/blogtouch?id=1NZQMHBv_55MqCmi9ggDqCaLkDd31umgW "Identifiable Victim Effect - Use personal stories of individuals instead of generic statements. ")
+![可辨识受害者效应 —— 使用个人的故事而不是通用的陈述。](https://alexdenk.eu/blogtouch?id=1NZQMHBv_55MqCmi9ggDqCaLkDd31umgW "Identifiable Victim Effect - Use personal stories of individuals instead of generic statements. ")
 
-Use personal stories instead of generic statements
+使用个人的故事而不是通用的陈述
 
-### 19. Likability Effect
+### 19. 亲和力效应
 
-We like people who like the same things we do.
+我们喜欢那些和我们拥有相同喜好的人。
 
-As an example, if you were to tell me you’re a Transformers fan - I would immediately count you as a friend.
+举个例子，如果你告诉我你是变形金刚迷 —— 我会立刻把你当作朋友。
 
-**Marketing tip**: Show the strengths of your product by using testimonials of customers who faced similar issues as other potential customers.
+**营销技巧：**：通过使用与其他潜在客户面临类似问题的客户的推荐来展现产品的优势。
 
-Make sure to use the authentic language customers are using - say it in their own words.
+确保使用客户的真实语言 —— 用他们自己的话来表达。
 
-### 20. The Focusing Effect
+### 20. 聚焦效应
 
-We attribute too much weight to events of the past and translate them into future expectations.
+我们把过去的事情看得太重要，并将它们转变为对未来的期望。
 
-### 21. Impact Bias
+### 21. 影响力偏差
 
-We tend to overestimate the length or the intensity of future emotional states.
+我们倾向于高估未来情绪状态的持续时间或强度。
 
-It’s the “I’ll never get over her!” bias.
+这是“我永远无法克服她！”的偏见。
 
-**Possible usage**: Paint a picture of the users without your product or service, and later, introduce your product with how it will solve those pains.
+**可能的用法**：描绘在没有你的产品或服务下用户会遭遇的问题，然后，介绍你的产品会如何解决这些问题。
 
-Read: [40 rules for designing and writing text in mobile apps](https://www.mobilespoon.net/2018/11/ux-writing-comprehensive-guide-for.html)
-
----
-
-> * **[84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)**
-> * [84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
-> * [84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
+阅读：[在移动应用程序中设计和编写文本的 40 条规则](https://www.mobilespoon.net/2018/11/ux-writing-comprehensive-guide-for.html)
 
 ---
 
-Follow me on twitter [@gilbouhnick](https://twitter.com/GilBouhnick), or [subscribe to my newsletter](https://mailchi.mp/b9c664dfafa3/mobilespoon) to get some occasional posts directly to your inbox.
+> * **[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
+
+---
+
+在 Twitter 上关注我 [@gilbouhnick](https://twitter.com/GilBouhnick), 或 [订阅我的简报](https://mailchi.mp/b9c664dfafa3/mobilespoon)，可以将帖子直接发送到你的收件箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
