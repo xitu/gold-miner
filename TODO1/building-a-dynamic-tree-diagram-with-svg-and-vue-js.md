@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-dynamic-tree-diagram-with-svg-and-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-dynamic-tree-diagram-with-svg-and-vue-js.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：[Moonliujk](https://github.com/Moonliujk)、[shixi-li](https://github.com/shixi-li)、[sunui](https://github.com/sunui)
+> * 校对者：[Moonliujk](https://github.com/Moonliujk),[shixi-li](https://github.com/shixi-li)
 
 # 使用 SVG 和 Vue.Js 构建动态树图
 
@@ -19,7 +19,7 @@
 
 我们将首先学习如何制作三次贝塞尔曲线，然后通过剪切蒙版在坐标系中尝试找到 `<svg>` 元素可用的 `x` 和 `y` 点。
 
-我在这个案例中使用了很多视觉动画以保证趣味性。 本文的主要思想是帮助你为类似的项目设计出自己的图表。
+我在这个案例中使用了很多视觉动画以保证趣味性。本文的主要思想是帮助你为类似的项目设计出自己的图表。
 
 ## SVG
 
@@ -355,7 +355,7 @@ calculateXPos() 方法将在每次调用时进行评估。并且此方法接受�
 
 利用现代 JavaScript 框架所使用的数据驱动方法进行调整总是令人生畏的，但 Vue.js 使它变得非常简单，并且还可以处理诸如 DOM 操作之类的简单任务。因此，作为一名开发人员，即使在处理具有明显视觉效果的项目时，你也可以用数据的方式进行思考。
 
-我已经意识到创建这个看起来很复杂的图表需要 Vue.js 和 SVG 的一些简单概念。如果你还没有准备好，我建议您阅读有关[使用 Vue.js 构建交互式信息图](https://www.smashingmagazine.com/2018/11/interactive-infographic-vue-js/) 的内容。读完那篇文章后再回过头阅读本文就会容易很多。❤这是家庭作业的[答案](https://codepen.io/krutie/pen/QRrNKz) 。
+我已经意识到创建这个看起来很复杂的图表需要 Vue.js 和 SVG 的一些简单概念。如果你还没有准备好，我建议您阅读有关[使用 Vue.js 构建交互式信息图](https://www.smashingmagazine.com/2018/11/interactive-infographic-vue-js/)的内容。读完那篇文章后再回过头阅读本文就会容易很多。❤这是家庭作业的[答案](https://codepen.io/krutie/pen/QRrNKz)。
 
 我希望你从这篇文章中学到了一些东西，并在阅读本文时能够感受到我当时创作时的乐趣。
 
