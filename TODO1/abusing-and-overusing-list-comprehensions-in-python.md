@@ -9,7 +9,7 @@
 
 列表推导式是我喜欢的 Python 特性之一。我非常喜爱列表推导式，为此我写过一篇关于它们的[文章](https://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/ "List Comprehensions: Explain Visually")，做过一次针对它们的[演讲](https://youtu.be/5_cJIcgM7rw "Comprehensible Comprehensions")，还在 PyCon 2018 上办过一个[三小时推导式教程](https://youtu.be/_6U1XoxyyBY "Using List Comprehensions and Generator Expressions For Data Processing")。
 
-我喜爱推导式，但是我发现一旦一个新的 Python 使用者开始真正使用推导式，他们会在所有可能的地方用这些推导式。**推导式很可爱，也很容易被滥用**。
+我喜爱推导式，但是我发现一旦一个新的 Python 使用者开始真正使用推导式，他们会在所有可能的地方用这些推导式。**推导式很可爱，但也很容易被滥用**。
 
 这篇文章展示的案例中，从可读性的角度来看，推导式都不是完成任务的最优工具。我们会讨论一些案例，它们有比使用推导式更具有可读性的选择，我们还会看到一些不明显的案例，它们根本就不需要使用推导式。
 
