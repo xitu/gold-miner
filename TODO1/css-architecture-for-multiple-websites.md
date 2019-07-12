@@ -37,7 +37,7 @@ The base layer should be thin, only containing CSS resets, base SASS mixins, sha
 
 #### How to Structure the Layers
 
-In our architecture, each layer has at least three files; 2 private files (local and config; I call them private because they don’t get compiled into a CSS file) and one public file (the primary layer file). The layer’s configuration file, `**_config.scss**` usually contains variables. The `**_local.scss**` file includes the content styles and acts as a kind of controller or a package manager for the layer. **The third** file **calls** those first two files **(layer-name.scss**).
+In our architecture, each layer has at least three files; 2 private files (local and config; I call them private because they don’t get compiled into a CSS file) and one public file (the primary layer file). The layer’s configuration file, **`_config.scss`** usually contains variables. The **`_local.scss`** file includes the content styles and acts as a kind of controller or a package manager for the layer. **The third** file **calls** those first two files **(layer-name.scss**).
 
 **layer-name.scss file:**
 
@@ -78,7 +78,7 @@ Imagine we want to create a project from the base layer. We will have to build a
 
 **Note**: Locate all layers and projects in the SASS root folder.
 
-The project has at least one `**_config.scss**` file, one `**_local.scss**` file, and the layer’s central sass file named, in our example, `**inherited-project.scss**`.
+The project has at least one **`_config.scss`** file, one **`_local.scss`** file, and the layer’s central sass file named, in our example, **`inherited-project.scss`**.
 
 All layers/projects sit in the root folder of SASS.
 
@@ -130,13 +130,13 @@ The same goes for the **inherited-project/_local.scss** content files of the lay
 
 Inheriting from the base-project folder is the right way to build a new layer that has its unique style, based on the inheritance from the base layer.
 
-This layer will create one CSS file, called `**inherited-project.css**`.
+This layer will create one CSS file, called **`inherited-project.css`**.
 
 #### Override variable in inner layer
 
 It’s straightforward to override variables using the ‘layers’ method.
 
-Let’s say we have a variable named `**$base-color**` in the base layer and its value is blue (`**$base-color: blue**`;). Overriding this variable requires updating its value in the **local** `_config.scss`. Now all the components that use this variable — whether inherited from the **base layer** or defined in the **local layer** — will be updated with the value of the overridden color.
+Let’s say we have a variable named **`$base-color`** in the base layer and its value is blue (**`$base-color: blue`**;). Overriding this variable requires updating its value in the **local** `_config.scss`. Now all the components that use this variable — whether inherited from the **base layer** or defined in the **local layer** — will be updated with the value of the overridden color.
 
 ## Global Story
 
@@ -148,7 +148,7 @@ This concept is that partials which are used only in some layers will be placed 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*F43F_4fEqXCCTLNz07nrqg.png)
 
-Every layer can call a single partial or multiple ones from the global `**_partials**` folder, as needed.
+Every layer can call a single partial or multiple ones from the global **`_partials`** folder, as needed.
 
 **Example of a global _partials folder:**
 
