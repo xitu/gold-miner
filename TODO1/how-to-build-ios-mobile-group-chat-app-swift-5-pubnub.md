@@ -3,22 +3,22 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-ios-mobile-group-chat-app-swift-5-pubnub.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-ios-mobile-group-chat-app-swift-5-pubnub.md)
 > * 译者：[LucaslEliane](https://github.com/lucasleliane)
-> * 校对者：[江五渣](http://jalan.space)
+> * 校对者：[江五渣](http://jalan.space)，[Endone](https://github.com/Endone)
 
 # 使用 Swift 5 构建 iOS 移动端群聊 App
 
 无论是独立的[群聊应用](https://www.pubnub.com/solutions/chat/)，嵌入式的客户服务组件，或者是[约会应用里面的私人一对一聊天](https://dev-www.pubnub.com/solutions/chat/dating-apps/)，各种特征和规模的[移动端聊天](https://www.pubnub.com/solutions/chat/)无处不在。
 
-在本教程中，我们将向你展示如何使用 Swift 5 构建 iOS 移动聊天应用程序，来让任意数量的用户进行实时聊天。我们还将向你展示如何存储消息历史记录，因此当用户离开并返回时，他们的消息仍然在应用程序中。
+在本教程中，我们将向你展示如何使用 Swift 5 构建一个 iOS 移动聊天应用程序，其可以让任意数量的用户进行实时聊天。我们还将向你展示如何存储消息历史记录，因此当用户离开之后回来时，他们的消息仍然在应用程序中。
 
 为了实现上述的应用，我们使用了 PubNub 的一些关键特性： **[发布/订阅](https://www.pubnub.com/developers/tech/key-concepts/publish-subscribe/)**（实时消息）和 **[存储 & 回放](https://www.pubnub.com/developers/tech/key-concepts/message-caching-persistence/)（消息存储）**。
 
-* **发布**是每个客户端如何将自己的消息发送到全世界的方式，或者至少传递到自己想要发布的频道中。将你发送的每一条消息发送给订阅频道的任何人，这是 Pub/Sub 的开始。发布需要一个 PubNub 连接的实例（我将在后面详细介绍），消息（类型为 String，NSNumber，Array 和 Dictionary），以及我们要将消息发送到的频道。[了解有关 Swift 发布的更多信息。](https://www.pubnub.com/docs/swift/api-reference-publish-and-subscribe#publish)
+* **发布**是每个客户端如何将自己的消息发送到全世界的方式，或者至少传递到自己想要发布的频道中。Pub/Sub 模式最简单的应用就是将你发送的每一条消息传递给订阅频道的任何人。发布需要一个 PubNub 连接的实例（我将在后面详细介绍），要发送的消息消息（类型为 String，NSNumber，Array 和 Dictionary），以及我们要将消息发送到的频道。[了解有关 Swift 发布的更多信息。](https://www.pubnub.com/docs/swift/api-reference-publish-and-subscribe#publish)
 * **订阅**是 PubNub 即时通信的另外一个部分。为了订阅，我们需要一个 PubNub 连接的实例和一个要订阅的频道。成功订阅后，我们会收到消息，但如果我们在消息到达的时候不进行处理，我们仍然看不到这些消息。[了解有关 Swift 订阅的更多信息](https://www.pubnub.com/docs/swift/api-reference-publish-and-subscribe#subscribe)。
-* **事件处理或监听**的更新在 PubNub 的生命周期中非常重要。Pub/Sub 虽然非常引人注目，但使用 PubNub 的关键是事件处理程序，它将[数据流网络](https://www.pubnub.com/products/global-data-stream-network/)连接到我们的控制台和应用程序。它们中的一个专门监听消息，而另一个负责寻找其他任何内容，包括订阅更改和错误。
+* **事件处理或监听**的更新在 PubNub 的生命周期中非常重要。Pub/Sub 虽然非常引人注目，但使用 PubNub 的关键是事件处理程序，它将[数据流网络](https://www.pubnub.com/products/global-data-stream-network/)连接到我们的控制台和应用程序。它们中的一个专门监听消息，而另一个负责寻找其他任何内容，包括订阅变动和错误。
 * **存储和回放**是这个伟大的功能集的另外一个关键点。如果存储和消息检索已导入你的工程，那么存储和播放对你的应用程序来说也是很好的补充。这个功能允许检索历史消息。应用程序消息的范围囊括了应用程序的整个生命周期。我们将设置 PubNub 帐户并获取 API 密钥，在 PubNub 管理控制台中设置存储的生存时间。[了解有关  Swift 中存储和回放的更多信息](https://www.pubnub.com/docs/swift/api-reference-storage-and-playback)。
 
-在看完这个教程之后，你会实现一个提供了聊天室服务的应用，并且这个应用可以是任何其他应用程序的很好的基础或者是补充。
+在看完这个教程之后，你会实现一个提供了聊天室服务的应用，并且这个应用可以是其他任何应用程序很好的基础或者补充。
 
 **[完整的 Swift 5 iOS 聊天应用程序可以在这里找到](https://github.com/SambaDialloB/PubNubChat)**。
 
@@ -26,17 +26,17 @@
 
 ### PubNub
 
-如果你还没有 PubNub 账户，[可以在这里注册一个帐户](https://dashboard.pubnub.com/signup)。登录后，创建一个新应用程序。单击它并创建一个新的密钥集或单击已有的演示版。 你现在应该看到发布和订阅密钥，我们可以通过其使用 PubNub API。
+如果你还没有 PubNub 账户，[可以在这里注册一个帐户](https://dashboard.pubnub.com/signup)。登录后，创建一个新的应用程序。单击它并创建一个新的密钥集或单击已有的演示版。 你现在应该看到发布和订阅密钥，我们可以通过其使用 PubNub API。
 
 在 keys 下，我们可以启用不同的选项！让我们在左下角附近启用存储和回放功能。我们现在可以决定你希望保留多长时间的消息。我选择了一天的保留时长并保存了更改。在保留设置下，还可以设置启用[从 PubNub 历史记录中删除](https://www.pubnub.com/docs/swift/api-reference-storage-and-playback#delete-messages-from-history)。
 
 ### Xcode 应用构建
 
-打开 Xcode 并切创建一个新项目，选择单视图应用程序，给他起一个名字，然后关闭项目。使用终端导航到项目文件夹，如果已经安装了 cocoapods，则运行命令 `gem install cocoapods` 或 `gem update cocoapods`。
+打开 Xcode 并创建一个新项目，选择单视图应用程序，给他起一个名字，然后关闭项目。使用终端导航到项目文件夹，运行命令 `gem install cocoapods` 或运行命令 `gem update cocoapods` 来更新已有的安装。
 
-在终端中输入 `touch Podfile`，为你的应用创建 Podfile，然后继续使用 `open Podfile` 打开文件。
+在终端中输入 `touch Podfile`，为你的应用创建 Podfile，然后使用 `open Podfile` 打开文件。
 
-将下面的代码写入到文件中，确保将“application-target-name”替换为项目的“application-target-name”。
+将下面的代码写入到文件中，确保将“application-target-name”替换为项目的名称。
 
 ```swift
 source ‘https://github.com/CocoaPods/Specs.git'
@@ -70,9 +70,9 @@ pod “PubNub”, “~> 4”
 
 接下来，让我们创建频道聊天视图。
 
-创建一个新的 Cocoa Touch 类并将其命名为 ChannelVC。在 storyboard 中创建一个新的视图控制器，并将该类设置为 ChannelVC。选择该视图时，请转到屏幕顶部，然后单击 Editor -> Embed In -> Navigation Controller。另一个视图现在应该在你的故事板中。这是导航控制器，它允许用户在进入视图之间切换。
+创建一个新的 Cocoa Touch 类并将其命名为 ChannelVC。在 storyboard 中创建一个新的视图控制器，并将该类设置为 ChannelVC。选择该视图时，请转到屏幕顶部，然后单击 Editor -> Embed In -> Navigation Controller。另一个视图现在应该在你的 storyboard 中。这是导航控制器，它允许用户在进入视图之间切换。
 
-将一个 UIBarButtonItem 添加到 ChannelVC 导航栏上的左侧位置，这是我们的“离开”按钮。按住 Control 键并将其拖到 ChannelVC.swift，并创建名为 leaveChannel，UIBarButtonItem 类型的 action。将 UITableView 拖到 ChannelVC 视图中。使其占据屏幕的大部分空间，为另一个 TextField 和一个带有文本 Send 的按钮留出足够的空间。创建它们。
+将一个 UIBarButtonItem 添加到 ChannelVC 导航栏上的左侧位置，这是我们的“离开”按钮。按住 Control 键并将其拖到 ChannelVC.swift，并创建名为 leaveChannel，UIBarButtonItem 类型的 action。将 UITableView 拖到 ChannelVC 视图中。使其占据屏幕的大部分空间，但需要流出空间放置另一个 TextField 和一个带有文本 Send 的按钮。创建它们。
 
 在 ChannelVC.swift 中为 table 和 TextField 创建 outlet，并为发送按钮添加另一个 action。
 
@@ -82,7 +82,7 @@ pod “PubNub”, “~> 4”
 
 **有关使你的应用程序适用于所有屏幕尺寸的更多信息，请参阅 [Apple 关于自动布局的文档](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html)或者查阅众多的在线指南。**
 
-现在我们得到很多不错的 view 视图，但它们之间无法进行自由切换。单击 ConnectVC 上方有其名称的栏，然后单击黄色圆圈。按住 Control 键并将其拖动到导航控制器并选择 show 选项。选择行到导航控制器，单击右侧面板上的属性选项卡，其顶部显示“Storyboard Segue”。将标识符命名为“connectSegue”。当你单击 ConnectVC 上的连接按钮时，就可以执行这个 Segue 了。
+现在我们得到很多不错的 view 视图，但它们之间无法进行自由切换。单击 ConnectVC 上方有其名称的栏，然后单击黄色圆圈。按住 Control 键并将其拖动到导航控制器并选择 show 选项。选择导航控制器，单击右侧面板上的属性选项卡，其顶部显示“Storyboard Segue”。将标识符命名为“connectSegue”。当你单击 ConnectVC 上的连接按钮时，就可以执行这个 Segue 了。
 
 我们需要的下一个也是最后一个任务是将我们从 ChannelVC 导航到 ConnectVC。选择 ChannelVC 的方式与 ConnectVC 相同，并将其拖到 ConnectVC。这次选择“Present Modally”并在属性检查器中将其命名为“leaveChannelSegue”。
 
@@ -139,15 +139,15 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 在我们的 ChannelVC 中，我们应该有两个 outlet，一个 action ，另一个是我们的 viewDidLoad 函数。最重要的是，在类定义下，我们将开始为类的其余部分定义一些我们需要的变量和资源。
 
-首先，让我们让我们的类监听 PubNub 事件并使其与我们的 table 一起工作。在文件顶部引入 PubNub，在我们的类定义中的 UIViewController 写入 PNObjectEventListener，UITableViewDataSource 和 UITableViewDelegate 之后。我们的类现在应该显示错误，单击错误并添加建议的那些类，这样进行引入比较便捷。
+首先，让我们的类监听 PubNub 事件并使其与我们的 table 一起工作。在文件顶部引入 PubNub，在我们的类定义中的 UIViewController 写入 PNObjectEventListener，UITableViewDataSource 和 UITableViewDelegate 之后。我们的类现在应该显示错误，单击错误并添加建议的那些类，这样进行引入比较便捷。
 
-* 在我们的类定义下，让我们定义一个结构，使得处理我们的消息更容易一些。我的结构有三个字符串：消息，用户名和 UUID。稍后当我们发布消息时，你可以发送不同的信息并使用这些更新来更新结构。
+* 在我们的类定义下，让我们定义一个结构，使得处理我们的消息更容易一些。我的结构有三个字符串：消息，用户名和 UUID。稍后当我们发布消息时，你可以发送不同的信息并使用这些来更新结构。
 * 之后，创建一个 Message 数组并将其初始化为空，因为所有类变量都需要具有某种初始值。
 * 为我们最早收到的消息创建一个 NSNumber 类型的标记，并设置标记的初始值为 -1。
 * 另一个变量，用于跟踪我们是否已开始加载更多消息。
 * 现在，对于这个视图控制器来说，最重要的、用于发布和订阅的变量，是我们将在此视图控制器中调用 PubNub 函数的对象。
 * 然后我们得到用户在最后一步中输入的用户名和频道，并使用临时值进行初始化。
-* 之后应该是我们的消息文本字段，我们的 tableView，以及我们和我们的发送 action。
+* 之后应该是我们的消息文本字段，我们的 tableView，以及我们的发送 action。
 
 ```swift
 class ChannelVC: UIViewController,PNObjectEventListener, UITableViewDataSource, UITableViewDelegate {
@@ -185,7 +185,7 @@ class ChannelVC: UIViewController,PNObjectEventListener, UITableViewDataSource, 
 }
 ```
 
-我们已经建立了一些我们可以在整个代码中使用的全局变量，接下来，让我们设置 viewDidLoad 函数。在调用继承的 viewDidLoad 之后，将导航控制器顶部的标题更改为频道名称，并将 table view 的 delegate 数据源设置为 self。
+我们已经建立了一些可以在整个代码中使用的全局变量，接下来，让我们设置 viewDidLoad 函数。在调用继承的 viewDidLoad 之后，将导航控制器顶部的标题更改为频道名称，并将 table view 的 delegate 数据源设置为 self。
 
 ```swift
 self.navigationController?.navigationBar.topItem?.title = channelName
@@ -194,7 +194,7 @@ tableView.delegate = self
 tableView.dataSource = self
 ```
 
-接下来，我们配置并初始化我们的 PubNub 对象。你可以在此处插入 PubNub 帐户中的发布和订阅密钥。我们将 stripMobilePayload 设置为 false，因为它已弃用，并为此连接提供唯一的 UUID，让我们在将来更容易开发更多功能。我们初始化它，将它设置为监听器，并订阅用户选择的频道。然后我们调用我们将在下一步创建的方法 loadLastMessages。
+接下来，我们配置并初始化我们的 PubNub 对象。你可以在此处插入 PubNub 帐户中的发布和订阅密钥。我们将 stripMobilePayload 设置为 false，因为它已弃用，并为此连接提供唯一的 UUID，这使我们在将来更容易开发更多功能。接着初始化它，将它设置为监听器，并订阅用户选择的频道。然后我们调用将在下一步创建的方法 loadLastMessages。
 
 ```swift
 // 设置我们的 PubNub 对象！
