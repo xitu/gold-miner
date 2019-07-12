@@ -1,53 +1,53 @@
-> * 原文地址：[How Google Pagespeed works: Improve Your Score and Search Engine Ranking](https://calibreapp.com/blog/how-pagespeed-works/)
+> * 原文地址：[Google 的 Pagespeed 的工作原理：提升你的分数和搜索引擎排名](https://calibreapp.com/blog/how-pagespeed-works/)
 > * 原文作者：[Ben Schwarz](https://calibreapp.com/blog/author/ben-schwarz)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md)
 > * 译者：
 > * 校对者：
 
-# How Google Pagespeed works: Improve Your Score and Search Engine Ranking
+# Google 的 Pagespeed 的工作原理：提升你的页面分数和搜索引擎排名
 
 ![](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/1.png)
 
-In this article, we uncover how PageSpeed calculates it’s critical speed score.
+通过这篇文章，我们将揭开 PageSpeed 那苛刻的计算页面速度分的面纱。
 
-It’s no secret that speed has become a crucial factor in increasing revenue and lowering abandonment rates. Now that Google uses page speed as a ranking factor, many organisations have become laser-focused on performance.
+毫无疑问，页面的加载速度已经变成了提升页面收益和降低流失率的关键性因素。由于 Google 使用页面的加载速度作为其搜索排名的一个因素，现在许多企业和组织都把目光聚焦在提升页面性能上了。
 
-Last year **Google made two significant changes to their search indexing and ranking algorithms**:
+去年 **Google 针对他们的搜索排名算法做了两个重大的调整**：
 
-* In March, [indexing became based on the mobile version of a page](https://webmasters.googleblog.com/2018/03/rolling-out-mobile-first-indexing.html), rather than desktop.
-* [In July, the SEO ranking algorithm](https://webmasters.googleblog.com/2018/01/using-page-speed-in-mobile-search.html) was updated to include page speed as a ranking factor for both mobile pages [and ads.](https://developers.google.com/web/updates/2018/07/search-ads-speed#the_mobile_speed_score_for_ads_landing_pages)
+* 三月, [搜索结果排名以移动端版本的页面为基础](https://webmasters.googleblog.com/2018/03/rolling-out-mobile-first-indexing.html)，取代之前的桌面端版本。
+* [七月,SEO 排名算法](https://webmasters.googleblog.com/2018/01/using-page-speed-in-mobile-search.html) 更新为，增加页面的加载速度作为影响排名的因素，包括移动端页面[和广告。](https://developers.google.com/web/updates/2018/07/search-ads-speed#the_mobile_speed_score_for_ads_landing_pages)
 
-From this, we’re able to state two truths:
+通过这些，我们可以总结出两个结论：From this, we’re able to state two truths:
 
-* **The speed of your site on mobile will affect your overall SEO ranking.**
-* If your pages load slowly, it will reduce your ad quality score, and **ads will cost more.**
+* **手机端页面的加载速度会影响你整站的 SEO 排名。**
+* 如果你的页面加载很慢，就会降低你的广告质量分，所以你的**广告费会更贵。**
 
-Google wrote:
+Google 道：
 
-> Faster sites don’t just improve user experience; recent data shows that improving site speed also reduces operating costs. Like us, our users place a lot of value in speed — that’s why we’ve decided to take site speed into account in our search rankings.
+> 更快的加载速度不仅仅会提升我们的体验；最近的数据显示，提升页面的加载速度也会降低操作成本。和我们一样，用户也很重视速度 — 这就是我们决定将页面的速度这个因素，加入计算搜索排名的原因。
 
-To understand how these changes affect us from a performance perspective, we need to grasp the underlying technology. [PageSpeed 5.0](https://developers.google.com/speed/docs/insights/release_notes) is a complete overhaul of previous editions. It’s now being powered by Lighthouse and [CrUX](https://developers.google.com/web/updates/2017/12/crux) (Chrome User Experience Report).
+为了搞清楚这些变化，从性能的角度给我们带来了什么影响，我们需要掌握这些基础知识。[PageSpeed 5.0](https://developers.google.com/speed/docs/insights/release_notes) 是之前的一个完整的修订版。现在由 Lighthouse 和 [CrUX](https://developers.google.com/web/updates/2017/12/crux) 提供技术支持（Chrome User Experience Report）。
 
-**This upgrade also brings a new scoring algorithm that makes it far more challenging to receive a high PageSpeed score.**
+**这次升级更新了分数的算法，它使得获得 PageSpeed 的高分更加困难。**
 
-### What changed in PageSpeed 5.0?
+### PageSpeed 5.0 改变了什么?
 
-Before 5.0, PageSpeed ran a series of heuristics against a given page. If the page has large, uncompressed images, PageSpeed would suggest image compression. No Cache-Headers missing? Add them.
+5.0 之前，PageSpeed 会针对测试的页面给出一些指导意见。如果页面有很大的、未经压缩的图片，PageSpeed 会建议对图片压缩。再比如，漏掉了 Cache-Headers，会建议加上。
 
-These heuristics were coupled with a set of **guidelines** that would **likely** result in better performance if followed, but were merely superficial and didn’t actually analyse the load and render experience that real visitors face.
+这些建议是与一些列的**指导方针**对应的，如果遵从这些指导方针，**很可能**会提升你的页面性能，但这些也仅是是表层的，它不会分析用户真实场景下的加载和渲染的体验。
 
-In PageSpeed 5.0, pages are loaded in a real Chrome browser that is controlled by Lighthouse. Lighthouse records metrics from the browser, applies a scoring model to them and presents an overall performance score. Guidelines for improvement are suggested based on how specific metrics score.
+在 PageSpeed 5.0 中，页面被载入真实的 Chrome 浏览器，是由 Lighthouse 控制的。Lighthouse 从浏览器中获取记录各项指标，把这些指标套入得分模型里计算，最后展示一个整体的性能分。根据具体的分数指标来给出优化的指导方针。
 
-Like PageSpeed, Lighthouse also has a performance score. In PageSpeed 5.0, the performance score is taken from Lighthouse directly. **PageSpeed’s speed score is now the same as Lighthouse’s Performance score.**
+和 PageSpeed 类似，Lighthouse 有一个性能分。在 PageSpeed 5.0 中，性能分直接从 Lighthouse 里取了。**现在 PageSpeed 的速度分和 Lighthouse 的性能分一样了**
 
 ![Calibre scores 97 on Google’s Pagespeed](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/calibre-pagespeed.png)
 
-Now that we know where the PageSpeed score comes from, let’s dive into how it’s calculated, and how we can make meaningful improvements.
+既然我们知道了 PageSpeed 的分数从哪里来，接下来我们就来仔细研究它是如何计算的，以及如何有效的提高页面的性能。
 
-### What is Google Lighthouse?
+### Google Lighthouse 是什么?
 
-[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) is an open source project run by a dedicated team from Google Chrome. Over the past couple of years, it has become **the** go-to free performance analysis tool.
+[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) 是一个开源项目，由一只来自 Google Chrome 优秀团队创建。Over the past couple of years, it has become **the** go-to free performance analysis tool.
 
 Lighthouse uses Chrome’s Remote Debugging Protocol to read network request information, measure JavaScript performance, observe accessibility standards and measure user-focused timing metrics like [First Contentful Paint](https://calibreapp.com/docs/metrics/paint-based-metrics), [Time to Interactive](https://calibreapp.com/docs/metrics/time-to-interactive) or Speed Index.
 
