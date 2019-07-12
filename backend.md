@@ -1,3 +1,8 @@
+* [Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf) ([fireairforce](https://github.com/fireairforce) 翻译)
+* [WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544) ([JalanJiang](https://github.com/JalanJiang) 翻译)
+* [可维护的 ETL: 使管道更容易支持和扩展的技巧](https://juejin.im/post/5d08e178518825166f36bf89) ([fireairforce](https://github.com/fireairforce) 翻译)
+* [利用并行流渐进加载图片](https://juejin.im/post/5d044fe3f265da1bd04eddda) ([twang1727](https://github.com/twang1727) 翻译)
+* [通过 Rust 学习解析器组合器 — 第二部分](https://juejin.im/post/5d04c3abe51d45775d516f7b) ([suhanyujie](https://github.com/suhanyujie) 翻译)
 * [尝试 DevOps：最适合你的是什么样的工具？](https://juejin.im/post/5cfd4aa3f265da1bb277233e) ([Starriers](https://github.com/Starriers) 翻译)
 * [超快速的分析器（二）：惰性解析](https://juejin.im/post/5cf33bd751882579e53f0130) ([suhanyujie](https://github.com/suhanyujie) 翻译)
 * [通过 Rust 学习解析器组合器 — 第一部分](https://juejin.im/post/5cfddd00f265da1b7e102bee) ([suhanyujie](https://github.com/suhanyujie) 翻译)

@@ -2,157 +2,157 @@
 > * 原文作者：[José Torre](https://medium.com/@zecarlostorre)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-a-designer-become-a-leader.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-a-designer-become-a-leader.md)
-> * 译者：
-> * 校对者：
+> * 译者：[TiaossuP](https://github.com/TiaossuP)
+> * 校对者：[portandbridge](https://github.com/portandbridge)，[MarchYuanx](https://github.com/MarchYuanx)
 
-# How can a Designer become a Leader?
+# 设计师如何成长为 Leader？
 
-> 7 Tips to Lead a Design Team.
+> 领导设计团队的 7 点建议。
 
 ![](https://cdn-images-1.medium.com/max/4096/1*rXe1SUGU4Mq3CrR15Q_gfQ.png)
 
-****Disclaimer**! What you’re about to read is based on my experience, specifically things that have given me good results. I don’t claim to have it all figured out, there’s still a long way for me to go, regardless of that I thought it could be interesting to share my learnings up until this point.**
+**免责声明！** 本篇文章只是基于我的个人经验，特别是那些给我带来好成绩的事情来完成的。我不是说我很了解该如何当好 Leader，对此我还有很长的路要走，但不管怎么说，我认为现在，分享我的学习经历是一个很有趣的事情。
 
 ---
 
-## The transition…
+## 转变…
 
-Let’s start with a bit of context first… when my manager asked me if I wanted to lead a team I almost automatically said no, at the time I was a bit hesitant to take over this new responsibility, especially because my true passion is design and the thing I love the most is to actually make things. In my head, leading a team, by default, would mean little time to design/make something, more time managing people and probably lots of admin work. So “no” was a no-brainer, after all, I didn’t become a designer to spend my days managing designers and letting them have all the fun.
+让我们首先从一些背景讲起…当我的经理问我是否想要领导一个团队时，我几乎脱口而出：No，关于要不要扛起这个责任的事情，当时的我有点犹豫不决 —— 尤其因为我真正的热情在于设计、我最喜欢的其实是创造东西。在我的脑海中，默认情况下，领导一个团队意味着很少有时间来设计/创造一些东西，更多的时间要用来管理人员、以及其他可能需要的大量管理工作。因此「不」就成了自然而然的回答，毕竟，我成为一名设计师，并不是为了整天管理设计师，让他们享受这份乐趣。
 
-After a couple of weeks, she asked me again, she mentioned why she believed I could do the job, and also gave me the change of doing it as a trial for a few months. Since my team would be quite small, I decided to give it a go and see if I could still find time to design.
+几个星期后，她再次问我，她提到了为什么她相信我能做到这一点，并且还给了我一个尝试几个月的机会。由于我要管理的团队规模很小，我决定试一试，看看我是否还有时间去搞设计。
 
-Fast forward 3 months and thanks to the team size I still managed to find time to design, and now I could even steer the general direction we were going and hire designers that I believed in, so my conclusion was to keep going.
+3 个月过去了，幸亏团队规模不大，我还是能挤出时间做设计，当时我甚至还能引领团队的总体方向、并聘请我信任的设计师，所以我的结论是继续领导团队。
 
-That’s how I got started, and even though I’m still very much noob at this, during the past year I think I learned quite a lot, and I wanted to share that with you, hoping you find it useful in case you want to lead a design team, or just if you wonder what would entail to take that responsibility.
+我就是这样开始的，尽管我现在仍然非常新手，但在过去的一年里我还是学会了很多，因此我想就这些与你分享，希望你觉得这些有用 —— 倘若你想领导一个设计团队，或者你想知道那需要承担这份责任意味着什么的话。
 
-With that out of the way, let’s get into my learnings.
+说完这些，请大家一起看一看我的体会。
 
-## 1. Have a Goal
+## 1. 树立一个目标
 
 ![](https://cdn-images-1.medium.com/max/2850/1*PtXDt-EfhsK0gmNZSWf_Mw.jpeg)
 
-The first thing I learned was that you need to provide direction to your team.
-Have a clear goal, give them focus so they know what they’re supposed to achieve and when.
+我学到的第一件事是，你需要为你的团队指明方向。
+要有一个明确的目标，让他们专注，让他们知道他们应该做什么，以及什么时候做。
 
-Doing that will help people understand where they’re heading and what they should be doing to get there. Imagine that you’re on a boat with several people rowing, if they don’t know where you’re heading, you might end up moving in circles and getting nowhere. With a goal, even if it is a bit fuzzy, you’ll get people rowing in the right direction, and if the original goal is fuzzy, it’s important that as you move towards it, that it starts to become more and more clear.
+这样做将帮助人们了解他们的前进的目标，以及他们应该做些什么来达成目标。想象一下，你带领几个人在一条船上划船，如果他们不知道你要去哪里，你可能会原地打转，一无所获。有了目标，即使它有点模糊，你会让人们朝着正确的方向划桨。最初的目标不够清晰其实没有关系，重要的是当你朝着目标前进时，它会变得越来越清晰。
 
-When you define your goal, it’s good to be realistic on a short term but visionary on a the long run. People need to know what they should be doing now but they also need to understand what’s the ultimate dream, so they can take that into consideration.
+当你定义你的目标时，最好定义短期内比较现实、长远来看是有远见的目标。人们需要知道他们现在应该做什么，但他们也需要知道最终的梦想是什么，这样他们才可以认真的考虑与对待你设立的目标。
 
-In my view, as the design lead your job isn’t just to write down what your team should do and when, but more importantly is to give a bit of a glimpse of what that can be, that’s where you can put your awesome design skills to use.
+在我看来，作为一个设计主管，你的工作不仅仅是写下你的团队应该做什么，什么时候做，更重要的是你的团队都能做些什么。当需要判断你团队的能力时，你那出色的设计技能，也是非常有意义的。
 
-## 2. Rushing slows you down
+## 2. 冒进使人落后
 
 ![](https://cdn-images-1.medium.com/max/3356/1*4B-RT95ScLfgrxmF5vDdxg.jpeg)
 
-If you read [my last article ](https://uxdesign.cc/7-tips-to-design-faster-ae01c6fa71f2)you know I’m all for moving fast, this tip doesn’t mean that you have to move slowly, this only means that you should go through a proper design process, and you don’t skip steps unless you have a really valid reason. The whole “fail fast” mentality isn’t much of a valid reason if you ask me, if you have the means to test something in a small scale and avoid giving your users a hard time, why would you put them through it?
+如果你读了[我的上一篇文章](https://uxdesign.cc/7-tips-to-design-faster-ae01c6fa71f2)，你就会知道我完全赞成快速前进，这条建议并不意味着你必须慢慢前进，这只是意味着你应该经历一个正确的设计过程，除非存在一个真正有价值的理由，否则不要跳过任何步骤。「快速失败」的心态并不是一个合理的理由，如果你有办法在小范围内测试一些东西并且避免给你的用户带来困难，你为什么要还要「快速失败」呢？
 
-With this, I basically mean that you shouldn’t skip prototyping because it can take some time, you need to test and validate your designs as much as you can so you don’t end up making bad decisions based on wrong assumptions and release a product that will be a pain to use.
+我的意思是，你不应该因为原型设计可能要花时间就不去做。你需要尽可能多地测试和验证你的设计，这样你就不会因为错误的假设而做出错误的决定，也不会发布一个使用起来很痛苦的产品。
 
-This also means that you shouldn’t be too busy to join user tests, because there’s nothing like seeing people frustrations first hand, when you can see more than a number, or a username, you see an human being trying to accomplish something that was supposed to be easier thanks to your brilliant design. This is when you learn and empathize the most with the people using your product.
+这也意味着你不应该顾着忙其他事而不去参加用户测试，因为没有什么比亲眼看到人们受挫更让人沮丧的了，你看到的不仅仅是一个数字或一个用户名，你看到的是一个人在试图完成一些本该更容易的事情 —— 而这多亏了你出色的设计。在这段时间里，你会学到更多，也会对使用你产品的人产生最大的共鸣。
 
-You can’t skip things just because you’re the Lead, I believe that a good Lead should lead by example, if you don’t consider it a priority, your team might end up following your example. Not just that, to properly steer the boat you need all the insights that are gained in the user test, and for that there’s nothing like being there in person.
+你不能因为你是领导者就跳过这件事情，我认为一个好的领导者应该以身作则，如果你不把它放在首位，你的团队可能也会有样学样。正因如此，为了正确地驾驭这艘船，你需要从用户测试中获取尽可能多的有价值的观点。而要做到这点，亲自参与是最好的做法。
 
-Next to this, and this should go without saying, you should test and use the product that your team is designing as much as you can, and you should know all the ins & outs of the current version of the product that your users are using, so you don’t forget about them and their struggles.
+接下来，不用说，你应该了解用户目前使用的产品版本的所有细节，并且你应该对用户目前使用的产品版本有透彻的了解，这样你就不会忘记他们和他们曾经所遇到的困难。
 
-## 3. Dream before it gets real
+## 3. 心有梦，方可圆
 
 ![](https://cdn-images-1.medium.com/max/3612/1*NDdSrcANlyUnfgiTLSInkA.jpeg)
 
-Even though it’s good to be realistic, practical and pragmatic when you’re designing a product, I believe it’s important not to forget to dream, and to encourage your team to do the same.
+虽然设计产品时，现实、实际和务实是很好的，但我认为重要的是不要忘记梦想，并鼓励你的团队也这样做。
 
-One doesn’t become a designer because they want to reuse as much existing components as possible, or because they want to design MVPs for the rest of their lives.
+一个人成为设计师，不是因为他想重用尽可能多的现有组件，也不是因为他想在余生中只是设计 MVP。
 
-Therefore, I think it’s very important to keep that spark that made someone become a designer alive, and encourage them to go wild sometimes. That crazy idea that your team came up with may never see the light of day because it’s too expensive to build or too dreamy, but maybe, just maybe it will be the thing that inspires an engineer to build something that can be somewhere in between, which ends up being a better experience for your user and something more inspiring for the design team to build upon.
+因此，我认为保持那种让人成为设计师的激情是非常重要的，并要鼓励他们偶尔 high 一下。因为实现成本高昂或者过于理想化，你的团队提出的某个酷炫想法可能永远不会成为现实，但也许，它还会激励工程师去构建理想与现实兼备的产品，这最终会为你的用户提供更好的体验，而在这之中所构建出来的东西可以为设计团队带来灵感，成为往后构建工作的基础。
 
-The other reason why I think it’s important to dream is because I really believe that the moment you let all the constraints pull you down it’s the moment you stop innovating. This is one of the reasons why car manufacturers invest in designing concept cars, it’s not to design a car that can be shipped in a few months, but to give their design team (and the world) a glimpse of what the future can be, so they can envision how they can design something that is more realistic but at the same time is heading on that same direction.
+我认为梦想很重要的另一个原因是，我十分相信，你被限制束缚之时，就是你停止创新之时。这也是汽车制造商投资设计概念车的原因之一，它不是要设计一辆几个月就能上市的汽车，而是让他们的设计团队（以及全世界）看看未来会是什么样子，这样，他们既能设想如何设计出更现实的东西，同时又朝着未来前进。
 
-## 4. Listening makes you better
+## 4. 聆听使人进步
 
 ![](https://cdn-images-1.medium.com/max/3226/1*3-tbVsJi04aqAoF-Sp7_kA.jpeg)
 
-The “leader” stereotype is someone who likes to talk, they’re the ones calling the shots and telling everyone what to do. That stereotype couldn’t be further from myself, however I would argue a better kind of leader is the one who listens more than talks.
+「Leader」给人的刻板印象是爱说话的人 —— 他们是指挥者，告诉每个人该做什么。而我完全不是这种人，我认为，一个更好的领导者应该是多听少说的人。
 
-This doesn’t mean that you don’t say a word, it just means that you listen carefully, you encourage others to participate and give their 2 cents, so you can use all that as ammunition to construct your opinion, and to make decisions. If you really listen, whenever you talk you’re contribution will be more meaninful and have a bigger impact.
+这并不是说你什么都不说，只是说你要认真倾听，鼓励别人参与进来，给出他们的意见，这样你就可以用这些作为弹药来构建你的观点，并做出决定。如果你认真倾听，无论什么时候你说话，你的贡献都会更有意义，产生更大的影响。
 
-As a Lead I think it’s also vital that you don’t take someone’s opinion based on their seniority or their position in the company. If you built your team properly, you should be surrounded by intelligent individuals that are striving toward the same goal as you. This doesn’t mean you ignore experts advice, you just have to keep in mind that in the end of the day, you’re not designing for these experts, you’re designing for people that will use your product. They’re the ones you have to listen.
+作为主管，我认为同样重要的是，你不能根据一个人的资历或在公司的职位来采纳他的观点。如果你正确地建立了你的团队，你就会被有共同目标的聪明人所包围。这并不意味着你要忽视专家的建议，你只需要记住，最终，你不是为这些专家设计的，你是为使用你产品的人设计的，就足够了。你的用户，才是你必须倾听的人。
 
-Beyond design, listening can be also useful to improve your team motivation and productivity. Talk with your designers and also the people that your team interact with, ask them what can be better. You’ll be surprised with the insights you’ll get just by listening to what they have to say, even when things are running somewhat smoothly there’s always points of improvement, you just have to listen.
+除了设计之外，倾听还有助于提高团队动力和效率。与你的设计师以及与你的团队有协作的人交谈，问他们什么可以做得更好。你会惊讶地发现，仅仅通过倾听他们的观点，你就能获得一些深刻的见解，即使事情进展得有些顺利，也总会有改进的地方，这是你只需要倾听就能获得的。
 
-## 5. Make the dream with the team
+## 5. 与团队共同圆梦
 
 ![](https://cdn-images-1.medium.com/max/3800/1*p-Eg9h3Y6uPFk4LM7pDSqQ.jpeg)
 
-When you’re hiring designers, you should aim to hire people that you think are better than you at something. If you want a good team you can’t be afraid of hiring someone that might take your job, you should actually only hire that kind of people because they’re the ones who will help you move forward.
+当你雇佣设计师的时候，你的目标应该是雇佣那些比你更擅长某件事情的人。如果你想要一个好的团队，你就不能害怕雇佣可能接替你工作的人，你甚至最好只雇佣那些能接替你工作的人，因为他们会帮助你前进。
 
-Next to their skills, you should also evaluate if their personality will be a good fit in your team. You need to be able to have a conversation with this person, after all, you’re going to work together on a daily basis, so it’s always nice if you don’t hate each other.
+除了他们的技能，你还应该评估他们的性格是否适合你的团队。你需要能够和这个人交流，毕竟你们每天都要在一起工作，所以如果你们不讨厌对方总是好的。
 
-Once the team is there, I think the best possible design work comes from proper collaboration.
-To encourage that, you need to be honest with your team, but also open to receive honest feedback. You might need certain people to execute parts of the designs individually, but the vision and the end result should be taken as the fruit of the team. Brainstorming, designing and iterating should be something that happens as a team, I believe that is the best way to make everyone feel motivated, productive and equally responsible for the end result, moreover, it’s the way to make sure you get the most out of the different minds in your team, by having them bouncing ideas of each other.
+一旦团队成型后，我认为最好的设计工作来自于适当的协作。
+为了鼓励这一点，你需要对你的团队诚实，但也要接受诚实的反馈。你可能需要特定的人员来单独执行部分设计，但是应该将远景和最终结果视为团队的成果。头脑风暴、设计和迭代都应该是作为一个团队进行的，我认为这是让每个人都感到有动力、高效和对最终结果负有同等责任的最好方法，而且，大家的思维碰撞，也是你能从团队中不同的大脑中得到最大收获的方法。
 
-Last but not least, the size is key. My experience tells me that a small team is always better. The more people you have under you, the more communication lines you have, which essencially means that is more likely that a miss understanding happens.
+最后但并非最不重要的是，团队规模很重要。我的经验告诉我，小团队总是更好。你手下的人越多，你的沟通渠道就越多，这基本上意味着很有可能会出现误会。
 
-## 6. They need to see it to believe
+## 6. 看到，才能相信
 
 ![](https://cdn-images-1.medium.com/max/2946/1*YxIlHzjYfWlEPeFAOyCMyg.jpeg)
 
-I’m a firm believer of showing rather than telling. If you have an idea and there’s a way to visualize it, as a designer, your job is to make that happen.
+我坚信 show 比 tell 重要。如果你有一个 idea，并且有一个将其展现出来的方法，作为一个设计师，你的工作就是实现它。
 
-Having something to look not only gives people a starting point of discussion, but also gives them a glimpse of what something can become.
+一个可见的 demo 不仅给人们提供了一个讨论的起点，而且也能让他们得以一瞥这个 idea 的最终样子。
 
-When you’re leading a team I think it’s important to keep on designing, that will show your team you’re not just a manager, but you’re someone who deeply cares about design, and more specifically you care about making whatever project you’re designing into something real and tangible.
+当你领导着一个团队时，我认为坚持设计是很重要的，这将向你的团队表明，你不仅仅是一个管理者，你是一个非常关心设计的人，更具体地说，你关心的是把你设计的任何项目做成真实的、有形的东西。
 
-This is key not just within the design team, but even more when you’re communicating to other stakeholders. If you lead by example hopefully your team will follow, thus making the communication with other teams more effective.
+这不仅在你的设计团队中很关键，在与其他利益相关者沟通时更是如此。如果你以身作则，希望你的团队能够效仿，这会使你们与其他团队的沟通更加有效。
 
-With that said, this point is not just about making a design visible, it’s also about taking action and doing rather than talking about it. For instance, if there’s an idea to improve the work process that comes from a team member, if you believe in it, don’t linger around to put it into practice, just make it happen.
+话虽如此，这一点并不仅仅是让设计可见而已，而是要采取行动，而不是空谈。例如，如果团队成员有一个改进工作流程的想法，如果你相信它，就不要瞻前顾后而不去付诸实践，你要让它成为现实。
 
-It’s easy to resist change and just keep doing what you’re used to, but if you never take action when your team gives you feedback, that may look like you don’t care or listen to what they have to say.
+人很容易抗拒改变，继续做他所习惯做的事情。但是倘若你从来没有在你的团队给你反馈的时候采取行动，这可能看起来你并不在乎或者不听他们说什么。
 
-As the Lead, your job isn’t just to show your team where to go but also to give them a voice and help them push their ideas forward.
+**作为一个 Leader，你的工作不仅仅是告诉你的团队去哪里，而且还要给他们表达的空间，支持他们推动自己的想法。（译注：这里是原文中的 Top highlight，故在此标明）**
 
-## 7. Build trust not walls
+## 7. 构筑信任，而非高墙
 
 ![](https://cdn-images-1.medium.com/max/3626/1*CfQuv9VxRJDJRwmg_wBKdw.jpeg)
 
-This is kind of obvious, but I’ll say it anyway, you have got to trust your designers. Don’t try to micromanage people. If you hired someone, you did it for a reason, let them show you their best side.
+虽然显而易见，但我还是要说，你必须相信你的设计师。不要管得太细。你雇佣了某个人，显然是有原因的，所以你要让他们向你展示他们最好的一面。
 
-A team of talented designers won’t be more productive or creative if you’re sitting behind them tracking their progress, or if you make sure they’re all clocking in at 8:59am.
+一群才华横溢的设计师，不会因为你坐在他们身后跟踪他们的进度，或者你确保他们都在早上 8:59 打卡上班，就会更有效率或更有创造力。
 
-Every designer is different, trust their process. The only thing you have to do is giving them clear goals to achieve, and make sure they get there in the end.
+每个设计师都是不同的，相信他们的过程。你唯一要做的就是给他们明确的目标，并确保他们可以最终达到目标。
 
-If they don’t, that shouldn’t be the point when you start to micromanage, what I recommend doing it to make them aware of what is expected from them and give them a second change to get on track. In case they don’t, then you have to take action quickly, or else their behavior and attitude might spread to the rest of the team.
+如果他们未能完成目标，你也不应该对其做出更细致的管控，我建议这样做：让他们意识你到他们的期望，并给他们第二次机会，让他们走上正轨。如果他们未能意识到这种期望或仍然没有走上正轨，那么你必须迅速采取行动，否则他们的行为和态度可能会蔓延到团队的其他成员。
 
-The ultimate goal is to have a team that can operate even when you’re not around, I think that can only happen if you trust them when you are.
+最终的目标是拥有一支即使在你不在的时候也能运作的团队。我认为只有当你信任团队的时候，这种情况才会发生。
 
-Trust also goes beyond your design team, and as the Lead you have to make sure your team has the trust from all the different teams they work with.
-Don’t forget to peek over the fence, and try to tear down any walls there might be in place. Whether is the PMs, Development, Marketing or any other team, your job is to help your team building a bridge, and to encourage collaboration.
+信任也不仅仅在你的设计团队内，作为 Leader，你必须确保你的团队拥有所有合作团队的信任。
+别忘了往外看，把可能有的墙都拆掉。无论是产品经理、开发、市场营销还是其他任何团队，你的工作都是帮助你的团队构建桥梁，并鼓励协作。
 
-Make time, involve them early and don’t wait for them to come to you, take initiative and push for true collaboration. In my experience, if you do it effectively, you’ll not just gain their trust, potentially you get a sit at their table when important discussions happen.
+要腾出时间，尽早让他们参与进来，不要等他们来找你，要主动，推动真正的合作。根据我的经验，如果你做得很有效，你不仅会赢得他们的信任，而且有可能在重要的讨论发生时，你也会得到他们的支持。
 
-## Bonus tip!
+## 特别建议！
 
-If you made it this far, I have a bonus tip for you. In case you’re a bit like me and have that “maker” itch that you need to scratch, try to block time on your calendar to design, and I mean, blocks of uninterrupted time (2–4 hours).
+如果你能做到这一步，我有一个额外的建议给你。如果你有点像我，有「创造者」的渴望，甚至偶尔到了「饥渴难耐」的程度，试着在你的日历上规划专门的「设计时间」，我的意思是，不间断的整块时间（2-4 小时）。
 
-If you don’t, your calendar will get swamped with meetings very easily. Also, be prepared to say no, because if you don’t protect your time people will try to steal it, especially if your calendar is fully packed.
+如果你不这样做，你的日程表将很容易被会议淹没。你要做好拒绝的准备，因为如果你不保护好你的时间，人们就会试图偷走它 —— 尤其是当你的日程表排得满满的时候。
 
-## Is there a conclusion?
+## 有结论吗？
 
-To lead a team you have to develop some skills that you don’t necessarily practice as a designer, but that doesn’t mean you have to do sell your soul and do a complete 180, you only need to evolve, especially because there are plenty of skills that you already have as a designer, you only need to adapt them to your new context.
+领导一个团队，你必须学习一些设计师所不需要的技能，但这并不意味着你必须出卖灵魂、彻底改变自己。你只需要进化 —— 特别是因为你已经拥有很多作为设计师的技能，你只需要根据你的新环境进行调整就好了。
 
-In the end of the day, you are still a designer, the only difference is that instead of being a single contributor, now you have people that can help you multiply your impact and speed.
+最终，你仍然是一个设计师，唯一的不同是，在实现理想的道路上，你不再是一个人，现在你有了可以帮助你扩大影响力、提高前进速度的人。
 
 ---
 
-**Olá, thanks for reading!** 🙏
+你好，感谢你的阅读🙏
 
-**My name is José Torre and I’m just a Portuguese guy who loves design.**
+***我叫 José Torre，我只是一个热爱设计的葡萄牙人。***
 
 ¯\ _(ツ)_/¯
 
-**If you feel like talking or just want to see what I’m up to you can find me on [Twitter](https://twitter.com/zecarlostorre), [LinkedIn](https://www.linkedin.com/in/josé-torre-3979b821/), and even [Instagram](https://www.instagram.com/sketchyminute/).**
+**如果你想聊聊或只是想看看我在做什么，你可以在 [Twitter](https://twitter.com/zecarlostorre)、[LinkedIn](https://www.linkedin.com/in/josé-torre-3979b821/)、甚至 [Instagram](https://www.instagram.com/sketchyminute/) 上找到我。**
 
-**Don’t forget…**
+**别忘了…**
 
-🎶 **If you like this article and you know it, clap your hands!** 👏👏
+🎶 **如果你喜欢这篇文章并且学到了什么，请为我鼓掌吧！** 👏👏
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

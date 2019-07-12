@@ -2,123 +2,122 @@
 > * 原文作者：[Nico Riedmann](https://dev.to/unseenwizzard)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[Usey95](https://github.com/Usey95)，[ZavierTang](https://github.com/ZavierTang)
 
-# Learn git concepts, not commands- Part 1
+# Git：透过命令学概念 —— 第一部分
 
-**An interactive git tutorial meant to teach you how git works, not just which commands to execute.**
+**用交互式的教程教你 Git 的原理，而非罗列常用命令。**
 
-So, you want to use git right?
+所以，你想正确地使用 Git 吗？
 
-But you don't just want to learn commands, you want to understand what you're using?
+但你肯定不想仅仅学一些操作命令，你还想要理解其背后的原理，对吧？
 
-Then this is meant for you!
+那么本文就是为你量身定做的！
 
-Let's get started!
-
----
-
-> Based on the general concept from Rachel M. Carmena's blog post on [How to teach Git](https://rachelcarmena.github.io/2018/12/12/how-to-teach-git.html).
-> 
-> While I find many git tutorials on the internet to be too focused on what to do instead of how things work, the most invaluable resource for both (and source for this tutorial!) are the [git Book](https://git-scm.com/book/en/v2) and [Reference page](https://git-scm.com/docs).
-> 
-> So if you're still interested when you're done here, go check those out! I do hope the somewhat different concept of this tutorial will aid you in understanding all the other git features detailed there.
+让我们快点开动吧！
 
 ---
 
-- [Learn git concepts, not commands- Part 1](#learn-git-concepts-not-commands--part-1)
-  - [Overview](#overview)
-  - [Getting a Remote Repository](#getting-a-remote-repository)
-  - [Adding new things](#adding-new-things)
-  - [Making changes](#making-changes)
-  - [Branching](#branching)
+> 本文的落笔点基于 Rachel M. Carmena 撰写的 [**如何教授 Git**](https://rachelcarmena.github.io/2018/12/12/how-to-teach-git.html) 一文中提及的常规概念。
+> 
+> 网上有很多重方法轻原理的 Git 教程，但我还是挖掘到了兼得二者的宝贵资源（也是本教程的灵感源泉），那就是 [*git Book*](https://git-scm.com/book/en/v2) 和 [*Reference page*](https://git-scm.com/docs)。
+> 
+> 因此，如果你读完了本文还意犹未尽，就快点击上面两个链接一探究竟吧！我真心希望本教程中介绍的概念，能帮你理解另外两篇文章中详解的其他 Git 功能。
 
 ---
 
-## Overview
+- [概览](#user-content-概览)
+- [获取远程仓库](#user-content-获取远程仓库)
+- [添加新文件](#user-content-添加新文件)
+- [更改](#user-content-更改)
+- [分支](#user-content-分支)
 
-In the picture below you see four boxes. One of them stands alone, while the other three are grouped together in what I'll call your **Development Environment**.
+---
 
-[![git components](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)
+## 概览
 
-We'll start with the one that's on it's own though. The **Remote Repository** is where you send your changes when you want to share them with other people, and where you get their changes from. If you've used other version control systems there's nothing interesting about that.
+下图中有四个盒子。其中一个盒子独占一隅；其他三个盒子并为一组，这三个盒子构成了**开发环境（Development Environment）**。
 
-The **Development Environment** is what you have on your local machine.  
-The three parts of it are your **Working Directory**, the **Staging Area** and the **Local Repository**. We'll learn more about those as we start using git.
+[![Git 组成](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)
 
-Choose a place in which you want to put your **Development Environment**.  
-Just go to your home folder, or where ever you like to put your projects. You don't need to create a new folder for your **Dev Environment** though.
+先从那个单独的盒子说起。当你更新了工作内容，并想要和其他人共享你更改的内容，或者你想获取到别人更改的内容，那么**远程仓库**（Remote Repository）就是你们用来传送更改内容的地方。如果你已经用过其他的版本控制系统了，那这种流程对你来说一点都不陌生。
 
-## Getting a Remote Repository
+相对于**远程仓库**（Remote Repository），**开发环境**（Development Environment）则是你的本地仓库。
+开发环境由三部分组成：**工作目录**（Working Directory）、**暂存区**（Staging Area）和**本地仓库**（Local Repository）。在开始使用 Git 后，我们对这几块区域的理解会逐渐加深。
 
-Now we want to grab a **Remote Repository** and put what's in it onto your machine.
+在电脑中选一个地方作为**开发环境**。
+在根目录或者任意你喜欢之处放置你的项目都可以。只不过不用给**开发环境**特意新建一个文件夹了。
 
-I'd suggest we use this one ([https://github.com/UnseenWizzard/git_training.git](https://github.com/UnseenWizzard/git_training.git) if you're not already reading this on github).
+## 获取远程仓库
 
-> To do that I can use `git clone https://github.com/UnseenWizzard/git_training.git`
+现在，我们要把一个**远程仓库**的内容抓到电脑本地上。
+
+建议使用本仓库（https://github.com/UnseenWizzard/git_training.git 如果你不是在 GitHub 上阅读本文，就点击此链接来实操）。
+
+> 用 `git clone https://github.com/UnseenWizzard/git_training.git` 命令来实现这一步操作
 > 
-> But as following this tutorial will need you to get the changes you make in your **Dev Environment** back to the **Remote Repository**, and github doesn't just allow anyone to do that to anyone's repo, you'll best create a **fork** of it right now. There's a button to do that on the top right of this page.
+> 但若要跟随本教程操作，你会需要把你的更改从**开发环境**回传到**远程仓库**中，而 GitHub 不允许用户随意更改其他用户的仓库，因此你最好创建一个教程仓库的 **fork** 版本以供使用。fork 按钮在 GitHub 仓库页面的右上角。
 
-Now that you have a copy of my **Remote Repository** of your own, it's time to get that onto your machine.
+现在你获取到了笔者的**远程仓库**的副本，接下来就把该副本拉到你的电脑中。
 
-For that we use `git clone https://github.com/{YOUR USERNAME}/git_training.git`
+使用 `git clone https://github.com/{YOUR USERNAME}/git_training.git` 命令将远程仓库复制到本地。
 
-As you can see in the diagram below, this copies the **Remote Repository** into two places, your **Working Directory** and the **Local Repository**.
+如下图所示，该命令将**远程仓库**复制到两个地方：**工作目录**和**本地仓库**。
 
-Now you see how git is **distributed** version control. The **Local Repository** is a copy of the **Remote** one, and acts just like it. The only difference is that you don't share it with anyone.
+现在你应该明白了，这就是 Git **分布式**版本控制的原理。**本地仓库**是**远程仓库**的克隆体，毫无二致。唯一的区别就是，这个克隆体是不与其他人共享的。
 
-What `git clone` also does, is create a new folder wherever you called it. There should be a `git_training` folder now. Open it.
+`git clone` 命令的另一个作用是新建一个文件夹。在你本地会出现一个名为 `git_training` 的文件夹。打开它。
 
-[![Cloning the remote repo](https://res.cloudinary.com/practicaldev/image/fetch/s--NCZ2AIG5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/clone.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--NCZ2AIG5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/clone.png)
+[![克隆远程仓库](https://res.cloudinary.com/practicaldev/image/fetch/s--NCZ2AIG5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/clone.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--NCZ2AIG5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/clone.png)
 
-## Adding new things
+## 添加新文件
 
-Someone already put a file into the **Remote Repository**. It's `Alice.txt`, and kind of lonely there. Let's create a new file and call it `Bob.txt`.
+**远程仓库**中已经有一个文件了。该文件名为 `Alice.txt`，在仓库中形单影只。我们来新建一个文件，命名为 `Bob.txt`，与 Alice 作伴。
 
-What you've just done is add the file to your **Working Directory**.
+刚才的操作是向**工作目录**中新增文件。
 
-There's two kinds of files in your **Working Directory**: **tracked** files that git knows about and **untracked** files that git doesn't know about (yet).
+**工作目录**中有两种文件：**已跟踪**文件 —— 由 Git 看管着的文件，**未跟踪**文件 ——（暂时）没有被 Git 看管的文件。
 
-To see what's going on in your **Working Directory** run `git status`, which will tell you what branch you're on, whether your **Local Repository** is different from the **Remote** and the state of **tracked** and **untracked** files.
+运行 `git status` 命令可以查看**工作目录**中的版本状态，输出结果会告诉你目前处于哪条分支，**本地仓库**是否与**远程仓库**同步，以及哪些文件分别处于**已跟踪**（tracked）状态和**未跟踪**（untracked）状态。
 
-You'll see that `Bob.txt` is untracked, and `git status` even tells you how to change that.
+你会看到，`Bob.txt` 处于未跟踪状态，`git status` 命令甚至会告诉你如何改变文件状态。
 
-In the picture below you can see what happens when you follow the advice and execute `git add Bob.txt`: You've added the file to the **Staging Area**, in which you collect all the changes you wish to put into **Repository**
+如下图所示，当你按照提示执行 `git add Bob.txt` 命令后，`Bob.txt` 文件会被加入到**暂存区**。**暂存区**中收集了所有你希望加入到**仓库**中的更改。
 
-[![Adding changes to the staging area](https://res.cloudinary.com/practicaldev/image/fetch/s--LVFHwLca--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--LVFHwLca--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add.png)
+[![把更改添加到暂存区](https://res.cloudinary.com/practicaldev/image/fetch/s--LVFHwLca--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--LVFHwLca--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add.png)
 
-When you have added all your changes (which right now is only adding Bob), you're ready to **commit** what you just did to the **Local Repository**.
+当把所有更改（目前只有 Bob.txt）都添加进暂存区，你就可以把更改**提交**（commit）到**本地仓库**了。
 
-The collected changes that you **commit** are some meaningful chunk of work, so when you now run `git commit` a text editor will open and allow you to write a message telling everything what you just did. When you save and close the message file, your **commit** is added to the **Local Repository**.
+你所**提交**的更改是一些有特定含义的工作内容，因此当运行了 `git commit` 后，你需要在自动打开的文本编辑器中写下你的更改说明。保存并关闭文本编辑器后，你的**提交内容**就被添加到**本地仓库**中了。
 
-[![Committing to the local repo](https://res.cloudinary.com/practicaldev/image/fetch/s--we00N_rB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/commit.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--we00N_rB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/commit.png)
+[![提交到本地仓库](https://res.cloudinary.com/practicaldev/image/fetch/s--we00N_rB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/commit.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--we00N_rB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/commit.png)
 
-You can also add your **commit message** right there in the command line if you call `git commit` like this: `git commit -m "Add Bob"`. But because you want to write [good commit messages](https://chris.beams.io/posts/git-commit/) you really should take your time and use the editor.
+`git commit -m "Add Bob"` 命令让你能够直接在命令中编辑**提交说明**。但你应该养成书写[规范易读的提交说明](https://chris.beams.io/posts/git-commit/)这种良好习惯，因此不要一蹴而就，还是乖乖用文本编辑器吧。
 
-Now your changes are in your local repository, which is a good place for the to be as long as no one else needs them or you're not yet ready to share them.
+现在，你做的更改就进入本地仓库了，本地仓库适合存储那些不需要共享或暂时还不能共享的工作内容。
 
-In order to share your commits with the **Remote Repository** you need to `push` them.
+那么为了把提交的更改共享到**远程仓库**，你需要`推送`（push）一下。
 
-[![Pushing to the local repo](https://res.cloudinary.com/practicaldev/image/fetch/s--XwP0hGrK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/push.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--XwP0hGrK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/push.png)
+[![推送到远程仓库](https://res.cloudinary.com/practicaldev/image/fetch/s--XwP0hGrK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/push.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--XwP0hGrK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/push.png)
 
-Once you run `git push` the changes will be sent to the **Remote Repository**. In the diagram below you see the state after your `push`.
+运行 `git push` 命令后，更改内容就会被发送到**远程仓库**中。下图展示了`推送`后的仓库状态。
 
-[![State of all components after pushing changes](https://res.cloudinary.com/practicaldev/image/fetch/s--Gj_DegbP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/after_push.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Gj_DegbP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/after_push.png)
+[![推送更改后的仓库状态](https://res.cloudinary.com/practicaldev/image/fetch/s--Gj_DegbP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/after_push.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Gj_DegbP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/after_push.png)
 
-## Making changes
+## 更改
 
-So far we've only added a new file. Obviously the more interesting part of version control is changing files.
+截至目前，我们只是新增了一个文件。而版本控制更有趣的部分就是更改文件。
 
-Have a look at `Alice.txt`.
+回过头来看 `Alice.txt` 文件。
 
-It actually contains some text, but `Bob.txt` doesn't, so lets change that and put `Hi!! I'm Bob. I'm new here.` in there.
+`Alice.txt` 文件里有一些文字，而 `Bob.txt` 文件里并没有，那我们就给 `Bob.txt` 添加上 `Hi!! I'm Bob. I'm new here.` 这句话。
 
-If you run `git status` now, you'll see that `Bob.txt` is **modified**.
+如果你现在再运行 `git status` 命令，你会看到 `Bob.txt` 的状态变成了**已修改**（modified）。
 
-In that state the changes are only in your **Working Directory**.
+在此状态下，此处更改仅存在于**工作目录**中。
 
-If you want to see what has changed in your **Working Directory** you can run `git diff`, and right now see this:
+若想查看**工作目录**中具体的更改细节，你可以运行 `git diff` 命令，输出结果如下：
 
 ```
 diff --git a/Bob.txt b/Bob.txt
@@ -129,17 +128,17 @@ index e69de29..3ed0e1b 100644
 +Hi!! I'm Bob. I'm new here.
 ```
 
-Go ahead and `git add Bob.txt` like you've done before. As we know, this moves your changes to the **Staging Area**.
+照旧运行 `git add Bob.txt` 命令。显然，新的更改进入了**暂存区**。
 
-I want to see the changes we just **staged**, so let's show the `git diff` again! You'll notice that this time the output is empty. This happens because `git diff` operates on the changes in your **Working Directory** only.
+想查看刚刚标记为`暂存`（staged）状态的更改的话，试试再运行一次 `git diff` 命令！你会发现这一次输出结果是空的。这是因为 `git diff` 命令只在**工作目录**中有效。
 
-To show what changes are **staged** already, we can use `git diff --staged` and we'll see the same diff output as before.
+那么要想看到已经处于`暂存`状态的更改的内容，我们需要运行 `git diff --staged` 命令，这样才能看到上次那样的输出结果。
 
-I just noticed that we put two exclamation marks after the 'Hi'. I don't like that, so lets change `Bob.txt` again, so that it's just 'Hi!'
+哎呀呀，我才发现我刚刚在『Hi』后面多加了一个感叹号。这样可不行，得再一次改动 `Bob.txt` 文件，保留一个感叹号就行了。
 
-If we now run `git status` we'll see that there's two changes, the one we already **staged** where we added text, and the one we just made, which is still only in the working directory.
+删掉多余的感叹号后，再运行 `git status` 命令，可以看到有两处更改，一处是**暂存**状态的添文字添加，另一处时是在工作目录中对感叹号的删除。
 
-We can have a look at the `git diff` between the **Working Directory** and what we've already moved to the **Staging Area**, to show what has changed since we last felt ready to **stage** our changes for a **commit**.
+我们用 `git diff` 命令比较一下**工作目录**和**暂存区**中的更改，看看自从上次标记**暂存**后发生了什么变化。
 
 ```
 diff --git a/Bob.txt b/Bob.txt
@@ -151,21 +150,21 @@ index 8eb57c4..3ed0e1b 100644
 +Hi! I'm Bob. I'm new here.
 ```
 
-As the change is what we wanted, let's `git add Bob.txt` to stage the current state of the file.
+发生的更改正如我们所愿，接着用 `git add Bob.txt` 命令`暂存`文件当前的状态。。
 
-Now we're ready to `commit` what we just did. I went with `git commit -m "Add text to Bob"` because I felt for such a small change writing one line would be enough.
+现在我们可以提交刚才的更改了。这次咱们使用 `git commit -m "Add text to Bob"` 命令，因为只是做了小小的改动，写一行说明足矣。
 
-As we know, the changes are now in the **Local Repository**.
+我们知道，现在那些更改已经进入**本地仓库**了。
 
-We might still want to know what change we just **committed** and what was there before.
+我们可能会想知道刚刚提交了什么更改，想知道更改前后有什么不同。
 
-We can do that by comparing commits.
+我们可以通过『比较提交』得到答案。
 
-Every commit in git has a unique hash by which it is referenced.
+在 Git 中，每次提交操作都对应一个唯一的哈希值，我们可以用某个哈希值来引用对应的提交。
 
-If we have a look at the `git log` we'll not only see a list of all the commits with their **hash** as well as **Author** and **Date**, we also see the state of our **Local Repository** and the latest local information about **remote branches**.
+如果用 `git log` 命令查看一下日志，我们不单会看到一系列带**哈希值**、**作者**和**日期**的提交操作，还会看到**本地仓库**的状态和关于**远程分支**的最新本地信息。
 
-Right now the `git log` looks something like this:
+此刻 `git log` 命令的运行结果大概如下：
 
 ```
 commit 87a4ad48d55e5280aa608cd79e8bce5e13f318dc (HEAD -> master)
@@ -197,116 +196,116 @@ Date:   Fri Jan 25 19:25:23 2019 +0100
       See the tutorial_wip branch for the actual commit history
 ```
 
-In there we see a few interesting things:
+在日志中，我们能发现几处有意思的细节：
 
-* The first two commits are made by me.
-* Your initial commit to add Bob is the current **HEAD** of the **master** branch on the **Remote Repository**. We'll look at this again when we talk about branches and getting remote changes.
-* The latest commit in the **Local Repository** is the one we just made, and now we know its hash.
+* 前两个提交的操作人是自己。
+* 最开始添加 `Bob.txt` 文件的提交是**远程仓库**中 **master** 分支的 **HEAD**。等说到分支和拉取远程更改的部分时，我们再展开探讨这个『HEAD』。
+* **本地仓库**中最新的提交就是我们刚刚做的更改，而此刻我们知道了其哈希值是什么。
 
-> Note that the actual commit hashes will be different for you. If you want to know how exactly git arrives at those revision IDs have a look at [this interesting article](https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html) .
+> 注意，你实际操作的提交的哈希值跟文中的例子是不一样的。如果你好奇 Git 是如何生成那些修改 ID 的，可以看看[这篇有趣的文章](https://blog.thoughtram.io/git/2014/11/18/the-anatomy-of-a-git-commit.html)。
 
-To compare that commit and the one one before we can do `git diff <commit>^!`, where the `^!` tells git to compare to the commit one before. So in this case I run `git diff 87a4ad48d55e5280aa608cd79e8bce5e13f318dc^!`
+我们可以通过 `git diff <commit>^!` 命令来比较这先后两次提交，命令中的 `^!` 告诉 Git 要比较的是指定哈希值的提交和它上一次的提交。那么我这里就是运行 `git diff 87a4ad48d55e5280aa608cd79e8bce5e13f318dc^!` 这样的命令。
 
-We can also do `git diff 8af2ff2a8f7c51e2e52402ecb7332aec39ed540e 87a4ad48d55e5280aa608cd79e8bce5e13f318dc` for the same result and in general to compare any two commits. Note that the format here is `git diff <from commit> <to commit>`, so our new commit comes second.
+我们还能用 `git diff 8af2ff2a8f7c51e2e52402ecb7332aec39ed540e 87a4ad48d55e5280aa608cd79e8bce5e13f318dc` 这样的命令来比较任意两次提交，同样会输出比较信息。注意，该命令的格式是 `git diff <from commit> <to commit>`，也就是说对于较新的提交，其哈希值要放在第二位。
 
-In the diagram below you again see the different stages of a change, and the diff commands that apply to where a file currently is.
+下图再次呈现了一个更改的不同阶段，以及每个阶段用的不同的 `diff` 命令。
 
-[![States of a change an related diff commands](https://res.cloudinary.com/practicaldev/image/fetch/s--hZ540Uzu--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/diffs.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--hZ540Uzu--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/diffs.png)
+[![一个更改的不同阶段以及相关的 diff 命令](https://res.cloudinary.com/practicaldev/image/fetch/s--hZ540Uzu--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/diffs.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--hZ540Uzu--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/diffs.png)
 
-Now that we're sure we made the change we wanted, go ahead and `git push`.
+现在我们可以确信提交的更改正是我们想要的，可以放心大胆地运行 `git push` 命令了。
 
-## Branching
+## 分支
 
-Another thing that makes git great, is the fact that working with branches is really easy and integral part of how you work with git.
+Git 的另一个伟大之处就是分支。分支是你使用 Git 时不可或缺的部分，借助分支来工作非常便利。
 
-In fact we've been working on a branch since we've started.
+其实，从一开始我们就已经在使用分支了。
 
-When you `clone` the **Remote Repository** your **Dev Environment** automatically starts on the repositories main or **master** branch.
+在克隆**远程仓库**时，**开发环境**会自动选中仓库的主分支（**master** 分支）复制。
 
-Most work-flows with git include making your changes on a **branch**, before you `merge` them back into **master**.
+通常的 Git 工作流都是先在一个**分支**上做更改，再将其`合并`（merge）回 **master** 分支。
 
-Usually you'll be working on your own **branch**, until you're done and confident in your changes which can then be merged into the **master**.
+一般情况下，你都是先在自己的**分支**上动工，等到完成现阶段的工作，并确信能够合并的时候，再合并到 **master** 分支。
 
-> Many git repository managers like **GitLab** and **GitHub** also allow for branches to be **protected**, which means that not everyone is allowed to just `push` changes there. There the **master** is usually protected by default.
+> 一些 Git 仓库托管平台（如 **GitLab**、**GitHub** 等）也提供保护分支的功能，意思是并非所有人都能把更改推送到受保护的分支。在这些托管平台中，**master** 分支一般都是默认受保护的。
 
-Don't worry, we'll get back to all of these things in more detail when we need them.
+别担心，当我们需要用到这些托管平台的时候，自会深入研究其细节。
 
-Right now we want to create a branch to make some changes there. Maybe you just want to try something on your own and not mess with the working state on your **master** branch, or you're not allowed to `push` to **master**.
+眼下，我们得创建一条分支，在该分支上做一些更改。有时候你只是想要尝试自己做些东西，不想污染 **master** 分支的工作状态；有时候你没有推送更改到 **master** 分支的权限。此时，一条新的分支正是你所需要的。
 
-Branches live in the **Local** and **Remote Repository**. When you create a new branch, the branches contents will be a copy of the currently committed state of whatever branch you are currently working on.
+**本地仓库**和**远程仓库**中都允许有多条分支。每个新建的分支，都是你当前所在分支中已经提交的内容的副本。
 
-Let's make some change to `Alice.txt`! How about we put some text on the second line?
+来动手改一改 `Alice.txt` 文件吧！在第二行增加一些文字怎么样？
 
-We want to share that change, but not put it on **master** right away, so let's create a branch for it using `git branch <branch name>`.
+我们想共享要做的更改，但不想立马就并入 **master** 分支，因此得先用 `git branch <branch name>` 命令新建一条分支。
 
-To create a new branch called `change_alice` you can run `git branch change_alice`.
+具体来说就是用 `git branch change_alice` 命令创建一个名为 `change_alice` 的分支。
 
-This adds the new branch to the **Local Repository**.
+这一步操作给**本地仓库**新增了一条分支。
 
-While your **Working Directory** and **Staging Area** don't really care about branches, you always `commit` to the branch you are currently on.
+而**工作目录**和**暂存区**其实并不会和多条分支联动，你提交的更改总是会进入到当前分支。
 
-You can think of **branches** in git as pointers, pointing to a series of commits. When you `commit`, you add to whatever you're currently pointing to.
+你可以把 Git 中的**分支**想象成指针，一根指向一系列提交内容的指针。每当你进行提交操作时，当前指针指向哪里，更改的内容就提交到哪里。
 
-Just adding a branch, doesn't directly take you there, it just creates such a pointer.
+单纯新建一条分支，并不能直接连到仓库，那只是竖起了一根指针而已。
 
-In fact the state your **Local Repository** is currently at, can be viewed as another pointer, called **HEAD**, which points to what branch and commit you are currently at.
+其实，**本地仓库**当前的状态，可以视为另一根指针，其名为 **HEAD**，它指向的是你当前的分支和当前的提交内容。
 
-If that sounds complicated the diagrams below will hopefully help to clear things up a bit:
+可能文字描述有点复杂，下面的示意图可以帮你理清这些头绪：
 
-[![State after adding branch](https://res.cloudinary.com/practicaldev/image/fetch/s--Ss_shD7h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add_branch.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Ss_shD7h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add_branch.png)
+[![创建分支后的状态](https://res.cloudinary.com/practicaldev/image/fetch/s--Ss_shD7h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add_branch.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Ss_shD7h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/add_branch.png)
 
-To switch to our new branch you will have to use `git checkout change_alice`. What this does is simply to move the **HEAD** to the branch you specify.
+使用 `git checkout change_alice` 命令可以切换到新分支。本操作实质上是把 **HEAD** 移到了你所指定的分支上了。
 
-> As you'll usually want switch to a branch right after creating it, there is the convenient `-b` option available for the `checkout` command, which allows you to just directly `checkout` a **new** branch, so you don't have to create it beforehand.
+> 通常我们都是创建分支后切换到该分支上，因此可以用带有 `-b` 选项的 `checkout` 命令，一气呵成地新建完切换过去，不用分两步走了，毕竟牛仔很忙的。
 > 
-> So to create and switch to our `change_alice` branch, we could also just have called `git checkout -b change_alice`.
+> 落实到具体操作就是运行 `git checkout -b change_alice` 命令，实现了创建并切换到 `change_alice` 分支。
 
-[![State after after switching branch](https://res.cloudinary.com/practicaldev/image/fetch/s--9Kp5zCqP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/checkout_branch.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--9Kp5zCqP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/checkout_branch.png)
+[![切换分支后的状态](https://res.cloudinary.com/practicaldev/image/fetch/s--9Kp5zCqP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/checkout_branch.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--9Kp5zCqP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/checkout_branch.png)
 
-You'll notice that your **Working Directory** hasn't changed. That we've **modified** `Alice.txt` is not related to the branch we're on yet.
+可能你已经注意到了，**工作目录**并没有什么变化。那是因为对 `Alice.txt` 文件的**修改**还没有关联到当前分支上。
 
-Now you can `add` and `commit` the change to `Alice.txt` just like we did on the **master** before, which will **stage** (at which point it's still unrelated to the branch) and finally **commit** your change to the `change_alice` branch.
+现在你可以像在 **master** 分支上那样，执行 `add` 和 `commit` 命令，把更改标记为**暂存**（在这个节点，更改内容和分支仍然没有相互关联）并**提交**到 `change_alice` 分支上。
 
-There's just one thing you can't do yet. Try to `git push` your changes to the **Remote Repository**.
+现在只剩一步没迈出去了。你可以试试运行 `git push` 命令，把更改推送到**远程仓库**。
 
-You'll see the following error and - as git is always ready to help - a suggestion how to resolve the issue:
+你会看到如下报错信息和一条（Git 一如既往地提供的）解决建议：
 
 ```
-fatal: The current branch change_alice has no upstream branch.
-To push the current branch and set the remote as upstream, use
+fatal: The current branch change_alice has no upstream branch.（严重错误：没有上游分支对应当前的 change_alice 分支。）
+To push the current branch and set the remote as upstream, use（若想推送当前分支并设置远程仓库为上游分支，请使用）
 
     git push --set-upstream origin change_alice
 ```
 
-But we don't just want to blindly do that. We're here to understand what's actually going on. So what are **upstream branches** and **remotes**?
+咱们可不是随意盲从的人，对吧。咱们得弄明白到底发生了什么。所以何为**上游分支（upstream branch）**？何为**远程分支（remote）**？
 
-Remember when we `cloned` the **Remote Repository** a while ago? At that point it didn't only contain this tutorial and `Alice.txt` but actually two branches.
+还记得之前我们用 `clone` 命令复制了**远程仓库**吧？那时候，**远程仓库**不只是包含本篇文章和 `Alice.txt` 文件，实际上是有两条分支在其中。
 
-The **master** we just went ahead and started working on, and one I called "tutorial_wip" on which I commit all the changes I make to this tutorial.
+一条是 **master** 分支，我们开始动工并一路推进的分支；另一条是 **tutorial_wip** 分支，我把本教程中所有的更改都提交到这条分支上了。
 
-When we copied the things in the **Remote Repository** into your **Dev Environment** a few extra steps happened under the hood.
+当我们把**远程仓库**的内容复制到**开发环境**中时，一些额外操作潜移默化地发生了。
 
-Git setup the **remote** of your **Local Repository** to be the **Remote Repository** you cloned and gave it the default name `origin`.
+Git 把**本地仓库**的**远程分支**设置为你所克隆的**远程仓库**，并赋予其一个默认名称 `origin`。
 
-> Your **Local Repository** can track several **remotes** and they can have different names, but we'll stick to the `origin` and nothing else for this tutorial.
+> **本地仓库**可以追踪多个不同名称的**远程分支**，但本教程中，我们将紧盯住 `origin` 而不考虑其他分支。
 
-Then it copied the two remote branches into your **Local Repository** and finally it `checked out` **master** for you.
+而后，Git 复制了两条远程分支到**本地仓库**中，并最终切换到了 **master** 分支。
 
-When doing that another implicit step happens. When you `checkout` a branch name that has an exact match in the remote branches, you will get a new **local** branch that is linked to the **remote** branch. The **remote** branch is the **upstream branch** of your **local** one.
+同时，另一个操作暗搓搓地启动了。当`签出`（checkout）一条分支，且此分支的名称与远程分支匹配时，你会得到一条新的**本地**分支，本地和远程的分支相互关联。那么我们说，这条**远程分支**就是**本地分支**的**上游分支**（upstream branch）。
 
-In the diagrams above you can see just the local branches you have. You can see that list of local branches by running `git branch`.
+在上文中的那些示意图中，你只能看到一条本地分支。而使用 `git branch` 命令则能查看一系列本地分支。
 
-If you want to also see the **remote** branches your **Local Repository** knows, you can use `git branch -a` to list all of them.
+假如你想看到**本地仓库**中关联的**远程分支**，可以使用 `git branch -a` 命令列出它们。
 
-[![Remote and local branches`](https://res.cloudinary.com/practicaldev/image/fetch/s--6K-Zm5cn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--6K-Zm5cn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches.png)
+[![远程分支和本地分支](https://res.cloudinary.com/practicaldev/image/fetch/s--6K-Zm5cn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--6K-Zm5cn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches.png)
 
-Now we can call the suggested `git push --set-upstream origin change_alice`, and `push` the changes on our branch to a new **remote**. This will create a `change_alice` branch on the **Remote Repository** and set our **local** `change_alice` to track that new branch.
+明白了这些，我们就可以踏踏实实地遵照建议运行 `git push --set-upstream origin change_alice` 命令了，这样就把本地分支中的更改推送到了一条新的**远程分支**中。命令生效后，**远程仓库**中会创建一条名为 `change_alice` 的分支，并且**本地**的 `change_alice` 分支会追踪远程的新分支。
 
-> There is another option if we actually want our branch to track something that already exists on the **Remote Repository**. Maybe a colleague has already pushed some changes, while we were working on something related on our local branch, and we'd like to integrate the two. Then we could just set the **upstream** for our `change_alice` branch to a new **remote** by using `git branch --set-upstream-to=origin/change_alice` and from there on track the **remote** branch.
+> 另外有一种操作，适用于想用本地分支追踪**远程仓库**中已有的内容这种需求。想象这样的场景：一位同事已经推送了一些更改，而这些更改与你本地分支的工作内容有依赖关系，那就需要将二者整合到一起。于是就要用到 `git branch --set-upstream-to=origin/change_alice` 这条命令，把 `change_alice` 分支的**上游分支**设为新的**远程分支**，以便于追踪同事的更改。
 
-After that went through have a look at your **Remote Repository** on github, your branch will be there, ready for other people to see and work with.
+操作完成后，到 GitHub 上的**远程仓库**中看看，你的分支已经创建就绪，可以被其他人看到并协同工作。
 
-We'll get to how you can get other people's changes into your **Dev Environment** soon, but first we'll work a bit more with branches, to introduce all the concepts that also come into play when we get new things from the **Remote Repository**.
+很快我们将谈到如何把别人的更改拉到自己的**开发环境**中，但目前我们还是使用分支来介绍更多的概念，这些概念会在我们把**远程仓库**向本地更新时粉墨登场。
 
 欢迎继续阅读本系列其他文章：
 
