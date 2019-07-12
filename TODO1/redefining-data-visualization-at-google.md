@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/redefining-data-visualization-at-google.md](https://github.com/xitu/gold-miner/blob/master/TODO1/redefining-data-visualization-at-google.md)
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
-> * 校对者：
+> * 校对者：[mymmon](https://github.com/mymmon) [shinichi4849](https://github.com/shinichi4849)
 
 # 设计图表的六项原则
 
