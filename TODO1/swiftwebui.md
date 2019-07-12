@@ -2,18 +2,18 @@
 > * 原文作者：[The Always Right Institute](http://www.alwaysrightinstitute.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swiftwebui.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swiftwebui.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# The missing ☑️: SwiftWebUI
+# Web 端的 SwiftUI：SwiftWebUI
 
-Beginning of the month Apple announced [SwiftUI](https://developer.apple.com/xcode/swiftui/) at the [WWDC 2019](https://developer.apple.com/wwdc19/). A single “cross platform”, “declarative” framework used to build tvOS, macOS, watchOS and iOS UIs. [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) is bringing that to the Web ✔️
+这个月初，苹果在 [2019 年 WWDC 大会](https://developer.apple.com/wwdc19/)公布了 [SwiftUI](https://developer.apple.com/xcode/swiftui/)。它是一个独立的“跨平台”、“声明式”框架，可用于构建 tvOS、macOS、watchOS 以及 iOS 的用户界面（UI）。而 [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) 正在将这种功能迁移到 Web 研发✔️。
 
-**Disclaimer**: This is a toy project! Do not use for production. Use it to learn more about SwiftUI and its inner workings.
+**免责声明**：SwiftWebUI 只是一个很初级的项目！不要用于生产环境。建议用它来学习 SwiftUI 和它的内部工作原理。
 
 ## SwiftWebUI
 
-So what exactly is [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI)? It allows you to write SwiftUI [Views](https://developer.apple.com/documentation/swiftui/view) which display in a web browser:
+所以 [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) 到底可以用来做什么？答案是使用 SwiftWebUI，你能写可以在 web 浏览器展示的 SwiftUI [View](https://developer.apple.com/documentation/swiftui/view)。
 
 ```swift
 import SwiftWebUI
@@ -35,69 +35,69 @@ struct MainPage: View {
 }
 ```
 
-Results in:
+代码的结果是：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/AvocadoCounter/AvocadoCounter.gif)
 
-Unlike some other efforts this doesn’t just render SwiftUI Views as HTML. It also sets up a connection between the browser and the code hosted in the Swift server, allowing for interaction - buttons, pickers, steppers, lists, navigation, you get it all!
+和其他一些代码库作出的努力不同，它并不仅仅将 SwiftUI Views 渲染为 HTML。它同时也会在浏览器和 Swift 服务器的代码之间建立一个连接，用来支持用户交互 —— 包括 button、picker、stepper、list、navigation 等等，全部都可以支持。
 
-In other words: [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) is an implementation of (many but not all parts of) the SwiftUI API for the browser.
+换句话说：[SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) 是 SwiftUI API 于浏览器的实现（实现了大部分的 API，但不是全部）。
 
-To repeat the **Disclaimer**: This is a toy project! Do not use for production. Use it to learn more about SwiftUI and its inner workings.
+重申一次**免责声明**：SwiftWebUI 只是一个很初级的项目！不要用于生产环境。建议用它来学习 SwiftUI 和它的内部工作原理。
 
-## Learn once, use anywhere
+## 一次学习，随处可用
 
-The stated goal of SwiftUI is not “[Write once, run anywhere](https://en.wikipedia.org/wiki/Write_once,_run_anywhere)” but “[Learn once, use anywhere](https://developer.apple.com/videos/play/wwdc2019/216)”. Don’t expect to be able to take a beautiful SwiftUI application for iOS, drop the code into a SwiftWebUI project and get it to render exactly the same in the browser. That is not the point.
+SwiftUI 的核心目标不是“[一次编码，随处可运行](https://en.wikipedia.org/wiki/Write_once,_run_anywhere)”，而是“[一次学习，随处可用](https://developer.apple.com/videos/play/wwdc2019/216)”。不要期待着可以将 iOS 上好看的 SwiftUI 应用直接拿来，把代码拷贝到 SwiftWebUI 项目中然后就可以在浏览器看到一模一样的渲染效果。因为这并不是 SwiftWebUI 的重点。
 
-The point is to be able to reuse the [knoff-hoff](https://en.wikipedia.org/wiki/Die_Knoff-Hoff-Show) and share it between different platforms. In this case, the Web ✔️
+重点是能够复用 [knoff-hoff](https://en.wikipedia.org/wiki/Die_Knoff-Hoff-Show)，并且可以跨平台共享。在这个意义上，Web 比较有优势。
 
-But lets get down to the nitty gritty and write a simple SwiftWebUI application. In the spirit of “Learn once, use anywhere” watch those two WWDC sessions first: [Introducing SwiftUI](https://developer.apple.com/videos/play/wwdc2019/204/) and [SwiftUI Essentials](https://developer.apple.com/videos/play/wwdc2019/216). We don’t go that deep in this blog entry, but this one is recommended too (and the concepts are mostly supported in SwiftWebUI): [Data Flow Through SwiftUI](https://developer.apple.com/videos/play/wwdc2019/226).
+现在让我们就开始着手细节，写一个简单的 SwiftWebUI 应用吧。秉承着“一次学习，随处可用”这样的理念，先看看这两个 WWDC 会议记录吧：[SwiftUI 介绍](https://developer.apple.com/videos/play/wwdc2019/204/) 和 [SwiftUI 核心](https://developer.apple.com/videos/play/wwdc2019/216)。在这篇博客中我们不会讲解的这么深入，但是下面这一点文本也会推荐给你（并且 SwiftWebUI 可以支持这其中的大部分概念）：[SwiftUI 的数据流](https://developer.apple.com/videos/play/wwdc2019/226)。
 
-## Requirements
+## 需要的准备工作
 
-As of today SwiftWebUI requires a [macOS Catalina](https://www.apple.com/macos/catalina-preview/) installation to run (“Swift ABI” 🤦‍♀️). Fortunately it is really easy to [install Catalina on a separate APFS volume](https://support.apple.com/en-us/HT208891). And an installation of [Xcode 11](https://developer.apple.com/xcode/) is required to get the new Swift 5.1 features SwiftUI makes heavy use of. Got that? Very well!
+我们今天要探索的 SwiftWebUI 需要运行 (“Swift ABI” 🤦‍♀️)，所以我们需要安装 [macOS Catalina](https://www.apple.com/macos/catalina-preview/)。幸运的是，[在一个单独的 APFS（苹果文件系统）的 volume 上安装 Catalina](https://support.apple.com/en-us/HT208891) 是一件非常容易的事情。同时还需要安装 [Xcode 11](https://developer.apple.com/xcode/)，这样才能获取到最新的 Swift 5.1 的特性，这些特性 SwiftUI 将会大量使用。都懂了吗？非常好！
 
-> Linux? The project is indeed **prepared** to run on Linux, but that hasn’t been finished yet. The only real thing missing is a simple implementation of the [Combine](https://developer.apple.com/documentation/combine) [PassthroughSubject](https://developer.apple.com/documentation/combine/passthroughsubject) and a little infrastructure surrounding that. Prepared: [NoCombine](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/Misc/NoCombine.swift). PRs are welcome!
+> 如果你使用的是 Linux 系统该怎么办？这个项目已经**在准备**运行在 Linux 上了，但是工作还并没有完成。目前项目还缺少的部分是一个对 [Combine](https://developer.apple.com/documentation/combine) [PassthroughSubject](https://developer.apple.com/documentation/combine/passthroughsubject) 的简单实现，并且在这个方面，我遇到了一点困难。目前准备好的代码在：[NoCombine](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/Misc/NoCombine.swift)。欢迎大家为项目提 pull request！
 
-> Mojave? There is a chance to get this to run on Mojave w/ Xcode 11. You’d need to create an iOS 13 simulator project and run the whole thing within that.
+> 如果你使用的是 Mojave 该怎么办？有一个方法可以在 Mojave 和 Xcode 11 上运行项目。你需要创建一个 iOS 13 模拟器项目，然后将整个项目在模拟器中运行。
 
-## Getting Started with a First App
+## 开始构建第一个应用
 
-### Creating a SwiftWebUI Project
+### 创建 SwiftWebUI 项目
 
-Fire up Xcode 11, select “File > New > Project…” or just press Cmd-Shift-N:
+打开 Xcode 11，选择 “File > New > Project…” 或者直接使用快捷键 Cmd-Shift-N：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/1-new-project.png)
 
-Select the “macOS / Command Line Tool” project template:
+选择 “macOS / Command Line Tool” 项目模版：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/2-new-cmdline-tool.png)
 
-Give it some nice name, let’s go with “AvocadoToast”:
+给项目起一个合适的名字，我们就用 “AvocadoToast” 吧：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/3-swift-project-name.png)
 
-Then we add [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) as a Swift Package Manager dependency. The option is hidden in the “File / Swift Packages” menu group:
+然后，将 [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) 作为 Swift 包管理依赖加入项目。这个选项在 “File / Swift Packages” 菜单中：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/4-add-pkg-dep.png)
 
-Enter `https://github.com/SwiftWebUI/SwiftWebUI.git` as the package URL:
+输入 `https://github.com/SwiftWebUI/SwiftWebUI.git` 作为包的 URL 地址：
 
 [![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/5-add-swui-dep.png)](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/5-add-swui-dep-large.png)
 
-Use “Branch” `master` option to always get the latest and greatest (you can also use a revision or the `develop` branch):
+“Branch” 设置为 `master` 选项，这样就总可以获取到最新和最优秀的代码（你也可以使用修订版或者使用 `develop` 分支）：
 
 [![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/6-branch-select.png)](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/6-branch-select-large.png)
 
-Finally add the `SwiftWebUI` library to your tool target:
+最后将 `SwiftWebUI` 库加入到目标工具中：
 
 [![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/7-target-select.png)](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/7-target-select-large.png)
 
-That’s it. You now have a tool project which can `import SwiftWebUI`. (Xcode might take a moment to fetch and build the dependencies.)
+这样就可以了。现在你有了一个可以直接 `import SwiftWebUI` 的工具项目了。（Xcode 可能会需要一段时间来获取和构建依赖。）
 
-### SwiftWebUI Hello World
+### 使用 SwiftWebUI 显示 Hello World
 
-Let’s get started w/ SwiftWebUI. Open the `main.swift` file and replace it’s content with:
+我们现在就开始学习使用 SwiftWebUI 吧。打开 `main.swift` 文件然后将内容替换为：
 
 ```swift
 import SwiftWebUI
@@ -105,24 +105,24 @@ import SwiftWebUI
 SwiftWebUI.serve(Text("Holy Cow!"))
 ```
 
-Compile and run the app in Xcode, open Safari and hit [`http://localhost:1337/`](http://localhost:1337/):
+将代码进行编译并在 Xcode 中运行应用，打开 Safari 浏览器然后点击 [`http://localhost:1337/`](http://localhost:1337/)：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/HolyCow/holycow.png)
 
-What is going on here: First the SwiftWebUI module is imported (don’t accidentially import the macOS SwiftUI 😀)
+这背后究竟发生了什么事呢：首先 SwiftWebUI 模块被引用进来（请注意不要不小心引用了 macOS SwiftUI 😀）
 
-Then we call `SwiftWebUI.serve` which either takes a a closure returning a View, or just a straight View - as shown here: a [`Text`](https://developer.apple.com/documentation/swiftui/text) View (aka a “UILabel” which can show plain or formatted text).
+接下来我们调用 `SwiftWebUI.serve`，它可能会使用返回一个 View 的闭包，或者仅仅是一个 View —— 而如上所示，这里返回的是个 [`Text`](https://developer.apple.com/documentation/swiftui/text) View（又名 “UILabel”，它可以展示出简单的或者格式化的文字）。
 
-#### Behind the scenes
+#### 幕后原理
 
-Internally the [`serve`](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/Serve.swift#L66) function creates a very simple [SwiftNIO](https://github.com/apple/swift-nio) HTTP server listening on port 1337. When the browser hits that server, it creates a [session](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/NIOHostingSession.swift) and passes our (Text) View to that session.  
-Finally, from the View, SwiftWebUI creates a “Shadow DOM” on the server, renders that as HTML and sends the result to the server. That “Shadow DOM” (and a state object kept alongside) is stored in the session.
+[`serve`](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/Serve.swift#L66) 函数中创建了一个非常简单的[SwiftNIO](https://github.com/apple/swift-nio) HTTP 服务，这个服务会监听端口 1337。当浏览器访问这个服务的时候，它创建了一个 [session](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/NIOHostingSession.swift) 并将我们的 (Text) View 传递给这个 session 了。
+最后 SwiftWebUI 在服务中创建了一个 “Shadow DOM”，将 View 渲染为 HTML 并将结果发送给服务。这个 “Shadow DOM”（以及一个会和它绑定在一起的状态对象）会被保存在 session 中。
 
-> This is a difference between a SwiftWebUI application and a watchOS or iOS SwiftUI app. A single SwiftWebUI application serves a bunch of users instead of just one.
+> SwiftWebUI 应用和 watchOS 或者 iOS 上的 SwiftUI 应用是有区别的。一个 SwiftWebUI 应用可以服务多个用户，而不是像 SwiftUI 应用那样只服务于一个用户。
 
-### Adding some Interaction
+### 添加一些用户交互
 
-As a first step, lets organize the code a little better. Create a new Swift file in the project and call that `MainPage.swift`. And add a simple SwiftUI View definition to it:
+第一步完成后，我们将代码结构优化一下。在项目中创建一个新的 Swift 文件并命名为 `MainPage.swift。并为其添加一个简单的 SwiftUI View 定义：
 
 ```swift
 import SwiftWebUI
@@ -135,13 +135,13 @@ struct MainPage: View {
 }
 ```
 
-Adjust the main.swift to serve our custom View:
+调整 main.swift，使之可以服务于我们的自定义 View：
 
 ```swift
 SwiftWebUI.serve(MainPage())
 ```
 
-We can now leave the `main.swift` alone and do all our work in our custom [`View`](https://developer.apple.com/documentation/swiftui/view). Let’s add some interaction to it:
+现在我们可以先不用去管 `main.swift` 了，可以在我们自定义的 [`View`](https://developer.apple.com/documentation/swiftui/view) 中完成其他的工作。现在我们为它添加一些用户交互的功能：
 
 ```swift
 struct MainPage: View {
@@ -156,33 +156,33 @@ struct MainPage: View {
 }
 ```
 
-Our [`View`](https://developer.apple.com/documentation/swiftui/view) got a persistent [`State`](https://developer.apple.com/documentation/swiftui/state) variable named `counter` (not sure what this is? Have another look at [Introducing SwiftUI](https://developer.apple.com/videos/play/wwdc2019/204/)). And a small function to bump the counter.  
-We then use the SwiftUI [`tapAction`](https://developer.apple.com/documentation/swiftui/text/3086357-tapaction) modifier to attach an event handler to our `Text`. Finally, we show the current value within the label:
+我们的 [`View`](https://developer.apple.com/documentation/swiftui/view) 有一个名为 `counter` 的 [`State`](https://developer.apple.com/documentation/swiftui/state) 变量（不清楚这是什么？建议你可以看一看 [SwiftUI 介绍](https://developer.apple.com/videos/play/wwdc2019/204/)）。以及一个可以改变 counter 的简单函数。
+然后我们使用 SwiftUI 的修饰符 [`tapAction`](https://developer.apple.com/documentation/swiftui/text/3086357-tapaction) 将时间处理函数绑定到我们的 `Text` 上。最后，我们在标签中展示当前的数值：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/HolyCow/ClickCounter.gif)
 
-🧙‍♀️ **MAGIC** 🧙
+🧙‍♀️ **简直像魔法一样** 🧙
 
-#### Behind the scenes
+#### 幕后原理
 
-How does that work? When the browser hit our endpoint, SwiftWebUI created the session and our “Shadow DOM” within that. It then sent the HTML describing our View to the browser. The `tapAction` works by adding an `onclick` handler to the HTML. SwiftWebUI also ships (tiny amounts, no big framework!) of JavaScript to the browser which handles the click and forwards that to our Swift server.
+这一切都是如何运作的呢？当我们点击浏览器后，SwiftWebUI 创建了一个含有 “Shadow DOM” 的 session。接下来它将会把 View 的 HTML 描述发送给浏览器。`tapAction` 通过 HTML 添加的 `onclick` 事件处理可以被调用执行。SwiftWebUI 也可以将 JavaScript 代码传输给浏览器（只能传输少量代码，不可以是大型框架代码！），这部分代码将会处理点击事件，并将事件转发给我们的 Swift 服务。
 
-Then the usual SwiftUI magic kicks in. SwiftWebUI correlates the click event with the event handler in our “Shadow DOM” and invokes the `countUp` function. By modifying the `counter` [`State`](https://developer.apple.com/documentation/swiftui/state) variable the function invalidates the rendering of our View. SwiftWebUI kicks in, and diffes the changes in the “Shadow DOM”. Those changes are then sent back to the browser.
+然后就轮到 SwiftUI 魔法登场了。SwiftWebUI 和点击事件通过 “Shadow DOM” 中的事件处理函数相互关联，并会调用 `countUp` 函数。通过修改变量 `counter` [`State`](https://developer.apple.com/documentation/swiftui/state)，函数将 View 的渲染设置为无效。此时 SwiftWebUI 开始对比 “Shadow DOM” 中出现的区别和变化。接下来这些改变将会被发回到浏览器中。
 
-> The “changes” are sent as a JSON array which our small JavaScript in the page can process. If a whole subtree changed (e.g. if a user navigated to a whole new View), a change can be a larger HTML snippet which is applied to `innerHTML` or `outerHTML`.  
-> But usually the changes are small things like `add class`, `set HTML attribute` and the likes (i.e. browser DOM modifications).
+> 这些修改将会以 JSON 数组的形式发送，这些数组可以被页面上的 JavaScript 代码片解析。如果 HTML 结构的一个子树的所有内容都改变了（例如，假设用户进入了一个新的 View），那么这个修改就可能是一个比较大的 HTML 代码片，将会被应用于 innerHTML` 或 `outerHTML` 方法。
+> 但是通常情况下，修改都比较微笑，例如 `add class`，`set HTML attribute` 这样的（即浏览器 DOM 修改）。
 
-## 🥑🍞 Avocado Toast
+## 🥑🍞 Avocado Toast 应用
 
-Excellent, the basics work. Let’s bring in more interactivity. The following is based on the “Avocado Toast App” used to demo SwiftUI in the [SwiftUI Essentials](https://developer.apple.com/videos/play/wwdc2019/216) talk. Didn’t watch it yet? Maybe you should, it is about delicious toasts.
+棒极了，现在我们已经完成了所有基础工作。让我们来加入更多的交互性吧。下面的内容都是基于 “Avocado Toast 应用”的，它在 [SwiftUI 核心](https://developer.apple.com/videos/play/wwdc2019/216)演讲中被用作为 SwiftUI 的范例。你还没有看过它的话，建议你看一看，毕竟它是关于美味烤面包片的（toast 又意为面包片）。
 
-> The HTML/CSS styling isn’t quite perfect nor beautiful yet. As you can imagine we are not web designers and could use some help here. PRs are welcome!
+> HTML/CSS 这种模式还并不非常完美优雅。而你也知道我们并不是 web 设计师，所以这方面我们需要大家的帮助。欢迎给项目提出 pull request！
 
-Want to skip the details, watch a GIF of the app and download it on GitHub: [🥑🍞](#the--finished-app).
+如果你想要跳过细节讲解，直接查看应用的动图，可以在 GitHub 上下载：[🥑🍞](#the--finished-app)。
 
-### The 🥑🍞 Order Form
+### 🥑🍞应用的 Order Form（表单）
 
-The talk starts off with this (~6:00), which we can add to a new `OrderForm.swift` file:
+我们从如下这段代码开始吧（它在视频中大约 6 分钟的位置），首先我们将它写入一个新建的 `OrderForm.swift` 文件：
 
 ```swift
 struct Order {
@@ -217,18 +217,18 @@ struct OrderForm: View {
 }
 ```
 
-For testing direct `SwiftWebUI.serve()` in `main.swift` to the new `OrderForm` View.
+这可以直接测试 `main.swift` 中的 `SwiftWebUI.serve()` 以及新的 OrderForm` View。
 
-This is what it looks like in the browser:
+如下是在浏览器展示的效果：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/AvocadoOrder/orderit.gif)
 
-> [SemanticUI](https://semantic-ui.com) is used for styling some things in SwiftWebUI. It is not strictly required for the operation, it just accomplishes somewhat decent looking widgets.  
-> Note: Only the CSS/fonts are used, not the JavaScript components.
+> [SemanticUI](https://semantic-ui.com) 可用于为 SwiftWebUI 中的一些内容定义样式。对于操作逻辑，它并不是必需的，但是它可以帮助你完成一些看起来不错的小部件。
+> 注意：它只用了 CSS/fonts，而没有用 JavaScript 组件。
 
-### Intermission: Some SwiftUI Layout
+### 放松一下：认识一些 SwiftUI 布局
 
-Around 16:00 in [SwiftUI Essentials](https://developer.apple.com/videos/play/wwdc2019/216) they are getting to SwiftUI layout and View modifier ordering:
+在 [SwiftUI 核心](https://developer.apple.com/videos/play/wwdc2019/216)演讲的第 16 分钟左右，他们开始解说 SwiftUI 布局和 View 修饰符顺序：
 
 ```swift
 var body: some View {
@@ -246,21 +246,21 @@ var body: some View {
 }
 ```
 
-Results in this, notice how the ordering of the modifiers is relevant:
+结果在这里，注意观察修饰符顺序是如何相互联系的：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/AvocadoLayout.png)
 
-> SwiftWebUI tries to replicate common SwiftUI layouts, but doesn’t fully succeed yet. After all it has to deal with the layout system the browser provides. Help wanted, flexbox experts welcome!
+> SwiftWebUI 在尝试复制一些常用的 SwiftUI 布局，但还并没有完全成功。毕竟这项工作与浏览器的布局系统有关。我们需要帮助，尤其欢迎 flexbox 布局方面的专家！
 
-### The 🥑🍞 Order History
+### 🥑🍞 应用的历史订单
 
-Back to the app, the talk (~19:50) introduces the [List](https://developer.apple.com/documentation/swiftui/list) View for showing an Avocado toast order history. This is how it looks on the Web:
+我们接着回到应用的介绍中来，演讲在大约 19 分 50 秒的时候介绍了可以用于展示 Avocado toast 应用历史订单的 [List](https://developer.apple.com/documentation/swiftui/list) View。这是它在 web 端展示的样子：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/OrderHistory/OrderHistory1.png)
 
-The `List` view walks over the array of completed orders and creates a child View for each one (`OrderCell`), passing in the current item in the list.
+`List` View 遍历了包含所有订单的数组，然后为每一项都创建了一个子 View（`OrderCell`），并将列表中每一项订单的信息传入这个 `OrderCell`。
 
-This is the code we are using:
+这是我们使用的代码：
 
 ```swift
 struct OrderHistory: View {
@@ -315,9 +315,9 @@ struct CompletedOrder: Identifiable {
 }
 ```
 
-> The SwiftWebUI List View is really inefficient, it always renders the whole set of children. No cell reuse, no nothing 😎 There are various ways to deal with that in a web app, e.g. by using paging or more client side logic.
+> SwiftWebUI List View 非常有效率，它总可以渲染出子元素内所有集合。完全没有元件被复用 😎。在 web 应用中，有很多不同的方式可以解决这个问题，例如，通过使用分页或者使用更多客户端逻辑。
 
-So you don’t have to type down the sample data from the talk, we did that for you:
+我们已经为你准备好了演讲中使用的样本数据代码，你不需要再次打字输入了：
 
 ```swift
 let previousOrders : [ CompletedOrder ] = [
@@ -338,9 +338,9 @@ let previousOrders : [ CompletedOrder ] = [
 ]
 ```
 
-### The 🥑🍞 Spread Picker
+### 🥑🍞 应用的 Spread Picker（可展开选择器）
 
-The Picker control and how to use it w/ enum’s is demonstrated ~43:00. First the enums for the various toast options:
+Picker 的控制以及如何与枚举类型一起使用它会在大约 43 分钟的时候讲解。首先我们来看不同 toast 弹窗选项的枚举类型；
 
 ```swift
 enum AvocadoStyle {
@@ -367,7 +367,7 @@ enum Spread: CaseIterable, Hashable, Identifiable {
 }
 ```
 
-We can add those to our `Order` struct:
+我们可以将这些都加入我们的 `Order` 结构体：
 
 ```swift
 struct Order {
@@ -381,7 +381,7 @@ struct Order {
 
 ```
 
-And then display them using the different Picker types. It is pretty neat how you can just loop over the enum values:
+然后使用不同类型的 Picker 来展示它们。你可以非常简便的直接循环遍历枚举类型的所有值：
 
 ```swift
 Form {
@@ -408,25 +408,25 @@ Form {
 }
 ```
 
-The result:
+代码运行的结果：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/AvocadoOrder/picker.png)
 
-> Again, this needs some CSS love to make it look better …
+> 再次声明，我们需要一些 CSS 高手来让界面更好看一些…
 
-### The 🥑🍞 “Finished” App
+### 🥑🍞 应用的最终成果
 
-No we diverge a little from the original, and do not really finish it either. It doesn’t look that great yet, but it is a demo after all 😎
+我们和原生的 SwiftUI 界面其实还略有不同，现在也并没有完全的完成它。虽然看上去还不非常完美，但是毕竟已经可以用来演示了 😎
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/AvocadoOrder/AvocadoToast.gif)
 
-The finished app is available on GitHub: [AvocadoToast](https://github.com/SwiftWebUI/AvocadoToast).
+最终完成的应用代码可以在 GitHub 上查看：[AvocadoToast](https://github.com/SwiftWebUI/AvocadoToast)。
 
-## HTML and SemanticUI
+## HTML 和 SemanticUI
 
-The [`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable) peer in SwiftWebUI is emitting raw HTML.
+[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable) 在 SwiftWebUI 中的等价物用于生成原生 HTML 代码。
 
-Two variants are provided, the `HTML` outputs a String as-is, or by HTML escaping the contents:
+它提供了两个变量，`HTML` 会按原样输出字符串，或者通过 HTML 转译内容：
 
 ```swift
 struct MyHTMLView: View {
@@ -439,9 +439,9 @@ struct MyHTMLView: View {
 }
 ```
 
-Using this primitive you can essentially build any HTML you want.
+使用这种原函数，你基本可以构建出任何想要的 HTML。
 
-A little higher level and even used internally is `HTMLContainer`. For example this is the implementation of our `Stepper` control:
+级别稍微高级一些，但是也被用在 SwiftWebUI 中的是 `HTMLContainer`。例如这是 `Stepper` 控制的实现方法：
 
 ```swift
 var body: some View {
@@ -459,11 +459,11 @@ var body: some View {
 }
 ```
 
-The `HTMLContainer` is “reactive”, i.e. it will emit regular DOM changes if classes, styles or attributes change (instead of re-rendering the whole thing)
+`HTMLContainer` 要更加灵活一些，例如，如果元素的 class，样式或者属性变化了，它将会生成一个常规的 DOM 变化（而不是重新渲染所有内容）。
 
 ### SemanticUI
 
-SwiftWebUI also comes w/ a few [SemanticUI](https://semantic-ui.com) controls pre-setup:
+SwiftWebUI 也包含了一些 [SemanticUI](https://semantic-ui.com) 控制的预配置：
 
 ```swift
 VStack {
@@ -484,13 +484,13 @@ VStack {
 }
 ```
 
-… renders such:
+…渲染结果为：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/SemanticUI/labels.png)
 
-> Note that SwiftWebUI also supports some SFSymbols image names (via `Image(systemName:)`). Those are backed by SemanticUI’s [support for Font Awesome](https://semantic-ui.com/elements/icon.html).
+> 注意，SwiftWebUI 也支持一些内置图标库（SFSymbols）图像名（使用方法是 Image(systemName:)`）。SemanticUI [对 Font Awesome 的支持](https://semantic-ui.com/elements/icon.html) 是其幕后的技术支持。
 
-There is also `SUISegment`, `SUIFlag` and`SUICard`:
+同时 SwiftWebUI 还包括`SUISegment`、`SUIFlag` 和 `SUICard`：
 
 ```swift
 SUICards {
@@ -511,32 +511,32 @@ SUICards {
 }
 ```
 
-… renders those:
+…其渲染效果为：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/SemanticUI/cards.png)
 
-It is very easy and a lot of fun to add such Views. One can quickly compose pretty complex and good looking layouts using WOComponent's SwiftUI Views.
+为界面添加这样的 View 非常简单，并且能让你感觉到乐趣。使用 WOComponent 的 SwiftUI Views，每个人都能快速的组建出虽然复杂但是非常好看的界面布局。
 
-> `Image.unsplash` constructs image queries against the Unsplash API running at `http://source.unsplash.com`. Just give it some query terms, the size you want and optional scopes.  
-> Note: That specific Unsplash service seems to be a little slow and unreliable sometimes.
+> `Image.unsplash` 会根据运行在 `http://source.unsplash.com` 的 API 构建图片请求。只需要传递给它一些请求参数，比如你想要的图片大小和其他的可配置选项。
+> 注意：这个 Unsplash 服务有时候会比较慢，也有可能并不非常可靠。
 
-# Summary
+# 总结
 
-That’s it for our demo. We hope you like it! But to again repeat the **Disclaimer**: This is a toy project! Do not use for production. Use it to learn more about SwiftUI and its inner workings.
+上述所有就是本次的演示内容啦。希望你喜欢！但是重申一次**免责声明**：SwiftWebUI 只是一个很初级的项目！不要用于生产环境。建议用它来学习 SwiftUI 和它的内部工作原理。
 
-We think it is a nice toy and likely a valuable tool to learn more about the inner workings of SwiftUI.
+但我们认为它是一个很好的入门级试玩项目，也是一个学习 SwiftUI 内部工作原理的很有价值的工具。
 
-## Abitrary Technology Notes
+## 可选读的技术说明
 
-Just a set of notes on various aspects of the technology. Can be skipped, not that interesting 😎
+这里列出了一系列关于技术的不同方面的提示信息。你可以跳过不看，这些内容没那么有趣了 😎
 
 ### Issues
 
-There are a whole lot of issues, some are filed on GitHub: [Issues](https://github.com/SwiftWebUI/SwiftWebUI/issues). Feel free to file more.
+我们的项目就有很多的 issue，有一部分在 Github 上：[Issues](https://github.com/SwiftWebUI/SwiftWebUI/issues)。你也可以尝试给我们提更多的 issue。
 
-Quite a few HTML layout things (e.g. `ScrollView` doesn’t always scroll), but also some open ends like Shapes (which might be easy to do via SVG &| CSS).
+这里面包括了很多与 HTML 布局相关的内容（例如，`ScrollView` 有时候不会滚动），但同时也有很多开放式的问题，比如关于 Shape 的（如果使用 SVG 或者 CSS，可能会更容易实现）。
 
-Oh, and the single case If-ViewBuilder doesn’t work. No idea why:
+还有一个是关于 If-ViewBuilder 无效的问题。目前还不知道是什么原因：
 
 ```swift
 var body: some View {
@@ -544,72 +544,72 @@ var body: some View {
     if a > b {
       SomeView()
     }
-    // currently need an empty else: `else {}` to make it compile.
+    // 目前还需要一个空的 else 语句：`else {}` 来使其可以编译。
   }
 }
 ```
 
-Halp wanted! PRs welcome!
+我们需要帮助，欢迎为我们提出 pull request！
 
-### Vs the original SwiftUI
+### 和原生 SwiftUI 的对比
 
-This implementation is pretty simple and inefficient. The real thing has to deal with a much higher rate of state modifying events, does all the animation things at 60Hz frame rates, etc etc.
+目前我们的实现方法非常简单，也并不高效。正式版必须要处理高频率的状态改变时间，还要将所有的动画效果都改为 60Hz 的帧率等等。
 
-Our’s focuses on getting the basic operations right, e.g. how States and Bindings work, how and when Views get updated, and so on. Quite possible that the implementation does some things incorrectly, Apple forgot to send us the original’s sources as part of Xcode 11.
+我们目前主要集中经历于将基础的操作完成，例如，状态和绑定如何运作，View 在何时并以何种方式更新等等。很多时候实现方法都可能会出错，然而 Apple 忘记将原始代码作为 Xcode 11 的一部分发送给我们。
 
 ### WebSockets
 
-We currently use AJAX to connect the browser to the server. Using WebSockets would have multiple advantages:
+我们现在使用 AJAX 来连接浏览器和服务器。而其实使用 WebSockets 能够带来更大优势： 
 
-* guaranteed event ordering (AJAX requests can arrive out of sync)
-* non-user initiated, server side DOM updates (timers, push)
-* session timeout indicator
+* 能保证事件运行的顺序（AJAX 请求是异步的，返回的顺序不定）
+* 不需要用户初始化，而是在服务端更新 DOM（例如 timers，push）
+* 可以检测 session 过期
 
-It would make a chat client demo trivial.
+这会让客户端的演示更轻量
 
-Adding WebSockets is actually really easy because events are already sent as JSON. We just need the client and server side shims. All this is already tried out in [swift-nio-irc-webclient](https://github.com/NozeIO/swift-nio-irc-webclient) and just needs to be ported over.
+而为项目添加 WebSocket 实际上非常简单，因为目前事件已经是以 JSON 的格式发送了。我们只需要客户端和服务端的 shim 就可以了。这部分内容已经在 [swift-nio-irc-webclient](https://github.com/NozeIO/swift-nio-irc-webclient) 实现，只需要迁移到项目中即可。
 
 ### SPA
 
-The current incarnation of SwiftWebUI is an SPA (single page application) attached to a stateful backend server.
+目前 SwiftWebUI 是一个 SPA（单页应用）项目，和一个支持状态的后端服务绑定。
 
-There are other ways to do this, e.g. by persisting the tree states while the user traverses through an application via regular links. Aka WebObjects ;-)
+也有其他方式可以实现 SPA，比如，当用户通过普通链接在应用中的不同页面切换时，保持状态树不变。又称为 WebObjects ;-)
 
-In general it would be nice to have better control on DOM ID generation, link generation, routing and more. Similar to what [SwiftObjects](http://swiftobjects.org/) provides.  
-But in the end a user would have to give up a lot of the “Learn once, use anywhere” since SwiftUI action handlers often are built around the fact that those capture arbitrary state.
+通常情况下，如果你想要对 DOM ID 的生成、链接的生成以及路由等等做更多更全面的控制，这是一个不错的选择。
+但是最后，用户可能不得不放弃“一次学习，随处可用”，因为 SwiftUI 的行为处理函数通常是围绕着它们要捕获任意的状态这样的事实构建的。
 
-We’ll see what Swift based server side frameworks come up with 👽
+接下来我们将会看到基于 Swift 的服务端框架做了什么 👽
 
 ### WASM
 
-The whole thing would become more useful once we get proper Swift WASM. Go WASM!
+当我们使用了合适的 Swift WASM，所有的代码都能变得更加实用了。来一起学习吧 WASM！
 
 ### WebIDs
 
-Some SwiftUI Views like `ForEach` require `Identifiable` objects, where the `id` can be any `Hashable`. This doesn’t play too well w/ the DOM, because we need string based IDs to identify the nodes.  
-This is worked around by mapping IDs to strings in a global map. Which is technically unbounded (a particular issue w/ class references).
+一些 SwiftUI View，比如 `ForEach`，都需要 `Identifiable` 对象，使用了它那么 `id` 就可以是任意的 `Hashable` 值。但是用于 DOM 的时候，它的性能并不非常好，因为我们需要字符串类型的 ID 来分辨节点。
+而通过一个全局的 map 结构将 ID 映射为字符串，它就可以正常工作了。从技术上来说这并不难（就是一个特定的关于类引用的问题）。
 
-Summary: For web code it is better to identify items using strings or ints.
+总结：对于 web 端的代码，使用字符串或者数字来识别项目是比较明智的选择。
 
 ### Form
 
-The Form could use a lot more love: [Issue](https://github.com/SwiftWebUI/SwiftWebUI/issues/10).
+表单收到了很多人的青睐：[Issue](https://github.com/SwiftWebUI/SwiftWebUI/issues/10)。
 
-SemanticUI has some good form layouts, we should probably rewrite the child trees to those. TBD.
+SemanticUI 有很多很好的表单布局。我们也许会重写这部分的子树。还有待完善。
 
-## WebObjects 6 for Swift
+## 用于 Swift 的 WebObjects 6
 
-Took a while to make it click, but:
+等一下再点击它：
 
-> SwiftUI summarised for 40s+ people. [pic.twitter.com/6cflN0OFon](https://t.co/6cflN0OFon)
+> 为 40s+ 的用户作出的 SwiftUI 的总结。[pic.twitter.com/6cflN0OFon](https://t.co/6cflN0OFon)
 > 
-> — Helge Heß (@helje5) [June 7, 2019](https://twitter.com/helje5/status/1137092138104233987?ref_src=twsrc%5Etfw)
+> — Helge Heß (@helje5) [2019 年 6 月 7 日](https://twitter.com/helje5/status/1137092138104233987?ref_src=twsrc%5Etfw)
 
-With [SwiftUI](https://developer.apple.com/xcode/swiftui/) Apple indeed gave us a “Swift-style” [WebObjects](https://en.wikipedia.org/wiki/WebObjects) 6!
+使用 [SwiftUI](https://developer.apple.com/xcode/swiftui/)，Apple 真的给了我们 Swift 模式的 [WebObjects](https://en.wikipedia.org/wiki/WebObjects) 6！
 
-Next: Direct To Web and some Swift’ified EOF (aka CoreData aka ZeeQL).
+接下来：（这句不太会翻译，求校对的同学指教～）（又名 CoreData 或者 ZeeQL）。
 
-## Links
+## 参考链接
 
 * [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) on GitHub
 * [SwiftUI](https://developer.apple.com/xcode/swiftui/)
@@ -623,14 +623,14 @@ Next: Direct To Web and some Swift’ified EOF (aka CoreData aka ZeeQL).
     * [SemanticUI Swift](https://github.com/SwiftWebResources/SemanticUI-Swift)
 * [SwiftNIO](https://github.com/apple/swift-nio)
 
-## Contact
+## 联系我们
 
-Hey, we hope you liked the article and we love feedback!  
-Twitter, any of those: [@helje5](https://twitter.com/helje5), [@ar_institute](https://twitter.com/ar_institute).  
-Email: [wrong@alwaysrightinstitute.com](mailto:wrong@alwaysrightinstitute.com).  
-Slack: Find us on SwiftDE, swift-server, noze, ios-developers.
+嗨，我们希望你喜欢这篇文章，我们也非常欢迎你向我们作出反馈！
+反馈可以发送在 Twitter 或者：[@helje5](https://twitter.com/helje5)、[@ar_institute](https://twitter.com/ar_institute) 都可以。
+Email 地址为：[wrong@alwaysrightinstitute.com](mailto:wrong@alwaysrightinstitute.com)。
+Slack：可以在 SwiftDE、swift-server、noze、ios-developers 找到我们。
 
-Written on June 30, 2019
+写于 2019 年 6 月 30 日
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
