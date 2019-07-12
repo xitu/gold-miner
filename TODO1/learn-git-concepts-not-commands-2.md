@@ -50,13 +50,13 @@
 
 ## 合并
 
-我们所有人一般都会工作在分支上，我们需要讨论下如何通过**合并**变更来从一个分支上获取到另一个分支上。
+我们所有人一般都会工作在分支上，我们需要讨论下如何通过**合并**来从一个分支上获取变更到另一个分支上。
 
 我们刚在 `change_alice` 分支上修改了 `Alice.txt`，我想说我们对所做的改变感到满意。
 
-如果你接着执行 `git checkout master` 命令，我们在其他分支创建的 `提交` 将不复存在。为了将变更弄到 master 分支，我们需要 `合并` `change_alice` 分支**到** master 分支上。
+如果你接着执行 `git checkout master` 命令，那么我们在其他分支上创建的`提交`无法在此看到为了将变更弄到 master 分支，我们需要 `合并` `change_alice` 分支**到** master 分支上。
 
-注意：你总是将某个分支 `合并` 到当前分支的。
+注意：你总是将某个分支 `合并` 到当前分支。
 
 ### 快进合并
 
@@ -136,27 +136,27 @@ Hi! I'm Bob. I've been here for a while now.
 =======
 Hi! I'm Bobby. I'm new here.
 >>>>>>> bobby_branch
-[... whatever you've put on line 2]
+[...你在第 2 行传入的随便什么内容]
 ```
 
-在上面面你可以看到当前 HEAD 上 `Bob.txt` 发生的变化，在下面你可以看到我们正尝试合并进来的分支所做的更改。
+在上面你可以看到当前 HEAD 上 `Bob.txt` 发生的变化，在下面你可以看到我们正尝试合并进来的分支所做的更改。
 
 为了手工解决冲突，你只需要确保文件最终保留一些合理内容，而不包含 git 引入文件的特殊行。
 
-所以放手修改文件为下面这种内容：
+所以继续修改文件为下面这种内容：
 
 ```
 Hi! I'm Bobby. I've been here for a while now.
 [...]
 ```
 
-从这里开始，我们即将要做的事正是适用于任何变更。
+从这里开始，我们即将要做的事是适用于任何变更。
 
 在我们执行 `add Bob.txt` 添加文件后，**暂存**这些变更，然后执行`提交`。
 
 我们已经了解为解决冲突所做的变更提交，就是合并过程中一直都有的**合并提交**。
 
-你应该意识到在解决冲突的过程中，实际情况如果你不想继续`合并`进程，你可以通过运行 `git merge --abort` 命令直接`中止`它。
+实际上你应该意识到在解决冲突的过程中，如果你不想继续`合并`进程，你可以通过运行 `git merge --abort` 命令直接`中止`它。
 
 ## 变基
 
@@ -201,7 +201,7 @@ Applying: Add Patrick
 
 然后变基操作会将我们在 `add_patrick` 分支上做的每一个提交都应用到那个顶点上。
 
-为了更精确了解 **git** 把 **HEAD** 指针移回到分支的公共祖先过程中做了什么，可以把你在被操作的分支上每次提交都存储一部分（修改的`差异点`、提交信息、作者，等等。）。
+为了更精确了解 **git** 把 **HEAD** 指针移回到分支的公共祖先过程中做了什么，可以把你在被操作的分支上每次提交都存储一部分（修改的`差异点`、提交信息、作者等等。）。
 
 在上面操作之后，你正在变基的分支需要`检出`最新的提交，然后把存下的所有变化**以一条新提交**应用到前面的提交之上。
 
@@ -241,7 +241,7 @@ Applying: Add Patrick
 
 如果你是独自工作，这些已经够用了。但是通常我们是多人共同处理一项工作，并且我们想要从**远程仓库**以某种方式获取他们的变更到我们自己的**工作环境**中。
 
-Because it has been a while, lets have another look at the components of git:由于已经过了一段时间，让我们看一下 git 的组件：
+由于已经过了一段时间，让我们看一下 git 的组件：
 
 [![git 组件](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--jSuilYlA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/components.png)
 
@@ -291,7 +291,7 @@ Your branch is behind 'origin/fetching_changes_sample' by 1 commit, and can be f
 
 [![拉取更新](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)
 
-在我们`拉取`之前,让我们本地修改一个文件来看会发生什么。
+在我们`拉取`之前，让我们本地修改一个文件来看会发生什么。
 
 让我们在**工作空间**再次修改 `Alice.txt` 文件！
 
@@ -308,7 +308,7 @@ Aborting
 
 你无法`拉取`任何变更，因为**工作空间**中有些文件被修改，同时你正在拉取进来的提交也有这些文件的变化。
 
-尽管这种情况的一种解决方法是，为了获取你比较信任的某个点上的变更，可以把本地变更`添加`到**暂存空间**。但是在你最终提交它们之前，目前这是学习另一个很棒工具的一个好时机。
+这种情况的一种解决方法是，为了获取你比较信任的某个点上的变更，在你最终提交它们之前，可以把本地变更`添加`到**暂存空间**。但是在你最终提交它们之前，而这是学习另一个很棒工具的一个好时机。
 
 ### 储藏变更
 
@@ -365,7 +365,7 @@ and have 1 and 1 different commits each, respectively.
 
 如果以这种方式思考，这两种选项来获取**远程仓库**变化就很有道理：
 
-当你执行 `git pull` 命令，**本地**和**远程仓库**的版本就会`合并`。就像`合并`不同分支一样，这会引入一个合并提交。
+当你执行 `git pull` 命令，**本地**和**远程仓库**的版本就会`合并`。就像`合并`不同分支一样，这会引入一个**合并**提交。
 
 因为任何本地分支都基于它们各自的远程版本，我们也可以对它执行`变基`，这样做的话我们在本地做的任何变更，都表现为基于远程仓库中的最新可用版本。
 
