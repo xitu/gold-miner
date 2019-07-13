@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# When and why to standardize your data ?
+# When and why to standardize your data?
 
 > A simple guide on when to standardize your data and when not to.
 
@@ -21,11 +21,11 @@ Standardization comes into picture when features of input data set have large di
 
 These differences in the ranges of initial features causes trouble to many machine learning models. For example, for the models that are based on distance computation, if one of the features has a broad range of values, the distance will be governed by this particular feature.
 
-To illustrate this with an example : say we have a 2-dimensional data set with two features, Height in Meters and Weight in Pounds, that range respectively from [1 to 2] Meters and [10 to 200] Pounds. No matter what distance based model you perform on this data set, the Weight feature will dominate over the Height feature and will have more contribution to the distance computation, just because it has bigger values compared to the Height. So, to prevent this problem, transforming features to comparable scales using standardization is the solution.
+To illustrate this with an example: say we have a 2-dimensional data set with two features, Height in Meters and Weight in Pounds, that range respectively from [1 to 2] Meters and [10 to 200] Pounds. No matter what distance based model you perform on this data set, the Weight feature will dominate over the Height feature and will have more contribution to the distance computation, just because it has bigger values compared to the Height. So, to prevent this problem, transforming features to comparable scales using standardization is the solution.
 
-## How to standardize data ?
+## How to standardize data?
 
-> Z-score
+### Z-score
 
 Z-score is one of the most popular methods to standardize data, and can be done by subtracting the mean and dividing by the standard deviation for each value of each feature.
 
@@ -35,11 +35,11 @@ Once the standardization is done, all the features will have a mean of zero, a s
 
 > There exist other standardization methods but for the sake of simplicity, in this story i settle for Z-score method.
 
-## When to standardize data and why ?
+## When to standardize data and why?
 
 As seen above, for distance based models, standardization is performed to prevent features with wider ranges from dominating the distance metric. But the reason we standardize data is not the same for all machine learning models, and differs from one model to another.
 
-So before which ML models and methods you have to standardize your data and why ?
+So before which ML models and methods you have to standardize your data and why?
 
 **1- Before PCA:**
 
@@ -69,7 +69,7 @@ You can measure variable importance in regression analysis, by fitting a regress
 
 LASSO and Ridge regressions place a penalty on the magnitude of the coefficients associated to each variable. And the scale of variables will affect how much penalty will be applied on their coefficients. Because coefficients of variables with large variance are small and thus less penalized. Therefore, standardization is required before fitting both regressions.
 
-## Cases when standardization is not needed ?
+## Cases when standardization is not needed?
 
 **Logistic Regression and Tree based models**
 
@@ -81,7 +81,7 @@ As we saw in this post, when to standardize and when not to, depends on which mo
 
 > N.B: The list of models and methods when standardization is required, presented in this post is not exhaustive.
 
-> References :
+### References:
 
 * [**365DataScience.com**]: Explaining Standardization Step-By-Step
 * [**Listendata.com** ]: when and why to standardize a variable
