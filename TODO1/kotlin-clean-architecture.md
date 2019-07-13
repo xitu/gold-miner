@@ -2,51 +2,51 @@
 > * 原文作者：[Rakshit jain](https://medium.com/@rjain.jain444)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/kotlin-clean-architecture.md](https://github.com/xitu/gold-miner/blob/master/TODO1/kotlin-clean-architecture.md)
-> * 译者：
+> * 译者：[JasonWu111](https://github.com/JasonWu1111)
 > * 校对者：
 
-# Kotlin Clean Architecture
+# Kotlin Clean 架构
 
 ![](https://cdn-images-1.medium.com/max/2000/0*sfCDEb571WD-7EfP.jpg)
 
-A strong base architecture is extremely important for an app to scale and meet the expectation of the user base. I got a task of replacement of API with new updated and optimized API structure. For integrating this kind of change made me kind of rewrite the whole app.
+强大的基础架构对于一个应用扩展和满足用户群体的期望来说是非常重要的。我有一个用新更新和优化的 API 结构来替换旧 API 的任务，为了整合这种更改，我一定程度地重写了整个应用。
 
-Why? Because the code was **deeply coupled** with response data models. At this time, I didn’t want to make the same mistakes over and over again. For resolving this problem, Clean architecture came to the rescue. It is a bit pain in the starting but might be the best option for a large app with many feature and **SOLID** approach. Let’s just try by questioning every aspect of architecture and break down into simpler bits.
+为什么？因为代码与其响应的数据模型（data models）**深度耦合**。这时，我不想一遍又一遍地犯同样的错误。为了解决这个问题，我使用了 Clean 架构。在一开始会有点痛苦，但对于具有许多功能和 **SOLID** 方法的大型应用来说可能是最佳选择。让我们试着带着疑问去看架构的每个层面，然后分解成更简单的点。
 
-* [**news-sample-app: Contribute to news-sample-app development by creating an account on GitHub.**](https://github.com/rakshit444/news-sample-app)
+* [**news-sample-app: 创建 GitHub 账号来为本应用的开发做贡献**](https://github.com/rakshit444/news-sample-app)
 
-This architecture was proposed in 2012 by Robert C. Martin(Uncle Bob) in [clean code blog](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+这个架构是由 Robert C. Martin（Uncle Bob）在 [clean code blog](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) 中于2012年提出的。
 
-### Why the cleaner approach?
+### 为什么是 Clean 架构？
 
-1. Separation of code in different layers with **assigned responsibilities** making it easier for further modification.
-2. High level of **abstraction**
-3. **Loose coupling** between the code
-4. **Testing** of code is painless
+1. 在不同层级中分离具有**特定职责**的代码，让其更容易做进一步修改。
+2. 高度的**抽象**
+3. 代码**解耦**
+4. 轻松的代码**测试**
 
-> “Clean code always looks like it was written by someone who cares.”
+> “整洁的代码总是看起来像是由在意它的人来写的。”
 >
 > — Michael Feathers
 
-### What are the Layers?
+### 有哪些层级？
 
 ![Dependency Flow](https://cdn-images-1.medium.com/max/2000/1*a5UQUjgYu5SZAbmkNELI_A.png)
 
-**Domain layer:** Would execute business logic which is independent of any layer and is just a pure kotlin package with no android specific dependency.
+**Domain 层：** 将执行独立于任何层级的业务逻辑，并且只是一个没有 Android 相关依赖的纯 kotlin 包。
 
-**Data layer:** Would dispense the required data for the application to the domain layer by implementing interface exposed by the domain
+**Data 层：** 通过实现 Domain 层的公开接口，将应用所需的数据分配给 Domain 层。
 
-**Presentation layer:** Would include both domain and data layer and is android specific which executes the UI logic.
+**Presentation 层：** 将包括 Domain 层和 Data 层，并且是 Android 特定的，用于执行 UI 逻辑。
 
-### What is Domain Layer?
+### 什么是 Domain 层？
 
-This will be the most generic layer of the three. It will connect the presentation layer with the data layer. This is the layer where app-related business logic will be executed.
+这将是三个层级中最通用的一个。它将 Presentation 层和 Data 层连接起来，并执行应用相关的业务逻辑。
 
 ![The domain layer structure of the application](https://cdn-images-1.medium.com/max/2000/1*m06XFPa5OTvOF6zGPC7Q0w.png)
 
-### UseCases
+### 用例
 
-Use cases are the application logic executor. As the name depicts each functionality can have its separate use case. With more granularity of the use case creation, it can be reused more often.
+用例是应用逻辑执行程序。正如名称所示，每个功能都可以有其独立的用例。创建更加精细的用例可以被更频繁地复用。
 
 ```Kotlin
 class GetNewsUseCase(private val transformer: FlowableRxTransformer<NewsSourcesEntity>,
@@ -63,19 +63,19 @@ class GetNewsUseCase(private val transformer: FlowableRxTransformer<NewsSourcesE
 }
 ```
 
-This use case returns Flowable which can be modified according to the required observer. There are two parameters to it. One of them is **transformers** or [ObservableTransformer](http://reactivex.io/RxJava/javadoc/io/reactivex/ObservableTransformer.html) which control what thread to execute the logic and the other parameter **repository**, is the interface for the data layer. If any data has to be passed to the data layer then HashMap can be used.
+此用例返回的是可根据所需观察者进行修改的 Flowable 类型。它有两个参数。其中之一是 **transformers** 或 [ObservableTransformer](http://reactivex.io/RxJava/javadoc/io/reactivex/ObservableTransformer.html)，它控制执行逻辑的线程和另外的参数 **repository**，是 Data 层的接口。如果有任何的数据必须传递给 Data 层，则可以使用 HashMap。
 
 ### Repositories
 
-It specifies the functionalities required by the use cases which is implemented by the data layer.
+它指定了由 Data 层实现的用例所需的功能。
 
-### What is Data Layer?
+### 什么是 Data 层？
 
-This layer is responsible for providing the data required by the application. Data layer should be designed such data it can be re-used by any application without modification in their presentation logic.
+该层级负责提供应用所需的数据。Data 层应该设计任何应用都可以重复使用而无需在其展示逻辑中进行修改的数据。
 
 ![The data layer structure of the application](https://cdn-images-1.medium.com/max/2000/1*KbdhwDpsxspHEz7QInpbhA.png)
 
-**API** provides remote networking implementation. Any networking library can be integrated into this like retrofit, volley etc. Similarly, **DB** provides local database implementation.
+**API** 提供远程网络实现。任何网络库都可以集成到这里，如 retrofit、volley 等。同样，**DB** 提供本地数据库实现。
 
 ```Kotlin
 class NewsRepositoryImpl(private val remote: NewsRemoteImpl,
@@ -99,21 +99,21 @@ class NewsRepositoryImpl(private val remote: NewsRemoteImpl,
 }
 ```
 
-In Repository, we have an implementation of the local, remote or any kind of data provider and above class NewsRepositoryImpl.kt implements the interface exposed by the domain layer. It acts as a single point of access to the data layer.
+在 Repository 中，我们有本地、远程或任何类型的数据提供程序的实现，而上面的类 NewsRepositoryImpl.kt 实现了 Domain 层公开的接口。它充当 Data 层的单一访问点。
 
-**What is the presentation layer?**
+**什么是 Presentation 层？**
 
-The presentation layer provides the UI implementation of the application. It is the dumb layer which only performs instruction with no logic in it. This layer internally implements architecture like MVC, MVP, MVVM, MVI etc. This is the layer where everything connects.
+Presentation 层提供应用的 UI 实现。它不做别的事，只执行没有逻辑的指令。该层内部实现了 MVC、MVP、MVVM、MVI 等架构。这是连接所有的层。
 
 ![The presentation layer structure of the application](https://cdn-images-1.medium.com/max/2000/1*4UH3LeLcGg8tjp1BmPm1jw.png)
 
-**DI** folder provides the injection all the dependencies at the start of an app like network related, View Models, Use Cases etc. DI in android can be implemented with dagger, kodein, koin or by just using the service locator pattern. It just depends upon the application like for complex app di can be pretty helpful. I chose koin just because it was much easy to understand and implement than dagger.
+**DI** 文件夹实现了在应用开始时注入所有的依赖项，如网络相关、View Models、用例等。可以使用 dagger、kodein、koin 或只使用服务定位器模式（service locator pattern）实现 Android 中的 DI。它只取决于应用本身，如对于复杂的应用，DI 可能非常有用。我选择 koin 只是因为它比 dagger 更容易理解和实现。
 
-**Why using ViewModels?**
+**为什么使用 ViewModels？**
 
-As per the android documentation [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel):
+根据 Android [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 文档：
 
-> **Store and manage UI-related data in a lifecycle conscious way. It allows data to survive configuration changes such as screen rotations.**
+> **以生命周期的方式存储和管理 UI 相关数据。它允许数据在配置更改（例如屏幕旋转）后继续存活。**
 
 ```Kotlin
 class NewsViewModel(private val getNewsUseCase: GetNewsUseCase,
@@ -145,9 +145,9 @@ class NewsViewModel(private val getNewsUseCase: GetNewsUseCase,
 }
 ```
 
-So, ViewModel retains the data on configuration change. In MVP, Presenter was bind to the view with the interface which makes it difficult to test but in ViewModel, there is no interface because of the architectural aware components.
+因此，ViewModel 会保留有关配置更改的数据。在 MVP 中，Presenter 使用接口绑定到 view，这会变得难以测试，但在 ViewModel 中，由于架构感知组件（architectural aware components）而没有接口。
 
-Base View Model is using [CompositeDisposable](http://reactivex.io/RxJava/javadoc/io/reactivex/disposables/CompositeDisposable.html) for adding all the observables and removing all them on @OnCleared of the lifecycle.
+Base View Model 使用 [CompositeDisposable](http://reactivex.io/RxJava/javadoc/io/reactivex/disposables/CompositeDisposable.html) 来添加所有的 observables 对象，并在生命周期的 @OnCleared 中移除它们。
 
 ```Kotlin
 data class Data<RequestData>(var responseType: Status, var data: RequestData? = null, var error: Error? = null)
@@ -155,23 +155,23 @@ data class Data<RequestData>(var responseType: Status, var data: RequestData? = 
 enum class Status { SUCCESSFUL, ERROR, LOADING }
 ```
 
-A data wrapper class is used onto the LiveData as a helper class so that view gets to know about the status of the request i.e if it has been started, successful or any concerned state about the data.
+数据 wrapper 类作为辅助类用于 LiveData，以便 view 了解数据请求的状态，即它是否已开始、成功或任何有关数据的状态。
 
-**How all the layers are connected?**
+**如何连接所有的层级？**
 
-Each layer has its own **entities** which are specific to that package. Mapper is used for conversion of one layer entities to another. We are having different entities for each layer so that the layer becomes purely independent and only the required data gets passed to the subsequent layer.
+每个层都有自己特定于该包的 **实体类（entities）**。Mapper 用于将一个层的实体类转换为另一个层的实体类。我们为每个层设置了不同的实体类，以便该层变得绝对独立，并且只将所需的数据传递给后续的层。
 
-### Application Flow
+### 应用流程
 
 ![](https://cdn-images-1.medium.com/max/2516/1*a-AUcEVdyRJhIepo9JyJBw.png)
 
 ***
 
-This would be the end of the post, Let me know if I missed anything. Let me conclude by:
+这将是本文的结尾，如果我错过了任何内容，请告诉我。让我总结一下：
 
-> Base architecture defines the solidarity of the app and yes, It depends upon the app for the appropriate architecture BUT why not just pick the most apt architecture** ahead of time **which could be scalable, robust, testable so that you don’t have to take pain in future.
+> 基础架构定义了应用程序的一致性，是的，它取决于应用是否采取了适当的架构，但是为什么不**提前**选择最合适的架构呢，如可扩展的，强大的，可测试的，这样你就不必在未来面对痛苦。
 
-Thanks for reading :)
+感谢阅读本文 :)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
