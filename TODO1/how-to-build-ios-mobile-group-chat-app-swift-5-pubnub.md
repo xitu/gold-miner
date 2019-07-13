@@ -11,9 +11,9 @@
 
 在本教程中，我们将向你展示如何使用 Swift 5 构建一个 iOS 移动聊天应用程序，其可以让任意数量的用户进行实时聊天。我们还将向你展示如何存储消息历史记录，因此当用户离开之后回来时，他们的消息仍然在应用程序中。
 
-为了实现上述的应用，我们使用了 PubNub 的一些关键特性： **[发布/订阅](https://www.pubnub.com/developers/tech/key-concepts/publish-subscribe/)**（实时消息）和 **[存储 & 回放](https://www.pubnub.com/developers/tech/key-concepts/message-caching-persistence/)（消息存储）**。
+为了实现上述的应用，我们使用了 PubNub 的一些关键特性：**[发布/订阅](https://www.pubnub.com/developers/tech/key-concepts/publish-subscribe/)**（实时消息）和 **[存储 & 回放](https://www.pubnub.com/developers/tech/key-concepts/message-caching-persistence/)（消息存储）**。
 
-* **发布**是每个客户端如何将自己的消息发送到全世界的方式，或者至少传递到自己想要发布的频道中。Pub/Sub 模式最简单的应用就是将你发送的每一条消息传递给订阅频道的任何人。发布需要一个 PubNub 连接的实例（我将在后面详细介绍），要发送的消息消息（类型为 String，NSNumber，Array 和 Dictionary），以及我们要将消息发送到的频道。[了解有关 Swift 发布的更多信息。](https://www.pubnub.com/docs/swift/api-reference-publish-and-subscribe#publish)
+* **发布**是每个客户端如何将自己的消息发送到全世界的方式，或者至少传递到自己想要发布的频道中。Pub/Sub 模式最简单的应用就是将你发送的每一条消息传递给订阅频道的任何人。发布需要一个 PubNub 连接的实例（我将在后面详细介绍），要发送的消息消息（类型为 String、NSNumber、Array 和 Dictionary），以及我们要将消息发送到的频道。[了解有关 Swift 发布的更多信息。](https://www.pubnub.com/docs/swift/api-reference-publish-and-subscribe#publish)
 * **订阅**是 PubNub 即时通信的另外一个部分。为了订阅，我们需要一个 PubNub 连接的实例和一个要订阅的频道。成功订阅后，我们会收到消息，但如果我们在消息到达的时候不进行处理，我们仍然看不到这些消息。[了解有关 Swift 订阅的更多信息](https://www.pubnub.com/docs/swift/api-reference-publish-and-subscribe#subscribe)。
 * **事件处理或监听**的更新在 PubNub 的生命周期中非常重要。Pub/Sub 虽然非常引人注目，但使用 PubNub 的关键是事件处理程序，它将[数据流网络](https://www.pubnub.com/products/global-data-stream-network/)连接到我们的控制台和应用程序。它们中的一个专门监听消息，而另一个负责寻找其他任何内容，包括订阅变动和错误。
 * **存储和回放**是这个伟大的功能集的另外一个关键点。如果存储和消息检索已导入你的工程，那么存储和播放对你的应用程序来说也是很好的补充。这个功能允许检索历史消息。应用程序消息的范围囊括了应用程序的整个生命周期。我们将设置 PubNub 帐户并获取 API 密钥，在 PubNub 管理控制台中设置存储的生存时间。[了解有关  Swift 中存储和回放的更多信息](https://www.pubnub.com/docs/swift/api-reference-storage-and-playback)。
@@ -100,7 +100,7 @@ pod “PubNub”, “~> 4”
 
 这利用了我们在上一节中制作的 connectSegue，它将我们导航到了 ChannelVC 的导航控制器。我们在这个视图控制器中唯一需要做的就是为上面的 segue 做准备。通过重写这个功能，我们可以在视图之间发送信息。
 
-**注意：在本教程中，如果用户未提供用户名，我会自动为其分配用户名“A Naughty Moose”。 如果他们没有提供频道，我会将他们发送到频道“General”。**
+**注意：在本教程中，如果用户未提供用户名，我会自动为其分配用户名“A Naughty Moose”。如果他们没有提供频道，我会将他们发送到频道“General”。**
 
 为了访问我们想要访问的视图，我们需要获得导航控制器的实例，然后从那里获取我们的 ChannelVC 视图。我们检查文本字段是否为空，如果需要则替换值，然后使用我们的用户名和频道在 ChannelVC 中设置两个我们尚未创建的变量。
 
@@ -137,9 +137,9 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 ## 编码：ChannelVC
 
-在我们的 ChannelVC 中，我们应该有两个 outlet，一个 action ，另一个是我们的 viewDidLoad 函数。最重要的是，在类定义下，我们将开始为类的其余部分定义一些我们需要的变量和资源。
+在我们的 ChannelVC 中，我们应该有两个 outlet，一个 action，另一个是我们的 viewDidLoad 函数。最重要的是，在类定义下，我们将开始为类的其余部分定义一些我们需要的变量和资源。
 
-首先，让我们的类监听 PubNub 事件并使其与我们的 table 一起工作。在文件顶部引入 PubNub，在我们的类定义中的 UIViewController 写入 PNObjectEventListener，UITableViewDataSource 和 UITableViewDelegate 之后。我们的类现在应该显示错误，单击错误并添加建议的那些类，这样进行引入比较便捷。
+首先，让我们的类监听 PubNub 事件并使其与我们的 table 一起工作。在文件顶部引入 PubNub，在我们的类定义中的 UIViewController 写入 PNObjectEventListener、UITableViewDataSource 和 UITableViewDelegate 之后。我们的类现在应该显示错误，单击错误并添加建议的那些类，这样进行引入比较便捷。
 
 * 在我们的类定义下，让我们定义一个结构，使得处理我们的消息更容易一些。我的结构有三个字符串：消息，用户名和 UUID。稍后当我们发布消息时，你可以发送不同的信息并使用这些来更新结构。
 * 之后，创建一个 Message 数组并将其初始化为空，因为所有类变量都需要具有某种初始值。
@@ -163,7 +163,7 @@ class ChannelVC: UIViewController,PNObjectEventListener, UITableViewDataSource, 
     // 跟踪我们加载的最早的一条消息
     var earliestMessageTime: NSNumber = -1
 
-    // 跟踪我们更多消息是否已经加载完成
+    // 来跟踪我们是否已经加载了更多消息
     var loadingMore = false
 
     // 我们使用 PubNub 对象来发布，订阅和获取我们频道的内容
