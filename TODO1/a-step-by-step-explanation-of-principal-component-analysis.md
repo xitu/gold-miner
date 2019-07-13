@@ -25,7 +25,7 @@ So to sum up, the idea of PCA is simple — reduce the number of variables of a 
 
 ## Step by step explanation
 
-> Step 1: Standardization
+### Step 1: Standardization
 
 The aim of this step is to standardize the range of the continuous initial variables so that each one of them contributes equally to the analysis.
 
@@ -40,10 +40,10 @@ Once the standardization is done, all the variables will be transformed to the s
 ***
 
 if you want to get an in-depth understanding about standardization, i invite you to read this simple article i wrote about it.
-[**When and why to standardize your data ?**
-**A simple guide on when to standardize your data and when not to.**towardsdatascience.com](https://towardsdatascience.com/when-to-standardize-your-data-in-4-minutes-f9282190707e)
 
-> Step 2: Covariance Matrix computation
+* [**When and why to standardize your data ? A simple guide on when to standardize your data and when not to.**](https://github.com/xitu/gold-miner/blob/master/TODO1/when-to-standardize-your-data.md)
+
+### Step 2: Covariance Matrix computation
 
 The aim of this step is to understand how the variables of the input data set are varying from the mean with respect to each other, or in other words, to see if there is any relationship between them. Because sometimes, variables are highly correlated in such a way that they contain redundant information. So, in order to identify these correlations, we compute the covariance matrix.
 
@@ -62,7 +62,7 @@ It’s actually the sign of the covariance that matters :
 
 Now, that we know that the covariance matrix is not more than a table that summaries the correlations between all the possible pairs of variables, let’s move to the next step.
 
-> Step 3: Compute the eigenvectors and eigenvalues of the covariance matrix to identify the principal components
+### Step 3: Compute the eigenvectors and eigenvalues of the covariance matrix to identify the principal components
 
 Eigenvectors and eigenvalues are the linear algebra concepts that we need to compute from the covariance matrix in order to determine the **principal components** of the data. Before getting to the explanation of these concepts, let’s first understand what do we mean by principal components.
 
@@ -76,7 +76,7 @@ An important thing to realize here is that, the principal components are less in
 
 Geometrically speaking, principal components represent the directions of the data that explain a **maximal amount of variance**, that is to say, the lines that capture most information of the data. The relationship between variance and information here, is that, the larger the variance carried by a line, the larger the dispersion of the data points along it, and the larger the dispersion along a line, the more the information it has. To put all this simply, just think of principal components as new axes that provide the best angle to see and evaluate the data, so that the differences between the observations are better visible.
 
-> How PCA constructs the Principal Components?
+### How PCA constructs the Principal Components?
 
 As there are as many principal components as there are variables in the data, principal components are constructed in such a manner that the first principal component accounts for the **largest possible variance** in the data set. For example, let’s assume that the scatter plot of our data set is as shown below, can we guess the first principal component ? Yes, it’s approximately the line that matches the purple marks because it goes through the origin and it’s the line in which the projection of the points (red dots) is the most spread out. Or mathematically speaking, it’s the line that maximizes the variance (the average of the squared distances from the projected points (red dots) to the origin).
 
@@ -102,7 +102,7 @@ If we rank the eigenvalues in descending order, we get λ1>λ2, which means that
 
 After having the principal components, to compute the percentage of variance (information) accounted for by each component, we divide the eigenvalue of each component by the sum of eigenvalues. If we apply this on the example above, we find that PC1 and PC2 carry respectively 96% and 4% of the variance of the data.
 
-> Step 4: Feature vector
+### Step 4: Feature vector
 
 As we saw in the previous step, computing the eigenvectors and ordering them by their eigenvalues in descending order, allow us to find the principal components in order of significance. In this step, what we do is, to choose whether to keep all these components or discard those of lesser significance (of low eigenvalues), and form with the remaining ones a matrix of vectors that we call **Feature vector**.
 
@@ -124,7 +124,7 @@ Discarding the eigenvector **v2** will reduce dimensionality by 1, and will cons
 
 So, as we saw in the example, it’s up to you to choose whether to keep all the components or discard the ones of lesser significance, depending on what you are looking for. Because if you just want to describe your data in terms of new variables (principal components) that are uncorrelated without seeking to reduce dimensionality, leaving out lesser significant components is not needed.
 
-> Last step : Recast the data along the principal components axes
+### Last step : Recast the data along the principal components axes
 
 In the previous steps, apart from standardization, you do not make any changes on the data, you just select the principal components and form the feature vector, but the input data set remains always in terms of the original axes (i.e, in terms of the initial variables).
 
@@ -134,9 +134,9 @@ In this step, which is the last one, the aim is to use the feature vector formed
 
 ***
 
-> If you enjoyed this story, please click the 👏 button as many times as you think it deserves. And share to help others find it! Feel free to leave a comment below.
+If you enjoyed this story, please click the 👏 button as many times as you think it deserves. And share to help others find it! Feel free to leave a comment below.
 
-> References :
+### References:
 
 * [**Steven M. Holland**, **Univ. of Georgia**]: Principal Components Analysis
 * [**skymind.ai**]: Eigenvectors, Eigenvalues, PCA, Covariance and Entropy
