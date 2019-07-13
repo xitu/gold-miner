@@ -11,7 +11,7 @@
 
 > The new queen of Machine Learning algorithms taking over the world…
 
-(This article was co-authored with [Venkat Anurag Setty](undefined))
+(This article was co-authored with [Venkat Anurag Setty](https://towardsdatascience.com/u/e15e82916c90))
 
 I still remember the day 1 of my very first job fifteen years ago. I had just finished my graduate studies and joined a global investment bank as an analyst. On my first day, I kept straightening my tie and trying to remember everything that I had studied. Meanwhile, deep down, I wondered if I was good enough for the corporate world. Sensing my anxiety, my boss smiled and said:
 
@@ -23,7 +23,7 @@ I remember thinking myself, “I got this!”. I knew regression modeling; both 
 
 ## What is XGBoost?
 
-[XGBoost ](https://xgboost.ai/)****is a decision-tree-based ensemble Machine Learning algorithm that uses a [gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting) framework. In prediction problems involving unstructured data (images, text, etc.) artificial neural networks tend to outperform all other algorithms or frameworks. However, when it comes to small-to-medium structured/tabular data, decision tree based algorithms are considered best-in-class right now. Please see the chart below for the evolution of tree-based algorithms over the years.
+[XGBoost ](https://xgboost.ai/) is a decision-tree-based ensemble Machine Learning algorithm that uses a [gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting) framework. In prediction problems involving unstructured data (images, text, etc.) artificial neural networks tend to outperform all other algorithms or frameworks. However, when it comes to small-to-medium structured/tabular data, decision tree based algorithms are considered best-in-class right now. Please see the chart below for the evolution of tree-based algorithms over the years.
 
 ![Evolution of XGBoost Algorithm from Decision Trees](https://cdn-images-1.medium.com/max/2000/1*QJZ6W-Pck_W7RlIDwUIN9Q.jpeg)
 
@@ -45,10 +45,15 @@ Decision trees, in their simplest form, are easy-to-visualize and fairly interpr
 Imagine that you are a hiring manager interviewing several candidates with excellent qualifications. Each step of the evolution of tree-based algorithms can be viewed as a version of the interview process.
 
 1. **Decision Tree**: Every hiring manager has a set of criteria such as education level, number of years of experience, interview performance. A decision tree is analogous to a hiring manager interviewing candidates based on his or her own criteria.
+
 2. **Bagging**: Now imagine instead of a single interviewer, now there is an interview panel where each interviewer has a vote. Bagging or bootstrap aggregating involves combining inputs from all interviewers for the final decision through a democratic voting process.
+
 3. **Random Forest**: It is a bagging-based algorithm with a key difference wherein only a subset of features is selected at random. In other words, every interviewer will only test the interviewee on certain randomly selected qualifications (e.g. a technical interview for testing programming skills and a behavioral interview for evaluating non-technical skills).
+
 4. **Boosting**: This is an alternative approach where each interviewer alters the evaluation criteria based on feedback from the previous interviewer. This ‘boosts’ the efficiency of the interview process by deploying a more dynamic evaluation process.
+
 5. **Gradient Boosting**: A special case of boosting where errors are minimized by gradient descent algorithm e.g. the strategy consulting firms leverage by using case interviews to weed out less qualified candidates.
+
 6. **XGBoost**: Think of XGBoost as gradient boosting on ‘steroids’ (well it is called ‘Extreme Gradient Boosting’ for a reason!). It is a perfect combination of software and hardware optimization techniques to yield superior results using less computing resources in the shortest amount of time.
 
 ***
@@ -62,14 +67,19 @@ XGBoost and Gradient Boosting Machines (GBMs) are both ensemble tree methods tha
 **System Optimization:**
 
 1. **Parallelization**: XGBoost approaches the process of sequential tree building using [parallelized](http://zhanpengfang.github.io/418home.html) implementation. This is possible due to the interchangeable nature of loops used for building base learners; the outer loop that enumerates the leaf nodes of a tree, and the second inner loop that calculates the features. This nesting of loops limits parallelization because without completing the inner loop (more computationally demanding of the two), the outer loop cannot be started. Therefore, to improve run time, the order of loops is interchanged using initialization through a global scan of all instances and sorting using parallel threads. This switch improves algorithmic performance by offsetting any parallelization overheads in computation.
+
 2. **Tree Pruning:** The stopping criterion for tree splitting within GBM framework is greedy in nature and depends on the negative loss criterion at the point of split. XGBoost uses ‘max_depth’ parameter as specified instead of criterion first, and starts pruning trees backward. This ‘depth-first’ approach improves computational performance significantly.
+
 3. **Hardware Optimization**: This algorithm has been designed to make efficient use of hardware resources. This is accomplished by cache awareness by allocating internal buffers in each thread to store gradient statistics. Further enhancements such as ‘out-of-core’ computing optimize available disk space while handling big data-frames that do not fit into memory.
 
 **Algorithmic Enhancements:**
 
 1. **Regularization**: It penalizes more complex models through both LASSO (L1) and Ridge (L2) [regularization](https://towardsdatascience.com/l1-and-l2-regularization-methods-ce25e7fc831c) to prevent overfitting.
+
 2. **Sparsity Awareness**: XGBoost naturally admits sparse features for inputs by automatically ‘learning’ best missing value depending on training loss and handles different types of [sparsity patterns](https://www.kdnuggets.com/2017/10/xgboost-concise-technical-overview.html) in the data more efficiently.
+
 3. **Weighted Quantile Sketch:** XGBoost employs the distributed [weighted Quantile Sketch algorithm](https://arxiv.org/pdf/1603.02754.pdf) to effectively find the optimal split points among weighted datasets.
+
 4. **Cross-validation**: The algorithm comes with built-in [cross-validation](https://towardsdatascience.com/cross-validation-in-machine-learning-72924a69872f) method at each iteration, taking away the need to explicitly program this search and to specify the exact number of boosting iterations required in a single run.
 
 ***
