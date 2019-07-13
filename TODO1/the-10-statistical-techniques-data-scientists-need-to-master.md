@@ -34,7 +34,7 @@ Before moving on with these 10 techniques, I want to differentiate between stati
 * But the distinction has become and more blurred, and there is a great deal of “cross-fertilization.”
 * Machine learning has the upper hand in Marketing!
 
-> 1 — Linear Regression:
+## 1 — Linear Regression:
 
 In statistics, linear regression is a method to predict a target variable by fitting the **best linear relationship** between the dependent and independent variable. The **best fit** is done by making sure that the sum of all the distances between the shape and the actual observations at each point is as small as possible. The fit of the shape is “best” in the sense that no other position would produce less error given the choice of shape. 2 major types of linear regression are **Simple Linear Regression** and **Multiple Linear Regression****. ****Simple Linear Regression **uses a single independent variable to predict a dependent variable by fitting a best linear relationship.** Multiple Linear Regression** uses more than one independent variable to predict a dependent variable by fitting a best linear relationship.
 
@@ -46,7 +46,7 @@ Pick any 2 things that you use in your daily life and that are related. Like, I 
 * Which factor (monthly income or number of trips per month) is more important in deciding my monthly spending?
 * How monthly income and trips per month are correlated with monthly spending?
 
-> 2 — Classification:
+## 2 — Classification:
 
 Classification is a data mining technique that assigns categories to a collection of data in order to aid in more accurate predictions and analysis. Also sometimes called a Decision Tree, classification is one of several methods intended to make the analysis of very large datasets effective. 2 major Classification techniques stand out: **Logistic Regression** and **Discriminant Analysis****.**
 
@@ -62,7 +62,7 @@ In **Discriminant Analysis**, 2 or more groups or clusters or populations are kn
 * **Linear Discriminant Analysis** computes “discriminant scores” for each observation to classify what response variable class it is in. These scores are obtained by finding linear combinations of the independent variables. It assumes that the observations within each class are drawn from a multivariate Gaussian distribution and the covariance of the predictor variables are common across all k levels of the response variable Y.
 * **Quadratic Discriminant Analysis** provides an alternative approach. Like LDA, QDA assumes that the observations from each class of Y are drawn from a Gaussian distribution. However, unlike LDA, QDA assumes that each class has its own covariance matrix. In other words, the predictor variables are not assumed to have common variance across each of the k levels in Y.
 
-> 3 — Resampling Methods:
+## 3 — Resampling Methods:
 
 Resampling is the method that consists of drawing repeated samples from the original data samples. It is a non-parametric method of statistical inference. In other words, the method of resampling does not involve the utilization of the generic distribution tables in order to compute approximate p probability values.
 
@@ -75,7 +75,7 @@ Resampling generates a unique sampling distribution on the basis of the actual d
 
 Usually for linear models, ordinary least squares is the major criteria to be considered to fit them into the data. The next 3 methods are the alternative approaches that can provide better prediction accuracy and model interpretability for fitting linear models.
 
-> 4 — Subset Selection:
+## 4 — Subset Selection:
 
 This approach identifies a subset of the **p** predictors that we believe to be related to the response. We then fit a model using the least squares of the subset features.
 
@@ -86,7 +86,7 @@ This approach identifies a subset of the **p** predictors that we believe to be 
 * **Backward Stepwise Selection** begins will all **p** predictors in the model, then iteratively removes the least useful predictor one at a time.
 * **Hybrid Methods** follows the forward stepwise approach, however, after adding each new variable, the method may also remove variables that do not contribute to the model fit.
 
-> 5 — Shrinkage:
+## 5 — Shrinkage:
 
 This approach fits a model involving all **p** predictors, however, the estimated coefficients are shrunken towards zero relative to the least squares estimates. This shrinkage, aka **regularization** has the effect of reducing variance. Depending on what type of shrinkage is performed, some of the coefficients may be estimated to be exactly zero. Thus this method also performs variable selection. The two best-known techniques for shrinking the coefficient estimates towards zero are the **ridge regression** and the **lasso**.
 
@@ -95,7 +95,7 @@ This approach fits a model involving all **p** predictors, however, the estimate
 * **Ridge regression** is similar to least squares except that the coefficients are estimated by minimizing a slightly different quantity. Ridge regression, like OLS, seeks coefficient estimates that reduce RSS, however they also have a shrinkage penalty when the coefficients come closer to zero. This penalty has the effect of shrinking the coefficient estimates towards zero. Without going into the math, it is useful to know that ridge regression shrinks the features with the smallest column space variance. Like in prinicipal component analysis, ridge regression projects the data into **d**directional space and then shrinks the coefficients of the low-variance components more than the high variance components, which are equivalent to the largest and smallest principal components.
 * Ridge regression had at least one disadvantage; it includes all **p** predictors in the final model. The penalty term will set many of them close to zero, but never **exactly** to zero. This isn’t generally a problem for prediction accuracy, but it can make the model more difficult to interpret the results. **Lasso** overcomes this disadvantage and is capable of forcing some of the coefficients to zero granted that **s** is small enough. Since **s** = 1 results in regular OLS regression, as **s** approaches 0 the coefficients shrink towards zero. Thus, Lasso regression also performs variable selection.
 
-> 6 — Dimension Reduction:
+## 6 — Dimension Reduction:
 
 Dimension reduction reduces the problem of estimating **p + 1** coefficients to the simple problem of **M + 1** coefficients, where **M \< p.** This is attained by computing **M** different **linear combinations,** or **projections,** of the variables. Then these **M** projections are used as predictors to fit a linear regression model by least squares. 2 approaches for this task are **principal component regression** and **partial least squares.**
 
@@ -104,7 +104,7 @@ Dimension reduction reduces the problem of estimating **p + 1** coefficients to 
 * One can describe **Principal Components Regression** as an approach for deriving a low-dimensional set of features from a large set of variables. The **first** principal component direction of the data is along which the observations vary the most. In other words, the first PC is a line that fits as close as possible to the data. One can fit **p** distinct principal components. The second PC is a linear combination of the variables that is uncorrelated with the first PC, and has the largest variance subject to this constraint. The idea is that the principal components capture the most variance in the data using linear combinations of the data in subsequently orthogonal directions. In this way, we can also combine the effects of correlated variables to get more information out of the available data, whereas in regular least squares we would have to discard one of the correlated variables.
 * The PCR method that we described above involves identifying linear combinations of **X** that best represent the predictors. These combinations (**directions**) are identified in an unsupervised way, since the response **Y** is not used to help determine the principal component directions. That is, the response **Y** does not **supervise** the identification of the principal components, thus there is no guarantee that the directions that best explain the predictors also are the best for predicting the response (even though that is often assumed). **Partial least square**s (PLS) are a **supervised**alternative to PCR. Like PCR, PLS is a dimension reduction method, which first identifies a new smaller set of features that are linear combinations of the original features, then fits a linear model via least squares to the new **M** features. Yet, unlike PCR, PLS makes use of the response variable in order to identify the new features.
 
-> 7 — Nonlinear Models:
+## 7 — Nonlinear Models:
 
 In statistics, nonlinear regression is a form of regression analysis in which observational data are modeled by a function which is a nonlinear combination of the model parameters and depends on one or more independent variables. The data are fitted by a method of successive approximations. Below are a couple of important techniques to deal with nonlinear models:
 
@@ -116,7 +116,7 @@ In statistics, nonlinear regression is a form of regression analysis in which ob
 * A **spline** is a special function defined piecewise by polynomials. In computer graphics, spline refers to a piecewise polynomial parametric curve. Splines are popular curves because of the simplicity of their construction, their ease and accuracy of evaluation, and their capacity to approximate complex shapes through curve fitting and interactive curve design.
 * A **generalized additive model** is a generalized linear model in which the linear predictor depends linearly on unknown smooth functions of some predictor variables, and interest focuses on inference about these smooth functions.
 
-> 8 — Tree-Based Methods:
+## 8 — Tree-Based Methods:
 
 Tree-based methods can be used for both regression and classification problems. These involve stratifying or segmenting the predictor space into a number of simple regions. Since the set of splitting rules used to segment the predictor space can be summarized in a tree, these types of approaches are known as **decision-tree** methods. The methods below grow multiple trees which are then combined to yield a single consensus prediction.
 
@@ -127,7 +127,7 @@ Tree-based methods can be used for both regression and classification problems. 
 
 * The **random forest** algorithm is actually very similar to bagging. Also here, you draw random bootstrap samples of your training set. However, in addition to the bootstrap samples, you also draw a random subset of features for training the individual trees; in bagging, you give each tree the full set of features. Due to the random feature selection, you make the trees more independent of each other compared to regular bagging, which often results in better predictive performance (due to better variance-bias trade-offs) and it’s also faster, because each tree learns only from a subset of features.
 
-> 9 — Support Vector Machines:
+## 9 — Support Vector Machines:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MStS2dBWSZo8iJPiL2_uXg.png)
 
@@ -135,7 +135,7 @@ SVM is a classification technique that is listed under supervised learning model
 
 The data points that kind of “support” this hyperplane on either sides are called the “support vectors”. In the above picture, the filled blue circle and the two filled squares are the support vectors. For cases where the two classes of data are not linearly separable, the points are projected to an exploded (higher dimensional) space where linear separation may be possible. A problem involving multiple classes can be broken down into multiple one-versus-one or one-versus-rest binary classification problems.
 
-> 10 — Unsupervised Learning:
+## 10 — Unsupervised Learning:
 
 So far, we only have discussed supervised learning techniques, in which the groups are known and the experience provided to the algorithm is the relationship between actual entities and the group they belong to. Another set of techniques can be used when the groups (categories) of data are not known. They are called unsupervised as it is left on the learning algorithm to figure out patterns in the data provided. Clustering is an example of unsupervised learning in which different data sets are clustered into groups of closely related items. Below is the list of most widely used unsupervised learning algorithms:
 
@@ -148,9 +148,6 @@ So far, we only have discussed supervised learning techniques, in which the grou
 This was a basic run-down of some basic statistical techniques that can help a data science program manager and or executive have a better understanding of what is running underneath the hood of their data science teams. Truthfully, some data science teams purely run algorithms through python and R libraries. Most of them don’t even have to think about the math that is underlying. However, being able to understand the basics of statistical analysis gives your teams a better approach. Have insight into the smallest parts allows for easier manipulation and abstraction. I hope this basic data science statistical guide gives you a decent understanding!
 
 **P.S: You can get all the lecture slides and RStudio sessions from [my GitHub source code here](https://github.com/khanhnamle1994/statistical-learning). Thanks for the overwhelming response!**
-
-— — 
-**If you enjoyed this piece, I’d love it if you hit the clap button** 👏 **so others might stumble upon it. You can find my own code on** **[GitHub](https://github.com/khanhnamle1994), and more of my writing and projects at** **[https://jameskle.com/](https://jameskle.com/). You can also follow me on [Twitter](https://twitter.com/@james_aka_yale), [email me directly](mailto:khanhle.1013@gmail.com) or [find me on LinkedIn](http://www.linkedin.com/in/khanhnamle94). [Sign up for my newsletter](http://eepurl.com/deWjzb) to receive my latest thoughts on data science, machine learning, and artificial intelligence right at your inbox!**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
