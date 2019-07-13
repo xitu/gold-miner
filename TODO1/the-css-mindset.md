@@ -2,48 +2,48 @@
 > * 原文作者：[Max Böck](https://mxb.dev/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-css-mindset.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-css-mindset.md)
-> * 译者：
-> * 校对者：
+> * 译者：[MarchYuanx](https://github.com/MarchYuanx)
+> * 校对者：[solerji](https://github.com/solerji), [Chorer](https://github.com/Chorer)
 
-# The CSS Mindset
+# CSS 思维模式
 
-Ah yes, CSS. Hardly a week passes without it being the topic of a heated online discussion. It’s too hard. It’s too simple. It’s unpredictable. It’s outdated. Peter Griffin struggles with blinds dot gif.
+啊，是的，CSS。它几乎每个星期都是网络上热议的话题。它太难了。它太简单了。它无法预测。它过时了。此处应该有一张 Peter Griffin 折腾百叶窗的恶搞图。
 
-I don’t know why CSS sparks so many different emotions in developers, but I have a hunch as to why it can sometimes seem illogical or frustrating: You need a certain **mindset** to write good CSS.
+我不知道为什么 CSS 会在开发者中激发出如此多的不同情绪，但我有一种直觉，为什么有时候它看起来不合逻辑或令人沮丧：你需要一种特定的**思维模式**才能写出好的 CSS。
 
-Now, you probably need a mindset for coding in general, but the declarative nature of CSS makes it particularly difficult to grasp, especially if you think about it in terms of a “traditional” programming language.
+现在，您可能需要一个编码的思维模式，但 CSS 的声明性使其特别难以掌握，尤其是当您用“传统”编程语言的思维来思考它的时候。
 
-Other programming languages often work in controlled environments, like servers. They expect certain conditions to be true at all times, and can therefore be understood as concrete instructions as to how a program should execute.
+其他编程语言通常在受控的环境中工作，例如服务器。它们希望某些条件始终为真，从而作为程序应该如何执行的具体指令。
 
-CSS on the other hand works in a place that can never be fully controlled, so it has to be flexible by default. It’s less about “programming the appearance” and more about translating a design into a set of rules that communicate the intent behind it. Leave enough room, and the browser will do the heavy lifting for you.
+另一方面，CSS 在一个永远无法完全可控的地方工作，所以默认情况下它必须是灵活的。它不仅仅用于“编写外观”，还用于将设计转换为一组传达其背后意图的规则。留出足够的空间，浏览器将为您完成繁重的工作。
 
-For most people who write CSS professionally, the mindset just comes naturally after a while. Many developers have that “aha!” moment when things finally start to click. It’s not just about knowing all the technical details, it’s more about a general sense of the ideas behind the language.
+对于大多数专业编写 CSS 的人来说，他的思维模式在一段时间后自然而然地形成了。在事情终于有成效的时候，许多开发者都有那样一个“啊哈！”的时刻。这不仅仅是了解所有技术细节，更多的是关于语言背后的思想的一种感觉。
 
-I tried to list some of these here.
+我试着在这里列出一些思维模式。
 
-### Everthing is a Rectangle
+### 全都是矩形
 
-This seems obvious, given that the box model is probably one of the first things people learn about CSS. But picturing each DOM element as a box is crucial to understanding why things layout the way they do. Is it inline or block level? Is it a flex item? How will it grow/shrink/wrap in different contexts?
+这看起来很明显，因为盒子模型可能是人们学习 CSS 的时候接触到的第一个东西。但是将每个 DOM 元素描绘成一个盒子对于理解事物布局方式至关重要。它是内联的还是块级的？它是弹性的吗？它将如何在不同的环境中拉伸/收缩/包裹？
 
-Open your devtools and hover over elements to see the boxes they’re drawing, or use a utility style like `outline: 2px dotted hotpink` to visualize its hidden boundaries.
+打开你的开发者工具并将鼠标悬停在元素上，观察它们绘制的盒子。或使用像 `outline: 2px dotted hotpink` 这样的显式样式来显示其隐藏的边框。
 
-### The Cascade is your Friend
+### 级联是你的朋友
 
-The Cascade - a scary concept, I know. Say “Cascade” three times in front of a mirror and somewhere, some unrelated styling will break.
+级联 —— 一个可怕的概念，我懂。在镜子前说三次“级联”，在某个地方，一些不相关的样式会失效。
 
-While there are legitimate reasons to avoid the cascade, it doesn’t mean that it’s all bad. In fact, when used correctly, it can make your life a lot easier.
+虽然有合理的理由避免级联，但这并不意味着它的一切都是不好的。事实上，如果使用得当，它可以让您的生活更轻松。
 
-The important part is to know which styles belong on the global scope and which are better restricted to a component. It also helps to know the defaults that are passed down, to avoid declaring unnecessary rules.
+重要的是要知道哪些样式属于全局作用域，哪些样式更适合于组件。它还有助于了解传递的默认值，避免声明不必要的样式规则。
 
-### As much as necessary, as little as possible
+### 尽可能必要，尽可能少
 
-Aim to write the minimal amount of rules necessary to achieve a design. Fewer properties mean less inheritance, less restriction and less trouble with overrides down the line. Think about what your selector should essentially do, then try to express just that. There’s no point in declaring `width: 100%` on an element that’s already block-level. There’s no need to set `position: relative` if you don’t need a new stacking context.
+旨在编写实现设计所需的最少量的代码。较少的属性意味着更少的继承、更少的限制和更少的覆盖带来的麻烦。想想你的选择器应该做什么，然后尝试就那样表达它。在已经是块级别的元素上声明 `width: 100%` 是没有意义的。如果您不需要新的堆叠上下文，则无需设置 `position: relative`。
 
-Avoid unnecessary styles, and you avoid unintended consequences.
+避免不必要的样式，你就避免了意外后果。
 
-### Shorthands have long effects
+### 简写有很大的影响
 
-Some CSS features can be written in “shorthand” notation. This makes it possible to declare a bunch of related properties together. While this is handy, be aware that using the shorthand will also declare the default value for each property you don’t explicitly set. Writing `background: white;` will effectively result in all these properties being set:
+一些 CSS 属性可以用“简写”方式书写，这使得一起声明一组相关属性成为可能。虽然这很方便，请注意，使用简写还将为未显式设置的每个属性声明默认值。写上 `background: white;` 将有效地导致所有这些属性被设置：
 
 ```css
 background-color: white;
@@ -56,54 +56,54 @@ background-clip: border-box;
 background-attachment: scroll;
 ```
 
-It’s better to be explicit. If you want to change the background color, use `background-color`.
+样式最好是明确的。 如果要更改背景颜色，请使用 `background-color`。
 
-### Always Be Flexible
+### 永远要灵活
 
-CSS deals with a large amount of unknown variables: screen size, dynamic content, device capabilities - the list goes on. If your styles are too narrow or restrictive, chances are one of these variables will trip you up. That’s why a key aspect in writing good CSS is to embrace its flexibility.
+CSS 处理大量未知的变量：屏幕大小、动态内容、设备功能 —— 这个列表还在继续。如果你的样式过于狭隘或受限，那么这些因素中的某一个很可能会让你栽跟头。这就是为什么写好 CSS 的一个关键方面就是接受它的灵活性
 
-Your goal is to write a set of instructions that is comprehensive enough to describe what you want to achieve, yet flexible enough to let the browser figure out the **how** by itself. That’s why its usually best to avoid **“magic numbers”**.
+你的目标是编写一套足够全面的指令来描述你想要实现的页面，但足够灵活，让浏览器自己理解清楚**怎么做**。这就是为什么通常最好避免 **“神奇数字”**。
 
-Magic numbers are random hard values. Something like:
+神奇数字是随机的固定值。比如：
 
 ```css
 .thing {    width: 218px; /* why? */}
 ```
 
-Whenever you find yourself tapping the arrow key in your devtools, adjusting a pixel value to make something fit - that’s probably a magic number. These are rarely the solution to a CSS problem, because they restrict styles to a very specific usecase. If the constraints change, that number will be off.
+每当你自己在开发工具中点击箭头键并调整一个像素值使之适合的时候 —— 都可能会有一个神奇数字。它们很少能解决 CSS 问题，因为它们将样式限制在特定的使用案例中。如果约束发生变化，那么该数字将会失效。
 
-Instead, think about what you actually want to achieve in that situation. Alignment? An aspect ratio? Distributing equal amounts of space? All of these have flexible solutions. In most cases, it’s better to define a rule for the intent, rather than hard-code the computed solution to it.
+相反，想想在那种情况下你真正想要实现什么。对齐？宽高比？分配等量的空间？所有这些都有灵活的解决方案。在大多数情况下，最好为目的定义一个规则，而不是采用硬编码的计算方案。
 
-### Context is Key
+### 语境是关键
 
-For many layout concepts it’s imperative to understand the relationship between elements and their container. Most components are sets of parent and child nodes. Styles applied to the parent can affect the descendants, which might make them ignore other rules. Flexbox, Grid and `position:absolute` are common sources of such errors.
+对于许多布局概念，必须了解元素与其容器之间的关系。大多数组件是父节点和子节点的集合。应用于父级的样式会影响子孙级，这可能会使它们忽略其他规则。弹性盒子，栅格布局和 `position: absolute` 是此类错误的常见来源。
 
-When in doubt about a particular element behaving different than you’d want it to, look at the context it’s in. Chances are something in its ancestry is affecting it.
+当疑惑某个特定元素的表现与您期望的不同时，请查看它所在的上下文。可能是它祖先级的某些因素影响了它。
 
-### Content will change
+### 内容会改变
 
-Always be aware that what you see is just one UI state in a bigger spectrum. Instead of styling the thing on your screen, try to build a “blueprint” of the component. Then make sure that whatever you throw at it won’t break your styling.
+始终要注意，您所看到的只是在大范围中的一种 UI 状态。不要在屏幕上设置样式，而是尝试构建组件的“蓝图”。然后确保不论你把它放在什么场景，都不会使你的样式失效。
 
-Strings may be longer than intended or contain special characters, images might be missing or have weird dimensions. Displays may be very narrow or extremely wide. Those are all states you need to anticipate.
+字符串可能比预期长或包含特殊字符，图像可能缺失或具有奇怪的尺寸。显示的样子可能非常窄或非常宽。这些都是您需要预测的状态。
 
-The number one mistake made by designers and developers alike is assuming that things will always look like they do in the static mockup. I can assure you, they will not.
+设计师和开发者犯的第一个错误就是假设事情总是像它们在静态模型中那样。我可以向你保证，它们不会。
 
-### Find Patterns and re-use them
+### 发现模式并复用它们
 
-When you set out to turn a design mockup into code, it’s often helpful to take inventory of the different patterns included first. Analyse each screen and take note of any concept that occurs more than one. It might be something small like a typographic style, or large like a certain layout pattern.
+当您打算将设计模型实现为代码时，首先盘点出所包含的不同模式通常很有帮助。分析每个屏幕的场景，注意任何出现一次以上的概念。它可能是一些小的东西，比如排版样式，或者大的东西，比如某种布局模式。
 
-What can be abstracted? What’s unique? Thinking of pieces in a design as standalone things makes them easier to reason about, and helps to draw the boundaries between components.
+什么可以抽象？什么是特有的？将设计中的各个部分视为独立的东西使它们更易于理解，并有助于划分组件之间的界限。
 
-### Use consistent Names
+### 使用一致的命名
 
-A surprisingly large part of programming in general is coming up with good names for stuff. In CSS, it helps to stick to a convention. Naming schemes like [BEM](http://getbem.com) or [SMACSS](http://smacss.com/) can be very helpful; but even if you don’t use them, stick to a certain vocabulary.
+总的来说，相当多的一部分程序有不错的命名。在 CSS 中，它有助于遵守约定。像 [BEM](http://getbem.com) 或 [SMACSS](http://smacss.com/) 这样的命名方案非常有用；但即使你不使用它们，也要坚持使用一致的词汇。
 
 ---
 
-👉 **DISCLAIMER**  
-All these things were important for me to understand, but your personal experience as to what matters most might be different. Did you have another “aha” moment that made you understand CSS better? Let me know!
+👉 **免责声明**  
+所有这些对我来说都是很重要的，但是基于你的个人经历，什么最重要可能是不同的。你有没有你的“啊哈”时刻让你更好地理解 CSS？告诉我！
 
-## Further Reading
+## 延伸阅读
 
 * [How to learn CSS](https://www.smashingmagazine.com/2019/01/how-to-learn-css/) by Rachel Andrews
 * [The Secret Weapon to learning CSS](https://css-tricks.com/the-secret-weapon-to-learning-css/) by Robin Rendle
