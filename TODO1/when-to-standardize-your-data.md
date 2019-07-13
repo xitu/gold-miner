@@ -1,7 +1,7 @@
 > * 原文地址：[When and why to standardize your data ?](https://towardsdatascience.com/when-to-standardize-your-data-in-4-minutes-f9282190707e)
 > * 原文作者：[Zakaria Jaadi](https://medium.com/@zakaria.jaadi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-to-standardize-your-data-in-4-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-to-standardize-your-data-in-4-minutes.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-to-standardize-your-data.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-to-standardize-your-data.md)
 > * 译者：
 > * 校对者：
 
