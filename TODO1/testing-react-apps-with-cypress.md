@@ -2,75 +2,75 @@
 > * 原文作者：[Rajat S](https://medium.com/@geeky_writer_)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/testing-react-apps-with-cypress.md](https://github.com/xitu/gold-miner/blob/master/TODO1/testing-react-apps-with-cypress.md)
-> * 译者：
+> * 译者：[stevens1995](https://github.com/stevens1995)
 > * 校对者：
 
-# End to End Testing React Apps With Cypress
+# 使用 Cypress 进行 React 应用的端到端测试
 
-> A brief guide on how to run End-To-End testing on React apps with Cypress.
+> 关于如何使用 Cypress 对 React 应用进行端到端的测试的简要指南。
 
 ![](https://cdn-images-1.medium.com/max/2562/1*FoCFnUGcQvE2zqiFxitXUg.png)
 
-When I was a junior dev I used to cringe at the thought of testing my apps. Testing is not easy. But with the help of right tools, writing tests can certainly be simpler and more fun.
+当我还是一个初级开发者的时候我经常害怕测试我的应用。测试并不容易。但是在正确工具的帮助下，编写测试代码绝对能够变得更容易和有趣。
 
-Cypress is a JavaScript End-to-End Testing Framework that makes it really simple to setup, write, run, and debug tests.
+Cypress 是一个端到端的 JavaScript 测试框架，它使设置，编写，运行，调试测试变得非常简单。
 
-If you have tried other End-to-End Testing Frameworks like Puppeteer, you will notice that these frameworks turn the browser into an air-gapped system. The more complex our app gets, the harder it will get to pass our tests. This is why most testers prefer to run there tests manually.
+如果你已经尝试过类似 Puppeteer 的端到端测试框架，你会注意到这些框架把浏览器变成一个气隙系统。当我们的应用变得越复杂，测试也会变得越来越难通过。这也是为什么大多数测试人员更喜欢手动运行测试的原因。 
 
-In this post, I will show you how Cypress can help you build tests that will run in a real browser. Cypress provides with an API for test automation that is really easy to use.
+在本文中，我将向你展示 Cypress 如何帮助你构建在一个真实浏览器中运行的测试。 Cypress 提供了一个非常易于使用的用于自动化测试的 API。
 
-Instead of looking at a bland command terminal filled gibberish, Cypress comes with its own dashboard that will show us exactly what is happening during our tests. And, because Cypress works in the actual browser, we can also use the browser’s dev tools side-by-side with Cypress.
+相比于看着一个充满乱七八糟命令的平淡的中断， Cypress 带有自己的仪表盘，可以准确地向我们展示测试中发成了什么。而且，由于 Cypress 在真实的浏览器中工作，我们可以在使用 Cypress 的同时使用浏览器的开发工具。
 
-**Tip**: When working with **React components** you might want to remember the importance of component unit-testing. Using [**Bit**](https://bit.dev/) you can create a reusable component catalog to use in your projects, and add component tests which will run in isolation and present with visual results. Check it out.
+**提示**：使用 **React 组件**时，你可能想要记住组件单元测试的重要性。使用 [**Bit**] (https://bit.dev/)，你可以在你的项目中创造一个可重复使用的组件目录，并添加独立运行和展示可视化结果的组件测试。 看看这个。
 
-[**Component Discovery and Collaboration · Bit**](https://bit.dev/)
+[**组件发现与协作 · Bit**](https://bit.dev/)
 
-Let’s dive in.
+我们开始吧。
 
 ---
 
-## Setup
+## 建立
 
-Instead of creating a whole new app, I am going to use a pre-existing project and run my Cypress tests on it.
+我将使用一个已经存在的项目并在上面运行我的 Cypress 测试，而不是创建一个全新的项目。
 
-Here, I have a simple ToDo app in React.
+这里，我有一个用 React 编写的简单的 ToDo 应用。
 
 [**rajatgeekyants/ToDo-List**](https://github.com/rajatgeekyants/ToDo-List)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sFtLSBvrjPNJkb66q1mIxQ.png)
 
-Clone this app into your system and run `yarn install` to install the dependencies.
+在你的系统中克隆这个应用并且运行 `yarn install` 安装依赖。
 
 ```
 $ git clone https://github.com/rajatgeekyants/ToDo-List.git
 $ yarn install
 ```
 
-**Note**: You can also checkout the app on Bit. Here you will be able to import any particular component of the app, without having to care about the rest.
+**注意**：你也可以在 Bit 上检查这个应用。你可以在这里导入应用中任何特定的组件，而不需要关心其他部分。
 
 [**todo by geekrajat · Bit**](https://bit.dev/geekrajat/todo)
 
-With that out of the way, I can now get to the test phase of the app. Let’s install Cypress as a **dev dependency** to our app.
+有了这个，我现在可以进入应用的测试阶段。让我们安装 Cypress 作为应用的 `dev dependency`。
 
 ```
 $ yarn add cypress -D
 ```
 
-Now to open Cypress, all we have to do is run this command.
+现在打开 Cypress，我们所要做的就是运行这个命令。
 
 ```
 $ node_modules/.bin/cypress open
 ```
 
-This will open the Cypress CLI (or dashboard) on your system and also create a `cypress.json` file and a `cypress` folder in your app’s root directory. The `cypress` folder is where we will be writing our tests.
+这将在你的系统上打开 Cypress CLI （命令行界面）（或者仪表盘），并且在你应用的根目录创建一个 `cypress.json` 文件和 `cypress` 文件夹。 `cypress` 文件夹就是我们将要编写测试的地方。
 
-If you feel that the command to open Cypress is too long or hard to remember, you can go to `package.json` and create a new script:
+如果你觉得打开 Cypress 的命令太长或者太难记，你可以在 `package.json` 中创建一个新的脚本：
 
 ```
 "cypress": "cypress open"
 ```
 
-So if you run this script with NPM/Yarn, it should open the Cypress CLI. Inside the `cypress` folder, create a test file inside the `integration` folder. Unlike your normal test files where we name them something like `App.test.js`, in Cypress, the extension for the test file is `.spec.js`.
+因此，如果你使用 NPM/Yarn 运行这个脚本，应该会打开 Cypress CLI（命令行界面）。
 
 ```JavaScript
 describe ('First Test', () => {
@@ -80,17 +80,16 @@ describe ('First Test', () => {
 });
 ```
 
-This is a very simple test that is only check it `true` is equal to `true` (which it obviously is). If you open the Cypress CLI, you will see that the new test file will be automatically listed there. Clicking on it will run the test and open the dashboard in the browser where you will be able to see the test result.
+这是一个非常简单的测试，只检查 `true` 是否等于 `true` （明显是）。如果你打开 Cypress CLI（命令行界面），你会看到新的测试文件自动列在那里。点击测试文件将会运行测试并且在浏览器中打开仪表盘，你可以在其中看到测试结果。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Wh46Wi_P9a90q6nwwzKJ9w.png)
 
-This test had nothing to do with the ToDo app. It just showed how tests are run using Cypress. Let’s start writing test for our actual app now.
-
+这个测试与 ToDo 应用无关。我只是展示下如何使用 Cypress 运行测试。现在我们开始编写我们实际应用的测试。
 ---
 
-## Page Visits in Cypress
+## Cypress中的页面访问
 
-The first step in a Cypress test is to allow Cypress to visit the app in a browser. Let’s create a new test file and write the following code in it.
+Cypress 测试中的第一步是允许 Cypress 在浏览器中访问应用。让我们创建一个新的测试文件并在其中编写下面的代码。
 
 ```JavaScript
 describe ('Second Test', () => {
@@ -100,7 +99,7 @@ describe ('Second Test', () => {
 });
 ```
 
-In the above code, I have an object named `cy`. This is a global object and gives us access to all the commands present in the Cypress API. I am using `cy` to access the `visit` command. Inside this command I am just going to pass `'/'`. Back in the root directory, go to the `cypress.json` file and write this in there:
+在上面的代码中，我有一个叫 `cy` 的对象。这是一个全局对象，使我们可以访问所有在 Cypress API 中展示的命令。 我正在使用 `cy` 访问 `访问（visit）` 命令。在这个命令中，我将要传入 `'/'`。回到根目录，转到 `cypress.json` 文件，并在文件中写下这个：
 
 ```
 {
@@ -108,19 +107,19 @@ In the above code, I have an object named `cy`. This is a global object and give
 }
 ```
 
-Now, make sure that you are running the app using the `start` script. Next open the Cypress CLI and run this new test file. You will see the dashboard open in the browser, and inside the dashboard our app will run like this:
+现在，确保你使用 `start` 脚本运行应用。然后打开 Cypress CLI（命令行界面） 并运行这个新的测试文件。你会看到仪表盘在浏览器中打开，在仪表盘中我们的应用像这样运行：
 
 ![](https://cdn-images-1.medium.com/max/2400/1*kpUn1HNHVpKEXAUNPOg3CA.png)
 
-If you notice the command log on the left, you will see that Cypress is making an XHR call in order to get the app to open inside it.
+如果你注意到左边的命令日志，你会看到 Cypress 正在调用 XHR，以便让应用在其中打开。 
 
 ---
 
-## Check For Focus
+## 检查焦点
 
-Here, I am going to run a test that will check if the browser is focused on the input field when it loads.
+这里，我将要运行一个测试来检查加载后焦点是否在输入区域。
 
-Before we do this, make sure that the `input` field in src/components/TodoList/index.js has a `className` property of `new task` alongwith the `autoFocus` property.
+在我们做这个之前，确保在 src/components/TodoList/index.js 中的 `输入(input)` 区域有 `new task` 的 `className` 属性以及 `autoFocus` 属性。 
 
 ```
 <input
@@ -131,7 +130,7 @@ Before we do this, make sure that the `input` field in src/components/TodoList/i
 />
 ```
 
-Without these properties, our test will definitely fail. Create a new test file with the following code:
+没有这些属性，我们的测试肯定会失败。创建一个新的包含下面代码的测试文件：
 
 ```JavaScript
 describe ('Third Test', () => {
@@ -142,15 +141,15 @@ describe ('Third Test', () => {
 });
 ```
 
-First, I `visit` the app inside the Cypress Dashboard. Once the app opens inside the dashboard, I am checking if the `focused` element has a `class` named `new task`.
+首先，我在 Cypress 的仪表盘中 `访问（visit）` 应用。一旦应用在仪表盘中打开，我就检查 `focused` 元素是否有 `new task` `类（class）`。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*egylykedXJ2NpY0K0_t4Ag.png)
 
 ---
 
-## Testing Controlled Input
+## 测试受控输入
 
-In this test, I am going to check if the controlled input accepts text and has its value set appropriately.
+在这个测试中，我将会检查受控输入是否接收文本并且正确设置其值。
 
 ```JavaScript
 describe ('Third Test', () => {
@@ -162,37 +161,37 @@ describe ('Third Test', () => {
 });
 ```
 
-In this test, I first `visit` the app inside the Cypress Dashboard. Now I want Cypress to type something inside the input field. In order to find the correct selector for input field, click on the `Open Selector Playground` button and click on the input field.
+在这个测试中，我首先在 Cypress 仪表盘中 `访问（visit）` 应用。现在我想要 Cypress 在输入区域中输入一些内容。为了找到输入区域正确的选择器，点击 `Open Selector Playground` 按钮并且点击输入区域。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MfeHIpz2_SYwcUY0raMdaQ.gif)
 
-After getting the selector for the input field, I will make the cypress `type` some text inside it. To make sure Cypress has typed the correct text, I have used the `should` command.
+获得输入区域的选择器之后，我将会让 cypress 在里面输入一些文本。为了确保 Cypress 输入正确的文本，我使用了 `should` 命令。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pVSMDn4gdsvA3iWtucBhJg.png)
 
 ---
 
-## Running Tests without any UI
+## 运行不包含任何 UI 的测试
 
-The UI can make our app run slowly in case of large number of tests. The UI is anyway not going to be seen during Continuous Integration, so why load it at all?
+在包含大量测试的情况下， UI 会使我们的应用运行起来很慢。反正在持续集成期间看不到任何 UI ，那为什么还要加载它呢？
 
-To run our tests without launching Cypress UI, we first add a new script in `package.json` file.
+要在不启动任何 Cypress UI 的情况下运行我们的测试，我们首先在 `package.json` 文件中添加一个新的脚本。
 
 ```
 "cypress:all": "cypress run"
 ```
 
-By running this script, cypress will run all the tests and provide the results directly in the command terminal itself.
+通过运行这个脚本， cypress 将会运行所有的测试，并直接在命令终端本身提供结果。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5ohUyAlbFGgkmO7_K2hI0w.png)
 
-If you are worried that you did not actually get to see Cypress do the testing, Cypress will even record a video of the test that you can watch.
+如果你担心自己实际上没有看到 Cypress 进行测试， Cypress 甚至会录制你可以观看的测试视频。
 
 ---
 
-## Create End-to-End Tests in Cypress
+## 在 Cypress 中创建端到端的测试
 
-Cypress is most useful when we use it for integration tests. But an End-to-End test makes sure that nothing is missed in the entire app.
+当我们将它用于集成测试时，Cypress 最有用。但是端到端测试可以确保整个应用不遗漏任何内容。
 
 ```JavaScript
 describe ('Sixth Tests', () => {
@@ -205,19 +204,19 @@ describe ('Sixth Tests', () => {
 });
 ```
 
-Here, I have created an end-to-end test. I first get Cypress to `visit` the app. Then Cypress will get the input using its selector `.new`. Cypress will then type the text `New Todo`. Finally I will get Cypress to mock an `enter` action, hence creating a new Todo.
+这里，我创建了一个端到端测试。我首先让 Cypress `访问 （visit）` 该应用。然后 Cypress 会用它的 `.new` 选择器拿到输入。再然后 Cypress 将会输入文本 `New Todo`。最后我让 Cypress 模拟 `enter` 动作， 因此创造了一个新的 Todo。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*wcIDOda8sVB_ROYIlCEdww.gif)
 
 ---
 
-## What’s Next?
+## 下一步是什么？
 
-There are many other things that we can do with Cypress. For example, we can test variations of a feature, or we can access step-by-step logs of our tests. Plus, there is a whole lot of other things that Cypress can do with a Server-Side Rendered React App that I will try to cover in my next post.
+Cypress 还可以做许多其他事情。比如，我们可以一个特性的变种，或者我们可以访问测试的逐步日志。此外， Cypress可以在 React 服务端渲染应用做许多其他事情，我将会在下一篇文章中介绍这些内容。
 
 ---
 
-## Learn more
+## 学到更多
 
 * [**5 Tools For Faster Development In React**](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
 * [**Testing your React App with Puppeteer and Jest**](https://blog.bitsrc.io/testing-your-react-app-with-puppeteer-and-jest-c72b3dfcde59)
