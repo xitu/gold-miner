@@ -2,280 +2,280 @@
 > * 原文作者：[@gilbouhnick](https://twitter.com/GilBouhnick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[江五渣](http://jalan.space)
+> * 校对者：[mymmon](https://github.com/mymmon)，[shinichi4849](https://github.com/shinichi4849)
 
-# 84 cognitive biases you should exploit to design better products - Part 1
+# 利用 84 种认知偏见设计更好的产品 —— 第一部分
 
 ![](https://2.bp.blogspot.com/-JvOvFjdlVfE/XMhvVVa0R4I/AAAAAAAAPrM/KaVBcSKDdPgb1PLug4TlVOx07uY6YHShQCLcBGAs/s640/Cognitive%2Bbiases.png)
 
-This one is probably my longest post in my 15 years of blogging, and the result of occasional writing I've been doing in the past few months.
+这可能是 15 年来我博客中最长的文章，也是我过去几个月偶然创作的结果。
 
-**Cognitive biases** are systematic errors in our thinking process that affect our decisions making.
+**认知偏见**是我们思维过程中的系统性错误，它会影响我们的决策。
 
-As humans, we don’t always see things as they really are, or remember things as they really were. As a result, we create our own subjective social reality that affects our judgment.
+作为人类，我们并不总是能看到或记住事物的本来面目。因此，我们创造了自己的主观社会现实，这影响了我们的判断。
 
-> As **product people**, we **should** to take advantage of these biases to create better products.
+> 作为**产品人**，我们**应该**利用这些偏见来创造更好的产品。
 
-Not in a bad way of course, but in a way that will allow us to get a fair chance to prove that our products are worthy. Products can exploit common cognitive biases to establish trust with the users, improve conversion rates, increase their users’ engagement level, and as a result, improve retention rates.
+这当然不是一件坏事，而是让我们有机会证明我们产品的价值。产品可以利用常见的认知偏见与用户建立信任，提高转化率和用户参与度，从而提高用户保留率。
 
-Because at the end of the day, it’s all in the packaging, and being 100% accurate and concise is simply not enough to persuade the users to give the product a chance or to try out its’ new features.
+归根结底，就算一切都包装上，一个产品百分百如实简明的特征不足以说服用户去尝试使用其新功能。
 
-Users need more than that, and that’s exactly where **cognitive biases** can (and should) be used.
+用户需要的不止于此，这正是**认知偏见**可以（也应该）使用的地方。
 
-Now, I have to warn you: this list is freaking long; it includes over 80 different biases - from biases we need to **avoid**, to biases we can **leverage** to improve our product's onboarding process, increase conversion rates, improve retention and generate more revenue. 
+现在，我必须提醒你：这个清单太长了。它包括超过 80 种不同的偏见 —— 从我们需要**避免**的偏见到我们可以**利用**的偏见，通过这些偏见来优化产品引流过程，提高转化率和保留率，并创造更多的收益。
 
-Luckily for you, I created **over 40 visual UI/UX examples** that will make it easier for you to skim through the list. Oh no, don't thank me! I'm just doing my job...
+幸运的是，我创建了 40 多个可视化 UI/UX 示例来方便你的阅读。可别谢我！这是我该做的……
 
-### Who should read this list? 
+### 谁需要阅读这个清单？
 
-I believe **product managers**, **marketing managers**, and **entrepreneurs** will find this list extremely useful and relevant, but in fact, anyone who deals with **software development** might find something to relate to in this list. It helps everyone involved, understand the psychology behind users behavior and how to use it to build better products.
+我相信**产品经理**、**市场经理**和**企业家**会发现这个清单与自己的工作息息相关且非常有用。但事实上，任何从事**软件开发**的人都可能会在这个清单中发现一些相关的内容。它可以帮助所有相关人员了解用户行为背后的用户心理，以及如何利用用户心理来构建更好的产品。
 
-Oh, and just to be clear, I did not invent these biases, I just collected them whenever I needed them in my work, and if you happen to disagree with some of them or think they don’t work, that’s probably because you are unique (or you may suffer from the Dunning-Kruger Effect as described below 😉).
+哦，先说清楚，我没有发明这些偏见，我只是在工作需要时收集它们，如果你恰好不同意其中的一些观点，或者认为它们不起作用，那可能因为你与众不同（或者你可能会受到下文描述的达克效应的影响 😉）。
 
-OK, that turned out to be a pretty long opening. Let's begin:
+好吧，这是一个相当长的开场白。我们开始吧：
 
-## Superficial, are we?
+## 我们肤浅吗？
 
-The way the information is presented has a big impact on the way we think and make decisions.
+信息的呈现方式非常影响我们的思考和决策。
 
-Sure, we say we are not superficial, but when it comes to products, the packaging plays a significant role.
+当然，我们说我们并不肤浅，但一聊起产品，我们依旧认为包装非常重要。
 
-### 1. Streetlight Effect
+### 1. 路灯效应
 
-We tend to search for things where it's easiest to look.
+我们倾向于寻找最容易看到的东西。
 
-As the joke says: A policeman sees a drunk man searching for his wallet under a streetlight and asks: "_is this where you lost it?_", and the drunk replies, "_no, I lost it in the park, but this is where the light is_".
+如同一则笑话里所说：一个警察看到一个醉汉在路灯下寻找他的钱包，问道：“这就是你丢钱包的地方吗？”，醉汉回答：“不，我把它丢在公园里了，但这里有灯光。”
 
-**Product tip**: Whatever answers you are looking for: product, marketing, user satisfaction or anything else - dig deeper. Many answers are not where "the light" is, and analyzing data is often much harder than just collecting it.
+**产品技巧**：无论你在寻找什么答案：产品、营销、用户满意度或其他任何东西，都要深入挖掘。许多答案并不在“光”所在之处，分析数据往往比收集数据要困难得多。
 
-### 2. Perceived Value Bias
+### 2. 感知价值偏见
 
-We perceive the value of a product or service based on how it looks or how it’s served.
+我们根据产品、服务的外观或服务方式来感知其价值。
 
-As they say: it’s all in the packaging!
+正如他们所说：一切都在包装中！
 
-**Product tip**: Design is more important for the success of your product than you think. That extra space, wrong border color, and misaligned text - they all impact your conversion rates.
+**产品技巧**：设计对于产品成功的重要性超乎你的想象。多余的空白、不合适的边框颜色和错位的文本 —— 这些都会影响你的转化率。
 
-Make your UI design a priority.
+优先考虑你的 UI 设计。
 
-![Perceived Value Bias - we perceive the value of a product or service based on how they look](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "Perceived Value Bias - we perceive the value of a product or service based on how they look")
+![感知价值偏见 —— 我们根据产品或服务的外观来感知其价值](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "感知价值偏见 —— 我们根据产品或服务的外观来感知其价值")
 
-Small UI corrections make a big impact
+UI 的细微改动会产生巨大的影响。
 
-### 3. Picture Superiority Effect
+### 3. 图优效应
 
-Pictures and images are more likely to be remembered than (a thousand) words.
+图片和形象比长篇大论更容易被记住。
 
-**UI tip**: Always include images in your content. If you sell products or services - great visuals will improve your conversion rates.
+**UI 技巧**：始终在内容中包含图像。如果你销售产品或服务 —— 出色的视觉效果将提高你的转化率。
 
-### 4. Von Restorff Effect (Isolation Effect)
+### 4. 雷斯多夫效应（隔离效应）
 
-When multiple homogeneous objects are presented together, the object that differs from the rest is more likely to be remembered.
+当多个同类物品一起呈现时，与众不同的那个物品更容易被记住。
 
-**Design tip**: Make sure the CTA button stands out using a different style, size, color, and position.
+**设计技巧**：确保行为召唤按钮使用不同的样式、大小、颜色和位置。
 
-![Von Restorff Effect - Make sure your CTA button stands out](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "Von Restorff Effect - Make sure your CTA button stands out")
+![雷斯多夫效应 —— 确保你的行为召唤按钮突出显示](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "雷斯多夫效应 —— 确保你的行为召唤按钮突出显示")
 
-Make sure your CTA buttons stand out
+确保你的行为召唤按钮突出显示
 
-## More conservative than we think
+## 我们比想象中更保守
 
-We say we are innovative, we like to try new technologies, but when it comes to core instincts and quick decision making - we aim to minimize risks and stick with the things we're already familiar with.
+我们说自己是创新的，我们喜欢尝试新的技术，但当涉及到本能和快速决策时 —— 我们会倾向于选择低风险、已熟知的方式。
 
-### 5. Status Quo Bias
+### 5. 现状偏差
 
-We tend to prefer a status quo over a change.
+比起改变，我们倾向于保持现状。
 
-The current baseline is taken as a reference point, and any change from that baseline is perceived as a loss.
+将当前的基准线作为参考点，与该基准线相比的任何变化都被视为一种损失。
 
-### 6. Endowment Effect
+### 6. 禀赋效应
 
-Once we own something, we value it higher than we did before we owned it.
+一旦我们拥有了某样东西，我们就会比拥有它之前更加珍惜它。
 
-As a result, we are more likely to retain an object we own than to acquire that same object if we don’t own it.
+因此，面对同一个物品，我们倾向于继续保留已有的，而非再获取一个不属于我们的。
 
-Product tip: Free trials are the most common use of the endowment effect.
+产品技巧：免费试用是禀赋效应最常见的用途。
 
-Once users commit to a certain product and invest time in it (i.e. build their profile etc.) it’s harder for them to let go and not upgrade their plan when the trial ends.
+一旦用户专注于某一产品并投入时间（例如建立他们的个人资料等），他们就很难在试用期结束后收手。
 
-**Onboarding tip**: Find ways for people to play with your product before signing up.
+**拉新技巧**：在用户注册前，让用户找到使用产品的方法。
 
-**Retention tip**: When a customer leaves you, provide examples of all the good things they’ll lose.
+**留存技巧**：当用户离开时，展示他们将失去的所有好处。
 
-### 7. IKEA Effect
+### 7. 宜家效应
 
-We place a disproportionately high value on products we created (or worked hard for).
+我们对我们创造（或付出努力）的产品给予了过高的价值。
 
-**Product tip**: let your users do something as part of the onboarding process (not too hard, but rewarding) so they can connect with your product.
+**产品技巧**：让你的用户在引导流程中做点什么（不要太难，而且要给予相应的奖励），这样他们就可以和你的产品建立起联系。
 
-### 8. Mere-Exposure Effect (Familiarity Principle)
+### 8. 多看效应 (熟悉定律)
 
-We tend to develop a preference for things we are familiar with.
+我们倾向于偏爱我们熟悉的事物。
 
-**UI tip**: Stick with familiar UI concepts, behavior, terms, signs and icons.
+**UI 技巧**：坚持使用用户熟悉的 UI 概念、行为、术语、符号和图标。
 
-Be consistent across your marketing materials, website and product to optimize the funnel.
+在营销材料、网站和产品上保持一致来优化漏斗。
 
-**UX Writing tip**: Align with the industry jargon. Make sure your users feel comfortable.
+**用户体验设计技巧**：用词保持和行业术语一致。确保你的用户感到舒适。
 
-![Mere-Exposure Effect - Stick with the UI standards](https://alexdenk.eu/blogtouch?id=1EPMg0K3076dsm2utSSKlAa4wMT-ig6H- "Mere-Exposure Effect - Stick with the UI standards")
+![多看效应 —— 坚持 UI 标准](https://alexdenk.eu/blogtouch?id=1EPMg0K3076dsm2utSSKlAa4wMT-ig6H- "多看效应 —— 坚持 UI 标准")
 
-Stick with the standards 
+坚持标准
 
-### 9. Functional Fixedness
+### 9. 功能定势
 
-We tend to use objects in the traditional way they were used.
+我们倾向于用传统的方式使用事物。
 
-**Usability tip**: When your product challenges an existing usage tradition - it may cause some usability challenges. Keep them in mind and try to solve them in advance.
+**可用性技巧**：当你的产品尝试打破现有的使用方式时 —— 它的可用性会面临一些挑战。将它们牢记在心，并尝试提前解决。
 
-### 10. Law of Instrument (Maslow's Hammer)
+### 10. 工具规律（马斯洛的锤子）
 
-We tend to over-rely on tools we are familiar with, even in the presence of much better options.
+我们倾向于过度依赖我们熟悉的工具，即使我们有更好的选择。
 
-As they say: “_To a man with a hammer, everything looks like a nail_”
+俗话说得好：“对于一个拿着锤子的人来说，一切都像是钉子。”
 
-![To a man with a hammer - everything looks like a nail](https://alexdenk.eu/blogtouch?id=1NY8VZMcyZ9YBywLokF0wGnudItR-ZF_a "To a man with a hammer - everything looks like a nail")
+![对于一个拿着锤子的人来说 —— 一切都像是钉子](https://alexdenk.eu/blogtouch?id=1NY8VZMcyZ9YBywLokF0wGnudItR-ZF_a "对于一个拿着锤子的人来说 —— 一切都像是钉子")
 
-## Don’t call me a loser
+## 别叫我失败者
 
-We hate losing more than we like winning. The right message (at the right timing) might turn on this aversion and push us to make a biased decision.
+与其说我们喜欢成功，不如说我们讨厌失败。恰当的提示（出现在合适的时间）可能会激起这种反感的情绪，促使我们做出有偏见的决定。
 
-### 11. Loss Aversion
+### 11. 损失规避
 
-We prefer not to lose $100 than to win $100 because the value of losing something is higher than the value of getting it (which is pretty consistent with the Endowment effect described above).
+比起赢得 100 美元，我们更不愿意失去 100 美元。因为所失去东西的价值高于得到它的价值（这与上述的禀赋效应非常一致）。
 
-**UX Writing tip**: Use negative terms to express the potential loss: “stop wasting money”.
+**用户体验设计小窍门**：使用负面词语来表达潜在的损失：“不要浪费钱”。
 
-**Product tip**: Limit your special deals (inside and outside your product) to create a sense of urgency: “this exclusive deal ends in x hours”.
+**产品小窍门**：给你的特殊优惠加上限制 (在产品内外) 来制造紧迫感：“这个独家优惠将在 x 小时后结束”。
 
-![Loss Aversion - help your users avoid losses](https://alexdenk.eu/blogtouch?id=1-mEYTiDKektNhEGo5lOvz1w9oKrXYyoD "Loss Aversion - help your users avoid losses")
+![损失规避 —— 帮助你的用户规避损失](https://alexdenk.eu/blogtouch?id=1-mEYTiDKektNhEGo5lOvz1w9oKrXYyoD "损失规避 —— 帮助你的用户规避损失")
 
-Help your users avoid losses
+帮助你的用户规避损失
 
-### 12. Zero-Risk Bias:
+### 12. 零风险偏误
 
-We love certainty even if it's counterproductive.
+哪怕事与愿违，我们也还是青睐确定的事。
 
-**Product tip**: offer money-back guarantee and risk-free trials to reduce the level of risks and make your customers feel secure.
+**产品技巧**：提供退款保证和无风险试用来降低风险，让你的用户感到安全。
 
-![Zero-Risk Bias - Make sure all possible concerns are well addressed](https://alexdenk.eu/blogtouch?id=1pCFDq4W6nO7hR7HuCx9mIvqPiqu3y3Hm "Zero-Risk Bias - Make sure all possible concerns are well addressed")
+![零风险偏误 —— 确保所有可能的问题都能得到妥善解决](https://alexdenk.eu/blogtouch?id=1pCFDq4W6nO7hR7HuCx9mIvqPiqu3y3Hm "零风险偏误 —— 确保所有可能的问题都能得到妥善解决")
 
-Make sure all possible concerns are addressed
+确保所有可能的问题都能得到妥善解决
 
-### 13. Neglect of Probability
+### 13. 忽略可能性
 
-When we are under pressure, we fail to think of the probability of risks to happen.
+当我们面临压力时，我们无法考虑风险发生的可能性。
 
-As a result, minor risks might get overrated or neglected.
+因此，小风险可能会被高估或忽视。
 
-**Product rule**: during a conversion funnel - smallest uncertainties might cause the user to mistrust your product and stop. Make sure all details are clear and presented upfront.
+**产品规则**：在转化漏斗中 —— 哪怕是一丁点的不确定性都可能导致用户不信任你的产品，从而停止使用。确保所有细节都清晰可见。
 
-Especially the ones that involve money such as the total cost, discounts (if exists), additional costs.
+尤其是那些涉及金钱的信息细节，例如总成本、折扣（如果存在）、附加成本。
 
-![Neglect of Probability - Make sure to remove uncertainties in your product](https://alexdenk.eu/blogtouch?id=1tN2psH2vXjV6zgWBEjMouOFSi_A-ikxX "Neglect of Probability - Make sure to remove uncertainties in your product")
+![忽略可能性 —— 确保从你的产品中移除不确定性](https://alexdenk.eu/blogtouch?id=1tN2psH2vXjV6zgWBEjMouOFSi_A-ikxX "忽略可能性 —— 确保从你的产品中移除不确定性")
 
-Clear uncertainties proactively
+清除不确定性
 
-Read: [7 must-have ingredients for creating a true mobile experience](https://www.mobilespoon.net/2019/03/7-unique-ingredients-mobile-app.html)
+阅读：[创造真正移动体验的 7 个要素](https://www.mobilespoon.net/2019/03/7-unique-ingredients-mobile-app.html)
 
-### 14. Scarcity Effect
+### 14. 稀缺效应
 
-We place a higher value on an object that is scarce and a lower value on an object that is highly available.
+物以少者为贵，多者为贱。
 
-The fear of missing out (FOMO) makes us more vulnerable to temptation and impulse and pushes us to make rush decisions.
+错失恐惧症（FOMO）会让我们更容易受到诱惑和冲动的影响，迫使我们匆忙做出决定。
 
-**Product tip**: decorate your products and services with “limited time offers”, “limited quantity”, etc
+**产品技巧**：用“限时优惠”、“数量有限”来装饰你的产品和服务。
 
-Create the impression that many others are watching this item “right now!” and about to grab the last remaining items any minute.
+给人留下这样的印象：很多人都“正在！“盯着这个东西，并且随时都会买走最后剩下的物品。
 
-![Creating scarcity effect in UI](https://alexdenk.eu/blogtouch?id=15rOsh1pZOJQE_4Wb4LKFVxARJdwUpO7x "Creating scarcity effect in UI")
+![在 UI 上制造稀缺效应](https://alexdenk.eu/blogtouch?id=15rOsh1pZOJQE_4Wb4LKFVxARJdwUpO7x "在 UI 上制造稀缺效应")
 
-Or, as Booking.com would probably use it:
+或者，正如 Booking.com 可能会使用的那样：
 
-![Scarcity Effect - the drastic approach (as can be seen in well-known hotel booking apps](https://alexdenk.eu/blogtouch?id=1UmHrLdiyYGZhzvKGIw_etlOB-qAzveol "Scarcity Effect - the drastic approach (as can be seen in well-known hotel booking apps")
+![稀缺效应 —— 激进的方法（可以在著名酒店的预订应用程序中看到）](https://alexdenk.eu/blogtouch?id=1UmHrLdiyYGZhzvKGIw_etlOB-qAzveol "稀缺效应 —— 激进的方法（可以在著名酒店的预订应用程序中看到）")
 
-### 15. The Simulation Heuristic
+### 15. 反事实思维
 
-We determine the likelihood of an event to happen based on how easy it is to picture the event mentally. As a result, "near misses" are more disappointing than other failures.
+我们根据从心理上想象事件的容易程度来确定事件发生的可能性。因此，“未遂事件”比其他失败更令人失望。
 
-**Product tip**: Send a “You’re almost there!” email to users that almost completed an important action in your product, but eventually didn’t. Let them know they are very close, and that the opportunity is still waiting for them.
+**产品技巧**：当用户在你的产品中几乎要完成一个重要的操作、但最终没有完成时，向用户发送“你即将达成！”的邮件。让用户知道他们已经非常接近了，机会仍然在等待着他们。
 
-Read: [Is 'the fold' still a thing in today’s scrolling and skimming culture?](https://www.mobilespoon.net/2019/05/fold-still-thing-in-todays-scrolling.html)
+阅读：[当今滚动阅读的文化下还需要“首屏”吗？](https://www.mobilespoon.net/2019/05/fold-still-thing-in-todays-scrolling.html)
 
-## Disproportionately emotional
+## 比例过大的情绪化
 
-We try to make rational decisions, but sometimes our emotions are just stronger than we think.
+我们试图做出理性的决定，但有时我们的情绪比我们想象的更加强烈。
 
-### 16. Negativity Bias
+### 16. 负面偏差
 
-We give more weight to bad experiences than to good ones.
+比起好的经历，我们更重视糟糕的经历。
 
-1 Negative Emotion = 3 x Positive Emotion
+1 负面情绪 = 3 x 积极情绪
 
-![Negativity Bias: 1 negative emotion equals 3 positive ones](https://alexdenk.eu/blogtouch?id=1I8QoTHbfkB8tgLa0WMI1NRZpYM5hcZaF "Negativity Bias: 1 negative emotion equals 3 positive ones")
+![负面偏差: 1 个负面情绪等于 3 个积极情绪](https://alexdenk.eu/blogtouch?id=1I8QoTHbfkB8tgLa0WMI1NRZpYM5hcZaF "负面偏差: 1 个负面情绪等于 3 个积极情绪")
 
-**Product/marketing tip**: Illustrate your product value by the negative experience it resolves.
+**产品/营销技巧**：通过解决负面情绪来体现产品的价值。
 
-If you hope your story to make an impact or even go viral - try emotionally negative content.
+如果希望你的故事能产生影响，甚至像病毒一样传播开来 —— 尝试写一些负面情绪的内容。
 
-![Negativity Bias - Illustrate your product value by the negative experience it resolves.](https://alexdenk.eu/blogtouch?id=18_tQrUfk6v_Q6Y3IY4QrIfIvraHYRrXP "Negativity Bias - Illustrate your product value by the negative experience it resolves.")
+![负面偏差 —— 通过强调其解决的负面体验来说明产品的价值。](https://alexdenk.eu/blogtouch?id=18_tQrUfk6v_Q6Y3IY4QrIfIvraHYRrXP "负面偏差 —— 通过强调其解决的负面体验来说明产品的价值。")
 
-Illustrate the value of your product by emphasizing the negative experience it resolves 
+通过强调其解决的负面体验来说明产品的价值
 
-### 17. Base Rate Fallacy (Base Rate Neglect)
+### 17. 基本比率谬误（基本比率忽视）
 
-We tend to ignore general information and focus on specific cases.
+我们倾向于忽略一般信息并专注于具体案例。
 
-How to use: don’t just share cold information about your product. Instead, show testimonials, use cases, from people or companies others can relate with.
+使用方法：不要只分享那些冷冰冰的产品信息。相反地，展示其他相关用户或公司的评价、用例。
 
-**Work-related tip**: If you want to be more convincing - blend your quantified data with some individual stories. Use quantified data to support your opinion rationally. The specific examples will convey your message emotionally.
+**与工作相关的技巧**：如果你想更具有说服力 —— 把你的量化数据和一些个人故事相结合。用量化数据合理地支持你的观点。具体的例子会在情感上传递你想表达的信息。
 
-> If you want to be more convincing - blend your quantified data with some individual stories. Use quantified data to support your opinion rationally. The specific examples will convey your message emotionally.
+> 如果你想更具有说服力 —— 把你的量化数据和一些个人故事相结合。用量化数据合理地支持你的观点。具体的例子会在情感上传递你想表达的信息。
 
-### 18. Identifiable Victim Effect
+### 18. 可辨识受害者效应
 
-We tend to empathize more with a specific individual than with a large anonymous group.
+我们更倾向于同情一个特定的人，而不是一个庞大的匿名群体。
 
-**How to use it**: When you are telling the story of your product, use personal stories of individuals instead of generic statements.
+**如何使用它**：当你讲述产品故事时，使用个人的故事而不要用官方的陈述。
 
-![Identifiable Victim Effect - Use personal stories of individuals instead of generic statements. ](https://alexdenk.eu/blogtouch?id=1NZQMHBv_55MqCmi9ggDqCaLkDd31umgW "Identifiable Victim Effect - Use personal stories of individuals instead of generic statements. ")
+![可辨识受害者效应 —— 使用个人的故事而不要用官方的陈述。](https://alexdenk.eu/blogtouch?id=1NZQMHBv_55MqCmi9ggDqCaLkDd31umgW "可辨识受害者效应 —— 使用个人的故事而不要用官方的陈述。")
 
-Use personal stories instead of generic statements
+使用个人的故事而不要用官方的陈述
 
-### 19. Likability Effect
+### 19. 亲和力效应
 
-We like people who like the same things we do.
+我们喜欢那些和我们拥有相同喜好的人。
 
-As an example, if you were to tell me you’re a Transformers fan - I would immediately count you as a friend.
+举个例子，如果你告诉我你是变形金刚迷 —— 我会立刻把你当作朋友。
 
-**Marketing tip**: Show the strengths of your product by using testimonials of customers who faced similar issues as other potential customers.
+**营销技巧**：通过使用与其他潜在客户面临类似问题的客户推荐来展现产品的优势。
 
-Make sure to use the authentic language customers are using - say it in their own words.
+确保使用客户的真实语言 —— 用他们自己的话来表达。
 
-### 20. The Focusing Effect
+### 20. 聚焦效应
 
-We attribute too much weight to events of the past and translate them into future expectations.
+我们把过去的事情看得太重要，并将它们转变为对未来的期望。
 
-### 21. Impact Bias
+### 21. 影响力偏差
 
-We tend to overestimate the length or the intensity of future emotional states.
+我们倾向于高估未来情绪状态的持续时间或强度。
 
-It’s the “I’ll never get over her!” bias.
+这是“我永远无法忘了她！”的偏见。
 
-**Possible usage**: Paint a picture of the users without your product or service, and later, introduce your product with how it will solve those pains.
+**可能的用法**：描绘在没有你的产品或服务下用户会遭遇的问题，然后，介绍你的产品会如何解决这些问题。
 
-Read: [40 rules for designing and writing text in mobile apps](https://www.mobilespoon.net/2018/11/ux-writing-comprehensive-guide-for.html)
+阅读：[在移动应用程序中设计和编写文本的 40 条规则](https://www.mobilespoon.net/2018/11/ux-writing-comprehensive-guide-for.html)
 
 ---
 
-> * **[84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)**
-> * [84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
-> * [84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
+> * **[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
 
 ---
 
-Follow me on twitter [@gilbouhnick](https://twitter.com/GilBouhnick), or [subscribe to my newsletter](https://mailchi.mp/b9c664dfafa3/mobilespoon) to get some occasional posts directly to your inbox.
+在 Twitter 上关注我 [@gilbouhnick](https://twitter.com/GilBouhnick), 或 [订阅我的简报](https://mailchi.mp/b9c664dfafa3/mobilespoon)，可以将帖子直接发送到你的收件箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
