@@ -59,7 +59,7 @@
 
 优先考虑你的 UI 设计。
 
-![感知价值偏见 —— 我们根据产品或服务的外观来感知其价值](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "Perceived Value Bias - we perceive the value of a product or service based on how they look")
+![感知价值偏见 —— 我们根据产品或服务的外观来感知其价值](https://alexdenk.eu/blogtouch?id=1pmZD59AgSE4oMG0lffF4T2X_zvYhwB54 "感知价值偏见 —— 我们根据产品或服务的外观来感知其价值")
 
 UI 的细微改动会产生巨大的影响。
 
@@ -75,7 +75,7 @@ UI 的细微改动会产生巨大的影响。
 
 **设计技巧**：确保行为召唤按钮使用不同的样式、大小、颜色和位置。
 
-![雷斯多夫效应 —— 确保你的行为召唤按钮突出显示](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "Von Restorff Effect - Make sure your CTA button stands out")
+![雷斯多夫效应 —— 确保你的行为召唤按钮突出显示](https://alexdenk.eu/blogtouch?id=1EgHJ7W7O6bSIQihEHweO8Mp5IjI7a1gZ "雷斯多夫效应 —— 确保你的行为召唤按钮突出显示")
 
 确保你的行为召唤按钮突出显示
 
@@ -99,9 +99,9 @@ UI 的细微改动会产生巨大的影响。
 
 一旦用户专注于某一产品并投入时间（例如建立他们的个人资料等），他们就很难在试用期结束后收手。
 
-**拉新技巧**: 在用户注册前，让用户找到使用产品的方法。
+**拉新技巧**：在用户注册前，让用户找到使用产品的方法。
 
-**留存技巧**: 当用户离开时，展示他们将失去的所有好处。
+**留存技巧**：当用户离开时，展示他们将失去的所有好处。
 
 ### 7. 宜家效应
 
@@ -119,7 +119,7 @@ UI 的细微改动会产生巨大的影响。
 
 **用户体验设计技巧**：用词保持和行业术语一致。确保你的用户感到舒适。
 
-![多看效应 —— 坚持 UI 标准](https://alexdenk.eu/blogtouch?id=1EPMg0K3076dsm2utSSKlAa4wMT-ig6H- "Mere-Exposure Effect - Stick with the UI standards")
+![多看效应 —— 坚持 UI 标准](https://alexdenk.eu/blogtouch?id=1EPMg0K3076dsm2utSSKlAa4wMT-ig6H- "多看效应 —— 坚持 UI 标准")
 
 坚持标准
 
@@ -135,7 +135,7 @@ UI 的细微改动会产生巨大的影响。
 
 俗话说得好：“对于一个拿着锤子的人来说，一切都像是钉子。”
 
-![对于一个拿着锤子的人来说 —— 一切都像是钉子](https://alexdenk.eu/blogtouch?id=1NY8VZMcyZ9YBywLokF0wGnudItR-ZF_a "To a man with a hammer - everything looks like a nail")
+![对于一个拿着锤子的人来说 —— 一切都像是钉子](https://alexdenk.eu/blogtouch?id=1NY8VZMcyZ9YBywLokF0wGnudItR-ZF_a "对于一个拿着锤子的人来说 —— 一切都像是钉子")
 
 ## 别叫我失败者
 
@@ -149,7 +149,7 @@ UI 的细微改动会产生巨大的影响。
 
 **产品小窍门**：给你的特殊优惠加上限制 (在产品内外) 来制造紧迫感：“这个独家优惠将在 x 小时后结束”。
 
-![损失规避 —— 帮助你的用户规避损失](https://alexdenk.eu/blogtouch?id=1-mEYTiDKektNhEGo5lOvz1w9oKrXYyoD "Loss Aversion - help your users avoid losses")
+![损失规避 —— 帮助你的用户规避损失](https://alexdenk.eu/blogtouch?id=1-mEYTiDKektNhEGo5lOvz1w9oKrXYyoD "损失规避 —— 帮助你的用户规避损失")
 
 帮助你的用户规避损失
 
@@ -159,7 +159,7 @@ UI 的细微改动会产生巨大的影响。
 
 **产品技巧**：提供退款保证和无风险试用来降低风险，让你的用户感到安全。
 
-![零风险偏误 —— 确保所有可能的问题都能得到妥善解决](https://alexdenk.eu/blogtouch?id=1pCFDq4W6nO7hR7HuCx9mIvqPiqu3y3Hm "Zero-Risk Bias - Make sure all possible concerns are well addressed")
+![零风险偏误 —— 确保所有可能的问题都能得到妥善解决](https://alexdenk.eu/blogtouch?id=1pCFDq4W6nO7hR7HuCx9mIvqPiqu3y3Hm "零风险偏误 —— 确保所有可能的问题都能得到妥善解决")
 
 确保所有可能的问题都能得到妥善解决
 
@@ -173,7 +173,7 @@ UI 的细微改动会产生巨大的影响。
 
 尤其是那些涉及金钱的信息细节，例如总成本、折扣（如果存在）、附加成本。
 
-![忽略可能性 —— 确保从你的产品中移除不确定性](https://alexdenk.eu/blogtouch?id=1tN2psH2vXjV6zgWBEjMouOFSi_A-ikxX "Neglect of Probability - Make sure to remove uncertainties in your product")
+![忽略可能性 —— 确保从你的产品中移除不确定性](https://alexdenk.eu/blogtouch?id=1tN2psH2vXjV6zgWBEjMouOFSi_A-ikxX "忽略可能性 —— 确保从你的产品中移除不确定性")
 
 清除不确定性
 
@@ -189,11 +189,11 @@ UI 的细微改动会产生巨大的影响。
 
 给人留下这样的印象：很多人都“正在！“盯着这个东西，并且随时都会买走最后剩下的物品。
 
-![在 UI 上制造稀缺效应](https://alexdenk.eu/blogtouch?id=15rOsh1pZOJQE_4Wb4LKFVxARJdwUpO7x "Creating scarcity effect in UI")
+![在 UI 上制造稀缺效应](https://alexdenk.eu/blogtouch?id=15rOsh1pZOJQE_4Wb4LKFVxARJdwUpO7x "在 UI 上制造稀缺效应")
 
 或者，正如 Booking.com 可能会使用的那样：
 
-![稀缺效应 —— 激进的方法（可以在著名酒店的预订应用程序中看到）](https://alexdenk.eu/blogtouch?id=1UmHrLdiyYGZhzvKGIw_etlOB-qAzveol "Scarcity Effect - the drastic approach (as can be seen in well-known hotel booking apps")
+![稀缺效应 —— 激进的方法（可以在著名酒店的预订应用程序中看到）](https://alexdenk.eu/blogtouch?id=1UmHrLdiyYGZhzvKGIw_etlOB-qAzveol "稀缺效应 —— 激进的方法（可以在著名酒店的预订应用程序中看到）")
 
 ### 15. 反事实思维
 
@@ -213,13 +213,13 @@ UI 的细微改动会产生巨大的影响。
 
 1 负面情绪 = 3 x 积极情绪
 
-![负面偏差: 1 个负面情绪等于 3 个积极情绪](https://alexdenk.eu/blogtouch?id=1I8QoTHbfkB8tgLa0WMI1NRZpYM5hcZaF "Negativity Bias: 1 negative emotion equals 3 positive ones")
+![负面偏差: 1 个负面情绪等于 3 个积极情绪](https://alexdenk.eu/blogtouch?id=1I8QoTHbfkB8tgLa0WMI1NRZpYM5hcZaF "负面偏差: 1 个负面情绪等于 3 个积极情绪")
 
 **产品/营销技巧**：通过解决负面情绪来体现产品的价值。
 
 如果希望你的故事能产生影响，甚至像病毒一样传播开来 —— 尝试写一些负面情绪的内容。
 
-![负面偏差 —— 通过强调其解决的负面体验来说明产品的价值。](https://alexdenk.eu/blogtouch?id=18_tQrUfk6v_Q6Y3IY4QrIfIvraHYRrXP "Negativity Bias - Illustrate your product value by the negative experience it resolves.")
+![负面偏差 —— 通过强调其解决的负面体验来说明产品的价值。](https://alexdenk.eu/blogtouch?id=18_tQrUfk6v_Q6Y3IY4QrIfIvraHYRrXP "负面偏差 —— 通过强调其解决的负面体验来说明产品的价值。")
 
 通过强调其解决的负面体验来说明产品的价值
 
@@ -239,7 +239,7 @@ UI 的细微改动会产生巨大的影响。
 
 **如何使用它**：当你讲述产品故事时，使用个人的故事而不要用官方的陈述。
 
-![可辨识受害者效应 —— 使用个人的故事而不要用官方的陈述。](https://alexdenk.eu/blogtouch?id=1NZQMHBv_55MqCmi9ggDqCaLkDd31umgW "Identifiable Victim Effect - Use personal stories of individuals instead of generic statements. ")
+![可辨识受害者效应 —— 使用个人的故事而不要用官方的陈述。](https://alexdenk.eu/blogtouch?id=1NZQMHBv_55MqCmi9ggDqCaLkDd31umgW "可辨识受害者效应 —— 使用个人的故事而不要用官方的陈述。")
 
 使用个人的故事而不要用官方的陈述
 
@@ -249,7 +249,7 @@ UI 的细微改动会产生巨大的影响。
 
 举个例子，如果你告诉我你是变形金刚迷 —— 我会立刻把你当作朋友。
 
-**营销技巧：**：通过使用与其他潜在客户面临类似问题的客户推荐来展现产品的优势。
+**营销技巧**：通过使用与其他潜在客户面临类似问题的客户推荐来展现产品的优势。
 
 确保使用客户的真实语言 —— 用他们自己的话来表达。
 
