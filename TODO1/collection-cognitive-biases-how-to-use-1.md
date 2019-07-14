@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
 > * 译者：[江五渣](http://jalan.space)
-> * 校对者：
+> * 校对者：[mymmon](https://github.com/mymmon)，[shinichi4849](https://github.com/shinichi4849)
 
 # 利用 84 种认知偏见设计更好的产品 —— 第一部分
 
