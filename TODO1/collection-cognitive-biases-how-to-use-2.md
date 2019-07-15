@@ -72,34 +72,34 @@
 
 ![社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点](https://alexdenk.eu/blogtouch?id=1XaHyFHqHFmG-XlW_81CF8ZZlh24iVW7m "社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点")
 
-### 25. Authority Bias 
+### 25. 权威偏见
 
-We attribute greater accuracy to the opinion of an authority figure and be more influenced by that opinion (even if the subject is unrelated to the person’s authority).
+我们认为权威人士的建议的准确性更高，并且更容易受到该建议的影响（即使事物主体与该人物的权威性无关）。
 
-**How to use**: Build your authority by promoting your famous references:
+**如何使用**：通过宣传你的知名推荐来建立权威:
 
-1. Contact influencers and give them free access to your product or service
-2. Highlight famous customers or brands
-3. Testimonials by famous people and celebrities
-4. Use authority figures in your visuals and statements (i.e. doctors, professors, etc.)
+1. 联系有影响力的人，让他们免费使用你的产品或服务
+2. 突出显示知名客户或品牌
+3. 展示来自社会名流的评价
+4. 在产品展示和陈述中使用权威人物（例如医生、教授等）
 
-![Authority Bias - Promote your strongest references](https://alexdenk.eu/blogtouch?id=1nU53Zted9Esavdatf_VCeoiAFP1f8ps9 "Authority Bias - Promote your strongest references")
+![权威偏见 —— 宣传最有力的推荐](https://alexdenk.eu/blogtouch?id=1nU53Zted9Esavdatf_VCeoiAFP1f8ps9 "权威偏见 —— 宣传最有力的推荐")
 
-### 26. Bandwagon Effect (Herd Behavior)
+### 26. 从众效应（羊群效应）
 
-We often do things only because “everyone is doing it!” (Ketogenic diet anyone?).
+我们做某件事的原因经常只是因为“每个人都在做这件事！”（每个人都是生酮饮食者吗？）
 
-We change our opinions, according to the number of people thinking the same way.
+我们因为大多数人的想法而改变我们的观点。
 
-**Marketing tip**: convince that everyone is using your product and more people will indeed use it.
+**营销技巧**：使人们相信每个人都在使用你的产品，那么更多的人将会使用它。
 
-![Bandwagon Effect - Convince that others are using it](https://alexdenk.eu/blogtouch?id=1eV9oOXnVE-fNunuBH4vryKtwWQinGLoc)
+![从众效应 —— 使人们相信其他人都在使用它](https://alexdenk.eu/blogtouch?id=1eV9oOXnVE-fNunuBH4vryKtwWQinGLoc)
 
-And here’s another example for the using the Bandwagon Effect in your product:
+这是在产品中使用从众效应的另一个例子：
 
-![Bandwagon Effect - The “Most Popular” Example](https://alexdenk.eu/blogtouch?id=1rcPAf96BP_A9YfBa8AdFJJnd4eSRli9r "Bandwagon Effect - The “Most Popular” Example")
+![从众效应 —— “最流行”的案例](https://alexdenk.eu/blogtouch?id=1rcPAf96BP_A9YfBa8AdFJJnd4eSRli9r "从众效应 —— “最流行”的案例")
 
-The “Most Popular” example 
+“最流行”的案例
 
 ### 27. Belonging Bias
 
