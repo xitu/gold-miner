@@ -47,43 +47,43 @@ Google 道：
 
 ### Google Lighthouse 是什么?
 
-[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) 是一个开源项目，由一只来自 Google Chrome 优秀团队创建。Over the past couple of years, it has become **the** go-to free performance analysis tool.
+[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) 是一个开源项目，由一只来自 Google Chrome 优秀团队创建。在过去的几年里，它已将变成逐步免费的性能分析工具。
 
-Lighthouse uses Chrome’s Remote Debugging Protocol to read network request information, measure JavaScript performance, observe accessibility standards and measure user-focused timing metrics like [First Contentful Paint](https://calibreapp.com/docs/metrics/paint-based-metrics), [Time to Interactive](https://calibreapp.com/docs/metrics/time-to-interactive) or Speed Index.
+Lighthouse 使用 Chrome 的远程调试协议来获取网络请求的信息，计算 JavaScript 的性能, observe accessibility standards and 计算用户关注的时间指标，比如 [首次内容绘制时间 First Contentful Paint](https://calibreapp.com/docs/metrics/paint-based-metrics)、[可交互时间 Time to Interactive](https://calibreapp.com/docs/metrics/time-to-interactive) 或者速度指标。
 
-If you’re interested in a high-level overview of Lighthouse architecture, [read this guide](https://github.com/GoogleChrome/lighthouse/blob/master/docs/architecture.md) from the official repository.
+如果你想要深入了解 Lighthouse，请看来自官方的[指引](https://github.com/GoogleChrome/lighthouse/blob/master/docs/architecture.md)。
 
-### How Lighthouse calculates the Performance Score
+### Lighthouse 如何计算性能分数
 
-During performance tests, Lighthouse records many metrics focused on what a user sees and experiences.
+在性能测试中，Lighthouse 聚焦于用户看见和体验到的，记录了很多指标。
 
-There are 6 metrics used to create the overall performance score. They are:
+下面这 6 个指标构成了性能分数的大体部分。他们是：
 
-* Time to Interactive (TTI)
-* Speed Index
-* First Contentful Paint (FCP)
-* First CPU Idle
-* First Meaningful Paint (FMP)
-* Estimated Input Latency
+* 可交互时间 Time to Interactive (TTI)
+* 速度指标 Speed Index
+* 首次内容绘制时间 First Contentful Paint (FCP)
+* 首次 CPU 空闲时间 First CPU Idle
+* 首次有效绘制 First Meaningful Paint (FMP)
+* 预计输入延迟时间 Estimated Input Latency
 
-Lighthouse will apply a 0 – 100 scoring model to each of these metrics. This process works by obtaining mobile 75th and 95th percentiles from [HTTP Archive](https://httparchive.org/), then applying a `log normal` function.
+Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个过程会收集手机 75% 和 90% 的 [HTTP Archive](https://httparchive.org/)，之后使用 `普通的 log` 函数记录。
 
-[Following the algorithm and reference data used to calculate Time to Interactive](https://www.desmos.com/calculator/2t1ugwykrl), we can see that if a page managed to become “interactive” in 2.1 seconds, the Time to Interactive metric score would be 92/100.
+[根据算法和可交互时间的计算所得数据](https://www.desmos.com/calculator/2t1ugwykrl)，我们可以发现，如果一个页面在 2.1 秒内成为“可交互的”， 那么它的可交互时间分数指标是 92/100。
 
 ![](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/scoring-curve.png)
 
-Once each metric is scored, it’s assigned a weighting which is used as a modifier in calculating the overall performance score. The weightings are as follows:
+当每个指标完成计分后，它会被分配一个权重，用来调整页面整体的性能分数。权重规则如下：
 
-| Metric                    | Weighting |
+| 指标                       | 权重 |
 | ------------------------- | --------- |
-| Time to Interactive (TTI) | 5         |
-| Speed Index               | 4         |
-| First Contentful Paint    | 3         |
-| First CPU Idle            | 2         |
-| First Meaningful Paint    | 1         |
-| Estimated Input Latency   | 0         |
+| 可交互时间 (TTI) | 5        |
+| 速度指标                    | 4         |
+| 首次内容绘制时间             | 3         |
+| 首次 CPU 空闲时间            | 2         |
+| 首次有效绘制                 | 1         |
+| 预计输入延迟时间             | 0         |
 
-These weightings refer to the impact of each metric in regards to mobile user experience.
+这些权重取决于每个指标对移动端用户的体验的影响程度。
 
 In the future, this may also be enhanced by the inclusion of user-observed data from the Chrome User Experience Report dataset.
 
