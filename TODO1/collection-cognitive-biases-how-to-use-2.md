@@ -72,7 +72,7 @@
 
 ![社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点](https://alexdenk.eu/blogtouch?id=1XaHyFHqHFmG-XlW_81CF8ZZlh24iVW7m "社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点")
 
-### 25. 权威偏见
+### 25. 权威偏差
 
 我们认为权威人士的建议的准确性更高，并且更容易受到该建议的影响（即使事物主体与该人物的权威性无关）。
 
@@ -101,29 +101,29 @@
 
 “最流行”的案例
 
-### 27. Belonging Bias
+### 27. 归属偏差
 
-We are all social creatures and in order to feel part of a group we often act like other members in that group. If all the software developers are using Slack - you probably should too, right?
+我们都是社会性动物，为了成为群体的一部分，我们经常像群体内其他成员一样行事。如果所有开发人员都在使用 Slack —— 你可能也应该这样做，对吧？
 
-**Copy tip**: Use counters such as the number of customers, sessions, services provided, to convince the audience that your product is a standard.
+**模仿技巧**：使用数据，例如客户数量、会话数量、提供的服务次数，来说服群众你的产品是标配。
 
-### 28. In-group Bias
+### 28. 团体偏差
 
-Once we are part of a group, we almost “automatically” favor members in our group over members in other groups.
+一旦我们成为某个群体中的一部分，我们几乎会“自动”倾向于我们群体中的成员，而不是其他群体中的成员。
 
-In-group favoritism also means we help members of our group more often than those in other groups.
+群体内的偏袒也意味着我们更经常帮助自己群体内的成员。
 
-![In-group Bias](https://alexdenk.eu/blogtouch?id=1f8GJpWMyrUWOlAr1PctUrs-B2BLJlABp "In-group Bias")
+![团体偏差](https://alexdenk.eu/blogtouch?id=1f8GJpWMyrUWOlAr1PctUrs-B2BLJlABp "团体偏差")
 
-### 29. Not-Invented-Here Syndrome
+### 29. 非我所创
 
-We avoid using (or buying) already existing products, because of their external origins, and prefer to invent similar products internally.
+我们避免使用（或购买）已经存在的产品，因为它们来源于外部，我们更愿意自己发明类似的产品。
 
-Example: When your engineering team prefers to develop something from scratch instead of using an existing product.
+举个例子：当你的工程团队倾向于从零开始开发某些东西而不是使用现有产品时。
 
-**Management tip**: Tackle this phenomenon by complimenting your team. Their expertise is needed to develop the core of the product and their precious time cannot be “wasted” on side modules, or services that are already invented by others.
+**管理技巧**：通过赞美你的团队来遏制这一现象。他们的专业知识需要用来开发产品的核心功能，而不能“浪费”在“造轮子”上。
 
-Read: [11 lessons learned while trying to become a data-driven company](https://www.mobilespoon.net/2019/06/11-data-related-lessons-we-learned-hard.html)
+阅读：[在尝试成为数据驱动型公司中学到的 11 个经验教训](https://www.mobilespoon.net/2019/06/11-data-related-lessons-we-learned-hard.html)
 
 ### 30. Belief Bias
 
