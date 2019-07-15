@@ -1,3 +1,10 @@
+> * 原文地址：[16 DevTools tips and tricks every CSS developer needs to know](https://www.heartinternet.uk/blog/16-devtools-tips-and-tricks-every-css-developer-need-to-know/)
+> * 原文作者：[Louis Lazaris](https://www.heartinternet.uk/blog/author/louis-lazaris/) 
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/16-devtools-tips-and-tricks-every-css-developer-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/16-devtools-tips-and-tricks-every-css-developer-need-to-know.md)
+> * 译者：
+> * 校对者
+
 # 16 DevTools tips and tricks every CSS developer needs to know
 
 When it comes to debugging the front-end, if you're like many developers, you basically live in your browser's developer tools. But even after having worked in Chrome's developer tools for quite a few years, I still come across tips, tricks, and features that I haven't seen before.
