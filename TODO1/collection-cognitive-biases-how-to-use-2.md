@@ -2,75 +2,75 @@
 > * 原文作者：[@gilbouhnick](https://twitter.com/GilBouhnick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
-> * 译者：
+> * 译者：[江五渣](http://jalan.space)
 > * 校对者：
 
-# 84 cognitive biases you should exploit to design better products - Part 2
+# 利用 84 种认知偏见设计更好的产品 —— 第二部分
 
 ![](https://2.bp.blogspot.com/-JvOvFjdlVfE/XMhvVVa0R4I/AAAAAAAAPrM/KaVBcSKDdPgb1PLug4TlVOx07uY6YHShQCLcBGAs/s640/Cognitive%2Bbiases.png)
 
 ---
 
-> * [84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * **[84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
-> * [84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
+> * **[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
 
 ---
 
-## Easily convinced
+## 易于说服
 
-The art of persuasion! Here are some (cheap?) tricks to help you better convey your message.
+说服的艺术！这里有一些（廉价的？）技巧可以帮助你更好地传达你的信息。
 
-### 22. Anchoring Effect:
+### 22. 锚定效应：
 
-We tend to rely too heavily on the first piece of information presented to us (the “anchor”) to make subsequent decisions.
+我们会过分倾向于依赖取得的第一份讯息（“锚定”）来做出后续的决策。
 
-**How to use it**: The oldest trick in the book: you add a high price as the anchor and then cross it out and set a much lower price next to it.
+**如何使用**：书中最老的把戏是：把一个高的价格作为锚，然后划掉它，在它旁边设定一个更低的价格。
 
-Looking at how Steve Jobs used it with the iPad launch I must ask: did it really work?
+看看史蒂夫·乔布斯在 iPad 发布会上是如何使用它的，我必须问问：它真的有效吗？
 
-![Anchoring Effect - Performed by Apple's Steve Jobs during the iPad launch](https://alexdenk.eu/blogtouch?id=1hE2NPk3sVnoS3eO1RqMCAltJj9qtDTR2 "Anchoring Effect - Performed by Apple's Steve Jobs during the iPad launch")
+![锚定效应 —— 由苹果公司的斯蒂夫·乔布斯在 iPad 发布会上展示](https://alexdenk.eu/blogtouch?id=1hE2NPk3sVnoS3eO1RqMCAltJj9qtDTR2 "锚定效应 —— 由苹果公司的斯蒂夫·乔布斯在 iPad 发布会上展示")
 
-Steve Jobs demonstrating the Anchoring Effect
+史蒂夫·乔布斯展示了锚定效应
 
-Nevertheless, here’s my take on the Anchoring Effect: 
+然而，这是我对锚定效应的看法：
 
-![Anchoring Effect Example - The Mobile Spoon](https://alexdenk.eu/blogtouch?id=1p3CIvG4gYfBNWVzo04dM1K280ABxyah0 "Anchoring Effect Example - The Mobile Spoon")
+![锚定效应示例 —— The Mobile Spoon](https://alexdenk.eu/blogtouch?id=1p3CIvG4gYfBNWVzo04dM1K280ABxyah0 "锚定效应示例 —— The Mobile Spoon")
 
-Anchoring Effect in product pricing
+产品定价中的锚定效应
 
-### 23. Hyperbolic Discounting
+### 23. 双曲贴现
 
-We prefer an immediate payoff (even if it’s small) rather than a larger-later reward.
+我们更喜欢及时回报（尽管回报很小），而不是更大的后期回报。
 
-**Tip**: offer a small discount (or free shipment) for immediate purchase, rather than a larger discount for future purchases.
+**技巧**: 为立即支付提供小额折扣（或免费送货服务），而不是为将来的购买行为提供大额折扣。
 
-![Hyperbolic Discounting - Offer small discounts for an immediate purchase](https://alexdenk.eu/blogtouch?id=1qjNmi6biEjEB9hP8HexcdV_d410gyVKo "Hyperbolic Discounting - Offer small discounts for an immediate purchase")
+![双曲贴现 —— 为立即支付提供小额折扣](https://alexdenk.eu/blogtouch?id=1qjNmi6biEjEB9hP8HexcdV_d410gyVKo "双曲贴现 —— 为立即支付提供小额折扣")
 
-Offer small discounts for an immediate purchase 
+为立即支付提供小额折扣
 
-### 24. Social Proof
+### 24. 社会认同
 
-If people like us are using it - it must be good!
+如果像我们这样的人正在使用它 —— 它一定是好的！
 
-Right?
+这对吗?
 
-**How to use it**: Social proof is a great way to build trust. Here are a few examples that can be used in your website, [App Store product page](http://www.mobilespoon.net/2019/04/lessons-learned-app-store-screenshots.html "Lessons learned from our app store screenshots redesign - the mobile spoon"):
+**如何使用**：社会认同是建立信任的好方法。以下是一些可以在网站、[应用商店页](http://www.mobilespoon.net/2019/04/lessons-learned-app-store-screenshots.html "根据从应用商店截图中汲取的经验教训重新设计 - the mobile spoon") 中使用的示例:
 
-1. Well known customer logos
-2. Well known partner logos
-3. Testimonials and authentic recommendations by customers (from the target audience)
-4. Counters (number of customers, deals, sessions - whatever works)
-5. Media mentions and quotes (“as seen on…”)
-6. Awards by well-known organizations (i.e. hottest startup by WIRED)
-7. Certifications
-8. Links to case studies with actual numbers
+1. 知名客户标识
+2. 知名合作伙伴标识
+3. 客户的推荐（来自目标受众）
+4. 数据（客户数据、交易数据、会话数据 —— 来自任何工作方式）
+5. 媒体提及和引用（“如……”所见）
+6. 知名机构的赞扬（即 WIRED 最热门创业公司）
+7. 认证
+8. 与实际数字关联的研究案例
 
-![Social Proof - Build trust using counters and customer logos](https://alexdenk.eu/blogtouch?id=1Q9lHYKquIMlrpRXvWohwcC1Rp4-g7kiG "Social Proof - Build trust using counters and customer logos")
+![社会认同 —— 使用数据和客户标识建立信任](https://alexdenk.eu/blogtouch?id=1Q9lHYKquIMlrpRXvWohwcC1Rp4-g7kiG "社会认同 —— 使用数据和客户标识建立信任")
 
-Don’t say: “we are awesome because… “, and instead, let others testify:
+不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点：
 
-![Social Proof - Don’t say “We are awesome because…” and instead, let others testify](https://alexdenk.eu/blogtouch?id=1XaHyFHqHFmG-XlW_81CF8ZZlh24iVW7m "Social Proof - Don’t say “We are awesome because…” and instead, let others testify")
+![社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点](https://alexdenk.eu/blogtouch?id=1XaHyFHqHFmG-XlW_81CF8ZZlh24iVW7m "社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点")
 
 ### 25. Authority Bias 
 
@@ -294,9 +294,9 @@ We forget information that can be easily found online.
 
 ---
 
-> * [84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * **[84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
-> * [84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
+> * **[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
 
 ---
 
