@@ -62,11 +62,11 @@ React 和 Apollo 的组合获得了很多关注。此外 [Wronglyzorro](https://
 
 # 缓存
 
-我已经从 [SwiftOneSpeaks](https://www.reddit.com/user/SwiftOneSpeaks/) 和 [Scruffles360](https://www.reddit.com/user/scruffles360/) 中看到了很多很棒的和高赞的评论，这些评论已经在上文提到了。以下是他们讨论的缺乏缓存和潜在解决方案的问题。
+我已经从 [SwiftOneSpeaks](https://www.reddit.com/user/SwiftOneSpeaks/) 和 [Scruffles360](https://www.reddit.com/user/scruffles360/) 中看到了很多很棒的和高赞的评论，这些评论已经在上文提到了。以下是他们讨论的缓存问题和潜在解决方案。
 
 [SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (23) 写道：
 
-> 虽然您可以将 GraphQL 配置为以各种方式工作，但实际上它们始终是 POST 请求。这意味着所有依赖于 GET 幂等而 POST 不幂等这一约 定的浏览器缓存、CDN 缓存、代理缓存在默认情况下都将失效。一切都被视为新请求。虽然您可以在客户端做一些更智能的缓存，但这实际上只是在解决您自己产生（指引入GraphQL）的问题。
+> 虽然您可以将 GraphQL 配置为以各种方式工作，但实际上它们始终是 POST 请求。这意味着所有依赖于 GET 幂等而 POST 不幂等这一约定的浏览器缓存、CDN 缓存、代理缓存在默认情况下都将失效。一切都被视为新请求。虽然您可以在客户端自行做一些更智能的缓存，但这实际上只是在解决您自己产生（指引入GraphQL）的问题。
 
 [Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enokkzb/) (11) 回复:
 
