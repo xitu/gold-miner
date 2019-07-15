@@ -23,6 +23,8 @@ For JavaScript-based mobile applications, user experience benefits from attentio
 * The download size (on Android, APK size)
 * Memory utilization
 
+![](https://code.fb.com/wp-content/uploads/2019/07/hermesstats-1.jpg)
+
 Metrics for MatterMost React Native app running on a Google Pixel, similar in performance to popular phones in markets like India.
 
 Notably, our primary metrics are relatively insensitive to the engine’s CPU usage when executing JavaScript code. Focusing on these metrics leads to strategies and trade-offs that differ from most existing JavaScript engines today. Consequently, our team designed and built Hermes from scratch. As a result of this focus, our implementation provides substantial improvement for React Native applications. 
@@ -38,6 +40,8 @@ Mobile device limitations, such as smaller amounts of RAM and slower flash, led 
 Commonly, a JavaScript engine will parse the JavaScript source after it is loaded, generating bytecode. This step delays the start of JavaScript execution. To skip this step, Hermes uses an ahead-of-time compiler, which runs as part of the mobile application build process. As a result, more time can be spent optimizing the bytecode, so the bytecode is smaller and more efficient. Whole-program optimizations can be performed, such as function deduplication and string table packing.
 
 The bytecode is designed so that at runtime, it can be mapped into memory and interpreted without needing to eagerly read the entire file. Flash memory I/O adds significant latency on many medium and low-end mobile devices, so loading bytecode from flash only when needed and optimizing bytecode for size leads to significant TTI improvements. In addition, because the memory is mapped read-only and backed by a file, mobile operating systems that don’t swap, such as Android, can still evict these pages under memory pressure. This reduces out-of-memory process kills on memory constrained devices.
+
+![](https://code.fb.com/wp-content/uploads/2019/07/HermesOSSChainReact_blog_FIN_1-1.gif)
 
 Although compressed bytecode is a bit larger than compressed JavaScript source code, because Hermes’s native code size is smaller, Hermes decreases overall application size for Android React Native apps.
 
@@ -81,6 +85,8 @@ Hermes currently targets the ES6 specification, and we intend to keep current wi
 
 To provide a great debugging experience, we implemented support for Chrome remote debugging via the DevTools protocol. Until today, React Native has supported debugging using only an in-app proxy to run the application JavaScript code in Chrome. This support made it possible to debug apps, but not synchronous native calls in the React Native bridge. Support for the remote debugging protocol allows developers to attach to the Hermes engine running on their device and debug their applications natively, using the same engine as in production. We are also looking into implementing additional support for the Chrome DevTools protocol besides debugging.
 
+![](https://code.fb.com/wp-content/uploads/2019/07/Hermes-screenshot.jpg)
+
 ## Enabling improvements to React Native
 
 To ease migration efforts to Hermes and continue supporting JavaScriptCore on iOS, we built JSI, a lightweight API for embedding a JavaScript engine in a C++ application. This API has made it possible for React Native engineers to implement their own infrastructure improvements. JSI is used by Fabric, which allows for preemption of React Native rendering, and by TurboModules, which allow for lighter weight native modules that can be lazy loaded as needed by a React Native application.
@@ -89,7 +95,7 @@ React Native was our initial use case and has informed much of our work to date,
 
 No open source project can be successful without engagement from the community. We’d love for you to [try Hermes in your React Native apps](https://facebook.github.io/react-native/docs/hermes/), see how it works, and help us [make Hermes better for everyone](https://github.com/facebook/hermes/issues). We are especially interested in seeing which use cases the community finds useful, both inside and outside of React Native.
 
-**We’d like to thank Tzvetan Mikov, Will Holen, and the rest of the Hermes team for their work to build and open-source Hermes.**
+We’d like to thank Tzvetan Mikov, Will Holen, and the rest of the Hermes team for their work to build and open-source Hermes.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
