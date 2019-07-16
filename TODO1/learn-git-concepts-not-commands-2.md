@@ -54,7 +54,7 @@
 
 我们刚在 `change_alice` 分支上修改了 `Alice.txt`，我想说我们对所做的改变感到满意。
 
-如果你接着执行 `git checkout master` 命令，那么我们在其他分支上创建的`提交`无法在此看到为了将变更弄到 master 分支，我们需要 `合并` `change_alice` 分支**到** master 分支上。
+如果你接着执行 `git checkout master` 命令，那么我们在其他分支上创建的 `提交` 无法在此看到为了将变更弄到 master 分支，我们需要 `合并` `change_alice` 分支**到** master 分支上。
 
 注意：你总是将某个分支 `合并` 到当前分支。
 
@@ -66,11 +66,11 @@
 
 在下面的图表中，我们可以看到，这仅仅意味着：**master** 的指针会被简单地前进到 **change_alice** 分支存在的位置。
 
-第一张图显示了我们执行`合并`前的状态，**master** 指针仍处于它之前的提交位置，同时另一个分支上我们又做了一次提交。
+第一张图显示了我们执行 `合并` 前的状态，**master** 指针仍处于它之前的提交位置，同时另一个分支上我们又做了一次提交。
 
 [![快进合并之前](https://res.cloudinary.com/practicaldev/image/fetch/s--sS6CJ1Rg--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/before_ff_merge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--sS6CJ1Rg--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/before_ff_merge.png)
 
-第二张图显示了在我们`合并`之后发生了什么变化。
+第二张图显示了在我们 `合并` 之后发生了什么变化。
 
 [![快进合并之后](https://res.cloudinary.com/practicaldev/image/fetch/s--K_hHy8zA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/ff_merge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--K_hHy8zA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/ff_merge.png)
 
@@ -100,7 +100,7 @@
 
 让我们介绍一种**冲突**，然后**解决**它。
 
-创建一个新分支，然后将它`检出`。你知道如何操作，不过或许可以使用 `git checkout -b` 命令为你减少麻烦。
+创建一个新分支，然后将它 `检出`。你知道如何操作，不过或许可以使用 `git checkout -b` 命令为你减少麻烦。
 
 我把它命名为 `bobby_branch`。
 
@@ -108,9 +108,9 @@
 
 第一行应该仍然是 `Hi!! I'm Bob. I'm new here.`，把它修改成 `Hi!! I'm Bobby. I'm new here.`。
 
-暂存文件之后，在你再次`检出` master 分支之前，`提交`你的修改。在 master 分支我们将同一行修改为 `Hi!! I'm Bob. I've been here for a while now.`，接着`提交`该修改。
+暂存文件之后，在你再次 `检出` master 分支之前，`提交` 你的修改。在 master 分支我们将同一行修改为 `Hi!! I'm Bob. I've been here for a while now.`，接着 `提交` 该修改。
 
-现在是将新分支`合并`到 **master** 的时候了。
+现在是将新分支 `合并` 到 **master** 的时候了。
 
 如果你尝试这么做，你将会看到如下的结果：
 
@@ -152,23 +152,23 @@ Hi! I'm Bobby. I've been here for a while now.
 
 从这里开始，我们即将要做的事是适用于任何变更。
 
-在我们执行 `add Bob.txt` 添加文件后，**暂存**这些变更，然后执行`提交`。
+在我们执行 `add Bob.txt` 添加文件后，**暂存**这些变更，然后执行 `提交`。
 
 我们已经了解为解决冲突所做的变更提交，就是合并过程中一直都有的**合并提交**。
 
-实际上你应该意识到在解决冲突的过程中，如果你不想继续`合并`进程，你可以通过运行 `git merge --abort` 命令直接`中止`它。
+实际上你应该意识到在解决冲突的过程中，如果你不想继续 `合并` 进程，你可以通过运行 `git merge --abort` 命令直接 `中止` 它。
 
 ## 变基
 
-Git 有另外一种纯净方式来集成两个分支的变化，叫做`变基`。
+Git 有另外一种纯净方式来集成两个分支的变化，叫做 `变基`。
 
 我们始终记得一个分支总是基于另外一个分支。当你创建它时，从某处开始**分叉**。
 
 在我们简单的合并样例中，我们从 **master** 分支的某次提交创建了一个分支，然后提交了在 **master** 和 `change_alice` 分别提交了一些变更。
 
-当一个分支相对于它所基于的分支产生了改变，如果你想要把最新的变更整合到你当前的分支，`变基`提供了一种比`合并`更加纯净的处理方式。
+当一个分支相对于它所基于的分支产生了改变，如果你想要把最新的变更整合到你当前的分支，`变基` 提供了一种比 `合并` 更加纯净的处理方式。
 
-正如你所看到的，一次`合并`引入了一个**合并提交**，这个过程中两边的历史记录得到整合。
+正如你所看到的，一次 `合并` 引入了一个**合并提交**，这个过程中两边的历史记录得到整合。
 
 很容易看得出，变基仅仅改变了你的分支所依赖的历史记录点（创建分支所基于的某次提交）。
 
@@ -201,11 +201,11 @@ Applying: Add Patrick
 
 然后变基操作会将我们在 `add_patrick` 分支上做的每一个提交都应用到那个顶点上。
 
-为了更精确了解 **git** 把 **HEAD** 指针移回到分支的公共祖先过程中做了什么，可以把你在被操作的分支上每次提交都存储一部分（修改的`差异点`、提交信息、作者等等。）。
+为了更精确了解 **git** 把 **HEAD** 指针移回到分支的公共祖先过程中做了什么，可以把你在被操作的分支上每次提交都存储一部分（修改的 `差异点`、提交信息、作者等等。）。
 
-在上面操作之后，你正在变基的分支需要`检出`最新的提交，然后把存下的所有变化**以一条新提交**应用到前面的提交之上。
+在上面操作之后，你正在变基的分支需要 `检出` 最新的提交，然后把存下的所有变化**以一条新提交**应用到前面的提交之上。
 
-所以在我们原先简单的视图中，我们认为在`变基`之后，**0cfc1d2** 这次提交不再指向它历史中原公共祖先，而是指向 master 分支的顶部。
+所以在我们原先简单的视图中，我们认为在 `变基` 之后，**0cfc1d2** 这次提交不再指向它历史中原公共祖先，而是指向 master 分支的顶部。
 
 事实上，**0cfc1d2** 这次提交消失了，并且 `add_patrick` 分支以一个新提交 **0ccaba8** 为开始，它以 **master** 分支的最新提交作为公共祖先。
 
@@ -215,21 +215,21 @@ Applying: Add Patrick
 
 [![变基之后的历史记录](https://res.cloudinary.com/practicaldev/image/fetch/s--rV897ytW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/rebase.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--rV897ytW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/rebase.png)
 
-当你自己的工作分支是基于一个共享分支时，例如 **master** 分支，`变基`是一种相当强大的工具。
+当你自己的工作分支是基于一个共享分支时，例如 **master** 分支，`变基` 是一种相当强大的工具。
 
-使用变基操作，可以确保你能经常整合别人提交到 **master** 分支的变更和推送，并且保证一条干净线性的历史，在你的工作文本需要引入到共享分支时，这种历史可以做`快进合并`。
+使用变基操作，可以确保你能经常整合别人提交到 **master** 分支的变更和推送，并且保证一条干净线性的历史，在你的工作文本需要引入到共享分支时，这种历史可以做 `快进合并`。
 
 相对于包含**合并提交**的凌乱历史，保持历史的线性也可以使提交日志更加有用（试一下 `git log --graph`，或者看一下 **GitHub** 或 **GitLab** 的分支视图）。
 
 ### 解决冲突
 
-就像`合并`过程中，如果遇到两次提交修改了一个文件中同样位置的内容块，你可能会遇到冲突。
+就像 `合并` 过程中，如果遇到两次提交修改了一个文件中同样位置的内容块，你可能会遇到冲突。
 
-然而当你在`变基`过程中遇到冲突，你无需在额外的**合并提交**中解决它，却可以在当前正在执行的提交中解决它。
+然而当你在 `变基` 过程中遇到冲突，你无需在额外的**合并提交**中解决它，却可以在当前正在执行的提交中解决它。
 
 同样地，将你的修改直接以原始分支的当前状态为基准。
 
-事实上，你在`变基`过程中的解决冲突操作非常类似你在`合并`中的操作，所以如果你不太确定如何操作的话，可以回过头查看那个小节。
+事实上，你在 `变基` 过程中的解决冲突操作非常类似你在 `合并` 中的操作，所以如果你不太确定如何操作的话，可以回过头查看那个小节。
 
 唯一的区别在于，由于你没有引入**合并提交**，所以不需要你提交冲突解决结果。只需**添加**变更到**暂存环境**，然后执行 `git rebase --continue` 命令。冲突将会在刚刚执行的提交中得到解决。
 
@@ -249,7 +249,7 @@ Applying: Add Patrick
 
 [![许多工作环境](https://res.cloudinary.com/practicaldev/image/fetch/s--l88bjwDT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/many_dev_environments.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--l88bjwDT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/many_dev_environments.png)
 
-所有这些**工作环境**都有它们自己的**进行中**和**暂存的**变更，这些会在某个节点被`提交`到**本地仓库**，最终`推送`到**远程仓库**。
+所有这些**工作环境**都有它们自己的**进行中**和**暂存的**变更，这些会在某个节点被 `提交` 到**本地仓库**，最终 `推送` 到**远程仓库**。
 
 我们的例子中，我们会使用 **GitHub** 提供的在线工具，来模拟在我们工作时其他人对**远程仓库**生成的变更。
 
@@ -286,7 +286,7 @@ Your branch is behind 'origin/fetching_changes_sample' by 1 commit, and can be f
 
 由于我们没有**工作中**和**暂存**的变更，我们现在可以执行 `git pull` 命令来从**仓库**中拉取所有变更到我们的工作空间。
 
-> 拉取会隐式地 `获取` **远程仓库**，但有时候单独执行`获取`是个好选择。
+> 拉取会隐式地 `获取` **远程仓库**，但有时候单独执行 `获取` 是个好选择。
 > 例如，当你想要同步任何新的**远程**分支，或者你想在像 `origin/master` 这种分支上执行 `git rebase` 之前，需要确保你的**本地仓库**是最新的。
 
 [![拉取更新](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)
