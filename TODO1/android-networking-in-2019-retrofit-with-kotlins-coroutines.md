@@ -14,7 +14,7 @@
 
 #### 概念我都懂，给我看代码！！
 
-If you are experienced with Android Networking and have made networking calls before using Retrofit but probably with other libraries viz RxJava, instead of Kotlin Coroutines and just want to check out the implementation, [check out this code readme on Github.](https://github.com/navi25/RetrofitKotlinDeferred/)---如果你对 Android 网络有经验并且在使用 Retrofit 之前进行过网络调用，但可能使用的是 RxJava 而不是 Kotlin 协程，如果你只想看看实现方式，[请查看 Github 上的 readme 文件。](https://github.com/navi25/RetrofitKotlinDeferred/)
+如果你在 Android 网络方面有经验并且在使用 Retrofit 之前进行过网络调用，但可能使用的是 RxJava 而不是 Kotlin 协程，并且你只想看看实现方式，[请查看 Github 上的 readme 文件](https://github.com/navi25/RetrofitKotlinDeferred/)。
 
 #### Android 网络简述
 
@@ -156,7 +156,7 @@ object Apifactory{
 看一下我们在 ApiFactory.kt 文件中做了什么。
 
 * 首先，我们创建了一个用以给所有请求添加 api_key 参数的网络拦截器，名为 **authInterceptor** 。
-* 然后我们用 OkHttp 创建了一个网络客户端，并添加了 authInterceptor
+* 然后我们用 OkHttp 创建了一个网络客户端，并添加了 authInterceptor。
 * 接下来，我们用 Retrofit 将所有内容连接起来构建 Http 请求的构造器和处理器。此处我们加入了之前创建好的网络客户端、基础 URL、一个转换器和一个适配器工厂。
 首先是 MoshiConverter，用以辅助 JSON 解析并将响应的 JSON 转化为 Kotlin 数据类，如有需要，可进行选择性解析。
 第二个是 CoroutineCallAdaptor，它的类型是 Retorofit2 中的 `CallAdapter.Factory` ，用于处理 [Kotlin 协程中的](https://kotlinlang.org/docs/reference/coroutines.html) `Deferred`。
@@ -244,7 +244,7 @@ interface TmdbApi{
 **TmdbApi interface**  
 After creating data classes, we create TmdbApi interface whose reference we added in the retrofit builder in the earlier section. In this interface, we add all the required API calls with any query parameter if necessary. For example, for getting a movie by id we will add the following method to our interface:
 **TmdbApi 接口**
-创建了数据类后，我们创建 TmdbApi 接口，在前面的小节中我们已经将其引用添加至 retrofit 构建器中。在该接口中，我们添加了所有必需的 API 调用，如有必要，可以给这些调用添加任意参数。
+创建了数据类后，我们创建 TmdbApi 接口，在前面的小节中我们已经将其引用添加至 retrofit 构建器中。在该接口中，我们添加了所有必需的 API 调用，如有必要，可以给这些调用添加任意参数。例如，为了能够根据 id 获取一部电影，我们在接口中添加了如下方法：
 
 ```Kotlin
 interface TmdbApi{
@@ -258,16 +258,13 @@ interface TmdbApi{
 }
 ```
 
-## Finally making a Networking Call
 ## 最后，进行网络调用
 
 Next, we finally make a networking call to get the required data, we can make this call in DataRepository or in ViewModel or directly in Activity too.
-接着，我们最终发出一个请求以获取所需的数据，我们可以在 DataRepository 或者 ViewModel 或者直接在 Activity 中进行此调用。
+接着，我们最终发出一个用以获取所需数据的请求，我们可以在 DataRepository 或者 ViewModel 或者直接在 Activity 中进行此调用。
 
-#### Sealed Result Class
 #### 密封 Result 类
 
-Class to handle Network response. It either can be Success with the required data or Error with an exception.
 这是用来处理网络响应的类。它可能成功返回所需的数据，也可能发生异常而出错。
 
 ```Kotlin
@@ -277,8 +274,7 @@ sealed class Result<out T: Any> {
 }
 ```
 
-#### Building BaseRepository to handle safeApiCall
-#### 构建 BaseRepository 来处理 safeApiCall 调用
+#### 构建用来处理 safeApiCall 调用的 BaseRepository
 
 ```Kotlin
 open class BaseRepository{
@@ -310,7 +306,6 @@ open class BaseRepository{
 }
 ```
 
-#### Building MovieRepository
 #### 构建 MovieRepository
 
 ```Kotlin
@@ -331,7 +326,6 @@ class MovieRepository(private val api : TmdbApi) : BaseRepository() {
 }
 ```
 
-#### Creating the View Model to fetch data
 #### 创建 ViewModel 来获取数据
 
 ```Kotlin
@@ -362,7 +356,6 @@ class TmdbViewModel : ViewModel(){
 }
 ```
 
-#### Using ViewModel in Activity to Update UI
 #### 在 Activity 中使用 ViewModel 更新 UI
 
 ```Kotlin
@@ -388,10 +381,8 @@ class MovieActivity : AppCompatActivity(){
 }
 ```
 
-This is a basic introductory but full production level API calls on Android. [For more examples, visit here.](https://github.com/navi25/RetrofitKotlinDeferred)
 本文是 Android 中一个基础但却全面的产品级别的 API 调用的介绍。[更多示例，请访问此处](https://github.com/navi25/RetrofitKotlinDeferred)。
 
-Happy Coding!
 祝编码愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
