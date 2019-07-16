@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/locale-changes-and-the-androidviewmodel-antipattern.md](https://github.com/xitu/gold-miner/blob/master/TODO1/locale-changes-and-the-androidviewmodel-antipattern.md)
 > * 译者：[solerji](https://github.com/solerji)
-> * 校对者：
 
 # 区域设置更改和 AndroidViewModel 反面模式
 
