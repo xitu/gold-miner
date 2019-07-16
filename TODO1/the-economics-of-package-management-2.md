@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-2.md)
 > * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[LanceZhu](https://github.com/LanceZhu)
+> * 校对者：[LanceZhu](https://github.com/LanceZhu), [MarchYuanx](https://github.com/MarchYuanx)
 
 # npm 的经济风云 —— 下半部分
 
@@ -135,11 +135,11 @@ Entropic 还会备份你从遗留的包管理工具安装的所有依赖包。
 
 安装要求非常简单，我们已经将其容器化了。
 
-你可以用 GitHub 账号登录，且支持其他任何认证提供方。
+你可以用 GitHub 账号登录，且支持其他任何 OAuth 认证提供方。
 
 （在此处播放一小段 demo 视频）
 
-这个项目刚刚满月。我们还没准备好将它推到大众视线内，但对于喜欢尝鲜的开发者来说，它足以让你把玩。
+这个项目才刚刚满月。我们还没准备好将它推到大众视线内，但对于喜欢尝鲜的开发者来说，它足以让你把玩。
 
 Entropic 还有很多功能，并且我们列了长长的待开发功能清单。比如，Entropic 目前还缺个官方网站。如果感兴趣，你可以去 GitHub 仓库看看长长的一列 issue。
 
