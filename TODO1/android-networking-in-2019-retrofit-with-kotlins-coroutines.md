@@ -2,7 +2,7 @@
 > * 原文作者：[Navendra Jha](https://medium.com/@navendra)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/android-networking-in-2019-retrofit-with-kotlins-coroutines.md](https://github.com/xitu/gold-miner/blob/master/TODO1/android-networking-in-2019-retrofit-with-kotlins-coroutines.md)
-> * 译者：
+> * 译者：[feximin](https://github.com/Feximin)
 > * 校对者：
 
 # 2019 年的 Android 网络 —— Retrofit 与 Kotlin 协程
