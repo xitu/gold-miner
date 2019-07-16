@@ -4081,10 +4081,11 @@
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
 
-## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：44 当前积分：44 二零一九：8
+## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：50 当前积分：50 二零一九：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[微前端：未来前端开发的新趋势 — 第四部分](https://juejin.im/post/5d23394ae51d45778f076db0)|翻译|6|
 |[Git：透过命令学概念 —— 第一部分](https://juejin.im/post/5d0b3c7ce51d4577531381e3)|校对|2.5|
 |[JavaScript 中 JSON.stringify 的帕累托法则手册](https://juejin.im/post/5d11d8d4f265da1baf7cfa13)|校对|1|
 |[TypeScript 3.0: unknown 类型](https://juejin.im/post/5d04ac745188250a8b1fd203)|校对|1.5|
@@ -4869,10 +4870,11 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：44 当前积分：26
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：46 当前积分：28 二零一九：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自托管你的静态资源](https://juejin.im/post/5d258a77f265da1bca5202dc)|校对|2|
 |2019 年 3 月兑小黄鸭 1 个|减去积分|3|
 |[在 JSX 代码中可以加入 console.log 吗？](https://juejin.im/post/5c7b1a146fb9a049c8502caf)|校对|1|
 |[如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774)|校对|2|
@@ -6843,10 +6845,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：77 当前积分：22 二零一九：12
+## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：81 当前积分：26 二零一九：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 SVG 和 Vue.Js 构建动态树图](https://juejin.im/post/5d2806fb518825121c0058d8)|校对|4|
 |[从原型图到成品：步步深入 CSS 布局](https://juejin.im/post/5cebb52651882530be7b16a4)|校对|2|
 |[使用 closest() 函数获取正确的 DOM 元素](https://juejin.im/post/5cc811796fb9a0321c45e5e0)|校对|0.5|
 |[设计不会拯救世界](https://juejin.im/post/5c966aed5188252d9b3768df)|校对|2.5|
@@ -6875,10 +6878,11 @@
 |[让我们一起解决“this”难题  —  第二部分](https://juejin.im/post/5b6915cce51d4519962f0ca7)|校对|2|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2.5|
 
-## 译者：[xutaogit](https://github.com/xutaogit) 历史贡献积分：56 当前积分：49 二零一九：10
+## 译者：[xutaogit](https://github.com/xutaogit) 历史贡献积分：62 当前积分：55 二零一九：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[推广 PWA 安装的模式（移动端）](https://juejin.im/post/5d2746f1f265da1b7638cd1f)|翻译|6|
 |[Vue Router 实战手册](https://juejin.im/post/5c62ab05f265da2da83555a0)|翻译|5|
 |[我们采用 GraphQL 技术的经验：营销技术活动](https://juejin.im/post/5c4522566fb9a049d2365cd6)|翻译|5|
 |[程序构建系列教程简介](https://juejin.im/post/5c0dd214518825444758453a)|翻译|8|
@@ -7055,10 +7059,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：53.5 当前积分：18.5 二零一九：24.5
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：59.5 当前积分：24.5 二零一九：30.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 SVG 和 Vue.Js 构建动态树图](https://juejin.im/post/5d2806fb518825121c0058d8)|翻译|6|
 |[在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c)|翻译|3|
 |2019 年 3 月兑米家 LED 智能台灯 1 个|减去积分|35|
 |[HTTP/2 常见问题解答](https://juejin.im/post/5c5ada2e6fb9a049dd80be75)|翻译|8.5|
@@ -8012,10 +8017,11 @@
 |[💅 styled-components 背后的魔力](https://juejin.im/post/5c6d3a32e51d451804732248)|翻译|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[shixi-li](https://github.com/shixi-li) 历史贡献积分：57.5 当前积分：57.5 二零一九：57.5
+## 译者：[shixi-li](https://github.com/shixi-li) 历史贡献积分：59 当前积分：59 二零一九：59
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 SVG 和 Vue.Js 构建动态树图](https://juejin.im/post/5d2806fb518825121c0058d8)|校对|1.5|
 |[TypeScript 3.0: unknown 类型](https://juejin.im/post/5d04ac745188250a8b1fd203)|翻译|4|
 |[线性代数：矩阵基本运算](https://juejin.im/post/5d107b00f265da1b67211a21)|校对|1|
 |[浅析深度学习神经网络的卷积层](https://juejin.im/post/5ceeef01518825351e354747)|校对|2|
@@ -8677,10 +8683,11 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：9 当前积分：9 二零一九：9
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：10.5 当前积分：10.5 二零一九：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSS 思维模式](https://juejin.im/post/5d295380f265da1bab29dc13)|校对|1.5|
 |推荐英文文章一篇|奖励|1|
 |[Commit 提交指南](https://juejin.im/post/5ccf9e60f265da039c05659d)|校对|2.5|
 |推荐英文文章一篇|奖励|1|
@@ -8765,10 +8772,11 @@
 |[超快速的分析器（一）：优化扫描器](https://juejin.im/post/5ce8cbd9e51d4556bb4cd2f9)|校对|2|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[wuyanan](https://github.com/wuyanan) 历史贡献积分：4 当前积分：4 二零一九：4
+## 译者：[wuyanan](https://github.com/wuyanan) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[推广 PWA 安装的模式（移动端）](https://juejin.im/post/5d2746f1f265da1b7638cd1f)|校对|1.5|
 |[为什么我们要切换到 gRPC](https://juejin.im/post/5cff855c518825612f412526)|校对|1|
 |[用 React 的钩子函数和调试工具提升应用性能](https://juejin.im/post/5ce974d76fb9a07f0420250e)|校对|1|
 |[理解 WebView](https://juejin.im/post/5ce76ee4f265da1b8d15f700)|校对|2|
@@ -8780,10 +8788,11 @@
 |[理解 Vue.js 中的 Mixins](https://juejin.im/post/5cdeac5851882525f52cf662)|校对|1|
 |[为什么 HTML 中复选框样式难写 — 本文给你答案](https://juejin.im/post/5ce65dd36fb9a07ef06f6cd2)|翻译|4|
 
-## 译者：[twang1727](https://github.com/twang1727) 历史贡献积分：14.5 当前积分：14.5 二零一九：14.5
+## 译者：[twang1727](https://github.com/twang1727) 历史贡献积分：20 当前积分：20 二零一九：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自托管你的静态资源](https://juejin.im/post/5d258a77f265da1bca5202dc)|翻译|5.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|2|
 |[通过 Rust 学习解析器组合器 — 第二部分](https://juejin.im/post/5d04c3abe51d45775d516f7b)|校对|2|
 |[利用并行流渐进加载图片](https://juejin.im/post/5d044fe3f265da1bd04eddda)|翻译|4.5|
@@ -8807,12 +8816,14 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|校对|1.5|
-|[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|2|
+|[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|
 
-## 译者：[lgh757079506](https://github.com/lgh757079506) 历史贡献积分：8.5 当前积分：8.5 二零一九：8.5
+## 译者：[lgh757079506](https://github.com/lgh757079506) 历史贡献积分：11.5 当前积分：11.5 二零一九：11.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[推广 PWA 安装的模式（移动端）](https://juejin.im/post/5d2746f1f265da1b7638cd1f)|校对|1.5|
+|[微前端：未来前端开发的新趋势 — 第四部分](https://juejin.im/post/5d23394ae51d45778f076db0)|校对|1.5|
 |[微前端：未来前端开发的新趋势 — 第三部分](https://juejin.im/post/5d2755c4e51d45105e021360)|校对|1.5|
 |[微前端：未来前端开发的新趋势 — 第二部分](https://juejin.im/post/5d1a91c7e51d45775f516ab9)|校对|2|
 |[4 个 CSS 调色滤镜](https://juejin.im/post/5d039c36f265da1b60290096)|校对|1|
@@ -8849,10 +8860,11 @@
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|40|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
 
-## 译者：[smilemuffie](https://github.com/smilemuffie) 历史贡献积分：8 当前积分：8 二零一九：8
+## 译者：[smilemuffie](https://github.com/smilemuffie) 历史贡献积分：10 当前积分：10 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|校对|2|
 |[TypeScript 3.0: unknown 类型](https://juejin.im/post/5d04ac745188250a8b1fd203)|校对|1|
 |[JavaScript 简明代码 — 最佳实践](https://juejin.im/post/5d07abcc6fb9a07eda031858)|校对|1|
 |[13 种用于 DOM 操作的 JavaScript 方法](https://juejin.im/post/5cf65369f265da1bc94edad8)|校对|0.5|
@@ -8915,16 +8927,19 @@
 |[在 npm 上启用现在 JavaScript](https://juejin.im/post/5d15d64be51d4510a5033603)|校对|2|
 |[理解 React 中的高阶组件](https://juejin.im/post/5d1037966fb9a07ee4636de3)|校对|1|
 
-## 译者：[Jenniferyingni](https://github.com/Jenniferyingni) 历史贡献积分：4 当前积分：4 二零一九：4
+## 译者：[Jenniferyingni](https://github.com/Jenniferyingni) 历史贡献积分：1 当前积分：11 二零一九：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|翻译|7|
 |[微前端：未来前端开发的新趋势 — 第一部分](https://juejin.im/post/5d0e367b6fb9a07ebf4b781a)|翻译|4|
 
-## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
+## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：9 当前积分：9 二零一九：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSS 思维模式](https://juejin.im/post/5d295380f265da1bab29dc13)|翻译|3.5|
+|[自托管你的静态资源](https://juejin.im/post/5d258a77f265da1bca5202dc)|校对|2|
 |[设计师如何成长为 Leader？](https://juejin.im/post/5d172fca6fb9a07eda032c6f)|校对|2|
 |[在 npm 上启用现在 JavaScript](https://juejin.im/post/5d15d64be51d4510a5033603)|校对|1.5|
 
@@ -8932,6 +8947,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|校对|4|
 |[npm 的经济风云 —— 上半部分](https://juejin.im/post/5d146225e51d4556db694a4b)|校对|2|
 
 ## 译者：[krircc](https://github.com/krircc) 历史贡献积分：1 当前积分：1 二零一九：1
@@ -8946,10 +8962,12 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
 
-## 译者：[solerji](https://github.com/solerji) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[solerji](https://github.com/solerji) 历史贡献积分：4 当前积分：4 二零一九4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSS 思维模式](https://juejin.im/post/5d295380f265da1bab29dc13)|校对|0.5|
+|[微前端：未来前端开发的新趋势 — 第四部分](https://juejin.im/post/5d23394ae51d45778f076db0)|校对|1.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|2|
 
 ## 译者：[Amabel](https://github.com/Amabel) 历史贡献积分：1 当前积分：1 二零一九：1
