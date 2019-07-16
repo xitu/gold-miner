@@ -85,61 +85,61 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 
 这些权重取决于每个指标对移动端用户的体验的影响程度。
 
-In the future, this may also be enhanced by the inclusion of user-observed data from the Chrome User Experience Report dataset.
+在未来，这些权重能还包含由 Chrome 用户体验报告资料组提交的用户可见数据。
 
-You may be wondering how the weighting of each metric affects the overall performance score. The Lighthouse team [have created a useful Google Spreadsheet calculator](https://docs.google.com/spreadsheets/d/1Cxzhy5ecqJCucdf1M0iOzM8mIxNc7mmx107o5nj38Eo/edit#gid=0) explaining this process:
+你可能想知道究竟这每一个指标的权重是如何影响整体得分的。 Lighthouse 团队[打造了一款实用的 Google 电子表格计算器](https://docs.google.com/spreadsheets/d/1Cxzhy5ecqJCucdf1M0iOzM8mIxNc7mmx107o5nj38Eo/edit#gid=0)来阐述具体的过程：
 
-![Picture of a spreadsheet that can be used to calculate performance scores](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/weightings.png)
+![这张电子表格的截图可以用来计算性能分数](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/weightings.png)
 
-Using the example above, if we change (time to) interactive from 5 seconds to 17 seconds (the global average mobile TTI), our score drops to 56% (aka 56 out of 100).
+实用上面的例子，如果我们把可交互时间从 5 秒 变为 17 秒 (移动端全球平均 TTI)， 我们的分数会降低到 56% (也就是100分之中的56分)。
 
-Whereas, if we change First Contentful Paint to 17 seconds, we’d score 62%.
+然而，如果我们把首次内容绘制时间变为 17 秒，我们的分数会是 62%。
 
-**Time to Interactive (TTI) is the most impactful metric to your performance score.**
+**可交互时间 (TTI) 是对你的性能分数影响最大的指标。**
 
-Therefore, to receive a high PageSpeed score, you will **need** a speedy TTI measurement.
+因此，想要得到 PageSpeed 的高分，你**最需要**降低 TTI。
 
-### Moving the needle on TTI
+### 剑指 TTI
 
-At a high level, there are two significant factors that hugely influence TTI:
+深入来说，有两个极大影响 TTI 的重要因素：
 
-* The amount of JavaScript delivered to the page
-* The run time of JavaScript tasks on the main thread
+* 所有的 JavaScript 传输到页面的时间
+* 在主线程上的 JavaScript 运行时间
 
-Our [Time to Interactive](https://calibreapp.com/blog/time-to-interactive/) guide explains how TTI works in great detail, but if you’re looking for some quick no-research wins, we’d suggest:
+我们的[可交互时间](https://calibreapp.com/blog/time-to-interactive/)文章详细说明了 TTI 的工作原理，但如果你想要一些快速无脑的优化，我们建议：
 
-**Reducing the amount of JavaScript**
+**降低 JavaScript 总大小**
 
-Where possible, remove unused JavaScript code or focus on only delivering a script that will be run by the current page. That might mean removing old polyfills or replacing third-party libraries with smaller, more modern alternatives.
+尽可能地，移除无用的 JavaScript 代码，或者只传输当前页面会运行的代码。移除老的 polyfills 或者用更小的、更新的第三方库作为替代。
 
-It’s important to remember that [the cost of JavaScript](https://medium.com/reloading/javascript-start-up-performance-69200f43b201) is not only the time it takes to download it. The browser needs to decompress, parse, compile and eventually execute it, which takes non-trivial time, especially in mobile devices.
+你需要记住的是 [JavaScript 花费的](https://medium.com/reloading/javascript-start-up-performance-69200f43b201) 不仅仅是下载它所需要的时间。浏览器需要解压、解析、编译，最终执行，这些都会消耗不容忽视的时间，尤其在移动设备上。
 
-Effective measures for reducing the amount of script from your pages:
+能降低你的页面脚本总大小的有效措施是：
 
-* Review and remove polyfills that are no longer required for your audience.
-* Understand the cost of each third-party JavaScript library. Use [webpack-bundle-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer) or [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) to visualise the how large each library is.
-* Modern JavaScript tooling (like Webpack) can break-up large JavaScript applications into a series of small bundles that are automatically loaded as a user navigates. This approach is known as [code splitting](https://webpack.js.org/guides/code-splitting/) and is **extremely effective in improving TTI.**
-* [Service workers will cache the bytecode result of a parsed + compiled script](https://v8.dev/blog/code-caching-for-devs). If you’re able to make use of this, visitors will pay a one-time performance cost for parse and compilation, after that it’ll be mitigated by cache.
+* 检查并移除对你的用户来说不需要的 polyfills。
+* 搞清楚每一个第三方 JavaScript 库所花费的时间。 使用 [webpack-bundle-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer) 或者 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) 来可视化他们的大小。
+* 现代 JavaScript 工具（比如 webpack）可以把大的 JavaScript 应用分解成许多小的 bundles，随着用户的浏览动态加载。这就是所谓的 [code splitting](https://webpack.js.org/guides/code-splitting/) 这会 **极大地优化 TTI.**
+* [Service workers 会缓存解析和编译所得的字节码](https://v8.dev/blog/code-caching-for-devs)。如果善加利用这个特性，用户只需花费一次解析和编辑代码带来的时间损耗，在那之后结果就会被缓存优化。
 
-### Monitoring Time to Interactive
+### 监控可交互时间
 
-To successfully uncover significant differences in user experience, we suggest using a performance monitoring system (like [Calibre](https://calibreapp.com/)!) that allows for testing a minimum of two devices; a fast desktop and a low-mid range mobile phone.
+为了较好的展会用户体验的差异性，我们建议使用监控系统（比如 [Calibre](https://calibreapp.com/)!) 它可以测试两个设备的最小值；一个较快的桌面端和一个中等速度的移动端设备。
 
-That way, you’ll have the data for both the best and worst case of what your customers experience. It’s time to come to terms that your customers aren’t using the same powerful hardware as you.
+这样的话，你就可以得到你的用户可能体验到的最好和最差两种情况下的数据。是时候意识到，你的用户不会使用和你一样强大的设备了。
 
-### In-depth manual profiling
+### 深度剖析
 
-To get the best results in profiling JavaScript performance, test pages using intentionally slow mobile devices. If you have an old phone in a desk drawer, this is a great second-life for it.
+为了获得剖析 JavaScript 性能的最好结果，可以刻意使用较慢的移动设备来测试你的页面。如果你的抽屉里有一部老手机，你会发现一片心的天地。
 
-An excellent substitute for using a real device is to use Chrome DevTools hardware emulation mode. We’ve written an extensive [performance profiling guide](https://calibreapp.com/blog/react-performance-profiling-optimization/) to help you get started with runtime performance.
+作为使用真实设备测试的一个优秀替代方案，是使用 Chrome  DevTools 的硬件仿真模块、 我们写了一个详细的[性能剖析指南](https://calibreapp.com/blog/react-performance-profiling-optimization/)来帮你开始分析运行时的性能。
 
-## What about the other metrics?
+## 其他的指标呢?
 
-Speed Index, First Contentful Paint and First Meaningful Paint are all browser-paint based metrics. They’re influenced by similar factors and can often be improved at the same time.
+速度指标、首次内容绘制时间和首次有效绘制都是以浏览器绘制为基础的指标。他们的影响因素很相似，往往可以被同时优化。
 
-It’s objectively easier to improve these metrics as they are calculated by how quickly a page renders. Following the Lighthouse Performance audit rules closely will result in these metrics improving.
+很显然，相对来说提高这些指标会比较容易，因为他们是通过计算页面的渲染速度来计算的。遵从 Lighthouse 的性能考核准则很可能会提高这些指标。
 
-If you aren’t already preloading your fonts or optimising for critical requests, that is an excellent place to start a performance journey. Our article, [The Critical Request](https://calibreapp.com/blog/critical-request/), explains in great detail how the browser fetches and renders critical resources used to render your pages.
+如果你还没有预加载你的字体或者优化那些可优化的请求，那从这里入手会是一些很好的切入点。我们的文章，[可优化的请求](https://calibreapp.com/blog/critical-request/)，详细说明了浏览器针对你的页面是如何发起请求以及渲染可优化资源的。
 
 ## Tracking your progress and making meaningful improvements
 
