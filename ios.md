@@ -1,3 +1,5 @@
+* [使用 Swift 5 构建一个 iOS 移动端群聊应用程序](https://juejin.im/post/5d2c6e846fb9a07ebb0564ae) ([LucaslEliane](https://github.com/LucaslEliane) 翻译)
+* [Xcode 和 LLDB 高级调试教程：第 2 部分](https://juejin.im/post/5d2321eee51d454f71439d64) ([kirinzer](https://github.com/kirinzer) 翻译)
 * [Xcode 和 LLDB 高级调试教程：第 1 部分](https://juejin.im/post/5d0b246be51d4555e372a60b) ([kirinzer](https://github.com/kirinzer) 翻译)
 * [iOS 中的 File Provider 拓展](https://juejin.im/post/5cff5b0af265da1b8b2b54c7) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [用于 iOS 的 ML Kit 教程：识别图像中的文字](https://juejin.im/post/5cfe23af6fb9a07ee742d401) ([portandbridge](https://github.com/portandbridge) 翻译)
