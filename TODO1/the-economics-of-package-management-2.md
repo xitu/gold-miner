@@ -2,162 +2,162 @@
 > * 原文作者：[ceejbot](https://github.com/ceejbot)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[LanceZhu](https://github.com/LanceZhu), [MarchYuanx](https://github.com/MarchYuanx)
 
-# The economics of package management - 下半部分
+# npm 的经济风云 —— 下半部分
 
 > 如果你还没读过本系列的上半部分，请先阅读：
 > 
-> * [The economics of package management - 上半部分](https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-1.md)
+> * [npm 的经济风云 —— 上半部分](https://github.com/xitu/gold-miner/blob/master/TODO1/the-economics-of-package-management-1.md)
 
-For us, in the Javascript community, our commons includes the language spec itself. That's owned by an organization set up to allow all Javascript's stakeholders to cooperate to design and build it. TC39 has done pretty well by Javascript.
+而从 JavaScript 的层面来说，这门语言的规范就是属于我们开发者的公共资源的一部分。它由一个专门成立的组织所拥有，这个组织让所有的 JavaScript 利益相关者齐心协力来设计和构建这门语言。TC39 委员会在这方面功不可没。
 
-Another thing our commons includes is all our shared code. The source code for Babel, the source code for webpack, the source code for TypeScript, for React, for Angular— these and thousands of other packages make up our commons. The _registry that lists all of this shared code_ is also part of our commons. It’s how we share all that stuff with each other, how we find it. Another thing that’s part of our commons is the set of conventions we've evolved around that -- the ways we agree to name and update the things we share.
+所有的开源代码也都是我们的 JavaScript 公共资源的一部分。Babel 的源代码、webpack 的源代码、TypeScript 的源代码，以及 React、Angular —— 成千上万的开源包构成了属于我们的 JavaScript 公共资源。**维护着这些开源包的注册中心**同样也是 JavaScript 公共资源。有了注册中心，我们才能与彼此分享，才能便捷地找到需要的源码。JavaScript 公共资源还包括命名规范、更新方式等一系列开发约定。
 
-But all of _that_ is wholly owned by a VC-funded private company.
+但现在，**所有这些**，完完全全被一家由风投资金赞助的私人公司所掌握。
 
-Last year at this conference, Ryan Dahl, the inventor of node, came back to make another announcement. He talked about [design mistakes](~~https://tinyclouds.org/jsconf2018.pdf~~) he thought he’d made with node. Here's one.
+在去年的这个大会上，Node.js 的发明者 Ryan Dahl 再次登台演讲。他谈到了 Node.js 的[设计误区](https://tinyclouds.org/jsconf2018.pdf)。我在此引用他的一句话。
 
-> It’s unfortunate that there is a centralized (privately controlled even) repository for modules. --Ryan Dahl
+> 模块仓库的中心化（甚至由私人所控制）是一种不幸。—— Ryan Dahl
 
-When I first saw that, I was inclined to argue with Dahl about centralization, but I had to agree with his comment about private control.
+当我第一次听到这话，我很想就中心化的概念和 Dahl 辩论一番，但关于他说的私人控制的部分，我不得不信服。
 
-Let's talk about that for a moment. The list of shared Javascript packages we all made to share with each other is under private control. What does that mean?
+那我们就说说私人控制。我们赖以共享 JavaScript 代码的平台被私人掌控。其含义是什么？
 
-Policies for managing that list are controlled by a single company, not by the Javascript community. What gets a package removed? How are disputes among people using package names resolved? This is a controversial topic! Remember left-pad?
+npm 的经营策略由一个公司来掌舵，JavaScript 社区对此没有话语权。那删除代码包是出于何种原因？代码包的命名纠纷又该如何解决？这是一个有争议的话题！你们是否还记得 left-pad 事件？
 
-That was an incident where a package that was a dependency of a dependency vanished from the registry suddenly, breaking every CI build that depended on installing babel. Why did left-pad suddenly vanish? Buy me a drink and I'll tell you! But the unpublication policy didn't exist before this fight, and it's both making your life better and worse daily.
+该事件是这样的：left-pad 是另一个依赖包用到的依赖包，当它突然被从 npm 中删除，每一个依赖于安装 Babel 的持续集成构建软件（CI build）都崩溃了。那为何 left-pad 会突然被删除呢？请我吃饭我就告诉你！但这种不公开的经营策略此前并不存在，它让我们的生活越来越好，也越来越糟。
 
-Want package signing? Good luck! That feature doesn't make the company money, so you are unlikely to see it. Perhaps fear of a security incident, or major public outcry would get this done.
+想要包签名功能？那可有得盼了！这个功能又不能给公司创收，因此你们不太可能看到它上线。也许只有对安全事故的畏惧，或者公众强烈抗议才能促成这件事。
 
-Note here that I’m talking about the _package registry_ almost exclusively here. The registry is closed source, and the policies that regulate it are not open to our influence. The npm cli is open source, but it is unimportant. The API is open, for now, and the important building blocks you would need for writing your own cli are all open-source and not under npm’s control. About a third of you use another client to interact with npm, anyway. You can tell the cli doesn't matter because they seek out community participation in it.
+请注意，我在这里仅仅是在说**代码包注册中心**。注册中心是闭源的，其经营策略不受我们控制。npm 脚手架工具（cli）倒是开源的，但这不是重点。npm 的 API 暂时还是开源的，编写自己的脚手架所需的重要构建模块也都是开源的，不受 npm 公司的控制。不论如何，你们中有三分之一的人使用的是另外的客户端与 npm 交互。我们可以认为脚手架工具不牵涉其中，因为在这方面，npm 公司需要社区来出力。
 
-The API is open because the company chooses to allow it to be open. You don't have any control over that. You also can't influence that API and get changes that the ecosystem might benefit from.
+API 之所以开源，是因为该公司允许其开源。我们根本无法控制其一分一毫。我们无法对 API 产生影响，更无法做对 JavaScript 生态有益处的改变。
 
-The management of your commons is opaque to you. It will remain opaque to you until the company that owns it has a financial incentive to change that. You do not know what it's doing with your package data-- you cannot know. You have to trust it.
+我们碰不到对自己的资源的管理权。这种隔离状态会一直持续，直到该公司出于经济动机去改变它。你不知道他们会用你的代码包数据做什么 —— 你无从知晓。你只能选择信任这种不透明的管理机制。
 
-There can be no trust without accountability, and we as the Javascript community have no way to hold npm Inc accountable.
+但没有问责制就没有信任，而我们做为 Javascript 社区成员，是没有途径去向 npm 公司问责的。
 
-Now, when I was there, I could tell myself that I trusted myself and my team, and I knew our motivations were good. This was not a good answer and I was wrong to have relied on it.  You had no way to hold _me_ accountable and to test that I was trustworthy.
+当我还在 npm 团队中时，我可以告诉自己说，我信任我自己，信任我的团队，我知道我们的动机是为了社区好。而现在，这不是一个令人信服的答案，我一度对此的信赖是错误的。你们没有办法让我负责，也没有办法证明我是值得信赖的。
 
-Whoops.
+溜了溜了。
 
-So npm Inc is a private entity in control of our commons, and we are not. Does that make it evil? No. It doesn’t. It doesn’t make it good, either. The question of its benevolence is the wrong question to ask.
+总之，npm 公司是一家私有性质的实体，是它控制着我们的公共资源，而不是我们开发者。这就一定代表它是十恶不赦的吗？不，也不尽然。但也同样不尽然使其积德行善。问它是否仁慈可算是问错对象了。
 
-npm is not a benevolent institution. It *cannot* be one. The possibility of it being that ended the day its owner took VC funding instead of putting it into a foundation or some other form of community ownership. That decision turned npm into a *financial instrument*.
+npm 公司可不是慈善机构。可能性**为零**。即使有那么一点可能性，也早就在接受风投资金而没有把它交给一个基金会或其他形式的社区所有权的那一刻消亡殆尽。那一决策把 npm 变成了**金融工具**。
 
-I mean something very specific when I say that.
+我说这话，完完全全就是字面意思。
 
-Financial instruments are monetary contracts between parties. They're widgets that can be created and traded. npm Inc the company— the thing that owns our language ecosystem, the thing that owns the registry of packages, the collection of software packaged as the cli you use every day— that is a thing that might as well be a collection of pork bellies as far as its owners are concerned. They make contracts with each other and trade bits of it around.
+所谓金融工具，就是资本方之间的货币合同。它们是可以用来创造和交易的小工具。npm 公司 —— 掌控着 JavaScript 生态和你们每天都在使用的 npm 的角色 —— 在其所有者眼里不过是一堆能换钱的猪肚罢了。他们签一份份合同，做一笔笔生意。
 
-npm-the-company is a means for turning some money into more money for the people who own it.
+npm 公司就是其拥有者用来钱生钱的手段。
 
-It’s important to keep this in mind as you evaluate all your interactions with it, and as you evaluate all your interactions with the people who represent it. What this means is *look at incentives*. Money turns out to be the incentive for a lot of people in this story.
+当你使用 npm 时，当你和 npm 方面的人打交道时，你最好记住 npm 公司的性质。我的意思是**着眼于动机**。在这个故事里，多数人的动机归根结底都是金钱。
 
-Follow the money.
+一切向钱看。
 
-Companies don’t love you, not even ones that make things you like.
+商业公司并不爱你，即使是那些做出了让你爱不释手的产品的公司。
 
-That phrase is a marketing message, designed to get you to mistake the financial instrument for something that might be your friend. That marketing message has been pretty powerful over the years, hasn't it? You've got a cuddly wombat mascot and awesome stickers. Add a red emoji heart and you're on board, right?
+“Build amazing things”，这只是一句广告词，用来让你误认为金融工具是你的朋友。多年来，这句广告词一直非常见效，不是吗？给你一个抱抱熊吉祥物，给你一些好看的贴纸，再加上一颗红心表情符号，你就上钩了，对吧？
 
-npm does not love you. npm cannot love you. npm Inc is a Delaware corporation founded as a financial instrument intended to turn money into more money for a handful of men.
+npm 公司并不爱你。它不可能爱你。npm 公司只是特拉华州的一家公司，只是少数人的摇钱树罢了。
 
-When I initially knew I wanted to start talking about this problem in public, instead of in corners with friends, I thought I’d be fighting an uphill battle. The VC-funded package management company was beloved, and my work was one of the reasons why. I had participated in this whole rise to prominence— I made it possible. I stood on stage in front of you all and parroted that marketing message. What I meant by it was, "I, C J Silverio, feel affection for you all," and that was true.
+当我开始决定与其躲在角落和朋友窃窃私语，不如在大庭广众之下振臂高呼时，我就知道我要打一场艰苦的战役。npm 这家风投资金赞助的公司大受欢迎，我的犬马之劳也是原因之一。我参与了它的整个崛起过程 —— 我也贡献了力量。我也曾站在舞台上，面对你们大家，鹦鹉学舌地说出那句广告词。我也曾说“我，C J Silverio，爱你们所有人。”那是我的肺腑之言。
 
-Now I don't think anybody can stand up in front of you and say "npm loves you" without being yelled at. npm has burned all of its goodwill over the last few months. It didn't have to happen-- it was a choice made by the people who run the company. They made that choice, though, and they doubled-down on it, and here we are.
+而现在，我不认为有人在你们面前大言不惭地说出 “npm 爱你们”还能够不被骂。过去几个月，npm 已经耗尽了所有的美誉。其实本不该如此 —— 都是公司运作者的决策导致的。他们做出了决策，而且押下双倍赌注，于是乎，我们走到了这般田地。
 
-How did that happen? Why did the cuddly wombat get set on fire? Let's move our story forward, shall we?
+这一切是怎么发生的？为什么抱抱熊开始黑化？让我们接着讲故事吧，好吗？
 
-We pick up in, oh, I don’t know, 2018. You all have been drinking from the firehose of Javascript packages which have been, for you, free. You do not think about or care about where they come from, or who is paying for the servers. You just type `install` and the packages arrive.
+我们从，呃，2018 年这个时间点拾起。你们大家一直从免费的 JavaScript 开源包中受益。但你们从没想过，或者在乎过这些开源包是从哪里来的，是谁在为这些服务买单。你们只需敲出 `install` 命令，你们要的代码包就自动上门了。
 
-But the bandwidth costs money, and somebody pays for it.
+但带宽是要花钱的，总得有人来出这笔钱。
 
-In this case, npm had been spending the dollars given to it by its venture capital investors to pay for the servers and the bandwidth. And eventually the inevitable consequences of taking VC money started to knock on the door and clear their throats. *Ahem. Remember us? We want our money.* We've established that VC-funded companies are financial instruments. They have to start making that famous 10x return on investment. They have to promise somehow that their owners are going to end up winners. This isn’t always about being profitable, but if you don’t manage to do that you have to tell a persuasive enough story that you can raise more money and keep the scheme going.
+就这样，npm 花着风投资本家给的钱来购买服务器和带宽。最终报应不爽，把风投资金纳入囊中时种下的恶果就像堵在门口的债主一样开始敲门，清清嗓子准备连本带利地索要回去。“咳咳，还认识我们吗？把我们的钱还给我们。” 我们终于看清，靠风投资金赞助公司只是赚钱工具罢了。资本家们终会无所不用其极以获取 10 倍收益。他们每做一笔投资都要确保金主是最后的赢家。这种生意并不总是只赚不亏，但如果你不能保证保本，那你得有说服力足够的故事让金主相信你能确保赚钱的机器能一直运转下去。
 
-There is absolutely nothing wrong with taking VC money inherently, in my opinion. Many ventures have goals well-aligned with the goals of VC money, and not all VC money is shaped alike. Some funds play long games. Funds like Futureshape are explicitly interested in bettering the world. But mostly, VC money is interested in returning the investment.  That’s where the incentives point: make money, be sold to new owners for enough money to return the investment ten times over. Grow fast. Go big or go home.
+从本质上说，我认为接受风险投资并没有错。很多拉投资的企业的目标都和投资方的目标相匹配，并且并非所有的投资方都是一样的。有些投资方喜欢放长线钓大鱼。像 Futureshape 这样的投资方是很明确想让世界变得更美好。但更多的投资方只看重收益。这就是他们的出发点：赚钱，把羊养肥卖给新主顾，赚个十倍利润。你拿了风投资金，就要迅速增长。要么做大，要么作古。
 
-Remember that npm Inc’s obligations are to the people who own it, not the people who donated their work toward its dragon hoard of packages.
+记住，npm 公司里是金主说了算，而不是那些为开源宝库添砖加瓦的开发者。
 
-So npm Inc has to make money, or failing that tell a story about making more money so it can raise money to spend on making money.
+所以 npm 公司必须要盈利，否则就得忽悠更多的投资来拆东墙补西墙。
 
-The ex-Yahoo employee who thought that sharing the Yahoo package manager with the world was a pretty neat idea was right about that, but he didn’t have many ideas beyond that, and it turns out running companies is a lot of work. So in 2018 he hired a new CEO to do that work for him, and well, here we go. The first thing this new CEO wanted to do was change npm’s culture— you know, the thing it had exported as its marketing message. The sustainable, compassionate culture was the first thing to go when this new guy arrived.
+那位觉得把 ypm 开源出来是个好点子的前 Yahoo 员工，他的想法没错，但他没有深思熟虑过开源之后的发展，事实证明，运营公司可不单单有个好点子就行了，还需要很多血汗。因此在 2018 年，他新雇了一位 CEO 为他运营公司，于是乎，这下可有得折腾了。新 CEO 上任的第一把火就是改变了 npm 的文化 —— 你懂的，就是那套一直做为广告语输出的文化。这位新领导就位后，率先踢开的就是宽容、仁慈的 npm 文化。
 
-npm’s PR troubles as a result are probably known to you now. We’re a community that enjoys our drama. It's possible that if a saint were in charge, I wouldn't be standing here. But maybe I would be, because even a decent human being in that spot has a big problem to solve.
+结果搞得 npm 的公关问题路人皆知。我们真是一个爱看热闹的社区。如果管事的是一位圣人，那可能我也不会站在这里。但可能我还是会，因为即使一位正派的领导者处在这种位置，也有很大的问题急需解决。
 
-Here’s the problem.
+这就是问题所在。
 
-The public registry — the place where all your packages are indexed and stored— that’s the part you care about. That’s the part that is an enormous drain on npm’s budget _and_ simultaneously its value to investors. It controls all Javascript development, because all Javascript development proxies through it willingly. That data — the data gathered from your usage of it— is the valuable part. Every package-lock file npm has ever seen is sitting in an s3 bucket somewhere, chock-full of interesting data nuggets about what you've been up to. It’s also a perverse incentive influencing API design. The company has no incentive to reduce the number of times a client has to phone home when installing, because those calls homeward generate valuable data.
+公开的注册中心 —— 所有开源包被索引和存储的地方 —— 是大家所关心的部分。这个注册中心极大地消耗着 npm 的预算，**同时**，这也是投资方觉得有利可图的地方。它控制着所有 JavaScript 开发项目，因为所有 JavaScript 开发项目都自愿以其为代理。数据 —— 用户的使用数据 —— 也是有利可图的地方。每一个 package-lock 文件都存放在亚马逊云存储中的某处，满载着关于用户偏好的有趣数据块。这也是影响 API 设计的强有力因素。npm 公司没理由降低客户端在安装代码包时向服务器发出请求的次数，因为这些请求都能产生有价值的数据。
 
-The registry is a drain on npm. The work of keeping up with continuous near-exponential growth is itself continuous. During my time there this work occupied most of a very tiny engineering team. Why was the team tiny? Well, npm had no money because it did a pretty bad job of telling its story to new investors and raising more money. Or the story it had to tell was just bad and potential investors knew that. I’m not sure which it was. But either way, npm had enough money to keep the free Javascript flowing to you, but not to make decent products to sell. Eventually the VC bill was going to come due. Eventually they’d have to show growth or die.
+注册中心是 npm 的负担。想要跟上持续的、近乎指数级的增长，就要付出同等的工作量。我在 npm 任职时，这种繁重的工作占用了小小的开发团队几乎全部的时间。为何开发团队这么小呢？那时我们没有资金，无法扩大规模。或许因为那时的 npm 团队不擅长向投资方讲动听的故事，或许那些潜在的投资者也知道我们拿不出金光闪闪的赚钱方案。我不太确定到底是哪个原因。但总之，团队的资金只够维持免费的 JavaScript 服务，但无力做出像样的产品来卖钱。终于，创业资金即将给到期。终于，到了一个不成功便成仁的关口。
 
-Follow the money.
+一切向钱看。
 
-So we’re in this situation we’re in now, where npm Inc hasn’t fully had its reckoning with its true destiny as a way to make money for some people who aren’t Javascript programmers.  Maybe it's going to show growth. Maybe it's going to die. Maybe it's going to do something none of us like to make money, leveraging that enormous data trove that is their view of the development habits of every single one of you.
+因此，我们的处境变成了现在这样，npm 公司还没有完全认清自己作为某些人的赚钱工具的命运，而这些人并不是 JavaScript 开发者。也许它会成功，也许它会破产。也许它会用我们都讨厌的方式赚钱，从你们每个用户的大量宝贵数据中榨取利润。
 
-We are all aware now that npm doesn't love us, and it doesn't love its employees either. It has no more good will from us, but we are all still installing packages through it. I,  for one, find this situation uneasy. I suspect it won't last very long.
+现在，我们都清楚 npm 并不爱我们，也不爱它的员工。我们对其怒目而视，却同时仍在用它安装代码包。我，个人来说，对这种现状不能安之若素。我怀疑这种现状不会长久。
 
-Our story didn't have to go this way. Our major actors could have chosen differently, right up to and including their choices in recent months. But here we are. Our commons are in the hands of something I do not believe we can trust, because its incentives are not aligned with what we, as a community of Javascript programmers, need from it.
+其实剧情不必是这种走向。在近几个月及之前的过程中，各位主演本可以选择不同的道路。但现在却变成了这样。掌握着我们的公共资源的角色，是不值得我们信任的角色，因为其初衷并不与我们这些 JavaScript 社区成员的诉求相合。
 
-What are we going to do about it?
+那我们如何应对这种局面呢？
 
-One answer is, we do nothing. Say we can't do anything. We made our community decision in 2013 and we're stuck with it. We wait for npm Inc to fail and when it does, we have a nasty couple of months replacing the registry.
+有一种答案是按兵不动，因为我们反正也无计可施。我们的社区在 2013 年时就已经做出了抉择，并且一条道走到黑。我们只能寄希望于 npm 公司的倒闭，等它真倒闭了，我们再用难熬的几个月时间来找到替代品。
 
-I don’t much like this answer.
+我不太喜欢这个答案。
 
-Imagine npm Inc in the hands of a corporate pirate, somebody who takes over ailing companies adversarially and shakes them down for change. Somebody like this might have no incentive to keep the public registry running, or might consider it something that can be mined for your usage data. We, npm’s users, are held hostage to the decisions of a board of directors that hasn't done a very good job thus far, so I find this scenario quite possible.
+设想一下 npm 被某个海盗公司（专门收购不景气的公司并强制改革）掌管的情形。这种接管者可能没兴趣让公共注册中心维持运转，可能还会想要滥用用户数据。我们，npm 的用户，受制于董事会的决策，而鉴于董事会迄今为止表现不佳，上述设想变为现实的可能性很大。
 
-This is a more optimistic outcome. A larger corporate savior might swoop in and rescue npm, our beloved package registry, and keep our commons alive. But even if the registry ends up owned by a secure company, I think this merely punts the problem down the road. Microsoft is a benevolent actor today, but they sure haven't always been. Google was once a benevolent actor, but they're now acting exactly like the monopolist Microsoft was in the 90s.
+还有一种更乐观的结局。一个体量更大的救世主公司从天而降，拯救我们心爱的 npm 于水火之中，让我们的公共资源焕发生机。但即使掌管 npm 的公司很靠谱，我认为这还是治标不治本。Microsoft 如今扮演着仁慈的角色，但他们肯定不会一直如此。Google 也曾扮演过仁慈的角色，但如今活活一副上个世纪九十年代 Microsoft 那种垄断者的嘴脸。
 
-I'd like us to avoid a repeat of this talk a decade from now.
+我希望我们能够避免重蹈过去十年的覆辙。
 
-I think, in the end, I agree with Ryan Dahl. Javascript's package registry should not be privately controlled. I think centralization is a burden that will inevitably lead toward private control, because, well, the servers always cost money. If we can diffuse the load out among many people, we can share the burden.
+我觉得我还是赞同 Ryan Dahl 的观点。npm 不应该私有化。我认为中心化是个负担，会不可避免地导致私有控制，因为服务器总是一笔开销。如果我们大家共同分担，我们就能扛住这个负担。
 
-This probably sounds impossible to you all. You're thinking that npm is entrenched. A few months ago I might have agreed, but then the company set on fire every bit of goodwill it had ever had for no reason anybody can see, all the trust people like me had ever earned it as benevolent stewards. Just poof. Up in flames. They’re so bad at community, and values, and people, it looks intentional. [exasperated gesture]
+这可能让你们都觉得不可能。你们都觉得 npm 根深蒂固。几个月前我也这么想，但后来 npm 公司出于所有人都不知道的原因，一把火将其良心烧得干干净净，包括我在内的所有信任者都曾愿意为其良心鞠躬尽瘁。就那么“噗”的一声，付之一炬。他们对 JavaScript 社区、对价值观、对我们开发者如此恶劣，他们是蓄意为之！（此处配合愤怒的手势）
 
-Also, I’m not much a person for hand-wringing. The do-nothing answer doesn’t sit well with me as a human.
+而且，坐以待毙不是我的风格。无计可施在我的字典里根本不存在。
 
-The other confession I’ll make is that I believe in the potlatch economy despite everything. I think it's good for us as humans to give things to each other, and I think I'm at peace with the idea that some corporations will make money from it.
+另外我要说的是，尽管发生了这一切，但我仍然信仰 Potlatch 文化。我认为互相分享对我们有益，而即使有人利用这一点赚钱，我也能心平气和地面对。
 
-So I have an announcement. I would like to give away something to you all today. And it’s not just me giving this away. My colleague Chris Dickinson and I have been working on this together.
+因此我要在这里宣布。我今天要和你们大家分享一些东西。而且分享者不仅仅是我一个人。我和同事 Chris Dickinson 一直在合力做这件事。
 
-Today I'd like to introduce you to entropic, a federated package manager for Javascript.
+今天我要向你们介绍 Entropic，一个 JavaScript 联合包管理工具。
 
-Entropic is Apache 2 licensed, and everything you need to run your own registry is included.
+Entropic 基于 Apache 2 协议，仅需引入就可以运行你自己的注册中心。
 
-Entropic comes with its own cli, which we’re calling `ds` , the entropy delta,.
+Entropic 带有自己的脚手架工具，叫做 `ds`，即 entropy delta。
 
-Entropic offers a new API for publication and for installation, one that drastically reduces the amount of network traffic needed. The unit of installation is a single file, not a tarball.
+Entropic 提供全新的发布和安装 API，极大地降低了网络请求量。安装单元就是一个文件，而不是一个大包东西。
 
-Entropic is federated. You can depend on packages from any other Entropic instance, and your home instance will mirror all your dependencies for you so you remain self-sufficient.
+Entropic 是联合性质的。你可以使用来自其他 Entropic 实例的依赖包，并且你的本地实例会把你所有的依赖包进行镜像备份，这样就可以自给自足了。
 
-Entropic will mirror all packages you install from the legacy package manager.
+Entropic 还会备份你从遗留的包管理工具安装的所有依赖包。
 
-The requirements list is short, and we’ve dockerized it all.
+安装要求非常简单，我们已经将其容器化了。
 
-You sign in with your GitHub account, and any oauth provider is pluggable.
+你可以用 GitHub 账号登录，且支持其他任何 OAuth 认证提供方。
 
-[ show a short video of a demo ]
+（在此处播放一小段 demo 视频）
 
-The project is only a month old. It's not ready for anybody but people on the bleeding edge to use yet, but it's self-hosting already.
+这个项目才刚刚满月。我们还没准备好将它推到大众视线内，但对于喜欢尝鲜的开发者来说，它足以让你把玩。
 
-There are more features, and a fairly huge to-do list. It doesn’t have a web site to speak of right now, for instance, and it needs one. The repo has a long list of issues if you’re interested.
+Entropic 还有很多功能，并且我们列了长长的待开发功能清单。比如，Entropic 目前还缺个官方网站。如果感兴趣，你可以去 GitHub 仓库看看长长的一列 issue。
 
-What are my goals with entropic?
+Entropic 的目标是什么？
 
-First, I want to prove to you all that there are options beyond doing nothing. We don’t have to sit here and wait for npm to shut down before we do something. Be optimistic. Be pro-active. You have power.
+首先，我想向大家证明，除了无计可施，我们还有其他选择。我们不必坐在原地等着 npm 倒闭再采取行动。乐观一些，积极一些，咱们有这个能力。
 
-Second, Chris and I are among a handful of humans who deeply understand the problems a language package registry needs to solve, particularly at scale. That expertise is needed by our community right now, and we want to share it. We choose to give something valuable away. Potlatch: this is our gift to you of our expertise.
+其二，Chris 和我以及其他几个人深切理解一个开源包注册中心需要解决的问题，特别是规模问题。我们的社区此刻迫切需要这种专门的经验，而我们几个也迫切需要分享这类经验。我们选择把有价值的东西分享出来。遵从 Potlatch 文化：把我们的经验做为礼物赠与诸君。
 
-Third, I think it’s right that the pendulum is swinging away from centralization and I want to lend my push to the swing. The last decade has been about consolidation and monolithic services, but the coming decade is going to be federated. Federation spreads out costs. It spreads out control. It spreads out policy-making. It hands control of your slice of our language ecosystem to you.
+第三，我认为中心化终会式微，我愿意在这个过程中出一把力。过去的十年，是整合统一服务的十年，但接下来的十年，将是属于联合化的十年。联合化将分担开销。联合化将分化集权。联合化将分解一言堂。联合化将我们的语言生态掌控权交到我们自己手中。
 
-My hope is that by giving Entropic away, I’ll help us take our language commons back. We'll take it back so we’re not held hostage by the needs of venture capitalists. Take it back so it's possible for us all to make a decision different from the decision we all made at the end of 2013. Take it back. As a community of millions of developers, it's in our power to take it back. Entropic is our kick-start to this movement to take our language back.
+我的愿景，是通过 Entropic，帮助我们大家把公共资源夺回来。夺回来，我们才不再是风投资本家案板上的鱼肉。夺回来，我们才能走一条与 2013 年年末决定走上的不一样的路。夺回来！作为数以百万计的开发者的共同体，我们有这个能力夺回来。此刻，Entropic 就是我们夺回 JavaScript 公共资源的冲锋号。
 
-There’s a lot more to say about Entropic, and a lot more work to do on it, but it’s time for me to share it with you.
+关于 Entropic，还有很多想说，还有很多想做，但是时候把它分享给大家了。
 
-If we’ve learned that npm doesn’t love you—and it doesn’t-- and we’ve learned that a private company shouldn’t control the commons—and it shouldn‘t, then it’s time to move with your feet. I believe the Node community is good, comprised of good people with the talent and the interest in building amazing things. We should not be defined by a single corporation, and we shouldn’t let them control our destiny when so much—the future of the web!—is at stake. We need to take back control, and to do that, we need to finish building Entropic, together.
+如果我们明白了 npm 不爱我们 —— 确实不爱，如果我们明白了一个私有公司不该掌控公共资源 —— 确实不该，那么，是时候迈开脚步了。我坚信这个由优良开发者组成的优良社区，他们拥有惊艳世界的才华和意志。在这个紧要关头，Web 的未来已经危如累卵，我们的规则不应该让某个公司来定义，我们的命运不应该让某个公司来掌控！我们把控制权夺回来，而为了夺回来，我们需要共同完善 Entropic。
 
-With love from two human beings, from us to you. Please do something good with this.
+我们要把对这份对社区的热爱，传递给大家，由己及人。请大家务必善待这份爱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
