@@ -7528,7 +7528,7 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：132 当前积分：81 二零一九：89
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：133 当前积分：81 二零一九：89
 
 |文章|类型|积分|
 |------|-------|-------|
