@@ -9,8 +9,6 @@
 
 Quick summary: When you are still early on in your programming career, digging into the source code of open source libraries and frameworks can be a daunting endeavor. In this article, Carl Mungazi shares how he got over his fear and began using source code to improve his knowledge and skills. He also uses Redux to demonstrate how he approaches breaking down a library.
 
-![](https://d33wubrfki0l68.cloudfront.net/71009a81bc97d80c37de78445977640ee373fb75/34b9c/images/drop-caps/d.svg) ![](https://d33wubrfki0l68.cloudfront.net/f27253afa5fd8465fac5d2cab0c1686450acbdd6/522b6/images/drop-caps/character-10.svg)
-
 Do you remember the first time you dug deep into the source code of a library or framework you use frequently? For me, that moment came during my first job as a frontend developer three years ago.
 
 We had just finished rewriting an internal legacy framework we used to create e-learning courses. At the beginning of the rewrite, we had spent time investigating a number of different solutions including Mithril, Inferno, Angular, React, Aurelia, Vue, and Polymer. As I was very much a beginner (I had just switched from journalism to web development), I remember feeling intimidated by the complexity of each framework and not understanding how each one worked.
