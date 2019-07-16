@@ -54,9 +54,9 @@
 
 我们刚在 `change_alice` 分支上修改了 `Alice.txt`，我想说我们对所做的改变感到满意。
 
-如果你接着执行 `git checkout master` 命令，那么我们在其他分支上创建的`提交`无法在此看到为了将变更弄到 master 分支，我们需要 `合并` `change_alice` 分支**到** master 分支上。
+如果你接着执行 `git checkout master` 命令，那么我们在其他分支上创建的`提交`无法在此看到为了将变更弄到 master 分支，我们需要`合并` `change_alice` 分支**到** master 分支上。
 
-注意：你总是将某个分支 `合并` 到当前分支。
+注意：你总是将某个分支`合并`到当前分支。
 
 ### 快进合并
 
@@ -66,11 +66,11 @@
 
 在下面的图表中，我们可以看到，这仅仅意味着：**master** 的指针会被简单地前进到 **change_alice** 分支存在的位置。
 
-第一张图显示了我们执行 `合并` 前的状态，**master** 指针仍处于它之前的提交位置，同时另一个分支上我们又做了一次提交。
+第一张图显示了我们执行`合并`前的状态，**master** 指针仍处于它之前的提交位置，同时另一个分支上我们又做了一次提交。
 
 [![快进合并之前](https://res.cloudinary.com/practicaldev/image/fetch/s--sS6CJ1Rg--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/before_ff_merge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--sS6CJ1Rg--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/before_ff_merge.png)
 
-第二张图显示了在我们 `合并` 之后发生了什么变化。
+第二张图显示了在我们`合并`之后发生了什么变化。
 
 [![快进合并之后](https://res.cloudinary.com/practicaldev/image/fetch/s--K_hHy8zA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/ff_merge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--K_hHy8zA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/ff_merge.png)
 
@@ -86,13 +86,13 @@
 
 [![不同的提交](https://res.cloudinary.com/practicaldev/image/fetch/s--NKM59jTn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches_diverge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--NKM59jTn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches_diverge.png)
 
-如果你现在使用命令 `git merge change_alice` 来执行一个快进合并是不可能的了。取代它的是，你最爱的文本编辑器将会打开，并且允许你修改 `合并提交` 操作的提交信息，git 即将执行这个提交从而将两个分支重新保持一致。你现在使用默认提交信息就行。下图显示了我们在执行 `合并` 后的 git 历史状态。
+如果你现在使用命令 `git merge change_alice` 来执行一个快进合并是不可能的了。取代它的是，你最爱的文本编辑器将会打开，并且允许你修改`合并提交`操作的提交信息，git 即将执行这个提交从而将两个分支重新保持一致。你现在使用默认提交信息就行。下图显示了我们在执行`合并`后的 git 历史状态。
 
 [![合并分支](https://res.cloudinary.com/practicaldev/image/fetch/s--btBTCeUD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/merge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--btBTCeUD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/merge.png)
 
 新的提交将我们在 `change_alice` 分支上的修改引入到 master 分支。 
 
-正如你之前记得那样，git 中的修订不仅仅是文件的快照，还包含了它们来自何处的一些信息。每次 `commit` 都包含一个或多个父级提交信息。我们的新 `merge` 提交包含了 **master** 分支的最后提交，以及我们在另一个分支上的提交来作为这次合并的父级提交。
+正如你之前记得那样，git 中的修订不仅仅是文件的快照，还包含了它们来自何处的一些信息。每次`提交`都包含一个或多个父级提交信息。我们的新`合并`提交包含了 **master** 分支的最后提交，以及我们在另一个分支上的提交来作为这次合并的父级提交。
 
 ### 解决冲突
 
@@ -108,7 +108,7 @@
 
 第一行应该仍然是 `Hi!! I'm Bob. I'm new here.`，把它修改成 `Hi!! I'm Bobby. I'm new here.`。
 
-暂存文件之后，在你再次 `检出` master 分支之前，`提交` 你的修改。在 master 分支我们将同一行修改为 `Hi!! I'm Bob. I've been here for a while now.`，接着 `提交` 该修改。
+暂存文件之后，在你再次`检出` master 分支之前，`提交`你的修改。在 master 分支我们将同一行修改为 `Hi!! I'm Bob. I've been here for a while now.`，接着`提交`该修改。
 
 现在是将新分支`合并`到 **master** 的时候了。
 
@@ -156,7 +156,7 @@ Hi! I'm Bobby. I've been here for a while now.
 
 我们已经了解为解决冲突所做的变更提交，就是合并过程中一直都有的**合并提交**。
 
-实际上你应该意识到在解决冲突的过程中，如果你不想继续 `合并` 进程，你可以通过运行 `git merge --abort` 命令直接 `中止` 它。
+实际上你应该意识到在解决冲突的过程中，如果你不想继续`合并`进程，你可以通过运行 `git merge --abort` 命令直接`中止`它。
 
 ## 变基
 
@@ -166,9 +166,9 @@ Git 有另外一种纯净方式来集成两个分支的变化，叫做`变基`�
 
 在我们简单的合并样例中，我们从 **master** 分支的某次提交创建了一个分支，然后提交了在 **master** 和 `change_alice` 分别提交了一些变更。
 
-当一个分支相对于它所基于的分支产生了改变，如果你想要把最新的变更整合到你当前的分支，`变基` 提供了一种比 `合并` 更加纯净的处理方式。
+当一个分支相对于它所基于的分支产生了改变，如果你想要把最新的变更整合到你当前的分支，`变基`提供了一种比`合并`更加纯净的处理方式。
 
-正如你所看到的，一次 `合并` 引入了一个**合并提交**，这个过程中两边的历史记录得到整合。
+正如你所看到的，一次`合并`引入了一个**合并提交**，这个过程中两边的历史记录得到整合。
 
 很容易看得出，变基仅仅改变了你的分支所依赖的历史记录点（创建分支所基于的某次提交）。
 
@@ -201,7 +201,7 @@ Applying: Add Patrick
 
 然后变基操作会将我们在 `add_patrick` 分支上做的每一个提交都应用到那个顶点上。
 
-为了更精确了解 **git** 把 **HEAD** 指针移回到分支的公共祖先过程中做了什么，可以把你在被操作的分支上每次提交都存储一部分（修改的 `差异点`、提交信息、作者等等。）。
+为了更精确了解 **git** 把 **HEAD** 指针移回到分支的公共祖先过程中做了什么，可以把你在被操作的分支上每次提交都存储一部分（修改的`差异点`、提交信息、作者等等。）。
 
 在上面操作之后，你正在变基的分支需要`检出`最新的提交，然后把存下的所有变化**以一条新提交**应用到前面的提交之上。
 
@@ -286,12 +286,12 @@ Your branch is behind 'origin/fetching_changes_sample' by 1 commit, and can be f
 
 由于我们没有**工作中**和**暂存**的变更，我们现在可以执行 `git pull` 命令来从**仓库**中拉取所有变更到我们的工作空间。
 
-> 拉取会隐式地 `获取` **远程仓库**，但有时候单独执行 `获取` 是个好选择。
+> 拉取会隐式地`获取`**远程仓库**，但有时候单独执行`获取`是个好选择。
 > 例如，当你想要同步任何新的**远程**分支，或者你想在像 `origin/master` 这种分支上执行 `git rebase` 之前，需要确保你的**本地仓库**是最新的。
 
 [![拉取更新](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--LD07tDxG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/pull.png)
 
-在我们 `拉取` 之前，让我们本地修改一个文件来看会发生什么。
+在我们`拉取`之前，让我们本地修改一个文件来看会发生什么。
 
 让我们在**工作空间**再次修改 `Alice.txt` 文件！
 
@@ -306,13 +306,13 @@ Please commit your changes or stash them before you merge.
 Aborting
 ```
 
-你无法 `拉取` 任何变更，因为**工作空间**中有些文件被修改，同时你正在拉取进来的提交也有这些文件的变化。
+你无法`拉取`任何变更，因为**工作空间**中有些文件被修改，同时你正在拉取进来的提交也有这些文件的变化。
 
-这种情况的一种解决方法是，为了获取你比较信任的某个点上的变更，在你最终提交它们之前，可以把本地变更 `添加` 到**暂存空间**。但是在你最终提交它们之前，而这是学习另一个很棒工具的一个好时机。
+这种情况的一种解决方法是，为了获取你比较信任的某个点上的变更，在你最终提交它们之前，可以把本地变更`添加`到**暂存空间**。但是在你最终提交它们之前，而这是学习另一个很棒工具的一个好时机。
 
 ### 储藏变更
 
-在任何时刻如果你有一些本地变更，还不想放进一个提交中，或者想存在某个地方来以其他某种角度来解决一个问题，你可以将这些变更 `储藏` 起来。
+在任何时刻如果你有一些本地变更，还不想放进一个提交中，或者想存在某个地方来以其他某种角度来解决一个问题，你可以将这些变更`储藏`起来。
 
 一次 `git stash` 基本上是一个变更的堆栈，这里面你可以存储对**工作空间**的任何变更。
 
@@ -330,12 +330,12 @@ Aborting
 
 在那之后，让我们执行 `git stash pop` 命令来取回本地变更。
 
-因为我们 `拉取` 的提交和 `储藏` 的变更都修改了 `Alice.txt` 文件，所以你需要解决冲突，就像在 `合并` 或 `变基` 中你做的那样。
-完成 `添加` 后，提交这个变更。
+因为我们`拉取`的提交和`储藏`的变更都修改了 `Alice.txt` 文件，所以你需要解决冲突，就像在`合并`或`变基`中你做的那样。
+完成`添加`后，提交这个变更。
 
 ### 包含冲突的拉取
 
-现在我们已经理解如何 `获取` 和 `拉取` **远程变更**到我们的**工作环境**，正是制造一些冲突的时候！
+现在我们已经理解如何`获取`和`拉取`**远程变更**到我们的**工作环境**，正是制造一些冲突的时候！
 
 不要推送那个修改 `Alice.txt` 文件的提交，回到你位于 [github.com](https://www.github.com) 的**远程仓库**
 
@@ -343,7 +343,7 @@ Aborting
 
 现在实际上在我们的**本地**和**远程仓库**之间存在两处冲突。
 
-不要忘了运行 `git fetch` 命令来查看远程的变更，而不是立即 `拉取` 它。
+不要忘了运行 `git fetch` 命令来查看远程的变更，而不是立即`拉取`它。
 
 如果你现在运行 `git status` 命令，你会看到两个分支各有一个与对方不同的提交。
 
@@ -355,9 +355,9 @@ and have 1 and 1 different commits each, respectively.
 (use "git pull" to merge the remote branch into yours)
 ```
 
-另外，我们已经在上面不同提交中修改了同一个文件，为了介绍 `合并` 中的冲突这个概念，所以我们需要解决它。
+另外，我们已经在上面不同提交中修改了同一个文件，为了介绍`合并`中的冲突这个概念，所以我们需要解决它。
 
-当你执行 `git pull` 命令时，而**本地**和**远程仓库**之间存在着差异，就会发生与 `合并` 两个分支过程时同样的事情。
+当你执行 `git pull` 命令时，而**本地**和**远程仓库**之间存在着差异，就会发生与`合并`两个分支过程时同样的事情。
 
 额外的，你可以认为**远程仓库**和**本地仓库**分支之间的关系是一种从一个分支上创建另一个分支的特殊情况。
 
@@ -365,19 +365,19 @@ and have 1 and 1 different commits each, respectively.
 
 如果以这种方式思考，这两种选项来获取**远程仓库**变化就很有道理：
 
-当你执行 `git pull` 命令，**本地**和**远程仓库**的版本就会 `合并`。就像 `合并` 不同分支一样，这会引入一个**合并**提交。
+当你执行 `git pull` 命令，**本地**和**远程仓库**的版本就会`合并`。就像`合并`不同分支一样，这会引入一个**合并**提交。
 
 因为任何本地分支都基于它们各自的远程版本，我们也可以对它执行 `变基`，这样做的话我们在本地做的任何变更，都表现为基于远程仓库中的最新可用版本。
 
 为了这么做，我们可以使用 `git pull --rebase` 命令（或者简写`git pull -r`）。
 
-在[变基](#rebasing)这小节中已经详细介绍了，保持一个干净线性的历史提交记录是有好处的，所以我才强烈建议当你需要执行 `git pull` 命令时，不妨使用 `git pull -r` 替代。
+在[变基](#变基)这小节中已经详细介绍了，保持一个干净线性的历史提交记录是有好处的，所以我才强烈建议当你需要执行 `git pull` 命令时，不妨使用 `git pull -r` 替代。
 
-> 你也可以告诉 git 使用 `变基` 来代替 `合并`，作为你执行 `git pull` 命令时的默认策略，通过一个像这样 `git config --global pull.rebase true` 的命令来设置 `pull.rebase` 标识。
+> 你也可以告诉 git 使用`变基`来代替`合并`，作为你执行 `git pull` 命令时的默认策略，通过一个像这样 `git config --global pull.rebase true` 的命令来设置 `pull.rebase` 标识。
 
 在我介绍前面几个段落之后，如果你还没有执行过 `git pull` 命令的话，让我现在一起执行 `git pull -r` 来获取远程变更吧，让它显得就像我们的新提交位于那些远程变更之后。
 
-当然就像一个正常的 `变基`（或者 `合并`）操作，你需要解决我们引入的冲突，以便 `git pull` 命令可以完成。
+当然就像一个正常的`变基`（或者`合并`）操作，你需要解决我们引入的冲突，以便 `git pull` 命令可以完成。
 
 欢迎继续阅读本系列其他文章：
 
