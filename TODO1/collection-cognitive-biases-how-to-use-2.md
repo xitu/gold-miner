@@ -125,39 +125,39 @@
 
 阅读：[在尝试成为数据驱动型公司中学到的 11 个经验教训](https://www.mobilespoon.net/2019/06/11-data-related-lessons-we-learned-hard.html)
 
-### 30. Belief Bias
+### 30. 信念偏差
 
-We are more likely to accept an argument that supports a conclusion that aligns with our prior knowledge while rejecting counter-arguments to the conclusion.
+我们更容易接受一个与我们先前所知知识一致的结论，同时拒绝接受与该结论相悖的论点。
 
-**Writing tip**: When talking about the benefits of your product - don’t exaggerate.
+**写作技巧**：当谈论产品好处时，不要夸大其词。
 
-If it’s too good to be true - people will not believe it.
+如果好得令人难以置信，人们就会怀疑它的真实性。
 
-### 31. Foot-in-the-door Technique
+### 31. 登门坎效应
 
-A small agreement creates a bond between us and the requester and potentially makes it easier for us to agree on bigger agreements.
+当我们与用户通过小的协议建立起联系后，我们更容易与用户在更大的协议上达成一致。
 
-**Subscription tip**: Give your users a free trial to hook them up with something small.
+**订阅技巧**：通过提供免费试用与用户建立联系。
 
-**Onboarding UX tip**: Don’t overwhelm the user with over-complicated onboarding tasks.
+**引导流程 UX 设计技巧**：不要用过于复杂的引导流程打击用户。
 
-Break it into small/easy chunks to achieve small wins and keep the user happy and engaged.
+把大块的内容分解成小块或容易解决的内容，让用户保持开心和参与度。
 
-![Foot-in-the-door Technique - Make onboarding easy by creating “small wins"](https://alexdenk.eu/blogtouch?id=1MpxTvnkZoqBD8Wtqy3gx708rpl0axjxa "Foot-in-the-door Technique - Make onboarding easy by creating “small wins"")
+![登门坎效应 —— 通过创造“小成就”让引导流程变得容易](https://alexdenk.eu/blogtouch?id=1MpxTvnkZoqBD8Wtqy3gx708rpl0axjxa "登门坎效应 —— 通过创造“小成就”让引导流程变得容易")
 
-Achieve small wins during the onboarding process 
+在引导流程中获得小成就
 
 ### 32. Variable Reward
 
-Our joy from getting rewards increases when the rewards are unexpected.
+当获得意外奖励时，我们从奖励中获得的快乐就会增加。
 
-**Product tip:** Hook your users with daily offers, free bonuses, reputation points, prizes and more. 
+**产品技巧：**用每日优惠、免费奖金、荣誉积分等奖品吸引用户。 
 
-The more “action” you create on a daily basis - the more your users will feel connected and hooked to the product.
+用户每天的“行为”越多，越会觉得自己与产品的联系密切。
 
-![Variable Reward - Hook your users with daily offers, free bonuses, reputation points, prizes and more.](https://alexdenk.eu/blogtouch?id=1aNyfch7QCQln-rC_IhxZY077ucAyDX14 "Variable Reward - Hook your users with daily offers, free bonuses, reputation points, prizes and more.")
+![Variable Reward —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。](https://alexdenk.eu/blogtouch?id=1aNyfch7QCQln-rC_IhxZY077ucAyDX14 "Variable Reward —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。")
 
-Hook your users with daily offers, free bonuses, reputation points, prizes and more 
+用每日优惠、免费奖金、荣誉积分等奖品吸引用户
 
 ## Not as rational as we think
 
