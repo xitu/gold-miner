@@ -46,7 +46,7 @@ $ git clone https://github.com/rajatgeekyants/ToDo-List.git
 $ yarn install
 ```
 
-**注意**：你也可以在 Bit 上检查这个应用。你可以在这里导入应用中任何特定的组件，而不需要关心其他部分。
+**注意**：你也可以在 Bit 上查看这个应用。你可以在这里导入应用中任何特定的组件，而不需要关心其他部分。
 
 [**todo by geekrajat · Bit**](https://bit.dev/geekrajat/todo)
 
@@ -70,7 +70,7 @@ $ node_modules/.bin/cypress open
 "cypress": "cypress open"
 ```
 
-因此，如果你使用 NPM/Yarn 运行这个脚本，应该会打开 Cypress CLI（命令行界面）。
+因此，如果你使用 NPM/Yarn 运行这个脚本，应该会打开 Cypress CLI（命令行界面）。在 cypress 文件夹下的 integration 文件夹中创建一个新的测试文件。与普通的我们命名为类似 `App.test.js` 的测试文件不同，在 Cypress 中，测试文件的扩展名为是 `.spec.js`。
 
 ```JavaScript
 describe ('First Test', () => {
