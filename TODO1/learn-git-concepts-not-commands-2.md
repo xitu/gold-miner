@@ -54,9 +54,9 @@
 
 我们刚在 `change_alice` 分支上修改了 `Alice.txt`，我想说我们对所做的改变感到满意。
 
-如果你接着执行 `git checkout master` 命令，那么我们在其他分支上创建的`提交`无法在此看到为了将变更弄到 master 分支，我们需要`合并` `change_alice` 分支**到** master 分支上。
+如果你接着执行 `git checkout master` 命令，那么我们在其他分支上创建的`提交`无法在此看到为了将变更弄到 master 分支，我们需要 `合并` `change_alice` 分支**到** master 分支上。
 
-注意：你总是将某个分支`合并`到当前分支。
+注意：你总是将某个分支 `合并` 到当前分支。
 
 ### 快进合并
 
@@ -86,13 +86,13 @@
 
 [![不同的提交](https://res.cloudinary.com/practicaldev/image/fetch/s--NKM59jTn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches_diverge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--NKM59jTn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/branches_diverge.png)
 
-如果你现在使用命令 `git merge change_alice` 来执行一个快进合并是不可能的了。取代它的是，你最爱的文本编辑器将会打开，并且允许你修改`合并提交`操作的提交信息，git 即将执行这个提交从而将两个分支重新保持一致。你现在使用默认提交信息就行。下图显示了我们在执行`合并`后的 git 历史状态。
+如果你现在使用命令 `git merge change_alice` 来执行一个快进合并是不可能的了。取代它的是，你最爱的文本编辑器将会打开，并且允许你修改 `合并提交` 操作的提交信息，git 即将执行这个提交从而将两个分支重新保持一致。你现在使用默认提交信息就行。下图显示了我们在执行 `合并` 后的 git 历史状态。
 
 [![合并分支](https://res.cloudinary.com/practicaldev/image/fetch/s--btBTCeUD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/merge.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--btBTCeUD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/UnseenWizzard/git_training/master/img/merge.png)
 
 新的提交将我们在 `change_alice` 分支上的修改引入到 master 分支。 
 
-正如你之前记得那样，git 中的修订不仅仅是文件的快照，还包含了它们来自何处的一些信息。每次`提交`都包含一个或多个父级提交信息。我们的新`合并`提交包含了 **master** 分支的最后提交，以及我们在另一个分支上的提交来作为这次合并的父级提交。
+正如你之前记得那样，git 中的修订不仅仅是文件的快照，还包含了它们来自何处的一些信息。每次 `提交` 都包含一个或多个父级提交信息。我们的新 `合并` 提交包含了 **master** 分支的最后提交，以及我们在另一个分支上的提交来作为这次合并的父级提交。
 
 ### 解决冲突
 
