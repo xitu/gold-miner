@@ -5910,10 +5910,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：160 当前积分：140二零一九：78
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：168 当前积分：148 二零一九：86
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Gomobile 和 Gopherjs 的动态二维码数据传输](https://juejin.im/post/5d2bfccef265da1bb77699e8)|翻译|8|
 |[类（Class）与数据结构（Data Structures）](https://juejin.im/post/5d12efe7e51d455c8838e193)|翻译|4|
 |[为什么我们要切换到 gRPC](https://juejin.im/post/5cff855c518825612f412526)|翻译|3.5|
 |[Flutter 布局备忘录](https://juejin.im/post/5cfe0d136fb9a07efc497d7d)|翻译|3|
@@ -8754,10 +8755,12 @@
 |[声音设计与无声设计](https://juejin.im/post/5ce354bee51d4510727c7fd1)|翻译|2+0.5|
 |[Swift 里的强制 @inline 注解](https://juejin.im/post/5cd67d64518825686244635a)|校对|1.5|
 
-## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：36 当前积分：36 二零一九：36
+## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：45 当前积分：45 二零一九：45
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Gomobile 和 Gopherjs 的动态二维码数据传输](https://juejin.im/post/5d2bfccef265da1bb77699e8)|校对|3.5|
+|[通过 Rust 学习解析器组合器 — 第三部分](https://juejin.im/post/5d1f29f7f265da1b961324b2)|翻译|5.5|
 |推荐英文文章一篇|奖励|1|
 |[通过 Rust 学习解析器组合器 — 第二部分](https://juejin.im/post/5d04c3abe51d45775d516f7b)|翻译|5|
 |[利用并行流渐进加载图片](https://juejin.im/post/5d044fe3f265da1bd04eddda)|校对|2|
@@ -8816,7 +8819,7 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|校对|1.5|
-|[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|
+|[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|2|
 
 ## 译者：[lgh757079506](https://github.com/lgh757079506) 历史贡献积分：11.5 当前积分：11.5 二零一九：11.5
 
@@ -8882,18 +8885,20 @@
 |[10 分钟爆改终端](https://juejin.im/post/5d053fc56fb9a07ee85c283d)|翻译|5|
 |[将第三方动画库集成到项目中 —— 第 1 部分](https://juejin.im/post/5d037b655188252af2012702)|校对|3|
 
-## 译者：[csming1995](https://github.com/csming1995) 历史贡献积分：5 当前积分：5 二零一九：5
+## 译者：[csming1995](https://github.com/csming1995) 历史贡献积分：6 当前积分：6 二零一九：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Kubernetes 儿童插图指南](https://juejin.im/post/5d1b2a656fb9a07edc0b7058)|校对|1|
 |[Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)|校对|2|
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：23 当前积分：23 二零一九：23
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：26 当前积分：26 二零一九：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Kubernetes 儿童插图指南](https://juejin.im/post/5d1b2a656fb9a07edc0b7058)|翻译|3|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|4|
 |推荐英文文章一篇|奖励|1|
 |推荐英文文章一篇|奖励|1|
@@ -8943,10 +8948,11 @@
 |[设计师如何成长为 Leader？](https://juejin.im/post/5d172fca6fb9a07eda032c6f)|校对|2|
 |[在 npm 上启用现在 JavaScript](https://juejin.im/post/5d15d64be51d4510a5033603)|校对|1.5|
 
-## 译者：[mymmon](https://github.com/mymmon) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[mymmon](https://github.com/mymmon) 历史贡献积分：7 当前积分：7 二零一九：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Kubernetes 儿童插图指南](https://juejin.im/post/5d1b2a656fb9a07edc0b7058)|校对|1|
 |[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|校对|4|
 |[npm 的经济风云 —— 上半部分](https://juejin.im/post/5d146225e51d4556db694a4b)|校对|2|
 
@@ -8962,7 +8968,7 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
 
-## 译者：[solerji](https://github.com/solerji) 历史贡献积分：4 当前积分：4 二零一九4
+## 译者：[solerji](https://github.com/solerji) 历史贡献积分：4 当前积分：4 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
