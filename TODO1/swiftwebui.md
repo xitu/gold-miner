@@ -115,8 +115,8 @@ SwiftWebUI.serve(Text("Holy Cow!"))
 
 #### 幕后原理
 
-[`serve`](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/Serve.swift#L66) 函数中创建了一个非常简单的[SwiftNIO](https://github.com/apple/swift-nio) HTTP 服务，这个服务会监听端口 1337。当浏览器访问这个服务的时候，它创建了一个 [session](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/NIOHostingSession.swift) 并将我们的 (Text) View 传递给这个 session 了。
-最后 SwiftWebUI 在服务中创建了一个 “Shadow DOM”，将 View 渲染为 HTML 并将结果发送给浏览器。这个 “Shadow DOM”（以及一个会和它绑定在一起的状态对象）会被保存在 session 中。
+[`serve`](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/Serve.swift#L66) 函数中创建了一个非常简单的[SwiftNIO](https://github.com/apple/swift-nio) HTTP 服务器，这个服务器会监听端口 1337。当浏览器访问这个服务器的时候，它创建了一个 [session](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/ViewHosting/NIOHostingSession.swift) 并将我们的 (Text) View 传递给这个 session 了。
+最后 SwiftWebUI 在服务器中创建了一个 “Shadow DOM”，将 View 渲染为 HTML 并将结果发送给浏览器。这个 “Shadow DOM”（以及一个会和它绑定在一起的状态对象）会被保存在 session 中。
 
 > SwiftWebUI 应用和 watchOS 或者 iOS 上的 SwiftUI 应用是有区别的。一个 SwiftWebUI 应用可以服务多个用户，而不是像 SwiftUI 应用那样只服务于一个用户。
 
@@ -165,7 +165,7 @@ struct MainPage: View {
 
 #### 幕后原理
 
-这一切都是如何运作的呢？当我们点击浏览器后，SwiftWebUI 创建了一个含有 “Shadow DOM” 的 session。接下来它将会把 View 的 HTML 描述发送给浏览器。`tapAction` 通过 HTML 添加的 `onclick` 事件处理可以被调用执行。SwiftWebUI 也可以将 JavaScript 代码传输给浏览器（只能传输少量代码，不可以是大型框架代码！），这部分代码将会处理点击事件，并将事件转发给我们的 Swift 服务。
+这一切都是如何运作的呢？当我们点击浏览器后，SwiftWebUI 创建了一个含有 “Shadow DOM” 的 session。接下来它将会把 View 的 HTML 描述发送给浏览器。`tapAction` 通过 HTML 添加的 `onclick` 事件处理可以被调用执行。SwiftWebUI 也可以将 JavaScript 代码传输给浏览器（只能传输少量代码，不可以是大型框架代码！），这部分代码将会处理点击事件，并将事件转发给我们的 Swift 服务器。
 
 然后就轮到 SwiftUI 魔法登场了。SwiftWebUI 让点击事件和我们在 “Shadow DOM” 中的事件处理函数关联在一起，并会调用 `countUp` 函数。通过修改变量 `counter` [`State`](https://developer.apple.com/documentation/swiftui/state)，函数将 View 的渲染设置为无效。此时 SwiftWebUI 开始对比 “Shadow DOM” 中出现的区别和变化。接下来这些改变将会被发回到浏览器中。
 
