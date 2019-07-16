@@ -2,7 +2,7 @@
 > * 原文作者：[Ben Schwarz](https://calibreapp.com/blog/author/ben-schwarz)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md)
-> * 译者：
+> * 译者：[Jerry-FD](https://github.com/Jerry-FD/)
 > * 校对者：
 
 # Google 的 Pagespeed 的工作原理：提升你的页面分数和搜索引擎排名
