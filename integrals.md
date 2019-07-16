@@ -2732,10 +2732,11 @@
 |[在 Xcode 项目中使用 swift package fetch](https://juejin.im/entry/58c7a4cb1b69e6006bec354c/)|校对|1|
 |[Swift + 关键字](https://gold.xitu.io/entry/58bf76aaa22b9d0058896bff/)|校对|1|
 
-## 译者：[xilihuasi](https://github.com/xilihuasi) 历史贡献积分：63 当前积分：63 二零一九：29
+## 译者：[xilihuasi](https://github.com/xilihuasi) 历史贡献积分：69 当前积分：69 二零一九：35
 
 |文章|类型|积分|
 |------|-------|-------|
+|[微前端：未来前端开发的新趋势 — 第三部分](https://juejin.im/post/5d2755c4e51d45105e021360)|翻译|6|
 |[JavaScript 简明代码 — 最佳实践](https://juejin.im/post/5d07abcc6fb9a07eda031858)|翻译|4|
 |[2019 React Redux 完全指南](https://juejin.im/post/5cac8ccd6fb9a068530111c7)|翻译|12.5|
 |[React Native 中那些令我收获颇丰的痛点](https://juejin.im/post/5c74d6a16fb9a049f06ae907)|校对|1.5|
@@ -8808,10 +8809,12 @@
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|校对|1.5|
 |[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|2|
 
-## 译者：[lgh757079506](https://github.com/lgh757079506) 历史贡献积分：5 当前积分：5 二零一九：5
+## 译者：[lgh757079506](https://github.com/lgh757079506) 历史贡献积分：8.5 当前积分：8.5 二零一九：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[微前端：未来前端开发的新趋势 — 第三部分](https://juejin.im/post/5d2755c4e51d45105e021360)|校对|1.5|
+|[微前端：未来前端开发的新趋势 — 第二部分](https://juejin.im/post/5d1a91c7e51d45775f516ab9)|校对|2|
 |[4 个 CSS 调色滤镜](https://juejin.im/post/5d039c36f265da1b60290096)|校对|1|
 |[JavaScript 线性代数：使用 ThreeJS 制作线性变换动画](https://juejin.im/post/5d05dba86fb9a07ece67ce76)|校对|1|
 |[ECMAScript 类 - 定义私有属性](https://juejin.im/post/5d006e406fb9a07ed22465de)|校对|1.5|
@@ -8858,10 +8861,11 @@
 |[Flutter 布局备忘录](https://juejin.im/post/5cfe0d136fb9a07efc497d7d)|校对|1.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 
-## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：9.5 当前积分：9.5 二零一九：9.5
+## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：16 当前积分：16 二零一九：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[微前端：未来前端开发的新趋势 — 第二部分](https://juejin.im/post/5d1a91c7e51d45775f516ab9)|翻译|6.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 |[10 分钟爆改终端](https://juejin.im/post/5d053fc56fb9a07ee85c283d)|翻译|5|
 |[将第三方动画库集成到项目中 —— 第 1 部分](https://juejin.im/post/5d037b655188252af2012702)|校对|3|
@@ -8893,10 +8897,12 @@
 |------|-------|-------|
 |[如何用 React Hooks 打造一个不到 100 行代码的异步表单校验库](https://juejin.im/post/5cf4e2c2f265da1b80202f83)|校对|1.5|
 
-## 译者：[Stevens1995](https://github.com/Stevens1995) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[Stevens1995](https://github.com/Stevens1995) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[微前端：未来前端开发的新趋势 — 第三部分](https://juejin.im/post/5d2755c4e51d45105e021360)|校对|1.5|
+|[微前端：未来前端开发的新趋势 — 第二部分](https://juejin.im/post/5d1a91c7e51d45775f516ab9)|校对|2|
 |[微前端：未来前端开发的新趋势 — 第一部分](https://juejin.im/post/5d0e367b6fb9a07ebf4b781a)|校对|1|
 |[JavaScript 线性代数：使用 ThreeJS 制作线性变换动画](https://juejin.im/post/5d05dba86fb9a07ece67ce76)|校对|1|
 
