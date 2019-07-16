@@ -5,45 +5,45 @@
 > * 译者：
 > * 校对者：
 
-# Creating a multi-level hierarchical flyout navigation menu using only HTML and CSS
+# 仅使用HTML和CSS创建多级嵌套弹出式导航菜单
 
-![](https://www.ghosh.dev/static/media/css-nav-menu-1.jpg)
+![alt](https://www.ghosh.dev/static/media/css-nav-menu-1.jpg)
 
-Today I am going to give you a quick tutorial on how to create a hierarchical navigation flyout menu that can go nested deep down across multiple levels.
+今天，我将为你提供一个关于如何创建分层导航弹出式菜单的快速教程，该菜单可以跨多个级别进行深层嵌套。
 
-As an inspiration, we’ll start off with a concrete practical use-case of an example menu bar for a desktop application. I’ll pick a subset of the Chrome browser’s menu bar to illustrate this.
+作为灵感，我们将从一个示例的桌面应用菜单栏具体的实际用例开始。我将选择Chrome浏览器菜单栏的一个子列表来说明这一点。
 
-We’ll begin with a simple quite look-and-feel, something that goes back to the classic Windows™ theme. Here’s a short video on how that would look like:
+我们将从一个相当的简单外观和感觉开始，可以追溯到经典的Windows™主题，这里有个短视频告诉你有多像:
 
 [css-nav-menu-3.mp4](https://www.ghosh.dev/static/media/css-nav-menu-3.mp4)
 
-Towards the end, we’ll make it a bit fancier by adding some more styling to give it a MacOS™ like feel.
+在最后，我们会增加一些样式，让它有点像MacOS™的感。
 
-### The Basics
+### 基础
 
-Let’s start off by understanding what our menu items would typically constitute of. They should have the following properties:
+让我们先了解一下菜单项通常由什么组成。 它们应该具有以下属性:
 
-* **Label**: (**required**) which is basically the name of the menu item that is displayed
-* **Target**: (**optional**) a hyperlink that takes the user to a page as a response to clicking on the menu item. We’ll stick to just links right now. Adding more dynamic in-page features would require JavaScript which we’ll stay away from at the moment. It’s something you can always go and easily add later.
-* **Shortcut**: (**optional**) in our case, displays a keyboard shortcut that could be used for this menu item. For example, “File > New” would be “Cmd + N” (⌘N) on Mac.
-* **Children**: (**optional**) which refers to the sub-menu for this menu item. Think of our menus and sub-menus in the form of a **recursive structure**. Visually, a menu item having a sub-menu should also have an arrow icon on it (▶) to indicate that it can expand when hovered.
-* **Disabled**: (optiona), a state indicating if the menu item can be interacted with.
-* A conceptual **Type** parameter? (**optional**) that could emulate different types of menu items with this. Say, some entries in the list of menus should act as just a **separator** line.
+* **Label**: (**必选**) 这基本上是菜单项的显示名称
+* **Target**: (**可选**) 超链接，将用户带到一个页面，作为对单击菜单项的响应。我们现在将坚持它只是链接。 在页面中添加更多的动态特性需要JavaScript，我们暂时不需要这么做。 这是你以后可以随时轻松添加的东西。
+* **Shortcut**: (**可选**) 在我们的例子中，显示一个可用于此菜单项的快捷键组合。例如，“文件 > 新建” 在Mac上会是 “Cmd + N” (⌘N)。
+* **Children**: (**可选**) 指的是此菜单项的子菜单。想想我们的菜单和子菜单的形式 **递归结构**，视觉，具有子菜单的菜单项上还应具有箭头图标 (▶) 指示悬停时它可以展开。
+* **Disabled**: (**可选**) 指示菜单项是否可以进行交互。
+* 一个概念 **Type** 参数吗? (**可选**) 可以用这个模拟不同类型的菜单项。 比如，菜单列表中的一些条目应该只起分隔符的作用。
 
-Note that we could go ahead and add more complex behaviours to our menus. For example, a certain menu could be a **Toggle** item, and so, would need to have some form of a tick mark (✔) or checkbox associated with it to indicate its on/off state.
+请注意，我们可以继续向菜单添加更复杂的行为。例如，某个菜单可以是一个 **切换** 项，所以，需要某种形式的记号 (✔) 或与之关联的复选框，以指示其打开/关闭状态。
 
-We’ll use **CSS classes** on our HTML markup to indicate such properties and write some clever styling to impart all the corresponding behaviours.
+我们将使用 **CSS classes** 在HTML标记上指示这些属性，并编写一些巧妙的样式来传递所有相应的行为。
 
-### Structuring the HTML
+### 构建HTML
 
-Based on the above, this is how our basic menu HTML should look like:
+基于上文，我们的基本菜单HTML应该是什么样子：
 
-1. A list of menus is defined by an HTML `ul` element, with individual items being the obvious `li`.
-2. The **label** and **shortcut** will be placed as `span` elements with their corresponding CSS classes (`label` or `shortcut`) inside an anchor (`a`) tag inside the `li`, so that clicking on it causes the navigation action, as well as be able to provide some UI feedback such as highlighting the menu item on **hover**.
-3. When a menu item contains a list of **sub-menu** (children), we’ll put that sub-menu in another `ul` element inside the current menu `li` element (parent) and so on. To describe that this particular menu item contains a sub-menu and also be able to add some specific styling to make it functional (as well as visual elements like the ▶ indicator), we’ll add the `has-children` CSS class to this parent `li`.
-4. For items like the **separator**, we’ll add a corresponding CSS class called `separator` to the `li` item denoting it.
-5. A menu item can be **disabled**, in which case we’ll add the corresponding `disabled` CSS class. It’s job is to make this item non-responsive to pointer events like hover or clicks.
-6. We’ll wrap everything off inside a container HTML `nav` element (it’s good to be [semantic](https://en.wikipedia.org/wiki/Semantic_HTML)) and add the `flyout-nav` class to it for some basic namespacing of the CSS styles that we’ll add.
+1. 菜单列表由html`ul`元素定义，单个菜单项当然是`li`。
+2. **label** 和 **shortcut** 将作为`span`元素放置在`li`中的锚（`a`）标签内并带有相应css类（`label`或`shortcut`），所以点击它会调用导航事件，还可以提供一些用户界面反馈，例如在 **Hover** 时突出显示菜单项。
+3. 当菜单项目包含 **子菜单** (Children)，我们将该子菜单放在当前菜单`li`元素（父）中的另一个`ul`元素中，依此类推。描述这个特定的菜单项包含一个子菜单，并且能够添加一些特定的样式以使其正常工作 (以及诸如 ▶ 指示符之类的可视元素)，我们将向`li`此父级添加`has children`css类。
+4. 对于像这样的子项 **分隔符**，我们将在指示它的`li`项中添加一个名为`separator`的相应CSS类。
+5. 菜单项可以被 **禁用** ，在这种情况下，我们将添加相应的`disabled`css类。它的作用是使此项无法响应鼠标事件，如悬停或点击
+6. 我们将把所有东西包装在一个html`nav`容器元素中。 (这样做有很好的[语义](https://en.wikipedia.org/wiki/Semantic_HTML)) 并为其添加`flyout-nav`类，以获取我们将添加的CSS样式的一些基本命名空间。
 
 ```html
 <nav class="flyout-nav">
@@ -87,27 +87,27 @@ Based on the above, this is how our basic menu HTML should look like:
 </nav>
 ```
 
-### Adding behaviours in CSS
+### 在CSS中添加行为
 
-I lied. We’ll use [SCSS](https://sass-lang.com/) instead.
+我撒了谎。我们将使用 [SCSS](https://sass-lang.com/) 代替。
 
-Jokes aside, here comes the interesting part!
+别开玩笑了，有趣的部分来了！
 
-The menu (except the first-level “horizontal bar”), should be **hidden** by default.
+默认情况下应该 **隐藏** 菜单(第一级 `导航菜单条`除外)。
 
-Anything below the first level should only be displayed when the corresponding menu item is hovered upon using the mouse pointer. As you may have already guessed, we’ll heavily rely on the CSS [`hover` pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover) for this.
+只有在使用鼠标指针悬停相应的菜单项时，才应显示第一级下的任何内容。你可能已经猜到了，为了这个我们将严重依赖CSS的[`hover`伪类](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover)。
 
-##### Arranging menu and sub-menu elements
+##### 排列菜单和子菜单元素
 
-Perhaps the trickiest bit in this whole puzzle is to understand how we make the sub-menu position and align itself with respect to their parent menu item correctly. This is where some knowledge of CSS [positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/position) comes in. Let’s look at that.
+理解我们如何使子菜单位置的正确并将其自身与父菜单项对齐也许是整个谜题中最棘手的一点。这就是CSS[定位](https://developer.mozilla.org/en-us/docs/web/css/position)的一些知识来源。让我们看看这个。
 
-There was a reason why we chose to put the sub-menu `ul` element inside a “parent” `li` element. Of course, it helps us to logically appropriately put together the markup for our hierarchical content, but it also serves another purpose of allowing us to easily write some CSS to position a child element **relative** to the position of a parent element. Then we take this concept all the way to the root `ul` and `li` elements.
+我们之所以选择将子菜单`ul`元素放在“父”`li`元素中是有原因的。当然，它有助于我们在逻辑上适当地将分层内容的标记组合在一起。它还有另一个目的，即允许我们轻松编写一些CSS来相对于父元素的位置定位**子元素**。然后我们将这个概念一直延伸到根元素`ul`和`li`。
 
-For doing this, we’ll use a combination of `absolute` positioning and `top`, `left` CSS properties that will help us to position a child element relative to its **closest non-static positioned ancestor** defining the [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block). By non-static, we mean that the CSS position property for an element is not `static` (which happens by default in the HTML document flow), but instead is one of `relative`, `absolute`, `fixed` or `sticky`. To make sure of that, we’ll assign the position `relative` to the `li` elements with their child `ul` elements positioned `absolute`.
+为此，我们将使用`absolute`定位和`top`的组合，`left`CSS属性将帮助我们相对于其最近的非静态定位祖先**定位子元素**定义[包含块](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block)。 通过非静态，我们的意思是元素的CSS position 属性不是`static`（这默认发生在HTML文档流中），但它是 `relative`，`absolute`，`fixed` 或者 `sticky` 其中之一。为了确保这一点，我们将把position `relative`分配给`li`元素，并将其子元素`ul`的 position 设置为`absolute`。
 
 ```scss
 .flyout-nav {
-    // list of menu items at any level
+    // 任何级别的菜单项列表
     ul {
         margin: 0;
         padding: 0;
@@ -116,13 +116,13 @@ For doing this, we’ll use a combination of `absolute` positioning and `top`, `
         list-style-type: none;
     }
 
-    // a menu item
+    // 菜单项
     li {
         position: relative;
         display: block;
 
-        // show the next level drop-down on
-        // the right at the same height
+        // 显示上的下一级下拉列表
+        // 在同一高度的右边
         &:hover {
             & > ul {
                 display: block;
@@ -133,25 +133,25 @@ For doing this, we’ll use a combination of `absolute` positioning and `top`, `
     }
 ```
 
-The effect of this is shown in the image below, highlighted in the red box for illustration. Some additional CSS for visual styling has been done in the image to make it look all nice, but the core behaviour is defined by what we have above. This keeps working great to N-levels deep (within limits of practicality).
+其效果如下图所示，并在红色框中突出显示以供说明。为了使图片看起来更漂亮，我们在图片中添加了一些用于视觉样式的CSS，但是核心行为是由上面的内容定义的。 这使其在N层嵌套内（在实用性的限制范围内）保持良好的工作状态。
 
 ![Sub-menu positioning](https://www.ghosh.dev/static/media/css-nav-menu-4.jpg)
 
-There’s one exception to this though, which is the first-level list of menu items (File, Edit, View… in our example), whose children menu items need to be positioned **below** instead of right. To handle that, we add some style overrides to our previous CSS.
+但有一个例外，即第一级菜单项列表（在我们的示例中，File、Edit、View……），其子菜单项需要放在**下方**而不是右侧。为了处理这个问题，我们在以前的CSS中覆盖添加了一些样式。
 
 ```scss
 .flyout-nav {
-    // ... other stuff
+    // ... 其他的东西
 
-    // overrides for first-level behaviour (horizontal bar)
+    // 一级行为的覆盖（导航菜单条）
     & > ul {
         display: flex;
         flex-flow: row nowrap;
         justify-content: flex-start;
         align-items: stretch;
 
-        // first-level drop-down should appear
-        // below at the same left position
+        // 应显示第一级下拉列表
+        // 在同一左侧位置
         & > li:hover > ul {
             top: 100%;
             left: 0;
@@ -160,18 +160,18 @@ There’s one exception to this though, which is the first-level list of menu it
 }
 ```
 
-Note that using a flex-box here was not imperative, rather just something I did out of choice. You could achieve similar behaviour using other approaches such as a combination of `display: block` and `display: inline-block` on the `ul` and `li` items as well.
+请注意，在这里不一定非要使用`flex box`，这只是我做的选择。您也可以使用其他方法实现类似的行为，例如在`ul`和`li`项上组合`display:block`和`display:inline block`。
 
-##### [](#UI-polishing)UI polishing
+##### [](#UI-抛光)UI 抛光
 
-Once we’re done handling the basics of positioning the menu items, we’ll go on about writing some additional styles such as fonts, sizes, colours, backgrounds, shadow and such for making the UI feel all nice and better.
+一旦我们完成了对菜单项定位的基本操作，我们将继续编写一些额外的样式，如字体、大小、颜色、背景、阴影等，以使UI感觉更好。
 
-For consistency and reuse, let’s also assume that we have such values defined and shared using a bunch of SCSS variables. Something like…
+为了一致性和重用，我们采取使用一组SCSS变量定义和共享了这些值。像这样…
 
 ```scss
-// variables
+// 变量
 $page-bg: #607d8b;
-$base-font-size: 16px; // becomes 1rem
+$base-font-size: 16px; // 变成 1rem
 $menu-silver: #eee;
 $menu-border: #dedede;
 $menu-focused: #1e88e5;
@@ -187,18 +187,18 @@ $menu-border-radius: 0.5rem;
 $menu-top-padding: 0.25rem;
 ```
 
-There are some pieces that we’re left adding the appropriate styles and behaviours for. We’ll go over them quickly now.
+我们还剩下一些部分要添加适当的风格和行为。我们很快就回过头来。
 
-##### Anchors, Labels and Shortcuts - the actual visual elements
+##### Anchors, Labels and Shortcuts - 当前视觉元素
 
 ```scss
 .flyout-nav {
-    // ... other stuff
+    // ... 其他的东西
 
     li {
-        // ... other stuff
+        // ... 其他的东西
 
-        // the menu items - text, shortcut info and hover effect (blue bg)
+        // 菜单项-文本、快捷方式信息和悬停效果（蓝色背景）
         a {
             text-decoration: none;
             color: $menu-text-color;
@@ -221,7 +221,7 @@ There are some pieces that we’re left adding the appropriate styles and behavi
                 cursor: pointer;
             }
 
-            // for menu items that are toggles
+            // 对于切换的菜单项
             input[type='checkbox'] {
                 display: none;
             }
@@ -248,13 +248,13 @@ There are some pieces that we’re left adding the appropriate styles and behavi
 }
 ```
 
-Most of this code is pretty self-explanatory. However, did you notice anything interesting? The bit about `input[type='checkbox']`?
+这段代码的大部分内容都是简单明了的。但是，你注意到什么有趣的事情了吗？关于'input[type='checkbox']`？
 
-##### [](#Toggle-Items)Toggle Items
+##### [](#切换项)切换项
 
-For toggles, we use a hidden HTML `checkbox` element to maintain state (on or off) and style the `label` with [`::before` pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/::before) accordingly. We are able to do that using a simple CSS [adjacent sibling selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator).
+对于切换，我们使用隐藏的HTML复选框元素来维护状态（打开或关闭）并相应地使用[`::before`伪元素](https://developer.mozilla.org/en-US/docs/Web/CSS/::before)为标签设置样式。我们可以使用一个简单的CSS[相邻同级选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator)来做到这一点。
 
-The corresponding HTML markup for that menu item would look something like this:
+该菜单项的相应HTML标记如下所示：
 
 ```html
 <li>
@@ -266,16 +266,16 @@ The corresponding HTML markup for that menu item would look something like this:
 </li>
 ```
 
-##### Separators
+##### 分隔符
 
 ```scss
 .flyout-nav {
-    // ... other stuff
+    // ... 其他的东西
 
     li {
-        // ... other stuff
+        // ... 其他的东西
 
-        // the separator item
+        // 分隔符项
         &.separator {
             margin-bottom: $menu-top-padding;
             border-bottom: $menu-border-width solid $menu-separator;
@@ -285,17 +285,17 @@ The corresponding HTML markup for that menu item would look something like this:
 }
 ```
 
-##### Disabled
+##### 禁用
 
 ```scss
 .flyout-nav {
-    // ... other stuff
+    // ... 其他的东西
 
     li {
-        // ... other stuff
+        // ... 其他的东西
 
-        // don't let disabled options respond to hover
-        // or click and color them different
+        // 不要让禁用的选项响应hover
+        // 或者点击并给它们涂上不同的颜色
         &.disabled {
             .label,
             .shortcut {
@@ -307,28 +307,28 @@ The corresponding HTML markup for that menu item would look something like this:
 }
 ```
 
-CSS [pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) does the actual trick here. Setting it to `none` makes it invisible as a target for any pointer events.
+CSS [pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) 在这有个实用的技巧。将其设置为`none`将变成不可选的鼠标事件target。
 
-### Putting it all together…
+### 把它们组合一起…
 
-Now that we’ve gained some understanding of the building blocks, let’s put it all together. Here’s a Codepen link to our multi-level hierarchical flyout navigation menu in action!
+现在我们已经了解了这些构造块，让我们把它们组合一起。这里有一个代码笔链接到我们的多层次弹出式导航菜单的行动！
 
-Demo:[CSS-only multi-level hierarchical navigation flyout menu](https://codepen.io/abhishekcghosh/pen/WqjOaX)
+示例:[仅限于CSS的多级分层导航弹出菜单](https://codepen.io/abhishekcghosh/pen/WqjOaX)
 
-##### Fancier theming
+##### 更漂亮的主题
 
-If you are not a fan of the retro Windows look, here’s another version of the same code with some minor tweaks to the CSS to make it look and feel more like MacOS.
+如果你不喜欢复古窗户的外观，这是同一代码的另一个版本，对CSS进行了一些细微的调整，使其看起来和感觉更像MacOS。
 
-Demo:[CSS-only multi-level hierarchical navigation flyout menu (MacOS lookalike)](https://codepen.io/abhishekcghosh/pen/qzmEWd)
+示例:[仅限于CSS的多级分层导航弹出式菜单（类似于MacOS）](https://codepen.io/abhishekcghosh/pen/qzmEWd)
 
-### What doesn’t work?
+### 什么不管用?
 
-There are a few things we haven’t handled. For starters,
+有一些事情我们还没有处理。首先，
 
-* If you’re nitpicky about it, while most of the behaviour works great, a limitation of the deliberate CSS-only approach is that unlike the real-world Windows and MacOS application menus, our menu hides immediately as soon as the pointer goes outside. For more comfortable usage, typically what we’d want to do is wait for a click before hiding (can be always achieved with a bit of JS).
-* What if the list of items in a menu is super long? Imagine a bookmarks list as an example. At some point, it might need to be capped into a scrollable view, say at some percentage of the viewport height. At the end of the day, it’s really a choice of the user experience you’re building, but something I wanted to put out there as well.
+* 如果你对此非常挑剔的话，虽然大多数效果都很好，但故意只使用CSS的方法的一个局限性是，与现实世界的Windows和MacOS应用程序菜单不同，我们的菜单会在鼠标移出外部时立即隐藏。为了使用起来更方便，通常我们想要做的是在点击之后再隐藏（总是可以用一点JS来实现）。
+* 如果菜单中的项目列表太长怎么办？以书签列表为例。在某一点上，它可能需要覆盖到一个可滚动的视图中，例如按视口高度的某个百分比表示。归根结底，它确实是您正在构建的用户体验的一种选择，但我也希望在那里推出一些东西。
 
-Hope this was useful. Cheers!
+希望这是有用的。干杯！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
