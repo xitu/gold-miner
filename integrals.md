@@ -7521,6 +7521,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 7 月兑小米台灯 1 个，掘金鼠标垫 1 个，掘金纪念币 2 个|减去积分|52|
 |[Xcode 和 LLDB 高级调试教程：第 1 部分](https://juejin.im/post/5d0b246be51d4555e372a60b)|校对|2|
 |[用于 iOS 的 ML Kit 教程：识别图像中的文字](https://juejin.im/post/5cfe23af6fb9a07ee742d401)|校对|2|
 |[iOS 中的 File Provider 拓展](https://juejin.im/post/5cff5b0af265da1b8b2b54c7)|翻译|9.5|
@@ -8446,10 +8447,11 @@
 |------|-------|-------|
 |[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|校对|3.5|
 
-## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：85 当前积分：85 二零一九：85
+## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：89 当前积分：89 二零一九：89
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|4|
 |[JavaScript 简明代码 — 最佳实践](https://juejin.im/post/5d07abcc6fb9a07eda031858)|校对|1|
 |[如何用 React Hooks 打造一个不到 100 行代码的异步表单校验库](https://juejin.im/post/5cf4e2c2f265da1b80202f83)|校对|2|
 |[ECMAScript 类 - 定义私有属性](https://juejin.im/post/5d006e406fb9a07ed22465de)|校对|1.5|
@@ -8836,10 +8838,12 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
 
-## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：13 当前积分：13 二零一九：13
+## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：53 当前积分：1 二零一九：53
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 6 月兑米家台灯，Google 鲁班锁和小袋子各 1 个|减去积分|52|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|40|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
 
 ## 译者：[smilemuffie](https://github.com/smilemuffie) 历史贡献积分：8 当前积分：8 二零一九：8
@@ -8870,10 +8874,12 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：18 当前积分：18 二零一九：18
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：23 当前积分：23 二零一九：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|4|
+|推荐英文文章一篇|奖励|1|
 |推荐英文文章一篇|奖励|1|
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|翻译|5|
 |[Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)|校对|6.5|
@@ -8951,3 +8957,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
+
+## 译者：[MartinsYong](https://github.com/MartinsYong) 历史贡献积分：20 当前积分：20 二零一九：20
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|20|
+
+## 译者：[scarqin](https://github.com/scarqin) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
+
+## 译者：[savokiss](https://github.com/savokiss) 历史贡献积分：5 当前积分：5 二零一九：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|5|
