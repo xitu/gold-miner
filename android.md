@@ -1,3 +1,5 @@
+* [区域设置更改和 AndroidViewModel 反面模式](https://juejin.im/post/5d2db596f265da1b5f2688d3) ([solerji](https://github.com/solerji) 翻译)
+* [思考实践：用 Go 实现 Flutter](https://juejin.im/post/5d215b8df265da1b7b31ac8f) ([suhanyujie](https://github.com/suhanyujie) 翻译)
 * [Android 数据绑定库  — 从可观察域到 LiveData 仅需两步](https://juejin.im/post/5d12d76cf265da1b8b2b6d6e) ([gs666](https://github.com/gs666) 翻译)
 * [改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560) ([qiuyuezhong](https://github.com/qiuyuezhong) 翻译)
 * [Android中的简易协程：viewModelScope](https://juejin.im/post/5cf35ec76fb9a07ed657bbcd) ([twang1727](https://github.com/twang1727) 翻译)
