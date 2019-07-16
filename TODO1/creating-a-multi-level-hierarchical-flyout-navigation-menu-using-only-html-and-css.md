@@ -103,7 +103,7 @@
 
 我们之所以选择将子菜单 `ul` 元素放在“父” `li` 元素中是有原因的。当然，它有助于我们在逻辑上适当地将分层内容的标记组合在一起。它还有另一个目的，即允许我们轻松编写一些 CSS 来相对于父元素的位置定位**子元素**。然后我们将这个概念一直延伸到根元素 `ul` 和 `li` 。
 
-为此，我们将使用`absolute`定位和 `top` 的组合，`left` CSS 属性将帮助我们相对于其最近的非静态定位祖先**定位子元素**定义[包含块](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block)。 通过非静态，我们的意思是元素的 CSS position 属性不是 `static` （这默认发生在 HTML 文档流中），但它是 `relative` ，`absolute` ，`fixed` 或者 `sticky` 其中之一。为了确保这一点，我们将把 position `relative` 分配给 `li` 元素，并将其子元素 `ul` 的 position 设置为 `absolute` 。
+为此，我们将使用 `absolute` 定位和 `top` 的组合，`left` CSS 属性将帮助我们相对于其最近的非静态定位祖先**定位子元素**定义[包含块](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block)。 通过非静态，我们的意思是元素的 CSS position 属性不是 `static` （这默认发生在 HTML 文档流中），但它是 `relative` ，`absolute` ，`fixed` 或者 `sticky` 其中之一。为了确保这一点，我们将把 position `relative` 分配给 `li` 元素，并将其子元素 `ul` 的 position 设置为 `absolute` 。
 
 ```scss
 .flyout-nav {
@@ -160,7 +160,7 @@
 }
 ```
 
-请注意，在这里不一定非要使用 `flex box` ，这只是我做的选择。您也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block`和`display:inline block` 。
+请注意，在这里不一定非要使用 `flex box` ，这只是我做的选择。您也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block` 和 `display:inline block` 。
 
 ##### [](#UI-抛光) UI 抛光
 
