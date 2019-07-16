@@ -28,7 +28,7 @@
 * **Shortcut**:（**可选**）在我们的例子中，显示一个可用于此菜单项的快捷键组合。例如，“文件 > 新建” 在Mac上会是 “Cmd + N” （⌘N）。
 * **Children**:（**可选**）指的是此菜单项的子菜单。想想我们的菜单和子菜单的形式 **递归结构**，视觉，具有子菜单的菜单项上还应具有箭头图标 （▶）指示悬停时它可以展开。
 * **Disabled**:（**可选**）指示菜单项是否可以进行交互。
-* 一个概念 **Type** 参数吗?（**可选**）可以用这个模拟不同类型的菜单项。 比如，菜单列表中的一些条目应该只起分隔符的作用。
+* 一个概念 **Type** 参数吗？（**可选**）可以用这个模拟不同类型的菜单项。 比如，菜单列表中的一些条目应该只起分隔符的作用。
 
 请注意，我们可以继续向菜单添加更复杂的行为。例如，某个菜单可以是一个 **切换** 项，所以，需要某种形式的记号（✔）或与之关联的复选框，以指示其打开/关闭状态。
 
@@ -38,11 +38,11 @@
 
 基于上文，我们的基本菜单 HTML 应该是什么样子：
 
-1. 菜单列表由 HTML `ul` 元素定义，单个菜单项当然是 `li` 。
-2. **label** 和 **shortcut** 将作为 `span` 元素放置在 `li` 中的锚（ `a` ）标签内并带有相应css类（ `label` 或 `shortcut` ），所以点击它会调用导航事件，还可以提供一些用户界面反馈，例如在 **Hover** 时突出显示菜单项。
-3. 当菜单项目包含 **子菜单** （Children）们将该子菜单放在当前菜单 `li` 元素（父）中的另一个 `ul` 元素中，依此类推。描述这个特定的菜单项包含一个子菜单，并且能够添加一些特定的样式以使其正常工作 （以及诸如 ▶ 指示符之类的可视元素，）们将向 `li` 此父级添加 `has children` CSS类。
-4. 对于像这样的子项 **分隔符**，我们将在指示它的 `li` 项中添加一个名为 `separator` 的相应CSS类。
-5. 菜单项可以被 **禁用** ，在这种情况下，我们将添加相应的 `disabled` CSS类。它的作用是使此项无法响应鼠标事件，如悬停或点击
+1. 菜单列表由 HTML `ul` 元素定义，单个菜单项当然是 `li`。
+2. **label** 和 **shortcut** 将作为 `span` 元素放置在 `li` 中的锚（`a`）标签内并带有相应 CSS 类（`label` 或 `shortcut`），所以点击它会调用导航事件，还可以提供一些用户界面反馈，例如在 **Hover** 时突出显示菜单项。
+3. 当菜单项目包含 **子菜单** （Children）们将该子菜单放在当前菜单 `li` 元素（父）中的另一个 `ul` 元素中，依此类推。描述这个特定的菜单项包含一个子菜单，并且能够添加一些特定的样式以使其正常工作 （以及诸如 ▶ 指示符之类的可视元素，）们将向 `li` 此父级添加 `has children` CSS 类。
+4. 对于像这样的子项 **分隔符**，我们将在指示它的 `li` 项中添加一个名为 `separator` 的相应 CSS 类。
+5. 菜单项可以被 **禁用**，在这种情况下，我们将添加相应的 `disabled` CSS 类。它的作用是使此项无法响应鼠标事件，如悬停或点击
 6. 我们将把所有东西包装在一个 HTML `nav` 容器元素中。（这样做有很好的[语义](https://en.wikipedia.org/wiki/Semantic_HTML)）并为其添加 `flyout-nav` 类，以获取我们将添加的CSS样式的一些基本命名空间。
 
 ```html
@@ -95,15 +95,15 @@
 
 默认情况下应该 **隐藏** 菜单（第一级 `导航菜单条` 除外）。
 
-只有在使用鼠标指针悬停相应的菜单项时，才应显示第一级下的任何内容。你可能已经猜到了，为了这个我们将严重依赖 CSS 的[ `hover` 伪类](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover)。
+只有在使用鼠标指针悬停相应的菜单项时，才应显示第一级下的任何内容。你可能已经猜到了，为了这个我们将严重依赖 CSS 的[`hover`伪类](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover)。
 
 #### 排列菜单和子菜单元素
 
 理解我们如何使子菜单位置的正确并将其自身与父菜单项对齐也许是整个谜题中最棘手的一点。这就是 CSS [定位](https://developer.mozilla.org/en-us/docs/web/css/position)的一些知识来源。让我们看看这个。
 
-我们之所以选择将子菜单 `ul` 元素放在“父” `li` 元素中是有原因的。当然，它有助于我们在逻辑上适当地将分层内容的标记组合在一起。它还有另一个目的，即允许我们轻松编写一些 CSS 来相对于父元素的位置定位**子元素**。然后我们将这个概念一直延伸到根元素 `ul` 和 `li` 。
+我们之所以选择将子菜单 `ul` 元素放在“父” `li` 元素中是有原因的。当然，它有助于我们在逻辑上适当地将分层内容的标记组合在一起。它还有另一个目的，即允许我们轻松编写一些 CSS 来相对于父元素的位置定位**子元素**。然后我们将这个概念一直延伸到根元素 `ul` 和 `li`。
 
-为此，我们将使用 `absolute` 定位和 `top` 的组合，`left` CSS 属性将帮助我们相对于其最近的非静态定位祖先**定位子元素**定义[包含块](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block)。 通过非静态，我们的意思是元素的 CSS position 属性不是 `static` （这默认发生在 HTML 文档流中），但它是 `relative` ，`absolute` ，`fixed` 或者 `sticky` 其中之一。为了确保这一点，我们将把 position `relative` 分配给 `li` 元素，并将其子元素 `ul` 的 position 设置为 `absolute` 。
+为此，我们将使用 `absolute` 定位和 `top` 的组合，`left` CSS 属性将帮助我们相对于其最近的非静态定位祖先**定位子元素**定义[包含块](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block)。 通过非静态，我们的意思是元素的 CSS position 属性不是 `static` （这默认发生在 HTML 文档流中），但它是 `relative`，`absolute`，`fixed` 或者 `sticky` 其中之一。为了确保这一点，我们将把 position `relative` 分配给 `li` 元素，并将其子元素 `ul` 的 position 设置为 `absolute`。
 
 ```scss
 .flyout-nav {
@@ -133,7 +133,7 @@
     }
 ```
 
-其效果如下图所示，并在红色框中突出显示以供说明。为了使图片看起来更漂亮，我们在图片中添加了一些用于视觉样式的 CSS ，但是核心行为是由上面的内容定义的。 这使其在N层嵌套内（在实用性的限制范围内）保持良好的工作状态。
+其效果如下图所示，并在红色框中突出显示以供说明。为了使图片看起来更漂亮，我们在图片中添加了一些用于视觉样式的 CSS，但是核心行为是由上面的内容定义的。 这使其在N层嵌套内（在实用性的限制范围内）保持良好的工作状态。
 
 ![子菜单位置](https://www.ghosh.dev/static/media/css-nav-menu-4.jpg)
 
@@ -160,7 +160,7 @@
 }
 ```
 
-请注意，在这里不一定非要使用 `flex box` ，这只是我做的选择。您也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block` 和 `display:inline block` 。
+请注意，在这里不一定非要使用 `flex box`，这只是我做的选择。您也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block` 和 `display:inline block`。
 
 ##### [](#UI-抛光) UI 抛光
 
@@ -252,7 +252,7 @@ $menu-top-padding: 0.25rem;
 
 ##### [](#切换项)切换项
 
-对于切换，我们使用隐藏的 HTML 复选框元素来维护状态（打开或关闭）并相应地使用[ `::before` 伪元素](https://developer.mozilla.org/en-US/docs/Web/CSS/::before)为标签设置样式。我们可以使用一个简单的 CSS [相邻同级选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator)来做到这一点。
+对于切换，我们使用隐藏的 HTML 复选框元素来维护状态（打开或关闭）并相应地使用[`::before`伪元素](https://developer.mozilla.org/en-US/docs/Web/CSS/::before)为标签设置样式。我们可以使用一个简单的 CSS [相邻同级选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator)来做到这一点。
 
 该菜单项的相应 HTML 标记如下所示：
 
@@ -317,7 +317,7 @@ CSS [pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-ev
 
 #### 更漂亮的主题
 
-如果你不喜欢复古窗户的外观，这是同一代码的另一个版本，对 CSS 进行了一些细微的调整，使其看起来和感觉更像 MacOS 。
+如果你不喜欢复古窗户的外观，这是同一代码的另一个版本，对 CSS 进行了一些细微的调整，使其看起来和感觉更像 MacOS。
 
 示例:[仅限于CSS的多级分层导航弹出式菜单（类似于MacOS）](https://codepen.io/abhishekcghosh/pen/qzmEWd)
 
