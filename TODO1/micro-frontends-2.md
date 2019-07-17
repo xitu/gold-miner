@@ -2,8 +2,8 @@
 > * 原文作者：[Cam Jackson](https://camjackson.net/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
+> * 校对者：[动力小车](https://github.com/Stevens1995), [柯小基](https://github.com/lgh757079506)
 
 # 微前端：未来前端开发的新趋势 — 第二部分
 
@@ -16,39 +16,39 @@
 > * [微前端：未来前端开发的新趋势 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-3.md)
 > * [微前端：未来前端开发的新趋势 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-4.md)
 
-## The example
+## 示例
 
-Imagine a website where customers can order food for delivery. On the surface it's a fairly simple concept, but there's a surprising amount of detail if you want to do it well:
+想象一个网页，消费者可以在上面点外卖。表面上看起来这是一个很简单的概念，但是如果想把它做好，有非常多的细节需要考虑。
 
-* There should be a landing page where customers can browse and search for restaurants. The restaurants should be searchable and filterable by any number of attributes including price, cuisine, or what a customer has ordered previously
-* Each restaurant needs its own page that shows its menu items, and allows a customer to choose what they want to eat, with discounts, meal deals, and special requests
-* Customers should have a profile page where they can see their order history, track delivery, and customise their payment options
+* 应该有一个引导页，消费者可以在这里浏览和搜索餐厅。这些餐厅可以通过任意数量的属性搜索或者过滤，包括价格、菜系或先前订单。
+* 每一个餐厅都需要它自己的页面来显示菜单，并允许消费者选择他们想点什么，并有折扣、套餐、特殊要求这些选项。
+* 消费者应该有一个用户页面来查看订单历史、追踪外卖并自定义支付选项。
 
-![A wireframe of a food delivery website](https://martinfowler.com/articles/micro-frontends/wireframe.png)
+![一个餐饮外卖网站的线框图](https://martinfowler.com/articles/micro-frontends/wireframe.png)
 
-Figure 4: A food delivery website may have several reasonably complex pages
+图 4：一个餐饮外卖网页可能会有几个相当复杂的页面。
 
-There is enough complexity in each page that we could easily justify a dedicated team for each one, and each of those teams should be able to work on their page independently of all the other teams. They should be able to develop, test, deploy, and maintain their code without worrying about conflicts or coordination with other teams. Our customers, however, should still see a single, seamless website.
+每个页面都足够复杂到需要一个团队来完成。每个团队都理应能够独立地开发他们负责的页面。他们需要能够开发、测试、部署、维护他们的代码，并无需担心与其他团队的冲突与协调。我们的消费者，看到的仍然应该是一个完整、无缝的网页。
 
-Throughout the rest of this article, we'll be using this example application wherever we need example code or scenarios.
+在文章接下来的部分里，当我们需要示例代码或者情景时，我们将会使用这个应用作为例子。
 
 * * *
 
-## Integration approaches
+## 集成方式
 
-Given the fairly loose definition above, there are many approaches that could reasonably be called micro frontends. In this section we'll show some examples and discuss their tradeoffs. There is a fairly natural architecture that emerges across all of the approaches - generally there is a micro frontend for each page in the application, and there is a single **container application**, which:
+根据前文相对宽松的定义，多种方法都能被叫做微前端。在这一节中我们会看一些例子并讨论它们的优劣。这些方法中共有一个相对自然的架构 —— 总体上讲，应用中的每一个页面都有一个微前端，然后还有唯一一个**容器应用**，用于：
 
-* renders common page elements such as headers and footers
-* addresses cross-cutting concerns like authentication and navigation
-* brings the various micro frontends together onto the page, and tells each micro frontend when and where to render itself
+* 渲染公用页面元素，如页眉页脚
+* 解决跨页面的一些需求，如授权和导航
+* 将多个微前端集成到页面上，并告知每个微前端何时在哪渲染自己
 
-![A web page with boxes drawn around different sections. One box wraps the whole page, labelling it as the 'container application'. Another box wraps the main content (but not the global page title and navigation), labelling it as the 'browse micro frontend'](https://martinfowler.com/articles/micro-frontends/composition.png)
+![一个用方框画出不同部分的网页。一个方框包含了整个页面，标记为“容器应用”，另一个方框包括了主要内容（全局页面标题和导航除外），标记为“浏览微前端”](https://martinfowler.com/articles/micro-frontends/composition.png)
 
-Figure 5: You can usually derive your architecture from the visual structure of the page
+图 5：你通常可以从页面结构推出你的架构
 
-### Server-side template composition
+### 服务端模板编写
 
-We start with a decidedly un-novel approach to frontend development - rendering HTML on the server out of multiple templates or fragments. We have an `index.html` which contains any common page elements, and then uses server-side includes to plug in page-specific content from fragment HTML files:
+我们从一个很常见的前端开发方法开始 —— 在服务器端基于一些模板和代码片段渲染 HTML 页面。我们有一个 `index.html` 文件，包含所有公用的页面元素，然后我们用服务器端的 `includes` 来加入从 HTML 文件片段提取的页面内容：
 
 ```
 <html lang="en" dir="ltr">
@@ -63,7 +63,7 @@ We start with a decidedly un-novel approach to frontend development - rendering 
 </html>
 ```
 
-We serve this file using Nginx, configuring the `$PAGE` variable by matching against the URL that is being requested:
+我们用 Nginx 来提供这个文件，配置 `$PAGE` 变量，将其与请求的 URL 匹配。
 ```
 server {
     listen 8080;
@@ -73,10 +73,10 @@ server {
     index index.html;
     ssi on;
 
-    # Redirect / to /browse
+    # 重定向 / 至 /browse
     rewrite ^/$ http://localhost:8080/browse redirect;
 
-    # Decide which HTML fragment to insert based on the URL
+    # 根据URL确定要插入哪个 HTML 片段
     location /browse {
       set $PAGE 'browse';
     }
@@ -87,24 +87,24 @@ server {
       set $PAGE 'profile'
     }
 
-    # All locations should render through index.html
+    # 所有位置都应经 index.html 渲染
     error_page 404 /index.html;
 }
 ```
 
-This is fairly standard server-side composition. The reason we could justifiably call this micro frontends is that we've split up our code in such a way that each piece represents a self-contained domain concept that can be delivered by an independent team. What's not shown here is how those various HTML files end up on the web server, but the assumption is that they each have their own deployment pipeline, which allows us to deploy changes to one page without affecting or thinking about any other page.
+这是一个相对标准的服务端组合。我们能够将其称为微前端的原因是，我们将代码分离，这样每一部分代码都是一个自我包含的领域概念，并能够被一个独立的团队开发。我们没有看到的是，这些不同的 HTML 文件最后如何到了服务器端，但是我们假设每一个页面都有它们自己的部署流程，允许我们对一个页面部署修改，同时不影响或者无需考虑其他页面。
 
-For even greater independence, there could be a separate server responsible for rendering and serving each micro frontend, with one server out the front that makes requests to the others. With careful caching of responses, this could be done without impacting latency.
+对于更大的独立性，每一个微前端都可以由独立的服务器来负责渲染，并由一个服务器负责向剩下的发送请求。使用精心设计的缓存来存储响应，这种实施方案不会影响延迟。
 
-![A flow diagram showing a browser making a request to a 'container app server', which then makes requests to one of either a 'browse micro frontend server' or a 'order micro frontend server'](https://martinfowler.com/articles/micro-frontends/ssi.png)
+![一个流程图，展示浏览器向“容器应用服务器”发送请求，该服务器随后向“浏览微前端服务器”或“订单微前端服务器”发送请求](https://martinfowler.com/articles/micro-frontends/ssi.png)
 
-Figure 6: Each of these servers can be built and deployed to independently
+图 6：每一个服务器都可以独立构建和部署
 
-This example shows how micro frontends is not necessarily a new technique, and does not have to be complicated. As long as we're careful about how our design decisions affect the autonomy of our codebases and our teams, we can achieve many of the same benefits regardless of our tech stack.
+这个例子展示为何微前端不是一个新技术，并且不需要很复杂。只要我们仔细考虑我们的设计决定如何影响代码库和团队的自治，我们就能获取同样多的便利，无论我们的技术栈是什么。
 
-### Build-time integration
+### 构建时集成
 
-One approach that we sometimes see is to publish each micro frontend as a package, and have the container application include them all as library dependencies. Here is how the container's `package.json` might look for our example app:
+我们有时会看到一种方法，即以一个包来发布每一个微前端，然后由容器应用引入这些包作为库依赖。我们示例应用的容器的 `package.json` 可能是这样：
 
 ```
 {
@@ -119,13 +119,13 @@ One approach that we sometimes see is to publish each micro frontend as a packag
 }
 ```
 
-At first this seems to make sense. It produces a single deployable Javascript bundle, as is usual, allowing us to de-duplicate common dependencies from our various applications. However, this approach means that we have to re-compile and release every single micro frontend in order to release a change to any individual part of the product. Just as with microservices, we've seen enough pain caused by such a **lockstep release process** that we would recommend strongly against this kind of approach to micro frontends.
+乍一看这可能有道理。它产出单个可部署的 JavaScript 包，和往常一样，允许我们从我们多样的应用中解耦公用依赖。然而，这个方法意味着，为了在产品任意一个部分发布修改，我们必须重新编译和发布每一个微前端。如同微服务一样，我们已经体会过了这种**因循守旧的发布流程**带来的痛苦，以至于我们强烈反对在微前端使用同样的方法。
 
-Having gone to all of the trouble of dividing our application into discrete codebases that can be developed and tested independently, let's not re-introduce all of that coupling at the release stage. We should find a way to integrate our micro frontends at run-time, rather than at build-time.
+踩过了将应用分为离散的、可独立开发测试的代码库带来的所有的坑，我们就不再介绍发布阶段的耦合问题了。我们需要找到一个在运行时集成微前端的方法，而非构造时方法。
 
-### Run-time integration via iframes
+### 通过 iframes 运行时集成
 
-One of the simplest approaches to composing applications together in the browser is the humble iframe. By their nature, iframes make it easy to build a page out of independent sub-pages. They also offer a good degree of isolation in terms of styling and global variables not interfering with each other.
+将应用组合到浏览器的一个最简便的方法便是使用 iframe。其特性让使用独立的子页面构建一个页面变得简单。它也提供了一个不错的分离性，包括样式和全局变量互不干扰。
 
 ```
 <html>
@@ -151,13 +151,13 @@ One of the simplest approaches to composing applications together in the browser
 </html>
 ```
 
-Just as with the [server-side includes option](#Server-sideTemplateComposition), building a page out of iframes is not a new technique and perhaps does not seem that exciting. But if we revisit the chief benefits of micro frontends [listed earlier](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md#%E4%BC%98%E7%82%B9), iframes mostly fit the bill, as long as we're careful about how we slice up the application and structure our teams.
+和[服务端的引入选项](#服务端模板编写)一样，用 iframes 构建页面不是一个新的技术，而且可能不是很令人兴奋。但如果我们重温[之前提过](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-1.md#%E4%BC%98%E7%82%B9)的微前端的好处，iframes 几乎都有，只要我们仔细考虑如何将应用分成独立部分、如何构建团队。
 
-We often see a lot of reluctance to choose iframes. While some of that reluctance does seem to be driven by a gut feel that iframes are a bit “yuck”, there are some good reasons that people avoid them. The easy isolation mentioned above does tend to make them less flexible than other options. It can be difficult to build integrations between different parts of the application, so they make routing, history, and deep-linking more complicated, and they present some extra challenges to making your page fully responsive.
+我们经常看到很多人不愿意选择 iframes。虽然部分原因似乎是直觉感觉 iframe 有点“糟糕”，但人们也有很好的理由不使用它们。上面提到的简单隔离确实会使它们比其他选项更不灵活。在应用程序的不同部分之间构建集成可能很困难，因此它们使路由，历史记录和深层链接变得更加复杂，并且它们对使页面完全响应性提出了一些额外的挑战。
 
-### Run-time integration via JavaScript
+### 通过 JavaScript 运行时集成
 
-The next approach that we'll describe is probably the most flexible one, and the one that we see teams adopting most frequently. Each micro frontend is included onto the page using a `<script>` tag, and upon load exposes a global function as its entry-point. The container application then determines which micro frontend should be mounted, and calls the relevant function to tell a micro frontend when and where to render itself.
+我们将要讨论的下一个方法可能是最灵活的、团队采用最频繁的一个。每一个微前端都用 `<script>` 标签放入页面，在加载时会暴露一个全局函数作为入口。容器应用接下来决定挂载哪个微前端，并调用相关函数告诉一个微前端何时在哪渲染。
 
 ```
 <html>
@@ -167,8 +167,8 @@ The next approach that we'll describe is probably the most flexible one, and the
   <body>
     <h1>Welcome to Feed me!</h1>
 
-    <!-- These scripts don't render anything immediately -->
-    <!-- Instead they attach entry-point functions to `window` -->
+    <!-- 这些脚本不会立即渲染任何元素 -->
+    <!-- 相反它们将每一个入口函数挂载在 `window` 上 -->
     <script src="https://browse.example.com/bundle.js"></script>
     <script src="https://order.example.com/bundle.js"></script>
     <script src="https://profile.example.com/bundle.js"></script>
@@ -176,7 +176,7 @@ The next approach that we'll describe is probably the most flexible one, and the
     <div id="micro-frontend-root"></div>
 
     <script type="text/javascript">
-      // These global functions are attached to window by the above scripts
+      // 这些全局函数会通过上面的脚本挂在 window 对象上
       const microFrontendsByRoute = {
         '/': window.renderBrowseRestaurants,
         '/order-food': window.renderOrderFood,
@@ -184,21 +184,20 @@ The next approach that we'll describe is probably the most flexible one, and the
       };
       const renderFunction = microFrontendsByRoute[window.location.pathname];
 
-      // Having determined the entry-point function, we now call it,
-      // giving it the ID of the element where it should render itself
+      // 决定好入口函数之后，我们现在调用它，给它提供元素的 ID 来告诉它在哪里渲染
       renderFunction('micro-frontend-root');
     </script>
   </body>
 </html>
 ```
 
-The above is obviously a primitive example, but it demonstrates the basic technique. Unlike with build-time integration, we can deploy each of the `bundle.js` files independently. And unlike with iframes, we have full flexibility to build integrations between our micro frontends however we like. We could extend the above code in many ways, for example to only download each JavaScript bundle as needed, or to pass data in and out when rendering a micro frontend.
+以上显然是一个比较初始的例子，但它演示了基本技术。与构建时集成不同，我们可以独立部署每个 `bundle.js` 文件。与 iframe 不同，我们有充分的灵活性来以我们偏好的方式构建微前端之间的集成。我们可以通过多种方式扩展上述代码，例如，只根据需要下载每个 JavaScript 包，或者在呈现微前端时传入和传出数据。
 
-The flexibility of this approach, combined with the independent deployability, makes it our default choice, and the one that we've seen in the wild most often. We'll explore it in more detail when we get into the [full example.](#TheExampleInDetail)
+这一方法的灵活性，与独立部署性结合，使它成为了我们的默认选择，并且是最为常见的一种选择。当我们到了[完整示例](https://github.com/xitu/gold-miner/blob/master/TODO1/micro-frontends-2.md#案例详解)时我们将会探索这方面的更多细节。
 
-### Run-time integration via Web Components
+### 通过网页组件运行时集成
 
-One variation to the previous approach is for each micro frontend to define an HTML custom element for the container to instantiate, instead of defining a global function for the container to call.
+前面这种方法的一个变种就是，对于每一个微前端，定义一个 HTML 自定义元素让容器来构建，而非定义一个全局函数来让容器调用。
 
 ```
 <html>
@@ -208,8 +207,8 @@ One variation to the previous approach is for each micro frontend to define an H
   <body>
     <h1>Welcome to Feed me!</h1>
 
-    <!-- These scripts don't render anything immediately -->
-    <!-- Instead they each define a custom element type -->
+    <!-- 这些脚本不会立即渲染任何元素 -->
+    <!-- 相反它们每一个都定义一个自定义元素类型 -->
     <script src="https://browse.example.com/bundle.js"></script>
     <script src="https://order.example.com/bundle.js"></script>
     <script src="https://profile.example.com/bundle.js"></script>
@@ -217,7 +216,7 @@ One variation to the previous approach is for each micro frontend to define an H
     <div id="micro-frontend-root"></div>
 
     <script type="text/javascript">
-      // These element types are defined by the above scripts
+      // 这些元素类型是由上述脚本定义的
       const webComponentsByRoute = {
         '/': 'micro-frontend-browse-restaurants',
         '/order-food': 'micro-frontend-order-food',
@@ -225,8 +224,7 @@ One variation to the previous approach is for each micro frontend to define an H
       };
       const webComponentType = webComponentsByRoute[window.location.pathname];
 
-      // Having determined the right web component custom element type,
-      // we now create an instance of it and attach it to the document
+      // 决定了正确的网页组件，我们现在创建了一个实体并把它挂在 document 上
       const root = document.getElementById('micro-frontend-root');
       const webComponent = document.createElement(webComponentType);
       root.appendChild(webComponent);
@@ -235,29 +233,29 @@ One variation to the previous approach is for each micro frontend to define an H
 </html>
 ```
 
-The end result here is quite similar to the previous example, the main difference being that you are opting in to doing things 'the web component way'. If you like the web component spec, and you like the idea of using capabilities that the browser provides, then this is a good option. If you prefer to define your own interface between the container application and micro frontends, then you might prefer the previous example instead.
+这里的最终结果与前面的示例非常相似，主要区别在于选择以 “网页组件方式” 进行操作。如果您喜欢网页组件规范，并且您喜欢使用浏览器提供的功能，那么这是一个不错的选择。如果你更喜欢在容器应用程序和微前端之间定义自己的接口，那么你可能更喜欢前面的示例。
 
 * * *
 
-## Styling
+## 样式
 
-CSS as a language is inherently global, inheriting, and cascading, traditionally with no module system, namespacing or encapsulation. Some of those features do exist now, but browser support is often lacking. In a micro frontends landscape, many of these problems are exacerbated. For example, if one team's micro frontend has a stylesheet that says `h2 { color: black; }`, and another one says `h2 { color: blue; }`, and both these selectors are attached to the same page, then someone is going to be disappointed! This is not a new problem, but it's made worse by the fact that these selectors were written by different teams at different times, and the code is probably split across separate repositories, making it more difficult to discover.
+CSS 作为一种语言本质上是全局的，继承和级联的，传统上没有模块系统，命名空间或封装。其中一些功能确实存在，但通常缺乏浏览器支持。在微观前沿领域，许多这些问题都在恶化。例如，如果一个团队的微前端有一个样式表，上面写着 `h2 { color: black; }`，另一个人说 `h2 { color: blue; }`，并且这两个选择器都附加到同一页面，然后有人就会不高兴了！这不是一个新问题，但由于这些选择器是由不同团队在不同时间编写的，而且代码可能分散在不同的代码库中，因此更难以发现。
 
-Over the years, many approaches have been invented to make CSS more manageable. Some choose to use a strict naming convention, such as [BEM](http://getbem.com/), to ensure selectors only apply where intended. Others, preferring not to rely on developer discipline alone, use a pre-processor such as [SASS](https://sass-lang.com/), whose selector nesting can be used as a form of namespacing. A newer approach is to apply all styles programatically with [CSS modules](https://github.com/css-modules/css-modules) or one of the various [CSS-in-JS](https://mxstbr.com/thoughts/css-in-js/) libraries, which ensures that styles are directly applied only in the places the developer intends. Or for a more platform-based approach, [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) also offers style isolation.
+近几年来，人们想出了很多解决方案来使 CSS 更易于管理。有些人选择使用严格的命名规范，比如 [BEM](http://getbem.com/)，来确保选择器只会在想要的地方起作用。另外一部分人则选择不仅仅依赖于开发者规则，使用一个预处理器，如 [SASS](https://sass-lang.com/)，其选择器嵌套可以用做一种命名空间。一种更新的解决方案是将所有样式以程序的方式，用 [CSS modules](https://github.com/css-modules/css-modules) 或者众多 [CSS-in-JS](https://mxstbr.com/thoughts/css-in-js/) 库的一个来应用，以保证样式只应用在开发者想要的地方。或者，[shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) 也以一种更加基于平台的方式提供样式分离。
 
-The approach that you pick does not matter all that much, as long as you find a way to ensure that developers can write their styles independently of each other, and have confidence that their code will behave predictably when composed together into a single application.
+你选择的方法并不重要，只要你找到一种方法来确保开发人员可以彼此独立地编写样式，并确信他们的代码在组合到单个应用程序中时可以预测。
 
 * * *
 
-## Shared component libraries
+## 共享组件库
 
-We mentioned above that visual consistency across micro frontends is important, and one approach to this is to develop a library of shared, re-usable UI components. In general we believe that this a good idea, although it is difficult to do well. The main benefits of creating such a library are reduced effort through re-use of code, and visual consistency. In addition, your component library can serve as a living styleguide, and it can be a great point of collaboration between developers and designers.
+我们在上面提到过，微前端的视觉一致性很重要，其中一种方法是开发一个共享的，可重用的 UI 组件库。总的来说，我们认为这是一个好主意，虽然很难做好。创建这样一个库的主要好处是通过重用代码减少工作量，并提供视觉一致性。此外，你的组件库可以作为一个样式​​指南，它可以是开发人员和设计人员之间的一个很好的协作点。
 
-One of the easiest things to get wrong is to create too many of these components, too early. It is tempting to create a [Foundation Framework](https://martinfowler.com/bliki/FoundationFramework.html), with all of the common visuals that will be needed across all applications. However, experience tells us that it's difficult, if not impossible, to guess what the components' APIs should be before you have real-world usage of them, which results in a lot of churn in the early life of a component. For that reason, we prefer to let teams create their own components within their codebases as they need them, even if that causes some duplication initially. Allow the patterns to emerge naturally, and once the component's API has become obvious, you can [harvest](https://martinfowler.com/bliki/HarvestedFramework.html) the duplicate code into a shared library and be confident that you have something proven.
+最容易出错的地方之一就是过早地创建太多这些组件。创建一个包含所有应用程序所需的所有常见视觉效果的[基础框架](https://martinfowler.com/bliki/FoundationFramework.html)很有吸引力，但是，经验告诉我们，在实际使用它们之前，很难（如果不是不可能的话）猜测组件的API应该是什么，这会导致组件早期的大量波动。出于这个原因，我们更愿意让团队在他们需要的时候在他们的代码库中创建自己的组件，即使这最初会导致一些重复。允许模式自然出现，一旦组件的API变得明显，你可以使用 [harvest](https://martinfowler.com/bliki/HarvestedFramework.html) 将重复的代码放入共享库中并确信这些已经被证明有效。
 
-The most obvious candidates for sharing are “dumb” visual primitives such as icons, labels, and buttons. We can also share more complex components which might contain a significant amount of UI logic, such as an auto-completing, drop-down search field. Or a sortable, filterable, paginated table. However, be careful to ensure that your shared components contain only UI logic, and no business or domain logic. When domain logic is put into a shared library it creates a high degree of coupling across applications, and increases the difficulty of change. So, for example, you usually should not try to share a `ProductTable`, which would contain all sorts of assumptions about what exactly a “product” is and how one should behave. Such domain modelling and business logic belongs in the application code of the micro frontends, rather than in a shared library.
+最明显的可供分享的组件是比较“傻”的视觉基元，如图标，标签和按钮。我们也可以共享一些复杂组件，他们可能会包含大量的 UI 逻辑，如自动补全和下拉菜单搜索框。或者是可排序、可过滤的分页表。但是，请务必确保共享组件仅包含 UI 逻辑，并且不包含业务或域逻辑。将域逻辑放入共享库时，它会在应用程序之间创建高度耦合，并增加更改的难度。因此，例如，通常不应该尝试共享一个 `ProductTable`，它会包含关于“产品”究竟是什么以及应该如何表现的各种假设。这种域建模和业务逻辑属于微前端的应用程序代码，而不是共享库中。
 
-As with any shared internal library, there are some tricky questions around its ownership and governance. One model is to say that as a shared asset, “everyone” owns it, though in practice this usually means that **no one** owns it. It can quickly become a hodge-podge of inconsistent code with no clear conventions or technical vision. At the other extreme, if development of the shared library is completely centralised, there will be a big disconnect between the people who create the components and the people who consume them. The best models that we've seen are ones where anyone can contribute to the library, but there is a [custodian](https://martinfowler.com/bliki/ServiceCustodian.html) (a person or a team) who is responsible for ensuring the quality, consistency, and validity of those contributions. The job of maintaining the shared library requires strong technical skills, but also the people skills necessary to cultivate collaboration across many teams.
+与任何共享的内部库一样，围绕其所有权和治理存在一些棘手的问题。一种模式是说作为共享资产，“每个人”拥有它，但在实践中，这通常意味着**没有人**拥有它。它很快就会充满杂乱的风格不一致的代码，没有明确的约定或技术愿景。另一方面，如果共享库的开发完全集中化，那么创建组件的人与使用它们的人之间将存在很大的脱节。我们看到的最好的模型是任何人都可以为库做出贡献的模型，但是有一个[保管人](https://martinfowler.com/bliki/ServiceCustodian.html)（一个人或一个团队）负责确保这些贡献的质量，一致性和有效性。维护共享库的工作需要强大的技术技能，还需要培养许多团队之间协作所需的人员技能。
 
 > **建议按照顺序阅读本系列文章：**
 >
