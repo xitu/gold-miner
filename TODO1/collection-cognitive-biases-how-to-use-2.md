@@ -21,7 +21,7 @@
 
 说服的艺术！这里有一些（廉价的？）技巧可以帮助你更好地传达你的信息。
 
-### 22. 锚定效应：
+### 22. 锚定效应
 
 我们会过分倾向于依赖取得的第一份讯息（“锚定”）来做出后续的决策。
 
@@ -159,67 +159,67 @@
 
 用每日优惠、免费奖金、荣誉积分等奖品吸引用户
 
-## Not as rational as we think
+## 并非我们所想的那么理性
 
-Make rational decisions is not as easy as it seems.
+做出理性的选择并不像看上去那么容易。
 
-### 33. The Gambler's Fallacy
+### 33. 赌徒谬误
 
-We mistakenly believe that if something happens more frequently than normal during a given period, it will happen less frequently in the future.
+我们错误地认为，如果在某一时间段一件事发生的频率高于常态，那么在将来它的发生频率就会降低。
 
-**Work-related tip**: Stick with facts. Less intuition, more numbers.
+**工作相关技巧**：坚持事实论据。依赖数据而非直觉。
 
-### 34. Confirmation Bias:
+### 34. 确认偏差
 
-We seek and favorite information that confirms our initial belief and preconception.
+我们搜寻和偏爱那些能印证我们最初想法与先入之见的信息。
 
-**Question**: Did you ever manipulated your KPI reports, again and again, switching from weeks to months, from months to quarters, until finding the conclusion you were looking for?
+**问**：你是否反复操作过你的 KPI 报告，从几周到几个月，从几个月再到几个季度，直到找到你想要的结论？
 
 ### 35. Disconfirmation Bias
 
-We tend to dismiss evidence that refutes our beliefs.
+我们倾向于忽视与我们想法相悖的证据。
 
-**Question**: Did you ever like a candidate (during a job interview) so much that you ignored some warning signs?
+**问**：你是否曾（在面试中）非常喜欢一个候选人，以至于忽略了一些他/她的缺点？
 
-Read: [5 product management lessons I've learned when moving from B2B to B2C](https://www.mobilespoon.net/2018/04/5-things-i-learned-in-transition-from.html)
+阅读：[从 B2B 到 B2C 的 5 个 产品管理经验](https://www.mobilespoon.net/2018/04/5-things-i-learned-in-transition-from.html)
 
-### 36. Framing Effect
+### 36. 框架效应
 
-Our decision-making processes are not always as rational as we think and we are influenced by the way the information is presented (positive vs negative frames).
+我们抉择的过程并非总是我们想象的那样理性，我们会受到信息呈现方式的影响（正面与负面框架）。
 
-Product tip: In most cases, positive frames (i.e. glass is half full) convert better.
+产品技巧：在大多数情况下，正面框架（即玻璃杯是半满，而非半空）有更高的转化率。
 
-![Framing Effect - Try to present the full half of the cup for better conversion](https://alexdenk.eu/blogtouch?id=1Lc6vP6HPyktJ8kk2XaoPVqLQKxiu7LNO "Framing Effect - Try to present the full half of the cup for better conversion")
+![框架效应 - 尝试使用“玻璃杯半满”的表达方式来提高转换率](https://alexdenk.eu/blogtouch?id=1Lc6vP6HPyktJ8kk2XaoPVqLQKxiu7LNO "框架效应 - 尝试使用“玻璃杯半满”的表达方式来提高转换率")
 
-A positive frame in action 
+正面框架的实践
 
-### 37. Context Effect
+### 37. 境联效应
 
-Our perception of things is influenced by the context in which they are presented or happening.
+我们对事物的感知受到事物呈现或发生时所在场景的影响。
 
-In visual design, a color or a size of an object can be perceived differently depending on where and how they are presented.
+在视觉设计中，人们对物体的颜色或大小因其呈现位置与方式的不同而有不同的感知。
 
-![Context Effect in design](https://alexdenk.eu/blogtouch?id=1HGFPufdKBckl6ADB9QPFEYgrBiq1SBSX "Context Effect in design")
+![设计中的境联效应](https://alexdenk.eu/blogtouch?id=1HGFPufdKBckl6ADB9QPFEYgrBiq1SBSX "设计中的境联效应")
 
-### 38. Selective Perception
+### 38. 选择性知觉
 
-Our perception of things is highly influenced by our expectations.
+我们对事物的看法很大程度上受到我们期望的影响。
 
-**Product & marketing tip**: Your product’s conversion funnel doesn’t begin when the user boards, it begins when the user sees your ad for the first time.
+**产品和营销技巧**：产品的转化漏斗并非从用户登录开始，而是从用户第一次看到你的广告时就开始了。
 
-Misalignment between the marketing message and what the product delivers will disappoint your users and result in poor conversion rates.
+营销信息与产品提供内容之间的不一致会让你的用户大失所望，从而导致转化率的下降。
 
-Aligning the messages across all media (and stages of the funnel) will bring users with the right expectations and as a result - improve conversion rates.
+在所有媒体上（漏斗的各个阶段）让消息一致将为用户带来正确的期望，从而提高转化率。
 
-### 39. Hot-hand Fallacy
+### 39. 热手谬误
 
-A fallacious belief that a person who has experienced success has a greater chance of further success in additional attempts.
+一种错误的观点认为一个经历过成功的人有更大的机会取得进一步的成功。
 
-**How to use**: Emphasize a list of successes stories to build your strong brand.
+**如何使用**：强调成功的故事来打造品牌。
 
-![Hot Hand Fallacy - If Ashton Kutcher invested in this startup it must be good, right? ](https://alexdenk.eu/blogtouch?id=1USmoXr5h3-KqGtaLIoi4XWV6V9MuASsj "Hot Hand Fallacy - If Ashton Kutcher invested in this startup it must be good, right? ")
+![热手谬误 —— 如果阿什顿·库彻投资这家创业公司，那这家公司一定不错，对吧？](https://alexdenk.eu/blogtouch?id=1USmoXr5h3-KqGtaLIoi4XWV6V9MuASsj "热手谬误 —— 如果阿什顿·库彻投资这家创业公司，那这家公司一定不错，对吧？")
 
-If Ashton Kutcher invested in this startup it must be good, right? 
+如果阿什顿·库彻投资这家创业公司，那这家公司一定不错，对吧？
 
 ### 40. Anticipation:
 
