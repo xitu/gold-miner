@@ -2,84 +2,84 @@
 > * 原文作者：[Polypane](https://polypane.rocks/blog/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/responsive-design-ground-rules.md](https://github.com/xitu/gold-miner/blob/master/TODO1/responsive-design-ground-rules.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Pingren](https://github.com/Pingren)
+> * 校对者：[Moonliujk](https://github.com/Moonliujk)，[Chorer](https://github.com/Chorer)
 
-# Responsive design ground rules
+# 响应式设计的基本原则
 
-Creating a responsive design can be intimidating. There are many moving parts, things might lay out in ways you didn't expect and keeping all various viewports in mind when laying out a design can be daunting. With these ground rules, your responsive designs will be more robust and predictable.
+创建响应式设计令人胆战心惊：它由许多移动的部分构成，而且经常不像你期望中一样排列；你在设计的时候还要惦记着所有不同的视口（viewports）。通过遵守这些基本原则，你可以创建出更加健壮和可预测的响应式设计。
 
-## Rule #1: Keep your viewport simple
+## 原则 #1：保持简单的视口
 
-Back when the viewport meta tag was first introduced, common knowledge was you had to add in all sorts of values to prevent users from resizing and to have a minimum and maximum screen size. It turns out that doing that is actually hostile to your users.
+当初刚实施视口元标记（viewport meta tag）的标准时，基本常识是你必须添加各种值，从而阻止用户缩放，以及设置最大和最小的屏幕尺寸。结果表明，这其实是对用户不友好的做法。
 
-You really only want two things: set the width to the device your site is shown on, and make sure the initial scale is 1, which means that 1 pixel in your CSS equals one device-independent pixel, like this:
+事实上你只需要做两件事：把宽度设置为展示你的网站的设备宽度，以及保证初始缩放为 1。这么做代表了你 CSS 中的 1 像素等于 1 设备独立像素，像这样：
 
 ```
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ```
 
-## Rule #2: Mobile first
+## 原则 #2：移动优先
 
-You develop websites on a large laptop or desktop screen, and usually your client is most interested in the desktop design of a website, so it might feel natural to just start with the design for the desktop site and then work your way down. But starting mobile first is actually easier and will result in less code.
+你在一台大笔记本电脑或桌面显示器上开发网站，并且，通常情况下你的客户更在意网站的桌面设计。因此，你可能自然觉得就先从桌面设计开始开发。但是，优先开发移动端其实更简单，而且会让你的代码更少。
 
-If you build mobile first, you're building up your CSS in complexity. What I mean with that is that your mobile views are usually much simpler and thus require less CSS. They almost always have just a single column, and lack many of the additional flourishes you have space for on larger screens. If you build mobile-first, this means that, as you add styling for larger and larger media queries, you're **adding** to the design.
+如果你先开发移动端，你将在开发中逐渐增加 CSS 的复杂度。你的手机视图通常简单许多，需要更少的 CSS。手机视图通常永远只有一列，缺少许多额外的装饰和效果。毕竟在更大的屏幕才有空间展示它们。若你的开发“移动优先”，随着你为越来越大的媒体查询增加样式，你在**补充**设计。
 
-If you start desktop first, you already have all this styling that you then need to write **more** CSS for just to undo your more advanced desktop styling. So you're writing more CSS and if you're not carefully undoing all CSS, you end up with things like horizontal overflowing or text not fitting.
+如果你先开发桌面端，你已经有了所有的样式，仅仅为了撤销你高级的桌面样式，你就需要写**更多**的 CSS。你写了更多的 CSS，如果其中有一处不小心没写好，就会出现诸如布局水平溢出或是文本大小不合适的问题。
 
-With mobile first, you save a large chunk of CSS you simply **don't have to write**, making it smaller and your website faster.
+通过移动优先，你将避免大量**非必需**的 CSS，使你的 CSS 更轻，网站更快。
 
-## Rule #3: Design from content out
+## 原则 #3：根据内容设计
 
-To determine where your breakpoint will be, you can opt to use values like 320px, 375px, 768px and 1024px, which all map to various real device widths. Basically, design for specific devices. But when new devices become more popular **(#375IsTheNew320)** your design might not look so good on those devices.
+你可以选择使用 320 px，375 px，768 px 以及 1024 px 这样的值作为你的断点（breakpoint）。它们对应了真实设备的宽度。这就是基于特定设备的设计。但是当新的设备变得更流行 **(#375IsTheNew320)**，在那些新设备上，你的设计看上去可能就不是很好了。
 
-[Stephen Hay](http://the-haystack.com/), who wrote the book on [responsive design workflows](http://www.peachpit.com/store/responsive-design-workflow-9780321887863), advices you to start with your small screen, then "expand until it looks like shit. Time for a breakpoint!"
+[Stephen Hay](http://the-haystack.com/)，[响应式设计工作流](http://www.peachpit.com/store/responsive-design-workflow-9780321887863) 的作者，建议你从小屏幕开始，接着“增加屏幕宽度直到丑出天际，是时候加入断点了！”
 
-This focus on the content will force you to think of websites as inherently fluid. You can't design only your pixel perfect widths, because **they don't exist**.
+专注于内容，让你不得不把网站当成自然流动的布局。你无法只为完美像素的宽度设计，因为这些宽度**不存在**。
 
-Quick rule of thumb: you want your line lengths to be around 70 characters long. That translates (depending on the font!) to about 36 to 40 em.
+经验：当你想要行宽在 70 个字符左右时，那差不多等于（取决于字体！）36 到 40em。
 
-## Rule #4: Use ems in your media queries
+## 原则 #4：在媒体查询中使用 em
 
-With specific device widths no longer mattering, you should also switch out those breakpoint widths in pixels, to **widths in ems**. Your media queries are based on the content so this will let your site look great even for people that have made their browsers base font-size larger or smaller or have zoomed in their browser.
+既然特定的设备宽度不再重要，你也应该把像素单位的宽度断点改成 **em 单位的宽度**。你的媒体查询基于内容。这样一来，即使用户把浏览器的基础字体调大/调小或缩放浏览器，你的网站依然看上去很棒。
 
-The rest of your design will properly adjust to this and make your site more robust.
+如此调整你设计的其余部分，让你的网站更加健壮。
 
-## Rule #5: Min-width or max-width, pick one
+## 原则 #5：最小或最大宽度，只选一个
 
-Responsive design makes for an incredibly complex system. When your media queries use both min-width and max-width, or even combinations of them, you're massively increasing that complexity and reasoning about it becomes even harder.
+响应式设计实现了一个十分复杂的系统。当你的媒体查询使用最小宽度和最大宽度，或是混合使用它们时，复杂度便极度增加，理解这个系统也更难了。
 
-If all your media queries work "up" or "down", you always know where to look when your site doesn't look as you expect it to at a certain size. CSS in new media queries you write will then never influence your earlier sizes. Just find out from which media query down (or up) you need to update your CSS.
+如果所有的媒体查询“向上”或“向下”工作，而某个尺寸下你的网站看上去和预期不同时，你总能知道该看看哪儿的代码。在新的媒体查询中写 CSS 永远不会影响你之前已经写好的屏幕尺寸。你只需要找出从哪个媒体查询之下（或上）去更新 CSS 就好。
 
-## Rule #6: Avoid fixed dimensions
+## 原则 #6：避免固定的尺寸
 
-It can be very tempting to use fixed dimensions for elements. After all, your favorite hand-off tool probably lets you copy them with ease. Elements with fixed widths (or margins) could easily break your layout if you're not careful.
+将元素设置成固定的尺寸也许很吸引你。毕竟，你最喜欢的设计交接工具可能让你轻松地拷贝它们。如果你不小心，固定宽度（或边距）很容易破坏你的布局。
 
-Try to style element sizes in relation to their surroundings. Use percentages or viewport units. Prevent setting `width` and `height` and try to use their `min-` and `max-` counterparts. And if you do end up with a `width` breaking something somewhere, a `max-width:100%`can work wonders.
+尝试把元素的尺寸设置成与它们的环境相关。使用百分比或者视口单位。避免设置 `width` 和 `height`，尝试设置相应的 `min-` 和 `max-`。如果你发现 `width` 对布局造成了破坏，一个 `max-width:100%` 可以创造奇迹。
 
-## Rule #7: Use modern layout techniques
+## 原则 #7：使用现代布局技术
 
-To expand on the previous rule, modern layout methods like Flexbox and CSS Grid are built to be inherently flexible and size according to their surroundings. If you make use of these layout methods, you'll end up needing less media queries to achieve the same design. Less media queries means less to reason about, and your code's shorter to boot.
+基于上条原则，例如弹性盒子（Flexbox）和网格（Grid）的现代布局方法，天生就很灵活，还能根据它们的环境改变大小。如果你使用这些布局方法，你只需要更少的媒体查询就能实现相同的设计。更少的媒体查询意味着更少的事情需要你推理，而你的代码也变得更简单。
 
-A great way to (re-)learn how to build common layouts with Flexbox and CSS Grid is [Every-layout.dev](https://every-layout.dev/). It lists comon layouts and explains how to build them using modern techniques.
+[Every-layout.dev](https://every-layout.dev/) 上你可以（重新）学习如何使用弹性盒子和网格布局构建常用布局。它列出了一些常用的布局，并且解释了如何使用现代技术构建它们。
 
-## Rule #8: Leave room for text rendering differences
+## 原则 #8：为字体渲染的不同预留空间
 
-It's tempting to create breakpoints right at the place where an unfavorable line-break occurs. To get that "pixel perfect". Of course we know the web isn't pixel perfect, and it never was.
+在一个不合适的换行处创建一个断点很吸引你。为了让“像素完美”。当然，我们知道 web 从来没有过所谓的“像素完美”。
 
-If your breakpoints are too close to readable line breaks, then it might work in **your** browser, but different browsers and different operating systems have different ways of rendering text, which means that the line of text might be a couple of pixel wider or smaller,, and your design could break.
+如果你的断点距离可读的换行太近，它可能在**你**的浏览器可用。在不同浏览器和不同操作系统下有着不同的渲染方式。这意味着一行字可能会宽或窄几个像素，从而破坏你的设计。
 
-Instead, try to be a little bit loose with your media queries, leave a little space for things to be off by a few pixels before big changes in your design.
+尝试对你的媒体查询宽松一点，用一些像素为可能的错误预留一点空间，防止你的设计发生巨大的变化。
 
-## Rule #9: Decide in the browser
+## 原则 #9：在浏览器内决定
 
-To follow these rules, it doesn't make sense to create all your breakpoints in a design tool. On the other hand, designing the entire site in a browser is difficult too. So what's the happy medium?
+为了遵守这些规则，在设计工具里创建所有断点是不明智的。另一方面，在浏览器内设计整个网站也很难。那么折中办法是什么？
 
-Create your designs in a design tool, with some rough responsive variants, but keep the choice of **when** to switch over to another design for when you're actually working in the browser. The Sketch artboard might be 750px wide, but if you're in the browser and the layout already makes more sense at 44em (that's 704 pixels), then use `44em` in your css.
+你可在设计工具里创建设计，以及一些粗略的响应式版本。但是，在你在浏览器内**工作时**才可以决定转换到另一个设计。Sketch 画板的宽度可能是 750 px，但如果你在浏览器内发现布局已经在 44 em（相当于 704 像素）工作得很好，那么就在 CSS 中使用 44 em。
 
-## Rule #10: Give Polypane a try
+## 原则 #10：尝试 Polypane
 
-With Polypane, creating sites and apps in a mobile-first, content-out way comes naturally. Start with a single pane and design your smallest screen. Then add a new pane, and widen it until, to quote Stephen, it "looks like shit". Then check the width of the pane and use that `em` value as your new breakpoint. Style it and repeat.
+通过 Polypane，以移动优先，内容优先的方式创建网站和 App 变得十分自然。从一个小面板开始设计你最小的屏幕。接着，添加一个新的面板，将它变宽直到它如同 Stephen 所说的 “丑出天际”。然后检查面板的宽度，并用那个 `em` 值作为你的新断点。设置样式然后不断地重复直到完成。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
