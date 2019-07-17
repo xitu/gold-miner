@@ -160,7 +160,7 @@
 }
 ```
 
-请注意，在这里不一定非要使用弹性布局 `flex-box`，这只是我做的选择。你也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block` 和 `display:inline block`。
+请注意，在这里不一定非要使用弹性盒模型 `flex-box`，这只是我做的选择。你也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block` 和 `display:inline block`。
 
 ##### [](#UI-美化) UI 美化
 
