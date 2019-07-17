@@ -252,7 +252,7 @@ $menu-top-padding: 0.25rem;
 
 ##### [](#切换项)切换项
 
-对于切换，我们使用隐藏的 HTML 复选框元素来维护状态（打开或关闭）并相应地使用[`::before`伪元素](https://developer.mozilla.org/en-US/docs/Web/CSS/::before)为标签设置样式。我们可以使用一个简单的 CSS [相邻同级选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator)来做到这一点。
+对于切换，我们使用隐藏的 HTML 复选框元素来维护状态（打开或关闭）并相应地使用[`::before`伪元素](https://developer.mozilla.org/en-US/docs/Web/CSS/::before)为标签设置样式。我们可以使用一个简单的 CSS [相邻兄弟选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator)来做到这一点。
 
 该菜单项的相应 HTML 标记如下所示：
 
@@ -294,7 +294,7 @@ $menu-top-padding: 0.25rem;
     li {
         // ... 其他的东西
 
-        // 不要让禁用的选项响应hover
+        // 不要让禁用的选项响应 hover
         // 或者点击并给它们涂上不同的颜色
         &.disabled {
             .label,
@@ -307,7 +307,7 @@ $menu-top-padding: 0.25rem;
 }
 ```
 
-CSS [pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) 在这有个实用的技巧。将其设置为 `none` 将变成不可选的鼠标事件target。
+CSS [pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) 在这有个实用的技巧。将其设置为 `none` 将变成不可选的鼠标事件目标对象。
 
 ### 把它们组合一起...
 
