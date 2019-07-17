@@ -2,126 +2,126 @@
 > * 原文作者：[Paige Niedringhaus](https://medium.com/@paigen11)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-node-js-to-read-really-really-large-files-pt-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-node-js-to-read-really-really-large-files-pt-1.md)
-> * 译者：
+> * 译者：[lucasleliane](https://github.com/lucasleliane)
 > * 校对者：
 
-# Using Node.js to Read Really, Really Large Files (Pt 1)
+# 使用 Node.js 读取超大的文件（第一部分）
 
 ![](https://cdn-images-1.medium.com/max/3686/1*-Nq1fQSPq9aeoWxn4WFbhg.png)
 
-This blog post has an interesting inspiration point. Last week, someone in one of my Slack channels, posted a coding challenge he’d received for a developer position with an insurance technology company.
+这篇博文有一个非常有趣的启发点。上周，一位就职于一家保险科技公司的开发人员，在我的 Slack 频道上发布了一个编码挑战。
 
-It piqued my interest as the challenge involved reading through very large files of data from the Federal Elections Commission and displaying back specific data from those files. Since I’ve not worked much with raw data, and I’m always up for a new challenge, I decided to tackle this with Node.js and see if I could complete the challenge myself, for the fun of it.
+这个挑战激起了我的兴趣，这个挑战要求我读取联邦选举委员会的大量数据文件，并且展示这些文件中的某些特定数据。由于我没有做过什么和原始数据相关的工作，并且我总是面临一些新的挑战，所以我决定用 Node.js 来解决这个问题，看看我是否能够完成这个挑战，并且从中找到乐趣。
 
-Here’s the 4 questions asked, and a link to the data set that the program was to parse through.
+下面是提出的四个问题，以及这个程序需要解析的数据集的链接。
 
-* Write a program that will print out the total number of lines in the file.
-* Notice that the 8th column contains a person’s name. Write a program that loads in this data and creates an array with all name strings. Print out the 432nd and 43243rd names.
-* Notice that the 5th column contains a form of date. Count how many donations occurred in each month and print out the results.
-* Notice that the 8th column contains a person’s name. Create an array with each first name. Identify the most common first name in the data and how many times it occurs.
+* 实现一个可以打印出文件总行数的程序。
+* 注意，第八列包含了人的名字。编写一个程序来加载这些数据，并且创建一个数组，将所有的名字字符串保存进去。打印出第 432 个以及第 43243 个名字。
+* 注意，第五列包含了格式化的时间。计算每个月份出现的次数，并且将其打印到结果里。
+* 注意，第八列包含了人的名字。创建一个数组来保存每个 first name。标记出数据中最常使用的 first name，以及其出现的次数。
 
-Link to the data: ​[https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip](https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip)
+数据的链接：[https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip](https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip)
 
-When you unzip the folder, you should see one main `.txt` file that’s 2.55GB and a folder containing smaller pieces of that main file (which is what I used while testing my solutions before moving to the main file).
+当你解压完这个文件夹，你可以看到一个大小为 2.55 GB 的 `.txt` 主文件，以及一个包含了主文件部分数据的文件夹（这个是我在跑主文件之前，用来测试我的解决方案的）。
 
-Not too terrible, right? Seems doable. So let’s talk about how I approached this.
+不是非常可怕，对吧？似乎是可行的。所以让我们看看我是怎么实现的。
 
-#### The Two Original Node.js Solutions I Came Up With
+#### 我想出来的两个原生 Node.js 解决方案
 
-Processing large files is nothing new to JavaScript, in fact, in the core functionality of Node.js, there are a number of standard solutions for reading and writing to and from files.
+处理大型文件对于 JavaScript 来说并不是什么新鲜事了，实际上，在 JavaScript 的核心功能当中，有很多标准的解决方案可以进行文件的读写。
 
-The most straightforward is [`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) wherein, the whole file is read into memory and then acted upon once Node has read it, and the second option is [`fs.createReadStream()`](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options), which streams the data in (and out) similar to other languages like Python and Java.
+其中，最直接的就是 [`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)，这个方法会将整个文件读入到内存当中，然后在 Node 执行后立即进行读取，第二个选择是 [`fs.createReadStream()`](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options)，这个方法使用 stream 的方法处理数据的输入输出，类似于 Python 或者是 Java。
 
-#### The Solution I Chose to Run With & Why
+#### 我使用的解决方案以及我为什么要使用它
 
-Since my solution needed to involve such things as counting the total number of lines and parsing through each line to get donation names and dates, I chose to use the second method: `fs.createReadStream()`. Then, I could use the [`rl.on(‘line’,...)`](https://nodejs.org/api/readline.html#readline_event_line) function to get the necessary data from each line of code as I streamed through the document.
+由于我的解决方案需要涉及到计算行的总数以及解析每一行的数据来获取捐赠名和日期，所以我选择第二个方法：`fs.createReadStream()`。然后在遍历文件的时候，我可以使用 [`rl.on('line',...)`](https://nodejs.org/api/readline.html#readline_event_line) 函数来从文件的每一行中获取必要的数据。
 
-It seemed easier to me, than having to split apart the whole file once it was read in and run through the lines that way.
+对我来说，这比将整个文件读入到内存中，然后再按照行的顺序来读取更加简单。
 
-#### Node.js CreateReadStream() & ReadFile() Code Implementation
+#### Node.js CreateReadStream() 和 ReadFile() 代码实现
 
-Below is the code I came up with using Node.js’s `fs.createReadStream()` function. I’ll break it down below.
+下面是我用 Node.js 的 `fs.createReadStream()` 函数实现的代码。我会在下面将其分解。
 
 ![](https://cdn-images-1.medium.com/max/2704/1*szFus-f7Xllx17AuSc_TQw.png)
 
-The very first things I had to do to set this up, were import the required functions from Node.js: `fs` (file system), `readline`, and `stream`. These imports allowed me to then create an `instream` and `outstream` and then the `readLine.createInterface()`, which would let me read through the stream line by line and print out data from it.
+我所要做的第一件事就是从 Node.js 中导入需要的函数：`fs`（文件系统），`readline`，以及 `stream`。这些导入允许我创建一个 `instream` 和 `outstream` 以及 `readLine.createInterface()`，它们让我可以逐行读取流，并且从中打印出数据。
 
-I also added some variables (and comments) to hold various bits of data: a `lineCount`, `names` array, `donation` array and object, and `firstNames` array and `dupeNames` object. You’ll see where these come into play a little later.
+我还添加了一些变量（和注释）来保存各种数据：一个 `lineCount`，`names` 数组，`donation` 数组和对象，以及 `firstNames` 数组和 `dupeNames` 对象。你可以稍后看到它们发挥作用。
 
-Inside of the `rl.on('line',...)` function, I was able to do all of my line-by-line data parsing. In here, I incremented the `lineCount` variable for each line it streamed through. I used the JavaScript `split()` method to parse out each name and added it to my `names` array. I further reduced each name down to just first names, while accounting for middle initials, multiple names, etc. along with the first name with the help of the JavaScript `trim()`, `includes()` and `split()` methods. And I sliced the year and date out of date column, reformatted those to a more readable `YYYY-MM` format, and added them to the `dateDonationCount` array.
+在 `rl.on('line',...)`函数里面，我可以完成数据的逐行分析。在这里，我为数据流的每一行都进行了 `lineCount` 的递增。我用 JavaScript 的 `split()` 方法来解析每一个名字。并且将其添加到 `names` 数组当中。我会进一步将每个名字都缩减为 first name，同时在 JavaScript 的 `trim()`，`includes()` 以及 `split()` 方法的帮助下，计算 middle name 的首字母，以及名字出现的次数等信息。然后我将时间列的年份和时间进行分割，将其格式化为更加易读的 `YYYY-MM` 格式，并且添加到 `dateDonationCount` 数组当中。
 
-In the `rl.on('close',...)` function, I did all the transformations on the data I’d gathered into arrays and `console.log`ged out all my data for the user to see.
+在 `rl.on('close',...)` 函数中，我对我收集到数组中的数据进行了转换，并且在 `console.log` 的帮助下将我的所有数据展示给用户。
 
-The `lineCount` and `names` at the 432nd and 43,243rd index, required no further manipulation. Finding the most common name and the number of donations for each month was a little trickier.
+找到第 432 个以及第 43243 个下标处的 `lineCount` 和 `names` 不需要进一步的操作了。而找到最常出现的名字和每个月的捐款数量比较棘手。
 
-For the most common first name, I first had to create an object of key value pairs for each name (the key) and the number of times it appeared (the value), then I transformed that into an array of arrays using the ES6 function `Object.entries()`. From there, it was a simple task to sort the names by their value and print the largest value.
+对于最常见的名字，我首先需要创建一个键值对对象，每个名字（作为 key），然后这个名字出现的次数（作为 value），然后我用 ES6 的函数 `Object.entries()` 来将其转换为数组。然后再按照值从大到小的顺序，将这个数组排序是一个非常简单的事情，这样就可以打印出最大的值了。
 
-Donations also required me to make a similar object of key value pairs, create a `logDateElements()` function where I could nicely using ES6’s string interpolation to display the keys and values for each donation month. And then create a `new Map()` transforming the `dateDonations` object into an array of arrays, and looping through each array calling the `logDateElements()` function on it. Whew! Not quite as simple as I first thought.
+获取捐赠数量也需要一个类似的键值对对象，我们创建一个 `logDateElements()` 函数，我们可以使用 ES6 的字符串插值来展示每个月捐赠数量的键值。然后，创建一个 `new Map()` 将 `dateDonations` 对象转换为嵌套数组，并且对于每个数组元素调用 `logDateElements()` 函数。呼！并不想我开始想的那么简单。
 
-But it worked. At least with the smaller 400MB file I was using for testing…
+但是它奏效了。虽然我用的是最小的 400 MB 的文件进行了这次测试...
 
-After I’d done that with `fs.createReadStream()`, I went back and also implemented my solutions with `fs.readFile()`, to see the differences. Here’s the code for that, but I won’t go through all the details here — it’s pretty similar to the first snippet, just more synchronous looking (unless you use the `fs.readFileSync()` function, though, JavaScript will run this code just as asynchronously as all its other code, not to worry.
+在用 `fs.createReadStream()` 方法完成后，我回过头来尝试使用 `fs.readFile()` 来实现我的解决方案，看看有什么不同。下面是这个方法的代码，但是我不会在这里详细介绍所有细节。这段代码和第一个代码片十分相似，只是看起来更加同步（除非你使用 `fs.readFileSync()` 方法，但是不用担心，JavaScript 会和运行其他异步代码一样执行这段代码）。
 
 ![](https://cdn-images-1.medium.com/max/2704/1*mLYx43qMKJBpbZ8TUp_qrA.png)
 
-If you’d like to see my full repo with all my code, you can see it [here](https://github.com/paigen11/file-read-challenge).
+如果你想要看我的代码的完整版，可以在[这里](https://github.com/paigen11/file-read-challenge)找到。
 
-#### Initial Results from Node.js
+#### Node.js 的初始结果
 
-With my working solution, I added the file path into `readFileStream.js` file for the 2.55GB monster file, and watched my Node server crash with a `JavaScript heap out of memory` error.
+使用我的解决方案，我将传入到 `readFileStream.js` 的文件路径替换成了那个 2.55 GB 的怪物文件，并且看着我的 Node 服务器因为 `JavaScript heap out of memory` 错误而崩溃。
 
 ![Fail. Whomp whomp…](https://cdn-images-1.medium.com/max/5572/1*S26hQHQCuzlPDHMnDR_s3g.png)
 
-As it turns out, although Node.js is streaming the file input and output, in between it is still attempting to hold the entire file contents in memory, which it can’t do with a file that size. Node can hold up to 1.5GB in memory at one time, but no more.
+事实证明，虽然 Node.js 采用流来进行文件的读写，但是其仍然会尝试将整个文件内容保存在内存中，而这对于这个文件的大小来说是无法做到的。Node 可以一次容纳最大 1.5 GB 的内容，但是不能够再大了。
 
-So neither of my current solutions was up for the full challenge.
+因此，我目前的解决方案都不能够完整这整个挑战。
 
-I needed a new solution. A solution for even larger datasets running through Node.
+我需要一个新的结局方案。一个针对通过 Node 来运行更大的数据集的解决方案。
 
-#### The New Data Streaming Solution
+#### 新的数据流解决方案
 
-I found my solution in the form of [`EventStream`](https://www.npmjs.com/package/event-stream), a popular NPM module with over 2 million weekly downloads and a promise “to make creating and working with streams easy”.
+我找到了使用 [`EventStream`](https://www.npmjs.com/package/event-stream) 的解决方案，一个每周超过 200 万下载量的，能够保证“让流的创建和工作更加简单”的流行的 NPM 模块。
 
-With a little help from EventStream’s documentation, I was able to figure out how to, once again, read the code line by line and do what needed to be done, hopefully, in a more CPU friendly way to Node.
+在 EventStream 文档的帮助下，我再次弄清楚了如何逐行读取代码，并且以更加 CPU 友好的方式来实现。
 
-#### EventStream Code Implementation
+#### EventStream 代码实现
 
-Here’s my code new code using the NPM module EventStream.
+这个我的使用 EventStream NPM 模块实现的新代码。
 
 ![](https://cdn-images-1.medium.com/max/2704/1*iZFzB0v46FoAaMTR0ANrCQ.png)
 
-The biggest change was the pipe commands at the beginning of the file — all of that syntax is the way EventStream’s documentation recommends you break up the stream into chunks delimited by the `\n` character at the end of each line of the `.txt` file.
+最大的变化是以文件开头的管道命令——所有这些语法，都是 EventStream 文档所建议的方法，通过 `.txt` 文件每一行末尾的 `\n` 字符来进行流的分解。
 
-The only other thing I had to change was the `names` answer. I had to fudge that a little bit since if I tried to add all 13MM names into an array, I again, hit the out of memory issue. I got around it, by just collecting the 432nd and 43,243rd names and adding them to their own array. Not quite what was being asked, but hey, I had to get a little creative.
+我唯一改变的内容是修改了 `names` 的结果。我不得不实话实说，因为我尝试将 1300 万个名字放到数组里面，结果还是发生了内存泄漏的问题。我绕过了这个问题，只收集了第 432 个和第 43243 个名字，并且将它们加入到了它们自己的数组当中。并不是因为其他什么原因，我只是想有点自己的创意。
 
-#### Results from Node.js & EventStream: Round 2
+好了，使用新的解决方案的实现，我又一次使用 2.55 GB 的文件启动了 Node.js，我可以叉着手等着工作完成了。来让我们看看结果。
 
-Ok, with the new solution implemented, I again, fired up Node.js with my 2.55GB file and my fingers crossed this would work. Check out the results.
+#### Node.js 和 EventStream 的实现成果：第二回合
 
 ![Woo hoo!](https://cdn-images-1.medium.com/max/2000/1*HJBlTYxNUCPXCDeKI9RTMg.png)
 
-Success!
+成功了！
 
-#### Conclusion
+#### 结论
 
-In the end, Node.js’s pure file and big data handling functions fell a little short of what I needed, but with just one extra NPM package, EventStream, I was able to parse through a massive dataset without crashing the Node server.
+最后，Node.js 的纯文件和大数据处理功能与我需要的能力还有些差距，但是使用一些额外的 NPM 模块，比如 EventStream，让我能够解析巨大的数据而不会产生 Node 服务器的崩溃。
 
-Stay tuned for [part two](https://bit.ly/2JdcO2g) of this series where I compare my three different ways of reading data in Node.js with performance testing to see which one is truly superior to the others. The results are pretty eye opening — especially as the data gets larger…
+请继续关闭本系列的[第二部分](https://bit.ly/2JdcO2g)在 Node.js 中读取数据的三种方式的性能进行了测试和比较，看看哪一种方式的性能能够优于其他方式。结果变得非常瞩目——特别是随着数据量的变大……
 
-Thanks for reading, I hope this gives you an idea of how to handle large amounts of data with Node.js. Claps and shares are very much appreciated!
+感谢你的阅读，我希望本文能够帮助你了解如何使用 Node.js 来处理大量数据。感谢你的点赞和关注！
 
-**If you enjoyed reading this, you may also enjoy some of my other blogs:**
+**如果您喜欢阅读本文，你可能还会喜欢我的其他一些博客：**
 
-* [Postman vs. Insomnia: Comparing the API Testing Tools](https://medium.com/@paigen11/postman-vs-insomnia-comparing-the-api-testing-tools-4f12099275c1)
-* [How to Use Netflix’s Eureka and Spring Cloud for Service Registry](https://medium.com/@paigen11/how-to-use-netflixs-eureka-and-spring-cloud-for-service-registry-8b43c8acdf4e)
-* [Jib: Getting Expert Docker Results Without Any Knowledge of Docker](https://medium.com/@paigen11/jib-getting-expert-docker-results-without-any-knowledge-of-docker-ef5cba294e05)
+* [Postman vs. Insomnia: API 测试工具的比较](https://medium.com/@paigen11/postman-vs-insomnia-comparing-the-api-testing-tools-4f12099275c1)
+* [如何使用 Netflix 的 Eureka 和 Spring Cloud 来进行服务注册](https://medium.com/@paigen11/how-to-use-netflixs-eureka-and-spring-cloud-for-service-registry-8b43c8acdf4e)
+* [Jib: 在不了解 Docker 的情况下得到专家级的 Docker 成果](https://medium.com/@paigen11/jib-getting-expert-docker-results-without-any-knowledge-of-docker-ef5cba294e05)
 
 ---
 
-**References and Further Resources:**
+**引用和继续阅读资源：**
 
-* Node.js Documentation, File System: [https://nodejs.org/api/fs.html](https://nodejs.org/api/fs.html)
-* Node.js Documentation, Readline: [https://nodejs.org/api/readline.html#readline_event_line](https://nodejs.org/api/readline.html#readline_event_line)
+* Node.js 文档，文件系统：[https://nodejs.org/api/fs.html](https://nodejs.org/api/fs.html)
+* Node.js 文档，Readline：[https://nodejs.org/api/readline.html#readline_event_line](https://nodejs.org/api/readline.html#readline_event_line)
 * Github, Read File Repo: [https://github.com/paigen11/file-read-challenge](https://github.com/paigen11/file-read-challenge)
 * NPM, EventSream: [https://www.npmjs.com/package/event-stream](https://www.npmjs.com/package/event-stream)
 
