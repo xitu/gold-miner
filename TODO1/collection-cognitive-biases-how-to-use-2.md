@@ -221,19 +221,19 @@
 
 如果阿什顿·库彻投资这家创业公司，那这家公司一定不错，对吧？
 
-### 40. Anticipation:
+### 40. 期待
 
-Our brain is wired to anticipate positive experiences. Anticipation contributes to our happiness.
+期待积极的体验使我们的大脑感到兴奋，这有助于提升我们的幸福感。
 
-**Examples**: Waiting a few months for a big vacation contributes to the overall experience. Buying early tickets to Avengers: Endgame makes us all excited and happy.
+**例如**：需要等上几个月的假期往往有更好的体验。提前买好《复仇者联盟·》的电影票让我们感到兴奋和快乐。
 
-**Product tip**: Create anticipation for your new product (or release) by announcing it ahead of time. Create a positive buzz, something to look forward to, ensuring your audience will remain excited.
+**产品技巧**：通过提前宣布（或发布）你的新产品来创造预期。创造一个积极的话题和一些值得期待的东西，确保你的观众对此感到兴奋。
 
-### 41. Information Bias
+### 41. 信息偏倚
 
-We seek information even when it cannot affect our action.
+即使信息无法影响我们的行为，我们也会寻求信息。
 
-**Product tip**: When presenting products or services (in your website or within your product itself) - make sure to include photos a detailed description. The more information you can pile on to product description, the greater the assurance your users will get.
+**产品技巧**：当展示产品或服务时（在你的网站或在你的产品上）—— 请务必在照片中附上详细说明。你在产品描述中添加的信息越多，你的用户得到的保证就越大。
 
 ## Not as thorough as we say we are
 
