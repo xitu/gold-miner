@@ -2,26 +2,26 @@
 > * 原文作者：[Mitchum](https://mitchum.blog/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-minesweeper-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-minesweeper-with-javascript.md)
-> * 译者：
+> * 译者：tiantian8144(https://github.com/tiantian8144)
 > * 校对者：
 
-# How To Build Minesweeper With JavaScript
+# 怎么用 javascript 开发扫雷游戏
 
 ![](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/featureimage.png?w=600&ssl=1)
 
-In my last post I showed you guys a [tic tac toe](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/) game I built using JavaScript, and before that I built a [matching game](https://mitchum.blog/i-built-a-simple-matching-game-with-javascript/). For this week’s post I decided to ramp up the complexity a bit. You guys are going to learn how to build minesweeper with JavaScript. I also used jQuery, a JavaScript library that is helpful for interacting with html. Whenever you see a function call with a leading dollar sign, that is jQuery at work. If you want to learn more about it, the [documentation](https://api.jquery.com/) for it is very good.
+在我的上一篇文章中，利用 JavaScript 开发了一款 [三连棋游戏](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/)， 在这之前还有一个 [配对游戏](https://mitchum.blog/i-built-a-simple-matching-game-with-javascript/)。在这周的帖子中，我决定提高一丢丢的复杂度。我将会教你们如何用 JavaScript 开发扫雷游戏。 我依然会使用 jQuery ， 这是一个更易于与 html 交互的 JavaScript 代码库。 文中以美元符号 $ 开头的函数就是用到了jQuery。 了解更多相关信息，请查看 [文档](https://api.jquery.com/)。
 
-**[Click here](https://mitchum.blog/games/minesweeper/minesweeper.html)** to play minesweeper! You will want to play it on your desktop computer because of the control scheme.
+**[点击此处](https://mitchum.blog/games/minesweeper/minesweeper.html)** 玩扫雷！ 由于它的控制机制，最好是在台式机上打开这个游戏。
 
-Here are the three files necessary for creating the game:
+以下是开发此游戏所需的三个文件:
 
 * [HTML](http://mitchum.blog/games/minesweeper/minesweeper.html)
 * [CSS](http://mitchum.blog/games/minesweeper/minesweeper.css)
 * [JavaScript](http://mitchum.blog/games/minesweeper/minesweeper.js)
 
-If you want to learn how to build minesweeper with JavaScript, the first step is understanding how the game works. Let’s jump right in and talk about the rules.
+学习用 JavaScript 开发扫雷游戏的第一步就是了解它的工作原理。 让我们直接从游戏规则开始。
 
-## Rules of the Game
+## 游戏规则
 
 1. The minesweeper board is a 10 x 10 square. We could make it other sizes, like the classic Windows version, but for demonstration purposes we will stick to the smaller, “beginner” version of the game.
 2. The board has a predetermined number of randomly placed mines. The player cannot see them.
