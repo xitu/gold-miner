@@ -235,62 +235,62 @@
 
 **产品技巧**：当展示产品或服务时（在你的网站或在你的产品上）—— 请务必在照片中附上详细说明。你在产品描述中添加的信息越多，你的用户得到的保证就越大。
 
-## Not as thorough as we say we are
+## 并非我们所说的那样确信
 
-Sure, we did the research before making the decisions, we just forgot a few things along the way, that's all... 
+当然，我们在做出决定前做了些研究，我们只是一路上忘记了一些事情，就是这样……
 
-### 42. Availability Heuristic (Availability Bias)
+### 42. 获得性启发（获得性偏差）
 
-We think that things that jump quickly to mind are more common and important than the things that do not easily come to mind. As a result, what’s recent, frequent, extreme, remembered, is more influential than the majority of information.
+我们认为那些迅速跃入脑海的事情比那些不容易想起的事情更为常见和重要。因此，最近发生的、频繁发生的、极端的、被记住的事情比大多数信息更有影响力。
 
-**UI tip**: make your design rememberable by creating something unique that stands out (without compromising on consistency and familiarity).
+**UI 技巧**：通过创建一些与众不同的东西（在不影响一致性和熟悉度的情况下）让你的设计被记住。
 
-![Availability Heuristic (Availability Bias)](https://alexdenk.eu/blogtouch?id=1OPjCDK5T34-JUt-9UcwnMvql4CgLkBP4 "Availability Heuristic (Availability Bias)")
+![获得性启发（获得性偏差）](https://alexdenk.eu/blogtouch?id=1OPjCDK5T34-JUt-9UcwnMvql4CgLkBP4 "获得性启发（获得性偏差）")
 
-### 43. Attentional Bias
+### 43. 注意力偏误
 
-When examining all possible outcomes - we tend to focus on a few that seem rational and familiar and ignore all others.
+在检查所有可能的结果时 —— 我们倾向于关注一些看起来理性和熟悉的结果，从而忽略了其他结果。
 
-**Question**: Did you ever release a feature thinking that it would lead to a certain outcome only to discover it caused a side effect you failed to anticipate?
+**问**：你是否曾经发布过一项功能，你认为它会带来确切的结果，但却发现它带来了你未能预料到的副作用？
 
-![Attentional Bias](https://alexdenk.eu/blogtouch?id=1SKWO5ipZk7aZbiy1pxDIGIoa7SyWx8a8 "Attentional Bias")
+![注意力偏误](https://alexdenk.eu/blogtouch?id=1SKWO5ipZk7aZbiy1pxDIGIoa7SyWx8a8 "注意力偏误")
 
-### 44. Fluency Heuristic
+### 44. 流畅性启发
+我们认为那些处理速度更快、更流畅、更顺利的事物具有更高的价值。
 
-We give higher value to things that are processed faster, fluently, and smoothly.
+有时不合逻辑的论点在沟通良好的情况下（由有权威和经验的人提出）也可能会赢得胜利。
 
-Sometimes illogical argument, if communicated well (by someone who has authority and experience presenting things) might win.
+![流畅性启发](https://alexdenk.eu/blogtouch?id=1w7igcsMZwzEdFPgPCfrzXnTrlYjZ9p80 "流畅性启发")
 
-![Fluency heuristic](https://alexdenk.eu/blogtouch?id=1w7igcsMZwzEdFPgPCfrzXnTrlYjZ9p80 "Fluency heuristic")
+这里有一个相关术语“**心理捷径**” —— 人们经常使用启发式来做决定，你应该在你的设计中充分利用它们。
 
-A related term here is “**Mental Shortcuts**” - people frequently use heuristics to make decisions; you should use them to your advantage in your design.
+**产品技巧：**
 
-**Product tips:**
+1. 为用户提供便利（快捷、简单和易于理解的导航）。
+2. 使内容易于浏览（图像，易读的字体）。
+3. 创建“心理捷径”，它将吸引用户，促使用户更喜欢你的产品。
+4. 提供有意义的默认选项，因为用户会认为你考虑了他们的最大利益，并将尽可能选择默认选项。
+5. 添加功能强大的跨产品搜索，以简化特定主题的查找。
 
-1. Make things easy for your users (fast, simple and easy navigation)
-2. Make content easily scannable (images, readable fonts)
-3. Create “mental shortcuts” that will hook your users and promote the preferred behavior.
-4. Provide meaningful defaults, because users assume you have their best interests in mind and will select the default options whenever possible.
-5. Add a powerful cross-product search to ease the finding of specific topics.
+举例：
 
-Examples:
+下面是为用户提供便利的两个示例，促使用户更喜欢你的产品。
 
-Here are 2 examples for making things easier for the user, in order to promote the preferred behavior for the business.
+![用户希望产品可以提供现成的默认值](https://alexdenk.eu/blogtouch?id=1VqWeo2F654LMST8Ipcko1KUgNeMmwZ1r "用户希望产品可以提供现成的默认值")
 
-![Users expect products to provide ready-to-use defaults](https://alexdenk.eu/blogtouch?id=1VqWeo2F654LMST8Ipcko1KUgNeMmwZ1r "Users expect products to provide ready-to-use defaults")
+用户希望产品可以提供现成的默认值
 
-Users expect products to provide ready-to-use defaults
+![产品设计中的流畅性启发 —— 为最近的操作提供简单的快捷方式](https://alexdenk.eu/blogtouch?id=1Wg1I6YLnShB81rgKM2JVQ_L0FYPTwhJw "产品设计中的流畅性启发 —— 为最近的操作提供简单的快捷方式")
 
-![Fluency Heuristic in product design - providing easy shortcuts for recent activity](https://alexdenk.eu/blogtouch?id=1Wg1I6YLnShB81rgKM2JVQ_L0FYPTwhJw "Fluency Heuristic in product design - providing easy shortcuts for recent activity")
+为最近的操作提供简单的快捷方式
 
-Provide simple shortcuts for recent activities 
+**工作相关技巧**：一定要做好功课：收集足够的数据，写下你的观点并思考如何表达你的观点，在设计上下苦功。
 
-**Work-related tip**: Always do your homework: collect enough data, write down your points, think about how to present your points, invest in the design of things.
+### 45. 谷歌效应（亦名：数码失忆）
 
-### 45. The Google Effect (AKA: Digital Amnesia)
+我们遗忘的信息可以在网上被轻松地找到。
 
-We forget information that can be easily found online.
-**Question**: Do you remember the phone number of your best friend or kid?
+**问**：你还记得你最好的朋友或孩子的电话号码吗？
 
 ---
 
@@ -300,7 +300,7 @@ We forget information that can be easily found online.
 
 ---
 
-Follow me on twitter [@gilbouhnick](https://twitter.com/GilBouhnick), or [subscribe to my newsletter](https://mailchi.mp/b9c664dfafa3/mobilespoon) to get some occasional posts directly to your inbox.
+在 Twitter 上关注我 [@gilbouhnick](https://twitter.com/GilBouhnick), 或 [订阅我的简报](https://mailchi.mp/b9c664dfafa3/mobilespoon)，可以将帖子直接发送到你的收件箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
