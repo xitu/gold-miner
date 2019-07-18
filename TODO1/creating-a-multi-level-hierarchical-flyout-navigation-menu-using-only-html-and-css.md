@@ -137,7 +137,7 @@
 
 ![子菜单位置](https://www.ghosh.dev/static/media/css-nav-menu-4.jpg)
 
-但有一个例外，即第一级菜单项列表（在我们的示例中，File、Edit、View...），其子菜单项需要放在 **下方** 而不是右侧。为了处理这个问题，我们在以前的 CSS 中重写了一些样式。
+但有一个例外，即第一级菜单项列表（在我们的示例中，File、Edit、View...），其子菜单项需要放在 **下方** 而不是右侧。为了处理这个问题，我们添加了一些新的样式重写了之前的 CSS。
 
 ```scss
 .flyout-nav {
@@ -160,7 +160,7 @@
 }
 ```
 
-请注意，在这里不一定非要使用弹性盒模型 `flex-box`，这只是我做的选择。你也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block` 和 `display:inline block`。
+请注意，在这里不一定非要使用弹性盒子 `flex-box`，这只是我做的选择。你也可以使用其他方法实现类似的行为，例如在 `ul` 和 `li` 项上组合 `display:block` 和 `display:inline block`。
 
 ##### [](#UI-美化) UI 美化
 
