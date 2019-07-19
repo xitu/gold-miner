@@ -2,23 +2,22 @@
 > * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/locale-changes-and-the-androidviewmodel-antipattern.md](https://github.com/xitu/gold-miner/blob/master/TODO1/locale-changes-and-the-androidviewmodel-antipattern.md)
-> * 译者：
-> * 校对者：
+> * 译者：[solerji](https://github.com/solerji)
 
-# Locale changes and the AndroidViewModel antipattern
+# 区域设置更改和 AndroidViewModel 反面模式
 
-> TL;DR: Expose resource IDs from ViewModels to avoid showing obsolete data.
+> TL;DR：从视图模型中公开资源 ID 以避免显示废弃的数据。
 
-In a ViewModel, if you’re exposing data coming from resources (strings, drawables, colors…), you have to take into account that ViewModel objects ignore configuration changes such as **locale changes**. When the user changes their locale, activities are recreated but the ViewModel objects are not.
+在 ViewModel 中，如果要公开来自资源（字符串、可绘制文件、颜色……）的数据，则必须着重考虑 ViewModel 对象而忽视配置更改，例如**区域设置更改**。当用户更改其区域设置时，活动将重新被创建，但不创建 ViewModel 对象。
 
-![**The localized string is not updated after a locale change**](https://cdn-images-1.medium.com/max/2000/0*kL5zW7zi_ImPUwHr)
+![**本地化字符串在区域设置更改后不更新**](https://cdn-images-1.medium.com/max/2000/0*kL5zW7zi_ImPUwHr)
 
-`AndroidViewModel` is a subclass of `ViewModel` that is aware of the Application context. However, having access to a context can be dangerous if you’re not observing or reacting to the lifecycle of that context. **The recommended practice is to avoid dealing with objects that have a lifecycle in ViewModels.**
+`AndroidViewModel` 是已知应用程序上下文的 `ViewModel` 的子类。然而，如果您没有注意到或没有对上下文的生命周期做出反应，访问上下文可能是危险的。**建议的做法是避免处理在 ViewModels 中具有生命周期的对象。**
 
-Let’s look at an example based on this issue in the tracker: **[Updating ViewModel on system locale change](https://issuetracker.google.com/issues/111961971).**
+让我们看看跟踪器中基于此问题的示例：**[在系统区域设置更改时更新 ViewModel ](https://issuetracker.google.com/issues/111961971)。**
 
 ```Java
-// Don't do this
+// 别这么做
 public class MyViewModel extends AndroidViewModel {
     public final MutableLiveData<String> statusLabel = new MutableLiveData<>();
     
@@ -29,12 +28,12 @@ public class MyViewModel extends AndroidViewModel {
 }
 ```
 
-The problem is that the string is resolved in the constructor only once. **If there’s a locale change, the ViewModel won’t be recreated**. This will result in our app showing obsolete data and therefore being only partially localized.
+问题的关键是字符串在构造器中只解释一次。**如果有区域设置更改，则不会重新创建视图模型**。这将导致我们的应用程序显示废弃的数据，因此只能部分本地化。
 
-As [Sergey](https://twitter.com/ZelenetS) points out in the [comments](https://issuetracker.google.com/issues/111961971#comment2) to the issue, the recommended approach is to **expose the ID of the resource you want to load and do so in the view**. As the view (activity, fragment, etc.) is lifecycle-aware it will be recreated after a configuration change so the resource will be reloaded correctly.
+正如 [Sergey](https://twitter.com/ZelenetS) 在评论中指出的那样 [comments](https://issuetracker.google.com/issues/111961971#comment2)，推荐的方法是**公开要加载的资源的 ID ，并在视图中这样做**。由于视图（活动、片段等）具有生命周期意识，因此它将在配置更改后重新创建，以便正确地重新加载资源。
 
 ```Java
-// Expose resource IDs instead
+// 显示资源ID
 public class MyViewModel extends ViewModel {
     public final MutableLiveData<Int> statusLabel = new MutableLiveData<>();
     
@@ -45,9 +44,9 @@ public class MyViewModel extends ViewModel {
 }
 ```
 
-Even if you don’t plan to localize your app, it makes testing much easier and cleans up your ViewModel objects so there’s no reason not to future-proof.
+即使你不打算本地化你的应用程序，它也会使测试变得更容易并且清空你的 ViewModel 对象，因此没有理由不去考虑它的前瞻性。
 
-We fixed this issue in the android-architecture repository in the [Java](https://github.com/googlesamples/android-architecture/pull/631) and [Kotlin](https://github.com/googlesamples/android-architecture/pull/635) branches and we offloaded resource loading to [the Data Binding layout](https://github.com/googlesamples/android-architecture/pull/635/files#diff-7eb5d85ec3ea4e05ecddb7dc8ae20aa1R62).
+我们在以 Java 为基础的 Android 架构存储库中解决了这个问题 [Java](https://github.com/googlesamples/android-architecture/pull/631) 以及在[Kotlin](https://github.com/googlesamples/android-architecture/pull/635) 分支上。我们也把资源转移到 [数据绑定布局](https://github.com/googlesamples/android-architecture/pull/635/files#diff-7eb5d85ec3ea4e05ecddb7dc8ae20aa1R62)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
