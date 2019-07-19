@@ -9,14 +9,14 @@
 
 ![](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/1.png)
 
-通过这篇文章，我们将揭开 PageSpeed 那严格的计算页面速度分的面纱。
+通过这篇文章，我们将揭开 PageSpeed 最为重要的计算页面速度评分的方法。
 
-毫无疑问，页面的加载速度已经变成了提升页面收益和降低流失率的关键性因素。由于 Google 已经使用页面的加载速度作为影响其搜索排名的因素，现在更多的企业和组织都把目光聚焦在提升页面性能上了。
+毫无疑问，页面的加载速度已经成了提升页面收益和降低流失率的关键性因素。由于 Google 已经将页面的加载速度列入影响其搜索排名的因素，现在更多的企业和组织都把目光聚焦在提升页面性能上了。
 
 去年 **Google 针对他们的搜索排名算法做了两个重大的调整**：
 
 * 三月，[搜索结果排名以移动端版本的页面为基础](https://webmasters.googleblog.com/2018/03/rolling-out-mobile-first-indexing.html)，取代之前的桌面端版本。
-* [七月，SEO 排名算法](https://webmasters.googleblog.com/2018/01/using-page-speed-in-mobile-search.html) 更新为，增加页面的加载速度作为影响其搜索排名的因素，包括移动端页面[和广告。](https://developers.google.com/web/updates/2018/07/search-ads-speed#the_mobile_speed_score_for_ads_landing_pages)
+* [七月，SEO 排名算法](https://webmasters.googleblog.com/2018/01/using-page-speed-in-mobile-search.html)更新为，增加页面的加载速度作为影响其搜索排名的因素，包括移动端页面[和广告。](https://developers.google.com/web/updates/2018/07/search-ads-speed#the_mobile_speed_score_for_ads_landing_pages)
 
 通过这些改变，我们可以总结出两个结论：
 
@@ -27,15 +27,15 @@ Google 道：
 
 > 更快的加载速度不仅仅会提升我们的体验；最近的数据显示，提升页面的加载速度也会降低操作成本。和我们一样，用户也很重视速度 — 这就是我们决定将页面的速度这一因素，加入计算搜索排名的原因。
 
-为了搞清楚这些变化，从页面性能的角度给我们带来了什么影响，我们需要掌握这些基础知识。[PageSpeed 5.0](https://developers.google.com/speed/docs/insights/release_notes) 是之前的一个完整的修订版。现在由 Lighthouse 和 [CrUX](https://developers.google.com/web/updates/2017/12/crux) 提供技术支持（Chrome 用户体验报告部）。
+为了从页面性能的角度搞清楚这些变化给我们带来了什么影响，我们需要掌握这些基础知识。[PageSpeed 5.0](https://developers.google.com/speed/docs/insights/release_notes) 是之前的一个完整的修订版。现在由 Lighthouse 和 [CrUX](https://developers.google.com/web/updates/2017/12/crux) 提供技术支持（Chrome 用户体验报告部）。
 
-**这次升级更新了分数的算法，它使得获得 PageSpeed 的高分更加困难。**
+**这次升级使用了新的评分算法，将会使获得 PageSpeed 高分更加困难。**
 
-### PageSpeed 5.0 改变了什么?
+### PageSpeed 5.0 有哪些变化?
 
 5.0 之前，PageSpeed 会针对测试的页面给出一系列指导意见。如果页面里有很大的、未经压缩的图片，PageSpeed 会建议对图片压缩。再比如，漏掉了 Cache-Headers，会建议加上。
 
-这些建议是与一些**指导方针**对应的，如果遵从这些指导方针，**很可能**会提升你的页面性能，但这些也仅是是表层的，它不会分析用户在真实场景下的加载和渲染页面的体验。
+这些建议是与一些**指导方针**对应的，如果遵从这些指导方针，**很可能**会提升你的页面性能，但这些也仅仅是表层的，它不会分析用户在真实场景下的加载和渲染页面的体验。
 
 在 PageSpeed 5.0 中，页面被载入 Chrome 浏览器，是由 Lighthouse 控制的。Lighthouse 从浏览器中获取记录各项指标，把这些指标套入得分模型里计算，最后展示一个整体的性能分。根据具体的分数指标来给出优化的指导方针。
 
@@ -47,7 +47,7 @@ Google 道：
 
 ### Google Lighthouse 是什么?
 
-[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) 是一个开源项目，由一只来自 Google Chrome 优秀团队创建。在过去的几年里，它已将变成逐步免费的性能分析工具。
+[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) 是一个开源项目，由一只来自 Google Chrome 优秀团队创建。在过去的几年里，它已逐步变成免费的性能分析工具。
 
 Lighthouse 使用 Chrome 的远程调试协议来获取网络请求的信息，计算 JavaScript 的性能，遵照标准以及计算用户关注的时间指标，比如 [首次内容绘制时间 First Contentful Paint](https://calibreapp.com/docs/metrics/paint-based-metrics)、[可交互时间 Time to Interactive](https://calibreapp.com/docs/metrics/time-to-interactive) 和速度指标。
 
@@ -66,7 +66,7 @@ Lighthouse 使用 Chrome 的远程调试协议来获取网络请求的信息，�
 * 首次有效绘制 First Meaningful Paint (FMP)
 * 预计输入延迟时间 Estimated Input Latency
 
-Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个过程会收集手机 75% 和 90% 的 [HTTP 档案](https://httparchive.org/)，之后使用 `普通的 log` 函数记录。
+Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个过程会收集移动端第 75 和第 90 百分位的 [HTTP 档案](https://httparchive.org/)，然后输入到 `对数正太分布` 函数。
 
 [根据算法和可交互时间的计算所得数据](https://www.desmos.com/calculator/2t1ugwykrl)，我们可以发现，如果一个页面在 2.1 秒内成为“可交互的”，那么它的可交互时间分数指标是 92/100。
 
@@ -97,14 +97,14 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 
 **可交互时间 (TTI) 是对你的性能分数影响最大的指标。**
 
-因此，想要得到 PageSpeed 的高分，你**最需要**降低 TTI。
+因此，想要得到 PageSpeed 的高分，你**最需要**的是降低 TTI。
 
 ### 剑指 TTI
 
-深入来说，有两个极大影响 TTI 的重要因素：
+深入来说，有两个对 TTI 影响极大的重要因素：
 
 * 所有的 JavaScript 传输到页面的时间
-* 在主线程上的 JavaScript 运行时间
+* 主线程上 JavaScript 的运行时间
 
 我们的[可交互时间](https://calibreapp.com/blog/time-to-interactive/)文章详细说明了 TTI 的工作原理，但如果你想要一些快速无脑的优化，我们建议：
 
@@ -118,12 +118,12 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 
 * 检查并移除对你的用户来说并不需要的 polyfills。
 * 搞清楚每一个第三方 JavaScript 库所花费的时间。 使用 [webpack-bundle-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer) 或者 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) 来可视化分析他们的大小。
-* 现代 JavaScript 工具（比如 webpack）可以把大的 JavaScript 应用分解成许多小的 bundles，随着用户的浏览而动态加载。这就是所谓的 [code splitting](https://webpack.js.org/guides/code-splitting/) 这会 **极大地优化 TTI.**
-* [Service workers 会缓存解析和编译后所得的字节码](https://v8.dev/blog/code-caching-for-devs)。如果善加利用这个特性，用户只需花费一次解析和编译代码带来的时间损耗，在那之后结果就会被缓存优化。
+* 现代 JavaScript 工具（比如 webpack）可以把大的 JavaScript 应用分解成许多小的 bundles，随着用户的浏览而动态加载。这就是所谓的 [code splitting](https://webpack.js.org/guides/code-splitting/) 这会**极大地优化 TTI.**
+* [Service workers 会缓存解析和编译后所得的字节码](https://v8.dev/blog/code-caching-for-devs)。如果善加利用这个特性，用户只需花费一次解析和编译代码带来的时间损耗，在那之后的结果就会被缓存优化。
 
 ### 监控可交互时间
 
-为了较好的展示用户体验的差异性，我们建议使用监控系统（比如 [Calibre](https://calibreapp.com/)!) 它可以测试两个设备的最小值；一个较快的桌面端设备和一个中等速度的移动端设备。
+为了较好的展示用户体验的差异性，我们建议使用监控系统（比如 [Calibre](https://calibreapp.com/)!) ，它可以测试页面在两个不同设备上的最小评分；一个较快的桌面端设备和一个中等速度的移动端设备。
 
 这样的话，你就可以得到你的用户可能体验到的最好和最差两种情况下的数据。是时候意识到，你的用户不会使用和你一样强大的设备了。
 
@@ -131,7 +131,7 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 
 为了获得剖析 JavaScript 性能的最好结果，可以刻意使用较慢的移动设备来测试你的页面。如果你的抽屉里有一部老手机，你会发现一片新的天地。
 
-作为使用真实设备测试的一个优秀替代方案，是使用 Chrome  DevTools 的硬件仿真模块，我们写了一个详细的[性能剖析指南](https://calibreapp.com/blog/react-performance-profiling-optimization/)来帮你开始分析运行时的性能。
+Chrome DevTools 的硬件仿真模块可以很好的替代真实设备来进行测试，我们写了一个详细的[性能剖析指南](https://calibreapp.com/blog/react-performance-profiling-optimization/)来帮你开始学习分析运行时的性能。
 
 ## 其他的指标呢?
 
@@ -145,11 +145,11 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 
 Google 最近更新了搜索控制台，Lighthouse 和 PageSpeed Insights 针对你的页面的首屏的性能分析有独到之处，但是对于那些需要持续跟踪页面来提升页面性能的团队来说，就显得捉襟见肘了。
 
-[连续的性能监控](https://calibreapp.com/features) 是保证速度优化的最后的要素，当页面完成回归的时候团队会立刻知晓。人为的测试会对结果引入大量的不可预期的变量，在不同区域、不同设备上的测试在没有专业的实验室环境下几乎是不可能完成的。
+[连续的性能监控](https://calibreapp.com/features) 可以保证速度优化，当页面完成回归的时候团队会立刻知晓。人为的测试会对结果引入大量的不可预期的变量，在不同区域、不同设备上的测试在没有专业的实验室环境下几乎是不可能完成的。
 
 速度已经变成影响了 SEO 排名的关键因素，尤其是目前大约 50% 的页面流量来自于移动设备。
 
-为了避免减低排名，确保你正在使用最新的性能分析套件来跟踪你的关键页面（哈，我们打造了 [Calibre](https://calibreapp.com/blog/release-notes-lighthouse-4/) 来做你的性能提升伙伴。他以 Lighthouse 为基础。每天都有很多来自全球的团队在使用它）。
+为了避免排名下降，确保你正在使用最新的性能分析套件来跟踪你的关键页面（哈，我们打造了 [Calibre](https://calibreapp.com/blog/release-notes-lighthouse-4/) 来做你的性能提升伙伴。他以 Lighthouse 为基础。每天都有很多来自全球的团队在使用它）。
 
 ### 相关文章
 
