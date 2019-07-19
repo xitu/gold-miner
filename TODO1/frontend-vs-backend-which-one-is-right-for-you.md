@@ -3,27 +3,27 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md](https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)
 
 # 前端 vs 后端：哪一个适合你？
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--sQXuMr9C--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://thepracticaldev.s3.amazonaws.com/i/xtuhivk785yvj2pden2g.png)
 
-经常会有初学者来问我刚开始学习编程的时候应该学些什么？问这个问题就跟你问一个医学生应该专注研究哪个领域一样。根本没有一个标准答案。但我还是想提供一些指导，并就这个问题提出一些自己的看法。希望这篇文章可以给刚开始职业生涯的你一些值得思考的东西。
+经常会有初学者来问我刚开始学习编程的时候应该学些什么？问这个问题就跟一个医学生询问应该专注研究哪个领域一样。根本没有一个标准答案。但我还是想提供一些指导，并就这个问题提出一些自己的看法。希望这篇文章可以给刚开始职业生涯的你一些值得思考的东西。
 
 ## 定义
 
-在刚开始学习软件的时候，第一种争论就是我应该把关注点放在哪，前端还是后端？在我们深入了解两个领域的特征之前，我们先来看看他们的定义。
+在刚开始学习软件的时候，首先要经历的心理斗争就是我应该把关注点放在哪，前端还是后端？在我们深入了解两个领域的特征之前，我们先来看看它们的定义。
 
 ### 前端
 
-> 指的是网站的表示层以及它与后端数据的交互方式。例如 HTML, CSS, Javascript, Angular 等。
+> 指的是网站的表示层以及它与后端数据的交互方式。例如 HTML，CSS，Javascript，Angular 等。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)
 
 ### 后端
 
-> 指的是应用程序的数据处理层。这一层负责与数据库通信，并确定将哪些信息发送到要显示的前端。例如 Ruby, Rails, Python, Java 等。
+> 指的是应用程序的数据处理层。这一层负责与数据库通信，并确定将哪些信息发送到要显示的前端。例如 Ruby，Rails，Python，Java 等。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--K81Tz4o2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/bqj0p9v42macnqlis6ow.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--K81Tz4o2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/bqj0p9v42macnqlis6ow.png)
 
@@ -31,9 +31,9 @@
 
 ## 职业满足感
 
-如果你选择成为一名开发人员是因为你想获得职业满足感，并做一些你喜欢的事情，那么我的建议是，当你开始时，前后端都要做。同时涉猎前端和后端，这样你就能感受到你更喜欢的是什么。这么做会很辛苦吗？当然会，但是这也会极大的增加你找到喜欢做的事情的机会。
+如果你选择成为一名开发人员是因为你想获得职业满足感，并做一些你喜欢的事情，那么我的建议是，当你开始时，前后端都要做。同时涉猎前端和后端，这样你就能感受到你更喜欢的是什么。这么做会很辛苦吗？当然会，但是这也会极大地增加你找到喜欢做的事情的机会。
 
-在前端和后端生态系统中，仍然有许多你可以选择并且能做的非常出色的专业。当你开始的时候，试着去了解一些基本的东西，不要太担心会沉迷其中。试一试水，看看当你用它的时候，这两个方向是否真的能吸引到你。同时，你要意识到，无论你选择哪个，一开始都会很困难。我想说的是，在你决定要把重点放在哪里之前，给自己一年或两年的时间来研究整个流程。这将给你足够的时间来解决最初的“哇，这太糟糕了，因为它很难”的问题，同时还能让你真正评估它是否是你喜欢使用的技术。
+在前端和后端生态系统中，仍然有许多你可以选择并且能做得非常出色的专业。当你开始的时候，试着去了解一些基本的东西，不要太担心会沉迷其中。试一试水，看看当你用它的时候，其中一个方向是否真的能吸引到你。同时，你要意识到，无论你选择哪个，一开始都会很困难。我想说的是，在你决定要把重点放在哪里之前，给自己一年或两年的时间来研究整个流程。这将给你足够的时间来解决最初的“哇，这太糟糕了，因为它很难”的问题，同时还能让你真正评估它是否是你喜欢使用的技术。
 
 虽然每个人都有不同的品味，但是看看其他开发人员喜欢使用哪些语言和技术也是很有趣的。2019 年 StackOverflow 调查了[最受欢迎的语言](https://insights.stackoverflow.com/survey/2019#technology-_-most-loved-dreaded-and-wanted-languages)。
 
@@ -45,7 +45,7 @@
 
 ## 工资/稳定性
 
-如果你从事开发的职业动机是为了薪水和稳定，那么同时学习这两个方向可能是在浪费你的时间。如果你想尽快从事一行职业职业，那么就对你想从事的领域做一些调查。找出前端和后端的工资趋势。此外，尝试找出市场上最需要哪种类型的开发人员。
+如果你从事开发的职业动机是为了工资和稳定，那么同时学习这两个方向可能是在浪费你的时间。如果你想尽快从事一行职业，那么就对你想从事的领域做一些调查。找出前端和后端的工资趋势。此外，尝试找出市场上最需要哪种类型的开发人员。
 
 我不知道前端和后端哪个工资更高，但有一些调查试图回答这个问题。我们可以看看 2019 年 StackOverflow 的调查，该调查将开发者的[薪资按类型](https://insights.stackoverflow.com/survey/2019#work-_-salary-by-developer-type)进行了细分。
 
@@ -82,7 +82,7 @@
 * JavaScript $110k
 * HTML/CSS $105k
 
-需要注意的是，这些工资和趋势可能会因你的工作地点和是否在寻找远程工作而有所不同。当然，做好调查。它可以像查看求职公告板和运行后端和前端技术的搜索一样简单，并查看返回了多少结果。
+需要注意的是，这些工资和趋势可能会因你的工作地点和是否在寻找远程工作而有所不同。 因此，你需要自己做好调查。这很简单，只需要查看求职公告板并搜索后端和前端技术，看看都有哪些。
 
 ## 我为什么选择后端
 
