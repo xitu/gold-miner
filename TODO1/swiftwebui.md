@@ -35,7 +35,7 @@ struct MainPage: View {
 }
 ```
 
-代码的结果是：
+代码运行的结果是：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/AvocadoCounter/AvocadoCounter.gif)
 
@@ -55,9 +55,9 @@ SwiftUI 的核心目标不是“[一次编码，随处可运行](https://en.wiki
 
 ## 需要的准备工作
 
-目前，SwiftWebUI 需要 [macOS Catalina](https://www.apple.com/macos/catalina-preview/) 才能运行 (“Swift ABI” 🤦‍♀️)。幸运的是，[在单独的 APFS 宗卷上安装 Catalina](https://support.apple.com/en-us/HT208891) 很简单。同时还需要安装 [Xcode 11](https://developer.apple.com/xcode/)，这样才能获取到最新的 Swift 5.1 的特性，这些特性 SwiftUI 将会大量使用。都懂了吗？非常好！
+目前由于 Swift ABI 不兼容，SwiftWebUI 需要 [macOS Catalina](https://www.apple.com/macos/catalina-preview/) 才能运行。幸运的是，[在单独的 APFS 宗卷上安装 Catalina](https://support.apple.com/en-us/HT208891) 很简单。同时还需要安装 [Xcode 11](https://developer.apple.com/xcode/)，这样才能使用最新的 Swift 5.1 特性，这些特性 SwiftUI 将会大量使用。都懂了吗？非常好！
 
-> 如果你使用的是 Linux 系统该怎么办？这个项目已经**在准备**运行在 Linux 上了，但是工作还并没有完成。目前项目还缺少的部分是一个对 [Combine](https://developer.apple.com/documentation/combine) [PassthroughSubject](https://developer.apple.com/documentation/combine/passthroughsubject) 的简单实现，并且在这个方面，我遇到了一点困难。目前准备好的代码在：[NoCombine](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/Misc/NoCombine.swift)。欢迎大家为项目提 pull request！
+> 如果你使用的是 Linux 系统该怎么办？这个项目已经**即将准备**运行在 Linux 上了，但是工作还并没有完成。目前项目还缺少的部分是一个对 [Combine](https://developer.apple.com/documentation/combine) [PassthroughSubject](https://developer.apple.com/documentation/combine/passthroughsubject) 的简单实现，并且在这个方面，我遇到了一点困难。目前准备好的代码在：[NoCombine](https://github.com/SwiftWebUI/SwiftWebUI/blob/master/Sources/SwiftWebUI/Misc/NoCombine.swift)。欢迎大家为项目提 pull request！
 
 > 如果你使用的是 Mojave 该怎么办？有一个方法可以在 Mojave 和 Xcode 11 上运行项目。你需要创建一个 iOS 13 模拟器项目，然后将整个项目在模拟器中运行。
 
@@ -77,7 +77,7 @@ SwiftUI 的核心目标不是“[一次编码，随处可运行](https://en.wiki
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/3-swift-project-name.png)
 
-然后，将 [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) 作为 Swift 包管理依赖加入项目。这个选项在 “File / Swift Packages” 菜单中：
+然后，将 [SwiftWebUI](https://github.com/SwiftWebUI/SwiftWebUI) 添加到 Swift 包管理器并导入项目。这个选项在 “File / Swift Packages” 菜单中：
 
 ![](http://www.alwaysrightinstitute.com/images/swiftwebui/ProjectSetup/4-add-pkg-dep.png)
 
