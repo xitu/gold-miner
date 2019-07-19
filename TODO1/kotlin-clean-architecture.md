@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/kotlin-clean-architecture.md](https://github.com/xitu/gold-miner/blob/master/TODO1/kotlin-clean-architecture.md)
 > * 译者：[JasonWu111](https://github.com/JasonWu1111)
-> * 校对者：
+> * 校对者：[yangxy81118](https://github.com/yangxy81118)
 
 # Kotlin Clean 架构
 
