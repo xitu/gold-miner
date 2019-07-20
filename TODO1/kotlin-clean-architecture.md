@@ -15,7 +15,7 @@
 
 * [**news-sample-app: 创建 GitHub 账号来为本应用的开发做贡献**](https://github.com/rakshit444/news-sample-app)
 
-这个架构是由 Robert C. Martin（Uncle Bob）在 [clean code blog](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) 中于2012年提出的。
+这个架构是由 Robert C. Martin（Uncle Bob）在 [clean code blog](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) 中于 2012 年提出的。
 
 ### 为什么是 Clean 架构？
 
