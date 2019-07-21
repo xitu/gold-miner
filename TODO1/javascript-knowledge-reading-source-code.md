@@ -2,22 +2,22 @@
 > * 原文作者：[Carl Mungazi](https://www.smashingmagazine.com/author/carl-mungazi/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-knowledge-reading-source-code.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-knowledge-reading-source-code.md)
-> * 译者：
+> * 译者：[MarchYuanx](https://github.com/MarchYuanx)
 > * 校对者：
 
-# Improve Your JavaScript Knowledge By Reading Source Code
+# Improve Your JavaScript Knowledge By Reading Source Code 
 
-Quick summary: When you are still early on in your programming career, digging into the source code of open source libraries and frameworks can be a daunting endeavor. In this article, Carl Mungazi shares how he got over his fear and began using source code to improve his knowledge and skills. He also uses Redux to demonstrate how he approaches breaking down a library.
+快速摘要：当您还处于编程生涯的初期阶段时，深入研究开源库和框架的源代码可能是一项艰巨的任务。在本文中，Carl Mungazi 分享了他如何克服恐惧，并开始用源码来提高他的知识水平和专业技能。他还使用了 Redux 来演示他如何解构一个代码库。
 
-Do you remember the first time you dug deep into the source code of a library or framework you use frequently? For me, that moment came during my first job as a frontend developer three years ago.
+你还记得你第一次深入研究你常用的库或框架的源码时的情景吗？对我来说，这一刻发生在三年前我作为前端开发者的第一份工作中。
 
-We had just finished rewriting an internal legacy framework we used to create e-learning courses. At the beginning of the rewrite, we had spent time investigating a number of different solutions including Mithril, Inferno, Angular, React, Aurelia, Vue, and Polymer. As I was very much a beginner (I had just switched from journalism to web development), I remember feeling intimidated by the complexity of each framework and not understanding how each one worked.
+当时我们刚刚完成了用于创建网络学习课程的内部遗留框架的重构。在重构开始时，我们花时间研究了许多不同的解决方案，包括 Mithril，Inferno，Angular，React，Aurelia，Vue 和 Polymer。由于我是一个小萌新（我刚从新闻工作转向 web 开发），我记得我对每个框架的复杂性感到恐惧，不理解它们是如何工作的。
 
-My understanding grew when I began investigating our chosen framework, Mithril, in greater depth. Since then, my knowledge of JavaScript — and programming in general — has been greatly helped by the hours I have spent digging deep into the guts of the libraries I use daily either at work or in my own projects. In this post, I will share some of the ways you can take your favorite library or framework and use it as an educational tool.
+当我开始更深入地研究我们所选择的框架 Mithril 时，我的理解加深了。从那以后，我对 javascript 的了解 —— 和平时编程 —— 都显著地得益于我深入挖掘的时间，研究那些我每天在工作或自己的项目中使用的库的内部结构。在这篇文章中，我将分享一些方法给你，你可以使用自己喜欢的库或框架，并将其作为学习工具。
 
 [![The source code for Mithril’s hyperscript function](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png)
 
-My first introduction to reading code was via Mithril’s hyperscript function. ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png))
+我阅读的源码的第一个介绍是 Mithril 的 hyperscript 函数。([高清预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png))
 
 ### The Benefits Of Reading Source Code
 
