@@ -5,7 +5,7 @@
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
 > * 校对者：
 
-# Improve Your JavaScript Knowledge By Reading Source Code 
+# 通过阅读源码提高您的 javascript 知识水平
 
 快速摘要：当您还处于编程生涯的初期阶段时，深入研究开源库和框架的源代码可能是一项艰巨的任务。在本文中，Carl Mungazi 分享了他如何克服恐惧，并开始用源码来提高他的知识水平和专业技能。他还使用了 Redux 来演示他如何解构一个代码库。
 
@@ -13,27 +13,27 @@
 
 当时我们刚刚完成了用于创建网络学习课程的内部遗留框架的重构。在重构开始时，我们花时间研究了许多不同的解决方案，包括 Mithril，Inferno，Angular，React，Aurelia，Vue 和 Polymer。由于我是一个小萌新（我刚从新闻工作转向 web 开发），我记得我对每个框架的复杂性感到恐惧，不理解它们是如何工作的。
 
-当我开始更深入地研究我们所选择的框架 Mithril 时，我的理解加深了。从那以后，我对 javascript 的了解 —— 和平时编程 —— 都显著地得益于我深入挖掘的时间，研究那些我每天在工作或自己的项目中使用的库的内部结构。在这篇文章中，我将分享一些方法给你，你可以使用自己喜欢的库或框架，并将其作为学习工具。
+当我开始更深入地研究我们所选择的框架 Mithril 时，我的理解加深了。从那以后，我对 javascript 的了解 —— 和平时编程 —— 都显著地提升于我深入挖掘的时间，研究那些我每天在工作中或自己的项目中使用的库的内部结构。在这篇文章中，我将分享一些方法给你，你可以使用自己喜欢的库或框架，并将其作为学习工具。
 
 [![The source code for Mithril’s hyperscript function](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png)
 
 我阅读的源码的第一个介绍是 Mithril 的 hyperscript 函数。([高清预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png))
 
-### The Benefits Of Reading Source Code
+### 阅读源码的好处
 
-One of the major benefits of reading source code is the number of things you can learn. When I first looked into Mithril’s codebase, I had a vague idea of what the virtual DOM was. When I finished, I came away with the knowledge that the virtual DOM is a technique which involves creating a tree of objects that describe what your user interface should look like. That tree is then turned into DOM elements using DOM APIs such as `document.createElement`. Updates are performed by creating a new tree describing the future state of the user interface and then comparing it with objects from the old tree.
+阅读源代码的一个主要好处是可以学到很多东西。当我第一次看到 Mithril 的代码库时，我对虚拟 DOM 的含义有了一个模糊的概念。当我完成后，我了解到虚拟 DOM 是一种技术，它创建一个对象树，用于描述用户界面的外观。然后使用 DOM APIs（如 `document.createElement`）将对象树转换为 DOM 元素。通过创建描述用户界面的更新状态的新对象树，然后将其与旧对象树进行比较来执行更新。
 
-I had read about all of this in various articles and tutorials, and whilst it was helpful, being able to observe it at work in the context of an application we had shipped was very illuminating for me. It also taught me which questions to ask when comparing different frameworks. Instead of looking at GitHub stars, for example, I now knew to ask questions such as, “How does the way each framework performs updates affect performance and the user experience?”
+我在各种文章和教程中已经阅读了所有这些内容，虽然这很有帮助，但对我来说，能够在我们提供的应用程序的环境中观察到它工作是非常有启发性的。它还教会我在比较不同框架时应该问哪些问题。例如，我现在知道要问这样的问题，“每个框架执行更新的方式如何影响性能和用户体验？”，而不是只看框架在 Github 上 star 的数量。
 
-Another benefit is an increase in your appreciation and understanding of good application architecture. Whilst most open-source projects generally follow the same structure with their repositories, each of them contains differences. Mithril’s structure is pretty flat and if you are familiar with its API, you can make educated guesses about the code in folders such as `render`, `router` and `request`. On the other hand, React’s structure reflects its new architecture. The maintainers have separated the module responsible for UI updates (`react-reconciler`) from the module responsible for rendering DOM elements (`react-dom`).
+另一个好处是你对优秀的程序架构的理解和鉴赏能力提升了。虽然大多数开源项目的存储库通常遵循相同的结构，但每个项目都包含差异。Mithril 的结构非常简单，如果你熟悉它的 API，你可以对文件夹中的代码进行有根据的猜测，如 `render`，`router` 和 `request`。另一方面，React 的结构反映了它的新架构。维护人员将负责 UI 更新的模块 (`react concerner`) 与负责呈现 DOM 元素的模块 (`react dom`) 分开。
 
-One of the benefits of this is that it is now easier for developers to write their own [custom renderers](https://github.com/chentsulin/awesome-react-renderer) by hooking into the `react-reconciler` package. Parcel, a module bundler I have been studying recently, also has a `packages` folder like React. The key module is named `parcel-bundler` and it contains the code responsible for creating bundles, spinning up the hot module server and the command-line tool.
+这样做的好处之一是，开发人员现在更容易通过挂进 `react-reconciler` 包来编写自己的[自定义渲染器](https://github.com/chentsulin/awesome-react-renderer)。我最近研究过的模块打包工具 Parcel 也有像 React 这样的 `packages` 文件夹。主模块名为 `parcel-bundler`，它包含负责创建包、启动热模块服务器和命令行工具的代码。
 
 [![The section of the JavaScript specification which explains how Object.prototype.toString works](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6777ea35-ee97-40c4-a0b8-5b4c2455f733/1-improve-your-javascript-knowledge-by-reading-source-code.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6777ea35-ee97-40c4-a0b8-5b4c2455f733/1-improve-your-javascript-knowledge-by-reading-source-code.png)
 
-It will not be long before the source code you are reading leads you to the JavaScript specification. ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6777ea35-ee97-40c4-a0b8-5b4c2455f733/1-improve-your-javascript-knowledge-by-reading-source-code.png))
+不久之后，你所阅读的源码将引导您找到 JavaScript 规范。([高清预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6777ea35-ee97-40c4-a0b8-5b4c2455f733/1-improve-your-javascript-knowledge-by-reading-source-code.png))
 
-Yet another benefit — which came as a welcome surprise to me — is you become more comfortable reading the official JavaScript specification which defines how the language works. The first time I read the spec was when I was investigating the difference between `throw Error` and `throw new Error` (spoiler alert — there is [none](http://www.ecma-international.org/ecma-262/7.0/#sec-error-constructor)). I looked into this because I noticed that Mithril used `throw Error` in the implementation of its `m` function and I wondered if there was a benefit to using it over `throw new Error`. Since then, I have also learnt that the logical operators `&&` and `||` [do not necessarily return booleans](https://tc39.es/ecma262/#prod-LogicalORExpression), found the [rules](http://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison) which govern how the `==` equality operator coerces values and the [reason](http://www.ecma-international.org/ecma-262/#sec-object.prototype.tostring) `Object.prototype.toString.call({})` returns `'[object Object]'`.
+另一个好处 —— 令我感到惊讶的是 —— 您可以更轻松地阅读定义语言如何工作的官方 JavaScript 规范。我第一次阅读规范是在研究 `throw Error` 与 `throw new Error`（警告 — 这是 [none](http://www.ecma-international.org/ecma-262/7.0/#sec-error-constructor)）之间的区别时。我研究这个问题是因为我注意到 Mithril 在其 `m` 函数的实现中使用了 `throw Error` ，我想知道在它的实现上使用 `throw new Error` 是否有好处。从那以后，我还了解了逻辑运算符 `&&` 和 `||` [不一定返回布尔值](https://tc39.es/ecma262/#prod-LogicalORExpression)，找到了控制 `==` 等于运算符如何强制转换值的[规则](http://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison)和 `Object.prototype.toString.call({})` 返回 `'[object Object]'` 的[原因](http://www.ecma-international.org/ecma-262/#sec-object.prototype.tostring)。
 
 ### Techniques For Reading Source Code
 
