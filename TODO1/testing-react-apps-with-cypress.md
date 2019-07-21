@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/testing-react-apps-with-cypress.md](https://github.com/xitu/gold-miner/blob/master/TODO1/testing-react-apps-with-cypress.md)
 > * 译者：[stevens1995](https://github.com/stevens1995)
-> * 校对者：
+> * 校对者：[yzw7489757](https://github.com/yzw7489757) [Baddyo](https://github.com/Baddyo)
 
 # 使用 Cypress 进行 React 应用的端到端测试
 
@@ -13,15 +13,15 @@
 
 当我还是一个初级开发者的时候我经常害怕测试我的应用。测试并不容易。但是在正确工具的帮助下，编写测试代码绝对能够变得更容易和有趣。
 
-Cypress 是一个端到端的 JavaScript 测试框架，它使设置，编写，运行，调试测试变得非常简单。
+Cypress 是一个端到端的 JavaScript 测试框架，它使设置、编写、运行、调试测试变得非常简单。
 
-如果你已经尝试过类似 Puppeteer 的端到端测试框架，你会注意到这些框架把浏览器变成一个气隙系统。当我们的应用变得越复杂，测试也会变得越来越难通过。这也是为什么大多数测试人员更喜欢手动运行测试的原因。 
+如果你已经尝试过类似 Puppeteer 的端到端测试框架，你会注意到这些框架把浏览器变成一个气隙系统。当我们的应用变得越复杂，测试也会变得越来越难通过。这也是大多数测试人员更喜欢手动运行测试的原因。 
 
-在本文中，我将向你展示 Cypress 如何帮助你构建在一个真实浏览器中运行的测试。 Cypress 提供了一个非常易于使用的用于自动化测试的 API。
+在本文中，我将向你展示 Cypress 如何帮助你构建在一个真实浏览器中运行的测试。Cypress 提供了一个非常易于使用的用于自动化测试的 API。
 
-相比于看着一个充满乱七八糟命令的平淡的中断， Cypress 带有自己的仪表盘，可以准确地向我们展示测试中发成了什么。而且，由于 Cypress 在真实的浏览器中工作，我们可以在使用 Cypress 的同时使用浏览器的开发工具。
+相比于看着一个充满乱七八糟命令的平淡的终端，Cypress 带有自己的仪表盘，可以准确地向我们展示测试中发生了什么。而且，由于 Cypress 在真实的浏览器中工作，我们可以在使用 Cypress 的同时使用浏览器的开发工具。
 
-**提示**：使用 **React 组件**时，你可能想要记住组件单元测试的重要性。使用 [**Bit**] (https://bit.dev/)，你可以在你的项目中创造一个可重复使用的组件目录，并添加独立运行和展示可视化结果的组件测试。 看看这个。
+**提示**：使用 **React 组件**时，你可能想要记住组件单元测试的重要性。使用 [**Bit**](https://bit.dev/)，你可以在你的项目中创造一个可重复使用的组件目录，并添加独立运行和展示可视化结果的组件测试。快试一试吧。
 
 [**组件发现与协作 · Bit**](https://bit.dev/)
 
@@ -62,7 +62,7 @@ $ yarn add cypress -D
 $ node_modules/.bin/cypress open
 ```
 
-这将在你的系统上打开 Cypress CLI （命令行界面）（或者仪表盘），并且在你应用的根目录创建一个 `cypress.json` 文件和 `cypress` 文件夹。 `cypress` 文件夹就是我们将要编写测试的地方。
+这将在你的系统上打开 Cypress CLI（命令行界面）（或者仪表盘），并且在你应用的根目录创建一个 `cypress.json` 文件和 `cypress` 文件夹。`cypress` 文件夹就是我们将要编写测试的地方。
 
 如果你觉得打开 Cypress 的命令太长或者太难记，你可以在 `package.json` 中创建一个新的脚本：
 
@@ -87,7 +87,7 @@ describe ('First Test', () => {
 这个测试与 ToDo 应用无关。我只是展示下如何使用 Cypress 运行测试。现在我们开始编写我们实际应用的测试。
 ---
 
-## Cypress中的页面访问
+## Cypress 中的页面访问
 
 Cypress 测试中的第一步是允许 Cypress 在浏览器中访问应用。让我们创建一个新的测试文件并在其中编写下面的代码。
 
@@ -99,7 +99,7 @@ describe ('Second Test', () => {
 });
 ```
 
-在上面的代码中，我有一个叫 `cy` 的对象。这是一个全局对象，使我们可以访问所有在 Cypress API 中展示的命令。 我正在使用 `cy` 访问 `访问（visit）` 命令。在这个命令中，我将要传入 `'/'`。回到根目录，转到 `cypress.json` 文件，并在文件中写下这个：
+在上面的代码中，我有一个叫 `cy` 的对象。这是一个全局对象，使我们可以访问所有在 Cypress API 中展示的命令。我正在使用 `cy` 访问 `visit` 命令。在这个命令中，我将要传入 `'/'`。回到根目录，转到 `cypress.json` 文件，并在文件中写下这个：
 
 ```
 {
@@ -107,7 +107,7 @@ describe ('Second Test', () => {
 }
 ```
 
-现在，确保你使用 `start` 脚本运行应用。然后打开 Cypress CLI（命令行界面） 并运行这个新的测试文件。你会看到仪表盘在浏览器中打开，在仪表盘中我们的应用像这样运行：
+现在，确保你使用 `start` 脚本运行应用。然后打开 Cypress CLI（命令行界面）并运行这个新的测试文件。你会看到仪表盘在浏览器中打开，在仪表盘中我们的应用像这样运行：
 
 ![](https://cdn-images-1.medium.com/max/2400/1*kpUn1HNHVpKEXAUNPOg3CA.png)
 
@@ -119,7 +119,7 @@ describe ('Second Test', () => {
 
 这里，我将要运行一个测试来检查加载后焦点是否在输入区域。
 
-在我们做这个之前，确保在 src/components/TodoList/index.js 中的 `输入(input)` 区域有 `new task` 的 `className` 属性以及 `autoFocus` 属性。 
+在我们做这个之前，确保在 src/components/TodoList/index.js 中的 `输入(input)` 区域有值为 `new task` 的 `className` 属性以及 `autoFocus` 属性。 
 
 ```
 <input
@@ -141,7 +141,7 @@ describe ('Third Test', () => {
 });
 ```
 
-首先，我在 Cypress 的仪表盘中 `访问（visit）` 应用。一旦应用在仪表盘中打开，我就检查 `focused` 元素是否有 `new task` `类（class）`。
+首先，我在 Cypress 的仪表盘中 `访问（visit）`应用。一旦应用在仪表盘中打开，我就检查 `focused` 元素是否有 `new task` `类（class）`。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*egylykedXJ2NpY0K0_t4Ag.png)
 
@@ -161,7 +161,7 @@ describe ('Third Test', () => {
 });
 ```
 
-在这个测试中，我首先在 Cypress 仪表盘中 `访问（visit）` 应用。现在我想要 Cypress 在输入区域中输入一些内容。为了找到输入区域正确的选择器，点击 `Open Selector Playground` 按钮并且点击输入区域。
+在这个测试中，我首先在 Cypress 仪表盘中 `访问（visit）`应用。现在我想要 Cypress 在输入区域中输入一些内容。为了找到输入区域正确的选择器，点击 `Open Selector Playground` 按钮并且点击输入区域。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MfeHIpz2_SYwcUY0raMdaQ.gif)
 
@@ -181,11 +181,11 @@ describe ('Third Test', () => {
 "cypress:all": "cypress run"
 ```
 
-通过运行这个脚本， cypress 将会运行所有的测试，并直接在命令终端本身提供结果。
+通过运行这个脚本，cypress 将会运行所有的测试，并直接在命令终端本身提供结果。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5ohUyAlbFGgkmO7_K2hI0w.png)
 
-如果你担心自己实际上没有看到 Cypress 进行测试， Cypress 甚至会录制你可以观看的测试视频。
+如果你担心自己实际上没有看到 Cypress 进行测试，Cypress 甚至会录制测试视频供你观看。
 
 ---
 
@@ -204,7 +204,7 @@ describe ('Sixth Tests', () => {
 });
 ```
 
-这里，我创建了一个端到端测试。我首先让 Cypress `访问 （visit）` 该应用。然后 Cypress 会用它的 `.new` 选择器拿到输入。再然后 Cypress 将会输入文本 `New Todo`。最后我让 Cypress 模拟 `enter` 动作， 因此创造了一个新的 Todo。
+这里，我创建了一个端到端测试。我首先让 Cypress `访问（visit）`该应用。然后 Cypress 会用文本框（input）的选择器 .new 获取到它。再然后 Cypress 将会输入文本 `New Todo`。最后我让 Cypress 模拟键入 enter（回车），因此创造了一个新的 Todo。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*wcIDOda8sVB_ROYIlCEdww.gif)
 
@@ -212,11 +212,11 @@ describe ('Sixth Tests', () => {
 
 ## 下一步是什么？
 
-Cypress 还可以做许多其他事情。比如，我们可以一个特性的变种，或者我们可以访问测试的逐步日志。此外， Cypress可以在 React 服务端渲染应用做许多其他事情，我将会在下一篇文章中介绍这些内容。
+Cypress 还可以做许多其他事情。比如，我们可以测试一个功能的变化，或者我们可以访问测试的逐步日志。此外，Cypress 可以在 React 服务端渲染应用做许多其他事情，我将会在下一篇文章中介绍这些内容。
 
 ---
 
-## 学到更多
+## 拓展学习
 
 * [**5 Tools For Faster Development In React**](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
 * [**Testing your React App with Puppeteer and Jest**](https://blog.bitsrc.io/testing-your-react-app-with-puppeteer-and-jest-c72b3dfcde59)
