@@ -116,49 +116,20 @@ Forecasting the future traffic pattern for systems that are mature and have good
 
 ## SLOs, SLAs & Reporting on Them
 
-SL0 stands for [**Service Level Objective**](https://cloud.google.com/blog/products/gcp/sre-fundamentals-slis-slas-and-slos) \- a numerical target for system availability. For each independent service, defining **service-level SLOs** like targets for capacity, latency, accuracy, and availability are good practices. These SLOs can then serve as triggers for alerting. An example service-level SLO could look like this:
+SL0 stands for [**Service Level Objective**](https://cloud.google.com/blog/products/gcp/sre-fundamentals-slis-slas-and-slos) - a numerical target for system availability. For each independent service, defining **service-level SLOs** like targets for capacity, latency, accuracy, and availability are good practices. These SLOs can then serve as triggers for alerting. An example service-level SLO could look like this:
 
-SLO Metric
-
-Subcategory
-
-Value for Service
-
-**Capacity**
-
-Minumum throughput
-
-500 req/sec
-
-Maximum expected throughput
-
-2,500 req/sec
-
-**Latency**
-
-Expected median response time
-
-50-90ms
-
-Expected p99 response time
-
-500-800ms
-
-**Accuracy**
-
-Maximum error rate
-
-0.5%
-
-**Availability**
-
-Guaranteed uptime
-
-99.9%
+| SLO Metric | Subcategory | Value for Service |
+| ---------- | ----------- | ----------------- |
+| **Capacity** | Minumum throughput | 500 req/sec |
+|              | Maximum expected throughput | 2,500 req/sec |
+| **Latency** | Expected median response time | 50-90ms |
+|             | Expected p99 response time | 500-800ms |
+| **Accuracy** | Maximum error rate | 0.5% |
+| **Availability** | Guaranteed uptime | 99.9%|
 
 **Business-level SLOs** or functional SLOs are an abstraction above the services. They'll cover user or business-facing metrics. For example, a business-level SLO could be this: expecting 99.99% of email receipts to be sent within 1 minute of the trip completed. This SLO might map to service-level SLOs (e.g. latencies of payment and email receipt systems), or they might need to be measured differently.
 
-**SLA - Service Level Agreement** \- is a broader agreement between a service provider and a service consumer. Usually, multiple SLOs make up an SLA. For example, the payments system being 99.99% available could be an SLA, that breaks down to specific SLOs for each supporting system.
+**SLA - Service Level Agreement** - is a broader agreement between a service provider and a service consumer. Usually, multiple SLOs make up an SLA. For example, the payments system being 99.99% available could be an SLA, that breaks down to specific SLOs for each supporting system.
 
 After defining the SLOs, the next step is to measure these and report on them. **Automating monitoring and reporting on SLAs and SLOs is often a complex project**, one that is tempting to de-prioritize for both the engineering team and the business. The engineering team won't be as interested, they already have various levels of monitoring that detect outages realtime. The business, on the other hand, would rather prioritize delivering functionality over investing in a complex project that doesn't have immediate business impact.
 
@@ -188,13 +159,13 @@ For a team to run a reliable distributed system, the organization needs to be in
 
 Though this post is lengthy in its content, it still only touches the surface. To dive deeper into operating distributed systems, I recommend the following resources:
 
-**Books**
+**Books:**
 
 * [Google SRE Book](https://landing.google.com/sre/) \- a great and free book from Google. The [Monitoring Distributed Systems charter](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/) is especially relevant for this post.
 * [Distributed Systems Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/) by [Cindy Sridharan](https://twitter.com/copyconstruct), another excellent and free book with great points on monitoring distributed systems.
 * [Designing Data-Intensive Applications](https://www.amazon.com/gp/product/1449373321/ref=as_li_tl?ie=UTF8&tag=gregdoesit-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=1449373321&linkId=adc1dc62fd3463b173cfd92dbe4ed821) by [Dr Martin Kleppmann](https://twitter.com/martinkl) \- the most practical book I have found so far on distributed systems concepts. However, this book does not touch much on the operational aspects discussed in the post.
 
-**Online resources**
+**Online resources:**
 
 * [On-Call issue of the Increment magazine](https://increment.com/on-call/): a series of articles on incident response processes of companies like Amazon, Dropbox, Facebook, Google, and Netflix.
 * [Learning to Build Distributed Systems](http://brooker.co.za/blog/2019/04/03/learning.html) \- a post by AWS engineer [Marc Brooker](https://twitter.com/MarcJBrooker), answering the question "how do I learn to build big distributed systems"?
