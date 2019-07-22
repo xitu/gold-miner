@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-node-js-to-read-really-really-large-files-pt-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-node-js-to-read-really-really-large-files-pt-1.md)
 > * 译者：[lucasleliane](https://github.com/lucasleliane)
-> * 校对者：[sunui](https://github.com/sunui)，[]()
+> * 校对者：[sunui](https://github.com/sunui)，[Jane Liao](https://github.com/JaneLdq)
 
 # 使用 Node.js 读取超大的文件（第一部分）
 
