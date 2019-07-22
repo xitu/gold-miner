@@ -43,7 +43,7 @@
 
 这次深入研究还让我明白了[合作调度](https://developer.mozilla.org/en-US/docs/Web/API/Background_Tasks_API) 的概念，`[window.requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)` 方法和一个[链接列表的实际示例](https://github.com/facebook/react/blob/v16.7.0/packages/react-reconciler/src/ReactUpdateQueue.js#L10)（React 通过将它们放入优先级更新的链接队列来处理更新）。执行此操作时，建议使用库创建非常基本的应用程序。这使得调试更容易，因为你不必处理由其他库引起的堆栈跟踪。
 
-如果我没有进行深入审查，我将在我正在处理的项目中打开 `/ node_modules` 文件夹，或者我将转到 GitHub 存储库。这通常发生在我遇到一个 bug 或有趣的特性时。在 GitHub 上阅读代码时，请确保您阅读的是最新版本。您可以通过单击用于更改分支的按钮并选择“tags”来查看具有最新版本标记的提交中的代码。库和框架永远在进行更改，因此您不会想了解可能在下一版本中删除的内容。
+如果我没有进行深入审查，我将在我正在处理的项目中打开 `/node_modules` 文件夹，或者我将转到 GitHub 存储库。这通常发生在我遇到一个 bug 或有趣的特性时。在 GitHub 上阅读代码时，请确保您阅读的是最新版本。您可以通过单击用于更改分支的按钮并选择“tags”来查看具有最新版本标记的提交中的代码。库和框架永远在进行更改，因此您不会想了解可能在下一版本中删除的内容。
 
 另一种不太复杂的读取源代码的方法是我喜欢称之为“粗略一瞥”。在我开始阅读代码的早期，我安装了 **express.js**，打开了它的`/ node_modules` 文件夹并浏览了它的依赖项。如果 `README` 没有给我一个满意的解释，我就会阅读源码。这样做让我得到了这些有趣的发现：
 
@@ -59,22 +59,22 @@
 
 像处理任何其他应用程序一样处理调试。形成一个假设，然后测试它。([高清预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/798703fd-8689-40d9-9159-701f1a00f837/3-improve-your-javascript-knowledge-by-reading-source-code.png))
 
-### Case Study: Redux’s Connect Function
+### 研究案例：Redux 的 Connect 函数
 
-React-Redux is a library used to manage the state of React applications. When dealing with popular libraries such as these, I start by searching for articles that have been written about its implementation. In doing so for this case study, I came across this [article](https://blog.isquaredsoftware.com/2018/11/react-redux-history-implementation). This is another good thing about reading source code. The research phase usually leads you to informative articles such as this which only improve your own thinking and understanding.
+React-Redux 是一个用于管理 React 应用程序状态的库。在处理这些流行的库时，我首先搜索有关其实现的文章。在这个案例研究中，我遇到了这篇[文章](https://blog.isquaredsoftware.com/2018/11/react-redux-history-implementation)。这是阅读源码的另一个好处。研究阶段通常会引导你阅读这样的信息性文章，这些文章会提高你的思考与理解。
 
-`connect` is a React-Redux function which connects React components to an application’s Redux store. How? Well, according to the [docs](https://react-redux.js.org/api/connect), it does the following:
+` connect` 是一个将 react 组件连接到应用程序的 redux 存储的 React-Redux 函数。怎么连？好的，根据[文档](https://react-redux.js.org/api/connect)，它执行以下操作：
 
-> “...returns a new, connected component class that wraps the component you passed in.”
+> “...返回一个新的连接的组件类，它包装您传入的组件。”
 
-After reading this, I would ask the following questions:
+看完之后，我会问下列问题：
 
-* Do I know any patterns or concepts in which functions take an input and then return that same input wrapped with additional functionality?
-* If I know of any such patterns, how would I implement this based on the explanation given in the docs?
+* 我是否知道函数接受输入的模式或概念，然后返回包含其他功能的相同输入？
+* 如果我知道这样的模式，我如何根据文档中给出的解释来实现它？
 
-Usually, the next step would be to create a very basic example app which uses `connect`. However, on this occasion I opted to use the new React app we are building at [Limejump](https://limejump.com/) because I wanted to understand `connect` within the context of an application which will eventually be going into a production environment.
+通常，下一步是创建一个使用 `connect` 的非常基础的示例应用程序。但是，在这种情况下，我选择使用我们在 [limejump](https://limejump.com/) 上构建的新的 React 应用程序，因为我希望在最终要进入生产环境的应用程序的上下文环境中理解 `connect`。
 
-The component I am focusing on looks like this:
+我关注的组件看起来像这样：
 
 ```
 class MarketContainer extends Component {
@@ -90,7 +90,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(null, mapDispatchToProps)(MarketContainer);
 ```
 
-It is a container component which wraps four smaller connected components. One of the first things you come across in the [file](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/connect/connect.js) which exports `connect` method is this comment: **connect is a facade over connectAdvanced**. Without going far we have our first learning moment: **an opportunity to observe the [facade](http://jargon.js.org/_glossary/FACADE_PATTERN.md) design pattern in action**. At the end of the file we see that `connect` exports an invocation of a function called `createConnect`. Its parameters are a bunch of default values which have been destructured like this:
+它是一个容器组件，包裹着四个较小的连接的组件。在导出 `connect` 方法的[文件](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/connect/connect.js)中，你首先看到的是这个注释：**connect is a facade over connectAdvanced**。没走多远，我们就有了第一个学习的时刻：**一个观察 [facade](http://jargon.js.org/_glossary/FACADE_PATTERN.md) 设计模式的机会**。在文件末尾，我们看到 `connect` 导出了对名为 `createConnect` 的函数的调用。它的参数是一组默认值，这些默认值被这样解构
 
 ```
 export function createConnect({
@@ -102,7 +102,7 @@ export function createConnect({
 } = {})
 ```
 
-Again, we come across another learning moment: **exporting invoked functions** and **destructuring default function arguments**. The destructuring part is a learning moment because had the code been written like this:
+同样，我们遇到了另一个学习时刻：**导出调用函数**和**解构默认函数参数**。 解构部分是一个学习时刻，因为它的代码编写如下
 
 ```
 export function createConnect({
@@ -114,9 +114,9 @@ export function createConnect({
 })
 ```
 
-It would have resulted in this error `Uncaught TypeError: Cannot destructure property 'connectHOC' of 'undefined' or 'null'.` This is because the function has no default argument to fall back on.
+它会导致这个错误 `Uncaught TypeError: Cannot destructure property 'connectHOC' of 'undefined' or 'null'.`。这是因为函数没有可供回调的默认参数。
 
-**Note**: **For more on this, you can read David Walsh’s [article](https://davidwalsh.name/destructuring-function-arguments). Some learning moments may seem trivial, depending on your knowledge of the language, and so it might be better to focus on things you have not seen before or need to learn more about.**
+**注意**：**有关这方面的更多信息，您可以阅读 David Walsh 的[文章](https://davidwalsh.name/destructuring-function-arguments)。根据你对语言的了解，一些学习时刻可能看起来微不足道，因此最好将注意力放在您以前从未见过的事情上，或需要了解更多信息的事情上。**
 
 `createConnect` itself does nothing in its function body. It returns a function called `connect`, the one I used here:
 
@@ -124,19 +124,19 @@ It would have resulted in this error `Uncaught TypeError: Cannot destructure pro
 export default connect(null, mapDispatchToProps)(MarketContainer)
 ```
 
-It takes four arguments, all optional, and the first three arguments each go through a `[match](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/connect/connect.js#L25)` function which helps define their behaviour according to whether the arguments are present and their value type. Now, because the second argument provided to `match` is one of three functions imported into `connect`, I have to decide which thread to follow.
+它需要四个参数，都是可选的，前三个参数都通过 [match](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/connect/connect.js#L25) 函数来帮助根据参数是否存在以及它们的值类型来定义它们的行为。 现在，因为提供给 `match` 的第二个参数是导入 `connect` 的三个函数之一，我必须决定要遵循哪个线程。
 
-There are learning moments with the [proxy function](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/connect/wrapMapToProps.js#L29) used to wrap the first argument to `connect` if those arguments are functions, the `[isPlainObject](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/utils/isPlainObject.js)` utility used to check for plain objects or the `[warning](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/utils/warning.js)` module which reveals how you can set your debugger to [break on all exceptions](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints#exceptions). After the match functions, we come to `connectHOC`, the function which takes our React component and connects it to Redux. It is another function invocation which returns `[wrapWithConnect](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/components/connectAdvanced.js#L123)`, the function which actually handles connecting the component to the store.
+如果那些参数是函数，[代理函数](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/connect/wrapMapToProps.js#L29)被用来将第一个参数包装为 `connect`，这是也一个学习的时刻。[isPlainObject](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/utils/isPlainObject.js) 用于检查普通对象或 [warning](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/utils/warning.js) 模块，它揭示了如何将调试器设置为[中断所有异常](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints#exceptions)。在匹配函数之后，我们来到 `connectHOC`，这个函数接受我们的 React 组件并将它连接到 Redux。它是另一个函数调用，返回 [wrapWithConnect](https://github.com/reduxjs/react-redux/blob/v7.1.0/src/components/connectAdvanced.js#L123)，该函数实际处理将组件连接到存储的操作。
 
-Looking at `connectHOC`’s implementation, I can appreciate why it needs `connect` to hide its implementation details. It is the heart of React-Redux and contains logic which does not need to be exposed via `connect`. Even though I will end the deep dive here, had I continued, this would have been the perfect time to consult the reference material I found earlier as it contains an incredibly detailed explanation of the codebase.
+看看 `connectHOC` 的实现，我可以理解为什么它需要 `connect` 来隐藏它的实现细节。它是 React-Redux 的核心，包含不需要通过 `connect` 展现的逻辑。尽管我原本打算在这个地方结束对它的深度探讨，我也会继续，这将是查阅之前发现的参考资料的最佳时机，因为它包含对代码库的非常详细的解释。
 
-### Summary
+### 总结
 
-Reading source code is difficult at first but as with anything, it becomes easier with time. The goal is not to understand everything but to come away with a different perspective and new knowledge. The key is to be deliberate about the entire process and intensely curious about everything.
+阅读源码起初很困难，但与任何事情一样，随着时间的推移变得更容易。我们的目标不是理解一切，而是要获得不同的视角和新知识。 关键是要对整个过程进行深思熟虑，并对所有事情充满好奇。
 
-For example, I found the `isPlainObject` function interesting because it uses this `if (typeof obj !== 'object' || obj === null) return false` to make sure the given argument is a plain object. When I first read its implementation, I wondered why it did not use `Object.prototype.toString.call(opts) !== '[object Object]'`, which is less code and distinguishes between objects and object sub types such as the Date object. However, reading the next line revealed that in the extremely unlikely event that a developer using `connect` returns a Date object, for example, this will be handled by the `Object.getPrototypeOf(obj) === null` check.
+例如，我发现 `isPlainObject` 函数很有趣，因为它使用 `if (typeof obj !== 'object' || obj === null) return false` 以确保给定的参数是普通对象。 当我第一次阅读它的实现时，我想知道为什么它没有使用 `Object.prototype.toString.call(opts) !== '[object Object]'` ，这样能用更少的代码且区分对象和对象子类型，如 Date 对象。 但是，阅读下一行显示，例如，在使用`connect`的开发人员返回 Date 对象的极不可能的事件中，这将由 `Object.getPrototypeOf(obj) === null` 检查处理。
 
-Another bit of intrigue in `isPlainObject` is this code:
+`isPlainObject` 中另一个吸引人的地方是这段代码：
 
 ```javascript
 while (Object.getPrototypeOf(baseProto) !== null) {
@@ -144,9 +144,9 @@ while (Object.getPrototypeOf(baseProto) !== null) {
 }
 ```
 
-Some Google searching led me to [this](https://stackoverflow.com/questions/51722354/the-implementation-of-isplainobject-function-in-redux/51726564#51726564) StackOverflow thread and the Redux [issue](https://github.com/reduxjs/redux/pull/2599#issuecomment-342849867) explaining how that code handles cases such as checking against objects which originate from an iFrame.
+在谷歌搜索的时候，有些会引导我进入[这个](https://stackoverflow.com/questions/51722354/the-implementation-of-isplainobject-function-in-redux/51726564#51726564) StackOverflow 社区或 Redux 问题，解释该代码如何处理案例，例如检查源自 iFrame 的对象。
 
-#### Useful Links On Reading Source Code
+#### 其它的阅读源码的参考链接
 
 * “[How To Reverse Engineer Frameworks](https://blog.angularindepth.com/level-up-your-reverse-engineering-skills-8f910ae10630),” Max Koretskyi, Medium
 * “[How To Read Code](https://github.com/aredridel/how-to-read-code/blob/master/how-to-read-code.md),” Aria Stewart, GitHub
