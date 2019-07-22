@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md)
 > * 译者：[Jerry-FD](https://github.com/Jerry-FD/)
-> * 校对者：
+> * 校对者：[weberpan](https://github.com/weberpan/)，[Endone](https://github.com/Endone/)
 
 # Google 的 Pagespeed 的工作原理：提升你的页面分数和搜索引擎排名
 
@@ -66,7 +66,7 @@ Lighthouse 使用 Chrome 的远程调试协议来获取网络请求的信息、�
 * 首次有效绘制 First Meaningful Paint (FMP)
 * 预计输入延迟时间 Estimated Input Latency
 
-Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个过程会收集移动端第 75 和第 90 百分位的 [HTTP 档案](https://httparchive.org/)，然后输入到 `对数正太分布` 函数（校对者注：这样的话只要性能数据低于25%的线上移动端页面，也就是排位在75%以下，都给0分，而只要比95%的移动端页面得分高，就的满分）。。
+Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个过程会收集移动端第 75 和第 90 百分位的 [HTTP 档案](https://httparchive.org/)，然后输入到`对数正太分布`函数（校对者注：这样的话只要性能数据低于 25% 的线上移动端页面，也就是排位在 75% 以下，都给 0 分，而只要比 95% 的移动端页面得分高，就得满分）。
 
 [根据算法和可交互时间的计算所得数据](https://www.desmos.com/calculator/2t1ugwykrl)，我们可以发现，如果一个页面在 2.1 秒内成为“可交互的”，那么它的可交互时间分数指标是 92/100。
 
@@ -87,11 +87,11 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 
 在未来，这些权重在参考来自于 Chrome 用户体验报告的用户观测数据之后，还可能会被进一步优化。
 
-你可能想知道究竟这每一个指标的权重是如何影响整体得分的。 Lighthouse 团队[打造了一款实用的 Google 电子表格计算器](https://docs.google.com/spreadsheets/d/1Cxzhy5ecqJCucdf1M0iOzM8mIxNc7mmx107o5nj38Eo/edit#gid=0)来阐述具体的细节：
+你可能想知道究竟这每一个指标的权重是如何影响整体得分的。Lighthouse 团队[打造了一款实用的 Google 电子表格计算器](https://docs.google.com/spreadsheets/d/1Cxzhy5ecqJCucdf1M0iOzM8mIxNc7mmx107o5nj38Eo/edit#gid=0)来阐述具体的细节：
 
 ![这张电子表格的图片可以用来计算性能分数](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/weightings.png)
 
-使用上面的例子，如果我们把可交互时间从 5 秒 变为 17 秒 (全球移动端平均 TTI)， 我们的分数会降低到 56% (也就是100分之中的56分)。
+使用上面的例子，如果我们把可交互时间从 5 秒 变为 17 秒 (全球移动端平均 TTI)，我们的分数会降低到 56% (也就是 100 分之中的 56 分)。
 
 然而，如果我们把首次内容绘制时间变为 17 秒，我们的分数会是 62%。
 
@@ -117,13 +117,13 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 能降低你的页面脚本总大小的有效措施是：
 
 * 检查并移除对你的用户来说并不需要的 polyfills。
-* 搞清楚每一个第三方 JavaScript 库所花费的时间。 使用 [webpack-bundle-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer) 或者 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) 来可视化分析他们的大小。
-* 现代 JavaScript 工具（比如 webpack）可以把大的 JavaScript 应用分解成许多小的 bundles，随着用户的浏览而动态加载。这就是所谓的 [code splitting](https://webpack.js.org/guides/code-splitting/)，它会**极大地优化 TTI.**
+* 搞清楚每一个第三方 JavaScript 库所花费的时间。使用 [webpack-bundle-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer) 或者 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) 来可视化分析他们的大小。
+* 现代 JavaScript 工具（比如 webpack）可以把大的 JavaScript 应用分解成许多小的 bundles，随着用户的浏览而动态加载。这就是所谓的 [code splitting](https://webpack.js.org/guides/code-splitting/)，它会**极大地优化 TTI。**
 * [Service workers 会缓存解析和编译后所得的字节码](https://v8.dev/blog/code-caching-for-devs)。如果善加利用这个特性，用户只需花费一次解析和编译代码带来的时间损耗，在那之后的结果就会被缓存优化。
 
 ### 监控可交互时间
 
-为了较好的展示用户体验的差异性，我们建议使用监控系统（比如 [Calibre](https://calibreapp.com/)!) ，它可以测试页面在两个不同设备上的最小评分；一个较快的桌面端设备和一个中等速度的移动端设备。
+为了较好的展示用户体验的差异性，我们建议使用监控系统（比如 [Calibre](https://calibreapp.com/)），它可以测试页面在两个不同设备上的最小评分；一个较快的桌面端设备和一个中等速度的移动端设备。
 
 这样的话，你就可以得到你的用户可能体验到的最好和最差两种情况下的数据。是时候意识到，你的用户并没有使用和你一样强大的设备了。
 
@@ -133,7 +133,7 @@ Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个
 
 Chrome DevTools 的硬件仿真模块可以很好的替代真实设备来进行测试，我们写了一个详细的[性能剖析指南](https://calibreapp.com/blog/react-performance-profiling-optimization/)来帮你开始学习分析运行时的性能。
 
-## 其他的指标呢?
+## 其他的指标呢？
 
 速度指标、首次内容绘制时间和首次有效绘制都是以浏览器绘制为基础的指标。他们的影响因素很相似，往往可以被同时优化。
 
