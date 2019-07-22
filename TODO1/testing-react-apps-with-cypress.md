@@ -70,7 +70,7 @@ $ node_modules/.bin/cypress open
 "cypress": "cypress open"
 ```
 
-因此，如果你使用 NPM/Yarn 运行这个脚本，应该会打开 Cypress CLI（命令行界面）。在 cypress 文件夹下的 integration 文件夹中创建一个新的测试文件。与普通的我们命名为类似 `App.test.js` 的测试文件不同，在 Cypress 中，测试文件的扩展名为是 `.spec.js`。
+因此，如果你使用 NPM/Yarn 运行这个脚本，应该会打开 Cypress CLI（命令行界面）。在 cypress 文件夹下的 integration 文件夹中创建一个新的测试文件。与普通的我们命名为类似 `App.test.js` 的测试文件不同，在 Cypress 中，测试文件的扩展名为是 `.spec.js`。
 
 ```JavaScript
 describe ('First Test', () => {
@@ -173,7 +173,7 @@ describe ('Third Test', () => {
 
 ## 运行不包含任何 UI 的测试
 
-在包含大量测试的情况下， UI 会使我们的应用运行起来很慢。反正在持续集成期间看不到任何 UI ，那为什么还要加载它呢？
+在包含大量测试的情况下， UI 会使我们的应用运行起来很慢。反正在持续集成期间看不到任何 UI，那为什么还要加载它呢？
 
 要在不启动任何 Cypress UI 的情况下运行我们的测试，我们首先在 `package.json` 文件中添加一个新的脚本。
 
