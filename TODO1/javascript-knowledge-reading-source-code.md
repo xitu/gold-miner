@@ -35,29 +35,29 @@
 
 另一个好处 —— 令我感到惊讶的是 —— 您可以更轻松地阅读定义语言如何工作的官方 JavaScript 规范。我第一次阅读规范是在研究 `throw Error` 与 `throw new Error`（警告 — 这是 [none](http://www.ecma-international.org/ecma-262/7.0/#sec-error-constructor)）之间的区别时。我研究这个问题是因为我注意到 Mithril 在其 `m` 函数的实现中使用了 `throw Error` ，我想知道在它的实现上使用 `throw new Error` 是否有好处。从那以后，我还了解了逻辑运算符 `&&` 和 `||` [不一定返回布尔值](https://tc39.es/ecma262/#prod-LogicalORExpression)，找到了控制 `==` 等于运算符如何强制转换值的[规则](http://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison)和 `Object.prototype.toString.call({})` 返回 `'[object Object]'` 的[原因](http://www.ecma-international.org/ecma-262/#sec-object.prototype.tostring)。
 
-### Techniques For Reading Source Code
+### 阅读源码的技巧
 
-There are many ways of approaching source code. I have found the easiest way to start is by selecting a method from your chosen library and documenting what happens when you call it. Do not document every single step but try to identify its overall flow and structure.
+有很多方法可以处理源码。我发现最简单的方法是从您选择的库中选择一个方法，并记录当你您调用它时会发生什么。不要每一个步骤都记录，而是尝试理解它的整体流程和结构。
 
-I did this recently with `ReactDOM.render` and consequently learned a lot about React Fiber and some of the reasons behind its implementation. Thankfully, as React is a popular framework, I came across a lot of articles written by other developers on the same issue and this sped up the process.
+我最近使用 `ReactDOM.render` 做了这个，因此学到了很多关于 React Fibre 及其实现背后的一些原因。谢天谢地，由于 React 是一个流行的框架，我在同样的问题上遇到了其他开发人员写的许多文章，这加快了进程。
 
-This deep dive also introduced me to the concepts of [co-operative scheduling](https://developer.mozilla.org/en-US/docs/Web/API/Background_Tasks_API), the `[window.requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)` method and a [real world example of linked lists](https://github.com/facebook/react/blob/v16.7.0/packages/react-reconciler/src/ReactUpdateQueue.js#L10) (React handles updates by putting them in a queue which is a linked list of prioritised updates). When doing this, it is advisable to create a very basic application using the library. This makes it easier when debugging because you do not have to deal with the stack traces caused by other libraries.
+这次深入研究还让我明白了[合作调度](https://developer.mozilla.org/en-US/docs/Web/API/Background_Tasks_API) 的概念，`[window.requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)` 方法和一个[链接列表的实际示例](https://github.com/facebook/react/blob/v16.7.0/packages/react-reconciler/src/ReactUpdateQueue.js#L10)（React 通过将它们放入优先级更新的链接队列来处理更新）。执行此操作时，建议使用库创建非常基本的应用程序。这使得调试更容易，因为你不必处理由其他库引起的堆栈跟踪。
 
-If I am not doing an in-depth review, I will open up the `/node_modules` folder in a project I am working on or I will go to the GitHub repository. This usually happens when I come across a bug or interesting feature. When reading code on GitHub, make sure you are reading from the latest version. You can view the code from commits with the latest version tag by clicking the button used to change branches and select “tags”. Libraries and frameworks are forever undergoing changes so you do not want to learn about something which may be dropped in the next version.
+如果我没有进行深入审查，我将在我正在处理的项目中打开 `/ node_modules` 文件夹，或者我将转到 GitHub 存储库。这通常发生在我遇到一个 bug 或有趣的特性时。在 GitHub 上阅读代码时，请确保您阅读的是最新版本。您可以通过单击用于更改分支的按钮并选择“tags”来查看具有最新版本标记的提交中的代码。库和框架永远在进行更改，因此您不会想了解可能在下一版本中删除的内容。
 
-Another less involved way of reading source code is what I like to call the ‘cursory glance’ method. Early on when I started reading code, I installed **express.js**, opened its `/node_modules` folder and went through its dependencies. If the `README` did not provide me with a satisfactory explanation, I read the source. Doing this led me to these interesting findings:
+另一种不太复杂的读取源代码的方法是我喜欢称之为“粗略一瞥”。在我开始阅读代码的早期，我安装了 **express.js**，打开了它的`/ node_modules` 文件夹并浏览了它的依赖项。如果 `README` 没有给我一个满意的解释，我就会阅读源码。这样做让我得到了这些有趣的发现：
 
-* Express depends on two modules which both merge objects but do so in very different ways. `merge-descriptors` only adds properties directly found directly on the source object and it also merges non-enumerable properties whilst `utils-merge` only iterates over an object’s enumerable properties as well as those found in its prototype chain. `merge-descriptors` uses `Object.getOwnPropertyNames()` and `Object.getOwnPropertyDescriptor()` whilst `utils-merge` uses `for..in`;
-* The `setprototypeof` module provides a cross platform way of setting the prototype of an instantiated object;
-* `escape-html` is a 78-line module for escaping a string of content so it can be interpolated in HTML content.
+* Express 依赖于两个模块，两个模块都合并对象，但以非常不同的方式进行合并。`merge-descriptors` 只添加直接在源对象上直接找到的属性，它还合并了不可枚举的属性，而 `utils-merge` 只迭代对象的可枚举属性以及在其原型链中找到的属性。`merge-descriptors` 使用 `Object.getOwnPropertyNames()` 和 `Object.getOwnPropertyDescriptor()` 而 `utils-merge` 使用 `for..in`;
+* `setprototypeof` 模块提供了一种设置实例化对象原型的跨平台方式;
+* `escape html` 是一个有 78 行代码的模块，用于转义一系列内容，可以在 HTML 内容中进行插值。
 
-Whilst the findings are not likely to be useful immediately, having a general understanding of the dependencies used by your library or framework is useful.
+虽然这些发现不可能立即有用，但是对库或框架所使用的依赖关系有一个大致的了解是有用的。
 
-When it comes to debugging front-end code, your browser’s debugging tools are your best friend. Among other things, they allow you to stop the program at any time and inspect its state, skip a function’s execution or step into or out of it. Sometimes this will not be immediately possible because the code has been minified. I tend to unminify it and copy the unminified code into the relevant file in the `/node_modules` folder.
+在调试前端代码时，浏览器的调试工具是您最好的朋友。除此之外，它们允许您随时停止程序并检查其状态，跳过函数的执行或进入或退出程序。有时这不能立即生效，因为代码已经压缩。我倾向于将它解压并将解压的代码复制到 `/ node_modules` 文件夹中的相关文件中。
 
 [![The source code for the ReactDOM.render function](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/798703fd-8689-40d9-9159-701f1a00f837/3-improve-your-javascript-knowledge-by-reading-source-code.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/798703fd-8689-40d9-9159-701f1a00f837/3-improve-your-javascript-knowledge-by-reading-source-code.png)
 
-Approach debugging as you would any other application. Form a hypothesis and then test it. ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/798703fd-8689-40d9-9159-701f1a00f837/3-improve-your-javascript-knowledge-by-reading-source-code.png))
+像处理任何其他应用程序一样处理调试。形成一个假设，然后测试它。([高清预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/798703fd-8689-40d9-9159-701f1a00f837/3-improve-your-javascript-knowledge-by-reading-source-code.png))
 
 ### Case Study: Redux’s Connect Function
 
