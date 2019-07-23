@@ -2,208 +2,208 @@
 > * 原文作者：[Louis Lazaris](https://www.heartinternet.uk/blog/author/louis-lazaris/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/16-devtools-tips-and-tricks-every-css-developer-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/16-devtools-tips-and-tricks-every-css-developer-need-to-know.md)
-> * 译者：
+> * 译者：[DEARPORK](https://github.com/Usey95)
 > * 校对者
 
-# 16 DevTools tips and tricks every CSS developer needs to know
+# CSS 开发必知必会的 16 个调试工具技巧
 
-When it comes to debugging the front-end, if you're like many developers, you basically live in your browser's developer tools. But even after having worked in Chrome's developer tools for quite a few years, I still come across tips, tricks, and features that I haven't seen before.
+大多数开发者基本都使用浏览器的开发者工具调试前端，但即使用了好几年 Chrome 的开发者工具，我仍然会遇到从未见过的技巧和功能。
 
-In this article, I've compiled a number of CSS-related features and tricks available via developer tools that I think will take your CSS development to a new level. Some of these tips aren't specifically only for CSS, but I'll present them in a CSS context.
+在本文中，我写了许多在开发者工具中与 CSS 相关的功能和技巧，我认为它们将把你的 CSS 开发水平提升至一个新的台阶。其中一些技巧不仅仅针对 CSS，但是我还是把它们放在了一起。
 
-Some are simple tips for workflow and debugging, while others are new features that have rolled out in recent years. Most are based on Chrome's DevTools, but I've also included a few Firefox tips.
+一些简单的技巧有关于工作流和调试，另一些则是最近几年推出的新功能。它们大多数基于 Chrome 的开发者工具，但我也涵盖了一些 Firefox 的技巧。
 
-## Examine CSS for an element that appears via JavaScript
+## 审查通过 JavaScript 显示的元素的 CSS
 
-Finding the CSS for most elements in the DevTools Elements panel isn't difficult. In most cases you can just right-click the element, inspect it, then (if necessary) drill down to find it in the Elements panel. Once it's selected, the CSS will appear in the Styles panel, ready to edit.
+在开发者工具的 Elements 面板查找大多数元素的 CSS 并不困难。大多数情况下你只需要右键该元素，点击检查，然后（如有必要）仔细点在 Elements 面板找到它。一旦元素被选中，它的 CSS 会出现在 Styles 面板，随时可以编辑。
 
-Sometimes an element appears dynamically as a result of some JavaScript-based user action like click or mouseover. The most obvious way to make the element appear is to temporarily alter your JavaScript and/or CSS to make the element visible by default, so you can deal with it without needing to mimic the user action.
+有时一个元素会因为一些基于 JavaScript 的用户操作动态显示，例如 click 或者 mouseover。审查它们最直观的方法是暂时更改你的 JavaScript 或 CSS 使它们默认可见，以便于你在无需模仿用户操作的情况下处理它。
 
-But if you're looking for a quick way to make the element visible using just your DevTools, here are the steps to do this:
+但如果你在寻找一种更快捷的方法仅使用开发者工具让元素可见，下面是你可以做的：
 
-1. Open DevTools
-2. Open the Sources panel
-3. Carry out the user action to make the element visible (e.g. mouseover)
-4. Hit F8 (same as "Pause script execution" button) while the element is visible
-5. Click the "Select an element..." button in DevTools
-6. Click the element on the page
+1、打开开发者工具
+2、打开 Sources 面板
+3、执行用户操作让对象可见（例如鼠标悬停）
+4、在元素可见的时候按下 F8（与“暂停脚本执行”按钮相同）
+5、点击开发者工具左上角的选取元素按钮
+6、点击页面上的元素
 
-We can test this using [Bootstrap's tooltips](https://getbootstrap.com/docs/3.3/javascript/#tooltips), which only appear when hovering over a link, triggered via JavaScript. Here's a demonstration:
+我们可以通过 [Bootstrap 的 tooltips](https://getbootstrap.com/docs/3.3/javascript/#tooltips) 测试，只有鼠标悬浮在链接上触发 JavaScript 它才会显示，下面是文档：
 
-![Animated GIF showing how to select an element using Bootstrap's tooltips](https://www.heartinternet.uk/blog/wp-content/uploads/bootstrap-tool-tips-example.gif)
+![使用 Bootstrap 的 tooltips 时如何选中元素的动态 GIF](https://www.heartinternet.uk/blog/wp-content/uploads/bootstrap-tool-tips-example.gif)
 
-As you can see at the start of the video, I can't initially reach the element to inspect it, because it disappears on mouseout. But if I stop script execution while it's visible, it will stay visible so I can inspect it properly. Of course, if it was simply a CSS `:hover` effect, then I could make it appear using the "Toggle element state" section of the Styles panel. But in this case, this is probably the best way to grab the styles of an element whose visibility is triggered via JavaScript.
+如你所见在 GIF 的开头，我一开始无法选中元素来审查它，因为鼠标一旦移开它就消失了。但如果我在它可见的时候停止脚本运行，它将保持可见状态以便我可以正确地检查它。当然，如果元素只是简单的 CSS `:hover` 效果，那么我可以用 Styles 面板的“Toggle Element State”（:hov按钮）切换状态来让它显示。但由 JavaScript 切换样式的情况下，停止脚本也许是获取它们 CSS 样式的最佳方法。
 
-## Search for an element using CSS selectors
+## 通过 CSS 选择器寻找元素
 
-You might know that if you want to search for an element in the Elements panel, you can do this using a find feature (CTRL-F/CMD-F) that's built in. But notice when you view the "find" field, it gives you the following instructions:
+你也许知道你可以用内置功能（CTRL + F 或者 CMD + F）在 Elements 面板搜索一个元素。但注意看“find”栏，它会给你以下提示：
 
-![Image showing where you can search for an element using CSS selectors](https://www.heartinternet.uk/blog/wp-content/uploads/search-for-a-css-element.png)
+![在 Elements 面板使用 CSS 选择器寻找元素的截图](https://www.heartinternet.uk/blog/wp-content/uploads/search-for-a-css-element.png)
 
-As I've indicated in the screenshot, you can find an element "by string, selector, or XPath". I've used "string" many times before but only recently realised I can use a selector for this.
+正如我在截图中指出的那样，你可以通过字符串，选择器以及 XPath 寻找元素。之前我一直都在使用字符串，直到最近我才意识到我可以使用选择器。
 
-You don't have to use a selector that's in use in the CSS, it could be any valid CSS selector. The find feature will tell you if your selector matches any elements. This could be useful for finding elements but might also help for testing selectors to see what works.
+你不一定要使用你 CSS 中用过的选择器，它可以是任意合法的 CSS 选择器。查找功能将告诉你选择器是否与任何元素匹配。这对查找元素很有用，还有助于测试选择器是否有效。
 
-Below is a demo that uses the selector `body>div` to search and cycle through all the `div` elements on the page that are direct children of the `body` element:
+下面是一个使用 `body > div` 选择器来搜索以及遍历 `body` 所有直接子 `div` 元素的 demo：
 
-![Animated GIF showing how to search through specific selectors in your CSS](https://www.heartinternet.uk/blog/wp-content/uploads/body-div-seach-example.gif)
+![演示如何通过指定 CSS 选择器搜索元素的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/body-div-seach-example.gif)
 
-As mentioned, this search can be done with any valid selector, which would be similar to using JavaScript's `querySelector()` or `querySelectorAll()` methods.
+如上所述，这些搜索可以通过任意合法选择器完成，类似于 JavsScript 的 `querySelector()` 和 `querySelectorAll()` 方法。
 
-## Edit the box model directly
+## 直接编辑盒模型
 
-The box model is one of the first things you learn when you start out with CSS. As this is an important aspect of CSS layouts, the DevTools allow you to edit the box model directly.
+盒模型是你开始使用 CSS 首先学习的东西之一。由于这是 CSS 布局的一个重要部分，开发者工具允许你直接编辑盒模型。
 
-If you inspect an element on the page, in the right panel click the "Computed" panel next to the "Styles" panel. This shows you a visual interpretation of the box model for that element, with the values as part of the graphic:
+如果你审查了页面上的一个元素，请在右侧面板单击 Styles 面板旁的 Computed 面板。你将看到该元素的可视化盒模型图示，上面有各部分的数值：
 
-![An image showing the visual representation of the box model for that particular element](https://www.heartinternet.uk/blog/wp-content/uploads/model-box-example.png)
+![特定元素盒模型的可视化图示](https://www.heartinternet.uk/blog/wp-content/uploads/model-box-example.png)
 
-But maybe you didn't know that you can edit any of those values in place by double clicking them:
+也许你不知道，你可以通过双击任意编辑它们的值：
 
-![Animated GIF showing how you can edit the values of the box model within the representation](https://www.heartinternet.uk/blog/wp-content/uploads/model-box-editing-example.gif)
+![演示如何编辑盒模型值的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/model-box-editing-example.gif)
 
-Any changes made are reflected on the page in the same way as when you edit the CSS in the Styles panel.
+所做的任何更改都会以与在 Styles 面板中编辑 CSS 时相同的方式反映在页面上。
 
-## Increment/decrement values in the Styles panel
+## 在 Styles 面板递增或递减属性值
 
-You are probably already aware that you can edit your CSS in the Styles panel. Just click on a property or value and type in your changes.
+你可能已经意识到可以在 Styles 面板中编辑 CSS。只需单击属性或值，然后键入更改即可。
 
-But maybe you didn't realise that numerical values can be incremented or decremented in different ways.
+但也许你没有意识到数值可以以不同的方式递增或递减。
 
-- Up/Down arrow keys increment/decrement by 1
-- ALT+Up/Down arrow keys increment/decrement by 0.1
-- SHIFT+Up/Down arrow keys increment/decrement by 10
-- CTRL+Up/Down arrow keys increment/decrement by 100
+- 上方向键 / 下方向键可以使属性值以 1 递增 / 递减
+- ALT + 上方向键 / 下方向键可以使属性值以 0.1 递增 / 递减
+- SHIFT + 上方向键 / 下方向键可以使属性值以 10 递增 / 递减
+- CTRL + 上方向键 / 下方向键可以使属性值以 100 递增 / 递减
 
-![Animated GIF showing how you can increase or decrease the values using the arrow keys](https://www.heartinternet.uk/blog/wp-content/uploads/incrementing-values-in-the-styles-panel-example.gif)
+![演示如何用方向键递增或递减属性值的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/incrementing-values-in-the-styles-panel-example.gif)
 
-You can also use the Page Up or Page Down buttons instead of the arrow keys.
+你也可以使用 Page Up 或 Page Down 按钮代替方向键。
 
-## Text editor-like features in Sources panel
+## Sources 面板的文本编辑器功能
 
-You're probably more familiar with making edits in the Styles panel than anywhere else. The Sources panel, however, is a highly underrated feature of the DevTools because of how closely it mimics working in a regular code editor or IDE.
+比起别的地方，你也许更熟悉在 Styles 面板进行编辑，然而 Sources 面板是开发者工具中被高度低估一个功能，它模仿了常规代码编辑器和 IDE 的工作方式。
 
-Here are some of the useful things you can do in the Source panel (which you can view by opening DevTools and clicking the "Sources" tab).
+以下是一些你可以在 Sources 面板（打开开发者工具并点击“Sources”按钮）可以做的有用的事情。
 
-### Make multiple selections with the CTRL key
+### 使用 CTRL 键进行多项选择
 
-If you need to select multiple areas in a single file, you can do this by holding the CTRL key and selecting what you want, even if it's not contiguous text.
+如果需要在单个文件中选择多个区域，可以通过按住 CTRL 键并选择所需内容来完成此操作，即使它不是连续文本也是如此。
 
-![Animated GIF showing how multiple selections can be made by holding the CRTL key](https://www.heartinternet.uk/blog/wp-content/uploads/multiple-selections-with-ctrl-key.gif)
+![演示如何通过按住 CRTL 键进行多项选择的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/multiple-selections-with-ctrl-key.gif)
 
-In the above demo I'm selecting three arbitrary parts of the main.css file in the Sources panel and pasting them back into the document. In addition, you can also type in multiple spots at the same time with multiple carets. Again, use the CTRL key to click in multiple spots to make identical edits to all indicated locations.
+在上面的 DEMO 中，我在 Sources 面板中选择了 main.css 文件的三个任意部分，然后将它们粘贴回文档中。此外，你还可以通过多个光标在多个地方进行同时输入，使用 CTRL 键单击多个位置即可。
 
-### Column selection with ALT key
+### 使用 ALT 键选择列
 
-In some cases, you might want to select a column of text, which you can't normally do by default. Some text editors allow you to use the ALT key to accomplish this, and the same is true in the Sources panel.
+有的时候，你可能希望选择一列文本，但通常情况下无法办到。某些文本编辑器允许你使用 ALT 键来完成此操作，在 Sources 面板中也是如此。
 
-![Animated GIF showing how an entire column can be selected by using the ALT key](https://www.heartinternet.uk/blog/wp-content/uploads/column-selection-with-alt-key.gif)
+![演示如何使用 ALT 键选择整列的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/column-selection-with-alt-key.gif)
 
-## Search by CSS selector with CTRL-SHIFT-O
+## 使用 CTRL + SHIFT + O 组合键通过 CSS 选择器搜索元素
 
-With a file open in the Sources panel, press CTRL-SHIFT-O on your keyboard to open up the "Goto Anything" box, which is a well-known feature in Sublime Text Editor.
+在 Sources 面板打开文件后，按下 CTRL + SHIFT + O 组合键，可以打开一个输入框让你跳转到任意地方，这是 Sublime 一个著名的功能。
 
-After hitting CTRL-SHIFT-O, you can type a CSS selector that you want to find in the file, and the DevTools will give you options to choose to jump to a specific part of the file.
+按下 CTRL + SHIFT + O 之后，你可以输入你在本文件中想查找元素的 CSS 选择器，开发者工具会给你提供匹配选项，点击可跳转到文件的指定位置。
 
-![Animated GIF showing how to find a specific CSS selector in the file](https://www.heartinternet.uk/blog/wp-content/uploads/search-with-css-selector-shortcut.gif)
+![演示如何在文件中查找特定 CSS 选择器的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/search-with-css-selector-shortcut.gif)
 
-## Responsive design features in Chrome and Firefox
+## Chrome 和 Firefox 的响应式设计功能
 
-You've probably seen one of those websites that lets you test the responsiveness of your layout right in the browser with a few clicks. Well, you can do the same thing with Chrome's Device Mode.
+你也许已经看过一些让你只需点击几下就得以测试你的响应式布局的网站，其实，你可以用 Chrome 的设备模式做同样的事情。
 
-Just open the DevTools and click the "Toggle device toolbar" button in the top-left area of the DevTools (CTRL-SHIFT-M will also do it):
+打开你的开发者工具，点击左上角的 “Toggle device toolbar” 按钮（快捷键 CTRL + SHIFT + M）：
 
-![Animated GIF showing how to test the responsiveness of a site in Chrome's Device Mode](https://www.heartinternet.uk/blog/wp-content/uploads/testing-responsive-design.gif)
+![演示如何在 Chrome 的设备模式测试响应式网站的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/testing-responsive-design.gif)
 
-As you can see, the device toolbar has multiple options to change the view according to device size and device type, and you can even make those changes manually by adjusting the width and height numbers or by dragging the handles in the viewport area.
+如你所见，设备工具栏有多个选项可根据设备大小和设备类型更改视图，你甚至可以通过手动调整宽度和高度数值或拖动视口区域中的手柄来手动进行更改。
 
-Firefox has a similar feature with the added "@media rules" panel that allows you to click on a breakpoint from the site's stylesheet. You can see me using this on one of my websites in the demo below.
+Firefox 副加的 “@media rules” 面板具有类似的功能，它允许你从站点的样式表中单击断点。你可以在下面的 DEMO 中看到我在我的一个网站上使用它。
 
-![Animated GIF showing how to test the responsiveness of a site in Firefox](https://www.heartinternet.uk/blog/wp-content/uploads/firefox-responsive-design-test.gif)
+![演示如何在 Firefox 测试响应式网站的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/firefox-responsive-design-test.gif)
 
-## Colour features in DevTools
+## 开发者工具的颜色功能
 
-Dealing with colour values in CSS is a constant. DevTools makes it so much easier to edit, test, and otherwise fiddle with colour values. Here are some things you can do.
+在 CSS 中处理颜色值是常态。开发者工具让可以你更简单地编辑、测试颜色值。以下是你可以做的事情：
 
-### Contrast ratio
+### 对比度
 
-First, there are the accessibility features. When you see a colour value in the Styles panel, you can click the swatch next to the colour value to open the colour picker. Inside the colour picker, you'll see a contrast ratio option that indicates whether your choice of text colour has an accessible contrast in relation to the background.
+首先，开发者工具有查看可访问性功能，当你在 Styles 面板看到 Color 属性值时，你可以点击颜色值旁边的方块打开颜色采集器。在颜色采集器里面，你将看到对比度选项指示你所选择的文本颜色依据背景是否有可访问的对比度。
 
-![Animated GIF showing the accessible contrast for a particular colour](https://www.heartinternet.uk/blog/wp-content/uploads/css-contrast-ratio.gif)
+![演示特定颜色的可访问对比度的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/css-contrast-ratio.gif)
 
-As you can see in the above demo, the colour picker shows a curved white line in the colour spectrum. This line indicates where the minimum acceptable contrast ratio begins and ends. When I move the colour value above the white line, the contrast ratio value loses its green checkmark, indicating poor contrast.
+正如你在上面 demo 所看到的，颜色采集器在色谱中显示出弯曲的白线。这个线表示最小可接受对比度开始和结束的位置。当我将颜色值移到白线上方时，对比度旁的绿勾将会消失，表明对比度较差。
 
-### Colour palettes
+### 调色板
 
-In addition to the accessibility features, you also have access to different colour palettes, including a Material Design palette and one associated with the currently viewed page.
+除了查看可访问性的功能之外，你还可以访问不同的调色板，包括 Material Design 调色板以及与当前查看页面关联的调色板。
 
-![Animated GIF showing a colour palette for a particular colour](https://www.heartinternet.uk/blog/wp-content/uploads/css-colour-palettes.gif)
+![演示特定颜色调色盘的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/css-colour-palettes.gif)
 
-### Toggling colour value syntax
+### 切换颜色值语法
 
-Finally, one little-known tidbit on viewing colour values in DevTools is the ability to switch the syntax of a specific colour value. By default, the Styles panel will show the syntax for the colour as it was written in the CSS. But the DevTools let you toggle between hex, RGBA, an HSLA by  holding the shift key and clicking the swatch next to the colour value:
+最后，在开发者工具中一个鲜为人知小知识是在查看颜色值时你可以切换颜色值的语法。默认情况下，Styles 面板会显示 CSS 里写的颜色的语法。但是开发者工具允许你按住 shift，点击颜色值左边的小方块，在hex、RGBA 以及 HSLA 之间切换颜色值的语法：
 
-![Animated GIF showing how you can toggle the syntax of a colour value](https://www.heartinternet.uk/blog/wp-content/uploads/toggling-colour-value-syntax.gif)
+![演示如何切换颜色值语法的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/toggling-colour-value-syntax.gif)
 
-## Editing CSS shadows
+## 编辑 CSS 阴影
 
-Text shadows and box shadows can be tedious to try to write out in your CSS by hand. The syntax is easy to forget and the two kinds of shadows have slightly differing syntax.
+text-shadow 和 box-shadow 的 CSS 手写起来很乏味，语法很容易忘记，且两种阴影的语法略有不同。
 
-Conveniently, the Chrome DevTools allow you to add a text shadow or box shadow using a visual editor.
+方便的是，Chrome 的开发者工具允许你使用可视化编辑器添加 text-shadow 或 box-shadow。
 
-![Animated GIF showing how to edit a shadow effect in Chrome DevTools](https://www.heartinternet.uk/blog/wp-content/uploads/editing-css-shadows.gif)
+![演示如何编辑阴影效果的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/editing-css-shadows.gif)
 
-As shown in the demo, you can add a box shadow or text shadow to any element using the option bar that appears at the bottom right corner of any style rule in the Styles panel. After the shadow is added, you can modify the shadow's various properties using a visual editor. This editor can then be brought up again for any existing shadow using the "Open shadow editor" option next to the property name.
+正如 demo 中显示的，你可以用 Styles 面板中任意样式右下角的选项栏给任意元素添加 text-shadow 或 box-shadow。阴影添加后，你可以用可视化编辑器编辑不同的属性值。已存在的阴影可以通过点击属性值左边的小方块重新呼出可视化编辑器。
 
-## Grid Layout Inspector in Firefox
+## Firefox 的 Grid 布局检查器
 
-Now that Grid Layout is supported in the majority of in-use browsers, more and more developers are using it as their default layout method. Firefox's developer tools now feature a "Grid" section in the "Layout" tab of the developer tools.
+现在大多数使用中的浏览器都支持 Grid 布局，越来越多的开发者将它们用作默认的布局方法。Firefox 的开发者工具的 Layout 选项卡现在有 Grid 选项。
 
-![Animated GIF showing how to use the Grid Layout Inspector in Firefox](https://www.heartinternet.uk/blog/wp-content/uploads/grid-layout-inspector-in-firefox.gif)
+![演示在 Firefox 中如何使用 Grid 布局检查器的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/grid-layout-inspector-in-firefox.gif)
 
-This feature allows you to enable an overlay grid that helps to visualise the different parts of your grid layout. You can also display line numbers, area names, and you can choose to extend the grid lines infinitely if that helps you. In the example demo, I'm using this example site by Jen Simmons, which is responsive, so you can see the benefits of the overlay when the layout changes for different sized viewports.
+这个功能允许你开启一个全覆盖的网格帮助可视化 Grid 布局的不同部分。你还可以显示行号、区域名称甚至如果可以帮助到你，你可以选择无线延伸网格线。在示例 demo 中，我在使用 Jen Simmons 的示例网站，它是响应式的，因此当布局因为不同视口改变时，你可以看到可视化网格的好处。
 
-## CSS filters editor in Firefox
+## Firefox 的 CSS filter 编辑器
 
-Filters are another feature that now have near-universal support in both mobile and desktop browsers. Once again, Firefox offers a handy little tool to help you edit your filter values.
+filter 是现在几乎在移动端和 PC 端都支持的另一个新功能。Firefox 再次提供了一个好用的小工具帮助你编辑 filter 的值。
 
-Once you've got a filter in place in your code (tip: you can start with `filter: none` if you don't know the syntax for an actual filter from memory), you'll notice a gray and white swatch next to the filter's value. Click that swatch to open the filter editor.
+一旦你代码里有 filter（提示：你可以从 `filter: none` 开始如果你不知道实际语法），你将注意到 filter 值左边有一个黑白相间的堆叠方块，点击它可以打开 filter 编辑器。
 
-![Animaged GIF showing how to use the Firefox CSS filters editor](https://www.heartinternet.uk/blog/wp-content/uploads/css-filter-editor-in-firefox.gif)
+![演示如何使用 Firefox CSS filter 编辑器的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/css-filter-editor-in-firefox.gif)
 
-You can add multiple filters to a single value, delete individual filter values, and you can drag and drop individual filters to rearrange the order in which they're applied.
+你可以给单个值加不同的 filter，删除单个 filter 值，或者拖动 filter 重新排列它们的层次。
 
-![Aniamted GIF showing how to drag and drop individual filters on a single element](https://www.heartinternet.uk/blog/wp-content/uploads/css-multiple-filters-in-firefox.gif)
+![演示如何拖动单个 filter 的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/css-multiple-filters-in-firefox.gif)
 
-## Edit CSS animations in Chrome's Styles panel
+## 在 Chrome 的 Styles 面板编辑 CSS 动画
 
-Static elements are fairly straightforward to edit in the Styles panel in Chrome's DevTools. But what about animations created using the `animation` property and the `@keyframes` at-rule?
+在 Chrome 的 Styles 面板编辑静态元素非常简单，那么编辑使用 `animation` 属性以及 `@keyframes` 创建的动画呢？
 
-DevTools has two ways you can edit animations. First, when you inspect an element or select it in the Elements panel, all the element's styles appear in the Styles panel -- including the defined `@keyframes`. In the following demo, I'm selecting an animated element, then adjusting and fiddling with some of the keyframe settings.
+开发者工具有两种编辑动画的方法。首先，当你审查一个元素或者在 Elements 面板选择一个元素，该元素的所有样式都会出现在 Styles 面板 —— 包括已定义的 `@keyframes`。在下面的 demo 中，我选择了一个带动画的元素，然后调整了一些关键帧设置。
 
-![Animated GIF showing how to edit CSS animations in Chrome's Styles panel](https://www.heartinternet.uk/blog/wp-content/uploads/editing-animation-keyframe-settings-in-chrome.gif)
+![演示如何在 Chrome 的 Styles 面板编辑 CSS 动画的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/editing-animation-keyframe-settings-in-chrome.gif)
 
-But that's not all. Chrome's DevTools also features an Animation panel that allows you to edit an animation and its various parts using a visual timeline. You can access this feature by going into the "Customize and control DevTools" option (the three dots), choosing "More tools", and selecting "Animations".
+但这并不是全部，Chrome 的开发者工具提供了一个 Animation 面板让你可以使用可视化时间线编辑一个动画及它的各个不同部分。你可以通过点击开发者工具右上方的 “Customize and control DevTools” 按钮（三个竖点按钮），选择更多工具，开启 Animations 面板。
 
-![Animated GIF showing the Animations panel in Chrome's DevTools](https://www.heartinternet.uk/blog/wp-content/uploads/editting-css-animations-in-chrome-style-panel.gif)
+![演示 Chrome 开发者工具的 Animations 面板的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/editting-css-animations-in-chrome-style-panel.gif)
 
-As shown above, you can edit each individual animated element's timeline, then once your edits are complete, you can scrub through the animation to see the changes live on the page. This is a cool feature for designing and debugging complex CSS animations!
+如上所示，你可以编辑每个动画元素的时间轴，然后在完成编辑后，你可以浏览动画以查看页面上的更改。这是设计和调试复杂 CSS 动画的一个很酷的功能！
 
-## View unused CSS in DevTools
+## 在开发者工具中查看未使用的 CSS
 
-Lately there's been an influx of tools that help you track down parts of your CSS not used on specific pages. This way you can choose to either remove them altogether or load them only when necessary. This will have clear performance advantages.
+最近有大量工具可以帮助你追踪未在特定页面上使用的 CSS。这样你就可以选择完全删除它们或仅在必要时加载它们。这将具有明显的性能优势。
 
-Chrome allows you to view unused CSS right inside the DevTools by means of the "Coverage" panel. This panel can be opened by clicking the "Customize and control DevTools" (three dots) option, then "More tools", then "Coverage".
+Chrome 允许你通过开发者工具的 “Coverage” 面板查看未使用的 CSS。这个面板可以通过上文提到的点击开发者面板右上角的 “Customize and control DevTools” 选项（三个竖点按钮），选择更多工具，找到 “Coverage” 开启。
 
-![Animated GIF showing how to customise your menu on Chrome's DevTools](https://www.heartinternet.uk/blog/wp-content/uploads/view-unused-css-in-dev-tools.gif)
+![演示如何自定义你的 Chrome 开发者工具的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/view-unused-css-in-dev-tools.gif)
 
-As shown in the demo, once you're in the Coverage panel, you can select a source file to open it in the "Sources" panel. When the file opens in Sources, you'll notice green and red indicator lines next to each style rule in the CSS file. These indicate if that part of the CSS was used on the current page.
+如 demo 所示，一旦你打开了 Coverage 面板，你可以在 Sources 面板打开一个源文件。当文件打开时，你将注意到 CSS 文件中每条样式右侧都有绿色或红色的线，指示样式是否在当前页面被应用。
 
-## Conclusion
+## 总结
 
-Your browser's developer tools are a treasure trove of CSS editing and debugging features. And when you combine these suggestions with a feature in Chrome like Workspaces (which allows you to save changes made in DevTools to a local file), the process of debugging becomes even more complete.
+你的浏览器开发工具是 CSS 编辑和调试的宝库。当你将以上建议与 Chrome 的功能例如 Workspaces（允许你把在开发者工具所做的变更保存到本地文件）结合，整个调试过程会变得更加完整。
 
-I hope these tips and suggestions will enhance your CSS editing and debugging abilities in your future projects.
+我希望这些技巧与建议将提升你在未来的项目中编辑与调试 CSS 的能力。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
