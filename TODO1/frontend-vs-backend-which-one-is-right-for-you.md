@@ -3,7 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md](https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：[Chorer](https://github.com/Chorer)
+> * 校对者：[Chorer](https://github.com/Chorer)、[Zavier Tang
+](https://github.com/ZavierTang)
 
 # 前端 vs 后端：哪一个适合你？
 
@@ -13,17 +14,17 @@
 
 ## 定义
 
-在刚开始学习软件的时候，首先要经历的心理斗争就是我应该把关注点放在哪，前端还是后端？在我们深入了解两个领域的特征之前，我们先来看看它们的定义。
+在刚开始学习软件开发的时候，首先要经历的心理斗争就是我应该把关注点放在哪，前端还是后端？在我们深入了解两个领域的特征之前，我们先来看看它们的定义。
 
 ### 前端
 
-> 指的是网站的表示层以及它与后端数据的交互方式。例如 HTML，CSS，Javascript，Angular 等。
+> 指的是网站的表示层以及它与后端数据的交互方式。例如 HTML、CSS、JavaScript、Angular 等。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)
 
 ### 后端
 
-> 指的是应用程序的数据处理层。这一层负责与数据库通信，并确定将哪些信息发送到要显示的前端。例如 Ruby，Rails，Python，Java 等。
+> 指的是应用程序的数据处理层。这一层负责与数据库通信，并确定将哪些信息发送到要显示的前端。例如 Ruby、Rails、Python、Java 等。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--K81Tz4o2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/bqj0p9v42macnqlis6ow.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--K81Tz4o2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/bqj0p9v42macnqlis6ow.png)
 
@@ -39,7 +40,7 @@
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--Jzs_nPT6--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/85q0iiaxn4q1gfx9w2ny.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Jzs_nPT6--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/85q0iiaxn4q1gfx9w2ny.png)
 
-前后端通吃的另一个好处是，你可以了解所有的内容之间是如何协同工作的。无论你决定在未来关注哪个方面，这都非常有用。如果你了解另一半的工作原理，那么你就可以在项目中创建更好的代码和接口。
+前后端通吃的另一个好处是，你可以了解它们之间是如何协同工作的。无论你决定在未来关注哪个方面，这都非常有用。如果你了解另一半的工作原理，那么你就可以在项目中创建更好的代码和接口。
 
 最后，当你在工作时横跨前后端，你可能会决定不进行选择了！你可能希望通吃前后端，并成为一个全栈工程师。这也是完全可以的！
 
@@ -86,7 +87,7 @@
 
 ## 我为什么选择后端
 
-我想我应该在这里加上一段为什么我最终选择了后端，希望它可以在其他人做决定时帮助他们。当我转行成为一名开发人员时，我寻求工作满足感，并决定开始跨整个工作栈。在真正转向后端之前，我做了 3 年的全栈开发。吸引我来到后台的是 Ruby 的简洁。Javascript 和前端语言对我来说总是缺乏组织性。我还热衷于优化代码性能。我喜欢想办法让事情运行得更好更快。后端似乎给了我更多的机会。
+我想我应该在这里加上一段为什么我最终选择了后端，希望它可以在其他人做决定时帮助他们。当我转行成为一名开发人员时，我寻求工作满足感，并决定开始跨整个工作栈。在真正转向后端之前，我做了 3 年的全栈开发。吸引我来到后台的是 Ruby 的简洁。JavaScript 和前端语言对我来说总是缺乏组织性。我还热衷于优化代码性能。我喜欢想办法让事情运行得更好更快。后端似乎给了我更多的机会。
 
 最后，我不是一个非常注重视觉或艺术的人。有些人可以看看网页，然后想办法把它放在什么地方。我从来都不擅长这个，所以后端让我更自然、更舒服。
 
