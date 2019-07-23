@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-knowledge-reading-source-code.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-knowledge-reading-source-code.md)
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
-> * 校对者：
+> * 校对者：[imononoke](https://github.com/imononoke), [Baddyo](https://github.com/Baddyo)
 
 # 通过阅读源码提高你的 Javascript 水平
 
@@ -63,7 +63,7 @@
 
 React-Redux 是一个用于管理 React 应用程序状态的库。在处理这些流行的库时，我首先搜索有关其实现的文章。在这个案例研究中，我找到了这篇[文章](https://blog.isquaredsoftware.com/2018/11/react-redux-history-implementation)。这是阅读源码的另一个好处。研究阶段通常会引导你阅读这样的信息性文章，这些文章会提高你的思考与理解。
 
-` connect` 是一个将 React 组件连接到应用程序的 Redux 存储的 React-Redux 函数。怎么连？好的，根据[文档](https://react-redux.js.org/api/connect)，它执行以下操作：
+`connect` 是一个将 React 组件连接到应用程序的 Redux 存储的 React-Redux 函数。怎么连？好的，根据[文档](https://react-redux.js.org/api/connect)，它执行以下操作：
 
 > “...返回一个新的连接的组件类，它包装您传入的组件。”
 
@@ -144,7 +144,7 @@ while (Object.getPrototypeOf(baseProto) !== null) {
 }
 ```
 
-有些谷歌搜索结果指向[这个](https://stackoverflow.com/questions/51722354/the-implementation-of-isplainobject-function-in-redux/51726564#51726564) StackOverflow 问答和这个在 GitHub 仓库中的 Redux [issue](https://github.com/reduxjs/redux/pull/2599#issuecomment-342849867)，解释该代码如何处理诸如检查源自 iFrame 的对象这类情况。
+有些谷歌搜索结果指向这个 [StackOverflow 问答](https://stackoverflow.com/questions/51722354/the-implementation-of-isplainobject-function-in-redux/51726564#51726564)和这个在 GitHub 仓库中的 [Redux issue](https://github.com/reduxjs/redux/pull/2599#issuecomment-342849867)，解释该代码如何处理诸如检查源自 iFrame 的对象这类情况。
 
 #### 其它的阅读源码的参考链接
 
