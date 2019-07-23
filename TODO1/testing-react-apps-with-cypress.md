@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/testing-react-apps-with-cypress.md](https://github.com/xitu/gold-miner/blob/master/TODO1/testing-react-apps-with-cypress.md)
 > * 译者：[stevens1995](https://github.com/stevens1995)
-> * 校对者：[yzw7489757](https://github.com/yzw7489757) [Baddyo](https://github.com/Baddyo)
+> * 校对者：[yzw7489757](https://github.com/yzw7489757)，[Baddyo](https://github.com/Baddyo)
 
 # 使用 Cypress 进行 React 应用的端到端测试
 
