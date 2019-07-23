@@ -2,152 +2,151 @@
 > * 原文作者：[James Le](https://medium.com/@james_aka_yale)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-10-statistical-techniques-data-scientists-need-to-master.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-10-statistical-techniques-data-scientists-need-to-master.md)
-> * 译者：
+> * 译者：[HearFishle](https://github.com/hearfishle)
 > * 校对者：
 
-# The 10 Statistical Techniques Data Scientists Need to Master
+# 数据科学家需要掌握的十种统计技术
 
 ![](https://cdn-images-1.medium.com/max/3840/1*itOusDBOUogAV1QbNaj4cQ.png)
 
-Regardless of where you stand on the matter of Data Science sexiness, it’s simply impossible to ignore the continuing importance of data, and our ability to analyze, organize, and contextualize it. Drawing on their vast stores of employment data and employee feedback, Glassdoor ranked Data Scientist #1 in their [25 Best Jobs in America](https://www.glassdoor.com/Best-Jobs-in-America-LST_KQ0,20.htm) list. So the role is here to stay, but unquestionably, the specifics of what a Data Scientist does will evolve. With technologies like Machine Learning becoming ever-more common place, and emerging fields like Deep Learning gaining significant traction amongst researchers and engineers — and the companies that hire them — Data Scientists continue to ride the crest of an incredible wave of innovation and technological progress.
+不论你在数据科学是否有趣的问题上持有何种立场，都不可能忽视数据的持续重要性，以及我们分析，组织和通过上下文解析数据的能力。凭借庞大的就业数据和员工反馈，Glassdoor（一家美国的求职社区，译者注）将数据科学家排在全美最佳的25个职位(https://www.glassdoor.com/Best-Jobs-in-America-LST_KQ0,20.htm)中的第一名。因此这个角色会依然存在。但毫无疑问，他们的具体任务将会发生变化。随着像机器学习这样的技术的普及，还有像深度学习这样的新兴领域在研究者和工程师还有雇佣他们的公司里获得巨大的关注，数据科学家继续驾驭着令人难以置信的创新和技术进步浪潮。
 
-While having a strong coding ability is important, data science isn’t all about software engineering (in fact, have a good familiarity with Python and you’re good to go). Data scientists live at the intersection of coding, statistics, and critical thinking. [As Josh Wills](https://www.quora.com/What-is-the-difference-between-a-data-scientist-and-a-statistician) put it, **“data scientist is a person who is better at statistics than any programmer and better at programming than any statistician.”** I personally know too many software engineers looking to transition into data scientist and blindly utilizing machine learning frameworks such as TensorFlow or Apache Spark to their data without a thorough understanding of statistical theories behind them. So comes the study of [statistical learning](https://en.wikipedia.org/wiki/Statistical_learning_theory), a theoretical framework for machine learning drawing from the fields of statistics and functional analysis.
+.尽管有一个强悍的编码能力是重要的，但数据科学并不完全和软件工程有关。（事实上，熟悉Python的话会更容易展开工作）数据科学家需要的是编码，分析和关键性思考的三重能力。Josh Wills 在(https://www.quora.com/What-is-the-difference-between-a-data-scientist-and-a-statistician) 提到，**“数据科学家要在统计学上比任何一个编程人员都强，并且编程能力比任何统计学家都强。”** 我个人知道太多的软件工程师想转行成为数据科学家。他们在没有完全理解数据科学理论的情况下就盲目利用机器学习框架如 TensorFlow 或者 Apache Spark去处理数据。对[统计学习]（https://en.wikipedia.org/wiki/Statistical_learning_theory)的研究也是如此，这是一个从统计和功能分析领域抽取机器学习的理论框架。
 
-**Why study Statistical Learning?** It is important to understand the ideas behind the various techniques, in order to know how and when to use them. One has to understand the simpler methods first, in order to grasp the more sophisticated ones. It is important to accurately assess the performance of a method, to know how well or how badly it is working. Additionally, this is an exciting research area, having important applications in science, industry, and finance. Ultimately, statistical learning is a fundamental ingredient in the training of a modern data scientist. Examples of Statistical Learning problems include:
+**为什么学习统计学习?** 理解这个想法背后的多种技术是很重要的，因为我们需要知道在何时，如何使用它们。而且首先必须去理解简单的方法，以便掌握更复杂的方法。准确评估方法的能力是非常重要的，它能够确定工作是否正常进行。并且，这是个令人兴奋的研究领域，在科学，工业和金融都有这非常重要的应用。归根结底，统计学习是现代数据科学家培训的基本要素。统计学习问题的例子包括像：
 
-* Identify the risk factors for prostate cancer.
-* Classify a recorded phoneme based on a log-periodogram.
-* Predict whether someone will have a heart attack on the basis of demographic, diet and clinical measurements.
-* Customize an email spam detection system.
-* Identify the numbers in a handwritten zip code.
-* Classify a tissue sample into one of several cancer classes.
-* Establish the relationship between salary and demographic variables in population survey data.
+* 确定哪些因素会带来患前列腺癌的风险。
+* 根据记录周期图对录制的语音进行分类。
+* 根据人口统计学、饮食和临床测量预测某人是否会心脏病发作。
+* 自定义电子邮件垃圾邮件检测系统。
+* 识别手写的邮政编码。
+* 给癌症的组织样本分类。
+* 在人口调查数据中建立薪水和人口统计变量之间的关系。
 
-In my last semester in college, I did an Independent Study on Data Mining. The class covers expansive materials coming from 3 books: [Intro to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) (Hastie, Tibshirani, Witten, James), [Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/) (Kruschke), and [Time Series Analysis and Applications](http://www.stat.pitt.edu/stoffer/tsa4/) (Shumway, Stoffer). We did a lot of exercises on Bayesian Analysis, Markov Chain Monte Carlo, Hierarchical Modeling, Supervised and Unsupervised Learning. This experience deepens my interest in the Data Mining academic field and convinces me to specialize further in it. Recently, I completed the [Statistical Learning online course](https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about) on Stanford Lagunita, which covers all the material in the [**Intro to Statistical Learning book**](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370) I read in my Independent Study. Now being exposed to the content twice, I want to share the 10 statistical techniques from the book that I believe any data scientists should learn to be more effective in handling big datasets.
+在大学的最后一个学期，我自学了数据挖掘。这门课的材料来自这三本书： [Intro to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) (Hastie, Tibshirani, Witten, James)，[Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/) (Kruschke)和[Time Series Analysis and Applications](http://www.stat.pitt.edu/stoffer/tsa4/) (Shumway, Stoffer)。我做了大量和贝叶斯分析，马尔可夫链，分层建模，监督和无监督学习相关的练习。这个经历加深了我对数据挖掘学术领域的兴趣，以及说服我向更深处探索。最近，我在 Stanford Lagunita 完成了[Statistical Learning online course](https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about)，它涵盖了[**Intro to Statistical Learning book**](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370)的全部材料。我自学了它。两次接触这些内容，我想分享这本书中的10种统计技术，我相信任何数据科学家都应该学会更有效地处理大数据集。
+在带来这十种技术之前，我想先区分一下统计学习和机器学习，之前我写了[one of the most popular Medium posts on machine learning](https://gab41.lab41.org/the-10-algorithms-machine-learning-engineers-need-to-know-f4bb63f5b2fa) 因此我非常自信我有能力去判断它们的差异：
 
-Before moving on with these 10 techniques, I want to differentiate between statistical learning and machine learning. I wrote [one of the most popular Medium posts on machine learning](https://gab41.lab41.org/the-10-algorithms-machine-learning-engineers-need-to-know-f4bb63f5b2fa) before, so I am confident I have the expertise to justify these differences:
+* 机器学习是人工智能的一个分支。
+* 统计学习是统计学的一个分支。
+* 机器学习非常强调大数据和预测精确度。
+* 统计学习强调模型以及它的可解释性，精确性和不确定性。
+* 但是两者的界限在变得模糊，并且还有大量的“学科交叉”。
+* 机器学习更有市场！
 
-* Machine learning arose as a subfield of Artificial Intelligence.
-* Statistical learning arose as a subfield of Statistics.
-* Machine learning has a greater emphasis on large scale applications and prediction accuracy.
-* Statistical learning emphasizes models and their interpretability, and precision and uncertainty.
-* But the distinction has become and more blurred, and there is a great deal of “cross-fertilization.”
-* Machine learning has the upper hand in Marketing!
+## 1 — Linear Regression:1 — 线性回归:
 
-## 1 — Linear Regression:
-
-In statistics, linear regression is a method to predict a target variable by fitting the **best linear relationship** between the dependent and independent variable. The **best fit** is done by making sure that the sum of all the distances between the shape and the actual observations at each point is as small as possible. The fit of the shape is “best” in the sense that no other position would produce less error given the choice of shape. 2 major types of linear regression are **Simple Linear Regression** and **Multiple Linear Regression**. **Simple Linear Regression **uses a single independent variable to predict a dependent variable by fitting a best linear relationship.** Multiple Linear Regression** uses more than one independent variable to predict a dependent variable by fitting a best linear relationship.
+在统计学中，线性回归是一种通过拟合自变量和因变量之间的**最优线性函数**去预测目标变量的方法。当拟合每个点得到的值和实际观测值的距离之和最小时，我们就可以认定**最佳拟合**了。形状的拟合是“最好的”，因为在选择形状的情况下，没有其他位置会产生较少的误差。两种主要的线性回归是**简单线性回归**和 **多元线性回归**。**简单线性回归 **通过拟合一个最优线性关系，使用单自变量去预测一个因变量。**多元线性回归**则是通过拟合一个最优线性函数，使用不止一个自变量去预测因变量。
 
 ![](https://cdn-images-1.medium.com/max/4328/1*KwdVLH5e_P9h8hEzeIPnTg.png)
 
-Pick any 2 things that you use in your daily life and that are related. Like, I have data of my monthly spending, monthly income and the number of trips per month for the last 3 years. Now I need to answer the following questions:
+可以选择你生活中的任意两个有关系的事物。比如，我有过去三年我每个月收入和支出以及出行的数据。现在我提出如下问题：
 
-* What will be my monthly spending for next year?
-* Which factor (monthly income or number of trips per month) is more important in deciding my monthly spending?
-* How monthly income and trips per month are correlated with monthly spending?
+* 我下一年的的月收入将是多少？
+* 哪个因素（月收入或者月出行）在决定我的月支出中更加重要？
+* 月收入和月出行哪一个更能决定我的月支出？
 
-## 2 — Classification:
+## 2 — Classification:2 — 分类：
 
-Classification is a data mining technique that assigns categories to a collection of data in order to aid in more accurate predictions and analysis. Also sometimes called a Decision Tree, classification is one of several methods intended to make the analysis of very large datasets effective. 2 major Classification techniques stand out: **Logistic Regression** and **Discriminant Analysis****.**
+分类是一种数据挖掘技术，它将分好的类分配给对应的数据集合，以帮助进行更准确的预测和分析。有时候也被叫作决策树。分类是旨在使非常大的数据集分析有效的几种方法之一。两种脱颖而出的主要的分类技术是**逻辑回归**和**判别分析**。
 
-**Logistic Regression** is the appropriate regression analysis to conduct when the dependent variable is dichotomous (binary). Like all regression analyses, the logistic regression is a predictive analysis. Logistic regression is used to describe data and to explain the relationship between one dependent binary variable and one or more nominal, ordinal, interval or ratio-level independent variables. Types of questions that a logistic regression can examine:
+**逻辑回归**是当因变量为二分（二元）时进行的适当回归分析。和所有的回归分析类似，逻辑回归是一种预测分析。逻辑回归用于描述数据，并解释一个因变量与一个或多个名义、序数、区间或比率-水平自变量之间的关系。逻辑回归可以校验的问题有：
 
-* How does the probability of getting lung cancer (Yes vs No) change for every additional pound of overweight and for every pack of cigarettes smoked per day?
-* Do body weight calorie intake, fat intake, and participant age have an influence on heart attacks (Yes vs No)?
+* 患肺癌的概率（是与否）是如何随着体重的增加和每天吸一包烟而变化的？
+* 体重、卡路里摄入量、脂肪摄入量和参与者年龄对心脏病发作有影响吗（是与否）？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_jCbRluq1_g89LhNgIujLg.png)
 
-In **Discriminant Analysis**, 2 or more groups or clusters or populations are known a priori and 1 or more new observations are classified into 1 of the known populations based on the measured characteristics. Discriminant analysis models the distribution of the predictors X separately in each of the response classes, and then uses Bayes’ theorem to flip these around into estimates for the probability of the response category given the value of X. Such models can either be **linear** or **quadratic****.**
+在 **判别分析**中，两个或者更多的群或者簇或者族群是已知先验的，而根据分析的特征，1个或者更多的观测值被划分进入已知的某一类簇中。判别分析模型分别对预测因子x在每个响应类中的分布进行建模，然后使用贝叶斯定理将其转换为给定x值的响应类概率的估计。这些模型可以是**线性的**，也可以是**二次的** 。
 
-* **Linear Discriminant Analysis** computes “discriminant scores” for each observation to classify what response variable class it is in. These scores are obtained by finding linear combinations of the independent variables. It assumes that the observations within each class are drawn from a multivariate Gaussian distribution and the covariance of the predictor variables are common across all k levels of the response variable Y.
-* **Quadratic Discriminant Analysis** provides an alternative approach. Like LDA, QDA assumes that the observations from each class of Y are drawn from a Gaussian distribution. However, unlike LDA, QDA assumes that each class has its own covariance matrix. In other words, the predictor variables are not assumed to have common variance across each of the k levels in Y.
+* **线性判别分析**计算每个观测值的“判别分数”去判断响应值属于哪个类。这些分数是通过寻找自变量的线性组合得到的。它假设每一类内的观测值是由多变量高斯分布得出的，预测变量的协方差在响应变量 y 的所有水平 k 上都很常见。
+* **二次判别分析**提供一个代替的分支。和 LDA 一样,QDA 假设观测值来自 Y 中的每个类都是符合高斯分布的。而不同于 LDA 的是，QDA 假设每一类都有它自己的协方差矩阵。换句话说，在这里预测变量不认为在y中的每个k水平上都有共同的方差。
 
-## 3 — Resampling Methods:
+## 3 — Resampling Methods:3 — 重采样方法:
 
-Resampling is the method that consists of drawing repeated samples from the original data samples. It is a non-parametric method of statistical inference. In other words, the method of resampling does not involve the utilization of the generic distribution tables in order to compute approximate p probability values.
+重采样方法包括从原始数据样本中提取重复样本。它是一种统计推断的非参数方法。换言之，重采样方法不使用通用分布去近似计算概率p的值。
 
-Resampling generates a unique sampling distribution on the basis of the actual data. It uses experimental methods, rather than analytical methods, to generate the unique sampling distribution. It yields unbiased estimates as it is based on the unbiased samples of all the possible results of the data studied by the researcher. In order to understand the concept of resampling, you should understand the terms **Bootstrapping** and **Cross-Validation**:
+重采样基于实际数据生成一个唯一的采样分布。它使用经验方法，而不是分析方法，来生成这个采样分布。重采样基于数据的所有可能的结果的无偏样本来获取无偏估计。为了理解重采样的概念，你应该了解**自助法（也翻译成拔靴法，译者注）** 和 **交叉验证**：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*SebBhTd29KMJ25JfPn2QgA.png)
 
-* **Bootstrapping** is a technique that helps in many situations like validation of a predictive model performance, ensemble methods, estimation of bias and variance of the model. It works by sampling with replacement from the original data, and take the “**not chosen**” data points as test cases. We can make this several times and calculate the average score as estimation of our model performance.
-* On the other hand, **cross validation** is a technique for validating the model performance, and it’s done by split the training data into k parts. We take the k — 1 parts as our training set and use the “**held out**” part as our test set. We repeat that k times differently. Finally, we take the average of the k scores as our performance estimation.
+* **自助法** 应用于多种场景，如验证预测性模型的表现，集成方法，偏差估计和模型方差。他通过在原始数据中执行有放回取样而进行数据采样。使用 “**未选中**” 的数据点作为测试样例。我们可以多次执行并且计算均值来评估我们模型的性能。
+* 交叉验证用于验证模型性能，通过将训练数据分成 k 部分来执行。我们将前 k-1 部分作为训练集，“**留出**” 的部分作为测试集。将该步骤重复 k 次，最后取 k 次分值的平均值作为性能评估。
 
-Usually for linear models, ordinary least squares is the major criteria to be considered to fit them into the data. The next 3 methods are the alternative approaches that can provide better prediction accuracy and model interpretability for fitting linear models.
+通常，对于线性模型来说，普通最小二乘法是拟合数据时使用的主要标准。下面三个方法可以替代它并且能够提供更好的预测准确率和模型可解释性。
 
-## 4 — Subset Selection:
+## 4 — Subset Selection:4 — 子集选择:
 
-This approach identifies a subset of the **p** predictors that we believe to be related to the response. We then fit a model using the least squares of the subset features.
+此方法确定被我们认为与响应相关的**p**个预测因子的一个子集。然后我们用该子集特征和最小二乘法拟合模型。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*R1tdVlwJX-N1qnFLzGp0pQ.png)
 
-* **Best-Subset Selection:** Here we fit a separate OLS regression for each possible combination of the **p** predictors and then look at the resulting model fits. The algorithm is broken up into 2 stages: (1) Fit all models that contain **k** predictors, where **k** is the max length of the models, (2) Select a single model using cross-validated prediction error. It is important to use **testing** or **validation error,** and not training error to assess model fit because RSS and R² monotonically increase with more variables. The best approach is to cross-validate and choose the model with the highest R² and lowest RSS on testing error estimates.
-* **Forward Stepwise Selection** considers a much smaller subset of **p** predictors. It begins with a model containing no predictors, then adds predictors to the model, one at a time until all of the predictors are in the model. The order of the variables being added is the variable, which gives the greatest addition improvement to the fit, until no more variables improve model fit using cross-validated prediction error.
-* **Backward Stepwise Selection** begins will all **p** predictors in the model, then iteratively removes the least useful predictor one at a time.
-* **Hybrid Methods** follows the forward stepwise approach, however, after adding each new variable, the method may also remove variables that do not contribute to the model fit.
+* **最优子集选择:** 这里，我们为 **p** 个预测因子的每个可能的组合拟合一个单独的 OLS 回归，然后观察每个模型的拟合效果。该算法有两个阶段：（1）拟合包含 k 个预测因子的所有模型，其中 k 为模型的最大长度。（2）使用交叉验证预测损失来选择单个模型。使用 **验证** 或 **测试误差,** 而且不能简单地使用训练误差评估模型的拟合情况。因为 RSS 和 R² 随变量的增加而单调递增。最好的方法就是通过测试集中最高的 R² 和最低的 RSS 来交叉验证地选择模型。
+* **前向逐步选择**考虑 p 个预测因子中的一个较小的子集。它从不含预测因子的模型开始，逐步添加预测因子到模型中，直到所有预测因子都包含在模型中。添加预测因子的顺序是根据不同变量对模型拟合性能提升的程度确定的，我们会添加变量直到再没有预测因子能在交叉验证误差中提升模型。
+* **后向逐步选择**先从模型中所有 p 预测因子开始，然后迭代地移除用处最小的因子，每次移除一个。
+* **混合法**遵循前向逐步方法。但是在添加每个新的变量之后，该方法可能还会移除对模型拟合无用的变量。
 
-## 5 — Shrinkage:
+## 5 — Shrinkage:5 — 特征缩减:
 
-This approach fits a model involving all **p** predictors, however, the estimated coefficients are shrunken towards zero relative to the least squares estimates. This shrinkage, aka **regularization** has the effect of reducing variance. Depending on what type of shrinkage is performed, some of the coefficients may be estimated to be exactly zero. Thus this method also performs variable selection. The two best-known techniques for shrinking the coefficient estimates towards zero are the **ridge regression** and the **lasso**.
+这种方法涉及到使用所有 **p**个预测因子进行建模。然而，估计预测因子重要性的系数将根据最小二乘误差向零收缩。这种收缩也称之为正则化。它旨在减少方差以防止模型的过拟合。由于我们使用不同的收缩方法有一些变量的估计将归零。因此这种方法也能执行变量的选择，将变量收缩为零最想见的技术就是 **岭回归** 和 **lasso** 回归。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nlg3Mo5du17JV8VmLQ8H4g.jpeg)
 
-* **Ridge regression** is similar to least squares except that the coefficients are estimated by minimizing a slightly different quantity. Ridge regression, like OLS, seeks coefficient estimates that reduce RSS, however they also have a shrinkage penalty when the coefficients come closer to zero. This penalty has the effect of shrinking the coefficient estimates towards zero. Without going into the math, it is useful to know that ridge regression shrinks the features with the smallest column space variance. Like in prinicipal component analysis, ridge regression projects the data into **d**directional space and then shrinks the coefficients of the low-variance components more than the high variance components, which are equivalent to the largest and smallest principal components.
-* Ridge regression had at least one disadvantage; it includes all **p** predictors in the final model. The penalty term will set many of them close to zero, but never **exactly** to zero. This isn’t generally a problem for prediction accuracy, but it can make the model more difficult to interpret the results. **Lasso** overcomes this disadvantage and is capable of forcing some of the coefficients to zero granted that **s** is small enough. Since **s** = 1 results in regular OLS regression, as **s** approaches 0 the coefficients shrink towards zero. Thus, Lasso regression also performs variable selection.
+* **岭回归** 非常类似于最小二乘法，只不过它通过最小化一个稍微不同的数值来估计系数。岭回归和 OLS 一样寻求减少 RSS 的系数估计。但是当系数值接近零时，它们会对这种收缩进行惩罚。这种惩罚的效果是将系数估计值缩小到零。不需要数学运算就能看出岭回归很擅长于将特征收缩到最小的可能空间中，如主成分分析，岭回归将数据投影到**d**方向空间，并在系数空间内收缩较低方差的成分而保留有较高方差的成分。
+* 岭回归至少有一个缺点，它需要包含最终模型所有 p 个预测因子，这主要是因为罚项将会令很多预测因子的系数逼近零，但又一定不会等于零。这对于预测准确度来说通常并不是什么问题，但却令模型的结果更难以解释。**Lasso** 则克服了这一缺点，因为它在 **s**  足够小的时候能迫使一些预测因子的系数归零。因为**s** = 1 将导致正规的 OLS 回归，而当 **s**  逼近 0 时，系数将收缩到零。因此 Lasso 回归同样是执行变量选择的一个好方法。
 
-## 6 — Dimension Reduction:
+## 6 — Dimension Reduction:降维
 
-Dimension reduction reduces the problem of estimating **p + 1** coefficients to the simple problem of **M + 1** coefficients, where **M \< p.** This is attained by computing **M** different **linear combinations,** or **projections,** of the variables. Then these **M** projections are used as predictors to fit a linear regression model by least squares. 2 approaches for this task are **principal component regression** and **partial least squares.**
+ 降维算法将 **p + 1**  个系数的问题简化为 **M + 1** 个系数的问题，其中 **M \< p.**。算法执行包括计算变量的 **M** 个不同**线性组合**或**投射**（projection）。然后这 **M** 个投射作为预测器通过最小二乘法拟合一个线性回归模型。两个主要的方法是**主成分回归（principal component regression）** 和 **偏最小二乘法（partial least squares）**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WVFe7w1rzZWsmghdvaoXag.png)
 
-* One can describe **Principal Components Regression** as an approach for deriving a low-dimensional set of features from a large set of variables. The **first** principal component direction of the data is along which the observations vary the most. In other words, the first PC is a line that fits as close as possible to the data. One can fit **p** distinct principal components. The second PC is a linear combination of the variables that is uncorrelated with the first PC, and has the largest variance subject to this constraint. The idea is that the principal components capture the most variance in the data using linear combinations of the data in subsequently orthogonal directions. In this way, we can also combine the effects of correlated variables to get more information out of the available data, whereas in regular least squares we would have to discard one of the correlated variables.
-* The PCR method that we described above involves identifying linear combinations of **X** that best represent the predictors. These combinations (**directions**) are identified in an unsupervised way, since the response **Y** is not used to help determine the principal component directions. That is, the response **Y** does not **supervise** the identification of the principal components, thus there is no guarantee that the directions that best explain the predictors also are the best for predicting the response (even though that is often assumed). **Partial least square**s (PLS) are a **supervised**alternative to PCR. Like PCR, PLS is a dimension reduction method, which first identifies a new smaller set of features that are linear combinations of the original features, then fits a linear model via least squares to the new **M** features. Yet, unlike PCR, PLS makes use of the response variable in order to identify the new features.
+* 主成分回归（PCR）可以看成一种从大型变量集合中导出低维特征集合的方法。数据中的第一主成分（first principal component）是指观察数据沿着这个变量方向的变化最大。换言之，第一主成分是最接近拟合数据的线，总共可以用 p 个不同的主成分拟合。第二主成分是和第一主成分不相关的变量的线性组合，且在该约束下有最大的方差。其主要思想是主成分能在各个互相垂直的方向使用数据的线性组合捕捉到最大的方差。使用这种方法，我们还能结合相关变量的效应从数据中获取更多的信息，毕竟在常规的最小二乘法中需要舍弃其中一个相关变量。
+* 上面描述的 PCR 方法需要提取 X 的线性组合，以获得预测因子的最优表征。由于 **X** 的输出 **Y** 不能用于帮助决定主成分方向，这些组合（**方向**）使用无监督方法提取。即，**Y** 不能**监督**主成分的提取，从而无法保证这些方向是预测器的最优表征，也无法保证能获得最优预测输出（虽然通常假定如此）。**偏最小二乘法**（PLS）是一种**监督**方法，作为 PCR 的代替方法。和 PCR 类似，PLS 也是一种降维方法，它首先提取一个新的较小的特征集合（原始特征的线性组合），然后通过最小二乘法将原来的模型拟合为一个新的具有 M 个特征的线性模型。
 
 ## 7 — Nonlinear Models:
 
-In statistics, nonlinear regression is a form of regression analysis in which observational data are modeled by a function which is a nonlinear combination of the model parameters and depends on one or more independent variables. The data are fitted by a method of successive approximations. Below are a couple of important techniques to deal with nonlinear models:
+在统计学中，非线性回归属于一种回归分析形式，其中，观测数据使用模型参数的非线性组合的函数（依赖于一个或多个独立变量）建模。其使用逐次逼近法拟合数据。下方是几种处理非线性模型的重要技术：
 
-* A function on the real numbers is called a **step function** if it can be written as a finite linear combination of indicator functions of intervals. Informally speaking, a step function is a piecewise constant function having only finitely many pieces.
-* A **piecewise function** is a function which is defined by multiple sub-functions, each sub-function applying to a certain interval of the main function’s domain. Piecewise is actually a way of expressing the function, rather than a characteristic of the function itself, but with additional qualification, it can describe the nature of the function. For example, a **piecewise polynomial** function is a function that is a polynomial on each of its sub-domains, but possibly a different one on each.
+* **阶梯函数（step function）**，变量为实数，可以写成区间的指示函数的有限线性组合的形式。非正式的解释是，阶梯函数是一种分段常数函数，只有有限的部分。
+* **分段函数**（piecewise function）通过多个子函数定义，每一个子函数被定义在主函数定义域的确定的区间上。分段实际上是一种表示函数的方式，而不是函数自身的特征，但通过额外的限定条件，它可以用于描述函数的本质。例如，一个**分段多项式函数**是一个在每一个子定义上为多项式的函数，其中每一个多项式都可能是不同的。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_vb4tu4Vvi8b2Rg7hzf5NQ.png)
 
-* A **spline** is a special function defined piecewise by polynomials. In computer graphics, spline refers to a piecewise polynomial parametric curve. Splines are popular curves because of the simplicity of their construction, their ease and accuracy of evaluation, and their capacity to approximate complex shapes through curve fitting and interactive curve design.
-* A **generalized additive model** is a generalized linear model in which the linear predictor depends linearly on unknown smooth functions of some predictor variables, and interest focuses on inference about these smooth functions.
+* **样条曲线（spline）** 是一种用多项式分段定义的特殊函数。在计算机图形学中，样条曲线是一种分段多项式参数化曲线。由于结构的简单性、评估的简易和高精度、通过曲线拟合和交互曲线设计以逼近复杂曲线的能力，样条曲线很常用。
+* **广义加性模型（generalized additive model）** 是一种广义线性模型，其中线性预测器线性依赖于某些预测器变量的未知平滑函数，其主要作用就是推测这些平滑函数。
 
-## 8 — Tree-Based Methods:
+## 8 — Tree-Based Methods:基于树的方法：
 
-Tree-based methods can be used for both regression and classification problems. These involve stratifying or segmenting the predictor space into a number of simple regions. Since the set of splitting rules used to segment the predictor space can be summarized in a tree, these types of approaches are known as **decision-tree** methods. The methods below grow multiple trees which are then combined to yield a single consensus prediction.
+基于树的方法可以用于回归和分类问题，包括将预测因子的空间分层或分割成几个简单区域。由于用于预测器空间的分离规则集合可以总结为一个树，这类方法被称为**决策树**方法。以下的方法是几种不同的树，它们可以组合起来输出单个一致的预测。
 
-* **Bagging** is the way decrease the variance of your prediction by generating additional data for training from your original dataset using combinations with repetitions to produce multistep of the same carnality/size as your original data. By increasing the size of your training set you can’t improve the model predictive force, but just decrease the variance, narrowly tuning the prediction to expected outcome.
-* **Boosting** is an approach to calculate the output using several different models and then average the result using a weighted average approach. By combining the advantages and pitfalls of these approaches by varying your weighting formula you can come up with a good predictive force for a wider range of input data, using different narrowly tuned models.
+* **Bagging** 能减少预测的方差，即通过从原始数据中生成额外的数据（通过组合和重复生成和原始数据大小相同的多段数据）用于训练。通过增大训练集无法提高模型的预测能力，只能减小方差，仔细地调整预测以得到期望的输出。
+* **Boosting** 是一种使用多个不同的模型计算输出，然后使用加权平均方法对结果进行平均的方法。将这些方法的优点和缺点结合起来，通过改变加权公式，您可以使用不同的更细致的调优模型，对更广泛的输入数据产生良好的预测力。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*W70TAcPDXVexTL6JNED6OA.png)
 
-* The **random forest** algorithm is actually very similar to bagging. Also here, you draw random bootstrap samples of your training set. However, in addition to the bootstrap samples, you also draw a random subset of features for training the individual trees; in bagging, you give each tree the full set of features. Due to the random feature selection, you make the trees more independent of each other compared to regular bagging, which often results in better predictive performance (due to better variance-bias trade-offs) and it’s also faster, because each tree learns only from a subset of features.
+* **随机森林算法（random forest algorithm）** 实际上和 bagging 算法很相似，都是对训练集提取随机 bootstrap 样本。不过，除了 bootstrap 样本以外，还可以提取特征的随机子集来训练单个树；而在 bagging 中，需要给每个树提供整个特征集。由于特征选择是随机的，相比常规的 bagging 算法，每个树之间更加独立，从而通常能获得更好的预测性能（得益于更好的方差—偏差权衡）。由于每个树只需要学习特征的一个子集，所以计算速度也更快。
 
-## 9 — Support Vector Machines:
+## 9 — Support Vector Machines:支持向量机
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MStS2dBWSZo8iJPiL2_uXg.png)
 
-SVM is a classification technique that is listed under supervised learning models in Machine Learning. In layman’s terms, it involves finding the hyperplane (line in 2D, plane in 3D and hyperplane in higher dimensions. More formally, a hyperplane is n-1 dimensional subspace of an n-dimensional space) that best separates two classes of points with the maximum margin. Essentially, it is a constrained optimization problem where the margin is maximized subject to the constraint that it perfectly classifies the data (hard margin).
+支持向量机（SVM）是一种常用的监督学习分类技术。通俗地说，它用于寻找对两类点集做出最佳分离的超平面（hyperplane，在 2D 空间中是线，在 3D 空间中是面，在高维空间中是超平面。更正式的说法是，一个超平面是一个 n 维空间的 n-1 维子空间）。而支持向量机是保留最大的间隔的分离超平面，因此本质上，它是一个约束最优化问题，其中支持向量机的间隔在约束下被最大化，从而完美地对数据进行分类（硬间隔分类器）。
 
-The data points that kind of “support” this hyperplane on either sides are called the “support vectors”. In the above picture, the filled blue circle and the two filled squares are the support vectors. For cases where the two classes of data are not linearly separable, the points are projected to an exploded (higher dimensional) space where linear separation may be possible. A problem involving multiple classes can be broken down into multiple one-versus-one or one-versus-rest binary classification problems.
+"支持"超平面的数据点被称为"支持向量"。在上图中，填充蓝色圆和两个填充方块就是支持向量。在两类数据不是线性可分的例子中，数据点将被投射到一个更高维空间中，使得数据变得线性可分。包含多个类别的数据点的问题可以分解成多个"一对一"（one-versus-one）或"一对剩余"（one-versus-rest）的二分类问题。
 
-## 10 — Unsupervised Learning:
+## 10 — Unsupervised Learning:无监督学习
 
-So far, we only have discussed supervised learning techniques, in which the groups are known and the experience provided to the algorithm is the relationship between actual entities and the group they belong to. Another set of techniques can be used when the groups (categories) of data are not known. They are called unsupervised as it is left on the learning algorithm to figure out patterns in the data provided. Clustering is an example of unsupervised learning in which different data sets are clustered into groups of closely related items. Below is the list of most widely used unsupervised learning algorithms:
+目前为止，我们都只讨论过监督学习技术，其中数据分类都是已知的，且提供给算法的经验都是实体和其分类的关系。当数据的分类是未知的时候，就需要使用另一种技术了。它们被称为无监督的，因为它们需要自己去发现数据中的模式。聚类（clustring）是无监督学习的一种，其中数据将根据相关性被分为多个集群。下方是几种最常用的无监督学习算法：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DwqQu4oiGTsa5L--DD0v6Q.jpeg)
 
-* **Principal Component Analysis** helps in producing low dimensional representation of the dataset by identifying a set of linear combination of features which have maximum variance and are mutually un-correlated. This linear dimensionality technique could be helpful in understanding latent interaction between the variable in an unsupervised setting.
-* **k-Means clustering**: partitions data into k distinct clusters based on distance to the centroid of a cluster.
-* **Hierarchical clustering**: builds a multilevel hierarchy of clusters by creating a cluster tree.
+* **主成分分析** 通过识别具备最大方差和互不相关的特征之间的线性连接，帮助生成数据集的低维表示。该线性降维技术有助于理解无监督学习中的隐变量交互。
+* **k-Means 聚类**:根据数据到集群中心的距离将其分成 k 个不同的集群。
+* **层次聚类**：通过创建集群树来构建集群的多级层次结构。
 
-This was a basic run-down of some basic statistical techniques that can help a data science program manager and or executive have a better understanding of what is running underneath the hood of their data science teams. Truthfully, some data science teams purely run algorithms through python and R libraries. Most of them don’t even have to think about the math that is underlying. However, being able to understand the basics of statistical analysis gives your teams a better approach. Have insight into the smallest parts allows for easier manipulation and abstraction. I hope this basic data science statistical guide gives you a decent understanding!
+这是一些基本统计技术的基本运用，它们可以帮助数据科学项目经理和/或执行人员更好地了解他们的数据科学团队的内部运行情况。事实上，一些数据科学团队纯粹是通过 python 和 R语言 库运行算法。他们中的大多数甚至不需要考虑基础的数学。但是，能够理解统计分析的基础知识可以为您的团队提供更好的方法。洞察最小的部分可以使操作和抽象更容易。希望本基础数据科学统计指南能给您一个很好的理解！
 
-**P.S: You can get all the lecture slides and RStudio sessions from [my GitHub source code here](https://github.com/khanhnamle1994/statistical-learning). Thanks for the overwhelming response!**
+**您可以从[我的 Github 源代码]获得所有讲座的幻灯片和 RStudio 课程（https://github.com/khanhnamle1994/statistical-learning）感谢你的热情回复。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
