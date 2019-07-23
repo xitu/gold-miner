@@ -5,9 +5,9 @@
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
 > * 校对者：
 
-# 通过阅读源码提高您的 Javascript 水平
+# 通过阅读源码提高你的 Javascript 水平
 
-快速摘要：当您还处于编程生涯的初期阶段时，深入研究开源库和框架的源代码可能是一项艰巨的任务。在本文中，Carl Mungazi 分享了他如何克服恐惧，并开始用源码来提高他的知识水平和专业技能。他还使用了 Redux 来演示他如何解构一个代码库。
+快速摘要：当你还处于编程生涯的初期阶段时，深入研究开源库和框架的源代码可能是一项艰巨的任务。在本文中，Carl Mungazi 分享了他如何克服恐惧，并开始用源码来提高他的知识水平和专业技能。他还使用了 Redux 来演示他如何解构一个代码库。
 
 你还记得你第一次深入研究你常用的库或框架的源码时的情景吗？对我来说，这一刻发生在三年前我作为前端开发者的第一份工作中。
 
@@ -33,17 +33,17 @@
 
 不久之后，你所阅读的源码将引导你找到 JavaScript 规范。（[高清预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6777ea35-ee97-40c4-a0b8-5b4c2455f733/1-improve-your-javascript-knowledge-by-reading-source-code.png)）
 
-另一个好处 —— 令我感到惊讶的是 —— 您可以更轻松地阅读定义语言如何工作的官方 JavaScript 规范。我第一次阅读规范是在研究 `throw Error` 与 `throw new Error`（剧透警告 —— [二者没有区别](http://www.ecma-international.org/ecma-262/7.0/#sec-error-constructor)）之间的区别时。我研究这个问题是因为我注意到 Mithril 在其 `m` 函数的实现中使用了 `throw Error`，我想知道在它的实现上使用 `throw new Error` 是否有好处。从那以后，我还了解了逻辑运算符 `&&` 和 `||` [不一定返回布尔值](https://tc39.es/ecma262/#prod-LogicalORExpression)，找到了控制 `==` 等于运算符如何强制转换值的[规则](http://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison)和 `Object.prototype.toString.call({})` 返回 `'[object Object]'` 的[原因](http://www.ecma-international.org/ecma-262/#sec-object.prototype.tostring)。
+另一个好处 —— 令我感到惊讶的是 —— 你可以更轻松地阅读定义语言如何工作的官方 JavaScript 规范。我第一次阅读规范是在研究 `throw Error` 与 `throw new Error`（剧透警告 —— [二者没有区别](http://www.ecma-international.org/ecma-262/7.0/#sec-error-constructor)）之间的区别时。我研究这个问题是因为我注意到 Mithril 在其 `m` 函数的实现中使用了 `throw Error`，我想知道这种用法是否比使用 throw new Error 更好。从那以后，我还了解了逻辑运算符 `&&` 和 `||` [不一定返回布尔值](https://tc39.es/ecma262/#prod-LogicalORExpression)，找到了控制 `==` 等于运算符如何强制转换值的[规则](http://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison)和 `Object.prototype.toString.call({})` 返回 `'[object Object]'` 的[原因](http://www.ecma-international.org/ecma-262/#sec-object.prototype.tostring)。
 
 ### 阅读源码的技巧
 
-有很多方法可以处理源码。我发现最简单的方法是从您选择的库中选择一个方法，并记录当你调用它时会发生什么。不要每一个步骤都记录，而是尝试理解它的整体流程和结构。
+有很多方法可以处理源码。我发现最简单的方法是从你选择的库中选择一个方法，并记录当你调用它时会发生什么。不要每一个步骤都记录，而是尝试理解它的整体流程和结构。
 
-我最近使用 `ReactDOM.render` 做了这个，因此学到了很多关于 React Fiber 及其实现背后的一些原因。谢天谢地，由于 React 是一个流行的框架，我在同样的问题上遇到了其他开发人员写的许多文章，这加快了进程。
+我最近用这个方法阅读了 ReactDOM.render 的源码，因此学到了很多关于 React Fiber 及其实现背后的一些原因。谢天谢地，由于 React 是一个流行的框架，在同样的问题上，我找到了很多其他开发者撰写的文章，这让我的学习进程快了许多。
 
-这次深入研究还让我明白了[合作调度](https://developer.mozilla.org/en-US/docs/Web/API/Background_Tasks_API) 的概念，`[window.requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)` 方法和一个[链接列表的实际示例](https://github.com/facebook/react/blob/v16.7.0/packages/react-reconciler/src/ReactUpdateQueue.js#L10)（React 通过将它们放入优先级更新的链接队列来处理更新）。执行此操作时，建议使用库创建非常基本的应用程序。这使得调试更容易，因为你不必处理由其他库引起的堆栈跟踪。
+这次深入研究还让我明白了[合作调度](https://developer.mozilla.org/en-US/docs/Web/API/Background_Tasks_API)的概念、[`window.requestIdleCallback`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) 方法和一个[链接列表的实际示例](https://github.com/facebook/react/blob/v16.7.0/packages/react-reconciler/src/ReactUpdateQueue.js#L10)（React 通过将更新放入一个队列来处理它们，这个队列是一个按优先级排列的链接列表）。在研究过程中，建议使用库创建非常基本的应用程序。这使得调试更容易，因为你不必处理由其他库引起的堆栈跟踪。
 
-如果我没有进行深入审查，我会打开正在开发的项目中的 /node_modules 文件夹，或者到 GitHub 仓库中去查看源码。这通常发生在我遇到一个 bug 或有趣的特性时。在 GitHub 上阅读代码时，请确保您阅读的是最新版本。您可以通过单击用于更改分支的按钮并选择“tags”来查看具有最新版本标记的提交中的代码。库和框架永远在进行更改，因此您不会想了解可能在下一版本中删除的内容。
+如果我不打算进行深入研究，我会打开正在开发的项目中的 /node_modules 文件夹，或者到 GitHub 仓库中去查看源码。这通常发生在我遇到一个 bug 或有趣的特性时。在 GitHub 上阅读代码时，请确保你阅读的是最新版本。你可以通过单击用于更改分支的按钮并选择“tags”来查看具有最新版本标记的提交中的代码。库和框架永远在进行更改，因此你不会想了解可能在下一版本中删除的内容。
 
 还有另一种不太复杂的阅读源码的方法，我喜欢称之为“粗略一瞥”。在我开始阅读代码的早期，我安装了 **express.js**，打开了它的 `/node_modules` 文件夹并浏览了它的依赖项。如果 `README` 没有给我一个满意的解释，我就会阅读源码。这样做让我得到了这些有趣的发现：
 
@@ -53,7 +53,7 @@
 
 虽然这些发现不可能立即有用，但是对库或框架所使用的依赖关系有一个大致的了解是有用的。
 
-在调试前端代码时，浏览器的调试工具是您最好的朋友。除此之外，它们允许您随时停止程序并检查其状态，跳过函数的执行或进入或退出程序。有时这不能立即生效，因为代码已经压缩。我倾向于将它解压并将解压的代码复制到 `/node_modules` 文件夹中的对应文件中。
+在调试前端代码时，浏览器的调试工具是你最好的朋友。除此之外，它们允许你随时停止程序并检查其状态，跳过函数的执行或进入或退出程序。有时这不能立即生效，因为代码已经压缩。我倾向于将它解压并将解压的代码复制到 `/node_modules` 文件夹中的对应文件中。
 
 [![ReactDOM.render 函数的源码](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/798703fd-8689-40d9-9159-701f1a00f837/3-improve-your-javascript-knowledge-by-reading-source-code.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/798703fd-8689-40d9-9159-701f1a00f837/3-improve-your-javascript-knowledge-by-reading-source-code.png)
 
@@ -134,7 +134,7 @@ export default connect(null, mapDispatchToProps)(MarketContainer)
 
 阅读源码起初很困难，但与任何事情一样，随着时间的推移变得更容易。我们的目标不是理解一切，而是要获得不同的视角和新知识。关键是要对整个过程进行深思熟虑，并对所有事情充满好奇。
 
-例如，我发现 `isPlainObject` 函数很有趣，因为它使用 `if (typeof obj !== 'object' || obj === null) return false` 以确保给定的参数是普通对象。 当我第一次阅读它的实现时，我想知道为什么它没有使用 `Object.prototype.toString.call(opts) !== '[object Object]'` ，这样能用更少的代码且区分对象和对象子类型，如 Date 对象。但是，阅读下一行显示，例如，在使用`connect`的开发人员返回 Date 对象的极不可能的事件中，这将由 `Object.getPrototypeOf(obj) === null` 检查处理。
+例如，我发现 `isPlainObject` 函数很有趣，因为它使用 `if (typeof obj !== 'object' || obj === null) return false` 以确保给定的参数是普通对象。 当我第一次阅读它的实现时，我想知道为什么它没有使用 `Object.prototype.toString.call(opts) !== '[object Object]'` ，这样能用更少的代码且区分对象和对象子类型，如 Date 对象。但是，读完下一行我发现，在极小概率情况下，例如开发者使用 `connect` 时返回了 Date 对象，这将由`Object.getPrototypeOf(obj) === null` 检查处理。
 
 `isPlainObject` 中另一个吸引人的地方是这段代码：
 
@@ -144,7 +144,7 @@ while (Object.getPrototypeOf(baseProto) !== null) {
 }
 ```
 
-在谷歌搜索的时候，有些会引导我进入[这个](https://stackoverflow.com/questions/51722354/the-implementation-of-isplainobject-function-in-redux/51726564#51726564) StackOverflow 社区或 Redux 问题，解释该代码如何处理案例，例如检查源自 iFrame 的对象。
+有些谷歌搜索结果指向[这个](https://stackoverflow.com/questions/51722354/the-implementation-of-isplainobject-function-in-redux/51726564#51726564) StackOverflow 问答和这个在 GitHub 仓库中的 Redux [issue](https://github.com/reduxjs/redux/pull/2599#issuecomment-342849867)，解释该代码如何处理诸如检查源自 iFrame 的对象这类情况。
 
 #### 其它的阅读源码的参考链接
 
