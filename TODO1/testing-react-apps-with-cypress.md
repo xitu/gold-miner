@@ -141,7 +141,7 @@ describe ('Third Test', () => {
 });
 ```
 
-首先，我在 Cypress 的仪表盘中 `访问（visit）`应用。一旦应用在仪表盘中打开，我就检查 `focused` 元素是否有 `new task` `类（class）`。
+首先，我在 Cypress 的仪表盘中 `visit`应用。一旦应用在仪表盘中打开，我就检查 `focused` 元素是否有 `new task` `类（class）`。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*egylykedXJ2NpY0K0_t4Ag.png)
 
@@ -161,7 +161,7 @@ describe ('Third Test', () => {
 });
 ```
 
-在这个测试中，我首先在 Cypress 仪表盘中 `访问（visit）`应用。现在我想要 Cypress 在输入区域中输入一些内容。为了找到输入区域正确的选择器，点击 `Open Selector Playground` 按钮并且点击输入区域。
+在这个测试中，我首先在 Cypress 仪表盘中 `visit` 应用。现在我想要 Cypress 在输入区域中输入一些内容。为了找到输入区域正确的选择器，点击 `Open Selector Playground` 按钮并且点击输入区域。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MfeHIpz2_SYwcUY0raMdaQ.gif)
 
@@ -181,7 +181,7 @@ describe ('Third Test', () => {
 "cypress:all": "cypress run"
 ```
 
-通过运行这个脚本，cypress 将会运行所有的测试，并直接在命令终端本身提供结果。
+通过运行这个脚本，Cypress 将会运行所有的测试，并直接在命令终端本身提供结果。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5ohUyAlbFGgkmO7_K2hI0w.png)
 
@@ -204,7 +204,7 @@ describe ('Sixth Tests', () => {
 });
 ```
 
-这里，我创建了一个端到端测试。我首先让 Cypress `访问（visit）`该应用。然后 Cypress 会用文本框（input）的选择器 .new 获取到它。再然后 Cypress 将会输入文本 `New Todo`。最后我让 Cypress 模拟键入 enter（回车），因此创造了一个新的 Todo。
+这里，我创建了一个端到端测试。我首先让 Cypress `visit` 该应用。然后 Cypress 会用文本框（input）的选择器 .new 获取到它。再然后 Cypress 将会输入文本 `New Todo`。最后我让 Cypress 模拟键入 enter（回车），因此创造了一个新的 Todo。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*wcIDOda8sVB_ROYIlCEdww.gif)
 
