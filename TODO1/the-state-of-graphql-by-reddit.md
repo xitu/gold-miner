@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-graphql-by-reddit.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-graphql-by-reddit.md)
 > * 译者：[TiaossuP](https://github.com/TiaossuP)
-> * 校对者：
+> * 校对者：[yangxy81118](https://github.com/yangxy81118)
 
 # 从 Reddit 讨论中看到的 GraphQL 现状
 
