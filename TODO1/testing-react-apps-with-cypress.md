@@ -70,7 +70,7 @@ $ node_modules/.bin/cypress open
 "cypress": "cypress open"
 ```
 
-因此，如果你使用 NPM/Yarn 运行这个脚本，应该会打开 Cypress CLI（命令行界面）。在 cypress 文件夹下的 integration 文件夹中创建一个新的测试文件。与普通的我们命名为类似 `App.test.js` 的测试文件不同，在 Cypress 中，测试文件的扩展名为是 `.spec.js`。
+因此，如果你使用 NPM/Yarn 运行这个脚本，应该会打开 Cypress CLI（命令行界面）。在 Cypress 文件夹下的 integration 文件夹中创建一个新的测试文件。与普通的我们命名为类似 `App.test.js` 的测试文件不同，在 Cypress 中，测试文件的扩展名为是 `.spec.js`。
 
 ```JavaScript
 describe ('First Test', () => {
@@ -165,7 +165,7 @@ describe ('Third Test', () => {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MfeHIpz2_SYwcUY0raMdaQ.gif)
 
-获得输入区域的选择器之后，我将会让 cypress 在里面输入一些文本。为了确保 Cypress 输入正确的文本，我使用了 `should` 命令。
+获得输入区域的选择器之后，我将会让 Cypress 在里面输入一些文本。为了确保 Cypress 输入正确的文本，我使用了 `should` 命令。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pVSMDn4gdsvA3iWtucBhJg.png)
 
