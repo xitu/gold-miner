@@ -1,157 +1,157 @@
-> * 原文地址：[How Google Pagespeed works: Improve Your Score and Search Engine Ranking](https://calibreapp.com/blog/how-pagespeed-works/)
+> * 原文地址：[Google 的 Pagespeed 的工作原理：提升你的分数和搜索引擎排名](https://calibreapp.com/blog/how-pagespeed-works/)
 > * 原文作者：[Ben Schwarz](https://calibreapp.com/blog/author/ben-schwarz)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-pagespeed-works.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Jerry-FD](https://github.com/Jerry-FD/)
+> * 校对者：[weberpan](https://github.com/weberpan/)，[Endone](https://github.com/Endone/)
 
-# How Google Pagespeed works: Improve Your Score and Search Engine Ranking
+# Google 的 Pagespeed 的工作原理：提升你的页面分数和搜索引擎排名
 
 ![](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/1.png)
 
-In this article, we uncover how PageSpeed calculates it’s critical speed score.
+通过这篇文章，我们将揭开 PageSpeed 最为重要的页面速度评分的计算方法。
 
-It’s no secret that speed has become a crucial factor in increasing revenue and lowering abandonment rates. Now that Google uses page speed as a ranking factor, many organisations have become laser-focused on performance.
+毫无疑问，页面的加载速度已经成了提升页面收益和降低流失率的关键性因素。由于 Google 已经将页面的加载速度列入影响其搜索排名的因素，现在更多的企业和组织都把目光聚焦在提升页面性能上了。
 
-Last year **Google made two significant changes to their search indexing and ranking algorithms**:
+去年 **Google 针对他们的搜索排名算法做了两个重大的调整**：
 
-* In March, [indexing became based on the mobile version of a page](https://webmasters.googleblog.com/2018/03/rolling-out-mobile-first-indexing.html), rather than desktop.
-* [In July, the SEO ranking algorithm](https://webmasters.googleblog.com/2018/01/using-page-speed-in-mobile-search.html) was updated to include page speed as a ranking factor for both mobile pages [and ads.](https://developers.google.com/web/updates/2018/07/search-ads-speed#the_mobile_speed_score_for_ads_landing_pages)
+* 三月，[搜索结果排名以移动端版本的页面为基础](https://webmasters.googleblog.com/2018/03/rolling-out-mobile-first-indexing.html)，取代之前的桌面端版本。
+* [七月，SEO 排名算法](https://webmasters.googleblog.com/2018/01/using-page-speed-in-mobile-search.html)更新为，增加页面的加载速度作为影响其搜索排名的因素，如移动端页面排名[和广告排名。](https://developers.google.com/web/updates/2018/07/search-ads-speed#the_mobile_speed_score_for_ads_landing_pages)
 
-From this, we’re able to state two truths:
+通过这些改变，我们可以总结出两个结论：
 
-* **The speed of your site on mobile will affect your overall SEO ranking.**
-* If your pages load slowly, it will reduce your ad quality score, and **ads will cost more.**
+* **手机端页面的加载速度会影响你整站的 SEO 排名。**
+* 如果你的页面加载很慢，就会降低你的广告质量分，进而你的**广告费会更贵。**
 
-Google wrote:
+Google 道：
 
-> Faster sites don’t just improve user experience; recent data shows that improving site speed also reduces operating costs. Like us, our users place a lot of value in speed — that’s why we’ve decided to take site speed into account in our search rankings.
+> 更快的加载速度不仅仅会提升我们的体验；最近的数据显示，提升页面的加载速度也会降低操作成本。和我们一样，我们的用户就很重视速度 — 这就是我们决定将页面的速度这一因素，加入搜索排名计算的原因。
 
-To understand how these changes affect us from a performance perspective, we need to grasp the underlying technology. [PageSpeed 5.0](https://developers.google.com/speed/docs/insights/release_notes) is a complete overhaul of previous editions. It’s now being powered by Lighthouse and [CrUX](https://developers.google.com/web/updates/2017/12/crux) (Chrome User Experience Report).
+为了从页面性能的角度搞清楚这些变化给我们带来了什么影响，我们需要掌握这些基础知识。[PageSpeed 5.0](https://developers.google.com/speed/docs/insights/release_notes) 是之前版本的一次颠覆性的改动。现在由 Lighthouse 和 [CrUX](https://developers.google.com/web/updates/2017/12/crux) 提供技术支持（Chrome 用户体验报告部）。
 
-**This upgrade also brings a new scoring algorithm that makes it far more challenging to receive a high PageSpeed score.**
+**这次升级使用了新的评分算法，将会使获得 PageSpeed 高分更加困难。**
 
-### What changed in PageSpeed 5.0?
+### PageSpeed 5.0 有哪些变化?
 
-Before 5.0, PageSpeed ran a series of heuristics against a given page. If the page has large, uncompressed images, PageSpeed would suggest image compression. No Cache-Headers missing? Add them.
+5.0 之前，PageSpeed 会针对测试的页面给出一系列指导意见。如果页面里有很大的、未经压缩的图片，PageSpeed 会建议对图片压缩。再比如，漏掉了 Cache-Headers，会建议加上。
 
-These heuristics were coupled with a set of **guidelines** that would **likely** result in better performance if followed, but were merely superficial and didn’t actually analyse the load and render experience that real visitors face.
+这些建议是与一些**指导方针**对应的，如果遵从这些指导方针，**很可能**会提升你的页面性能，但这些也仅仅是表层的，它不会分析用户在真实场景下的加载和渲染页面的体验。
 
-In PageSpeed 5.0, pages are loaded in a real Chrome browser that is controlled by Lighthouse. Lighthouse records metrics from the browser, applies a scoring model to them and presents an overall performance score. Guidelines for improvement are suggested based on how specific metrics score.
+在 PageSpeed 5.0 中，页面在 Lighthouse 的控制下被载入到真实的 Chrome 浏览器中。Lighthouse 从浏览器中获取记录各项指标，把这些指标套入得分模型里计算，最后展示一个整体的性能分。根据具体的分数指标来给出优化的指导方针。
 
-Like PageSpeed, Lighthouse also has a performance score. In PageSpeed 5.0, the performance score is taken from Lighthouse directly. **PageSpeed’s speed score is now the same as Lighthouse’s Performance score.**
+和 PageSpeed 类似，Lighthouse 也有一个性能分。在 PageSpeed 5.0 中，性能分直接从 Lighthouse 里获取。所以**现在 PageSpeed 的速度分和 Lighthouse 的性能分一样了。**
 
-![Calibre scores 97 on Google’s Pagespeed](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/calibre-pagespeed.png)
+![Calibre 在 Google 的 Pagespeed 上获得了 97 分](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/calibre-pagespeed.png)
 
-Now that we know where the PageSpeed score comes from, let’s dive into how it’s calculated, and how we can make meaningful improvements.
+既然我们知道了 PageSpeed 的分数从哪里来，接下来我们就来仔细研究它是如何计算的，以及我们该如何有效的提高页面的性能。
 
-### What is Google Lighthouse?
+### Google Lighthouse 是什么?
 
-[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) is an open source project run by a dedicated team from Google Chrome. Over the past couple of years, it has become **the** go-to free performance analysis tool.
+[Lighthouse](https://calibreapp.com/blog/lighthouse-reasons/) 是一个开源项目，由一只来自 Google Chrome 的优秀团队运作。在过去的几年里，它已逐步变成免费的性能分析工具。
 
-Lighthouse uses Chrome’s Remote Debugging Protocol to read network request information, measure JavaScript performance, observe accessibility standards and measure user-focused timing metrics like [First Contentful Paint](https://calibreapp.com/docs/metrics/paint-based-metrics), [Time to Interactive](https://calibreapp.com/docs/metrics/time-to-interactive) or Speed Index.
+Lighthouse 使用 Chrome 的远程调试协议来获取网络请求的信息、计算 JavaScript 的性能、评估无障碍化级别以及计算用户关注的时间指标，比如 [首次内容绘制时间 First Contentful Paint](https://calibreapp.com/docs/metrics/paint-based-metrics)、[可交互时间 Time to Interactive](https://calibreapp.com/docs/metrics/time-to-interactive) 和速度指标。
 
-If you’re interested in a high-level overview of Lighthouse architecture, [read this guide](https://github.com/GoogleChrome/lighthouse/blob/master/docs/architecture.md) from the official repository.
+如果你想要深入了解 Lighthouse 的整体架构，请看来自官方的[教程](https://github.com/GoogleChrome/lighthouse/blob/master/docs/architecture.md)。
 
-### How Lighthouse calculates the Performance Score
+### Lighthouse 如何计算性能分数
 
-During performance tests, Lighthouse records many metrics focused on what a user sees and experiences.
+在性能测试中，Lighthouse 聚焦于用户所见和用户体验，记录了很多指标。
 
-There are 6 metrics used to create the overall performance score. They are:
+下面这 6 个指标构成了性能分数的大体部分。他们是：
 
-* Time to Interactive (TTI)
-* Speed Index
-* First Contentful Paint (FCP)
-* First CPU Idle
-* First Meaningful Paint (FMP)
-* Estimated Input Latency
+* 可交互时间 Time to Interactive (TTI)
+* 速度指标 Speed Index
+* 首次内容绘制时间 First Contentful Paint (FCP)
+* 首次 CPU 空闲时间 First CPU Idle
+* 首次有效绘制 First Meaningful Paint (FMP)
+* 预计输入延迟时间 Estimated Input Latency
 
-Lighthouse will apply a 0 – 100 scoring model to each of these metrics. This process works by obtaining mobile 75th and 95th percentiles from [HTTP Archive](https://httparchive.org/), then applying a `log normal` function.
+Lighthouse 会针对这些指标运用一个 0 – 100 的分数模型。 这个过程会收集移动端第 75 和第 90 百分位的 [HTTP 档案](https://httparchive.org/)，然后输入到`对数正太分布`函数（校对者注：这样的话只要性能数据低于 25% 的线上移动端页面，也就是排位在 75% 以下，都给 0 分，而只要比 95% 的移动端页面得分高，就得满分）。
 
-[Following the algorithm and reference data used to calculate Time to Interactive](https://www.desmos.com/calculator/2t1ugwykrl), we can see that if a page managed to become “interactive” in 2.1 seconds, the Time to Interactive metric score would be 92/100.
+[根据算法和可交互时间的计算所得数据](https://www.desmos.com/calculator/2t1ugwykrl)，我们可以发现，如果一个页面在 2.1 秒内成为“可交互的”，那么它的可交互时间分数指标是 92/100。
 
 ![](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/scoring-curve.png)
 
-Once each metric is scored, it’s assigned a weighting which is used as a modifier in calculating the overall performance score. The weightings are as follows:
+当每个指标完成计分后会被分配一个权重，用权重调整后算出页面整体的性能分数。权重规则如下：
 
-| Metric                    | Weighting |
+| 指标                       | 权重 |
 | ------------------------- | --------- |
-| Time to Interactive (TTI) | 5         |
-| Speed Index               | 4         |
-| First Contentful Paint    | 3         |
-| First CPU Idle            | 2         |
-| First Meaningful Paint    | 1         |
-| Estimated Input Latency   | 0         |
+| 可交互时间 (TTI) | 5        |
+| 速度指标                    | 4         |
+| 首次内容绘制时间             | 3         |
+| 首次 CPU 空闲时间            | 2         |
+| 首次有效绘制                 | 1         |
+| 预计输入延迟时间             | 0         |
 
-These weightings refer to the impact of each metric in regards to mobile user experience.
+这些权重取决于每个指标对移动端用户的体验的影响程度。
 
-In the future, this may also be enhanced by the inclusion of user-observed data from the Chrome User Experience Report dataset.
+在未来，这些权重在参考来自于 Chrome 用户体验报告的用户观测数据之后，还可能会被进一步优化。
 
-You may be wondering how the weighting of each metric affects the overall performance score. The Lighthouse team [have created a useful Google Spreadsheet calculator](https://docs.google.com/spreadsheets/d/1Cxzhy5ecqJCucdf1M0iOzM8mIxNc7mmx107o5nj38Eo/edit#gid=0) explaining this process:
+你可能想知道究竟这每一个指标的权重是如何影响整体得分的。Lighthouse 团队[打造了一款实用的 Google 电子表格计算器](https://docs.google.com/spreadsheets/d/1Cxzhy5ecqJCucdf1M0iOzM8mIxNc7mmx107o5nj38Eo/edit#gid=0)来阐述具体的细节：
 
-![Picture of a spreadsheet that can be used to calculate performance scores](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/weightings.png)
+![这张电子表格的图片可以用来计算性能分数](https://calibreapp.com/blog/uploads/how-google-pagespeed-works/weightings.png)
 
-Using the example above, if we change (time to) interactive from 5 seconds to 17 seconds (the global average mobile TTI), our score drops to 56% (aka 56 out of 100).
+使用上面的例子，如果我们把可交互时间从 5 秒 变为 17 秒 (全球移动端平均 TTI)，我们的分数会降低到 56% (也就是 100 分之中的 56 分)。
 
-Whereas, if we change First Contentful Paint to 17 seconds, we’d score 62%.
+然而，如果我们把首次内容绘制时间变为 17 秒，我们的分数会是 62%。
 
-**Time to Interactive (TTI) is the most impactful metric to your performance score.**
+**可交互时间 (TTI) 是对你的性能分数影响最大的指标。**
 
-Therefore, to receive a high PageSpeed score, you will **need** a speedy TTI measurement.
+因此，想要得到 PageSpeed 的高分，你**最需要**的是降低 TTI。
 
-### Moving the needle on TTI
+### 剑指 TTI
 
-At a high level, there are two significant factors that hugely influence TTI:
+深入来说，有两个对 TTI 影响极大的重要因素：
 
-* The amount of JavaScript delivered to the page
-* The run time of JavaScript tasks on the main thread
+* 传输到页面的 JavaScript 代码的总大小
+* 主线程上 JavaScript 的运行时间
 
-Our [Time to Interactive](https://calibreapp.com/blog/time-to-interactive/) guide explains how TTI works in great detail, but if you’re looking for some quick no-research wins, we’d suggest:
+我们的[可交互时间](https://calibreapp.com/blog/time-to-interactive/)文章详细说明了 TTI 的工作原理，但如果你想要一些快速无脑的优化，我们建议：
 
-**Reducing the amount of JavaScript**
+**降低 JavaScript 总大小**
 
-Where possible, remove unused JavaScript code or focus on only delivering a script that will be run by the current page. That might mean removing old polyfills or replacing third-party libraries with smaller, more modern alternatives.
+尽可能地，移除无用的 JavaScript 代码，或者只传输当前页面会执行的代码。这可能意味着要移除老的 polyfills 或者尽量采用更小、更新的第三方库。
 
-It’s important to remember that [the cost of JavaScript](https://medium.com/reloading/javascript-start-up-performance-69200f43b201) is not only the time it takes to download it. The browser needs to decompress, parse, compile and eventually execute it, which takes non-trivial time, especially in mobile devices.
+你需要记住的是 [JavaScript 花费的](https://medium.com/reloading/javascript-start-up-performance-69200f43b201) 不仅仅是下载它所需要的时间。浏览器需要解压、解析、编译然后才最终执行，这些过程都会消耗不容忽视的时间，尤其在移动设备上。
 
-Effective measures for reducing the amount of script from your pages:
+能降低你的页面脚本总大小的有效措施是：
 
-* Review and remove polyfills that are no longer required for your audience.
-* Understand the cost of each third-party JavaScript library. Use [webpack-bundle-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer) or [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) to visualise the how large each library is.
-* Modern JavaScript tooling (like Webpack) can break-up large JavaScript applications into a series of small bundles that are automatically loaded as a user navigates. This approach is known as [code splitting](https://webpack.js.org/guides/code-splitting/) and is **extremely effective in improving TTI.**
-* [Service workers will cache the bytecode result of a parsed + compiled script](https://v8.dev/blog/code-caching-for-devs). If you’re able to make use of this, visitors will pay a one-time performance cost for parse and compilation, after that it’ll be mitigated by cache.
+* 检查并移除对你的用户来说并不需要的 polyfills。
+* 搞清楚每一个第三方 JavaScript 库所花费的时间。使用 [webpack-bundle-analyser](https://www.npmjs.com/package/webpack-bundle-analyzer) 或者 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) 来可视化分析他们的大小。
+* 现代 JavaScript 工具（比如 webpack）可以把大的 JavaScript 应用分解成许多小的 bundles，随着用户的浏览而动态加载。这就是所谓的 [code splitting](https://webpack.js.org/guides/code-splitting/)，它会**极大地优化 TTI。**
+* [Service workers 会缓存解析和编译后所得的字节码](https://v8.dev/blog/code-caching-for-devs)。如果善加利用这个特性，用户只需花费一次解析和编译代码带来的时间损耗，在那之后的结果就会被缓存优化。
 
-### Monitoring Time to Interactive
+### 监控可交互时间
 
-To successfully uncover significant differences in user experience, we suggest using a performance monitoring system (like [Calibre](https://calibreapp.com/)!) that allows for testing a minimum of two devices; a fast desktop and a low-mid range mobile phone.
+为了较好的展示用户体验的差异性，我们建议使用监控系统（比如 [Calibre](https://calibreapp.com/)），它可以测试页面在两个不同设备上的最小评分；一个较快的桌面端设备和一个中等速度的移动端设备。
 
-That way, you’ll have the data for both the best and worst case of what your customers experience. It’s time to come to terms that your customers aren’t using the same powerful hardware as you.
+这样的话，你就可以得到你的用户可能体验到的最好和最差两种情况下的数据。是时候意识到，你的用户并没有使用和你一样强大的设备了。
 
-### In-depth manual profiling
+### 深度剖析
 
-To get the best results in profiling JavaScript performance, test pages using intentionally slow mobile devices. If you have an old phone in a desk drawer, this is a great second-life for it.
+为了获得剖析 JavaScript 性能的最好结果，可以刻意使用较慢的移动设备来测试你的页面。如果你的抽屉里有一部老手机，你会发现一片新的天地。
 
-An excellent substitute for using a real device is to use Chrome DevTools hardware emulation mode. We’ve written an extensive [performance profiling guide](https://calibreapp.com/blog/react-performance-profiling-optimization/) to help you get started with runtime performance.
+Chrome DevTools 的硬件仿真模块可以很好的替代真实设备来进行测试，我们写了一个详细的[性能剖析指南](https://calibreapp.com/blog/react-performance-profiling-optimization/)来帮你开始学习分析运行时的性能。
 
-## What about the other metrics?
+## 其他的指标呢？
 
-Speed Index, First Contentful Paint and First Meaningful Paint are all browser-paint based metrics. They’re influenced by similar factors and can often be improved at the same time.
+速度指标、首次内容绘制时间和首次有效绘制都是以浏览器绘制为基础的指标。他们的影响因素很相似，往往可以被同时优化。
 
-It’s objectively easier to improve these metrics as they are calculated by how quickly a page renders. Following the Lighthouse Performance audit rules closely will result in these metrics improving.
+显然，优化这些指标会相对比较容易，因为他们是通过记录页面的渲染速度来计算的。仔细遵从 Lighthouse 的性能考核准则就能优化这些指标。
 
-If you aren’t already preloading your fonts or optimising for critical requests, that is an excellent place to start a performance journey. Our article, [The Critical Request](https://calibreapp.com/blog/critical-request/), explains in great detail how the browser fetches and renders critical resources used to render your pages.
+如果你还没有对字体进行预加载或者优化那些关键请求，那从这里入手会是一些很好的切入点。我们的文章，[关键请求](https://calibreapp.com/blog/critical-request/)，详细说明了浏览器针对你的页面是如何发起请求以及渲染关键资源的。
 
-## Tracking your progress and making meaningful improvements
+## 跟踪过程做出优化
 
-Google’s newly updated search console, Lighthouse and PageSpeed Insights are a great way to get initial visibility into the performance of your pages but fall short for teams who need to continuously track and improve the performance of their pages.
+Google 最近更新了搜索控制台、Lighthouse 和 PageSpeed Insights 针对你的页面的首屏的性能分析有独到之处，但是对于那些需要持续跟踪页面来提升页面性能的团队来说，就显得捉襟见肘了。
 
-[Continuous performance monitoring](https://calibreapp.com/features) is essential to ensuring speed improvements last, and teams get instantly notified when regressions happen. Manual testing introduces unexpected variability in results and makes testing from different regions as well as on various devices nearly impossible without a dedicated lab environment.
+[持续的性能监控](https://calibreapp.com/features) 可以保证速度优化，当页面又变差的时候团队也会立刻知晓。人为的测试会对结果引入大量的不可预期的变量，在不同区域、不同设备上的测试在没有专业的实验室环境下几乎是不可能完成的。
 
-Speed has become a crucial factor for SEO rankings, especially now that nearly 50% of Web traffic comes from mobile devices.
+速度已经变成影响了 SEO 排名的关键因素，尤其是目前大约 50% 的页面流量来自于移动设备。
 
-To avoid losing positioning, ensure you’re using an up-to-date performance suite to track key pages (pssst, we built [Calibre](https://calibreapp.com/blog/release-notes-lighthouse-4/) to be your performance companion. It has Lighthouse built-in. Hundreds of teams from around the globe are using it every day).
+为了避免排名下降，确保你正在使用最新的性能分析套件来跟踪你的关键页面（哈，我们打造了 [Calibre](https://calibreapp.com/blog/release-notes-lighthouse-4/) 来做你的性能提升伙伴。他以 Lighthouse 为基础。每天都有很多来自全球的团队在使用它）。
 
-### Related Articles
+### 相关文章
 
 * [About Time to Interactive](https://calibreapp.com/blog/time-to-interactive/)
 * [How to optimise the performance of a JavaScript application](https://calibreapp.com/blog/react-performance-profiling-optimization/)
