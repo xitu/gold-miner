@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
 > * 译者：[江五渣](http://jalan.space)
-> * 校对者：
+> * 校对者：[shinichi4849](https://github.com/shinichi4849)，[Moonliujk](https://github.com/Moonliujk)
 
 # 利用 84 种认知偏见设计更好的产品 —— 第二部分
 
@@ -17,15 +17,15 @@
 
 ---
 
-## 易于说服
+## 易被说服
 
-说服的艺术！这里有一些（廉价的？）技巧可以帮助你更好地传达你的信息。
+说服的艺术！这里有一些（性价比高的？）技巧可以帮助你更好地传达你的信息。
 
 ### 22. 锚定效应
 
 我们常常过分依赖最初获得的讯息（“锚定”）来做出后续的决策。
 
-**如何使用**：书中最老的把戏是：把一个高的价格作为锚，然后划掉它，在它旁边设定一个更低的价格。
+**如何使用**：书中最老套的把戏是：把一个高的价格作为锚，然后划掉它，在它旁边设定一个更低的价格。
 
 看看史蒂夫·乔布斯在 iPad 发布会上是如何使用它的，我必须问问：它真的有效吗？
 
@@ -41,7 +41,7 @@
 
 ### 23. 双曲贴现
 
-我们更喜欢及时回报（尽管回报很小），而不是更大的后期回报。
+我们更喜欢及时的回报（尽管回报很小），而不是更大的后期回报。
 
 **技巧**: 为立即支付提供小额折扣（或免费送货服务），而不是为将来的购买行为提供大额折扣。
 
@@ -51,7 +51,7 @@
 
 ### 24. 社会认同
 
-如果像我们这样的人正在使用它 —— 它一定是好的！
+如果像我们这样的人正在使用它 —— 它一定是好的产品！
 
 这对吗?
 
@@ -74,9 +74,9 @@
 
 ### 25. 权威偏差
 
-我们认为权威人士的建议的准确性更高，并且更容易受到该建议的影响（即使事物主体与该人物的权威性无关）。
+我们认为权威人士给出的建议准确性更高，并且更容易受到该建议的影响（即使事物主体与该人物的权威性无关）。
 
-**如何使用**：通过宣传你的知名推荐来建立权威:
+**如何使用**：通过宣传产品的知名推荐来建立权威:
 
 1. 联系有影响力的人，让他们免费使用你的产品或服务
 2. 突出显示知名客户或品牌
@@ -89,7 +89,7 @@
 
 我们做某件事的原因经常只是因为“每个人都在做这件事！”（每个人都是生酮饮食者吗？）
 
-我们因为大多数人的想法而改变我们的观点。
+我们会根据支持观点人数多寡来改变自己的想法。
 
 **营销技巧**：使人们相信每个人都在使用你的产品，那么更多的人将会使用它。
 
@@ -139,15 +139,15 @@
 
 **订阅技巧**：通过提供免费试用与用户建立联系。
 
-**引导流程 UX 设计技巧**：不要用过于复杂的引导流程打击用户。
+**引导流程 UX 设计技巧**：不要用过于复杂的引导流程让用户感到不耐烦。
 
 把大块的内容分解成小块或容易解决的内容，让用户保持开心和参与度。
 
 ![登门坎效应 —— 通过创造“小成就”让引导流程变得容易](https://alexdenk.eu/blogtouch?id=1MpxTvnkZoqBD8Wtqy3gx708rpl0axjxa "登门坎效应 —— 通过创造“小成就”让引导流程变得容易")
 
-在引导流程中获得小成就
+在引导流程中取得小成就
 
-### 32. Variable Reward
+### 32. 多变的奖赏
 
 我们能从意外之礼中收获更多的快乐。
 
@@ -155,7 +155,7 @@
 
 用户每天的“行为”越多，越会觉得自己与产品的联系密切。
 
-![Variable Reward —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。](https://alexdenk.eu/blogtouch?id=1aNyfch7QCQln-rC_IhxZY077ucAyDX14 "Variable Reward —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。")
+![多变的奖赏 —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。](https://alexdenk.eu/blogtouch?id=1aNyfch7QCQln-rC_IhxZY077ucAyDX14 "多变的奖赏 —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。")
 
 用每日优惠、免费奖金、荣誉积分等奖品吸引用户
 
@@ -175,7 +175,7 @@
 
 **问**：你是否反复操作过你的 KPI 报告，从几周到几个月，从几个月再到几个季度，直到找到你想要的结论？
 
-### 35. Disconfirmation Bias
+### 35. 不确定偏差
 
 我们倾向于忽视与我们想法相悖的证据。
 
@@ -185,11 +185,11 @@
 
 ### 36. 框架效应
 
-我们抉择的过程并非总是我们想象的那样理性，我们会受到信息呈现方式的影响（正面与负面框架）。
+我们抉择的过程并非总能如想象中那样理性，我们会受到信息呈现方式的影响（正面与负面框架）。
 
 产品技巧：在大多数情况下，正面框架（即玻璃杯是半满，而非半空）有更高的转化率。
 
-![框架效应 - 尝试使用“玻璃杯半满”的表达方式来提高转换率](https://alexdenk.eu/blogtouch?id=1Lc6vP6HPyktJ8kk2XaoPVqLQKxiu7LNO "框架效应 - 尝试使用“玻璃杯半满”的表达方式来提高转换率")
+![框架效应 —— 尝试使用“玻璃杯半满”的表达方式来提高转换率](https://alexdenk.eu/blogtouch?id=1Lc6vP6HPyktJ8kk2XaoPVqLQKxiu7LNO "框架效应 —— 尝试使用“玻璃杯半满”的表达方式来提高转换率")
 
 正面框架的实践
 
@@ -197,7 +197,7 @@
 
 我们对事物的感知受到事物呈现或发生时所在场景的影响。
 
-在视觉设计中，人们对物体的颜色或大小因其呈现位置与方式的不同而有不同的感知。
+在视觉设计中，人们对物体的颜色或大小的感知因其呈现位置与方式的不同而不同。
 
 ![设计中的境联效应](https://alexdenk.eu/blogtouch?id=1HGFPufdKBckl6ADB9QPFEYgrBiq1SBSX "设计中的境联效应")
 
@@ -233,64 +233,65 @@
 
 即使信息无法影响我们的行为，我们也会寻求信息。
 
-**产品技巧**：当展示产品或服务时（在你的网站或在你的产品上）—— 请务必在照片中附上详细说明。你在产品描述中添加的信息越多，你的用户得到的保证就越大。
+**产品技巧**：当展示产品或服务时（在你的网站或在你的产品上）—— 请务必在照片中附上详细说明。你在产品描述中添加的信息越多，你的用户获得的保证就越大。
 
-## Not as thorough as we say we are
+## 并非我们所说的那样确信
 
-Sure, we did the research before making the decisions, we just forgot a few things along the way, that's all... 
+当然，我们在做出决定前做了些研究，我们只是在前行的路上忘记了一些事情，就是这样……
 
-### 42. Availability Heuristic (Availability Bias)
+### 42. 获得性启发（获得性偏差）
 
-We think that things that jump quickly to mind are more common and important than the things that do not easily come to mind. As a result, what’s recent, frequent, extreme, remembered, is more influential than the majority of information.
+我们认为那些迅速跃入脑海的事情比那些不容易想起的事情更为常见和重要。因此，最近发生的、频繁发生的、极端的、被记住的事情比大多数信息更有影响力。
 
-**UI tip**: make your design rememberable by creating something unique that stands out (without compromising on consistency and familiarity).
+**UI 技巧**：通过创建一些与众不同的东西（在不影响一致性和熟悉度的情况下）让你的设计被记住。
 
-![Availability Heuristic (Availability Bias)](https://alexdenk.eu/blogtouch?id=1OPjCDK5T34-JUt-9UcwnMvql4CgLkBP4 "Availability Heuristic (Availability Bias)")
+![获得性启发（获得性偏差）](https://alexdenk.eu/blogtouch?id=1OPjCDK5T34-JUt-9UcwnMvql4CgLkBP4 "获得性启发（获得性偏差）")
 
-### 43. Attentional Bias
+### 43. 注意力偏误
 
-When examining all possible outcomes - we tend to focus on a few that seem rational and familiar and ignore all others.
+在检查所有可能的结果时 —— 我们倾向于关注那些看起来理性而熟悉的，从而忽略了其他影响。
 
-**Question**: Did you ever release a feature thinking that it would lead to a certain outcome only to discover it caused a side effect you failed to anticipate?
+**问**：你是否曾经发布过一项功能，你认为它会带来确切的结果，但却发现它带来了你未能预料到的副作用？
 
-![Attentional Bias](https://alexdenk.eu/blogtouch?id=1SKWO5ipZk7aZbiy1pxDIGIoa7SyWx8a8 "Attentional Bias")
+![注意力偏误](https://alexdenk.eu/blogtouch?id=1SKWO5ipZk7aZbiy1pxDIGIoa7SyWx8a8 "注意力偏误")
 
-### 44. Fluency Heuristic
+### 44. 流畅性启发
 
-We give higher value to things that are processed faster, fluently, and smoothly.
+我们认为那些处理速度更快、更流畅、更顺利的事物具有更高的价值。
 
-Sometimes illogical argument, if communicated well (by someone who has authority and experience presenting things) might win.
+有时不合逻辑的论点在沟通良好的情况下（由有权威和经验的人提出）也可能会赢得胜利。
 
-![Fluency heuristic](https://alexdenk.eu/blogtouch?id=1w7igcsMZwzEdFPgPCfrzXnTrlYjZ9p80 "Fluency heuristic")
+![流畅性启发](https://alexdenk.eu/blogtouch?id=1w7igcsMZwzEdFPgPCfrzXnTrlYjZ9p80 "流畅性启发")
 
-A related term here is “**Mental Shortcuts**” - people frequently use heuristics to make decisions; you should use them to your advantage in your design.
+这里有一个相关术语“**心理捷径**” —— 人们经常使用启发式来做决定，你应该在你的设计中充分利用它们。
 
-**Product tips:**
+**产品技巧：**
 
-1. Make things easy for your users (fast, simple and easy navigation)
-2. Make content easily scannable (images, readable fonts)
-3. Create “mental shortcuts” that will hook your users and promote the preferred behavior.
-4. Provide meaningful defaults, because users assume you have their best interests in mind and will select the default options whenever possible.
-5. Add a powerful cross-product search to ease the finding of specific topics.
+1. 为用户提供便利（快捷、简单和易于理解的导航）
+2. 使内容易于浏览（图像，易读的字体）
+3. 创建“心理捷径”，它将吸引用户，促使他们把你的产品作为首选
+4. 提供有意义的默认选项，因为用户会认为你考虑了他们的最大利益，并将尽可能选择默认选项
+5. 添加功能强大的跨产品搜索，以简化特定主题的查找
 
-Examples:
+举例：
 
-Here are 2 examples for making things easier for the user, in order to promote the preferred behavior for the business.
+下面是为用户提供便利的两个示例，促使他们把你的产品作为首选。
 
-![Users expect products to provide ready-to-use defaults](https://alexdenk.eu/blogtouch?id=1VqWeo2F654LMST8Ipcko1KUgNeMmwZ1r "Users expect products to provide ready-to-use defaults")
+![用户希望产品可以提供现成的默认值](https://alexdenk.eu/blogtouch?id=1VqWeo2F654LMST8Ipcko1KUgNeMmwZ1r "用户希望产品可以提供现成的默认值")
 
-Users expect products to provide ready-to-use defaults
+用户希望产品可以提供现成的默认值
 
-![Fluency Heuristic in product design - providing easy shortcuts for recent activity](https://alexdenk.eu/blogtouch?id=1Wg1I6YLnShB81rgKM2JVQ_L0FYPTwhJw "Fluency Heuristic in product design - providing easy shortcuts for recent activity")
+![产品设计中的流畅性启发 —— 为最近的操作提供简单的快捷方式](https://alexdenk.eu/blogtouch?id=1Wg1I6YLnShB81rgKM2JVQ_L0FYPTwhJw "产品设计中的流畅性启发 —— 为最近的操作提供简单的快捷方式")
 
-Provide simple shortcuts for recent activities 
+为最近的操作提供简单的快捷方式
 
-**Work-related tip**: Always do your homework: collect enough data, write down your points, think about how to present your points, invest in the design of things.
+**工作相关技巧**：一定要做好功课：收集足够的数据，写下你的观点并思考如何表达你的观点，在设计上下苦功。
 
-### 45. The Google Effect (AKA: Digital Amnesia)
+### 45. 谷歌效应（亦名：数码失忆）
 
-We forget information that can be easily found online.
-**Question**: Do you remember the phone number of your best friend or kid?
+我们可以在网上轻松找回遗忘的信息。
+
+**问**：你还记得你最好的朋友或孩子的电话号码吗？
 
 ---
 
@@ -300,7 +301,7 @@ We forget information that can be easily found online.
 
 ---
 
-Follow me on twitter [@gilbouhnick](https://twitter.com/GilBouhnick), or [subscribe to my newsletter](https://mailchi.mp/b9c664dfafa3/mobilespoon) to get some occasional posts directly to your inbox.
+在 Twitter 上关注我 [@gilbouhnick](https://twitter.com/GilBouhnick)，或 [订阅我的简报](https://mailchi.mp/b9c664dfafa3/mobilespoon)，可以将帖子直接发送到你的收件箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
