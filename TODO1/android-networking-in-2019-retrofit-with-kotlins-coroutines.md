@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/android-networking-in-2019-retrofit-with-kotlins-coroutines.md](https://github.com/xitu/gold-miner/blob/master/TODO1/android-networking-in-2019-retrofit-with-kotlins-coroutines.md)
 > * 译者：[feximin](https://github.com/Feximin)
-> * 校对者：
 
 # 2019 年的 Android 网络 —— Retrofit 与 Kotlin 协程
 
@@ -12,25 +11,25 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*un0xtxGU3IEh8KBXcAXGQA.png)
 
-#### 概念我都懂，给我看代码！！
+### 概念我都懂，给我看代码！！
 
 如果你在 Android 网络方面有经验并且在使用 Retrofit 之前进行过网络调用，但可能使用的是 RxJava 而不是 Kotlin 协程，并且你只想看看实现方式，[请查看 Github 上的 readme 文件](https://github.com/navi25/RetrofitKotlinDeferred/)。
 
-#### Android 网络简述
+### Android 网络简述
 
 简而言之，Android 网络或者任何网络的工作方式如下：
 
-* **请求——** 使用正确的头信息向一个 URL（终端）发出一个 HTTP 请求，如有需要，通常会携带授权的 Key 。
-* **响应——** 请求会返回错误或者成功的响应。在成功的情况下，响应会包含终端的内容（通常是 JSON 格式）。
-* **解析和存储** 解析 JSON 并获取所需的值，然后将其存入数据类中。
+* **请求** —— 使用正确的头信息向一个 URL（终端）发出一个 HTTP 请求，如有需要，通常会携带授权的 Key。
+* **响应** —— 请求会返回错误或者成功的响应。在成功的情况下，响应会包含终端的内容（通常是 JSON 格式）。
+* **解析和存储** —— 解析 JSON 并获取所需的值，然后将其存入数据类中。
 
 Android 中，我们使用：
 
-* [Okhttp](http://square.github.io/okhttp/)——用于创建具有合适头信息的 HTTP 请求。
-* [Retrofit](https://square.github.io/retrofit/)——发送请求。
-* [Moshi](https://github.com/square/moshi)/ [GSON](https://github.com/google/gson)——解析 JSON 数据。
-* [Kotlin 协程](https://kotlinlang.org/docs/reference/coroutines-overview.html)——用于发出非阻塞（主线程）的网络请求。
-* [Picasso](http://square.github.io/picasso/) / [Glide](https://bumptech.github.io/glide/)——下载网络图片并将其设置给 ImageView。
+* [Okhttp](http://square.github.io/okhttp/) —— 用于创建具有合适头信息的 HTTP 请求。
+* [Retrofit](https://square.github.io/retrofit/) —— 发送请求。
+* [Moshi](https://github.com/square/moshi)/ [GSON](https://github.com/google/gson) —— 解析 JSON 数据。
+* [Kotlin 协程](https://kotlinlang.org/docs/reference/coroutines-overview.html) —— 用于发出非阻塞（主线程）的网络请求。
+* [Picasso](http://square.github.io/picasso/) / [Glide](https://bumptech.github.io/glide/) —— 下载网络图片并将其设置给 ImageView。
 
 显然这些只是一些热门的库，也有其他类似的库。此外这些库都是由 [Square 公司](https://en.wikipedia.org/wiki/Square,_Inc) 的牛人开发的。点击 [Square 团队的开源项目](http://square.github.io/) 查看更多。
 
@@ -43,7 +42,7 @@ TMDB API 需要 API 密钥才能请求。为此：
 * 在 [TMDB](https://www.themoviedb.org/) 建一个账号
 * [按照这里的步骤注册一个 API 密钥](https://developers.themoviedb.org/3/getting-started/introduction)。
 
-#### 在版本控制系统中隐藏 API 密钥（可选但推荐）
+### 在版本控制系统中隐藏 API 密钥（可选但推荐）
 
 获取 API 密钥后，按照下述步骤将其在 VCS 中隐藏。
 
@@ -73,7 +72,7 @@ var tmdbApiKey = BuildConfig.TMDB_API_KEY
 
 ## 设置项目
 
-为了设置项目，我们首先会将所有必需的依赖项添加到 **build.gradle（模块: app）** 文件中：
+为了设置项目，我们首先会将所有必需的依赖项添加到 **build.gradle (Module: app)** 文件中：
 
 ```Gradle
 // build.gradle(Module: app)
@@ -112,7 +111,7 @@ dependencies {
 }
 ```
 
-#### 现在创建我们的 TmdbAPI 服务
+### 现在创建我们的 TmdbAPI 服务
 
 ```Kotlin
 //ApiFactory to create TMDB Api
@@ -155,14 +154,14 @@ object Apifactory{
 
 看一下我们在 ApiFactory.kt 文件中做了什么。
 
-* 首先，我们创建了一个用以给所有请求添加 api_key 参数的网络拦截器，名为 **authInterceptor** 。
+* 首先，我们创建了一个用以给所有请求添加 api_key 参数的网络拦截器，名为 **authInterceptor**。
 * 然后我们用 OkHttp 创建了一个网络客户端，并添加了 authInterceptor。
 * 接下来，我们用 Retrofit 将所有内容连接起来构建 Http 请求的构造器和处理器。此处我们加入了之前创建好的网络客户端、基础 URL、一个转换器和一个适配器工厂。
-首先是 MoshiConverter，用以辅助 JSON 解析并将响应的 JSON 转化为 Kotlin 数据类，如有需要，可进行选择性解析。
-第二个是 CoroutineCallAdaptor，它的类型是 Retorofit2 中的 `CallAdapter.Factory` ，用于处理 [Kotlin 协程中的](https://kotlinlang.org/docs/reference/coroutines.html) `Deferred`。
+  首先是 MoshiConverter，用以辅助 JSON 解析并将响应的 JSON 转化为 Kotlin 数据类，如有需要，可进行选择性解析。
+第二个是 CoroutineCallAdaptor，它的类型是 Retorofit2 中的 `CallAdapter.Factory`，用于处理 [Kotlin 协程中的](https://kotlinlang.org/docs/reference/coroutines.html) `Deferred`。
 * 最后，我们只需将 **TmdbApi 类（下节中创建）** 的一个引用传入之前建好的 retrofit 类中就可以创建我们的 tmdbApi。
 
-#### 探索 Tmdb API
+### 探索 Tmdb API
 
 调用 **/movie/popular** 接口我们得到了如下响应。该响应中返回了 **results**，这是一个 movie 对象的数组。这正是我们关注的地方。
 
@@ -241,9 +240,9 @@ interface TmdbApi{
 }
 ```
 
-**TmdbApi interface**  
-After creating data classes, we create TmdbApi interface whose reference we added in the retrofit builder in the earlier section. In this interface, we add all the required API calls with any query parameter if necessary. For example, for getting a movie by id we will add the following method to our interface:
-**TmdbApi 接口**
+
+**TmdbApi 接口：**
+
 创建了数据类后，我们创建 TmdbApi 接口，在前面的小节中我们已经将其引用添加至 retrofit 构建器中。在该接口中，我们添加了所有必需的 API 调用，如有必要，可以给这些调用添加任意参数。例如，为了能够根据 id 获取一部电影，我们在接口中添加了如下方法：
 
 ```Kotlin
@@ -260,7 +259,6 @@ interface TmdbApi{
 
 ## 最后，进行网络调用
 
-Next, we finally make a networking call to get the required data, we can make this call in DataRepository or in ViewModel or directly in Activity too.
 接着，我们最终发出一个用以获取所需数据的请求，我们可以在 DataRepository 或者 ViewModel 或者直接在 Activity 中进行此调用。
 
 #### 密封 Result 类
@@ -383,7 +381,7 @@ class MovieActivity : AppCompatActivity(){
 
 本文是 Android 中一个基础但却全面的产品级别的 API 调用的介绍。[更多示例，请访问此处](https://github.com/navi25/RetrofitKotlinDeferred)。
 
-祝编码愉快！
+祝编程愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
