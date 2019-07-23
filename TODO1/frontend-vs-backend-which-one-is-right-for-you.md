@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md](https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：[Chorer](https://github.com/Chorer)、[Zavier Tang
-](https://github.com/ZavierTang)
+> * 校对者：[Chorer](https://github.com/Chorer)，[Zavier Tang](https://github.com/ZavierTang)
 
 # 前端 vs 后端：哪一个适合你？
 
@@ -18,7 +17,7 @@
 
 ### 前端
 
-> 指的是网站的表示层以及它与后端数据的交互方式。例如 HTML、CSS、JavaScript、Angular 等。
+> 指的是网站的表示层以及它与后端数据的交互方式。例如 HTML、CSS、JavaScript 和 Angular 等。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)
 
@@ -83,7 +82,7 @@
 * JavaScript $110k
 * HTML/CSS $105k
 
-需要注意的是，这些工资和趋势可能会因你的工作地点和是否在寻找远程工作而有所不同。 因此，你需要自己做好调查。这很简单，只需要查看求职公告板并搜索后端和前端技术，看看都有哪些。
+需要注意的是，这些工资和趋势可能会因你的工作地点和是否在寻找远程工作而有所不同。因此，你需要自己做好调查。这很简单，只需要查看求职公告板并搜索后端和前端技术，看看都有哪些。
 
 ## 我为什么选择后端
 
@@ -91,7 +90,7 @@
 
 最后，我不是一个非常注重视觉或艺术的人。有些人可以看看网页，然后想办法把它放在什么地方。我从来都不擅长这个，所以后端让我更自然、更舒服。
 
-如果你想深入了解其他人的观点，请查看这个讨论前端和后端 web 开发的 [CodeNewbie Chat](https://wakelet.com/wake/7d71f467-89ba-49cb-a196-4e32657369ac) 。你还可以查看周二开始的 dev.to thread，我将会询问人们如何选择在前端还是后端工作以及其原因。
+如果你想深入了解其他人的观点，请查看这个讨论前端和后端 Web 开发的 [CodeNewbie Chat](https://wakelet.com/wake/7d71f467-89ba-49cb-a196-4e32657369ac)。你还可以查看周二开始的 dev.to thread，我将会询问人们如何选择在前端还是后端工作以及其原因。
 
 [Frontend vs Backend, which do you prefer and why?](https://dev.to/molly_struve/frontend-vs-backend-which-do-you-prefer-and-why-5a9e)
 
