@@ -2,8 +2,7 @@
 > * 原文作者：[Android Developers](https://medium.com/@AndroidDev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/android-emulator-project-marble-improvements.md](https://github.com/xitu/gold-miner/blob/master/TODO1/android-emulator-project-marble-improvements.md)
-> * 译者：
-> * 校对者：
+> * 译者：[qiuyuezhong](https://github.com/qiuyuezhong)
 
 # Android 模拟器：Project Marble 中的改进
 
