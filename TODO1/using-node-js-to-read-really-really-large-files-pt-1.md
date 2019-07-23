@@ -94,9 +94,9 @@
 
 我唯一改变的内容是修改了 `names` 的结果。我不得不实话实说，因为我尝试将 1300 万个名字放到数组里面，结果还是发生了内存不足的问题。我绕过了这个问题，只收集了第 432 个和第 43243 个名字，并且将它们加入到了它们自己的数组当中。并不是因为其他什么原因，我只是想有点自己的创意。
 
-好了，新的解决方案实现好了，又一次，我使用 2.55 GB 的文件启动了 Node.js，同时双手合十起到这次能够成功。来让我们看看结果。
-
 #### Node.js 和 EventStream 的实现成果：第二回合
+
+好了，新的解决方案实现好了，又一次，我使用 2.55 GB 的文件启动了 Node.js，同时双手合十起到这次能够成功。来让我们看看结果。
 
 ![Woo hoo!](https://cdn-images-1.medium.com/max/2000/1*HJBlTYxNUCPXCDeKI9RTMg.png)
 
@@ -112,9 +112,9 @@
 
 **如果您喜欢阅读本文，你可能还会喜欢我的其他一些博客：**
 
-* [Postman vs. Insomnia: API 测试工具的比较](https://medium.com/@paigen11/postman-vs-insomnia-comparing-the-api-testing-tools-4f12099275c1)
+* [Postman vs. Insomnia：API 测试工具的比较](https://medium.com/@paigen11/postman-vs-insomnia-comparing-the-api-testing-tools-4f12099275c1)
 * [如何使用 Netflix 的 Eureka 和 Spring Cloud 来进行服务注册](https://medium.com/@paigen11/how-to-use-netflixs-eureka-and-spring-cloud-for-service-registry-8b43c8acdf4e)
-* [Jib: 在不了解 Docker 的情况下得到专家级的 Docker 成果](https://medium.com/@paigen11/jib-getting-expert-docker-results-without-any-knowledge-of-docker-ef5cba294e05)
+* [Jib：在不了解 Docker 的情况下得到专家级的 Docker 成果](https://medium.com/@paigen11/jib-getting-expert-docker-results-without-any-knowledge-of-docker-ef5cba294e05)
 
 ---
 
