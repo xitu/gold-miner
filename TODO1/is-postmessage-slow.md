@@ -40,7 +40,7 @@ Armed with a conceptual understanding of `postMessage()` and the determination t
 
 ## Benchmark 1: How long does sending a message take?
 
-![Two JSON objects showing depth and breadth](breadth-depth.svg)
+![Two JSON objects showing depth and breadth](https://dassur.ma/things/is-postmessage-slow/breadth-depth.svg)
 
 Depth and breadth vary between 1 and 6. For each permutation, 1000 objects will be generated.
 
@@ -48,15 +48,15 @@ The benchmark will generate an object with a specific “breadth” and “depth
 
 ### Results
 
-![](nokia2-chrome.svg)
+![](https://dassur.ma/things/is-postmessage-slow/nokia2-chrome.svg)
 
-![](pixel3-chrome.svg)
+![](https://dassur.ma/things/is-postmessage-slow/pixel3-chrome.svg)
 
-![](macbook-chrome.svg)
+![](https://dassur.ma/things/is-postmessage-slow/macbook-chrome.svg)
 
-![](macbook-firefox.svg)
+![](https://dassur.ma/things/is-postmessage-slow/macbook-firefox.svg)
 
-![](macbook-safari.svg)
+![](https://dassur.ma/things/is-postmessage-slow/macbook-safari.svg)
 
 The benchmark was run on Firefox, Safari and Chrome on a 2018 MacBook Pro, on Chrome on a Pixel 3XL and on Chrome on a Nokia 2.
 
@@ -77,7 +77,7 @@ To verify, I modified the benchmark: I generate all permutations of breadth and 
 
 ### Results
 
-![A graph showing the correlation between payload size and transfer time for postMessage](correlation.svg)
+![A graph showing the correlation between payload size and transfer time for postMessage](https://dassur.ma/things/is-postmessage-slow/correlation.svg)
 
 Transfer time has a strong correlation with the length of the string returned by `JSON.stringify()`.
 
@@ -100,19 +100,51 @@ In my experience, `postMessage()` is not the bottleneck for most apps that are a
 In the case of state objects, the objects themselves can be quite big, but it’s often only a handful of deeply nested properties that change. We encountered this problem in [PROXX](https://proxx.app), our PWA Minesweeper clone: The game state consists of a 2-dimensional array for the game grid. Each cell stores whether it’s a mine, if it’s been revealed or if it’s been flagged:
 
 ```typescript
-interface Cell {  hasMine: boolean;  flagged: boolean;  revealed: boolean;  touchingMines: number;  touchingFlags: number;}
+interface Cell {
+  hasMine: boolean;
+  flagged: boolean;
+  revealed: boolean;
+  touchingMines: number;
+  touchingFlags: number;
+}
 ```
 
 That means the biggest possible grid of 40 by 40 cells adds up to ~134KiB of JSON. Sending an entire state object is out of the question. **Instead of sending the entire new state object whenever something changes, we chose to record the changes and send a patchset instead.** While we didn’t use [ImmerJS](https://github.com/immerjs/immer), a library for working with immutable objects, it does provide a quick way to generate and apply such patchsets:
 
 ```js
-// worker.jsimmer.produce(stateObject, draftState => {  // Manipulate `draftState` here}, patches => {  postMessage(patches);});// main.jsworker.addEventListener("message", ({data}) => {  state = immer.applyPatches(state, data);  // React to new state}
+// worker.js
+immer.produce(stateObject, draftState => {
+  // Manipulate `draftState` here
+}, patches => {
+  postMessage(patches);
+});
+
+// main.js
+worker.addEventListener("message", ({data}) => {
+  state = immer.applyPatches(state, data);
+  // React to new state
+}
 ```
 
 The patches that ImmerJS generates look like this:
 
 ```json
-[  {    "op": "remove",    "path": [ "socials", "gplus" ]  },  {    "op": "add",    "path": [ "socials", "twitter" ],    "value": "@DasSurma"  },  {    "op": "replace",    "path": [ "name" ],    "value": "Surma"  }]
+[
+  {
+    "op": "remove",
+    "path": [ "socials", "gplus" ]
+  },
+  {
+    "op": "add",
+    "path": [ "socials", "twitter" ],
+    "value": "@DasSurma"
+  },
+  {
+    "op": "replace",
+    "path": [ "name" ],
+    "value": "Surma"
+  }
+]
 ```
 
 This means that the amount that needs to get transferred is proportional to the size of your changes, not the size of the object.
@@ -127,15 +159,17 @@ Of course, this can result in incomplete or even broken visuals if you don’t p
 
 We do chunking in [PROXX](https://proxx.app). When the user taps a field, the worker iterates over the entire grid to figure out which fields need to be updated and collects them in a list. If that list grows over a certain threshold, we send what we have so far to the main thread, empty the list and continue iterating the game field. These patchsets are small enough that even on a feature phone the cost of `postMessage()` is negligible and we still have enough main thread budget time to update our game’s UI. The iteration algorithm works from the first tile outwards, meaning our patches are ordered in the same fashion. If the main thread can only fit one message into its frame budget (like on the Nokia 8110), the partial updates disguise as a reveal animation. If we are on a powerful machine, the main thread will keep processing message events until it runs out of budget just by nature JavaScript’s event loop.
 
-Classic sleight of hand: In \[PROXX\], the chunking of the patchset looks like an animation. This is especially visible on low-end mobile phones or on desktop with 6x CPU throttling enabled.
+视频链接：https://dassur.ma/things/is-postmessage-slow/proxx-reveal.mp4
+
+Classic sleight of hand: In [PROXX], the chunking of the patchset looks like an animation. This is especially visible on low-end mobile phones or on desktop with 6x CPU throttling enabled.
 
 ### Maybe JSON?
 
 `JSON.parse()` and `JSON.stringify()` are incredibly fast. JSON is a small subset of JavaScript, so the parser has fewer cases to handle. Because of their frequent usage, they have also been heavily optimized. [Mathias recently pointed out](https://twitter.com/mathias/status/1143551692732030979), that you can sometimes reduce parse time of your JavaScript by wrapping big objects into `JSON.parse()`. **Maybe we can use JSON to speed up `postMessage()` as well? Sadly, the answer seems to be no:**
 
-![A graph comparing the duration of sending an object to serializing, sending, and deserializing an object.](serialize.svg)
+![A graph comparing the duration of sending an object to serializing, sending, and deserializing an object.](https://dassur.ma/things/is-postmessage-slow/serialize.svg)
 
-Comparing the performance of manual JSON serialization to vanilla \`postMessage()\` yields no clear result.
+Comparing the performance of manual JSON serialization to vanilla `postMessage()` yields no clear result.
 
 While there is no clear winner, vanilla `postMessage()` seems to perform better in the best case, and equally bad in the worst case.
 
@@ -154,7 +188,46 @@ However, we can be more cheeky here: We can rely on the memory layout of the lan
 > This is just a proof-of-concept. You can easily tap into undefined behavior if your struct contains pointers (like `Vec` and `String` do). There’s also some unnecessary copying going on. Code responsibly!
 
 ```rust
-pub struct State {    counters: [u8; NUM_COUNTERS]}#[wasm_bindgen]impl State {    // Constructors, getters and setter...    pub fn serialize(&self) -> Vec<u8> {        let size = size_of::<State>();        let mut r = Vec::with_capacity(size);        r.resize(size, 0);        unsafe {            std::ptr::copy_nonoverlapping(                self as *const State as *const u8,                r.as_mut_ptr(),                size            );        };        r    }}#[wasm_bindgen]pub fn deserialize(vec: Vec<u8>) -> Option<State> {    let size = size_of::<State>();    if vec.len() != size {        return None;    }    let mut s = State::new();    unsafe {        std::ptr::copy_nonoverlapping(            vec.as_ptr(),            &mut s as *mut State as *mut u8,            size        );    }    Some(s)}
+pub struct State {
+    counters: [u8; NUM_COUNTERS]
+}
+
+#[wasm_bindgen]
+impl State {
+    // Constructors, getters and setter...
+
+    pub fn serialize(&self) -> Vec<u8> {
+        let size = size_of::<State>();
+        let mut r = Vec::with_capacity(size);
+        r.resize(size, 0);
+        unsafe {
+            std::ptr::copy_nonoverlapping(
+                self as *const State as *const u8,
+                r.as_mut_ptr(),
+                size
+            );
+        };
+        r
+    }
+}
+
+#[wasm_bindgen]
+pub fn deserialize(vec: Vec<u8>) -> Option<State> {
+    let size = size_of::<State>();
+    if vec.len() != size {
+        return None;
+    }
+
+    let mut s = State::new();
+    unsafe {
+        std::ptr::copy_nonoverlapping(
+            vec.as_ptr(),
+            &mut s as *mut State as *mut u8,
+            size
+        );
+    }
+    Some(s)
+}
 ```
 
 > **Note:** [Ingvar](https://twitter.com/rreverser) pointed me to [Abomonation](https://github.com/TimelyDataflow/abomonation), a seriously questionable serialization library that works even **with** pointers. His advice: “Do \[not\] try this!”.
