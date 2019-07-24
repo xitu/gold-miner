@@ -102,7 +102,7 @@ React 和 Apollo 的组合获得了很多关注。此外 [Wronglyzorro](https://
 
 # 总结
 
-在选择正确的评论来总结 GraphQL 的状态时，有很多话要说或选择。**直到今天关于 reddit 的最受欢迎的 submissions 是 facebook 或 netflix 的案例研究 **，但这些 submission 的评论并不多。这给了我们以 reddit 对 GraphQL 的看法的一个很好的总结。想到各位开发者的日常生活后，我无法忽略 Kdesign（36）写下的内容：
+在选择正确的评论来总结 GraphQL 的状态时，有很多话要说或选择。**直到今天关于 reddit 的最受欢迎的 submissions 是 facebook 或 netflix 的案例研究**，但这些 submission 的评论并不多。这给了我们以 reddit 对 GraphQL 的看法的一个很好的总结。想到各位开发者的日常生活后，我无法忽略 Kdesign（36）写下的内容：
 
 > ### **GraphQL 让您的工作更安全，这是肯定的。**
 >
