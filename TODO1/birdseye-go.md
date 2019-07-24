@@ -2,8 +2,8 @@
 > * 原文作者：[Axel Wagner](https://blog.merovius.de)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/birdseye-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/birdseye-go.md)
-> * 译者：JackEggie(https://github.com/JackEggie)
-> * 校对者：40m41h42t(https://github.com/40m41h42t)、JalanJiang(https://github.com/JalanJiang)
+> * 译者：[JackEggie](https://github.com/JackEggie)
+> * 校对者：[40m41h42t](https://github.com/40m41h42t), [JalanJiang](https://github.com/JalanJiang)
 
 # Go 语言概览
 
@@ -105,7 +105,7 @@ Go 语言的标准库包含了[一些可以与 Go 源代码交互的包](https:/
 
 ---
 
-\[1\]<a name="note1"></a> 注：Go 开发团队目前正在对**模块**做一些支持，模块是包之上的代码分发单元，这些支持包括版本控制和一些可以使“传统” Go 语言工具解决问题的基础工作。等这些支持完成以后，这一段中的所有内容基本上就都过时了。对模块的支持**目前**是有的，但还不是 Go 语言的一部分。由于本文的核心内容是对 Go 语言的不同组成部分进行简要介绍，这些内容是不太容易发生变化的，**目前来看**我认为理解这些历史问题也是很有必要的。
+[1]<a name="note1"></a> 注：Go 开发团队目前正在对**模块**做一些支持，模块是包之上的代码分发单元，这些支持包括版本控制和一些可以使“传统” Go 语言工具解决问题的基础工作。等这些支持完成以后，这一段中的所有内容基本上就都过时了。对模块的支持**目前**是有的，但还不是 Go 语言的一部分。由于本文的核心内容是对 Go 语言的不同组成部分进行简要介绍，这些内容是不太容易发生变化的，**目前来看**我认为理解这些历史问题也是很有必要的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
