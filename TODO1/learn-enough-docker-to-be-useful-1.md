@@ -20,7 +20,8 @@ Docker is a platform to develop, deploy, and run applications inside containers.
 Don’t fret if you aren’t yet up to speed — this article will help you understand the conceptual landscape — and you’ll get to make some pizza along the way.
 
 In the next five articles in this series we’ll jump into Docker terms, Dockerfiles, Docker images, Docker commands, and data storage. Part 2 is now live:
-[**Learn Enough Docker to be Useful Part 2: A Delicious Dozen Docker Terms You Need to Know**](https://towardsdatascience.com/learn-enough-docker-to-be-useful-1c40ea269fa8)
+
+* [**Learn Enough Docker to be Useful Part 2: A Delicious Dozen Docker Terms You Need to Know**](https://towardsdatascience.com/learn-enough-docker-to-be-useful-1c40ea269fa8)
 
 By the end of the series (and with a little practice) you should know enough Docker to be useful 😃!
 
@@ -31,6 +32,7 @@ First, I’m going to shed some light on Docker metaphors.
 ![[They’re everywhere! Just check out this book.](https://www.goodreads.com/book/show/34459.Metaphors_We_Live_By)](https://cdn-images-1.medium.com/max/2000/1*poqn_j2R9xTk940n9wE9Lw.jpeg)
 
 [Google’s second definition for Metaphor](https://www.google.com/search?q=metaphor+definition&oq=metaphor+defini&aqs=chrome.0.0j69i57j0l4.2999j1j4&sourceid=chrome&ie=UTF-8) is what we want:
+
 > a thing regarded as representative or symbolic of something else, especially something abstract.
 
 Metaphors help us make sense of new things. For example, the metaphor of a physical container helps us quickly grasp the essence of a virtual container.
