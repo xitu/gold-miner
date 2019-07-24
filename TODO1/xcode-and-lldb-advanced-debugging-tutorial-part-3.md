@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-3.md)
 > * 译者：[kirinzer](https://github.com/kirinzer)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants), [iWeslie](https://github.com/iWeslie)
 
 # [译] Xcode 和 LLDB 高级调试教程：第 3 部分
 
-在这三部分教程的第一部分和第二部分中，我们已经介绍了如何利用 Xcode 断点来控制一个存在的属性值，并且通过表达式语句注入新的代码行。 我们还探索了观察点这种特殊类型断点的。
+在这三部分教程的第一部分和第二部分中，我们已经介绍了如何利用 Xcode 断点来控制一个存在的属性值，并且通过表达式语句注入新的代码行。 我们还探索了观察点这种特殊类型的断点。
 
-我开发了一个带有几个特殊错误的演示项目，详细说明了如何使用不同类型的断点配合 LLDB 来修复项目/应用程序中的错误。
+我开发了一个特意带有几个错误的演示项目，详细说明了如何使用不同类型的断点配合 LLDB 来修复项目/应用程序中的错误。
 
 如果你还没有看过本教程的 **[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)** 和 **[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md)**，最好先看过它们再继续阅读本文。
 
-最后，本教程的重要规则是： 
+最后，本教程的指导原则是： 
 
-第一次运行应用程序后，你不必停止编译器或重新运行应用程序，你会在运行时修复这些错误。
+第一次运行应用程序后，你不必停止编译器或重新运行应用程序，你将在运行时修复这些错误。
 
 ## 符号断点 🔶
 
-到目前为止我们怎么样了？
+到目前为止我们还要做什么？
 
 > 4. 导航栏左侧指示用户加载次数的标签没有更新。
 
@@ -31,17 +31,17 @@
 
 ✦ 在每次成功获取到新的文章之后，左侧标签并没有被更新。
 
-需要指出的是整形属性 `pageNumber` 回答了这个问题，用户已经加载了文章多少次？（换句话说，导航栏左侧的标签应该被 `pageNumber` 属性的值更新）。我们可以确信的是，在之前的修复中 `pageNumber` 属性的值已经可以更新了。因此现在的问题在于没有将它的值设置给导航栏左侧的标签。
+需要指出的是整型属性 `pageNumber` 回答了这个问题，用户已经加载了文章多少次？（换句话说，导航栏左侧的标签应该被 `pageNumber` 属性的值更新）。我们可以确信的是，在之前的修复中 `pageNumber` 属性的值已经可以更新了。因此现在的问题在于没有将它的值设置给导航栏左侧的标签。
 
-在这种情况下，符号断点会进入。想象一下，符号断点就像调试器在玩寻宝，而你会提供一些寻宝的线索。对你来说，这会发生在更新导航栏左侧标签的代码片段中。
+在这种情况下，符号断点会介入。想象一下，符号断点就像调试器在玩寻宝，而你会提供一些寻宝的线索。对你来说，这会发生在更新导航栏左侧标签的代码片段中。
 
 让我告诉你接下来怎么做。
 
-展开断点导航器，接着点击左下角 + 按钮，选择符号断点。
+展开 Breakpoint navigator，接着点击左下角 + 按钮，选择 Symbolic Breakpoint。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nI_n_rCvxBS5ZILJqDVzrA.png)
 
-添加如下符号
+在 Symbol 栏添加如下符号
 
 ```
 [UILabel setText:]
@@ -51,7 +51,7 @@
 
 **不要** 勾选 “Automatically continue after evaluating actions” 选项框。
 
-我们所做的只是通知调试器，当任何一个 UILabel 的 setText 方法被调用的时候，它就会暂停。注意这里在创建了一个符号断点之后，一个子断点会被添加。
+我们所做的只是告诉调试器，当任何一个 UILabel 的 setText 方法被调用的时候，它就会暂停。注意这里在创建了一个符号断点之后，一个子断点会被添加。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pCPLepbfpWKJrNUfpprfow.png)
 
@@ -69,7 +69,7 @@ po $arg1
 
 ![](https://cdn-images-1.medium.com/max/4448/1*V33e1RQgoWtwNI8qy-AVJQ.png)
 
-这会指出持有第一个参数的寄存器。我们能清除的看到接受这个 Objective-C 消息的是一个 UILabel 实例。这个 UILabel 实例有一个文本值指向一个文章的标签。这不是我们所感兴趣的，但让我们继续寄存器检查。
+这会指出持有第一个参数的寄存器。我们能清楚的看到接受这个 Objective-C 消息的是一个 UILabel 实例。这个 UILabel 实例有一个文本值指向一个文章的标签。这不是我们所感兴趣的，不过让我们继续寄存器检查。
 
 在 lldb 控制台，输入如下指令：
 
@@ -99,7 +99,7 @@ po $arg3
 
 ![](https://cdn-images-1.medium.com/max/2000/1*saKLYWOujvPhkmf3qcBD5g.png)
 
-$arg3 始终指向传入方法的第一个参数。在我们的情况下，传入 setText 方法的参数一个字符串。
+$arg3 始终指向传入方法的第一个参数。在我们的情形下，传入 setText 方法的参数一个字符串。
 
 继续执行程序。调试器会再次暂停。重复前面的步骤，最终，你发现这个 Objective-C 消息属于在表视图里的另一个文章标签。直到我们找到我们感兴趣的那个 UILabel 实例前，一遍又一遍的做这个事情确实很无趣。肯定有更好的方式。
 
@@ -141,7 +141,7 @@ breakpoint set --one-shot true -name '-[UILabel setText:]'
 
 🤨🧐🤔
 
-让我们拆开这个命令：
+让我们拆解这个命令：
 
 1. breakpoint set --one-shot true 会创建一个 “one-short” 断点。one-shot 断点是一种创建之后，首次触发就会自动删除的断点。
 
@@ -189,7 +189,7 @@ po $arg1
 
 ![Swift](https://cdn-images-1.medium.com/max/3788/1*42LvhyQXygvMOF0dWphR2g.png)
 
-它会引导你到这块更新 `pageNumberLabel` 文本的代码。这块代码很明显为文本始终设置了整形值为 `0` 而不是 `pageNumber` 属性的格式字符串。让我们在实际修改代码前先测试一下。
+它会引导你到这块更新 `pageNumberLabel` 文本的代码。这块代码很明显为文本始终设置了整型值为 `0` 而不是 `pageNumber` 属性的格式字符串。让我们在实际修改代码前先测试一下。
 
 你现在已经是行家了 🧢
 
