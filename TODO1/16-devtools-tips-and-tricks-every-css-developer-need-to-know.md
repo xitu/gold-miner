@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/16-devtools-tips-and-tricks-every-css-developer-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/16-devtools-tips-and-tricks-every-css-developer-need-to-know.md)
 > * 译者：[DEARPORK](https://github.com/Usey95)
-> * 校对者
+> * 校对者：[TiaossuP](https://github.com/TiaossuP), [Baddyo](https://github.com/Baddyo)
 
 # CSS 开发必知必会的 16 个调试工具技巧
 
@@ -11,7 +11,7 @@
 
 在本文中，我写了许多在开发者工具中与 CSS 相关的功能和技巧，我认为它们将把你的 CSS 开发水平提升至一个新的台阶。其中一些技巧不仅仅针对 CSS，但是我还是把它们放在了一起。
 
-一些简单的技巧有关于工作流和调试，另一些则是最近几年推出的新功能。它们大多数基于 Chrome 的开发者工具，但我也涵盖了一些 Firefox 的技巧。
+一些是有关于工作流与调试的简单技巧，另一些则是最近几年推出的新功能。它们大多数基于 Chrome 的开发者工具，但也涵盖了一些 Firefox 的技巧。
 
 ## 审查通过 JavaScript 显示的元素的 CSS
 
@@ -19,24 +19,24 @@
 
 有时一个元素会因为一些基于 JavaScript 的用户操作动态显示，例如 click 或者 mouseover。审查它们最直观的方法是暂时更改你的 JavaScript 或 CSS 使它们默认可见，以便于你在无需模仿用户操作的情况下处理它。
 
-但如果你在寻找一种更快捷的方法仅使用开发者工具让元素可见，下面是你可以做的：
+但如果你在寻找一种更快捷的方法仅使用开发者工具让元素可见，可以遵循以下步骤：
 
-1、打开开发者工具
-2、打开 Sources 面板
-3、执行用户操作让对象可见（例如鼠标悬停）
-4、在元素可见的时候按下 F8（与“暂停脚本执行”按钮相同）
-5、点击开发者工具左上角的选取元素按钮
-6、点击页面上的元素
+1. 打开开发者工具
+2. 打开 Sources 面板
+3. 执行用户操作让对象可见（例如鼠标悬停）
+4. 在元素可见的时候按下 F8（与“暂停脚本执行”按钮相同）
+5. 点击开发者工具左上角的“选取元素”按钮
+6. 点击页面上的元素
 
-我们可以通过 [Bootstrap 的 tooltips](https://getbootstrap.com/docs/3.3/javascript/#tooltips) 测试，只有鼠标悬浮在链接上触发 JavaScript 它才会显示，下面是文档：
+我们可以通过 [Bootstrap 的 tooltips](https://getbootstrap.com/docs/3.3/javascript/#tooltips) 测试，只有鼠标悬浮在链接上触发 JavaScript 它才会显示，下面是演示：
 
-![使用 Bootstrap 的 tooltips 时如何选中元素的动态 GIF](https://www.heartinternet.uk/blog/wp-content/uploads/bootstrap-tool-tips-example.gif)
+![GIF 动图：使用 Bootstrap 的 tooltips 时如何选中元素](https://www.heartinternet.uk/blog/wp-content/uploads/bootstrap-tool-tips-example.gif)
 
-如你所见在 GIF 的开头，我一开始无法选中元素来审查它，因为鼠标一旦移开它就消失了。但如果我在它可见的时候停止脚本运行，它将保持可见状态以便我可以正确地检查它。当然，如果元素只是简单的 CSS `:hover` 效果，那么我可以用 Styles 面板的“Toggle Element State”（:hov按钮）切换状态来让它显示。但由 JavaScript 切换样式的情况下，停止脚本也许是获取它们 CSS 样式的最佳方法。
+如你所见在 GIF 的开头，我一开始无法选中元素来审查它，因为鼠标一旦移开它就消失了。但如果我在它可见的时候停止脚本运行，它将保持可见状态以便我可以正确地检查它。当然，如果元素只是简单的 CSS `:hover` 效果，那么我可以用 Styles 面板的 “Toggle Element State”（:hov 按钮）切换状态来让它显示。但由 JavaScript 切换样式的情况下，停止脚本也许是获取它们 CSS 样式的最佳方法。
 
 ## 通过 CSS 选择器寻找元素
 
-你也许知道你可以用内置功能（CTRL + F 或者 CMD + F）在 Elements 面板搜索一个元素。但注意看“find”栏，它会给你以下提示：
+你也许知道你可以用内置功能（CTRL + F 或者 CMD + F）在 Elements 面板搜索一个元素。但注意看 “find” 栏，它会给你以下提示：
 
 ![在 Elements 面板使用 CSS 选择器寻找元素的截图](https://www.heartinternet.uk/blog/wp-content/uploads/search-for-a-css-element.png)
 
@@ -83,7 +83,7 @@
 
 比起别的地方，你也许更熟悉在 Styles 面板进行编辑，然而 Sources 面板是开发者工具中被高度低估一个功能，它模仿了常规代码编辑器和 IDE 的工作方式。
 
-以下是一些你可以在 Sources 面板（打开开发者工具并点击“Sources”按钮）可以做的有用的事情。
+以下是一些你可以在 Sources 面板（打开开发者工具并点击 “Sources” 按钮）可以做的有用的事情。
 
 ### 使用 CTRL 键进行多项选择
 
@@ -161,13 +161,13 @@ text-shadow 和 box-shadow 的 CSS 手写起来很乏味，语法很容易忘记
 
 ![演示在 Firefox 中如何使用 Grid 布局检查器的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/grid-layout-inspector-in-firefox.gif)
 
-这个功能允许你开启一个全覆盖的网格帮助可视化 Grid 布局的不同部分。你还可以显示行号、区域名称甚至如果可以帮助到你，你可以选择无线延伸网格线。在示例 demo 中，我在使用 Jen Simmons 的示例网站，它是响应式的，因此当布局因为不同视口改变时，你可以看到可视化网格的好处。
+这个功能允许你开启一个全覆盖的网格帮助可视化 Grid 布局的不同部分。你还可以显示行号、区域名称，甚至可以选择无限延伸网格线 —— 如果这对你有用的话。在示例 demo 中，我在使用 Jen Simmons 的示例网站，它是响应式的，因此当布局因为不同视口改变时，你可以看到可视化网格的好处。
 
 ## Firefox 的 CSS filter 编辑器
 
 filter 是现在几乎在移动端和 PC 端都支持的另一个新功能。Firefox 再次提供了一个好用的小工具帮助你编辑 filter 的值。
 
-一旦你代码里有 filter（提示：你可以从 `filter: none` 开始如果你不知道实际语法），你将注意到 filter 值左边有一个黑白相间的堆叠方块，点击它可以打开 filter 编辑器。
+一旦你代码里有 filter（提示：如果你不知道实际语法，你可以先写上 `filter: none`），你将注意到 filter 值左边有一个黑白相间的堆叠方块，点击它可以打开 filter 编辑器。
 
 ![演示如何使用 Firefox CSS filter 编辑器的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/css-filter-editor-in-firefox.gif)
 
@@ -193,7 +193,7 @@ filter 是现在几乎在移动端和 PC 端都支持的另一个新功能。Fir
 
 最近有大量工具可以帮助你追踪未在特定页面上使用的 CSS。这样你就可以选择完全删除它们或仅在必要时加载它们。这将具有明显的性能优势。
 
-Chrome 允许你通过开发者工具的 “Coverage” 面板查看未使用的 CSS。这个面板可以通过上文提到的点击开发者面板右上角的 “Customize and control DevTools” 选项（三个竖点按钮），选择更多工具，找到 “Coverage” 开启。
+Chrome 允许你通过开发者工具的 “Coverage” 面板查看未使用的 CSS。这个面板可以通过上文提到的点击开发者面板右上角的 “Customize and control DevTools” 选项（三个竖点按钮），选择“更多工具”，找到 “Coverage” 开启。
 
 ![演示如何自定义你的 Chrome 开发者工具的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/view-unused-css-in-dev-tools.gif)
 
@@ -201,7 +201,7 @@ Chrome 允许你通过开发者工具的 “Coverage” 面板查看未使用的
 
 ## 总结
 
-你的浏览器开发工具是 CSS 编辑和调试的宝库。当你将以上建议与 Chrome 的功能例如 Workspaces（允许你把在开发者工具所做的变更保存到本地文件）结合，整个调试过程会变得更加完整。
+你的浏览器开发工具是 CSS 编辑和调试的宝库。当你将以上建议与 Chrome 的功能例如 —— Workspaces（允许你把在开发者工具所做的变更保存到本地文件）—— 结合，整个调试过程会变得更加完整。
 
 我希望这些技巧与建议将提升你在未来的项目中编辑与调试 CSS 的能力。
 
