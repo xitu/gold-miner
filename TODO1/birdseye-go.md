@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/birdseye-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/birdseye-go.md)
 > * 译者：JackEggie(https://github.com/JackEggie)
-> * 校对者：40m41h42t(https://github.com/40m41h42t)
+> * 校对者：40m41h42t(https://github.com/40m41h42t)、JalanJiang(https://github.com/JalanJiang)
 
 # Go 语言概览
 
@@ -37,10 +37,10 @@ Go 语言规范规定了：
 
 还有更多其他的实现，但这已经足以让你了解不同的实现方式。以上每一种方法都使用了不同的方式来实现 Go 语言，并具有自己与众不同的特性。他们可能存在的不同之处有（为了说明这一点，下面的某些说法可能会有点奇特）：
 
-* `int`/`uint` 的大小 \- 长度可能为 32 位或 64 位。
+* `int`/`uint` 的大小 —— 长度可能为 32 位或 64 位。
 * 运行时中基础功能的实现方式，如内存分配、垃圾回收和并发的实现。
-* 遍历 `map` 的顺序并没有在 Go 语言中定义 - `gc` 显然会将这类操作随机化，而 `gopherjs` 会用你使用的 JavaScript 实现遍历。
-* `append` 操作分配的所需额外内存空间大小 - 但是，**在分配额外空间时**，**不会**再次分配更多的内存空间。
+* 遍历 `map` 的顺序并没有在 Go 语言中定义 —— `gc` 显然会将这类操作随机化，而 `gopherjs` 会用你使用的 JavaScript 实现遍历。
+* `append` 操作分配的所需额外内存空间大小 —— 但是，**在分配额外空间时**，**不会**再次分配更多的内存空间。
 * `unsafe.Pointer` 与 `uintptr` 之间的转换方式。特别指出，`gc` 对于该转换何时应该生效有自己的[规则](https://godoc.org/unsafe#Pointer)。通常情况下，`unsafe` 包是虚拟的，它会在编译器中被实现。
 
 一般来说，根据规范中没有提到的某些细节（尤其是上面提到的那些细节）可以使你的程序用不同的编译器也能**编译**，但往往程序不会像你预期的那样**正常工作**。因此，你应该尽力避免此类事情发生。
@@ -91,7 +91,7 @@ Go 语言的标准库包含了[一些可以与 Go 源代码交互的包](https:/
 
 #### 总结
 
-我想用一个简短的列表来结束这篇文章，列表的内容是为那些感到迷茫的初学者准备的。请点击下面的链接：
+我想用一个简短的参考文献列表来结束这篇文章，列表的内容是为那些感到迷茫的初学者准备的。请点击下面的链接：
 
 * [开始学习 Go 语言](https://tour.golang.org/welcome/1)。
 * [理解 Go 语言的工作方式](https://golang.org/doc/effective_go.html)。
