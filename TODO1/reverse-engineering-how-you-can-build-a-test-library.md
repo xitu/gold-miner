@@ -19,7 +19,7 @@ We will cover the following:
 * **The WHAT**, what we will build and not build
 * **Constructing**, slowly take you through the steps of building it out
 
-## [](#%C2%A0why) WHY
+## WHY
 
 Many years ago, in the beginning of my career as a software developer, I asked a senior developer how they got better. It wasn't just one answer but one thing stood out, namely **reverse engineering** or rather recreating libraries or frameworks they were using or were curious about.
 
@@ -43,20 +43,19 @@ Depends on the size of the library or framework. Some are small enough that it's
 
 We mentioned building a testing library in the beginning. What testing library? Well, let's have a look at how most testing libraries look like in JavaScript. They tend to look like this:
 
-```
+```js
 describe('suite', () => {
   it('should be true', () => {
     expect(2 > 1).toBe(true)
   })
 })
-
 ```
 
 This is the scope of what we will be building, getting the above to work and in the process comment on the architecture and maybe throw in a library to make it pretty :)
 
 Let's get started.
 
-## [](#constructing)Constructing
+## Constructing
 
 Ok then. **If you build it they will come**.
 
@@ -66,18 +65,17 @@ You know, the movie Field of Dreams?
 
 > Whatever grandpa **bored**
 
-### [](#expect-assert-our-values)Expect, assert our values
+### Expect, assert our values
 
 Let's begin from our most inner statement, the `expect()` function. By looking at an invocation we can learn a lot:
 
-```
+```js
 expect(2 > 1).toBe(true)
-
 ```
 
 `expect()` looks like a function taking a `boolean`. It seems to be returning an object that has a method `toBe()` on it that additionally is able to compare the value in `expect()` by what `toBe()` is fed with. Let's try to sketch this:
 
-```
+```js
 function expect(actual) {
   return {
     toBe(expected) { 
@@ -89,12 +87,11 @@ function expect(actual) {
     }
   }
 }
-
 ```
 
 Additionally, we should consider that this should produce some kind of statement if the matching is a success or if it's a failure. So some more code is needed:
 
-```
+```js
 function expect(actual) {
   return {
     toBe(expected) { 
@@ -109,7 +106,6 @@ function expect(actual) {
 
 expect(true).toBe(true) // Succeeded
 expect(3).toBe(2)  // Fail - Actual: 3, Expected: 2 
-
 ```
 
 Note, how the `else` statement has a bit more specialized message and gives us a hint on what failed.
@@ -122,7 +118,7 @@ YES, best reason there is :)
 
 The rules for this one is that anything considered truthy in JavaScript should succeed and anything else should render in failure. Let's cheat a bit by going to MDN and see what's considered **truthy**:
 
-```
+```js
 if (true)
 if ({})
 if ([])
@@ -136,12 +132,11 @@ if (3.14)
 if (-3.14)
 if (Infinity)
 if (-Infinity)
-
 ```
 
 Ok, so everything within an `if` statement that evaluates to `true`. Time to add said method:
 
-```
+```js
 function expect(actual) {
   return {
     toBe(expected) { 
@@ -164,12 +159,11 @@ function expect(actual) {
 expect(true).toBe(true) // Succeeded
 expect(3).toBe(2)  // Fail - Actual: 3, Expected: 2 
 expect('abc').toBeTruthy();
-
 ```
 
 I don't know about you, but I feel like my `expect()` function is starting to contain a lot of things. So let's move out our `matchers` to a `Matchers` class, like so:
 
-```
+```js
 class Matchers {
   constructor(actual) {
     this.actual = actual;
@@ -195,33 +189,30 @@ class Matchers {
 function expect(actual) {
   return new Matchers(actual);
 }
-
 ```
 
-### [](#it-our-test-method)it, our test method
+### it, our test method
 
 Looking at our vision it should be working like so:
 
-```
+```js
 it('test method', () => {
   expect(3).toBe(2)
 })
-
 ```
 
 Ok, reverse engineering this bit we can pretty much write our `it()` method:
 
-```
+```js
 function it(testName, fn) {
   console.log(`test: ${testName}`);
   fn();
 }
-
 ```
 
 Ok, let's stop here a bit and think. What kind of behavior do we want? I've definitely seen unit testing libraries that quits running the tests if something fails. I guess if you have 200 unit tests (not that you should have 200 tests in one file :), you don't want to wait for them to finish, better to tell me directly what's wrong so I can fix it. For the latter to be possible we need to adjust our matchers a little:
 
-```
+```js
 class Matchers {
   constructor(actual) {
     this.actual = actual;
@@ -244,12 +235,11 @@ class Matchers {
     }
   }
 }
-
 ```
 
 This means that our `it()` function needs to capture any erros like so:
 
-```
+```js
 function it(testName, fn) {
   console.log(`test: ${testName}`);
   try {
@@ -260,18 +250,17 @@ function it(testName, fn) {
   }
 
 }
-
 ```
 
 As you can see above we not only capture the error and logs it but we rethrow it to put an end to the run itself. Again, main reason was that we saw no point in continuing. You can implement this the way you see fit.
 
-### [](#describe-our-test-suite)Describe, our test suite
+### Describe, our test suite
 
 Ok, we covered writing `it()` and `expect()` and even threw in a couple of matcher functions. All testing libraries should have a suite concept though, something that says this is a group of tests that belong together.
 
 Let's look at what the code can look like:
 
-```
+```js
 describe('our suite', () => {
   it('should fail 2 != 1', () => {
     expect(2).toBe(1);
@@ -281,12 +270,11 @@ describe('our suite', () => {
     expect('abc').toBeTruthy();
   })
 })
-
 ```
 
 As for the implementation, we know that tests that fail throws errors so we need to capture that to not crash the whole program:
 
-```
+```js
 function describe(suiteName, fn) {
   try {
     console.log(`suite: ${suiteName}`);
@@ -295,14 +283,13 @@ function describe(suiteName, fn) {
     console.log(err.message);
   }
 }
-
 ```
 
-### [](#running-the-code)Running the code
+### Running the code
 
 At this point our full code should look like this:
 
-```
+```js
 // app.js
 
 class Matchers {
@@ -370,25 +357,23 @@ describe('another suite', () => {
     expect(1).toBe(1);
   })
 })
-
 ```
 
 and when run in the terminal with `node app.js`, should render like so:
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--AU3RQVD8--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/y3hmyys7hsph5gbg16bb.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--AU3RQVD8--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/y3hmyys7hsph5gbg16bb.png)
 
-## [](#making-it-pretty)Making it pretty
+## Making it pretty
 
 Now the above seems to be working but it looks **sooo** boring. So what can we do about it? Colors, plenty of colors will make this better. Using the library `chalk` we can really induce some life into this:
 
-```
+```js
 npm install chalk --save
-
 ```
 
 Ok, next let's add some colors and some tabs and spaces and our code should look like so:
 
-```
+```js
 const chalk = require('chalk');
 
 class Matchers {
@@ -456,14 +441,13 @@ describe('another suite', () => {
     expect(1).toBe(1);
   })
 })
-
 ```
 
 and render like so, when run:
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--Gt0KQDcz--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/nusgojpo4vmi22r8q7zx.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Gt0KQDcz--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/nusgojpo4vmi22r8q7zx.png)
 
-## [](#summary)Summary
+## Summary
 
 We aimed at looking at a fairly small library like a unit testing library. By looking at the code we could deduce what it might look like underneath.
 
