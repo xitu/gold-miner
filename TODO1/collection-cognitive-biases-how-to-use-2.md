@@ -55,7 +55,7 @@
 
 这对吗?
 
-**如何使用**：社会认同是建立信任的好方法。以下是一些可以在网站、[应用商店页](http://www.mobilespoon.net/2019/04/lessons-learned-app-store-screenshots.html "根据从应用商店截图中汲取的经验教训重新设计 - the mobile spoon") 中使用的示例:
+**如何使用**：社会认同是建立信任的好方法。以下是一些可以在网站、[应用商店页](http://www.mobilespoon.net/2019/04/lessons-learned-app-store-screenshots.html "根据从应用商店截图中汲取的经验教训重新设计 —— the mobile spoon") 中使用的示例：
 
 1. 知名客户标识
 2. 知名合作伙伴标识
