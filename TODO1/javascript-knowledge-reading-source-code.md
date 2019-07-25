@@ -69,7 +69,7 @@ React-Redux 是一个用于管理 React 应用程序状态的库。在处理这�
 
 看完之后，我会问下列问题：
 
-* 我是否知道函数接受输入的模式或概念，然后返回包含其他功能的相同输入？
+* 我是否知道哪些模式或概念，其函数能够接受一个输入并将输入封装、加上附加功能再返回输出？
 * 如果我知道这样的模式，我如何根据文档中给出的解释来实现它？
 
 通常，下一步是创建一个使用 `connect` 的非常基础的示例应用程序。但是，在这种情况下，我选择使用我们在 [limejump](https://limejump.com/) 上构建的新的 React 应用程序，因为我希望在最终要进入生产环境的应用程序的上下文环境中理解 `connect`。
@@ -118,7 +118,7 @@ export function createConnect({
 
 **注意**：**有关这方面的更多信息，您可以阅读 David Walsh 的[文章](https://davidwalsh.name/destructuring-function-arguments)。根据你对语言的了解，一些学习时刻可能看起来微不足道，因此最好将注意力放在您以前从未见过的事情上，或需要了解更多信息的事情上。**
 
-`createConnect` itself does nothing in its function body. It returns a function called `connect`, the one I used here:
+`createConnect` 在其函数内部并不执行任何操作。它只是返回一个名为 connect 的函数，也就是我在这里用到的：
 
 ```javascript
 export default connect(null, mapDispatchToProps)(MarketContainer)
