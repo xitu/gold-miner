@@ -2,68 +2,68 @@
 > * 原文作者：[Emilie Roberts](https://medium.com/@emilieroberts)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/subscriptions-101-for-android-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/subscriptions-101-for-android-apps.md)
-> * 译者：
+> * 译者：Fxymine4ever
 > * 校对者：
 
-# Subscriptions 101 for Android Apps
+# Android应用程序的订阅 101 视频系列
 
-[Subscriptions on Google Play Billing](https://developer.android.com/google/play/billing/billing_subscriptions) can be an excellent way to grow your business. However, coordinating between your Android app and back-end server can be daunting.
+[订阅 Google Play 账单](https://developer.android.com/google/play/billing/billing_subscriptions) 会成为一个最好的方式去拓展您的业务。然而，您的 Android 应用程序与后端服务器之间的协调可能会很艰巨。
 
 ![](https://cdn-images-1.medium.com/max/7448/1*UvuzX1CDUzXPCOc60H9AVA.png)
 
-The [Subscriptions 101 video series](https://www.youtube.com/playlist?list=PLWz5rJ2EKKc9J8ylTbNo1mnwciEyMbxZG) will help you understand how all the pieces of the subscription puzzle fit together, including basic server setup, [real-time developer notifications](https://developer.android.com/google/play/billing/realtime_developer_notifications), [upgrades and downgrades](https://developer.android.com/google/play/billing/billing_subscriptions#Allow-upgrade), [linkedPurchaseToken](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da), [grace period](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold), and more.
+[订阅 101 视频系列](https://www.youtube.com/playlist?list=PLWz5rJ2EKKc9J8ylTbNo1mnwciEyMbxZG) 会帮助您明白如何将订阅里的所有部分组合在一起的，包括了搭建基础的服务器、 [实时开发人员通知 ](https://developer.android.com/google/play/billing/realtime_developer_notifications)、[升级和降级](https://developer.android.com/google/play/billing/billing_subscriptions#Allow-upgrade) 、[连接购买令牌](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da) 、[宽限期](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold) 以及其他更多的东西。
 
-## Understanding Subscriptions
+## 了解订阅
 
-The first video outlines the terminology that will be used throughout the video series and describes the various components you’ll need including: your Android app, your back-end server, the [Google Play Billing Library](https://developer.android.com/google/play/billing/billing_library_overview), the [Google Play Developer API](https://developers.google.com/android-publisher/), and [Google Cloud Pub/Sub](https://developer.android.com/google/play/billing/realtime_developer_notifications).
+第一个视频概述了将在整个视频系列中需要使用到的术语以及您需要使用到的组件，它们包括：您的Android应用程序、您的后台服务器、 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 、[Google Play 开发者 API](https://developers.google.com/android-publisher/) 和 [Google Cloud Pub/Sub](https://developer.android.com/google/play/billing/realtime_developer_notifications) 。
 
-## Subscription Purchase Flow
+## 订阅购买流程
 
-This video describes the purchase flow for subscriptions. Using the [Google Play Billing Library](https://developer.android.com/google/play/billing/billing_library_overview), you can [check for existing subscriptions](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)) and [launch the billing flow](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#launchBillingFlow(android.app.Activity,%20com.android.billingclient.api.BillingFlowParams)) for new signups. After a successful purchase, you will get back a [purchase token](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids) and the [order ID](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids), which represent the user’s entitlement and transaction with Google respectively. Keep track of this information on your secure back-end server in order to correctly grant access to your product or services.
+这个视频描述了订阅的购买流程。 您可以使用 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 去 [检查现存的订阅](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)) 以及 [启动注册的购买流程](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#launchBillingFlow(android.app.Activity,%20com.android.billingclient.api.BillingFlowParams)) 。在成功购买后，您会得到一个 [购买令牌](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids) 以及 [订单ID](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids) ，两者分别代表着用户的权利和与 Google 的交易。您可以在您的后台服务器上跟踪这个信息，以便对您的产品或服务进行正确地授权。
 
-## Real-time Developer Notifications
+## 实时开发者通知
 
-[Real-time Developer Notifications (RTDN)](https://developer.android.com/google/play/billing/realtime_developer_notifications) allow you to stay up-to-date with the state of your subscriptions via notifications to your server from [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/).
+[实时开发者通知 (Real-time Developer notification, RTDN) ](https://developer.android.com/google/play/billing/realtime_developer_notifications)允许您通过 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/) 向服务器发送通知，了解到最新的订阅状态。
 
-When you receive an RTDN notification, verify the purchase token contained in that notification and retrieve [detailed information](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions) about that subscription using the [Google Play Developer API](https://developers.google.com/android-publisher/).
+当您接收到了一个实时开发者通知后，请验证通知里面的购买令牌以及使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来检索该订阅的 [详细信息](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions) 。
 
-## Upgrade and Downgrade
+## 升级与降级
 
-You can let users [upgrade and downgrade](https://developer.android.com/google/play/billing/billing_subscriptions#Allow-upgrade) a subscription in your app using the [Google Play Billing Library](https://developer.android.com/google/play/billing/billing_library_overview). First, verify that the user has a current subscription with [queryPurchases()](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)). Then call [setOldSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) with the SKU for the subscription that will be replaced. Finally, call [setSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) using the new subscription SKU. This will return a new purchase token representing the upgraded or downgraded subscription. Be sure to [handle linkedPurchaseToken](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da) correctly.
+您可以让用户在您的应用程序内使用 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 去升级或降级一个订阅。首先，调用 [queryPurchases()](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)) 方法验证您的用户是否拥有当前订阅。然后，使用 SKU 调用 [setOldSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) 方法来获取即将被替换的订阅。最后，使用新的订阅的 SKU 来调用 [setSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) 方法。这将会返回一个代表着升级或降级的新的购买令牌。请确保正确地 [处理 linkedPurchaseToken](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da) 。
 
-## Grace Period
+## 宽限期
 
-This video covers setting up a [grace period](https://developer.android.com/google/play/billing/billing_subscriptions#user-is-in-a-grace-period---subscription_in_grace_period) for a subscription, which can help you retain users by allowing them a short time to fix their payment information in case of a renewal failure.
+这个视频介绍了如何为订阅设置宽限期。这将允许订阅失败的用户在短时间内修复他们的付款信息，从而帮您留住用户。
 
-In the Google Play Console, enable grace period and choose its length of time in each individual subscription’s settings. When you receive an RTDN notifying you that a user is in a grace period, verify the subscription status using the [Google Play Developer API](https://developers.google.com/android-publisher/). Then, provide the user with a notice in your app with a [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) to the [subscriptions center](https://play.google.com/store/account/subscriptions) so they can easily fix their payment settings. Remember, a user should retain access to the subscription during the grace period.
+在 Google Play 控制台中，启动宽限期，同时在每一个订阅的设置中选择其宽限期的时长。 当在您接收到了 RTDN ，它提醒您用户正处于宽限期的时候， 使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 验证订阅状态。然后，在您的应用程序中为用户提供通知，用户可以使用 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到 [订阅中心](https://play.google.com/store/account/subscriptions) ，这使得用户能够轻松修复他们的付款设置。请记住，用户在宽限期间时应该保留其对订阅的访问权限。
 
-## Account Hold
+## 账户保留
 
-This video describes [account hold](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold), a way for users who have an issue with their payment method to easily restore access to an app’s content without having to re-subscribe. This can increase user retention.
+这个视频介绍了 [账户保留](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold) ，这对于其付款方式有问题的用户而言是一种方法。用户可以无需重新订阅，即可恢复他们对应用内容的访问权限。这可以提高用户保留率。
 
-Enable account hold for all of an app’s subscriptions by expanding the Subscription Settings menu in the Subscriptions tab of the In-App Products sections of the Google Play Console. On your back-end, when you receive an RTDN notifying you a user is in account hold, verify the subscription status using the [Google Play Developer API](https://developers.google.com/android-publisher/). You should then block access to the subscription and let the user know there is an issue with their payment method, providing a [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) to the [subscriptions center](https://play.google.com/store/account/subscriptions) so they can easily fix their payment settings.
+在 Google Play 控制台 - 应用内产品部分 - 订阅选项卡中，展开里面的订阅设置菜单，在所有应用的订阅里启动账户保留。在您的后端服务器中，当您收到 RTDN ，它提醒您用户正处于账户保留状态时，请使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来验证订阅状态。然后，您应该阻止用户对订阅的访问，并让用户知道他们的付款方法有问题，然后提供一个 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到 [订阅中心](https://play.google.com/store/account/subscriptions) ，以便他们可以很轻松地修复其支付设置。
 
-## Cancel and Restore
+## 取消与恢复
 
-Allowing users to easily [restore](https://developer.android.com/google/play/billing/billing_subscriptions#restore) their subscriptions after cancellation helps regain and retain previously active users. After a user has cancelled a subscription, they retain access to your app’s content until the expiration of the subscription period. During this time they can easily restore their subscription in the [Google Play Subscriptions Center](https://play.google.com/store/account/subscriptions).
+允许用户在取消订阅后能很轻松地 [恢复](https://developer.android.com/google/play/billing/billing_subscriptions#restore) 订阅，这可以帮助您重新获得并保留以前的活跃用户。在用户已经取消了订阅后，他们将保留对您应用程序内容的访问权限，直到订阅期限到期。在这期间，他们可以轻松地在 [Google Play 订阅中心](https://play.google.com/store/account/subscriptions) 中恢复订阅。
 
-After receiving an RTDN notifying you that a user has cancelled a subscription, you may wish to show a polite reminder about the upcoming expiration date in your app and provide a [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) to the subscriptions center to allow them to easily restore their subscription.
+当您收到的 RTDN ，它提醒您用户取消了订阅。您可能希望在您的应用程序中礼貌地提醒用户关于即将到来的截止日期，并提供 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到 [订阅中心](https://play.google.com/store/account/subscriptions) ，以便他们轻松恢复订阅。
 
-## Defer Billing
+## 推迟结算
 
-[Deferring a billing date](https://developer.android.com/google/play/billing/billing_subscriptions#Defer) is an easy way to provide temporary access without charge to subscribers as a promotion or if they experienced a service outage. Using the [Google Play Developer API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/defer), you can advance a subscribed user’s billing date to offer them free access to your services for a specified period of time. The subscription renewal date will be adjusted to reflect the new billing date passed to the API.
+[推迟结算日期](https://developer.android.com/google/play/billing/billing_subscriptions#Defer) 是一个简单的方法，它可以免费向用户提供临时访问权限，作为促销或者如果他们遇到了服务中断。您可以使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/defer) 用来提前用户的计费日期，以便让他们在一个指定的时间段内免费访问您的服务。然后订阅续订的日期会被调整，用来反映的新的计费日期（这个日期用于传递给API）。
 
-## Ready? Go!
+## 准备好了吗？Go！
 
-I hope these videos help you understand how to implement subscriptions in your app! Ready? Go!
+我希望这些视频会帮助您明白如何在您的应用程序里面使用订阅！准备好了吗？Go！
 
-## Resources
+## 资源
 
-* [Subscriptions 101 YouTube playlist](https://www.youtube.com/playlist?list=PLWz5rJ2EKKc9J8ylTbNo1mnwciEyMbxZG)
-* [Google Play Billing Library](https://developer.android.com/google/play/billing/billing_library_overview)
-* [Subscriptions.purchase resource](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource) from the Google Play Developer API
-* Implementing [linkedPurchaseToken](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da)
-* [Classy Taxi](https://github.com/googlesamples/android-play-billing/tree/master/ClassyTaxi), an end-to-end subscriptions sample app
+* [订阅 101 YouTube 播放列表](https://www.youtube.com/playlist?list=PLWz5rJ2EKKc9J8ylTbNo1mnwciEyMbxZG)
+* [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview)
+* [订阅，购买资源](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource) 来自 Google Play 开发者 API
+* 使用 [连接购买令牌](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da)
+* [Classy Taxi](https://github.com/googlesamples/android-play-billing/tree/master/ClassyTaxi)，一个端对端订阅的Demo应用程序
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
