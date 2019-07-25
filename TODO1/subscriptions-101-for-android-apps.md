@@ -7,7 +7,7 @@
 
 # Android应用程序的订阅 101 视频系列
 
-[订阅 Google Play 账单](https://developer.android.com/google/play/billing/billing_subscriptions) 会成为一个最好的方式去拓展您的业务。然而，您的 Android 应用程序与后端服务器之间的协调可能会很艰巨。
+[订阅 Google Play 账单](https://developer.android.com/google/play/billing/billing_subscriptions) 会成为一个极好的方式去拓展您的业务。然而，您的 Android 应用程序与后端服务器之间的协调可能会很艰巨。
 
 ![](https://cdn-images-1.medium.com/max/7448/1*UvuzX1CDUzXPCOc60H9AVA.png)
 
