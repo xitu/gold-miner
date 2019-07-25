@@ -40,7 +40,7 @@
 
 ![在 Elements 面板使用 CSS 选择器寻找元素的截图](https://www.heartinternet.uk/blog/wp-content/uploads/search-for-a-css-element.png)
 
-正如我在截图中指出的那样，你可以通过字符串，选择器以及 XPath 寻找元素。之前我一直都在使用字符串，直到最近我才意识到我可以使用选择器。
+正如我在截图中指出的那样，你可以通过字符串、选择器以及 XPath 寻找元素。之前我一直都在使用字符串，直到最近我才意识到我可以使用选择器。
 
 你不一定要使用你 CSS 中用过的选择器，它可以是任意合法的 CSS 选择器。查找功能将告诉你选择器是否与任何元素匹配。这对查找元素很有用，还有助于测试选择器是否有效。
 
@@ -91,7 +91,7 @@
 
 ![演示如何通过按住 CRTL 键进行多项选择的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/multiple-selections-with-ctrl-key.gif)
 
-在上面的 DEMO 中，我在 Sources 面板中选择了 main.css 文件的三个任意部分，然后将它们粘贴回文档中。此外，你还可以通过多个光标在多个地方进行同时输入，使用 CTRL 键单击多个位置即可。
+在上面的 demo 中，我在 Sources 面板中选择了 main.css 文件的三个任意部分，然后将它们粘贴回文档中。此外，你还可以通过多个光标在多个地方进行同时输入，使用 CTRL 键单击多个位置即可。
 
 ### 使用 ALT 键选择列
 
@@ -117,7 +117,7 @@
 
 如你所见，设备工具栏有多个选项可根据设备大小和设备类型更改视图，你甚至可以通过手动调整宽度和高度数值或拖动视口区域中的手柄来手动进行更改。
 
-Firefox 副加的 “@media rules” 面板具有类似的功能，它允许你从站点的样式表中单击断点。你可以在下面的 DEMO 中看到我在我的一个网站上使用它。
+Firefox 附加的 “@media rules” 面板具有类似的功能，它允许你从站点的样式表中单击断点。你可以在下面的 demo 中看到我在我的一个网站上使用它。
 
 ![演示如何在 Firefox 测试响应式网站的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/firefox-responsive-design-test.gif)
 
@@ -127,7 +127,7 @@ Firefox 副加的 “@media rules” 面板具有类似的功能，它允许你�
 
 ### 对比度
 
-首先，开发者工具有查看可访问性功能，当你在 Styles 面板看到 Color 属性值时，你可以点击颜色值旁边的方块打开颜色采集器。在颜色采集器里面，你将看到对比度选项指示你所选择的文本颜色依据背景是否有可访问的对比度。
+首先，开发者工具有查看可访问性功能，当你在 Styles 面板看到 Color 属性值时，你可以点击颜色值旁边的方块打开颜色采集器。在颜色采集器里面，你将看到对比度选项指示你所选择的文本颜色搭配背景是否有可访问的对比度。
 
 ![演示特定颜色的可访问对比度的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/css-contrast-ratio.gif)
 
@@ -141,7 +141,7 @@ Firefox 副加的 “@media rules” 面板具有类似的功能，它允许你�
 
 ### 切换颜色值语法
 
-最后，在开发者工具中一个鲜为人知小知识是在查看颜色值时你可以切换颜色值的语法。默认情况下，Styles 面板会显示 CSS 里写的颜色的语法。但是开发者工具允许你按住 shift，点击颜色值左边的小方块，在hex、RGBA 以及 HSLA 之间切换颜色值的语法：
+最后，在开发者工具中一个鲜为人知的小知识是在查看颜色值时你可以切换颜色值的语法。默认情况下，Styles 面板会显示 CSS 里写的颜色的语法。但是开发者工具允许你按住 shift，点击颜色值左边的小方块，在 hex、RGBA 以及 HSLA 之间切换颜色值的语法：
 
 ![演示如何切换颜色值语法的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/toggling-colour-value-syntax.gif)
 
@@ -157,7 +157,7 @@ text-shadow 和 box-shadow 的 CSS 手写起来很乏味，语法很容易忘记
 
 ## Firefox 的 Grid 布局检查器
 
-现在大多数使用中的浏览器都支持 Grid 布局，越来越多的开发者将它们用作默认的布局方法。Firefox 的开发者工具的 Layout 选项卡现在有 Grid 选项。
+现在大多数常用的浏览器都支持 Grid 布局，越来越多的开发者将它们用作默认的布局方法。Firefox 的开发者工具如今把 Grid 选项作为特色功能放到了 Layout 选项卡中。
 
 ![演示在 Firefox 中如何使用 Grid 布局检查器的 GIF 动图](https://www.heartinternet.uk/blog/wp-content/uploads/grid-layout-inspector-in-firefox.gif)
 
