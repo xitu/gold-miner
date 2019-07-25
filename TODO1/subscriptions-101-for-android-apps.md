@@ -5,31 +5,31 @@
 > * 译者：Fxymine4ever
 > * 校对者：
 
-# Android应用程序的订阅 101 视频系列
+# Android应用程序的订阅 101 系列视频
 
-[订阅 Google Play 账单](https://developer.android.com/google/play/billing/billing_subscriptions) 会成为一个极好的方式去拓展您的业务。然而，您的 Android 应用程序与后端服务器之间的协调可能会很艰巨。
+[订阅 Google Play 结算](https://developer.android.com/google/play/billing/billing_subscriptions) 是拓展您业务极好的方法。然而，您的 Android 应用程序与后端服务器之间的协调问题可能会很棘手。
 
 ![](https://cdn-images-1.medium.com/max/7448/1*UvuzX1CDUzXPCOc60H9AVA.png)
 
-[订阅 101 视频系列](https://www.youtube.com/playlist?list=PLWz5rJ2EKKc9J8ylTbNo1mnwciEyMbxZG) 会帮助您明白如何将订阅里的所有部分组合在一起的，包括了搭建基础的服务器、 [实时开发人员通知 ](https://developer.android.com/google/play/billing/realtime_developer_notifications)、[升级和降级](https://developer.android.com/google/play/billing/billing_subscriptions#Allow-upgrade) 、[连接购买令牌](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da) 、[宽限期](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold) 以及其他更多的东西。
+[订阅 101 系列视频](https://www.youtube.com/playlist?list=PLWz5rJ2EKKc9J8ylTbNo1mnwciEyMbxZG) 会帮助您明白如何将订阅里的所有部分组合在一起的，其包括搭建基础的服务器、 [实时开发人员通知 ](https://developer.android.com/google/play/billing/realtime_developer_notifications)、[升级和降级](https://developer.android.com/google/play/billing/billing_subscriptions#Allow-upgrade) 、[连接购买令牌](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da) 、[宽限期](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold) 以及其它东西。
 
 ## 了解订阅
 
-第一个视频概述了将在整个视频系列中需要使用到的术语以及您需要使用到的组件，它们包括：您的Android应用程序、您的后台服务器、 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 、[Google Play 开发者 API](https://developers.google.com/android-publisher/) 和 [Google Cloud Pub/Sub](https://developer.android.com/google/play/billing/realtime_developer_notifications) 。
+第一个视频概述了整个系列视频中使用到的术语以及您需要使用到的组件，它们包括：您的Android应用程序、您的后台服务器、 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 、[Google Play 开发者 API](https://developers.google.com/android-publisher/) 和 [Google Cloud Pub/Sub](https://developer.android.com/google/play/billing/realtime_developer_notifications) 。
 
-## 订阅购买流程
+## 订阅计费流程
 
-这个视频描述了订阅的购买流程。 您可以使用 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 去 [检查现存的订阅](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)) 以及 [启动注册的购买流程](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#launchBillingFlow(android.app.Activity,%20com.android.billingclient.api.BillingFlowParams)) 。在成功购买后，您会得到一个 [购买令牌](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids) 以及 [订单ID](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids) ，两者分别代表着用户的权利和与 Google 的交易。您可以在您的后台服务器上跟踪这个信息，以便对您的产品或服务进行正确地授权。
+这个视频讲述了订阅的计费流程。 您可以使用 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 去 [检查现有的订阅](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)) 以及 [启动注册的计费流程](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#launchBillingFlow(android.app.Activity,%20com.android.billingclient.api.BillingFlowParams)) 。在成功购买后，您会得到 [购买令牌](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids) 以及 [订单ID](https://developer.android.com/google/play/billing/billing_overview#purchase-tokens-and-order-ids) ，其分别代表着用户的权利和与 Google 的交易。您可以在后台服务器上跟踪该信息，以便正确授权您的产品或服务。
 
 ## 实时开发者通知
 
 [实时开发者通知 (Real-time Developer notification, RTDN) ](https://developer.android.com/google/play/billing/realtime_developer_notifications)允许您通过 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/) 向服务器发送通知，了解到最新的订阅状态。
 
-当您接收到了一个实时开发者通知后，请验证通知里面的购买令牌以及使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来检索该订阅的 [详细信息](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions) 。
+当您接收到了实时开发者通知后，请验证通知内的购买令牌以及使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来检索该订阅的 [详细信息](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions) 。
 
 ## 升级与降级
 
-您可以让用户在您的应用程序内使用 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 去升级或降级一个订阅。首先，调用 [queryPurchases()](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)) 方法验证您的用户是否拥有当前订阅。然后，使用 SKU 调用 [setOldSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) 方法来获取即将被替换的订阅。最后，使用新的订阅的 SKU 来调用 [setSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) 方法。这将会返回一个代表着升级或降级的新的购买令牌。请确保正确地 [处理 linkedPurchaseToken](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da) 。
+您可以让用户在您的应用程序内使用 [Google 应用内购买结算依赖库](https://developer.android.com/google/play/billing/billing_library_overview) 去升级或降级订阅。首先，调用 [queryPurchases()](https://developer.android.com/reference/com/android/billingclient/api/BillingClient#queryPurchases(java.lang.String)) 方法验证您的用户是否拥有当前订阅。然后，使用 SKU 调用 [setOldSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) 方法来获取即将被替换的订阅。最后，使用新的订阅的 SKU 来调用 [setSku()](https://developer.android.com/reference/com/android/billingclient/api/BillingFlowParams.Builder.html#setOldSku(java.lang.String)) 方法。这将会返回代表着升级或降级的新的购买令牌。请确保正确地 [处理 linkedPurchaseToken](https://medium.com/androiddevelopers/implementing-linkedpurchasetoken-correctly-to-prevent-duplicate-subscriptions-82dfbf7167da) 。
 
 ## 宽限期
 
