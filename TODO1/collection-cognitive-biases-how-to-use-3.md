@@ -84,11 +84,11 @@ I mean, of course we are! But if you want your product to succeed, show how Geor
 
 ![UI 错误消息中的知识诅咒](https://alexdenk.eu/blogtouch?id=1pPvzI7yorcHkNBm_jP7x6-lT8kLyR48K "UI 错误消息中的知识诅咒")
 
-### 54. Projection Bias (Empathy Gap)
+### 54. 投射偏误（移情隔阂）
 
-We assume that our current tastes and preferences to things will remain the same over time.
+我们认为，随着时间的推移，我们当前对事物的品味和偏好a会保持不变。
 
-We are not able to place ourselves in the emotional state of our future selves, and thus make future commitments that suit our current state.
+我们无法将自己置于未来的情感状态中，从而做出符合当前状态的未来承诺。
 
 ### 55. The Forer (or Barnum) Effect
 
