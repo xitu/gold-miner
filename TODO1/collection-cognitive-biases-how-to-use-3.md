@@ -2,87 +2,87 @@
 > * 原文作者：[@gilbouhnick](https://twitter.com/GilBouhnick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
-> * 译者：
+> * 译者：[江五渣](http://jalan.space)
 > * 校对者：
 
-# 84 cognitive biases you should exploit to design better products - Part 3
+# 利用 84 种认知偏见设计更好的产品 —— 第三部分
 
 ![](https://2.bp.blogspot.com/-JvOvFjdlVfE/XMhvVVa0R4I/AAAAAAAAPrM/KaVBcSKDdPgb1PLug4TlVOx07uY6YHShQCLcBGAs/s640/Cognitive%2Bbiases.png)
 
 ---
 
-> * [84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * [84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
-> * **[84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
+> * **[利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)**
 
 ---
 
-## Not as smart either…
+## 也没有那么聪明……
 
 I mean, of course we are! But if you want your product to succeed, show how George Clooney uses it and make it sound like rhyme…
+我的意思是，我们当然是聪明的！但是如果你想要让你的产品获得成功，请展示乔治·克鲁尼是如何使用它的并让它听起来十分押韵。
 
-### 46. Halo Effect
+### 46. 晕轮效应
 
-The "halo effect" is when one quality of a person (or thing) is used to make an overall judgment of that person or thing. In other words, our initial impression of a person, product, company or brand affects our interpretation of its character in its entirety. For example, a tall or good-looking person will be perceived as being intelligent and trustworthy, and so on…
+“晕轮效应”是指用一个人（或物）的某种品质对这个人（或物）做出整体的判断。换句话说，我们对一个人、一个产品、一家公司或一个品牌的最初印象会影响我们对其整体特征的解读。举个例子，一个高大或英俊的人会被认为是聪明或值得信赖的，等等……
 
-**How to use**: take advantage of this heuristic by using authoritative photos and visuals that build trust.
+**如何使用**：通过使用权威照片和可建立信任关系的视觉效果来充分利用这种具有启发式的方法。
 
-### 47. Decoy Effect
+### 47. 诱饵效应
 
-Consumers will tend to have a specific change in preference between two options when a third, asymmetrically dominating option is added.
+当添加第三个非主导选项时，消费者在其他两个选项之间的偏好往往会发生变化。
 
-**How to use**: define your alternatives wisely, and regardless of the number of options you plan to have - make sure they end up being 3.
+**如何使用**：明智地定义你的备用选项，无论你计划拥有多少个选项 —— 请确保选项的最终数量为 3。
 
 ![](https://alexdenk.eu/blogtouch?id=1BHhkMPSCtigBtF-xy5eOiZg15llyrFl7)
 
 ### 48. The Humor Effect
 
-We remember information better when that information is perceived as funny or humorous.
+我们能容易记住有趣或幽默地信息。
 
-This can help in conversion rates of products and in business in general.
-How NOT to use it: don’t use humor in situations where the user might be frustrated.
+这有助于产品和商业转化率。在何种情况避免使用：不要在用户可能感到沮丧地情况下使用幽默。
 
-For instance, if your app is not compatible with an old device - don’t say it in a funny way because the user is probably too frustrated at that point to laugh.
+例如，当你的应用程序与一个旧设备不兼容时，不要用幽默地口吻描述它，因为用户可能会因为过于沮丧而笑不出来。
 
-### 49. Rhyme-as-Reason Effect
+### 49. 押韵效应
 
-If you thought the halo effect is lame - wait till you read this one:
+如果你认为晕轮效应没有说服力 —— 等到你读到这篇文章时：
 
-Rhyming statements are perceived as more truthful.
+押韵的陈述被认为更加真实。
 
-Or as they say: “What sobriety conceals, alcohol reveals”.
+或如他们所言：“酒精揭示了清醒所隐瞒的一切（What sobriety conceals, alcohol reveals）。”
 
-**How to use**: don’t.
+**如何使用**：别使用它。
 
-### 50. Illusory Truth Effect
+### 50. 虚幻真实效应
 
-The more something is repeated, the more we believe it.
+事情重复越多，我们就会越相信它。
 
-**How to use**: Repeat your message (key benefit, main differentiator) again and again: in your ads, website, App Store page, during onboarding, newsletters, etc.
+**如何使用**：在你的广告、网站、应用程序商店页、引导流程、新闻稿等地方反复重复你的信息（产品的主要优点、与其他产品的区别）。
 
-### 51. The Availability Cascade
+### 51. 虚幻真相效应
 
-Repeat something long enough and it’ll become true.
+当一件事重复足够长的时间，它就会变成现实。
 
-**How to use**: create a catchy slogan and make sure to repeat it enough to make it stick.
+**如何使用**：创造一个吸引人的口号，并坚持重复使用它。
 
-Oh, and if by any chance this slogan ends with a rhyme - it might work even better.
+哦，如果这个口号以押韵结尾的话 —— 它的效果可能会更好。
 
-## Intelligent people are easily tricked as well
+## 聪明的人也容易被欺骗
 
-### 52. The False Consensus Bias
+### 52. 错误共识效应
 
-We tend to overestimate how much other people are like us and share our opinions, beliefs, preferences, values, and habits, and as a result - think the same way as we do.
+我们总是高估他人与我们的相似度，认为其他人具有和我们一样的观点、信仰、偏好、价值观和习惯，并因此 —— 以与我们相同的方式思考。
 
-**Question**: Without getting into politics (or specific countries), were you recently surprised by your country’s election results?
+**问**：在没有涉足政坛（或特定国家）的情况下，你最近对你国家的选举结果是否感到惊讶？
 
-### 53. Curse of Knowledge
+### 53. 知识的诅咒
 
-When we are experts in a certain field, we often fail to realize the people we talk to don’t have the background we assume they have in this field.
+当我们是某个领域的专家时，我们常常不会意识到和我们交谈的人没有这一领域的背景。
 
-**UI/UX tip**: Think about the majority of your users: they are probably less technical than you think and less familiar with the things you are well familiar with.
+**UI/UX 技巧**：想想你的大多数用户：他们可能没有你想的那么专业，也不太熟悉你所熟悉的东西。
 
-![Curse of knowledge in UI error messages](https://alexdenk.eu/blogtouch?id=1pPvzI7yorcHkNBm_jP7x6-lT8kLyR48K "Curse of knowledge in UI error messages")
+![UI 错误消息中的知识诅咒](https://alexdenk.eu/blogtouch?id=1pPvzI7yorcHkNBm_jP7x6-lT8kLyR48K "UI 错误消息中的知识诅咒")
 
 ### 54. Projection Bias (Empathy Gap)
 
@@ -361,7 +361,7 @@ Wait… if that’s true… then… who guarantees it didn’t happen in all the
 
 😱
 
-Follow me on twitter [@gilbouhnick](https://twitter.com/GilBouhnick), or [subscribe to my newsletter](https://mailchi.mp/b9c664dfafa3/mobilespoon) to get some occasional posts directly to your inbox.
+在 Twitter 上关注我 [@gilbouhnick](https://twitter.com/GilBouhnick)，或 [订阅我的简报](https://mailchi.mp/b9c664dfafa3/mobilespoon)，可以将帖子直接发送到你的收件箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
