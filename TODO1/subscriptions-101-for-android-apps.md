@@ -41,7 +41,7 @@
 
 这个视频介绍了 [账户保留](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold) ，这对于其付款方式有问题的用户而言是一种方法。用户可以无需重新订阅，即可恢复他们对应用内容的访问权限。这可以提高用户保留率。
 
-在 Google Play 控制台 - 应用内产品部分 - 订阅选项卡中，展开里面的订阅设置菜单，在所有应用的订阅里启动账户保留。在您的后端服务器中，当您收到 RTDN ，它提醒您用户正处于账户保留状态时，请使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来验证订阅状态。然后，您应该阻止用户对订阅的访问，并让用户知道他们的付款方法有问题，然后提供一个 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到 [订阅中心](https://play.google.com/store/account/subscriptions) ，以便他们可以很轻松地修复其支付设置。
+在 Google Play 控制台 - 应用内产品部分 - 订阅选项卡中，展开里面的订阅设置菜单，在所有应用的订阅里启动账户保留。在您的后端服务器中，当您收到 RTDN ，它提醒您用户正处于账户保留状态时，请使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来验证订阅状态。然后，您应该阻止用户对订阅的访问，并让用户知道他们的付款方法有问题，然后提供一个 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到 [订阅中心](https://play.google.com/store/account/subscriptions) ，以便他们可以很轻松地修复其支付设置。
 
 ## 取消与恢复
 
