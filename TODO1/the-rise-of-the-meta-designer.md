@@ -2,55 +2,55 @@
 > * 原文作者：[Uday Gajendar](http://ghostinthepixel.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-rise-of-the-meta-designer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-rise-of-the-meta-designer.md)
-> * 译者：
+> * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# Rise of the meta-designer
+# 元设计师的崛起
 
-It’s often said that one should not “go meta” because things simply get too abstract and unwieldy in the mind, trying to make sense of it all at varying levels or dimensions. But perhaps it’s exactly the right time for designers to go meta, at least as a useful respite from the daily grind of that which is becoming automated and instrumented **ad nauseam**—and maybe more dramatically, for our professional survival, with a reframing of authentic, substantive design value.
+常言道，人不可“思想其思想”，因为当尝试从不同级别或维度去理解自己的思维时，脑海中的概念就会变得抽象而难以理解。但是也许现在正是设计师思其本元的最佳时机，至少可以作为一种有效的缓解，通过重建真实的、实质性的设计价值，让他们从日复一日的单调乏味的工作 —— 自动化、工具化到了令人厌烦的地步的工作 —— 中解脱出来，或许更夸张地说，为了我们这个职业生存下来。
 
-Algorithms, automation, instrumentation: Designing is becoming increasingly routine, predictable, and systematic for the sake of efficiency and reliability, to safely ensure high-velocity outputs. The poetics of human-computer interaction have evolved into prescriptions for scaled, scheduled delivery. From distributed symbol libraries to computerized usability tests, what then becomes of the designer? What is now the reason for being? But perhaps the true realm for a designer’s value is starting to reveal itself. Against this backdrop, I wonder if there will be the rise of what I call **meta-designers**, whose fundamental aspects are strategic, humanistic, and—dare I say—philosophic.
+算法、自动化、仪表化：为了提高效率和可靠性，为了确保高速输出，设计行业正在逐步趋于常规化、可预见和系统化。人机交互的吟诗作对已经进化为可以定时定量交付的见方抓药。从分布式符号库到计算机化的可用性测试，接下来设计师会将何去何从？这个角色又因何而存在？但也许一名设计师的真正价值始于展现自我。在这样的背景下，我想知道是否会出现我所谓的**元设计师**，其根本层面是策略性的，是人文主义的，而且我敢说是哲学高度的。
 
-We see this starting to happen somewhat with the emergence of design thinking in corporate boardrooms, with newly appointed customer experience chiefs charged with defining a holistic model that ties disparate business elements together for delivering customer-based market value. In effect, such trends signal the daunting challenge of, well, **designing design** itself—the meta-design that makes such customer-centric capabilities and sensibilities possible within organizations. The design thinking movement scratches the surface of this notion of meta-design, with the initial breaking of conventional business management chains to free up attitudes in support of problem reframing and “fast fail” iteration, backed by empathy-friendly mindsets. Meanwhile, customer experience provides a business-friendly governance framework to spin up an “outside-in” value-making machine (i.e., making money!) that focuses on the customer. It involves highly complex coordinations among the marketing, sales, customer support, and product management teams with an integrated sense of how to ensure cohesive messaging, workflows, and branding, where the customer is ostensibly at the center of decision making, or at least of ROI analysis. Finally, there’s user experience, which, as a product development concept, is basically a remnant of the dotcom boom of the late 1990s (“the UX of websites”). It has now popularly come to refer to the delivery or use of any and all digital products or services reflecting best practices drawn from HCI, cognitive psychology, interaction design, and other related fields molded into a compelling interactive encounter (for a website, application, smart device, etc.).
+随着设计思维在企业高层中的形成，随着新一批客户体验主管们（他们负责融合不同商业元素，从而定义一个整体模型，来传递以客户为本的市场价值观）的走马上任，我们看到这种本元思潮逐渐开始萌芽。实际上，这些趋势标志着**将设计本身进行设计** —— 也就是元设计 —— 的巨大挑战，元设计使组织内以客户为中心的能力和识别力成为可能。这种设计思维运动以宽容友善的心态为基调，触碰到了这种元设计概念的表面，率先打破了传统的商业管理链，引发了支持问题重构和“快速失败”迭代的观念。与此同时，客户体验提供了一个对商业友好的管理框架，来构建一个“由外向内”的以客户为中心的价值创造机器（即赚钱！）。它涉及到营销、销售、客户支持和产品管理团队之间高度复杂的协调，产品管理团队要有确保具有凝聚力的消息传递、工作流和品牌建设的综合意识，此意识应外在地以客户 —— 至少以 ROI 分析 —— 为决策核心。最后，还有用户体验，作为一种产品开发概念，它基本上是上世纪90年代末互联网热潮（“网站的用户体验”）的余温。现在，它广泛地用来指任何和所有数字产品或服务的交付或使用，这些产品或服务反映了 HCI、认知心理学、交互设计和其他相关领域的最佳实践，这些实践形成了能够吸引眼球的交互体验（用于网站、应用程序、智能设备等）。
 
-Tying together all these levels of design into an organizational apparatus that lives, breathes, evolves, and amplifies itself into a force-multiplier of sorts—this is the profound challenge of meta-design: actually designing the conditions for good design to emerge and thrive, for the long term, with a sustained sense of continuity and value, not some random spark of luck or defined by a single strong personality. There’s a sense of legacy here—something that endures beyond any specific group of people themselves.
-
----
-
-> **This is the profound challenge of meta-design: actually designing the conditions for good design to emerge and thrive.**
+把所有这些层次的设计融合成一个能够生长、呼吸、进化并把自己扩张为某种助力工具的有机体 —— 这就是元设计的巨大挑战：避免依赖侥幸迸发或者某个强大的个体人格摩擦出的灵感火花，用持续的连贯性和价值观，切实为优秀设计的诞生和发展创造条件。此中有一种传承感 —— 超越任何特定群体本身的感觉。
 
 ---
 
-How does someone (or a globally distributed multidisciplinary team) **design** the essential services, systems, structures, cultural vibe, and process models that both **operationalize** design into something tactical and shippable and also **spiritualize** design into something meaningful and critical, pursuing deep questions about the organization’s value and purpose and adding to a sorely lacking humanist dimension? Hmm, that’s quite daunting. And, let’s admit, these are not necessarily the typical wonderings of a modern design leader. But such thinking will be necessary to ensure the long-term vitality and value of teams beyond daily routines. Otherwise you will be constantly on defense, reacting to shifting circumstances, per the whims of others (i.e., business and tech executives) or aspects outside the field of view—the blindspots of daily delivery-focused myopia—rather than being proactive. We expect our products and apps to be anticipatory in providing a great experience for their users, so why not expect that of our design organizational ethos? How can we get to that place where we’re anticipating what’s next as a culture and spirit? Where we’re iteratively and critically designing designing?
+> **这是元设计的一个巨大挑战：切实为优秀设计的诞生和发展创造条件。**
+
+---
+
+一个人（或一支成员分布全球的多学科团队）如何能够把战略性和可交付性赋予设计，也使其具有深远意义和关键性，深刻剖析组织的价值和目的并添加到极度缺乏人文主义的维度中，从而**设计**出基本的服务、系统、结构、文化氛围和过程模型？嗯，这相当令人生畏。而且，我们得承认，这些是现代设计领导者的典型困惑，虽无需，却存在。但是这样的思考对于团队在日常事务之外保持长期活力和价值是必要的。否则，你就会一直处于防御状态，要时刻要求自己对变化的环境做出反应，承受别人（例如商务或技术高层）的心血来潮或者是预料之外 —— 只专注于日常交付的短视状态 —— 的鞭笞，而不是积极主动。我们希望我们的产品和应用能为用户提供良好的体验，所以为什么不对我们的设计组织精神报以希冀呢？我们如何才能实现那个我们期待着的下一代文化和精神呢？我们在哪里迭代和批判性地设计其设计本身？
 
 [![ins01.gif](https://deliveryimages.acm.org/10.1145/3340000/3338285/ins01.gif)](http://deliveryimages.acm.org/10.1145/3340000/3338285/ins01.gif)
 
-Part of that involves knowing what it takes to be a meta-designer. Sure, much of this could sound like just being an astute, proactive, resourceful design leader—and to some degree, yes, that’s certainly important! But it’s always reframing your perspectives and actions in a designerly way that fertilizes the ground for both peers and challengers (from other departments or teams). In this respect, the core principles that guide such a meta-designer may be the following:
+其中一部分涉及到要对成为元设计师的条件了然于胸。当然，这听起来很像是要让你做一个精明、主动、左右逢源的设计领导者 —— 在某种程度上，没错，这确实很重要！但它总是以一种精心设计的方式重新构建你的观点和行动，为同事和挑战者（来自其他部门或团队）打下基础。从这方面来说，指导元设计师的核心原则可能是：
 
-* **Reflection in action: Consideration of inferred relationships and potential consequences in the midst of designing.** This is impacted by today’s high-velocity needs to execute outputs with little time allocated for such reflection, a “ship it now” mentality of moving fast and breaking things for the sake of vanity metrics and investor dollars. Yet such reflection would yield benefits for the individuals (their career growth), the team (habits of excellence), and the product too (are we building the right thing for the right people for the right reasons?).
-* **Strategic forethought: Looking ahead to connections among an organization’s disparate functions, decisions, attitudes, and outcomes.** This is made difficult by deeply siloed and globally distributed teams or the lack of true partnership and collaborative contexts with honest questioning of dependencies, which could lead to a disastrous convergence, or even dire misalignment. Nobody wants a rude surprise at the end of a laborious journey; seeing connections (or the lack of them) can help prevent that surprise, preparing teams to get proper processes and maybe hold useful “intervention” moments before things get crazy.
-* **Intellectual humanism: Lending a nuanced vocabulary informed by critical lenses and depth of analysis around problems.** This is heavily challenged by the rapid-fire cadence of thoughtless tech talk optimized for efficient communications (thanks, high-velocity delivery deadlines!) filled with internal jargon, acronyms, and clinical or even stereotyped descriptions of customers—often with little patience for questioning their motivations. Yet enrichening daily discourse with language that speaks to a desire to go deep into unraveling the layers of complexity, shaped by genuine human curiosity—that might make eyes widen with realization, and sharpen our mindsets a bit.
-* **Creative provocation: Suggesting that which is radical and speculative to spark risky dialogues and enable fresh perspectives.** This absolutely runs counter to attempts to ensure the safe, reliable, predictable efficiency of output generation—but is essential to the lifeblood of any organization that values human-centered innovation! To provoke is to challenge the current/mainstay and inspire alternative ideas that push the boundaries of tolerable risk. But that’s often the point of why we keep demanding that we “change existing situations into preferred ones,” as Herb Simon said of design’s core characteristic.
+* **在行动中反思：在设计过程中考虑可能的关系和潜在的后果**。这受到当今高速需求的影响，需要在没太多时间反思的情况下产生输出，这是一种力求实现“立等可取”的意识，即为了虚荣心指标和投资者的资金而快速推进、打破桎梏。然而，这样的反思（我们是否在以正确的理由为正确的人构建正确的东西？）将为个人（其职业发展）、团队（其优良习惯）以及产品带来好处。
+* **战略上的先见之明：要预见到组织中不同职能、决策、态度和结果之间的联系**。由于孤岛般的全球分布式团队，或缺乏真正的伙伴关系和坦诚信任的协作氛围，实现这一点变得很困难，这可能导致灾难性的收敛，甚至严重的失调。没有人想在辛苦的旅程结束时得到一个粗鲁的惊喜；知悉团队联系紧密（或联系松散）可以帮助避免这种意外，让团队逐渐形成恰当的联系，并在事情变得疯狂之前把握住有效“干预”的时间点。
+* **理智的人道主义：通过批判性的视角和对问题的深入分析，以微妙的措辞传达信息**。为了提升交流效率（都怪截止日期越来越近了！），技术沟通往往未经深思熟虑，充满了专业术语、缩略词以及对客户的程式化甚至老套的描述 —— 往往没有耐心探究客户的动机，这种快节奏交流是对理智措辞的巨大挑战。然而，用语言丰富日常对话，表达出一种渴望，即深入探索由人类真正的好奇心所塑造的复杂层次 —— 这可能会使我们随着认识的加深而拓宽视野，并使我们的思维变得敏锐。
+* **创造性的激发：抛出激进而机巧的建议，以激发大胆的探讨，产生崭新的观点。**这绝出于确保安全、可靠、可预测的产出效率而做出的努力 —— 但对于任何重视以人为本的创新的组织来说，这都是至关重要的！激发就是挑战当下、挑战主流，启发多方向的灵感，挑战可承受风险的极限。但这往往是为什么我们不断要求推进现状的关键所在，正如 Herb Simon 在谈到设计的核心特征时所说的那样，“把现况变得更好”。
 
-Following these principles are actions that typify a meta-designer’s practical work:
+以下这些原则是元设计师实际工作的典型行为：
 
-* Foster critical thinking, questioning, and argumentation around design process, system, culture, and values as interrelated and dynamically impacting elements.
-* Create, interpret, and apply frameworks or models of thought toward such aforementioned issues. This will necessarily require quite a bit of mapping/diagramming/storytelling, as it’s abstract and needs to somehow become more concrete to engage with non-design peers, help them be active in the meta-designing—and hopefully see the utility of the outcomes.
-* Define integrative design systems that are both material and cultural: The origin, creation, application, and adaptation of them are what matter. This will require designing for multiple teams (again, often buried within silos) and having that cross-functional overlap vibe, with full transparency across teams. This will foster a sense of trust and team unity.
-* Have a strong aptitude for lifecycles, ecosystems, platforms, and journeys, with an unapologetically humanist outlook, asking: How are human values championed and supported end to end, across the horizons and paths? This is crucial as we blaze forward into an algorithmically driven future of optimizing efficiencies for a system. Humans are messy and values are fuzzy—it’s like cutting cubes from clouds! Negotiating such inherent humanistic fuzziness while upholding basic human values and needs is vital and must not be compromised while system and business architectures are being developed.
-* Critically and robustly tackle the political/social/ethical aspects of business and technology; it’s a key aspect of advocating humanist values in thought and practice. It’s not enough to just deliver something meaningful; that something (and the culture and process enabling its existence) must be respectful and supportive of people, without causing harm—or creating the opportunity for damage and abuse. For instance, someone on Twitter had suggested teams should write a **Black Mirror** episode for their product—tell the tale of the worst possible abuse and then work backward to prevent it from happening. Constantly raising those questions, shaking that red flag in the face of… well, it’s not really opposition, per se, but the runaway train of high-velocity delivery for the sake of metrics.
-
----
-
-> **It’s not enough to just deliver something meaningful; that something must be respectful and supportive of people.**
+* 围绕设计过程、系统、文化和价值，培养批判性思维、质疑和论证能力，作为相互关联和动态影响的元素。
+* 为上述问题创建、解释和应用思想框架或模型。这必然需要相当多的映射、图表、讲故事作为辅助，因为它是抽象的，需要以某种方式变得更加具体，以便与非设计同事进行交流，帮助他们积极参与元设计 —— 并希望看到结果的效用。
+* 定义物质和文化的综合设计系统：它们的起源、创造、应用和适应才是重要的。这将需要为多个团队（同样，团队间往往没有联系）进行设计，并具有跨功能的重叠氛围，并在团队之间保持完全透明。这将培养一种信任感和团队团结感。
+* 对生命周期、生态系统、平台和历程有很强的天赋，并以无可置辩的人文主义观点，提出这样一个问题：在起点和过程中，人类的价值观是如何从头到尾得到拥护和支持的？这是至关重要的，因为我们正跃进一个算法驱动的未来，这是一个优化系统效率的未来。人类是混乱的，价值观是模糊的 —— 就像从云中切割立方体！维护基本的人类价值和需求的同时，克服这种固有的人文模糊性是至关重要的，在开发系统和业务架构时，决不能妥协。
+* 以批判和坚决的态度处理商业和科技领域中的政治、社会、道德方面的问题；这是在思想和实践上倡导人文主义价值观的一个重要方面。仅仅传递有意义的东西是不够的；这种要传递的东西（以及使其存在的文化和过程）必须尊重和支持大众，而不造成伤害，或创造损害和滥用的机会。例如，有人在推特上建议团队为他们的产品写一段《黑镜》剧集 —— 讲述可能发生的最糟糕的滥用事件，然后努力阻止它发生。不断地提出这些问题，在反对派（好吧，也不是反对派，更像是一列为了完成指标而高速交工的失控列车）面前摇旗呐喊。
 
 ---
 
-Of course, some of this sounds like organizational behavior and psychology or simply being a corporate therapist of sorts. There’s no doubt about that! Yet the notion of meta-**design** is key here, because of the **confluence of both intention and significance with practical consequence**—which happens in **action**, not mere rhapsodizing on a whiteboard with multicolored stickies and voting dots. There is a deliberate shaping of forces and frameworks to empower and enable pivotal outcomes, which is not a one-size-fits-all approach. Every organization, from startups to multinationals, must be regarded differently, on its own terms, requiring variations of process and culture to support customer-driven goals. This means a deep questioning of the context and purpose, and of viable outcomes.
+> **仅仅传达有意义的东西是不够的；一定要尊重和支持大众。**
+
+---
+
+当然，其中一些听起来像是组织行为和心理学，或者仅仅是作为一名企业中的治疗师应该做的事。这是毫无疑问的！然而，元的概念 —— 因为意图和意义与实际结果的融合决定了**设计**在此处是关键 —— 是产生于行动中的，不仅仅是用五彩贴纸和投票点在白板上激昂慷慨地纸上谈兵。我们有意塑造各种力量和框架，以增强和实现关键成果，这不是一种放之四海而皆准的方法。每个组织，从初创公司到跨国企业，都必须按照自身情况区别对待，需要不同的流程和文化来支持客户驱动的目标。这意味着对背景和目的以及可行的结果进行深入的质询。
 
 [![ins02.gif](https://deliveryimages.acm.org/10.1145/3340000/3338285/ins02.gif)](http://deliveryimages.acm.org/10.1145/3340000/3338285/ins02.gif)
 
-Meta-designing in this sense could be the next grand frontier of design practice, imbued with a strategic sense for humanism and intellectualism, which are necessary elements if we are to make design thinking + customer experience + user experience into more than a checklist of ingredients for a “successful business.” What will you do to advance this approach? It’s admittedly aspirational and fuzzy to tackle, but that doesn’t mean it’s not feasible or valuable.
+元设计在这个意义上可能成为下一个设计实践的伟大前沿，充满了关于人文主义和理智主义的战略意义，如果我们要糅合设计思维 + 客户体验 + 用户体验，而不只是想列一个促成一笔“成功的生意”的要素清单，那么这些都是必要的元素。你将如何推进这种方法？无可否认，这是一种过于理想化、模糊化的解决方法，但这并不意味着它不可行或没有价值。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
