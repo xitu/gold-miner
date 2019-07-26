@@ -51,7 +51,7 @@
 
 ## 推迟结算
 
-[推迟结算日期](https://developer.android.com/google/play/billing/billing_subscriptions#Defer)是一个简单的方法，它可以免费向用户提供临时访问权限，作为促销或者如果他们遇到了服务中断。你可以使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/defer) 用来提前用户的计费日期，以便让他们在一个指定的时间段内免费访问你的服务。然后订阅续订的日期会被调整，用来反映的新的计费日期（这个日期用于传递给 API ）。
+[推迟结算日期](https://developer.android.com/google/play/billing/billing_subscriptions#Defer)是一个简单的方法，它可以免费向用户提供临时访问权限，作为促销或者如果他们遇到了服务中断。你可以使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/defer) 用来提前用户的计费日期，以便让他们在一个指定的时间段内免费访问你的服务。然后订阅续订的日期会被调整，用来反映的新的计费日期（这个日期用于传递给 API）。
 
 ## 准备好了吗？Go!
 
