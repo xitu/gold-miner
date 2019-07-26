@@ -25,7 +25,7 @@
 
 [实时开发者通知(Real-time Developer notification,RTDN)](https://developer.android.com/google/play/billing/realtime_developer_notifications) 允许你通过 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/) 向服务器发送通知，了解到最新的订阅状态。
 
-当你接收到了实时开发者通知后，请验证通知内的购买令牌以及使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来检索该订阅的[详细信息](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions) 。
+当你接收到了实时开发者通知后，请验证通知内的购买令牌以及使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来检索该订阅的[详细信息](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions)。
 
 ## 升级与降级
 
