@@ -11,9 +11,9 @@
 
 你还记得你第一次深入研究你常用的库或框架的源码时的情景吗？对我来说，这一刻发生在三年前我作为前端开发者的第一份工作中。
 
-当时我们刚刚完成了用于创建网络学习课程的内部遗留框架的重构。在重构开始时，我们花时间研究了许多不同的解决方案，包括 Mithril、Inferno、Angular、React、Aurelia、Vue 和 Polymer。由于我是一个小萌新（我刚从新闻工作转向 web 开发），我记得我对每个框架的复杂性感到恐惧，不理解它们是如何工作的。
+当时我们刚刚完成了用于创建网络学习课程的内部遗留框架的重构。在重构开始时，我们花时间研究了许多不同的解决方案，包括 Mithril、Inferno、Angular、React、Aurelia、Vue 和 Polymer。那时我仅仅只是个小萌新（我刚从新闻工作转向 web 开发），我记得我对每个框架的复杂性感到恐惧，不理解它们是如何工作的。
 
-当我开始更深入地研究我们所选择的框架 Mithril 时，我的理解加深了。从那以后，我花了很多时间深入钻研那些在工作或个人项目中日常使用的库的内部结构，这显著地提升了我对 JavaScript —— 以及通用编程思想 —— 的了解。在这篇文章中，我将分享一些方法给你，你可以使用自己喜欢的库或框架，并将其作为学习工具。
+随着对我们所选择的 Mithril 框架研究的深入，我对它的理解也逐渐加深了。从那以后，我花了很多时间深入钻研那些在工作或个人项目中日常使用的库的内部结构，这显著地提升了我对 JavaScript —— 以及通用编程思想 —— 的了解。在这篇文章中，我将分享一些方法给你，你可以使用自己喜欢的库或框架，并将其作为学习工具。
 
 [![Mithril 中 hyperscript 函数的源码](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a94d53ac-c580-4a50-846d-74d997c484d9/2-improve-your-javascript-knowledge-by-reading-source-code.png)
 
@@ -21,7 +21,7 @@
 
 ### 阅读源码的好处
 
-阅读源代码的一个主要好处是可以学到很多东西。当我第一次看到 Mithril 的代码库时，我对虚拟 DOM 的含义有了一个模糊的概念。当我完成后，我了解到虚拟 DOM 是一种技术，它创建一个对象树，用于描述用户界面的外观。然后使用 DOM APIs（如 `document.createElement`）将对象树转换为 DOM 元素。通过创建描述用户界面的更新状态的新对象树，然后将其与旧对象树进行比较来执行更新。
+阅读源代码的一个主要好处是可以学到很多东西。在我第一次读 Mithril 代码库时，我对虚拟 DOM 的概念还很模糊。当我读完后，我了解到虚拟 DOM 是一种技术，它创建一个对象树，用于描述用户界面的外观。然后使用 DOM APIs（如 `document.createElement`）将对象树转换为 DOM 元素。通过创建描述用户界面的更新状态的新对象树，然后将其与旧对象树进行比较来执行更新。
 
 我在各种文章和教程中已经阅读了所有这些内容，虽然这很有帮助，但对我来说，能够在我们提供的应用程序的环境中观察到它工作是非常有启发性的。它还教会我在比较不同框架时应该考虑哪些因素。例如，我现在知道要考虑这样的问题，“每个框架执行更新的方式如何影响性能和用户体验？”，而不是只看框架在 GitHub 上 star 的数量。
 
