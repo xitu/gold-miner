@@ -49,7 +49,7 @@
 
 * Express 依赖于两个模块，两个模块都合并对象，但以非常不同的方式进行合并。`merge-descriptors` 只添加直接在源对象上直接找到的属性，它还合并了不可枚举的属性，而 `utils-merge` 只迭代对象的可枚举属性以及在其原型链中找到的属性。`merge-descriptors` 使用 `Object.getOwnPropertyNames()` 和 `Object.getOwnPropertyDescriptor()` 而 `utils-merge` 使用 `for..in`；
 * `setprototypeof` 模块提供了一种设置实例化对象原型的跨平台方式；
-* `escape html` 是一个有 78 行代码的模块，用于转义一系列内容，可以在 HTML 内容中进行插值。
+* `escape-html` 是一个有 78 行代码的模块，用于转义一系列内容，可以在 HTML 内容中进行插值。
 
 虽然这些发现不可能立即有用，但是对库或框架所使用的依赖关系有一个大致的了解是有用的。
 
