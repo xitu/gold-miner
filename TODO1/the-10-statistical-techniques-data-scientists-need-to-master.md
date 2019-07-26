@@ -24,6 +24,7 @@
 * 在人口调查数据中建立薪水和人口统计变量之间的关系。
 
 在大学的最后一个学期，我自学了数据挖掘。这门课的材料来自这三本书： [Intro to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) (Hastie, Tibshirani, Witten, James)，[Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/) (Kruschke)和[Time Series Analysis and Applications](http://www.stat.pitt.edu/stoffer/tsa4/) (Shumway, Stoffer)。我做了大量和贝叶斯分析，马尔可夫链，分层建模，监督和无监督学习相关的练习。这个经历加深了我对数据挖掘学术领域的兴趣，以及说服我向更深处探索。最近，我在 Stanford Lagunita 完成了[Statistical Learning online course](https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about)，它涵盖了[**Intro to Statistical Learning book**](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370)的全部材料。我自学了它。两次接触这些内容，我想分享这本书中的10种统计技术，我相信任何数据科学家都应该学会更有效地处理大数据集。
+
 在带来这十种技术之前，我想先区分一下统计学习和机器学习，之前我写了[one of the most popular Medium posts on machine learning](https://gab41.lab41.org/the-10-algorithms-machine-learning-engineers-need-to-know-f4bb63f5b2fa) 因此我非常自信我有能力去判断它们的差异：
 
 * 机器学习是人工智能的一个分支。
