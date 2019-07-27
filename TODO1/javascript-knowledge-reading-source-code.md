@@ -25,7 +25,7 @@
 
 我在各种文章和教程中已经阅读了所有这些内容，虽然这很有帮助，但对我来说，能够在我们提供的应用程序的环境中观察到它工作是非常有启发性的。它还教会我在比较不同框架时应该考虑哪些因素。例如，我现在知道要考虑这样的问题，“每个框架执行更新的方式如何影响性能和用户体验？”，而不是只看框架在 GitHub 上 star 的数量。
 
-另一个好处是你对优秀的程序架构的理解和鉴赏能力提升了。虽然大多数开源项目的存储库通常遵循相同的结构，但每个项目都包含差异。Mithril 的结构非常简单，如果你熟悉它的 API，你可以根据文件夹名称推测出其中的代码的功能，如 `render`、`router` 和 `request`。另一方面，React 的结构反映了它的新架构。维护人员将负责 UI 更新的模块 (`react concerner`) 与负责呈现 DOM 元素的模块 (`react dom`) 分开。
+另一个好处是你对优秀的程序架构的理解和鉴赏能力提升了。虽然大多数开源项目的存储库通常遵循相同的结构，但每个项目都包含差异。Mithril 的结构非常简单，如果你熟悉它的 API，你可以根据文件夹名称推测出其中的代码的功能，如 `render`、`router` 和 `request`。另一方面，React 的结构反映了它的新架构。维护人员将负责 UI 更新的模块（`react concerner`）与负责呈现 DOM 元素的模块（`react dom`）分开。
 
 这样做的好处之一是，开发人员现在更容易通过挂进 `react-reconciler` 包来编写自己的[自定义渲染器](https://github.com/chentsulin/awesome-react-renderer)。我最近研究过的模块打包工具 Parcel 也有像 React 这样的 `packages` 文件夹。主模块名为 `parcel-bundler`，它包含负责创建包、启动热模块服务器和命令行工具的代码。
 
@@ -78,7 +78,7 @@ React-Redux 是一个用于管理 React 应用程序状态的库。在处理这�
 
 ```
 class MarketContainer extends Component {
- // code omitted for brevity
+ // 简洁起见，省略代码（code omitted for brevity）
 }
 
 const mapDispatchToProps = dispatch => {
@@ -116,7 +116,7 @@ export function createConnect({
 
 它会导致这个错误 `Uncaught TypeError: Cannot destructure property 'connectHOC' of 'undefined' or 'null'.`。这是因为函数没有可供回调的默认参数。
 
-**注意**：**有关这方面的更多信息，您可以阅读 David Walsh 的[文章](https://davidwalsh.name/destructuring-function-arguments)。根据你对语言的了解，一些学习时刻可能看起来微不足道，因此最好将注意力放在您以前从未见过的事情上，或需要了解更多信息的事情上。**
+**注意：有关这方面的更多信息，您可以阅读 David Walsh 的[文章](https://davidwalsh.name/destructuring-function-arguments)。根据你对语言的了解，一些学习时刻可能看起来微不足道，因此最好将注意力放在您以前从未见过的事情上，或需要了解更多信息的事情上。**
 
 `createConnect` 在其函数内部并不执行任何操作。它只是返回一个名为 connect 的函数，也就是我在这里用到的：
 
