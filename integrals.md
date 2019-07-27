@@ -6856,10 +6856,12 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：83 当前积分：28 二零一九：18
+## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：85.5 当前积分：30.5 二零一九：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://juejin.im/post/5d37e1816fb9a07ee1696a4e)|校对|1.5|
+|[响应式设计的基本原则](https://juejin.im/post/5d2ed18af265da1ba56b5374)|校对|1|
 |[Git：透过命令学概念 —— 第二部分](https://juejin.im/post/5d2da05ae51d45106b15ffca)|校对|2|
 |[使用 SVG 和 Vue.Js 构建动态树图](https://juejin.im/post/5d2806fb518825121c0058d8)|校对|4|
 |[从原型图到成品：步步深入 CSS 布局](https://juejin.im/post/5cebb52651882530be7b16a4)|校对|2|
@@ -8718,10 +8720,11 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：15 当前积分：5 二零一九：15
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：16 当前积分：6 二零一九：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[响应式设计的基本原则](https://juejin.im/post/5d2ed18af265da1ba56b5374)|校对|1|
 |[前端 vs 后端：哪一个适合你？](https://juejin.im/post/5d36b5e3f265da1bd3059a21)|校对|1|
 |2019 年 7 月兑掘金 T 恤黑色 1 个|减去积分|10|
 |[贫困线下的软件 — 开源项目的可持续发展问题探讨](https://juejin.im/post/5d215da2e51d4556be5b3acb)|校对|3.5|
@@ -8938,10 +8941,11 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：43.5 当前积分：43.5 二零一九：43.5
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：50.5 当前积分：50.5 二零一九：50.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://juejin.im/post/5d37e1816fb9a07ee1696a4e)|翻译|7|
 |[Go 语言概览](https://juejin.im/post/5d386166e51d454fd8057c6a)|校对|1.5|
 |[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://juejin.im/post/5d2acf995188254c1915bd12)|翻译|6|
 |[在 Python 中过度使用列表解析器和生成表达式](https://juejin.im/post/5d281b0ff265da1b8b2b8ae0)|校对|4|
@@ -9069,10 +9073,11 @@
 |[Kotlin Clean 架构](https://juejin.im/post/5d33e13be51d4555fd20a41b)|翻译|3|
 |[Xcode 和 LLDB 高级调试教程：第 2 部分](https://juejin.im/post/5d2321eee51d454f71439d64)|校对|1.5|
 
-## 译者：[shinichi4849](https://github.com/shinichi4849) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
+## 译者：[shinichi4849](https://github.com/shinichi4849) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://juejin.im/post/5d37e1816fb9a07ee1696a4e)|校对|2|
 |[设计任何图表的六项原则](https://juejin.im/post/5d27fca7f265da1b5e731f92)|校对|1|
 |[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://juejin.im/post/5d2acf995188254c1915bd12)|校对|2.5|
 
@@ -9102,10 +9107,11 @@
 |------|-------|-------|
 |[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 
-## 译者：[Pingren](https://github.com/Pingren) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
+## 译者：[Pingren](https://github.com/Pingren) 历史贡献积分：10.5 当前积分：10.5 二零一九：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[响应式设计的基本原则](https://juejin.im/post/5d2ed18af265da1ba56b5374)|翻译|4|
 |[Web 端的 SwiftUI：SwiftWebUI](https://juejin.im/post/5d35e0ac5188257dc103e364)|校对|2.5|
 |[仅使用 HTML 和 CSS 创建多级嵌套弹出式导航菜单](https://juejin.im/post/5d3c2852f265da1bac405fae)|校对|4|
 
