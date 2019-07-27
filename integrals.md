@@ -8699,7 +8699,7 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[](https://github.com/Chorer) 历史贡献积分：15 当前积分：5 二零一九：15
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：15 当前积分：5 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
