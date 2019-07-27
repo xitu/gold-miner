@@ -7063,10 +7063,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：59.5 当前积分：24.5 二零一九：30.5
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：63 当前积分：28 二零一九：34
 
 |文章|类型|积分|
 |------|-------|-------|
+|[前端 vs 后端：哪一个适合你？](https://juejin.im/post/5d36b5e3f265da1bd3059a21)|翻译|3.5|
 |[使用 SVG 和 Vue.Js 构建动态树图](https://juejin.im/post/5d2806fb518825121c0058d8)|翻译|6|
 |[在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c)|翻译|3|
 |2019 年 3 月兑米家 LED 智能台灯 1 个|减去积分|35|
@@ -7345,10 +7346,11 @@
 |------|-------|-------|
 |[为 APP 设计通知提醒](https://juejin.im/post/5ba31ee3e51d450e4115500b)|校对|1.5|
 
-## 译者：[zx-Zhu](https://github.com/zx-Zhu) 历史贡献积分：25.5 当前积分：25.5
+## 译者：[zx-Zhu](https://github.com/zx-Zhu) 历史贡献积分：25.5 当前积分：10.5 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 X 月兑 Google 月饼安卓手办 1 个|减去积分|15|
 |[Kotlin 协程高级使用技巧](https://juejin.im/post/5c0f11986fb9a049be5d53eb)|校对|0.5|
 |[同时使用多个相机流](https://juejin.im/post/5c1071ece51d4570b57af8c8)|翻译|4.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1|
@@ -8697,10 +8699,12 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：14 当前积分：14 二零一九：14
+## 译者：[](https://github.com/Chorer) 历史贡献积分：15 当前积分：5 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[前端 vs 后端：哪一个适合你？](https://juejin.im/post/5d36b5e3f265da1bd3059a21)|校对|1|
+|2019 年 7 月兑掘金 T 恤黑色 1 个|减去积分|10|
 |[贫困线下的软件 — 开源项目的可持续发展问题探讨](https://juejin.im/post/5d215da2e51d4556be5b3acb)|校对|3.5|
 |[CSS 思维模式](https://juejin.im/post/5d295380f265da1bab29dc13)|校对|1.5|
 |推荐英文文章一篇|奖励|1|
@@ -8818,10 +8822,11 @@
 |[Android中的简易协程：viewModelScope](https://juejin.im/post/5cf35ec76fb9a07ed657bbcd)|翻译|3|
 |[C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63)|翻译|2|
 
-## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：17 当前积分：17 二零一九：17
+## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：18 当前积分：18 二零一九：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[前端 vs 后端：哪一个适合你？](https://juejin.im/post/5d36b5e3f265da1bd3059a21)|校对|1|
 |[Git：透过命令学概念 —— 第一部分](https://juejin.im/post/5d0b3c7ce51d4577531381e3)|校对|2.5|
 |[理解 React 中的高阶组件](https://juejin.im/post/5d1037966fb9a07ee4636de3)|翻译|3|
 |[13 种用于 DOM 操作的 JavaScript 方法](https://juejin.im/post/5cf65369f265da1bc94edad8)|校对|2|
