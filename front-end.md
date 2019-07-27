@@ -1,3 +1,7 @@
+* [仅使用 HTML 和 CSS 创建多级嵌套弹出式导航菜单](https://juejin.im/post/5d3c2852f265da1bac405fae) ([yzw7489757](https://github.com/yzw7489757) 翻译)
+* [CSS 开发必知必会的 16 个调试工具技巧](https://juejin.im/post/5d39d27cf265da1bc14b6f47) ([Usey95](https://github.com/Usey95) 翻译)
+* [多网站项目的 CSS 架构](https://juejin.im/post/5d3a58df5188251ce02ff228) ([Baddyo](https://github.com/Baddyo) 翻译)
+* [使用 Cypress 进行 React 应用的端到端测试](https://juejin.im/post/5d3702dcf265da1b961345d1) ([Stevens1995](https://github.com/Stevens1995) 翻译)
 * [CSS 思维模式](https://juejin.im/post/5d295380f265da1bab29dc13) ([MarchYuanx](https://github.com/MarchYuanx) 翻译)
 * [使用 SVG 和 Vue.Js 构建动态树图](https://juejin.im/post/5d2806fb518825121c0058d8) ([YueYongDev](https://github.com/YueYongDev) 翻译)
 * [推广 PWA 安装的模式（移动端）](https://juejin.im/post/5d2746f1f265da1b7638cd1f) ([xutaogit](https://github.com/xutaogit) 翻译)
