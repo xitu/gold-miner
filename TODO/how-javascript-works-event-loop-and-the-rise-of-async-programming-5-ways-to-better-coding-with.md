@@ -649,6 +649,21 @@ var response = await rp(‘https://api.example.com/endpoint1');
 
 2. **错误处理:** Async/await 使得我们可以使用相同的代码结构处理同步或者异步的错误 —— 著名的 try/catch 语句。让我们看看用 Promises 是怎么实现的：
 
+```js
+function loadData() {
+    try { // Catches synchronous errors.
+        getJSON().then(function(response) {
+            var parsed = JSON.parse(response);
+            console.log(parsed);
+        }).catch(function(e) { // Catches asynchronous errors
+            console.log(e); 
+        });
+    } catch(e) {
+        console.log(e);
+    }
+}
+```
+
 对比：
 
 ```js
