@@ -1,3 +1,5 @@
+* [Web 端的 SwiftUI：SwiftWebUI](https://juejin.im/post/5d35e0ac5188257dc103e364) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
+* [Xcode 和 LLDB 高级调试教程：第 3 部分](https://juejin.im/post/5d383c7d5188257dab043145) ([kirinzer](https://github.com/kirinzer) 翻译)
 * [贫困线下的软件 — 开源项目的可持续发展问题探讨](https://juejin.im/post/5d215da2e51d4556be5b3acb) ([Charlo-O](https://github.com/Charlo-O) 翻译)
 * [Git：透过命令学概念 —— 第二部分](https://juejin.im/post/5d2da05ae51d45106b15ffca) ([Mirosalva](https://github.com/Mirosalva) 翻译)
 * [使用 Swift 5 构建一个 iOS 移动端群聊应用程序](https://juejin.im/post/5d2c6e846fb9a07ebb0564ae) ([LucaslEliane](https://github.com/LucaslEliane) 翻译)
