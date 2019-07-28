@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/absolute-truths-unlearned-as-junior-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/absolute-truths-unlearned-as-junior-developer.md)
 > * 译者：[cyz980908](https://github.com/cyz980908)
-> * 校对者：[Ultrasteve](https://github.com/Ultrasteve),[portandbridge](https://github.com/portandbridge)
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve), [portandbridge](https://github.com/portandbridge)
 
 # 作为初级开发人员，我学会放下的 7 项真理
 
