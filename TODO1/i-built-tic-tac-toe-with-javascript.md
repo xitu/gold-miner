@@ -1,11 +1,9 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[I Built Tic Tac Toe With JavaScript](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/)
+> * 原文作者：[MITCHUM](https://mitchum.blog/author/mitchm/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-tic-tac-toe-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-tic-tac-toe-with-javascript.md)
 > * 译者：
 > * 校对者：
-
-Posted on [June 22, 2019July 25, 2019](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/) by [Mitchum](https://mitchum.blog/author/mitchm/)
 
 # I Built Tic Tac Toe With JavaScript
 
@@ -14,8 +12,6 @@ In my last post I showed you guys a [matching game](https://www.mitchum.blog/i-b
 [Click here](https://www.mitchum.blog/games/tic-tac-toe/tic-tac-toe.html) to play tic-tac-toe!
 
 There are two difficulty levels: moron and genius. Once you’ve bested the moron, see if you can defeat the tic-tac-toe genius. The genius is more formidable than the moron, but he is a little arrogant and isn’t actually all that bright. As a reader of my blog, I bet you are smart enough to exploit the flaws in his thinking.
-
-(adsbygoogle = window.adsbygoogle || \[\]).push({});
 
 ## How It’s Made
 
@@ -59,41 +55,41 @@ Next we have the main body of our HTML document. We are going to break it up int
 We are using a table tag for representing our tic-tac-toe game board. The code is shown below:
 
 ```
-      <table class="board">
-        <tr>
-          <td>
-              <div id="0" class="square left top"></div>
-          </td>
-          <td>
-              <div id="1" class="square top v-middle"></div>
-          </td>
-          <td>
-              <div id="2" class="square right top"></div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-              <div id="3" class="square left h-middle"></div>
-          </td>
-          <td>
-              <div id="4" class="square v-middle h-middle"></div>
-          </td>
-          <td>
-              <div id="5" class="square right h-middle"></div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-              <div id="6" class="square left bottom"></div>
-          </td>
-          <td>
-              <div id="7" class="square bottom v-middle"></div>
-          </td>
-          <td>
-              <div id="8" class="square right bottom"></div>
-          </td>
-        </tr> 
-       </table>
+<table class="board">
+<tr>
+  <td>
+      <div id="0" class="square left top"></div>
+  </td>
+  <td>
+      <div id="1" class="square top v-middle"></div>
+  </td>
+  <td>
+      <div id="2" class="square right top"></div>
+  </td>
+</tr>
+<tr>
+  <td>
+      <div id="3" class="square left h-middle"></div>
+  </td>
+  <td>
+      <div id="4" class="square v-middle h-middle"></div>
+  </td>
+  <td>
+      <div id="5" class="square right h-middle"></div>
+  </td>
+</tr>
+<tr>
+  <td>
+      <div id="6" class="square left bottom"></div>
+  </td>
+  <td>
+      <div id="7" class="square bottom v-middle"></div>
+  </td>
+  <td>
+      <div id="8" class="square right bottom"></div>
+  </td>
+</tr> 
+</table>
 ```
 
 We have added the class, “board” to the table in order to add styling to it. The board has three table row tags each containing three table data tags. This results in a 3×3 game board. We have assigned each square of the game board a numerical id and some classes indicating its positioning.
@@ -103,20 +99,20 @@ We have added the class, “board” to the table in order to add styling to it.
 What I’m calling the controls section consists of a message box, a few buttons, and drop down list. The code looks like this:
 
 ```
-       <br>
-       <div id="messageBox">Pick a square!</div>
-       <br>
-       <div class="controls">
-         <button class="button" onclick="resetGame()">Play Again</button> 
-         <form action="https://mitchum.blog/sneaky-subscribe" 
-               style="display: inline-block;">
-            <button class="button" type="submit">Click Me!</button> 
-         </form>
-         <select id="difficulty">
-           <option value="moron" selected >Moron</option>
-           <option value="genius">Genius</option>
-         </select>
-        </div>
+<br>
+<div id="messageBox">Pick a square!</div>
+<br>
+<div class="controls">
+ <button class="button" onclick="resetGame()">Play Again</button> 
+ <form action="https://mitchum.blog/sneaky-subscribe" 
+       style="display: inline-block;">
+    <button class="button" type="submit">Click Me!</button> 
+ </form>
+ <select id="difficulty">
+   <option value="moron" selected >Moron</option>
+   <option value="genius">Genius</option>
+ </select>
+</div>
 ```
 
 The message box is situated between two line breaks. Following the second line break is a div containing the rest of our controls. The play again button has a click handler that calls a JavaScript function in [tic-tac-toe.js](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.js). The mystery button is wrapped inside of a form tag. Finally, the select tag contains two options: moron and genius. The moron option is selected by default.
@@ -244,76 +240,6 @@ If you want to learn more about how to write good programs in JavaScript, one bo
 If you decide to purchase it, I would be grateful if you decided to go through the link above. I will get a commission through Amazon’s affiliate program, with no additional cost to you. It helps me keep this site up and running.
 
 Thanks for reading, and I’ll see you next time!
-
-As always, if you are enjoying the ideas I’ve presented or you think I’m crazy and want to tell me why I’m wrong, go ahead and [subscribe ](https://mitchum.blog/subscribe/)to stay up to date with all the latest content.
-
-### Share this:
-
-* [Click to share on Twitter (Opens in new window)](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/?share=twitter "Click to share on Twitter")
-* [Click to share on Facebook (Opens in new window)](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/?share=facebook "Click to share on Facebook")
-
-### Like this:
-
-Like Loading...
-
-### **Related**
-
-Categories[Software](https://mitchum.blog/category/software/) Tags[game](https://mitchum.blog/tag/game/), [javascript](https://mitchum.blog/tag/javascript/), [tic tac toe](https://mitchum.blog/tag/tic-tac-toe/)
-
-## 2 Replies to “I Built Tic Tac Toe With JavaScript”
-
-1. ![](https://secure.gravatar.com/avatar/dbdb25daedefac404589aec1529998ff?s=100&d=retro&r=g) **Jordan Simpson** says:
-    
-    [June 24, 2019 at 5:22 pm](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/#comment-6)
-    
-    Nicely done! The AI is actually really good at defense because it always wins when it can first, or prevents me from winning when it can second. Keeping with the AI only looking 1 move ahead, the only improvement to be made is what it should do third.
-    
-    The only way I can beat it right now is by starting with right-middle (AI chooses center), then going bottom middle (AI chooses “next available”, which is top-left), then when I go bottom-right, I’m left with 2 win options. Game over.
-    
-    Simple improvement:  
-    Instead of “go middle or next available”, I would suggest a slightly more intelligent approach, which accounts for more advantageous moves even after the middle is taken. Iterating through the remaining win scenarios (ignoring win scenarios that are already blocked by the user), find which empty tile satisfies the most scenarios and choose it. It is true that the middle is most advantageous because it is included in 4 win scenarios, but corners are included in 3, while sides are only included in 2. Use this approach defensively to prevent the user from getting the good spots since the user always goes first, and then offensively if no defense is required.
-    
-    Advanced improvement:  
-    If you want to really streamline the AI, I would rework your current algorithm (sorry, it’s nice and readable right now) to use the alpha-beta pruning algorithm. This algorithm will scale to any size board and will always choose the best move. It works by exhausting every possible outcome of the game from the current state of the board, “pruning” paths that are deemed useless to continue following. Since tic-tac-toe ends in 3 – 5 moves, this algorithm can easily and quickly calculate the best move to make and will never lose, always guaranteeing at least a tie.
-    
-    [https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning](https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning)
-    
-    [Reply](#comment-6)
-    
-    1. ![](https://secure.gravatar.com/avatar/5c63408d823704fa6c5c9938622ba452?s=100&d=retro&r=g) **Mitchum** says:
-        
-        [June 25, 2019 at 1:42 am](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/#comment-8)
-        
-        Thanks for the feedback, Jordan! And well done on pointing out how the artificial intelligence could be improved.
-        
-        That alpha-beta pruning algorithm looks interesting. I have to admit, AI isn’t my strongest skill. I never got the chance to take a formal class on it back in college. Maybe in a future post I’ll revisit tic tac toe and try to implement this algorithm. Then I could have three difficulty levels: Moron, Genius, and God. Unfortunately, I think the Genius difficulty would be the only one that’s any fun play haha.
-        
-        [Reply](#comment-8)
-        
-
-### Leave a Reply [Cancel reply](/i-built-tic-tac-toe-with-javascript/#respond)
-
-Your email address will not be published. Required fields are marked *
-
-Comment
-
-Name * 
-
-Email * 
-
-Website 
-
- Notify me of follow-up comments by email.
-
-  
-
-jQuery( document ).ready( function( $ ) { $( '.comment-form, #registerform' ).append( '<input type="hidden" name="js-spam-prevention" value="56346105043d6371dffa1060665cd056"/>' ); } );
-
-## Post navigation
-
-[Previous PostPrevious I Built A Simple Matching Game With JavaScript](https://mitchum.blog/i-built-a-simple-matching-game-with-javascript/)
-
-[Next PostNext How To Build Minesweeper With JavaScript](https://mitchum.blog/how-to-build-minesweeper-with-javascript/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
