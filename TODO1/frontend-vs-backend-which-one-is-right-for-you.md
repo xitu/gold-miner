@@ -2,68 +2,68 @@
 > * 原文作者：[Molly Struve](https://dev.to/molly_struve)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md](https://github.com/xitu/gold-miner/blob/master/TODO1/frontend-vs-backend-which-one-is-right-for-you.md)
-> * 译者：
-> * 校对者：
+> * 译者：[YueYong](https://github.com/YueYongDev)
+> * 校对者：[Chorer](https://github.com/Chorer)，[Zavier Tang](https://github.com/ZavierTang)
 
-# Frontend vs Backend: Which One Is Right For You?
+# 前端 vs 后端：哪一个适合你？
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--sQXuMr9C--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://thepracticaldev.s3.amazonaws.com/i/xtuhivk785yvj2pden2g.png)
 
-I have been asked many times by new developers what should I study and focus on when I am learning to code? Asking that question is the equivalent of a med student asking what area they should specialize in. There is simply no one size fits all answer. However, I would like to give some guidance and offer some of my own thoughts on the topic. Hopefully, if you are at the start of your career this post will give you a few things to think about.
+经常会有初学者来问我刚开始学习编程的时候应该学些什么？问这个问题就跟一个医学生询问应该专注研究哪个领域一样。根本没有一个标准答案。但我还是想提供一些指导，并就这个问题提出一些自己的看法。希望这篇文章可以给刚开始职业生涯的你一些值得思考的东西。
 
-## Definitions
+## 定义
 
-The first internal debate that usually arises when starting in software is where should I focus, the frontend or the backend? Before we dive into the characteristics of each specialty lets first define them.
+在刚开始学习软件开发的时候，首先要经历的心理斗争就是我应该把关注点放在哪，前端还是后端？在我们深入了解两个领域的特征之前，我们先来看看它们的定义。
 
-### Frontend
+### 前端
 
-> refers to the presentation layer of a website and how that interacts with the data from the backend. Think HTML, CSS, Javascript, Angular, etc.
+> 指的是网站的表示层以及它与后端数据的交互方式。例如 HTML、CSS、JavaScript 和 Angular 等。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--rYiDNsAL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/e0vm7fc5bzuqxuhmt80f.png)
 
-### Backend
+### 后端
 
-> refers to the data processing layer of an application. This is the layer that talks to the database and determine's what information gets sent to the frontend to be displayed. Think Ruby, Rails, Python, Java, etc.
+> 指的是应用程序的数据处理层。这一层负责与数据库通信，并确定将哪些信息发送到要显示的前端。例如 Ruby、Rails、Python、Java 等。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--K81Tz4o2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/bqj0p9v42macnqlis6ow.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--K81Tz4o2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/bqj0p9v42macnqlis6ow.png)
 
-Ok, now we know what they are, but how do you choose which one you want to work with for your career? Honestly, it comes down to personal preference and why you choose to become a dev in the first place.
+好的，现在我们知道它们是什么了，但是你又该如何选择哪一个作为职业的方向呢？老实说，它取决于你的个人喜好以及你选择成为一个开发者的初衷。
 
-## Job Satisfaction
+## 职业满足感
 
-If you choose to become a dev because you wanted career satisfaction and you wanted to do something you enjoy, then my advice is to do both when you start. Dabble in the frontend and the backend, that way you can get a feel for what you enjoy more. Will it be more work? Definitely, but you will greatly increase your chances of finding a part of the stack you enjoy working with.
+如果你选择成为一名开发人员是因为你想获得职业满足感，并做一些你喜欢的事情，那么我的建议是，当你开始时，前后端都要做。同时涉猎前端和后端，这样你就能感受到你更喜欢的是什么。这么做会很辛苦吗？当然会，但是这也会极大地增加你找到喜欢做的事情的机会。
 
-Within the frontend and backend ecosystems, there are still many specialties you can branch off and do which can be overwhelming. When you are starting, try to get a feel for the basics and don't worry too much about diving all the way in. Test out the water and see if either one really grabs you when you work with it. However, be aware when you are starting out that no matter where you begin it is going to be tough at first. I would say give yourself a year or two of working across the entire stack before you decide where you would like to focus. That will give you enough time to get over the initial "Wow, this sucks because it is hard" hump and into the time when you can really assess if it is a technology you enjoy working with.
+在前端和后端生态系统中，仍然有许多你可以选择并且能做得非常出色的专业。当你开始的时候，试着去了解一些基本的东西，不要太担心会沉迷其中。试一试水，看看当你用它的时候，其中一个方向是否真的能吸引到你。同时，你要意识到，无论你选择哪个，一开始都会很困难。我想说的是，在你决定要把重点放在哪里之前，给自己一年或两年的时间来研究整个流程。这将给你足够的时间来解决最初的“哇，这太糟糕了，因为它很难”的问题，同时还能让你真正评估它是否是你喜欢使用的技术。
 
-While everyone has different tastes, you might find it interesting to see what languages and technologies other devs enjoy working with. The 2019 StackOverflow Survey looked at [what languages were most loved](https://insights.stackoverflow.com/survey/2019#technology-_-most-loved-dreaded-and-wanted-languages).
+虽然每个人都有不同的品味，但是看看其他开发人员喜欢使用哪些语言和技术也是很有趣的。2019 年 StackOverflow 调查了[最受欢迎的语言](https://insights.stackoverflow.com/survey/2019#technology-_-most-loved-dreaded-and-wanted-languages)。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--Jzs_nPT6--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/85q0iiaxn4q1gfx9w2ny.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Jzs_nPT6--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/85q0iiaxn4q1gfx9w2ny.png)
 
-Another advantage to working across the entire stack to start is that you get a feel for how everything works together. This can be immensely useful no matter where you decide to focus on in the future. If you have knowledge about how the other half works that will only allow you to create better code and interfaces within your specialty.
+前后端通吃的另一个好处是，你可以了解它们之间是如何协同工作的。无论你决定在未来关注哪个方面，这都非常有用。如果你了解另一半的工作原理，那么你就可以在项目中创建更好的代码和接口。
 
-Lastly, when working across the entire stack you might decide you don't want to choose! You may want to work across the entire stack and be a fullstack engineer for your career. That is completely valid as well!
+最后，当你在工作时横跨前后端，你可能会决定不进行选择了！你可能希望通吃前后端，并成为一个全栈工程师。这也是完全可以的！
 
-## Salary/Stability
+## 工资/稳定性
 
-If your motivation for moving to a dev career was for the salary and stability it offers, then studying both might be a waste of your time. If you want to get into a career as fast as possible then do some research for the area you want to work in. Find out what the trends are in salary for frontend vs backend. Also, try to find out which type of dev is in the most demand.
+如果你从事开发的职业动机是为了工资和稳定，那么同时学习这两个方向可能是在浪费你的时间。如果你想尽快从事一行职业，那么就对你想从事的领域做一些调查。找出前端和后端的工资趋势。此外，尝试找出市场上最需要哪种类型的开发人员。
 
-I don't claim to know whether the frontend or backend is paid more, but there are some surveys out there that have tried to answer this question. Once again, we can look at the 2019 StackOverflow Survey which broke down [salary of devs by type](https://insights.stackoverflow.com/survey/2019#work-_-salary-by-developer-type).
+我不知道前端和后端哪个工资更高，但有一些调查试图回答这个问题。我们可以看看 2019 年 StackOverflow 的调查，该调查将开发者的[薪资按类型](https://insights.stackoverflow.com/survey/2019#work-_-salary-by-developer-type)进行了细分。
 
-### Global
+### 全球
 
-1. Fullstack $57k  
-2. Backend $56k  
-3. Frontend $52k
+1. 全栈工程师 $57k  
+2. 后端工程师 $56k  
+3. 前端工程师 $52k
 
-### United States
+### 美国
 
-1. Backend $116k  
-2. Fullstack $110k  
-3. Frontend $103k
+1. 后端工程师 $116k  
+2. 全栈工程师 $110k  
+3. 前端工程师 $103k
 
-In addition, it broke down salaries [based on technology](https://insights.stackoverflow.com/survey/2019#top-paying-technologies). Here is a sampling from each of those surveys.
+此外，它还[根据技术](https://insights.stackoverflow.com/survey/2019#top-paying-technologies)细分了薪资。下面是每项调查的样本。
 
-### Global
+### 全球
 
 * Clojure $90k
 * Go $80k
@@ -72,7 +72,7 @@ In addition, it broke down salaries [based on technology](https://insights.stack
 * JavaScript $56k
 * HTML/CSS $55k
 
-### United States
+### 美国
 
 * Scala $143k
 * Clojure $139k
@@ -82,21 +82,21 @@ In addition, it broke down salaries [based on technology](https://insights.stack
 * JavaScript $110k
 * HTML/CSS $105k
 
-It is important to note that these salaries and trends may be different depending on where you work and whether you are looking for a remote job or not. Definitely, do your research. It could be as simple as looking at job boards and running a search for backend and frontend technologies and seeing how many results are returned.
+需要注意的是，这些工资和趋势可能会因你的工作地点和是否在寻找远程工作而有所不同。因此，你需要自己做好调查。这很简单，只需要查看求职公告板并搜索后端和前端技术，看看都有哪些。
 
-## Why I Choose the Backend
+## 我为什么选择后端
 
-I figured I would throw in here why I ended up choosing the backend in hopes that it might inform others when making their decision. I was seeking job satisfaction when I made the career switch to being a dev and decided to start out working across the entire stack. I worked as a full-stack dev for 3 years before I started to really shift towards the backend. What drew me to the backend was the cleanliness of Ruby. Javascript and frontend languages have always felt less organized to me. I also thrive on optimizing code performance. I love trying to find ways to make things run better and faster. The backend seemed to give me more opportunities to do that.
+我想我应该在这里加上一段为什么我最终选择了后端，希望它可以在其他人做决定时帮助他们。当我转行成为一名开发人员时，我寻求工作满足感，并决定开始跨整个工作栈。在真正转向后端之前，我做了 3 年的全栈开发。吸引我来到后台的是 Ruby 的简洁。JavaScript 和前端语言对我来说总是缺乏组织性。我还热衷于优化代码性能。我喜欢想办法让事情运行得更好更快。后端似乎给了我更多的机会。
 
-Finally, I am not a very visual or artistic person. Some people can look at a webpage and figure out how to lay it out and where everything should go. I never was good at that so the backend felt more natural and comfortable for me.
+最后，我不是一个非常注重视觉或艺术的人。有些人可以看看网页，然后想办法把它放在什么地方。我从来都不擅长这个，所以后端让我更自然、更舒服。
 
-If you want more insight into other's opinions, check out this [CodeNewbie Chat](https://wakelet.com/wake/7d71f467-89ba-49cb-a196-4e32657369ac) which discusses Frontend vs Backend web development. You can also check out the dev.to thread I started Tuesday asking people what part of the stack they choose to work in and why.
+如果你想深入了解其他人的观点，请查看这个讨论前端和后端 Web 开发的 [CodeNewbie Chat](https://wakelet.com/wake/7d71f467-89ba-49cb-a196-4e32657369ac)。你还可以查看周二开始的 dev.to thread，我将会询问人们如何选择在前端还是后端工作以及其原因。
 
 [Frontend vs Backend, which do you prefer and why?](https://dev.to/molly_struve/frontend-vs-backend-which-do-you-prefer-and-why-5a9e)
 
-## Nothing Is Forever
+## 没有什么是永恒的
 
-No matter what you decide to focus on, know that nothing is forever. If you go down one path and decide that it was the wrong one, you can always switch. One of the great things about software engineering is that it all fits together. Knowing a lot about one area will only help you learn and be better at another.
+无论你决定专注于什么，要知道没有什么是永恒的。如果你走错了一条路，你总是可以悬崖勒马的。软件工程的一个伟大之处在于，它把所有的东西都整合在一起。了解一个领域只会帮助你的成长并在另一个领域做得更好。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
