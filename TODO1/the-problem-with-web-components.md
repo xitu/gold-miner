@@ -2,72 +2,72 @@
 > * 原文作者：[Adam Silver](https://adamsilver.io/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-problem-with-web-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-problem-with-web-components.md)
-> * 译者：
+> * 译者：[stevens1995](https://github.com/Stevens1995)
 > * 校对者：
 
-# The problem with web components
+# web 组件的问题
 
-[Web components](https://www.webcomponents.org/introduction) are becoming increasingly popular within the web community. They offer a way to standardise and encapsulate JavaScript-enhanced components without a framework.
+[Web 组件](https://www.webcomponents.org/introduction)在 Web 社区中变得越来越受欢迎。他们提供了一种在没有框架的情况下标准化和封装 Javascript 增强组件的方法。
 
-However, web components have a number of drawbacks. For instance, they have a number of technical limitations and are easy to misuse in a way that excludes users.
+然而，web 组件有一些的缺点。例如，他们有一些技术限制，很容易以导致用户流失的方式误用。
 
-It’s possible—and certainly my hope—that web components will improve over time and these issues will be resolved. But for now, I’m holding fire on them.
+有可能—当然也是我的希望-web 组件会随着时间的推移而改进，这些问题将得到解决。但是现在，我还是暂时搁置这些。
 
-In this article I’ll explain why that is, and suggest an alternative way to develop components in the meantime.
+在本文中，我将解释为什么会这样。并建议在此期间开发组件的一种替代方法。
 
-## They are constraining
+## 他们是有限制的
 
-In his [criticism of web components](https://thenewobjective.com/a-criticism-of-web-components/), Michael Haufe explains that:
+Michael Haufe 在他的[对 web 组件的批评](https://thenewobjective.com/a-criticism-of-web-components/)中解释到：
 
-* custom CSS pseudo selectors can’t be used with web components
-* they don’t work seamlessly with native elements and their associated APIs
-* if we wanted to create a custom button, for example, we can’t extend the [HTMLButtonElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement) directly, we have to extend the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+* 自定义的 CSS 伪选择器不能与 web 组件一起使用
+* 他们无法与原生元素及其相关的 API 无缝协作
+* 例如，如果我们想创建一个自定义的按钮，我们不能直接继承 [HTMLButtonElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement)，而不得不继承 [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
 
-Additionally, web components have to be defined with ES2015 classes which means they can't be transpiled to give more people the enhanced experience.
+此外，web 组件必须通过 ES2015 中的类来定义，这意味着他们无法被转换从而为更多人提供更好的体验。
 
-So, straight off the bat, there are a number of technical constraints to work around when it comes to using web components.
+因此，直接使用 web 组件时，有许多技术限制需要解决。
 
-## They are not widely supported
+## 他们没有被广泛地支持
 
-Currently, web components have relatively poor cross-browser support, so the enhanced experienced won’t work for everyone.
+目前，web 组件的跨浏览器支持相对较差。所以增强的用户体验不是对每个人都有效。
 
-![Web component support on caniuse.com](https://adamsilver.io/assets/images/web-component-can-i-use.png)
+![Web 组件在 caniuse.com 上面的支持性](https://adamsilver.io/assets/images/web-component-can-i-use.png)
 
-That doesn’t mean we can’t use them, it just means we’ll need to [provide a baseline experience that works for everyone else](https://adamsilver.io/articles/thinking-differently-about-progressive-enhancement/). That’s progressive enhancement.
+这并不表示我们不可以使用它们，只是意味着我们需要[提供一个对每个人都有效的基本的用户体验](https://adamsilver.io/articles/thinking-differently-about-progressive-enhancement/)。这是一个渐进式的增强。
 
-But we should think seriously about whether the choice to use web components is the most inclusive option. If we don’t use web components, we can provide the same rich experience to a significantly wider group of people. I’ll explain how later.
+但我们应该认真考虑使用 Web 组件是否是最具包容性的选择。如果我们不适用 web 组件，我们可以为更广泛的人群提供相同丰富的体验。我稍后会作解释。
 
-Polyfills offer a way to provide broader support. But they are [slow, unreliable and hard to work](https://adamsilver.io/articles/the-disadvantages-of-javascript-polyfills/) with in general, and have a number of [specific limitations](https://www.webcomponents.org/polyfills#known-limitations) when used to make web components work more broadly.
+Polyfills 提供了一种提供更广泛支持的方法。但当使用它来使 web 组件更广泛地工作时，他们通常[缓慢， 不可靠且难以工作](https://adamsilver.io/articles/the-disadvantages-of-javascript-polyfills/)，并且有一些[特定的限制](https://www.webcomponents.org/polyfills#known-limitations)
 
-So while it may be preferable for us as code authors to use standards-based technologies, it’s not necessarily beneficial to our users—which should always be our first priority.
+所以虽然我们作为编码人员更喜欢使用基于标准的技术，但是这对于用户来说并不一定是有益的—这应该是我们的首要任务。
 
-## They are easily misunderstood and misused
+## 他们很容易被误解和误用
 
-Jeff Atwood said that any application that can be written in JavaScript, will eventually be written in JavaScript.
+Jeff Atwood 说过任何可以使用 JavaScript 编写的应用，最终都会用 Javascript 来编写。
 
-But just because we can use JavaScript to do something, doesn’t mean we should. There’s even a W3 principle that says we should use the [least powerful tool for the job](https://www.w3.org/2001/tag/doc/leastPower.html).
+但是仅仅因为我们能用 JavaScript 来做一些事情，并不意味着我们应该使用它。甚至还有一个 W3 原则说我们应该使用[最不强大的工具](https://www.w3.org/2001/tag/doc/leastPower.html)。
 
-Web components are made up of JavaScript APIs which means we should use them only when we need JavaScript. But as Jeff Atwood predicted, people sometimes use web components when they don’t need to.
+Web 组件由 JavaScript API 组成，这意味着我们只应该在需要 JavaScript 时使用它们。但是像 Jeff Atwood 预测的那样，人们有时会在不需要时用到 Web 组件。
 
-When we make JavaScript a dependency and don’t provide a fallback, users get a broken experience. Even [webcomponents.org](http://webcomponents.org), built using web components, shows a blank web page [when JavaScript isn’t available](https://kryogenix.org/code/browser/everyonehasjs.html).
+当我们使用了 JavaScript 作为依赖但没有提供任何回退方案时，用户会得到很糟糕的体验。[当 JavaScript 不可用时](https://kryogenix.org/code/browser/everyonehasjs.html)，甚至连 [webcomponents.org](http://webcomponents.org)(用 Web 组件构建)都显示了一个空白页。
 
-![Completely broken experience on webcomponents.org when experiencing a JavaScript failure.](https://adamsilver.io/assets/images/web-components-org-no-js.png)
+![当 JavaScript 不可用时，webcomponents.org 上完全破碎的用户体验](https://adamsilver.io/assets/images/web-components-org-no-js.png)
 
-By the same token, it can encourage people to make components that request their data with AJAX and render themselves, like little iframes.
+出于同样的原因，鼓励人们制作使用AJAX请求数据并自我渲染的组件，就像小的 iframes 一样。
 
-This type of approach causes a number of avoidable issues which I’ll explain by way of an example.
+这种方法会造成一些可以避免的问题，我将通过一个例子来解释。
 
-Imagine we want to load a table showing the sales figures for a product our website sells using AJAX like this:
+想象一下我们想要加载一张表格来展示我们网站产品的销售数据，如下所示：
 
 ```html
 <sales-figures></sales-figures>
 ```
 
-Firstly, it’s just a table. There’s no column sorting and therefore no need for JavaScript. Browsers provide the `<table>` element for this exact purpose and it works everywhere.
+首先，这只是一张表。没有列的排序，因此不需要 JavaScript。浏览器为此提供了`<table>`表格，它可以在任何地方使用。
 
-Secondly, as mentioned above, when a browser doesn’t support web components, or JavaScript fails to run, users won’t see anything.
+其次，像上面提到的那样，当浏览器不支持 web 组件，或者 JavaScript 运行失败时，用户将什么都看不到。
 
-To make our table work in these situations, we would need to put a `<table>` inside `<sales-figures>`. This is known as graceful degradation.
+为了让我们的表格在这些情况下工作，我们需要在`<table>`里面放一个`<sales-figures>`。这被称为优雅降级。
 
 ```html
 <sales-figures>
@@ -75,25 +75,25 @@ To make our table work in these situations, we would need to put a `<table>` ins
 </sales-figures>
 ```
 
-If the component already has a populated table on the page when the page loads, wrapping `<sales-figures>` around it gives us and our users nothing.
+如果组件在页面加载时已经有一个填充好的表格，用`<sales-figures>`包裹它会导致我们和用户什么都得不到。
 
-Finally, using AJAX can introduce a number of usability and accessibility issues.
+最后，使用 AJAX 会引入一些可用性和可访问性的问题。
 
-1. [AJAX is often slower than a page refresh](https://jakearchibald.com/2016/fun-hacks-faster-content/), not faster.
-2. We’ll need to create custom loading indicators, which are usually inaccurate and unfamiliar to users, unlike browsers’ loading indicators.
-3. We’ll need to [make AJAX work cross-domain](https://zinoui.com/blog/cross-domain-ajax-request), which isn’t straightforward.
-4. As the components load the page will jump around causing [visual glitches](https://twitter.com/chriscoyier/status/1057303249902952448) and potentially making users click the wrong thing. You may have heard about [skeleton interfaces](https://medium.com/@rohit971/boost-your-ux-with-skeleton-pattern-b8721929239f) as a way to solve this problem. They are placeholders put where the components will end up being shown once loaded. But while they help a bit, they don’t fully solve the problem because they can’t always predict the exact size of the content that will load.
-5. Point 4 affects screen reader users too because they won’t know whether the components have loaded, have failed to load or are in the process of loading. ARIA live regions provide a way to communicate these states to screen readers. But when several components are being loaded, the user will be bombarded with announcements.
+1. [AJAX 通常比页面刷新更慢](https://jakearchibald.com/2016/fun-hacks-faster-content/)，而并非更快。
+2. 我们需要创建自定义的加载指示器，与浏览器的加载指示器不同，这些指示器对用户来说通常是不准确且不熟悉的。
+3. 我们需要[让 AJAX 可跨域工作](https://zinoui.com/blog/cross-domain-ajax-request)，这不是直接了当的。
+4. 当组件加载时页面将会跳转，从而导致[视觉故障](https://twitter.com/chriscoyier/status/1057303249902952448)，并可能让用户点击错误的东西。你可能听到过[skeleton 接口](https://medium.com/@rohit971/boost-your-ux-with-skeleton-pattern-b8721929239f)作为解决这个问题的方法。他们是放置在组件加载后最终显示位置的占位符。但是虽然他们有所帮助，却没有完全解决问题，因为他们无法一直预测将要加载的内容的确切大小。
+5. 第 4 点同样会影响屏幕阅读器的用户，因为他们不知道组件是否已经加载、加载失败或者正在加载的过程当中。ARIA 实时区域提供了一种将这些状态传达给屏幕阅读器的方法。但当多个组件加载时，用户将被通告轰炸。
 
-Scale this up to several web components on a screen and we risk giving users a very unpleasant, exclusive and slow experience to contend with.
+当这些扩展到一个屏幕上的多个Web组件时，我们可能会给用户带来非常不愉快，独特和缓慢的体验。
 
-Components that depend on AJAX requests to the server are no longer framework agnostic and therefore interoperable. This somewhat defeats the object of using web components, given that interoperability and technology agnosticism are 2 of the main benefits they aim to provide.
+依赖于请求服务器的 AJAX 的组件不再是框架感知不到的，因此可以相互操作。由于互相操作性和技术上的不可知性是他们旨在提供的 2 个目标，这在某种程度上击败了使用 web 组件的目标。
 
-Importantly, none of these problems are the fault of web components per se. We could easily develop components to work like this without web components. But, as demonstrated, it’s easy to misinterpret web components and unknowingly use them in a way that hurts both users and code authors.
+重要的是，这些问题都不是 web 组件本身的错误。没有 web 组件的话，我们可以很轻松的开发出这样的组件。但是，正如展示的那样，这很容易误解 web 组件，并且在不知情的情况下以伤害用户和代码作者的方式使用它们。
 
-## They are hard to compose
+## 它们很难组织
 
-Let’s say we have just 2 web components. One for sortable tables and another for expandable rows.
+假设我们有 2 个 web 组件。一个用于可排序表，另一个用于可扩展行。
 
 ```html
 <sortable-table>
@@ -105,7 +105,7 @@ Let’s say we have just 2 web components. One for sortable tables and another f
 </expandable-rows>
 ```
 
-But if we want a sortable table with expandable rows then we need to nest the components like this:
+但是如果我们想要一个有可扩展行的可排序表，我们需要向这样嵌套组件：
 
 ```html
 <expandable-rows>
@@ -115,82 +115,82 @@ But if we want a sortable table with expandable rows then we need to nest the co
 </expandable-rows>
 ```
 
-The relationship between `<expandable-rows>` and `<table>` is unclear. For example, it’s hard to tell whether `<expandable-rows>` is operating on the `<table>` or the `<sortable-table>`.
+`<expandable-rows>` 和 `<table>` 直接的关系是不明确的。比如，很难判断 `<expandable-rows>` 是操作在`<table>`上或者`<sortable-table>`上。
 
-The order matters, too. If each component enhances the table it could create a conflict. Also, it's not clear which component initialises first—the inside one or the outside one.
+顺序也同样重要。如果每个组件都增强了表，则可能会造成冲突。此外，也不清楚是外部还是内部的组件先初始化了表。
 
-**(Note: you may have heard about the `is` attribute as a way around this but Jeremy Keith explains that browsers aren’t going to implement this in [extensible web components](https://medium.com/@adactio/extensible-web-components-e794559b8c2e).)**
+**（注意：你可能听过 `is` 属性作为解决方法，但 Jeremy Keith 解释说浏览器不会在[可扩展的 web 组件]https://medium.com/@adactio/extensible-web-components-e794559b8c2e)实现这一点。）**
 
-## They can’t just be dropped into an application
+## 他们不可以直接在应用中使用
 
-One of the supposed benefits of web components is that we can drop one script per component onto the page and they just work—regardless of the application or tech stack.
+web 组件的一个假定的好处是我们可以将每个组件的一个脚本放在页面上，它们就会工作—不用关心应用的技术栈。
 
-But unlike standard elements, we may need to add additional code to get them to work properly. In some ways this is a bit like adding a framework or library.
+但与标准元素不同，我们可能需要添加额外的代码来时它们正常工作。在某些方面，这有点像添加一个框架或者库。
 
-One example of this is polyfills which I mentioned earlier. If you choose to use a polyfill to provide broader support, then that code needs to be ready and waiting in your web page.
+这方面的一个实例就是我前面提到的 polyfills。如果你选择使用 polyfill 来提供更广泛地支持，那么你需要在网页中准备好相应的代码。
 
-Another example would be when you need to stop JavaScript-enhanced components from making the [page judder while initialising](https://twitter.com/adambsilver/status/1119123828884434945).
+另一个实例是当你需要阻止 JavaScript 增强的组件[在初始化时造成页面抖动](https://twitter.com/adambsilver/status/1119123828884434945)。
 
-This is usually fixed by adding a script in the `<head>` of your document to [provide a hook for CSS](https://css-tricks.com/snippets/javascript/css-for-when-javascript-is-enabled/). This in turn is used to style the component based on JavaScript being available and avoids the page judder.
+这通常通过在文档的`<head>`里面添加一个 script 标签以[提供 CSS 钩子](https://css-tricks.com/snippets/javascript/css-for-when-javascript-is-enabled/)来解决。这反过来可以用来通过可用的 JavaScript 来调整组件的样式，并避免页面抖动。
 
-This is perhaps of little consequence overall, but it does considerably negate one of the supposed benefits of using web components.
+这可能总体上没什么影响，但它确实否定了使用 Web 组件可能带来的好处之一。
 
-## Framework agnostic components without web components
+## 不使用 web components 和框架的组件
 
-You may have heard [web components being sold as an alternative to using frameworks](https://medium.com/@oneeezy/frameworks-vs-web-components-9a7bd89da9d4).
+你可能已经听过[使用web 组件作为框架的替代方案](https://medium.com/@oneeezy/frameworks-vs-web-components-9a7bd89da9d4)。
 
-While I’m in favour of creating interfaces without client-side frameworks, this is misleading for a number of reasons.
+虽然我赞成在没有客户端框架的情况下创建接口，但出于一些原因，这可能会产生误导。
 
-Firstly, client-side frameworks usually provide additional features besides enhancing pieces of the interface.
+首先，除了增强界面部分之外，客户端框架通常会提供额外的的功能。
 
-Secondly, web components can be used in tandem with frameworks.
+其次，web 组件可以和框架一起使用。
 
-Lastly, we’ve been able to create JavaScript-enhanced components without frameworks and web components for a very long time.
+最后，很长一段时间以来，我们已经可以在没有框架和 web 组件的情况下创建 JavaScript 增强的组件。
 
-By creating components like this we can avoid the drawbacks I’ve described in this article.
+通过这种方式来创建组件，我们可以避免我在文章中描述的缺点。
 
-Let’s use the same sortable table and row expander to do this.
+我们使用前面相同的可排序表和行扩展器来做这个。
 
-Firstly, we need to create a JavaScript file for each component—the same as if we were using web components. We can define the `SortableTable` and `RowExpander` classes inside.
+首先，我们需要为每个组件创建一个 JavaScript 文件，就像我们使用 web 组件时一样。我们可以在其中定义 `SortableTable` 和 `RowExpander` 类。
 
 ```js
-SortableTable.js // define SortableTable class and behaviour
-RowExpander.js // define RowExpander class and behaviour
+SortableTable.js // 定义 SortableTable 类及相关行为
+RowExpander.js // 定义 RowExpander 类及相关行为
 ```
 
-Once that’s done, we can initialise the components like this:
+完成后，我们可以像这样初始化组件：
 
 ```js
-// grab table
+// 获取表
 var table = document.querySelector('table');
 
-// initialise sortable table
+// 初始化可排序表
 var sortable = new SortableTable(table);
 
-// initialise row expander
+// 初始化行扩展器
 var expander = new RowExpander(table);
 ```
 
-We can make these components fire events just like web components. Something like this:
+我们可以使这些组件像 web 组件一样触发事件。类似这样：
 
 ```js
 sortable.addEventListener(‘sort’, fn);
 expander.addEventListener(‘expand’, fn);
 ```
 
-By using regular JavaScript in this way, not only can we write clean code, free from technical constraints, but we get to give that code to a significantly wider user base.
+通过这种方式使用常规的 JavaScript，我们不仅可以写出干净的代码，不受技术的限制，更可以让代码作用于更广泛地用户。
 
-## In conclusion
+## 总结
 
-Web components hold a lot of promise because they give code authors a way to create interoperable components based on standards.
+Web 组件具有很多前景，因为它们为代码作者提供了一种基于标准创建可互相操作组件的方法。
 
-As a result, it should be easier to understand other people’s code and create components that can be reused across projects.
+因此，我们能够更容易理解其他人的代码并创建可以跨项目重用的组件。
 
-But even if we choose to provide enhancements exclusively for cutting edge browsers that support them, there’s still several limitations and issues we need to tackle.
+但就算我们专门为支持他们的尖端浏览器做加强，仍然存在一些我们需要解决的限制和问题。
 
-My hope is that web components get better in future. But until then, I’m sticking with regular JavaScript to avoid the current technical limitations and provide the most equitable experience to users.
+我希望 web 组件能够在将来变得更好。但在那之前，我还是坚持使用常规的 JavaScript 来避免当前的技术限制，为用户提供最公平的体验。
 
-**Huge thanks to [Amy Hupe](https://amyhupe.co.uk/) who not only edited this article from top to bottom, but also made it as simple and inclusive as possible. Not an easy feat for an article on web components of all things.** 🙌
+**非常感谢[Amy Hupe](https://amyhupe.co.uk/)，他不仅从头到尾编辑了这版文章，还尽可能使其变得简单和直观。这对于一篇关于讲述了web 组件全部事情的文章来说并不容易** 🙌
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
