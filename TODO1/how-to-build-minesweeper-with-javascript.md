@@ -2,249 +2,249 @@
 > * 原文作者：[Mitchum](https://mitchum.blog/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-minesweeper-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-minesweeper-with-javascript.md)
-> * 译者：
+> * 译者：[ZavierTang](https://github.com/zaviertang)
 > * 校对者：
 
-# How To Build Minesweeper With JavaScript
+# 如何用 JavaScript 编写扫雷游戏
 
 ![](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/featureimage.png?w=600&ssl=1)
 
-In my last post I showed you guys a [tic tac toe](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/) game I built using JavaScript, and before that I built a [matching game](https://mitchum.blog/i-built-a-simple-matching-game-with-javascript/). For this week’s post I decided to ramp up the complexity a bit. You guys are going to learn how to build minesweeper with JavaScript. I also used jQuery, a JavaScript library that is helpful for interacting with html. Whenever you see a function call with a leading dollar sign, that is jQuery at work. If you want to learn more about it, the [documentation](https://api.jquery.com/) for it is very good.
+在我的上一篇文章中，我向大家介绍了一款使用 JavaScript 编写的[三连棋游戏](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/)，之前我也编写了一款[匹配游戏](https://mitchum.blog/i-built-a-simple-matching-game-with-javascript/)。本周，我决定增加一些复杂性。你们将学习如何用 JavaScript 编写扫雷游戏。我使用了 jQuery，这是一个有助于与 HTML 交互的 JavaScript 库。当你看到一个函数的调用带有一个前导的美元（`$`）符号时，这就是 jQuery 的操作。如果你想了解更多关于 jQuery 的内容，阅读[官方文档](https://api.jquery.com/)是最佳的选择。
 
-**[Click here](https://mitchum.blog/games/minesweeper/minesweeper.html)** to play minesweeper! You will want to play it on your desktop computer because of the control scheme.
+[点击](https://mitchum.blog/games/minesweeper/minesweeper.html)试玩扫雷游戏！你将会在你的台式电脑上体验它，因为这样更便于操作。
 
-Here are the three files necessary for creating the game:
+下面是这个游戏必要的三个文件：
 
 * [HTML](http://mitchum.blog/games/minesweeper/minesweeper.html)
 * [CSS](http://mitchum.blog/games/minesweeper/minesweeper.css)
 * [JavaScript](http://mitchum.blog/games/minesweeper/minesweeper.js)
 
-If you want to learn how to build minesweeper with JavaScript, the first step is understanding how the game works. Let’s jump right in and talk about the rules.
+如果你想学习如何使用 JavaScript 编写扫雷游戏，第一步就是去理解游戏的工作原理。让我们直接从游戏规则开始吧。
 
-## Rules of the Game
+## 游戏规则
 
-1. The minesweeper board is a 10 x 10 square. We could make it other sizes, like the classic Windows version, but for demonstration purposes we will stick to the smaller, “beginner” version of the game.
-2. The board has a predetermined number of randomly placed mines. The player cannot see them.
-3. Cells can exist in one of two states: opened or closed. Clicking on a cell opens it. If a mine was lurking there, the game ends in failure. If there is no mine in the cell, but there are mines in one or more of its neighboring cells, then the opened cell shows the neighboring mine count. When none of the cell’s neighbors are mined, each one of those cells is opened automatically.
-4. Right clicking on a cell marks it with a flag. The flag indicates that the player knows there is a mine lurking there.
-5. Holding down the ctrl button while clicking on an opened cell has some slightly complicated rules. If the number of flags surrounding the cell match its neighbor mine count, and each flagged cell actually contains a mine, then all closed, unflagged neighboring cells are opened automatically. However, if even one of these flags was placed on the wrong cell, the game ends in failure.
-6. The player wins the game if he/she opens all cells without mines.
+1. 扫雷的面板是一个 10×10 的正方形。我们可以将它设置成其他大小，比如经典的 Windows 版本，但是为了演示，我们将使用较小的”入门级”版本。
+2. 游戏会任意地把预置数量的地雷放置在单元格中，玩家将看不到它们。
+3. 每个单元格处于两种状态之一：打开或关闭。单击一个单元格将打开它。如果有地雷潜伏在那里，游戏就会以失败告终。如果单元格中没有地雷，但是相邻的一个或多个单元格中有地雷，则打开的单元格显示相邻单元格的地雷数。当相邻的单元格中没有一个是地雷时，这些单元格会自动打开。
+4. 右键单击一个单元格将给它标记一个小旗。小旗表示玩家已经知道在那里潜伏着地雷。
+5. 在单击处于打开状态的单元格时按住 ctrl 键会有一些稍微复杂的规则。如果包围该单元格的标志的数量与其邻的地雷数相匹配，并且每个标记的单元格实际上真的是一个地雷，那么所有处于关闭状态并且未标记的相邻单元格都会自动打开。然而，如果其中的一个标记被放置在错误的单元格上，游戏将以失败告终。
+6. 如果玩家打开了所有没有潜伏地雷的单元格，便将赢得游戏。
 
-## Data Structures
+## 数据结构
 
 ### Cell
 
 ![JavaScript code for a minesweeper cell](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/cell.png?w=740&ssl=1)
 
-JavaScript code representing a minesweeper cell.
+表示单元格的 JavaScript 代码。
 
-Each cell is an object that has several properties:
+每个单元格都是一个对象，包含以下属性：
 
-* **id**: A string containing the row and column. This unique identifier makes it easier to find cells quickly when needed. If you pay close attention you will notice that there are some shortcuts I take related to the ids. I can get away with these shortcuts because of the small board size, but these techniques will not scale to larger boards. See if you can spot them. If you do, point them out in the comments!
-* **row**: An integer representing the horizontal position of the cell within the board.
-* **column**: An integer representing the vertical position of the cell within the board.
-* **opened**: This is a boolean property indicating whether the cell has been opened.
-* **flagged**: Another boolean property indicating whether a flag has been placed on the cell.
-* **mined**: Yet another boolean property indicating whether the cell has been mined.
-* **neighborMineCount**: An integer indicating the number of neighboring cells containing a mine.
+- **id**：包含行和列的字符串。作为唯一标识符使得在需要的时候更容易快速找到单元格。如果你仔细观察，你会注意到我使用了一些与 `id` 相关的快捷方法。我可以使用这些快捷方法，因为扫雷游戏的面板较小，但这些代码也不会考虑扩展到更大的游戏面板上。如果你发现了，请在评论中指出来！
+- **row**：表示单元格在游戏面板中的水平位置的整数。
+- **column**：表示单元格在游戏面板中的垂直位置的整数。
+- **opened**：这是一个布尔值，表示单元格是否处于打开状态。
+- **flagged**：另一个布尔值，表示是否在单元格上放置了地雷。
+- **mined**：也是一个布尔值，表示单元格是否被标记。
+- **neighborMineCount**：一个整数，表示相邻单元格中包含地雷的个数。
 
 ### Board
 
 ![JavaScript code for the minesweeper board](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/board.png?w=740&ssl=1)
 
-JavaScript code representing our game board.
+表示游戏面板的 JavaScript 代码。
 
-Our board is a collection of cells. We could represent our board in many different ways. I chose to represent it as an object with key value pairs. As we saw earlier, each cell has an id. The board is just a mapping between these unique keys and their corresponding cells.
+我们的游戏面板是由单元格组成的集合。我们可以用许多不同的方式来代表我们的游戏面板。我选择将它表示为键值对形式的对象。正如我们前面看到的，每个单元格都有一个 `id` 用来作为键。
 
-After creating the board we have to do two more tasks: randomly assign the mines and calculate the neighboring mine counts. We’ll talk more about these tasks in the next section.
+在创建了游戏面板之后，我们还需要完成另外两项任务：随机放置地雷并计算邻近的地雷数量。我们将在下一节详细讨论这些任务。
 
-## Algorithms
+## 算法
 
-### Randomly Assign Mines
+### 随机放置地雷
 
 ![JavaScript code for randomly assigning mines](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/randomlyassignmines-1.png?w=740&ssl=1)
 
-JavaScript code for randomly assigning mines to cells.
+随机放置地雷的 JavaScript 代码。
 
-One of the first things we have to do before a game of minesweeper can be played is assign mines to cells. For this, I created a function that takes the board and the desired mine count as parameters.
+在扫雷游戏开始之前，我们要做的第一件事就是将地雷随机放置到单元格。为此，我创建了一个函数，该函数接收游戏面板对象（`board`）和所需的地雷计数（`mineCount`）作为参数。
 
-For every mine we place, we must generate a random row and column. Furthermore, the same row and column combination should never appear more than once. Otherwise we would end up with less than our desired number of mines. We must repeat the random number generation if a duplicate appears.
+对于我们要放置的每一个地雷，我们生成随机的行和列。此外，相同的行和列组合不应该重复出现。否则，我们的地雷将少于我们所期望的数目。如果出现重复，则必须重新随机生成。
 
-As each random cell coordinate is generated we set the **mined** property to true of the corresponding cell in our board.
+当生成每个随机单元格坐标时，我们将对应单元格的 `mined` 属性设置为 `true`。
 
-I created a helper function in order to help with the task of generating random numbers within our desired range. See below:
+我创建了一个辅助函数，用来生成在我们希望范围内的随机数。如下：
 
 ![JavaScript code for random integer generator.](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/getrandominteger.png?w=740&ssl=1)
 
-Helper function for generating random integers.
+用来生成随机数的辅助函数。
 
-### Calculate Neighbor Mine Count
+### 计算相邻地雷的数量
 
 ![](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/calculateneighborminecounts-1.png?w=740&ssl=1)
 
-JavaScript code for calculating the neighboring mine count of each cell.
+计算相邻地雷数的 JavaScript 代码。
 
-Now let’s look at what it takes to calculate the neighboring mine count of each cell in our board.
+现在让我们看看如何计算相邻单元格的地雷数。
 
-You’ll notice that we start by looping through each row and column on the board, a very common pattern. This will allow us to execute the same code on each of our cells.
+你会注意到，我们循环遍历了游戏面板上的每一行和每一列，这是一种非常常见的方式。这样我们可以每个单元格上执行相同的处理。
 
-We first check if each cell is mined. If it is, there is no need to check the neighboring mine count. After all, if the player clicks on it he/she will lose the game!
+我们首先检查每个单元格是否放置了地雷。如果是，则不需要检查相邻的地雷数。毕竟，如果玩家点击了它，他/她将会输掉游戏
 
-If the cell is not mined then we need to see how many mines are surrounding it. The first thing we do is call our **getNeighbors** helper function, which returns a list of ids of the neighboring cells. Then we loop through this list, add up the number of mines, and update the cell’s **neighborMineCount** property appropriately.
+如果单元格没有被放置地雷，那么我们需要看看它周围有多少地雷。我们要做的第一件事是调用 `getNeighbors` 辅助函数，它返回相邻单元格的 `id` 列表。然后我们循环遍历这个列表，累计地雷的数量，并更新单元格的 `neighborMineCount` 属性。
 
-##### Won’t you be my neighbor?
+##### 获取相邻的单元格
 
-Let’s take a closer look at that **getNeighbors** function, as it will be used several more times throughout the code. I mentioned earlier that some of my design choices won’t scale to larger board sizes. Now would be a good time to try and spot them.
+让我们仔细看看 `getNeighbors` 函数，因为在整个代码中它将被多次调用。我之前提到过，我的一些设计方式是因为不用扩展到更大的游戏面板上。这里也是如此：
 
 ![](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/getneighbors.png?w=740&ssl=1)
 
-JavaScript code for getting all of the neighboring ids of a minesweeper cell.
+用于获取扫雷车单元格的所有相邻 `id` 的 JavaScript 代码。
 
-The function takes a cell id as a parameter. Then we immediately split it into two pieces so that we have variables for the row and the column. We use the **parseInt** function, which is built into the JavaScript language, to turn these variables into integers. Now we can perform math operations on them.
+该函数接收单元格 `id` 作为参数。然后我们马上把它分成两部分这样我们就有了行和列的值。我们使用内置函数 `parseInt` 将字符串转换为整数。现在我们可以对它们进行数学运算了。
 
-Next, we use the row and column to calculate potential ids of each neighboring cell and push them onto a list. Our list should have eight ids in it before cleaning it up to handle special scenarios.
+接下来，我们使用行和列计算每个相邻单元格的 `id`，并将它们加入列表。在处理情况之前，列表中应该包含 8 个 `id`。
 
 ![](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/neighborsexample.png?w=740&ssl=1)
 
-A minesweeper cell and its neighbors.
+一个单元格和它相邻的单元格。
 
-While this is fine for the general case, there are some special cases we have to worry about. Namely, cells along the borders of our game board. These cells will have less than eight neighbors.
+虽然这对于一般情况是没问题的，但是有一些特殊的情况我们需要考虑。也就是游戏面板边界的单元格。这些单元格的相邻单元格数量会少于 8 个。
 
-In order to take care of this, we loop through our list of neighbor ids and remove any id that is greater than 2 in length. All invalid neighbors will either be -1 or 10, so this little check solves the problem nicely.
+为了解决这个问题，我们循环遍历相邻单元格的 `id`，并删除长度大于 2 的 `id`。所有无效的相邻单元格行或者列可能是 -1 或 10，所以很巧妙地解决了这个问题。
 
-We also have to decrement our index variable whenever we remove an id from our list in order to keep it in sync.
+每当从列表中删除 `id` 时，我们还应该让 `i` 减 1，以保持它的同步。
 
-##### Is it mined?
+##### 判断地雷
 
-Okay, we have one last function to talk about in this section: **isMined**.
+好的，我们在这一节还有最后一个函数要讨论：`isMined`。
 
 ![JavaScript function that checks if a cell is mined.](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/ismined.png?w=740&ssl=1)
 
-JavaScript function that checks if a cell is mined.
+检查单元格是否是地雷的 JavaScript 函数。
 
-The **isMined** function is pretty simple. It just checks if the cell is mined or not. The function returns a 1 if it is mined, and a 0 if it is not mined. This feature allows us to sum up the function’s return values as we call it repeatedly in the loop.
+`isMined` 函数非常简单。它只是检查单元格是否是地雷。如果是，则返回 1；否则，返回 0。这个特性允许我们在循环中反复调用函数时，对函数的返回值进行累加。
 
-That wraps up the algorithms for getting our minesweeper game board set up. Let’s move on to the actual game play.
+这就完成了设置扫雷游戏面板的算法。让我们进入真正的游戏吧！
 
-### Opening A Cell
+### 翻开单元格
 
 ![JavaScript code that executes when a minesweeper cell is opened.](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/handleclick.png?w=740&ssl=1)
 
-JavaScript code that executes when a minesweeper cell is opened.
+当单元格被翻开时执行的 JavaScript 代码。
 
-Alright let’s dive right into this bad boy. We execute this function whenever a player clicks on a cell. It does **a lot** of work, and it also uses something called recursion. If you are unfamiliar with the concept, see the definition below:
+好吧，让我们直接进入这个刺激的操作。每当玩家点击一个单元格时，我们都会执行这个函数。它做了很多工作，还使用了递归。如果你不熟悉这个概念，请参阅以下定义:
 
-**Recursion**: See ****recursion****.
+**Recursion**: See **recursion**（不停地看）。
 
-Ah, computer science jokes. They always go over so well at bars and coffee shops. You really ought to try them out on that cutie you’ve been crushing on.
+哈哈，真是计算机科学界的笑话。如果是在酒吧和咖啡厅这样做总是有趣的。你也许应该在你暗恋的那个可爱的女孩身上试试。
 
-Anyways, a [recursive function](https://en.wikipedia.org/wiki/Recursion_(computer_science)) is just a function that calls itself. Sounds like a stack overflow waiting to happen, right? That’s why you need a base case that returns a value without making any subsequent recursive calls. Our function will eventually stop calling itself because there will be no more cells that need to be opened.
+无论如何，递归函数就是一个调用自身的函数。听起来可能会发生堆栈溢出的问题，对吗？这就是为什么你需要一个不再进行任何后续递归调用的基本条件。我们的函数最终将停止调用自己，因为不再需要打开任何单元格。
 
-Recursion is rarely the right choice in a real world project, but it is a useful tool to have in your toolbox. We could have written this code without recursion, but I thought you all might want to see an example of it in action.
+在实际项目中，递归很少是正确的选择，但它却是一个很有用的工具。我们本可以不使用递归来编写这段代码，但我想大家可能都想看看它的实际示例。
 
-##### Handle Click Explained
+##### 单击单元格
 
-The **handleClick** function takes a cell id as a parameter. We need to handle the case where the player pressed the ctrl button while clicking on the cell, but we will talk about that in a later section.
+`handleClick` 函数接收单元格 `id` 作为参数。我们需要处理玩家在单击单元格时同时按下 ctrl 键的情况，但是我们将在后面的部分讨论这个问题。
 
-Assuming the game isn’t over and we are handling a basic left click event, there are a few checks we need to make. We want to ignore the click if the player already opened or flagged the cell. It would be frustrating for the player if an inaccurate click on an already flagged cell ended the game.
+假设游戏还没有结束，我们正在处理一个基本的左键单击事件，我们需要做一些检查。如果玩家已经翻开或标记了这个单元格，我们应该忽略这次点击事件。因为如果玩家意外地点击一个已经标记过的单元格而导致游戏结束，这将会让玩家感到沮丧。
 
-If neither of those are true then we will proceed. If a mine is present in the cell we need to initiate the game over logic and display the exploded mine in red. Otherwise, we will open the cell.
+不满足这两个条件，那么我们将继续。如果在单元格中存在地雷，我们就需要去处理游戏失败的逻辑，并将爆炸的地雷显示为红色。否则，我们将把单元格设置为打开的状态。
 
-If the opened cell has mines surrounding it we will display the neighboring mine count to the player in the appropriate font color. If there are no mines surrounding the cell, then it is time for our recursion to kick in. After setting the background color of the cell to a slightly darker shade of gray, we call **handleClick** on each unopened neighboring cell without a flag.
+如果打开的单元格周围有地雷，我们将以适当的字体颜色向玩家显示邻近的地雷数量。如果单元格周围没有地雷，那么是时候使用递归了。在将单元格的背景颜色设置为稍微暗一点的灰色之后，我们对每个未打开的并且没有被标记的相邻单元格调用 `handleClick`。
 
-##### Helper Functions
+##### 辅助函数
 
-Let’s take a look at the helper functions we are using inside the **handleClick** function. We’ve already talked about **getNeighbors**, so we’ll skip that one. Let’s start with the **loss** function.
+让我们来看看 `handleClick` 函数中使用的辅助函数。我们已经讲过 `getNeighbors` 了，所以我们从 `loss` 失函数开始。
 
 ![JavaScript code that gets called whenever the player has lost at minesweeper.](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/loss.png?w=740&ssl=1)
 
-JavaScript code that gets called whenever the player has lost the game.
+当玩家输掉游戏时调用的 JavaScript 代码。
 
-When a loss occurs, we set the variable that tracks this and then display a message letting the player know that the game is over. We also loop through each cell and display the mine locations. Then we stop the clock.
+当游戏失败，我们设置全局变量 `gameOver` 的值，然后显示一条消息，让玩家知道游戏已经结束。我们还循环遍历每个单元格并显示地雷出现的位置。然后我们停止计时。
 
-Second, we have the **getNumberColor** function. This function is responsible for giving us the color corresponding to the neighboring mine count.
+其次，我们还有 `getNumberColor` 函数。这个函数负责给出相邻单元格的地雷数显示的颜色。
 
 ![JavaScript code that gets passed a number and returns a color. ](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/getnumbercolor.png?w=740&ssl=1)
 
-JavaScript code that gets passed a number and returns a color.
+传入一个数字并返回颜色的 JavaScript 代码。
 
-I tried to match up the colors just like the classic Windows version of minesweeper does it. Maybe I should have used a [switch statement](https://www.w3schools.com/js/js_switch.asp) here, but I already took the screen shot, and it’s not really a big deal. Let’s move on to what the code looks like for putting a flag on a cell.
+我试着把颜色搭配起来，就像经典的 Windows 版扫雷游戏那样。也许我应该用 [switch](https://www.w3schools.com/js/js_switch.asp) 语句，但我已经不考虑游戏被扩展的情况了，这没什么大不了的。让我们继续看看标记单元格的逻辑代码。
 
-### Flagging A Cell
+### 标记单元格
 
 ![JavaScript code for putting a flag on a minesweeper cell.](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/handlerightclick.png?w=740&ssl=1)
 
-JavaScript code for putting a flag on a minesweeper cell.
+用于在单元格上放置标记的 JavaScript 代码。
 
-Right clicking on a cell will place a flag on it. If the player right clicks on an empty cell and we have more mines that need to be flagged we will display the red flag on the cell, update its **flagged** property to true, and decrement the number of mines remaining. We do the opposite if the cell already had a flag. Finally, we update the GUI to display the number of mines remaining.
+右键单击一个单元格将在其上放置一个标记。如果玩家右键点击了一个没有被标记的单元格，并且当前游戏还有剩余的地雷需要被标记，我们将在单元格上插上小红旗作为标记，并将其 `flagged` 属性更新为 `true`，同时减少剩余地雷的数量。如果单元格已经有了一个标志，则执行相反的操作。最后，我们更新显示的剩余地雷数量。
 
-### Opening Neighboring Cells
+### 翻开所有相邻单元格
 
 ![JavaScript code for handling ctrl + left click](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/handlctrlclick.png?w=740&ssl=1)
 
-JavaScript code for handling ctrl + left click
+处理 ctrl + 左键的 JavaScript 代码。
 
-We have covered the actions of opening cells and marking them with flags, so let’s talk about the last action a player can take: opening an already opened cell’s neighboring cells. The **handleCtrlClick** function contains the logic for this. This player can perform this action by holding ctrl and left clicking on an opened cell that contains neighboring mines.
+我们已经介绍了打开单元格和标记单元格的操作，所以让我们来介绍玩家可以进行的最后一项操作：打开处于打开状态单元格的相邻单元格。`handleCtrlClick` 函数就是用来处理这个逻辑的。可以通过按住 ctrl 并左键单击一个处于打开状态的且包含相邻地雷的单元格来执行此操作。
 
-The first thing we do after checking those conditions is build up a list of the neighboring flagged cells. If the number of flagged cells matches the actual number of surrounding mines then we can proceed. Otherwise, we do nothing and exit the function.
+如果这样，我们要做的第一件事是创建一个相邻被标记的单元格列表。如果相邻被标记单元格的数量与周围地雷的实际数量相匹配，那么我们继续。否则，我们什么也不做，直接退出函数。
 
-If we were able to proceed, the next thing we do is check if any of the flagged cells did not contain a mine. If this is true, we know that the player predicted the mine locations incorrectly, and clicking on all of the non-flagged, neighboring cells will end in a loss. We will need to set the local **lost** variable and call the **loss** function. We talked about the **loss** function earlier in the article.
+如果继续，接下来要做的就是检查被标记的单元格中是否包含地雷。如果是，我们便知道玩家错误地预测了地雷的位置，并且将要翻开所有未标记的相邻单元格导致游戏失败。我们需要设置局部变量 `lost` 的值并调用 `loss` 函数。前面已经讨论了 `loss	` 函数。
 
-If the player did not lose, then we will need to open up the non-flagged neighboring cells. We simply need to loop through them and call the **handleClick** function on each. However, we must first set the **ctrlIsPressed** variable to false to prevent falling into the **handleCtrlClick** function by mistake.
+如果游戏仍然没有失败，那么我们将需要打开所有未标记的相邻单元格。我们只需要循环遍历它们，并在每个函数上调用 `handleClick` 函数。但是，我们必须首先将 `ctrlIsPressed` 变量设置为 `false`，以防止错误地执行 `handleCtrlClick` 函数。
 
-## Starting A New Game
+## 开始游戏
 
-We are almost done analyzing all of the JavaScript necessary to build minesweeper! All that we have left to cover are the initialization steps necessary for starting a new game.
+我们几乎完成了对编写扫雷游戏所需的所有 JavaScript 逻辑的分析！剩下要讨论的就是开始新游戏所需的初始化步骤。
 
 ![JavaScript code for initializing minesweeper](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/initializationandvariables-1.png?w=740&ssl=1)
 
-JavaScript code for initializing minesweeper
+用于初始化扫雷游戏的 JavaScript 代码。
 
-The first thing we do is initialize a few variables. We need some constants for storing the [html codes](https://www.w3schools.com/html/html_symbols.asp) for the flag and mine icons. We also need some constants for storing the board size, the number of mines, the timer value, and the number of mines remaining.
+我们要做的第一件事就是初始化一些变量。我们需要定义常量来存储小旗和地雷图标的 [html 代码]()。我们还需要一些常量来存储游戏面板的大小、地雷的总数、计时器和剩余地雷的数量。
 
-Additionally, we need a variable for storing if the player is pushing the ctrl button. We utilize jQuery to add the event handlers to the document, and these handlers are responsible for setting the **ctrlIsPressed** variable.
+此外，如果玩家按下 ctrl 键，我们需要一个变量来存储是否按下了 ctrl 键。我们使用 jQuery 将事件处理程序添加到 `document` 中，用来设置 `ctrlIsPressed` 变量的值。
 
-Finally, we call the **newGame** function and also bind this function to the new game button.
+最后，我们调用 `newGame` 函数并将该函数绑定到 new game 按钮。
 
-### Helper Functions
+### 辅助函数
 
 ![JavaScript code for starting a new game of minesweeper.](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/newgame.png?w=740&ssl=1)
 
-JavaScript code for starting a new game of minesweeper.
+开始新的扫雷游戏的 JavaScript 代码。
 
-Th **newGame** function is responsible for resetting our variables so that our game is in a ready-to-play state. This includes resetting the values that are displayed to the player, calling **initializeCells**, and creating a new random board. It also includes resetting the clock, which gets updated every second.
+`newGame` 函数负责重置变量，使我们的游戏处于随时可以玩的状态。这包括重置显示给玩家的消息、调用 `initializeCells`，以及创建一个新的随机游戏面板。它还包括重置时计时器，并且每秒钟更新一次。
 
-Let’s wrap things up by looking at **initializeCells**.
+让我们通过看 `initializeCells` 来总结一下。
 
 ![JavaScript code for attaching click handlers to minesweeper cells.](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/initializecells.png?w=740&ssl=1)
 
-JavaScript code for attaching click handlers to cells and checking for the victory condition.
+用于将单击处理程序附加到单元格并检查胜利条件的JavaScript代码。
 
-The main purpose of this function is to add additional properties to our html game cells. Each cell needs the appropriate id added so that we can access it easily from the game logic. Every cell also needs a background image applied for stylistic reasons.
+这个函数的主要目的是向单元格 DOM 对象添加额外的属性。每个单元格 DOM 都需要添加对应的 id，以便我们能够从游戏逻辑中轻松地访问它。每个单元格还需要一个合适的背景图像。
 
-We also need to attach a click handler to every cell so that we can detect left and right clicks.
+我们还需要为每个单元格 DOM 添加一个单击处理程序，以便能够监听左击和右击事件。
 
-The function that handles left clicks calls **handleClick**, passing in the appropriate id. Then it checks to see if every cell without a mine has been opened. If this is true then the player has won the game and we can congratulate him/her appropriately.
+处理左击事件调用 `handleClick` 函数，传入对应的 `id`。然后检查是否每个没有地雷的单元格都被打开了。如果这是真的，那么游戏胜利，我们可以适当地祝贺一下他/她。
 
-The function that handles right clicks calls **handleRightClick**, passing in the appropriate id. Then it simply returns false. This causes the context menu not to pop up, which is the default behavior of a right click on a web page. You wouldn’t want to do this sort of thing for a standard business [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) application, but for minesweeper it is appropriate.
+处理右击事件调用 `handleRightClick`，同样传入对应的 `id`，然后返回 `false`。这样会阻止 Web 页面右键单击显示上下文菜单的默认行为。对于一般的 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 应用程序，你可能不希望这样处理，但是对于扫雷游戏，这是合适的。
 
-## Conclusion
+## 总结
 
-Congrats on learning how to build minesweeper with JavaScript! That was a lot of code, but hopefully it makes sense after breaking it up into modules like this. We could definitely make more improvements to this program’s reusability, extensibility, and readability. We also did not cover the HTML or CSS in detail. If you have questions or see ways to improve the code, I’d love to hear from you in the comments!
+祝贺你，已经学习了如何使用 JavaScript 编写扫雷游戏！看起来有很多的代码，但希望我们把它分解成这样不同的模块，是有意义的。我们肯定可以对这个程序的可重用性、可扩展性和可读性做更多的改进。我们也没有详细介绍 HTML 或 CSS 代码。如果你有任何问题或有改进代码的方法，我很乐意在评论中听到你的意见！
 
-If these posts are making you want to learn more about how to write good programs in JavaScript, one book that I recommend is [JavaScript: The Good Parts](https://amzn.to/2XrvPrt), by the legendary Douglas Crockford. The man popularized JSON as a data exchange format, and really contributed a lot to the advancement of the web.
+如果这篇文章让你想要更多地了解如何用 JavaScript 编写更好的程序，我推荐一本 JavaScript 书：《JavaScript 语言精粹》，作者是 Douglas Crockford。他将 JSON 推广为一种数据交换的格式，并为 Web 的发展做出了巨大贡献。
 
-The language has been improved dramatically over the years, but it still has some odd properties because of its development history. The book does a great job of helping you navigate around its more questionable design choices, like the global namespace. I found it helpful when I was first learning the language.
+多年来，该 JavaScript 语言得到了极大的改进，但由于其发展的历史，它仍然具有一些奇怪的特性。这本书会帮助你更好的理解这本语言在设计上存在的问题（如全局命名空间）。当我第一次学习这门语言时，我发现它很有帮助。
 
 [![JavaScript: The Good Parts book](//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0596517742&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=mitchumblog-20)](https://www.amazon.com/gp/product/0596517742/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0596517742&linkCode=as2&tag=mitchumblog-20&linkId=fa7b0d5ed5bb3d96797d9b9f54a40e32)
 
-If you decide to purchase it, I would be grateful if you decided to go through the [link](https://amzn.to/2XrvPrt) above. I will get a commission through Amazon’s affiliate program, with no additional cost to you. It helps me keep this site up and running without resorting to annoying advertisements. I would rather promote products that I know will be helpful to you guys.
+如果你决定拥有它，并且通过上面的链接购买我会非常地感谢你。我将通过亚马逊的会员计划获得一些佣金，不需要你付额外的费用。它将帮助我维护这个网站的正常运行，而不用求助于烦人的广告。我宁愿推荐我认为对你们有帮助的产品。
 
-Alright, enough with the promotion. I hope you guys enjoyed learning about how to build minesweeper with JavaScript. Let me know what other simple games like this you would like to see, and don’t forget to [drop me your email](https://mitchum.blog/subscribe/) so you don’t miss the next one that comes out. You will also receive my free checklist for writing great functions.
+好了，广告到此为止。我希望你们有一个愉快的阅读体验。让我知道你还想看什么其他类似的简单游戏，不要忘记留下你的电子邮件，这样你就不会错过写一篇文章。你还会收到我的免费推送内容，如何更好地编写函数。
 
-Take care, and God bless!
+祝好！
 
-**Update (7/13/2019):** This post became more popular than I thought it would, which is awesome! I’ve received a lot of great feedback from readers about areas that could be improved. I work daily in a code base that until recently was stuck in Internet Explorer [quirks mode](https://en.wikipedia.org/wiki/Quirks_mode). Many of my daily habits there transferred to my work on minesweeper, resulting in some code that doesn’t take advantage of the bleeding edge of JavaScript technology. At some point I would like to do another post where I [refactor](https://en.wikipedia.org/wiki/Code_refactoring) the code. I plan to remove jQuery entirely and use the [ES6](https://www.w3schools.com/js/js_es6.asp) syntax instead of the [ES5](https://www.w3schools.com/js/js_es5.asp) syntax where appropriate. But you don’t have to wait for me! See if you can make these changes yourself! And let me know how it goes in the comments.
+**更新(2019/7/13日)**：这篇文章比我想象的更受欢迎，太棒了！我从读者那里收到了很多关于可以改进的方面的反馈。我每天都在做维护一个代码库的工作，直到现在这个代码库还停留在 Internet Explorer [怪异模式](https://en.wikipedia.org/wiki/Quirks_mode)。我在工作中的许多编码习惯都转移到了我在扫雷游戏上，导致一些代码没有利用 JavaScript 技术的前沿。之后，我想在另一篇文章中重构代码。我计划完全删除 jQuery，并在适当的地方使用 ES6 语法而不是 ES5。但你不用等我！看看你自己能否完成这些工作！请在评论中告诉我进展如何。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
