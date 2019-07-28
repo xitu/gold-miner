@@ -1,3 +1,5 @@
+* [通过阅读源码提高您的 JavaScript 水平](https://juejin.im/post/5d3c56c26fb9a07efd475414) ([MarchYuanx](https://github.com/MarchYuanx) 翻译)
+* [作为初级开发人员，我没有学过的 7 个绝对真理](https://juejin.im/post/5d3d25dce51d457756536881) ([cyz980908](https://github.com/cyz980908) 翻译)
 * [仅使用 HTML 和 CSS 创建多级嵌套弹出式导航菜单](https://juejin.im/post/5d3c2852f265da1bac405fae) ([yzw7489757](https://github.com/yzw7489757) 翻译)
 * [CSS 开发必知必会的 16 个调试工具技巧](https://juejin.im/post/5d39d27cf265da1bc14b6f47) ([Usey95](https://github.com/Usey95) 翻译)
 * [多网站项目的 CSS 架构](https://juejin.im/post/5d3a58df5188251ce02ff228) ([Baddyo](https://github.com/Baddyo) 翻译)
