@@ -8434,10 +8434,11 @@
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|1|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|校对|3|
 
-## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：76 当前积分：76 二零一九：76
+## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：80 当前积分：80 二零一九：80
 
 |文章|类型|积分|
 |------|-------|-------|
+|[作为初级开发人员，我没有学过的 7 个绝对真理](https://juejin.im/post/5d3d25dce51d457756536881)|校对|4|
 |[可维护的 ETL: 使管道更容易支持和扩展的技巧](https://juejin.im/post/5d08e178518825166f36bf89)|校对|5|
 |[在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204)|校对|1|
 |[设计师如何成长为 Leader？](https://juejin.im/post/5d172fca6fb9a07eda032c6f)|校对|2|
@@ -8735,19 +8736,21 @@
 |[ES6：理解参数默认值的实现细节](https://juejin.im/post/5cd0eab95188251b984d8abe)|翻译|3.5|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：7 当前积分：7 二零一九：7
+## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：13 当前积分：13 二零一九：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[作为初级开发人员，我没有学过的 7 个绝对真理](https://juejin.im/post/5d3d25dce51d457756536881)|翻译|6|
 |[从原型图到成品：步步深入 CSS 布局](https://juejin.im/post/5cebb52651882530be7b16a4)|校对|2|
 |[Web 使用 CSS Shapes 的艺术设计](https://juejin.im/post/5cdba21051882568841f0f47)|校对|2|
 |[在数据可视化中，我们曾经“画”下的那些错误](https://juejin.im/post/5cd39e1de51d453a3a0acb7b)|校对|1.5|
 |[使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)|校对|1.5|
 
-## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：116.5 当前积分：116.5 二零一九：116.5
+## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：120 当前积分：120 二零一九：120
 
 |文章|类型|积分|
 |------|-------|-------|
+|[通过阅读源码提高您的 JavaScript 水平](https://juejin.im/post/5d3c56c26fb9a07efd475414)|校对|3.5|
 |[npm 的经济风云 —— 下半部分](https://juejin.im/post/5d2d9e7af265da1b8b2b91ca)|翻译|8|
 |[使用 Cypress 进行 React 应用的端到端测试](https://juejin.im/post/5d3702dcf265da1b961345d1)|校对|1.5|
 |[多网站项目的 CSS 架构](https://juejin.im/post/5d3a58df5188251ce02ff228)|翻译|4|
@@ -8994,10 +8997,11 @@
 |[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|翻译|7|
 |[微前端：未来前端开发的新趋势 — 第一部分](https://juejin.im/post/5d0e367b6fb9a07ebf4b781a)|翻译|4|
 
-## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：14 当前积分：14 二零一九：14
+## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：19 当前积分：19 二零一九：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|[通过阅读源码提高您的 JavaScript 水平](https://juejin.im/post/5d3c56c26fb9a07efd475414)|翻译|5|
 |[npm 的经济风云 —— 下半部分](https://juejin.im/post/5d2d9e7af265da1b8b2b91ca)|校对|2|
 |[设计任何图表的六项原则](https://juejin.im/post/5d27fca7f265da1b5e731f92)|翻译|3|
 |[CSS 思维模式](https://juejin.im/post/5d295380f265da1bab29dc13)|翻译|3.5|
@@ -9101,10 +9105,11 @@
 |[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 |[从 Reddit 讨论中看到的 GraphQL 现状](https://juejin.im/post/5d380909e51d4510624f98a0)|校对|1.5|
 
-## 译者：[Ultrasteve](https://github.com/Ultrasteve) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+## 译者：[Ultrasteve](https://github.com/Ultrasteve) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[作为初级开发人员，我没有学过的 7 个绝对真理](https://juejin.im/post/5d3d25dce51d457756536881)|校对|2|
 |[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 
 ## 译者：[Pingren](https://github.com/Pingren) 历史贡献积分：10.5 当前积分：10.5 二零一九：10.5
@@ -9126,3 +9131,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[npm 的经济风云 —— 下半部分](https://juejin.im/post/5d2d9e7af265da1b8b2b91ca)|校对|2|
+
+## 译者：[imononoke](https://github.com/imononoke) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[通过阅读源码提高您的 JavaScript 水平](https://juejin.im/post/5d3c56c26fb9a07efd475414)|校对|1.5|
