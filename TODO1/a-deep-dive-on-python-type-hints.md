@@ -224,7 +224,7 @@ def calculateRainfall(seconds, rainfall):
 
 How does this work under the covers?
 
-# How does Python handle data types?
+## How does Python handle data types?
 
 Python is dynamically-typed, which means it only checks the types of the variables you specified when you run the program. As we saw in the sample piece of code, you don’t have to plan out the types and memory allocation beforehand.
 
