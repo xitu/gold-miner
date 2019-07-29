@@ -2,64 +2,64 @@
 > * 原文作者：[Jakob Jenkov](https://twitter.com/#!/jjenkov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-streaming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-streaming.md)
-> * 译者：
-> * 校对者：
+> * 译者：[steinliber](https://github.com/steinliber)
+> * 校对者：[Endone](https://github.com/Endone)，[xionglong58](https://github.com/xionglong58)
 
-# Data Streaming
+# 数据流简介
 
-_Data Streaming_ is a data distribution technique where data producers write data records into an ordered data stream from which data consumers can read that data in the same order. Here is a simple data streaming diagram illustrating a data producer, a data stream and a data consumer:
+**数据流**是一种数据分发技术，通过这种技术数据生产者可以把数据记录写入到一个有序的数据流中，数据消费者可以从该数据流中以同样的顺序读取数据。这里有一个简单的数据流图解释数据生产者、数据流和数据消费者：
 
 ![](http://tutorials.jenkov.com/images/data-streaming/data-streaming-introduction-1.png)
 
-## Data Streaming Comes in Many Variations
+## 数据流有很多变体
 
-On the surface, data streaming as a concept my look very simple. Data producers store records to a data stream which are read later by consumers. However, under the surface there are many details that affect what your data streaming system will look like, how it will behave, and what you can do with it.
+从表面上看，数据流作为一个概念看起来很简单。数据生产者把记录储存到数据流中，稍后消费者会读取这些数据。但是，在这个表面下还存在着很多细节，这些细节会影响到整个数据流系统的表现、行为方式以及功能。
 
-Each data streaming product makes a certain set of assumptions about the use cases and processing techniques to support. These assumptions leads to certain design choices, which affect what types of stream processing behaviour you can implement with them. This data streaming tutorial examines many of these design choices, and discuss their consequences for you as a user of products based on these design choices.
+每个数据流产品都会对其支持的使用场景和支持的处理技术做出一系列假设。这些假设决定了数据流的设计方式，从而影响你可以实现的流处理行为类型。这个数据流教程研究了许多这些设计中的选择，并且根据这些设计选择讨论它们作为产品对于使用用户的影响。
 
-## Data Streams Decouple Producers and Consumers
+## 数据流解耦生产者和消费者
 
-Data streaming decouple data producers and data consumers from each other. When a data producer simply writes its data to a data stream, the producer does not need to know the consumers that read the data. Consumers can be added and removed independently of the producer. Consumers can also start and stop or pause and resume their consumption without the data producer needing to know about it. This decoupling simplifies the implementation of both data producers and consumers.
+数据流使数据生产者和数据消费者相互解耦。数据生产者只是简单地把数据写到数据流中，并不需要知道读取数据的消费者。消费者可以独立于生产者添加或删除。消费者也可以启动和停止，或者暂停和恢复它们的消费，而生产者并不需要知道这些。这种解耦简化了数据生产者和消费者的实现。
 
-## Data Streaming as Data Sharing Mechanism
+## 数据流作为数据共享的机制
 
-Data streaming is a very useful mechanism to both store and share data in bigger distributed systems. As mentioned earlier, data producers just send the data to the data stream system. Producers do not need to know anything about the consumers. Consumers can be up, down, added and removed without affecting the producer.
+在更大的分布式系统中，数据流是一种储存和共享数据十分有效的机制。正像之前提到的那样，数据生产者只需要把数据发送到数据流系统。生产者不需要了解消费者的任何情况。消费者可以在不影响生产者的情况下被添加和删除。
 
-Big companies like LinkedIn use data streaming extensively internally. Uber uses data streaming internally too. Many enterprise level companies are adopting, or have already adopted, data streaming internally. So has many startups.
+像 LinkedIn 这样的大公司在内部广泛使用了数据流。Uber 内部也使用了数据流。许多企业级公司内部正在采用或已经采用了数据流。许多初创公司也是如此。
 
-## Persistent Data Streams
+## 持久化数据流
 
-A data stream can be persistent, in which case it is sometimes referred to as a _log_ or a _journal_. A persistent data stream has the advantage that the data in the stream can survive a shutdown of the data streaming service, so no data records are lost.
+数据流是可以是持久化的，在这种情况下，它有时候被称为**日志**或者**日报**。持久化数据流的优点在于当数据流服务被关闭时里面的数据还可以保存下来，因此不会丢失任何数据记录。
 
-Persistent data streaming services can typically hold larger amounts of historic data than a data streaming service that only holds records in memory. Some data streaming services can even hold historic data all the way back to the first record written to the data stream. Others only hold e.g. a number of days of historic data.
+和只将记录保存在内存中的数据流服务相比，持久化数据流服务通常可以保存更多的历史数据。一些数据流服务甚至可以把保存的历史数据一直追溯到写入数据流的第一条记录。其它数据流保存的历史数据通常不会很久，例如几天。
 
-In the cases where a persistent data stream holds the full history of records, consumers can replay all these records and recreate their internal state based on these records. In case a consumer discovers a bug in its own code, it can correct that code and replay the data stream to recreate its internal database.
+在持久化数据流保存了完整历史记录的情况下，消费者就可以重放所有这些记录，并基于这些历史记录重建其内部的状态。如果在消费者的代码中发现了错误，则可以更正错误代码并重放数据流以重新创建其内部的数据库。
 
-## Data Streaming Use Cases
+## 数据流用例
 
-Data streaming is a quite versatile concept which can be used to support many different use cases. In this section I will cover some of the more commonly used use cases for data streaming.
+数据流是一个非常通用的概念，可以用来支持许多不同的用例。在本节中，我将会介绍一些常用数据流用例。
 
-### Data Streaming For Event Driven Architecture
+### 数据流用于事件驱动架构
 
-Data streaming is often used to implement [event driven architecture](/software-architecture/event-driven-architecture.html). The events are written by event producers as records to some data streaming system from which they can be read by event consumers.
+数据流通常可以用来实现[事件驱动架构](http://tutorials.jenkov.com/software-architecture/event-driven-architecture.html)。事件生产者将事件作为记录写到某些数据流系统，事件的消费者可以从中读取事件。
 
-### Data Streaming For Smart Cities and Internet of Things
+### 数据流用于智能城市和物联网
 
-Data streaming can also be used to stream data from sensors mounted around a _Smart City_, from sensors inside a _smart factory_ or from other _Internet of Things_ devices. Values, like temperature, pollution levels etc. can be sampled from devices regularly and written to a data stream. Data consumers can read the samples from the data stream when needed.
+对于安装在**智慧城市**的传感器，**智能工厂**内的传感器或者其它**物联网**设备，数据流可以被用来从这些设备传输数据。温度、污染水平等这些数值可以定期从设备中取样并写入数据流中。数据消费者可以在需要时从数据流中读取样本。
 
-### Data Streaming For Regularly Sampled Data
+### 数据流用于定期采样数据
 
-Sensors in a smart city, and Internet of Things devices, are just two examples of data sources which can be regularly sampled and made available via data streaming. But there are many other types of data which can be sampled regularly and streamed. For instance, currency exchange rates or stock prices can be sampled and streamed too. Poll numbers can be sampled and streamed regularly too.
+智能城市中的传感器和物联网设备只是作为数据源的两个例子，这些数据流可以被定期采样并且通过数据流得到。但是还有很多其它类型的数据可以被定期采样和流式处理。比如说，货币汇率或股票价格也可以被采样和流式处理。投票数也能定期被采样和流式处理。
 
-### Data Streaming For Data Points
+### 数据流用于数据点
 
-In the example of poll numbers, you could decide to stream each individual answer to the poll, rather than stream the regularly sampled totals. In some scenarios where totals are made up from individual data points (like polls) it can sometimes make more sense to stream the individual data points rater than the calculated totals. It depends on the concrete use case, and on other factors, like whether the individual data points are anonymous or contains private, personal information which should not be shared.
+在投票数的例子中，你可以决定将每个单独的回答流式传输到投票所中，而不是流式传输定期抽样的总数。在一些总数是由单个数据点组成的（就像民意调查）的情况下，使用流式传输单个数据点比计算得到的总数更有意义。它取决于具体的用例以及其它一些因素，比如其中的单个点数据是匿名的或者包含了不应该共享的私人信息。
 
-## Records, Messages, Events, Samples Etc.
+## 记录，消息，事件，样本等
 
-Data streaming records are sometimes referred to as messages, events, samples, objects and other terms. What term is used depends on the concrete use case of the data streaming, and how the producers and consumers process and react to the data. It will normally be reasonably clear from the use case what term it makes sense to refer to records by.
+数据流中的记录有时候被称为消息、事件、样本，对象或其它术语。使用什么术语取决于数据流的具体用例，以及生产者和消费者如何处理和响应数据。通常情况下这都是合理的，在用例中通过使用的术语来映射数据流中的数据是有意义的。
 
-It is worth noting, that the use case also influences what a given record represents. Not all data records are the same. An event is not the same as a sampled value, and cannot always be used in the same way. I will touch this in more detail later in this (and / or other) tutorials.
+值得注意的是，用例也会影响给定记录所表示的内容。并非所有的数据记录都是相同的。事件和采样值是不同的，所以它们不能通过同样的方式使用。稍后我会在本（或其它）教程中更详细的介绍这点。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
