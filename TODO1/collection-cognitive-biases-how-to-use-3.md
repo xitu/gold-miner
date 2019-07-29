@@ -86,83 +86,82 @@ I mean, of course we are! But if you want your product to succeed, show how Geor
 
 ### 54. 投射偏误（移情隔阂）
 
-我们认为，随着时间的推移，我们当前对事物的品味和偏好a会保持不变。
+我们认为，随着时间的推移，我们当前对事物的品味和偏好会保持不变。
 
 我们无法将自己置于未来的情感状态中，从而做出符合当前状态的未来承诺。
 
-### 55. The Forer (or Barnum) Effect
+### 55. 弗拉（或巴纳姆）效应
 
-We tend to give high accuracy ratings to positive personality and value descriptions that we believe are written ‘just for us’, when they are typically vague and general enough to apply to anybody.
+我们倾向于对积极的人格和价值描述给予高度准确的评价，我们认为这些描述是“专为我们而写”的，然而这些评价往往含糊不清且适用于任何人。
 
-**How to use it**: In UX Writing - approach your users/visitors directly using words such as: ‘you’, ‘your’.
+**如何使用**：在 UX 设计中 —— 使用诸如“你”、“你的”之类的词来拉近和用户/访问者之间的距离。
 
-### 56. Restraint Bias
+### 56. 自制偏差
 
-We have the tendency to overestimate our ability to show restraint in the face of temptation or addiction.
+我们倾向于高估自己在面对诱惑时的自制力。
 
-**How to use**: We all think clickbait titles are lame, but we all fall for them, don’t we?
+**如何使用**：我们都认为“标题党”十分蹩脚，但我们还是陷入其中，不是吗？
 
-![Restraint Bias - We all think clickbait titles are lame, but we all fall for them, don’t we?](https://alexdenk.eu/blogtouch?id=1bh_eqirdcaDDYkoXiQyReb0N2dHHdHZy "Restraint Bias - We all think clickbait titles are lame, but we all fall for them, don’t we?")
+![自制偏差 —— 我们都认为“标题党”十分蹩脚，但我们还是陷入其中，不是吗？](https://alexdenk.eu/blogtouch?id=1bh_eqirdcaDDYkoXiQyReb0N2dHHdHZy "自制偏差 —— 我们都认为“标题党”十分蹩脚，但我们还是陷入其中，不是吗？")
 
-Clickbait titles are lame, but we all fall for them...
+我们都认为“标题党”十分蹩脚，但我们还是陷入其中……
 
-### 57. Optimism Bias
+### 57. 乐观偏误
 
-We often to overestimate the odds of our own success compared to other people's.
+我们经常认为自己比别人拥有更高的成功几率。
 
-**Product tip**: Make sure your product doesn’t hide any unpleasant surprises that might break the optimism bias (such as extra costs, possible delays, etc.)
+**产品技巧**：确保你的产品没有任何会打破乐观偏误、令人不悦的潜在意外（例如额外的开销、可能发生的延误等）。
 
-**Work-related tip**: When planning, force yourself to be pessimistic:
+**工作相关技巧**：当制定计划时，强迫自己变得悲观：
 
-1. If you believe 60% of your downloads will convert into actual users - assume 50% in your calculations.
-2. If you believe a new user will cost $4, round it up to $5.
-3. If your business works badly during winters - plan for long winters.
-4. If your plan includes resource availability - didn’t be over-optimistic about their capacity and performance.
+1. 如果你相信 60% 的下载量会转化为真实用户 —— 假设真实用户只有你计算结果的 50%。
+2. 如果你相信一个新用户将话费你 4 美元，那么就把它四舍五入到 5 美元。
+3. 如果你的业务在艰难过冬 —— 为漫长的寒冬做好准备。
+4. 如果你的计划包含资源的可用性 —— 不要对资源的产量和性能过于乐观。
 
-A plan that is conservative and still demonstrates success, is much better than an over-pessimistic one.
+保守但能证明成功的计划，比一个过于悲观的计划要好得多。
 
-> Think optimistically.
-> Plan pessimistically.
-> Execute uncompromisingly.
+> 乐观地思考。
+> 悲观地计划。
+> 坚决地执行。
 
-### 58. Planning Fallacy
+### 58. 规划谬误
 
-We tend to underestimate the time needed to complete a task. It’s one of the reasons why plans often break and projects get delayed. Breaking large tasks into smaller pieces helps to deal with this phenomena.
+我们往往低估完成任务所需要的时间。这也是计划经常中断和项目经常延期的原因之一。把大任务拆分成小块可以帮助解决这种现象。
 
-**Work tip**: multiply your initial estimations in 2, no, actually make it 3.
-Do it not because you’re lazy, but because your estimations are probably wrong…
+**工作技巧**: 将你最初预估的任务完成时间乘以 2，不，实际上要乘以 3。这不是因为你的懒散，而是因为你预估的时间可能是错误的。
 
-### 59. Parkinson's Law of Triviality
+### 59. 帕金森琐碎定理
 
-We tend to waste too much time on trivial topics and leave too little time to the important stuff.
+我们往往把太多时间浪费在琐事上，而在重要的事情留下太少的时间。
 
-Work tip: This one happens a lot in meetings: the first 1-2 items take longer than needed, not leaving enough time for the rest of the items.
+工作技巧：这种情况经常发生在会议上：最先的 1～2 个议题花费的时间比实际需要的时间长，导致没有为接下来的议题留出足够的时间。
 
-A timed agenda can help fix this annoying phenomenon.
+定时议程可以帮助解决这个恼人的现象。
 
-Read: [How to maintain your product momentum when you’re out of development budget](https://www.mobilespoon.net/2019/05/maintain-product-momentum-with-no.html)
+阅读：[如何在超出开发预算时保持产品势头](https://www.mobilespoon.net/2019/05/maintain-product-momentum-with-no.html)
 
-### 60. Dunning–Kruger Effect
+### 60. 达克效应
 
-We are unable to recognize our lack of ability.
+我们无法认识到我们的能力不足。
 
-“Our inability to recognize our lack of ability to recognize our inability. “
+“我们无法认识到我们缺乏认识到自己无能为力的能力。”
 
-**Career tip**: When you join a new team or a new company, remember that there are many things you don’t know, and many things you don’t even know you don’t know…
+**职业技巧**：当你加入一个新的团队或公司时，牢记你知之甚少，对于许多事情你甚至不知道自己一无所知……
 
-Start low, get familiar with the people involved. Talk less and observe more.
+从底层开始，熟悉相关人员。少说话，多观察。
 
-Keep a low profile until you are no longer a novice.
+保持低调，直到你不再是一个新手。
 
-### 61. Insensitivity to Sample Size
+### 61. 对样本数不敏锐
 
-We often ignore the sample size and jump to conclusions even though the sample size is not enough statistically.
+我们经常忽略样本大小并得出结论，即使样本数量还未达到足够的统计量。
 
-**Product management tip**: Talking to customers is important, but don’t base your product assumptions on a few interviews. Work with big numbers and base your product decisions on real data rather than assumptions.
+**产品管理技巧**：与客户沟通很重要，但不要把产品设想建立在几次面谈的基础上。使用大量数据，并根据实际数据而非假设来做出产品决策。
 
-**Illusion of Control**
+**控制错觉**
 
-We tend to overestimate our degree of influence over external events.
+我们往往高估自己对外部事件的影响程度。
 
 ## Double or nothing!
 
