@@ -11,7 +11,7 @@
 
 Presser, Konstantin Makovsky 1900
 
-# Introduction
+## Introduction
 
 Since the release of Python’s type hints [in 2014](https://www.python.org/dev/peps/pep-0484/), people have been working on adopting them into their codebase. We’re now at a point where I’d gamely estimate that about 20-30% of Python 3 codebases are using hints (also sometimes called annotations). Over the past year, I’ve been seeing them pop up in more and more [books](https://www.manning.com/books/classic-computer-science-problems-in-python) and tutorials.
 
@@ -48,7 +48,7 @@ When I started to investigate and weigh whether type hints made sense for me to 
 
 As usual, if you see something and want to comment, feel free to [submit a pull request](https://github.com/veekaybee/veekaybee.github.io).
 
-# How Computers Build Our Code
+## How Computers Build Our Code
 
 To understand what the Python core developers are trying to do here with type hints, let’s go down a couple levels from Python, and get a better understanding of how computers and programming languages work in general.
 
@@ -145,7 +145,7 @@ But what exactly are these types and why do we need them?
 
 Here’s where type systems come into play.
 
-# An introduction to type systems
+## An introduction to type systems
 
 A [long time ago](https://homepages.inf.ed.ac.uk/wadler/topics/history.html), in a galaxy far, far, away, [people doing math by hand](https://en.wikipedia.org/wiki/Type_theory) realized that if they labeled numbers or elements of equations by “type”, they could reduce the amount of logic issues they had when doing math proofs against those elements.
 
@@ -169,7 +169,7 @@ This is problably [the best explanation of the difference between the two](http:
 
 A small caveat here that took me a while to understand: static and dynamically-typed languages are closely linked, but not synonymous with compiled or interpeted languages. You can have a dynamically-typed language, like Python, that is compiled, and you can have static languages, like Java, that are interpreted, for example if you use the Java REPL.
 
-# Data types in statically versus dynamically typed languages
+## Data types in statically versus dynamically typed languages
 
 So what’s the difference between data types in these two languages? In static typing, you have to lay out your types beforehand. For example, if you’re working in Java, you’ll have a program that looks like this:
 
@@ -328,7 +328,7 @@ Type hints are also helpful for others reading your code. It’s much easier to 
 
 So, what has Python done to move to the same kind of legibility as is available in statically-typed languages?
 
-# Python’s type hints
+## Python’s type hints
 
 Here’s where type hints come in. As a side note, the docs interchangeably call them type annotations or type hints. I’m going to go with type hints. In other languages, annotations and hints mean someting completely different.
 
@@ -404,7 +404,7 @@ kanye.py:9: error: Argument 3 to "append_name" has incompatible type "float"; ex
 
 We can see that mypy doesn’t allow that type. It makes sense to include mypy in a pipeline with tests in your continuous integration pipeline.
 
-# Type hints in IDEs
+## Type hints in IDEs
 
 One of the biggest benefits to using type hints is that you get the same kind of autocompletion in IDEs as you do with statically-typed languages.
 
@@ -443,7 +443,7 @@ A neat thing is that, now that we have (liberally) added types, we can actually 
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/tabcomplete1.png)
 
-# Getting started with type hints
+## Getting started with type hints
 
 The mypy docs have some [good suggestions](https://mypy.readthedocs.io/en/latest/existing_code.html) for getting started typing a codebase:
 
@@ -479,7 +479,7 @@ def some_function(variable: type) -> return_type:
 
 If you want to get started further with type hints, lots of smart people have written tutorials. [Here’s the best one](https://pymbook.readthedocs.io/en/latest/typehinting.html) to start with, in my opinion, and it takes you through how to set up a testing suite.
 
-# So, what’s the verdict? To use or not to use?
+## So, what’s the verdict? To use or not to use?
 
 But should you get started with type hints?
 
