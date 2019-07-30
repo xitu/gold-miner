@@ -163,55 +163,55 @@ I mean, of course we are! But if you want your product to succeed, show how Geor
 
 我们往往高估自己对外部事件的影响程度。
 
-## Double or nothing!
+## 成倍获得或一无所有！
 
-Weirdly enough, when we realize we’re about to lose, and maybe because we hate losing so much - we tend to invest more on the failing option.
+奇怪的是，当我们意识到我们即将失败时，也许是因为我们不愿失去已经付出的成本 —— 我们往往会在这个失败的选择上投入更多。
 
-### 62. Choice-Supportive Bias (Post-Purchase Rationalization)
+### 62. 支持选择偏差（购后合理化）
 
-Once a decision is made, we tend to praise the option we selected and demote the other options.
+一旦做出决定，我们倾向于赞扬我们的所选项，并贬低其他选项。
 
-**Product/UX hack**: Whenever a user goes through a significant step in the conversion funnel - show an affirming message, praise them, and congratulate them for achieving this step.
+**产品/UX 技巧**：当用户在转化漏斗中经历一个重要的步骤时 —— 显示一个肯定的消息，称赞他们，并祝贺他们完成了这一步骤。
 
-**Virality tip**: A great timing to ask a user to share the product (or add a review) is right after the user makes a decision to purchase that leads to a successful transaction. This moment combines a successful experience with the choice-supportive bias.
+**病毒营销技巧**：用户做出购买决定并成功交易之后，是让用户分享产品（或添加评论）的最佳时机。这一刻将成功经验与支持选择偏差相结合。
 
-![Choice-Supportive Bias (Post-Purchase Rationalization)](https://alexdenk.eu/blogtouch?id=1hQBoTtxdgExY1Rllc9OLHBg8T9xvj4XP "Choice-Supportive Bias (Post-Purchase Rationalization)")
+![支持选择偏差（购后合理化）](https://alexdenk.eu/blogtouch?id=1hQBoTtxdgExY1Rllc9OLHBg8T9xvj4XP "支持选择偏差（购后合理化）")
 
-Praise your users and congratulate them for achieving significant steps 
+赞扬你的用户，并祝贺他们实现了重要的步骤
 
-### 63. The Sunk Cost Fallacy
+### 63. 沉没成本谬误
 
-The more we invest in something the harder it becomes to abandon it.
+我们在某件事上投入越多就越难放弃它。
 
-As a result, we often continue with a failing course of action, only because of the time, money or effort that we’ve already invested in it in the past.
+因此，我们往往会继续执行这个走向失败的行动，仅仅是因为我们过去已经在此投入了过多的时间、金钱或精力。
 
-**Onboarding tip**: Make it easy for your users to start with a small commitment which is fun and engaging. This will pave the way for bigger commitments later on.
+**引导流程技巧**：让用户从一个有趣且吸引人的小投入开始。这将为今后用户更大的投入铺平道路。
 
-**Life tip**: When you feel you’re about to go “all in” on something - take a break (few minutes, few hours, or even sleep on it) - you’ll see things differently when you are back.
+**生活技巧**：当你感觉自己即将“全身心投入”时 —— 稍作整顿再出发（停歇几分钟、几小时，甚至睡上一觉），你将会看到不一样的东西。
 
-### 64. Irrational Escalation (Escalation of Commitment)
+### 64. 不理性增值（承诺升级）
 
-We continue rationalizing a previous decision we made by repeating it (or investing even more in it), and by doing so, prove that our previous decision was correct.
+我们通过重复执行（或投入更多）使之前做出的决定合理化，并以此来证明我们之前做的决定是正确的。
 
-**Life tip**: Don’t fall in love with your ideas just because you already invested in them. Cut your losses on time.
+**生活技巧**：不要仅仅因为你已经在想法上投入许多而倾心于它。要及时止损。
 
-**Product rule**: Measure and analyze the performance of every new feature you release. Don’t trust your instincts and always be suspicious about your own decisions.
+**产品规则**：度量和分析你发布的每个新特性的性能。不要相信你的直觉，要始终对自己的决定持怀疑态度。
 
-![Irrational Escalation - provide free trials to hook the user through escalation of commitment](https://alexdenk.eu/blogtouch?id=1Eyv1r4bxniXE0hRV8gPYeomBV5UeWgYQ "Irrational Escalation - provide free trials to hook the user through escalation of commitment")
+![不理性增值 —— 提供免费试用，通过逐步升级用户投入来留住用户](https://alexdenk.eu/blogtouch?id=1Eyv1r4bxniXE0hRV8gPYeomBV5UeWgYQ "不理性增值 —— 提供免费试用，通过逐步升级用户投入来留住用户")
 
-Provide free trials to hook the users through escalation of commitment
+提供免费试用，通过逐步升级用户投入来留住用户
 
-### 65. The Ostrich Effect
+### 65. 鸵鸟效应
 
-We deliberately avoid negative information (or feedback that isn't aligned with our hopes), thinking that if we bury our head in the sand - they will disappear.
+我们故意逃避负面信息（或不符合我们期望的反馈），认为如果我们把头埋在沙子里 —— 它们就会消失。
 
-**Question**: Have you ever received really bad customer feedback, and thought "It's just one customer, it doesn’t mean anything"?
+**问**：你是否收到过非常糟糕的客户反馈，并认为“这只是众多客户中的其中一个，并不意味着什么”？
 
-**Product management tip**: Work alongside customer support: do it proactively, see what customers are struggling with. There’s a lot to learn from going over user complaints.
+**产品管理技巧**：在用户的支持下工作：看看用户在使用产品的过程中遇到什么困难，并积极主动地解决它。从用户的投诉中可以学到很多东西。
 
-### 66. Disposition Effect
+### 66. 处置效应
 
-The disposition effect is an anomaly discovered in behavioral finance. It relates to the tendency of investors to sell assets that have increased in value while keeping assets that have dropped in value.
+处置效应是在行为金融学中发现的一种异常现象。它与投资者倾向于出售增值资产，同时保留贬值资产有关。
 
 ## But don’t push it!
 
