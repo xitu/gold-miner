@@ -15,7 +15,7 @@
 
 ![](https://3lr6t13cowm230cj0q42yphj-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/data-sharding-distributed-sql-1.png)
 
-**图一 ：垂直切分与水平切分（来源：Medium）**
+**图一：垂直切分与水平切分（来源：Medium）**
 
 ## 为什么要对数据库进行分片？
 
