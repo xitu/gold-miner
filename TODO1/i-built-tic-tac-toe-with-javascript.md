@@ -2,20 +2,20 @@
 > * 原文作者：[MITCHUM](https://mitchum.blog/author/mitchm/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-tic-tac-toe-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-tic-tac-toe-with-javascript.md)
-> * 译者：
+> * 译者：[lgh757079506](https://github.com/lgh757079506)
 > * 校对者：
 
-# I Built Tic Tac Toe With JavaScript
+# 用 JavaScript 实现一个 Tic Tac Toe 吧
 
-In my last post I showed you guys a [matching game](https://www.mitchum.blog/i-built-a-simple-matching-game-with-javascript/) I built using JavaScript and talked a bit about front-end [web technologies](https://mitchum.blog/how-a-dynamic-web-application-works-an-epic-tale-of-courage-and-sacrifice/). I received some positive feedback, so for this week’s post I decided to build a [tic tac toe game](https://www.mitchum.blog/games/tic-tac-toe/tic-tac-toe.html) using JavaScript and describe its construction in detail. I also took on the additional challenge of not using any external JavaScript libraries in the project.
+在我上一篇文章中，我向大家展示了[匹配类游戏](https://www.mitchum.blog/i-built-a-simple-matching-game-with-javascript/)，文中介绍到我是使用 JavaScript 实现并简单谈了一下前端[web 技术](https://mitchum.blog/how-a-dynamic-web-application-works-an-epic-tale-of-courage-and-sacrifice/)。 我得到了很好的反馈，所以在本周的文章中我决定讲解一个由 Javascript 实现的游戏[tic tac toe](https://www.mitchum.blog/games/tic-tac-toe/tic-tac-toe.html)并详细介绍其实现方案。在本项目中，我还尝试挑战不使用任何外部 Javascript 依赖库去实现它.
 
-[Click here](https://www.mitchum.blog/games/tic-tac-toe/tic-tac-toe.html) to play tic-tac-toe!
+[点这里](https://www.mitchum.blog/games/tic-tac-toe/tic-tac-toe.html) 去玩下 tic-tac-toe 吧！
 
-There are two difficulty levels: moron and genius. Once you’ve bested the moron, see if you can defeat the tic-tac-toe genius. The genius is more formidable than the moron, but he is a little arrogant and isn’t actually all that bright. As a reader of my blog, I bet you are smart enough to exploit the flaws in his thinking.
+这里有两个难度等级：moron 和 genius。挑战成功 moron 的话，试下能否挑战成功 genius 级别。genius 要比 moron 级别更难，这个是有一定难度但是并不那么智能。正在读文章的朋友，我保证你能凭借你的智慧发现能赢得游戏的奥秘。
 
-## How It’s Made
+## 实现过程
 
-This tic tac toe game is built using the three basic front-end web technologies: HTML, CSS, and JavaScript. I’m going to show you the code for each and describe the role they play in creating the final game. Here are the three files:
+tic tac toe 这个游戏使用了三个基本的前端技术：HTML、CSS 和 JavaScript。我会向你逐个介绍实现源码并讲解他们各自的作用。以下是这三个文件：
 
 [tic-tac-toe.html](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.html)
 
@@ -25,9 +25,9 @@ This tic tac toe game is built using the three basic front-end web technologies:
 
 ### HTML
 
-##### The Header
+##### HTML 的头部
 
-Let’s start with the head tag, shown below. This tag comes at the start of every HTML document you create. It’s a good place for including elements that affect the page as a whole.
+让我们从 head 标签开始。这个标签位于每个 HTML 文档开头。这里将存放一些影响页面的元素标签。
 
 ```
 <head>
@@ -38,21 +38,21 @@ Let’s start with the head tag, shown below. This tag comes at the start of eve
 </head>        
 ```
 
-Our head tag has three child tags inside of it: a title tag and two link tags. The tab of our web browser displays the contents of our title tag. In our case this is “Tic Tac Toe”. The second link tag contains a reference to the icon we want displayed in the tab of our web browser. Together, they form a tab that looks like this:
+head 标签中包含了三个子标签：一个 title 标签和两个 link 标签。浏览器中的选项卡处会展示 title 标签中的内容。本例中为“Tic Tac Toe”。第二个 link 标签设定了我们想展示在选项卡中的图标的链接。他们组合起来将是下面的样子：
 
 ![Browser tab for javascript Tic Tac Toe game](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/06/tab.png?w=740&ssl=1)
 
-The first link tag contains a reference to our [tic-tac-toe.css](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.css) file. This file is what lets us add color and positioning to our HTML document. Our game would look rather dreary without including this file.
+第一个 link 标签包含对[tic-tac-toe.css](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.css)文件的引用。这个文件可以让我们为 HTML 文档添加颜色和定位等样式。如果没有此文件，我们的游戏将会显得比较沉闷。
 
 ![Tic Tac Toe game without css applied](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/06/htmlonly-1.png?w=740&ssl=1)
 
-Our HTML document without any style.
+这个是没有任何样式下的我们页面的样子。
 
-Next we have the main body of our HTML document. We are going to break it up into two sections: the board and the controls. We’ll start with the board.
+接下来我们展示 HTML 文档主体。我们将其拆分为两部分：游戏界面和控制栏。我们先从游戏界面开始。
 
-##### The Board
+##### 游戏界面
 
-We are using a table tag for representing our tic-tac-toe game board. The code is shown below:
+我们将使用 table 标签来布局 tic-tac-toe 游戏界面。代码如下：
 
 ```
 <table class="board">
@@ -92,21 +92,21 @@ We are using a table tag for representing our tic-tac-toe game board. The code i
 </table>
 ```
 
-We have added the class, “board” to the table in order to add styling to it. The board has three table row tags each containing three table data tags. This results in a 3×3 game board. We have assigned each square of the game board a numerical id and some classes indicating its positioning.
+我们为 table 标签添加“board”类，以便为其添加样式。该区域有三个 row 标签，每个标签中包含三个用于存放数据的标签。这就组成了一个 3×3 游戏面板。我们为其中每个方形区域设置其 id 为数字并且设置一些表示其位置的 class 名。
 
-##### The Controls
+##### 控制栏
 
-What I’m calling the controls section consists of a message box, a few buttons, and drop down list. The code looks like this:
+我所说的控制栏部分包含一个消息框，几个按钮和一个下拉列表。代码如下：
 
 ```
 <br>
 <div id="messageBox">Pick a square!</div>
 <br>
 <div class="controls">
- <button class="button" onclick="resetGame()">Play Again</button> 
+ <button class="button" onclick="resetGame()">Play Again</button> 
  <form action="https://mitchum.blog/sneaky-subscribe" 
        style="display: inline-block;">
-    <button class="button" type="submit">Click Me!</button> 
+    <button class="button" type="submit">Click Me!</button> 
  </form>
  <select id="difficulty">
    <option value="moron" selected >Moron</option>
@@ -115,134 +115,130 @@ What I’m calling the controls section consists of a message box, a few buttons
 </div>
 ```
 
-The message box is situated between two line breaks. Following the second line break is a div containing the rest of our controls. The play again button has a click handler that calls a JavaScript function in [tic-tac-toe.js](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.js). The mystery button is wrapped inside of a form tag. Finally, the select tag contains two options: moron and genius. The moron option is selected by default.
+消息框位于两个换行符之间。第二个换行符后面是一个包含其余部分的 div 标签。play again 按钮有一个点击事件，可以在[tic-tac-toe.js](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.js)文件中调用 Javascript 函数。Click Me 按钮被包含在 form 标签中。最后，select 标签包含两个 options 标签：其内容为 moron 和 genius。moron 为默认选中状态。
 
-Each of these HTML elements has been assigned various classes and ids which will be used for assisting in executing the game logic and for adding styling. Let’s talk about how that styling is applied.
+每一个 HTML 元素都被指定为各种类名和 id 名，他们在游戏逻辑和样式方面起了不小的作用。我们来看下样式部分是如何编写的。
 
 ## CSS
 
-I’m going to break the explanation of the [tic-tac-toe.css](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.css) file up into several sections because I think that will make it easier to follow as a reader.
+我将[tic-tac-toe.css](https://mitchum.blog/games/tic-tac-toe/tic-tac-toe.css)文件内容拆分为几个部分，因为我觉得这样会使读者更容易理解。
 
-##### Basic Elements
+##### 基础元素
 
-The first section contains styling for the body, main, and h1 tags. The background styling on the body tag simply sets the light blue background color of the page using RGB values.
+第一部分样式包含 body, main 和 h1 标签。body 标签上使用 RGB 值设置页面背景为浅蓝色。
 
-The max-width, padding, and margin styling on the main tag centers our game on the screen. I borrowed this awesome and succinct styling from this [blog post](https://jrl.ninja/etc/1/).
+main标签上设置 max-width, padding 和 margin 属性将游戏界面居中于屏幕。我从[blog post](https://jrl.ninja/etc/1/)这篇文章中借鉴了其精美而简洁的样式风格。
 
-The h1 tag is contains the big “Tic Tac Toe” heading, and we add style to center it and give it that yellow coloring.
+h1 标签包含着大写的标题“Tic Tac Toe”，然后我们将其设置为黄色字体并居中。
 
-See below:
+代码如下：
 
 ![CSS styling for the page](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/06/css1.png?w=740&ssl=1)
 
-##### The Controls
+##### 控制栏
 
-Next we are going to talk about styling for the message box, difficulty drop down list, and the top-level controls section.
+接下来我们将讨论 message 框，下拉菜单和整行控制区的样式.
 
-We center the text inside the message box and color it yellow. Then we add a border with rounded corners.
+我们将文本消息框居中并设置字体颜色为黄色。我们将这个区域设置了黄色边框。
 
-We set the size of our difficulty drop down, and add rounded corners, and then we set its font size, colors, and positioning.
+我们设置 difficulty 为下拉菜单 id 名，并且设置了圆角，还设置了字体大小，颜色和位置信息。
 
-The only change we need to make to the controls div is to make sure that everything is centered.
+我们对控制栏唯一需要调整的是确保其中所有元素都为居中状态。
 
-See below:
+代码如下：
 
 ![ CSS styling for the controls](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/06/css2.png?w=740&ssl=1)
 
-##### The Board
+##### 游戏面板
 
-Next comes the styling of our game board itself. We need to set the size, color, and text positioning of each square. More importantly, we need to make the borders visible in the appropriate locations. We added several classes for identifying where squares are located on the game board, allowing us to create the famous tic-tac-toe pattern. We also varied the size of the border to get a more three dimensional look and feel.
+接下来会将游戏界面的样式设计。我们需要设置每个方形区域的大小，颜色和文本位置。更重要的是，我们需要在适当的位置显示边框。我们添加了几个 class 来标识游戏面板上方形区域的位置，来实现著名的 tic-tac-toe 游戏。 我们还改变了边框的大小让它更有三维空间的感觉。
 
 ![CSS styling for the tic tac toe board](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/06/css3.png?w=740&ssl=1)
 
-##### The Buttons
+##### 按钮
 
-Finally we come to the buttons. I have to confess, I borrowed these styles from [w3schools](https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_animate3). However, I did modify them slightly to match our color scheme.
+最后我们来看下按钮的样式。我必须承认，我从[w3schools](https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_animate3)借用这些样式。但是，我确实进行了修改以适应我们的配色方案。
 
 ![CSS styling for the buttons](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/06/css4.png?w=740&ssl=1)
 
-Alright, that’s it for the CSS! Now we can finally move onto the fun part: JavaScript.
+好啦，这就是 CSS 部分！现在我们终于可以进入有趣的部分：JavaScript。
 
 ### JavaScript
 
-As should be expected, the JavaScript code is the most complex part of the tic tac toe game. I’m going to describe the basic structure and the artificial intelligence, but I’m not going to describe each and every function. Instead, I’m going to leave it as an exercise for you to read the code and understand how each function was implemented. These other functions have been made **bold** for your convenience.
+正如所料，JavaScript 代码是 tic tac toe 游戏中最复杂的部分。我将描述基本结构和人工智能部分，我不是去介绍每一个功能。相反，我将把它作为练习让你阅读代码并理解每个函数是如何实现的。方便起见，这些函数已经被“加粗”。
 
-If something in the code is confusing then leave a comment and I’ll do my best to explain it! If you can think of a better way to implement something then I would love to hear your feedback in the comments as well. The goal is for everyone to learn more and have fun in the process.
+如果代码中的某些部分让你困惑，请留言，我会为你详细解释！如果你能想出更好的实现方式，我也很乐意在评论中听到你的反馈意见。目的是让每个人都学到更多，与此同时可以收获快乐。
 
-##### Basic Structure
+##### 基本结构
 
-The first thing we need to do is initialize some variables. We have a couple variables for keeping track of the game’s state: one for keeping track of if the game is over, and one for storing the chosen difficulty level.
+我们需要做的第一件事就是初始化一些变量。我们有几个变量用于存储游戏状态：一个用于表示游戏是否结束，另一个则表示游戏的难度级别。
 
-We also have a few more variables for storing some useful information: An array of our squares, the number of squares, and the win conditions. Our board is represented by a sequential list of numbers, and there are eight possible win conditions. So the win conditions are represented by an array containing eight arrays, one for each possible three square winning combination.
+我们还有一些变量用于存储一些有用的信息：方形区域用数组存储，方形区域数量和胜利条件。我们的游戏面板是有一系列数字代表，还有八种可能的胜利条件。因此，胜利条件由一个包含八个数组的二维数组表示，每个数组对应一个可能获胜的三个方形区域组合。
 
-See below:
+代码如下：
 
 ![initialization javascript variables](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/06/css5.png?w=740&ssl=1)
 
-With that in mind, let’s talk about how this program works. This game is [event-driven](https://en.wikipedia.org/wiki/Event-driven_architecture). Any action that occurs on-screen happens because you clicked somewhere, and the code responded to it. When you click on the “Play Again” button, the board is cleared and you can play another round of tic tac toe. When you change the difficulty level, the game responds by making different moves in response to yours.
+考虑到这点，让我们看下这个程序是如何运作的。这个游戏是[事件驱动](https://en.wikipedia.org/wiki/Event-driven_architecture)型。你点击的某些区域，代码都会作出响应，然后在屏幕上看到效果。当你点击“Play Again”按钮，游戏面板将会重置并且你可以进行下一轮的 tic tac toe 游戏。当你改变难度级别时，游戏会根据你的不同操作作出相应操作。
 
-The most important event we have to respond to is when a player clicks on a square. There are lots of things that need to be checked. The bulk of this logic happens inside the top-level function I wrote called **chooseSquare**.
+当然最重要的还是玩家点击某个方形区域。有许多需要检查的地方。这个逻辑大部分在名为**chooseSquare**的函数中。
 
-See below:
+代码如下:
 
 ![Javascript for choosing a tic tac toe square.](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/06/js2.png?w=740&ssl=1)
 
-##### The Code Examined
+##### 代码解读
 
-Let’s walk through the code from top to bottom.
+让我们一起通读代码。
 
-**Line 176:** The first thing we do is set the difficulty variable to whatever was chosen in the drop down list. This is important because our artificial intelligence looks at this variable to determine what move to make.
+**176 行：** 我们需要做的第一件事就是将变量 difficulty 设置为下拉列表中选择的内容。这很重要，因为我们的人工智能会根据此变量以确定需要进行的操作。
 
-**Line 177:** The second thing we do is check if the game is over. If it is not then we can proceed. Otherwise, there is no need to continue.
+**177 行：** 第二件事是检查游戏是否结束。如果没有我们可以继续。否则，将会停止。
 
-**Lines 179 – 181:** Third, we set the message displayed to the player to the default, “Pick a square!” message. We do this by calling the **setMessageBox** function. Then we set variables for the id and the HTML of the square that was selected by the player.
+**179 – 181 行：** 第三，我们将显示给玩家的消息默认设置为“Pick a square!”。我们通过调用 **setMessageBox** 函数实现。然后我们变量存储玩家选择的方形区域的 id 值和此 id 的dom节点。
 
-**Line 182:** We check if the square is open by calling **squareIsOpen**. If a marker has already been placed there then the player is trying to make an illegal move. In the corresponding else block, we notify him as such.
+**182 行：** 我们通过调用 **squareIsOpen** 函数检查方形区域是否是开放状态。如果已经被标记，玩家则不能移动。在相应的 else 代码块中我们提示他。
 
-**Lines 184 -185:** Since the square is open, we set the marker to “X”. Then we check to see if we won by calling **checkForWinCondition**. If we won we are returned an array containing the winning combination. If lost we are simply returned false. This is possible because JavaScript is not [type safe](https://en.wikipedia.org/wiki/Type_safety).
+**184 - 185 行：** 由于方形区域状态是开放的，我们将标记设为“X”。然后我们通过调用 **checkForWinCondition** 函数检查我们是否胜利。如果我们胜利了，我们将返回一个包含获胜组合的数组。如果失败我们返回 false。这是行得通的，因为 Javascript 不是[强类型](https://en.wikipedia.org/wiki/Type_safety)语言。
 
-**Line 186:** If the player didn’t win then we must continue so that his opponent can make a move. If the player did win, then the corresponding else block will handle it by setting the game over variable to true, turning the winning squares green by calling **highlightWinningSquares**, and setting the winning message.
+**186 行：** 如果玩家没有赢得比赛，那游戏继续，以便他的对手可以继续下一步操作。如果玩家确实赢了，那么相应的 else 代码块将通过把游戏变量设置为 true，通过调用 **highlightWinningSquares** 函数将获胜方形区域边位绿色，并设置获胜消息。
 
-**Lines 188 – 189:** Now that the player’s move is finished we need to make a move for the computer. The function called **opponentMove** handles this, and it will be discussed later in detail. Then we need to check to see if the player lost by calling the same function we used on line 185, but this time passing in “O” as a parameter. Yay for reusability!
+**188 – 189 行：** 现在玩家的操作已完成，我们需要计算机做出操作。名为 **opponentMove** 的函数会解决这个问题，稍后将详细讨论。现在我们需要通过调用我们在 185 行使用的那个函数来检查玩家是否输了，但这次以“O”作为参数。这就是复用！
 
-**Line 190:** If the computer did not win then we must continue so that we can check for a draw. If the computer did win, then the corresponding else block will handle it by setting the game over variable to true, turning the winning squares red by calling **highlightWinningSquares**, and setting the losing message.
+**190 行：** 如果电脑输了，那么我们必须继续，以便我们可以检查是否平局。如果计算机获胜，那么相应的 else 代码块将通过将游戏变量设为 true 来处理它，通过调用 **highlightWinningSquares** 函数并设置失败信息将获胜方形区域设为红色。
 
-**Lines 192 – 197:** We check for a draw by calling the **checkForDraw** function. If there are no win conditions met and there are no more available moves to be made then we must have reached a draw. If a draw has been reached then we set the game over variable to true and set the draw message.
+**192 – 197 行** 我们通过调用 **checkForDraw** 函数检查绘图。如果没有赢且没有更多可行的操作，那么我们必须定为平局。如果已经为平局，那么我们将游戏变量设为 true 并设置绘制消息。
 
-That’s it for the main game logic! The rest of this function is just the corresponding else blocks which we already covered. As I mentioned previously, go read through the other functions to get a fuller understanding of how the game logic works.
+这是游戏的主逻辑！函数剩余部分就是我们已经介绍的相应 else 代码块中的逻辑。正如前面说的，请阅读其他函数以更全面的了解游戏的工作原理。
 
-##### Artificial Intelligence
+##### 人工智能
 
-There are two difficulty levels: moron and genius. The moron always takes the first available square in order of id. He will sacrifice a win just to keep up this orderly pattern, and he will not deviate from it even to prevent a loss. He is a simpleton.
+有两个难度级别：moron 和 genius。moron 总是按照 id 的顺序取第一个可用的方形区域。为了保持这种有序的模式，他将牺牲一场胜利，即使是为了防止失败，他也不会偏离他。他很傻。
 
-The genius is much more sophisticated. He will take a win when its there, and he will try to prevent a loss. Going second puts him at a disadvantage, so he favors the center square for its defensive qualities. However, he does have weaknesses that can be exploited. He’s following a better set of rules, but he isn’t great at adapting to situations on the fly. When he can’t find an obvious move to make he reverts back to the same simple ways of the moron.
+genius 会复杂些。他将尽力去赢得游戏胜利。排第二名使他处于劣势，多以他更喜欢中心的方形区域保持其防守姿势。但是，他确实有可以利用的弱点。他遵循一套更好的规则，但并不擅长其他非正常情况。当他找不到一个明显的操作步骤时会让他恢复到 moron 模式。
 
-See below:
+代码如下：
 
 ![AI top level javascript function](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/06/js4.png?w=740&ssl=1)
 
-The top level AI function
+顶级的 AI 函数
 
 ![AI implementation details in javascript](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/06/js5.png?w=740&ssl=1)
 
-The AI implementation details
+AI 实现细节
 
-Once you understand the algorithm let me know in the comments what changes we could make to turn our wannabe genius into a true one!
+你理解算法的话，请在评论中告诉我们可以做出哪些优化将我们的游戏变的更加智能！
 
 (adsbygoogle = window.adsbygoogle || \[\]).push({});
 
-### Summary
+### 总结
 
-In this post I showed off the Tic Tac Toe game I made using JavaScript. Then we looked at how it was constructed and how the artificial intelligence works. Let me know what you think, and what kind of games you would like to see me make in the future. Keep in mind though, I’m only one guy, so no asking for Call of Duty!
+这篇文章中我展示了使用 Javascript 实现的 Tic Tac Toe 游戏。然后我们了解了它是如何实现的以及人工智能是如何工作的。让我知道你的想法吧，以及你希望我在未来做一些怎样的游戏。请记住，我也是人，我可能做不到随叫随到。
 
-If you want to learn more about how to write good programs in JavaScript, one book that I recommend is [JavaScript: The Good Parts](https://amzn.to/2XrvPrt), by the legendary Douglas Crockford. The language has been improved dramatically over the years, but it still has some odd properties because of its development history. The book does a great job of helping you navigate around its more questionable design choices. I found it helpful when I was learning the language.
+如果你想进一步了解如何用 Javascript 编写更好的程序，我推荐一本由著名人物 Douglas Crockford 编写的[JavaScript: The Good Parts](https://amzn.to/2XrvPrt)书。随时间发展这门语言有显著改善，但由于其发展历史，它仍然具有一些奇怪的特性。这本书很好的帮你了解更多问题的设计选择。我在学习语言的过程中发现它对我的帮助很大。
 
-If you decide to purchase it, I would be grateful if you decided to go through the link above. I will get a commission through Amazon’s affiliate program, with no additional cost to you. It helps me keep this site up and running.
+如果你想购买它，并会浏览上面的链接，我将不胜感激。我将通过亚马逊的联盟计划获得佣金，对你无需额外费用。他可以保证我个人网站的正常运行。
 
-Thanks for reading, and I’ll see you next time!
+感谢阅读，下期见！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
----
-
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
