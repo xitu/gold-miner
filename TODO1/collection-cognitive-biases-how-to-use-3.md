@@ -171,7 +171,7 @@ I mean, of course we are! But if you want your product to succeed, show how Geor
 
 一旦做出决定，我们倾向于赞扬我们的所选项，并贬低其他选项。
 
-**产品/UX 技巧**：当用户在转化漏斗中经历一个重要的步骤时 —— 显示一个肯定的消息，称赞他们，并祝贺他们完成了这一步骤。
+**产品/UX hack**：当用户在转化漏斗中经历一个重要的步骤时 —— 显示一个肯定的消息，称赞他们，并祝贺他们完成了这一步骤。
 
 **病毒营销技巧**：用户做出购买决定并成功交易之后，是让用户分享产品（或添加评论）的最佳时机。这一刻将成功经验与支持选择偏差相结合。
 
@@ -213,73 +213,73 @@ I mean, of course we are! But if you want your product to succeed, show how Geor
 
 处置效应是在行为金融学中发现的一种异常现象。它与投资者倾向于出售增值资产，同时保留贬值资产有关。
 
-## But don’t push it!
+## 不要强迫！
 
-Persuading people might seem easier than expected, but don’t push it though. 
+说服人们似乎比预期要容易，但不要强迫他们。
 
-Building trust is a process, and if the users feel something is wrong - they become over defensive, and this is when your battle is lost.
+建立信任需要一个过程，如果用户感觉有什么不对劲 —— 他们就会变得过度防御，这时你就输掉了这场用户争夺战。
 
-### 67. Reactance
+### 67. 对抗心理
 
-Reactance occurs when we feel that someone (or something) is trying to constrain our freedom by taking away our choices and limit our alternatives. When it happens, we feel an urge to resist it and do the opposite.
+当我们感到有人（或物）试图通过剥夺和限制我们的选择来限制我们的自由时就会产生对抗心理。当它发生时，我们会有一种抵制它的冲动，并采取相反的行动。
 
-**Product tip**: be careful when you “argue” with a user about his selected choice.
+**产品技巧**：当你与用户“争论”他的选择时要额外小心。
 
-Nudges must be gentle and elegant, and must never harm the user’s confidence.
+必须轻柔且优雅地推动用户，绝不能伤害用户的信任。
 
-### 68. Single Option Aversion
+### 68. 厌恶单一选项
 
-We are unwilling to choose an option (regardless of how attractive it is) when there are no other competing options.
+当没有其他竞争性选项存在时，我们不愿意去选择一个唯一的选项（无论它有多吸引人）。
 
-**Conversion tip**: Without creating too many options - set 3 options so your customers will have alternatives, without becoming confused.
+**转化技巧**：不用创建过多的选项 —— 设置 3 个选项，这样你的客户就有了其他选择，不至于感到困惑。
 
 ![](https://alexdenk.eu/blogtouch?id=1qQ1KSJIV1t_5qU0Lbzly40KYvGhtc4ot)
 
-### 69. Analysis Paralysis (Choice Overload)
+### 69. 分析瘫痪（选择过多）
 
-This bias rhymes, which means it’s probably true:
+这个偏见很押韵，这意味着它可能是真的：
 
-When too many options are presented, our brain shuts down and we are having a hard time choosing.
+当太多选项呈现在我们面前时，我们的大脑就会停止思考，很难做出选择。
 
-Think about overloaded restaurant menus and how overwhelming (and not fun!) they can get.
+想想满目琳琅的餐厅菜单，它让人难以承受（而且一点也不有趣！）。
 
-**Product rule**: Too many options = poor conversion rate.
+**产品规则**：选项过多 = 低转化率。
 
-![Analysis Paralysis - Too many options lead to poor conversion rate](https://alexdenk.eu/blogtouch?id=1ec1f6hMhATAPtGe7Cb0JidAhj-F-HNLQ "Analysis Paralysis - Too many options lead to poor conversion rate")
+![分析瘫痪 —— 过多的选项导致低转化率](https://alexdenk.eu/blogtouch?id=1ec1f6hMhATAPtGe7Cb0JidAhj-F-HNLQ "分析瘫痪 —— 过多的选项导致低转化率")
 
-Too many options = poor conversion rate
+选项过多 = 低转化率
 
-### 70. Ambiguity Effect
+### 70. 不明确性效应
 
-We tend to avoid the unknown and do not select options that are missing information or clarity.
+我们通常会避免未知，不去选择缺少信息或不够清晰的选项。
 
-Minimize ambiguity by adding reassuring details and your conversion rates will improve.
+通过添加可靠的细节将歧义最小化，这将提高你的转化率。
 
-**Product tip**: if you sell products - invest in the description, photos, price and delivery options.
+**产品 hack**：如果你销售产品 —— 在描述、图片、价格和交付选项上投入精力。
 
-**UI hack**: CTA buttons should include informative labels next to them, designed to clear possible uncertainties.
+**UI hack**：CTA 按钮应包含旁边的信息标签，旨在清楚可能的不确定性。
 
-![Ambiguity Effect - Clarity is key for improving conversion rates](https://alexdenk.eu/blogtouch?id=1gKRA6UopJl-tl2b-cRLx948praM3e1UR "Ambiguity Effect - Clarity is key for improving conversion rates")
+![不明确性效应 —— 信息清晰是提高转化率的关键](https://alexdenk.eu/blogtouch?id=1gKRA6UopJl-tl2b-cRLx948praM3e1UR "不明确性效应 —— 信息清晰是提高转化率的关键")
 
-Clarity is key for improving conversion rates
+信息清晰是提高转化率的关键
 
-### 71. Risk Compensation
+### 71. 风险代偿
 
-We become more careful where we sense greater risk and less careful when we feel more protected.
+当我们感受到风险时我们会倍加小心，当我们感觉安全时我们会冒更大的风险。
 
-**Product tip**: Workflows should be designed to minimize friction.
+**产品技巧**：尽量减少工作流中的摩擦。
 
-### 72. Peltzman Effect
+### 72. 佩兹曼效应
 
-We are more likely to act in a risky way when we know all security measures have been taken.
+当我们知道已经采取了所有的安全措施时，我们更有可能冒险行事。
 
-**UI tip**: Let your users feel as safe as possible with your product - let them gain confidence and trust, especially before making a purchase or singing-up.
+**UI 技巧**：让你的用户在使用你的产品时尽可能地感到安全 —— 让他们获得信心和信任，特别是在购买和登录之前。
 
-### 73. Backfire Effect
+### 73. 逆火效应
 
-We can’t change people’s beliefs that easily: evidence and argumentation in opposite to an entrenched belief will not help and will only strengthen their position.
+我们无法轻易改变人们的信念：与根深蒂固的信念相反的论据和论证不仅无济于事，反而会强化原有的信念。
 
-**Work-related tip**: win people’s behavior through emotional arguments (look around you! There’s a list of relevant techniques right here!) and don’t try to change their beliefs.
+**工作相关技巧**：通过情感上的因素改变人们的行为（看看上下文！这里有一个相关技术的清单！），而不要试图改变他们的信念。
 
 ## Some more mind tricks before we wrap
 
