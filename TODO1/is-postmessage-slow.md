@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/is-postmessage-slow.md](https://github.com/xitu/gold-miner/blob/master/TODO1/is-postmessage-slow.md)
 > * 译者： [linxiaowu66](https://github.com/linxiaowu66)
-> * 校对者：[MarchYuanx](https://github.com/MarchYuanx)
+> * 校对者：[MarchYuanx](https://github.com/MarchYuanx)、[TiaossuP](https://github.com/TiaossuP)
 
 # postMessage 很慢吗?
 
@@ -19,7 +19,7 @@
 
 在开始度量之前，我们需要了解**什么是** `postMessage()`，以及我们想度量它的哪一部分。否则，[我们最终将收集无意义的数据](https://dassur.ma/things/deep-copy/)并得出无意义的结论。
 
-`postMessage()` 是 [HTML规范](https://html.spec.whatwg.org/multipage/) 的一部分(而不是 [ECMA-262](http://www.ecma-international.org/ecma-262/10.0/index.html#Title) !)正如我在 [deep-copy 一文](https://dassur.ma/things/deep-copy/)中提到的，`postMessage()` 依赖于结构化克隆数据，将消息从一个 JavaScript 空间复制到另一个 JavaScript 空间。仔细研究一下 [`postMessage()` 的规范](https://html.spec.whatwg.org/multipage/webmessaging.html#message-port-post-message-steps)，就会发现结构化克隆是一个分两步的过程:
+`postMessage()` 是 [HTML规范](https://html.spec.whatwg.org/multipage/) 的一部分（而不是 [ECMA-262](http://www.ecma-international.org/ecma-262/10.0/index.html#Title) !）正如我在 [deep-copy 一文](https://dassur.ma/things/deep-copy/)中提到的，`postMessage()` 依赖于结构化克隆数据，将消息从一个 JavaScript 空间复制到另一个 JavaScript 空间。仔细研究一下 [`postMessage()` 的规范](https://html.spec.whatwg.org/multipage/webmessaging.html#message-port-post-message-steps)，就会发现结构化克隆是一个分两步的过程:
 
 ### 结构化克隆算法
 
@@ -28,13 +28,13 @@
     1. 在序列化的消息上执行 `StructuredDeserialize()`
     2. 创建一个 `MessageEvent` 并派发一个带有该反序列化消息的 `MessageEvent` 事件到接收端口上
 
-这是算法的一个简化版本，因此我们可以关注这篇博客文章中重要的部分。虽然这在**技术上**是不正确的，但它却抓住了精髓。例如，`StructuredSerialize()` 和 `StructuredDeserialize()` 在实际场景中并不是真正的函数，因为它们不是通过 JavaScript ([yet](https://github.com/whatwg/html/pull/3414)) 暴露出去的。那这两个函数实际上是做什么的呢？现在，**您可以将 `StructuredSerialize()` 和 `StructuredDeserialize()` 视为 `JSON.stringify()` 和 `JSON.parse()` 的智能版本**。从处理循环数据结构、内置数据类型（如 `Map`、`Set`和`ArrayBuffer`）等方面来说，它们更聪明。但是，这些智慧是有代价的吗？我们稍后再讨论这个问题。
+这是算法的一个简化版本，因此我们可以关注这篇博客文章中重要的部分。虽然这在**技术上**是不正确的，但它却抓住了精髓。例如，`StructuredSerialize()` 和 `StructuredDeserialize()` 在实际场景中并不是真正的函数，因为它们不是通过 JavaScript（[不过有一个 HTML 提案打算将它们暴露出去](https://github.com/whatwg/html/pull/3414)）暴露出去的。那这两个函数实际上是做什么的呢？现在，**您可以将 `StructuredSerialize()` 和 `StructuredDeserialize()` 视为 `JSON.stringify()` 和 `JSON.parse()` 的智能版本**。从处理循环数据结构、内置数据类型（如 `Map`、`Set`和`ArrayBuffer`）等方面来说，它们更聪明。但是，这些聪明是有代价的吗？我们稍后再讨论这个问题。
 
 上面的算法没有明确说明的是，**序列化会阻塞发送方，而反序列化会阻塞接收方。**另外还有：Chrome 和 Safari 都推迟了运行 `StructuredDeserialize()` ，直到您实际访问了 `MessageEvent` 上的 `.data` 属性。另一方面，Firefox 在派发事件之前会反序列化。
 
-> **注意：** 这两个行为**都是**兼容规范的，并且完全有效。[我在Mozilla上提了一个bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1564880)，询问他们是否愿意调整他们的实现，因为这可以让开发人员去控制什么时候应该受到反序列化大负载的"性能冲击"。
+> **注意：** 这两个行为**都是**兼容规范的，并且完全有效。[我在 Mozilla 上提了一个bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1564880)，询问他们是否愿意调整他们的实现，因为这可以让开发人员去控制什么时候应该受到反序列化大负载的“性能冲击”。
 
-考虑到这一点，我们必须选择**什么**来进行基准测试：我们可以端到端进行度量，所以可以度量一个 worker 发送消息到主线程所花费的时间。然而，这个数字将捕获序列化和反序列化的时间总和，但是它们却分别发生在不同的空间下。记住：**与 worker 的整个通信的都是主动的，这是为了保持主线程自由和响应性。** 或者，我们可以将基准测试限制在 Chrome 和 Safari 上，并单独测量从 `StructuredDeserialize()` 到访问 `.data` 属性的时间，这个需要把Firefox排除在基准测试之外。我还没有找到一种方法来单独测量 `StructuredSerialize()` ，除非运行跟踪。这两种选择都不理想，但本着构建弹性web应用程序的精神，**我决定运行端到端基准测试，为 `postMessage()` 提供一个上限**
+考虑到这一点，我们必须选择对**什么**来进行基准测试：我们可以端到端进行度量，所以可以度量一个 worker 发送消息到主线程所花费的时间。然而，这个数字将捕获序列化和反序列化的时间总和，但是它们却分别发生在不同的空间下。记住：**与 worker 的整个通信的都是主动的，这是为了保持主线程自由和响应性。** 或者，我们可以将基准测试限制在 Chrome 和 Safari 上，并单独测量从 `StructuredDeserialize()` 到访问 `.data` 属性的时间，这个需要把Firefox排除在基准测试之外。我还没有找到一种方法来单独测量 `StructuredSerialize()` ，除非运行的时候调试跟踪代码。这两种选择都不理想，但本着构建弹性 web 应用程序的精神，**我决定运行端到端基准测试，为 `postMessage()` 提供一个上限**
 
 有了对 `postMessage()` 的概念理解和评测的决心，我将使用微基准。请注意这些数字与现实之间的差距。
 
@@ -58,11 +58,11 @@
 
 ![](https://dassur.ma/things/is-postmessage-slow/macbook-safari.svg)
 
-这一基准测试是在 2018 年的 MacBook Pro上的 Firefox、 Safari、和 Chrome 上运行，在 Pixel 3XL 上的 Chrome 上运行，在 诺基亚2 上的 Chrome 上运行。
+这一基准测试是在 2018 款的 MacBook Pro上的 Firefox、 Safari、和 Chrome 上运行，在 Pixel 3XL 上的 Chrome 上运行，在 诺基亚2 上的 Chrome 上运行。
 
 > **注意：** 您可以在 [gist](https://gist.github.com/surma/08923b78c42fab88065461f9f507ee96) 中找到基准数据、生成基准数据的代码和可视化代码。而且，这是我人生中第一次编写 Python。别对我太苛刻。
 
-Pixel 3 的基准测试数据，尤其是 Safari 的数据，对您来说可能有点可疑。当幽灵&崩溃被发现的时候,所有的浏览器会禁用 [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 并将我要测量使用的 [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) 函数实行计时器的精度减少。只有 Chrome 能够还原这些更改，因为它们将[站点隔离](https://www.chromium.org/home/chromisecurity/site-isolation)发布到 Chrome 桌面版。更具体地说，这意味着浏览器将 `performance.now()` 的精度限制在以下值上:
+Pixel 3 的基准测试数据，尤其是 Safari 的数据，对您来说可能有点可疑。当 [Spectre & Meltdown](https://zhuanlan.zhihu.com/p/32784852) 被发现的时候,所有的浏览器会禁用 [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 并将我要测量使用的 [performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) 函数实行计时器的精度减少。只有 Chrome 能够还原这些更改，因为它们将[站点隔离](https://www.chromium.org/home/chromisecurity/site-isolation)发布到 Chrome 桌面版。更具体地说，这意味着浏览器将 `performance.now()` 的精度限制在以下值上:
 
 * Chrome （桌面版）： 5µs
 * Chrome （安卓系统）： 100µs
@@ -89,7 +89,7 @@ Pixel 3 的基准测试数据，尤其是 Safari 的数据，对您来说可能�
 
 根据我的经验，一个 web worker 的核心职责至少是管理应用程序的状态对象。状态通常只在用户与您的应用程序交互时才会发生变化。根据 RAIL 的说法，我们有 100 ms 来响应用户交互，这意味着**即使在最慢的设备上，您也可以 `postMessage()` 高达 100 KiB 的对象，并保持在您的预期之内**
 
-当运行 JS 驱动的动画时，这种情况会发生变化。动画的 RAIL 预算是 16 ms，因为每一帧的视觉效果都需要更新。如果我们从 worker 那里发送一条消息，该消息会阻塞主线程的时间超过这个时间，那么我们就有麻烦了。从我们的基准数据来看，任何超过 10 KiB 的动画都不会对您的动画预算构成风险。也就是说，**这就是我们更喜欢用 CSS 动画和转换而不是 JS 驱动主线程绘制动画的一个重要原因。** CSS 动画和转换运行在一个单独的线程 - 合成线程 - 不受阻塞的主线程的影响。
+当运行 JS 驱动的动画时，这种情况会发生变化。动画的 RAIL 预算是 16 ms，因为每一帧的视觉效果都需要更新。如果我们从 worker 那里发送一条消息，该消息会阻塞主线程的时间超过这个时间，那么我们就有麻烦了。从我们的基准数据来看，任何超过 10 KiB 的动画都不会对您的动画预算构成风险。也就是说，**这就是我们更喜欢用 CSS animation 和 transition 而不是 JS 驱动主线程绘制动画的一个重要原因。** CSS animation 和 transition 运行在一个单独的线程 - 合成线程 - 不受阻塞的主线程的影响。
 
 ## 必须发送更多的数据
 
@@ -97,7 +97,7 @@ Pixel 3 的基准测试数据，尤其是 Safari 的数据，对您来说可能�
 
 ### 打补丁
 
-在状态对象的情况下，对象本身可能非常大，但通常只有少数几个嵌套很深的属性会发生变化。我们在 [PROXX](https://proxx.app) 中遇到了这个问题，我们的 PWA 扫雷车克隆：游戏状态由游戏网格的二维数组组成。每个单元格存储这些字段：是否有矿，以及是被发现的还是被标记的。
+在状态对象的情况下，对象本身可能非常大，但通常只有少数几个嵌套很深的属性会发生变化。我们在 [PROXX](https://proxx.app) 中遇到了这个问题，我们的 PWA 扫雷车：游戏状态由游戏网格的二维数组组成。每个单元格存储这些字段：是否有雷，以及是被发现的还是被标记的。
 
 ```typescript
 interface Cell {
@@ -109,7 +109,7 @@ interface Cell {
 }
 ```
 
-这意味着最大的网格( 40 × 40 个单元格)加起来的 JSON 大小约等于 134 KiB。发送整个状态对象是不可能的。**我们选择记录更改并发送一个补丁集，而不是在更改时发送整个新的状态对象。** 虽然我们没有使用 [ImmerJS](https://github.com/immerjs/immer)，这是一个处理不可变对象的库，但它提供了一种快速生成和应用补丁集的方法:
+这意味着最大的网格( 40 × 40 个单元格)加起来的 JSON 大小约等于 134 KiB。发送整个状态对象是不可能的。**我们选择记录更改并发送一个补丁集，而不是在更改时发送整个新的状态对象。** 虽然我们没有使用 [ImmerJS](https://github.com/immerjs/immer)，这是一个处理不可变对象的库，但它提供了一种快速生成和应用补丁集的方法：
 
 ```js
 // worker.js
@@ -122,11 +122,11 @@ immer.produce(stateObject, draftState => {
 // main.js
 worker.addEventListener("message", ({data}) => {
   state = immer.applyPatches(state, data);
-  // 新状态的应用
+  // 对新状态的反应
 }
 ```
 
-ImmerJS生成的补丁如下所示：
+ImmerJS 生成的补丁如下所示：
 
 ```json
 [
@@ -157,7 +157,7 @@ ImmerJS生成的补丁如下所示：
 
 当然，如果您不注意，这可能会导致不完整甚至破碎的视觉效果。然而，您可以控制分块如何进行，并可以重新排列补丁以避免任何不希望的效果。例如，您可以确保第一个块包含所有影响屏幕元素的补丁，并将其余的补丁放在几个补丁集中，以给主线程留出喘息的空间。
 
-我们在 [PROXX](https://proxx.app) 上做分块。当用户点击一个字段时，worker 遍历整个网格，确定需要更新哪些字段，并将它们收集到一个列表中。如果列表增长超过某个阈值，我们就将目前拥有的内容发送到主线程，清空列表并继续迭代游戏字段。这些补丁集足够小，即使在功能手机上， `postMessage()` 的成本也可以忽略不计，我们仍然有足够的主线程预算时间来更新我们的游戏 UI。迭代算法从第一个瓦片向外工作，这意味着我们的补丁以相同的方式排列。如果主线程只能在帧预算中容纳一条消息(就像 Nokia 8110)，那么部分更新就会伪装成一个显示动画。如果我们在一台功能强大的机器上，主线程将继续处理消息事件，直到超出预算为止，这是 JavaScript 的事件循环的自然结果。
+我们在 [PROXX](https://proxx.app) 上做分块。当用户点击一个字段时，worker 遍历整个网格，确定需要更新哪些字段，并将它们收集到一个列表中。如果列表增长超过某个阈值，我们就将目前拥有的内容发送到主线程，清空列表并继续迭代游戏字段。这些补丁集足够小，即使在功能手机上， `postMessage()` 的成本也可以忽略不计，我们仍然有足够的主线程预算时间来更新我们的游戏 UI。迭代算法从第一个瓦片向外工作，这意味着我们的补丁以相同的方式排列。如果主线程只能在帧预算中容纳一条消息（就像 Nokia 8110），那么部分更新就会伪装成一个显示动画。如果我们在一台功能强大的机器上，主线程将继续处理消息事件，直到超出预算为止，这是 JavaScript 的事件循环的自然结果。
 
 视频链接：https://dassur.ma/things/is-postmessage-slow/proxx-reveal.mp4
 
@@ -230,17 +230,17 @@ pub fn deserialize(vec: Vec<u8>) -> Option<State> {
 }
 ```
 
-> **注意：** [Ingvar](https://twitter.com/rreverser) 向我指出了 [Abomonation](https://github.com/TimelyDataflow/abomonation), 是一个严重有问题的序列化库，虽然可以使用指针的概念. 他的建议: ”不要使用这个库！”。
+> **注意：** [Ingvar](https://twitter.com/rreverser) 向我指出了 [Abomonation](https://github.com/TimelyDataflow/abomonation)，是一个严重有问题的序列化库，虽然可以使用指针的概念. 他的建议: “不要使用这个库！”。
 
-WebAssembly 模块最终 gzip 格式大小约为 3 KiB，其中大部分来自内存管理和一些核心库函数。当某些东西发生变化时，就会发送整个状态对象，但是由于 `ArrayBuffers` 的可移植性，这是非常便宜的。换句话说：**该技术应该具有几乎恒定的传输时间，而不管状态大小。**然而，访问状态数据的成本会更高。总是有权衡的!
+WebAssembly 模块最终 gzip 格式大小约为 3 KiB，其中大部分来自内存管理和一些核心库函数。当某些东西发生变化时，就会发送整个状态对象，但是由于 `ArrayBuffers` 的可移植性，其成本非常低。换句话说：**该技术应该具有几乎恒定的传输时间，而不管状态大小。**然而，访问状态数据的成本会更高。总是要权衡的!
 
-这种技术还要求状态结构不使用指针之类的间接方法，因为当将这些值复制到新的 WebAssembly 模块实例时，这些值是无效。因此，您可能很难在高级语言中使用这种方法。我的建议是 C、 Rust 和 AssemblyScript ，因为您可以完全控制内存并对内存布局有足够的了解。
+这种技术还要求状态结构不使用指针之类的间接方法，因为当将这些值复制到新的 WebAssembly 模块实例时，这些值是无效。因此，您可能很难在高级语言中使用这种方法。我的建议是 C、 Rust 和 AssemblyScript，因为您可以完全控制内存并对内存布局有足够的了解。
 
 ### SAB 和 WebAssembly
 
 > **提示：** 本节适用于 `SharedArrayBuffer`，它在除桌面端的 Chrome 外的所有浏览器中都已禁用。这正在进行中，但是不能给出 ETA。
 
-特别是从游戏开发人员那里，我听到了多个请求，要求 JavaScript 能够跨多个线程共享对象。我认为这不太可能添加到 JavaScript 本身，因为它打破了 JavaScript 引擎的一个基本假设。但是，有一个例外叫做 [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) (" SABs ")。SABs 的行为完全类似于 `ArrayBuffers`，但是在传输时，不像 `ArrayBuffers` 那样会导致其中一方失去访问权， SAB 可以克隆它们，并且**双方**都可以访问到相同的底层内存块。 **SABs 允许 JavaScript 空间采用共享内存模型。** 对于多个空间之间的同步，有 [`Atomics`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) 提供互斥和原子操作。
+特别是从游戏开发人员那里，我听到了多个请求，要求 JavaScript 能够跨多个线程共享对象。我认为这不太可能添加到 JavaScript 本身，因为它打破了 JavaScript 引擎的一个基本假设。但是，有一个例外叫做 [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) (" SABs ")。SABs 的行为完全类似于 `ArrayBuffers`，但是在传输时，不像 `ArrayBuffers` 那样会导致其中一方失去访问权， SAB 可以克隆它们，并且**双方**都可以访问到相同的底层内存块。**SABs 允许 JavaScript 空间采用共享内存模型。** 对于多个空间之间的同步，有 [`Atomics`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) 提供互斥和原子操作。
 
 使用 SABs，您只需在应用程序启动时传输一块内存。然而，除了二进制表示问题之外，您还必须使用 `Atomics` 来防止其中一方在另一方还在写入的时候读取状态对象，反之亦然。这可能会对性能产生相当大的影响。
 
@@ -250,9 +250,9 @@ WebAssembly 模块最终 gzip 格式大小约为 3 KiB，其中大部分来自�
 
 我的结论是：即使在最慢的设备上，您也可以使用 `postMessage()` 最大 100 KiB 的对象，并保持在 100 ms 响应预算之内。如果您有 JS 驱动的动画，有效载荷高达 10 KiB 是无风险的。对于大多数应用程序来说，这应该足够了。 **`postMessage()` 确实有一定的代价，但还不到让非主线程架构变得不可行的程度。**
 
-如果您的有效负载大于此值，您可以尝试发送补丁或切换到二进制格式。**从一开始就将状态布局、可移植性和可补丁性作为架构决策，可以帮助您的应用程序在更广泛的设备上运行。**如果您觉得共享内存模型是您最好的选择， WebAssembly 将在不久的将来为您铺平道路。
+如果您的有效负载大于此值，您可以尝试发送补丁或切换到二进制格式。**从一开始就将状态布局、可移植性和可补丁性作为架构决策，可以帮助您的应用程序在更广泛的设备上运行。**如果您觉得共享内存模型是您最好的选择，WebAssembly 将在不久的将来为您铺平道路。
 
-我已经在[一篇旧的博文](https://dassur.ma/things/actormodel/)上暗示 Actor Model ，我坚信我们可以在**如今**的 web 上实现高性能的非主线程架构，但这需要我们离开线程化语言的舒适区以及 web 中那种默认在所有主线程工作的模式。我们需要探索另一种架构和模型，**拥抱** Web 和 JavaScript 的约束。这些好处是值得的。
+我已经在[一篇旧的博文](https://dassur.ma/things/actormodel/)上暗示 Actor Model，我坚信我们可以在**如今**的 web 上实现高性能的非主线程架构，但这需要我们离开线程化语言的舒适区以及 web 中那种默认在所有主线程工作的模式。我们需要探索另一种架构和模型，**拥抱** Web 和 JavaScript 的约束。这些好处是值得的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
