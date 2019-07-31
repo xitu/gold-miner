@@ -13,6 +13,8 @@
 
 We recently ran our sixth quarterly user survey and collected responses from over 7,000 Flutter users. We found that 92.5% of the respondents are satisfied or very satisfied, which is slightly higher than the [last quarter](https://medium.com/flutter/insights-from-flutters-first-user-survey-of-2019-3659b02303a5)! We are thrilled to see a consistent level of satisfaction with Flutter. In this article, we cover some deep-dive questions around Flutter’s ecosystem, because we recognize that helping the Flutter community grow the ecosystem is important.
 
+---
+
 As of July, 2019, you can find over 2,800 Flutter-dependent packages published on [pub.dev](https://pub.dev). At the same time last year, there were about 350 Flutter-dependent packages available, showing tremendous growth! And this does not include the thousands of additional Dart packages that are compatible with Flutter apps.
 
 Even though the ecosystem has been exploding, we recognize that there is still plenty of work remaining to build an excellent ecosystem around the Flutter project. To better understand the needs and struggles of our users, we asked a number of questions related to Flutter’s ecosystem in this quarter’s survey. We’re sharing the results in this article to help package authors build more useful packages that serve the needs of more users.
@@ -42,16 +44,18 @@ The most common reason for dissatisfaction with existing packages is that “the
 Here are some relevant quotes from the comment section:
 
 > “There are still some packages that do not have code samples on the very first page. It should be mandatory to have at least a single simple example.”
-
+>
 > “Emphasize to package developers to give more thorough examples of how to use their package.”
-
+>
 > “Force all packages to have an animated gif or video demoing it (preferred) or a screenshot, and have an example Dart file.”
-
+>
 > “A graphic display of an example package would be helpful. Many times it’s easier to see what a package is referring to than to run the example.“
-
+>
 > “Would like to see the Example section filled out more often. Some packages don’t have any examples. Maybe have a clearer link on this page to the corresponding GitHub repo?”
 
 Also, as shown in the graph above, difficulties associated with the actual use of packages (such as dependency issues, bugginess of packages, setup of packages) are relatively less concerning to users as compared to activities associated with selecting suitable packages (such as missing features, trustworthiness of publishers, guidance for choice, adequate platform support).
+
+---
 
 The Flutter/Dart team at Google is also investigating ways to improve your experience with using, and contributing to, the ecosystem. Some of the options being considered include, but are not limited to:
 
@@ -70,6 +74,8 @@ With the scoring system, package authors can understand what they can do to impr
 
 We expect the scoring system to expand over time to help users make more informed decisions. More specifically, we’d like to see test coverage added, and we’d like to expose better information about platform coverage, especially as the list of platforms that Flutter supports expands. We’d also like to provide a mark of whether a particular package is “recommended” so that users has a clear idea of what the Flutter community thinks is worth considering. As these scoring changes come about, we’ll communicate with our package authors to make sure that they have all of the information they need to meet the rising quality bar.
 
+---
+
 We want to convey a huge thank you to the more than 7,000 Flutter users who filled out the long survey. We learned a lot — some other highlights are listed below.
 
 * Some Flutter users are not completely satisfied with the animation framework, not because it’s hard to achieve intended effects, but because it’s hard to get started. Respondents, especially new users, did not know where to begin, and it’s hard for them to understand how various concepts link together. Therefore, we are investing more into the learning materials for the animation framework.
@@ -80,6 +86,8 @@ We want to convey a huge thank you to the more than 7,000 Flutter users who fill
 * Lastly, many of you noticed that the number of unresolved issues in the GitHub repo is growing, which is an unfortunate side-effect of the exploding popularity of Flutter. While we closed over 1,250 issues in the last release, we have more work to do here. As mentioned in the Flutter 1.7 blog post, we’re working to increase staffing in this area, which will help with faster triaging of new bugs, faster attention to critical/crashing issues, closing and merging duplicate issues, and redirecting support requests to [StackOverflow](https://stackoverflow.com/questions/tagged/flutter).
 
 We value your responses to the survey and will use this information when determining work priorities. Please participate in our Q3 survey, which will be launched in August, and will explore new topic areas.
+
+---
 
 Flutter’s UX research team performs a variety of user experience studies so that we can learn how to make your experience with Flutter more pleasant. If you are interested in participating, please [sign up](http://flutter.dev/research-signup) for future studies.
 
