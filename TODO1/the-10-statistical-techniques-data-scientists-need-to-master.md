@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-10-statistical-techniques-data-scientists-need-to-master.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-10-statistical-techniques-data-scientists-need-to-master.md)
 > * 译者：[HearFishle](https://github.com/hearfishle)
-> * 校对者：[mymmon](https://github.com/mymmon),[hu7may](https://github.com/hu7may)
+> * 校对者：[mymmon](https://github.com/mymmon), [hu7may](https://github.com/hu7may)
 
 # 数据科学家需要掌握的十种统计技术
 
 ![](https://cdn-images-1.medium.com/max/3840/1*itOusDBOUogAV1QbNaj4cQ.png)
 
-无论你在数据科学是否“性感“的问题上站定何种立场，都无法忽略一个事实：数据，和我们分析数据，组织数据，确定数据上下文关系的能力正在越来越重要。凭借庞大的就业数据和员工反馈，Glassdoor（一家美国的求职社区，译者注）将数据科学家排在全美最佳的 25 个职位(https://www.glassdoor.com/Best-Jobs-in-America-LST_KQ0,20.htm)中的第一名。因此，虽然这个角色会依然存在，但毫无疑问，数据科学家们所做的具体任务将会不断进化。随着像机器学习这样的技术的普及，还有像深度学习这样的新兴领域，获得了来自研究人员和工程师们及他们所在的公司的巨大关注，数据科学家们将继续在创新和科技进步的浪潮中乘风破浪。
+无论你在数据科学是否“性感“的问题上站定何种立场，都无法忽略一个事实：数据，和我们分析数据、组织数据、确定数据上下文关系的能力正在越来越重要。凭借庞大的就业数据和员工反馈，Glassdoor（一家美国的求职社区，译者注）将数据科学家排在全美最佳的 [25 个职位](https://www.glassdoor.com/Best-Jobs-in-America-LST_KQ0,20.htm)中的第一名。因此，虽然这个角色会依然存在，但毫无疑问，数据科学家们所做的具体任务将会不断进化。随着像机器学习这样的技术的普及，还有像深度学习这样的新兴领域，获得了来自研究人员和工程师们及他们所在的公司的巨大关注，数据科学家们将继续在创新和科技进步的浪潮中乘风破浪。
 
-.尽管拥有强悍的编程能力是重要的，但数据科学并不完全是软件工程（事实上，熟悉Python的话会更容易展开工作）。数据科学家需要的是编程，分析和关键性思考的三重能力。正如 Josh Wills 在(https://www.quora.com/What-is-the-difference-between-a-data-scientist-and-a-statistician) 所言，**“数据科学家具备比任何编程人员都更丰富的统计学知识，和比任何统计学家都强的编程能力。”**据我个人了解，太多的软件工程师想转行成为数据科学家。他们在没有完全理解数据科学理论的情况下就盲目利用机器学习框架如 TensorFlow 或者 Apache Spark去处理数据。他们对待[统计学习]（https://en.wikipedia.org/wiki/Statistical_learning_theory) 这个基于统计学和泛函分析的机器学习理论框架，也是如此。
+.尽管拥有强悍的编程能力是重要的，但数据科学并不完全是软件工程（事实上，熟悉Python的话会更容易展开工作）。数据科学家需要的是编程，分析和关键性思考的三重能力。正如 Josh Wills [所言](https://www.quora.com/What-is-the-difference-between-a-data-scientist-and-a-statistician)，“**数据科学家具备比任何编程人员都更丰富的统计学知识，和比任何统计学家都强的编程能力**。”据我个人了解，太多的软件工程师想转行成为数据科学家。他们在没有完全理解数据科学理论的情况下就盲目利用机器学习框架如 TensorFlow 或者 Apache Spark去处理数据。他们对待[统计学习](https://en.wikipedia.org/wiki/Statistical_learning_theory)这个基于统计学和泛函分析的机器学习理论框架，也是如此。
 
-**为什么要学习统计学习理论?** 理解多种技术背后的思想是很重要的，这样便于知道如何以及何时使用它们。为了掌握更复杂的方法，人们必须先理解更简单的方法。准确评估方法的性能是非常重要的，了解它工作的好坏是很重要的。并且，这是个令人兴奋的研究领域，在科技，工业和金融行业都有这非常重要的应用。归根结底，统计学习是现代数据科学家培训的基本要素。统计学习问题的例子包括有：
+**为什么要学习统计学习理论？** 理解多种技术背后的思想是很重要的，这样便于知道如何以及何时使用它们。为了掌握更复杂的方法，人们必须先理解更简单的方法。准确评估方法的性能是非常重要的，了解它工作的好坏是很重要的。并且，这是个令人兴奋的研究领域，在科技，工业和金融行业都有这非常重要的应用。归根结底，统计学习是现代数据科学家培训的基本要素。统计学习问题的例子包括有：
 
 * 确定引起前列腺癌的危险因素。
 * 根据对数周期图对录制的音素进行分类。
@@ -23,9 +23,9 @@
 * 将组织样本分类到几种癌症中的一种。
 * 在人口调查数据中建立薪水和人口统计变量之间的关系。
 
-在大学的最后一个学期，我自学了数据挖掘。这门课的材料涵盖了这三本书的内容： [Intro to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) (Hastie, Tibshirani, Witten, James)，[Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/) (Kruschke)和[Time Series Analysis and Applications](http://www.stat.pitt.edu/stoffer/tsa4/) (Shumway, Stoffer)。我做了大量和贝叶斯分析，马尔可夫链，分层建模，监督和无监督学习相关的练习。这个经历加深了我对数据挖掘学术领域的兴趣，并使我确信要向更深处探索。。最近，我在 Stanford Lagunita 自学了[Statistical Learning online course](https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about)，它涵盖了[**Intro to Statistical Learning book**](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370)的全部材料。两次接触这些内容，我想分享这本书中的10种统计技术，我想任何数据科学家都应该学会这些技术，以便更有效地处理大数据集。
+在大学的最后一个学期，我自学了数据挖掘。这门课的材料涵盖了这三本书的内容： [Intro to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) (Hastie, Tibshirani, Witten, James)，[Doing Bayesian Data Analysis](https://sites.google.com/site/doingbayesiandataanalysis/)（Kruschke）和 [Time Series Analysis and Applications](http://www.stat.pitt.edu/stoffer/tsa4/) (Shumway, Stoffer)。我做了大量和贝叶斯分析，马尔可夫链，分层建模，监督和无监督学习相关的练习。这个经历加深了我对数据挖掘学术领域的兴趣，并使我确信要向更深处探索。最近，我在 Stanford Lagunita 自学了 [Statistical Learning online course](https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about)，它涵盖了 [**Intro to Statistical Learning book**](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1461471370) 的全部材料。两次接触这些内容，我想分享这本书中的 10 种统计技术，我想任何数据科学家都应该学会这些技术，以便更有效地处理大数据集。
 
-在开始介绍这十种技术之前，我想先区分一下统计学习和机器学习。之前我写了[机器学习中最流行的方法之一](https://gab41.lab41.org/the-10-algorithms-machine-learning-engineers-need-to-know-f4bb63f5b2fa) 因此我非常自信我有能力去判断它们的差异：
+在开始介绍这十种技术之前，我想先区分一下统计学习和机器学习。之前我写了[机器学习中最流行的方法之一](https://gab41.lab41.org/the-10-algorithms-machine-learning-engineers-need-to-know-f4bb63f5b2fa)因此我非常自信我有能力去判断它们的差异：
 
 * 机器学习是人工智能的一个分支。
 * 统计学习是统计学的一个分支。
@@ -142,7 +142,7 @@
 ![](https://cdn-images-1.medium.com/max/2000/1*DwqQu4oiGTsa5L--DD0v6Q.jpeg)
 
 * **主成分分析** 通过识别具备最大方差和互不相关的特征之间的线性连接，帮助生成数据集的低维表示。该线性降维技术有助于理解无监督学习中的隐变量交互。
-* **k-Means 聚类**:根据数据到集群中心的距离将其分成 k 个不同的集群。
+* **k-Means 聚类**：根据数据到集群中心的距离将其分成 k 个不同的集群。
 * **层次聚类**：通过创建集群树来构建集群的多级层次结构。
 
 这是一些基本统计技术的基本运用，它们可以帮助数据科学项目经理和/或执行人员更好地了解他们的数据科学团队的内部运行情况。事实上，一些数据科学团队纯粹是通过 python 和 R语言 库运行算法。他们中的大多数甚至不需要考虑基础的数学。但是，能够理解统计分析的基础知识可以为您的团队提供更好的方法。洞察最小的部分可以使操作和抽象更容易。希望本基础数据科学统计指南能给您一个很好的理解！
