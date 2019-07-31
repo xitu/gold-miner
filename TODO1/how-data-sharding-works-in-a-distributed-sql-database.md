@@ -27,7 +27,7 @@
 
 ## 手动分片的隐患
 
-对于大数据量的应用来说，在包含一系列建表和负载均衡的分片中进行全自动化部署将会获得巨大收益。不幸的是，像 Oracle, PostgreSQL, MySQL 这些单体数据库，甚至一些更新的分布式 SQL 数据库，如 Amazon Aurora ，并不支持自动分片。这意味着如果你想继续使用这些数据库，你必须在应用层进行手动分片。这大大增加了开发的难度。为了知道你的数据是如何分配的，你的应用需要一套额外的分片代码，并需要知道数据的来源。你还需要决定采用什么分片方法，最终需要多少分片，并需要多少个节点。一旦你的业务改变了，分片方式和分片主键也要随之变化。
+对于大数据量的应用来说，在包含一系列建表和负载均衡的分片中进行全自动化部署将会获得巨大收益。不幸的是，像 Oracle、PostgreSQL 和 MySQL 这些单体数据库，甚至一些更新的分布式 SQL 数据库，如 Amazon Aurora，并不支持自动分片。这意味着如果你想继续使用这些数据库，你必须在应用层进行手动分片。这大大增加了开发的难度。为了知道你的数据是如何分配的，你的应用需要一套额外的分片代码，并需要知道数据的来源。你还需要决定采用什么分片方法，最终需要多少分片，并需要多少个节点。一旦你的业务改变了，分片方式和分片主键也要随之变化。
 
 手动分片的其中一个重大挑战便是不平均的分片。不成比例的分配数据将导致分片变得不平衡，这意味着当一些节点过载时其他节点可能是空闲的。因为部分节点的过载可能会拖累整体的响应速度并导致服务崩溃，我们要尽量避免在一个分片中存入过多的数据。这个问题也有可能在一个小的分片集中发生，因为小的分片集意味着将数据分散到极少数量的分片中。这虽然在开发环境和测试环境中是可以接受的，但生产环境中是不允许的。不平均的数据分配，部分节点过载和过少的数据分配都会导致分片和服务资源的枯竭。
 
@@ -39,11 +39,11 @@
 
 ### 基于哈希的分片
 
-基于哈希的分片使用分片主键来产生一些哈希值，这些哈希值将被用于决定这一条数据存储在哪里。通过使用一个通用的哈希算法 ketama ，哈希函数能够在服务器间平均的分摊数据，以此来减少部分节点的过载。在这种方法里，那些分片主键相近的数据不太可能会被分配在同一个分片中。这个架构因此十分适用于目标明确的数据操作。
+基于哈希的分片使用分片主键来产生一些哈希值，这些哈希值将被用于决定这一条数据存储在哪里。通过使用一个通用的哈希算法 ketama，哈希函数能够在服务器间平均的分摊数据，以此来减少部分节点的过载。在这种方法里，那些分片主键相近的数据不太可能会被分配在同一个分片中。这个架构因此十分适用于目标明确的数据操作。
 
 ![](https://3lr6t13cowm230cj0q42yphj-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/data-sharding-distributed-sql-2.png)
 
-**图二 ： 基于哈希的分片（来源：MongoDB 文档）**
+**图二：基于哈希的分片（来源：MongoDB 文档）**
 
 ### 基于范围的分片
 
@@ -51,7 +51,7 @@
 
 ![](https://3lr6t13cowm230cj0q42yphj-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/Sharding-Image-copy.jpg)
 
-**图三 ：基于范围的分片**
+**图三：基于范围的分片**
 
 基于范围的分片能让读取连续范围内的数据，或范围查询变得更加高效。然而这种分片方式需要用户事先选择分片主键，如果分片主键选的不好，可能会导致部分节点过载。
 
@@ -73,19 +73,19 @@ YugaByte DB 是一个具备自动分片功能和高度弹性的高性能分布�
 
 ![](https://3lr6t13cowm230cj0q42yphj-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/data-sharding-distributed-sql-4.png)
 
-**图四 ：在 YugaByte DB 基于哈希分片**
+**图四：在 YugaByte DB 基于哈希分片**
 
 在读写操作中，主键是最先被转化成内键和它们对应的哈希值。这个操作通过收集可用子表中的数据来实现。（图五）
 
 ![](https://3lr6t13cowm230cj0q42yphj-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/data-sharding-distributed-sql-5.png)
 
-**图五 ：在 Yugabyte DB 决定使用哪个子表**
+**图五：在 Yugabyte DB 决定使用哪个子表**
 
 例如，如图六所示，你现在想在表中插入一个键 k，值为 v 的数据。首先会根据键的值 k 来计算出一个哈希值，之后数据库会查询对应的子表和子表服务器。最后，这个请求会被直接传到相应的服务器中进行处理。
 
 ![](https://3lr6t13cowm230cj0q42yphj-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/data-sharding-distributed-sql-6.png)
 
-**图六 ：在 YugaByte DB 中存储 k 值**
+**图六：在 YugaByte DB 中存储 k 值**
 
 ### 基于范围的分片
 
@@ -98,7 +98,7 @@ SQL 表可以在主键的第一列中设置自动递增和自动递减。这让�
 ## 下一步？
 
 * [深入比较](https://docs.yugabyte.com/latest/comparisons/) YugaByte DB 和 [CockroachDB](https://www.yugabyte.com/yugabyte-db-vs-cockroachdb/)，Google Cloud Spanner 与 MongoDB 的不同之处。
-* [开始](https://docs.yugabyte.com/latest/quick-start/)使用 YugaByte DB ，在 macOS，Linux，Docker 和 Kubernetes 中使用它.
+* [开始](https://docs.yugabyte.com/latest/quick-start/)使用 YugaByte DB，在 macOS，Linux，Docker 和 Kubernetes 中使用它。
 * [联系我们](https://www.yugabyte.com/about/contact/)了解证书及收费问题或预约一个技术面谈。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
