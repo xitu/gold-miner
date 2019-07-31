@@ -7,18 +7,18 @@
 
 # Writing a Compiler in Rust
 
-During my final term at UWaterloo I took [the CS444 compilers class](https://www.student.cs.uwaterloo.ca/~cs444/) with a project to write a compiler from a substantial subset of Java to x86, with a language and two teammates of your choice. My group of three chose to write our compiler in Rust and it was a fun experience. We spent time coming to design decisions that worked out really well and used Rust’s strengths. Our compiler ended up being around 6800 lines of Rust and I personally put in around 60 hours of solid coding and more on code review and design. In this post I’ll go over some of the design decisions we made and some thoughts on what it was like using Rust.
+在 UWaterloo 的最后一个学期，我参加了 [CS444 编译器班级](https://www.student.cs.uwaterloo.ca/~cs444/)，这个班有个项目，在你可以选择一种语言和两个队友的情况下，编写基于 x86 架构的 Java 子集编译器。我所在的团队选择使用 Rust 编写我们的编译器，这真是一次有趣的经历。我们花了很多时间来设计一些能充分利用 Rust 优势的好方案。最终的编译器大约有 6800 行 Rust 代码，我个人大概用了 60 个小时来编写代码，并在代码设计和评审上投入了更多时间。在这篇文章中，我将回顾我们所做的一些设计，以及使用 Rust 的一些想法。
 
 ## Lexing and Parsing
 
-The lectures for the course recommended writing an NFA to DFA compiler to implement the lexer, and writing an [LR(1)](https://en.wikipedia.org/wiki/Canonical_LR_parser) parser generator for the parser, then having a separate “weeding” pass to construct a final AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)) and validate it in various ways.
+这个课程的讲座推荐写基于 DFA 的 NFA 编译器来实现词法分析器，并编写 [LR(1)](https://en.wikipedia.org/wiki/Canonical_LR_parser) 解析器生成器，然后使其分离传递并构造 AST（[抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)），然后以多种方式进行检验。
 
-I suggested that we should try using a hand-written lexer and recursive descent parser instead, and my teammates agreed. A recursive descent parser allowed us to put all the code to parse, validate, and create the AST node in one place. We figured writing a pass to rewrite and validate the raw parse tree into a strongly typed AST would be about as much code as a recursive descent parser, except with the additional work of having to implement an LR(1) parser generator.
+我建议我们应该尝试手写词法分析器和递归下降的解析器，我的队友也同意了。递归下降解析器可以让我们把所有要解析、验证和创建 AST 节点的代码放在一个地方。我们认为，除了必须实现 LR(1) 解析器生成器这个额外工作之外，通过遍历来将原始解析树重写为一个强类型 AST 将需要与递归下降解析器一样多的代码。
 
-The AST we produced made good use of Rust’s type system, including extensive use of `enum` sum types to handle variants of types, expressions and statements. We also used `Option` and `Vec` extensively, as well as `Box` to allow type recursion. Our AST types looked like this:
+我们制作的 AST 充分利用了 Rust 的类型系统，包括广泛使用 `enum` 加上类型来处理类型、表达式和语句的变体。我们还广泛使用了 `Option` 和 `Vec`，以及 `Box` 来实现递归类型。我们的 AST 类型类似于这样：
 
 ```rust
-// We preserve source span information using a `Spanned` struct
+// 我们使用 `Spanned` 结构体保存各种源信息
 pub type Type = Spanned<TypeKind>;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
@@ -40,7 +40,7 @@ pub struct InterfaceDecl {
 }
 ```
 
-We produced this using a `Parser` struct with functions for parsing different constructs that could also return parse errors. The `Parser` struct had a number of helper functions to easily consume and inspect tokens, using the power of abstraction present in a full programming language to get closer to the brevity of a parser generator grammar DSL. Here’s an example of what our parser looked like:
+我们使用一个 `Parser` 结构体来生成它，其中包含用于解析不同结构的函数，解析这些函数时也可能出现解析错误。`Parser` 结构有许多辅助函数，可以方便地使用以及 token 验证，借助于编程语言的抽象能力，可以让解析器生成器的 DSL 更简洁。下面是我们的解析器的示例代码：
 
 ```rust
 #[derive(Clone, Debug)]
@@ -73,18 +73,17 @@ fn parse_for_statement(&mut self) -> PResult<ForStatement> {
 
 ### Backtracking
 
-Mostly our parser takes the form of an [LL(1) parser](https://en.wikipedia.org/wiki/LL_parser), which looks ahead one token to decide how it should parse. But some constructs require unlimited lookahead to parse. For example `(java.lang.String)a` should parse as a parenthesized field access chain on the ‘java’ variable except for the `a` at the end, which makes it a cast expression. In fact even `LR(1)` parsers can’t parse this specific case properly, and the recommended hack is to parse the inside of the parens as an “expression” and then just validate in the weeder that the expression is actually a type.
+大多数情况下，我们的解析器采用 [LL(1) 解析器](https://en.wikipedia.org/wiki/LL_parser) 的形式，它向前查看一个标记来决定如何解析。但是有些结构需要无限的向前查看来解析。例如 `(java.lang.String)a`，除开末尾的使其成为强制表达式的 `a`，应该将其解析为在“java”变量上带括号的字段访问链。事实上，即使是 `LR(1)` 解析器也不能正确地解析这种特殊情况，建议将 parens 内部解析为“表达式”，然后在 weeder（tips：文末有注解） 中验证该表达式实际上是一种类型。
 
-We solve this problem using backtracking, which is where we can save a position in the token stream, speculatively parse the following input as one construct, and then roll back to that saved position if that parsing fails. This can cause non-linear parse times on pathological input, but pathological cases don’t occur non-maliciously in practice, especially if backtracking is only used in some situations rather than for the whole parser.
+我们使用回溯来解决这个问题，在回溯中我们可以在 token 流中保存一个位置，并尝试性地将后续的输入解析为一个结构，如果解析失败，则回滚到保存时的位置。这可能会导致对非常规输入的处理时间是非线性的，但非常规情况在实践中不一定是坏的，尤其是回溯仅仅只是用于一些特定的情况而非整个解析器。
 
-An alternative strategy to backtracking that works in some situations is to parse the common elements of both nonterminals that could follow, then once the parser reaches the point where it can decide, it calls the specific non-terminal function passing what has been parsed so far as arguments. We use this strategy for deciding between parsing classes and interfaces and between parsing methods and constructors, by parsing the modifiers first, then looking ahead, then parsing the rest passing the parsed modifiers as arguments.
+在某些情况下，回溯的另一种策略是解析两个非终结符的公共元素，然后当解析到可以确定结果集的状态时，调用特定的非终结符函数，并将已解析的内容作为参数传递。我们使用此策略来决定解析类、接口、解析方法和构造函数之间的关系，首先解析修饰符，然后查看前面的内容，再解析“解析修饰符后的结果”作为参数的其余部分。
 
-We have Rust helper functions that make backtracking really easy by trying one parse and then trying another if the first parse returns an `Err`:
+我们有 Rust 的辅助函数，所以用回溯的方式去尝试解析，然后再解析另一个真的简单多了。假如第一次解析返回 `Err`：
 
 ```rust
-// Unlike the Java spec, we can have arguments like `allow_minus` to avoid
-// massive duplication in the case of minor special cases.
-// `allow_minus` makes sure `(a)-b` parses as `int-int` rather than `(Type)(-int)`
+// 和 Java 规范不同，我们可以使用 `allow_minus` 这样的参数来避免在少量情况下出现很多重复。
+// `allow_minus` 确保 `(a)-b` 被解析为 `int-int` 而不是 `(Type)(-int)`
 fn parse_prim_expr(&mut self, allow_minus: AllowMinus) -> PResult<Box<Expr>> {
     let cur = &self.tokens[self.pos];
     let mut lhs = match &cur.tok {
@@ -298,6 +297,10 @@ Overall I’m proud of how our compiler turned out. It was a fun project and my 
 One of the most interesting learning experiences from the project was when afterwards I talked to some other teams and got to compare what it was like to do the same project in different languages and with different design decisions. I’ll talk about that in an upcoming post!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+## 注解
+### weeder
+* [weeder](https://metacpan.org/pod/release/LIBVENUS/HPPPM-Demand-Management-0.04/lib/FieldParser.pm#weeder)：消除/去除/过滤输入字符中无用、无意义字符的逻辑单元
 
 ---
 
