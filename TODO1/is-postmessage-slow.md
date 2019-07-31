@@ -175,7 +175,7 @@ ImmerJS 生成的补丁如下所示：
 
 ### 二进制格式
 
-处理结构化克隆对性能影响的另一种方法是完全不使用它。除了结构化克隆对象外，`postMessage()` 还可以**传输**某些类型。`ArrayBuffer` 是这些[可转换](https://developer.mozilla.org/en-us/docs/web/api/)类型之一。顾名思义，传输 `ArrayBuffer` 不涉及复制。发送方实际上失去了对缓冲区的访问，现在是属于接收方的。**传输一个 `ArrayBuffer` 非常快，并且独立于 `ArrayBuffer`的大小。** 缺点是 `ArrayBuffer` 只是一个连续的内存块。我们就不能再处理对象和属性。为了让 `ArrayBuffer` 发挥作用，我们必须自己决定如何对数据进行编组。这本身是有代价的，但是通过了解构建时数据的形状或结构，我们可以潜在地进行许多优化，而这些优化是一般克隆算法无法实现的。
+处理结构化克隆对性能影响的另一种方法是完全不使用它。除了结构化克隆对象外，`postMessage()` 还可以**传输**某些类型。`ArrayBuffer` 是这些[可转换](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)类型之一。顾名思义，传输 `ArrayBuffer` 不涉及复制。发送方实际上失去了对缓冲区的访问，现在是属于接收方的。**传输一个 `ArrayBuffer` 非常快，并且独立于 `ArrayBuffer`的大小。** 缺点是 `ArrayBuffer` 只是一个连续的内存块。我们就不能再处理对象和属性。为了让 `ArrayBuffer` 发挥作用，我们必须自己决定如何对数据进行编组。这本身是有代价的，但是通过了解构建时数据的形状或结构，我们可以潜在地进行许多优化，而这些优化是一般克隆算法无法实现的。
 
 一种允许您使用这些优化的格式是 [FlatBuffers](https://google.github.io/flatbuffers/)。Flatbuffers 有 JavaScript （和其他语言）对应的编译器，可以将模式描述转换为代码。该代码包含用于序列化和反序列化数据的函数。更有趣的是：Flatbuffers 不需要解析（或“解包”）整个 `ArrayBuffer` 来返回它包含的值。
 
