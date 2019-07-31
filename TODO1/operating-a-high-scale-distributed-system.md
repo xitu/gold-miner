@@ -1,174 +1,172 @@
-> * 原文地址：[Operating a Large, Distributed System in a Reliable Way: Practices I Learned](https://blog.pragmaticengineer.com/operating-a-high-scale-distributed-system/)
-> * 原文作者：[Gergely Orosz](https://blog.pragmaticengineer.com/)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/operating-a-high-scale-distributed-system.md](https://github.com/xitu/gold-miner/blob/master/TODO1/operating-a-high-scale-distributed-system.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Operating a Large, Distributed System in a Reliable Way: Practices I Learned](https://blog.pragmaticengineer.com/operating-a-high-scale-distributed-system/)
+> - 原文作者：[Gergely Orosz](https://blog.pragmaticengineer.com/)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/operating-a-high-scale-distributed-system.md](https://github.com/xitu/gold-miner/blob/master/TODO1/operating-a-high-scale-distributed-system.md)
+> - 译者：[Pingren](https://github.com/Pingren)
+> - 校对者：
 
-# Operating a Large, Distributed System in a Reliable Way: Practices I Learned
+# 可靠地运维一个大型分布式系统：我的学习实践
 
-For the past few years, I've been building and operating a large distributed system: the [payments system at Uber](https://eng.uber.com/payments-platform/). I've learned a lot about [distributed architecture concepts](https://blog.pragmaticengineer.com/distributed-architecture-concepts-i-have-learned-while-building-payments-systems/) during this time and seen first-hand how high-load and high-availability systems are challenging not just to build, but to operate as well. Building the system itself is a fun job. Planning how the system will handle 10x/100x traffic increase, ensuring data is durable, regardless of hardware failures is intellectually rewarding. However, **operating a large, distributed system has been an eye-opening experience** for myself.
+在过去的几年里，我一直在构建和运维一个大型分布式系统：[Uber 的支付系统](https://eng.uber.com/payments-platform/)。期间我学到了很多[分布式架构概念](https://blog.pragmaticengineer.com/distributed-architecture-concepts-i-have-learned-while-building-payments-systems/)的知识，并亲眼目睹了高负载和高可用的系统不仅有着构建的挑战，还有运维过程中的挑战。构建这个系统本身是项有趣的工作。安排系统如何应对 10 倍或 100 倍的流量增长，在任何硬件故障都保证数据的耐久（durable），都对智力有所裨益。然而对我来说，**运维一个大型分布式系统也是一段大开眼界的经历**。
 
-The larger a system, the more Murphy's law of "what can go wrong, will go wrong" applies. This is especially true with frequent deploys, lots of developers deploying code, multiple data centers involved, and the system being used globally by a large number of users. The past few years, I've experienced a variety of system failures, many of which surprised me. These went from predictable things like hardware faults or innocent bugs making it into production, all the way to network cables connecting data centers being cut or multiple cascading failures occurring at the same time. I've gone through dozens of outages, where parts of the system were not working correctly, resulting in large business impact.
+系统越大，墨菲定律 —— “凡是可能出错的事就一定会出错” 越多应验。这对于频繁的部署，许多开发人员部署代码，多个数据中心参与，和系统被全球的大量用户使用的系统来说，尤其如此。过去的几年里，我经历了各种系统故障，其中有很多令我感到惊讶。它们有些是可预测的事情，如硬件故障或非恶意的 bugs 进入生产环境，还有些则是网络电缆被切断，或多个级联故障同时发生。我经历了许多次中断（outages），系统的某些部分无法正常工作，导致了巨大的业务影响。
 
-**This post is the collection of the practices I've found useful to reliably operate a large system** at Uber, while working here. My experience is not unique - people working on similar sized systems go through a similar journey. I've talked with engineers at Google, Facebook, and Netflix, who shared similar experiences and solutions. Many of the ideas and processes listed here should apply to systems of similar scale, regardless of running on own data centers (like Uber mostly does) or on the cloud (where Uber [sometimes scales to](https://aws.amazon.com/blogs/startups/how-uber-survives-its-busiest-nights-of-the-year/)). However, the practices might be an overkill for smaller or less mission-critical systems.
+**这篇文章是我在 Uber 工作时，可靠地运维一个大型系统的有效实践的集合**。我的经验不是独一无二的 —— 在类似规模的系统上工作的人有着相似的经历。我和来自 Google，Facebook 和 Netflix 的工程师聊过，他们分享了类似的经验和解决方案。无论是在自己的数据中心（如 Uber 的大多数情况）或是在云端（Uber [有时扩展到](https://aws.amazon.com/blogs/startups/how-uber-survives-its-busiest-nights-of-the-year/)），这里列出的观点和流程，应该适用于类似规模的系统。但是，对于较小或较少关键任务的系统而言，这些实践可能会矫枉过正。
 
-## Monitoring
+## 监控
 
-To know if a system is healthy, we need to answer the question "Is my system working correctly"? To do so, it is vital to collect data on critical parts of the system. With distributed systems that run multiple services, on multiple machines and data centers, it can be difficult to decide what key things **really** need to be monitored.
+要知道系统是否健康，我们需要回答“我的系统是否正常工作？”的问题。为此，收集系统关键部分的数据至关重要。分布式系统在多台机器和数据中心上运行多个服务，决定什么才是**真正**需要监控的关键可能很困难。
 
-**Infrastructure health monitoring.** If one or more machines/virtual machines are overloaded, parts of the distributed system can degrade. The health stats for machines a service operates on - their CPU utilization, memory usage - are basics that are worth monitoring. There are platforms that take care of this monitoring and auto-scaling instances out of the box. At Uber,  we have a great [core infrastructure team](https://eng.uber.com/tag/core-infrastructure/) providing infra level monitoring and alerting out of the box. Regardless of how this implemented, being aware when things are in the red for instances or the infrastructure of the service is must-have information.
+**基础设施健康监测** 如果一个或多个机器/虚拟机过载，分布式系统的一部分可能降级（degrade）。服务所在的机器的健康统计 —— 它们的 CPU 利用率，内存使用 —— 是值得监控的基础信息。有些平台提供开箱即用的这种监控并能自动扩展实例。在 Uber，我们有一支优秀的[核心基础设施团队](https://eng.uber.com/tag/core-infrastructure/)提供开箱即用的基础设施监控和警报。无论这如何实现，有必要知道实例或服务的基础设施什么时候处在警戒状态。
 
-**Service health monitoring: traffic, errors, latency**. Answering the question "is this backend service healthy?" is a pretty common one. Observing things like how much traffic is hitting the endpoint, the error rate, and endpoint latency all provide valuable information on service health. I prefer to have dashboards on all of these. When building a new service, by using the right HTTP response mappings and monitoring the relevant codes can tell a lot about the system. So by ensuring 4XX mappings are returned on client errors, and 5xx codes for server errors, this kind of monitoring is easy to build and easy to interpret.
+**服务健康监控：流量，错误，延迟** “这个后端服务是否健康？”是很常见的问题。观察需要到达端点的流量大小，错误率和端点延迟等事项，都为服务健康状况提供了有价值的信息。我更喜欢为它们都使用仪表板。当构建新的服务时，使用正确的 HTTP 响应映射并监控相应的状态码可以了解系统的情况。因此，通过保证客户端错误时返回的为 4XX 状态码映射，而 5XX 状态码只用于服务器错误，使得这种监控易于构建并且易于理解。
 
-Monitoring latency deserves one more thought. For production services, the goal is for most end users to have a good experience. Turns out, measuring the average latency is not a great metric to do so because this average can hide a small percentage of high latency requests. Measuring the p95, the p99 or p999 - latency experienced by the 95th, 99th or 99.9th percentile of requests - is a lot better metric. These numbers help answer questions like "How fast will the request be for 99% of people?" (p99) or "At least how slow is the request for one in 1,000 people?" (p999) . For those more interested in this topic, this [latencies primer article](https://igor.io/latency/) is good further read.
-
+监控延迟应该多考虑一下。对于生产环境下的服务，目标是为了大多数最终用户获得良好的体验。事实证明，测量平均延迟不是个好的指标，因为平均值可能会掩盖一小部分高延迟的请求。测量 p95，p99 或 p999 —— 即第 95，99 或 99.9 百分位上的请求延迟 —— 是个更好的指标。这些数据有助于回答诸如“99% 的人请求有多快？”（p99）或“1000 人里最慢一个的请求有多慢？”（p999）的问题。如果对这个话题感兴趣，这篇[延迟入门文章](https://igor.io/latency/)挺不错的，值得一读。
 ![](https://blog.pragmaticengineer.com/content/images/2019/06/Screenshot-2019-05-29-at-11.47.04.png)
 
-Average, p95 and p99 latency visualized. Note how though the average latency for this endpoint is under 1s, 1% of requests take 2 seconds or more to complete - something the average measurement would have masked.
+可视化平均值，p95 和 p99 的延迟。请注意，尽管这个端点的平均延迟在 1s 以内，还是有 1% 的请求花了 2s 或者更多时间完成 —— 这就是测量平均值可能掩盖的信息。
 
-There is a lot more depth around monitoring and observability. Two resources worth reading more are Google's [SRE book](https://landing.google.com/sre/sre-book/) and the section on the [four golden signals](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/#xref_monitoring_golden-signals) of distributed systems monitoring. They suggest if you can only measure four metrics of your user-facing system, focus on traffic, errors, latency, and saturation. The short read is the [Distributed Systems Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/) e-book from [Cindy Sridharan](https://twitter.com/copyconstruct), which touches on other useful tools like event logs, metrics and tracing best practices.
+关于监控和可观察性，还有很多可以深入探讨的内容。这里有两个值得阅读的资源。一个是 [SRE：Google 运维解密](https://landing.google.com/sre/sre-book/)里面关于分布式系统监控的 [4 个黄金指标](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/#xref_monitoring_golden-signals)的部分。他们建议，如果你只能测量四个面向用户的系统的指标，请关注流量，错误，延迟和饱和度。另一个是来自 [Cindy Sridharan](https://twitter.com/copyconstruct) 的[分布式系统可观察性](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/)的电子书，这本书也涉及了其它有用的工具，比如事件日志，指标和跟踪的最佳实践。
 
-**Business metrics monitoring.** While monitoring services tells us a lot about how correctly the service seems to work, it tells nothing about whether it works as intended, allowing for "business as usual." In the case of the payments system, a key question is, "can people take trips using a specific payment method?". Identifying business events that the service enables and monitoring these business events is one of the most important monitoring steps.
+**业务指标监控** 虽然监控服务让我们了解服务是否看上去正常的信息，但它完全无法说明是否服务按预期工作，即是否能够“正常经营”。以支付系统为例，关键问题是“用户是否可以使用特定的支付方式来出行？”。识别服务激活的业务事件并监控这些业务事件，是监控最重要的步骤之一。
 
-Business metrics monitoring was something my team built after having been bruised by outages that we had no way to detect otherwise. All our services looked like they were operating normally, yet key functionality was down across services. This kind of monitoring was quite bespoke to our organization and domain. As such, we've had to put a lot of thought and effort into customizing this type of monitoring for ourselves, building on the [observability tech stack at Uber](https://eng.uber.com/observability-at-scale/).
+我的团队所有的服务看上去都在正常运行，然而其中有些服务的关键功能却失效了。在被无法检测的中断打击之后，我们建立了业务指标监控。对于我们的企业和领域来说，这种监控需要量身定制。因此，我们付出了大量的思考和努力，在[Uber 的可观察性技术栈](https://eng.uber.com/observability-at-scale/)上为我们自己定制这类的监控。
 
-## Oncall, Anomaly Detection, and Alerting
+## 值班待命，异常检测，警报
 
-Monitoring is a great tool for people to inspect the current state of the system. But it's really just a stepping stone to automatically detect when things go wrong and raise alerts that people can take action on.
+监控是工程师用于检查系统当前状态的很好的工具。但是它实际上像一块垫脚石，只是自动检测出现问题并报警，使得工程师可以采取后续行动。
 
-Oncall itself is a broad topic - Increment magazine did a great job covering many aspects in its [On-Call issue](https://increment.com/on-call/). I strongly prefer thinking of oncall as a follow-up to the "you build it, you own it" mindset. Teams who build services own them, owning the oncall as well. My team owned oncall for the payments services that we built. So whenever an alert fires, the oncall engineer would respond and look into the details. But how do we get from monitoring to alerts?
+值班待命（Oncall）本身就是一个广泛的话题 —— Increment 杂志做了很棒的工作，在它的[On-Call 这期杂志](https://increment.com/on-call/)涵盖了各个方面的内容。我很喜欢将值班待命视为“你搭建，故你拥有”这一观念的进一步行动。建立服务的团队拥有这些服务，也拥有值班待命的任务。我的团队拥有我们构建的支付系统服务的值班待命任务。因此无论何时发出警报，值班待命的工程师将会响应并查看详情。那么我们如何将监控转化为警报呢？
 
-**Detecting anomalies from the monitoring data is a tough challenge** and an area where machine learning can shine. There are plenty of third-party services that offer anomaly detection. Again lucky for my team, we had an in-house machine learning team to work with, who tailored their solutions to Uber use-cases. The  NYC-based Observability team wrote a helpful article on how [anomaly detection works at Uber](https://eng.uber.com/anomaly-detection/). From my team's point of view, we push our monitoring data to this team's pipeline and get alerts with the respective confidence levels. Then we decide if we should page an engineer or not.
+**检查监控数据中的异常是艰巨的挑战**，也是机器学习可以大放异彩的领域。有许多的第三方服务提供了异常检测。我们的团队很幸运，可以和内部机器学习团队协作，他们为 Uber 的用例定制解决方案。纽约的可观察性团队写了篇[异常检测是在 Uber 如何工作](https://eng.uber.com/anomaly-detection/)的有用的文章。从我的团队角度来看，我们把监控数据推送到这支团队的管道（pipeline），并获得各自置信水平的警报。接着我们决定是否要向工程师报警。
 
-When to fire an alert is an interesting question. Too few alerts can mean missing impactful outages. Too many can cause sleepless nights and burn people out. **Tracking and categorizing alerts and measuring signal-to-noise is essential in tweaking the alerting system**. Going through alerts and tagging whether they were actionable or not, then taking steps to reduce non-actionable alerts is a good step towards having [sustainable on-call rotations](https://increment.com/on-call/crafting-sustainable-on-call-rotations/) in place.
+何时发出警报是个有趣的问题。警报太少可能导致错过有影响的中断；太多又可能导致不眠之夜，使人心力憔悴。**在调整警报系统时，追踪和分类警报，以及测量信噪比非常重要**。标记警报是否可付诸行动，然后采取措施减少非可付诸行动的警报，是实现[可持续的 on-call 轮值](https://increment.com/on-call/crafting-sustainable-on-call-rotations/)的很好的一步。
 
 ![](https://blog.pragmaticengineer.com/content/images/2019/06/oncall.png)
 
-Example of the [in-house oncall dashboard](https://eng.uber.com/on-call-dashboard/) used at Uber, built by the Uber Developer Experience team in Vilnius
+Uber 内部使用的[值班待命仪表板](https://eng.uber.com/on-call-dashboard/)示例，由来自维尔纽斯的 Uber 开发者体验团队构建。
 
-The Uber developer tooling team based in Vilnius [builds neat on-call tooling](https://eng.uber.com/on-call-dashboard/) that we use to annotate alerts and visualize the oncall shifts. Our the team holds a weekly review of the last oncall shift, analyzing pain points and spending time to improve the oncall experience, week after week.
+维尔纽斯的 Uber 开发者工具团队[构建了简洁的值班待命工具](https://eng.uber.com/on-call-dashboard/)，我们用它来标记警报，以及让轮班可视化。我们的团队每周都会回顾上次的轮班情况，分析痛点并花时间提升值班待命的体验，周而复始。
 
-## Outages & Incident Management Processes
+## 中断和事故管理流程
 
-Imagine this: **you're the engineer oncall for the week. A pager alert wakes you up the middle of the night. You investigate if there's a production outage happening. Uh oh. Seems like part of the system is down. Now what?** Monitoring and alerting just got very real.
+想象一下：**你是这周的值班待命的工程师。一个警报半夜把你叫醒。你调查了是否有生产环境的中断发生。呃。哦。似乎是系统的一部分失效了。接下来该怎么办？**
 
-Outages might not be that big of a deal for small systems, where the oncall engineer can understand what is happening and why. They are usually quick to understand and easy to mitigate. For complex systems with multiple (micro)services, lots of engineers pushing code to production, it is challenging enough just to pinpoint where the underlying problem is happening. Having a few standard processes to help with this makes a huge difference.
+对于小型系统而言，中断或许不算什么大事，因为值班待命的工程师可以了解发生的问题以及原因。这些问题通常易于理解和缓解。对于具有多个（微）服务的复杂系统来说，许多工程师提交代码到生产环境，仅仅是准确地找到潜在问题的位置，就是个很大的挑战。我们可以通过一些标准的流程来改变这种情况。
 
-**Runbooks** that are attached to alerts, describing simple mitigation steps are the first line of defense. For teams that have good runbooks, it's rarely a problem if the engineer oncall does not know the system in-depth. Runbooks need to be kept up to date, updated, and re-worked with new type of mitigations, as they happen.
+**运维手册（Runbooks）** 通常附在警报上，描述了简单的缓解步骤，作为第一道防线。对于有着好的运维手册的团队，值班待命的工程师即使对系统了解不深，也很少出现问题。运维手册需要保持最新，升级并在有新的缓解方案时修订。
 
-**Communicating outages across the organization** become essential as soon as there are more than a few teams that deploy services. In the environment I work at, thousands of engineers deploy services they work on into production when they see fit, resulting in hundreds of deploys per hour. A seemingly unrelated deployment on one service might impact another one. Here, standardized outage broadcasting and communication channels make a big difference. I've had multiple cases when an alert was unlike anything I've seen before - and realizing that other people in other teams are seeing similarly odd things. Being in a central chat group for outages, we pinpointed the service causing the outage and mitigated the issue quickly. We did this much faster, as a group than any one of us would have done it by ourselves.
+当有很多支团队部署服务时，**在组织里沟通中断的情况**变得非常重要。在我的工作环境，上千名工程师在合适时向生产环境部署服务，这意味着每小时有上百次的部署发生。服务中的一次看似无关的部署可能会影响到另一个服务。标准化的中断广播和交流频道造成了巨大的改变。我多次遇到从未见过的警报 —— 接着发现其它团队里的人也看到了类似的奇怪警报。在一个为中断而设的中心聊天群里，我们能够准确地找到导致中断的服务，并快速地缓解这个问题。相比各自为战，我们作为一个团体可以做得更快。
 
-**Mitigation now, investigation tomorrow.** In the middle of an outage, I often got the "adrenalin rush" of wanting to fix what went wrong. Often the root cause was a bad code deploy, with a glaring bug being present in the code change. In the past, I would have jumped to fix the bug, push the fix and close the outage over just rolling back the code change. However, fixing the root cause in the middle of an outage is a **terrible** idea. **There is little to gain and a lot to lose with a forward fix**. Because the new fix has to be done quickly, testing has to be done in production. Which is the recipe to introduce a second bug - or a second outage - on top of the existing one. I have seen outages blow up, just like this. Just focus on mitigating first, resisting the urge to fix or investigate the root cause. A proper investigation can wait until the next business day.
+**立刻缓解，明天调查。**当处于中断过程中，我通常有种必须修好错误的冲动。错误的根源通常是一次失败的代码部署，代码修改中有一个明显的 bug。在过去，我将会直接修好 bug 并推送修复来解决中断，而不是直接回滚代码。然而，在一次中断过程中解决根本问题是一个**糟糕的**想法。**这几乎没有收益，并且一个新修复可能带来更多的损失**。因为这意味着必须快速完成新修复，并且只能在生产环境里测试。这可能导致第二个 bug 或第二次中断。我曾见过中断像这样失去控制。请专注于缓解最重要的问题，遏制住自己修复或调查根本原因的冲动。详细的调查可以放在下个工作日做。
 
 ![](https://blog.pragmaticengineer.com/content/images/2019/07/Screenshot-2019-07-03-at-17.14.53.png)
 
-## Postmortems, Incident Reviews & a Culture of Ongoing Improvements
+## 事后总结，事故回顾和持续改进的文化
 
-It is telling of a team how they handle the aftermath of an outage. Do they carry on? Do they do a small investigation? Do they perhaps spend a surprisingly **large** effort on the follow-up, stopping product work to make system-level fixes?
+一支团队在中断之后如何应对是很重要的。他们大惊小怪了吗？他们做了小的调查吗？他们是不是花了的**大量**精力进行后续工作，停止产品功能以进行系统级别的修复？
 
-**Postmortems** done right are a building block for robust systems. A good postmortem is blameless yet thorough. Templates for postmortems at Uber evolved over time across engineering, having sections for the summary of the incident, impact overview, the timeline of events unfolding, a root cause analysis, lessons learned and a list of detailed follow-up items.
+做好**事后总结**是构建健壮的系统的基石。一个好的事后总结是免责的，也是详尽的。Uber 的事后总结模版随着时间进化，它包含了事件摘要，影响概述，事件发展的时间表，根本原因分析，经验教训以及一份详细的后续行动清单。
 
 ![](https://blog.pragmaticengineer.com/content/images/2019/07/Screenshot-2019-07-15-at-15.20.31.png)
 
-A postmortem template similar to what I've used at Uber
+一个类似于我在 Uber 使用的事后总结模版
 
-Good postmortems dig deep down into the root cause and come up with improvements to make preventing, detecting or mitigating all similar outages a lot faster. When I say dig deep, I mean they won't stop at the root cause being a bad code change with a bug that the code reviewer did not spot. They dig deeper with the ["5 Whys"](https://en.wikipedia.org/wiki/5_Whys) exploration technique, to dig deeper, arriving at a more meaningful conclusion. Take this example:
+优秀的事后总结深入研究根本原因，并提出改善措施，使防止，检测或缓解所有类似的中断变得更快。深入研究根本原因，并不仅停留在代码审查人员没能发现代码修改有 bug 这个层面上。而是使用 [5 个为什么](https://en.wikipedia.org/wiki/5_Whys)的探索技巧来深入研究，得出一个更有意义的结论。举个例子：
 
-* **Why did the issue happen? -->** A bug was committed as part of the code.
-* **Why did the bug not get caught by someone else? -->** The code reviewer did not notice that the code change could cause such an issue.
-* **Why did we depend on only a code reviewer catching this bug?** ---\> Because we don't have an automated test for this use case.
-* **"Why don't we have an automated test for this use case?"** --\> Because it is difficult to test without test accounts.
-* **Why don't we have test accounts?** --\> Because this system does not yet support them
-* Conclusion: this issue points to the systemic issue of not having test accounts. Suggesting to add test accounts support to the system. Following this, write automated tests for all future, similar code changes.
+- **为什么这个问题会发生？** --\> 因为含有 bug 的代码被提交。
+- **为什么这个 bug 没有被其它人发现？** --\> 因为代码审计人员没有发现代码修改会导致这个问题。
+- **为什么我们只依赖于一个代码审计人员发现这个 bug？** --\> 因为我们没有为这个用例提供自动化测试。
+- **为什么我们不为这个用例提供自动化测试？** --\> 因为在没有测试账户的情况下测试很困难。
+- **为什么我们没有测试账户？** --\> 因为这个系统暂时不支持。
+- 结论：这个问题指出了没有测试账户的系统性问题。建议为系统添加测试账户的功能。接着，为相似的代码修改写好自动化测试。
 
-**Incident reviews** are an important accompanying tool for postmortems. While many teams do a thorough job with postmortems, others can benefit from additional input and being challenged on preventative improvements. It's also essential that teams feel accountable and empowered to carry out the system level improvements they propose.
+**事故回顾**是事后总结的重要协同工具。当许多团队完成了彻底的事后总结，将受益于更多的见解，以及预防性的改进受到挑战。团队必须有权执行他们提出的系统级改进，并承担责任。
 
-For organizations that are serious about reliability, the most severe incidents get reviewed and challenged by the experienced engineers. Organizational level engineering management should also be present to provide empowerment to go through with the fixes - **especially** when those are time-consuming and block other work. **Robust systems are not built overnight: they are built through continuous iterations**. Iterations that come from an organization-wide culture of continuous improvements, following learning from incidents.
+对那些严肃对待可靠性的组织而言，经验丰富的工程师会审查和质询最严重的事故。需要组织级别的工程管理来授权修复 —— **特别是**当它们很耗时并且阻碍其它工作时。**健壮的系统不是一夜建成的，而是通过持续的迭代建成的**。迭代来自不断地从事故中学习和持续改进的组织文化。
 
-## Failover Drills, Planned Downtime & Capacity Planning & Blackbox Testing
+## 故障转移演练，计划下线，容量规划和黑盒测试
 
-There are a couple of regular activities that require significant investments but are critical in keeping a large distributed system up and running. These are concepts I came across at Uber for the first time - at previous companies, we did not need to use these as our scale and infrastructure did not prompt us to do so.
+有一些定期活动需要投入大量的时间和精力，但对于保持大型分布式系统正常运行至关重要。这些是我在 Uber 首次接触的概念 —— 在过去的公司里，由于我们的规模和基础设施较小，我们不需要使用它们。
 
-**A data center failover drill** is something I assumed was dull until I observed a a few of them. I was initially thinking, designing robust distributed systems is precisely about being resilient to data centers going down. Why test it regularly, if it should **theoretically** just work? The answer has to do with scale and testing whether services can efficiently handle a sudden increase in traffic in a new data center.
+直到我观察了一些具体案例，我曾一直认为**数据中心故障转移演练**很乏味。我最初的想法是，设计健壮的分布式系统，就是指设计能够适应数据中心故障的系统。既然它**理论上**应该可用，为什么要定期测试？答案与系统的规模和为了测试服务是否能有效地处理新的数据中心的流量增长有关。
 
-The most common failure scenario I have observed is services not having enough resources in a new data center to handle global traffic, in case of a failover. Imagine ServiceA and ServiceB running from two data centers each. Let's assume that utilization of the resources is at 60% - with tens or hundreds of VMs running in each DC - and alerts are set to trigger at 70%. Now let's do a failover, directing all traffic from DataCenterA to DataCenterB. DataCenterB is suddenly unable to cope with the load, without provisioning new machines. Provisioning could take long enough time that requests get piled up and start dropping. This blocking could start to impact other services, causing a cascading failure on other systems, that are not even part of this failover.
+我观察到最常见的故障情况是，在新的数据中心服务没有足够的资源来应对全局流量。想象一下，服务 A 和服务 B 分别在两个数据中心运行。我们假设资源的利用率是 60% —— 每个数据中心分别运行成百上千个虚拟机 —— 并且警报的触发点设置在 70%。接着出现一个故障转移，导致所有的流量从数据中心 A 转移到了数据中心 B。在没有配置新机器的情况下，数据中心 B 无法应对这样的负载。配置新机器可能需要较长的时间，而请求可能积压并且中断。这种阻塞可能开始影响另外的服务，导致了其他系统的级联故障，尽管这些系统并不是这次故障转移的一部分。
 
 ![](https://blog.pragmaticengineer.com/content/images/2019/07/Failover-drill-drawing.png)
 
-Possible ways a data center failover could go wrong
+数据中心故障转移中可能的出错方式
 
-Other common failure scenarios involve routing level issues, network capacity problems, or [back pressure](https://en.wikipedia.org/wiki/Backpressure_routing) pain points. Data center failovers are drills that any reliable distributed system should be able to perform without any user impact. I am emphasizing **should** \- this drill is one of the most useful exercises to test the reliability of a web of distributed systems.
+其它常见的故障情况可能涉及路由级问题，网络容量问题，或[背压（back pressure）](https://en.wikipedia.org/wiki/Backpressure_routing)问题。任何可靠的分布式系统应该能够在不影响用户的情况下，执行数据中心故障转移的演练。我在强调**应该** —— 这个演练对于测试分布式系统网络可靠性是非常有用的。
 
-**Planned service downtime exercises** are an excellent way to test the resiliency of the overall system. These are also a great way to discover hidden dependencies or inappropriate/unexpected usages of a specific system. While this exercise can be done relatively easily with services that are client facing and have few known dependencies, it is less straightforward to do with critical systems that require high uptime and or with ones that many other systems depend on. But what will happen when this critical system will be unavailable, someday? It is better to validate the answer with a controlled drill, all teams being aware and ready, over an unexpected outage.
+**计划内的服务下线演练**是测试整个系统弹性的最佳方法。它们对发现特定系统的隐藏的依赖关系或不合适/预期外的使用也很有帮助。虽然针对面向客户的和依赖少的服务，这个演练相对容易完成，但对于需要高可用的或依赖多的关键系统来说，这样做并不容易。然而，有一天这个关键系统不可用时，将会发生什么？相比于一次意料之外的中断，最好还是通过受控制的演练，在所有团队都清楚并准备就绪后，验证这个答案。
 
-**Black-box testing** is a way to measure the correctness of a system as close to the conditions as an end user would see it. This type of testing is similar to end-to-end testing. Except that for most products, having proper black-box tests warrant their own investment. Key user flows, and the most common, user-facing test scenarios are good ones to make "black box testable": doing this in a way that they can be triggered any time, to check if the systems work.
+**黑盒测试**是一种在类似最终用户的条件下，测试系统正确性的方法。这种类型测试很像端到端测试。对于大多数产品而言，需要进行合适的黑盒测试。关键用户流程和最常见的面向用户的测试情景，更好得使“黑盒可测试”：将测试变得随时可运行，来检查是否系统正常工作。
 
-Taking Uber as an example, an obvious black-box test is checking if the rider-driver flow works at a city level. That is, can a rider in a specific city request an Uber, being matched with driver partners and get a ride? Once this scenario is automated, this test can be regularly run, simulating different cities. Having robust black-box testing systems makes it easier to verify that the system - or parts of the system - work correctly. It also helps a lot with failover drills: the quickest way to get feedback on the failover is to run the black-box tests.
+以 Uber 为例，一个明显的黑盒测试是检查是否乘客-司机流在城市级别正常工作。即某个特定城市的乘客是否能请求一辆 Uber 出租车，和司机匹配并上路？当这个情景变得自动化，这个测试就可以定期运行，并且模拟不同的城市。拥有健壮的黑盒测试使验证系统 —— 或系统的一部分 —— 是否正常工作变得更容易。它也对故障转移演练很有帮助：运行黑盒测试是在故障转移中获得反馈的最快方式。
 
 ![](https://blog.pragmaticengineer.com/content/images/2019/07/Screenshot-2019-07-03-at-22.07.07.png)
 
-Example for using black-box tests during a failed failover drill, rolling back manually minutes into the drill.
+在一次失败的故障转移演练中使用黑盒测试的例子，手动回滚数分钟。
 
-**Capacity planning** becomes equally important for large distributed systems. By large, I mean the cost of compute and storage being in the tens- or hundreds of thousands dollars per month. At this scale, having a fixed number of deployments might be cheaper over using self-scaling cloud solutions. At the very least, fixed deployments should handle the "business as usual" traffic, with automatic scaling happening for peak loads. But what is the minimum number of instances that should be running for the next month? The next three months? The next year?
+**容量规划**对于大型分布式系统同样很重要。大型的意思是，计算和存储空间每个月将花费几万或几十万美元。在这种规模下，具有固定数量的部署可能比使用自扩展的云端解决方案更便宜。至少，固定部署可以应对“正常经营”的流量，并在峰值负载下自动扩展。但是，下个月最少应该运行多少实例？接下来的三个月呢？明年呢？
 
-Forecasting the future traffic pattern for systems that are mature and have good historical data is not difficult. Yet it is important both for budgeting, for choosing vendors or for locking in discounts with cloud providers. If your service has a large bill and you've not thought of capacity planning, you are missing out on an easy way to reduce and control cost.
+预测成熟且有足够历史数据的系统的未来的流量模式不难。然而，这对于预算安排，选择云服务商或锁定云服务商的折扣都很重要。如果你的服务有着一大笔账单，而你还没有想过容量规划，你正错过一个简单的减少和控制成本的机会。
 
-## SLOs, SLAs & Reporting on Them
+## SLOs，SLAs 和报告它们
 
-SL0 stands for [**Service Level Objective**](https://cloud.google.com/blog/products/gcp/sre-fundamentals-slis-slas-and-slos) - a numerical target for system availability. For each independent service, defining **service-level SLOs** like targets for capacity, latency, accuracy, and availability are good practices. These SLOs can then serve as triggers for alerting. An example service-level SLO could look like this:
+SLO 表示了[服务质量目标](https://cloud.google.com/blog/products/gcp/sre-fundamentals-slis-slas-and-slos) —— 一个系统可用性的数值目标。对于每个独立的服务，定义好**服务级的 SLO**，比如容量，延迟，准确度，可用度的目标，是一个很好的实践。这些 SLO 可以作为警报的触发器。一个服务级的 SLO 的例子如下所示：
 
-| SLO Metric | Subcategory | Value for Service |
-| ---------- | ----------- | ----------------- |
-| **Capacity** | Minumum throughput | 500 req/sec |
-|              | Maximum expected throughput | 2,500 req/sec |
-| **Latency** | Expected median response time | 50-90ms |
-|             | Expected p99 response time | 500-800ms |
-| **Accuracy** | Maximum error rate | 0.5% |
-| **Availability** | Guaranteed uptime | 99.9%|
+| SLO 指标   | 子类别               | 服务的目标值  |
+| ---------- | -------------------- | ------------- |
+| **容量**   | 最小吞吐量           | 500 请求/秒   |
+|            | 预期最大吞吐量       | 2,500 请求/秒 |
+| **延迟**   | 预期的响应时间中位数 | 50-90ms       |
+| **准确度** | 最大错误率           | 0.5%          |
+| **可用性** | 保证正常运行         | 99.9%         |
 
-**Business-level SLOs** or functional SLOs are an abstraction above the services. They'll cover user or business-facing metrics. For example, a business-level SLO could be this: expecting 99.99% of email receipts to be sent within 1 minute of the trip completed. This SLO might map to service-level SLOs (e.g. latencies of payment and email receipt systems), or they might need to be measured differently.
+业务级的 SLO 或者功能性的 SLO 是在服务之上的抽象。它们将会涵盖面向用户或业务的指标。比如，一个业务级的 SLO 可以像这样：预计 99.99% 的电子邮件收据，会在行程结束后的一分钟内发出。这个 SLO 可能可以映射到服务级的 SLO (例如：支付和电子邮件收据系统的延迟)；或者可能需要以别的方式测量。
 
-**SLA - Service Level Agreement** - is a broader agreement between a service provider and a service consumer. Usually, multiple SLOs make up an SLA. For example, the payments system being 99.99% available could be an SLA, that breaks down to specific SLOs for each supporting system.
+**SLA —— 服务质量协议**是服务提供者和服务消费者之间更广泛的协议。通常，多个 SLO 组成了一个 SLA。例如，支付系统保持 99.99% 的可用性可以是一个 SLA，而它又可以分解为每个支撑系统具体的 SLO。
 
-After defining the SLOs, the next step is to measure these and report on them. **Automating monitoring and reporting on SLAs and SLOs is often a complex project**, one that is tempting to de-prioritize for both the engineering team and the business. The engineering team won't be as interested, they already have various levels of monitoring that detect outages realtime. The business, on the other hand, would rather prioritize delivering functionality over investing in a complex project that doesn't have immediate business impact.
+定义好 SLO 之后，下一步是测量这些目标并报告它们。**自动监控和报告 SLA 和 SLO 通常是个复杂的项目**，工程团队和业务团队会想要降低它的优先级。工程师团队不会太感兴趣，他们已经有了各种级别的监控来实时检测中断。而业务团队宁愿优先提供实用的功能，而不是把资源投入一项没有立竿见影的商业影响的复杂的工程中。
 
-Which brings us to the next topic: organizations that are operating large distributed systems sooner or later need to invest dedicated staffing for the reliability of these systems. Let's talk about the Site Reliability Engineering team.
+这将引出下个话题：运营大型分布式系统的组织，迟早需要专门的人员确保系统的可靠性。让我们聊聊网站可靠性工程团队。
 
-## SRE as an Independent Team
+## SRE 作为一支独立团队
 
-Site Reliability Engineering [originated](https://en.wikipedia.org/wiki/Site_Reliability_Engineering) from Google from around 2003 - to more than 1,500 SRE engineers today. As operating a production environment becomes a more complex of a task, with more and more automation required, soon enough, this work becomes a full-time job. It varies when companies recognize that they have engineers working close to full time on production automation: the more critical these systems are and the more failures they have, the earlier this happens.
+网站可靠性工程[起源于](https://en.wikipedia.org/wiki/Site_Reliability_Engineering) Google，从 2003 年左右开始 —— 至今 Google 已经有超过 1500 名 SRE 工程师。随着生产环境的运维变得越来越复杂，需要越来越多的自动化，这项工作将变成一种全职工作。这取决于公司何时认识到，工程师在生产自动化中几乎投入全职工作的时间：这些系统越重要，出现的故障越多，这种改变越早发生。
 
-Fast growing tech companies often put an SRE team in-place early on, who build their own roadmap. At Uber, the [SRE team was founded in 2015](https://eng.uber.com/sre-talks-feb-2016/) with the mission of managing system complexity over time. Other companies might couple starting such a team to when a dedicated infrastructure team is created. **When a company grows to reliability work across teams takes up more than a few engineers' time, it's time to put a dedicated team for this in place.**
+快速成长的科技公司通常在早期建立一支 SRE 团队，团队会制定自己的路线图。在 Uber，[SRE 团队成立于 2015 年](https://eng.uber.com/sre-talks-feb-2016/)，它的使命是持续管理系统复杂性。其它公司可能在建立专门的基础设施团队时组建这样的团队。**当一家公司发展到，稳定性工作消耗了团队中不少工程师的时间，就该建立这样一支专门的团队了。**
 
-With an SRE team in-place, this team makes the operational aspects of keeping large, distributed systems a lot easier for all engineers. The SRE team likely owns standard monitoring and alerting tools. They probably buy or build oncall tooling and are the goto team for oncall best practices. They might facilitate incident reviews and build systems to make detecting, mitigating, and preventing outages easier. They certainly facilitate failover drills, often drive black-box testing, and are involved with capacity planning. They drive choosing, customizing, or building standard tools to define and measure SLOs and report on them.
+SRE 团队让所有工程师都更加轻松地运维大型分布式系统。这支 SRE 团队很可能拥有标准的监控和警报工具。他们很可能购买或搭建值班待命工具，也是求助关于值班待命的最佳实践的首选。他们能促进事故回顾，使得构建可以检测，缓解和预防中断的系统更加容易。他们肯定有助于故障转移演练，通常主导黑盒测试，并参与容量规划。他们推动了选择，改造或创建用于定义和测量 SLO 的标准工具，并报告它们。
 
-Given that companies have different pain areas they look for SRE to solve, SRE organizations are different across companies. The name is often something else as well: it could be called operations, platform engineering, or infrastructure. Google published two [must-read books on site reliability that are freely available](https://landing.google.com/sre/books/) and is an excellent read to go deeper into SRE.
+鉴于不同的公司有不同的痛点需要 SRE 解决，SRE 的组织结构在各公司之间是不同的。它通常可能也有别的名字：它可能被称作运维，平台工程，或是基础架构。Google 免费发布了两本关于[网站可靠性的必读书籍](https://landing.google.com/sre/books/)，这是深入了解 SRE 的最佳读物。
 
-## Reliability as an Ongoing Investment
+## 持续投资可靠性
 
-When building any product, building the first version is just the start. After the v1, new features get added in the iterations to come. If the product is successful and brings in business results, the work just keeps on coming.
+在构建任何产品时，构建第一个版本仅仅是个开始。在第一版之后，将在迭代中添加新功能。如果产品成功并取得了商业上的回报，这些工作会不停地增加。
 
-Distributed systems have a similar lifecycle, except they need more investment, not just for new features, but to keep up with scaling up. As a system starts to take more load, stores more data, has more engineers work on it, it needs continuous care to keep running smoothly. Many people building distributed systems the first time assume this system to be like a car: once built, it only needing essential maintenance every few months. This comparison could not be further from how systems like these operate.
+分布式系统有着类似的生命周期，然而它们需要更大的投入，不仅需要添加新功能，还得跟上规模的扩展。随着系统承受更高的负载，存储更多数据，需要更多的工程师为其工作，系统需要持续的维护才能保持平稳地运行。许多人第一次构建分布式系统时，把这个系统当作了一辆车：一旦造好，只需要每隔几个月进行必要的维护。这样类比其实不太对。
 
-**I like to think of the effort to operate a distributed system being similar to operating a large organization, like a hospital**. To make sure a hospital operates well, continuous validation and checks are needed (monitoring, alerting, black-box testing). New staff and equipment (new engineers and new services) need to be onboarded all the time. As the number of people and the number of services grows, new the old ways of doing things become inefficient: the same way a tiny clinic on the countryside works different to a large hospital in a metropolis. It becomes a full-time job to come up with more efficient ways of doing things, and measuring and reporting on efficiency becomes important. Just like large hospitals have more supporting officer staff, like finance, HR or security; operating larger distributed systems similarly rely on supporting teams like infrastructure and SRE.
+**我喜欢把运维分布式系统看作运营一家大型机构，比如一家医院**。为了确保医院运营良好，需要持续的验证和检查（监控，警报，黑盒测试）。新员工和设备（新工程师和新服务）都需要受到训练。随着工程师和服务的数量的增长，旧的方式变得低效：就像农村小诊所与城市大医院有着不同的运营方式。改进效率成了一项全职工作，测量和报告效率变得重要。就像大医院有更多的支持人员，比如财务，人资或安保；运维大型的分布式系统同样依赖于支持团队，比如基础设施和 SRE 团队。
 
-For a team to run a reliable distributed system, the organization needs to be investing continuously in the operations of these systems, as well as the platforms that they are built on.
+为了使分布式系统可靠，组织机构需要持续投资来系统的运维，以及这些系统的基础平台。
 
-## Further Recommended Reading
+## 更多的推荐阅读
 
-Though this post is lengthy in its content, it still only touches the surface. To dive deeper into operating distributed systems, I recommend the following resources:
+虽然这篇文章内容很长，但它仍仅仅略窥门径。如果要深入探索分布式系统的运维，我推荐的资源如下：
 
-**Books:**
+**书籍：**
 
-* [Google SRE Book](https://landing.google.com/sre/) \- a great and free book from Google. The [Monitoring Distributed Systems charter](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/) is especially relevant for this post.
-* [Distributed Systems Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/) by [Cindy Sridharan](https://twitter.com/copyconstruct), another excellent and free book with great points on monitoring distributed systems.
-* [Designing Data-Intensive Applications](https://www.amazon.com/gp/product/1449373321/ref=as_li_tl?ie=UTF8&tag=gregdoesit-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=1449373321&linkId=adc1dc62fd3463b173cfd92dbe4ed821) by [Dr Martin Kleppmann](https://twitter.com/martinkl) \- the most practical book I have found so far on distributed systems concepts. However, this book does not touch much on the operational aspects discussed in the post.
+- [SRE：Google 运维解密](https://landing.google.com/sre/) \- 来自 Google 的优秀且免费的图书。[分布式系统的监控](https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/)这一章和本文特别相关。
+- [Cindy Sridharan](https://twitter.com/copyconstruct) 的[分布式系统可观察性](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/)，另一本优秀且免费的书，提出了一些关于监控分布式系统很棒的观点。
+- [Dr Martin Kleppmann](https://twitter.com/martinkl) 的[设计数据密集型应用](https://www.amazon.com/gp/product/1449373321/ref=as_li_tl?ie=UTF8&tag=gregdoesit-20&camp=1789&creative=9325&linkCode=as2&creativeASIN=1449373321&linkId=adc1dc62fd3463b173cfd92dbe4ed821) \- 迄今为止，我发现的关于分布式系统概念的最实用的书籍。但是，这本书并没涉及太多本文所讨论的运维方面的内容。
 
-**Online resources:**
+**在线资源：**
 
-* [On-Call issue of the Increment magazine](https://increment.com/on-call/): a series of articles on incident response processes of companies like Amazon, Dropbox, Facebook, Google, and Netflix.
-* [Learning to Build Distributed Systems](http://brooker.co.za/blog/2019/04/03/learning.html) \- a post by AWS engineer [Marc Brooker](https://twitter.com/MarcJBrooker), answering the question "how do I learn to build big distributed systems"?
+- [Increment 杂志的 On-Call 这期](https://increment.com/on-call/)：Amazon，Dropbox，Facebook，Google 和 Netflix 等公司的事故响应流程的一系列文章。
+- [学习构建分布式系统](http://brooker.co.za/blog/2019/04/03/learning.html) \- AWS 工程师 [Marc Brooker](https://twitter.com/MarcJBrooker) 的一篇文章, 回答了“如何学习构建大型分布式系统”的问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
