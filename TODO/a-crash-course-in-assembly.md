@@ -38,7 +38,7 @@
 
 ![6-bits being taken from a 16-bit instruction and being piped into the ALU](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/03-03-computer_architecture12-500x354.png)
 
-接下来大脑会取后续两个三字节的字段来确定要相加的两个数。这两个数会存储在寄存器中。
+接下来大脑会取后续两个三位的字段来确定要相加的两个数。这两个数会存储在寄存器中。
 
 ![Two 3-bit chunks being decoded to determine source registers](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/03-04-computer_architecture17-500x352.png)
 

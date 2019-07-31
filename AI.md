@@ -1,3 +1,8 @@
+* [时间序列数据间量化同步的四种方法](https://juejin.im/post/5d213c126fb9a07f091bc3f5) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
+* [在 Python 中过度使用列表解析器和生成表达式](https://juejin.im/post/5d281b0ff265da1b8b2b8ae0) ([ccJia](https://github.com/ccJia) 翻译)
+* [使用 What-If 工具来研究机器学习模型](https://juejin.im/post/5d143abff265da1bb80c4005) ([Starriers](https://github.com/Starriers) 翻译)
+* [如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8) ([Daltan](https://github.com/Daltan) 翻译)
+* [在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204) ([lsvih](https://github.com/lsvih) 翻译)
 * [在 Keras 下使用自编码器分类极端稀有事件](https://juejin.im/post/5cff17296fb9a07ec63b0a7f) ([ccJia](https://github.com/ccJia) 翻译)
 * [使用谷歌 FACETS 可视化机器学习数据集](https://juejin.im/post/5d0226986fb9a07ecb0ba33a) ([QiaoN](https://github.com/QiaoN) 翻译)
 * [浅析深度学习神经网络的卷积层](https://juejin.im/post/5ceeef01518825351e354747) ([QiaoN](https://github.com/QiaoN) 翻译)

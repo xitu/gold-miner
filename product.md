@@ -1,3 +1,5 @@
+* [利用 84 种认知偏见设计更好的产品 —— 第二部分](https://juejin.im/post/5d37e1816fb9a07ee1696a4e) ([JalanJiang](https://github.com/JalanJiang) 翻译)
+* [利用 84 种认知偏见设计更好的产品 —— 第一部分](https://juejin.im/post/5d2acf995188254c1915bd12) ([JalanJiang](https://github.com/JalanJiang) 翻译)
 * [制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7) ([QiaoN](https://github.com/QiaoN) 翻译)
 * [2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4) ([xionglong58](https://github.com/xionglong58) 翻译)
 * [产品管理思维模式适合每一个人](https://juejin.im/post/5c2c266ae51d4511fb7db0c7) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)

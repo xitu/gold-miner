@@ -2,184 +2,184 @@
 > * 原文作者：[Parul Pandey](https://medium.com/@parulnith)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-what-if-tool-to-investigate-machine-learning-models.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-what-if-tool-to-investigate-machine-learning-models.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[lsvih](https://github.com/lsvih)，[TrWestdoor](https://github.com/TrWestdoor)
 
-# Using What-If Tool to investigate Machine Learning models.
+# 使用 What-If 工具来研究机器学习模型
 
-An open source tool from Google to easily analyze ML models without the need to code.
+Google 开源了一个在无需编码的情况下，即可轻松分析 ML 模型的工具。
 
 ![Photo by [Pixabay](https://www.pexels.com/@pixabay?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/ask-blackboard-chalk-board-chalkboard-356079/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/5772/1*NBwHkeXoOu4fwA4dFdpyKw.jpeg)
 
-> Good practitioners act as Detectives, probing to understand their model better¹
+> 好的试验可以帮助我们更好地理解它们的模型¹
 
-In this era of explainable and interpretable Machine Learning, one merely cannot be content with simply training the model and obtaining predictions from it. To be able to really make an impact and obtain good results, we should also be able to probe and investigate our models. Apart from that, algorithmic fairness constraints and bias should also be clearly kept in mind before going ahead with the model.
-
-***
-
-Investigating a model requires asking a lot of questions and one needs to have an acumen of a detective to probe and look for issues and inconsistencies within the models. Also, such a task is usually complex requiring to write a lot of custom code. Fortunately, the **What-If Tool** has been created to address this issue making it easier for a broad set of people to examine, evaluate, and debug ML systems easily and accurately.
-
-## What-If Tool(WIT)
-
-![[Source](https://pair-code.github.io/what-if-tool/index.html)](https://cdn-images-1.medium.com/max/2000/0*RgV_ffd8S28l2xuQ.png)
-
-[**What-If Tool**](https://pair-code.github.io/what-if-tool) is an interactive visual tool that is designed to investigate the Machine Learning models. Abbreviated as WIT, it enables the understanding of a Classification or Regression model by enabling people to examine, evaluate, and compare machine learning models. Due to its user-friendly interface and less dependency on complex coding, everyone from a developer, a product manager, a researcher or a student can use it for their purpose.
-
-**WIT** is an open-source visualisation tool released by Google under the **[PAIR](https://ai.google/research/teams/brain/pair)(People + AI Research)** initiative. PAIR brings together researchers across [Google](https://ai.google/) to study and redesign the ways people interact with AI systems.
+在这个可解释机器学习的时代，人们不能仅仅满足于简单地训练模型并从中获得预测。为了能够真正产生影响和取得良好的效果，我们还应该能够探索和研究我们的模型。除此之外，在进行该模型之前，还应该清楚地记住算法的公平性约束和偏差。
 
 ***
 
-The tool can be accessed through TensorBoard or as an extension in a Jupyter or [Colab](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb) notebook.
+研究一个模型需要探索很多问题，当事者需要有侦探般的智慧去探索和寻找模型中的问题和不一致性。而且，这样的任务通常都很复杂，需要编写大量的自定义代码。幸运的是，**What-If Tool** 为我们解决了这个问题，它使用户更容易、更准确地检查、评估和调试机器学习系统。
 
-## Advantages
+## What-If 工具（WIT）
 
-The purpose of the tool is to give people a simple, intuitive, and a powerful way to play with a trained ML model on a set of data through a visual interface only. Here are the major advantages of WIT.
+![[资源](https://pair-code.github.io/what-if-tool/index.html)](https://cdn-images-1.medium.com/max/2000/0*RgV_ffd8S28l2xuQ.png)
 
-![What can you do with the What-If Tool?](https://cdn-images-1.medium.com/max/2000/1*dFWgN4zuEQz6e-qRuV_p3g.png)
+[**What-If 工具**](https://pair-code.github.io/what-if-tool) 是一种用于研究机器学习模型的交互式视觉工具。缩写为 WIT，它使人们能够通过检查、评估和比较机器学习模型来理解分类或回归模型。由于它的用户友好界面和对复杂编码的依赖程度较低，开发者、产品经理、研究人员或者学生都可以通过使用它来达到目的。
 
-***
-
-We shall cover all the above points during an example walkthrough using the tool.
-
-## Demos
-
-To illustrate the capabilities of the What-If Tool, the PAIR team has released a set of [demos](https://pair-code.github.io/what-if-tool/index.html#demos) using pre-trained models. You can either run the demos in the notebook or directly through the web.
+**WIT** 是由 Google 的 **[PAIR](https://ai.google/research/teams/brain/pair)（人 + AI 搜索）** 团队发布的一个开源可视化工具 。PAIR 通过 [Google](https://ai.google/) 将研究人员聚齐，研究并重新设计了人与 AI 系统的交互方式。
 
 ***
 
-![Take the What-If Tool for a spin!](https://cdn-images-1.medium.com/max/2000/1*Al4bw950-mIt4D_CWVIE5Q.png)
+可以通过 TensorBoard 使用该工具，也可以将其作为 Jupyter 或 [Colab](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb) notebook 的拓展使用。
 
-## Usage
+## 优势
 
-WIT can be used inside a [Jupyter](https://jupyter.org/) or [Colab](https://colab.research.google.com/) notebook, or inside the [TensorBoard](https://www.tensorflow.org/tensorboard) web application. This has been nicely and clearly explained in the [documentation](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#what-if-tool) and I highly encourage you to go through that since explaining the entire process wouldn’t be possible through this short article.
+该工具的目的是为人们提供一种简单、直观和强大的方法，仅通过可视化界面就可以在一组数据上使用经过训练的机器学习模型。以下是 WIT 的主要优势。
 
-> The whole idea is to first train a model and then visualizes the results of the trained classifier on test data using the What-If Tool.
+![你可以用 What-If 工具做什么？](https://cdn-images-1.medium.com/max/2000/1*dFWgN4zuEQz6e-qRuV_p3g.png)
 
-### Using WIT with Tensorboard
+***
 
-To use WIT within TensorBoard, your model needs to be served through a [TensorFlow Model Server](https://www.tensorflow.org/serving), and the data to be analyzed must be available on disk as a [TFRecords](https://medium.com/mostly-ai/tensorflow-records-what-they-are-and-how-to-use-them-c46bc4bbb564) file. For more details, refer to the [documentation](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#what-do-i-need-to-use-it-in-tensorboard) for using WIT in TensorBoard.
+在使用该工具的示例中，我们会涵盖上述的所有要点。
 
-### Using WIT with Notebooks
+## 示例
 
-To be able to access WIT within notebooks, you need a WitConfigBuilder object that specifies the data and model to be analyzed. This [documentation](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#notebook-mode-details) provides a step-by-step outline for using WIT in a notebook.
+为了说明 What-If 工具的功能，PAIR 团队已经使用预先训练过的模型发布了一组[示例](https://pair-code.github.io/what-if-tool/index.html#demos)。你可以在 notebook 中运行演示程序或者直接在网页运行它。
+
+***
+
+![尝试 what-If 工具！](https://cdn-images-1.medium.com/max/2000/1*Al4bw950-mIt4D_CWVIE5Q.png)
+
+## 用例
+
+WIT 可以在 [Jupyter](https://jupyter.org/) 或 [Colab](https://colab.research.google.com/) notebook 中使用，也可以在 [TensorBoard](https://www.tensorflow.org/tensorboard) 网站应用程序中使用。在[文档](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#what-if-tool)中已经对此进行了细致了的说明，我强烈建议你通过这篇短文来解释整个过程。
+
+>  核心思想是，先训练一个模型，然后在测试集上使用 what-if 工具对训练的分类器的结果可视化。
+
+### 结合 Tensorboard 使用 WIT
+
+你需要通过 [TensorFlow 模型服务器](https://www.tensorflow.org/serving) 部署你的模型，才能在 TensorBoard 中使用 WIT，而要分析的数据必须作为 [TFRecords](https://medium.com/mostly-ai/tensorflow-records-what-they-are-and-how-to-use-them-c46bc4bbb564) 文件。在 TensorBoard 使用 WIT 的更多细节，可以参阅[文档](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#what-do-i-need-to-use-it-in-tensorboard)。
+
+### 在 notbook 上使用 WIT
+
+为了能在 notebook 中访问 WIT，你需要一个 WitConfigBuilder 对象，该对象指定要分析的数据和模型。这个[文档](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#notebook-mode-details)为在 notebook 中使用 WIT，提供了一个慢慢学习的教程。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*bUExfjdJSB0BqCpt.png)
 
 ***
 
-You can also use a [demo notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb) and edit the code to include your datasets to start working.
+为了确保工作的进行，你可以使用 [notbook 示例](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb)，来编辑代码以此来容纳数据集。
 
-## Walkthrough
+## 完整示例
 
-Let’s now explore the capabilities of the WIT tool with an example. The example has been taken from the demos provided on the website and is called **Income Classification** wherein we need to predict whether a person earns more than $50k a year, based on their census information. The Dataset belongs to the [**UCI Census dataset**](http://archive.ics.uci.edu/ml/datasets/Census+Income) consisting of a number of attributes such as age, marital status and education level.
+我们用一个示例来讨论 WIT 的功能。这个示例样本来自名为 **Income Classification** 的网站，我们需要根据一个人的人口普查来预测他一年的收入是否超过 5 万美元。数据集来源于 [**UCI Census dataset**](http://archive.ics.uci.edu/ml/datasets/Census+Income)，由年龄、婚姻状况、教育程度等属性组成。
 
-### Overview
+### 概览
 
-Let’s begin by doing some Exploration of the dataset. Here is a [link](https://pair-code.github.io/what-if-tool/uci.html) to the web Demo for following along.
+我们首先对数据集进行研究。这里有一个用于后续演示的[链接](https://pair-code.github.io/what-if-tool/uci.html)。
 
-What-if tool contains two main panels. The **right panel** contains a visualization of the individual data points in the data set you have loaded.
+What-if 工具有两个主面板。**右面板**包含你加载的数据集中各个数据点的可视化内容。
 
 ![](https://cdn-images-1.medium.com/max/2210/1*Fpeb_UkmNv53Wo55nQ9O0A.png)
 
-In this case, the **blue dots** are people for whom the model has inferred an income of **less than 50k** and the **red dots** are those that the model inferred earn **more than 50k.** By default, WIT uses a [positive classification threshold](https://developers.google.com/machine-learning/crash-course/classification/thresholding) of 0.5. This means that if the inference score is 0.5 or more, the data point is considered to be in a positive class, i.e. high income.
+在这种情况下，**蓝点**是模型推断收入**小于 50k** 的人，**红点**是模型推断出收入**超过 50k 的人**。默认情况下，WIT 使用值为 0.5 的[正分类阀值](https://developers.google.com/machine-learning/crash-course/classification/thresholding)。这意味着，如果模型推断分数为 0.5 或以上，该数据点就会被视为在正类（即高收入）中。
 
-> What is interesting to note here is that the dataset is visualized in [**Facets Dive**](https://pair-code.github.io/facets/). Facets Dive is a part of the **FACETS**’ tool developed again by the PAIR team and helps us to understand the various features of data and explore them. In case you are not familiar with the tool, you may want to refer to this article on FACETS’ capabilities, which I had written a while ago.
+> 这里值得注意的是，数据集是在 [**Facets Dive**](https://pair-code.github.io/facets/) 中进行可视化的。Facets Dive 是 PAIR 团队重新开发的 **FACETS** 工具的一部分，它帮助我们理解数据的各种特性并探索它们。如果不熟悉该工具，你可以参考这篇关于 FACETS 功能的文章，它是我不就之前编写的。
 
-- [**Visualising Machine Learning Datasets with Google’s FACETS.** An open source tool from Google to easily learn patterns from large amounts of data](https://towardsdatascience.com/visualising-machine-learning-datasets-with-googles-facets-462d923251b3)
+- [**Google FACETS 的可视化机器学习数据集**。一个来自 Google 的开源工具，可以轻松地从大量数据中学习模式](https://towardsdatascience.com/visualising-machine-learning-datasets-with-googles-facets-462d923251b3)
 
-One can also organize the data points in tons of different ways including confusion matrices, scatter plots, histograms and small multiples of plots by simply selecting the fields from the drop-down menu. A few examples have been presented below.
+人们还可以通过从下拉菜单中选择字段，以各种不同的方式来组织数据点，包括混淆矩阵、散点图、直方图和小倍数。以下是列举的几个例子。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*34aQWjQZC_Q0gCG4_YNF_g.png)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QlLrTAdwfi1t9rwonhUu9A.png)
 
-The **left panel** contains three tabs called `Datapoint Editor,` `Performance & Fairness` ; and `Features.`
+**左面板**包含三个选项卡 `数据点编辑`、`性能和公平性` 和 `特征`。
 
-### 1. Datapoint Editor Tab
+### 1. 数据点编辑面板
 
-The Datapoint Editor helps to perform data analysis through:
+数据点编辑通过以下方式来完成数据分析：
 
-* **Viewing and Editing details of Datapoints**
+* **查看和编辑数据点的详细信息**
 
-It allows diving into a selected data point which gets highlighted in yellow on the right panel. Let’s try changing the age from 53 to 58 and clicking the “Run inference” button to see what effect it has on the model’s performance.
+它允许进入在右侧面板中以黄色高亮的数据点。我们可以尝试将年龄从 53 改为 58，点击“运行”来观察它对模型性能的影响。 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*NO4eJz9J0GYn60W0UkpuhA.gif)
 
-By simply changing the age of this person, the model now predicts that the person belongs to high-income category. For this data point, earlier the inference score for the positive (high income) class was 0.473, and the score for negative (low income) class was 0.529. However, by changing the age, the positive class score became 0.503.
+通过简单改变年龄，模型现在将预测这个人属于高收入类别。对于此数据点来说，早期的正类得分为 0.473，负类得分为 0.529。然而通过改变年龄，正得分达到了 0.503。
 
-* **Finding Nearest Counterfactuals**
+* **寻找最近的反事实**
 
-Another way to understand the model’s behaviour is to look at what small set of changes can cause the model to flip its decision which is called **counterfactual**s. With one click we can see the most similar counterfactual, which is highlighted in green, to our selected data point. In the data point editor tab we now also see the feature values for the counterfactual next to the feature values for our original data point. The green text represents features where the two data points differ. WIT uses [L1 and L2](https://www.kaggle.com/residentmario/l1-norms-versus-l2-norms) distances to calculate the similarity between the data points.
+理解模型的另一种方式是，看看什么样的小范围更改会导致模型翻转其决策，即所谓的**反事实**。只要点击一下，我们就可以看到与我们所选定的数据点最相似的反事实（用绿色高亮）。在数据点编辑器选项卡中，我们还看到了与原始数据点的特征值相反的特征值。绿色文本表示两个数据点不同的特征。WIT 使用 [L1 和 L2](https://www.kaggle.com/residentmario/l1-norms-versus-l2-norms) 距离来计算数据点之间的相似。
 
 ![](https://cdn-images-1.medium.com/max/2008/1*H7S9oSQgPP7H56NSFXg_hg.png)
 
-In this case, the nearest counterfactual is slightly older and has a different occupation and capital gain, but is otherwise identical.
+在这种情况下，最近的反事实是年龄稍大，有一个不同的职业和资本收益，但在其它方面是相同的数据点。
 
-We can also see the similarity between the selected points and others using the “**show similarity to selected datapoint**” button. WIT measures the distance from the selected point to every other datapoint. Let’s change our X-axis scatter to show the L1 distance to the selected datapoint.
+我们还可以使用**显示与所选数据点相似**的按钮来查看所选点与其它点之间的相似性。WIT 测量从选定的点到其他每一个数据点的距离。让我们改变我们的 X 轴跨度，来显示到选定数据点的 L1 距离。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lSHybyMux8FdsWlO7HasgA.png)
 
-* **Analysing partial dependence plots**
+* **分析部分依赖图**
 
-The partial dependence plot (short PDP or PD plot) shows the marginal effect one or two features have on the predicted outcome of a machine learning model( [J. H. Friedman 2001](https://statweb.stanford.edu/~jhf/ftp/trebst.pdf)).
+部分依赖图（简写为 PDP 或 PD 图）显示了一个或两个特征对机器学习模型预测结果的边缘效应（[J. H. Friedman 2001](https://statweb.stanford.edu/~jhf/ftp/trebst.pdf)）。
 
-The PDPs for age and Education for a data point are as follows:
+有关年龄和教育程度的数据点的 PDP 如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Go_5BeraltIgPnfaW6xA0g.gif)
 
-The plot above shows that:
+上图表明：
 
-* The model has learned a positive correlation between age and income
-* More advanced degrees give the model more confidence in higher income.
-* High capital gains is a very strong indicator of high income, much more than any other single feature.
+* 该模型学习到了年龄和收入之间的正相关
+* 更高的学位会让模型更有信心判定此人为高收入
+* 高资本收益是高收入的一个非常有力的指标，比任何其他单一特征都要强得多。
 
-### 2. Performance & Fairness Tab
+### 2. 性能和公平选项卡
 
-This tab allows us to look at the overall model performance using confusion matrices and ROC curves.
+这个选项卡允许我们使用混淆矩阵和 ROC 曲线来查看整个模型的性能。
 
-* **Model Performance Analysis**
+* **模型性能分析**
 
-To measure the model’s performance, we need to tell the tool what is the ground truth feature i.e the feature that the model is trying to predict which in this case is “**Over-50K**”.
+为了衡量模型的性能，我们需要告诉工具什么是真实特征，即模型视图预测的特征在这种情况下是“**超过 —— 50k**”。
 
 ![](https://cdn-images-1.medium.com/max/3210/1*131qNOeuhboNCGVTh9y6sw.png)
 
-We can see that at the default threshold level of 0.5, our model is incorrect about 15% of the time, with about 5% of the time being false positives and 10% of the time being false negatives. Change the threshold values to see its impact on the model’s accuracy.
+我们可以看到，在默认的阀值水平 0.5 时，大约有 15% 的情况，我们的模型是不正确的，大约 5% 的情况是假阳性，大约有 10% 的情况是假阴性。更改阀值来查看其对模型精度的影响。
 
-There is also a setting for “**cost ratio**” and an “**optimize threshold**” button which can also be tweaked.
+可以进行调整的还有设置“**成本比率**”和“**优化阀值**”的按钮。
 
-* **ML Fairness**
+* **机器学习公平性**
 
-Fairness in Machine Learning is as important as model building and predicting an outcome. Any bias in the training data will be reflected in the trained model and if such a model is deployed, the resultant outputs will also be biased. The WIT can help investigate fairness concerns in a few different ways. We can set an input feature (or set of features) with which to slice the data. For example, let’s see the effect of gender on model performance.
+机器学习中的公平性与建模和预测结果一样重要。训练数据中的任何偏差都会反映在训练出来的模型中，如果部署了这样的模型，那得到的结果也会有偏差。WIT 可以通过考虑各种不同的方式来帮助调查公平问题。我们可以设置一个输入特征（或一组特征）来对数据进行切片。例如，让我们看看性别对模型性能的影响。
 
-![Effect of gender on Model’s performance](https://cdn-images-1.medium.com/max/2966/1*BhlfFvlDiLC4FYyi_WTRZA.png)
+![性别对模型性能的影响](https://cdn-images-1.medium.com/max/2966/1*BhlfFvlDiLC4FYyi_WTRZA.png)
 
-We can see that the model is more accurate on females than males. Also, the model predicts high income for females much less than it does for males (9.3% of the time for females vs 28.6% of the time for males). One probable reason might be due to the under-representation of females in the dataset which we shall explore in the next section.
+可以看到该模型对女性的预测比对男性更准确。此外，该模型预测，女性的高收入远低于男性（女性为 9.3%，男性为 28.6%）。一个可能的原因是由于女性在数据集中的代表性不足，我们会在下一节中继续深究这个问题。
 
-Additionally, the tool can optimally set the decision threshold for the two subsets while taking into account any of a number of constraints related to algorithmic fairness such as demographic parity or equal opportunity.
+此外，此工具可以最优化两个子集间设置的决策阀值，同时考虑与算法公平性相关的诸多约束中的任何一个比如人口统计或机会均等。
 
-### 3. Features Tab
+### 3. 特征选项卡
 
-The features tab gives the summary statistics of each of the features in the dataset including histograms, quantile charts, bar charts etc. The tab also enables to look into the distribution of values for each feature in the dataset. For instance, let us explore the sex, capital gain and race features.
+特征选项卡，提供了数据集中每个特征的汇总统计信息，包括直方图、分位数图、条形图等。该选项卡还允许查看数据集中每个特征的值分布。例如，它可以帮助我们探讨性别、资本收益和种族特征
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pSN720U3hG54Zrkv5UpNag.png)
 
-We infer that` capital gain` is very non-uniform, with most datapoints having being set to 0.
+我们推断 `资本收益` 是极不一致的，大多数数据点都被设置为 0。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5FmxAvQhvgNASSwoco5NlA.png)
 
-![Native Country DIstribution || Sex distribution](https://cdn-images-1.medium.com/max/2000/1*_V4de4Q2lJAEnMWKI-maOQ.png)
+![国籍分布 || 性别分布](https://cdn-images-1.medium.com/max/2000/1*_V4de4Q2lJAEnMWKI-maOQ.png)
 
 ***
 
-Similarly, most datapoints belong to the United States while females are not well represented in the dataset. Since the data is biased, it is but natural that its predictions are targeted towards one group only. Afterall a model learns from the data it is provided and if the source is skewed so will be the results. Machine learning has proved its mettle in a lot of applications and areas. However, one of the key hurdles for industrial applications of machine learning models is to determine whether the raw input data used to train the model contains discriminatory bias or not.
+同样，大部分数据点来源于美国，而女性在数据集中没有很好的表现。因为数据有偏差，其预测只针对一个群体是很自然的。毕竟，模型从所提供的数据中学习，如果数据源存在偏差，那么结果一定也会有同样的偏差。机器学习已经在许多应用和领域证明了它的价值。然而，机器学习模型工业应用的一个关键障碍是确定用于训练模型的原始输入数据是否含有歧视性的偏差。
 
-## Conclusion
+## 结论
 
 ***
 
-This was just a quick run-through of some of the what if tools features. WIT is a pretty handy tool which gives the ability to probe the models, into the hands of the people to whom it matters the most. Simply creating and training a model isn’t the purpose of Machine Learning but understanding why and how that model was created is Machine Learning in true sense.
+这只是对一些 what-if 工具特性的简单预览。WIT 是一个非常方便的工具，它为决策者提供了探索模型的能力。简单的创建和训练模型并不是机器学习的目的，理解为何以及如何创建一个模型才是真正意义上的“机器学习”。
 
-### References:
+### 参考文献：
 
 1. [The What-If Tool: Code-Free Probing of Machine Learning Models](https://ai.googleblog.com/2018/09/the-what-if-tool-code-free-probing-of.html)
 2. [https://pair-code.github.io/what-if-tool/walkthrough.html](https://pair-code.github.io/what-if-tool/walkthrough.html)

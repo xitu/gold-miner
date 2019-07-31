@@ -1,3 +1,7 @@
+* [响应式设计的基本原则](https://juejin.im/post/5d2ed18af265da1ba56b5374) ([Pingren](https://github.com/Pingren) 翻译)
+* [设计任何图表的六项原则](https://juejin.im/post/5d27fca7f265da1b5e731f92) ([MarchYuanx](https://github.com/MarchYuanx) 翻译)
+* [感受 4px 基线网格带来的便利](https://juejin.im/post/5d09e5ecf265da1b60290798) ([Mcskiller](https://github.com/Mcskiller) 翻译)
+* [设计师如何成长为 Leader？](https://juejin.im/post/5d172fca6fb9a07eda032c6f) ([TiaossuP](https://github.com/TiaossuP) 翻译)
 * [微设计系统 — 打破藩篱](https://juejin.im/post/5d0335395188255ee806a5da) ([Charlo-O](https://github.com/Charlo-O) 翻译)
 * [项目世界 — 在数字设计中实现上帝模式](https://juejin.im/post/5ce63193518825332978ef65) ([Charlo-O](https://github.com/Charlo-O) 翻译)
 * [声音设计与无声设计](https://juejin.im/post/5ce354bee51d4510727c7fd1) ([CLOXnu](https://github.com/CLOXnu) 翻译)

@@ -2,22 +2,22 @@
 > * 原文作者：[Rodion Chachura](https://medium.com/@geekrodion)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-basic-matrix-operations.md](https://github.com/xitu/gold-miner/blob/master/TODO1/linear-algebra-basic-matrix-operations.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[JackEggie](https://github.com/JackEggie), [shixi-li](https://github.com/shixi-li)
 
-# Linear Algebra: Basic Matrix Operations
+# 线性代数：矩阵基本运算
 
-This is part of the course “[Linear Algebra with JavaScript](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”.
+本文是“[JavaScript 线性代数](https://medium.com/@geekrodion/linear-algebra-with-javascript-46c289178c0)”教程的一部分。
 
-![[GitHub Repository with Source Code](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
+![[源码见 GitHub 仓库](https://github.com/RodionChachura/linear-algebra)](https://cdn-images-1.medium.com/max/2000/1*4yaaTk2eqnmn19nyorh-HA.png)
 
-In this part, we will cover the most of basic matrix operations. We are going add and subtract matrices, multiply them by a scalar, implement matrix-matrix multiplication, find transpose matrix and take a more deep look at determinant. We are not going to look at concepts such as inverse matrix and rank in this part, but leave them for the future.
+在本文中，我们将介绍矩阵的大部分基本运算，依次是矩阵的加减法、矩阵的标量乘法、矩阵与矩阵的乘法、求转置矩阵，以及深入了解矩阵的行列式运算。本文将不会涉及逆矩阵、矩阵的秩等概念，将来再探讨它们。
 
-## Addition and Subtraction
+## 矩阵的加减法
 
-The matrix **addition** and **subtraction** operations take pairs of matrices as inputs and produce matrices as outputs. Addition and subtraction are performed component-wise and matrices must have the same dimensions to be added or subtracted.
+矩阵的**加法**与**减法**运算将接收两个矩阵作为输入，并输出一个新的矩阵。矩阵的加法和减法都是在分量级别上进行的，因此要进行加减的矩阵必须有着相同的维数。
 
-To not repeat the same code in addition and subtraction we first write a method that receives operation, function that will do something with two components and another matrix. Then we can call it in both addition and subtraction methods with different operations.
+为了避免重复编写加减法的代码，我们先创建一个可以接收运算函数的方法，这个方法将对两个矩阵的分量分别执行传入的某种运算。然后在加法、减法或者其它运算中直接调用它就行了：
 
 ```JavaScript
 class Matrix {
@@ -51,9 +51,9 @@ console.log(other.subtract(one))
 // Matrix { rows: [ [ 4, 4 ], [ 4, 4 ] ] }
 ```
 
-## Scalar-Matrix Multiplication
+## 矩阵的标量乘法
 
-Scalar multiplication of matrices is defined in a similar way as for vectors and is done by multiplying every element of the matrix by the scalar.
+矩阵的标量乘法与向量的缩放类似，就是将矩阵中的每个元素都乘上标量：
 
 ```JavaScript
 class Matrix {
@@ -74,11 +74,11 @@ console.log(matrix.scaleBy(2))
 // Matrix { rows: [ [ 4, 6 ], [ 8, 10 ] ] }
 ```
 
-## Matrix-Matrix Multiplication
+## 矩阵乘法
 
-We can multiply two matrices **A** and **B** provided their dimensions are **compatible**, which means the number of columns of **A** equals the number of rows of **B**. The matrix product **AB** of matrices consists of computing the dot product between each row of **A** and each column of **B**:
+当 **A**、**B** 两个矩阵的维数是**兼容**的时候，就能对这两个矩阵进行矩阵乘法。所谓维数兼容，指的是 **A** 的列数与 **B** 的行数相同。矩阵的乘积 **AB** 是通过对 **A** 的每一行与矩阵 **B** 的每一列计算点积得到：
 
-![matrix-matrix multiplication](https://cdn-images-1.medium.com/max/2544/0*je9iPoT0Mv1OeFzf)
+![矩阵乘法图解](https://cdn-images-1.medium.com/max/2544/0*je9iPoT0Mv1OeFzf)
 
 ```JavaScript
 class Matrix {
@@ -115,19 +115,19 @@ console.log(one.multiply(other))
 //      [ 1, -5, 9 ] ]}
 ```
 
-We can think of a result of a matrix-matrix product **AB** as a linear transformation that first applies linear transformation **B** and then **A**. To better understand this concept let’s go to the [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/) project.
+我们可以把矩阵乘法 **AB** 视为先后应用 **A** 和 **B** 两个线性变换矩阵。为了更好地理解这种概念，可以看一看我们的 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/)。
 
-Yellow shape in the picture below is the result of applying linear transformation **C** to the red square. Transformation **C** is a result of matrix-matrix multiplication. Where **A** is a reflection matrix, and **B** is a shear matrix.
+下图中黄色的部分就是对红色方块应用线性变换 **C** 的结果。而线性变换 **C** 就是矩阵乘法 **AB** 的结果，其中 **A** 是做相对于 y 轴进行反射的变换矩阵，**B** 是做剪切变换的矩阵。
 
-![rotate than shear](https://cdn-images-1.medium.com/max/2110/1*9z2FfKuyWoDW7N4DVNUiIg.png)
+![先旋转再剪切变换](https://cdn-images-1.medium.com/max/2110/1*9z2FfKuyWoDW7N4DVNUiIg.png)
 
-If we change the order of matrices **A** and **B** in matrix-matrix multiplication, we will receive a different result, because first will be applied transformation **B** and then **A**.
+如果在矩阵乘法中调换 **A** 和 **B** 的顺序，我们会得到一个不同的结果，因为相当于先应用了 **B** 的剪切变换，再应用 **A** 的反射变换：
 
-![shear than rotate](https://cdn-images-1.medium.com/max/2106/1*S7XNcZbrzPq0OJbVBEs6QQ.png)
+![先剪切变换再旋转](https://cdn-images-1.medium.com/max/2106/1*S7XNcZbrzPq0OJbVBEs6QQ.png)
 
-## Transpose
+## 转置
 
-The **transpose** matrix **Aᵀ** is defined by the formula **aᵀᵢⱼ = aⱼᵢ**. In other words, we obtain the transpose by “flipping” the matrix through its diagonal. Note that entries on the diagonal of the matrix are not affected by the transpose operation.
+**转置**矩阵 $A^T$ 由公式 $a^T_{ij}=a_{ji}$ 定义。换句话说，我们通过关于矩阵的对角线对其进行翻转来得到转置矩阵。需要注意的是，矩阵对角线上的元素不受转置运算影响。
 
 ```JavaScript
 class Matrix {
@@ -153,17 +153,17 @@ console.log(matrix.transpose())
 // }
 ```
 
-## Determinant
+## 行列式运算
 
-The **determinant** of a matrix is a calculation that involves all the coefficients of the matrix, and whose output is a single number. The determinant describes the relative geometry of the vectors that make up the rows of the matrix. More specifically, the determinant of a matrix A tells you the volume of a box with sides given by rows of **A**. The determinant of a **2×2** matrix is:
+矩阵的**行列式**运算将计算矩阵中的所有系数，最后输出一个数字。准确地说，行列式可以描述一个由矩阵行构成的向量的相对几何指标（比如在欧式空间中的有向面积、体积等空间概念）。更准确地说，矩阵 **A** 的行列式相当于告诉你由 **A** 的行定义的方块的体积。$2\times 2$ 矩阵的行列式运算如下所示：
 
 ![det(2×2 matrix)](https://cdn-images-1.medium.com/max/2000/1*XF0G3uzHulUun-Ic65p2fw.jpeg)
 
-The determinant of a **3×3** matrix is:
+$3\times 3$ 矩阵的行列式运算如下所示：
 
 ![det(3×3 matrix)](https://cdn-images-1.medium.com/max/2544/0*Eizii7WkVDVC7v9l)
 
-Our method will calculate determinant for a matrix of any size, as long as it has the same number of rows and columns.
+我们的方法可以计算任意大小矩阵（只要其行列的数量相同）的行列式：
 
 ```JavaScript
 class Matrix {
@@ -210,31 +210,31 @@ console.log(matrix4.determinant())
 // 20
 ```
 
-Determinant shows us exactly how much are things being stretched. We can think of it as the factor by which a linear transformation changes any area. To better understand this concept let’s go to the [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/) project.
+行列式可以告诉我们变换时对象被拉伸的程度。因此我们可以将其视为线性变换改变面积的因子。为了更好地理解这个概念，请参考 [linear-algebra-demo](https://rodionchachura.github.io/linear-algebra/)：
 
-In the picture below we can see that after applying the linear transformation area to red **1×1** square we get a **3×2** rectangle with area equal to **6**, exactly the same number as a determinant of the matrix.
+在下图中，我们可以看到对红色的 **1×1** 方形进行线性变换后得到了一个 **3×2** 的长方形，面积从 **1** 变为了 **6**，这个数字与线性变换矩阵的行列式值相同。
 
 ![det(scale transformation)](https://cdn-images-1.medium.com/max/2480/1*rm55kfQk00sAHRHkXPJAHg.png)
 
-If we apply a shear transformation, we can see that the square become parallelogram, and the area remains the same. A determinant is equal to one.
+如果我们应用一个剪切变换，可以看到方形会变成一个面积不变的平行四边形。因此，剪切变换矩阵的行列式值等于 1：
 
 ![det(shear transformation)](https://cdn-images-1.medium.com/max/2452/1*NXslmXLlNlD2Fggs-HGmzg.png)
 
-The determinant is **negative** if after applying the linear transformation orientation of the space will be reverted. In the picture below we can see that before transformation **ĵ** is to the left of î, and after the transformation **ĵ** on the right of **î**.
+如果行列式的值是**负数**，则说明应用线性变换后，空间被反转了。比如在下图中，我们可以看到变换前 $\hat{\jmath}$ 在 $\hat{\imath}$ 的左边，而变换后 $\hat{\jmath}$ 在 $\hat{\imath}$ 的右边。
 
 ![negative determinant](https://cdn-images-1.medium.com/max/2384/1*SENNf6sb4_88cofTLlGEeg.png)
 
-The determinant of a transformation is **zero** if it squishes all of space onto a line or even on a single point. It means checking if the determinant of a given matrix is 0 will give away if computing weather or not the transformation associated with that matrix squishes everything into a smaller dimension.
+如果变换的行列式为 **0**，则表示它会将所有空间都压缩到一条线或一个点上。也就是说，计算一个给定矩阵的行列式是否为 0，可以判断这个矩阵对应的线性变换是否会将对象压缩到更小的维度去。
 
-![zero determinant](https://cdn-images-1.medium.com/max/2380/1*xst460qMsFeqqICnRy2SlQ.png)
+![2D 中的 0 行列式](https://cdn-images-1.medium.com/max/2380/1*xst460qMsFeqqICnRy2SlQ.png)
 
-In three-dimensional space, determinant tells you how much volumes get scaled.
+在三维空间里，行列式可以告诉你体积缩放了多少：
 
 ![det(scale transformation) in 3D](https://cdn-images-1.medium.com/max/2300/1*y7Y_aqlGo-J15hwwl7NgfQ.gif)
 
-The determinant of 0 would mean that all of space is squished onto something with 0 volume. If in two-dimensional space it would mean that result of transformation squished onto a line or point, in three-dimensional case it also can mean that objects squished onto a plane, as in the example below.
+变换行列式等于 0，意味着原来的空间会被完全压缩成体积为 0 的空间。如前文所说，如果在 2 维空间中变换的行列式为 0，则意味着变换的结果将空间压缩成了一条线或一个点；而在 3 维空间中变换的行列式为 0 意味着一个物体会被压扁成一个平面，如下图所示：
 
-![zero determinant in 3D](https://cdn-images-1.medium.com/max/2300/1*K9o2OrhtfqWO2NNo4hK5NA.gif)
+![3D 中的 0 行列式](https://cdn-images-1.medium.com/max/2300/1*K9o2OrhtfqWO2NNo4hK5NA.gif)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
