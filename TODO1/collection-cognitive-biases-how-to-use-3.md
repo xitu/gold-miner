@@ -281,82 +281,81 @@ I mean, of course we are! But if you want your product to succeed, show how Geor
 
 **工作相关技巧**：通过情感上的因素改变人们的行为（看看上下文！这里有一个相关技术的清单！），而不要试图改变他们的信念。
 
-## Some more mind tricks before we wrap
+## 在我们结束之前还有一些心理技巧
 
-### 74. The Frequency Illusion (Baader-Meinhoff phenomenon)
+### 74. 频率错觉（巴德尔-迈因霍夫现象）
 
-We see new information, names, ideas or patterns 'everywhere' soon after they're first brought to our attention. For instance, if someone is thinking of buying a new car, it’s common that he suddenly sees this car everywhere.
+在新的信息、名字、想法或模式第一次引起我们的注意后，我们很快就会发现它们无处不在。例如，如果有人想买一辆新车，他就会突然发现这辆车无处不在。
 
-**Marketing tip**: When pushing a campaign - make sure to expose your visitors to the same content in different marketing channels and with retargeting techniques.
+**销售技巧**：当推动活动时 —— 通过重定向技术，确保让你的访问者在不同的营销渠道看到相同的内容。
 
-### 75. Placebo Effect
+### 75. 安慰剂效应
 
-Our behavior, attitude or feelings can change when we are convinced we’ve received something attributable to the change (i.e. a fake treatment).
+当我们确信我们得到了某种可改变行为、态度或感觉的东西时（即虚假治疗），我们的行为、态度或感觉就会发生改变。
 
-**Marketing tip**: Belief and experience create a reality.
-These stories your customers tell about your product are how your placebo effect spreads and becomes real to more and more people.
+**营销技巧**：信念与经验造就了现实。当你的顾客开始讲述关于你的产品的故事时，安慰剂效应开始传播蔓延，并对很越来越多的人认为这些故事是真实的。
 
-### 76. Peak-End Rule
+### 76. 峰终定律
 
-We judge an experience based on how we felt at its’ peak and at its’ end, rather than based on the average or the total sum of it.
+我们根据对一段经历在“顶峰”和“终点”时的感受对它下定论，而不是根据它的平均值或总值。
 
-**Product tip**: Maintain your competitive advantage and raise your product peak moments by making your best features even better.
+**产品技巧**：通过让最佳功能更加出色来提升产品的巅峰时刻并保持你的竞争优势。
 
-**Another product tip**: Don’t neglect the “after-purchase” experience of your product. Make sure to end the experience with a superb taste.
+**另一个产品技巧**：不要忽视产品的“售后”体验。一定要让用户以极好的感受结束这次体验。
 
-![Peak-End Rule - identify your product peaks and make them even better!](https://alexdenk.eu/blogtouch?id=1HLU8ZomiiyarMPsfXCjtfjgYKGYOKueg "Peak-End Rule - identify your product peaks and make them even better!")
+![峰终定律 —— 确定产品的峰值并使其更好！](https://alexdenk.eu/blogtouch?id=1HLU8ZomiiyarMPsfXCjtfjgYKGYOKueg "峰终定律 —— 确定产品的峰值并使其更好！")
 
-### 77. Distinction Bias
+### 77. 差异偏差
 
-When comparing options side-by-side, we become hypersensitive to small differences, while in fact, those differences are not so big.
+当我们并排比较选项时，我们会对细微的差别十分敏感，而事实上，这些差异并不是很大。
 
-**Marketing tip**: Show your product advantages next to your competitors so the visitors can notice the differences. Even the small ones.
+**销售技巧**：在竞争对手旁边展示你的产品的优势，这样访问者就可以关注到不同之处，即使差距甚微。
 
-### 78. Self-Relevance Effect
+### 78. 自身相关效应
 
-We remember events that are related to us much better than events related to others.
+我们容易想起与自己相关的事，不易想起与他人相关的事。
 
-Makes sense…
+言之有理……
 
-### 79. Primacy Effect
+### 79. 首因效应
 
-Items at the beginning and at the end of a list are more easily recalled than items in the middle.
+人们更容易回想起列表开头和结尾的项目而非中间的项目。
 
-**UI tip**: if you plan to show a long list of items - make sure the first one is your most important item.
+**UI 技巧**：如果你想要显示一个长长的项目列表 —— 确保第一项是你最重要的项目。
 
-### 80. Cheerleader Effect (Group Attractiveness)
+### 80. 啦啦队效应（群体归因）
 
-We think individuals are more attractive when they are in a group but then when we go through each one of them individually - they seem far less attractive.
+我们认为，当一个人在群体中时，他更具有吸引力。但当我们逐一分析群体中的每个人时，他就不那么有吸引力了。
 
-**Marketing tip**: Use cases, testimonials, blog posts - make sure to have a few of them before you publish.
+**销售技巧**：Use cases, testimonials, blog posts - make sure to have a few of them before you publish.
 
-![Cheerleader Effect (Group Attractiveness)](https://alexdenk.eu/blogtouch?id=1Kn-TO7co7DkRKA83fGsRZfOQBTB-3SgP "Cheerleader Effect (Group Attractiveness)")
+![啦啦队效应（群体归因）](https://alexdenk.eu/blogtouch?id=1Kn-TO7co7DkRKA83fGsRZfOQBTB-3SgP "啦啦队效应（群体归因）")
 
-### 81. Bias Blind Spot
+### 81. 偏见盲点
 
-We notice the impact of biases on the judgment of others, but we fail to see the impact of these same biases on ourselves.
+我们注意到偏见对他人判断的影响，但我们看不见这些偏见对我们自己的影响。
 
-![Bias Blind Spot - we all have them](https://alexdenk.eu/blogtouch?id=1T-DGmrFq8A05qXtcq88akYwVG1svxr1O "Bias Blind Spot - we all have them")
+![偏见盲点 —— 我们每个人都受其影响](https://alexdenk.eu/blogtouch?id=1T-DGmrFq8A05qXtcq88akYwVG1svxr1O "偏见盲点 —— 我们每个人都受其影响")
 
-### 82. Actor-Observer Bias
+### 82. 行为者 - 观察者偏差
 
-We tend to attribute others’ undesirable behavior to their (shitty) character, but our undesirable behavior to our circumstances.
+我们倾向于把别人的不良行为归因于他们的性格，而把我们自己的不良行为归因于我们的环境。
 
-Work tip: learn to control this bias and try to understand the other side: it can be external people (i.e. customers, partners) vs. internal people, but can also happen internally: one team vs. another, one role vs. another, etc.
+工作技巧：学习控制这种偏见，并试着去理解对方：这可能发生在外部人员与内部人员之间、内部人员之间、一个团队与另一个团队之间、一个角色与另一个角色之间。
 
-### 83. Egocentric Bias
+### 83. 自我中心偏差
 
-We satisfy our ego by thinking we contributed to a group effort much more than we actually did.
+我们认为我们对团队贡献远远大于实际的贡献，以达到自我满足。
 
-“Hey! did you see my last shot-blocker? It gave us the victory!”
+“嘿！你看到我的最后一个盖帽了吗？它为我们带来了胜利！”
 
 ![](https://alexdenk.eu/blogtouch?id=1GMj97tRgnKz2f6Kz2R8vaC0GiP_Vx2wJ)
 
-### 84. Observer-Expectancy Effect
+### 84. 观察者期望效应
 
-Happens when a researcher's cognitive bias causes them to subconsciously influence the participants of an experiment.
+当研究者的认知偏见导致他们下意识地影响实验参与者时，就会发生这种情况。
 
-Wait… if that’s true… then… who guarantees it didn’t happen in all the researches that led to this list?
+等等……如果这是真的……那么……谁能保证这个清单中的所有研究没有发生这种情况呢？
 
 😱
 
