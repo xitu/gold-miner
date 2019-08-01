@@ -37,7 +37,7 @@ Michael Haufe 在他的[对 Web 组件的批评](https://thenewobjective.com/a-c
 
 但我们应该认真考虑使用 Web 组件是否是最具包容性的选择。如果我们不使用 Web 组件，我们可以为更广泛的人群提供同样丰富的体验。我稍后会作解释。
 
-Polyfill 提供了一种提供更广泛支持的方法。但当使用它来使 Web 组件有效范围更广时，他们通常[缓慢、 不可靠且难以工作](https://adamsilver.io/articles/the-disadvantages-of-javascript-polyfills/)，并且有一些[特定的限制](https://www.webcomponents.org/polyfills#known-limitations)
+Polyfill 提供了一种提供更广泛支持的方法。但当使用它来使 Web 组件有效范围更广时，他们通常[缓慢、不可靠且难以工作](https://adamsilver.io/articles/the-disadvantages-of-javascript-polyfills/)，并且有一些[特定的限制](https://www.webcomponents.org/polyfills#known-limitations)
 
 所以虽然我们作为编码人员更喜欢使用基于标准的技术，但是这对于用户来说并不一定是有益的 —— 这应该是我们的首要任务。
 
@@ -83,7 +83,7 @@ Web 组件由 JavaScript API 组成，这意味着我们只应该在需要 JavaS
 2. 我们需要创建自定义的加载指示器，与浏览器的加载指示器不同，这些指示器对用户来说通常是不准确且不熟悉的。
 3. 我们需要[让 AJAX 可跨域工作](https://zinoui.com/blog/cross-domain-ajax-request)，这不是直接了当的。
 4. 当组件加载时页面将会抖动，从而导致[视觉故障](https://twitter.com/chriscoyier/status/1057303249902952448)，并可能让用户点击错误的东西。你可能听到过 [skeleton 接口](https://medium.com/@rohit971/boost-your-ux-with-skeleton-pattern-b8721929239f)是解决这个问题的一种方法。它们是放置在组件加载后最终显示位置的占位符。但是虽然它们有所帮助，却没有完全解决问题，因为它们无法一直预测将要加载的内容的确切大小。
-5. 第 4 点同样会影响屏幕阅读器的用户，因为他们不知道组件是否已经加载、加载失败或者正在加载的过程当中。ARIA 实时区域提供了一种将这些状态传达给屏幕阅读器的方法。但当多个组件加载时，用户将被通告轰炸。
+5. 第 4 点同样会影响使用屏幕阅读器的用户，因为他们不知道组件是否已经加载、加载失败或者正在加载的过程当中。ARIA 实时区域提供了一种将这些状态传达给屏幕阅读器的方法。但当多个组件加载时，用户将被通告轰炸。
 
 当这些扩展到一个屏幕上的多个 Web 组件时，我们可能会给用户带来非常不愉快、独特和缓慢的体验。
 
@@ -188,9 +188,9 @@ Web 组件很有前景，因为它们为开发者提供了一种基于标准创�
 
 但就算我们专门为支持它们的前沿浏览器做加强，仍然存在一些我们需要解决的限制和问题。
 
-我希望 Web 组件能够在将来变得更好。但在那之前，我还是坚持使用常规的 JavaScript 来避免当前的技术限制，为用户提供最公平的体验。
+我希望 Web 组件能够在将来变得更好。但在那之前，我还是坚持使用常规的 JavaScript 来避免当前的技术限制，为用户提供最合理的体验。
 
-**非常感谢[Amy Hupe](https://amyhupe.co.uk/)，她不仅从头到尾编辑了这版文章，还尽可能使其变得简单和直观。这对于一篇关于讲述了 Web 组件全部事情的文章来说并不容易** 🙌
+**非常感谢 [Amy Hupe](https://amyhupe.co.uk/)，她不仅从头到尾编辑了这版文章，还尽可能使其变得简单和直观。这对于一篇关于讲述了 Web 组件全部事情的文章来说并不容易** 🙌
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
