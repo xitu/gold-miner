@@ -73,7 +73,7 @@ class MoviesBloc {
 
 如果你需要在初始化的时候需要一个 `context` 来初始化 BLoC 对象，那么这个方法就是在 `StatefulWidget` 中需要重写的最重要的方法。你可以将其视为初始化方法（最好仅用于 BLoC 的初始化）。你或许会说，我们有 `initState()` 方法，那么为什么我们要使用 `didChangeDependencies()` 方法。文档里面清楚地提到，从 `didChangeDependencies()` 调用 [BuildContext.inheritFromWidgetOfExactType](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html) 是安全的。下面是使用这个方法的一个简单的例子：
 
-```dart
+```dart
 @override
   void didChangeDependencies() {
     bloc = MovieDetailBlocProvider.of(context);
