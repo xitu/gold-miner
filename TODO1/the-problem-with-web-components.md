@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-problem-with-web-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-problem-with-web-components.md)
 > * 译者：[stevens1995](https://github.com/Stevens1995)
-> * 校对者：
+> * 校对者：[Baddyo](https://github.com/Baddyo), [Moonliujk](https://github.com/Moonliujk)
 
 # Web 组件的问题
 
@@ -37,7 +37,7 @@ Michael Haufe 在他的[对 Web 组件的批评](https://thenewobjective.com/a-c
 
 但我们应该认真考虑使用 Web 组件是否是最具包容性的选择。如果我们不使用 Web 组件，我们可以为更广泛的人群提供同样丰富的体验。我稍后会作解释。
 
-Polyfill 提供了一种提供更广泛支持的方法。但当使用它来使 Web 组件有效范围更广时，他们通常[缓慢、不可靠且难以工作](https://adamsilver.io/articles/the-disadvantages-of-javascript-polyfills/)，并且有一些[特定的限制](https://www.webcomponents.org/polyfills#known-limitations)
+Polyfill 提供了一种提供更广泛支持的方法。但当使用它来使 Web 组件有效范围更广时，他们通常[缓慢、不可靠且难以工作](https://adamsilver.io/articles/the-disadvantages-of-javascript-polyfills/)，并且有一些[特定的限制](https://www.webcomponents.org/polyfills#known-limitations)。
 
 所以虽然我们作为编码人员更喜欢使用基于标准的技术，但是这对于用户来说并不一定是有益的 —— 这应该是我们的首要任务。
 
@@ -63,11 +63,11 @@ Web 组件由 JavaScript API 组成，这意味着我们只应该在需要 JavaS
 <sales-figures></sales-figures>
 ```
 
-首先，这只是一张表。没有列的排序，因此不需要 JavaScript。浏览器为此提供了`<table>`表格，它可以在任何地方使用。
+首先，这只是一张表。没有列的排序，因此不需要 JavaScript。浏览器为此提供了 `<table>` 表格，它可以在任何地方使用。
 
 其次，像上面提到的那样，当浏览器不支持 Web 组件，或者 JavaScript 运行失败时，用户将什么都看不到。
 
-为了让我们的表格在这些情况下工作，我们需要把<table>放到<sales-figures>中。这被称为优雅降级。
+为了让我们的表格在这些情况下工作，我们需要把 `<table>` 放到 `<sales-figures>` 中。这被称为优雅降级。
 
 ```html
 <sales-figures>
@@ -75,7 +75,7 @@ Web 组件由 JavaScript API 组成，这意味着我们只应该在需要 JavaS
 </sales-figures>
 ```
 
-如果组件在页面加载时已经有一个填充好的表格，用`<sales-figures>`包裹它会导致我们和用户什么都得不到。
+如果组件在页面加载时已经有一个填充好的表格，用 `<sales-figures>` 包裹它会导致我们和用户什么都得不到。
 
 最后，使用 AJAX 会引入一些可用性和可访问性的问题。
 
@@ -115,7 +115,7 @@ Web 组件由 JavaScript API 组成，这意味着我们只应该在需要 JavaS
 </expandable-rows>
 ```
 
-`<expandable-rows>`和`<table>`之间的关系是不明确的。比如，很难判断`<expandable-rows>`是操作在`<table>`上或者`<sortable-table>`上。
+`<expandable-rows>` 和 `<table>` 之间的关系是不明确的。比如，很难判断 `<expandable-rows>` 是操作在 `<table>` 上或者 `<sortable-table>` 上。
 
 顺序也同样重要。如果每个组件都增强了表，则可能会造成冲突。此外，也不清楚是外部还是内部的组件先初始化了表。
 
@@ -131,7 +131,7 @@ Web 组件的一个预期的好处是我们可以将每个组件的一个脚本�
 
 另一个实例是当你需要阻止 JavaScript 增强的组件[在初始化时造成页面抖动](https://twitter.com/adambsilver/status/1119123828884434945)。
 
-这通常通过在文档的`<head>`里面添加一个 script 标签以[提供 CSS 钩子](https://css-tricks.com/snippets/javascript/css-for-when-javascript-is-enabled/)来解决。这反过来可以用来通过可用的 JavaScript 来调整组件的样式，并避免页面抖动。
+这通常通过在文档的 `<head>` 里面添加一个 script 标签以[提供 CSS 钩子](https://css-tricks.com/snippets/javascript/css-for-when-javascript-is-enabled/)来解决。这反过来可以用来通过可用的 JavaScript 来调整组件的样式，并避免页面抖动。
 
 这可能总体上没什么影响，但它确实否定了使用 Web 组件可能带来的好处之一。
 
@@ -190,7 +190,7 @@ Web 组件很有前景，因为它们为开发者提供了一种基于标准创�
 
 我希望 Web 组件能够在将来变得更好。但在那之前，我还是坚持使用常规的 JavaScript 来避免当前的技术限制，为用户提供最合理的体验。
 
-**非常感谢 [Amy Hupe](https://amyhupe.co.uk/)，她不仅从头到尾编辑了这版文章，还尽可能使其变得简单和直观。这对于一篇关于讲述了 Web 组件全部事情的文章来说并不容易** 🙌
+**非常感谢 [Amy Hupe](https://amyhupe.co.uk/)，她不仅从头到尾编辑了这版文章，还尽可能使其变得简单和直观。这对于一篇关于讲述了 Web 组件全部事情的文章来说并不容易。** 🙌
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
