@@ -242,7 +242,7 @@ class SignInPageBloc extends StatelessWidget {
 
 In a nutshell, this code:
 
-* Adds a `SignInBloc` with a `StreamController\<bool>` that is used to handle the loading state
+* Adds a `SignInBloc` with a `StreamController<bool>` that is used to handle the loading state
 * Makes the `SignInBloc` accessible to our widget with a Provider/Consumer pair inside a `static create` method.
 * Calls `bloc.setIsLoading(value)` to update the stream, inside the `_signInAnonymously` method
 * Retrieves the loading state via a `StreamBuilder`, and uses it to configure the sign-in button.
@@ -306,13 +306,13 @@ class SignInPageValueNotifier extends StatelessWidget {
 }
 ```
 
-Inside the `static create` method, we use a `[ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html)`/`[Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)` with a `ValueNotifier\<bool>`. This gives us a way to represent the loading state, and rebuild the widget when it changes.
+Inside the `static create` method, we use a `[ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html)`/`[Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)` with a `ValueNotifier<bool>`. This gives us a way to represent the loading state, and rebuild the widget when it changes.
 
 ## ValueNotifier vs ChangeNotifier
 
 `[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html)` and `[ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)` are closely related.
 
-In fact, `ValueNotifier` is a subclass of `ChangeNotifier` that implements `ValueListenable\<T>`.
+In fact, `ValueNotifier` is a subclass of `ChangeNotifier` that implements `ValueListenable<T>`.
 
 This is the implementation of `ValueNotifier` in the Flutter SDK:
 
@@ -384,7 +384,7 @@ I first implemented this with a local state variable and `setState`, inside the 
 
 However, the state was lost after sign-in in, because the drawer was removed from the widget tree.
 
-As a solution, I decided to store the state with a ChangeNotifierProvider\<ValueNotifier\<Option>> inside the `LandingPage`:
+As a solution, I decided to store the state with a `ChangeNotifierProvider<ValueNotifier<Option>>` inside the `LandingPage`:
 
 ```Dart
 class LandingPage extends StatelessWidget {
@@ -422,7 +422,7 @@ class LandingPage extends StatelessWidget {
 
 Here, the `[StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html)` controls the authentication state of the user.
 
-And by wrapping this with a ChangeNotifierProvider\<ValueNotifier\<Option>>, I’m able to retain the selected option even after the `SignInPageNavigation` is removed.
+And by wrapping this with a `ChangeNotifierProvider<ValueNotifier<Option>>`, I’m able to retain the selected option even after the `SignInPageNavigation` is removed.
 
 In summary:
 
