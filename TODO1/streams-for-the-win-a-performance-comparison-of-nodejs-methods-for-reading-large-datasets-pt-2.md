@@ -2,209 +2,209 @@
 > * 原文作者：[Paige Niedringhaus](https://medium.com/@paigen11)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/streams-for-the-win-a-performance-comparison-of-nodejs-methods-for-reading-large-datasets-pt-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/streams-for-the-win-a-performance-comparison-of-nodejs-methods-for-reading-large-datasets-pt-2.md)
-> * 译者：
+> * 译者：[lucasleliane](https://github.com/LucaslEliane)
 > * 校对者：
 
-# Streams For the Win: A Performance Comparison of NodeJS Methods for Reading Large Datasets (Pt 2)
+# 胜者是 Stream：NodeJS 读取大数据集合几种方法的性能比较
 
-## How readFile(), createReadStream() and event-stream Stack Up Against One Another
+## readFile()、createReadStream() 以及事件流如何相互比较
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fsseXIPGEhwmg6kfgXyIjA.jpeg)
 
-If you’ve been keeping up with my writing, a few weeks ago, I published a [blog](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33) talking about a variety of ways to use Node.js to read really large datasets.
+如果你最近都在阅读我的文章，你应该会看到我几周前发布的一篇[博客](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)，这篇博客讨论了使用 Node.js 来读取大型数据集的各种方法。
 
-To my surprise, it did exceptionally well with readers — this seemed (to me) like a topic many others have already covered in posts, blogs and forums, but for whatever reason, it got the attention of a lot of people. So, thank you to all of you who took the time to read it! I really appreciate it.
+令我惊讶的是，这篇博客受到了很多读者的喜爱 - 这个主题（对于我来说）似乎在很多其他的帖子、博客或者论坛上已经讨论过了，但是无论如何，它都吸引了很多人的关注。所以，感谢所有花时间来阅读这篇博客的读者！对此，我真的非常感激。
 
-One particularly astute reader ([Martin Kock](undefined)), went so far as to ask how long it took to parse the files. It seemed as if he’d read my mind, because part two of my series on using Node.js to read really, really large files and datasets involves just that.
+一位特别敏锐的读者（[Martin Kock](undefined)）甚至问到了解析文件到底需要多长时间。看起来他已经读懂了我的想法，因为这个系列文章的第二部分就和这个问题有关。
 
-> Here, I’ll evaluate the three different methods in Node.js I used to read the files, to determine which is most performant.
+> 在这里，我将评估 Node.js 读取文件的三种不同方法，来确定哪一种方法性能最佳。
 
-#### The Challenge From Part 1
+### 上一篇文章中的挑战
 
-I won’t go into the specifics of the challenge and solution, because you can read my first post for all the details [here](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33), but I will give you the high level overview.
+我不会详细介绍上一篇博客中的挑战和解决方案，因为你可以去阅读我的第一篇文章，了解所有的细节[这里](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)，但是我会给你进行一下简单的介绍。
 
-A person from a Slack channel I’m a member of, posted a coding challenge he’d received, which involved reading in a very large dataset (over 2.5GB in total), parsing through the data and pulling out various pieces of information.
+这个挑战是来自于 Slack 频道的人发布的一个编码挑战，要求读取一个非常大的数据集（总共大小超过 2.5 GB），解析数据并且提取各种信息。
 
-It challenged programmers to print:
+这个挑战让程序员们打印出：
 
-* Total lines in the file,
-* Names in the 432nd and 43243rd indexes,
-* Counts for total numbers donations per month,
-* And the most common first name in the files and how a count of how often it occurred.
+* 文件总行数，
+* 第 432 和第 43243 行的中的名字，
+* 每月捐款总数，
+* 以及文件中最常见的名字和它出现的频率的计数。
 
-Link to the data: ​[https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip](https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip)
+这里是数据链接：​[https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip](https://www.fec.gov/files/bulk-downloads/2018/indiv18.zip)
 
-#### The Three Different Solutions Possible For Smaller Datasets
+#### 三种解决方案与小数据集情况下的不同点
 
-As I worked towards my ultimate end goal of processing a large dataset, I came up with three solutions in Node.js.
+当我努力去实现处理大型数据集这个目标的过程中，我在 Node.js 中提出了三个解决方案。
 
-**Solution #1: [`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)**
+**解决方案 1：[`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)**
 
-The first involved Node.js’s native method of `fs.readFile()`, and consisted of reading in the whole file, holding it in memory and performing the operations on the entire file, then returning the results. At least for smaller files, it worked, but when I got to the largest file size, my server crashed with a JavaScript `heap out of memory` error.
+第一个解决方案涉及到 Node.js 的 `fs.readFile()` 原生方法，包括读取整个文件，将其保存在内存中并且对整个文件执行操作，然后返回结果。至少对于较小的文件，这个方法是没问题的，但是当我使用最大的文件的时候，我的服务器崩溃了，并且抛出了一个 `heap out of memory` 错误。
 
-**Solution #2: [fs.createReadStream()](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) & [rl.readLine()](https://nodejs.org/api/readline.html#readline_event_line)**
+**解决方案 2：[`fs.createReadStream()`](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) 以及 [`rl.readLine()`](https://nodejs.org/api/readline.html#readline_event_line)**
 
-My second solution also involved another couple of methods native to Node.js: `fs.createReadStream()` and `rl.readLine()`. In this iteration, the file was streamed through Node.js in an `input` stream, and I was able to perform individual operations on each line, then cobble all those results together in the `output` stream. Again, this worked pretty well on smaller files, but once I got to the biggest file, the same error happened. Although Node.js was streaming the inputs and outputs, it still attempted to hold the whole file in memory while performing the operations (and couldn’t handle the whole file).
+我的第二个解决方案还涉及了 Node.js 的另外几个方法：`fs.createReadStream()` 和 `rl.readLine()`。在这个方案中，文件可以通过 Node.js 的 `input` 流，进行流式传输，我们能够对每一行进行单独操作，然后在 `output` 流中将所有的结果拼在一起。同样，这种方案在较小的文件上能够很好地完成工作，但是一旦输入最大的文件，就会发生和方案 1 同样的错误。虽然 Node.js 正在对输入和输出进行流式传输，但是 Node.js 在执行操作的时候，仍然会试图将整个文件保存在内存中（并且无法一次处理整个文件）。
 
-**Solution #3: [`event-stream`](https://www.npmjs.com/package/event-stream)**
+**解决方案 3：[`event-stream`](https://www.npmjs.com/package/event-stream)**
 
-In the end, I came up with only one solution in Node.js that was able to handle the full 2.55GB file I wanted to parse through, at one time.
+最后，我在 Node.js 中提出了唯一能够处理完整的 2.55 GB 的文件的解决方案。
 
-> Fun fact: Node.js can only hold up to 1.67GB in memory at any one time, after that, it throws JavaScript `heap out of memory` error.
+> 有趣的是：Node.js 在任何时候，都只能够在内存中容纳 1.67 GB，之后就会抛出 JavaScript 的 `heap out of memory` 错误。
 
-My solution involved a popular NPM package called [event-stream](https://www.npmjs.com/package/event-stream), which actually let me perform operations on the **throughput stream** of data, instead of just the input and output streams, as Node.js’s native capabilities allow.
+我的解决方案涉及到一个流行的名为 [event-stream](https://www.npmjs.com/package/event-stream) 的 NPM 包，这个包允许我对数据的整个**吞吐流**执行操作，而不仅仅是原生 Node.js 提供的输入和输出流操作。
 
-You can see all three of my solutions [here](https://github.com/paigen11/file-read-challenge) in Github.
+你可以在 Github 中的[这里](https://github.com/paigen11/file-read-challenge)找到我的三个解决方案。
 
-And I solved the problem, which was my initial goal, but it got me thinking: was my solution really the most performant of the three options?
+我完成了我最初的目标，解决了这个问题，但是这个问题还是让我陷入了思考：我的解决方案真的是三个方案中最高效的吗？
 
-#### Comparing Them To Find The Optimal Solution
+### 比较，并且找到最优的解决方案
 
-Now, I had a new goal: determine which of my solutions was best.
+现在，我有了一个新的目标：确定哪种解决方案是最好的。
 
-Since I couldn’t use the full 2.55GB file with the Node.js native solutions, I chose to use one of the smaller files that was about 400MB worth of data, that I’d used for testing while I was developing my solutions.
+由于我没有办法使用原生 Node.js 的方案来处理完整的 2.55 GB 大小的文件，因此我选择使用一个较小的文件，这些文件大约有 400 MB 的数据，我在实现解决方案的时候，使用这个数据集来进行测试。
 
-For performance testing Node.js, I came across two ways to keep track of the file and individual function processing times, and I decided to incorporate both to see how great the differences were between the two methods (and make sure I wasn’t completely off the rails with my timing).
+对于 Node.js 性能测试，我发现了两种跟踪文件和函数处理时间的方法，我决定将两者结合起来看看这两种方法之间的差异有多大（并且确保我测试出来的时间不会完全偏离事实）。
 
-**[`console.time()`](https://nodejs.org/api/console.html#console_console_time_label) & [`console.timeEnd()`](https://nodejs.org/api/console.html#console_console_timeend_label)**
+**[`console.time()`](https://nodejs.org/api/console.html#console_console_time_label) 和 [`console.timeEnd()`](https://nodejs.org/api/console.html#console_console_timeend_label)**
 
-Node.js has some handy, built-in methods available to it for timing and performance testing, called `console.time()` and `console.timeEnd()`, respectively. To use these methods, I only had to pass in the same label parameter for both `time()` and `timeEnd()`, like so, and Node’s smart enough to output the time between them after the function’s done.
+Node.js 有一些方便的内置方法，可以用于定时和性能测试，分别是 `console.time()` 和 `console.timeEnd()`。要使用这些方法，我只需要为 `time()` 和 `timeEnd()` 传递相同的 label 参数，就像下面这样，Node 就会在函数执行完成之后，输出两者之间的时间差。
 
 ```
-// timer start
+// 定时器启动
 console.time('label1');
 
-// run function doing something in the code
+// 执行自定义函数
 doSomething();
 
-// timer end, where the difference between the timer start and timer end is printed out
+// 定时器结束，会打印出来定时器启动和结束之间的时间差
 console.timeEnd('label1');
 
-// output in console looks like: label1 0.002ms
+// 输出的结果类似于这样: label1 0.002ms
 ```
 
-That’s one method I used to figure out how long it took to process the dataset.
+这是我用来计算处理数据集所需要的时间的一种方法。
 
 [**`performance-now`**](https://www.npmjs.com/package/performance-now)
 
-The other, tried and well-liked performance testing module I came across for Node.js is hosted on NPM as [`performance-now`](https://www.npmjs.com/package/performance-now).
+另外，我还发现了一个久经考验并且广受欢迎的 Node.js 性能测试模块，这个模块是 [`performance-now`](https://www.npmjs.com/package/performance-now)，它被托管在 NPM 上面。
 
-7+ million downloads per week from NPM, can’t be too wrong, right??
+这个模块在 NPM 上面每周都有着 700 多万的下载量，不会错的，对吧？
 
-Implementing the `performance-now` module into my files was also almost as easy as the native Node.js methods, too. Import the module, set a variable for the start and end of the instantiation of the method, and compute the time difference between the two.
+将 `performance-now` 模块引入到我的文件中，几乎和原生 Node.js 方法一样简单。导入模块，设置方法执行开始和执行结束的结果设置变量，并且计算两者之间的时间差。
 
 ```
-// import the performance-now module at the top of the file
+// 在文件开头导入 performance-now 模块
 const now = require('performance-now');
 
-// set the start of the timer as a variable
+// 为定时器的起始状态设置变量
 const start = now();
 
-// run function doing something in the code
+// 执行自定义函数
 doSomething();
 
-// set the end of the timer as a variable
+// 为定时器的结束状态设置变量
 const end = now();
 
-// Compute the duration between the start and end
+// 计算定时器起始和结束的时间差
 console.log('Performance for timing for label:' + (end — start).toFixed(3) + 'ms';
 
-// console output looks like: Performance for timing label: 0.002ms
+// 打印出的结果类似于这样: Performance for timing label: 0.002ms
 ```
 
-I figured that by using both Node’s `console.time()` and `performance-now` at the same time, I could split the difference and get a pretty accurate read on how long my file parsing functions were really taking.
+我想同时使用 Node 的 `console.time()` 和 `performance-now`，我可以规避差异并且获得关于文件解析函数真正的执行时间的准确值。
 
-Below are code snippets implementing `console.time()` and `performance-now` in each of my scripts. These are only snippets of one function each — for the full code, you can see my repo [here](https://github.com/paigen11/file-read-challenge).
+下面是我在每个脚本中接入 `console.time()` 以及 `performance-now` 的代码片段。这些代码只是每个函数的片段 - 相对于完整代码来说，你可以在[这里](https://github.com/paigen11/file-read-challenge)查看我的代码仓库。
 
-**Fs.readFile() Code Implementation Sample**
+**fs.readFile() 代码实现示例**
 
 ![](https://cdn-images-1.medium.com/max/2568/1*n48UZ77lvktwjN6IDR0x1g.png)
 
-Since this script is using the `fs.readFile()` implementation, where the entire file is read into memory before any functions are executed on it, this is the most synchronous-looking code. It’s not actually synchronous, that’s an entirely separate Node method called `fs.readFileSync()`, it just resembles it .
+由于这个脚本使用 `fs.readFile()` 实现，整个文件都会在执行函数之前被读取到内存中，看起来这是最同步的代码。但是它实际上不是同步的，同步地读取文件在 Node 中有一个专用的方法，叫做 `fs.readFileSync()`，两者看起来很相似。
 
-But it’s easy to see the total line count of the file and the two timing methods bookending it to determine how long it takes to execute the line count.
+但是，我们很容易看到文件的总行数以及两个计时器方法，来确定执行行计数到底花费了多长时间。
 
-**Fs.createReadStream() Code Implementation Sample**
+**fs.createReadStream() 代码实现示例**
 
-**Input Stream (line-by-line):**
+**输入流（按行读取）：**
 
 ![](https://cdn-images-1.medium.com/max/2568/1*XwIXtNCMSmCJBu7DX4zxGA.png)
 
-**Output Stream (once full file’s been read during input):**
+**输出流（输入时一次性读取完整文件）：**
 
 ![](https://cdn-images-1.medium.com/max/2568/1*rhhHpFIS5b-UdluXYgLaIg.png)
 
-As the second solution using `fs.createReadStream()` involved creating an input and output stream for the file, I broke the code snippets into two separate screenshots, as the first is from the input stream (which is running through the code line by line) and the second’s the output stream (compiling all the resulting data).
+由于第二个解决方案使用了 `fs.createReadStream()`，其涉及到了为文件创建输入输出流，所以我将代码片段分成了两个独立的截图，第一个是输入流（逐行进行文件读取）以及第二个输出流（计算所有的结果数据）。
 
-**Event Stream Code Implementation Sample**
+**事件流代码示例**
 
-**Through Stream (also line-by-line):**
+**输入流（同样是逐行）**
 
 ![](https://cdn-images-1.medium.com/max/2568/1*UzzXjaStCYMgUHHE_qBiqw.png)
 
-**On Stream End:**
+**流结束：**
 
 ![](https://cdn-images-1.medium.com/max/2568/1*rgZQKTXROxXn6T9Gmqc0oA.png)
 
-The `event-stream` solution looks pretty similar to the `fs.createReadStream()`, except instead of an **input stream**, the data is processed in a **throughput stream**. And then once the whole file’s been read and all the functions have been done on the file, the stream’s ended and the required information is printed out.
+`event-stream` 的解决方案看起来和 `fs.createReadStream()` 非常相似，除了**输入流**，在这个解决方案中，数据通过**吞吐流**来进行处理。然后，一旦整个文件被读取并且所有计算都已经完成，则表示流程结束，并且打印出所需要的信息。
 
-#### Results
+### 结果
 
-Now on to the moment we’ve all been waiting for: the results!
+现在，来看看我们一直期待的：结果。
 
-I ran all three of my solutions against the same 400MB dataset, which contained almost 2 million records to parse through.
+我针对相同的 400 MB 大小的数据集运行了全部三种解决方案，其中包含了需要解析的将近 200 万条记录。
 
 ![Streams for the win!](https://cdn-images-1.medium.com/max/4056/1*K3fMjpvkyTMccexwsa3gjw.png)
 
-As you can see from the table, `fs.createReadStream()` and `event-stream` both fared well, but overall, `event-stream` has to be the grand winner in my mind, if only for the fact that it can process much larger file sizes than either `fs.readFile()` or `fs.createReadStream()`.
+从表中可以看出，`fs.createReadStream()` 和 `event-stream` 都表现很好，但是总的来说，`event-stream` 是我心目中的大赢家，因为相比起 `fs.readFile()` 或者 `fs.createReadStream()` 来说，它可以处理的文件大小要大得多。
 
-The percentage improvements are included at the end of the table above as well, for reference.
+提升的百分比也在表格最后展示出来了。
 
-`fs.readFile()` just got blown out of the water by the competition. By streaming the data, processing times for the file improved by at least 78% — sometimes close to almost a 100%, which is pretty darn, impressive.
+`fs.readFile()` 被竞争对手们完全击败了。通过流来传输数据，文件的处理时间提高了至少 78% - 有时接近 100%，这让人印象非常深刻。
 
-Below are the raw screenshots from my terminal for each of my solutions.
+以下是执行每个解决方案的终端截图。
 
-**Solution #1: [`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)**
+**解决方案 1： [`fs.readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)**
 
-![The solution using only: fs.readFile()](https://cdn-images-1.medium.com/max/2000/1*luMWmrPikShHXtu6yScO9g.png)
+![仅使用 fs.readFile()](https://cdn-images-1.medium.com/max/2000/1*luMWmrPikShHXtu6yScO9g.png)
 
-**Solution #2: [fs.createReadStream()](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) & [rl.readLine()](https://nodejs.org/api/readline.html#readline_event_line)**
+**解决方案 2： [fs.createReadStream()](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) & [rl.readLine()](https://nodejs.org/api/readline.html#readline_event_line)**
 
-![The solution using fs.createReadStream() and rl.readLine()](https://cdn-images-1.medium.com/max/2000/1*rhF6hIxI7aE3VsMubmVUOQ.png)
+![使用 fs.createReadStream() 和 rl.readLine()](https://cdn-images-1.medium.com/max/2000/1*rhF6hIxI7aE3VsMubmVUOQ.png)
 
-**Solution #3: [`event-stream`](https://www.npmjs.com/package/event-stream)**
+**解决方案 3： [`event-stream`](https://www.npmjs.com/package/event-stream)**
 
-![The solution using event-stream](https://cdn-images-1.medium.com/max/2000/1*WzQIXZKNvGfrZzXtEP_31g.png)
+![使用 event-stream](https://cdn-images-1.medium.com/max/2000/1*WzQIXZKNvGfrZzXtEP_31g.png)
 
-**Bonus**
+**另外**
 
-Here’s a screenshot of my `event-stream` solution churning through the 2.55GB monster file, as well. And here’s the time difference between the 400MB file and the 2.55GB file too.
+这里是我的 `event-stream` 解决方案的屏幕截图，同时也是在遍历 2.55 GB 的超大文件。这里是解析 400 MB 文件和 2.55 GB 文件之间的时间差。
 
-![Look at those blazing fast speeds, even as the file size climbs by almost 6X.](https://cdn-images-1.medium.com/max/2548/1*Zxbn3FCHM59DrDvY7P6bXg.png)
+![看看这超快的速度，即使文件大小增加了近 6 倍](https://cdn-images-1.medium.com/max/2548/1*Zxbn3FCHM59DrDvY7P6bXg.png)
 
-**Solution #3: [`event-stream`](https://www.npmjs.com/package/event-stream) (on the 2.55GB file)**
+**解决方案 3： [`event-stream`](https://www.npmjs.com/package/event-stream) （处理 2.55 GB 文件）**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*v-7OzvyTjFTjrxnO0rXYiA.png)
 
-#### Conclusion
+#### 结论
 
-In the end, streams both native to Node.js and not, are way, WAY more efficient at processing large data sets.
+最后，Node.js 原生的流和非原生的流，在处理大型数据集的时候会更加有效。
 
-Thanks for coming back for part 2 of my series using Node.js to read really, really large files. If you’d like to read the first blog again, you can get it [here](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33).
+感谢你继续阅读了本系列文章的第二部分。如果你想要再次阅读第一篇文章，可以看[这里](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)。
 
-I’ll be back in a couple weeks with a new JavaScript topic — possibly debugging in Node or end-to-end testing with Puppeteer and headless Chrome, so please follow me for more content.
+我将在几周后回到新的 JavaScript 主题 - 可能是 Node 中的代码调试或者是使用 Puppeteer 和 Chrome 来进行端到端测试，所以请关注我来获取更多内容。
 
-Thanks for reading, I hope this gives you an idea of how to handle large amounts of data with Node.js efficiently and performance test your solutions. Claps and shares are very much appreciated!
+感谢你的阅读，我希望这篇文章能够让你了解如何有效地处理 Node.js 的大型数据集并且对你的方案进行性能测试。非常感谢你的关注和点赞。
 
-**If you enjoyed reading this, you may also enjoy some of my other blogs:**
+**如果你喜欢这篇文章，你也许也会喜欢我的其他博客：**
 
-* [Using Node.js to Read Really, Really Large Datasets & Files (Pt 1)](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)
-* [Sequelize: The ORM for Sequel Databases with Node.js](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
-* [Why a Spring Cloud Config Server is Crucial to a Good CI/CD Pipeline and How To Set It Up (Pt 1)](https://medium.com/@paigen11/why-a-cloud-config-server-is-crucial-to-a-good-ci-cd-pipeline-and-how-to-set-it-up-pt-1-fa628a125776)
+* [使用 Node.js 读取超大的数据集和文件（第一部分）](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)
+* [Sequelize：Node.js 的数据库 ORM 工具](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
+* [为什么 Spring Cloud Config Server 是一个好的 CI/CD 流的关键以及如何去进行配置（第一部分）](https://medium.com/@paigen11/why-a-cloud-config-server-is-crucial-to-a-good-ci-cd-pipeline-and-how-to-set-it-up-pt-1-fa628a125776)
 
 ---
 
-**References and Further Resources:**
+**引用及继续阅读：**
 
 * Github, Read File Repo: [https://github.com/paigen11/file-read-challenge](https://github.com/paigen11/file-read-challenge)
 * Node.js Documentation, File System: [https://nodejs.org/api/fs.html](https://nodejs.org/api/fs.html)
