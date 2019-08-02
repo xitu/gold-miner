@@ -9085,10 +9085,11 @@
 |[设计任何图表的六项原则](https://juejin.im/post/5d27fca7f265da1b5e731f92)|校对|1|
 |[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://juejin.im/post/5d2acf995188254c1915bd12)|校对|2.5|
 
-## 译者：[40m41h42t](https://github.com/40m41h42t) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[40m41h42t](https://github.com/40m41h42t) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 |[Go 语言概览](https://juejin.im/post/5d386166e51d454fd8057c6a)|校对|2|
 
 ## 译者：[JaneLdq](https://github.com/JaneLdq) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
@@ -9097,12 +9098,11 @@
 |------|-------|-------|
 |[使用 Node.js 读取超大的文件（第一部分）](https://juejin.im/post/5d3c27ccf265da1b8d1665ba)|校对|1.5|
 
-## 译者：[yangxy81118](https://github.com/yangxy81118) 历史贡献积分：4 当前积分：4 二零一九：4
+## 译者：[yangxy81118](https://github.com/yangxy81118) 历史贡献积分：2.5 当前积分：2.5 二零一九：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
 |[Kotlin Clean 架构](https://juejin.im/post/5d33e13be51d4555fd20a41b)|校对|1|
-|[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 |[从 Reddit 讨论中看到的 GraphQL 现状](https://juejin.im/post/5d380909e51d4510624f98a0)|校对|1.5|
 
 ## 译者：[Ultrasteve](https://github.com/Ultrasteve) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
