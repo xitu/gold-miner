@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xgboost-algorithm-long-may-she-reign.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xgboost-algorithm-long-may-she-reign.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve)
 
-# XGBoost 算法：长治久安的女王
+# XGBoost 算法万岁！
 
 ![[Jared Subia 供图](https://unsplash.com/photos/QczH4IiPNx0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) [Unsplash](https://unsplash.com/search/photos/tiara?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7260/1*kgJB2bz_asCdAsRd2pT0CA.png)
 
@@ -13,11 +13,11 @@
 
 （本文与 [Venkat Anurag Setty](https://towardsdatascience.com/u/e15e82916c90) 共同完成）
 
-我还记得 15 年前我的第一份工作。那时，我才完成研究生课程，作为一名分析师加入了一家国际投行。在入职的第一天，我一直抓着领带，不断回想学过的知识，心里想着自己是否能胜任这个企业的工作。老板感受到了我的焦虑，笑着对我说：
+我还记得 15 年前我的第一份工作。那时，我刚完成研究生课程，作为一名分析师加入了一家国际投行。在入职的第一天，我小心翼翼地工作，不断回想学过的知识，心里想着自己是否能胜任这个企业的工作。老板感受到了我的焦虑，笑着对我说：
 
 **“别担心！你只要了解回归模型就行了！”**
 
-我仔细想了想，“明白了！” — 无论是线性回归还是逻辑回归我都了解。老板是对的，我在职业生涯中，专门构建基于回归的统计学模型。我并不是孤身一人，因为在那时，回归模型是无可争议的预测分析女王。15 年后，回归模型的时代结束了，这位老女王已经退位。新上任的女王有着时髦的名字：XGBoost 或 Extreme Gradient Boosting。
+我仔细想了想，“明白了！” — 无论是线性回归还是逻辑回归我都了解。老板是对的，在我的任期内，专门构建基于回归的统计学模型。我并不是孤身一人，因为在那时，回归模型是无可争议的预测分析女王。15 年后，回归模型的时代结束了，这位老女王已经退位。新上任的女王有着时髦的名字：XGBoost 或 Extreme Gradient Boosting。
 
 ***
 
@@ -38,7 +38,7 @@ XGBoost 算法是华盛顿大学在科研工程中开发的。[陈天奇与 Carl
 
 ## 如何直观地理解 XGBoost？
 
-决策树在最简单的形式下，是最易于可视化以及最具可解释性的算法，但是在新一代的基于树的算法可能在直观上会有些困难。可以用下面的类比来更好地了解基于树的算法的演变。
+决策树在最简单的形式下，是最易于可视化以及最具可解释性的算法，但想要直观的理解新一代的基于树的算法可能会有些困难。可以用下面的类比来更好地了解基于树的算法的演变。
 
 ![[rawpixel](https://unsplash.com/photos/cnseVhmbA7k?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 供图[Unsplash](https://unsplash.com/search/photos/interview?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11030/1*Uwbv9Nzv7uoZV_hJwrsPGQ.jpeg)
 
@@ -50,7 +50,7 @@ XGBoost 算法是华盛顿大学在科研工程中开发的。[陈天奇与 Carl
 
 3. **随机森林（Random Forest）**：它是一种基于 Bagging 的算法，关键点在于随机森林会随机使用特征的子集。换句话说，就是每个面试官都只会用一些随机选择的标准来考验候选人的任职资格（比如，技术面值考察编程技能，行为面只考察非技术相关的技能）。
 
-4. **Boosting**：这是一种替代方法，每个面试官都会根据上一个面试官的面试结果来改变自己的评价标准。通过部署更加动态的评估过程，可以提升（boost）面试过程的效率。
+4. **Boosting**：这是一种替代方法，每个面试官都会根据上一个面试官的面试结果来改变自己的评价标准。通过利用更加动态的评估过程，可以提升（boost）面试过程的效率。
 
 5. **梯度提升（Gradient Boosting）**：Boosting 的特例，用梯度下降算法来将误差最小化。比如，咨询公司用案例面试来剔除不太合格的候选人。
 
@@ -60,13 +60,13 @@ XGBoost 算法是华盛顿大学在科研工程中开发的。[陈天奇与 Carl
 
 ## 为什么 XGBoost 效果这么好？
 
-XGBoost 和梯度提升机（Gradient Boosting Machines，GBM）都是集成（ensemble）数方法，原理都是用梯度下降架构来对多个弱分类器（通常是 [CARTs](https://www.datasciencecentral.com/profiles/blogs/introduction-to-classification-regression-trees-cart)）进行提升（boosting）。不过，XGBoost 通过系统优化与算法强化在 GBM 框架上进行了改进。
+XGBoost 和梯度提升机（Gradient Boosting Machines，GBM）都是集成（ensemble）树方法，原理都是用梯度下降架构来对多个弱分类器（通常是 [CARTs](https://www.datasciencecentral.com/profiles/blogs/introduction-to-classification-regression-trees-cart)）进行提升（boosting）。不过，XGBoost 通过系统优化与算法强化在 GBM 框架上进行了改进。
 
 ![XGBoost 是如何优化标准 GBM 算法的](https://cdn-images-1.medium.com/max/2000/1*FLshv-wVDfu-i54OqvZdHg.png)
 
 **系统优化：**
 
-1. **并行化**：XGBoost 通过[并行化](http://zhanpengfang.github.io/418home.html)方法来实现顺序的建树过程。由于基础学习器循环内部（包括用于枚举树的叶子节点的外部循环，以及用于计算特征的内部循环）的可互换性，因此才能这么做；循环的嵌套会限制并行化，因为如果没有完成两个开销更大的内部循环，就不能开始新的外部循环。因此为了优化运行时间，XGBoost 算法通过的所有示例进行全局扫描，并对并行线程进行排序，用初始化来保证循环的可互换性。这样做，可以抵消并行化开销而提升算法性能。
+1. **并行化**：XGBoost 通过[并行化](http://zhanpengfang.github.io/418home.html)方法来实现顺序的建树过程。由于基础学习器循环内部（包括用于枚举树的叶子节点的外部循环，以及用于计算特征的内部循环）的可互换性，因此才能这么做；循环的嵌套会限制并行化，因为如果没有完成两个开销更大的内部循环，就不能开始新的外部循环。XGBoost 算法通过使用并行线程对所有实例进行全局扫描和排序来进行初始化，使得循环的顺序变得可交换，从而减少了运行的时间。这样做，可以抵消并行化开销而提升算法性能。
 
 2. **树剪枝**：在 GBM 框架中，树停止分裂的标准本质上是贪婪的，取决于分裂点的 loss 值。而 XGBoost 用 `max_depth` 这一参数而非某个指标来停止分裂，然后开始反过来对树进行剪枝。这种“深度优先”的方法显著提高了计算性能。
 
