@@ -3,78 +3,78 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md)
 > * 译者：
-> * 校对者：
+> * 校对者：胡其美(hu7may.github.io)
 
-# A deep dive on Python type hints
+# 深入理解Python的类型提示
 
 ![Smiley face](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/presser.png)
 
 Presser, Konstantin Makovsky 1900
 
-## Introduction
+## 简介
 
-Since the release of Python’s type hints [in 2014](https://www.python.org/dev/peps/pep-0484/), people have been working on adopting them into their codebase. We’re now at a point where I’d gamely estimate that about 20-30% of Python 3 codebases are using hints (also sometimes called annotations). Over the past year, I’ve been seeing them pop up in more and more [books](https://www.manning.com/books/classic-computer-science-problems-in-python) and tutorials.
+自从Python的类型提示发布以来 [in 2014](https://www.python.org/dev/peps/pep-0484/), 人们便一直将他们应用到自己的代码中。我估计目前大约有20~30%的Python3代码在使用提示(有时也称为注释)。在去年我看到他们出现在越来越多的[书](https://www.manning.com/books/classic-computer-science-problems-in-python) 和教程中。
 
-> Actually, now I'm curious - if you actively develop in Python 3, are you using type annotations/hints in your code?
+> 事实上，我现在很好奇 - 你在积极地使用Python3开发吗？你在代码中使用注解和提示吗？
 > 
 > — [Vicki Boykis (@vboykis) May 14, 2019](https://twitter.com/vboykis/status/1128324572917448704?ref_src=twsrc%5Etfw)
 
-Here’s the canonical example of [what code looks like with type hints](https://docs.python.org/3/library/typing.html).
+这是一个[使用类型提示的代码看起来什么样](https://docs.python.org/3/library/typing.html)的典型例子。
 
-Code before type hints:
+没有类型提示的代码：
 
 ```python
 def greeting(name):
 	return 'Hello ' + name
 ```
 
-Code after hints:
+有类型提示的代码：
 
 ```python
 def greeting(name: str) -> str:
     return 'Hello ' + name 
 ```
 
-The boilerplate format for hints is typically:
+提示的样板格式通常是这样：
 
 ```python
 def function(variable: input_type) -> return_type:
 	pass
 ```
 
-However, there’s still a lot of confusion around what they are (and what they’re even called - are they hints or annotations? For the sake of this article, I’ll call them hints), and how they can benefit your code base.
+然而，关于他们究竟是什么（在本文中，我暂且称他们为提示）、他们会如何使你的代码受益仍然有许多让人困惑不解的地方。
 
-When I started to investigate and weigh whether type hints made sense for me to use, I became super confused. So, like I usually do with things I don’t understand, I decided to dig in further, and am hopeful that this post will be just as helpful for others.
+When I started to investigate and weigh whether type hints made sense for me to use, I became super confused. So, like I usually do with things I don’t understand, I decided to dig in further, and am hopeful that this post will be just as helpful for others.当我开始调查和衡量类型提示是否对我有用时，我变得十分困惑。 所以，就像我通常对待我不理解的事情一样，我决定深入挖掘，同时也希望这篇文章对其他人有用。
 
-As usual, if you see something and want to comment, feel free to [submit a pull request](https://github.com/veekaybee/veekaybee.github.io).
+像往常一样，如果你想评论你看到的某些内容，请随时[提交拉取请求](https://github.com/veekaybee/veekaybee.github.io)。
 
-## How Computers Build Our Code
+## 计算机如何编译我们的代码
 
-To understand what the Python core developers are trying to do here with type hints, let’s go down a couple levels from Python, and get a better understanding of how computers and programming languages work in general.
+为了弄清楚Python核心开发人员在尝试用类型提示做什么，我们来从Python中分几个层次，从而更好地理解计算机和编程语言的工作原理。
 
-Programming languages, at their core, are a way of doing things to data using the CPU, and storing both the input and output in memory.
+编程语言的核心，是使用CPU、在内存中存储输入输出，从而来处理数据。
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/computer.png)
 
-The CPU is pretty stupid. It can do really powerful stuff, but it only understands machine language, which, at its core, is electricity. A representation of machine language is 1s and 0s.
+CPU相当愚蠢，它可以完成艰巨的任务，但只能理解机器语言，其底层依靠电力驱动。机器语言底层使用0和1来表示。
 
-To get to those 1s and 0s, we need to move from our high-level, to low-level language. This is where compiled and interepreted languages come in.
+为了得到这些0和1，我们要从高级语言转向低级语言，这就需要编译和解释型语言了。
 
-When languages are either [compiled or executed](http://openbookproject.net/thinkcs/python/english2e/ch01.html) (python is executed via interpreter), the code is turned into lower-level machine code that tells the lower-level components of the computer i.e. the hardware, what to do.
+编程语言要么[被编译要么被执行](http://openbookproject.net/thinkcs/python/english2e/ch01.html) （Python通过解释器解释执行）， 代码转换为较低级别的机器代码，告诉计算机的低级组件即硬件该做什么。
 
-There are a couple ways to translate your code into machine-legible code: you can either build a binary and have a compiler translate it (C++, Go, Rust, etc.), or run the code directly and have the interpreter do it. The latter is how Python (and PHP, Ruby,and similar “scripting” languages) works.
+有多种方法可以将代码转换为机器能识别的代码：你可以构建二进制文件并让编译器对其进行翻译（C ++，Go，Rust等），或直接运行代码并让解释器执行。 后者是Python（以及PHP，Ruby和类似的脚本语言）的工作原理。
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/interpret.png)
 
-How does the hardware know how to store those 0s and 1s in memory? The software, our code, needs to tell it how to allocate memory for that data. What kind of data? That’s dicated by the language’s choice of data types.
+硬件如何知道如何将这些0和1存储在内存中？ 软件也就是我们的代码需要告诉硬件该如何为数据分配内存。 这些数据是什么类型的呢？ 这就由语言选择的数据类型来决定了。
 
-Every language has data types. They’re usually one of the first things you learn when you learn how to program.
+每一种语言都有数据类型，他们往往是你学习编程时的第一件要学习的事情。
 
-You might see a tutorial like this (from Allen Downey’s excellent book, [“Think Like a Computer Scientist.”](http://openbookproject.net/thinkcs/python/english3e/)),that talks about what they are. Simply put, they’re different ways of representing data laid out in memory.
+你可能看过这样的教程 (来组Allen Downey的优秀教材, [像计算机科学家一样思考”](http://openbookproject.net/thinkcs/python/english3e/)),讲述了它们是什么。 简而言之，它们是表示内存中数据的不同方式。
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/datatypes.png)
 
-There are strings, integers, and many more, depending on which language you use. For example, [Python’s basic data types](https://en.wikibooks.org/wiki/Python_Programming/Data_Types) include:
+根据所使用语言的不同，会有字符串，整数等其他类型. 比如[Python的基本数据类型](https://en.wikibooks.org/wiki/Python_Programming/Data_Types) 包含：
 
 ```plain
 int, float, complex
@@ -90,11 +90,11 @@ set
 dict
 ```
 
-There are also data types made up out of other data types. For example, a Python list can hold integers, strings, or both.
+There are also data types made up out of other data types. For example, a Python list can hold integers, strings, or both.还有由几种基本数据类型构成的高级数据类型。 例如，Python列表可以包含整数，字符串或两者都包含。
 
-In order to know how much memory to allocate, the computer needs to know what type of data is being stored. Luckily, Python has a [built-in function](https://docs.python.org/3/library/sys.html#sys.getsizeof), `getsizeof`, that tells us how big each different datatype is in bytes.
+In order to know how much memory to allocate, the computer needs to know what type of data is being stored. 为了知道需要分配多少内存，计算机需要知道被存储数据的类型。幸运的是，Python的[内置函数](https://docs.python.org/3/library/sys.html#sys.getsizeof), `getsizeof`,可以告诉我们每种不同的数据类型占多少字节。
 
-This [fantastic SO answer](https://stackoverflow.com/a/1331541) gives us some approximations for “empty” data structures:
+这个 [精彩的回答](https://stackoverflow.com/a/1331541) 告诉了我们一些“空数据结构”的近似值：
 
 ```python
 import sys
@@ -135,43 +135,43 @@ sorted_x
  ('dict', 240)]
 ```
 
-If we sort it, we can see that the biggest data structure by default is an empty dictionary, followed by a set. Ints by comparison to strings are tiny.
+如果我们对结果进行排序，我们可以看到在默认情况下，最大的数据结构是空字典，然后是集合；与字符串相比，整形所占很小。
 
-This gives us an idea of how much memory different types in our program take up.
+这让我们知道了程序中不同类型的数据各占了多少内存空间。
 
-Why do we care? Some types are more efficient and better suited to different tasks than others. Other times, we need rigorous checks on these types to make sure they don’t violate some of the assumptions of our program.
+Why do we care? Some types are more efficient and better suited to different tasks than others. Other times, we need rigorous checks on these types to make sure they don’t violate some of the assumptions of our program.我们为什么要在意这些呢？因为一些类型比另一些类型更高效，更适合不同的任务。还有些场合，我们需要对类型做严格的检查来保证他们不会违反我们程序的一些假设。
 
-But what exactly are these types and why do we need them?
+不过这些类型到底是什么？我们又为什么需要他们呢？
 
-Here’s where type systems come into play.
+下面就是类型系统发挥作用的地方。
 
-## An introduction to type systems
+## 类型系统介绍
 
-A [long time ago](https://homepages.inf.ed.ac.uk/wadler/topics/history.html), in a galaxy far, far, away, [people doing math by hand](https://en.wikipedia.org/wiki/Type_theory) realized that if they labeled numbers or elements of equations by “type”, they could reduce the amount of logic issues they had when doing math proofs against those elements.
+[很久以前](https://homepages.inf.ed.ac.uk/wadler/topics/history.html),  [依靠手工运算数学的人们](https://en.wikipedia.org/wiki/Type_theory) 意识到，如果他们使用“类型”来标记数字或方程的元素，就可以减少在对这些元素进行数学证明中遇到的逻辑问题。
 
-Since in the beginning computer science was, basically, doing a lot of math by hand, some of the principles carried over, and a type system became a way to reduce the number of bugs in your program by assigning different variables or elements to specific types.
+一开始，计算机科学基本上依靠手工完成大量数学运算，一些原则延续下来，类型系统通过为特定类型分配不同的变量或元素，成为减少程序中错误数量的一种方法。
 
-A couple examples:
+下面是一些例子:
 
-* If we’re writing software for a bank, we can’t have strings in the piece of code that’s calculating the total value of a person’s account
-* If we’re working with survey data and want to understand whether someone did or did not do something, booleans with Yes/No answers will work best
-* At a big search engine, we have to limit the number of characters people are allowed to put into the search field, so we need to do type validation for certain types of strings
+* 如果我们为银行编写软件，在计算用户账户总额的代码片段中不能使用字符串。
+* 如果我们要处理调查数据，想要了解人们做或者没做某件事，这时使用表示是/否的布尔值将最恰当。
+* 在一个大的搜索引擎中，我们必须限制允许输入搜索框的字符数，因此我们需要对某些类型的字符串进行类型验证。
 
-Today, in programming, there are two different type systems: static and dynamic. [Steve Klabnik](https://blog.steveklabnik.com/posts/2010-07-17-what-to-know-before-debating-type-systems), breaks it down:
+现今在编程领域，有两种不停地类型系统：静态和动态。 [Steve Klabnik](https://blog.steveklabnik.com/posts/2010-07-17-what-to-know-before-debating-type-systems), 写到：
 
-> A static type system is a mechanism by which a compiler examines source code and assigns labels (called “types”) to pieces of the syntax, and then uses them to infer something about the program’s behavior. A dynamic type system is a mechanism by which a compiler generates code to keep track of the sort of data (coincidentally, also called its “type”) used by the program.
+> 在静态系统中，编译器检查源代码并将“类型”标签分配给代码中的参数，然后使用它们来推断程序行为的信息。 动态类型系统中，编译器生成代码来跟踪程序使用的数据类型（也恰巧称为“类型”）。
 
-What does this mean? It means that, usually, for compiled languages, you need to have types pre-labeled so the compiler can go in and check them when the program is compiling to make sure the program makes sense.
+这意味着什么？这意味着对编译型语言来说，你需要预先指定类型以便让编译器在编译期进行类型检查来确保程序是合理的。
 
-This is problably [the best explanation of the difference between the two](http://www.nicolas-hahn.com/python/go/rust/programming/2019/07/01/program-in-python-go-rust/) I’ve read recently:
+这也许我最近读到的是[对两者最好的解释](http://www.nicolas-hahn.com/python/go/rust/programming/2019/07/01/program-in-python-go-rust/) ：
 
-> I’ve used statically typed languages in the past, but my programming for the past few years has mostly been in Python. The experience was somewhat annoying at first, it felt as though it was simply slowing me down and forcing me to be excessively explicit whereas Python would just let me do what I wanted, even if I got it wrong occasionally. Somewhat like giving instructions to someone who always stops you to ask you to clarify what you mean, versus someone who always nods along and seems to understand you, though you’re not always sure they’re absorbing everything.
+> 我之前使用静态类型语言，但过去几年我主要使用Python语言。 起初的体验有点恼火，感觉好像只是放慢了我的速度，而Python本可以完全只让我做我所想做的，即便我偶尔出错也没关系。 这有点像向那些总是阻止你要求你澄清意思的人而不是总是点头并且理解你的人发出指示，尽管你并不总是确定他们理解了一切。
 
-A small caveat here that took me a while to understand: static and dynamically-typed languages are closely linked, but not synonymous with compiled or interpeted languages. You can have a dynamically-typed language, like Python, that is compiled, and you can have static languages, like Java, that are interpreted, for example if you use the Java REPL.
+这里有一点需要注意：静态和动态类型的语言是紧密相连的，但不是编译型或解释型语言的同义词。 您可以使用动态类型的语言（如Python）编译执行，也可以使用静态语言（如Java）解释执行，例如使用Java REPL。
 
-## Data types in statically versus dynamically typed languages
+## 静态与动态类型语言中的数据类型
 
-So what’s the difference between data types in these two languages? In static typing, you have to lay out your types beforehand. For example, if you’re working in Java, you’ll have a program that looks like this:
+那么这两种语言中数据类型的区别是什么呢？ 在静态类型中，你必须先布定义类型。 例如，如果您使用Java，你的程序可能如下所示：
 
 ```java
 public class CreatingVariables {
@@ -196,16 +196,16 @@ private static double calculateRainfallRate(double seconds, double rainfall) {
 }
 ```
 
-If you’ll notice at the beginning of the program, we declare some variables that have an indicator of what those types are:
+注意到这段程序的开头，我们声明了变量的类型：
 
 ```java
 int x, y, age, height;
 double seconds, rainfall;
 ```
 
-And our methods also have to include the variables that we’re putting into them so that the code compiles correctly. In Java, you have to plan your types from the get-go so that the compiler knows what to check for when it compiles the code into machine code.
+方法也必须包含传入的变量，以便代码能正确编译。 在Java中，你必须从一开始就设计好类型以便编译器在将代码编译为机器码时知道该检查什么。
 
-Python hides this away from the user. The analogous Python code would be:
+而Python将类型隐藏了，类似的 Python代码是这样的：
 
 ```python
 x = 10
@@ -222,21 +222,21 @@ def calculateRainfall(seconds, rainfall):
 	return rainfall/seconds
 ```
 
-How does this work under the covers?
+这背后原理是怎样的呢？
 
-## How does Python handle data types?
+## Python如何处理数据类型
 
-Python is dynamically-typed, which means it only checks the types of the variables you specified when you run the program. As we saw in the sample piece of code, you don’t have to plan out the types and memory allocation beforehand.
+Python是动态类型的语言，这意味着他只会在你运行程序的时候检查你生命的变量类型。正如我们在上述代码片段中看到的，你不必事先计划类型和内存分配。
 
-What happens [is that](https://nedbatchelder.com/blog/201803/is_python_interpreted_or_compiled_yes.html):
+[这其中](https://nedbatchelder.com/blog/201803/is_python_interpreted_or_compiled_yes.html)发生了什么：
 
-> In Python, the source is compiled into a much simpler form called bytecode using CPython. These are instructions similar in spirit to CPU instructions, but instead of being executed by the CPU, they are executed by software called a virtual machine. (These are not VM’s that emulate entire operating systems, just a simplified CPU execution environment.)
+> 在Python中，CPython将源码编译成一种更简单的字节码形式。 这些指令类似于CPU指令，但它们不是由CPU执行，而是由虚拟机软件执行。（这些虚拟机不是模仿整个操作系统，只是简化的CPU执行环境）
 
-When CPython is building the program, how does it know which types the variables are if we don’t specify them? It doesn’t. All it knows is that the variables are objects. Everything in Python is [an Object](https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/), until it’s not (i.e. it becomes a more specific type), that is when we specifically check it.
+当CPython编译程序时，如果不指定数据类型，它如何知道变量的类型呢？答案是它不知道，它只知道变量是对象。Python中一切皆是[对象](https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/)，直到它变成一种具体的类型，那正是它被检查的时候。
 
-For types like strings, Python assumes that anything with single or double quotes around it will be a string. For numbers, Python picks a number type. If we try to do something to that type and Python can’t perform the operation, it’ll tell us later on.
+对于像字符串这样的类型，Python假设任何被单引号或者双引号包围起来的内容都是字符串。对于数字，Python有一种数值类型与之对应。如果我们尝试对某种类型执行某种Python无法完成的操作，Python将会提示我们。
 
-For example, if we try to do:
+例如，就像下面这样：
 
 ```python
 name = 'Vicki'
@@ -252,23 +252,23 @@ TypeError                                 Traceback (most recent call last)
 TypeError: must be str, not float
 ```
 
-It’ll tell us that it can’t add a string and a float. It had no idea up until that second that name was a string and seconds was a float.
+它提示我们不能将字符串和浮点数相加。Python直到执行的时候那一刻才知道name是一个字符串而seconds是一个浮点数。
 
-In [other words](http://www.voidspace.org.uk/python/articles/duck_typing.shtml),
+[换句话说](http://www.voidspace.org.uk/python/articles/duck_typing.shtml)，
 
-> Duck typing happens because when we do the addition, Python doesn’t care what type object a is. All it cares is whether the call to it addition method returns anything sensible. If not - an error will be raised.
+> 鸭子类型是在这种情况下发生的：当我们执行加法时，Python并不关心对象是什么类型。 它关心的是对它调用的加法方法返回的内容是否是合理的， 如果不是， 就会引发错误。
 
-So what does this mean? If we try to write a program in the same way that we do Java or C, we won’t get any errors until the CPython interpreter executes the exact line that has problems.
+所以这意味着什么呢？如果我们以类似Java或者C的方式写一段代码，我们在CPython解释器执行又问答题的代码行之前不会遇到任何错误。
 
-This has proven to be inconvenient for teams working with larger code bases, because you’re not dealing with single variables, but classes upon classes of things that call each other, and need to be able to check everything quickly.
+对于编写大量代码的团队而言，这已被证明是不方便的。因为你不是只需要处理几个变量，而要处理相互调用的大量类，并需要能够快速检查所有内容。
 
-If you can’t write good tests for them and have them catch the errors before you’re running in production, you can break systems.
+如果你不能写下很好的测试代码，在投入生产环境之前找出程序中的错误，你将会破坏整个系统。
 
-In general, there are [a lot of benefits](https://www.bernat.tech/the-state-of-type-hints-in-python/) of using type hints:
+大体上，使用类型提示有[很多好处](https://www.bernat.tech/the-state-of-type-hints-in-python/) ：
 
-> If you’re working with complicated data structures, or functions with a lot of inputs, it’s much easier to see what those inputs are a long time after you’ve written the code. If you have just a single function with a single parameter, like the examples we have here, it’s really easy.
+> 如果你使用复杂的数据结构，或者有很多输入的函数，在很久之后再次阅读代码时将会更容易。如果只是向我们的示例中带有单个参数的简单函数，则会显得很简单。
 
-But what if you’re dealing with a codebase with lots of inputs, like this example from the [PyTorch docs](https://github.com/pytorch/examples/blob/1de2ff9338bacaaffa123d03ce53d7522d5dcc2e/mnist/main.py#L28)?
+但是如果你面对的是含有大量输入的代码库，比如PyTorch文档中的[这个例子](https://github.com/pytorch/examples/blob/1de2ff9338bacaaffa123d03ce53d7522d5dcc2e/mnist/main.py#L28)？
 
 ```python
 def train(args, model, device, train_loader, optimizer, epoch):
@@ -286,25 +286,25 @@ def train(args, model, device, train_loader, optimizer, epoch):
 100. * batch_idx / len(train_loader), loss.item()))
 ```
 
-What’s model? Ah, we can go down further into that codebase and see that it’s
+什么是model？我们来看下面的代码。
 
 ```python
 model = Net().to(device)
 ```
 
-But wouldn’t it be cool if we could just specify it in the method signature so we don’t have to do a code search? Maybe something like
+如果我们能够在方法签名中指定而不必查看代码，这样是不是会很酷？就像下面这样：
 
 ```python
 def train(args, model (type Net), device, train_loader, optimizer, epoch):
 ```
 
-How about device?
+什么又是device呢
 
 ```python
 device = torch.device("cuda" if use_cuda else "cpu")
 ```
 
-What’s torch.device? It’s a special PyTorch type. If we go to [other parts of the documentation and code](https://github.com/pytorch/pytorch/blob/a9f1d2e3711476ba4189ea804488e5264a4229a8/docs/source/tensor_attributes.rst), we find out that:
+什么是 torch.device？它是一种特殊的 PyTorch类型.如果我们到[文档和代码的其他部分](https://github.com/pytorch/pytorch/blob/a9f1d2e3711476ba4189ea804488e5264a4229a8/docs/source/tensor_attributes.rst)，我们可以发现：
 
 ```plain
 A :class:`torch.device` is an object representing the device on which a :class:`torch.Tensor` is or will be allocated.
@@ -314,34 +314,34 @@ The :class:`torch.device` contains a device type ('cpu' or 'cuda') and optional 
 A :class:`torch.device` can be constructed via a string or via a string and device ordinal 
 ```
 
-Wouldn’t it be nice if we could note that so we don’t necessarily have to look this up?
+如果我们能够注释这些，就不必在程序中查找，这样不是更好吗？
 
 ```python
 def train(args, model (type Net), device (type torch.Device), train_loader, optimizer, epoch):
 ```
 
-And so on.
+还有很多例子......
 
-So type hints are helpful for you, the person writing the code.
+因此类型提示对大家编程都是有帮助的。
 
-Type hints are also helpful for others reading your code. It’s much easier to read someone’s code that’s already been typed instead of having to go through the search we just went through above. Type hints add legibility.
+类型提示也有助于他人阅读你的代码。具有类型提示的代码读起来更容易，不必像上面的例子那样检查整个程序的内容。类型提示提高了易读性。
 
-So, what has Python done to move to the same kind of legibility as is available in statically-typed languages?
+那么，Python做了什么来提升与静态类型语言相同的易读性呢？
 
-## Python’s type hints
+## Python的类型提示
 
-Here’s where type hints come in. As a side note, the docs interchangeably call them type annotations or type hints. I’m going to go with type hints. In other languages, annotations and hints mean someting completely different.
+Here’s where type hints come in. As a side note, the docs interchangeably call them type annotations or type hints. I’m going to go with type hints. In other languages, annotations and hints mean someting completely different.下面是类型提示的来源，作为代码旁边的注释，称为类型注释或类型提示。 我将称它们为带类型提示。 在其他语言中，注释和提示的意义完全不同。
 
-In Python 2 was that people started adding hints to their code to give an idea of what various functions returned.
+在Python2中人们开始在代码中加入提示，来表示各种函数返回了什么。
 
-That code initially looked [like this](https://www.python.org/dev/peps/pep-0483/):
+那种代码看起来就像 [这样](https://www.python.org/dev/peps/pep-0483/):
 
 ```python
 users = [] # type: List[UserID]
 examples = {} # type: Dict[str, Any]
 ```
 
-Type hints were previously just comments. But what happened was that Python started gradually moving towards a more uniform way of dealing with type hints, and these started to include [function annotations](https://www.python.org/dev/peps/pep-3107/):
+开始类型提示就像注释。 但后来Python逐渐使用更统一的方法来处理类型提示，开始包括 [函数注释](https://www.python.org/dev/peps/pep-3107/)：
 
 ```plain
 Function annotations, both for parameters and return values, are completely optional.
@@ -353,19 +353,19 @@ By itself, Python does not attach any particular meaning or significance to anno
 The only way that annotations take on meaning is when they are interpreted by third-party libraries. These annotation consumers can do anything they want with a function's annotations. For example, one library might use string-based annotations to provide improved help messages, like so:
 ```
 
-With the development of PEP 484 is that it was developed in conjunction with mypy, a project out of DropBox, which checks the types as you run the program. Remember that types are not checked at run-time. You’ll only get an issue if you try to run a method on a type that’s incompatible. For example, trying to slice a dictionary or trying to pop values from a string.
+随着PEP 484的发展，它是与mypy一起开发的，这是一个出自DropBox的项目，它在你运行程序时检查类型。 要记住在运行时不检查类型。 如果尝试在不兼容的类型上运行方法，将只会出现问题。 例如尝试对字典切片或从字符串中弹出值。
 
-From the implementation details,
+从实现细节来看：
 
-> While these annotations are available at runtime through the usual **annotations** attribute, no type checking happens at runtime. Instead, the proposal assumes the existence of a separate off-line type checker which users can run over their source code voluntarily. Essentially, such a type checker acts as a very powerful linter. (While it would of course be possible for individual users to employ a similar checker at run time for Design By Contract enforcement or JIT optimization, those tools are not yet as mature.)
+>  虽然这些注释在运行时通过** annotations **属性可用，但在运行时不会进行类型检查。 相反，该提议假定存在一个单独的离线类型检查器，用户可以自行运行其源代码。 本质上来讲，这种类型的检查器就像一个强大的linter。 （当然个人用户可以在运行时使用类似的检查器来进行设计执行或即时优化，但这些工具还不够成熟）
 
-What does this look like in practice?
+在实践中是怎样的呢？
 
-Type hints also mean that you can more easily use IDEs. PyCharm, for example, offers [code completion and checks](https://www.jetbrains.com/help/pycharm/type-hinting-in-product.html) based on types, as does VS Code.  
+类型检查也意味着你可以更容易的使用集成开发环境。例如PyCharm根据类型提供了[代码补全与检查](https://www.jetbrains.com/help/pycharm/type-hinting-in-product.html),就像VS Code一样。
 
-Type hints are also helpful for another reason: they prevent you from making stupid mistakes. [This is a great example](https://medium.com/@ageitgey/learn-how-to-use-static-type-checking-in-python-3-6-in-10-minutes-12c86d72677b) of how:
+类型检查在另一方面也是有益的：它们可以阻止你犯下愚蠢的错误. [这里是个很好的例子](https://medium.com/@ageitgey/learn-how-to-use-static-type-checking-in-python-3-6-in-10-minutes-12c86d72677b) 。
 
-Let’s say we’re adding names to a dictionary
+这里我们要增加一个名字到字典中：
 
 ```python
 names = {'Vicki': 'Boykis',
@@ -377,9 +377,9 @@ def append_name(dict, first_name, last_name):
 append_name(names,'Kanye',9)
 ```
 
-If we allow this to happen, we’ll have a bunch of malformed entries in our dictionary.
+如果我们允许程序这样执行了，我们在字典中将会得到一堆格式错误的条目。
 
-How do we fix it?
+那么如何改正呢？
 
 ```python
 from typing import Dict 
@@ -395,20 +395,20 @@ append_name(names_new,'Kanye',9.7)
 names_new
 ```
 
-By running mypy on it:
+通过在mypy运行：
 
 ```bash
 (kanye) mbp-vboykis:types vboykis$ mypy kanye.py
 kanye.py:9: error: Argument 3 to "append_name" has incompatible type "float"; expected "str"
 ```
 
-We can see that mypy doesn’t allow that type. It makes sense to include mypy in a pipeline with tests in your continuous integration pipeline.
+我们可以看到，mypy不允许这种类型。在持续集成管道中的测试管道中包含mypy是很有意义的。
 
-## Type hints in IDEs
+## 继承开发环境中的类型提示
 
-One of the biggest benefits to using type hints is that you get the same kind of autocompletion in IDEs as you do with statically-typed languages.
+使用类型提示的最大好处之一是，你可以在IDE中会获得和静态语言同样的自动补全功能。
 
-For example, let’s say you had a piece of code like this. These are just our two functions from before, wrapped into classes.
+比如，我们假设你有这样一段代码，这仅仅是上面是用过的两个函数包装成了类。
 
 ```python
 from typing import Dict
@@ -437,15 +437,15 @@ class addNametoDict:
 addNametoDict.append_name()
 ```
 
-A neat thing is that, now that we have (liberally) added types, we can actually see what’s going on with them when we call the class methods:
+巧妙的是，现在我们添加了类型，当我们调用类的方法时，我们可以看到发生了什么：
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/tabcomplete2.png)
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/tabcomplete1.png)
 
-## Getting started with type hints
+## 开始使用类型提示
 
-The mypy docs have some [good suggestions](https://mypy.readthedocs.io/en/latest/existing_code.html) for getting started typing a codebase:
+mypy有一些关于开发一个代码库的[很好建议](https://mypy.readthedocs.io/en/latest/existing_code.html)：
 
 ```plain
  1. Start small – get a clean mypy build for some files, with few hints
@@ -456,19 +456,19 @@ The mypy docs have some [good suggestions](https://mypy.readthedocs.io/en/latest
  6. Use MonkeyType or PyAnnotate to automatically annotate legacy code
 ```
 
-To get started with writing type hints for your own code, it helps to understand several things:
+为了在你自己的代码中开始使用类型提示，理解以下几点很会有帮助：:
 
-First, you’ll need to [import the typing module](https://docs.python.org/3/library/typing.html) if you’re using anything beyond strings, ints, bools, and basic Python types.
+首先，如果你在使用除了字符串，整形，布尔和其他Python的基本类型，你需要[导入类型模块](https://docs.python.org/3/library/typing.html)。
 
-Second, that there are several complex types available through the module:
+Second, that there are several complex types available through the module:第二，通过模块，有几种复杂类型可用：
 
-Dict, Tuple, List, Set, and more.
+字典，元组，列表，集合等。
 
-For example, Dict\[str, float\] means that you want to check for a dictionary where the key is a string and the value is a float.
+例如，字典[str, float]表示你想检查一个字典，其中键是字符串类型，值是浮点数类型。
 
-There’s also a type called Optional and Union.
+还有一种叫Optional和Union的类型
 
-Third, that this is the format for type hints:
+第三，如下是类型提示的形式：
 
 ```python
 import typing
@@ -477,28 +477,29 @@ def some_function(variable: type) -> return_type:
 	do_something
 ```
 
-If you want to get started further with type hints, lots of smart people have written tutorials. [Here’s the best one](https://pymbook.readthedocs.io/en/latest/typehinting.html) to start with, in my opinion, and it takes you through how to set up a testing suite.
+如果你想开始更深入地使用类型提示，很多聪明人已经写下一些教程。 这里有我们人入门[最好的教程](https://pymbook.readthedocs.io/en/latest/typehinting.html) 而且它会知道你如何设置测试环境。
 
-## So, what’s the verdict? To use or not to use?
+## 那么，该如何决定？用还是不用呢？
 
-But should you get started with type hints?
+你应该使用类型提示吗？
 
-It depends on your use case. As Guido and the mypy docs say,
+这取决于你的使用场景，就像Guido和mypy文档里说的：
 
-> The aim of mypy is not to convince everybody to write statically typed Python – static typing is entirely optional, now and in the future. The goal is to give more options for Python programmers, to make Python a more competitive alternative to other statically typed languages in large projects, to improve programmer productivity, and to improve software quality.
+> mypy的目标不是说服每个人都编写静态类型的Python，不管是现在还是将来，静态类型的编程完全是可选的。mypy的目标是为Python程序员提供更多的选择，使Python称为一门在大型项目中相比于其他静态类型语言更具竞争力的可选方案，从儿女提高程序员的工作效率并且提升软件质量。
 
-Because of the overhead of setting up mypy and thinking through the types that you need, type hints don’t make sense for smaller codebases, and for experimentation (for example, in Jupyter notebooks). What’s a small codebase? Probably anything under 1k LOC, conservatively speaking.
+由于设置mypy和思考所需要的类型的开销，类型提示对于小型代码库来说没有意义（比如在jupyter notebook中）。什么算小代码库呢? 保守的说，大概是任何低于 1k的内容。
 
-For larger codebases, places where you’re working with others, collaborating, and packages, places where you have version control and continuous integration system, it makes sense and could save a lot of time.
+对于大型代码库，当你需要与他人一起合作，打包，当你需要版本控制和持续集成系统，类型提示很有意义并可以节省大量时间。
 
-My opinion is that type hints are going to become much more common, if not commonplace, over the next couple years, and it doesn’t hurt to get a head start.
+我的意见是，类型提示正变得越来越常见。在在未来几年中，即使在不是很常见的地方，带头使用它也不是坏事。
 
-## Thanks
+## 致谢
 
-**Special thanks to [Peter Baumgartner](https://twitter.com/pmbaumgartner), [Vincent Warmerdam](https://twitter.com/fishnets88), [Tim Hopper](https://tdhopper.com/), [Jowanza Joseph](https://www.jowanza.com/), and [Dan Boykis](http://danboykis.com/) for reading drafts of this post. All remaining errors are mine :)**
+**特别感谢 [Peter Baumgartner](https://twitter.com/pmbaumgartner), [Vincent Warmerdam](https://twitter.com/fishnets88), [Tim Hopper](https://tdhopper.com/), [Jowanza Joseph](https://www.jowanza.com/), 和 [Dan Boykis](http://danboykis.com/) 阅读本文草稿，所有遗留的错误来自于我 :)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
