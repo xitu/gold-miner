@@ -94,11 +94,11 @@ fn parse_prim_expr(&mut self, allow_minus: AllowMinus) -> PResult<Box<Expr>> {
 }
 ```
 
-### Pratt expression parsing
+### Pratt 表达式解析
 
-Instead of parsing expressions with precedence using many grammar levels, we use a [Pratt parsing / precedence climbing](https://www.oilshell.org/blog/2017/03/31.html) system. This algorithm allows specifying the operators as a table with a “binding power” integer, with higher binding power for operators with higher precedence. This is both easier and more efficient for parsing expressions with many levels of precedence.
+我们使用 [Pratt 解析 / precedence climbing](https://www.oilshell.org/blog/2017/03/31.html) 方式，而非解析多语法优先级表达式。Pratt 算法允许将运算符指定为具有“绑定能力”的整数表，该整数表具有高优先级运算符所具有的绑定能力。这对解析有多个优先级表达式会更加简单和高效。
 
-Instead of using data tables like in the canonical Pratt parser implementation, we used Rust functions with match statements, which fill the same purpose but with more power and no need to keep a data structure around:
+我们没有像在规范的 Pratt 解析器实现中那样使用整数表，而是使用 Rust 的 match 语句功能，它具有一样的作用，并且功能更加强大，且无需保存数据结构：
 
 ```rust
 fn binding_power(cur: &SpannedToken) -> Option<u8> {
@@ -117,11 +117,11 @@ fn binding_power(cur: &SpannedToken) -> Option<u8> {
 }
 ```
 
-## Snapshot testing
+## 快照测试
 
-Starting when we did our parser and continuing for the rest of our compiler, we made extensive use of snapshot testing with the [insta crate](https://github.com/mitsuhiko/insta). Snapshot testing (similar to [expect tests](https://blog.janestreet.com/testing-with-expectations/)) allows you to write tests which just provide the resulting data structure of some process and the testing system will create a “snapshot” of the result of that test in a file, and if the result ever changes it will cause a test failure and show you the diff between the snapshot file and the result it got. If the change was expected, you can then run a command to update the snapshot files that changed.
+从解析器到编译器的其余部分，我们广泛的使用了 [insta crate](https://github.com/mitsuhiko/insta) 的快照测试。快照测试（类似于 [expect 测试](https://blog.janestreet.com/testing-with-expectations/)），它可以让我们只提供一些测试过程以及对应结果的数据结构，并且测试系统会创建测试结果的“快照”，将其存放在一个文件中。如果结果变化会导致测试失败，并且显示出快照文件和结果之间的差异。如果预期发生改变，则可以运行一个命令来更新快照文件。
 
-This was super useful for writing our parser, before we could parse full files and do anything with them, we could parse short snippets into AST types implementing the Rust `Debug` trait, and `insta` would create pretty-printed snapshots that we could inspect for correctness, and then commit to check for future regressions.
+这是我们解析器特别强大的地方，在我们解析整个文件和对应的内容之前，我们可以解析一小段代码为 AST 来实现 Rust 中的 `Debug` trait，并且 `insta` 将创建美化后的快照，这样我们可以检查是否正确，然后提交，便于后续的回归检查。
 
 ```rust
 #[test]
@@ -135,31 +135,30 @@ fn test_statement() {
 }
 ```
 
-Later during the code generation phase we used this extensively to check our assembly output on test programs.
+在后面的代码生成阶段，我们广泛地使用它来检查测试程序上的汇编输出。
 
-## Semantic analysis
+## 语义分析
 
-About half of our compiler is in the middle-end passes which compute information necessary for code generation and verify various correctness properties. This includes:
+编译器大约有一半的工作量是在中端，主要是计算代码生成和验证各种正确的属性信息。包括以下内容：
 
-* Resolving variable and type names.
-* Folding constant expressions like `5*3+2` into numbers.
-* Checking many different constraints of the Java class/interface hierarchy.
-* Checking that all statements are reachable and all non-`void` functions return.
-* Resolving types of all expressions and checking their correctness.
+* 解析变量和类型名称
+* 转换形如 `5*3+2` 的常量表达式为数字
+* 检查很多不同的 Java 类 / 接口结构的限定。
+* 检查所有语句都是可用的，以及非 `void` 函数的返回。
+* 解析所有表达式的类型并检查它们是否正确。
 
-### Visitor infrastructure
+### Visitor 基础构造
 
-Most of the passes in the middle of our compiler only care about certain AST nodes, but need to act on those nodes anywhere they might occur in the AST. One way to do this would be to pattern match through the whole AST in every patch, but there’s a lot of nodes so that would involve a lot of duplication.
+编译器中端中的大部分地方只关心能确定的 AST 节点，但是也需要对那些在 AST 的任何位置可能出现的节点有效。一种方法是通过整个 AST 对每个补丁进行模式匹配，但如此多的节点会导致大量的重复。
 
-Instead we have a `Visitor` trait (like an interface in other languages) which can be implemented by a compiler pass. It has callbacks only for the events we actually need, which can run code at various points in the traversal of the AST, as well as modify the AST in place. All the callbacks have default implementations that do nothing so that passes only need to implement the methods they need.
+相反，我们有 `Visitor` trait（类似于其他语言中的接口），可以通过“编译器传递”来实现它。它只对我们实际需要的事件有回调，这些回调可以在遍历 AST 节点时的不同地方运行代码，也可以在适当的位置修改 AST。所有回调都有默认的实现，默认情况下它们什么也不做，因此“编译器传递”只需要实现它们需要的方法。
 
 ```rust
-// We use a dynamic error type here so we don't have to make the visitor generic and
-// instantiate it a bunch for every error type
+// 我们使用了一个动态错误类型，这样就不必让“访问者”成为通用状态，并为每种错误类型实例化它。
 pub type VResult = Result<(), Box<std::error::Error>>;
 
 pub trait Visitor {
-    // used for resolving variable references
+    // 用于解析变量引用
     fn visit_var_ref(&mut self, _t: &mut VarRef) -> VResult {
         Ok(())
     }
@@ -168,22 +167,21 @@ pub trait Visitor {
         Ok(())
     }
 
-    // `finish_` methods get passed the result of traversing their body so that they
-    // can wrap errors to provide better location information
+    // `finish_` 方法遍历它们的主体后，产生对应的结果，并将此结果传递给它们，以便它们能够包装错误以提供更好的上下文信息
     fn finish_method(&mut self, _t: &mut Method, res: VResult) -> VResult {
         res
     }
 
-    // like a `finish_` method except it doesn't need the result
+    // 类似于 `finish_` 方法，只是它不需要结果
     fn post_expr(&mut self, _t: &mut Expr) -> VResult {
         Ok(())
     }
 
-    // ... a bunch of other methods
+    // ... 一些其他方法
 }
 ```
 
-Passes that implement `Visitor` are driven by dynamically dispatched calls from the `Visitable` trait, which is implemented by every AST node and traverses the whole tree in evaluation order. A cool Rust feature we make good use of is “blanket impls” which make the logic for handling AST children that are in containers clean and uniform.
+实现 `Visitor` 的传递由 `Visitable` trait 的动态分派调用驱动。每个 AST 节点都实现这个 trait，并按赋值顺序遍历整个树。我们充分利用了 Rust 的一个很酷的特性是“blanket impls”，这使得处理处于容器内的 AST  的逻辑干净而统一。
 
 ```rust
 pub trait Visitable {
@@ -199,7 +197,7 @@ impl<T: Visitable> Visitable for Vec<T> {
     }
 }
 
-// ... other blanket impls for Option<T> and Box<T>
+// ... Option<T> 和 Box<T> 的其它 blanket impls
 
 impl Visitable for TypeKind {
     fn visit(&mut self, v: &mut dyn Visitor) -> VResult {
@@ -215,7 +213,7 @@ impl Visitable for TypeKind {
 impl Visitable for ForStatement {
     fn visit(&mut self, v: &mut dyn Visitor) -> VResult {
         v.start_for_statement(self)?;
-        // closure allows us to use ? to combine results
+        // 闭包允许我们使用吗？合并结果
         let res = (|| {
             self.init.visit(v)?;
             self.condition.visit(v)?;
@@ -226,7 +224,7 @@ impl Visitable for ForStatement {
     }
 }
 
-// ... many other Visitable implementations
+// ... 很多其它可见的实现
 ```
 
 This made a lot of our passes much easier. For example constant folding just overrides the `post_expr` method, checks if the children of an expression are constants and if so uses `mem::replace` to replace the node with a constant.
