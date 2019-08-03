@@ -27,7 +27,7 @@
 
 当被问及对 Flutter 生态系统的不满时，大多数受访者选择的原因是“我需要的关键包 **不存在** ”（18％），这可能是对较新技术的期待。
 
-我们很高兴地发现我们的社区正在积极地构建 Flutter 包生态系统。15％ 的受访者有为 Flutter 开发软件包的经验，59％ 的受访者已将他们的软件包发布到 pub.dev ，这是一个为 Flutter 和 Dart 应用程序共享依赖包的网站。如果您已经编写了一个包但尚未发布，你可以阅读 [开发包和插件](https://flutter.dev/docs/development/packages-and-plugins/developing-packages) 在 [flutter.dev](http://flutter.dev) 上，并通过发布您的包来为 Flutter 社区做贡献。这并不难 —— 那些通过 [pub.dev](http://pub.dev)发布过包的贡献者，有 81％ 认为 **非常容易** 或 **很容易**。
+我们很高兴地发现我们的社区正在积极地构建 Flutter 包生态系统。15％ 的受访者有为 Flutter 开发软件包的经验，59％ 的受访者已将他们的软件包发布到 pub.dev，这是一个为 Flutter 和 Dart 应用程序共享依赖包的网站。如果您已经编写了一个包但尚未发布，你可以阅读 [开发包和插件](https://flutter.dev/docs/development/packages-and-plugins/developing-packages) 在 [flutter.dev](http://flutter.dev) 上，并通过发布您的包来为 Flutter 社区做贡献。这并不难 —— 那些通过 [pub.dev](http://pub.dev) 发布过包的贡献者，有 81％ 认为 **非常容易** 或 **很容易**。
 
 如果您不知道该与 Flutter 社区分享哪个依赖包，请访问 GitHub 上的 Flutter 存储库并搜索 [issues labeled with “would be a good package”](https://github.com/flutter/flutter/issues?q=is%3Aopen+is%3Aissue+label%3A%22would+be+a+good+package%22+sort%3Areactions-%2B1-desc) 看看有什么要求。您可以对自己喜欢的项目进行投票，以提高其可见度。
 
