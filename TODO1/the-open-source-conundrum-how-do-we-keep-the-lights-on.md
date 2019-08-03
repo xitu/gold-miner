@@ -2,128 +2,128 @@
 > * 原文作者：[Eric Berry](https://codefund.io/author/eric-berry)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-conundrum-how-do-we-keep-the-lights-on.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-conundrum-how-do-we-keep-the-lights-on.md)
-> * 译者：
+> * 译者：[lihanxiang](https://github.com/lihanxiang)
 > * 校对者：
 
-# The Open Source Conundrum: How Do We Keep the Lights On?
+# 开源难题：如何保持热情？
 
-## Thoughts behind Open Source funding need to change if open source is to remain sustainable well into the future.
+## 若要保持开源行为在未来发展的可持续性，资金幕后的想法需要发生转变。
 
-Open source software (OSS) can be defined using a myriad of criteria in today's complex development ecosystem. In this article, it’s defined as those programs that enable royalty-free distribution, the release of the source code, and the requirement for all modifications to be distributed under the same terms as the original software license. With the appropriate context established, let’s explore the challenges facing OSS.
+开源软件 (OSS) 在当今复杂的发展生态中有着不计其数的标准。在此文中，它的定义是：源代码发布，以及所有与之相关的修改都必须按照与原始软件所持有的开源许可证一致，并且支持免版税发布的程序。在此基础之上，我们来探讨一下 OSS 所面临的挑战。
 
-Since the beginning of the Internet, OSS has contributed tremendous value to the tech community. By sharing source code with the broader development community, applications are typically pushed through the [software development lifecycle](https://stackify.com/what-is-sdlc/) (SDLC) faster and at less cost. This source code also acts as a launching pad for countless other projects that are spared the time and expense of starting from scratch.
+自从互联网出现以来，OSS 已为科技界贡献了巨大的价值。通过在广泛的社区中共享源代码，应用程序可以在[系统生命周期](https://stackify.com/what-is-sdlc/)中更快地以更低成本推进。分享出来的源代码还可作为无数其他项目的启动平台，从而节省了从头开始的时间和费用。
 
-However, the profitability of OSS is exponentially [lower than proprietary software development](https://www.forbes.com/sites/forbestechcouncil/2018/02/22/why-pay-for-something-when-its-free/#6335810a3169). This situation is ironic given that [96% of applications have open source components](https://www.synopsys.com/content/dam/synopsys/sig-assets/reports/2018-ossra.pdf). In addition, the code base for those applications contains 57% open source code on average. These numbers suggest there is a blatant disconnect in the ecosystem. While end users capture immense value, those in the trenches continue to struggle.
+但，OSS 的盈利是呈指数级[低于专有软件开发](https://www.forbes.com/sites/forbestechcouncil/2018/02/22/why-pay-for-something-when-its-free/#6335810a3169)的。鉴于 [96% 的应用程序都具有开源组件](https://www.synopsys.com/content/dam/synopsys/sig-assets/reports/2018-ossra.pdf)，这就具有些许讽刺意味了。此外，这些应用程序的代码库中平均含有 57% 的开源代码。这些数字表明，在这个生态中存在严重的脱节。虽然最终用户获得了巨大的价值，但那些贡献者们却没有得到对应的报酬。
 
-**But what is OSS worth?** Based on an estimate calculated by Black Duck more than 6 years ago, it’s likely that the combined global value of open source software amounts to significantly more than $387 billion today.
+**但是。OSS 到底具有哪些价值？**基于 6 年前 Black Duck 的计算值，当今全球开源软件的综合价值可能超过 387 亿美元。
 
 ![undefined](https://cdn.buttercms.com/ZnftGc3OS4qxkF9Aa9My)
 
-Source: [2018 Open Source Security and Risk Analysis](https://www.synopsys.com/content/dam/synopsys/sig-assets/reports/2018-ossra.pdf)
+来源：[2018 年开源安全与风险分析](https://www.synopsys.com/content/dam/synopsys/sig-assets/reports/2018-ossra.pdf)
 
-#### The Motivation Behind Open Source Software
+#### 开源软件背后的动机
 
-You may be wondering why any developer would choose to work in OSS when proprietary development is far more profitable. **So, what exactly motivates developers to continue working on open source projects?** Unlike extrinsic motivation that is typically driven by the fear of consequence and the desire for reward, [OSS is pushed forward by intrinsic factors](https://www.zdnet.com/article/its-an-open-source-world-78-percent-of-companies-run-open-source-software/).
+你可能会纳闷：为什么有开发者在专有软件开发更有利可图的时候，选择参与 OSS 的工作。那么，**究竟是什么促使着开发者一直在为开源项目工作？**与由对后果的恐惧以及对奖励的渴望所驱动的外在动机不同的是，[OSS 的向前推动是由开发者的内在因素促成的](https://www.zdnet.com/article/its-an-open-source-world-78-percent-of-companies-run-open-source-software/)。
 
-Open source developers are often **personally invested** in pushing a project forward because it’s a hobby, they have fun doing it and enjoy learning, or they want to create something for the good of all. This altruistic approach puts people before profits and is in complete contrast to the profitability pursued by proprietary applications.
+开源工作者将推进项目作为一项自我投资的爱好，他们乐在其中并且享受从中学到的知识，抑或是他们想为世界作出自己的贡献。这种利他主义推动者人们将利益抛诸脑后，与以盈利为主的专有化应用开发形成鲜明对比。
 
-#### Roles in the Open Source Ecosystem
+#### 开源生态中的角色
 
-For those altruistic developers that continue to support open source initiatives, there are defined roles that typically characterize participants.
+对于那些在开源中不断贡献的利他主义开发者，通常会被定义为是参与者。
 
-##### Contributors
+##### 贡献者
 
-Contributors can be described as those that give back to a program or application in some capacity. Their contributions might include bug fixes, building features, enhancing documentation, and fixing typos.
+作为程序或应用开发的贡献者，他们的主要贡献可能包括漏洞修复，功能开发，文档撰写以及语法纠正。
 
-##### Maintainers
+##### 维护者
 
-Those that fall under this category are participants that drive the vision of a project and manage its organizational components. Tasks may include performing bug triage, reviewing pull requests (PR), and directing the overall project. This work is an ongoing obligation that is often unappreciated by the greater community.
+这一类别的人员主是推进项目版本，以及管理程序组件的参与者。他们的主要任务是进行漏洞分类，检查 pull requests (PR) 以及指导整个项目。这是一份通常是不被大型社区所认可的，但又需要持续投入的工作。
 
-What most don’t realize is that 65% of all OSS repositories [generate a Truck Factor of 2](https://medium.com/@aserg.ufmg/what-is-the-truck-factor-of-github-projects-bb0d5f019a6f). A Truck Factor reflects the number of developers that must leave (get hit by a truck, win the lottery, etc.) before a project becomes unsustainable. This description paints a precarious picture of the open source ecosystem and its future viability. Semantic UI is only one example of a project that is no longer sustainable, its sole developer stating:
+大多数人都没有意识到的是，在所有的 OSS 仓库中，有 65% 的[卡车因子为 2](https://medium.com/@aserg.ufmg/what-is-the-truck-factor-of-github-projects-bb0d5f019a6f)。卡车因子反映了在一个项目中变为不可持续的时候（被卡车撞上或赢了彩票等等），其开发者所离开的数量。这描绘出了开原生态以及其未来可行性的不稳定图景。Semantic UI 就是一个不再可持续的项目，他的唯一开发者如是说：
 
-> **“After having spent ~ 3 years of my life trying to make OS work with part-time proprietary work, or just plain being broke. I don’t think I know any other way that seems reasonable without compromising the software. Unfortunately, it means I have to push back development until I can find the means of financing to sustain it.”**
+> **“我在花费了三年的业余时间，投入于 OSS 的工作。在不影响软件功能的前提下，我找不出任何的方法来完成。不幸的是，这就意味着我必须要推迟开发进度直到我得到合适的融资来完成它。”**
 
-#### Using Money as an Incentive for Open Source
+#### 用奖金鼓励开源
 
-While OSS may appear “free,” to the greater community, maintainers and contributors bear the brunt of user demands with minimal resources. To bring attention to this concerning trend, a group of 100 people gathered in San Francisco last year in hopes of changing the way we think about the sustainability of open source software.
+OSS 对于大型社区来说或许代表着免费，但是对于开发者和维护者来说，他们将以最少的资源来应对用户需求的冲击。去年，为了引起人们对这种趋势的重视，有 100 人聚集在旧金山，致力于改变我们对于开源软件可持续发展的看法。
 
-In their resulting report, this group reiterated how a small group of individuals supports critical pieces of OSS with no financial support or contractual obligation. As a result, the goodwill of a few can no longer sustain the increasing demands of the greater OS ecosystem. **But what is the answer to this dilemma?** It might seem simple, but the concept is a relatively new one.
+在他们的最终报告中，这个群体重申了一小部分人员是如何在没有财政支持以及合同义务的情况下，支撑起了 OSS 的关键部分。其结果是，少数人的善意再也无法满足 OSS 生态日益发展的需求。**所以，该如何解决这一困境呢？**看上去容易，但是需要引入一个新的概念。 
 
-**Use money as an incentive for open source.**
+**用奖金鼓励开源**
 
-And that’s precisely what companies like [Gitcoin](https://gitcoin.co/) and [CodeFund](https://codesponsor.io/) are trying to do. While their strategies differ, the end goal is the same - exploring how to better #fundl open source development.
+恰如 [Gitcoin](https://gitcoin.co/) 和 [CodeFund](https://codesponsor.io/) 正在做的一样。虽然策略不同，但最终目标是一致的 —— 探索如何更好地进行开源。
 
-#### Incentivizing Open Source Software
+#### 鼓励开源软件
 
-When it comes to incentivizing OSS development, there are several mechanisms to explore. While some have been tried before, others are more progressive. Each has its pros and cons, and all aim to better #fundl open source.
+当涉及到 OSS 开发时，有几种机制还待探讨。虽然有些已尝试过，但其它的或许是更优解。每种方式都有其优缺点，但是最终目的都是为了更好地促进开源。
 
 ![oss-conundrum-2.png](https://cdn.buttercms.com/E89ikPXhRTu5MktD3FHx)
 
-#### Donations
+#### 捐赠
 
-Donations are quite straight-forward; developers can ask for money from others to fund projects. Donations encompass grants, sponsorships, donation buttons, and the establishment of foundations. While donations present a low barrier of entry and allow developers to focus on code, there are considerable drawbacks to this approach.
+捐赠是一种较为直接的方式，开发者能够向他人寻求资金帮助以用于项目开发。捐赠的方式包含了补助、赞助、捐赠按钮以及建立基金会。虽然捐赠的方式提供了一个较低的门槛，并且能够使得开发者专注于代码，但这种方式有着巨大的缺陷。
 
-For instance, without consistent active fundraising, there is likely to be a drop off in donations. Also, without a broad audience, developers may not be able to attract enough attention to garner substantial funding.
+例如，如果没有持续的积极筹款，捐赠的数额就将会减少。另外，如果项目的受众不够广泛，开发者就无法吸引足够的注意力来获得资金赞助。 
 
 ![oss-conundrum-3.png](https://cdn.buttercms.com/tOHkRk9QnmUIwUpKNHNw)
 
-Support
+支持 Support
 
-Developers can sell time, training material, and merchandise using this method. When funding projects using this approach, programs can offer end users books, paid training, merchandise, and even consulting services. This method can be leveraged as a useful marketing tool while also giving developers a clear understanding of end-user needs throughout the project.
+开发者能够通过这种方式，来出售服务时间、教程和商品等。当选用这种方式自助项目时，开发者能够提供为最终用户提供相关书籍、付费培训、商品，甚至是咨询服务。这种方式可作为一种实际的营销工具，同时能够让开发者清楚的了解到最终用户在整个项目中的需求。       
 
-However, smaller OSS projects may not benefit from this funding method due to their inability to support a large user base. Also, paid training is rarely in demand and this heavily customer-centric approach can take valuable time away from coding.
+但是，小型的 OSS 项目因为缺乏大型用户群，所以可能不会从这种资助方式中获益。同时，付费培训的需求相对较少，这种以用户为中心的方法可能会占用编写代码的宝贵时间。
 
 ![oss-conundrum-4.png](https://cdn.buttercms.com/6Vwd374mQJGUzxRO1uGB)
 
-License and Usage
+许可证和使用权
 
-Projects can sell licenses, features, or paid hosting using this model. Developers might seek out venture capital, copyleft, open core, SaaS, and restricted license opportunities under this approach. The scalability of this funding model is promising if successful and has the potential to provide a full-time income.
+项目所有方可以这种模式出售相关许可证、特性以及付费托管。在这种方式下，开发者可能寻求风险投资、著佐权、open core、SaaS 以及受限的许可机会。如果成功，这种模式有望具有可伸缩性以及提供全职收入。
 
-While this is a promising option, once again small OSS projects may not benefit due to their limited user base and exposure. This approach can also become extremely time consuming and requires a strong entrepreneurial mindset, making it a challenging option for some developers.
+虽然这是一个有希望的选择，但是小型的 OSS 项目碍于受限的用户群体和曝光程度，或许不会从中受益。 这种方式也可能十分耗时，并且需要很强的创业精神，这对一些开发者来说，是一个具有挑战性的选择。
 
 ![oss-conundrum-5.png](https://cdn.buttercms.com/9mMl8dvcRgGh8kapTWtg)
 
-#### Areas of Overlap in Open Source Funding
+#### 开源资金的重叠
 
-Within the same framework, there are evident areas of overlap. These are the areas that CodeFund and Gitcoin have begun to exploit.
+在同一个框架下，存在着较为明显的重叠部分，这些是 CodeFund 和 Gitcoin 已经着手开发的领域。
 
 ![oss-conundrum-6.png](https://cdn.buttercms.com/UnAIRsBATRKuaMTwhmpZ)
 
-Crowdfunding
+众筹（Crowdfunding）
 
-Crowdfunding involves asking for one-time or recurring donations. In using this funding model, there are very few strings attached. It’s also easy to administer through the use of several platforms designed for this specific purpose - Patreon, Liberapay, Open Collective, and Flattr to name a few.
+众筹包含一次性或持续的捐款。在使用这种融资模式时，附加的条件较少。通过几个专门为此目的而设计的平台，比如 Patreon、Liberapay、Open Collective 和 Flattr，管理起来也较为容易。
 
-While appealing, recurring crowdfunding is hard to achieve as many don’t want to commit. Crowdfunding also generates fewer funds than other options and is typically not suitable for small OSS projects with less exposure.
+虽然很吸引人，但是持续的众筹是很难实现的，因为大多数人不想持续投入。众筹所获得的资金，也少于其他方式，通常不适用于用户群体和曝光度受限的小型 OSS 项目。
 
 ![oss-conundrum-7.png](https://cdn.buttercms.com/d9bDglWoTm67NXQhTHEB)
 
-Bounties
+奖金（Bounties）
 
-Bounties provide a financial incentive to those willing to contribute to open source. Bounty programs are highly inclusive and leverage a truly global talent pool. Also, the monetary reward is directly linked to a specific task or required project metric. This transparent process can often lead to full-time employment for those developers taking part. Gitcoin is one example of a successful bounty platform that delivers these benefits.
+奖金能够为那些愿意为开源做出贡献的开发者提供了经济鼓励。奖金计划具有高度包容性，以此利用全球的人才库。同时，特定的项目指标直接与奖金挂钩。这种透明化的过程，能够为参与其中的开发者带来全职工作。Gitcoin 就是一个提供这些好处的奖赏平台之一。
 
-And while the benefits are significant, there are some additional considerations. Bounties typically provide developers with minimal reward funds depending on the project and are usually not recurring. Bug bounty programs might also require developers to possess specialized security skills to work on a job.
-
-![oss-conundrum-8.png](https://cdn.buttercms.com/Bfrcc7j7SROcksfKis12)
-
-Advertising
-
-Advertising provides the most stable source of passive, recurring income out of all funding methods. However, there are several factors to consider when choosing to employ this funding method.
-
-Most importantly, a broad audience is required to ensure advertising is justifiable. Developers that use advertising must also consider the potential for lost trust and ethical concerns regarding marketing efforts. Conflict of interest is also possible should the advertisements displayed have any connection to the developer's project.
-
-In response to these challenges, CodeFund is working to eliminate the ethical concerns associated with developer advertising. In building an ethical advertising platform, CodeFund aims to help developers earn passive income in a trusted, reputable environment.
+虽然奖金数额较大，但是也有一些注意事项。奖金计划一般只提供给开发人员最低级别的奖励，并且通常是一次性的。Bug 奖金通常还要求获得者具有专门的安全技能来应对工作。
 
 ![oss-conundrum-8.png](https://cdn.buttercms.com/Bfrcc7j7SROcksfKis12)
 
-#### Changing the Trajectory of Open Source
+广告（Advertising）
 
-Open source software has long been lauded as the birthplace of countless high profile applications. However, while proprietary software continues to generate billions, OSS continues to languish with little to no funding. This reality needs to change if open source is to remain sustainable well into the future - this is critical.
+在所有的融资方式中，广告是最稳定、最持久的收入来源，但是在采用这种方式时，还有几个因素需要考虑。
 
-Moving forward, this small community of OSS maintainers and contributors needs to be robust and well-funded. If we fail to acknowledge the tremendous burden placed on those carrying the open source community, we’ll all suffer the consequences. Promising projects will be canceled, talented developers will flock to proprietary development, and the ecosystem that once generated immense innovative will cease to be.
+最重要的是，要确保广告的合理性，以及广泛的受众群体。使用广告进行推广项目的开发者还需要考虑潜在的信任缺失以及参与营销的道德问题。如果所展示的广告和项目有所牵连，也有可能产生利益纠纷。
 
-But not all is lost, we can do our part to keep the lights on. While developers must take action to fund their projects, we as consumers must shift our cultural perspective of OSS. Although open source may appear to be free, countless hours of human effort and burnt-out developers most certainly suggest otherwise.
+为了应对这些挑战，CodeFund 正致力于消除与开发者广告相关的道德困扰。CodeFund 旨在帮助开发者在一个值得信赖且声誉良好的环境中获得被动收入，建立一个道德广告平台。
 
-[Find out](https://codefund.io/publishers) if CodeFund can help fund your blog, application, or documentation website!
+![oss-conundrum-8.png](https://cdn.buttercms.com/Bfrcc7j7SROcksfKis12)
+
+#### 改变开源的方式
+
+开源软件在长期以来一直被视为是无数高端应用程序的发源地。然而，在专有软件持续收入达到数十亿美元之后，OSS 却因为资金不足而萎靡不振。如果要开源在未来保持良好的可持续性，这种情况需要发生改观 —— 这是重中之重。
+
+接下来，这个由 OSS 维护者和贡献者所组成的小型社区需要变得健壮，并且获得足够的资金支持。如果我们不承认，那些支撑着开源社区的人肩负的重大责任，那我们都将承担后果。有前途的项目将会被取消，优秀的开发者将涌向专有软件开发，曾经产生巨大创新的生态将不复存在。
+
+但我们现在还没有丢失一切，我们能做的就是尽一份力让这份善意持续。虽然开发者必须要为他们的项目拉取赞助，但我们需要改变对 OSS 的看法。尽管开源看上去是免费的，但这是精疲力竭的开发者耗费无数小时所得的产物。
+
+[了解一下](https://codefund.io/publishers) CodeFund 是否能为你的博客、应用或网站提供资金帮助！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
