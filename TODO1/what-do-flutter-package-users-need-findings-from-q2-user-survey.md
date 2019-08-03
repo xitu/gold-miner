@@ -5,7 +5,7 @@
 > * 译者：[solerji](https://github.com/solerji)
 > * 校对者：
 
-# 用户需要什么样的Flutter依赖包?  来自Q2用户调查的结果
+# 用户需要什么样的Flutter依赖包? 来自Q2用户调查的结果
 
 ![用Q2调查评论结果做出的词云](https://cdn-images-1.medium.com/max/3200/0*JGPtcSX7QYbN8Dvn)
 
