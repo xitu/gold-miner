@@ -11,7 +11,7 @@
 
 > 用Q2调查评论做出的词云 ☁️ （原始的 [图片](https://raw.githubusercontent.com/timsneath/wordcloud_flutter/master/flutter_wordcloud.png)，[代码](https://github.com/timsneath/wordcloud_flutter) 链接）。
 
-我们最近进行了第六季度用户调查，收集了超过 7,000 名 Flutter 用户的回复。我们发现 92.5％ 的受访者表示满意或非常满意，这一点略高于 [上一季度](https://medium.com/flutter/insights-from-flutters-first-user-survey-of-2019-3659b02303a5)！我们很高兴看到大家对 Flutter 的一致满意。在本文中，我们将讨论 Flutter 生态系统的一些深层次问题，因为我们认识到帮助 Flutter 社区发展生态系统非常重要。
+我们最近进行了第六季度用户调查，收集了超过 7,000 名 Flutter 用户的回复。我们发现 92.5％ 的受访者表示满意或非常满意，这一点略高于 [上一季度](https://medium.com/flutter/insights-from-flutters-first-user-survey-of-2019-3659b02303a5) ！我们很高兴看到大家对 Flutter 的一致满意。在本文中，我们将讨论 Flutter 生态系统的一些深层次问题，因为我们认识到帮助 Flutter 社区发展生态系统非常重要。
 
 ---
 
