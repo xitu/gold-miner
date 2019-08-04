@@ -62,7 +62,7 @@ CPU 相当愚蠢，它可以完成艰巨的任务，但只能理解机器语言�
 
 编程语言要么[被编译要么被执行](http://openbookproject.net/thinkcs/python/english2e/ch01.html)（Python 通过解释器解释执行），代码转换为较低级别的机器代码，告诉计算机的低级组件即硬件该做什么。
 
-有多种方法可以将代码转换为机器能识别的代码：你可以构建二进制文件并让编译器对其进行翻译（C++，Go，Rust 等），或直接运行代码并让解释器执行。 后者是 Python（以及 PHP，Ruby 和类似的脚本语言）的工作原理。
+有多种方法可以将代码转换为机器能识别的代码：你可以构建二进制文件并让编译器对其进行翻译（C++，Go，Rust 等），或直接运行代码并让解释器执行。后者是 Python（以及 PHP，Ruby 和类似的脚本语言）的工作原理。
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/interpret.png)
 
@@ -70,7 +70,7 @@ CPU 相当愚蠢，它可以完成艰巨的任务，但只能理解机器语言�
 
 每一种语言都有数据类型，他们往往是你学习编程时的第一件要学习的事情。
 
-你可能看过这样的教程 (来自 Allen Downey 的优秀教材, [“像计算机科学家一样思考”](http://openbookproject.net/thinkcs/python/english3e/)),讲述了它们是什么。 简而言之，它们是表示内存中数据的不同方式。
+你可能看过这样的教程 (来自 Allen Downey 的优秀教材, [“像计算机科学家一样思考”](http://openbookproject.net/thinkcs/python/english3e/))，讲述了它们是什么。简而言之，它们是表示内存中数据的不同方式。
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/datatypes.png)
 
