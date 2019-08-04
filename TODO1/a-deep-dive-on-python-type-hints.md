@@ -13,7 +13,7 @@ Presser, Konstantin Makovsky 1900
 
 ## 简介
 
-自从 Python 的类型提示在 [2014](https://www.python.org/dev/peps/pep-0484/) 年发布以来, 人们便一直将他们应用到自己的代码中。我大胆的猜测目前大约有 20 ~ 30% 的 Python 3 代码在使用提示（有时也称为注释）。在去年我看到他们出现在越来越多的[书](https://www.manning.com/books/classic-computer-science-problems-in-python) 和教程中。
+自从 Python 的类型提示在 [2014](https://www.python.org/dev/peps/pep-0484/) 年发布以来, 人们便一直将他们应用到自己的代码中。我大胆的猜测目前大约有 20 ~ 30% 的 Python 3 代码在使用提示（有时也称为注释）。在去年我看到他们出现在越来越多的[书](https://www.manning.com/books/classic-computer-science-problems-in-python)和教程中。
 
 > 事实上，我现在很好奇 - 如果你在积极地使用 Python 3 开发，你会在代码中使用注解和提示吗？
 > 
@@ -70,11 +70,11 @@ CPU 相当愚蠢，它可以完成艰巨的任务，但只能理解机器语言�
 
 每一种语言都有数据类型，他们往往是你学习编程时的第一件要学习的事情。
 
-你可能看过这样的教程 (来自 Allen Downey 的优秀教材, [“像计算机科学家一样思考”](http://openbookproject.net/thinkcs/python/english3e/))，讲述了它们是什么。简而言之，它们是表示内存中数据的不同方式。
+你可能看过这样的教程 (来自 Allen Downey 的优秀教材，[“像计算机科学家一样思考”](http://openbookproject.net/thinkcs/python/english3e/))，讲述了它们是什么。简而言之，它们是表示内存中数据的不同方式。
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/datatypes.png)
 
-根据所使用语言的不同，会有字符串，整数等其他类型. 比如 [Python 的基本数据类型](https://en.wikibooks.org/wiki/Python_Programming/Data_Types) 包含：
+根据所使用语言的不同，会有字符串，整数等其他类型。比如 [Python 的基本数据类型](https://en.wikibooks.org/wiki/Python_Programming/Data_Types) 包含：
 
 ```plain
 int, float, complex
@@ -157,7 +157,7 @@ sorted_x
 * 如果我们要处理调查数据，想要了解人们做或者没做某件事，这时使用表示是或否的布尔值将最恰当。
 * 在一个大的搜索引擎中，我们必须限制允许输入搜索框的字符数，因此我们需要对某些类型的字符串进行类型验证。
 
-现今在编程领域，有两种不停地类型系统：静态和动态。[Steve Klabnik](https://blog.steveklabnik.com/posts/2010-07-17-what-to-know-before-debating-type-systems), 写到：
+现今在编程领域，有两种不停地类型系统：静态和动态。[Steve Klabnik](https://blog.steveklabnik.com/posts/2010-07-17-what-to-know-before-debating-type-systems) 写到：
 
 > 在静态系统中，编译器检查源代码并将“类型”标签分配给代码中的参数，然后使用它们来推断程序行为的信息。动态类型系统中，编译器生成代码来跟踪程序使用的数据类型（也恰巧称为“类型”）。
 
@@ -466,7 +466,7 @@ mypy 有一些关于开发一个代码库的[很好建议](https://mypy.readthed
 
 例如，字典 [str, float] 表示你想检查一个字典，其中键是字符串类型，值是浮点数类型。
 
-还有一种叫 Optional 和 Union 的类型
+还有一种叫 Optional 和 Union 的类型。
 
 第三，如下是类型提示的形式：
 
