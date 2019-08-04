@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pika-web-a-future-without-webpack.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pika-web-a-future-without-webpack.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[MarchYuanx](https://github.com/MarchYuanx)
 
 # 愿未来没有 Webpack
 
@@ -33,13 +33,13 @@ JavaScript 打包不过是旧瓶装新酒罢了。在过去（哈哈，大概 6 
 
 [npm](https://npmjs.com) —— 彼时代表着“Node.js 包管理工具” —— 正在逐渐成为有史以来最大的代码注册中心。前端开发者们希望能参与其中。唯一的问题在于，其 Node.js 风格的模块系统（Common.js 或 CJS）不经过打包就不能在 Web 环境中运行。故此，Browserify、[Webpack](https://webpack.js.org) 以及其他现代 Web 打包工具应运而生。
 
-![a visualization of Create React App showing a ton of different dependencies 创建 React 应用的视觉化展现：一大堆依赖包](https://www.pika.dev/static/img/bundling-cra-graph-2.jpg)
+![创建 React 应用的视觉化展现：一大堆依赖包](https://www.pika.dev/static/img/bundling-cra-graph-2.jpg)
 
-**[直观感受创建 React 应用](https://npm.anvaka.com/#/view/2d/react-scripts)：运行“Hello World”需要超过 1300 个依赖包**
+**[直观感受创建 React 应用](https://npm.anvaka.com/#/view/2d/react-scripts)：运行“Hello World”需要安装超过 1300 个依赖包**
 
 ### 复杂性斯德哥尔摩综合征
 
-如今，想要开发 Web 项目，不用 [Webpack](https://webpack.js.org) 之类的打包工具基本是不可能了。就拿[创建 React 应用（Create React App，CRA）](https://facebook.github.io/create-react-app/)举例子，当你满心希望能快速上手，却发现需要先安装超过 1300 个不同的依赖包，整个臃肿的 `node_modules` 文件夹足足有 200.9MB 大小，而你只是想运行个“Hello World”啊！
+如今，想要开发 Web 项目，不用 [Webpack](https://webpack.js.org) 之类的打包工具基本是不可能了。就拿 [Create React App（CRA）](https://facebook.github.io/create-react-app/)快捷方式举例子，当你满心希望能快速创建项目，却发现需要先安装超过 1300 个不同的依赖包，整个臃肿的 `node_modules` 文件夹足足有 200.9MB 大小，而你只是想运行个“Hello World”啊！
 
 就像 Richard Hubbell 那样，我们都深陷于打包工具的泥沼之中，太容易忽略事物本可以截然不同。我们现在有这么多优秀的现代 ESM 依赖包可以使用（[npm 上差不多有 50000 个！](https://www.pika.dev/about/stats)）。是什么阻止我们直接在 Web 环境上使用它们？
 
@@ -66,7 +66,7 @@ npm install && npx @pika/web
 
 有了 @pika/web，打包工具带来的所有麻烦都被这个安装时工具内部消化了。只要你不想，打包工具的配置代码你一行都不用看。但话说回来，你当然可以继续使用你喜欢的其他工具：提升开发体验的（[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org)），抑或优化产品的（[Webpack](https://webpack.js.org)、[Rollup](https://rollupjs.org/)）。
 
-**这就是 @pika/web 的精神所在：因想要打包而打包，而不因不得不打包而打包。**
+**这就是 @pika/web 的精神所在：打包，只因你想，而非必须。**
 
 ![截图：源码可见](https://www.pika.dev/static/img/bundling-view-source.png)
 
@@ -80,7 +80,7 @@ npm install && npx @pika/web
 
 要说明的是，不对源代码进行打包处理，也不尽然总是十全十美的。针对在网络传输过程中的压缩效果而言，体积大的 JavaScript 文件要好于体积小、粒度细的文件。而在 [HTTP/2](https://developers.google.com/web/fundamentals/performance/http2/#request_and_response_multiplexing) 协议下，浏览器要花更多的时间去解析导入多个小文件的请求，解析完才能将后续请求发出去。
 
-这就需要你在性能、缓存效率和自己能接受的复杂度之间权衡。再说一遍，这是 @pika/web 的精神所在：因想用而用，不因不得不用而用。
+这就需要你在性能、缓存效率和自己能接受的复杂度之间权衡。再说一遍，这是 @pika/web 的精神所在：打包，只因你想，而非必须。
 
 ![一堆乐高积木](https://www.pika.dev/static/img/bundling-legos.jpg)
 
@@ -89,7 +89,7 @@ npm install && npx @pika/web
 @pika/web 完全改变了我们做 Web 开发的方式。下面是我们之前搭建 [pika.dev](https://www.pika.dev/) 的过程，我们向 2019 年的你强烈推荐，下一个 Web 应用就用 @pika/web 来帮助开发吧：
 
 1. 开始新项目时，先别引入打包工具。用现代 ESM 语法写代码，用 @pika/web 安装可以直接在 Web 环境运行的 npm 依赖包。不需要什么工具。
-2. 你可以随时添加工具。如果需要严格的类型机制，那就添加 [TypeScript](https://www.typescriptlang.org)；如果需要使用试验性的 JavaScript 功能，那就添加 [Babel](https://babeljs.io/)；如果需要压缩 JavaScript 代码，那就添加 [Terser](https://github.com/terser-js/terser)。半年多过去了，[pika.dev](https://www.pika.dev/) 在此阶段的开发过程仍然顺风顺水。
+2. 你可以随时添加工具。如果需要强类型机制，那就添加 [TypeScript](https://www.typescriptlang.org)；如果需要使用试验性的 JavaScript 功能，那就添加 [Babel](https://babeljs.io/)；如果需要压缩 JavaScript 代码，那就添加 [Terser](https://github.com/terser-js/terser)。半年多过去了，[pika.dev](https://www.pika.dev/) 在此阶段的开发过程仍然顺风顺水。
 3. 当你感觉需要用并且有时间用打包工具了，可以尝试给项目添加一个简单的打包工具。测试其性能如何。首屏加载是否迅速？那第二屏呢？如果都没问题，安排！
 4. 随着开发进程的推进，不断优化打包工具的配置。
 5. 等你预算充足了，就聘请一位 Webpack 专家。恭喜恭喜！如果你有足够资源能聘到一位 Webpack 专家，那你就算是正式地修成正果了。
