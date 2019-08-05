@@ -7,7 +7,7 @@
 
 # XGBoost 算法万岁！
 
-![[Jared Subia 供图](https://unsplash.com/photos/QczH4IiPNx0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) [Unsplash](https://unsplash.com/search/photos/tiara?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7260/1*kgJB2bz_asCdAsRd2pT0CA.png)
+![[Jared Subia 供图](https://unsplash.com/photos/QczH4IiPNx0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) [Unsplash](https://unsplash.com/search/photos/tiara?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://miro.medium.com/max/700/1*kgJB2bz_asCdAsRd2pT0CA.png)
 
 > 机器学习算法的新女王将接管整个世界……
 
@@ -17,7 +17,7 @@
 
 **“别担心！你只要了解回归模型就行了！”**
 
-我仔细想了想，“明白了！” — 无论是线性回归还是逻辑回归我都了解。老板是对的，在我的任期内，专门构建基于回归的统计学模型。我并不是孤身一人，因为在那时，回归模型是无可争议的预测分析女王。15 年后，回归模型的时代结束了，这位老女王已经退位。新上任的女王有着时髦的名字：XGBoost 或 Extreme Gradient Boosting。
+我仔细想了想，“明白了！” —— 无论是线性回归还是逻辑回归我都了解。老板是对的，在我的任期内，专门构建基于回归的统计学模型。我并不是孤身一人，因为在那时，回归模型是无可争议的预测分析女王。15 年后，回归模型的时代结束了，这位老女王已经退位。新上任的女王有着时髦的名字：XGBoost 或 Extreme Gradient Boosting。
 
 ***
 
@@ -54,7 +54,7 @@ XGBoost 算法是华盛顿大学在科研工程中开发的。[陈天奇与 Carl
 
 5. **梯度提升（Gradient Boosting）**：Boosting 的特例，用梯度下降算法来将误差最小化。比如，咨询公司用案例面试来剔除不太合格的候选人。
 
-6. **XGBoost**：可以认为 XGBoost 就是“打了兴奋剂”的梯度提升（因此它全称是“Extreme Gradient Boosting” — 极端梯度提升）。它是软件和硬件优化技术的完美结合，可以在最短的时间内用较少的计算资源得到出色的结果。
+6. **XGBoost**：可以认为 XGBoost 就是“打了兴奋剂”的梯度提升（因此它全称是“Extreme Gradient Boosting” —— 极端梯度提升）。它是软件和硬件优化技术的完美结合，可以在最短的时间内用较少的计算资源得到出色的结果。
 
 ***
 
@@ -86,13 +86,13 @@ XGBoost 和梯度提升机（Gradient Boosting Machines，GBM）都是集成（e
 
 ## Where is the proof?
 
-我们使用 Scikit-learn 的 `[Make_Classification](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html)` 数据包，创建了一个包含 100 万个数据点、20 个特征（其中包括 2 个信息性特征与 2 个冗余特征）的随机样本集，并用它测试几种算法：逻辑回归、随机森林、标准梯度提升和 XGBoost。
+我们使用 Scikit-learn 的 [`Make_Classification`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html) 数据包，创建了一个包含 100 万个数据点、20 个特征（其中包括 2 个信息性特征与 2 个冗余特征）的随机样本集，并用它测试几种算法：逻辑回归、随机森林、标准梯度提升和 XGBoost。
 
 ![XGBoost vs. Other ML Algorithms using SKLearn’s Make_Classification Dataset](https://cdn-images-1.medium.com/max/2000/1*U72CpSTnJ-XTjCisJqCqLg.jpeg)
 
 如上图所示，与其它算法相比，XGBoost 模型得到了最好的预测性能与最短的处理时间。研究发现，在其它严格的[基准测试](https://github.com/szilard/benchm-ml)中，也能得到类似的结果。因此，XGBoost 在最近的数据科学比赛中被广泛采用，也是意料之中的事。
 
-> “当你举棋不定的时候，用 XGBoost 就对了” — [Avito](http://blog.kaggle.com/2015/08/26/avito-winners-interview-1st-place-owen-zhang/) Kaggle 上下文广告点击预测大赛冠军 Owen Zhang 如是说。
+> “当你举棋不定的时候，用 XGBoost 就对了” —— [Avito](http://blog.kaggle.com/2015/08/26/avito-winners-interview-1st-place-owen-zhang/) Kaggle 上下文广告点击预测大赛冠军 Owen Zhang 如是说。
 
 ***
 
