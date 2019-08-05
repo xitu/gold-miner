@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-train-an-object-detection-model-with-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-train-an-object-detection-model-with-keras.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve)，[zhmhhu](https://github.com/zhmhhu)
 
 # 如何使用 Keras 训练目标检测模型
 
 目标检测是一项很有挑战性的计算机视觉类课题，它包括预测目标在图像中的位置以及确认检测到的目标是何种类型的物体。
 
-基于掩模区域的卷积神经网络模型，或者我们简称为 Mask R-CNN，是目标检测中最先进的方法之一。Matterport Mask R-CNN 项目为我们提供了可用于开发与测试 Mask R-CNN 的 Keras 模型的库，我们可用其来完成我们自己的目标检测任务。尽管它可以通过迁移那些在非常具有挑战性的目标检测任务中训练出来的最佳模型的学习，进行快速的训练，例如 MS COCO，但是对于初学者来说，使用这个库可能有些困难，并且它还需要开发者仔细准备好数据集，
+基于掩膜区域的卷积神经网络模型，或者我们简称为 Mask R-CNN，是目标检测中最先进的方法之一。Matterport Mask R-CNN 项目为我们提供了可用于开发与测试 Mask R-CNN 的 Keras 模型的库，我们可用其来完成我们自己的目标检测任务。尽管它利用了那些在非常具有挑战性的目标检测任务中训练出来的最佳模型，如 MS COCO ，来供我们进行迁移学习，但是对于初学者来说，使用这个库可能有些困难，并且它还需要开发者仔细准备好数据集，
 
 在这篇教程中，你将学习如何训练可以在照片中识别袋鼠的 Mask R-CNN 模型。
 
@@ -44,7 +44,7 @@
 
 这是一个很有挑战性的问题，涵盖了目标识别（例如，找到目标在哪里），目标定位（例如，目标所处位置的范围），以及目标分类（例如，目标是哪一类物体）这三个问题的模型构建方法。
 
-基于区域的卷积神经网络，即 R-CNN，是卷积神经网络模型家族中专为目标检测而设计的，它的开发者是 [Ross Girshick](http://www.rossgirshick.info/) 等人。这种方法大约有四个主要的升级变动，结果就是形成了目前最优的 Mask R-CNN。Mask R-CNN 在 2018 年的文章“[Mask R-CNN](https://arxiv.org/abs/1703.06870)”中被首次介绍，它是基于区域的卷积神经网络的模型家族中最新的版本，能够同时支持目标检测与目标分割。目标分割不仅包括了目标在图像中的定位，并且包括指定图像的掩模，以及准确指示出图像中的哪些像素属于该对象。
+基于区域的卷积神经网络，即 R-CNN，是卷积神经网络模型家族中专为目标检测而设计的，它的开发者是 [Ross Girshick](http://www.rossgirshick.info/) 等人。这种方法大约有四个主要的升级变动，结果就是形成了目前最优的 Mask R-CNN。Mask R-CNN 在 2018 年的文章“[Mask R-CNN](https://arxiv.org/abs/1703.06870)”中被首次介绍，它是基于区域的卷积神经网络的模型家族中最新的版本，能够同时支持目标检测与目标分割。目标分割不仅包括了目标在图像中的定位，并且包括指定图像的掩膜，以及准确指示出图像中的哪些像素属于该对象。
 
 与简单模型，甚至最先进的深度卷积神经网络模型相比，Mask R-CNN 是一个应用复杂的模型。与其要从头开始开发 R-CNN 或者 Mask R-CNN 模型应用，不如使用一个可靠的基于 Keras 深度学习框架的第三方应用。
 
@@ -128,13 +128,13 @@ Finished processing dependencies for mask-rcnn==2.1
 
 确认库已经正确安装永远是一个良好的习惯。
 
-你可以通过 pip 命令来请求库来确认它已经正确安装；例如：
+你可以通过 pip 命令来请求库来确认它是否已经正确安装；例如：
 
 ```
 pip show mask-rcnn
 ```
 
-你应该可以看到告知你版本号和安装地址的输出；例如：
+你应该可以看到告知你版本号和安装地址的输出信息；例如：
 
 ```
 Name: mask-rcnn
@@ -156,7 +156,7 @@ Required-by:
 
 在本篇教程中，我们将会使用[袋鼠数据集](https://github.com/experiencor/kangaroo)，仓库的作者是 experiencor 即 [Huynh Ngoc Anh](https://www.linkedin.com/in/ngoca)。数据集包括了 183 张包含袋鼠的图像，以及一些 XML 注解文件，用来提供每张照片中袋鼠所处的边框信息。
 
-人们设计出的 Mask R-CNN 可以学习并同时预测出目标的边界以及检测目标的掩模，然而袋鼠数据集并不提供掩模信息。因此我们使用这个数据集来完成学习袋鼠目标检测的任务，同时忽略掉掩模，并不将重点放在模型的图像分割能力上。
+人们设计出的 Mask R-CNN 可以学习并同时预测出目标的边界以及检测目标的掩膜，然而袋鼠数据集并不提供掩膜信息。因此我们使用这个数据集来完成学习袋鼠目标检测的任务，同时忽略掉掩膜，我们不关心模型的图像分割能力。
 
 在准备训练模型的数据集之前，还需要几个步骤，这些步骤我们将会在这一章中逐个完成，包括下载数据集，解析注解文件，建立可用于 _Mask_RCNN_ 库的袋鼠数据集对象，然后还要测试数据集对象，以确保我们能够正确的加载图像和注解文件。
 
@@ -178,7 +178,7 @@ kangaroo
 └── images
 ```
 
-让我们查看一下每个子目录，可以看到图像和注解文件都遵循了一致的命名约定，即五位零填充编号系统；例如：
+让我们查看一下每个子目录，可以看到图像和注解文件都遵循了一致的命名约定，即五位零填充编号系统（5-digit zero-padded numbering system）；例如：
 
 ```
 images/00001.jpg
@@ -351,7 +351,7 @@ def extract_boxes(filename):
 
 mask-rcnn 需要 [mrcnn.utils.Dataset 对象](https://github.com/matterport/Mask_RCNN/blob/master/mrcnn/utils.py)来管理训练、校验以及测试数据集的过程。
 
-这就意味着，新建的类必须要继承 _mrcnn.utils.Dataset_ 类，并定义一个加载数据集的函数，这个函数可以任意命名，例如可以是 _load_dataset()_，它会重载用于加载掩模的函数 _load_mask()_ 以及用于加载图像引用（路径或者 URL）的函数 _image_reference()_。
+这就意味着，新建的类必须要继承 _mrcnn.utils.Dataset_ 类，并定义一个加载数据集的函数，这个函数可以任意命名，例如可以是 _load_dataset()_，它会重载用于加载掩膜的函数 _load_mask()_ 以及用于加载图像引用（路径或者 URL）的函数 _image_reference()_。
 
 ```
 # 用于定义和加载袋鼠数据集的类
@@ -360,7 +360,7 @@ class KangarooDataset(Dataset):
 	def load_dataset(self, dataset_dir, is_train=True):
 		# ...
 
-  # 加载图像掩模
+  # 加载图像掩膜
 	def load_mask(self, image_id):
 		# ...
 
@@ -423,9 +423,9 @@ def load_dataset(self, dataset_dir):
 		self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 ```
 
-我们可以更进一步，为函数增加一个参数，用于定义 _Dataset_ 的实例是用于训练、测试还是验证。我们有大约 160 张图像，所以我们可以使用其中的大约 20%，或者说最后的 32 张图像作为测试集或验证集，将开头的 131 张，或者说 80% 的图像作为训练集。
+我们可以更进一步，为函数增加一个参数，这个参数用于定义 _Dataset_ 的实例是用于训练、测试还是验证。我们有大约 160 张图像，所以我们可以使用其中的大约 20%，或者说最后的 32 张图像作为测试集或验证集，将开头的 131 张，或者说 80% 的图像作为训练集。
 
-可以使用文件名中的数字来完成图像的分类，图像数字在 150 之前的图像将会被用于训练，等于或者大于 150 的将用于测试。更新后的 _load_dataset()_ 函数可以支持训练和测试数据集，其代码如下：
+可以使用文件名中的数字编号来完成图像的分类，图像编号在 150 之前的图像将会被用于训练，等于或者大于 150 的将用于测试。更新后的 _load_dataset()_ 函数可以支持训练和测试数据集，其代码如下：
 
 ```
 # 加载数据集定义
@@ -454,11 +454,11 @@ def load_dataset(self, dataset_dir, is_train=True):
 		self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 ```
 
-接下来，我们需要定义函数 _load_mask()_，用于为给定的‘_image_id_’加载掩模。
+接下来，我们需要定义函数 _load_mask()_，用于为给定的‘_image_id_’加载掩膜。
 
-这时‘_image_id_’是数据集中图像的整数索引，该索引基于加载数据集时，图像通过调用函数 _add_image()_ 加入数据集的顺序。函数必须返回一个包含一个或者多个与 _image_id_ 关联的图像掩模的数组，以及每个掩模的类。
+这时‘_image_id_’是数据集中图像的整数索引，该索引基于加载数据集时，图像通过调用函数 _add_image()_ 加入数据集的顺序。函数必须返回一个包含一个或者多个与 _image_id_ 关联的图像掩膜的数组，以及每个掩膜的类。
 
-我们目前还没有 mask，但是我们有边框，我们可以加载给定图像的边框然后将其作为 mask 返回。接下来库将会从我们的“_masks_”推断出边框信息，它们的大小是相同的。
+我们目前还没有 mask，但是我们有边框，我们可以加载给定图像的边框然后将其作为 mask 返回。接下来库将会从“掩膜”推断出边框信息，因为它们的大小是相同的。
 
 我们必须首先加载注解文件，获取到 _image_id_。获取的步骤包括，首先获取包含 _image_id_ 的‘_image info_’字典，然后通过我们之前对 _add_image()_ 的调用获取图像的加载路径。接下来我们就可以在调用 _extract_boxes()_ 的时候使用该路径，这个函数是在前一章节中定义的，用于获取边框列表和图像尺寸。
 
@@ -471,23 +471,23 @@ path = info['annotation']
 boxes, w, h = self.extract_boxes(path)
 ```
 
-现在我们可以为每个边框定义一个掩模，以及一个相关联的类。
+现在我们可以为每个边框定义一个掩膜，以及一个相关联的类。
 
-掩模是一个和图像维度一样的二维数组，数组中不属于对象的位置值为 0，反之则值为 1。
+掩膜是一个和图像维度一样的二维数组，数组中不属于对象的位置值为 0，反之则值为 1。
 
 通过为每个未知大小的图像创建一个全 0 的 NumPy 数组，并为每个边框创建一个通道，我们可以完成上述的目标：
 
 ```
-# 为所有掩模创建一个数组，每个数组都位于不同的通道
+# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 masks  =  zeros([h,  w,  len(boxes)],  dtype='uint8')
 ```
 
-每个边框都可以被图像框的 _min_、_max_、_x_ 和 _y_ 坐标定义。
+每个边框都可以用图像框的 _min_、_max_、_x_ 和 _y_ 坐标定义。
 
-这些值可以被直接用于定义数组中值为 1 的行和列的范围。
+这些值可以直接用于定义数组中值为 1 的行和列的范围。
 
 ```
-# 创建掩模
+# 创建掩膜
 for i in range(len(boxes)):
 	box = boxes[i]
 	row_s, row_e = box[1], box[3]
@@ -495,7 +495,7 @@ for i in range(len(boxes)):
 	masks[row_s:row_e, col_s:col_e, i] = 1
 ```
 
-在这个数据集中，所有的对象都有相同的类。我们可以通过‘_class_names_’字典获取类的索引，然后将索引和掩模一并添加到需要返回的列表中。
+在这个数据集中，所有的对象都有相同的类。我们可以通过‘_class_names_’字典获取类的索引，然后将索引和掩膜一并添加到需要返回的列表中。
 
 ```
 self.class_names.index('kangaroo')
@@ -504,7 +504,7 @@ self.class_names.index('kangaroo')
 将这几步放在一起进行测试，最终完成的 _load_mask()_ 函数如下。
 
 ```
-# 加载图像掩模
+# 加载图像掩膜
 def load_mask(self, image_id):
   # 获取图像详细信息
 	info = self.image_info[image_id]
@@ -512,9 +512,9 @@ def load_mask(self, image_id):
 	path = info['annotation']
   # 加载 XML
 	boxes, w, h = self.extract_boxes(path)
-  # 为所有掩模创建一个数组，每个数组都位于不同的通道
+  # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 	masks = zeros([h, w, len(boxes)], dtype='uint8')
-  # 创建掩模
+  # 创建掩膜
 	class_ids = list()
 	for i in range(len(boxes)):
 		box = boxes[i]
@@ -595,7 +595,7 @@ class KangarooDataset(Dataset):
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩模
+  # 加载图像掩膜
 	def load_mask(self, image_id):
     # 获取图像详细信息
 		info = self.image_info[image_id]
@@ -603,9 +603,9 @@ class KangarooDataset(Dataset):
 		path = info['annotation']
     # 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩模创建一个数组，每个数组都位于不同的通道
+    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
-    # 创建掩模
+    # 创建掩膜
 		class_ids = list()
 		for i in range(len(boxes)):
 			box = boxes[i]
@@ -640,11 +640,11 @@ Train: 131
 Test: 32
 ```
 
-现在，我们已经定义好了数据集，我们还需要确认一下是否对图像，掩模以及边框进行了正确的处理。
+现在，我们已经定义好了数据集，我们还需要确认一下是否对图像、掩膜以及边框进行了正确的处理。
 
 ### 测试袋鼠数据集对象
 
-第一个有用的测试是，确认图像和掩模是否能够正确的加载。
+第一个有用的测试是，确认图像和掩膜是否能够正确的加载。
 
 创建一个数据集，以 _image_id_ 为参数调用 _load_image()_ 函数加载图像，然后以同一个 _image_id_ 为参数调用 _load_mask()_ 函数加载掩膜，通过这样的步骤，我们可以完成测试。
 
@@ -726,7 +726,7 @@ class KangarooDataset(Dataset):
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩模
+  # 加载图像掩膜
 	def load_mask(self, image_id):
     # 获取图像详细信息
 		info = self.image_info[image_id]
@@ -734,7 +734,7 @@ class KangarooDataset(Dataset):
 		path = info['annotation']
     # 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩模创建一个数组，每个数组都位于不同的通道
+    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
     # 创建掩膜
 		class_ids = list()
@@ -908,7 +908,7 @@ class KangarooDataset(Dataset):
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩模
+  # 加载图像掩膜
 	def load_mask(self, image_id):
     # 获取图像详细信息
 		info = self.image_info[image_id]
@@ -916,7 +916,7 @@ class KangarooDataset(Dataset):
 		path = info['annotation']
     # 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩模创建一个数组，每个数组都位于不同的通道
+    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
     # 创建掩膜
 		class_ids = list()
@@ -977,7 +977,7 @@ Mask R-CNN model 在 MS COCO 目标检测的预先拟合可以用作初始模型
 
 配置对象必须通过‘_NAME_’属性定义配置名，例如‘_kangaroo_cfg_’，在项目运行时，它将用于保存详细信息和模型到文件中。配置对象也必须通过‘_NUM_CLASSES_’属性定义预测问题中类的数量。在这个例子中，尽管背景中有很多其他的类，但我们只有一个识别目标，那就是袋鼠。
 
-最后我们还要定义每次训练中使用的样本（图像）数量。这也就是训练集中图像的数量，即 131。
+最后我们还要定义每轮训练中使用的样本（图像）数量。这也就是训练集中图像的数量，即 131。
 
 将这些内容组合在一起，我们自定义的 _KangarooConfig_ 类的定义如下。
 
@@ -988,7 +988,7 @@ class KangarooConfig(Config):
 	NAME = "kangaroo_cfg"
   # 类的数量（背景中的 + 袋鼠）
 	NUM_CLASSES = 1 + 1
-  # 每次训练的迭代数量
+  # 每轮训练的迭代数量
 	STEPS_PER_EPOCH = 131
 
 # 准备好配置信息
@@ -1001,7 +1001,7 @@ config = KangarooConfig()
 
 必须将‘config_’参数赋值为我们的 _KangarooConfig_ 类。
 
-最后，需要一个目录来存储配置文件以及每次训练结束后的模型检查点。我们就使用当前的工作目录吧。
+最后，需要一个目录来存储配置文件以及每轮训练结束后的模型检查点。我们就使用当前的工作目录吧。
 
 ```
 # 定义模型
@@ -1019,7 +1019,7 @@ model.load_weights('mask_rcnn_coco.h5', by_name=True, exclude=["mrcnn_class_logi
 
 下面，通过调用 _train()_ 函数并将训练集和验证集作为参数传递进去，模型将开始在训练集上进行拟合。我们也可以指定学习速率，配置默认的学习速率是 0.001。
 
-我们还可以指定训练那个层。在本文的例子中，我们只训练头部，也就是模型的输出层。
+我们还可以指定训练哪个层。在本文的例子中，我们只训练头部，也就是模型的输出层。
 
 ```
 # 训练权重（输出层，或者说‘头部’）
@@ -1033,7 +1033,7 @@ model.train(train_set, test_set, learning_rate=config.LEARNING_RATE, epochs=5, l
 就算将代码在性能不错的硬件上运行，也可能需要花费一些时间。所以我建议在 GPU 上运行它，例如 [Amazon EC2](https://machinelearningmastery.com/develop-evaluate-large-deep-learning-models-keras-amazon-web-services/)，在 P3 类型的硬件上，代码在五分钟内即可运行完成。
 
 ```
-# 在袋鼠数据集是那个拟合 mask rcnn 模型
+# 在袋鼠数据集上拟合 mask rcnn 模型
 from os import listdir
 from xml.etree import ElementTree
 from numpy import zeros
@@ -1089,7 +1089,7 @@ class KangarooDataset(Dataset):
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩模
+  # 加载图像掩膜
 	def load_mask(self, image_id):
     # 获取图像详细信息
 		info = self.image_info[image_id]
@@ -1097,7 +1097,7 @@ class KangarooDataset(Dataset):
 		path = info['annotation']
     # 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩模创建一个数组，每个数组都位于不同的通道
+    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
     # 创建掩膜
 		class_ids = list()
@@ -1120,7 +1120,7 @@ class KangarooConfig(Config):
 	NAME = "kangaroo_cfg"
   # 类的数量（背景中的 + 袋鼠）
 	NUM_CLASSES = 1 + 1
-  # 每次训练的迭代数量
+  # 每轮训练的迭代数量
 	STEPS_PER_EPOCH = 131
 
 # 准备训练集
@@ -1163,9 +1163,9 @@ Epoch 5/5
 131/131 [==============================] - 65s 493ms/step - loss: 0.3357 - rpn_class_loss: 0.0024 - rpn_bbox_loss: 0.0804 - mrcnn_class_loss: 0.0193 - mrcnn_bbox_loss: 0.0616 - mrcnn_mask_loss: 0.1721 - val_loss: 0.8878 - val_rpn_class_loss: 0.0030 - val_rpn_bbox_loss: 0.4409 - val_mrcnn_class_loss: 0.0174 - val_mrcnn_bbox_loss: 0.1752 - val_mrcnn_mask_loss: 0.2513
 ```
 
-每次训练结束后会创建并保存一个模型文件于子目录中，文件名以‘_kangaroo_cfg_’开始，后面是随机的字符。
+每轮训练结束后会创建并保存一个模型文件于子目录中，文件名以‘_kangaroo_cfg_’开始，后面是随机的字符。
 
-使用的时候，我们必须要选择一个模型；在本文的例子中，每次训练都会让边框选择的损失递减，所以我们将使用最终的模型，它是在运行‘_mask\_rcnn\_kangaroo\_cfg\_0005.h5_’后生成的。
+使用的时候，我们必须要选择一个模型；在本文的例子中，每轮训练都会让边框选择的损失递减，所以我们将使用最终的模型，它是在运行‘_mask\_rcnn\_kangaroo\_cfg\_0005.h5_’后生成的。
 
 将模型文件从配置目录拷贝到当前的工作目录。我们将会在接下来的章节中使用它进行模型的评估，并对未知图片作出预测。
 
@@ -1189,7 +1189,7 @@ Epoch 5/5
 
 数据集中所有图片的平均准确度的平均值（AP）被称为平均绝对精度，即 mAP。
 
-mask-rcnn 库提供了函数 _mrcnn.utils.compute_ap_，用于计算 AP 以及给定图片的其他指标。数据集中所有的 AP 值可以被集合在一起，并且计算均值可以让我们了解模型检测数据集中目标的准确度如何。
+mask-rcnn 库提供了函数 _mrcnn.utils.compute_ap_，用于计算 AP 以及给定图片的其他指标。数据集中所有的 AP 值可以被集合在一起，并且计算均值可以让我们了解模型在数据集中检测目标的准确度如何。
 
 首先我们必须定义一个 _Config_ 对象，它将用于作出预测，而不是用于训练。我们可以扩展之前定义的 _KangarooConfig_ 来复用一些参数。我们将定义一个新的属性值都相等的对象来让代码保持简洁。配置必须修改一些使用 GPU 进行预测时的默认值，这和在训练模型的时候的配置是不同的（那时候不用管你是在 GPU 或者 CPU 上运行代码的）。
 
@@ -1298,7 +1298,7 @@ print("Test mAP: %.3f" % test_mAP)
 完整的代码如下。
 
 ```
-# 评估袋鼠数据集伤的 mask rcnn 模型
+# 评估袋鼠数据集上的 mask rcnn 模型
 from os import listdir
 from xml.etree import ElementTree
 from numpy import zeros
@@ -1359,7 +1359,7 @@ class KangarooDataset(Dataset):
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩模
+  # 加载图像掩膜
 	def load_mask(self, image_id):
     # 获取图像详细信息
 		info = self.image_info[image_id]
@@ -1367,7 +1367,7 @@ class KangarooDataset(Dataset):
 		path = info['annotation']
     # 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩模创建一个数组，每个数组都位于不同的通道
+    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
     # 创建掩膜
 		class_ids = list()
@@ -1576,7 +1576,7 @@ def plot_actual_vs_predicted(dataset, model, cfg, n_images=5):
 	pyplot.show()
 ```
 
-完整的加载训练好的模型，并对数据集和测试集中前几张图像作出预测的代码如下。
+完整的加载训练好的模型，并对训练集和测试集中前几张图像作出预测的代码如下。
 
 ```
 # 使用 mask rcnn 模型在图像中检测袋鼠
@@ -1637,7 +1637,7 @@ class KangarooDataset(Dataset):
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩模
+  # 加载图像掩膜
 	def load_mask(self, image_id):
     # 获取图像详细信息
 		info = self.image_info[image_id]
@@ -1645,7 +1645,7 @@ class KangarooDataset(Dataset):
 		path = info['annotation']
     # 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩模创建一个数组，每个数组都位于不同的通道
+    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
     # 创建掩膜
 		class_ids = list()
@@ -1737,7 +1737,7 @@ plot_actual_vs_predicted(test_set, model, cfg)
 
 运行示例代码，将会创建一个显示训练集中前五张图像的绘图，并列的两张图像中分别包含了真实和预测的边框。
 
-我们可以看到，在这些示例中，模型的性能良好，它能够找出所有的袋鼠，甚至在包含两个或三个单数的图像中也是如此。右侧一列第二张图出现了一个小错误，模型在同一个袋鼠上预测出了两个边框。
+我们可以看到，在这些示例中，模型的性能良好，它能够找出所有的袋鼠，甚至在包含两个或三个袋鼠的单张图像中也是如此。右侧一列第二张图出现了一个小错误，模型在同一个袋鼠上预测出了两个边框。
 
 ![Plot of Photos of Kangaroos From the Training Dataset With Ground Truth and Predicted Bounding Boxes](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/Plot-of-Photos-of-Kangaroos-From-the-Training-Dataset-with-Ground-Truth-and-Predicted-Bounding-Boxes-1024x768.png)
 
