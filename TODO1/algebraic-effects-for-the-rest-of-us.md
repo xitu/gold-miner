@@ -413,9 +413,9 @@ function LikeButton() {
 
 我相信你可以用它们做更多的事情 —— 但是如果不用这种方式实际编写代码就很难理解它们的力量。如果这篇文章让你好奇，这里有一些你可能想要查看的资源：
 
-- https://github.com/ocamllabs/ocaml-effects-tutorial
-- https://www.janestreet.com/tech-talks/effective-programming/
-- https://www.youtube.com/watch?v=hrBq8R_kxI0
+* [https://github.com/ocamllabs/ocaml-effects-tutorial](https://github.com/ocamllabs/ocaml-effects-tutorial)
+* [https://www.janestreet.com/tech-talks/effective-programming/](https://www.janestreet.com/tech-talks/effective-programming/)
+* [https://www.youtube.com/watch?v=hrBq8R_kxI0](https://www.youtube.com/watch?v=hrBq8R_kxI0)
 
 许多人还指出，如果忽略「类型」这个角度的话（正如我在本文中所做的那样），你可以在Common Lisp 的  [条件系统](https://en.wikibooks.org/wiki/Common_Lisp/Advanced_topics/Condition_System) 中找到更早的现有技术。您可能也喜欢 James Long 的  [post on continuations](https://jlongster.com/Whats-in-a-Continuation) ，其解释了 `call/cc` 原语为何也可以作为在用户空间中构建可恢复异常的基础。
 
