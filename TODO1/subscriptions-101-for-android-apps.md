@@ -23,7 +23,7 @@
 
 ## 实时开发者通知
 
-[实时开发者通知(Real-time Developer notification,RTDN)](https://developer.android.com/google/play/billing/realtime_developer_notifications) 允许你通过 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/) 向服务器发送通知，了解到最新的订阅状态。
+[实时开发者通知（Real-time Developer notification,RTDN）](https://developer.android.com/google/play/billing/realtime_developer_notifications) 允许你通过 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/) 向服务器发送通知，了解到最新的订阅状态。
 
 当你接收到了实时开发者通知后，请验证通知内的购买令牌以及使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来检索该订阅的[详细信息](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions)。
 
@@ -35,27 +35,27 @@
 
 这个视频介绍了如何为订阅设置宽限期。这将允许订阅失败的用户在短时间内修复他们的付款信息，从而帮你留住用户。
 
-在 Google Play 控制台中，启动宽限期，同时在每一个订阅的设置中选择其宽限期的时长。当在你接收到了 RTDN ，它提醒你用户正处于宽限期的时候，使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 验证订阅状态。然后，在你的应用程序中为用户提供通知，用户可以使用 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到[订阅中心](https://play.google.com/store/account/subscriptions)，这使得用户能够轻松修复他们的付款设置。请记住，用户在宽限期间时应该保留其对订阅的访问权限。
+在 Google Play 控制台中，启动宽限期，同时在每一个订阅的设置中选择其宽限期的时长。当在你接收到了 RTDN，它提醒你用户正处于宽限期的时候，使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 验证订阅状态。然后，在你的应用程序中为用户提供通知，用户可以使用 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到[订阅中心](https://play.google.com/store/account/subscriptions)，这使得用户能够轻松修复他们的付款设置。请记住，用户在宽限期间时应该保留其对订阅的访问权限。
 
 ## 账户保留
 
 这个视频介绍了[账户保留](https://developer.android.com/google/play/billing/billing_subscriptions#account-hold---subscription_on_hold)，这对于其付款方式有问题的用户而言是一种方法。用户可以无需重新订阅，即可恢复他们对应用内容的访问权限。这可以提高用户保留率。
 
-在 Google Play 控制台 - 应用内产品部分 - 订阅选项卡中，展开里面的订阅设置菜单，在所有应用的订阅里启动账户保留。在你的后端服务器中，当你收到 RTDN ，它提醒你用户正处于账户保留状态时，请使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来验证订阅状态。然后，你应该阻止用户对订阅的访问，并让用户知道他们的付款方法有问题，然后提供一个 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到[订阅中心](https://play.google.com/store/account/subscriptions)，以便他们可以很轻松地修复其支付设置。
+在 Google Play 控制台 —— 应用内产品部分 —— 订阅选项卡中，展开里面的订阅设置菜单，在所有应用的订阅里启动账户保留。在你的后端服务器中，当你收到 RTDN，它提醒你用户正处于账户保留状态时，请使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来验证订阅状态。然后，你应该阻止用户对订阅的访问，并让用户知道他们的付款方法有问题，然后提供一个 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到[订阅中心](https://play.google.com/store/account/subscriptions)，以便他们可以很轻松地修复其支付设置。
 
 ## 取消与恢复
 
 允许用户在取消订阅后能很轻松地[恢复](https://developer.android.com/google/play/billing/billing_subscriptions#restore)订阅，这可以帮助你重新获得并保留以前的活跃用户。在用户已经取消了订阅后，他们将保留对你应用程序内容的访问权限，直到订阅期限到期。在这期间，他们可以轻松地在 [Google Play 订阅中心](https://play.google.com/store/account/subscriptions)中恢复订阅。
 
-当你收到的 RTDN ，它提醒你用户取消了订阅。你可能希望在你的应用程序中礼貌地提醒用户关于即将到来的截止日期，并提供 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到[订阅中心](https://play.google.com/store/account/subscriptions)，以便他们轻松恢复订阅。
+当你收到的 RTDN，它提醒你用户取消了订阅。你可能希望在你的应用程序中礼貌地提醒用户关于即将到来的截止日期，并提供 [deep-link](https://developer.android.com/google/play/billing/billing_subscriptions#deep-links-manage-subs) 跳转到[订阅中心](https://play.google.com/store/account/subscriptions)，以便他们轻松恢复订阅。
 
 ## 推迟结算
 
 [推迟结算日期](https://developer.android.com/google/play/billing/billing_subscriptions#Defer)是一个简单的方法，它可以免费向用户提供临时访问权限，作为促销或者如果他们遇到了服务中断。你可以使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/defer) 用来提前用户的计费日期，以便让他们在一个指定的时间段内免费访问你的服务。然后订阅续订的日期会被调整，用来反映的新的计费日期（这个日期用于传递给 API）。
 
-## 准备好了吗？Go!
+## 准备好了吗？Go！
 
-我希望这些视频会帮助你明白如何在你的应用程序里面使用订阅！准备好了吗？Go!
+我希望这些视频会帮助你明白如何在你的应用程序里面使用订阅！准备好了吗？Go！
 
 ## 资源
 
