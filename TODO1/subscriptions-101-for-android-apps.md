@@ -2,8 +2,7 @@
 > * 原文作者：[Emilie Roberts](https://medium.com/@emilieroberts)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/subscriptions-101-for-android-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/subscriptions-101-for-android-apps.md)
-> * 译者：Fxymine4ever
-> * 校对者：
+> * 译者：[Fxymine4ever](https://github.com/Fxy4ever)
 
 # Android 应用程序的订阅 101 系列视频
 
@@ -23,7 +22,7 @@
 
 ## 实时开发者通知
 
-[实时开发者通知（Real-time Developer notification,RTDN）](https://developer.android.com/google/play/billing/realtime_developer_notifications) 允许你通过 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/) 向服务器发送通知，了解到最新的订阅状态。
+[实时开发者通知（Real-time Developer notification, RTDN）](https://developer.android.com/google/play/billing/realtime_developer_notifications) 允许你通过 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/) 向服务器发送通知，了解到最新的订阅状态。
 
 当你接收到了实时开发者通知后，请验证通知内的购买令牌以及使用 [Google Play 开发者 API](https://developers.google.com/android-publisher/) 来检索该订阅的[详细信息](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions)。
 
