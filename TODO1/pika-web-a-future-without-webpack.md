@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pika-web-a-future-without-webpack.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pika-web-a-future-without-webpack.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[MarchYuanx](https://github.com/MarchYuanx)
+> * 校对者：[MarchYuanx](https://github.com/MarchYuanx), [sunui](https://github.com/sunui)
 
 # 愿未来没有 Webpack
 
@@ -11,13 +11,13 @@
 
 ![](https://www.pika.dev/static/img/bundling-cover.jpg)
 
-现在是 1941 年。你的名字是 Richard Hubbell。你在 CBS 旗下的一个试验性的纽约电视演播室工作。你将要主持一场主要电视新闻广播，这是世界上首批电视节目之一，你还有 15 分钟就要上场了。你知道你一会儿要干嘛吗？
+现在是 1941 年。你的名字是 Richard Hubbell。你在 CBS 旗下的一个试验性的纽约电视演播室工作。你将要主持一场重大电视新闻广播，这是世界上首批电视节目之一，你还有 15 分钟就要上场了。你知道你一会儿要干嘛吗？
 
 在一个人们只知道收音机的世界里，你会坚信你的认知。而你此刻的认知就是，你要把新闻稿读出来。[“Hubbell 主持的电视新闻节目几乎都是照本宣科，偶尔把镜头切到一张地图或者静态图片上。”](https://books.google.com/books?id=yWrEDQAAQBAJ&lpg=PA132&ots=WBn6zP9HAW&dq=newscasts%20featured%20Hubbell%20reading%20a%20script%20with%20only%20occasional%20cutaways&pg=PA132#v=onepage&q=newscasts%20featured%20Hubbell%20reading%20a%20script%20with%20only%20occasional%20cutaways&f=false)还得过一阵子，人们才能在电视新闻上看到真实的视频片段。
 
 作为一名身处 2019 年的 JavaScript 开发者，我也有同感。我们明明已经拥有了这个崭新的 JavaScript 模块系统（[ESM](https://flaviocopes.com/es-modules/)），它可以直接在 Web 环境中运行。可每次开发点什么，我们还是得用打包工具处理一下。这到底为什么？
 
-在过去的几年里，JavaScript 打包界的炙手可热已经从只优化生产环境转变到了逢开发必打包的程度。不论你喜欢与否，都很难否认打包工具给 Web 开发带来了变态级别的复杂性，而 Web 开发明明是一个一贯以源码可见和轻松上手的精神为自豪的领域啊。
+在过去的几年里，JavaScript 打包界的炙手可热已经从只优化生产环境转变到了逢开发必打包的程度。不论你喜欢与否，都很难否认打包工具给 Web 开发带来了变态级别的复杂性，而 Web 开发明明是一个一贯以源码可见和轻松上手的精神为荣的领域啊。
 
 ##### @pika/web 试图将 Web 开发者从打包地狱中解救出来。都 2019 年了，你使用打包工具应该是因为你想要用，而不是因为你不得不用。
 
@@ -76,7 +76,7 @@ npm install && npx @pika/web
 
 相较大多数打包工具的安装方式，以 @pika/web 的方式（作为单个 JavaScript 文件的方式）安装每个依赖，会带给你极大的性能提升：依赖缓存。当你把所有依赖包打包成一个庞大的 `vendor.js` 文件，每当更新一个依赖，你就不得不迫使用户重新下载整个 `vendor.js`。而如果用 @pika/web 的话，更新某个依赖包不会让用户重新缓存所有依赖。
 
-@pika/web 帮你摆脱这些因打包工具导致的性能方面的拖累。 [多个打包文件中冗余的相同代码](https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/)、[无用或无关代码导致的首屏加载缓慢](https://medium.com/webpack/better-tree-shaking-with-deep-scope-analysis-a0b788c0ce77)、[Webpack 生态升级带来的坑和 Bug](https://medium.com/@allanbaptista/the-problem-with-webpack-8a025268a761)……所有这些文章和工具，都是人们使出浑身解数解决打包工具带来的副作用的佐证。
+@pika/web 帮你摆脱这些因打包工具导致的性能方面的拖累。[多个打包文件中冗余的相同代码](https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/)、[无用或无关代码导致的首屏加载缓慢](https://medium.com/webpack/better-tree-shaking-with-deep-scope-analysis-a0b788c0ce77)、[Webpack 生态升级带来的坑和 Bug](https://medium.com/@allanbaptista/the-problem-with-webpack-8a025268a761)……所有这些文章和工具，都是人们使出浑身解数解决打包工具带来的副作用的佐证。
 
 要说明的是，不对源代码进行打包处理，也不尽然总是十全十美的。针对在网络传输过程中的压缩效果而言，体积大的 JavaScript 文件要好于体积小、粒度细的文件。而在 [HTTP/2](https://developers.google.com/web/fundamentals/performance/http2/#request_and_response_multiplexing) 协议下，浏览器要花更多的时间去解析导入多个小文件的请求，解析完才能将后续请求发出去。
 
