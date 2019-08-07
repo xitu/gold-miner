@@ -2,7 +2,7 @@
 > * 原文作者：[Tristan Hume](https://github.com/trishume/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-compiler-in-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-compiler-in-rust.md)
-> * 译者：
+> * 译者：[suhanyujie](https://www.github.com/suhanyujie)
 > * 校对者：
 
 # Writing a Compiler in Rust
@@ -227,17 +227,17 @@ impl Visitable for ForStatement {
 // ... 很多其它可见的实现
 ```
 
-This made a lot of our passes much easier. For example constant folding just overrides the `post_expr` method, checks if the children of an expression are constants and if so uses `mem::replace` to replace the node with a constant.
+这使得“编译传递”更简单。例如，常量折叠只是覆盖 `post_expr` 方法，检查表达式的元素节点是否为常量，如果是，则使用 `mem::replace` 代替常量节点。
 
 ### Resolving names
 
-One discussion we had is how to handle resolving type and variable names. The most obvious way was doing so by mutating the AST using an `Option` field that’s initially `None`. However our functional programmer instincts felt icky about this so we tried to think of a better way. Using an optional field also had the problem that we knew by the code generation phase that all variables would be resolved but the type system would still think they could be `None` so we’d need to `unwrap()` them every time we wanted to access them.
+前面我们讨论了如何处理解析类型和变量名。最明显的方法是使用初始值为 `None` 的 `Option` 类型来修改 AST。然而，我们的函数式编程者本能地不想这么做，想用其它更好的方法。使用可选的字段还有一个问题，我们在代码生成阶段就知道所有变量都将被解析，但是类型系统仍然认为它们可以是 `None`，因而我们每次想访问它们的时候需要使用 `unwrap()` 解包装。
 
-We first considered using a side table where we’d give every named reference an ID or hash it, then have a map from ID to resolved location that we created during the resolution stage. But we didn’t like how this would make debugging harder since we could no longer just print out our AST types with `Debug` to see all their information including resolutions. It also would require passing around quite a few side tables and doing lots of lookups in them by the later stages. It didn’t even solve the need for `unwrap` since the table access could theoretically not find the corresponding element.
+我们首先考虑使用一个表，在该表中我们为每个命名的引用提供一个 ID 或者哈希，然后在解析阶段创建从 ID 到解析结果作为映射。但是我们不喜欢这样，会使调试变得更加困难，因为我们不再能通过 `Debug` 打印出 AST 的类型来查看它们的包括“解决提示”在内的所有信息。而且它还需要传递很多副表，并在后面的阶段对它们进行大量查找。它甚至没有解决对 `unwrap` 的依赖。因为从理论上讲，表的访问不能直接找到对应的元素。
 
-Next we considered making all of our AST types generic with an annotation type parameter that started out as `()` but changed as the AST progressed through stages where it gained more info. The main problem with this is that each pass would need to re-build the entire AST, which would make easy visitor infrastructure much harder. Maybe if Rust had something like [an automatically derivable `Functor` implementation](https://gitlab.haskell.org/ghc/ghc/wikis/commentary/compiler/derive-functor) it wouldn’t have been bad, but barring that it would need a lot of boilerplate. There were also multiple things we needed to annotate at various stages necessitating many parameters, and a lot of AST types, which would require a lot of refactoring our AST and parser to add a multitude of parameters.
+接下来，我们考虑使用注解类型参数使所有 AST 类型都能具有泛型，该参数一开始是 `()`，但随着 AST 获取更多信息阶段后会发生改变。这样做的话，主要问题是每次“传递”都要重新构建这个 AST，这将使简单的查询基础设施更加困难。也许如果 Rust 有类似 [自动派生的 `Functor` 实现](https://gitlab.haskell.org/ghc/ghc/wikis/commentary/compiler/derive-functor)就会好很多，除非它需要大量的样本文件。在不同的阶段，我们还需要注解很多东西，这就需要很多参数，以及很多 AST 类型，这就需要对 AST 和解析器进行大量重构，以添加这些参数。
 
-So instead we just bit the bullet and used `Option` type fields, and I think it worked out well. We implemented a nice `Reference<T, R>` generic that had a `raw` and `resolved` field. We used it for both variable and type references. It had `Hash` and `PartialEq` implementations that only looked at the resolved value because that’s what mattered for data structures in later passes. It also had a special `Debug` implementation that made the output in snapshot tests nicer:
+因此，我们咬紧牙缝，使用了 `Option` 类型字段这种方案，并且我觉得效果好不错。我们实现了很棒的 `Reference<T, R>` 泛型，它有一个 `raw` 和 `resolved` 字段。我们将它用于变量和类型引用。它实现了 `Hash` 和 `PartialEq` trait，这些实现有助于查看已解析的值，因为这对以后的数据结构很重要。它还有一个特殊的 `Debug` 实现，使快照测试的输出更好：
 
 ```rust
 impl<T: fmt::Debug, R: fmt::Debug> fmt::Debug for Reference<T, R> {
@@ -245,54 +245,54 @@ impl<T: fmt::Debug, R: fmt::Debug> fmt::Debug for Reference<T, R> {
         if let Some(r) = &self.resolved {
             write!(f, "{:#?} => {:#?}", self.raw, r)
         } else {
-            write!(f, "{:?}", self.raw) // only print the raw if not resolved yet
+            write!(f, "{:?}", self.raw) // 如果还未解析，则打印原始数据
         }
     }
 }
 ```
 
-### Reference counting
+### 引用计数
 
-In a number of different places, especially the class hierarchy checking and type checking phases, a lot of things needed to have the same pieces of information propagated to them. For example types bubbling up an expression or inherited methods bubbling down a tree. In a language like Java we’d just have multiple references to the same object, but in Rust for ownership reasons we couldn’t do that straightforwardly. We started out in some places by `clone`ing things which worked fine, but I realized I could just switch everything to use `Rc` to allow sharing.
+在许多不同的地方，特别是类层次结构检查和类型检查阶段，这些过程中需要传递同一个数据。例如，类型在表达式中向上冒泡，或者继承方法中，向下的冒泡树。在如 Java 这样的语言中，我们只需要对同一个对象有多个引用，但是在 Rust，由于所有权的原因，我们不能直接这样做。我们开始在一些地方通过克隆（`clone`）来实现，这个方式挺好的，但我意识到我可以切换到使用 `Rc` 类型来进行共享数据。
 
-I had an interesting moment where I thought “man it sucks that this code has to do all this reference count manipulation, that’s unnecessarily slow, maybe I should refactor this to use an arena or something”. Then I realized that if I had been writing in Swift I wouldn’t have given this a second thought because **everything** would be ref-counted, and even worse than the Rust version, **atomically** ref-counted. Writing code in Rust makes me feel like I have an obligation to make code as fast as possible in a way other languages don’t, just by surfacing the costs better. Sometimes I need to remind myself that actually it’s fast enough already.
+我曾经历过这样有趣的时刻，那时候，我想“天哪，这段代码必须实现所有的引用计数操作，太糟糕了，没必要这么慢，我应该用各个好的其他方案重构它”。然后，我意识到，如果我是用 Swift 写的话，我就不会要考虑这个问题了，因为 Swift 中，**所有**的东西都可以被引用计数的，它比 Rust 中的**原子**引用计数要稍逊一筹。用 Rust 编写代码让我觉得有必要使用其它语言没有的特性来尽可能快的编写代码，而这仅仅是为了解决成本问题。有时候我还提醒自己，它已经够快的了。
 
-## Code Generation
+## 代码生成
 
-The course requires that we generate textual NASM x86 assembly files. Given that we only need to output to those, we decided we didn’t need an intermediate abstraction for generating assembly, and our code generation stage could just use Rust string formatting. This would make our code simpler, easier and also allow us to more easily include comments in the generated assembly.
+本课程要求我们生成文本类型的 NASM x86 汇编文件。考虑到我们只需要输出这些，我们决定去除用于生成汇编的中间抽象层，并且我们的代码生成阶段可以只是用 Rust 字符串格式化方式。这将使我们的代码更简单、更易懂，并且允许我们更容易地在生成的汇编程序中包含注释。
 
-The fact that we preserved source span information through our whole compiler and could generate comments came in handy because we could output comments containing the source expression/statement location for every single generated piece of code. This made it much easier to track down exactly which piece of code was causing a bug.
+我们通过整个编译器保存了源码信息，并且可以生成注释，这个特性非常有用，因为我们可以为每个生成的代码段输出包含源表达式、语句位置的注释信息。这样可以更容易并且准确地跟踪到是哪段代码导致了 bug。
 
-A somewhat annoying Rust thing we ran into is that we could find two easy ways of formatting to a string, both of which had an issue:
+我们遇到的一个有些恼人的问题是，我们可以找到两种简单的格式化字符串的方法，可这两个方法都有个问题：
 
 ```rust
 let mut s = String::new();
-// Requires a Result return type or unwrap, even though it won't ever fail.
-// Generates a bunch of garbage error handling LLVM needs to optimize out.
+// 即使没有出错，也还是需要返回值的类型或者对其 unwrap
+// 生成一堆需要优化的垃圾错误处理的 LLVM
 writeln!(s, "mov eax, {}", val)?;
-// Allocates an intermediate String which it then immediately frees
+// 分配一个中间临时字符串变量，然后立即释放该变量空间
 s.push_str(format!("mov eax, {}", val));
 ```
 
-My two teammates worked on the initial stages of code generation in parallel and each of them chose a different fork of this tradeoff, and by that close to the end of the course our consistency standards had relaxed, so our code generation has both.
+我两个队友并行处理代码生成的初始阶段，他们每个人都选择了这个折衷方案的不同分支，在课程的尾声时，我们一致性标准已经放开了，所以我们的代码生成能兼具这两个分支。
 
 ### Usercorn
 
-Our compiler was supposed to output Linux ELF binaries and link to a runtime that made Linux syscalls. However, our entire team used macOS. Rewriting the runtime for macOS would have been somewhat annoying since syscalls aren’t always as easy and well documented on macOS as Linux. It also would have added an annoying delay to running our tests and made the harness more complex if we had to `scp` the binaries to a Linux server or VM.
+我们的编译器支持输出 Linux ELF 二进制文件，并链接到运行时，供 Linux 系统调用。然而，我们这个团队都使用 macOS。重写 macOS 的运行时可能会有些烦人，因为系统调用并不总是像 Linux 那样简单，且有很好的文档支持。如果我们坚持将二进制文件通过 `scp` 发送到 Linux 服务器上或者 VM 上，可能会导致测试结果有延迟，并让控制变得复杂。
 
-I remembered that my internet friend had written a cool tool called [usercorn](https://github.com/lunixbochs/usercorn) that used the [Unicorn CPU emulator](https://www.unicorn-engine.org/) plus some fanciness to run Linux binaries on macOS as if they were normal macOS binaries (or vice versa and a bunch of other things). It was straightforward to build a self-contained version that I could check into our repository and use in our tests to run our binaries. My teammate then got together a macOS build of `ld` that could link Linux ELF binaries and included it.
+我记得有个网友写了一个很酷的工具，叫 [usercorn](https://github.com/lunixbochs/usercorn)，使用 [Unicorn CPU emulator](https://www.unicorn-engine.org/) 加上一些想象在 macOS 上运行 Linux 二进制程序，前提是这些程序是通用的二进制程序（反过来也会有一堆问题）。构建一个包含自己的版本很简单，我可以检入我们的仓库并在测试中使用它来运行。然后，我的队友收集了一个由 `ld` 构建的 macOS，它可以链接 Linux ELF 二进制文件并包含它。
 
-We could also use `usercorn` to output a trace of all the instructions executed and registers modified by our programs, and this came in handy quite a few times for debugging our code generation.
+我们还可以使用 `usercorn` 输出程序中经过修改的寄存器的所有指令的跟踪状态，这在调试代码时非常方便。
 
-I ran into one problem where a test program that did a lot of allocation was 1000x slower under usercorn than on a real Linux server. Luckily I knew the author and I just sent him the offending binary and he quickly figured it was due to an inefficient implementation of the `brk` syscall which reasonable programs don’t use for every single memory allocation like the runtime the course provided did. He quickly figured out how to make it more efficient and pushed a fix later that evening which solved my problem. He’s pretty awesome, [subscribe to his Patreon!](https://www.patreon.com/lunixbochs/overview)
+我还遇到一个问题，在 usercorn 下执行大量内存分配测试比在真实的 Linux 服务器上慢 1000 倍。幸运的是，我认识 usercorn 作者，我给他发了能浮现异常的二进制程序文件，他很快排查到这个问题是由于 `brk` 的系统调用效率低效导致的，合理的程序不会像教程中提供的运行时那样，对每个内存分配都使用 `brk` 调用。他很快相处了解决办法，并在当天晚上提供了解决方案，解决了我的问题。他真的很棒，可以[订阅他的 Patreon](https://www.patreon.com/lunixbochs/overview)
 
-I then shared our pre-compiled bundle of `usercorn` and `ld` (with the bug fix for the assignment tests) with a few other teams I knew who used macOS so they could have an easier time testing as well.
+然后，我将预先编译好的 `usercorn` 和 `ld` 包（带有用于分配内存测试的 bug 修复）分享给我认识的使用 macOS 的其他团队成员，这样可以便于他们测试。
 
-## Conclusion
+## 结语
 
-Overall I’m proud of how our compiler turned out. It was a fun project and my teammates were excellent. I also think Rust ended up being a good choice of implementation language, especially the powerful `enum`s and pattern matching. The main downsides of Rust were the long compile times (although apparently comparable to a group that did their compiler in C++), and the fact that sometimes we had to do somewhat more work to satisfy the borrow checker.
+总的来说，我为我们的编译器的表现感到骄傲。这是一个有趣的项目，我的队友都很出色。最后我还认为 Rust 是一种很好的实现语言，特别是强大的枚举和模式匹配。Rust 的主要缺点是较长的编译时间长（尽管可以明显比得上 C++ 编译器），并且有时候我们不得不做更多的工作来满足借用检查。
 
-One of the most interesting learning experiences from the project was when afterwards I talked to some other teams and got to compare what it was like to do the same project in different languages and with different design decisions. I’ll talk about that in an upcoming post!
+通过跟其他的团队交流，比较了用不同的语言和不同的设计来做同一个项目的心得是从这个项目中学习到的最有趣的经验之一。我会在后面的文章中讨论这些。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
