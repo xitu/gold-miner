@@ -2,162 +2,162 @@
 > * 原文作者：[Jeff Hale](https://medium.com/@jeffhale)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-enough-docker-to-be-useful-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-enough-docker-to-be-useful-1.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Learn Enough Docker to be Useful
+# Docker 的学习和应用
 
-### Part 1: The Conceptual Landscape
+### 第一部分：基本概念
 
 ![](https://cdn-images-1.medium.com/max/3840/1*4eXBePb2oLVPxHyocCNmlw.jpeg)
 
-Containers are hugely helpful for improving security, reproducibility, and scalability in software development and data science. Their rise is one of the most important trends in technology today.
+容器（Container）对于提高软件研发和数据存储的安全性、再生性，以及可扩展性都大有用途。它们的兴起是当今科技潮流中最重要的部分之一。
 
-Docker is a platform to develop, deploy, and run applications inside containers. Docker is essentially synonymous with containerization. If you’re a current or aspiring software developer or data scientist, Docker is in your future.
+Docker 就是一个在容器中研发、部署以及运行程序的平台。实际上，Docker 就是集装箱的同义词。如果你是或是立志想要成为一名软件开发工程师或者数据科学家，Docker 就是你必须要学习的内容。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EJx9QN4ENSPKZuz51rC39w.png)
 
-Don’t fret if you aren’t yet up to speed — this article will help you understand the conceptual landscape — and you’ll get to make some pizza along the way.
+不用担心你的进度比别人落后了 —— 本文将会帮助你了解 Docker 的基本概念 —— 然后你就可以在此基础上应用它了。
 
-In the next five articles in this series we’ll jump into Docker terms, Dockerfiles, Docker images, Docker commands, and data storage. Part 2 is now live:
+在这个系列的后五篇文章中，我将会专注讲解 Docker 术语、Dockerfile、Docker 图像，Docker 命令以及数据存储。第二部分现在已经上线：
 
-* [**Learn Enough Docker to be Useful Part 2: A Delicious Dozen Docker Terms You Need to Know**](https://towardsdatascience.com/learn-enough-docker-to-be-useful-1c40ea269fa8)
+* [**Docker 的学习和应用（2）：你需要知道的那些 Docker 术语**](https://towardsdatascience.com/learn-enough-docker-to-be-useful-1c40ea269fa8)
 
-By the end of the series (and with a little practice) you should know enough Docker to be useful 😃!
+在这个系列的最后（还会有一些练习内容），你应该能基本学会 Docker 并可以加以应用了 😃！
 
-## Docker Metaphors
+## 关于 Docker 的比喻
 
-First, I’m going to shed some light on Docker metaphors.
+首先，我们从一个对 Docker 的比喻开始讲起。
 
 ![[They’re everywhere! Just check out this book.](https://www.goodreads.com/book/show/34459.Metaphors_We_Live_By)](https://cdn-images-1.medium.com/max/2000/1*poqn_j2R9xTk940n9wE9Lw.jpeg)
 
-[Google’s second definition for Metaphor](https://www.google.com/search?q=metaphor+definition&oq=metaphor+defini&aqs=chrome.0.0j69i57j0l4.2999j1j4&sourceid=chrome&ie=UTF-8) is what we want:
+[Google 对比喻的定义](https://www.google.com/search?q=metaphor+definition&oq=metaphor+defini&aqs=chrome.0.0j69i57j0l4.2999j1j4&sourceid=chrome&ie=UTF-8)正是我们需要了解的：
 
-> a thing regarded as representative or symbolic of something else, especially something abstract.
+> 代表或者象征另外一些事物，特别是很抽象的事物的事物。
 
-Metaphors help us make sense of new things. For example, the metaphor of a physical container helps us quickly grasp the essence of a virtual container.
+比喻能帮助我们了解新事物。比如说，将其比喻为一个容器实体可以帮助我们快速的了解抽象的容器概念是什么。
 
-![A physical container](https://cdn-images-1.medium.com/max/2000/1*ndncU4a3uNsQ_oy2YrNLBA.jpeg)
+![一个容器实体](https://cdn-images-1.medium.com/max/2000/1*ndncU4a3uNsQ_oy2YrNLBA.jpeg)
 
-### Container
+### 容器（Container）
 
-Like a physical plastic container, a Docker container:
+正如一个塑料盒子实体，一个 Docker 容器的特性包括：
 
-1. **Holds things** — Something is either inside the container or outside the container.
+1. **容纳事物** —— 毕竟事物不是在容器内就是在容器外。
 
-2. **Is portable** — It can be used on your local machine, your coworker’s machine, or a cloud provider’s servers (e.g. AWS). Sort of like that box of childhood knickknacks you keep moving with you from home to home.
+2. **便携式** —— 它可以用于本地设备、共享设备，或者云服务（例如 AWS）上。有点像你小时候搬家的时候用来装小玩意儿们的盒子。
 
-3. **Has clear interfaces for access** — Our physical container has a lid for opening and putting things in and taking things out. Similarly, a Docker container has several mechanisms for interfacing with the outside world. It has ports that can be opened for interacting through the browser. You can configure it to interact with data through the command line.
+3. **提供清晰的可接入接口** —— 实体盒子会有一个开口，让我们能打开它并放入或者取出东西。类似的，Docker 容器也有和外界沟通的机制。它有可以开放的端口，通过浏览器即可与外界交互。你可以通过命令行对它进行数据交互的相关配置。
 
-4. **Can be obtained from a remote location** — You can get another empty plastic container from Amazon.com when you need it. Amazon gets its plastic containers from manufacturers who stamp them out by the thousands from a single mold. In the case of a Docker container, an offsite registry keeps an image, which is like a mold, for your container. Then when you need a container you can make one from the image.
+4. **支持远程获取** —— 当你有需要的时候，你可以从亚马逊上买到另一个空的塑料盒子。亚马逊从制造商哪里获取塑料盒子，而制造商从一个模具中可以制造出成千上万这样的盒子。而对于 Docker 容器，异地登陆会保留一张快照，它就像是一个盒子模具。如果你需要另一个容器，你可以从这个快照中制作出一份。
 
-Unlike a virtual Docker container, a new plastic container from Amazon will cost you money and won’t come with a copy of your goods inside. Sorry 💸.
+和虚拟的 Docker 容器不同，你必须付费才能从亚马逊买新的塑料盒子，而且也不能得到放进去的货物的备份。抱歉喽 💸。
 
-### Living Instance
+### 活的实例
 
-A second way you can think of a Docker container is as **an instance of a living thing**. An instance is something that exists in some form. It’s not just code. It’s code that has brought something to life. Like other living things, the instance will eventually die — meaning the container will shut down.
+第二种你可以用来思考 Docker 容器的方法是将它看作一个**活物的实例**。实例是指以某种形态存在的事物。它不仅仅是代码。它让事物有了生命。就像其他的活物一样，这个实例最终会消亡 —— 意味着容器会被关闭。
 
 ![An instance of a monster](https://cdn-images-1.medium.com/max/2000/1*t-uVUfbywQsDnwQoYAEbgA.jpeg)
 
-A Docker container is a Docker image brought to life.
+Docker 容器就是 Docker 快照的活体形态。
 
-### Software
+### 软件
 
-In addition to the container metaphor and the living instance metaphor, you can think of a Docker container as **a software program**. After all, it is software. At its most basic level a container is a set of instructions that manipulate other bits.
+除了盒子的比喻和活的实例的比如，你还可以将 Docker 容器看作是**一个软件程序**。毕竟，容器本质上还是一个软件。在它最基本的层次上来说，容器是一系列能计算比特的指令。
 
 ![Containers are code](https://cdn-images-1.medium.com/max/2000/1*0D45gdLlWgvMBu9Xwr0RrA.jpeg)
 
-While a Docker container is running, it generally has programs running inside it. The programs in a container perform actions so your application will do something.
+当 Docker 容器在运行的时候，通常情况下会有程序在它内部运行。程序在容器内执行动作所以应用程序才能完成某些功能。
 
-For example, the code in a Docker container might have sent you the content you are reading on this webpage right now. Or it might take your voice command to Amazon Alexa and decode it into instructions another program in a different container will use.
+例如，你现在正在阅读的网页也许就是 Docker 容器内的代码发送给你的。或者它也许读取了你的声音指令并发送给 Amazon Alexa，你的声音被解码为其他指令，然后其他容器中的程序将会使用它。
 
-With Docker you can run multiple containers simultaneously on a host machine. And like other software programs, Docker containers can be run, inspected, stopped, and deleted.
+使用 Docker，你就可以在一台主机上同时运行多个容器。和其他软件程序一样，Docker 容器可以被运行、测试、停止和删除。
 
-## Concepts
+## 概念
 
-### Virtual Machines
+### 虚拟机
 
-Virtual machines are the precursors to Docker containers. Virtual machines also isolate an application and its dependencies. However, Docker containers are superior to virtual machines because they take fewer resources, are very portable, and are faster to spin up. Check out [this article](https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b) for a great discussion of the similarities and differences.
+虚拟机是 Docker 容器的前身。虚拟机也会分离应用和它的依赖。但是，Docker 容器需要的资源更少，更轻也更快，因此它要比虚拟机更加先进。你可以阅读[这篇文章](https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)来了解更多它们之间的相似点与不同点。
 
-### Docker Image
+### Docker 图像
 
-I mentioned images above. What’s an image? I’m glad you asked! The meaning of the term **image** in the context of Docker doesn’t map all that well to a physical image.
+我在前文中提到了快照。那么什么是快照呢？我很高兴你积极的提问了！在 Docker 的语境中，**快照**这个术语的含义和真正的照片的含义完全不同。
 
 ![Images](https://cdn-images-1.medium.com/max/2000/1*Wv9nvbm0XRLSGQ9nqTzpdA.jpeg)
 
-Docker images are more like blueprints, cookie cutters, or molds. Images are the immutable master template that is used to pump out containers that are all exactly alike.
+Docker 快照更像是一个蓝图，饼干模具，或者说是模子。快照是不会变化的主模版，它用于产生完全一样的多个容器。
 
 ![Cookie cutters](https://cdn-images-1.medium.com/max/2000/1*n53WlDyD9mxVcOu17Rj86Q.jpeg)
 
-An image contains the Dockerfile, libraries, and code your application needs to run, all bundled together.
+快照包含 Dockerfile，库，以及需要运行的应用代码，所有这些绑定在一起组成快照。
 
 ### Dockerfile
 
-A [Dockerfile](https://docs.docker.com/engine/reference/builder/) is a file with instructions for how Docker should build your image.
+[Dockerfile](https://docs.docker.com/engine/reference/builder/) 是一个包含了 Docker 如何构建快照的指令的文件。
 
-The Dockerfile refers to a base image that is used to build the initial image layer. Popular official base images include [python](https://hub.docker.com/_/python/), [ubuntu](https://hub.docker.com/_/ubuntu), and [alpine](https://hub.docker.com/_/alpine).
+Dockerfile 会指向一个可用于构建初始快照层的基础快照。使用广泛的官方基础快照包括 [python](https://hub.docker.com/_/python/)、[ubuntu](https://hub.docker.com/_/ubuntu) 和 [alpine](https://hub.docker.com/_/alpine)。
 
-Additional layers can then be stacked on top of the base image layers, according to the instructions in the Dockerfile. For example, a Dockerfile for a machine learning application could tell Docker to add NumPy, Pandas, and Scikit-learn in an intermediate layer.
+其他附加层将会根据 Dockerfile 中的指令，添加在基础快照层的上面。例如，及其学习应用的 Dockerfile 将会通知 Docker 在中间层中添加 NumPy、Pandas 和 Scikit-learn。
 
-Finally, a thin, writable layer is stacked on top of the other layers according to the Dockerfile code. (You understand that a thin layer is small in size because you intuitively understand the **thin** metaphor, right 😃?)
+最后，一个很薄并且可写的层将会根据 Dockerfile 的代码添加在所有层的上方。（薄的意思其实就是指这一层的体积很小，这一点你明白了对吧 😃？因为你已经很直观的理解了**薄**这个比喻）
 
-I’ll explore Dockerfiles in more depth in future articles in this series.
+我将会在这一系列的其他文章中更加深入的探讨 Dockerfile。
 
 ### Docker Container
 
-A Docker image plus the command `docker run image_name` creates and starts a container from an image.
+Docker 快照加上命令 `docker run image_name` 将会从这个快照中创建一个容器，并启动它。
 
-### Container Registry
+### Container 注册处
 
-If you want other people to be able to make containers from your image, you send the image to a container registry. [Docker Hub](https://hub.docker.com/) is the largest registry and the default.
+如果你想让其他人也可以使用你的快照生成容器，你需要将快照发送给容器注册处。[Docker Hub](https://hub.docker.com/) 是最大的、也是人们默认的注册处。
 
-Phew! That’s a lot of pieces. Let’s put this all together in terms of making a pizza.
+唉！太多零碎的内容了。我们把这些都集中在一起，进行一次实践，这就好像做一款披萨一样哦。
 
-## Cooking with Docker
+## Docker 实践
 
 ![Landscape Metaphor](https://cdn-images-1.medium.com/max/2000/1*v6WWacmOsrPYtkGXUu-cbA.jpeg)
 
-* The recipe is like the **Dockerfile**. It tells you what to do to get to your end goal.
+* 配方就是 **Dockerfile**。它告诉我们如何操作才能做好这款披萨。
 
-* The ingredients are the **layers**. You’ve got crust, sauce, and cheese for this pizza.
+* 材料就是 Docker 的**层**。现在你已经有了披萨的面坯，酱料以及芝士了。
 
-Think of the recipe and the ingredients combined as an all-in-one pizza-making-kit. It’s the **Docker image**.
+将配方和原料的组合想象为一个一体化的披萨制作工具包。这就是 **Docker 快照**。
 
-The recipe (Dockerfile) tells us what we’re going to do. Here’s the plan:
+配方（Dockerfile）告诉了我们操作步骤。如下：
 
-* The crust is preformed and immutable, it’s like a basic ubuntu parent image. It’s the **bottom layer** and gets built first.
+* 披萨面坯是不能改的，就好比是基础的 ubuntu 父级快照。它是**底层**，并且会最先被构建。
 
-* Then you’ll add some cheese. Adding this second layer to the pizza is like **installing an external library** — for example NumPy.
+* 然后还需要添加一些芝士。披萨的第二层就好比**安装外部库** —— 例如 NumPy。
 
-* Then you’ll sprinkle on some basil. The basil is like the **code in a file** that you wrote to run your app.
+* 然后你还可以撒上一些罗勒。罗勒就好比用来运行应用的你写在**文件里的代码**。
 
-Alright, let’s get cooking.
+好了，现在我们开始烹饪吧。
 
 ![Oven](https://cdn-images-1.medium.com/max/2000/1*rihuhM7hCvWaJhuw7Hjvzg.jpeg)
 
-* The oven that bakes the pizza is like the Docker platform. You installed the oven into your house when you moved in so you could make things with it. Similarly, you installed Docker onto your computer so you could cook up containers.
+* 用来烤披萨的烤箱就好比是 Docker 平台。你将烤箱搬到你的家里，这样就可以用它来烹饪了。相似的，你把 Docker 安装到你的电脑里，这样就可以操作容器。
 
-* You start your oven by turning a knob. The `docker run image_name` command is like your knob — it creates and starts your container.
+* 你通过旋转旋钮来让烤箱开始工作。命令 `docker run image_name` 就像是你的旋钮 —— 它可以创建并让容器开始工作。
 
-* The cooked pizza is like a Docker container.
+* 做好的披萨就好比是一个 Docker 容器。
 
-* Eating the pizza is like using your app.
+* 想用披萨就好比是使用你的应用。
 
-Like making a pizza, making an app in a Docker container takes some work, but at the end you have something great. Enjoy 🍕!
+正如做披萨一样，在 Docker 里创建应用也要你付出劳动，但是最终你能得到很棒的成果。享用它吧！
 
-## Wrap
+## 尾声
 
-That’s the conceptual framework. In [Part 2 of this series](https://towardsdatascience.com/learn-enough-docker-to-be-useful-1c40ea269fa8) I clarify some of the terms you’ll see in the Docker ecosystem. Follow me to make sure you don’t miss it!
+本文的主要内容是概念框架。在[这个系列的第二部分](https://towardsdatascience.com/learn-enough-docker-to-be-useful-1c40ea269fa8)，我将会解释一些在 Docker 生态圈中你可能会见到的术语。记得关注我，这样你就不会错过了。
 
-Hopefully this overview has helped you better understand the Docker landscape. I also hope it has also opened your eyes to the value of metaphors in understanding new technologies.
+希望这篇概述能帮助你更好的理解 Docker。我也希望它能够让你知道，比喻这种方式在理解新技术的时候的价值。
 
-If you found this helpful please share it on your favorite social media so other people can find it, too. 👏
+如果觉得本文对你有帮助，请转发到你喜欢的社交媒体上，这样其他人也就可以阅读学习了。👏
 
-I write about Python, Docker, data science, and more. If any of that’s of interest to you, read more [here](https://medium.com/@jeffhale) and follow me on Medium. 😄
+我也写关于 Python、Docker、数据科学等等很多方面的文章。如果你感兴趣，可以在[这里](https://medium.com/@jeffhale)阅读更多内容，也可以在 Medium 上关注我。😄
 
 ![](https://cdn-images-1.medium.com/max/NaN/1*oPkqiu1rrt-hC_lDMK-jQg.png)
 
-Thanks for reading!
+感谢你花时间阅读本文！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
