@@ -294,11 +294,11 @@ height  =  int(root.find('.//size/height').text)
 ```
 # 从注解文件中提取边框值的函数
 def extract_boxes(filename):
-  # 加载并解析文件
+	# 加载并解析文件
 	tree = ElementTree.parse(filename)
-  # 获取文档根元素
+	# 获取文档根元素
 	root = tree.getroot()
-  # 提取出每个 bounding box 元素
+	# 提取出每个 bounding box 元素
 	boxes = list()
 	for box in root.findall('.//bndbox'):
 		xmin = int(box.find('xmin').text)
@@ -307,7 +307,7 @@ def extract_boxes(filename):
 		ymax = int(box.find('ymax').text)
 		coors = [xmin, ymin, xmax, ymax]
 		boxes.append(coors)
-  # 提取出图像尺寸
+	# 提取出图像尺寸
 	width = int(root.find('.//size/width').text)
 	height = int(root.find('.//size/height').text)
 	return boxes, width, height
@@ -320,11 +320,11 @@ def extract_boxes(filename):
 ```
 # 从注解文件中提取边框值的函数
 def extract_boxes(filename):
-  # 加载并解析文件
+	# 加载并解析文件
 	tree = ElementTree.parse(filename)
-  # 获取文档根元素
+	# 获取文档根元素
 	root = tree.getroot()
-  # 提取出每个 bounding box 元素
+	# 提取出每个 bounding box 元素
 	boxes = list()
 	for box in root.findall('.//bndbox'):
 		xmin = int(box.find('xmin').text)
@@ -333,7 +333,7 @@ def extract_boxes(filename):
 		ymax = int(box.find('ymax').text)
 		coors = [xmin, ymin, xmax, ymax]
 		boxes.append(coors)
-  # 提取出图像尺寸
+	# 提取出图像尺寸
 	width = int(root.find('.//size/width').text)
 	height = int(root.find('.//size/height').text)
 	return boxes, width, height
@@ -356,15 +356,15 @@ mask-rcnn 需要 [mrcnn.utils.Dataset 对象](https://github.com/matterport/Mask
 ```
 # 用于定义和加载袋鼠数据集的类
 class KangarooDataset(Dataset):
-  # 加载数据集定义
+	# 加载数据集定义
 	def load_dataset(self, dataset_dir, is_train=True):
 		# ...
 
-  # 加载图像掩膜
+	# 加载图像掩膜
 	def load_mask(self, image_id):
 		# ...
 
-  # 加载图像引用
+	# 加载图像引用
 	def image_reference(self, image_id):
 		# ...
 ```
@@ -405,21 +405,21 @@ self.add_image('dataset',  image_id='00001',  path='kangaroo/images/00001.jpg', 
 ```
 # 加载数据集定义
 def load_dataset(self, dataset_dir):
-  # 定义一个类
+	# 定义一个类
 	self.add_class("dataset", 1, "kangaroo")
-  # 定义数据所在位置
+	# 定义数据所在位置
 	images_dir = dataset_dir + '/images/'
 	annotations_dir = dataset_dir + '/annots/'
-  # 定位到所有图像
+	# 定位到所有图像
 	for filename in listdir(images_dir):
-    # 提取图像 id
+		# 提取图像 id
 		image_id = filename[:-4]
-    # 略过不合格的图像
+		# 略过不合格的图像
 		if image_id in ['00090']:
 			continue
 		img_path = images_dir + filename
 		ann_path = annotations_dir + image_id + '.xml'
-    # 添加到数据集
+		# 添加到数据集
 		self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 ```
 
@@ -430,27 +430,27 @@ def load_dataset(self, dataset_dir):
 ```
 # 加载数据集定义
 def load_dataset(self, dataset_dir, is_train=True):
-  # 定义一个类
+	# 定义一个类
 	self.add_class("dataset", 1, "kangaroo")
-  # 定义数据所在位置
+	# 定义数据所在位置
 	images_dir = dataset_dir + '/images/'
 	annotations_dir = dataset_dir + '/annots/'
-  # 定位到所有图像
+	# 定位到所有图像
 	for filename in listdir(images_dir):
-    # 提取图像 id
+		# 提取图像 id
 		image_id = filename[:-4]
-    # 略过不合格的图像
+		# 略过不合格的图像
 		if image_id in ['00090']:
 			continue
-    # 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
+		# 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
 		if is_train and int(image_id) >= 150:
 			continue
-    # 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
+		# 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
 		if not is_train and int(image_id) < 150:
 			continue
 		img_path = images_dir + filename
 		ann_path = annotations_dir + image_id + '.xml'
-    # 添加到数据集
+		# 添加到数据集
 		self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 ```
 
@@ -506,15 +506,15 @@ self.class_names.index('kangaroo')
 ```
 # 加载图像掩膜
 def load_mask(self, image_id):
-  # 获取图像详细信息
+	# 获取图像详细信息
 	info = self.image_info[image_id]
-  # 定义盒文件位置
+	# 定义盒文件位置
 	path = info['annotation']
-  # 加载 XML
+	# 加载 XML
 	boxes, w, h = self.extract_boxes(path)
-  # 为所有掩膜创建一个数组，每个数组都位于不同的通道
+	# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 	masks = zeros([h, w, len(boxes)], dtype='uint8')
-  # 创建掩膜
+	# 创建掩膜
 	class_ids = list()
 	for i in range(len(boxes)):
 		box = boxes[i]
@@ -550,38 +550,38 @@ from mrcnn.utils import Dataset
 
 # 用于定义和加载袋鼠数据集的类
 class KangarooDataset(Dataset):
-  # 加载数据集定义
+	# 加载数据集定义
 	def load_dataset(self, dataset_dir, is_train=True):
-    # 定义一个类
+		# 定义一个类
 		self.add_class("dataset", 1, "kangaroo")
-    # 定义数据所在位置
+		# 定义数据所在位置
 		images_dir = dataset_dir + '/images/'
 		annotations_dir = dataset_dir + '/annots/'
-    # 定位到所有图像
+		# 定位到所有图像
 		for filename in listdir(images_dir):
-      # 提取图像 id
+			# 提取图像 id
 			image_id = filename[:-4]
-      # 略过不合格的图像
+			# 略过不合格的图像
 			if image_id in ['00090']:
 				continue
-      # 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
+			# 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
 			if is_train and int(image_id) >= 150:
 				continue
-      # 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
+			# 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
 			if not is_train and int(image_id) < 150:
 				continue
 			img_path = images_dir + filename
 			ann_path = annotations_dir + image_id + '.xml'
-      # 添加到数据集
+			# 添加到数据集
 			self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 
-  # 从注解文件中提取边框值
+	# 从注解文件中提取边框值
 	def extract_boxes(self, filename):
-    # 加载并解析文件
+		# 加载并解析文件
 		tree = ElementTree.parse(filename)
-    # 获取文档根元素
+		# 获取文档根元素
 		root = tree.getroot()
-    # 提取出每个 bounding box 元素
+		# 提取出每个 bounding box 元素
 		boxes = list()
 		for box in root.findall('.//bndbox'):
 			xmin = int(box.find('xmin').text)
@@ -590,22 +590,22 @@ class KangarooDataset(Dataset):
 			ymax = int(box.find('ymax').text)
 			coors = [xmin, ymin, xmax, ymax]
 			boxes.append(coors)
-    # 提取出图像尺寸
+		# 提取出图像尺寸
 		width = int(root.find('.//size/width').text)
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩膜
+	# 加载图像掩膜
 	def load_mask(self, image_id):
-    # 获取图像详细信息
+		# 获取图像详细信息
 		info = self.image_info[image_id]
-    # 定义盒文件位置
+		# 定义盒文件位置
 		path = info['annotation']
-    # 加载 XML
+		# 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
+		# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
-    # 创建掩膜
+		# 创建掩膜
 		class_ids = list()
 		for i in range(len(boxes)):
 			box = boxes[i]
@@ -615,7 +615,7 @@ class KangarooDataset(Dataset):
 			class_ids.append(self.class_names.index('kangaroo'))
 		return masks, asarray(class_ids, dtype='int32')
 
-  # 加载图像引用
+	# 加载图像引用
 	def image_reference(self, image_id):
 		info = self.image_info[image_id]
 		return info['path']
@@ -681,38 +681,38 @@ from matplotlib import pyplot
 
 # 定义并加载袋鼠数据集的类
 class KangarooDataset(Dataset):
-  # 加载数据集定义
+	# 加载数据集定义
 	def load_dataset(self, dataset_dir, is_train=True):
-    # 定义一个类
+		# 定义一个类
 		self.add_class("dataset", 1, "kangaroo")
-    # 定义数据所在位置
+		# 定义数据所在位置
 		images_dir = dataset_dir + '/images/'
 		annotations_dir = dataset_dir + '/annots/'
-    # 定位到所有图像
+		# 定位到所有图像
 		for filename in listdir(images_dir):
-      # 提取图像 id
+			# 提取图像 id
 			image_id = filename[:-4]
-      # 略过不合格的图像
+			# 略过不合格的图像
 			if image_id in ['00090']:
 				continue
-      # 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
+			# 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
 			if is_train and int(image_id) >= 150:
 				continue
-      # 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
+			# 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
 			if not is_train and int(image_id) < 150:
 				continue
 			img_path = images_dir + filename
 			ann_path = annotations_dir + image_id + '.xml'
-      # 添加到数据集
+			# 添加到数据集
 			self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 
-  # 从注解文件中提取边框值
+	# 从注解文件中提取边框值
 	def extract_boxes(self, filename):
-    # 加载并解析文件
+		# 加载并解析文件
 		tree = ElementTree.parse(filename)
-    # 获取文档根元素
+		# 获取文档根元素
 		root = tree.getroot()
-    # 提取出每个 bounding box 元素
+		# 提取出每个 bounding box 元素
 		boxes = list()
 		for box in root.findall('.//bndbox'):
 			xmin = int(box.find('xmin').text)
@@ -721,22 +721,22 @@ class KangarooDataset(Dataset):
 			ymax = int(box.find('ymax').text)
 			coors = [xmin, ymin, xmax, ymax]
 			boxes.append(coors)
-    # 提取出图像尺寸
+		# 提取出图像尺寸
 		width = int(root.find('.//size/width').text)
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩膜
+	# 加载图像掩膜
 	def load_mask(self, image_id):
-    # 获取图像详细信息
+		# 获取图像详细信息
 		info = self.image_info[image_id]
-    # 定义盒文件位置
+		# 定义盒文件位置
 		path = info['annotation']
-    # 加载 XML
+		# 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
+		# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
-    # 创建掩膜
+		# 创建掩膜
 		class_ids = list()
 		for i in range(len(boxes)):
 			box = boxes[i]
@@ -746,7 +746,7 @@ class KangarooDataset(Dataset):
 			class_ids.append(self.class_names.index('kangaroo'))
 		return masks, asarray(class_ids, dtype='int32')
 
-  # 加载图像引用
+	# 加载图像引用
 	def image_reference(self, image_id):
 		info = self.image_info[image_id]
 		return info['path']
@@ -791,12 +791,12 @@ pyplot.show()
 ```
 # 绘制最开始的几张图像
 for i in range(9):
-  # 定义子图
+	# 定义子图
 	pyplot.subplot(330 + 1 + i)
-  # 绘制原始像素数据
+	# 绘制原始像素数据
 	image = train_set.load_image(i)
 	pyplot.imshow(image)
-  # 绘制所有掩膜
+	# 绘制所有掩膜
 	mask, _ = train_set.load_mask(i)
 	for j in range(mask.shape[2]):
 		pyplot.imshow(mask[:, :, j], cmap='gray', alpha=0.3)
@@ -817,9 +817,9 @@ pyplot.show()
 ```
 # 枚举出数据集中所有的图像
 for image_id in train_set.image_ids:
-  # 加载图像信息
+	# 加载图像信息
 	info = train_set.image_info[image_id]
-  # 在控制台展示
+	# 在控制台展示
 	print(info)
 ```
 
@@ -863,38 +863,38 @@ from mrcnn.utils import extract_bboxes
 
 # 定义并加载袋鼠数据集的类
 class KangarooDataset(Dataset):
-  # 加载数据集定义
+	# 加载数据集定义
 	def load_dataset(self, dataset_dir, is_train=True):
-    # 定义一个类
+		# 定义一个类
 		self.add_class("dataset", 1, "kangaroo")
-    # 定义数据所在位置
+		# 定义数据所在位置
 		images_dir = dataset_dir + '/images/'
 		annotations_dir = dataset_dir + '/annots/'
-    # 定位到所有图像
+		# 定位到所有图像
 		for filename in listdir(images_dir):
-      # 提取图像 id
+			# 提取图像 id
 			image_id = filename[:-4]
-      # 略过不合格的图像
+			# 略过不合格的图像
 			if image_id in ['00090']:
 				continue
-      # 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
+			# 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
 			if is_train and int(image_id) >= 150:
 				continue
-      # 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
+			# 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
 			if not is_train and int(image_id) < 150:
 				continue
 			img_path = images_dir + filename
 			ann_path = annotations_dir + image_id + '.xml'
-      # 添加到数据集
+			# 添加到数据集
 			self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 
-  # 从注解文件中提取边框值
+	# 从注解文件中提取边框值
 	def extract_boxes(self, filename):
-    # 加载并解析文件
+		# 加载并解析文件
 		tree = ElementTree.parse(filename)
-    # 获取文档根元素
+		# 获取文档根元素
 		root = tree.getroot()
-    # 提取出每个 bounding box 元素
+		# 提取出每个 bounding box 元素
 		boxes = list()
 		for box in root.findall('.//bndbox'):
 			xmin = int(box.find('xmin').text)
@@ -903,22 +903,22 @@ class KangarooDataset(Dataset):
 			ymax = int(box.find('ymax').text)
 			coors = [xmin, ymin, xmax, ymax]
 			boxes.append(coors)
-    # 提取出图像尺寸
+		# 提取出图像尺寸
 		width = int(root.find('.//size/width').text)
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩膜
+	# 加载图像掩膜
 	def load_mask(self, image_id):
-    # 获取图像详细信息
+		# 获取图像详细信息
 		info = self.image_info[image_id]
-    # 定义盒文件位置
+		# 定义盒文件位置
 		path = info['annotation']
-    # 加载 XML
+		# 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
+		# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
-    # 创建掩膜
+		# 创建掩膜
 		class_ids = list()
 		for i in range(len(boxes)):
 			box = boxes[i]
@@ -928,7 +928,7 @@ class KangarooDataset(Dataset):
 			class_ids.append(self.class_names.index('kangaroo'))
 		return masks, asarray(class_ids, dtype='int32')
 
-  # 加载图像引用
+	# 加载图像引用
 	def image_reference(self, image_id):
 		info = self.image_info[image_id]
 		return info['path']
@@ -984,11 +984,11 @@ Mask R-CNN model 在 MS COCO 目标检测的预先拟合可以用作初始模型
 ```
 # 定义模型配置
 class KangarooConfig(Config):
-  # 给配置对象命名
+	# 给配置对象命名
 	NAME = "kangaroo_cfg"
-  # 类的数量（背景中的 + 袋鼠）
+	# 类的数量（背景中的 + 袋鼠）
 	NUM_CLASSES = 1 + 1
-  # 每轮训练的迭代数量
+	# 每轮训练的迭代数量
 	STEPS_PER_EPOCH = 131
 
 # 准备好配置信息
@@ -1044,38 +1044,38 @@ from mrcnn.model import MaskRCNN
 
 # 定义并加载袋鼠数据集的类
 class KangarooDataset(Dataset):
-  # 加载数据集定义
+	# 加载数据集定义
 	def load_dataset(self, dataset_dir, is_train=True):
-    # 定义一个类
+		# 定义一个类
 		self.add_class("dataset", 1, "kangaroo")
-    # 定义数据所在位置
+		# 定义数据所在位置
 		images_dir = dataset_dir + '/images/'
 		annotations_dir = dataset_dir + '/annots/'
-    # 定位到所有图像
+		# 定位到所有图像
 		for filename in listdir(images_dir):
-      # 提取图像 id
+			# 提取图像 id
 			image_id = filename[:-4]
-      # 略过不合格的图像
+			# 略过不合格的图像
 			if image_id in ['00090']:
 				continue
-      # 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
+			# 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
 			if is_train and int(image_id) >= 150:
 				continue
-      # 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
+			# 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
 			if not is_train and int(image_id) < 150:
 				continue
 			img_path = images_dir + filename
 			ann_path = annotations_dir + image_id + '.xml'
-      # 添加到数据集
+			# 添加到数据集
 			self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 
-  # 从注解文件中提取边框值
+	# 从注解文件中提取边框值
 	def extract_boxes(self, filename):
-    # 加载并解析文件
+		# 加载并解析文件
 		tree = ElementTree.parse(filename)
-    # 获取文档根元素
+		# 获取文档根元素
 		root = tree.getroot()
-    # 提取出每个 bounding box 元素
+		# 提取出每个 bounding box 元素
 		boxes = list()
 		for box in root.findall('.//bndbox'):
 			xmin = int(box.find('xmin').text)
@@ -1084,22 +1084,22 @@ class KangarooDataset(Dataset):
 			ymax = int(box.find('ymax').text)
 			coors = [xmin, ymin, xmax, ymax]
 			boxes.append(coors)
-    # 提取出图像尺寸
+		# 提取出图像尺寸
 		width = int(root.find('.//size/width').text)
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩膜
+	# 加载图像掩膜
 	def load_mask(self, image_id):
-    # 获取图像详细信息
+		# 获取图像详细信息
 		info = self.image_info[image_id]
-    # 定义盒文件位置
+		# 定义盒文件位置
 		path = info['annotation']
-    # 加载 XML
+		# 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
+		# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
-    # 创建掩膜
+		# 创建掩膜
 		class_ids = list()
 		for i in range(len(boxes)):
 			box = boxes[i]
@@ -1109,18 +1109,18 @@ class KangarooDataset(Dataset):
 			class_ids.append(self.class_names.index('kangaroo'))
 		return masks, asarray(class_ids, dtype='int32')
 
-  # 加载图像引用
+	# 加载图像引用
 	def image_reference(self, image_id):
 		info = self.image_info[image_id]
 		return info['path']
 
 # 定义模型配置
 class KangarooConfig(Config):
-  # 定义配置名
+	# 定义配置名
 	NAME = "kangaroo_cfg"
-  # 类的数量（背景中的 + 袋鼠）
+	# 类的数量（背景中的 + 袋鼠）
 	NUM_CLASSES = 1 + 1
-  # 每轮训练的迭代数量
+	# 每轮训练的迭代数量
 	STEPS_PER_EPOCH = 131
 
 # 准备训练集
@@ -1196,11 +1196,11 @@ mask-rcnn 库提供了函数 _mrcnn.utils.compute_ap_，用于计算 AP 以及�
 ```
 # 定义预测配置
 class PredictionConfig(Config):
-  # 定义配置名
+	# 定义配置名
 	NAME = "kangaroo_cfg"
-  # 类的数量（背景中的 + 袋鼠）
+	# 类的数量（背景中的 + 袋鼠）
 	NUM_CLASSES = 1 + 1
-  # 简化 GPU 配置
+	# 简化 GPU 配置
 	GPU_COUNT = 1
 	IMAGES_PER_GPU = 1
 ```
@@ -1265,21 +1265,21 @@ AP 值将会被加入到一个列表中去，然后计算平均值。
 def evaluate_model(dataset, model, cfg):
 	APs = list()
 	for image_id in dataset.image_ids:
-    # 加载指定 image id 的图像、边框和掩膜
+		# 加载指定 image id 的图像、边框和掩膜
 		image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(dataset, cfg, image_id, use_mini_mask=False)
-    # 转换像素值（例如居中）
+		# 转换像素值（例如居中）
 		scaled_image = mold_image(image, cfg)
-    # 将图像转换为样本
+		# 将图像转换为样本
 		sample = expand_dims(scaled_image, 0)
-    # 作出预测
+		# 作出预测
 		yhat = model.detect(sample, verbose=0)
-    # 为第一个样本提取结果
+		# 为第一个样本提取结果
 		r = yhat[0]
-    # 统计计算，包括计算 AP
+		# 统计计算，包括计算 AP
 		AP, _, _, _ = compute_ap(gt_bbox, gt_class_id, gt_mask, r["rois"], r["class_ids"], r["scores"], r['masks'])
-    # 保存
+		# 保存
 		APs.append(AP)
-  # 计算所有图片的平均 AP
+	# 计算所有图片的平均 AP
 	mAP = mean(APs)
 	return mAP
 ```
@@ -1314,38 +1314,38 @@ from mrcnn.model import mold_image
 
 # 定义并加载袋鼠数据集的类
 class KangarooDataset(Dataset):
-  # 加载数据集定义
+	# 加载数据集定义
 	def load_dataset(self, dataset_dir, is_train=True):
-    # 定义一个类
+		# 定义一个类
 		self.add_class("dataset", 1, "kangaroo")
-    # 定义数据所在位置
+		# 定义数据所在位置
 		images_dir = dataset_dir + '/images/'
 		annotations_dir = dataset_dir + '/annots/'
-    # 定位到所有图像
+		# 定位到所有图像
 		for filename in listdir(images_dir):
-      # 提取图像 id
+			# 提取图像 id
 			image_id = filename[:-4]
-      # 略过不合格的图像
+			# 略过不合格的图像
 			if image_id in ['00090']:
 				continue
-      # 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
+			# 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
 			if is_train and int(image_id) >= 150:
 				continue
-      # 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
+			# 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
 			if not is_train and int(image_id) < 150:
 				continue
 			img_path = images_dir + filename
 			ann_path = annotations_dir + image_id + '.xml'
-      # 添加到数据集
+			# 添加到数据集
 			self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 
-  # 从注解文件中提取边框值
+	# 从注解文件中提取边框值
 	def extract_boxes(self, filename):
-    # 加载并解析文件
+		# 加载并解析文件
 		tree = ElementTree.parse(filename)
-    # 获取文档根元素
+		# 获取文档根元素
 		root = tree.getroot()
-    # 提取出每个 bounding box 元素
+		# 提取出每个 bounding box 元素
 		boxes = list()
 		for box in root.findall('.//bndbox'):
 			xmin = int(box.find('xmin').text)
@@ -1354,22 +1354,22 @@ class KangarooDataset(Dataset):
 			ymax = int(box.find('ymax').text)
 			coors = [xmin, ymin, xmax, ymax]
 			boxes.append(coors)
-    # 提取出图像尺寸
+		# 提取出图像尺寸
 		width = int(root.find('.//size/width').text)
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩膜
+	# 加载图像掩膜
 	def load_mask(self, image_id):
-    # 获取图像详细信息
+		# 获取图像详细信息
 		info = self.image_info[image_id]
-    # 定义盒文件位置
+		# 定义盒文件位置
 		path = info['annotation']
-    # 加载 XML
+		# 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
+		# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
-    # 创建掩膜
+		# 创建掩膜
 		class_ids = list()
 		for i in range(len(boxes)):
 			box = boxes[i]
@@ -1379,18 +1379,18 @@ class KangarooDataset(Dataset):
 			class_ids.append(self.class_names.index('kangaroo'))
 		return masks, asarray(class_ids, dtype='int32')
 
-  # 加载图像引用
+	# 加载图像引用
 	def image_reference(self, image_id):
 		info = self.image_info[image_id]
 		return info['path']
 
 # 定义预测配置
 class PredictionConfig(Config):
-  # 定义配置名
+	# 定义配置名
 	NAME = "kangaroo_cfg"
-  # 类的数量（背景中的 + 袋鼠）
+	# 类的数量（背景中的 + 袋鼠）
 	NUM_CLASSES = 1 + 1
-  # 简化 GPU 配置
+	# 简化 GPU 配置
 	GPU_COUNT = 1
 	IMAGES_PER_GPU = 1
 
@@ -1398,21 +1398,21 @@ class PredictionConfig(Config):
 def evaluate_model(dataset, model, cfg):
 	APs = list()
 	for image_id in dataset.image_ids:
-    # 加载指定 image id 的图像、边框和掩膜
+		# 加载指定 image id 的图像、边框和掩膜
 		image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(dataset, cfg, image_id, use_mini_mask=False)
-    # 转换像素值（例如居中）
+		# 转换像素值（例如居中）
 		scaled_image = mold_image(image, cfg)
-    # 将图像转换为样本
+		# 将图像转换为样本
 		sample = expand_dims(scaled_image, 0)
-    # 作出预测
+		# 作出预测
 		yhat = model.detect(sample, verbose=0)
-    # 为第一个样本提取结果
+		# 为第一个样本提取结果
 		r = yhat[0]
-    # 统计计算，包括计算 AP
+		# 统计计算，包括计算 AP
 		AP, _, _, _ = compute_ap(gt_bbox, gt_class_id, gt_mask, r["rois"], r["class_ids"], r["scores"], r['masks'])
-    # 保存
+		# 保存
 		APs.append(AP)
-  # 计算所有图片的平均 AP
+	# 计算所有图片的平均 AP
 	mAP = mean(APs)
 	return mAP
 
@@ -1522,13 +1522,13 @@ pyplot.title('Predicted')
 ax = pyplot.gca()
 # 绘制每个图框
 for box in yhat['rois']:
-  # 获取坐标
+	# 获取坐标
 	y1, x1, y2, x2 = box
-  # 计算绘图框的宽度和高度
+	# 计算绘图框的宽度和高度
 	width, height = x2 - x1, y2 - y1
-  # 创建形状对象
+	# 创建形状对象
 	rect = Rectangle((x1, y1), width, height, fill=False, color='red')
-  # 绘制绘图框
+	# 绘制绘图框
 	ax.add_patch(rect)
 ```
 
@@ -1537,42 +1537,42 @@ for box in yhat['rois']:
 ```
 # 绘制多张带有真实和预测边框的图像
 def plot_actual_vs_predicted(dataset, model, cfg, n_images=5):
-  # 加载图像和掩膜
+	# 加载图像和掩膜
 	for i in range(n_images):
-    # 加载图像和掩膜
+		# 加载图像和掩膜
 		image = dataset.load_image(i)
 		mask, _ = dataset.load_mask(i)
-    # 转换像素值（例如居中）
+		# 转换像素值（例如居中）
 		scaled_image = mold_image(image, cfg)
-    # 将图像转换为样本
+		# 将图像转换为样本
 		sample = expand_dims(scaled_image, 0)
-    # 作出预测
+		# 作出预测
 		yhat = model.detect(sample, verbose=0)[0]
-    # 定义子图
+		# 定义子图
 		pyplot.subplot(n_images, 2, i*2+1)
-    # 绘制原始像素数据
+		# 绘制原始像素数据
 		pyplot.imshow(image)
 		pyplot.title('Actual')
-    # 绘制掩膜
+		# 绘制掩膜
 		for j in range(mask.shape[2]):
 			pyplot.imshow(mask[:, :, j], cmap='gray', alpha=0.3)
-    # 获取绘图框的上下文
+		# 获取绘图框的上下文
 		pyplot.subplot(n_images, 2, i*2+2)
-    # 绘制原始像素数据
+		# 绘制原始像素数据
 		pyplot.imshow(image)
 		pyplot.title('Predicted')
 		ax = pyplot.gca()
-    # 绘制每个绘图框
+		# 绘制每个绘图框
 		for box in yhat['rois']:
-      # 获取坐标
+			# 获取坐标
 			y1, x1, y2, x2 = box
-      # 计算绘图框的宽度和高度
+			# 计算绘图框的宽度和高度
 			width, height = x2 - x1, y2 - y1
-      # 创建形状对象
+			# 创建形状对象
 			rect = Rectangle((x1, y1), width, height, fill=False, color='red')
-      # 绘制绘图框
+			# 绘制绘图框
 			ax.add_patch(rect)
-  # 显示绘制结果
+	# 显示绘制结果
 	pyplot.show()
 ```
 
@@ -1594,37 +1594,37 @@ from mrcnn.utils import Dataset
 
 # 定义并加载袋鼠数据集的类
 class KangarooDataset(Dataset):
-  # 加载数据集定义
+	# 加载数据集定义
 	def load_dataset(self, dataset_dir, is_train=True):
-    # 定义一个类
+		# 定义一个类
 		self.add_class("dataset", 1, "kangaroo")
-    # 定义数据所在位置
+		# 定义数据所在位置
 		images_dir = dataset_dir + '/images/'
 		annotations_dir = dataset_dir + '/annots/'
-    # 定位到所有图像
+		# 定位到所有图像
 		for filename in listdir(images_dir):
-      # 提取图像 id
+			# 提取图像 id
 			image_id = filename[:-4]
-      # 略过不合格的图像
+			# 略过不合格的图像
 			if image_id in ['00090']:
 				continue
-      # 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
+			# 如果我们正在建立的是训练集，略过 150 序号之后的所有图像
 			if is_train and int(image_id) >= 150:
 				continue
-      # 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
+			# 如果我们正在建立的是测试/验证集，略过 150 序号之前的所有图像
 			if not is_train and int(image_id) < 150:
 				continue
 			img_path = images_dir + filename
 			ann_path = annotations_dir + image_id + '.xml'
-      # 添加到数据集
+			# 添加到数据集
 			self.add_image('dataset', image_id=image_id, path=img_path, annotation=ann_path)
 
-  # 从图片中加载所有边框信息
+	# 从图片中加载所有边框信息
 	def extract_boxes(self, filename):
-    # 加载并解析文件
+		# 加载并解析文件
 		root = ElementTree.parse(filename)
 		boxes = list()
-    # 提取边框信息
+		# 提取边框信息
 		for box in root.findall('.//bndbox'):
 			xmin = int(box.find('xmin').text)
 			ymin = int(box.find('ymin').text)
@@ -1632,22 +1632,22 @@ class KangarooDataset(Dataset):
 			ymax = int(box.find('ymax').text)
 			coors = [xmin, ymin, xmax, ymax]
 			boxes.append(coors)
-    # 提取出图像尺寸
+		# 提取出图像尺寸
 		width = int(root.find('.//size/width').text)
 		height = int(root.find('.//size/height').text)
 		return boxes, width, height
 
-  # 加载图像掩膜
+	# 加载图像掩膜
 	def load_mask(self, image_id):
-    # 获取图像详细信息
+		# 获取图像详细信息
 		info = self.image_info[image_id]
-    # 定义盒文件位置
+		# 定义盒文件位置
 		path = info['annotation']
-    # 加载 XML
+		# 加载 XML
 		boxes, w, h = self.extract_boxes(path)
-    # 为所有掩膜创建一个数组，每个数组都位于不同的通道
+		# 为所有掩膜创建一个数组，每个数组都位于不同的通道
 		masks = zeros([h, w, len(boxes)], dtype='uint8')
-    # 创建掩膜
+		# 创建掩膜
 		class_ids = list()
 		for i in range(len(boxes)):
 			box = boxes[i]
@@ -1657,59 +1657,59 @@ class KangarooDataset(Dataset):
 			class_ids.append(self.class_names.index('kangaroo'))
 		return masks, asarray(class_ids, dtype='int32')
 
-  # 加载图像引用
+	# 加载图像引用
 	def image_reference(self, image_id):
 		info = self.image_info[image_id]
 		return info['path']
 
 # 定义预测配置
 class PredictionConfig(Config):
-  # 定义配置名
+	# 定义配置名
 	NAME = "kangaroo_cfg"
-  # 类的数量（背景中的 + 袋鼠）
+	# 类的数量（背景中的 + 袋鼠）
 	NUM_CLASSES = 1 + 1
-  # 简化 GPU 配置
+	# 简化 GPU 配置
 	GPU_COUNT = 1
 	IMAGES_PER_GPU = 1
 
 # 绘制多张带有真实和预测边框的图像
 def plot_actual_vs_predicted(dataset, model, cfg, n_images=5):
-  # 加载图像和掩膜
+	# 加载图像和掩膜
 	for i in range(n_images):
-    # 加载图像和掩膜
+		# 加载图像和掩膜
 		image = dataset.load_image(i)
 		mask, _ = dataset.load_mask(i)
-    # 转换像素值（例如居中）
+		# 转换像素值（例如居中）
 		scaled_image = mold_image(image, cfg)
-    # 将图像转换为样本
+		# 将图像转换为样本
 		sample = expand_dims(scaled_image, 0)
-    # 作出预测
+		# 作出预测
 		yhat = model.detect(sample, verbose=0)[0]
-    # 定义子图
+		# 定义子图
 		pyplot.subplot(n_images, 2, i*2+1)
-    # 绘制原始像素数据
+		# 绘制原始像素数据
 		pyplot.imshow(image)
 		pyplot.title('Actual')
-    # 绘制掩膜
+		# 绘制掩膜
 		for j in range(mask.shape[2]):
 			pyplot.imshow(mask[:, :, j], cmap='gray', alpha=0.3)
-    # 获取绘图框的上下文
+		# 获取绘图框的上下文
 		pyplot.subplot(n_images, 2, i*2+2)
-    # 绘制原始像素数据
+		# 绘制原始像素数据
 		pyplot.imshow(image)
 		pyplot.title('Predicted')
 		ax = pyplot.gca()
-    # 绘制每个绘图框
+		# 绘制每个绘图框
 		for box in yhat['rois']:
-      # 获取坐标
+			# 获取坐标
 			y1, x1, y2, x2 = box
-      # 计算绘图框的宽度和高度
+			# 计算绘图框的宽度和高度
 			width, height = x2 - x1, y2 - y1
-      # 创建形状对象
+			# 创建形状对象
 			rect = Rectangle((x1, y1), width, height, fill=False, color='red')
-      # 绘制绘图框
+			# 绘制绘图框
 			ax.add_patch(rect)
-  # 显示绘制结果
+	# 显示绘制结果
 	pyplot.show()
 
 # 加载训练集
