@@ -2,8 +2,8 @@
 > * 原文作者：[Vicki Boykis](http://www.vickiboykis.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md)
-> * 译者：
-> * 校对者：胡其美(hu7may.github.io)
+> * 译者：[胡其美](hu7may.github.io)
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve)，[talisk](https://github.com/talisk)，[sunui](https://github.com/sunui)
 
 # 深入理解 Python 的类型提示
 
@@ -13,9 +13,9 @@ Presser, Konstantin Makovsky 1900
 
 ## 简介
 
-自从 Python 的类型提示在 [2014](https://www.python.org/dev/peps/pep-0484/) 年发布以来, 人们便一直将他们应用到自己的代码中。我大胆的猜测目前大约有 20 ~ 30% 的 Python 3 代码在使用提示（有时也称为注释）。在去年我看到他们出现在越来越多的[书](https://www.manning.com/books/classic-computer-science-problems-in-python)和教程中。
+自从 Python 的类型提示在 [2014](https://www.python.org/dev/peps/pep-0484/) 年发布以来，人们便一直将他们应用到自己的代码中。我大胆的猜测目前大约有 20 ~ 30% 的 Python 3 代码在使用提示（有时也称为注释）。在去年我看到他们出现在越来越多的[书](https://www.manning.com/books/classic-computer-science-problems-in-python)和教程中。
 
-> 事实上，我现在很好奇 - 如果你在积极地使用 Python 3 开发，你会在代码中使用注解和提示吗？
+> 事实上，我现在很好奇 —— 如果你在积极地使用 Python 3 开发，你会在代码中使用注解和提示吗？
 > 
 > — [Vicki Boykis (@vboykis) May 14, 2019](https://twitter.com/vboykis/status/1128324572917448704?ref_src=twsrc%5Etfw)
 
@@ -62,7 +62,7 @@ CPU 相当愚蠢，它可以完成艰巨的任务，但只能理解机器语言�
 
 编程语言要么[被编译要么被执行](http://openbookproject.net/thinkcs/python/english2e/ch01.html)（Python 通过解释器解释执行），代码转换为较低级别的机器代码，告诉计算机的低级组件即硬件该做什么。
 
-有多种方法可以将代码转换为机器能识别的代码：你可以构建二进制文件并让编译器对其进行翻译（C++，Go，Rust 等），或直接运行代码并让解释器执行。后者是 Python（以及 PHP，Ruby 和类似的脚本语言）的工作原理。
+有多种方法可以将代码转换为机器能识别的代码：你可以构建二进制文件并让编译器对其进行翻译（C++、Go、Rust 等），或直接运行代码并让解释器执行。后者是 Python（以及 PHP、Ruby 和类似的脚本语言）的工作原理。
 
 ![](https://raw.githubusercontent.com/veekaybee/veekaybee.github.io/master/images/interpret.png)
 
@@ -90,7 +90,7 @@ set
 dict
 ```
 
-还有由几种基本数据类型构成的高级数据类型。 例如，Python 列表可以包含整数，字符串或两者都包含。
+还有由几种基本数据类型构成的高级数据类型。例如，Python 列表可以包含整数，字符串或两者都包含。
 
 为了知道需要分配多少内存，计算机需要知道被存储数据的类型。幸运的是，Python 的[内置函数](https://docs.python.org/3/library/sys.html#sys.getsizeof) `getsizeof`，可以告诉我们每种不同的数据类型占多少字节。
 
@@ -341,7 +341,7 @@ users = [] # type: List[UserID]
 examples = {} # type: Dict[str, Any]
 ```
 
-开始类型提示就像注释。 但后来 Python 逐渐使用更统一的方法来处理类型提示，开始包括[函数注释](https://www.python.org/dev/peps/pep-3107/)：
+开始类型提示就像注释。但后来 Python 逐渐使用更统一的方法来处理类型提示，开始包括[函数注释](https://www.python.org/dev/peps/pep-3107/)：
 
 ```plain
 Function annotations, both for parameters and return values, are completely optional.
@@ -357,13 +357,13 @@ The only way that annotations take on meaning is when they are interpreted by th
 
 从实现细节来看：
 
->  虽然这些注释在运行时通过 **annotations** 属性可用，但在运行时不会进行类型检查。 相反，该提议假定存在一个单独的离线类型检查器，用户可以自行运行其源代码。 本质上来讲，这种类型的检查器就像一个强大的 linter。 （当然个人用户可以在运行时使用类似的检查器来进行设计执行或即时优化，但这些工具还不够成熟）
+>  虽然这些注释在运行时通过 **annotations** 属性可用，但在运行时不会进行类型检查。相反，该提议假定存在一个单独的离线类型检查器，用户可以自行运行其源代码。本质上来讲，这种类型的检查器就像一个强大的 linter。（当然个人用户可以在运行时使用类似的检查器来进行设计执行或即时优化，但这些工具还不够成熟）
 
 在实践中是怎样的呢？
 
 类型检查也意味着你可以更容易的使用集成开发环境。例如 PyCharm 根据类型提供了[代码补全与检查](https://www.jetbrains.com/help/pycharm/type-hinting-in-product.html),就像 VS Code 一样。
 
-类型检查在另一方面也是有益的：它们可以阻止你犯下愚蠢的错误。[这里是个很好的例子](https://medium.com/@ageitgey/learn-how-to-use-static-type-checking-in-python-3-6-in-10-minutes-12c86d72677b) 。
+类型检查在另一方面也是有益的：它们可以阻止你犯下愚蠢的错误。[这里是个很好的例子](https://medium.com/@ageitgey/learn-how-to-use-static-type-checking-in-python-3-6-in-10-minutes-12c86d72677b)。
 
 这里我们要增加一个名字到字典中：
 
@@ -456,13 +456,13 @@ mypy 有一些关于开发一个代码库的[很好建议](https://mypy.readthed
  6. Use MonkeyType or PyAnnotate to automatically annotate legacy code
 ```
 
-为了在你自己的代码中开始使用类型提示，理解以下几点很会有帮助：:
+为了在你自己的代码中开始使用类型提示，理解以下几点很会有帮助：
 
 首先，如果你在使用除了字符串，整形，布尔和其他 Python 的基本类型，你需要[导入类型模块](https://docs.python.org/3/library/typing.html)。
 
 第二，通过模块，有几种复杂类型可用：
 
-字典，元组，列表，集合等。
+字典、元组、列表、集合等。
 
 例如，字典 [str, float] 表示你想检查一个字典，其中键是字符串类型，值是浮点数类型。
 
