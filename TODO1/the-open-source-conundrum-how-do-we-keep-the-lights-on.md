@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-conundrum-how-do-we-keep-the-lights-on.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-conundrum-how-do-we-keep-the-lights-on.md)
 > * 译者：[lihanxiang](https://github.com/lihanxiang)
-> * 校对者：
+> * 校对者：[yangxy81118](https://github.com/yangxy81118)、[swants](https://github.com/swants)
 
 # 开源难题：如何保持长久？
 
