@@ -60,7 +60,7 @@
 
 这一步非常简单，只需要在命令行运行下面的命令：
 
-```
+```bash
 git clone https://github.com/matterport/Mask_RCNN.git
 ```
 
@@ -92,7 +92,7 @@ Mask_RCNN
 
 在命令行中输入：
 
-```
+```bash
 cd Mask_RCNN
 python setup.py install
 ```
@@ -105,13 +105,13 @@ error: can't create or remove files in install directory
 
 这种情况下，使用 sudo 安装软件：
 
-```
+```bash
 sudo python setup.py install
 ```
 
 如果你在使用 Python 的虚拟环境（[virtualenv](https://virtualenv.pypa.io/en/latest/)），例如 [EC2 深度学习的 AMI 实例](https://aws.amazon.com/marketplace/pp/B077GF11NF)（推荐用于本教程），你可以使用如下命令将 Mask_RCNN 安装到你的环境中：
 
-```
+```bash
 sudo ~/anaconda3/envs/tensorflow_p36/bin/python setup.py install
 ```
 
@@ -130,7 +130,7 @@ Finished processing dependencies for mask-rcnn==2.1
 
 你可以通过 pip 命令来请求库来确认它是否已经正确安装；例如：
 
-```
+```bash
 pip show mask-rcnn
 ```
 
@@ -166,7 +166,7 @@ Required-by:
 
 通过将 GitHub 仓库直接拷贝下来即可完成这一步，运行如下命令：
 
-```
+```bash
 git clone https://github.com/experiencor/kangaroo.git
 ```
 
@@ -203,7 +203,7 @@ annots/00003.xml
 
 首先，我们打开并查看第一个注解文件（_annots/00001.xml_）；你会看到：
 
-```
+```xml
 <annotation>
 	<folder>Kangaroo</folder>
 	<filename>00001.jpg</filename>
@@ -252,14 +252,14 @@ Python 为开发者提供了 [元素树 API](https://docs.python.org/3/library/x
 
 首先，注解文件必须要被加载并解析为 _ElementTree_ 对象。
 
-```
+```python
 # load and parse the file
 tree  =  ElementTree.parse(filename)
 ```
 
 加载成功后，我们可以取到文档的根元素，并可以对根元素发起 XPath 请求。
 
-```
+```python
 # 获取文档根元素
 root  =  tree.getroot()
 ```
@@ -268,7 +268,7 @@ root  =  tree.getroot()
 
 元素内的文字也可以被解析为整数值。
 
-```
+```python
 # 提取出每个 bounding box 元素
 for  box in  root.findall('.//bndbox'):
 	xmin  =  int(box.find('xmin').text)
@@ -281,7 +281,7 @@ for  box in  root.findall('.//bndbox'):
 
 图像的尺寸也同样很有用，它可以通过直接请求取得。
 
-```
+```python
 # 提取出图像尺寸
 width  =  int(root.find('.//size/width').text)
 height  =  int(root.find('.//size/height').text)
@@ -291,7 +291,7 @@ height  =  int(root.find('.//size/height').text)
 
 如下的 _extract_boxes()_ 函数就是上述功能的实现。
 
-```
+```python
 # 从注解文件中提取边框值的函数
 def extract_boxes(filename):
 	# 加载并解析文件
@@ -317,7 +317,7 @@ def extract_boxes(filename):
 
 完整的示例如下。
 
-```
+```python
 # 从注解文件中提取边框值的函数
 def extract_boxes(filename):
 	# 加载并解析文件
@@ -341,7 +341,7 @@ def extract_boxes(filename):
 
 运行上述示例代码，函数将会返回一个包含了注解文件中每个边框元素信息，以及每张图像的宽度和高度的列表。
 
-```
+```python
 [[233, 89, 386, 262], [134, 105, 341, 253]] 450 319
 ```
 
@@ -353,7 +353,7 @@ mask-rcnn 需要 [mrcnn.utils.Dataset 对象](https://github.com/matterport/Mask
 
 这就意味着，新建的类必须要继承 _mrcnn.utils.Dataset_ 类，并定义一个加载数据集的函数，这个函数可以任意命名，例如可以是 _load_dataset()_，它会重载用于加载掩膜的函数 _load_mask()_ 以及用于加载图像引用（路径或者 URL）的函数 _image_reference()_。
 
-```
+```python
 # 用于定义和加载袋鼠数据集的类
 class KangarooDataset(Dataset):
 	# 加载数据集定义
@@ -373,7 +373,7 @@ class KangarooDataset(Dataset):
 
 例如，我们将要创建一个名为 _KangarooDataset_ 的类，它将会以如下这样的方式使用：
 
-```
+```python
 # 准备数据集
 train_set  =  KangarooDataset()
 train_set.load_dataset(...)
@@ -384,7 +384,7 @@ train_set.prepare()
 
 通过调用内建的函数 _add_class()_ 可以定义类，通过函数的参数可以指定数据集名称‘_source_’，类的整型编号‘_class_id_’（例如，1 代指第一个类，不要使用 0，因为 0 已经保留用于背景类），以及‘_class_name_’（例如‘_kangaroo_’）。
 
-```
+```python
 # 定义一个类
 self.add_class("dataset",  1,  "kangaroo")
 ```
@@ -393,7 +393,7 @@ self.add_class("dataset",  1,  "kangaroo")
 
 这样，我们就为图像定义了一个“_image info_”字典结构，于是图像就可以通过它加入数据集的索引或者序号被检索到。你也可以定义其他的参数，它们也同样会被加入到字典中去，例如用于定义注解文件的‘_annotation_’参数。
 
-```
+```python
 # 添加到数据集
 self.add_image('dataset',  image_id='00001',  path='kangaroo/images/00001.jpg',  annotation='kangaroo/annots/00001.xml')
 ```
@@ -402,7 +402,7 @@ self.add_image('dataset',  image_id='00001',  path='kangaroo/images/00001.jpg', 
 
 注意，测试表明，编号‘_00090_’的图像存在一些问题，所以我们将它从数据集中移除。
 
-```
+```python
 # 加载数据集定义
 def load_dataset(self, dataset_dir):
 	# 定义一个类
@@ -427,7 +427,7 @@ def load_dataset(self, dataset_dir):
 
 可以使用文件名中的数字编号来完成图像的分类，图像编号在 150 之前的图像将会被用于训练，等于或者大于 150 的将用于测试。更新后的 _load_dataset()_ 函数可以支持训练和测试数据集，其代码如下：
 
-```
+```python
 # 加载数据集定义
 def load_dataset(self, dataset_dir, is_train=True):
 	# 定义一个类
@@ -462,7 +462,7 @@ def load_dataset(self, dataset_dir, is_train=True):
 
 我们必须首先加载注解文件，获取到 _image_id_。获取的步骤包括，首先获取包含 _image_id_ 的‘_image info_’字典，然后通过我们之前对 _add_image()_ 的调用获取图像的加载路径。接下来我们就可以在调用 _extract_boxes()_ 的时候使用该路径，这个函数是在前一章节中定义的，用于获取边框列表和图像尺寸。
 
-```
+```python
 # 获取图像详细信息
 info = self.image_info[image_id]
 # 定义盒文件位置
@@ -477,7 +477,7 @@ boxes, w, h = self.extract_boxes(path)
 
 通过为每个未知大小的图像创建一个全 0 的 NumPy 数组，并为每个边框创建一个通道，我们可以完成上述的目标：
 
-```
+```python
 # 为所有掩膜创建一个数组，每个数组都位于不同的通道
 masks  =  zeros([h,  w,  len(boxes)],  dtype='uint8')
 ```
@@ -486,7 +486,7 @@ masks  =  zeros([h,  w,  len(boxes)],  dtype='uint8')
 
 这些值可以直接用于定义数组中值为 1 的行和列的范围。
 
-```
+```python
 # 创建掩膜
 for i in range(len(boxes)):
 	box = boxes[i]
@@ -497,13 +497,13 @@ for i in range(len(boxes)):
 
 在这个数据集中，所有的对象都有相同的类。我们可以通过‘_class_names_’字典获取类的索引，然后将索引和掩膜一并添加到需要返回的列表中。
 
-```
+```python
 self.class_names.index('kangaroo')
 ```
 
 将这几步放在一起进行测试，最终完成的 _load_mask()_ 函数如下。
 
-```
+```python
 # 加载图像掩膜
 def load_mask(self, image_id):
 	# 获取图像详细信息
@@ -529,7 +529,7 @@ def load_mask(self, image_id):
 
 这个函数负责返回给定‘_image_id_’的路径或者 URL，也就是‘_image info_’字典的‘_path_’属性。
 
-```
+```python
 # 加载图像引用
 def image_reference(self, image_id):
 	info = self.image_info[image_id]
@@ -540,7 +540,7 @@ def image_reference(self, image_id):
 
 包含类与创建训练数据集和测试数据集的完整列表如下。
 
-```
+```python
 # 将数据分为训练和测试集
 from os import listdir
 from xml.etree import ElementTree
@@ -648,7 +648,7 @@ Test: 32
 
 创建一个数据集，以 _image_id_ 为参数调用 _load_image()_ 函数加载图像，然后以同一个 _image_id_ 为参数调用 _load_mask()_ 函数加载掩膜，通过这样的步骤，我们可以完成测试。
 
-```
+```python
 # 加载图像
 image_id = 0
 image = train_set.load_image(image_id)
@@ -660,7 +660,7 @@ print(mask.shape)
 
 接下来，我们可以使用 Matplotlib 提供的 API 绘制出图像，然后使用 alpha 值绘制出顶部的第一个掩膜，这样下面的图像依旧可以看到。
 
-```
+```python
 # 绘制图像
 pyplot.imshow(image)
 # 绘制掩膜
@@ -670,7 +670,7 @@ pyplot.show()
 
 完整的代码示例如下。
 
-```
+```python
 # 绘制一幅图像及掩膜
 from os import listdir
 from xml.etree import ElementTree
@@ -773,7 +773,7 @@ pyplot.show()
 
 我们可以确定这两个具有同样的长度和宽度，仅在通道的数量上不同。我们也可以看到在此场景下，第一张图像（也就是 _image_id = 0_ 的图像）仅有一个掩膜。
 
-```
+```python
 (626, 899, 3)
 (626, 899, 1)
 ```
@@ -788,7 +788,7 @@ pyplot.show()
 
 我们可以对数据集中的前 9 张图像做相同的操作，将每一张图像作为整体图的子图绘制出来，然后绘制出每一张图像的所有掩膜。
 
-```
+```python
 # 绘制最开始的几张图像
 for i in range(9):
 	# 定义子图
@@ -814,7 +814,7 @@ pyplot.show()
 
 这可以帮助我们确认，所有在 _load_dataset()_ 函数中对 _add_image()_ 函数的调用都按照预期运作。
 
-```
+```python
 # 枚举出数据集中所有的图像
 for image_id in train_set.image_ids:
 	# 加载图像信息
@@ -825,7 +825,7 @@ for image_id in train_set.image_ids:
 
 在加载的训练集上运行此代码将会展示出所有的‘_image info_’字典，字典中包含数据集中每张图像的路径和 id。
 
-```
+```python
 {'id': '00132', 'source': 'dataset', 'path': 'kangaroo/images/00132.jpg', 'annotation': 'kangaroo/annots/00132.xml'}
 {'id': '00046', 'source': 'dataset', 'path': 'kangaroo/images/00046.jpg', 'annotation': 'kangaroo/annots/00046.xml'}
 {'id': '00052', 'source': 'dataset', 'path': 'kangaroo/images/00052.jpg', 'annotation': 'kangaroo/annots/00052.xml'}
@@ -836,7 +836,7 @@ for image_id in train_set.image_ids:
 
 例如，_mask-rcnn_ 提供的 _mrcnn.visualize.display_instances()_ 函数，可以用于显示包含边框、掩膜以及类标签的图像。但是需要边框已经通过 _extract_bboxes()_ 方法从掩膜中提取出来。
 
-```
+```python
 # 定义图像 id
 image_id = 1
 # 加载图像
@@ -851,7 +851,7 @@ display_instances(image, bbox, mask, class_ids, train_set.class_names)
 
 为了让你对整个流程有完成的认识，所有代码都在下面列出。
 
-```
+```python
 # 显示带有掩膜和边框的图像
 from os import listdir
 from xml.etree import ElementTree
@@ -981,7 +981,7 @@ Mask R-CNN model 在 MS COCO 目标检测的预先拟合可以用作初始模型
 
 将这些内容组合在一起，我们自定义的 _KangarooConfig_ 类的定义如下。
 
-```
+```python
 # 定义模型配置
 class KangarooConfig(Config):
 	# 给配置对象命名
@@ -1003,7 +1003,7 @@ config = KangarooConfig()
 
 最后，需要一个目录来存储配置文件以及每轮训练结束后的模型检查点。我们就使用当前的工作目录吧。
 
-```
+```python
 # 定义模型
 model  =  MaskRCNN(mode='training',  model_dir='./',  config=config)
 ```
@@ -1012,7 +1012,7 @@ model  =  MaskRCNN(mode='training',  model_dir='./',  config=config)
 
 模型将按照原样使用，但是指定了类的输出层将会被移除，这样新的输出层才可以被定义和训练。这要通过指定‘_exclude_’参数，并在模型加载后列出所有需要从模型移除的输出层来完成。这包括分类标签、边框和掩膜的输出层。
 
-```
+```python
 # 加载 mscoco 权重信息
 model.load_weights('mask_rcnn_coco.h5', by_name=True, exclude=["mrcnn_class_logits", "mrcnn_bbox_fc",  "mrcnn_bbox", "mrcnn_mask"])
 ```
@@ -1021,7 +1021,7 @@ model.load_weights('mask_rcnn_coco.h5', by_name=True, exclude=["mrcnn_class_logi
 
 我们还可以指定训练哪个层。在本文的例子中，我们只训练头部，也就是模型的输出层。
 
-```
+```python
 # 训练权重（输出层，或者说‘头部’）
 model.train(train_set, test_set, learning_rate=config.LEARNING_RATE, epochs=5, layers='heads')
 ```
@@ -1032,7 +1032,7 @@ model.train(train_set, test_set, learning_rate=config.LEARNING_RATE, epochs=5, l
 
 就算将代码在性能不错的硬件上运行，也可能需要花费一些时间。所以我建议在 GPU 上运行它，例如 [Amazon EC2](https://machinelearningmastery.com/develop-evaluate-large-deep-learning-models-keras-amazon-web-services/)，在 P3 类型的硬件上，代码在五分钟内即可运行完成。
 
-```
+```python
 # 在袋鼠数据集上拟合 mask rcnn 模型
 from os import listdir
 from xml.etree import ElementTree
@@ -1193,7 +1193,7 @@ mask-rcnn 库提供了函数 _mrcnn.utils.compute_ap_，用于计算 AP 以及�
 
 首先我们必须定义一个 _Config_ 对象，它将用于作出预测，而不是用于训练。我们可以扩展之前定义的 _KangarooConfig_ 来复用一些参数。我们将定义一个新的属性值都相等的对象来让代码保持简洁。配置必须修改一些使用 GPU 进行预测时的默认值，这和在训练模型的时候的配置是不同的（那时候不用管你是在 GPU 或者 CPU 上运行代码的）。
 
-```
+```python
 # 定义预测配置
 class PredictionConfig(Config):
 	# 定义配置名
@@ -1207,7 +1207,7 @@ class PredictionConfig(Config):
 
 接下来我们就可以使用配置定义模型了，并且要将参数‘_mode_’从‘_training_’改为‘_inference_’。
 
-```
+```python
 # 创建配置
 cfg = PredictionConfig()
 # 定义模型
@@ -1218,7 +1218,7 @@ model = MaskRCNN(mode='inference', model_dir='./', config=cfg)
 
 通过指定模型文件的路径即可完成这一步。在本文的例子中，模型文件就是当前工作目录下的‘_mask\_rcnn\_kangaroo\_cfg\_0005.h5_’。
 
-```
+```python
 # 加载模型权重
 model.load_weights('mask_rcnn_kangaroo_cfg_0005.h5',  by_name=True)
 ```
@@ -1227,21 +1227,21 @@ model.load_weights('mask_rcnn_kangaroo_cfg_0005.h5',  by_name=True)
 
 第一步，根据指定的 _image_id_ 从数据集中加载出图像和真实掩膜。通过使用 _load\_image\_gt()_ 这个便捷的函数即可完成这一步。
 
-```
+```python
 # 加载指定 image id 的图像、边框和掩膜
 image, image_meta, gt_class_id, gt_bbox, gt_mask = load_image_gt(dataset, cfg, image_id, use_mini_mask=False)
 ```
 
 接下来，必须按照与训练数据相同的方式缩放已加载图像的像素值，例如居中。通过使用 _mold_image()_ 便捷函即可完成这一步。
 
-```
+```python
 # 转换像素值（例如居中）
 scaled_image  =  mold_image(image,  cfg)
 ```
 
 然后，图像的维度需要在数据集中扩展为一个样本，它将作为模型预测的输入。
 
-```
+```python
 sample = expand_dims(scaled_image, 0)
 # 作出预测
 yhat = model.detect(sample, verbose=0)
@@ -1251,7 +1251,7 @@ r = yhat[0]
 
 接下来，预测值可以和真实值作出比对，并使用 _compute_ap()_ 函数计算指标。
 
-```
+```python
 # 统计计算，包括计算 AP
 AP, _, _, _ = compute_ap(gt_bbox, gt_class_id, gt_mask, r["rois"], r["class_ids"], r["scores"], r['masks'])
 ```
@@ -1260,7 +1260,7 @@ AP 值将会被加入到一个列表中去，然后计算平均值。
 
 将上面这些组合在一起，下面的 _evaluate_model()_ 函数就是整个过程的实现，并在给定数据集、模型和配置的前提下计算出了 mAP。
 
-```
+```python
 # 计算给定数据集中模型的 mAP
 def evaluate_model(dataset, model, cfg):
 	APs = list()
@@ -1286,7 +1286,7 @@ def evaluate_model(dataset, model, cfg):
 
 现在我们可以计算训练集和数据集上模型的 mAP。
 
-```
+```python
 # 评估训练集上的模型
 train_mAP = evaluate_model(train_set, model, cfg)
 print("Train mAP: %.3f" % train_mAP)
@@ -1297,7 +1297,7 @@ print("Test mAP: %.3f" % test_mAP)
 
 完整的代码如下。
 
-```
+```python
 # 评估袋鼠数据集上的 mask rcnn 模型
 from os import listdir
 from xml.etree import ElementTree
@@ -1463,7 +1463,7 @@ Test mAP: 0.958
 
 在前几个章节中，我们已经知道如何对图像作出预测。具体来说，需要缩放图像的像素值，然后调用 _model.detect()_ 函数。例如：
 
-```
+```python
 # 做预测的例子
 ...
 # 加载图像
@@ -1481,7 +1481,7 @@ yhat = model.detect(sample, verbose=0)
 
 第一步，从数据集中加载图像和掩膜。
 
-```
+```python
 # 加载图像和掩膜
 image = dataset.load_image(image_id)
 mask, _ = dataset.load_mask(image_id)
@@ -1489,7 +1489,7 @@ mask, _ = dataset.load_mask(image_id)
 
 下一步，我们就可以对图像作出预测了。
 
-```
+```python
 # 转换像素值（例如居中）
 scaled_image = mold_image(image, cfg)
 # 将图像转换为样本
@@ -1500,7 +1500,7 @@ yhat = model.detect(sample, verbose=0)[0]
 
 接下来，我们可以为包含真实边框位置的图像创建一个子图，并将其绘制出来。
 
-```
+```python
 # 定义子图
 pyplot.subplot(n_images, 2, i*2+1)
 # 绘制原始像素数据
@@ -1513,7 +1513,7 @@ for j in range(mask.shape[2]):
 
 接下来我们可以在第一个子图旁边创建第二个子图，并绘制第一幅图，这一次要将带有预测边框位置的图像绘制出来。
 
-```
+```python
 # 获取绘图框的上下文
 pyplot.subplot(n_images, 2, i*2+2)
 # 绘制原始像素数据
@@ -1534,7 +1534,7 @@ for box in yhat['rois']:
 
 我们可以将制作数据集，模型，配置信息，以及绘制数据集中前五张带有真实和预测边框的图像，这些内容全都整合放在一个函数里面。
 
-```
+```python
 # 绘制多张带有真实和预测边框的图像
 def plot_actual_vs_predicted(dataset, model, cfg, n_images=5):
 	# 加载图像和掩膜
@@ -1578,7 +1578,7 @@ def plot_actual_vs_predicted(dataset, model, cfg, n_images=5):
 
 完整的加载训练好的模型，并对训练集和测试集中前几张图像作出预测的代码如下。
 
-```
+```python
 # 使用 mask rcnn 模型在图像中检测袋鼠
 from os import listdir
 from xml.etree import ElementTree
