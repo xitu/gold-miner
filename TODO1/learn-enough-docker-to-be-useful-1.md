@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-enough-docker-to-be-useful-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-enough-docker-to-be-useful-1.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[MarchYuanx](https://github.com/MarchYuanx)，[TokenJan](https://github.com/TokenJan)
 
 # Docker 的学习和应用
 
@@ -19,7 +19,7 @@ Docker 就是一个在容器中研发、部署以及运行程序的平台。实�
 
 不用担心你的进度比别人落后了 —— 本文将会帮助你了解 Docker 的基本概念 —— 然后你就可以在此基础上应用它了。
 
-在这个系列的后五篇文章中，我将会专注讲解 Docker 术语、Dockerfile、Docker 图像，Docker 命令以及数据存储。第二部分现在已经上线：
+在这个系列的后五篇文章中，我将会专注讲解 Docker 术语、Dockerfile、Docker 镜像，Docker 命令以及数据存储。第二部分现在已经上线：
 
 * [**Docker 的学习和应用（2）：你需要知道的那些 Docker 术语**](https://towardsdatascience.com/learn-enough-docker-to-be-useful-1c40ea269fa8)
 
@@ -33,9 +33,9 @@ Docker 就是一个在容器中研发、部署以及运行程序的平台。实�
 
 [Google 对比喻的定义](https://www.google.com/search?q=metaphor+definition&oq=metaphor+defini&aqs=chrome.0.0j69i57j0l4.2999j1j4&sourceid=chrome&ie=UTF-8)正是我们需要了解的：
 
-> 代表或者象征另外一些事物，特别是很抽象的事物的事物。
+> 代表或者象征另外一些事物，特别是很抽象的事物。
 
-比喻能帮助我们了解新事物。比如说，将其比喻为一个容器实体可以帮助我们快速的了解抽象的容器概念是什么。
+比喻能帮助我们了解新事物。比如说，将其比喻为一个容器实体可以帮助我们快速的了解虚拟容器的本质。
 
 ![一个容器实体](https://cdn-images-1.medium.com/max/2000/1*ndncU4a3uNsQ_oy2YrNLBA.jpeg)
 
@@ -47,9 +47,9 @@ Docker 就是一个在容器中研发、部署以及运行程序的平台。实�
 
 2. **便携式** —— 它可以用于本地设备、共享设备，或者云服务（例如 AWS）上。有点像你小时候搬家的时候用来装小玩意儿们的盒子。
 
-3. **提供清晰的可接入接口** —— 实体盒子会有一个开口，让我们能打开它并放入或者取出东西。类似的，Docker 容器也有和外界沟通的机制。它有可以开放的端口，通过浏览器即可与外界交互。你可以通过命令行对它进行数据交互的相关配置。
+3. **提供清晰的接口** —— 实体盒子会有一个开口，让我们能打开它并放入或者取出东西。类似的，Docker 容器也有和外界沟通的机制。它有可以开放的端口，通过浏览器即可与外界交互。你可以通过命令行对它进行数据交互的相关配置。
 
-4. **支持远程获取** —— 当你有需要的时候，你可以从亚马逊上买到另一个空的塑料盒子。亚马逊从制造商哪里获取塑料盒子，而制造商从一个模具中可以制造出成千上万这样的盒子。而对于 Docker 容器，异地登陆会保留一张快照，它就像是一个盒子模具。如果你需要另一个容器，你可以从这个快照中制作出一份。
+4. **支持远程获取** —— 当你有需要的时候，你可以从亚马逊上买到另一个空的塑料盒子。亚马逊从制造商那里获取塑料盒子，而制造商从一个模具中可以制造出成千上万这样的盒子。而对于 Docker 容器，异地登陆会保留一张镜像，它就像是一个盒子模具。如果你需要另一个容器，你可以从这个镜像中制作出一份。。
 
 和虚拟的 Docker 容器不同，你必须付费才能从亚马逊买新的塑料盒子，而且也不能得到放进去的货物的备份。抱歉喽 💸。
 
@@ -59,19 +59,19 @@ Docker 就是一个在容器中研发、部署以及运行程序的平台。实�
 
 ![An instance of a monster](https://cdn-images-1.medium.com/max/2000/1*t-uVUfbywQsDnwQoYAEbgA.jpeg)
 
-Docker 容器就是 Docker 快照的活体形态。
+Docker 容器就是 Docker 镜像的活体形态。
 
 ### 软件
 
-除了盒子的比喻和活的实例的比如，你还可以将 Docker 容器看作是**一个软件程序**。毕竟，容器本质上还是一个软件。在它最基本的层次上来说，容器是一系列能计算比特的指令。
+除了盒子的比喻和活的实例的比喻，你还可以将 Docker 容器看作是**一个软件程序**。毕竟，它在本质上还是一个软件。从根本上来说，容器是一系列能计算比特的指令。
 
 ![Containers are code](https://cdn-images-1.medium.com/max/2000/1*0D45gdLlWgvMBu9Xwr0RrA.jpeg)
 
-当 Docker 容器在运行的时候，通常情况下会有程序在它内部运行。程序在容器内执行动作所以应用程序才能完成某些功能。
+当 Docker 容器在运行的时候，通常情况下会有程序在它内部运行。程序在容器内执行操作，所以应用程序才能完成某些功能。
 
 例如，你现在正在阅读的网页也许就是 Docker 容器内的代码发送给你的。或者它也许读取了你的声音指令并发送给 Amazon Alexa，你的声音被解码为其他指令，然后其他容器中的程序将会使用它。
 
-使用 Docker，你就可以在一台主机上同时运行多个容器。和其他软件程序一样，Docker 容器可以被运行、测试、停止和删除。
+使用 Docker，你就可以在一台主机上同时运行多个容器。和其他软件程序一样，Docker 容器可以被运行、检测、停止和删除。
 
 ## 概念
 
@@ -79,25 +79,25 @@ Docker 容器就是 Docker 快照的活体形态。
 
 虚拟机是 Docker 容器的前身。虚拟机也会分离应用和它的依赖。但是，Docker 容器需要的资源更少，更轻也更快，因此它要比虚拟机更加先进。你可以阅读[这篇文章](https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)来了解更多它们之间的相似点与不同点。
 
-### Docker 图像
+### Docker 镜像
 
-我在前文中提到了快照。那么什么是快照呢？我很高兴你积极的提问了！在 Docker 的语境中，**快照**这个术语的含义和真正的照片的含义完全不同。
+我在前文中提到了镜像。那么什么是镜像呢？我很高兴你积极的提问了！在 Docker 的语境中，**镜像**这个术语的含义和真正的照片的含义完全不同。
 
 ![Images](https://cdn-images-1.medium.com/max/2000/1*Wv9nvbm0XRLSGQ9nqTzpdA.jpeg)
 
-Docker 快照更像是一个蓝图，饼干模具，或者说是模子。快照是不会变化的主模版，它用于产生完全一样的多个容器。
+Docker 镜像更像是一个蓝图，饼干模具，或者说是模子。镜像是不会变化的主模版，它用于产生完全一样的多个容器。
 
 ![Cookie cutters](https://cdn-images-1.medium.com/max/2000/1*n53WlDyD9mxVcOu17Rj86Q.jpeg)
 
-快照包含 Dockerfile，库，以及需要运行的应用代码，所有这些绑定在一起组成快照。
+镜像包含 Dockerfile，库，以及需要运行的应用代码，所有这些绑定在一起组成镜像。
 
 ### Dockerfile
 
-[Dockerfile](https://docs.docker.com/engine/reference/builder/) 是一个包含了 Docker 如何构建快照的指令的文件。
+[Dockerfile](https://docs.docker.com/engine/reference/builder/) 是一个包含了 Docker 如何构建镜像的指令的文件。
 
-Dockerfile 会指向一个可用于构建初始快照层的基础快照。使用广泛的官方基础快照包括 [python](https://hub.docker.com/_/python/)、[ubuntu](https://hub.docker.com/_/ubuntu) 和 [alpine](https://hub.docker.com/_/alpine)。
+Dockerfile 会指向一个可用于构建初始镜像层的基础镜像。使用广泛的官方基础镜像包括 [python](https://hub.docker.com/_/python/)、[ubuntu](https://hub.docker.com/_/ubuntu) 和 [alpine](https://hub.docker.com/_/alpine)。
 
-其他附加层将会根据 Dockerfile 中的指令，添加在基础快照层的上面。例如，及其学习应用的 Dockerfile 将会通知 Docker 在中间层中添加 NumPy、Pandas 和 Scikit-learn。
+其他附加层将会根据 Dockerfile 中的指令，添加在基础镜像层的上面。例如，机器学习应用的 Dockerfile 将会通知 Docker 在中间层中添加 NumPy、Pandas 和 Scikit-learn。
 
 最后，一个很薄并且可写的层将会根据 Dockerfile 的代码添加在所有层的上方。（薄的意思其实就是指这一层的体积很小，这一点你明白了对吧 😃？因为你已经很直观的理解了**薄**这个比喻）
 
@@ -105,11 +105,11 @@ Dockerfile 会指向一个可用于构建初始快照层的基础快照。使用
 
 ### Docker Container
 
-Docker 快照加上命令 `docker run image_name` 将会从这个快照中创建一个容器，并启动它。
+Docker 镜像加上命令 `docker run image_name` 将会从这个镜像中创建一个容器，并启动它。
 
 ### Container 注册处
 
-如果你想让其他人也可以使用你的快照生成容器，你需要将快照发送给容器注册处。[Docker Hub](https://hub.docker.com/) 是最大的、也是人们默认的注册处。
+如果你想让其他人也可以使用你的镜像生成容器，你需要将镜像发送给容器注册处。[Docker Hub](https://hub.docker.com/) 是最大的、也是人们默认的注册处。
 
 唉！太多零碎的内容了。我们把这些都集中在一起，进行一次实践，这就好像做一款披萨一样哦。
 
@@ -121,15 +121,15 @@ Docker 快照加上命令 `docker run image_name` 将会从这个快照中创建
 
 * 材料就是 Docker 的**层**。现在你已经有了披萨的面坯，酱料以及芝士了。
 
-将配方和原料的组合想象为一个一体化的披萨制作工具包。这就是 **Docker 快照**。
+将配方和原料的组合想象为一个一体化的披萨制作工具包。这就是 **Docker 镜像**。
 
 配方（Dockerfile）告诉了我们操作步骤。如下：
 
-* 披萨面坯是不能改的，就好比是基础的 ubuntu 父级快照。它是**底层**，并且会最先被构建。
+* 披萨面坯是不能改的，就好比是基础的 ubuntu 父级镜像。它是**底层**，并且会最先被构建。
 
 * 然后还需要添加一些芝士。披萨的第二层就好比**安装外部库** —— 例如 NumPy。
 
-* 然后你还可以撒上一些罗勒。罗勒就好比用来运行应用的你写在**文件里的代码**。
+* 然后你还可以撒上一些罗勒。罗勒就好比你写在**文件里的代码**，用来运行你的应用。。
 
 好了，现在我们开始烹饪吧。
 
@@ -137,11 +137,11 @@ Docker 快照加上命令 `docker run image_name` 将会从这个快照中创建
 
 * 用来烤披萨的烤箱就好比是 Docker 平台。你将烤箱搬到你的家里，这样就可以用它来烹饪了。相似的，你把 Docker 安装到你的电脑里，这样就可以操作容器。
 
-* 你通过旋转旋钮来让烤箱开始工作。命令 `docker run image_name` 就像是你的旋钮 —— 它可以创建并让容器开始工作。
+* 你通过旋转旋钮来让烤箱开始工作。`docker run image_name` 指令就像是你的旋钮 —— 它可以创建并让容器开始工作。
 
 * 做好的披萨就好比是一个 Docker 容器。
 
-* 想用披萨就好比是使用你的应用。
+* 享用披萨就好比是使用你的应用。
 
 正如做披萨一样，在 Docker 里创建应用也要你付出劳动，但是最终你能得到很棒的成果。享用它吧！
 
