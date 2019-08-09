@@ -2,36 +2,36 @@
 > * 原文作者：[Andrea Bizzotto](https://medium.com/@biz84)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-state-management-setstate-bloc-valuenotifier-provider.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-state-management-setstate-bloc-valuenotifier-provider.md)
-> * 译者：
+> * 译者：[talisk](https://github.com/talisk)
 > * 校对者：
 
-# Flutter State Management: setState, BLoC, ValueNotifier, Provider
+# Flutter 的状态管理方案：setState、BLoC、ValueNotifier、Provider
 
 ![](https://cdn-images-1.medium.com/max/3200/1*rXFefCEa1qbzIq7sefbZDA.jpeg)
 
-This article is a write-up of the highlights in [this video](https://youtu.be/7eaV9gSnaXw), where we compare different state management techniques.
+本文是[这个视频](https://youtu.be/7eaV9gSnaXw)中的重点内容，我们比较了不同的状态管理方案。
 
-As an example, we use a simple authentication flow. This sets a loading state while a sign-in request is in progress.
+例如，我们使用简单的身份验证流程。当登录请求发起时，设置正在加载中的状态。
 
-For simplicity, this flow is composed of three possible states:
+为简单起见，此流程由三种可能的状态组成：
 
 ![](https://cdn-images-1.medium.com/max/4676/1*OhO8kZJhTODjQj_CZfGZBQ.png)
 
-These are represented by the following state machine, which includes a **loading** state and an **authentication** state:
+图上的状态可以由如下状态机表示，其中包括**加载**状态和**认证**状态：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Oumxsqd0R9E2KgbBNfzfOA.png)
 
-When a sign-in request is in progress, we disable the sign-in button and show a progress indicator.
+当登录的请求正在进行中，我们会禁用登录按钮并展示进度指示器。
 
-This example app shows how to handle the loading state with various state management techniques.
+此示例 app 展示了如何使用各种状态管理方案处理加载状态。
 
-## Main Navigation
+## 主要导航
 
-The main navigation for the sign-in page is implemented with a widget that uses a [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html) menu to choose between different options:
+登录页面的主要导航是通过 [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html) 实现菜单，在不同项目中选择。
 
 ![](https://cdn-images-1.medium.com/max/2700/1*FSD9i9fNx2YkhC-6dyvRmg.png)
 
-The code for this is as follows:
+代码如下：
 
 ```Dart
 class SignInPageNavigation extends StatelessWidget {
@@ -77,15 +77,15 @@ class SignInPageNavigation extends StatelessWidget {
 }
 ```
 
-This widget shows a `Scaffold` where:
+这个 widget 展示了这样一个 `Scaffold`：
 
-* the `AppBar`’s title is the name of the selected option
-* the drawer uses a custom built `MenuSwitcher`
-* the body uses a switch to choose between different pages
+* `AppBar` 的标题是选中的项目名称
+* drawer 使用了自定义构造器 `MenuSwitcher`
+* body 使用了一个 switch 语句来区分不同的页
 
-## Reference flow (vanilla)
+## 参考流程（vanilla）
 
-To enable sign-in, we can start with a simple vanilla implementation that doesn’t have a loading state:
+要启用登录，我们可以从没有加载状态的简易 vanilla 实现开始：
 
 ```Dart
 class SignInPageVanilla extends StatelessWidget {
@@ -114,25 +114,25 @@ class SignInPageVanilla extends StatelessWidget {
 
 ```
 
-When the `SignInButton` is pressed, we call the `_signInAnonymously` method.
+当点击 `SignInButton` 按钮，就调用 `_signInAnonymously` 方法。
 
-This uses [Provider](https://pub.dev/packages/provider) to get an `AuthService` object, and uses it to sign-in.
+这里使用了 [Provider](https://pub.dev/packages/provider) 来获取 `AuthService` 对象，并将它用于登录。
 
-**NOTES**
+**札记**
 
-* `AuthService` is a simple wrapper for Firebase Authentication. See [this article](https://medium.com/coding-with-flutter/flutter-designing-an-authentication-api-with-service-classes-45ec8d55963e) for more details.
-* The authentication state is handled by an ancestor widget, that uses the `onAuthStateChanged` stream to decide which page to show. I covered this [in a previous article](https://medium.com/coding-with-flutter/super-simple-authentication-flow-with-flutter-firebase-737bba04924c).
+* `AuthService` 是一个对 Firebase Authentication 的简单封装。详情请见[这篇文章](https://medium.com/coding-with-flutter/flutter-designing-an-authentication-api-with-service-classes-45ec8d55963e)。
+* 身份验证状态由一个祖先 widget 处理，该 widget 使用 `onAuthStateChanged` 来决定展示哪个页面。我在[前一篇文章](https://medium.com/coding-with-flutter/super-simple-authentication-flow-with-flutter-firebase-737bba04924c)中介绍了这一点。
 
 ## setState
 
-The loading state can be added to the previous implementation by:
+加载状态可以经过以下流程，添加到刚刚的实现中：
 
-* Converting our widget to a `StatefulWidget`
-* Declaring a local state variable
-* Using it inside our build method
-* Updating it before and after the call to sign in.
+* 将我们的 widget 转化为 `StatefulWidget`
+* 定义一个局部 state 变量
+* 将该 state 放进 build 方法中
+* 在登录前和登录后更新它
 
-This is the resulting code:
+以下是最终代码：
 
 ```Dart
 class SignInPageSetState extends StatefulWidget {
@@ -171,13 +171,13 @@ class _SignInPageSetStateState extends State<SignInPageSetState> {
 }
 ```
 
-**Top Tip**: Note how we use a `[finally](https://dart.dev/guides/language/language-tour#finally)` clause. This can be used to execute some code, whether or not an exception was thrown.
+**重要提示**: 请注意我们如何使用 `[finally](https://dart.dev/guides/language/language-tour#finally)` 闭包。无论是否抛出异常，这都可被用于执行某些代码。
 
 ## BLoC
 
-The loading state can be represented by the values of a stream inside a BLoC.
+加载状态可以由 BLoC 中，stream 的值表示。
 
-And we need some extra boilerplate code to set things up:
+我们需要一些额外的示例代码来设置：
 
 ```Dart
 class SignInBloc {
@@ -240,26 +240,26 @@ class SignInPageBloc extends StatelessWidget {
 }
 ```
 
-In a nutshell, this code:
+简而言之，这段代码：
 
-* Adds a `SignInBloc` with a `StreamController<bool>` that is used to handle the loading state
-* Makes the `SignInBloc` accessible to our widget with a Provider/Consumer pair inside a `static create` method.
-* Calls `bloc.setIsLoading(value)` to update the stream, inside the `_signInAnonymously` method
-* Retrieves the loading state via a `StreamBuilder`, and uses it to configure the sign-in button.
+* 使用 `StreamController<bool>` 添加一个 `SignInBloc`，用于处理加载状态。
+* 通过静态 `create` 方法中的 Provider / Consumer，让 `SignInBloc` 可以访问我们的 widget。
+* 在 `_signInAnonymously` 方法中，通过调用 `bloc.setIsLoading(value)` 来更新 stream。
+* 通过 `StreamBuilder` 来检查加载状态，并使用它来设置登录按钮。
 
-## Note about RxDart
+## 关于 RxDart 的注意事项
 
-`BehaviourSubject` is special stream controller that gives us **synchronous** access to the last value of the stream.
+`BehaviorSubject` 是一种特殊的 stream 控制器，它允许我们**同步地**访问 stream 的最后一个值。
 
-As an alternative to BloC, we could use a `BehaviourSubject` to keep track of the loading state, and update it as needed.
+作为 BloC 的替代方案，我们可以使用 `BehaviorSubject` 来跟踪加载状态，并根据需要进行更新。
 
-I will update the [GitHub project](https://github.com/bizz84/simple_auth_comparison_flutter) to show how to do this.
+我会通过 [GitHub 项目](https://github.com/bizz84/simple_auth_comparison_flutter) 来展示具体如何实现。
 
 ## ValueNotifier
 
-A `[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html)` can be used to hold a single value, and notify its listeners when this changes.
+`[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html)` 可以被用于持有一个值，并当它变化的时候通知它的监听者。
 
-This is used to implement the same flow:
+实现相同的流程代码如下：
 
 ```Dart
 class SignInPageValueNotifier extends StatelessWidget {
@@ -306,15 +306,15 @@ class SignInPageValueNotifier extends StatelessWidget {
 }
 ```
 
-Inside the `static create` method, we use a `[ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html)`/`[Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)` with a `ValueNotifier<bool>`. This gives us a way to represent the loading state, and rebuild the widget when it changes.
+在 `静态 create` 方法中，我们使用了 `ValueNotifier<bool>` 的 `[ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html)` 和 `[Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)`，这为我们提供了一种表示加载状态的方法，并在更改时重建 widget。
 
 ## ValueNotifier vs ChangeNotifier
 
-`[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html)` and `[ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)` are closely related.
+`[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html)` 和 `[ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)` 密切相关。
 
-In fact, `ValueNotifier` is a subclass of `ChangeNotifier` that implements `ValueListenable<T>`.
+实际上，`ValueNotifier` 就是实现了 `ValueListenable<T>` 的 `ChangeNotifier` 的子类。
 
-This is the implementation of `ValueNotifier` in the Flutter SDK:
+这是 Flutter SDK 中 `ValueNotifier` 的实现：
 
 ```Dart
 /// A [ChangeNotifier] that holds a single value.
@@ -346,45 +346,45 @@ class ValueNotifier<T> extends ChangeNotifier implements ValueListenable<T> {
 }
 ```
 
-So, when should we use `ValueNotifier` vs `ChangeNotifier`?
+所以我们应该什么时候用 `ValueNotifier`，什么时候用 `ChangeNotifier` 呢？
 
-* Use `ValueNotifier` if you need widgets to rebuild when a simple value changes.
-* Use `ChangeNotifier` if you want more control on when `notifyListeners()` is called.
+* 如果在简单值更改时需要重建 widget，请使用 `ValueNotifier`。
+* 如果你想在 `notifyListeners()` 调用时有更多掌控，请使用 `ChangeNotifier`。
 
-## Note about ScopedModel
+## 关于ScopedModel的注意事项
 
-`ChangeNotifierProvider` is very similar to [ScopedModel](https://pub.dev/packages/scoped_model). In fact these pairs are almost equivalent:
+`ChangeNotifierProvider` 非常类似于 [ScopedModel](https://pub.dev/packages/scoped_model)。实际上，他们之间几乎相同：
 
 * `ScopedModel` ↔︎ `ChangeNotifierProvider`
 * `ScopedModelDescendant` ↔︎ `Consumer`
 
-So you don’t need ScopedModel if you are already using Provider, as `ChangeNotifierProvider` offers the same functionality.
+因此，如果你已经在使用 Provider，则不需要 ScopedModel，因为 `ChangeNotifierProvider` 提供了相同的功能。
 
-## Final comparison
+## 最后的比较
 
-The three implementations (setState, BLoC, ValueNotifier) are very similar, and only differ in how the loading state is handled.
+上述三种实现（setState、BLoC、ValueNotifier）非常相似，只是处理加载状态的方式不同。
 
-Here is how they compare:
+如下是他们的比较方式：
 
-* setState ↔︎ **least** amount of code
-* BLoC ↔︎ **most** amount of code
-* ValueNotifier ↔︎ **middle ground**
+* setState ↔︎ **最精简**的代码
+* BLoC ↔︎ **最多**的代码
+* ValueNotifier ↔︎ **中等水平**
 
-So `setState` works best **for this use case**, as we need to handle state that is **local to a single widget**.
+所以 `setState` 方案最适合**这个例子**，因为我们需要处理单个小部件的**各自的状态**。
 
-You can evaluate which one is more suitable on a case-by-case basis, as you build your own apps 😉
+在构建自己的应用程序时，你可以根据具体情况来评估哪个方案更合适 😉
 
-## Bonus: Implementing the Drawer Menu
+## 小彩蛋：实现 Drawer 菜单
 
-Keeping track of the currently selected option is also a state management problem:
+跟踪当前选择的选项也是一个状态管理问题：
 
 ![](https://cdn-images-1.medium.com/max/2700/1*FSD9i9fNx2YkhC-6dyvRmg.png)
 
-I first implemented this with a local state variable and `setState`, inside the custom drawer menu.
+我首先在自定义 Drawer 菜单中使用本地状态变量和 `setState` 实现它。
 
-However, the state was lost after sign-in in, because the drawer was removed from the widget tree.
+但是登录后状态丢失了，因为 Drawer 已经从 widget 树中删除。
 
-As a solution, I decided to store the state with a `ChangeNotifierProvider<ValueNotifier<Option>>` inside the `LandingPage`:
+有一个方案，我决定在 `LandingPage` 中使用 `ChangeNotifierProvider<ValueNotifier<Option>>` 存储状态：
 
 ```Dart
 class LandingPage extends StatelessWidget {
@@ -420,29 +420,29 @@ class LandingPage extends StatelessWidget {
 }
 ```
 
-Here, the `[StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html)` controls the authentication state of the user.
+这里使用 `[StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html)` 来控制用户的身份验证状态。
 
-And by wrapping this with a `ChangeNotifierProvider<ValueNotifier<Option>>`, I’m able to retain the selected option even after the `SignInPageNavigation` is removed.
+通过使用 `ChangeNotifierProvider<ValueNotifier<Option>>` 来包装它，即使在删除 `SignInPageNavigation` 之后，我也能保留所选的选项。
 
-In summary:
+总结如下：
 
-* StatefulWidgets don’t **remember** their state **after** they are removed.
-* With Provider, we can choose **where** to store state in the widget tree.
-* This way, the state is **retained** even when the widgets that use it are removed.
+* StatefulWidget 在 state 被删除后，不再**记住**自己的 state。
+* 使用 Provider，我们可以选择**在哪里**存储 widget 树中的状态。
+* 这样，即使删除使用它的小部件，状态也会被**保留**。
 
-`ValueNotifier` requires a bit more code than `setState`. But it can be used to **remember** the state, by placing a Provider where appropriate in the widget tree.
+`ValueNotifier` 比 `setState` 需要更多的代码。但它可以用来**记住**状态，通过在 widget 树中放置适当的 Provider。
 
-## Source code
+## 源代码
 
-The example code from this tutorial can be found here:
+可以在这里找到本教程中的示例代码：
 
 * [State Management Comparison: [ setState ❖ BLoC ❖ ValueNotifier ❖ Provider ]](https://github.com/bizz84/simple_auth_comparison_flutter)
 
-All these state management techniques are covered in-depth in my Flutter & Firebase Udemy course. This is available for early access at this link (discount code included):
+所有这些状态管理方案都在我的 Flutter & Firebase Udemy 课程中有深入介绍。这可以通过此链接进行了解（点这个链接有折扣哦）：
 
 * [Flutter & Firebase: Build a Complete App for iOS & Android](https://www.udemy.com/flutter-firebase-build-a-complete-app-for-ios-android/?couponCode=DART15&password=codingwithflutter)
 
-Happy coding!
+祝你代码敲得开心！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
