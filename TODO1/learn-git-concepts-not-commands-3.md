@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
 > * 译者：[Sam](https://github.com/xutaogit)
-> * 校对者：[40m41h42t](https://github.com/40m41h42t),[子非](https://github.com/CoolRice)
+> * 校对者：[40m41h42t](https://github.com/40m41h42t)，[子非](https://github.com/CoolRice)
 
 # Git：透过命令学概念 —— 第三部分
 
