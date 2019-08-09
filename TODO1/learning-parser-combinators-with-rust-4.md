@@ -39,7 +39,7 @@ fn quoted_string<'a>() -> impl Parser<'a, String> {
 
 问题在于，如果我们这样做，我们就会失去返回值依赖 `impl Trait` 的能力，因为 trait 声明中不允许使用 `impl Trait`。
 
-但现在我们有了 `BoxedParser`。 我们不能声明一个返回 `impl Parser <'a，A>` 的 trait 方法，但我们肯定**可以**声明一个返回 `BoxedParser <'a，A>` 的方法。
+但现在我们有了 `BoxedParser`。 我们不能声明一个返回 `impl Parser<'a, A>` 的 trait 方法，但我们肯定**可以**声明一个返回 `BoxedParser<'a, A>` 的方法。
 
 最好的情况是我们甚至可以使用默认实现声明这些方法，这样我们就不必为每个实现 `Parser` 的类型重新实现每个组合子。
 
@@ -101,7 +101,7 @@ where
 zero_or_more(any_char.pred(|c| *c != '"')),
 ```
 
-这样阅读起来更好一些，并且我认为应该保留 `zero_or_more` —— 它读起来像是“零或更多的 `any_char` 并且应用了下面的判断”，对我来说这听起来是正确的。 如果你愿意全力去做的话，你也可以继续将 `zero_or_more` 和 `one_or_more` 移动到 trait 中。
+这样阅读起来更好一些，并且我认为应该保留 `zero_or_more` —— 它读起来像是“零或更多的 `any_char` 并且应用了下面的判断”，对我来说这听起来是正确的。如果你愿意全力去做的话，你也可以继续将 `zero_or_more` 和 `one_or_more` 移动到 trait 中。
 
 除了重写 `quoted_string` 之外，还要修复 `single_element` 中的 `map`：
 
@@ -115,9 +115,9 @@ fn single_element<'a>() -> impl Parser<'a, Element> {
 }
 ```
 
-让我们尝试取消注释 `element_start` 和我们之前注释过的测试，看看结果是否变得更好。 让我们恢复代码并尝试运行测试...
+让我们尝试取消注释 `element_start` 和我们之前注释过的测试，看看结果是否变得更好。让我们恢复代码并尝试运行测试……
 
-……嗯，是的，编译时间现在恢复正常了。 你甚至可以删除文件顶部设置的类型大小，你完全不需要它了。
+……嗯，是的，编译时间现在恢复正常了。你甚至可以删除文件顶部设置的类型大小，你完全不需要它了。
 
 我们只是装箱了两个 `map` 和一个 `pred` —— **并且**我们得到了更好的写法！
 
@@ -135,9 +135,9 @@ fn open_element<'a>() -> impl Parser<'a, Element> {
 }
 ```
 
-现在，我们如何得到那些子元素？ 它们可能是单个元素或父元素本身，它们中也可能有零个或多个子元素，而我们拥有可靠的 `zero_or_more` 组合子，那我们该怎样输入呢？ 我们还有一个东西尚未处理，那就是多选解析器：**既**可以解析单个元素**又**可以解析父元素。
+现在，我们如何得到那些子元素？它们可能是单个元素或父元素本身，它们中也可能有零个或多个子元素，而我们拥有可靠的 `zero_or_more` 组合子，那我们该怎样输入呢？我们还有一个东西尚未处理，那就是多选解析器：**既**可以解析单个元素**又**可以解析父元素。
 
-为了达到目的，我们需要组合子按顺序尝试两个解析器：如果第一个解析器成功，任务就完成了，并返回它的结果。 如果它失败了，我们会用**相同的输入**尝试第二个解析器，而不是返回错误。 如果成功，那很好，如果没有，我们就会返回错误，因为这意味着我们的解析器都失败了，这是一个彻底的失败。
+为了达到目的，我们需要组合子按顺序尝试两个解析器：如果第一个解析器成功，任务就完成了，并返回它的结果。如果它失败了，我们会用**相同的输入**尝试第二个解析器，而不是返回错误。如果成功，那很好，如果没有，我们就会返回错误，因为这意味着我们的解析器都失败了，这是一个彻底的失败。
 
 ```rust
 fn either<'a, P1, P2, A>(parser1: P1, parser2: P2) -> impl Parser<'a, A>
@@ -158,17 +158,15 @@ where
 fn element<'a>() -> impl Parser<'a, Element> {
     either(single_element(), open_element())
 }
-
 ```
 
-现在让我们为结束标识符标记添加一个解析器。 它具有必须匹配开始标识符标记的有趣属性，这意味着解析器必须知道开始标识符标记的名称是什么。 但这就是函数参数的用途，是吧？
+现在让我们为结束标识符标记添加一个解析器。它具有必须匹配开始标识符标记的有趣属性，这意味着解析器必须知道开始标识符标记的名称是什么。但这就是函数参数的用途，是吧？
 
 ```rust
 fn close_element<'a>(expected_name: String) -> impl Parser<'a, String> {
     right(match_literal("</"), left(identifier, match_literal(">")))
         .pred(move |name| name == &expected_name)
 }
-
 ```
 
 那个 `pred` 组合子非常有用，不是吗？
@@ -182,7 +180,6 @@ fn parent_element<'a>() -> impl Parser<'a, Element> {
         left(zero_or_more(element()), close_element(…oops)),
     )
 }
-
 ```
 
 哎呀，我们现在该如何将该参数传递给 `close_element` 呢？我想这是我们要实现的最后一个组合子。
@@ -205,7 +202,6 @@ where
         Err(err) => Err(err),
     }
 }
-
 ```
 
 查看类型会有很多类型变量，但我们知道输入解析器 `P` 的结果类型为 `A`。然而我们的函数 `F`，其中的 `map` 有一个从 `A` 到 `B` 的函数，此两者之间关键的区别是 `and_then` 会从 `A` 获取一个函数到**一个新的解析器** `NextP`，其结果类型为 `B`。最终的结果类型是`B`，因此我们可以假设从 `NextP` 输出的任何东西都是最终的结果。
@@ -227,7 +223,6 @@ where
 {
     BoxedParser::new(and_then(self, f))
 }
-
 ```
 
 好的，现在这么做都有什么好处？
@@ -244,10 +239,9 @@ where
 {
     parser1.and_then(move |result1| parser2.map(move |result2| (result1.clone(), result2)))
 }
-
 ```
 
-它看起来非常简洁，但是有一个问题：`parser2.map()` 使用 `parser2` 来创建包装好的解析器，包装函数是 `Fn`，而不是 `FnOnce`，因此它不允许使用 `parser2` 解析器，我们只能参考它。 换句话说，这是 Rust 的问题。 在更高级别的语言中，这些事情不是问题，它们可能会用更优雅的方式定义 `pair`。
+它看起来非常简洁，但是有一个问题：`parser2.map()` 使用 `parser2` 来创建包装好的解析器，包装函数是 `Fn`，而不是 `FnOnce`，因此它不允许使用 `parser2` 解析器，我们只能参考它。换句话说，这是 Rust 的问题。在更高级别的语言中，这些事情不是问题，它们可能会用更优雅的方式定义 `pair`。
 
 但是，即使在 Rust 中我们也可以使用该函数来延迟生成 `close_element` 解析器的正确版本，或者换句话说，我们可以将该参数传递给它。
 
@@ -260,7 +254,6 @@ fn parent_element<'a>() -> impl Parser<'a, Element> {
         left(zero_or_more(element()), close_element(…oops)),
     )
 }
-
 ```
 
 使用 `and_then`，我们现在可以通过使用这个函数构造正确版本的 `close_element` 来实现这一点。
@@ -275,12 +268,11 @@ fn parent_element<'a>() -> impl Parser<'a, Element> {
         })
     })
 }
-
 ```
 
-它现在看起来有点复杂，因为 `and_then` 必须继续通过 `open_element()` 调用，我们会在那里找到跳转到 `close_element` 的名字。 这意味着 `open_element` 之后的其它解析器都必须在 `and_then` 闭包内构造。 此外，由于闭包现在是 `open_element` 的 `Element` 结果的唯一接收者，我们返回的解析器也必须向前传递该信息。
+它现在看起来有点复杂，因为 `and_then` 必须继续通过 `open_element()` 调用，我们会在那里找到跳转到 `close_element` 的名字。这意味着 `open_element` 之后的其它解析器都必须在 `and_then` 闭包内构造。此外，由于闭包现在是 `open_element` 的 `Element` 结果的唯一接收者，我们返回的解析器也必须向前传递该信息。
 
-我们在生成的解析器上 `map` 的内部闭包具有对外部闭包中 `Element`（`el`）的引用。我们必须 `clone()` 它因为在 `Fn` 中只能引用它一次。我们取内部解析器的结果（子元素的 `Vec <Element>` ）并将它添加到我们克隆的 `Element` 中，并将其作为最终结果返回。
+我们在生成的解析器上 `map` 的内部闭包具有对外部闭包中 `Element`(`el`) 的引用。我们必须 `clone()` 它因为在 `Fn` 中只能引用它一次。我们取内部解析器的结果（子元素的 `Vec<Element>` ）并将它添加到我们克隆的 `Element` 中，并将其作为最终结果返回。
 
 我们现在需要做的就是回到 `element` 解析器并确保将 `open_element` 改为 `parent_element`，这样它会解析整个元素结构而不仅仅是它的开头，我相信我们已经完成解析器组合子了！
 
@@ -294,7 +286,7 @@ fn parent_element<'a>() -> impl Parser<'a, Element> {
 
 就像当你有 `Option<A>` 的时候，函数可能会被立即调用，我们已经知道它是 `Some(A)` 还是 `None`，所以如果是 `Some(A)` 我们直接应用函数，并输出 `Some(B)`。
 
-它也可能被称为延迟调用。 例如，如果你有一个仍然等待解决的 `Future<A>`，它不会通过 `and_then` 立即调用函数创建一个 `Future<B>`，而是创建一个新的`Future<B>`，既包含 `Future<A>` 又包含函数，然后等待 `Future<A>` 完成。 当它发生的时候，它会调用带有 `Future<A>` 结果的函数，而鲍勃是你的叔叔[^1]，你会得到 `Future<B>`。 换句话说，在 `Future` 的情况下，你可以将传递给 `and_then` 的函数视为**回调函数**，因为它在完成时会被原始的未来的结果调用。 它也比这更有意思，因为它返回了一个**新的** `Future`，它可能已经或可能没有被解析，所以它是一种**连接**未来状态的方法。
+它也可能被称为延迟调用。 例如，如果你有一个仍然等待解决的 `Future<A>`，它不会通过 `and_then` 立即调用函数创建一个 `Future<B>`，而是创建一个新的`Future<B>`，既包含 `Future<A>` 又包含函数，然后等待 `Future<A>` 完成。 当它发生的时候，它会调用带有 `Future<A>` 结果的函数，而鲍勃是你的叔叔 <sup><a href="#note1">[1]</a></sup>，你会得到 `Future<B>`。 换句话说，在 `Future` 的情况下，你可以将传递给 `and_then` 的函数视为**回调函数**，因为它在完成时会被原始的未来的结果调用。它也比这更有意思，因为它返回了一个**新的** `Future`，它可能已经或可能没有被解析，所以它是一种**连接**未来状态的方法。
 
 然而，与 functor 一样，Rust 的类型系统目前还不能表达 monad，所以我们只需记住这种模式被叫做 monad，而且相当令人失望的是，与在互联网上所描述的相反，它与 burrito 没什么关系。让我们继续前进。
 
@@ -313,7 +305,6 @@ where
 {
     right(space0(), left(parser, space0()))
 }
-
 ```
 
 如果我们将 `element` 包装在其中，它将忽略 `element` 周围的所有前导和尾随的空格，这意味着我们可以自由地使用我们希望的任意数量的换行符和缩进。
@@ -322,7 +313,6 @@ where
 fn element<'a>() -> impl Parser<'a, Element> {
     whitespace_wrap(either(single_element(), parent_element()))
 }
-
 ```
 
 ### 我们终于完成了！
@@ -361,7 +351,6 @@ fn xml_parser() {
     };
     assert_eq!(Ok(("", parsed_doc)), element().parse(doc));
 }
-
 ```
 
 它会由于结束标识符标记不匹配而导致失败，只是为了确保我们能够做到这一点：
@@ -375,20 +364,17 @@ fn mismatched_closing_tag() {
         </middle>"#;
     assert_eq!(Err("</middle>"), element().parse(doc));
 }
-
 ```
 
 好消息是它返回不匹配的结束标识符标记作为错误。坏消息是它实际上并没有**说明**问题是由一个不匹配的结束标识符标记导致的，只是标记了错误在**哪里**。不过它总比没有好，但老实说，随着错误信息的发生，它看起来会非常糟糕。 但是实际上让它产生正确的错误信息是另一个主题，也许至少是一篇一样长的文章。
 
-让我们专注于好消息上吧：我们使用了解析器组合子从头开始编写解析器！ 我们知道解析器形成了一个函子（functor）和一个单子（monad），所以你现在可以在公共场合用你知道的令人生畏的范畴理论知识给人们留下深刻的印象[^2]。
+让我们专注于好消息上吧：我们使用了解析器组合子从头开始编写解析器！我们知道解析器形成了一个函子（functor）和一个单子（monad），所以你现在可以在公共场合用你知道的令人生畏的范畴理论知识给人们留下深刻的印象 <sup><a href="#note2">[2]</a></sup>。
 
 最重要的是，我们现在知道解析器组合子是如何从头开始工作的了。已经没人能阻止我们了！
 
 ### 胜利小狗
 
 ![](https://bodil.lol/parser-combinators/many-puppies.gif)
-
-
 
 ### 更多资源
 
@@ -411,15 +397,15 @@ Haskell 的开创性解析器组合子库是 [Parsec](http://hackage.haskell.org
 
 ## 协议
 
-本文版权归 Bodil Stokke 所有，并受知识共享署名 - 非商业性使用 - 相同方式共享4.0国际许可。要查看此许可证的副本，请访问 http://creativecommons.org/licenses/by-nc-sa/4.0/ 。
+本文版权归 Bodil Stokke 所有，并受知识共享署名 - 非商业性使用 - 相同方式共享 4.0 国际许可。要查看此许可证的副本，请访问 http://creativecommons.org/licenses/by-nc-sa/4.0/ 。
 
 ## 脚注
 
-[^1]: 他并不真是你的叔叔。
-[^2]: 请不要在派对上做那样的人。
+1. <a name="note1"></a> 他并不真是你的叔叔。
+2. <a name="note2"></a> 请不要在派对上做那样的人。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-------
+---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
