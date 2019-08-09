@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
 > * 译者：[Sam](https://github.com/xutaogit)
-> * 校对者：
+> * 校对者：[40m41h42t](https://github.com/40m41h42t),[子非](https://github.com/CoolRice)
 
 # Git：透过命令学概念 —— 第三部分
 
@@ -33,9 +33,9 @@
 
 ---
 
-* [精心挑选](#cherry-picking)
-* [重写历史](#rewriting-history)
-* [查看历史](#reading-history)
+* [精心挑选](#cherry-picking-精心挑选)
+* [重写历史](#rewriting-history-重写历史)
+* [查看历史](#reading-history-查看历史)
 
 ---
 
@@ -53,9 +53,9 @@
 
 以及如何在对分支进行 [`rebase`](#rebasing) （变基） 的时候，把你的提交应用成为具有相同**更改集**和**提交消息**的新提交？
 
-有时你只想从一个分支上获取一些改动并运用它们到另外一个分支上，（比如）你希望通过`挑选`命令把一些改动拉取到你自己的分支上。
+有时你只想从一个分支上获取一些改动并应用到另一个分支上，（比如）你希望通过`挑选`命令把一些改动拉取到你自己的分支上。
 
-这正是 `git cherry-pick` 命令允许你使用单个提交或者一组提交要做的事。
+这正是 `git cherry-pick` 命令允许你使用单个或一组提交要做的事。
 
 就像在`变基`命令执行过程中一样，它实际上会将这些提交的更改放置到你当前分支上的新提交中。
 
@@ -91,13 +91,13 @@
 
 我们假设你刚完成了一个`提交`，然后发现少提交了文件，或者你有一个拼写导致的代码错误。
 
-简要来说可以做两件事修复这个问题，并且让它们看起来像从未发生过一样。
+简要来说可以做两件事修复这个问题，并且让这个错误看起来像从未发生过一样。
 
 让我们使用 `git checkout -b rewrite_history` 命令切换到一个新分支。
 
 现在我们在 `Alice.txt` 和 `Bob.txt` 文件上都做一些修改，然后执行 `git add Alice.txt`。
 
-之后使用 "This is history" 作为描述信息运行 `git commit`，结束操作。
+之后使用 “This is history” 作为描述信息运行 `git commit`，结束操作。
 
 等等，我们做完了吗？ 不，你会清楚地看到我们在这里犯了一些错误：
 
@@ -154,9 +154,9 @@
 
 然后在执行 `git commit` 命令时填写像 “向 Alice 里添加内容” 这样的信息
 
-现在不去修改提交，我们还将执行 `git add Bob.txt` 和 `git commit` 命令。提交信息写的是 "添加 Bob.txt 文件"。
+现在不去修改提交，我们还将执行 `git add Bob.txt` 和 `git commit` 命令。提交信息写的是“添加 Bob.txt 文件”。
 
-为了让例子更有意思，我们再在 `Alice.txt` 上做修改，然后执行 `git add` 和 `git commit` 命令。提交信息填写的是 "向 Alice 文件里添加更多内容"。
+为了让例子更有意思，我们再在 `Alice.txt` 上做修改，然后执行 `git add` 和 `git commit` 命令。提交信息填写的是“向 Alice 文件里添加更多内容”。
 
 如果我们现在使用 `git log` 命令查看分支的历史纪录（或者只是优先使用 `git log --oneline` 命令快速看一下），我们将看到刚才的三个提交在你 **master** 分支的任何内容之上。
 
@@ -270,7 +270,7 @@ reword 062ef13 Add Bob.txt
 >
 > 就像你通常做的那样，[解决](#resolving-conflicts)它们就好了。
 
-在应用完第一次提交之后，编辑器将会打开便于你为合并修改到 `Alice.txt` 文件里填写一个新的提交信息。我移除了所有提交的文本然后填写上"给 Alice 文件添加很多非常重要的信息"。
+在应用完第一次提交之后，编辑器将会打开便于你为合并修改到 `Alice.txt` 文件里填写一个新的提交信息。我移除了所有提交的文本然后填写上“给 Alice 文件添加很多非常重要的信息”。
 
 在你完成刚才那次提交关闭编辑器之后，编辑器会再次打开让你填写关于 `Add Bob.txt` 命令的变更信息。那么移除 “.txt” 内容然后关闭编辑器就好了。
 
@@ -352,7 +352,7 @@ df3ad1d (origin/master, origin/HEAD, master) Add Alice
 
 所以不仅存在着你任何时候`提交`的纪录，而且还记录了你什么时候执行 `reset` 或者切换到 `HEAD` 节点等信息。
 
-教程读到这里，你已经知道当我们弄混了一个`变基`的时候如何使用上述信息很好的处理问题，对吗？
+教程读到这里，你已经知道当我们弄混了一个`变基`的时候，该如何很好的使用上述信息处理问题，对吗？
 
 我们知道，一个`变基`将我们分支的 `HEAD` 移动到我们基于它的点，并应用我们的更改。 交互式`变基`的工作方式类似，但可能会对诸如**压缩**或**重写**它们之类的提交做些事情。
 
@@ -376,9 +376,9 @@ df3ad1d (origin/master, origin/HEAD, master) HEAD@{7}: checkout: moving from mas
 
 这里就可以看到，我们所作的每个单一的操作，从切换分支到执行`变基`都记录在案。
 
-很高兴能看到我们已完成的事情，但如果我们想搞砸某个地方，除非是它自己（reflog）不是以每行引用作为开头的。
+很高兴能看到我们已完成的事情，因为它自己（reflog）是每行以引用作为开头的，不然我们搞砸了某些地方就都没用了。
 
-当我们比较`reflog（参考日志）`和之前看到的`log（日志）`命令输出时，你会发现`参考日志`的那些点关联的是提交引用，我们同样可以像之前`日志`中那样使用它们。
+当我们比较`reflog（参考日志）`和之前看到的`log（日志）`命令输出时，你会发现`参考日志`的那些纪录关联的是提交引用，我们同样可以像之前`日志`中那样使用它们。
 
 假设我们真的不想执行变基操作。我们如何解除已经作出的变更呢？
 
@@ -398,9 +398,9 @@ df3ad1d (origin/master, origin/HEAD, master) HEAD@{7}: checkout: moving from mas
 
 欢迎继续阅读本系列其他文章：
 
-- [Learn git concepts, not commands - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
-- [Learn git concepts, not commands - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
-- [Learn git concepts, not commands - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
+- [Git：透过命令学概念 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-1.md)
+- [Git：透过命令学概念 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-2.md)
+- [Git：透过命令学概念 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-git-concepts-not-commands-3.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
