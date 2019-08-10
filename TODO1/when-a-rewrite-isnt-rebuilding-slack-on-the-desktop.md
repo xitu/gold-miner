@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-a-rewrite-isnt-rebuilding-slack-on-the-desktop.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-a-rewrite-isnt-rebuilding-slack-on-the-desktop.md)
 > * 译者：[cyz980908](https://github.com/cyz980908)
-> * 校对者：[Ultrasteve](https://github.com/Ultrasteve),
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve),[githubmnume](https://github.com/githubmnume)
 
 # 重建桌面端的 Slack 而不是重写
 
@@ -15,7 +15,7 @@
 
 不过，软件代码具有生命周期。Slack 的桌面版是我们最老的客户端，成长于我们公司早期的快速发展和试验阶段。在那期间，随着客户对产品的使用和期望的增长，我们一直在优化产品的市场适应性，并在不断的冲刺中跟上客户的步伐。
 
-如今，经过五年多的快速发展，Slack 被数以百万计的人使用，他们所在的公司规模比五年前更大，处理的数据比我们刚开始时想象的还要多。多少可以预见，桌面客户端的基础开始出现一些内部问题。此外，技术格局已经偏离了我们在 2012 年底选择的工具（jQuery，Signals，以及直接 DOM 操作），目前的程序趋向于采用可组合的接口和更干净的程序抽象。即使[我们尽了最大的努力让事情 Slack 的活力](https://slack.engineering/getting-to-slack-faster-with-incremental-boot-ff063c9222e4)，但很明显，需要进行一些根本性的改变，才能发展桌面应用程序，并为下一波产品开发做好准备。
+如今，经过五年多的快速发展，Slack 被数以百万计的人使用，他们所在的公司规模比五年前更大，处理的数据比我们刚开始时想象的还要多。多少可以预见，桌面客户端的基础开始出现一些内部问题。此外，技术格局已经偏离了我们在 2012 年底选择的工具（jQuery，Signals，以及直接 DOM 操作），目前的程序趋向于采用可组合的接口和更干净的程序抽象。即使[我们尽最大努力保证敏捷](https://slack.engineering/getting-to-slack-faster-with-incremental-boot-ff063c9222e4)，但很明显，需要进行一些根本性的改变，才能发展桌面应用程序，并为下一波产品开发做好准备。
 
 现有的桌面应用程序的体系结构有许多缺点：
 
@@ -37,7 +37,7 @@
 * 定义将在旧代码和新代码之间强制执行严格接口的规则，以便容易理解它们之间的关系；
 * 并不断地在现有的应用程序中发布上述所有内容，用适合我们新体系结构的更新实现替换旧模块。
 
-最后而且是最重要的一步 —— 是创建一个新版的 Slack，它开始时不完整，但随着模块和接口的更新，逐渐向功能完整性发展。
+最后一步，对我们来说也是最重要的一步 —— 是创建一个新版的 Slack，它开始时不完整，但随着模块和接口的更新，逐渐向功能完整性发展。
 
 去年的大部分时间里，我们一直在内部使用这个只有新版本的应用程序，现在它正在推广给客户。
 
@@ -57,7 +57,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2612/1*cTUr99NpvxHSZWHfdxu-Rw.png)
 
-![**架构比较。** 右侧的新客户。](https://cdn-images-1.medium.com/max/2612/1*vzAu72QESmgToZY866HP8Q.png)
+![**架构比较。** 右侧的新版本。](https://cdn-images-1.medium.com/max/2612/1*vzAu72QESmgToZY866HP8Q.png)
 
 ## 一个互操作性的遗留问题
 
@@ -84,7 +84,7 @@
 
 普遍的观点认为，最好避免重写，但有时好处也很大，不容忽视。我们的主要指标之一是内存使用情况，新版 Slack 提供:
 
-![**内存使用率比较。** 右侧的新客户。](https://cdn-images-1.medium.com/max/5544/1*d_U8PJR0MA5q8CYddSc18A.png)
+![**内存使用率比较。** 右侧的新版本。](https://cdn-images-1.medium.com/max/5544/1*d_U8PJR0MA5q8CYddSc18A.png)
 
 这些结果验证了我们在新版 Slack 中所做的所有工作，我们期待着继续迭代，并随着时间的推移使它变得更好。
 
