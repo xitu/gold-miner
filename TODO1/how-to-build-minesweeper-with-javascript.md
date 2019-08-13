@@ -34,9 +34,21 @@
 
 ### Cell
 
-![JavaScript code for a minesweeper cell](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/cell.png?w=740&ssl=1)
-
-表示单元格的 JavaScript 代码。
+```js
+// 表示单元格的 JavaScript 代码：
+function Cell( row, column, opened, flagged, mined, neighborMineCount ) 
+{
+	return {
+		id: row + "" + column,
+		row: row,
+		column: column,	
+		opened: opened,
+		flagged: flagged,
+		mined: mined,
+		neighborMineCount: neighborMineCount
+	}
+}
+```
 
 每个单元格都是一个对象，包含以下属性：
 
@@ -50,9 +62,23 @@
 
 ### Board
 
-![JavaScript code for the minesweeper board](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/board.png?w=740&ssl=1)
-
-表示游戏面板的 JavaScript 代码。
+```js
+// 表示游戏面板的 JavaScript 代码：
+function Board( boardSize, mineCount )
+{
+	var board = {};
+	for( var row = 0; row < boardSize; row++ )
+	{
+		for( var column = 0; column < boardSize; column++ )
+		{
+			board[row + "" + column] = Cell( row, column, false, false, false, 0 );
+		}
+	}
+	board = randomlyAssignMines( board, mineCount );
+	board = calculateNeighborMineCounts( board, boardSize );
+	return board;
+}
+```
 
 我们的游戏面板是由单元格组成的集合。我们可以用许多不同的方式来代表我们的游戏面板。我选择将它表示为键值对形式的对象。正如我们前面看到的，每个单元格都有一个 `id` 用来作为键。游戏面板是这些唯一键和它们对应的单元格之间的映射。
 
@@ -62,9 +88,28 @@
 
 ### 随机放置地雷
 
-![JavaScript code for randomly assigning mines](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/randomlyassignmines-1.png?w=740&ssl=1)
-
-随机放置地雷的 JavaScript 代码。
+```js
+// 随机放置地雷的 JavaScript 代码。
+var randomlyAssignMines = function( board, mineCount )
+{
+	var mineCooridinates = [];
+	for( var i = 0; i < mineCount; i++ )
+	{
+		var randomRowCoordinate = getRandomInteger( 0, boardSize );
+		var randomColumnCoordinate = getRandomInteger( 0, boardSize );
+		var cell = randomRowCoordinate + "" + randomColumnCoordinate;
+		while( mineCooridinates.includes( cell ) )
+		{
+			randomRowCoordinate = getRandomInteger( 0, boardSize );
+			randomColumnCoordinate = getRandomInteger( 0, boardSize );
+			cell = randomRowCoordinate + "" + randomColumnCoordinate;
+		}
+		mineCooridinates.push( cell );
+		board[cell].mined = true;
+	}
+	return board;
+}
+```
 
 在扫雷游戏开始之前，我们要做的第一件事就是将地雷随机放置到单元格。为此，我创建了一个函数，该函数接收游戏面板对象（`board`）和所需的地雷计数（`mineCount`）作为参数。
 
@@ -74,15 +119,43 @@
 
 我创建了一个辅助函数，用来生成在我们预期范围内的随机数。如下：
 
-![JavaScript code for random integer generator.](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/getrandominteger.png?w=740&ssl=1)
-
-用来生成随机数的辅助函数。
+```js
+// 用来生成随机数的辅助函数：
+var getRandomInteger = function( min, max )
+{
+	return Math.floor( Math.random() * ( max - min ) ) + min;
+}
+```
 
 ### 计算相邻地雷的数量
 
-![](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/calculateneighborminecounts-1.png?w=740&ssl=1)
-
-计算相邻地雷数的 JavaScript 代码。
+```js
+// 计算相邻地雷数的 JavaScript 代码：
+var calculateNeighborMineCounts = function( board, boardSize )
+{
+	var cell;
+	var neighborMineCount = 0;
+	for( var row = 0; row < boardSize; row++ )
+	{
+		for( var column = 0; column < boardSize; column++ )
+		{
+			var id = row + "" + column;
+			cell = board[id];
+			if( !cell.mined )
+			{
+				var neighbors = getNeighbors( id );
+				neighborMineCount = 0;
+				for( var i = 0; i < neighbors.length; i++ )
+				{
+					neighborMineCount += isMined( board, neighbors[i] );
+				}
+				cell.neighborMineCount = neighborMineCount;
+			}
+		}
+	}
+	return board;
+}
+```
 
 现在让我们看看如何计算相邻单元格的地雷数。
 
@@ -96,9 +169,34 @@
 
 让我们仔细看看 `getNeighbors` 函数，因为在整个代码中它将被多次调用。我之前提到过，我的一些设计方式是因为不用扩展到更大的游戏面板上。这里也是如此：
 
-![](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/getneighbors.png?w=740&ssl=1)
+```js
+// 用于获取扫雷车单元格的所有相邻 id 的 JavaScript 代码：
+var getNeighbors = function( id )
+{
+	var row = parseInt(id[0]);
+	var column = parseInt(id[1]);
+	var neighbors = [];
+	neighbors.push( (row - 1) + "" + (column - 1) );
+	neighbors.push( (row - 1) + "" + column );
+	neighbors.push( (row - 1) + "" + (column + 1) );
+	neighbors.push( row + "" + (column - 1) );
+	neighbors.push( row + "" + (column + 1) );
+	neighbors.push( (row + 1) + "" + (column - 1) );
+	neighbors.push( (row + 1) + "" + column );
+	neighbors.push( (row + 1) + "" + (column + 1) );
 
-用于获取扫雷车单元格的所有相邻 `id` 的 JavaScript 代码。
+	for( var i = 0; i < neighbors.length; i++)
+	{ 
+	   if ( neighbors[i].length > 2 ) 
+	   {
+	      neighbors.splice(i, 1); 
+	      i--;
+	   }
+	}
+
+	return neighbors
+}
+```
 
 该函数接收单元格 `id` 作为参数。然后我们马上把它分成两部分这样我们就有了行和列的值。我们使用内置函数 `parseInt` 将字符串转换为整数。现在我们可以对它们进行数学运算了。
 
@@ -118,9 +216,19 @@
 
 好的，我们在这一节还有最后一个函数要讨论：`isMined`。
 
-![JavaScript function that checks if a cell is mined.](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/ismined.png?w=740&ssl=1)
-
-检查单元格是否是地雷的 JavaScript 函数。
+```js
+// 检查单元格是否是地雷的 JavaScript 函数：
+var isMined = function( board, id )
+{	
+	var cell = board[id];
+	var mined = 0;
+	if( typeof cell !== 'undefined' )
+	{
+		mined = cell.mined ? 1 : 0;
+	}
+	return mined;
+}
+```
 
 `isMined` 函数非常简单。它只是检查单元格是否是地雷。如果是，则返回 1；否则，返回 0。这个特性允许我们在循环中反复调用函数时，对函数的返回值进行累加。
 
@@ -128,9 +236,59 @@
 
 ### 翻开单元格
 
-![JavaScript code that executes when a minesweeper cell is opened.](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/handleclick.png?w=740&ssl=1)
-
-当单元格被翻开时执行的 JavaScript 代码。
+```js
+// 当单元格被翻开时执行的 JavaScript 代码：
+var handleClick = function( id )
+{
+	if( !gameOver )
+	{
+		if( ctrlIsPressed )
+		{
+			handleCtrlClick( id );
+		}
+		else
+		{
+			var cell = board[id];
+			var $cell = $( '#' + id );
+			if( !cell.opened )
+			{
+				if( !cell.flagged )
+				{
+					if( cell.mined )
+					{
+						loss();		
+						$cell.html( MINE ).css( 'color', 'red');		
+					}
+					else
+					{
+						cell.opened = true;
+						if( cell.neighborMineCount > 0 )
+						{
+							var color = getNumberColor( cell.neighborMineCount );
+							$cell.html( cell.neighborMineCount ).css( 'color', color );
+						}
+						else
+						{
+							$cell.html( "" )
+								 .css( 'background-image', 'radial-gradient(#e6e6e6,#c9c7c7)');
+							var neighbors = getNeighbors( id );
+							for( var i = 0; i < neighbors.length; i++ )
+							{
+								var neighbor = neighbors[i];
+								if(  typeof board[neighbor] !== 'undefined' &&
+									 !board[neighbor].flagged && !board[neighbor].opened )
+								{
+									handleClick( neighbor );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+```
 
 好吧，让我们直接进入这个刺激的操作。每当玩家点击一个单元格时，我们都会执行这个函数。它做了很多工作，还使用了递归。如果你不熟悉这个概念，请参阅以下定义:
 
@@ -156,33 +314,144 @@
 
 让我们来看看 `handleClick` 函数中使用的辅助函数。我们已经讲过 `getNeighbors` 了，所以我们从 `loss` 失函数开始。
 
-![JavaScript code that gets called whenever the player has lost at minesweeper.](https://i2.wp.com/mitchum.blog/wp-content/uploads/2019/07/loss.png?w=740&ssl=1)
-
-当玩家输掉游戏时调用的 JavaScript 代码。
+```js
+// 当玩家输掉游戏时调用的 JavaScript 代码：
+var loss = function()
+{
+	gameOver = true;
+	$('#messageBox').text('Game Over!')
+					.css({'color':'white', 
+						  'background-color': 'red'});
+	var cells = Object.keys(board);
+	for( var i = 0; i < cells.length; i++ )
+	{
+		if( board[cells[i]].mined && !board[cells[i]].flagged )
+		{
+			$('#' + board[cells[i]].id ).html( MINE )
+										.css('color', 'black');
+		}
+	}
+	clearInterval(timeout);
+}
+```
 
 当游戏失败，我们设置全局变量 `gameOver` 的值，然后显示一条消息，让玩家知道游戏已经结束。我们还循环遍历每个单元格并显示地雷出现的位置。然后我们停止计时。
 
 其次，我们还有 `getNumberColor` 函数。这个函数负责给出相邻单元格的地雷数显示的颜色。
 
-![JavaScript code that gets passed a number and returns a color. ](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/getnumbercolor.png?w=740&ssl=1)
-
-传入一个数字并返回颜色的 JavaScript 代码。
+```js
+// 传入一个数字并返回颜色的 JavaScript 代码：
+var getNumberColor = function( number )
+{
+	var color = 'black';        
+	if( number === 1 )
+	{
+		color = 'blue';
+	}
+	else if( number === 2 )
+	{
+		color = 'green';
+	}
+	else if( number === 3 )
+	{
+		color = 'red';
+	}
+	else if( number === 4 )
+	{
+		color = 'orange';
+	}
+	return color;
+}
+```
 
 我试着把颜色搭配起来，就像经典的 Windows 版扫雷游戏那样。也许我应该用 [switch](https://www.w3schools.com/js/js_switch.asp) 语句，但我已经不考虑游戏被扩展的情况了，这没什么大不了的。让我们继续看看标记单元格的逻辑代码。
 
 ### 标记单元格
 
-![JavaScript code for putting a flag on a minesweeper cell.](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/handlerightclick.png?w=740&ssl=1)
+```js
+// 用于在单元格上放置标记的 JavaScript 代码：
+var handleRightClick = function( id )
+{
+	if( !gameOver )
+	{
+		var cell = board[id];
+		var $cell = $( '#' + id );
+		if( !cell.opened )
+		{
+			if( !cell.flagged && minesRemaining > 0 )
+			{
+				cell.flagged = true;
+				$cell.html( FLAG ).css( 'color', 'red');
+				minesRemaining--;
+			}
+			else if( cell.flagged )
+			{
+				cell.flagged = false;
+				$cell.html( "" ).css( 'color', 'black');
+				minesRemaining++;
+			}
 
-用于在单元格上放置标记的 JavaScript 代码。
+			$( '#mines-remaining').text( minesRemaining );
+		}
+	}
+}
+```
 
 右键单击一个单元格将在其上放置一个标记。如果玩家右键点击了一个没有被标记的单元格，并且当前游戏还有剩余的地雷需要被标记，我们将在单元格上插上小红旗作为标记，并将其 `flagged` 属性更新为 `true`，同时减少剩余地雷的数量。如果单元格已经有了一个标志，则执行相反的操作。最后，我们更新显示的剩余地雷数量。
 
 ### 翻开所有相邻单元格
 
-![JavaScript code for handling ctrl + left click](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/handlctrlclick.png?w=740&ssl=1)
+```js
+// 处理 ctrl + 左键的 JavaScript 代码
+var handleCtrlClick = function( id )
+{
+	var cell = board[id];
+	var $cell = $( '#' + id );
+	if( cell.opened && cell.neighborMineCount > 0 )
+	{
+		var neighbors = getNeighbors( id );
+		var flagCount = 0;
+		var flaggedCells = [];
+		var neighbor;
+		for( var i = 0; i < neighbors.length; i++ )
+		{
+			neighbor = board[neighbors[i]];
+			if( neighbor.flagged )
+			{
+				flaggedCells.push( neighbor );
+			}
+			flagCount += neighbor.flagged;
+		}
 
-处理 ctrl + 左键的 JavaScript 代码。
+		var lost = false;
+		if( flagCount === cell.neighborMineCount )
+		{
+			for( i = 0; i < flaggedCells.length; i++ )
+			{
+				if( flaggedCells[i].flagged && !flaggedCells[i].mined )
+				{
+					loss();
+					lost = true;
+					break;
+				}
+			}
+
+			if( !lost )
+			{
+				for( var i = 0; i < neighbors.length; i++ )
+				{
+					neighbor = board[neighbors[i]];
+					if( !neighbor.flagged && !neighbor.opened )
+					{
+						ctrlIsPressed = false;
+						handleClick( neighbor.id );
+					}
+				}
+			}
+		}
+	}
+}
+```
 
 我们已经介绍了打开单元格和标记单元格的操作，所以让我们来介绍玩家可以进行的最后一项操作：打开处于打开状态单元格的相邻单元格。`handleCtrlClick` 函数就是用来处理这个逻辑的。可以通过按住 ctrl 并左键单击一个处于打开状态的且包含相邻地雷的单元格来执行此操作。
 
@@ -196,9 +465,32 @@
 
 我们几乎完成了对编写扫雷游戏所需的所有 JavaScript 逻辑的分析！剩下要讨论的就是开始新游戏所需的初始化步骤。
 
-![JavaScript code for initializing minesweeper](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/initializationandvariables-1.png?w=740&ssl=1)
+```js
+// 用于初始化扫雷游戏的 JavaScript 代码
+var FLAG = "&#9873;";
+var MINE = "&#9881;";
+var boardSize = 10;
+var mines = 10;
+var timer = 0;
+var timeout;
+var minesRemaining;
 
-用于初始化扫雷游戏的 JavaScript 代码。
+$(document).keydown(function(event){
+    if(event.ctrlKey)
+        ctrlIsPressed = true;
+});
+
+$(document).keyup(function(){
+    ctrlIsPressed = false;
+});
+
+var ctrlIsPressed = false;
+var board = newGame( boardSize, mines );
+
+$('#new-game-button').click( function(){
+	board = newGame( boardSize, mines );
+})
+```
 
 我们要做的第一件事就是初始化一些变量。我们需要定义常量来存储小旗和地雷图标的 [html 代码]()。我们还需要一些常量来存储游戏面板的大小、地雷的总数、计时器和剩余地雷的数量。
 
@@ -208,17 +500,90 @@
 
 ### 辅助函数
 
-![JavaScript code for starting a new game of minesweeper.](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/newgame.png?w=740&ssl=1)
+```js
+// 开始新的扫雷游戏的 JavaScript 代码
+var newGame = function( boardSize, mines )
+{
+	$('#time').text("0");
+	$('#messageBox').text('Make a Move!')
+					.css({'color': 'rgb(255, 255, 153)', 
+						  'background-color': 'rgb(102, 178, 255)'});
+	minesRemaining = mines;
+	$( '#mines-remaining').text( minesRemaining );
+	gameOver = false;
+	initializeCells( boardSize );
+	board = Board( boardSize, mines );
+	timer = 0;
+	clearInterval(timeout);
+	timeout = setInterval(function () {
+    // This will be executed after 1,000 milliseconds
+    timer++;
+    if( timer >= 999 )
+    {
+    	timer = 999;
+    }
+    $('#time').text(timer);
+	}, 1000);
 
-开始新的扫雷游戏的 JavaScript 代码。
+	return board;
+}
+```
 
 `newGame` 函数负责重置变量，使我们的游戏处于随时可以玩的状态。这包括重置显示给玩家的消息、调用 `initializeCells`，以及创建一个新的随机游戏面板。它还包括重置时计时器，并且每秒钟更新一次。
 
 让我们通过看 `initializeCells` 来总结一下。
 
-![JavaScript code for attaching click handlers to minesweeper cells.](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/initializecells.png?w=740&ssl=1)
+```js
+// 用于将单击处理程序附加到单元格并检查胜利条件的 JavaScript 代码
+var initializeCells = function( boardSize ) 
+{
+	var row  = 0;
+	var column = 0;
+	$( ".cell" ).each( function(){
+		$(this).attr( "id", row + "" + column ).css('color', 'black').text("");
+		$('#' + row + "" + column ).css('background-image', 
+										'radial-gradient(#fff,#e6e6e6)');
+		column++;
+		if( column >= boardSize )
+		{
+			column = 0;
+			row++;
+		}
 
-用于将单击处理程序附加到单元格并检查胜利条件的JavaScript代码。
+		$(this).off().click(function(e)
+		{
+		    handleClick( $(this).attr("id") );
+		    var isVictory = true;
+			var cells = Object.keys(board);
+			for( var i = 0; i < cells.length; i++ )
+			{
+				if( !board[cells[i]].mined )
+				{
+					if( !board[cells[i]].opened )
+					{
+						isVictory = false;
+						break;
+					}
+				}
+			}
+
+			if( isVictory )
+			{
+				gameOver = true;
+				$('#messageBox').text('You Win!').css({'color': 'white',
+													   'background-color': 'green'});
+				clearInterval( timeout );
+			}
+		});
+
+		$(this).contextmenu(function(e)
+		{
+		    handleRightClick( $(this).attr("id") );
+		    return false;
+		});
+	})
+}
+```
 
 这个函数的主要目的是向单元格 DOM 对象添加额外的属性。每个单元格 DOM 都需要添加对应的 id，以便我们能够从游戏逻辑中轻松地访问它。每个单元格还需要一个合适的背景图像。
 
