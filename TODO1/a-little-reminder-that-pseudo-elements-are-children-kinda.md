@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-little-reminder-that-pseudo-elements-are-children-kinda.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-little-reminder-that-pseudo-elements-are-children-kinda.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[lgh757079506](https://github.com/lgh757079506), [Moonliujk](https://github.com/Moonliujk)
 
 # 小提示：伪元素是子元素，吧。
 
@@ -96,7 +96,7 @@
 
 将会选中同一个元素，无论是否存在伪元素 `::before`。对 `::after` 和 `:nth-last-child` 亦是同理。这就是我在文字标题中加了“吧”的原因。如果伪元素是货真价实的子元素，那么它们理应能够干预选择器的命中。
 
-还有一个机巧之处，在 JavaScript 中，你无法像选中常规子元素那样选中伪元素。`document.querySelector(".container::before");` 将会返回 `null`。如果你想用 JavaScript 触碰到伪元素是因为想获取其样式，你可以使用一点 [CSSOM 魔法](https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/)来实现：
+还有一个机巧之处，在 JavaScript 中，你无法像选中常规子元素那样选中伪元素。`document.querySelector(".container::before");` 将会返回 `null`。如果你想用 JavaScript 获取到伪元素是因为想获取其样式，你可以使用一点 [CSSOM 魔法](https://css-tricks.com/an-introduction-and-guide-to-the-css-object-model-cssom/)来实现：
 
 ```javascript
 const styles = window.getComputedStyle(
