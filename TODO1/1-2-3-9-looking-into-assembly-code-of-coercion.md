@@ -1,344 +1,229 @@
-> * 原文地址：[[1] + [2] - [3] === 9!? Looking into assembly code of coercion](https://wanago.io/2018/04/02/1-2-3-9-looking-into-assembly-code-of-coercion/)
-> * 原文作者：[wanago.io](https://wanago.io)
+> * 原文地址：[How Does the Development Mode Work?](https://overreacted.io/how-does-the-development-mode-work/)
+> * 原文作者：[Dan Abramov](https://mobile.twitter.com/dan_abramov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/1-2-3-9-looking-into-assembly-code-of-coercion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/1-2-3-9-looking-into-assembly-code-of-coercion.md)
-> * 译者：[sunhaokk](https://github.com/sunhaokk)
-> * 校对者：[Starrier](https://github.com/Starriers)、[Xekin-FE](https://github.com/Xekin-FE)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-the-development-mode-work.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-the-development-mode-work.md)
+> * 译者：
+> * 校对者：
 
-# [1] + [2] - [3] === 9!? 类型转换深入研究
+# 开发模式的工作原理是？
 
-变量值拥有多种格式。而且您可以将一种类型的值转换为另一种类型的值。这叫**类型转换**（也叫显式转换）。如果是在后台中尝试对不匹配的类型执行操作时发生, 叫 **强制转换**（有时也叫隐式转换）。在这篇文章中，我会引导你了解这两个过程，以便更好地理解过程。让我们一起深入研究！
+如果你的 JavaScript 代码库已经有些复杂了，**你可能需要一个针对线上和开发环境区分打包和运行不同代码的方案**。
 
-## 类型转换
+针对开发环境和线上环境，来区分打包和运行不同的代码非常有用。在开发模式中，React 会包含很多告警来帮助你及时发现问题，而不至于造成 bug。然而，这些帮助发现问题的必要代码，往往会造成代码包大小增加以及应用运行变慢。
 
-### 原始类型包装
+这种降速在开发环境下是可以接受的。事实上，在开发环境下运行代码的速度更慢**可能更有帮助**，因为这可以一定程度上消除高性能的开发机器与平均速度的用户设备而带来的差异。
 
-正如我[之前的一篇文章](https://wanago.io/2018/02/12/cloning-objects-in-javascript-looking-under-the-hood-of-reference-and-primitive-types/)所描述的那样,几乎 JavaScript 中的所有原始类型（除了 **null** 和 **undefined** 外）都有围绕它们原始值的对象包装。事实上，你可以直接调用原始类型的构造函数作为包装器将一个值的类型转换为另一个值。
+在线上环境我们不想要任何的性能损耗。因此，我们在线上环境删除了这些校验。那么它的工作原理是什么？我们来康康。
 
-```
-String(123); // '123'
-Boolean(123); // true
-Number('123'); // 123
-Number(true); // 1
-```
+---
 
-> 一些原始类型的包装器，String、Bollean、Number 不会保留很长时间，一旦工作完成，它就消失。（译者注：JS 中将数据分成两种类型，原始类型（基本数据类型）和对象类型（引用数据类型）。在对象类型中又有三种特殊类型的引用类型分别是，String、Boolean、Number。这三个就是基本包装类型。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而可以调用这些类型的方法来操作数据。）
+想要在开发环境运行下不同代码的正确方法是关键在于你的 JavaScript 构建工具The exact way to run different code in development depends on your JavaScript build pipeline (and whether you have one). At Facebook it looks like this:
 
-您需要注意，如果您这里使用了 new 关键字，就不再是当前实例。
-
-```
-const bool = new Boolean(false);
-bool.propertyName = 'propertyValue';
-bool.valueOf(); // false
-
-if (bool) {
-  console.log(bool.propertyName); // 'propertyValue'
+```js
+if (__DEV__) {
+  doSomethingDev();
+} else {
+  doSomethingProd();
 }
 ```
 
-由于 bool 在这里是一个新的对象（不是原始值），它的计算结果为 true。
+Here, `__DEV__` isn’t a real variable. It’s a constant that gets substituted when the modules are stitched together for the browser. The result looks like this:
 
-进一步分析
+```js
+// In development:
+if (true) {
+  doSomethingDev(); // 👈
+} else {
+  doSomethingProd();
+}
 
-```
-if (1) {
-  console.log(true);
+// In production:
+if (false) {
+  doSomethingDev();
+} else {
+  doSomethingProd(); // 👈
 }
 ```
 
-效果一样
+In production, you’d also run a minifier (for example, [terser](https://github.com/terser-js/terser)) on the code. Most JavaScript minifiers do a limited form of [dead code elimination](https://en.wikipedia.org/wiki/Dead_code_elimination), such as removing `if (false)` branches. So in production you’d only see:
 
+```js
+// In production (after minification):
+doSomethingProd();
 ```
-if ( Boolean(1) ) {
-  console.log(true);
+
+**(Note that there are significant limits on how effective dead code elimination can be with mainstream JavaScript tools, but that’s a separate topic.)**
+
+While you might not be using a `__DEV__` magic constant, if you use a popular JavaScript bundler like webpack, there’s probably some other convention you can follow. For example, it’s common to express the same pattern like this:
+
+```js
+if (process.env.NODE_ENV !== 'production') {
+  doSomethingDev();
+} else {
+  doSomethingProd();
 }
 ```
 
-不要畏惧，勇于尝试。 下面用 **Bash** 测试。（译者注：因为没有找到源文件，所以我猜测这里的意思是使用的 if1.js 和 if2.js 是上文的 if 语句文件，这里通过 print-code 输出汇编代码。然后通过 awk 打印汇编文件每句第 4 列字符串到文件里。最后对比两个文件是否一致。借以推论出上面两句 if 在程序中的执行是一致的。）
+**That’s exactly the pattern used by libraries like [React](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build) and [Vue](https://vuejs.org/v2/guide/deployment.html#Turn-on-Production-Mode) when you import them from npm using a bundler.** (Single-file `<script>` tag builds offer development and production versions as separate `.js` and `.min.js` files.)
 
-1. 使用 node.js 将代码编译到程序中
+This particular convention originally comes from Node.js. In Node.js, there is a global `process` variable that exposes your system’s environment variables as properties on the [`process.env`](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) object. However, when you see this pattern in a front-end codebase, there isn’t usually any real `process` variable involved. 🤯
 
-```
-$ node --print-code ./if1.js >> ./if1.asm
-```
+Instead, the whole `process.env.NODE_ENV` expression gets substituted by a string literal at the build time, just like our magic `__DEV__` variable:
 
-```
-$ node --print-code ./if2.js >> ./if2.asm
-```
-
-2. 准备一个脚本来比较第四列（汇编操作数）- 我故意跳过这里的内存地址，因为它们可能有所不同。
-
-```
-#!/bin/bash
-
-file1=$(awk '{ print $4 }' ./if1.asm)
-file2=$(awk '{ print $4 }' ./if2.asm)
-
-[ "$file1" == "$file2" ] && echo "文件匹配"
-```
-
-3. 运行
-
-```
-"文件匹配"
-```
-
-### parseFloat 函数
-
-这个函数的作用类似于 **Number** 的构造函数，但对于传递的参数来说不那么严格。如果它遇到一个不能成为数字一部分的字符，它将返回一个到该点的值并忽略其余字符。
-
-```
-Number('123a45'); // NaN
-parseFloat('123a45'); // 123
-```
-
-
-### parseInt 函数
-
-它在解析数字时将数字向下舍入。它可以使用不同的基数。
-
-```
-parseInt('1111', 2); // 15
-parseInt('0xF'); // 15
-
-parseFloat('0xF'); // 0
-```
-
-函数 parseInt 可以猜测基数或让它作为第二个参数传递。有关其中需要考虑的规则列表，请查看 [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)。
-
-如果传入的数值过大会出问题，所以它不应该被认为是 [**Math.floor**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) (它也会进行类型转换)的替代品：
-
-```
-parseInt('1.261e7'); // 1
-Number('1.261e7'); // 12610000
-Math.floor('1.261e7') // 12610000
-
-Math.floor(true) // 1
-```
-
-### toString 函数
-
-您可以使用 **toString** 函数将值转换为字符串。这个功能的实现在原型之间有所不同。
-
-> 如果您觉得您希望更好地理解原型的概念，请随时查看我的其他文章： [Prototype. The big bro behind ES6 class](https://wanago.io/2018/03/19/prototype-the-big-bro-behind-es6-class/)。
-
-#### String.prototype.toString 函数
-
-返回一个字符串的值
-
-```
-const dogName = 'Fluffy';
-
-dogName.toString() // 'Fluffy'
-String.prototype.toString.call('Fluffy') // 'Fluffy'
-
-String.prototype.toString.call({}) // Uncaught TypeError: String.prototype.toString requires that 'this' be a String
-```
-
-#### Number.prototype.toString 函数
-
-返回转换为 String 的数字（您可以将 appendix 作为第一个参数传递）
-
-```
-(15).toString(); // "15"
-(15).toString(2); // "1111"
-(-15).toString(2); // "-1111"
-```
-
-#### Symbol.prototype.toString 函数
-
-返回  `Symbol(${description})`
-
-> 如果你对此感到疑问： 我这里使用的是 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)的方式，它可以向你解释是怎么输出这种字符串的。
-
-#### Boolean.prototype.toString 函数
-
-返回 “true” 或 “false”
-
-#### Object.prototype.toString 函数
-
-Object 调用内部 **[[Class]]** 。它是代表对象类型的标签。
-
-**Object.prototype.toString** 返回一个 `[object ${tag}]` 字符串。 要么它是内置标签之一 (例如  “Array”, “String”, “Object”, “Date” ), 或者它被明确设置。
-
-```
-const dogName = 'Fluffy';
-
-dogName.toString(); // 'Fluffy' （在这调用 String.prototype.toString ）
-Object.prototype.toString.call(dogName); // '[object String]'
-```
-
-随着 ES6 的推出，设置标签可以使用 [**Symbols**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)来完成。
-
-```
-const dog = { name: 'Fluffy' }
-console.log( dog.toString() ) // '[object Object]'
-
-dog[Symbol.toStringTag] = 'Dog';
-console.log( dog.toString() ) // '[object Dog]'
-```
-
-```
-const Dog = function(name) {
-  this.name = name;
-}
-Dog.prototype[Symbol.toStringTag] = 'Dog';
-
-const dog = new Dog('Fluffy');
-dog.toString(); // '[object Dog]'
-```
-
-你也可以在这里使用 ES6 类和 getter：
-
-```
-class Dog {
-  constructor(name) {
-    this.name = name;
-  }
-  get [Symbol.toStringTag]() {
-    return 'Dog';
-  }
+```js
+// In development:
+if ('development' !== 'production') { // true
+  doSomethingDev(); // 👈
+} else {
+  doSomethingProd();
 }
 
-const dog = new Dog('Fluffy');
-dog.toString(); // '[object Dog]'
-```
-
-#### Array.prototype.toString 函数
-
-在每个元素上调用 **toString** 并返回一个字符串，所有的输出用逗号分隔。
-
-```
-const arr = [
-  {},
-  2,
-  3
-]
-
-arr.toString() // "[object Object],2,3"
-```
-
-## 隐式转换
-
-如果您了解类型转换的工作原理，那么理解隐式转换会容易得多。
-
-## 数学运算符
-
-### 加符号
-
-当在字符串与操作数之间使用 + 时结果将返回一个字符串。
-
-```
-'2' + 2 // 22
-15 + '' // '15'
-```
-
-你可以用加符号将一个操作数转换为数字：
-
-```
-+'12' // 12
-```
-
-### 其他数学运算符
-
-其他数学运算符，例如 `-` 或 `/` 操作，将自动转成数字。
-
-```
-new Date('04-02-2018') - '1' // 1522619999999
-'12' / '6' // 2
--'1' // -1
-```
-
-日期, 转成数字 [Unix 时间戳](https://en.wikipedia.org/wiki/Unix_time)。
-
-## 叹号
-
-如果原始值是 false 的，则使用它将输出 true，如果 true，则输出为 false。因此，如果使用两次，它可以用于将该值转换为相应的布尔值。
-
-```
-!1 // false
-!!({}) // true
-```
-
-## ToInt32 按位或
-
-值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用），它也会把一个值转换为[带符号 32 位整型](https://en.wikipedia.org/wiki/32-bit)。
-
-```
-0 | true          // 1
-0 | '123'         // 123
-0 | '2147483647'  // 2147483647
-0 | '2147483648'  // -2147483648 (too big)
-0 | '-2147483648' // -2147483648
-0 | '-2147483649' // 2147483647 (too small)
-0 | Infinity      // 0
-```
-
-当其中一个操作数为 0 时执行按位或操作将导致不改变另一个操作数的值。
-
-### 其他隐式转换
-
-在编码时，您可能会遇到更多隐式转换的情况。考虑这个例子
-
-```
-const foo = {};
-const bar = {};
-const x = {};
-
-x[foo] = 'foo';
-x[bar] = 'bar';
-
-console.log(x[foo]); // "bar"
-```
-
-发生这种情况是因为 foo 和 bar 在转换为字符串时都会转成 “[object Object]” 。真正发生的是这样的：
-
-```
-x[bar.toString()] = 'bar';
-x["[object Object]"]; // "bar"
-```
-
-隐式转换在 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)也会发生。尝试在这里重载 **toString** 函数：
-
-
-```
-const Dog = function(name) {
-  this.name = name;
+// In production:
+if ('production' !== 'production') { // false
+  doSomethingDev();
+} else {
+  doSomethingProd(); // 👈
 }
-Dog.prototype.toString = function() {
-  return this.name;
+```
+
+Because the whole expression is constant (`'production' !== 'production'` is guaranteed to be `false`), a minifier can also remove the other branch.
+
+```js
+// In production (after minification):
+doSomethingProd();
+```
+
+Mischief managed.
+
+---
+
+Note that this **wouldn’t work** with more complex expressions:
+
+```js
+let mode = 'production';
+if (mode !== 'production') {
+  // 🔴 not guaranteed to be eliminated
 }
-
-const dog = new Dog('Fluffy');
-console.log(`${dog} is a good dog!`); // "Fluffy is a good dog!"
-```
-隐式转换也是为什么**比较运算符**（==）可能被认为是不好的做法，因为如果它们的类型不匹配，它会尝试通过强制转换进行匹配。
-
-查看这个例子以获得一个关于比较的有趣事实：
-
-```
-const foo = new String('foo');
-const foo2 = new String('foo');
-
-foo === foo2 // false
-foo >= foo2 // true
 ```
 
-因为我们在这里使用了 **new** 关键字，所以 foo 和 foo2 都保留了它们的原始值（这是 'foo' ）的包装。由于他们现在正在引用两个不同的对象， `foo === foo2` 结果为 false。关系操作 ( `>=` ) 在两边调用 **valueOf** 函数。因此，在这里比较原始值内存地址, `'foo' >= 'foo'` 返回 **true**。
+JavaScript static analysis tools are not very smart due to the dynamic nature of the language. When they see variables like `mode` rather than static expressions like `false` or `'production' !== 'production'`, they often give up.
 
-## [1] + [2] – [3] === 9
+Similarly, dead code elimination in JavaScript often doesn’t work well across the module boundaries when you use the top-level `import` statements:
 
-我希望所有这些知识能帮助你揭开本文标题中问题的神秘面纱。让我们揭开它吧！
+```js
+// 🔴 not guaranteed to be eliminated
+import {someFunc} from 'some-module';
 
-1. `[1] + [2]` 这些转换应用 **Array.prototype.toString** 规则然后连接字符串。结果将是 `"12"`。
-  * `[1,2] + [3,4]` 结果是 `"1,23,4"`。
-2. `12 - [3]` 将导致 `12` 减 `"3"` 得 `9`
-  * `12 - [3,4]` 因为 `"3,4"`不能转成数字所以得 **NaN** 
+if (false) {
+  someFunc();
+}
+```
 
-## 总结
+So you need to write code in a very mechanical way that makes the condition **definitely static**, and ensure that **all code** you want to eliminate is inside of it.
 
-尽管很多人可能会建议你避免隐式转换，但我认为了解它的工作原理非常重要。依靠它可能不是一个好主意，但它对您在调试代码和避免首先出现的错误方面大有帮助。
+---
 
+For all of this to work, your bundler needs to do the `process.env.NODE_ENV` replacement, and needs to know in which mode you **want** to build the project in.
+
+A few years ago, it used to be common to forget to configure the environment. You’d often see a project in development mode deployed to production.
+
+That’s bad because it makes the website load and run slower.
+
+In the last two years, the situation has significantly improved. For example, webpack added a simple `mode` option instead of manually configuring the `process.env.NODE_ENV` replacement. React DevTools also now displays a red icon on sites with development mode, making it easy to spot and even [report](https://mobile.twitter.com/BestBuySupport/status/1027195363713736704).
+
+[![Development mode warning in React DevTools](https://overreacted.io/static/ca1c0db064f73cc5c8e21ad605eaba26/fb8a0/devmode.png)](https://overreacted.io/static/ca1c0db064f73cc5c8e21ad605eaba26/d9514/devmode.png) 
+
+Opinionated setups like Create React App, Next/Nuxt, Vue CLI, Gatsby, and others make it even harder to mess up by separating the development builds and production builds into two separate commands. (For example, `npm start` and `npm run build`.) Typically, only a production build can be deployed, so the developer can’t make this mistake anymore.
+
+There is always an argument that maybe the **production** mode needs to be the default, and the development mode needs to be opt-in. Personally, I don’t find this argument convincing. People who benefit most from the development mode warnings are often new to the library. **They wouldn’t know to turn it on,** and would miss the many bugs that the warnings would have detected early.
+
+Yes, performance issues are bad. But so is shipping broken buggy experiences to the end users. For example, the [React key warning](https://reactjs.org/docs/lists-and-keys.html#keys) helps prevent bugs like sending a message to a wrong person or buying a wrong product. Developing with this warning disabled is a significant risk for you **and** your users. If it’s off by default, then by the time you find the toggle and turn it on, you’ll have too many warnings to clean up. So most people would toggle it back off. This is why it needs to be on from the start, rather than enabled later.
+
+Finally, even if development warnings were opt-in, and developers **knew** to turn them on early in development, we’d just go back to the original problem. Someone would accidentally leave them on when deploying to production!
+
+And we’re back to square one.
+
+Personally, I believe in **tools that display and use the right mode depending on whether you’re debugging or deploying**. Almost every other environment (whether mobile, desktop, or server) except the web browser has had a way to load and differentiate development and production builds for decades.
+
+Instead of libraries coming up with and relying on ad-hoc conventions, perhaps it’s time the JavaScript environments see this distinction as a first-class need.
+
+---
+
+Enough with the philosophy!
+
+Let’s take another look at this code:
+
+```js
+if (process.env.NODE_ENV !== 'production') {
+  doSomethingDev();
+} else {
+  doSomethingProd();
+}
+```
+
+You might be wondering: if there’s no real `process` object in front-end code, why do libraries like React and Vue rely on it in the npm builds?
+
+**(To clarify this again: the `<script>` tags you can load in the browser, offered by both React and Vue, don’t rely on this. Instead you have to manually pick between the development `.js` and the production `.min.js` files. The section below is only about using React or Vue with a bundler by `import`ing them from npm.)**
+
+Like many things in programming, this particular convention has mostly historical reasons. We are still using it because now it’s widely adopted by different tools. Switching to something else is costly and doesn’t buy much.
+
+So what’s the history behind it?
+
+Many years before the `import` and `export` syntax was standardized, there were several competing ways to express relationships between modules. Node.js popularized `require()` and `module.exports`, known as [CommonJS](https://en.wikipedia.org/wiki/CommonJS).
+
+Code published on the npm registry early on was written for Node.js. [Express](https://expressjs.com) was (and probably still is?) the most popular server-side framework for Node.js, and it [used the `NODE_ENV` environment variable](https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production) to enable production mode. Some other npm packages adopted the same convention.
+
+Early JavaScript bundlers like browserify wanted to make it possible to use code from npm in front-end projects. (Yes, [back then](https://blog.npmjs.org/post/101775448305/npm-and-front-end-packaging) almost nobody used npm for front-end! Can you imagine?) So they extended the same convention already present in the Node.js ecosystem to the front-end code.
+
+The original “envify” transform was [released in 2013](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97). React was open sourced around that time, and npm with browserify seemed like the best solution for bundling front-end CommonJS code during that era.
+
+React started providing npm builds (in addition to `<script>` tag builds) from the very beginning. As React got popular, so did the practice of writing modular JavaScript with CommonJS modules and shipping front-end code via npm.
+
+React needed to remove development-only code in the production mode. Browserify already offered a solution to this problem, so React also adopted the convention of using `process.env.NODE_ENV` for its npm builds. With time, many other tools and libraries, including webpack and Vue, did the same.
+
+By 2019, browserify has lost quite a bit of mindshare. However, replacing `process.env.NODE_ENV` with `'development'` or `'production'` during a build step is a convention that is as popular as ever.
+
+**(It would be interesting to see how adoption of ES Modules as a distribution format, rather than just the authoring format, changes the equation. Tell me on Twitter?)**
+
+---
+
+One thing that might still confuse you is that in React **source code** on GitHub, you’ll see `__DEV__` being used as a magic variable. But in the React code on npm, it uses `process.env.NODE_ENV`. How does that work?
+
+Historically, we’ve used `__DEV__` in the source code to match the Facebook source code. For a long time, React was directly copied into the Facebook codebase, so it needed to follow the same rules. For npm, we had a build step that literally replaced the `__DEV__` checks with `process.env.NODE_ENV !== 'production'` right before publishing.
+
+This was sometimes a problem. Sometimes, a code pattern relying on some Node.js convention worked well on npm, but broke Facebook, or vice versa.
+
+Since React 16, we’ve changed the approach. Instead, we now [compile a bundle](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#compiling-flat-bundles) for each environment (including `<script>` tags, npm, and the Facebook internal codebase). So even CommonJS code for npm is compiled to separate development and production bundles ahead of time.
+
+This means that while the React source code says `if (__DEV__)`, we actually produce **two** bundles for every package. One is already precompiled with `__DEV__ = true` and another is precompiled with `__DEV__ = false`. The entry point for each package on npm “decides” which one to export.
+
+[For example:](https://unpkg.com/browse/react@16.8.6/index.js)
+
+```js
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./cjs/react.production.min.js');
+} else {
+  module.exports = require('./cjs/react.development.js');
+}
+```
+
+And that’s the only place where your bundler will interpolate either `'development'` or `'production'` as a string, and where your minifier will get rid of the development-only `require`.
+
+Both `react.production.min.js` and `react.development.js` don’t have any `process.env.NODE_ENV` checks anymore. This is great because **when actually running on Node.js**, accessing `process.env` is [somewhat slow](https://reactjs.org/blog/2017/09/26/react-v16.0.html#better-server-side-rendering). Compiling bundles in both modes ahead of time also lets us optimize the file size [much more consistently](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size), regardless of which bundler or minifier you are using.
+
+And that’s how it really works!
+
+---
+
+I wish there was a more first-class way to do it without relying on conventions, but here we are. It would be great if modes were a first-class concept in all JavaScript environments, and if there was some way for a browser to surface that some code is running in a development mode when it’s not supposed to.
+
+On the other hand, it is fascinating how a convention in a single project can propagate through the ecosystem. `EXPRESS_ENV` [became `NODE_ENV`](https://github.com/expressjs/express/commit/03b56d8140dc5c2b574d410bfeb63517a0430451) in 2010 and [spread to front-end](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97) in 2013. Maybe the solution isn’t perfect, but for each project the cost of adopting it was lower than the cost of convincing everyone else to do something different. This teaches a valuable lesson about the top-down versus bottom-up adoption. Understanding how this dynamic plays out distinguishes successful standardization attempts from failures.
+
+Separating development and production modes is a very useful technique. I recommend using it in your libraries and the application code for the kinds of checks that are too expensive to do in production, but are valuable (and often critical!) to do in development.
+
+As with any powerful feature, there are some ways you can misuse it. This will be the topic of my next post!
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
