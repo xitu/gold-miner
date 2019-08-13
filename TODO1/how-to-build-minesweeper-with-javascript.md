@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-minesweeper-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-minesweeper-with-javascript.md)
 > * 译者：[ZavierTang](https://github.com/zaviertang)
-> * 校对者：[Stevens1995](https://github.com/Stevens1995)
+> * 校对者：[Stevens1995](https://github.com/Stevens1995)、[githubmnume](https://github.com/githubmnume)
 
 # 如何用 JavaScript 编写扫雷游戏
 
 ![](https://i1.wp.com/mitchum.blog/wp-content/uploads/2019/07/featureimage.png?w=600&ssl=1)
 
-在我的上一篇文章中，我向大家介绍了一款使用 JavaScript 编写的[三连棋游戏](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/)，之前我也编写了一款[匹配游戏](https://mitchum.blog/i-built-a-simple-matching-game-with-javascript/)。本周，我决定增加一些复杂性。你们将学习如何用 JavaScript 编写扫雷游戏。我使用了 jQuery，这是一个有助于与 HTML 交互的 JavaScript 库。当你看到一个函数的调用带有一个前导的美元（`$`）符号时，这就是 jQuery 的操作。如果你想了解更多关于 jQuery 的内容，阅读[官方文档](https://api.jquery.com/)是最佳的选择。
+在我的上一篇文章中，我向大家介绍了一款使用 JavaScript 编写的[三连棋游戏](https://mitchum.blog/i-built-tic-tac-toe-with-javascript/)，在那之前我也编写了一款[匹配游戏](https://mitchum.blog/i-built-a-simple-matching-game-with-javascript/)。本周，我决定增加一些复杂性。你们将学习如何用 JavaScript 编写扫雷游戏。我使用了 jQuery，这是一个有助于与 HTML 交互的 JavaScript 库。当你看到一个函数的调用带有一个前导的美元（`$`）符号时，这就是 jQuery 的操作。如果你想了解更多关于 jQuery 的内容，阅读[官方文档](https://api.jquery.com/)是最佳的选择。
 
 [点击](https://mitchum.blog/games/minesweeper/minesweeper.html)试玩扫雷游戏！这款游戏推荐在台式电脑上体验，因为这样更便于操作。
 
@@ -19,7 +19,7 @@
 * [CSS](http://mitchum.blog/games/minesweeper/minesweeper.css)
 * [JavaScript](http://mitchum.blog/games/minesweeper/minesweeper.js)
 
-如果你想学习如何使用 JavaScript 编写扫雷游戏，第一步就是去理解游戏的工作原理。让我们直接从游戏规则开始吧。
+如果你想学习如何使用 JavaScript 编写扫雷游戏，第一步便是要理解游戏是如何工作的。让我们直接从游戏规则开始吧。
 
 ## 游戏规则
 
@@ -54,7 +54,7 @@
 
 表示游戏面板的 JavaScript 代码。
 
-我们的游戏面板是由单元格组成的集合。我们可以用许多不同的方式来代表我们的游戏面板。我选择将它表示为键值对形式的对象。正如我们前面看到的，每个单元格都有一个 `id` 用来作为键。
+我们的游戏面板是由单元格组成的集合。我们可以用许多不同的方式来代表我们的游戏面板。我选择将它表示为键值对形式的对象。正如我们前面看到的，每个单元格都有一个 `id` 用来作为键。游戏面板是这些唯一键和它们对应的单元格之间的映射。
 
 在创建了游戏面板之后，我们还需要完成另外两项任务：随机放置地雷并计算邻近的地雷数量。我们将在下一节详细讨论这些任务。
 
@@ -72,7 +72,7 @@
 
 当生成每个随机单元格坐标时，我们将对应单元格的 `mined` 属性设置为 `true`。
 
-我创建了一个辅助函数，用来生成在我们希望范围内的随机数。如下：
+我创建了一个辅助函数，用来生成在我们预期范围内的随机数。如下：
 
 ![JavaScript code for random integer generator.](https://i0.wp.com/mitchum.blog/wp-content/uploads/2019/07/getrandominteger.png?w=740&ssl=1)
 
@@ -112,7 +112,7 @@
 
 为了解决这个问题，我们循环遍历相邻单元格的 `id`，并删除长度大于 2 的 `id`。所有无效的相邻单元格行或者列可能是 -1 或 10，所以很巧妙地解决了这个问题。
 
-每当从列表中删除 `id` 时，我们还应该让 `i` 减 1，以保持它的同步。
+每当从列表中删除 `id` 时，为了保持它同步，我们还必须减少索引变量。
 
 ##### 判断地雷
 
