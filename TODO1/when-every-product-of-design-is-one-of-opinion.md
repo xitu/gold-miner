@@ -2,89 +2,89 @@
 > * 原文作者：[Tanner Christensen](https://tannerchristensen.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-every-product-of-design-is-one-of-opinion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-every-product-of-design-is-one-of-opinion.md)
-> * 译者：
+> * 译者：[Charlo](https://github.com/Charlo-O)
 > * 校对者：
 
-# When every product of design is one of opinion
+# 当每个产品设计都是一种意见
 
-![Illustrations by  Robbie Cathro  for this article.](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1562893100677-CFLC4SFZF0L9R0GMVK1H/ke17ZwdGBToddI8pDm48kBJJGUYCrQbckB0aB3i9meB7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0r9YoV8ytu8SWDj21Bt3yU9Gh-U0J0GVFf0WX9Hn5Lg-0R4Sk3CvCel_jgOb6mmMUA/image-asset.jpeg)
+![本文插画由 Robbie Cathro 绘制。](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1562893100677-CFLC4SFZF0L9R0GMVK1H/ke17ZwdGBToddI8pDm48kBJJGUYCrQbckB0aB3i9meB7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0r9YoV8ytu8SWDj21Bt3yU9Gh-U0J0GVFf0WX9Hn5Lg-0R4Sk3CvCel_jgOb6mmMUA/image-asset.jpeg)
 
-Every creation is a product of opinion. If you want to produce high quality design you need develop a strong opinion, but one shaped by that of many others.
+每一个创意都是意见的产物。如果你想做出高质量的设计，你需要形成一个强有力的观点，但这个观点是由许多其他观点组成。
 
-Opinion decides what goes into the work and what stays out of it, who the work is for and who it is **not** for. Opinion can shape the objectives and goals of the work while defining a line between distractions and inspiration. **To have a valuable opinion of the work is to not limit yourself to only your own, personal, knowledge or experience.**
+意见决定什么投入工作，什么退出工作，工作是为谁做的，而**不是**为谁做的。意见可以塑造工作的目的和目标，同时在分心和灵感之间划清界限。**要对工作有一个有价值的看法，就不要把自己局限于自己个人的知识或经验。**
 
-The work we do is only ever as good as the multitude of perspectives and ideas that go into it. If what you’re designing is going to be functional for anyone but yourself, you’re going to want to get a second opinion on how it should work, appear, or feel.
+只有当我们所做的工作中包含了大量的观点和想法时，才能做好。如果你的设计将服务于除了你之外的所有人，你会想要得到关于它应该如何工作、展现或感受的另外意见。
 
-> ”Better outcomes come from hearing a diversity of perspectives.” — Julie Zhuo, Facebook VP of Design
+> “更好的结果来自听取不同的观点。” —— Julie Zhuo，Facebook 设计副总裁
 
-Collecting opinions doesn’t mean giving up accountability or responsibility. Every decision needs a single decider, someone who can own the decisions and be held accountable when things go well, or not.
+收集意见并不意味着放弃责任。每一个决定都需要一个决策者，这个人能够掌控这些决定，并对事情进展的顺利与否负责。
 
-But what gets handed off to the client, or to engineering or other partners, is often the result of the designer’s opinion; with that delivery comes a lot of bias. We don’t know what we don’t know, and it’s hard to see how a design might impact those who have different beliefs than us, or who aren’t using the same technology, or who intend to use what we design in ways we never imagined it to be used.
+但交付给客户、工程师或其他合作伙伴的往往是设计师的意见；这种表达方式带有很多偏见。我们不知道自己不知道什么，很难想象一个设计会对那些与我们有不同信仰的人产生什么影响，或者那些使用不相同技术的人，或者那些打算以我们从未想象过的方式使用我们设计的人。
 
-**To set ourselves and the work up for success it’s in our best interest to shape our opinions of the work by gathering the opinions of others.**
+**为了使自己和作品取得成功，最好是通过收集别人的意见来形成我们对作品的看法。**
 
-Early and often in the design process we should be building a broad perspective of the work by pulling in other’s who can add to our opinion of it.
+在设计过程的早期，我们通常应该通过引入他人的观点来建立作品广阔的视角。
 
-What problems might arise or what [edge cases](https://tannerchristensen.com/blog/2019/6/17/design-edge-cases-and-where-to-find-them) might break the design? It’s helpful to know how people might get confused, or be empowered, or **feel** as a result of what we design. We can never know **everything** about how our designs will function and be received once they’re out in the world, but we can try and learn what others think, feel, and perceive about the work before it makes its way outside our direct control. That is: before the design reaches a static state.
+可能会出现什么问题或者[边缘情况](https://tannerchristensen.com/blog/2019/6/17/design-edge-cases-and-where-to-find-them)会破坏设计？了解人们可能会因为我们的设计而感到困惑，或被赋予权力，或有何感受，这是很有帮助的。我们永远不可能从我们的设计一旦问世就完全了解，将如何发挥作用，如何被接受，但我们可以尝试并了解其他人对作品的想法、感受和感知，以免它们超出我们的直接控制。也就是说：在设计达到静态状态之前
 
-How do we gain diverse perspectives without losing focus? How do we tune-into those whose opinions can be additive to what we’re building, rather than distracting? What is the best way to gather other’s opinions without sacrificing our responsibility in the work?
+我们如何在不失去焦点的情况下获得不同的视角？我们如何调整自己的观点，使之成为我们正在构建的东西的补充，而不是分散注意力？在不牺牲我们工作职责的前提下，收集他人意见的最佳方式是什么？
 
-## 1\. Share design early and often
+## 1\. 尽早并经常分享设计
 
-![Hide Away Image.JPG](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1563667050573-XYFDXXTYUBX4C98V30BK/ke17ZwdGBToddI8pDm48kMQc8WrzSIpIwdx0OJ5nYId7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UfsC3QUt--MhsJMY95gZ7XR1rrV0B-eWEv4c3gG4QvrMv7XJJMetc4iDSXfct4AKFA/Hide+Away+Image.JPG)
+![隐藏图像.JPG](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1563667050573-XYFDXXTYUBX4C98V30BK/ke17ZwdGBToddI8pDm48kMQc8WrzSIpIwdx0OJ5nYId7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UfsC3QUt--MhsJMY95gZ7XR1rrV0B-eWEv4c3gG4QvrMv7XJJMetc4iDSXfct4AKFA/Hide+Away+Image.JPG)
 
-In design critiques or one-on-one with designers, engineers, product managers, clients—anyone on your team—share your work.
+在设计评论或一对一与设计师，工程师，产品经理，客户 —— 任何在你团队的人分享你的工作。
 
-**It doesn’t matter what stage the work is in, the sooner you share it the sooner you can catch issues or shortcomings.**
+**不管工作处于哪个阶段，你越早分享它，你就越早发现问题或缺点。**
 
-If you’re afraid your work will be unfairly evaluated or that others simply won’t understand it, remember that effective work can stand up on its own regardless of how we personally feel about it. [An effective critique](https://tannerchristensen.com/blog/2018/12/31/four-things-working-at-facebook-has-taught-me-about-design-critique) is never a critique of the designer, only the work. And you are not your work.
+如果你担心你的工作受到不公平的评价，或者别人根本不理解你的工作，那么请记住，不管我们个人对工作的感觉如何，有效的工作是可以独立完成的。[有效的评论](https://tannerchristensen.com/blog/2018/12/31/four-things-working-at-facebook-has-taught-me-about-design-critique) 绝不是对设计师的批评，而是对作品的批评。你不是你的工作。
 
-Sooner or later the designs you create will have to stand up without you there to defend them. By exposing the work to other opinions early and often, you end up strengthen it early and often. Because you can take those early opinions and incorporate them, or start to build “defenses” against them into the work itself.
+你创造的设计迟早会在没有你的保护下站出来。通过更早，更多地向他人展示你的作品，你最终会更早，更多地加强它。因为你可以把这些早期的观点融入到作品中，或者开就在作品中“抵制”他们。
 
-**“Many designers want to take a problem and hide away with it in order to produce the work, but that usually backfires. They want to shelter their ideas and designs but end up weakening them instead. Like an immune system that hasn’t had a chance to strengthen itself against diseases. Designers who don’t collaborate well end up seeing things from a very limited perspective and that hurts the designs.” — Tanner Christensen**
+**“很多设计师都想把一个问题隐藏起来，以便产出作品，但这通常会适得其反。他们想要保护自己的想法和设计，但最终却削弱了它们。就像免疫系统没有机会增强自身以抵御疾病一样。不善合作的设计师最终只能从一个非常有限的角度来看问题，这伤害了设计。” — Tanner Christensen**
 
-## 2\. Share your work with as many people as possible
+## 2\. 和尽可能多的人分享你作品
 
-Sharing work early and often is good, but if you’re only ever sharing it to one person you’re limiting the perspectives and opinions that can help you evolve and strengthen the design.
+尽早并且经常分享作品是件好事，但是如果你只把作品分享给一个人，你就限制了那些可以帮助你改进并加强设计的观点和角度。
 
-**Your goal should be to get a broad picture of the work you’re doing, and to do that you need to share it with as many people as possible. The more opinions you can get, the better. Because everyone has a unique background and lens from which they will see the work .**
+**你的目标应该是对你正在做的工作有一个大致的了解，要做到这一点，你需要与尽可能多的人分享它。你能得到的意见越多越好。因为每个人都可以从他看到的作品中获得独特的背景和视角。**
 
-The goal is not to “design by committee”—having many people determine what should and should not get built—bur rather to solicit many different perspectives and opinions without giving up your responsibility for the work.
+我们的目标不是让有许多人来的“由委员会来设计”决定应该和不应该构建什么 —— 而是在不放弃工作职责的情况下，征求许多不同的观点和意见。
 
-If you approach others with a clear intent to learn what they think—and when everyone knows who is responsible for the final output— these conversations become easier to navigate and leverage to your advantage.
+如果你带着明确的意图接触他人以了解他们的想法 —— 当每个人都知道谁对最终的结果负责时 —— 这些对话就会变得更容易驾驭，并让你受益。
 
-Consider sharing your work by presenting it with one of the following introductions:
+考虑通过以下一个介绍来分享你的作品：
 
-* I respect your insights and want to hear your opinion on this, I may or may not take the feedback into the next stage but really want to hear what you think, can you take a look? 
-* I’m trying to ensure I have all the information I need to make an informed decision in my work, can we take five minutes to have you review it?
-* I want to ensure I’m getting as many opinions as I can so I can collect what others are seeing and take action on it, can I get your perspective?
-* Would it be ok if I showed you some of my latest work and walk you through what I’m thinking, I want to make sure I’m not overlooking anything?
+* 我尊重你的见解，想听听你的意见，我可能会或者不会把反馈带到下一个阶段，但我真的想听听你的想法，你能看一下吗？
+* 我正在努力确保收集所有我工作中需要的信息以做出明智的决定，我们能花五分钟时间看一下吗？
+* 我想确保我能得到尽可能多的意见，这样我就能收集其他人的看法并采取行动，我能听听你的意见吗？
+* 如果我给你看一些我最新的作品，并告诉你我在想什么，我想确保我没有忽略任何东西，这样可以吗？
 
-## 3\. Clarify and re-declare your objective whenever you can
+## 3\. 尽可能地阐明和重申你的目标
 
-One of the most difficult parts of soliciting other’s opinions of your work is ensuring the feedback you do get is aligned with what your focus or goal is.
+征求他人对你工作的意见最困难的部分之一是确保你得到的反馈与你的重点或目标是一致的。
 
-Especially if the opinion you get from someone else is strong but not exactly what you need to hear. It can be incredibly difficult to turn away feedback or opinions without a strong rationale for why you’re doing so. If you simply reject someone’s opinion as being unhelpful they may not be so willing to share their perspective with you in the future.
+尤其是当你从别人那里得到很很强烈的意见，但又不是你想听的时候。如果没有一个强有力的理由，你很难拒绝别人的反馈或意见。如果你只是简单地拒绝别人的意见，认为这是没有帮助的，他们在未来可能不愿意与你分享他们的观点。
 
-It can also be difficult to know what feedback is actually helpful or what feedback you’re rejecting simply because you don’t personally agree with it.
+也很难知道什么反馈是真正有用的，或者仅仅因为你个人不同意而拒绝了什么反馈。
 
-![Taking Part Image.JPG](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1563667434965-1I8MDJY9727PLW4HCQMY/ke17ZwdGBToddI8pDm48kEFCE1w56dqaOyGS9OEby0R7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0haypLsn6iFkXbd5QrnyzAEdFvy2ejpJQpvpwZo7gjCOnuDjE-T1tqwX44-rS2kDHA/Taking+Part+Image.JPG)
+![参与图像.JPG](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1563667434965-1I8MDJY9727PLW4HCQMY/ke17ZwdGBToddI8pDm48kEFCE1w56dqaOyGS9OEby0R7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0haypLsn6iFkXbd5QrnyzAEdFvy2ejpJQpvpwZo7gjCOnuDjE-T1tqwX44-rS2kDHA/Taking+Part+Image.JPG)
 
-**To face the common challenges that arise when sharing work, you should always begin the conversation with what your objective is, or what the design is trying to accomplish.**
+**要面对在分享作品时常见的挑战，你应该始终以你的目标是什么，或者设计试图完成什么来开始对话。**
 
-One of the most vital indicators of whether an opinion should influence the work is whether it relates to your objective. When the objective is unclear or different than what others are thinking, the feedback will be less helpful than ideal.
+一个观点是否应该影响工作，最重要的指标之一就是它是否与你的目标相关。当目标不明确或与他人的想法不同时，反馈的帮助将不会太理想。
 
-When you share the work or ideas for the sake of building a stronger opinion, state and re-state the objective so everyone can align on it. Be clear by saying something along the lines of: **“My purpose with this project is to get X result, I am not worried about Y or Z at this point but will consider anything that helps move the work toward those goals.”**
+当你为了建立一个更强的观点而分享你的作品或想法时，你要反复陈述你的目标，这样每个人都能达成一致。你可以这样说：**“我做这个项目的目的是得到 X 的结果，我现在不担心 Y 或 Z，但是我会考虑任何有助于实现这些目标的事情。**
 
-If you feel the feedback you’re getting isn’t helpful, or that the opinions being shared are too removed from the objective of the work, take a minute to re-declare them. Not only will it help the person or people giving you their opinion, doing so will also help you re-orient yourself around the purpose of why you’re looking for feedback.
+如果你觉得你得到的反馈没有帮助，或者分享的观点与工作目标太脱节，花一分钟重新陈述它们。这样做不仅能帮助别人给出他们的意见，还能帮助你重新定位自己的目标，即你为什么要寻求反馈。
 
 ---
 
-Sharing your work and asking others for their opinion of it is not an excuse or a reason to give up responsibility. At the end of the day the designs you create are yours alone, not anyone elses.
+分享你的作品并征求他人的意见不是放弃责任的借口或理由。在一天结束的时候，你创造的设计是你自己的，而不是别人的。
 
-If you want to ensure your design succeed you’ll want to collect many different opinions of it before it’s considered “complete.”
+如果你想确保你的设计成功，你需要在它被认为“完成”之前收集许多不同的意见。
 
-The more diverse opinions you can collect about your work, early and often, the more likely the design is to stand triumphantly against any challenges it faces in the future, especially once it’s left your hands.
+你越早，越经常，越多样化的收集的关于你的作品的意见，设计就越有可能在未来面对任何挑战时取得胜利，尤其是当它离开你的手的时候。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
