@@ -164,11 +164,11 @@
 
 ```
 git log --oneline
-0b22064 (HEAD -> interactiveRebase) 向 Alice 里添加更多内容
-062ef13 添加 Bob.txt 文件
-9e06fca 向 Alice 文件里添加内容
-df3ad1d (origin/master, origin/HEAD, master) 添加 Alice 文件
-800a947 添加教程内容
+0b22064 (HEAD -> interactiveRebase) Add more text to Alice
+062ef13 Add Bob.txt
+9e06fca Add text to Alice
+df3ad1d (origin/master, origin/HEAD, master) Add Alice
+800a947 Add Tutorial Text
 ```
 
 关于这一点，我们有两件事需要解决，为了学习不同的东西，解决方案有别于之前 `amend（修正）` 章节的内容。
@@ -243,7 +243,7 @@ squash 0b22064 Add more text to Alice
 不能对吧？就像文件里注解告诉我们的一样：
 
 ```
-# s, squash = 会执行提交命令，但会涵盖先前的提交
+# s, squash = use commit, but meld into previous commit
 ```
 
 所以就我们目前所做的，将会合并 Alice 文件的第二次变更提交和 Bob 文件的提交内容。然而这并不是我们想要的。
