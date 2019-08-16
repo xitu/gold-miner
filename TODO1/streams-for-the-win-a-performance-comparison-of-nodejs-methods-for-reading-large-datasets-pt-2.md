@@ -48,7 +48,7 @@
 
 **解决方案 3：[`event-stream`](https://www.npmjs.com/package/event-stream)**
 
-最后，我在想到了 Node.js 中唯一能够处理完整的 2.55 GB 的文件的解决方案。
+最后，我想到了在 Node.js 中唯一能够处理完整的 2.55 GB 的文件的解决方案。
 
 > 有趣的是：Node.js 在任何时候，都只能够在内存中容纳 1.67 GB，之后就会抛出 JavaScript 的 `heap out of memory` 错误。
 
