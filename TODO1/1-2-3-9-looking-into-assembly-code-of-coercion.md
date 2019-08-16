@@ -17,7 +17,7 @@
 
 ---
 
-想要在开发环境运行下不同代码的正确方法是关键在于你的 JavaScript 构建工具The exact way to run different code in development depends on your JavaScript build pipeline (and whether you have one). At Facebook it looks like this:
+想要在开发环境运行下不同代码关键在于你的 JavaScript 构建工具（无论你用的是哪一个）。在 Facebook 它长这个样子：
 
 ```js
 if (__DEV__) {
@@ -27,17 +27,17 @@ if (__DEV__) {
 }
 ```
 
-Here, `__DEV__` isn’t a real variable. It’s a constant that gets substituted when the modules are stitched together for the browser. The result looks like this:
+在这里，`__DEV__` 不是一个真正的变量。当浏览器把模块之间的依赖加载完毕的时候，它会被替换成常量。结果长这个样子：
 
 ```js
-// In development:
+// 在开发环境下：
 if (true) {
   doSomethingDev(); // 👈
 } else {
   doSomethingProd();
 }
 
-// In production:
+// 在线上环境：
 if (false) {
   doSomethingDev();
 } else {
@@ -45,16 +45,16 @@ if (false) {
 }
 ```
 
-In production, you’d also run a minifier (for example, [terser](https://github.com/terser-js/terser)) on the code. Most JavaScript minifiers do a limited form of [dead code elimination](https://en.wikipedia.org/wiki/Dead_code_elimination), such as removing `if (false)` branches. So in production you’d only see:
+在线上环境，你可能在代码中会启用压缩工具（比如, [terser](https://github.com/terser-js/terser)）。大多 JavaScript 压缩工具会针对[无效代码](https://en.wikipedia.org/wiki/Dead_code_elimination)做一些限制，比如删除 `if (false)` 的逻辑分支。所以在线上环境中，你可能只会看到：
 
 ```js
-// In production (after minification):
+// 在线上环境（压缩后）：
 doSomethingProd();
 ```
 
-**(Note that there are significant limits on how effective dead code elimination can be with mainstream JavaScript tools, but that’s a separate topic.)**
+**（注意针对目前主流的 JavaScript 工具有一些重要的规范，这些规范可以决定怎样有效的移除无效代码，但这是一个独立的话题了。）**
 
-While you might not be using a `__DEV__` magic constant, if you use a popular JavaScript bundler like webpack, there’s probably some other convention you can follow. For example, it’s common to express the same pattern like this:
+可能你是用的不是 `__DEV__` 这个神奇的变量，如果你是用的是流行的 JavaScript 打包工具，比如 webpack，这有一些你需要遵守的其他约定。比如，像这样的一种非常常见的表达形式：
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
@@ -64,21 +64,21 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-**That’s exactly the pattern used by libraries like [React](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build) and [Vue](https://vuejs.org/v2/guide/deployment.html#Turn-on-Production-Mode) when you import them from npm using a bundler.** (Single-file `<script>` tag builds offer development and production versions as separate `.js` and `.min.js` files.)
+**一些框架比如 [React](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build) 和 [Vue](https://vuejs.org/v2/guide/deployment.html#Turn-on-Production-Mode) 就是是用的这种形式。当你使用 npm 来打包载入它们的时候。** (单个的 `<script>` 标签会提供开发和线上版本的独立文件，并且使用 `.js` 和 `.min.js` 的结尾来作为区分。)
 
-This particular convention originally comes from Node.js. In Node.js, there is a global `process` variable that exposes your system’s environment variables as properties on the [`process.env`](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) object. However, when you see this pattern in a front-end codebase, there isn’t usually any real `process` variable involved. 🤯
+这个特殊的约定最早来自于 Node.js。在 Node.js 中，会有一个全局的 `process` 变量用来代表你当前系统的环境变量，它属于 [`process.env`](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) object 的一个属性。然而，如果你在前端的代码库里看到这种语法，其实是不存在任何真正的 `process` 变量的。🤯
 
-Instead, the whole `process.env.NODE_ENV` expression gets substituted by a string literal at the build time, just like our magic `__DEV__` variable:
+取而代之的是，整个 `process.env.NODE_ENV` 表达式在打包的时候会被替换成一个字面量的字符串，就像我们神奇的 `__DEV__` 变量：
 
 ```js
-// In development:
+// 在开发环境中：
 if ('development' !== 'production') { // true
   doSomethingDev(); // 👈
 } else {
   doSomethingProd();
 }
 
-// In production:
+// 在线上环境中：
 if ('production' !== 'production') { // false
   doSomethingDev();
 } else {
@@ -86,18 +86,18 @@ if ('production' !== 'production') { // false
 }
 ```
 
-Because the whole expression is constant (`'production' !== 'production'` is guaranteed to be `false`), a minifier can also remove the other branch.
+因为整个表达式是常量（`'production' !== 'production'` 永恒为 `false`）打包压缩工具也可以删除其他的逻辑分支代码。
 
 ```js
-// In production (after minification):
+// 在线上环境（打包压缩后）：
 doSomethingProd();
 ```
 
-Mischief managed.
+恶作剧到此结束~
 
 ---
 
-Note that this **wouldn’t work** with more complex expressions:
+注意这个特性针对更复杂的表达式将**不会工作**：
 
 ```js
 let mode = 'production';
