@@ -2,92 +2,92 @@
 > * 原文作者：[Charlie](https://nullsweep.com/charlie/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-security-headers-a-complete-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-security-headers-a-complete-guide.md)
-> * 译者：
+> * 译者：[cyz980908](https://github.com/cyz980908)
 > * 校对者：
 
-# HTTP Security Headers - A Complete Guide
+# HTTP Security Headers 完整指南
 
 [![](https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ)](https://nullsweep.com/http-security-headers-a-complete-guide/)
 
-Companies selling "security scorecards" are on the rise, and have started to become a factor in enterprise sales. I have heard from customers who were concerned about purchasing from suppliers who had been given poor ratings, and in at least one case changed a purchasing decision based initially on the rating.
+销售“安全记分卡”的公司数量正在上升，并已开始成为企业销售的一个因素。我曾听说过一些客户，他们担心从评级较差的供应商那里购买产品，并且有至少一个客户，他们改变了最初基于评级的采购决定。
 
-I investigated how these ratings companies calculate company security scores, and it turns out they use a combination of HTTP security header usage and IP reputation.
+我调查了这些评级公司计算公司安全分数的方式，调查表明，他们使用的是HTTP Security Headers 和 IP 信誉的组合。
 
-IP reputation is based on blacklists and spam lists combined with public IP ownership data. These should generally be clean as long as your company doesn't spam and can quickly detect and stop malware infections. HTTP security header usage is calculated similar to how the [Mozilla Observatory](https://observatory.mozilla.org/) works.
+IP 信誉基于黑名单和垃圾邮件列表以及公共 IP 所有权数据。只要您的公司不发送垃圾邮件并且可以快速检测并阻止恶意软件感染，这些通常应该是干净的。 HTTP Security Headers 使用的计算方式与 [Mozilla Observatory](https://observatory.mozilla.org/) 的工作方式类似。
 
-Therefore, for most companies, their score is largely determined by the security headers being set on public facing websites.
+因此，对于大多数公司而言，他们的分数很大程度上取决于在面向公众的网站上设置的 Security Headers。
 
-Setting the right headers can be done quickly (usually without significant testing), can improve website security, and can now help you win deals with security conscious customers.
+您可以快速完成（通常不需要进行大量测试）正确 Headers 的设置，同时可以提高网站安全性，现在还可以帮助您赢得与具有安全意识的客户的交易。
 
-I am dubious about the value of this test methodology and exorbitant pricing schemes these companies ask. I don't believe it correlates to real product security all that well. However it certainly increases the importance of spending time setting headers and getting them right.
+我对这些测试方法的价值和这些公司提出的过高定价方案都持怀疑态度。我认为这都与真正的产品安全性无关。然而，它确实增加了花时间设置标题和正确设置标题的重要性。
 
-In this article, I will walk through the commonly evaluated headers, recommend security values for each, and give a sample header setting. At the end of the article, I will include sample setups for common applications and web servers.
+在本文中，我将介绍通常评估的 Header，为每个 Header 推荐安全值，并给出一个示例 Header 设置。在文章的最后，我将介绍常见应用程序和 web 服务器的示例设置。
 
-## Important Security Headers
+## 重要的 Security Headers
 
-### Content-Security-Policy
+### 内容安全协议 （Content-Security-Policy）
 
-A CSP is used to prevent cross site scripting by specifying which resources are allowed to load. Of all the items in this list, this is perhaps the most time consuming to create and maintain properly and the most prone to risks. During development of your CSP, be careful to test it thoroughly – blocking a content source that your site uses in a valid way will break site functionality.
+CSP用于通过指定允许加载哪些资源来防止跨站点脚本。在此列表中的所有项目中，这可能是创建和正确维护最耗时的，也是最容易出现风险的。在开发CSP期间，请务必仔细测试它 —— 以有效的方式阻止您的站点使用的内容源将会破坏站点的功能。
 
-A great tool for creating a first draft is the [Mozilla laboratory CSP browser extension](https://addons.mozilla.org/en-US/firefox/addon/laboratory-by-mozilla/). Install this in your browser, thoroughly browse the site you want to create a CSP for, and then use the generated CSP on your site.  Ideally, also work to refactor the JavaScript so no inline scripts remain, so you can remove the 'unsafe inline' directive.
+一个创建初稿的好工具是 [Mozilla laboratory CSP 浏览器扩展](https://addons.mozilla.org/en-US/firefox/addon/laboratory-by-mozilla/). 在浏览器中安装这个，彻底浏览要为其创建 CSP 的站点，然后在您的站点上使用生成的 CSP。理想情况下，还可以重构 JavaScript，因此不会保留内联脚本，因此您可以删除“unsafe inline”指令。
 
-CSP's can be complex and confusing, so if you want a deeper dive, see the [official site](https://content-security-policy.com/).
+CSP 是复杂而令人困惑的，所以如果你想要更深入的研究，请参阅[官方网站](https://content-security-policy.com/).
 
-A good starting CSP might be the following (this likely requires a lot of modifications on a real site). Add domains in each section that your site includes somewhere.
+一个好的 CSP 的开始可能是这样的(这可能需要在一个真实的站点上进行大量的修改)。在站点包含的每个部分中添加域。
 
 ```bash
-# Default to only allow content from the current site
-# Allow images from current site and imgur.com
-# Don't allow objects such as Flash and Java
-# Only allow scripts from the current site
-# Only allow styles from the current site
-# Only allow frames from the current site
-# Restrict URL's in the <base> tag to current site
-# Allow forms to submit only to the current site
+# 默认只允许来自当前站点的内容
+# 允许来自当前网站和 imgur.com 的图片
+# 不允许使用 Flash 和 Java 等对象
+# 只允许来自当前站点的脚本
+# 仅允许当前站点的样式
+# 只允许当前站点的帧
+# 将 <base> 标记中的 URL 限制为当前站点
+# 允许表单仅提交到当前站点
 Content-Security-Policy: default-src 'self'; img-src 'self' https://i.imgur.com; object-src 'none'; script-src 'self'; style-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';
 ```
 
-### Strict-Transport-Security
+### 强制安全传输 （Strict-Transport-Security）
 
-This header tells the browser that the site should only be accessed via HTTPS – always enable when your site has HTTPS enabled. If you use subdomains, I also recommend enforcing this on any used sub domains.
+这个 Header 告诉浏览器，该网站应仅通过 HTTPS 访问 —— 始终在您的网站启用 HTTPS 时启用。如果您使用子域，我也建议在任何使用过的子域上强制执行。
 
 ```bash
 Strict-Transport-Security: max-age=3600; includeSubDomains
 ```
 
-### X-Content-Type-Options
+### X-Content-Type的选项 （X-Content-Type-Options）
 
-This header ensures that the MIME types set by the application are respected by browsers. This can help prevent certain types of cross site scripting bypasses.
+此 header 确保浏览器遵守应用程序设置的 MIME 类型。这有助于防止某些类型的跨站点脚本绕过。
 
-It also reduces unexpected application behavior where a browser may “guess” some kind of content incorrectly, such as when a developer labels a page “HTML” but the browser thinks it looks like JavaScript and tries to render it as JavaScript. This header will ensure the browser always respects the MIME type set by the server.
+它还减少了由于浏览器可能不正确猜测某些内容导致的意外应用程序行为，例如当开发人员标记一个页面 HTML，但浏览器认为它看起来像 JavaScript，并试图将其呈现为 JavaScript 时。这个 Header 将确保浏览器始终尊重服务器设置的 MIME 类型。
 
 ```bash
 X-Content-Type-Options: nosniff
 ```
 
-### Cache-Control
+### 缓存控制 （Cache-Control）
 
-This one is a bit trickier than the others because you likely want different caching policies for different content types.
+这一个比其他的稍微复杂一些，因为您可能需要针对不同的内容类型使用不同的缓存策略。
 
-Any page with sensitive data, such as a user page or a customer checkout page, should be set to no-cache. One reason for this is preventing someone on a shared computer from pressing the back button or going through history and being able to view personal information.
+任何具有敏感数据的页面，例如用户页面或客户结帐页面，都应该设置为无缓存。原因之一是防止共享计算机上的某人按下后退按钮或浏览历史并查看个人信息。
 
-However, pages that change rarely, such as static assets (images, CSS files, and JS files), are good to cache. This could be done on a page by page basis, or using regex on the server configuration.
+但是，很少更改的页面（如静态资源（图像，CSS 文件和 JavaScript 文件））很适合缓存。这可以在逐页的基础上完成，也可以在服务器配置上使用正则表达式完成。
 
 ```bash
-# Don’t cache by default
+# 默认情况下不缓存
 Header set Cache-Control no-cache
 
-# Cache static assets for 1 day
+# 缓存静态资源 1 天
 <filesMatch ".(css|jpg|jpeg|png|gif|js|ico)$">
     Header set Cache-Control "max-age=86400, public"
 </filesMatch>
 ```
 
-### Expires
+### 有效期 （Expires）
 
-This sets the time the cache should expire the current request. It is ignored if the Cache-Control max-age header is set, so we only set it in case a naive scanner is testing for it without considering cache-control.
+这将设置当前请求缓存到期的时间。如果设置了 Cache-Control max-age 的 Header，它将被忽略。所以我们只在一个简单的扫描器测试它而不考虑 cache-control 的情况下设置它。
 
-For security purposes, we will assume that the browser should not cache anything, so we’ll set this to a date that always evaluates to the past.
+出于安全考虑，我们假设浏览器不应该缓存任何东西，因此我们将把这个设置为一个日期，该日期的计算值总是为过去。
 
 ```bash
 Expires: 0
@@ -95,85 +95,85 @@ Expires: 0
 
 ### X-Frame-Options
 
-This header indicates whether the site should be allowed to be displayed within an iFrame.
+这个 Header 指是否应该允许站点在 iFrame 中显示。
 
-If a malicious site puts your website within an iFrame, the malicious site is able to perform a click jacking attack by running some JavaScript that will capture mouse clicks on the iFrame and then interact with the site on the users behalf (not necessarily clicking where they think they clicked!).
+如果恶意网站将您的网站置于 iFrame 中，则恶意网站可以通过运行一些 JavaScript 来执行点击攻击，该 JavaScript 会捕获 iFrame 上的鼠标点击，然后代表用户与该网站进行交互（不一定点击他们认为他们点击的地方！）。
 
-This should always be set to deny unless you are specifically using frames, in which case it should be set to same-origin. If you are using Frames with another site by design, you can white list the other domain here as well.
+这应该总是设置为 deny，除非您特别使用 Frames, 在这种情况下，它应该设置为同源（same-origin）。如果您在设计中将 Frames 与其他网站一起使用，您也可以在此处白名单列出其他域名。
 
-It should also be noted that this header is superseded by the CSP frame-ancestors directive. I still recommend setting this for now to appease tools, but in the future it will likely be phased out.
+还应注意，此标头已被 CSP frame-ancestrs 指令取代。我仍然建议现在就设置它以作为暂时工具，但将来它可能会逐步被淘汰。
 
 ```bash
 X-Frame-Options: deny
 ```
 
-### Access-Control-Allow-Origin
+### 访问控制允许来源 （Access-Control-Allow-Origin）
 
-Tell the browser which other sites' front end JavaScript code may make requests of the page in question. Unless you need to set this, the default is usually the right setting.
+告诉浏览器哪些其他站点的前端 JavaScript 代码可能会对该页面发出请求。除非需要设置此值，否则默认值通常是正确的设置。
 
-For instance, if SiteA serves up some JavaScript which wants to make a request to siteB, then siteB must serve the response with the header specifying that SiteA is allowed to make this request. If you need to set multiple origins, see the [details page on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin).
+例如，如果 SiteA 提供了一些想要向 SiteB 发出请求的 JavaScript，那么 SiteB 必须提供带有 Header 的响应，这个 Header 指定 SiteA 被允许发出这个请求。如果需要设置多个源，请参阅 [MDN 上的详细信息页面](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin).
 
-This can be a little confusing, so I drew up a diagram to illustrate how this header functions:
+这可能有点令人困惑，所以我绘制了一个图表来说明这个 Header 如何运作
 
 ![](https://nullsweep.com/content/images/2019/07/Screen-Shot-2019-07-17-at-4.38.37-PM.png)
 
-Data flow with Access-Control-Allow-Origin
+具有 Access-Control-Allow-Origin 中的数据流
 
 ```bash
 Access-Control-Allow-Origin: http://www.one.site.com
 ```
 
-### Set-Cookie
+### 设置 Cookie（Set-Cookie）
 
-Ensure that your cookies are sent via HTTPS (encrypted) only, and that they are not accessible via JavaScript. You can only send HTTPS cookies if your site also supports HTTPS, which it should. You should always set the following flags:
+确保您的 Cookie 仅通过 HTTPS(加密) 发送，并且不能通过 JavaScript 访问它们。如果您的站点也支持 HTTPS，则只能发送 HTTPS Cookie，这是应该的。您应该始终设置以下标志：
 
 * Secure
 * HttpOnly
 
-A sample Cookie definition:
+Cookie 定义示例:
 
 ```bash
 Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
 ```
 
-See the excellent [Mozilla documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) on cookies for more information.
+有关更多信息，请参阅有关 Cookie 的优秀 [Mozilla 文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)。
 
 ### X-XSS-Protection
 
-This header instructs browsers to halt execution of detected cross site scripting attacks. It is generally low risk to set, but should still be tested before putting in production.
+这个 Header 指示浏览器停止检测到的跨站点脚本攻击的执行。它通常是低风险设置，但仍应在投入生产前进行测试。
 
 ```bash
 X-XSS-Protection: 1; mode=block
 ```
 
-## Web Server Example Configurations
+## Web 服务器示例配置
 
-Generally, it's best to add headers site-wide in your server configuration. Cookies are the exception here, as they are often defined in the application itself.
+通常，最好在服务器配置中添加站点范围内的 Headers。Cookie 是一个例外，因为它们通常在应用程序本身中定义。
 
-Before adding any headers to your site, I recommend first checking the observatory or manually looking at headers to see which are set already. Some frameworks and servers will automatically set some of these for you, so only implement the ones you need or want to change.
+在将任何 Header 添加到站点之前，我建议首先 通过检查 Observatory（前文提及） 或手动查看 Headers，看看哪些已经设置好了。一些框架和服务器会自动为您设置其中一些，因此只能实现您需要或想要更改的那些。
 
-### Apache Configuration
+### Apache 配置
 
-A sample Apache setting in .htaccess:
+.htaccess中的 Apache 设置示例：
 
 ```bash
 <IfModule mod_headers.c>
     ## CSP
     Header set Content-Security-Policy: default-src 'self'; img-src 'self' https://i.imgur.com; object-src 'none'; script-src 'self'; style-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';
 
-    ## General Security Headers
+    ## 一般的 Security Headers
     Header set X-XSS-Protection: 1; mode=block
     Header set Access-Control-Allow-Origin: http://www.one.site.com
     Header set X-Frame-Options: deny
     Header set X-Content-Type-Options: nosniff
     Header set Strict-Transport-Security: max-age=3600; includeSubDomains
 
-    ## Caching rules
-    # Don’t cache by default
+    ## 缓存规则
+    # 默认情况下不缓存
     Header set Cache-Control no-cache
     Header set Expires: 0
 
-    # Cache static assets for 1 day
+    # 缓存静态资源 1 天
     <filesMatch ".(ico|css|js|gif|jpeg|jpg|png|svg|woff|ttf|eot)$">
         Header set Cache-Control "max-age=86400, public"
     </filesMatch>
@@ -181,40 +181,40 @@ A sample Apache setting in .htaccess:
 </IfModule>
 ```
 
-### Nginx Configuration
+### Nginx 配置
 
 ```bash
 ## CSP
 add_header Content-Security-Policy: default-src 'self'; img-src 'self' https://i.imgur.com; object-src 'none'; script-src 'self'; style-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';
 
-## General Security Headers
+## 一般的 Security Headers
 add_header X-XSS-Protection: 1; mode=block;
 add_header Access-Control-Allow-Origin: http://www.one.site.com;
 add_header X-Frame-Options: deny;
 add_header X-Content-Type-Options: nosniff;
 add_header Strict-Transport-Security: max-age=3600; includeSubDomains;
 
-## Caching rules
-# Don’t cache by default
+## 缓存规则
+# 默认情况下不缓存
 add_header Cache-Control no-cache;
 add_header Expires: 0;
 
-# Cache static assets for 1 day
+# 缓存静态资源 1 天
 location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff|ttf|eot)$ {
     try_files $uri @rewriteapp;
     add_header Cache-Control "max-age=86400, public";
 }
 ```
 
-## Application Level Header Setting
+## 应用程序级别的 Header 设置
 
-If you don't have access to the web server, or have complex header setting needs, you may want to set these in the application itself. This can usually be done with framework middleware for an entire site, and on a per-response basis for one-off header setting.
+如果您无权访问 Web 服务器，或者有复杂的 Header 设置需求，您可能希望在应用程序本身中设置这些。这通常可以通过整个站点的框架中间件来完成， 以及基于每个响应进行一次性 Header 设置。
 
-I only included one header for brevity in the examples. Add all that are needed via this method in the same way.
+为了简单起见，我只在示例中包含了一个 Header。并以同样的方式通过这个方法添加所有需要的内容。
 
-### Node and express:
+### Node 和 express：
 
-Add a global mount path:
+添加全局挂载路径：
 
 ```JavaScript
 app.use(function(req, res, next) {
@@ -223,13 +223,13 @@ app.use(function(req, res, next) {
 });
 ```
 
-### Java and Spring:
+### Java 和 Spring：
 
-I don't have a lot of experience with Spring, but [Baeldung](https://www.baeldung.com/spring-response-header) has a great guide to header setting in Spring.
+我并没有很多使用 Spring 的经验，但是 [Baeldung](https://www.baeldung.com/spring-response-header) 有一篇很好的文章关于 Spring 中的 Header 设置。
 
-### PHP:
+### PHP：
 
-I am not familiar with the various PHP frameworks. Look for middleware that can handle requests. For a single response, it is very simple.
+我不熟悉各种PHP框架。寻找能够处理请求的中间件。对于单个响应，它非常简单。
 
 ```php
 header("X-XSS-Protection: 1; mode=block");
@@ -237,24 +237,24 @@ header("X-XSS-Protection: 1; mode=block");
 
 ### Python / Django
 
-Django includes configurable [security middleware](https://docs.djangoproject.com/en/2.2/ref/middleware/) that can handle all these settings for you. Enable those first.
+Django 包含可配置的[安全中间件](https://docs.djangoproject.com/en/2.2/ref/middleware/)可以为您处理所有这些设置。先启用它们。
 
-For specific pages, you can treat the response like a dictionary. Django has a special way to handle caching that should be investigated if trying to set cache headers this way.
+对于特定页面，可以将响应视为字典。Django 有一种处理缓存的特殊方法，如果试图以这种方式设置缓存 Headers，那么应该研究这种方法。
 
 ```python
 response = HttpResponse()
 response["X-XSS-Protection"] = "1; mode=block"
 ```
 
-## Conclusions
+## 总结
 
-Setting headers is relatively quick and easy. You will have a fairly significant increase in your site security for data protection, cross site scripting, and click jacking.
+设置 Header 相对快速且简单。在数据保护、跨站点脚本编写和点击劫持方面，您的站点安全性将有相当大的提高。
 
-You also ensure you don't lose future business deals as a result of company security ratings that rely on this information. This practice seems to be increasing, and I expect it to continue to play a role in enterprise sales in future years.
+您还可以确保您不会因为依赖于这些信息的公司安全评级而失去未来的业务交易。这种做法似乎越来越多，我希望它在未来几年里能继续在企业销售中发挥作用。
 
-Did I miss a header you think should be included? Let me know!
+我有遗漏的你认为应该包含在内的 Header。请告诉我！
 
-[Empathizing With Threat Actors](https://nullsweep.com/empathizing-with-threat-actors/)
+[站在威胁行动者的角度](https://nullsweep.com/empathizing-with-threat-actors/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
