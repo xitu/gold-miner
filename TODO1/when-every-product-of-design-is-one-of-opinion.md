@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-every-product-of-design-is-one-of-opinion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-every-product-of-design-is-one-of-opinion.md)
 > * 译者：[Charlo](https://github.com/Charlo-O)
-> * 校对者：[JJ](https://github.com/xujunjiejack)
+> * 校对者：[JJ](https://github.com/xujunjiejack)、[LeonJankos](https://github.com/LeonJankos)
 
-# 当每个产品设计都是一种意见
+# 当每个产品设计都是一种观点
 
 ![本文插画由 Robbie Cathro 绘制。](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1562893100677-CFLC4SFZF0L9R0GMVK1H/ke17ZwdGBToddI8pDm48kBJJGUYCrQbckB0aB3i9meB7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0r9YoV8ytu8SWDj21Bt3yU9Gh-U0J0GVFf0WX9Hn5Lg-0R4Sk3CvCel_jgOb6mmMUA/image-asset.jpeg)
 
-每一个创意都是意见的产物。如果你想做出高质量的设计，你需要形成一个强有力的观点，但这个观点是由许多其他观点组成。
+每一个创意都是观点的产物。如果你想做出高质量的设计，你需要形成一个强有力的观点，但这个观点是由许多其他观点组成。
 
-意见决定了作品里包括了什么，不包括什么，作品为谁做，而**不是**为谁做的。意见可以塑造工作的目的和目标，同时在分心和灵感之间划清界限。**要对工作有一个有价值的看法，就不要把自己局限于自己个人的知识或经验。**
+观点决定了作品里包括了什么，不包括什么，作品为谁做，而**不是**为谁做的。观点可以塑造工作的目的和目标，同时在分心和灵感之间划清界限。**要对工作有一个有价值的看法，就不要把自己局限于自己个人的知识或经验。**
 
 只有当我们所做的工作中包含了大量的观点和想法时，才能做好。如果你的设计将服务于除了你之外的所有人，你会想要得到另一个关于它应该如何工作、展现或感受的意见。
 
@@ -19,25 +19,25 @@
 
 收集意见并不意味着放弃责任。每一个决定都需要一个决策者，这个人能够掌控这些决定，并对事情进展的顺利与否负责。
 
-但交付给客户、工程师或其他合作伙伴的往往是设计师的意见；这种表达方式带有很多偏见。我们不知道自己不知道什么，所以很难想象一个设计会对那些与我们有不同信仰的人产生什么影响，或者那些使用不相同技术的人，或者那些打算以我们从未想象过的方式使用我们设计的人。
+但交付给客户、工程师或其他合作伙伴的往往是设计师的意见；这种表达方式带有很多偏见。我们不知道自己不知道什么，所以很难想象一个设计会对与我们有不同想法、使用不同工具或者我们从未想象过的打算使用我们工具的人产生什么影响。
 
-**为了使自己和作品取得成功，最好是通过收集别人的意见来形成我们对作品的看法。**
+**为了使我们自己和作品取得成功，我们最好是通过收集别人的意见来形成我们对作品的看法。**
 
 在设计过程的早期，我们通常应该通过引入他人的观点来建立作品广阔的视角。
 
 这个设计可能会出现什么问题或者哪些[边缘情况](https://tannerchristensen.com/blog/2019/6/17/design-edge-cases-and-where-to-find-them)破坏？了解我们的设计是如何给他人带来疑惑，力量，或者感受是很有帮助的。我们永远不可能在设计问世之初，就完全了解，它将如何发挥作用，如何被接受，但我们可以尝试并了解其他人对作品的想法、感受和感知，以免它们超出我们的直接控制。也就是说：在设计达到静态状态之前
 
-我们如何在不失去焦点的情况下获得不同的视角？我们如何听从那些值得加入到我们正在构建的作品中的观点，而不是那些会分散注意力的观点？在不牺牲我们工作职责的前提下，收集他人意见的最佳方式是什么？
+我们如何调整这些观点来补充我们的观点，而不是分散我们的注意力呢？我们如何听从那些值得加入到我们正在构建的作品中的观点，而不是那些会分散注意力的观点？在不牺牲我们工作职责的前提下，收集他人意见的最佳方式是什么？
 
 ## 1\. 尽早并经常分享设计
 
 ![隐藏图像.JPG](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1563667050573-XYFDXXTYUBX4C98V30BK/ke17ZwdGBToddI8pDm48kMQc8WrzSIpIwdx0OJ5nYId7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UfsC3QUt--MhsJMY95gZ7XR1rrV0B-eWEv4c3gG4QvrMv7XJJMetc4iDSXfct4AKFA/Hide+Away+Image.JPG)
 
-在设计评论或与设计师，工程师，产品经理，客户 —— 以及任何你团队里的人—— 一对一的交流中，分享你的工作。
+在设计评论或与设计师，工程师，产品经理，客户 —— 以及任何你团队里的人—— 一对一的交流中，分享你的作品。
 
 **不管作品处于哪个阶段，你越早分享它，你就越早发现问题或缺点。**
 
-如果你担心你的工作受到不公平的评价，或者别人根本不理解你的工作，那么请记住，不管我们个人对工作的感觉如何，有效的作品是独立于我们个人对作品的感觉。[有效的评论](https://tannerchristensen.com/blog/2018/12/31/four-things-working-at-facebook-has-taught-me-about-design-critique) 绝不是对设计师的批评，而是对作品的批评。你不是你的作品。
+如果你担心你的作品受到不公平的评价，或者别人根本不理解你的作品，那么请记住，不管我们个人对作品的感觉如何，有效的作品是独立于我们个人对作品的感觉。[有效的评论](https://tannerchristensen.com/blog/2018/12/31/four-things-working-at-facebook-has-taught-me-about-design-critique) 绝不是对设计师的批评，而是对作品的批评。你不是你的作品。
 
 你创造的设计迟早会在没有你的保护下站出来。通过更早，更多地向他人展示你的作品，你最终会更早，更多地加强它。因为你可以把这些早期的观点融入到作品中，在作品中建立对这些观点的“反驳”。
 
@@ -47,9 +47,9 @@
 
 尽早并且经常分享作品是件好事，但是如果你只把作品分享给一个人，你就限制了那些可以帮助你改进并加强设计的观点和角度。
 
-**你的目标应该是对你正在做的工作有一个大致的了解，要做到这一点，你需要与尽可能多的人分享它。你能得到的意见越多越好。因为在看待这个作品的时候，每个人拥有独特的背景和视角。**
+**你的目标应该是对你正在做的作品有一个大致的了解，要做到这一点，你需要与尽可能多的人分享它。你能得到的意见越多越好。因为在看待这个作品的时候，每个人拥有独特的背景和视角。**
 
-你的目标不应该是“让委员会来设计” —— 意味着由许多人来决定什么应该被建造，什么不应该 —— 而是你在不放弃的个人对这个作品的责任下，征求许多不同的视角和意见。
+你的目标不应该是“让委员会来设计” —— 意味着由许多人来决定什么应该被实现，什么不应该 —— 而是你在不放弃的个人对这个作品的责任下，征求许多不同的视角和意见。
 
 如果你带着明确的意图接触他人以了解他们的想法 —— 当每个人都知道谁对最终的结果负责时 —— 这些对话就会变得更容易驾驭，并让你受益。
 
@@ -66,7 +66,7 @@
 
 尤其是当你从别人那里得到很很强烈的意见，但又不是你想听的时候。如果没有一个强有力的理由，你很难拒绝别人的反馈或意见。如果你只是简单地拒绝别人的意见，认为这是没有帮助的，他们在未来可能不愿意与你分享他们的观点。
 
-也很难知道什么反馈是真正有用的，也很难知道哪些反馈是真正有用的，而哪些被你拒绝的反馈仅仅是因为和你的想法不一样。
+也很难知道什么反馈是真正有用的，而哪些被你拒绝的反馈仅仅是因为和你的想法不一样。
 
 ![参与图像.JPG](https://images.squarespace-cdn.com/content/v1/5b05a3300dbda3d74934c189/1563667434965-1I8MDJY9727PLW4HCQMY/ke17ZwdGBToddI8pDm48kEFCE1w56dqaOyGS9OEby0R7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0haypLsn6iFkXbd5QrnyzAEdFvy2ejpJQpvpwZo7gjCOnuDjE-T1tqwX44-rS2kDHA/Taking+Part+Image.JPG)
 
