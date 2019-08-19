@@ -2,213 +2,213 @@
 > * 原文作者：[Stefano Borini](https://stefanoborini.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/current-status-of-python-packaging.md](https://github.com/xitu/gold-miner/blob/master/TODO1/current-status-of-python-packaging.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Current State of Python Packaging - 2019
+# Python 的打包现状（写于 2019 年）
 
-In this post, I will try to explain the intricate details of python packaging. I spent the best part of my evenings in the past two months to gather as much information as possible about the problem, the current solutions, what is legacy and what is not.
+在这篇文章中，我将会试着给你讲清楚 python 打包那些错综复杂的细节。我在过去的两个月中，使用每天晚上精力最好的黄金时段尽可能多的收集相关信息、如今的解决方案，并搞清楚哪些是遗留的问题。
 
-The first source of confusion is the ambiguity surrounding terminology in python. In programming circles, the meaning of the word “package” means an installable component (a library for example). Not so in python, where the term for the same concept is “distribution”. However, nobody really uses the term “distribution” except when they do (typically in official documentation and Python Enhancement Proposals). Incidentally, the term is a bad choice because “distribution” is generally used for a brand of Linux.
+含糊不清的 python 术语是导致混乱的第一个来源。在编程相关的语境中，“包”（package）这个词意味着一个可以安装的组件（比如可以是一个库）。但是在 python 中却不是这样，在这里，可安装组件的术语是“发行版”（distribution）。但是，除非必要（特别是在官方文档和 Python 增强提案中），否则根本没人真的去用“发行版”这个术语。
 
-This is a warning that you should keep in mind, because python packaging is not really about python **packages**. It’s about python **distributions** (python distributioning? whatever) but I’ll keep calling it packaging.
+所以 python 打包其实并不真的是关于 python 的**包**，而是关于它的**发行版**。但是我还是称之为打包。这一点你要牢记于心。
 
-**I don’t have time to read. Can you give me the short version? What should I do as of today in 2019 to manage python packages?**
+**我不想花那么多时间去阅读。能不能给我个简短的版本？在 2019 年，我应该如何管理 python 包呢？**
 
-I assume you are a programmer and wants to start developing a python package:
+在这里我假设，你是一名想要开始研发一个 python 包程序员，步骤如下：（关于包版本的部分不太会翻译，求指正～）
 
-* Create your development environment with [Poetry](https://poetry.eustace.io/), specifying the direct dependencies of your project with a strict version. This way you ensure your development (and testing) environment is always reproducible.
-* Create a pyproject.toml and use poetry as a backend to create your source and binary distributions.
-* Now it’s time to specify your abstract package dependencies. Specify them with a minimum version that you know your package can work with. This way you ensure you don’t create needless version conflicts with other packages.
+* 首先使用 [Poetry](https://poetry.eustace.io/) 创建开发环境，并使用严格模式指定项目的直接依赖。这样就可以保证你的研发和测试环境总是可以被重复创建的。
+* 创建一个 pyproject.toml 文件，然后使用 poetry 创建源代码版和可执行版。
+* 下一步要指定抽象包依赖。注意应使用你能确定的可运行的最低版本来指定。这样就可以保证不会创建出无用的、会和其他包冲突的版本。
 
-If you really want to work the old way with setuptools:
+如果你还是想使用需要 setuptools 的老方法：
 
-* Create a setup.py where you specify all your abstract dependencies with the minimum version your package is working with in `install_requires`.
-* Create a `requirements.txt` where you specify your strict, concrete (i.e. specifically versioned), direct dependencies. You will use this file to generate your actual working environment.
-* Create a virtual environment with `python -m venv`, activate the environment and then install the dependencies with `pip install -rrequirements.txt` in that environment. Use this environment to develop.
-* if you need dependencies for testing (very likely), create a `dev-requirements.txt` and install those too.
-* If you really want to lock your total environment (recommended) do `pip freeze >requirements-freeze.txt` and use this to create the environmment from now on.
+* 创建 setup.py 文件，在文件中指定所有你的包在 `install_requires` 中可以使用的最低版本的抽象依赖。
+* 创建 `requirements.txt` 文件，在其中指定严格、具体（即指定某个版本）、直接的依赖。接下来你将会需要使用这个文件生成实际的工作环境。
+* 使用命令 `python -m venv` 创建一个虚拟环境，激活该环境然后在该环境下使用 `pip install -rrequirements.txt` 命令安装依赖。这个环境可以用于开发。
+* 如果你需要用于测试的依赖（当然这也是非常有可能的事情），那么你需要创建一个 `dev-requirements.txt` 文件，并同样为其安装虚拟环境等。
+* 如果你需要将所有环境配置冻结（这是推荐的做法），执行 `pip freeze >requirements-freeze.txt` 并且以后也要用这个命令创建环境。
 
-**I have time. Explain me the problem please.**
+**我的时间很充裕。请帮我解释清楚吧。**
 
-The problems. Plural.
+首先我将阐述目前存在的问题，真的有很多问题。
 
-Suppose we want to create a python “thing”: maybe it’s a standalone program, maybe a library. The development and usage of this thing involves the following “actors”:
+假设我想要用 python 创建某“项目”：它也许是一个独立程序，也许是一个库。这个项目的开发和使用需要包含一下“角色”：
 
-* **Developer**: the person or persons who write the thing.
-* **CI**: an automated process that runs tests on the thing.
-* **Build**: an automated or semi-automated process to go from the thing on our git to the thing someone else can install and use.
-* **Enduser**: the final person or persons that use the thing. They may be other developers, if the thing is a library, or they might be the general public, if it’s an application. Or a cloud computing microservice, if the thing is a web service of some sort. You get the point.
+* **开发者**：负责写代码的人或者团队。
+* **CI**：测试这个项目的自动化过程。
+* **构建**：从我们在 git 仓库到其他人可以安装使用这个项目的自动或半自动过程。
+* **最终用户**：最终使用这个项目的人或者团队。如果这个项目是一个库，那么最终用户也许是其他开发者；或者如果是一个应用，最终用户可能就是普通民众。又或者这个项目是某一种网络服务，那么最终用户就是云计算微服务。当然还有很多可能，你明白我的意思，不一一列举了。
 
-The goal is to make all these people and machines happy, because each of them has different workflows and needs, and these needs overlap somehow. To add to this, there is the problem that things change, new releases are made, old releases are declared obsolete, and almost all code relies on other code to perform its task. There are always dependencies, these dependencies change with time, may or may not be required, may run quite deep and have to consider that code may be non portable between operating systems, or even inside the same operating system. It’s complicated.
+我们的目标就是让所有的用户或者设备对该项目满意，但是他们都有不同的工作流和需求，并且有时候这些需求会有重叠的部分。另外，当项目发生更改的时候也会导致问题，此时发布了新版本，同时废除旧版本，而几乎所有代码都要依赖其他代码来完成其任务。项目中必定存在依赖，而随着时间推移，这些依赖会发生变化，它们也许是必要的也许也不是，它们可能在很底层运行，所以我们必须考虑在不同操作系统中它们可能是不可移植的。这已经非常复杂了。
 
-And it gets worse, because your direct dependencies have in turn their own set of dependencies. What if your package depends on A and B directly, and they both depend on C? Which version of C should you install? Is it even possible to do so, if, say, A wants C strictly version 2 and B wants C strictly version 1?
+更糟糕的是，你的直接依赖也有各自的依赖集合。如果你的包直接依赖于 A 和 B，而它们两个都依赖于 C 又会怎样呢？你应该安装那个版本的 C？如果 A 希望安装 C 的版本 2 而 B 则希望安装 C 的版本 1，是否可能做到呢？
 
-To organise this mess somehow, the devised approach is to package code so that it can be reused, installed, versioned and given some metainformation that describes, for example, “this has been compiled on windows 64 bits” or “this will only work on macos”, or “this needs that package of this version or above to work”.
+为了一定程度上整治这种混乱，人们设计出代码打包的方法，这样代码包就可以被复用、安装、版本化并给出一些描述性的元信息，例如：“已在 windows 64 位系统上打包”，或者“仅适用于 macos 系统”，或者“需要该版本或以上才可运行”。
 
-**Ok, now I know the problem. What’s the solution?**
+**好吧，现在我知道问题所在了。那么解决方案是什么呢？**
 
-A first step is to define a shippable entity that aggregates a given release of a given software. This shippable entity is what we call here a **package** (distribution in python-speak). You can ship it in two forms:
+第一步是定义一个集合了指定软件指定发布版本的可交付实体。这个可交付实体就是我们所谓的**包**（或者专业的 python 说法是发行版）。你可以用两种方式交付：
 
-* **source**: you take the source code, put it in a zip or tar.gz, and who gets it has to compile it by himself.
-* **binary**: you compile the code, publish the compiled stuff, and who gets it uses it directly with no additional fuss.
+* **源代码**：将源代码打包为 zip 或者 tar.gz 格式的文件，然后由用户自己编译。
+* **可执行文件**：由你编译代码，然后发布编译好的内容，用户可以直接使用，无需附加步骤。
 
-Both may be useful, and it’s generally a good idea to provide both. Of course with the need of packaging come the need for tools to do it properly specifically for the following tasks:
+两种方式都可能有用，通常情况下，两种都提供是不错的选择。当然，我们需要能够正确完成打包的工具，尤其是为了完成如下的任务：
 
-* create the shippable package (what I called **build** above)
-* publish the package somewhere so that it can be obtained by others
-* download and install a package
-* handle dependencies. What if package A needs package B to run? What if package A may or may not need package B to run depending on what and how you are using A for. What if A needs package B only if installed on windows?
-* define a runtime. As said earlier, in general a piece of software needs a bunch of dependencies to run, and these dependencies are better separated from the needs of another software. This is true both when you develop and when you run it.
+* 创建可交付的包（也就是前文提到的**构建**）
+* 将包发布在某处，这样其他人就可以获取到
+* 下载并安装包
+* 处理依赖。如果包 A 需要包 B 才能运行怎么办？
+* 定义运行时间。如前文所述，通常情况下一个小小的软件也需要很多依赖才能运行，并且这些依赖最好和其他软件的依赖需求隔离开。不管是当你进行开发的时候还是运行的时候，都应该这样。
 
-**Can you be more specific? What do I have to do when I want to write some code?**
+**可以说得更详细一些吗？我写代码之前，必须要做什么呢？**
 
-Sure. You want to write some code. So you generally follow these steps:
+当然。在你写代码之前，通常你要完成如下步骤：
 
-1. You create an isolated python environment that is independent of your system python. This way you can work on multiple projects. If you don’t, the stuff for project A might mess up the stuff from project B.
-2. You want to specify which dependencies you want, but keep into account that there are two ways of doing so: **abstract** where you just say what you want in general terms (e.g. numpy) and **concrete**, where you say which specific version you want (e.g. numpy 1.1.0). Why the difference? I’ll detail later. To create a real, working environment you need concrete dependencies.
-3. Now you have what you need and you can start developing.
+1. 创建一个独立于系统 python 的 python 环境。这样你可以同步研发多个项目。而且如果不这样操作，A 项目的内容和 B 项目的内容可能会混在一起。
+2. 如果你想要规定项目的依赖，那么请牢记有两种方式可以完成：**抽象方式**，此时你只需要笼统的指出需要那些依赖（例如 numpy），以及**具体方式**，这时候你必须要规定版本号（例如 numpy 1.1.0）。至于为什么会有这样的区分，后文会详细说明。如果你想要创建一个可运行的开发环境，需要具体地规定依赖。
+3. 现在你已经做完了需要做的，可以开始研发了。
 
-**Which tools do I have to use to do this?**
+**我需要使用什么工具来完成这些吗？**
 
-This is tricky, because there are many and they are changing. One option is that you create the isolated python “virtual environment” with **venv**, which is part of python. Then, you use **pip** (also part of python) to install the packages that you depend on. Typing them one by one is boring so people put the concrete dependencies (with hardcoded versions) in a file and then tell pip: “go read that file and install what’s in there”. And pip obliges. This file is the famous requirements.txt you might have seen around.
+这个不好说，因为工具非常多并且在不断变化。一个选择是你可以使用 python 内建的 **venv** 创建独立的 python “虚拟环境”。然后使用 **pip**（也是 python 内建工具）来安装依赖的包。逐个输入并安装太麻烦了，所以人们通常会将具体依赖（硬编码的版本号）写入一个文件内然后通知 pip：“读取这个文件并安装文件中写明的所有包”。pip 就会照做了。这个文件就是人尽皆知的 requirements.txt，你可能已经在其他项目里见过了。
 
-**Ok, what is pip exactly?**
+**好吧，可是 pip 到底是什么呢？**
 
-A program that downloads packages and installs them. If they in turn have dependencies, it installs these sub-dependencies too.
+pip 是一个用来下载和安装包的程序。如果这些包也有依赖，那么 pip 也会安装这些子依赖的。
 
-**How?**
+**pip 是怎么做到的？**
 
-It goes to a remote service, pypi, finds the package by name and version, downloads it, and installs it. If it’s binary, it just installs it. If it’s source, it compiles it, then installs it. But it does a little more than that, because this package may have additional dependencies itself, so it gets those too, and installs them.
+它会在远程服务 pypi 上，通过名称和版本号找到对应的包并下载、安装。如果这个包已经是可执行文件，那么只需要安装它。如果是源代码，pip 就会进行编译然后再安装。
 
-**Why do you say that this approach with requirements.txt is an “option”?**
+**为什么你说使用 requirements.txt 的方法只是一个“选择”？**
 
-Because it gets boring and complex quite quickly. You have to manage by hand your direct dependencies versions for different platforms. For example, on windows you might need a package, and on linux another and you end up with win-requirements.txt, linux-requirements.txt etc.
+因为这种方式会随着项目扩展而变得冗长而且复杂。对于不同的平台，你需要手动管理直接依赖版本。例如，在 windows 系统你需要安装某个包，而在 linux 或其他系统你则需要另外的包，那结果是你就需要同时维护 win-requirements.txt、linux-requirements.txt 等等多个文件。
 
-You also have to consider that some of your dependencies are real dependencies that you use and need for your software to work. Other dependencies are only required to run tests, and so are really dependencies that as a developer, or a CI machine, needs, but for someone that wants to use your software, they are not needed, so they are not dependencies. So now you have dev-requirements.txt as well.
+你还必须考虑到，一些依赖是你的软件运行所必需的；而其他只是用来运行测试，这些依赖只是开发者或者 CI 设备必需的，但是对于其他使用你的软件的人，其实并不需要，所以它们此时就不能作为项目的依赖了。因此，你就需要一个新的文件 dev-requirements.txt。
 
-Then you have the problem that requirements.txt may only specify direct dependencies, but in practice you want to specify **everything** is needed to create your environment reliably. Why? What if you install direct dependency A which has a subdependency C which is currently at version 1.1. But one day C releases a new version 1.2, and from this moment on, when you create your environment, pip will download C version 1.2, which might have a bug. Suddenly your tests start failing, and you don’t know why.
+问题在于，requirements.txt 或许只应该指定直接依赖，但是在实际应用的时候，你想要定制好创建环境所需要的**所有依赖**。为什么要这样？比方说，如果你安装了直接依赖 A，而 A 又依赖于版本 1.1 的 C。但是有一天 C 发布了新版本 1.2，那么从此之后，当你创建环境的时候，pip 就会下载 1.2 版本的 C，这就可能会导致问题。也就是忽然间你的测试项目无法启动了，但你又不知道为什么。
 
-So you think you might want to specify both dependencies and their sub-dependencies in requirements.txt. But now you can’t distinguish them anymore in the file, and if you want to bump up one of your dependencies, maybe because it has a bug, now you have to find out which one are its own subdependencies in that file, and …
+所以你就想在 requirements.txt 中同时指定依赖和这些依赖的子依赖。但是这样的话，你在文件中却无法区分出这两种依赖了，那么当某个依赖出现问题你想要调试它的时候，你就要找出文件中哪个才是它的子依赖，以及…
 
-You get the point. It’s a mess, and you don’t want to deal with this mess.
+现在你懂了。真的一团糟，你并不想去处理这样的乱局吧。
 
-Then you have the problem that pip decides which versions to install in a rather primitive way, and can eventually paint itself into a corner and give you either a broken environment or an error. Remember the case where two packages A and B share a subdependency C. So you need a more complex process, and basically use pip to just download well-defined versions, and leave the task of deciding which versions to install to something else that has a higher-level picture and can make smarter decisions because of it.
+还有问题是，pip 有比较高的优先级权限来决定安装哪个版本，这可能会让它自己运行到一个死胡同里，呈现给你的就是某个坏掉的环境或者是错误。记住这个例子：包 A 和 B 都依赖于 C。因此你需要一个更加复杂的过程，在这个过程里，基本的安装要使用 pip ，它来下载定义好版本的包，而需要决定安装什么版本的权限则交给其他程序，这个程序要有全局的考量，并能作出更明智的版本判定。
 
-**For example?**
+**比如说？请给我举个例子吧。**
 
-pipenv is one. It puts together venv, pip and some magic so that you give a list of direct dependencies and it tries its best to resolve the mess above and give you an environment that works. Poetry is another. People talk about the two and there’s some feud going on because of political and human reason. Most people seem to prefer Poetry.
+pipenv 就是一个例子。它将 venv、pip 和其他一些黑科技集合在一起，使用 pipenv 你给出直接依赖列表，它则会尽最大可能为你解决混乱并给你交付一个可运行的环境。Poetry 是另外一个例子。人们经常会讨论两者，并且由于人为和政策的原因还会引起一些争执。但是大多数人更偏向于 Poetry。
 
-Some companies, such as Continuum and Enthought, have their own version (conda and edm) which are generally one step above for some additional platform complexities. We don’t go into that detail here. Suffice to say that if you are going to use a lot of dependencies that are compiled and/or depend on compiled libraries, a scenario that is highly common with scientific computing, you are better off using their system to manage your environment, because they took care of solving a lot of headaches for you. It’s their business.
+一些公司如 Continuum 和 Enthought 都有他们自己的版本管理（即 conda 和 edm），它们通常都可以避免由于平台不同而附加的依赖版本的复杂性。在这里我们就不展开讲了。我只想说，如果你想要用很多的依赖于编译好的库才能编译的依赖，比如说在大数据的场景下这种需求就很常见，那么你最好用它们的系统来管理你的环境，这会为你免去不少麻烦。因为这本来就是它们拿手的。
 
-**Which one is better? pipenv or Poetry?**
+**那么 pipenv 和 Poetry 究竟哪个更好用呢？**
 
-As I said, people seem to prefer Poetry. I personally tried both, and to me Poetry seems to be a better, more encompassing and polished solution.
+正如我刚才说的，人们更偏向于 Poetry。这两个我都尝试过，于我而言 Poetry 也要更好一些，它提供了更具兼容性、更优质的解决方案。
 
-**Ok so the bottom line is to use Poetry, that creates an environment so that I can install my dependencies in an environment and then code.**
+**嗯好，所以至少我们要去用 Poetry，它可以为我们创建好环境，这样我就可以安装依赖并开始编程了。**
 
-Well yes. But we haven’t even started talking about building yet. That is, once you have your code, how do you create something you can release?
+没错。但我还没有谈论到构建。也就是，一旦你开始编程，你该如何创建一可以发布的代码呢？
 
-**Right, is that what setup.py, setuptools and distutils are about?**
+**嗯是的，所以这就是 setup.py、setuptools 和 distutils 的用武之地了？**
 
-Yes and no. Originally, when you wanted to create source or binary distributions you used a standard lib module called distutils. The idea was to have a python script, called setup.py, that did its magic to create something you could give to others. The script could have been named anything else, but kind of became the standard and some tools (notably pip) specifically look for it. For example, if pip can’t find a built version of the dependency you need, it will download the source and build it, basically running setup.py and hoping for the best.
+可以这么说，但也并不确切。最初情况下，当你想要创建一个源代码或者可执行文件发行版的时候，你需要使用一个名为 distutils 的标准库模块。方法是使用一个名为 setup.py 的 python 脚本，它可以魔法般的创建出你可以交付给他人的项目。这个脚本可以任意命名，但 setup.py 是标准的命名方式，其他的工具（比如广泛使用的 pip）就会只寻找以此命名的文件。而如果 pip 没有找到需要依赖的可构建版本，它将会下载源代码并构建它，这基本就是靠运行 setup.py 得出结果的，当然我们只能祈祷结果是好的了。
 
-However… distutils stinks, so someone came up with alternatives that do a lot more stuff that distutils didn’t do. Big fight, big mess, long story short setuptools is better, everybody uses it. setuptools keeps using setup.py to give the illusion that nothing has changed and the process to create your stuff is still the same.
+但是，distutils 并不好用，所以有些人找到了替代的方案，它可以做比 distutils 多得多的事。尽管挑战很大，混乱很多，发展之路漫长，但是 setuptools 要更好，每个人都可以使用。如今 setuptools 还是使用 setup.py 文件，给人一种其实它们并没有变化、创建环境的过程也保持不变的假象。
 
-**Why hoping for the best?**
+**为什么说我们只能祈祷结果是好的？**
 
-Because pip has no guarantee that when it runs setup.py to build the package it can actually run. It’s a python script and may have some dependencies in itself that you have no way of specifying or retrieving. It’s a chicken and egg problem.
+因为 pip 并不能保证它运行 setup.py 构建的包是真的可以运行的。它只是一个 python 脚本，也许会有自己的依赖，而你又无法在出现问题的时候修改它的依赖或者进行追踪。这是先有鸡还是先有蛋的问题了。
 
-**but there’s a setup_requires option in setuptools.setup()**
+**但是在 setuptools.setup() 中有 setup_requires 选项啊**
 
-That option is deeply flawed and you don’t solve the problem in any case. It’s still a chicken and egg problem. PEP 518 talks in detail about it and the final conclusion is that it’s just broken. So don’t use it.
+这个方法就是个坑，你基本不能使用它解决什么问题。这还是个先有鸡还是先有蛋的问题。PEP 518 对此进行了详细的讨论，最后结论就是它就是渣渣。别用了。
 
-**So setuptools and setup.py is or isn’t the way to go when I need to build my stuff for release??**
+**所以 setuptools 和 setup.py 到底是不是构建发布的可选方法呢？？**
 
-It used to be. Not anymore, or maybe yes. It depends. See, the current situation is that nobody wants setuptools to be the only one able to decide how packages are made. The reason is deeper than that, and there are technicalities involved that go too deep, but if you are curious take a look at PEP 518. The most egregious is the one I gave above: if pip wants to build a dependency it downloaded, how does it know what to download to even start executing the setup script? Yes, it can assume it needs setuptools, but it’s just an assumption. And you don’t necessarily have setuptools in your environment, so how does pip know that it’s needed to build this package or that package? And more in general, why would it have to use setuptools at all, instead of something else?
+过去是的。但现在不一定是了，只是或许有时候还可以用。这要看你要发布的内容是什么了。现在的情况是，没人希望 setuptools 是唯一一种能决定包如何发布的方法。问题的根源要更深入一些，会涉及到一些技术型问题，但是如果你好奇，可以看一看 PEP 518。最重要的部分我在上文已经提到了：如果 pip 想要构建它下载的依赖，它该怎么确定下载哪个版本同时用来执行 setup 脚本呢？没错，它可以假设需要依靠 setuptools，但也只是假设。而你的环境中可能并不需要 setuptools，那么 pip 又该怎么做决策？在更多情况下，为什么必须使用 setuptools 而不是其他的工具呢？
 
-In any case, they decided that anybody that want to write their own tool to package should be able to do so, and therefore you need just another meta step to define which packaging system to use and which dependencies you need in order to build your stuff.
+很多时候这决定了，任何想要写自己的包管理工具的人应该都可以这么做，因此你只需要另一个配置工具来定义使用哪个包系统以及你需要那些依赖来构建项目。
 
-**pyproject.toml?**
+**使用 pyproject.toml？**
 
-Exactly. More specifically, a subsection in it that defines the “backend” you want to use to build a package. If you want to use a different build backend, you can say so, and pip will oblige. If you don’t, then pip assumption is that you are using distutils or setuptools and therefore pip will fallback to look for setup.py, execute it, and hopefully build something.
+正确。更确切的来说，是一个可以在其中定义用来构建包的“后端”的子节。如果你想要使用一种不同的构建后端，pip 就可以完成。而如果你不想这样，那么 pip 会假设你在使用工具 distutils 或者 setuptools，因此它就会退而寻找 setup.py 文件并执行，我们祈祷它能构建成功吧。
 
-setup.py is just going eventually to disappear, or not. setup.py is a way **setuptools** (and before that, distutils) describes how to create a build. Another tool might use some other approach. Possibly, they will rely on pyproject.toml by adding some sections in it.
+setup.py 最终到底会不会会消失？**setuptools**（在它之前是 distutils）用 setup.py 来描述如何生成构建。而其他工具或许会使用其他方法。或许，它们会依赖于为 pyproject.toml 添加一些内容而完成。
 
-Also, in pyproject.toml you can finally specify the dependencies needed to even perform the build, removing the chicken egg problem given above.
+同时，你终于可以在 pyproject.toml 中规定用来执行构建的依赖了，这就解除了前文说得那种先有鸡还是先有蛋的难题。
 
-**Why toml? I’ve never heard of this format. What’s wrong with JSON/INI/YAML?**
+**为什么选择 toml 格式的文件？我都还从来没有听说过它。为什么不用 JSON、INI 或者 YAML？**
 
-JSON does not allow (from standard) to write comments. Yes. Crockford actually wanted that. One could bend the rules, but then it’s not JSON. Plus, JSON is actually not very pleasant to use by a human.
+标准的 JSON 不允许写注释。但是人们真的很需要依赖注释传递关于项目的信息。你可以不按照规则来，但那也就不是 JSON 了。另外，JSON 其实有些反人类，写起来并让人觉得不赏心悦目。
 
-INI, believe it or not, is not standard, plus it’s rather limited in features.
+INI 则其实根本不是一种标准的写法，而且它在功能上有很多限制。
 
-YAML is a can of worms and a potential security threat.
+YAML 则可能会成为你项目潜在的安全威胁，它简直就像是病毒。
 
-**Fair enough on toml. But, couldn’t they have included setuptools in the standard library instead?**
+**这样的华选择 toml 就可以理解了。但是，他们不能将 setuptools 包含在标准库中吗？**
 
-Maybe, but the problem is that the standard library has veeery slooow release cycles. The slowness of improvements over distutils is what triggered the implementation of setuptools in the first place. Besides, there’s no guarantee that setuptools can satisfy all needs. Some packages may have specialized needs.
+或许可以，但问题是标准库的发布周期真的超级长。distutils 的更新非常缓慢，这正激发了 setuptools 的应用和崛起。但是 setuptools 也不能保证满足所有需求。一些包或许会有一些特殊的需求。
 
-**Ok, so if I understand correctly: to create my working environment I need Poetry. To create the built package, I need setup.py and setuptools. or pyproject.toml?**
+**好吧，那么我这么理解是否正确：我需要使用 Poetry 创建工作环境。使用 setup.py 和 setuptools，或者 pyproject.toml 构建包。**
 
-If you want to use setuptools, you need a setup.py, but then you have the problem that people will need setuptools installed to build your package.
+如果你想要使用 setuptools，你就需要 setup.py，但是你可能会遇到的问题是，其他用户也需要安装 setuptools 来构建你的包。
 
-**Which other tools can I use instead of setuptools?**
+**那么除了 setuptools 我还能使用什么其他的工具呢？**
 
-you can use flit, or Poetry itself.
+可以用 flit，或者 Poetry。
 
-**Wasn’t Poetry something to install dependencies?**
+**Poetry 不需要安装依赖吗？**
 
-Yes but it also does building. pipenv doesn’t do that.
+需要，但它也可以用来构建。pipenv 就不行。
 
-**By the way, if I use setup.py I have to write the dependencies, why? What is their relationship with the ones I installed with pipenv/Poetry/requirements.txt?**
+**顺便问一下，如果我使用 setup.py 的话，为什么我就必须写明依赖呢？我用 pipenv、Poetry 和 requirements.txt 安装后它们的关系是什么？**
 
-Those are the abstract dependencies that are needed for your package to run, and are the dependencies that pip needs when it’s time to decide what to download and install next. You should generally put loose (unversioned) dependencies in there, because if you don’t… remember when I told you about A and B having a common dependency C? what if A says “I want to use C version 1.2.1” and B says “I want to use C version 1.2.2”?
+这些都是运行包需要的抽象依赖，也是 pip 在决定下载和安装哪些版本的时候需要的依赖。这里你应当放宽对依赖版本的限制，因为如果你不这样…还记得我之前说过的 A 和 B 都依赖于 C 的例子吗？如果 A 要求：“我要 1.2.1 版本的 C”，但是 B 要求：“我要 1.2.2 版本的 C”，那该怎么办呢？
 
-Pip has no choice when it’s time to build a source distribution it downloaded. It doesn’t know anything about your requirements.txt. All it knows is that it needs to run setup.py, which in turns uses setuptools to then invoke pip again to resolve the abstract dependencies written there into something concrete it can install.
+当要构建下载资源的源代码发行版的时候，pip 没有其他的选择。pip 并不能获取到你写在 requirements.txt 文件中的需求。它只会去运行 setup.py，而这会导致 pip 去使用 setuptools，然后再次调用 pip 来将抽象依赖解析为具体的可安装依赖。
 
-**What about eggs? easy install? .egg-info directories? distribute? virtualenv (not venv)? zc.buildout? bento?**
+**那么 eggs、easy install、.egg-info directories、distribute、virtualenv（这个不等于 venv）、zc.buildout、bento 这些工具又怎么样呢？**
 
-Forget them. They are either legacy, forks, or attempts that went nowhere.
+忽略它们吧。它们要么是一些遗留工具或者其他工具的分支，要么是一些毫无结果的尝试。
 
-**What’s with Wheels?**
+**那 Wheels 呢？**
 
-Rememeber when I said that pip needs to know what to download from pypi to download the right versions and the right operating system? a Wheel is a file that contains the stuff to install, and has some special, well-codified name so that pip can make decisions as it installs dependencies and subdependencies.
+还记得我之前说的吗？pip 需要知道从 pypi 下载什么资源，从而才能下载正确的版本和操作系统。Wheel 就是一个包含了要下载资源的文件，并且有一些特殊的、规定好的字段，pip 安装依赖和子依赖的时候会使用它们来决策。
 
-Wheels file names (pep-0425) contain tags that act as metadata, so that when something has been compiled for, say CPython, it knows the version, the ABI, etc. There is a standard layout of this tags in the filename, and there are particular keywords in that metadata that have specific meanings.
+Wheels 的文件名包含了作为元数据的标签（例如 pep-0425），所以当某些资源（例如 CPython）被编译了，Wheels 能知道编译的版本、ABI 等等。文件名中的标签有一个标准层，元数据中特定的词都有特定的含义。
 
-Always build wheels for your binary distributions.
+记住，要为二进制发行版构建 wheels。
 
-**What about .pyz?**
+**那么 .pyz 怎么样呢？**
 
-Forget it. Unrelated to packaging, strictly speaking. It could be useful in some circumstances. See PEP-441 for more info.
+忽略它就好，严格来讲它和打包无关。但在其他某些方面它可能有用，如果你想知道更详细的信息，可以看 PEP-441。
 
-**What about pyinstaller?**
+**那么 pyinstaller 怎么样呢？**
 
-Pyinstaller opens a completely different topic. See, the problem with the word “packaging” is that it’s unclear what it refers to. Until now, we spoke about
+Pyinstaller 是关于完全不同的另一个话题了。你看，“打包”这个单词的问题是，它没有清楚的表述出它真正的含义。到目前位置，我们讨论了关于：
 
-1. creating an environment in which you can develop your own library
-2. bundling what you created into something other people can use
+1. 创建一个可以开发库的环境
+2. 把你创建的项目构建为其他人也可以使用的格式
 
-But those apply generally to libraries. When it’s time to distribute applications, the situation changes. When you package a library, you know it’s going to be part of a larger whole. When you package an application, the application **is the larger whole**.
+但是这些通常是应用于库的。而关于发行应用，情况就不同了。当你打包库的时候，你知道它将会是一个更大的项目体的一部分。而当你打包一个应用，那么这个应用就是那个**更大的项目体**。
 
-Plus, with an application you want to provide things that are platform specific. For example, you might want to provide an executable with an icon, but how this works differs between Windows, macOS and Linux.
+另外，如果你想为人们提供应用，那就应指定应用的平台。例如，你想要提供一个带图标的可执行文件，但是在 Windows、macOS 和 Linux 平台上，它们应当是有所不同的。
 
-PyInstaller is a tool that you involve when you want to create an application as a single executable. It addresses this need: get a final application on your user’s desktop. Packaging is about managing the network of dependencies, libraries and tools that you need to create that application that you might, or might not, create with pyinstaller.
+当你想要创建一个独立可执行应用的时候，PyInstaller 是可以使用的工具。它能够为你在用户桌面上创建出最终完成的应用。打包是关于管理你需要用来创建应用的依赖、库和工具的网络，而创建这个应用你可能会、也可能不会使用 pyinstaller。
 
-Note however, that this approach assumes that your application is simple and self-contained. If the application needs to do something much more complex when it gets installed, such as creating registry keys on Windows, now you need a proper, full fledged installer such as NSIS. I am unaware if anything like NSIS is available in the python world. In any case, NSIS is agnostic of what you deploy. You can definitely create an application executable with pyinstaller, and deploy this executable plus any needed Registry changing magic or filesystem modifying sauce to make it work using NSIS.
+注意不管怎样，使用这个方法的前提是，假设你的应用是比较简单并且是自洽的。如果应用在安装的时候需要做更复杂的事情，比如创建 Windows 登录密码，那你就需要一个更合适的、更成熟的安装器，比如 NSIS。我不知道在 Python 世界中是否有像 NSIS 这样的东西。但无论如何，NSIS 都不知道你部署了什么。你当然可以使用 pyinstaller 创建可执行应用，然后使用 NSIS 来部署它，并且还可以完成例如注册表修改或者文件系统修改这样的附加需求，让应用可以运作。
 
-**Ok, but how do I install something I have the sources of? python setup.py?**
+**好的，但是我如何安装那些我已经有资源包的项目呢？使用 python setup.py？**
 
-No. Use `pip install .` because it guarantees you can uninstall it afterwards and it’s overall better. What pip does is try to check for pyproject.toml and run the build backend. If it does not find a pyproject.toml, it just reverts to the old ways and tries to build running setup.py.
+不对。用 `pip install .`，因为这个命令能保证你之后还可以卸载应用，而且它是最好的方式。pip 这时候会检查 pyproject.toml 并在后台运行构建。而如果 pip 没有找到 pyproject.toml 文件，它就只好退回到老方法，运行 setup.py 来尝试构建。
 
-**I like this post, but I have a question or something in this narrative that is unclear**
+**我很喜欢这篇文章，但是我还是有些问题没有搞清楚**
 
-Just [open an issue](https://github.com/stefanoborini/stefanoborini.github.io/issues). If I know the answer, I’ll add it immediately. If I don’t, I’ll do some research and reply as soon as possible. My aim is to keep this post as the place where people finally **understand** python packaging.
+你可以自己[开一个 issue](https://github.com/stefanoborini/stefanoborini.github.io/issues)。如果我知道答案，我将会马上为你解答。如果我不知道，我会做一下研究并尽快给你回复。我的目标是这篇文章能让人们最终**理解** python 打包。
 
-**Any links I can explore further?**
+**有没有参考链接能让我更深入的学习呢？**
 
-Sure.
+当然，请见：
 
 * https://sedimental.org/the_packaging_gradient.html
 
