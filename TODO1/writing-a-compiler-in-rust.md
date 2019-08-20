@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-compiler-in-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-compiler-in-rust.md)
 > * 译者：[suhanyujie](https://www.github.com/suhanyujie)
-> * 校对者：
+> * 校对者：[todaycoder001](https://github.com/todaycoder001)，[githubmnume](https://github.com/githubmnume)
 
 # 用 Rust 写编译器
 
@@ -40,7 +40,7 @@ pub struct InterfaceDecl {
 }
 ```
 
-我们使用一个 `Parser` 结构体来生成它，其中包含用于解析不同结构的函数，解析这些函数时也可能出现解析错误。`Parser` 结构有许多辅助函数，可以方便地使用以及 token 验证，借助于完整编程语言的抽象能力，可以让解析器生成器的 DSL 语法更简洁。下面是我们的解析器的部分示例代码：
+我们使用一个 `Parser` 结构体来生成它，该结构具有解析不同结构的函数，这些函数也可能返回解析错误。`Parser` 结构有许多辅助函数，可以方便地使用和标记检查，借助于完整编程语言的抽象能力，可以让解析器生成器的 DSL 语法更简洁。下面是我们的解析器的部分示例代码：
 
 ```rust
 #[derive(Clone, Debug)]
@@ -73,13 +73,13 @@ fn parse_for_statement(&mut self) -> PResult<ForStatement> {
 
 ### 回溯
 
-大多数情况下，我们的解析器采用 [LL(1) 解析器](https://en.wikipedia.org/wiki/LL_parser) 的形式，它向前查看一个标记来决定如何解析。但是有些结构需要无限的向前查看来解析。例如 `(java.lang.String)a`，除开末尾的使其成为强制表达式的 `a`，应该将其解析为在“java”变量上带括号的字段访问链。事实上， 即使是 LR(1) 解析器也不能正确地解析这个特定案例，推荐一个 hack 方法，将 parens 内部解析为“表达式”，然后在 weeder（tips：文末有注解）中验证该表达式实际上是一种类型。
+大多数情况下，我们的解析器采用 [LL(1) 解析器](https://en.wikipedia.org/wiki/LL_parser) 的形式，它向前查看一个标记来决定如何解析。但是有些结构需要无限的向前查看来解析。例如 `(java.lang.String)a`，除开末尾的使其成为强制表达式的 `a`，应该将其解析为在“java”变量上带括号的字段访问链。事实上， 即使是 `LR(1)` 解析器也不能正确地解析这个特定案例，推荐一个 hack 方法，将 parens 内部解析为“表达式”，然后在 weeder（tips：文末有注解）中验证该表达式实际上是一种类型。
 
 我们使用回溯来解决这个问题，在回溯中我们可以在 token 流中保存一个位置，并尝试性地将后续的输入解析为一个结构，如果解析失败，则回滚到保存时的位置。这可能会导致对不合理输入的处理时间是非线性的，但非常规情况在实践中不一定是坏的，尤其是回溯仅仅只是用于一些特定的情况而非整个解析器。
 
 在某些情况下，回溯的另一种策略是解析两个非终结符的公共元素，然后当解析到解析器可以确定的状态点时，调用特定的非终结符函数，并将已解析的内容作为参数传递。我们使用此策略来决定解析类、接口、解析方法和构造器之间的关系，首先解析修饰符，然后查看前面的内容，再解析“解析修饰符后的结果”作为参数的其余部分。
 
-我们有 Rust 的辅助函数，所以用回溯的方式去尝试解析，然后再解析另一个真的简单多了。假使第一次解析返回 `Err`：
+我们使用 Rust 的辅助函数，通过尝试一个解析，然后在第一个解析返回 `Err` 时尝试另一个解析的方式，使得回溯变得非常容易：
 
 ```rust
 // 和 Java 规范不同，我们可以使用 `allow_minus` 这样的参数来避免在少量情况下出现很多重复。
@@ -96,7 +96,7 @@ fn parse_prim_expr(&mut self, allow_minus: AllowMinus) -> PResult<Box<Expr>> {
 
 ### Pratt 表达式解析
 
-我们使用 [Pratt 解析 / precedence climbing](https://www.oilshell.org/blog/2017/03/31.html) 方式，而非解析多语法优先级表达式。Pratt 算法允许将运算符指定为具有“绑定能力”的整数表，该整数表具有高优先级运算符所具有的绑定能力。这对解析有多个优先级表达式会更加简单和高效。
+我们使用 [Pratt 解析 / precedence climbing](https://www.oilshell.org/blog/2017/03/31.html) 方式，而非解析多语法优先级表达式。Pratt 算法允许将运算符指定为具有“绑定能力”的整数表，该整数表具有高优先级运算符所具有的绑定能力。这对于解析具有多种优先级的表达式来说既简单又高效。
 
 我们没有像规范的 Pratt 解析器实现中那样使用整数表，而是使用 Rust 的 match 语句功能，它具有一样的作用，并且功能更加强大，且无需保存数据结构：
 
@@ -139,7 +139,7 @@ fn test_statement() {
 
 ## 语义分析
 
-编译器大约有一半的工作量是在中端，主要是为“代码生成”计算必要的信息以及验证各种属性的正确性。包括以下内容：
+编译器大约有一半的工作量是在中间阶段，该阶段主要是计算“代码生成”以及验证各种属性的正确性。包括以下内容：
 
 * 解析变量和类型名称
 * 转换形如 `5*3+2` 的常量表达式为数字
