@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-the-development-mode-work.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-the-development-mode-work.md)
 > * 译者：[Jerry-FD](https://github.com/Jerry-FD)
-> * 校对者：[TokenJan](https://github.com/TokenJan)
+> * 校对者：[TokenJan](https://github.com/TokenJan)、[hanxiaosss](https://github.com/hanxiaosss)
 
 # 开发模式的工作原理是？
 
@@ -52,7 +52,7 @@ if (false) {
 doSomethingProd();
 ```
 
-**（注意，针对目前主流的 JavaScript 工具有一些重要的规范，这些规范会决定怎样才能有效的移除无效代码，但这是一个独立的话题了。）**
+**（注意，针对目前主流的 JavaScript 工具有一些重要的规范，这些规范可以指导怎样才能有效的移除无效代码，但这是另一个的话题了。）**
 
 可能你使用的不是 `__DEV__` 这个神奇的变量，如果你是用的是流行的 JavaScript 打包工具，比如 webpack，那么这有一些你需要遵守的约定。比如，像这样的一种非常常见的表达式：
 
@@ -108,7 +108,7 @@ if (mode !== 'production') {
 
 JavaScript 静态分析工具不是特别智能，这是因为语言的动态特性所决定的。当它们发现像 `mode` 这样的变量，而不是像 `false` 或者 `'production' !== 'production'` 这样的静态表达式时，它们大概率会失效。
 
-类似地，在 JavaScript 中如果你使用顶层的 `import` 语法，会突破模块的限制，因此自动移除无用代码通常不会生效：
+类似地，在 JavaScript 中如果你使用顶层的 `import` 声明，自动移除无用代码的逻辑会因为不能跨越模块边界而无法生效。
 
 ```js
 // 🔴 不能保证会被移除
