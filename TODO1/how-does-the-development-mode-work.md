@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-the-development-mode-work.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-the-development-mode-work.md)
 > * 译者：[Jerry-FD](https://github.com/Jerry-FD)
-> * 校对者：
+> * 校对者：[TokenJan](https://github.com/TokenJan)
 
 # 开发模式的工作原理是？
 
@@ -183,7 +183,7 @@ React 需要在线上环境移除只应该出现在开发模式中的代码。�
 
 到了 2019 年时，browserify 已经失去了很大一部分的市场占有率。然而，在构建的阶段把 `process.env.NODE_ENV` 替换成 `'development'` 或者 `'production'` 的这项约定，却一如既往的流行。
 
-**（同样有趣的是，了解 ES 模块是如何被作为分发格式，而不仅仅是开发格式的发展历史，它是如何改变天平的？在 Twitter 上告诉我）**
+**（同样有趣的是，了解 ES 模块的方式是如何一步步发展成作为线上的分发引用模式，而不仅仅只是在开发时使用的发展历史，它是如何慢慢改变天平的？在 Twitter 上告诉我）**
 
 ---
 
@@ -193,7 +193,7 @@ React 需要在线上环境移除只应该出现在开发模式中的代码。�
 
 这有时会有一个问题。某些时候，遵循 Node.js 约定的代码在 npm 上运行的很好，但是会破坏 Facebook，反之亦然。
 
-从 React 16 起，我们改变了这种方式。取而代之，现在我们会针对每一个环境[编辑一个包](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#compiling-flat-bundles)（包括 `<script>` 标签、npm 和 Facebook 内部的代码仓库）。所以甚至是 npm 的 CommonJS 代码也被提前编译成独立的开发和线上包。
+从 React 16 起，我们改变了这种方式。取而代之，现在我们会针对每一个环境[编译一个包](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#compiling-flat-bundles)（包括 `<script>` 标签、npm 和 Facebook 内部的代码仓库）。所以甚至是 npm 的 CommonJS 代码也被提前编译成独立的开发和线上包。
 
 这意味着当 React 源码中出现 `if (__DEV__)` 的时候，事实上我们会对每一个包产出**两个**代码块。一个被预编译为 `__DEV__ = true` 另一个是 `__DEV__ = false`。每一个 npm 包的入口来“决定”该导出哪一个。
 
@@ -215,7 +215,7 @@ if (process.env.NODE_ENV === 'production') {
 
 ---
 
-我希望有一个更好的方法而不是依赖约定，但是我们已经到这了。如果在所有的 JavaScript 环境中，模式是一个非常重要的概念，那就非常棒了。如果有什么方法能够在浏览器层面来展示这些本不该出现的运行在开发环境下的代码。
+我希望有一个更好的方法而不是依赖约定，但是我们已经到这了。如果在所有的 JavaScript 环境中，模式是一个非常重要的概念，并且如果有什么方法能够在浏览器层面来展示这些本不该出现的运行在开发环境下的代码，那就非常棒了。
 
 另一方面，在单个项目中的约定可以传播到整个生态系统，这点非常神奇。2010年 `EXPRESS_ENV` [变成了 `NODE_ENV`](https://github.com/expressjs/express/commit/03b56d8140dc5c2b574d410bfeb63517a0430451) 并在 2013 年[蔓延到前端](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97)。可能这个解决方案并不完美，但是对每一个项目来说，接受它的成本远比说服其他每一个人去做一些改变的成本要低得多。这教会了我们宝贵的一课，关于自上而下与自下而上的方案接受。理解了相比于那些失败的标准来说它是如何一步步地转变成功的标准的。
 
