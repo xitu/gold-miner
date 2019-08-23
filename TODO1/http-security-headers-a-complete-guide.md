@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-security-headers-a-complete-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-security-headers-a-complete-guide.md)
 > * 译者：[cyz980908](https://github.com/cyz980908)
-> * 校对者：[TokenJan](https://github.com/TokenJan)
+> * 校对者：[TokenJan](https://github.com/TokenJan),[hanxiaosss](https://github.com/hanxiaosss)
 
 # HTTP Security Headers 完整指南
 
@@ -69,7 +69,7 @@ X-Content-Type-Options: nosniff
 
 这一个比其他的稍微复杂一些，因为您可能需要针对不同的内容类型使用不同的缓存策略。
 
-任何具有敏感数据的页面，例如用户页面或客户结帐页面，都应该设置为无缓存。原因之一是防止其他用同一台计算机的人按下后退按钮或浏览历史并查看个人信息。
+任何具有敏感数据的页面，例如用户页面或客户结帐页面，都应该设置为无缓存。原因之一是防止其他使用共享计算机的人按下后退按钮或浏览历史并查看个人信息。
 
 但是，很少更改的页面，如静态资源（图像，CSS 文件和 JavaScript 文件）很适合缓存。这可以在逐页的基础上完成，也可以在服务器配置上使用正则表达式完成。
 
@@ -101,7 +101,7 @@ Expires: 0
 
 这应该总是设置为 deny，除非您特别使用 Frames, 在这种情况下，它应该设置为同源（same-origin）。如果您在设计中将 Frames 与其他网站一起使用，您也可以在此处白名单列出其他域名。
 
-还应注意，此 Header 已被 CSP frame-ancestrs 指令取代。我仍然建议现在就设置它以作为暂时工具，但将来它可能会逐步被淘汰。
+还应注意，此 Header 已被 CSP frame-ancestrs 指令取代。我仍然建议现在就设置它以作为缓冲工具，但将来它可能会逐步被淘汰。
 
 ```bash
 X-Frame-Options: deny
