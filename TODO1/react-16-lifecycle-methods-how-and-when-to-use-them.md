@@ -132,7 +132,7 @@ class Grid extends Component {
 
 #### getDerivedStateFromProps
 
-挂载时，`getDerivedStateFromProps` 是渲染前调用的最后一个方法。你可以通过它根据初始的 props 设置 state。 这是示例 `Grid` 组件的代码：
+挂载时，`getDerivedStateFromProps` 是渲染前调用的最后一个方法。你可以通过它根据初始的 props 设置 state。这是示例 `Grid` 组件的代码：
 
 ```JavaScript
 static getDerivedStateFromProps(props, state) {
@@ -234,27 +234,27 @@ static getDerivedStateFromProps(props, state) {
 
 #### shouldComponentUpdate
 
-We have new props. Typical React dogma says that when a component receives new props, or new state, it should update.
+当我们有新的 props 时。典型的 React 法则是，当一个组件接收到新的 props 或者新的 state 时，它应该更新。
 
 But our component is a little bit anxious and is going to ask permission first.
 
-Here’s what we get — a `shouldComponentUpdate` method, called with `nextProps` as the first argument, and `nextState` is the second.
+这是我们得到的 —— `shouldComponentUpdate` 函数，调用时以 `nextProps` 作为第一个参数，`nextState` 是第二个。
 
-`shouldComponentUpdate` should always return a boolean — an answer to the question, “should I re-render?” Yes, little component, you should. The default is that it always returns true.
+`shouldComponentUpdate`应该总是返回一个布尔值 —— 问题的答案，“我应该重新渲染吗？”是的，小组件，你应该。它返回的默认值始终是 true。
 
-But if you’re worried about wasted renders and other nonsense — `shouldComponentUpdate` is an awesome place to improve performance.
+但如果你担心浪费渲染资源和其它无意义的事 —— `shouldComponentUpdate` 是一个提高性能的好地方。
 
-I wrote an article on using `shouldComponentUpdate` in this way — check it out:
+我写了一篇关于用这种方式使用 `shouldComponentUpdate` 的文章 —— 请看：
 
 [**How to Benchmark React Components: The Quick and Dirty Guide**](https://engineering.musefind.com/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
 
 In the article, we talk about having a table with many many fields. The problem was that when the table re-rendered, each field would also re-render, slowing things down.
 
-`shouldComponentUpdate` allows us to say: only update if the props you care about change.
+`shouldComponentUpdate` 让我们能够说：组件只在你关心的 props 改变时才更新。
 
-But keep in mind that it can cause major problems if you set it and forget it, because your React component will not update normally. So use with caution.
+但请记住，如果你设置了并忘记了它会导致重大问题，因为你的 React 组件将无法正常更新。所以要谨慎使用。
 
-In our grid app, we’ve previously established that sometimes we are going to ignore the new value of `this.props.numberOfBlocks`. Default behavior says our component will still rerender, since it received new props. That’s wasteful.
+在我们的网格应用程序中，我们之前已经确定了有时我们将忽略 `this.props.numberOfBlocks` 的新值。默认行为表示我们的组件仍然会重新渲染，因为它收到了新的 props。这太浪费了。
 
 ```JavaScript
 shouldComponentUpdate(nextProps, nextState) {
@@ -263,17 +263,17 @@ shouldComponentUpdate(nextProps, nextState) {
 }
 ```
 
-Now we say: the component should update **only** if the number of blocks in state change.
+现在我们可以说：**只有**当 state 中的块数改变时，组件才应该更新。
 
-**Most Common Use Case:** Controlling exactly when your component will re-render.
+**shouldComponentUpdate 的最常见用例：** 精确控制组件的重新渲染。
 
 #### render
 
-Same as before!
+和之前一样！
 
 #### getSnapshotBeforeUpdate
 
-This method is a fun new addition.
+这个函数是一个有趣的新增功能。
 
 Note it’s called between `render` and the updated component actually being propagated to the DOM. It exists as a last-chance-look at your component with its previous props and state.
 
@@ -420,21 +420,21 @@ class ErrorBoundary extends Component {
 
 **Most Common Use Case for componentDidCatch:** Catching and logging errors.
 
-## Conclusion
+## 结论
 
-That’s it! Those are all the lifecycle methods are your disposal.
+就是这样！这些都是生命周期函数，任你使用。
 
-You can check the example app code [here](https://github.com/scottdomes/react-lifecycle-example) and the final product [here](https://blissful-ptolemy-8b66a6.netlify.com/).
+你可以查看示例程序的[代码](https://github.com/scottdomes/react-lifecycle-example)和[最终产品](https://blissful-ptolemy-8b66a6.netlify.com/)。
 
-Thanks for reading! Feel free to comment below and ask anything, I’d love to talk.
+感谢阅读！请随意在下面发表评论并提出任何问题，欢迎交流！
 
 ---
 
-## Learn more
+## 延伸阅读
 
-* [**5 Tools for Faster Development in React**](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
-* [**Understanding React Render Props and HOC**](https://blog.bitsrc.io/understanding-react-render-props-and-hoc-b37a9576e196)
-* [**11 React UI Component Libraries you Should Know in 2019**](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
+* [**5 个加快 React 开发的工具**](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
+* [**了解 React 渲染 props 和高阶组件**](https://blog.bitsrc.io/understanding-react-render-props-and-hoc-b37a9576e196)
+* [**在 2019 年你应该知道的 11 个 React UI 组件库**](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
