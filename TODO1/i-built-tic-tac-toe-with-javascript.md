@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-tic-tac-toe-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-tic-tac-toe-with-javascript.md)
 > * 译者：[lgh757079506](https://github.com/lgh757079506)
-> * 校对者：
+> * 校对者：[portandbridge](https://github.com/portandbridge)，[TokenJan](https://github.com/TokenJan)
 
 # 用 JavaScript 实现一个井字棋游戏
 
