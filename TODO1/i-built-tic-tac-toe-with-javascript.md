@@ -29,7 +29,7 @@
 
 让我们从 head 标签开始。这个标签位于每个 HTML 文档开头。这里将存放一些影响页面整体的元素标签。
 
-```
+```html
 <head>
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="tic-tac-toe.css">
@@ -54,7 +54,7 @@ head 标签中包含了三个子标签：一个 title 标签和两个 link 标�
 
 我们将使用 table 标签来布局井字棋游戏界面。代码如下：
 
-```
+```html
 <table class="board">
 <tr>
   <td>
@@ -98,7 +98,7 @@ head 标签中包含了三个子标签：一个 title 标签和两个 link 标�
 
 我所说的控制栏部分包含一个消息框，几个按钮和一个下拉列表。代码如下：
 
-```
+```html
 <br>
 <div id="messageBox">Pick a square!</div>
 <br>
