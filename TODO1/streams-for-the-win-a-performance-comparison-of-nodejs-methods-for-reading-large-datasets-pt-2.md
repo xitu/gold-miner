@@ -70,7 +70,7 @@
 
 Node.js 有一些方便的内置方法，可以用于定时和性能测试，分别是 `console.time()` 和 `console.timeEnd()`。要使用这些方法，我只需要为 `time()` 和 `timeEnd()` 传递相同的 label 参数，就像下面这样，Node 就会在函数执行完成之后，输出两者之间的时间差。
 
-```
+```js
 // 定时器启动
 console.time('label1');
 
@@ -93,7 +93,7 @@ console.timeEnd('label1');
 
 将 `performance-now` 模块引入到我的文件中，几乎和原生 Node.js 方法一样简单。导入模块，设置方法执行开始和执行结束的结果设置变量，并且计算两者之间的时间差。
 
-```
+```js
 // 在文件开头导入 performance-now 模块
 const now = require('performance-now');
 
@@ -182,7 +182,7 @@ console.log('Performance for timing for label:' + (end — start).toFixed(3) + '
 
 ![看看这超快的速度，即使文件大小增加了近 6 倍](https://cdn-images-1.medium.com/max/2548/1*Zxbn3FCHM59DrDvY7P6bXg.png)
 
-**解决方案 3： [`event-stream`](https://www.npmjs.com/package/event-stream) （处理 2.55 GB 文件）**
+**解决方案 3： [`event-stream`](https://www.npmjs.com/package/event-stream)（处理 2.55 GB 文件）**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*v-7OzvyTjFTjrxnO0rXYiA.png)
 
