@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-a-rewrite-isnt-rebuilding-slack-on-the-desktop.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-a-rewrite-isnt-rebuilding-slack-on-the-desktop.md)
 > * 译者：[cyz980908](https://github.com/cyz980908)
-> * 校对者：[Ultrasteve](https://github.com/Ultrasteve),[githubmnume](https://github.com/githubmnume)
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve), [githubmnume](https://github.com/githubmnume)
 
 # 重建桌面端的 Slack 而不是重写
 
@@ -15,11 +15,11 @@
 
 不过，软件代码具有生命周期。Slack 的桌面版是我们最老的客户端，成长于我们公司早期的快速发展和试验阶段。在那期间，随着客户对产品的使用和期望的增长，我们一直在优化产品的市场适应性，并在不断的冲刺中跟上客户的步伐。
 
-如今，经过五年多的快速发展，Slack 被数以百万计的人使用，他们所在的公司规模比五年前更大，处理的数据比我们刚开始时想象的还要多。多少可以预见，桌面客户端的基础开始出现一些内部问题。此外，技术格局已经偏离了我们在 2012 年底选择的工具（jQuery，Signals，以及直接 DOM 操作），目前的程序趋向于采用可组合的接口和更干净的程序抽象。即使[我们尽最大努力保证敏捷](https://slack.engineering/getting-to-slack-faster-with-incremental-boot-ff063c9222e4)，但很明显，需要进行一些根本性的改变，才能发展桌面应用程序，并为下一波产品开发做好准备。
+如今，经过五年多的快速发展，Slack 被数以百万计的人使用，他们所在的公司规模比五年前更大，处理的数据比我们刚开始时想象的还要多。多少可以预见，桌面客户端的基础开始出现一些内部问题。此外，技术格局已经偏离了我们在 2012 年底选择的工具（jQuery，Signals，以及直接操作 DOM），目前的程序趋向于采用可组合的接口和更干净的程序抽象。即使[我们尽最大努力保证敏捷](https://slack.engineering/getting-to-slack-faster-with-incremental-boot-ff063c9222e4)，但很明显，需要进行一些根本性的改变，才能发展桌面应用程序，并为下一波产品开发做好准备。
 
 现有的桌面应用程序的体系结构有许多缺点：
 
-1. **手动 DOM 更新。** Slack 最初的 UI 是使用 HTML 模板构建的，每当底层数据发生变化时，都需要手动重建这些模板，这使得数据模型和用户界面很难保持同步。我们想采用 React ，一个流行的 JavaScript 框架，它使这些事情更自动化，更不容易发生潜在错误。
+1. **手动更新 DOM。** Slack 最初的 UI 是使用 HTML 模板构建的，每当底层数据发生变化时，都需要手动重建这些模板，这使得数据模型和用户界面很难保持同步。我们想采用 React，一个流行的 JavaScript 框架，它使这些事情更自动化，更不容易发生潜在错误。
 2. **过多的数据加载。** 数据模型是“完整的”，这意味着每个用户会话都是通过下载与用户相关的**所有**内容开始的。虽然理论上很好，但实际上这对于大型工作空间来说过于昂贵，这意味着我们必须做很多工作才能使数据模型在用户会话过程中保持最新状态。
 3. **多个工作空间有着多个进程。** 事实上，当登录到多个工作区时，每个工作区都在一个单独的 Electron 进程中运行 Web 客户端的独立副本，这意味着 Slack 使用的内存将比用户预期的多。
 
@@ -82,7 +82,7 @@
 
 如果我们等到 Slack 全部被重写后再发布它，我们的用户在发布一个“爆炸的”替代品之前，就会对表情符号、消息、频道列表、搜索和无数其他功能有着更糟糕的日常体验。增量发布允许我们尽快向客户交付真正的价值，帮助我们专注于持续改进，并通过最大限度地减少客户首次使用的全新代码量，降低了新客户的发布风险。
 
-普遍的观点认为，最好避免重写，但有时好处也很大，不容忽视。我们的主要指标之一是内存使用情况，新版 Slack 提供:
+普遍的观点认为，最好避免重写，但有时好处也很大，不容忽视。我们的主要指标之一是内存使用情况，新版 Slack 提供：
 
 ![**内存使用率比较。** 右侧的新版本。](https://cdn-images-1.medium.com/max/5544/1*d_U8PJR0MA5q8CYddSc18A.png)
 
