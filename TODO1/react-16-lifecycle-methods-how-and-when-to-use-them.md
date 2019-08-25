@@ -128,7 +128,7 @@ class Grid extends Component {
 
 [**React 绑定模式：处理 `this` 的 5 种方法**](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
 
-**constructor 的最常见用例：** 设置 state、创建引用和函数绑定。
+**constructor 的最常见用例：**设置 state、创建引用和函数绑定。
 
 #### getDerivedStateFromProps
 
@@ -230,13 +230,13 @@ static getDerivedStateFromProps(props, state) {
 
 （关于 `static` 函数的最后一点，比如 `getDerivedStateFromProps`：你没有通过 `this` 访问组件的权限。例如，我们无法访问的网格的引用。）
 
-**getDerivedStateFromProps 的最常见用例：** Updating state based on props, when the props themselves aren’t enough.
+**getDerivedStateFromProps 的最常见用例：**Updating state based on props, when the props themselves aren’t enough.
 
 #### shouldComponentUpdate
 
 当我们有新的 props 时。典型的 React 法则是，当一个组件接收到新的 props 或者新的 state 时，它应该更新。
 
-But our component is a little bit anxious and is going to ask permission first.
+但我们的组件有点焦虑，得先征得许可。
 
 这是我们得到的 —— `shouldComponentUpdate` 函数，调用时以 `nextProps` 作为第一个参数，`nextState` 是第二个。
 
@@ -248,7 +248,7 @@ But our component is a little bit anxious and is going to ask permission first.
 
 [**How to Benchmark React Components: The Quick and Dirty Guide**](https://engineering.musefind.com/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
 
-In the article, we talk about having a table with many many fields. The problem was that when the table re-rendered, each field would also re-render, slowing things down.
+在文章中，我们谈论有一个包含许多部分的表格。问题是当表重新渲染时，每个部分也都会重新渲染，从而减慢了速度。
 
 `shouldComponentUpdate` 让我们能够说：组件只在你关心的 props 改变时才更新。
 
@@ -265,7 +265,7 @@ shouldComponentUpdate(nextProps, nextState) {
 
 现在我们可以说：**只有**当 state 中的块数改变时，组件才应该更新。
 
-**shouldComponentUpdate 的最常见用例：** 精确控制组件的重新渲染。
+**shouldComponentUpdate 的最常见用例：**精确控制组件的重新渲染。
 
 #### render
 
@@ -275,13 +275,13 @@ shouldComponentUpdate(nextProps, nextState) {
 
 这个函数是一个有趣的新增功能。
 
-Note it’s called between `render` and the updated component actually being propagated to the DOM. It exists as a last-chance-look at your component with its previous props and state.
+请注意，它是在 `render` 与更新组件被实际传播到 DOM 之间调用的。It exists as a last-chance-look at your component with its previous props and state.
 
-Why? Well, there may be a delay between calling `render` and having your changes appear. If you need to know what the DOM is **exactly** at the time of integrating the result of the latest `render` call, here’s where you can find out.
+为什么？ 好吧，在调用`render`和显示更改之间可能会有一段延迟。如果你需要在整合最新 `render` 调用的结果时知道 DOM 是什么**，这里就是你可以找到答案的地方。
 
-Here’s an example. Let’s say our team lead decided that if a user is at the bottom of our grid when new blocks are loaded, they should be scrolled down to the **new** bottom of the screen.
+这是一个例子。假设我们的团队负责人决定，如果用户在加载新块时位于网格底部，则应将其向下滚动到屏幕的**新**底部。
 
-In other words: when the grid expands, if they’re at the bottom, keep them there.
+换句话说：当网格扩展时，如果它们位于底部，请让它们继续在底部。
 
 ```JavaScript
 getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -297,21 +297,21 @@ getSnapshotBeforeUpdate(prevProps, prevState) {
   }
 ```
 
-Here’s what this says: if the user has scrolled to the bottom, return an object like so: `{ isAtBottomOfGrid: true }`. If they aren’t, return `null`.
+这就是说：如果用户滚动到底部，则返回如下对象：`{isAtBottomOfGrid：true}`。如果不是，则返回 `null`。
 
-**You should either return `null` or a value from `getSnapshotBeforeUpdate`.**
+**你应该返回 `null` 或从 `getSnapshotBeforeUpdate` 获取的值。**
 
-Why? We’ll see in a second.
+为什么？我们马上就能看到。
 
-**Most Common Use Case:** Taking a look at some attribute of the current DOM, and passing that value on to `componentDidUpdate`.
+**getSnapshotBeforeUpdate 的最常见用例：**查看当前 DOM 的一些属性，并将值传给 `componentDidUpdate`。
 
 #### componentDidUpdate
 
-Now, our changes have been committed to the DOM.
+现在，我们的更改已经提交给 DOM。
 
-In `componentDidUpdate`, we have access to three things: the previous props, the previous state, and whatever value we returned from `getSnapshotBeforeUpdate`.
+在 `componentDidUpdate` 中，我们可以访问三个东西：之前的 props，之前的 state，以及我们从 `getSnapshotBeforeUpdate` 返回的任何值。
 
-Completing the above example:
+完成上面的例子：
 
 ```JavaScript
 componentDidUpdate(prevProps, prevState, snapshot) {
@@ -326,27 +326,27 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 }
 ```
 
-First, we re-layout the grid, using the Bricks.js `pack` method.
+首先，我们使用 Bricks.js 的 `pack` 函数重新布局网格。
 
-Then, if our snapshot shows the user was at the bottom of the grid, we scroll them down to the bottom of the new blocks.
+然后，如果我们的快照显示用户位于网格的底部，我们将它们向下滚动到新块的底部。
 
-**Most Common Use Case for componentDidUpdate:** Reacting (hah!) to committed changes to the DOM.
+**componentDidUpdate 的最常见用例：** 响应（哈哈！）DOM 的已提交更改。
 
-## Unmounting
+## 卸载
 
 #### componentWillUnmount
 
-It’s almost over.
+它快要结束了。
 
-Your component is going to go away. Maybe forever. It’s very sad.
+你的组件将会消失。也许是永远。这很令人悲伤。
 
-Before it goes, it asks if you have any last-minute requests.
+在此之前，它会询问你是否有任何最后一刻前的请求。
 
-Here you can cancel any outgoing network requests, or remove all event listeners associated with the component.
+您可以在此处取消任何传出网络请求，或删除与该组件关联的所有事件监听器。
 
-Basically, clean up anything to do that solely involves the component in question — when it’s gone, it should be completely gone.
+基本上，clean up anything to do that solely involves the component in question — when it’s gone, it should be completely gone.
 
-In our case, we have one `setInterval` call from `componentDidMount` to tidy up:
+在我们的例子中，我们有一个在 `componentDidMount` 中调用的 `setInterval` 要清理。
 
 ```JavaScript
 componentWillUnmount() {
@@ -354,17 +354,17 @@ componentWillUnmount() {
 }
 ```
 
-**Most Common Use Case for componentWillUnmount:** Cleaning up any leftover debris from your component.
+**componentWillUnmount 的最常见用例：** 清理组件中所有的剩余碎片。
 
-## Errors
+## 错误
 
 #### getDerivedStateFromError
 
-Something broke.
+有些东西出问题咯。
 
-Not in your component itself, but one of its descendants.
+不是在你的组件本身，而是在它的某个子孙组件。
 
-We want to show an error screen. The easiest way to do so is to have a value like `this.state.hasError`, which gets flipped to `true` at this point.
+我们想要将错误显示在屏幕上。最简单的方法是使用一个像 `this.state.hasError` 这样的值，此时该值将转换为 `true`。
 
 ```JavaScript
 static getDerivedStateFromError(error) {
@@ -372,15 +372,15 @@ static getDerivedStateFromError(error) {
 }
 ```
 
-Note that you must return the updated state object. Don’t use this method for any side effects. Instead, use the below `componentDidCatch`.
+请注意，你必须返回更新的 state 对象。不要将此方法作用于任何其他操作。相反，使用下面的 `componentDidCatch`。
 
-**Most Common Use Case for getDerivedStateFromError:** Updating state to display an error screen.
+**getDerivedStateFromError的最常见用例：**更新 state 以显示错误在屏幕上。
 
 #### componentDidCatch
 
-Very similar to the above, in that it is triggered when an error occurs in a child component.
+与上面非常相似，因为它在子组件中发生错误时被触发。
 
-The difference is rather than updating state in response to an error, we can now perform any side effects, like logging the error.
+区别在于不是为了响应错误而更新 state，我们现在可以执行任何其他操作，例如记录错误。
 
 ```JavaScript
 componentDidCatch(error, info) {
@@ -388,13 +388,13 @@ componentDidCatch(error, info) {
 }
 ```
 
-`error` would be the actual error message (Undefined Variable blah blah blah ) and `info` would be the stack trace (`In Component, in div, etc`).
+`error` 是实际的错误消息（未定义的变量之类），`info` 是堆栈跟踪（`In Component, in div, etc`）。
 
-**Note that componentDidCatch only works for errors in the render/lifecycle methods. If your app throws an error in a click handler, it will not be caught.**
+**请注意，componentDidCatch 仅适用于渲染/生命周期函数中的错误。如果你的应用程序在点击事件中抛出错误，它不会被捕获。**
 
-You would commonly use `componentDidCatch` only in special **error boundary** components. These components wrap a child tree with the sole purpose of catching and logging errors.
+你通常只在特殊的**错误边界**组件中使用 `componentDidCatch`。这些组件封装子组件的唯一目的是捕获并记录错误。
 
-For example, this error boundary will catch an error and render an ‘Oops!’ message instead of the child components:
+例如，此错误边界将捕获错误并呈现“Oops！”消息而不是子组件：
 
 ```JavaScript
 class ErrorBoundary extends Component {
@@ -418,7 +418,7 @@ class ErrorBoundary extends Component {
 }
 ```
 
-**Most Common Use Case for componentDidCatch:** Catching and logging errors.
+**componentDidCatch 的最常见用例：**捕获并记录错误。
 
 ## 结论
 
