@@ -2,24 +2,24 @@
 > * 原文作者：[igor_sarcevic](https://twitter.com/igor_sarcevic)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/killing-a-process-and-all-of-its-descendants.md](https://github.com/xitu/gold-miner/blob/master/TODO1/killing-a-process-and-all-of-its-descendants.md)
-> * 译者：
+> * 译者：[江五渣](http://jalan.space)
 > * 校对者：
 
-# Killing a process and all of its descendants
+# 如何杀死一个进程和它的所有子进程？
 
-Killing processes in a Unix-like system can be trickier than expected. Last week I was debugging an odd issue related to job stopping on Semaphore. More specifically, an issue related to the killing of a running process in a job. Here are the highlights of what I learned:
+在类 Unix 系统中杀死进程比预期中更棘手。上周我在调试一个有关 job stopping on Semaphore 的问题。更具体地说，这是一个有关于在作业中终止正在运行的进程的问题。以下是我从中学到的要点：
 
-* Unix-like operating systems have sophisticated process relationships. Parent-child, process groups, sessions, and session leaders. However, the details are not uniform across operating systems like Linux and macOS. POSIX compliant operating systems support sending signals to process groups with a negative PID number.
-* Sending signals to all processes in a session is not trivial with syscalls.
-* Child processes started with exec inherit their parent signal configuration. If the parent process is ignoring the SIGHUP signal, for example, this configuration is propagated to the children.
-* The answer to the “What happens with orphaned process groups” question is not trivial.
+* 类 Unix 操作系统有着复杂的进程间关系：父子进程、进程组、会话、会话的领导进程。但是，在 Linix 与 MacOS 等操作系统中，这其中的细节并不统一。符合 POSIX 的操作系统支持使用负 PID 向进程组发送信号。
+* 使用系统调用向会话中的所有进程发送信号并非易事。
+* 用 exec 启动的子进程将继承其父进程的信号配置。例如，如果父进程忽略 SIGHUP 信号，它的子进程也会忽略 SIGHUP 信号。
+* “孤儿进程组内发生了什么”这一问题的答案并不简单。
 
-## Killing a parent doesn’t kill the child processes
+## 杀死父进程并不会同时杀死子进程
 
-Every process has a parent. We can observe this with `pstree` or the `ps` utility.
+每个进程都有一个父进程。我们可以使用 `pstree` 或 `ps` 工具来观察这一点。
 
 ```shell
-# start two dummy processes
+# 启动两个虚拟进程
 $ sleep 100 &
 $ sleep 101 &
 
@@ -38,14 +38,14 @@ $ ps j -A
     1 29051 29051 29051 pts/2     2386 Ss    1000   0:00 -bash
 ```
 
-The `ps` command displays the PID (id of the process), and the PPID (parent ID of the process).
+调用 `ps` 命令可以显示 PID（进程 ID） 和 PPID（父进程 ID）。
 
-I held a very incorrect assumption about this relationship. I thought that if I kill the parent of a process, it kills the children of that process too. However, this is incorrect. Instead, child processes become orphaned, and the init process re-parents them.
+我对父子进程间的关系有着错误的假设。我认为如果我杀死了父进程，那么也会杀死它的所有子进程。然而这是错误的。相反，子进程将会成为孤儿进程，而 init 进程将重新成为它们的父进程。
 
-Let’s see the re-parenting in action by killing the bash process — the current parent of the sleep commands — and observe the changes.
+让我们看看通过终止 bash 进程（sleep 命令的当前父进程）来重建进程间的父子关系后发生了哪些变化。
 
 ```shell
-$ kill 29051 # killing the bash process
+$ kill 29051 # 杀死 bash 进程
 
 $ pstree -A
 init(1)-+
@@ -53,7 +53,7 @@ init(1)-+
         `-sleep(28965)
 ```
 
-The re-parenting behavior was odd to me. For example, when I SSH into a server, start a process, and exit, the started process is killed. I wrongly assumed this is the default behavior on Linux. It turns that killing of processes when I leave an SSH session is related to process groups, session leaders, and controlling terminals.
+于我而言，重新分配父进程的行为很奇怪。例如，当我使用 SSH 登录一台服务器，启动一个进程，然后退出时，我启动的进程将会被终止。我错误地认为这是 Linux 上的默认行为。当我离开一个 SSH 会话时，进程的终止与进程组、会话的领导进程和控制终端都有关。
 
 ## What are process groups and session leaders?
 
