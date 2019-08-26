@@ -14,9 +14,8 @@ In this guide, you will build two flexible service-mocking applications using [
 
 To follow this tutorial, you will need the following:
 
--   Version 8.10.0 or higher of Node.js installed on your machine. This tutorial will use version 8.10.0. To install Node.js, check out [How To Install Node.js on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) or [How to Install Node.js and Create a Local Development Environment on macOS](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos).
-
--   A tool to make HTTP requests, like [cURL](https://curl.haxx.se/) or [Postman](https://www.getpostman.com/). This tutorial will use cURL, since it's installed by default on most machines; if your machine does not have cURL, please see the[install documentation](https://curl.haxx.se/docs/install.html).
+- Version 8.10.0 or higher of Node.js installed on your machine. This tutorial will use version 8.10.0. To install Node.js, check out [How To Install Node.js on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) or [How to Install Node.js and Create a Local Development Environment on macOS](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos).
+- A tool to make HTTP requests, like [cURL](https://curl.haxx.se/) or [Postman](https://www.getpostman.com/). This tutorial will use cURL, since it's installed by default on most machines; if your machine does not have cURL, please see the[install documentation](https://curl.haxx.se/docs/install.html).
 
 ### Step 1 --- Starting a Node.js Application
 
