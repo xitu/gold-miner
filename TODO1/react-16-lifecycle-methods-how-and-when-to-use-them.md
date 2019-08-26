@@ -74,7 +74,7 @@ class MyComponent extends Component {
 }
 ```
 
-调用构造函数时传入组件的 props。**你必须调用 `super` 并传入 props。**
+调用构造函数时传入组件的 props。** 你必须调用 `super` 并传入 props。**
 
 然后，你可以初始化 state，设置默认值。你甚至可以根据 props 设置 state：
 
@@ -128,7 +128,7 @@ class Grid extends Component {
 
 [**React 绑定模式：处理 `this` 的 5 种方法**](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
 
-**constructor 的最常见用例：**设置 state、创建引用和函数绑定。
+**constructor 的最常见用例：** 设置 state、创建引用和函数绑定。
 
 #### getDerivedStateFromProps
 
@@ -204,7 +204,7 @@ componentDidMount() {
 
 如果你需要根据 prop 的改变更新 state，可以通过返回新 state 对象来执行此操作。
 
-**同样，不推荐基于 props 挂起 state。**这应该被视为最后的手段。问问自己 —— 我需要存储 state 吗？ 我不可以只从 props 本身获得正确的功能吗？
+**同样，不推荐基于 props 更改 state。**这应该被视为最后的手段。问问自己 —— 我需要存储 state 吗？我不可以只从 props 本身获得正确的功能吗？
 
 也就是说，特殊情况发生了。以下是一些例子：
 
@@ -214,7 +214,7 @@ componentDidMount() {
 
 即使有上述情况，通常也有更好的方法。但是，当最坏的情况发生时，`getDerivedStateFromProps` 会让你回来。
 
-使用我们的示例应用程序，假设我们的 `Grid` 组件的 `numberOfBlocks` prop 增加了。但是我们已经“加载”了比新数量更多的块。使用相同的值没有意义。 所以我们这样做：
+使用我们的示例应用程序，假设我们的 `Grid` 组件的 `numberOfBlocks` prop 增加了。但是我们已经“加载”了比新数量更多的块。使用相同的值没有意义。所以我们这样做：
 
 ```JavaScript
 static getDerivedStateFromProps(props, state) {
@@ -230,7 +230,7 @@ static getDerivedStateFromProps(props, state) {
 
 （关于 `static` 函数的最后一点，比如 `getDerivedStateFromProps`：你没有通过 `this` 访问组件的权限。例如，我们无法访问的网格的引用。）
 
-**getDerivedStateFromProps 的最常见用例：**Updating state based on props, when the props themselves aren’t enough.
+**getDerivedStateFromProps 的最常见用例：** 当 props 本身不足时，根据情况更新 state。
 
 #### shouldComponentUpdate
 
@@ -246,7 +246,7 @@ static getDerivedStateFromProps(props, state) {
 
 我写了一篇关于用这种方式使用 `shouldComponentUpdate` 的文章 —— 请看：
 
-[**How to Benchmark React Components: The Quick and Dirty Guide**](https://engineering.musefind.com/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
+[**如何对 React 组件进行基准测试：快速简要指南**](https://engineering.musefind.com/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
 
 在文章中，我们谈论有一个包含许多部分的表格。问题是当表重新渲染时，每个部分也都会重新渲染，从而减慢了速度。
 
@@ -265,7 +265,7 @@ shouldComponentUpdate(nextProps, nextState) {
 
 现在我们可以说：**只有**当 state 中的块数改变时，组件才应该更新。
 
-**shouldComponentUpdate 的最常见用例：**精确控制组件的重新渲染。
+**shouldComponentUpdate 的最常见用例：** 精确控制组件的重新渲染。
 
 #### render
 
@@ -275,9 +275,9 @@ shouldComponentUpdate(nextProps, nextState) {
 
 这个函数是一个有趣的新增功能。
 
-请注意，它是在 `render` 与更新组件被实际传播到 DOM 之间调用的。It exists as a last-chance-look at your component with its previous props and state.
+请注意，它是在 `render` 与更新组件被实际传播到 DOM 之间调用的。在你的组件中，它作为最后一次看到之前的 props 和 state 的机会存在。
 
-为什么？ 好吧，在调用`render`和显示更改之间可能会有一段延迟。如果你需要在整合最新 `render` 调用的结果时知道 DOM 是什么**，这里就是你可以找到答案的地方。
+为什么？好吧，在调用 `render` 和显示更改之间可能会有一段延迟。如果你需要在整合最新 `render` 调用的结果时知道 DOM 是什么**，这里就是你可以找到答案的地方。
 
 这是一个例子。假设我们的团队负责人决定，如果用户在加载新块时位于网格底部，则应将其向下滚动到屏幕的**新**底部。
 
@@ -297,19 +297,19 @@ getSnapshotBeforeUpdate(prevProps, prevState) {
   }
 ```
 
-这就是说：如果用户滚动到底部，则返回如下对象：`{isAtBottomOfGrid：true}`。如果不是，则返回 `null`。
+这就是说：如果用户滚动到底部，则返回如下对象：`{isAtBottomOfGrid：true}`。如果没有，则返回 `null`。
 
 **你应该返回 `null` 或从 `getSnapshotBeforeUpdate` 获取的值。**
 
 为什么？我们马上就能看到。
 
-**getSnapshotBeforeUpdate 的最常见用例：**查看当前 DOM 的一些属性，并将值传给 `componentDidUpdate`。
+**getSnapshotBeforeUpdate 的最常见用例：** 查看当前 DOM 的一些属性，并将值传给 `componentDidUpdate`。
 
 #### componentDidUpdate
 
 现在，我们的更改已经提交给 DOM。
 
-在 `componentDidUpdate` 中，我们可以访问三个东西：之前的 props，之前的 state，以及我们从 `getSnapshotBeforeUpdate` 返回的任何值。
+在 `componentDidUpdate` 中，我们可以访问三个东西：之前的 props、之前的 state 以及我们从 `getSnapshotBeforeUpdate` 返回的任何值。
 
 完成上面的例子：
 
@@ -342,11 +342,11 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 
 在此之前，它会询问你是否有任何最后一刻前的请求。
 
-您可以在此处取消任何传出网络请求，或删除与该组件关联的所有事件监听器。
+你可以在此处取消任何向外的网络请求，或删除与该组件关联的所有事件监听器。
 
-基本上，clean up anything to do that solely involves the component in question — when it’s gone, it should be completely gone.
+基本上，清除所涉及的组件的每一件事 —— 当它消失时，它应该完全消失。
 
-在我们的例子中，我们有一个在 `componentDidMount` 中调用的 `setInterval` 要清理。
+在我们的例子中，我们有一个在 `componentDidMount` 中调用的 `setInterval` 需要清理。
 
 ```JavaScript
 componentWillUnmount() {
@@ -374,7 +374,7 @@ static getDerivedStateFromError(error) {
 
 请注意，你必须返回更新的 state 对象。不要将此方法作用于任何其他操作。相反，使用下面的 `componentDidCatch`。
 
-**getDerivedStateFromError的最常见用例：**更新 state 以显示错误在屏幕上。
+**getDerivedStateFromError的最常见用例：** 更新 state 以显示错误在屏幕上。
 
 #### componentDidCatch
 
@@ -418,7 +418,7 @@ class ErrorBoundary extends Component {
 }
 ```
 
-**componentDidCatch 的最常见用例：**捕获并记录错误。
+**componentDidCatch 的最常见用例：** 捕获并记录错误。
 
 ## 结论
 
