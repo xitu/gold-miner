@@ -1,3 +1,10 @@
+> * 原文地址：[How To Mock Services Using Mountebank and Node.js](https://www.digitalocean.com/community/tutorials/how-to-mock-services-using-mountebank-and-node-js)
+> * 原文作者：[Dustin Ewers](https://www.digitalocean.com/community/users/dustinjewers) 
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-mock-services-using-mountebank-and-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-mock-services-using-mountebank-and-node-js.md)
+> * 译者：
+> * 校对者
+
 # How To Mock Services Using Mountebank and Node.js
 
 ## Introduction
@@ -623,3 +630,9 @@ In this step, you created a mock service that read data from a CSV file and retu
 In this article you created your own service-mocking application using Mountebank and Node.js. Now you can build mock services and share them with your team. Whether it's a complex scenario involving a vendor service you need to test around or a simple mock while you wait for another team to finish their work, you can keep your team moving by creating mock services.
 
 If you want to learn more about Mountebank, check out their [documentation](http://www.mbtest.org/). If you'd like to containerize this application, check out [Containerizing a Node.js Application for Development With Docker Compose](https://www.digitalocean.com/community/tutorials/containerizing-a-node-js-application-for-development-with-docker-compose). If you'd like to run this application in a production-like environment, check out [How To Set Up a Node.js Application for Production on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04).
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
