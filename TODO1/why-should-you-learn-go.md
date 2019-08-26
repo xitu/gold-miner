@@ -8,13 +8,12 @@
 # Why should you learn Go?
 
 ![Image from: [http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682](http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682)](https://cdn-images-1.medium.com/max/2000/1*vHUiXvBE0p0fLRwFHZuAYw.gif)
+
 > “[Go will be the server language of the future.](https://twitter.com/tobi/status/326086379207536640)” — Tobias Lütke, Shopify
 
 In past couple of years, there is a rise of new programming language: [**Go or GoLang**](https://golang.org/). Nothing makes a developer crazy than a new programming language, right? So, I started learning Go 4 to 5 months ago and here I am going to tell you about why you should also learn this new language.
 
 I am not going to teach you, how you can write “Hello World!!” in this article. There are lots of other articles online for that. **I am going the explain current stage of computer hardware-software and why we need new language like Go?** Because if there isn’t any problem, then we don’t need solution, right?
-
-***
 
 ## Hardware limitations:
 
@@ -29,17 +28,14 @@ From the above chart you can see that the single-thread performance and the freq
 So, for the solution of above problem,
 
 * Manufacturers started adding more and more cores to the processor. Nowadays we have quad-core and octa-core CPUs available.
-
 * We also introduced hyper-threading.
-
 * Added more cache to the processor to increase the performance.
 
 But above solutions have its ****own limitations too. We cannot add more and more cache to the processor to increase performance as cache have physical limits: the bigger the cache, the slower it gets. Adding more core to the processor has its cost too. Also, that cannot scale to indefinitely. These multi-core processors can run multiple threads simultaneously and that brings concurrency to the picture. We’ll discuss it later.
 
 So, if we cannot rely on the hardware improvements, the only way to go is more efficient software to increase the performance. But sadly, modern programming language are not much efficient.
-> “Modern processors are a like nitro fueled funny cars, they excel at the quarter mile. Unfortunately modern programming languages are like Monte Carlo, they are full of twists and turns.” — [David Ungar](https://en.wikipedia.org/wiki/David_Ungar)
 
-***
+> “Modern processors are a like nitro fueled funny cars, they excel at the quarter mile. Unfortunately modern programming languages are like Monte Carlo, they are full of twists and turns.” — [David Ungar](https://en.wikipedia.org/wiki/David_Ungar)
 
 ## Go has goroutines !!
 
@@ -56,21 +52,16 @@ On the other hand, Go was released in 2009 when multi-core processors were alrea
 **Other benefits are :**
 
 * Goroutines have growable segmented stacks. That means they will use more memory only when needed.
-
 * Goroutines have a faster startup time than threads.
-
 * Goroutines come with built-in primitives to communicate safely between themselves (channels).
-
 * Goroutines allow you to avoid having to resort to mutex locking when sharing data structures.
-
 * Also, goroutines and OS threads do not have 1:1 mapping. A single goroutine can run on multiple threads. Goroutines are multiplexed into small number of OS threads.
+
 > You can see Rob Pike’s excellent talk [concurrency is not parallelism](https://blog.golang.org/concurrency-is-not-parallelism) to get more deep understanding on this.
 
 All the above points, make Go very powerful to handle concurrency like Java, C and C++ while keeping concurrency execution code strait and beautiful like Erlang.
 
 ![Go takes good of both the worlds. Easy to write concurrent and efficient to manage concurrency](https://cdn-images-1.medium.com/max/2000/1*xbsHBQJReC5l_VO4XgNSIQ.png)
-
-***
 
 ## Go runs directly on underlying hardware.
 
@@ -88,8 +79,6 @@ But, freeing and allocating variable in those languages is a huge pain. While mo
 
 Go brings best of both the worlds. Like lower level languages like C/C++, Go is compiled language. That means performance is almost nearer to lower level languages. It also uses garbage collection to allocation and removal of the object. So, no more malloc() and free() statements!!! Cool!!!
 
-***
-
 ## Code written in Go is easy to maintain.
 
 Let me tell you one thing. Go does not have crazy programming syntax like other languages have. It has very neat and clean syntax.
@@ -99,15 +88,10 @@ The designers of the Go at google had this thing in mind when they were creating
 Go intentionally leaves out many features of modern OOP languages.
 
 * **No classes.** Every thing is divided into packages only. Go has only structs instead of classes.
-
 * **Does not support inheritance.** That will make code easy to modify. In other languages like Java/Python, if the class ABC inherits class XYZ and you make some changes in class XYZ, then that may produce some side effects in other classes that inherit XYZ. By removing inheritance, Go makes it easy to understand the code also **(as there is no super class to look at while looking at a piece of code)**.
-
 * No constructors.
-
 * No annotations.
-
 * No generics.
-
 * No exceptions.
 
 Above changes make Go very different from other languages and it makes programming in Go different from others. You may not like some points from above. But, it is not like you can not code your application without above features. All you have to do is write 2–3 more lines. But on the positive side, it will make your code cleaner and add more clarity to your code.
@@ -121,13 +105,11 @@ Above graph displays that Go is almost as efficient as C/C++, while keeping the 
 ## Go is backed by Google.
 
 * I know this is not a direct technical advantage. But, Go is designed and supported by Google. Google has one of the largest cloud infrastructures in the world and it is scaled massively. Go is designed by Google to solve their problems of supporting scalability and effectiveness. Those are the same issues you will face while creating your own servers.
-
 * More to that Go is also used by some big companies like Adobe, BBC, IBM, Intel and even [Medium](https://medium.engineering/how-medium-goes-social-b7dbefa6d413#.r8nqjxjpk).**(Source: [https://github.com/golang/go/wiki/GoUsers](https://github.com/golang/go/wiki/GoUsers))**
 
 ## Conclusion:
 
 * Even though Go is very different from other object-oriented languages, it is still the same beast. Go provides you high performance like C/C++, super efficient concurrency handling like Java and fun to code like Python/Perl.
-
 * If you don’t have any plans to learn Go, I will still say hardware limit puts pressure to us, software developers to write super efficient code. Developer needs to understand the hardware and make their program optimize accordingly. **The optimized software can run on cheaper and slower hardware (like[** IOT **](https://en.wikipedia.org/wiki/Internet_of_things)devices) and overall better impact on end user experience.**
 
 ***
@@ -139,11 +121,8 @@ Above graph displays that Go is almost as efficient as C/C++, while keeping the 
 ## Credits:
 
 * **GoLang or the future of the dev** from [Edoardo Paolo Scalafiotti](undefined)
-
 * [Program your next server in Go](https://www.youtube.com/watch?v=5bYO60-qYOI)
-
 * [Concurrency Is Not Parallelism](https://vimeo.com/49718712) by Rob Pike
-
 * [Why Go?](https://nathany.com/why-go/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
