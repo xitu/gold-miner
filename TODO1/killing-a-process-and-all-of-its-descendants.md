@@ -55,9 +55,9 @@ init(1)-+
 
 于我而言，重新分配父进程的行为很奇怪。例如，当我使用 SSH 登录一台服务器，启动一个进程，然后退出时，我启动的进程将会被终止。我错误地认为这是 Linux 上的默认行为。当我离开一个 SSH 会话时，进程的终止与进程组、会话的领导进程和控制终端都有关。
 
-## What are process groups and session leaders?
+## 什么是进程组和会话领导进程？
 
-Let’s observe the output of `ps j` from the previous example again.
+让我们再次观察上述事例中 `ps j` 命令的输出。
 
 ```shell
 $ ps j -A
@@ -69,15 +69,16 @@ $ ps j -A
     1 29051 29051 29051 pts/2     2386 Ss    1000   0:00 -bash
 ```
 
-Apart from the parent-child relationship expressed by PPID and PID, we have two other relationships:
+除了使用 PPID 和 PID 表示的父子进程关系外，进程间还有其他两种关系：
 
-* Process groups represented by PGID
-* Sessions represented by SID
+* 用 PGID 表示的进程组
+* 用 SID 表示的会话
 
 Process groups are observable in shells that support job control, like `bash` and `zsh`, that are creating a process group for every pipeline of commands. A process group is a collection of one or more processes (usually associated with the same job) that can receive signals from the same terminal. Each process group has a unique process group ID.
+我们可以在支持作业控制的 Shell 环境中观察到进程组，例如 `bash` 和 `zsh`，它们为每个管道命令都创建了一个进程组。进程组是一个或多个进程（通常与一个作业关联）的集合，可以从同一个终端接收信号。每个进程组都有一个唯一的进程组 ID。
 
 ```shell
-# start a process group that consists of tail and grep
+# 启动一个由 tail 和 group 命令组成的进程组
 $ tail -f /var/log/syslog | grep "CRON" &
 
 $ ps j
@@ -88,13 +89,14 @@ $ ps j
 29050 29051 29051 29051 pts/2    19784 Ss    1000   0:00 -bash
 ```
 
-Notice that the PGID of `tail` and `grep` is the same in the previous snippet.
+请注意，在前半段中，`tail` 和 `grep` 的 PGID 是相同的。
 
-A session is a collection of process groups, usually associated with one controlling terminals and a session leader process. If a session has a controlling terminal, it has a single foreground process group, and all other process groups in the session are background process groups.
+会话是进程组的集合，通常由一个控制终端和一个会话领导进程组成。如果会话中有一个控制终端，它就具有单个前台进程组，除了该控制终端，会话中的所有其他进程组都是后台进程组。
 
-![sessions](http://morningcoffee.io/images/killing-a-process-and-all-of-its-descendants/sessions.png)
+![会话](http://morningcoffee.io/images/killing-a-process-and-all-of-its-descendants/sessions.png)
 
 Not all bash processes are sessions, but when you SSH into a remote server, you usually get a session. When bash runs as a session leader, it propagates the SIGHUP signal to its children. SIGHUP propagation to children was the core reason for my long-held belief that children are dying along with the parents.
+并非所有的 bash 进程都是会话，但是当你使用 SSH 登录一台远程服务器时，你通常会得到一个会话。当 bash 作为会话领导进程运行时，它将 SIGHUP 信号传递给它的子进程。SIGHUP 信号的传递方式就是我一直以来坚信子进程会与父进程一起消亡的核心原因。
 
 ## Sessions are not consistent across Unix implementations
 
