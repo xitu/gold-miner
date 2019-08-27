@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-security-headers-a-complete-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-security-headers-a-complete-guide.md)
 > * 译者：[cyz980908](https://github.com/cyz980908)
-> * 校对者：[TokenJan](https://github.com/TokenJan),[hanxiaosss](https://github.com/hanxiaosss)
+> * 校对者：[TokenJan](https://github.com/TokenJan)，[hanxiaosss](https://github.com/hanxiaosss)
 
 # HTTP Security Headers 完整指南
 
