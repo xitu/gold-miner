@@ -74,7 +74,6 @@ $ ps j -A
 * 用 PGID 表示的进程组
 * 用 SID 表示的会话
 
-Process groups are observable in shells that support job control, like `bash` and `zsh`, that are creating a process group for every pipeline of commands. A process group is a collection of one or more processes (usually associated with the same job) that can receive signals from the same terminal. Each process group has a unique process group ID.
 我们可以在支持作业控制的 Shell 环境中观察到进程组，例如 `bash` 和 `zsh`，它们为每个管道命令都创建了一个进程组。进程组是一个或多个进程（通常与一个作业关联）的集合，可以从同一个终端接收信号。每个进程组都有一个唯一的进程组 ID。
 
 ```shell
@@ -95,7 +94,6 @@ $ ps j
 
 ![会话](http://morningcoffee.io/images/killing-a-process-and-all-of-its-descendants/sessions.png)
 
-Not all bash processes are sessions, but when you SSH into a remote server, you usually get a session. When bash runs as a session leader, it propagates the SIGHUP signal to its children. SIGHUP propagation to children was the core reason for my long-held belief that children are dying along with the parents.
 并非所有的 bash 进程都是会话，但是当你使用 SSH 登录一台远程服务器时，你通常会得到一个会话。当 bash 作为会话领导进程运行时，它将 SIGHUP 信号传递给它的子进程。SIGHUP 信号的传递方式就是我一直以来坚信子进程会与父进程一起消亡的核心原因。
 
 ## Sessions are not consistent across Unix implementations
