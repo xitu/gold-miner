@@ -98,13 +98,13 @@ $ ps j
 
 ## Sessions are not consistent across Unix implementations
 
-In the previous examples, you can notice the occurrence of SID, the session ID of the process. It is the ID shared by all processes in a session.
+在上述事例中，你可以注意到 SID （进程的会话 ID）出现的位置。它是会话中所有进程共享的 ID。
 
-However, you need to keep in mind that this is not true across all Unix implementations. The Single UNIX Specification talks only about a “session leader”; there is no “session ID” similar to a process ID or a process group ID. A session leader is a single process that has a unique process ID, so we could talk about a session ID that is the process ID of the session leader.
+但是，你需要记住，并非所有的 Unix 系统都遵循这一实现。单一 UNIX 规范只讨论“会话领导进程”，没有类似于进程 ID 或进程组 ID 的“会话 ID”。会话领导进程是一个具有唯一进程 ID 的单进程，因此我们可以讨论的会话 ID 是会话领导者的进程 ID。
 
-System V Release 4 introduced Session IDs.
+System V Release 4 引入了会话 ID。
 
-In practice, this means that you get session ID in the `ps` output on Linux, but on BSD and its variants like MacOS, the session ID isn’t present or always zero.
+实际上，这意味着你能在 Linux 上通过 `ps` 命令获取会话 ID，但是在 BSD 及其变体（如 MacOS）上，会话 ID 并不存在，或始终为零。
 
 ## Killing all processes in a process group or session
 
