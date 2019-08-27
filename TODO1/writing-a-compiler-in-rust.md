@@ -294,11 +294,13 @@ s.push_str(format!("mov eax, {}", val));
 
 通过跟其他的团队交流，比较了用不同的语言和不同的设计来做同一个项目的心得是从这个项目中学习到的最有趣的经验之一。我会在后面的文章中讨论这些。
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 ## 注解
 ### weeder
 * [weeder](https://metacpan.org/pod/release/LIBVENUS/HPPPM-Demand-Management-0.04/lib/FieldParser.pm#weeder)：消除/去除/过滤输入字符中无用、无意义字符的逻辑单元
+
+---
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
