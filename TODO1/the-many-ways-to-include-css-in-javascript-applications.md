@@ -5,7 +5,7 @@
 > - 译者：逆。寒
 > - 校对者：
 
-# The Many Ways to Include CSS in JavaScript Applications
+# 在 Javascript 应用内加入 CSS 的几种方式
 
 ![](https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2017/06/css-vs-js.png)
 
@@ -123,8 +123,6 @@ CSS-in-JS 这个话题颇为宽泛。也有一些库致力于无痛书写 CSS-in
 
 当你在应用内跳转时，卸载的组件会把对应的样式从`<head>`内移除，加载的组件会加上对应的样式，因此性能得到了提升。不再有 HTTP 请求，也不会阻塞渲染，也确保了只下载用户需要看到的样式。
 
-Another interesting opportunity CSS-in-JS provides is the ability to reference various component states and functions in order to render different CSS. This could be as simple as replicating a class toggle based on some state change, or be as complex as something like theming.
-
 有趣的是，CSS-in-JS 可以获取不同组件的状态和方法，借此渲染不同的 CSS。简单的应用比如基于状态改变而重复加减类名，复杂的比如制作一套主题。
 
 因为 CSS-in-JS 着实是热门话题，我知道许多人也有不同的实践。现在我来分享其他人的一些感受，他们非常重视 CSS，尤其提到 JS 写 CSS 这个话题。我对 CSS-in-JS 的第一反应是十分负面的。我不喜欢交叉污染 CSS 和 JS 两者这个理念。但我还想保持开放的心态。我们从前端开发者的角度来评估下哪些功能是我们**需要**的。
@@ -132,7 +130,7 @@ Another interesting opportunity CSS-in-JS provides is the ability to reference v
 - 如果我们采用 CSS-in-JS，我们就得编写**纯正**的 CSS。有几个包提供了编写模板 CSS 的方法，但你得使用驼峰式命名 - 即`padding-left`变成`paddingLeft`。这不是我个人想放弃的习惯。
 - 一些 CSS-in-JS 方案需要你在要样式的元素上编写内联样式。特别是在复杂的组件中，它的语法，开始变得非常冗繁，同样我也不想妥协。
 - 要想让我使用 CSS-in-JS，它就必定是强大的工具，它能解决 CSS 模块或传统的样式表将难以解决的问题。
-- 我们必须能够利用具有前瞻性思维的 CSS，如嵌套和变量。为了增强开发人员体验，我们还必须能够结合诸如[Autoprefixer]（https://css-tricks.com/autoprefixer/）和其他附加组件。
+- 我们必须能够利用具有前瞻性思维的 CSS，如嵌套和变量。为了增强开发人员体验，我们还必须能够结合诸如[Autoprefixer](https://css-tricks.com/autoprefixer/)和其他附加组件。
 
 还有很多针对框架的问题，但对于我们这些人来说，一生中大部分时间都在研究和实施我们喜爱语言的解决方案，我们要确保能够继续用同样的语言写出最好的语言。
 
