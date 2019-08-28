@@ -5,9 +5,9 @@
 > * 译者：[江五渣](http://jalan.space)
 > * 校对者：
 
-# 如何杀死一个进程和它的所有子进程？
+# 如何杀死一个进程和它的所有子进程
 
-在类 Unix 系统中杀死进程比预期中更棘手。上周我在调试一个有关 job stopping on Semaphore 的问题。更具体地说，这是一个有关于在作业中终止正在运行的进程的问题。以下是我从中学到的要点：
+在类 Unix 系统中杀死进程比预期中更棘手。上周我在调试一个有关用信号量终止作业的问题。更具体地说，这是一个有关于在作业中终止正在运行的进程的问题。以下是我从中学到的要点：
 
 * 类 Unix 操作系统有着复杂的进程间关系：父子进程、进程组、会话、会话的领导进程。但是，在 Linix 与 MacOS 等操作系统中，这其中的细节并不统一。符合 POSIX 的操作系统支持使用负 PID 向进程组发送信号。
 * 使用系统调用向会话中的所有进程发送信号并非易事。
@@ -94,9 +94,9 @@ $ ps j
 
 ![会话](http://morningcoffee.io/images/killing-a-process-and-all-of-its-descendants/sessions.png)
 
-并非所有的 bash 进程都是会话，但是当你使用 SSH 登录一台远程服务器时，你通常会得到一个会话。当 bash 作为会话领导进程运行时，它将 SIGHUP 信号传递给它的子进程。SIGHUP 信号的传递方式就是我一直以来坚信子进程会与父进程一起消亡的核心原因。
+并非所有的 bash 进程都是会话，但是当你使用 SSH 登录一台远程服务器时，你通常会得到一个会话。当 bash 作为会话领导进程运行时，它将 SIGHUP 信号传播给它的子进程。SIGHUP 信号的传播方式就是我一直以来坚信子进程会与父进程一起消亡的核心原因。
 
-## Sessions are not consistent across Unix implementations
+## 在 Unix 中会话的实现并非一致
 
 在上述事例中，你可以注意到 SID （进程的会话 ID）出现的位置。它是会话中所有进程共享的 ID。
 
@@ -106,31 +106,31 @@ System V Release 4 引入了会话 ID。
 
 实际上，这意味着你能在 Linux 上通过 `ps` 命令获取会话 ID，但是在 BSD 及其变体（如 MacOS）上，会话 ID 并不存在，或始终为零。
 
-## Killing all processes in a process group or session
+## 杀死进程组或会话中的所有进程
 
-We can use that PGID to send a signal to the whole group with the kill utility:
+我们可以使用该 PGID，通过 kill 命令向整个进程组发送信号：
 
 ```shell
 $ kill -SIGTERM -- -19701
 ```
 
-We used a negative number `-19701` to send a signal to the group. If kill receives a positive number, it kills the process with that ID. If we pass a negative number, it kills the process group with that PGID.
+我们用一个负数 `-19701` 向进程组发送信号。如果我们传递的是一个正数，这个数将被视为进程 ID 用于终止进程。如果我们传递的是一个负数，它被视为 PGID，用于终止整个进程组。
 
-The negative number comes from the system call definition directly.
+负数来自系统调用的直接定义。
 
-Killing all processes in a session is quite different. As explained in the previous section, some systems don’t have a notion of a session ID. Even the ones that have session IDs, like Linux, don’t have a system call to kill all processes in a session. You need to walk the `/proc` tree, collect the SIDs, and terminate the processes.
+杀死会话中的所有进程与之完全不同。如我们在前一节说到的，有些系统没有会话 ID 的概念。即使是具有会话 ID 的系统，例如 Linux，也没有提供系统调用来终止会话中的所有进程。你需要遍历 `/proc` 输出的进程树，收集所有的 SID，然后一一终止进程。
 
-Pgrep implements the algorithm for walking, collecting, and process killing by session ID. Use the following snipped:
+Pgrep 实现了遍历、收集并通过会话 ID 杀死进程的算法。使用以下命令：
 
 ```shell
 pkill -s <SID>
 ```
 
-Nohup propagation to process descendants
+## 被 nohup 忽略的信号传播到子进程
 
-Ignored signals, like the ones ignored with `nohup`, are propagated to all descendants of a process. This propagation was the final bottleneck in my bug hunting exercise last week.
+被忽略的信号，就像是被 `nohup` 忽略的信号那样，都被传播到进程的所有子进程中。这种信号传播方式就是我上周在 bug 排查中遇到的最终瓶颈。
 
-In my program — an agent for running bash commands — I verified that I have an established a bash session that has a controlling terminal. It is the session leader of the processes started in that bash session. My process tree looks like this:
+在我的程序中运行着 bash 命令的代理 —— 我验证了我已经建立了一个具有控制终端的 bash 会话。该控制终端是 bash 会话中其他启动进程的会话领导进程。我的进程树如下所示：
 
 ```shell
 agent -+
@@ -139,11 +139,11 @@ agent -+
                                  | - process2
 ```
 
-I assumed that when I kill the bash session with SIGHUP, it kills the children as well. Integration tests on the agent also verified this.
+我假设，当我使用 SIGHUP 杀死 bash 会话时，它的子进程也会同时终止。对代理的集成测试也证明了这一点。
 
-However, what I missed was that the agent is started with `nohup`. When you start a subprocess with `exec`, like we start the bash process in the agent, it inherits the signals states from its parents.
+但是，我忽略了这个代理是以 `nohup` 启动的。当你使用 `exec` 启动子进程时，就像我们在代理中启动 bash 进程一样，它会从它的父进程继承信号状态。
 
-This last one took me by surprise.
+最后一个结论使我惊讶万分。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
