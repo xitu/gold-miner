@@ -2,36 +2,36 @@
 > * 原文作者：[Morsing](http://morsmachine.dk/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http2-causalprof.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http2-causalprof.md)
-> * 译者：
+> * 译者：[JackEggie](https://github.com/JackEggie)
 > * 校对者：
 
-# Using Causal Profiling to Optimize the Go HTTP/2 Server
+# 使用因果分析优化 Go HTTP/2 服务器
 
-# Introduction
+## 简介
 
-If you've been keeping up with this blog, you might be familiar with [Causal profiling](https://www.sigops.org/s/conferences/sosp/2015/current/2015-Monterey/printable/090-curtsinger.pdf), a profiling method that aims to bridge the gap between spending cycles on something and that something actually helping improve performance. I've ported this profiling method to Go and figured I'd turn it loose on a real piece of software, The HTTP/2 implementation in the standard library.
+如果你一直都有关注本博客，那么你应该看过这篇[介绍因果分析的论文](https://www.sigops.org/s/conferences/sosp/2015/current/2015-Monterey/printable/090-curtsinger.pdf)。这种分析方式旨在建立性能消耗周期与性能优化之间的联系。我已经在 Go 语言中实践了这种分析方式。我觉得是时候在一个真正的软件中 —— Go 标准库的 HTTP/2 实现中去实践一下了。
 
-# HTTP/2
+## HTTP/2
 
-HTTP/2 is a new version of the old HTTP/1 protocol which we know and begrudgingly tolerate. It takes a single connection and multiplexes requests onto it, reducing connection establishing overhead. The Go implementation uses one goroutine per request and a couple more per connection to handle asynchronous communications, having them all coordinate to determine who writes to the connection when.
+HTTP/2 是我们熟悉并且受够了的 HTTP/1 协议的全新实现。它的一个连接可以被用来多次发送或接收请求，以减少建立连接时的开销。Go 中的实现会对每一个请求分配一个 goroutine，或者在一次连接中分配多个 goroutine 以处理异步通讯，为了决定谁在何时可以向连接中写入数据，多个 goroutine 之间会互相协调配合。
 
-This structure is a perfect fit for causal profiling. If there is something implicitly blocking progress for a request, it should pop up red hot on the causal profiler, while it might not on the conventional one.
+这种设计非常适合因果分析。如果有什么东西暗中阻塞了一个请求，那么在因果分析中会很容易发现它，而在传统的分析方式中可能就没那么容易了。
 
-# Experiment setup
+## 实验配置
 
-To grab measurements, I set up an synthetic benchmark with an HTTP/2 server and client. The server takes the headers and body from the Google home page and just writes it for every request it sees. The client asks for the root document, using the client headers from firefox. The client limits itself to 10 requests running concurrently. This number was chosen arbitrarily, but should be enough to keep the CPU saturated.
+为了后续的测试，我基于 HTTP/2 服务器和其客户端构建了一个综合性的基准测试。服务器请求 Google 首页获取请求的报头和正文，并把每一个请求都记录下来。客户端使用 Firefox 的客户端报头请求根路径下的文档。客户端的最大并发请求量为 10。这个数量是随意选择的，但这应该足以保持 CPU 饱和。
 
-Causal profiling requires us to instrument the program. We do this by setting `Progress` markers, which measure the time between 2 points in the code. The HTTP/2 server uses a function called `runHandler` that runs the HTTP handler in a goroutine. Because we want to measure scheduler latency as well as handler runtime, we set the start of the progress marker before we spawn the goroutine. The end marker is put after the handler has written all its data to the wire.
+我们需要对程序进行跟踪以便执行因果分析。我们会设置一个 `Progress` 标记，它会记录两行代码之间消耗的执行时间。HTTP/2 服务器会调用 `runHandler` 函数，这会在 goroutine 中运行 HTTP 处理程序。我们想要评估并发调度延迟和 HTTP 处理的消耗，因此我们在创建 goroutine 前就标记了开始。结束标记则设置在处理程序向信道中写入所有数据之后。
 
-To get a baseline, let's grab a traditional CPU profile from the server, yielding this profiling graph:
+为了获得测试基线，让我们使用传统的方式从服务器获取一份 CPU 分析数据，以生成下图：
 
 ![](http://morsmachine.dk/pprofcausal.png)
 
-OK, that's mostly what you'd expect from a large well-optimized program, a wide callgraph with not that many obvious places to sink our effort into. The big red box is the syscall leaf, a function we're unlikely to optimize.
+好吧，这就是我们从一个已经优化过的大型应用程序中获得的东西，一个巨大的难以优化的调用关系图。红色的大框是系统调用，这是我们不可能优化的调用。
 
-The text gives us a few more places to look, but nothing substantial
+下面的数据给了我们更多相关的内容，但对我们也没有实质性的帮助。
 
-```
+```bash
 (pprof) top
 Showing nodes accounting for 40.32s, 49.44% of 81.55s total
 Dropped 453 nodes (cum <= 0.41s)
@@ -49,17 +49,17 @@ Showing top 10 nodes out of 186
      1.26s  1.55% 49.44%      1.26s  1.55%  runtime.usleep
 ```
 
-Mostly runtime and cryptography functions. Let's set aside cryptography, since it will already have been optimized a lot.
+看起来主要包含了运行时调用和加密方法的调用。让我们先把加密方法放在一边，因为它已经足够优化了。
 
-# Causal Profiling to the rescue
+## 使用因果分析来拯救这个程序
 
-Before we get to the profiling results from causal profiling, it'd be good to have a refresher on how it works. When causal profiling is enabled, a series of experiments are performed. An experiment starts by picking a call-site and some amount of virtual speed-up to apply. Whenever that call-site is executed (which we detect with the profiling infrastructure), we slow down every other executing thread by the virtual speed-up amount.
+我们最好在使用因果分析得到分析结果之前复习一下程序的工作方式。当因果分析被启用时，程序将执行一系列测试。测试首先选择一个调用站点并执行一些加速程序。当该站点被访问时（通过对请求的分析来检测），我们会通过加速程序来降低其他线程的执行速度。
 
-This would seem counter-intuitive, but since we know how much we slowed down a program when we take our measurement from the `Progress` marker, we can undo the effect, which gives us the time it would have taken if the chosen call-site was sped up. For a more in-depth look at causal profiling, I suggest you read my other causal profiling posts and the [original paper](https://www.sigops.org/s/conferences/sosp/2015/current/2015-Monterey/printable/090-curtsinger.pdf).
+这似乎有悖直觉，但由于我们知道从 `Progress` 标记开始执行时程序会慢多少，我们就可以消除这种影响，以获得加速访问站点后程序将会花费的时间。我建议你阅读我的其他关于因果分析的文章或是[最初的论文](https://www.sigops.org/s/conferences/sosp/2015/current/2015-Monterey/printable/090-curtsinger.pdf)来深入了解其中的原理。
 
-The end result is that a causal profile looks like a collection of call-sites, which were sped up by some amount and as a result changed the runtime between `Progress` markers. For the HTTP/2 server, a call-site might look like:
+最终，因果分析看上去就像是一些被加速了的请求，使得 `Progress` 标记之间的代码运行时间发生了改变。对于 HTTP/2 服务器来说，一次请求的结果如下：
 
-```
+```bash
 0x4401ec /home/daniel/go/src/runtime/select.go:73
   0%    2550294ns
  20%    2605900ns    +2.18%    0.122%
@@ -69,13 +69,13 @@ The end result is that a causal profile looks like a collection of call-sites, w
  95%    2685311ns    +5.29%    0.74%
 ```
 
-For this example, we're looking at an `unlock` call within the `select` runtime code. We have the amount that we virtually sped up this call-site, the time it took, the percent difference from the baseline. This call-site doesn't show us much potential for speed-up. It actually shows that if we speed up the `select` code, we might end up making our program slower.
+在这个例子中，我们观察 `select` 运行时代码中的 `unlock` 调用。我们实际上加速了这一次请求，从而改变了请求的数量、消耗的时间和与基线的差异。结果表明，我们并没有从这样的加速中获得更多潜在的性能提升。事实上，当我们加速 `select` 代码时，程序反而变得更慢了。
 
-The fourth column is a bit tricky. It is the percentage of samples that were detected within this call-site, scaled by the virtual speed-up. Roughly, it shows us the amount of speed-up we should expect if we were seeing this as a traditional profile.
+第四列数据看上去有点奇怪。它是在这次请求中检测到的样本占比数据，应该和加速成正比。在传统分析方式中，它可以粗略地表示为加速带来的期望性能提升。
 
-Now for a more interesting call-site:
+现在来看看一个更有趣的请求结果：
 
-```
+```bash
 0x4478aa /home/daniel/go/src/runtime/stack.go:881
   0%    2650250ns
   5%    2659303ns    +0.342%    0.84%
@@ -87,9 +87,9 @@ Now for a more interesting call-site:
  85%    2501800ns    -5.6%    11.7%
 ```
 
-This call-site is within the stack growth code and shows that speeding it up might give us some decent results. The fourth column shows that we're essentially running this code as a critical section. With this in mind, let's look back at the traditional profile we collected, now focused on the stack growth code.
+该调用位于堆栈代码中，上面的数据显示这里的加速可能会得到不错的结果。第四列数据表明，程序运行时这部分代码是相当重要的。让我们基于上面的测试数据再来看看重点关注堆栈代码的传统分析方式的分析结果。
 
-```
+```bash
 (pprof) top -cum newstack
 Active filters:
    focus=newstack
@@ -109,31 +109,31 @@ Showing top 10 nodes out of 65
          0     0%  1.77%      3.90s  4.78%  net/http.(*http2Framer).WriteData
 ```
 
-This shows us that `newstack` is being called from `writeFrameAsync`. It is called in the goroutine that's spawned every time the HTTP/2 server wants to send a frame to the client. Only one `writeFrameAsync` can run at any given time and if a handler is trying to send more frames down the wire, it will be blocked until `writeFrameAsync` returns.
+上面的数据表面 `newstack` 是从 `writeFrameAsync` 中调用的。每当 HTTP/2 服务器向客户端发送数据帧时，都会创建一个 goroutine 并调用该方法。在任何时刻，只有一个 `writeFrameAsync` 可以运行，如果程序试图发送更多的数据帧，那么它将被阻塞，直到前一个 `writeFrameAsync` 返回。
 
-Because `writeFrameAsync` goes through several logical layers, it uses a lot of stack and stack growth is inevitable.
+由于 `writeFrameAsync` 的调用跨多个逻辑层，因此不可避免会产生大量的堆栈调用。
 
-# Speeding up the HTTP/2 server by 28.2% because I felt like it
+## 我是如何将 HTTP/2 服务器加速 28.2% 的
 
-If stack growth is slowing us down, then we should find some way of avoiding it. `writeFrameAsync` gets called on a new goroutine every time, so we pay the price of the stack growth on every frame write.
+堆栈的增长拖慢了程序的运行，那么我们需要采取一些措施来避免它。每次创建 goroutine 的时候都会调用 `writeFrameAsync`，因此写入每一个数据帧时我们都需要付出堆栈增长的代价。
 
-Instead, if we reuse the goroutine, we only pay the price of stack growth once and every subsequent write will reuse the now bigger stack. I made this modification to server and the causal profiling baseline turned from 2.650ms to 1.901ms, a reduction of 28.2%.
+反过来说，如果我们可以重用 goroutine，我们就可以让堆栈只增长一次，而随后的每一次调用都可以重用已经生成好的堆栈了。我将这个改动部署到服务器上，因果分析的测试基线从 2.650ms 下降到 1.901ms，性能提升了 28.2%。
 
-A bit caveat here is that HTTP/2 servers usually don't run full speed on localhost. I suspect if this was hooked up to the internet, the gains would be a lot less because the stack growth CPU time would get hidden in the network latency.
+需要注意的是，HTTP/2 服务器通常不会在本地全速运行。我估计，如果将服务器连接到互联网中，收益将会少得多，因为堆栈增长所消耗的 CPU 时间比网络延迟要小得多。
 
-# Conclusion
+## 结论
 
-It's early days for causal profiling, but I think this small example does show off the potential it holds. If you want to play with causal profiling, you can check out my [branch](https://github.com/DanielMorsing/go/tree/causalprof) of the Go project with causal profiling added. You can also suggest other benchmarks for me to look at and we can see what comes from it.
+因果分析目前还不太成熟，但我认为这个小例子明确地展示了它所具有的潜力。你可以查看该项目的[分支](https://github.com/DanielMorsing/go/tree/causalprof)，其中已经加入了因果分析。你也可以推荐给我其他的测试基线，来看看我们还能得出什么结论。
 
-P.S. I am currently between jobs and looking for work. If you'd be interested in working with low-level knowledge of Go internals and distributed systems engineering, check out my [CV](https://github.com/DanielMorsing/CV) and send me an email on [daniel@lasagna.horse](mailto:daniel@lasagna.horse).
+附注：我现在正在找工作。如果你们需要对 Go 语言底层内部实现有所了解和熟悉分布式架构的人才，请查看我的[简历](https://github.com/DanielMorsing/CV)或发送邮件到 [daniel@lasagna.horse](mailto:daniel@lasagna.horse)。
 
-# Related articles
+## 相关文章
 
-* [A Causal Profiling update](/causalprof-update)
-* [Causal Profiling for Go](/causalprof)
-* [Effective error handling in Go.](/error-handling)
-* [The Go netpoller](/netpoller)
-* [The Go scheduler](/go-scheduler)
+* [因果分析概念更新](http://morsmachine.dk/causalprof-update)
+* [Go 语言中的因果分析](http://morsmachine.dk/causalprof)
+* [Go 语言中的异常处理](http://morsmachine.dk/error-handling)
+* [Go 语言中的 netpoller](http://morsmachine.dk/netpoller)
+* [Go 语言中的 scheduler](http://morsmachine.dk/go-scheduler)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
