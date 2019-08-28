@@ -1,55 +1,55 @@
-> * 原文地址：[The Many Ways to Include CSS in JavaScript Applications](https://css-tricks.com/the-many-ways-to-include-css-in-javascript-applications/)
-> * 原文作者：[Dominic Magnifico](https://css-tricks.com/author/dominicmagnifico/)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[The Many Ways to Include CSS in JavaScript Applications](https://css-tricks.com/the-many-ways-to-include-css-in-javascript-applications/)
+> - 原文作者：[Dominic Magnifico](https://css-tricks.com/author/dominicmagnifico/)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md)
+> - 译者：逆。寒
+> - 校对者：
 
 # The Many Ways to Include CSS in JavaScript Applications
 
-![](https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2017/06/css-vs-js.png)  
+![](https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2017/06/css-vs-js.png)
 
-Welcome to an incredibly controversial topic in the land of front-end development! I’m sure that a majority of you reading this have encountered your fair share of #hotdrama surrounding how [CSS should be handled within a JavaScript application](https://css-tricks.com/tag/css-in-js/).
+欢迎你踏上了一条前端世界中饱含争议的道路！相信大部分读者在如何 [在 JavaScript 应用中处理 CSS](https://css-tricks.com/tag/css-in-js/) 找到了共鸣.
 
-I want to preface this post with a disclaimer: **There is no hard and fast rule that establishes one method of handling CSS in a React, or Vue, or Angular application as superior.** Every project is different, and every method has its merits! That may seem ambiguous, but what I do know is that the development community we exist in is full of people who are continuously seeking new information, and looking to push the web forward in meaningful ways.
+文章伊始，先声明一句: **无论是在基于 Vue, Angular 还是 React 构建的应用，针对如何处理 CSS，世界上并没有任何放之四海而皆准的方法。** 各个项目皆有不同，每种方式也有可取之处！可能这么说显得暧昧，但就我所知，在我们的开发社区内，那些追寻新知识，推动网页开发向前发展的人举目皆是。
 
-Preconceived notions about this topic aside, let’s take a look at the fascinating world of CSS architecture!
+让我们放下对本文话题的感性认知, 先领会下 CSS 世界架构的奇妙之处。
 
-### Let us count the ways
+### 让我们盘点一番
 
-Simply Googling "How to add CSS to \[insert framework here\]" yields a flurry of strongly held beliefs and opinions about how styles should be applied to a project. To try to help cut through some of the noise, let’s examine a few of the more commonly utilized methods at a high level, along with their purpose.
+单单谷歌一下"如何在框架内加入 CSS", 关于如何在项目中应用样式各种言辞凿凿的观点和看法便涌入眼帘。除掉一些无关紧要的信息，我们可以先宏观上挑选出更通用的方法和目的检验一番。
 
-#### Option 1: A dang ol’ stylesheet
+#### 选项 1： 传统样式表
 
-We’ll start off with what is a familiar approach: a dang ol’ stylesheet. We absolutely are able to `<link>` to an external stylesheet within our application and call it a day.
+先从我们最熟悉的方式开始: 老掉牙的样式表. 我们自然可以在应用中 `<link>` 一个外部样式表，活儿就完了。
 
 ```html
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css" />
 ```
 
-We can write normal CSS that we’re used to and move on with our lives. Nothing wrong with that at all, but as an application gets larger, and more complex, it becomes harder and harder to maintain a single stylesheet. Parsing thousands of lines of CSS that are responsible for styling your entire application becomes a pain for any developer working on the project. The cascade is also a beautiful thing, but it also becomes tough to manage in the sense that some styles you — or other devs on the project — write will introduce regressions into other parts of the application. We’ve experienced these issues before, and things like [Sass](https://sass-lang.com/) (and [PostCSS](https://github.com/postcss/postcss) more recently) have been introduced to help us handle these issues
+我们可以写熟悉的 CSS，一如往常。这样做倒没什么问题, 然而，当应用逐渐臃肿, 越来越复杂, 维护一个样式表变成了难题。上千行的 CSS 对应应用所有的样式，开发者要维护这样的样式表将痛苦不堪。样式级联看着很美好, 但当某个开发改动一部分样式，导致其他部分也因此要跑回归测试时，却意味着样式控制困难。这些问题似曾相识, 因此[Sass](https://sass-lang.com/) (和更新的 [PostCSS](https://github.com/postcss/postcss) ) 便悉数登出救场。
 
-We could continue down this path and utilize the awesome power of PostCSS to write very modular CSS partials that are strung together via `@import` rules. This requires a little bit of work within a webpack config to be properly set up, but something you can handle for sure!
+顺着这个思路，我们用 PostCSS 来攥写模块化的 CSS 片段，通过 `@import` 来组合起来. 这得花点精力配置 webpack，但这对你来说不成问题!
 
-No matter what compiler you decide to use (or not use) at the end of the day, you’ll be serving one CSS file that houses all of the styles for your application via a `<link>` tag in the header. Depending on the complexity of that application, this file has the potential to get pretty bloated, hard to load asynchronously, and render-blocking for the rest of your application. (Sure, render-blocking isn’t **always** a bad thing, but for all intents and purposes, we’ll generalize a bit here and avoid render blocking scripts and styles wherever we can.)
+无论你最终选择了哪种编译器, 通过一个头部的 `<link>`标签，你把所有的样式扔在一个 CSS 文件内。随着应用日益复杂，这个文件将更加臃肿，异步加载将变得缓慢，从而阻塞了应用的其余部分渲染。(当然, 阻塞渲染不 **总是** 坏事, 但总而言之，我们还是尽量加入避免会阻塞渲染的样式和脚本。)
 
-That’s not to say that this method doesn’t have its merits. For a small application, or an application built by a team with less of a focus on the front end, a single stylesheet may be a good call. It provides clear separation between business logic and application styles, and because it’s not generated by our application, is fully within our control to ensure exactly what we write is exactly what is output. Additionally, a single CSS file is fairly easy for the browser to cache, so that returning users don’t have to re-download the entire file on their next visit.
+我并不是说这种方式毫无可取之处。对于小应用来说，抑或对前端开发并不重视的团队们来讲，一张样式表足以满足需求了。它清晰地分离了业务逻辑和样式，而且它不是生成的，对开发者而言所写即所得，随心所欲。此外，浏览器也可以轻松缓存这张样式表，所以那些回头客们也就不用重新下载了。
 
-But let’s say that we’re looking for a bit more of a robust CSS architecture that allows us to leverage the power of tooling. Something to help us manage an application that requires a bit more of a nuanced approach. Enter CSS Modules.
+而我们现在所寻找的，是一种能够完全发挥了工具优势、稳健的 CSS 架构。这种架构通过一种略微不同的方式，管理着整个应用。CSS 模块呼之欲出。
 
-#### Option 2: CSS Modules
+#### 选项 2：CSS 模块
 
-One fairly large problem within a single stylesheet is the risk of regression. Writing CSS that utilizes a fairly non-specific selector could end up altering another component in a completely different area of your application. This is where an approach called "scoped styles" comes in handy.
+单张样式表一个严峻的问题是回归的风险。样式表内写一个模糊选择器样式可能会改动到另一个无关组件的样式。带作用域的样式此刻就发挥了其作用。
 
-Scoped styles allow us to programmatically generate class names specific to a component. Thus scoping those styles to that specific component, ensuring that their class names will be unique. This leads to auto-generated class names like `header__2lexd`. The bit at the end is a hashed selector that is unique, so even if you had another component named header, you could apply a header class to it, and our scoped styles would generate a new hashed suffix like so: `header__15qy_`.
+带作用域的样式帮我们通过程序生成了对应组件的明确类名，确保它们的类名唯一。自动生成的类名例如`header__2lexd`，后面那小部分是选择器唯一的哈希值。当一个组件叫 header 时，你可以写个 header 的样式，程序将自动生成类似`header__15qy_`新的哈希后缀。
 
-CSS Modules offer ways, depending on implementation, to control the generated class name, but I’ll leave that up to [the CSS Modules documentation](https://github.com/css-modules/css-modules/tree/master/docs) to cover that.
+基于不同的实现方式，CSS 模块生成类名的方式不尽相同，这部分我就不赘述了，请参考 [CSS 模块文档 ](https://github.com/css-modules/css-modules/tree/master/docs)
 
-**Once all is said and done, we are still generating a single CSS file that is delivered to the browser via a `<link>` tag in the header.** This comes with the same potential drawbacks (render blocking, file size bloat, etc.) and some of the benefits (caching, mostly) that we covered above. But this method, because of its purpose of scoping styles, comes with another caveat: the removal of the global scope — at least initially.
+**到头来，我们仍然在浏览器内是用头部的`<link>`标签生成单张 CSS 文件。** 伴随而来的有潜在问题（诸如阻塞渲染，文件大小膨胀），和上文提到的些许好处（缓存是主要优势）。一个需要注意的点是：这种方法移除了全局作用域 - 起码一开始没有，而这正是其样式作用域所致，
 
-Imagine you want to employ the use of a `.screen-reader-text` global class that can be applied to any component within your application. If using CSS Modules, you’d have to reach for the `:global` pseudo selector that explicitly defines the CSS within it as something that is allowed to be globally accessed by other components in the app. As long as you import the stylesheet that includes your `:global` declaration block into your component’s stylesheet, you’ll have the use of that global selector. Not a huge drawback, but something that takes getting used to.
+比如在一个应用内，你想将一个全局的类名`.screen-reader-text`应用在任何一个组件上，要是你用了 CSS 模块，你得在 `:global` 伪选择器内定义样式，使得能够在其他组件引用到，接着你需要把这个带有全局选择器的文件导入到组件的样式表内，才能生效。不算太麻烦，但你还是得花点力气习惯这个做法。
 
-Here’s an example of the `:global` pseudo selector in action:
+这是一个使用`:global` 伪选择器的范例:
 
 ```css
 // typography.css
@@ -66,7 +66,7 @@ Here’s an example of the `:global` pseudo selector in action:
 }
 ```
 
-You may run the risk of dropping a whole bunch of global selectors for typography, forms, and just general elements that most sites have into one single `:global` selector. Luckily, through the magic of things like [PostCSS Nested](https://github.com/postcss/postcss-nested) or Sass, you can import partials directly into the selector to make things a bit more clean:
+你可能得冒险把一大摞的字体、表格和大部分页面都有的通用元素样式扔进这一个`:global`选择器。还好，[PostCSS Nested](https://github.com/postcss/postcss-nested) 或者 Sass 可以帮你导入样式表，让代码看着更加清爽。
 
 ```scss
 // main.scss
@@ -76,9 +76,9 @@ You may run the risk of dropping a whole bunch of global selectors for typograph
 }
 ```
 
-This way, you can write your partials without the `:global` selector, and just import them directly into your main stylesheet.
+就这样，把部分样式抽离出来，不用`:global`包裹着，只需要在主样式表中导入即可。
 
-Another bit that takes some getting used to is how class names are referenced within DOM nodes. I’ll let the individual docs for [Vue](https://vue-loader.vuejs.org/guide/css-modules.html#usage), [React](https://github.com/css-modules/css-modules/blob/master/docs/css-modules-with-react.md), and [Angular](https://github.com/css-modules/css-modules/blob/master/docs/css-modules-with-angular.js.md) speak for themselves there. I’ll also leave you with a little example of what those class references look like utilized within a React component:
+还有一点需要适应的是，在 DOM 节点中引用类名的方式。这点 [Vue](https://vue-loader.vuejs.org/guide/css-modules.html#usage), [React](https://github.com/css-modules/css-modules/blob/master/docs/css-modules-with-react.md), 和 [Angular](https://github.com/css-modules/css-modules/blob/master/docs/css-modules-with-angular.js.md) 在他们的文档中都有说明。我这里有一些例子，可以说明在 React 组件内，这些类是如何被引用的。
 
 ```javascript
 // ./css/Button.css
@@ -109,38 +109,40 @@ const Button = () => (
 export default Button;
 ```
 
-The CSS Modules method, again, has some great use cases. For applications looking to take advantage of scoped styles while maintaining the performance benefits of a static, but compiled stylesheet, then CSS Modules may be the right fit for you!
+CSS 模块有诸多精彩的用例。如果你寻找一种带作用域的样式，又希望保留静态样式的优势，那么 CSS 模块 正适合你。
 
-It’s worth noting here as well that CSS Modules can be combined with your favorite flavor of CSS preprocessing. Sass, Less, PostCSS, etc. are all able to be integrated into the build process utilizing CSS Modules.
+同样值得注意的是，CSS 模块可以和你喜爱的 CSS 预处理器相结合。通过 CSS 模块，Sass，Less，PostCSS 之类都可以结合进构建过程中。
 
-But let’s say your application could benefit from being included within your JavaScript. Perhaps gaining access to the various states of your components, and reacting based off of the changing state, would be beneficial as well. Let’s say you want to easily incorporate critical CSS into your application as well! Enter CSS-in-JS.
+但是，如果说应用程序可能会受益于 JavaScript 呢。也许它可以访问组件的各种状态，并根据变化的状态做出反应也是不错。假设您希望轻松地将关键 CSS 加入到应用程序中！有请 CSS-in-JS。
 
-#### Option 3: CSS-in-JS
+#### 选项 3 CSS-in-JS
 
-CSS-in-JS is a fairly broad topic. There are several packages that work to make writing CSS-in-JS as painless as possible. Frameworks like [JSS](https://cssinjs.org/?v=v10.0.0-alpha.16), [Emotion](https://emotion.sh/docs/introduction), and [Styled Components](https://www.styled-components.com/) are just a few of the many packages that comprise this topic.
+CSS-in-JS 这个话题颇为宽泛。也有一些库致力于无痛书写 CSS-in-JS。像[JSS](https://cssinjs.org/?v=v10.0.0-alpha.16), [Emotion](https://emotion.sh/docs/introduction), 和 [Styled Components](https://www.styled-components.com/)这类框架扛起了 CSS-in-JS 的大旗。
 
-As a broad strokes explanation for most of these frameworks, CSS-in-JS is largely operates the same way. You write CSS associated with your individual component and your build process compiles the application. When this happens, most CSS-in-JS frameworks will output the associated CSS of **only the components that are rendered on the page at any given time**. CSS-in-JS frameworks do this by outputting that CSS within a `<style>` tag in the `<head>` of your application. This gives you a critical CSS loading strategy out of the box! Additionally, much like CSS Modules, the styles are scoped, and the class names are hashed.
+总体而言，这些框架大部分的实现方式相通。给单个组件写样式，并在构建过程中**只编译页面上将渲染的组件**的 CSS。CSS-in-JS 框架通过`<head>` 内`<style>` 标签输出 CSS。这种关键 CSS 加载策略开箱即用，并且想 CSS 模块一样包含作用域，类名也经过哈希了。
 
-As you navigate around your application, the components that are unmounted will have their styles removed from the `<head>` and your incoming components that are mounted will have their styles appended in their place. This provides opportunity for performance benefits on your application. It removes an HTTP request, it is not render blocking, and it ensures that your users are only downloading what they need to view the page at any given time.
+当你在应用内跳转时，卸载的组件会把对应的样式从`<head>`内移除，加载的组件会加上对应的样式，因此性能得到了提升。不再有 HTTP 请求，也不会阻塞渲染，也确保了只下载用户需要看到的样式。
 
 Another interesting opportunity CSS-in-JS provides is the ability to reference various component states and functions in order to render different CSS. This could be as simple as replicating a class toggle based on some state change, or be as complex as something like theming.
 
-Because CSS-in-JS is a fairly #hotdrama topic, I realized that there are a lot of different ways that folks are trying to go about this. Now, I share the feelings of many other people who hold CSS in high regard, especially when it comes to leveraging JavaScript to write CSS. My initial reactions to this approach were fairly negative. I did not like the idea of cross-contaminating the two. But I wanted to keep an open mind. Let’s look at some of the features that we as front-end-focused developers would **need** in order to even consider this approach.
+有趣的是，CSS-in-JS 可以获取不同组件的状态和方法，借此渲染不同的 CSS。简单的应用比如基于状态改变而重复加减类名，复杂的比如制作一套主题。
 
-* If we’re writing CSS-in-JS we have to write **real** CSS. Several packages offer ways to write template-literal CSS, but require you to camel-case your properties — i.e. `padding-left` becomes `paddingLeft`. That’s not something I’m personally willing to sacrifice.
-* Some CSS-in-JS solutions require you to write your styles inline on the element you’re attempting to style. The syntax for that, especially within complex components, starts to get very hectic, and again is not something I’m willing to sacrifice.
-* The use of CSS-in-JS has to provide me with powerful tools that are otherwise super difficult to accomplish with CSS Modules or a dang ol’ stylesheet.
-* We have to be able to leverage forward-thinking CSS like nesting and variables. We also have to be able to incorporate things like [Autoprefixer,](https://css-tricks.com/autoprefixer/) and other add-ons to enhance the developer experience.
+因为 CSS-in-JS 着实是热门话题，我知道许多人也有不同的实践。现在我来分享其他人的一些感受，他们非常重视 CSS，尤其提到 JS 写 CSS 这个话题。我对 CSS-in-JS 的第一反应是十分负面的。我不喜欢交叉污染 CSS 和 JS 两者这个理念。但我还想保持开放的心态。我们从前端开发者的角度来评估下哪些功能是我们**需要**的。
 
-It’s a lot to ask of a framework, but for those of us who have spent most of our lives studying and implementing solutions around a language that we love, we have to make sure that we’re able to continue writing that same language as best we can.
+- 如果我们采用 CSS-in-JS，我们就得编写**纯正**的 CSS。有几个包提供了编写模板 CSS 的方法，但你得使用驼峰式命名 - 即`padding-left`变成`paddingLeft`。这不是我个人想放弃的习惯。
+- 一些 CSS-in-JS 方案需要你在要样式的元素上编写内联样式。特别是在复杂的组件中，它的语法，开始变得非常冗繁，同样我也不想妥协。
+- 要想让我使用 CSS-in-JS，它就必定是强大的工具，它能解决 CSS 模块或传统的样式表将难以解决的问题。
+- 我们必须能够利用具有前瞻性思维的 CSS，如嵌套和变量。为了增强开发人员体验，我们还必须能够结合诸如[Autoprefixer]（https://css-tricks.com/autoprefixer/）和其他附加组件。
 
-Here’s a quick peek at what a React component using Styled Components could look like:
+还有很多针对框架的问题，但对于我们这些人来说，一生中大部分时间都在研究和实施我们喜爱语言的解决方案，我们要确保能够继续用同样的语言写出最好的语言。
+
+下面是使用 Styled Components 的 React 组件：
 
 ```javascript
 // ./Button.js
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const StyledButton= styled.button`
+const StyledButton = styled.button`
   background-color: blanchedalmond;
   font-size: 1.4rem;
   padding: 1rem 2rem;
@@ -153,22 +155,18 @@ const StyledButton= styled.button`
   }
 `;
 
-const Button = () => (
-  <StyledButton>
-    Click Me!
-  </StyledButton>
-);
+const Button = () => <StyledButton>Click Me!</StyledButton>;
 
 export default Button;
 ```
 
-We also need to address the potential downsides of a CSS-in-JS solution — and definitely not as an attempt to spark more drama. With a method like this, it’s incredibly easy for us to fall into a trap that leads us to a bloated JavaScript file with potentially hundreds of lines of CSS — and that all comes before the developer will even see any of the component’s methods or its HTML structure. We can, however, look at this as an opportunity to very closely examine how and why we are building components the way they are. In thinking a bit more deeply about this, we can potentially use it to our advantage and write leaner code, with more reusable components.
+我们还需要解决 CSS-in-JS 解决方案的潜在缺点 - 绝对不是我戏多。使用这样的方法，我们很容易落入一个陷阱，日积月累写出一个数百行 CSS 的臃肿的 JavaScript 文件 - 簇拥在组件内部，让开发者难以辨别组件的方法和结构。但同时，我们可以非常仔细地检查我们如何以及为什么如此构建组件。在更深入地思考这个问题时，我们可以利用它并编写更精简的代码，并使用更多可重用的组件。
 
-Additionally, this method absolutely blurs the line between business logic and application styles. However, with a well-documented and well-thought architecture, other developers on the project can be eased into this idea without feeling overwhelmed.
+此外，此方法完全模糊了业务逻辑和应用程序样式之间的界限。但一个文档完备且经过深思熟虑的架构，项目中的其他开发人员可以放心遵从这个想法而不会不知所措。
 
 ### TL;DR
 
-There are several ways to handle the beast that is CSS architecture on any project and do so while using any framework. The fact that we, as developers, have **so many choices** is both super exciting, and incredibly overwhelming. However, the overarching theme that I think continues to get lost in super short social media conversations that we end up having, is that each solution has its own merits, and its own inefficiencies. It’s all about how we carefully and thoughtfully implement a system that makes our future selves, and/or other developers who may touch the code, thank us for taking the time to establish that structure.
+无论使用各种框架，有一些方法可以在任何项目中解决 CSS 架构问题。事实上，作为开发者，我们有**这么多的选择**，这是一种让人兴奋也是一种难以置信的压倒性优势。然而我们仍在碎片社交媒体中选择恐惧，原因是每个解决方案都有其自身的优点和效率不足的缺点。归根到底，我们是在讨论如何仔细而周密地实现系统在未来可控，让未来的我们和/或其他开发人员感谢我们花了时间建立这个结构。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
