@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md)
 > * 译者：[胡其美](hu7may.github.io)
-> * 校对者：[Ultrasteve](https://github.com/Ultrasteve)，[talisk](https://github.com/talisk)，[sunui](https://github.com/sunui)
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve)，[talisk](https://github.com/talisk)，[sunui](https://github.com/sunui)，[江五渣](http://jalan.space)
 
 # 深入理解 Python 的类型提示
 
@@ -485,7 +485,7 @@ def some_function(variable: type) -> return_type:
 
 这取决于你的使用场景，就像 Guido 和 mypy 文档里说的：
 
-> mypy 的目标不是说服每个人都编写静态类型的 Python，不管是现在还是将来，静态类型的编程完全是可选的。mypy 的目标是为 Python 程序员提供更多的选择，使 Python 称为一门在大型项目中相比于其他静态类型语言更具竞争力的可选方案，从儿女提高程序员的工作效率并且提升软件质量。
+> mypy 的目标不是说服每个人都编写静态类型的 Python，不管是现在还是将来，静态类型的编程完全是可选的。mypy 的目标是为 Python 程序员提供更多的选择，使 Python 称为一门在大型项目中相比于其他静态类型语言更具竞争力的可选方案，从而提高程序员的工作效率并且提升软件质量。
 
 由于设置 mypy 和思考所需要的类型的开销，类型提示对于小型代码库来说没有意义（比如在 jupyter notebook 中）。什么算小代码库呢? 保守的说，大概是任何低于 1k 的内容。
 
