@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-16-lifecycle-methods-how-and-when-to-use-them.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-16-lifecycle-methods-how-and-when-to-use-them.md)
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
-> * 校对者：
+> * 校对者：[hanxiaosss](https://github.com/hanxiaosss)
 
 # React 16 生命周期函数：如何以及何时使用它们
 
@@ -45,7 +45,7 @@ Brick.js 是一个很棒的工具，但它没有对与 React 集成进行优化�
 
 ---
 
-## 在我们研究前的最后一点
+## 在我们深入研究前的最后一点
 
 如上所述，生命周期函数是最后的手段。
 
@@ -151,7 +151,7 @@ console.log(this.state);
 
 请注意，我们可以将此代码放在 `constructor` 中。`getDerivedStateFromProps` 的优点是它更直观 —— 它**只**用于设置 state，而构造函数有多种用途。`getDerivedStateFromProps` 在挂载和更新之前都会被调用，我们稍后会看到。
 
-**getDerivedStateFromProps 的最常见用例（挂载期间）：**基于初始 props 返回 state 对象。
+**getDerivedStateFromProps 的最常见用例（挂载期间）：**返回基于初始 props 的 state 对象。
 
 #### render
 
@@ -169,10 +169,10 @@ console.log(this.state);
 
 你可以在他的[回答](https://tylermcginnis.com/react-interview-questions/)里阅读更多。
 
-当没有组件可以玩时，`componentDidMount` 也是你可以做所有你不能做的有趣事情的地方。以下是一些例子：
+`componentDidMount` 也是你可以做很多有趣事情的地方，那些在组件未加载时可没法做。以下是一些例子：
 
 * 绘制刚刚渲染的 \<canvas> 元素
-* 在元素集合中初始化[砖石](http://masonry.desandro.com/)网格布局（就是我们！）
+* 在元素集合中初始化[砖石](http://masonry.desandro.com/)网格布局（就是我们正在做的！）
 * 添加事件监听器
 
 基本上，在这里你可以做所有没有 DOM 你不能做的设置，并获取所有你需要的数据。
@@ -206,13 +206,13 @@ componentDidMount() {
 
 **同样，不推荐基于 props 更改 state。**这应该被视为最后的手段。问问自己 —— 我需要存储 state 吗？我不可以只从 props 本身获得正确的功能吗？
 
-也就是说，特殊情况发生了。以下是一些例子：
+也就是说，存在一些边缘案例。以下是一些例子：
 
 * 当源更改时重置视频或音频元素
 * 使用服务器的更新刷新 UI 元素
 * 当内容改变时关闭手风琴元素
 
-即使有上述情况，通常也有更好的方法。但是，当最坏的情况发生时，`getDerivedStateFromProps` 会让你回来。
+即使有上述情况，通常也有更好的方法。但是，当最坏的情况发生时，`getDerivedStateFromProps` 会帮你挽救回来。
 
 使用我们的示例应用程序，假设我们的 `Grid` 组件的 `numberOfBlocks` prop 增加了。但是我们已经“加载”了比新数量更多的块。使用相同的值没有意义。所以我们这样做：
 
@@ -236,7 +236,7 @@ static getDerivedStateFromProps(props, state) {
 
 当我们有新的 props 时。典型的 React 法则是，当一个组件接收到新的 props 或者新的 state 时，它应该更新。
 
-但我们的组件有点焦虑，得先征得许可。
+但我们的组件有点担忧，得先征得许可。
 
 这是我们得到的 —— `shouldComponentUpdate` 函数，调用时以 `nextProps` 作为第一个参数，`nextState` 是第二个。
 
@@ -252,7 +252,7 @@ static getDerivedStateFromProps(props, state) {
 
 `shouldComponentUpdate` 让我们能够说：组件只在你关心的 props 改变时才更新。
 
-但请记住，如果你设置了并忘记了它会导致重大问题，因为你的 React 组件将无法正常更新。所以要谨慎使用。
+但请牢记，如果你设置了并忘记了它会导致重大问题，因为你的 React 组件将无法正常更新。所以要谨慎使用。
 
 在我们的网格应用程序中，我们之前已经确定了有时我们将忽略 `this.props.numberOfBlocks` 的新值。默认行为表示我们的组件仍然会重新渲染，因为它收到了新的 props。这太浪费了。
 
