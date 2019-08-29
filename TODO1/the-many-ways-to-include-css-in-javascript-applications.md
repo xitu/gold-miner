@@ -1,9 +1,9 @@
-> - 原文地址：[The Many Ways to Include CSS in JavaScript Applications](https://css-tricks.com/the-many-ways-to-include-css-in-javascript-applications/)
-> - 原文作者：[Dominic Magnifico](https://css-tricks.com/author/dominicmagnifico/)
-> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md)
-> - 译者：逆。寒
-> - 校对者：
+> * 原文地址：[The Many Ways to Include CSS in JavaScript Applications](https://css-tricks.com/the-many-ways-to-include-css-in-javascript-applications/)
+> * 原文作者：[Dominic Magnifico](https://css-tricks.com/author/dominicmagnifico/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-many-ways-to-include-css-in-javascript-applications.md)
+> * 译者：[逆。寒](https://github.com/thisisandy)
+> * 校对者：
 
 # 在 Javascript 应用内加入 CSS 的几种方式
 
