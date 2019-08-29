@@ -2,120 +2,120 @@
 > * 原文作者：[Way Spurr-Chen](https://medium.com/@way)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/rage-against-the-codebase-programmers-and-negativity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/rage-against-the-codebase-programmers-and-negativity.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[TokenJan](https://github.com/TokenJan), [Tina92](https://github.com/Tina92)
 
-# Rage Against the Codebase: Programmers and Negativity
+# 冲冠一怒为代码：论程序员与负能量
 
-![how could they have done this to us](https://cdn-images-1.medium.com/max/2800/0*txg_xQ7yZ5ucNocs)
+![他们怎么能这么对我们](https://cdn-images-1.medium.com/max/2800/0*txg_xQ7yZ5ucNocs)
 
-**(This article has been translated into [Russian](https://habr.com/ru/company/mailru/blog/448956/) and [Spanish](http://blog.pabloreyes.es/personal/programadores-negatividad/), with much thanks to the translators.)**
+**（本文已被译为[俄文](https://habr.com/ru/company/mailru/blog/448956/)和[西班牙文](http://blog.pabloreyes.es/personal/programadores-negatividad/)，十分感谢译者们。）**
 
-I’m staring at a block of code. It is, arguably, some of the worst code I’ve ever seen. In order to update a single record in a database, it fetches every record in the collection, and then sends an update request **for every single record** in the database — not just the record that needs updating. There’s a map function that does nothing but return the value it was passed. There are conditional checks for variations of seemingly the same values, named in different case styles (`firstName` and `first_name`). For every update (on every record, even the ones that haven’t changed) it sends a message to a message bus that calls another serverless function that does all the work for another collection in the same database. Did I forget to mention that this is one serverless function in a cloud “service”-oriented “architecture” of over 100 functions per environment?
+此刻我正凝视着一段代码。这段代码，可以说是我见过的最烂的代码之一。为了更新数据库中的单条记录，其作者竟然把集合中的每条记录都获取到，更新后再为数据库中的**每条记录**都发送一个请求 —— 而不仅仅是只操作需要更新的那一条。代码中还有一个 map 函数，除了返回传入的值以外别无他用。还有一些条件判断语句，似乎是用来检查值相同而命名风格不同（驼峰风格和下划线风格）的变量。每一次的更新操作（动辄操作每条记录，包括没有变动的条目），都要向消息总线发送一条消息，用以调用另一个无服务方法，此方法为同一个数据库中的另一个集合执行所有工作。我是不是还没提到这是面向云“服务”的“架构”中的一个无服务函数，像这样的函数每个环境里都有 100 多个？
 
-How could anyone do this? I bury my eyes into my fists and laugh-weep audibly. My coworkers ask me what’s wrong and I give a dramatic retelling of the Worst Hits Of BulkDataImporter.js 2018, courtesy of Chuck Parsley*. Everyone nods sympathetically and we agree: how could they have done this to us?
+这还是人干的事吗？我把脸深深埋进手掌，禁不住边笑边哭出了声。同事们都问我怎么了，于是我向他们绘声绘色地描述了这段 Chuck Parsley 出品的 2018 年年度 BulkDataImporter.js 最垃圾代码榜单。每个人听了都同情地点头，我们都觉得：他们怎么能这样对我们？
 
-## Negativity: programming culture’s emotional tool
+## 负能量：编程文化中的情绪工具
 
-Negativity plays an important role in programming. It’s embedded into our culture at various levels as a way to share learnings and war stories (“you won’t **believe** what that codebase was like”), express and commiserate over frustrations (“for the love of Hermes WHY would anyone do that”), making ourselves look better (“I would never do **that**”), shifting blame (“we failed because of Chuck Parsley’s unmaintainable code”), or in the most toxic organizations, a way to shame and control others (“what were you thinking? fix it”).
+负能量是编程中的重要组成部分。负能量在多个层面上根植于我们的文化，这是我们分享经验和撕逼故事（“代码写成这样，**你敢信**？”）、表达和同情挫败感（“皇天在上啊！怎么能干出这种事啊！”）、把我们自己粉饰得更优秀（“换做是我，才不会写得**这么烂**呢”）、甩锅踢皮球（“我们失败了是因为 Chuck Parsley 的代码烂泥扶不上墙”）或者在氛围差劲的组织中羞辱并操纵别人（“写代码能不能走点心？赶紧修复你的 Bug！”）的方式。
 
-![via [ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/b4jfr7/i_cant_be_the_only_one/)](https://cdn-images-1.medium.com/max/2000/0*pa37xHLBNNcqhOrg)
+![来自 [ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/b4jfr7/i_cant_be_the_only_one/)](https://cdn-images-1.medium.com/max/2000/0*pa37xHLBNNcqhOrg)
 
-Negativity is so important to programmers because it’s a very effective way to communicate value. When I taught at a coding bootcamp, it was standard practice to inculcate students into industry culture with a healthy dose of memes, stories, and videos, some of the most popular of which revolve around [programmers’ frustration with people who just don’t get it](https://www.youtube.com/watch?v=BKorP55Aqvg). It’s good to be able to use emotive tools to point to practices and habits that are Good, ones that are Bad, and ones that are Awful, Never Do That, Ever. It’s also good to prepare newer programmers for the fact that they will probably be misunderstood in one way or another by nontechnical colleagues, that they should prepare for all of their friends to tell them their “million” dollar app ideas, that they should prepare for unending mazes of legacy code with more than one minotaur waiting around the corner.
+对程序员这个群体来说，负能量太重要了，因为这样传达价值观最有效。当我在一个编程培训班执教时，用适当的恶搞图、传闻逸事和视频向学生灌输行业文化是标准做法，而这些素材中最流行的主题就是围绕[程序员在外行面前的挫败感](https://www.youtube.com/watch?v=BKorP55Aqvg)的。想要指出哪些行为习惯是好的、坏的、坏到家了绝不要犯的，借助情绪工具来表达再合适不过了。应该帮助新手程序员们做好心理建设，让他们知道他们会被非技术行业的同事以这样那样的方式误解；会有朋友们来安利他们的“价值百万”的 App 创意；会被压在“祖传代码”的五指山下，任你一个筋斗 8848 光年也难以脱身。
 
-When we’re first learning to code, our model of what the depth of the “coding experience” is is based off of observing other people’s emotional reactions to the act. You can see this pretty clearly by watching [ProgrammerHumor subreddit](https://www.reddit.com/r/programmerhumor) for a while, which is populated by many newer programmers. Many posts express humor with various shades of negativity: frustration, pessimism, outrage, disillusionment, condescension, and more. (And if you really want to find the negativity, read the comments.)
+当我们刚开始学习写代码时，我们的通过观察他人对代码的情绪反应来判断代码的好坏。看一看 [ProgrammerHumor 版块](https://www.reddit.com/r/programmerhumor)吧，那里到处都是新手程序员，看看里面的帖子你就会深切体会到这一点。许多帖子表达的幽默带有各种各样的负面情绪：挫败感、悲观、愤怒、幻灭感和傲慢等等。（如果你想见识见识真正的负能量，那就读读评论吧。）
 
-![source: [ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/b7mlgt/programmers_d/), also [Twitter](https://twitter.com/type__error/status/1111972689609138177), the home of rage](https://cdn-images-1.medium.com/max/2000/0*jpOE1g8Udhv_0WRk)
+![来源：[ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/b7mlgt/programmers_d/)和 [Twitter](https://twitter.com/type__error/status/1111972689609138177)](https://cdn-images-1.medium.com/max/2000/0*jpOE1g8Udhv_0WRk)
 
-I notice that programmers often follow an upward curve of negativity as they gain experience. Fresh and new, unknowing of what difficulties await them, they start out with enthusiasm and a willingness to believe that the reason things are hard is just because they’re inexperienced and don’t know anything and they’ll eventually have a grasp of it all.
+我注意到，程序员的负能量常常随着经验的增长而增长。当程序员还是萌新的时候，他们不知道有什么坎坷等着他们，所以他们踌躇满志地迈开脚步，愿意相信路途艰险只是因为他们经验还不足、眼界还不宽，他们自信最终能够掌控一切。
 
-As time goes on and they learn more, they gain the ability to differentiate between code that is Good and code that is Bad. Once this happens, they directly experience the frustration of working with bad code that they know is bad, and if they work in a community (whether online or in a team), they frequently adopt the emotional habits of programmers more senior to them. Frequently, this results in an increase in negativity, as they’re now able to talk intelligently about code and separate good from bad in a way that shows that they “get it”. It pays to be more negative: it’s easy to bond with coworkers over frustrations and become part of the in-group, it increases your status by decreasing the status of the Bad code in comparison, and it can help you be perceived as a better engineer: [people who express opinions negatively are frequently viewed as both more intelligent and more competent](https://www.wired.com/2014/11/be-mean-online/).
+随着时间的流逝和学识的增长，当初的萌新现在已经能够分辨代码的优劣。一旦进入这个阶段，他们就会直接体会到工作中遇到的烂代码带来的挫败感，如果他们身处于一个团体（无论是线上团体还是一个实际团队）中，团体中比他们资深的程序员的情绪习惯，会频频出现在他们身上。现在他们能够头头是道地分析代码、区分代码的优劣，这种方式让他们显得很“懂行”，负能量通常就是在这种过程中积压起来的。越是消极越是有好处：表达挫败感能帮你轻松与同事打成一片、融入团队，并且贬低烂代码能够抬高自己，让你表现得更加像个优秀的工程师 —— [消极地表达观点的人通常被认为更聪明、更能干](https://www.wired.com/2014/11/be-mean-online/)。
 
-This increase in negativity isn’t necessarily a bad thing. Discourse about programming is, above all things, extremely focused on the **quality** of the code written. What the code actually **is** determines everything about the function that it’s designed to do (handwaving away hardware, networks, etc.), so being able to express an opinion about code is important. Almost all discussion of code comes down to a decision about whether it’s good enough or not, and the judgment of bad code manifests itself in a statement whose emotive charge implies the quality (or lack thereof) of the code:
+这种负能量的增加并不一定是件坏事。探讨编程时最主要的就是非常关注所写的代码的**质量**。代码的质量决定了性能（不考虑硬件、网络等因素），因此能够针对代码表达出自己的观点很重要。几乎所有的关于代码的讨论都可以归结成是对于代码质量的评定，简单的一句评语里就蕴含着评价代码质量的情感：
 
-* “That module has many logical inconsistencies and is a good candidate for significant performance optimizations”
-* “That module is pretty bad, we should refactor it”
-* “That module makes no sense, it needs to be rewritten”
-* “That module sucks, it needs to be patched up”
-* “That module is a piece of shit and should never have been written, what the fuck was Parsley thinking”
+* “那个模块里有很多地方的逻辑都前后不一致，应该优先进行重要性能优化”
+* “那个模块写得挺烂的，应该重构”
+* “那个模块狗屁不通，赶紧回炉重造吧”
+* “那个模块写得真垃圾，需要修补修补”
+* “那个模块就是一坨屎，把它写出来就是犯罪，Parsley 脑子里想他喵的什么呢”
 
-(Incidentally, this “emotive charge” is what leads developers to call code “sexy”, which is rarely deserved — unless you work at PornHub.)
+（顺便说一句，这种“情感的火花”会使开发者们用“性感”来形容代码，这样的形容不太应景 —— 除非你在 PornHub 上班。）
 
-The issue, of course, is that human beings are weird, wiggly little water-filled emotion sacks and both receiving **and** expressing any emotion changes us — microscopically at first, and over the long run, fundamentally.
+当然了，问题在于，人类就是一种奇怪的、摇摆不定的情绪化动物，接收**和**表达的情绪都能改变我们 —— 这种改变一开始是细微的，而经过漫长的历程后，这种改变就扎根深处了。
 
-## The wiggly watery slippery slope of negativity
+## 负能量是一条曲折泥泞的下坡路
 
-A few years ago I was an informal team lead, interviewing a developer for my company. We liked him a lot; he was sharp, asked good questions, had the technical chops, and he was a great culture fit. I particularly liked how positive and how much of a “go-getter” he seemed to be. So we hired him.
+几年前，我是一个非正式的团队领导，为我司面试过一位开发者。我们非常喜欢他；他敏锐、善于发问、有技术才能，并非常契合公司文化。我特别欣赏他的积极向上和踏实肯干。因此我们聘用了他。
 
-At this time, I had been at my company for a couple years and had perceived a lack of follow-through in the company culture. We tried to launch a product twice, thrice, and and a couple more times before I had arrived, leading to expensive rewrites with nothing to show for it but many long nights, punted deadlines, and kind-of-working products. While I still showed up and worked hard, I was vocal about my skepticism about the latest deadline handed down from management. I swore casually when discussing certain unfavorites in the code with my colleagues.
+彼时，我已经在公司任职多年，意识到了公司文化中缺乏进取意识。我们曾几次三番想要推出一个产品，甚至在我入职前就已经失败过好几次，屡次不成导致耗资巨大，换来的结果不过是连续挑灯夜战、一推再推的交付日期和好歹算是能用的产品。虽然我还在尽职尽责地努力工作，但对于管理层下达的最后期限，我的怀疑态度溢于言表。每当和同事讨论起代码中某些令人生厌的部分时，我就信口开骂。
 
-I shouldn’t have been surprised — but I was — when a few weeks in, the new developer we had hired expressed the same type of negativity I had (including the cussing). I got the feeling that this wasn’t how he would act on his own or in another company with a different culture. Rather, he was adopting the culture **that I had set** in order to fit in. I felt a pang of guilt. Because of my own subjective experience, I managed to set a pessimistic tone for a new employee who I perceived to be very much **not** that way. Even if it wasn’t a sentiment he really believed, and only expressed himself that way in an attempt to show that he could fit in with his peers, I had pushed my shitty attitude onto him. And things said, even in jest or to get along, have a bad habit of becoming things believed.
+几周后，那位新聘进来的开发者表达出了和我一样的负能量（连骂法都一模一样）—— 其实这本在情理之中，却出乎我意料之外。我感觉这并不是他的本色表现，或者换一家文化不同的公司，他的举止又该有所不同。但他偏偏吸收了**我传达的**文化，只是为了融入团队。我肠子都悔青了。只因为我自己的主观感受，就给新员工设定了一种消极的基调，而我觉得他**本不**至于如此。就算那些负能量的表现并非他的真实感受，只是为了体现他和同事脾气相投，那也要怪我把恶劣的态度展示给他了。常言道，近朱者赤，近墨者黑。
 
-![original source: [Nedroid](https://nedroidcomics.tumblr.com/post/41879001445/the-internet)](https://cdn-images-1.medium.com/max/2000/1*GIkVcbGg5anbC_ONap_1FA.png)
+![来源：[Nedroid](https://nedroidcomics.tumblr.com/post/41879001445/the-internet)](https://cdn-images-1.medium.com/max/2000/1*GIkVcbGg5anbC_ONap_1FA.png)
 
-## The paths of negativity
+## 负能量的阳关道和独木桥
 
-A happy story for our now-intermediate developer from before who has gained a little wisdom and a little experience goes like this: they get to see more of the programming industry, and realize that bad code is everywhere and inescapable. Bad code exists in even the most cutting edge, quality-focused companies. (And let me tell you — modernity is not always the antidote to bad code it often seems like.)
+对于我们现在的中级开发人员来说，能从过往经历中获得一些智慧和经验是一个快乐的故事：他们在编程行业的见识越来越广，意识到烂代码无处不在、如影随形。就算在那些最先进、最注重代码质量的公司中，烂代码同样存在。（而且我跟你说，现代化并不总是治愈烂代码的良方。）
 
-Going into the future, they begin to accept that bad code is simply a reality of software, and it’s their job to make it better. Since there’s no escaping bad code, there’s not much point to making a fuss about it, either. They approach the path of zen, focus on how to solve the problem or task put before them, learn how to accurately measure and convey the quality of software to business stakeholders, create beautifully described estimates from their many years of experience, and end up being rewarded handsomely for their incredible and consistent value to the business. They do such a good job that they’re awarded a $10 million spot bonus and they retire to do whatever they want for the rest of their life. (Please don’t take this from me.)
+因此到后来，这些开发者开始接受这样的事实：烂代码注定就是软件的一部分，而他们的工作就是优化这些烂代码。若不少见，则无需多怪。他们采取佛系心态，专注于如何解决摆在眼前的问题或者任务，学着如何精确评估软件的质量情况，并传达给利益相关者，他们凭多年经验，将软件质量吹得天花乱坠。最终凭借卓越而一贯地奉献，他们得到了丰厚的奖励。他们功绩丰伟，故此得到上千万美元的奖金，然后退休去做他们想做的事，以此度过余生。（我的结局可千万也要如此美满啊！）
 
-![something like that](https://cdn-images-1.medium.com/max/2000/1*TeH2pZNcdmMlT8QyDsSWXg.png)
+![就像这样](https://cdn-images-1.medium.com/max/2000/1*TeH2pZNcdmMlT8QyDsSWXg.png)
 
-The flip side is the path of darkness. Instead of accepting that bad code is an inevitability, they take up the mantle of proclaiming all that is wrong with the world of code so that they might vanquish it. They refuse to normalize the existence bad code for a lot of good reasons: people should know better and be less stupid; it’s offensive; it’s bad for the business; this is proof of how smart I am; if I don’t express just how shit this code is this entire company is going to detach from the country and sink into the ocean; etc.
+而另一部分人则走上了一条黑暗之路。他们没能觉悟到烂代码是避无可避的，他们笃信烂代码是软件中的痈疽，他们毅然扛起大旗，势要干掉烂代码。他们之所以拒绝与烂代码安然共处，确有很多充分的理由：人们应该越来越聪明，不能越来越笨；烂代码是对程序员的冒犯；烂代码影响生意；消灭烂代码能证明我是个小机灵；要是我不指出这代码有多烂，那我们整个公司就要破产倒闭关门大吉了。
 
-Likely in a position where they are unable to make the changes they desire because the business unfortunately must continue developing features and doesn’t have time to care about code **quality**, they become known as the complainer. Because they’re still highly competent, they’re kept around, but relegated to a corner of the company where they won’t bother too many people but will keep critical systems running. Cut off from access to fresh development opportunities, their skills atrophy and they lose relevancy in the industry. Their negativity festers and curdles into a hardened bitterness until they eventually find themselves sustaining their ego by arguing with 20-year-old CS students about the way that their favorite years-old technology did it and why it’s still the way to go. Eventually, they retire and spend their old age yelling at birds.
+不幸的是，由于业务需求推着他们持续开发功能，他们无暇去操心代码**质量**，于是无力去实施那些优化代码的宏伟计划，最终只好变成了“怨妇”。由于他们还是能胜任工作的，所以暂时没被辞退，但会被发配到公司的角落，这样既不会打扰到别人，又能保证关键系统的运转。于是他们没法获得新的开发机会，他们的技能逐渐萎缩，逐渐被业界所边缘化。他们胸中的郁结溃烂流脓，而后结成坚硬的痂，他们会发现自己喜欢和二十多岁的 CS 学生争论那些他们最爱的老旧技术如何如何可行、怎么怎么好用 —— 以此来维持自尊。最终，他们退休了，终日对着鸟儿发脾气泄愤。
 
-Reality probably sits somewhere between these two extremes.
+现实情况可能处于两种极端之间。
 
-A few companies do exceedingly well with extremely negative, territorial, forceful cultures, such as Microsoft before its [lost decade](https://www.vanityfair.com/news/business/2012/08/microsoft-lost-mojo-steve-ballmer) — often those with an existing product with an excellent market fit and the need to scale as quickly as possible, or command-and-control structures (Apple during Steve Jobs’ heyday) where everybody does what one person says so how they say it doesn’t matter much. However, modern business studies (and now, common sense) show over and over that the peak creativity that leads to innovation on the large scale and high performance on the small scale require low levels of stress that enable flow, creative thinking, and methodical thinking. It is extremely difficult to do linguistically-driven, creative work when you’re worried about what your colleague will have to say about every line of code you write.
+有些公司在极端消极的、颇具地盘观念的、强势的文化氛围下，能够发展得相当好 —— 例如[迷失年代](https://www.vanityfair.com/news/business/2012/08/microsoft-lost-mojo-steve-ballmer)之前的微软，这些公司往往拥有一款市场前景极好的产品并急需扩张；或者往往以命令和控制为结构（Steve Jobs 鼎盛时期的苹果公司），所有人都只听一人号令，至于他们自己的看法嘛，不重要。然而，现代商业调查（现在已经成为常识）一次次表明，要做到宏观层面的革新和微观层面的尽善尽美，需要顶级的创造力，而顶级的创造力来自不受高压限制的流畅、有创造性且有条理的思路。当你担心同事会对你写的每一行代码出言不逊时，你很难开展语言驱动的、创造性的工作。
 
-## Negativity in engineering “pop” culture
+## 码农“流行”文化中的负能量 
 
-Today, a greater spotlight is being shone on engineer’s attitudes than ever. The idea of a [“No Asshole Rule”](https://www.amazon.com/Asshole-Rule-Civilized-Workplace-Surviving/dp/1600245854) is increasingly common in engineering organizations. More and more anecdotes pop up in the Twittersphere with accounts of people leaving engineering entirely because they simply couldn’t (wouldn’t) put up with the hostility and territorial attitudes toward outsiders. Even Linus Torvalds [recently apologized](https://arstechnica.com/gadgets/2018/09/linus-torvalds-apologizes-for-years-of-being-a-jerk-takes-time-off-to-learn-empathy/) for his years of hostility and berating of other Linux developers — to much debate over its effectiveness.
+如今，工程师们的态度正受到前所未有的关注。[“不犯浑原则”](https://www.amazon.com/Asshole-Rule-Civilized-Workplace-Surviving/dp/1600245854)的概念在工程组织中越来越常见。Twitter 上涌现了越来越多的奇闻轶事，说的都是人们因为无法（不愿）忍受排外观念和地盘观念，而彻底退出编程行业。即使是 Linus Torvalds，也为自己多年来对其他 Linux 开发者（总是因为 Linux 的效用性而争吵）的敌意和斥责发表了[道歉声明](https://arstechnica.com/gadgets/2018/09/linus-torvalds-apologizes-for-years-of-being-a-jerk-takes-time-off-to-learn-empathy/)。
 
-> Our world of code will become increasingly exposed to the interpersonal styles of people who did not grow up in the isolated nerd culture of the early tech boom, and eventually they will become the new world of code.
+> 我们的编程领域正在逐渐敞开大门，欢迎那些并非成长于早期技术大爆炸时期的极客文化中的人们，而他们最终会成就一个崭新的编程领域。
 
-Some still uphold Linus’ now discarded right to be excessively critical — someone who should know quite a bit about the pros and cons of toxic negativity. It’s true that correctness is incredibly important (fundamental, even), but when you boil down many people’s reasons for allowing the expression of a negative opinion to fall into toxicity, they begin to sound paternalistic or adolescent: they deserve it for being stupid, he needs to make sure they don’t do it again, if they didn’t do that he wouldn’t have to yell at them, etc. (For another example of how much of an impact the emotive tendencies of a leader has on a programming community, we can look at the MINASWAN refrain of the Ruby community —“Matz [the creator of Ruby] is nice so we are nice”.)
+Linus 如今已经摈弃了过度苛刻的态度，可有些人却仍旧对那种态度点头称是 —— 这些人本该对负能量的利弊深有体会。在正确性上较真倒是没错（就算是称为基本原则也不为过），但当你问起他们为何非要用带刺伤人的方式表达消极观点时，他们开始端起家长做派或者青春期少年的自负腔调：“他们太蠢了活该被骂”、“我得确保他们不会再犯”、“如果他们没出错，我也不会冲他们吼啊”等等。（关于领导者的情绪趋向会多大程度地影响开发社区，我再举一个例子，我们可以看看 Ruby 社区的八字真言 MINASWAN：“Matz is nice and so we are nice” —— Matz 是 Ruby 的创始人。）
 
-I’ve found that the most ardent promoters of a “kill the fool” mentality are often those who care deeply about the quality and correctness of code, and hang their identities on their work. Unfortunately, they often confuse firmness with harshness. The darkest side of this attitude comes from the completely human but unproductive desire to feel superior to others. The people who retreat into this desire are the ones who tend to stay stuck on the path of darkness.
+我发现，大多数持有“干掉傻瓜”心态的狂热分子往往是那些深切关心代码的质量和正确性的人，他们将身份认同建立在代码质量上。可惜，他们常常分不清忠言逆耳和出言刺耳。这种心态的至暗面来自于人类向他人秀优越的原始欲望，这种欲望完全合乎人性，但毫无价值。那些不能战胜这种欲望的人，往往会陷于黑暗的困局。
 
-![source: [ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/bcb4w3/a_meme_i_had_in_the_back_of_my_mind_for_a_while/)](https://cdn-images-1.medium.com/max/2000/0*nlR4DmkDp0WRnV4h.png)
+![来源: [ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/bcb4w3/a_meme_i_had_in_the_back_of_my_mind_for_a_while/)](https://cdn-images-1.medium.com/max/2000/0*nlR4DmkDp0WRnV4h.png)
 
-The world of code is quickly expanding to meet the edges of its container, the world of noncode. (Or is the world of code the container for the world of noncode? A question for another time.)
+编程领域正在迅速扩张，即将触碰到其边界 —— 非编程领域。（又或者说，编程领域包裹着非编程领域？欲知答案如何，且听下回分解。）
 
-As our industry grows at an increasingly rapid pace and programming becomes more and more accessible, the distance between “techie” and “normie” is shrinking quickly. Our world of code will become increasingly exposed to the interpersonal styles of people who did not grow up in the isolated nerd culture of the early tech boom, and eventually they will **become** the new world of code. And regardless of any social or generational argument, efficiency in the name of capitalism will show itself in company culture and hiring practices: the best businesses simply will not hire those who cannot play neutrally with others, let alone play nice.
+随着我们的行业发展得越来越快、编程变得越来越平易近人，“大神”和“龙套”的差距也在迅速缩小。编程领域正在逐渐敞开大门，欢迎那些并非成长于早期技术大爆炸时期的极客文化中的人们，而他们最终会**成就**一个崭新的编程领域。并且，无论何种社会或年代，资本主义的对效率的要求终将体现在企业文化和招聘实践中：最好的企业根本不会雇佣那些不能与他人平和地相处的人，更不用说那些待人不善的人了。
 
-## What I’ve learned about negativity
+## 我从负能量中学到了什么
 
-Letting excessive negativity dominate your mindset and communication and spilling over into toxicity is dangerous to productive teams and expensive for businesses. I can’t tell you the number of software projects that I have seen (and heard of) get torn down and completely rebuilt at great cost because one trusted software developer had an axe to grind with a technology, a former developer, or a single file they took to be representative of the quality of the entire codebase. It’s also demoralizing and strains relationships. I’ll never forget an incident where I was berated by a coworker for putting CSS in the wrong file, which upset me and distracted my thoughts for days. I’m also very unlikely to ever let that person near one of my teams in the future. (But who knows? People change.)
+我们不能任由过度的负能量支配思维和交流方式,更不能使之形成流毒，因为这对生产团队是很危险的，也会让企业付出高昂代价。我数不清我看过（和听过）多少软件项目下马、以高昂的代价完全重造，仅仅是因为某个受信任的开发者的一己之私见，认为即使是一项技术、一个之前的开发者的遗留代码或一个文件，都能代表整个项目的质量，一丁点不合格就要磨刀霍霍。散发负能量也会使人泄气，使人际关系紧张。就因为我把 CSS 代码写进了错误的文件里，被一位同事严厉地斥责，这让我闷闷不乐，好几天都心神涣散，我一直对此耿耿于怀。我以后也不太可能让那种人接近我的团队。（但谁能说得准呢？识别三日当刮目嘛。）
 
-It’s also [literally bad for your health](https://medium.com/the-mission/how-complaining-rewires-your-brain-for-negativity-96c67406a2a).
+负能量也[确实对你的健康有害](https://medium.com/the-mission/how-complaining-rewires-your-brain-for-negativity-96c67406a2a)。
 
-![what I imagine a smiling workshop looks like](https://cdn-images-1.medium.com/max/2000/0*P7DjTZk4qoRsoIhG.jpg)
+![我设想的亲切欢快的工作氛围](https://cdn-images-1.medium.com/max/2000/0*P7DjTZk4qoRsoIhG.jpg)
 
-This isn’t an argument for sunshine and rainbows attitudes, ten billion emojis on every pull request, or smiling workshops. (Of course, if that’s how you want to roll, go for it.) Negativity plays an extremely important part in programming (and human life) as a way to signal quality, to express our feelings, and to commiserate with our fellow human beings. It’s a signal of discernment and judiciousness or the severity of a problem. I can often tell that a developer has reached a new level when they begin to express disbelief where before they had been timid and unsure. They’re demonstrating their discernment, and their confidence in their own opinions. Negative expression cannot be discarded — that would be Orwellian.
+这并不是说只保留积极向上的态度，每发起一个 Pull Request 都要配上 100 亿个表情符号，或者必须保持愉快的工作氛围。（当然了，如果那就是你所希望的，那就去做吧。）负能量是编程中（也是人生中）极其重要的部分，它是表示代码质量情况、表达感受以及同情同胞的方式。它代表着一个人具有发现症结的洞察力和判断力，它标志着问题的严重程度。我常常说，当一个开发者开始从胆怯和不确定的状态变得敢于表达质疑时，这意味着他已经跃升到了一个新的层级。这能证明他的洞察力和对自己观点的信心。消极的表达方式是不可能完全避免的 —— 除非是奥威尔式的社会。
 
-However, it should be dosed with other essential human qualities: compassion, patience, understatement, and humor. And where necessary, you can always tell someone when they screwed up, without the screaming and cursing. (Don’t underestimate this; being told you seriously messed up in a completely unemotional way is a frightening experience.)
+然而，负能量应该与其他基本的人类品质相搭配，如：同情、耐心、含蓄和幽默。在必要时，你可以告诉某人他搞砸了，但不必用吼叫骂人的方式。（可别小瞧这样的方式，如果有人用完全无感情的方式指出你完全搞得一团糟，你也会心惊肉跳一番。）
 
-At that company from a few years ago, the CEO grabbed me for a chat. We made small talk and discussed the current state of the project for a while, then he asked me how I thought I was doing. I told him that I thought I was doing pretty well, we were making progress on the project, we were plugging along, there were probably some things I was missing and needed to renew my focus on. He told me that he had heard me sharing some of my more pessimistic thoughts around the office, and that other people had noticed it as well. He explained that if I have concerns, I can push those up to management as much as I want but to be careful not to push them down. As a leading engineer at the company, I had to be mindful of the impact my words have on others, because I wield a lot of influence, whether I realize it or not. He said all of this very kindly, and ended by saying that if I’m feeling this way, I should probably think about what I want for myself and my career. It was an extremely gentle “shape up or ship out” conversation. I thanked him for letting me know and acknowledged that my attitude had slipped over the last six months without my noticing how it might be affecting others.
+几年前我还在那家公司的时候，CEO 找我谈话。我们略微聊了一会项目的当前状态，然后他问我觉得自己表现得如何。我告诉他说我觉得还不错，项目进展顺利，我们也一直在努力，可能有些东西有所遗漏，需要着重关注一下。他说他对我在办公室发表的某些消极观点有所耳闻，并且其他人也已经注意到了。他解释说，如果我有什么顾虑，都可以随意向管理层传达，但注意不要在同事间传播。作为公司里一位开发领导，我必须谨言慎行，注意自己的举止对他人的影响，不管我自己是否能意识到，我的影响力都是很大的。他非常和善地说了这些话，最后说如果我也有同感，就应该考虑考虑自身和职业生涯的诉求是什么。他把“好自为之，不然就滚”的辞令表达得非常和风细雨了。我很感激他能够诚恳地知会我，让我明白过去六个月里，自己的态度下滑影响到了他人而不自知。
 
-> Ultimately, I’m here to accomplish a task, and I don’t have to complain about code in order to understand it, estimate it, or fix it.
+> 归根结底，我来到这里是为了完成一项任务，大发牢骚无益于理解、评估或修复代码。
 
-It was an example of excellent, effective management and the power of a gentle touch. I realized that while I had thought I believed fully in the company and its ability to accomplish its goals, in reality I was saying and communicating to others something very different. I also realized that just because I felt skeptical about the project I was working on, that didn’t mean that I needed to express that feeling to my coworkers and spread my pessimism like a contagion, making it even less likely for us to succeed. Instead, I could aggressively communicate reality up to my managers. And if I ultimately felt that they weren’t listening, I could express my dissent with my feet.
+这个例子诠释了什么是优秀而高效的管理，什么是怀柔策略的力量。我意识到，当我开始完全信任公司和其实现目标的能力后，我和他人交流的方式真的完全不同了。我还意识到，就算我对正在跟进的项目持怀疑态度，也没必要向同事们表达出来，这样的消极情绪会像瘟疫一般蔓延，导致军心不稳，顺利完成项目的可能性也就更小了。正确的做法是直言不讳地向管理层反映实际情况。如果我觉得他们没听进去，我还可以潇洒走人嘛。
 
-A new opportunity eventually found me, where I got to work in an official HR-performance-evaluating manager role. As a formal engineering manager, I’m increasingly careful to monitor how I express my opinions about our (constantly improving) legacy code. To enact change, you must acknowledge the reality of the current situation, but you get nowhere if you get mired down in the bemoaning, belaboring, or bewhatevering the situation. Ultimately, I’m here to accomplish a task, and I don’t have to complain about code in order to understand it, estimate it, or fix it.
+后来我得到了一个新的机会，成为了一名正式的人力资源绩效评估经理。作为一个合格的开发经理，我更加注重自己对（持续优化的）遗留代码表达观点的方式。要实施改变，你必须认清现状，但如果你陷入了哀叹、消极怠工或任何消极反应，你将一事无成。归根结底，我来到这里是为了完成一项任务，大发牢骚无益于理解、评估或修复代码。
 
-In fact, the more I restrained my emotional reaction to code, the clearer my vision of what it could be become, and the less inner turmoil I experienced. When I practiced understatement (“there might be opportunities for improvement here”), I amused myself and others and took the situation less personally. I also realized that I could defuse and uplift other’s negativity by being perfectly (annoyingly?) sensible (“you’re right, that code **is** pretty bad, but we’ll improve it”). I’m excited to see how far along I can travel the path of zen.
+事实上，我越是约束我对代码的情绪反应，我对代码看得就越清晰透彻，内心的混乱就会越少出现。当我用委婉的方式（“这里可能还有些改进空间”）表达时，我和他人都开心，更能显示出对事不对人的态度。我还意识到，通过完全地（招人烦地？）保持理智（“你是对的，那个代码**确实**相当糟糕，但我们会改进的”），我可以化解他人的负能量。我很期待自己能在佛系路线上走得更远。
 
-Fundamentally, I’m continually learning and relearning a deeper lesson: life is just too short to be pissed off and miserable all the time.
+重要的是，我反复不断地参悟到一个深层次的道理：生命太短暂了，没有时间去发火或痛苦。
 
-![source: [xkcd #1024](https://xkcd.com/1024/)](https://miro.medium.com/max/533/0*5-f0--cc80oJF26i.png)
+![来源: [xkcd #1024](https://xkcd.com/1024/)](https://miro.medium.com/max/533/0*5-f0--cc80oJF26i.png)
 
-P.S.: If you like this post, clap it. (That doesn’t sound weird.) And if you’d like to check out where I’m attempting the path of negativity zen, [my company is hiring](https://www.volusion.com/careers).
+附言：如果喜欢本文，请啪啪啪。（听起来并不怪怪的。）如果你对我所尝试的佛系路线感兴趣，[欢迎加入我司](https://www.volusion.com/careers)。
 
 —
 
-***Chuck Parsley is not a real person. If you are, I apologize, and I am sure you are a fantastic programmer, or at least have the aptitude to be one. And if not, that’s OK. Live your life.**
+***Chuck Parsley 属虚构角色。若您恰巧同名，我向您道歉，我相信您是一位不写烂代码的优秀开发者，或者至少有志于此。若未同名，相安无事。热爱生活吧。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
