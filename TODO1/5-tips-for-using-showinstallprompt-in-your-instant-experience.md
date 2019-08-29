@@ -5,7 +5,7 @@
 > * 译者：Fxymine4ever
 > * 校对者：
 
-# 在你的 Instant 体验中使用 showInstallPrompt 的5个技巧
+# 在你的 Instant 体验中使用 showInstallPrompt 的5个技巧 
 
 ![](https://cdn-images-1.medium.com/max/3200/0*5eAOuRUKrRBXEJdI)
 
