@@ -2,10 +2,6 @@
 
 > Where we discover how to harness the power of JavaScript's typed arrays to design our very own low-cost pointer system for fixed-capacity data structures
 
-** Fast lane:**
-- I already know about LRU caches and doubly-linked lists. <a href="#implementing-doubly-linked-lists-in-javascript">Bring me to the juicy part dammit!</a></li>
-- I don't care about all this. <SafeLink href="https://yomguithereal.github.io/mnemonist/lru-cache">I only want an efficient JavaScript implementation of a LRU cache!</SafeLink></li>
-
 Let's say we need to process a very large – hundreds of gigabytes large – csv file containing urls we will need to download.
 To ensure we are not going to run out of memory while parsing the whole file, we read the file line by line:
 
@@ -15,11 +11,13 @@ csv.forEachLine(line => {
 });
 ```
 
-  Now let's say the person that created our file forgot to deduplicate the urls.
-  <SideNote id="urls-dedup">I am aware that this could easily be solved by using <code>sort -u</code> but that's not the point.</SideNote>
-  <SideNote id="ural">Deduping urls is not as straigthforward as it may seem. Check the <SafeLink href="https://github.com/medialab/ural#readme">ural</SafeLink> library in python, for instance, for some examples of what can be achieved in this regard.</SideNote>
-  This is an issue because we don't want to fetch the same url more than once: grabbing resources from the web is time-consuming &amp; should be done parcimoniously not to flood the sites we are grabbing those resources from.
-</p>
+Now let's say the person that created our file forgot to deduplicate the urls.
+
+> I am aware that this could easily be solved by using `sort -u` but that's not the point.
+
+> Deduping urls is not as straigthforward as it may seem. Check the [ural](https://github.com/medialab/ural#readme) library in python, for instance, for some examples of what can be achieved in this regard.
+
+This is an issue because we don't want to fetch the same url more than once: grabbing resources from the web is time-consuming & should be done parcimoniously not to flood the sites we are grabbing those resources from.
 
 An obvious solution could be to remember urls we already fetched by caching them into a map:
 
@@ -39,23 +37,23 @@ At this point, the astute reader will have noticed that we just defeated the pur
 
 And herein lies the issue: we want to avoid fetching the same url more than once while also making sure we don't run out of memory. We have to find a way to compromise.
 
-<p>
-  <MarginNote id="fun-fact"><em>Fun fact</em>: if you work with data coming from the Internet such as lists of crawled urls, you will inevitably stumble upon this kind of <SafeLink href="https://en.wikipedia.org/wiki/Power_law">power law</SafeLink>. It naturally occurs because people link exponentially more to <code>twitter.com</code> than <code>unknownwebsite.fr</code>.</MarginNote>
-  Fortunately for us, it seems that only a tiny fraction of the urls contained in our file are repeated very often while the vast majority of others only appears one or two times. We can leverage this fact by designing a policy to throw away urls from our map if we have a good intuition they are unlikely to appear again. Thus, we won't allow our map to exceed a predetermined amount of memory.
-</p>
+>**Fun fact**: if you work with data coming from the Internet such as lists of crawled urls, you will inevitably stumble upon this kind of [power law](https://en.wikipedia.org/wiki/Power_law). It naturally occurs because people link exponentially more to `twitter.com` than `unknownwebsite.fr`.
 
-And one of the most commonly used eviction policy is called “LRU”: <br />**L**east **R**ecently **U**sed.
+Fortunately for us, it seems that only a tiny fraction of the urls contained in our file are repeated very often while the vast majority of others only appears one or two times. We can leverage this fact by designing a policy to throw away urls from our map if we have a good intuition they are unlikely to appear again. Thus, we won't allow our map to exceed a predetermined amount of memory.
 
-# The LRU cache
+And one of the most commonly used eviction policy is called “LRU”: 
+
+**L**east **R**ecently **U**sed.
+
+## The LRU cache
 
 Hence, we understand that a LRU cache is a fixed-capacity map able to bind values to keys with the following twist: if the cache is full and we still need to insert a new item, we will make some place by evicting the least recently used one.
 
 To do so, the cache will need to store given items in order of their last access. Then, each time someone tries to set a new key, or access a key, we need to modify the underlying list to ensure the needed order is maintained.
 
-<p>
-  <MarginNote id="lfu"><em>Note</em>: LFU (Least Frequently Used) is a perfectly valid cache eviction policy. It's just less widespread. You can read about it <SafeLink href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least-frequently_used_(LFU)">here</SafeLink> and find implementation notes <SafeLink href="https://www.geeksforgeeks.org/lfu-least-frequently-used-cache-implementation/">here</SafeLink>.</MarginNote>
-  But why is this order relevant? Wouldn't it be better to record the number of times each item was accessed so we can evict the <strong>L</strong>east <strong>F</strong>requently <strong>U</strong>sed instead?
-</p>
+>**Note**: LFU (Least Frequently Used) is a perfectly valid cache eviction policy. It's just less widespread. You can read about it [here](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least-frequently_used_(LFU)) and find implementation notes [here](https://www.geeksforgeeks.org/lfu-least-frequently-used-cache-implementation/).
+
+But why is this order relevant? Wouldn't it be better to record the number of times each item was accessed so we can evict the **L**east **R**ecently **U**sed instead?
 
 Not necessarily. Here are some reasons why:
 
@@ -64,7 +62,7 @@ Not necessarily. Here are some reasons why:
 * Ordering items on their last access is very straightforward to do since it can be synchronized with operations on the cache.
 * LFU will often force you to make an arbitrary choice of item to evict: for instance if all your pairs have been accessed only once. With LRU, you don't have such choice to make: you just evict the least recently used. No ambiguity here.
 
-# Implementing a LRU cache
+## Implementing a LRU cache
 
 There are many ways to implement a working LRU cache but I will only focus on the way you are most likely to encounter in the wild when developing for high-level languages.
 
@@ -116,20 +114,16 @@ cache.items()
 >>> ['five', 'two', 'four']
 ```
 
-# Doubly-linked lists
+## Doubly-linked lists
 
-<div className="paragraph">
-  <MarginNote id="question">
-    <em>Question</em>: Why isn't a singly-linked list enough in our case? Because we have to efficiently perform the following operations on our list:
-    <ol>
-      <li>place an item at the beginning of the list</li>
-      <li>move an item from anywhere in the list to its beginning</li>
-      <li>remove the last item from the list while keeping a correct pointer to the new last item</li>
-    </ol>
-  </MarginNote>
-  To be able to implement a LRU cache, we will need to implement a doubly-linked list to make sure we are able to store our items in order of their last access: the most recently used item starting the list and the least recently used one ending it.
-  <SideNote id="reverse">Note that it could be the other way around. The direction of the list is not important.</SideNote>
-</div>
+Question: Why isn't a singly-linked list enough in our case? Because we have to efficiently perform the following operations on our list:
+- place an item at the beginning of the list
+- move an item from anywhere in the list to its beginning
+- remove the last item from the list while keeping a correct pointer to the new last item
+
+To be able to implement a LRU cache, we will need to implement a doubly-linked list to make sure we are able to store our items in order of their last access: the most recently used item starting the list and the least recently used one ending it.
+
+> Note that it could be the other way around. The direction of the list is not important.
 
 So how do we represent a doubly-linked list in memory? Usually, we do so by creating a node structure containing:
 
@@ -137,10 +131,9 @@ So how do we represent a doubly-linked list in memory? Usually, we do so by crea
 2. A pointer toward the previous element in the list.
 3. A pointer toward the next element in the list.
 
-<p>
-  Then we also need to store a pointer to both the first &amp; the last element of the list and we are done.
-  <SideNote id="pointers">Now is probably a good time to review <SafeLink href="https://en.wikipedia.org/wiki/Pointer_(computer_programming)">pointers</SafeLink>, if you are unsure what they are.</SideNote>
-</p>
+Then we also need to store a pointer to both the first & the last element of the list and we are done.
+
+> Now is probably a good time to review [pointers](https://en.wikipedia.org/wiki/Pointer_(computer_programming)), if you are unsure what they are.
 
 Schematically, it looks somewhat like this:
 
@@ -162,7 +155,7 @@ a list:
               └<───────┘   └<───────┘    └<──────┘
 ```
 
-# LRU Cache list operations
+## LRU Cache list operations
 
 As long as the cache is not full, it is quite easy to maintain our list of cached items. We just need to prepend the newly inserted items into the list:
 
@@ -245,7 +238,7 @@ Finally, if the cache is already full and a yet unknown key needs to be inserted
 
 Here is all we need to know about doubly-linked lists to be able to implement a decent LRU cache.
 
-# Implementing doubly-linked lists in JavaScript
+## Implementing doubly-linked lists in JavaScript
 
 Now there is a slight issue: the JavaScript language does not have pointers per se. Indeed we can only work by passing references around, and dereference pointers by accessing object properties.
 
@@ -281,21 +274,20 @@ node2.previous = node1;
 // ...
 ```
 
-<p>
-  While there is nothing wrong with this approach, it still has drawbacks that will make any similar-looking implementation perform badly:
-  <SideNote id="linked-list-bad-perf">This is mostly why you won't see many people using linked lists in application JavaScript code.<br /><br />Only people needing it for very specific use cases where they algorithmically shine will actually use them.<br /><br />node.js has such an implementation <SafeLink href="https://github.com/nodejs/node/blob/master/lib/internal/linkedlist.js">here</SafeLink> and you can find it used for timers <SafeLink href="https://github.com/nodejs/node/blob/master/lib/internal/timers.js">here</SafeLink>.</SideNote>
-</p>
+While there is nothing wrong with this approach, it still has drawbacks that will make any similar-looking implementation perform badly:
 
 1. Each time you instantiate a node, some superflous memory will be allocated for bookkeeping.
 2. If your list moves fast, i.e. nodes are often added or removed, it will trigger garbage collection that will slow you down.
 3. Engines will try to optimize your objects as low-level structs most of the time but you have no control over it.
 4. Finally, and this is related to `3.`, object property access is not the fastest thing in the JavaScript world.
 
+> This is mostly why you won't see many people using linked lists in application JavaScript code. Only people needing it for very specific use cases where they algorithmically shine will actually use them. node.js has such an implementation [here](https://github.com/nodejs/node/blob/master/lib/internal/linkedlist.js) and you can find it used for timers [here](https://github.com/nodejs/node/blob/master/lib/internal/timers.js).
+
 But we can be a little more clever than that. Indeed, there is a characteristic of our linked list that we can leverage to be more performant: its capacity cannot exceed a given number.
 
 So, instead of using JavaScript references & properties as pointers, let's roll our own pointer system using [Typed Arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)!
 
-# A custom pointer system
+## A custom pointer system
 
 Typed Arrays are very neat JavaScript objects able to represent fixed-capacity arrays containing a certain amount of typical number types such as `int32` or `float64` and so on…
 
@@ -318,15 +310,13 @@ array.push(45);
 >>> throw `TypeError: array.push is not a function`
 ```
 
-<p>
-  <MarginNote id="malloc">What's more, instantiating a typed array in JavaScript is not so far, conceptually, from calling a <code>malloc</code> in C. Or, at least, you can somewhat use them to perform the same kind of tasks in both languages.</MarginNote>
-  Since we can use those very performant arrays, why shouldn't we use them to implement our own pointer system? After all, pointers are nothing more than addresses mapping chunks of memory.
-</p>
+> What's more, instantiating a typed array in JavaScript is not so far, conceptually, from calling a `malloc` in C. Or, at least, you can somewhat use them to perform the same kind of tasks in both languages.
 
-<p>
-  Let's use a typed array as our chunk of memory then, and its indices as our addresses! The only tricky part now is to correctly choose an integer type, relative to our capacity, to avoid overflows.
-  <SideNote id="get-pointer-array">If you are ever unsure how to develop this, check this function right <SafeLink href="https://github.com/Yomguithereal/mnemonist/blob/7ea90e6fec46b4c2283ae88f173bfb19ead68734/utils/typed-arrays.js#L8-L54">here</SafeLink></SideNote>
-</p>
+Since we can use those very performant arrays, why shouldn't we use them to implement our own pointer system? After all, pointers are nothing more than addresses mapping chunks of memory.
+
+Let's use a typed array as our chunk of memory then, and its indices as our addresses! The only tricky part now is to correctly choose an integer type, relative to our capacity, to avoid overflows.
+
+> If you are ever unsure how to develop this, check this function right [here](https://github.com/Yomguithereal/mnemonist/blob/7ea90e6fec46b4c2283ae88f173bfb19ead68734/utils/typed-arrays.js#L8-L54)
 
 So, in order to implement a fixed-capacity doubly-linked list in JavaScript for our LRU cache structure, we'll need the following typed arrays:
 
@@ -512,7 +502,7 @@ So why is this faster than the traditional implementation we reviewed earlier?
   </li>
 </ol>
 
-# Is it really worth the hassle?
+## Is it really worth the hassle?
 
 To make sure of that, I tried to implement this custom pointer system I just described and benchmark it.
 
@@ -554,7 +544,7 @@ Futhermore, it should be noted that the benchmarked libraries differ in the arra
 
 Finally, we should probably add memory consumption to the benchmark in the future, even if it is not easy to reliably measure it in JavaScript. Indeed, I strongly suspect that using typed arrays should help reducing the memory footprint of any implementation.
 
-# Concluding remarks
+## Concluding remarks
 
 <p>
   Now you know how to use JavaScript typed arrays to create your own pointer system. This trick is not limited to fixed-capacity linked lists and can be used for a variety or other data structure implementation problems.<SideNote id="trees">A lot of tree-like data structures can also beneficiate from this trick, for instance.</SideNote>
@@ -585,9 +575,9 @@ So, pretty please, do benchmark your code, for your mileage may vary.
 
 <Divider />
 
-# Miscellany
+## Miscellany
 
-## About evictions & splay trees
+### About evictions & splay trees
 
 <p>
   The single thing hampering every JavaScript implementation of a LRU cache is eviction performance. Getting rid of keys from either an object (using the <code>delete</code> keyword) or a map (using the <code>#.delete</code> method) is very costly.
@@ -607,7 +597,7 @@ One interesting solution that would be nice to test is using [splay trees](https
 
 Those trees, being a binary search tree variant, support rather efficient associative key-value operations while being very suited to LRU caches since they already work by “splaying” very frequently accessed key to the top of their hierarchy.
 
-## What about webassembly?
+### What about webassembly?
 
 Wouldn't it be faster to implement a LRU cache using shiny new things such as `webassembly` rather than trying to shoehorn low-level concepts into JavaScript high-level code?
 
@@ -617,7 +607,7 @@ Wouldn't it be faster to implement a LRU cache using shiny new things such as `w
 
 However, if you can afford to write some code that will only run in webassembly and doesn't need to rely on JavaScript's API, because you compile rust to webassembly for instance, then it's a tremendous idea to also implement your LRU cache there. You will definitely get better results.
 
-## Saving one pointer array
+### Saving one pointer array
 
 There is a known trick with LRU cache you can use to save up one pointer level. It does not mean that you don't need a doubly-linked list anymore to be efficient but just that the hashmap/dictionary structure you are using can store pointers to the previous key rather than the related one to save up memory.
 
@@ -625,7 +615,7 @@ I won't explain this here but you can head to this [stackoverflow answer](https:
 
 Just note that, in JavaScript, it's usually not a good idea if you want to remain performant (computation-wise, not memory-wise, obviously) since you will need more hashmap lookups to update pointers, and they are quite costly.
 
-## About arbitrary evictions
+### About arbitrary evictions
 
 Note that the LRU cache implementation proposed here will have a hard time handling arbitrary evictions, i.e. letting the user delete keys.
 
@@ -633,7 +623,7 @@ Why? Because for now, since we only need to swap key-value pairs when inserting 
 
 This could be done by using an additional array serving as a free pointer stack, but this has obviously a memory and performance cost.
 
-## A fully dynamic custom pointer system
+### A fully dynamic custom pointer system
 
 Here I mostly spoke of typed arrays to implement fixed-capacity pointer system. But if you are a little bit more ambitious you can very well imagine designing a dynamic-capacity pointer system.
 
@@ -641,7 +631,7 @@ To do so, you can use dynamic typed arrays like mnemonist's [Vector](https://yom
 
 I am unsure whether having a custom dynamic pointer system would yield any performance improvement when implementing some other data structure however.
 
-# Links
+## Links
 
 * You might find the [mnemonist](https://yomguithereal.github.io/mnemonist/) library useful. It contains a lot of efficient and cohesive data structure implementations for JavaScript.
 * I did a [talk](https://fosdem.org/2019/schedule/event/data_structures_javascript/) about implementing data structures in JavaScript at FOSDEM in 2019 ([slides](https://yomguithereal.github.io/mnemonist/presentations/fosdem2019)).
