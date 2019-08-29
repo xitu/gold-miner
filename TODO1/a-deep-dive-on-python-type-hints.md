@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-deep-dive-on-python-type-hints.md)
 > * 译者：[胡其美](hu7may.github.io)
-> * 校对者：[Ultrasteve](https://github.com/Ultrasteve)，[talisk](https://github.com/talisk)，[sunui](https://github.com/sunui), [江五渣](http://jalan.space)
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve)，[talisk](https://github.com/talisk)，[sunui](https://github.com/sunui)，[江五渣](http://jalan.space)
 
 # 深入理解 Python 的类型提示
 
