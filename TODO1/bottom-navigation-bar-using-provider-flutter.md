@@ -118,14 +118,14 @@ So I have created a list for the screens and change the screens with an index wh
 ![](https://cdn-images-1.medium.com/max/2000/1*sdr1LXWBXsCS1xdHUG98jg.gif)
 
 Here is the code for the above example :
-[**flutter-devs/Flutter-BottomBarProvider**
-**A sample application for bottom bar using Provider. - flutter-devs/Flutter-BottomBarProvider**github.com](https://github.com/flutter-devs/Flutter-BottomBarProvider)
+
+[**A sample application for bottom bar using Provider**](https://github.com/flutter-devs/Flutter-BottomBarProvider)
 
 #### Persistent BottomNavigationBar
 
-Provider works great when changing the tabs without using `setState` but if you want to keep your state of the screens attached with the tabs, try using `PageStorageBucket` , I have attached an example by Tensor Programming below:
-[**tensor-programming/flutter_presistance_bottom_nav_tutorial**
-**Contribute to tensor-programming/flutter_presistance_bottom_nav_tutorial development by creating an account on GitHub.**github.com](https://github.com/tensor-programming/flutter_presistance_bottom_nav_tutorial/blob/master/lib/main.dart)
+Provider works great when changing the tabs without using `setState` but if you want to keep your state of the screens attached with the tabs, try using `PageStorageBucket`, I have attached an example by Tensor Programming below:
+
+[**Contribute to tensor-programming/flutter_presistance_bottom_nav_tutorial development by creating an account on GitHub.**](https://github.com/tensor-programming/flutter_presistance_bottom_nav_tutorial/blob/master/lib/main.dart)
 
 ---
 
