@@ -108,13 +108,11 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 ## Go 由谷歌备书
 
 * 我知道这不是一个直接的技术优势，但 Go 是由谷歌设计并支持的，谷歌拥有世界上最大的云基础设施之一，并且规模庞大。Go 被谷歌设计用于解决支持可扩展性和有效性。这些都是创建我们自己的服务器时都会遇到的问题。
-
 * Go 更多的也是被一些大公司所使用，如 Adobe，BBC，IBM，因特尔甚至是 [Medium](https://medium.engineering/how-medium-goes-social-b7dbefa6d413#.r8nqjxjpk)**(来源: [https://github.com/golang/go/wiki/GoUsers](https://github.com/golang/go/wiki/GoUsers))**
 
 ## 结论
 
 * 尽管 Go 与其他面向对象的语言非常不同，但他仍然是同一个野兽。Go 提供了像 C/C++ 一样的高性能，像 Java 一样高效的并发处理以及像 Python/Perl 一样的编码乐趣。
-
 * 如果你没有任何学习 Go 的计划，我将仍然会说硬件的限制会给我们带来压力，软件开发者应该写超高效的代码。开发者应该理解硬件并相应的优化他们的程序。**优化的软件能运行在更廉价或者更慢的机器上（例如[物联网](https://en.wikipedia.org/wiki/Internet_of_things)设备），并且整体上对最终用户体验有更好的影响。**
 
 ***
