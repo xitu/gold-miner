@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-16-lifecycle-methods-how-and-when-to-use-them.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-16-lifecycle-methods-how-and-when-to-use-them.md)
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
-> * 校对者：[hanxiaosss](https://github.com/hanxiaosss)
+> * 校对者：[hanxiaosss](https://github.com/hanxiaosss), [Zelda256](https://github.com/Zelda256)
 
 # React 16 生命周期函数：如何以及何时使用它们
 
@@ -59,7 +59,7 @@ Brick.js 是一个很棒的工具，但它没有对与 React 集成进行优化�
 
 #### constructor
 
-**如果**你的组件是类组件，第一个被调用的是组件构造函数。这不适用于功能组件。
+**如果**你的组件是类组件，第一个被调用的是组件构造函数。这不适用于函数组件。
 
 你的构造函数可能如下所示：
 
@@ -155,7 +155,7 @@ console.log(this.state);
 
 #### render
 
-渲染完成所有工作。它返回实际组件的 JSX。使用 React 时，你将花费大部分时间在这里。
+渲染完成所有工作。它返回实际组件的 JSX。使用 React 时，大部分时间都将花费在这。
 
 **render 的最常见用例：** 返回组件 JSX。
 
@@ -328,7 +328,7 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 
 首先，我们使用 Bricks.js 的 `pack` 函数重新布局网格。
 
-然后，如果我们的快照显示用户位于网格的底部，我们将它们向下滚动到新块的底部。
+然后，如果我们的快照显示用户原先就位于网格的底部，我们将它们向下滚动到新块的底部。
 
 **componentDidUpdate 的最常见用例：** 响应（哈哈！）DOM 的已提交更改。
 
@@ -344,7 +344,7 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 
 你可以在此处取消任何向外的网络请求，或删除与该组件关联的所有事件监听器。
 
-基本上，清除所涉及的组件的每一件事 —— 当它消失时，它应该完全消失。
+总的来说，清除所涉及的组件的每一件事 —— 当它消失时，它应该完全消失。
 
 在我们的例子中，我们有一个在 `componentDidMount` 中调用的 `setInterval` 需要清理。
 
@@ -372,7 +372,7 @@ static getDerivedStateFromError(error) {
 }
 ```
 
-请注意，你必须返回更新的 state 对象。不要将此方法作用于任何其他操作。相反，使用下面的 `componentDidCatch`。
+请注意，你必须返回更新的 state 对象。不要将此方法作用于任何其他操作。而是使用下面的 `componentDidCatch`。
 
 **getDerivedStateFromError的最常见用例：** 更新 state 以显示错误在屏幕上。
 
