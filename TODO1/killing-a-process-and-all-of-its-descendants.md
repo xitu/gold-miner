@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/killing-a-process-and-all-of-its-descendants.md](https://github.com/xitu/gold-miner/blob/master/TODO1/killing-a-process-and-all-of-its-descendants.md)
 > * 译者：[江五渣](http://jalan.space)
-> * 校对者：
+> * 校对者：[TokenJan](https://github.com/TokenJan)，[portandbridge](https://github.com/portandbridge)
 
 # 如何杀死一个进程和它的所有子进程
 
-在类 Unix 系统中杀死进程比预期中更棘手。上周我在调试一个有关用信号量终止作业的问题。更具体地说，这是一个有关于在作业中终止正在运行的进程的问题。以下是我从中学到的要点：
+在类 Unix 系统中杀死进程比预期中更棘手。上周我在调试一个在 Semaphore 中终止作业的问题。更具体地说，这是一个有关于在作业中终止正在运行的进程的问题。以下是我从中学到的要点：
 
-* 类 Unix 操作系统有着复杂的进程间关系：父子进程、进程组、会话、会话的领导进程。但是，在 Linix 与 MacOS 等操作系统中，这其中的细节并不统一。符合 POSIX 的操作系统支持使用负 PID 向进程组发送信号。
+* 类 Unix 操作系统有着复杂的进程间关系：父子进程、进程组、会话、会话的领导进程。但是，在 Linux 与 MacOS 等操作系统中，这其中的细节并不统一。符合 POSIX 的操作系统支持使用负 PID 向进程组发送信号。
 * 使用系统调用向会话中的所有进程发送信号并非易事。
 * 用 exec 启动的子进程将继承其父进程的信号配置。例如，如果父进程忽略 SIGHUP 信号，它的子进程也会忽略 SIGHUP 信号。
 * “孤儿进程组内发生了什么”这一问题的答案并不简单。
@@ -77,7 +77,7 @@ $ ps j -A
 我们可以在支持作业控制的 Shell 环境中观察到进程组，例如 `bash` 和 `zsh`，它们为每个管道命令都创建了一个进程组。进程组是一个或多个进程（通常与一个作业关联）的集合，可以从同一个终端接收信号。每个进程组都有一个唯一的进程组 ID。
 
 ```shell
-# 启动一个由 tail 和 group 命令组成的进程组
+# 启动一个由 tail 和 grep 命令组成的进程组
 $ tail -f /var/log/syslog | grep "CRON" &
 
 $ ps j
@@ -130,7 +130,7 @@ pkill -s <SID>
 
 被忽略的信号，就像是被 `nohup` 忽略的信号那样，都被传播到进程的所有子进程中。这种信号传播方式就是我上周在 bug 排查中遇到的最终瓶颈。
 
-在我的程序中运行着 bash 命令的代理 —— 我验证了我已经建立了一个具有控制终端的 bash 会话。该控制终端是 bash 会话中其他启动进程的会话领导进程。我的进程树如下所示：
+我的程序是用于运行 bash 命令的代理程序，而我在该程序中验证到的是，我已经建立了一个具有控制终端的 bash 会话。该控制终端是 bash 会话中其他启动进程的会话领导进程。我的进程树如下所示：
 
 ```shell
 agent -+
