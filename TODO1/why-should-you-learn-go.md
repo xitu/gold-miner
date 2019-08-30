@@ -25,7 +25,6 @@
 
 从上面的图表可以看出，单线程的性能和处理器的频率在近十年几乎保持稳定。如果你认为添加更多的晶体管是一种解决问题的方法，那你就错了。这是因为在较小规模上，量子特性开始显现（例如：隧道），放更多的晶体管花费也会越多([为什么？](https://www.quora.com/What-is-Quantum-Tunneling-Limit-How-does-it-limit-the-size-of-a-transistor))，而且，每美元可以添加晶体管的数量也开始下降。
 
-So, for the solution of above problem,
 所以，针对上述问题的解决方案，
 
 * 厂商开始向处理器添加越来越多的内核。如今，我们已经有四核和八核的 CPU 可用
@@ -48,7 +47,6 @@ So, for the solution of above problem,
 
 另一方面，Go 于2019年发布，那时多核处理器已经上市了。这也是为什么 Go 是在保持并发的基础上构建的。Go 用 goroutines 来替代线程，它们从堆中消耗了大约 2 KB的内存。因此你可以随时启动上百万个 goroutines。
 
-![How Goroutines work? Reffrance: [http://golangtutorials.blogspot.in/2011/06/goroutines.html](http://golangtutorials.blogspot.in/2011/06/goroutines.html)](https://cdn-images-1.medium.com/max/2000/1*NFojvbkdRkxz0ZDbu4ysNA.jpeg)
 ![Go协程是怎样工作的呢？参考：[http://golangtutorials.blogspot.in/2011/06/goroutines.html](http://golangtutorials.blogspot.in/2011/06/goroutines.html)](https://cdn-images-1.medium.com/max/2000/1*NFojvbkdRkxz0ZDbu4ysNA.jpeg)
 
 **其他的好处：**
