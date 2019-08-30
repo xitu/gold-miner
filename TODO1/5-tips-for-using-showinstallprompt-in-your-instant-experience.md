@@ -2,10 +2,10 @@
 > * 原文作者：[Miguel Montemayor](https://medium.com/@migmontemayor)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-for-using-showinstallprompt-in-your-instant-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-for-using-showinstallprompt-in-your-instant-experience.md)
-> * 译者：Fxymine4ever
+> * 译者：[Fxymine4ever](https://github.com/Fxy4ever)
 > * 校对者：
 
-# 在你的 Instant 体验中使用 showInstallPrompt 的5个技巧 
+# 在你的 Instant 体验中使用 showInstallPrompt 的 5 个技巧 
 
 ![](https://cdn-images-1.medium.com/max/3200/0*5eAOuRUKrRBXEJdI)
 
@@ -41,15 +41,15 @@ public static boolean showInstallPrompt (Activity activity, Intent postInstallIn
 
 如果为了迁移到新版的 showInstallPrompt API，你应该遵循下面几个步骤：
 
-1. 确保你的项目中使用的是最新版的 Instant App 客户端的库。在你的 build.gradle 中更新如下的依赖：
+1、确保你的项目中使用的是最新版的 Instant App 客户端的库。在你的 build.gradle 中更新如下的依赖：
 
 ```
 implementation 'com.google.android.gms:play-services-instantapps:16.0.1'
 ```
 
-2. 更新你的代码，将旧版 API 转换为带有 postInstallIntent 参数的新版 [showInstallPrompt API](https://developers.google.com/android/reference/com/google/android/gms/instantapps/InstantApps.html#showInstallPrompt(android.app.Activity,%20android.content.Intent,%20int,%20java.lang.String))。
+2、更新你的代码，将旧版 API 转换为带有 postInstallIntent 参数的新版 [showInstallPrompt API](https://developers.google.com/android/reference/com/google/android/gms/instantapps/InstantApps.html#showInstallPrompt(android.app.Activity,%20android.content.Intent,%20int,%20java.lang.String))。
 
-3. 上传你的 Instant App 到 [内部跟踪测试](https://support.google.com/googleplay/android-developer/answer/3131213?hl=en)，以验证安装按钮现在是否启动了一个应用内安装覆盖提示。
+3、上传你的 Instant App 到 [内部跟踪测试](https://support.google.com/googleplay/android-developer/answer/3131213?hl=en)，以验证安装按钮现在是否启动了一个应用内安装覆盖提示。
 
 你同样可以查看这个使用了新版 showInstallPrompt API 的 [示例应用程序](https://github.com/googlesamples/android-instant-apps/tree/master/install-api)，以了解它是怎么工作的。
 
