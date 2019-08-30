@@ -5,7 +5,6 @@
 > * 译者：[todaycoder001](https://github.com/todaycoder001)
 > * 校对者：
 
-# Why should you learn Go?
 # 为什么你要学习 Go？
 
 ![Image from: [http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682](http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682)](https://cdn-images-1.medium.com/max/2000/1*vHUiXvBE0p0fLRwFHZuAYw.gif)
@@ -30,9 +29,7 @@ So, for the solution of above problem,
 所以，针对上述问题的解决方案，
 
 * 厂商开始向处理器添加越来越多的内核。如今，我们已经有四核和八核的 CPU 可用
-
 * 我们还介绍了超线程。
-
 * 为处理器添加更多的缓存以提升性能。
 
 但是，以上方案也有它们自身的限制。我们无法向处理器添加更多的缓存以提升性能，因为缓存具有物理限制：缓存越大，速度越慢。添加更多的内核到处理器也有它的成本。而且，这也无法无限扩展。这些多核处理器能同时运行多个线程，同时也能带来并发能力。我们稍后会讨论它。
@@ -58,13 +55,9 @@ So, for the solution of above problem,
 
 
 * Goroutines 具有可分段的分段堆栈，这意味着它只会在需要的时候才会使用更多的内存。
-
 * Goroutines 比线程启动的更快。
-
 * Goroutines 带有内置原语，可以在它们（通道）之间安全的进行通信。
-
 * Goroutines 允许你在共享数据结构时避免使用互斥锁。
-
 * 此外，goroutines 和系统线程没有 1：1 的映射。单个 goroutines 能在多个线程上运行。Goroutines 能被多路复用到少量的系统线程上。
 
 > 你能在 Rob Pike's 的优秀演讲[并发不是并行](https://blog.golang.org/concurrency-is-not-parallelism)中获取更深刻理解。
@@ -98,15 +91,10 @@ Go 的的设计者在谷歌创建这门语言的时候就考虑到了这一点�
 Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 * **没有 classes。所有代码都仅用 packages 分开，Go 只有结构体而不是类** 
-
 * **不支持继承。** 这将使得代码易于修改，在其他语言中，如： Java/Python，如果类 ABC 继承类 XYZ 并且你在类 XYZ 中做了一些改动，那么这可能会在继承类 XYZ 的其他类中产生一些副作用。通过移除继承，Go 也能很容易的理解代码（因为当你在看一段代码时没有父类以供参考）。
-
 * 没有构造方法。
-
 * 没有注释。
-
 * 没有泛型。
-
 * 没有例外
 
 以上这些改变使得 Go 与其他语言截然不同，这使得用 Go 编程与其他语言很不一样。你可能不喜欢以上的一些观点。但是，如果没有上述这些特性，你就无法对你的应用程序编码。你要做的就是多写几行代码，但从积极的一面，它将使你的代码更加清晰，为代码添加更多的清晰度。
@@ -115,7 +103,6 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 如上图所示，Go 几乎与 C/C++ 一样高效，同时像 Ruby，Python 以及其他一些语言一样保持代码语法的简洁，对于人类和处理器来说，这是一个双赢的局面！！！
 
-[Unlike other new languages like Swift](https://www.quora.com/Is-Swifts-syntax-still-changing), it’s syntax of Go is very stable. It remained same since the initial public release 1.0, back in year 2012. That makes it backward compatible.
 [与 Swift 等这些新的语言不一样](https://www.quora.com/Is-Swifts-syntax-still-changing)，Go 的语法非常稳定。自从 2012 年首次公开发布 1.0 版本以来，它保持不变并且向后兼容。
 
 ## Go 由谷歌备书
