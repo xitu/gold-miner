@@ -2,24 +2,24 @@
 > * 原文作者：[igor_sarcevic](https://twitter.com/igor_sarcevic)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/killing-a-process-and-all-of-its-descendants.md](https://github.com/xitu/gold-miner/blob/master/TODO1/killing-a-process-and-all-of-its-descendants.md)
-> * 译者：
-> * 校对者：
+> * 译者：[江五渣](http://jalan.space)
+> * 校对者：[TokenJan](https://github.com/TokenJan)，[portandbridge](https://github.com/portandbridge)
 
-# Killing a process and all of its descendants
+# 如何杀死一个进程和它的所有子进程
 
-Killing processes in a Unix-like system can be trickier than expected. Last week I was debugging an odd issue related to job stopping on Semaphore. More specifically, an issue related to the killing of a running process in a job. Here are the highlights of what I learned:
+在类 Unix 系统中杀死进程比预期中更棘手。上周我在调试一个在 Semaphore 中终止作业的问题。更具体地说，这是一个有关于在作业中终止正在运行的进程的问题。以下是我从中学到的要点：
 
-* Unix-like operating systems have sophisticated process relationships. Parent-child, process groups, sessions, and session leaders. However, the details are not uniform across operating systems like Linux and macOS. POSIX compliant operating systems support sending signals to process groups with a negative PID number.
-* Sending signals to all processes in a session is not trivial with syscalls.
-* Child processes started with exec inherit their parent signal configuration. If the parent process is ignoring the SIGHUP signal, for example, this configuration is propagated to the children.
-* The answer to the “What happens with orphaned process groups” question is not trivial.
+* 类 Unix 操作系统有着复杂的进程间关系：父子进程、进程组、会话、会话的领导进程。但是，在 Linux 与 MacOS 等操作系统中，这其中的细节并不统一。符合 POSIX 的操作系统支持使用负 PID 向进程组发送信号。
+* 使用系统调用向会话中的所有进程发送信号并非易事。
+* 用 exec 启动的子进程将继承其父进程的信号配置。例如，如果父进程忽略 SIGHUP 信号，它的子进程也会忽略 SIGHUP 信号。
+* “孤儿进程组内发生了什么”这一问题的答案并不简单。
 
-## Killing a parent doesn’t kill the child processes
+## 杀死父进程并不会同时杀死子进程
 
-Every process has a parent. We can observe this with `pstree` or the `ps` utility.
+每个进程都有一个父进程。我们可以使用 `pstree` 或 `ps` 工具来观察这一点。
 
 ```shell
-# start two dummy processes
+# 启动两个虚拟进程
 $ sleep 100 &
 $ sleep 101 &
 
@@ -38,14 +38,14 @@ $ ps j -A
     1 29051 29051 29051 pts/2     2386 Ss    1000   0:00 -bash
 ```
 
-The `ps` command displays the PID (id of the process), and the PPID (parent ID of the process).
+调用 `ps` 命令可以显示 PID（进程 ID） 和 PPID（父进程 ID）。
 
-I held a very incorrect assumption about this relationship. I thought that if I kill the parent of a process, it kills the children of that process too. However, this is incorrect. Instead, child processes become orphaned, and the init process re-parents them.
+我对父子进程间的关系有着错误的假设。我认为如果我杀死了父进程，那么也会杀死它的所有子进程。然而这是错误的。相反，子进程将会成为孤儿进程，而 init 进程将重新成为它们的父进程。
 
-Let’s see the re-parenting in action by killing the bash process — the current parent of the sleep commands — and observe the changes.
+让我们看看通过终止 bash 进程（sleep 命令的当前父进程）来重建进程间的父子关系后发生了哪些变化。
 
 ```shell
-$ kill 29051 # killing the bash process
+$ kill 29051 # 杀死 bash 进程
 
 $ pstree -A
 init(1)-+
@@ -53,11 +53,11 @@ init(1)-+
         `-sleep(28965)
 ```
 
-The re-parenting behavior was odd to me. For example, when I SSH into a server, start a process, and exit, the started process is killed. I wrongly assumed this is the default behavior on Linux. It turns that killing of processes when I leave an SSH session is related to process groups, session leaders, and controlling terminals.
+于我而言，重新分配父进程的行为很奇怪。例如，当我使用 SSH 登录一台服务器，启动一个进程，然后退出时，我启动的进程将会被终止。我错误地认为这是 Linux 上的默认行为。当我离开一个 SSH 会话时，进程的终止与进程组、会话的领导进程和控制终端都有关。
 
-## What are process groups and session leaders?
+## 什么是进程组和会话领导进程？
 
-Let’s observe the output of `ps j` from the previous example again.
+让我们再次观察上述事例中 `ps j` 命令的输出。
 
 ```shell
 $ ps j -A
@@ -69,15 +69,15 @@ $ ps j -A
     1 29051 29051 29051 pts/2     2386 Ss    1000   0:00 -bash
 ```
 
-Apart from the parent-child relationship expressed by PPID and PID, we have two other relationships:
+除了使用 PPID 和 PID 表示的父子进程关系外，进程间还有其他两种关系：
 
-* Process groups represented by PGID
-* Sessions represented by SID
+* 用 PGID 表示的进程组
+* 用 SID 表示的会话
 
-Process groups are observable in shells that support job control, like `bash` and `zsh`, that are creating a process group for every pipeline of commands. A process group is a collection of one or more processes (usually associated with the same job) that can receive signals from the same terminal. Each process group has a unique process group ID.
+我们可以在支持作业控制的 Shell 环境中观察到进程组，例如 `bash` 和 `zsh`，它们为每个管道命令都创建了一个进程组。进程组是一个或多个进程（通常与一个作业关联）的集合，可以从同一个终端接收信号。每个进程组都有一个唯一的进程组 ID。
 
 ```shell
-# start a process group that consists of tail and grep
+# 启动一个由 tail 和 grep 命令组成的进程组
 $ tail -f /var/log/syslog | grep "CRON" &
 
 $ ps j
@@ -88,49 +88,49 @@ $ ps j
 29050 29051 29051 29051 pts/2    19784 Ss    1000   0:00 -bash
 ```
 
-Notice that the PGID of `tail` and `grep` is the same in the previous snippet.
+请注意，在前半段中，`tail` 和 `grep` 的 PGID 是相同的。
 
-A session is a collection of process groups, usually associated with one controlling terminals and a session leader process. If a session has a controlling terminal, it has a single foreground process group, and all other process groups in the session are background process groups.
+会话是进程组的集合，通常由一个控制终端和一个会话领导进程组成。如果会话中有一个控制终端，它就具有单个前台进程组，除了该控制终端，会话中的所有其他进程组都是后台进程组。
 
-![sessions](http://morningcoffee.io/images/killing-a-process-and-all-of-its-descendants/sessions.png)
+![会话](http://morningcoffee.io/images/killing-a-process-and-all-of-its-descendants/sessions.png)
 
-Not all bash processes are sessions, but when you SSH into a remote server, you usually get a session. When bash runs as a session leader, it propagates the SIGHUP signal to its children. SIGHUP propagation to children was the core reason for my long-held belief that children are dying along with the parents.
+并非所有的 bash 进程都是会话，但是当你使用 SSH 登录一台远程服务器时，你通常会得到一个会话。当 bash 作为会话领导进程运行时，它将 SIGHUP 信号传播给它的子进程。SIGHUP 信号的传播方式就是我一直以来坚信子进程会与父进程一起消亡的核心原因。
 
-## Sessions are not consistent across Unix implementations
+## 在 Unix 中会话的实现并非一致
 
-In the previous examples, you can notice the occurrence of SID, the session ID of the process. It is the ID shared by all processes in a session.
+在上述事例中，你可以注意到 SID （进程的会话 ID）出现的位置。它是会话中所有进程共享的 ID。
 
-However, you need to keep in mind that this is not true across all Unix implementations. The Single UNIX Specification talks only about a “session leader”; there is no “session ID” similar to a process ID or a process group ID. A session leader is a single process that has a unique process ID, so we could talk about a session ID that is the process ID of the session leader.
+但是，你需要记住，并非所有的 Unix 系统都遵循这一实现。单一 UNIX 规范只讨论“会话领导进程”，没有类似于进程 ID 或进程组 ID 的“会话 ID”。会话领导进程是一个具有唯一进程 ID 的单进程，因此我们可以讨论的会话 ID 是会话领导者的进程 ID。
 
-System V Release 4 introduced Session IDs.
+System V Release 4 引入了会话 ID。
 
-In practice, this means that you get session ID in the `ps` output on Linux, but on BSD and its variants like MacOS, the session ID isn’t present or always zero.
+实际上，这意味着你能在 Linux 上通过 `ps` 命令获取会话 ID，但是在 BSD 及其变体（如 MacOS）上，会话 ID 并不存在，或始终为零。
 
-## Killing all processes in a process group or session
+## 杀死进程组或会话中的所有进程
 
-We can use that PGID to send a signal to the whole group with the kill utility:
+我们可以使用该 PGID，通过 kill 命令向整个进程组发送信号：
 
 ```shell
 $ kill -SIGTERM -- -19701
 ```
 
-We used a negative number `-19701` to send a signal to the group. If kill receives a positive number, it kills the process with that ID. If we pass a negative number, it kills the process group with that PGID.
+我们用一个负数 `-19701` 向进程组发送信号。如果我们传递的是一个正数，这个数将被视为进程 ID 用于终止进程。如果我们传递的是一个负数，它被视为 PGID，用于终止整个进程组。
 
-The negative number comes from the system call definition directly.
+负数来自系统调用的直接定义。
 
-Killing all processes in a session is quite different. As explained in the previous section, some systems don’t have a notion of a session ID. Even the ones that have session IDs, like Linux, don’t have a system call to kill all processes in a session. You need to walk the `/proc` tree, collect the SIDs, and terminate the processes.
+杀死会话中的所有进程与之完全不同。如我们在前一节说到的，有些系统没有会话 ID 的概念。即使是具有会话 ID 的系统，例如 Linux，也没有提供系统调用来终止会话中的所有进程。你需要遍历 `/proc` 输出的进程树，收集所有的 SID，然后一一终止进程。
 
-Pgrep implements the algorithm for walking, collecting, and process killing by session ID. Use the following snipped:
+Pgrep 实现了遍历、收集并通过会话 ID 杀死进程的算法。使用以下命令：
 
 ```shell
 pkill -s <SID>
 ```
 
-Nohup propagation to process descendants
+## 被 nohup 忽略的信号传播到子进程
 
-Ignored signals, like the ones ignored with `nohup`, are propagated to all descendants of a process. This propagation was the final bottleneck in my bug hunting exercise last week.
+被忽略的信号，就像是被 `nohup` 忽略的信号那样，都被传播到进程的所有子进程中。这种信号传播方式就是我上周在 bug 排查中遇到的最终瓶颈。
 
-In my program — an agent for running bash commands — I verified that I have an established a bash session that has a controlling terminal. It is the session leader of the processes started in that bash session. My process tree looks like this:
+我的程序是用于运行 bash 命令的代理程序，而我在该程序中验证到的是，我已经建立了一个具有控制终端的 bash 会话。该控制终端是 bash 会话中其他启动进程的会话领导进程。我的进程树如下所示：
 
 ```shell
 agent -+
@@ -139,11 +139,11 @@ agent -+
                                  | - process2
 ```
 
-I assumed that when I kill the bash session with SIGHUP, it kills the children as well. Integration tests on the agent also verified this.
+我假设，当我使用 SIGHUP 杀死 bash 会话时，它的子进程也会同时终止。对代理的集成测试也证明了这一点。
 
-However, what I missed was that the agent is started with `nohup`. When you start a subprocess with `exec`, like we start the bash process in the agent, it inherits the signals states from its parents.
+但是，我忽略了这个代理是以 `nohup` 启动的。当你使用 `exec` 启动子进程时，就像我们在代理中启动 bash 进程一样，它会从它的父进程继承信号状态。
 
-This last one took me by surprise.
+最后一个结论使我惊讶万分。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
