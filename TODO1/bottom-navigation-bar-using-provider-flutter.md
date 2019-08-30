@@ -133,8 +133,6 @@ Thanks for reading this article ❤
 
 If I got something wrong, Let me know in the comments. We would love to improve.
 
-Clap 👏 If this article helps you.
-
 Connect with me on **[LinkedIn](https://www.linkedin.com/in/ashishrawat2911/).**
 
 Check my [**GitHub repositories.**](http://github.com/flutter-devs)
