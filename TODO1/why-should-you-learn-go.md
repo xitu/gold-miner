@@ -12,7 +12,7 @@
 
 > “[Go will be the server language of the future.](https://twitter.com/tobi/status/326086379207536640)” — Tobias Lütke, Shopify
 
-在过去几年，有一门崛起的新语言：[**Go 或者 GoLang**](https://golang.org/)。没有什么能使开发者痴迷于一门新的编程语言，不是么? 因此，我在 4、5 个月之前开始学习 Go。在这里我将告诉你，你为什么也要学习这门新语言。
+在过去几年，有一门崛起的新语言：[**Go 或者 GoLang**](https://golang.org/)。没有什么比一门新的编程语言更令开发者兴奋了，不是么? 因此，我在 4、5 个月之前开始学习 Go。在这里我将告诉你，你为什么也要学习这门新语言。
 
 在这篇文章中，我不打算教你怎样写 “Hello World!!”。网上有许多其他的文章会教你。**我将阐述软硬件发展的现状以及为什么我们要学习像 Go 这样的新语言？**因为如果没有任何问题，我们就不需要解决方案，不是么？
 
@@ -31,7 +31,7 @@ So, for the solution of above problem,
 
 * 厂商开始向处理器添加越来越多的内核。如今，我们已经有四核和八核的 CPU 可用
 
-* 我们还介绍了超线程。
+* 我们还引入了超线程。
 
 * 为处理器添加更多的缓存以提升性能。
 
@@ -47,17 +47,17 @@ So, for the solution of above problem,
 
 但是大多数现代语言（如 Java，Python 等）都来自于90年代的单线程环境。这些语言大多数都支持多线程。但真正的问题是并发执行，线程锁、竞争条件和死锁。这些问题都使得很难在这些语言上创建一个多线程的应用程序。
 
-例如，在 Java 中创建新的线程并不是内存有效的。因为每一个线程都会消耗大约 1 MB大小的堆内存，如果你运行上千个线程，他们会对堆造成巨大的压力，最终会由于内存不足而宕机。此外，你想要在两个或者多个线程之间通信也是非常困难的。
+例如，在 Java 中创建新的线程并没有有效的利用内存。因为每一个线程都会消耗大约 1 MB大小的堆内存，如果你运行上千个线程，他们会对堆造成巨大的压力，最终会由于内存不足而宕机。此外，你想要在两个或者多个线程之间通信也是非常困难的。
 
-另一方面，Go 于2019年发布，那时多核处理器已经上市了。这也是为什么 Go 是在保持并发的基础上构建的。Go 用 goroutines 来替代线程，它们从堆中消耗了大约 2 KB的内存。因此你可以随时启动上百万个 goroutines。
+另一方面，Go 于2009年发布，那时多核处理器已经上市了。这也是为什么 Go 是在保持并发的基础上构建的。Go 用 goroutines 来替代线程，它们从堆中消耗了大约 2 KB的内存。因此你可以随时启动上百万个 goroutines。
 
 ![How Goroutines work? Reffrance: [http://golangtutorials.blogspot.in/2011/06/goroutines.html](http://golangtutorials.blogspot.in/2011/06/goroutines.html)](https://cdn-images-1.medium.com/max/2000/1*NFojvbkdRkxz0ZDbu4ysNA.jpeg)
-![Go协程是怎样工作的呢？参考：[http://golangtutorials.blogspot.in/2011/06/goroutines.html](http://golangtutorials.blogspot.in/2011/06/goroutines.html)](https://cdn-images-1.medium.com/max/2000/1*NFojvbkdRkxz0ZDbu4ysNA.jpeg)
+![Goroutines 是怎样工作的呢？参考：[http://golangtutorials.blogspot.in/2011/06/goroutines.html](http://golangtutorials.blogspot.in/2011/06/goroutines.html)](https://cdn-images-1.medium.com/max/2000/1*NFojvbkdRkxz0ZDbu4ysNA.jpeg)
 
 **其他的好处：**
 
 
-* Goroutines 具有可分段的分段堆栈，这意味着它只会在需要的时候才会使用更多的内存。
+* Goroutines 具有可增长的分段堆栈，这意味着它只会在需要的时候才会使用更多的内存。
 
 * Goroutines 比线程启动的更快。
 
@@ -77,7 +77,7 @@ So, for the solution of above problem,
 
 与其他现代高级语言（如 Java/Python）相比，使用 C，C++ 的最大好处就是它的性能，因为 C/C++ 是编译的而不是解释的。
 
-处理器能理解二进制文件。通常来说，当你编译一个用 Java 或者其他基于 JVM 语言构建的应用程序，它将人类可读的代码编译为字节代码，这可以通过 JVM 或者在底层操作系统之上运行的其他虚拟机。当执行的时候，虚拟机解释这些字节码并且将他们转化为处理器能理解的二进制文件。
+处理器能理解二进制文件。通常来说，当你编译一个用 Java 或者其他基于 JVM 的语言构建的应用程序，它将人类可读的代码编译为字节代码，这可以被 JVM 或者在底层操作系统之上运行的其他虚拟机所理解。当执行的时候，虚拟机解释这些字节码并且将他们转化为处理器能理解的二进制文件。
 
 ![基于虚拟机语言的执行步骤](https://cdn-images-1.medium.com/max/2000/1*TVR-VLVg68KwCOLjqQmQAw.png)
 
@@ -99,7 +99,7 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 * **没有 classes。所有代码都仅用 packages 分开，Go 只有结构体而不是类** 
 
-* **不支持继承。** 这将使得代码易于修改，在其他语言中，如： Java/Python，如果类 ABC 继承类 XYZ 并且你在类 XYZ 中做了一些改动，那么这可能会在继承类 XYZ 的其他类中产生一些副作用。通过移除继承，Go 也能很容易的理解代码（因为当你在看一段代码时没有父类以供参考）。
+* **不支持继承。** 这将使得代码易于修改，在其他语言中，如： Java/Python，如果类 ABC 继承类 XYZ 并且你在类 XYZ 中做了一些改动，那么这可能会在继承类 XYZ 的其他类中产生一些副作用。通过移除继承，Go 也使得理解代码变得很容易（因为当你在看一段代码时没有父类以供参考）。
 
 * 没有构造方法。
 
@@ -107,18 +107,18 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 * 没有泛型。
 
-* 没有例外
+* 没有异常
 
 以上这些改变使得 Go 与其他语言截然不同，这使得用 Go 编程与其他语言很不一样。你可能不喜欢以上的一些观点。但是，如果没有上述这些特性，你就无法对你的应用程序编码。你要做的就是多写几行代码，但从积极的一面，它将使你的代码更加清晰，为代码添加更多的清晰度。
 
-![Code readability vs, Efficiency.](https://cdn-images-1.medium.com/max/2020/1*nlpYI256BR71xMBWd1nlfg.png)
+![代码的可读性和效率的对比](https://cdn-images-1.medium.com/max/2020/1*nlpYI256BR71xMBWd1nlfg.png)
 
 如上图所示，Go 几乎与 C/C++ 一样高效，同时像 Ruby，Python 以及其他一些语言一样保持代码语法的简洁，对于人类和处理器来说，这是一个双赢的局面！！！
 
 [Unlike other new languages like Swift](https://www.quora.com/Is-Swifts-syntax-still-changing), it’s syntax of Go is very stable. It remained same since the initial public release 1.0, back in year 2012. That makes it backward compatible.
 [与 Swift 等这些新的语言不一样](https://www.quora.com/Is-Swifts-syntax-still-changing)，Go 的语法非常稳定。自从 2012 年首次公开发布 1.0 版本以来，它保持不变并且向后兼容。
 
-## Go 由谷歌备书
+## Go 由谷歌背书
 
 * 我知道这不是一个直接的技术优势，但 Go 是由谷歌设计并支持的，谷歌拥有世界上最大的云基础设施之一，并且规模庞大。Go 被谷歌设计用于解决支持可扩展性和有效性。这些都是创建我们自己的服务器时都会遇到的问题。
 
@@ -126,7 +126,7 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 ## 结论
 
-* 尽管 Go 与其他面向对象的语言非常不同，但他仍然是同一个野兽。Go 提供了像 C/C++ 一样的高性能，像 Java 一样高效的并发处理以及像 Python/Perl 一样的编码乐趣。
+* 尽管 Go 与其他面向对象的语言非常不同，但他同样产生了巨大的影响。Go 提供了像 C/C++ 一样的高性能，像 Java 一样高效的并发处理以及像 Python/Perl 一样的编码乐趣。
 
 * 如果你没有任何学习 Go 的计划，我将仍然会说硬件的限制会给我们带来压力，软件开发者应该写超高效的代码。开发者应该理解硬件并相应的优化他们的程序。**优化的软件能运行在更廉价或者更慢的机器上（例如[物联网](https://en.wikipedia.org/wiki/Internet_of_things)设备），并且整体上对最终用户体验有更好的影响。**
 
