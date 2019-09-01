@@ -2,32 +2,32 @@
 > * 原文作者：[Ashish Rawat](https://medium.com/@ashishrawat2911)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/bottom-navigation-bar-using-provider-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/bottom-navigation-bar-using-provider-flutter.md)
-> * 译者：
+> * 译者：[Xat_MassacrE](https://github.com/XatMassacrE)
 > * 校对者：
 
-# Bottom Navigation Bar using Provider | Flutter
+# 在 Flutter 中使用 Provider 构建底部导航栏
 
 ![](https://cdn-images-1.medium.com/max/3840/1*kQVKvFSFhWpRPBPVBFNPfg.png)
 
-In this article, I'll be showing you how you can use Flutter Provider package in the BottomNavigationBar.
+在这篇文章中，我将向你们展示在 BottomNavigationBar 中如何使用 Flutter Provider 包。
 
-#### What is Provider?
+#### 什么是 Provider ？
 
-`Provider` is a new state management approach recommended by the Flutter team.
+`Provider` 是 Flutter 团队推荐的一种新的状态管理方案。
 
-> **Note**
-`**setState**` also works fine for many case , you should not use it every where .
-But in case you have a messy code like you have a `FutureBuilder` in the build then `setState` will definately cause problem.
+> **注意**
+`**setState**` 在大多数情况下也很好用，但是你不能在什么地方都用它。
+尤其是当你的代码比较凌乱的时候，比如在 build 中有一个 `FutureBuilder` 时，使用 `setState` 毫无疑问就会出现问题。
 
-Let's see how we can use it in BottomNavigationBar.
+让我们来看看，如何在 BottomNavigationBar 中使用吧。
 
-## Step 1: Add the dependency in your pubspec.yaml.
+## 第一步：在 pubspec.yaml 中添加依赖。
 
 ```
 provider : <latest-version>
 ```
 
-## Step 2: Create a provider class
+## 第二步：创建一个 provider 类
 
 ```
 class BottomNavigationBarProvider with ChangeNotifier {
@@ -42,9 +42,9 @@ class BottomNavigationBarProvider with ChangeNotifier {
 }
 ```
 
-In this provider, I am storing the current value of the BottomNavigationBar and when the current value is set into to provider, the BottomNavigationBar will be notified with the current value and update the tab.
+在这个 provider 中，我保存了 BottomNavigationBar 的当前值，当这个值在 provider 中被设置的时候，BottomNavigationBar 将会接收到当前值改变的通知并更新标签。
 
-## Step 3: Wrap parent Widget with ChangeNotifierProvider
+## 第三步：使用 ChangeNotifierProvider 作为父组件把它包起来
 
 ```
 home: ChangeNotifierProvider<BottomNavigationBarProvider>(
@@ -53,9 +53,9 @@ home: ChangeNotifierProvider<BottomNavigationBarProvider>(
 ),
 ```
 
-I have wrapped my widget with `ChangeNotifierProvider` so my widget will be notified when the value changes.
+用 `ChangeNotifierProvider` 把组件包了起来，该组件就会接收到值改变的通知了。
 
-## Step 4: Create tabs for BottomNavigationBar
+## 第四步：为 BottomNavigationBar 创建标签
 
 ```Dart
 class Home extends StatelessWidget {
@@ -78,9 +78,9 @@ class Home extends StatelessWidget {
 }
 ```
 
-I have three widgets tabs which I’ll attach with my bottom navigation bar.
+这里的底部导航栏有三个标签。
 
-## Step 4: Create BottomNavigationBar with provider
+## 第五步：使用 provider 创建 BottomNavigationBar
 
 ```Dart
 var currentTab = [
@@ -113,37 +113,37 @@ return Scaffold(
 );
 ```
 
-So I have created a list for the screens and change the screens with an index which is provided by the provider and the tab changes the provider updates the index.
+在这里我为屏幕创建了一个列表，并用 provider 提供的下标来改变屏幕显示的页面，同时通过点击标签来改变 privider 并更新下标。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sdr1LXWBXsCS1xdHUG98jg.gif)
 
-Here is the code for the above example :
+示例如下：
 
-[**A sample application for bottom bar using Provider**](https://github.com/flutter-devs/Flutter-BottomBarProvider)
+[**使用 Provider 来作底部导航栏的简易 app**](https://github.com/flutter-devs/Flutter-BottomBarProvider)
 
-#### Persistent BottomNavigationBar
+#### 持久化 BottomNavigationBar
 
-Provider works great when changing the tabs without using `setState` but if you want to keep your state of the screens attached with the tabs, try using `PageStorageBucket`, I have attached an example by Tensor Programming below:
+当不使用 `setState` 来改变标签的时候 provider 工作的很好，但是如果你想要保持屏幕对应标签的状态时，就需要使用 `PageStorageBucket` 了，下面是 Tensor Programming 提供的一个示例：
 
 [**Contribute to tensor-programming/flutter_presistance_bottom_nav_tutorial development by creating an account on GitHub.**](https://github.com/tensor-programming/flutter_presistance_bottom_nav_tutorial/blob/master/lib/main.dart)
 
 ---
 
-Thanks for reading this article ❤
+感谢阅读本文 ❤
 
-If I got something wrong, Let me know in the comments. We would love to improve.
+如果文章中有错误的地方，请留言指出，我们希望得到改进意见。
 
-Connect with me on **[LinkedIn](https://www.linkedin.com/in/ashishrawat2911/).**
+关注我的 **[LinkedIn](https://www.linkedin.com/in/ashishrawat2911/).**
 
-Check my [**GitHub repositories.**](http://github.com/flutter-devs)
+关注我的 [**GitHub repositories.**](http://github.com/flutter-devs)
 
-Follow me on **[Twitter](https://www.twitter.com/ashishrawat2911/).**
+关注我的 **[Twitter](https://www.twitter.com/ashishrawat2911/).**
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/NaN/1*4pFzXhqqLddZhL_FY-LhtA.png)
 
-[FlutterDevs ](http://flutterdevs.com/)has been working on Flutter from quite some time now. You can connect with us on [Facebook](https://facebook.com/flutterdevs),[GitHub](https://github.com/flutter-devs) and [Twitter](https://twitter.com/TheFlutterDevs) for any flutter related queries.
+[FlutterDevs ](http://flutterdevs.com/) 已经做 Flutter 相关的工作了有一段时间了。你可以关注我们的 [Facebook](https://facebook.com/flutterdevs),[GitHub](https://github.com/flutter-devs) 和 [Twitter](https://twitter.com/TheFlutterDevs)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
