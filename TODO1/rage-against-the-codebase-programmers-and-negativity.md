@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/rage-against-the-codebase-programmers-and-negativity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/rage-against-the-codebase-programmers-and-negativity.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[TokenJan](https://github.com/TokenJan), [Tina92](https://github.com/Tina92)
+> * 校对者：[TokenJan](https://github.com/TokenJan), [Tina92](https://github.com/Tina92), [江五渣](http://jalan.space)
 
 # 冲冠一怒为代码：论程序员与负能量
 
