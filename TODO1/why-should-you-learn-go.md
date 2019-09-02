@@ -27,7 +27,7 @@
 
 所以，针对上述问题的解决方案如下：
 
-* 厂商开始向处理器添加越来越多的内核。如今，我们已经有四核和八核的 CPU 可用
+* 厂商开始向处理器添加越来越多的内核。如今，我们已经有四核和八核的 CPU 可用。
 * 我们还引入了超线程技术。
 * 为处理器添加更多的缓存以提升性能。
 
@@ -98,14 +98,14 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 ![代码的可读性和效率的对比](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902130259.png)
 
-如上图所示，Go 几乎与 C/C++ 一样高效，同时像 Ruby，Python 以及其他一些语言一样保持代码语法的简洁，对于人类和处理器来说，这是一个双赢的局面！！！
+如上图所示，Go 几乎与 C/C++ 一样高效，同时像 Ruby、Python 以及其他一些语言一样保持代码语法的简洁，对于人类和处理器来说，这是一个双赢的局面！！！
 
 [与 Swift 等这些新的语言不一样](https://www.quora.com/Is-Swifts-syntax-still-changing)，Go 的语法非常稳定。自从 2012 年首次公开发布 1.0 版本以来，它保持不变并且向后兼容。
 
 ## Go 由谷歌背书
 
 * 我知道这不是一个直接的技术优势，但 Go 是由谷歌设计并支持的，谷歌拥有世界上最大的云基础设施之一，并且规模庞大。谷歌设计 Go 以解决可扩展性和有效性问题。这些是创建我们自己的服务器时都会遇到的问题。
-* Go 更多的也是被一些大公司所使用，如 Adobe、BBC、IBM，因特尔甚至是 [Medium](https://medium.engineering/how-medium-goes-social-b7dbefa6d413#.r8nqjxjpk)。**(来源： [https://github.com/golang/go/wiki/GoUsers](https://github.com/golang/go/wiki/GoUsers))**
+* Go 更多的也是被一些大公司所使用，如 Adobe、BBC、IBM，因特尔甚至是 [Medium](https://medium.engineering/how-medium-goes-social-b7dbefa6d413#.r8nqjxjpk)。**(来源：[https://github.com/golang/go/wiki/GoUsers](https://github.com/golang/go/wiki/GoUsers))**
 
 ## 结论
 
