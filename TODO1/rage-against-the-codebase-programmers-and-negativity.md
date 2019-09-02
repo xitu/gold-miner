@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/rage-against-the-codebase-programmers-and-negativity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/rage-against-the-codebase-programmers-and-negativity.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[TokenJan](https://github.com/TokenJan), [Tina92](https://github.com/Tina92)
+> * 校对者：[TokenJan](https://github.com/TokenJan), [Tina92](https://github.com/Tina92), [江五渣](http://jalan.space)
 
 # 冲冠一怒为代码：论程序员与负能量
 
@@ -23,7 +23,7 @@
 
 对程序员这个群体来说，负能量太重要了，因为这样传达价值观最有效。当我在一个编程培训班执教时，用适当的恶搞图、传闻逸事和视频向学生灌输行业文化是标准做法，而这些素材中最流行的主题就是围绕[程序员在外行面前的挫败感](https://www.youtube.com/watch?v=BKorP55Aqvg)的。想要指出哪些行为习惯是好的、坏的、坏到家了绝不要犯的，借助情绪工具来表达再合适不过了。应该帮助新手程序员们做好心理建设，让他们知道他们会被非技术行业的同事以这样那样的方式误解；会有朋友们来安利他们的“价值百万”的 App 创意；会被压在“祖传代码”的五指山下，任你一个筋斗 8848 光年也难以脱身。
 
-当我们刚开始学习写代码时，我们的通过观察他人对代码的情绪反应来判断代码的好坏。看一看 [ProgrammerHumor 版块](https://www.reddit.com/r/programmerhumor)吧，那里到处都是新手程序员，看看里面的帖子你就会深切体会到这一点。许多帖子表达的幽默带有各种各样的负面情绪：挫败感、悲观、愤怒、幻灭感和傲慢等等。（如果你想见识见识真正的负能量，那就读读评论吧。）
+当我们刚开始学习写代码时，我们通过观察他人对代码的情绪反应来判断代码的好坏。看一看 [ProgrammerHumor 版块](https://www.reddit.com/r/programmerhumor)吧，那里到处都是新手程序员，看看里面的帖子你就会深切体会到这一点。许多帖子表达的幽默带有各种各样的负面情绪：挫败感、悲观、愤怒、幻灭感和傲慢等等。（如果你想见识见识真正的负能量，那就读读评论吧。）
 
 ![来源：[ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/b7mlgt/programmers_d/)和 [Twitter](https://twitter.com/type__error/status/1111972689609138177)](https://cdn-images-1.medium.com/max/2000/0*jpOE1g8Udhv_0WRk)
 
@@ -87,7 +87,7 @@ Linus 如今已经摈弃了过度苛刻的态度，可有些人却仍旧对那�
 
 ## 我从负能量中学到了什么
 
-我们不能任由过度的负能量支配思维和交流方式,更不能使之形成流毒，因为这对生产团队是很危险的，也会让企业付出高昂代价。我数不清我看过（和听过）多少软件项目下马、以高昂的代价完全重造，仅仅是因为某个受信任的开发者的一己之私见，认为即使是一项技术、一个之前的开发者的遗留代码或一个文件，都能代表整个项目的质量，一丁点不合格就要磨刀霍霍。散发负能量也会使人泄气，使人际关系紧张。就因为我把 CSS 代码写进了错误的文件里，被一位同事严厉地斥责，这让我闷闷不乐，好几天都心神涣散，我一直对此耿耿于怀。我以后也不太可能让那种人接近我的团队。（但谁能说得准呢？识别三日当刮目嘛。）
+我们不能任由过度的负能量支配思维和交流方式，更不能使之形成流毒，因为这对生产团队是很危险的，也会让企业付出高昂代价。我数不清我看过（和听过）多少软件项目下马、以高昂的代价完全重造，仅仅是因为某个受信任的开发者的一己之私见，认为即使是一项技术、一个之前的开发者的遗留代码或一个文件，都能代表整个项目的质量，一丁点不合格就要磨刀霍霍。散发负能量也会使人泄气，使人际关系紧张。就因为我把 CSS 代码写进了错误的文件里，被一位同事严厉地斥责，这让我闷闷不乐，好几天都心神涣散，我一直对此耿耿于怀。我以后也不太可能让那种人接近我的团队。（但谁能说得准呢？士别三日当刮目嘛。）
 
 负能量也[确实对你的健康有害](https://medium.com/the-mission/how-complaining-rewires-your-brain-for-negativity-96c67406a2a)。
 
