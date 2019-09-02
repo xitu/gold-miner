@@ -1,7 +1,7 @@
 > * 原文地址：[New Node.js 12 features will see it disrupt AI, IoT and more surprising areas](https://tsh.io/blog/new-node-js-features/)
 > * 原文作者：[Adam Polak](https://pl.linkedin.com/in/adam-polak-3267a99b)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/new-node-js-features.md](https://github.com/xitu/gold-miner/blob/master/TODO1/new-node-js-features.md)
 > * 译者：
 > * 校对者：
 
