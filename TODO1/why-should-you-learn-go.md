@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-should-you-learn-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-should-you-learn-go.md)
 > * 译者：[todaycoder001](https://github.com/todaycoder001)
-> * 校对者：
+> * 校对者：[TokenJan](https://github.com/TokenJan)，[JackEggie](https://github.com/JackEggie)
 
 # 为什么你要学习 Go？
 
