@@ -5,7 +5,9 @@
 > * 译者：[TiaossuP](https://github.com/TiaossuP)
 > * 校对者：
 
-# 给我们其他人看的代数效应
+# 你可能不知道的 JavaScript 新特性：代数效应
+
+> 译注：原文标题为：Algebraic Effects for the Rest of Us（给我们其他人看的代数效应）
 
 你听说过**代数效应（Algebraic Effects）**么？
 
