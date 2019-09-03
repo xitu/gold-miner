@@ -2,66 +2,66 @@
 > * 原文作者：[Scott Domes](https://medium.com/@scottdomes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-16-lifecycle-methods-how-and-when-to-use-them.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-16-lifecycle-methods-how-and-when-to-use-them.md)
-> * 译者：
-> * 校对者：
+> * 译者：[MarchYuanx](https://github.com/MarchYuanx)
+> * 校对者：[hanxiaosss](https://github.com/hanxiaosss), [Zelda256](https://github.com/Zelda256)
 
-# React 16 Lifecycle Methods: How and When to Use Them
+# React 16 生命周期函数：如何以及何时使用它们
 
-#### A revised and up-to-date guide to the new React component lifecycle
+#### React 组件生命周期的修订版最新指南
 
 ![](https://cdn-images-1.medium.com/max/5000/1*bqLzlcQEU8e7yWQ3tKSaxQ.png)
 
-Since [my first article](https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1) on this subject, the React component API has changed significantly. Some lifecycle methods have been deprecated, and some new ones have been introduced. So it’s time for an update!
+自从我关于这个主题的[第一篇文章](https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1)以来，React 组件 API 发生了显著的变化。一些生命周期函数已被弃用，一些新的被引入。所以是时候进行更新了！
 
-(See how I resisted making a `shouldArticleUpdate` joke? That’s restraint.)
+（看看我是如何抵制开 `shouldArticleUpdate` 的玩笑的？这些就是约束。）
 
-Since the lifecycle API is a bit more complex this time around, I’ve split the methods into four sections: mounting, updating, unmounting, and errors.
+由于这次生命周期 API 有点复杂，我将这些函数分为四个部分：挂载、更新、卸载和错误。
 
-If you’re not super comfortable with React, [my article](https://medium.freecodecamp.org/everything-you-need-to-know-about-react-eaedf53238c4) here provides a thorough intro.
+如果你对 React 还不太熟悉，[我的文章](https://medium.freecodecamp.org/everything-you-need-to-know-about-react-eaedf53238c4)在这提供了一个全面的介绍。
 
-**Tip**:
+**提示**:
 
-Build React apps faster with a collection of reusable components. Use **[Bit](https://github.com/teambit/bit)** to share your components and use them to build new apps. Give it a try.
+使用可复用的组件库更快地构建 React 应用程序。使用 **[Bit](https://github.com/teambit/bit)** 共享你的组件，并使用它们来构建新的应用程序。试试看。
 
-![Discovery, try, use React omponents with Bit](https://cdn-images-1.medium.com/max/2726/1*pqRT9FOXRyCYMWB3WSUEjg.png)
+![发现、尝试、使用集成 bit 的 React 组件](https://cdn-images-1.medium.com/max/2726/1*pqRT9FOXRyCYMWB3WSUEjg.png)
 
-[**Component Discovery and Collaboration · Bit**](https://bit.dev/)
+[**组件发现与协作 · Bit**](https://bit.dev/)
 
-## The Problem
+## 问题
 
-Our example app for this tutorial is going to simple: a grid of blocks, each with a random size, arranged into a masonry layout (think Pinterest).
+我们这个教程的示例应用程序很简单：一个由块组成的网格，每个块都有一个随机尺寸，排列成一个砖石布局（就像 Pinterest）。
 
-Every couple of seconds, a new bunch of blocks load at the bottom of the page, and need to be arranged.
+每隔几秒钟，页面底部会加载一堆新的需要进行排列的块。
 
-You can view the final app [here](https://blissful-ptolemy-8b66a6.netlify.com/), and its code [here](https://github.com/scottdomes/react-lifecycle-example).
+你可以查看最终的[应用程序](https://happful-ptolemy-8b66a6.netlify.com/)及其[代码](https://github.com/scotthouse/react-lifecycle-example)。
 
-Not a complex idea, but here’s the wrinkle: we’re going to be using the [bricks.js library](http://callmecavs.com/bricks.js/) to align our grid.
+这不是一个复杂的例子，但这里有一个问题：我们将使用 [bricks.js 库](http://callmecavs.com/bricks.js/)来对齐网格。
 
-Brick.js is a great tool, but it’s not optimized for integrating with React. It is better suited for vanilla JavaScript or jQuery.
+Brick.js 是一个很棒的工具，但它没有对与 React 集成进行优化。它更适合普通的 JavaScript 或 jQuery。
 
-So why are we using it? Well, this is a common use case for lifecycle methods: **to integrate non-React tools into the React paradigm**.
+那我们为什么要用它？嗯，这是生命周期函数的一个常见用例：**将非 React 工具集成到 React 范例中**。
 
-Sometimes, the best library for the job won’t be the easiest one to work with. Lifecycle methods help bridge that gap.
+有时，实现功能最好的库不是最适配的库，生命周期函数有助于弥合这一差距。
 
 ---
 
-## One last note before we dive in
+## 在我们深入研究前的最后一点
 
-As alluded to above, lifecycle methods are a last resort.
+如上所述，生命周期函数是最后的手段。
 
-They’re to be used in **special** cases, when other fallbacks like rearranging your components or moving your state around won’t work.
+它们将被用于**特殊**情况，当处于其他回退时将无法工作，如重新排列组件或改变 state。
 
-Lifecycle methods (with the exception of `constructor`) are hard to reason about. They add complexity to your app. Don’t use them unless you must.
+生命周期方法（`constructor` 除外）很难解释。它们会增加应用程序的复杂性。除非必须，否则不要使用它们。
 
-That said, let’s check them out.
+不废话了，让我们来看看吧。
 
-## Mounting
+## 挂载
 
 #### constructor
 
-The first thing that gets called is your component constructor, **if** your component is a class component. This does not apply to functional components.
+**如果**你的组件是类组件，第一个被调用的是组件构造函数。这不适用于函数组件。
 
-Your constructor might look like so:
+你的构造函数可能如下所示：
 
 ```JavaScript
 class MyComponent extends Component {
@@ -74,9 +74,9 @@ class MyComponent extends Component {
 }
 ```
 
-The constructor gets called with the component props. **You must call `super` and pass in the props.**
+调用构造函数时传入组件的 props。** 你必须调用 `super` 并传入 props。**
 
-You can then initialize your state, setting the default values. You can even base the state on the props:
+然后，你可以初始化 state，设置默认值。你甚至可以根据 props 设置 state：
 
 ```JavaScript
 class MyComponent extends Component {
@@ -89,7 +89,7 @@ class MyComponent extends Component {
 }
 ```
 
-Note that using a constructor is optional, and you can initialize your state like so if your Babel setup has support for [class fields](https://github.com/tc39/proposal-class-fields):
+请注意，使用构造函数的方式是可选的，如果你的 Babel 设置支持[类字段](https://github.com/tc39/proposal-class-fields)，则可以这样初始化 state：
 
 ```JavaScript
 class MyComponent extends Component {
@@ -99,7 +99,7 @@ class MyComponent extends Component {
 }
 ```
 
-**This approach is widely preferred.** You can still base your state off props:
+**这种方法广受欢迎。** 你仍然可以根据 props 设置 state：
 
 ```JavaScript
 class MyComponent extends Component {
@@ -109,7 +109,7 @@ class MyComponent extends Component {
 }
 ```
 
-You may still need a constructor, though, if you need to use a [ref](https://reactjs.org/docs/refs-and-the-dom.html). Here’s an example from our grid app:
+但是，如果需要使用 [ref](https://reactjs.org/docs/refs-and-the-dom.html)，你可能仍需要构造函数。以下是我们的网格应用程序中的示例：
 
 ```JavaScript
 class Grid extends Component {
@@ -122,17 +122,17 @@ class Grid extends Component {
   }
 ```
 
-We need the constructor to call `createRef`, to create a reference to the grid element, so we can pass it to `bricks.js`.
+我们需要构造函数调用 `createRef` 来创建对 grid 元素的引用，因此我们可以将它传递给 `bricks.js`。
 
-You can also use the constructor for function binding, which is also optional. See [here](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56) for more:
+你还可以使用构造函数进行函数绑定，这也是可选的。有关更多信息，请参阅[此处](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)：
 
-[**React Binding Patterns: 5 Approaches for Handling `this`**](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
+[**React 绑定模式：处理 `this` 的 5 种方法**](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
 
-**Most Common Use Case For Constructor:** Setting up state, creating refs and method binding.
+**constructor 的最常见用例：** 设置 state、创建引用和函数绑定。
 
 #### getDerivedStateFromProps
 
-When mounting, `getDerivedStateFromProps` is the last method called before rendering. You can use it to set state according to the initial props. Here’s the code from the example `Grid` component:
+挂载时，`getDerivedStateFromProps` 是渲染前调用的最后一个方法。你可以通过它根据初始的 props 设置 state。这是示例 `Grid` 组件的代码：
 
 ```JavaScript
 static getDerivedStateFromProps(props, state) {
@@ -140,44 +140,44 @@ static getDerivedStateFromProps(props, state) {
 }
 ```
 
-We look at the `numberOfBlocks` prop, and then use that to create a set of randomly sized blocks. We then return our desired state object.
+我们来看 `numberOfBlocks` prop，使用它来创建一组随机大小的块。然后我们返回想要的 state 对象。
 
-Here’s what calling `console.log(this.state)` afterwards looks like:
+以下是调用 `console.log(this.state)` 之后的内容：
 
 ```JavaScript
 console.log(this.state);
 // -> {blocks: Array(20)}
 ```
 
-Note that we could have placed this code in the `constructor`. The advantage of `getDerivedStateFromProps` is that it is more intuitive—it’s **only** meant for setting state, whereas a constructor has multiple uses. `getDerivedStateFromProps` is also called both before mount and before updating, as we’ll see in a bit.
+请注意，我们可以将此代码放在 `constructor` 中。`getDerivedStateFromProps` 的优点是它更直观 —— 它**只**用于设置 state，而构造函数有多种用途。`getDerivedStateFromProps` 在挂载和更新之前都会被调用，我们稍后会看到。
 
-**Most Common Use Case For getDerivedStateFromProps (during mount):** Returning a state object based on the initial props.
+**getDerivedStateFromProps 的最常见用例（挂载期间）：**返回基于初始 props 的 state 对象。
 
 #### render
 
-Rendering does all the work. It returns the JSX of your actual component. When working with React, you’ll spend most of your time here.
+渲染完成所有工作。它返回实际组件的 JSX。使用 React 时，大部分时间都将花费在这。
 
-**Most Common Use Case For Render:** Returning component JSX**.**
+**render 的最常见用例：** 返回组件 JSX。
 
 #### componentDidMount
 
-After we’ve rendered our component for the first time, this method is called.
+在我们第一次渲染我们的组件之后，此方法被调用。
 
-If you need to load data, here’s where you do it. Don’t try to load data in the constructor or render or anything crazy. I’ll let [Tyler McGinnis](https://twitter.com/tylermcginnis33) explain why:
+如果你需要加载数据，请在此处执行操作。不要尝试在 constructor、render 或是其他疯狂的地方加载数据。我会让 [Tyler McGinnis](https://twitter.com/tylermcginnis33) 解释原因：
 
-> You can’t guarantee the AJAX request won’t resolve before the component mounts. If it did, that would mean that you’d be trying to setState on an unmounted component, which not only won’t work, but React will yell at you for. Doing AJAX in componentDidMount will guarantee that there’s a component to update.
+> 你无法确保在组件挂载之前 AJAX 请求不会被解析。如果确实如此，那就意味着你要在未挂载的组件上尝试执行 setState，这不仅不起作用，而且 React 会给你报一大堆错误。在 componentDidMount 中执行 AJAX 请求将保证这的确有一个组件需要更新。
 
-You can read more of his answer [here](https://tylermcginnis.com/react-interview-questions/).
+你可以在他的[回答](https://tylermcginnis.com/react-interview-questions/)里阅读更多。
 
-`componentDidMount` is also where you can do all the fun things you couldn’t do when there was no component to play with. Here are some examples:
+`componentDidMount` 也是你可以做很多有趣事情的地方，那些在组件未加载时可没法做。以下是一些例子：
 
-* draw on a \<canvas> element that you just rendered
-* initialize a [masonry](http://masonry.desandro.com/) grid layout from a collection of elements (that’s us!)
-* add event listeners
+* 绘制刚刚渲染的 \<canvas> 元素
+* 在元素集合中初始化[砖石](http://masonry.desandro.com/)网格布局（就是我们正在做的！）
+* 添加事件监听器
 
-Basically, here you want to do all the setup you couldn’t do without a DOM, and start getting all the data you need.
+基本上，在这里你可以做所有没有 DOM 你不能做的设置，并获取所有你需要的数据。
 
-Here’s our example app:
+以下我们的示例：
 
 ```JavaScript
 componentDidMount() {
@@ -190,31 +190,31 @@ componentDidMount() {
   }
 ```
 
-We use the `bricks.js` library (called from the `initializeGrid` method) to create and arrange the grid.
+我们使用 `bricks.js` 库（在 `initializeGrid` 函数中调用）创建并排列网格。
 
-We then set an interval to add more blocks every two seconds, mimicking the loading of data. You can imagine this being a `loadRecommendations` call or something in the real world.
+然后我们设置一个定时器，每两秒添加更多的块，模拟数据的加载。你可以设想这是一个 `loadRecommendations` 的调用或是现实世界中的某些东西。
 
-**Most Common Use Case for componentDidMount:** Starting AJAX calls to load in data for your component.
+**componentDidMount 的最常见用例：** 发送 AJAX 请求以加载组件的数据。
 
-## Updating
+## 更新
 
 #### getDerivedStateFromProps
 
-Yep, this one again. Now, it’s a bit more useful.
+是的，又是这个。现在，它更有用了。
 
-If you need to update your state based on a prop changing, you can do it here by returning a new state object.
+如果你需要根据 prop 的改变更新 state，可以通过返回新 state 对象来执行此操作。
 
-**Again, hanging state based on props is not recommended.** It should be considered a last resort. Ask yourself—do I need to store state? Can I not just derive the right functionality from the props themselves?
+**同样，不推荐基于 props 更改 state。**这应该被视为最后的手段。问问自己 —— 我需要存储 state 吗？我不可以只从 props 本身获得正确的功能吗？
 
-That said, edge cases happen. Here’s some examples:
+也就是说，存在一些边缘案例。以下是一些例子：
 
-* resetting a video or audio element when the source changes
-* refreshing a UI element with updates from the server
-* closing an accordion element when the contents change
+* 当源更改时重置视频或音频元素
+* 使用服务器的更新刷新 UI 元素
+* 当内容改变时关闭手风琴元素
 
-Even with the above cases, there’s usually a better way to do it. But `getDerivedStateFromProps` will have your back when worst comes to worst.
+即使有上述情况，通常也有更好的方法。但是，当最坏的情况发生时，`getDerivedStateFromProps` 会帮你挽救回来。
 
-With our example app, let’s say our `Grid` component’s `numberOfBlocks` prop increases. But we’ve already “loaded” past more blocks than the new amount. There’s no point using the same value. So we do this:
+使用我们的示例应用程序，假设我们的 `Grid` 组件的 `numberOfBlocks` prop 增加了。但是我们已经“加载”了比新数量更多的块。使用相同的值没有意义。所以我们这样做：
 
 ```JavaScript
 static getDerivedStateFromProps(props, state) {
@@ -226,35 +226,35 @@ static getDerivedStateFromProps(props, state) {
 }
 ```
 
-If the current number of blocks we have in state exceeds the new prop, we don’t update state at all, returning an empty object.
+如果我们当前 state 中的块数超过了新的 prop，我们根本不更新状态，返回一个空对象。
 
-(One last point about `static` methods like `getDerivedStateFromProps`: you don’t have access to the component via`this`. So we couldn’t access our grid ref, for example.)
+（关于 `static` 函数的最后一点，比如 `getDerivedStateFromProps`：你没有通过 `this` 访问组件的权限。例如，我们无法访问的网格的引用。）
 
-**Most Common Use Case:** Updating state based on props, when the props themselves aren’t enough.
+**getDerivedStateFromProps 的最常见用例：** 当 props 本身不足时，根据情况更新 state。
 
 #### shouldComponentUpdate
 
-We have new props. Typical React dogma says that when a component receives new props, or new state, it should update.
+当我们有新的 props 时。典型的 React 法则是，当一个组件接收到新的 props 或者新的 state 时，它应该更新。
 
-But our component is a little bit anxious and is going to ask permission first.
+但我们的组件有点担忧，得先征得许可。
 
-Here’s what we get — a `shouldComponentUpdate` method, called with `nextProps` as the first argument, and `nextState` is the second.
+这是我们得到的 —— `shouldComponentUpdate` 函数，调用时以 `nextProps` 作为第一个参数，`nextState` 是第二个。
 
-`shouldComponentUpdate` should always return a boolean — an answer to the question, “should I re-render?” Yes, little component, you should. The default is that it always returns true.
+`shouldComponentUpdate`应该总是返回一个布尔值 —— 问题的答案，“我应该重新渲染吗？”是的，小组件，你应该。它返回的默认值始终是 true。
 
-But if you’re worried about wasted renders and other nonsense — `shouldComponentUpdate` is an awesome place to improve performance.
+但如果你担心浪费渲染资源和其它无意义的事 —— `shouldComponentUpdate` 是一个提高性能的好地方。
 
-I wrote an article on using `shouldComponentUpdate` in this way — check it out:
+我写了一篇关于用这种方式使用 `shouldComponentUpdate` 的文章 —— 请看：
 
-[**How to Benchmark React Components: The Quick and Dirty Guide**](https://engineering.musefind.com/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
+[**如何对 React 组件进行基准测试：快速简要指南**](https://engineering.musefind.com/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
 
-In the article, we talk about having a table with many many fields. The problem was that when the table re-rendered, each field would also re-render, slowing things down.
+在文章中，我们谈论有一个包含许多部分的表格。问题是当表重新渲染时，每个部分也都会重新渲染，从而减慢了速度。
 
-`shouldComponentUpdate` allows us to say: only update if the props you care about change.
+`shouldComponentUpdate` 让我们能够说：组件只在你关心的 props 改变时才更新。
 
-But keep in mind that it can cause major problems if you set it and forget it, because your React component will not update normally. So use with caution.
+但请牢记，如果你设置了并忘记了它会导致重大问题，因为你的 React 组件将无法正常更新。所以要谨慎使用。
 
-In our grid app, we’ve previously established that sometimes we are going to ignore the new value of `this.props.numberOfBlocks`. Default behavior says our component will still rerender, since it received new props. That’s wasteful.
+在我们的网格应用程序中，我们之前已经确定了有时我们将忽略 `this.props.numberOfBlocks` 的新值。默认行为表示我们的组件仍然会重新渲染，因为它收到了新的 props。这太浪费了。
 
 ```JavaScript
 shouldComponentUpdate(nextProps, nextState) {
@@ -263,25 +263,25 @@ shouldComponentUpdate(nextProps, nextState) {
 }
 ```
 
-Now we say: the component should update **only** if the number of blocks in state change.
+现在我们可以说：**只有**当 state 中的块数改变时，组件才应该更新。
 
-**Most Common Use Case:** Controlling exactly when your component will re-render.
+**shouldComponentUpdate 的最常见用例：** 精确控制组件的重新渲染。
 
 #### render
 
-Same as before!
+和之前一样！
 
 #### getSnapshotBeforeUpdate
 
-This method is a fun new addition.
+这个函数是一个有趣的新增功能。
 
-Note it’s called between `render` and the updated component actually being propagated to the DOM. It exists as a last-chance-look at your component with its previous props and state.
+请注意，它是在 `render` 与更新组件被实际传播到 DOM 之间调用的。在你的组件中，它作为最后一次看到之前的 props 和 state 的机会存在。
 
-Why? Well, there may be a delay between calling `render` and having your changes appear. If you need to know what the DOM is **exactly** at the time of integrating the result of the latest `render` call, here’s where you can find out.
+为什么？好吧，在调用 `render` 和显示更改之间可能会有一段延迟。如果你需要在整合最新 `render` 调用的结果时知道 DOM 是什么**，这里就是你可以找到答案的地方。
 
-Here’s an example. Let’s say our team lead decided that if a user is at the bottom of our grid when new blocks are loaded, they should be scrolled down to the **new** bottom of the screen.
+这是一个例子。假设我们的团队负责人决定，如果用户在加载新块时位于网格底部，则应将其向下滚动到屏幕的**新**底部。
 
-In other words: when the grid expands, if they’re at the bottom, keep them there.
+换句话说：当网格扩展时，如果它们位于底部，请让它们继续在底部。
 
 ```JavaScript
 getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -297,21 +297,21 @@ getSnapshotBeforeUpdate(prevProps, prevState) {
   }
 ```
 
-Here’s what this says: if the user has scrolled to the bottom, return an object like so: `{ isAtBottomOfGrid: true }`. If they aren’t, return `null`.
+这就是说：如果用户滚动到底部，则返回如下对象：`{isAtBottomOfGrid：true}`。如果没有，则返回 `null`。
 
-**You should either return `null` or a value from `getSnapshotBeforeUpdate`.**
+**你应该返回 `null` 或从 `getSnapshotBeforeUpdate` 获取的值。**
 
-Why? We’ll see in a second.
+为什么？我们马上就能看到。
 
-**Most Common Use Case:** Taking a look at some attribute of the current DOM, and passing that value on to `componentDidUpdate`.
+**getSnapshotBeforeUpdate 的最常见用例：** 查看当前 DOM 的一些属性，并将值传给 `componentDidUpdate`。
 
 #### componentDidUpdate
 
-Now, our changes have been committed to the DOM.
+现在，我们的更改已经提交给 DOM。
 
-In `componentDidUpdate`, we have access to three things: the previous props, the previous state, and whatever value we returned from `getSnapshotBeforeUpdate`.
+在 `componentDidUpdate` 中，我们可以访问三个东西：之前的 props、之前的 state 以及我们从 `getSnapshotBeforeUpdate` 返回的任何值。
 
-Completing the above example:
+完成上面的例子：
 
 ```JavaScript
 componentDidUpdate(prevProps, prevState, snapshot) {
@@ -326,27 +326,27 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 }
 ```
 
-First, we re-layout the grid, using the Bricks.js `pack` method.
+首先，我们使用 Bricks.js 的 `pack` 函数重新布局网格。
 
-Then, if our snapshot shows the user was at the bottom of the grid, we scroll them down to the bottom of the new blocks.
+然后，如果我们的快照显示用户原先就位于网格的底部，我们将它们向下滚动到新块的底部。
 
-**Most Common Use Case for componentDidUpdate:** Reacting (hah!) to committed changes to the DOM.
+**componentDidUpdate 的最常见用例：** 响应（哈哈！）DOM 的已提交更改。
 
-## Unmounting
+## 卸载
 
 #### componentWillUnmount
 
-It’s almost over.
+它快要结束了。
 
-Your component is going to go away. Maybe forever. It’s very sad.
+你的组件将会消失。也许是永远。这很令人悲伤。
 
-Before it goes, it asks if you have any last-minute requests.
+在此之前，它会询问你是否有任何最后一刻前的请求。
 
-Here you can cancel any outgoing network requests, or remove all event listeners associated with the component.
+你可以在此处取消任何向外的网络请求，或删除与该组件关联的所有事件监听器。
 
-Basically, clean up anything to do that solely involves the component in question — when it’s gone, it should be completely gone.
+总的来说，清除所涉及的组件的每一件事 —— 当它消失时，它应该完全消失。
 
-In our case, we have one `setInterval` call from `componentDidMount` to tidy up:
+在我们的例子中，我们有一个在 `componentDidMount` 中调用的 `setInterval` 需要清理。
 
 ```JavaScript
 componentWillUnmount() {
@@ -354,17 +354,17 @@ componentWillUnmount() {
 }
 ```
 
-**Most Common Use Case for componentWillUnmount:** Cleaning up any leftover debris from your component.
+**componentWillUnmount 的最常见用例：** 清理组件中所有的剩余碎片。
 
-## Errors
+## 错误
 
 #### getDerivedStateFromError
 
-Something broke.
+有些东西出问题咯。
 
-Not in your component itself, but one of its descendants.
+不是在你的组件本身，而是在它的某个子孙组件。
 
-We want to show an error screen. The easiest way to do so is to have a value like `this.state.hasError`, which gets flipped to `true` at this point.
+我们想要将错误显示在屏幕上。最简单的方法是使用一个像 `this.state.hasError` 这样的值，此时该值将转换为 `true`。
 
 ```JavaScript
 static getDerivedStateFromError(error) {
@@ -372,15 +372,15 @@ static getDerivedStateFromError(error) {
 }
 ```
 
-Note that you must return the updated state object. Don’t use this method for any side effects. Instead, use the below `componentDidCatch`.
+请注意，你必须返回更新的 state 对象。不要将此方法作用于任何其他操作。而是使用下面的 `componentDidCatch`。
 
-**Most Common Use Case for getDerivedStateFromError:** Updating state to display an error screen.
+**getDerivedStateFromError的最常见用例：** 更新 state 以显示错误在屏幕上。
 
 #### componentDidCatch
 
-Very similar to the above, in that it is triggered when an error occurs in a child component.
+与上面非常相似，因为它在子组件中发生错误时被触发。
 
-The difference is rather than updating state in response to an error, we can now perform any side effects, like logging the error.
+区别在于不是为了响应错误而更新 state，我们现在可以执行任何其他操作，例如记录错误。
 
 ```JavaScript
 componentDidCatch(error, info) {
@@ -388,13 +388,13 @@ componentDidCatch(error, info) {
 }
 ```
 
-`error` would be the actual error message (Undefined Variable blah blah blah ) and `info` would be the stack trace (`In Component, in div, etc`).
+`error` 是实际的错误消息（未定义的变量之类），`info` 是堆栈跟踪（`In Component, in div, etc`）。
 
-**Note that componentDidCatch only works for errors in the render/lifecycle methods. If your app throws an error in a click handler, it will not be caught.**
+**请注意，componentDidCatch 仅适用于渲染/生命周期函数中的错误。如果你的应用程序在点击事件中抛出错误，它不会被捕获。**
 
-You would commonly use `componentDidCatch` only in special **error boundary** components. These components wrap a child tree with the sole purpose of catching and logging errors.
+你通常只在特殊的**错误边界**组件中使用 `componentDidCatch`。这些组件封装子组件的唯一目的是捕获并记录错误。
 
-For example, this error boundary will catch an error and render an ‘Oops!’ message instead of the child components:
+例如，此错误边界将捕获错误并呈现“Oops！”消息而不是子组件：
 
 ```JavaScript
 class ErrorBoundary extends Component {
@@ -418,23 +418,23 @@ class ErrorBoundary extends Component {
 }
 ```
 
-**Most Common Use Case for componentDidCatch:** Catching and logging errors.
+**componentDidCatch 的最常见用例：** 捕获并记录错误。
 
-## Conclusion
+## 结论
 
-That’s it! Those are all the lifecycle methods are your disposal.
+就是这样！这些都是生命周期函数，任你使用。
 
-You can check the example app code [here](https://github.com/scottdomes/react-lifecycle-example) and the final product [here](https://blissful-ptolemy-8b66a6.netlify.com/).
+你可以查看示例程序的[代码](https://github.com/scottdomes/react-lifecycle-example)和[最终产品](https://blissful-ptolemy-8b66a6.netlify.com/)。
 
-Thanks for reading! Feel free to comment below and ask anything, I’d love to talk.
+感谢阅读！请随意在下面发表评论并提出任何问题，欢迎交流！
 
 ---
 
-## Learn more
+## 延伸阅读
 
-* [**5 Tools for Faster Development in React**](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
-* [**Understanding React Render Props and HOC**](https://blog.bitsrc.io/understanding-react-render-props-and-hoc-b37a9576e196)
-* [**11 React UI Component Libraries you Should Know in 2019**](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
+* [**5 个加快 React 开发的工具**](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
+* [**了解 React 渲染 props 和高阶组件**](https://blog.bitsrc.io/understanding-react-render-props-and-hoc-b37a9576e196)
+* [**在 2019 年你应该知道的 11 个 React UI 组件库**](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
