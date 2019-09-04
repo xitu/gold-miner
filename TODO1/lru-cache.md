@@ -85,7 +85,7 @@ csv.forEachLine(line => {
 接下来是我们如何使用这样一个缓存：
 
 ```js
-// 创建一个可以容纳3个元素的缓存
+// 创建一个可以容纳 3 个元素的缓存
 const cache = new LRUCache(3);
 
 // 添加一些元素
