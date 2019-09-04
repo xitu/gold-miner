@@ -126,7 +126,7 @@ packageManager.setInstantAppCookie(null)
 
 ***
 
-如果你在你的应用或者游戏中使用 showInstallPrompt API 遇到了额外的问题，你可以发送你的问题到 [StackOverflow](https://stackoverflow.com/questions/tagged/android-instant-apps)。了解更多关于 [Google Play Instant](https://developer.android.com/topic/google-play-instant) 同时看看我们其他的 [UX best practices](https://developer.android.com/topic/google-play-instant/best-practices/apps)。
+如果你在你的应用或者游戏中使用 showInstallPrompt API 遇到了额外的问题，你可以发送你的问题到 [StackOverflow](https://stackoverflow.com/questions/tagged/android-instant-apps)。了解更多关于 [Google Play Instant](https://developer.android.com/topic/google-play-instant) 同时看看我们其他的 [用户体验最佳实践](https://developer.android.com/topic/google-play-instant/best-practices/apps)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
