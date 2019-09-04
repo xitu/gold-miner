@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-for-using-showinstallprompt-in-your-instant-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-for-using-showinstallprompt-in-your-instant-experience.md)
 > * 译者：[Fxymine4ever](https://github.com/Fxy4ever)
-> * 校对者：
+> * 校对者：[jacksonke](https://github.com/jacksonke)
 
 # 在你的 Instant 体验中使用 showInstallPrompt 的 5 个技巧 
 
