@@ -325,7 +325,7 @@ array.push(45);
 
 我们使用一个类型化数组作为我们的内存块，并把它的索引作为地址！现在唯一棘手的部分就是根据我们的容量正确地选择一个整数类型，以免溢出。
 
-> 如果你还不是不知道如何开发，参考这个函数 [这里](https://github.com/Yomguithereal/mnemonist/blob/7ea90e6fec46b4c2283ae88f173bfb19ead68734/utils/typed-arrays.js#L8-L54)
+> 如果你还是不知道如何开发，参考这个函数 [这里](https://github.com/Yomguithereal/mnemonist/blob/7ea90e6fec46b4c2283ae88f173bfb19ead68734/utils/typed-arrays.js#L8-L54)
 
 所以，为了用 JavaScript 给我们的 LRU 缓存结构实现一个固定容量的双链表结构，我们需要下面的类型化数组：
 
@@ -561,10 +561,7 @@ list.tail = 1;
 
 所以，恳请您测试您的代码，因为您的经过可能不尽相同。
 
-  祝您生活愉快！
-
------
-
+祝您生活愉快！
 ## 杂记
 
 ### 关于删除和展开树
