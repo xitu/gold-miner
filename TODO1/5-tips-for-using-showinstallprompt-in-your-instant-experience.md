@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/3200/0*5eAOuRUKrRBXEJdI)
 
-[Google Play Instant](https://developer.android.com/topic/google-play-instant) 允许你的用户在安装前就可以使用你的应用或者游戏。无论是否从 Play Store 还是网址发布，Instant 体验都可以让你的用户直接拥有原生应用的体验。
+[Google Play Instant](https://developer.android.com/topic/google-play-instant) 允许用户在安装前就可以试用你的应用或者游戏。无论是否从 Play Store 还是网址发布，Instant 都可以让你的用户直接拥有原生应用的体验。
 
 你的 Instant 体验其中一个目标可能是利用你的应用程序的 Instant 体验来促进安装。通过保证正确使用最近的 API 和最佳的实践，你可以更轻松地实现这个目标。
 
@@ -25,7 +25,7 @@
 
 > 在你的 Instant 体验中确认 showInstallPrompt 的版本。
 
-以前，旧版本的 API 会启动一个更大的应用内安装提示。由于旧版 showInstallPrompt 的弃用，现在调用这个旧的 API 会启动你的 Play Store 列表。
+以前，旧版本的 API 会启动一个更大的应用内安装提示。由于旧版 showInstallPrompt 已经弃用，现在调用这个 API 会启动你的 Play Store 列表。为了恢复应用内安装提示，你需要迁移到新的 API。
 
 如果你不确定你的 Instant 体验是否调用这个旧的 API，你可以通过运行你的 Instant App 并且选取安装按钮来快速确认。如果你跳转到了 Play Store 列表，这说明你正在使用旧的 API。如果你看见一个应用内的覆盖，这说明你正在使用最新的 API。
 
@@ -35,11 +35,11 @@
 public static boolean showInstallPrompt (Activity activity, Intent postInstallIntent, int requestCode, String referrer)
 ```
 
-`postInstallIntent` 是一个 Intent，在应用被安装之后这个 Intent 会启动。这个 Intent 必须能在安装的应用包内解析为一个 Activity，否则它将无效。
+`postInstallIntent` 是在应用安装之后触发的 Intent。这个 Intent 必须是能被解析为已安装应用中的 Activity，否则它将无效。
 
 > 迁移到新版的 showInstallPrompt
 
-如果为了迁移到新版的 showInstallPrompt API，你应该遵循下面几个步骤：
+迁移到新版的 showInstallPrompt API，应该遵循下面几个步骤：
 
 1、确保你的项目中使用的是最新版的 Instant App 客户端的库。在你的 build.gradle 中更新如下的依赖：
 
@@ -74,9 +74,9 @@ InstantApps.showInstallPrompt(activity, postInstallIntent, requestId, referrerId
 
 ![](https://cdn-images-1.medium.com/max/2000/0*r7DBqy2P92QFwOPf)
 
-保持用户状态的推荐方法是使用 [Cookie API](https://developers.google.com/android/reference/com/google/android/gms/instantapps/PackageManagerCompat#getInstantAppCookie()) 在安装之后迁移数据。Cookie API 会允许你在设备上存储一小部分信息的 token，这个 token 能被你的可安装的应用程序访问。这个 API 会确保只有当应用程序的 Package ID 与你的 Instant App 相同时，才能访问该 Cookie。
+保护用户数据，我们推荐你使用 [Cookie API](https://developers.google.com/android/reference/com/google/android/gms/instantapps/PackageManagerCompat#getInstantAppCookie()) 在安装之后迁移试玩的数据。Cookie API 会允许你在设备上存储一小部分信息的 token，这个 token 能被你的可安装的应用程序访问。这个 API 会确保只有当应用程序的 Package ID 与你的 Instant App 相同时，才能访问该 Cookie。
 
-在你的 Instant App 中，你应该经常使用 [PackageManagerCompat](https://developers.google.com/android/reference/com/google/android/gms/instantapps/PackageManagerCompat.html#setInstantAppCookie(byte[])) 去存储你的 Cookie 数据。
+在你的 Instant App 中，你应该一直使用 [PackageManagerCompat](https://developers.google.com/android/reference/com/google/android/gms/instantapps/PackageManagerCompat.html#setInstantAppCookie(byte[])) 存储 Cookie 数据。
 
 ```Kotlin
 // Cookie 数据是一个简单的 byte 数组。
@@ -116,7 +116,7 @@ packageManager.setInstantAppCookie(null)
 
 虽然最后一个提示的意思很容易理解，但是请确保你的 Instant 体验有一个明确的安装提示。如果没有这些提示，用户可能会疑惑怎样去安装你的应用，或者可能不得不跳转到 Play Store 去安装。
 
-安装按钮应该调用 showInstallPrompt 去启动安装提示。
+安装按钮应该调用 showInstallPrompt 去触发安装提示。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nKfEwwU4dVp08ZUndHvuIA.png)
 
