@@ -49,7 +49,7 @@ The questions are not so much about problem-solving as they are about working wi
 2. linked lists: [reversing a linked list](https://www.hackerrank.com/challenges/reverse-a-linked-list/problem), [cycle detection](https://www.hackerrank.com/challenges/detect-whether-a-linked-list-contains-a-cycle/problem)
 3. trees: [node swapping](https://www.hackerrank.com/challenges/swap-nodes-algo/problem), [BST validation](https://www.hackerrank.com/challenges/is-binary-search-tree/problem)
 
-You get the idea. Some of the questions might not ever be directly applicable in problem-solving. But they are great for conceptual understanding, which is **extremely important**** **in any case.
+You get the idea. Some of the questions might not ever be directly applicable in problem-solving. But they are great for conceptual understanding, which is **extremely important** in any case.
 
 HackerRank does not have freely accessible “model solutions,” although the discussions section is usually full of hints, clues, and even working code snippets. I have found those to be adequate so far, although you might have to step through the code a line at a time in an IDE to really understand something.
 
@@ -81,7 +81,7 @@ Finally, there is trusty old Google, which would lead you to GeeksForGeeks most 
 
 ## Conclusion
 
-At the end of the day, however, there are no shortcuts. You just have to dive into it head-first — start writing code, debugging code, and reading other people’s correct code to figure out where, how, and why you went wrong. It’s tough, but you get better with each attempt, and it gets easier as you get better.
+At the end of the day, however, there are no shortcuts. You just have to dive into it head-first—start writing code, debugging code, and reading other people’s correct code to figure out where, how, and why you went wrong. It’s tough, but you get better with each attempt, and it gets easier as you get better.
 
 I’m nowhere near the level of competency I want to be, but I’ve definitely come a long way since I started. :)
 
