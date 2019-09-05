@@ -1,29 +1,29 @@
-> * 原文地址：[Checking The Network Connection With a React Hook](https://medium.com/the-non-traditional-developer/checking-the-network-connection-with-a-react-hook-ec3d8e4de4ec)
+> * 原文地址：[使用 React Hook 来检查网络连接状态](https://medium.com/the-non-traditional-developer/checking-the-network-connection-with-a-react-hook-ec3d8e4de4ec)
 > * 原文作者：[Justin Travis Waith-Mair](https://medium.com/@want2code)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/checking-the-network-connection-with-a-react-hook.md](https://github.com/xitu/gold-miner/blob/master/TODO1/checking-the-network-connection-with-a-react-hook.md)
-> * 译者：
+> * 译者：[Jerry-FD](https://github.com/Jerry-FD)
 > * 校对者：
 
-# Checking The Network Connection With a React Hook
 
-![Photo by [NASA](https://unsplash.com/@nasa?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://miro.medium.com/max/6646/0*kVB651dEu92o-J-l)
 
-Front end development is a unique set of challenges. It lives in a world of design, user experience, and engineering at the same time. Our jobs as front end engineers are to “engineer” delightful experiences using design, UX, and UI logic.
+![拍摄来自 [NASA](https://unsplash.com/@nasa?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://miro.medium.com/max/6646/0*kVB651dEu92o-J-l)
 
-In a world of highspeed dedicated internet connections becoming more and more commonplace, one of those often-overlooked experiences is what to do in your experience based on if the client is no longer online. Often times we just take for granted that we will be online, but that isn’t always the case. More and more web usage is being handled over mobile phones which is never able to be reliable. Wifi is getting better, but Wifi dead zones do exist. Even those who are hard-wired can be a broken utility cable away from being kicked off that dedicated highspeed connection.
+前端开发是一项包含诸多挑战的工作。这项有趣的工作诞生于这个充满设计、用户体验和工程学的世界。我们作为前端开发者的工作是要运用设计、UX 和 UI 逻辑来给用户“打造”一个舒适的体验。
 
-The point of this article is not to get into the UI/UX on what best practices you should do when a client is no longer online. Instead, I am intending to get you past the most important hurdle of them all: Actually determining if you are online in the context of a React Component.
+随着时代的高速发展，网络的正常连接已经习以为常了，但是有一个经常被忽视的问题，当你的用户失去网络连接的时候，你会怎么做，你会给用户什么样的体验。许多时候，我们认为保证网络连接是理所当然的，但现实却并不总是这样。越来越多的页面是由移动设备所展示的，这种网络可不能说是稳定的。Wifi 确实越来普及了，但是 Wifi 的死区也的确存在。就算是物理连接的网线也有可能会被踢掉而失去连接。
 
-## The Navigator Object
+这篇文章的重点不是要深入到 UI/UX 中去讨论当用户丢失连接时怎么做才最佳实践，我是要帮你越过最大的障碍：在 React Component 的环境里，准确地判断你是否处于网络连接状态。
 
-Before we get into the aspect of implementing this in a hook, I think it’s important to understand how JavaScript can determine if it is online or not. This information is found using the Navigator object. What is the Navigator object? Simply put it is an object of read-only data about the state and identity of the specific browser using your data. It has properties such as geolocation, userAgent, and many other things including if you are online or not. As always, I would recommend checking out the [documentation found over at MDN regarding the Navigator object](https://developer.mozilla.org/en-US/docs/Web/API/Navigator).
+##Navigator 对象
 
-You access the Navigator object from the global window object like so: `window.navigator` and from there you can then access one of the many properties that it has available. The specific property we are looking for is the `onLine` property. Take special note on the casing. It’s NOT online it is camel-cased, onLine.
+我认为在我们深入了解怎么使用 hook 来实现这个具体功能之前，先来了解 JavaScript 是如何判定当前是否处于有网络的状态非常有意义。这个信息可以通过 Navigator 对象找到。那么什么是 Navigator 对象？可以简单的把它当做是一个只可读取的数据，它依赖你的数据，包含当前浏览器的状态和特性。它有定位、userAgent 和一些其他的属性，其中就包括你当前是否处于网络连接状态。和往常一样，我建议你[在 MDN 上查阅关于 Navigator 对象的文档](https://developer.mozilla.org/en-US/docs/Web/API/Navigator)。
 
-## Using It In a Hook
+你可以从全局的 window 对象上获取 Navigator 对象：`window.navigator` 从这里你可以随之获得其中存在的一项或多项属性。我们想要获取的是 `onLine` 这个属性。这里我特别强调一下。它不是 online，它是驼峰命名的，   onLine。
 
-The obvious first thing we need is some state to keep track of whether we are online and return that from our custom hook:
+## 在 Hook 中使用
+
+显然我们的首要任务是需要一些状态来跟踪记录我们是否在线的状态以及把它从我们的自定义 hook 中 return 出来：
 
 ```js
 import {useState} from 'react';
@@ -35,7 +35,7 @@ function useNetwork(){
 }
 ```
 
-This is good for when the component mounts, but what happens if the client goes offline after it mounts? Luckily there are two events we can listen for that we can use to trigger an update to your state. To do this we need the useEffect hook, like this:
+当组件渲染的时候这样是很好，但是如果用户在组件渲染完成之后掉线了会怎么样呢？幸运的是，我们可以监听两个事件，触发时以更新状态。为了达到这个效果我们需要使用 useEffect hook：
 
 ```js
 function useNetwork(){
@@ -59,9 +59,10 @@ return isOnline;
 };
 ```
 
-As you can see we are listening to two events, `offline` and `online` and then updating the state when the event is triggered. Anyone who has dealt with hooks and event listeners will see two obvious problems. The first is that we need to return a cleanup function from this useEffect callback so that React can remove our event listeners.
+如你所见我们监听了两个事件，`offline` 和 `online` ，当事件触发的时候随之更新状态。处理过 hooks 和事件监听的同学会立刻注意到两个问题。首先是我们需要从这个 useEffect 回调函数中 return 一个清理函数，这样的话 React 可以帮助我们移除事件的监听。
 
-The second is that if inorder to remove an event listener, you need to provide the same function, so it knows which listener to remove. Passing in another arrow function that looks the same is not a going to remove the event listener even if the function ‘looks’ and ‘acts’ the same. So here is how we will update our hook:
+其次是想要依次移除事件的监听，你需要提供同一个函数，这样它才能明确哪一个监听器应该被移除。传入另一个看起来一样的箭头函数不会如期移除事件监听，就算这些监听函数‘长得一样’、‘功能一样‘也不行。所以下面是我们更新后的 hook：
+
 
 ```js
 function useNetwork(){
@@ -95,7 +96,7 @@ function useNetwork(){
 };
 ```
 
-We have now saved off the function into a variable that we can pass into both the add and remove event listener. Now we are ready to build a unique experience for our customers depending on if they are still online or not.
+我们现在把函数保存在了变量里面，以此我们可以深入监听和解绑。现在我们已经准备好根据用户是否在线的状态来为用户打造一个独特的额体验了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
