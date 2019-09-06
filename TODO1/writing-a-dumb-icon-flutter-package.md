@@ -27,7 +27,7 @@ I found this open-source CSS icon package on GitHub named [weather-icons](https:
 
 Time to create the flutter package. We can use the **old** and **dumb** way of creating a package using the Android Studio method of selecting package instead of application or use this really cool command line technique.
 
-```
+```bash
 flutter create --template=package your_awesome_package_name
 ```
 
