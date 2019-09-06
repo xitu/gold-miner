@@ -7,9 +7,7 @@
 
 # Mathematical programming — a key habit to build up for advancing in data science
 
-#### We show how, by simulating the random throw of a dart, you can compute the value of pi approximately. This is a small step towards building the habit of mathematical programming, which should be a key skill in the repertoire of a budding data scientist.
-
-![](https://cdn-images-1.medium.com/max/2000/1*UW27ZyyC2R4m9H3Ynza0Ww.jpeg)
+> We show how, by simulating the random throw of a dart, you can compute the value of pi approximately. This is a small step towards building the habit of mathematical programming, which should be a key skill in the repertoire of a budding data scientist.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2vPOgrtPqR75SVvCN-lCqQ.jpeg)
 
