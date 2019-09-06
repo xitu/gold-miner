@@ -23,9 +23,9 @@ In this tutorial, we will select a simple one-dimensional function and use it as
 
 After completing this tutorial, you will know:
 
-*   The benefit of developing a generative adversarial network from scratch for a simple one-dimensional function.
-*   How to develop separate discriminator and generator models, as well as a composite model for training the generator via the discriminator’s predictive behavior.
-*   How to subjectively evaluate generated samples in the context of real examples from the problem domain.
+* The benefit of developing a generative adversarial network from scratch for a simple one-dimensional function.
+* How to develop separate discriminator and generator models, as well as a composite model for training the generator via the discriminator’s predictive behavior.
+* How to subjectively evaluate generated samples in the context of real examples from the problem domain.
 
 Discover how to develop DCGANs, conditional GANs, Pix2Pix, CycleGANs, and more with Keras [in my new GANs book](/generative_adversarial_networks/), with 29 step-by-step tutorials and full source code.
 
@@ -40,12 +40,12 @@ Photo by [Chris Bambrick](https://www.flickr.com/photos/lntervention/16865473804
 
 This tutorial is divided into six parts; they are:
 
-1.  Select a One-Dimensional Function
-2.  Define a Discriminator Model
-3.  Define a Generator Model
-4.  Training the Generator Model
-5.  Evaluating the Performance of the GAN
-6.  Complete Example of Training the GAN
+1. Select a One-Dimensional Function
+2. Define a Discriminator Model
+3. Define a Generator Model
+4. Training the Generator Model
+5. Evaluating the Performance of the GAN
+6. Complete Example of Training the GAN
 
 ## Select a One-Dimensional Function
 
@@ -65,7 +65,7 @@ We will use a simple function of _x^2_; that is, the function will return the sq
 
 We can define the function in Python as follows:
 
-```
+```python
 # simple function
 def calculate(x):
 	return x * x
@@ -74,7 +74,7 @@ We can define the input domain as real values between -0.5 and 0.5 and calculate
 
 The complete example is listed below.
 
-```
+```python
 # demonstrate simple x^2 function
 from matplotlib import pyplot
 
@@ -111,7 +111,7 @@ The complete example is listed below.
 
 First, we generate uniformly random values between 0 and 1, then shift them to the range -0.5 and 0.5. We then calculate the output value for each randomly generated input value and combine the arrays into a single NumPy array with _n_ rows (100) and two columns.
 
-```
+```python
 # example of generating random samples from X^2
 from numpy.random import rand
 from numpy import hstack
@@ -153,8 +153,8 @@ The model must take a sample from our problem, such as a vector with two element
 
 This is a binary classification problem.
 
-*   **Inputs**: Sample with two real values.
-*   **Outputs**: Binary classification, likelihood the sample is real (or fake).
+* **Inputs**: Sample with two real values.
+* **Outputs**: Binary classification, likelihood the sample is real (or fake).
 
 The problem is very simple, meaning that we don’t need a complex neural network to model it.
 
@@ -166,7 +166,7 @@ The model will minimize the binary cross entropy loss function, and the [Adam ve
 
 The _define_discriminator()_ function below defines and returns the discriminator model. The function parameterizes the number of inputs to expect, which defaults to two.
 
-```
+```python
 # define the standalone discriminator model
 def define_discriminator(n_inputs=2):
 	model = Sequential()
@@ -232,7 +232,7 @@ There is no need to do this, but the elements we will develop will be useful lat
 
 First, we can update our _generate_samples()_ function from the prediction section and call it _generate\_real\_samples()_ and have it also return the output class labels for the real samples, specifically, an array of 1 values, where class=1 means real.
 
-```
+```python
 # generate n real samples with class labels
 def generate_real_samples(n):
 	# generate inputs in [-0.5, 0.5]
@@ -254,7 +254,7 @@ In this case, we will generate random values in the range -1 and 1 for both elem
 
 This function will act as our fake generator model.
 
-```
+```python
 # generate n fake samples with class labels
 def generate_fake_samples(n):
 	# generate inputs in [-1, 1]
@@ -278,7 +278,7 @@ The model can then be evaluated on the generated examples and we can report the 
 
 The _train_discriminator()_ function below implements this, training the model for 1,000 batches and using 128 samples per batch (64 fake and 64 real).
 
-```
+```python
 # train the discriminator model
 def train_discriminator(model, n_epochs=1000, n_batch=128):
 	half_batch = int(n_batch / 2)
@@ -302,7 +302,7 @@ We can tie all of this together and train the discriminator model on real and fa
 
 The complete example is listed below.
 
-```
+```python
 # define and fit a discriminator model
 from numpy import zeros
 from numpy import ones
@@ -400,8 +400,8 @@ This is because the latent space has no meaning until the generator model starts
 
 We will define a small latent space of five dimensions and use the standard approach in the GAN literature of using a Gaussian distribution for each variable in the latent space. We will generate new inputs by drawing random numbers from a standard Gaussian distribution, i.e. mean of zero and a standard deviation of one.
 
-*   **Inputs**: Point in latent space, e.g. a five-element vector of Gaussian random numbers.
-*   **Outputs**: Two-element vector representing a generated sample for our function (x and x^2).
+* **Inputs**: Point in latent space, e.g. a five-element vector of Gaussian random numbers.
+* **Outputs**: Two-element vector representing a generated sample for our function (x and x^2).
 
 The generator model will be small like the discriminator model.
 
@@ -415,7 +415,7 @@ The _define_generator()_ function below defines and returns the generator model.
 
 The size of the latent dimension is parameterized in case we want to play with it later, and the output shape of the model is also parameterized, matching the function for defining the discriminator model.
 
-```
+```python
 # define the standalone generator model
 def define_generator(latent_dim, n_outputs=2):
 	model = Sequential()
@@ -428,7 +428,7 @@ We can summarize the model to help better understand the input and output shapes
 
 The complete example is listed below.
 
-```
+```python
 # define the generator model
 from keras.models import Sequential
 from keras.layers import Dense
@@ -481,7 +481,7 @@ The first step is to generate new points in the latent space. We can achieve thi
 
 The array of random numbers can then be reshaped into samples: that is n rows with five elements per row. The _generate\_latent\_points()_ function below implements this and generates the desired number of points in the latent space that can be used as input to the generator model.
 
-```
+```python
 # generate points in latent space as input for the generator
 def generate_latent_points(latent_dim, n):
 	# generate points in the latent space
@@ -495,7 +495,7 @@ Next, we can use the generated points as input the generator model to generate n
 
 The _generate\_fake\_samples()_ function below implements this, where the defined generator and size of the latent space are passed as arguments, along with the number of points for the model to generate.
 
-```
+```python
 # use the generator to generate n fake examples and plot the results
 def generate_fake_samples(generator, latent_dim, n):
 	# generate points in latent space
@@ -509,7 +509,7 @@ def generate_fake_samples(generator, latent_dim, n):
 
 Tying this together, the complete example is listed below.
 
-```
+```python
 # define and use the generator model
 from numpy.random import randn
 from keras.models import Sequential
@@ -561,8 +561,7 @@ We have now seen how to define and use the generator model. We will need to use 
 
 We have not seen how the generator model is trained; that is next.
 
-Training the Generator Model
-----------------------------
+## Training the Generator Model
 
 The weights in the generator model are updated based on the performance of the discriminator model.
 
@@ -586,14 +585,14 @@ We can imagine that the discriminator will then classify the generated samples a
 
 Let’s make this concrete.
 
-*   **Inputs**: Point in latent space, e.g. a five-element vector of Gaussian random numbers.
-*   **Outputs**: Binary classification, likelihood the sample is real (or fake).
+* **Inputs**: Point in latent space, e.g. a five-element vector of Gaussian random numbers.
+* **Outputs**: Binary classification, likelihood the sample is real (or fake).
 
 The _define_gan()_ function below takes as arguments the already-defined generator and discriminator models and creates the new logical third model subsuming these two models. The weights in the discriminator are marked as not trainable, which only affects the weights as seen by the GAN model and not the standalone discriminator model.
 
 The GAN model then uses the same binary cross entropy loss function as the discriminator and the efficient [Adam version of stochastic gradient descent](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/).
 
-```
+```python
 # define the combined generator and discriminator model, for updating the generator
 def define_gan(generator, discriminator):
 	# make weights in the discriminator not trainable
@@ -617,11 +616,11 @@ The discriminator model was marked as not trainable, added to the GAN model, and
 
 This behavior is described in the Keras API documentation here:
 
-*   [How can I “freeze” Keras layers?](https://keras.io/getting-started/faq/#how-can-i-freeze-keras-layers)
+* [How can I “freeze” Keras layers?](https://keras.io/getting-started/faq/#how-can-i-freeze-keras-layers)
 
 The complete example of creating the discriminator, generator, and composite model is listed below.
 
-```
+```python
 # demonstrate creating the three models in the gan
 from keras.models import Sequential
 from keras.layers import Dense
@@ -699,7 +698,7 @@ Training the composite model involves generating a batch-worth of points in the 
 
 The _train_gan()_ function below demonstrates this, although it is pretty uninteresting as only the generator will be updated each epoch, leaving the discriminator with default model weights.
 
-```
+```python
 # train the composite model
 def train_gan(gan_model, latent_dim, n_epochs=10000, n_batch=128):
 	# manually enumerate epochs
@@ -718,7 +717,7 @@ This requires combining elements from the _train_discriminator()_ function defin
 
 The complete train function for updating the discriminator model and the generator (via the composite model) is listed below.
 
-```
+```python
 # train the generator and discriminator
 def train(g_model, d_model, gan_model, latent_dim, n_epochs=10000, n_batch=128):
 	# determine half the size of one batch, for updating the discriminator
@@ -754,7 +753,7 @@ Nevertheless, we will not calculate this objective error score in this tutorial.
 
 First, we can use the _generate\_real\_samples()_ function developed in the discriminator part above to generate real examples. Creating a scatter plot of these examples will create the familiar u-shape of our target function.
 
-```
+```python
 # generate n real samples with class labels
 def generate_real_samples(n):
 	# generate inputs in [-0.5, 0.5]
@@ -774,7 +773,7 @@ Next, we can use the generator model to generate the same number of fake samples
 
 This requires first generating the same number of points in the latent space via the _generate\_latent\_points()_ function developed in the generator section above. These can then be passed to the generator model and used to generate samples that can also be plotted on the same scatter plot.
 
-```
+```python
 # generate points in latent space as input for the generator
 def generate_latent_points(latent_dim, n):
 	# generate points in the latent space
@@ -786,7 +785,7 @@ def generate_latent_points(latent_dim, n):
 
 The _generate\_fake\_samples()_ function below generates these fake samples and the associated class label of 0 which will be useful later.
 
-```
+```python
 # use the generator to generate n fake examples, with class labels
 def generate_fake_samples(generator, latent_dim, n):
 	# generate points in latent space
@@ -802,7 +801,7 @@ Having both samples plotted on the same graph allows them to be directly compare
 
 The _summarize_performance()_ function below can be called any time during training to create a scatter plot of real and generated points to get an idea of the current capability of the generator model.
 
-```
+```python
 # plot real and fake points
 def summarize_performance(generator, latent_dim, n=100):
 	# prepare real samples
@@ -821,7 +820,7 @@ Specifically, we are interested to know how well the discriminator model can cor
 
 We can update the _summarize_performance()_ function to also take the discriminator and current epoch number as arguments and report the accuracy on the sample of real and fake examples.
 
-```
+```python
 # evaluate the discriminator and plot real and fake points
 def summarize_performance(epoch, generator, discriminator, latent_dim, n=100):
 	# prepare real samples
@@ -848,7 +847,7 @@ We can achieve this by parameterizing the frequency of the check-in via _n_eval_
 
 The updated version of the _train()_ function with this change is listed below.
 
-```
+```python
 # train the generator and discriminator
 def train(g_model, d_model, gan_model, latent_dim, n_epochs=10000, n_batch=128, n_eval=2000):
 	# determine half the size of one batch, for updating the discriminator
@@ -879,7 +878,7 @@ We now have everything we need to train and evaluate a GAN on our chosen one-dim
 
 The complete example is listed below.
 
-```
+```python
 # train a generative adversarial network on a one-dimensional function
 from numpy import hstack
 from numpy import zeros
@@ -1036,20 +1035,18 @@ Here we can see that the generator model does a reasonable job of generating pla
 
 Scatter Plot of Real and Generated Examples for the Target Function After 10,000 Iterations.
 
-Extensions
-----------
+## Extensions
 
 This section lists some ideas for extending the tutorial that you may wish to explore.
 
-*   **Model Architecture**. Experiment with alternate model architectures for the discriminator and generator, such as more or fewer nodes, layers, and alternate activation functions such as leaky ReLU.
-*   **Data Scaling**. Experiment with alternate activation functions such as the hyperbolic tangent (tanh) and any required scaling of training data.
-*   **Alternate Target Function**. Experiment with an alternate target function, such a simple sine wave, Gaussian distribution, a different quadratic, or even a multi-modal polynomial function.
+* **Model Architecture**. Experiment with alternate model architectures for the discriminator and generator, such as more or fewer nodes, layers, and alternate activation functions such as leaky ReLU.
+* **Data Scaling**. Experiment with alternate activation functions such as the hyperbolic tangent (tanh) and any required scaling of training data.
+* **Alternate Target Function**. Experiment with an alternate target function, such a simple sine wave, Gaussian distribution, a different quadratic, or even a multi-modal polynomial function.
 
 If you explore any of these extensions, I’d love to know.  
 Post your findings in the comments below.
 
-Further Reading
----------------
+## Further Reading
 
 This section provides more resources on the topic if you are looking to go deeper.
 
@@ -1064,16 +1061,15 @@ This section provides more resources on the topic if you are looking to go deepe
 *   [numpy.ones API](https://docs.scipy.org/doc/numpy/reference/generated/numpy.ones.html)
 *   [numpy.hstack API](https://docs.scipy.org/doc/numpy/reference/generated/numpy.hstack.html)
 
-Summary
--------
+## Summary
 
 In this tutorial, you discovered how to develop a generative adversarial network from scratch for a one-dimensional function.
 
 Specifically, you learned:
 
-*   The benefit of developing a generative adversarial network from scratch for a simple one-dimensional function.
-*   How to develop separate discriminator and generator models, as well as a composite model for training the generator via the discriminator’s predictive behavior.
-*   How to subjectively evaluate generated samples in the context of real examples from the problem domain.
+* The benefit of developing a generative adversarial network from scratch for a simple one-dimensional function.
+* How to develop separate discriminator and generator models, as well as a composite model for training the generator via the discriminator’s predictive behavior.
+* How to subjectively evaluate generated samples in the context of real examples from the problem domain.
 
 Do you have any questions?  
 Ask your questions in the comments below and I will do my best to answer.
