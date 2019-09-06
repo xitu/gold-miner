@@ -15,7 +15,7 @@ If you need to implement an app with more than one screen the odds are that one 
 
 ## Prerequisites
 
-Make sure you feel comfortable with the terms described in the docs in [redux.dart](https://github.com/johnpryan/redux.dart?source=post_page---------------------------) and [flutter_redux](https://github.com/brianegan/flutter_redux?source=post_page---------------------------) repositories. I would also suggest that you take a look at [my previous article](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f).
+Make sure you feel comfortable with the terms described in the docs in [redux.dart](https://github.com/johnpryan/redux.dart) and [flutter_redux](https://github.com/brianegan/flutter_redux) repositories. I would also suggest that you take a look at [my previous article](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f).
 
 ## Goal
 
@@ -27,7 +27,7 @@ Here is the result that will be achieved in the end:
 
 ## Development
 
-We’ll need [flutter_redux](https://pub.dev/packages/flutter_redux?source=post_page---------------------------) and [http](https://pub.dev/packages/http?source=post_page---------------------------) packages, so get them added to your **pubspec.yaml** file and installed. Also, [intl](https://pub.dev/packages/intl) package and [redux_logging](https://pub.dev/packages/redux_logging) packages will be useful for date formatting and debugging purposes respectively.
+We’ll need [flutter_redux](https://pub.dev/packages/flutter_redux) and [http](https://pub.dev/packages/http) packages, so get them added to your **pubspec.yaml** file and installed. Also, [intl](https://pub.dev/packages/intl) package and [redux_logging](https://pub.dev/packages/redux_logging) packages will be useful for date formatting and debugging purposes respectively.
 
 #### Model
 
@@ -256,7 +256,7 @@ Future<List<GithubIssue>> _loadFlutterGithubIssues(
 
 #### Container
 
-Now we are getting closer to the presentation layer. Here is the container widget that is responsible for converting the latest **App State** to a _`ViewModel` and connecting the `_ViewModel` to the presentation widget.
+Now we are getting closer to the presentation layer. Here is the container widget that is responsible for converting the latest **App State** to a `_ViewModel` and connecting the `_ViewModel` to the presentation widget.
 
 ```Dart
 import 'package:flutter_redux_infinite_list/models/github_issue.dart';
@@ -637,8 +637,8 @@ Don’t hesitate to give this sample a go yourself, grab the sources from the [G
 ## Sources:
 
 * [https://medium.com/filledstacks/flutter-redux-quick-start-3f549f5b05c5](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f)
-* [https://github.com/johnpryan/redux.dart](https://github.com/johnpryan/redux.dart?source=post_page---------------------------)
-* [https://github.com/brianegan/flutter_redux](https://github.com/brianegan/flutter_redux?source=post_page---------------------------)
+* [https://github.com/johnpryan/redux.dart](https://github.com/johnpryan/redux.dart)
+* [https://github.com/brianegan/flutter_redux](https://github.com/brianegan/flutter_redux)
 * [https://stackoverflow.com/questions/51791501/how-to-debounce-textfield-onchange-in-dart](https://stackoverflow.com/questions/51791501/how-to-debounce-textfield-onchange-in-dart)
 [**Flutter Community (@FlutterComm) | Twitter**
 **The latest Tweets from Flutter Community (@FlutterComm). Follow to get notifications of new articles and packages from…**www.twitter.com](https://www.twitter.com/FlutterComm)
