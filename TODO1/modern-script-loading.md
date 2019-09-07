@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# Modern Script Loading
+# 现代脚本加载
 
-> Serving the right code to the right browsers can be tricky. Here are some options.
+> 为不同浏览器提供合适的代码，这可能有些棘手。下面有一些备选方案。
 
 ![](https://res.cloudinary.com/wedding-website/image/upload/v1562702391/modern-script-loading_ku0eml.jpg)
 
-Serving modern code to modern browsers can be great for performance. Your JavaScript bundles can contain more compact or optimized modern syntax, while still supporting older browsers.
+为现代浏览器提供现代代码可以提高性能。你的 JavaScript 代码包可以在包含更简洁优化的现代语法同时，依然支持旧版浏览器。
 
 The tooling ecosystem has consolidated on using the [module/nomodule pattern](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) for declaratively loading modern VS legacy code, which provides browsers with both sources and lets them decide which to use:
 
@@ -20,25 +20,25 @@ The tooling ecosystem has consolidated on using the [module/nomodule pattern](ht
 <script nomodule src="/legacy.js"></script>  
 ```
 
-Unfortunately, it's not quite that straightforward. The HTML-based approach shown above triggers [over-fetching of scripts in Edge and Safari](https://gist.github.com/jakub-g/5fc11af85a061ca29cc84892f1059fec).
+但很不幸，这不是那么简单。上面提到的基于 HTML 的方法会引发 [Edge 和 Safari 浏览器中脚本过度获取](https://gist.github.com/jakub-g/5fc11af85a061ca29cc84892f1059fec)的问题。
 
-### What can we do?
+### 我们能做什么？
 
-What can we do? We want to deliver two compile targets depending on the browser, but a couple older browsers don't quite support the nice clean syntax for doing so.
+那我们能做什么呢？我们希望能针对浏览器提供两种不同的编译目标产物，但一些旧版浏览器不完全支持这种简洁语法。
 
-First, there's the [Safari Fix](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc). Safari 10.1 supports JS Modules not the `nomodule` attribute on scripts, which causes it to execute both the modern and legacy code **(yikes!)**. Thankfully, Sam found a way to use a non-standard `beforeload` event supported in Safari 10 & 11 to polyfill `nomodule`.
+首先，这里有针对 [Safari 浏览器的修复](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc)。Safari 10.1 支持 JS Modules，但却不支持应用在脚本文件上的 `nomodule` 属性，这会导致浏览器会同时执行现代和传统代码**（啊呀好气啊！）**。值得庆幸的是，Sam 找到了一种方式，这种方式可以使用 Safari 10 和 11 支持的非标准 `beforeload` 事件弥补不支持 `nomodule` 的情况。
 
-#### Option 1: Load Dynamically
+#### 方案一：动态加载脚本
 
-We can circumvent these issues by implementing a tiny script loader, similar to how [LoadCSS](https://github.com/filamentgroup/loadCSS) works. Instead of relying on browsers to implement both ES Modules and the `nomodule` attribute, we can attempt to execute a Module script as a "litmus test", then use the result of that test to choose whether to load modern or legacy code.
+通过实现一个小型的脚本加载器，我们可以规避这个问题。加载器的工作方式类似于 [LoadCSS](https://github.com/filamentgroup/loadCSS)。我们尝试忽略浏览器对 ES Modules 和 `nomodule` 属性的实现，转而让浏览器执行一段 Module 脚本，借此结果决定加载现代或传统代码。
 
 ```html
-<!-- use a module script to detect modern browsers: -->  
+<!-- 使用 module 脚本检测现代浏览器： -->  
 <script type=module>  
   self.modern = true
 </script>
 
-<!-- now use that flag to load modern VS legacy code: -->  
+<!-- 根据 self.modern 标记加载现代或传统代码： -->  
 <script>  
   addEventListener('load', function() {
     var s = document.createElement('script')
@@ -54,9 +54,9 @@ We can circumvent these issues by implementing a tiny script loader, similar to 
 </script>  
 ```
 
-However, this solution requires waiting until our first "litmus test" module script has run before it can inject the correct script. This is because `<script type=module>` is always asynchronous. There is a better way!
+然而，由于 `<script type=module>` 异步执行的原因，上述方案需要等待头一个测试脚本运行之后才能去注入正确的脚本。下面还有更好的方案。
 
-A standalone variant of this can be implemented by checking if the browser supports `nomodule`. This would mean browsers like Safari 10.1 are treated as legacy even though they support Modules, but that [might be](https://github.com/web-padawan/polymer3-webpack-starter/issues/33#issuecomment-474993984) a [good thing](https://github.com/babel/babel/pull/9584). Here's the code for that:
+以上方案的独立变体之一，是通过检测浏览器是否支持 `nomodule` 属性确定加载对应代码。这意味着像 Safari 10.1 这样的浏览器，虽然支持模块，但依然会加载传统代码。这[可能](https://github.com/web-padawan/polymer3-webpack-starter/issues/33#issuecomment-474993984)是[一件好事](https://github.com/babel/babel/pull/9584)。这是该方案的代码：
 
 ```js
 var s = document.createElement('script')  
@@ -84,9 +84,9 @@ This can be quickly rolled into a function that loads modern or legacy code, and
 </script>  
 ```
 
-**What's the trade-off?** **preloading**.
+**那还有什么折衷方案吗？** **预加载**不错。
 
-The trouble with this solution is that, because it's completely dynamic, the browser won't be able to discover our JavaScript resources until it runs the bootstrapping code we wrote to inject modern vs legacy scripts. Normally, browsers scan HTML as it is being streamed to look for resources they can preload. There's a solution, though it's not perfect: we can use `<link rel=modulepreload>` to preload the modern version of a bundle in modern browsers. Unfortunately, [only Chrome supports `modulepreload`](https://developers.google.com/web/updates/2017/12/modulepreload) so far.
+上述方案的问题在于，由于它完全是动态的，因此浏览器在运行我们编写的引导代码之前，将无法发现要注入的 JavaScript 资源。通常浏览器在流式传输时，会扫描 HTML 查找可以预加载的资源。有一个不完美的解决方案：使用 `<link rel = modulepreload>` 在现代浏览器里预加载现代版本的代码包。但很不幸，[目前只有 Chrome 浏览器支持](https://developers.google.com/web/updates/2017/12/modulepreload)。
 
 ```html
 <link rel="modulepreload" href="/modern.js">  
@@ -94,9 +94,9 @@ The trouble with this solution is that, because it's completely dynamic, the bro
 <!-- etc -->  
 ```
 
-Whether this technique works for you can come down to the size of the HTML document you're embedding those scripts into. If your HTML payload is as small as a splash screen or just enough to bootstrap a client-side application, giving up the preload scanner is less likely to impact performance. If you are server-rendering a lot of meaningful HTML for the browser to stream, the preload scanner is your friend and this might not be the best approach for you.
+这种技术是否对你适用，可以归结于嵌入脚本的 HTML 文档大小。如果 HTML 有效负载像启动屏幕一样小，或者足以引导客户端应用程序，那放弃预加载扫描不大可能影响性能。如果你使用服务端渲染大量有意义的 HTML 供浏览器流式传输，那么预加载扫描就是你的朋友。但这可能不是最佳方法。
 
-Here's what this solution might look like in prod:
+这可能是在生产环境下的解决方案：
 
 ```html
 <link rel="modulepreload" href="/modern.js">  
@@ -107,17 +107,18 @@ Here's what this solution might look like in prod:
 </script>  
 ```
 
+还要指出的是，[支持 JS Modules 的浏览器](https://caniuse.com/#feat=es6-module) 非常类似于
 It's also be pointed out that the set of [browsers supporting JS Modules](https://caniuse.com/#feat=es6-module) is quite similar to [those that support](https://caniuse.com/#feat=link-rel-preload) `<link rel=preload>`. For some websites, it might make sense to use `<link rel=preload as=script crossorigin>` rather than relying on modulepreload. This may have performance drawbacks, since classic script preloading doesn't spread parsing work out over time as well as modulepreload.
 
-#### Option 2: User Agent Sniffing
+#### 方案二：用户代理（UA）检测
 
-I don't have a concise code sample for this since User Agent detection is nontrivial, but there's a great [Smashing Magazine article](https://www.smashingmagazine.com/2018/10/smart-bundling-legacy-code-browsers/) about it.
+我没有这方面的简洁代码示例，因为用户代理（UA）检测非常重要。这篇 [Smashing Magazine 文章](https://www.smashingmagazine.com/2018/10/smart-bundling-legacy-code-browsers/) 讨论了这件事。
 
-Essentially, this technique starts with the same `<script src=bundle.js>` in the HTML for all browsers. When `bundle.js` is requested, the server parses the requesting browser's User Agent string and chooses whether to return modern or legacy JavaScript, depending on whether that browser is recognized as modern or not.
+本质上讲，这种技术在所有浏览器的 HTML 中都以相同的 `<script src=bundle.js>` 开头。当请求 `bundle.js` 时，服务器解析浏览器的用户代理（UA）字符串，并选择返回现代或传统 JavaScript，这取决于该浏览器是否被识别为现代浏览器。
 
-While this approach is versatile, it comes with some severe implications:
+虽然这种方法很通用，但它也带来了一些严重的影响：
 
-* since server smarts are required, this doesn't work for static deployment (static site generators, Netlify, etc)
+* 由于需要服务器去智能判断，这种方法不适用于静态部署（静态站点生成器、）since server smarts are required, this doesn't work for static deployment (static site generators, Netlify, etc)
 * caching for those JavaScript URLs now varies based on User Agent, which is highly volatile
 * UA detection is difficult and can be prone to false classification
 * the User Agent string is easily spoofable and new UA's arrive daily
