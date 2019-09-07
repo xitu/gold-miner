@@ -54,7 +54,9 @@
 </script>  
 ```
 
-然而，由于 `<script type=module>` 异步执行的原因，上述方案需要等待头一个测试脚本运行之后才能去注入正确的脚本。下面还有更好的方案。
+然而，由于 `<script type=module>` 异步执行的原因，上述方案需要等待头一个测试脚本运行之后才能去注入正确的脚本。
+
+下面还有更好的方案。
 
 以上方案的独立变体之一，是通过检测浏览器是否支持 `nomodule` 属性确定加载对应代码。这意味着像 Safari 10.1 这样的浏览器，虽然支持模块，但依然会加载传统代码。这[可能](https://github.com/web-padawan/polymer3-webpack-starter/issues/33#issuecomment-474993984)是[一件好事](https://github.com/babel/babel/pull/9584)。这是该方案的代码：
 
@@ -84,7 +86,7 @@ document.head.appendChild(s)
 </script>  
 ```
 
-**那还有什么折衷方案吗？** **预加载**不错。
+那还有什么折衷方案吗？**预加载**不错。
 
 上述方案的问题在于，由于它完全是动态的，因此浏览器在运行我们编写的引导代码之前，将无法发现要注入的 JavaScript 资源。通常浏览器在流式传输时，会扫描 HTML 查找可以预加载的资源。有一个不完美的解决方案：使用 `<link rel = modulepreload>` 在现代浏览器里预加载现代版本的代码包。但很不幸，[目前只有 Chrome 浏览器支持](https://developers.google.com/web/updates/2017/12/modulepreload)。
 
@@ -122,7 +124,7 @@ document.head.appendChild(s)
 * 对用户代理（UA）的检测很困难，容易出现错误分类
 * 用户代理（UA）很容易被欺骗，并且经常会有新的用户代理（UA）产生
 
-解决这些限制的一种方法是将模块/模块模式与用户代理区分相结合，以避免首先发送多个软件包版本。 这种方法仍然会降低页面的可缓存性，但允许有效的预加载，因为生成HTML的服务器知道是否使用`modulepreload`或`preload`。
+解决这些限制的一种方法是将模块/模块模式与用户代理区分相结合，以避免首先发送多个软件包版本。 这种方法仍然会降低页面的可缓存性，但允许有效的预加载，因为生成 HTML 的服务器知道是否使用 `modulepreload` 或 `preload` 。
 
 解决这些限制的一种方法是将 `module/nomodule` 模式和用户代理区分相结合，以避免首先发送多个代码包版本。这种方法依然会降低页面的可缓存性，但因为生成 HTML 的服务器可以了解到是否使用 `modulepreload` 或者 `preload` ，所以允许了有效的预加载。
 
@@ -152,11 +154,11 @@ function renderPage(request, response) {
 
 #### 方案三：“惩罚”旧版本浏览器
 
-The ill-effects of the module/nomodule pattern are seen in old versions of Chrome, Firefox and Safari - browser versions with very limited usage, since users are automatically updated to the latest version. This doesn't hold true for Edge 16-18, but there is hope: new versions of Edge will use a Chromium-based renderer that doesn't suffer from this issue.
+module/nomodule 模式的不良影响见于 Chrome、Firefox 和 旧版本 Safari —— 浏览器版本的使用非常有限，因为用户会自动更新到最新版本。Edge 16-18 的用户应当不会去自行更新，但新版本的 Edge 依然有希望得到支持：新版本的 Edge 将使用不受此问题影响的基于 Chromium 的渲染器。
 
-It might be perfectly reasonable for some applications to accept this as a trade-off: you get to deliver modern code to 90% of browsers, at the expense of some extra bandwidth on older browsers. Notably, none of the User Agents suffering from this over-fetching issue have significant mobile market share - so those bytes are less likely to be coming from an expensive mobile plan or through a device with a slow processor.
+对于某些应用程序来说，接受这一点作为权衡取舍可能是完全合理的：可以在 90% 的浏览器中提供现代代码，但代价是旧浏览器会付出额外带宽。值得注意的是，没有一款遭受这种过度获取问题的浏览器占据了显著的移动市场份额 —— 因此这些流量不太可能来自昂贵的移动计划或通过具有缓慢处理器的设备。
 
-If you're building a site where your users are primarily on mobile or recent browsers, the simplest form of the module/nomodule pattern will work for the vast majority of your users. Just be sure to include the [Safari 10.1 fix](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc) if you have usage from slightly older iOS devices.
+如果正在构建一个用户主要位于移动设备或新版浏览器上的网站，那么最简单的 module/nomodule 模式将适用于绝大多数用户。如果要支持较旧的 iOS 设备，请确保包含 [Safari 10.1 补丁](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc)。
 
 ```html
 <!-- polyfill `nomodule` in Safari 10.1: -->  
@@ -164,10 +166,10 @@ If you're building a site where your users are primarily on mobile or recent bro
 !function(e,t,n){!("noModule"in(t=e.createElement("script")))&&"onbeforeload"in t&&(n=!1,e.addEventListener("beforeload",function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()},!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove())}(document)
 </script>
 
-<!-- 90+% of browsers: -->  
+<!-- 90% 以上的浏览器 -->  
 <script src=modern.js type=module></script>
 
-<!-- IE, Edge <16, Safari <10.1, old desktop: -->  
+<!-- IE, Edge <16, Safari <10.1, 旧版本桌面浏览器 -->  
 <script src=legacy.js nomodule async defer></script>  
 ```
 
@@ -200,6 +202,8 @@ Angular CLI 可以配置使用此方法进行 polyfill ，就像 [Minko Gechev �
 选择适合我们当前架构的方案。
 
 就我个人而言，相比降低某些桌面浏览器的下载成本来说，我更倾向于决定在移动设备上优化以获得更快的解析时间。移动端用户将解析和数据成本视为实际费用 —— 电池消耗和数据费用 —— 而桌面端用户不会受到这些限制。此外，它为我提供了 90% 的优化 —— 我开发和维护的产品面向的大多数用户都使用现代浏览器和（或）移动浏览器。
+
+> 译者注：估摸着原作者使用了方案三
 
 ### 扩展阅读
 
