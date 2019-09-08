@@ -5,119 +5,122 @@
 > * 译者：
 > * 校对者：
 
-# How to Develop a 1D Generative Adversarial Network From Scratch in Keras
+# 如何从头用 Keras 搭建一维生成对抗网络
 
-[Generative Adversarial Networks, or GANs for short](https://machinelearningmastery.com/what-are-generative-adversarial-networks-gans/), are a deep learning architecture for training powerful generator models.
+[生成对抗网络或简称 GAN](https://machinelearningmastery.com/what-are-generative-adversarial-networks-gans/)，是训练强大的生成器模型的深度学习框架。
 
-A generator model is capable of generating new artificial samples that plausibly could have come from an existing distribution of samples.
+一个生成器模型可以生成新的人造样本，这些样本可以来自于已经存在的样本分布。
 
-GANs are comprised of both generator and discriminator models. The generator is responsible for generating new samples from the domain, and the discriminator is responsible for classifying whether samples are real or fake (generated). Importantly, the performance of the discriminator model is used to update both the model weights of the discriminator itself and the generator model. This means that the generator never actually sees examples from the domain and is adapted based on how well the discriminator performs.
+生成对抗网络由生成器模型和判别器模型组成。生成器负责从领域中生成新的样本，判别器负责区分这些样本是真的还是假的（生成的）。重要的是，判别器模型的性能被用来更新判别器自己和生成器的模型权重参数。这意味着生成器从来不会真的看到来自领域中的样本并且是基于判别器表现的好坏来作出调整。
 
-This is a complex type of model both to understand and to train.
+这是一个理解和训练都复杂的模型。
 
-One approach to better understand the nature of GAN models and how they can be trained is to develop a model from scratch for a very simple task.
+一个更好地理解生成对抗网络模型本质以及它们是如何被训练的方法是针对一个非常简单的任务从头搭建一个模型。
 
-A simple task that provides a good context for developing a simple GAN from scratch is a one-dimensional function. This is because both real and generated samples can be plotted and visually inspected to get an idea of what has been learned. A simple function also does not require sophisticated neural network models, meaning the specific generator and discriminator models used on the architecture can be easily understood.
+一维函数这个简单的任务为从头搭建一个简单的生成对抗网络提供了好环境。这是因为真实和生成的样本可以被绘制出来，并且视觉上进行检查，大致了解学习到了什么。一个简单的函数也不需要复杂的神经网络模型，意味着这个架构中的生成器和判别器可以很容易被理解。
 
-In this tutorial, we will select a simple one-dimensional function and use it as the basis for developing and evaluating a generative adversarial network from scratch using the Keras deep learning library.
+在这个教程中，我们将选择一个简单的一维函数并且以它作为基础，用 Keras 深度学习库从头搭建和评估一个生成对抗网络。
 
-After completing this tutorial, you will know:
+在完成了这个教程之后，你将知道：
 
-* The benefit of developing a generative adversarial network from scratch for a simple one-dimensional function.
-* How to develop separate discriminator and generator models, as well as a composite model for training the generator via the discriminator’s predictive behavior.
-* How to subjectively evaluate generated samples in the context of real examples from the problem domain.
+* 使用一个简单的一维函数从头搭建一个生成对抗网络的好处。
+* 如何搭建独立的判别器和生成器模型，以及一个通过判别器预测行为来训练生成器的组合模型。
+* 如何在问题域中真实数据的环境中主观地评估生成的样本。
 
-Discover how to develop DCGANs, conditional GANs, Pix2Pix, CycleGANs, and more with Keras [in my new GANs book](/generative_adversarial_networks/), with 29 step-by-step tutorials and full source code.
+[在我新的生成对抗网络书中](/generative_adversarial_networks/)可以找到如何搭建 DCGANs、条件 GANs、Pix2Pix、CycleGANs 等内容，其中还附有 29 个循序渐进的教程和完整的源代码。
 
-Let’s get started.
+让我们开始吧。
 
-![How to Develop a Generative Adversarial Network for a 1-Dimensional Function From Scratch in Keras](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/How-to-Develop-a-Generative-Adversarial-Network-for-a-1-Dimensional-Function-From-Scratch-in-Keras.jpg)
+![如何从头用 Keras 搭建一维生成对抗网络](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/How-to-Develop-a-Generative-Adversarial-Network-for-a-1-Dimensional-Function-From-Scratch-in-Keras.jpg)
 
 How to Develop a Generative Adversarial Network for a 1-Dimensional Function From Scratch in Keras  
 Photo by [Chris Bambrick](https://www.flickr.com/photos/lntervention/16865473804/), some rights reserved.
+如何从头用 Keras 搭建一维生成对抗网络
+这张照片由 [Chris Bambrick](https://www.flickr.com/photos/lntervention/16865473804/) 拍摄，并保留权利。
 
-## Tutorial Overview
+## 教程概述
 
-This tutorial is divided into six parts; they are:
+这项教程会被分为六个部分，它们是：
 
-1. Select a One-Dimensional Function
-2. Define a Discriminator Model
-3. Define a Generator Model
-4. Training the Generator Model
-5. Evaluating the Performance of the GAN
-6. Complete Example of Training the GAN
+1. 选择一个一维函数
+2. 定义一个判别器模型
+3. 定义一个生成器模型
+4. 训练生成器模型
+5. 评估生成对抗网络的性能
+6. 训练生成对抗网络完整的例子
 
-## Select a One-Dimensional Function
+## 选择一个一维函数
 
-The first step is to select a one-dimensional function to model.
+第一步是为模型选择一个一维函数。
 
-Something of the form:
-
+函数形如：
 ```
 y = f(x)
 ```
 
-Where _x_ are input values and _y_ are the output values of the function.
+其中，_x_ 和 _y_ 是函数的输入值和输出值。
 
-Specifically, we want a function that we can easily understand and plot. This will help in both setting an expectation of what the model should be generating and in using a visual inspection of generated examples to get an idea of their quality.
+特别的是，我们想要一个可以轻易理解和绘制的函数。这会对于为这个模型生成的值设定一个期望值以及视觉上检查这些生成的样本以对它们质量有一个大致的了解都很有帮助。
 
-We will use a simple function of _x^2_; that is, the function will return the square of the input. You might remember this function from high school algebra as the _u_-shaped function.
+我们将会使用一个简单的函数 _x^2_；这个函数会返回输入值的平方。你可能还记得高中代数学到的这个函数，它是一个 _u_ 型函数。
 
-We can define the function in Python as follows:
+我们可以用 Python 来定义这个函数如下：
 
 ```python
-# simple function
+# 简单的函数
 def calculate(x):
 	return x * x
 ```
-We can define the input domain as real values between -0.5 and 0.5 and calculate the output value for each input value in this linear range, then plot the results to get an idea of how inputs relate to outputs.
+
+我们可以定义输入域为在 -0.5 到 0.5 之间的实数，并且为每个输入值在这个线性范围内计算其输出值，然后绘制结果来了解输入值是如何关联到输出值的。
 
 The complete example is listed below.
+完整的例子如下所示：
 
 ```python
-# demonstrate simple x^2 function
+# 演示简单的 x^2 函数
 from matplotlib import pyplot
 
-# simple function
+# 简单的函数
 def calculate(x):
 	return x * x
 
-# define inputs
+# 定义输入值
 inputs = [-0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5]
-# calculate outputs
+# 计算输出值
 outputs = [calculate(x) for x in inputs]
-# plot the result
+# 绘制结果
 pyplot.plot(inputs, outputs)
 pyplot.show()
 ```
 
-Running the example calculates the output value for each input value and creates a plot of input vs. output values.
+运行这个例子为每个输入值计算其输出值，并且绘制一张输入和输出值的图。
 
-We can see that values far from 0.0 result in larger output values, whereas values close to zero result in smaller output values, and that this behavior is symmetrical around zero.
+我们可以看到远离 0.0 的输入值能得到更大的输出值，反之接近于 0 的输入值会得到更小的输出值，同时这种性质是关于零点对称的。
 
-This is the well-known u-shape plot of the X^2 one-dimensional function.
+这是众所周知的 X^2 一维函数的 u 型图。
 
-![Plot of inputs vs. outputs for X^2 function.](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-inputs-vs-outputs-for-X^2-function-1024x768.png)
+![X^2 函数的输入输出图](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-inputs-vs-outputs-for-X^2-function-1024x768.png)
 
-Plot of inputs vs. outputs for X^2 function.
+X^2 函数的输入输出图。
 
-We can generate random samples or points from the function.
+我们可以从这个函数中生成随机的样本或点。
 
-This can be achieved by generating random values between -0.5 and 0.5 and calculating the associated output value. Repeating this many times will give a sample of points from the function, e.g. “_real samples_.”
+这个可以通过生成在 -0.5 和 0.5 之间的随机值，并且计算其对应的输出值来实现。多次重复这个步骤就能得到该函数的样本点，比如“_真实的样本_”。
 
-Plotting these samples using a scatter plot will show the same u-shape plot, although comprised of the individual random samples.
+用三点图绘制这些样本将会显示同样的 u 型图，虽然是由独立的随机样本构成的。
 
-The complete example is listed below.
+完整的例子如下所述。
 
-First, we generate uniformly random values between 0 and 1, then shift them to the range -0.5 and 0.5. We then calculate the output value for each randomly generated input value and combine the arrays into a single NumPy array with _n_ rows (100) and two columns.
+首先，我们在 0 和 1 之间均匀地生成随机值，然后将它们偏移到 -0.5 和 0.5 范围内。然后我们为每一个随机生成的输入值计算输出值，并且把这些数组合并成一个 n 行（100）和 2 列的 Numpy 数组。
 
 ```python
-# example of generating random samples from X^2
+# 从 X^2 中生成随机样本的例子
 from numpy.random import rand
 from numpy import hstack
 from matplotlib import pyplot
 
-# generate randoms sample from x^2
+# 从 x^2 中生成随机样本
 def generate_samples(n=100):
 	# generate random inputs in [-0.5, 0.5]
 	X1 = rand(n) - 0.5
@@ -128,64 +131,64 @@ def generate_samples(n=100):
 	X2 = X2.reshape(n, 1)
 	return hstack((X1, X2))
 
-# generate samples
+# 生成样本
 data = generate_samples()
-# plot samples
+# 绘制样本
 pyplot.scatter(data[:, 0], data[:, 1])
 pyplot.show()
 ```
 
-Running the example generates 100 random inputs and their calculated output and plots the sample as a scatter plot, showing the familiar u-shape.
+运行这个例子将产生 100 个随机输入，计算所得的输出以及绘制样本的散点图，这是一张熟悉的 u 型图。
 
-![Plot of randomly generated sample of inputs vs. calculated outputs for X^2 function.](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-randomly-generated-sample-of-inputs-vs-calculated-outputs-for-X^2-function-1024x768.png)
+![为 X^2 函数绘制随机生成的输入样本和计算的输出值。](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-randomly-generated-sample-of-inputs-vs-calculated-outputs-for-X^2-function-1024x768.png)
 
-Plot of randomly generated sample of inputs vs. calculated outputs for X^2 function.
+为 X^2 函数绘制随机生成的输入样本和计算的输出值。
 
-We can use this function as a starting point for generating real samples for our discriminator function. Specifically, a sample is comprised of a vector with two elements, one for the input and one for the output of our one-dimensional function.
+我们可以将这个函数作为为判别器函数生成真实样本的起始点。尤其是一个样本是由两个元素的向量组成的，一个作为输入，一个作为我们的一维函数的输出。
 
-We can also imagine how a generator model could generate new samples that we can plot and compare to the expected u-shape of the X^2 function. Specifically, a generator would output a vector with two elements: one for the input and one for the output of our one-dimensional function.
+我们也可以想象一个生成器模型是如何生成新样本的，我们可以绘制它们同时与期望的 u 型 X^2 函数比较。特别是一个生成器可以输出一个由两个元素组成的向量：一个作为输入，一个作为一维函数的输出。
 
-## Define a Discriminator Model
+## 定义一个判别器模型
 
-The next step is to define the discriminator model.
+下一步是定义判别器模型。
 
-The model must take a sample from our problem, such as a vector with two elements, and output a classification prediction as to whether the sample is real or fake.
+这个模型必须从我们的问题域中获取一个样本，比如一个由两个元素组成的向量，然后输出一个分类预测来区分这个样本的真假。
 
-This is a binary classification problem.
+这是一个二分类问题。
 
-* **Inputs**: Sample with two real values.
-* **Outputs**: Binary classification, likelihood the sample is real (or fake).
+* **输入**：由两个实数组成的样本。
+* **输出**：二分类，样本为真（或假）的可能性。
 
-The problem is very simple, meaning that we don’t need a complex neural network to model it.
+这个问题非常简单，意味着我们不需要一个复杂的神经网络来建模。
 
-The discriminator model will have one hidden layer with 25 nodes and we will use the [ReLU activation function](https://machinelearningmastery.com/rectified-linear-activation-function-for-deep-learning-neural-networks/) and an appropriate weight initialization method called He weight initialization.
+这个分类器模型有一个隐藏层，其中包含 25 个神经元，并且我们将使用 [ReLU 激活函数](https://machinelearningmastery.com/rectified-linear-activation-function-for-deep-learning-neural-networks/)以及一个被称为 He 的权重初始化方法。
 
-The output layer will have one node for the binary classification using the sigmoid activation function.
+输出层包含一个神经元，它用 sigmoid 激活函数来做二分类。
 
-The model will minimize the binary cross entropy loss function, and the [Adam version of stochastic gradient descent](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/) will be used because it is very effective.
+这个模型将会最小化二分类的交叉熵损失函数，以及使用 [Adam 版本的随机梯度下降](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/)，因为它非常有效。
 
-The _define_discriminator()_ function below defines and returns the discriminator model. The function parameterizes the number of inputs to expect, which defaults to two.
+下面的 _define_discriminator()_ 函数定义和返回了判别器模型。这个函数参数化了期望的输入个数，默认值为 2。
 
 ```python
-# define the standalone discriminator model
+# 定义了独立的判别器模型
 def define_discriminator(n_inputs=2):
 	model = Sequential()
 	model.add(Dense(25, activation='relu', kernel_initializer='he_uniform', input_dim=n_inputs))
 	model.add(Dense(1, activation='sigmoid'))
-	# compile model
+	# 编译模型
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
 ```
 
-We can use this function to define the discriminator model and summarize it. The complete example is listed below.
+我们可以使用这个函数来定义和总结这个判别器模型。完整的例子如下所示。
 
 ```
-# define the discriminator model
+# 定义判别器模型
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.utils.vis_utils import plot_model
 
-# define the standalone discriminator model
+# 定义独立的判别器模型
 def define_discriminator(n_inputs=2):
 	model = Sequential()
 	model.add(Dense(25, activation='relu', kernel_initializer='he_uniform', input_dim=n_inputs))
@@ -194,15 +197,15 @@ def define_discriminator(n_inputs=2):
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
 
-# define the discriminator model
+# 定义判别模型
 model = define_discriminator()
-# summarize the model
+# 总结模型
 model.summary()
 # plot the model
 plot_model(model, to_file='discriminator_plot.png', show_shapes=True, show_layer_names=True)
 ```
 
-Running the example defines the discriminator model and summarizes it.
+运行这个例子，它定义并总结了判别器模型。
 
 ```
 _________________________________________________________________
@@ -218,92 +221,94 @@ Non-trainable params: 0
 _________________________________________________________________
 ```
 
-A plot of the model is also created and we can see that the model expects two inputs and will predict a single output.
+这个模型的图也被生成了，我们可以看到这个模型期望有两个输入并且预测一个输出。
 
-**Note**: creating this plot assumes that the pydot and graphviz libraries are installed. If this is a problem, you can comment out the import statement for the _plot_model_ function and the call to the _plot_model()_ function.
+**注意**：生成这张模型图是以假设安装了 pydot 和 graphviz 库为前提的。如果安装遇到了问题，你可以把引入 _plot_model_ 函数的 import 语句和调用 _plot_model_ 方法注释掉。
 
-![Plot of the Discriminator Model in the GAN](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Discriminator-Model-in-the-GAN.png)
+![生成对抗网络中生成器模型图](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Discriminator-Model-in-the-GAN.png)
 
-Plot of the Discriminator Model in the GAN
+生成对抗网络中生成器模型图
 
-We could start training this model now with real examples with a class label of one and randomly generated samples with a class label of zero.
+我们现在可以开始训练这个模型了，它需要用到被标记为 1 的真实数据和被标记为 0 的随机生成的样本。
 
-There is no need to do this, but the elements we will develop will be useful later, and it helps to see that the discriminator is just a normal neural network model.
+我们不需要做这件事，但是这些我们开发的元素在之后会变得很有帮助，并且它帮助我们认识到生成器只是一个普通的神经网络模型。
 
-First, we can update our _generate_samples()_ function from the prediction section and call it _generate\_real\_samples()_ and have it also return the output class labels for the real samples, specifically, an array of 1 values, where class=1 means real.
+首先，我们可以从预测的部分更新我们的 _generate_samples()_ 方法，我们称它为 _generate\_real\_samples()_，它也会返回真实样本的输出标签，也就是一个由 1 组成的数组，这里 1 表示真实样本。
 
 ```python
-# generate n real samples with class labels
+# 生成 n 个真实样本和分类标签
 def generate_real_samples(n):
 	# generate inputs in [-0.5, 0.5]
+	# 生成 [-0.5, 0.5] 范围内的输入值
 	X1 = rand(n) - 0.5
-	# generate outputs X^2
+	# 生成输出值 X^2
 	X2 = X1 * X1
-	# stack arrays
+	# 堆叠数组
 	X1 = X1.reshape(n, 1)
 	X2 = X2.reshape(n, 1)
 	X = hstack((X1, X2))
-	# generate class labels
+	# 生成分类标签
 	y = ones((n, 1))
 	return X, y
 ```
 
-Next, we can create a copy of this function for creating fake examples.
+下一步，我们可以创建一个该方法的副本来生成假样本。
 
-In this case, we will generate random values in the range -1 and 1 for both elements of a sample. The output class label for all of these examples is 0.
+在这种情况下，我们会为样本的两个元素生成范围在 -1 和 1 之间的随机值。所有这些样本的输出分类标签都是 0。
 
-This function will act as our fake generator model.
+这个方法将作为我们假的生成器模型。
 
 ```python
-# generate n fake samples with class labels
+# 生成 n 个加样本和分类标签
 def generate_fake_samples(n):
-	# generate inputs in [-1, 1]
+	# 生成 [-1, 1] 范围内的输入值
 	X1 = -1 + rand(n) * 2
-	# generate outputs in [-1, 1]
+	# 生成 [-1, 1] 范围内的输出值
 	X2 = -1 + rand(n) * 2
-	# stack arrays
+	# 堆叠数组
 	X1 = X1.reshape(n, 1)
 	X2 = X2.reshape(n, 1)
 	X = hstack((X1, X2))
 	# generate class labels
+	# 生成分类标签
 	y = zeros((n, 1))
 	return X, y
 ```
 
-Next, we need a function to train and evaluate the discriminator model.
+下一步，我们需要一个训练和评估生成器模型的方法。
 
-This can be achieved by manually enumerating the training epochs and for each epoch generating a half batch of real examples and a half batch of fake examples, and updating the model on each, e.g. one whole batch of examples. The _train()_ function could be used, but in this case, we will use the _train\_on\_batch()_ function directly.
+这可以通过手动列举训练的 epoch，并且为每个 epoch 生成一半的真实样本和一半的加样本，然后更新模型，比如：在一整批样本上。可以使用 The _train()_ 方法来训练，但是在这种情况下，我们将直接用 _train\_on\_batch()_ 方法。
 
-The model can then be evaluated on the generated examples and we can report the classification accuracy on the real and fake samples.
+这个模型可以根据生成的样本进行评估，并且我们可以生成真假样本分类准确率的报告。
 
-The _train_discriminator()_ function below implements this, training the model for 1,000 batches and using 128 samples per batch (64 fake and 64 real).
+下面的 _train_discriminator()_ 方法实现了为模型训练 1000 个 batch，每个 batch 包含 128 个样本（64 个假样本 64 个真样本）。
 
 ```python
-# train the discriminator model
+# 训练判别器模型
 def train_discriminator(model, n_epochs=1000, n_batch=128):
 	half_batch = int(n_batch / 2)
-	# run epochs manually
+	# 手动运行 epoch
 	for i in range(n_epochs):
-		# generate real examples
+		# 生成真实样本
 		X_real, y_real = generate_real_samples(half_batch)
-		# update model
+		# 更新模型
 		model.train_on_batch(X_real, y_real)
-		# generate fake examples
+		# 生成假样本
 		X_fake, y_fake = generate_fake_samples(half_batch)
-		# update model
+		# 更新模型
 		model.train_on_batch(X_fake, y_fake)
-		# evaluate the model
+		# 评估模型
 		_, acc_real = model.evaluate(X_real, y_real, verbose=0)
 		_, acc_fake = model.evaluate(X_fake, y_fake, verbose=0)
 		print(i, acc_real, acc_fake)
 ```
 
-We can tie all of this together and train the discriminator model on real and fake examples.
+我们可以把这些联系在一起，然后在真实和虚假样本上训练判别器模型。
 
-The complete example is listed below.
+完整的例子如下所示。
 
 ```python
-# define and fit a discriminator model
+# 定义并且加载一个判别器模型
 from numpy import zeros
 from numpy import ones
 from numpy import hstack
@@ -312,70 +317,70 @@ from numpy.random import randn
 from keras.models import Sequential
 from keras.layers import Dense
 
-# define the standalone discriminator model
+# 定义独立的判别器模型
 def define_discriminator(n_inputs=2):
 	model = Sequential()
 	model.add(Dense(25, activation='relu', kernel_initializer='he_uniform', input_dim=n_inputs))
 	model.add(Dense(1, activation='sigmoid'))
-	# compile model
+	# 编译模型
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
 
-# generate n real samples with class labels
+# 生成 n 个真实的样本和分类标签
 def generate_real_samples(n):
-	# generate inputs in [-0.5, 0.5]
+	# 生成 [-0.5, 0.5] 范围内的输入值
 	X1 = rand(n) - 0.5
-	# generate outputs X^2
+	# 生成输出 X^2
 	X2 = X1 * X1
-	# stack arrays
+	# 堆叠数组
 	X1 = X1.reshape(n, 1)
 	X2 = X2.reshape(n, 1)
 	X = hstack((X1, X2))
-	# generate class labels
+	# 生成分类标签
 	y = ones((n, 1))
 	return X, y
 
-# generate n fake samples with class labels
+# 生成 n 个假样本和分类标签
 def generate_fake_samples(n):
-	# generate inputs in [-1, 1]
+	# 生成 [-1, 1] 范围内的输入值
 	X1 = -1 + rand(n) * 2
-	# generate outputs in [-1, 1]
+	# 生成 [-1, 1] 范围内的输出值
 	X2 = -1 + rand(n) * 2
-	# stack arrays
+	# 堆叠数组
 	X1 = X1.reshape(n, 1)
 	X2 = X2.reshape(n, 1)
 	X = hstack((X1, X2))
-	# generate class labels
+	# 生成分类标签
 	y = zeros((n, 1))
 	return X, y
 
-# train the discriminator model
+# 训练判别器模型
 def train_discriminator(model, n_epochs=1000, n_batch=128):
 	half_batch = int(n_batch / 2)
-	# run epochs manually
+	# 手动运行 epoch
 	for i in range(n_epochs):
-		# generate real examples
+		# 生成真实的样本
 		X_real, y_real = generate_real_samples(half_batch)
-		# update model
+		# 更新模型
 		model.train_on_batch(X_real, y_real)
-		# generate fake examples
+		# 生成假样本
 		X_fake, y_fake = generate_fake_samples(half_batch)
-		# update model
+		# 更新模型
 		model.train_on_batch(X_fake, y_fake)
-		# evaluate the model
+		# 评估模型
 		_, acc_real = model.evaluate(X_real, y_real, verbose=0)
 		_, acc_fake = model.evaluate(X_fake, y_fake, verbose=0)
 		print(i, acc_real, acc_fake)
 
-# define the discriminator model
+# 定义判别器模型
 model = define_discriminator()
-# fit the model
+# 加载模型
 train_discriminator(model)
 ```
 
-Running the example generates real and fake examples and updates the model, then evaluates the model on the same examples and prints the classification accuracy.
+运行上面的代码会生成真实的和虚假的样本并且更新模型，然后在同样的样本上评估模型并打印出分类的准确率。
 
-Your specific results may vary but the model rapidly learns to correctly identify the real examples with perfect accuracy and is very good at identifying the fake examples with 80% to 90% accuracy.
+你们的结果可能会不同但是模型会快速地学习，以完美的准确率正确地识别真实的样本，并且非常擅长识别加样本，正确率在 80% 和 90% 之间。
 
 ```
 ...
@@ -386,37 +391,38 @@ Your specific results may vary but the model rapidly learns to correctly identif
 999 1.0 0.8125
 ```
 
-Training the discriminator model is straightforward. The goal is to train a generator model, not a discriminator model, and that is where the complexity of GANs truly lies.
+训练判别器模型是非常直观的。我们的目标是训练一个生成器模型，并不是判别器模型，这才是生成对抗网络真正的复杂的地方。
 
-## Define a Generator Model
+## 定义一个生成器模型
 
-The next step is to define the generator model.
+下一步是定义生成器模型。
 
-The generator model takes as input a point from the latent space and generates a new sample, e.g. a vector with both the input and output elements of our function, e.g. x and x^2.
+生成器模型从隐空间中选取一个点作为输入并且生成一个新的样本，比如函数的输入和输出元素作为一个向量，例如 x 和 x^2。
 
-A latent variable is a hidden or unobserved variable, and a latent space is a multi-dimensional vector space of these variables. We can define the size of the latent space for our problem and the shape or distribution of variables in the latent space.
+隐变量是一个隐藏的或者未被观察到的变量，隐空间是一个由这些变量组成的多维向量空间。我们可以为我们的问题定义隐空间的维度大小以及隐空间的形式或变量的分布。
 
-This is because the latent space has no meaning until the generator model starts assigning meaning to points in the space as it learns. After training, points in the latent space will correspond to points in the output space, e.g. in the space of generated samples.
+这是因为隐空间是没有意义的直到生成器模型开始学习并为空间中的点赋予意义。训练之后，隐空间的点将和输出空间中的点关联起来，比如和生成样本的空间。
 
 We will define a small latent space of five dimensions and use the standard approach in the GAN literature of using a Gaussian distribution for each variable in the latent space. We will generate new inputs by drawing random numbers from a standard Gaussian distribution, i.e. mean of zero and a standard deviation of one.
+我们定义一个小的五维隐空间，并且使用生成对抗网络文献中标准的方法，即隐空间中每一个变量都使用高斯分布。我们将从一个标准高斯分布中获取随机数来生成输入值，比如均值为 0，标准差为 1。
 
-* **Inputs**: Point in latent space, e.g. a five-element vector of Gaussian random numbers.
-* **Outputs**: Two-element vector representing a generated sample for our function (x and x^2).
+* **输入**：隐空间中的点，比如由五个高斯随机数组成的向量。
+* **输出**：两个元素组成的向量，代表了为我们的函数生成的样本（x 和 x^2）。
 
-The generator model will be small like the discriminator model.
+生成器模型会和判别器模型一样小。
 
-It will have a single hidden layer with five nodes and will use the [ReLU activation function](https://machinelearningmastery.com/rectified-linear-activation-function-for-deep-learning-neural-networks/) and the He weight initialization. The output layer will have two nodes for the two elements in a generated vector and will use a linear activation function.
+它有一个隐藏层，其中包含 5 个神经元，并且将使用 [ReLU 激活函数](https://machinelearningmastery.com/rectified-linear-activation-function-for-deep-learning-neural-networks/)和 He 权重初始化方法。输出层有两个神经元表示生成向量中的两个元素并且使用一个线性激活函数。
 
-A linear activation function is used because we know we want the generator to output a vector of real values and the scale will be \[-0.5, 0.5\] for the first element and about \[0.0, 0.25\] for the second element.
+最后用了线性激活函数是因为我们直到我们想让生成器输出实数向量，第一个元素的范围是 \[-0.5, 0.5\]，第二个元素范围大约是 \[0.0, 0.25\]。
 
-The model is not compiled. The reason for this is that the generator model is not fit directly.
+这个模型没有被编译。原因是生成器模型不是直接被加载的。
 
-The _define_generator()_ function below defines and returns the generator model.
+下面的 _define_generator()_ 方法定义并返回了生成器模型。
 
-The size of the latent dimension is parameterized in case we want to play with it later, and the output shape of the model is also parameterized, matching the function for defining the discriminator model.
+隐空间的维度大小是可以被参数化的以防我们以后想改变它，模型的输出维度大小也是参数化的，与定义的判别器模型的函数相匹配。
 
 ```python
-# define the standalone generator model
+# 定义独立的生成器模型
 def define_generator(latent_dim, n_outputs=2):
 	model = Sequential()
 	model.add(Dense(15, activation='relu', kernel_initializer='he_uniform', input_dim=latent_dim))
@@ -424,32 +430,32 @@ def define_generator(latent_dim, n_outputs=2):
 	return model
 ```
 
-We can summarize the model to help better understand the input and output shapes.
+我们可以总结这个模型来帮助更好地理解输入和输出的维度大小。
 
-The complete example is listed below.
+完整的例子如下所示。
 
 ```python
-# define the generator model
+# 定义生成器模型
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.utils.vis_utils import plot_model
 
-# define the standalone generator model
+# 定义独立的生成器模型
 def define_generator(latent_dim, n_outputs=2):
 	model = Sequential()
 	model.add(Dense(15, activation='relu', kernel_initializer='he_uniform', input_dim=latent_dim))
 	model.add(Dense(n_outputs, activation='linear'))
 	return model
 
-# define the discriminator model
+# 定义生成器模型
 model = define_generator(5)
-# summarize the model
+# 总结模型
 model.summary()
-# plot the model
+# 绘制模型
 plot_model(model, to_file='generator_plot.png', show_shapes=True, show_layer_names=True)
 ```
 
-Running the example defines the generator model and summarizes it.
+运行这个例子，它定义并且总结了生成器模型。
 
 ```
 _________________________________________________________________
@@ -465,28 +471,30 @@ Non-trainable params: 0
 _________________________________________________________________
 ```
 
-A plot of the model is also created and we can see that the model expects a five-element point from the latent space as input and will predict a two-element vector as output.
+模型图也被生成了，我们可以看到这个模型期望从隐空间中获取一个由 5 元向量作为输入，并且预测一个由二元向量作为输出。
 
-**Note**: creating this plot assumes that the pydot and graphviz libraries are installed. If this is a problem, you can comment out the import statement for the _plot_model_ function and the call to the _plot_model()_ function.
+**注意**：生成这张模型图是以假设安装了 pydot 和 graphviz 库为前提的。如果安装遇到了问题，你可以把引入 _plot_model_ 函数的 import 语句和调用 _plot_model_ 方法注释掉。
 
-![Plot of the Generator Model in the GAN](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Generator-Model-in-the-GAN.png)
 
-Plot of the Generator Model in the GAN
+![绘制生成对抗网络中的生成模型](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Generator-Model-in-the-GAN.png)
 
-We can see that the model takes as input a random five-element vector from the latent space and outputs a two-element vector for our one-dimensional function.
 
-This model cannot do much at the moment. Nevertheless, we can demonstrate how to use it to generate samples. This is not needed, but again, some of these elements may be useful later.
+绘制生成对抗网络中的生成模型
 
-The first step is to generate new points in the latent space. We can achieve this by calling the [randn() NumPy function](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randn.html) for generating arrays of [random numbers](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/) drawn from a standard Gaussian.
+我们可以看到模型从隐空间中获取一个随机的五元向量，然后输出为我们的一维函数输出一个二元向量。
 
-The array of random numbers can then be reshaped into samples: that is n rows with five elements per row. The _generate\_latent\_points()_ function below implements this and generates the desired number of points in the latent space that can be used as input to the generator model.
+这个模型现在还没有太多作用。然而，我们可以演示如何使用它来生成样本。这也不是需要做的，但是这里有些东西之后可能是有用的。
+
+第一步是在隐空间中生成新的点。我们可以通过调用 [randn() NumPy 方法](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randn.html)来生成来自标准高斯分布的[随机数](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)数组。
+
+随机数数组之后可以被调整到样本维度的大小：那就是 n 行，每行有 5 个元素。下面的 _generate\_latent\_points()_ 方法实现了它并且在隐空间中生成了一定数量的点，这些点可以用来作为生成模型的输入。
 
 ```python
-# generate points in latent space as input for the generator
+# 在隐空间中生成点作为生成器的输入
 def generate_latent_points(latent_dim, n):
-	# generate points in the latent space
+	# 在隐空间中生成点
 	x_input = randn(latent_dim * n)
-	# reshape into a batch of inputs for the network
+	# 为网络重新调整批输入样本的维度大小
 	x_input = x_input.reshape(n, latent_dim)
 	return x_input
 ```
