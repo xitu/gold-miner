@@ -2,36 +2,36 @@
 > * 原文作者：[Pavel Sulimau](https://medium.com/@pavel.sulimau)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-infinite-listview-with-redux.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-infinite-listview-with-redux.md)
-> * 译者：
+> * 译者：[Xat_MassacrE](https://github.com/XatMassacrE)
 > * 校对者：
 
-# Flutter: Infinite ListView with Redux
+# Flutter: 使用 Redux 实现无限 ListView
 
 ![](https://cdn-images-1.medium.com/max/3840/1*spVWmt32pcQItXguvspQqw.jpeg)
 
-## Motivation
+## 动机
 
-If you need to implement an app with more than one screen the odds are that one of the screens will represent its data in some form of a list. I’d like to show you how you can develop an “infinite” list of items with “pull-to-refresh” and “error-handling” on top of **Flutter** + **Redux**.
+如果你需要实现一个具有多页面的应用程序，而且其中的一个页面需要用列表的形式来展示数据。那么我将会告诉你如何基于 **Flutter** + **Redux** 来开发出一个具有 『下拉刷新』和『错误处理』功能的『无限』列表应用。
 
-## Prerequisites
+## 预备知识
 
-Make sure you feel comfortable with the terms described in the docs in [redux.dart](https://github.com/johnpryan/redux.dart) and [flutter_redux](https://github.com/brianegan/flutter_redux) repositories. I would also suggest that you take a look at [my previous article](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f).
+首先要确保你对 [redux.dart](https://github.com/johnpryan/redux.dart) 和 [flutter_redux](https://github.com/brianegan/flutter_redux) 这两个文档中的术语有足够的了解。其次建议你阅读一下[我之前的文章](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f)。
 
-## Goal
+## 目标
 
-An app that displays [issues from the flutter GitHub repository](https://github.com/flutter/flutter/issues) sounds reasonable to me for the sake of this demo.
+实现一个展示 [issues from the flutter GitHub repository](https://github.com/flutter/flutter/issues) 的 demo。
 
-Here is the result that will be achieved in the end:
+下图就是我们实现之后的样子。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EdwqcExhCgZYHytAU-sUxA.gif)
 
-## Development
+## 开发
 
-We’ll need [flutter_redux](https://pub.dev/packages/flutter_redux) and [http](https://pub.dev/packages/http) packages, so get them added to your **pubspec.yaml** file and installed. Also, [intl](https://pub.dev/packages/intl) package and [redux_logging](https://pub.dev/packages/redux_logging) packages will be useful for date formatting and debugging purposes respectively.
+首先我们需要 [flutter_redux](https://pub.dev/packages/flutter_redux) 和 [http](https://pub.dev/packages/http) 包，将这两个包添加到 **pubspec.yaml** 文件中并安装它们。同时，[intl](https://pub.dev/packages/intl) 和 [redux_logging](https://pub.dev/packages/redux_logging) 这两个包对于日期格式化以及调试也是非常有用的。
 
 #### Model
 
-It’s just a simple class for holding some info about a Github issue. It also can initialize itself from a piece of JSON.
+Model 只是包含 Github issue 信息的一个简单的类。它也可以通过一段 JSON 来初始化它自身。
 
 ```Dart
 import 'package:intl/intl.dart';
@@ -53,7 +53,7 @@ class GithubIssue {
 
 #### State
 
-There is not so much data that we’ll need to keep inside the state: the list of items, the flags indicating whether the data is being loaded and whether there is more data available, and the error.
+在这里我们需要在 state 中记录的数据并不多：issues 列表，声明数据是否被载入以及是否还有更多数据的 flag 以及错误信息。
 
 ```Dart
 import 'package:flutter_redux_infinite_list/models/github_issue.dart';
@@ -105,10 +105,11 @@ class AppState {
 ```
 
 You may have noticed the `toString` method. It can be used for debugging purposes and comes in handy if you decide to use `LoggingMiddleware`.
+你们会注意到这里有一个 `toString` 方法。它的主要作用是调试和未来更方便的使用 `LoggingMiddleware`。
 
 #### Actions
 
-There are two actions for dealing with actual data and two actions for dealing with a possible error.
+这里有两个 actions 用来处理真实数据，还有两个 actions 用来处理可能的错误。
 
 ```Dart
 import 'package:flutter/cupertino.dart';
@@ -143,6 +144,7 @@ class ErrorHandledAction {}
 #### Reducers
 
 The reducers that create a new state based on a received action are a bit more complicated than actions, but only a bit. They are just simple pure functions that are combined by the `combineReducers` function the library gives us.
+基于接收到的 action 新建一个 state 的 reducers 会比 actions 更复杂一点，但是也并没有复杂很多。它们其实就是一些由库提供的 `combineReducers` 函数结合起来的纯函数而已。
 
 ```Dart
 import 'actions.dart';
@@ -207,7 +209,7 @@ Exception _errorHandledReducer(Exception _, ErrorHandledAction action) {
 
 #### Middleware
 
-The implemented middleware basically consists of the function that tries to load data from the API and posts either the successful action or the action indicating a failure.
+这里使用的 middleware 基本上是由从 API 加载数据和发送成功 action 和失败 action 的方法构成的。
 
 ```Dart
 import 'dart:convert';
@@ -256,7 +258,7 @@ Future<List<GithubIssue>> _loadFlutterGithubIssues(
 
 #### Container
 
-Now we are getting closer to the presentation layer. Here is the container widget that is responsible for converting the latest **App State** to a `_ViewModel` and connecting the `_ViewModel` to the presentation widget.
+现在，我们离视图层又近了一步。这里的 container 组件可以将最新的 **App State** 转换成一个 `_ViewModel` 并将 `_ViewModel` 与视图组件连接起来。
 
 ```Dart
 import 'package:flutter_redux_infinite_list/models/github_issue.dart';
@@ -336,7 +338,7 @@ class _ViewModel {
 
 #### Presentation
 
-This is the part where things become more interesting. Let’s start with two tiny presentation components that will be utilized in the `HomeScreen`. They are `CustomProgressIndicator` and `GithubIssueListItem`.
+这个部分将会更加有趣。让我们先从 `HomeScreen` 中用到的两个展示组件开始：`CustomProgressIndicator` 和 `GithubIssueListItem`。
 
 ```Dart
 import 'package:flutter/material.dart';
@@ -402,14 +404,14 @@ class GithubIssueListItem extends StatelessWidget {
 
 ```
 
-**Here goes the core presentation logic.**
+**下面是主要的展示逻辑**
 
-**Pay more attention to the `HomeScreen`.** There are a few things worth noticing:
+**注意一下 `HomeScreen`。**这里有好几个值得关注的点：
 
-1. The screen involves the `ScrollController` to determine when we need to invoke the `loadNextPage` function.
-2. Something called `Debouncer` is used (the implementation you’ll see below). It’s just a tiny class with a timer inside it that ensures that consecutive events from the `ScrollController` won’t create tons of requests for a next page, but rather the only request will be made in the specified period of time.
-3. `RefreshIndicator` that helps us significantly to get the so-called “pull-to-refresh” feature.
-4. `ErrorNotifier` that is responsible for showing a toast notification in case an error occurs. If you need more details on this one, take a look [at my previous article](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f).
+1. 页面包含了 `ScrollController` 来决定是否需要调用 `loadNextPage` 函数。
+2. 在这里使用了 `Debouncer`（具体实现见下文）。它是带有计时器的一个小类，能够确保来自 `ScrollController` 的连续事件不会触发大量的下一页请求，而是在一个特定时间段之内只发送一次请求。
+3. `RefreshIndicator` 可以提醒我们使用『下拉刷新』功能。
+4. 当发生错误的时候 `ErrorNotifier` 将会显示 toast 通知。如果你需要在该通知中更多的显示详细信息，可以看看[我之前的文章](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f)。
 
 ```Dart
 import 'package:flutter_redux_infinite_list/common/debouncer.dart';
@@ -506,7 +508,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 ```
 
-This is the code for the `ErrorNotifer`.
+下面是 `ErrorNotifer` 的代码。
 
 ```Dart
 import 'package:flutter_redux_infinite_list/redux/actions.dart';
@@ -569,11 +571,11 @@ class _ViewModel {
 
 ```
 
-And here is how the `ErrorNotifier` looks like in action.
+下图就是在 action 中 `ErrorNotifier` 呈现的样子。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6cesoZFB8Hj9UaLQgffcKA.gif)
 
-This is the `Debouncer` that was mentioned above.
+接下来就是上文提到的 `Debouncer`。
 
 ```Dart
 import 'dart:async';
@@ -596,7 +598,7 @@ class Debouncer {
 }
 ```
 
-Finally, here is the `main.dart` file that combines all the described components.
+最后就是把所有声明的组件都结合起来的 `main.dart` 文件。
 
 ```Dart
 import 'package:flutter_redux_infinite_list/redux/containers/home_container.dart';
@@ -633,8 +635,9 @@ class App extends StatelessWidget {
 ```
 
 Don’t hesitate to give this sample a go yourself, grab the sources from the [Github repo](https://github.com/Pavel-Sulimau/flutter_redux_infinite_list).
+不要犹豫，自己一定要去试一试，你可以从 [Github repo](https://github.com/Pavel-Sulimau/flutter_redux_infinite_list) 获取本文源码。
 
-## Sources:
+## 参考资源：
 
 * [https://medium.com/filledstacks/flutter-redux-quick-start-3f549f5b05c5](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f)
 * [https://github.com/johnpryan/redux.dart](https://github.com/johnpryan/redux.dart)
