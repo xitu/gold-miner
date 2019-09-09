@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/checking-the-network-connection-with-a-react-hook.md](https://github.com/xitu/gold-miner/blob/master/TODO1/checking-the-network-connection-with-a-react-hook.md)
 > * 译者：[Jerry-FD](https://github.com/Jerry-FD)
-> * 校对者：
+> * 校对者：[TiaossuP](https://github.com/TiaossuP)
 
-
+# 使用 React Hook 来检查网络连接状态
 
 ![拍摄来自 [NASA](https://unsplash.com/@nasa?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://miro.medium.com/max/6646/0*kVB651dEu92o-J-l)
 
@@ -17,9 +17,9 @@
 
 ##Navigator 对象
 
-我认为在我们深入了解怎么使用 hook 来实现这个具体功能之前，先来了解 JavaScript 是如何判定当前是否处于有网络的状态非常有意义。这个信息可以通过 Navigator 对象找到。那么什么是 Navigator 对象？可以简单的把它当做是一个只可读取的数据，它依赖你的数据，包含当前浏览器的状态和特性。它有定位、userAgent 和一些其他的属性，其中就包括你当前是否处于网络连接状态。和往常一样，我建议你[在 MDN 上查阅关于 Navigator 对象的文档](https://developer.mozilla.org/en-US/docs/Web/API/Navigator)。
+我认为在我们深入了解怎么使用 hook 来实现这个具体功能之前，先来了解 JavaScript 是如何判定当前是否处于有网络的状态非常有意义。这个信息可以通过 Navigator 对象找到。那么什么是 Navigator 对象？可以简单的把它当做是一个只可读取的数据，它依赖你的数据，包含当前浏览器的状态和特性。它有定位、userAgent 和一些其他的属性，其中就包括你当前是否处于网络连接状态。和往常一样，我建议你在 [MDN 上查阅关于 Navigator 对象的文档](https://developer.mozilla.org/en-US/docs/Web/API/Navigator)。
 
-你可以从全局的 window 对象上获取 Navigator 对象：`window.navigator` 从这里你可以随之获得其中存在的一项或多项属性。我们想要获取的是 `onLine` 这个属性。这里我特别强调一下。它不是 online，它是驼峰命名的，   onLine。
+你可以从全局的 window 对象上获取 Navigator 对象：`window.navigator` 从这里你可以随之获得其中存在的一项或多项属性。我们想要获取的是 `onLine` 这个属性。这里我特别强调一下。它不是 online，它是驼峰命名的，onLine。
 
 ## 在 Hook 中使用
 
@@ -45,12 +45,12 @@ const [isOnline, setNetwork] = useState(window.navigator.onLine);
 useEffect(() => {
 
 window.addEventListener("offline", 
-        () => setNetwork(window.navigator.onLine)
-      );
+    () => setNetwork(window.navigator.onLine)
+);
 
 window.addEventListener("online", 
-        () => setNetwork(window.navigator.onLine)
-      );
+    () => setNetwork(window.navigator.onLine)
+);
 
 });
 
@@ -96,7 +96,7 @@ function useNetwork(){
 };
 ```
 
-我们现在把函数保存在了变量里面，以此我们可以深入监听和解绑。现在我们已经准备好根据用户是否在线的状态来为用户打造一个独特的额体验了。
+我们现在把函数保存在了变量里面，以此我们可以深入监听和解绑。现在我们已经准备好根据用户是否在线的状态来为用户打造一个独特的体验了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
