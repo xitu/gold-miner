@@ -1,3 +1,5 @@
+* [敏捷也许是个问题](https://juejin.im/post/5d2dfb4ae51d45775f516b1e) ([Charlo-O](https://github.com/Charlo-O) 翻译)
+* [npm 的经济风云 —— 下半部分](https://juejin.im/post/5d2d9e7af265da1b8b2b91ca) ([Baddyo](https://github.com/Baddyo) 翻译)
 * [类（Class）与数据结构（Data Structures）](https://juejin.im/post/5d12efe7e51d455c8838e193) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [Git：透过命令学概念 —— 第一部分](https://juejin.im/post/5d0b3c7ce51d4577531381e3) ([Baddyo](https://github.com/Baddyo) 翻译)
 * [10 分钟爆改终端](https://juejin.im/post/5d053fc56fb9a07ee85c283d) ([lihaobhsfer](https://github.com/lihaobhsfer) 翻译)

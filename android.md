@@ -1,3 +1,6 @@
+* [2019 年的 Android 网络 —— Retrofit 与 Kotlin 协程](https://juejin.im/post/5d3c2758f265da1b934e4a8c) ([Feximin](https://github.com/Feximin) 翻译)
+* [Android 模拟器：Project Marble 中的改进](https://juejin.im/post/5d3870c66fb9a07f04208b41) ([qiuyuezhong](https://github.com/qiuyuezhong) 翻译)
+* [Kotlin Clean 架构](https://juejin.im/post/5d33e13be51d4555fd20a41b) ([JasonWu1111](https://github.com/JasonWu1111) 翻译)
 * [区域设置更改和 AndroidViewModel 反面模式](https://juejin.im/post/5d2db596f265da1b5f2688d3) ([solerji](https://github.com/solerji) 翻译)
 * [思考实践：用 Go 实现 Flutter](https://juejin.im/post/5d215b8df265da1b7b31ac8f) ([suhanyujie](https://github.com/suhanyujie) 翻译)
 * [Android 数据绑定库  — 从可观察域到 LiveData 仅需两步](https://juejin.im/post/5d12d76cf265da1b8b2b6d6e) ([gs666](https://github.com/gs666) 翻译)

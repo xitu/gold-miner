@@ -2,46 +2,46 @@
 > * 原文作者：[Chris Noring](https://dev.to/softchris)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/reverse-engineering-how-you-can-build-a-test-library.md](https://github.com/xitu/gold-miner/blob/master/TODO1/reverse-engineering-how-you-can-build-a-test-library.md)
-> * 译者：
-> * 校对者：
+> * 译者：[DEARPORK](https://github.com/Usey95)
+> * 校对者：[三月源](https://github.com/MarchYuanx), [yzw7489757](https://github.com/yzw7489757)
 
-# Reverse Engineering, how YOU can build a testing library in JavaScript
+# 逆向工程，如何在 JavaScript 中打造一个测试库
 
-I know what you are thinking. Building my own testing library with so many out there?? Hear me out. This article is about being able to do **reverse engineering** and understand what might go on under the hood. Why? Simply to gain more understanding and a deeper appreciation of the libraries you use.
+我知道你在想什么，在已有那么多测试库的情况下再自己造轮子？其实不是，本文是关于如何能够**逆向工程**，以及理解背后发生的事。这么做的目的，是为了能够让你更广泛同时更深刻地理解你所使用的库。
 
-Just to make it clear. I'm not about to implement a test library fully, just have a look at the public API and understand roughly what's going on and start implementing it. By doing so I hope to gain some understanding of the overall architecture, both how to line it out but also how to extend it and also appreciate what parts are tricky vs easy.
+再强调一遍，我并不打算完全实现一个测试库，只是粗略地看看有哪些公共 API，粗略地理解一下，然后实现它们。我希望通过这种方式可以对整个架构有所了解，知道如何删除、扩展模块以及了解各个部分的难易程度。
 
-I hope you enjoy the ride :)
+希望你享受这个过程 :)
 
-We will cover the following:
+我们将介绍以下内容：
 
-* **The WHY**, try to explain all the benefits to reverse engineering
-* **The WHAT**, what we will build and not build
-* **Constructing**, slowly take you through the steps of building it out
+* **为什么**，试着解释逆向工程的所有好处
+* **是什么**，我们将构建什么，不构建什么
+* **构建**，手把手教你构建过程
 
-## WHY
+## 为什么
 
-Many years ago, in the beginning of my career as a software developer, I asked a senior developer how they got better. It wasn't just one answer but one thing stood out, namely **reverse engineering** or rather recreating libraries or frameworks they were using or were curious about.
+很多年前，在我作为一位软件开发人员的职业生涯开始的时候，我询问过一些高级开发人员他们如何进步。其中一个突出的答案是**逆向工程**，或者更确切地说是重建他们正在使用或者感兴趣的框架或库。
 
-> Sounds to me like you are trying to reinvent the wheel. What's good about that, don't we have enough libraries that do the same thing already?
+> 对我来说听起来像是在试图重新造轮子。有什么好处，难道我们没有足够的库来做同样的事情吗？
 
-Of course, there is merit to this argument. Don't build things primarily cause you don't like the exact flavoring of a library, unless you reeeeally need to, sometimes you do need to though.
+当然，这个论点是有道理的。不要因为不喜欢库的某些地方就重新造轮子，除非你真的需要，但有时候你确实需要重新造轮子。
 
-> So when?
+> 什么时候？
 
-When it's about trying to become better at your profession.
+当你想要在你的职业中变得更好的时候。
 
-> Sounds vague
+> 听起来很模糊
 
-Well, yes it partly is. There are many ways to become better. I'm of the opinion that to truly understand something it's not enough to just use it - **you need to build it**.
+确实，毕竟有很多方法可以让你变得更好。我认为要真正理解某些东西仅仅使用它是不够的 —— 你需要**构建**它。
 
-> What, all of it?
+> 什么？全部吗？
 
-Depends on the size of the library or framework. Some are small enough that it's worth building all of it. Most are not though. There is a lot of value in trying to implement something though, a lot can be understood by just starting **if only to get stuck**. That's what this exercise is, to try to understand more.
+取决于库或框架的大小。有些库足够小，值得从头构建，但大多数都不是。尝试实现某些东西有着很多价值，仅仅是开始就能让你明白许多（**如果卡住了**）。这就是练习的目的，试着理解更多。
 
-## [](#the-what)The WHAT
+## 是什么
 
-We mentioned building a testing library in the beginning. What testing library? Well, let's have a look at how most testing libraries look like in JavaScript. They tend to look like this:
+我们在开头提到了构建一个测试库，具体是哪个测试库呢？我们来看下大部分 JavaScript 里的测试库长什么样子：
 
 ```js
 describe('suite', () => {
@@ -51,36 +51,36 @@ describe('suite', () => {
 })
 ```
 
-This is the scope of what we will be building, getting the above to work and in the process comment on the architecture and maybe throw in a library to make it pretty :)
+这就是我们将要构建的东西 —— 让上述代码成功运行并且在构建过程中评论架构好坏，有可能的话，放进一个库里使其美观 :)
 
-Let's get started.
+让我们开始吧。
 
-## Constructing
+## 构建
 
-Ok then. **If you build it they will come**.
+**If you build it they will come（只要付出就会有回报）。**
 
-> Sure?
+> 真的吗？
 
-You know, the movie Field of Dreams?
+你知道电影《梦幻之地（Field of Dreams）》吗？
 
-> Whatever grandpa **bored**
+> 别啰嗦快开始吧
 
-### Expect, assert our values
+### Expect，断言我们的值
 
-Let's begin from our most inner statement, the `expect()` function. By looking at an invocation we can learn a lot:
+让我们从最基础的声明开始 —— `expect()` 函数。通过调用方式我们可以看出很多：
 
 ```js
 expect(2 > 1).toBe(true)
 ```
 
-`expect()` looks like a function taking a `boolean`. It seems to be returning an object that has a method `toBe()` on it that additionally is able to compare the value in `expect()` by what `toBe()` is fed with. Let's try to sketch this:
+`expect()` 看起来像是接收一个 `boolean` 作为参数的函数，它返回一个对象，对象有一个 `toBe()` 方法，这样就可以将 `expect()` 的值以及传递给 `toBe()` 函数的值进行比较。让我们试着去写出大概：
 
 ```js
 function expect(actual) {
   return {
-    toBe(expected) { 
-      if(actual === expected){ 
-        /* do something*/ 
+    toBe(expected) {
+      if(actual === expected){
+        /* do something*/
       } else {
         /* do something else*/
       }
@@ -89,13 +89,13 @@ function expect(actual) {
 }
 ```
 
-Additionally, we should consider that this should produce some kind of statement if the matching is a success or if it's a failure. So some more code is needed:
+另外，如果匹配成功或者失败，我们应该反馈一些声明。因此需要更多代码：
 
 ```js
 function expect(actual) {
   return {
-    toBe(expected) { 
-      if(expected === actual){ 
+    toBe(expected) {
+      if(expected === actual){
         console.log(`Succeeded`)
       } else {
         console.log(`Fail - Actual: ${val}, Expected: ${expected}`)
@@ -105,18 +105,18 @@ function expect(actual) {
 }
 
 expect(true).toBe(true) // Succeeded
-expect(3).toBe(2)  // Fail - Actual: 3, Expected: 2 
+expect(3).toBe(2)  // Fail - Actual: 3, Expected: 2
 ```
 
-Note, how the `else` statement has a bit more specialized message and gives us a hint on what failed.
+注意 `else` 的声明有一些更专业的信息并给我们提供失败提示。
 
-Methods like this comparing two values to each other like `toBe()` are called `matchers`. Let's try to add another matcher `toBeTruthy()`. The reason is that the term **truthy** matches a lot of values in JavaScript and we would rather not have to use the `toBe()` matcher for everything.
+类似这样比较两个值的函数例如 `toBe()` 被称为 `matcher`。让我们尝试添加另一个 matcher `toBeTruthy()`。**truthy** 匹配 JavaScript 中的很多值，这样我们可以不用 `toBe()` 去匹配所有东西。
 
-> So we are being lazy?
+> 所以我们在偷懒？
 
-YES, best reason there is :)
+对的，这是最佳的理由 :)
 
-The rules for this one is that anything considered truthy in JavaScript should succeed and anything else should render in failure. Let's cheat a bit by going to MDN and see what's considered **truthy**:
+在 JavaScript 中，任何被认为是 truthy 的值都能成功执行，其它都会失败。让我们去 MDN 看看那些值被认为是 **truthy** 的：
 
 ```js
 if (true)
@@ -134,13 +134,13 @@ if (Infinity)
 if (-Infinity)
 ```
 
-Ok, so everything within an `if` statement that evaluates to `true`. Time to add said method:
+所以所有在 `if` 中执行后执行为 `true` 的都为 truthy。是时候添加上述方法了：
 
 ```js
 function expect(actual) {
   return {
-    toBe(expected) { 
-      if(expected === actual){ 
+    toBe(expected) {
+      if(expected === actual){
         console.log(`Succeeded`)
       } else {
         console.log(`Fail - Actual: ${val}, Expected: ${expected}`)
@@ -157,11 +157,11 @@ function expect(actual) {
 }
 
 expect(true).toBe(true) // Succeeded
-expect(3).toBe(2)  // Fail - Actual: 3, Expected: 2 
+expect(3).toBe(2)  // Fail - Actual: 3, Expected: 2
 expect('abc').toBeTruthy();
 ```
 
-I don't know about you, but I feel like my `expect()` function is starting to contain a lot of things. So let's move out our `matchers` to a `Matchers` class, like so:
+我不知道你的意见，但是我觉得 `expect()` 方法开始变得臃肿了。让我们把我们的 `matchers` 放进一个 `Matchers` 类里：
 
 ```js
 class Matchers {
@@ -169,8 +169,8 @@ class Matchers {
     this.actual = actual;
   }
 
-  toBe(expected) { 
-    if(expected === this.actual){ 
+  toBe(expected) {
+    if(expected === this.actual){
       console.log(`Succeeded`)
     } else {
       console.log(`Fail - Actual: ${this.actual}, Expected: ${expected}`)
@@ -191,9 +191,9 @@ function expect(actual) {
 }
 ```
 
-### it, our test method
+### it，我们的测试方法
 
-Looking at our vision it should be working like so:
+在我们的眼里它应该是这样运行的：
 
 ```js
 it('test method', () => {
@@ -201,7 +201,7 @@ it('test method', () => {
 })
 ```
 
-Ok, reverse engineering this bit we can pretty much write our `it()` method:
+好的，将这点东西逆向工程我们差不多能写出我们自己的 `it()` 方法：
 
 ```js
 function it(testName, fn) {
@@ -210,7 +210,7 @@ function it(testName, fn) {
 }
 ```
 
-Ok, let's stop here a bit and think. What kind of behavior do we want? I've definitely seen unit testing libraries that quits running the tests if something fails. I guess if you have 200 unit tests (not that you should have 200 tests in one file :), you don't want to wait for them to finish, better to tell me directly what's wrong so I can fix it. For the latter to be possible we need to adjust our matchers a little:
+让我们停下来思考一下。我们想要什么样的行为？我看到过一旦出现故障就退出运行的单元测试库。我想如果你有 200 个单元测试（并非说你应该在一个文件里放 200 个测试），我们也绝对不想等待它们完成，最好直接告诉我哪里报错，好让我可以解决它。为了实现后者，我们需要稍微调整我们的 matchers：
 
 ```js
 class Matchers {
@@ -218,8 +218,8 @@ class Matchers {
     this.actual = actual;
   }
 
-  toBe(expected) { 
-    if(expected === actual){ 
+  toBe(expected) {
+    if(expected === actual){
       console.log(`Succeeded`)
     } else {
       throw new Error(`Fail - Actual: ${val}, Expected: ${expected}`)
@@ -237,7 +237,7 @@ class Matchers {
 }
 ```
 
-This means that our `it()` function needs to capture any erros like so:
+这意味着我们的 `it()` 函数需要捕获所有错误：
 
 ```js
 function it(testName, fn) {
@@ -252,13 +252,13 @@ function it(testName, fn) {
 }
 ```
 
-As you can see above we not only capture the error and logs it but we rethrow it to put an end to the run itself. Again, main reason was that we saw no point in continuing. You can implement this the way you see fit.
+如上所示，我们不仅捕获了错误并打印日志，我们还重新抛出错误以终止运行。再次，这样做的主要原因是我们认为报了错就没有必要继续测试了。你可以以合适的方式实现这个功能。
 
-### Describe, our test suite
+### Describe，我们的测试套件
 
-Ok, we covered writing `it()` and `expect()` and even threw in a couple of matcher functions. All testing libraries should have a suite concept though, something that says this is a group of tests that belong together.
+现在，我们介绍了如何编写 `it()` 和 `expect()`，甚至还介绍了几个 matcher 方法。但是，所有测试库都应该具有套件概念，这表示这是一组测试。
 
-Let's look at what the code can look like:
+让我们看看代码是什么样的：
 
 ```js
 describe('our suite', () => {
@@ -266,13 +266,13 @@ describe('our suite', () => {
     expect(2).toBe(1);
   })
 
-  it('should succeed', () => { // technically it wouldn't get here, it would crash out after the first test
+  it('should succeed', () => { // 技术上讲它不会运行到这里，在第一个测试后它将崩溃
     expect('abc').toBeTruthy();
   })
 })
 ```
 
-As for the implementation, we know that tests that fail throws errors so we need to capture that to not crash the whole program:
+至于实现，我们知道失败的测试会引发错误，因此我们需要捕获它以避免整个程序崩溃：
 
 ```js
 function describe(suiteName, fn) {
@@ -285,9 +285,9 @@ function describe(suiteName, fn) {
 }
 ```
 
-### Running the code
+### 运行代码
 
-At this point our full code should look like this:
+此时我们的完整代码应该如下所示：
 
 ```js
 // app.js
@@ -359,19 +359,19 @@ describe('another suite', () => {
 })
 ```
 
-and when run in the terminal with `node app.js`, should render like so:
+当我们在终端运行 `node app.js` 时，控制台应该长这样：
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--AU3RQVD8--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/y3hmyys7hsph5gbg16bb.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--AU3RQVD8--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/y3hmyys7hsph5gbg16bb.png)
 
-## Making it pretty
+## 美化日志
 
-Now the above seems to be working but it looks **sooo** boring. So what can we do about it? Colors, plenty of colors will make this better. Using the library `chalk` we can really induce some life into this:
+如上所示，我们的代码看起来正常运行，但是它看起来**太**丑了。我们可以做什么呢？颜色，丰富的色彩将让它看起来好点。使用库 `chalk` 我们可以给日志注入生命：
 
 ```js
 npm install chalk --save
 ```
 
-Ok, next let's add some colors and some tabs and spaces and our code should look like so:
+接下来让我们添加一些颜色、一些标签和空格，我们的代码应如下所示：
 
 ```js
 const chalk = require('chalk');
@@ -443,21 +443,21 @@ describe('another suite', () => {
 })
 ```
 
-and render like so, when run:
+运行之后，控制台应该如下所示：
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--Gt0KQDcz--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/nusgojpo4vmi22r8q7zx.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Gt0KQDcz--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/nusgojpo4vmi22r8q7zx.png)
 
-## Summary
+## 总结
 
-We aimed at looking at a fairly small library like a unit testing library. By looking at the code we could deduce what it might look like underneath.
+我们的目标是逆向工程一个相当小的库，如单元测试库。通过查看代码，我们可以推断它背后的内容。
 
-We created something, a starting point. Having said that we need to realize that most unit testing libraries come with a lot of other things as well like, handling asynchronous tests, multiple test suites, mocking, spies a ton more `matchers` and so on. There is a lot to be gained by trying to understand what you use on a daily basis but please realize that you don't have to completely reinvent it to gain a lot of insight.
+我们创造了一些东西，一个起点。话虽如此，我们需要意识到大多数单元测试库都带有很多其他东西，例如，处理异步测试、多个测试套件、模拟数据、窥探更多的 `matcher` 等等。通过尝试理解你每天使用的内容可以获得很多东西，但也请你意识到你不必完全重新发明它以获得大量洞察力。
 
-My hope is that you can use this code as a starting point and maybe play around with it, start from the beginning or extend, the choice is yours.
+我希望你可以使用此代码作为起点，使用它、从头开始或扩展，决定权在你。
 
-Another outcome of this might be that you understand enough to help out with OSS and improve one of the existing libraries out there.
+另一个可能结果是你已经足够了解 OSS 并改进其中一个现有库。
 
-Remember, if you build they will come:
+记住，只要付出就有回报：
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--YY1Wgcm0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/vndsyrcrelnklmbamhhy.jpg)](https://res.cloudinary.com/practicaldev/image/fetch/s--YY1Wgcm0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/vndsyrcrelnklmbamhhy.jpg)
 

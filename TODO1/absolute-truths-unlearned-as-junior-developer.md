@@ -2,182 +2,182 @@
 > * 原文作者：[Monica Lent](https://monicalent.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/absolute-truths-unlearned-as-junior-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/absolute-truths-unlearned-as-junior-developer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[cyz980908](https://github.com/cyz980908)
+> * 校对者：[Ultrasteve](https://github.com/Ultrasteve), [portandbridge](https://github.com/portandbridge)
 
-# 7 absolute truths I unlearned as junior developer
+# 作为初级开发人员，我学会放下的 7 项真理
 
 ![thumbnail](https://monicalent.com/images/typing-with-flowers.jpg)
 
-Next year, I’ll be entering my 10th year of being formally employed to write code. Ten years! And besides actual employment, for nearly 2⁄3 of my life, I’ve been building things on the web. I can barely remember a time in my life where I didn’t know HTML, which is kind of weird when you think about it. Some kids learn to play an instrument or dance ballet, but instead I was creating magical worlds with code in my childhood bedroom.
+明年就是我正式受雇以编程为业的第 10 个年头了。十年了！除了实际工作之外，在我生命的近三分之二的时间里，我一直在开发网站相关的东西。我几乎不记清在我的生活中何时我不知道 HTML，这样的确想是有点奇怪。有些孩子学习演奏乐器或跳芭蕾，而我却在我童年的卧室里用代码创造了一个神奇的世界。
 
-In reflecting on this first decade of getting regularly paid money to type weird symbols into my Terminal, I wanted to take some time to share **some of the ways my thinking shifted over the years as a developer**.
+这是我往终端里打打奇怪文字就能定期伸手拿钱的头一个十年；回想这段时光，我打算花些时间和各位分享下**作为开发者，在此间我的一些想法的转变**。
 
-For today’s junior developers: Maybe you’ll find something here you currently believe, and get inspired to learn more about it and why the topic is so multi-faceted. Or maybe you’ll find this post encouraging because you’re already so far ahead of where I was at your stage.
+对现在的初级开发人员来说：也许你会在这里找到一些你现在相信的东西，并从中得到启发，去了解更多关于它的知识，以及为什么这个话题如此多元化。 或许你会发现这篇文章很鼓舞人心，因为你已经远远超过了我在你这个阶段的水平。
 
-For today’s senior developers: Maybe you can relate, and also have some funny (and humbling) stories to share about your own life lessons when you were a junior dev.
+对现在的高级开发人员来说：也许你可以讲述一些有趣（或不起眼）的故事来分享你在初级开发人员的人生经历。
 
-To be clear, **I think junior developers are awesome** and just showing up to learn already takes a ton of courage. This post is about my own journey and learnings, and isn’t meant to be a generalization about how all junior devs think or behave.
+我澄清一下，**我认为初级开发人员是很棒的**，因为仅仅是学习就需要很大的勇气。而这篇文章是关于我自己的经历和学习，并不是要概括所有初级开发者的想法或行为。
 
-I hope you enjoy the post and can relate a little bit 😄
+我希望你喜欢这篇文章并且可以产生一些共鸣。😄
 
-> **Thanks to [Artem](https://twitter.com/iamsapegin) and [Sara](https://twitter.com/NikkitaFTW) for your feedback on this post!**
+> **感谢 [Artem](https://twitter.com/iamsapegin) 和 [Sara](https://twitter.com/NikkitaFTW) 对这篇文章的反馈！**
 
-## Absolute truths I unlearned as a junior developer
+## 作为初级开发人员，我学会放下的真理
 
-### 1\. I’m a senior developer
+### 1. 我是一个高级开发人员
 
-I was 19 years old when I applied for my first technical job. The position I was applying for was called “Student Webmaster”. Which is a pretty awesome job title, because you could be considered both a “student” and a “master” at the same time. Nowadays everyone wants to be an “engineer” because it sounds fancier, but if you ask me, “master” is where it’s at. Anyways, my job was to write PHP and MySQL, and maintain our Drupal website as well as building some internal tools.
+当我申请第一份技术工作时，我才 19 岁。我申请的职位是“学生网站管理员”。这是一个非常棒的职位，因为你可以同时被视为学生和大师（英文里学生网站管理员这个单词可以拆成学生和大师，这里是作者的冷笑话）。现在每个人都想成为一名工程师，因为工程师听起来更高级，但如果你问我，“大师”是做什么的。这么说吧，我的工作是编写 PHP 和 MySQL，维护我们的 Drupal 网站以及构建一些内部工具。
 
-Since I’d been coding in my bedroom for a couple of years, I was pretty sure those years counted as “years of experience”. So when I was asked about how much experience I had writing PHP, I confidently answered, “3 or 4 years!”
+因为我在卧室里编码已经有几年了，所以我十分肯定我是有“多年的开发经验”的。所以当我被问及我有多少写 PHP 的经验时，我自信地回答，“3 或 4 年！”。
 
-I thought I knew a lot about SQL because I could do outer joins 😎
+我以为我对 SQL 了解很多，因为我可以做外连接。 😎
 
-And when I googled it, 3-4 years of experience meant I should be making 💰
+当我谷歌搜索它时，3-4 年的经验意味着我应该能够赚钱。 💰
 
-Fast forward to my latest job, which I got after 5 years of “combined” student and professional experience (which I thought was the same as normal experience). Yet in that time, I basically never had my code reviewed. I deployed by ssh-ing into a server and running git pull. I’m rather sure I never had to open a Pull Request. Don’t get me wrong, I learned a ton of awesome stuff at my first two jobs, but I’d never really worked with other devs in the same codebase. And yet, I applied for a position for “Senior Frontend Engineer”, got an offer, and accepted it.
+快进到我最近的工作，这是我在 5 年的学生和工作经验“结合”后得到的工作（我认为这和正常的工作经历是一样的）。 然而在那个时候，我基本上从来没有审查过我的代码。 我通过 ssh 部署到服务器并运行 git pull 指令。我很确定我从来没有打开过 Pull Request。别误会，我在前两份工作中学到了很多很棒的东西,但是我从来没有真正和同一个代码库中的其他开发人员一起工作过。但是, 我申请了一个“高级前端工程师”的职位，得到了一份工作，并接受了。
 
-**There I was, a senior developer at the ripe age of 24 years old.**
+**在那里，我是一位成熟的 24 岁高级开发人员。**
 
-I mean they wouldn’t have given me this job title if I wasn’t really senior, right?! Surely, my impressive experience had brought me to this point, and people should listen to me!! Already at the pinnacle of my technical career, and the youngest developer in the office.
+我的意思是，要不是我有丰富的经验，他们怎么会给我这个职衔呢，对吧？当然，是我令人印象深刻的经历让我走到了这一步，人们应该听我的！我已经是处在技术生涯的巅峰，我也是办公室里最年轻的开发者。
 
-Like a boss 💅
+像老大一样。 💅
 
-> #### What I eventually learned
+> #### 我最终学到的
 >
-> **Not all experience is created equal.** My experience coding in my bedroom, working as a student, working in CS research, and working at a growing startup are all valuable kinds of experience. But they aren’t all the same. Early in your career, you can learn 10x more in a supportive team in 1 year, than coding on your own (or with minimal feedback) for 5 years. If your code is never reviewed by other developers, you will not learn as fast as you can – by an enormous factor.
+> **并非所有的经验生来平等。** 我在卧室编码、学生时代的工作、计算机科学研究领域的工作以及在一家成长中的初创企业工作的经历都是很有价值的经历。但它们并不都一样。在你职业生涯的初期，你在支援到位的团队工作一年所能学到的东西，要比你一个人（或是只有少量反馈的情况下）编程五年多十倍。如果你的代码从未被其他开发人员审查过，你将无法以最快的速度学习 —— 这是一个巨大的因素。
 >
-> **That’s why mentors are so important**, and the team you work with is worth so much more than a couple bucks in your paycheck. Don’t accept a junior position where you’ll be working alone, if you can help it! And don’t accept your first role (or, honestly, any role) based on salary alone. The team is where the real value is.
+> **这就是为什么导师如此重要。** 和你一起工作的团队比你薪水中的几块钱更有价值。如果你能控制住自己的话，不要接受你将独自工作的初级职位！不要仅仅因为薪水就接受你的第一个角色（或者老实说，任何角色）。团队才是真正的价值所在。
 >
-> **I also learned that job titles don’t “make” you anything.** It’s kind of like, being a CTO with a 5-person team is different than with a 50-person team or a 500-person team. The job and skills required are totally different, even if the title is identical. So just because I had a “senior” job title did not make me a senior engineer at all. Furthermore, hierarchical titles are inherently flawed, and difficult to compare cross-company. I learned it’s important not to fixate on titles, or use them as a form of external validation.
+> **我还了解到职位头衔不会给你“带来”任何东西。** 这有点像，5 人团队的首席技术官不同于 50 人或 500 人团队的首席技术官。即使头衔相同，所需的工作和技能完全不同。所以，仅仅因为我有一个“高级”职位头衔，也不能让我成为一名高级工程师。此外，等级头衔本身就有缺陷，很难跨公司比较。我认识到不要盯着职位头衔，或者说很重要的的是把它们作为一种外部验证的形式是。
 
-### 2\. Everyone writes tests
+### 2. 每个人都写测试
 
-For the first half of my career, I worked in research. Specifically, I worked on an publicly-funded project for about 3 1⁄2 years, and then at a university at the NLP chair for a year and a half. I can tell you one thing: **programming in research is completely different than programming in the industry**.
+在我职业生涯的前半段，我从事研究工作。具体来说，我在一个公共资助的项目上工作了大约 3 年半，然后在一所大学担任 NLP 主席一年半。我可以告诉你的是：**学术研究中的编程与做工程和业务中的编程是完全不同**。
 
-For the most part, you aren’t building applications. You’re working on algorithms or parsing data sets. Alternatively, if you are building an application, chances are your work is being publicly funded – which means it’s free for others to use and usually open-source. And when something is free, that means, for the most part, you are not **really** responsible to make sure it’s always perfectly available.
+大多数情况下，你不是在构建应用程序。你是在研究算法或解析数据集。或者，如果你正在构建一个应用程序，那么你的工作很可能是由公共资助的，这意味着其他人可以免费使用，而且通常是开源的。某样东西是免费的话，这意味着，在很大程度上，你没有责任确保它总是完全可用。
 
-Because, well, it’s free.
+因为，嗯，这是免费的。
 
-You’re also not responsible to make any money or produce results, but that is an entirely different blog post ranting about being a developer in academia ✨
+你也没有责任赚钱或产生结果，但这是一个完全不同内容的博客文章，讲述的是如何成为学术界的一名开发人员。 ✨
 
-**Long story short, I left academia with lots of expectations.**
+**长话短说，我带着很多期望离开了学术界.**
 
-Expectations about how the industry would work. There would be automated deployment. Pull requests and code review. It was going to be glorious! Finally the [code quality](#4-code-quality-matters-most) I had been longing for! But beyond quality code with **proper standards** and **best practices**, I strongly believed, **everyone in the software industry writes tests**.
+而那都是些有关业界运作的想法。我觉得该有自动部署、拉请求和代码审查。这些都是极好的！终于实现了我梦寐以求的 [代码质量](#4-代码质量最重要)！但我坚信，除了使用**适当的标准**和**最佳实践编**写高质量代码之外，**软件行业的每个人都要写测试**。
 
-**Ahem.**
+**呃哼。**
 
-So imagine my surprise when I showed up at my first day on the job at a startup and found no tests at all. No tests in the frontend. No tests in the backend. Just, no tests.
+所以想象一下，当我在一家初创公司上班的第一天，却发现没有任何测试时，我有多么的惊讶。前端没有测试。后端没有测试。总之就是不做测试。
 
-Nada. Zip. Null. Undefined. NaN tests.
+没！有！测！试！
 
-Not only were there **no tests**, but no one seemed to have a problem with the lack of tests! With a bit of naivety, I assumed the reason there were no tests was because people just didn’t know how to write tests for AngularJS. If I taught them how, everything would be OK and we’d start to have tests. Wrong! Long story short, years and years later, we’ve made huge progress on adding automated tests to our code, and it wasn’t as straightforward as I thought it would be.
+这里不仅**没有测试**，而且似乎没有人认为缺乏测试有问题！我有点天真地猜想，不做测试，是因为大家人们不知道如何为 AngularJS 编写测试。如果我教他们怎么做，一切都会好的，我们会开始测试。错了！长话短说，多年以后，我们会在向代码中添加自动化测试方面取得巨大的进步，但这并不像我想象的那样简单。
 
-But not because people didn’t know **how** to write the tests.
+但这并不是因为人们不知道如何编写测试。
 
-They’d either never felt the pain of not having tests, or they’d felt the pain of having **legacy** tests. Two things I’d never experienced for myself.
+他们要么从未感受过没有测试的痛苦，要么感受过有**过时**测试的痛苦。虽然两件事我也从未亲身经历过。
 
-> #### What I eventually learned
+> #### 我最终学到的
 >
-> **Loads of companies and startups have little or no tests.** When struggling to find product market fit, or fighting for survival, a lot of companies neglect testing early on. Even companies that look fancy, sponsoring conferences or open-sourcing code – so many still have a big, gnarly monolith with minimal tests they need your help to improve. Ask devs who aren’t trying to recruit you to tell you about the state of the codebase.
+> **大量的公司和创业公司很少或根本没有测试。** 在努力寻找适合产品市场的产品或者在为生存而战时，很多公司都忽略了早期的测试。即使是那些看起来很复杂、有赞助会议或开源代码的公司，它们中的很多仍然是一个庞大的、粗糙的、有着很少的测试的整体，它们需要你的帮助来改进。询问那些不打算招募你的开发人员，让他们告诉你代码库的状态。
 >
-> **No company has a perfect tech setup.** Every company has problems, every company has technical debt. The question is what they’re doing about it. We should have no illusions when applying for jobs that there is work to be done – or else they wouldn’t be hiring 😉
+> **没有一家公司有完美的技术设置。** 每个公司都有问题，每个公司都有技术债务。问题是他们在做什么。我们求职时不应该有不切实际的想法，觉得是有工作要做的 —— 否则他们不会雇佣你 😉
 >
-> **Being overly opinionated on topics you lack real-world experience with is pretty arrogant.** I came across as SUCH a know-it-all, insisting there must be tests yet having hardly any experience on what that really looked like at scale. Don’t be like me. It’s important to have principles, but also to be open and truly interested to understand other people’s experiences and perspectives.
+> **对你缺乏现实生活经验的话题过于固执己见是相当傲慢的。** 我给人的印象是这样一个无所不知的人，坚持认为一定有测试，但几乎没有任何实际经验。不要像我一样。有原则很重要，但也要开放，真正有兴趣理解他人的经历和观点。
 
-### 3\. We’re so far behind everyone else (AKA “tech FOMO”)
+### 3. 我们远远落后于其他人（也就是“技术错失恐惧症”）
 
-This one is closely related to the topic of unit testing. While my company didn’t have many unit tests, **surely all the other companies did, right?**
+这个与单元测试的主题密切相关。尽管我的公司没有很多单元测试，**但其他公司肯定都做了，对吧？**
 
-I read so many blog posts. I watched conference talks on YouTube. I read “that orange website” all the damn time. It seemed like everyone was writing super sophisticated and high-quality applications with great performance and fancy animations, while I was just over here patching some stuff together trying to make it work in time for my deadline.
+我读了很多博客帖子。我在 YouTube 上观看了一些会议讨论。我一直在关注“橙色网站”。好像每个人写的程序都功能精妙、质量一流、性能出色，而且动画精美，而我只是在这里修补一些东西，试图让它在我的最后期限之前及时工作。
 
-I basically idolized all the other companies I was reading about, and felt disappointment that my own company and project was so behind.
+我几乎崇拜我正在关注的所有其他公司，并且对我自己的公司和项目如此落后感到失望。
 
-> #### What I eventually learned
+> #### 我最终学到的
 >
-> **Many conference talks cover proof of concepts rather than real-world scenarios.** Just because you see a conference talk about a specific technology, doesn’t mean that company is using that tech in their day to day work, or that all of their code is in perfect shape. Often people who give conference talks are presenting toy apps rather than real-world case studies, it’s important to distinguish the two.
+> **许多会议讨论的是概念的证明，而不是现实世界的场景。** 仅仅因为你看到一个关于特定技术的会议，这并不意味着公司在日常工作中使用了该技术，或者他们所有的代码都处于完美状态。通常，做会议演讲的人展示的是玩具应用程序，而不是真实的案例研究，区分这两者很重要。
 >
-> **Dealing with legacy is completely normal.** No but seriously, it’s easy to imagine that some other company doesn’t have legacy to handle. But after spending time at conferences talking to people who work at tippy top tech companies, it becomes clear that we are all in the same boat. What company DOESN’T have a huge PHP or Ruby monolith they’re trying to tame (or had to tame at some point)? Legacy code is normal, and learning to deal with it will often teach you more than building apps from scratch because you’ll be more exposed to concepts you don’t understand yet.
+> **处理遗留问题是完全正常的。** 但是说真的， 我们很容易会觉得有的公司没有遗留问题要处理。但在花时间参加会议，与顶尖科技公司的工作人员交谈之后，我发现，我们都是同病相怜。哪个公司没有他们试图完全把控（或在某个时候不得不完全把控）的庞杂的（堆积如山的）麻烦代码？有遗留的代码是正常的，学习如何处理遗留代码常常比从头构建应用程序教会你更多的东西，因为你将更多地接触到你还不理解的概念。
 
-### 4\. Code quality matters most
+### 4. 代码质量最重要
 
-Back in the day, **getting a code review from me could be brutal**.
+早些时候，**代码审查这事，我做起来是可以很不留情的**。
 
-At least, I was really nitpicky about coding style. MY coding style, which happened to be a modified version of the Airbnb JavaScript styleguide, but conforming to my personal tastes. Things like indendetation, formatting, naming – god forbid you did it differently than I would have. Passing a code review without at least one comment would have involved both mind-reading and winning the lottery.
+至少，我对编码风格非常挑剔。我的编码风格，恰好是 Airbnb JavaScript 风格指南的修改版本，但符合我个人的品味。当时我最不想看到的，就是别人的编码风格和我不一样，比如缩进、格式化、命名。要是想在我不留一条注释的情况下通过我负责的代码审查，不仅要用上读心术，还要有中彩票的运气。
 
-Imagine 50+ comments on your PR with all the semicolons you missed!
+想象一下在你 PR 下的 50 多条关于所有遗漏的分号评论！
 
-Because I had eyes like an eagle and this eagle wants those high-quality semicolons 🦅
+因为我的眼睛像老鹰，这只老鹰想要那些高质量的分号。 🦅
 
-(Luckily I no longer have eagle eyes after staring at the computer for many years, so you’re all spared – #kiddingnotkidding)
+（幸运的是，在盯着电脑看了很多年后，我不再有鹰眼了，所以你们都幸免于难 —— #开玩笑）
 
-> #### What I eventually learned
+> #### 我最终学到的
 >
-> **Good enough is good enough.** There’s a degree of diminishing returns when it comes to how “good” code needs to be. It doesn’t have to be perfectly clean to get the job done and not be a total disaster to maintain. Often code that is a little more repetitive or a tiny bit more verbose is easier for other people to understand. Also, “good code” is not the same as “code that looks like I wrote it”.
+> **足够好就是足够好。** 当谈到代码需要有多“好”时，收益会有一定程度的减少。代码不需要写得非常细致完美，也可以做到既完成工作任务，又不会在维护的时候出现大麻烦。通常，有些重复或冗长的代码更容易被其他人理解。另外，“好代码”不同于“看起来是我写的代码”。
 >
-> **Architecture is more important than nitpicking.** While a small line of code could be improved, the stuff that tends to cause bigger problems down the line are usually architectural. I should’ve focused more on the structure of the application than tiny bits of code early on.
+> **架构比吹毛求疵更重要。** 虽然可以改进一小段代码，但往后引发更大问题的，通常是体系层面的东西。我应该更关注应用程序的结构，而不是早期的一小段代码。
 >
-> **Code quality is important**, don’t get me wrong. But code quality wasn’t what I thought it was, which was things like linting and formatting or whatever style was promoted in the latest blog post I had read 🙈
+> **代码质量很重要。** 别误会我。但是代码质量并不是我想象的那样，比如语言分析和格式化，或者在我最近读到的博客文章中提倡的任何风格。 🙈
 
-### 5\. Everything must be documented!!!!
+### 5. 一切都必须记录在案！
 
-When I entered my first company, it was honestly the first time I was working a lot with code other people had written. Sure, I had done it a little bit at my first job, but I never really had to come into an existing codebase and to figure out what the heck was going on. That’s because the one time that happened, I rewrote all the code instead of trying to figure out how it worked.
+当我进入我的第一家公司，老实说，这是我第一次大量使用别人写的代码。当然，在我的第一份工作中，我已经做了一点，但是我从来没有真正进入一个现有的代码库，并弄清楚到底发生了什么。因为那一次遇到这种问题的时候，我重写了所有代码，而不是试图弄清楚它是如何工作的。
 
-Anyways.
+不管怎样。
 
-It didn’t help that it was AngularJS code written by Ruby developers, or that I was a junior developer who didn’t know she was junior 🕵🏻‍♀️
+这都无济于事，因为它是由 Ruby 开发人员编写的 AngularJS 代码，或者说我是一个不知道自己还是个萌新的萌新开发者。 🕵🏻‍♀️
 
-So how did I handle the fact that 300 lines of unfamiliar code made me feel like I was drowning?
+那么，我如何处理这 300 行让我感觉自己快要淹死的不熟悉的代码的呢？
 
-JSDOC. EVERYWHERE.
+JSDoc。无处不在。
 
-I started commenting **everything** just to try to make sense out of it. Annotations for every function I could get my hands on.
+我开始注释**一切**只是为了试图理解它。对我可以接触到的所有函数作注释。
 
-I learned all that fancy Angular-specific JSDoc syntax. My code was always twice as long because it had so much documentation and so many comments 👌
+我学习了所有那些奇特的专用于 Angular 的 JSDoc 语法。于是我的代码总是一般的代码两倍长，因为里面有许多注解和注释。 👌
 
-> #### What I eventually learned
+> #### 我最终学到的
 >
-> **Documentation lies sometimes.** It’s easy to think that documentation is a cure-all solution. “We need docs!” While I didn’t come to the conclusion that just because documentation is hard work, doesn’t mean it’s not worth doing at all, I learned that you have to document the right things in the right way. Over-documentation of the wrong things tends to lead to staleness, which can be just as confusing to people who are trying to fix an issue.
+> **文件有时是谎言。** 我们很容易认为文档是万灵药。“我们需要文档！” 我虽然没有得出结论，认为“仅仅因为文档工作很辛苦，并不意味着它不值得做”，但也明白到，你必须用正确的方式记录正确的事情。过多地记录错误的事情往往会导致停滞不前，这对于那些试图解决问题的人来说同样令人困惑。
 >
-> **Focus on automation over documentation where appropriate.** Tests or other forms of automation are less likely to go out of sync. So instead I try to focus on writing good tests with clear language, so developers working on code I wrote are able to see how the project functions with working code. Another example is automating the installation of an application with a few comments, rather than a long and detailed installation guide.
+> **在适当的时候更关注自动化而不是文档。** 测试或其他形式的自动化不太可能不同步。因此，我尝试将重点放在用清晰的语言编写好的测试上，这样开发人员在编写代码时就能够看到项目如何使用工作代码工作。另一个例子是用一些注释自动安装应用程序，而不是一个冗长而详细的安装指南。
 
-### 6\. Technical debt is bad
+### 6. 技术债务是坏的
 
-If you thought I was neurotic from the last point, just wait until this one! For a while in my career, I thought that any code I considered “messy” was in fact **technical debt**. Technical debt is a funny term because if you ask people to give you an example of what it is, there are so many different things that it could be.
+如果你看完刚才那点就觉得我很神经质的话，别急，这点我还没说呢！在我职业生涯的一段时间里，我认为任何我认为“混乱”的代码实际上都是**技术债务**。技术债务是一个有趣的术语，因为如果你让人们给你举一个例子来说明它是什么，可能会得到许多不同的解释。
 
-So as someone who viewed any kind of “disorderly” code as technical debt, I immediately tried to eliminate it with the utmost rigor!
+因此，作为一个把任何一种杂乱的代码都视为技术债务的人，我立即试图以最严格的方式消除它！
 
-I literally once spent a weekend manually fixing 800 linting errors.
+毫不夸张地说，我曾经花了一个周末手工修复了 800 个语言分析错误。
 
-That’s how neurotic I was.
+这就是我有多神经质。
 
-**(Disclaimer: This was before auto-fixing was a thing)**
+**（免责声明：这是在自动修复成为一件事之前）**
 
-> #### What I eventually learned
+> #### 我最终学到的
 >
-> **Disorganized or messy code isn’t the same as technical debt.** Just because something doesn’t “feel nice” doesn’t mean it’s technical debt. Technical debt actually slows you down in some way, or makes certain kinds of changes difficult or error prone. If the code is just a little messy, it’s just a little messy. Tidying that up might not be worth my time.
+> **杂乱无章的代码并不等同于技术债。** 仅仅因为感觉不好并不意味着这是技术债。技术债实际上在某种程度上减缓了你的速度，或者使某些变化变得困难或者容易出错。如果代码仅仅是有点乱，那就有点乱吧。整理它可能不值得我花时间。
 >
-> **Having some technical debt is healthy.** Sometimes we take a shortcut because we need to borrow time, and for that we give up some of our speed in the future. Having pieces of code that are in fact “technical debt” is okay, so long as you recognize you’ll likely need to pay that debt back. If you think your codebase is free of technical debt, there is a good chance you’re over-emphasizing **polish** instead of **delivery**. And boy did I do that!
+> **持有一些技术债是健康的。** 有时候我们走捷径是因为我们需要借时间，为此，我们放弃了未来的速度。拥有一些真正的“技术债”的代码是可以的，只要你意识到你可能需要偿还这些债。如果你认为你的代码库没有技术债务，那么你很可能过分强调**完美**而不是**交付**。呜呜呜，说的就是我！
 
-### 7\. Seniority means being the best at programming
+### 7. 资历高意味着最擅长编程
 
-Having started at a rather young age to code, I’ve probably been proficient at doing for-loops for like 15+ years. Programming itself is like breathing to me. When a solution is apparent, I can just type away and the code will follow. It’s like writing a blog post or an email. I could code the solution faster than others, and typically took on the more complex projects for myself.
+我从很小就开始编码，大概已经精通 for 循环 15 年多了。编程本身对我来说就像呼吸一样。当一个解决方案显而易见时，我可以直接输入，然后代码就会随之而来。这就像写博客或电子邮件一样。我可以比其他人更快地编写解决方案，并且通常自己承担更复杂的项目。
 
-For a long time I thought that was what it meant to to be a senior developer.
+很长一段时间，我以为成为高级开发人员就是这么一回事。
 
-Because why not? The job title is “senior developer”, not “senior communicator” or “senior project manager”. I didn’t really understand how many other skills I could possibly need to develop in order to be truly senior.
+难道不是吗？职位名称是高级开发人员，而不是“高级沟通者”或“高级项目经理”。我是真的搞不懂，要成为一名真正的资深开发者，还得学些什么其他技能。
 
-> #### What I eventually learned
+> #### 我最终学到的
 >
-> **Senior engineers must develop many skills besides programming.** The sheer number of skills I’ve had to develop in the mean time are astronomical, compared to what I came in with. Ranging from communication and dependency management to sharing context, project management, estimation, and successfully collaborating with non-developer peers. These skills are less quantifiable and take a lot of trial and error to get right.
+> **除了编程，高级工程师还必须发展许多技能。** 与我所拥有的技能相比，我必须培养的技能数量简直是天文数字。从沟通和依赖管理到共享上下文、项目管理、评估，以及与非开发人员的成功协作。这些技能很难量化，需要大量的尝试和错误来纠正。
 >
-> **Not everyone will become “senior” during their career.** Seniority is the result of many accrued years of experience. And yet, years of experience is a necessary but not sufficient condition for seniority. It also has to be the right kind of experience in which you internalized the right lessons and successfully apply those learnings for the future. Sometimes bigger lessons can take a year or more to fully manifest – that’s why years of experience still matter, even if you’re a really good coder.
+> **不是每个人都会在职业生涯中成为“高级”。** 资历高是多年积累经验的结果。然而，多年的经验是资历高的必要条件，但不是充分条件。它还必须是一种正确的经验，在这种经验中，你内化了正确的教训，并成功地将这些学习到的应用到未来。有时候，更大的教训可能需要一年或更长时间才能完全被发现 —— 这就是为什么多年的经验仍然重要，即使你是一个非常好的程序员。
 >
-> **We’re all still junior in some areas.** No matter how much experience you have, there are still places where you don’t know much. Admitting what you don’t know is the first step to filling in that gap and getting help from people who are more experienced.
+> **在某些领域，我们都还年轻。** 无论你有多少经验，仍然有你知道的不多的地方。承认你所不知道的是填补这个空白并从更有经验的人那里获得帮助的第一步。
 
 ---
 
-**Bonus** – I really enjoyed this article called [On Being a Senior Engineer](https://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/) . It’s a great read if you’re grappling with what point you’re at in your journey and find yourself wondering, “What does it mean to be senior?”
+**意外收获** — 我真的很喜欢这篇文章 [关于成为一名高级工程师](https://www.kitchensoap.com/2012/10/25/on-being-a-senior-engineer/) 。 如果你正在努力解决你职业生涯中的什么问题，并且发现自己在想“高级意味着什么？”，这将是一本很棒的读物。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
