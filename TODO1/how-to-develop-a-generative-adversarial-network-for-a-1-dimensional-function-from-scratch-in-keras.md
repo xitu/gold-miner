@@ -499,99 +499,106 @@ def generate_latent_points(latent_dim, n):
 	return x_input
 ```
 
-Next, we can use the generated points as input the generator model to generate new samples, then plot the samples.
+下一步，我们可以用这些生成的点作为生成器模型的输入来生成新的样本，然后绘制这些样本。
 
-The _generate\_fake\_samples()_ function below implements this, where the defined generator and size of the latent space are passed as arguments, along with the number of points for the model to generate.
+下面的 _generate\_fake\_samples()_ 方法实现了它，将定义好的生成器和隐空间的维度大小以及模型生成点的个数作为参数被传入。
 
 ```python
-# use the generator to generate n fake examples and plot the results
+# 用生成器来生成 n 个假样本然后绘制结果
 def generate_fake_samples(generator, latent_dim, n):
-	# generate points in latent space
+	# 在隐空间中生成点
 	x_input = generate_latent_points(latent_dim, n)
-	# predict outputs
+	# 预测输出
 	X = generator.predict(x_input)
-	# plot the results
+	# 绘制结果
 	pyplot.scatter(X[:, 0], X[:, 1])
 	pyplot.show()
 ```
 
-Tying this together, the complete example is listed below.
+把它们放在一起，完整的例子如下所示。
 
 ```python
-# define and use the generator model
+# 定义和使用生成器模型
 from numpy.random import randn
 from keras.models import Sequential
 from keras.layers import Dense
 from matplotlib import pyplot
 
-# define the standalone generator model
+# 定义独立的生成器模型
 def define_generator(latent_dim, n_outputs=2):
 	model = Sequential()
 	model.add(Dense(15, activation='relu', kernel_initializer='he_uniform', input_dim=latent_dim))
 	model.add(Dense(n_outputs, activation='linear'))
 	return model
 
-# generate points in latent space as input for the generator
+# 生成隐空间中的点作为生成器的输入
 def generate_latent_points(latent_dim, n):
-	# generate points in the latent space
+	# 在隐空间中生成点
 	x_input = randn(latent_dim * n)
-	# reshape into a batch of inputs for the network
+	# 调整网络批输入的维度大小
 	x_input = x_input.reshape(n, latent_dim)
 	return x_input
 
-# use the generator to generate n fake examples and plot the results
+# 用生成器生成 n 个假样本来绘制结果
 def generate_fake_samples(generator, latent_dim, n):
 	# generate points in latent space
+	# 在隐空间中生成点
 	x_input = generate_latent_points(latent_dim, n)
-	# predict outputs
+	# 预测输出
 	X = generator.predict(x_input)
-	# plot the results
+	# 绘制结果
 	pyplot.scatter(X[:, 0], X[:, 1])
 	pyplot.show()
 
-# size of the latent space
+# 隐空间的维度大小
 latent_dim = 5
 # define the discriminator model
+# 定义判别器模型
 model = define_generator(latent_dim)
-# generate and plot generated samples
+# 生成并绘制生成的样本
 generate_fake_samples(model, latent_dim, 100)
 ```
 
-Running the example generates 100 random points from the latent space, uses this as input to the generator and generates 100 fake samples from our one-dimensional function domain.
+运行这个例子将从隐空间中生成 100 个随机点，将它们作为生成器的输入并从我们的一维函数域中生成 100 个假样本。
 
-As the generator has not been trained, the generated points are complete rubbish, as we expect, but we can imagine that as the model is trained, these points will slowly begin to resemble the target function and its u-shape.
+由于生成器还没有被训练过，因此生成的点和我们想的一样，全都是“垃圾”，但是我们可以想象当这个模型被训练之后，这些点会慢慢的开始向目标函数和它的 u 型靠近。
 
-![Scatter plot of Fake Samples Predicted by the Generator Model.](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Scatter-plot-of-Fake-Samples-Predicted-by-the-Generator-Model-1024x768.png)
+![由生成器模型预测的假样本的散点图](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Scatter-plot-of-Fake-Samples-Predicted-by-the-Generator-Model-1024x768.png)
 
-Scatter plot of Fake Samples Predicted by the Generator Model.
 
-We have now seen how to define and use the generator model. We will need to use the generator model in this way to create samples for the discriminator to classify.
+由生成器模型预测的假样本的散点图。
 
-We have not seen how the generator model is trained; that is next.
+我们已经看过了如何定义和使用生成器模型。我们需要以这种方式使用生成器模型来为判别器生成用以分类的样本。
 
-## Training the Generator Model
+我们还没有看到生成器模型是如何被训练的；这是下一步。
 
-The weights in the generator model are updated based on the performance of the discriminator model.
+## 训练生成器模型
 
-When the discriminator is good at detecting fake samples, the generator is updated more, and when the discriminator model is relatively poor or confused when detecting fake samples, the generator model is updated less.
+生成器模型中的权重是基于判别器模型的表现而更新的。
 
-This defines the zero-sum or adversarial relationship between these two models.
+当判别器很擅于检测假样本时，生成器会更新得更多，而当判别器对于检测假样本相对不擅长或者被迷惑时，生成器会更新得更少。
 
-There may be many ways to implement this using the Keras API, but perhaps the simplest approach is to create a new model that subsumes or encapsulates the generator and discriminator models.
+这定义了两个模型之间的零和或对抗关系。
 
-Specifically, a new GAN model can be defined that stacks the generator and discriminator such that the generator receives as input random points in the latent space, generates samples that are fed into the discriminator model directly, classified, and the output of this larger model can be used to update the model weights of the generator.
+有许多使用 Keras API 来实现它的方式，但是可能最简单的方法就是创建一个新的模型包含或封装生成器和判别器模型。
 
-To be clear, we are not talking about a new third model, just a logical third model that uses the already-defined layers and weights from the standalone generator and discriminator models.
 
-Only the discriminator is concerned with distinguishing between real and fake examples; therefore, the discriminator model can be trained in a standalone manner on examples of each.
+特别的是，一个新的生成对抗模型可以被定义为堆叠生成器和判别器，生成器在隐空间中接收随机点作为输入，生成直接被提供给判别器模型的样本，然后分类，这个大模型的输出可以被用来更新生成器模型的权重。
 
-The generator model is only concerned with the discriminator’s performance on fake examples. Therefore, we will mark all of the layers in the discriminator as not trainable when it is part of the GAN model so that they can not be updated and overtrained on fake examples.
+要清楚，我们不是在讨论一个新的第三方模型，只是一个逻辑上第三方的模型，它用了已经定义好的来自生成器和判别器模型的层和权重。
 
-When training the generator via this subsumed GAN model, there is one more important change. We want the discriminator to think that the samples output by the generator are real, not fake. Therefore, when the generator is trained as part of the GAN model, we will mark the generated samples as real (class 1).
+在区分真假数据的时候只涉及到判别器；因此，判别器模型可以通过真假数据被单独训练。
 
-We can imagine that the discriminator will then classify the generated samples as not real (class 0) or a low probability of being real (0.3 or 0.5). The backpropagation process used to update the model weights will see this as a large error and will update the model weights (i.e. only the weights in the generator) to correct for this error, in turn making the generator better at generating plausible fake samples.
+生成器模型只和判别器模型在假数据上的表现有关。因此，当判别器是生成对抗网络模型的一部分的时候，我们会将判别器中的所有层标记为无法训练为的是它们在假数据上不会更新和过度训练。
+
+当通过这个合并的生成对抗网路模型来训练生成器的时候，还有一个重要的改变。我们想让判别器认为生成器输出的样本是真的，不是假的。因此，当生成器在作为生成对抗网络一部分训练的时候，我们将标记生成的样本为真（类标签为 1）。
+
+我们可以想像判别器将生成的样本归类为不是真的（类标签为 0）或者为真的可能性较低（0.3 或 0.5）。用来更新模型权重的传播过程将其视为一个大的误差，然后将更新模型权重（比如只有在生成器中的权重）来更正这个误差，以此来使得生成器更好地生成逼真的假样本。
+
+
 
 Let’s make this concrete.
+让我们来证实这个过程。
 
 * **Inputs**: Point in latent space, e.g. a five-element vector of Gaussian random numbers.
 * **Outputs**: Binary classification, likelihood the sample is real (or fake).
@@ -1054,9 +1061,9 @@ This section lists some ideas for extending the tutorial that you may wish to ex
 If you explore any of these extensions, I’d love to know.  
 Post your findings in the comments below.
 
-## Further Reading
+## 拓展阅读
 
-This section provides more resources on the topic if you are looking to go deeper.
+如果你想更深入了解的话，这部分提供了关于这个话题更多的资源。
 
 ### API
 
@@ -1071,16 +1078,16 @@ This section provides more resources on the topic if you are looking to go deepe
 
 ## Summary
 
-In this tutorial, you discovered how to develop a generative adversarial network from scratch for a one-dimensional function.
+在这个教程中，你发现了如何为一个一维函数从头搭建一个生成对抗网络。
 
-Specifically, you learned:
+特别是，你学到了：
 
-* The benefit of developing a generative adversarial network from scratch for a simple one-dimensional function.
-* How to develop separate discriminator and generator models, as well as a composite model for training the generator via the discriminator’s predictive behavior.
-* How to subjectively evaluate generated samples in the context of real examples from the problem domain.
+* 使用一个简单的一维函数从头搭建一个生成对抗网络的好处。
+* 如何搭建独立的判别器和生成器模型，以及一个通过判别器预测行为来训练生成器的组合模型。
+* 如何在问题域中真实数据的环境中主观地评估生成的样本。
 
-Do you have any questions?  
-Ask your questions in the comments below and I will do my best to answer.
+你有任何问题吗？
+在下方的评论中写下你的问题，我会尽我所能来回答。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
