@@ -29,7 +29,7 @@
 
 ## 如何提升你的数据结构、算法和解决问题的能力。
 
-我主要使用三个网站来练习：[HackerRank](https://www.hackerrank.com)、[LeetCode](https://leetcode.com) 和 [Kattis](https://open.kattis.com)。它们大致是相似的，特别是前两个，但不完全相同。我发现每个网站的侧重点略有不同，每个网站都以自己的方式为用户提供最大化的帮助。
+我主要使用三个网站来练习：[HackerRank](https://www.hackerrank.com)、[LeetCode](https://leetcode.com) 和 [Kattis](https://open.kattis.com)。它们非常相似，特别是前两个，但不完全相同。我发现每个网站的侧重点略有不同，每个网站都以自己的方式为用户提供最大化的帮助。
 
 我将解决问题所需的技能大致分为：
 
