@@ -5,11 +5,11 @@
 > * 译者：[TokenJan](https://github.com/TokenJan)
 > * 校对者：
 
-# 如何从头用 Keras 搭建一维生成对抗网络
+# 如何用 Keras 从头搭建一维生成对抗网络
 
-[生成对抗网络或简称 GAN](https://machinelearningmastery.com/what-are-generative-adversarial-networks-gans/)，是训练强大的生成器模型的深度学习框架。
+[生成对抗网络或简称 GAN](https://machinelearningmastery.com/what-are-generative-adversarial-networks-gans/)，是一个深度学习框架，用于训练强大的生成器模型。
 
-一个生成器模型可以生成新的人造样本，这些样本可以来自于已经存在的样本分布。
+生成器模型可以生成新的人工样本，这些样本可以来自已经存在的样本分布。
 
 生成对抗网络由生成器模型和判别器模型组成。生成器负责从领域中生成新的样本，判别器负责区分这些样本是真的还是假的（生成的）。重要的是，判别器模型的性能被用来更新判别器自己和生成器的模型权重参数。这意味着生成器从来不会真的看到来自领域中的样本并且是基于判别器表现的好坏来作出调整。
 
@@ -33,9 +33,7 @@
 
 ![如何从头用 Keras 搭建一维生成对抗网络](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/How-to-Develop-a-Generative-Adversarial-Network-for-a-1-Dimensional-Function-From-Scratch-in-Keras.jpg)
 
-How to Develop a Generative Adversarial Network for a 1-Dimensional Function From Scratch in Keras  
-Photo by [Chris Bambrick](https://www.flickr.com/photos/lntervention/16865473804/), some rights reserved.
-如何从头用 Keras 搭建一维生成对抗网络
+如何用 Keras 从头搭建一维生成对抗网络
 这张照片由 [Chris Bambrick](https://www.flickr.com/photos/lntervention/16865473804/) 拍摄，并保留权利。
 
 ## 教程概述
@@ -201,7 +199,7 @@ def define_discriminator(n_inputs=2):
 model = define_discriminator()
 # 总结模型
 model.summary()
-# plot the model
+# 绘制模型
 plot_model(model, to_file='discriminator_plot.png', show_shapes=True, show_layer_names=True)
 ```
 
@@ -403,7 +401,6 @@ train_discriminator(model)
 
 这是因为隐空间是没有意义的直到生成器模型开始学习并为空间中的点赋予意义。训练之后，隐空间的点将和输出空间中的点关联起来，比如和生成样本的空间。
 
-We will define a small latent space of five dimensions and use the standard approach in the GAN literature of using a Gaussian distribution for each variable in the latent space. We will generate new inputs by drawing random numbers from a standard Gaussian distribution, i.e. mean of zero and a standard deviation of one.
 我们定义一个小的五维隐空间，并且使用生成对抗网络文献中标准的方法，即隐空间中每一个变量都使用高斯分布。我们将从一个标准高斯分布中获取随机数来生成输入值，比如均值为 0，标准差为 1。
 
 * **输入**：隐空间中的点，比如由五个高斯随机数组成的向量。
@@ -1068,7 +1065,7 @@ train(generator, discriminator, gan_model, latent_dim)
 ### API
 
 *   [Keras API](https://keras.io/)
-*   [How can I “freeze” Keras layers?](https://keras.io/getting-started/faq/#how-can-i-freeze-keras-layers)
+*   [我如何可以“冻结” Keras 层？](https://keras.io/getting-started/faq/#how-can-i-freeze-keras-layers)
 *   [MatplotLib API](https://matplotlib.org/api/)
 *   [numpy.random.rand API](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.rand.html)
 *   [numpy.random.randn API](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randn.html)
@@ -1078,7 +1075,7 @@ train(generator, discriminator, gan_model, latent_dim)
 
 ## Summary
 
-在这个教程中，你发现了如何为一个一维函数从头搭建一个生成对抗网络。
+在这个教程中，你学习了如何为一个一维函数从头搭建一个生成对抗网络。
 
 特别是，你学到了：
 
