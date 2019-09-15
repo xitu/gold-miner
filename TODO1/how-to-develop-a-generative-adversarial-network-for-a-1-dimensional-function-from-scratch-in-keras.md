@@ -11,7 +11,7 @@
 
 生成器模型可以生成新的人工样本，这些样本可以来自已经存在的样本分布。
 
-生成对抗网络由生成器模型和判别器模型组成。生成器负责从领域中生成新的样本，判别器负责区分这些样本是真的还是假的（生成的）。重要的是，判别器模型的性能被用来更新判别器自己和生成器的模型权重参数。这意味着生成器从来不会真的看到来自领域中的样本并且是基于判别器表现的好坏来作出调整。
+生成对抗网络由生成器模型和判别器模型组成。生成器负责从领域中生成新的样本，判别器负责区分这些样本是真的还是假的（生成的）。重要的是，判别器模型的性能被用来更新判别器自己和生成器的模型权重。这意味着生成器从来不会真的看到来自领域中的样本并且是基于判别器表现的好坏来作出调整。
 
 这是一个理解和训练都复杂的模型。
 
@@ -31,7 +31,7 @@
 
 让我们开始吧。
 
-![如何从头用 Keras 搭建一维生成对抗网络](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/How-to-Develop-a-Generative-Adversarial-Network-for-a-1-Dimensional-Function-From-Scratch-in-Keras.jpg)
+![如何用 Keras 从头搭建一维生成对抗网络](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/How-to-Develop-a-Generative-Adversarial-Network-for-a-1-Dimensional-Function-From-Scratch-in-Keras.jpg)
 
 如何用 Keras 从头搭建一维生成对抗网络
 这张照片由 [Chris Bambrick](https://www.flickr.com/photos/lntervention/16865473804/) 拍摄，并保留权利。
@@ -191,7 +191,7 @@ def define_discriminator(n_inputs=2):
 	model = Sequential()
 	model.add(Dense(25, activation='relu', kernel_initializer='he_uniform', input_dim=n_inputs))
 	model.add(Dense(1, activation='sigmoid'))
-	# compile model
+	# 编译模型
 	model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
 
@@ -275,11 +275,11 @@ def generate_fake_samples(n):
 
 下一步，我们需要一个训练和评估生成器模型的方法。
 
-这可以通过手动列举训练的 epoch，并且为每个 epoch 生成一半的真实样本和一半的加样本，然后更新模型，比如：在一整批样本上。可以使用 The _train()_ 方法来训练，但是在这种情况下，我们将直接用 _train\_on\_batch()_ 方法。
+这可以通过手动遍历训练的 epoch（epoch 指将所有数据循环训练一遍的轮数），并且为每个 epoch 生成一半的真实样本和一半的加样本，然后更新模型，比如：在一整批样本上。可以使用 The _train()_ 方法来训练，但是在这种情况下，我们将直接用 _train\_on\_batch()_ 方法。
 
 这个模型可以根据生成的样本进行评估，并且我们可以生成真假样本分类准确率的报告。
 
-下面的 _train_discriminator()_ 方法实现了为模型训练 1000 个 batch，每个 batch 包含 128 个样本（64 个假样本 64 个真样本）。
+下面的 _train_discriminator()_ 方法实现了为模型训练 1000 个 batch（batch 指训练模型一个批次），每个 batch 包含 128 个样本（64 个假样本 64 个真样本）。
 
 ```python
 # 训练判别器模型
@@ -1015,7 +1015,7 @@ gan_model = define_gan(generator, discriminator)
 train(generator, discriminator, gan_model, latent_dim)
 ```
 
-运行这个例子将每 2000 个训练迭代（batch）生成模型性能的报告并且绘制一张散点图。
+运行这个例子将每训练 2000 个 batch 生成模型性能的报告并且绘制一张散点图。
 
 你们自己的结果可能会不同因为训练算法的随机特性以及生成模型自己的特性。
 
