@@ -3,11 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/algebraic-effects-for-the-rest-of-us.md](https://github.com/xitu/gold-miner/blob/master/TODO1/algebraic-effects-for-the-rest-of-us.md)
 > * 译者：[TiaossuP](https://github.com/TiaossuP)
-> * 校对者：
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
-# 你可能不知道的 JavaScript 新特性：代数效应
-
-> 译注：原文标题为：Algebraic Effects for the Rest of Us（给我们其他人看的代数效应）
+# 写给我们每个人的代数效应入门
 
 你听说过**代数效应（Algebraic Effects）**么？
 
@@ -17,9 +15,9 @@
 
 [![](https://overreacted.io/static/5fb19385d24afb94180b6ba9aeb2b8d4/79ad4/effects.jpg)](https://overreacted.io/static/5fb19385d24afb94180b6ba9aeb2b8d4/79ad4/effects.jpg) 
 
-事实证明，代数效应是一个很酷的概念，并不像我从那些 pdf 看到得那样可怕。**如果你只是使用React，你不需要了解它们 —— 但如果你像我一样，对其感到好奇，请继续阅读。**
+事实证明，代数效应是一个很酷的概念，并不像我从那些 pdf 看到得那样可怕。**如果你只是使用 React，你不需要了解它们 —— 但如果你像我一样，对其感到好奇，请继续阅读。**
 
-*（免责声明：我不是编程语言研究员、不是这个主题的权威人士，可能我这里的介绍有错漏，所以哪里有问题的话，请告诉我！*
+**（免责声明：我不是编程语言研究员、不是这个话题的权威人士，可能我这里的介绍有错漏，所以哪里有问题的话，请告诉我！）**
 
 ### 尚未 Production Ready
 
@@ -97,13 +95,13 @@ try {
 }
 ```
 
-*（我向 2025 年在网上搜索「ES2025」并找到这篇文章的所有读者致歉。如果代数效应是当时的 JavaScript 的一部分，我很乐意更新这篇文章！）*
+*（我向 2025 年在网上搜索「ES2025」并找到这篇文章的所有读者致歉。如果未来代数效应成为了 JavaScript 的一部分，我很乐意更新这篇文章！）*
 
 代替`throw`，我们使用一个假设的`perform`关键字。同样，代替 `try / catch`，我们使用假想的 `try / handle` 语句。**确切的语法在这里并不重要 —— 我们只是随便编个语法来表达这个思想**
 
 那么发生了什么？让我们仔细看看。
 
-我们** perform 了一个 effect **，而不是 throw 一个 error。就像我们可以 `throw` 任何值一样，我们可以将任何值传给 `perform`。在这个例子中，我传入了一个字符串，但它可以是一个对象，或任何其他数据类型：
+我们 **perform** 了一个 **effect**，而不是 throw 一个 error。就像我们可以 `throw` 任何值一样，我们可以将任何值传给 `perform`。在这个例子中，我传入了一个字符串，但它可以是一个对象，或任何其他数据类型：
 
 ```js
 function getName(user) {
@@ -115,7 +113,7 @@ function getName(user) {
 }
 ```
 
-当我们`throw` 一个 error 时，引擎会在调用堆栈中查找最接近的 `try / catch`error handler。类似地，当我们 `perform` 了一个 effect 时，引擎会在调用堆栈中搜索最接近的 `try / handle` * effect handler*。
+当我们`throw` 一个 error 时，引擎会在调用堆栈中查找最接近的 `try / catch`error handler。类似地，当我们 `perform` 了一个 effect 时，引擎会在调用堆栈中搜索最接近的 `try / handle` **effect  handler**。
 
 ```js
 try {
@@ -168,7 +166,7 @@ try {
 
 但是请注意，**代数效应要比 try / catch 更灵活，并且可恢复的错误只是许多可能的用例之一。**我从这个角度开始介绍只是因为这是最容易理解的方式。
 
-### 没有颜色的函数
+### 不会染色的函数
 
 代数效应对异步代码有非常有趣的价值。
 
@@ -259,9 +257,9 @@ try {
 
 ### 关于纯函数的贴士
 
-值得注意的是，代数效应来自函数式编程研究。他们解决的一些问题是纯函数式编程所特有的。例如，那些**不**允许随意副作用的语言（比如Haskell），你必须使用 Monads 之类的概念来将其适配到你的程序中。如果您曾阅读过 Monad 教程，您会发现这些概念有点难以理解。代数效应有助于做更少的仪式性代码。
+值得注意的是，代数效应来自函数式编程研究。他们解决的一些问题是纯函数式编程所特有的。例如，那些**不允许**随意副作用的语言（比如 Haskell），你必须使用 Monads 之类的概念来将其适配到你的程序中。如果您曾阅读过 Monad 教程，您会发现这些概念有点难以理解。代数效应有助于做更少的仪式性代码。
 
-这就是为什么我曾经不理解为什么有这么多关于代数效应的讨论。（我之前并[不知道](https://overreacted.io/things-i-dont-know-as-of-2018/) Haskell 和它的小伙伴们）但是，我认为，即使是像 JavaScript 这样并不 pure 的语言，**代数效果仍然是一个非常强力的工具，它可以帮你分离代码中的「做什么」与「怎么做」**
+这就是为什么我曾经不理解为什么有这么多关于代数效应的讨论。（我之前并[不知道](https://overreacted.io/things-i-dont-know-as-of-2018/) Haskell 和它的小伙伴们）但是，我认为，即使是像 JavaScript 这样并不 pure 的语言，**代数效应仍然是一个非常强力的工具，它可以帮你分离代码中的「做什么」与「怎么做」**
 
 首先它让你写下关于「做什么」的代码：
 
@@ -363,7 +361,7 @@ test('my program', () => {
 
 老实说，我不知道。它们非常强大，你甚至可以说，它们可能对JavaScript这样的语言来说**太过**强大了。
 
-我认为它们非常适合那些 mutation 不常见 、标准库完全拥抱 effect 的语言。如果你主要做 `perform Timeout(1000)`、`perform Fetch('http://google.com')`以及`perform ReadFile('file.txt')`这类工作，并且你的语言有模式匹配和静态 effect 类型，它可能是一个非常好的编程环境。
+我认为它们非常适合那些 mutation 不常见 、标准库完全拥抱 effect 的语言。如果你主要做 `perform Timeout(1000)`、`perform Fetch('http://google.com')` 以及 `perform ReadFile('file.txt')` 这类工作，并且你的语言有模式匹配和静态 effect 类型，它可能是一个非常好的编程环境。
 
 也许这种语言甚至可以编译成 JavaScript！
 
@@ -375,14 +373,14 @@ test('my program', () => {
 
 ```js
 function MovieDetails({ id }) {
-  // 如果它仍然在 fetchd 状态怎么办
+  // 如果它仍然在 fetched 状态怎么办
   const movie = movieCache.read(id);
 }
 ```
 
-*(这场 talk 使用了略有不同的 API ，但不重要。)*
+**(这场 talk 使用了略有不同的 API ，但不重要。)**
 
-这构建于一个名为「Suspense」的 React 功能之上，该功能正被逐渐使用，用于请求数据这种场景。当然，有趣的部分是`movieCache`中没有数据的情况 —— 在这种情况下我们需要做一些事情，因为我们现在无法继续了。从技术上讲，在这种情况下，`read()`调用会 throw 一个 Promise（没错，就是 **throw** 了一个Promise —— 让它陷入其中）。这「暂停（suspends）」了执行。React 捕获到 Promise，并会记得在该 Promise 变为 resolve 后，重新尝试渲染组件树。
+这构建于一个名为「Suspense」的 React 功能之上，该功能正积极地开发中，用于请求数据这种场景。当然，有趣的部分是 `movieCache` 中没有数据的情况 —— 在这种情况下我们需要做一些事情，因为我们现在无法继续了。从技术上讲，在这种情况下，`read()`调用会 throw 一个 Promise（没错，就是 **throw** 了一个 Promise —— 让它陷入其中）。这挂起（suspends）了执行。React 捕获到 Promise，并会记得在该 Promise 变为 resolve 后，重新尝试渲染组件树。
 
 即使这个技巧是[受其启发](https://mobile.twitter.com/sebmarkbage/status/941214259505119232)的，但这本身并不是代数效应。不过它实现了相同的目标：调用堆栈中的偏底层的一些代码直接触发了偏上层的一些代码（在这种情况下，为 React），而无需所有中间函数必须知道它为 `async` 或 generator 。当然，我们无法在 JavaScript 中真正地**恢复（resume）**执行，但从 React 的角度来看，这跟「当 Promise resolve 时重新渲染组件树」几乎是一回事。当你的编程模型[假设幂等](https://overreacted.io/react-as-a-ui-runtime/#purity)时，你就可以这么作弊！
 
@@ -395,9 +393,9 @@ function LikeButton() {
 }
 ```
 
-我已经在[这篇文章的末尾](https://overreacted.io/zh-hans/how-does-setstate-know-what-to-do/)解释了答案：React 对象（指您现在正在使用的实现（例如`react-dom`））上有一个「currenr dispatcher」这一可变状态。类似地，还有一个「current component」属性指向我们`LikeButton`的内部数据结构。这就是`useState`知道该怎么做的原因。
+我已经在[这篇文章的末尾](https://overreacted.io/zh-hans/how-does-setstate-know-what-to-do/)解释了答案：React 对象（指你现在正在使用的实现（例如`react-dom`））上有一个「currenr dispatcher」这一可变状态。类似地，还有一个「current component」属性指向我们`LikeButton`的内部数据结构。这就是 `useState` 知道该怎么做的原因。
 
-在人们习惯之前，他们常常认为这有点「脏」，原因很明显。依靠共享的可变状态让人「感觉不太对」。*（旁注：您认为 `try / catch` 是如何在 JavaScript 引擎中实现的？）*
+在人们习惯之前，他们常常认为这有点「脏」，原因很明显。依靠共享的可变状态让人「感觉不太对」。**（旁注：您认为 `try / catch` 是如何在 JavaScript 引擎中实现的？）**
 
 但是，从概念上讲，您可以将 `useState()`视为：在 React 执行组件时的一个 `perform State()` effect。这将「解释」为什么 React（调用你的组件的东西）可以为它提供状态（它位于调用堆栈中，因此它可以提供 effect handler）。实际上，[实现状态](https://github.com/ocamllabs/ocaml-effects-tutorial/#2-effectful-computations-in-a-pure-setting)是我遇到的代数效应教程中最常见的例子之一。
 
@@ -405,11 +403,11 @@ function LikeButton() {
 
 总而言之，在JavaScript中，throw 可以作为 IO effects 的粗略近似（只要以后可以安全地重新执行代码，并且不受 CPU 限制）；而具有可变的、在 `try / finally` 中被执行的「dispatcher」字段，可以作为 effect handler 的粗略近似值。
 
-您还可以[使用 generator ](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703)来获得更高保真度的效果实现，但这意味着您必须放弃JavaScript函数的「透明」特性，并且您必须把各处都设置成 generator。这有点……emm
+您还可以[使用 generator](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703) 来获得更高保真度的效果实现，但这意味着您必须放弃JavaScript函数的「透明」特性，并且您必须把各处都设置成 generator。这有点……emm
 
 ### 了解更多
 
-就个人而言，我对代数效应对我有多大意义感到惊讶。我一直在努力理解像 Monads 这样的抽象概念，但代数效果只是“点击”了。我希望这篇文章能帮助他们“点击”你。
+就个人而言，我对代数效应对我有多大意义感到惊讶。我一直在努力理解像 Monads 这样的抽象概念，但代数效果突然让我「开窍」了。我希望这篇文章能帮助你也能对 Monads 等概念「开窍」。
 
 我不知道他们是否会进入主流采用阶段。如果它在 2025 年之前还没有被任何主流语言所采用，我想我会感到失望。请提醒我五年后再回来看看！
 
