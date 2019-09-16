@@ -10,11 +10,11 @@
 
 [![Syslog: The Complete System Administrator Guide](https://devconnected.com/wp-content/themes/soledad/images/penci2-holder.png "syslog featured")](https://devconnected.com/wp-content/uploads/2019/08/syslog-featured-1.png) 
 
-如果你是**系统管理员**，或者只是一个普通的 Linux 用户，那么你很有可能至少使用过一次 **Syslog**。
+如果你是 **系统管理员**，或者只是一个普通的 Linux 用户，那么你很有可能至少使用过一次 **Syslog**。
 
 在你的 Linux 系统上，几乎所有与系统日志相关的东西都与 **Syslog 协议**有关。
 
-协议由埃里克·奥尔曼（伯克利大学）在 80 年代早期设计，它是一个规范，定义了**任何系统上消息记录的标准**。
+协议由埃里克·奥尔曼（伯克利大学）在 80 年代早期设计，它是一个规范，定义了 **任何系统上消息记录的标准**。
 
 是的……任何系统。
 
@@ -43,15 +43,15 @@ Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上
 
 当设计一个日志架构时，比如一个集中式日志服务器，很可能多个实例会一起工作。
 
-有些实例将生成日志消息，它们将被称为“**设备**”或“**syslog 客户端**”。
+有些实例将生成日志消息，它们将被称为 “**设备**” 或 “**syslog 客户端**”。
 
-有些只是转发收到的消息，它们将被称为“**中继**”。
+有些只是转发收到的消息，它们将被称为 “**中继**”。
 
-最后，在某些情况下，你将接收和存储日志数据，这些被称为“**收集器**”或“syslog 服务器”。
+最后，在某些情况下，你将接收和存储日志数据，这些被称为 “**收集器**” 或“syslog 服务器”。
 
 ![Syslog architecture components](https://devconnected.com/wp-content/uploads/2019/08/syslog-component-arch.png)
 
-了解这些概念后，我们可以说独立的 Linux 计算机本身就充当了 “**syslog客户端-服务器**”：它**生成**日志数据，由 rsyslog **收集**并存储到文件系统中。
+了解这些概念后，我们可以说独立的 Linux 计算机本身就充当了 “**syslog 客户端 - 服务器**”：它 **生成** 日志数据，由 rsyslog **收集**并存储到文件系统中。
 
 这里有一组围绕这一原则的架构示例。
 
@@ -59,15 +59,15 @@ Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上
 
 ![One device and one collector](https://devconnected.com/wp-content/uploads/2019/08/arch-1.png)
 
-Add a few **more clients** in your infrastructure, and you have the basis of a **centralized logging architecture.** 在你的基础架构中添加一些**更多的客户端**，你就拥有了**集中式日志架构**的基础。
+Add a few **more clients** in your infrastructure, and you have the basis of a **centralized logging architecture.** 在你的基础架构中添加一些 **更多的客户端**，你就拥有了 **集中式日志架构** 的基础。
 
 ![Multiple devices and one collector](https://devconnected.com/wp-content/uploads/2019/08/arch-2.png)
 
 多个客户端正在生成数据，并将其发送到负责聚合和存储客户端数据的集中式 syslog 服务器。
 
-如果我们要复杂化我们的架构，我们可以添加一个“**中继**”。
+如果我们要复杂化我们的架构，我们可以添加一个 “**中继**”。
 
-例如，中继可以是 **Logstash**实例，但在客户端也可以是 **rsyslog 规则**。
+例如，中继可以是 **Logstash** 实例，但在客户端也可以是 **rsyslog 规则**。
 
 ![Multiple devices, one collector and one relay](https://devconnected.com/wp-content/uploads/2019/08/arch-3-1.png)
 
@@ -93,11 +93,11 @@ Syslog 格式分为三个部分：
 
 简单来说，**设施级别** 用于确定生成日志的程序或系统的一部分。
 
-默认情况下，系统的某些部分会被赋予功能级别，例如使用 **kern 功能的内核**，或者**使用邮件功能的邮件系统。**
+默认情况下，系统的某些部分会被赋予功能级别，例如使用 **kern 功能的内核**，或者 **使用邮件功能的邮件系统。**
 
-如果第三方想要日志，它可能会保留一组从 16 到 23 的设施级别，称为**“本地使用”设施级别**。
+如果第三方想要日志，它可能会保留一组从 16 到 23 的设施级别，称为 **“本地使用”设施级别**。
 
-或者，他们可以使用“**用户级别**”工具，这意味着可以与执行命令的用户相关的日志。
+或者，他们可以使用 “**用户级别**” 工具，这意味着可以与执行命令的用户相关的日志。
 
 简而言之，如果我的 Apache 服务器由“apache”用户运行，那么日志将存储在一个名为“apache.log”的文件中（<user>.log）
 
@@ -137,7 +137,7 @@ Syslog 格式分为三个部分：
 
 **Syslog 严重级别** 用于事件的严重程度，范围从调试、信息消息到紧急级别。
 
-与 Syslog 设施级别相似，严重性级别分为 0 到 7 的数字类别，0 是**最紧急的紧急级别**。
+与 Syslog 设施级别相似，严重性级别分为 0 到 7 的数字类别，0 是 **最紧急的紧急级别**。
 
 **下表中描述的是 syslog 严重性级别：**
 
@@ -154,21 +154,21 @@ Syslog 格式分为三个部分：
 
 即使默认情况下日志是按设施名称存储的，你也可以完全按事件的严重性级别来存储它们。
 
-如果你使用 rsyslog 作为默认系统日志服务器，你可以检查**[ rsyslog 属性]（https://www.rsyslog.com/doc/master/configuration/properties.html）** 配置日志的分隔方式。
+如果你使用 rsyslog 作为默认系统日志服务器，你可以检查 **[ rsyslog 属性]（https://www.rsyslog.com/doc/master/configuration/properties.html）** 配置日志的分隔方式。
 
-现在你对设施和严重性有了更多的了解，让我们回到**syslog 消息格式。**
+现在你对设施和严重性有了更多的了解，让我们回到 **syslog 消息格式。**
 
 ### c – PRI 部分是什么？
 
 PRI 块是 syslog 格式消息的第一部分。
 
-PRI 在尖括号之间存储“**优先级值**”。
+PRI 在尖括号之间存储 “**优先级值**”。
 
 > 还记得你刚刚学到的设施和严重程度吗？
 
 如果你使用消息设施号，将其乘以 8，并加上严重性级别，你将获得 syslog 消息的“优先级值”。
 
-如果你希望将来**解码** 你的 syslog 消息，请记住这一点。
+如果你希望将来 **解码** 你的 syslog 消息，请记住这一点。
 
 ![](https://devconnected.com/wp-content/uploads/2019/08/pri-calc-fixed.png)
 
