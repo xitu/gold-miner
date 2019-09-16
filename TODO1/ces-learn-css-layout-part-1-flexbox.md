@@ -1,7 +1,7 @@
 > * 原文地址：[Fun places to learn CSS Layout –  Part 1: Flexbox](https://stephaniewalter.design/blog/fun-places-learn-css-layout-part-1-flexbox/)
 > * 原文作者：[Stéphanie](https://stephaniewalter.design)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/fun-places-learn-css-layout-part-1-flexbox.md](https://github.com/xitu/gold-miner/blob/master/TODO1/fun-places-learn-css-layout-part-1-flexbox.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ces-learn-css-layout-part-1-flexbox.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ces-learn-css-layout-part-1-flexbox.md)
 > * 译者：
 > * 校对者：
 
