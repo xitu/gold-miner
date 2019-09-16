@@ -1,7 +1,7 @@
 > * 原文地址：[Fun places to learn CSS Layout –  Part 2: Grid Layout](https://stephaniewalter.design/blog/fun-places-to-learn-css-layout-part-2-grid-layout/)
 > * 原文作者：[Stéphanie](https://stephaniewalter.design)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/fun-places-to-learn-css-layout-part-2-grid-layout.md](https://github.com/xitu/gold-miner/blob/master/TODO1/fun-places-to-learn-css-layout-part-2-grid-layout.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/un-places-to-learn-css-layout-part-2-grid-layout.md](https://github.com/xitu/gold-miner/blob/master/TODO1/un-places-to-learn-css-layout-part-2-grid-layout.md)
 > * 译者：
 > * 校对者：
 
