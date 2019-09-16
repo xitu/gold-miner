@@ -37,7 +37,7 @@ Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上
 * **指定可靠性**：syslog 需要定义它如何处理无法传递的消息。作为 TCP/IP 堆栈的一部分，syslog 显然会在底层网络协议（TCP 或 UDP）上被选择；
 * **处理身份验证或消息真实性**：syslog 需要一种可靠的方法来确保客户端和服务器以安全的方式进行交互，并且接收到的消息不会被更改。
 
-现在我们知道为什么首先规定 Syslog，**让我们看看 Syslog 架构是如何工作的。** 
+现在我们知道最初为什么制定 Syslog，**让我们看看 Syslog 架构是如何工作的。** 
 
 ## II – 什么是 Syslog 架构?
 
@@ -47,7 +47,7 @@ Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上
 
 有些只是转发收到的消息，它们将被称为 “**中继**”。
 
-最后，在某些情况下，你将接收和存储日志数据，这些被称为 “**收集器**” 或“syslog 服务器”。
+最后，在某些情况下，你将接收和存储日志数据，这些被称为 “**收集器**” 或“**syslog 服务器**”。
 
 ![Syslog architecture components](https://devconnected.com/wp-content/uploads/2019/08/syslog-component-arch.png)
 
@@ -71,7 +71,7 @@ Add a few **more clients** in your infrastructure, and you have the basis of a *
 
 ![Multiple devices, one collector and one relay](https://devconnected.com/wp-content/uploads/2019/08/arch-3-1.png)
 
-这些中继大多充当“基于内容的路由器”（[，如果你不熟悉基于内容的路由器，这里有一个链接便于你理解它（https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html））。
+这些中继大多充当“基于内容的路由器”（[，如果你不熟悉基于内容的路由器，这里有一个链接便于你理解它(https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html)）。
 
 这意味着基于日志内容，数据将被重定向到不同的位置。如果你对数据不感兴趣，也可以将其完全丢弃。
 
@@ -127,9 +127,9 @@ Syslog 格式分为三个部分：
 
 是的！在 Linux 系统中，默认情况下，文件由设施名称分隔，这意味着你将有一个用于身份验证的文件（ auth.log ），一个用于内核的文件（ kern.log ）等等。
 
-这是[我的 Debian 10 实例的截屏示例]（https://devconnected.com/how-to-install-and-configure-debian-10-buster-with-gnome/）.
+这是[我的 Debian 10 实例的截屏示例](https://devconnected.com/how-to-install-and-configure-debian-10-buster-with-gnome/).
 
-![展示 debian 10 上的设施日志]（https://devconnected.com/wp-content/uploads/2019/08/var-log-debian-10.png）
+![展示 debian 10 上的设施日志](https://devconnected.com/wp-content/uploads/2019/08/var-log-debian-10.png)
 
 现在我们已经看到了 syslog 设施级别，让我们来描述什么是 syslog 严重性级别。
 
@@ -154,7 +154,7 @@ Syslog 格式分为三个部分：
 
 即使默认情况下日志是按设施名称存储的，你也可以完全按事件的严重性级别来存储它们。
 
-如果你使用 rsyslog 作为默认系统日志服务器，你可以检查 **[ rsyslog 属性]（https://www.rsyslog.com/doc/master/configuration/properties.html）** 配置日志的分隔方式。
+如果你使用 rsyslog 作为默认系统日志服务器，你可以检查 **[ rsyslog 属性](https://www.rsyslog.com/doc/master/configuration/properties.html)** 配置日志的分隔方式。
 
 现在你对设施和严重性有了更多的了解，让我们回到 **syslog 消息格式。**
 
@@ -206,13 +206,13 @@ Syslog 当然是关于这个主题的观点，下面是这些问题的一些答�
 
 此外，Syslog 使用端口 514 进行 UDP 通信。
 
-但是，在最近的系统日志实现中，例如rsyslog或syslog-ng，你可以使用TCP （Transmission Control Protocol） 作为安全的通信通道。
+但是，在最近的系统日志实现中，例如rsyslog或syslog-ng，你可以使用TCP (Transmission Control Protocol) 作为安全的通信通道。
 
 例如，rsyslog 使用端口 10514 进行 TCP 通信来确保传输链路中没有数据包丢失。
 
 此外，你可以在 TCP 之上使用 TLS/SSL 协议来加密系统日志数据包，确保不会出现中间人攻击来监视你的日志。
 
-如果你对 rsyslog 感兴趣，这里有一个关于[如何以安全可靠的方式设置一个完整的集中式日志服务器的教程。]（http://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-Linux/）
+如果你对 rsyslog 感兴趣，这里有一个关于[如何以安全可靠的方式设置一个完整的集中式日志服务器的教程。](http://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-Linux/)
 
 ## V – 当前的 Syslog 实现是什么？
 
@@ -251,7 +251,7 @@ Syslog 协议绝对是 **系统管理员** 或 **Linux工程师** 愿意更深�
 
 你可以从在你的实例上设置 **syslog 服务器** 开始，例如 Kiwi Syslog 服务器，并开始从中收集数据。
 
-或者，如果你有更大的基础架构，你可能应该首先建立 **[集中式日志体系结构]（https://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-linux/）**, 然后[使用非常现代的工具如Kibana可视化工具对其进行监控]（https://devconnected.com/monitoring-linux-logs-with-kibana-and-rsyslog/）。
+或者，如果你有更大的基础架构，你可能应该首先建立 **[集中式日志体系结构](https://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-linux/)**, 然后[使用非常现代的工具如Kibana可视化工具对其进行监控](https://devconnected.com/monitoring-linux-logs-with-kibana-and-rsyslog/)。
 
 我希望你今天学到了一些东西。
 
