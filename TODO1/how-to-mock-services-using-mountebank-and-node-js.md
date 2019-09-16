@@ -349,7 +349,7 @@ module.exports = { addService };
 
 这个 stub 有两个部分。断言部分查找一个根（`/`）URL 的 `GET` 请求。这意味着这个 `stub` 将在有人向 mock 服务的根 URL 发送 `GET` 请求时返回响应。stub 的第二部分是 `responses` 数组。在这个例子中，将会返回一个 HTTP 状态码为`200` 的 JSON 结果。
 
-最后一步定义了含有这个 stub 的 imposter。
+最后一步定义了含有这个 stub 的 imposter：
 
 ```js
 ...
