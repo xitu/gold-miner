@@ -1,11 +1,11 @@
-> * 原文地址：[数学编程 — 为推进数据科学发展而培养的一个关键习惯](https://towardsdatascience.com/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science-c6d5c29533be)
+> * 原文地址：[数学编程 — 为个人在数据科学领域所有进步而培养的一个关键习惯](https://towardsdatascience.com/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science-c6d5c29533be)
 > * 原文作者：[Tirthajyoti Sarkar](https://medium.com/@tirthajyoti)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science.md)
 > * 译者：Weirdochr
 > * 校对者：
 
-# 数学编程 — 为推进数据科学发展而培养的一个关键习惯
+# 数学编程 — 为个人在数据科学领域有所进步而培养的一个关键习惯
 
 > 我们通过模拟随机掷飞镖，向大家展示了如何近似计算圆周率的值。这是朝建立数学编程习惯迈出的一小步，数学编程应是初露头角的数据科学家所有傍身之技中的一项关键技能。
 
