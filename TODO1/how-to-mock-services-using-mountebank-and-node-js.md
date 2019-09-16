@@ -133,7 +133,7 @@ module.exports = {
 
 ### 第 3 步 —— 构建初始化脚本
 
-此步骤中，你将创建一个文件来启动 Mountebank 实例。这个文件将会成为程序的入口，即当你运行程序时，这个脚本将会首先运行。当你构建新的服务 mock时，你将向此文件添加更多内容。
+此步骤中，你将创建一个文件来启动 Mountebank 实例。这个文件将会成为程序的入口，即当你运行程序时，这个脚本将会首先运行。当你构建新的服务 mock 时，你将向此文件添加更多内容。
 
 在 `src` 目录中，创建名为 `index.js` 的文件并在你的文本编辑器中打开它：
 
@@ -158,7 +158,7 @@ const mbServerInstance = mb.create({
 
 这段代码做了三件事。首先，它导入了你之前安装的 Mountebank npm 软件包（`const mb = require('mountebank');`）。接着，它导入了你在上一步创建的配置模块（`const settings = require('./settings');`）。最后，它使用 `mb.create()` 创建了一个 Moutebank 服务器实例。
 
-这个服务器将会监听配置文件中指定的端口，文件中的 `pidfile`，`logfile` 和 `protofile` 参数用于 Mountebank 内部记录它的进程 ID，指定日志位置，和设置加载自定义协议实现的文件。`ipWhitelist` 设置指定了允许与Moutebank 服务器通信的 IP 地址。在这个例子中，你将允许所有 IP 地址。
+这个服务器将会监听配置文件中指定的端口，文件中的 `pidfile`，`logfile` 和 `protofile` 参数用于 Mountebank 内部记录它的进程 ID，指定日志位置，和设置加载自定义协议实现的文件。`ipWhitelist` 设置指定了允许与 Moutebank 服务器通信的 IP 地址。在这个例子中，你将允许所有 IP 地址。
 
 保存并关闭文件。
 
@@ -530,7 +530,7 @@ module.exports = { addService };
 
 这段代码定义了一个服务 mock，它寻找 URL 格式为`customers/<id>`的 `GET` 请求。当收到一个请求时，它将在 URL 上查询顾客的 `id`，并从 CSV 文件里返回相应的记录。
 
-相比上一步创建的 `hello` 服务，这段代码使用了更多的 Mountebank 功能。首先，它用了 Mountebank的 [*behaviors*](http://www.mbtest.org/docs/mentalModel)。行为是一种为 stub 添加功能的方式。这个例子中，你正在使用 `lookup` 行为来查询 CSV 文件中的一条记录：
+相比上一步创建的 `hello` 服务，这段代码使用了更多的 Mountebank 功能。首先，它用了 Mountebank 的 [*behaviors*](http://www.mbtest.org/docs/mentalModel)。行为是一种为 stub 添加功能的方式。这个例子中，你正在使用 `lookup` 行为来查询 CSV 文件中的一条记录：
 
 ```js
 ...
