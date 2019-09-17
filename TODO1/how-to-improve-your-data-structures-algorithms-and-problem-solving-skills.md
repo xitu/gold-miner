@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-improve-your-data-structures-algorithms-and-problem-solving-skills.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-improve-your-data-structures-algorithms-and-problem-solving-skills.md)
 > * 译者：[todaycoder001](https://github.com/todaycoder001)
-> * 校对者：
+> * 校对者：[江五渣](http://jalan.space)、[xurui1995](https://github.com/xurui1995)
 
 # 如何提升你的数据结构、算法以及解决问题的能力
 
