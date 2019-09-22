@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-writing-simple-javascript-got-us-6200-github-stars-in-a-single-day.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-writing-simple-javascript-got-us-6200-github-stars-in-a-single-day.md)
 > * 译者：[cyz980908](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Moonliujk](https://github.com/Moonliujk)，[sin7777](https://github.com/sin7777)
 
 # 如何编写全栈 JavaScript 应用
 
@@ -50,9 +50,9 @@
 
 在每个 route 文件夹中，您可以在其中创建更多文件夹，对页面的某些部分进行分组。所以如果 route 文件夹中包含了很多内容，这是可以理解的。但是我要警告的一件事是，不要嵌得太深。这将使我们这个项目在这个项目中更难地跳转。这是不必要的事情过于复杂的另一个迹象（顺便说一句，使用 command-p 和搜索也是在项目找到所需内容的好方法，但文件结构会有所影响。）
 
-类似的方法是按功能分组，而不是按路由分组。在一个使用 Mobx State Tree 的项目中，这种方法非常有效，它是一个包含许多特性的单页面。按常规方法分组很简单，而且不需要花费太多脑力来找出应该分组的内容和在哪里找到项目。按功能分组的一个麻烦之处在于决定它属于哪里。功能的边界可能很模糊。
+类似的方法是按功能分组，而不是按路由分组。在一个使用 Mobx State Tree 并且包含许多特性的单页面的项目中，这种方法对我非常有效。按常规方法分组很简单，而且不需要花费太多脑力来找出应该分组的内容和在哪里找到项目。按功能分组的一个麻烦之处在于决定它属于哪里。功能的边界可能很模糊。
 
-更进一步，您甚至可能喜欢将容器和组件放在同一个文件中。或者更进一步，把两部分合为一。我知道您在想什么。“这家伙在说些什么？这是亵渎。”实际上，它并不像听起来那么糟糕，实际上非常好，实际上非常好，如果您正在使用 React Hook 和/或生成的代码，我推荐使用这种方法。
+更进一步，您甚至可能喜欢将容器和组件放在同一个文件中。或者更进一步，把两部分合为一。我知道您在想什么。“这家伙在说些什么？这是亵渎。”实际上，它并不像听起来那么糟糕，实际上非常好，如果您正在使用 React Hook 和/或生成的代码，我推荐使用这种方法。
 
 真正的问题是，为什么要将组件分成 Smart 和 Dumb 组件？对此有几个答案：
 
@@ -61,7 +61,7 @@
 3. 可以使用相同的 Dumb 组件 与多个不同的 Smart 组件（反之亦然）。
 4. 可以跨平台共享 Smart 组件（例如 React 和 React Native）。
 
-这些都是正当的理由，但往往无关紧要。在我们的代码库中，我们经常使用带有 hook 的 [Apollo Client](https://www.apollographql.com/)。它用来进行测试，您可以模拟 Apollo 响应，也可以模拟 hook。Storybook 也是如此。至于混合和匹配 Smart 和 Dumb 组件，我从未在实践中看到过这种情况。至于跨平台使用，有一个项目我打算这么做，但最终没有成功。那个项目应该是 [Lerna](https://lerna.js.org/) 管理的一个 Monorepo。今天，无论如何您都很可能选择 React Native Web 而不是这种方法。
+这些都是正当的理由，但往往无关紧要。在我们的代码库中，我们经常使用带有 hook 的 [Apollo Client](https://www.apollographql.com/)。它用来进行测试，您可以模拟 Apollo 响应，也可以模拟 hook。Storybook 也是如此。至于混合和匹配 Smart 和 Dumb 组件，我从未在实践中看到过这种情况。至于跨平台使用，有一个项目我打算这么做，但最终没有实践。那个项目应该是 [Lerna](https://lerna.js.org/) 管理的一个 Monorepo。今天，无论如何您都很可能选择 React Native Web 而不是这种方法。
 
 因此，区分 Smart 组件和 Dumb 组件是有正当理由的。这是一个需要注意的重要概念，但通常不需要像您想象的那样担心，特别是最近 React 添加了 hook 新特性。
 
