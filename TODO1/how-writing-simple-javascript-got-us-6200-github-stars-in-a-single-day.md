@@ -24,7 +24,7 @@
 我看到的一些错误：
 
 * 过于聪明。复制粘贴代码有时是挺好的。您不需要抽象每两段看起来有些相似的代码。我自己就犯过这个错误。人人都这样。DRY（Don't Repeat Yourself）是一个很好的原则，但是选择错误的抽象可能会很糟糕，并使代码库复杂化。如果您想了解更多相关内容，我推荐：[AHA Programming](https://kentcdodds.com/blog/aha-programming).
-* 拒绝使用现成的工具。比如放着 `map` 和 `filter` 不用，反而去用  `reduce`。当然您**可以**用 `map` 和 `reduce`，但它可能会有更多的代码行数，而且其他人也更难理解。  
+* 拒绝使用现成的工具。比如放着 `map` 和 `filter` 不用，反而去用 `reduce`。当然您**可以**用 `map` 和 `reduce`，但它可能会有更多的代码行数，而且其他人也更难理解。
 当然，简单易读是主观的。您将看到经验丰富的开发人员在他们不需要使用 `reduce` 的地方使用 `reduce`。
 有时您需要使用 `reduce`，如果您曾经束缚于 `map` 和 `filter`，`reduce` 可能会有更好的表现，因为您只需要将集合传递一次而不是两次。这是一个性能与简单易懂性的抉择。总的来说，我倾向于简单易读，避免过早的优化。如果使用两层的 `map`/`filter` 成为了您的瓶颈，您可以将代码切换为使用 `reduce`。
 
@@ -81,15 +81,15 @@
 
 服务器也是如此。我个人避免使用的典型结构是[这样的](https://dev.to/santypk4/bulletproof-node-js-project-architecture-4epf)：
 
-> src  
->  │ app.js # App 入口点  
->  └───api # 表示 app 的所有后端路由控制器   
->  └───config # 环境变量和配置相关的东西  
->  └───jobs # agenda.js 的作业定义  
->  └───loaders # 将启动过程分成模块  
->  └───models # 数据库模型  
->  └───services # 所有的业务逻辑都在这里  
->  └───subscribers # 异步任务的事件处理程序  
+> src
+>  │ app.js # App 入口点
+>  └───api # 表示 app 的所有后端路由控制器 
+>  └───config # 环境变量和配置相关的东西
+>  └───jobs # agenda.js 的作业定义
+>  └───loaders # 将启动过程分成模块
+>  └───models # 数据库模型
+>  └───services # 所有的业务逻辑都在这里
+>  └───subscribers # 异步任务的事件处理程序
 >  └───types # Typescript 的类型声明文件（d.ts） 
 
 我们通常在我们的项目中使用 GraphQL。有模型、服务和解析器文件。与其把这三个文件分散在应用程序中，不如把它们都放在同一个文件夹中。绝大多数情况下，它们会一起使用，如果它们放在一起，您会更容易找到它们。
