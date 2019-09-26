@@ -30,7 +30,7 @@
 
 #### 方案一：动态加载脚本
 
-通过实现一个小型的脚本加载器，我们可以规避这个问题。加载器的工作方式类似于 [LoadCSS](https://github.com/filamentgroup/loadCSS)。我们尝试忽略浏览器对 ES Modules 和 `nomodule` 属性的实现，转而让浏览器执行一段 Module 脚本，借此结果决定加载现代或传统代码。
+通过实现一个小型的脚本加载器，我们可以规避这个问题。加载器的工作方式类似于 [LoadCSS](https://github.com/filamentgroup/loadCSS)。我们尝试忽略浏览器对 ES Modules 和 `nomodule` 属性的实现，转而让浏览器执行一段 Module 脚本作为测试，借此结果决定加载现代或传统代码。
 
 ```html
 <!-- 使用 module 脚本检测现代浏览器： -->  
@@ -58,7 +58,7 @@
 
 下面还有更好的方案。
 
-以上方案的独立变体之一，是通过检测浏览器是否支持 `nomodule` 属性确定加载对应代码。这意味着像 Safari 10.1 这样的浏览器，虽然支持模块，但依然会加载传统代码。这[可能](https://github.com/web-padawan/polymer3-webpack-starter/issues/33#issuecomment-474993984)是[一件好事](https://github.com/babel/babel/pull/9584)。这是该方案的代码：
+以上方案的独立变体之一，是通过检测浏览器是否支持 `nomodule` 属性确定加载对应代码。这意味着像 Safari 10.1 这样的浏览器，虽然支持模块，但依然会被视为传统浏览器。这[可能](https://github.com/web-padawan/polymer3-webpack-starter/issues/33#issuecomment-474993984)是[一件好事](https://github.com/babel/babel/pull/9584)。这是该方案的代码：
 
 ```js
 var s = document.createElement('script')  
@@ -98,7 +98,7 @@ document.head.appendChild(s)
 
 这种技术是否对你适用，可以归结于嵌入脚本的 HTML 文档大小。如果 HTML 有效负载像启动屏幕一样小，或者足以引导客户端应用程序，那放弃预加载扫描不大可能影响性能。如果你使用服务端渲染大量有意义的 HTML 供浏览器流式传输，那么预加载扫描就是你的朋友。但这可能不是最佳方法。
 
-这可能是在生产环境下的解决方案：
+在生产环境下可以采取如下方案：
 
 ```html
 <link rel="modulepreload" href="/modern.js">  
@@ -109,7 +109,7 @@ document.head.appendChild(s)
 </script>  
 ```
 
-还要指出的是，[对 JS Modules 的浏览器支持](https://caniuse.com/#feat=es6-module) 非常类似于[对 `<link rel=preload>` 的支持](https://caniuse.com/#feat=link-rel-preload)。对于某些网站，使用 `<link rel=preload as=script crossorigin>` 而不是依赖于 modulepreload 可能更有意义。这可能有性能上的缺点，因为经典脚本预加载不会像模块预加载那样随着时间的推移而被扩展解析特性。
+还要指出的是，[对 JS Modules 的浏览器支持](https://caniuse.com/#feat=es6-module) 非常类似于[对 `<link rel=preload>` 的支持](https://caniuse.com/#feat=link-rel-preload)。对于某些网站，使用 `<link rel=preload as=script crossorigin>` 而不是依赖于 modulepreload 可能更有意义。这可能有性能上的缺点，因为经典脚本预加载不会像 modulepreload 那样随着时间的推移而被扩展解析特性。
 
 #### 方案二：用户代理（UA）检测
 
@@ -120,13 +120,11 @@ document.head.appendChild(s)
 虽然这种方法很通用，但它也带来了一些严重的影响：
 
 * 由于需要服务器去智能判断，这种方法不适用于静态部署（静态站点生成器、Netlify 等静态网站托管服务）
-* 对 JavaScript 资源的缓存基于用户代理（UA），这非常不稳定
+* 对 JavaScript 资源的缓存基于用户代理（UA）的不同而变化，这非常不稳定
 * 对用户代理（UA）的检测很困难，容易出现错误分类
 * 用户代理（UA）很容易被欺骗，并且经常会有新的用户代理（UA）产生
 
-解决这些限制的一种方法是将模块/模块模式与用户代理区分相结合，以避免首先发送多个软件包版本。 这种方法仍然会降低页面的可缓存性，但允许有效的预加载，因为生成 HTML 的服务器知道是否使用 `modulepreload` 或 `preload` 。
-
-解决这些限制的一种方法是将 `module/nomodule` 模式和用户代理区分相结合，以避免首先发送多个代码包版本。这种方法依然会降低页面的可缓存性，但因为生成 HTML 的服务器可以了解到是否使用 `modulepreload` 或者 `preload` ，所以允许了有效的预加载。
+解决这些限制的一种方法是将 `module/nomodule` 模式和区分用户代理（UA）的模式相结合，以避免首先发送多个代码包版本。这种方法依然会降低页面的可缓存性，但因为生成 HTML 的服务器可以了解到是否使用 `modulepreload` 或者 `preload` ，所以允许了有效的预加载。
 
 ```js
 function renderPage(request, response) {  
@@ -154,7 +152,7 @@ function renderPage(request, response) {
 
 #### 方案三：“惩罚”旧版本浏览器
 
-module/nomodule 模式的不良影响见于 Chrome、Firefox 和 旧版本 Safari —— 浏览器版本的使用非常有限，因为用户会自动更新到最新版本。Edge 16-18 的用户应当不会去自行更新，但新版本的 Edge 依然有希望得到支持：新版本的 Edge 将使用不受此问题影响的基于 Chromium 的渲染器。
+module/nomodule 模式的不良影响出现在旧版本 Chrome、Firefox 和 Safari —— 这些浏览器用户量很小，因为用户会自动更新到最新版本。Edge 16-18 的用户应当不会去自行更新，但新版本的 Edge 依然有希望得到支持：新版本的 Edge 将使用不受此问题影响的基于 Chromium 的渲染器。
 
 对于某些应用程序来说，接受这一点作为权衡取舍可能是完全合理的：可以在 90% 的浏览器中提供现代代码，但代价是旧浏览器会付出额外带宽。值得注意的是，没有一款遭受这种过度获取问题的浏览器占据了显著的移动市场份额 —— 因此这些流量不太可能来自昂贵的移动计划或通过具有缓慢处理器的设备。
 
@@ -175,7 +173,7 @@ module/nomodule 模式的不良影响见于 Chrome、Firefox 和 旧版本 Safar
 
 #### 方案四：使用条件代码包
 
-这里有一个聪明的方案 —— 使用 `nomodule` 按需加载包含现代浏览器中不需要的代码包，如 polyfill 。用这种方法，最坏的情况是 polyfill 被加载甚至可能被执行（在 Safari 10.1 中），但效果仅限于“过度填充”。鉴于当前流行的方法是在所有浏览器中加载和执行 polyfill ，这可能是一个网络方面的改进。
+这里有一个聪明的方案 —— 使用 `nomodule` 按需加载包含现代浏览器中不需要的代码包，如 polyfill 。用这种方法，最坏的情况是 polyfill 被加载甚至可能被执行（在 Safari 10.1 中），但效果仅限于“过度填充”。鉴于当前流行的方法是在所有浏览器中加载和执行 polyfill，这可能是一种有效的优化。
 
 ```html
 <!-- 新版本的浏览器不会加载这个代码包 -->  
@@ -185,23 +183,23 @@ module/nomodule 模式的不良影响见于 Chrome、Firefox 和 旧版本 Safar
 <script src="/bundle.js"></script>  
 ```
 
-Angular CLI 可以配置使用此方法进行 polyfill ，就像 [Minko Gechev 展示的](https://blog.mgechev.com/2019/02/06/5-angular-cli-features/#conditional-polyfill-serving)那样。在读到了这种方法后，我意识到我们可以在 preact-cli 中使用这种自动 polyfill —— [这个提议](https://github.com/preactjs/preact-cli/pull/833/files)为我们展现了采用这种技术是多么容易。
+Angular CLI 可以配置使用此方法进行 polyfill，就像 [Minko Gechev 展示的](https://blog.mgechev.com/2019/02/06/5-angular-cli-features/#conditional-polyfill-serving)那样。在读到了这种方法后，我意识到我们可以在 preact-cli 中使用这种自动 polyfill —— [这个提议](https://github.com/preactjs/preact-cli/pull/833/files)为我们展现了采用这种技术是多么容易。
 
 对于使用 Webpack 的项目，有一个应用在 `html-webpack-plugin` 上的[方便的插件](https://github.com/swimmadude66/webpack-nomodule-plugin)，可以很容易地将 nomodule 添加到 polyfill 包中。
 
 ---
 
-### 我们应当怎么做？
+### 你应当怎么做？
 
-这个问题的答案由我们的用例决定。
+这个问题的答案由你的用例决定。
 
-* 如果我们在构建一个客户端应用程序，并且应用程序的 HTML 有效负载只不过是一个 `<script>` ，那么**方案一**对我们更有吸引力
-* 如果我们在构建一个服务端渲染的网站，并且能够承受缓存影响，那么**方案二**可能更适合我们
-* 如果我们使用[同构渲染](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#rehydration)方案，预加载扫描提供的性能优势可能非常重要，我们可以选择**方案三**或**方案四**
+* 如果你在构建一个客户端应用程序，并且应用程序的 HTML 有效负载只不过是一个 `<script>`，那么**方案一**对我们更有吸引力
+* 如果你在构建一个服务端渲染的网站，并且能够承受缓存影响，那么**方案二**可能更适合你
+* 如果你使用[同构渲染](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#rehydration)方案，预加载扫描提供的性能优势可能非常重要，我们可以选择**方案三**或**方案四**
 
-选择适合我们当前架构的方案。
+选择适合你当前架构的方案。
 
-就我个人而言，相比降低某些桌面浏览器的下载成本来说，我更倾向于决定在移动设备上优化以获得更快的解析时间。移动端用户将解析和数据成本视为实际费用 —— 电池消耗和数据费用 —— 而桌面端用户不会受到这些限制。此外，它为我提供了 90% 的优化 —— 我开发和维护的产品面向的大多数用户都使用现代浏览器和（或）移动浏览器。
+就我个人而言，相比降低某些桌面浏览器的下载成本来说，我更倾向于决定在移动设备上优化以获得更短的解析时间。移动端用户将解析和数据成本视为实际费用 —— 电池消耗和数据费用 —— 而桌面端用户不会受到这些限制。此外，它为我提供了 90% 的优化 —— 我开发和维护的产品面向的大多数用户都使用现代浏览器和（或）移动浏览器。
 
 > 译者注：估摸着原作者使用了方案三
 
