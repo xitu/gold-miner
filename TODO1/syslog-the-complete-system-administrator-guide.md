@@ -4,13 +4,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md)
 > * 译者：https://github.com/githubmnume
-> * 校对者：https://github.com/todaycoder001
+> * 校对者：https://github.com/todaycoder001;https://github.com/shixi-li
 
 # Syslog：系统管理员完整指南
 
 [![Syslog: The Complete System Administrator Guide](https://devconnected.com/wp-content/themes/soledad/images/penci2-holder.png "syslog featured")](https://devconnected.com/wp-content/uploads/2019/08/syslog-featured-1.png) 
 
-如果你是 **系统管理员**，或者只是一个普通的 Linux 用户，那么你很有可能至少使用过一次 **Syslog**。
+如果你是**系统管理员**，或者只是一个普通的 Linux 用户，那么你很有可能至少使用过一次 **Syslog**。
 
 在你的 Linux 系统上，几乎所有与系统日志相关的东西都与 **Syslog 协议**有关。
 
@@ -18,7 +18,7 @@
 
 是的……任何系统。
 
-Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上使用，或者仅在实现 syslog 协议的操作系统上使用。 
+Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上使用，或者在仅实现 syslog 协议的操作系统上使用。 
 
 如果你想更多地了解 syslog 和一般的 Linux 日志记录，这可能是你应该阅读的教程。
 
@@ -28,7 +28,7 @@ Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上
 
 ![Syslog presentation card](https://devconnected.com/wp-content/uploads/2019/08/syslog-card.png)
 
-**Syslog 是生成、转发和收集在 Linux 实例上生成日志的标准。Syslog 定义了严重性级别和设施级别，有助于用户更好地理解其计算机上生成的日志。日志稍后可以在称为 Syslog 服务器的服务器上分析和可视化。**
+**Syslog 是生成、转发和收集在 Linux 实例上生成日志的标准。Syslog 定义了严重性级别和设施级别，有助于用户更好地理解其计算机上生成的日志。日志稍后可以在部署 Syslog 协议的服务器上分析和展示。**
 
 以下是 syslog 协议最初设计的几个原因：
 
@@ -43,11 +43,11 @@ Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上
 
 当设计一个日志架构时，比如一个集中式日志服务器，很可能多个实例会一起工作。
 
-有些实例将生成日志消息，它们将被称为 “**设备**” 或 “**syslog 客户端**”。
+有些实例将生成日志消息，它们将被称为“**设备**”或 “**syslog 客户端**”。
 
-有些只是转发收到的消息，它们将被称为 “**中继**”。
+有些只是转发收到的消息，它们将被称为“**中继**”。
 
-最后，在某些情况下，你将接收和存储日志数据，这些被称为 “**收集器**” 或“**syslog 服务器**”。
+最后，在某些情况下，你将接收和存储日志数据，这些被称为“**收集器**”或 “**syslog 服务器**”。
 
 ![Syslog architecture components](https://devconnected.com/wp-content/uploads/2019/08/syslog-component-arch.png)
 
@@ -59,13 +59,13 @@ Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上
 
 ![One device and one collector](https://devconnected.com/wp-content/uploads/2019/08/arch-1.png)
 
-Add a few **more clients** in your infrastructure, and you have the basis of a **centralized logging architecture.** 在你的基础架构中添加一些 **更多的客户端**，你就拥有了 **集中式日志架构** 的基础。
+Add a few **more clients** in your infrastructure, and you have the basis of a **centralized logging architecture.** 在你的基础架构中添加一些 **更多的客户端**，你就拥有了**集中式日志架构**的基础。
 
 ![Multiple devices and one collector](https://devconnected.com/wp-content/uploads/2019/08/arch-2.png)
 
 多个客户端正在生成数据，并将其发送到负责聚合和存储客户端数据的集中式 syslog 服务器。
 
-如果我们要复杂化我们的架构，我们可以添加一个 “**中继**”。
+如果我们要复杂化我们的架构，我们可以添加一个“**中继**”。
 
 例如，中继可以是 **Logstash** 实例，但在客户端也可以是 **rsyslog 规则**。
 
@@ -91,15 +91,15 @@ Syslog 格式分为三个部分：
 
 ### a – 什么是 Syslog 设施级别？
 
-简单来说，**设施级别** 用于确定生成日志的程序或系统的一部分。
+简单来说，**设施级别**用于确定生成日志的程序或系统的一部分。
 
-默认情况下，系统的某些部分会被赋予功能级别，例如使用 **kern 功能的内核**，或者 **使用邮件功能的邮件系统。**
+默认情况下，系统的某些部分会被赋予功能级别，例如使用 **kern 功能的内核**，或者**使用邮件功能的邮件系统。**
 
-如果第三方想要日志，它可能会保留一组从 16 到 23 的设施级别，称为 **“本地使用”设施级别**。
+如果第三方想要日志，它可能会保留一组从 16 到 23 的设施级别，称为**“本地使用”设施级别**。
 
-或者，他们可以使用 “**用户级别**” 工具，这意味着可以与执行命令的用户相关的日志。
+或者，他们可以使用“**用户级别**”工具，这意味着可以与执行命令的用户相关的日志。
 
-简而言之，如果我的 Apache 服务器由“apache”用户运行，那么日志将存储在一个名为“apache.log”的文件中（<user>.log）
+简而言之，如果我的 Apache 服务器由 “apache” 用户运行，那么日志将存储在一个名为 “apache.log” 的文件中（<user>.log）
 
 **下表描述了 Syslog 设施级别：**
 
@@ -125,7 +125,7 @@ Syslog 格式分为三个部分：
 
 这些级别你是不是很眼熟？
 
-是的！在 Linux 系统中，默认情况下，文件由设施名称分隔，这意味着你将有一个用于身份验证的文件（ auth.log ），一个用于内核的文件（ kern.log ）等等。
+是的！在 Linux 系统中，默认情况下，文件由设施名称分隔，这意味着你将有一个用于身份验证的文件（auth.log），一个用于内核的文件（kern.log）等等。
 
 这是[我的 Debian 10 实例的截屏示例](https://devconnected.com/how-to-install-and-configure-debian-10-buster-with-gnome/).
 
@@ -135,9 +135,9 @@ Syslog 格式分为三个部分：
 
 ### b – Syslog 严重性级别是什么？
 
-**Syslog 严重级别** 用于事件的严重程度，范围从调试、信息消息到紧急级别。
+**Syslog 严重级别**用于事件的严重程度，范围从调试、信息消息到紧急级别。
 
-与 Syslog 设施级别相似，严重性级别分为 0 到 7 的数字类别，0 是 **最紧急的紧急级别**。
+与 Syslog 设施级别相似，严重性级别分为 0 到 7 的数字类别，0 是**最紧急的紧急级别**。
 
 **下表中描述的是 syslog 严重性级别：**
 
@@ -154,7 +154,7 @@ Syslog 格式分为三个部分：
 
 即使默认情况下日志是按设施名称存储的，你也可以完全按事件的严重性级别来存储它们。
 
-如果你使用 rsyslog 作为默认系统日志服务器，你可以检查 **[ rsyslog 属性](https://www.rsyslog.com/doc/master/configuration/properties.html)** 配置日志的分隔方式。
+如果你使用 rsyslog 作为默认系统日志服务器，你可以检查 **[rsyslog 属性](https://www.rsyslog.com/doc/master/configuration/properties.html)** 配置日志的分隔方式。
 
 现在你对设施和严重性有了更多的了解，让我们回到 **syslog 消息格式。**
 
@@ -162,13 +162,13 @@ Syslog 格式分为三个部分：
 
 PRI 块是 syslog 格式消息的第一部分。
 
-PRI 在尖括号之间存储 “**优先级值**”。
+PRI 在尖括号之间存储“**优先级值**”。
 
 > 还记得你刚刚学到的设施和严重程度吗？
 
 如果你使用消息设施号，将其乘以 8，并加上严重性级别，你将获得 syslog 消息的“优先级值”。
 
-如果你希望将来 **解码** 你的 syslog 消息，请记住这一点。
+如果你希望将来**解码**你的 syslog 消息，请记住这一点。
 
 ![](https://devconnected.com/wp-content/uploads/2019/08/pri-calc-fixed.png)
 
@@ -206,11 +206,11 @@ Syslog 当然是关于这个主题的观点，下面是这些问题的一些答�
 
 此外，Syslog 使用端口 514 进行 UDP 通信。
 
-但是，在最近的系统日志实现中，例如rsyslog或syslog-ng，你可以使用TCP (Transmission Control Protocol) 作为安全的通信通道。
+但是，在最近的系统日志实现中，例如 rsyslog 或 syslog-ng，你可以使用TCP (Transmission Control Protocol) 作为安全的通信通道。
 
 例如，rsyslog 使用端口 10514 进行 TCP 通信来确保传输链路中没有数据包丢失。
 
-此外，你可以在 TCP 之上使用 TLS/SSL 协议来加密系统日志数据包，确保不会出现中间人攻击来监视你的日志。
+此外，你可以基于 TCP 使用 TLS/SSL 协议来加密系统日志数据包，确保不会出现中间人攻击来监视你的日志。
 
 如果你对 rsyslog 感兴趣，这里有一个关于[如何以安全可靠的方式设置一个完整的集中式日志服务器的教程。](http://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-Linux/)
 
@@ -238,24 +238,24 @@ Syslog 是一个规范，但不是 Linux 系统中的实际实现。
 * **使用 NTP 协议配置你的主机：** 当你想要使用实时日志调试时，最好让主机同步，否则很难准确调试事件；
 * **保护好你的日志：** 使用 TLS/SSL 协议肯定会对你的实例产生一些性能影响，但是如果你要转发身份验证或内核日志，最好对它们进行加密，以确保没有人能够访问关键信息；
 * **你应该避免过度：** 定义好的日志策略对你的公司至关重要。例如，你必须决定你是否有兴趣存储（并且基本上消耗带宽）信息日志或调试日志。例如，你可能只对错误日志感兴趣；
-* **定期备份日志数据：** i如果你关注保留敏感日志，或者如果你定期接受审计，你可能在有关的外部驱动器或正确配置的数据库上备份日志；
-* **设置日志保留策略：** 如果日志太旧，你可能会有兴趣丢弃它们，也称为“循环”它们。该操作是通过Linux系统上的logrotate实用程序完成的。
+* **定期备份日志数据：** 如果你关注保留敏感日志，或者如果你定期接受审计，你可能在有关的外部驱动器或正确配置的数据库上备份日志；
+* **设置日志保留策略：** 如果日志太旧，你可能会有兴趣丢弃它们，也称为“循环”它们。该操作是通过 Linux 系统上的 logrotate 实用程序完成的。
 
 ## VII – 结论
 
-Syslog 协议绝对是 **系统管理员** 或 **Linux工程师** 愿意更深入了解日志在服务器上如何工作的的经典之作。
+Syslog 协议绝对是**系统管理员**或 **Linux 工程师**愿意更深入了解日志在服务器上如何工作的的经典之作。
 
 然而，有理论的时候，也有实践的时候。
 
 > 那么你应该做什么？你有多种选择。 
 
-你可以从在你的实例上设置 **syslog 服务器** 开始，例如 Kiwi Syslog 服务器，并开始从中收集数据。
+你可以从在你的实例上设置**syslog 服务器**开始，例如 Kiwi Syslog 服务器，并开始从中收集数据。
 
 或者，如果你有更大的基础架构，你可能应该首先建立 **[集中式日志体系结构](https://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-linux/)**, 然后[使用非常现代的工具如Kibana可视化工具对其进行监控](https://devconnected.com/monitoring-linux-logs-with-kibana-and-rsyslog/)。
 
 我希望你今天学到了一些东西。
 
-在那之前，一如既往地享受乐趣。
+活在当下，一如既往地享受乐趣。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
