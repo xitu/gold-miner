@@ -1,7 +1,7 @@
 > * 原文地址：[Announcing TypeScript 3.7 Beta](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-beta/)
 > * 原文作者：[Daniel](https://devblogs.microsoft.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md.md](https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md](https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md)
 > * 译者：
 > * 校对者：
 
