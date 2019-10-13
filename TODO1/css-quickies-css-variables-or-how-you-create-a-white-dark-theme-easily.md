@@ -5,15 +5,15 @@
 > * 译者：[cyz980908](https://github.com/cyz980908)
 > * 校对者：[Reaper622](https://github.com/Reaper622),[sleepingxixi](https://github.com/sleepingxixi)
 
-# CSS 速战速决：CSS 变量 —— 如何轻松创建一个🌞白色/🌑暗色主题 
+# 你不知道的 CSS：CSS 变量 —— 如何轻松创建一个🌞白色/🌑暗色主题 
 
 ![lampewebdev profile image](https://res.cloudinary.com/practicaldev/image/fetch/s--4OXdDnPC--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://res.cloudinary.com/practicaldev/image/fetch/s--2-YUNNqu--/c_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_420%2Cq_auto%2Cw_1000/https://thepracticaldev.s3.amazonaws.com/i/vhv9dhjxosxtrvezecuy.png)
 
-### 什么是 CSS 速战速决?
+### 什么是 你不知道的 CSS?
 
 我在 Instagram 上询问我可爱的网友们：“哪些 CSS 属性会让您感到困惑？”
 
-在“CSS 速战速决”这个话题中，我将深入解释一个 CSS 属性。这些都是网友们提问的属性。所以，如果您也有感到困惑的 CSS 属性，请在 [Instagram](https://www.instagram.com/lampewebdev/) 或者 [Twitter](https://twitter.com/lampewebdev) 下方留言给我！我有问必回。
+在“你不知道的 CSS”这个话题中，我将深入解释一个 CSS 属性。这些都是网友们提问的属性。所以，如果您也有感到困惑的 CSS 属性，请在 [Instagram](https://www.instagram.com/lampewebdev/) 或者 [Twitter](https://twitter.com/lampewebdev) 下方留言给我！我有问必回。
 
 如果您还想找点乐子或者想问我些其他问题，可以来 [twitch.tv](https://www.twitch.tv/lampewebdev/) 看我直播敲代码。  
 
@@ -50,7 +50,7 @@
 
 我们已经知道如何设置 CSS 变量，现在我们需要学习如何使用它们！
 
-首先，我们需要学习 var() 函数。
+首先，我们需要学习 `var()` 函数。
  `var()` 可以传入两个参数。第一个参数需要是一个自定义属性。如果自定义属性是无效的，则希望有回退值。为了实现这个，您只需设置 `var()` 函数的第二个参数。让我们来看个例子。
 
 ```
@@ -63,7 +63,7 @@
 }
 ```
 
-现在你们应该很容易理解了。我们将 `--example-color` 设置为 `#ccc`，然后在 `.someElement` 中使用它来作为背景颜色。 如果出了问题，我们的 `--example-color` 将失效，那么我们的回退值为 `#d1d1d1`。
+现在你们应该很容易理解了。我们将 `--example-color` 设置为 `#ccc`，然后在 `.someElement` 中使用它来作为背景颜色。 如果出了一些问题，使我们的 `--example-color` 失效了，那么我们的回退值为 `#d1d1d1`。
 
 如果您没有设置回退值，并且自定义变量无效，会发生什么情况？浏览器将像没有指定该属性一样运行，并执行其常规工作。 
 
@@ -110,9 +110,9 @@
 
 ```
     const element = document.querySelector('.someElement');
-   // Get the custom propety
+   // 获得元素的自定义属性
     element.style.getPropertyValue("--first-color");
-   // Set a custom propety
+   // 设置元素的自定义属性
    element.style.setProperty("--my-color", "#ccc");
 ```
 
@@ -120,7 +120,7 @@
 
 #### 使用自定义变量实现一个主题切换器
 
-首先我们先来看看我们要达到什么效果： 
+先来看看我们我们即将做的事： 
 
 ##### HTML 代码 
 
@@ -164,7 +164,7 @@ checkbox.addEventListener("change", function() {
 
 ##### CSS 代码
 
-因为这段代码很长，所以我将一步一步地带你来写!  
+因为这段代码很长，所以我将一步一步地分解!  
 
 ```
 .grid {
@@ -180,10 +180,10 @@ checkbox.addEventListener("change", function() {
 
 ```
 :root {
-  /* light */
+  /* 亮的 */
   --c-light-background: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
   --c-light-checkbox: #fce100;
-  /* dark */
+  /* 暗的 */
   --c-dark-background:linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; 
   --c-dark-checkbox: #757575;
 }
@@ -213,7 +213,7 @@ checkbox.addEventListener("change", function() {
   font-size: 32px;
 }
 
-/* The switch - the box around the slider */
+/* 开关 —— 滑块外的框 */
 .switch {
   position: relative;
   display: inline-block;
@@ -221,7 +221,7 @@ checkbox.addEventListener("change", function() {
   height: 34px;
 }
 
-/* Hide default HTML checkbox */
+/* 隐藏默认的 HTML 复选框 */
 .switch .theme-switcher {
   opacity: 0;
   width: 0;
@@ -232,7 +232,7 @@ checkbox.addEventListener("change", function() {
 这只是一些样例代码来设置我们的样式。在 `.demo` 选择器中，我们设置 `font-size` 给切换符号的大小。在 `.switch` 选择器中，`height` 和 `width` 是切换符号后面的元素的长度和宽度。
 
 ```
-/* The slider */
+/* 滑块 */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -265,7 +265,7 @@ checkbox.addEventListener("change", function() {
 到这里，除非你直接在 `.theme.container` 中设定了自定义属性，或者写了其他的代码，那么现在我们终于可以看到自定义属性的效果了。正如你所看到的，切换符号是简单的 Unicode 字符。这就是为什么切换开关在不同的操作系统和手机系统上看起来会不同的原因，这一点你需要注意。还需要注意的是，在 `.slider:before` 选择器中，我们使用 `left` 和 `top` 属性来移动符号。我们在 `.theme-switcher:checked + .slider:before` 中也这样做了，但只使用了 `left` 属性。  
 
 ```
-/* Rounded sliders */
+/* 圆形滑块 */
 .slider.round {
   border-radius: 34px;
 }
