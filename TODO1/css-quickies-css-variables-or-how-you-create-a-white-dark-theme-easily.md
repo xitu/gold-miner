@@ -13,7 +13,7 @@
 
 我在 Instagram 上询问我可爱的网友们：“哪些 CSS 属性会让您感到困惑？”
 
-在“CSS 速战速决”这个话题中，我将深入解释一个 CSS 属性。这些都是网友们提问的属性。所以，如果您也有感到困惑的 CSS 属性，请在 [Instagram](https://www.instagram.com/lampewebdev/) 或者 [Twitter](https://twitter.com/lampewebdev) 下方留言给我！我有问必回。
+在“CSS 小妙招”这个话题中，我将深入解释一个 CSS 属性。这些都是网友们提问的属性。所以，如果您也有感到困惑的 CSS 属性，请在 [Instagram](https://www.instagram.com/lampewebdev/) 或者 [Twitter](https://twitter.com/lampewebdev) 下方留言给我！我有问必回。
 
 如果您还想找点乐子或者想问我些其他问题，可以来 [twitch.tv](https://www.twitch.tv/lampewebdev/) 看我直播敲代码。  
 
