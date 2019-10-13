@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/css-quickies-css-variables-or-how-you-create-a-white-dark-theme-easily.md](https://github.com/xitu/gold-miner/blob/master/TODO1/css-quickies-css-variables-or-how-you-create-a-white-dark-theme-easily.md)
 > * 译者：[cyz980908](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Reaper622](https://github.com/Reaper622),[sleepingxixi](https://github.com/sleepingxixi)
 
 # CSS 速战速决：CSS 变量 —— 如何轻松创建一个🌞白色/🌑暗色主题 
 
