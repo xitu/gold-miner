@@ -5,21 +5,21 @@
 > * 译者：[cyz980908](https://github.com/cyz980908)
 > * 校对者：[Reaper622](https://github.com/Reaper622),[sleepingxixi](https://github.com/sleepingxixi)
 
-# 你不知道的 CSS：CSS 变量 —— 如何轻松创建一个🌞白色/🌑暗色主题 
+# CSS 小妙招：CSS 变量 —— 如何轻松创建一个🌞白色/🌑暗色主题 
 
 ![lampewebdev profile image](https://res.cloudinary.com/practicaldev/image/fetch/s--4OXdDnPC--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://res.cloudinary.com/practicaldev/image/fetch/s--2-YUNNqu--/c_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_420%2Cq_auto%2Cw_1000/https://thepracticaldev.s3.amazonaws.com/i/vhv9dhjxosxtrvezecuy.png)
 
-### 什么是 你不知道的 CSS?
+### 什么是 CSS 小妙招?
 
 我在 Instagram 上询问我可爱的网友们：“哪些 CSS 属性会让您感到困惑？”
 
-在“你不知道的 CSS”这个话题中，我将深入解释一个 CSS 属性。这些都是网友们提问的属性。所以，如果您也有感到困惑的 CSS 属性，请在 [Instagram](https://www.instagram.com/lampewebdev/) 或者 [Twitter](https://twitter.com/lampewebdev) 下方留言给我！我有问必回。
+在“CSS 速战速决”这个话题中，我将深入解释一个 CSS 属性。这些都是网友们提问的属性。所以，如果您也有感到困惑的 CSS 属性，请在 [Instagram](https://www.instagram.com/lampewebdev/) 或者 [Twitter](https://twitter.com/lampewebdev) 下方留言给我！我有问必回。
 
 如果您还想找点乐子或者想问我些其他问题，可以来 [twitch.tv](https://www.twitch.tv/lampewebdev/) 看我直播敲代码。  
 
 ### 让我们来聊聊 `自定义属性` 即 `CSS 变量`.
 
-废话不多说，我们进入主题。您是否也曾经写过 CSS，并且想完美还原设计稿？或者还想在某些页面上，让你的网站有不同的填充、边距或颜色？
+废话不多说，我们进入主题。如果您曾经写过 CSS，并且想完美还原设计稿？或者还想在某些页面上，让你的网站有不同的填充、边距或颜色？
 
 又或许你想实现一个黑夜模式？这些都是可以实现的，但现在变得容易了。
 
@@ -120,7 +120,7 @@
 
 #### 使用自定义变量实现一个主题切换器
 
-先来看看我们我们即将做的事： 
+先来看看我们即将做的事： 
 
 ##### HTML 代码 
 
@@ -176,7 +176,7 @@ checkbox.addEventListener("change", function() {
 }
 ```
 
-首先让我们集中内容布局。我们用 CSS 的 `grid` 特性实现。我们将在另一个 CSS 速战速决中介绍 `grid` 特性！  
+首先让我们集中内容布局。我们用 CSS 的 `grid` 特性实现。我们将在另一个 CSS 小技巧中介绍 `grid` 特性！  
 
 ```
 :root {
