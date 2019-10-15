@@ -2,35 +2,35 @@
 > * 原文作者：[Stéphanie](https://stephaniewalter.design)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ces-learn-css-layout-part-1-flexbox.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ces-learn-css-layout-part-1-flexbox.md)
-> * 译者：
+> * 译者：[MarchYuanx](https://github.com/MarchYuanx)
 > * 校对者：
 
-# Fun places to learn CSS Layout –  Part 1: Flexbox
+# 学习 CSS 布局中有趣的地方 —— 第一部分：弹性布局
 
 ![](https://stephaniewalter.design/wp-content/uploads/2017/05/flexboxfun.jpg)
 
-> This content is 2 years old. Remember that the following content might be outdated.
+> 这个内容已经是 2 年前的了。请记住，以下内容可能已过时。
 
 When I started learning CSS, it was all about playing with floats and hacking things around absolute and relative positioning to kind of achieve what you wanted to do. Today we got cool new tools to create layouts: [Flexbox](https://www.w3.org/TR/css-flexbox-1/) and [Grid Layout](https://www.w3.org/TR/css3-grid-layout/). If you forget about IE9 and older, Flexbox is [supported pretty much everywhere](http://caniuse.com/#feat=flexbox) and can be used to create flexible and stretchable layouts. For the moment Grid Layout, it is [not supported everywhere](http://caniuse.com/#feat=css-grid), but still quite promising if you are looking for a way to build complex and versatile responsive grids.
 
-Both modules can be a little bit scary and tricky to master. Fortunately, some nice people built quite a few and even fun tools to help you learn and master those so that you will be ready when they will be supported everywhere.
+掌握这两个模块可能有些棘手。幸运的是，一些很棒的人制作了许多有趣的工具来帮助你学习并掌握这些工具，所以当它们被各处支持时你也准备好了。
 
-**This is the first article on a series to help you learn CSS layout possibilities. Today we will concentrate on learning [Flexbox](https://www.w3.org/TR/css-flexbox-1/).**  
-**If you looking for a French version of this article you can take a look at “[Apprendre le positionnement en s’amusant – Partie 1 : Flexbox](https://www.creativejuiz.fr/blog/css-css3/apprendre-positionnement-flexbox-s-amusant)“**
+**这是帮助您学习 CSS 布局的可能性系列的第一篇文章，今天我们将专注于学习[弹性布局](https://www.w3.org/TR/css-flexbox-1/).**  
+**如果你要查找本文的法文版本，可以查看 “[Apprendre le positionnement en s’amusant – Partie 1 : Flexbox](https://www.creativejuiz.fr/blog/css-css3/apprendre-positionnement-flexbox-s-amusant)“**
 
-## Games to learn Flexbox
+## 学习弹性布局的小游戏
 
-### [Flexbox Froggy Game](http://flexboxfroggy.com/)
+### [弹性布局青蛙小游戏](http://flexboxfroggy.com/)
 
-Flexbox Froggy is a fun little game. You are going to need to use different Flexbox properties to bring the cute little frog to the lily pads. (By [Thomas H. Park](https://twitter.com/thomashpark))  
+弹性布局青蛙是一款有趣的小游戏。您需要使用不同的弹性布局属性将可爱的小青蛙带到睡莲。([Thomas H. Park](https://twitter.com/thomashpark) 制作)  
 
-![Flexbox Froggy Game](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-1-1040x734.png)
+![弹性布局青蛙小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-1-1040x734.png)
 
-### [Flexbox defense Game](http://www.flexboxdefense.com/)
+### [弹性布局防御小游戏](http://www.flexboxdefense.com/)
 
-Flexbox defense is a little game where you will use Flexbox to stop the incoming enemies from getting past your defenses. (By [Channing Allen](https://twitter.com/ChanningAllen))  
+弹性布局防御是一款小游戏，您将在其中使用弹性布局阻止传入的敌人越过防线。([Channing Allen](https://twitter.com/ChanningAllen) 制作)  
 
-![Flexbox defense Game](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-2-1040x734.png)
+![弹性布局防御小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-2-1040x734.png)
 
 ## Flexbox Visual Playgrounds
 
@@ -54,42 +54,42 @@ Another small visual playground By [Bennett Feely](https://twitter.com/bennettfe
 
 ![Flexplorer](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-11-1040x734.png)
 
-## What Flexbox can help you achieve
+## 弹性布局可以帮助您实现什么
 
-### [Solved By Flexbox](https://philipwalton.github.io/solved-by-flexbox/)
+### [弹性布局的解决方案](https://philipwalton.github.io/solved-by-flexbox/)
 
 Vertical centering used to be a nightmare before Flexbox, this site will show you a few tricks on what can now be easily solved By Flexbox. (By [Phil Walton](https://twitter.com/philwalton))  
 
-![Solved by Flexbox](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-9-1040x734.png)
+![弹性布局的解决方案](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-9-1040x734.png)
 
-### [Flexbox Patterns](http://www.flexboxpatterns.com/home)
+### [弹性布局模式](http://www.flexboxpatterns.com/home)
 
 Building layout is nice, but what about more complex patterns like tabs or cards? Flexbox patterns got this covered for you. (By [CJ Cenizal](https://twitter.com/thecjcenizal))  
 
 ![Solved by Flexbox](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-8-1040x734.png)
 
-## Flexbox Cheatsheets
+## 弹性布局备忘单
 
-The Flexbox syntax is not always easy, here are a few cheatsheets to help you remember the different properties and values.
+弹性布局的语法并不总是那么容易，这里有一些备忘单可以帮助您记住不同的属性和值。
 
 ### [CSS tricks Guide to Flexbox on CSS tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 ![CSS tricks Guide to Flexbox on CSS tricks](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-3-1040x734.png)
 
-### [Joni Bologna’s fruity Flexbox Cheatsheet](http://jonibologna.com/flexbox-cheatsheet/)
+### [Joni Bologna 的丰富的弹性布局备忘单](http://jonibologna.com/flexbox-cheatsheet/)
 
-![Joni Bologna fruity flexbox cheatsheet](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-4-1040x734.png)
+![Joni Bologna 的丰富的弹性布局备忘单](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-4-1040x734.png)
 
-### [Flexbox Cheatsheet By Yoksel](http://yoksel.github.io/flex-cheatsheet/)
+### [Yoksel 的弹性布局备忘单](http://yoksel.github.io/flex-cheatsheet/)
 
-![Flexbox Cheatsheet by Yoksel](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-6-1040x734.png)
+![Yoksel 的弹性布局备忘单](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-6-1040x734.png)
 
 ## Need moaaar visual help?
 
-[Wes Boss created 20 free videos](https://flexbox.io/#/) to help you learn Flexbox and you can also look at this [article which explains Flexbox with some animated gifs](https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35).  
-This is for Flexbox, see you later for the second part on Grid Layout.
+[Wes Boss 创建了 20 个免费视频](https://flexbox.io/#/)帮助您学习弹性布局，并且您也可以查看这篇[用一些动画 gif 解释弹性布局的文章](https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35).  
+这是针对弹性布局的，稍后请参见第二部分格栅布局。
 
-Are you looking for a UX or UI designer, for a site or mobile application? Do you want me to give a talk at your conference, or simply want to know more about me? You can take a look at [my portfolio](https://stephaniewalter.design/#work) and [contact me](#contact).
+您是否正在为网站或移动应用程序寻找 UX 或 UI 设计师？让我在您的会议上发表意见，或只是想了解更多关于我的信息？您可以查看[我的作品](https://stephaniewalter.design/#work)、[与我联系](#contact)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
