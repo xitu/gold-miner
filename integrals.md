@@ -5813,10 +5813,11 @@
 |[如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653)|校对|1|
 |[开始设计动画的九个步骤](https://juejin.im/post/5aa1f965f265da23994e1e1f)|校对|1|
 
-## 译者：[talisk](https://github.com/talisk) 历史贡献积分：42 当前积分：12 二零一九：0
+## 译者：[talisk](https://github.com/talisk) 历史贡献积分：42 当前积分：19 二零一九：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 7月推荐英文文章七篇奖励 7 分|奖励|7|
 |2019 年 1 月兑 Google Android 小红人 2 个|减去积分|30|
 |[React Native 中使用转场动画！](https://juejin.im/post/5b69467e5188251b3c3b4e4e)|翻译|3|
 |[watchOS 5 愿望清单：Apple Watch Podcasts、open Siri face 和更新 Control Center 等](https://juejin.im/post/5b15045bf265da6e6039372b)|翻译|4|
@@ -8270,10 +8271,11 @@
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|翻译|4|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|2|
 
-## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：101 当前积分：101 二零一九：101
+## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：101 当前积分：21 二零一九：101
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 7 月兑 GitHub Octoplush 毛绒玩偶 2 个|减去积分|80|
 |[多网站项目的 CSS 架构](https://juejin.im/post/5d3a58df5188251ce02ff228)|校对|1|
 |[理解 React 中的高阶组件](https://juejin.im/post/5d1037966fb9a07ee4636de3)|校对|1|
 |[通过一些例子深入了解 JavaScript 的 Async 和 Await](https://juejin.im/post/5cec8a475188255816489878)|翻译|7|
@@ -9143,3 +9145,16 @@
 |文章|类型|积分|
 |------|-------|-------|
 |积分待更新|||
+
+## [GoToBoy](https://github.com/GoToBoy) 历史贡献积分：0 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
+
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：0 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐[后端文章](https://github.com/xitu/gold-miner/issues/6331)|奖励|1|
+|推荐[后端文章](https://github.com/xitu/gold-miner/issues/6367)|奖励|1|
