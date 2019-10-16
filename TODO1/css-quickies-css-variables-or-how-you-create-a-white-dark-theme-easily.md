@@ -120,7 +120,7 @@
 
 ### 使用自定义变量实现一个主题切换器
 
-先来看看我们即将做的事： 
+先来看看我们即将做出的成品：[预览地址](https://codepen.io/lampewebdev/pen/zYORBwe)
 
 #### HTML 代码 
 
