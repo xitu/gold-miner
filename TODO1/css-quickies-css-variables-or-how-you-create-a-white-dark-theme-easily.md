@@ -2,36 +2,36 @@
 > * 原文作者：[lampewebdev](https://dev.to/lampewebdev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/css-quickies-css-variables-or-how-you-create-a-white-dark-theme-easily.md](https://github.com/xitu/gold-miner/blob/master/TODO1/css-quickies-css-variables-or-how-you-create-a-white-dark-theme-easily.md)
-> * 译者：
-> * 校对者：
+> * 译者：[cyz980908](https://github.com/cyz980908)
+> * 校对者：[Reaper622](https://github.com/Reaper622),[sleepingxixi](https://github.com/sleepingxixi)
 
-# CSS Quickies: CSS Variables - Or how you create a 🌞white/🌑dark theme easily
+# CSS 小妙招：CSS 变量 —— 如何轻松创建一个🌞白色/🌑暗色主题 
 
 ![lampewebdev profile image](https://res.cloudinary.com/practicaldev/image/fetch/s--4OXdDnPC--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://res.cloudinary.com/practicaldev/image/fetch/s--2-YUNNqu--/c_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_420%2Cq_auto%2Cw_1000/https://thepracticaldev.s3.amazonaws.com/i/vhv9dhjxosxtrvezecuy.png)
 
-### What is CSS Quickes?
+## 什么是 CSS 小妙招?
 
-I started to ask my beloved community on Instagram: "what CSS properties are confusing for you?"
+我在 Instagram 上询问我可爱的网友们：“哪些 CSS 属性会让您感到困惑？”
 
-In "CSS Quickies" I will explain one CSS property in depth. These are community requested properties. If you also confused about a CSS property, then write to me on [Instagram](https://www.instagram.com/lampewebdev/) or [Twitter](https://twitter.com/lampewebdev) or down below in the comments! I answer all questions.
+在“CSS 小妙招”这个话题中，我将深入讲解一个 CSS 属性。这些都是网友们提问的属性。所以，如果您也有感到困惑的 CSS 属性，请在 [Instagram](https://www.instagram.com/lampewebdev/) 或者 [Twitter](https://twitter.com/lampewebdev) 下方留言给我！我有问必回。
 
-I'm also live streaming while coding on [twitch.tv](https://www.twitch.tv/lampewebdev/) if you want to spend some fun time or you can ask me any question!
+如果您还想找点乐子或者想问我些其他问题，可以来 [twitch.tv](https://www.twitch.tv/lampewebdev/) 看我直播敲代码。  
 
-### Let's talk about `Custom properties` aka `CSS Variables`.
+## 让我们来聊聊 `自定义属性` 即 `CSS 变量`.
 
-Finally! If you ever have worked with CSS and wanted to keep your design consistent? Or was it more like at some pages, your website had different padding, margin or colors?
+废话不多说，我们进入主题。如果您曾经写过 CSS，并且想完美还原设计稿？或者还想在某些页面上，让你的网站有不同的填充、边距或颜色？
 
-Maybe you wanted to implement a dark theme? It was possible, but now it has become easier!
+又或许你想实现一个黑夜模式？这些都是可以实现的，但现在变得容易了。
 
-Of course, if you have used LESS or SASS, then you know variables, and now they are finally supported natively. 😁
+当然，如果您曾经使用过 LESS 或者 SASS，那么您就应该了解过 CSS 变量，现在它们终于得到了本地支持。😁
 
-Let's have a look at it!
+让我们先睹为快！
 
-#### Defining a CSS variable
+### 定义 CSS 变量
 
-You define a CSS variable with prefixing a CSS property with `--`. Let's look at some examples.  
+你定义一个 CSS 变量，并在 CSS 属性前添加 `--`。让我们看些例子。
 
-```
+```css
 :root{
   --example-color: #ccc;
   --example-align: left;
@@ -39,21 +39,21 @@ You define a CSS variable with prefixing a CSS property with `--`. Let's look at
 }
 ```
 
-Your first question is: "What is that ':root' pseudo-class?".  
-Good question! The `:root` pseudo-class is as you would use the `html` selector except that the specificity is higher of the ':root' pseudo-class. This means that if you set properties in the `:root` pseudo-class it will win over the `html` selector.
+您的第一个疑惑可能是：“这个 ':root' 伪类是什么？”。
+好问题！伪类 `:root` 与您使用 `html` 选择器时相同，不同之处在于 ':root' 伪类的权重更高。这意味着如果您在 `:root` 伪类中设置属性，它的优先级将大于 html 选择器。
 
-Okay, the rest is pretty simple. The custom property `--example-color` has the value of `#ccc`. When we use the custom property, for example, on the `background-color` property, the background of that element will be a light gray. Cool right?
+好啦，那剩下的就很简单了。自定义属性 `--example-color` 的值为 `#ccc`。当我们在例如 `background-color` 的属性上使用自定义属性，元素的背景将是浅灰色。酷吧？
 
-You can give the custom property, aka CSS variable every value you could give any other property in CSS. It is okay to use `left` for example or `10px` and so on.
+你可以给自定义属性，也就是 CSS 变量赋予任何你能赋予给其他 CSS 属性的值。例如，可以赋值 `left` 或者 `10px` 等等。
 
-#### [](#using-css-variables)Using CSS variables
+### [](#using-css-variables)使用 CSS 变量
 
-Now that we know how to set CSS variables, we need to learn how to use them!
+我们已经知道如何设置 CSS 变量，现在我们需要学习如何使用它们！
 
-For this, we need to learn the `var()` function.  
-The `var()` can have two arguments. The first argument needs to be a custom property. If the custom property is not valid, you want to have a fallback value. To achieve this, you simply need to set the second argument of the `var()` function. Let's look at an example.  
+首先，我们需要学习 `var()` 函数。
+ `var()` 可以传入两个参数。第一个参数需要是一个自定义属性。如果自定义属性是无效的，则希望有回退值。为了实现这个，您只需设置 `var()` 函数的第二个参数。让我们来看个例子。
 
-```
+```css
 :root{
   --example-color: #ccc;
 }
@@ -63,68 +63,68 @@ The `var()` can have two arguments. The first argument needs to be a custom prop
 }
 ```
 
-This should be now pretty straightforward for you to understand. We are setting the `--example-color` to `#ccc` and then we are using it in `.someElement` to set the background color. If something goes wrong and our `--example-color` is not valid, we have a fallback value of `#d1d1d1`.
+现在你们应该很容易理解了。我们将 `--example-color` 设置为 `#ccc`，然后在 `.someElement` 中使用它来作为背景颜色。 如果出了一些问题，使我们的 `--example-color` 失效了，那么我们的回退值为 `#d1d1d1`。
 
-What happens if you don't set a fallback value and your custom variable is invalid? The browser then will act as if this property was not specified and do its regular job.
+如果您没有设置回退值，并且自定义变量无效，会发生什么情况？浏览器将像没有指定该属性一样运行，并执行其常规工作。 
 
-#### Tips and tricks
+### 技巧与提示
 
-##### Multiple fallback values
+#### 多个回退值
 
-What if you want to have multiple fallback values? So you would think you could do the following:  
+如果希望有多个回退值，该怎么办?你以为可以这样做：
 
-```
+```css
 .someElement {
   background-color: var(--first-color, --second-color, white);
 }
 ```
 
-This will not work. After the first comma `var()` treats everything even the commas as a value. The browser would change this into `background-color: --second-color, white;`. This is not what we want.
+但是这是行不通的。因为 `var()` 函数会把第一个逗号后面的所有内容视为一个值。浏览器会将其认为是 `background-color: --second-color, white;`。这并不是我们想要的。
 
-To have multiple values, we can simply call `var()` inside a `var()`. Here comes an example:  
+想要有多个回退值，我们可以简单地在 `var()` 中调用 `var()`。例子如下：  
 
-```
+```css
 .someElement {
   background-color: var(--first-color, var(--second-color, white));
 }
 ```
 
-Now this would produce our desired outcome. When both `--first-color` and `--second-color` are invalid then the browser will set the background to `white`.
+现在这就得到了我们想要的结果。当 `--first-color` 和 `--second-color` 都失效时，浏览器会将背景设置为 `white`。
 
-##### [](#what-if-my-fallback-value-needs-a-comma)What if my fallback value needs a comma?
+#### [](#what-if-my-fallback-value-needs-a-comma)如果我的回退值需要逗号怎么办？
 
-What to do if for example, you want to set a `font-family` in in the fallback value and you need to specify more then one font? Looking back at the tip before this should be now straight forward. We simply write it with the commas. Example time:  
+例如，如果您想设置一个 `font-family`，并且需要指定一个以上的字体，该怎么办？ 回顾之前的提示，直接用就是了。我们只需要用逗号来写。所以代码应该是这样：
 
-```
+```css
 .someElement {
     font-family: var(--main-font, "lucida grande" , tahoma, Arial);
 }
 
 ```
 
-Here we can see the after the first comma the `var()` function treats everything like one value.
+在这里，我们可以看到 `var()` 函数把第一个逗号后面的所有内容视为一个值。
 
-##### [](#setting-and-getting-custom-properties-in-javascript)Setting and getting custom properties in Javascript
+#### [](#setting-and-getting-custom-properties-in-javascript)在 Javascript 中设置和获取自定义属性
 
-In more complex apps and websites, you will javascript for state management and rendering. You also can get and set custom properties with javascript. Here is how you can do it:  
+在更复杂的应用程序和网站，Javascript 将用于状态管理和渲染. 您还可以使用 Javascript 获取和设置自定义属性。你可以这样做：
 
-```
+```js
     const element = document.querySelector('.someElement');
-   // Get the custom propety
+   // 获得元素的自定义属性
     element.style.getPropertyValue("--first-color");
-   // Set a custom propety
+   // 设置元素的自定义属性
    element.style.setProperty("--my-color", "#ccc");
 ```
 
-We can get and set the custom properties like any other property. Isn't that cool?
+我们可以像任何其他属性一样获取和设置自定义属性。这还不酷吗？
 
-#### Making a theme switcher with custom variables
+### 使用自定义变量实现一个主题切换器
 
-Let's first have a look at what we will do here:  
+先来看看我们即将做出的成品：[预览地址](https://codepen.io/lampewebdev/pen/zYORBwe)
 
-##### The HTML markup
+#### HTML 代码 
 
-```
+```html
 <div class="grid theme-container">
   <div class="content">
     <div class="demo">
@@ -137,12 +137,12 @@ Let's first have a look at what we will do here:
 </div>
 ```
 
-Really nothing special here.  
-We will use CSS `grid` to center the content that's why we have a `.grid` class on our first element the `.content` and `.demo` Classes are just for styling. The two crucial classes here are `.theme-container` and `.theme.switcher`.
+没什么特别的。
+我们将使用 CSS 的 `grid` 特性来使内容居中，这就是为什么在第一个元素上具有 `.grid` 类的原因。`.content` 和 `.demo` 类就仅仅是命名。这里的两个关键类是 `.theme-container` 和 `.theme.switcher`。
 
-##### The Javascript code
+#### Javascript 代码
 
-```
+```js
 const checkbox = document.querySelector(".theme-switcher");
 
 checkbox.addEventListener("change", function() {
@@ -155,18 +155,18 @@ checkbox.addEventListener("change", function() {
 });
 ```
 
-First we are selecting our `.theme-switcher` input and the `.theme-container` element.  
-Then we are adding an event listener that listens if a change happens. This means that every time you click on the input, the callback for that event listener will run.  
-In the `if` clause we are checking if there is a `.themeContainer` and if the checkbox input is checked.  
-When this check is true, we are adding the `.light` class to the `.themeContainer` and if it is false, we are removing it.
+首先，我们选择 `.theme-switcher` 输入框 和`.theme-container` 元素。  
+然后，我们将添加一个事件侦听器，它将侦听输入框内容是否发生了变化。这意味着每次单击输入时，都将运行该事件监听器的回调函数。
+在 `if` 分支当中，我们将检查是否存在 themeContainer 这个对象，以及复选框是否被选中。  
+当这个 if 为真时，我们将 `.light` 类加到 `.themeContainer` 元素上，如果它为假，我们将删除它。
 
-Why are we removing and adding the `.light` Class? We will answer this now.
+为什么我们要删除和添加 `.light` 类? 我们马上就会知晓。
 
-##### The CSS code
+#### CSS 代码
 
-Since this code is lengthy, I will show it to you step by step!  
+因为这段代码很长，所以我将一步一步地分解!  
 
-```
+```css
 .grid {
   display: grid;
   justify-items: center;
@@ -176,22 +176,22 @@ Since this code is lengthy, I will show it to you step by step!
 }
 ```
 
-Lets first center our content. We are doing this with css `grid`. We will cover the `grid` feature in another CSS quickies!  
+首先让我们集中内容布局。我们用 CSS 的 `grid` 特性实现。我们将在另一个 CSS 小妙招中介绍 `grid` 特性！  
 
-```
+```css
 :root {
-  /* light */
+  /* 亮的 */
   --c-light-background: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
   --c-light-checkbox: #fce100;
-  /* dark */
+  /* 暗的 */
   --c-dark-background:linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; 
   --c-dark-checkbox: #757575;
 }
 ```
 
-This is a lot of code and numbers but actually we are not doing much here. We are preparing our custom properties to be used for our theme. `--c-dark-` and `--c-light-` is what I have chosen to prefix my custom properties. We have defined a light and a dark theme here. For our example we just need the `checkbox` color and the `background` property which is a gradient in our demo.  
+这里看起来有很多代码和数字，但实际上我们做的不多，我们正在准备将自定义属性用于我们的主题。`--c-dark-` 和 `--c-light-` 是我选择的自定义属性前缀。我们在此之前定义了明暗主题。对于我们的示例，我们只需要`复选框`的颜色和 `background` 属性（在我们的演示中为渐变）。  
 
-```
+```css
 .theme-container {
   --c-background: var(--c-dark-background);
   --c-checkbox: var(--c-dark-checkbox);
@@ -206,14 +206,14 @@ This is a lot of code and numbers but actually we are not doing much here. We ar
 }
 ```
 
-Here comes an integral part of the code. We now see why we named the `.theme-container` How we did. It is our entrance to have now global custom variables. We don't want to use the specific custom variables. What we want is to use global custom variables. This is why we are setting `--c-background`. From now on, we will only use our global custom variables. Then we are setting the `background`.  
+这是整个代码里很重要的一部分。如果你知道我们在做什么，你就会明白为什么我们要定义 `.theme-container` 这个类。我们做了什么呢？这我们使用全局自定义变量的开始。我们不想使用特定的自定义变量。我们想要的是使用全局自定义变量。这就是我们设置 `--c-background` 的原因。从现在开始，我们将只使用全局自定义变量。然后我们设置 `background`。  
 
-```
+```css
 .demo {
   font-size: 32px;
 }
 
-/* The switch - the box around the slider */
+/* 开关 —— 滑块外的框 */
 .switch {
   position: relative;
   display: inline-block;
@@ -221,7 +221,7 @@ Here comes an integral part of the code. We now see why we named the `.theme-con
   height: 34px;
 }
 
-/* Hide default HTML checkbox */
+/* 隐藏默认的 HTML 复选框 */
 .switch .theme-switcher {
   opacity: 0;
   width: 0;
@@ -229,10 +229,10 @@ Here comes an integral part of the code. We now see why we named the `.theme-con
 }
 ```
 
-This is just some boilerplate code to set our style. In the `.demo` selector, we are setting the `font-size`. This is the size of our symbols for the toggle. In the `.switch` selector the `height` and `width` is how long and wide the element behind our toggle symbol is.  
+这只是一些样例代码来设置我们的样式。在 `.demo` 选择器中，我们设置 `font-size` 给切换符号的大小。在 `.switch` 选择器中，`height` 和 `width` 是切换符号后面的元素的长度和宽度。
 
-```
-/* The slider */
+```css
+/* 滑块 */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -262,18 +262,18 @@ This is just some boilerplate code to set our style. In the `.demo` selector, we
 }
 ```
 
-Here we can finally see our custom properties in action besides using them directly in the `.theme.container` and again a lot of boilerplate code. As you can see, the toggle symbols are simple Unicode symbols. This is why the toggle will look different on every OS and mobile phone vendor. You have to keep this in mind. Important to know here is that in the `.slider:before` Selector, we are moving our symbol around with the `left` and `top` properties. We are doing that also in the `.theme-switcher:checked + .slider:before` but only with the `left` property.  
+到这里，除非你直接在 `.theme.container` 中设定了自定义属性，或者写了其他的代码，那么现在我们终于可以看到自定义属性的效果了。正如你所看到的，切换符号是简单的 Unicode 字符。这就是为什么切换开关在不同的操作系统和手机系统上看起来会不同的原因，这一点你需要注意。还需要注意的是，在 `.slider:before` 选择器中，我们使用 `left` 和 `top` 属性来移动符号。我们在 `.theme-switcher:checked + .slider:before` 中也这样做了，但只使用了 `left` 属性。  
 
-```
-/* Rounded sliders */
+```css
+/* 圆形滑块 */
 .slider.round {
   border-radius: 34px;
 }
 ```
 
-This again is just for styling. To make our switch rounded on the corners.
+这里的代码只是为了修改样式。为了将我们的切换开关的拐角变圆。
 
-That is it! We now have a theme switcher which is extendable. ✌😀
+完成了！现在，我们有了一个可扩展的主题切换器。 ✌😀
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
