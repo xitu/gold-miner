@@ -8004,10 +8004,11 @@
 |[Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：17 当前积分：17 二零一九：17
+## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：18 当前积分：18 二零一九：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐[前端文章](https://github.com/xitu/gold-miner/issues/6307)|奖励|1|
 |[Google 的 Pagespeed 的工作原理：提升你的分数和搜索引擎排名](https://juejin.im/post/5d36903ce51d4510803ce491)|翻译|4|
 |[JavaScript 中 JSON.stringify 的帕累托法则手册](https://juejin.im/post/5d11d8d4f265da1baf7cfa13)|翻译|3|
 |[如何用 React Hooks 打造一个不到 100 行代码的异步表单校验库](https://juejin.im/post/5cf4e2c2f265da1b80202f83)|翻译|4.5|
@@ -8946,10 +8947,13 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：50.5 当前积分：50.5 二零一九：50.5
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：53.5 当前积分：53.5 二零一九：53.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐[后端文章](https://github.com/xitu/gold-miner/issues/6340)|奖励|1|
+|推荐[后端文章](https://github.com/xitu/gold-miner/issues/6339)|奖励|1|
+|推荐[后端文章](https://github.com/xitu/gold-miner/issues/6275)|奖励|1|
 |[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://juejin.im/post/5d37e1816fb9a07ee1696a4e)|翻译|7|
 |[Go 语言概览](https://juejin.im/post/5d386166e51d454fd8057c6a)|校对|1.5|
 |[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://juejin.im/post/5d2acf995188254c1915bd12)|翻译|6|
@@ -9146,13 +9150,13 @@
 |------|-------|-------|
 |积分待更新|||
 
-## [GoToBoy](https://github.com/GoToBoy) 历史贡献积分：0 当前积分：1 二零一九：1
+## [GoToBoy](https://github.com/GoToBoy) 历史贡献积分：1 当前积分：1 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：0 当前积分：2 二零一九：2
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：2 当前积分：2 二零一九：2
 
 |文章|类型|积分|
 |------|-------|-------|
