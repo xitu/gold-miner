@@ -31,7 +31,7 @@
 
 你定义一个 CSS 变量，并在 CSS 属性前添加 `--`。让我们看些例子。
 
-```
+```css
 :root{
   --example-color: #ccc;
   --example-align: left;
@@ -53,7 +53,7 @@
 首先，我们需要学习 `var()` 函数。
  `var()` 可以传入两个参数。第一个参数需要是一个自定义属性。如果自定义属性是无效的，则希望有回退值。为了实现这个，您只需设置 `var()` 函数的第二个参数。让我们来看个例子。
 
-```
+```css
 :root{
   --example-color: #ccc;
 }
@@ -73,7 +73,7 @@
 
 如果希望有多个回退值，该怎么办?你以为可以这样做：
 
-```
+```css
 .someElement {
   background-color: var(--first-color, --second-color, white);
 }
@@ -83,7 +83,7 @@
 
 想要有多个回退值，我们可以简单地在 `var()` 中调用 `var()`。例子如下：  
 
-```
+```css
 .someElement {
   background-color: var(--first-color, var(--second-color, white));
 }
@@ -95,7 +95,7 @@
 
 例如，如果您想设置一个 `font-family`，并且需要指定一个以上的字体，该怎么办？ 回顾之前的提示，直接用就是了。我们只需要用逗号来写。所以代码应该是这样：
 
-```
+```css
 .someElement {
     font-family: var(--main-font, "lucida grande" , tahoma, Arial);
 }
@@ -108,7 +108,7 @@
 
 在更复杂的应用程序和网站，Javascript 将用于状态管理和渲染. 您还可以使用 Javascript 获取和设置自定义属性。你可以这样做：
 
-```
+```js
     const element = document.querySelector('.someElement');
    // 获得元素的自定义属性
     element.style.getPropertyValue("--first-color");
@@ -124,7 +124,7 @@
 
 ##### HTML 代码 
 
-```
+```html
 <div class="grid theme-container">
   <div class="content">
     <div class="demo">
@@ -142,7 +142,7 @@
 
 ##### Javascript 代码
 
-```
+```js
 const checkbox = document.querySelector(".theme-switcher");
 
 checkbox.addEventListener("change", function() {
@@ -166,7 +166,7 @@ checkbox.addEventListener("change", function() {
 
 因为这段代码很长，所以我将一步一步地分解!  
 
-```
+```css
 .grid {
   display: grid;
   justify-items: center;
@@ -178,7 +178,7 @@ checkbox.addEventListener("change", function() {
 
 首先让我们集中内容布局。我们用 CSS 的 `grid` 特性实现。我们将在另一个 CSS 小妙招中介绍 `grid` 特性！  
 
-```
+```css
 :root {
   /* 亮的 */
   --c-light-background: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
@@ -191,7 +191,7 @@ checkbox.addEventListener("change", function() {
 
 这里看起来有很多代码和数字，但实际上我们做的不多，我们正在准备将自定义属性用于我们的主题。`--c-dark-` 和 `--c-light-` 是我选择的自定义属性前缀。我们在此之前定义了明暗主题。对于我们的示例，我们只需要`复选框`的颜色和 `background` 属性（在我们的演示中为渐变）。  
 
-```
+```css
 .theme-container {
   --c-background: var(--c-dark-background);
   --c-checkbox: var(--c-dark-checkbox);
@@ -208,7 +208,7 @@ checkbox.addEventListener("change", function() {
 
 这是整个代码里很重要的一部分。如果你知道我们在做什么，你就会明白为什么我们要定义 `.theme-container` 这个类。我们做了什么呢？这我们使用全局自定义变量的开始。我们不想使用特定的自定义变量。我们想要的是使用全局自定义变量。这就是我们设置 `--c-background` 的原因。从现在开始，我们将只使用全局自定义变量。然后我们设置 `background`。  
 
-```
+```css
 .demo {
   font-size: 32px;
 }
@@ -231,7 +231,7 @@ checkbox.addEventListener("change", function() {
 
 这只是一些样例代码来设置我们的样式。在 `.demo` 选择器中，我们设置 `font-size` 给切换符号的大小。在 `.switch` 选择器中，`height` 和 `width` 是切换符号后面的元素的长度和宽度。
 
-```
+```css
 /* 滑块 */
 .slider {
   position: absolute;
@@ -264,7 +264,7 @@ checkbox.addEventListener("change", function() {
 
 到这里，除非你直接在 `.theme.container` 中设定了自定义属性，或者写了其他的代码，那么现在我们终于可以看到自定义属性的效果了。正如你所看到的，切换符号是简单的 Unicode 字符。这就是为什么切换开关在不同的操作系统和手机系统上看起来会不同的原因，这一点你需要注意。还需要注意的是，在 `.slider:before` 选择器中，我们使用 `left` 和 `top` 属性来移动符号。我们在 `.theme-switcher:checked + .slider:before` 中也这样做了，但只使用了 `left` 属性。  
 
-```
+```css
 /* 圆形滑块 */
 .slider.round {
   border-radius: 34px;
