@@ -8004,10 +8004,11 @@
 |[Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：18 当前积分：18 二零一九：18
+## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：19 当前积分：19 二零一九：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 9 月 推荐[前端文章](https://github.com/xitu/gold-miner/issues/6371)|奖励|1|
 |推荐[前端文章](https://github.com/xitu/gold-miner/issues/6307)|奖励|1|
 |[Google 的 Pagespeed 的工作原理：提升你的分数和搜索引擎排名](https://juejin.im/post/5d36903ce51d4510803ce491)|翻译|4|
 |[JavaScript 中 JSON.stringify 的帕累托法则手册](https://juejin.im/post/5d11d8d4f265da1baf7cfa13)|翻译|3|
@@ -9156,9 +9157,11 @@
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：4 当前积分：4 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 9 月推荐[后端文章](https://github.com/xitu/gold-miner/issues/6367)|奖励|1|
+|2019 年 9 月推荐[后端文章](https://github.com/xitu/gold-miner/issues/6397)|奖励|1|
 |推荐[后端文章](https://github.com/xitu/gold-miner/issues/6331)|奖励|1|
 |推荐[后端文章](https://github.com/xitu/gold-miner/issues/6367)|奖励|1|
