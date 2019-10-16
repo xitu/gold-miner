@@ -9,7 +9,7 @@
 
 ![lampewebdev profile image](https://res.cloudinary.com/practicaldev/image/fetch/s--4OXdDnPC--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://res.cloudinary.com/practicaldev/image/fetch/s--2-YUNNqu--/c_imagga_scale%2Cf_auto%2Cfl_progressive%2Ch_420%2Cq_auto%2Cw_1000/https://thepracticaldev.s3.amazonaws.com/i/vhv9dhjxosxtrvezecuy.png)
 
-### 什么是 CSS 小妙招?
+## 什么是 CSS 小妙招?
 
 我在 Instagram 上询问我可爱的网友们：“哪些 CSS 属性会让您感到困惑？”
 
@@ -17,7 +17,7 @@
 
 如果您还想找点乐子或者想问我些其他问题，可以来 [twitch.tv](https://www.twitch.tv/lampewebdev/) 看我直播敲代码。  
 
-### 让我们来聊聊 `自定义属性` 即 `CSS 变量`.
+## 让我们来聊聊 `自定义属性` 即 `CSS 变量`.
 
 废话不多说，我们进入主题。如果您曾经写过 CSS，并且想完美还原设计稿？或者还想在某些页面上，让你的网站有不同的填充、边距或颜色？
 
@@ -27,7 +27,7 @@
 
 让我们先睹为快！
 
-#### 定义 CSS 变量
+### 定义 CSS 变量
 
 你定义一个 CSS 变量，并在 CSS 属性前添加 `--`。让我们看些例子。
 
@@ -46,7 +46,7 @@
 
 你可以给自定义属性，也就是 CSS 变量赋予任何你能赋予给其他 CSS 属性的值。例如，可以赋值 `left` 或者 `10px` 等等。
 
-#### [](#using-css-variables)使用 CSS 变量
+### [](#using-css-variables)使用 CSS 变量
 
 我们已经知道如何设置 CSS 变量，现在我们需要学习如何使用它们！
 
@@ -67,9 +67,9 @@
 
 如果您没有设置回退值，并且自定义变量无效，会发生什么情况？浏览器将像没有指定该属性一样运行，并执行其常规工作。 
 
-#### 技巧与提示
+### 技巧与提示
 
-##### 多个回退值
+#### 多个回退值
 
 如果希望有多个回退值，该怎么办?你以为可以这样做：
 
@@ -91,7 +91,7 @@
 
 现在这就得到了我们想要的结果。当 `--first-color` 和 `--second-color` 都失效时，浏览器会将背景设置为 `white`。
 
-##### [](#what-if-my-fallback-value-needs-a-comma)如果我的回退值需要逗号怎么办？
+#### [](#what-if-my-fallback-value-needs-a-comma)如果我的回退值需要逗号怎么办？
 
 例如，如果您想设置一个 `font-family`，并且需要指定一个以上的字体，该怎么办？ 回顾之前的提示，直接用就是了。我们只需要用逗号来写。所以代码应该是这样：
 
@@ -104,7 +104,7 @@
 
 在这里，我们可以看到 `var()` 函数把第一个逗号后面的所有内容视为一个值。
 
-##### [](#setting-and-getting-custom-properties-in-javascript)在 Javascript 中设置和获取自定义属性
+#### [](#setting-and-getting-custom-properties-in-javascript)在 Javascript 中设置和获取自定义属性
 
 在更复杂的应用程序和网站，Javascript 将用于状态管理和渲染. 您还可以使用 Javascript 获取和设置自定义属性。你可以这样做：
 
@@ -118,11 +118,11 @@
 
 我们可以像任何其他属性一样获取和设置自定义属性。这还不酷吗？
 
-#### 使用自定义变量实现一个主题切换器
+### 使用自定义变量实现一个主题切换器
 
 先来看看我们即将做的事： 
 
-##### HTML 代码 
+#### HTML 代码 
 
 ```html
 <div class="grid theme-container">
@@ -140,7 +140,7 @@
 没什么特别的。
 我们将使用 CSS 的 `grid` 特性来使内容居中，这就是为什么在第一个元素上具有 `.grid` 类的原因。`.content` 和 `.demo` 类就仅仅是命名。这里的两个关键类是 `.theme-container` 和 `.theme.switcher`。
 
-##### Javascript 代码
+#### Javascript 代码
 
 ```js
 const checkbox = document.querySelector(".theme-switcher");
@@ -162,7 +162,7 @@ checkbox.addEventListener("change", function() {
 
 为什么我们要删除和添加 `.light` 类? 我们马上就会知晓。
 
-##### CSS 代码
+#### CSS 代码
 
 因为这段代码很长，所以我将一步一步地分解!  
 
