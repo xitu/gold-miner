@@ -15,8 +15,7 @@
 
 `Provider` 是 Flutter 团队推荐的一种新的状态管理方案。
 
-> **注意**
-`**setState**` 在大多数情况下也很好用，但是你不能在什么地方都用它。
+> **注意** **`setState`** 在大多数情况下也很好用，但是你不能在什么地方都用它。
 尤其是当你的代码比较凌乱的时候，比如在 build 中有一个 `FutureBuilder` 时，使用 `setState` 毫无疑问就会出现问题。
 
 让我们来看看，如何在 BottomNavigationBar 中使用吧。
@@ -143,7 +142,7 @@ return Scaffold(
 
 ![](https://cdn-images-1.medium.com/max/NaN/1*4pFzXhqqLddZhL_FY-LhtA.png)
 
-[FlutterDevs ](http://flutterdevs.com/) 已经做 Flutter 相关的工作了有一段时间了。你可以关注我们的 [Facebook](https://facebook.com/flutterdevs),[GitHub](https://github.com/flutter-devs) 和 [Twitter](https://twitter.com/TheFlutterDevs)。
+[FlutterDevs ](http://flutterdevs.com/) 已经做 Flutter 相关的工作了有一段时间了。你可以关注我们的 [Facebook](https://facebook.com/flutterdevs)、[GitHub](https://github.com/flutter-devs) 和 [Twitter](https://twitter.com/TheFlutterDevs)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
