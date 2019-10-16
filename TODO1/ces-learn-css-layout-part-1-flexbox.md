@@ -11,7 +11,7 @@
 
 > 这个内容已经是 2 年前的了。请记住，以下内容可能已过时。
 
-When I started learning CSS, it was all about playing with floats and hacking things around absolute and relative positioning to kind of achieve what you wanted to do. Today we got cool new tools to create layouts: [Flexbox](https://www.w3.org/TR/css-flexbox-1/) and [Grid Layout](https://www.w3.org/TR/css3-grid-layout/). If you forget about IE9 and older, Flexbox is [supported pretty much everywhere](http://caniuse.com/#feat=flexbox) and can be used to create flexible and stretchable layouts. For the moment Grid Layout, it is [not supported everywhere](http://caniuse.com/#feat=css-grid), but still quite promising if you are looking for a way to build complex and versatile responsive grids.
+在我开始学习 CSS 时，一切都是关于用浮动、绝对定位与相对定位实现你想要做的事。今天，我们有了很棒的新工具来创建布局：[弹性布局](https://www.w3.org/TR/css-flexbox-1/)和[格栅布局](https://www.w3.org/TR/css3-grid-layout/)。如果你忽略 IE9 以及更早的版本，则 Flexbox [几乎在任何地方都受到支持](http://caniuse.com/#feat=css-grid)，可用于创建灵活且可扩展的布局。目前，格栅布局[并非在任何地方都受支持](http://caniuse.com/#feat=css-grid)，但是如果您正在寻找一种构建复杂而通用的响应式网格的方法，那还是很有希望的。
 
 掌握这两个模块可能有些棘手。幸运的是，一些很棒的人制作了许多有趣的工具来帮助你学习并掌握这些工具，所以当它们被各处支持时你也准备好了。
 
@@ -32,25 +32,25 @@ When I started learning CSS, it was all about playing with floats and hacking th
 
 ![弹性布局防御小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-2-1040x734.png)
 
-## Flexbox Visual Playgrounds
+## 弹性布局可视化面板
 
-Sometimes the best way to learn is to experiment By yourself. Here are a few visual Flexbox playgrounds where you can explore and break things to better understand the syntax.
+有时最好的学习方法是自己做实验。这里有一些可视的弹性布局面板，您可以在这里探索和解构东西，以更好地理解语法。
 
-### [Visual Guide to CSS3 Flexbox](https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/)
+### [CSS3 弹性布局的视觉指南](https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/)
 
-Add and remove children, position them and test all the Flexbox properties you will need to build layouts. (By [Dimitar Stojanov](https://twitter.com/justd100))  
+添加并移除子元素，定位它们并测试您在布局中所有要用到的弹性布局属性。([Dimitar Stojanov](https://twitter.com/justd100) 制作)  
 
-![Flexbox Cheatsheet by Yoksel](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-5-1040x734.png)
+![Yoksel 的弹性布局备忘单](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-5-1040x734.png)
 
-### [Flexbox playground](http://codepen.io/enxaneta/full/adLPwv/)
+### [弹性布局面板](http://codepen.io/enxaneta/full/adLPwv/)
 
-On this codepen playground By [Gabi](https://twitter.com/w3unpocodetodo), you will be able to test different Flexbox properties and play with their values to see the results.  
+在这个由 [Gabi](https://twitter.com/w3unpocodetodo) 制作的 codepen 面板上，你将能够测试不同的弹性布局属性，并使用它们的值来观察结果。
 
-![Flexbox playground](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-7-1040x734.png)
+![弹性布局面板](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-7-1040x734.png)
 
 ### [Flexplorer](http://bennettfeely.com/flexplorer/)
 
-Another small visual playground By [Bennett Feely](https://twitter.com/bennettfeely) where you can test and play with different properties to explore the possibilities of the Flexbox CSS module.  
+在另一个由 [Bennett Feely](https://twitter.com/bennettfeely) 制作的小型可视化面板中，您可以进行测试并使用不同的属性来探索弹性布局 CSS 模块的可能性。
 
 ![Flexplorer](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-11-1040x734.png)
 
@@ -58,15 +58,15 @@ Another small visual playground By [Bennett Feely](https://twitter.com/bennettfe
 
 ### [弹性布局的解决方案](https://philipwalton.github.io/solved-by-flexbox/)
 
-Vertical centering used to be a nightmare before Flexbox, this site will show you a few tricks on what can now be easily solved By Flexbox. (By [Phil Walton](https://twitter.com/philwalton))  
+在弹性布局之前，垂直居中曾是一个噩梦，该站点将向您展示一些现在使用弹性布局可以轻松解决的技巧。([Phil Walton](https://twitter.com/philwalton) 制作)  
 
 ![弹性布局的解决方案](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-9-1040x734.png)
 
 ### [弹性布局模式](http://www.flexboxpatterns.com/home)
 
-Building layout is nice, but what about more complex patterns like tabs or cards? Flexbox patterns got this covered for you. (By [CJ Cenizal](https://twitter.com/thecjcenizal))  
+构建布局很好，但是更复杂的模式比如标签或卡片呢？弹性布局可以满足您的需求。([CJ Cenizal](https://twitter.com/thecjcenizal) 制作)  
 
-![Solved by Flexbox](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-8-1040x734.png)
+![弹性布局的解决方案](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-8-1040x734.png)
 
 ## 弹性布局备忘单
 
@@ -84,7 +84,7 @@ Building layout is nice, but what about more complex patterns like tabs or cards
 
 ![Yoksel 的弹性布局备忘单](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-6-1040x734.png)
 
-## Need moaaar visual help?
+## 需要更多的帮助？
 
 [Wes Boss 创建了 20 个免费视频](https://flexbox.io/#/)帮助您学习弹性布局，并且您也可以查看这篇[用一些动画 gif 解释弹性布局的文章](https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35).  
 这是针对弹性布局的，稍后请参见第二部分格栅布局。
