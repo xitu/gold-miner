@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/eval-via-import.md](https://github.com/xitu/gold-miner/blob/master/TODO1/eval-via-import.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[quzhen12](https://github.com/quzhen12)，[weisiwu](https://github.com/weisiwu)
 
 # 使用 `import()` 执行 JavaScript 代码
 
@@ -11,9 +11,9 @@
 
 ## `eval()` 不支持 `export` 和 `import`
 
-使用 `eval()` 最大的限制就是：它不支持例如 `export` 和 `import` 这样的模块语法。
+`eval()` 的一大缺陷是：它不支持例如 `export` 和 `import` 这样的模块语法。
 
-而如果改为使用 `import()`，我们就可以执行带有模块的代码，在后文你将能看到这是如何实现的。
+但是如果放弃 `eval()` 而改为使用 `import()`，我们就可以执行带有模块的代码，在后文你将能看到这是如何实现的。
 
 未来，我们也许可以使用 [**Realms**](https://github.com/tc39/proposal-realms)，它也许会是能够支持模块的、更强大的下一代 `eval()`。
 
@@ -34,14 +34,14 @@ import(dataUri);
 
 这段代码执行后发生了什么？
 
-* 首先，我们创建了所谓的 [**数据 URI**](https://en.wikipedia.org/wiki/Data_URI_scheme)。这种类型的 URI 协议是 `data:`。URI 的其余部分是整个资源的编码，而不是直接引用它。这样，数据 URI 就包含了一个完整的 ECMAScript 模块 —— 它的的类型是 `text/javascript`。
+* 首先，我们创建了所谓的 [**数据 URI**](https://en.wikipedia.org/wiki/Data_URI_scheme)。这种类型的 URI 协议是 `data:`。URI 的剩余部分中包含了所有资源的编码，而不是指向资源本身的地址。这样，数据 URI 就包含了一个完整的 ECMAScript 模块 —— 它的 content 类型是 `text/javascript`。
 * 然后我们动态引入模块，于是代码被执行。
 
 注意：这段代码只能在浏览器中运行。在 Node.js 环境中，`import()` 不支持数据 URI。
 
 ### 获取被执行模块的导出
 
-由 `import()` 返回的 Promise 的完整值是一个模块命名空间对象。这让我们可以获取到模块的默认导出以及命名导出。在下面的例子中，我们获取得是默认导出：
+由 `import()` 返回的 Promise 的完成态是一个模块命名空间对象。这让我们可以获取到模块的默认导出以及命名导出。在下面的例子中，我们获取得是默认导出：
 
 ```js
 const js = `export default 'Returned value'`;
@@ -85,8 +85,8 @@ function esm(templateStrings, ...substitutions) {
 
 每种编码方式都各有利弊：
 
-* `charset=utf-8`（又称百分比编码）的优势：
-    * 编码后大部分源代码可读性比较好。
+* `charset=utf-8`（又称百分号编码）的优势：
+    * 大部分源码仍具有可读性。
 * `base64` 的优势：
     * URI 更精短。
     * 更易嵌套（后文我们会看到），因为它不包含任何如撇号这样的特殊字符。
@@ -94,11 +94,11 @@ function esm(templateStrings, ...substitutions) {
 `btoa()` 是一个用来将字符串编码为 base 64 代码的全局工具函数。注意：
 
 * 在 Node.js 环境下不可用。
-* 只可用于 Unicode 编码在 0 至 255 的字符。
+* 仅对码点值在 0 至 255 范围内的 Unicode 字符有效。
 
 ## 执行引用了其他模块的模块
 
-使用了标记模版，我们可以嵌套数据 URI，并编码引用了 `m1` 模块的 `m2` 模块：
+通过标记模版，我们可以嵌套数据 URI，并编码引用了 `m1` 模块的 `m2` 模块：
 
 ```js
 const m1 = esm`export function f() { return 'Hello!' }`;
