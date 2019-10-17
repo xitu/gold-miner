@@ -2,8 +2,8 @@
 > * 原文作者：[Jason Miller](https://jasonformat.com/author/developit/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/modern-script-loading.md](https://github.com/xitu/gold-miner/blob/master/TODO1/modern-script-loading.md)
-> * 译者：
-> * 校对者：
+> * 译者：[w2ly](https://github.com/w2ly)
+> * 校对者：[sin7777](https://github.com/sin7777)、[Baddyo](https://github.com/Baddyo)
 
 # 现代脚本加载
 
