@@ -2,49 +2,49 @@
 > * 原文作者：[CHRIS MORADI](https://multithreaded.stitchfix.com/blog/2019/05/21/maintainable-etls/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/maintainable-etls.md](https://github.com/xitu/gold-miner/blob/master/TODO1/maintainable-etls.md)
-> * 译者：
-> * 校对者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
+> * 校对者：[portandbridge](https://github.com/portandbridge)
 
-# Maintainable ETLs: Tips for Making Your Pipelines Easier to Support and Extend
+# 可维护的 ETL：使管道更容易支持和扩展的技巧
 
 ![modularized code example](https://multithreaded.stitchfix.com/assets/posts/2019-05-21-maintainable-etls/maintainable-etls-code-animation.gif)
 
-Core to any data science project is…wait for it…data! Preparing data in a reliable and reproducible way is a fundamental part of the process. If you’re training a model, calculating analytics, or just combining data from multiple sources and loading them into another system, you’ll need to build a data processing or ETL[1](#f1) pipeline.
+任何数据科学项目的核心是...噔噔噔...数据！以可靠和可重复的方式准备数据是该过程的基本部分。如果你正在培训一个模型，计算分析，或者只是将来自多个源的数据组合到另一个系统中，那么你将需要构建一个数据处理或 ETL[1](#f1) 管道。
 
-At Stitch Fix, we practice [full-stack data science](https://multithreaded.stitchfix.com/blog/2019/03/11/FullStackDS-Generalists/). This means that we as data scientists are responsible for taking a project from ideation through production and maintenance. We are [driven by our curiosity](https://multithreaded.stitchfix.com/blog/2019/01/18/fostering-innovation-in-data-science/) and like to move quickly even though our work is often interconnected. The problems we work on are challenging, so the solutions can be complex, but we don’t want to introduce complexity where’s it’s not needed. Because we must support our work in production, our small teams share the responsibility of being on-call and help support each other’s pipelines. This allows us to do important things, like take vacation. This summer, my wife and I are heading to Italy to take the honeymoon we meant to take years ago. The last thing I want to think about while I’m there is whether my teammates are struggling to support and understand the pipelines that I wrote.
+我们 Stitch Fix 这里从事的是[全栈数据科学](https://multithreaded.stitchfix.com/blog/2019/03/11/FullStackDS-Generalists/)。这意味着我们以数据科学家的身份负责项目的构思、生产以至维护的整个过程。我们的[受好奇心驱使](https://multithreaded.stitchfix.com/blog/2019/01/18/fostering-innovation-in-data-science/)喜欢快速行动，即使我们的工作常常是相互联系的。我们所处理的问题具有挑战性，因此解决方案可能很复杂，但我们不想在不需要的地方引入复杂性。因为我们必须支持我们在生产中的工作，所以我们的小团队分担随叫随到的责任，并帮助支持彼此的管道。这让我们可以做一些重要的事情，比如度假。今年夏天，我和妻子要去意大利度蜜月，这是我们多年前的打算。当我在那里的时候，我最不想考虑的是我的队友们是否很难使用或理解我写的管道。
 
-Let’s also acknowledge that data science is a dynamic field, so colleagues move on to new initiatives, teams, or opportunities outside of the company. While a data pipeline may be built by one data scientist, it is often supported and modified by several data scientists over its lifetime. Like many data science groups, we come from a variety of educational backgrounds and unfortunately, we’re not all “unicorns”—experts in software engineering, statistics, and machine learning.
+让我们也承认数据科学是一个动态的领域，所以同事们会转向公司之外的新计划、团队或机会。虽然一个数据管道可能由一个数据科学家构建，但在其生命周期中，它通常由多个数据科学家支持和修改。像许多数据科学团体一样，我们来自不同的教育背景，不幸的是，我们并非都是“独角兽” —— 软件工程、统计和机器学习方面的专家。
 
-While our Algorithms group does have a large, amazing team of data platform engineers, [they do not and will not write ETLs](https://multithreaded.stitchfix.com/blog/2016/03/16/engineers-shouldnt-write-etl/) to support the work of data scientists. Instead, they focus their efforts on building easy-to-use, robust, and reliable tools that enable the data scientists to quickly build ETLs, train and score models, and create performant APIs without having to worry about the infrastructure.
+虽然我们的算法小组确实有一个庞大的、令人惊叹的数据平台工程师团队，[它们不会也不想写 ETL](https://multithreaded.stitchfix.com/blog/2016/03/16/engineers-shouldnt-write-etl/) 来支持数据科学家的工作。相反，他们将精力集中在构建易于使用、健壮可靠的工具上，这些工具使数据科学家能够快速构建 ETL、培训和评分模型，以及创建性能良好的 API，而无需担心基础设施。
 
-Over the years, I’ve found a few key practices that help make my ETLs easier to understand, maintain, and extend. In this post, we’ll look at the benefits of:
+多年来，我发现了一些有助于使我的 ETL 更易于理解，维护和扩展的关键做法。本文会带大家看看以下做法有什么好处：
 
-1. Building a chain of simple tasks.
-2. Using a workflow management tool.
-3. Leveraging SQL where possible.
-4. Implementing data quality checks.
+1. 建立一系列简单的任务。
+2. 使用工作流程管理工具。
+3. 尽可能利用 SQL。
+4. 实施数据质量检查。
 
-Before we get into details, I want to recognize that there’s no single set of best practices for building ETL pipelines. The focus of this post is on data science environments where two things hold true: the cast of supporting characters is evolving and diverse, and development and exploration are prioritized over ironclad reliability and performance.
+讨论细节之前，我要承认一点：没有一套构建 ETL 管道的最佳实践。这篇文章的重点是数据科学环境，其中有两件事情是正确的：支持人员的组成状况的演变是不断发展和多样化的，开发和探索优先于铁定的可靠性和性能。
 
-## Building a Chain of Simple Tasks
+## 建立一系列简单的任务
 
-The first step in making ETLs easier to understand and maintain is to follow basic software engineering practices and break large and complex computations into discrete, easy-to-digest tasks with a specific purpose. Analogously, we should break a large ETL pipeline into smaller tasks. This offers many benefits:
+使 ETL 更容易理解和维护的第一步是遵循基本的软件工程实践，将大型和复杂的计算分解为具有特定目的的离散、易于消化的任务。类似地，我们应该将一个大型ETL管道划分为较小的任务。这有很多好处：
 
-1. Easier to understand each task: Tasks that are only a few lines of code are easier to review, so it’s easier to absorb any nuances in the processing.
+1. 更容易理解每个任务：只有几行代码的任务更容易审查，因此更容易吸收处理过程中的任何细微差别。
 
-2. Easier to understand the overall processing chain: When tasks have a well-defined purpose and are named appropriately, reviewers can focus on the higher-level building blocks and how they fit together while ignoring the details of each block.
+2. 更容易理解整个处理链：当任务具有明确定义的目的并且命名正确时，审阅者可以专注于更高级别的构建块以及它们如何组合在一起而忽略每个块的细节。
 
-3. Easier to validate: If we need to make changes to a task, we only need to validate the output of that task and make sure that we’re adhering to any “contracts” we have with the users/callers of this task (e.g., column names and data types of the resulting table match the pre-revision format).
+3. 更容易验证：如果我们需要对任务进行更改，我们只需要验证该任务的输出，并确保我们遵守与此任务的用户/调用者之间的任何“约定”（例如，结果表的列名称和数据类型与预修订格式相匹配）。
 
-4. Increased modularity: If the tasks are built with some flexibility, they can be reused in other contexts. This reduces the overall amount of code needed, thereby reducing the amount of code that needs to be validated and maintained.
+4. 提升模块化程度：如果任务具有一定的灵活性，则可以在其他环境中重用它们。这减少了所需的总代码量，从而减少了需要验证和维护的代码量。
 
-5. Insight into intermediate results: If we store the results of each operation, we will have an easier time debugging our pipeline when there are errors. We can peer into each stage and more easily locate where mistakes are made.
+5. 洞察中间结果：如果我们存储每个操作的结果，当出现错误时，我们将更容易调试管道。我们可以查看每个阶段，更容易找到错误的位置。
 
-6. Increased reliability of the pipeline: We’ll discuss workflow tools soon, but breaking our pipeline into tasks makes it easier to automatically re-run tasks if a temporary failure occurs.
+6. 提高管道的可靠性：我们将很快讨论工作流工具，但是将管道分解为任务的话，发生临时故障时就可以更轻松地自动重新运行任务。
 
-We can see the benefits of splitting up a pipeline into smaller tasks by looking at a simple example. At Stitch Fix, we may want to know what proportion of items sent to our customers are “high-priced” items. To start, suppose we have defined a table that stores the thresholds. Keep in mind that the thresholds will differ by client segments (kids vs. women) and item type (socks vs. pants).
+我们从一个简单的示例，就可以看到将管道拆分为较小任务的好处。在 Stitch Fix，我们可能想知道发送给客户的物品当中，“高价”物品所占的比例。首先，假设我们已经定义了一个存储阈值的表。请记住，阈值将根据客户群（例如孩子与女性）和物品种类（例如袜子与裤子）而有所不同。
 
-Since this calculation is fairly simple, we could use a single query for the entire pipeline:
+由于此计算相当简单，我们可以对整个管道使用单个查询：
 
 ```
 WITH added_threshold as (
@@ -69,73 +69,73 @@ WITH added_threshold as (
 ```
 
   
-This first attempt is actually fairly decent. It’s already been modularized through the use of common table expressions (CTEs) or WITH blocks. Each block serves a specific purpose, they are short and easy to absorb, and the aliases (e.g., `added_threshold`) provide enough context so that a reviewer can remember what’s done in the block.
+这第一次尝试实际上相当不错。它已经通过使用公共表表达式（CTE）或 WITH 块进行了模块化。每个块都用于特定目的，它们简短且易于吸收，并且别名（例如 `added_threshold`）提供足够的上下文，以便审阅者可以记住块中所完成的操作。
 
-Another positive aspect is that thresholds are stored in a separate table. We could’ve hard-coded each threshold in the query using a very large CASE statement, but this would’ve rapidly become incomprehensible to the reviewer. It also would have been harder to maintain because anytime we’d want to update a threshold, we’d have to change this query as well as any other query that used the same logic.
+另一个积极方面是阈值存储在单独的表中。我们可以使用非常大的 CASE 语句对查询中的每个阈值进行硬编码，但这对于审阅者来说很快就会变得难以理解。它也很难维护，因为我们只要想更新阈值，就必须更改此查询以及使用相同逻辑的任何其他查询。
 
-While this query is a good start, we can improve on the implementation. The biggest deficiency is that we don’t have easy access to any of the intermediate results: the whole calculation is done in one action. You may wonder, why would I want to look at intermediate results? Intermediate results allow you to debug on the fly, gain an opportunity to implement data quality checks, and may prove to be reusable in other queries.
+虽然这个查询是一个良好的开端，但我们可以改进实现的方式。最大的不足是我们无法轻松访问任何中间结果：整个计算只需一次操作即可完成。你可能想知道，为什么我要查看中间结果？中间结果允许你进行即时调试，获得实施数据质量检查的机会，并且可以证明在其他查询中可重用。
 
-For example, suppose the business added a new category of items—e.g., bonnets. We started selling the bonnets, but we forgot to update the thresholds table. In this case, we’re going to miss high-priced bonnets in our aggregate metrics. Since we used a LEFT JOIN, the rows won’t be dropped due to the join, but the value of `high_price_threshold` will be NULL. In the next stage, all of the bonnet rows will have zeros for the `high_price_flag` which will carry into our final calculations of `total_high_price_items` and `proportion_high_priced`.
+例如，假设企业添加了一个新的物品类别 —— 例如，帽子。我们开始销售帽子，但我们忘记更新阈值表。在这种情况下，我们的聚合指标就会漏掉高价的帽子。由于我们使用了 LEFT JOIN，因为连接不会删除行，但是 `high_price_threshold` 的值将为 NULL。到了下一个阶段，所有和帽子有关的行，其 `high_price_flag` 的值都会是零，而这个数值会带到我们最终进行计算的 `total_high_price_items` 和 `proportion_high_priced`。
 
-If we break this large, single query into multiple queries and write the results of each stage separately, we make this pipeline more maintainable. If we store the output of the initial stage to a separate table, we can easily check that we’re not missing any thresholds. All we’ll need to do is query this table and select rows where the `high_price_threshold` is NULL. If we get any rows back, we’re missing one or more thresholds. We’ll cover this type of run-time validation of the data later in the post.
+如果我们将这个大的单个查询分解为多个查询并分别编写每个阶段的结果，我们就可以使这个管道更易于维护。如果我们将初始阶段的输出存储到单独的表中，我们可以轻松检查我们是否没有丢失任何阈值。我们需要做的就是查询此表并选择 `high_price_threshold` 值为 NULL 的行。如果什么都没有返回，就代表我们遗漏了一个或多个阈值。我们将在帖子后面介绍这种类型的数据运行时验证。
 
-This modularized implementation is also easier to modify. Suppose instead of considering any item we’ve ever shipped, we decide that we only want to count high-priced items that were sent in the last 3 months. With the original query, we’d make the changes to the first stage and then look at final totals and hope that those are correct. By saving the first stage separately, we could add a new column that has the shipped date. We could then modify our query and verify that the shipped date in the resulting table all fall within the date ranges we expect. We could also save our new version to another location and perform a “data diff” to make sure we’re dropping the right rows.
+这种模块化的实现也更容易修改。假设我们不是要考虑所有曾寄出的物品，而是决定只想计算过去 3 个月发送的高价物品。要是用原来的查询方式，我们就会对第一阶段进行更改，然后查看最终得出的总数，期望得到正确的数值。通过单独保存第一阶段，我们可以添加一个具有发货日期的新列。然后，我们可以修改查询并验证结果表中的发货日期是否都在我们预期的日期范围内。我们还可以将我们的新版本保存到另一个位置并执行“数据差异”以确保我们正在删除正确的行。
 
-This last example leads to one of the greatest benefits of splitting this query into separate stages: We can reuse our queries and our data to support different use cases. Suppose one team wants the high-priced item metrics for the last 3 months, but another team needs it for only the last week. We can modify the first stage’s query to support these and write the output of each version to separate tables. If we dynamically specify the source table for the later stage queries[2](#f2), the same queries will support both use cases. This pattern can be extended to other use cases as well: teams with different threshold values, final metrics broken down by client segment and item category vs. rolled up.
+最后一个示例将此查询拆分为单独的阶段带来了最大的好处之一：我们可以重用我们的查询和数据来支持不同的用例。假设一个团队想要过去 3 个月的高价项目指标，但另一个团队仅在最后一周需要它。我们可以修改第一阶段的查询以支持这些并将每个版本的输出写入单独的表。如果我们为后期查询动态指定源表 [2](#f2)，相同的查询将支持两种用例。此模式也可以扩展到其他用例：具有不同阈值的团队，按客户端细分和项目类别细分的最终指标与汇总。
 
-There are some tradeoffs we’re making by creating a staged pipeline. The biggest of these is in the runtime performance, especially when we’re processing large datasets. Reading and writing data off disk is relatively expensive, and with each processing stage, we’re reading in the output of the prior stage and writing out the results. One big advantage that Spark offers over the older MapReduce paradigm is that temporary results can be cached in memory on the worker nodes (executors). Spark’s Catalyst engine also optimizes the execution plan for SQL queries and DataFrame transformations, but it can’t optimize across a read/write boundary. The second major limitation of these staged pipelines is that they make it much more difficult to create automated integration tests, which involve testing the results of multiple stages of computation.
+我们通过创建分阶段管道进行了一些权衡。其中最大的一个是运行时性能，尤其是当我们处理大型数据集时。从磁盘读取和写入数据会造成很大的开销，并且在每个处理阶段，我们读取前一阶段的输出并写出结果。和旧的 MapReduce 范例相比，Spark 的一大优势是临时结果可以缓存在工作节点（执行程序）的内存中。Spark 的 Catalyst 引擎还优化了 SQL 查询和 DataFrame 转换的执行计划，但它优化时无法跨越读/写边界。这些分阶段管道的第二个主要限制是它们使创建自动化集成测试变得更加困难，这涉及测试多个计算阶段的结果。
 
-With Spark, there are ways around these deficiencies. If I have to perform several small transformations and I want the option to save the intermediate steps, I’ll create a supervisor script that performs the transformations and writes out the intermediate tables only if a command-line flag is set[3](#f3). When I’m developing and debugging changes, I can use the flag to produce the data I need to validate that the new calculations are correct. Once I’m confident in my changes, I can turn off the flag to skip writing the intermediate data.
+有了 Spark，就可以解决这些不足之处。如果我必须执行几个小的转换并且我想要保存中间步骤的选项，我就会创建一个管理程序脚本，这个脚本只有在设置了命令行标志时才执行转换，以及输出中间表 [3](#f3)。当我正在开发和调试更改时，我可以使用该标志来生成验证新计算是否正确所需的数据。一旦我对我的更改有信心，我可以关闭标记以跳过编写中间数据。
 
-## Use a Workflow Management Tool
+## 使用工作流程管理工具
 
-Enormous productivity gains are enabled through the use of a reliable workflow management and scheduling engine. Some common examples include [Airflow](https://airflow.apache.org/), [Oozie](https://oozie.apache.org/), [Luigi](https://github.com/spotify/luigi), and [Pinball](https://github.com/pinterest/pinball). This recommendation will take time and expertise to set up; it is not something that an individual data scientist will likely be responsible for managing. At Stitch Fix, we’ve developed our own proprietary tool that is maintained by our platform team, and it allows data scientists to create, run, and monitor our own workflows.
+使用可靠的工作流管理和调度引擎，可以实现巨大的生产力提升。一些常见的例子包括 [Airflow](https://airflow.apache.org/)、[Oozie](https://oozie.apache.org/)、[Luigi](https://github.com/spotify/luigi) 和 [Pinball](https://github.com/pinterest/pinball)。这项建议需要时间和专业知识来建立；这不是个别数据科学家可能负责管理的事情。在 Stitch Fix，我们开发了自己的专有工具，由我们的平台团队维护，数据科学家用它就可以创建、运行和监控我们自己的工作流程。
 
-Workflow tools make it easy to define a directed acyclic graph (DAG) of computation where each child task is dependent on the successful completion of any parent tasks. They typically provide the ability to specify a schedule for running the workflow, wait on external data dependencies before the workflow kicks off, retry failed tasks, resume execution at the point of failure, create alerts when failures occur, and run tasks that are not interdependent in parallel. Combined, these features enable users to build complex processing chains that are reliable, performant, and easier to maintain.
+工作流工具可以轻松定义计算的有向非循环图（DAG），其中每个子任务都依赖于任何父任务的成功完成。这些工具通常能让使用者得以指定运行工作流的计划，在工作流启动前等待外部数据依赖，重试失败的任务，在失败时恢复执行，在发生故障时创建警报，以及运行不相互依赖的任务在平行下。这些功能相结合，使用户能够构建可靠，高性能且易于维护的复杂处理链。
 
-## Leverage SQL Where Possible
+## 尽可能利用SQL
 
-This is perhaps the most controversial recommendation that I’ll make. Even within Stitch Fix, there are many data scientists that would argue against SQL and instead advocate using a general-purpose programming language. I was personally a member of this camp up until very recently. On the practical side, SQL can be very hard to test—particularly through automated testing. If you come from a software engineering background, the challenges with testing might feel like reason enough to avoid SQL. There’s also an emotional trap regarding SQL that I’ve fallen into in the past: “SQL is less technical and less professional; **real** data scientists should code.”
+这可能是我提出的最具争议性的建议。即使在 Stitch Fix 中，也有许多数据科学家反对 SQL，而是提倡使用通用编程语言。不久之前我还是这个阵营的一员。在实践方面，SQL 很难测试 — 特别是通过自动化测试。如果你来自软件工程背景，那么测试的挑战可能会让你觉得有足够的理由来避免使用 SQL 。我在过去也陷入过关于 SQL 的情感陷阱：“SQL 技术性较差，专业性较差；**真正**的数据科学家应该编码。”
 
-The primary benefit of SQL is that it’s understood by all data professionals: data scientists, data engineers, analytics engineers, data analysts, DB admins, and many business analysts. This is a large user base that can help build, review, debug, and maintain SQL data pipelines. While [Stitch Fix doesn’t have many of these data roles](https://multithreaded.stitchfix.com/blog/2019/03/11/FullStackDS-Generalists/), SQL is the common language among our group of diverse data scientists. As a result, leveraging SQL reduces the need for specialized roles on teams where people with strong CS backgrounds create the pipelines for the whole team and are unable to equitably share support responsibilities.
+SQL 的主要优点是所有数据专业人员都能理解：数据科学家、数据工程师、分析工程师、数据分析师、数据库管理员和许多业务分析师。这是一个庞大的用户群，可以帮助构建，审查，调试和维护 SQL 数据管道。虽然 [Stitch Fix 没有很多这些数据角色](https://multithreaded.stitchfix.com/blog/2019/03/11/FullStackDS-Generalists/)，但 SQL 是我们这些不同数据科学家的共同语言。因此，利用 SQL 可以减少对团队中专业角色的需求，这些团队具有强大的 CS 背景，为整个团队创建管道，无法公平地分担支持职责。
 
-By writing transformations as SQL queries, we can also enable scalability and some level of portability. With the proper SQL engine, the same query can be used to process a hundred rows of data and then be run against terabytes. If we wrote the same transformations using an in-memory processing package such as Pandas, we’d run the risk of exceeding our processing power as the business or project scales. Everything runs fine until the day when the dataset is too large to fit in memory, and then things fail. If the job is in production, this can lead to a mad rush to rewrite things to get them back up and running.
+通过将转换操作编写为 SQL 查询，我们还可以实现可伸缩性和某种级别的可移植性。使用适当的 SQL 引擎，可以用相同的查询语句来处理一百行数据，然后针对太字节数量级的数据运行。如果我们使用内存处理软件包（如 Pandas）编写相同的转换操作，那么随着业务或项目的扩展，我们将面临超出处理能力的风险。所有东西运行起来都不会有问题，但一到了数据集过大、内存无法容纳时，就会出错。如果这项工作正在进行中，这可能导致急于重写事情以使其恢复运行。
 
-Because of the large overlap in SQL dialects, we have some level of portability from one SQL engine to another. At Stitch Fix, we use Presto for adhoc queries and Spark for our production pipelines. When I’m building a new ETL, I generally use Presto to understand how the data are structured and build out parts of the transformations. Once these parts are in place, the same queries almost always run, unaltered, on Spark[4](#f4). If I were to switch to Spark’s DataFrame API, I would need to completely rewrite my query. The portability benefits apply in the reverse direction as well. If there’s an issue with a production job, I can re-run the same query and add filters and limits to pull a subset of the data back for visual inspection.
+不同 SQL 语言变体有很多共通之处，我们从一个 SQL 引擎到另一个 SQL 引擎具有一定程度的可移植性。在 Stitch Fix 中，我们使用 Presto 进行 adhoc 查询，使用 Spark 进行生产管道。当我构建一个新的 ETL 时，我通常使用 Presto 来理解数据的结构，并构建部分转换。一旦这些部件到位，我几乎总是用 Spark [4](#f4) 运行相同的查询语句，不作任何修改。如果我要切换到 Spark 的 DataFrame API，我需要完全重写我的查询。反过来同样可以体现这种可移植性的好处。如果生产作业存在问题，我可以重新运行相同的查询并添加过滤器和限制以将数据的子集拉回以进行目视检查。
 
-Of course, we can’t do everything in SQL. You’re not going to use it to train a machine learning model, and there are a lot of other cases where a SQL implementation would be overly complicated even if it is possible. For these tasks, you should definitely use a general-purpose programming language. If you’re following the key recommendation and breaking your work up into small chunks of work, these complex tasks will be limited in scope and easier to understand. Where possible, I try to isolate complex logic at the end of a chain of simple preparation stages, such as: joining different data sources, filtering, and creating flag columns. This makes it easy to verify the data going into the final, complex stage and may even simplify some of that logic. Generally, I’ve deemphasized automated testing in the rest of this post, but jobs where there’s complex logic are the best place to focus your efforts in providing good test coverage.
+当然，不是所有操作都能用 SQL 完成。你将不会使用它来训练机器学习模型，而且还有许多其他情况下，SQL 实现即使可行，也会过于复杂。对于这些任务，你绝对应该使用通用编程语言。如果你遵循关键的建议，把你的工作分成小块，那么这些复杂的任务将在范围内受到限制，并且更容易理解。在可能的情况下，我尝试在一系列简单准备阶段的末尾隔离复杂的逻辑，例如：连接不同的数据源、过滤和创建标志列。这使得验证进入最后一个复杂阶段的数据变得容易，甚至可以简化一些逻辑。一般来说，我在本篇文章的其余部分已经不再强调自动化测试，但处理有复杂逻辑的任务时，着力实现测试覆盖就很有意义了。
 
-## Implement Data Quality Checks
+## 实施数据质量检查
 
-Automated unit tests are enormously beneficial when we have complicated logic to validate, but for relatively simple transformations that are part of a staged pipeline, we can often manually validate each stage. When it comes to ETL pipelines, automated tests provide mixed benefits because they don’t cover one of the biggest sources of errors: failures upstream of our pipeline that result in old or incorrect data in our initial dependencies.
+要验证复杂的逻辑时，自动单元测试非常有用，但对于作为分阶段管道的一部分的相对简单的转换，我们通常可以手动验证每个阶段。就 ETL 管道而言，自动化测试提供了混合的好处，因为它们不会覆盖最大的错误来源之一：我们的管道上游的故障导致我们的初始依赖关系中出现旧的或不正确的数据。
 
-One common source of error is to fail to ensure that our source data has been updated before starting our pipeline. For example, suppose we rely on a data source that is updated once a day, and our pipeline starts running before it’s been updated. This means that we’re either using old data (calculated the prior day) or even a mixture of old and current data. This type of error can be challenging to identify and resolve because the upstream data source may finish updating shortly after we’ve ingested the old version of the data.
+一个常见的错误来源是在启动管道之前未能确保我们的源数据已更新。例如，假设我们依赖于每天更新一次的数据源，并且我们的管道在数据源更新之前就开始运行。这意味着我们要么用的是（前一天计算的） 旧数据，要么使用旧数据和当前数据的混合数据。这种类型的错误可能难以识别和解决，因为上游数据源可能在我们获取旧版本的数据后不久就完成更新。
 
-Failures upstream may also cause bad data in our source data: miscalculation of fields, changing schema, and/or a higher frequency of missing values. In a dynamic and interconnected environment, which is very much the kind of environment we're operating in at Stitch Fix, it’s not uncommon to build off a data source created by another team and for those sources to change unexpectedly. Unit tests typically will not flag these failures, but they can be uncovered through run-time validation—sometimes referred to as data quality checks. We can write separate ETL tasks that will automatically perform checks and raise errors if our data don’t meet the standards we’re expecting. A simple example was referred to above with the missing high-priced bonnets threshold. We can query the combined shipped items and high-priced thresholds table and look for rows where the threshold is missing. If we find any rows, we can alert the maintainers. This same idea can be extended to more complicated checks: calculating the fraction that is null, the mean, standard deviation, maximum, or minimum values.
+上游故障还可能导致源数据中出现错误数据：字段计算错误，模式更改和/或缺失值频率更高。在动态且互联的环境中，利用另一个团队创建的数据源进行实验的做法并不少见，而这些源也常常会出现意外更改；我们在 Stitch Fix 运作时所处的环境很大程度上就是如此单元测试通常不会标记这些故障，但可以通过运行时验证（有时称为数据质量检查）来发现它们。我们可以编写单独的 ETL 任务，如果我们的数据不符合我们期望的标准，它们将自动执行检查并引发错误。上面提到了一个简单的例子，其中缺少高价的帽子门槛。我们可以查询组合出货物品和高价阈值表，并查找缺少阈值的行。如果我们找到任何行，我们可以提醒维护者。这个想法可以推广到更复杂的检查：计算零分数、平均值、标准差、最大值或最小值。
 
-In the case of higher than expected missing values for a particular column, we’d first need to define what’s expected, which might be done by looking at the proportion missing for every day of the last month. We could then define a threshold at which we trigger an alert. This idea can be extended to other data quality checks (e.g., the mean value falls within a range), and we can tune these thresholds to make our alerting more or less sensitive.
+在特定列的缺失值高于预期的情况下，我们首先需要定义预期的内容，这可以通过查看上个月每天丢失的比例来完成。然后我们可以定义触发警报的阈值。这个想法可以推广到其他数据质量检查（例如，平均值落在一个范围内），我们可以调整这些阈值，使我们对警报的敏感度进行增减。
 
-## A Work In Progress
+## 正在进行的工作
 
-In this post, we’ve gone over several practical steps that can make your ETLs easier to maintain, extend, and support in production. These benefits extend to your teammates as well as your future selves. While we can take pride in well-constructed pipelines, writing ETLs is not why we got into data science. Instead, these are a fundamental part of the work that allows us to achieve something bigger: building new models, deriving new insights for the business, or delivering new features through our APIs. Poorly constructed pipelines not only take time away from the team, they create an obstacle to innovation.
+在这篇文章中，我们已经完成了几个实际步骤，可以使你的ETL更易于维护，扩展和生产支持。这些好处可以扩展到你的队友以及你未来的自我。虽然我们可以为构建良好的流水线而感到自豪，但编写ETL并不是我们进入数据科学的原因。相反，这些是工作的基本部分，使我们能够实现更大的目标：构建新模型，为业务提供新见解，或通过我们的API提供新功能。建造不良的管道不仅需要时间远离团队，还会给创新带来障碍。
 
-At my last job, I learned the hard way that **inaccessible** pipelines can prevent a project from being maintained or extended. I was part of an innovation lab that was spearheading the use of big data tools to tackle various problems in the organization. My first project was to build a pipeline to identify merchants where credit card numbers were being stolen. I built out a solution that used Spark, and the resulting system was highly successful at identifying new fraud activity. However, once I passed this off to the credit card division to support and extend, the problems started. I broke every best practice I’ve listed here in writing the pipeline: it contained a single job that performed many complicated tasks, it was written in Spark which was new to the company at the time, it relied on cron for scheduling and didn’t send alerts when failures occurred, and it didn’t have any data quality checks to ensure that the source data were up-to-date and correct. Due to these deficiencies, there were extended periods of time when the pipeline didn’t run. Despite an extensive roadmap for adding improvements, very few of these could be implemented because the code was hard to understand and extend. Eventually, the whole pipeline was rewritten in a way that could be more easily maintained.
+我在上一份工作中尝到的苦果，让我明白到管道如果**难以使用**，就会让项目难以维护和扩展。我当时在某个创新实验室工作，该实验室率先使用大数据工具来解决组织中的各种问题。我的第一个项目是建立一条管道来识别信用卡号被盗的商家。我构建了一个使用 Spark 的解决方案，由此产生的系统在识别新的欺诈活动方面非常成功。然而，一旦我把它传递到信用卡部门支持和扩展，问题就开始了。我在编写管道时打破了我列出的所有最佳实践：它包含一个执行许多复杂任务的作业，它是用 Spark 编写的，当时对公司来说是新的，它依赖于 cron 进行调度并且没有'发生故障时发送警报，它没有任何数据质量检查，以确保源数据是最新的和正确的。由于这些缺陷，管道没有运行的时间延长。尽管有一个广泛的路线图来增加改进，但由于代码很难理解和扩展，因此很少能够实现这些改进。最终，整个管道以一种更容易维护的方式重写
 
-Just like the data science project that your ETL is feeding, your pipeline will never truly be complete and should be seen as being perpetually in flux. With each change you make comes the opportunity to make small improvements: increase the readability, remove unused data sources and logic, or simplify or break up complex tasks. None of these recommendations are groundbreaking, but it requires discipline to follow them consistently. Much like lion taming, when pipelines are small, they are relatively easy to keep under control. However, as they grow, they become more unwieldy and prone to sudden unexpected and chaotic behavior. In the end, you either need to start fresh and follow better practices or risk losing your head[5](#f5).
+就像你的 ETL 正在进行的数据科学项目一样，你的管道永远不会真正完整，应该被视为永远不断变化。通过每次更改，每次更改都是实现小幅改进的契机：提高可读性，删除未使用的数据源和逻辑，或简化或分解复杂的任务。这些建议并不是什么重大突破，但如果要始终如一地践行，就需要自律。就像狮子驯服一样，当管道很小时，它们相对容易控制。然而，它们长得越大，就越难管控，也越容易表现出突发且意外的错乱行为。到了那种地步，你只得重新开始、采取更好的做法，不然就可能会冒着失败的风险 [5][#f5]。
 
 * * *
 
-## Footnotes
+## 注释
 
-[[1]↩](#back-1) Abbreviation for Extract, Transform, and Load.
+[[1]↩](#back-1) 提取、转换和加载的缩写。
 
-[[2]↩](#back-2) The easiest way to do this is with a simple string replace or string interpolation, but you can achieve more flexibility with template processing libraries like Jinja2.
+[[2]↩](#back-2) 最简单的方法是使用简单的字符串替换或字符串插值，但是你可以通过模板处理库（如 jinja2）实现更大的灵活性。
 
-[[3]↩](#back-3) For Python, libraries like [Click](https://click.palletsprojects.com/en/7.x/), [Fire](https://google.github.io/python-fire/guide/), or even [argparse](https://docs.python.org/3/howto/argparse.html) from the standard library can make defining these command-line flags easy.
+[[3]↩](#back-3) 对于 Python，像标准库中的 [Click](https://click.palletsprojects.com/en/7.x/)、[Fire](https://google.github.io/python-fire/guide/)，甚至 [argparse](https://docs.python.org/3/howto/argparse.html) 这样的库可以轻松定义这些命令行标志。
 
-[[4]↩](#back-4) Some operations such as manipulating dates and extracting fields from JSON require modifying the queries, but these changes are minimal.
+[[4]↩](#back-4) 操作日期和从 JSON 中提取字段等操作需要修改查询，但这些更改很微小。
 
-[[5]↩](#back-5) No lions or data scientists were hurt in the making of the blog post.
+[[5]↩](#back-5) 在撰写博客时，没有狮子或数据科学家受到伤害。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
