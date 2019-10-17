@@ -2,130 +2,130 @@
 > * 原文作者：[Teresa Man](https://medium.com/@ifbirdsfly)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-design-delightful-dark-themes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-design-delightful-dark-themes.md)
-> * 译者：
+> * 译者：[cyz980908](https://github.com/cyz980908)
 > * 校对者：
 
-# How to design delightful dark themes
+# 如何设计一款讨人喜欢的黑暗主题
 
 ![](https://cdn-images-1.medium.com/max/4800/1*SNt7SUZucQ3r7aHctIM0xw.png)
 
-**At [Superhuman](https://superhuman.com/?utm_source=medium&utm_medium=blog&utm_campaign=delightful-dark-themes), we’re building the fastest email experience in the world. Get through your inbox twice as fast as before, and sustain inbox zero!**
+**在 [Superhuman](https://superhuman.com/?utm_source=medium&utm_medium=blog&utm_campaign=delightful-dark-themes)，我们正在打造世界上最快的电子邮件体验。您可以体验到以两倍于以前的速度浏览您的收件箱，并且保持收件箱为零！**
 
-Dark themes are the latest trend in app design. macOS introduced [Dark Mode](https://www.apple.com/newsroom/2018/09/macos-mojave-is-available-today/) last year. Android launched [Dark theme](https://www.android.com/android-10/) last month. iOS [caught up](https://www.apple.com/ios/ios-13/) in the last two weeks.
+黑暗主题是应用设计的当下最新趋势。macOS 去年推出了[黑暗模式](https://www.apple.com/newsroom/2018/09/macos-mojave-is-available-today/)。Android 上月也推出了[黑暗主题](https://www.android.com/android-10/)。在过去的两周中，iOS [也紧跟而上](https://www.apple.com/ios/ios-13/)。
 
-Once rare, dark themes have become widely expected.
+曾经一度罕见的黑暗主题，但现在已被广泛期待。
 
-When done well, dark themes have many benefits. They reduce eyestrain. They are easier to read in low light. And, depending on the screen, they can greatly reduce battery consumption.
+如果做得好，黑暗主题是有很多好处的。它们可以减少眼睛疲劳。它们在弱光下更容易阅读。而且，根据屏幕大小的不同，它们可以大大减少电池的消耗。
 
-However, it is difficult to create a delightful dark theme. We cannot simply reuse our colors or invert our shades. If we do, we will achieve the **opposite** of what we want: we will increase eyestrain and make it harder to read in low light. We may even break our information hierarchy.
+然而，创造一个讨人喜欢的黑暗主题可不容易。我们不能简单地重用我们的颜色或颠倒我们的色调。如果我们这样做，往往会**适得其反**：我们将增加眼睛的疲劳，使其在弱光下更难阅读。我们甚至有可能打破我们软件的信息层次结构。
 
-In this post, we share how to design dark themes that are readable, balanced, and delightful.
+在这篇文章中，我们分享了如何设计通俗易懂的，和谐且令人愉悦的黑暗主题。
 
-## 1. Darken distant surfaces
+## 1. 越远的区域越暗
 
-Most UI design in dark themes follows this principle: darken distant surfaces. This simulates an environment where light is cast from above, and conveys a physicality that is familiar and reassuring.
+大多数深色主题的 UI 设计都遵循这一原则：越远的区域越暗。这模拟了一个光源从上方投射的场景，并传达了熟悉且令人安心的实体感。
 
-When creating a dark theme, it can be tempting to invert our light theme. However, distant surfaces would become light and near surfaces would become dark. This would break physicality and feel unnatural.
+当设计一个黑暗主题时，我们很容易想当然地将我们的浅色主题直接反转。然而，这样的话，远处的区域会变亮，而近处的区域会变暗。这将打破实体感，令人感到不自然。
 
-Instead, take only the main surface color of your light theme. Invert this color to produce the main surface color of your dark theme. Lighten this color for nearer surfaces, and darken this color for distant surfaces.
+与此相反，您应该只取您的浅色主题的主要表面颜色。反转此颜色以产生黑暗主题的主要颜色。对较近的表面调亮这种颜色，对较远的表面调暗这种颜色。
 
-In Superhuman, our dark theme is made of five shades of gray. Nearer surfaces use lighter grays; more distant surfaces use the darker grays.
+在 Superhuman 中，我们的黑暗主题是由五种灰色色调构成的。较近的区域使用较浅的灰色；较远的区域使用较深的灰色。
 
-![Nearer surfaces use lighter grays; more distant surfaces use the darker grays.](https://cdn-images-1.medium.com/max/5352/1*9XSo2QMW141R5hXUHrf8kA.png)
+![较近的区域使用较浅的灰色；较远的区域使用较深的灰色。](https://cdn-images-1.medium.com/max/5352/1*9XSo2QMW141R5hXUHrf8kA.png)
 
-## 2. Revisit perceptual contrast
+## 2. 重新审视感知对比
 
-When designing a dark theme by referring to a light theme, it is important to revisit perceptual contrast. This is how much contrast an element **appears** to have, regardless of what the numbers may suggest.
+在设计一个黑暗主题时，参考一个浅色主题，很重要的一点是要重新审视感知对比。不是考虑数字可能代表了什么，而是考虑这个元素看起来的**对比度**。
 
-For example, in our light theme, contact details are black with an opacity of 60%. But in our dark theme, we set contact details to white with an opacity of 65%. While both contrast ratios exceed [AA standard](https://accessible-colors.com), the extra 5% prevents fatigue, especially in low light conditions.
+例如，在我们的浅色主题中，联系人信息是黑色的，不透明度为 60%。但是在我们的黑暗主题中，我们将联系方式设置为白色，不透明度为65%。虽然这两种的对比度超过了 [AA标准](https://accessible-colors.com)，但额外的 5% 可以防止视觉疲劳，特别是在光线不足的情况下。
 
-There is no hard rule for these offsets. Instead, we adjust each item individually — considering text size, font weight, and line width — to ensure that the dark theme is as clear and as easy to read as the light theme.
+对于这些颜色的补偿并没有严格的规定。相反，我们根据文本大小、字体大小和行宽分别调整每个项目，以确保黑暗主题与浅色主题一样清晰、易于阅读。
 
 ![](https://cdn-images-1.medium.com/max/5352/1*hM0hLogOLk0DQzVyqBL-6A.png)
 
-## 3. Reduce large blocks of bright color
+## 3. 减少大块明亮的色彩
 
-In light themes, we often use large blocks of bright color. This is usually fine: our most important elements are likely to be brighter still. But in dark themes, it does not work: large blocks of color pull focus from our most important elements.
+在浅色主题中，我们经常使用大块明亮的颜色。这一般来说都是对的：我们最重要的元素可能会更亮。但在黑暗主题中，这是行不通的：用户会将焦点集中于大块的颜色反而忽视了我们最重要的元素。
 
-For example, consider our Remind me screen. In our light theme, the pink overlay does not distract from the even brighter dialog. But in our dark theme, the same overlay pulls our attention away. We removed the overlay altogether so that it is fast and easy to focus on what matters.
+例如，这是我们的 Remind me 界面。在我们的浅色主题中，粉红色的遮罩层不会分散在更明亮的对话框上的焦点。但是在我们的黑暗主题中，同样的遮罩层将我们的注意力分散。我们完全去掉了遮罩层，这样我们就可以快速、方便地聚焦于重要的内容。
 
-![Reduce large blocks of bright color to make it easy to focus on what matters.](https://cdn-images-1.medium.com/max/5352/1*ixjDo4iN1BgiuNOO_4hadg.png)
+![减少大块明亮的色彩会更容易聚焦于重要的内容](https://cdn-images-1.medium.com/max/5352/1*ixjDo4iN1BgiuNOO_4hadg.png)
 
-## 4. Avoid pure black or white
+## 4. 避免纯黑色或纯白色
 
-In Superhuman, we do not use any pure black or white in our dark themes. Here are four reasons to do the same.
+在 Superhuman 中，我们不使用任何纯黑色或纯白色在我们的黑暗主题。以下是我们这么做的四个理由。
 
-#### 4.1. Realism
+#### 4.1. 还原现实
 
-True black does not exist in our daily environment. (The darkest object in the world, a [yet-to-be-named material](http://news.mit.edu/2019/blackest-black-material-cnt-0913) developed at MIT, is still 0.005% shy of true black!) Our vision has therefore adapted to perceive relative darkness as true black. This is why `#000000` can feel so jarring, especially when set against lighter elements. It does not match anything we normally see.
+在我们的日常环境中并不存在纯黑色。（世界上最黑的物体，麻省理工学院开发的一种[尚未命名的材料](http://news.mit.edu/2019/blackest-black-material-cnt-0913)，它离真正的纯黑色还差 0.005%！）因此，我们的视觉已经适应了将相对的黑色视为真正的黑色。这就是为什么 `#000000` 会让我们感觉如此不和谐的原因，尤其是在与较亮的元素对比时。它不存在于与我们通常看到的任何东西的颜色上。
 
-#### 4.2. Black smearing
+#### 4.2. 黑色拖尾
 
-Black smearing is a visual distortion that occurs when lighter content is dragged or scrolled across pure black backgrounds.
+黑色拖尾是一种视觉失真，出现于当较亮的内容被拖动或滚动在纯黑色背景时。
 
-This effect occurs on OLED screens, which are increasingly common. On these screens, pure black pixels are turned off. (This is how dark themes can use less energy than light themes.) However, it is slower for these pixels to turn on and off than to change colors. This variable response creates the smearing effect.
+这种效果出现在越来越多人使用的 OLED 屏幕上。在这种屏幕上，纯黑色像素被关闭。（这就是黑暗主题比浅色主题使用更少电量的原因。）然而，这些像素的开启和关闭的速度比颜色改变的速度要慢。这个不同速度的结果造成了拖尾效果。
 
-![Black smearing in the iOS Clock app (must be viewed on an OLED screen).](https://cdn-images-1.medium.com/max/2000/1*eDiI4Yy-K6139EnLaAuSjA.gif)
+![在 iOS 时钟中出现的黑色拖尾（必须在 OLED 屏中才能看到）。](https://cdn-images-1.medium.com/max/2000/1*eDiI4Yy-K6139EnLaAuSjA.gif)
 
-You can avoid black smearing by using dark gray, as then pixels will not turn off. This even works with a gray as dark as `#010101` — and still uses much less energy than a light theme!
+你可以通过使用深灰色来避免黑色拖尾，因为这样像素就不会被关闭。甚至可以使用像 `#010101` 这样的深灰色，并且还会比浅色主题使用更少的电量！
 
-#### 4.3. Depth
+#### 4.3. 深度
 
-If you use true black in background elements, you lose certain techniques to convey depth.
+如果您在背景元素中使用了纯黑色，您会失去一些表现层次深度的技巧。
 
-For example, imagine your background is pure black. On top of this, you show a notification. The notification should float above the background, so you use a shadow to convey depth. Except the shadow is imperceptible, as nothing is darker than pure black.
+例如，想象您的背景是纯黑色的。在此之上，显示一个通知。通知应该浮在背景之上，所以您用阴影来表达深度。只是这样的阴影难以察觉，因为没有什么比纯黑色更暗。
 
-If your background is not pure black, you can use shadows with different opacities and blur to convey depth. For example, consider the notification in Superhuman:
+如果您的背景不是纯黑色的，您可以使用不同不透明度的阴影和模糊来表达深度。例如，考虑 Superhuman 中的通知：
 
-![If your background is not pure black, you can use shadows to convey depth.](https://cdn-images-1.medium.com/max/5352/1*N4e5iEguoLP4l6vsWGDYmA.png)
+![如果您的背景不是纯黑色的，您可以使用不同不透明度的阴影和模糊来表达深度。](https://cdn-images-1.medium.com/max/5352/1*N4e5iEguoLP4l6vsWGDYmA.png)
 
-#### 4.4. Halation
+#### 4.4. 眩晕
 
-Pure white text against a pure black background produces the highest contrast possible: 21:1. In quantitative WCAG accessibility terms, this is the dream output.
+纯白色文本在纯黑色背景下可能产生的最高对比度为：21:1。在 WCAG（Web Content Accessibility Guidelines Web内容无障碍指南） 中的无障碍说法中，这是理想输出。
 
-However, when designing dark themes, it is important to be mindful of contrast ratios that are exceedingly high. Contrast that is too high can cause eye fatigue as well as **halation**.
+然而，在设计黑暗主题时，一定要小心过高的对比度。对比度太高会导致眼睛疲劳和**眩晕**。
 
-When very bright text is set against a very dark background, the text can appear to bleed into the background. This effect is even stronger for those of us with astigmatism. According to Jason Harrison, Post Doctoral Fellow from [Sensory Perception and Interaction Research Group](http://www.cs.ubc.ca/labs/spin/):
+当将非常明亮的文本放置在非常暗的背景下时，文本会看起来渗透在背景之中。 这对于我们这些散光的人来说，影响甚至更强。[感觉感知与互动研究小组](http://www.cs.ubc.ca/labs/spin/)的博士后研究员 Jason Harrison 表示：
 
-> People with astigmatism (approximately 50% of the population) find it harder to read white text on black than black text on white. Part of this has to do with light levels: with a bright display (white background) the iris closes a bit more, decreasing the effect of the “deformed” lens; with a dark display (black background) the iris opens to receive more light and the deformation of the lens creates a much fuzzier focus at the eye.
+> 散光患者（约占总人口的 50% ）在阅读黑底白字内容时比阅读白底黑字内容更困难。这在一定程度上与光线有关：在明亮的显示背景（白色背景）下，虹膜闭合得更紧，减少了角膜（可以理解为可以变形的“镜片”）的影响；在黑色的背景下，虹膜会打开以接收更多的光线，而角膜的变形会使眼睛产生更模糊的焦点。
 
-In Superhuman, we have to be particularly careful about halation, as our app is very text heavy. We set our white text to 90% opacity so that the dark background blends through. This balances contrast and brightness so that the app is easy to read in a wide variety of light conditions.
+在 Superhuman 中，由于我们的软件文本量很大，所以我们必须特别小心眩晕问题。我们把白色的文字设置为 90% 的不透明度，从而使文字与深色背景融为一体。这就平衡了对比度和亮度，使软件很容易在各种光线条件下阅读。
 
 ![](https://cdn-images-1.medium.com/max/5352/1*4D5E9fE--h9OMjYN382O5Q.png)
 
-## 5. Deepen colors
+## 5. 加深颜色
 
-Since we toned down our text to avoid eye fatigue and halation, our colored accents and buttons may appear too bright. We now have to adjust these colors to work better in a dark theme. First, we reduce lightness so these colors do not overpower nearby text. Second, we increase saturation so they still have character.
+由于我们调低了文本的色彩来避免眼睛疲劳和晕眩，因此我们的彩色强调内容和按钮可能显得太亮。现在，我们必须调整这些颜色以在黑暗主题中更好地工作。 首先，我们降低亮度，使这些颜色不会压制附近的文本。 其次，我们增加饱和度，使它们仍然具有颜色特征。
 
-For example, if we directly use the purple from our light theme, it appears too bright against nearby text. In our actual dark theme, we deepen this color so that users can focus on the text.
+例如，如果我们直接使用浅色主题中的紫色，对于附近的文本而言，它显得太亮了。所以，在我们实际的黑暗主题中，我们加深了紫色，以便用户可以专注于文本内容。
 
-![To create deeper colors for dark themes; preserve hue, reduce lightness, and increase saturation.](https://cdn-images-1.medium.com/max/5352/1*CC8IvWLlP3uGqMkq4BQmXg.png)
-
----
-
-## Conclusion
-
-Dark themes have many benefits and are now widely expected. However, they are difficult to execute well. The simple approach of reusing colors and inverting shades will increase eyestrain, make it harder to read in low light, and may even break visual and information hierarchy.
-
-We found a systematic way to build dark themes that are readable, balanced, and delightful. Just follow these steps:
-
-1. Darken distant surfaces
-2. Revisit perceptual contrast
-3. Reduce large blocks of bright color
-4. Avoid pure black or white
-5. Deepen colors
-
-I hope this helps you design delightful dark themes. If you have any thoughts or questions, let’s chat! [@ifbirdsfly](https://twitter.com/ifbirdsfly), [teresa@superhuman.com](mailto:teresa@superhuman.com) 👩‍🎨
-
-— Teresa Man, Lead Designer, Superhuman
+![为黑暗的主题创造更深的颜色；保持色调，降低亮度，增加饱和度。](https://cdn-images-1.medium.com/max/5352/1*CC8IvWLlP3uGqMkq4BQmXg.png)
 
 ---
 
-**At Superhuman we’re rebuilding the email experience for web & mobile. Think vim / Sublime for email: blazingly fast and visually gorgeous.**
+## 结论
 
-**If you love solving interesting problems in elegant ways — join us! [Learn more](https://superhuman.com/?utm_source=medium&utm_medium=blog&utm_campaign=delightful-dark-themes) or [email me](mailto:teresa@superhuman.com).**
+黑暗主题有很多好处，现在正在被广泛期待。 然而，做好一个黑暗主题可不容易。简单地重用我们的颜色或颠倒我们的色调，将增加眼睛的疲劳，使其在弱光下更难阅读，甚至还有可能打破我们软件的信息层次结构。
 
-**Thank you so much to [Jared Erondu](https://twitter.com/erondu), [Dave Klein](https://twitter.com/diklein), [Jayson Hobby](https://twitter.com/jaysonhobby), [Tim Boucher](https://twitter.com/_timothee), [Tamas Sari](https://twitter.com/tamassari), and [Jiho Lim](https://twitter.com/jiholimm) for their input and review!**
+我们找到了一种系统的方式来构建通俗易懂的，和谐且令人愉悦的黑暗主题。只需遵循以下步骤：
+
+1. 越远的区域越暗
+2. 重新审视感知对比
+3. 减少大块明亮的色彩
+4. 避免纯黑色或纯白色
+5. 加深颜色
+
+我希望以上这些有助于您设计讨人喜欢的黑暗主题。如果您有任何想法或疑问，可以和我聊聊！ [@ifbirdsfly](https://twitter.com/ifbirdsfly)，[teresa@superhuman.com](mailto:teresa@superhuman.com) 👩‍🎨
+
+— Teresa Man，Superhuman 的首席设计师
+
+---
+
+**在 Superhuman， 我们正在重建针对 web 和移动设备的电子邮件体验。试想一下电子邮箱界的 Vim 或者 Sublime：惊人快速，视觉华丽。**
+
+**如果您崇尚用优雅的方式解决有趣的问题 —— 请加入我们！[了解更多信息](https://superhuman.com/?utm_source=medium&utm_medium=blog&utm_campaign=delightful-dark-themes)或者[给我发电子邮件](mailto:teresa@superhuman.com).**
+
+**非常感谢 [Jared Erondu](https://twitter.com/erondu)，[Dave Klein](https://twitter.com/diklein)，[Jayson Hobby](https://twitter.com/jaysonhobby)，[Tim Boucher](https://twitter.com/_timothee)，[Tamas Sari](https://twitter.com/tamassari) 以及 [Jiho Lim](https://twitter.com/jiholimm) 的付出和审查！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
