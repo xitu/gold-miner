@@ -6568,10 +6568,11 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：61.5 当前积分：1.5 二零一九：47
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：63.5 当前积分：3.5 二零一九：49
 
 |文章|类型|积分|
 |------|-------|-------|
+|[由浅入深理解主成分分析](https://juejin.im/post/5d41321df265da03c926d65a)|校对|2|
 |2019 年 4 月兑树莓派套装 1 套|减去积分|60|
 |[了解“多态”JSON 数据的性能问题](https://juejin.im/post/5c9982d16fb9a071061f09ce)|校对|1.5|
 |[时间顺序的价格异常检测](https://juejin.im/post/5c998f8ae51d454e523b6ed5)|翻译|5|
@@ -7163,10 +7164,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：39 当前积分：29 二零一九：16
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：41 当前积分：31 二零一九：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[由浅入深理解主成分分析](https://juejin.im/post/5d41321df265da03c926d65a)|校对|2|
 |[在 Python 中过度使用列表解析器和生成表达式](https://juejin.im/post/5d281b0ff265da1b8b2b8ae0)|校对|1.5|
 |[在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204)|校对|1|
 |[使用 What-If 工具来研究机器学习模型](https://juejin.im/post/5d143abff265da1bb80c4005)|校对|2|
@@ -8160,10 +8162,11 @@
 |------|-------|-------|
 |[我作为软件工程师与一名数据科学家合作的经历](https://juejin.im/post/5c550038f265da2d8532b2f9)|翻译|4.5|
 
-## 译者：[HearFishle](https://github.com/HearFishle) 历史贡献积分：41.5 当前积分：41.5 二零一九：41.5
+## 译者：[HearFishle](https://github.com/HearFishle) 历史贡献积分：48.5 当前积分：48.5 二零一九：48.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[数据科学家需要掌握的十种统计技术](https://juejin.im/post/5d42340d6fb9a06ae61a95f5)|翻译|7|
 |[浅析深度学习神经网络的卷积层](https://juejin.im/post/5ceeef01518825351e354747)|校对|1.5|
 |[如果可以，永远不要在生产中直接运行 Node.js](https://juejin.im/post/5cdeb1306fb9a07efd46dbe5)|校对|3|
 |[深度学习能力的三个等级](https://juejin.im/post/5cce97ec6fb9a031fe3bd85d)|翻译|9.5|
@@ -8478,10 +8481,11 @@
 |------|-------|-------|
 |[[审校] Swift 5 强制独占性原则](https://github.com/xitu/gold-miner/pull/5491)|奖励|2|
 
-## 译者：[TBLGSn](https://github.com/TBLGSn) 历史贡献积分：1 当前积分：1 二零一九：1
+## 译者：[TBLGSn](https://github.com/TBLGSn) 历史贡献积分：3 当前积分：3 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么时候需要进行数据的标准化? 为什么？](https://juejin.im/post/5d41a46bf265da03d727f85d)|校对|2|
 |推荐英文文章一篇|奖励|1|
 
 ## 译者：[letica](https://github.com/letica) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
@@ -8867,10 +8871,11 @@
 |[ECMAScript 类 - 定义私有属性](https://juejin.im/post/5d006e406fb9a07ed22465de)|翻译|4|
 |[用 React 制作线性代数教程示例：网格与箭头](https://juejin.im/post/5cefbc37f265da1bd260d129)|校对|1|
 
-## 译者：[linxiaowu66](https://github.com/linxiaowu66) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
+## 译者：[linxiaowu66](https://github.com/linxiaowu66) 历史贡献积分：12 当前积分：12 二零一九：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[postMessage 很慢吗?](https://juejin.im/post/5d423cc4f265da03bf0f2159)|翻译|8.5|
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|校对|1.5|
 |[如何在 Google Play 应用商店中发布 PWA](https://juejin.im/post/5cefe63a6fb9a07ef3764dbe)|校对|2|
 
@@ -8986,10 +8991,11 @@
 |[微前端：未来前端开发的新趋势 — 第一部分](https://juejin.im/post/5d0e367b6fb9a07ebf4b781a)|校对|1|
 |[JavaScript 线性代数：使用 ThreeJS 制作线性变换动画](https://juejin.im/post/5d05dba86fb9a07ece67ce76)|校对|1|
 
-## 译者：[TiaossuP](https://github.com/TiaossuP) 历史贡献积分：19 当前积分：19 二零一九：19
+## 译者：[TiaossuP](https://github.com/TiaossuP) 历史贡献积分：23 当前积分：23 二零一九：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[postMessage 很慢吗?](https://juejin.im/post/5d423cc4f265da03bf0f2159)|校对|4|
 |[CSS 开发必知必会的 16 个调试工具技巧](https://juejin.im/post/5d39d27cf265da1bc14b6f47)|校对|1.5|
 |[从 Reddit 讨论中看到的 GraphQL 现状](https://juejin.im/post/5d380909e51d4510624f98a0)|翻译|5.5|
 |[设计师如何成长为 Leader？](https://juejin.im/post/5d172fca6fb9a07eda032c6f)|翻译|7|
@@ -9004,10 +9010,11 @@
 |[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|翻译|7|
 |[微前端：未来前端开发的新趋势 — 第一部分](https://juejin.im/post/5d0e367b6fb9a07ebf4b781a)|翻译|4|
 
-## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：19 当前积分：19 二零一九：19
+## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：23 当前积分：23 二零一九：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[postMessage 很慢吗?](https://juejin.im/post/5d423cc4f265da03bf0f2159)|校对|4|
 |[通过阅读源码提高您的 JavaScript 水平](https://juejin.im/post/5d3c56c26fb9a07efd475414)|翻译|5|
 |[npm 的经济风云 —— 下半部分](https://juejin.im/post/5d2d9e7af265da1b8b2b91ca)|校对|2|
 |[设计任何图表的六项原则](https://juejin.im/post/5d27fca7f265da1b5e731f92)|翻译|3|
@@ -9016,10 +9023,11 @@
 |[设计师如何成长为 Leader？](https://juejin.im/post/5d172fca6fb9a07eda032c6f)|校对|2|
 |[在 npm 上启用现在 JavaScript](https://juejin.im/post/5d15d64be51d4510a5033603)|校对|1.5|
 
-## 译者：[mymmon](https://github.com/mymmon) 历史贡献积分：10.5 当前积分：10.5 二零一九：10.5
+## 译者：[mymmon](https://github.com/mymmon) 历史贡献积分：15 当前积分：15 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[数据科学家需要掌握的十种统计技术](https://juejin.im/post/5d42340d6fb9a06ae61a95f5)|校对|4.5|
 |[设计任何图表的六项原则](https://juejin.im/post/5d27fca7f265da1b5e731f92)|校对|2|
 |[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://juejin.im/post/5d2acf995188254c1915bd12)|校对|1.5|
 |[Kubernetes 儿童插图指南](https://juejin.im/post/5d1b2a656fb9a07edc0b7058)|校对|1|
@@ -9112,10 +9120,12 @@
 |[Kotlin Clean 架构](https://juejin.im/post/5d33e13be51d4555fd20a41b)|校对|1|
 |[从 Reddit 讨论中看到的 GraphQL 现状](https://juejin.im/post/5d380909e51d4510624f98a0)|校对|1.5|
 
-## 译者：[Ultrasteve](https://github.com/Ultrasteve) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
+## 译者：[Ultrasteve](https://github.com/Ultrasteve) 历史贡献积分：13 当前积分：13 二零一九：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么时候需要进行数据的标准化? 为什么？](https://juejin.im/post/5d41a46bf265da03d727f85d)|翻译|3.5|
+|[由浅入深理解主成分分析](https://juejin.im/post/5d41321df265da03c926d65a)|翻译|6|
 |[作为初级开发人员，我没有学过的 7 个绝对真理](https://juejin.im/post/5d3d25dce51d457756536881)|校对|2|
 |[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 
@@ -9165,3 +9175,9 @@
 |2019 年 9 月推荐[后端文章](https://github.com/xitu/gold-miner/issues/6397)|奖励|1|
 |推荐[后端文章](https://github.com/xitu/gold-miner/issues/6331)|奖励|1|
 |推荐[后端文章](https://github.com/xitu/gold-miner/issues/6367)|奖励|1|
+
+## 译者：[hu7may](https://github.com/hu7may) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[数据科学家需要掌握的十种统计技术](https://juejin.im/post/5d42340d6fb9a06ae61a95f5)|校对|3|
