@@ -70,7 +70,7 @@ npm install -save mountebank
 nano package.json
 ```
 
-定位到 "scripts" 部分并添加一个启动应用的 start 命令："start": "node src/index.js"。
+定位到 `"scripts"` 部分并添加一个启动应用的 `start` 命令：`"start": "node src/index.js"`。
 
 你的 `package.json` 文件应该和它类似，这取决于你如何填写初始的命令提示：
 
