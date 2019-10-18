@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md](https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：
+> * 校对者：[药王](https://github.com/ArcherGrey)
 
 # TypeScript 3.7 Beta 版发布
 
-我们很高兴发布 TypeScript 3.7 Beta 版，它包含了 TypeScript 3.7 版本的所有功能。从现在到最终版本，我们将修复错误并进一步提高它的性能和稳定性。
+我们很高兴发布 TypeScript 3.7 Beta 版，它包含了 TypeScript 3.7 版本的所有功能。从现在到最后发布之前，我们将修复错误并进一步提高它的性能和稳定性。
 
 开始使用 Beta 版，你可以通过 [NuGet](https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild) 安装，或者通过 npm 使用以下命令安装：
 
@@ -32,7 +32,7 @@ TypeScript 3.7 实现了迄今为止需求声最高的 ECMAScript 功能之一�
 let x = foo?.bar.baz();
 ```
 
-也就是说，当 `foo` 被定义时，`foo.bar.baz()` 将会被计算；但是当 `foo` 是 `null` 或者 `undefined` 时，停下正在做的运算，直接返回 `undefined`。
+也就是说，当 `foo` 被定义时，`foo.bar.baz()` 将会被计算；但是当 `foo` 是 `null` 或者 `undefined` 时，停下来不继续执行，直接返回 `undefined`。
 
 更明确地说，上面那段代码的意思和下面的这段完全相同。
 
@@ -58,7 +58,7 @@ if (foo?.bar?.baz) {
 }
 ```
 
-请牢记 `?.` 不同于 `&&` 运算符，因为 `&&` 仅仅是针对那些 “假” 数据（例如：空字符串、`0`、`NaN` 以及 `false`）。
+请牢记 `?.` 不同于 `&&` 运算符，因为 `&&` 仅仅是针对那些“假”（转换为布尔值为假）数据（例如：空字符串、`0`、`NaN` 以及 `false`）。
 
 可选链还包括其他两个操作。首先是**可选元素访问**，其作用类似于可选属性访问，但允许我们访问非属性标识符属性（例如：任意字符串、数字和 Symbol）
 
@@ -132,7 +132,7 @@ function barPercentage(foo?: { bar: number }) {
 let x = foo ?? bar();
 ```
 
-这是一种新的方式来告诉我们，当 `foo` “存在”时使用 `foo`；但当它是 `null` 或者 `undefined` 时，在它的位置上计算 `bar()` 的值。
+这是一种新的表达方式，告诉我们，当 `foo` “存在”时使用 `foo`；但当它是 `null` 或者 `undefined` 时，在它的位置上计算 `bar()` 的值。
 
 同样，上面的代码和下面的等价。
 
@@ -156,9 +156,9 @@ function initializeAudio() {
 
 非常感谢社区成员 [Wenlu Wang](https://github.com/Kingwl) 和 [Titian Cernicova Dragomir](https://github.com/dragomirtitian) 实现这个功能！更多的细节，你可以[查看他们的 pull request](https://github.com/microsoft/TypeScript/pull/32883) 或者 [查看空值合并提案仓库](https://github.com/tc39/proposal-nullish-coalescing/)。
 
-## 断言功能
+## 断言函数
 
-当错误发生的时候，一组特定的函数会 `throw`（抛出）异常。它们被称为“断言”功能。例如，Node.js 为此有一个专用功能，称为 `assert`。
+当错误发生的时候，一组特定的函数会 `throw`（抛出）异常。它们被称为“断言”函数。例如，Node.js 为此有一个专用函数，称为 `assert`。
 
 ```
 assert(someValue === 42);
@@ -487,9 +487,9 @@ TypeScript 的项目引用为我们提供了一种简单的方法来分解代码
 
 你可以[通过阅读原始的 pull request 来了解有关这个更改的更多信息](https://github.com/microsoft/TypeScript/pull/32028)。
 
-## 未调用的功能检查
+## 未调用的函数检查
 
-一个常见且危险的错误是忘记调用函数，特别是当函数没有参数或者以一种暗示它可能是属性而不是函数的方式命名时。
+忘记调用函数是一个常见且危险的错误，特别是当函数没有参数或者以一种暗示它可能是属性而不是函数的方式命名时。
 
 ```
 interface User {
@@ -569,7 +569,7 @@ TypeScript 3.7 允许我们在 TypeScript 文件的顶部添加 `// @ts-nocheck`
 
 ### 函数为真检查
 
-如上所述，当在 `if` 语句条件内似乎未调用函数时，TypeScript 现在会报错。在 `if` 条件中检查功能类型时，将产生错误，除非满足以下任何条件：
+如上所述，当在 `if` 语句条件内存在函数，且看起来似乎没有被调用时，TypeScript 现在会报错。在 `if` 条件中检查函数类型时，将产生错误，除非满足以下任何条件：
 
 * 检查值来自可选属性
 * `strictNullChecks` 被禁用
