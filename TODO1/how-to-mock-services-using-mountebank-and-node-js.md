@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-mock-services-using-mountebank-and-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-mock-services-using-mountebank-and-node-js.md)
 > * 译者：[Pingren](https://github.com/Pingren)
-> * 校对者
+> * 校对者：[Mononoke](https://github.com/imononoke)
 
 # 如何使用 Mountebank 和 Node.js 来 Mock 服务
 
@@ -11,7 +11,7 @@
 
 复杂的[面向服务架构（SOA）](https://en.wikipedia.org/wiki/Service-oriented_architecture)程序中，通常需要调用多个服务来运行一个完整的工作流。尽管一切服务就绪时没有问题，但如果你的代码依赖一个正在开发的服务，你不得不等待其它团队完成任务之后才能开始工作。此外，你可能需要使用外部供应商的服务，比如天气 API 或者记录系统。供应商通常不会提供足够的环境供你使用，控制他们系统的测试数据也不容易。面对这些未完成的和没有控制权的服务，代码测试让人感到沮丧。
 
-解决这些问题的办法是创建一个 **服务 mock**。服务 mock 用于模拟最终产品中提供的服务，但相对真正的服务而言更加轻量、简单且易于控制。你可以设置 mock 服务的响应的默认值，或者设置返回特定的测试数据，然后就可以运行你想要测试的程序，因为其依赖的服务已经就绪。如此一来，灵活的 mock 服务使你的工作流更加迅速高效。
+解决这些问题的办法是创建一个 **服务 mock**。服务 mock 用于模拟最终产品中提供的服务，但相对真正的服务而言更加轻量、简单且易于控制。你可以设置 mock 服务的响应的默认值，或者设置返回特定的测试数据，然后就可以运行你想要测试的程序，就像所依赖的服务已经就绪了一样。如此一来，灵活的 mock 服务使你的工作流更加迅速高效。
 
 在企业环境中，创建 mock 服务有时候也叫服务虚拟化。服务虚拟化通常与昂贵的企业级工具有关，但你并不需要昂贵的工具来 mock 服务。[Mountebank](http://www.mbtest.org/)是一个免费并开源的服务 mock 工具。你可以用它 mock HTTP 服务，包括 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) 和 [SOAP](https://en.wikipedia.org/wiki/SOAP) 服务。你还可以用它 mock [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol) 或 [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) 请求。
 
@@ -70,7 +70,7 @@ npm install -save mountebank
 nano package.json
 ```
 
-定位到 `"scripts"` 部分并添加 `"start": "node src/index.js"`。
+定位到 "scripts" 部分并添加一个启动应用的 start 命令："start": "node src/index.js"。
 
 你的 `package.json` 文件应该和它类似，这取决于你如何填写初始的命令提示：
 
@@ -127,7 +127,7 @@ module.exports = {
 }
 ```
 
-这个配置文件有三个条目：`port: 5000` 将端口 `5000` 分配给主 Mountebank 实例，`hello_service_port: 5001` 将端口 `5001` 分配给你将创建的 Hello World 测试服务，`customer_service_port: 5002` 将端口 `5002` 分配给使用 CSV 响应的 mock 服务。如果这些端口被占用，请根据需要修改它们。`module.exports =` 使你的其它文件可以导入这些配置。
+这个配置文件有三个条目：`port: 5000` 将端口 `5000` 分配给主 Mountebank 实例，`hello_service_port: 5001` 将端口 `5001` 分配给你将创建的 Hello World 测试服务，`customer_service_port: 5002` 将端口 `5002` 分配给使用 CSV 响应的 mock 服务。如果这些端口被占用，请根据需要修改它们。其它文件可以通过 `module.exports =` 来导入这些配置。
 
 此步骤中，你用了 `settings.js` 来定义 Mountebank 和两个 mock 服务将会监听的端口，并使其可用于你程序的其它部分。接下来，你将会使用这些配置来构建初始化脚本，启动 Mountebank。
 
@@ -247,7 +247,7 @@ function postImposter(body) {
 module.exports = { postImposter };
 ```
 
-这段代码首先导入了 `node-fetch` 库和你的配置文件。接着这个模块公开声明了一个函数 `postImposter`向 Mountebank 发送 post 请求。接着，`body:` 决定了这个函数将会使用  `JSON.stringify(body)`，一个 JavaScript 对象。这是你将向 Mountebank 服务 `POST` 的对象。由于这个方法在本地运行，你的请求将会发送至 `127.0.0.1`（`localhost`）。fetch 方法使用了参数中的对象并向 `url` 发送 `POST` 请求。
+这段代码首先导入了 `node-fetch` 库和你的配置文件。接着这个模块公开声明了一个函数 `postImposter`向 Mountebank 发送 post 请求。接着，`body:` 表示这个方法会使用一个 JavaScript 对象：`JSON.stringify(body)`。这是你将向 Mountebank 服务 `POST` 的对象。由于这个方法在本地运行，你的请求将会发送至 `127.0.0.1`（`localhost`）。fetch 方法使用了参数中的对象并向 `url` 发送 `POST` 请求。
 
 此步骤中，你创建了一个 Mountebank 客户端，它向 Mountebank 服务器提交新的 mock 服务。在下一步中，你将使用这个客户端创建你的第一个 mock 服务。
 
