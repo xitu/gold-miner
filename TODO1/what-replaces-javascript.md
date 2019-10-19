@@ -23,25 +23,25 @@
 
 自从我们有了 JavaScript，开发人员就一直试图避开它。一种早期的方法是使用插件将代码从浏览器中取出。（该方法失败。）另一种想法是开发可以转换代码的开发工具，将用另一种更受欢迎的语言编写的代码**转换**成 JavaScript。这样，开发人员就可以如愿地让代码到处运行，同时又能避免弄脏双手。
 
-把一种语言转换成另一种语言的过程叫做 **转码**，但这个过程并非一帆风顺。高级语言有不同的特性、语法和习惯用法，您不能单纯直接地映射到另一个等价的结构上。就算您可以，这也是有潜在危险的。如果社区停止开发您最喜欢的转码器怎么办？或者如果转码器引入了自己的 bug 怎么办？如果要插入 Angular，React 或 Vue 这样的 JavaScript 框架怎么办？如果您在团队中不使用相同的语言开发，您又将如何与团队合作呢？
+把一种语言转换成另一种语言的过程叫做**转码**，但这个过程并非一帆风顺。高级语言有不同的特性、语法和习惯用法，你不能单纯直接地映射到另一个等价的结构上。就算你可以，这也是有潜在危险的。如果社区停止开发你最喜欢的转码器怎么办？或者如果转码器引入了自己的 bug 怎么办？如果要插入 Angular，React 或 Vue 这样的 JavaScript 框架怎么办？如果你在团队中不使用相同的语言开发，你又将如何与团队合作呢？
 
-就和我们在开发过程中常说的那样，一个工具的好坏取决于它背后的社区。
+如同许多开发案例一样，一个工具的好坏取决于它背后的社区。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*APeN4y8dugBc7C56ldFT9A.png)
 
 如今，转码器已经是再常见不过了，但它们的用途往往只有一种 —— 处理向后兼容性。
 
-开发人员都是尽可能使用最新的 JavaScript 版本，然后使用类似 [Babel](https://babeljs.io/) 之类的转码器将他们的代码转换成同等的（但不那么优雅的）旧版本 JavaScript 代码，这样代码就可以兼容所有的运行环境。或者更好的是，他们使用 TypeScript（一种添加了强类型、泛型和不可为空类型等特性的现代化 JavaScript）然后将 **TypeScript** 转换成 JavaScript。不管怎样，您仍然在 JavaScript 的围墙里畅玩。
+开发人员都是尽可能使用最新的 JavaScript 版本，然后使用类似 [Babel](https://babeljs.io/) 之类的转码器将他们的代码转换成同等的（但不那么优雅的）旧版本 JavaScript 代码，这样代码就可以兼容所有的运行环境。或者更好的是，他们使用 TypeScript（一种添加了强类型、泛型和不可为空类型等特性的现代化 JavaScript）并将 **TypeScript** 转换成 JavaScript。无论哪种方式，你都是在 JavaScript 这片小花园里打转。
 
 ## Asm.js：一块垫脚石
 
 一种新的可能性的曙光来自于 2013 年，Mozilla 的开发人员做的一个独特实验 —— asm.js。他们那时正在寻找一种在浏览器中运行高性能代码的方法。但与插件不同的是，asm.js 并没有试图与浏览器为邻。相反，它的目标是**直达** JavaScript 虚拟机。
 
-从本质上讲，asm.js 是简洁，优化的 JavaScript 语法。它比普通的 JavaScript 运行得更快，因为它避开了语言中缓慢的动态部分。但是，意识到这一点的 web 浏览器也可以应用其他方法优化，从而大大提高性能。换句话说，asm.js 遵循了黄金法则 —— **不要破坏** web，同时还提供了未来改进的方法。Firefox 团队借助 asm.js 和一款叫做 [Emscripten](https://en.wikipedia.org/wiki/Emscripten) 的转换工具，把用 C++ 构建的实时 3D 游戏放到了 web 浏览器中，只需要 JavaScript 和一颗初心便可畅玩。
+从本质上讲，asm.js 是一种简洁、优化的 JavaScript 语法。它比普通的 JavaScript 运行得更快，因为它避开了语言中缓慢的动态部分。但是，意识到这一点的 web 浏览器也可以应用其他方法优化，从而大大提高性能。换句话说，asm.js 遵循了黄金法则 —— **不要破坏** web，同时还提供了未来改进的方法。Firefox 团队借助 asm.js 和一款叫做 [Emscripten](https://en.wikipedia.org/wiki/Emscripten) 的转换工具，把用 C++ 构建的实时 3D 游戏放到了 web 浏览器中，只需要 JavaScript 和一颗初心便可畅玩。
 
 ![运行在 asm.js 上的虚幻引擎](https://cdn-images-1.medium.com/max/2000/1*fJ0vTYKZy2na-qFu11d4nQ.png)
 
-asm.js 最重要的部分是它迫使开发人员重新思考 JavaScript 的作用。Asm.js 代码 **是** JavaScript 代码，但这不意味着程序员应该手动编写和操作 asm.js 代码。相反，asm.js 代码应该由自动化过程（一个转码器）构建，并直接提供给浏览器。JavaScript 是中间的媒介，而不是最终传递的信息。
+asm.js 最重要的部分是它迫使开发人员重新思考 JavaScript 的作用。Asm.js 代码**是** JavaScript 代码，但这不意味着程序员应该手动编写和操作 asm.js 代码。相反，asm.js 代码应该由自动化过程（一个转码器）构建，并直接提供给浏览器。JavaScript 是中间的媒介，而不是最终传递的信息。
 
 ## WebAssembly：一项新的技术
 
@@ -51,7 +51,7 @@ WebAssembly 既是 asm.js 的接班人，同时又是一项截然不同的技术
 
 ![简化版的 WebAssembly 处理过程管道](https://cdn-images-1.medium.com/max/2000/1*IKpcysxZoB5yYyLV5JmQaQ.png)
 
-如果您想知道 WASM 写起来是什么样的，那么您可以想象一下您有这样一个 C 函数：
+如果你想知道 WASM 写起来是什么样的，那么你可以想象一下你有这样一个 C 函数：
 
 ```c
 int factorial(int n) {
@@ -81,13 +81,13 @@ end
 
 当通过网络发送时，WASM 代码被进一步压缩成二进制编码。
 
-WebAssembly 的定位是编译器。您永远不会手写它。（但是，如果您想进行[深入的探索](https://blog.scottlogic.com/2018/04/26/webassembly-by-hand.html)，您当然**可以去做**。）
+WebAssembly 的定位是编译器。你永远不会手写它。（但是，如果你想进行[深入的探索](https://blog.scottlogic.com/2018/04/26/webassembly-by-hand.html)，你当然**可以去做**。）
 
 WebAssembly 首次出现在 2015 年。今天，桌面和移动设备上的四大浏览器完全支持它（Chrome，Edge，Safari 和 Firefox）。它在 Internet Explorer 中不受支持，尽管将 WebAssembly 代码转换为 asm.js 可以实现向后兼容。（性能将会受到影响，拜托请让 IE [消失](https://death-to-ie11.netlify.com/)吧！）
 
 ## WebAssembly 和网站开发的未来
 
-WebAssembly 开箱即用，为开发人员提供了一种通常使用 C++ 编写优化代码例程的方法。这是个强大的功能，但是使用范围有限。如果您需要提高复杂计算的性能，这将很有用。（例如，fastq.bio 使用 WebAssembly [加快](https://www.smashingmagazine.com/2019/04/webassembly-speed-web-app/)了他们的 DNA 测序计算。）如果您需要移植高性能游戏或编写在浏览器中运行的[模拟器](https://win95.ajf.me/) ，那么 WebAssembly 您值得拥有。如果这就是 WebAssembly 的全部功能，那就太没意思了 —— 它也将不会有取代 JavaScript 的希望。WebAssembly 还为其他框架开发人员提供了一条小路，使得框架开发人员可以将其平台压缩到 JavaScript 环境中。
+WebAssembly 开箱即用，为开发人员提供了一种通常使用 C++ 编写优化代码例程的方法。这是个强大的功能，但是使用范围有限。如果你需要提高复杂计算的性能，这将很有用。（例如，fastq.bio 使用 WebAssembly [加快](https://www.smashingmagazine.com/2019/04/webassembly-speed-web-app/)了他们的 DNA 测序计算。）如果你需要移植高性能游戏或编写在浏览器中运行的[模拟器](https://win95.ajf.me/) ，那么 WebAssembly 你值得拥有。如果这就是 WebAssembly 的全部功能，那就太没意思了 —— 它也将不会有取代 JavaScript 的希望。WebAssembly 还为其他框架开发人员提供了一条小路，使得框架开发人员可以将其平台压缩到 JavaScript 环境中。
 
 事情在这里发生了有趣的转变。WebAssembly 不能是脱离 JavaScript 的，因为它被锁定在 JavaScript 运行环境中。实际上，WebAssembly 至少需要与**一些**普通的 JavaScript 代码一起运行，因为它无法直接访问页面。这意味着，如果不经过 JavaScript 层，它就无法操纵 DOM 或接收事件。
 
@@ -99,7 +99,7 @@ Blazor 并不是唯一一个由 WebAssembly 支持的实验。以 [Pyodide](http
 
 而且 WebAssembly 仍在迅速发展。它目前的实现是一个**最小可行性的产品** —— 仅能够在一些重要的场景中发挥作用，而不是在 web 上开发的通用方法。随着 WebAssembly 的逐步普及，这个现象将得到改善。例如，如果像 Blazor 这样的平台流行起来，WebAssembly 可能会支持直接访问 DOM。现在，浏览器制造商们已经在计划添加垃圾回收和多线程的机制，有了 WebAssembly，运行环境这些细节他们也不需要自己实现。
 
-如果您认为这条 WebAssembly 的发展之路看起来漫长而且令人怀疑，那么想想 JavaScript 的例子吧。首先，我们看到，如果有些事情 JavaScript 可以做到，那么它就会被完成。然后，我们了解到，如果浏览器频繁做某件事，那么浏览器会让它工作得更高效更好，等等。所以说，如果 WebAssembly 流行了，它将进入一个良性循环的发展过程，并且很容易超越 JavaScript 的固有优势。
+如果你认为这条 WebAssembly 的发展之路看起来漫长而且令人怀疑，那么想想 JavaScript 的例子吧。首先，我们看到，如果有些事情 JavaScript 可以做到，那么它就会被完成。然后，我们了解到，如果浏览器频繁做某件事，那么浏览器会让它工作得更高效更好，等等。所以说，如果 WebAssembly 流行了，它将进入一个良性循环的发展过程，并且很容易超越 JavaScript 的固有优势。
 
 人们常说，WebAssembly 不是用来替代 JavaScript 的。但这适用于之前的每一个发生革命性改变的的平台。JavaScript 不是用来取代浏览器嵌入 Java 的。Web 应用程序也不是为了取代桌面应用程序而设计的。但一旦它们可以，它们就会替代。
 
