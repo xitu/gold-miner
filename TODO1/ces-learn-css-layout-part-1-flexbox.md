@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ces-learn-css-layout-part-1-flexbox.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ces-learn-css-layout-part-1-flexbox.md)
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
-> * 校对者：
+> * 校对者：[sleepingxixi](https://github.com/sleepingxixi), [Stevens1995](https://github.com/Stevens1995)
 
-# 学习 CSS 布局中有趣的地方 —— 第一部分：弹性布局
+# 趣味学习 CSS 布局 —— 第一部分：弹性布局
 
 ![](https://stephaniewalter.design/wp-content/uploads/2017/05/flexboxfun.jpg)
 
 > 这个内容已经是 2 年前的了。请记住，以下内容可能已过时。
 
-在我开始学习 CSS 时，一切都是关于用浮动、绝对定位与相对定位实现你想要做的事。今天，我们有了很棒的新工具来创建布局：[弹性布局](https://www.w3.org/TR/css-flexbox-1/)和[格栅布局](https://www.w3.org/TR/css3-grid-layout/)。如果你忽略 IE9 以及更早的版本，则 Flexbox [几乎在任何地方都受到支持](http://caniuse.com/#feat=css-grid)，可用于创建灵活且可扩展的布局。目前，格栅布局[并非在任何地方都受支持](http://caniuse.com/#feat=css-grid)，但是如果您正在寻找一种构建复杂而通用的响应式网格的方法，那还是很有希望的。
+在我开始学习 CSS 时，一切都是关于用浮动、绝对定位与相对定位实现你想要做的事。今天，我们有了很棒的新工具来创建布局：[弹性布局](https://www.w3.org/TR/css-flexbox-1/)和[网格布局](https://www.w3.org/TR/css3-grid-layout/)。如果你忽略 IE9 以及更早的版本，则 Flexbox [几乎在任何地方都受到很好的支持](http://caniuse.com/#feat=css-grid)，可用于创建灵活且可扩展的布局。目前，网格布局[并非在任何地方都受到支持](http://caniuse.com/#feat=css-grid)，但是如果您正在寻找一种构建复杂而通用的响应式网格的方法，那还是很有希望的。
 
-掌握这两个模块可能有些棘手。幸运的是，一些很棒的人制作了许多有趣的工具来帮助你学习并掌握这些工具，所以当它们被各处支持时你也准备好了。
+掌握这两个模块可能有些棘手。幸运的是，一些很棒的人制作了许多有趣的工具来帮助你学习并掌握这些它们，所以当它们被各处支持时你也准备好了。
 
 **这是帮助您学习 CSS 布局的可能性系列的第一篇文章，今天我们将专注于学习[弹性布局](https://www.w3.org/TR/css-flexbox-1/).**  
 **如果你要查找本文的法文版本，可以查看 “[Apprendre le positionnement en s’amusant – Partie 1 : Flexbox](https://www.creativejuiz.fr/blog/css-css3/apprendre-positionnement-flexbox-s-amusant)“**
@@ -58,7 +58,7 @@
 
 ### [弹性布局的解决方案](https://philipwalton.github.io/solved-by-flexbox/)
 
-在弹性布局之前，垂直居中曾是一个噩梦，该站点将向您展示一些现在使用弹性布局可以轻松解决的技巧。([Phil Walton](https://twitter.com/philwalton) 制作)  
+在弹性布局之前，垂直居中曾是一个噩梦，这个站点将向您展示一些现在使用弹性布局可以轻松解决的技巧。([Phil Walton](https://twitter.com/philwalton) 制作)  
 
 ![弹性布局的解决方案](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-9-1040x734.png)
 
@@ -72,9 +72,9 @@
 
 弹性布局的语法并不总是那么容易，这里有一些备忘单可以帮助您记住不同的属性和值。
 
-### [CSS tricks Guide to Flexbox on CSS tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+### [弹性布局的 CSS 技巧指南](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
-![CSS tricks Guide to Flexbox on CSS tricks](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-3-1040x734.png)
+![弹性布局的 CSS 技巧指南](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-3-1040x734.png)
 
 ### [Joni Bologna 的丰富的弹性布局备忘单](http://jonibologna.com/flexbox-cheatsheet/)
 
@@ -86,10 +86,10 @@
 
 ## 需要更多的帮助？
 
-[Wes Boss 创建了 20 个免费视频](https://flexbox.io/#/)帮助您学习弹性布局，并且您也可以查看这篇[用一些动画 gif 解释弹性布局的文章](https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35).  
+[Wes Boss 创建了 20 个免费视频](https://flexbox.io/#/)帮助您学习弹性布局，并且您也可以查看这篇文章[用一些 gif 动画解释弹性布局](https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35).  
 这是针对弹性布局的，稍后请参见第二部分格栅布局。
 
-您是否正在为网站或移动应用程序寻找 UX 或 UI 设计师？让我在您的会议上发表意见，或只是想了解更多关于我的信息？您可以查看[我的作品](https://stephaniewalter.design/#work)、[与我联系](#contact)。
+您是否正在为网站或移动应用程序寻找 UX 或 UI 设计师？如果您想邀请我参加您的会议，或只是想了解更多关于我的信息？您可以查看[我的作品](https://stephaniewalter.design/#work)、[与我联系](#contact)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
