@@ -5,7 +5,7 @@
 > * 译者：[Xat_MassacrE](https://github.com/XatMassacrE)
 > * 校对者：[TsichiChang](https://github.com/TsichiChang)
 
-# Flutter: 使用 Redux 实现无限 ListView
+# Flutter: 使用 Redux 实现无限滚动的 ListView
 
 ![](https://cdn-images-1.medium.com/max/3840/1*spVWmt32pcQItXguvspQqw.jpeg)
 
@@ -19,7 +19,7 @@
 
 ## 目标
 
-实现一个展示 [issues from the flutter GitHub repository](https://github.com/flutter/flutter/issues) 的 demo。
+实现一个展示 [Flutter issues 列表](https://github.com/flutter/flutter/issues) 的 demo。
 
 下图就是我们实现之后的样子。
 
@@ -31,7 +31,7 @@
 
 #### Model
 
-Model 只是包含 Github issue 信息的一个简单的类。它也可以通过一段 JSON 来初始化它自身。
+Model 是一个包含 Github issue 属性的简单类，同时也可以通过 JSON 来实例化。
 
 ```Dart
 import 'package:intl/intl.dart';
@@ -53,7 +53,7 @@ class GithubIssue {
 
 #### State
 
-在这里我们需要在 state 中记录的数据并不多：issues 列表，声明数据是否被载入以及是否还有更多数据的 flag 以及错误信息。
+我们需要在 state 中记录的数据并不多：一个包含多个 issue 的列表，一个数据是否被载入的标志位，一个是否还有更多数据的标志位以及错误信息。
 
 ```Dart
 import 'package:flutter_redux_infinite_list/models/github_issue.dart';
@@ -143,8 +143,7 @@ class ErrorHandledAction {}
 
 #### Reducers
 
-The reducers that create a new state based on a received action are a bit more complicated than actions, but only a bit. They are just simple pure functions that are combined by the `combineReducers` function the library gives us.
-基于接收到的 action 新建一个 state 的 reducers 会比 actions 更复杂一点，但是也并没有复杂很多。它们其实就是一些由库提供的 `combineReducers` 函数结合起来的纯函数而已。
+Reducer 会根据接收到的 action 创建新的 state，它会比 action 复杂一点，但是也并没有复杂很多。它们其实就是一些由 Redux 库提供的 `combineReducers` 函数结合起来的纯函数而已。
 
 ```Dart
 import 'actions.dart';
@@ -209,7 +208,7 @@ Exception _errorHandledReducer(Exception _, ErrorHandledAction action) {
 
 #### Middleware
 
-这里使用的 middleware 基本上是由从 API 加载数据和发送成功 action 和失败 action 的方法构成的。
+这里使用的 middleware 基本上是由加载数据的 API 函数和发送成功或失败的 action 构成的。
 
 ```Dart
 import 'dart:convert';
@@ -408,9 +407,9 @@ class GithubIssueListItem extends StatelessWidget {
 
 **注意一下 `HomeScreen`。**这里有好几个值得关注的点：
 
-1. 页面包含了 `ScrollController` 来决定是否需要调用 `loadNextPage` 函数。
-2. 在这里使用了 `Debouncer`（具体实现见下文）。它是带有计时器的一个小类，能够确保来自 `ScrollController` 的连续事件不会触发大量的下一页请求，而是在一个特定时间段之内只发送一次请求。
-3. `RefreshIndicator` 可以提醒我们使用『下拉刷新』功能。
+1. 页面包含的 `ScrollController` 决定了是否需要调用 `loadNextPage` 函数。
+2. 在这里使用了 `Debouncer`（具体实现见下文）。它是一个含有定时器功能的简单类，能够确保来自 `ScrollController` 的连续事件不会触发大量的下一页请求，而是在一个特定时间段之内只发送一次请求。
+3. `RefreshIndicator` 可以在我们使用『下拉刷新』功能时给予提示。
 4. 当发生错误的时候 `ErrorNotifier` 将会显示 toast 通知。如果你需要在该通知中更多的显示详细信息，可以看看[我之前的文章](https://medium.com/flutter-community/flutter-redux-toast-notification-fcd0971eaf0f)。
 
 ```Dart
