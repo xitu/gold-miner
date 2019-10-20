@@ -32,9 +32,9 @@
 
 ![弹性布局防御小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-2-1040x734.png)
 
-## 弹性布局可视化面板
+## 弹性布局可视化实验面板
 
-有时最好的学习方法是自己做实验。这里有一些可视的弹性布局面板，您可以在这里探索和解构东西，以更好地理解语法。
+有时最好的学习方法是自己做实验。这里有一些可视的弹性布局实验面板，您可以在这里探索和解构东西，以更好地理解语法。
 
 ### [CSS3 弹性布局的视觉指南](https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/)
 
@@ -42,15 +42,15 @@
 
 ![Yoksel 的弹性布局备忘单](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-5-1040x734.png)
 
-### [弹性布局面板](http://codepen.io/enxaneta/full/adLPwv/)
+### [弹性布局实验面板](http://codepen.io/enxaneta/full/adLPwv/)
 
-在这个由 [Gabi](https://twitter.com/w3unpocodetodo) 制作的 codepen 面板上，你将能够测试不同的弹性布局属性，并使用它们的值来观察结果。
+在这个由 [Gabi](https://twitter.com/w3unpocodetodo) 制作的 codepen 实验面板上，你将能够测试不同的弹性布局属性，并使用它们的值来观察结果。
 
-![弹性布局面板](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-7-1040x734.png)
+![弹性布局实验面板](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-7-1040x734.png)
 
 ### [Flexplorer](http://bennettfeely.com/flexplorer/)
 
-在另一个由 [Bennett Feely](https://twitter.com/bennettfeely) 制作的小型可视化面板中，您可以进行测试并使用不同的属性来探索弹性布局 CSS 模块的可能性。
+在另一个由 [Bennett Feely](https://twitter.com/bennettfeely) 制作的小型可视化实验面板中，您可以进行测试并使用不同的属性来探索弹性布局 CSS 模块的可能性。
 
 ![Flexplorer](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-11-1040x734.png)
 
