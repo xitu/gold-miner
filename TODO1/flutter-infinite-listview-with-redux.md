@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-infinite-listview-with-redux.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-infinite-listview-with-redux.md)
 > * 译者：[Xat_MassacrE](https://github.com/XatMassacrE)
-> * 校对者：
+> * 校对者：[TsichiChang](https://github.com/TsichiChang)
 
 # Flutter: 使用 Redux 实现无限 ListView
 
