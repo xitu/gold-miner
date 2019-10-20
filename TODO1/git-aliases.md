@@ -3,29 +3,29 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/git-aliases.md](https://github.com/xitu/gold-miner/blob/master/TODO1/git-aliases.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[imononoke](https://github.com/imononoke)，[weisiwu](https://github.com/weisiwu)
 
-# 我常用的 Git 别名（我大概是疯了）
+# 我常用的 Git 别名（因为我实在太懒了）
 
-## 我真的很烦输入 git 命令，就算它们很短也一样。
+## 我真的很烦输入 git 命令，即使是很短的。
 
 写于 2019 年 9 月 16 日，更新于 2019 年 9 月 17 日
 
 几年前，当我第一次开始构建一些比较大的[个人项目](https://victorzhou.com/about/)时，我终于开始频繁的使用 [Git](https://git-scm.com)。现在，输入 `git status` 和 `git push` 这样的命令对我来说易如反掌，但是如果你有一些使用 Git 的经验，你一定知道有一些命令会非常冗长。
 
-比如说如下这样很恼人的长命令：
+比如说我常遇到这样的命令：
 
 ```shell-session
 $ git commit --amend --no-edit
 ```
 
-这条命令会把你暂存的修改并入你最近的一次 commit，并且不会修改这次 commit 的信息（这样 Git 也就不会打开一个文件编辑界面了）。它最经常的用途是修改**刚刚**提交的 commit。也许是用来修改 30 秒前刚刚提交，但是不小心写错的内容，比如拼写错误或者忘记删除的调试信息😠。
+这条命令会把你暂存的修改并入你最近的一次 commit，并且不会修改这次 commit 的信息（这样 Git 也就不会打开一个文件编辑界面了）。它最经常的用途是修改**刚刚**提交的 commit。也许我太粗心了，总是在刚提交完一条 commit 还不到 30 秒，就发现一个拼写错误或者忘了删除了调式信息了 😠。
 
 输入 `git commit --amend --no-edit` 这 28 个字符很快就会让人感到乏味。我现在正着迷于[优化项目](https://victorzhou.com/tag/performance/)（甚至是一些[不成熟的尝试](https://victorzhou.com/blog/avoid-premature-optimization/)🤷），所以某天我就开始花时间思考如何优化我的 git 命令…
 
 ## [](#my-git-aliases)我配置的 git 别名
 
-如果你在 google 搜索**简写 git 命令**这样的内容，你将会很快的找到关于 [Git 别名](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)的信息。事实是，简写命令的方法已经内建在 Git 中了！你只需要告知 Git 你想要配置的 git 别名的信息即可。例如，你可以通过将如下这行代码复制粘贴到你的控制台并执行，就可以将 `status` 简写为 `s`：
+当你用 google 搜索下如“**简化 git 命令**”这样的内容，你将会很快的找到关于 [Git 别名](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-Git-%E5%88%AB%E5%90%8D)的信息。事实是，简写命令的方法已经内建在 Git 中了！你只需要告知 Git 你想要配置的 git 别名的信息即可。例如，你可以通过将如下这行代码复制粘贴到你的控制台并执行，就可以将 `status` 简写为 `s`：
 
 ```text
 git config --global alias.s status
@@ -75,7 +75,7 @@ git config --global alias.lo "log --oneline -n 10"
 
 如果你也想使用这些 git 别名，将这些命令拷贝并粘贴到控制台执行即可！
 
-最后，这儿还有一个我常用的简写：
+最后，这儿还有一个我常用的 bash 命令简写：
 
 ##### ~/.bash_profile
 
@@ -198,7 +198,7 @@ $ git reset --hard
 
 我将会把它们也加入到我的 Git 别名配置中！
 
-##### git aliase
+##### git aliases
 
 ```text
 git config --global alias.a "add ."
