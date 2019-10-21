@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-mock-services-using-mountebank-and-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-mock-services-using-mountebank-and-node-js.md)
 > * 译者：[Pingren](https://github.com/Pingren)
-> * 校对者：[Mononoke](https://github.com/imononoke)
+> * 校对者：[Mononoke](https://github.com/imononoke)，[TiaossuP](https://github.com/TiaossuP)
 
 # 如何使用 Mountebank 和 Node.js 来 Mock 服务
 
