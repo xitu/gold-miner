@@ -7,7 +7,7 @@
 
 # 写给大家的代数效应入门
 
-你听说过**代数效应（Algebraic Effects）**么？
+你听说过**代数效应**（**Algebraic Effects**）么？
 
 我第一次研究「它是什么」以及「我为何要关注它」的尝试以失败告终。我看了[一些](https://www.eff-lang.org/handlers-tutorial.pdf) [PDF](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf)，但最终我更加懵逼了。（其中有一些偏学术性质的 pdf 真是催眠。）
 
@@ -164,7 +164,7 @@ try {
 
 这需要你花一些时间来适应，但它在概念上与「可恢复的 `try / catch`」没有太大的不同。
 
-但是请注意，**代数效应要比 try / catch 更灵活，并且可恢复的错误只是许多可能的用例之一。**我从这个角度开始介绍只是因为这是最容易理解的方式。
+但是请注意，**代数效应要比 try / catch 更灵活，并且可恢复的错误只是许多可能的用例之一**。我从这个角度开始介绍只是因为这是最容易理解的方式。
 
 ### 不会染色的函数
 
@@ -382,7 +382,7 @@ function MovieDetails({ id }) {
 
 这构建于一个名为「Suspense」的 React 功能之上，该功能正积极地开发中，用于请求数据这种场景。当然，有趣的部分是 `movieCache` 中没有数据的情况 —— 在这种情况下我们需要做一些事情，因为我们现在无法继续了。从技术上讲，在这种情况下，`read()`调用会 throw 一个 Promise（没错，就是 **throw** 了一个 Promise —— 让它陷入其中）。这挂起（suspends）了执行。React 捕获到 Promise，并会记得在该 Promise 变为 resolve 后，重新尝试渲染组件树。
 
-即使这个技巧是[受其启发](https://mobile.twitter.com/sebmarkbage/status/941214259505119232)的，但这本身并不是代数效应。不过它实现了相同的目标：调用堆栈中的偏底层的一些代码直接触发了偏上层的一些代码（在这种情况下，为 React），而无需所有中间函数必须知道它为 `async` 或 generator 。当然，我们无法在 JavaScript 中真正地**恢复（resume）**执行，但从 React 的角度来看，这跟「当 Promise resolve 时重新渲染组件树」几乎是一回事。当你的编程模型[假设幂等](https://overreacted.io/react-as-a-ui-runtime/#purity)时，你就可以这么取巧！
+即使这个技巧是[受其启发](https://mobile.twitter.com/sebmarkbage/status/941214259505119232)的，但这本身并不是代数效应。不过它实现了相同的目标：调用堆栈中的偏底层的一些代码直接触发了偏上层的一些代码（在这种情况下，为 React），而无需所有中间函数必须知道它为 `async` 或 generator 。当然，我们无法在 JavaScript 中真正地**恢复**（**resume**）执行，但从 React 的角度来看，这跟「当 Promise resolve 时重新渲染组件树」几乎是一回事。当你的编程模型[假设幂等](https://overreacted.io/react-as-a-ui-runtime/#purity)时，你就可以这么取巧！
 
 [Hooks](https://reactjs.org/docs/hooks-intro.html) 是另一个可能提醒你代数效应的例子。人们提出的第一个问题是：一个 `useState` 调用怎么可能知道它所指的是哪个组件？
 
