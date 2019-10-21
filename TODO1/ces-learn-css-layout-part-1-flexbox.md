@@ -20,17 +20,17 @@
 
 ## 学习弹性布局的小游戏
 
-### [弹性布局青蛙小游戏](http://flexboxfroggy.com/)
+### [Flexbox Froggy 小游戏](http://flexboxfroggy.com/)
 
-弹性布局青蛙是一款有趣的小游戏。您需要使用不同的弹性布局属性将可爱的小青蛙带到睡莲。([Thomas H. Park](https://twitter.com/thomashpark) 制作)  
+Flexbox Froggy 是一款有趣的小游戏。您需要使用不同的弹性布局属性将可爱的小青蛙带到睡莲。([Thomas H. Park](https://twitter.com/thomashpark) 制作)  
 
-![弹性布局青蛙小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-1-1040x734.png)
+![Flexbox Froggy 小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-1-1040x734.png)
 
-### [弹性布局防御小游戏](http://www.flexboxdefense.com/)
+### [Flexbox defense 小游戏](http://www.flexboxdefense.com/)
 
-弹性布局防御是一款小游戏，您将在其中使用弹性布局阻止传入的敌人越过防线。([Channing Allen](https://twitter.com/ChanningAllen) 制作)  
+Flexbox defense 是一款小游戏，您将在其中使用弹性布局阻止传入的敌人越过防线。([Channing Allen](https://twitter.com/ChanningAllen) 制作)  
 
-![弹性布局防御小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-2-1040x734.png)
+![Flexbox defense 小游戏](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-2-1040x734.png)
 
 ## 弹性布局可视化实验面板
 
@@ -38,7 +38,7 @@
 
 ### [CSS3 弹性布局的视觉指南](https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/)
 
-添加并移除子元素，定位它们并测试您在布局中所有要用到的弹性布局属性。([Dimitar Stojanov](https://twitter.com/justd100) 制作)  
+添加、移除和定位子元素，并测试您在布局中所有要用到的弹性布局属性。([Dimitar Stojanov](https://twitter.com/justd100) 制作)  
 
 ![Yoksel 的弹性布局备忘单](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-5-1040x734.png)
 
@@ -64,7 +64,7 @@
 
 ### [弹性布局模式](http://www.flexboxpatterns.com/home)
 
-构建布局很好，但是更复杂的模式比如标签或卡片呢？弹性布局可以满足您的需求。([CJ Cenizal](https://twitter.com/thecjcenizal) 制作)  
+弹性布局用来构建布局很好，但是像标签或卡片这样更复杂的模式呢？弹性布局模式可以满足您的需求。([CJ Cenizal](https://twitter.com/thecjcenizal) 制作)  
 
 ![弹性布局的解决方案](https://stephaniewalter.design/wp-content/uploads/2017/05/learn-flexbox-8-1040x734.png)
 
