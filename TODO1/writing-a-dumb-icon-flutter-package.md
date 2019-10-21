@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-dumb-icon-flutter-package.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-dumb-icon-flutter-package.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：
+> * 校对者：[Mononoke](https://github.com/imononoke)
 
-# 写一个愚蠢的 flutter 图标包
+# 写一款小众的 flutter 图标包
 
 ![](https://cdn-images-1.medium.com/max/2160/1*FJoGGIBlEwKu-35DE2DMTw.png)
 
-当所有的 flutter 开发人员都在制作可以在日常生活中被**成千上万**人使用的移动应用程序时，我**呆坐**在房间里想，**如果还有另一款用于 flutter 的字体包呢**🤔
+当所有的 flutter 开发人员都在制作可以在日常生活中被**成千上万**人使用的移动应用程序时，我**呆坐**在房间里，不禁陷入沉思，**为何不做一款 flutter 的图标包呢** 🤔
 
-今天又是平常的一天，**凌晨 3 点**。我在网上搜索高质量的我能与之分享的**超暗模因**（extra dark memes 待定），让他们确信。鉴于 GitHub 是新的社交媒体，我偶然发现了一个 **“CSS”** 库，我们学校最好的一个程序员都给它点过赞（starred）。我说，**“嗯，让我们更深入地研究一下，看看这些字体是如何制作的。”**
+和平常一样，**凌晨 3 点**。我在网上搜索高质量的黑色主题包，想分享给一部分人，让他们觉得“**嗯，你真厉害**”。鉴于 GitHub 是新的社交媒体，我偶然发现了一个 **“CSS”** 库，我们学校最棒的一个程序员都曾给它点过赞（starred）。心想 **“不妨深入地研究一下，看看这些字体是如何制作的。”**
 
-在浏览了几分钟资源文件夹中的文件后，我想起了有一次，我使用了一个名为 [**EvaIcons.**](https://pub.dev/packages/eva_icons_flutter) 的开源图标包。因此，我访问了该包的 GitHub 地址，并开始阅读它的源码。和其他非常复杂的 flutter 包不同的是，这个 package 的结构相当简单。问题是，我应该看一个关于如何从 CSS 创建**字体/图标**并将其移植到 flutter 的教程吗？还是说我应该直接使用它，然后移植一小段代码看看是否有效?
+在浏览了几分钟资源文件夹中的文件后，我回想起有一次，我使用了一个名为 [**EvaIcons.**](https://pub.dev/packages/eva_icons_flutter) 的开源图标包。我访问了该包的 GitHub 地址，并开始阅读它的源码。和其他复杂的 flutter 包不同的是，这个 package 的结构相当简单。问题是，我应该看一个关于如何从 CSS 创建**字体/图标**并将其移植到 flutter 的教程吗？还是说我应该直接使用它，然后移植一小段代码看看是否有效?
 
 ## 开始 🏁
 
@@ -25,41 +25,41 @@
 
 ## Flutter 包 📦
 
-是时候来创建一个 flutter 包。我们可以通过使用 Android Studio 这种**老套**而又略显**笨拙**的方法来创建一个包，或者使用下面这个非常酷的命令行。
+是时候来创建一个 flutter package 了。我们可以通过使用 Android Studio 这种**老套**而又略显**笨拙**的方法来创建一个package，或者执行下面这个非常酷的命令。
 
 ```bash
 flutter create --template=package your_awesome_package_name
 ```
 
-砰! 💥💥 我们已经完成了一半。没什么好讲的。
+砰! 💥💥 我们已经完成了一半。这些没什么好讲的。
 
 ## 下一步 🤔
 
-创建一个 **assets/** 文件夹，并将 **\<font_name>.ttf** 文件放在其中。现在是配置 **pubspec.yaml** 文件的时候了。这样我们就可以在我们的 dart 文件中使用图标了。
+创建一个 **assets/** 文件夹，并将 **\<font_name>.ttf** 文件放在其中。接下来我们来配置 **pubspec.yaml** 文件。这样我们就可以在我们的 dart 文件中使用图标了。
 
 ![Add the fonts like this, replacing WeatherIcons with MyAwesomeIcons or whatever suits :)](https://cdn-images-1.medium.com/max/2680/1*WOTZNBPEvxbjcQIukcIrTA.png)
 
-终于迈出了伟大的一步！**现在我们可以关注 dart 代码。**
+终于迈出了伟大的一步！**现在我们来关注一下 dart 代码。**
 
 ## 难点 😓
 
-在 **lib/** 目录中创建一个 **src/** 文件夹。并在其中创建一个名为 **icon_data.dart** 的简单文件。里面有什么？图标的数据。**回答的很好！**
+在 **lib/** 目录中创建一个 **src/** 文件夹。并在其中创建一个名为 **icon_data.dart** 的文件。文件里面该写些什么？**猜的不错！** 我们需要在里面放入图标的数据。
 
 ![Your custom IconData class extending the one which is available in the widgets library.](https://cdn-images-1.medium.com/max/2584/1*0xg1ub7O-uVkAZh041V0gQ.png)
 
-我们有一个构造函数，它接受一个值 **“codePoint”**，这个值是图标的十六进制代码。我们很快就会看到一些关于它的东西。
+我们编写了一个构造函数，它接受一个值 **“codePoint”**，这个值是图标的十六进制代码。我们很快就会看到一些关于它的东西。
 
-这不难吗？那接下来是什么呢？
+到目前为止都很容易？那接下来是什么呢？
 
 ![Huff! We can’t write this all by ourselves. 222 codePoints!!](https://cdn-images-1.medium.com/max/2776/1*6NvoCM7PiUp8yCwb-zmoBQ.png)
 
 ## 容易的一步 🤩
 
-我们首先找到一个合适的 JSON 文件，他包含所有十六进制代码和名称。找到它，或者使用 web 抓取一个。这部分不是我做的，是 [**Nikhil**](https://github.com/muj-programmer) 做的。一个简单的 JS web 爬虫。我们生成了一个类似的文件。
+我们首先找到一个合适的 JSON 文件，他包含所有十六进制代码和名称。找到它，或者使用 web 抓取一个。这部分不是我做的，是 [**Nikhil**](https://github.com/muj-programmer) 做的。这是一个简单的 JS web 爬虫。我们利用它生成了一个类似的文件。
 
 ![Yupp! Cool as hell!](https://cdn-images-1.medium.com/max/2648/1*nipzxL9Nf_xncVp2PFGlEQ.png)
 
-是时候编写一个 dart 代码来解析这个 JSON 并在 lib/ 文件夹下创建一个 **flutter_weather_icons.dart** 文件。
+接下来我们需要在 lib/ 文件夹下创建一个 **flutter_weather_icons.dart** 来编写 dart 代码来解析这个 JSON 了。
 
 我们需要使用到 **dart:convert**、**dart:io**（标准库的一部分）和 **recase** 包。所有的这些都是为 JSON 解码、文件 I/O 和将 **“wi-day-sunny”** 转换为 **“wiDaySunny”** 所准备的，以便于这些都可以在 flutter 代码中正常使用。
 
