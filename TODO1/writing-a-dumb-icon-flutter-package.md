@@ -13,19 +13,19 @@
 
 和平常一样，**凌晨 3 点**。我在网上搜索高质量的黑色主题包，想分享给一部分人，让他们觉得“**嗯，你真厉害**”。鉴于 GitHub 是新的社交媒体，我偶然发现了一个 **“CSS”** 库，我们学校最棒的一个程序员都曾给它点过赞（starred）。心想 **“不妨深入地研究一下，看看这些字体是如何制作的。”**
 
-在浏览了几分钟资源文件夹中的文件后，我回想起有一次，我使用了一个名为 [**EvaIcons.**](https://pub.dev/packages/eva_icons_flutter) 的开源图标包。我访问了该包的 GitHub 地址，并开始阅读它的源码。和其他复杂的 flutter 包不同的是，这个 package 的结构相当简单。问题是，我应该看一个关于如何从 CSS 创建**字体/图标**并将其移植到 flutter 的教程吗？还是说我应该直接使用它，然后移植一小段代码看看是否有效?
+在浏览了几分钟资源文件夹中的文件后，我回想起有一次，我使用了一个名为 [**EvaIcons**](https://pub.dev/packages/eva_icons_flutter) 的开源图标包。我访问了该包的 GitHub 地址，并开始阅读它的源码。和其他复杂的 flutter 包不同的是，这个 package 的结构相当简单。问题是，我应该看一个关于如何从 CSS 创建**字体/图标**并将其移植到 flutter 的教程吗？还是说我应该直接使用它，然后移植一小段代码看看是否有效?
 
 ## 开始 🏁
 
-你需要做的第一件事就是找到一个包含 **“.ttf”** 文件的开源图标库。**那“.ttf“是什么文件？**
+你需要做的第一件事就是找到一个包含 **“.ttf”** 文件的开源图标库。**那 “.ttf” 是什么文件？**
 
-> **TTF** 文件是由苹果公司创建的一种字体文件格式，但可以同时运行在 Macintosh 和 Windows 平台上。它可以调整到任何大小并且不会失真，而且打印出来的效果和在屏幕上显示的看起来是一样的。**TrueType** 字体是 Mac OS X 和Windows 上最常用的字体格式。我不知道其他类似的格式如 **“.svg”, “.eot” 或者 “woff”** 是否都可以使用。
+> **TTF** 文件是由苹果公司创建的一种字体文件格式，但可以同时运行在 Macintosh 和 Windows 平台上。它可以调整到任何大小并且不会失真，而且打印出来的效果和在屏幕上显示的看起来是一样的。**TrueType** 字体是 Mac OS X 和 Windows 上最常用的字体格式。我不知道其他类似的格式如 **“.svg”, “.eot” 或者 “.woff”** 是否都可以使用。
 
 我在 GitHub 上发现了一个名为 [weather-icons](https://github.com/erikflowers/weather-icons) 开源 CSS 图标库。这是一个包含了 **222 个精美天气主题的图标库**。
 
 ## Flutter 包 📦
 
-是时候来创建一个 flutter package 了。我们可以通过使用 Android Studio 这种**老套**而又略显**笨拙**的方法来创建一个package，或者执行下面这个非常酷的命令。
+是时候来创建一个 flutter package 了。我们可以通过使用 Android Studio 这种**老套**而又略显**笨拙**的方法来创建一个 package，或者执行下面这个非常酷的命令。
 
 ```bash
 flutter create --template=package your_awesome_package_name
