@@ -15,14 +15,14 @@
 
 在企业环境中，创建 mock 服务有时候也叫服务虚拟化。服务虚拟化通常与昂贵的企业级工具有关，但你并不需要昂贵的工具来 mock 服务。[Mountebank](http://www.mbtest.org/)是一个免费并开源的服务 mock 工具。你可以用它 mock HTTP 服务，包括 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) 和 [SOAP](https://en.wikipedia.org/wiki/SOAP) 服务。你还可以用它 mock [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol) 或 [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) 请求。
 
-  在本教程中，你将使用 [Node.js](https://nodejs.org/en/about/) 和 Mountebank 搭建两个灵活的服务 mock 程序。它们都将监听一个特定的端口的 HTTP REST 请求。除了这个简单的 mock 行为之外，这个服务还将从 [**逗号分隔值** (CSV) 文件](https://en.wikipedia.org/wiki/Comma-separated_values)中获取 mock 数据。完成教程后，你将能 mock 各种各样的服务行为，更轻松地开发和测试程序。
+在本教程中，你将使用 [Node.js](https://nodejs.org/en/about/) 和 Mountebank 搭建两个灵活的服务 mock 程序。它们都将监听一个特定的端口的 HTTP REST 请求。除了这个简单的 mock 行为之外，这个服务还将从 [**逗号分隔值** (CSV) 文件](https://en.wikipedia.org/wiki/Comma-separated_values)中获取 mock 数据。完成教程后，你将能 mock 各种各样的服务行为，更轻松地开发和测试程序。
 
 ### 前提
 
 为了学习本教程，你需要：
 
 - 在你的机器上安装 8.10.0 及以上版本的 Node.js。本教程将使用 8.10.0 版。要安装 Node.js，请查看[如何在 Ubuntu 18.04 上安装 Node.js](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) 或 [如何在 macOS 上安装 Node.js 和创建本地开发环境](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos)。
-- 发送 HTTP 请求的工具，比如 [cURL](https://curl.haxx.se/) 或 [Postman](https://www.getpostman.com/)。本教程将使用 cURL，因为大多数机器上都默认安装了它；如果你的机器上没有 cURL, 请看看这个[安装文档](https://curl.haxx.se/docs/install.html)。
+- 发送 HTTP 请求的工具，比如 [cURL](https://curl.haxx.se/) 或 [Postman](https://www.getpostman.com/)。本教程将使用 cURL，因为大多数机器上都默认安装了它；如果你的机器上没有 cURL，请看看这个[安装文档](https://curl.haxx.se/docs/install.html)。
 
 ### 第 1 步 —— 启动 Node.js 程序
 
@@ -528,7 +528,7 @@ function addService() {
 module.exports = { addService };
 ```
 
-这段代码定义了一个服务 mock，它寻找 URL 格式为`customers/<id>`的 `GET` 请求。当收到一个请求时，它将在 URL 上查询顾客的 `id`，并从 CSV 文件里返回相应的记录。
+这段代码定义了一个服务 mock，它寻找 URL 格式为 `customers/<id>` 的 `GET` 请求。当收到一个请求时，它将在 URL 上查询顾客的 `id`，并从 CSV 文件里返回相应的记录。
 
 相比上一步创建的 `hello` 服务，这段代码使用了更多的 Mountebank 功能。首先，它用了 Mountebank 的 [*behaviors*](http://www.mbtest.org/docs/mentalModel)。行为是一种为 stub 添加功能的方式。这个例子中，你正在使用 `lookup` 行为来查询 CSV 文件中的一条记录：
 
@@ -607,7 +607,7 @@ mbServerInstance.then(function() {
 
 保存并关闭文件。
 
-现在使用 `npm start` 启动 Mountebank. 这将隐藏提示符，因此打开另一个终端窗口。通过发送 `GET` 请求至 `localhost:5002/customers/3` 来测试你的服务。这将查找 `id` = `3` 的用户信息。
+现在使用 `npm start` 启动 Mountebank。这将隐藏提示符，因此打开另一个终端窗口。通过发送 `GET` 请求至 `localhost:5002/customers/3` 来测试你的服务。这将查找 `id=3` 的用户信息。
 
 ```bash
 curl localhost:5002/customers/3
