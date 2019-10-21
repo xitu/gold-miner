@@ -427,7 +427,6 @@ Output{"message": "hello world"}
 
 此步骤中，你创建了你的第一个 mock 服务。这是一个对 `GET` 请求响应 `hello world` 测试 mock。这个 mock 主要是为了展示而创建的；实际上，即使不用它，你通过构建一个小型 Express 程序能达到同样的结果。下一步中，你将创建一个更加复杂的 mock，它利用了一些 Mountebank 的功能。
 
-### Step 6 --- Building a Data-Backed Mock Service
 ### 第 6 步 —— 构建一个数据驱动的 mock 服务
 
 尽管你在上一步创建的服务类型足以应付一些场景，绝大多数的测试需要更复杂的响应。此步骤中，你将创建一个服务，它使用 URL 中的参数查询 CSV 文件中的一条记录。
