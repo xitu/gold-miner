@@ -87,7 +87,7 @@ Flexbox defense 是一款小游戏，您将在其中使用弹性布局阻止传�
 ## 需要更多的帮助？
 
 [Wes Boss 创建了 20 个免费视频](https://flexbox.io/#/)帮助您学习弹性布局，并且您也可以查看这篇文章[用一些 gif 动画解释弹性布局](https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35).  
-这是针对弹性布局的，稍后请参见第二部分格栅布局。
+这是针对弹性布局的，稍后请参见第二部分网格布局。
 
 您是否正在为网站或移动应用程序寻找 UX 或 UI 设计师？如果您想邀请我参加您的会议，或只是想了解更多关于我的信息？您可以查看[我的作品](https://stephaniewalter.design/#work)、[与我联系](#contact)。
 
