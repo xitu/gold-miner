@@ -9,20 +9,20 @@
 
 ## 前言
 
-复杂的[面向服务架构（SOA）](https://en.wikipedia.org/wiki/Service-oriented_architecture)程序中，通常需要调用多个服务来运行一个完整的工作流。尽管一切服务就绪时没有问题，但如果你的代码依赖一个正在开发的服务，你不得不等待其它团队完成任务之后才能开始工作。此外，你可能需要使用外部供应商的服务，比如天气 API 或者记录系统。供应商通常不会提供足够的环境供你使用，控制他们系统的测试数据也不容易。面对这些未完成的和没有控制权的服务，代码测试让人感到沮丧。
+复杂的[面向服务架构（SOA）](https://en.wikipedia.org/wiki/Service-oriented_architecture)程序中，通常需要调用多个服务来运行一个完整的工作流。尽管一切服务就绪时没有问题，但如果你的代码依赖一个正在开发的服务，你就不得不等待其它团队完成任务之后才能开始工作。此外，你可能需要使用外部供应商的服务，比如天气 API 或者记录系统。供应商通常不会提供足够的环境供你使用，控制他们系统的测试数据也不容易。面对这些未完成的和没有控制权的服务，代码测试让人感到沮丧。
 
 解决这些问题的办法是创建一个 **服务 mock**。服务 mock 用于模拟最终产品中提供的服务，但相对真正的服务而言更加轻量、简单且易于控制。你可以设置 mock 服务的响应的默认值，或者设置返回特定的测试数据，然后就可以运行你想要测试的程序，就像所依赖的服务已经就绪了一样。如此一来，灵活的 mock 服务使你的工作流更加迅速高效。
 
 在企业环境中，创建 mock 服务有时候也叫服务虚拟化。服务虚拟化通常与昂贵的企业级工具有关，但你并不需要昂贵的工具来 mock 服务。[Mountebank](http://www.mbtest.org/)是一个免费并开源的服务 mock 工具。你可以用它 mock HTTP 服务，包括 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) 和 [SOAP](https://en.wikipedia.org/wiki/SOAP) 服务。你还可以用它 mock [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol) 或 [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) 请求。
 
-在本教程中，你将使用 [Node.js](https://nodejs.org/en/about/) 和 Mountebank 搭建两个灵活的服务 mock 程序。它们都将监听一个特定的端口的 HTTP REST 请求。除了这个简单的 mock 行为之外，这个服务还将从 [*逗号分隔值* (CSV) 文件](https://en.wikipedia.org/wiki/Comma-separated_values)中获取 mock 数据。完成教程后，你将能 mock 各种各样的服务行为，更轻松地开发和测试程序。
+  在本教程中，你将使用 [Node.js](https://nodejs.org/en/about/) 和 Mountebank 搭建两个灵活的服务 mock 程序。它们都将监听一个特定的端口的 HTTP REST 请求。除了这个简单的 mock 行为之外，这个服务还将从 [**逗号分隔值** (CSV) 文件](https://en.wikipedia.org/wiki/Comma-separated_values)中获取 mock 数据。完成教程后，你将能 mock 各种各样的服务行为，更轻松地开发和测试程序。
 
 ### 前提
 
 为了学习本教程，你需要：
 
 - 在你的机器上安装 8.10.0 及以上版本的 Node.js。本教程将使用 8.10.0 版。要安装 Node.js，请查看[如何在 Ubuntu 18.04 上安装 Node.js](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) 或 [如何在 macOS 上安装 Node.js 和创建本地开发环境](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos)。
-- 发送 HTTP 请求的工具，比如 [cURL](https://curl.haxx.se/) 或 [Postman](https://www.getpostman.com/)。本教程将使用 cURL，因为它默认安装在大多数机器上；如果你的机器上没有 cURL, 请看看这个[安装文档](https://curl.haxx.se/docs/install.html)。
+- 发送 HTTP 请求的工具，比如 [cURL](https://curl.haxx.se/) 或 [Postman](https://www.getpostman.com/)。本教程将使用 cURL，因为大多数机器上都默认安装了它；如果你的机器上没有 cURL, 请看看这个[安装文档](https://curl.haxx.se/docs/install.html)。
 
 ### 第 1 步 —— 启动 Node.js 程序
 
@@ -30,7 +30,7 @@
 
 请注意：你可以使用命令 `npm install -g mountebank` 全局安装 Mountebank ，将其作为独立的应用程序。然后你可以使用 `mb` 命令运行它，并用 REST 请求添加 mock。
 
-虽然这是运行 Mountebank 的最快方法，自行构建的 Mountebank 程序可以在启动时运行一系列的预定义 mock，而这些又可以被保存在源码管理中并与团队共享。本教程将会手动构建有这种优点的 Mountebank 程序。
+虽然这是运行 Mountebank 的最快方法，但是自己搭建的 Mountebank 程序可以在启动时运行一系列的预定义 mock，而这些又可以被保存在源码管理中并与团队共享。本教程将会手动构建有这种优点的 Mountebank 程序。
 
 首先，创建一个新目录保存你的程序。你可以根据需要命名，但在本教程中我们将它命名为 `app`：
 
@@ -91,7 +91,7 @@ nano package.json
 }
 ```
 
-通过创建你的程序，安装 Mountebank 并添加一个启动脚本，你现在拥有了 Mountebank 程序的基础。接下来，你将添加一个配置文件，来保存程序特定的设置。
+通过创建你的程序、安装 Mountebank、添加一个启动脚本，你现在拥有了 Mountebank 程序的基础。接下来，你将添加一个配置文件，来保存程序特定的设置。
 
 ### 第 2 步 —— 创建配置文件
 
@@ -158,7 +158,7 @@ const mbServerInstance = mb.create({
 
 这段代码做了三件事。首先，它导入了你之前安装的 Mountebank npm 软件包（`const mb = require('mountebank');`）。接着，它导入了你在上一步创建的配置模块（`const settings = require('./settings');`）。最后，它使用 `mb.create()` 创建了一个 Moutebank 服务器实例。
 
-这个服务器将会监听配置文件中指定的端口，文件中的 `pidfile`，`logfile` 和 `protofile` 参数用于 Mountebank 内部记录它的进程 ID，指定日志位置，和设置加载自定义协议实现的文件。`ipWhitelist` 设置指定了允许与 Moutebank 服务器通信的 IP 地址。在这个例子中，你将允许所有 IP 地址。
+这个服务器将会监听配置文件中指定的端口，文件中的 `pidfile`，`logfile` 和 `protofile` 参数用于 Mountebank 内部记录它的进程 ID、指定日志位置、设置加载自定义协议实现的文件。`ipWhitelist` 设置指定了允许与 Moutebank 服务器通信的 IP 地址。在这个例子中，你将允许所有 IP 地址。
 
 保存并关闭文件。
 
@@ -255,7 +255,7 @@ module.exports = { postImposter };
 
 在之前的步骤中，你构建了一个程序，创建 Mountebank 服务器并编写了请求服务器的代码。现在是时候使用这些代码来构建一个 imposter，即 mock 服务。
 
-在 Mountebank 中，每个 imposter 包含了 [*stubs*](http://www.mbtest.org/docs/mentalModel)。Stubs 是决定 imposter 返回内容的配置集合。Stubs 可以被细分成多个 [*断言*和*响应*](http://www.mbtest.org/docs/mentalModel) 的组合。断言是触发 imposter 响应的规则。断言可以使用许多不同类型的信息，包括了 URL，请求内容（使用 XML 或 JSON），以及 HTTP 方法。
+在 Mountebank 中，每个 imposter 包含了 [*stubs*](http://www.mbtest.org/docs/mentalModel)。Stubs 是决定 imposter 返回内容的配置集合。Stubs 可以被细分成多个 [**断言**和**响应**](http://www.mbtest.org/docs/mentalModel) 的组合。断言是触发 imposter 响应的规则。断言可以使用许多不同类型的信息，包括了 URL，请求内容（使用 XML 或 JSON），以及 HTTP 方法。
 
 从[模型 - 视图 - 控制器（MVC）](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)程序的角度来看，imposter 像控制器而 stubs 像控制器中的行为。断言则是指向特定控制器的行为的路由规则。
 
