@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/algebraic-effects-for-the-rest-of-us.md](https://github.com/xitu/gold-miner/blob/master/TODO1/algebraic-effects-for-the-rest-of-us.md)
 > * 译者：[TiaossuP](https://github.com/TiaossuP)
-> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)、[Baddyo](https://github.com/Baddyo)
 
-# 写给我们每个人的代数效应入门
+# 写给咱们大众的代数效应入门
 
 你听说过**代数效应（Algebraic Effects）**么？
 
