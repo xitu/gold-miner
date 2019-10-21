@@ -5,7 +5,7 @@
 > * 译者：[TiaossuP](https://github.com/TiaossuP)
 > * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)、[Baddyo](https://github.com/Baddyo)
 
-# 写给咱们大众的代数效应入门
+# 写给大家的代数效应入门
 
 你听说过**代数效应（Algebraic Effects）**么？
 
