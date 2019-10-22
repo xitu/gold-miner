@@ -5,7 +5,7 @@
 > - 译者：[司徒公子](https://github.com/todaycoder001)
 > - 校对者：[秦圆圆](https://github.com/scarqin)、[孙不服](https://github.com/sunbufu)
 
-# 如何计划你的一天 - 这里有一份攻略请查收
+# 如何计划你的一天 —— 这里有一份攻略请查收
 
 #### 在忙碌的日子里消除焦虑和不知所措
 
