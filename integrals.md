@@ -2839,10 +2839,11 @@
 |[如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a)|翻译|8|
 |[Pull request review 的十大错误](https://juejin.im/post/58ce3b3e61ff4b006c988f63)|校对|1|
 
-## 译者：[sunui](https://github.com/sunui) 历史贡献积分：137.5 当前积分：27.5 二零一九：28.5
+## 译者：[sunui](https://github.com/sunui) 历史贡献积分：139.5 当前积分：29.5 二零一九：30.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[愿未来没有 Webpack](https://juejin.im/post/5d4bcdb7e51d453b386a62c6)|校对|2|
 |[使用 Node.js 读取超大的文件（第一部分）](https://juejin.im/post/5d3c27ccf265da1b8d1665ba)|校对|1.5|
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|校对|1.5|
 |[Node.js 提供百万的活跃 WebSocket 连接](https://juejin.im/post/5cbeb2f45188250ab65f1d0c)|校对|1.5|
@@ -2962,10 +2963,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：382 当前积分：316 二零一九：87
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：384 当前积分：318 二零一九：89
 
 |文章|类型|积分|
 |------|-------|-------|
+|[人工智能何以留存](https://juejin.im/post/5d4c1155e51d4562061159d1)|校对|2|
 |[XGBoost 算法万岁！](https://juejin.im/post/5d484040e51d4561f95ee9de)|翻译|4|
 |[在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204)|翻译|3|
 |[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|校对|6.5|
@@ -5669,10 +5671,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：120 当前积分：20 二零一九：14.5
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：125 当前积分：25 二零一九：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Keras 训练目标检测模型](https://juejin.im/post/5d4bb1db6fb9a06add4e18b6)|校对|5|
 |[时间序列数据间量化同步的四种方法](https://juejin.im/post/5d213c126fb9a07f091bc3f5)|校对|1.5|
 |[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|校对|4|
 |[Python 架构相关：我们需要更多吗？](https://juejin.im/post/5cd1db8c51882535b323a3c7)|校对|1|
@@ -5919,10 +5922,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：184 当前积分：164 二零一九：102
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：197 当前积分：177 二零一九：115
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Keras 训练目标检测模型](https://juejin.im/post/5d4bb1db6fb9a06add4e18b6)|翻译|13|
 |[Web 端的 SwiftUI：SwiftWebUI](https://juejin.im/post/5d35e0ac5188257dc103e364)|翻译|6|
 |[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|翻译|6|
 |[时间序列数据间量化同步的四种方法](https://juejin.im/post/5d213c126fb9a07f091bc3f5)|翻译|4|
@@ -7079,10 +7083,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：63 当前积分：28 二零一九：34
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：67 当前积分：32 二零一九：38
 
 |文章|类型|积分|
 |------|-------|-------|
+|[人工智能何以留存](https://juejin.im/post/5d4c1155e51d4562061159d1)|翻译|4|
 |[前端 vs 后端：哪一个适合你？](https://juejin.im/post/5d36b5e3f265da1bd3059a21)|翻译|3.5|
 |[使用 SVG 和 Vue.Js 构建动态树图](https://juejin.im/post/5d2806fb518825121c0058d8)|翻译|6|
 |[在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c)|翻译|3|
@@ -7168,10 +7173,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：41 当前积分：31 二零一九：18
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：43 当前积分：33 二零一九：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[人工智能何以留存](https://juejin.im/post/5d4c1155e51d4562061159d1)|校对|2|
 |[由浅入深理解主成分分析](https://juejin.im/post/5d41321df265da03c926d65a)|校对|2|
 |[在 Python 中过度使用列表解析器和生成表达式](https://juejin.im/post/5d281b0ff265da1b8b2b8ae0)|校对|1.5|
 |[在机器学习中为什么要进行 One-Hot 编码？](https://juejin.im/post/5d15840e5188255c23553204)|校对|1|
@@ -8760,10 +8766,11 @@
 |[在数据可视化中，我们曾经“画”下的那些错误](https://juejin.im/post/5cd39e1de51d453a3a0acb7b)|校对|1.5|
 |[使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)|校对|1.5|
 
-## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：128 当前积分：128 二零一九：128
+## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：133 当前积分：133 二零一九：133
 
 |文章|类型|积分|
 |------|-------|-------|
+|[愿未来没有 Webpack](https://juejin.im/post/5d4bcdb7e51d453b386a62c6)|翻译|5|
 |[元设计师的崛起](https://juejin.im/post/5d4919e5f265da03a1484008)|翻译|5|
 |[Web 组件的问题](https://juejin.im/post/5d42aec96fb9a06ae94d1146)|校对|3|
 |[通过阅读源码提高您的 JavaScript 水平](https://juejin.im/post/5d3c56c26fb9a07efd475414)|校对|3.5|
@@ -8961,10 +8968,12 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：53.5 当前积分：53.5 二零一九：53.5
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：66.5 当前积分：66.5 二零一九：66.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[可靠地运维一个大型分布式系统：我的学习实践](https://juejin.im/post/5d567cd4e51d4561e224a324)|校对|5|
+|[利用 84 种认知偏见设计更好的产品 —— 第三部分](https://juejin.im/post/5d568c9ce51d453bc64801cd)|翻译|8|
 |推荐[后端文章](https://github.com/xitu/gold-miner/issues/6340)|奖励|1|
 |推荐[后端文章](https://github.com/xitu/gold-miner/issues/6339)|奖励|1|
 |推荐[后端文章](https://github.com/xitu/gold-miner/issues/6275)|奖励|1|
@@ -9019,10 +9028,11 @@
 |[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|翻译|7|
 |[微前端：未来前端开发的新趋势 — 第一部分](https://juejin.im/post/5d0e367b6fb9a07ebf4b781a)|翻译|4|
 
-## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：24 当前积分：24 二零一九：24
+## 译者：[MarchYuanx](https://github.com/MarchYuanx) 历史贡献积分：26 当前积分：26 二零一九：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|[愿未来没有 Webpack](https://juejin.im/post/5d4bcdb7e51d453b386a62c6)|校对|2|
 |[逆向工程，如何在 JavaScript 中打造一个测试库](https://juejin.im/post/5d491b4af265da03ce39bfa4)|校对|1|
 |[postMessage 很慢吗?](https://juejin.im/post/5d423cc4f265da03bf0f2159)|校对|4|
 |[通过阅读源码提高您的 JavaScript 水平](https://juejin.im/post/5d3c56c26fb9a07efd475414)|翻译|5|
@@ -9102,10 +9112,11 @@
 |[Kotlin Clean 架构](https://juejin.im/post/5d33e13be51d4555fd20a41b)|翻译|3|
 |[Xcode 和 LLDB 高级调试教程：第 2 部分](https://juejin.im/post/5d2321eee51d454f71439d64)|校对|1.5|
 
-## 译者：[shinichi4849](https://github.com/shinichi4849) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
+## 译者：[shinichi4849](https://github.com/shinichi4849) 历史贡献积分：8.5 当前积分：8.5 二零一九：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 84 种认知偏见设计更好的产品 —— 第三部分](https://juejin.im/post/5d568c9ce51d453bc64801cd)|校对|3|
 |[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://juejin.im/post/5d37e1816fb9a07ee1696a4e)|校对|2|
 |[设计任何图表的六项原则](https://juejin.im/post/5d27fca7f265da1b5e731f92)|校对|1|
 |[利用 84 种认知偏见设计更好的产品 —— 第一部分](https://juejin.im/post/5d2acf995188254c1915bd12)|校对|2.5|
@@ -9131,10 +9142,12 @@
 |[Kotlin Clean 架构](https://juejin.im/post/5d33e13be51d4555fd20a41b)|校对|1|
 |[从 Reddit 讨论中看到的 GraphQL 现状](https://juejin.im/post/5d380909e51d4510624f98a0)|校对|1.5|
 
-## 译者：[Ultrasteve](https://github.com/Ultrasteve) 历史贡献积分：19.5 当前积分：19.5 二零一九：19.5
+## 译者：[Ultrasteve](https://github.com/Ultrasteve) 历史贡献积分：28.5 当前积分：28.5 二零一九：28.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[可靠地运维一个大型分布式系统：我的学习实践](https://juejin.im/post/5d567cd4e51d4561e224a324)|校对|4|
+|[如何使用 Keras 训练目标检测模型](https://juejin.im/post/5d4bb1db6fb9a06add4e18b6)|校对|5|
 |[XGBoost 算法万岁！](https://juejin.im/post/5d484040e51d4561f95ee9de)|校对|2|
 |[数据分片是如何在分布式 SQL 数据库中起作用的](https://juejin.im/post/5d42867a6fb9a06ac76d915d)|翻译|4.5|
 |[什么时候需要进行数据的标准化? 为什么？](https://juejin.im/post/5d41a46bf265da03d727f85d)|翻译|3.5|
@@ -9142,10 +9155,11 @@
 |[作为初级开发人员，我没有学过的 7 个绝对真理](https://juejin.im/post/5d3d25dce51d457756536881)|校对|2|
 |[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 
-## 译者：[Pingren](https://github.com/Pingren) 历史贡献积分：10.5 当前积分：10.5 二零一九：10.5
+## 译者：[Pingren](https://github.com/Pingren) 历史贡献积分：22.5 当前积分：22.5 二零一九：22.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[可靠地运维一个大型分布式系统：我的学习实践](https://juejin.im/post/5d567cd4e51d4561e224a324)|翻译|12|
 |[响应式设计的基本原则](https://juejin.im/post/5d2ed18af265da1ba56b5374)|翻译|4|
 |[Web 端的 SwiftUI：SwiftWebUI](https://juejin.im/post/5d35e0ac5188257dc103e364)|校对|2.5|
 |[仅使用 HTML 和 CSS 创建多级嵌套弹出式导航菜单](https://juejin.im/post/5d3c2852f265da1bac405fae)|校对|4|
@@ -9197,4 +9211,13 @@
 
 
 ## 译者：[Fxy4ever](https://github.com/Fxy4ever) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
 |[Android 应用程序的订阅 101 系列视频](https://juejin.im/post/5d490c9ae51d4561e224a2cb)|翻译|3|
+
+## 译者：[IT-rosalyn](https://github.com/IT-rosalyn) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[利用 84 种认知偏见设计更好的产品 —— 第三部分](https://juejin.im/post/5d568c9ce51d453bc64801cd)|校对|3|
