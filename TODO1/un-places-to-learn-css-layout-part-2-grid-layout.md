@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/un-places-to-learn-css-layout-part-2-grid-layout.md](https://github.com/xitu/gold-miner/blob/master/TODO1/un-places-to-learn-css-layout-part-2-grid-layout.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[Alfxjx](https://github.com/Alfxjx)，[sleepingxixi](https://github.com/sleepingxixi)
 
 # 趣味学习 CSS 布局 —— 第二部分：网格布局
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/places-learn-css-grid.jpg)
 
-两年前（天呐原来已经过去两年了！）我曾经写过一份关于[趣味学习 CSS 布局 —— 第一部分：弹性盒](https://stephaniewalter.design/blog/fun-places-learn-css-layout-part-1-flexbox/)的短篇文章。实话说，我很早之前就想写一写关于网格布局的第二部分，但是一直没有时间落实这个想法。我第一次谈论到网格布局是在六年前（又一次想感叹，天呐！）即 2013 年的一篇文章中：[响应式网页设计现状](https://www.smashingmagazine.com/2013/05/the-state-of-responsive-web-design/)。该设计准则那时第一次吸引了我的注意，但是它那时候还并不完善。
+两年前（天呐原来已经过去两年了！）我曾经写过一份关于[趣味学习 CSS 布局 —— 第一部分：弹性盒](https://stephaniewalter.design/blog/fun-places-learn-css-layout-part-1-flexbox/)的短篇文章。实话说，我很早之前就想写一写关于网格布局的第二部分，但是一直没有时间落实这个想法。我第一次谈论到网格布局是在六年前（又一次想感叹，天呐！）即 2013 年的一篇文章中：[响应式网页设计现状](https://www.smashingmagazine.com/2013/05/the-state-of-responsive-web-design/)。该设计准则从那时候开始就吸引了我的注意，但是它当时还并不完善。
 
 从那以后，前端发生了很多变化，现在[大部分主流浏览器都支持网格布局了](https://caniuse.com/#feat=css-grid)。说到网格布局标准，归功于 [Rachel Andrew](https://rachelandrew.co.uk/) 和 [Jen Simmons](https://jensimmons.com/) 真是实至名归！网格布局是一个相当优秀的 CSS 属性集合，它让你可以使用行、列来确定一个网站网格布局系统，并依照此系统放置元素。很酷吧？
 
-如果你习惯使用老方法：float，这种语法对于你可能会有些复杂，所以有很多有趣的网站、教程以及沙箱网站来帮助你学习并掌握网格布局的一切内容。请享受这个过程吧！
+如果你习惯使用老方法：float，那么这种语法对于你可能会有些复杂，所以有很多有趣的网站、教程以及沙箱网站来帮助你学习并掌握网格布局的一切内容。请享受这个过程吧！
 
 > 法语版文章地址：**[Apprendre le positionnement en s’amusant – Partie 2 : Grid Layout](https://www.creativejuiz.fr/blog/css-css3/apprendre-le-positionnement-en-samusant-partie-2-grid-layout)**
 
@@ -21,7 +21,7 @@
 
 ### [Grid Garden](http://cssgridgarden.com/)
 
-在这个有意思的游戏中，你要使用一些 CSS 网格布局属性来浇灌并照顾你的花园。游戏的每个级别都会对不同的属性作出解释，你可以使用它们来提升等级。
+在这个有意思的游戏中，你要使用一些 CSS 网格布局属性来浇灌并照顾你的花园。游戏的每个关卡都会对不同的属性作出解释，你可以使用它们来提升等级。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/grid-garden.jpg)
 
@@ -41,7 +41,7 @@
 
 有时候学习的最好方法是在浏览器里直接玩一玩代码和属性。这些可视化的游戏场工具能让你使用网格搭建内容或者随意玩一玩，以此帮你掌握它。
 
-### [Grid by example](https://gridbyexample.com/examples/)
+### [常见网格布局实例](https://gridbyexample.com/examples/)
 
 还有什么学习方法能比实际查看代码原理更好呢？这个网站（网站策划是 [Rachel Andrew](https://rachelandrew.co.uk/)）是一个非常棒的实例库，解释了如何使用 CSS 网格布局构建不同的布局。
 
@@ -67,7 +67,7 @@
 
 ## CSS 网格布局备忘录
 
-### [CSS 魔法：网格布局完整版教程](https://css-tricks.com/snippets/css/complete-guide-grid/#grid-table-of-contents)
+### [CSS 技巧：网格布局指南大全](https://css-tricks.com/snippets/css/complete-guide-grid/#grid-table-of-contents)
 
 这是一份很详细的介绍，同时也是一份很实用的备忘录，[CSS Tricks](https://css-tricks.com) 页面包括了所有网格属性。
 
@@ -95,7 +95,7 @@
 
 ![![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-jen-lukas.jpg)](https://www.youtube.com/watch?v=FwiSbmyNQ18)
 
-### [Layout Land 频道 —— CSS 网格视屏](https://www.youtube.com/playlist?list=PLbSquHt1VCf1x_-1ytlVMT0AMwADlWtc1)
+### [Layout Land 频道 —— CSS 网格布局视频教程](https://www.youtube.com/playlist?list=PLbSquHt1VCf1x_-1ytlVMT0AMwADlWtc1)
 
 这是一个来自 youtube Layout Land 频道的播放单，[Jen Simmons](https://jensimmons.com/) 将会在视频中为你讲解网格布局基础
 
@@ -117,7 +117,7 @@
 * [CSS Grid for Designers](https://open.nytimes.com/css-grid-for-designers-f74a883b98f5) —— 介绍了新技术是如何改变网页布局的
 * [Mozilla has a really cool step by step tutorial on CSS Grid Layout](https://mozilladevelopers.github.io/playground/css-grid)
 
-你是否正在为网页或移动端应用招聘 UX 或者 UI 设计师？你是否愿意在你的招聘会中和我谈谈，或者只是想了解我的更多信息？你可以看看[我的作品集](https://stephaniewalter.design/#work)并[联系我](https://stephaniewalter.design#contact)。
+您是否正在为网页或移动端应用招聘 UX 或者 UI 设计师？您的会议是否需要一个演讲者，或者只是想了解我的更多信息？您可以看看[我的作品集](https://stephaniewalter.design/#work)并[联系我](https://stephaniewalter.design#contact)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
