@@ -93,7 +93,7 @@
 
 在这个有趣的视频里，[Jenn Lukas](http://jennlukas.com/) 将会在一分钟内为你演示如何使用 CSS 网格布局模块来定义行和列。
 
-![![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-jen-lukas.jpg)](https://www.youtube.com/watch?v=FwiSbmyNQ18)
+[![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-jen-lukas.jpg)](https://www.youtube.com/watch?v=FwiSbmyNQ18)
 
 ### [Layout Land 频道 —— CSS 网格布局视频教程](https://www.youtube.com/playlist?list=PLbSquHt1VCf1x_-1ytlVMT0AMwADlWtc1)
 
