@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/git-aliases.md](https://github.com/xitu/gold-miner/blob/master/TODO1/git-aliases.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：[imononoke](https://github.com/imononoke)，[weisiwu](https://github.com/weisiwu)
+> * 校对者：[imononoke](https://github.com/imononoke)，[weisiwu](https://github.com/weisiwu)，[portandbridge](https://github.com/portandbridge)
 
 # 我常用的 Git 别名（因为我实在太懒了）
 
@@ -21,7 +21,7 @@ $ git commit --amend --no-edit
 
 这条命令会把你暂存的修改并入你最近的一次 commit，并且不会修改这次 commit 的信息（这样 Git 也就不会打开一个文件编辑界面了）。它最经常的用途是修改**刚刚**提交的 commit。也许我太粗心了，总是在刚提交完一条 commit 还不到 30 秒，就发现一个拼写错误或者忘了删除了调式信息了 😠。
 
-输入 `git commit --amend --no-edit` 这 28 个字符很快就会让人感到乏味。我现在正着迷于[优化项目](https://victorzhou.com/tag/performance/)（甚至是一些[不成熟的尝试](https://victorzhou.com/blog/avoid-premature-optimization/)🤷），所以某天我就开始花时间思考如何优化我的 git 命令…
+输入 `git commit --amend --no-edit` 这 28 个字符很快就会让人感到乏味。我现在正着迷于[优化项目](https://victorzhou.com/tag/performance/)（甚至是[在还不应该进行优化的时候我就开始行动了](https://victorzhou.com/blog/avoid-premature-optimization/)🤷），所以某天我就开始花时间思考如何优化我的 git 命令…
 
 ## [](#my-git-aliases)我配置的 git 别名
 
