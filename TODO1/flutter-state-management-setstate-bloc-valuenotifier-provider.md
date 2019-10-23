@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-state-management-setstate-bloc-valuenotifier-provider.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-state-management-setstate-bloc-valuenotifier-provider.md)
 > * 译者：[talisk](https://github.com/talisk)
-> * 校对者：
+> * 校对者：[Fxy4ever](https://github.com/Fxy4ever)
 
 # Flutter 的状态管理方案：setState、BLoC、ValueNotifier、Provider
 
@@ -27,7 +27,7 @@
 
 ## 主要导航
 
-登录页面的主要导航是通过 [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html) 实现菜单，在不同项目中选择。
+登录页面的主要导航是通过一个小部件实现的，该小部件使用 [Drawer](https://api.flutter.dev/flutter/material/Drawer-class.html) 菜单在不同选项中进行选择。
 
 ![](https://cdn-images-1.medium.com/max/2700/1*FSD9i9fNx2YkhC-6dyvRmg.png)
 
@@ -95,7 +95,7 @@ class SignInPageVanilla extends StatelessWidget {
       await auth.signInAnonymously();
     } on PlatformException catch (e) {
       await PlatformExceptionAlertDialog(
-        title: 'Sign in failed',
+        title: '登录失败',
         exception: e,
       ).show(context);
     }
@@ -105,7 +105,7 @@ class SignInPageVanilla extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SignInButton(
-        text: 'Sign in',
+        text: '登录',
         onPressed: () => _signInAnonymously(context),
       ),
     );
@@ -150,7 +150,7 @@ class _SignInPageSetStateState extends State<SignInPageSetState> {
       await auth.signInAnonymously();
     } on PlatformException catch (e) {
       await PlatformExceptionAlertDialog(
-        title: 'Sign in failed',
+        title: '登录失败',
         exception: e,
       ).show(context);
     } finally {
@@ -162,7 +162,7 @@ class _SignInPageSetStateState extends State<SignInPageSetState> {
   Widget build(BuildContext context) {
     return Center(
       child: SignInButton(
-        text: 'Sign in',
+        text: '登录',
         loading: _isLoading,
         onPressed: _isLoading ? null : () => _signInAnonymously(),
       ),
@@ -171,7 +171,7 @@ class _SignInPageSetStateState extends State<SignInPageSetState> {
 }
 ```
 
-**重要提示**: 请注意我们如何使用 `[finally](https://dart.dev/guides/language/language-tour#finally)` 闭包。无论是否抛出异常，这都可被用于执行某些代码。
+**重要提示**：请注意我们如何使用 `[finally](https://dart.dev/guides/language/language-tour#finally)` 闭包。无论是否抛出异常，这都可被用于执行某些代码。
 
 ## BLoC
 
@@ -212,7 +212,7 @@ class SignInPageBloc extends StatelessWidget {
       await auth.signInAnonymously();
     } on PlatformException catch (e) {
       await PlatformExceptionAlertDialog(
-        title: 'Sign in failed',
+        title: '登录失败',
         exception: e,
       ).show(context);
     } finally {
@@ -229,7 +229,7 @@ class SignInPageBloc extends StatelessWidget {
         final isLoading = snapshot.data;
         return Center(
           child: SignInButton(
-            text: 'Sign in',
+            text: '登录',
             loading: isLoading,
             onPressed: isLoading ? null : () => _signInAnonymously(context),
           ),
@@ -285,7 +285,7 @@ class SignInPageValueNotifier extends StatelessWidget {
       await auth.signInAnonymously();
     } on PlatformException catch (e) {
       await PlatformExceptionAlertDialog(
-        title: 'Sign in failed',
+        title: '登录失败',
         exception: e,
       ).show(context);
     } finally {
@@ -297,7 +297,7 @@ class SignInPageValueNotifier extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SignInButton(
-        text: 'Sign in',
+        text: '登录',
         loading: loading.value,
         onPressed: loading.value ? null : () => _signInAnonymously(context),
       ),
@@ -351,7 +351,7 @@ class ValueNotifier<T> extends ChangeNotifier implements ValueListenable<T> {
 * 如果在简单值更改时需要重建 widget，请使用 `ValueNotifier`。
 * 如果你想在 `notifyListeners()` 调用时有更多掌控，请使用 `ChangeNotifier`。
 
-## 关于ScopedModel的注意事项
+## 关于 ScopedModel 的注意事项
 
 `ChangeNotifierProvider` 非常类似于 [ScopedModel](https://pub.dev/packages/scoped_model)。实际上，他们之间几乎相同：
 
