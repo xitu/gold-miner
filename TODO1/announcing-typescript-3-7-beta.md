@@ -20,7 +20,7 @@ npm install typescript@beta
 * [下载 Visual Studio 2019/2017](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.typescript-37beta)
 * 请遵循有关 [Visual Studio Code](https://code.visualstudio.com/Docs/languages/typescript#_using-newer-typescript-versions) 和 [Sublime Text](https://github.com/Microsoft/TypeScript-Sublime-Plugin/#note-using-different-versions-of-typescript) 的说明。
 
-TypeScript 3.7 Beta 版包括了一些需求声最高的功能！让我们深入研究一下新功能，从 3.7：可选链（Optional Chaining）开始。
+TypeScript 3.7 Beta 版包括了开发者呼声最高的一些功能！让我们深入研究一下新功能，从 3.7：可选链（Optional Chaining）开始。
 
 ## 可选链（Optional Chaining）
 
@@ -185,7 +185,7 @@ function yell(str) {
 
     return str.toUppercase();
     // 糟糕！我们拼错了 'toUpperCase'。
-    // 如果 TypeScript 仍然抓住了这个错误，那就太好了！
+    // 如果 TypeScript 仍然能捕获了这个错误，那就太好了！
 }
 ```
 
@@ -384,7 +384,7 @@ type Json =
     | Json[];
 ```
 
-这种新的宽松（模式）使我们也可以在元祖中递归引用类型别名。下面这个曾经报错的代码现在是有效的 TypeScript 代码。
+这种新的宽松（模式）使我们也可以在元组中递归引用类型别名。下面这个曾经报错的代码现在是有效的 TypeScript 代码。
 
 ```
 type VirtualNode =
@@ -410,8 +410,8 @@ TypeScript 中的 `--declaration` 标志允许我们从 TypeScript 源文件（�
 
 ```
 /**
- * @调用 Job
- * @返回 {void}
+ * @callback Job
+ * @returns {void}
  */
 
 /** 工作队列 */
@@ -427,7 +427,7 @@ export class Worker {
     }
     /**
      * 在队列中添加一个工作项
-     * @参数 {Job} work 
+     * @param {Job} work 
      */
     push(work) {
         if (this.queue.length + 1 > this.depthLimit) throw new Error("Queue full!");
@@ -440,7 +440,7 @@ export class Worker {
         if (this.started) return false;
         this.started = true;
         while (this.queue.length) {
-            /** @类型 {Job} */(this.queue.shift())();
+            /** @type {Job} */(this.queue.shift())();
         }
         return true;
     }
@@ -451,8 +451,8 @@ export class Worker {
 
 ```
 /**
- * @调用 Job
- * @返回 {void}
+ * @callback Job
+ * @returns {void}
  */
 /** 工作队列 */
 export class Worker {
@@ -466,7 +466,7 @@ export class Worker {
     queue: Job[];
     /**
      * 在队列中添加一个工作项
-     * @参数 {Job} work
+     * @param {Job} work
      */
     push(work: Job): void;
     /**
@@ -479,7 +479,7 @@ export type Job = () => void;
 
 更多的细节，你可以[查看原始的 pull request](https://github.com/microsoft/TypeScript/pull/32372)。
 
-## 使用项目引用进行免生成编辑
+## 使用项目引用进行免构建编辑
 
 TypeScript 的项目引用为我们提供了一种简单的方法来分解代码库，从而使我们可以更快地进行编译。不幸的是，编辑尚未建立依赖关系（或者输出过时）的项目意味着这种编辑体验无法正常工作。
 
@@ -602,7 +602,7 @@ function fn(arg: SomeType) {
 
 ## 下一步
 
-TypeScript 3.7 的最终版本将在 11 月初发布，在那之前的几周将发布候选版本。我们希望您能试用一下 Beta 版，并让我们知道它工作的如何。如果您有任何建议或遇到任何问题，[请不要害怕顺便拜访问题跟踪器并提出新问题](https://github.com/microsoft/TypeScript/issues/new/choose)！
+TypeScript 3.7 的最终版本将在 11 月初发布，在那之前的几周将发布候选版本。我们希望您能试用一下 Beta 版，并让我们知道它工作的如何。如果您有任何建议或遇到任何问题，[请尽情前往问题跟踪页面并提出新问题](https://github.com/microsoft/TypeScript/issues/new/choose)！
 
 Happy Hacking!
 
