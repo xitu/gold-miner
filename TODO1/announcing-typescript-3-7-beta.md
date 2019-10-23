@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md](https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：[药王](https://github.com/ArcherGrey)
+> * 校对者：[药王](https://github.com/ArcherGrey), [TiaossuP](https://github.com/TiaossuP)
 
 # TypeScript 3.7 Beta 版发布
 
