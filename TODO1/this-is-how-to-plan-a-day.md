@@ -1,109 +1,110 @@
-> * 原文地址：[This Is How To Plan A Day.](https://medium.com/swlh/this-is-how-to-plan-a-day-94dc24135e1f)
-> * 原文作者：[Deb Knobelman, PhD](https://medium.com/@knobelman)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-how-to-plan-a-day.md](https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-how-to-plan-a-day.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[This Is How To Plan A Day.](https://medium.com/swlh/this-is-how-to-plan-a-day-94dc24135e1f)
+> - 原文作者：[Deb Knobelman, PhD](https://medium.com/@knobelman)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-how-to-plan-a-day.md](https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-how-to-plan-a-day.md)
+> - 译者：[司徒公子](https://github.com/todaycoder001)
+> - 校对者：[秦圆圆](https://github.com/scarqin)、[孙不服](https://github.com/sunbufu)
 
-# This Is How To Plan A Day.
+# 如何计划你的一天 —— 这里有一份攻略请查收
 
-#### Banish anxiety and overwhelm on busy days
+#### 在忙碌的日子里消除焦虑和不知所措
 
-![Photo by [Oli Dale](https://unsplash.com/photos/xjSkI_seiZY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/organize?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10944/1*QLClbdbO5MP43_wx_zTlbA.jpeg)
+![Photo by Oli Dale](https://i.loli.net/2019/10/19/WvsN7wTARugKM2t.jpg)
 
-I am going out of town with my family tomorrow.
+明天我要和我的家人出城。
 
-I have a lot to get done before we step on the plane.
+在上飞机之前，我还有许多事情要完成。
 
-I woke up with my mind spinning on repeat: work, write, errands, kids, meals, cleaning, dog. All the things I want or need to do today. Over and over. I knew I was overwhelmed by this day.
+我醒来时脑子里重复着：工作、写作、差事、小孩、三餐、打扫、小狗，这些是我今天想要或需要做的所有事情。一遍又一遍，我知道我被这一天压垮了。
 
-So I planned it out.
+所以我需要把它们计划好。
 
-And now I know, I have 1 1/2 hours to write this morning. Plus a cushion later tonight to re-read and edit. And I know exactly when I am doing all my other tasks. And which nagging little activities don’t really need to get done today.
+现在我知道，我今天早上有一个半小时来写作。同时晚些时候给重读和编辑预留了机动时间。我准确地知道什么时间该做什么事情，而且，那些琐碎的小事情完全不必今天做完
 
-The best part of planning the day is that **I am not wasting time with anxiety about when I will get it all done**. Because I already know.
+计划中最好的一部分是：**我不会带有焦虑地浪费任何时间去担心—我到底什么时间才能把这些做完**，因为我已经知道了。
 
-Here is how I do it:
+这是我的方法：
 
-#### Make a List
+#### 做一个列表
 
-I wrote down all the crazy things that were in my head. It actually wasn’t as much as I thought. When you think of the same things over and over, it feels like the tornado from the Wizard of Oz. When you write them down on a piece of paper, you realize the volume of your to-do’s amounts to a strong breeze.
+我写下了脑海中所有疯狂的东西，实际上不像我想的那么多。当你一遍又一遍的思考同样的事情，感觉就像是《绿野仙踪》中的龙卷风。当你把这些写下来的时候，十二级龙卷风就变成了六级强风。
 
-Here’s the kicker: **the list only took me a minute or two.**
+这是关键：**清单只花了我一两分钟的时间。**
 
-I did come back to it a few minutes later to make sure I didn’t miss anything. But making the list takes no time at all. Because it was right on the tip of my brain already.
+几分钟后我确实回来了，以确保我没有漏掉任何事情。但是列出清单根本不会花费什么时间，因为它已经记在我的脑海中了。
 
-#### Decide How Long Each Thing Takes
+#### 判断每件事情会花费多久
 
-Some things on your list will take 15 minutes or less. I group those things together. In my case, its things like putting the mail on hold while we are out of town. Little odds and ends. I will group those things together.
+你列表中的某些事情可能会花费 15 分钟或者更短的时间，我把那些事情放在一起。在我看来，诸如我们外出时邮件搁置之类零星的事情，我将这些归为一类。
 
-Then there are longer things. Writing. Finishing up the last pieces of a consulting project. Those each need at least an hour if not several hours. Because I only have one work project left, I know that I can spend the whole “work” time slot on the one thing, which helps.
+然后还有花费更长的时间的事情，比如写作，完成咨询项目的最后一部分。这些每个不说几个小时，至少花费一个小时。因为只剩下一个项目，我知道我可以将整个“工作”时间都花费在一件事情上，这很有帮助。
 
-So, I **wrote down on my list how long each thing will take**. And grouped together the shorter items that I can do in the same location.
+因此，我在**清单中写下了每件事情需要花费的时间**，并把我能在同一地点花费时间较短的事情组合在一起。
 
-Again, this step only took me a few minutes.
+同样，这步只花费了我几分钟。
 
-#### Determine The Open Time Slots of The Day
+#### 确定当天的空档时间
 
-Right now, I have a few hours that are open. At 4p, I have to pick my kids up from camp. We usually hang out after camp or school and then have dinner between 5:30–6p. My kids have been going to bed pretty late, around 9p. But after dinner my husband usually does something with them, like throw a baseball. So, I know that 4–7p will not be a good time for tasks, because I will be with my family. But after 7p, I have some “wiggle room” for things that are not quite done.
+此刻，我有几个小时的空档时间。在下午 4 点，我必须去营地接孩子。我们通常在放学或者结束营地后闲逛，然后在下午 5:30 - 6:00 吃完饭。大约晚上 9 点，孩子睡觉的时候已经很晚了。但是晚饭后我的丈夫通常会陪他们做一些事情，例如扔棒球。因此，我知道下午 4:00 - 7:00 并不是一个执行任务的好时机，因为我会和家人在一起。但是晚上 7 点之后，对于一些尚未完成的事情，我有一些“机动时间”。
 
-That means I need to get the bulk of my activities done between now and 3:45p (when I need to leave the house for camp pickup).
+这意味着从现在到下午 3:45 之间我需要完成大部分的活动（因为我需要离开家去营地接送孩子）
 
-**That still gives me 6 hours to complete everything.**
+**那仍然给了我 6 个小时来完成所有的事情**
 
-Six hours sounds like a lot of time.
+6 个小时听起来好像很长。
 
-Once again, this step only took me a few minutes.
+再一次，这步也只花了我几分钟。
 
-#### Schedule Each Activity
+#### 安排每个活动
 
-Finally, I figure out the best time slot for each activity.
+最后，我找出每个活动的最佳时间段。
 
-For me, whatever feels most urgent or necessary, I schedule it first. Today, its all the little odds and ends that I need to do. Most of them involve computer tasks and phone calls. So, I will do those first. All together, they should take about an hour. So, I’ll plan for 1 hour and 15 minutes, just in case. You never know how long I might be on hold.
+对我来说，我首先要安排好最紧迫或最有必要的事情。今天，这是我要做的所有的小事。其中大多数涉及计算机任务和拨打电话。所以我会先做，总共大约需一个小时。所以，我会计划 1 小时 15 分，以防万一，你永远不知道我需要等多久。
 
-Next, I want to finish that work project. It isn’t actually due until next week, but I know I don’t want to work on it on vacation. So, I will finish it today and not have to worry about it. It should take about 2 hours. I will do that next.
+接下来，我想完成这个工作项目，它实际上要到下周才到期，但我知道我不想在假期工作。因此，我今天将花两个小时完成它，以绝后顾之忧。
 
-I plan 20 minutes for lunch.
+我计划二十分钟吃午饭。
 
-After that, I will do some writing. I want to be “in the moment” when on vacation with my family, so I am unsure about my writing frequency next week. I want to finish a piece today. I will spend 1.5 hours working on my writing. And then if needed, re-read, revise, and edit after 7p this evening. With the goal of publishing tonight or tomorrow.
+之后，我会写一些东西，我希望我能享受和家人在一起的时光，因此，我不确定下周的写作频率。我今天想完成一部分，我会花 1.5 小时来写作。然后，如果需要，今晚七点之后重新阅读、修改和编辑，以今晚或者明天发布为目标。
 
-For writing, **I also need to set a timer**. Writing puts me in a deep state of “flow”, where I am engaged and lose track of time. So, I set a timer on my phone and go ahead and write. I don’t have to keep looking at the clock. I know that my phone will tell me when I need to move to the next task.
+为了写作，我还需要设置一个计时器，写作使我处于 “流动” 的深层状态，我参与其中并失去时间，因此，我在手机上设置一个计时器然后继续写作，我不必一直看时钟，我知道我的手机会告诉我何时需要转到下一个任务。
 
-Finally, its all the errands that take me out of the house. I have about an hour left for those, and can pick my my kids on the way home from them.
+最后是所有把我带出屋子的差事，我大约还有一个小时的时间，可以在回家的路上接我的孩子。
 
-As I put the schedule together, I realize that an hour might not be enough time to complete all the errands. So I plan to first do the errands that I should do without my kids. For errands like a trip to Target, I can bring my kids along after I pick them up. We should still be home by 5p, plenty of time for dinner.
+当我把时间表放在一起时，我意识到一个小时可能不够我完成所有的任务，所以，打算先做那些在没有孩子情况下应该做的事情。对于像去塔吉特旅行这样的差事，我会在接到孩子们后带他们去。我们应该还是五点回家，有足够的晚餐时间。
 
-Which reminds me, there is no time for me today to cook dinner. So I need to plan to either pick something up or find a decent order-in option. But, I know that is the case, and dinner won’t surprise me at the end of the day.
+这使我想起，我今天没有时间做晚餐，不过我了解这种情况。所以，在一天快要结束的时候晚餐不会打乱我的计划。我需要计划挑点东西或找到一个不错的订单选项。
 
-This part took me a little longer. Its a little bit like putting a puzzle together.
+这部分花了我一些时间，这有一点点像拼图。
 
-But **it was still less than 15 minutes**.
+但是，**这仍然不超过 15 分钟**。
 
-#### Take a Deep Breath. Then Execute.
+#### 深呼吸，然后执行
 
-And there is my day. From beginning to end, **the entire day took about 20 minutes to schedule**. And now I don’t have to spend time worrying about it.
+还有我的一天。从头到尾，**整天要安排大约 20 分钟**，现在我不必花时间担心它。
 
-I know exactly what I can and can’t do, and when. I know that there is time to get it all done. And anything that didn’t make this list can wait until after vacation.
+我确切的知道我能做什么和我不能做什么以及何时做，我知道有时间完成所有的工作，任何未列入此清单的任务都可以等到放假后。
 
-**Most important, this day no longer overwhelms me.** My mind is not racing. I can focus on execution.
+**最重要的是，这一天不再让我不知所措**，我的脑子没有在转，我可以专注于执行。
 
 ---
 
-For me, **scheduling a day is a substantial anxiety reliever**. Once I started doing this, I realized that I was wasting hours every day worrying. Thinking about getting things done without actually making progress on anything. Worrying can be a massive time suck.
+对我来说，**安排一天是缓解焦虑的最重要方法**。开始这样做之后，我意识到我每天都会在担心上浪费时间，考虑在没有任何实际进展的情况下完成工作，担心可能浪费大量的时间。
 
-I like to schedule in the morning, one day at a time, on a plain piece of paper, post-it, or in my notebook.
+我喜欢每天早上安排时间，一天一次，在普通纸上，在便利贴上或者在笔记本中。
 
-I tried fancy planners and planning out a whole week in advance. **That triggered my perfectionism**. I felt beholding to the week’s plan if I did the whole thing in advance, and it felt confining, not relaxing. And if I missed one thing on the schedule, the whole week went into the garbage.
+我尝试做个优秀的规划者，并提前一周规划，**那触发了我的完美主义**。如果我提前完成了这些事情，我会觉得遵守了这周的计划，感觉很拘束，没有放松。如果我错过了计划安排中的一件事情，整周的计划都会变成垃圾。
 
-But everyone is different. I have anxiety and perfectionism, so too much structure can feel punishing.
+但是每个人都不一样，我有焦虑和完美主义，所以太多的结构化会让人感到痛苦。
 
-The point is to use this as a guideline and find your own way to get a handle on your overwhelm. We all have a lot to do. Keep trying different things. Something will work for you.
+关键是要以此为指导，找到适合自己的方法。我们都有很多事情要做，继续尝试不同的事情，你会有办法的。
 
 ---
 
 **With the right framework plus the right mindset, anything is possible.**
+**有了正确的框架辅以正确的心态，一切皆有可能**
 
-**I offer realistic, specific insights on productivity and anxiety management in my personal newsletter. Go to [www.debknobelman.com](http://www.debknobelman.com).**
+**我在我的个人通讯中提供有关生产力和焦虑管理的实现和具体见解。详见[www.debknobelman.com](http://www.debknobelman.com)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
