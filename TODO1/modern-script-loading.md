@@ -2,43 +2,43 @@
 > * 原文作者：[Jason Miller](https://jasonformat.com/author/developit/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/modern-script-loading.md](https://github.com/xitu/gold-miner/blob/master/TODO1/modern-script-loading.md)
-> * 译者：
-> * 校对者：
+> * 译者：[w2ly](https://github.com/w2ly)
+> * 校对者：[sin7777](https://github.com/sin7777)、[Baddyo](https://github.com/Baddyo)
 
-# Modern Script Loading
+# 现代脚本加载
 
-> Serving the right code to the right browsers can be tricky. Here are some options.
+> 为不同浏览器提供合适的代码，这可能有些棘手。下面有一些备选方案。
 
 ![](https://res.cloudinary.com/wedding-website/image/upload/v1562702391/modern-script-loading_ku0eml.jpg)
 
-Serving modern code to modern browsers can be great for performance. Your JavaScript bundles can contain more compact or optimized modern syntax, while still supporting older browsers.
+为现代浏览器提供现代代码可以提高性能。你的 JavaScript 代码包可以在包含更简洁优化的现代语法同时，依然支持旧版浏览器。
 
-The tooling ecosystem has consolidated on using the [module/nomodule pattern](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) for declaratively loading modern VS legacy code, which provides browsers with both sources and lets them decide which to use:
+工具生态系统已经整合使用 [module/nomodule 模式](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) 以声明方式加载现代或传统代码 —— 为浏览器提供两者，并让其决定使用哪个：
 
 ```html
 <script type="module" src="/modern.js"></script>  
 <script nomodule src="/legacy.js"></script>  
 ```
 
-Unfortunately, it's not quite that straightforward. The HTML-based approach shown above triggers [over-fetching of scripts in Edge and Safari](https://gist.github.com/jakub-g/5fc11af85a061ca29cc84892f1059fec).
+但很不幸，这不是那么简单。上面提到的基于 HTML 的方法会引发 [Edge 和 Safari 浏览器中脚本过度获取](https://gist.github.com/jakub-g/5fc11af85a061ca29cc84892f1059fec)的问题。
 
-### What can we do?
+### 我们能做什么？
 
-What can we do? We want to deliver two compile targets depending on the browser, but a couple older browsers don't quite support the nice clean syntax for doing so.
+那我们能做什么呢？我们希望能针对浏览器提供两种不同的编译目标产物，但一些旧版浏览器不完全支持这种简洁语法。
 
-First, there's the [Safari Fix](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc). Safari 10.1 supports JS Modules not the `nomodule` attribute on scripts, which causes it to execute both the modern and legacy code **(yikes!)**. Thankfully, Sam found a way to use a non-standard `beforeload` event supported in Safari 10 & 11 to polyfill `nomodule`.
+首先，这里有针对 [Safari 浏览器的修复](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc)。Safari 10.1 支持 JS Modules，但却不支持应用在脚本文件上的 `nomodule` 属性，这会导致浏览器会同时执行现代和传统代码 **（啊呀好气啊！）**。值得庆幸的是，Sam 找到了一种方式，这种方式可以使用 Safari 10 和 11 支持的非标准 `beforeload` 事件弥补不支持 `nomodule` 的情况。
 
-#### Option 1: Load Dynamically
+#### 方案一：动态加载脚本
 
-We can circumvent these issues by implementing a tiny script loader, similar to how [LoadCSS](https://github.com/filamentgroup/loadCSS) works. Instead of relying on browsers to implement both ES Modules and the `nomodule` attribute, we can attempt to execute a Module script as a "litmus test", then use the result of that test to choose whether to load modern or legacy code.
+通过实现一个小型的脚本加载器，我们可以规避这个问题。加载器的工作方式类似于 [LoadCSS](https://github.com/filamentgroup/loadCSS)。我们尝试忽略浏览器对 ES Modules 和 `nomodule` 属性的实现，转而让浏览器执行一段 Module 脚本作为测试，借此结果决定加载现代或传统代码。
 
 ```html
-<!-- use a module script to detect modern browsers: -->  
+<!-- 使用 module 脚本检测现代浏览器： -->  
 <script type=module>  
   self.modern = true
 </script>
 
-<!-- now use that flag to load modern VS legacy code: -->  
+<!-- 根据 self.modern 标记加载现代或传统代码： -->  
 <script>  
   addEventListener('load', function() {
     var s = document.createElement('script')
@@ -54,9 +54,11 @@ We can circumvent these issues by implementing a tiny script loader, similar to 
 </script>  
 ```
 
-However, this solution requires waiting until our first "litmus test" module script has run before it can inject the correct script. This is because `<script type=module>` is always asynchronous. There is a better way!
+然而，由于 `<script type=module>` 异步执行的原因，上述方案需要等待头一个测试脚本运行之后才能去注入正确的脚本。
 
-A standalone variant of this can be implemented by checking if the browser supports `nomodule`. This would mean browsers like Safari 10.1 are treated as legacy even though they support Modules, but that [might be](https://github.com/web-padawan/polymer3-webpack-starter/issues/33#issuecomment-474993984) a [good thing](https://github.com/babel/babel/pull/9584). Here's the code for that:
+下面还有更好的方案。
+
+以上方案的独立变体之一，是通过检测浏览器是否支持 `nomodule` 属性确定加载对应代码。这意味着像 Safari 10.1 这样的浏览器，虽然支持模块，但依然会被视为传统浏览器。这[可能](https://github.com/web-padawan/polymer3-webpack-starter/issues/33#issuecomment-474993984)是[一件好事](https://github.com/babel/babel/pull/9584)。这是该方案的代码：
 
 ```js
 var s = document.createElement('script')  
@@ -70,7 +72,7 @@ else
 document.head.appendChild(s)  
 ```
 
-This can be quickly rolled into a function that loads modern or legacy code, and also ensures both are loaded asynchronously:
+这可以快速地转换为加载现代或传统代码的方法，并确保两者都异步加载：
 
 ```html
 <script>  
@@ -84,9 +86,9 @@ This can be quickly rolled into a function that loads modern or legacy code, and
 </script>  
 ```
 
-**What's the trade-off?** **preloading**.
+那还有什么折衷方案吗？**预加载**不错。
 
-The trouble with this solution is that, because it's completely dynamic, the browser won't be able to discover our JavaScript resources until it runs the bootstrapping code we wrote to inject modern vs legacy scripts. Normally, browsers scan HTML as it is being streamed to look for resources they can preload. There's a solution, though it's not perfect: we can use `<link rel=modulepreload>` to preload the modern version of a bundle in modern browsers. Unfortunately, [only Chrome supports `modulepreload`](https://developers.google.com/web/updates/2017/12/modulepreload) so far.
+上述方案的问题在于，由于它完全是动态的，因此浏览器在运行我们编写的引导代码之前，将无法发现要注入的 JavaScript 资源。通常浏览器在流式传输时，会扫描 HTML 查找可以预加载的资源。有一个不完美的解决方案：使用 `<link rel = modulepreload>` 在现代浏览器里预加载现代版本的代码包。但很不幸，[目前只有 Chrome 浏览器支持](https://developers.google.com/web/updates/2017/12/modulepreload)。
 
 ```html
 <link rel="modulepreload" href="/modern.js">  
@@ -94,9 +96,9 @@ The trouble with this solution is that, because it's completely dynamic, the bro
 <!-- etc -->  
 ```
 
-Whether this technique works for you can come down to the size of the HTML document you're embedding those scripts into. If your HTML payload is as small as a splash screen or just enough to bootstrap a client-side application, giving up the preload scanner is less likely to impact performance. If you are server-rendering a lot of meaningful HTML for the browser to stream, the preload scanner is your friend and this might not be the best approach for you.
+这种技术是否对你适用，可以归结于嵌入脚本的 HTML 文档大小。如果 HTML 有效负载像启动屏幕一样小，或者足以引导客户端应用程序，那放弃预加载扫描不大可能影响性能。如果你使用服务端渲染大量有意义的 HTML 供浏览器流式传输，那么预加载扫描就是你的朋友。但这可能不是最佳方法。
 
-Here's what this solution might look like in prod:
+在生产环境下可以采取如下方案：
 
 ```html
 <link rel="modulepreload" href="/modern.js">  
@@ -107,22 +109,22 @@ Here's what this solution might look like in prod:
 </script>  
 ```
 
-It's also be pointed out that the set of [browsers supporting JS Modules](https://caniuse.com/#feat=es6-module) is quite similar to [those that support](https://caniuse.com/#feat=link-rel-preload) `<link rel=preload>`. For some websites, it might make sense to use `<link rel=preload as=script crossorigin>` rather than relying on modulepreload. This may have performance drawbacks, since classic script preloading doesn't spread parsing work out over time as well as modulepreload.
+还要指出的是，[对 JS Modules 的浏览器支持](https://caniuse.com/#feat=es6-module) 非常类似于[对 `<link rel=preload>` 的支持](https://caniuse.com/#feat=link-rel-preload)。对于某些网站，使用 `<link rel=preload as=script crossorigin>` 而不是依赖于 modulepreload 可能更有意义。这可能有性能上的缺点，因为经典脚本预加载不会像 modulepreload 那样随着时间的推移而被扩展解析特性。
 
-#### Option 2: User Agent Sniffing
+#### 方案二：用户代理（UA）检测
 
-I don't have a concise code sample for this since User Agent detection is nontrivial, but there's a great [Smashing Magazine article](https://www.smashingmagazine.com/2018/10/smart-bundling-legacy-code-browsers/) about it.
+我没有这方面的简洁代码示例，因为用户代理（UA）检测非常重要。这篇 [Smashing Magazine 文章](https://www.smashingmagazine.com/2018/10/smart-bundling-legacy-code-browsers/) 讨论了这件事。
 
-Essentially, this technique starts with the same `<script src=bundle.js>` in the HTML for all browsers. When `bundle.js` is requested, the server parses the requesting browser's User Agent string and chooses whether to return modern or legacy JavaScript, depending on whether that browser is recognized as modern or not.
+本质上讲，这种技术在所有浏览器的 HTML 中都以相同的 `<script src=bundle.js>` 开头。当请求 `bundle.js` 时，服务器解析浏览器的用户代理（UA）字符串，并选择返回现代或传统 JavaScript，这取决于该浏览器是否被识别为现代浏览器。
 
-While this approach is versatile, it comes with some severe implications:
+虽然这种方法很通用，但它也带来了一些严重的影响：
 
-* since server smarts are required, this doesn't work for static deployment (static site generators, Netlify, etc)
-* caching for those JavaScript URLs now varies based on User Agent, which is highly volatile
-* UA detection is difficult and can be prone to false classification
-* the User Agent string is easily spoofable and new UA's arrive daily
+* 由于需要服务器去智能判断，这种方法不适用于静态部署（静态站点生成器、Netlify 等静态网站托管服务）
+* 对 JavaScript 资源的缓存基于用户代理（UA）的不同而变化，这非常不稳定
+* 对用户代理（UA）的检测很困难，容易出现错误分类
+* 用户代理（UA）很容易被欺骗，并且经常会有新的用户代理（UA）产生
 
-One way to address these limitations is to combine the module/nomodule pattern with User Agent differentiation in order to avoid sending multiple bundle versions in the first place. This approach still reduces cacheability of the page, but allows for effective preloading, since the server generating our HTML knows whether to use `modulepreload` or `preload`.
+解决这些限制的一种方法是将 `module/nomodule` 模式和区分用户代理（UA）的模式相结合，以避免首先发送多个代码包版本。这种方法依然会降低页面的可缓存性，但因为生成 HTML 的服务器可以了解到是否使用 `modulepreload` 或者 `preload` ，所以允许了有效的预加载。
 
 ```js
 function renderPage(request, response) {  
@@ -146,15 +148,15 @@ function renderPage(request, response) {
 }
 ```
 
-For websites already generating HTML on the server in response to each request, this can be an effective solution for modern script loading.
+对于在服务器上生成 HTML 以响应每个请求的网站，这可以是现代脚本加载的有效解决方案。
 
-#### Option 3: Penalize older browsers
+#### 方案三：“惩罚”旧版本浏览器
 
-The ill-effects of the module/nomodule pattern are seen in old versions of Chrome, Firefox and Safari - browser versions with very limited usage, since users are automatically updated to the latest version. This doesn't hold true for Edge 16-18, but there is hope: new versions of Edge will use a Chromium-based renderer that doesn't suffer from this issue.
+module/nomodule 模式的不良影响出现在旧版本 Chrome、Firefox 和 Safari —— 这些浏览器用户量很小，因为用户会自动更新到最新版本。Edge 16-18 的用户应当不会去自行更新，但新版本的 Edge 依然有希望得到支持：新版本的 Edge 将使用不受此问题影响的基于 Chromium 的渲染器。
 
-It might be perfectly reasonable for some applications to accept this as a trade-off: you get to deliver modern code to 90% of browsers, at the expense of some extra bandwidth on older browsers. Notably, none of the User Agents suffering from this over-fetching issue have significant mobile market share - so those bytes are less likely to be coming from an expensive mobile plan or through a device with a slow processor.
+对于某些应用程序来说，接受这一点作为权衡取舍可能是完全合理的：可以在 90% 的浏览器中提供现代代码，但代价是旧浏览器会付出额外带宽。值得注意的是，没有一款遭受这种过度获取问题的浏览器占据了显著的移动市场份额 —— 因此这些流量不太可能来自昂贵的移动计划或通过具有缓慢处理器的设备。
 
-If you're building a site where your users are primarily on mobile or recent browsers, the simplest form of the module/nomodule pattern will work for the vast majority of your users. Just be sure to include the [Safari 10.1 fix](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc) if you have usage from slightly older iOS devices.
+如果正在构建一个用户主要位于移动设备或新版浏览器上的网站，那么最简单的 module/nomodule 模式将适用于绝大多数用户。如果要支持较旧的 iOS 设备，请确保包含 [Safari 10.1 补丁](https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc)。
 
 ```html
 <!-- polyfill `nomodule` in Safari 10.1: -->  
@@ -162,47 +164,55 @@ If you're building a site where your users are primarily on mobile or recent bro
 !function(e,t,n){!("noModule"in(t=e.createElement("script")))&&"onbeforeload"in t&&(n=!1,e.addEventListener("beforeload",function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()},!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove())}(document)
 </script>
 
-<!-- 90+% of browsers: -->  
+<!-- 90% 以上的浏览器 -->  
 <script src=modern.js type=module></script>
 
-<!-- IE, Edge <16, Safari <10.1, old desktop: -->  
+<!-- IE, Edge <16, Safari <10.1, 旧版本桌面浏览器 -->  
 <script src=legacy.js nomodule async defer></script>  
 ```
 
-#### Option 4: Use conditional bundles
+#### 方案四：使用条件代码包
 
-One clever approach here is to use `nomodule` to conditionally load bundles containing code that isn't needed in modern browsers, such as polyfills. With this approach, the worst-case is that the polyfills are loaded or possibly even executed (in Safari 10.1), but the effect is limited to "over-polyfilling". Given that the current prevailing approach is to load and execute polyfills in all browsers, this can be a net improvement.
+这里有一个聪明的方案 —— 使用 `nomodule` 按需加载包含现代浏览器中不需要的代码包，如 polyfill 。用这种方法，最坏的情况是 polyfill 被加载甚至可能被执行（在 Safari 10.1 中），但效果仅限于“过度填充”。鉴于当前流行的方法是在所有浏览器中加载和执行 polyfill，这可能是一种有效的优化。
 
 ```html
-<!-- newer browsers won't load this bundle: -->  
+<!-- 新版本的浏览器不会加载这个代码包 -->  
 <script nomodule src="polyfills.js"></script>
 
-<!-- all browsers load this one: -->  
+<!-- 所有的浏览器都会加载这个 -->  
 <script src="/bundle.js"></script>  
 ```
 
-Angular CLI can be configured to use this approach for polyfills, as [demonstrated by Minko Gechev](https://blog.mgechev.com/2019/02/06/5-angular-cli-features/#conditional-polyfill-serving). After reading about this approach, I realized we could switch the automatic polyfill injection in preact-cli to use it - [this PR](https://github.com/preactjs/preact-cli/pull/833/files) shows how easy it can be to adopt the technique.
+Angular CLI 可以配置使用此方法进行 polyfill，就像 [Minko Gechev 展示的](https://blog.mgechev.com/2019/02/06/5-angular-cli-features/#conditional-polyfill-serving)那样。在读到了这种方法后，我意识到我们可以在 preact-cli 中使用这种自动 polyfill —— [这个提议](https://github.com/preactjs/preact-cli/pull/833/files)为我们展现了采用这种技术是多么容易。
 
-For those using Webpack, there's a [handy plugin](https://github.com/swimmadude66/webpack-nomodule-plugin) for `html-webpack-plugin` that makes it easy to add nomodule to polyfill bundles.
+对于使用 Webpack 的项目，有一个应用在 `html-webpack-plugin` 上的[方便的插件](https://github.com/swimmadude66/webpack-nomodule-plugin)，可以很容易地将 nomodule 添加到 polyfill 包中。
 
 ---
 
-### What should you do?
+### 你应当怎么做？
 
-The answer depends on your use-case. If you're building a client-side application and your app's HTML payload is little more than a `<script>`, you might find **Option 1** to be compelling. If you're building a server-rendered website and can afford the caching impact, **Option 2** could be for you. If you're using [universal rendering](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#rehydration), the performance benefits offered by preload scanning might be very important, and you look to **Option 3** or **Option 4**. Choose what fits your architecture.
+这个问题的答案由你的用例决定。
 
-Personally, I tend to make the decision to optimize for faster parse times on mobile rather than the download cost on some desktop browsers. Mobile users experience parsing and data costs as actual expenses - battery drain and data fees - whereas desktop users don't tend to have these constraints. Plus, it's optimizing for the 90% - for the stuff I work on, most users are on modern and/or mobile browsers.
+* 如果你在构建一个客户端应用程序，并且应用程序的 HTML 有效负载只不过是一个 `<script>`，那么**方案一**对我们更有吸引力
+* 如果你在构建一个服务端渲染的网站，并且能够承受缓存影响，那么**方案二**可能更适合你
+* 如果你使用[同构渲染](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#rehydration)方案，预加载扫描提供的性能优势可能非常重要，我们可以选择**方案三**或**方案四**
 
-### Further Reading
+选择适合你当前架构的方案。
 
-Interested in diving deeper into this space? Here's some places to start digging:
+就我个人而言，相比降低某些桌面浏览器的下载成本来说，我更倾向于决定在移动设备上优化以获得更短的解析时间。移动端用户将解析和数据成本视为实际费用 —— 电池消耗和数据费用 —— 而桌面端用户不会受到这些限制。此外，它为我提供了 90% 的优化 —— 我开发和维护的产品面向的大多数用户都使用现代浏览器和（或）移动浏览器。
 
-* There's some great additional context on Phil's [webpack-esnext-boilerplate](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1). 
-* Ralph [implemented module/nomodule in Next.js](https://github.com/zeit/next.js/pull/7704), and is working on solving these issues there.
+> 译者注：估摸着原作者使用了方案三
 
-Thanks to [Phil](https://twitter.com/philwalton), [Shubhie](https://twitter.com/shubhie), [Alex](https://twitter.com/atcastle), [Houssein](https://twitter.com/hdjirdeh), [Ralph](https://twitter.com/Janicklas) and [Addy](https://twitter.com/addyosmani) for the feedback.
+### 扩展阅读
 
-**2019-07-16:** fixed code sample in Option 1, which was broken due to the asynchronous `self.modern` initialization.  
+有兴趣深入了解吗？这里有一些开始挖掘的地方：
+
+* 在 Phil 的 [webpack-esnext-boilerplate](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1) 里提到了一些背景材料
+* Ralph [在 Next.js 中实现了 module/nomodule](https://github.com/zeit/next.js/pull/7704) ，并致力于解决提出的问题
+
+在此感谢 [Phil](https://twitter.com/philwalton)、[Shubhie](https://twitter.com/shubhie)、[Alex](https://twitter.com/atcastle)、[Houssein](https://twitter.com/hdjirdeh)、[Ralph](https://twitter.com/Janicklas) 和 [Addy](https://twitter.com/addyosmani) 对这篇文章的反馈。
+
+**2019-07-16:** 修复了方案一中的代码示例，解决了由异步初始化代码 `self.modern` 引发的问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
