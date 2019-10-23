@@ -159,7 +159,7 @@ Await 将会像 Javascript 解析那样运行飞快。
   
 几年来，我们一直都说 [Node.js 适用于 API gateway](https://tsh.io/blog/serverless-in-node-js-beginners-guide/) 和实时仪表板（[如基于 Websocket](https://tsh.io/blog/php-websocket/)）。事实上，Node 的设计让我们不得不依赖微服务架构来弥补其本身的常见缺陷。
 
-经过时间的检验，我们已知悉，由于其单线程设计理念，Node.js 不只是意味着耗时长、严重占用 CPU 算力或阻塞操作。这是事件循环机制本身的问题。
+经过时间的检验，我们已知悉，由于其单线程设计理念，Node.js 不适合处理耗时长、严重占用 CPU 算力或阻塞操作的任务。这是事件循环机制本身的问题。
   
 如果有一个复杂的同步操作阻塞了事件循环，那么在该操作完成前，别的什么也做不了。这就是我们频繁使用 Async 或将耗时间的逻辑移到单独的微服务中的原因。
   
@@ -173,7 +173,7 @@ Await 将会像 Javascript 解析那样运行飞快。
 
 从 Node 12 开始及至更高版本中，我们不再需要使用特定的特性标志 **--experimental-worker**。 Worker 将是默认激活的！
 
-**Node 的 index.js 文件**
+**node index.js**
 
 现在我们可以充分利用 **worker_threads** 模块。让我们先写一个简单的带有两个方法的 HTTP 服务器：
 
