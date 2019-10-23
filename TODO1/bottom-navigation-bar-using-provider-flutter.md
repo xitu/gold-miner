@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/bottom-navigation-bar-using-provider-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/bottom-navigation-bar-using-provider-flutter.md)
 > * 译者：[Xat_MassacrE](https://github.com/XatMassacrE)
-> * 校对者：
 
 # 在 Flutter 中使用 Provider 构建底部导航栏
 
@@ -142,7 +141,7 @@ return Scaffold(
 
 ![](https://cdn-images-1.medium.com/max/NaN/1*4pFzXhqqLddZhL_FY-LhtA.png)
 
-[FlutterDevs ](http://flutterdevs.com/) 已经做 Flutter 相关的工作了有一段时间了。你可以关注我们的 [Facebook](https://facebook.com/flutterdevs)、[GitHub](https://github.com/flutter-devs) 和 [Twitter](https://twitter.com/TheFlutterDevs)。
+[FlutterDevs](http://flutterdevs.com/) 已经做 Flutter 相关的工作了有一段时间了。你可以关注我们的 [Facebook](https://facebook.com/flutterdevs)、[GitHub](https://github.com/flutter-devs) 和 [Twitter](https://twitter.com/TheFlutterDevs)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
