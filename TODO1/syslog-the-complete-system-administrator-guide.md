@@ -1,8 +1,7 @@
-
-> * 原文地址：[Syslog ： The Complete System Administrator Guide][1]
-> * 原文作者：[Schkn][2]
-> * 译文出自：[掘金翻译计划][3]
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md][4]
+> * 原文地址：[Syslog : The Complete System Administrator Guide](https://devconnected.com/syslog-the-complete-system-administrator-guide/)
+> * 原文作者：[Schkn](https://devconnected.com/author/schkn/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md)
 > * 译者：https://github.com/githubmnume
 > * 校对者：https://github.com/todaycoder001;https://github.com/shixi-li;https://github.com/portandbridge;
 
