@@ -2,24 +2,24 @@
 > * 原文作者：[Dr. Axel Rauschmayer](http://dr-axel.de/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/eval-via-import.md](https://github.com/xitu/gold-miner/blob/master/TODO1/eval-via-import.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[quzhen12](https://github.com/quzhen12)，[weisiwu](https://github.com/weisiwu)
 
-# Evaluating JavaScript code via `import()`
+# 使用 `import()` 执行 JavaScript 代码
 
-[The `import()` operator](https://exploringjs.com/impatient-js/ch_modules.html#loading-modules-dynamically-via-import) lets us dynamically load ECMAScript modules. But they can also be used to evaluate JavaScript code ([as Andrea Giammarchi recently pointed out to me](https://twitter.com/WebReflection/status/1171697666335662086)), as an alternative to `eval()`. This blog post explains how that works.
+使用 [`import()` 操作符](https://exploringjs.com/impatient-js/ch_modules.html#loading-modules-dynamically-via-import)，我们可以动态加载 ECMAScript 模块。但是 `import()` 的应用不仅于此，它还可以作为 `eval()` 的替代品，用来执行 JavaScript 代码（[这一点是最近 Andrea Giammarchi 向我指出的](https://twitter.com/WebReflection/status/1171697666335662086)）。这篇博客将会解释这是如何实现的。
 
-## `eval()` does not support `export` and `import`
+## `eval()` 不支持 `export` 和 `import`
 
-A significant limitation of `eval()` is that it doesn’t support module syntax such as `export` and `import`.
+`eval()` 的一大缺陷是：它不支持例如 `export` 和 `import` 这样的模块语法。
 
-If we use `import()` instead of `eval()`, we can actually evaluate module code, as we will see later in this blog post.
+但是如果放弃 `eval()` 而改为使用 `import()`，我们就可以执行带有模块的代码，在后文你将能看到这是如何实现的。
 
-In the future, we may get [**Realms**](https://github.com/tc39/proposal-realms) which are, roughly, a more powerful `eval()` with support for modules.
+未来，我们也许可以使用 [**Realms**](https://github.com/tc39/proposal-realms)，它也许会是能够支持模块的、更强大的下一代 `eval()`。
 
-## Evaluating simple code via `import()`
+## 使用 `import()` 执行简单的代码
 
-Let’s start by evaluating a `console.log()` via `import()`:
+下面，我们从使用 `import()` 来执行 `console.log()` 开始学习：
 
 ```js
 const js = `console.log('Hello everyone!');`;
@@ -28,20 +28,20 @@ const dataUri = 'data:text/javascript;charset=utf-8,'
   + encodedJs;
 import(dataUri);
 
-// Output:
+// 输出：
 // 'Hello everyone!'
 ```
 
-What is going on here?
+这段代码执行后发生了什么？
 
-* First we create a so-called [**data URI**](https://en.wikipedia.org/wiki/Data_URI_scheme). The protocol of this kind of URI is `data:`. The remainder of the URI encodes the full resource instead pointing to it. In this case, the data URI contains a complete ECMAScript module – whose content type is `text/javascript`.
-* Then we dynamically import this module and therefore execute it.
+* 首先，我们创建了所谓的 [**数据 URI**](https://en.wikipedia.org/wiki/Data_URI_scheme)。这种类型的 URI 协议是 `data:`。URI 的剩余部分中包含了所有资源的编码，而不是指向资源本身的地址。这样，数据 URI 就包含了一个完整的 ECMAScript 模块 —— 它的 content 类型是 `text/javascript`。
+* 然后我们动态引入模块，于是代码被执行。
 
-Warning: This code only works in web browsers. On Node.js, `import()` does not support data URIs.
+注意：这段代码只能在浏览器中运行。在 Node.js 环境中，`import()` 不支持数据 URI。
 
-### Accessing an export of an evaluated module
+### 获取被执行模块的导出
 
-The fulfillment value of the Promise returned by `import()` is a module namespace object. That gives us access to the default export and the named exports of the module. In the following example, we access the default export:
+由 `import()` 返回的 Promise 的完成态是一个模块命名空间对象。这让我们可以获取到模块的默认导出以及命名导出。在下面的例子中，我们获取得是默认导出：
 
 ```js
 const js = `export default 'Returned value'`;
@@ -53,9 +53,9 @@ import(dataUri)
   });
 ```
 
-## Creating data URIs via tagged templates
+## 使用标记模版创建数据 URI
 
-With an appropriate function `esm` (whose implementation we’ll see later), we can rewrite the previous example and create the data URI via a [tagged template](https://exploringjs.com/impatient-js/ch_template-literals.html#tagged-templates):
+使用一个适当的方法 `esm`（后文我们会看到该方法是如何实现的），我们可以重写上文的例子，并通过一个[标记模版](https://exploringjs.com/impatient-js/ch_template-literals.html#tagged-templates)创建数据 URI：
 
 ```js
 const dataUri = esm`export default 'Returned value'`;
@@ -65,7 +65,7 @@ import(dataUri)
   });
 ```
 
-The implementation of `esm` looks as follows:
+`esm` 的实现如下：
 
 ```js
 function esm(templateStrings, ...substitutions) {
@@ -77,28 +77,28 @@ function esm(templateStrings, ...substitutions) {
 }
 ```
 
-For the encoding, we have switched from `charset=utf-8` to `base64`. Compare:
+我们把编码方式从 `charset=utf-8` 切换为 `base64`，它们两者的对比如下：
 
-* Source code: `'a' < 'b'`
-* Data URI 1: `data:text/javascript;charset=utf-8,'a'%20%3C%20'b'`
-* Data URI 2: `data:text/javascript;base64,J2EnIDwgJ2In`
+* 源代码：`'a' < 'b'`
+* 第一个数据 URI：`data:text/javascript;charset=utf-8,'a'%20%3C%20'b'`
+* 第二个数据 URI：`data:text/javascript;base64,J2EnIDwgJ2In`
 
-Each of the two ways of encoding has different pros and cons:
+每种编码方式都各有利弊：
 
-* Benefits of `charset=utf-8` (percent-encoding):
-    * Much of the source code is still readable.
-* Benefits of `base64`:
-    * The URIs are usually shorter.
-    * Easier to nest (as we’ll see later), because it doesn’t contain special characters such as apostrophes.
+* `charset=utf-8`（又称百分号编码）的优势：
+    * 大部分源码仍具有可读性。
+* `base64` 的优势：
+    * URI 更精短。
+    * 更易嵌套（后文我们会看到），因为它不包含任何如撇号这样的特殊字符。
 
-`btoa()` is a global utility function that encodes a string via base 64. Caveats:
+`btoa()` 是一个用来将字符串编码为 base 64 代码的全局工具函数。注意：
 
-* It is not available on Node.js.
-* It should only be used for characters whose Unicode code points range from 0 to 255.
+* 在 Node.js 环境下不可用。
+* 仅对码点值在 0 至 255 范围内的 Unicode 字符有效。
 
-## Evaluating a module that imports another module
+## 执行引用了其他模块的模块
 
-With tagged templates, we can nest data URIs and encode a module `m2` that imports another module `m1`:
+通过标记模版，我们可以嵌套数据 URI，并编码引用了 `m1` 模块的 `m2` 模块：
 
 ```js
 const m1 = esm`export function f() { return 'Hello!' }`;
@@ -107,11 +107,11 @@ import(m2)
   .then(ns => assert.equal(ns.default, 'Hello!Hello!'));
 ```
 
-## Further reading
+## 扩展阅读
 
-* [Wikipedia on Data URIs](https://en.wikipedia.org/wiki/Data_URI_scheme)
-* [Section on `import()` in “JavaScript for impatient programmers”](https://exploringjs.com/impatient-js/ch_modules.html#loading-modules-dynamically-via-import)
-* [Section on tagged templates in “JavaScript for impatient programmers”](https://exploringjs.com/impatient-js/ch_template-literals.html#tagged-templates)
+* [关于数据 URIs 的维基百科](https://en.wikipedia.org/wiki/Data_URI_scheme)
+* [“JavaScript for impatient programmers” 中关于 `import()` 的章节](https://exploringjs.com/impatient-js/ch_modules.html#loading-modules-dynamically-via-import)
+* [“JavaScript for impatient programmers” 中关于标签模版的章节](https://exploringjs.com/impatient-js/ch_template-literals.html#tagged-templates)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
