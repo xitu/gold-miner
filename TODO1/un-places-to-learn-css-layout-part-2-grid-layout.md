@@ -2,122 +2,122 @@
 > * 原文作者：[Stéphanie](https://stephaniewalter.design)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/un-places-to-learn-css-layout-part-2-grid-layout.md](https://github.com/xitu/gold-miner/blob/master/TODO1/un-places-to-learn-css-layout-part-2-grid-layout.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[Alfxjx](https://github.com/Alfxjx)，[sleepingxixi](https://github.com/sleepingxixi)
 
-# Fun places to learn CSS Layout –  Part 2: Grid Layout
+# 趣味学习 CSS 布局 —— 第二部分：网格布局
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/places-learn-css-grid.jpg)
 
-2 years ago (gosh!) I wrote a small article with a few [Fun places to learn CSS Layout –  Part 1: Flexbox](https://stephaniewalter.design/blog/fun-places-learn-css-layout-part-1-flexbox/). I have to be honest, I wanted to write the second part about Grid Layout for a while now but never really took the time to do so. I spoke about Grid Layout for the first time 6 years ago (gosh x2!) in my article about the [The State Of Responsive Web Design](https://www.smashingmagazine.com/2013/05/the-state-of-responsive-web-design/) in 2013. This spec caught my attention from the start, but is wasn’t quite ready at the time.
+两年前（天呐原来已经过去两年了！）我曾经写过一份关于[趣味学习 CSS 布局 —— 第一部分：弹性盒](https://stephaniewalter.design/blog/fun-places-learn-css-layout-part-1-flexbox/)的短篇文章。实话说，我很早之前就想写一写关于网格布局的第二部分，但是一直没有时间落实这个想法。我第一次谈论到网格布局是在六年前（又一次想感叹，天呐！）即 2013 年的一篇文章中：[响应式网页设计现状](https://www.smashingmagazine.com/2013/05/the-state-of-responsive-web-design/)。该设计准则从那时候开始就吸引了我的注意，但是它当时还并不完善。
 
-Since then, a lot has changed and now [Grid Layout is supported in most major browsers](https://caniuse.com/#feat=css-grid). Credits where due, we owe [Rachel Andrew](https://rachelandrew.co.uk/) and [Jen Simmons](https://jensimmons.com/) a LOT when it comes to the Grid Layout specification!!! Grid Layout is an amazing set of CSS properties that will let you specify a grid layout system for you site with rows, columns and place your content accordingly. Pretty cool, right?
+从那以后，前端发生了很多变化，现在[大部分主流浏览器都支持网格布局了](https://caniuse.com/#feat=css-grid)。说到网格布局标准，归功于 [Rachel Andrew](https://rachelandrew.co.uk/) 和 [Jen Simmons](https://jensimmons.com/) 真是实至名归！网格布局是一个相当优秀的 CSS 属性集合，它让你可以使用行、列来确定一个网站网格布局系统，并依照此系统放置元素。很酷吧？
 
-The syntax might be a little bit complex to learn if you come from good old floats, so here are some fun places, tutorials and sand box sites to help you learn and master everything you need to know about Grid Layout. Enjoy!
+如果你习惯使用老方法：float，那么这种语法对于你可能会有些复杂，所以有很多有趣的网站、教程以及沙箱网站来帮助你学习并掌握网格布局的一切内容。请享受这个过程吧！
 
-> Cet article existe également en Français : **[Apprendre le positionnement en s’amusant – Partie 2 : Grid Layout](https://www.creativejuiz.fr/blog/css-css3/apprendre-le-positionnement-en-samusant-partie-2-grid-layout)**
+> 法语版文章地址：**[Apprendre le positionnement en s’amusant – Partie 2 : Grid Layout](https://www.creativejuiz.fr/blog/css-css3/apprendre-le-positionnement-en-samusant-partie-2-grid-layout)**
 
-## Games to learn CSS Grid Layout
+## 用来学习 CSS 网格布局的游戏
 
 ### [Grid Garden](http://cssgridgarden.com/)
 
-In this fun game you will have to use some CSS Grid Layout properties to water and take care of your garden. Each level of the game comes with some explanations on the different properties you can use to complete the level.  
+在这个有意思的游戏中，你要使用一些 CSS 网格布局属性来浇灌并照顾你的花园。游戏的每个关卡都会对不同的属性作出解释，你可以使用它们来提升等级。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/grid-garden.jpg)
 
 ### [Grid Critters](http://www.gridcritters.com/)
 
-A $139 game lesson with an awesome design that will teach you how to become a CSS Grid expert. I kind of wish there was a first “free” level so I could play around.  
+这是一个价值 $139 的游戏课程，它的设计完美，并能够教你如何可以成为一名 CSS 网格专家。我其实很希望能有一个“免费”的游戏入门，这样我就能试玩一下了。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/gridcritters.jpg)
 
-### [Bonus – CSS Diner](https://flukeout.github.io/)
+### [奖励关 —— CSS Diner](https://flukeout.github.io/)
 
-You can learn all the CSS Grid, FlexBox and other layout you want, if you can’t select what you need in the page, it’s no fun. The CSS selector game is a game with 32 levels that will let you you CSS selectors. Are you hungry? Made by [@flukeout](http://www.twitter.com/flukeout) 
+在这里你可以学习 CSS 网格，弹性盒以及其他任何你想学的布局，而如果你不能在页面中选中你需要的，那可就不那么有趣了。CSS 选择器游戏有 32 个级别，能让你学习很多 CSS 选择器。饿了吗？游戏由 [@flukeout](http://www.twitter.com/flukeout) 制作。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/cssdinner.jpg)
 
-## CSS Grid Layout visual Playgrounds & Generators
+## CSS 网格布局可视化游戏场和生成器
 
-Sometimes the best way to learn is to play with the code and properties directly in the browser. Those visual playground tools will let you build and play with grids to help you master the specs.
+有时候学习的最好方法是在浏览器里直接玩一玩代码和属性。这些可视化的游戏场工具能让你使用网格搭建内容或者随意玩一玩，以此帮你掌握它。
 
-### [Grid by example](https://gridbyexample.com/examples/)
+### [常见网格布局实例](https://gridbyexample.com/examples/)
 
-What better way to learn than to actually take a sneak peek under the code? This site (curated by  [Rachel Andrew](https://rachelandrew.co.uk/) ) is a nice collection of examples explained to achieve different layouts with CSS Grid Layout.
+还有什么学习方法能比实际查看代码原理更好呢？这个网站（网站策划是 [Rachel Andrew](https://rachelandrew.co.uk/)）是一个非常棒的实例库，解释了如何使用 CSS 网格布局构建不同的布局。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/grid-by-example.jpg)
 
-### [Grid Visual Playground](https://alialaa.github.io/css-grid-cheat-sheet/)
+### [网格可视化游戏场](https://alialaa.github.io/css-grid-cheat-sheet/)
 
-A colorful playground that lets you play with an already build grid and test the different properties. Created by [@alialaa](https://twitter.com/alialaa).
+在这个多彩的游戏场里，你可以试玩一个已经构建好的网格，并测试不同的属性。作者是 [@alialaa](https://twitter.com/alialaa)。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-visual-ground.jpg)
 
 ### [CSS Grid Generator](https://cssgrid-generator.netlify.com/)
 
-A tool built by [Sarah Edo](https://twitter.com/sarah_edo) to help you create and build you own grid system
+它是由 [Sarah Edo](https://twitter.com/sarah_edo) 创建的工具，帮你构建属于自己的网格系统
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-generator.jpg)
 
-### [CSS Grid Layout Generator](https://jhpratt.github.io/grid/)
+### [CSS 网格布局生成器](https://jhpratt.github.io/grid/)
 
-Another tool to help you create grid templates in the browser. This one also supports regions! Created by [Jacob Pratt](https://github.com/jhpratt).
+另一个可以在浏览器里帮助你创建网格模版的工具。但这个也支持 regions！由 [Jacob Pratt](https://github.com/jhpratt) 创建。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-generator-2.jpg)
 
-## CSS Grid Layout Cheatsheets
+## CSS 网格布局备忘录
 
-### [CSS Tricks’ A Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/#grid-table-of-contents)
+### [CSS 技巧：网格布局指南大全](https://css-tricks.com/snippets/css/complete-guide-grid/#grid-table-of-contents)
 
-A good introduction but also a useful cheat sheet with all the grid properties in one place on [CSS Tricks](https://css-tricks.com).
+这是一份很详细的介绍，同时也是一份很实用的备忘录，[CSS Tricks](https://css-tricks.com) 页面包括了所有网格属性。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/csstricks-grid.jpg)
 
-### [GRID: A simple visual cheatsheet for CSS Grid Layout](http://grid.malven.co/)
+### [GRID：一份简单的关于 CSS 网格布局的可视化备忘录](http://grid.malven.co/)
 
-A nice visual cheat sheet that will also let you copy/paste properties when you click on them. created by [Malven Co.](https://malven.co/)
+这是一份超棒的可视化备忘录，可以让你在点击的时候复制/粘贴属性。由 [Malven Co.](https://malven.co/) 创建
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-cheatsheet-1.jpg)
 
-## Fun demos
+## 几个有趣的演示
 
 ### [CSS Grid Floor Plan](https://codepen.io/oliviale/pen/moLrBq)
 
-Why not use CSS to map your house? A cool demo [by Olivia Ng](https://twitter.com/meowlivia_)
+为什么不能用 CSS 来布置你的房间呢？这是由 [Olivia Ng](https://twitter.com/meowlivia_) 制作的一个很酷的演示
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-floor.jpg)
 
-## Show me videos!
+## 一起看几个视频吧！
 
-### [Video – How to use CSS grid layout in 60 seconds!](https://www.youtube.com/watch?v=FwiSbmyNQ18)
+### [视频 —— 1 分钟学习如何使用 CSS 网格布局！](https://www.youtube.com/watch?v=FwiSbmyNQ18)
 
-In this fun video, [Jenn Lukas](http://jennlukas.com/) shows you how to define columns and rows with the CSS grid layout module in 60 seconds.
+在这个有趣的视频里，[Jenn Lukas](http://jennlukas.com/) 将会在一分钟内为你演示如何使用 CSS 网格布局模块来定义行和列。
 
-![![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-jen-lukas.jpg)](https://www.youtube.com/watch?v=FwiSbmyNQ18)
+[![](https://stephaniewalter.design/wp-content/uploads/2019/07/css-grid-jen-lukas.jpg)](https://www.youtube.com/watch?v=FwiSbmyNQ18)
 
-### [Layout Land – Videos on CSS Grid](https://www.youtube.com/playlist?list=PLbSquHt1VCf1x_-1ytlVMT0AMwADlWtc1)
+### [Layout Land 频道 —— CSS 网格布局视频教程](https://www.youtube.com/playlist?list=PLbSquHt1VCf1x_-1ytlVMT0AMwADlWtc1)
 
-This is a youtube playlist from the youtube channel Layout Land where [Jen Simmons](https://jensimmons.com/) will explain you the basics of Grid Layout
+这是一个来自 youtube Layout Land 频道的播放单，[Jen Simmons](https://jensimmons.com/) 将会在视频中为你讲解网格布局基础
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/grid-basics-video.jpg)
 
 ### [cssgrid.io](https://cssgrid.io/)
 
-25 videos created by  [Wes Bos](https://twitter.com/wesbos) with the support of Firefox to help you learn CSS Grid Layout.
+这里包括由 [Wes Bos](https://twitter.com/wesbos) 创建的 25 个视频，这些视频由 Firefox 支持，能帮助你学习 CSS 网格布局。
 
 ![](https://stephaniewalter.design/wp-content/uploads/2019/07/CSSGrid-io.jpg)
 
-## More resources
+## 扩展阅读
 
-If you are looking for more traditional resources you can check
+如果你需要更多经典资源，可以查看：
 
 * [Rachel Andrew’s book “Get Ready for CSS Grid Layout”](https://abookapart.com/products/get-ready-for-css-grid-layout)
-* “[The New CSS Layout](https://abookapart.com/products/the-new-css-layout)” by Rachel Andrew as well
-* The website [Learn CSS Grid](https://learncssgrid.com/) which presents all the properties and helps you understand how they work
-* [CSS Grid for Designers](https://open.nytimes.com/css-grid-for-designers-f74a883b98f5) – How a new technology is changing layout on the web
+* Rachel Andrew 的文章“[The New CSS Layout](https://abookapart.com/products/the-new-css-layout)”
+* 网站 [Learn CSS Grid](https://learncssgrid.com/)，它包含所有网格相关的属性，能帮助里理解它们是如何运作的
+* [CSS Grid for Designers](https://open.nytimes.com/css-grid-for-designers-f74a883b98f5) —— 介绍了新技术是如何改变网页布局的
 * [Mozilla has a really cool step by step tutorial on CSS Grid Layout](https://mozilladevelopers.github.io/playground/css-grid)
 
-Are you looking for a UX or UI designer, for a site or mobile application? Do you want me to give a talk at your conference, or simply want to know more about me? You can take a look at [my portfolio](https://stephaniewalter.design/#work) and [contact me](#contact).
+您是否正在为网页或移动端应用招聘 UX 或者 UI 设计师？您的会议是否需要一个演讲者，或者只是想了解我的更多信息？您可以看看[我的作品集](https://stephaniewalter.design/#work)并[联系我](https://stephaniewalter.design#contact)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
