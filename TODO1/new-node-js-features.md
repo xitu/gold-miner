@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/new-node-js-features.md](https://github.com/xitu/gold-miner/blob/master/TODO1/new-node-js-features.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[Alfxjx](https://github.com/Alfxjx), [cyz980908](https://github.com/cyz980908)
 
 # Node.js 新特性将颠覆 AI、物联网等更多惊人领域
 
@@ -11,15 +11,15 @@
 
 ## 多线程趋向稳定！
 
-在上一个 LTS 版本中，我们已经可以使用多线程了。诚然，这是一个试验性特性，需要一个名为 **–-experimental-worker** 的标志（flag）才能生效。
+在上一个 LTS 版本中，我们已经可以使用多线程了。诚然，这是一个试验性特性，需要一个名为 **--experimental-worker** 的标志（flag）才能生效。
 
-在即将问世的这个 LTS 版本（Node 12）中，多线程仍是试验性的，但不再需要依赖 **–-experimental-worker** 这种标志了。稳定版本正在向我们翩跹走来！
+在即将问世的这个 LTS 版本（Node 12）中，多线程仍是试验性的，但不再需要依赖 **--experimental-worker** 这种标志了。稳定版本正在向我们翩跹走来！
 
 ## 支持 ES 模块
 
 我们需要认清这样的事实：ES 模块是目前 JavaScript 开发的必经之路。我们在前端应用中使用它。我们在桌面端乃至移动端应用中使用它。可是，在 Node.js 领域，我们还卡在 Common.js 模块停滞不前。
 
-当然了，我们还有 Babel 和 TypeScript 可以用，但既然 Node.js 是一门后端技术，我们应当关心的应该只是服务器上安装的 Node 的版本是否更新。我们不必去在意五花八门的浏览器和 Node.js 对它们的支持情况，那么安装这么一个工具（Babel、Webpack 等等）还有何意义呢？
+当然了，我们还有 Babel 和 TypeScript 可以用，但既然 Node.js 是一门后端技术，我们应当关心的应该只是服务器上安装的 Node 的版本是否更新。我们不必去在意五花八门的浏览器和 Node.js 对它们的支持情况，那么安装专门针对此目的而设计的工具（Babel、Webpack 等）有什么意义呢？
 
 在 Node 10 版本中，我们总算是可以用 ES 模块小试牛刀了（目前的 LTS 版本对模块进行了试验性的实现），但还需要使用一个特定的文件扩展 —— **.mjs**（模块 JavaScript 代码文件）。
 
@@ -33,11 +33,11 @@
 }
 ```
 
-从现在起，如果离 .js 文件最近的 package.json 文件带有 type 属性，那么这些 .js 文件将作为模块存在。再见了您呐，**mjs**（如果想用，还是可以继续用的）！
+从现在起，如果离 .js 文件**最近**的 package.json 文件带有 type 属性，那么这些 .js 文件将作为模块存在。再见了您呐，**mjs**（如果想用，还是可以继续用的）！
 
 那么，要是我们想要用 Common.js 风格的模块，该怎么办呢？
 
-只要离它最近的 package.json 不包含模块属性 type，那它就将作为 Common.js 代码存在。
+只要离它最近的 package.json 不包含模块属性 type，那它就将被视为是遵循 Common.js 规范的代码。
 
 另外，我们可以使用一种新型的扩展文件，叫做 **cjs** —— 代表一个 Common.js 文件。
 
@@ -100,7 +100,7 @@ class MyClass {
 
 如你所见，该方法还有个特别的参数 —— **depth**（深度）。这个参数决定了嵌套数组将以何种深度被降维。
 
-而 **flat** 后面的第二个方法 —— **flatMap** —— 与 **map** 作用相同。🙂
+第二个新特性 —— **flatMap**，其作用类似于首先执行 **map** 方法，再执行 **flat**。🙂
 
 ## 可选的 Catch 绑定
 
@@ -139,7 +139,7 @@ Object.fromEntries([['key', 'value'], ['otherKey', 'otherValue']]);
 
 ## V8 引擎的变化
 
-我说过，新版的 Node 装载了 V8 引擎。这使得 Node 不仅支持私有变量，还带有一些性能优化功能。
+我提到过，新版的 Node 装载了 V8 引擎。这使得 Node 不仅支持私有变量，还带有一些性能优化功能。
 
 Await 将会像 Javascript 解析那样运行飞快。
 
@@ -157,19 +157,19 @@ Await 将会像 Javascript 解析那样运行飞快。
 
 **每种编程语言都各有其利弊**，这是我们大家都毋庸置疑的。大多数流行的技术都在技术世界有各自的一席之地。Node.js 也不例外。
   
-几年来，我们一直听说 [Node.js 适用于 API gateway](https://tsh.io/blog/serverless-in-node-js-beginners-guide/) 和实时仪表板（[如基于 Websocket](https://tsh.io/blog/php-websocket/)）。事实上，Node 的设计让我们不得不依赖微服务架构来弥补其本身的常见缺陷。
+几年来，我们一直都说 [Node.js 适用于 API gateway](https://tsh.io/blog/serverless-in-node-js-beginners-guide/) 和实时仪表板（[如基于 Websocket](https://tsh.io/blog/php-websocket/)）。事实上，Node 的设计让我们不得不依赖微服务架构来弥补其本身的常见缺陷。
 
-经过时间的检验，我们已知悉， 由于其单线程设计理念，Node.js 不只是意味着耗时长、严重占用 CPU 算力或阻塞操作。这是事件循环机制本身的问题。
+经过时间的检验，我们已知悉，由于其单线程设计理念，Node.js 不只是意味着耗时长、严重占用 CPU 算力或阻塞操作。这是事件循环机制本身的问题。
   
 如果有一个复杂的同步操作阻塞了事件循环，那么在该操作完成前，别的什么也做不了。这就是我们频繁使用 Async 或将耗时间的逻辑移到单独的微服务中的原因。
   
-随着 Node.js 10 版本中的新特性的面世，这种权宜之计将变得不再必要。**这个化腐朽为神奇的工具就是 Worker thread**。最终，Node.js 将能够在通常使用不同语言的领域中大放异彩。
+随着 Node.js 10 版本中的新特性的面世，这种权宜之计将变得不再必要。**这个化腐朽为神奇的工具就是 Worker thread**。正因如此，Node.js 将能够在通常我们会使用其他语言的领域中大放异彩。
 
-人工智能、机器学习或大数据都是很好的佐证，就目前来说，这几个例子都需要大量的 CPU 算力，这让我们别无他选，只能搭建更多的服务或者换一个更适合的语言。但从新版 Node.js 开始，一切都不一样了。
+人工智能、机器学习或大数据都是很好的佐证，就目前来说，这些领域的研究需要大量的 CPU 算力，这让我们别无他选，只能搭建更多的服务或者换一个更适合的语言。但从新版 Node.js 开始，一切都不一样了。
 
 ## 支持多线程？怎么做到的？
 
-这个新特性仍旧是试验性的 —— 还不能在生产环境中使用。但我们还是可以随意玩玩的。那从哪开始呢？
+这个新特性仍处在试验阶段 —— 还不能在生产环境中使用。但我们还是可以随意玩玩的。那从哪开始呢？
 
 从 Node 12 开始及至更高版本中，我们不再需要使用特定的特性标志 **--experimental-worker**。 Worker 将是默认激活的！
 
@@ -208,7 +208,7 @@ app.get('/compute', (req, res) => {
 app.listen(3000);
 ```
 
-这段代码的运行结果很容易预测。当 **GET /compute** 和 **/hello** 被同时调用，我们必须等着 **compute** 路径调用完成才能从 **hello** 路径得到响应。事件循环被阻塞，直到文件加载完成。
+这段代码的运行结果很容易预测。当 **GET /compute** 和 **/hello** 被同时调用，我们必须等到 **compute** 调用完成才能从 **hello** 得到响应。事件循环被阻塞，直到文件加载完成。
 
 让我们用多线程优化一下吧！
 
@@ -367,7 +367,7 @@ http.createServer(function (req, res) {
 }).listen(3000);
 ```
 
-在 Node.js 10 版本中，有一个崭新的 **http2** 模块可以让我们使用 HTTP/2.0！可算是迎来了 HTTP/2！
+在 Node.js 10 版本中，有一个崭新的 **http2** 模块可以让我们使用 HTTP/2.0！可算是迎来了 HTTP/2.0！
 
 ```js
 const http = require('http2');
@@ -400,7 +400,7 @@ Node.js 的新特性为我们的技术生态注入了新鲜血液。它们给 No
 
 ![Node.js 历年人气折线图，2017 年达到峰值](https://tsh.io/wp-content/uploads/2018/12/node-popularity-over-the-years-chart-1024x425.png)
 
-然而，我能够清晰地看到，所有这些新的改进和 Node.js 区块链应用（基于 truffle.js 框架）的走红，或可进一步推动 Node.js 的发展，让 Node.js 梅开二度 —— 在新型的项目、角色和环境中。
+不论如何，我能够清晰地看出，所有这些新的改进和 Node.js 区块链应用（基于 truffle.js 框架）的走红，或可进一步推动 Node.js 的发展，让 Node.js 在新型的项目、角色和环境中梅开二度。
 
 TSH（The Software House）Node.js 团队非常期待 2020 年的到来!
 
