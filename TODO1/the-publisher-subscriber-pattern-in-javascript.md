@@ -2,26 +2,26 @@
 > * 原文作者：[jsmanifest](https://medium.com/@jsmanifest)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-publisher-subscriber-pattern-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-publisher-subscriber-pattern-in-javascript.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# The Publisher/Subscriber Pattern in JavaScript
+# JavaScript 的发布者/订阅者（Publisher/Subscriber）模式
 
-> Pub/sub, simplified
+> 简写为 Pub 和 sub
 
 ![**Photo by [NordWood Themes](https://unsplash.com/@nordwood) on [Unsplash](https://unsplash.com/)**](https://cdn-images-1.medium.com/max/3000/1*yH2hPgLBkX2CtuFwGlpdIA.jpeg)
 
-In this article, we will be going over the publish/subscribe pattern in JavaScript and see how simple (but powerful) it is to implement in our JavaScript applications.
+在本篇文章中，我们将会学习 JavaScript 的发布/订阅模式，并且我们将能看到，在 JavaScript 应用中它是多么的简单而强大。
 
-The publisher/subscriber pattern is a design pattern that allows us to create powerful dynamic applications with modules that can communicate with each other without being directly dependent on each other.
+发布者/订阅者模式是一种设计模式，它能让你创建强大的动态应用，并可以在应用中使用可以互相传递信息但不用直接相互依赖的模块。
 
-The pattern is quite common in JavaScript and has a close resemblance to the observer pattern in the way it works — except that in the observer pattern, an observer is notified directly by its subject, whereas in the publisher/subscriber method, the subscriber is notified through a channel that sits in-between the publisher and subscriber that relays the messages back and forth.
+这种模式在 JavaScript 中十分常见，它和观察者模式的工作方式很相近 —— 除了一个区别是，在观察者模式中，观察者直接从它所观察的实体那里得到通知，而在发布者/订阅者模式中，订阅者则通过渠道得到通知，渠道位于发布者和订阅者之间并来回传递信息。
 
-When we implement this, we will need a publisher, subscriber, and some place to store callbacks that are registered from subscribers.
+如果想要实现一个发布者/订阅者模式，我们需要一个发布者、一个订阅者，以及一些存储订阅者所注册的回调函数的空间。
 
-Let’s go ahead and see how this looks like in code. We’re going to use a [factory](https://www.sitepoint.com/factory-functions-javascript/) function (you don’t have to use this pattern) to create the publisher/subscriber implementation.
+下面，让我们一起来看看落实到代码应该怎么写。我们将会使用一个 [factory](https://www.sitepoint.com/factory-functions-javascript/) 函数（你不一定非要使用这个模式）来写出发布者/订阅者模式的的实现。
 
-The first thing we’re going to do is to declare a local variable inside the function to store subscribed callbacks:
+我们要做的第一件事，就是在函数中声明一个本地变量，用来保存订阅的回调函数：
 
 ```
 function pubSub() {
@@ -29,7 +29,7 @@ function pubSub() {
 }
 ```
 
-Next, we’ll define the `subscribe` method which will be responsible for inserting callbacks to `subscribers`:
+下面，我们将会定义 `subscribe` 方法，它负责在 `subscribers` 中插入回调函数：
 
 ```JavaScript
 function pubSub() {
@@ -48,14 +48,14 @@ function pubSub() {
 }
 ```
 
-What’s happening here is that before attempting to register a callback listener for an event name, it checks to see if the `eventName` property in the `subscribers` storage is already an `array`. If it isn't, it assumes that this will be the first registered callback for `subscribers[eventName]` and initializes it into an array. Then, it proceeds to push the callback into the array.
+这段代码的作用是，在尝试为事件名注册回调函数监听之前，需要检查对象 `subscribers` 存储的 `eventName` 属性是否已经是 `array` 类型的值了。如果还不是，那么就认为这是 `subscribers[eventName]` 第一次注册的回调函数，并将其初始化为一个数组。然后，将回调函数放入数组。
 
-When the `publish` event fires, it will take two arguments:
+当 `publish` 事件被触发的时候，它将会收到两个参数：
 
-1. The `eventName`
-2. Any `data` that will be passed to *every single callback registered in `subscribers[eventName]`
+1. `eventName` 参数
+2. 所有被传递给注册在 `subscribers[eventName]` 的回调函数的 `data`
 
-Lets go ahead and see how this looks like in code:
+我们继续向下看看代码是如何实现的：
 
 ```JavaScript
 function pubSub() {
@@ -85,15 +85,15 @@ function pubSub() {
 }
 ```
 
-Before iterating on the list of callbacks in `subscribers`, it’ll check if it actually exists as an array in the object. If it doesn't, it will assume that the `eventName` was never even registered before, so it will simply just return. This is a safeguard against potential crashes.
+在遍历 `subscribers` 中的回调函数列表之前，要先检查对象中该属性是否是数组类型。如果不是，那么就认为这个 `eventName` 之前并没有被注册过，所以就直接返回了。这一步可以保证避免潜在的程序报错。
 
-After that, if the program reaches the `.forEach` line, then we know that the `eventName` was registered with one or more callbacks in the past. The program will proceed to loop through `subscribers[eventName]` safely.
+在这之后，如果程序执行到了 `.forEach` 这一行，那么我们就可以确定 `eventName` 已经被注册了一个或多个回调函数。程序就可以继续保证安全的循环遍历 `subscribers[eventName]`。
 
-For each callback that it encounters, it calls the callback with the `data` that was passed in as the second argument.
+程序每读取到一个回调函数，都将会以 `data` 为第二个参数来调用它。
 
-So this is what will happen if we subscribed a function like this:
+所以，当我们订阅一个函数的时候，应该这样：
 
-```
+```JavaScript
 function showMeTheMoney(money) {
   console.log(money)
 }
@@ -103,25 +103,25 @@ const ps = pubSub()
 ps.subscribe('show-money', showMeTheMoney)
 ```
 
-And if we call the `publish` method sometime in the future:
+如果我们在以后的某一时刻调用 `publish`：
 
-```
+```JavaScript
 ps.publish('show-money', 1000000)
 ```
 
-Then the `showMeTheMoney` callback we registered will be invoked in addition to receiving `1000000` as the `money` argument:
+那么我们注册的 `showMeTheMoney` 回调函数将会被触发，并接受 `1000000` 作为 `money` 参数：
 
-```
+```JavaScript
 function showMeTheMoney(money) {
   console.log(money) // result: 10000000
 }
 ```
 
-And that’s how the publisher/subscriber pattern works. We defined a `pubSub` function and provided a location locally to the function that stores the callbacks, a `subscribe`method to register the callbacks, and a `publish` method that iterates and calls all of the registered callbacks with any data.
+上述就是发布者/订阅者模式的工作模式。我们定义了一个 `pubSub` 函数，并在函数内将回调函数存储到本地，并提供了 `subscribe` 方法注册回调函数，以及 `publish` 方法来遍历并使用数据来调用所有注册过的回调函数。
 
-There’s one more problem, though. In a real application, we might suffer a never-ending memory leak if we subscribe many callbacks, and it’s especially wasteful if we don’t do anything about that.
+但是，这里还存在一个问题。在真正应用这个模式的时候，如果我们订阅了很多回调函数，就可能会遇到内存泄漏，如果不想办法解决这个问题，这将造成极大的浪费。
 
-So what we need last is a way for subscribed callbacks to be removed when they are no longer necessary. What often happens in this case is that some `unsubscribe` method is placed somewhere. The most convenient place to implement this is the return value from `subscribe `because, in my opinion, it’s the most intuitive when we see this in code:
+所以我们还需要一个移除订阅的回调函数的方法，以便在不需要它们的时候可以删除。通常的方法是在某处定义一个 `unsubscribe` 方法。而实现它最便捷的位置就是作为 `subscribe` 的返回值，因为在我看来这是最直观的方法，我们来看看代码：
 
 ```JavaScript
 function subscribe(eventName, callback) {
@@ -144,13 +144,13 @@ const unsubscribe = subscribe('food', function(data) {
   console.log(`Received some food: ${data}`)
 })
 
-// Removes the subscribed callback
+// 移除订阅的回调
 unsubscribe()
 ```
 
-In the example, we needed an index. So we make sure we remove the right one since we used `.splice`, which needs an accurate index to remove the item we are looking for.
+在这个例子中，我们需要一个索引。这样我们就能确保移除的是正确的回调函数，我们使用得是 `.splice` 函数，它可以通过索引来移除我们需要移除的数组中的项目。
 
-You can also do something like this; however, it’s less performant:
+我们还可以这样写；但是这样性能就稍差一些：
 
 ```JavaScript
 function subscribe(eventName, callback) {
@@ -165,7 +165,7 @@ function subscribe(eventName, callback) {
   return {
     unsubscribe() {
       subscribers[eventName] = subscribers[eventName].filter((cb) => {
-        // Does not include the callback in the new array
+        // 在新的数组中不再包含这个回调函数
         if (cb === callback) {
           return false
         }
@@ -178,19 +178,19 @@ function subscribe(eventName, callback) {
 
 ---
 
-## Disadvantages
+## 不足之处
 
-Although there are huge benefits to this pattern, there are also devastating disadvantages that might cost us a lot of debugging time.
+虽然发布者/订阅者模式有很多优势，但是同时它也存在灾难性的缺点，这可能会让我们付出巨大的调试时间成本。
 
-How do we know if we subscribed the same callback before or not? There’s really no way to tell unless we implement a utility that maps through a list, but then we’d be making JavaScript do more tasks.
+我们如何知道是否之前已经订阅了同一个回调函数呢？除非我们实现一个工具来映射整个列表，否则实在无法知道，但是这样的话我们就要使用 JavaScript 来完成更多的工作了。
 
-It also becomes harder to maintain our code the more we abuse this pattern in a real-world scenario. The fact that callbacks are decoupled in this pattern makes it hard to track down each step when you have callbacks doing this and doing that everywhere.
+在实际应用中过度使用发布者/订阅者模式，也让我们的代码更加难以维护。事实是，在这种模式中回调函数之间是解耦的，所以当你在多处都使用了对调函数后，追踪代码就变得非常困难。
 
 ---
 
-## Conclusion
+## 总结
 
-And that concludes this post. I hope you found this to be valuable and look out for more in the future!
+综上所述就是本文的全部内容。希望能对你有所帮助！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
