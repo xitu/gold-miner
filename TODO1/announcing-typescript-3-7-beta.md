@@ -11,7 +11,7 @@
 
 开始使用 Beta 版，你可以通过 [NuGet](https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild) 安装，或者通过 npm 使用以下命令安装：
 
-```
+```bash
 npm install typescript@beta
 ```
 
@@ -28,7 +28,7 @@ TypeScript 3.7 实现了迄今为止需求声最高的 ECMAScript 功能之一�
 
 那什么是可选链呢？从本质上讲，可选链使我们在编写代码时，如果遇到 `null` 或者 `undefined`，可以立即停止运行某些表达式。可选链的主角是这个为了**可选属性访问**而存在的新运算符 `?.`。当我们像下面这样写代码时：
 
-```
+```ts
 let x = foo?.bar.baz();
 ```
 
@@ -36,7 +36,7 @@ let x = foo?.bar.baz();
 
 更明确地说，上面那段代码的意思和下面的这段完全相同。
 
-```
+```ts
 let x = (foo === null || foo === undefined) ?
     undefined :
     foo.bar.baz();
@@ -46,7 +46,7 @@ let x = (foo === null || foo === undefined) ?
 
 你可能会发现你用 `?.` 替换了很多使用 `&&` 运算符执行中间属性检查的代码。
 
-```
+```ts
 // 之前
 if (foo && foo.bar && foo.bar.baz) {
     // ...
@@ -62,7 +62,7 @@ if (foo?.bar?.baz) {
 
 可选链还包括其他两个操作。首先是**可选元素访问**，其作用类似于可选属性访问，但允许我们访问非属性标识符属性（例如：任意字符串、数字和 Symbol）
 
-```
+```ts
 /**
  * 当我们有一个数组时，返回它的第一个元素
  * 否则返回 undefined。
@@ -78,7 +78,7 @@ function tryGetFirstElement<T>(arr?: T[]) {
 
 这还有一个**可选调用**，它允许我们在表达式不为 `null` 或者 `undefined` 时调用该表达式。
 
-```
+```ts
 async function makeRequest(url: string, log?: (msg: string) => void) {
     log?.(`Request started at ${new Date().toISOString()}`);
     // 等价于
@@ -96,13 +96,13 @@ async function makeRequest(url: string, log?: (msg: string) => void) {
 
 可选链具有的“短路”行为仅限于“普通”和可选属性的访问、调用以及可选元素的访问 —— 不会在表达式的基础上进一步扩展。换句话说，
 
-```
+```ts
 let result = foo?.bar / someComputation()
 ```
 
 不会阻止除法或者调用 `someComputation()` 的发生。相当于
 
-```
+```ts
 let temp = (foo === null || foo === undefined) ?
     undefined :
     foo.bar;
@@ -112,7 +112,7 @@ let result = temp / someComputation();
 
 这可能会导致除法的结果是 `undefined`，这就是为什么在 `strictNullChecks` 模式下，下面的代码会报错。
 
-```
+```ts
 function barPercentage(foo?: { bar: number }) {
     return foo?.bar / 100;
     //     ~~~~~~~~
@@ -128,7 +128,7 @@ function barPercentage(foo?: { bar: number }) {
 
 你可以考虑使用这个功能 —— `??` 运算符 —— 作为一种处理 `null` 或者 `undefined` 时“回退”到默认值的方法。当我们像下面这样写代码时
 
-```
+```ts
 let x = foo ?? bar();
 ```
 
@@ -136,7 +136,7 @@ let x = foo ?? bar();
 
 同样，上面的代码和下面的等价。
 
-```
+```ts
 let x = (foo !== null && foo !== undefined) ?
     foo :
     bar();
@@ -144,7 +144,7 @@ let x = (foo !== null && foo !== undefined) ?
 
 当我们尝试使用默认值时，`??` 运算符可以代替 `||`。例如，下面的代码会尝试获取上次保存在 [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) 中的 volume 值（如果曾经保存过）；但是由于使用 `||` 这里存在一个 bug。
 
-```
+```ts
 function initializeAudio() {
     let volume = localStorage.volume || 0.5
 
@@ -160,7 +160,7 @@ function initializeAudio() {
 
 当错误发生的时候，一组特定的函数会 `throw`（抛出）异常。它们被称为“断言”函数。例如，Node.js 为此有一个专用函数，称为 `assert`。
 
-```
+```ts
 assert(someValue === 42);
 ```
 
@@ -168,7 +168,7 @@ assert(someValue === 42);
 
 JavaScript 中的断言通常用于防止传入不正确的类型。例如，
 
-```
+```ts
 function multiply(x, y) {
     assert(typeof x === "number");
     assert(typeof y === "number");
@@ -179,7 +179,7 @@ function multiply(x, y) {
 
 不幸的是在 TypeScript 中，这些检查永远无法被正确地编码。对于松散类型的代码，这意味着 TypeScript 检查的更少，而对于稍微保守型的代码，则通常迫使用户使用类型断言。
 
-```
+```ts
 function yell(str) {
     assert(typeof str === "string");
 
@@ -191,7 +191,7 @@ function yell(str) {
 
 替代方案是改写代码，以便语言可以对其解析，但这并不方便！
 
-```
+```ts
 function yell(str) {
     if (typeof str !== "string") {
         throw new TypeError("str should have been a string.")
@@ -205,7 +205,7 @@ function yell(str) {
 
 第一种断言签名对 Node 的 `assert` 函数工作方法进行建模。它确保在函数作用域内的其余部分中，无论检查什么条件都一定为真。
 
-```
+```ts
 function assert(condition: any, msg?: string): asserts condition {
     if (!condition) {
         throw new AssertionError(msg)
@@ -215,7 +215,7 @@ function assert(condition: any, msg?: string): asserts condition {
 
 `asserts condition` 表示，如果 `assert`（正常）返回了，那么无论传递给 `condition` 的参数是什么，它都一定为 true，否则 `assert` 会抛出一个异常。这意味着对于作用域内的其他部分，这个条件也一定是真的。例如，使用这个断言函数意味着我们**确实**捕获了刚才 `yell` 例子的异常。
 
-```
+```ts
 function yell(str) {
     assert(typeof str === "string");
 
@@ -234,7 +234,7 @@ function assert(condition: any, msg?: string): asserts condition {
 
 断言签名的另一种类型不检查条件，而是告诉 TypeScript 特定的变量或属性具有不同的类型。
 
-```
+```ts
 function assertIsString(val: any): asserts val is string {
     if (typeof val !== "string") {
         throw new AssertionError("Not a string!");
@@ -244,7 +244,7 @@ function assertIsString(val: any): asserts val is string {
 
 这里 `asserts val is string` 确保在调用 `assertIsString` 之后，传入的任何变量都是可以被认为是一个 `string`。
 
-```
+```ts
 function yell(str: any) {
     assertIsString(str);
 
@@ -259,7 +259,7 @@ function yell(str: any) {
 
 这些断言签名与编写类型断言签名非常相似：
 
-```
+```ts
 function isString(val: any): val is string {
     return typeof val === "string";
 }
@@ -274,7 +274,7 @@ function yell(str: any) {
 
 就像是类型断言签名，这些断言签名也具有难以置信的表现力。我们可以用它们表达一些相当复杂的想法。
 
-```
+```ts
 function assertIsDefined<T>(val: T): asserts val is NonNullable<T> {
     if (val === undefined || val === null) {
         throw new AssertionError(
@@ -294,7 +294,7 @@ function assertIsDefined<T>(val: T): asserts val is NonNullable<T> {
 
 为了确保函数永远不会返回 `undefined` 或者可以从所有代码路径中有效地返回，TypeScript 需要一些语法信号 —— 在函数末尾的 `return` 或者 `throw`。因此，用户才能发现他们自己 `return` 错误的函数。
 
-```
+```ts
 function dispatch(x: string | number): SomeType {
     if (typeof x === "string") {
         return doThingWithString(x);
@@ -308,7 +308,7 @@ function dispatch(x: string | number): SomeType {
 
 现在，当这些返回 `never` 的函数被调用时，TypeScript 可以识别出它们会影响控制流程图并说明原因。
 
-```
+```ts
 function dispatch(x: string | number): SomeType {
     if (typeof x === "string") {
         return doThingWithString(x);
@@ -326,7 +326,7 @@ function dispatch(x: string | number): SomeType {
 
 类型别名在如何”递归“引用它们方面一直受到限制。原因是对类型别名的任何使用都必须能够用其别名替换自身。在某些情况下，这是不可能的，因此编译器会拒绝某些递归别名，如下所示：
 
-```
+```ts
 type Foo = Foo;
 ```
 
@@ -334,7 +334,7 @@ type Foo = Foo;
 
 这与[其他语言对待类型别名的方式是相当一致的](https://en.wikipedia.org/w/index.php?title=Recursive_data_type&oldid=913091335#In_type_synonyms)，但是对于用户如何利用该功能确实引发了一些令人惊讶的场景。例如，在 TypeScript 3.6 和更低的版本中，下面的代码会产生一个错误。
 
-```
+```ts
 type ValueOrArray<T> = T | Array<ValueOrArray<T>>;
 //   ~~~~~~~~~~~~
 // 错误：类型别名 'ValueOrArray' 循环引用自身。
@@ -342,7 +342,7 @@ type ValueOrArray<T> = T | Array<ValueOrArray<T>>;
 
 这很奇怪，因为从技术上讲，这样使用没有任何错，用户应该总是可以通过引入接口来编写实际上是相同的代码。
 
-```
+```ts
 type ValueOrArray<T> = T | ArrayOfValueOrArray<T>;
 
 interface ArrayOfValueOrArray<T> extends Array<ValueOrArray<T>> {}
@@ -356,7 +356,7 @@ interface ArrayOfValueOrArray<T> extends Array<ValueOrArray<T>> {}
 
 这意味着类似以下的代码正试图表示 JSON……
 
-```
+```ts
 type Json =
     | string
     | number
@@ -374,7 +374,7 @@ interface JsonArray extends Array<Json> {}
 
 最终可以在没有辅助接口的情况下进行重写。
 
-```
+```ts
 type Json =
     | string
     | number
@@ -386,7 +386,7 @@ type Json =
 
 这种新的宽松（模式）使我们也可以在元组中递归引用类型别名。下面这个曾经报错的代码现在是有效的 TypeScript 代码。
 
-```
+```ts
 type VirtualNode =
     | string
     | [string, { [key: string]: any }, ...VirtualNode[]];
@@ -408,7 +408,7 @@ TypeScript 中的 `--declaration` 标志允许我们从 TypeScript 源文件（�
 
 在使用 `allowJs` 时，TypeScript 将尽最大努力理解 JavaScript 源代码，并将其以等效的表达形式存储在一个 `.d.ts` 文件中。这包括它所有的 JSDoc 注释，所以像下面这样的代码：
 
-```
+```ts
 /**
  * @callback Job
  * @returns {void}
@@ -449,7 +449,7 @@ export class Worker {
 
 现在会被转换为以下无需实现的 `.d.ts` 文件：
 
-```
+```ts
 /**
  * @callback Job
  * @returns {void}
@@ -491,7 +491,7 @@ TypeScript 的项目引用为我们提供了一种简单的方法来分解代码
 
 忘记调用函数是一个常见且危险的错误，特别是当函数没有参数或者以一种暗示它可能是属性而不是函数的方式命名时。
 
-```
+```ts
 interface User {
     isAdministrator(): boolean;
     notify(): void;
@@ -517,7 +517,7 @@ function doAdminThing(user: User) {
 
 在 TypeScript 3.7 中，这会被标识为可能的错误：
 
-```
+```ts
 function doAdminThing(user: User) {
     if (user.isAdministrator) {
     //  ~~~~~~~~~~~~~~~~~~~~
@@ -527,7 +527,7 @@ function doAdminThing(user: User) {
 
 这个检查是一项重大更改，但是由于这个原因，检查非常保守。仅在 `if` 条件中才会产生此错误，并且如果 `strictNullChecks` 关闭或之后在 `if` 中调用此函数或者属性是可选的，将不会产生错误：
 
-```
+```ts
 interface User {
     isAdministrator(): boolean;
     notify(): void;
@@ -579,7 +579,7 @@ TypeScript 3.7 允许我们在 TypeScript 文件的顶部添加 `// @ts-nocheck`
 
 之前由于存在 bug，TypeScript 允许以下构造：
 
-```
+```ts
 // ./someOtherModule.ts
 interface SomeType {
     y: string;
