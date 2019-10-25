@@ -2,86 +2,86 @@
 > * 原文作者：[Daniel](https://devblogs.microsoft.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md](https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-typescript-3-7-beta.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Xuyuey](https://github.com/Xuyuey)
+> * 校对者：[药王](https://github.com/ArcherGrey), [TiaossuP](https://github.com/TiaossuP)
 
-# Announcing TypeScript 3.7 Beta
+# TypeScript 3.7 Beta 版发布
 
-We’re pleased to announce TypeScript 3.7 Beta, a feature-complete version of TypeScript 3.7. Between now and the final release, we’ll be fixing bugs and further improving performance and stability.
+我们很高兴发布 TypeScript 3.7 Beta 版，它包含了 TypeScript 3.7 版本的所有功能。从现在到最后发布之前，我们将修复错误并进一步提高它的性能和稳定性。
 
-To get started using the beta, you can get it [through NuGet](https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild), or use npm with the following command:
+开始使用 Beta 版，你可以通过 [NuGet](https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild) 安装，或者通过 npm 使用以下命令安装：
 
-```
+```bash
 npm install typescript@beta
 ```
 
-You can also get editor support by
+你还可以通过以下方式获取编辑器的支持
 
-* [Downloading for Visual Studio 2019/2017](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.typescript-37beta)
-* Following directions for [Visual Studio Code](https://code.visualstudio.com/Docs/languages/typescript#_using-newer-typescript-versions) and [Sublime Text](https://github.com/Microsoft/TypeScript-Sublime-Plugin/#note-using-different-versions-of-typescript).
+* [下载 Visual Studio 2019/2017](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.typescript-37beta)
+* 请遵循有关 [Visual Studio Code](https://code.visualstudio.com/Docs/languages/typescript#_using-newer-typescript-versions) 和 [Sublime Text](https://github.com/Microsoft/TypeScript-Sublime-Plugin/#note-using-different-versions-of-typescript) 的说明。
 
-TypeScript 3.7 Beta includes some of our most highly-requested features! Let’s dive in and see what’s new, starting with the highlight feature of 3.7: Optional Chaining.
+TypeScript 3.7 Beta 版包括了开发者呼声最高的一些功能！让我们深入研究一下新功能，从 3.7：可选链（Optional Chaining）开始。
 
-## Optional Chaining
+## 可选链（Optional Chaining）
 
-TypeScript 3.7 implements one of the most highly-demanded ECMAScript features yet: optional chaining! Our team has been heavily involved in TC39 to champion the feature to Stage 3 so that we can bring it to all TypeScript users.
+TypeScript 3.7 实现了迄今为止需求声最高的 ECMAScript 功能之一：可选链！我们的团队成员一直都在高度参与 TC39 委员会，努力争取将这个新功能加入到 ECMAScript 提案的第三个阶段，以便在未来我们可以将其带给所有的 TypeScript 用户。
 
-So what is optional chaining? Well at its core, optional chaining lets us write code where we can immediately stop running some expressions if we run into a `null` or `undefined`. The star of the show in optional chaining is the new `?.` operator for **optional property accesses**. When we write code like
+那什么是可选链呢？从本质上讲，可选链使我们在编写代码时，如果遇到 `null` 或者 `undefined`，可以立即停止运行某些表达式。可选链的主角是这个为了**可选属性访问**而存在的新运算符 `?.`。当我们像下面这样写代码时：
 
-```
+```ts
 let x = foo?.bar.baz();
 ```
 
-this is a way of saying that when `foo` is defined, `foo.bar.baz()` will be computed; but when `foo` is `null` or `undefined`, stop what we’re doing and just return `undefined`.”
+也就是说，当 `foo` 被定义时，`foo.bar.baz()` 将会被计算；但是当 `foo` 是 `null` 或者 `undefined` 时，停下来不继续执行，直接返回 `undefined`。
 
-More plainly, that code snippet is the same as writing the following.
+更明确地说，上面那段代码的意思和下面的这段完全相同。
 
-```
+```ts
 let x = (foo === null || foo === undefined) ?
     undefined :
     foo.bar.baz();
 ```
 
-Note that if `bar` is `null` or `undefined`, our code will still hit an error accessing `baz`. Likewise, if `baz` is `null` or `undefined`, we’ll hit an error at the call site. `?.` only checks for whether the value on the left of it is `null` or `undefined` – not any of the subsequent properties.
+注意，如果 `bar` 是 `null` 或者 `undefined`，在我们的代码尝试访问 `baz` 时，它仍然会出错。同样，如果 `baz` 是 `null` 或者 `undefined`，在我们调用这个函数时也会报错。`?.` 仅仅检查在它左边的值是否为 `null` 或者 `undefined` —— 不包括在它之后的任何一个属性。
 
-You might find yourself using `?.` to replace a lot of code that performs intermediate property checks using the `&&` operator.
+你可能会发现你用 `?.` 替换了很多使用 `&&` 运算符执行中间属性检查的代码。
 
-```
-// Before
+```ts
+// 之前
 if (foo && foo.bar && foo.bar.baz) {
     // ...
 }
 
-// After-ish
+// 之后
 if (foo?.bar?.baz) {
     // ...
 }
 ```
 
-Keep in mind that `?.` acts differently than those `&&` operations since `&&` will act specially on “falsy” values (e.g. the empty string, `0`, `NaN`, and, well, `false`).
+请牢记 `?.` 不同于 `&&` 运算符，因为 `&&` 仅仅是针对那些“假”（转换为布尔值为假）数据（例如：空字符串、`0`、`NaN` 以及 `false`）。
 
-Optional chaining also includes two other operations. First there’s **optional element access** which acts similarly to optional property accesses, but allows us to access non-identifier properties (e.g. aribtrary strings, numbers, and symbols):
+可选链还包括其他两个操作。首先是**可选元素访问**，其作用类似于可选属性访问，但允许我们访问非属性标识符属性（例如：任意字符串、数字和 Symbol）
 
-```
+```ts
 /**
- * Get the first element of the array if we have an array.
- * Otherwise return undefined.
+ * 当我们有一个数组时，返回它的第一个元素
+ * 否则返回 undefined。
  */
 function tryGetFirstElement<T>(arr?: T[]) {
     return arr?.[0];
-    // equivalent to
+    // 等价于
     //   return (arr === null || arr === undefined) ?
     //       undefined :
     //       arr[0];
 }
 ```
 
-There’s also **optional call**, which allows us to conditionally call expressions if they’re not `null` or `undefined`.
+这还有一个**可选调用**，它允许我们在表达式不为 `null` 或者 `undefined` 时调用该表达式。
 
-```
+```ts
 async function makeRequest(url: string, log?: (msg: string) => void) {
     log?.(`Request started at ${new Date().toISOString()}`);
-    // equivalent to
+    // 等价于
     //   if (log !== null && log !== undefined) {
     //       log(`Request started at ${new Date().toISOString()}`);
     //   }
@@ -94,15 +94,15 @@ async function makeRequest(url: string, log?: (msg: string) => void) {
 }
 ```
 
-The “short-circuiting” behavior that optional chains have is limited to both “ordinary” and optional property accesses, calls, element accesses – it doesn’t expand any further out from these expressions. In other words,
+可选链具有的“短路”行为仅限于“普通”和可选属性的访问、调用以及可选元素的访问 —— 不会在表达式的基础上进一步扩展。换句话说，
 
-```
+```ts
 let result = foo?.bar / someComputation()
 ```
 
-doesn’t stop the division or `someComputation()` call from occurring. It’s equivalent to
+不会阻止除法或者调用 `someComputation()` 的发生。相当于
 
-```
+```ts
 let temp = (foo === null || foo === undefined) ?
     undefined :
     foo.bar;
@@ -110,41 +110,41 @@ let temp = (foo === null || foo === undefined) ?
 let result = temp / someComputation();
 ```
 
-That might result in dividing `undefined`, which is why in `strictNullChecks`, the following is an error.
+这可能会导致除法的结果是 `undefined`，这就是为什么在 `strictNullChecks` 模式下，下面的代码会报错。
 
-```
+```ts
 function barPercentage(foo?: { bar: number }) {
     return foo?.bar / 100;
     //     ~~~~~~~~
-    // Error: Object is possibly undefined.
+    // 错误：对象有可能未定义。
 }
 ```
 
-More more details, you can [read up on the proposal](https://github.com/tc39/proposal-optional-chaining/) and [view the original pull request](https://github.com/microsoft/TypeScript/pull/33294).
+更多的细节，你可以[阅读该提案](https://github.com/tc39/proposal-optional-chaining/) 或者 [查看原始的 pull request](https://github.com/microsoft/TypeScript/pull/33294)。
 
-## Nullish Coalescing
+## 空值合并（Nullish Coalescing）
 
-The **nullish coalescing operator** is another upcoming ECMAScript feature that goes hand-in-hand with optional chaining, and which our team has been deeply involved in championing.
+**空值合并运算符**是另一个即将到来的 ECMAScript 新功能，和可选链是一对好兄弟，我们团队也在努力争取（将这个新功能加入到 ECMAScript 提案的第三个阶段）。
 
-You can think of this feature – the `??` operator – as a way to “fall back” to a default value when dealing with `null` or `undefined`. When we write code like
+你可以考虑使用这个功能 —— `??` 运算符 —— 作为一种处理 `null` 或者 `undefined` 时“回退”到默认值的方法。当我们像下面这样写代码时
 
-```
+```ts
 let x = foo ?? bar();
 ```
 
-this is a new way to say that the value `foo` will be used when it’s “present”; but when it’s `null` or `undefined`, calculate `bar()` in its place.
+这是一种新的表达方式，告诉我们，当 `foo` “存在”时使用 `foo`；但当它是 `null` 或者 `undefined` 时，在它的位置上计算 `bar()` 的值。
 
-Again, the above code is equivalent to the following.
+同样，上面的代码和下面的等价。
 
-```
+```ts
 let x = (foo !== null && foo !== undefined) ?
     foo :
     bar();
 ```
 
-The `??` operator can replace uses of `||` when trying to use a default value. For example, the following code snippet tries to fetch the volume that was last saved in [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) (if it ever was); however, it has a bug because it uses `||`.
+当我们尝试使用默认值时，`??` 运算符可以代替 `||`。例如，下面的代码会尝试获取上次保存在 [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) 中的 volume 值（如果曾经保存过）；但是由于使用 `||` 这里存在一个 bug。
 
-```
+```ts
 function initializeAudio() {
     let volume = localStorage.volume || 0.5
 
@@ -152,23 +152,23 @@ function initializeAudio() {
 }
 ```
 
-When `localStorage.volume` is set to `0`, the page will set the volume to `0.5` which is unintended. `??` avoids some unintended behavior from `0`, `NaN` and `""` being treated as falsy values.
+当 `localStorage.volume` 被置为 `0` 时，页面会意外地将 `0.5` 赋给 volume。`??` 可以避免一些由 `0` 导致的意外行为，`NaN` 和 `""` 都会被 `??` 认为是假。
 
-We owe a large thanks to community members [Wenlu Wang](https://github.com/Kingwl) and [Titian Cernicova Dragomir](https://github.com/dragomirtitian) for implementing this feature! For more details, [check out their pull request](https://github.com/microsoft/TypeScript/pull/32883) and [the nullish coalescing proposal repository](https://github.com/tc39/proposal-nullish-coalescing/).
+非常感谢社区成员 [Wenlu Wang](https://github.com/Kingwl) 和 [Titian Cernicova Dragomir](https://github.com/dragomirtitian) 实现这个功能！更多的细节，你可以[查看他们的 pull request](https://github.com/microsoft/TypeScript/pull/32883) 或者 [查看空值合并提案仓库](https://github.com/tc39/proposal-nullish-coalescing/)。
 
-## Assertion Functions
+## 断言函数
 
-There’s a specific set of functions that `throw` an error if something unexpected happened. They’re called “assertion” functions. As an example, Node.js has a dedicated function for this called `assert`.
+当错误发生的时候，一组特定的函数会 `throw`（抛出）异常。它们被称为“断言”函数。例如，Node.js 为此有一个专用函数，称为 `assert`。
 
-```
+```ts
 assert(someValue === 42);
 ```
 
-In this example if `someValue` isn’t equal to `42`, then `assert` will throw an `AssertionError`.
+在这个例子中，如果 `someValue` 不等于 `42`，`assert` 将会抛出一个 `AssertionError`。
 
-Assertions in JavaScript are often used to guard against improper types being passed in. For example,
+JavaScript 中的断言通常用于防止传入不正确的类型。例如，
 
-```
+```ts
 function multiply(x, y) {
     assert(typeof x === "number");
     assert(typeof y === "number");
@@ -177,35 +177,35 @@ function multiply(x, y) {
 }
 ```
 
-Unfortunately in TypeScript these checks could never be properly encoded. For loosely-typed code this meant TypeScript was checking less, and for slightly conservative code it often forced users to use type assertions..
+不幸的是在 TypeScript 中，这些检查永远无法被正确地编码。对于松散类型的代码，这意味着 TypeScript 检查的更少，而对于稍微保守型的代码，则通常迫使用户使用类型断言。
 
-```
+```ts
 function yell(str) {
     assert(typeof str === "string");
 
     return str.toUppercase();
-    // Oops! We misspelled 'toUpperCase'.
-    // Would be great if TypeScript still caught this!
+    // 糟糕！我们拼错了 'toUpperCase'。
+    // 如果 TypeScript 仍然能捕获了这个错误，那就太好了！
 }
 ```
 
-The alternative was to instead rewrite the code so that the language could analyze it, but this isn’t convenient.
+替代方案是改写代码，以便语言可以对其解析，但这并不方便！
 
-```
+```ts
 function yell(str) {
     if (typeof str !== "string") {
         throw new TypeError("str should have been a string.")
     }
-    // Error caught!
+    // 捕获错误！
     return str.toUppercase();
 }
 ```
 
-Ultimately the goal of TypeScript is to type existing JavaScript constructs in the least disruptive way. For that reason, TypeScript 3.7 introduces a new concept called “assertion signatures” which model these assertion functions.
+最终 TypeScript 的目标是以最小破坏的方法嵌入现有的 JavaScript 结构中。因此，TypeScript 3.7 引入了一个称为“断言签名（assertion signatures）”的新概念，可以对这些断言函数进行建模。
 
-The first type of assertion signature models the way that Node’s `assert` function works. It ensures that whatever condition is being checked must be true for the remainder of the containing scope.
+第一种断言签名对 Node 的 `assert` 函数工作方法进行建模。它确保在函数作用域内的其余部分中，无论检查什么条件都一定为真。
 
-```
+```ts
 function assert(condition: any, msg?: string): asserts condition {
     if (!condition) {
         throw new AssertionError(msg)
@@ -213,16 +213,16 @@ function assert(condition: any, msg?: string): asserts condition {
 }
 ```
 
-`asserts condition` says that whatever gets passed into the `condition` parameter must be true if the `assert` returns (because otherwise it would throw an error). That means that for the rest of the scope, that condition must be truthy. As an example, using this assertion function means we **do** catch our original `yell` example.
+`asserts condition` 表示，如果 `assert`（正常）返回了，那么无论传递给 `condition` 的参数是什么，它都一定为 true，否则 `assert` 会抛出一个异常。这意味着对于作用域内的其他部分，这个条件也一定是真的。例如，使用这个断言函数意味着我们**确实**捕获了刚才 `yell` 例子的异常。
 
-```
+```ts
 function yell(str) {
     assert(typeof str === "string");
 
     return str.toUppercase();
     //         ~~~~~~~~~~~
-    // error: Property 'toUppercase' does not exist on type 'string'.
-    //        Did you mean 'toUpperCase'?
+    // 错误：属性 'toUppercase' 在 'string' 类型上不存在。
+    //      你是说 'toUpperCase' 吗？
 }
 
 function assert(condition: any, msg?: string): asserts condition {
@@ -232,9 +232,9 @@ function assert(condition: any, msg?: string): asserts condition {
 }
 ```
 
-The other type of assertion signature doesn’t check for a condition, but instead tells TypeScript that a specific variable or property has a different type.
+断言签名的另一种类型不检查条件，而是告诉 TypeScript 特定的变量或属性具有不同的类型。
 
-```
+```ts
 function assertIsString(val: any): asserts val is string {
     if (typeof val !== "string") {
         throw new AssertionError("Not a string!");
@@ -242,24 +242,24 @@ function assertIsString(val: any): asserts val is string {
 }
 ```
 
-Here `asserts val is string` ensures that after any call to `assertIsString`, any variable passed in will be known to be a `string`.
+这里 `asserts val is string` 确保在调用 `assertIsString` 之后，传入的任何变量都是可以被认为是一个 `string`。
 
-```
+```ts
 function yell(str: any) {
     assertIsString(str);
 
-    // Now TypeScript knows that 'str' is a 'string'.
+    // 现在 TypeScript 知道 'str' 是一个 'string'。
 
     return str.toUppercase();
     //         ~~~~~~~~~~~
-    // error: Property 'toUppercase' does not exist on type 'string'.
-    //        Did you mean 'toUpperCase'?
+    // 错误：属性 'toUppercase' 在 'string' 类型上不存在。
+    //      你是说 'toUpperCase' 吗？
 }
 ```
 
-These assertion signatures are very similar to writing type predicate signatures:
+这些断言签名与编写类型断言签名非常相似：
 
-```
+```ts
 function isString(val: any): val is string {
     return typeof val === "string";
 }
@@ -272,9 +272,9 @@ function yell(str: any) {
 }
 ```
 
-And just like type predicate signatures, these assertion signatures are incredibly expressive. We can express some fairly sophisticated ideas with these.
+就像是类型断言签名，这些断言签名也具有难以置信的表现力。我们可以用它们表达一些相当复杂的想法。
 
-```
+```ts
 function assertIsDefined<T>(val: T): asserts val is NonNullable<T> {
     if (val === undefined || val === null) {
         throw new AssertionError(
@@ -284,17 +284,17 @@ function assertIsDefined<T>(val: T): asserts val is NonNullable<T> {
 }
 ```
 
-To read up more about assertion signatures, [check out the original pull request](https://github.com/microsoft/TypeScript/pull/32695).
+要了解有关断言签名的更多信息，[请查看原始 pull request](https://github.com/microsoft/TypeScript/pull/32695)。
 
-## Better Support for `never`-Returning Functions
+## 更好地支持返回 `never` 的函数
 
-As part of the work for assertion signatures, TypeScript needed to encode more about where and which functions were being called. This gave us the opportunity to expand support for another class of functions: functions that return `never`.
+作为断言签名工作的一部分，TypeScript 需要对调用位置和调用函数进行更多编码。这使我们有机会扩展对另一类函数的支持：返回 `never` 的函数。
 
-The intent of any function that returns `never` is that it never returns. It indicates that an exception was thrown, a halting error condition occurred, or that the program exited. For example, [`process.exit(...)` in `@types/node`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/5299d372a220584e75a031c13b3d555607af13f8/types/node/globals.d.ts#L874) is specified to return `never`.
+任何返回 `never` 的函数的意味着是它永远不返回。它表明引发了异常，发生了暂停错误条件或者程序已经退出了。例如，[`@types/node` 中的 `process.exit(...)`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/5299d372a220584e75a031c13b3d555607af13f8/types/node/globals.d.ts#L874) 被指定为返回 `never`。
 
-In order to ensure that a function never potentially returned `undefined` or effectively returned from all code paths, TypeScript needed some syntactic signal – either a `return` or `throw` at the end of a function. So users found themselves `return`-ing their failure functions.
+为了确保函数永远不会返回 `undefined` 或者可以从所有代码路径中有效地返回，TypeScript 需要一些语法信号 —— 在函数末尾的 `return` 或者 `throw`。因此，用户才能发现他们自己 `return` 错误的函数。
 
-```
+```ts
 function dispatch(x: string | number): SomeType {
     if (typeof x === "string") {
         return doThingWithString(x);
@@ -306,9 +306,9 @@ function dispatch(x: string | number): SomeType {
 }
 ```
 
-Now when these `never`-returning functions are called, TypeScript recognizes that they affect the control flow graph and accounts for them.
+现在，当这些返回 `never` 的函数被调用时，TypeScript 可以识别出它们会影响控制流程图并说明原因。
 
-```
+```ts
 function dispatch(x: string | number): SomeType {
     if (typeof x === "string") {
         return doThingWithString(x);
@@ -320,43 +320,43 @@ function dispatch(x: string | number): SomeType {
 }
 ```
 
-As with assertion functions, you can [read up more at the same pull request](https://github.com/microsoft/TypeScript/pull/32695).
+与断言函数一样，你可以[在相同的 pull request 中阅读更多的细节](https://github.com/microsoft/TypeScript/pull/32695)。
 
-## (More) Recursive Type Aliases
+## （更多）递归类型别名
 
-Type aliases have always had a limitation in how they could be “recursively” referenced. The reason is that any use of a type alias needs to be able to replace substitute itself with whatever it aliases. In some cases, that’s not not possible, so the compiler rejects certain recursive aliases like the following:
+类型别名在如何”递归“引用它们方面一直受到限制。原因是对类型别名的任何使用都必须能够用其别名替换自身。在某些情况下，这是不可能的，因此编译器会拒绝某些递归别名，如下所示：
 
-```
+```ts
 type Foo = Foo;
 ```
 
-This is a reasonable restriction because any use of `Foo` would need to be replaced with `Foo` which would need to be replaced with `Foo` which would need to be replaced with `Foo` which… well, hopefully you get the idea! In the end, there isn’t a type that makes sense in place of `Foo`.
+这是一个合理的限制，因为对 `Foo` 的任何使用都必须用 `Foo` 替换 `Foo`……好吧，希望你可以理解！最后，没有一种可以代替 `Foo` 的类型。
 
-This is fairly [consistent with how other languages treat type aliases](https://en.wikipedia.org/w/index.php?title=Recursive_data_type&oldid=913091335#In_type_synonyms), but it does give rise to some slightly surprising scenarios for how users leverage the feature. For example, in TypeScript 3.6 and prior, the following causes an error.
+这与[其他语言对待类型别名的方式是相当一致的](https://en.wikipedia.org/w/index.php?title=Recursive_data_type&oldid=913091335#In_type_synonyms)，但是对于用户如何利用该功能确实引发了一些令人惊讶的场景。例如，在 TypeScript 3.6 和更低的版本中，下面的代码会产生一个错误。
 
-```
+```ts
 type ValueOrArray<T> = T | Array<ValueOrArray<T>>;
 //   ~~~~~~~~~~~~
-// error: Type alias 'ValueOrArray' circularly references itself.
+// 错误：类型别名 'ValueOrArray' 循环引用自身。
 ```
 
-This is strange because there is technically nothing wrong with any use users could always write what was effectively the same code by introducing an interface.
+这很奇怪，因为从技术上讲，这样使用没有任何错，用户应该总是可以通过引入接口来编写实际上是相同的代码。
 
-```
+```ts
 type ValueOrArray<T> = T | ArrayOfValueOrArray<T>;
 
 interface ArrayOfValueOrArray<T> extends Array<ValueOrArray<T>> {}
 ```
 
-Because interfaces (and other object types) introduce a level of indirection and their full structure doesn’t need to be eagerly built out, TypeScript has no problem working with this structure.
+因为接口（和其他对象类型）引入了一个间接级别，并且不需要急切地构建它们的完整结构，所以 TypeScript 在使用这种结构时没有问题。
 
-But workaround of introducing the interface wasn’t intuitive for users. And in principle there really wasn’t anything wrong with the original version of `ValueOrArray` that used `Array` directly. If the compiler was a little bit “lazier” and only calculated the type arguments to `Array` when necessary, then TypeScript could express these correctly.
+但是，对于用户而言，引入接口的解决方法并不直观。原则上，`ValueOrArray` 的初始版本直接使用 `Array` 并没有任何错误。如果编译器有点“懒惰”，仅在必要的时候才计算类型参数，那么 TypeScript 可以正确的表示这些参数。
 
-That’s exactly what TypeScript 3.7 introduces. At the “top level” of a type alias, TypeScript will defer resolving type arguments to permit these patterns.
+这正是 TypeScript 3.7 引入的。在类型别名的“顶层”，TypeScript 将推迟解析类型参数以允许使用这些模式。
 
-This means that code like the following that was trying to represent JSON…
+这意味着类似以下的代码正试图表示 JSON……
 
-```
+```ts
 type Json =
     | string
     | number
@@ -372,9 +372,9 @@ interface JsonObject {
 interface JsonArray extends Array<Json> {}
 ```
 
-can finally be rewritten without helper interfaces.
+最终可以在没有辅助接口的情况下进行重写。
 
-```
+```ts
 type Json =
     | string
     | number
@@ -384,9 +384,9 @@ type Json =
     | Json[];
 ```
 
-This new relaxation also lets us recursively reference type aliases in tuples as well. The following code which used to error is now valid TypeScript code.
+这种新的宽松（模式）使我们也可以在元组中递归引用类型别名。下面这个曾经报错的代码现在是有效的 TypeScript 代码。
 
-```
+```ts
 type VirtualNode =
     | string
     | [string, { [key: string]: any }, ...VirtualNode[]];
@@ -398,35 +398,35 @@ const myNode: VirtualNode =
     ];
 ```
 
-For more information, you can [read up on the original pull request](https://github.com/microsoft/TypeScript/pull/33050).
+更多的细节，你可以[阅读原始的 pull request](https://github.com/microsoft/TypeScript/pull/33050)。
 
-## `--declaration` and `--allowJs`
+## `--declaration` 和 `--allowJs`
 
-The `--declaration` flag in TypeScript allows us to generate `.d.ts` files (declaration files) from source TypeScript files like `.ts` and `.tsx` files. These `.d.ts` files are important because they allow TypeScript to type-check against other projects without re-checking/building the original source code. For the same reason, this setting is **required** when using project references.
+TypeScript 中的 `--declaration` 标志允许我们从 TypeScript 源文件（例如 `.ts` 和 `.tsx`）生成 `.d.ts` 文件（声明文件）。这些 `.d.ts` 文件很重要，因为它们允许TypeScript 对其他项目进行类型检查，而无需重新检查/构建原始源代码。出于相同的目的，使用项目引用时**需要**这个设置。
 
-Unfortunately, `--declaration` didn’t work with settings like `--allowJs` to allow mixing TypeScript and JavaScript input files. This was a frustrating limitation because it meant users couldn’t use `--declaration` when migrating codebases, even if they were JSDoc-annotated. TypeScript 3.7 changes that, and allows the two features to be mixed!
+不幸的是，`--declaration` 不能和 `--allowJs`（允许混合 TypeScript 和 JavaScript 的输入文件） 一起使用。这是一个令人沮丧的限制，因为它意味着即便是 JSDoc 注释，在用户在迁移代码库时也无法使用。
 
-When using `allowJs`, TypeScript will use its best-effort understanding of JavaScript source code and save that to a `.d.ts` file in an equivalent representation. That includes all of its JSDoc smarts, so code like the following:
+在使用 `allowJs` 时，TypeScript 将尽最大努力理解 JavaScript 源代码，并将其以等效的表达形式存储在一个 `.d.ts` 文件中。这包括它所有的 JSDoc 注释，所以像下面这样的代码：
 
-```
+```ts
 /**
  * @callback Job
  * @returns {void}
  */
 
-/** Queues work */
+/** 工作队列 */
 export class Worker {
     constructor(maxDepth = 10) {
         this.started = false;
         this.depthLimit = maxDepth;
         /**
-         * NOTE: queued jobs may add more items to queue
+         * 注意：队列中的作业可能会将更多项目添加到队列中
          * @type {Job[]}
          */
         this.queue = [];
     }
     /**
-     * Adds a work item to the queue
+     * 在队列中添加一个工作项
      * @param {Job} work 
      */
     push(work) {
@@ -434,7 +434,7 @@ export class Worker {
         this.queue.push(work);
     }
     /**
-     * Starts the queue if it has not yet started
+     * 启动队列，如果它尚未开始
      */
     start() {
         if (this.started) return false;
@@ -447,62 +447,62 @@ export class Worker {
 }
 ```
 
-will currently be transformed into the following implementation-less `.d.ts` file:
+现在会被转换为以下无需实现的 `.d.ts` 文件：
 
-```
+```ts
 /**
  * @callback Job
  * @returns {void}
  */
-/** Queues work */
+/** 工作队列 */
 export class Worker {
     constructor(maxDepth?: number);
     started: boolean;
     depthLimit: number;
     /**
-     * NOTE: queued jobs may add more items to queue
+     * 注意：队列中的作业可能会将更多项目添加到队列中
      * @type {Job[]}
      */
     queue: Job[];
     /**
-     * Adds a work item to the queue
+     * 在队列中添加一个工作项
      * @param {Job} work
      */
     push(work: Job): void;
     /**
-     * Starts the queue if it has not yet started
+     * 启动队列，如果它尚未开始
      */
     start(): boolean;
 }
 export type Job = () => void;
 ```
 
-For more details, you can [check out the original pull request](https://github.com/microsoft/TypeScript/pull/32372).
+更多的细节，你可以[查看原始的 pull request](https://github.com/microsoft/TypeScript/pull/32372)。
 
-## Build-Free Editing with Project References
+## 使用项目引用进行免构建编辑
 
-TypeScript’s project references provide us with an easy way to break codebases up to give us faster compiles. Unfortunately, editing a project whose dependencies hadn’t been built (or whose output was out of date) meant that the editing experience wouldn’t work well.
+TypeScript 的项目引用为我们提供了一种简单的方法来分解代码库，从而使我们可以更快地进行编译。不幸的是，编辑尚未建立依赖关系（或者输出过时）的项目意味着这种编辑体验无法正常工作。
 
-In TypeScript 3.7, when opening a project with dependencies, TypeScript will automatically use the source `.ts`/`.tsx` files instead. This means projects using project references will now see an improved editing experience where semantic operations are up-to-date and “just work”. You can disable this behavior with the compiler option `disableSourceOfProjectReferenceRedirect` which may be appropriate when working in very large projects where this change may impact editing performance.
+在 TypeScript 3.7 中，当打开具有依赖项的项目时，TypeScript 将自动使用源 `.ts`/`.tsx` 文件代替。这意味着使用项目引用的项目现在将获得更好的编辑体验，其中语义化操作是最新且“有效”的。在非常大的项目中使用这个更改可能会影响编辑性能，你可以使用编译器选项 `disableSourceOfProjectReferenceRedirect` 禁用此行为。
 
-You can [read up more about this change by reading up on its pull request](https://github.com/microsoft/TypeScript/pull/32028).
+你可以[通过阅读原始的 pull request 来了解有关这个更改的更多信息](https://github.com/microsoft/TypeScript/pull/32028)。
 
-## Uncalled Function Checks
+## 未调用的函数检查
 
-A common and dangerous error is to forget to invoke a function, especially if the function has zero arguments or is named in a way that implies it might be a property rather than a function.
+忘记调用函数是一个常见且危险的错误，特别是当函数没有参数或者以一种暗示它可能是属性而不是函数的方式命名时。
 
-```
+```ts
 interface User {
     isAdministrator(): boolean;
     notify(): void;
     doNotDisturb?(): boolean;
 }
 
-// later...
+// 稍后……
 
-// Broken code, do not use!
+// 有问题的代码，请勿使用！
 function doAdminThing(user: User) {
-    // oops!
+    // 糟糕！
     if (user.isAdministrator) {
         sudo();
         editTheConfiguration();
@@ -513,21 +513,21 @@ function doAdminThing(user: User) {
 }
 ```
 
-Here, we forgot to call `isAdministrator`, and the code incorrectly allows non-adminstrator users to edit the configuration!
+在这里，我们忘记了调用 `isAdministrator`，该代码将错误地允许非管理员用户编辑配置！
 
-In TypeScript 3.7, this is identified as a likely error:
+在 TypeScript 3.7 中，这会被标识为可能的错误：
 
-```
+```ts
 function doAdminThing(user: User) {
     if (user.isAdministrator) {
     //  ~~~~~~~~~~~~~~~~~~~~
-    // error! This condition will always return true since the function is always defined.
-    //        Did you mean to call it instead?t
+    // 错误！这个条件将始终返回 true，因为这个函数定义是一直存在的
+    //      你的意思是调用它吗？
 ```
 
-This check is a breaking change, but for that reason the checks are very conservative. This error is only issued in `if` conditions, and it is not issued on optional properties, if `strictNullChecks` is off, or if the function is later called within the body of the `if`:
+这个检查是一项重大更改，但是由于这个原因，检查非常保守。仅在 `if` 条件中才会产生此错误，并且如果 `strictNullChecks` 关闭或之后在 `if` 中调用此函数或者属性是可选的，将不会产生错误：
 
-```
+```ts
 interface User {
     isAdministrator(): boolean;
     notify(): void;
@@ -536,50 +536,50 @@ interface User {
 
 function issueNotification(user: User) {
     if (user.doNotDisturb) {
-        // OK, property is optional
+        // OK，属性是可选的
     }
     if (user.notify) {
-        // OK, called the function
+        // OK，调用了这个方法
         user.notify();
     }
 }
 ```
 
-If you intended to test the function without calling it, you can correct the definition of it to include `undefined`/`null`, or use `!!` to write something like `if (!!user.isAdministrator)` to indicate that the coercion is intentional.
+如果你打算在不调用函数的情况下对其进行测试，则可以将其定义更正为 `undefined`/`null`，或者使用 `!!`，编写和 `if (!!user.isAdministrator)` 类似的代码，表明强制是有意为之的。
 
-We owe a big thanks to GitHub user [@jwbay](https://github.com/jwbay) who took the initiative to create a [proof-of-concept](https://github.com/microsoft/TypeScript/pull/32802) and iterated to provide us with with [the current version](https://github.com/microsoft/TypeScript/pull/33178).
+非常感谢 GitHub 用户 [@jwbay](https://github.com/jwbay)，他主动创建了[概念验证](https://github.com/microsoft/TypeScript/pull/32802)，并持续为我们提供[最新的版本](https://github.com/microsoft/TypeScript/pull/33178)。
 
-## `// @ts-nocheck` in TypeScript Files
+## TypeScript 文件中的 `// @ts-nocheck`
 
-TypeScript 3.7 allows us to add `// @ts-nocheck` comments to the top of TypeScript files to disable semantic checks. Historically this comment was only respected in JavaScript source files in the presence of `checkJs`, but we’ve expanded support to TypeScript files to make migrations easier for all users.
+TypeScript 3.7 允许我们在 TypeScript 文件的顶部添加 `// @ts-nocheck` 注释来禁用语义检查。从历史上看，这个注释只有在 `checkJs` 存在时，才在 JavaScript 源文件中受到重用，但我们已经扩展了对 TypeScript 文件的支持，以使所有用户的迁移更加容易。
 
-## Semicolon Formatter Option
+## 分号格式化选项
 
-TypeScript’s built-in formatter now supports semicolon insertion and removal at locations where a trailing semicolon is optional due to JavaScript’s automatic semicolon insertion (ASI) rules. The setting is available now in [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/), and will be available in Visual Studio 16.4 Preview 2 in the Tools Options menu.
+由于 JavaScript 的自动分号插入（ASI）规则，TypeScript 的内置格式化程序现在支持在分号结尾可选的位置插入和删除分号。该设置现在在 [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) 中可用，可以在 Visual Studio 16.4 Preview 2 中的“工具选项”菜单中找到它。
 
-![New semicolon formatter option in VS Code](https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2019/10/semicolons-options-3.7.png)
+![VS Code 中新的分号格式化选项](https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2019/10/semicolons-options-3.7.png)
 
-Choosing a value of “insert” or “remove” also affects the format of auto-imports, extracted types, and other generated code provided by TypeScript services. Leaving the setting on its default value of “ignore” makes generated code match the semicolon preference detected in the current file.
+选择“插入”或“删除”的值还会影响自动导入的格式、提取的类型以及 TypeScript 服务提供的其它生成的代码。将设置保存为默认值 “ignore” 会使生成的代码与当前文件中检测到的分号首选项相匹配。
 
-## Breaking Changes
+## 重大变更
 
-### DOM Changes
+### DOM 变更
 
-[Types in `lib.dom.d.ts` have been updated](https://github.com/microsoft/TypeScript/pull/33627). These changes are largely correctness changes related to nullability, but impact will ultimately depend on your codebase.
+[在 `lib.dom.d.ts` 中的类型已更新](https://github.com/microsoft/TypeScript/pull/33627)。这些更改是和可空性相关的大部分正确性更改，但是影响大小最终取决于你的代码库。
 
-### Function Truthy Checks
+### 函数为真检查
 
-As mentioned above, TypeScript now errors when functions appear to be uncalled within `if` statement conditions. An error is issued when a function type is checked in `if` conditions unless any of the following apply:
+如上所述，当在 `if` 语句条件内存在函数，且看起来似乎没有被调用时，TypeScript 现在会报错。在 `if` 条件中检查函数类型时，将产生错误，除非满足以下任何条件：
 
-* the checked value comes from an optional property
-* `strictNullChecks` is disabled
-* the function is later called within the body of the `if`
+* 检查值来自可选属性
+* `strictNullChecks` 被禁用
+* 该函数稍后在 `if` 中被调用
 
-### Local and Imported Type Declarations Now Conflict
+### 本地和导入类型声明现在会发生冲突
 
-Due to a bug, the following construct was previously allowed in TypeScript:
+之前由于存在 bug，TypeScript 允许以下构造：
 
-```
+```ts
 // ./someOtherModule.ts
 interface SomeType {
     y: string;
@@ -592,21 +592,21 @@ export interface SomeType {
 }
 
 function fn(arg: SomeType) {
-    console.log(arg.x); // Error! 'x' doesn't exist on 'SomeType'
+    console.log(arg.x); // 错误！'SomeType' 上不存在 'x'
 }
 ```
 
-Here, `SomeType` appears to originate in both the `import` declaration and the local `interface` declaration. Perhaps surprisingly, inside the module, `SomeType` refers exclusively to the `import`ed definition, and the local declaration `SomeType` is only usable when imported from another file. This is very confusing and our review of the very small number of cases of code like this in the wild showed that developers usually thought something different was happening.
+在这里，`SomeType` 似乎起源于 `import` 声明和本地的 `interface` 声明。也许令人惊讶的是，在模块内部，`SomeType` 只是引用了被 `import` 的定义，而本地声明的 `SomeType` 仅在从另一个文件导入时才可用。这非常令人困惑，我们对极少数这种情况的代码进行的野蛮审查表明，开发人员通常认为正在发生一些不同的事情。
 
-In TypeScript 3.7, [this is now correctly identified as a duplicate identifier error](https://github.com/microsoft/TypeScript/pull/31231). The correct fix depends on the original intent of the author and should be addressed on a case-by-case basis. Usually, the naming conflict is unintentional and the best fix is to rename the imported type. If the intent was to augment the imported type, a proper module augmentation should be written instead.
+在 TypeScript 3.7 中，[现在可以正确地将其标识为重复标识符错误](https://github.com/microsoft/TypeScript/pull/31231)。正确的解决方案取决于作者的初衷，并应逐案解决。通常，命名冲突是无意的，最好的解决方法是重命名导入的类型。如果要扩展导入的类型，则应编写适当的模块进行扩展。
 
-## What’s Next?
+## 下一步
 
-The final release of TypeScript 3.7 will be released near the start of November, with a release candidate available a few weeks earlier. We hope you give the beta a shot and let us know how things work. If you have any suggestions or run into any problems, [don’t be afraid to drop by the issue tracker and open up an issue](https://github.com/microsoft/TypeScript/issues/new/choose)!
+TypeScript 3.7 的最终版本将在 11 月初发布，在那之前的几周将发布候选版本。我们希望您能试用一下 Beta 版，并让我们知道它工作的如何。如果您有任何建议或遇到任何问题，[请尽情前往问题跟踪页面并提出新问题](https://github.com/microsoft/TypeScript/issues/new/choose)！
 
 Happy Hacking!
 
-– Daniel Rosenwasser and the TypeScript Team
+—— Daniel Rosenwasser 和 TypeScript 团队
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
