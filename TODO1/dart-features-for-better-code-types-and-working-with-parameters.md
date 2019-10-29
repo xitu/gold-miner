@@ -2,22 +2,22 @@
 > * 原文作者：[Andrea Bizzotto](https://medium.com/@biz84)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dart-features-for-better-code-types-and-working-with-parameters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dart-features-for-better-code-types-and-working-with-parameters.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Dart Features for Better Code: Types and working with parameters
+# 类型及其在参数中的应用：能优化代码的的 Dart 特性
 
 ![](https://cdn-images-1.medium.com/max/3200/1*BMqeS3pHvbHt52MzbZbS3Q.jpeg)
 
-This tutorial presents some of the fundamental features of the Dart language, and shows how to use them in practice.
+本篇教程将会介绍 Dart 语言的一些基础特性，以及如何将其应用于代码中。
 
-Using them correctly leads to code that is **clear**, **lightweight**, and more **robust**.
+正确的使用这些特性，能够让你的代码更加整洁、轻量，并且健壮。
 
-## 1. Type inference
+## 1. 类型推断
 
-The Dart compiler can automatically infer the type of variables from their **initializer**, so that we don’t have to declare the type ourselves.
+Dart 编译器能够在变量初始化的时候自动推断它的类型，所以我们也就不必声明变量的类型。
 
-In practice, this means that we can convert this code:
+在代码应用中，也就是我们可以将这样的代码：
 
 ```
 String name = 'Andrea';
@@ -25,7 +25,7 @@ int age = 35;
 double height = 1.84;
 ```
 
-to this:
+转化为：
 
 ```
 var name = 'Andrea';
@@ -33,9 +33,9 @@ var age = 35;
 var height = 1.84;
 ```
 
-This works because Dart can **infer** the type from the expression on the right side of the assignment.
+这段代码之所以能生效，是因为 Dart 可以从表达式右边的值**推断**出变量的类型。
 
-We could declare a variable like this:
+我们可以像这样声明变量：
 
 ```
 var x;
@@ -43,37 +43,37 @@ x = 15;
 x = 'hello';
 ```
 
-In this case, `x` is **declared first** and **initialized later**.
+在这个例子中，`x` 声明在前，初始化在后。
 
-Its type is `dynamic`, meaning that it can be assigned from expressions of different types.
+此时它的类型是动态的，即 `dynamic`，这意味着，它可以被多个表达式赋值为不同的类型。
 
-**Takeaway**
+**小结**
 
-* Dart will infer the correct type when using `var`, as long as variables are **declared** and **initialized** at the same time.
+* 当使用 `var` 的时候，只要变量的声明和初始化是同时完成的，那么 Dart 将能正确的推断出变量类型。
 
-## 2. final and const
+## 2. final 和 const
 
-When a variable is declared with var, it can be assigned again:
+当我们使用 var 来声明变量的时候，这个变量可以被多次赋值：
 
 ```
 var name = 'Andrea';
 name = 'Bob';
 ```
 
-In other words:
+也就是说：
 
-> **`var` means** multiple assignment
+> **使用 `var` 意味着**可以多次赋值
 
-This is not allowed with `final`:
+但是如果我们使用了 `final`，就不能给变量多次赋值了：
 
 ```
 final name = 'Andrea';
-name = 'Bob'; // 'name', a final variable, can only be set once
+name = 'Bob'; // 'name' 是一个 final 类型的变量，不可以被再次赋值
 ```
 
-#### Final in practice
+#### final 的应用
 
-It is very common to use `final` when declaring properties inside widget classes. Example:
+在 widget 类中，很常见使用 `final` 声明的属性。例如：
 
 ```
 class PlaceholderContent extends StatelessWidget {
@@ -84,25 +84,25 @@ class PlaceholderContent extends StatelessWidget {
   final String title;
   final String message;
   
-  // TODO: Implement build method
+  // TODO：实现构建方法
 }
 ```
 
-Here, the `title` and `message` can’t be modified inside the widget, because:
+在这段代码中，`title` 和 `message` 在这个 widget 内是不可以被修改的，因为：
 
-> **`final` means** single assignment
+> **使用 `final` 意味着**只能一次赋值
 
-So, the difference between `var` vs `final` is about **multiple** vs **single** assignment. Now let’s look at `const`:
+所以，使用 `var` 和 `final` 的区别就是是否允许多次或只能一次赋值。现在我们再来看看 `const`：
 
 #### const
 
-> **`const` defines a** compile-time **constant**
+> **`const` 能够定义**编译时**常量**
 
-`const` is used to define **hard-coded** values, such as colors, font sizes and icons.
+`const` 用来定义硬编码值，例如颜色、字体大小和图标等。
 
-But we can also use a **const** constructor when defining widget classes.
+同时我们也可以在定义 widget 类的时候使用 **const** 构建函数。
 
-This is possible, as long as everything inside the widget is also a compile-time constant. Example:
+这是完全可行的，因为所有 widget 内部的变量和方法都是编译时常量。例如：
 
 ```
 class PlaceholderContent extends StatelessWidget {
@@ -134,7 +134,7 @@ class PlaceholderContent extends StatelessWidget {
 }
 ```
 
-And if a widget has a `const` constructor, it can be built like this:
+如果这个 widget 的构建函数是 `const` 类型，它就可以被这样构建：
 
 ```
 const PlaceholderContent(
@@ -143,22 +143,22 @@ const PlaceholderContent(
 )
 ```
 
-As a result, this widget is optimised by Flutter, as **it is not rebuilt when the parent changes**.
+结果就是，这个 widget 可以被 Flutter 优化为，**当它的父级变化时，widget 本身不会重复构建**。
 
-Takeaway:
+小结：
 
-* `final` means **single assignment**
-* `const` defines a **compile-time constant**
-* **const** widgets [are not rebuilt when their parent changes](https://stackoverflow.com/questions/53492705/does-using-const-in-the-widget-tree-improve-performance).
-* Prefer `const` over `final` when possible
+* `final` 意味着变量只能被**赋值一次**
+* `const` 用来定义**编译时常量**
+* **const** 定义的 widget [不会在父级变化时重复构建](https://stackoverflow.com/questions/53492705/does-using-const-in-the-widget-tree-improve-performance)。
+* 尽可能选择 `const` 而不是 `final`
 
-## 3. Named & positional parameters
+## 3. 命名参数和位置参数
 
-In Dart we define named parameters by surrounding them with curly (`{}`) braces:
+在 Dart 中，我们将变量使用大括号（`{}`）包起来，由此可以定义命名参数：
 
 ```
 class PlaceholderContent extends StatelessWidget {
-  // constructor with named parameters
+  // 使用命名参数的构建函数
   const PlaceholderContent({
     this.title,
     this.message,
@@ -166,11 +166,11 @@ class PlaceholderContent extends StatelessWidget {
   final String title;
   final String message;
   
-  // TODO: Implement build method
+  // TODO：实现构建方法
 }
 ```
 
-This means that we can create the widget above like this:
+这段代码意味着，我们可以像这样创建 widget：
 
 ```
 PlaceholderContent(
@@ -179,57 +179,57 @@ PlaceholderContent(
 )
 ```
 
-As an alternative, we could omit the curly braces in the constructor to declare positional parameters:
+还有一种替代方案是，我们可以在构建函数中将大括号省略，声明位置参数：
 
 ```
-// constructor with positional parameters
+// 使用位置参数的构建函数
 const PlaceholderContent(
   this.title,
   this.message,
 );
 ```
 
-As a result, parameters are defined by their **position**:
+结果就是，参数可以通过它们**所在的位置**来定义：
 
 ```
 PlaceholderContent(
-  'Nothing here', // title at position 0
-  'Add a new item to get started', // message at position 1
+  'Nothing here', // title 参数位于 0 号位
+  'Add a new item to get started', // message 参数位于 1 号位
 )
 ```
 
-This works, but it quickly gets confusing when we have many parameters.
+这完全行得通，但是当我们有多个参数的时候，这样很容易引起混乱。
 
-Named parameters help with this, because they make the code easier to write (and read).
+此时命名参数就展露优势了，它们让代码更易写也更易读。
 
-By the way, you can combine positional and named parameters like so:
+顺便说一句，你还可以将位置参数和命名参数结合起来：
 
 ```
-// positional parameters first, then named parameters
+// 位置参数优先，然后是命名参数
 void _showAlert(BuildContext context, {String title, String content}) {
-  // TODO: Show Alert
+  // TODO：展示提示信息
 }
 ```
 
-It is common for Flutter widgets to have a single positional parameter, followed by named parameters. The `Text` widget is a good example of this.
+Flutter widget 中随处可见使用一个位置参数，然后使用多个命名参数的方式。`Text` widget 就是一个很好的例子。
 
-As a guideline, I always want my code to be clear and self-explanatory. And I choose to use named or positional parameters accordingly.
+我写代码的指导思想就是，代码一定要保持整洁、自洽。我会依照此合理选择命名参数和位置参数。
 
-## 4. @required & default values
+## 4. @required 和默认值
 
-By default, named parameters can be omitted.
+默认情况下，命名参数可以被省略。
 
-> **Omitting a named parameter is the same as giving it a `null` value.**
+> **省略命名参数就等于给它赋值为 `null`。**
 
-And sometimes, this leads to unintended consequences.
+有时候这会导致无法预期的后果。
 
-In the example above, we could define a `PlaceholderContent()` and forget to pass in the `title` and `message`.
+在上面的例子中，我们可以在定义 `PlaceholderContent()` 时并不传入 `title` 和 `message` 参数。
 
-And this would lead to a red screen with an error, because we would then be passing `null` data values to the `Text` widgets, which is not allowed.
+这将会导致错误，因为这样的话我们会将 `null` 值传入 `Text` widget，但这是不允许的。
 
-#### @required to the rescue
+#### @required 是一种补救方法
 
-We can annotate any required parameters like so:
+我们可以为任何变量添加 required 注释：
 
 ```
 const PlaceholderContent({
@@ -238,9 +238,9 @@ const PlaceholderContent({
 });
 ```
 
-And the compiler will emit a warning if we forget to pass them in.
+这样当我们忘记传入参数的时候，编译器将会报出警告。
 
-Still, if we want we can pass `null` values explicitly:
+此时如果我们需要，我们仍旧可以明确写出传递 `null` 值：
 
 ```
 PlaceholderContent(
@@ -249,9 +249,9 @@ PlaceholderContent(
 )
 ```
 
-And the compiler is happy with this.
+此时编译器就不会报警告了。
 
-To prevent passing `null` values, we can add some assertions:
+如果想要避免传入 `null` 值，我们可以增加一些断言（assert）：
 
 ```
 const PlaceholderContent({
@@ -260,30 +260,30 @@ const PlaceholderContent({
 }) : assert(title != null && message != null);
 ```
 
-Our code is safer with this change, because:
+这些修改让我们的代码安全系数更高，因为：
 
-* `@required` adds a **compile-time** check
-* `assert` adds a **runtime** check
+* `@required` 会增加**编译时**检查
+* `assert` 会增加**运行时**检查
 
-And if we add asserts to our code, then runtime errors are much easier to fix, because they will point exactly to the line that caused the error.
+如果我们为代码加入断言，那么运行时的错误就更容易改正，因为此时的报错会明确指出导致错误的代码位置。
 
-#### non-nullable types
+#### 非空类型
 
-`@required` and `assert` make our code safer, by they feel a bit clunky.
+`@required` 和 `assert` 让我们的代码安全系数更高了，但是它们看上去有些笨重。
 
-It would be nicer if we could specify that an object cannot be null at compile time.
+如果我们可以指定对象在编译时不可为空就更好了。
 
-This is accomplished with non-nullable types, which were built into Swift and Kotlin from the start.
+通过使用非空类型我们可以做到这一点，而它在一开始就内建在 Swift 和 Kotlin 中了。
 
-And non-nullable types are currently being implemented in the Dart language.
+而且非空类型现在也正计划应用于 Dart 语言。
 
-So we can cross fingers and hope they arrive soon. 🤞
+让我们祈祷它可以快点到来吧。🤞
 
-#### Default values
+#### 默认值
 
-Sometimes it is useful to specify some **sensible** default values.
+有时候，指定**合理的**默认值也很有用。
 
-This is easy in Dart:
+在 Dart 中这很容易就能做到：
 
 ```
 const PlaceholderContent({
@@ -292,27 +292,27 @@ const PlaceholderContent({
 }) : assert(title != null && message != null);
 ```
 
-With this syntax, if the `title` and `message` are omitted, then the default values are used.
+使用这种语法，如果 `title` 和 `message` 参数被忽略了，那么默认值就会被使用。
 
-By the way, default values can be specified with positional parameters as well:
+顺便提一下，默认值也可以应用于位置参数：
 
 ```
 int sum([int a = 0, int b = 0]) {
   return a + b;
 }
-print(sum(10)); // prints 10
+print(sum(10)); // 打印出 10
 ```
 
-## Wrap up
+## 总结
 
-Code is written for machines to execute, and for other humans to read.
+代码是让机器执行的，但是也是要程序员阅读的。
 
-Life is short. Be nice and write good code 😉
+时间宝贵，要写精致的代码才好 😉
 
-* It makes your apps more robust and performant.
-* It helps teammates and your future self.
+* 这样才能让你的应用更健壮，性能也更好。
+* 同时也能帮助你和你的团队有更好的发展。
 
-Happy coding!
+编程愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
