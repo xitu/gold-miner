@@ -171,7 +171,7 @@ class _SignInPageSetStateState extends State<SignInPageSetState> {
 }
 ```
 
-**重要提示**：请注意我们如何使用 `[finally](https://dart.dev/guides/language/language-tour#finally)` 闭包。无论是否抛出异常，这都可被用于执行某些代码。
+**重要提示**：请注意我们如何使用 [`finally`](https://dart.dev/guides/language/language-tour#finally) 闭包。无论是否抛出异常，这都可被用于执行某些代码。
 
 ## BLoC
 
@@ -257,7 +257,7 @@ class SignInPageBloc extends StatelessWidget {
 
 ## ValueNotifier
 
-`[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html)` 可以被用于持有一个值，并当它变化的时候通知它的监听者。
+[`ValueNotifier`](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) 可以被用于持有一个值，并当它变化的时候通知它的监听者。
 
 实现相同的流程代码如下：
 
@@ -306,11 +306,11 @@ class SignInPageValueNotifier extends StatelessWidget {
 }
 ```
 
-在 `静态 create` 方法中，我们使用了 `ValueNotifier<bool>` 的 `[ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html)` 和 `[Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)`，这为我们提供了一种表示加载状态的方法，并在更改时重建 widget。
+在 `静态 create` 方法中，我们使用了 `ValueNotifier<bool>` 的 [`ChangeNotifierProvider`](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html) 和 [`Consumer`](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)，这为我们提供了一种表示加载状态的方法，并在更改时重建 widget。
 
 ## ValueNotifier vs ChangeNotifier
 
-`[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html)` 和 `[ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)` 密切相关。
+[`ValueNotifier`](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) 和 [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) 密切相关。
 
 实际上，`ValueNotifier` 就是实现了 `ValueListenable<T>` 的 `ChangeNotifier` 的子类。
 
@@ -420,7 +420,7 @@ class LandingPage extends StatelessWidget {
 }
 ```
 
-这里使用 `[StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html)` 来控制用户的身份验证状态。
+这里使用 [`StreamBuilder`](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) 来控制用户的身份验证状态。
 
 通过使用 `ChangeNotifierProvider<ValueNotifier<Option>>` 来包装它，即使在删除 `SignInPageNavigation` 之后，我也能保留所选的选项。
 
