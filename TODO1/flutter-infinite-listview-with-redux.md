@@ -104,7 +104,6 @@ class AppState {
 
 ```
 
-You may have noticed the `toString` method. It can be used for debugging purposes and comes in handy if you decide to use `LoggingMiddleware`.
 你们会注意到这里有一个 `toString` 方法。它的主要作用是调试和未来更方便的使用 `LoggingMiddleware`。
 
 #### Actions
@@ -405,7 +404,7 @@ class GithubIssueListItem extends StatelessWidget {
 
 **下面是主要的展示逻辑**
 
-**注意一下 `HomeScreen`。**这里有好几个值得关注的点：
+**注意一下 `HomeScreen`**。这里有好几个值得关注的点：
 
 1. 页面包含的 `ScrollController` 决定了是否需要调用 `loadNextPage` 函数。
 2. 在这里使用了 `Debouncer`（具体实现见下文）。它是一个含有定时器功能的简单类，能够确保来自 `ScrollController` 的连续事件不会触发大量的下一页请求，而是在一个特定时间段之内只发送一次请求。
@@ -633,7 +632,6 @@ class App extends StatelessWidget {
 }
 ```
 
-Don’t hesitate to give this sample a go yourself, grab the sources from the [Github repo](https://github.com/Pavel-Sulimau/flutter_redux_infinite_list).
 不要犹豫，自己一定要去试一试，你可以从 [Github repo](https://github.com/Pavel-Sulimau/flutter_redux_infinite_list) 获取本文源码。
 
 ## 参考资源：
@@ -642,8 +640,6 @@ Don’t hesitate to give this sample a go yourself, grab the sources from the [G
 * [https://github.com/johnpryan/redux.dart](https://github.com/johnpryan/redux.dart)
 * [https://github.com/brianegan/flutter_redux](https://github.com/brianegan/flutter_redux)
 * [https://stackoverflow.com/questions/51791501/how-to-debounce-textfield-onchange-in-dart](https://stackoverflow.com/questions/51791501/how-to-debounce-textfield-onchange-in-dart)
-[**Flutter Community (@FlutterComm) | Twitter**
-**The latest Tweets from Flutter Community (@FlutterComm). Follow to get notifications of new articles and packages from…**www.twitter.com](https://www.twitter.com/FlutterComm)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
