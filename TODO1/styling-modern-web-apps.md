@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/styling-modern-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/styling-modern-web-apps.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[chechebecomestrong](https://github.com/chechebecomestrong)
 
-# 关于现代应用样式的探讨
+# 关于现代 Web 应用程序样式的探讨
 
-欢迎你和我们一起通过本文深度探索现代应用中样式的不同组织方法，这些不同的方法通常会包含复杂的接口和设计模式。我们将会一起探讨 BEM、预处理器、CSS-in-JS 甚至是设计系统，然后找出更适合你的方案。
+欢迎你和我们一起通过本文深度探索现代应用中样式的不同组织方法，这些不同的方法通常会包含复杂的接口和设计模式。我们将会一起探讨 BEM（Block Element Modfier，块元素编辑器）、预处理器、CSS-in-JS（即在组件内部使用 JavaScript 对 CSS 进行了抽象，可以对其声明和加以维护。） 甚至是设计系统，然后找出更适合你的方案。
 
 ---
 
