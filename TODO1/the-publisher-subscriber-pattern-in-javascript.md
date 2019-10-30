@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-publisher-subscriber-pattern-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-publisher-subscriber-pattern-in-javascript.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[weisiwu](https://github.com/weisiwu)，[Alfxjx](https://github.com/Alfxjx)
 
 # JavaScript 的发布者/订阅者（Publisher/Subscriber）模式
 
@@ -11,11 +11,11 @@
 
 ![**Photo by [NordWood Themes](https://unsplash.com/@nordwood) on [Unsplash](https://unsplash.com/)**](https://cdn-images-1.medium.com/max/3000/1*yH2hPgLBkX2CtuFwGlpdIA.jpeg)
 
-在本篇文章中，我们将会学习 JavaScript 的发布/订阅模式，并且我们将能看到，在 JavaScript 应用中它是多么的简单而强大。
+在本篇文章中，我们将会学习 JavaScript 的发布/订阅模式，并且我们将能看到，在我们的 JavaScript 代码中使用这种设计模式很简单（但却很高效）。
 
-发布者/订阅者模式是一种设计模式，它能让你创建强大的动态应用，并可以在应用中使用可以互相传递信息但不用直接相互依赖的模块。
+发布者/订阅者模式是一种设计模式，旨在让开发者设计出不直接互相依赖，但却可以互相传递信息的高效能动态应用程序。
 
-这种模式在 JavaScript 中十分常见，它和观察者模式的工作方式很相近 —— 除了一个区别是，在观察者模式中，观察者直接从它所观察的实体那里得到通知，而在发布者/订阅者模式中，订阅者则通过渠道得到通知，渠道位于发布者和订阅者之间并来回传递信息。
+这种模式在 JavaScript 中十分常见，它和观察者模式的工作方式很相近 —— 一个区别是，在观察者模式中，观察者直接从它所观察的实体那里得到通知，而在发布者/订阅者模式中，订阅者则通过渠道得到通知，渠道位于发布者和订阅者之间并来回传递信息。
 
 如果想要实现一个发布者/订阅者模式，我们需要一个发布者、一个订阅者，以及一些存储订阅者所注册的回调函数的空间。
 
@@ -48,7 +48,7 @@ function pubSub() {
 }
 ```
 
-这段代码的作用是，在尝试为事件名注册回调函数监听之前，需要检查对象 `subscribers` 存储的 `eventName` 属性是否已经是 `array` 类型的值了。如果还不是，那么就认为这是 `subscribers[eventName]` 第一次注册的回调函数，并将其初始化为一个数组。然后，将回调函数放入数组。
+该段代码会在添加新的事件订阅前，检查订阅者中是否有对应的事件。如果没有，将在订阅者上添加值为空数组的事件属性，否则将在对应的事件队列下入队新的订阅回调。
 
 当 `publish` 事件被触发的时候，它将会收到两个参数：
 
@@ -91,7 +91,7 @@ function pubSub() {
 
 程序每读取到一个回调函数，都将会以 `data` 为第二个参数来调用它。
 
-所以，当我们订阅一个函数的时候，应该这样：
+当我们如此订阅一个函数的时候，就会发生上述流程。
 
 ```JavaScript
 function showMeTheMoney(money) {
@@ -109,7 +109,7 @@ ps.subscribe('show-money', showMeTheMoney)
 ps.publish('show-money', 1000000)
 ```
 
-那么我们注册的 `showMeTheMoney` 回调函数将会被触发，并接受 `1000000` 作为 `money` 参数：
+那么我们注册的 `showMeTheMoney` 回调函数将会被触发，`money` 参数的值为 `1000000`：
 
 ```JavaScript
 function showMeTheMoney(money) {
@@ -117,7 +117,7 @@ function showMeTheMoney(money) {
 }
 ```
 
-上述就是发布者/订阅者模式的工作模式。我们定义了一个 `pubSub` 函数，并在函数内将回调函数存储到本地，并提供了 `subscribe` 方法注册回调函数，以及 `publish` 方法来遍历并使用数据来调用所有注册过的回调函数。
+这就是发布/订阅模式的原理。我们定义了一个 `pubSub` 函数，并在函数内将回调函数存储到本地，并提供了 `subscribe` 方法注册回调函数，以及 `publish` 方法来遍历并使用数据来调用所有注册过的回调函数。
 
 但是，这里还存在一个问题。在真正应用这个模式的时候，如果我们订阅了很多回调函数，就可能会遇到内存泄漏，如果不想办法解决这个问题，这将造成极大的浪费。
 
@@ -140,7 +140,7 @@ function subscribe(eventName, callback) {
   }
 }
 
-const unsubscribe = subscribe('food', function(data) {
+const { unsubscribe } = subscribe('food', function(data) {
   console.log(`Received some food: ${data}`)
 })
 
@@ -184,7 +184,7 @@ function subscribe(eventName, callback) {
 
 我们如何知道是否之前已经订阅了同一个回调函数呢？除非我们实现一个工具来映射整个列表，否则实在无法知道，但是这样的话我们就要使用 JavaScript 来完成更多的工作了。
 
-在实际应用中过度使用发布者/订阅者模式，也让我们的代码更加难以维护。事实是，在这种模式中回调函数之间是解耦的，所以当你在多处都使用了对调函数后，追踪代码就变得非常困难。
+在实际应用中过度使用发布者/订阅者模式，也让我们的代码更加难以维护。事实是，在这种模式中回调函数之间是解耦的，所以当你在多处都使用了回调函数后，追踪代码就变得非常困难。
 
 ---
 
