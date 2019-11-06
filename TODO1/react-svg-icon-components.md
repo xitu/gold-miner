@@ -2,24 +2,24 @@
 > * 原文作者：[ROBIN WIERUCH](https://www.robinwieruch.de)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-svg-icon-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-svg-icon-components.md)
-> * 译者：
+> * 译者：[TiaossuP](https://github.com/tiaossup)
 > * 校对者：
 
-# How to use SVG Icons as React Components?
+# 如何将 SVG 图标用做 React 组件？
 
 ![react svg icons, react svgr](https://www.robinwieruch.de/static/e6abcd74fe0c908d20be1fbf81b116e1/2b1a3/banner.jpg)
 
-I always struggled to use SVG in my React applications. Every time I searched about the topic online, I've found many ways on how to use SVG in React, but once I implemented the approaches, the success rates were very low. Today I want to give you a straightforward approach on how to use SVG icons as React components for your next React application.
+我曾经挣扎于在 React 应用中使用 SVG。我在网上搜索到了很多种 SVG in React 的方案，但真正实践起来时，几乎都没成功过。现在我要介绍一个非常简单易行的方式来解决这个问题。
 
-**Note: All icons used in this tutorial are from [Flaticon](https://flaticon.com). If you use icons from there, don't forget to attribute the authors/platform.**
+**提示：这篇文章中的图标均来自 [Flaticon](https://flaticon.com)。如果你用了这个网站的图标，别忘了向作者/平台表示感谢！**
 
-It's possible to have one folder in your React application that holds all your .svg files for your icons. From there, you can generate your React components manually/automatically. I will show you both approaches in the next two sections for creating icon components manually with your command line interface and npm scripts, but also for creating your icon components automatically with Webpack. The tool we are using is called [SVGR](https://github.com/smooth-code/svgr) which is widely used (e.g. [create-react-app](https://github.com/facebook/create-react-app)).
+你可以在你的 React 项目中，在一个目录中维护你所有的 .svg 图标文件。以此，你可以手动/自动生成 React 组件。接下来的两个章节，我将展示两种方式，一种是使用命令行与 npm 命令手动创建图标组件，另一种是使用 Webpack 自动创建 React 组件。这两种方式都使用了一个名为 [SVGR](https://github.com/smooth-code/svgr) 的工具（这个工具也被 [create-react-app](https://github.com/facebook/create-react-app) 等工具广泛使用）。
 
-## React SVG Icon Components from CLI
+## 通过命令行创建 React SVG 图标组件
 
-In this section, we will start by generating SVG icons manually for your React application. If you need a starter project, head over to this [Webpack + Babel + React project](https://github.com/rwieruch/minimal-react-webpack-babel-setup) and follow the installation instructions.
+在这个章节，我们从手动创建 SVG 图标开始。如果你需要本文的 starter 项目，可以戳 [Webpack + Babel + React 项目](https://github.com/rwieruch/minimal-react-webpack-babel-setup)并参考其安装说明。
 
-Next, put all your .svg icon files into a **/assets** folder next to your **src/** folder. We don't want to have the assets mixed with our source code files, because we will generate JavaScript files based on them. These JavaScript files -- being React icon components -- are mixed with your other source code files then.
+接下来，在你的 `src/` 目录下建立一个 `/assets` 目录，把你的所有 .svg 图标全都放在里面。我们并不希望把资源文件与源码弄混，因为我们接下来会基于这些资源文件生成 JavaScript 文件。这些手动生成的 JavaScript 文件 —— 即 React 图标组件，会跟你的其他源码放在一起。
 
 ```
 assets/
@@ -31,7 +31,7 @@ src/
 -- App.js
 ```
 
-Now, create an empty **src/Icons/** folder for all your generated React icon components:
+现在，为你的 React 图标组件创建一个 `src/Icons/`文件夹：
 
 ```
 assets/
@@ -44,7 +44,7 @@ src/
 -- Icons/
 ```
 
-The desired outcome would be to use the React icon components in our **src/App.js** component:
+我们希望最终生成的 React 图标组件在 **src/App.js**  中使用。
 
 ```jsx
 import React from 'react';
@@ -72,7 +72,7 @@ const App = () => (
 export default App;
 ```
 
-However, this doesn't work yet because the **src/Icons/** folder is empty. There are no icon components yet. In the next step, the **assets/** folder will act as **source** folder and the **src/Icons/** as **target** folder. We will add a new npm script to our **package.json** file which will generate the React icon components:
+不过这当然是不行的。现在 `src/Icons` 目录是空的，里面没有任何图标组件。下一步，我们将以 `assets` 文件夹为源文件夹，`src/Icons`为目标文件夹，通过在 `package.json` 中添加一个新的 npm 脚本，来生成 React 图标组件。
 
 ```js
 {
@@ -87,19 +87,19 @@ However, this doesn't work yet because the **src/Icons/** folder is empty. There
 }
 ```
 
-Last but not least, install the SVGR CLI package on the command line:
+最后，使用命令行安装 SVGR CLI 包。
 
 ```
 npm install @svgr/cli --save-dev
 ```
 
-Now, after having everything set up properly, you can execute your new npm script with `npm run svgr` on the command line. Reading the command line output, you can see that new JavaScript files are being generated from your svg files. After the command terminates, you should be able to see the svg icons rendered as React components when starting your application. You can also check your **src/Icons** folder to see all generated React icon components. They take [props as arguments](https://www.robinwieruch.de/react-pass-props-to-component/) as well, which makes it possible for us to define their height and width.
+现在，已经万事俱备，你可以在命令行中输入 `npm run svgr` 并回车来执行你的新 npm 命令。你可以在命令行的输出中，看到根据 svg 文件生成的 JavaScript 文件。在命令执行完成后，你就可以启动应用，在页面中看到被渲染为 React 组件的 svg 图标。你可以在 `src/Icons` 目录中看到所有生成的 React 图标组件。这些组件同样可以[接受 props](https://www.robinwieruch.de/react-pass-props-to-component/)，这意味着你可以自行定义图标的宽高。
 
-That's all it needs to generate React components from SVGs. Every time you have a new SVG file or adjust one of your existing SVG files, you can the `npm run svgr` command again.
+这就是从 SVG 生成 React 组件的完整步骤，每次你加入了一个新 SVG 文件或者修改了原有的 SVG 文件时，你都需要再次运行 `npm run svgr` 命令。
 
-## React SVG Icon Components from Webpack
+## 使用  Webpack 生成 React SVG 图标组件
 
-Running the SVGR script every time to update your SVG icons is not the best solution though. What about integrating the whole process in your Webpack configuration? You should start out with an empty **src/Icons** folder. Afterward, move all your SVG files to this folder and remove the **assets/** folder. Your folder structure should look like the following:
+每次更新 SVG 文件，都手动执行命令并不是一个最佳方案。你可以将其集成到 Webpack 配置中。现在你可以把你的 `src/Icons` 文件夹清空，把 `assets/` 文件夹中的 SVG 文件移动到 `src/Icons` 下，并删掉 `assets/` 文件夹了。现在你的目录结构将如下所示：
 
 ```
 src/
@@ -111,7 +111,7 @@ src/
 ---- github.svg
 ```
 
-Your App component imports SVG files rather than JavaScript files now:
+现在你可以直接在 App 组件中直接引用 svg 文件。
 
 ```jsx
 import React from 'react';
@@ -139,7 +139,7 @@ const App = () => (
 export default App;
 ```
 
-Starting your application wouldn't work, because we cannot simply import SVG files this way. Fortunately, we can make Webpack doing the work for us implicitly with every application start. Let's add the following configuration to our **webpack.config.js** file:
+现在启动应用会失败，引入 SVG 文件显然没有这么简单。不过，我们可以让 Webpack 在每次启动应用时，都自动引入正确的 SVG 文件。参考下面的代码，修改你的 `webpack.config.js` 文件。
 
 ```js
 const webpack = require('webpack');
@@ -162,17 +162,17 @@ module.exports = {
 };
 ```
 
-Afterward, install the necessary Webpack package for SVGR:
+然后，为 SVGR 安装必要的 Webpack 包
 
 ```
 npm install @svgr/webpack --save-dev
 ```
 
-Once you start your application, Webpack is doing its thing and you don't need to worry about your SVGs anymore. You can put your SVG files anywhere in your **src/** folder and import them wherever you need them as React components. There is no need anymore for the SVGR npm script in your **package.json** file which we have implemented in the previous section.
+一旦应用启动，Webpack 就会自动工作，你就再也不需要纠结于 SVG 文件了。你可以把你的 SVG 文件放在 `src/` 目录的任意位置，并被任意 React 组件所引用。现在，我们也不再需要 `package.json` 文件里面的 SVGR 命令了。
 
-### Alternative: react-svg-loader
+### 另一个可选方案：react-svg-loader
 
-If you are using Webpack, you can also use a simplified SVG loader instead of SVGR. For instance, [react-svg-loader](https://github.com/boopathi/react-svg-loader) can be used within your Webpack configuration. Note that it replaces SVGR:
+如果你使用 Webpack，你可以使用一些更简单的 SVG loader 来代替 SVGR。譬如，可以在你的 Webpack 配置中使用 [react-svg-loader](https://github.com/boopathi/react-svg-loader) 来代替 SVGR：
 
 ```js
 const webpack = require('webpack');
@@ -197,19 +197,19 @@ module.exports = {
 };
 ```
 
-Also you need to install it:
+当然你需要先安装它：
 
 ```
 npm install react-svg-loader --save-dev
 ```
 
-Afterward, you can import SVG files the same way as React components as you did before with SVGR. It can be seen as a lightweight alternative to SVGR.
+然后，你依然可以用与 SVGR 一样的方式来引入并使用你的 SVG 文件。这相当于一个 SVGR 的轻量级替代方案。
 
-## SVGR Templates for advanced SVGs
+## 使用 SVGR 模板来做一些高级应用
 
-When I worked with my last client on their React application, I had the problem of dealing with SVG icons which had only partially the [viewBox](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) attribute. Since this attribute is needed for giving your SVG icons a size, I had to find a way around to introduce this attribute whenever it wasn't present for an icon. Now I could go through every SVG icon to fix this issue, however, dealing with more than 500 icons doesn't make this a comfortable task. Let me show how I dealt with it by using SVGR templates instead.
+在我最近一次开发 React 应用时，我遇到了一些有问题的 SVG 图标，这些图标的 [viewBox]( https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/viewBox ) 属性并不完整。由于这个属性是为 SVG 图标提供大小所必需的，所以只要这个属性没有出现在图标中，我就必须找到一种方法来引入这个属性。本来，我可以遍历每个 SVG 图标来修复这个问题，但是，处理 500 多个图标并不是一项轻松的任务。接下来我将介绍如何用 SVGR 模板功能来解决这个问题。
 
-The default SVGR template in your **webpack.config.js** file looks like the following:
+`webpack.config.js` 文件中的 SVGR 默认模板看起来像是下面这样：
 
 ```js
 ...
@@ -249,7 +249,7 @@ module.exports = {
 };
 ```
 
-By having this template at your disposal, you can change the code which is generated from the SVG file. Let's say we want to fill all our icons with a blue color. We just extend the props object with a fill attribute:
+通过使用这个模板，你可以更改 SVG 文件生成的代码。假设我们想要用蓝色填充所有的图标。则只需要用 `fill` 属性扩展 `props` 对象：
 
 ```js
 ...
@@ -290,11 +290,11 @@ module.exports = {
 };
 ```
 
-This should work to give all icons a blue fill attribute. However, simple use cases like this are already provided by SVGR itself. Just check out their documentation on how to add/replace/remove attribute from SVGs.
+这就可以给所有的图标都增加 `fill: blue` 属性了。 SVGR 本身已经提供了类似的简单用例。只需查看他们的文档，就可以了解如何给 SVG 添加 / 替换 / 删除属性。
 
-### SVGR with custom viewBox attribute
+### 使用 SVGR 来自定义 `viewBox` 属性
 
-In our case, we wanted to compute the viewBox attribute for every SVG icon where the attribute isn't present. First, remove the viewBox attribute from one of your SVGs to see that it's not rendered properly anymore. After confirming the bug, we will try to fix it by using the introduced SVGR template and an external [React Hook](https://www.robinwieruch.de/react-hooks/):
+在我们的例子中，我们希望为每个不存在 `viewBox` 属性的 SVG 图标都添加该属性。首先，我们把一个正常的 svg 中的 `viewBox` 属性删除，现在它就肯定无法正常显示了。确认了问题已经出现后，我们尝试使用上面介绍的 SVGR 模板和一个额外的 [React Hook](https://www.robinwieruch.de/react-hooks/) 来修复此问题：
 
 ```JSX
 import React from 'react';
@@ -302,12 +302,12 @@ const useWithViewbox = ref => {
   React.useLayoutEffect(() => {
     if (
       ref.current !== null &&
-      // only if there is no viewBox attribute
+      // 当没有 viewBox 属性时
       !ref.current.getAttribute('viewBox') &&
-      // only if not test (JSDOM)
+      // 当 jsdom 没 bug 时
       // https://github.com/jsdom/jsdom/issues/1423
       ref.current.getBBox &&
-      // only if rendered
+      // 当其已经被渲染
       // https://stackoverflow.com/questions/45184101/error-ns-error-failure-in-firefox-while-use-getbbox
       ref.current.getBBox().width &&
       ref.current.getBBox().height
@@ -323,9 +323,9 @@ const useWithViewbox = ref => {
 export default useWithViewbox;
 ```
 
-The React hook only needs a reference (ref) to the SVG components in order to set the viewBox attribute. The measurements for the viewBox attribute are computed based on the rendered icon. If the icon hasn't been rendered or the viewBox attribute is already present, we do nothing.
+React hook 需要这个 SVG 组件的引用（ref）来为其设置 `viewBox` 属性。现在 `viewBox` 属性将根据渲染出的图标来计算。如果图标尚未被渲染，或者已经存在 `viewBox` 属性时，我们就不会做任何事情。
 
-The hook should be somewhere available not far away from our **src/Icons/** folder:
+这个 hook 应该放在离 `src/Icons` 目录不远的地方。
 
 ```
 src/
@@ -338,7 +338,7 @@ src/
 ---- github.svg
 ```
 
-Now, we can use the hook for our SVG template in the **webpack.config.js** file:
+现在，我们可以在 `webpack.config.js` 文件中为 SVG 模板添加 hook：
 
 ```js
 ...
@@ -378,11 +378,11 @@ module.exports = {
 };
 ```
 
-Having this in place, SVGR's template feature will add the [custom hook](https://github.com/the-road-to-learn-react/use-with-viewbox) to every generated icon component. The hook only runs for icon components which have no viewBox attribute though. If you run your application again, you should see all icon components rendered properly, even though you may have removed the viewBox attribute from one of them.
+有了这个功能，SVGR的模板功能将向每个生成的图标组件添加 [自定义 hook](https://github.com/the-road-to-learn-react/use-with-viewbox) 。这个 hook 只在没有 `viewBox` 属性的图标组件中执行。此时再次运行应用，就会发现所有图标组件都能正确显示了 —— 即使你可能已经从某个组件中删除了 `viewBox` 属性。
 
 ---
 
-In the end, I hope this walkthrough has helped you to get started with SVG icons in React by using SVGR with your command line/npm scripts or Webpack. The finished application using the Webpack approach and React can be found in this [GitHub repository](https://github.com/rwieruch/minimal-react-webpack-babel-svg-setup). If you run into any bugs, let me know in the comments. Otherwise I am happy to heard about your special use cases which fall into the category of my missing viewBox bug. Let me know about these cases in the comments.
+最后，我希望这篇练习通过将 SVGR 与命令行 / npm 命令或 Webpack 一起使用，帮助您学习如何在 React 中使用 SVG 图标。使用 Webpack 实现的最终版 React 应用可以在这个 [GitHub repo](https://github.com/rwieruch/minimal-react-webpack-babel-svg-setup) 中找到。如果你遇到任何 bug，请在评论中告诉我。我也很乐于得知一些与「`viewBox`属性丢失」类似的问题。请在评论中告诉我这些情况。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
