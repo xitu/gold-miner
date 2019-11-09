@@ -19,11 +19,11 @@ GANs 由生成器模型和判别器模型组成。生成器负责从领域中生
 
 一维函数这个简单的任务为从头搭建一个简单的 GAN 提供了好环境。这是因为真实的和生成的样本均可以被绘制出来，通过可视化来检查到底学习到了什么。一个简单的函数也不需要复杂的神经网络模型，这意味着架构中使用特定的生成器和判别器可以很容易被理解。
 
-在这个教程中，我们将选择一个简单的一维函数，以此为基础，使用 Keras 深度学习库从头搭建和评估一个生成对抗网络。
+在这个教程中，我们将选择一个简单的一维函数，以此为基础，使用 Keras 深度学习库从头搭建和评估一个 GAN。
 
 在完成本教程后，你将学习到：
 
-* 使用一个简单的一维函数从头搭建一个生成对抗网络的好处。
+* 使用一个简单的一维函数从头搭建一个 GAN 的好处。
 * 如何搭建独立的判别器和生成器模型，以及一个通过判别器预测行为来训练生成器的复合模型。
 * 如何在问题域中的真实数据环境中主观评估生成样本。
 
@@ -93,7 +93,7 @@ pyplot.show()
 
 运行这个例子为每个输入值计算其输出值，并且绘制一张输入值和输出值的关系图。
 
-我们可以看到远离 0 的值能得到较大的输出值，反之接近 0 的值会得到较小的输出值，并且此行为是关于原点对称的。
+我们可以看到远离 0 的值能得到较大的输出值，反之接近 0 的值会得到较小的输出值，并且此行为是关于 y 轴对称的。
 
 这就是著名的一维函数 X^2 的 u 型图。
 
@@ -222,9 +222,9 @@ _________________________________________________________________
 
 **注意**：生成这张模型图需要安装 pydot 和 graphviz 库。如果安装遇到了问题，你可以把引入 _plot_model_ 函数的 import 语句和调用 _plot_model_ 方法注释掉。
 
-![生成对抗网络中生成器模型图](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Discriminator-Model-in-the-GAN.png)
+![GAN 中生成器模型图](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Discriminator-Model-in-the-GAN.png)
 
-生成对抗网络中生成器模型图
+GAN 中生成器模型图
 
 现在可以开始训练这个模型了，用到的数据是标记为 1 的真实数据和标记为 0 的随机生成数据。
 
@@ -398,7 +398,7 @@ train_discriminator(model)
 
 隐空间是没有意义的，直到生成器模型开始学习并为空间中的点赋予意义。训练之后，隐空间的点将和输出空间中的点相关联，比如生成样本空间。
 
-我们定义一个小的五维隐空间，并且使用生成对抗网络文献中标准的方法，即隐空间中每一个变量都使用高斯分布。我们将从一个标准高斯分布中获取随机数来生成输入值，比如均值为 0，标准差为 1。
+我们定义一个小的五维隐空间，并且使用 GAN 文献中标准的方法，即隐空间中每一个变量都使用高斯分布。我们将从一个标准高斯分布中获取随机数来生成输入值，比如均值为 0，标准差为 1。
 
 * **输入**：隐空间中的点，比如由五个高斯随机数组成的向量。
 * **输出**：两个元素组成的向量，代表了为我们的函数生成的样本（x 和 x^2）。
@@ -469,9 +469,9 @@ _________________________________________________________________
 
 **注意**：生成这张模型图需要安装 pydot 和 graphviz 库。如果安装遇到了问题，你可以把引入 _plot_model_ 函数的 import 语句和调用 _plot_model_ 方法注释掉。
 
-![绘制生成对抗网络中的生成器模型](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Generator-Model-in-the-GAN.png)
+![绘制 GAN 中的生成器模型](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Generator-Model-in-the-GAN.png)
 
-绘制生成对抗网络中的生成器模型
+绘制 GAN 中的生成器模型
 
 我们可以看到模型从隐空间中获取一个随机的五元向量，然后为一维函数输出一个二元向量。
 
@@ -571,15 +571,15 @@ generate_fake_samples(model, latent_dim, 100)
 
 有许多使用 Keras API 来实现它的方式，但或许最简单的方法就是创建一个新的模型，这个模型包含或封装生成器和判别器模型。
 
-特别的是，一个新的生成对抗网络模型可以定义为堆叠生成器和判别器，生成器在隐空间中接收随机点作为输入，生成样本直接被提供给判别器模型的样本，然后分类，最后，这个大模型的输出可以被用来更新生成器模型的权重。
+特别的是，一个新的 GAN 模型可以定义为堆叠生成器和判别器，生成器在隐空间中接收随机点作为输入，生成样本直接被提供给判别器模型的样本，然后分类，最后，这个大模型的输出可以被用来更新生成器模型的权重。
 
 要清楚，我们不是在讨论一个新的第三方模型，只是一个逻辑上第三方的模型，它用了独立生成器和判别器模型中已定义的图层和权重。
 
 在区分真假数据的时候只涉及到判别器；因此，判别器模型可以通过真假数据被单独训练。
 
-生成器模型只和判别器模型在假数据上的表现有关。因此，当判别器是生成对抗网络模型的一部分的时候，我们会将判别器中的所有层标记为不可训练的，它们在假数据上不会更新参数以防被过度训练。
+生成器模型只和判别器模型在假数据上的表现有关。因此，当判别器是 GAN 模型的一部分的时候，我们会将判别器中的所有层标记为不可训练的，它们在假数据上不会更新参数以防被过度训练。
 
-当通过这个合并的生成对抗网路模型来训练生成器的时候，还有一个重要的地方需要改变。我们想让判别器认为生成器输出的样本是真的，而不是假的。因此，当生成器在作为生成对抗网络一部分训练的时候，我们将标记生成的样本设置为真（类标签为 1）。
+当通过这个合并的生成对抗网路模型来训练生成器的时候，还有一个重要的地方需要改变。我们想让判别器认为生成器输出的样本是真的，而不是假的。因此，当生成器在作为 GAN 一部分训练的时候，我们将标记生成的样本设置为真（类标签为 1）。
 
 我们可以想像判别器将生成的样本归类为不是真的（类标签为 0）或者为真的可能性较低（0.3 或 0.5）。用来更新模型权重的反向传播过程将其视为一个大的误差，然后将更新模型权重（比如只有在生成器中的权重）来纠正这个误差，反过来使得生成器更好更合理的生成假样本。
 
@@ -588,9 +588,9 @@ generate_fake_samples(model, latent_dim, 100)
 * **输入**: 隐空间中的点，比如一个由高斯随机数组成的五元向量。
 * **输出**: 二分类，样本为真（或假）的可能性。
 
-下面 _define_gan()_ 方法将已经定义好的生成器和判别器作为参数，并且创建了一个逻辑上的第三个包含这两个模型的新模型。判别器中的权重被标记为不可训练，这只会影响生成对抗网络中的权重，而不会影响独立的判别器模型。
+下面 _define_gan()_ 方法将已经定义好的生成器和判别器作为参数，并且创建了一个逻辑上的第三个包含这两个模型的新模型。判别器中的权重被标记为不可训练，这只会影响 GAN 中的权重，而不会影响独立的判别器模型。
 
-生成对抗网络模型使用同样的二分类交叉熵损失函数作为判别器以及高效的 [Adam 版本的随机梯度下降](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/)。
+GAN 模型使用同样的二分类交叉熵损失函数作为判别器以及高效的 [Adam 版本的随机梯度下降](https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/)。
 
 ```python
 # 为更新生成器，定义合并的生成器和判别器模型
@@ -612,7 +612,7 @@ def define_gan(generator, discriminator):
 
 当模型被编译的时候，_trainable_ 属性会影响它。判别器模型使用可训练层进行编译，因此调用 _train\_on\_batch()_ 来更新独立模型，也会更新这些层中的权重模型。
 
-判别器模型被标记为不可训练，加入生成对抗网络模型，然后被编译。在这个模型中，通过调用 _train\_on\_batch()_ 来更新生成对抗网络模型时，判别器模型中的权重是不可训练且无法更改的。
+判别器模型被标记为不可训练，加入 GAN 模型，然后被编译。在这个模型中，通过调用 _train\_on\_batch()_ 来更新 GAN 模型时，判别器模型中的权重是不可训练且无法更改的。
 
 Keras API 文档中描述了这种行为：
 
@@ -621,7 +621,7 @@ Keras API 文档中描述了这种行为：
 下面列出了创建判别器、生成器和组合模型的完整示例。
 
 ```python
-# 演示创建生成对抗网络的三种模型
+# 演示创建 GAN 的三种模型
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.utils.vis_utils import plot_model
@@ -662,11 +662,11 @@ latent_dim = 5
 discriminator = define_discriminator()
 # 创建生成器
 generator = define_generator(latent_dim)
-# 创建生成对抗网络
+# 创建 GAN
 gan_model = define_gan(generator, discriminator)
-# 总结生成对抗网络模型
+# 总结 GAN 模型
 gan_model.summary()
-# 绘制生成对抗网络模型
+# 绘制 GAN 模型
 plot_model(gan_model, to_file='gan_plot.png', show_shapes=True, show_layer_names=True)
 ```
 
@@ -690,9 +690,9 @@ _________________________________________________________________
 
 **注意**：生成这张模型图需要安装 pydot 和 graphviz 库。如果安装遇到了问题，你可以把引入 _plot_model_ 函数的 import 语句和调用 _plot_model_ 方法注释掉。
 
-![生成对抗网络中生成器和判别器组合模型图](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Composite-Generator-and-Discriminator-Model-in-the-GAN.png)
+![GAN 中生成器和判别器组合模型图](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Plot-of-the-Composite-Generator-and-Discriminator-Model-in-the-GAN.png)
 
-生成对抗网络中生成器和判别器组合模型图
+GAN 中生成器和判别器组合模型图
 
 训练组合模型包括通过前一个章节中的 _generate\_latent\_points()_ 方法在隐空间中生成一批点，以及 class=1 的标签，调用 _train\_on\_batch()_ 方法。
 
@@ -739,17 +739,17 @@ def train(g_model, d_model, gan_model, latent_dim, n_epochs=10000, n_batch=128):
 		gan_model.train_on_batch(x_gan, y_gan)
 ```
 
-我们几乎准备好了使用一维函数搭建一个生成对抗网络所需的一切。
+我们几乎准备好了使用一维函数搭建一个 GAN 所需的一切。
 
 剩下的部分就是模型评估了。
 
-## 评估生成对抗网络的表现
+## 评估 GAN 的表现
 
-通常来说，没有客观的方法来评估生成对抗网络模型的性能。
+通常来说，没有客观的方法来评估 GAN 模型的性能。
 
 在这个特殊的例子中，我们可以为生成的样本设计一种客观的衡量指标，因为我们知道潜在真实的输入域和目标函数，并且可以计算一个客观的误差测定。
 
-然而，我们不会在这个教程中计算这个客观的误差值。取而代之的是，我们将使用在大多数生成对抗网络应用中被使用的主观方法。特别的是，我们将使用生成器来生成新的样本，然后检查它们和领域中真实样本的差距。
+然而，我们不会在这个教程中计算这个客观的误差值。取而代之的是，我们将使用在大多数 GAN 应用中被使用的主观方法。特别的是，我们将使用生成器来生成新的样本，然后检查它们和领域中真实样本的差距。
 
 首先，我们可以使用之前判别器部分创建的 _generate\_real\_samples()_ 方法来生成新的样本。用这些样本来绘制散点图会生成我们熟悉的 u 形目标函数。
 
@@ -872,14 +872,14 @@ def train(g_model, d_model, gan_model, latent_dim, n_epochs=10000, n_batch=128, 
 			summarize_performance(i, g_model, d_model, latent_dim)
 ```
 
-## 训练生成对抗网络的完整例子
+## 训练 GAN 的完整例子
 
-我们现在有了为一维函数来训练和评估生成对抗网络所需的所有条件。
+我们现在有了为一维函数来训练和评估 GAN 所需的所有条件。
 
 完整的例子如下所示。
 
 ```python
-# 在一个一维函数上训练一个生成对抗网络
+# 在一个一维函数上训练一个 GAN
 from numpy import hstack
 from numpy import zeros
 from numpy import ones
@@ -997,7 +997,7 @@ latent_dim = 5
 discriminator = define_discriminator()
 # 创建生成器
 generator = define_generator(latent_dim)
-# 创建生成对抗网络
+# 创建 GAN
 gan_model = define_gan(generator, discriminator)
 # 训练模型
 train(generator, discriminator, gan_model, latent_dim)
@@ -1063,11 +1063,11 @@ train(generator, discriminator, gan_model, latent_dim)
 
 ## 总结
 
-在这个教程中，你学习了如何使用一个一维函数从头搭建一个生成对抗网络。
+在这个教程中，你学习了如何使用一个一维函数从头搭建一个 GAN。
 
 具体来说，你学到了：
 
-* 使用一个简单的一维函数从头搭建一个生成对抗网络的好处。
+* 使用一个简单的一维函数从头搭建一个 GAN 的好处。
 * 如何搭建独立的判别器和生成器模型，以及一个通过判别器预测行为来训练生成器的组合模型。
 * 如何在问题域中真实数据的环境中主观地评估生成的样本。
 
