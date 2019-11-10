@@ -2,118 +2,118 @@
 > * 原文作者：[Drew DeVault](https://drewdevault.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/enough-to-decide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/enough-to-decide.md)
-> * 译者：
+> * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# How I decide between many programming languages
+# 这么多编程语言，我该怎么选？
 
-I have a few old standards in my toolbelt that I find myself calling upon most often, but I try to learn enough about many programming languages to reason about whether or not they’re suitable to any use-case I’m thinking about. The best way is to learn by doing, so getting a general impression of the utility of many languages helps equip you with the knowledge of whether or not they’d be useful for a particular problem even if you don’t know them yet.
+在我的工具库中，有一些经典搭配是我最常用的，但我仍然想要学习足够多的编程语言，这样，当我遇到某个使用案例时，我就有足够的选项来衡量哪一个是最合适的。最佳方式就是边做边学，因此对各种语言的功能形成一个大概印象，能帮你弄清楚这些语言是否对某个特定的问题有用，即使你对这些语言还并不熟稔。
 
-Only included are languages which I feel knowledgable enough about to comment on, there are many that aren’t here and which I encourage you to research.
+我在这里列出的语言，都是我对其熟悉到了有资格置喙的程度，还有很多并不在此列，我鼓励大家自己去探索。
 
 ## C
 
-Pros: good performance, access to low-level tooling, useful in systems programming, statically typed, standardized and venerable, the lingua franca, universal support on all platforms.[1]
+优点：性能优良；能访问底层工具；适合系统开发；支持静态类型；标准化、德高望重；全世界通用、全平台支持。[1]
 
-Cons: string munging, extensible programming, poor availability of ergonomic libraries in certain domains, has footguns, some programmers in the wild think the footguns are useful.
+缺点：字符处理、可扩展编程是短板；在特定领域中人体工程学（ergonomic）库的可用性很差；坑用户，但也有些程序员认为这些坑也是有用的。
 
 ## Go
 
-Pros: fast, conservative, good package manager and a healthy ecosystem, standard library is well designed, best in class for many problems, has a spec and multiple useful implementations, easy interop with C.
+优点：迅速、谨慎；包管理器好用、语言生态健康；有精心设计的标准库；在处理很多问题方面都是同类中最优秀的；一个规格、多种有用实现；和 C 交互起来非常方便。
 
-Cons: the runtime is too complicated, no distinction between green threads and real threads (meaning all programs deal with the problems of the latter).
+缺点：运行时太过复杂；虚拟线程和真实线程无差别（也就是说，所有的程序都要处理后者的问题）。
 
 ## Rust
 
-Pros: it’s **SAFE**, useful for systems programming, better than C++, ecosystem which is diverse but just short of the npm disease, easy interop with C.
+优点：**安全**；适合系统开发；优于 C++；语言生态多样，却没有 npm 的弊病；和 C 交互起来非常方便。
 
-Cons: far too big, non-standardized, only one meaningful implementation.
+缺点：体积太过庞大；没做到标准化；仅有一个有意义的实现。
 
 ## Python
 
-Pros: easy and fast to get things done, diverse package ecosystem of reasonably well designed packages, deeply extensible, useful for server-side web software.
+优点：解决起问题来简单而迅捷；包的设计非常精巧，包生态多样化；深度可扩展，适合服务端的 Web 软件。
 
-Cons: bloated, poor performance, dynamically typed, cpython internals being available to programmers has led to an implementation monoculture.
+缺点：臃肿；性能不强；数据类型是动态的；CPython 的内部开放导致了实现的单一性。
 
 ## JavaScript
 
-**\* and all of its derivatives, which ultimately inherit its problems.**
+**包括本尊及继承了其弊端的所有衍生语言。**
 
-Pros: functional but with an expressive and C-like syntax, ES6 improved on many fronts, async/await/promises are well designed, no threading.
+优点：功能性强却兼具直观明了的、类 C 的语法；ES6 在许多方面都有所改进；async/await/promise 设计优良；不涉及线程处理。
 
-Cons: dynamic types, package ecosystem is a flaming pile, many JS programmers aren’t very good at it and they make ecosystem-defining libraries anyway, born in web browsers and inherited their many flaws.
+缺点：动态类型；包生态动荡不安；很多 JavaScript 开发者并不精通却硬造生态库；诞生于 Web 浏览器，因而继承了不少瑕疵。
 
 ## Java
 
-**\* and all of its derivatives, which ultimately inherit its problems.**
+**包括本尊及继承了其弊端的所有衍生语言。**
 
-Pros: has had enough long-term investment to be well understood and reasonably fast.
+优点：历经长足发展；易于理解、相当迅速。
 
-Cons: hella boilerplate, missing lots of useful things, package management, XML is everywhere, not useful for low-level programming (this applies to all Java-family languages).
+缺点：模板泛滥；缺少很多有用的东西；包管理器不够强大；XML 到处都是；不适合底层编程（这一点对所有 Java 系的语言都适用）。
 
 ## C#
 
-Pros: less boilerplate than Java, reasonably healthy package ecosystem, good access to low level tools for interop with C, async/await started here.
+优点：没有 Java 那么多模板；包生态非常健康；良好支持与 C 交互的底层工具；async/await 的发源地。
 
-Cons: ecosystem is in turmoil because Microsoft cannot hold a singular vision, they became open-source too late and screwed over Mono.
+缺点：因为 Microsoft 没有保留单一版本，导致语言生态混乱；开源过晚，对 Mono 不友好。
 
 ## Haskell
 
-**\* and every other functional-oriented programming language in its class, such as elixir, erlang, most lisps, even if they resent being lumped together**
+**本尊及该谱系所有的功能性编程语言，例如 elixir、erlang、大部分的 lisp 类语言，即使它们并不愿意被混为一谈**
 
-Pros: it’s **FUNCTIONAL**, reasonably fast, useful when the answer to your problem is more important than the means by which you find it, good for research-grade[2] compilers.
+优点：**功能性强**；相当迅速；当你不关心解决方式而只看重问题的答案时，它非常有用；适合研究级别[2]的编译器。
 
-Cons: it’s **FUNCTIONAL**, somewhat inscrutable, awful package management, does not fit well into its environment, written by people who wish the world could be described with a pure function and design software as if it could.
+缺点：**功能性强**；有些难以捉摸；包管理器很糟糕；不能与其环境很好地适配；其作者希望整个世界都用一个单纯的函数设计软件来描述，就好像能做到似的。
 
 ## Perl
 
-Pros: [entertaining](https://github.com/Perl/perl5/blob/blead/Configure), best in class at regexes/string munging, useful for making hacky kludges when such solutions are appropriate.
+优点：[好玩](https://github.com/Perl/perl5/blob/blead/Configure)；处理正则表达式和字符串的能力是同类中最好的；当需要构建拼接程序（hacky kludge）时，用 Perl 很合适。
 
-Cons: inscrutable, too extensible, too much junk/jank.
+缺点：难以捉摸；过度扩展；垃圾代码泛滥。
 
 ## Lua
 
-Pros: embeddable & easily plugged into its host, fairly simple, portable.
+优点：可嵌入、易于接入宿主程序；非常简单、便携。
 
-Cons: 1-based indexing is objectively bad, the upstream maintainers are kind of doing their own thing and no one really likes it.
+缺点：客观地说，从 1 开始索引很不可取；上游维护者好像有点心不在焉，没人对它是真爱。
 
-## POSIX Shell scripts
+## POSIX Shell 脚本
 
-Pros: nothing can string together commands better, if you learn 90% of it then you can make pretty nice and expressive programs with it for a certain class of problem, standardized (I do not use bash).
+优点：没有什么能比把命令串在一起的做法更好了；只要学会了九成，你就可以写出很优秀、很直观的程序来解决同一类问题了；标准化（我不用 bash）。
 
-Cons: most people learn only 10% of it and therefore make pretty bad and unintuitive programs with it, not useful for most complex tasks.
+缺点：大多数人只学会了一成，因此写出的程序非常烂、非常抽象；处理不了大多数复杂的任务。
 
 ---
 
-Disclaimer: I don’t like the rest of these programming languages and would not use them to solve any problem. If you don’t want your sacred cow gored, leave here.
+免责声明：剩下的这些编程语言，我不喜欢，也不会用它们去解决任何问题。如果你不想让你的信仰受到冲击，请不要再往下看了。
 
 ## C++
 
-Pros: none
+优点：无。
 
-Cons: ill-defined, far too big, **Object Oriented Programming**, loads of baggage, ecosystem that buys into its crap, enjoyed by bad programmers.
+缺点：语义含糊不清；过于臃肿；**面向对象**；拖家带口；生态乌烟瘴气；水平低的开发者才会喜欢它。
 
 ## PHP
 
-Pros: none
+优点：无。
 
-Cons: every PHP programmer is bad at programming, the language is designed to accommodate them with convenient footguns (or faceguns) at every step, and the ecosystem is accordingly bad. No, PHP7 doesn’t fix this. Use a real programming language, jerk.
+缺点：每个 PHP 开发者都不懂编程；这个语言就是被设计用来确保让开发者每搬一块砖都砸在自己脚上（或者头上）的，因此整个语言生态就是一地鸡毛。别顶嘴，PHP 7 并没有什么改善。赶紧去用一门真正的编程语言吧，蠢材。
 
 ## Ruby
 
-Pros: It’s both **ENTERPRISE** and **HIP** at the same time, and therefore effective at herding a group of junior to mid-level programmers in a certain direction, namely towards your startup’s exit.
+优点：既**商务**又**炫酷**，因此能够有效地将一群初级到中级的程序员集中带向一个特定的方向，也就是你的创业公司的安全出口。
 
-Cons: bloated, awful performance, before Node.js took off this is what all of those programmers used.
+体型臃肿；性能糟糕；在 Node.js 崛起前，那帮程序员都用这个。
 
 ## Scala
 
-Pros: more expressive than Java, useful for **Big Data** problems.
+优点：比 Java 更明了；适合处理**数据量大**的问题。
 
-Cons: Java derivative, type system requires a PhD to comprehend, too siloed from Java, meaning it gets all of the disadvantages of being a Java ecosystem member but few of the advantages. The type system is so needlessly complicated that it basically cripples the language on its own merits alone.
+缺点：Java 的派生物；要是没有博士学历就别想弄明白它的类型系统；过于脱离 Java，就是说作为 Java 生态的一部分，它继承了所有缺点，但优点却没怎么吸收；其类型系统毫无必要的复杂性让其自身的优点大打折扣。
 
-1. Except one, and it can go suck an egg for all I care.
+1. 只有一个平台不支持，但我才不在乎呢。
     
-2. but not production-grade.
+2. 但不适用于生产级别的编译器。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
