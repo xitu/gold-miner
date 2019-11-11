@@ -7,6 +7,8 @@
 
 # The Trick to Animating the Dot on the Letter “i”
 
+![](https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2019/10/letter-i-collage.png)
+
 Here’s the trick: by combining the Turkish letter "ı" and the period "." we can create something that looks like the letter "i," but is made from two separate elements. This opens us up to some fun options to style or animate the dot of the letter independently from the stalk. Worried about accessibility? Don’t worry, we’ll cover that the best way we know how.
 
 Let’s look at how to create and style these separate "letters," and find out when they can be used, and when to avoid them.
