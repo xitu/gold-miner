@@ -179,7 +179,7 @@ def define_discriminator(n_inputs=2):
 
 我们可以使用这个函数来定义和总结这个判别器模型。完整的例子如下所示。
 
-```
+```python
 # 定义判别器模型
 from keras.models import Sequential
 from keras.layers import Dense
