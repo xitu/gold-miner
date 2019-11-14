@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# 为什么编码自己能让你成为更好的开发者
+# 为什么自己动手写代码能让你成为更好的开发者
 
-> 要想真正的理解轮子，你需要重新造轮子
+> 要想真正地理解轮子，你需要重新造轮子
 
 ![Photo by [Jon Cartagena](https://unsplash.com/@cartega?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*nbaB-g7qNeIhN7iN)
 
- 前几天，我参与一个关于 JavaScript 开发人员的高级开发岗位面试 。我的同事在这次面试中要求面试者写一个能执行 HTTP 调用的函数，如果没有成功的话可以多次尝试。
+前几天，我参与了一个关于 JavaScript 开发人员的高级开发岗位面试。我的同事在这次面试中要求面试者写一个能执行 HTTP 调用的函数，如果没有成功的话可以多次尝试。
 
 当他开始在白板上写代码之后，其实写伪代码就可以了。如果他对这个问题理解的比较好，我们也会比较开心。但是很不幸，他不能给出一个好的解决方案。
 
@@ -75,19 +75,19 @@ return new Promise((resolve, reject) => {
 
 这改变了我。我意识到这些代码对我来说并不是复杂到无法理解。如果我有足够的好奇心和意志力去投入进入就能轻易理解。
 
-这就是如何学会编程的。这就是如何成为更好的开发者。
+ 这就是学会编程的真正法门。 这就是成为更好的开发者的途径。
 
 ---
 
 ## 重新造轮子
 
-去吧， 去造你自己的轮子。编写 [自己的数据绑定](https://medium.com/swlh/https-medium-com-drmoerkerke-data-binding-for-web-components-in-just-a-few-lines-of-code-33f0a46943b3?source=friends_link&sk=09dd590e07b3300bae4b63dbb716cc39), 编写 [自己的Promise](https://hackernoon.com/implementing-javascript-promise-in-70-lines-of-code-b3592565af0f) 甚至是 [自己的状态管理解决方案。](https://css-tricks.com/build-a-state-management-system-with-vanilla-javascript/).
+去吧，去造你自己的轮子。编写[自己的数据绑定](https://medium.com/swlh/https-medium-com-drmoerkerke-data-binding-for-web-components-in-just-a-few-lines-of-code-33f0a46943b3?source=friends_link&sk=09dd590e07b3300bae4b63dbb716cc39), 编写[自己的Promise](https://hackernoon.com/implementing-javascript-promise-in-70-lines-of-code-b3592565af0f) 甚至是[自己的状态管理解决方案。](https://css-tricks.com/build-a-state-management-system-with-vanilla-javascript/)
 
-即使不会有人使用也没关系。你会从中成长。如果你能把它用在自己的一个项目中，就很好了。你会开发得更好并成长更多。  
+即使不会有人使用也没关系。你会从中成长。如果你能把它用在自己的一个项目中，就很好了。你会开发得更好并成长更多。
 
 重点是不要把你的方案用在生产上，而是在学习中。针对已有的方案编辑自己的执行代码是向最优秀的人学习的好方法。
 
-**这就是成为更优秀的开发者的方法。**  
+**这就是成为更优秀的开发者的方法。** 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
