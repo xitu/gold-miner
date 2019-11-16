@@ -15,7 +15,7 @@
 
 **（由于 Medium 不支持数学公式渲染，我是用图片来显示复杂的公式的。如果访问图片有困难，可以看[我个人网站上的文章](https://avikdas.com/2019/05/14/real-world-dynamic-programming-seam-carving.html)。）**
 
-## 环境敏感的图片大小调整（Content-aware image resizing）
+## 环境敏感的图片大小调整
 
 为了用动态规划解决实际问题，我们需要将问题建模为可以应用动态规划的形式。本节介绍了这个问题的必要的准备工作。
 
