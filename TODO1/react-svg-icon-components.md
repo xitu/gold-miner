@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-svg-icon-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-svg-icon-components.md)
 > * 译者：[TiaossuP](https://github.com/tiaossup)
-> * 校对者：
+> * 校对者：[vitoxli](https://github.com/vitoxli)、[ZavierTang](https://github.com/ZavierTang)
 
 # 如何将 SVG 图标用做 React 组件？
 
 ![react svg icons, react svgr](https://www.robinwieruch.de/static/e6abcd74fe0c908d20be1fbf81b116e1/2b1a3/banner.jpg)
 
-我曾经挣扎于在 React 应用中使用 SVG。我在网上搜索到了很多种 SVG in React 的方案，但真正实践起来时，几乎都没成功过。现在我要介绍一个非常简单易行的方式来解决这个问题。
+我一直在 React 应用中使用 SVG 感到困惑。我在网上看到了很多在 React 中使用 SVG 的方案，但真正实践起来时，几乎都没成功过。现在我要介绍一个非常简单易行的方式来解决这个问题。
 
-**提示：这篇文章中的图标均来自 [Flaticon](https://flaticon.com)。如果你用了这个网站的图标，别忘了向作者/平台表示感谢！**
+**提示：这篇文章中的图标均来自 [Flaticon](https://flaticon.com)。如果你用了这个网站的图标，别忘了向作者 / 平台表示感谢！**
 
-你可以在你的 React 项目中，在一个目录中维护你所有的 .svg 图标文件。以此，你可以手动/自动生成 React 组件。接下来的两个章节，我将展示两种方式，一种是使用命令行与 npm 命令手动创建图标组件，另一种是使用 Webpack 自动创建 React 组件。这两种方式都使用了一个名为 [SVGR](https://github.com/smooth-code/svgr) 的工具（这个工具也被 [create-react-app](https://github.com/facebook/create-react-app) 等工具广泛使用）。
+你可以在你的 React 项目中创建一个专门用来存放 .svg 图标文件的文件夹。以此，你可以手动/自动生成 React 组件。接下来的两个章节，我将展示两种方式，一种是使用命令行与 npm 命令手动创建图标组件，另一种是使用 webpack 自动创建 React 组件。这两种方式都使用了一个名为 [SVGR](https://github.com/smooth-code/svgr) 的工具（这个工具也被 [create-react-app](https://github.com/facebook/create-react-app) 等工具广泛使用）。
 
 ## 通过命令行创建 React SVG 图标组件
 
-在这个章节，我们从手动创建 SVG 图标开始。如果你需要本文的 starter 项目，可以戳 [Webpack + Babel + React 项目](https://github.com/rwieruch/minimal-react-webpack-babel-setup)并参考其安装说明。
+在这个章节，我们从手动创建 SVG 图标开始。如果你需要本文的 starter 项目，可以戳 [webpack + Babel + React 项目](https://github.com/rwieruch/minimal-react-webpack-babel-setup)并参考其安装说明。
 
-接下来，在你的 `src/` 目录下建立一个 `/assets` 目录，把你的所有 .svg 图标全都放在里面。我们并不希望把资源文件与源码弄混，因为我们接下来会基于这些资源文件生成 JavaScript 文件。这些手动生成的 JavaScript 文件 —— 即 React 图标组件，会跟你的其他源码放在一起。
+接下来，在你的 `src/` 目录下建立一个 `/assets` 目录，把你的所有 .svg 图标全都放在里面。我们并不希望把资源文件与源码弄混，因为我们接下来会基于这些资源文件生成 JavaScript 文件。这些手动生成的 JavaScript 文件 —— 即 React 图标组件，会跟你的其他源码混在一起。
 
 ```
 assets/
@@ -44,7 +44,7 @@ src/
 -- Icons/
 ```
 
-我们希望最终生成的 React 图标组件在 **src/App.js**  中使用。
+我们希望最终生成的 React 图标组件在 **src/App.js**  中使用：
 
 ```jsx
 import React from 'react';
@@ -72,7 +72,7 @@ const App = () => (
 export default App;
 ```
 
-不过这当然是不行的。现在 `src/Icons` 目录是空的，里面没有任何图标组件。下一步，我们将以 `assets` 文件夹为源文件夹，`src/Icons`为目标文件夹，通过在 `package.json` 中添加一个新的 npm 脚本，来生成 React 图标组件。
+不过，目前并没有产生任何效果，因为现在 `src/Icons` 目录是空的，里面没有任何图标组件。下一步，我们将以 `assets` 文件夹为源文件夹，`src/Icons`为目标文件夹，通过在 `package.json` 中添加一个新的 npm 脚本，来生成 React 图标组件。
 
 ```js
 {
@@ -93,13 +93,13 @@ export default App;
 npm install @svgr/cli --save-dev
 ```
 
-现在，已经万事俱备，你可以在命令行中输入 `npm run svgr` 并回车来执行你的新 npm 命令。你可以在命令行的输出中，看到根据 svg 文件生成的 JavaScript 文件。在命令执行完成后，你就可以启动应用，在页面中看到被渲染为 React 组件的 svg 图标。你可以在 `src/Icons` 目录中看到所有生成的 React 图标组件。这些组件同样可以[接受 props](https://www.robinwieruch.de/react-pass-props-to-component/)，这意味着你可以自行定义图标的宽高。
+现在，已经万事俱备，你可以在命令行中输入 `npm run svgr` 来执行你的新 npm 命令。你可以在命令行的输出中，看到根据 SVG 文件生成的 JavaScript 文件。在命令执行完成后，你就可以启动应用，在页面中看到被渲染为 React 组件的 SVG 图标。你可以在 `src/Icons` 目录中看到所有生成的 React 图标组件。这些组件同样可以[把 props 作为参数](https://www.robinwieruch.de/react-pass-props-to-component/)，这意味着你可以自行定义图标的宽高。
 
 这就是从 SVG 生成 React 组件的完整步骤，每次你加入了一个新 SVG 文件或者修改了原有的 SVG 文件时，你都需要再次运行 `npm run svgr` 命令。
 
-## 使用  Webpack 生成 React SVG 图标组件
+## 使用  webpack 生成 React SVG 图标组件
 
-每次更新 SVG 文件，都手动执行命令并不是一个最佳方案。你可以将其集成到 Webpack 配置中。现在你可以把你的 `src/Icons` 文件夹清空，把 `assets/` 文件夹中的 SVG 文件移动到 `src/Icons` 下，并删掉 `assets/` 文件夹了。现在你的目录结构将如下所示：
+每次更新 SVG 文件，都手动执行命令并不是一个最佳方案。你可以将其集成到 webpack 配置中。现在你可以把你的 `src/Icons` 文件夹清空，把 `assets/` 文件夹中的 SVG 文件移动到 `src/Icons` 下，并删掉 `assets/` 文件夹了。现在你的目录结构将如下所示：
 
 ```
 src/
@@ -111,7 +111,7 @@ src/
 ---- github.svg
 ```
 
-现在你可以直接在 App 组件中直接引用 svg 文件。
+现在你可以直接在 App 组件中直接引用 SVG 文件。
 
 ```jsx
 import React from 'react';
@@ -139,7 +139,7 @@ const App = () => (
 export default App;
 ```
 
-现在启动应用会失败，引入 SVG 文件显然没有这么简单。不过，我们可以让 Webpack 在每次启动应用时，都自动引入正确的 SVG 文件。参考下面的代码，修改你的 `webpack.config.js` 文件。
+现在启动应用会失败，引入 SVG 文件显然没有这么简单。不过，我们可以让 webpack 在每次启动应用时，都自动引入正确的 SVG 文件。参考下面的代码，修改你的 `webpack.config.js` 文件。
 
 ```js
 const webpack = require('webpack');
@@ -162,17 +162,17 @@ module.exports = {
 };
 ```
 
-然后，为 SVGR 安装必要的 Webpack 包
+然后，为 SVGR 安装必要的 webpack 包
 
 ```
 npm install @svgr/webpack --save-dev
 ```
 
-一旦应用启动，Webpack 就会自动工作，你就再也不需要纠结于 SVG 文件了。你可以把你的 SVG 文件放在 `src/` 目录的任意位置，并被任意 React 组件所引用。现在，我们也不再需要 `package.json` 文件里面的 SVGR 命令了。
+一旦应用启动，webpack 就会自动工作，你就再也不需要纠结于 SVG 文件了。你可以把你的 SVG 文件放在 `src/` 目录的任意位置，并被任意 React 组件所引用。现在，我们也不再需要 `package.json` 文件里面的 SVGR 命令了。
 
 ### 另一个可选方案：react-svg-loader
 
-如果你使用 Webpack，你可以使用一些更简单的 SVG loader 来代替 SVGR。譬如，可以在你的 Webpack 配置中使用 [react-svg-loader](https://github.com/boopathi/react-svg-loader) 来代替 SVGR：
+如果你使用 webpack，你可以使用一些更简单的 SVG loader 来代替 SVGR。譬如，可以在你的 webpack 配置中使用 [react-svg-loader](https://github.com/boopathi/react-svg-loader) 来代替 SVGR：
 
 ```js
 const webpack = require('webpack');
@@ -294,7 +294,7 @@ module.exports = {
 
 ### 使用 SVGR 来自定义 `viewBox` 属性
 
-在我们的例子中，我们希望为每个不存在 `viewBox` 属性的 SVG 图标都添加该属性。首先，我们把一个正常的 svg 中的 `viewBox` 属性删除，现在它就肯定无法正常显示了。确认了问题已经出现后，我们尝试使用上面介绍的 SVGR 模板和一个额外的 [React Hook](https://www.robinwieruch.de/react-hooks/) 来修复此问题：
+在我们的例子中，我们希望为每个不存在 `viewBox` 属性的 SVG 图标都添加该属性。首先，我们把一个正常的 SVG 中的 `viewBox` 属性删除，现在它就肯定无法正常显示了。确认了问题已经出现后，我们尝试使用上面介绍的 SVGR 模板和一个额外的 [React Hook](https://www.robinwieruch.de/react-hooks/) 来修复此问题：
 
 ```JSX
 import React from 'react';
@@ -382,7 +382,7 @@ module.exports = {
 
 ---
 
-最后，我希望这篇练习通过将 SVGR 与命令行 / npm 命令或 Webpack 一起使用，帮助您学习如何在 React 中使用 SVG 图标。使用 Webpack 实现的最终版 React 应用可以在这个 [GitHub repo](https://github.com/rwieruch/minimal-react-webpack-babel-svg-setup) 中找到。如果你遇到任何 bug，请在评论中告诉我。我也很乐于得知一些与「`viewBox`属性丢失」类似的问题。请在评论中告诉我这些情况。
+最后，我希望通过这篇文章，你可以学到在命令行 / npm 命令或 webpack 中使用 SVGR 来在 React 中引入 SVG 图标的方法。使用 webpack 实现的最终版 React 应用可以在这个 [GitHub repo](https://github.com/rwieruch/minimal-react-webpack-babel-svg-setup) 中找到。如果你遇到任何 bug，请在评论中告诉我。我也很乐于得知一些与「`viewBox`属性丢失」类似的问题。请在评论中告诉我这些情况。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
