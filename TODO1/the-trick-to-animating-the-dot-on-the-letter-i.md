@@ -2,36 +2,36 @@
 > * 原文作者：[Ali Churcher](https://css-tricks.com/author/alichurcher/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-trick-to-animating-the-dot-on-the-letter-i.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-trick-to-animating-the-dot-on-the-letter-i.md)
-> * 译者：
+> * 译者：[vitoxli](https://github.com/vitoxli)
 > * 校对者：
 
-# The Trick to Animating the Dot on the Letter “i”
+# 让字母“i”的点动起来的秘密
 
 ![](https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2019/10/letter-i-collage.png)
 
-Here’s the trick: by combining the Turkish letter "ı" and the period "." we can create something that looks like the letter "i," but is made from two separate elements. This opens us up to some fun options to style or animate the dot of the letter independently from the stalk. Worried about accessibility? Don’t worry, we’ll cover that the best way we know how.
+诀窍是这样的：把土耳其字母“ı”和句号“.”结合起来，我们就可以创建一个看起来像是字母“i”但实际上却是两个独立的元素的东西。这为我们提供了一些有趣的选项，比如可以使“i”的点独立于它的下部分，从而可以为其定义样式或者添加动画。如果担心有可访问性方面的问题，那么不用担心，我们将介绍所知的最佳实践。
 
-Let’s look at how to create and style these separate "letters," and find out when they can be used, and when to avoid them.
+让我们来看看如何创建并设置这些完全独立的字母的样式，以及什么时候可以使用它们，什么时候不要使用它们。
 
-### Check out some examples
+### 一些例子
 
-Here are some different styles and animations we can do with this idea:
+通过这种方式来实现的一些样式和动画：
 
-See the Pen [Styles and animations](https://codepen.io/alichur/pen/vYYLdej) by Ali C ([@alichur](https://codepen.io/alichur)) on [CodePen](https://codepen.io).
+来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[样式和动画](https://codepen.io/alichur/pen/vYYLdej)。
 
-Because both parts of the letter are regular Unicode characters, they will respect font changes and page zoom the same as any other text. Here’s some examples of different fonts, styles, and zoom levels:
+由于字母的两个部分都是常规的 Unicode 字符，因此它们支持不同的字体，并且在页面缩放时同其他任何文本保持一致。以下是一些不同字体、样式和缩放的示例：
 
-See the Pen [Different fonts and zoom](https://codepen.io/alichur/pen/YzzwYEG) by Ali C ([@alichur](https://codepen.io/alichur)) on [CodePen](https://codepen.io).
+来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[不同的字体和缩放](https://codepen.io/alichur/pen/YzzwYEG)。
 
-### Step-by-step through the technique
+### 逐步介绍这项技术
 
-Let’s break down how this technique works.
+让我们来了解一下这项技术的工作原理。
 
-#### Choose the Unicode characters to combine
+#### 使用 Unicode 字符来组合
 
-We are using the dotless "i" character (ı) and a full stop. And, yes, we could use other characters as well, such as the dotless "j" character (ȷ) or even the accents on characters such as "ñ" (~) or "è" (`).
+我们使用字符（ı）来表示去掉点的字符“i”和表示点的句号来进行组合。但是，我们同样可以使用其它字符，比如字符（ȷ）来表示去掉点的字符“j”，甚至可以使用表示音调的字符，比如“ñ”（~）或者“è”（`）。
 
-Stack the characters on top of each other by wrapping them in a span and setting the `display` property to `block`.
+通过把它们放到 span 标签中并设置 `display` 属性为 `block` 来把这些字符堆叠在一起。
 
 ```html
 <span class="character">.</span>
@@ -44,9 +44,9 @@ Stack the characters on top of each other by wrapping them in a span and setting
 }
 ```
 
-#### Align the characters
+#### 对齐字符
 
-They need to be close to each other. We can do that by adjusting the line heights and removing the margins from them.
+它们需要距离彼此近一些。我们可以通过调整行高并去掉 margin 来实现。
 
 ```css
 .character {
@@ -57,9 +57,9 @@ They need to be close to each other. We can do that by adjusting the line height
 }
 ```
 
-#### Add a CSS animation to the dot element
+#### 为点元素增加 CSS 动画
 
-Something like this bouncing animation:
+比如像这样的弹跳动画：
 
 ```css
 @keyframes bounce {
@@ -77,15 +77,15 @@ Something like this bouncing animation:
 }
 ```
 
-There’s [more on CSS animations](https://css-tricks.com/almanac/properties/a/animation/) in the CSS-Tricks Almanac.
+查看 CSS-Tricks 年鉴中[更多 CSS 动画](https://css-tricks.com/almanac/properties/a/animation/)。
 
-Checking in, here’s where we are so far:
+目前为止应该是这样的：
 
-See the Pen [Creating the letter](https://codepen.io/alichur/pen/OJJNZYO) by Ali C ([@alichur](https://codepen.io/alichur)) on [CodePen](https://codepen.io).
+来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[创建字母](https://codepen.io/alichur/pen/OJJNZYO)。
 
-#### Add any remaining letters of the word
+#### 添加单词中的其他字母
 
-It’s fine to animate the "i" on its own, but perhaps it’s merely one letter in a word, like "Ping." We’ll wrap the animated characters in a span to make sure everything stays on a single line.
+可以仅仅给“i”单独添加动画，但是一个单词可能不仅只有一个字母，比如“Ping”。我们将添加了动画的字母放在 span 标签中来确保所有内容都在一行。
 
 ```html
 <p>
@@ -98,31 +98,31 @@ It’s fine to animate the "i" on its own, but perhaps it’s merely one letter 
 </p>
 ```
 
-There’s an [automatic gap between inline-block elements](https://css-tricks.com/fighting-the-space-between-inline-block-elements/), so be sure to remove that if the spacing looks off.
+[inline-block 会在元素间自动增加间隔](https://css-tricks.com/fighting-the-space-between-inline-block-elements/)，所有请先确保已经移除了它们之间的间隙。
 
-The final stages:
+最后阶段：
 
-See the Pen [Adding the letter inside a word](https://codepen.io/alichur/pen/WNNwzov) by Ali C ([@alichur](https://codepen.io/alichur)) on [CodePen](https://codepen.io).
+来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[在单词中添加字母](https://codepen.io/alichur/pen/WNNwzov)。
 
-### What about SVG?
+### 关于 SVG
 
-The same effect can be achieved by creating a letter from two or more SVG elements. Here's an example where the circle element is animated independently from the rectangle element.
+通过两个或更多个 SVG 元素创建字母可以实现相同的效果。在这个示例中，圆形元素的动画独立于矩形元素。
 
-See the Pen [SVG animated i](https://codepen.io/alichur/pen/eYYgyEB) by Ali C ([@alichur](https://codepen.io/alichur)) on [CodePen](https://codepen.io).
+来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[使用 SVG 为 i 添加动画](https://codepen.io/alichur/pen/eYYgyEB)。
 
-Although an SVG letter won’t respond to font changes, it opens up more possibilities for animating sections of letters that aren’t represented by Unicode characters and letter styles that don't exist in any font.
+尽管 SVG 字母无法随字体更改，但它为那些 Unicode 无法表示的字符的和本不存在在字体中的字母样式提供了添加动画的可能性。
 
-### Where would you use this?
+### 你将在哪里用到这些？
 
-Where would you want to use something like this? I mean, it’s not a great use case for body content or any sort of long-form content. Not only would that affect legibility (can you imagine if every "i" in this post was animated?) but it would have a negative impact on assistive technology, like screen readers, which we will touch on next.
+你想在哪里用到这些呢？我的意思是，对于 body 内容或者任何形式的长表单内容，这项技术不是很好的实践。它不仅会影响可读性（你能想象在这篇文章中所有的“i”都使用了动画吗？），还会对辅助技术产生不好的影响，比如屏幕阅读器，我们将在下面对此进行讨论。
 
-Instead, it’s probably best to use this technique where the content is intended for decoration. A logo is a good example of that. [Or perhaps in an icon](https://css-tricks.com/tips-aligning-icons-text/) that’s intended to be described, but not interpreted as text by assistive technology.
+Instead, it’s probably best to use this technique where the content is intended for decoration. A logo is a good example of that. [Or perhaps in an icon](https://css-tricks.com/tips-aligning-icons-text/) that’s intended to be described, but not interpreted as text by assistive technology.相反，当我们的内容更多地是出于装饰的目的时，使用这项技术是个很好的选择。通过这项技术来制作 logo，或者用在那些用来描述而不是通过辅助技术解释成文字的[图标中](https://css-tricks.com/tips-aligning-icons-text/)，都是很好的实践。
 
-### Let’s talk accessibility
+### 可访问性
 
-Going back to our "Ping" example, a screen reader will read that as `P . ı ng`. Not exactly the pronunciation we’re looking for and definitely confusing to anyone listening to it.
+回到我们的“Ping”例子，屏幕阅读器会将它读作 `P . ı ng`。这并不是我们期望听到的读音并且绝对会给任何听到它的人造成困扰。
 
-Depending on the usage, different ARIA attributes can be added so that text is read differently. For example, we can describe the entire element as an image and add the text as its label:
+根据用法，可以添加不同的 ARIA 属性，以便以不同的方式读取文本。例如，我们可以将整个元素设置为图像并将文本作添加为其标签：
 
 ```html
 <div role=img aria-label="Ping">
@@ -130,7 +130,7 @@ Depending on the usage, different ARIA attributes can be added so that text is r
 </div>
 ```
 
-This way, the outer div element describes the meaning of the text which gets read by screen readers. However, we also want assistive technology to skip the inner elements. We can add `aria-hidden="true"` or `role="presentation"` to them so that they are also not interpreted as text:
+这样，外部 div 元素描述了屏幕阅读器读取的文本的含义。但是，我们还希望辅助技术能跳过内部元素。我们可以为添加 `aria-hidden="true"` 或 `role=" presentation"`，这样它们便不会被解释为文本：
 
 ```html
 <div role=img aria-label="Ping">
@@ -141,7 +141,7 @@ This way, the outer div element describes the meaning of the text which gets rea
 </div>
 ```
 
-This was only tested on a Mac with VoiceOver in Safari. If there are issues in other assistive technology, please let us know in the comments.
+以上只在一台 Mac 上的 Safari 中通过 VoiceOver 进行了测试。如果在其他辅助工具中遇到了任何问题，请在评论中进行留言。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
