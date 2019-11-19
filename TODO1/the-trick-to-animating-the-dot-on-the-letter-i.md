@@ -17,11 +17,11 @@
 
 通过这种方式来实现的一些样式和动画：
 
-来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[样式和动画](https://codepen.io/alichur/pen/vYYLdej)。
+来看看 Ali C（[@alichur](https://codepen.io/alichur)）在 [CodePen](https://codepen.io) 的[样式和动画](https://codepen.io/alichur/pen/vYYLdej)。
 
-由于字母的两个部分都是常规的 Unicode 字符，因此它们支持不同的字体，并且在页面缩放时同其他任何文本保持一致。以下是一些不同字体、样式和缩放的示例：
+由于字母的两个部分都是常规的 Unicode 字符，因此它们会随着字体变化和页面缩放变化，正如其它普通文本一样。以下是一些不同字体、样式和缩放的示例：
 
-来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[不同的字体和缩放](https://codepen.io/alichur/pen/YzzwYEG)。
+来看看 Ali C（[@alichur](https://codepen.io/alichur)）在 [CodePen](https://codepen.io) 的[不同的字体和缩放](https://codepen.io/alichur/pen/YzzwYEG)。
 
 ### 逐步介绍这项技术
 
@@ -81,7 +81,7 @@
 
 目前为止应该是这样的：
 
-来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[创建字母](https://codepen.io/alichur/pen/OJJNZYO)。
+来看看 Ali C（[@alichur](https://codepen.io/alichur)）在 [CodePen](https://codepen.io) 的[创建字母](https://codepen.io/alichur/pen/OJJNZYO)。
 
 #### 添加单词中的其他字母
 
@@ -102,21 +102,21 @@
 
 最后阶段：
 
-来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[在单词中添加字母](https://codepen.io/alichur/pen/WNNwzov)。
+来看看 Ali C（[@alichur](https://codepen.io/alichur)）在 [CodePen](https://codepen.io) 的[在单词中添加字母](https://codepen.io/alichur/pen/WNNwzov)。
 
 ### 关于 SVG
 
 通过两个或更多个 SVG 元素创建字母可以实现相同的效果。在这个示例中，圆形元素的动画独立于矩形元素。
 
-来看看 Ali C ([@alichur](https://codepen.io/alichur))在 [CodePen](https://codepen.io) 的[使用 SVG 为 i 添加动画](https://codepen.io/alichur/pen/eYYgyEB)。
+来看看 Ali C（[@alichur](https://codepen.io/alichur)）在 [CodePen](https://codepen.io) 的[使用 SVG 为 i 添加动画](https://codepen.io/alichur/pen/eYYgyEB)。
 
 尽管 SVG 字母无法随字体更改，但它为那些 Unicode 无法表示的字符的和本不存在在字体中的字母样式提供了添加动画的可能性。
 
 ### 你将在哪里用到这些？
 
-你想在哪里用到这些呢？我的意思是，对于 body 内容或者任何形式的长表单内容，这项技术不是很好的实践。它不仅会影响可读性（你能想象在这篇文章中所有的“i”都使用了动画吗？），还会对辅助技术产生不好的影响，比如屏幕阅读器，我们将在下面对此进行讨论。
+你想在哪里用到这些呢？我的意思是，对于 body 内容或者任何形式的长篇幅的内容，这项技术不是很好的实践。它不仅会影响可读性（你能想象在这篇文章中所有的“i”都使用了动画吗？），还会对辅助技术产生不好的影响，比如屏幕阅读器，我们将在下面对此进行讨论。
 
-Instead, it’s probably best to use this technique where the content is intended for decoration. A logo is a good example of that. [Or perhaps in an icon](https://css-tricks.com/tips-aligning-icons-text/) that’s intended to be described, but not interpreted as text by assistive technology.相反，当我们的内容更多地是出于装饰的目的时，使用这项技术是个很好的选择。通过这项技术来制作 logo，或者用在那些用来描述而不是通过辅助技术解释成文字的[图标中](https://css-tricks.com/tips-aligning-icons-text/)，都是很好的实践。
+相反，当我们的内容更多地是出于装饰的目的时，使用这项技术是个很好的选择。通过这项技术来制作 logo，或者用在那些用来描述而不是通过辅助技术解释成文字的[图标中](https://css-tricks.com/tips-aligning-icons-text/)，都是很好的实践。
 
 ### 可访问性
 
