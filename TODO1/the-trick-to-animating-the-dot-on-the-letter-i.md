@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-trick-to-animating-the-dot-on-the-letter-i.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-trick-to-animating-the-dot-on-the-letter-i.md)
 > * 译者：[vitoxli](https://github.com/vitoxli)
-> * 校对者：
+> * 校对者：[Baddyo](https://github.com/Baddyo)、[lzfcc](https://github.com/lzfcc)
 
 # 让字母“i”的点动起来的秘密
 
 ![](https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2019/10/letter-i-collage.png)
 
-诀窍是这样的：把土耳其字母“ı”和句号“.”结合起来，我们就可以创建一个看起来像是字母“i”但实际上却是两个独立的元素的东西。这为我们提供了一些有趣的选项，比如可以使“i”的点独立于它的下部分，从而可以为其定义样式或者添加动画。如果担心有可访问性方面的问题，那么不用担心，我们将介绍所知的最佳实践。
+诀窍是这样的：把土耳其字母“ı”和句号“.”结合起来，我们就可以创建一个看起来像是字母“i”但实际上却是两个独立的元素的东西。这为我们提供了一些有趣的选项，让我们能为“i”的点添加独立于其下部分的样式或动画。如果担心有可访问性方面的问题，那么不用担心，我们将介绍所知的最佳实践。
 
-让我们来看看如何创建并设置这些完全独立的字母的样式，以及什么时候可以使用它们，什么时候不要使用它们。
+让我们来看看如何创建这些分离的“字母”并设置其样式，以及什么时候可以使用它们，什么时候不要使用它们。
 
 ### 一些例子
 
@@ -85,7 +85,7 @@
 
 #### 添加单词中的其他字母
 
-可以仅仅给“i”单独添加动画，但是一个单词可能不仅只有一个字母，比如“Ping”。我们将添加了动画的字母放在 span 标签中来确保所有内容都在一行。
+可以仅仅给“i”单独添加动画，但是“i”可能只是单词中的一个字母，比如“Ping”。我们将添加了动画的字母放在 span 标签中来确保所有内容都在一行。
 
 ```html
 <p>
@@ -98,7 +98,7 @@
 </p>
 ```
 
-[inline-block 会在元素间自动增加间隔](https://css-tricks.com/fighting-the-space-between-inline-block-elements/)，所有请先确保已经移除了它们之间的间隙。
+[inline-block 会在元素间自动增加间隔](https://css-tricks.com/fighting-the-space-between-inline-block-elements/)，所以请先确保已经移除了它们之间的间隙。
 
 最后阶段：
 
@@ -110,7 +110,7 @@
 
 来看看 Ali C（[@alichur](https://codepen.io/alichur)）在 [CodePen](https://codepen.io) 的[使用 SVG 为 i 添加动画](https://codepen.io/alichur/pen/eYYgyEB)。
 
-尽管 SVG 字母无法随字体更改，但它为那些 Unicode 无法表示的字符的和本不存在在字体中的字母样式提供了添加动画的可能性。
+尽管 SVG 字母无法随字体更改，但它为那些 Unicode 无法表示的字母部件和字体中不存在的字母样式提供了添加动画的可能性。
 
 ### 你将在哪里用到这些？
 
@@ -122,7 +122,7 @@
 
 回到我们的“Ping”例子，屏幕阅读器会将它读作 `P . ı ng`。这并不是我们期望听到的读音并且绝对会给任何听到它的人造成困扰。
 
-根据用法，可以添加不同的 ARIA 属性，以便以不同的方式读取文本。例如，我们可以将整个元素设置为图像并将文本作添加为其标签：
+可以根据用法添加不同的 ARIA 属性，从而使文本以不同的方式朗读。例如，我们可以将整个元素设置为图像并添加文本作为其标签：
 
 ```html
 <div role=img aria-label="Ping">
