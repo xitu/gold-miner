@@ -130,7 +130,7 @@
 </div>
 ```
 
-这样，外部 div 元素描述了屏幕阅读器读取的文本的含义。但是，我们还希望辅助技术能跳过内部元素。我们可以为添加 `aria-hidden="true"` 或 `role=" presentation"`，这样它们便不会被解释为文本：
+这样，外部 div 元素描述了屏幕阅读器读取的文本的含义。但是，我们还希望辅助技术能跳过内部元素。我们可以为添加 `aria-hidden="true"` 或 `role="presentation"`，这样它们便不会被解释为文本：
 
 ```html
 <div role=img aria-label="Ping">
