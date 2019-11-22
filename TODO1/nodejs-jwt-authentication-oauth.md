@@ -11,9 +11,9 @@
 
 # 简介
 
-诸如 Google Firebase，AWS Cognito，以及 Auth0 这样的第三方认证服务越来越流行，类似于 passport.js 这样的一站式解决方案也成为了业界标准，但是一个普遍情况是，开发者们其实并不清楚完整的认证流程到底涉及那些部分。
+诸如 Google Firebase，AWS Cognito 以及 Auth0 这样的第三方认证服务越来越流行，类似于 passport.js 这样的一站式解决方案也成为了业界标准，但是一个普遍情况是，开发者们其实并不清楚完整的认证流程到底涉及那些部分。
 
-这一系列关于 node.js 认证的文章，旨在让你搞清楚一些概念，比如  JSON Web Token (JWT)，社交账号登录 (OAuth2)，用户模仿 （一个管理员无需密码便能作为特定用户登录）。
+这一系列关于 node.js 认证的文章，旨在让你搞清楚一些概念，比如 JSON Web Token (JWT)、社交账号登录 (OAuth2)、用户模仿 （一个管理员无需密码便能作为特定用户登录）。
 
 当然，文末也给你准备好了一个完整的 node.js 认证流程的代码库，放在GitHub上了，你可以作为你自己项目的基础来使用。
 
@@ -21,7 +21,7 @@
 
 在阅读之前，你需要先了解：
 
-* 数据库中如何存储用户的 email 和 密码，或者 客户端ID 和 客户端密钥，或者其他的密钥对。
+* 数据库中如何存储用户的 email 和密码，或者客户端ID和客户端密钥，或者其他的密钥对。
 * 至少一种健壮且高效的加密算法。
 
 在我写下这篇文章之时，我认为 Argon2 是目前最好的加密算法，请不要用 SHA256，SHA512 或者 MD5 这类简单的加密算法了。
@@ -30,7 +30,7 @@
 
 ## 写一个注册程序 🥇
 
-新用户创建账户时，必须对密码进行哈希处理并将其与电子邮件和其他详细信息（比如用户配置文件，时间戳等等）一起存储在数据库中。 
+新用户创建账户时，必须对密码进行哈希处理并将其与电子邮件和其他详细信息（比如用户配置文件、时间戳等等）一起存储在数据库中。 
 
 **提示: 你可以去之前的文章了解 node.js 的项目结构 [Bulletproof node.js project architecture 🛡️](https://softwareontheroad.com/ideal-nodejs-project-structure)**
 
@@ -47,7 +47,7 @@ class AuthService {
       name,
     });
     return {
-      // MAKE SURE TO NEVER SEND BACK THE PASSWORD!!!!
+      // 绝对不要返回用户的密码!!!!
       user: {
         email: userRecord.email,
         name: userRecord.name,
@@ -67,13 +67,13 @@ class AuthService {
 
 当一名用户想要登录时，会发生下面的事情：
 
-* 客户端发送一个 **公共标识（Public Identification）** 和一个**私钥（Private key）**。
+客户端发送成对的**公共标识（Public Identification）**和**私钥（Private key）**
   
 * 服务端根据发来的 email 去数据库查找用户记录。
   
 * 如果找到了，服务端会将收到的密码进行哈希，然后和数据库中已经哈希过的密码进行比对。
   
-* 如果这两个哈希值对上了，那么服务端就发一个 JSON Web Token (or JWT)。
+* 如果这两个哈希值对上了，那么服务端就发一个 JSON Web Token (JWT)。
   
 
 这个 JWT 就是一个临时 key，客户端每次发器请求都需要带上这个 Token
@@ -104,7 +104,7 @@ class AuthService {
 }
 ```
 
-这里密码认证使用了 argon2 库来防止 时序攻击（timing-based attacks），也就是说，当攻击者试图靠蛮力破解口令时需要严格遵循[服务器响应时间](https://en.wikipedia.org/wiki/Timing_attack)的相关准则。
+这里密码认证使用了 argon2 库来防止时序攻击（timing-based attacks），也就是说，当攻击者试图靠蛮力破解口令时需要严格遵循[服务器响应时间](https://en.wikipedia.org/wiki/Timing_attack)的相关准则。
 
 接下来我们将讨论一下如何生成 JWT。
 
@@ -148,7 +148,7 @@ class AuthService {
 }
 ```
 
-其中比较重要的是加密数据，你不应该发送用户的任何敏感信息。
+重要的是，永远不要在编码数据中包含用户的敏感信息。
 
 上面 signature 变量其实就是用来生成 JWT 的密钥（secret），而且你要确保这个 signature 不会泄漏出去。
 
@@ -202,7 +202,7 @@ export default (req, res, next) => {
 }
 ```
 
-现在，路由可以真正访问到当前用户的 items 信息了
+现在就可以跳转到用户请求的路由了
 
 ```javascript
   import isAuth from '../middlewares/isAuth';
@@ -228,7 +228,7 @@ export default (req, res, next) => {
 
 Q：如果可以在客户端中解码 JWT 数据的话，别人能否修改其中用户 id 或者其它的数据呢？
 
-A：虽然你可以轻易地解码 JWT，但是你需要这个 JWT 生成时的密钥（Secret）才能将解码后的数据重新编码。
+A：虽然你可以轻易地解码 JWT，但是没有 JWT 生成时的密钥（Secret）就无法对修改后的新数据进行编码。
 
 也是因为这个原因，千万不要泄漏密钥（secret）。
 
@@ -238,7 +238,7 @@ A：虽然你可以轻易地解码 JWT，但是你需要这个 JWT 生成时的�
 
 ### 👉学习更高级的 node.js 开发技术
 
-和其它2000多位 node.js 开发者一起！
+和另外的2000多位经验丰富的node.js开发者一起，进行文章的更新！
 
 是的，我一直在更新！
 
@@ -248,7 +248,7 @@ A：虽然你可以轻易地解码 JWT，但是你需要这个 JWT 生成时的�
 
 用户模拟是一种可以在无需用户密码的情况下，以一个特定用户的身份登录的技术。
 
-对于超级管理员（super admins）来说，这是一个非常有用的功能，能够避免帮他解决或调试一个仅会话可见的用户的问题。
+对于超级管理员（super admins）来说，这是一个非常有用的功能，能够帮他解决或调试一个仅会话可见的用户的问题。
 
 没有必要去知道用户的密码，只需要以正确的密钥和必要的用户信息来创建一个 JWT 就可以了。
 
@@ -304,9 +304,9 @@ export default (requiredRole) => {
   }
 ```
 
-你看，并不需要什么魔法，超级管理员只需要知道用户的 Email 就能模拟这个用户了，逻辑是不是非常简单？
+所以，这里并没有什么黑魔法，超级管理员只需要知道需要被模拟的用户的Email（并且这里的逻辑与登录十分相似，只是无需检查口令的正确性）就可以模拟这个用户了。
 
-当然，也正是因为不需要密码了，这个路径的安全性就得靠 roleRequired 中间件来保证了。
+当然，也正是因为不需要密码，这个路径的安全性就得靠 roleRequired 中间件来保证了。
 
 # 结论 🏗️
 
@@ -314,7 +314,7 @@ export default (requiredRole) => {
 
 在这篇文章中我们探讨了 JWT 的功能，为什么选择一个好的加密算法非常重要，以及如何去模拟一个用户，如果你使用的是 passport.js 这样的库，就很难做到这些事。
 
-在本系列的下一篇文章中，我们将会探讨一些不同的方法，比如使用 OAuth2 协议和一些更简单的的第三方库，比如 Firebase，来为用户提供“社交网络的登录”功能。
+在本系列的下一篇文章中，我们将探讨通过使用 OAuth2 协议和更简单的替代方案（如 Firebase 等第三方用于身份验证的库）来为客户提供“社交登录”身份验证的不同方法。
 
 ### [这里是示例仓库 🔬](https://github.com/santiq/nodejs-auth)
 
