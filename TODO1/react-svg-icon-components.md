@@ -207,7 +207,7 @@ npm install react-svg-loader --save-dev
 
 ## 使用 SVGR 模板来做一些高级应用
 
-在我最近一次开发 React 应用时，我遇到了一些有问题的 SVG 图标，这些图标的 [viewBox]( https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/viewBox ) 属性并不完整。由于这个属性是为 SVG 图标提供大小所必需的，所以只要这个属性没有出现在图标中，我就必须找到一种方法来引入这个属性。本来，我可以遍历每个 SVG 图标来修复这个问题，但是，处理 500 多个图标并不是一项轻松的任务。接下来我将介绍如何用 SVGR 模板功能来解决这个问题。
+在我最近一次开发 React 应用时，我遇到了一些有问题的 SVG 图标，这些图标的 [viewBox](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/viewBox) 属性并不完整。由于这个属性是为 SVG 图标提供大小所必需的，所以只要这个属性没有出现在图标中，我就必须找到一种方法来引入这个属性。本来，我可以遍历每个 SVG 图标来修复这个问题，但是，处理 500 多个图标并不是一项轻松的任务。接下来我将介绍如何用 SVGR 模板功能来解决这个问题。
 
 `webpack.config.js` 文件中的 SVGR 默认模板看起来像是下面这样：
 
