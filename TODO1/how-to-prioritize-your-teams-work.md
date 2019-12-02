@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-prioritize-your-teams-work.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-prioritize-your-teams-work.md)
 > * 译者：[司徒公子](https://github.com/todaycoder001)
-> * 校对者：[sunbufu](https://github.com/sunbufu),[Baddyo](https://github.com/Baddyo)
+> * 校对者：[sunbufu](https://github.com/sunbufu), [Baddyo](https://github.com/Baddyo)
 
 # 如何确定团队工作的优先级
 
@@ -72,7 +72,7 @@ OKRs 有两个部分：
 
 ## 技术 OKR
 
-你觉不觉得和PM达成一致是一件困难的事情？提醒他们，内部工作也能为客户带来价值，所以错过它们对公司来说也是致命的。
+你觉不觉得和 PM 达成一致是一件困难的事情？提醒他们，内部工作也能为客户带来价值，所以错过它们对公司来说也是致命的。
 
 ![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20191124003216.jpeg)
 
