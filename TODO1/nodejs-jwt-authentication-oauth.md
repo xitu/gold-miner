@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-jwt-authentication-oauth.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-jwt-authentication-oauth.md)
 > * 译者：[HytonightYX](https://github.com/HytonightYX)
-> * 校对者：
+> * 校对者：[HZNU-Qiu](https://github.com/HZNU-Qiu) [xionglong58](https://github.com/xionglong58)
 
 # 🛑你不需要 passport.js — node.js认证指南 ✌️
 
@@ -13,7 +13,7 @@
 
 诸如 Google Firebase，AWS Cognito 以及 Auth0 这样的第三方认证服务越来越流行，类似于 passport.js 这样的一站式解决方案也成为了业界标准，但是一个普遍情况是，开发者们其实并不清楚完整的认证流程到底涉及那些部分。
 
-这一系列关于 node.js 认证的文章，旨在让你搞清楚一些概念，比如 JSON Web Token (JWT)、社交账号登录 (OAuth2)、用户模仿 （一个管理员无需密码便能作为特定用户登录）。
+这一系列关于 node.js 认证的文章，旨在让你搞清楚一些概念，比如 JSON Web Token (JWT)、社交账号登录 (OAuth2)、用户模仿（一个管理员无需密码便能作为特定用户登录）。
 
 当然，文末也给你准备好了一个完整的 node.js 认证流程的代码库，放在GitHub上了，你可以作为你自己项目的基础来使用。
 
@@ -32,7 +32,7 @@
 
 新用户创建账户时，必须对密码进行哈希处理并将其与电子邮件和其他详细信息（比如用户配置文件、时间戳等等）一起存储在数据库中。 
 
-**提示: 你可以去之前的文章了解 node.js 的项目结构 [Bulletproof node.js project architecture 🛡️](https://softwareontheroad.com/ideal-nodejs-project-structure)**
+**提示:你可以去之前的文章了解 node.js 的项目结构 [Bulletproof node.js project architecture 🛡️](https://softwareontheroad.com/ideal-nodejs-project-structure)**
 
 ```javascript
 import * as argon2 from 'argon2';
@@ -164,7 +164,7 @@ class AuthService {
 
 现在，我们需要在后端中创建一个 express 的中间件。
 
-**中间件 “isAuth”**
+**中间件 isAuth**
 
 ```javascript
 import * as jwt from 'express-jwt';
@@ -232,17 +232,9 @@ A：虽然你可以轻易地解码 JWT，但是没有 JWT 生成时的密钥（S
 
 也是因为这个原因，千万不要泄漏密钥（secret）。
 
-我们的服务端会在 `IsAuth` 这个使用了`express-jwt`库的中间件中校验密钥。
+我们的服务端会在 `IsAuth` 这个使用了 `express-jwt` 库的中间件中校验密钥。
 
 现在我们已经明白了 JWT 是如何工作的，我们接下来去看一个很酷的功能。
-
-### 👉学习更高级的 node.js 开发技术
-
-和另外的2000多位经验丰富的node.js开发者一起，进行文章的更新！
-
-是的，我一直在更新！
-
-**不会发骚扰邮件**🤞**. 也可以随时退订.**
 
 ## 如何模拟一个用户 🕵️
 
