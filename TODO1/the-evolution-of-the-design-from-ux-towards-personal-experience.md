@@ -20,6 +20,7 @@
 ![图 1. 设计的社会和道德责任（Papanek，1985 年）](https://cdn-images-1.medium.com/max/2000/1*RhZxOaYwJWA4BnusZXYk5A.png)
 
 二十世纪早期的设计已经完全成形。设计的定义不断演变，最终被视为一种将生产和消费联系起来的活动，但这种活动是自主的。毫无疑问，设计的世界已经改变了互联网和数码科技的面貌。[正如体验设计师 Agnieszka Szóstek（2018 年）正确指出的那样](https://uxdesign.cc/where-is-the-difference-between-ux-cx-and-service-design-8ce0b8654a43)，设计是随着经济和时代的变化而演变的。设计伴随着经济价值而增长（图 2）。
+
 ![图 2. Agnieszka Szóstek 之后的设计演进，2018 年。](https://cdn-images-1.medium.com/max/2672/1*r9xLaP7jhGMMErweLb9Kdg.png)
 
 
