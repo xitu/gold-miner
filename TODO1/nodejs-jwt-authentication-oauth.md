@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-jwt-authentication-oauth.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-jwt-authentication-oauth.md)
 > * 译者：[HytonightYX](https://github.com/HytonightYX)
-> * 校对者：[HZNU-Qiu](https://github.com/HZNU-Qiu) [xionglong58](https://github.com/xionglong58)
+> * 校对者：[HZNU-Qiu](https://github.com/HZNU-Qiu),[xionglong58](https://github.com/xionglong58)
 
 # 🛑你不需要 passport.js — node.js认证指南 ✌️
 
