@@ -19,9 +19,9 @@
 
 运气有点差。
 
-当然,  我可以说他以前看过类似的代码。  他或多或少知道它是如何工作的。 一个伪代码的解决方案就可以证明他理解那个概念。
+当然,  我可以说他以前看过类似的代码。他或多或少知道它是如何工作的。一个伪代码的解决方案就可以证明他理解那个概念。
 
- 但是他在白板上写的代码完全没有意义的。 他对 JavaScript Promise 的概念只有模糊的理解，无法很好地解释它。 
+但是他在白板上写的代码完全没有意义的。他对 JavaScript Promise 的概念只有模糊的理解，无法很好地解释它。
 
 如果你是初级的开发者，你可以避免这种情况，但是如果你想申请一个高级开发者的职位，做到这些还是不够的。他要如何调试复杂的Promise 链并且向他人解释他做了什么呢？
 
@@ -29,11 +29,11 @@
 
 ## 开发者习惯于抽象
 
- 作为开发者，我们的工作中充满抽象概念。 我们将本来需要重复的代码概念化。 因此，当我们专注于更重要的部分时， 会不假思索地将这些概念进行运用并**假设**它们有效。
+作为开发者，我们的工作中充满抽象概念。 我们将本来需要重复的代码概念化。 因此，当我们专注于更重要的部分时， 会不假思索地将这些概念进行运用并**假设**它们有效。
 
- 一般说来，它们的确有效，但当遇到复杂情况时**真正理解**这些抽象代码就很有价值了  
+一般说来，它们的确有效，但当遇到复杂情况时**真正理解**这些抽象代码就很有价值了
 
-那位高级开发职位的应试者不假思索地就写出来这段 promise 抽象的代码。如果是在某处看到这段代码的话他大概懂得如何运用，但是他并没有真正**弄懂**它的意义，所以无法在工作面试中重现这段代码。  
+那位高级开发职位的应试者不假思索地就写出来这段 promise 抽象的代码。如果是在某处看到这段代码的话他大概懂得如何运用，但是他并没有真正**弄懂**它的意义，所以无法在工作面试中重现这段代码。
 
 他本可以直接把这段代码背下来，这其实一点都不难：
 
@@ -53,7 +53,7 @@ return new Promise((resolve, reject) => {
 
 ## 理解源代码
 
-早在 2012 年，在前端-后端模式流行之前， jQuery 是世界的佼佼者，我当时正在阅读 jQuery 创始人 John Resig 写的 “[Secrets of the JavaScript Ninja](https://www.manning.com/books/secrets-of-the-javascript-ninja)” .
+早在 2012 年，在前端-后端模式流行之前， jQuery 是世界的佼佼者，我当时正在阅读 jQuery 创始人 John Resig 写的 “[Secrets of the JavaScript Ninja](https://www.manning.com/books/secrets-of-the-javascript-ninja)” 。
 
 这本书教你如何从零开始创建自己的 jQuery ，让你理解创建库后面的思维过程。尽管 jQuery 在随后几年淡出了大众视线，我还是强烈推荐读一下这本书。
 
@@ -81,7 +81,7 @@ return new Promise((resolve, reject) => {
 
 ## 重新造轮子
 
-去吧，去造你自己的轮子。编写[自己的数据绑定](https://medium.com/swlh/https-medium-com-drmoerkerke-data-binding-for-web-components-in-just-a-few-lines-of-code-33f0a46943b3?source=friends_link&sk=09dd590e07b3300bae4b63dbb716cc39), 编写[自己的Promise](https://hackernoon.com/implementing-javascript-promise-in-70-lines-of-code-b3592565af0f) 甚至是[自己的状态管理解决方案。](https://css-tricks.com/build-a-state-management-system-with-vanilla-javascript/)
+去吧，去造你自己的轮子。编写[自己的数据绑定](https://medium.com/swlh/https-medium-com-drmoerkerke-data-binding-for-web-components-in-just-a-few-lines-of-code-33f0a46943b3?source=friends_link&sk=09dd590e07b3300bae4b63dbb716cc39), 编写[自己的Promise](https://hackernoon.com/implementing-javascript-promise-in-70-lines-of-code-b3592565af0f) 甚至是[自己的状态管理解决方案](https://css-tricks.com/build-a-state-management-system-with-vanilla-javascript/)。
 
 即使不会有人使用也没关系。你会从中成长。如果你能把它用在自己的一个项目中，就很好了。你会开发得更好并成长更多。
 
