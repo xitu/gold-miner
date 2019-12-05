@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dart-features-for-better-code-types-and-working-with-parameters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dart-features-for-better-code-types-and-working-with-parameters.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[ArcherGrey](https://github.com/ArcherGrey)
 
-# 类型及其在参数中的应用：能优化代码的的 Dart 特性
+# 类型及其在参数中的应用：利用 Dart 特性优化代码
 
 ![](https://cdn-images-1.medium.com/max/3200/1*BMqeS3pHvbHt52MzbZbS3Q.jpeg)
 
@@ -307,7 +307,7 @@ print(sum(10)); // 打印出 10
 
 代码是让机器执行的，但是也是要程序员阅读的。
 
-时间宝贵，要写精致的代码才好 😉
+时间宝贵。乖乖的写好代码 😉
 
 * 这样才能让你的应用更健壮，性能也更好。
 * 同时也能帮助你和你的团队有更好的发展。
