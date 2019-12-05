@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/real-world-dynamic-programming-seam-carving.md](https://github.com/xitu/gold-miner/blob/master/TODO1/real-world-dynamic-programming-seam-carving.md)
 > * 译者：[nettee](https://github.com/nettee)
-> * 校对者：
+> * 校对者：[JalanJiang](https://github.com/JalanJiang)，[TokenJan](https://github.com/TokenJan)
 
 # 动态规划算法的实际应用：接缝裁剪
 
@@ -72,7 +72,7 @@ Avidan 和 Shamir 在他们的论文中展示的是一个叫做**接缝裁剪**�
 
 ![贪心的方法行不通。过早选择了低能量像素后，我们陷入了图片的高能量区域，如图中红色路径所示。](https://cdn-images-1.medium.com/max/3200/1*Pr-dzYvgZ6x_Wtq_sb6o6A.png)
 
-从上图中可以看到，“从最顶行开始，依次选择下一行中的最低能量像素”的贪心方法是行不通的。在选择了能量为 2 的像素之后，我们被迫走入了图片中的一个高能量区域。而如果我们在中间一行选择一个能量相对高一点的像素（例如 10），我们还有可能进入左下的低能量区域。
+从上图中可以看到，“从最顶行开始，依次选择下一行中的最低能量像素”的贪心方法是行不通的。在选择了能量为 2 的像素之后，我们被迫走入了图片中的一个高能量区域。而如果我们在中间一行选择一个能量相对高一点的像素，我们还有可能进入左下的低能量区域。
 
 #### 将问题分解为子问题
 
@@ -92,7 +92,7 @@ Avidan 和 Shamir 在他们的论文中展示的是一个叫做**接缝裁剪**�
 
 我们定义函数 **M**(**x**,**y**) 表示从图片顶部开始、到像素 (**x**,**y**) 结束的最低能量的垂直接缝。使用字母 **M** 是因为论文里就是这么定义的。
 
-首先，我们定义基本情况（base）。在图片的最顶行，所有以这些像素结尾的接缝都只有一个像素长，因为再往上没有其他像素了。因此，以这些像素结尾的最低能量接缝就是这些像素的能量：
+首先，我们定义基本情况（base case）。在图片的最顶行，所有以这些像素结尾的接缝都只有一个像素长，因为再往上没有其他像素了。因此，以这些像素结尾的最低能量接缝就是这些像素的能量：
 
 ![](https://cdn-images-1.medium.com/max/3830/1*FPze0RcNtZXJsljKvnSlMw.png)
 
@@ -106,7 +106,7 @@ Avidan 和 Shamir 在他们的论文中展示的是一个叫做**接缝裁剪**�
 
 ![](https://cdn-images-1.medium.com/max/3830/1*k54P1LyRS0A3_PKS64-VYA.png)
 
-有了这个定义，我们就有了一个有我们所需的所有性质的递归关系了：
+有了这个定义，我们就得到了一个递归关系，包括我们所需的所有性质：
 
 * 递归关系的输入为整数。
 * 我们所需的最终结果易于从递归关系中提取。
