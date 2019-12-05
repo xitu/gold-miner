@@ -2,37 +2,37 @@
 > * 原文作者：[Sam Quinn](https://softwareontheroad.com/author/santypk-4/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-jwt-authentication-oauth.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nodejs-jwt-authentication-oauth.md)
-> * 译者：
-> * 校对者：
+> * 译者：[HytonightYX](https://github.com/HytonightYX)
+> * 校对者：[HZNU-Qiu](https://github.com/HZNU-Qiu),[xionglong58](https://github.com/xionglong58)
 
-# 🛑 You don't need passport.js - Guide to node.js authentication ✌️
+# 🛑你不需要 passport.js — node.js认证指南 ✌️
 
 ![](https://softwareontheroad.com/static/24082354f482634f69457ebac008be39/2f86d/passport.jpg)
 
-# Introduction
+# 简介
 
-While third-party authentication services like Google Firebase, AWS Cognito, and Auth0 are gaining popularity, and all-in-one library solutions like passport.js are the industry standard, is common to see that developers never really understand all the parts involved in the authentication flow.
+诸如 Google Firebase，AWS Cognito 以及 Auth0 这样的第三方认证服务越来越流行，类似于 passport.js 这样的一站式解决方案也成为了业界标准，但是一个普遍情况是，开发者们其实并不清楚完整的认证流程到底涉及那些部分。
 
-This series of articles about node.js authentication, are aimed to demystify concepts such as JSON Web Token (JWT), social login (OAuth2), user impersonation (an admin can log in as a specific user without password), common security pitfalls and attack vectors.
+这一系列关于 node.js 认证的文章，旨在让你搞清楚一些概念，比如 JSON Web Token (JWT)、社交账号登录 (OAuth2)、用户模仿（一个管理员无需密码便能作为特定用户登录）。
 
-Also, there is a GitHub repository with a complete node.js authentication flow that you can use as a base for your projects.
+当然，文末也给你准备好了一个完整的 node.js 认证流程的代码库，放在GitHub上了，你可以作为你自己项目的基础来使用。
 
-# Project requirements ✍️
+# 前置知识 ✍️
 
-The requirements for this project are:
+在阅读之前，你需要先了解：
 
-* A database to store the user’s email and password, or clientId and clientSecret, or any pair of public and private keys.
-* A strong and efficient cryptographic algorithm to encrypt the passwords.
+* 数据库中如何存储用户的 email 和密码，或者客户端ID和客户端密钥，或者其他的密钥对。
+* 至少一种健壮且高效的加密算法。
 
-At the time of writing, I consider that Argon2 is the best cryptographic algorithm out there, please don’t use a simple cryptographic algorithm like SHA256, SHA512 or MD5.
+在我写下这篇文章之时，我认为 Argon2 是目前最好的加密算法，请不要用 SHA256，SHA512 或者 MD5 这类简单的加密算法了。
 
-Please refer to this awesome post for more details about [choosing a password hashing algorithm](https://medium.com/@mpreziuso/password-hashing-pbkdf2-scrypt-bcrypt-and-argon2-e25aaf41598e)
+有关这点，有兴趣的话可以去看看这篇非常棒的文章 [choosing a password hashing algorithm（如何选择密码哈希算法）](https://medium.com/@mpreziuso/password-hashing-pbkdf2-scrypt-bcrypt-and-argon2-e25aaf41598e)。
 
-## How to create a Sign-Up 🥇
+## 写一个注册程序 🥇
 
-When a user is created, the password has to be hashed and stored in the database alongside the email and other custom details (user profile, timestamp, etc)
+新用户创建账户时，必须对密码进行哈希处理并将其与电子邮件和其他详细信息（比如用户配置文件、时间戳等等）一起存储在数据库中。 
 
-****Note: Read about the node.js project structure in the previous article [Bulletproof node.js project architecture 🛡️](https://softwareontheroad.com/ideal-nodejs-project-structure)****
+**提示:你可以去之前的文章了解 node.js 的项目结构 [Bulletproof node.js project architecture 🛡️](https://softwareontheroad.com/ideal-nodejs-project-structure)**
 
 ```javascript
 import * as argon2 from 'argon2';
@@ -47,7 +47,7 @@ class AuthService {
       name,
     });
     return {
-      // MAKE SURE TO NEVER SEND BACK THE PASSWORD!!!!
+      // 绝对不要返回用户的密码!!!!
       user: {
         email: userRecord.email,
         name: userRecord.name,
@@ -57,26 +57,26 @@ class AuthService {
 }
 ```
 
-The user record looks like this:
+数据库中，这名用户的记录看起来就是这样：
 
  [![User record - Database MongoDB](https://softwareontheroad.com/static/023165f3aa33ad9cb61f3f2cca383596/17e02/1-store_secure_password.jpg)](https://softwareontheroad.com/static/023165f3aa33ad9cb61f3f2cca383596/17e02/1-store_secure_password.jpg) **Robo3T for MongoDB**
 
-## How to create a Sign-In 🥈
+## 再来写一个登录程序 🥈
 
  [![Sign-In Diagram](https://softwareontheroad.com/static/f44c38e035dab0cfb5c415d05a22d191/22543/6-sign_in_diagram.jpg)](https://softwareontheroad.com/static/f44c38e035dab0cfb5c415d05a22d191/22543/6-sign_in_diagram.jpg) 
 
-When the user performs a sign in, this is what happens:
+当一名用户想要登录时，会发生下面的事情：
 
-* The client sends a pair of **Public Identification** and a **Private key**, usually an email and a password
-    
-* The server looks for the user in the database using the email.
-    
-* If the user exists in the database, the server hashes the sent password and compares it to the stored hashed password
-    
-* If the password is valid, it emits a JSON Web Token (or JWT)
-    
+客户端发送成对的**公共标识（Public Identification）**和**私钥（Private key）**
+  
+* 服务端根据发来的 email 去数据库查找用户记录。
+  
+* 如果找到了，服务端会将收到的密码进行哈希，然后和数据库中已经哈希过的密码进行比对。
+  
+* 如果这两个哈希值对上了，那么服务端就发一个 JSON Web Token (JWT)。
+  
 
-This is the temporary **key** that the client has to send in every request to an authenticated endpoint
+这个 JWT 就是一个临时 key，客户端每次发器请求都需要带上这个 Token
 
 ```javascript
 import * as argon2 from 'argon2';
@@ -104,31 +104,31 @@ class AuthService {
 }
 ```
 
-The password verification is performed using the argon2 library to prevent ‘timing-based attacks’, which means, when an attacker tries to brute-force a password based in the solid principle of [how much time takes the server to respond](https://en.wikipedia.org/wiki/Timing_attack).
+这里密码认证使用了 argon2 库来防止时序攻击（timing-based attacks），也就是说，当攻击者试图靠蛮力破解口令时需要严格遵循[服务器响应时间](https://en.wikipedia.org/wiki/Timing_attack)的相关准则。
 
-In the next section, we will discuss how to generate a JWT
+接下来我们将讨论一下如何生成 JWT。
 
-# But, what is a JWT anyway? 👩‍🏫
+# 但是，JWT到底是啥？ 👩‍🏫
 
-A JSON Web Token or JWT is an encoded JSON object, in a string or Token.
+一个 JSON Web Token or JWT 是一个以字符串或者 Token 形式存储的、经过编码的 JSON 对象。
 
-You can think it as a replacement of a cookie, with several advantages.
+你可以认为它是 cookie 的替代者。
 
-The token has 3 parts and looks like this:
+Token 有下面三个部分（不同颜色标注）
 
 [![JSON Web Token example](https://softwareontheroad.com/static/66d3aec1bdfa120ef1d6f746e8ffeecc/92307/2-jwt_example.jpg)](https://softwareontheroad.com/static/66d3aec1bdfa120ef1d6f746e8ffeecc/92307/2-jwt_example.jpg) 
 
-The data of the JWT can be decoded in the client side without the **Secret** or **Signature**.
+JWT 中的数据可以无需**密钥（Secret）**或**签名（Signature)**在客户端解码。
 
-This can be useful to transport information or metadata, encoded inside the token, to be used in the frontend application, such as things like the user role, profile, token expiration, and so on.
+因此对于用户角色信息、配置文件、令牌过期时间等这些前端领域常见的信息或元数据（metadata）来说，编码在 JWT 中一起传输就变得很方便。
 
 [![JSON Web Token decoded example](https://softwareontheroad.com/static/0fd720e1243c124a745782badbbe4240/ae760/3-jwt_decoded.jpg)](https://softwareontheroad.com/static/0fd720e1243c124a745782badbbe4240/ae760/3-jwt_decoded.jpg) 
 
-# How to generate JWT in node.js 🏭
+# node.js 中如何创建 JWT？ 🏭
 
-Let’s implement the generateToken function needed to complete our authentication service
+我们实现一个 generateToken 方法来完善我们的认证服务程序吧。
 
-By using the library `jsonwebtoken`, that you can find in npmjs.com, we are able to generate a JWT.
+通过使用 `jsonwebtoken` 这个库（你可以在 npmjs.com 找到它），我们就能创建一个 JWT 了。
 
 ```javascript
 import * as jwt from 'jsonwebtoken'
@@ -148,28 +148,28 @@ class AuthService {
 }
 ```
 
-The important here is the encoded data, you should never send sensitive information about the user.
+重要的是，永远不要在编码数据中包含用户的敏感信息。
 
-The signature is the ‘secret’ that is used to generate the JWT, and is very important to keep this signature safe.
+上面 signature 变量其实就是用来生成 JWT 的密钥（secret），而且你要确保这个 signature 不会泄漏出去。
 
-If it gets compromised, an attacker could generate tokens on behalf the users and steal their sessions and.
+如果攻击者通过某种方法获取了 signature，他就能生成令牌并且伪装成用户从而窃取他们的会话（session）。
 
-## Securing endpoints and verifying the JWT ⚔️
+## 保护端点以及验证 JWT ⚔️
 
-The frontend code is now required to send the JWT in every request to a secure endpoint.
+现在，前端需要在每个请求中带上 JWT 才能访问到安全目标（secure endpoint）了。
 
-A good practice is to include the JWT in a header, commonly the Authorization header.
+一个比较好的做法是在请求的 header 中附带 JWT，通常是 Authorization 消息头（Authorization header）。
 
 [![Authorization Header](https://softwareontheroad.com/static/d5bf3b450e326091acc2f79885ca1bfd/909d6/4-authorization_header.jpg)](https://softwareontheroad.com/static/d5bf3b450e326091acc2f79885ca1bfd/909d6/4-authorization_header.jpg) 
 
-Now in the backend, a middleware for the express routes has to be created.
+现在，我们需要在后端中创建一个 express 的中间件。
 
-**Middleware “isAuth”**
+**中间件 isAuth**
 
 ```javascript
 import * as jwt from 'express-jwt';
 
-// We are assuming that the JWT will come in the header Authorization but it could come in the req.body or in a query param, you have to decide what works best for you.
+// 我们假定 JWT 将会在 Authorization 请求头上，但是它也可以放在 req.body 或者 query 参数中，你只要根据业务场景选个合适的就好
 const getTokenFromHeader = (req) => {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
     return req.headers.authorization.split(' ')[1];
@@ -177,22 +177,22 @@ const getTokenFromHeader = (req) => {
 }
 
 export default jwt({
-  secret: 'MySuP3R_z3kr3t', // Has to be the same that we used to sign the JWT
+  secret: 'MySuP3R_z3kr3t', // 必须和上一节的代码的 signature 一样
 
   userProperty: 'token', // this is where the next middleware can find the encoded data generated in services/auth:generateToken -> 'req.token'
 
-  getToken: getTokenFromHeader, // A function to get the auth token from the request
+  getToken: getTokenFromHeader, // 从 request 中获取到 auth token 的方法
 })
 ```
 
-Is very useful to have a middleware to get the complete current user record, from the database, and attach it to the request.
+创建一个能从数据库中获取到完整用户记录的中间件，并且将这些用户信息放进 request 中。
 
 ```javascript
 export default (req, res, next) => {
  const decodedTokenData = req.tokenData;
  const userRecord = await UserModel.findOne({ _id: decodedTokenData._id })
 
-  req.currentUser = userRecord;
+ req.currentUser = userRecord;
 
  if(!userRecord) {
    return res.status(401).end('User not found')
@@ -202,7 +202,7 @@ export default (req, res, next) => {
 }
 ```
 
-Now the routes can access the current user that is performing the request.
+现在就可以跳转到用户请求的路由了
 
 ```javascript
   import isAuth from '../middlewares/isAuth';
@@ -220,45 +220,37 @@ Now the routes can access the current user that is performing the request.
   }
 ```
 
-The route ‘inventory/personal-items’ is now secured, you need to have a valid JWT to access it, but also it will use the current user from that JWT to look up in the database for the corresponding items.
+经过两个中间件访问到的 inventory/personal-items 路由就是安全的。你需要有效的 JWT 才能访问这个路由，当然喽，路由也需要 JWT 中的用户信息才能去数据库中正确查找相应的信息。
 
-## Why a JWT is secured ?
+## 为什么 JWT 是安全的 ?
 
-A common question that you may have after reading this is:
+你读到这里，通常会想到这么一个问题：
 
-****If the JWT data can be decoded in the client side, can a JWT be manipulated in a way to change the user id or other data ?****
+Q：如果可以在客户端中解码 JWT 数据的话，别人能否修改其中用户 id 或者其它的数据呢？
 
-While you can decode a JWT easily, you can not encode it with new data without having the ‘Secret’ that was used when the JWT was signed.
+A：虽然你可以轻易地解码 JWT，但是没有 JWT 生成时的密钥（Secret）就无法对修改后的新数据进行编码。
 
-This is the way is so important to never disclose the secret.
+也是因为这个原因，千万不要泄漏密钥（secret）。
 
-Our server is checking the signature on the middleware `IsAuth` the library `express-jwt` takes care of that.
+我们的服务端会在 `IsAuth` 这个使用了 `express-jwt` 库的中间件中校验密钥。
 
-Now that we understand how a JWT works, let’s move on to a cool advance feature.
+现在我们已经明白了 JWT 是如何工作的，我们接下来去看一个很酷的功能。
 
-### 👉 GET MORE ADVANCED node.js DEVELOPMENT ARTICLES
+## 如何模拟一个用户 🕵️
 
-Join the other 2,000+ savvy node.js developers who get article updates.
+用户模拟是一种可以在无需用户密码的情况下，以一个特定用户的身份登录的技术。
 
-Yes! I want updates
+对于超级管理员（super admins）来说，这是一个非常有用的功能，能够帮他解决或调试一个仅会话可见的用户的问题。
 
-**No Spam**🤞**. Unsubscribe anytime.**
+没有必要去知道用户的密码，只需要以正确的密钥和必要的用户信息来创建一个 JWT 就可以了。
 
-## How to impersonate a user 🕵️
+我们来创建一个路径，来生成模拟生成特定用户登录的 JWT。这个路径只能被超级管理员账户使用。
 
-User impersonation is a technique used to sign in as a specific user, without knowing the user’s password.
-
-This a very useful feature for the super admins, developers or support, to be able to solve or debug a user problem that is only visible with his session.
-
-There is no need in having the user password to use the application on his behalf, just generate a JWT with the correct signature and the required user metadata.
-
-Let’s create an endpoint that can generate a JWT to log in as a specific user, this endpoint will only be able to be used by a super-admin user
-
-First, we need to establish a higher role for the super admin user, there are many ways to do it, a simple one is just to add a ‘role’ property on the user record in the database.
+首先，我们需要为超级管理员创建一个更高等级的角色，方法有很多，比较简单的一种就是直接去数据库中给用户记录添加一个“role”字段。
 
 [![super admin role in user database record](https://softwareontheroad.com/static/07b91c5e21f1a0475501f7a2612fcb71/b9324/5-superadmin_role.jpg)](https://softwareontheroad.com/static/07b91c5e21f1a0475501f7a2612fcb71/b9324/5-superadmin_role.jpg) 
 
-Second, let’s create a new middleware that checks the user role.
+然后，我们创建一个新的中间件来检查用户角色。
 
 ```js
 export default (requiredRole) => {
@@ -272,9 +264,9 @@ export default (requiredRole) => {
 }
 ```
 
-That middleware needs to be placed after the `isAuth` and `attachCurrentUser` middlewares.
+这个中间件需要放在 `isAuth` 和 `attachCurrentUser` 之后。
 
-Third, the endpoint that generates a JWT for the user to impersonate.
+最后，这个路径将会生成一个能够模拟用户的 JWT 。
 
 ```javascript
   import isAuth from '../middlewares/isAuth';
@@ -304,25 +296,25 @@ Third, the endpoint that generates a JWT for the user to impersonate.
   }
 ```
 
-So, there is no black magic here, the super-admin knows the email of the user that wants to impersonate, and the logic is pretty similar to the sign-in, but there is no check for correctness of password.
+所以，这里并没有什么黑魔法，超级管理员只需要知道需要被模拟的用户的Email（并且这里的逻辑与登录十分相似，只是无需检查口令的正确性）就可以模拟这个用户了。
 
-That’s because the password is not needed, the security of the endpoint comes from the roleRequired middleware.
+当然，也正是因为不需要密码，这个路径的安全性就得靠 roleRequired 中间件来保证了。
 
-# Conclusion 🏗️
+# 结论 🏗️
 
-While is good to rely on third-party authentication services and libraries, to save development time, is also necessary to know the underlayin logic and principles behind authentication.
+虽然依赖第三方认证服务和库很方便，节约了开发时间，但是我们也需要了解认证背后的底层逻辑和原理。
 
-In this article we explored the JWT capabilities, why is important to choose a good cryptographic algorithm to hash the passwords, and how to impersonate a user, something that is not so simple if you are using a library like passport.js.
+在这篇文章中我们探讨了 JWT 的功能，为什么选择一个好的加密算法非常重要，以及如何去模拟一个用户，如果你使用的是 passport.js 这样的库，就很难做到这些事。
 
-In the next part of this series, we are going to explore the different options to provide ‘Social Login’ authentication for our customers by using the OAuth2 protocal and an easier alternative, a third-party authentication provider like Firebase.
+在本系列的下一篇文章中，我们将探讨通过使用 OAuth2 协议和更简单的替代方案（如 Firebase 等第三方用于身份验证的库）来为客户提供“社交登录”身份验证的不同方法。
 
-### [See the example repository here 🔬](https://github.com/santiq/nodejs-auth)
+### [这里是示例仓库 🔬](https://github.com/santiq/nodejs-auth)
 
-### Resources
+### 参考资料
 
 * [What is the recommended hash to store passwords: bcrypt, scrypt, Argon2?](https://security.stackexchange.com/questions/193351/in-2018-what-is-the-recommended-hash-to-store-passwords-bcrypt-scrypt-argon2)
 * [Timing attack](https://en.wikipedia.org/wiki/Timing_attack)
-    
+
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
