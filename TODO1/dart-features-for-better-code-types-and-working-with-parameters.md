@@ -19,7 +19,7 @@ Dart 编译器能够在变量初始化的时候自动推断它的类型，所以
 
 在代码应用中，也就是我们可以将这样的代码：
 
-```
+```dart
 String name = 'Andrea';
 int age = 35;
 double height = 1.84;
@@ -27,7 +27,7 @@ double height = 1.84;
 
 转化为：
 
-```
+```dart
 var name = 'Andrea';
 var age = 35;
 var height = 1.84;
@@ -37,7 +37,7 @@ var height = 1.84;
 
 我们可以像这样声明变量：
 
-```
+```dart
 var x;
 x = 15;
 x = 'hello';
@@ -55,7 +55,7 @@ x = 'hello';
 
 当我们使用 var 来声明变量的时候，这个变量可以被多次赋值：
 
-```
+```dart
 var name = 'Andrea';
 name = 'Bob';
 ```
@@ -66,7 +66,7 @@ name = 'Bob';
 
 但是如果我们使用了 `final`，就不能给变量多次赋值了：
 
-```
+```dart
 final name = 'Andrea';
 name = 'Bob'; // 'name' 是一个 final 类型的变量，不可以被再次赋值
 ```
@@ -75,7 +75,7 @@ name = 'Bob'; // 'name' 是一个 final 类型的变量，不可以被再次赋�
 
 在 widget 类中，很常见使用 `final` 声明的属性。例如：
 
-```
+```dart
 class PlaceholderContent extends StatelessWidget {
   const PlaceholderContent({
     this.title,
@@ -104,7 +104,7 @@ class PlaceholderContent extends StatelessWidget {
 
 这是完全可行的，因为所有 widget 内部的变量和方法都是编译时常量。例如：
 
-```
+```dart
 class PlaceholderContent extends StatelessWidget {
   const PlaceholderContent({
     this.title,
@@ -136,7 +136,7 @@ class PlaceholderContent extends StatelessWidget {
 
 如果这个 widget 的构建函数是 `const` 类型，它就可以被这样构建：
 
-```
+```dart
 const PlaceholderContent(
   title: 'Nothing here',
   message: 'Add a new item to get started',
@@ -156,7 +156,7 @@ const PlaceholderContent(
 
 在 Dart 中，我们将变量使用大括号（`{}`）包起来，由此可以定义命名参数：
 
-```
+```dart
 class PlaceholderContent extends StatelessWidget {
   // 使用命名参数的构建函数
   const PlaceholderContent({
@@ -172,7 +172,7 @@ class PlaceholderContent extends StatelessWidget {
 
 这段代码意味着，我们可以像这样创建 widget：
 
-```
+```dart
 PlaceholderContent(
   title: 'Nothing here',
   message: 'Add a new item to get started',
@@ -181,7 +181,7 @@ PlaceholderContent(
 
 还有一种替代方案是，我们可以在构建函数中将大括号省略，声明位置参数：
 
-```
+```dart
 // 使用位置参数的构建函数
 const PlaceholderContent(
   this.title,
@@ -191,7 +191,7 @@ const PlaceholderContent(
 
 结果就是，参数可以通过它们**所在的位置**来定义：
 
-```
+```dart
 PlaceholderContent(
   'Nothing here', // title 参数位于 0 号位
   'Add a new item to get started', // message 参数位于 1 号位
@@ -204,7 +204,7 @@ PlaceholderContent(
 
 顺便说一句，你还可以将位置参数和命名参数结合起来：
 
-```
+```dart
 // 位置参数优先，然后是命名参数
 void _showAlert(BuildContext context, {String title, String content}) {
   // TODO：展示提示信息
@@ -231,7 +231,7 @@ Flutter widget 中随处可见使用一个位置参数，然后使用多个命�
 
 我们可以为任何变量添加 required 注释：
 
-```
+```dart
 const PlaceholderContent({
   @required this.title,
   @required this.message,
@@ -242,7 +242,7 @@ const PlaceholderContent({
 
 此时如果我们需要，我们仍旧可以明确写出传递 `null` 值：
 
-```
+```dart
 PlaceholderContent(
   title: null,
   message: null,
@@ -253,7 +253,7 @@ PlaceholderContent(
 
 如果想要避免传入 `null` 值，我们可以增加一些断言（assert）：
 
-```
+```dart
 const PlaceholderContent({
   @required this.title,
   @required this.message,
@@ -285,7 +285,7 @@ const PlaceholderContent({
 
 在 Dart 中这很容易就能做到：
 
-```
+```dart
 const PlaceholderContent({
   this.title = 'Nothing here',
   this.message = 'Add a new item to get started',
@@ -296,7 +296,7 @@ const PlaceholderContent({
 
 顺便提一下，默认值也可以应用于位置参数：
 
-```
+```dart
 int sum([int a = 0, int b = 0]) {
   return a + b;
 }
