@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-coding-your-own-makes-you-a-better-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-coding-your-own-makes-you-a-better-developer.md)
 > * 译者：[quzhen12](https://github.com/quzhen12)
-> * 校对者：[jiapengwen](https://github.com/jiapengwen),[Baddyo](https://github.com/Baddyo)
+> * 校对者：[jiapengwen](https://github.com/jiapengwen), [Baddyo](https://github.com/Baddyo)
 
 # 为什么自己动手写代码能让你成为更好的开发者
 
@@ -37,7 +37,7 @@
 
 他本可以直接把这段代码背下来，这其实一点都不难：
 
-```
+```js
 return new Promise((resolve, reject) => {
   functionWithCallback((err, result) => {
    return err ? reject(err) : resolve(result);
