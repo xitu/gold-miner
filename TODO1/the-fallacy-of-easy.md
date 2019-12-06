@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-fallacy-of-easy.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-fallacy-of-easy.md)
 > * 译者：[Charlo](https://github.com/Charlo-O)
-> * 校对者：[Baddyo](https://github.com/Baddyo) 、[jilanlan](https://github.com/jilanlan)
+> * 校对者：[Baddyo](https://github.com/Baddyo)、[jilanlan](https://github.com/jilanlan)
 
 # 简单的谬误
 
