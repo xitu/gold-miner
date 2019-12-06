@@ -2,76 +2,76 @@
 > * 原文作者：[Jason Yuan](https://medium.com/@jasonyuan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-fallacy-of-easy.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-fallacy-of-easy.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Charlo](https://github.com/Charlo-O)
+> * 校对者：[Baddyo](https://github.com/Baddyo)、[jilanlan](https://github.com/jilanlan)
 
-# The fallacy of easy
+# 简单的谬误
 
-#### On “ease-of-use” and accountability in design.
+#### 关于设计中的“易用性”与问责制。
 
 ![](https://cdn-images-1.medium.com/max/4212/1*jFWCVcN5gVFX9B3maGyusQ@2x.jpeg)
 
-The first question I ask when meeting other designers is how they would define design. Some have asserted that there are no wrong answers to this question. They are wrong.
+当我遇到其他设计师时，我问的第一个问题是他们如何定义设计。有些人断言这个问题没有错误的答案。他们错了。
 
-Here are three examples of what design is not:
+这里有三个不适合定义设计的例子：
 
-1. “Design is making something beautiful”
-2. “Design is making something easy to use.”
-3. “Design is making something beautiful and easy to use.”
+1. “设计就是让产品变得美观。”
+2. “设计就是让产品易于使用。”
+3. “设计就是把产品做得既美观又好用。”
 
-Some of you may find this confusing. Because according to the wisdom of Twitter’s top design influencers, design is form **and** function — how it looks **and** how it works, right?
+有些人可能会感到困惑。因为根据 Twitter 顶尖设计师们的至理名言，设计是形态**和**功能 —— 它看起来怎么样**和**它用起来怎么样，对吗?
 
-But..
+但是...
 
-**Why?**
+**为什么？**
 
-Why have we defined beauty and ease of use as the non-negotiable North Stars of design? When was the last time we’ve stopped to ask ourselves, “does the product I am working on deserve to be beautiful? Does the feature my PM wants to ship **deserve** to be intuitive and easy to use?”
+为什么我们要把美观和易用性定义为设计中不容置疑的准则？我们最后一次问自己“我正在开发的产品是否值得拥有美丽的外观？我的 PM 想要发布的功能**值得**直观和易用吗？”是什么时候？
 
-Sharing an article on Facebook is super easy — lighty tap the tip of the juicy share button to spray your followers’ News Feeds with some yummy content.
+在 Facebook 上分享一篇文章超级简单 —— 只需轻轻点击“有趣分享”按钮，就可以在你的关注者的信息流中增加一些有趣的内容。
 
-> **But does such an action** deserve **to be so easy?**
+>  **但是这样的操作** 值得 **这么容易吗？**
 
-By making Sharing a tap or two away, have we also diluted the gravity of that action? Sharing something in the real world in front of a group of people demands conviction and bravery; we share when we believe in what we have to say **so much** that we are willing to risk potential humiliation and ridicule. And as someone who was trained as an actor, I can tell you that it is never easy, no matter how it may look.
+通过一两下点击就完成了分享，我们是否也淡化了分享的庄严感？在一群人面前分享现实世界的东西需要信念和勇气；只有当我们**足够**坚信我们想分享的东西，坚定到了愿意冒着可能被羞辱和嘲笑的风险的时候，我们才会分享。。作为一个受过训练的演员，我可以告诉你，这从来都不是一件容易的事，不管它看起来如何。
 
-Just like how we hold Facebook’s content policies accountable for igniting the spread of misinformation, so too must we examine the paradigms and systems that afforded the spreading in the first place.
+就像我们认为 Facebook 的内容政策要为引发错误信息的传播负责一样，我们也必须首先审视那些提供了传播的范例和系统。
 
-#### So, what if sharing was not so easy?
+#### 那么，如果分享不是那么容易呢？
 
-**What if Facebook required everyone to open links before they share them?**  
-**What if users were only able to share one external link per day?**
+**如果 Facebook 要求每个人在分享链接之前打开链接会怎么样？**  
+**如果用户每天只能共享一个外部链接会怎样？**
 
-Limiting the amount/frequency of shares may add weight back to the action of Sharing, encourage users to be more thoughtful of what they share online, and improve the quality of content available on Facebook as a whole. It will add a sense of accountability to the action of sharing, and healthy communities cannot exist without accountability.
+限制分享的数量和频率可能会增加分享行为的分量，鼓励用户更仔细地考虑他们在网上分享的内容，并提高整个 Facebook 上可用内容的质量。它将为分享行为增添一种责任感，没有责任感，健康的社区就不可能存在。
 
-Yes, adding friction to the sharing experience would have a significant impact on Facebook’s bottom line — after all, unlimited one-click shares equal exponential exposure for advertising partners. But if Facebook really wants us to believe that its North Star lies in Connecting People, such sacrifices may be necessary.
+是的，在分享体验上增加摩擦将对 Facebook 的底线产生重大影响 —— 毕竟，对于广告商来说，无限的一键分享等于指数级的曝光。但如果 Facebook 真的想让我们相信，它的宗旨在于连接人与人，那么这种牺牲可能是必要的。
 
-Another example of something that was designed to make things “easy” is the [infinite scroll invented by Aza Raskin](https://www.bbc.com/news/technology-44640959). On paper, it sounds benign — and yet, the ease of use that the infinite scroll affords has been hijacked by designers at social media corporations to instead keep people in an endless machine state dedicated to consumption and ‘engagement’. What was originally intended to deliver power to people by reducing interstitial friction is instead being used to siphon agency and power away from people.
+[Aza Raskin 发明的无限滚动](https://www.bbc.com/news/technology-44640959)是另一个让事情变得“简单”的例子。从纸面上看，这听起来还不错 —— 然而，无限滚动条的易用性却被社交媒体公司的设计师们劫持了，他们让人们处于一种致力于消费和“参与”的无止境的机器状态。原本是要通过减少间隙摩擦将能量传递给人们，现在却被用来榨取人们的精力。
 
-**Maybe it’s time reintroduce friction in the browsing experience.**  
-**What if people were asked how much time they have to browse Instagram every time they launched the Application?**
+**也许是时候在浏览体验中重新引入摩擦了。** 
+**如果人们每次打开 Instagram 都会被问及他们有多少时间可以用来刷 Instagram，会怎么样？**
 
-**Even better, if this feature could talk to services like Lyft to generate a flow of content appropriate for the user’s context without burdening the user with setting expectations?**
+**更好的是，如果这个功能可以与 Lyft 这样的服务进行交互，生成适合用户上下文的信息流，而不会给用户带来设置期望的负担？**
 
-Instagram could then generate a curated flow of content with a hard stopping point, optimized to keep people engaged within their personally defined boundaries, politely stepping away once the user has achieved their intention.
+然后，Instagram 可以生成一个带有硬停止点的信息流，使人们充份在他们自己划定的范围内充份保持参与感，一旦用户实现了他们的意图，礼貌地离开。
 
-Under this paradigm, users would become more aware of their relationship with technology and make necessary adjustments should they see fit. This could also act as a great intermediary step between two extremes (browsing infinitely vs. deleting your account).
+在这种模式下，用户将更清楚地意识到他们与技术的关系，并在他们认为合适的时候做出必要的调整。这也可以作为两个极端（无限浏览和删除你的帐户）之间的极好的折中台阶。
 
-You’re probably thinking about how no PM at Facebook would ever approve the hypothetical solutions outlined above. And who would blame them? Their performance and end of year bonuses are tied to quantifiable increases in click-rate. Plus, deliberate frictions in the experience will undoubtedly lose against solutions prioritizing ease of use when it comes to things like AB testing. Quantitive user research is often misinterpreted as “ruthlessly optimize for engagement” with little wiggle room for humanizing the experience. To quote a friend and fellow designer Davina Kim, **“Why bother asking users how they feel about a design if ultimately you just ship what moves the needle?”**
+你可能在想，为什么没有一个 Facebook 的 PM 会同意上面列出的那些假设的解决方案。可谁又能责怪他们呢？他们的业绩和年终奖金与可计量的点击增长率挂钩。另外，当涉及到 AB 测试这样的情况时，按照惯例，在体验中故意增加摩擦力，必然会输给唯易用性为重的方案。量化用户研究经常被误解为“无情地优化用户参与”，几乎没有人性化体验的余地。引用一位朋友兼设计师 Davina Kim 的话，**“如果你最终只是发布没必要的小细节，那为什么还要花时间问用户对此设计的感受呢？**
 
-Just like empathy, great design cannot be quantified nor measured through engagement metrics. Great design is about empowering people to achieve their goals, not about manipulating people into doing what you want them to do. Being persuaded or manipulated into pressing a button is not the same thing as wanting to achieve something that requires pressing the button.
+就像同理心一样，伟大的设计不能被量化，也不能通过参与度来衡量。伟大的设计是指引人们去实现他们的目标，而不是操纵人们去做你想让他们做的事情。被说服或被操纵去按下按钮与想要完成需求按下按钮是不一样的事情。
 
-Design is political — a way of affecting human beings’ relationship with power. A way of controlling the flow of power through society. An opportunity to reinforce or dismantle through thoughtful invention.
+设计是政治性的 —— 是影响人类与权力关系的一种方式。一种控制社会权力流动的方法。一个通过深思熟虑的发明来强化或消除的机会。
 
-It is also a form of colonialism; a select group of people making decisions on behalf of a larger population, often forcing those decisions because they are supposedly “better” or “more delightful” is — at its core — colonialist.
+这也是一种殖民主义；一群经过挑选的人代表更多的人做出决定，往往因为这些决定被认为是“更好的”或“更令人愉快的”而强迫他们做出决定 —— 其内核是殖民主义。
 
-As designers, our job is more than just optimizing for visual elegance and/or ease of use. We must critically reflect on the role that we play in the world, to consider if what we are building is what the world needs, and to advocate on behalf of those who hold less power.
+作为设计师，我们的工作不仅仅是优化出优雅的视觉和/或易用性。我们必须批判性地反思我们在世界上所扮演的角色，思考我们正在建设的东西是否是世界所需要的，并为那些弱势者辩护。
 
-This might mean taking initiative and presenting a vision of a North Star we believe in. It might mean firmly pushing back on attempts to ship dark patterns. It might mean speaking up against an ordinance from higher ups that we perceive to be harmful to the world. It might mean making noise when capitalism prefers the comfort of silence. It might mean making space for the light of marginalized communities to shine through. And sometimes, it might mean walking away.
+这可能意味着敢于首创、展现我们所相信的准则。这可能意味着坚定地抵制输出黑暗模式的企图。这可能意味着对我们认为的上级发出的对世界有害的命令出言反对。这可能意味着在资本主义宁愿享受宁静的时候大胆发声。这可能意味着为边缘化社区创造光明。有时，它可能意味着离开。
 
-As long as designers continue to hold this power, designers also need to also be the ones held accountable for its misuse (intentional or not). Asking people why they don’t just delete their account points the finger at the user instead of the people who allowed for the exploitation to occur — especially when so many of our inventions were engineered to be as addictive as possible.
+只要设计师继续拥有这种权力，设计师也需要为其滥用（有意或无意）负责。问人们为什么他们不直接删除他们的账户，矛头指向用户而不是那些允许这种利用发生的人 —— 尤其是当我们的许多发明被设计成尽可能让人上瘾的时候。
 
-**And as long as the world continues to adapt itself to the things we are making, designers will continue to shoulder the responsibility of power.**
+**只要世界继续适应我们制造的东西，设计师就将继续肩负起权力的责任。**
 
-Whatever it is, it is not easy. But that doesn’t mean it should be.
+不管是什么，都不容易。但这并不意味着应该如此。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
