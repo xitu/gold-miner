@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-ditched-redux-for-mobx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-ditched-redux-for-mobx.md)
 > * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
-> * 校对者：
+> * 校对者：[动力小车](https://github.com/Stevens1995)、[]()
 
 # 我们如何抛弃了 Redux 而选用 MobX
 
@@ -58,9 +58,9 @@ class SearchBox extends Component<SearchBoxProps> {
 
 好的，组件就讲到这里吧…但等一下！实现搜索框功能还需要制定一个状态管理策略，本地状态不会给我们带来什么长足发展。
 
-## 配置：Redux
+## 对抗：Redux
 
-在 React 中，提到状态管理时，Redux 就是黄金法则 —— 它在 Github 上有 4w+ Star（截至英文原文发布时。截至本译文发布时已有 5w+ Star。），完全支持 TypeScript，并且向 Instagram 这样的大公司也用它。
+在 React 中，提到状态管理时，Redux 就是黄金法则 —— 它在 Github 上有 4w+ Star（截至英文原文发布时。截至本译文发布时已有 5w+ Star。），完全支持 TypeScript，并且像 Instagram 这样的大公司也用它。
 
 下图描述了它的原理：
 
@@ -347,7 +347,7 @@ export default () => {
 
 就这样搞定了！我们已经实现了所有在 Redux 例子中有的功能，不过我们这次只用了几分钟。
 
-代码相当清晰了，不过为了说明白，`inject` 帮助函数来自于 MobX React；它与 Redux 的 `connect` 帮助函数对标，除了它的 `mapStateToProps` 和 `mapDispatchToProps` 在一个函数当中。 `Provider` 组件也来自于 MobX，可以在里面放任意多个 store，它们都会被传递至 `inject` 帮助函数中。并且，快看看那些迷人的，**迷人的**装饰器 —— 就这样配置 store 就对了。所有用 `@observable` 装饰的实体都会通知被绑定的组件在发生改变后重新渲染。
+代码相当清晰了，不过为了说明白，`inject` 帮助函数来自于 MobX React；它与 Redux 的 `connect` 帮助函数对标，只不过它的 `mapStateToProps` 和 `mapDispatchToProps` 在一个函数当中。 `Provider` 组件也来自于 MobX，可以在里面放任意多个 store，它们都会被传递至 `inject` 帮助函数中。并且，快看看那些迷人的，**迷人的**装饰器 —— 就这样配置 store 就对了。所有用 `@observable` 装饰的实体都会通知被绑定的组件在发生改变后重新渲染。
 
 这才叫“**直观**”。
 
