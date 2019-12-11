@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/my-personal-git-tricks-cheatsheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/my-personal-git-tricks-cheatsheet.md)
 > * 译者：[Pingren](https://github.com/Pingren)
-> * 校对者：
+> * 校对者：[zh1an](https://github.com/zh1an)
 
 # 我个人的 Git 技巧备忘录
 
-除了 “基础的” 命令之外，每个人都有他们常用的 Git 技巧。我想列出我愿意在 `.gitconfig` 保存别名（alias）的命令。最底下，你可以看到一些在 git 之外与 `git` 相关的有意思的命令！:)
+除了 “基础的” 命令之外，每个人都有他们常用的 Git 技巧。我想列出我愿意在 `.gitconfig` 保存别名（alias）的命令。在文章末尾，你可以看到一些在 git 之外与 `git` 相关的有意思的命令！:)
 
 ## 快速纠正
 
@@ -42,7 +42,7 @@ git log -1
 
 ## 签出到旧版文件 (比如一个锁文件！)
 
-有时，我把某个与我的分支不相关文件搞坏了。这通常发生在锁文件上（mix.lock, package-lock.json 等等）。相比于撤销一个可能含有许多内容的提交，我其实只需要将这个文件“重置”为旧版：
+有时，我把某个与我的分支不相关文件搞坏了。这通常发生在锁文件上（mix.lock, package-lock.json 等等）。我只是这个文件“重置”回旧版本而不是还原一个可能包含许多其他内容的提交：
 
 ```
 git checkout hash值 mix.lock
