@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/my-personal-git-tricks-cheatsheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/my-personal-git-tricks-cheatsheet.md)
 > * 译者：[Pingren](https://github.com/Pingren)
-> * 校对者：[zh1an](https://github.com/zh1an)
+> * 校对者：[zh1an](https://github.com/zh1an)，[Badd](https://github.com/Baddyo)
 
 # 我个人的 Git 技巧备忘录
 
@@ -23,7 +23,7 @@ git commit --amend --reuse-message HEAD
 
 ## 在 origin/master 分支的顶部变基
 
-旧的分支通常情况下会落后相当久远，久到我不得不准备好消除编译错误、ci 错误、或者解决冲突。此时我最喜欢的使用以下命令：
+旧的分支通常情况下会落后相当久远，久到我不得不准备好消除编译错误、ci 错误，或者解决冲突。此时我最喜欢的使用以下命令：
 
 ```
 git fetch origin # fetch latest origin
@@ -34,7 +34,7 @@ git rebase origin/master
 
 ## 上次的提交
 
-有时，`git log` 命令的结果冗长。由于我频繁使用的前文中提过的 `amend` 命令， 我倾向于查看最后一条提交记录：
+有时，`git log` 命令的结果冗长。由于我频繁使用的前文中提过的 `amend` 命令，我倾向于查看最后一条提交记录：
 
 ```
 git log -1
@@ -42,7 +42,7 @@ git log -1
 
 ## 签出到旧版文件 (比如一个锁文件！)
 
-有时，我把某个与我的分支不相关文件搞坏了。这通常发生在锁文件上（mix.lock, package-lock.json 等等）。我只是这个文件“重置”回旧版本而不是还原一个可能包含许多其他内容的提交：
+有时，我把某个与我的分支不相关文件搞坏了。这通常发生在锁文件上（mix.lock、package-lock.json 等等）。我只是将这个文件“重置”回旧版本而不是还原一个可能包含许多其他内容的提交：
 
 ```
 git checkout hash值 mix.lock
@@ -52,7 +52,7 @@ git checkout hash值 mix.lock
 
 ## cherry-pick
 
-我偶尔会使用这个被低估的命令。当一个分支变得老旧，有时候从中只获取真正需要的东西，比准备好整个分支简单。举个例子，这个分支有关于 UI 或后端的冗余代码。在这种情况下，我可能只想从分支中挑选出特定的提交：
+我偶尔会使用这个被低估的命令。当一个分支变得老旧，有时候从中只获取真正需要的东西，比让整个分支跟上进度简单。举个例子，这个分支有关于 UI 或后端的冗余代码。在这种情况下，我可能只想从分支中挑选出特定的提交：
 
 ```
 git cherry-pick hash值
