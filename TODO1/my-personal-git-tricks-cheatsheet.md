@@ -11,7 +11,7 @@
 
 ## 快速纠正
 
-我经常忘记提交（commit）某文件，或者留下了 `console.log` 在文件里。我十分讨厌如 `删除 console.log` 的提交。因此，我将添加文件至暂存区，就好像我要提交一样，接着运行命令：
+我经常忘记提交（commit）某文件，或者遗留了 `console.log` 在文件里。我十分讨厌如 `删除 console.log` 的提交。因此，我将添加文件至暂存区，就好像我要提交一样，接着运行命令：
 
 ```
 git commit --amend --reuse-message HEAD
@@ -23,7 +23,7 @@ git commit --amend --reuse-message HEAD
 
 ## 在 origin/master 分支的顶部变基
 
-老的分支通常可能落后了许多，有时候多到我不得不准备好消除编译错误、ci 错误、或者解决冲突。此时我最喜欢的使用以下命令：
+旧的分支通常情况下会落后相当久远，久到我不得不准备好消除编译错误、ci 错误、或者解决冲突。此时我最喜欢的使用以下命令：
 
 ```
 git fetch origin # fetch latest origin
@@ -34,7 +34,7 @@ git rebase origin/master
 
 ## 上次的提交
 
-有时，`git log` 命令的结果有点冗长。由于我频繁使用的前文中提过的 `amend` 命令， 我倾向于查看最后一条提交记录：
+有时，`git log` 命令的结果冗长。由于我频繁使用的前文中提过的 `amend` 命令， 我倾向于查看最后一条提交记录：
 
 ```
 git log -1
