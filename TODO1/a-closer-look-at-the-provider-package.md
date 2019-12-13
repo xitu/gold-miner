@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-closer-look-at-the-provider-package.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-closer-look-at-the-provider-package.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[Baddyo](https://github.com/Baddyo)
 
 # 深入解析 Provider 包
 
@@ -11,11 +11,11 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*8Ah2h28bxT0-vk18Q4xVVA.jpeg)
 
-[Provider](https://pub.dev/packages/provider) 是一个用于状态管理的包，其作者是 [Remi Rousselet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjXrMKO8dLjAhWoT98KHUCDB_oQFjAAegQIARAB&url=https%3A%2F%2Ftwitter.com%2Fremi_rousselet&usg=AOvVaw3bEIgT0j4c_5xbq-YWB70q)，最近，这个包在 Google 和 Flutter 社区广受欢迎。那么**什么是**状态管理呢？什么又是**状态**？我们一起来温习一下：状态就是用来表示应用 UI 的数据。**状态管理**则是我们创建、访问以及处理数据的方法。为了能更好的理解 Provider 这个包，我们先来简单回顾下 Flutter 中的状态管理选项。
+[Provider](https://pub.dev/packages/provider) 是一个用于状态管理的包，其作者是 [Remi Rousselet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjXrMKO8dLjAhWoT98KHUCDB_oQFjAAegQIARAB&url=https%3A%2F%2Ftwitter.com%2Fremi_rousselet&usg=AOvVaw3bEIgT0j4c_5xbq-YWB70q)，最近，这个包在 Google 和 Flutter 社区广受欢迎。那么**什么是**状态管理呢？什么又是**状态**？我们一起来温习一下：状态就是用来表示应用 UI 的数据。**状态管理**则是我们创建、访问以及处理数据的方法。为了能更好地理解 Provider 这个包，我们先来简单回顾一下 Flutter 中的状态管理选项。
 
 ## 1. 状态组件：StatefulWidget
 
-无状态组件 [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html) 很简单，它就是一个展示数据的 UI 组件。`StatelessWidget` 没有记忆功能；并根据需要被创建或者销毁。Flutter 同时也有状态组件 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)，这个组件是有记忆功能的，此记忆功能来自于它的持久组合状态对象 [State](https://api.flutter.dev/flutter/widgets/State-class.html)。
+无状态组件 [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html) 很简单，它就是一个展示数据的 UI 组件。`StatelessWidget` 没有记忆功能；并根据需要被创建或者销毁。Flutter 同时也有状态组件 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)，这个组件是有记忆功能的，此记忆功能来自于它的持久组合状态对象 [State](https://api.flutter.dev/flutter/widgets/State-class.html)。这个类中包含一个 `setState()` 方法，当该方法被调用时，会触发组件重建并渲染出新的状态。这是 Flutter 中最基本的状态管理形式。下面这个例子就是一个展示会展示最近一次被点击的时间的按钮：
 
 ```
 class _MyWidgetState extends State<MyWidget> {
@@ -33,11 +33,11 @@ class _MyWidgetState extends State<MyWidget> {
 }
 ```
 
-这种写法的问题是什么呢？假设应用在根 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html) 组件中保存了一些全局状态。这些数据可能会在 UI 的很多不同部分被用到。我们将数据以参数的方式传送到每个子组件，以此共享数据。任何试图修改数据的事件都要以更新事件的方式冒泡到根组件，这样根状态就能触发重新构建整个组件树的方法，但其实这样的效率很低。
+这种写法的问题是什么呢？假设应用在根 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html) 组件中保存了一些全局状态。这些数据可能会在 UI 的很多不同部分被用到。我们将数据以参数的方式传送到每个子组件，以此共享数据。任何试图修改数据的事件都要以更新事件的方式冒泡到根组件。这就意味着，很多参数和回调函数都需要传递多层组件，这种方式会让代码非常混乱。更甚至，根状态的任何更新都会触发整个组件树的重构，这是成本非常高的。
 
 ## 2. 可继承组件：InheritedWidget
 
-[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 是 Flutter 中唯一可以不需要直接引用，就可以获取父级组件信息的组件。只需访问 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)，那么当其子组件需要引用它的时候，该消费组件就可以自动重新构建。这种技术让开发者可以更高效的更新 UI。此时如果想稍微修改某个状态，我们可以只有选择的重新构建 app 中特定的组件，而不必大范围的重新构建了。如果你已经使用了 `MediaQuery.of(context)` 或者 `Theme.of(context)`，那么其实你已经在应用 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 了。而由于 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) [很难正确的实现](https://flutterbyexample.com/set-up-inherited-widget-app-state/)，你也不太可能会去实现自己的一个 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)。
+[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 是 Flutter 中唯一可以不需要直接引用，就可以获取父级组件信息的组件。只需访问 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)，那么当其子组件需要引用它的时候，该消费组件就可以自动重新构建。这种技术让开发者可以更高效地更新 UI。此时如果想稍微修改某个状态，我们可以只有选择地重新构建 App 中特定的组件，而不必大范围地重新构建了。如果你已经使用了 `MediaQuery.of(context)` 或者 `Theme.of(context)`，那么其实你已经在应用 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 了。而由于 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) [很难正确地实现](https://flutterbyexample.com/set-up-inherited-widget-app-state/)，你也不太可能会去实现自己的一个 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)。
 
 ## 3. ScopedModel
 
@@ -78,7 +78,7 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-任何子组件也可以**更新**此模块，同时它将自动触发重新构建（前提是我们的模块都正确的调用了 `notifyListeners()`）：
+任何子组件也可以**更新**此模块，同时它将自动触发重新构建（前提是我们的模块都正确地调用了 `notifyListeners()`）：
 
 ```
 class OtherWidget extends StatelessWidget {
@@ -99,7 +99,7 @@ class OtherWidget extends StatelessWidget {
 
 ## 4. BLoC
 
-在 [Google 第十八届开发者大会上](https://www.youtube.com/watch?v=RS36gBEp8OI)，提出了[业务逻辑组件](https://www.freecodecamp.org/news/how-to-handle-state-in-flutter-using-the-bloc-pattern-8ed2f1e49a13/)，即 BLoC，作为另一种可以将状态迁移出组件的模式。BLoC 类是一种可持久的、没有 UI 的组件，它会维护自己的状态并将其以 [stream](https://api.dartlang.org/stable/2.6.0/dart-async/Stream/listen.html) 和 [sink](https://api.dartlang.org/stable/2.4.0/dart-core/Sink-class.html) 的形式暴露出来。通过将状态和业务逻辑从 UI 中分离出来，BLoC 模式让组件可以作为[无状态组件（StatelessWidget）](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)应用，并可以使用 [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) 自动重新构建。这让组件比较“傻瓜式”，更易于测试。
+在 [Google 2018 年发者大会上](https://www.youtube.com/watch?v=RS36gBEp8OI)，提出了[业务逻辑组件](https://www.freecodecamp.org/news/how-to-handle-state-in-flutter-using-the-bloc-pattern-8ed2f1e49a13/)，即 BLoC，作为另一种可以将状态迁移出组件的模式。BLoC 类是一种可持久的、没有 UI 的组件，它会维护自己的状态并将其以 [stream](https://api.dartlang.org/stable/2.6.0/dart-async/Stream/listen.html) 和 [sink](https://api.dartlang.org/stable/2.4.0/dart-core/Sink-class.html) 的形式暴露出来。通过将状态和业务逻辑从 UI 中分离出来，BLoC 模式让组件可以作为[无状态组件（StatelessWidget）](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)应用，并可以使用 [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) 自动重新构建。这让组件比较“傻瓜式”，更易于测试。
 
 一个 BLoC 类的例子：
 
@@ -175,9 +175,9 @@ Provider<MyModel>(
 )
 ```
 
-> 参数 `builder` 创建了 `MyModel` 的实例。如果你想要给它附值为一个现有的实例，那么请使用 [Provider.value](https://pub.dev/documentation/provider/latest/provider/Provider/Provider.value.html) 构建函数。
+> 参数 `builder` 创建了 `MyModel` 的实例。如果你想要给它赋值为一个现有的实例，那么请使用 [Provider.value](https://pub.dev/documentation/provider/latest/provider/Provider/Provider.value.html) 构建函数。
 
-然后你就可以使用 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件，在 `MyApp` 的任意 位置对这个模型实例进行**自定义**。
+然后你就可以使用 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件，在 `MyApp` 的任意位置对这个模型实例进行**自定义**。
 
 ```
 class MyWidget extends StatelessWidget {
@@ -258,7 +258,6 @@ final model = Provider.of<MyModel>(context, listen: false);
 这是 [Provider](https://pub.dev/packages/provider) 包给予我们的另一份免费的便利。
 
 #### StreamProvider
-#### StreamProvider
 
 [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 给人的第一印象是：好像并不那么有必要。毕竟在 Flutter 中，我们可以使用常规的 [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) 来订阅流信息。例如下面这段代码中，我们监听了 [FirebaseAuth](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/firebase_auth-library.html) 提供的 [onAuthStateChanged](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/onAuthStateChanged.html) 流：
 
@@ -273,7 +272,7 @@ Widget build(BuildContext context {
 }
 ```
 
-而如果想使用 [Provider](https://pub.dev/packages/provider) 来完成，我们可以在 app 的根结点，通过 [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 暴露出这个流：
+而如果想使用 [Provider](https://pub.dev/packages/provider) 来完成，我们可以在 App 的根结点，通过 [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 暴露出这个流：
 
 ```
 StreamProvider<FirebaseUser>.value(
@@ -433,7 +432,7 @@ Consumer2<MyModel, int>(
 
 #### 总结
 
-通过学习 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 和 [Provider](https://pub.dev/packages/provider)，让我们学会了如何使用 “Flutter 式” 的方法管理状态。组件可以获取并监听状态对象，并同时将内部的通知机制抽象并隔离掉。这种方法通过提供勾子来创建并按需分发状态对象，帮助我们管理了它的生命周期。它可以应用于依赖注入，或者甚至可以作为更复杂的状态管理选择的基础。它已经获取了 Google 的赞许，同时 Flutter 社区也在给予更多的支持，因此选择它肯定是一个风险很小的决策。喝不今天就一起来试试看 [Provider](https://pub.dev/packages/provider) 呢！
+通过学习 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 和 [Provider](https://pub.dev/packages/provider)，我们学会了如何使用 “Flutter 式” 的方法管理状态。组件可以获取并监听状态对象，并同时将内部的通知机制抽象并隔离掉。这种方法通过提供勾子来创建并按需分发状态对象，帮助我们管理了它的生命周期。它可以应用于依赖注入，或者甚至可以作为更复杂的状态管理选择的基础。它已经获取了 Google 的赞许，同时 Flutter 社区也在给予更多的支持，因此选择它肯定是一个风险很小的决策。何不今天就一起来试试看 [Provider](https://pub.dev/packages/provider) 呢！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
