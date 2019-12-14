@@ -6200,7 +6200,7 @@
 |[TensorFlow 中的 RNN 串流](https://juejin.im/post/5bcb2975f265da0a8d36c7d8)|翻译|4|
 |[Sklearn 中的朴素贝叶斯分类器](https://juejin.im/post/5b8510be51882542d23a1d66)|翻译|4|
 |[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|翻译|7|
-|[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|校对||2|
+|[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|校对|2|
 |[在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6)|校对|2.5|
 |[介绍 Google Play 上新的优质 Android 应用与游戏](https://juejin.im/post/5ae978d151882567370633ca)|翻译|2|
 |[给人类的机器学习指南🤖👶](https://juejin.im/post/5b136f12f265da6e5415114b)|翻译|7.5|
@@ -6448,7 +6448,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2)|校对1|
+|[怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2)|校对|1|
 |[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|校对|1.5|
 
 ## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：24 当前积分：9 二零一九：1
@@ -6850,7 +6850,7 @@
 |[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|校对|2.5|
 |[从 Cron 到 Airflow 的迁移中我们学到了什么](https://juejin.im/post/5b4c3575f265da0f7334bbc9)|校对|2|
 |[Airflow: 一个工作流程管理平台](https://juejin.im/post/5b5bd2b6f265da0f60131d0c)|翻译|4|
-|[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|校对||2.5|
+|[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|校对|2.5|
 |[Robinhood 为什么使用 Airflow](https://juejin.im/post/5b4808f751882519ec07eaba)|校对|1.5|
 |[我们是如何高效实现一致性哈希的](https://juejin.im/post/5b5488a96fb9a04fad3a181a)|翻译|8|
 |[在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6)|校对|2|
@@ -7870,7 +7870,7 @@
 |[Android 生命周期备忘录 — 第三部分：Fragments](https://juejin.im/post/5ca3517a6fb9a05e462b967a)|校对|1|
 |2019 年 3 月兑掘金桌垫 1 个|减去积分|13|
 |[绘制路径：Android 中矢量图渲染](https://juejin.im/post/5c75e73051882562ea724cd4)|翻译|4|
-||[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|校对|1.5|
+|[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|校对|1.5|
 |[轻松发布私有 APP](https://juejin.im/post/5c42d0fde51d4511dc72d8d1)|校对|1.5|
 |[充分利用多摄像头 API](https://juejin.im/post/5c3da4f76fb9a04a0c2eb3fc)|翻译|7|
 |[2019 年你应该要知道的 11 个 React UI 组件库](https://juejin.im/post/5c260f13e51d45473a5c07a4)|校对|1|
@@ -9053,7 +9053,7 @@
 |[在 npm 上启用现在 JavaScript](https://juejin.im/post/5d15d64be51d4510a5033603)|校对|2|
 |[理解 React 中的高阶组件](https://juejin.im/post/5d1037966fb9a07ee4636de3)|校对|1|
 
-## 译者：[Jenniferyingni](https://github.com/Jenniferyingni) 历史贡献积分：1 当前积分：11 二零一九：11
+## 译者：[Jenniferyingni](https://github.com/Jenniferyingni) 历史贡献积分：11 当前积分：11 二零一九：11
 
 |文章|类型|积分|
 |------|-------|-------|
