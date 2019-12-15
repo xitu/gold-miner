@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-php-7-4-top-10-features-that-you-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-php-7-4-top-10-features-that-you-need-to-know.md)
 > * 译者：[司徒公子](https://github.com/todaycoder001)
-> * 校对者：[JalanJiang](https://github.com/JalanJiang)、[suhanyujie](https://github.com/suhanyujie)
+> * 校对者：[江五渣](http://jalan.space)、[suhanyujie](https://github.com/suhanyujie)
 
 # PHP 7.4 有什么新功能？你必须掌握的 10 大特性
 
-> 在短短 7 天之内，我们看到了 PHP 7.4 的发布。更新包括：减少内存的使用、性能显著提升。看下本文 PHP 7.4 的 10 大主要特性。
+> 在短短 7 天之内，我们看到了 PHP 7.4 的发布。更新包括：减少内存的使用、性能显著提升。看下本文中 PHP 7.4 的 10 大主要特性。
 
 ![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20191204181917.png)
 
@@ -15,11 +15,11 @@
 
 随着全世界 IT 的不断发展，编码技术必须要通过提供、更新或者增强新特性来应对不断变化的环境。这也是一门编程语言成功最重要的因素之一。
 
-在我们公司，由于每年都频繁的改进并优化性能，因此，我很喜欢 PHP，并且我相信在未来几年也会广受欢迎。自从 2004 年 PHP 5 发布以来，它的性能已经翻倍或许甚至翻了三倍，这就是为什么我们[软件开发公司](https://y-sbm.com/)会使用 PHP 语言来开发的原因之一。
+在我们公司，由于每年都频繁地改进并优化性能，因此，我很喜欢 PHP，并且我相信在未来几年也会广受欢迎。自从 2004 年 PHP 5 发布以来，它的性能已经翻倍或许甚至翻了三倍，这就是为什么我们[软件开发公司](https://y-sbm.com/)会使用 PHP 语言来开发的原因之一。
 
 毫无疑问，根据 [2019 StackOverflow 开发者调查结果](https://insights.stackoverflow.com/survey/2019#technology)，PHP 连续第二年成为十大最受欢迎的编程语言之一。今年，它排在第八位，比[去年排名](https://insights.stackoverflow.com/survey/2018#technology)高出一位。
 
-在 7 天之后，也就是 11 月 28 日星期四，我们会看到 PHP 新版本的发布 — PHP 7.4，它将成为有史以来功能最丰富的版本之一。这篇文章，我将列出并介绍 PHP 7.4 的更新特性概述。让我们开始吧！
+在 7 天之后，也就是 11 月 28 日星期四，我们会看到 PHP 新版本的发布 —— PHP 7.4，它将成为有史以来功能最丰富的版本之一。这篇文章，我将列出并介绍 PHP 7.4 的更新特性概述。让我们开始吧！
 
 ## PHP 7.4 的新功能是什么？PHP 特性列表
 
@@ -59,7 +59,7 @@ print_r($b);
 
 #### 2. 类型化属性的支持
 
-在下一个版本引入类型化属性可能被视为 PHP 最重要的特性更新之一。虽然之前不可能将声明方法用于类变量和属性（包括静态属性），但现在程序员能很轻松的进行编码，而无需创建特定的 getter 和 setter 方法。
+在下一个版本引入类型化属性可能被视为 PHP 最重要的特性更新之一。虽然之前不可能将声明方法用于类变量和属性（包括静态属性），但现在程序员能很轻松地进行编码，而无需创建特定的 getter 和 setter 方法。
 
 由于声明类型（不包括 void 和 callable），你可以使用可为空（Nullable）类型，即 int、float、array、string、object、iterable、self、bool 和 parent。
 
@@ -157,9 +157,9 @@ var_dump($fruits);
 
 ## 最后的思考
 
-在短短的一周之内，PHP 7.4 将发布。有许多新的 PHP 特性会减少内存的使用并且大大提升 PHP 7.4 的性能。你将能够避免此编程语言之前的某些限制，编写更加简洁的代码，并更快的创建 web 解决方案。
+在短短的一周之内，PHP 7.4 将发布。有许多新的 PHP 特性会减少内存的使用并且大大提升 PHP 7.4 的性能。你将能够避免此编程语言之前的某些限制，编写更加简洁的代码，并更快地创建 web 解决方案。
 
-Beta 3 版本已经可以下载并用于测试服务器的测试了。然而，我并不建议你在产品环境或者正在开发的项目中使用它。如果你对于 PHP 7.4 或者 PHP 开发还有疑惑，或者仅仅只是喜欢这篇文章，欢迎在下方留下你的评论。
+Beta 3 版本已经可以下载并用于测试服务器的测试了。然而，我并不建议你在生产环境或者正在开发的项目中使用它。如果你对于 PHP 7.4 或者 PHP 开发还有疑惑，或者仅仅只是喜欢这篇文章，欢迎在下方留下你的评论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
