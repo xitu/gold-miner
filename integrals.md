@@ -555,7 +555,7 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[选择使用正确的 Markdown Parser](https://github.com/xitu/gold-miner/blob/master/TODO/choosing-right-markdown-parser.md)|校对|1|
-|[如何更高效地使用 OkHttp](https://github.com/brucezz/gold-miner/blob/73e487049f7c3ccc69ff6156142e6fa14060f4a1/TODO/effective-okhttp.md)|翻译|第一次翻译计划遗留文章|
+|[如何更高效地使用 OkHttp](https://github.com/brucezz/gold-miner/blob/73e487049f7c3ccc69ff6156142e6fa14060f4a1/TODO/effective-okhttp.md)|翻译|0|
 
 ## 译者：[aleen42](https://github.com/aleen42) 历史贡献积分：35 当前积分：13
 
@@ -893,7 +893,7 @@
 |[承载了巨大访问量的热门游戏 Pokémon GO 的后端架构是什么？](https://github.com/xitu/gold-miner/blob/master/TODO/bringing-Pokemon-GO-to-life-on-Google-Cloud.md)|校对|1|
 |[构建应用状态时，你应该避免不必要的复杂性](http://gold.xitu.io/entry/58044c2a0e3dd900571475fa/)|校对|2|
 |[开发 Electron app 必知的 4 个 tips](http://gold.xitu.io/entry/58025536bf22ec0064d5f3d9)|校对|1|
-|[如何测试 Android Service 里的 Singleton (1) ？](http://gold.xitu.io/entry/57fb306da341310060135cbb/)|校对|1|
+|[如何测试 Android Service 里的 Singleton (1) ？](http://gold.xitu.io/entry/57fb306da341310060135cbb/)|校对|1|
 |[开发移动应用，你应该注意这些小细节](http://gold.xitu.io/entry/57d2d60667f3560057d0cd85/)|校对|1|
 |[人们为什么会打开你的营销电子邮件？](http://gold.xitu.io/entry/57d170f82e958a00544ebf7c/)|翻译|5|
 |[用 Swift 枚举完美实现 3D touch 快捷操作](http://gold.xitu.io/entry/57c6b223efa631005ad6e7d1)|翻译|6|
@@ -1579,8 +1579,8 @@
 |[iOS 10 中的 NSPersistentContainer](http://gold.xitu.io/entry/580444efa34131005fe77197/)|校对|1|
 |[Pury — 一个新的 Android App 性能分析工具](http://gold.xitu.io/entry/57fe4b92a22b9d005b1a8a2a/)|校对|1|
 |[减少认知过载可以为用户带来更佳体验](http://gold.xitu.io/entry/58007345816dfa0056e8ff5c)|校对|2|
-|[如何测试 Android Service 里的 Singleton (2) ？](http://gold.xitu.io/entry/57fcb8f68ac2470058c9f621/)|校对|1|
-|[如何测试 Android Service 里的 Singleton (1) ？](http://gold.xitu.io/entry/57fb306da341310060135cbb/)|校对|1|
+|[如何测试 Android Service 里的 Singleton (2) ？](http://gold.xitu.io/entry/57fcb8f68ac2470058c9f621/)|校对|1|
+|[如何测试 Android Service 里的 Singleton (1) ？](http://gold.xitu.io/entry/57fb306da341310060135cbb/)|校对|1|
 |[好的设计准则是如何塑造更强大的产品形态的](http://gold.xitu.io/entry/57db572ed203090069d2e201)|校对|1|
 |[用心设计的艺术](http://gold.xitu.io/entry/57d6bd1bd20309006a08e25e/)|校对|1|
 |[3 分钟掌握 CSS Flexbox](http://gold.xitu.io/entry/57ce68bf2e958a00543a7df9/)|翻译|4|
@@ -4825,7 +4825,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[翻译开源库 JS 分类 100 个]()|翻译|10|
+|[翻译开源库 JS 分类 100 个]()|翻译开源库|10|
 
 ## 译者：[kangkai124](https://github.com/kangkai124) 历史贡献积分：15.5 当前积分：10.5
 
@@ -5179,7 +5179,7 @@
 |------|-------|-------|
 |[为 APP 设计通知提醒](https://juejin.im/post/5ba31ee3e51d450e4115500b)|校对|3.5|
 |2018 年 9 月兑 Google DIY 纸板音箱 1 个|减去积分|45|
-|[React Native：回顾 Udacity 移动工程团队的使用历程](https://juejin.im/post/5b421b606fb9a04fd15ff802)|翻译|礼物|
+|[React Native：回顾 Udacity 移动工程团队的使用历程](https://juejin.im/post/5b421b606fb9a04fd15ff802)|翻译送礼|0|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|15|
 |[2018 年 2 月兑 树莓派套餐 1 个]()|减去积分|45|
