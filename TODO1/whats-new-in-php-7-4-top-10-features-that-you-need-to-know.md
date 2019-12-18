@@ -109,7 +109,7 @@ var_dump($weakref->get());
 
 这就是个例子：
 
-```
+``` php
 <?php
 
 // 获取 $_GET['user'] 的值，如果它不存在则返回 nobody
@@ -133,7 +133,7 @@ $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 
 看一下数组表达式中的参数解压缩示例：
 
-```
+``` php
 $parts = ['apple', 'pear'];
 
 $fruits = ['banana', 'orange', ...$parts, 'watermelon'];
