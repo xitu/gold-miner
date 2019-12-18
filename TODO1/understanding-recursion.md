@@ -2,16 +2,16 @@
 > * 原文作者：[Thiery Michel](https://twitter.com/hyriel_mecrith)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-recursion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-recursion.md)
-> * 译者：
+> * 译者：[Jessica](https://github.com/cyz980908)
 > * 校对者：
 
-# Understanding Recursion, Tail Call and Trampoline Optimizations
+# 理解递归、尾调用优化和蹦床函数优化
 
-In order to understand recursion, you must understand recursion. Joke aside, [recursion](https://en.wikipedia.org/wiki/Recursion) is a programming technique allowing to loop execution without using `for` or `while`, but using a function that calls itself.
+想要理解递归，您必须先理解递归。开个玩笑罢了，[递归](https://en.wikipedia.org/wiki/Recursion)是一种编程技巧，它可以让函数在不使用 `for` 或 `while` 的情况下，使用一个调用自身的函数来实现循环。
 
-## Example 1: Sum of Integers
+## 例子 1：整数总和
 
-For instance, let's say we want to sum integers from 1 to i. The goal is to have the following result:
+例如，假设我们想要求从 1 到 i 的整数的和，目标是得到以下结果：
 
 ```js
 sumIntegers(1); // 1
@@ -19,37 +19,37 @@ sumIntegers(3); // 1 + 2 + 3 = 6
 sumIntegers(5); // 1 + 2 + 3 + 4 + 5 = 15
 ```
 
-Here is the code without recursion:
+这是不用递归来实现的代码：
 
 ```js
-// loop
+// 循环
 const sumIntegers = i => {
-    let sum = 0; // initialization
-    do { // repeat
-        sum += i; // operation
-        i --; // next step
-    } while(i > 0); // stop condition
+    let sum = 0; // 初始化
+    do { // 重复
+        sum += i; // 操作
+        i --; // 下一步
+    } while(i > 0); // 循环停止的条件
 
     return sum;
 }
 ```
 
-And with recursion:
+用递归来实现的代码如下：
 
 ```js
-// loop
-const sumIntegers = (i, sum = 0) => { // initialization
-    if (i === 0) { // stop condition
-        return sum; // sum
+// 循环
+const sumIntegers = (i, sum = 0) => { // 初始化
+    if (i === 0) { // 
+        return sum; // 结果
     }
 
-    return sumIntegers( // repeat
-        i - 1, // next step
-        sum + i // operation
+    return sumIntegers( // 重复
+        i - 1, // 下一步
+        sum + i // 操作
     );
 }
 
-// or even simpler
+// 甚至实现的更简单
 const sumIntegers = i => {
     if (i === 0) {
         return i;
@@ -58,24 +58,24 @@ const sumIntegers = i => {
 }
 ```
 
-So that's the basis of recursion.
+这就是递归的基础。
 
-Note that the recursion version has **no intermediate variables**. It doesn't use `for` or `do...while`. It's **declarative**.
+注意，递归版本中是没有**中间变量**的。它不使用 `for` 或者 `do...while`。由此可见，它是**声明性**的。
 
-And in case you wonder, the recursive version is **slower** than the loop version - at least in JavaScript. Recursion isn't a matter of performance, but of expressiveness.
+我还可以告诉您的是，事实上递归版本比循环版本**慢**  —— 至少在 JavaScript 中是这样。但是递归解决的不是性能问题，而是可表达性的问题。
 
-![inception](https://marmelab.com/images/blog/inception1.jpg)
+![《盗梦空间》](https://marmelab.com/images/blog/inception1.jpg)
 
-## [](#example-2-sum-of-array-elements)Example 2: Sum of Array Elements
+## [](#example-2-sum-of-array-elements)例子 2：数组元素之和
 
-Let's try a slightly more complex example, a function that add all numbers in an array.
+让我们尝试一个稍微复杂一点的例子，一个将数组中的所有数字相加的函数。
 
 ```js
 sumArrayItems([]); // 0
 sumArrayItems([1, 1, 1]); // 1 + 1 + 1 = 3
 sumArrayItems([3, 6, 1]); // 3 + 6 + 1 = 10
 
-// loop
+// 循环
 const sumArrayItems = list => {
     let result = 0;
     for (var i = 0; i++; i <= list.length) {
@@ -85,79 +85,79 @@ const sumArrayItems = list => {
 }
 ```
 
-As you can see, the loop version is imperative: you tell the program exactly **what to do** to get the sum of all numbers. Here is the version with recursion:
+正如您所看到的，循环版本是命令性的：您需要确切地告诉程序要**做什么**才能得到所有数字的和。下面是递归的版本：
 
 ```js
-// recursive
+// 递归
 const sumArrayItems = list => {
     switch(list.length) {
         case 0:
-            return 0; // the sum of an empty array is 0
+            return 0; // 空数组的和为 0
         case 1:
-            return list[0]; // the sum of an array of a single element, is it's only element. #captain_obvious
+            return list[0]; // 一个元素的数组之和，就是这个唯一的元素。#显而易见
         default:
-            return list[0] + sumArrayItems(list.slice(1)); // otherwise the sum of an array, is the array first element + the sum of the remaining elements.
+            return list[0] + sumArrayItems(list.slice(1)); // 否则，数组的和就是数组的第一个元素 + 其余元素的和。
     }
 }
 ```
 
-The recursive version is much more interesting, as we do not tell the program **what to do**, we introduce simple rules to **define** what the sum of all numbers in an array is.
+递归版本中，我们并没有告诉程序要**做什么**，而是引入了简单的规则来**定义**数组中所有数字的和是多少。这可比循环版本有意思多了。
 
-If you're a fan of functional programming, you may prefer the `Array.reduce()` version:
+如果您是函数式编程的爱好者，您可能更喜欢 `Array.reduce()` 版本：
 
 ```text
-// reduce
+// reduce 版本
 const sumArrayItems = list => list.reduce((sum, item) => sum + item, 0);
 ```
 
-It's way shorter, and very expressive. But that's a topic for another article.
+这种写法更短，而且更直观。但这是另一篇文章的主题了。
 
-![inception](https://marmelab.com/images/blog/inception2.jpg)
+![《盗梦空间》](https://marmelab.com/images/blog/inception2.jpg)
 
-## [](#example-3-quick-sort)Example 3: Quick Sort
+## [](#example-3-quick-sort)例子 3：快速排序
 
-Now, let's see another example, this time a bit more complex: [QuickSort](https://en.wikipedia.org/wiki/Quicksort). QuickSort is one of the quickest algorithms to sort an array.
+现在，我们来看另一个例子。这次的更复杂一点：[快速排序](https://zh.wikipedia.org/wiki/Quicksort)。快速排序是对数组排序最快的算法之一。
 
-Quicksort sorts an array by taking its first element, and then splitting the rest in an array of smaller elements and an array of bigger elements. It then places the first element between the two arrays, before repeating the operations for them.
+快速排序的排序过程：获取数组的第一个元素，然后将其余的元素分成比的第一个元素小的数组和第一个元素大的数组。然后，再将获取的第一个元素放置在这两个数组之间，并且对每一个分隔的数组重复这个操作。
 
-To implement it with recursion, we just need to follow this definition:
+要用递归实现它，我们只需要遵循这个定义：
 
 ```js
 const quickSort = array => {
     if (array.length <= 1) {
-        return array; // an array of one or less elements is already sorted
+        return array; // 一个或更少元素的数组是已经排好序的
     }
     const [first, ...rest] = array;
 
-    // then separate all elements smaller and bigger than the first
+    // 然后把所有比第一个元素大和比第一个元素小的元素分开
     const smaller = [], bigger = [];
     for (var i = 0; i < rest.length; i++) {
         const value = rest[i];
-        if (value < first) { // smaller
+        if (value < first) { // 小的
             smaller.push(value);
-        } else { // bigger
+        } else { // 大的
             bigger.push(value);
         }
     }
 
-    // a sorted array is
+    // 排序后的数组为
     return [
-        ...quickSort(smaller), // the sorted array of all elements smaller or equal to the first
-        first, // the first elements
-        ...quickSort(bigger), // the sorted array of all elements greater than the first
+        ...quickSort(smaller), // 所有小于等于第一个的元素的排序数组
+        first, // 第一个元素
+        ...quickSort(bigger), // 所有大于第一个的元素的排序数组
     ];
 };
 ```
 
-Simple, elegant and declarative, by reading the code we can see the definition of the quicksort.
+简单，优雅和声明性，通过阅读代码，我们可以读懂快速排序的定义。
 
-Now imagine implementing this with loop. I'll let you think about it for a bit, and you'll find the solution at the end of this article.
+现在想象一下用循环来实现它。我先让您想一想，您可以在本文的最后找到答案。
 
-![inception](https://marmelab.com/images/blog/inception3.jpg)
+![《盗梦空间》](https://marmelab.com/images/blog/inception3.jpg)
 
-## [](#example-4-get-leaves-of-a-tree)Example 4: Get Leaves Of A Tree
+## [](#example-4-get-leaves-of-a-tree)例子 4：取得一棵树的叶节点
 
-Recursion really shines when we need to deal with **recursive data structures**, such as trees. A tree is an object with some values and a `children` property ; the children contain other trees or leafs (a leaf being an object without children). For instance:
+当我们需要处理**递归数据结构**（如树）时，递归真的很有用。树是具有某些值和`孩子`属性的对象；孩子们又包含着其他的树或叶子（叶子指是没有孩子的对象）。例如：
 
 ```js
 const tree = {
@@ -188,7 +188,7 @@ const tree = {
 };
 ```
 
-Let's say I need a function that takes a tree, and returns an array of leaves (without children). The expected result is:
+假设我需要一个函数，该函数接受一棵树，返回一个叶子数组（没有孩子元素的对象）。预期结果是：
 
 ```js
 getLeaves(tree);
@@ -202,13 +202,13 @@ getLeaves(tree);
 ]*/
 ```
 
-Let's first try this the old way, without recursion.
+我们先用老方法试试，不用递归。
 
 ```js
-// for no nested tree, this is trivial
+// 对于没有嵌套树来说，这是小菜一碟
 const getChildren = tree => tree.children;
 
-// for one level of recursion it becomes
+// 对于一层的递归来说，它会变成：
 const getChildren = tree => {
     const { children } = tree;
     let result = [];
@@ -228,7 +228,7 @@ const getChildren = tree => {
     return result;
 }
 
-// for two levels:
+// 对于两层：
 const getChildren = tree => {
     const { children } = tree;
     let result = [];
@@ -256,49 +256,49 @@ const getChildren = tree => {
 }
 ```
 
-Urgh, that's already painful, and it's only for two levels of recursion. I let you imagine how ugly it get for third, fourth, and tenth level.
+呃，这已经很令人头疼了，而且这只是两层递归。您想想看如果递归到第三层、第四层、第十层会有多糟糕。
 
-And it is only to get a list of leafs ; what if you wanted to convert the tree to an array and back? Not to mention that if you wanted to use this version, you had to decide the maximum depth you want to support.
+而且这仅仅是求叶子的列表；如果您想要将树转换为一个数组并返回，又该怎么办？更麻烦的是，如果您想使用这个循环版本，您必须确定您想要支持的最大深度。
 
-And now with recursion:
+现在看看递归版本：
 
 ```js
 const getLeaves = tree => {
-    if (!tree.children) { // The leaves of a tree is the tree itself if it has no children.
+    if (!tree.children) { // 如果一棵树没有孩子，它的叶子就是树本身。
         return tree;
     }
 
-    return tree.children // otherwise it's the leaves of all its children.
-        .map(getLeaves) // at this step we can have nested arrays ([child1, [grandChild1, grandChild2], ...])
-        .reduce((acc, item) => acc.concat(item), []); // so we use concat to flatten the array [1,2,3].concat(4) => [1,2,3,4] and [1,2,3].concat([4]) => [1,2,3,4]
+    return tree.children // 否则它的叶子就是所有子结点的叶子。
+        .map(getLeaves) // 在这一步，我们可以嵌套数组 （[child1, [grandChild1, grandChild2], ...]）
+        .reduce((acc, item) => acc.concat(item), []); // 所以我们用 concat 来连接铺平数组 [1,2,3].concat(4) => [1,2,3,4] 以及 [1,2,3].concat([4]) => [1,2,3,4]
 }
 ```
 
-That's all, and it works for any level of recursion.
+仅此而已，而且它适用于任何层级的递归。
 
-## [](#drawbacks-of-recursion-in-javascript)Drawbacks Of Recursion in JavaScript
+## [](#drawbacks-of-recursion-in-javascript)JavaScript 中递归的缺点
 
-Sadly, recursive function have a huge drawback: the accursed error
+遗憾的是，递归函数有一个很大的缺点：该死的越界错误。
 
 ```text
 Uncaught RangeError: Maximum call stack size exceeded
 ```
 
-Javascript, like many languages, keeps track of all function calls in a **stack**. And this stack possesses a maximum size which, once exceeded, leads to a `RangeError`. On nested calls, the stack gets cleared once the root function finishes. But with recursion, the first function call won't end until all the other further calls are resolved. And if there are too many calls, we get this error.
+与许多语言一样，JavaScript 会跟踪**堆栈**中的所有函数调用。这个堆栈大小有一个最大值，一旦超过这个最大值，就会导致 `RangeError`。在循环嵌套调用中，一旦根函数完成，堆栈就会被清除。但是在使用递归时，在所有其他的调用都被解析之前，第一个函数的调用不会结束。所以如果我们调用太多，就会得到这个错误。
 
-![inception](https://marmelab.com/images/blog/inception5.jpg)
+![《盗梦空间》](https://marmelab.com/images/blog/inception5.jpg)
 
-To deal with the stack size problem, you may try to make sure computation won't get anywhere near the stack size limit. This limit depends on platform, but it seems to be around 10 000. So we can still use recursion in js, we just must be cautious.
+为了解决堆栈大小问题，您可以尝试确保计算不会接近堆栈大小限制。这个限制取决于平台，这个值似乎都在 10,000 左右。所以，我们仍然可以在 JavaScript 中使用递归，只是需要小心谨慎。
 
-If you can't limit the recursion size, there are 2 solutions to this problem: Tail call optimization, and the Trampoline.
+如果您不能限制递归的大小，这里有两个解决方案：尾调用优化和蹦床函数优化。
 
-## [](#tail-call-optimization)Tail Call Optimization
+## [](#tail-call-optimization)尾调用优化
 
-This optimization is used by every language that heavily relies on recursion, like Haskell. It was implemented in Node.js v6.
+所有严重依赖递归的语言都会使用这种优化，比如 Haskell。JavaScript 的尾调用优化的支持是在Node.js v6中实现的。
 
-A [tail call](https://en.wikipedia.org/wiki/Tail_call) is when the last statement of a function is a call to another function. The optimization consists in having the tail call function replace its parent function in the stack. This way, recursive functions won't grow the stack. Note that, for this to work, the recursive call must be **the last statement** of the recursive function. So `return loop(..);` would work, but `return loop() + v;` would not.
+[尾调用](https://en.wikipedia.org/wiki/Tail_call) 是指一个函数的最后一条语句是对另一个函数的调用。优化是在于让尾部调用函数替换堆栈中的父函数。这样的话，递归函数就不会增加堆栈。注意，要使其工作，递归调用必须是递归函数的**最后一条语句**。所以 `return loop(..);` 将会工作，但是 `return loop() + v;` 将不会工作。
 
-Let's rework our sum example to be tail call optimized:
+让我们把求和的例子用尾调用优化一下：
 
 ```js
 const sum = (array, result = 0) => {
@@ -311,16 +311,16 @@ const sum = (array, result = 0) => {
 }
 ```
 
-This allows the runtime engine to avoid call stack errors. But unfortunately, this does not work in Node.js anymore, as [support for tail call optimization has been removed in Node 8](https://stackoverflow.com/questions/42788139/es6-tail-recursion-optimisation-stack-overflow/42788286#42788286). Maybe it will come back in the future, but as of now this is not the case.
+这使运行时引擎可以避免调用堆栈错误。但是不幸的是，它在 Node.js 中已经不再有效，因为[在 Node 8 中已经删除了对尾调用优化的支持](https://stackoverflow.com/questions/42788139/es6-tail-recursion-optimisation-stack-overflow/42788286#42788286)。也许将来它会支持，但到目前为止，是不存在的。
 
-## [](#trampoline-optimization)Trampoline Optimization
+## [](#trampoline-optimization)蹦床函数优化
 
-The other solution is called the [trampoline](http://funkyjavascript.com/recursion-and-trampolines/). The idea is to use lazy evaluation to execute the recursive call later, one recursion at a time. Let's see an example:
+另一种解决方法叫做[蹦床函数](http://funkyjavascript.com/recursion-and-trampolines/)。其思想是使用延迟计算稍后执行递归调用，每次执行一个递归。我们来看一个例子：
 
 ```js
 const sum = (array) => {
     const loop = (array, result = 0) =>
-        () => { // the code is not executed right away, instead we return a function that will execute it later: it's lazy
+        () => { // 代码不是立即执行的，而是返回一个稍后执行的函数：它是惰性的
             if (!array.length) {
                 return result;
             }
@@ -328,43 +328,43 @@ const sum = (array) => {
             return loop(rest, first + result);
         };
 
-    // When we execute the loop, all we get is a function to execute the first step, so no recursion.
+    // 当我们执行这个循环时，我们得到的只是一个执行第一步的函数，所以没有递归。
     let recursion = loop(array);
 
-    // as long as we get another function, there are still additional steps in the recursion
+    // 只要我们得到另一个函数，递归过程中就还有其他步骤
     while (typeof recursion === 'function') {
-        recursion = recursion(); // we execute the current step, and retrieve the next
+        recursion = recursion(); // 我们执行现在这一步，然后重新得到下一个
     }
 
-    // once done, return the result of the last recursion.
+    // 一旦执行完毕，返回最后一个递归的结果
     return recursion;
 }
 ```
 
-This works, but this approach has a huge drawback as well: it is **slow**. At each recursion, a new function get created, and on large recursions, this results in a huge number of functions. And this hurts. True, we won't get an error, but this will slow down (it can even freeze) execution.
+这是可行的，但是这种方法也有一个很大的缺点:它很**慢**。在每次递归时，都会创建一个新函数，在大型递归时，就会产生大量的函数。这就很令人心烦。的确，我们不会得到一个错误，但这会减慢（甚至冻结）函数运行。
 
-![inception](https://marmelab.com/images/blog/inception6.jpg)
+![《盗梦空间》](https://marmelab.com/images/blog/inception6.jpg)
 
-## [](#from-recursion-to-iteration)From Recursion to Iteration
+## [](#from-recursion-to-iteration)从递归到迭代
 
-If eventually you have performance and/or maximum call stack size exceeded issue, you can still convert the recursive version into an iterative one. Unfortunately, as you will see, the iterative version is often way more complex.
+如果最终出现性能或者最大调用堆栈大小超出的问题，您仍然可以将递归版本转换为迭代版本。但不幸的是，正如您将看到的，迭代版本通常更复杂。
 
-Let's take our `getLeaves` implementation, and convert the recursive logic into an iteration. I know, I tried that before, and the result was ugly. But now let's try again, but from the recursive version this time.
+让我们以 `getLeaves` 的实现为例，并将递归逻辑转换为迭代。我知道结果，我以前试过，很糟糕。现在我们再试一次，但这次是递归的。
 
 ```js
-// recursive version
+// 递归版本
 const getLeaves = tree => {
-    if (!tree.children) { // The leaves of a tree is the tree itself if it has no children.
+    if (!tree.children) { // 如果一棵树没有孩子，它的叶子就是树本身。
         return tree;
     }
 
-    return tree.children // otherwise it's the leaves of all its children.
-        .map(getLeaves) // at this step we can have nested arrays ([child1, [grandChild1, grandChild2], ...])
-        .reduce((acc, item) => acc.concat(item), []); // so we use concat to flatten the array [1,2,3].concat(4) => [1,2,3,4] and [1,2,3].concat([4]) => [1,2,3,4]
+    return tree.children // 否则它的叶子就是所有子结点的叶子。
+        .map(getLeaves) // 在这一步，我们可以嵌套数组 （[child1, [grandChild1, grandChild2], ...]）
+        .reduce((acc, item) => acc.concat(item), []); // 所以我们用 concat 来连接铺平数组 [1,2,3].concat(4) => [1,2,3,4] 以及 [1,2,3].concat([4]) => [1,2,3,4]
 }
 ```
 
-First, we need to refactor the recursive function to take an accumulator argument, that will serve to construct the result. It's even shorter:
+首先，我们需要重构递归函数以获取累加器参数，该参数将用于构造结果。它写起来甚至会更短：
 
 ```js
 const getLeaves = (tree, result = []) => {
@@ -377,118 +377,118 @@ const getLeaves = (tree, result = []) => {
 }
 ```
 
-Then, the trick is unroll the recursive calls into a stack of remaining computations. Initialize the result accumulator **outside the recursion**, and push the parameter that would go to the recursive function into a stack. Finally, unstack the stacked operations to get the final result:
+然后，这里技巧就是将递归调用展开到剩余计算的堆栈中。**在递归外部**初始化结果累加器，并将进入递归函数的参数推入堆栈。最后，将堆叠的运算解堆叠，得到最后的结果：
 
 ```js
 const getLeaves = tree => {
-    const stack = [tree]; // add the initial tree to the stack
-    const result = []; // initialize the result accumulator
+    const stack = [tree]; // 将初始树添加到堆栈中
+    const result = []; // 初始化结果累加器
 
-    while (stack.length) { // as long as there is an item in the stack
-        const currentTree = stack.pop(); // retrieve the first item in the stack
-        if (!currentTree.children) { // the leaves of a tree is the tree itself if it has no children.
-            result.unshift(currentTree); // so add it in the result
+    while (stack.length) { // 只要堆栈中有一个项
+        const currentTree = stack.pop(); // 得到堆栈中的第一项
+        if (!currentTree.children) { // 如果一棵树没有孩子，它的叶子就是树本身。
+            result.unshift(currentTree); // 所以把它加到结果里
             continue;
         }
-        stack.push(...currentTree.children);// otherwise add all children to the stack to be treated in next iterations
+        stack.push(...currentTree.children);// 否则，将所有子元素添加到堆栈中，以便在下一次迭代中处理
     }
 
     return result;
 }
 ```
 
-It's tricky, so let's do it again with quickSort. Here is the recursive version:
+这好像有点难，所以让我们用 quickSort 再次做一次。这是递归版本：
 
 ```js
 const quickSort = array => {
     if (array.length <= 1) {
-        return array; // an array of one or less elements is already sorted
+        return array; // 一个或更少元素的数组是已经排好序的
     }
     const [first, ...rest] = array;
 
-    // then separate all elements smaller and bigger than the first
+    // 然后把所有比第一个元素大和比第一个元素小的元素分开
     const smaller = [], bigger = [];
     for (var i = 0; i < rest.length; i++) {
         const value = rest[i];
-        if (value < first) { // smaller
+        if (value < first) { // 小的
             smaller.push(value);
-        } else { // bigger
+        } else { // 大的
             bigger.push(value);
         }
     }
 
-    // a sorted array is
+    // 排序后的数组为
     return [
-        ...quickSort(smaller), // the sorted array of all elements smaller or equal to the first
-        first, // the first element
-        ...quickSort(bigger), // the sorted array of all elements greater than the first
+        ...quickSort(smaller), // 所有小于等于第一个的元素的排序数组
+        first, // 第一个元素
+        ...quickSort(bigger), // 所有大于第一个的元素的排序数组
     ];
 };
 ```
 
-To remove recursion, first add an accumulator.
+
 
 ```js
 const quickSort = (array, result = []) => {
     if (array.length <= 1) {
-        return result.concat(array); // an array of one or less elements is already sorted
+        return result.concat(array); // 一个或更少元素的数组是已经排好序的
     }
     const [first, ...rest] = array;
 
-    // then separate all elements smaller and bigger than the first
+    // 然后把所有比第一个元素大和比第一个元素小的元素分开
     const smaller = [], bigger = [];
     for (var i = 0; i < rest.length; i++) {
         const value = rest[i];
-        if (value < first) { // smaller
+        if (value < first) { // 小的
             smaller.push(value);
-        } else { // bigger
+        } else { // 大的
             bigger.push(value);
         }
     }
 
-    // a sorted array is
+    // 排序后的数组为
     return [
-        ...quickSort(smaller, result), // the sorted array of all elements smaller or equal to the first
-        first, // the first element
-        ...quickSort(bigger, result), // the sorted array of all elements greater than the first
+        ...quickSort(smaller, result), // 所有小于等于第一个的元素的排序数组
+        first, // 第一个元素
+        ...quickSort(bigger, result), // 所有大于第一个的元素的排序数组
     ];
 };
 ```
 
-Then use a stack to store arrays to sort, unstack it applying our previous recursive logic on each loop.
+然后使用堆栈来存储数组进行排序，在每个循环中应用前面的递归逻辑将其解堆栈。
 
 ```js
 const quickSort = (array) => {
-    const stack = [array]; // we create a stack of array to sort
+    const stack = [array]; // 我们创建一个数组堆栈进行排序
     const sorted = [];
 
-    // we iterate over the stack until it get emptied
+    //我们遍历堆栈直到它被清空
     while (stack.length) {
-        const currentArray = stack.pop(); // we take the last array in the stack
+        const currentArray = stack.pop(); // 我们取堆栈中的最后一个数组
 
-        if (currentArray.length == 1) { // if only one element, then we add it to sorted
+        if (currentArray.length == 1) { // 如果只有一个元素，那么我们把它加到排序中
             sorted.push(currentArray[0]);
             continue;
         }
-        const [first, ...rest] = currentArray; // otherwise we take the first element in the array
+        const [first, ...rest] = currentArray; // 否则我们取数组中的第一个元素
 
-        // then separate all elements smaller and bigger than the first
+        //然后把所有比第一个元素大和比第一个元素小的元素分开
         const smaller = [], bigger = [];
         for (var i = 0; i < rest.length; i++) {
             const value = rest[i];
-            if (value < first) { // smaller
+            if (value < first) { // 小的
                 smaller.push(value);
-            } else { // bigger
+            } else { // 大的
                 bigger.push(value);
             }
         }
 
         if (bigger.length) {
-            stack.push(bigger); // we add bigger to the stack to be sorted first
+            stack.push(bigger); // 我们先向堆栈中添加更大的元素来排序
         }
-        stack.push([first]); // we add first in the stack, when it will get unstacked, then bigger will have been sorted
+        stack.push([first]); // 我们在堆栈中添加 first 元素，当它被解堆时，更大的元素就已经被排序了
         if (smaller.length) {
-            stack.push(smaller); // we add smaller to the stack to be sorted last
+            stack.push(smaller); // 最后，我们将更小的元素添加到堆栈中来排序
         }
     }
 
@@ -496,21 +496,21 @@ const quickSort = (array) => {
 }
 ```
 
-And voilà! We just have an iterative version of QuickSort. But remember, this is an optimization, and
+瞧!我们就这样有了快速排序的迭代版本。但是记住，这只是一个优化，
 
-> premature optimization is the root of all evil -- Donald Knuth
+> 不成熟的优化是万恶之源 —— 唐纳德
 
-So do this only when you need to.
+因此，仅在您需要时再这样做。
 
-![inception](https://marmelab.com/images/blog/inception4.jpg)
+![《盗梦空间》](https://marmelab.com/images/blog/inception4.jpg)
 
-## [](#conclusion)Conclusion
+## [](#conclusion)结论
 
-I love recursion. It is much more declarative than the iterative versions, and often shorter. Recursion allows to implement complex logic easily. And despite the stack overflow problem, it can be used in JavaScript as long as you don't recure too much. And if the need arises, a recursive function can be refactored into an iterative version.
+我喜欢递归。它比迭代版本更具声明性，并且通常情况下代码也更短。递归可以轻松地实现复杂的逻辑。尽管存在堆栈溢出问题，但只要您不要过多地使用它，在 JavaScript 中使用它是没问题的。并且如果有需要，可以将递归函数重构为迭代版本。
 
-So I recommend it despite its shortcomings!
+所以尽管它有缺点，我还是向您强烈安利它！
 
-If you like this pattern, take a look at functional programming languages like Scala or Haskell. They love recursion, too!
+如果您喜欢这种模式，可以看看 Scala 或 Haskell 等函数式编程语言。它们也喜欢递归！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
