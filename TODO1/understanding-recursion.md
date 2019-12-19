@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-recursion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-recursion.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[PingHGao](https://github.com/PingHGao)，[Chorer](https://github.com/Chorer)
 
 # 理解递归、尾调用优化和蹦床函数优化
 
@@ -49,7 +49,7 @@ const sumIntegers = (i, sum = 0) => { // 初始化
     );
 }
 
-// 甚至实现的更简单
+// 甚至实现得更简单
 const sumIntegers = i => {
     if (i === 0) {
         return i;
@@ -60,7 +60,7 @@ const sumIntegers = i => {
 
 这就是递归的基础。
 
-注意，递归版本中是没有**中间变量**的。它不使用 `for` 或者 `do...while`。由此可见，它是**声明性**的。
+注意，递归版本中是没有**中间变量**的。它不使用 `for` 或者 `do...while`。由此可见，它是**声明式**的。
 
 我还可以告诉您的是，事实上递归版本比循环版本**慢**  —— 至少在 JavaScript 中是这样。但是递归解决的不是性能问题，而是可表达性的问题。
 
@@ -118,7 +118,7 @@ const sumArrayItems = list => list.reduce((sum, item) => sum + item, 0);
 
 现在，我们来看另一个例子。这次的更复杂一点：[快速排序](https://zh.wikipedia.org/wiki/Quicksort)。快速排序是对数组排序最快的算法之一。
 
-快速排序的排序过程：获取数组的第一个元素，然后将其余的元素分成比的第一个元素小的数组和第一个元素大的数组。然后，再将获取的第一个元素放置在这两个数组之间，并且对每一个分隔的数组重复这个操作。
+快速排序的排序过程：获取数组的第一个元素，然后将其余的元素分成比第一个元素小的数组和比第一个元素大的数组。然后，再将获取的第一个元素放置在这两个数组之间，并且对每一个分隔的数组重复这个操作。
 
 要用递归实现它，我们只需要遵循这个定义：
 
@@ -149,7 +149,7 @@ const quickSort = array => {
 };
 ```
 
-简单，优雅和声明性，通过阅读代码，我们可以读懂快速排序的定义。
+简单，优雅和声明式，通过阅读代码，我们可以读懂快速排序的定义。
 
 现在想象一下用循环来实现它。我先让您想一想，您可以在本文的最后找到答案。
 
@@ -157,7 +157,7 @@ const quickSort = array => {
 
 ## [](#example-4-get-leaves-of-a-tree)例子 4：取得一棵树的叶节点
 
-当我们需要处理**递归数据结构**（如树）时，递归真的很有用。树是具有某些值和`孩子`属性的对象；孩子们又包含着其他的树或叶子（叶子指是没有孩子的对象）。例如：
+当我们需要处理**递归数据结构**（如树）时，递归真的很有用。树是具有某些值和`孩子`属性的对象；孩子们又包含着其他的树或叶子（叶子指的是没有孩子的对象）。例如：
 
 ```js
 const tree = {
@@ -188,7 +188,7 @@ const tree = {
 };
 ```
 
-假设我需要一个函数，该函数接受一棵树，返回一个叶子数组（没有孩子元素的对象）。预期结果是：
+假设我需要一个函数，该函数接受一棵树，返回一个叶子（没有孩子节点的对象）数组。预期结果是：
 
 ```js
 getLeaves(tree);
@@ -205,7 +205,7 @@ getLeaves(tree);
 我们先用老方法试试，不用递归。
 
 ```js
-// 对于没有嵌套树来说，这是小菜一碟
+// 对于没有嵌套的树来说，这是小菜一碟
 const getChildren = tree => tree.children;
 
 // 对于一层的递归来说，它会变成：
@@ -258,7 +258,7 @@ const getChildren = tree => {
 
 呃，这已经很令人头疼了，而且这只是两层递归。您想想看如果递归到第三层、第四层、第十层会有多糟糕。
 
-而且这仅仅是求叶子的列表；如果您想要将树转换为一个数组并返回，又该怎么办？更麻烦的是，如果您想使用这个循环版本，您必须确定您想要支持的最大深度。
+ 而且这仅仅是求一些叶子；如果您想要将树转换为一个数组并返回，又该怎么办？更麻烦的是，如果您想使用这个循环版本，您必须确定您想要支持的最大深度。
 
 现在看看递归版本：
 
@@ -268,7 +268,7 @@ const getLeaves = tree => {
         return tree;
     }
 
-    return tree.children // 否则它的叶子就是所有子结点的叶子。
+    return tree.children // 否则它的叶子就是所有子节点的叶子。
         .map(getLeaves) // 在这一步，我们可以嵌套数组 （[child1, [grandChild1, grandChild2], ...]）
         .reduce((acc, item) => acc.concat(item), []); // 所以我们用 concat 来连接铺平数组 [1,2,3].concat(4) => [1,2,3,4] 以及 [1,2,3].concat([4]) => [1,2,3,4]
 }
@@ -294,9 +294,9 @@ Uncaught RangeError: Maximum call stack size exceeded
 
 ## [](#tail-call-optimization)尾调用优化
 
-所有严重依赖递归的语言都会使用这种优化，比如 Haskell。JavaScript 的尾调用优化的支持是在Node.js v6中实现的。
+所有严重依赖递归的语言都会使用这种优化，比如 Haskell。JavaScript 的尾调用优化的支持是在 Node.js v6 中实现的。
 
-[尾调用](https://en.wikipedia.org/wiki/Tail_call) 是指一个函数的最后一条语句是对另一个函数的调用。优化是在于让尾部调用函数替换堆栈中的父函数。这样的话，递归函数就不会增加堆栈。注意，要使其工作，递归调用必须是递归函数的**最后一条语句**。所以 `return loop(..);` 将会工作，但是 `return loop() + v;` 将不会工作。
+[尾调用](https://en.wikipedia.org/wiki/Tail_call) 是指一个函数的最后一条语句是对另一个函数的调用。优化是在于让尾部调用函数替换堆栈中的父函数。这样的话，递归函数就不会增加堆栈。注意，要使其工作，递归调用必须是递归函数的**最后一条语句**。所以 `return loop(..);` 是一次有效的尾调用优化，但是 `return loop() + v;` 不是。
 
 让我们把求和的例子用尾调用优化一下：
 
@@ -358,7 +358,7 @@ const getLeaves = tree => {
         return tree;
     }
 
-    return tree.children // 否则它的叶子就是所有子结点的叶子。
+    return tree.children // 否则它的叶子就是所有子节点的叶子。
         .map(getLeaves) // 在这一步，我们可以嵌套数组 （[child1, [grandChild1, grandChild2], ...]）
         .reduce((acc, item) => acc.concat(item), []); // 所以我们用 concat 来连接铺平数组 [1,2,3].concat(4) => [1,2,3,4] 以及 [1,2,3].concat([4]) => [1,2,3,4]
 }
@@ -496,9 +496,9 @@ const quickSort = (array) => {
 }
 ```
 
-瞧!我们就这样有了快速排序的迭代版本。但是记住，这只是一个优化，
+瞧！我们就这样有了快速排序的迭代版本。但是记住，这只是一个优化，
 
-> 不成熟的优化是万恶之源 —— 唐纳德
+> 不成熟的优化是万恶之源 —— 唐纳德·高德纳
 
 因此，仅在您需要时再这样做。
 
@@ -506,7 +506,7 @@ const quickSort = (array) => {
 
 ## [](#conclusion)结论
 
-我喜欢递归。它比迭代版本更具声明性，并且通常情况下代码也更短。递归可以轻松地实现复杂的逻辑。尽管存在堆栈溢出问题，但只要您不要过多地使用它，在 JavaScript 中使用它是没问题的。并且如果有需要，可以将递归函数重构为迭代版本。
+我喜欢递归。它比迭代版本更具声明式，并且通常情况下代码也更短。递归可以轻松地实现复杂的逻辑。尽管存在堆栈溢出问题，但在不滥用的前提下，在 JavaScript 中使用它是没问题的。并且如果有需要，可以将递归函数重构为迭代版本。
 
 所以尽管它有缺点，我还是向您强烈安利它！
 
