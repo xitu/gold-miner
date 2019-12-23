@@ -2,36 +2,36 @@
 > * 原文作者：[Daniel Dan](https://medium.com/@daniel.dan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-php-7-4-top-10-features-that-you-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-php-7-4-top-10-features-that-you-need-to-know.md)
-> * 译者：
-> * 校对者：
+> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 校对者：[江五渣](http://jalan.space)、[suhanyujie](https://github.com/suhanyujie)
 
-# What’s new in PHP 7.4? Top 10 features that you need to know
+# PHP 7.4 有什么新功能？你必须掌握的 10 大特性
 
-> In just 7 days, we’ll see the release of PHP 7.4. With new updates, reduced memory usage, and a significant performance increase will be achieved. Take a look at the 10 main features of PHP 7.4 in this article!
+> 在短短 7 天之内，我们看到了 PHP 7.4 的发布。更新包括：减少内存的使用、性能显著提升。看下本文中 PHP 7.4 的 10 大主要特性。
 
-![](https://cdn-images-1.medium.com/max/2880/1*8mxvcgkYyzk_7o_e6Wp_qw.jpeg)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20191204181917.png)
 
-Why are some programming languages so popular while others are seldom used for project development and sometimes even fall into oblivion? There are plenty of reasons for that. The simplicity of syntax, functionality, development network, and community support affect the demand level for each technology.
+为什么有些编程语言如此的流行，而其他编程语言却很少用于项目开发，有时甚至被遗忘。有很多原因，语法的简洁性、函数化程度、开发生态以及社区支持对于每项技术需求层级的影响。
 
-As the world of IT is constantly developing, coding technologies have to keep pace with the changing environment by providing new features, updates, and enhancements. This is one of the most important elements of language success.
+随着全世界 IT 的不断发展，编码技术必须要通过提供、更新或者增强新特性来应对不断变化的环境。这也是一门编程语言成功最重要的因素之一。
 
-In our company, I enjoy PHP due to the frequent improvements being performed each year and believe that it will be popular for many years to come. Since the release of PHP 5 in 2004, its performance has doubled and perhaps, even tripled. This is one of the reasons why we use PHP in our [software development company](https://y-sbm.com/).
+在我们公司，由于每年都频繁地改进并优化性能，因此，我很喜欢 PHP，并且我相信在未来几年也会广受欢迎。自从 2004 年 PHP 5 发布以来，它的性能已经翻倍或许甚至翻了三倍，这就是为什么我们[软件开发公司](https://y-sbm.com/)会使用 PHP 语言来开发的原因之一。
 
-It’s no wonder that for the second year in a row, PHP is among the top 10 most popular programming languages according to [StackOverflow Developer Survey 2019](https://insights.stackoverflow.com/survey/2019#technology). This year, it took the 8th place which is one rank higher than [in the previous year](https://insights.stackoverflow.com/survey/2019#technology).
+毫无疑问，根据 [2019 StackOverflow 开发者调查结果](https://insights.stackoverflow.com/survey/2019#technology)，PHP 连续第二年成为十大最受欢迎的编程语言之一。今年，它排在第八位，比[去年排名](https://insights.stackoverflow.com/survey/2018#technology)高出一位。
 
-In just **7 days**, on Thursday, November 28th, we’ll see the new release of PHP — PHP 7.4, which will become one of the most feature-packed versions ever. In this article, I will list and cover the updated features overview of PHP 7.4. Let’s get started!
+在 7 天之后，也就是 11 月 28 日星期四，我们会看到 PHP 新版本的发布 —— PHP 7.4，它将成为有史以来功能最丰富的版本之一。这篇文章，我将列出并介绍 PHP 7.4 的更新特性概述。让我们开始吧！
 
-## What’s new in PHP 7.4? PHP features list
+## PHP 7.4 的新功能是什么？PHP 特性列表
 
-#### 1. Arrow functions’ support
+#### 1. 箭头函数的支持
 
-Since anonymous functions, or closures, are mainly applied in JS, they seem to be verbose in PHP. Their implementation and maintenance procedures are also more complex.
+由于匿名函数或闭包主要应用于 JS 中，因此，他们在 PHP 中似乎很啰嗦，他们的实现和程序的维护也会更复杂一些。
 
-The introduction of arrow functions’ support will enable PHP developers to dramatically clean up their code and make the syntax more concise. As a result, you will get a higher level of code readability and simplicity. Take a look at the example below.
+引入对箭头函数的支持使得 PHP 开发者大大简化他们的代码并且使语法更加简洁。这样，你代码的可读性和简洁性会大大提高。看下面的例子。
 
-So, if you previously had to write this piece of code:
+因此，如果是以前的话，你必须按以下代码块写：
 
-```
+``` php
 function cube($n){
 
 return ($n * $n * $n);
@@ -45,9 +45,9 @@ $b = array_map('cube', $a);
 print_r($b);
 ```
 
-With PHP 7.4, you will be able to rewrite it in the following way:
+在 PHP 7.4 发布后，你就可以按如下的方法写：
 
-```
+``` php
 $a = [1, 2, 3, 4, 5];
 
 $b = array_map(fn($n) => $n * $n * $n, $a);
@@ -55,37 +55,37 @@ $b = array_map(fn($n) => $n * $n * $n, $a);
 print_r($b);
 ```
 
-Thanks to the ability to create neat, shorter code, the web development process will go faster, allowing you to save time.
+由于拥有了创建整齐、更短代码的能力。web 开发过程将会更快，也节省了你的时间。
 
-#### 2. Typed properties’ support
+#### 2. 类型化属性的支持
 
-The introduction of typed properties in the next release will likely be considered one of the most important updated PHP features. While previously there was no possibility to use declaration methods for class variables and properties (including static properties), now programmers can easily code it without creating specific getter and setter methods.
+在下一个版本引入类型化属性可能被视为 PHP 最重要的特性更新之一。虽然之前不可能将声明方法用于类变量和属性（包括静态属性），但现在程序员能很轻松地进行编码，而无需创建特定的 getter 和 setter 方法。
 
-Due to declaration types (excluding void and callable), you can use nullable types, int, float, array, string, object, iterable, self, bool, and parent.
+由于声明类型（不包括 void 和 callable），你可以使用可为空（Nullable）类型，即 int、float、array、string、object、iterable、self、bool 和 parent。
 
-If a web developer tries to assign an irrelevant value from the type, for instance, declaring $name as string, he or she will get a TypeError message.
+如果一位 web 开发者尝试从类型中分配一个不相关的值，例如，声明 name 变量为字符串类型，他或她就会接收到 TypeError 的报错。
 
-Like arrow functions, typed properties also let PHP engineers make their code shorter and cleaner
+像箭头函数一样，类型化属性也能让 PHP 工程师写出更简短和清晰的代码。
 
-#### 3. Preloading
+#### 3. 预加载
 
-The main purpose of this cool new feature is to increase PHP 7.4 performance. Simply put, preloading is the process of loading files, frameworks, and libraries in [OPcache](https://www.php.net/manual/en/book.opcache.php) and is definitely a great addition to the new release. For example, if you use a framework, its files had to be downloaded and recompiled for each request.
+这个很酷新特性的主要目的是提升 PHP 7.4 的性能。简而言之，预加载是在 [OPcache](https://www.php.net/manual/en/book.opcache.php) 中加载文件、框架和库的过程，绝对是新版本的最佳补充。例如，如果你使用框架，则必须为每个请求下载并重新编译其文件。
 
-When configuring OPcache, for the first time these code files participate in the request processing and then they are checked for changes each time. Preloading enables the server to load the specified code files into shared memory. It’s important to note that they will be constantly available for all subsequent requests without additional checks for file changes.
+在配置 OPcache 的时候，这些代码文件首次参与请求处理，然后每次都检查它们的更改。预加载使服务器可以将指定的代码文件加载到共享内存中。请务必注意，它们将始终可用于后续所有的请求，而无需检查其他文件的改变。
 
-It is also noteworthy to mention that during preloading, PHP also eliminates needless includes and resolves class dependencies and links with traits, interfaces, and more.
+还值得一提的是，在预加载期间，PHP 还消除了不必要的包含，并解决了类依赖以及具有 Traits 和 Interfaces 等的链接。
 
-#### 4. Covariant returns & contravariant parameters
+#### 4. 协变量返回和协变量参数
 
-At the moment, PHP has mostly invariant parameter types and invariant return types which presents some constraints. With the introduction of covariant (types are ordered from more specific to more generic) returns and contravariant (types are ordered from more generic to more specific) parameters, PHP developers will be able to change the parameter’s type to one of its supertypes. The returned type, in turn, can be easily replaced by its subtype.
+目前，PHP 中大多数是不变的参数类型和不变的返回类型，这带来了一些约束。随着协变量（类型从更具体到更通用）返回和协变量（类型从更通用到更具体）参数的引入，PHP 开发者们将能够将参数类型更改为超类型之一。
 
-#### 5. Weak References
+#### 5. 弱引用
 
-In PHP 7.4, the WeakReference class allows web developers to save a link to an object that does not prevent its destruction. Don’t confuse it with the WeakRef class of the Weakref extension. Due to this feature, they can more easily implement cache-like structures.
+在 PHP 7.4 中，弱引用类（WeakReference class）允许 web 开发者们将链接保存到不阻止其销毁的对象中。请勿将弱引用类和弱引用扩展混淆。由于这些特性，它们更容易实现类似缓存的结构。
 
-See the example of using this class:
+请参考使用此类的示例：
 
-```
+``` php
 <?php
 
 $obj = new stdClass;
@@ -101,45 +101,39 @@ var_dump($weakref->get());
 ?>
 ```
 
-Also, note that you can’t serialize Weak References.
+另外，请注意，你无法序列化弱引用。
 
-#### 6. Coalescing assign operator
+#### 6. 合并分配运算符
 
-A coalesce operator is another new feature available in PHP 7.4. It’s very helpful when you need to apply a ternary operator together with isset(). This will enable you to return the first operand if it exists and is not NULL. If not, it will just return the second operand.
+合并运算符是 PHP 7.4 提供的另一个新功能。当你需要将三元运算符和 isset 方法一起使用时非常有用。如果它存在且不为空，那么就会返回第一个操作数，否则就会返回第二个操作数。
 
-Here is an example:
+这就是个例子：
 
-```
+``` php
 <?php
 
-// Fetches the value of $_GET['user'] and returns 'nobody'
-
-// if it does not exist.
+// 获取 $_GET['user'] 的值，如果它不存在则返回 nobody
 
 $username = $_GET['user'] ?? 'nobody';
 
-// This is equivalent to:
+// 这等价于：
 
 $username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
 
-// Coalescing can be chained: this will return the first
-
-// defined value out of $_GET['user'], $_POST['user'], and
-
-// 'nobody'.
+// 链式合并：将返回 $_GET['user']、$_POST['user'] 以及 noboody 中第一个不为 NULL 的值
 
 $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 
 ?>
 ```
 
-#### 7. A spread operator in array expression
+#### 7. 数组表达式中的展开运算符
 
-PHP 7.4 will give engineers the ability to use spread operators in arrays that are faster compared to array_merge. There are two key reasons for that. First, a spread operator is considered to be a language structure and array_merge is a function. The second reason is that now your compile-time can be optimized for constant arrays. As a consequence, you will have increased PHP 7.4 performance.
+与 array_merge 相比，在 PHP 7.4 中，工程师们能在数组中使用展开运算符。有两个主要原因，首先，展开运算符被认为是一种语言结构，而 array_merge 是一个函数，其次是针对常量数组“编译时”的优化。因此 PHP 7.4 的性能将会提升。
 
-Take a look at the example of argument unpacking in array expression:
+看一下数组表达式中的参数解压缩示例：
 
-```
+``` php
 $parts = ['apple', 'pear'];
 
 $fruits = ['banana', 'orange', ...$parts, 'watermelon'];
@@ -147,25 +141,25 @@ $fruits = ['banana', 'orange', ...$parts, 'watermelon'];
 var_dump($fruits);
 ```
 
-Also, it will be possible to expand the same array multiple times. Furthermore, since normal elements can be added before or after the spread operator, PHP developers will be able to use its syntax in the array.
+同样，它也有可能展开同一数组多次。此外，由于可以在扩展运算符的前后添加普通元素，因此 PHP 开发人员将能够在数组中使用其语法。
 
-#### 8. A new custom object serialization mechanism
+#### 8. 新的自定义对象序列化机制
 
-In the new version of PHP, two new methods become available: __serialize and __unserialize. Combining the versatility of the Serializable interface with the approach of implementing __sleep / __ wakeup methods, this serialization mechanism will allow PHP developers to avoid customization issues associated with the existing methods. Find out [more information about this PHP feature](https://wiki.php.net/rfc/custom_object_serialization).
+在 PHP 新的版本中，有两种新的可用方法 __serialize 和 __unserialize。将 Serializable 接口的多功能性与实现 __sleep 和 __wakeup 方法结合起来，这种序列化机制使得 PHP 开发者可以避免与已存在的方法产生一些自定义的问题。发现[有关 PHP 特性的更多信息](https://wiki.php.net/rfc/custom_object_serialization)。
 
-#### 9. Reflection for references
+#### 9. 为引用提供的反射
 
-Libraries, such as symfony/var-dumper, heavily rely on ReflectionAPI to accurately display variables. Previously, there was no proper support for reference reflection, which forced these libraries to rely on hacks to detect references. PHP 7.4 adds the ReflectionReference class which solves this problem.
+类似于 symfony/var-dumper 之类的库，严重依赖 Reflection API 来准确罗列变量。原来，对于引用反射没有很好的支持，这迫使这些库只能依靠 hack 的方式来检测引用。在 PHP 7.4 中添加了 ReflectionReference 类来解决此问题。
 
-#### 10. Support for throwing exceptions from __toString()
+#### 10. 支持从 __toString() 方法抛出异常
 
-Previously there was no ability to throw exceptions from the __toString method. The reason for that is the conversion of objects to strings is performed in many functions of the standard library, and not all of them are ready to “process” exceptions correctly. As part of this RFC, a comprehensive audit of string conversions in the codebase was carried out and this restriction was removed.
+之前无法从 __toString 方法中抛出异常。原因是标准库中的许多函数都执行从对象到字符串的转化，它们当中并非所有的都准备好正确的“处理”异常。作为该 RFC 的一部分，对代码库中的字符串转换进行了全面的审核，并取消了此限制。
 
-## Final thoughts
+## 最后的思考
 
-In just a week, PHP 7.4 will be released. There are plenty of new PHP features that reduce memory usage and greatly increase PHP 7.4 performance. You will gain the ability to avoid some previous limitations of this programming language, write cleaner code, and create web solutions faster.
+在短短的一周之内，PHP 7.4 将发布。有许多新的 PHP 特性会减少内存的使用并且大大提升 PHP 7.4 的性能。你将能够避免此编程语言之前的某些限制，编写更加简洁的代码，并更快地创建 web 解决方案。
 
-The Beta 3 version is already available for downloading and testing on dev servers. However, I wouldn’t recommend using it on your production servers and live projects. If you have questions about PHP 7.4/PHP development or just enjoyed the article, feel free to leave your comments below.
+Beta 3 版本已经可以下载并用于测试服务器的测试了。然而，我并不建议你在生产环境或者正在开发的项目中使用它。如果你对于 PHP 7.4 或者 PHP 开发还有疑惑，或者仅仅只是喜欢这篇文章，欢迎在下方留下你的评论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
