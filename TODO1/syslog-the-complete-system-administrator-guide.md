@@ -2,259 +2,259 @@
 > * 原文作者：[Schkn](https://devconnected.com/author/schkn/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md)
-> * 译者：
-> * 校对者：
+> * 译者：[githubmnume](https://github.com/githubmnume)
+> * 校对者：[todaycoder001](https://github.com/todaycoder001), [shixi-li](https://github.com/shixi-li), [portandbridge](https://github.com/portandbridge)
 
-# Syslog : The Complete System Administrator Guide
+# Syslog：系统管理员完整指南
 
-[![Syslog : The Complete System Administrator Guide](https://devconnected.com/wp-content/themes/soledad/images/penci2-holder.png "syslog featured")](https://devconnected.com/wp-content/uploads/2019/08/syslog-featured-1.png) 
+![Syslog: The Complete System Administrator Guide](https://devconnected.com/wp-content/uploads/2019/08/syslog-featured-1.png)
 
-If you are a **system administrator**, or just a regular Linux user, there is a very high chance that you worked with **Syslog**, at least one time.
+如果你是**系统管理员**，或者只是一个普通的 Linux 用户，那么你很有可能至少使用过一次 **Syslog**。
 
-On your Linux system, pretty much everything related to system logging is linked to the **Syslog protocol**.
+在你的 Linux 系统上，几乎所有与系统日志相关的东西都与 **Syslog 协议**有关。
 
-Designed in the early 80’s by Eric Allman (from Berkeley University), the syslog protocol is a specification that defines a **standard for message logging on any system**.
+协议由埃里克·奥尔曼（伯克利大学）在 80 年代早期设计，它是一个规范，定义了**任何系统上消息记录的标准**。
 
-Yes.. any system.
+是的……任何系统。
 
-Syslog is not tied to Linux operating systems, it can also be used on Windows instances, or ony operating system that implements the syslog protocol.
+Syslog 并不依赖 Linux 操作系统，它也可以在 Windows 操作系统上使用，或者在任何实现 syslog 协议的操作系统上使用。 
 
-If you want to know more about syslog and about Linux logging in general, this is probably the tutorial that you should read.
+如果你想更多地了解 syslog 和通常的 Linux 日志记录，这可能是你应该阅读的教程。
 
-**Here is everything that you need to know about Syslog.**
+**以下是你需要了解的关于 syslog 的所有信息。**
 
-## I – What is the purpose of Syslog?
+## I – Syslog 的目的是什么？
 
 ![Syslog presentation card](https://devconnected.com/wp-content/uploads/2019/08/syslog-card.png)
 
-**Syslog is used as a standard to produce, forward and collect logs produced on a Linux instance. Syslog defines severity levels as well as facility levels helping users having a greater understanding of logs produced on their computers. Logs can later on be analyzed and visualized on servers referred as Syslog servers.**
+**Syslog 是生成、转发和收集在 Linux 实例上生成日志的标准。Syslog 定义了严重性级别和设施级别，有助于用户更好地理解其计算机上生成的日志。日志稍后可以在部署 Syslog 协议的服务器上分析和展示。**
 
-Here are a few more reasons why the syslog protocol was designed in the first place:
+以下是 syslog 协议最初设计的几个原因：
 
-* **Defining an architecture**: this will be explained in details later on, but if syslog is a protocol, it will probably be part of a complete network architecture, with multiple clients and servers. As a consequence, we need to define roles, in short : are you going to receive, produce or relay data?
-* **Message format**: syslog defines the way messages are formatted. This obviously needs to be standardized as logs are often parsed and stored into different storage engines. As a consequence, we need to define what a syslog client would be able to produce, and what a syslog server would be able to receive;
-* **Specifying reliability**: syslog needs to define how it handles messages that can not be delivered. As part of the TCP/IP stack, syslog will obviously be opiniated on the underlying network protocol (TCP or UDP) to choose from;
-* **Dealing with authentication or message authenticity:** syslog needs a reliable way to ensure that clients and servers are talking in a secure way and that messages received are not altered.
+* **定义体系结构**：稍后将详细解释这一点，但是如果 syslog 是一个协议，它可能是具有多个客户端和服务器的完整网络体系结构的一部分。因此，我们需要定义角色，简而言之：你是接收、生成还是转发数据？
+* **消息格式**：syslog 定义了消息的格式化方式。这显然需要标准化，因为日志经常被解析并存储到不同的存储引擎中。因此，我们需要定义 syslog 客户端能够产生什么，syslog 服务器能够接收什么；
+* **指定可靠性**：syslog 需要定义它如何处理无法传递的消息。作为 TCP/IP 堆栈的一部分，syslog 显然会在底层网络协议（TCP 或 UDP）上被选择；
+* **处理身份验证或消息真实性**：syslog 需要一种可靠的方法来确保客户端和服务器以安全的方式进行交互，并且接收到的消息不会被更改。
 
-Now that we know why Syslog is specified in the first place, **let’s see how a Syslog architecture works.**
+现在我们知道最初为什么制定 Syslog，**让我们看看 Syslog 架构是如何工作的。** 
 
-## II – What is Syslog architecture?
+## II – 什么是 Syslog 架构?
 
-When designing a logging architecture, like a centralized logging server, it is very likely that multiple instances will work together.
+当设计一个日志架构时，比如一个集中式日志服务器，很可能多个实例会一起工作。
 
-Some will generate log messages, and they will be called “**devices**” or “**syslog clients**“.
+有些实例将生成日志消息，它们将被称为“**设备**”或 “**syslog 客户端**”。
 
-Some will simply forward the messages received, they will be called “**relays**“.
+有些只是转发收到的消息，它们将被称为“**中继**”。
 
-Finally, there is some instances where you are going to receive and store log data, those are called “**collectors**” or “syslog servers”.
+最后，在某些情况下，你将接收和存储日志数据，这些被称为“**收集器**”或 “**syslog 服务器**”。
 
 ![Syslog architecture components](https://devconnected.com/wp-content/uploads/2019/08/syslog-component-arch.png)
 
-Knowing those concepts, we can already state that a standalone Linux machine acts as a “**syslog client-server**” on its own : it **produces** log data, it is **collected** by rsyslog and stored right into the filesystem.
+了解这些概念后，我们可以说独立的 Linux 计算机本身就充当了 “**syslog 客户端 - 服务器**”：它**生成**日志数据，由 rsyslog **收集**并存储到文件系统中。
 
-Here’s a set of architecture examples around this principle.
+这里有一组围绕这一原则的架构示例。
 
-In the first design, you have one device and one collector. This is the most simple form of logging architecture out there.
+在第一种设计中，你有一个设备和一个收集器。这是最简单的日志架构形式。
 
 ![One device and one collector](https://devconnected.com/wp-content/uploads/2019/08/arch-1.png)
 
-Add a few **more clients** in your infrastructure, and you have the basis of a **centralized logging architecture.**
+在你的基础架构中添加一些**更多的客户端**，你就拥有了**集中式日志架构**的基础。
 
 ![Multiple devices and one collector](https://devconnected.com/wp-content/uploads/2019/08/arch-2.png)
 
-Multiple clients are producing data and are sending it to a centralized syslog server, responsible for aggregating and storing client data.
+多个客户端正在生成数据，并将其发送到负责聚合和存储客户端数据的集中式 syslog 服务器。
 
-If we were to complexify our architecture, we can add a “**relay**“.
+如果我们要复杂化我们的架构，我们可以添加一个“**中继**”。
 
-Examples of relays could be **Logstash** instances for example, but they also could be **rsyslog rules** on the client side.
+例如，中继可以是 **Logstash** 实例，但在客户端也可以是 **rsyslog 规则**。
 
 ![Multiple devices, one collector and one relay](https://devconnected.com/wp-content/uploads/2019/08/arch-3-1.png)
 
-Those relays act most of the time as “content-based routers” ([if you are not familiar with content-based routers, here is a link to understand it](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html)).
+这些中继大多充当“基于内容的路由器”（[如果你不熟悉基于内容的路由器，这里有一个链接便于你理解它](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html)）。
+这意味着基于日志内容，数据将被重定向到不同的位置。如果你对数据不感兴趣，也可以将其完全丢弃。
 
-It means that based on the log content, data will be redirected to different places. Data can also be completely discarded if you are not interested in it.
+现在我们已经有了详细的 Syslog 组件，让我们看看 Syslog 消息是什么样子的。
 
-Now that we have detailed Syslog components, let’s see what a Syslog message looks like.
+## III – Syslog 消息格式是什么？
 
-## III – What is Syslog message format?
+Syslog 格式分为三个部分：
 
-The syslog format is divided into three parts:
-
-* **PRI part**: that details the message priority levels (from a debug message to an emergency) as well as the facility levels (mail, auth, kernel);
-* **HEADER part:** composed of two fields which are the TIMESTAMP and the HOSTNAME, the hostname being the machine name that sends the log;
-* **MSG part:** this part contains the actual information about the event that happened. It is also divided into a TAG and a CONTENT field.
+* **PRI 部分**： 详细说明消息优先级（从调试消息到紧急事件）以及设施级别（邮件、授权、内核）；
+* **HEADER 部分**： 由时间戳和主机名两个字段组成，主机名是发送日志的计算机名；
+* **MSG 部分**： 该部分包含发生事件的实际信息。它也分为 TAG 和 CONTENT 字段。
 
 ![Syslog format explained](https://devconnected.com/wp-content/uploads/2019/08/syslog-format.png)
 
-Before detailing the different parts of the syslog format, let’s have a quick look at syslog severity levels as well as syslog facility levels.
+在详细描述 syslog 格式的不同部分之前，让我们快速了解 syslog 的严重性级别以及系统日志设施级别。
 
-### a – What are Syslog facility levels?
+### a – 什么是 Syslog 设施级别？
 
-In short, **a facility level** is used to determine the program or part of the system that produced the logs.
+简单来说，**设施级别**用于确定生成日志的程序或系统的一部分。
 
-By default, some parts of your system are given facility levels such as the kernel using the **kern facility**, or your **mailing system using the mail facility.**
+默认情况下，系统的某些部分会被赋予功能级别，例如使用 **kern 功能的内核**，或者**使用邮件功能的邮件系统。**
 
-If a third-party wants to issue a log, it would probably a reserved set of facility levels from 16 to 23 called “**local use” facility levels.**
+如果第三方想要记录日志，它可能会保留一组从 16 到 23 的设施级别，称为**“本地使用”设施级别**。
 
-Alternatively, they can use the “**user-level**” facility, meaning that they would issue logs related to the user that issued the commands.
+或者，他们可以使用“**用户级别**”工具，这意味着他们可以记录与执行命令的用户相关的日志。
 
-In short, if my Apache server is run by the “apache” user, then the logs would be stored under a file called “apache.log” (<user>.log)
+简而言之，如果我的 Apache 服务器由 “apache” 用户运行，那么日志将存储在一个名为 “apache.log” 的文件中（<user>.log）
 
-**Here are the Syslog facility levels described in a table:**
+**下表描述了 Syslog 设施级别：**
 
 | **Numerical Code** | **Keyword**      | **Facility name**       |
 | ------------------ | ---------------- | ----------------------- |
-| 0                  | kern	            | Kernel messages         |
-| 1                  | user	            | User-level messages     |
-| 2                  | mail	            | Mail system             |
+| 0                  | kern             | Kernel messages         |
+| 1                  | user             | User-level messages     |
+| 2                  | mail             | Mail system             |
 | 3                  | daemon           | System Daemons          |
-| 4                  | auth	            | Security messages       |
+| 4                  | auth             | Security messages       |
 | 5                  | syslog           | Syslogd messages        |
-| 6                  | lpr	            | Line printer subsystem  |
-| 7                  | news	            | Network news subsystem  |
-| 8                  | uucp	            | UUCP subsystem          |
-| 9                  | cron	            | Clock daemon            |
-| 10                 | authpriv	        | Security messages       |
-| 11                 | ftp	FTP         | daemon                  |
-| 12                 | ntp	NTP         | subsystem               |
-| 13                 | security	        | Security log audit      |
-| 14                 | console	        | Console log alerts      |
+| 6                  | lpr              | Line printer subsystem  |
+| 7                  | news             | Network news subsystem  |
+| 8                  | uucp             | UUCP subsystem          |
+| 9                  | cron             | Clock daemon            |
+| 10                 | authpriv         | Security messages       |
+| 11                 | ftp  FTP         | daemon                  |
+| 12                 | ntp  NTP         | subsystem               |
+| 13                 | security         | Security log audit      |
+| 14                 | console          | Console log alerts      |
 | 15                 | solaris-cron     | Scheduling logs         |
-| 16-23              | local0 to local7	| Locally used facilities |
+| 16-23              | local0 to local7 | Locally used facilities |
 
-Do those levels sound familiar to you?
+这些级别你是不是很眼熟？
 
-Yes! On a Linux system, by default, files are separated by facility name, meaning that you would have a file for auth (auth.log), a file for the kernel (kern.log) and so on.
+是的！在 Linux 系统中，默认情况下，文件由设施名称分隔，这意味着你将有一个用于身份验证的文件（auth.log），一个用于内核的文件（kern.log）等等。
 
-Here’s a screenshot example of [my Debian 10 instance](https://devconnected.com/how-to-install-and-configure-debian-10-buster-with-gnome/).
+这是[我的 Debian 10 实例的截屏示例](https://devconnected.com/how-to-install-and-configure-debian-10-buster-with-gnome/).
 
-![Showing facility logs on debian 10](https://devconnected.com/wp-content/uploads/2019/08/var-log-debian-10.png)
+![展示 debian 10 上的设施日志](https://devconnected.com/wp-content/uploads/2019/08/var-log-debian-10.png)
 
-Now that we have seen syslog facility levels, let’s describe what syslog severity levels are.
+现在我们已经看到了 syslog 设施级别，让我们来描述什么是 syslog 严重性级别。
 
-### b – What are Syslog severity levels?
+### b – Syslog 严重性级别是什么？
 
-**Syslog severity levels** are used to how severe a log event is and they range from debug, informational messages to emergency levels.
+**Syslog 严重级别**用于事件的严重程度，范围从调试、信息消息到紧急级别。
 
-Similarly to Syslog facility levels, severity levels are divided into numerical categories ranging from 0 to 7, 0 being the **most critical emergency level**.
+与 Syslog 设施级别相似，严重性级别分为 0 到 7 的数字类别，0 是**最紧急的紧急级别**。
 
-**Here are the syslog severity levels described in a table:**
+**下表中描述的是 syslog 严重性级别：**
 
 | **Value** | **Severity**  | **Keyword** |
 | --------- | ------------- | ------------|
-| 0         | Emergency	    | `emerg`     |
-| 1         | Alert	        | `alert`     |
-| 2         | Critical	    | `crit`      |
-| 3         | Error	        | `err`       |
-| 4         | Warning	    | `warning`   |
-| 5         | Notice	    | `notice`    |
-| 6         | Informational	| `info`      |
-| 7         | Debug	        | `debug`     |
+| 0         | Emergency     | `emerg`     |
+| 1         | Alert         | `alert`     |
+| 2         | Critical      | `crit`      |
+| 3         | Error         | `err`       |
+| 4         | Warning       | `warning`   |
+| 5         | Notice        | `notice`    |
+| 6         | Informational | `info`      |
+| 7         | Debug         | `debug`     |
 
-Even if logs are stored by facility name by default, you could totally decide to have them stored by severity levels instead.
+即使默认情况下日志是按设施名称存储的，你也可以完全按事件的严重性级别来存储它们。
 
-If you are using rsyslog as a default syslog server, you can check **[rsyslog properties](https://www.rsyslog.com/doc/master/configuration/properties.html)** to configure how logs are separated.
+如果你使用 rsyslog 作为默认系统日志服务器，你可以检查 **[rsyslog 属性](https://www.rsyslog.com/doc/master/configuration/properties.html)** 配置日志的分隔方式。
 
-Now that you know a bit more about facilities and severities, let’s go back to our **syslog message format.**
+现在你对设施和严重性有了更多的了解，让我们回到 **syslog 消息格式。**
 
-### c – What is the PRI part?
+### c – PRI 部分是什么？
 
-The PRI chunk is the first part that you will get to read on a syslog formatted message.
+PRI 块是 syslog 格式消息的第一部分。
 
-The PRI stores the “**Priority Value**” between angle brackets.
+PRI 在尖括号之间存储“**优先级值**”。
 
-> Remember the facilities and severities you just learned?
+> 还记得你刚刚学到的设施和严重程度吗？
 
-If you take the message facility number, multiply it by eight, and add the severity level, you get the “Priority Value” of your syslog message.
+如果你使用消息设施号，将其乘以 8，并加上严重性级别，你将获得 syslog 消息的“优先级值”。
 
-Remember this if you want to **decode** your syslog message in the future.
+如果你希望将来**解码**你的 syslog 消息，请记住这一点。
 
 ![](https://devconnected.com/wp-content/uploads/2019/08/pri-calc-fixed.png)
 
-### d – What is the HEADER part?
+### d – HEADER 部分是什么？
 
-As stated before, the HEADER part is made of two crucial information : the **TIMESTAMP** part and the **HOSTNAME** part (that can sometimes be resolved to an IP address)
+如前所述，HEADER 部分由两个关键信息组成: **TIMESTAMP** 部分和 **HOSTNAME** 部分(有时可以解析为一个 IP 地址)
 
-This HEADER part directly follows the PRI part, right after the right angle bracket.
+该 HEADER 部分直接连着 PRI 部分，正好在右尖括号之后。
 
-It is noteworthy to say that the **TIMESTAMP** part is formatted on the “**Mmm dd hh:mm:ss**” format, “Mmm” being the first three letters of a month of the year.
+值得注意的是 **TIMESTAMP** 部分的格式是 “**Mmm dd hh:mm:ss**” 格式，“Mmm” 是一年中一个月的前三个字母。
 
 ![HEADER part examples](https://devconnected.com/wp-content/uploads/2019/08/HEADER-example.png)
 
-When it comes to the **HOSTNAME**, it is often the one given when you type the hostname command. If not found, it will be assigned either the IPv4 or the IPv6 of the host.
+谈到 **HOSTNAME** ，它通常是在你键入 HOSTNAME 命令时给出的。如果找不到，将为其分配主机的 IPv4 或 IPv6。
 
 ![Hostname on Debian 10](https://devconnected.com/wp-content/uploads/2019/08/debian-10-hostname.png)
 
-## IV – How does Syslog message delivery work?
+## IV – Syslog 消息传递是如何工作的？
 
-When issuing a syslog message, you want to make sure that you use reliable and secure ways to deliver log data.
+发布 Syslog 消息时，你需要确保使用可靠和安全的方式来传递日志数据。 
 
-Syslog is of course opiniated on the subject, and here are a few answers to those questions.
+Syslog 在这方面当然也自有一套想法，下面是这些问题的一些解答。
 
-### a – What is syslog forwarding?
+### a – syslog 转发是什么？
 
-**Syslog forwarding consists in sending clients logs to a remote server in order for them to be centralized, making log analysis and visualization easier.**
+**Syslog 转发包括将客户端日志发送到远程服务器，以便对其进行集中记录，从而使日志分析和可视化更加容易。** 
 
-Most of the time, system administrators are not monitoring one single machine, but they have to monitor dozens of machine, on-site and off-site.
+大多数情况下，系统管理员不是监控一台机器，而是需要现场和远程监控几十台机器。
 
-As a consequence, it is a very common practice to send logs to a distant machine, called a centralized logging server, using different communication protocols such as UDP or TCP.
+因此，使用不同的通信协议（如 UDP 或 TCP）将日志发送到称为集中式日志服务器的远程机器是一种非常常见的做法。
 
-### b – Is Syslog using TCP or UDP?
+### b – Syslog 使用 TCP 还是 UDP ？
 
-As specified on [the RFC 3164 specification](https://tools.ietf.org/html/rfc3164#section-6.4), syslog clients use UDP to deliver messages to syslog servers.
+根据[ RFC 3164规范](https://tools.ietf.org/html/rfc3164#section-6.4)的规定，syslog 客户端使用 UDP 向系统日志服务器发送消息。 
 
-Moreover, Syslog uses the port 514 for UDP communication.
+此外，Syslog 使用端口 514 进行 UDP 通信。
 
-However, on recent syslog implementations such as rsyslog or syslog-ng, you have the possibility to use TCP (Transmission Control Protocol) as a secure communication channel.
+但是，在最近的 syslog 实现中，例如 rsyslog 或 syslog-ng，你可以使用 TCP (Transmission Control Protocol) 作为安全的通信通道。
 
-For example, rsyslog uses the port 10514 for TCP communication, ensuring that no packets are lost along the way.
+例如，rsyslog 使用端口 10514 进行 TCP 通信来确保传输链路中没有数据包丢失。
 
-Furthermore, you can use the TLS/SSL protocol on top of TCP to encrypt your Syslog packets, making sure that no man-in-the-middle attacks can be performed to spy on your logs.
+此外，你可以基于 TCP 使用 TLS/SSL 协议来加密系统日志数据包，确保不会出现中间人攻击来监视你的日志。
 
-If you are curious about rsyslog, here’s a tutorial on [how to setup a complete centralized logging server in a secure and reliable way.](https://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-linux/)
+如果你对 rsyslog 感兴趣，这里有一个关于[如何以安全可靠的方式设置一个完整的集中式日志服务器的教程。](http://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-Linux/)
 
-## V – What are current Syslog implementations?
+## V – 当前的 Syslog 实现有哪些？
 
-Syslog is a specification, but not the actual implementation in Linux systems.
+Syslog 是一个规范，但不是 Linux 系统中的实际实现。
 
-Here is a list of current Syslog implementations on Linux:
+以下是 Linux 上当前 Syslog 实现的列表：
 
-* **Syslog daemon**: published in 1980, the syslog daemon is probably the first implementation ever done and only supports a limited set of features (such as UDP transmission). It is most commonly known as the sysklogd daemon on Linux;
+* **Syslog daemon**：发布于 1980 年，syslog 守护程序可能是第一个实现，并且只支持有限的一组功能（如 UDP 传输）。它通常被称为 Linux 上的 sysklogd 守护程序；
 
-* **Syslog-ng**: published in 1998, syslog-ng extends the set of capabilities of the original syslog daemon including TCP forwarding (thus enhancing reliability), TLS encryption and content-based filters. You can also store logs to local databases for further analysis.
+* **Syslog-ng**：syslog-ng 于 1998 年发布，它扩展了原始 syslog daemon 的功能集，包括 TCP 转发（从而增强了可靠性）、TLS 加密和基于内容的过滤器。你还可以将日志存储到本地数据库中以供进一步分析。
 
-![Syslog-ng presentation card](https://devconnected.com/wp-content/uploads/2019/08/syslog-ng.png)
+![Syslog-ng演示卡片](https://devconnected.com/wp-content/uploads/2019/08/syslog-ng.png)
 
-* **Rsyslog**: released in 2004 by Rainer Gerhards, rsyslog comes as a default syslog implementation on most of the actual Linux distributions (Ubuntu, RHEL, Debian etc..). It provides the same set of features as syslog-ng for forwarding but it allows developers to pick data from more sources (Kafka, a file, or Docker for example)
+* **Rsyslog**：rsyslog 于 2004 年由 Rainer Gerhards 发布，是大多数实际 Linux 发行版（ Ubuntu、RHEL、Debian 等）上的默认 syslog 实现）。它提供了与 syslog-ng 相同的转发功能，但是它允许开发人员从更多的来源（例如 Kafka、文件或者 Docker）中选择数据
 
-![Rsyslog presentation card](https://devconnected.com/wp-content/uploads/2019/08/rsyslog-card.png)
+![ Rsyslog 演示卡片](https://devconnected.com/wp-content/uploads/2019/08/rsyslog-card.png)
 
-## VI – What are the log best practices?
+## VI – 什么是日志最佳实践？
 
-When manipulating Syslog or when building a complete logging architecture, there are a few best practices that you need to know:
+在操作系统日志或构建完整的日志架构时，你需要了解一些最佳实践：
 
-* **Use reliable communication protocols unless you are willing to lose data**. Choosing between UDP (a non-reliable protocol) and TCP (a reliable protocol) really matters. Make this choice ahead of time;
-* **Configure your hosts using the NTP protocol:** when you want to work with real time log debugging, it is best for you to have hosts that are synchronized, otherwise you would have a hard time debugging events with a good precision;
-* **Secure your logs:** using the TLS/SSL protocol surely has some performance impacts on your instance, but if you are to forward authentication or kernel logs, it is best to encrypt them to make sure that no one is having access to critical information;
-* **You should avoid over-logging**: defining a good log policy is crucial for your company. You have to decide if you are interested in storing (and essentially consuming bandwidth) for informational or debug logs for example. You may be interested in having only error logs for example;
-* **Backup log data regularly:** if you are interested in keeping sensitive logs, or if you are audited on a regular basis, you may be interested in backing up your log on an external drive or on a properly configured database;
-* **Set up log retention policies:** if logs are too old, you may be interested in dropping them, also known as “rotating” them. This operation is done via the logrotate utility on Linux systems.
+* **除非你愿意丢失数据，否则请使用可靠的通信协议。** 在 UDP（一种不可靠的协议)和 TCP（一种可靠的协议）之间进行选择真的很重要。提前做出这个选择；
+* **使用 NTP 协议配置你的主机：** 当你想要使用实时日志调试时，最好让主机同步，否则很难准确调试事件；
+* **保护好你的日志：** 使用 TLS/SSL 协议肯定会对你的实例产生一些性能影响，但是如果你要转发身份验证或内核日志，最好对它们进行加密，以确保没有人能够访问关键信息；
+* **你应该避免过度记录：** 定义好的日志策略对你的公司至关重要。例如，你必须决定你是否有兴趣存储（并且基本上消耗带宽）信息日志或调试日志。例如，你可能只对错误日志感兴趣；
+* **定期备份日志数据：** 如果你关注保留敏感日志，或者如果你定期接受审计，你可能在有关的外部驱动器或正确配置的数据库上备份日志；
+* **设置日志保留策略：** 如果日志太旧，你可能会有兴趣丢弃它们，也称为“轮换”它们。该操作是通过 Linux 系统上的 logrotate 实用程序完成的。
 
-## VII – Conclusion
+## VII – 结论
 
-The Syslog protocol is definitely a classic for **system administrators** or **Linux engineers** willing to have a deeper understanding on how logging works on a server.
+对于愿意深入了解服务器中的日志功能如何运作的**系统管理员**或 **Linux 工程师**来说，syslog 协议绝对是经典之作。
 
-However, there is a time for theory, and there is a time for practice.
+然而，有理论的时候，也有实践的时候。
 
-> So where should you go from there? You have multiple options.
+> 那么你应该做什么？你有多种选择。 
 
-You can start by setting up a **syslog server** on your instance, like a Kiwi Syslog server for example, and starting gathering data from it.
+你可以从在你的实例上设置**syslog 服务器**开始，例如 Kiwi Syslog 服务器，并开始从中收集数据。
 
-Or, if you have a bigger infrastructure, you should probably start by setting up a **[centralized logging architecture](https://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-linux/)**, and later on [monitor it using very modern tools such as Kibana for visualization](https://devconnected.com/monitoring-linux-logs-with-kibana-and-rsyslog/).
+或者，如果你有更大的基础架构，你可能应该首先建立 **[集中式日志体系结构](https://devconnected.com/the-definitive-guide-to-centralized-logging-with-syslog-on-linux/)**, 然后[使用非常现代的工具如 Kibana 可视化工具对其进行监控](https://devconnected.com/monitoring-linux-logs-with-kibana-and-rsyslog/)。
 
-I hope that you learned something today.
+我希望你今天学到了一些东西。
 
-Until then, have fun, as always.
+活在当下，一如既往地享受乐趣。
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
