@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-ditched-redux-for-mobx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-ditched-redux-for-mobx.md)
 > * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
-> * 校对者：[动力小车](https://github.com/Stevens1995)、[]()
+> * 校对者：[动力小车](https://github.com/Stevens1995)
 
 # 我们如何抛弃了 Redux 而选用 MobX
 
@@ -21,7 +21,7 @@
 
 一切都开始于简单的任务：**“将 Skillshare 的页头迁移至 React。”**
 
-**“小菜一碟！”**我们立下了 flag —— 这个页头只是访客视图，只包含几个链接和一个简单的搜索框。没有授权逻辑，没有 session 管理，没有什么特别神奇的东西。
+“**小菜一碟**！”我们立下了 flag —— 这个页头只是访客视图，只包含几个链接和一个简单的搜索框。没有授权逻辑，没有 session 管理，没有什么特别神奇的东西。
 
 好的，来敲点代码吧：
 
@@ -255,7 +255,7 @@ Emmm…等一下。
 
 点了一下“**我今天感觉很幸运**”按钮，我们的到了答案：[**MobX**](https://mobx.js.org/)
 
-MobX 保证了一件事：保证你做你的工作。它将响应式编程的原则应用于 React 组件 —— 没错，讽刺的是，React 并不是开箱即具备响应式特点的。不像 Redux，你可以有很多个 store（比如 `TagsStore`, `UsersStore` 等等），或者一个总的 store，将它们绑定于组件的 props 上。它帮助你管理状态，但是如何构建它，决定权在你手里。
+MobX 保证了一件事：保证你做你的工作。它将响应式编程的原则应用于 React 组件 —— 没错，讽刺的是，React 并不是开箱即具备响应式特点的。不像 Redux，你可以有很多个 store（比如 `TagsStore`、`UsersStore` 等等），或者一个总的 store，将它们绑定于组件的 props 上。它帮助你管理状态，但是如何构建它，决定权在你手里。
 
 ![图片来自 [Hanno.co](https://hanno.co/blog/mobx-redux-alternative/)](https://cdn-images-1.medium.com/max/3200/1*QZ8X8IZfm7IPkZj0iyRC7w.png)
 
@@ -434,7 +434,7 @@ export const StoreModel = types
 export type Store = typeof StoreModel.Type;
 ```
 
-与其让你在状态管理上为所欲为，MST 通过要求你用它的规定的方式定义状态树。有人可能回想，这就是有了链式函数而不是类的 MobX，但是还有更多。这个状态树无法被修改，并且每一次修改都会创建一个新的**“快照”**，从而允许了回滚，序列化，再组合，以及所有你想念的功能。
+与其让你在状态管理上为所欲为，MST 通过要求你用它的规定的方式定义状态树。有人可能回想，这就是有了链式函数而不是类的 MobX，但是还有更多。这个状态树无法被修改，并且每一次修改都会创建一个新的“**快照**”，从而允许了回滚，序列化，再组合，以及所有你想念的功能。
 
 再来看遗留下来的问题，唯一的低分项是，这对 MobX 来讲仅仅是一个部分可用的方法，这意味着它抛弃了类和装饰器，意味着 [TypeScript 支持只能是尽力而为了。](https://github.com/mobxjs/mobx-state-tree#typescript--mst)
 
