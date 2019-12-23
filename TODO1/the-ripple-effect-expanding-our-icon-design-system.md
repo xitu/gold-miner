@@ -2,64 +2,64 @@
 > * 原文作者：[Jon Friedman](https://medium.com/@designjon)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-ripple-effect-expanding-our-icon-design-system.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-ripple-effect-expanding-our-icon-design-system.md)
-> * 译者：
+> * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# The Icon Kaleidoscope
+# 图标万花筒
 
-#### Redesigning over 100 icons with new colors, materials, and finishes
+#### 以全新的颜色、材质和润饰，重新设计超过 100 款图标
 
-![A sampling of the new Microsoft 365 icons.](https://cdn-images-1.medium.com/max/6400/1*YTjMo-ISSffSy98XbJNiyQ.png)
+![新版 Microsoft 365 图标样品。](https://cdn-images-1.medium.com/max/6400/1*YTjMo-ISSffSy98XbJNiyQ.png)
 
-Blank pages and redesigns have nothing on sequels.
+空白页和重新设计与续集无关。
 
-Last year, we rolled out the [new Office icons](https://medium.com/microsoft-design/redesigning-the-office-app-icons-to-embrace-a-new-world-of-work-91d72608ee8f?source=friends_link&sk=499905fb0d5a65d594aab35201debf40) to show our customers that we’ve evolved our products to support the changing world of work. A world where, despite being [more mobile than ever](https://medium.com/microsoft-design/microsoft365mobile-3b5b7782152c?source=friends_link&sk=6f3168beb86bf945f6c512fc38c03aad) before, social connectedness and collaboration are paramount to success. A world with immense potential for creativity and growth thanks to new flows of information.
+去年，我们推出了 [Office 新版图标](https://medium.com/microsoft-design/redesigning-the-office-app-icons-to-embrace-a-new-world-of-work-91d72608ee8f?source=friends_link&sk=499905fb0d5a65d594aab35201debf40)，以示用户我们在不断改进产品来适应瞬息万变的世界。在这个世界里，尽管[移动化愈演愈烈](https://medium.com/microsoft-design/microsoft365mobile-3b5b7782152c?source=friends_link&sk=6f3168beb86bf945f6c512fc38c03aad)，但人脉和合作仍是成功的关键。在这个世界里，新式的信息流使得创造力和增长力如虎添翼，潜质无量。
 
-Across Microsoft, we’ve worked to help facilitate and enhance these kinds of interactions and experiences. Scaling an icon design effort from 10 products to over a hundred to reflect this new world of work was both daunting and thrilling.
+在 Microsoft 的整个产品体系中，我们一直致力于帮助促进和加强交互和体验。通过将一套图标设计成果从 10 个产品扩展到 100 多个产品，来反映出这个工作世界的日新月异，这是一个艰巨而又令人兴奋的挑战。
 
-![Scaling a design across the Microsoft ecosystem requires an open and flexible system.](https://cdn-images-1.medium.com/max/4800/1*PwcHt8KDe8R3zlVV1KkaFw.png)
+![要想将一套设计推及整个 Microsoft 生态体系，需要一个开放、灵活的系统。](https://cdn-images-1.medium.com/max/4800/1*PwcHt8KDe8R3zlVV1KkaFw.png)
 
-But design teams across the company came together as a collective to develop design guidelines that encourage individuality while creating a cohesive whole. From enterprise to small business to consumer, product teams ensured each icon authentically represented both the product truth and the larger Microsoft brand.
+但全公司所有的设计团队聚集起来组成了一个集团军，来制定一系列设计指南，这些指南能够鼓励设计师们在设计内部联系紧密的整套系统时，发挥个性风格。从巨鳄企业到小本经营，再到芸芸用户，产品团队确保了每个图标都能切切实实地传达出产品的真谛和更博大的 Microsoft 品牌文化。
 
-We shared knowledge, iterations, obstacles, and successes. We compared icons in different contexts and made changes for one another. Most importantly, we inspired each other. This was truly a One Microsoft effort, and we can’t wait to hear what you think.
+我们共享知识，共同迭代，共度难关，也共同分享成功的喜悦。我们比较了不同应用场景下的图标，对不同场景做了不同的改变。更重要的是，我们彼此互相鼓舞激励。这真正是 Microsoft 万众一心的努力成果，我们迫不及待想要听到你们的反馈。
 
 ![](https://cdn-images-1.medium.com/max/4800/1*c054Q1I8PoNJoBycan9a6A.png)
 
-![From Windows utility icons to mixed reality icons in Microsoft Dynamics, all of our new icons were cut from the same cloth.](https://cdn-images-1.medium.com/max/2650/1*ub0SwM59a-Ddzpce96wyXA.png)
+![从 Windows 中的程序图标，到 Microsoft Dynamics 中的混合现实（Mixed Reality）图标，所有的新版图标都具有协调一致的气质和灵魂。](https://cdn-images-1.medium.com/max/2650/1*ub0SwM59a-Ddzpce96wyXA.png)
 
-#### Widening the aperture of our design system
+#### 扩大设计系统的覆盖范围
 
-From tools like a calculator to a mixed-reality app that puts an expert anywhere in the world, the diversity of our customers’ needs continues to grow exponentially. We needed our modern icon system to continuously reflect changing tides.
+从诸如计算器这样的工具，到能让行家里手瞬间触及世界各个角落的混合现实 App，用户需求的多样性一直呈指数级增长。我们需要让我们的现代图标系统紧随时代潮流。
 
-With the newest wave of icon redesigns, we faced two major creative challenges. We needed to signal innovation and change while maintaining familiarity for customers. We also had to develop a flexible and open design system to span a range of contexts while still being true to Microsoft.
+随着新一轮图标焕新浪潮的到来，在创造性方面，我们面临两大挑战。我们需要在创新和变革的同时，保持住用户的亲切感。我们还需要建立一套灵活、开放的设计系统，使其能够适应一系列不同的应用场景，同时仍旧忠于 Microsoft 的理念。
 
-![Rich gradients, soft curves, and fluid motion connect the Edge and Office logos to each other and the rest of the icons.](https://cdn-images-1.medium.com/max/4800/1*GFsUW-8bX2RDds_uW0MWVA.png)
+![层次丰富的渐变色、柔美的曲线以及顺滑的动态效果，使得 Edge 和 Office 的 Logo 以及其他所有图标形成一个互联的整体。](https://cdn-images-1.medium.com/max/4800/1*GFsUW-8bX2RDds_uW0MWVA.png)
 
-Our [Fluent Design System](https://medium.com/microsoft-design/evolving-the-microsoft-fluent-design-system-9b37fb890c82?source=friends_link&sk=056e4f7cdd2085c3ec9a872846b84787) was instrumental in helping us navigate both these challenges. Fluent emphasizes building off the familiar — designing for what our customers already understand, not asking them to develop new habits or learn something new. Fluent is also about creating space for a diverse yet connected system. To account for such a breadth of contexts and experiences, we expanded our initial library of icon colors, materials, and finishes.
+我们的 [Fluent 设计系统](https://medium.com/microsoft-design/evolving-the-microsoft-fluent-design-system-9b37fb890c82?source=friends_link&sk=056e4f7cdd2085c3ec9a872846b84787)能够帮助我们应对这两个挑战。Fluent 强调的是建立亲切感 —— 针对用户的现有认知进行设计，而非使他们培养新的使用习惯或者学习新的概念。Fluent 还意味着使一个多样化但具有关联性的系统成为可能。为了承载范围如此宽广的应用场景和体验，我们将初始库中的图标颜色、材质和润饰的进行了扩充。
 
 ![](https://cdn-images-1.medium.com/max/4800/1*h0A8hdtAAOb1kcTVWaD6eQ.png)
 
 ![](https://cdn-images-1.medium.com/max/4800/1*sDUl3QqhtUgdzaKIWVTR3g.png)
 
-People spend most of their working time using Microsoft Edge and Office to get things done, and the teams were excited to experiment with the new materials on these popular products. We know how important these experiences are to our customers, so the icons needed to fit in and stand out at the same time. Based on extensive testing and customer feedback, we introduced rich gradients, broadened our spectrum of colors, and implemented a dynamic motion with ribbon-like qualities.
+用户会花大量时间使用 Microsoft Edge 和 Office 来完成工作，所以一想到要在这些明星产品上试验新的设计风格，各个团队就兴奋不已。我们深知这些使用体验对用户有多么重要，因此，这些图标既要浑然一体，又要卓尔不群。基于大量的测试和用户反馈，我们采用了层次丰富的渐变色，拓宽了色彩范围，用丝带质感实现了活力十足的动态效果。
 
-Our customers are also beginning to use mixed reality to accomplish goals in a completely new way. Blending the physical and digital worlds in our icons helped us think beyond traditional manifestations of colors, finishes, and materials. We needed to consider the third dimension, so we chose new materials that reflected light and depth and felt more tactile.
+用户也开始借助混合现实，用全新的方式实现目标。将现实世界与数字世界在图标中交融，使我们能够突破传统思路的局限，尝试新的颜色、润饰和材质。我们需要考虑如何实现三维立体感，因此我们选择了能够反映光线、深度和更多触感的全新设计材质。
 
-Whether our customers use their phone, PC, or VR headset to get work done, we wanted to reach people in every environment. The newest design guidelines helped us unify icon construction across the company and within each product family.
+不论用户使用手机、PC 还是 VR 头戴设备来完成工作，我们想要在每一个场景里都能触及用户。最新的设计指南能帮我们将公司所有产品 —— 乃至每一个产品家族内部 —— 所使用的图标结构统一起来。
 
-#### Designing our future together
+#### 携手设计我们的未来
 
-Our community has been on this journey with us from the beginning, and the path to this icon redesign was no different. We conducted countless rounds of research for every icon. From mild to wild, we explored a multitude of design directions and listened to customers around the world. We learned what didn’t resonate with people (flat design and muted colors) and what did (depth, gradations, vibrant colors, and motion), all of which drove our decisions.
+从始至终，我们都和社区同舟共济，在这条重新设计图标的路上当然也没有例外。我们为每一个图标都做了无数次的调查。从婉约到豪放，我们研究了大量不同风格的设计指导方案，收集了全世界用户的意见。我们明白了什么样的设计能引起用户的共鸣（有深度、有层次、色彩丰富、富有动感），什么样的不能（扁平化设计、简约用色），是这些经验教训引导着我们去斟酌。
 
-![Designing for 3D means starting in 3D.](https://cdn-images-1.medium.com/max/4800/1*RT0pp67flyIsAqhp6Wuk3g.png)
+![设计 3D 风格意味着从立体空间开始着手。](https://cdn-images-1.medium.com/max/4800/1*RT0pp67flyIsAqhp6Wuk3g.png)
 
-As we continue to evolve our technology and roll out new icons that will reflect the future of Microsoft, our design system will also evolve to address new scenarios that we haven’t considered yet. Developing a system that encompasses the spectrum of literal to abstract while balancing product identity and the Microsoft brand is a huge challenge — but nothing worth accomplishing is ever easy.
+随着我们持续不断地提升技术、推出能够展现 Microsoft 未来风貌的图标集，我们的设计系统也会不断进化，从而适应我们未曾想到过的全新场景。建立一个既能涵盖从文字到抽象概念的全部范围，又能够平衡品牌特征和 Microsoft 整体风格的系统，这是一个巨大的挑战 —— 但只有百炼才能成钢。
 
-There’s always work to be done, but we’re incredibly proud of what our teams accomplished and can’t wait to see how you respond. Let us know your thoughts in the comments below!
+路漫漫其修远兮，但团队目前的成就已让我们颇感自豪，我们迫不及待想要得到你们的反馈。请在评论区留下你们的真知灼见！
 
 ---
 
-**To stay in-the-know with Microsoft Design, follow us on [Instagram](https://www.instagram.com/microsoft_design/), [Twitter](http://www.twitter.com/microsoftdesign) and [Facebook](http://www.facebook.com/microsoftdesign), or join our [Windows Insider program](https://insider.windows.com/). And if you are interested in joining our team at Microsoft, head over to [aka.ms/DesignCareers](http://aka.ms/designcareers).**
+**如果想要跟踪 Microsoft 设计的最新动向，请在 [Instagram](https://www.instagram.com/microsoft_design/)、[Twitter](http://www.twitter.com/microsoftdesign) 和 [Facebook](http://www.facebook.com/microsoftdesign) 关注我们，或者加入 [Windows 预览体验计划](https://insider.windows.com/)。如果你有意加入 Microsoft 团队，请点击 [aka.ms/DesignCareers](http://aka.ms/designcareers)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
