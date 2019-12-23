@@ -2,22 +2,22 @@
 > * 原文作者：[Martin Rybak](https://medium.com/@martinrybak)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-closer-look-at-the-provider-package.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-closer-look-at-the-provider-package.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[Baddyo](https://github.com/Baddyo)
 
-# A Closer Look at the Provider Package
+# 深入解析 Provider 包
 
-> Plus a Brief History of State Management in Flutter
+> 附加 Flutter 状态管理的简单背景介绍
 
 ![](https://cdn-images-1.medium.com/max/3840/1*8Ah2h28bxT0-vk18Q4xVVA.jpeg)
 
-[Provider](https://pub.dev/packages/provider) is a state management package written by [Remi Rousselet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjXrMKO8dLjAhWoT98KHUCDB_oQFjAAegQIARAB&url=https%3A%2F%2Ftwitter.com%2Fremi_rousselet&usg=AOvVaw3bEIgT0j4c_5xbq-YWB70q) that has been recently embraced by Google and the Flutter community. But what **is** state management? Heck, what is **state**? Recall that state is simply the data that represents the UI in our app. **State management** is how we create, access, update, and dispose this data. To better understand the Provider package, let’s look at a brief history of state management options in Flutter.
+[Provider](https://pub.dev/packages/provider) 是一个用于状态管理的包，其作者是 [Remi Rousselet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjXrMKO8dLjAhWoT98KHUCDB_oQFjAAegQIARAB&url=https%3A%2F%2Ftwitter.com%2Fremi_rousselet&usg=AOvVaw3bEIgT0j4c_5xbq-YWB70q)，最近，这个包在 Google 和 Flutter 社区广受欢迎。那么**什么是**状态管理呢？什么又是**状态**？我们一起来温习一下：状态就是用来表示应用 UI 的数据。**状态管理**则是我们创建、访问以及处理数据的方法。为了能更好地理解 Provider 这个包，我们先来简单回顾一下 Flutter 中的状态管理选项。
 
-## 1. StatefulWidget
+## 1. 状态组件：StatefulWidget
 
-A [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html) is a simple UI component that displays only the data it is given. A `StatelessWidget` has no “memory”; it is created and destroyed as needed. Flutter also comes with a [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html) that **does** have a memory thanks to its long-lived companion [State](https://api.flutter.dev/flutter/widgets/State-class.html) object. This class comes with a `setState()` method that, when invoked, triggers the widget to rebuild and display the new state. This is the most basic, out-of-the-box form of state management in Flutter. Here is an example with a button that always shows the last time it was tapped:
+无状态组件 [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html) 很简单，它就是一个展示数据的 UI 组件。`StatelessWidget` 没有记忆功能；并根据需要被创建或者销毁。Flutter 同时也有状态组件 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)，这个组件是有记忆功能的，此记忆功能来自于它的持久组合状态对象 [State](https://api.flutter.dev/flutter/widgets/State-class.html)。这个类中包含一个 `setState()` 方法，当该方法被调用时，会触发组件重建并渲染出新的状态。这是 Flutter 中最基本的状态管理形式。下面这个例子就是一个展示会展示最近一次被点击的时间的按钮：
 
-```
+```dart
 class _MyWidgetState extends State<MyWidget> {
   DateTime _time = DateTime.now();
 
@@ -33,17 +33,17 @@ class _MyWidgetState extends State<MyWidget> {
 }
 ```
 
-So what’s the problem with this approach? Let’s say that our app has some global state stored in a root [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html). It contains data that is intended to be used by many different parts of the UI. We share that data by passing it down to every child widget in the form of parameters. And any events that intend to mutate this data are bubbled back up in the form of callbacks. This means a lot of parameters and callbacks being passed through many intermediate widgets, which can get very messy. Even worse, any updates to that root state will trigger a rebuild of the whole widget tree, which is inefficient.
+这种写法的问题是什么呢？假设应用在根 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html) 组件中保存了一些全局状态。这些数据可能会在 UI 的很多不同部分被用到。我们将数据以参数的方式传送到每个子组件，以此共享数据。任何试图修改数据的事件都要以更新事件的方式冒泡到根组件。这就意味着，很多参数和回调函数都需要传递多层组件，这种方式会让代码非常混乱。更甚至，根状态的任何更新都会触发整个组件树的重构，这是成本非常高的。
 
-## 2. InheritedWidget
+## 2. 可继承组件：InheritedWidget
 
-[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) is a unique component in Flutter that lets a widget access an ancestor widget without having a direct reference. By simply accessing an [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html), a consuming widget is automatically rebuilt whenever the inherited widget requires it. This technique lets us be more efficient when updating our UI. Instead of rebuilding huge parts of our app in response to a small state change, we can surgically choose to rebuild only specific widgets. You’ve already used [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) whenever you’ve used `MediaQuery.of(context)` or `Theme.of(context)`. It’s probably less likely that you’ve ever implemented your own [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) though. That’s because they are [tricky to implement](https://flutterbyexample.com/set-up-inherited-widget-app-state/) correctly.
+[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 是 Flutter 中唯一可以不需要直接引用，就可以获取父级组件信息的组件。只需访问 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)，那么当其子组件需要引用它的时候，该消费组件就可以自动重新构建。这种技术让开发者可以更高效地更新 UI。此时如果想稍微修改某个状态，我们可以只有选择地重新构建 App 中特定的组件，而不必大范围地重新构建了。如果你已经使用了 `MediaQuery.of(context)` 或者 `Theme.of(context)`，那么其实你已经在应用 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 了。而由于 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) [很难正确地实现](https://flutterbyexample.com/set-up-inherited-widget-app-state/)，你也不太可能会去实现自己的一个 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)。
 
 ## 3. ScopedModel
 
-[ScopedModel](https://pub.dev/packages/scoped_model) is a package created in 2017 by [Brian Egan](https://twitter.com/brianegan) that makes it easier to use an [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) to store app state. First we have to make a state object that inherits from [Model](https://pub.dev/documentation/scoped_model/latest/scoped_model/Model-class.html), and then invoke `notifyListeners()` when its properties change. This is similar to implementing the [PropertyChangeListener](https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyChangeListener.html) interface in Java.
+[ScopedModel](https://pub.dev/packages/scoped_model) 是 [Brian Egan](https://twitter.com/brianegan) 于 2017 年创建的包，它让使用 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 存储应用状态变得更加容易了。首先，我们需要创建一个继承了 [Model](https://pub.dev/documentation/scoped_model/latest/scoped_model/Model-class.html) 的状态对象，然后在属性改变的时候调用 `notifyListeners()`。这和 Java 中 [PropertyChangeListener](https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyChangeListener.html) 接口的实现有些类似。
 
-```
+```dart
 class MyModel extends Model {
   String _foo;
 
@@ -56,18 +56,18 @@ class MyModel extends Model {
 }
 ```
 
-To expose our state object, we wrap our state object instance in a [ScopedModel](https://pub.dev/documentation/scoped_model/latest/scoped_model/ScopedModel-class.html) widget at the root of our app:
+为了暴露出状态对象，我们将其实例包裹在应用根组件的 [ScopedModel](https://pub.dev/documentation/scoped_model/latest/scoped_model/ScopedModel-class.html) 组件中。
 
-```
+```dart
 ScopedModel<MyModel>(
   model: MyModel(),
   child: MyApp(...)
 )
 ```
 
-Any descendant widget can now access `MyModel` by using the [ScopedModelDescendant](https://pub.dev/documentation/scoped_model/latest/scoped_model/ScopedModelDescendant-class.html) widget. The model instance is passed into the `builder` parameter:
+这样，任何子组件都可以通过 [ScopedModelDescendant](https://pub.dev/documentation/scoped_model/latest/scoped_model/ScopedModelDescendant-class.html) 组件获取到 `MyModel`。模块实例会作为参数传入 `builder`：
 
-```
+```dart
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -78,9 +78,9 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-Any descendant widget can also **update** the model, and it will automatically trigger a rebuild of any `ScopedModelDescendants` (provided that our model invokes `notifyListeners()` correctly):
+任何子组件也可以**更新**此模块，同时它将自动触发重新构建（前提是我们的模块都正确地调用了 `notifyListeners()`）：
 
-```
+```dart
 class OtherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -95,15 +95,15 @@ class OtherWidget extends StatelessWidget {
 }
 ```
 
-[ScopedModel](https://pub.dev/packages/scoped_model) became a popular form of state management in Flutter, but is limited to exposing state objects that extend the [Model](https://pub.dev/documentation/scoped_model/latest/scoped_model/Model-class.html) class and its change notifier pattern.
+[ScopedModel](https://pub.dev/packages/scoped_model) 是 Flutter 中热门的状态管理结构体，但是它会限制暴露继承自 [Model](https://pub.dev/documentation/scoped_model/latest/scoped_model/Model-class.html) 类的状态以及它自身的变更通知模式。
 
 ## 4. BLoC
 
-At [Google I/O ’18](https://www.youtube.com/watch?v=RS36gBEp8OI), the [Business Logic Component](https://www.freecodecamp.org/news/how-to-handle-state-in-flutter-using-the-bloc-pattern-8ed2f1e49a13/) (BLoC) pattern was introduced as another pattern for moving state out of widgets. BLoC classes are long-lived, non-UI components that hold onto state and expose it in the form of [streams](http://dart stream listen) and [sinks](https://api.dartlang.org/stable/2.4.0/dart-core/Sink-class.html). By moving state and business logic out of the UI, it allows a widget to be implemented as a simple [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html) and use a [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) to automatically rebuild. This makes the widget “dumber” and easier to test.
+在 [Google 2018 年发者大会上](https://www.youtube.com/watch?v=RS36gBEp8OI)，提出了[业务逻辑组件](https://www.freecodecamp.org/news/how-to-handle-state-in-flutter-using-the-bloc-pattern-8ed2f1e49a13/)，即 BLoC，作为另一种可以将状态迁移出组件的模式。BLoC 类是一种可持久的、没有 UI 的组件，它会维护自己的状态并将其以 [stream](https://api.dartlang.org/stable/2.6.0/dart-async/Stream/listen.html) 和 [sink](https://api.dartlang.org/stable/2.4.0/dart-core/Sink-class.html) 的形式暴露出来。通过将状态和业务逻辑从 UI 中分离出来，BLoC 模式让组件可以作为[无状态组件（StatelessWidget）](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)应用，并可以使用 [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) 自动重新构建。这让组件比较“傻瓜式”，更易于测试。
 
-An example of a BLoC class:
+一个 BLoC 类的例子：
 
-```
+```dart
 class MyBloc {
   final _controller = StreamController<MyType>();
 
@@ -121,28 +121,28 @@ class MyBloc {
 }
 ```
 
-An example of a widget consuming a BLoC:
+一个组件应用 BLoC 模式的例子：
 
-```
+```dart
 @override
 Widget build(BuildContext context) {
  return StreamBuilder<MyType>(
   stream: myBloc.stream,
   builder: (context, asyncSnapshot) {
-    // YOUR CODE
+    // 其余代码
  });
 }
 ```
 
-The trouble with the BLoC pattern is that it is not obvious how to create and destroy BLoC objects. In the example above, how was the `myBloc` instance created? How do we call `dispose()` on it? [Streams](http://dart stream listen) require the use of a [StreamController](https://api.dartlang.org/stable/2.4.0/dart-async/StreamController-class.html), which must be `closed` when no longer needed in order to prevent memory leaks. (Dart has no notion of a class [destructor](https://en.wikipedia.org/wiki/Destructor_(computer_programming)); only the `StatefulWidget` [State](https://api.flutter.dev/flutter/widgets/State-class.html) class has a `dispose()` method.) Also, it is not clear how to share this BLoC across multiple widgets. So it is often difficult for developers to get started using BLoC. There are some [packages](https://pub.dev/flutter/packages?q=bloc) that attempt to make this easier.
+BLoC 模式的问题是，创建和销毁 BLoC 对象的方法没有那么显而易见。在上面的例子中，`myBloc` 实例是如何创建的？我们如何调用 `dispose()` 来销毁它呢？如果使用了 [stream](https://api.dartlang.org/stable/2.6.0/dart-async/Stream/listen.html)，就需要使用 [StreamController 类](https://api.dartlang.org/stable/2.4.0/dart-async/StreamController-class.html)，而为了防止内存泄漏，当我们不需要再使用 StreamController 的时候，就必须调用 `closed` 方法销毁它。（Dart 没有类的 [析构函数](https://en.wikipedia.org/wiki/Destructor_(computer_programming)) 的概念；只有 `StatefulWidget` 中的 [State](https://api.flutter.dev/flutter/widgets/State-class.html) 类有一个 `dispose()` 方法）同时，多组件之间共享 BLoC 的方法也不明朗。因此，对于开发者来说，刚开始使用 BLoC 时会觉得很困难。好消息是，有一些[包](https://pub.dev/flutter/packages?q=bloc)可以帮助你度过这一难关。
 
 ## 5. Provider
 
-[Provider](https://pub.dev/packages/provider) is a package written in 2018 by [Remi Rousselet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjXrMKO8dLjAhWoT98KHUCDB_oQFjAAegQIARAB&url=https%3A%2F%2Ftwitter.com%2Fremi_rousselet&usg=AOvVaw3bEIgT0j4c_5xbq-YWB70q) that is similar to [ScopedModel](https://pub.dev/packages/scoped_model) but is not limited to exposing a [Model](https://pub.dev/documentation/scoped_model/latest/scoped_model/Model-class.html) subclass. It too is a wrapper around [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html), but can expose any kind of state object, including BLoC, [streams](http://dart stream listen), [futures](https://api.dartlang.org/stable/dart-async/Future-class.html), and others. Because of its simplicity and flexibility, Google announced at [Google I/O ](https://www.youtube.com/watch?v=d_m5csmrf7I)’19 that [Provider](https://pub.dev/packages/provider) is now its preferred package for state management. Of course, you can still use [others](https://flutter.dev/docs/development/data-and-backend/state-mgmt/options), but if you’re not sure what to use, Google recommends going with [Provider](https://pub.dev/packages/provider).
+[Provider](https://pub.dev/packages/provider) 是 [Remi Rousselet](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjXrMKO8dLjAhWoT98KHUCDB_oQFjAAegQIARAB&url=https%3A%2F%2Ftwitter.com%2Fremi_rousselet&usg=AOvVaw3bEIgT0j4c_5xbq-YWB70q) 于 2018 年写得一个代码包，它和 [ScopedModel](https://pub.dev/packages/scoped_model) 类似，但是不限制对 [Model](https://pub.dev/documentation/scoped_model/latest/scoped_model/Model-class.html) 子类的暴露。它同时也是 [可继承组件 InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 的一个外包，但它允许向外暴露任何状态对象，这其中包括了 BLoC、[stream](https://api.dartlang.org/stable/2.6.0/dart-async/Stream/listen.html)、[futures](https://api.dartlang.org/stable/dart-async/Future-class.html) 等等。由于它简单灵活，Google 在第十九届 [Google 开发者大会](https://www.youtube.com/watch?v=d_m5csmrf7I)上宣布，[Provider](https://pub.dev/packages/provider) 是它的状态管理的首选。当然，你也可以选择使用[其他的管理工具](https://flutter.dev/docs/development/data-and-backend/state-mgmt/options)，但是如果你还不确定要用哪个，Google 推荐 [Provider](https://pub.dev/packages/provider)。
 
-[Provider](https://pub.dev/packages/provider) is built “with widgets, for widgets.” With [Provider](https://pub.dev/packages/provider), we can place any state object into the widget tree and make it accessible from any other (descendant) widget. [Provider](https://pub.dev/packages/provider) also helps manage the lifetime of state objects by initializing them with data and cleaning up after them when they are removed from the widget tree. For this reason, [Provider](https://pub.dev/packages/provider) can even be used to implement BLoC components, or serve as the basis for [other](https://flutter.dev/docs/development/data-and-backend/state-mgmt/options) state management solutions! 😲 Or it can be used simply for [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) — a fancy term for passing data into widgets in a way that reduces coupling and increases testability. Finally, [Provider](https://pub.dev/packages/provider) comes with a set of specialized classes that make it even more user-friendly. We’ll explore each of these in detail.
+[Provider](https://pub.dev/packages/provider) “由组件构成，为了方便其他组件的应用”。使用 [Provider](https://pub.dev/packages/provider)，我们可以将任何状态对象放入组件树中，并在其他任何子组件中访问到这些状态对象。[Provider](https://pub.dev/packages/provider) 可以使用数据初始化状态对象，或者当状态对象从组件树中移除的时候清理它们，以此帮助我们管理状态对象的生命周期。因此，[Provider](https://pub.dev/packages/provider) 甚至可以用来实现 BLoC 组件，或者作为[其他](https://flutter.dev/docs/development/data-and-backend/state-mgmt/options)状态管理方案的基础！😲又或者，它还可以用于[依赖注入](https://en.wikipedia.org/wiki/Dependency_injection) —— 一种将数据注入组件的神奇的形式，这种形式可以降低耦合度并增强可测试性。最后，[Provider](https://pub.dev/packages/provider) 也具有一系列专门的类，这让其变得更加易用。我们下面将会逐个详细讲解：
 
-* Basic [Provider](https://pub.dev/documentation/provider/latest/provider/Provider-class.html)
+* 基础 [Provider](https://pub.dev/documentation/provider/latest/provider/Provider-class.html)
 * [ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html)
 * [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html)
 * [FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html)
@@ -150,36 +150,36 @@ The trouble with the BLoC pattern is that it is not obvious how to create and de
 * [MultiProvider](https://pub.dev/documentation/provider/latest/provider/MultiProvider-class.html)
 * [ProxyProvider](https://pub.dev/documentation/provider/latest/provider/ProxyProvider-class.html)
 
-#### Installing
+#### 安装
 
-First, to use [Provider](https://pub.dev/packages/provider), add the dependency to your pubspec.yaml:
+想要使用 [Provider](https://pub.dev/packages/provider)，第一步要做的就是将相关依赖加入 pubspec.yaml 文件：
 
 ```
 provider: ^3.0.0
 ```
 
-Then import the [Provider](https://pub.dev/packages/provider) package where needed:
+然后在需要使用它的地方引入 [Provider](https://pub.dev/packages/provider) 包：
 
-```
+```dart
 import 'package:provider/provider.dart';
 ```
 
-#### Basic Provider
+#### 基础 Provider
 
-Let’s create a basic [Provider](https://pub.dev/packages/provider) at the root of our app containing an instance of our model:
+下面，我们一起来在应用的根节点创建一个基本的 [Provider](https://pub.dev/packages/provider)，它将包含应用模型的实例：
 
-```
+```dart
 Provider<MyModel>(
   builder: (context) => MyModel(),
   child: MyApp(...),
 )
 ```
 
-> The `builder` parameter creates instance of `MyModel`. If you want to give it an existing instance, use the [Provider.value](https://pub.dev/documentation/provider/latest/provider/Provider/Provider.value.html) constructor instead.
+> 参数 `builder` 创建了 `MyModel` 的实例。如果你想要给它赋值为一个现有的实例，那么请使用 [Provider.value](https://pub.dev/documentation/provider/latest/provider/Provider/Provider.value.html) 构建函数。
 
-We can then **consume** this model instance anywhere in `MyApp`by using the [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) widget:
+然后你就可以使用 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件，在 `MyApp` 的任意位置对这个模型实例进行**自定义**。
 
-```
+```dart
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -190,11 +190,11 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-In the example above, the `MyWidget` class obtains the `MyModel` instance using the [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) widget. This widget gives us a `builder` containing our object in the `value` parameter.
+在上面的例子中，`MyWidget` 类包含一个使用了 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件的 `MyModel` 的实例。这个组件提供了一个 `builder` 方法，该方法的 `value` 参数包含了实例对象。
 
-Now, what if we want to **update** the data in our model? Let’s say that we have another widget where pushing a button should update the `foo` property:
+那么如果我们想要**更新**模型的数据呢？我们假设有另一个包含按钮的组件，当按钮按下的时候，需要更新 `foo` 属性：
 
-```
+```dart
 class OtherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -209,15 +209,15 @@ class OtherWidget extends StatelessWidget {
 }
 ```
 
-> Note the different syntax for accessing our `MyModel` instance. This is functionally equivalent to using the [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) widget. The [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) widget is useful if you can’t easily get a [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) reference in your code.
+> 注意访问 `MyModel` 实例时的语法差异。它在功能上和使用 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件是一致的。而当你无法在代码中获取到 [BuildContext](https://api.flutter.dev/flutter/widgets/BuildContext-class.html) 的时候，[Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件就会派上用场了。
 
-What do you expect will happen to the original `MyWidget` we created earlier? Do you think it will now display the new value of `bar`? **Unfortunately, no**. It is not possible to listen to changes on plain old Dart objects (at least not without [reflection](https://api.dartlang.org/stable/dart-mirrors/dart-mirrors-library.html), which is not available in Flutter). That means [Provider](https://pub.dev/packages/provider) is not able to “see” that we updated the `foo` property and tell `MyWidget` to update in response.
+你认为这样的操作会对我们之前创建的 `MyWidget` 造成什么影响呢？你是否认为，它将会展示新的 `bar` 值？**但不幸的是你猜错了，这并不会发生**。简单的已创建的旧 Dart 对象并不会监听变化（至少在没有 [reflection](https://api.dartlang.org/stable/dart-mirrors/dart-mirrors-library.html) 的时候不会，而 [reflection](https://api.dartlang.org/stable/dart-mirrors/dart-mirrors-library.html) 目前在 Flutter 中还不可用）。这就意味着，[Provider](https://pub.dev/packages/provider) 无法知道我们更新过了 `foo` 属性，也无法告知 `MyWidget` 响应改变从而作出更新。
 
 #### ChangeNotifierProvider
 
-However, there is hope! We can make our `MyModel` class implement the [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) mixin. We need to modify our model implementation slightly by invoking a special `notifyListeners()` method whenever one of our properties change. This is similar to how [ScopedModel](https://pub.dev/packages/scoped_model) works, but it’s nice that we don’t need to inherit from a particular model class. We can just implement the [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-%E2%80%A6) mixin. Here’s what that looks like:
+但是，我们还是有其他解决问题的希望的！我们可以让 `MyModel` 类实现 [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) mixin。我们只需要稍稍修改模型的实现，即在属性改变的时候调用一个特别的 `notifyListeners()` 方法即可。这和 [ScopedModel](https://pub.dev/packages/scoped_model) 的工作原理类似，但却不需要继承一个特殊的类。只需要实现 [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-%E2%80%A6) mixin 即可。代码如下：
 
-```
+```dart
 class MyModel with ChangeNotifier {
   String _foo;
 
@@ -230,38 +230,38 @@ class MyModel with ChangeNotifier {
 }
 ```
 
-As you can see, we changed our `foo` property into a `getter` and `setter `backed by a private `_foo` variable. This allows us to “intercept” any changes made to the `foo` property and tell our listeners that our object changed.
+正如你所见，我们将 `foo`  属性改成了 `getter` 和 `setter` 函数，它们都会去维护一个私有的 `_foo` 变量。这样做就让我们能“监听”到所有对 `foo` 的修改，并告知监听者：对象发生了变化。
 
-Now, on the [Provider](https://pub.dev/packages/provider) side, we can change our implementation to use a different class called [ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html):
+现在，在 [Provider](https://pub.dev/packages/provider) 端，我们可以将代码实现改为，使用另一个名为 [ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html) 的类：
 
-```
+```dart
 ChangeNotifierProvider<MyModel>(
   builder: (context) => MyModel(),
   child: MyApp(...),
 )
 ```
 
-That’s it! Now when our `OtherWidget` updates the `foo` property on our `MyModel` instance, `MyWidget` will automatically update to reflect that change. Cool huh?
+这样就好了！现在，当 `OtherWidget` 更新了 `MyModel` 实例的 `foo` 属性的时候，`MyWidget` 将会根据改变自动更新。超酷吧？
 
-One more thing. You may have noticed in the `OtherWidget` button handler that we used the following syntax:
+还有一件事要说。你也许已经注意到了，在 `OtherWidget` 按钮的事件处理函数中，我们使用了下面的语法：
 
-```
+```dart
 final model = Provider.of<MyModel>(context);
 ```
 
-**By default, this syntax will automatically cause our `OtherWidget` instance to rebuild whenever `MyModel` changes.** That might not be what we want. After all, `OtherWidget` just contains a button that doesn’t change based on the value of `MyModel` at all. To avoid this, we can use the following syntax to access our model **without** registering for a rebuild:
+**默认情况下，这样写会让 `OtherWidget` 实例在 `MyModel` 变化的时候自动更新**。这也许并不是我们所期望的。毕竟 `OtherWidget` 只包含了一个按钮，并不需要跟随 `MyModel` 的数据变化而变化。为了避免这样的事情发生，我们可以使用如下的语法让模型不再注册重新构建的监听：
 
-```
+```dart
 final model = Provider.of<MyModel>(context, listen: false);
 ```
 
-This is another nicety that the [Provider](https://pub.dev/packages/provider) package gives us for free.
+这是 [Provider](https://pub.dev/packages/provider) 包给予我们的另一份免费的便利。
 
 #### StreamProvider
 
-At first glance, the [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) seems unnecessary. After all, we can just use a regular [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) to consume a stream in Flutter. For example, here we listen to the [onAuthStateChanged](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/onAuthStateChanged.html) stream provided by [FirebaseAuth](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/firebase_auth-library.html):
+[StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 给人的第一印象是：好像并不那么有必要。毕竟在 Flutter 中，我们可以使用常规的 [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) 来订阅流信息。例如下面这段代码中，我们监听了 [FirebaseAuth](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/firebase_auth-library.html) 提供的 [onAuthStateChanged](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/onAuthStateChanged.html) 流：
 
-```
+```dart
 @override
 Widget build(BuildContext context {
   return StreamBuilder(
@@ -272,18 +272,18 @@ Widget build(BuildContext context {
 }
 ```
 
-To do this with [Provider](https://pub.dev/packages/provider) instead, we can expose this stream via a [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) at the root of our app:
+而如果想使用 [Provider](https://pub.dev/packages/provider) 来完成，我们可以在 App 的根结点，通过 [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 暴露出这个流：
 
-```
+```dart
 StreamProvider<FirebaseUser>.value(
   stream: FirebaseAuth.instance.onAuthStateChanged,
   child: MyApp(...),
 }
 ```
 
-Then consume it in a child widget like any other [Provider](https://pub.dev/packages/provider):
+然后在子组件中就可以像其他 [Provider](https://pub.dev/packages/provider) 那样使用了：
 
-```
+```dart
 @override
 Widget build(BuildContext context) {
   return Consumer<FirebaseUser>(
@@ -292,36 +292,36 @@ Widget build(BuildContext context) {
 }
 ```
 
-Besides making the consuming widget code much cleaner, **it also abstracts away the fact that the data is coming from a stream**. If we ever decide to change the underlying implementation to a [FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html), for instance, it will require no changes to our widget code. **In fact, you’ll see that this is the case for all of the different providers below**. 😲
+除了能让组件代码更加清晰，**它也可以抽象并过滤掉数据是否是来自于流的这一信息**。例如，如果我们想要修改 [FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html) 的基础实现，此时就无须修改组件的代码。**事实上，你很快就会发现，以下所有不同的 provider 都是这样**。😲
 
 #### FutureProvider
 
-Similar to the example above, [FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html) is an alternative to using the standard [FutureBuilder](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) inside our widgets. Here is an example:
+和上面的例子类似，[FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html) 是在组件中使用 [FutureBuilder](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) 的替换方案。这里是一段代码示例：
 
-```
+```dart
 FutureProvider<FirebaseUser>.value(
   value: FirebaseAuth.instance.currentUser(),
   child: MyApp(...),
 );
 ```
 
-To consume this value in a child widget, we use the same [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) implementation used in the [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) example above.
+我们使用和上文中 [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 相关的例子中一样的对 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 的应用，来在子元素中获取到这个值。
 
 #### ValueListenableProvider
 
-[ValueListenable](https://api.flutter.dev/flutter/foundation/ValueListenable-class.html) is a Dart interface implemented by the [ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) class that takes a value and notifies listeners when it changes to another value. We can use it to wrap an integer counter in a simple model class:
+[ValueListenable](https://api.flutter.dev/flutter/foundation/ValueListenable-class.html) 是 [ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) 类实现的 Dart 接口，它可以在自身接收的参数发生变化的时候通知监听者。我们可以在一个简单的模型类中，用它来包裹一个计时器：
 
-```
+```dart
 class MyModel {
   final ValueNotifier<int> counter = ValueNotifier(0);  
 }
 ```
 
-> When using complex types, [ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) uses the `**==**` operator of the contained object to determine whether the value has changed.
+> 如果我们使用的是复杂类型的参数，[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) 将会使用 **`==`** 操作符来确认是否参数值变化了。
 
-Let’s create a basic [Provider](https://pub.dev/packages/provider) to hold our main model, followed by a [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) and a nested [ValueListenableProvider](https://pub.dev/documentation/provider/latest/provider/ValueListenableProvider-class.html) that listens to the `counter` property:
+让我们来创建一个基础 [Provider](https://pub.dev/packages/provider) 用来容纳主模块，它同时还有一个 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)，以及一个用于监听 `counter` 属性的嵌套的 [ValueListenableProvider](https://pub.dev/documentation/provider/latest/provider/ValueListenableProvider-class.html)：
 
-```
+```dart
 Provider<MyModel>(
   builder: (context) => MyModel(),
   child: Consumer<MyModel>(builder: (context, value, child) {
@@ -333,11 +333,11 @@ Provider<MyModel>(
 }
 ```
 
-> Note that the type of the nested provider is `int`. You might have others. If you have multiple Providers registered for the same type, [Provider](https://pub.dev/packages/provider) will return the “closest” one (nearest ancestor).
+> 注意：嵌套的 provider 的类型是 `int`。当然你的代码也会有其他可能的类型。如果有多个 Provider 都注册为同一类型，那么 [Provider](https://pub.dev/packages/provider) 将会返回最“近”的一个（距离最近的父级组件）。
 
-Here’s how we can listen to the `counter` property from any descendant widget:
+如下代码可以监听任意子组件的 `counter` 属性：
 
-```
+```dart
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -350,9 +350,9 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-And here is how we can **update** the `counter` property from yet another widget. Note that we need to access the original `MyModel` instance.
+如下代码可以**更新**其他组件的 `counter` 属性。注意：我们首先需要获取原始的 `MyModel` 实例。
 
-```
+```dart
 class OtherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -369,9 +369,9 @@ class OtherWidget extends StatelessWidget {
 
 #### MultiProvider
 
-If we are using many [Provider](https://pub.dev/packages/provider) widgets, we may end up with an ugly nested structure at the root of our app:
+如果我们应用了多个 [Provider](https://pub.dev/packages/provider) 组件，我们可能会在 app 根结点写出这样很丑陋的多层嵌套的结构：
 
-```
+```dart
 Provider<Foo>.value( 
   value: foo, 
   child: Provider<Bar>.value( 
@@ -384,9 +384,9 @@ Provider<Foo>.value(
 )
 ```
 
-[MultiProvider](https://pub.dev/documentation/provider/latest/provider/MultiProvider-class.html) lets us declare them all our providers at the same level. This is just [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar); they are still being nested behind the scenes.
+[MultiProvider](https://pub.dev/documentation/provider/latest/provider/MultiProvider-class.html) 则允许我们在同一层级声明所有的 provider。但这仅仅是一种[语法糖](https://en.wikipedia.org/wiki/Syntactic_sugar)；它们实际上还是嵌套的。
 
-```
+```dart
 MultiProvider( 
   providers: [ 
     Provider<Foo>.value(value: foo), 
@@ -399,9 +399,9 @@ MultiProvider(
 
 #### ProxyProvider
 
-[ProxyProvider](https://pub.dev/documentation/provider/latest/provider/ProxyProvider-class.html) is an interesting class that was added in the v3 release of the [Provider](https://pub.dev/packages/provider) package. This lets us declare Providers that themselves are dependent on up to 6 other Providers. In this example, the `Bar` class depends on an instance of `Foo.` This is useful when establishing a root set of services that themselves have dependencies on one another.
+[ProxyProvider](https://pub.dev/documentation/provider/latest/provider/ProxyProvider-class.html) 是个很有趣的类，它发布于 [Provider](https://pub.dev/packages/provider) 包的 v3 版本。这让我们可以声明依赖于其他 6 种 Provider 的 Provider。在下面这个例子中，`Bar` 类依赖于 `Foo` 的实例。当我们需要建立有赖于其他服务的根服务集时，这就很有用了。
 
-```
+```dart
 MultiProvider ( 
   providers: [ 
     Provider<Foo> ( 
@@ -415,24 +415,24 @@ MultiProvider (
 )
 ```
 
-> The first generic type argument is the type your [ProxyProvider](https://pub.dev/documentation/provider/latest/provider/ProxyProvider-class.html) depends on, and the second is the type it returns.
+> 第一个范型参数是 [ProxyProvider](https://pub.dev/documentation/provider/latest/provider/ProxyProvider-class.html) 的类型，第二个是它需要返回的类型。
 
-#### Listening to Multiple Providers Simultaneously
+#### 同时监听多个 Provider
 
-What if we want a single widget to list to multiple Providers, and trigger a rebuild whenever any of them change? We can listen to up to 6 Providers at a time using variants of the [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) widget. We will receive the instances as additional parameters in the `builder` method.
+如果我们想要一个组件同时监听多个 Provider，并且当任意一个被监听的 Provider 发生变化时都要重构组件，那我们该怎么做呢？使用 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件的变量，我们最多可以监听 6 个 Provider。我们将会在 `builder` 方法的附加参数中获取它们的实例。
 
-```
+```dart
 Consumer2<MyModel, int>(
   builder: (context, value, value2, child) {
-    //value is MyModel
-    //value2 is int
+    //value 是 MyModel 类型
+    //value2 是 int 类型
   },
 );
 ```
 
-#### Conclusion
+#### 总结
 
-By embracing [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html), [Provider](https://pub.dev/packages/provider) gives us a “Fluttery” way of state management. It lets widgets access and listen to state objects in a way that abstracts away the underlying notification mechanism. It helps us manage the lifetimes of state objects by providing hooks to create and dispose them as needed. It can be used for simple dependency injection, or even as the basis for more extensive state management options. Having received Google’s blessing, and with growing support from the Flutter community, it is a safe choice to go with. Give [Provider](https://pub.dev/packages/provider) a try today!
+通过学习 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 和 [Provider](https://pub.dev/packages/provider)，我们学会了如何使用 “Flutter 式” 的方法管理状态。组件可以获取并监听状态对象，并同时将内部的通知机制抽象并隔离掉。这种方法通过提供勾子来创建并按需分发状态对象，帮助我们管理了它的生命周期。它可以应用于依赖注入，或者甚至可以作为更复杂的状态管理选择的基础。它已经获取了 Google 的赞许，同时 Flutter 社区也在给予更多的支持，因此选择它肯定是一个风险很小的决策。何不今天就一起来试试看 [Provider](https://pub.dev/packages/provider) 呢！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
