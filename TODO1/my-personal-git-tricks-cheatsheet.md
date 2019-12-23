@@ -13,7 +13,7 @@
 
 我经常忘记提交（commit）某文件，或者遗留了 `console.log` 在文件里。我十分讨厌如 `删除 console.log` 的提交。因此，我将添加文件至暂存区，就好像我要提交一样，接着运行命令：
 
-```
+```bash
 git commit --amend --reuse-message HEAD
 ```
 
@@ -25,7 +25,7 @@ git commit --amend --reuse-message HEAD
 
 旧的分支通常情况下会落后相当久远，久到我不得不准备好消除编译错误、ci 错误，或者解决冲突。此时我最喜欢的使用以下命令：
 
-```
+```bash
 git fetch origin # fetch latest origin
 git rebase origin/master
 ```
@@ -36,15 +36,15 @@ git rebase origin/master
 
 有时，`git log` 命令的结果冗长。由于我频繁使用的前文中提过的 `amend` 命令，我倾向于查看最后一条提交记录：
 
-```
+```bash
 git log -1
 ```
 
 ## 签出到旧版文件 (比如一个锁文件！)
 
-有时，我把某个与我的分支不相关文件搞坏了。这通常发生在锁文件上（mix.lock、package-lock.json 等等）。我只是将这个文件“重置”回旧版本而不是还原一个可能包含许多其他内容的提交：
+有时，我把某个与我的分支不相关文件搞坏了。这通常发生在锁文件上（`mix.lock`、`package-lock.json` 等等）。我只是将这个文件“重置”回旧版本而不是还原一个可能包含许多其他内容的提交：
 
-```
+```bash
 git checkout hash值 mix.lock
 ```
 
@@ -54,19 +54,19 @@ git checkout hash值 mix.lock
 
 我偶尔会使用这个被低估的命令。当一个分支变得老旧，有时候从中只获取真正需要的东西，比让整个分支跟上进度简单。举个例子，这个分支有关于 UI 或后端的冗余代码。在这种情况下，我可能只想从分支中挑选出特定的提交：
 
-```
+```bash
 git cherry-pick hash值
 ```
 
 这将会把提交带到你所处的分支。你也可以使用列表！
 
-```
+```bash
 git cherry-pick 第一个hash值 第二个hash值 第三个hash值
 ```
 
 你也可以使用区间：
 
-```
+```bash
 git cherry-pick 开始的hash值..结束的hash值
 ```
 
@@ -76,7 +76,7 @@ git cherry-pick 开始的hash值..结束的hash值
 
 在这些情况下，知道 `reflog` 的存在就挺好的。它不是你当前所处的分支的提交日志，它是你所有提交（包括了在失效分支之上）的日志。然而，这个日志将会随着时间推移被清空（pruned），因此只有有关的信息会保留。
 
-```
+```bash
 git reflog
 ```
 
@@ -90,7 +90,7 @@ git reflog
 
 为了获取当前分支的名字，我有这个别名：
 
-```
+```bash
 alias git-branch="git branch | sed -n -e 's/^\* \(.*\)/\1/p'"
 ```
 
@@ -102,7 +102,7 @@ alias git-branch="git branch | sed -n -e 's/^\* \(.*\)/\1/p'"
 
 虽然我确定配置 `.gitconfig` 可以解决问题，我暂时还没弄清楚如何做（译者注：使用命令 `git config --global push.default current`，参见[官方文档](https://git-scm.com/docs/git-config/#Documentation/git-config.txt-pushdefault)）。当我在新的分支上首次运行推送命令时，我总是被要求先设置上游分支的跟踪状态。这种情况下我使用别名：
 
-```
+```bash
 alias git-up="git branch | sed -n -e 's/^\* \(.*\)/\1/p' | xargs git push -u origin "
 ```
 
@@ -118,7 +118,7 @@ alias git-up="git branch | sed -n -e 's/^\* \(.*\)/\1/p' | xargs git push -u ori
 
 以下是我新的替代方式：
 
-```
+```bash
 alias git-branch="git symbolic-ref --short HEAD"
 ```
 
