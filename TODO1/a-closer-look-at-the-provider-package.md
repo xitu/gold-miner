@@ -17,7 +17,7 @@
 
 无状态组件 [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html) 很简单，它就是一个展示数据的 UI 组件。`StatelessWidget` 没有记忆功能；并根据需要被创建或者销毁。Flutter 同时也有状态组件 [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)，这个组件是有记忆功能的，此记忆功能来自于它的持久组合状态对象 [State](https://api.flutter.dev/flutter/widgets/State-class.html)。这个类中包含一个 `setState()` 方法，当该方法被调用时，会触发组件重建并渲染出新的状态。这是 Flutter 中最基本的状态管理形式。下面这个例子就是一个展示会展示最近一次被点击的时间的按钮：
 
-```
+```dart
 class _MyWidgetState extends State<MyWidget> {
   DateTime _time = DateTime.now();
 
@@ -43,7 +43,7 @@ class _MyWidgetState extends State<MyWidget> {
 
 [ScopedModel](https://pub.dev/packages/scoped_model) 是 [Brian Egan](https://twitter.com/brianegan) 于 2017 年创建的包，它让使用 [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) 存储应用状态变得更加容易了。首先，我们需要创建一个继承了 [Model](https://pub.dev/documentation/scoped_model/latest/scoped_model/Model-class.html) 的状态对象，然后在属性改变的时候调用 `notifyListeners()`。这和 Java 中 [PropertyChangeListener](https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyChangeListener.html) 接口的实现有些类似。
 
-```
+```dart
 class MyModel extends Model {
   String _foo;
 
@@ -58,7 +58,7 @@ class MyModel extends Model {
 
 为了暴露出状态对象，我们将其实例包裹在应用根组件的 [ScopedModel](https://pub.dev/documentation/scoped_model/latest/scoped_model/ScopedModel-class.html) 组件中。
 
-```
+```dart
 ScopedModel<MyModel>(
   model: MyModel(),
   child: MyApp(...)
@@ -67,7 +67,7 @@ ScopedModel<MyModel>(
 
 这样，任何子组件都可以通过 [ScopedModelDescendant](https://pub.dev/documentation/scoped_model/latest/scoped_model/ScopedModelDescendant-class.html) 组件获取到 `MyModel`。模块实例会作为参数传入 `builder`：
 
-```
+```dart
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class MyWidget extends StatelessWidget {
 
 任何子组件也可以**更新**此模块，同时它将自动触发重新构建（前提是我们的模块都正确地调用了 `notifyListeners()`）：
 
-```
+```dart
 class OtherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class OtherWidget extends StatelessWidget {
 
 一个 BLoC 类的例子：
 
-```
+```dart
 class MyBloc {
   final _controller = StreamController<MyType>();
 
@@ -123,7 +123,7 @@ class MyBloc {
 
 一个组件应用 BLoC 模式的例子：
 
-```
+```dart
 @override
 Widget build(BuildContext context) {
  return StreamBuilder<MyType>(
@@ -160,7 +160,7 @@ provider: ^3.0.0
 
 然后在需要使用它的地方引入 [Provider](https://pub.dev/packages/provider) 包：
 
-```
+```dart
 import 'package:provider/provider.dart';
 ```
 
@@ -168,7 +168,7 @@ import 'package:provider/provider.dart';
 
 下面，我们一起来在应用的根节点创建一个基本的 [Provider](https://pub.dev/packages/provider)，它将包含应用模型的实例：
 
-```
+```dart
 Provider<MyModel>(
   builder: (context) => MyModel(),
   child: MyApp(...),
@@ -179,7 +179,7 @@ Provider<MyModel>(
 
 然后你就可以使用 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件，在 `MyApp` 的任意位置对这个模型实例进行**自定义**。
 
-```
+```dart
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -194,7 +194,7 @@ class MyWidget extends StatelessWidget {
 
 那么如果我们想要**更新**模型的数据呢？我们假设有另一个包含按钮的组件，当按钮按下的时候，需要更新 `foo` 属性：
 
-```
+```dart
 class OtherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -217,7 +217,7 @@ class OtherWidget extends StatelessWidget {
 
 但是，我们还是有其他解决问题的希望的！我们可以让 `MyModel` 类实现 [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) mixin。我们只需要稍稍修改模型的实现，即在属性改变的时候调用一个特别的 `notifyListeners()` 方法即可。这和 [ScopedModel](https://pub.dev/packages/scoped_model) 的工作原理类似，但却不需要继承一个特殊的类。只需要实现 [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-%E2%80%A6) mixin 即可。代码如下：
 
-```
+```dart
 class MyModel with ChangeNotifier {
   String _foo;
 
@@ -234,7 +234,7 @@ class MyModel with ChangeNotifier {
 
 现在，在 [Provider](https://pub.dev/packages/provider) 端，我们可以将代码实现改为，使用另一个名为 [ChangeNotifierProvider](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProvider-class.html) 的类：
 
-```
+```dart
 ChangeNotifierProvider<MyModel>(
   builder: (context) => MyModel(),
   child: MyApp(...),
@@ -245,13 +245,13 @@ ChangeNotifierProvider<MyModel>(
 
 还有一件事要说。你也许已经注意到了，在 `OtherWidget` 按钮的事件处理函数中，我们使用了下面的语法：
 
-```
+```dart
 final model = Provider.of<MyModel>(context);
 ```
 
-**默认情况下，这样写会让 `OtherWidget` 实例在 `MyModel` 变化的时候自动更新。**这也许并不是我们所期望的。毕竟 `OtherWidget` 只包含了一个按钮，并不需要跟随 `MyModel` 的数据变化而变化。为了避免这样的事情发生，我们可以使用如下的语法让模型不再注册重新构建的监听：
+**默认情况下，这样写会让 `OtherWidget` 实例在 `MyModel` 变化的时候自动更新**。这也许并不是我们所期望的。毕竟 `OtherWidget` 只包含了一个按钮，并不需要跟随 `MyModel` 的数据变化而变化。为了避免这样的事情发生，我们可以使用如下的语法让模型不再注册重新构建的监听：
 
-```
+```dart
 final model = Provider.of<MyModel>(context, listen: false);
 ```
 
@@ -261,7 +261,7 @@ final model = Provider.of<MyModel>(context, listen: false);
 
 [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 给人的第一印象是：好像并不那么有必要。毕竟在 Flutter 中，我们可以使用常规的 [StreamBuilder](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) 来订阅流信息。例如下面这段代码中，我们监听了 [FirebaseAuth](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/firebase_auth-library.html) 提供的 [onAuthStateChanged](https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/onAuthStateChanged.html) 流：
 
-```
+```dart
 @override
 Widget build(BuildContext context {
   return StreamBuilder(
@@ -274,7 +274,7 @@ Widget build(BuildContext context {
 
 而如果想使用 [Provider](https://pub.dev/packages/provider) 来完成，我们可以在 App 的根结点，通过 [StreamProvider](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html) 暴露出这个流：
 
-```
+```dart
 StreamProvider<FirebaseUser>.value(
   stream: FirebaseAuth.instance.onAuthStateChanged,
   child: MyApp(...),
@@ -283,7 +283,7 @@ StreamProvider<FirebaseUser>.value(
 
 然后在子组件中就可以像其他 [Provider](https://pub.dev/packages/provider) 那样使用了：
 
-```
+```dart
 @override
 Widget build(BuildContext context) {
   return Consumer<FirebaseUser>(
@@ -292,13 +292,13 @@ Widget build(BuildContext context) {
 }
 ```
 
-除了能让组件代码更加清晰，**它也可以抽象并过滤掉数据是否是来自于流的这一信息。**例如，如果我们想要修改 [FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html) 的基础实现，此时就无须修改组件的代码。**事实上，你很快就会发现，以下所有不同的 provider 都是这样。**😲
+除了能让组件代码更加清晰，**它也可以抽象并过滤掉数据是否是来自于流的这一信息**。例如，如果我们想要修改 [FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html) 的基础实现，此时就无须修改组件的代码。**事实上，你很快就会发现，以下所有不同的 provider 都是这样**。😲
 
 #### FutureProvider
 
 和上面的例子类似，[FutureProvider](https://pub.dev/documentation/provider/latest/provider/FutureProvider-class.html) 是在组件中使用 [FutureBuilder](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) 的替换方案。这里是一段代码示例：
 
-```
+```dart
 FutureProvider<FirebaseUser>.value(
   value: FirebaseAuth.instance.currentUser(),
   child: MyApp(...),
@@ -311,17 +311,17 @@ FutureProvider<FirebaseUser>.value(
 
 [ValueListenable](https://api.flutter.dev/flutter/foundation/ValueListenable-class.html) 是 [ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) 类实现的 Dart 接口，它可以在自身接收的参数发生变化的时候通知监听者。我们可以在一个简单的模型类中，用它来包裹一个计时器：
 
-```
+```dart
 class MyModel {
   final ValueNotifier<int> counter = ValueNotifier(0);  
 }
 ```
 
-> 如果我们使用的是复杂类型的参数，[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) 将会使用 `**==**` 操作符来确认是否参数值变化了。
+> 如果我们使用的是复杂类型的参数，[ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) 将会使用 **`==`** 操作符来确认是否参数值变化了。
 
 让我们来创建一个基础 [Provider](https://pub.dev/packages/provider) 用来容纳主模块，它同时还有一个 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html)，以及一个用于监听 `counter` 属性的嵌套的 [ValueListenableProvider](https://pub.dev/documentation/provider/latest/provider/ValueListenableProvider-class.html)：
 
-```
+```dart
 Provider<MyModel>(
   builder: (context) => MyModel(),
   child: Consumer<MyModel>(builder: (context, value, child) {
@@ -337,7 +337,7 @@ Provider<MyModel>(
 
 如下代码可以监听任意子组件的 `counter` 属性：
 
-```
+```dart
 class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -352,7 +352,7 @@ class MyWidget extends StatelessWidget {
 
 如下代码可以**更新**其他组件的 `counter` 属性。注意：我们首先需要获取原始的 `MyModel` 实例。
 
-```
+```dart
 class OtherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -371,7 +371,7 @@ class OtherWidget extends StatelessWidget {
 
 如果我们应用了多个 [Provider](https://pub.dev/packages/provider) 组件，我们可能会在 app 根结点写出这样很丑陋的多层嵌套的结构：
 
-```
+```dart
 Provider<Foo>.value( 
   value: foo, 
   child: Provider<Bar>.value( 
@@ -386,7 +386,7 @@ Provider<Foo>.value(
 
 [MultiProvider](https://pub.dev/documentation/provider/latest/provider/MultiProvider-class.html) 则允许我们在同一层级声明所有的 provider。但这仅仅是一种[语法糖](https://en.wikipedia.org/wiki/Syntactic_sugar)；它们实际上还是嵌套的。
 
-```
+```dart
 MultiProvider( 
   providers: [ 
     Provider<Foo>.value(value: foo), 
@@ -401,7 +401,7 @@ MultiProvider(
 
 [ProxyProvider](https://pub.dev/documentation/provider/latest/provider/ProxyProvider-class.html) 是个很有趣的类，它发布于 [Provider](https://pub.dev/packages/provider) 包的 v3 版本。这让我们可以声明依赖于其他 6 种 Provider 的 Provider。在下面这个例子中，`Bar` 类依赖于 `Foo` 的实例。当我们需要建立有赖于其他服务的根服务集时，这就很有用了。
 
-```
+```dart
 MultiProvider ( 
   providers: [ 
     Provider<Foo> ( 
@@ -421,7 +421,7 @@ MultiProvider (
 
 如果我们想要一个组件同时监听多个 Provider，并且当任意一个被监听的 Provider 发生变化时都要重构组件，那我们该怎么做呢？使用 [Consumer](https://pub.dev/documentation/provider/latest/provider/Consumer-class.html) 组件的变量，我们最多可以监听 6 个 Provider。我们将会在 `builder` 方法的附加参数中获取它们的实例。
 
-```
+```dart
 Consumer2<MyModel, int>(
   builder: (context, value, value2, child) {
     //value 是 MyModel 类型
