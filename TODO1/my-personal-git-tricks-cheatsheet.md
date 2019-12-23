@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/my-personal-git-tricks-cheatsheet.md](https://github.com/xitu/gold-miner/blob/master/TODO1/my-personal-git-tricks-cheatsheet.md)
 > * 译者：[Pingren](https://github.com/Pingren)
-> * 校对者：[zh1an](https://github.com/zh1an)，[Badd](https://github.com/Baddyo)
+> * 校对者：[zh1an](https://github.com/zh1an)，[Badd](https://github.com/Baddyo)，[shixi-li](https://github.com/shixi-li)
 
 # 我个人的 Git 技巧备忘录
 
@@ -17,13 +17,13 @@
 git commit --amend --reuse-message HEAD
 ```
 
-这个命令将文件加入上次提交，并且重新使用旧的提交信息。我将它的别名设置为 `git amend`，用于快速修正错误。
+这个命令会将文件加入上次提交，并且重新使用旧的提交信息。我将它的别名设置为 `git amend`，用于快速修正错误。
 
 **注意** 基于底下评论区的回复，也可以使用命令 `git commit --amend --no-edit` 达到一样的效果。
 
 ## 在 origin/master 分支的顶部变基
 
-旧的分支通常情况下会落后相当久远，久到我不得不准备好消除编译错误、ci 错误，或者解决冲突。此时我最喜欢的使用以下命令：
+旧的分支通常情况下会落后相当久远，久到我不得不准备好消除编译错误、ci 错误，或者解决冲突。此时我最喜欢使用以下命令：
 
 ```bash
 git fetch origin # fetch latest origin
@@ -116,7 +116,7 @@ alias git-up="git branch | sed -n -e 's/^\* \(.*\)/\1/p' | xargs git push -u ori
 
 似乎有许多新方式来获取当前的分支名称。如果你往上看，你将看到我使用了一个疯狂的 `sed` 命令来获取分支名称。
 
-以下是我新的替代方式：
+以下是我使用的新办法：
 
 ```bash
 alias git-branch="git symbolic-ref --short HEAD"
