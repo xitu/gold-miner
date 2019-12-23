@@ -2,8 +2,8 @@
 > * 原文作者：[Schkn](https://devconnected.com/author/schkn/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md)
-> * 译者：https://github.com/githubmnume
-> * 校对者：https://github.com/todaycoder001;https://github.com/shixi-li;https://github.com/portandbridge;
+> * 译者：[githubmnume](https://github.com/githubmnume)
+> * 校对者：[todaycoder001](https://github.com/todaycoder001), [shixi-li](https://github.com/shixi-li), [portandbridge](https://github.com/portandbridge)
 
 # Syslog：系统管理员完整指南
 
