@@ -15,13 +15,13 @@
 
 去年，我们推出了 [Office 新版图标](https://medium.com/microsoft-design/redesigning-the-office-app-icons-to-embrace-a-new-world-of-work-91d72608ee8f?source=friends_link&sk=499905fb0d5a65d594aab35201debf40)，以示用户我们在不断改进产品来适应瞬息万变的世界。在这个世界里，尽管[移动化愈演愈烈](https://medium.com/microsoft-design/microsoft365mobile-3b5b7782152c?source=friends_link&sk=6f3168beb86bf945f6c512fc38c03aad)，但人脉和合作仍是成功的关键。在这个世界里，新式的信息流使得创造力和增长力如虎添翼，潜质无量。
 
-在 Microsoft 的整个产品体系中，我们一直致力于帮助促进和加强交互和体验。通过将一套图标设计成果从 10 个产品扩展到 100 多个产品，来反映出这个工作世界的日新月异，这是一个艰巨而又令人兴奋的挑战。
+在 Microsoft 的整个产品体系中，我们一直致力于帮助促进和加强此类交互和体验。通过将一套图标设计成果从 10 个产品扩展到 100 多个产品，来反映出这个工作世界的日新月异，这是一个艰巨而又令人兴奋的挑战。
 
 ![要想将一套设计推及整个 Microsoft 生态体系，需要一个开放、灵活的系统。](https://cdn-images-1.medium.com/max/4800/1*PwcHt8KDe8R3zlVV1KkaFw.png)
 
-但全公司所有的设计团队聚集起来组成了一个集团军，来制定一系列设计指南，这些指南能够鼓励设计师们在设计内部联系紧密的整套系统时，发挥个性风格。从巨鳄企业到小本经营，再到芸芸用户，产品团队确保了每个图标都能切切实实地传达出产品的真谛和更博大的 Microsoft 品牌文化。
+但全公司所有的设计团队聚集起来组成了一个整体，制定了一系列设计指南，这些指南能够鼓励设计师们在设计内部联系紧密的整套系统时，发挥个性风格。从巨鳄企业到小本经营，再到芸芸用户，产品团队确保了每个图标都能切切实实地传达出产品的真谛和更博大的 Microsoft 品牌文化。
 
-我们共享知识，共同迭代，共度难关，也共同分享成功的喜悦。我们比较了不同应用场景下的图标，对不同场景做了不同的改变。更重要的是，我们彼此互相鼓舞激励。这真正是 Microsoft 万众一心的努力成果，我们迫不及待想要听到你们的反馈。
+我们共享知识，共同迭代，共渡难关，也共同分享成功的喜悦。我们比较了不同应用场景下的图标，对不同场景做了不同的改变。更重要的是，我们互相鼓舞激励。这真正是 Microsoft 万众一心的努力成果，我们迫不及待想要听到你们的反馈。
 
 ![](https://cdn-images-1.medium.com/max/4800/1*c054Q1I8PoNJoBycan9a6A.png)
 
@@ -31,11 +31,11 @@
 
 从诸如计算器这样的工具，到能让行家里手瞬间触及世界各个角落的混合现实 App，用户需求的多样性一直呈指数级增长。我们需要让我们的现代图标系统紧随时代潮流。
 
-随着新一轮图标焕新浪潮的到来，在创造性方面，我们面临两大挑战。我们需要在创新和变革的同时，保持住用户的亲切感。我们还需要建立一套灵活、开放的设计系统，使其能够适应一系列不同的应用场景，同时仍旧忠于 Microsoft 的理念。
+随着最新一轮图标焕新浪潮的到来，我们面临两大创造性的挑战。我们需要在创新和变革的同时，保持住用户的亲切感。我们还需要建立一套灵活、开放的设计系统，使其能够适应一系列不同的应用场景，同时仍旧忠于 Microsoft 的理念。
 
 ![层次丰富的渐变色、柔美的曲线以及顺滑的动态效果，使得 Edge 和 Office 的 Logo 以及其他所有图标形成一个互联的整体。](https://cdn-images-1.medium.com/max/4800/1*GFsUW-8bX2RDds_uW0MWVA.png)
 
-我们的 [Fluent 设计系统](https://medium.com/microsoft-design/evolving-the-microsoft-fluent-design-system-9b37fb890c82?source=friends_link&sk=056e4f7cdd2085c3ec9a872846b84787)能够帮助我们应对这两个挑战。Fluent 强调的是建立亲切感 —— 针对用户的现有认知进行设计，而非使他们培养新的使用习惯或者学习新的概念。Fluent 还意味着使一个多样化但具有关联性的系统成为可能。为了承载范围如此宽广的应用场景和体验，我们将初始库中的图标颜色、材质和润饰的进行了扩充。
+我们的 [Fluent 设计系统](https://medium.com/microsoft-design/evolving-the-microsoft-fluent-design-system-9b37fb890c82?source=friends_link&sk=056e4f7cdd2085c3ec9a872846b84787)能够帮助我们应对这两个挑战。Fluent 强调的是建立亲切感 —— 针对用户的现有认知进行设计，而非要求他们养成新的使用习惯或者学习新的概念。Fluent 还意味着使一个多样化但具有关联性的系统成为可能。为了承载范围如此宽广的应用场景和体验，我们将初始库中的图标颜色、材质和润饰的进行了扩充。
 
 ![](https://cdn-images-1.medium.com/max/4800/1*h0A8hdtAAOb1kcTVWaD6eQ.png)
 
@@ -53,13 +53,13 @@
 
 ![设计 3D 风格意味着从立体空间开始着手。](https://cdn-images-1.medium.com/max/4800/1*RT0pp67flyIsAqhp6Wuk3g.png)
 
-随着我们持续不断地提升技术、推出能够展现 Microsoft 未来风貌的图标集，我们的设计系统也会不断进化，从而适应我们未曾想到过的全新场景。建立一个既能涵盖从文字到抽象概念的全部范围，又能够平衡品牌特征和 Microsoft 整体风格的系统，这是一个巨大的挑战 —— 但只有百炼才能成钢。
+随着我们持续不断地提升技术、推出能够展现 Microsoft 未来风貌的图标集，我们的设计系统也会不断进化，从而适应我们未曾想到过的全新场景。建立一个既能涵盖从文字到抽象概念的全部范围，又能够平衡产品特征和 Microsoft 整体风格的系统，这是一个巨大的挑战 —— 但只有百炼才能成钢。
 
 路漫漫其修远兮，但团队目前的成就已让我们颇感自豪，我们迫不及待想要得到你们的反馈。请在评论区留下你们的真知灼见！
 
 ---
 
-**如果想要跟踪 Microsoft 设计的最新动向，请在 [Instagram](https://www.instagram.com/microsoft_design/)、[Twitter](http://www.twitter.com/microsoftdesign) 和 [Facebook](http://www.facebook.com/microsoftdesign) 关注我们，或者加入 [Windows 预览体验计划](https://insider.windows.com/)。如果你有意加入 Microsoft 团队，请点击 [aka.ms/DesignCareers](http://aka.ms/designcareers)。**
+**如果想要跟踪 Microsoft Design的最新动向，请在 [Instagram](https://www.instagram.com/microsoft_design/)、[Twitter](http://www.twitter.com/microsoftdesign) 和 [Facebook](http://www.facebook.com/microsoftdesign) 关注我们，或者加入 [Windows 预览体验计划](https://insider.windows.com/)。如果你有意加入 Microsoft 团队，请点击 [aka.ms/DesignCareers](http://aka.ms/designcareers)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
