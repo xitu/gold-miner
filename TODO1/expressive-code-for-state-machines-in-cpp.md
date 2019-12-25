@@ -20,7 +20,7 @@
 if  (my_field_.empty())  abort();
 ```
 
-这是我们代码必须遵守的（通常是轻量级的）协议的通病。有时，你有一个明确遵守的协议，例如在 SSL 握手或者其他业务逻辑实现中。或者可能在你的代码中有一个明确状态转换的状态机，每次都根据可能的转换列表中检查转换状态。
+这些（注释中提出的状态检查要求）都是我们的代码必须遵守的协议的通病。或者有些时候，你正在遵守的一个明确的协议也会有状态检查的要求，例如在 SSL 握手或者其他业务逻辑实现中。或者可能在你的代码中有一个明确状态转换的状态机，每次都根据可能的转换列表中检查转换状态。
 
 让我们看看我们如何**表达**这种方案的处理。
 
@@ -28,7 +28,7 @@ if  (my_field_.empty())  abort();
 
 我们今天的示例是构建一个 HTTP 连接。为了大大简化，我们只说我们的连接请求至少包含一个 head （但是可能更多），一个确定的 body ，并且这个 head 必须在 body 之前被指定出来（例如因为性能原因，我们只写入一个追加的数据结构）。
 
-**备注：这个** **特定的** **问题可以通过给构造函数传递正确的参数来解决，但是我不想要过于复杂的协议。你将看到扩展它是多么的容易。**
+**备注：这个** **特定的** **问题可以通过给构造函数传递正确的参数来解决，我不想使这个协议过于复杂。你将看到扩展它是多么的容易。**
 
 这是第一次实现：
 
@@ -55,15 +55,15 @@ class  HttpConnectionBuilder  {
 
 直到现在，这个例子相当的简单，但是它依赖于用户不要做错事情：如果他们没有提前阅读过文档，没有什么可以阻止他们在 body 之后添加另外的 header 。如果将其放入到一个 1000 行的文件中，你很快就会发现这有多糟糕。更糟糕的是，没有检查类是否被正确的使用，所以，查看类是否被误用的唯一方法是通过不必要的副作用！如果它导致了内存损坏，那么祝您调试顺利。
 
-我们可以做的更好的......
+我们可以做的更好的……
 
 ### 使用动态枚举
 
-通常情况下，该协议可以用一个有限状态机来表示：开始于我们没有添加任何的 header(START 状态)，该状态下只有一个添加 header 的选项。然后进入至少添加了一个 header (HEADER 状态)，该状态下既可以添加另外的 header 来保持该状态，也可以添加一个 body 而进入到 BODY 状态。只有在这个状态下我们才可以建立，让我们进入到最终状态。
+通常情况下，该协议可以用一个有限状态机来表示：开始于我们没有添加任何的 header 的状态(START 状态)，该状态下只有一个添加 header 的选项。然后进入至少添加了一个 header (HEADER 状态)，该状态下既可以添加另外的 header 来保持该状态，也可以添加一个 body 而进入到 BODY 状态。只有在这个状态下我们可以调用 build，让我们进入到最终状态。
 
 ![typestates state machine](https://www.fluentcpp.com/wp-content/uploads/2019/09/state_machine.png)
 
-然后，我们将编码到我们的类中！
+所以，让我们将这些想法写到我们的类中！
 
 ```c++
 enum  BuilderState  {
@@ -84,13 +84,13 @@ class  HttpConnectionBuilder  {
 };
 ```
 
-其他的函数也是这样。这已经很好了：我们有一个确定的状态告诉我们哪种转换是可能的，并且我们检查它。当然了，你已经通过所有代码的测试，对吗？如果你的测试对代码有足够的覆盖率，那么你将能够在测试的时候捕获任何违规的操作。你也可以在生产环境中启用这些检查，以确保不会偏离该协议（受控崩溃总比内存损坏要强），但是你必须对增加的检查付出代价。
+其他的函数也是这样。这已经很好了：我们有一个确定的状态告诉我们哪种转换是可能的，并且我们检查它。当然了，你有针对你的代码的周密的测试用例，对吗？如果你的测试对代码有足够的覆盖率，那么你将能够在测试的时候捕获任何违规的操作。你也可以在生产环境中启用这些检查，以确保不会偏离该协议（受控崩溃总比内存损坏要强），但是你必须对增加的检查付出代价。
 
 ### 使用类型状态（typestates）
 
 我们怎么才能更快地、100% 确定的捕获到这些错误呢？那就让编译器来做这些工作！下面我将介绍类型状态（typestates）的概念。
 
-大致说来，类型状态（typestates）是将对象的状态编码为其本身的类型。有些语言通过为每个状态实现一个单独的类来实现(比如 `HttpBuilderWithoutHeader`、`HttpBuilderWithBody` 等等)，但这在 C++ 中将会变得非常的冗长：我们不得不声明构造函数、删除拷贝函数、将一个对象转换成另外一个对象...... 并且它很快就会过期。
+大致说来，类型状态（typestates）是将对象的状态编码为其本身的类型。有些语言通过为每个状态实现一个单独的类来实现(比如 `HttpBuilderWithoutHeader`、`HttpBuilderWithBody` 等等)，但这在 C++ 中将会变得非常的冗长：我们不得不声明构造函数、删除拷贝函数、将一个对象转换成另外一个对象…… 并且它很快就会过期。
 
 但是 C++ 还有其他的妙招：模板！我们可以在 `enum` 中对状态进行编码，并且使用这个 `enum` 将构造器模板化。这就得到了如下的代码：
 
@@ -146,7 +146,7 @@ auto connection  =  GetConnectionBuilder()
 using  MyInitialStates  =  InitialStates<START>;
 ```
 
-对于转换，我们需要初始化状态、最终状态和函数，然后我们就得到下边这些：
+对于转换，我们需要初始化状态、最终状态和执行状态转换的函数：
 
 ```c++
 using  MyTransitions  =  Transitions<
@@ -170,7 +170,7 @@ using  MyFinalTransitions  =  FinalTransitions<
 PROTENC\_DECLARE\_WRAPPER(HttpConnectionBuilderWrapper,  HttpConnectionBuilder,  BuilderState,  MyInitialStates,  MyTransitions,  MyFinalTransitions);
 ```
 
-这是展开的一个宏（一个类），我们可以在其中转发我们的函数：
+这是展开的一个作用域（一个类），我们可以在其中转发我们的函数：
 
 ```c++
 PROTENC\_DECLARE\_TRANSITION(add_header);
@@ -196,7 +196,7 @@ auto connection  =  HttpConnectionBuilderWrapper<START>{}
   .build();
 ```
 
-试图在错误的顺序下调用函数将导致编译错误。别担心，因为错误信息的第一个错误是可读的😉。例如，移除 `.add_body("body")` 行，你将得到以下错误：
+试图在错误的顺序下调用函数将导致编译错误。别担心，精心的设计保证了第一个错误信息是可读的😉。例如，移除 `.add_body("body")` 行，你将得到以下错误：
 
 In file included from example/http_connection.cc:6:
 
@@ -212,7 +212,7 @@ src/protenc.h:257:17:  error:  static  assertion failed:  Final  transition not 
 
 如果您的状态机是以另一种形式编码的(或者如果它变得太大了)，那么生成描述它的代码就很简单了，因为所有的转换和初始状态都是以一种容易读/写的格式聚集在一起的。
 
-完整的代码示例可以在 [GitHub](https://github.com/nitnelave/ProtEnc) 找到。请注意该代码现在不能使用 Clang 因为 [bug#35655](https://bugs.llvm.org/show_bug.cgi?id=35655)。
+完整的代码示例可以在 [GitHub](https://github.com/nitnelave/ProtEnc) 找到。请注意该代码现在不能使用 Clang 因为 [bug #35655](https://bugs.llvm.org/show_bug.cgi?id=35655)。
 
 
 ### 你将也喜欢
