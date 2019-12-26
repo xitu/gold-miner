@@ -7,9 +7,9 @@
 
 # C++ 中状态机的表达性代码
 
-> 这是 Valentin Tolmer 的特邀文章。 Valetin 是谷歌的一名软件工程师，他试图提高他周围的代码质量。他年轻时就受到模板编程的影响并且现在只致力于元编程。你可以在 [GitHub](https://github.com/nitnelave) 找到他的一些工作，特别是本文所涉及的 [ProtEnc](https://github.com/nitnelave/ProtEnc) 库。
+> 这是 Valentin Tolmer 的特邀文章。 Valetin 是谷歌的一名软件工程师，他试图提高他周围的代码质量。他年轻时就受到模板编程的影响并且现在只致力于元编程。你可以在 [GitHub](https://github.com/nitnelave) 找到他的一些工作内容，特别是本文所涉及的 [ProtEnc](https://github.com/nitnelave/ProtEnc) 库。
 
-你曾经遇到过这种备注吗？
+你曾经遇到过这种注释吗？
 
 ```c++
 // 重要：在调用 SetUp() 之前请不要调用该函数!
@@ -24,11 +24,11 @@ if  (my_field_.empty())  abort();
 
 让我们看看我们如何**表达**这种方案的处理。
 
-### 例程：建立一个 HTTP 连接
+### 例如：建立一个 HTTP 连接
 
-我们今天的示例是构建一个 HTTP 连接。为了大大简化，我们只说我们的连接请求至少包含一个 head （但是可能更多），有且只有一个 body，并且这个 head 必须在 body 之前被指定出来（例如因为性能原因，我们只写入一个追加的数据结构）。
+我们今天的示例是构建一个 HTTP 连接。为了大大简化，我们只说我们的连接请求至少包含一个 head （但是可能更多），有且只有一个 body，并且这些 header 必须在 body 之前被指定出来（例如因为性能原因，我们只写入一个追加的数据结构）。
 
-**备注：这个** **特定的** **问题可以通过给构造函数传递正确的参数来解决，我不想使这个协议过于复杂。你将看到扩展它是多么的容易。**
+**备注：虽然这个** **特定的** **问题可以通过给构造函数传递正确的参数来解决，我不想使这个协议过于复杂。你将看到扩展它是多么的容易。**
 
 这是第一次实现：
 
@@ -38,11 +38,11 @@ class  HttpConnectionBuilder  {
   void  add_header(std::string  header)  {
     headers_.emplace_back(std::move(header);
   }
-  // 重要:至少调用至少一次 add_header 才能被调用
+  // 重要: 至少调用至少一次 add_header 才能被调用
   void  add_body(std::string  body)  {
     body_  =  std::move(body);
   }
-  // 重要:只能在 add_body 之后才能被调用
+  // 重要: 只能在 add_body 之后才能被调用
   // 消费对象
   HttpConnection build()  &&  {
     return  {std::move(headers_),  std::move(body_)};
@@ -88,7 +88,7 @@ class  HttpConnectionBuilder  {
 
 ### 使用类型状态（typestates）
 
-我们怎么才能更快地、100% 确定的捕获到这些错误呢？那就让编译器来做这些工作！下面我将介绍类型状态（typestates）的概念。
+我们怎么才能更快地、100% 准确地捕获到这些错误呢？那就让编译器来做这些工作！下面我将介绍类型状态（typestates）的概念。
 
 大致说来，类型状态（typestates）是将对象的状态编码为其本身的类型。有些语言通过为每个状态实现一个单独的类来实现(比如 `HttpBuilderWithoutHeader`、`HttpBuilderWithBody` 等等)，但这在 C++ 中将会变得非常的冗长：我们不得不声明构造函数、删除拷贝函数、将一个对象转换成另外一个对象…… 并且它很快就会过期。
 
