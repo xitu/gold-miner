@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science.md)
 > * 译者：Weirdochr
-> * 校对者：TokenJan
+> * 校对者：TokenJan、mymmon
 
 # 数学编程 — 为个人在数据科学领域有所进步而培养的一个关键习惯
 
