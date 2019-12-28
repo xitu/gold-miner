@@ -2,48 +2,47 @@
 > * 原文作者：[Tan Li Hau](https://lihautan.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/json-parser-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/json-parser-with-javascript.md)
-> * 译者：
+> * 译者：[Gavin-Gong](https://github.com/Gavin-Gong)
 > * 校对者：
 
-# JSON Parser with JavaScript
+# 使用 JavaScript 编写 JSON 解析器
 
-The interview question of the week for this week on Cassidoo’s weekly newsletter is,
-
-> Write a function that takes in a string of valid JSON and converts it to an object (or whatever your chosen language uses, dicts, maps, etc). Example input:
+这周的 Cassidoo 的每周简讯有这么一个面试题：
+> 写一个接收一个正确的JSON字符串并将其转化为一个对象（或字典，映射等，这取决于你选择的语言）的函数。示例输入：
 
 ```text
 fakeParseJSON('{ "data": { "fish": "cake", "array": [1,2,3], "children": [ { "something": "else" }, { "candy": "cane" }, { "sponge": "bob" } ] } } ')
 ```
 
-At one point, I was tempted to just to write:
+一度我忍不住想这样写：
 
 ```js
 const fakeParseJSON = JSON.parse;
 ```
 
-But, I thought, I’ve written quite a few articles about AST:
+但是，我记起我写过一些关于 AST 的文章：
 
-* [Creating custom JavaScript syntax with Babel](/creating-custom-javascript-syntax-with-babel)
-* [Step-by-step guide for writing a custom babel transformation](/step-by-step-guide-for-writing-a-babel-transformation)
-* [Manipulating AST with JavaScript](/manipulating-ast-with-javascript)
+* [使用 Babel 创建自定义 JavaScript 语法](/creating-custom-javascript-syntax-with-babel)
+* [一步一步教你写一个自定义 babel 转化器](/step-by-step-guide-for-writing-a-babel-transformation)
+* [使用 JavaScript 操作 AST](/manipulating-ast-with-javascript)
 
-which covers the overview of the compiler pipeline, as well as how to manipulate AST, but I haven’t covered much on how to implement a parser.
+其中包括编译器管道的概述，以及如何操作 AST，但是我还没有详细介绍如何实现解析器。
 
-That’s because, implementing a JavaScript compiler in an article is a task too daunting for me.
+这是因为在一篇文章中实现 JavaScript 编译器对我来说是一项艰巨的任务。
 
-Well, fret not. JSON is also a language. It has its own grammar, which you can refer from [the specifications](https://www.json.org/json-en.html). The knowledge and technique you need to write a JSON parser is transferrable to writing a JS parser.
+好了，不要。JSON 也是一种语言。它有自己的语法，你可以查阅它的 [规范](https://www.json.org/json-en.html)。编写 JSON 解析器所需的知识和技术可以转换为编写 JS 解析器。
 
-So, let’s start writing a JSON parser!
+因此，让我们开始编写一个 JSON 解析器吧！
 
-## Understand the grammar
+## 理解语法
 
-If you look at [the specification page](https://www.json.org/json-en.html), there’s 2 diagrams:
+如果你有查看 [规范页面](https://www.json.org/json-en.html), 你会发现两个图：
 
-* [The syntax diagram (or railroad diagram)](https://en.wikipedia.org/wiki/Syntax_diagram) on the left,
+* [语法图 (或者铁路图)](https://en.wikipedia.org/wiki/Syntax_diagram)在左边，
 
 ![https://www.json.org/img/object.png](https://www.json.org/img/object.png) Image source: [https://www.json.org/img/object.png](https://www.json.org/img/object.png)
 
-* [The McKeeman Form](https://www.crockford.com/mckeeman.html), a variant of [Backus-Naur Form (BNF)](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form), on the right
+* [The McKeeman Form](https://www.crockford.com/mckeeman.html), [巴科斯-诺尔范式 (BNF)]的一种变体 (https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form), 在右边
 
 ```text
 json
@@ -63,41 +62,41 @@ object
   '{' members '}'
 ```
 
-Both diagrams are equivalent.
+两个图是等价的。
 
-One is visual and one is text based. The text based grammar syntax, Backus-Naur Form, is usually fed to another parser that parse this grammar and generate a parser for it. Speaking of parser-ception! 🤯
+一个基于视觉，一个基于文本。基于文本语法的语法 —— 巴科斯-诺尔范式，通常被提供给另一个解析这种语法的并为其生成解析器的解析器，终于说到解析器了！🤯
 
-In this article, we will focus on the railroad diagram, because it is visual and seemed to be more friendly to me.
+在本文中，我们将重点关注铁路图，因为它是可视化的，而且似乎对我更友好。
 
-Lets’ look at the first railroad diagram:
+让我们看看第一张铁路图：
 
 ![https://www.json.org/img/object.png](https://www.json.org/img/object.png) Image source: [https://www.json.org/img/object.png](https://www.json.org/img/object.png)
 
-So this is the grammar for **“object”** in JSON.
+所以我们可以看出这是 **“object”** 在 JSON 中的语法。
 
-We start from the left, following the arrow, and then we end at the right.
+我们从左边开始，沿着箭头走，然后在右边结束。
 
-The circles, eg `{`, `,`, `:`, `}`, are the characters, and the boxes eg: `whitespace`, `string`, and `value` is a placeholder for another grammar. So to parse the “whitespace”, we will need to look at the grammar for **“whitepsace”**.
+圈圈里面是字符, 例如 `{`, `,`, `:`, `}`，矩形里面是其他语法的占位符，例如 `whitespace`, `string`, 和 `value`。因此要解析 “whitespace”，我们需要查阅 **“whitepsace”** 语法。
 
-So, starting from the left, for an object, the first character has to be an open curly bracket, `{`. and then we have 2 options from here:
+因此，对于一个对象而言，从左边开始，第一个字符必须是一个左花括号`{`。然后我们有两种情况：
 
-* `whitespace` → `}` → end, or
-* `whitespace` → `string` → `whitespace` → `:` → `value` → `}` → end
+* `whitespace` → `}` → 结束，或者
+* `whitespace` → `string` → `whitespace` → `:` → `value` → `}` → 结束
 
-Of course, when you reach “value”, you can choose to go to:
+当然当你抵达 “value”的时候，你可以选择继续下去：
 
-* → `}` → end, or
-* → `,` → `whitespace` → … → value
+* → `}` → 结束，或者
+* → `,` → `whitespace` → … → `value`
 
-and you can keep looping, until you decide to go to:
+你可以继续循环，直到你决定去：
 
-* → `}` → end.
+* → `}` → 结束。
 
-So, I guess we are now acquainted with the railroad diagram, let’s carry on to the next section.
+那么，我想我们现在已经熟悉了铁路图，让我们继续到下一节。
 
-## Implementing the parser
+## 实现解析器
 
-Let’s start with the following structure:
+让我们从以下结构开始：
 
 ```js
 function fakeParseJSON(str) {
@@ -106,9 +105,9 @@ function fakeParseJSON(str) {
 }
 ```
 
-We initialise `i` as the index for the current character, we will end as soon as `i` reaches the end of the `str`.
+我们初始化 `i` 将其作为当前字符的索引值, 只要 `i` 值到达 `str` 的长度，我们就会结束函数。
 
-Let’s implement the grammar for the **“object”:**
+让我们实现 **“object”:** 语法
 
 ```js
 function fakeParseJSON(str) {
@@ -118,8 +117,8 @@ function fakeParseJSON(str) {
       i++;
       skipWhitespace();
 
-      // if it is not '}',
-      // we take the path of string -> whitespace -> ':' -> value -> ...
+      // 如果不是 '}',
+      // 我们接收 string -> whitespace -> ':' -> value -> ... 这样的路径字符串
       while (str[i] !== '}') {
         const key = parseString();
         skipWhitespace();
@@ -131,11 +130,11 @@ function fakeParseJSON(str) {
 }
 ```
 
-In the `parseObject`, we will call parse of other grammars, like “string” and “whitespace”, when we implement them, everything will work 🤞.
+我们可以调用 `parseObject` 来解析类似 “string” 和 “whitespace” 之类的语法，只要我们实现这些功能，一切都会工作🤞。
 
-One thing that I forgot to add is the comma, `,`. The `,` only appears before we start the second loop of `whitespace` → `string` → `whitespace` → `:` → …
+我忘了加上一个逗号`,`。`,`只出现在我们开始第二次 `whitespace` → `string` → `whitespace` → `:` → … 循环之前。
 
-Based on that, we add the following lines:
+在此基础上，我们增加了以下几行：
 
 ```js
 function fakeParseJSON(str) {
@@ -145,28 +144,33 @@ function fakeParseJSON(str) {
       i++;
       skipWhitespace();
 
-      let initial = true;      // if it is not '}',
-      // we take the path of string -> whitespace -> ':' -> value -> ...
+      let initial = true;
+      // 如果不是 '}',
+      // 我们接收 string -> whitespace -> ':' -> value -> ... 这样的路径字符串
       while (str[i] !== '}') {
-        if (!initial) {          eatComma();          skipWhitespace();        }        const key = parseString();
+        if (!initial) {
+          eatComma();
+          skipWhitespace();
+        }
+        const key = parseString();
         skipWhitespace();
         eatColon();
         const value = parseValue();
         initial = false;      }
-      // move to the next character of '}'
+      // 移动到下一个 '}' 字符
       i++;
     }
   }
 }
 ```
 
-Some naming convention:
+一些命名约定：
 
-* We call `parseSomething`, when we parse the code based on grammar and use the return value
-* We call `eatSomething`, when we expect the character(s) to be there, but we are not using the character(s)
-* We call `skipSomething`, when we are okay if the character(s) is not there.
+* 当我们根据语法解析代码并使用返回值时，命名为 `parseSomething`
+* 当我们期望字符在那里，但是我们没有使用字符时，命名为 `eatSomething`
+* 当字符不存在，我们也可以接受。 命名为 `skipSomething`
 
-Let’s implement the `eatComma` and `eatColon`:
+让我们实现 `eatComma` 和 `eatColon`：
 
 ```js
 function fakeParseJSON(str) {
@@ -187,9 +191,9 @@ function fakeParseJSON(str) {
 }
 ```
 
-So we have finished implemented the `parseObject` grammar, but what is the return value from this parse function?
+目前为止我们成功实现一个 `parseObject` 语法，但是这个解析函数返回什么值呢？
 
-Well, we need to return a JavaScript object:
+不错，我们需要返回一个 JavaScript 对象：
 
 ```js
 function fakeParseJSON(str) {
@@ -201,8 +205,8 @@ function fakeParseJSON(str) {
 
       const result = {};
       let initial = true;
-      // if it is not '}',
-      // we take the path of string -> whitespace -> ':' -> value -> ...
+      // 如果不是 '}',
+      // 我们接收 string -> whitespace -> ':' -> value -> ... 这样的路径字符串
       while (str[i] !== '}') {
         if (!initial) {
           eatComma();
@@ -214,7 +218,7 @@ function fakeParseJSON(str) {
         const value = parseValue();
         result[key] = value;        initial = false;
       }
-      // move to the next character of '}'
+      // 移动到下一个 '}' 字符
       i++;
 
       return result;    }
@@ -222,7 +226,7 @@ function fakeParseJSON(str) {
 }
 ```
 
-Now that you’ve seen me implementing the “object” grammar, it’s time for you to try out the “array” grammar:
+既然你已经看到我实现了 “object” 语法，现在是时候让您尝试一下 “arrary” 语法了：
 
 ![https://www.json.org/img/array.png](https://www.json.org/img/array.png) Image source: [https://www.json.org/img/array.png](https://www.json.org/img/array.png)
 
@@ -244,7 +248,7 @@ function fakeParseJSON(str) {
         result.push(value);
         initial = false;
       }
-      // move to the next character of ']'
+      // 移动到下一个 '}' 字符
       i++;
       return result;
     }
@@ -252,11 +256,11 @@ function fakeParseJSON(str) {
 }
 ```
 
-Now, move on to a more interesting grammar, “value”:
+现在，我们来看一个更有趣的语法，“value”：
 
 ![https://www.json.org/img/value.png](https://www.json.org/img/value.png) Image source: [https://www.json.org/img/value.png](https://www.json.org/img/value.png)
 
-A value starts with “whitespace”, then any of the following: “string”, “number”, “object”, “array”, “true”, “false” or “null”, and then end with a “whitespace”:
+一个值以 “whitespace” 开始，然后是以下任何一种：“string”，“number”，“object”，“array”，“true”，“false” 或者 “null”，然后以一个 “whitespace” 结束：
 
 ```js
 function fakeParseJSON(str) {
@@ -277,9 +281,10 @@ function fakeParseJSON(str) {
 }
 ```
 
-The `??` is called the [nullish coalescing operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator), it is like the `||` that we used to use for defaulting a value `foo || default`, except that `||` will return the `default` as long as `foo` is falsy, whereas the nullish coalescing operator will only return `default` when `foo` is either `null` or `undefined`.
+`??` 称之为 [空值合并运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator), 它类似我们用来设置默认值 `foo || default` 中的 `||` , 只要`foo`是假值，`||` 就会返回 `default` ，
+而空值合并运算符只会在 `foo` 为 `null` 或 `undefined` 时返回 `default`。
 
-The parseKeyword will check whether the current `str.slice(i)` matches the keyword string, if so, it will return the keyword value:
+parseKeyword将检查当前 `str.slice(i)` 是否与关键字字符串匹配，如果匹配，将返回关键字值：
 
 ```js
 function fakeParseJSON(str) {
@@ -293,11 +298,11 @@ function fakeParseJSON(str) {
 }
 ```
 
-That’s it for `parseValue`!
+这就是 `parseValue`！
 
-We still have 3 more grammars to go, but I will save the length of this article, and implement them in the following CodeSandbox:
+我们还有3个以上的语法去，但我为了控制文章篇幅，在下面的 [CodeSandbox](https://codesandbox.io/s/json-parser-k4c3w?from-embed) 中实现这些语法。
 
-After we have finished implementing all the grammars, now let’s return the value of the json, which is return by the `parseValue`:
+在我们完成所有的语法实现之后，现在让我们返回 `parseValue` 返回的 json 值：
 
 ```js
 function fakeParseJSON(str) {
@@ -308,15 +313,15 @@ function fakeParseJSON(str) {
 }
 ```
 
-That’s it!
+就是这样!
 
-Well, not so fast my friend, we’ve just finished the happy path, what about unhappy path?
+好吧，别急，我的朋友，我们刚刚完成了理想情况，那非理想情况呢?
 
-## Handling the unexpected input
+## 处理意外输入
 
-As a good developer, we need to handle the unhappy path gracefully as well. For a parser, that means shouting at the developer with appropriate error message.
+作为一个优秀的开发人员，我们也需要优雅地处理非理想情况。对于解析器，这意味着使用适当的错误消息对开发人员大声警告。
 
-Let’s handle the 2 most common error cases:
+让我们来处理两个最常见的错误情况：
 
 * Unexpected token
 * Unexpected end of string
@@ -325,7 +330,7 @@ Let’s handle the 2 most common error cases:
 
 ### Unexpected end of string
 
-In all the while loops, for example the while loop in `parseObject`:
+在所有的 while 循环中，例如 `parseObject` 中的 while 循环：
 
 ```js
 function fakeParseJSON(str) {
@@ -335,7 +340,7 @@ function fakeParseJSON(str) {
     while(str[i] !== '}') {
 ```
 
-We need to make sure that we don’t access the character beyond the length of the string. This happens when the string ended unexpectedly, while we are still waiting for a closing character, ”}” in this example:
+我们需要确保访问的字符不会超过字符串的长度。这发生在字符串意外结束时，而我们仍然在等待一个结束字符 —— ”}”。比如说下面的例子：
 
 ```js
 function fakeParseJSON(str) {
@@ -345,7 +350,7 @@ function fakeParseJSON(str) {
     while (i < str.length && str[i] !== '}') {      // ...
     }
     checkUnexpectedEndOfInput();
-    // move to the next character of '}'
+    // 移动到下一个 '}' 字符
     i++;
 
     return result;
@@ -353,49 +358,48 @@ function fakeParseJSON(str) {
 }
 ```
 
-## Going the extra mile
+## 加倍努力
 
-Do you remember the time you were a junior developer, every time when you encounter Syntax error with cryptic messages, you are completely clueless of what went wrong?
-
-Now you are more experienced, it is time to stop this virtuous cycle and stop yelling
+你还记得当你还是一个初级开发者时，每次遇到带有加密消息的语法错误时，你都完全不知道哪里出错了吗？
+现在你更有经验了，是时候停止这种恶性循环，停止吐槽了。
 
 ```js
 Unexpected token "a"
 ```
 
-and leave the user staring at the screen confounded.
+然后让用户盯着屏幕发呆。
 
-There’s a lot of better ways of handling error messages than yelling, here are some points you can consider adding to your parser:
+有很多比吐槽更好的处理错误消息的方法，下面是一些你可以考虑添加到你的解析器的要点：
 
-### Error code and standard error message
+### 错误代码和标准错误消息
 
-This is useful as a standard keyword for user to Google for help.
+标准关键字对用户谷歌寻求帮助很有用。
 
 ```js
-// instead of
+// 不要这些显示
 Unexpected token "a"
 Unexpected end of input
 
-// show
+// 这样显示
 JSON_ERROR_001 Unexpected token "a"
 JSON_ERROR_002 Unexpected end of input
 ```
 
-### A better view of what went wrong
+### 更好地查看哪里出了问题
 
-Parser like Babel, will show you a code frame, a snippet of your code with underline, arrow or highlighting of what went wrong
+像Babel这样的解析器，会向你显示一个代码框架，一个带有下划线、箭头或突出显示错误的代码片段
 
 ```js
-// instead of
+// 不要这样显示
 Unexpected token "a" at position 5
 
-// show
+// 这样显示
 { "b"a
       ^
 JSON_ERROR_001 Unexpected token "a"
 ```
 
-An example on how you can print out the code snippet:
+一个如何输出代码片段的例子：
 
 ```js
 function fakeParseJSON(str) {
@@ -414,15 +418,15 @@ function fakeParseJSON(str) {
 }
 ```
 
-### Suggestions for error recovery
+### 错误恢复建议
 
-If possible, explain what went wrong and give suggestions on how to fix them
+如果可能的话，解释出了什么问题，并给出解决问题的建议
 
 ```js
-// instead of
+// 不要这样显示
 Unexpected token "a" at position 5
 
-// show
+// 要这样显示
 { "b"a
       ^
 JSON_ERROR_001 Unexpected token "a".
@@ -432,46 +436,41 @@ Expecting a ":" over here, eg:
 You can learn more about valid JSON string in http://goo.gl/xxxxx
 ```
 
-If possible, provide suggestions based on the context that the parser has collected so far
+如果可能，根据解析器目前收集的上下文提供建议
 
 ```js
 fakeParseJSON('"Lorem ipsum');
 
-// instead of
+// 这样显示
 Expecting a `"` over here, eg:
 "Foo Bar"
         ^
 
-// show
+// 这样显示
 Expecting a `"` over here, eg:
 "Lorem ipsum"
             ^
 ```
 
-The suggestion that based on the context will feel more relatable and actionable.
+基于上下文的建议会让人感觉更有共鸣和可操作性。
+记住所有的建议，用以下几点检查已经更新的 [CodeSandbox](https://codesandbox.io/s/json-parser-with-error-handling-hjwxk?from-embed)
 
-With all the suggestions in mind, check out the updated CodeSandbox with
+* 有意义的错误消息
+* 带有错误指向失败点的代码段
+* 为错误恢复提供建议
 
-* Meaningful error message
-* Code snippet with error pointing point of failure
-* Provide suggestions for error recovery
+## 总结
 
-## Summary
-
-To implement a parser, you need to start with the grammar.
-
-You can formalise the grammar with the railroad diagrams or the Backus-Naur Form. Designing the grammar is the hardest step.
-
-Once you’ve settled with the grammar, you can start implementing the parser based on it.
-
-Error handling is important, what’s more important is to have meaningful error messages, so that the user knows how to fix it.
-
-Now you know how a simple parser is implemented, it’s time to set eyes on a more complex one:
+要实现解析器，你需要从语法开始。
+你可以用铁路图或巴科斯-诺尔范式来使语法正式化。设计语法是最困难的一步。
+一旦你解决了语法问题，就可以开始基于语法实现解析器。
+错误处理很重要，更重要的是要有有意义的错误消息，以便用户知道如何修复它。
+现在，你已经了解了如何实现简单的解析器，现在应该关注更复杂的解析器了：
 
 * [Babel parser](https://github.com/babel/babel/tree/master/packages/babel-parser)
 * [Svelte parser](https://github.com/sveltejs/svelte/tree/master/src/compiler/parse)
 
-Lastly, do follow [@cassidoo](https://twitter.com/cassidoo), her weekly newsletter is awesome!
+最后，请关注 [@cassidoo](https://twitter.com/cassidoo)，她的每周简讯棒极了!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
