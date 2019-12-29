@@ -3,12 +3,12 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/json-parser-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/json-parser-with-javascript.md)
 > * 译者：[Gavin-Gong](https://github.com/Gavin-Gong)
-> * 校对者：
+> * 校对者：[vitoxli](https://github.com/vitoxli) [Chorer](https://github.com/Chorer)
 
 # 使用 JavaScript 编写 JSON 解析器
 
 这周的 Cassidoo 的每周简讯有这么一个面试题：
-> 写一个接收一个正确的JSON字符串并将其转化为一个对象（或字典，映射等，这取决于你选择的语言）的函数。示例输入：
+> 写一个函数，这个函数接收一个正确的 JSON 字符串并将其转化为一个对象（或字典，映射等，这取决于你选择的语言）。示例输入：
 
 ```text
 fakeParseJSON('{ "data": { "fish": "cake", "array": [1,2,3], "children": [ { "something": "else" }, { "candy": "cane" }, { "sponge": "bob" } ] } } ')
@@ -30,19 +30,19 @@ const fakeParseJSON = JSON.parse;
 
 这是因为在一篇文章中实现 JavaScript 编译器对我来说是一项艰巨的任务。
 
-好了，不要。JSON 也是一种语言。它有自己的语法，你可以查阅它的 [规范](https://www.json.org/json-en.html)。编写 JSON 解析器所需的知识和技术可以转换为编写 JS 解析器。
+好了，不用担心。JSON 也是一种语言。它有自己的语法，你可以查阅它的 [规范](https://www.json.org/json-en.html)。编写 JSON 解析器所需的知识和技术可以助你编写 JS 解析器。
 
-因此，让我们开始编写一个 JSON 解析器吧！
+那么，让我们开始编写一个 JSON 解析器吧！
 
 ## 理解语法
 
 如果你有查看 [规范页面](https://www.json.org/json-en.html), 你会发现两个图：
 
-* [语法图 (或者铁路图)](https://en.wikipedia.org/wiki/Syntax_diagram)在左边，
+* 左边的 [语法图 (或者铁路图)](https://en.wikipedia.org/wiki/Syntax_diagram)，
 
 ![https://www.json.org/img/object.png](https://www.json.org/img/object.png) Image source: [https://www.json.org/img/object.png](https://www.json.org/img/object.png)
 
-* [The McKeeman Form](https://www.crockford.com/mckeeman.html), [巴科斯-诺尔范式 (BNF)]的一种变体 (https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form), 在右边
+* 右边的 [The McKeeman Form](https://www.crockford.com/mckeeman.html)，[巴科斯-诺尔范式(BNF)](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form) 的一种变体
 
 ```text
 json
@@ -64,7 +64,7 @@ object
 
 两个图是等价的。
 
-一个基于视觉，一个基于文本。基于文本语法的语法 —— 巴科斯-诺尔范式，通常被提供给另一个解析这种语法的并为其生成解析器的解析器，终于说到解析器了！🤯
+一个基于视觉，一个基于文本。基于文本语法的语法 —— 巴科斯-诺尔范式，通常被提供给另一个解析这种语法并为其生成解析器的解析器，终于说到解析器了！🤯
 
 在本文中，我们将重点关注铁路图，因为它是可视化的，而且似乎对我更友好。
 
@@ -72,18 +72,18 @@ object
 
 ![https://www.json.org/img/object.png](https://www.json.org/img/object.png) Image source: [https://www.json.org/img/object.png](https://www.json.org/img/object.png)
 
-所以我们可以看出这是 **“object”** 在 JSON 中的语法。
+我们可以看出这是 **『object』** 在 JSON 中的语法。
 
-我们从左边开始，沿着箭头走，然后在右边结束。
+我们从左边开始，沿着箭头走，一直走到右边为止。
 
-圈圈里面是字符, 例如 `{`, `,`, `:`, `}`，矩形里面是其他语法的占位符，例如 `whitespace`, `string`, 和 `value`。因此要解析 “whitespace”，我们需要查阅 **“whitepsace”** 语法。
+圈圈里面是字符, 例如 `{`、`,`、`:`、`}`，矩形里面是其它语法的占位符，例如 `whitespace`、`string` 和 `value`。因此要解析『whitespace』，我们需要查阅 **『whitepsace』** 语法。
 
-因此，对于一个对象而言，从左边开始，第一个字符必须是一个左花括号`{`。然后我们有两种情况：
+因此，对于一个对象而言，从左边开始，第一个字符必须是一个左花括号 `{`。然后我们有两种情况：
 
 * `whitespace` → `}` → 结束，或者
 * `whitespace` → `string` → `whitespace` → `:` → `value` → `}` → 结束
 
-当然当你抵达 “value”的时候，你可以选择继续下去：
+当然当你抵达『value』的时候，你可以选择继续下去：
 
 * → `}` → 结束，或者
 * → `,` → `whitespace` → … → `value`
@@ -105,9 +105,9 @@ function fakeParseJSON(str) {
 }
 ```
 
-我们初始化 `i` 将其作为当前字符的索引值, 只要 `i` 值到达 `str` 的长度，我们就会结束函数。
+我们初始化 `i` 将其作为当前字符的索引值，只要 `i` 值到达 `str` 的长度，我们就会结束函数。
 
-让我们实现 **“object”:** 语法
+让我们实现 **『object』** 语法：
 
 ```js
 function fakeParseJSON(str) {
@@ -130,9 +130,9 @@ function fakeParseJSON(str) {
 }
 ```
 
-我们可以调用 `parseObject` 来解析类似 “string” 和 “whitespace” 之类的语法，只要我们实现这些功能，一切都会工作🤞。
+我们可以调用 `parseObject` 来解析类似『string』和『whitespace』之类的语法，只要我们实现这些功能，一切都会工作🤞。
 
-我忘了加上一个逗号`,`。`,`只出现在我们开始第二次 `whitespace` → `string` → `whitespace` → `:` → … 循环之前。
+我忘了加上一个逗号 `,`。`,`只出现在我们开始第二次 `whitespace` → `string` → `whitespace` → `:` → … 循环之前。
 
 在此基础上，我们增加了以下几行：
 
@@ -168,7 +168,7 @@ function fakeParseJSON(str) {
 
 * 当我们根据语法解析代码并使用返回值时，命名为 `parseSomething`
 * 当我们期望字符在那里，但是我们没有使用字符时，命名为 `eatSomething`
-* 当字符不存在，我们也可以接受。 命名为 `skipSomething`
+* 当字符不存在，我们也可以接受。命名为 `skipSomething`
 
 让我们实现 `eatComma` 和 `eatColon`：
 
@@ -226,7 +226,7 @@ function fakeParseJSON(str) {
 }
 ```
 
-既然你已经看到我实现了 “object” 语法，现在是时候让您尝试一下 “arrary” 语法了：
+既然你已经看到我实现了『object』语法，现在是时候让你尝试一下『array』语法了：
 
 ![https://www.json.org/img/array.png](https://www.json.org/img/array.png) Image source: [https://www.json.org/img/array.png](https://www.json.org/img/array.png)
 
@@ -256,11 +256,11 @@ function fakeParseJSON(str) {
 }
 ```
 
-现在，我们来看一个更有趣的语法，“value”：
+现在，我们来看一个更有趣的语法，『value』：
 
 ![https://www.json.org/img/value.png](https://www.json.org/img/value.png) Image source: [https://www.json.org/img/value.png](https://www.json.org/img/value.png)
 
-一个值以 “whitespace” 开始，然后是以下任何一种：“string”，“number”，“object”，“array”，“true”，“false” 或者 “null”，然后以一个 “whitespace” 结束：
+一个值以 『whitespace』 开始，然后是以下任何一种：『string』、『number』、『object』、『array』、『true』、『false』或者『null』，然后以一个『whitespace』结束：
 
 ```js
 function fakeParseJSON(str) {
@@ -281,10 +281,10 @@ function fakeParseJSON(str) {
 }
 ```
 
-`??` 称之为 [空值合并运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator), 它类似我们用来设置默认值 `foo || default` 中的 `||` , 只要`foo`是假值，`||` 就会返回 `default` ，
+`??` 称之为 [空值合并运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator), 它类似我们用来设置默认值 `foo || default` 中的 `||`，只要`foo`是假值，`||` 就会返回 `default`，
 而空值合并运算符只会在 `foo` 为 `null` 或 `undefined` 时返回 `default`。
 
-parseKeyword将检查当前 `str.slice(i)` 是否与关键字字符串匹配，如果匹配，将返回关键字值：
+`parseKeyword` 将检查当前 `str.slice(i)` 是否与关键字字符串匹配，如果匹配，将返回关键字值：
 
 ```js
 function fakeParseJSON(str) {
@@ -300,7 +300,7 @@ function fakeParseJSON(str) {
 
 这就是 `parseValue`！
 
-我们还有3个以上的语法去，但我为了控制文章篇幅，在下面的 [CodeSandbox](https://codesandbox.io/s/json-parser-k4c3w?from-embed) 中实现这些语法。
+我们还有 3 个以上的语法要实现，但我为了控制文章篇幅，在下面的 [CodeSandbox](https://codesandbox.io/s/json-parser-k4c3w?from-embed) 中实现这些语法。
 
 在我们完成所有的语法实现之后，现在让我们返回 `parseValue` 返回的 json 值：
 
@@ -313,13 +313,13 @@ function fakeParseJSON(str) {
 }
 ```
 
-就是这样!
+就是这样！
 
-好吧，别急，我的朋友，我们刚刚完成了理想情况，那非理想情况呢?
+好吧，别急，我的朋友，我们刚刚完成了理想情况，那非理想情况呢？
 
 ## 处理意外输入
 
-作为一个优秀的开发人员，我们也需要优雅地处理非理想情况。对于解析器，这意味着使用适当的错误消息对开发人员大声警告。
+作为一个优秀的开发人员，我们也需要优雅地处理非理想情况。对于解析器，这意味着使用适当的错误消息大声警告开发人员。
 
 让我们来处理两个最常见的错误情况：
 
@@ -340,7 +340,7 @@ function fakeParseJSON(str) {
     while(str[i] !== '}') {
 ```
 
-我们需要确保访问的字符不会超过字符串的长度。这发生在字符串意外结束时，而我们仍然在等待一个结束字符 —— ”}”。比如说下面的例子：
+我们需要确保访问的字符不会超过字符串的长度。这发生在字符串意外结束时，而我们仍然在等待一个结束字符 —— `}`。比如说下面的例子：
 
 ```js
 function fakeParseJSON(str) {
@@ -360,7 +360,7 @@ function fakeParseJSON(str) {
 
 ## 加倍努力
 
-你还记得当你还是一个初级开发者时，每次遇到带有加密消息的语法错误时，你都完全不知道哪里出错了吗？
+你还记得当你还是一个初级开发者时，每次遇到含糊不清的语法报错时，你都完全不知道哪里出错了吗？
 现在你更有经验了，是时候停止这种恶性循环，停止吐槽了。
 
 ```js
@@ -376,24 +376,24 @@ Unexpected token "a"
 标准关键字对用户谷歌寻求帮助很有用。
 
 ```js
-// 不要这些显示
+// 不要这样显示
 Unexpected token "a"
 Unexpected end of input
 
-// 这样显示
+// 而要这样显示
 JSON_ERROR_001 Unexpected token "a"
 JSON_ERROR_002 Unexpected end of input
 ```
 
 ### 更好地查看哪里出了问题
 
-像Babel这样的解析器，会向你显示一个代码框架，一个带有下划线、箭头或突出显示错误的代码片段
+像 Babel 这样的解析器，会向你显示一个代码框架，它是一个带有下划线、箭头或突出显示错误的代码片段
 
 ```js
 // 不要这样显示
 Unexpected token "a" at position 5
 
-// 这样显示
+// 而要这样显示
 { "b"a
       ^
 JSON_ERROR_001 Unexpected token "a"
@@ -426,7 +426,7 @@ function fakeParseJSON(str) {
 // 不要这样显示
 Unexpected token "a" at position 5
 
-// 要这样显示
+// 而要这样显示
 { "b"a
       ^
 JSON_ERROR_001 Unexpected token "a".
@@ -452,7 +452,7 @@ Expecting a `"` over here, eg:
             ^
 ```
 
-基于上下文的建议会让人感觉更有共鸣和可操作性。
+基于上下文的建议会让人感觉更有关联性和可操作性。
 记住所有的建议，用以下几点检查已经更新的 [CodeSandbox](https://codesandbox.io/s/json-parser-with-error-handling-hjwxk?from-embed)
 
 * 有意义的错误消息
