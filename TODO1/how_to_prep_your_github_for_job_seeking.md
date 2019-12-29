@@ -29,7 +29,7 @@ First, let's look at the bare minimum you should do to your overall profile.
 
 Having a completed profile gives the impression that you care about your GitHub and that you're an organized person. Yes, we have your CV and probably your LinkedIn but it's the worst of the three that will make the longest lasting impression.
 
-**A real picture is better than a cartoon, manga or a symbol. **
+**A real picture is better than a cartoon, manga or a symbol.**
 
 If you are job seeking it's important that you look clean; avoid pictures you wouldn't normally send to an employer including, naked, drinking, ninja, hacker or terrorist disguise or any picture that gives the impression that you smell worse than you look.
 
