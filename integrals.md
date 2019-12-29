@@ -9021,10 +9021,11 @@
 |[Flutter 布局备忘录](https://juejin.im/post/5cfe0d136fb9a07efc497d7d)|校对|1.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 
-## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：16 当前积分：16 二零一九：16
+## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：20.5 当前积分：20.5 二零一九：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我们为何抛弃 Redux 拥抱 MobX](https://juejin.im/post/5e068fa551882512657bc16c)|翻译|4.5|
 |[微前端：未来前端开发的新趋势 — 第二部分](https://juejin.im/post/5d1a91c7e51d45775f516ab9)|翻译|6.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 |[10 分钟爆改终端](https://juejin.im/post/5d053fc56fb9a07ee85c283d)|翻译|5|
@@ -9039,10 +9040,11 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：80 当前积分：80 二零一九：80
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：82 当前积分：82 二零一九：82
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何提升你的数据结构、算法以及解决问题的能力](https://juejin.im/post/5d80fdcbf265da03e83ba163)|校对|2|
 |[PHP 7.4 有什么新功能？你必须掌握的 10 大特性](https://juejin.im/post/5dfa04316fb9a0160770a501)|校对|2|
 |[动态规划算法的实际应用：接缝裁剪](https://juejin.im/post/5de8b483f265da33d039c618)|校对|3.5|
 |[将 GraphQL 概念可视化](https://juejin.im/post/5de480d7f265da05ce3b7368)|校对|2|
@@ -9076,10 +9078,11 @@
 |------|-------|-------|
 |[如何用 React Hooks 打造一个不到 100 行代码的异步表单校验库](https://juejin.im/post/5cf4e2c2f265da1b80202f83)|校对|1.5|
 
-## 译者：[Stevens1995](https://github.com/Stevens1995) 历史贡献积分：18 当前积分：18 二零一九：18
+## 译者：[Stevens1995](https://github.com/Stevens1995) 历史贡献积分：20 当前积分：20 二零一九：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我们为何抛弃 Redux 拥抱 MobX](https://juejin.im/post/5e068fa551882512657bc16c)|校对|2|
 |[趣味学习 CSS 布局 —— 第一部分：弹性布局](https://juejin.im/post/5dafaca351882575446cd16e)|校对|1|
 |[如何用 JavaScript 编写扫雷游戏](https://juejin.im/post/5d6276cd6fb9a06ade111bb4)|校对|3|
 |[Web 组件的问题](https://juejin.im/post/5d42aec96fb9a06ae94d1146)|翻译|5|
@@ -9292,10 +9295,11 @@
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：33 当前积分：33 二零一九：33
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：37 当前积分：37 二零一九：37
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何提升你的数据结构、算法以及解决问题的能力](https://juejin.im/post/5d80fdcbf265da03e83ba163)|翻译|4|
 |[PHP 7.4 有什么新功能？你必须掌握的 10 大特性](https://juejin.im/post/5dfa04316fb9a0160770a501)|翻译|4.5|
 |[如何确定团队工作的优先级](https://juejin.im/post/5de4fc675188252edd0e2828)|翻译|4|
 |[如何用 Keras 从头搭建一维生成对抗网络](https://juejin.im/post/5dcf5aba6fb9a0203161f376)|校对|7|
@@ -9473,3 +9477,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[我个人的 Git 技巧备忘录](https://juejin.im/post/5e006ad4e51d45582248e63f)|校对|2|
+
+## 译者：[xurui1995](https://github.com/xurui1995) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何提升你的数据结构、算法以及解决问题的能力](https://juejin.im/post/5d80fdcbf265da03e83ba163)|校对|1.5|
