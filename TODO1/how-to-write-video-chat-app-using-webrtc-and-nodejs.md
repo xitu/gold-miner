@@ -1,3 +1,10 @@
+> * 原文地址：[WebRTC and Node.js: Development of a real-time video chat app](https://tsh.io/blog/how-to-write-video-chat-app-using-webrtc-and-nodejs/)
+> * 原文作者：[Mikołaj Wargowski](https://github.com/Miczeq22) 
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md)
+> * 译者：
+> * 校对者：
+
 # WebRTC and Node.js: Development of a real-time video chat app
 
 > **(Real-)time is money, so I'm gonna get to the point. In this article, I'll show you how to write a video chat application which allows sharing both video and audio between two connected users. It's quite simple, nothing fancy but good for training in JavaScript language and -- to be more precise -- WebRTC technology and [Node.js](https://tsh.io/services/web-development/node/).**
@@ -474,3 +481,9 @@ Read more: [Node.js and dependency injection -- friends or foes?](https://tsh.i
 WebRTC is a vast topic -- especially if you want to know how it works under the hood. Fortunately, we have access to easy-in-use JavaScript API, where we can create pretty neat apps, e.g. video-sharing, chat applications and much more!
 
 If you want to deep dive into WebRTC, here's a link to [the WebRTC official documentation. ](https://webrtc.org/start/)My recommendation is to use [docs from MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API).
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
