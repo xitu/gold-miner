@@ -2,8 +2,7 @@
 
 (Real-)time is money, so I'm gonna get to the point. In this article, I'll show you how to write a video chat application which allows sharing both video and audio between two connected users. It's quite simple, nothing fancy but good for training in JavaScript language and -- to be more precise -- WebRTC technology and [Node.js](https://tsh.io/services/web-development/node/).
 
-What is WebRTC?
----------------
+## What is WebRTC?
 
 Web Real-Time Communications -- WebRTC in short -- is an HTML5 specification that allows you to communicate in real-time directly between browsers without any third-party plugins. WebRTC can be used for multiple tasks (even file sharing) but real-time peer-to-peer audio and video communication is obviously the primary feature and we will focus on those in this article.
 
@@ -11,8 +10,7 @@ What WebRTC does is to allow access to devices -- you can use a microphone, a ca
 
 > WebRTC enables for audio and video communication to work inside web pages.
 
-WebRTC JavaScript API
----------------------
+## WebRTC JavaScript API
 
 WebRTC is a complex topic where many technologies are involved. However, establishing connections, communication and transmitting data are implemented through a set of JS APIs. The primary APIs include:
 
@@ -20,15 +18,13 @@ WebRTC is a complex topic where many technologies are involved. However, establi
 -   RTCSessionDescription -- describes one end of a connection (or a potential connection) and how it's configured,
 -   navigator.getUserMedia -- captures audio and video.
 
-Why Node.js?
-------------
+## Why Node.js?
 
 To make a remote connection between two or more devices you need a server. In this case, you need a server that handles real-time communication. You know that Node.js is built for real-time scalable applications. To develop two-way connection apps with free data exchange, you would probably use WebSockets that allows opening a communication session between a client and a server. Requests from the client are processed as a loop, more precisely -- the event loop, which makes Node.js a good option because it takes a "non-blocking" approach to serve requests and thus, achieves low latency and high throughput along the way.
 
 Read more: [New Node.js 12 features will see it disrupt AI, IoT and more surprising areas](https://tsh.io/blog/new-node-js-features/)
 
-Demo Idea: what are we going to create here?
---------------------------------------------
+## Demo Idea: what are we going to create here?
 
 We are going to create a very simple application which allows us to stream audio and video to the connected device -- a basic video chat app. We will use:
 
@@ -36,8 +32,7 @@ We are going to create a very simple application which allows us to stream audio
 -   socket.io library to establish a connection between two devices with WebSockets,
 -   WebRTC to allow media devices (camera and microphone) to stream audio and video between connected devices.
 
-Video Chat implementation
--------------------------
+## Video Chat implementation
 
 The first thing we're gonna do is to serve an HTML file that will work as a UI for our application. Let's initialize new node.js project by running: `npm init`. After that we need to install a few dev dependencies by running: `npm i -D typescript ts-node nodemon @types/express @types/socket.io` and production dependencies by running: `npm i express socket.io`.
 
@@ -231,8 +226,7 @@ When you go back to the browser, you should notice a prompt that asks you to acc
 
 Read more: [A simple guide to concurrency in Node.js and a few traps that come with it](https://tsh.io/blog/simple-guide-concurrency-node-js/)
 
-How to handle socket connections?
----------------------------------
+## How to handle socket connections?
 
 Now we will focus on handling socket connections -- we need to connect our client with the server and for that, we will use socket.io. Inside `public/scripts/index.js`, add:
 
@@ -478,8 +472,7 @@ As you can see, we've taken stream from the passed object and changed `srcObjec
 
 Read more: [Node.js and dependency injection -- friends or foes?](https://tsh.io/blog/dependency-injection-in-node-js/)
 
-Now you know how to write a video chat app!
--------------------------------------------
+## Now you know how to write a video chat app!
 
 WebRTC is a vast topic -- especially if you want to know how it works under the hood. Fortunately, we have access to easy-in-use JavaScript API, where we can create pretty neat apps, e.g. video-sharing, chat applications and much more!
 
