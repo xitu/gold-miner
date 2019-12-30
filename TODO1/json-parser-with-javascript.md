@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/json-parser-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/json-parser-with-javascript.md)
 > * 译者：[Gavin-Gong](https://github.com/Gavin-Gong)
-> * 校对者：[vitoxli](https://github.com/vitoxli) [Chorer](https://github.com/Chorer)
+> * 校对者：[vitoxli](https://github.com/vitoxli)，[Chorer](https://github.com/Chorer)
 
 # 使用 JavaScript 编写 JSON 解析器
 
@@ -36,7 +36,7 @@ const fakeParseJSON = JSON.parse;
 
 ## 理解语法
 
-如果你有查看 [规范页面](https://www.json.org/json-en.html), 你会发现两个图：
+如果你有查看 [规范页面](https://www.json.org/json-en.html)，你会发现两个图：
 
 * 左边的 [语法图 (或者铁路图)](https://en.wikipedia.org/wiki/Syntax_diagram)，
 
@@ -76,7 +76,7 @@ object
 
 我们从左边开始，沿着箭头走，一直走到右边为止。
 
-圈圈里面是字符, 例如 `{`、`,`、`:`、`}`，矩形里面是其它语法的占位符，例如 `whitespace`、`string` 和 `value`。因此要解析『whitespace』，我们需要查阅 **『whitepsace』** 语法。
+圈圈里面是字符，例如 `{`、`,`、`:`、`}`，矩形里面是其它语法的占位符，例如 `whitespace`、`string` 和 `value`。因此要解析『whitespace』，我们需要查阅 **『whitepsace』** 语法。
 
 因此，对于一个对象而言，从左边开始，第一个字符必须是一个左花括号 `{`。然后我们有两种情况：
 
@@ -281,7 +281,7 @@ function fakeParseJSON(str) {
 }
 ```
 
-`??` 称之为 [空值合并运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator), 它类似我们用来设置默认值 `foo || default` 中的 `||`，只要`foo`是假值，`||` 就会返回 `default`，
+`??` 称之为 [空值合并运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)，它类似我们用来设置默认值 `foo || default` 中的 `||`，只要`foo`是假值，`||` 就会返回 `default`，
 而空值合并运算符只会在 `foo` 为 `null` 或 `undefined` 时返回 `default`。
 
 `parseKeyword` 将检查当前 `str.slice(i)` 是否与关键字字符串匹配，如果匹配，将返回关键字值：
@@ -470,7 +470,7 @@ Expecting a `"` over here, eg:
 * [Babel parser](https://github.com/babel/babel/tree/master/packages/babel-parser)
 * [Svelte parser](https://github.com/sveltejs/svelte/tree/master/src/compiler/parse)
 
-最后，请关注 [@cassidoo](https://twitter.com/cassidoo)，她的每周简讯棒极了!
+最后，请关注 [@cassidoo](https://twitter.com/cassidoo)，她的每周简讯棒极了！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
