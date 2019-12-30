@@ -2,8 +2,8 @@
 > * 原文作者：[Jonathan Boccara](https://www.fluentcpp.com/author/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/expressive-code-for-state-machines-in-cpp.md](https://github.com/xitu/gold-miner/blob/master/TODO1/expressive-code-for-state-machines-in-cpp.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zh1an](https://github.com/zh1an)
+> * 校对者：[todaycoder001](https://github.com/todaycoder001), [PingHGao](https://github.com/PingHGao)
 
 # C++ 中清晰明了的状态机代码
 
@@ -53,7 +53,7 @@ class  HttpConnectionBuilder  {
 };
 ```
 
-直到现在，这个例子相当的简单，但是它依赖于用户不要做错事情：如果他们没有提前阅读过文档，没有什么可以阻止他们在 body 之后添加另外的 header 。如果将其放入到一个 1000 行的文件中，你很快就会发现这有多糟糕。更糟糕的是，没有检查类是否被正确的使用，所以，查看类是否被误用的唯一方法是观察是否有意料之外的效果！如果它导致了内存损坏，那么祝您调试顺利。
+直到现在，这个例子相当的简单，但是它依赖于用户不要做错事情：如果他们没有提前阅读过文档，没有什么可以阻止他们在 body 之后添加另外的 header。如果将其放入到一个 1000 行的文件中，你很快就会发现这有多糟糕。更糟糕的是，没有检查类是否被正确的使用，所以，查看类是否被误用的唯一方法是观察是否有意料之外的效果！如果它导致了内存损坏，那么祝您调试顺利。
 
 其实我们可以做的更好……
 
@@ -108,7 +108,7 @@ class  HttpConnectionBuilder  {
 };
 ```
 
-这里我们静态地检查对象是否处于正确的状态，无效代码甚至无法编译！并且我们还可以得到了一个相当清晰的错误信息。每次我们创建与目标状态相对应的新对象时，我们也销毁了与之前状态对应的对象：你在类型为 `HttpConnectionBuilder<START>`的对象上调用 add_header ，但是你将得到一个 `HttpConnectionBuilder<HEADER>` 类型的返回值。这就是类型状态（typestates）的核心思想。
+这里我们静态地检查对象是否处于正确的状态，无效代码甚至无法编译！并且我们还可以得到了一个相当清晰的错误信息。每次我们创建与目标状态相对应的新对象时，我们也销毁了与之前状态对应的对象：你在类型为 `HttpConnectionBuilder<START>`的对象上调用 add_header，但是你将得到一个 `HttpConnectionBuilder<HEADER>` 类型的返回值。这就是类型状态（typestates）的核心思想。
 
 注意：这个方法只能在右值引用(r-values)中调用(`std::move`，就是函数声明行末尾的 `&&` 的作用)。为什么要这样呢？它强制性地破坏了前一个状态，因此只能得到一个相关的状态。可以将其看做 `unique_ptr`：你不想复制一个内部的构件并获得无效的状态。就像 `unique_ptr` 只有一个所有者一样，类型状态（typestates）也必须只有一个状态。
 
@@ -136,7 +136,7 @@ auto connection  =  GetConnectionBuilder()
 
 ### ProtEnc 库
 
-这就是 [ProtEnc](https://github.com/nitnelave/ProtEnc)(protocol encoder 的简称)发挥作用的地方。有了数量惊人的模板，该库允许轻松的声明实现 typestate 检查的类。要使用它，需要你的(未检查的)协议实现，这是我们用所有 "重要的" 注释实现的第一个类。
+这就是 [ProtEnc](https://github.com/nitnelave/ProtEnc)(protocol encoder 的简称)发挥作用的地方。有了数量惊人的模板，该库允许轻松的声明实现 typestate 检查的类。要使用它，需要你的(未检查的)协议实现，这是我们用所有“重要的”注释实现的第一个类。
 
 我们将给这个类增加一个与其有相同的接口但是增加了类型检查的包装类。该包装类将在它的类型中包含一些诸如可能的初始化状态、转换和最终状态。每个包装类函数只是简单的检查转换是否可行，然后完美的转发调用给下一个对象。所有的这些都不包括指针的间接寻址、运行时组件或者内存分配，所以它完全自由的！
 
