@@ -7087,10 +7087,11 @@
 |[ECMAScript 修饰器微指南](https://juejin.im/post/5b543d8af265da0f4a4e711f)|校对|2|
 |[让我们一起解决“this”难题  —  第二部分](https://juejin.im/post/5b6915cce51d4519962f0ca7)|校对|1|
 
-## 译者：[Gavin-Gong](https://github.com/Gavin-Gong) 历史贡献积分：18 当前积分：18 二零一九：1
+## 译者：[Gavin-Gong](https://github.com/Gavin-Gong) 历史贡献积分：26 当前积分：26 二零一九：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 JavaScript 编写 JSON 解析器](https://juejin.im/post/5e098728f265da33cd03c6c7)|翻译|8|
 |2019 年 12 月推荐文章 1 篇|奖励|1|
 |[理解编译器 — 从人类的角度（版本 2）](https://juejin.im/post/5c10b2f6e51d452ad958631f)|校对|3|
 |推荐优秀英文文章一篇|奖励|1|
@@ -8785,10 +8786,11 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：26 当前积分：16 二零一九：26
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：29.5 当前积分：19.5 二零一九：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 JavaScript 编写 JSON 解析器](https://juejin.im/post/5e098728f265da33cd03c6c7)|校对|3.5|
 |[理解递归、尾调用优化和蹦床函数优化](https://juejin.im/post/5e003a67e51d45583f44d396)|校对|7|
 |[什么将会替代 JavaScript 呢？](https://juejin.im/post/5daa897c6fb9a04e3902f4e6)|校对|3|
 |[响应式设计的基本原则](https://juejin.im/post/5d2ed18af265da1ba56b5374)|校对|1|
@@ -9455,10 +9457,11 @@
 |------|-------|-------|
 |[关于现代应用样式的探讨](https://juejin.im/post/5db93b67f265da4d417648a1)|校对|2|
 
-## 译者：[vitoxli](https://github.com/vitoxli) 历史贡献积分：10 当前积分：10 二零一九：10
+## 译者：[vitoxli](https://github.com/vitoxli) 历史贡献积分：13.5 当前积分：13.5 二零一九：13.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 JavaScript 编写 JSON 解析器](https://juejin.im/post/5e098728f265da33cd03c6c7)|校对|3.5|
 |2019 年 11 月 12 月推荐文章 2 篇|奖励|2|
 |[使用 Redux Offline 和 Apollo 进行离线 GraphQL 查询](https://juejin.im/post/5e00a06f6fb9a0161a0c3d78)|翻译|4|
 |[如何将 SVG 图标用做 React 组件？](https://juejin.im/post/5df22bf7f265da33ea009225)|校对|1.5|
