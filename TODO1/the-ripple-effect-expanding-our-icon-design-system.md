@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-ripple-effect-expanding-our-icon-design-system.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-ripple-effect-expanding-our-icon-design-system.md)
 > * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[PingHGao](https://github.com/PingHGao), [zh1an](https://github.com/zh1an)
 
 # 图标万花筒
 
-#### 以全新的颜色、材质和润饰，重新设计超过 100 款图标
+#### 用全新的颜色、材质和润饰来重新设计超过 100 种图标
 
 ![新版 Microsoft 365 图标样品。](https://cdn-images-1.medium.com/max/6400/1*YTjMo-ISSffSy98XbJNiyQ.png)
 
-空白页和重新设计与续集无关。
+空白页和重新设计没有续集。
 
-去年，我们推出了 [Office 新版图标](https://medium.com/microsoft-design/redesigning-the-office-app-icons-to-embrace-a-new-world-of-work-91d72608ee8f?source=friends_link&sk=499905fb0d5a65d594aab35201debf40)，以示用户我们在不断改进产品来适应瞬息万变的世界。在这个世界里，尽管[移动化愈演愈烈](https://medium.com/microsoft-design/microsoft365mobile-3b5b7782152c?source=friends_link&sk=6f3168beb86bf945f6c512fc38c03aad)，但人脉和合作仍是成功的关键。在这个世界里，新式的信息流使得创造力和增长力如虎添翼，潜质无量。
+去年，我们推出了 [Office 新版图标](https://medium.com/microsoft-design/redesigning-the-office-app-icons-to-embrace-a-new-world-of-work-91d72608ee8f?source=friends_link&sk=499905fb0d5a65d594aab35201debf40)，向客户表明我们已经开发了产品来支持不断变化的工作环境。在这个世界里，尽管这个世界比以往任何时候都[更具有移动性](https://medium.com/microsoft-design/microsoft365mobile-3b5b7782152c?source=friends_link&sk=6f3168beb86bf945f6c512fc38c03aad)，但社交联系和协作对成功都至关重要。借助新的信息流，这个世界将具有巨大的创造力和发展潜力。
 
-在 Microsoft 的整个产品体系中，我们一直致力于帮助促进和加强此类交互和体验。通过将一套图标设计成果从 10 个产品扩展到 100 多个产品，来反映出这个工作世界的日新月异，这是一个艰巨而又令人兴奋的挑战。
+在 Microsoft 的整个产品体系中，我们一直致力于帮助促进和加强此类交互和体验。将图标设计工作从 10 种扩展到上百种，以反映这种新世界的工作既艰巨又令人兴奋。
 
-![要想将一套设计推及整个 Microsoft 生态体系，需要一个开放、灵活的系统。](https://cdn-images-1.medium.com/max/4800/1*PwcHt8KDe8R3zlVV1KkaFw.png)
+![跨 Microsoft 生态系统扩展设计需要一个开放且灵活的系统。](https://cdn-images-1.medium.com/max/4800/1*PwcHt8KDe8R3zlVV1KkaFw.png)
 
-但全公司所有的设计团队聚集起来组成了一个整体，制定了一系列设计指南，这些指南能够鼓励设计师们在设计内部联系紧密的整套系统时，发挥个性风格。从巨鳄企业到小本经营，再到芸芸用户，产品团队确保了每个图标都能切切实实地传达出产品的真谛和更博大的 Microsoft 品牌文化。
+但是，公司的设计团队作为一个整体聚集在一起，共同制定设计准则，以鼓励个性化的同时创造出更强凝聚力的整体。从巨鳄企业到小本经营，再到芸芸用户，产品团队确保了每个图标都能切切实实地传达出产品的真谛和更博大的 Microsoft 品牌文化。
 
 我们共享知识，共同迭代，共渡难关，也共同分享成功的喜悦。我们比较了不同应用场景下的图标，对不同场景做了不同的改变。更重要的是，我们互相鼓舞激励。这真正是 Microsoft 万众一心的努力成果，我们迫不及待想要听到你们的反馈。
 
@@ -45,13 +45,13 @@
 
 用户也开始借助混合现实，用全新的方式实现目标。将现实世界与数字世界在图标中交融，使我们能够突破传统思路的局限，尝试新的颜色、润饰和材质。我们需要考虑如何实现三维立体感，因此我们选择了能够反映光线、深度和更多触感的全新设计材质。
 
-不论用户使用手机、PC 还是 VR 头戴设备来完成工作，我们想要在每一个场景里都能触及用户。最新的设计指南能帮我们将公司所有产品 —— 乃至每一个产品家族内部 —— 所使用的图标结构统一起来。
+不论用户使用手机、PC 还是 VR 头戴设备来完成工作，我们想要在每一个场景里都能触及用户。最新的设计指南帮助我们统一了公司内部乃至每一个产品家族的图标构造。
 
 #### 携手设计我们的未来
 
 从始至终，我们都和社区同舟共济，在这条重新设计图标的路上当然也没有例外。我们为每一个图标都做了无数次的调查。从婉约到豪放，我们研究了大量不同风格的设计指导方案，收集了全世界用户的意见。我们明白了什么样的设计能引起用户的共鸣（有深度、有层次、色彩丰富、富有动感），什么样的不能（扁平化设计、简约用色），是这些经验教训引导着我们去斟酌。
 
-![设计 3D 风格意味着从立体空间开始着手。](https://cdn-images-1.medium.com/max/4800/1*RT0pp67flyIsAqhp6Wuk3g.png)
+![为 3D 设计意味着从 3D 开始着手。](https://cdn-images-1.medium.com/max/4800/1*RT0pp67flyIsAqhp6Wuk3g.png)
 
 随着我们持续不断地提升技术、推出能够展现 Microsoft 未来风貌的图标集，我们的设计系统也会不断进化，从而适应我们未曾想到过的全新场景。建立一个既能涵盖从文字到抽象概念的全部范围，又能够平衡产品特征和 Microsoft 整体风格的系统，这是一个巨大的挑战 —— 但只有百炼才能成钢。
 
