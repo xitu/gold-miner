@@ -1,11 +1,11 @@
-> * 原文地址：[数学编程 — 为个人在数据科学领域所有进步而培养的一个关键习惯](https://towardsdatascience.com/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science-c6d5c29533be)
+> * 原文地址：[数学编程 —— 为个人在数据科学领域所有进步而培养的一个关键习惯](https://towardsdatascience.com/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science-c6d5c29533be)
 > * 原文作者：[Tirthajyoti Sarkar](https://medium.com/@tirthajyoti)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mathematical-programming-a-key-habit-to-built-up-for-advancing-in-data-science.md)
-> * 译者：Weirdochr
-> * 校对者：TokenJan、mymmon
+> * 译者：[Weirdochr](https://github.com/Weirdochr)
+> * 校对者：[TokenJan](https://github.com/TokenJan)、[mymmon](https://github.com/mymmon)
 
-# 数学编程 — 为个人在数据科学领域有所进步而培养的一个关键习惯
+# 数学编程 —— 为个人在数据科学领域有所进步而培养的一个关键习惯
 
 > 我们通过模拟随机向飞镖靶投掷飞镖，向大家展示了如何近似计算圆周率的值。这是朝建立数学编程习惯迈出的一小步，数学编程应是初露头角的数据科学家所有傍身之技中的一项关键技能。
 
@@ -63,13 +63,12 @@
 
 * 模块化编程的习惯
 * 关于各种**随机化技术**的清晰想法
-* 能够阅读和理解**线性代数、 微积分和离散数学**的基本课题
+* 能够阅读和理解**线性代数、微积分和离散数学**的基本课题
 * 熟悉基础的**描述性和推断性统计**
 * 具备**离散和连续优化方法**（如：线性规划）的基础概念
 * 基本熟练掌握一门偏好的语言的核心**数字库和函数**，并用这门语言测试自己的想法
 
-以下文章讨论了在数据科学基础动手数学实践中应该学些什么，仅供参考：
-[**数据科学中的基础数学**
+以下文章讨论了在数据科学基础动手数学实践中应该学些什么，仅供参考：[**数据科学中的基础数学**
 **为成为更优秀的数据科学家而掌握的关键主题** towardsdatascience.com](https://towardsdatascience.com/essential-math-for-data-science-why-and-how-e88271367fbd)
 
 本文通过一个非常简单的例子来说明数学编程，即用 [蒙特卡洛方法](https://www.palisade.com/risk/monte_carlo_simulation.asp) 随机向飞镖靶投掷飞镖，来计算圆周率的近似值。
@@ -158,7 +157,7 @@ def compute_pi_throwing_dart(n_throws):
     return result
 ```
 
-本段代码结束了，但是编程不能就此止步。我们必须测试近似值能在多大程度上接近，以及它如何随着随机投掷次数的增多而变化。 **与所有蒙特卡洛实验一样，随着实验次数增加，近似值会越来越接近**。
+本段代码结束了，但是编程不能就此止步。我们必须测试近似值能在多大程度上接近，以及它如何随着随机投掷次数的增多而变化。**与所有蒙特卡洛实验一样，随着实验次数增加，近似值会越来越接近**。
 
 > 这就是数据科学和分析的核心。仅仅编写一个打印预期输出并在那里停止的函数是不够的。基础的编程可以结束，但如果没有进一步的探索和假设检验，科学实验就不能就此停止。
 
@@ -184,7 +183,7 @@ print("Average value from 20 experiments:",pi_computed)
 
 这项实验背后的理论和代码看似极其简单。然而，在这个简单练习的外表之下，隐藏着一些非常有趣的想法。
 
-**函数式编程方法**：用整块代码对实验进行编码，描述整个实验。在这个过程中，我们展示了如何将多个任务划分为简单的函数，来模拟真实人类的行为 —
+**函数式编程方法**：用整块代码对实验进行编码，描述整个实验。在这个过程中，我们展示了如何将多个任务划分为简单的函数，来模拟真实人类的行为 ——
 
 * 扔飞镖，
 * 检查飞镖的着陆坐标并确定它是否落在圆圈内，
@@ -192,13 +191,13 @@ print("Average value from 20 experiments:",pi_computed)
 
 为大型程序编写高质量代码时，使用这种 [**模块化编程**](https://www.geeksforgeeks.org/modular-approach-in-programming/) 方法是非常具有指导意义的。
 
-**突现行为**：这段代码没有使用任何涉及圆周率或圆的性质的公式。圆周率的值是从随机向飞镖靶扔一堆飞镖并计算分数的过程中得到的。这是 [**突现行为**](http://wiki.c2.com/?EmergentBehavior) 的一个示例， 即**通过相互作用，大量类似的重复实验形成一种数学模式。**
+**突现行为**：这段代码没有使用任何涉及圆周率或圆的性质的公式。圆周率的值是从随机向飞镖靶扔一堆飞镖并计算分数的过程中得到的。这是 [**突现行为**](http://wiki.c2.com/?EmergentBehavior) 的一个示例，即**通过相互作用，大量类似的重复实验形成一种数学模式。**
 
 **频率派概率定义**：对概率的定义有两大类，这两类分属于截然对立的阵营 — [频率派和贝叶斯派](https://stats.stackexchange.com/questions/31867/bayesian-vs-frequentist-interpretations-of-probability)。人们很容易以频率派的思维方式思考，把概率定义为一个事件的频率（随机试验总数的一部分）。在这次编程练习中，我们可以看到，概率这个特殊概念是如何从多次重复随机试验中显现出来的。
 
-**[随机模拟](https://www.andata.at/en/stochastic-simulation.htmlhttps://www.andata.at/en/stochastic-simulation.html)**：掷飞镖实验使用的核心函数是一个随机数发生器。 实际上，计算机生成的随机数并非真正随机，但出于实际操作可行性考虑，我们可以假定它生成的都是随机数。在这次编程练习中，我们使用了 Python `随机`模块中的统一随机生成器函数。使用这种随机化方法是随机模拟的核心，这是数据科学实践中一种有效的方法。
+**[随机模拟](https://www.andata.at/en/stochastic-simulation.htmlhttps://www.andata.at/en/stochastic-simulation.html)**：掷飞镖实验使用的核心函数是一个随机数发生器。实际上，计算机生成的随机数并非真正随机，但出于实际操作可行性考虑，我们可以假定它生成的都是随机数。在这次编程练习中，我们使用了 Python `随机` 模块中的统一随机生成器函数。使用这种随机化方法是随机模拟的核心，这是数据科学实践中一种有效的方法。
 
-**通过重复模拟和可视化测试断言**：通常，在数据科学中，我们必须通过大量模拟/实验，来测试随机过程和概率模型。 因此，必须用这些渐进项来思考，并以统计上合理的方式来测试数据模型或科学断言的有效性。
+**通过重复模拟和可视化测试断言**：通常，在数据科学中，我们必须通过大量模拟/实验，来测试随机过程和概率模型。因此，必须用这些渐进项来思考，并以统计上合理的方式来测试数据模型或科学断言的有效性。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*cbGe3j6lfP_9REbnLlaXQw.jpeg)
 
@@ -210,7 +209,7 @@ print("Average value from 20 experiments:",pi_computed)
 
 如果你还想接受更多挑战，
 
-> # 你能通过模拟 [随机漫步事件](https://en.wikipedia.org/wiki/Random_walk) 来计算圆周率吗？
+> 你能通过模拟 [随机漫步事件](https://en.wikipedia.org/wiki/Random_walk) 来计算圆周率吗？
 
 ---
 
@@ -218,9 +217,7 @@ print("Average value from 20 experiments:",pi_computed)
 
 ---
 
-若你有任何问题或想法想要分享，请联系作者 [**tirthajyoti[AT]gmail.com**](mailto:tirthajyoti@gmail.com)。另外，你也可以查看作者的 **[GitHub ](https://github.com/tirthajyoti?tab=repositories)仓库** 获取 Python、R 或 MATLAB 中其他有趣的代码片段和机器学习资源。 如果你像我一样，对机器学习/数据科学充满热情，请 [添加我的领英](https://www.linkedin.com/in/tirthajyoti-sarkar-2127aa7/) 或者 [关注我的推特账号](https://twitter.com/tirthajyotiS)。
-[**Tirthajyoti Sarkar - 高级总工程师 - 半导体、 AI、机器学习** - 
-**佐治亚理工学院理学分析学硕士，该项目主要教授理论和实践 www.linkedin.com**](https://www.linkedin.com/in/tirthajyoti-sarkar-2127aa7/)
+若你有任何问题或想法想要分享，请联系作者 [**tirthajyoti[AT]gmail.com**](mailto:tirthajyoti@gmail.com)。另外，你也可以查看作者的 **[GitHub ](https://github.com/tirthajyoti?tab=repositories)仓库** 获取 Python、R 或 MATLAB 中其他有趣的代码片段和机器学习资源。如果你像我一样，对机器学习/数据科学充满热情，请 [添加我的领英](https://www.linkedin.com/in/tirthajyoti-sarkar-2127aa7/) 或者 [关注我的推特账号](https://twitter.com/tirthajyotiS)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
