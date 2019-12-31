@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md)
 > * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[RubyJy](https://github.com/RubyJy)
 
 # WebRTC 联手 Node.js：打造实时视频聊天应用
 
@@ -11,7 +11,7 @@
 
 ## 何为 WebRTC？
 
-**网络实时通信（Web Real-Time Communication，缩写为 WebRTC）是一项 HTML5 规范，它使你能直接用浏览器进行实时通讯，不用依赖第三方插件**。WebRTC 用途多多（甚至能实现文件共享），但其主要应用为实时点对点音视频通讯，本文的重点也是这一点。
+**网络实时通信（Web Real-Time Communication，缩写为 WebRTC）是一项 HTML5 规范，它使你能直接用浏览器进行实时通讯，不用依赖第三方插件**。WebRTC 有多种用途（甚至能实现文件共享），但其主要应用为实时点对点音频与视频通讯，本文的重点也是这一点。
 
 WebRTC 的作用在于允许访问设备 —— 你可以通过 WebRTC 调用麦克风、摄像头，甚至共享屏幕，而且全部都是实时进行的！因此，WebRTC 用最简单的方式
 
@@ -19,7 +19,7 @@ WebRTC 的作用在于允许访问设备 —— 你可以通过 WebRTC 调用麦
 
 ## WebRTC JavaScript API
 
-WebRTC 是一个复杂的话题，这其中涉及很多技术。而建立连接、通讯、传输数据靠的是一系列 JavaScript API。主要的 API 有：
+WebRTC 是一个复杂的话题，这其中涉及很多技术。而建立连接、通讯、传输数据是通过一系列 JavaScript API。主要的 API 有：
 
 - **RTCPeerConnection** —— 创建并导航点对点连接，
 - **RTCSessionDescription** —— 描述（潜在的）连接端点及其配置，
@@ -27,11 +27,11 @@ WebRTC 是一个复杂的话题，这其中涉及很多技术。而建立连接�
 
 ## 为何用 Node.js？
 
-若想在两个或多个设备之间建立远程连接，你需要一个服务器。而在本例中，你需要的就是一个能操控实时通讯的服务器。我们都知道 Node.js 支持实时可扩展应用。要开发能自由交换数据的双向连接应用，你可能会用到 WebSocket，它能在客户端和服务端之间打开一个通讯会话。客户端发出的请求被处理成一个循环 —— 严格讲是事件循环，这使得 Node.js 成为一个不错的选择，因为它使用了“无阻塞”的方法来处理请求，这样就能实现低延迟和高吞吐量。
+若想在两个或多个设备之间建立远程连接，你需要一个服务器。在本例中，你需要的是一个能操控实时通讯的服务器。你知道 Node.js 是支持实时可扩展应用的。要开发能自由交换数据的双向连接应用，你可能会用到 WebSocket，它能在客户端和服务端之间打开一个通讯会话。客户端发出的请求被处理成一个循环 —— 严格讲是事件循环，这使得 Node.js 成为一个不错的选择，因为它使用了“无阻塞”的方法来处理请求，这样就能实现低延迟和高吞吐量。
 
 扩展阅读： [Node.js 新特性将颠覆 AI、物联网等更多惊人领域](https://juejin.im/post/5dbb8d70f265da4d12067a3e)
 
-## 雏形思路：我们要做个什么东西？
+## 思路演示：我们要做个什么东西？
 
 我们要做一个非常简单的应用，它能向被连接的设备推送音频流和视频流 —— 一个基本的视频聊天应用。我们将会用到：
 
@@ -41,7 +41,7 @@ WebRTC 是一个复杂的话题，这其中涉及很多技术。而建立连接�
 
 ## 视频聊天实现
 
-第一步，我们要有一个用作应用的用户界面的 HTML 文件。用 `npm init` 初始化一个新的 Node.js 项目。然后，运行 `npm i -D typescript ts-node nodemon @types/express @types/socket.io` 安装一些开发依赖包，运行 `npm i express socket.io` 安装生产依赖包。
+第一步，我们要有一个用作应用的用户界面的 HTML 文件。用 `npm init` 初始化一个新的 Node.js 项目。然后，运行 `npm i -D typescript ts-node nodemon @types/express @types/socket.io` 来安装一些开发依赖包，运行 `npm i express socket.io` 来安装生产依赖包。
 
 现在，我们可以在 `package.json` 文件中写一个脚本，来运行项目：
 
@@ -114,7 +114,7 @@ export class Server {
 }
 ```
 
-我们需要在 `index.ts` 文件里新建一个 `Server` 类的实例并调用 `listen` 方法，这样就能启动服务了：
+我们需要在 `index.ts` 文件里新建一个 `Server` 类的实例并调用 `listen` 方法，这样就能启动服务器了：
 
 ```ts
 import { Server } from "./server";
@@ -181,7 +181,7 @@ server.listen(port => {
 </html>
 ```
 
-在这个文件里，我们声明两个视频元素：一个用来呈现远程视频连接，另一个用来呈现本地视频。你可能已经注意到了，我们还引入了本地脚本文件，所以得新建一个文件夹 —— 命名为 `scripts` 并在其中创建 `index.js` 文件。至于样式文件，你可以在 [GitHub 仓库](https://github.com/Miczeq22/simple-chat-app)下载到。
+在这个文件里，我们声明两个视频元素：一个用来呈现远程视频连接，另一个用来呈现本地视频。你可能已经注意到了，我们还引入了本地脚本文件，所以让我们来新建一个文件夹 —— 命名为 `scripts` 并在其中创建 `index.js` 文件。至于样式文件，你可以在 [GitHub 仓库](https://github.com/Miczeq22/simple-chat-app)下载到。
 
 现在就该把 `index.html` 从服务端传给浏览器了。首先你要告诉 Express，你要返回哪个静态文件。这需要我们在 `Server` 类中实现一个新的方法：
 
@@ -231,9 +231,9 @@ navigator.getUserMedia(
 
 扩展阅读：[简易指南：Node.js 的并发性及一些坑](https://tsh.io/blog/simple-guide-concurrency-node-js/)
 
-## 如何操控 socket 连接？
+## 如何处理 socket 连接？
 
-现在我们将着重关注如何操控 socket 连接 —— 我们需要连接客户端和服务端，故此要用到 socket.io。在 `public/scripts/index.js` 中添加：
+现在我们将着重关注如何处理 socket 连接 —— 我们需要连接客户端和服务端，故此要用到 socket.io。在 `public/scripts/index.js` 中添加：
 
 ```js
 this.io.on("connection", socket => {
@@ -318,7 +318,7 @@ socket.on("remove-user", ({ socketId }) => {
 });
 ```
 
-`updateUserList` 函数是这样的：
+这是 `updateUserList` 函数：
 
 ```js
 function updateUserList(socketIds) {
@@ -395,7 +395,7 @@ socket.on("call-user", data => {
  });
 ```
 
-而在客户端，我们需要对 `call-made` 事件做出响应：
+现在在客户端，我们需要对 `call-made` 事件做出响应：
 
 ```js
 socket.on("call-made", async data => {
@@ -438,7 +438,7 @@ socket.on("answer-made", async data => {
 });
 ```
 
-我们使用一个非常有用的标志 —— `isAlreadyCalling` —— 来确保只对用户呼叫一次。
+我们使用一个非常有用的标志 —— `isAlreadyCalling` —— 来确保只对该用户呼叫一次。
 
 最后，只需添加本地记录 —— 音频和视频 —— 到连接中即可，这样就能与连接的用户共享音频和视频了。 那就需要我们在 `navigator.getMediaDevice` 回调函数中，用 `peerConnection` 对象调用 `addTrack` 函数。
 
@@ -470,7 +470,7 @@ peerConnection.ontrack = function({ streams: [stream] }) {
 };
 ```
 
-如大家所见，我们从传入的对象中获取到了媒体流，并改写了 `remote-video` 中的 `srcObject`，以便使用接收到的媒体流。所以，现在当你点击了一个在线用户，你就能建立一个音视频连接，如下：
+如你所见，我们从传入的对象中获取到了媒体流，并改写了 `remote-video` 中的 `srcObject`，以便使用接收到的媒体流。所以，现在当你点击了一个在线用户，你就能建立一个音视频连接，如下：
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-7_.png)
 
