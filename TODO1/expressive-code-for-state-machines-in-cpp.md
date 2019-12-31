@@ -2,35 +2,35 @@
 > * 原文作者：[Jonathan Boccara](https://www.fluentcpp.com/author/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/expressive-code-for-state-machines-in-cpp.md](https://github.com/xitu/gold-miner/blob/master/TODO1/expressive-code-for-state-machines-in-cpp.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zh1an](https://github.com/zh1an)
+> * 校对者：[todaycoder001](https://github.com/todaycoder001), [PingHGao](https://github.com/PingHGao)
 
-# Expressive Code for State Machines in C++
+# C++ 中清晰明了的状态机代码
 
-> This is a guest post from Valentin Tolmer. Valentin is a Software Engineer at Google, where he tries to improve the quality of the code around him. He was bitten by a template when he was young, and now only meta-programs. You can find some of his work on [Github](https://github.com/nitnelave), in particular the [ProtEnc](https://github.com/nitnelave/ProtEnc) library this article is about.
+> 这是 Valentin Tolmer 的特邀文章。 Valetin 是谷歌的一名软件工程师，他试图提高他周围的代码质量。他年轻时就受到模板编程的影响并且现在只致力于元编程。你可以在 [GitHub](https://github.com/nitnelave) 找到他的一些工作内容，特别是本文所涉及的 [ProtEnc](https://github.com/nitnelave/ProtEnc) 库。
 
-Have you ever run into this kind of comments?
-
-```c++
-// IMPORTANT: Do not call this function before calling SetUp()!
-```
-Or checks like these:
+你曾经遇到过这种注释吗？
 
 ```c++
-if  (my\_field\_.empty())  abort();
+// 重要：在调用 SetUp() 之前请不要调用该函数!
+```
+或者做这样的检查：
+
+```c++
+if  (my_field_.empty())  abort();
 ```
 
-Those are all symptoms of a (often light-weight) protocol that our code must respect. Or sometimes, you have an explicit protocol that you’re following, such as in the implementation of an SSL handshake or other business logic. Or maybe you have an explicit state machine in your code, with the transitions checked each time against a list of possible transitions.
+这些（注释中提出的状态检查要求）都是我们的代码必须遵守的协议的通病。有些时候，你正在遵守的一个明确的协议也会有状态检查的要求，例如在 SSL 握手或者其他业务逻辑实现中。或者可能在你的代码中有一个明确状态转换的状态机，该状态机每次都需要根据可能的转换列表做转换状态检查。
 
-Let’s have a look at how we can **expressively** handle these cases.
+让我们看看我们如何**清晰明了地**处理这种方案。
 
-### Example: Building an HTTP Connection
+### 例如：建立一个 HTTP 连接
 
-Our example today will be building an HTTP connection. To simplify greatly, let’s say that our connection requires at least one header (but can have more), exactly one body, and that the headers must be specified before the body (e.g. because we write into an append-only data structure for performance reasons).
+我们今天的示例是构建一个 HTTP 连接。为了大大简化，我们只说我们的连接请求至少包含一个 header（也许会更多），有且只有一个 body，并且这些 header 必须在 body 之前被指定出来（例如因为性能原因，我们只写入一个追加的数据结构）。
 
-**Note: this** ****specific**** **problem could be solved with a constructor taking the correct parameters, but I didn’t want to over-complicate the protocol. You’ll see how easily extensible it is.**
+**备注：虽然这个****特定的****问题可以通过给构造函数传递正确的参数来解决，我不想使这个协议过于复杂。你将看到扩展它是多么的容易。**
 
-Here’s a first implementation:
+这是第一次实现：
 
 ```c++
 class  HttpConnectionBuilder  {
@@ -38,12 +38,12 @@ class  HttpConnectionBuilder  {
   void  add_header(std::string  header)  {
     headers_.emplace_back(std::move(header);
   }
-  // IMPORTANT : must be called after at least one add_header
+  // 重要: 至少调用一次 add_header 之后才能被调用
   void  add_body(std::string  body)  {
     body_  =  std::move(body);
   }
-  // IMPORTANT : must be called after add_body.
-  // Consumes the object.
+  // 重要: 只能调用 add_body 之后才能被调用
+  // 消费对象
   HttpConnection build()  &&  {
     return  {std::move(headers_),  std::move(body_)};
   }
@@ -53,17 +53,17 @@ class  HttpConnectionBuilder  {
 };
 ```
 
-Now, this example is quite simple, but already it’s relying on the user not doing things wrong: there’s nothing preventing them from adding another header after the body, if they didn’t read the documentation. Put this into a 1000-line file, and you’ll quickly get bad surprises. Worse, there’s no check that the class is used correctly, so the only way to see that it was misused is through the unwanted side effects! If it causes memory corruption, good luck debugging this.
+直到现在，这个例子相当的简单，但是它依赖于用户不要做错事情：如果他们没有提前阅读过文档，没有什么可以阻止他们在 body 之后添加另外的 header。如果将其放入到一个 1000 行的文件中，你很快就会发现这有多糟糕。更糟糕的是，没有检查类是否被正确的使用，所以，查看类是否被误用的唯一方法是观察是否有意料之外的效果！如果它导致了内存损坏，那么祝您调试顺利。
 
-We can do better…
+其实我们可以做的更好……
 
-### Using dynamic enums
+### 使用动态枚举
 
-As is often the case, this protocol can be represented by a finite state machine: start in the state in which we didn’t add any header (START), in which case the only option is to add a header. Then we’re in the state where we have at least one header (HEADER), from which we can either add another header and stay in this state, or add a body and go to the BODY state. Only from there can we call build, getting us to the final state.
+通常情况下，该协议可以用一个有限状态机来表示：该状态机开始于我们没有添加任何的 header 的状态(START 状态)，该状态下只有一个添加 header 的选项。然后进入至少添加一个 header (HEADER 状态)，该状态下既可以添加另外的 header 来保持该状态，也可以添加一个 body 而进入到 BODY 状态。只有在 BODY 这个状态下我们可以调用 build，让我们进入到最终状态。
 
 ![typestates state machine](https://www.fluentcpp.com/wp-content/uploads/2019/09/state_machine.png)
 
-So, let’s encode that into our class!
+所以，让我们将这些想法写到我们的类中！
 
 ```c++
 enum  BuilderState  {
@@ -84,15 +84,15 @@ class  HttpConnectionBuilder  {
 };
 ```
 
-And so on for the other functions. That’s already better: we have an explicit state telling us which transitions are possible, and we check it. Of course, you have thorough tests for your code, right? Then you’ll be able to catch any violation at test time, providing you have enough coverage. You might enable those checks in production as well to make sure that you don’t deviate from the protocol (a controlled crash is better than memory corruption), but you’ll have to pay the price of the added checks.
+其他的函数也是这样。这已经很好了：我们有一个确定的状态告诉我们哪种转换是可能的，并且我们检查了它。当然了，你有针对你的代码的周密的测试用例，对吗？如果你的测试对代码有足够的覆盖率，那么你将能够在测试的时候捕获任何违规的操作。你也可以在生产环境中启用这些检查，以确保不会偏离该协议（受控崩溃总比内存损坏要强），但是你必须对增加的检查付出代价。
 
-### Using typestates
+### 使用类型状态（typestates）
 
-How can we catch these earlier, and with 100% certainty? Let the compiler do the work! Here I’ll introduce the concept of typestates:
+我们怎么才能更快地、100% 准确地捕获到这些错误呢？那就让编译器来做这些工作！下面我将介绍类型状态（typestates）的概念。
 
-Roughly speaking, typestates are the idea of encoding the state of an object in its very type. Some languages do this by implementing a separate class for each state (e.g. `HttpBuilderWithoutHeader`, `HttpBuilderWithBody`, …) but that can get fairly verbose in C++: we have to declare the constructors, delete the copy constructors, convert one object into the other… It gets old quickly.
+大致说来，类型状态（typestates）是将对象的状态编码为其本身的类型。有些语言通过为每个状态实现一个单独的类来实现(比如 `HttpBuilderWithoutHeader`、`HttpBuilderWithBody` 等等)，但这在 C++ 中将会变得非常的冗长：我们不得不声明构造函数、删除拷贝函数、将一个对象转换成另外一个对象…… 并且它很快就会过期。
 
-But C++ has another trick up its sleeve: templates! We can encode the state in an enum, and template our builder with this enum. This gives us something like:
+但是 C++ 还有其他的妙招：模板！我们可以在 `enum` 中对状态进行编码，并且使用这个 `enum` 将构造器模板化。这就得到了如下的代码：
 
 ```c++
 template  <BuilderState  state>
@@ -108,11 +108,11 @@ class  HttpConnectionBuilder  {
 };
 ```
 
-Here we check statically that the object is in the correct state. Invalid code won’t even compile! And we get a pretty clear error message. Every time we create a new object of the type corresponding to the target state, and destroy the object corresponding to the previous state: you call add_header on an object of type `HttpConnectionBuilder<START>`, but you’ll get an `HttpConnectionBuilder<HEADER>` as return value. That’s the core idea of typestates.
+这里我们静态地检查对象是否处于正确的状态，无效代码甚至无法编译！并且我们还可以得到了一个相当清晰的错误信息。每次我们创建与目标状态相对应的新对象时，我们也销毁了与之前状态对应的对象：你在类型为 `HttpConnectionBuilder<START>`的对象上调用 add_header，但是你将得到一个 `HttpConnectionBuilder<HEADER>` 类型的返回值。这就是类型状态（typestates）的核心思想。
 
-Note that the methods can only be called on r-values (`std::move`, that’s the role of the trailing “`&&`” in the function declaration). Why so? It enforces the destruction of the previous state, so you only get the relevant state. Think about it like a `unique_ptr`: you don’t want to copy the internals and get an invalid state. Just like there should be a single owner for a `unique_ptr`, there should be a single state for a typestate.
+注意：这个方法只能在右值引用(r-values)中调用(`std::move`，就是函数声明行末尾的 `&&` 的作用)。为什么要这样呢？它强制性地破坏了前一个状态，因此只能得到一个相关的状态。可以将其看做 `unique_ptr`：你不想复制一个内部的构件并获得无效的状态。就像 `unique_ptr` 只有一个所有者一样，类型状态（typestates）也必须只有一个状态。
 
-With this, you can write:
+有了这个，你就可以这样写：
 
 ```c++
 auto connection  =  GetConnectionBuilder()
@@ -122,31 +122,31 @@ auto connection  =  GetConnectionBuilder()
   .build();
 ```
 
-Any deviation from the protocol will be a compilation failure.
+任何对协议的偏离都会导致编译失败。
 
-There are however a couple of things to keep in mind:
+这有几个无论如何都要遵守的规则：
 
-* All your functions must take the object by r-value (i.e. `*this` must be an r-value, the trailing “`&&`”).
-* You probably want to disable copy constructors, unless it makes sense to jump in the middle of the protocol (that’s the reason we have r-values, after all).
-* You need to declare your constructor private, and friend a factory function to make sure that people don’t create the object in a non-start state.
-* You need to friend and implement the move constructor to another state, without which you can transform your object from one state to another.
-* You need to make sure you added checks in every function.
+* 你所有的函数必须使用右值引用的对象(比如 `*this` 必须是一个右值引用，在末尾要要有 `&&`)。
+* 你可能需要禁用拷贝函数，除非跳转到协议中间状态的时候是有意义的(毕竟这就是我们有右值引用的原因)。
+* 你有必要声明你的构造函数为私有，并添加一个工厂（factory）函数来确保人们不会创建一个无开始状态的对象。
+* 你需要将移动构造函数添加为友元并实现到另外一种状态，没有这种状态，你就可以随意地将对象从一个状态转移到另外一种状态。
+* 你需要确定你已经在每个函数中添加了检查。
 
-All in all, implementing this correctly from scratch is a bit tricky, and you probably don’t want 15 different self-made typestates implementations in the wild. If only there were a framework to easily and safely declare these typestates!
+总而言之，从头开始正确的实现这些是有一点儿棘手的，并且在自然增长中，你很有可能不想要15种不同的自制类型状态（typestates）实现。如果有一个框架可以轻松且安全地声明这些类型状态就好了！
 
-### The ProtEnc library
+### ProtEnc 库
 
-Here’s where [ProtEnc](https://github.com/nitnelave/ProtEnc) (short for protocol encoder) comes in. With a scary amount of templates, the library allows for an easy declaration of a class implementing the typestate checks. To use it, you need your (unchecked) implementation of the protocol, the very first class we wrote with all the “IMPORTANT” comments (which we’ll remove).
+这就是 [ProtEnc](https://github.com/nitnelave/ProtEnc)(protocol encoder 的简称)发挥作用的地方。有了数量惊人的模板，该库允许轻松的声明实现 typestate 检查的类。要使用它，需要你的(未检查的)协议实现，这是我们用所有“重要的”注释实现的第一个类。
 
-We’re going to add a wrapper to that class, presenting the same interface but with typestate checks. The wrapper will contain the information about the possible initial state, transitions and final transitions in its type. Each wrapper function is simply checking if the transition is allowed, then perfect-forwarding the call to the underlying object. All of this without pointer indirection, runtime component or memory footprint, so it’s essentially free!
+我们将给这个类增加一个与其有相同的接口但是增加了类型检查的包装类。该包装类将在它的类型中包含一些诸如可能的初始化状态、转换和最终状态。每个包装类函数只是简单的检查转换是否可行，然后完美的转发调用给下一个对象。所有的这些都不包括指针的间接寻址、运行时组件或者内存分配，所以它完全自由的！
 
-So, how do we declare this wrapper? First, we have to define the finite state machine. This consists of 3 parts: initial states, transitions, and final states/transitions. The list of initial states is just a list of our enum, like so:
+那么，我们怎么声明这个包装类呢？首先，我们不得不定义一个有限状态机。这包括三个部分：初始状态、转换和最终状态或者转换。初始状态的列表只是我们的枚举类型的列表，就像下边这样的：
 
 ```c++
 using  MyInitialStates  =  InitialStates<START>;
 ```
 
-For the transition, we need the initial state, the final state, and the function that will get us there:
+对于转换，我们需要初始化状态、最终状态和执行状态转换的函数：
 
 ```c++
 using  MyTransitions  =  Transitions<
@@ -155,22 +155,22 @@ using  MyTransitions  =  Transitions<
   Transition<HEADERS,  BODY,  &HttpConnectionBuilder::add_body>>;
 ```
 
-And for the final transitions, we’ll need the state and the function:
+对于最终的转换，我们也需要一个状态和函数：
 
 ```c++
 using  MyFinalTransitions  =  FinalTransitions<
   FinalTransition<BODY,  &HttpConnectionBuilder::build>>;
 ```
 
-The extra “FinalTransitions” comes from the possibility of having more than one “FinalTransition”.
+这个额外的 "FinalTransitions" 是因为我们可能会定义多个 "FinalTransition"。
 
-We can now declare our wrapping type. Some of the unavoidable boilerplate had been hidden in a macro, but it’s mostly just constructors and friend declarations with the base class that does the heavy lifting:
+现在我们可以声明我们的包装类的类型了。一些不可避免的模板被宏定义隐藏起来，但它主要是基类的构造或者元的声明。
 
 ```c++
 PROTENC\_DECLARE\_WRAPPER(HttpConnectionBuilderWrapper,  HttpConnectionBuilder,  BuilderState,  MyInitialStates,  MyTransitions,  MyFinalTransitions);
 ```
 
-That opens a scope (a class) in which we can forward our functions:
+这是展开的一个作用域（一个类），我们可以在其中转发我们的函数：
 
 ```c++
 PROTENC\_DECLARE\_TRANSITION(add_header);
@@ -178,15 +178,15 @@ PROTENC\_DECLARE\_TRANSITION(add_body);
 PROTENC\_DECLARE\_FINAL_TRANSITION(build);
 ```
 
-And then close the scope.
+然后是关闭作用域。
 
 ```c++
 PROTENC\_END\_WRAPPER;
 ```
 
-(That one is just a closing brace, but you don’t want mismatching braces, do you?)
+(那只是一个右括号，但你不想要不匹配的括号，是吗?)
 
-With this simple yet extensible setup, you can use the wrapper just like we used the one from the previous step, and all the operations will be checked 🙂
+通过这个简单但可扩展的设置，你就可以像使用上一步中的包装器一样使用它啦，并且所有的操作都会被检查。🙂
 
 ```c++
 auto connection  =  HttpConnectionBuilderWrapper<START>{}
@@ -196,7 +196,7 @@ auto connection  =  HttpConnectionBuilderWrapper<START>{}
   .build();
 ```
 
-Trying to call the functions in the wrong order will cause compilation errors. Don’t worry, care was taken to make sure that the first error has a readable error message 😉 For instance, removing the `.add_body("body")` line, you would get:
+试图在错误的顺序下调用函数将导致编译错误。别担心，精心的设计保证了第一个错误信息是可读的😉。例如，移除 `.add_body("body")` 行，你将得到以下错误：
 
 In file included from example/http_connection.cc:6:
 
@@ -208,13 +208,14 @@ src/protenc.h:257:17:  error:  static  assertion failed:  Final  transition not 
    static_assert(!std::is\_same\_v<T,  NotFound>,  "Final transition not found");
 ```
 
-Just make sure that your wrapped class is only constructible from the wrapper, and you’ll have guaranteed enforcement throughout your codebase!
+只要确保包装类只能从包装器构造，就可以保证整个代码库的正确运行！
 
-If your state machine is encoded in another form (or if it gets too big), it would be trivial to generate code describing it, since all the transitions and initial states are gathered together in an easy-to-read/write format.
+如果您的状态机是以另一种形式编码的(或者如果它变得太大了)，那么生成描述它的代码就很简单了，因为所有的转换和初始状态都是以一种容易读/写的格式聚集在一起的。
 
-The full code of this example can be found in the [repository](https://github.com/nitnelave/ProtEnc). Note that it currently doesn’t work with Clang because of [bug #35655](https://bugs.llvm.org/show_bug.cgi?id=35655).
+完整的代码示例可以在 [GitHub](https://github.com/nitnelave/ProtEnc) 找到。请注意该代码现在不能使用 Clang 因为 [bug #35655](https://bugs.llvm.org/show_bug.cgi?id=35655)。
 
-### You will also like
+
+### 你将也喜欢
 
 * [TODO_BEFORE(): A Cleaner Codebase for 2019](https://www.fluentcpp.com/2019/01/01/todo_before-clean-codebase-2019/)
 * [How to Disable a Warning in C++](https://www.fluentcpp.com/2019/08/30/how-to-disable-a-warning-in-cpp/)
