@@ -2,81 +2,81 @@
 > * 原文作者：[Uday Hiwarale](https://medium.com/@thatisuday)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-raspberry-pi-4-gpio-and-controlling-it-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-raspberry-pi-4-gpio-and-controlling-it-with-node-js.md)
-> * 译者：
+> * 译者：Weirdochr
 > * 校对者：
 
-# An introduction to Raspberry Pi 4 GPIO and controlling it with Node.js
+# 树莓派4代（Raspberry Pi 4） GPIO 简介及使用 Node.js 控制树莓派
 
-> RASPBERRY PI + NODE.JS  
-> In this article, we will get familiar with the GPIO of Raspberry Pi and its technical specifications. We will also go through a simple example of Input and Output with a Led and a Switch.
+> 树莓派 + NODE.JS  
+> 通过本文，我们将熟悉树莓派 GPIO 及其技术规范。并且，我们将通过了一个简单例子，说明其如何使用 LED 和开关实现输入和输出。
 
-![(Source: [**pexels.com**](https://www.pexels.com/photo/have-a-break-led-signage-2249342/))](https://cdn-images-1.medium.com/max/12000/1*t-dr_5CrKf45RE0Uuww2sg.jpeg)
+![(文章来源：[**pexels.com**](https://www.pexels.com/photo/have-a-break-led-signage-2249342/))](https://cdn-images-1.medium.com/max/12000/1*t-dr_5CrKf45RE0Uuww2sg.jpeg)
 
-You might have come across the term “**IoT**”, it is an acronym for the **Internet of Things**. This basically means that a device (**thing**) that can be controlled from the internet. An example of an IoT would be smart bulbs in your house which can be controlled from your smartphone.
+你可能曾见过 “**IoT**” 这个术语，它是 **Internet of Things(物联网)** 的缩写。 意思是，人们可以通过互联网控制一台设备，即“物” （**thing**）。 你家中可以通过智能手机控制的那些智能灯泡便是解释物联网（IoT）的一个很好示例。
 
-Since an IoT can be controlled from the internet, it should always be connected with the internet. There are primarily two ways we can connect a device to the internet, either through an Ethernet cable or through WiFi.
+由于物联网可通过互联网控制，所以它应当始终与互联网相连。我们主要有两种方式将设备连接至互联网：以太电缆和无线网络。
 
-IoT devices can be used for various purposes. For example, you can use an IoT to control the temperature of your house, control lighting or turn on devices before you get home, right from your smartphone.
+物联网设备可被用于各种目的。例如，你可以使用物联网来控制你家的室内温度、照明或者在回家前打开某些设备，所有操作只需要通过你的智能手机便能实现。
 
-So what are the technical specifications of an IoT device? Well, in a nutshell, it should have the means to connect to the internet, have some input and output sockets to read/write analog or digital signals to and from a device, and bare minimal hardware to read and execute instructions from a program.
+那么，物联网设备的技术规范有哪些？简言之，它应该包含连接到互联网的工具，有一些输入和输出接口来读写设备的模拟或数字信号，并且使用最少的硬件来读取和执行程序指令。
 
-An IoT device has a hardware component that provides an interface for external devices to read digital data or to get electricity. This is called **GPIO** or **General Purpose Input Output**. This hardware component is basically a series of pins that can be connected to external devices.
+一个物联网设备配有一个硬件组件，为外部设备读取数字数据和取电提供接口。 该接口就是 **GPIO** 或称作 **General Purpose Input Output(通用输入输出接口)** 。该硬件组件基本上是一系列可以连接到外部设备的识别码。
 
-These GPIO pins can be controlled by a program. For example, based on some conditions, we can turn on a GPIO pin which provides 5V electricity and any device which is connected to this pin will turn on. This program can listen to a message sent from the internet and control this pin. Hence the IoT.
+这一系列 GPIO 识别码可以由一个程序控制。例如，基于某些条件，我们可以提供一个支持5伏电压的 GPIO 识别码，任何连接到该识别码的器件都将开启。该程序可以监听互联网发送的消息并控制此识别码。物联网由此实现。
 
-Building such an IoT device from scratch can be tough since it has a lot of components to work with. Luckily, there are pre-built devices that you can purchase and they are extremely cheap. These devices come with GPIO hardware and means to connect to the internet.
+从头开始构建这样一个物联网设备可能很困难，因为需要处理的组件有很多。幸运的是，我们有售价低廉的预制设备可购买。这些设备配有 GPIO 硬件和连接互联网的工具。
 
-#### Arduino Microcontroller
+#### Arduino 微控制器
 
-At the moment, if we are looking for simple automation, [**Arduino**](https://en.wikipedia.org/wiki/Arduino) is the best device to go for. It is a **micro-controller** that can be programmed using programming languages like C and C++.
+目前，如果我们想要实现简单的自动化，那么 [**Arduino**](https://en.wikipedia.org/wiki/Arduino) 是最好的选择。它是一个 **微控制器（micro-controller）** ，可以用 C 和 C++ 这样的编程语言来编写 Arduino 程序。
 
-![(Source: [**Wikipedia**](https://en.wikipedia.org/wiki/File:Arduino_Uno_-_R3.jpg))](https://cdn-images-1.medium.com/max/2000/1*-Tmb_Q7yYmmtFGaUk6iv4A.jpeg)
+![(来源：[**Wikipedia**](https://en.wikipedia.org/wiki/File:Arduino_Uno_-_R3.jpg))](https://cdn-images-1.medium.com/max/2000/1*-Tmb_Q7yYmmtFGaUk6iv4A.jpeg)
 
-However, it does not come with the built-in WiFi or Ethernet jack and an external peripheral device (**called as a** shield) has to be connected to connect the Arduino to the internet.
+然而，该控制器不配有内置 WiFi 或以太插孔， 并且必须连接外部外围设备 (**称为** 屏蔽) 才能将 Arduino 连接到互联网。
 
-Arduino is meant to be used as a controller for external devices and not a fully-fledged IoT device. Hence, they are extremely cheap. Some of the latest models can go as low as $18.
+Arduino 旨在充当外部设备的控制器，而不是成熟的物联网设备。因此，该控制器价格非常便宜。一些最新款可以低至18美元。
 
-#### Raspberry Pi Micro-computer
+#### 树莓派微型电脑
 
-Compared to Arduino, [**Raspberry Pi**](https://en.wikipedia.org/wiki/Raspberry_Pi) is a **beast**. It was created to promote the teaching of basic computer science in schools and in developing countries, but it was picked up by nerds and hobbyists to create new shit. At the moment, it is one of the most popular **single-board computers** in the world.
+相较于 Arduino， [**树莓派**](https://en.wikipedia.org/wiki/Raspberry_Pi) 是一个 **beast**。 其发明之初旨在促进学校和发展中国家的基础计算机科学教学，却被书呆子和业余爱好者捡起来创造新垃圾。目前，它是世界上最受欢迎的 **单板计算机** 之一。
 
-Raspberry Pi (**latest Model 4B**) comes with an Ethernet connector, WiFi, Bluetooth, HDMI output, USB connectors, a 40-pin GPIO, and other essential features. It is powered by an **ARM** CPU, a **Broadcom** GPU and 1/2/4 GB of **RAM**. You can see these specifications from [**this**](https://en.wikipedia.org/wiki/Raspberry_Pi#Specifications) Wikipedia table.
+树莓派 (**最新版 4B**) 配有以太网连接器、WiFi、蓝牙、HDMI output、USB 连接器、 40 针 GPIO 和其他基本功能。它由 **ARM** CPU, a **Broadcom** GPU 和 1/2/4 GB 的 **RAM** 供电。你可以从 [**此处**](https://en.wikipedia.org/wiki/Raspberry_Pi#Specifications) 的维基百科表格中查看这些规范。
 
-![(Source: [**Wikipedia**](https://en.wikipedia.org/wiki/File:Raspberry_Pi_4_Model_B_-_Side.jpg))](https://cdn-images-1.medium.com/max/2000/1*WE-9WUau6aQlMSHVLjq9KQ.jpeg)
+![(来源：[**Wikipedia**](https://en.wikipedia.org/wiki/File:Raspberry_Pi_4_Model_B_-_Side.jpg))](https://cdn-images-1.medium.com/max/2000/1*WE-9WUau6aQlMSHVLjq9KQ.jpeg)
 
-Despite this heavy hardware, the latest model costs between **$40** to **$80**. Don’t forget, this is a fully-fledged computer with a native operating system. This means we do not need to connect with an external computer to program it.
+尽管硬件笨重，最新版的价格在 **$40** 到 **$80** 之间。别忘了，这是一台拥有本机操作系统的成熟计算机。这意味着我们不需要连接外部计算机来对其进行编程。
 
-However, unlike our day to day computers, Raspberry Pi provides a GPIO hardware component to control external devices. This makes the Raspberry Pi a device that can do just about anything.
+然而，不像我们日常使用的电脑，树莓派提供了一个 GPIO 硬件组件来控制外部设备。这使得树莓派成为一种几乎可以做任何事情的设备。
 
-Let’s understand the technical specifications of this GPIO.
+让我们了解一下新版树莓派 GPIO 的技术规格。
 
 ---
 
-## Raspberry Pi - GPIO pinout
+## 树莓派 - GPIO 引脚分配
 
-Raspberry Pi (**model 4B**) has **40 GPIO pins** in total, stacked in `20 x 2` array. As shown in the below diagram, each pin has a specific purpose.
+树莓派 （**4B 版**） 总共有 **40 个 GPIO 引脚** ，分布在 `20 x 2` 的阵列当中。如下图所示，每个引脚都有特定的用途。
 
-![(Source: [**raspberrypi.org**](https://www.raspberrypi.org/documentation/usage/gpio/))](https://cdn-images-1.medium.com/max/4128/0*VsaGvGskvJa20hZa.png)
+![(来源：[**raspberrypi.org**](https://www.raspberrypi.org/documentation/usage/gpio/))](https://cdn-images-1.medium.com/max/4128/0*VsaGvGskvJa20hZa.png)
 
-Before we discuss the functionality of each pin, let’s understand some conventions first. Each pin has a specific number attached to it and that’s how we can control these pins from the software.
+在讨论每个引脚的功能之前，让我们先了解一些协议。每个引脚都有一个附着在上的特定编号，我们就是通过这些编号从软件中控制这些引脚。
 
-The numbers you can see in the circle is physical pin numbers on the GPIO hardware. For example, **pin no. 1** provides a constant 3.3V power. This number system is called **Board Pin** or **Physical Pin** numbering system.
+在圆圈中，你可以看到的数字是 GPIO 硬件上的物理引脚编号。例如， **1号引脚** 提供 3.3 伏的恒定功率。该编号系统成为 **针脚板** 或 **物理针脚** 编号系统。
 
-We also have another pin numbering system created by [**Broadcom**](https://en.wikipedia.org/wiki/Broadcom_Inc.) since Raspberry Pi 4B uses the [**BCM2711**](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711/README.md) processor chip. This pin numbering system is called **BCM** or **Broadcom Mode**. The label attached with each pin in the above diagram shows BCM pin numbers. For example, physical **pin no. 7** is **BCM pin no. 7** and labeled as **GPIO 4**.
+由于树莓派 4B 使用 [**BCM2711**](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711/README.md) 处理器芯片，我们还有另一个由 [**Broadcom**](https://en.wikipedia.org/wiki/Broadcom_Inc.) 创建的针脚编号系统。此针脚编号系统被称为 **BCM** or **Broadcom 模式**。 上图中，每个针脚附带的标签都显示了 BCM 针脚编号。例如，物理 **7 号针脚** 是 **BCM 7 号针脚** 并被标记为 **GPIO 4**。
 
-We can choose to follow either the **Board** or **BCM** numbering system. However, depending on the programming library we use to access the GPIO, we could be stuck with one of them. However, most libraries out there prefer the BCM numbering system since it is referred by the Broadcom CPU chip.
+我们可以选择遵循 **板** 或 **BCM** 编号系统。然而，根据我们用来访问的 GPIO 编程库，使用该两种编号系统可能会遇到困难。大多数库都偏好 BCM 编号系统， 因为它引用于 Broadcom CPU 芯片。
 
-> From here on, if I use **Pin no. x**, it means the **physical pin number** on the board. The BCM pin number will be mentioned with BCM.
+> 从现在开始，如果我使用 **x 号引脚**，就意味着这是针脚板上的 **物理针脚编号**。BCM 针脚编号会同 BCM 共同提及。
 
-#### 💡 Power and Group Pins
+#### 💡 电源针脚和组针脚
 
-Pin no. **1** and **17** provide **3.3V** power while pin no. **2** and **4** provide **5V** power. These pins provide **constant power** when you turn on the Raspberry Pi and these are **not programmable** by any means whatsoever.
+**1 号** 和 **17 号** 针脚提供 **3.3 伏** 恒定功率， 而 **2 号** 和 **4 号** 针脚提供 **5 伏** 恒定功率。 These pins provide **constant power** 当你打开树莓派时，这些针脚便提供 **恒定功率** ，并且无论如何这些针脚都是 **不可编程的** 。
 
-Pin no. **6**, **9**, **14**, **20**, **25**, **30**, **34** and **39** provide the ground connection. This is where the **cathode** of a circuit should be attached. We can use a single ground pin for all ground connections in the circuit since they are connected to the same ground rail.
+**6 号**、 **9 号**、 **14 号**、 **20 号**、 **25 号**、 **30 号**、 **34 号** 和 **39 号** 针脚支持接地连接。它们应该与电路的 **阴极** 连接。电路中所有的接地连接都可以用同一个接地针脚，因为它们都连接到同一根地线。
 
-> If you are wondering why so many ground pins, then you can follow [**this thread**](https://www.raspberrypi.org/forums/viewtopic.php?t=132851).
+> 如果你想知道为什么有这么多接地针脚，那么你可以跟着 [**这条线**](https://www.raspberrypi.org/forums/viewtopic.php?t=132851).
 
-#### 🔌 GPIO Pins
+#### 🔌 GPIO 针脚
 
 Except for **Power** and **Ground** Pins, rests are general-purpose input and output pins. When a GPIO pin is used in **output mode**, it provides 3.3V constant power when it is turned on.
 
