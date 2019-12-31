@@ -2,48 +2,48 @@
 > * 原文作者：[Mikołaj Wargowski](https://github.com/Miczeq22) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md)
-> * 译者：
-> * 校对者：
+> * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[RubyJy](https://github.com/RubyJy), [cyz980908](https://github.com/cyz980908)
 
-# WebRTC and Node.js: Development of a real-time video chat app
+# WebRTC 联手 Node.js：打造实时视频聊天应用
 
-> **(Real-)time is money, so I'm gonna get to the point. In this article, I'll show you how to write a video chat application which allows sharing both video and audio between two connected users. It's quite simple, nothing fancy but good for training in JavaScript language and -- to be more precise -- WebRTC technology and [Node.js](https://tsh.io/services/web-development/node/).**
+> **(实时)时间就是金钱，那我就开门见山了。在本文中，我将带你写一个视频聊天应用，支持两个用户之间进行视频和语音通信。没什么难度，也没什么花哨的东西，却是一次 JavaScript —— 严格来说是 WebRTC 和 [Node.js](https://tsh.io/services/web-development/node/) —— 的绝佳试炼。**
 
-## What is WebRTC?
+## 何为 WebRTC？
 
-**Web Real-Time Communications -- WebRTC in short -- is an HTML5 specification that allows you to communicate in real-time directly between browsers without any third-party plugins.** WebRTC can be used for multiple tasks (even file sharing) but real-time peer-to-peer audio and video communication is obviously the primary feature and we will focus on those in this article.
+**网络实时通信（Web Real-Time Communication，缩写为 WebRTC）是一项 HTML5 规范，它使你能直接用浏览器进行实时通讯，不用依赖第三方插件**。WebRTC 有多种用途（甚至能实现文件共享），但其主要应用为实时点对点音频与视频通讯，本文的重点也是这一点。
 
-What WebRTC does is to allow access to devices -- you can use a microphone, a camera and share your screen with help from WebRTC and do all of that in real-time! So, in the simplest way 
+WebRTC 的强大之处在于允许访问设备 —— 你可以通过 WebRTC 调用麦克风、摄像头，甚至共享屏幕，而且全部都是实时进行的！因此，WebRTC 用最简单的方式
 
-> **WebRTC enables for audio and video communication to work inside web pages.**
+> **使网页语音视频聊天成为可能。**
 
 ## WebRTC JavaScript API
 
-WebRTC is a complex topic where many technologies are involved. However, establishing connections, communication and transmitting data are implemented through a set of JS APIs. The primary APIs include:
+WebRTC 是一个复杂的话题，这其中涉及很多技术。而建立连接、通讯、传输数据是通过一系列 JavaScript API。主要的 API 有：
 
-- **RTCPeerConnection** --  creates and navigates peer-to-peer connections,
-- **RTCSessionDescription** -- describes one end of a connection (or a potential connection) and how it's configured,
-- **navigator.getUserMedia** -- captures audio and video.
+- **RTCPeerConnection** —— 创建并导航点对点连接，
+- **RTCSessionDescription** —— 描述（潜在的）连接端点及其配置，
+- **navigator.getUserMedia** —— 获取音视频。
 
-## Why Node.js?
+## 为何用 Node.js？
 
-To make a remote connection between two or more devices you need a server. In this case, you need a server that handles real-time communication. You know that Node.js is built for real-time scalable applications. To develop two-way connection apps with free data exchange, you would probably use WebSockets that allows opening a communication session between a client and a server. Requests from the client are processed as a loop, more precisely -- the event loop, which makes Node.js a good option because it takes a "non-blocking" approach to serve requests and thus, achieves low latency and high throughput along the way.
+若想在两个或多个设备之间建立远程连接，你需要一个服务器。在本例中，你需要的是一个能操控实时通讯的服务器。你知道 Node.js 是支持实时可扩展应用的。要开发能自由交换数据的双向连接应用，你可能会用到 WebSocket，它能在客户端和服务端之间打开一个通讯会话。客户端发出的请求被处理成一个循环 —— 严格讲是事件循环，这使得 Node.js 成为一个不错的选择，因为它使用了“无阻塞”的方法来处理请求，这样就能实现低延迟和高吞吐量。
 
-Read more: [Node.js 新特性将颠覆 AI、物联网等更多惊人领域](https://juejin.im/post/5dbb8d70f265da4d12067a3e)
+扩展阅读： [Node.js 新特性将颠覆 AI、物联网等更多惊人领域](https://juejin.im/post/5dbb8d70f265da4d12067a3e)
 
-## Demo Idea: what are we going to create here?
+## 思路演示：我们要做个什么东西？
 
-We are going to create a very simple application which allows us to stream audio and video to the connected device -- a basic video chat app. We will use:
+我们要做一个非常简单的应用，它能向被连接的设备推送音频流和视频流 —— 一个基本的视频聊天应用。我们将会用到：
 
-- express library to serve static files like our HTML file which stands for our UI,
-- socket.io library to establish a connection between two devices with WebSockets,
-- WebRTC to allow media devices (camera and microphone) to stream audio and video between connected devices.
+- Express 库，用以提供用户界面 HTML 文件之类的静态文件，
+- socket.io 库，用 WebSocket 在两个设备间建立一个连接，
+- WebRTC，使媒体设备（摄像头和麦克风）能在连接设备之间推送音频流和视频流。
 
-## Video Chat implementation
+## 实现视频聊天
 
-The first thing we're gonna do is to serve an HTML file that will work as a UI for our application. Let's initialize new node.js project by running: `npm init`. After that we need to install a few dev dependencies by running: `npm i -D typescript ts-node nodemon @types/express @types/socket.io` and production dependencies by running: `npm i express socket.io`.
+第一步，我们要有一个用作应用的用户界面的 HTML 文件。用 `npm init` 初始化一个新的 Node.js 项目。然后，运行 `npm i -D typescript ts-node nodemon @types/express @types/socket.io` 来安装一些开发依赖包，运行 `npm i express socket.io` 来安装生产依赖包。
 
-Now we can define scripts to run our project in `package.json` file:
+现在，我们可以在 `package.json` 文件中写一个脚本，来运行项目：
 
 ```json
 {
@@ -65,9 +65,9 @@ Now we can define scripts to run our project in `package.json` file:
 }
 ```
 
-When we run `npm run dev` command, then nodemon will be looking at any changes in src folder for every file which ends with the `.ts `extension. Now we are going to create an src folder and inside this folder, we will create two typescript files: `index.ts` and `server.ts`.
+我们运行 `npm run dev` 命令后，Nodemon 会监听 src 文件夹中每一个 `.ts` 后缀的文件的变动。现在我们来创建一个 src 文件夹，在 src 中，创建两个 TypeScript 文件：`index.ts` 和 `server.ts`。
 
-Inside server.ts we will create server class and we will make it work with express and socket.io:
+在 `server.ts` 里，我们会创建一个 Server 类，并使之配合 Express 和 socket.io：
 
 ```ts
 import express, { Application } from "express";
@@ -114,7 +114,7 @@ export class Server {
 }
 ```
 
-To run our server, we need to make a new instance of `Server` class and invoke `listen` method, we will make it inside `index.ts` file:
+我们需要在 `index.ts` 文件里新建一个 `Server` 类的实例并调用 `listen` 方法，这样就能启动服务器了：
 
 ```ts
 import { Server } from "./server";
@@ -126,15 +126,15 @@ server.listen(port => {
 });
 ```
 
-Now, when we run: `npm run dev`, we should see:
+现在运行 `npm run dev`，我们将会看到：
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-1_.png)
 
-And when we open the browser and enter on[ http://localhost:5000](http://localhost:5000/) we should notice our "Hello World" message:
+打开浏览器访问 [http://localhost:5000](http://localhost:5000/)，我们会看到“Hello World”字样：
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-2_.png)
 
-Now we are going to create a new HTML file inside `public/index.html`:
+现在，我们要创建一个新的 HTML 文件 `public/index.html`：
 
 ```html
 <!DOCTYPE html>
@@ -181,9 +181,9 @@ Now we are going to create a new HTML file inside `public/index.html`:
 </html>
 ```
 
-In this file, we declared two video elements: one for remote video connection and another for local video. As you've probably noticed, we are also importing local script, so let's create a new folder -- called scripts and create `index.js` file inside this directory. As for styles, you can download them from [the GitHub repository](https://github.com/Miczeq22/simple-chat-app).
+在这个文件里，我们声明两个视频元素：一个用来呈现远程视频连接，另一个用来呈现本地视频。你可能已经注意到了，我们还引入了本地脚本文件，所以让我们来新建一个文件夹 —— 命名为 `scripts` 并在其中创建 `index.js` 文件。至于样式文件，你可以在 [GitHub 仓库](https://github.com/Miczeq22/simple-chat-app)下载到。
 
-Now, you need to serve index.html to the browser. First, you need to tell express, which static files you want to serve. In order to do it, we will implement a new method inside the Server class:
+现在就该把 `index.html` 从服务端传给浏览器了。首先你要告诉 Express，你要返回哪个静态文件。这需要我们在 `Server` 类中实现一个新的方法：
 
 ```ts
 private configureApp(): void {
@@ -191,7 +191,7 @@ private configureApp(): void {
  }
  ```
 
-Don't forget to invoke `configureApp` method inside `initialize` method:
+别忘了在 `initialize` 方法中调用 `configureApp` 方法：
 
 ```ts
 private initialize(): void {
@@ -204,11 +204,11 @@ private initialize(): void {
  }
 ```
 
-Now, when you enter [http://localhost:5000](http://localhost:5000/), you should see your index.html file in action:
+至此，当打开 [http://localhost:5000](http://localhost:5000/)，你会看到 `index.html` 文件已经运行起来了：
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-3_.png)
 
-The next thing you want to implement is the camera and video access, and stream it to the `local-video` element. To do it, you need to open `public/scripts/index.js` file and implement it with:
+下一步就该访问摄像头和麦克风，并让媒体流展示在 `local-video` 元素中了。打开 `public/scripts/index.js` 文件，添加以下代码：
 
 ```js
 navigator.getUserMedia(
@@ -225,15 +225,15 @@ navigator.getUserMedia(
 );
 ```
 
-When you go back to the browser, you should notice a prompt that asks you to access your media devices, and after accepting this prompt, you should see your camera in action! 
+再回到浏览器，你会看到一个请求访问媒体设备的提示框，授权这个请求后，你会看到你的摄像头被唤醒了！
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-4_.png)
 
-Read more: [A simple guide to concurrency in Node.js and a few traps that come with it](https://tsh.io/blog/simple-guide-concurrency-node-js/)
+扩展阅读：[简易指南：Node.js 的并发性及一些坑](https://tsh.io/blog/simple-guide-concurrency-node-js/)
 
-## How to handle socket connections?
+## 如何处理 socket 连接？
 
-Now we will focus on handling socket connections -- we need to connect our client with the server and for that, we will use socket.io. Inside `public/scripts/index.js`, add:
+现在我们将着重关注如何处理 socket 连接 —— 我们需要连接客户端和服务端，故此要用到 socket.io。在 `public/scripts/index.js` 中添加：
 
 ```js
 this.io.on("connection", socket => {
@@ -257,15 +257,15 @@ this.io.on("connection", socket => {
    }
 ```
 
-After page refresh, you should notice a message: "Socket connected" in our terminal.
+刷新页面就能看到终端中有一条信息：“Socket connected”。
 
-![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-5_.png)Now we will go back to `server.ts `and store connected sockets in memory, just to keep only unique connections. So, add a new private field in the `Server` class:
+![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-5_.png)此时我们再回到 `server.ts` 将 socket 存到内存中，便于保持连接的唯一性。也就是说，在 `Server` 类中增加一个新的私有字段：
 
 ```ts
 private activeSockets: string[] = [];
 ```
 
-And on the socket connection check if socket already exists. If it doesn't, push new socket to memory and emit data to connected users:
+在连接 socket 时检查是否已经有 socket 存在了。如果还没有，那就向内存中添加新的 socket，并将数据发送给连接的用户：
 
 ```ts
 this.io.on("connection", socket => {
@@ -289,7 +289,7 @@ this.io.on("connection", socket => {
    }
 ```
 
-You also need to respond on socket disconnect, so inside socket connection, you need to add:
+还需要在 socket 断开时做出响应，所以要在 socket 里面添加：
 
 ```ts
 socket.on("disconnect", () => {
@@ -302,7 +302,7 @@ socket.on("disconnect", () => {
  });
 ```
 
-On the client-side (meaning `public/scripts/index.js`), you need to implement proper behaviour on those messages:
+在客户端（也就是 `public/scripts/index.js`），你需要对这些消息施行对应的操作：
 
 ```js
 socket.on("update-user-list", ({ users }) => {
@@ -318,7 +318,7 @@ socket.on("remove-user", ({ socketId }) => {
 });
 ```
 
-Here is the `updateUserList` function:
+这是 `updateUserList` 函数：
 
 ```js
 function updateUserList(socketIds) {
@@ -334,7 +334,7 @@ function updateUserList(socketIds) {
 }
 ```
 
-And `createUserItemContainer `function:
+还有 `createUserItemContainer` 函数：
 
 ```js
 function createUserItemContainer(socketId) {
@@ -360,17 +360,17 @@ function createUserItemContainer(socketId) {
 }
 ```
 
-Please notice that we add a click listener to a user container element, which invokes `callUser` function -- for now, it can be an empty function. Now when you run two browser windows (one as a private window), you should notice two connected sockets in your web app:
+请注意，我们在用户容器元素上添加了一个点击事件监听，点击会调用 `callUser` 函数 —— 就目前来说，你可以先写成空函数。现在，当你运行两个浏览器窗口（其中一个作为本地用户窗口），你会发现在应用中有两个连接中的 socket：
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-6_.png)
 
-After clicking the active user from the list, we want to invoke `callUser` function. But before you implement it, you need to declare two classes from the `window` object.
+点击列表中的在线用户后，要调用 `callUser` 函数。但在实现该函数前，你需要在 `window` 对象中声明两个类。
 
 ```js
 const { RTCPeerConnection, RTCSessionDescription } = window;
 ```
 
-We will use them in` callUser `function: 
+我们会在 `callUser` 函数中用到它们： 
 
 ```js
 async function callUser(socketId) {
@@ -384,7 +384,7 @@ async function callUser(socketId) {
 }
 ```
 
-Here we create a local offer and send to the selected user. The server listens to an event called `call-user`, intercepts the offer and forwards it to the selected user. Let's implement it in server.ts: 
+这里，我们创建了一个本地连接请求，并发送给被选中的用户。服务端会监听一个叫做 `call-user` 的事件，拦截本地发出的连接请求，并发送给被选中的用户。在 `server.ts` 中需要这样实现： 
 
 ```ts
 socket.on("call-user", data => {
@@ -395,7 +395,7 @@ socket.on("call-user", data => {
  });
 ```
 
-Now on the client side, you need to react on `call-made` event:
+现在在客户端，我们需要对 `call-made` 事件做出响应：
 
 ```js
 socket.on("call-made", async data => {
@@ -412,7 +412,7 @@ socket.on("call-made", async data => {
 });
 ```
 
-Then set a remote description on the offer you've got from the server and create an answer for this offer. On the server-side, you need to just pass proper data to the selected user.  Inside `server.ts`, let's add another listener:
+然后，给这个从服务端收到的连接请求设置一个远程描述，并给该请求创建一个回应。在服务端，你需要把对应的数据传给被选中的用户。在 `server.ts`中，在添加一个事件监听：
 
 ```ts
 socket.on("make-answer", data => {
@@ -423,7 +423,7 @@ socket.on("make-answer", data => {
  });
 ```
 
-On the client's side we need to handle `answer-made` event:
+相应地，在客户端处理 `answer-made` 事件：
 
 ```js
 socket.on("answer-made", async data => {
@@ -438,9 +438,9 @@ socket.on("answer-made", async data => {
 });
 ```
 
-We use the helpful flag --` isAlreadyCalling` -- just to make sure we call only the user only once.
+我们使用一个非常有用的标志 —— `isAlreadyCalling` —— 来确保只对该用户呼叫一次。
 
-The last thing you need to do is to add local tracks -- audio and video to your peer connection, Thanks to this, we will be able to share video and audio with connected users. To do this, in the `navigator.getMediaDevice` callback we need to call the `addTrack` function on the `peerConnection `object.
+最后，只需添加本地记录 —— 音频和视频 —— 到连接中即可，这样就能与连接的用户共享音频和视频了。那就需要我们在 `navigator.getMediaDevice` 回调函数中，用 `peerConnection` 对象调用 `addTrack` 函数。
 
 ```js
 navigator.getUserMedia(
@@ -459,7 +459,7 @@ navigator.getUserMedia(
 );
 ```
 
-And we need to add a proper handler for `ontrack `event:
+以及为 `ontrack` 事件添加对应的处理函数：
 
 ```js
 peerConnection.ontrack = function({ streams: [stream] }) {
@@ -470,17 +470,17 @@ peerConnection.ontrack = function({ streams: [stream] }) {
 };
 ```
 
-As you can see, we've taken stream from the passed object and changed `srcObject `in remote-video to use received stream. So now after you click on the active user, you should make a video and audio connection, just like below:
+如你所见，我们从传入的对象中获取到了媒体流，并改写了 `remote-video` 中的 `srcObject`，以便使用接收到的媒体流。所以，现在当你点击了一个在线用户，你就能建立一个音视频连接，如下：
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-7_.png)
 
-Read more: [Node.js and dependency injection -- friends or foes?](https://tsh.io/blog/dependency-injection-in-node-js/)
+扩展阅读：[Node.js 和依赖注入 —— 是敌是友？](https://tsh.io/blog/dependency-injection-in-node-js/)
 
-## Now you know how to write a video chat app!
+## 现在你已经点亮了开发视频聊天应用的技能啦！
 
-WebRTC is a vast topic -- especially if you want to know how it works under the hood. Fortunately, we have access to easy-in-use JavaScript API, where we can create pretty neat apps, e.g. video-sharing, chat applications and much more!
+WebRTC 是个庞大的话题 —— 特别是如果你想要知道其深层原理的时候。幸运的是，我们有简单易用的 JavaScript API 可以用，使我们能够做出诸如视频聊天应用等十分简洁的应用！
 
-If you want to deep dive into WebRTC, here's a link to [the WebRTC official documentation. ](https://webrtc.org/start/)My recommendation is to use [docs from MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API).
+如果你想深入了解 WebRTC，请看 [WebRTC 官方文档](https://webrtc.org/start/)。个人推荐阅读 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
