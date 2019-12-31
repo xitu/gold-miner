@@ -11,7 +11,7 @@
 
 ![新版 Microsoft 365 图标样品。](https://cdn-images-1.medium.com/max/6400/1*YTjMo-ISSffSy98XbJNiyQ.png)
 
-空白页和重新设计没有续集。
+空白和重新设计都没有后续的好。
 
 去年，我们推出了 [Office 新版图标](https://medium.com/microsoft-design/redesigning-the-office-app-icons-to-embrace-a-new-world-of-work-91d72608ee8f?source=friends_link&sk=499905fb0d5a65d594aab35201debf40)，向客户表明我们已经开发了产品来支持不断变化的工作环境。在这个世界里，尽管这个世界比以往任何时候都[更具有移动性](https://medium.com/microsoft-design/microsoft365mobile-3b5b7782152c?source=friends_link&sk=6f3168beb86bf945f6c512fc38c03aad)，但社交联系和协作对成功都至关重要。借助新的信息流，这个世界将具有巨大的创造力和发展潜力。
 
