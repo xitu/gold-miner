@@ -440,7 +440,7 @@ socket.on("answer-made", async data => {
 
 我们使用一个非常有用的标志 —— `isAlreadyCalling` —— 来确保只对该用户呼叫一次。
 
-最后，只需添加本地记录 —— 音频和视频 —— 到连接中即可，这样就能与连接的用户共享音频和视频了。 那就需要我们在 `navigator.getMediaDevice` 回调函数中，用 `peerConnection` 对象调用 `addTrack` 函数。
+最后，只需添加本地记录 —— 音频和视频 —— 到连接中即可，这样就能与连接的用户共享音频和视频了。那就需要我们在 `navigator.getMediaDevice` 回调函数中，用 `peerConnection` 对象调用 `addTrack` 函数。
 
 ```js
 navigator.getUserMedia(
