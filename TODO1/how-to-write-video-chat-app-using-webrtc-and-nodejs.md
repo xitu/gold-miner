@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-video-chat-app-using-webrtc-and-nodejs.md)
 > * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[RubyJy](https://github.com/RubyJy)
+> * 校对者：[RubyJy](https://github.com/RubyJy), [cyz980908](https://github.com/cyz980908)
 
 # WebRTC 联手 Node.js：打造实时视频聊天应用
 
-> **一刻值千金，实时亦如此，那我就开门见山了。在本文中，我将带你写一个视频聊天应用，支持两个用户之间进行视频和语音通信。没什么难度，也没什么花哨的东西，却是一次 JavaScript —— 严格来说是 WebRTC 和 [Node.js](https://tsh.io/services/web-development/node/) —— 的绝佳试炼。**
+> **(实时)时间就是金钱，那我就开门见山了。在本文中，我将带你写一个视频聊天应用，支持两个用户之间进行视频和语音通信。没什么难度，也没什么花哨的东西，却是一次 JavaScript —— 严格来说是 WebRTC 和 [Node.js](https://tsh.io/services/web-development/node/) —— 的绝佳试炼。**
 
 ## 何为 WebRTC？
 
 **网络实时通信（Web Real-Time Communication，缩写为 WebRTC）是一项 HTML5 规范，它使你能直接用浏览器进行实时通讯，不用依赖第三方插件**。WebRTC 有多种用途（甚至能实现文件共享），但其主要应用为实时点对点音频与视频通讯，本文的重点也是这一点。
 
-WebRTC 的作用在于允许访问设备 —— 你可以通过 WebRTC 调用麦克风、摄像头，甚至共享屏幕，而且全部都是实时进行的！因此，WebRTC 用最简单的方式
+WebRTC 的强大之处在于允许访问设备 —— 你可以通过 WebRTC 调用麦克风、摄像头，甚至共享屏幕，而且全部都是实时进行的！因此，WebRTC 用最简单的方式
 
 > **使网页语音视频聊天成为可能。**
 
@@ -39,7 +39,7 @@ WebRTC 是一个复杂的话题，这其中涉及很多技术。而建立连接�
 - socket.io 库，用 WebSocket 在两个设备间建立一个连接，
 - WebRTC，使媒体设备（摄像头和麦克风）能在连接设备之间推送音频流和视频流。
 
-## 视频聊天实现
+## 实现视频聊天
 
 第一步，我们要有一个用作应用的用户界面的 HTML 文件。用 `npm init` 初始化一个新的 Node.js 项目。然后，运行 `npm i -D typescript ts-node nodemon @types/express @types/socket.io` 来安装一些开发依赖包，运行 `npm i express socket.io` 来安装生产依赖包。
 
@@ -65,7 +65,7 @@ WebRTC 是一个复杂的话题，这其中涉及很多技术。而建立连接�
 }
 ```
 
-我们运行 `npm run dev` 命令后，Nodemon 会监听 src 文件夹中每一个 `.ts` 后缀的文件的变动。现在我们就要创建一个 src 文件夹，在 src 中，创建两个 TypeScript 文件：`index.ts` 和 `server.ts`。
+我们运行 `npm run dev` 命令后，Nodemon 会监听 src 文件夹中每一个 `.ts` 后缀的文件的变动。现在我们来创建一个 src 文件夹，在 src 中，创建两个 TypeScript 文件：`index.ts` 和 `server.ts`。
 
 在 `server.ts` 里，我们会创建一个 Server 类，并使之配合 Express 和 socket.io：
 
@@ -204,7 +204,7 @@ private initialize(): void {
  }
 ```
 
-至此，当打开 [http://localhost:5000](http://localhost:5000/)，你会看到 `index.html` 文件已经到岗了：
+至此，当打开 [http://localhost:5000](http://localhost:5000/)，你会看到 `index.html` 文件已经运行起来了：
 
 ![](https://tsh.io/wp-content/uploads/2019/11/how-to-write-a-real-time-video-chat-app-3_.png)
 
