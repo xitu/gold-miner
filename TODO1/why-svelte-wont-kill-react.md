@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-svelte-wont-kill-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-svelte-wont-kill-react.md)
 > * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：(PingHGao)[https://github.com/PingHGao]
+> * 校对者：[PingHGao](https://github.com/PingHGao)
 
 # 为何 Svelte 杀不死 React
 
