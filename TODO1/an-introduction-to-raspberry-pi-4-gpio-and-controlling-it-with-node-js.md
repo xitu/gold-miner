@@ -155,7 +155,7 @@ $ npm i -S onoff
 
 除了电阻，这个电路没什么特别的。需要该电阻是因为红色 LED 在 **2.4V** 电压下工作，而提供 **3.3V** 电压的 GPIO 会损坏 LED。此外，LED 采用的 **20mA** 超过了树莓派的安全限值，因此，电阻也可防止其电流过大。
 
-> We can choose between 330 ohms to 1k ohm resistance. This will impact the current flow but won’t damage the LED.
+> 我们可以选择 330 欧姆到 1k 欧姆的电阻。这会影响电流，但不会损坏发光二极管。
 
 From the above circuit, the only variable in the circuit is BCM 4 pin output. If the pin is on (**3.3V**), the circuit will close and LED will glow. If the pin is off (**0V**), the circuit is open and LED won’t glow.
 
