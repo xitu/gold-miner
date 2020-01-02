@@ -78,62 +78,62 @@ Arduino 旨在充当外部设备的控制器，而不是成熟的物联网设备
 
 #### 🔌 GPIO 针脚
 
-Except for **Power** and **Ground** Pins, rests are general-purpose input and output pins. When a GPIO pin is used in **output mode**, it provides 3.3V constant power when it is turned on.
+除了 **电源** 和 **接地** 针脚外，其他针脚均为通用输入和输出针脚。当 GPIO 针脚用于 **输出模式** 时，它在开启时提供 3.3V 恒定功率。
 
-In the **input mode**, a GPIO pin can also be used to listen for external power. Technically, when a **3.3V** is supplied to a GPIO pin (**when it is in the input mode**), the pin will read as **logical high** or **1**. When the pin is grounded or supplied with **0V**, it will read as **logical low** or **0**.
+在 **输入模式** 下，GPIO 针脚也可用于监听外部电源。技术上，当 **3.3V** 功率供给 GPIO 针脚时（**处于输入模式**），该针脚将被读取为 **逻辑高电平** 或 **1**。当针脚接地或提供 **0V** 功率时，它被读作 **逻辑低电平** 或 **0**。
 
-The output mode is fairly straightforward. In the output mode, we turn on a pin and it sends the 3.3V through the pin. However, in the input of a pin, we need to listen for voltage changes on the pin and when the pin is at the logical high or low, we can do other things like turn on an output GPIO pin.
+The output mode is fairly straightforward. In the output mode, we turn on a pin and it sends the 3.3V through the pin. However, in the input of a pin, we need to listen for voltage changes on the pin and when the pin is at the logical high or low, we can do other things like turn on an output GPIO pin.输出模式相当简单。在输出模式下，我们接通一个针脚，设备通过该针脚传送 3.3V 功率。然而，在针脚的输入端，我们需要监听针脚上的电压变化，当引脚处于逻辑高电平或低电平时，我们可以执行其他操作，如打开 GPIO 输出针脚。
 
-#### 🧙‍♀️ SPI, I²C, and UART Protocols
+#### 🧙‍♀️ SPI、 I²C 和 UART 协议
 
-SPI ([**Serial Peripheral Interface**](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface)) is a synchronous serial communication interface used by devices to talk to each other. This interface needs 3 or more data lines to connect a master device to a slave device (**out of one or many**).
+SPI ([**Serial Peripheral Interface (串行外设接口)**](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface)) 是一种同步串行通信接口， 设备使用它来实现相互间的通信。此接口需要 3 条或更多数据线将主设备连接到从设备（**一条或多条**）。
 
-I²C ([**Inter-Integrated Circuit**](http://C)) is also similar to SPI but it supports multiple master devices. Also, unlike SPI, it only requires two data lines for unlimited numbers of slaves. However, this makes I²C slower than SPI.
+I²C ([**Inter-Integrated Circuit (内置集成电路)**](http://C)) 类似于 SPI，但它支持多个主设备。此外，与 SPI 不同，它只需要两条数据线来容纳无限数量的从机。不过这会让 I²C 比 SPI 慢。
 
-UART ([Universal asynchronous receiver-transmitter](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter)) is also a serial communication interface but data is sent [**asynchronously**](https://en.wikipedia.org/wiki/Asynchronous_serial_communication).
+UART ([Universal asynchronous receiver-transmitter (通用异步收发信机)](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter)) 也是一个串行通信接口，但数据是 [**异步**](https://en.wikipedia.org/wiki/Asynchronous_serial_communication) 发送的。
 
-Raspberry Pi provides a low-level interface to enable these interfaces through GPIO pins just like input and output mode we discussed earlier. However, not all GPIO pins can be configured from these kinds of communications.
+树莓派提供了一个低级接口用于通过 GPIO 针脚启用这些接口，就像我们前文讨论过的输入输出模式一样。然而，并非所有的 GPIO 针脚都可以通过这种通信进行配置。
 
-In the below diagram, you can see which GPIO pins can be configured from SPI, I²C and UART protocols. You should visit **[pinout.xyz](https://pinout.xyz/).** This web application provides an interactive interface to see what each GPIO pin does.
+在下图中，你可以看到哪些 GPIO 针脚可以通过 SPI、I²C 和 UART 协议进行配置。你可以访问 **[pinout.xyz](https://pinout.xyz/).** 此网站应用程序提供了一个交互界面供用户查看每个 GPIO 针脚的功能。
 
-![(Source: [**pinout.xyz**](https://pinout.xyz/))](https://cdn-images-1.medium.com/max/2000/1*mpKa3QDHL6G5CmjmMWX3UQ.png)
+![(来源：[**pinout.xyz**](https://pinout.xyz/))](https://cdn-images-1.medium.com/max/2000/1*mpKa3QDHL6G5CmjmMWX3UQ.png)
 
-Besides in a simple input or output mode, a GPIO pin can work in **6 modes** but only one at a time. When you click on a GPIO pin (**in the above website**), you would be able to see its modes on the right side. These are mentioned with ALT0 to ALT5 in the right table.
+除了在简单的输入或输出模式下，GPIO 针脚可以在 **6 模式** 下工作，但只能工作一次。当你 (**在上述网站**) 点击 GPIO 针脚时，你可以在屏幕右侧看到它的工作模式。右表中的 ALT0 至 ALT5 提到了这些。
 
-> You can learn about the specifications of these communication protocols from [**this video**](https://www.youtube.com/watch?v=IyGwvGzrqp8). We won’t be working with these communication protocols in this tutorial, however, I will be covering these topics in the upcoming articles.
+> 你可以通过 [**本视频**](https://www.youtube.com/watch?v=IyGwvGzrqp8) 了解这些通信协议的规范。在本教程中，我们不会涉及这些通信协议，但是，我将在接下来的文章中讨论相关主题。
 
-#### ⚡ Current Specifications
+#### ⚡ 现行规范
 
-We have talked about the voltage specifications of the power and GPIO pins. The current specifications are little foggy because they are not mentioned in the Raspberry Pi official documentation.
+我们已经讨论过电源和 GPIO 针脚的电压规格。因为树莓派官方文件中未曾提及，所以现行规范不太明晰。
 
-However, we follow a safety precaution while handling the current. The maximum current that can be drawn from any pin should be less than or equal to **16mA**. Hence, we must adjust our load to meet this requirement.
+然而，我们在处理电流时，都需要遵循安全预防措施。可从任何针脚获取的最大电流应小于或等于 **16mA**。因此，我们必须调整负载以满足这一要求。
 
-If we have connected multiple devices to the Raspberry Pi GPIO and other ports like USB, then we must ensure that the maximum current drawn from the circuit is less than **50mA**.
+如果我们已经将多个设备连接到树莓派 GPIO 和其他端口，如 USB，那么我们必须确保从电路获取的最大电流小于 **50mA**。
 
-To limit the current, we can add resistors to the circuit so that the maximum current drawn does not cross these limits. When a device needs more power than Raspberry Pi can provide, we should be using relay switches instead.
+为了限制电流，我们可以在电路中增加电阻，使得最大电流不会超过这些限制。当一个设备需要比树莓派更多电流时，我们应该使用继电器开关来代替。
 
-When it comes to the **input**, these same specifications are used. When a GPIO pin is used as a **drain** (**instead of a** source **of the current**), we should not supply more than **16mA**. Also when multiple GPIO pins are used as input, no more than **50mA** current should be applied in total.
+**输入** 模式使用的也是相同的规范。当 GPIO 针脚被用作 **漏** （**而非** 源 **电流**）时，我们不应该供应超过 **16mA** 的电流。此外，当多个 GPIO 针脚用作输入时，总共不应施加超过 **50mA** 的电流。
 
 ---
 
-## Prerequisites
+## 前提条件
 
-I believe that you have gone through the setup of the Raspberry Pi. This means you have installed an operating system like [**Raspbian**](https://www.raspberrypi.org/downloads/raspbian/) or your personal favorite and you can access it through SSH or HDMI.
+我相信你已经走过一遍树莓派的设置流程。这意味着你已经安装了一个像 [**Raspbian**](https://www.raspberrypi.org/downloads/raspbian/) 这样或你个人偏好的操作系统，并且可以通过 SSH 或 HDMI访问它。
 
-The first thing we need to do is create a project directory. I have created the project directory at `/home/pi/Programs/io-examples` where all our programs will live for these tutorial examples.
+我们需要做的第一件事就是创建项目目录。我已经在 `/home/pi/Programs/io-examples` 这个路径下创建了项目目录，我们所有的程序都将作为教程示例保存在该路径下。
 
-Since we want to control the GPIO pins using Node.js, we need to install Node first. You can choose your favorite method but I personally use **[NVM](https://github.com/nvm-sh/nvm)** (**node version manager**). You can follow [**these recommended steps**](https://github.com/nvm-sh/nvm#install--update-script) to install it.
+由于我们想通过 Node.js 来控制 GPIO 针脚，首先我们必须安装 Node。你可以选择你最喜欢的方法，但我个人会使用 **[NVM](https://github.com/nvm-sh/nvm)** (**节点版本管理器**)。你可以遵循 [**该建议步骤**](https://github.com/nvm-sh/nvm#install--update-script) 安装。
 
-Once you have NVM installed, we can proceed further to install a specific version of Node. I will be using Node v12 since it is the latest stable version. To install Node v12, use the below commands.
+一旦安装了 NVM，我们可以继续安装特定版本的节点。我将使用节点 v12，因为它是最新的稳定版本。要安装节点 v12，请输入以下命令行：
 
 ```
 $ nvm install 12
 $ nvm use 12
 ```
 
-Once Node.js is installed on the Raspberry Pi, we can move ahead with the project creation. Since we want to control the GPIO pins, we need a library that can provide an easy API to do that for us.
+一旦树莓派安装了了 Node.js，我们就可以继续进行项目创建了。因为我们想要控制 GPIO 引脚，所以我们需要一个库来为我们提供一个简单的应用编程接口。
 
-One great library to control GPIO on Raspberry Pi is [**onoff**](https://www.npmjs.com/package/onoff). From the project directory, first, create the package.json and then install `onoff` package.
+树莓派一个控制 GPIO 的大库是 [**开关**](https://www.npmjs.com/package/onoff)。 首先，从项目目录中创建 .json 包，然后安装 `onoff` 包。
 
 ```
 $ cd /home/pi/Programs/io-examples
@@ -141,19 +141,19 @@ $ npm init -y
 $ npm i -S onoff
 ```
 
-Now that we have everything we need, we can process with the circuit design and write our first program to test the power of GPIO.
+现在一切准备就绪，我们可以开始电路设计并编写第一个程序来测试 GPIO 的能力。
 
 ---
 
-## Output example with LED
+## LED 输出示例
 
-In this example, we will turn on a Red LED programmatically. Let’s take a look at the below circuit diagram.
+在本例中，我们将以编程方式打开红色 LED。让我们先看看下面的电路图：
 
-![(Simple LED Output)](https://cdn-images-1.medium.com/max/3126/1*aarORNzRCTnQlSL-F6pe5Q.png)
+![(简单 LED 输出)](https://cdn-images-1.medium.com/max/3126/1*aarORNzRCTnQlSL-F6pe5Q.png)
 
-From the above circuit diagram, we have connected **Pin no. 6** (**ground pin**) to the negative (**ground**) rail of the breadboard and **BCM 4** to the one end of a **1k ohm** resistor. The other end of the resistor is connected to the input of a Red LED and the output of the LED drains to the ground.
+从上图可以看出，我们已经将 **6 号引脚** （**接地引脚**） 连接到了线路板的负轨 （**地线**) 上，并将 **BCM 4** 连接到 **1k 欧姆** 电阻的一端。电阻器的另一端连接到红色 LED 的输入端，LED 的输出端接地。
 
-There is nothing interesting about this circuit except the resistor. The resistor is needed because Red LED operates at **2.4V** and a GPIO pin provides **3.3V** which can damage the LED. Also, the LED draws **20mA** which is above the safe limit of Raspberry Pi, hence resistor will also prevent the excess current.
+除了电阻，这个电路没什么特别的。需要该电阻是因为红色 LED 在 **2.4V** 电压下工作，而提供 **3.3V** 电压的 GPIO 会损坏 LED。此外，LED 采用的 **20mA** 超过了树莓派的安全限值，因此，电阻也可防止其电流过大。
 
 > We can choose between 330 ohms to 1k ohm resistance. This will impact the current flow but won’t damage the LED.
 
