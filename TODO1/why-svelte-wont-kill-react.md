@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-svelte-wont-kill-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-svelte-wont-kill-react.md)
 > * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[PingHGao](https://github.com/PingHGao)
+> * 校对者：[PingHGao](https://github.com/PingHGao), [shixi-li](https://github.com/shixi-li)
 
 # 为何 Svelte 杀不死 React
 
@@ -17,7 +17,7 @@
 
 > 我们的解决方案是怎样怎样的，还有别的一些现有的解决方案。而且我们坚信我们的方案更优秀，原因是什么什么。一些常见的反对论点是什么什么。
 
-相反，Svelte 的官方博客通过只显露片面的事实，愚弄读者，甚至有时会宣扬一些关于 Web 技术和其他库（我会着重提到 React，只因我对它的理解更深一些）的不实言论。因此在本文中，我会对 Svelte 调侃一二，平衡一下官方吹斜的天平。话虽如此，我仍认为 Svelte 中还是有闪光点的，我会在文末告诉你原因 😊
+Svelte 的官方博客却正好相反，它通过只显露片面的事实来愚弄读者，甚至有时会宣扬一些关于 Web 技术和其他库（我会着重提到 React，只因我对它的理解更深一些）的不实言论。因此在本文中，我会对 Svelte 调侃一二，平衡一下官方吹斜的天平。话虽如此，我仍认为 Svelte 中还是有闪光点的，我会在文末告诉你原因 😊
 
 ![[imgflip.com](https://imgflip.com/i/122lno)](https://cdn-images-1.medium.com/max/2000/1*w4uLFcsyeLWeVetzq0VgqQ.jpeg)
 
@@ -195,7 +195,7 @@ foo.bar = 'baz';
 obj = obj; // 如果你不这样做，更新就不会发生
 ```
 
-同样，用 `push` 或其他变更方法更新一个数组，都不会自动触发组件更新。因此你必须用数组或对象扩展：
+同样，用 `push` 或或其他变种方法更新一个数组，都不会自动触发组件更新。因此你必须用数组或对象扩展：
 
 ```
 arr = [...arr, newItem];
@@ -208,7 +208,7 @@ obj = {...obj, updatedValue: newValue};
 
 > 虚拟 DOM 很有价值，因为它使你能在构建应用时不用考虑状态转变，并且性能**一般都足够强劲** —— Rich Harris，Svelte 的维护者<sup>[6](#footnote6)</sup>
 
-Svelte 博客中几乎每篇文章都声称，虚拟 DOM[是一个不必要的开销](https://svelte.dev/blog/virtual-dom-is-pure-overhead)，而且开销相当大，可以不费吹灰之力地用预先生成的 DOM 更新器替换它，无副作用。但这句话对吗？不全对。
+Svelte 博客中几乎每篇文章都声称，虚拟 DOM[是一个不必要的开销](https://svelte.dev/blog/virtual-dom-is-pure-overhead)，而且开销相当大，可以轻易地用预先生成的 DOM 更新器替换它并且无副作用。但这句话对吗？不全对。
 
 ![[quickmeme.com](http://www.quickmeme.com/meme/362wa3)](https://cdn-images-1.medium.com/max/2000/1*jomQ-J1bF6mx8eziWMnMww.jpeg)
 
@@ -316,7 +316,7 @@ const App = () => (
 
 ![[youtube.com](https://www.youtube.com/watch?v=byP3lzjuQH4)](https://cdn-images-1.medium.com/max/2000/1*H3YESgYacAyOpH31TVVNSQ.jpeg)
 
-每段代码你只会写一次，但会读许多次。我知道这是个人喜好的问题，也知道这是个有争议的话题，但我觉得 JSX 和常规 JavaScript 流运算符要比其他任何形式的 `{#blocks}` 和指令都要通俗易懂。在 Vue 大红大紫前，我就是它的忠实粉丝了。后来我时不时会被一些限制和意义不明的模板绊倒，于是开始全面使用 JSX —— 而因为 JSX 和 Vue 不是一个风格，我后来就转向了 React。我不想再原路返回。
+每段代码你只会写一次，但会读许多次。我知道这是个人喜好的问题，也知道这是个有争议的话题，但我觉得 JSX 和常规 JavaScript 流运算符要比其他任何形式的 `{#blocks}` 和指令都要通俗易懂。在 Vue 大红大紫前，我就是它的忠实粉丝了。后来我时不时会被一些限制和意义不明的模板绊倒，于是开始全面使用 JSX —— 而因为 JSX 和 Vue 不是一个风格，我后来就转向了 React。我不想再重蹈覆辙。
 
 ---
 
