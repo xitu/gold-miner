@@ -3,44 +3,44 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/history-of-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/history-of-javascript.md)
 > * 译者：[Pingren](https://github.com/Pingren)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)
 
 # JavaScript 简史
 
-> JavaScript 的起源以及它这些年是如何发展的
+> JavaScript 的起源以及这些年的发展情况
 
-大约十年前[^1]，Jeff Atwood（Stackoverflow 创始人）断言 JavaScript 将会是未来的方向，并创造了 “Atwood 法则“：**任何可以使用 Javascript 编写的程序，最终都会由 Javascript 编写**。十年之后的现在，这个断言相比之前更加可信了。JavaScript 一直持续得到更多的应用。
+大约十年前[^1]，Jeff Atwood（Stackoverflow 创始人）断言 JavaScript 将会是未来的方向，并创造了 “Atwood 定律“：**任何可以使用 Javascript 编写的程序，最终都会由 Javascript 编写**。十年后的今天，这个断言相比之前更加可信了。JavaScript 一直持续得到更多的应用。
 
 ### JavaScript 发布
 
-JavaScript 最初由 NetScape 的 [Brendan Eich](https://twitter.com/BrendanEich) 创造，并在 1995 年 Netscape 的闻稿中首次发布。 它有着非同寻常的命名历史：首先由创造者命名为 `Mocha`，接着重命名为 `LiveScript`。1996 年，在大约发布一年之后，NetScape 决定再将其重命名为 `JavaScript`，期望利用 Java 社区（虽然 JavaScript 与 Java 毫无关系），并发布了支持 JavaScript 的 Netscape 2.0 浏览器。
+JavaScript 最初由 NetScape 的 [Brendan Eich](https://twitter.com/BrendanEich) 创造，并在 1995 年 Netscape 的闻稿中首次发布。它有着非同寻常的命名历史：首先由创造者命名为 `Mocha`，接着重命名为 `LiveScript`。1996 年，在大约发布一年之后，NetScape 希望能够蹭蹭 Java 社区的热度（虽然 JavaScript 与 Java 毫无关系），因此决定再将其重命名为 JavaScript，并发布了支持 JavaScript 的 Netscape 2.0 浏览器。
 
 ### ES1，ES2 和 ES3
 
-1996 年，Netscape 决定将 JavaScript 提交到 [ECMA 国际](https://en.wikipedia.org/wiki/Ecma_International)，期望将其标准化。第 1 版标准规范在 1997 年发布，在首次发布之后，`ECMAScript` 的标准化工作持续进行，不久之后，两次发布了新版：1998 年的 ECMAScript 2 和 1999 年的 ECMAScript 3。
+1996 年，Netscape 决定将 JavaScript 提交到 [ECMA 国际](https://en.wikipedia.org/wiki/Ecma_International)，期望将其标准化。第 1 版标准规范在 1997 年发布，在首次发布之后，`ECMAScript` 的标准化工作持续进行，不久之后，发布了两个新的版本：1998 年的 ECMAScript 2 和 1999 年的 ECMAScript 3。
 
 ### 十年沉寂和 ES4
 
-1999 年发布 ES3 之后，官方标准出现了十年的沉寂，没有任何变化。第 4 版标准起初有一些进展；部分被讨论的特性有类、模块、静态类型、解构等等。它本来定在 2008 年发布，但是由于关于语言复杂度的不同政治意见[^2]而被废弃。但是，浏览器厂商不停引入语言的扩展，使开发者感到困惑 —— 添加 polyfills[^3] 来与不同浏览器的兼容性问题一决高下。
+1999 年发布 ES3 之后，官方标准出现了十年的沉寂，这期间没有任何变化。第 4 版标准起初有一些进展，部分被讨论的特性有类、模块、静态类型、解构等等。它本来定在 2008 年发布，但是由于关于语言复杂度的不同政治意见[^2]而被废弃。但是，浏览器厂商不停引入语言的扩展，这让开发者大伤脑筋 —— 他们只能添加 polyfill[^3] 来解决不同浏览器之间的兼容性问题。
 
 ### 从沉寂到 ES5
 
-Google, Microsoft, Yahoo 和其余 ES4 的争论者最终走到了一起，决定在 ES3 之上创造一个野心较小的更新，并暂时命名为 ES3.1。但是整个团队仍旧关于 ES4 该包含什么内容和争论不休。终于，在 2009 年，ES5 发布了，主要修复了兼容性和安全问题。但是它并没有翻起多大浪花 —— 浏览器厂商花费了数年时间实现标准，许多开发者依旧使用 ES3 并且不知道 “现代” 的标准。
+Google，Microsoft，Yahoo 和其余 ES4 的争论者最终走到了一起，决定在 ES3 之上创造一个小范围的更新，并暂时命名为 ES3.1。但是整个团队仍旧关于 ES4 该包含什么内容而争论不休。终于，在 2009 年，ES5 发布了，主要修复了兼容性和安全问题等。但是它并没有翻起多大浪花 —— 浏览器厂商花费了数年时间实现标准，许多开发者在不知道 “现代” 标准的情况下依旧使用 ES3
 
-### ES6 发布 —— ECMASript 2015
+### ES6 —— ECMASript 2015 发布
 
-在 ES5 发布数年之后，事情开始有了转机，TC39（ECMA 国际之下负责 ECMAScript 标准化的委员会）持续标准化的工作，下一版的 ECMAScript（ES6）起初命名为 ES Harmony[^4]，最终在发布时被命名为 ES2015。ES2015 添加了许多重要的特性和语法糖以便于编写复杂的程序。部分 ES6 提供的特性包括了类、模块、箭头函数、加强的对象字面量、模板字符串、解构、默认参数 + Rest 参数 + Spread 操作符、Let 和 Const 语法、异步迭代器 + for..of、生成器、集合 + 映射、Proxy、Symbol、Promise、math + number + string + array + object 的 API [等等](http://es6-features.org/#Constants)[^5]。
+在 ES5 发布数年之后，事情开始有了转机，TC39（ECMA 国际之下负责 ECMAScript 标准化的委员会）持续进行标准化的工作，下一版的 ECMAScript（ES6）起初命名为 ES Harmony[^4]，最终在发布时被命名为 ES2015。ES2015 添加了许多重要的特性和语法糖以便于编写复杂的程序。部分 ES6 提供的特性包括了类、模块、箭头函数、加强的对象字面量、模板字符串、解构、默认参数 + Rest 参数 + Spread 操作符、Let 和 Const 语法、异步迭代器 + for..of、生成器、集合 + 映射、Proxy、Symbol、Promise、math + number + string + array + object 的 API [等等](http://es6-features.org/#Constants)[^5]。
 
-浏览器对 ES6 的支持依旧十分有限，但是开发者只需要编写 ES6 代码并将其转译至 ES5，就可以使用 ES6 的所有特性。随着第 6 版 ECMAScript 的发布，TC39 决定以每年更新的模式来发布 ECMAScript 的更新，这样新特性就可以在通过时尽快地加入标准，不需要等待完整的规范起草和通过 —— 因此第 6 版 ECMAScript 在 2015 年 6 月 发布前，被命名为 ECMAScript 2015 或 ES2015。并且之后的 ECMAScript 版本发布定于每年 6 月。
+浏览器对 ES6 的支持依旧十分有限，但是开发者只需要编写 ES6 代码并将其转译至 ES5，就可以使用 ES6 的所有特性。随着第 6 版 ECMAScript 的发布，TC39 决定以每年更新的模式来发布 ECMAScript 的更新，这样新特性就可以在通过时尽快地加入标准，不需要等待完整的规范起草和通过 —— 因此第 6 版 ECMAScript 在 2015 年 6 月发布前，被命名为 ECMAScript 2015 或 ES2015。并且之后的 ECMAScript 版本发布定于每年 6 月。
 
-### ES7 发布 —— ECMASript 2016
+### ES7 —— ECMASript 2016 发布
 
 在 2016 年 6 月，第 7 版 ECMAScript 发布了。由于 ECMAScript 变成了年更模式，ECMAScript 2016（ES2016）相对来说没有太多新内容。ES2016 只包含了两个新特性：
 
 * 指数运算符 `**`
 * `Array.prototype.includes`
 
-### ES8 发布 —— ECMAScript 2017
+### ES8 —— ECMAScript 2017 发布
 
 第 8 版 ECMAScript 在 2017 年 6 月发布。ES8 主要的亮点在于增加了异步函数，以下是 ES8 新特性的列表：
 
