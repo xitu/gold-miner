@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how_to_prep_your_github_for_job_seeking.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how_to_prep_your_github_for_job_seeking.md)
 > * 译者：[nettee](https://github.com/nettee)
-> * 校对者
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[Chorer](https://github.com/Chorer)
 
 # 如何为求职准备你的 GitHub
 
@@ -13,7 +13,7 @@
 
 我主要关注的是开发人员，但是很多观点是可以通用的。
 
-> 我迁移到了 GitLab，因为微 ruan 太烂了。
+> 我迁移到了 GitLab，因为 M\$ 太烂了。（译注：*M\$* 是对 Microsoft 的讽刺写法）
 
 让我们首先快速避开这个误区。
 
@@ -41,7 +41,7 @@
 
 添加你的个人网站的 URL。如果你有个人网站，而且还算看得过去，就应该把它放上去。（提示：如果这个网站看起来像一坨屎，也许你一开始就不应该建这个网站……）
 
-链接到你其他相关的个人资料。如果你在其他网站也很活跃，例如  StackOverflow、CodePen、Behance、Dribble 或其他网站，确保你的个人资料都连接起来。但是不要链接到兽人、御宅或是角色扮演论坛（译注 —— 都是二次元相关），这些和你的专业经历无关。
+链接到你其他相关的个人资料。如果你在其他网站也很活跃，例如  StackOverflow、CodePen、Behance、Dribble 或其他网站，确保你的个人资料都连接起来。但是不要链接到兽人、御宅或是角色扮演论坛（译注：都是二次元相关），这些和你的专业经历无关。
 
 > **关于意外链接的说明**
 >
