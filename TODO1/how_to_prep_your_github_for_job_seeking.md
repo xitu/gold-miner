@@ -2,155 +2,154 @@
 > * 原文作者：[yopla](https://www.reddit.com/user/yopla/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how_to_prep_your_github_for_job_seeking.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how_to_prep_your_github_for_job_seeking.md)
-> * 译者：
-> * 校对者
+> * 译者：[nettee](https://github.com/nettee)
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[Chorer](https://github.com/Chorer)
 
-# How to prep your GitHub for job seeking
+# 如何为求职准备你的 GitHub
 
-Rightfully or not, technical recruiters tend to infer a lot of information about you from your GitHub profile; and since more and more recruiters are requesting to see it or find it with a simple google search. It is important for job-seeking developers to think about GitHub as an extension of their CV.
+不论是否合理，技术招聘方倾向于从你的 GitHub 个人资料中推断出很多关于你的信息。而且现在越来越多的招聘者会要求提供、或者通过简单的 Google 搜索找到你的 GitHub 账号。因此，对于找工作的开发人员而言，有必要将 GitHub 看作简历的扩展。
 
-With that in mind, I've compiled a few pointers based on the "mistakes" I've seen in the GitHub accounts of the people I've interviewed those past weeks.
+明白了这一点之后，根据我在过去几周面试过的人的 GitHub 账号中的“错误”，我总结了几点指导方针。
 
-I focus mostly on developers because but most ideas can be generalized to any profiles.
+我主要关注的是开发人员，但是很多观点是可以通用的。
 
-> I migrated to GitLab because M$ sucks
+> 我迁移到了 GitLab，因为 M\$ 太烂了。（译注：*M\$* 是对 Microsoft 的讽刺写法）
 
-Let's get that out of the way very quickly.
+让我们首先快速避开这个误区。
 
-First of all professional adults don't speak like that (in public) so make sure you keep that opinion to yourself and not as I've seen once in the README.md of a pinned repository. Although my company doesn't use any Microsoft products at this time we will not close the door to choosing one on technical and financial merit and using it in the future. I don't need developers who will not be able to evaluate a technology with an open mind.
+首先，专业的成年人不会（在公开场合）发表这样的言论，所以请你自己保留这个观念，而不要像我曾经看到的一个例子一样，把这句话写在一个置顶仓库的 README.md 里。虽然我们公司现在没有使用任何微软的产品，但不排除未来因为技术或财务上的优点而选择使用微软的某个产品。我们不需要一个不能以开放的态度来评估技术的开发者。
 
-Gitlab looks like a fine alternative although since I use GitHub myself and I am reviewing 20 GitHub profiles for one on GitLab I am much more familiar with GitHub's interface. It doesn't mean you have to use it and most of the advice below should more or less translate. (If you're using bitbucket you have obviously never applied with us...)
+看起来 GitLab 是一个不错的替代品，但由于我自己使用 GitHub，而且我每看 20 个 GitHub 的个人资料才会看一个 GitLab 的，所以我会对 GitHub 的界面更熟悉。当然我不是说你必须使用 GitHub，下面的建议或多或少可以适用于其他的平台。（不过如果你用的是 bitbucket，你显然从来没有投递过我们公司……）
 
-### Groom your profile
+### 整理你的个人资料
 
-First, let's look at the bare minimum you should do to your overall profile.
+首先，让我们看看你的个人资料需要达到的最低要求。
 
-### Add your picture, a short bio, and a link to your others relevant websites
+### 添加你的头像、简单的介绍，以及指向你其他相关网站的链接
 
-Having a completed profile gives the impression that you care about your GitHub and that you're an organized person. Yes, we have your CV and probably your LinkedIn but it's the worst of the three that will make the longest lasting impression.
+拥有完整的个人简介会给人一种印象：你在乎你的 GitHub，而且是一个有条理的人。我们已经有你的简历了，也可能有你的 LinkedIn，但如果你的 GitHub 是三者中最差的，会给人留下最长久的印象。
 
-**A real picture is better than a cartoon, manga or a symbol.**
+**真实的照片要比卡通、漫画或符号更好。**
 
-If you are job seeking it's important that you look clean; avoid pictures you wouldn't normally send to an employer including, naked, drinking, ninja, hacker or terrorist disguise or any picture that gives the impression that you smell worse than you look.
+如果你在找工作，那仪表整洁很重要。请避免出现那些你一般不会发给雇主的图片，包括裸体、醉酒、忍者、黑客、恐怖分子伪装，或是任何让人觉得你表里不一的图片。
 
-On a GitHub profile you preferably want to look relaxed and friendly so avoid overly formal pictures but stay professional. In doubt aim for a "casual Friday" style.
+你可能想在 GitHub 个人资料上表现得轻松友好一点，所以避免使用过于正式的照片，但也要保持专业。毫无疑问，这种目标就是“休闲星期五”的风格。
 
-Finally, your graduation toga portrait is not a good picture. Don't use it. It makes you look inexperienced.
+最后，别放你的毕业宽袍照。那不是个好图片，让你看起来没有经验。
 
-**Use @ mention to link other repos the recruiter should notice.** to your company, group or other repositories you're participating in or managing.
+**使用 @ 来链接到招聘者应当注意的其他仓库。** 可能是你的公司、组织，或者是其他你正在参与或管理的仓库。
 
-Include the URL for your personal site. If you have one and it doesn't look like crap make sure that it is included. (hint: If it looks like crap, maybe you should not have that site in the first place...)
+添加你的个人网站的 URL。如果你有个人网站，而且还算看得过去，就应该把它放上去。（提示：如果这个网站看起来像一坨屎，也许你一开始就不应该建这个网站……）
 
-Link to your other relevant profiles. If you are active on other sites such as StackOverflow, CodePen, Behance, Dribble or whatever make sure that all your profiles are linked together. Do not link to your profile on furries, weeaboo and cosplay forums as it is not relevant to your professional experience.
+链接到你其他相关的个人资料。如果你在其他网站也很活跃，例如  StackOverflow、CodePen、Behance、Dribble 或其他网站，确保你的个人资料都连接起来。但是不要链接到兽人、御宅或是角色扮演论坛（译注：都是二次元相关），这些和你的专业经历无关。
 
-> **A note about unexpected linking**
+> **关于意外链接的说明**
 >
-> Google is a great link generator so do not reuse the same nickname on all those different sites if you don't want your recruiter to find them because we will when we do a social media check.
+> Google 生成链接的能力很强，所以如果你不想让招聘者发现，最好不要在不同的网站上用一样的昵称。我们在做社交媒体检查的时候就会在 Google 上搜索。
 >
-> I can't tell you how many time I googled a GitHub's username and through association found by google, I discovered their side hustle which ranged from competing with their employer on Upwork to running illegal dog breeding operation and what looked like solicitation on Instagram.
+> 我不知道有多少次搜索一个 GitHub 用户名的时候，从 Google 找到的关联中，发现了他们的另一面，有在 Upwork 上和雇主竞争的，有在 Instagram 上非法养犬并进行投标的。
 
-### Select your pinned repositories for the recruiter.
+### 为招聘者选择你的置顶仓库
 
-If you're looking for a job the pinned repositories which appear at the top of your profile should not be shortcuts to your most frequently accessed repositories but a showcase for your most impressive ones. Maybe they are the same but most likely not.
+如果你正在找工作，出现在你的个人资料顶部的置顶仓库不应该是你最常访问的仓库的快捷方式，而应该是展示你最引人注目的仓库的展示处。也许这两者是相同的仓库，但通常情况下不是的。
 
-As a recruiter, I don't care to see your bash_profile instead pin the repositories that you want to highlight to the recruiter. They should be relevant and show work that has been done, etc..
+作为招聘者，我不关心你的 bash_profile，而是想看到你想给招聘者突出显示的仓库。它们应该比较相关、展示你做过的工作，等等。
 
-⚠️ Pin the top 3 repositories that you want the recruiter to review.
+⚠️ 将你想要让招聘者查看的三个仓库置顶。
 
-### Do not pin tutorials
+### 不要置顶入门教程
 
-Please realize that we can see a lot of CVs so if your repo is from a tutorial or a boot camp, there's a chance I've seen it three or thirty times already. Projects that are overly simple or projects in which 80% comes from the tutorial and you've filled in the blanks don't tell me much about your abilities or worse they tell me that's the pinnacle of what you can do. There's no problem in having them just don't highlight them.
+请注意，我们会看很多简历。如果你的仓库是教程或者新手训练营，那有可能我已经看过三次或者三十次了。过于简单的项目，或者 80% 来自教程、你只是简单地填了一些空的项目，它们并不能让我了解你的能力，甚至让我觉得你最多只能做这些了。有这些仓库不是问题，只是不要突出显示它们。
 
-If that's all you have, it's better not to pin anything and to call those repo what they are: tutorials. Do not try to pass them for your own invention and do not try to overplay them; they are tutorial for beginners they won't impress anyone and as I said before I probably already saw [that tutorial](https://github.com/search?q=pig+dom).
+如果你只有这些仓库，那么最好不要置顶任何仓库，然后把这些仓库就命名为：教程。不要把它们转化成自己的原创，也不要夸大它们。它们只是新手教程，不会给任何人留下深刻的印象。正如我前面提到过的，我可能已经看过[这个教程](https://github.com/search?q=pig+dom)了。
 
-### Pin tech demos with relevant technologies...
+### 将使用了相关技术的 demo 置顶
 
-*...before larger project with outdated tech.*
+**…把它们放在更大型但是技术过时的项目之前。**
 
-If, for example, you're on the market for an SPA developer job then pin Angular/React/Vue tech demos over that big Laravel + jQuery thing you were working on 3 years ago.
+例如，如果你在市场上寻求 SPA 开发的职位，则将 Angular/React/Vue 技术的 demo 放在你三年前写的 Laravel + jQuery 的大项目之前。
 
-If you're like most people you're not running a successful open source project and most of your day to day production of code is the property of your employer so you might feel bad not having a super impressive project to showcase. Worry not. Most people don't.
+如果你像大多数人一样，没有一个成功的开源项目，你平时的大部分生产代码都是雇主的资产，你可能会因为没有用来展示的引人注目的项目而难过。不过不用担心，大部分人都是没有的。
 
-Instead of failing to impress with an unfinished and mostly abandoned overambitious project (Who doesn't have 1 or... 10?) focus on some interesting small tech demos in your framework of choice. If you're already working professionally there is certainly a problem that you solved that would make for an interesting demo and you just need to rewrite it quickly or ask your current boss for authorization to publish it.
+最好不要试图展示过于宏大但未完成、几乎废弃的项目（谁还没有一个或者…… 十个呢？），而是在你选择的框架中聚焦于有趣的小型技术 demo。如果你已经在专业领域工作，那肯定有你解决过的问题，可以作为一个有趣 demo 的内容。你只需要快速地重写它，或者让你现在的上司授权给你发布。
 
-**If you're a beginner**, I suggest you work on some demos that demonstrate your understanding of CS theory even if it's bubble sort or tree walker visualization in React or Vue. You'll look like a freaking genius compared to your peers with a todo app from an Udemy tutorial.
+**如果你是个初学者**，我建议你制作一些展示你对计算机科学的理解的 demo，即使它只是用 React 或者 Vue 写的冒泡排序或者树遍历的可视化。和你的那些看着 Udemy 教程做出一个 todo 应用的同伴相比，你简直是一个天才。
 
-*For inspiration:*
+**一些启发性的项目：**
 
 -   <https://www.cs.usfca.edu/~galles/visualization/Algorithms.html>
-
 -   <https://visualgo.net/en>
 
-If you have hobbies outside of CS (like music) do incorporate that instead. I don't know, make a [small synthesizer](https://github.com/JanCVanB/vue-synth/blob/master/src/components/Synth.vue) or something.
+如果在 CS 以外你还有其他爱好，比如音乐，可以把它们融合起来。例如做一个[小的合成器](https://github.com/JanCVanB/vue-synth/blob/master/src/components/Synth.vue)或者什么。
 
-### Remove useless forks
+### 删除无用的 fork
 
-I got a lot of submission with profiles containing hundreds of forked repositories with zero contributions. First, it makes it difficult to see what you're actually engaged with and second it gives the impression that you don't understand how Git (and GitHub) works and you're using forks as bookmarks.
+我收到过好多个人资料，里面包含了一大堆 fork 过来的仓库，但没有任何贡献。首先，这会让人看不出你到底真正在做什么；其次，这会让人觉得你不会用 Git（和 GitHub），在把 fork 当书签用。
 
-Some people may be using forks to "pad" their profile with the mistaken impression that it will impress recruiters or their friend. It's not impressive and it makes you look like a bumbling idiot. Don't do it.
+有些人会用 fork 的项目来“填充”他们的个人资料，似乎这样可以给招聘者或朋友留下深刻的印象。但这并不能让人印象深刻，只会让你看起来像个蠢货。不要这么做。
 
-⚠️ Fork a repository only if you have made contributions otherwise use the star or follow.
+⚠️ 只有在你真正做贡献的时候才 fork 仓库。其他情况请使用加星或者关注。
 
-### Clean up your starred repository
+### 清理你加星的仓库
 
-This will get many people angry but here goes anyway: Your starred repositories give an indication to a visitor of your interests and they should change with the maturity of your skills so what you've starred influences how you are perceived.
+这话可能让很多人生气，但事实就是这样：你加星的仓库会让对你感兴趣的访问者改变他们对你技能成熟度的看法，所以你给什么加星会影响别人如何看待你。
 
-⚠️ You should review your last few pages of stars and remove the one that could be misinterpreted.
+⚠️ 你应该检查最新几页的星标内容，删除那些可能让人产生误解的。
 
-#### Beginner Vs Senior
+#### 初学与高级
 
-Roughly speaking, people looking for a senior position should be starring repository containing complex projects and avoid too many beginners or tutorial repos (unless you're contributing).
+粗略地说，寻找高级职位的人应该给那些有复杂项目的仓库加星，而避免给太多初学或教程仓库加星（除非你在为这个仓库做贡献）。
 
-Imagine reviewing a profile for a senior react developer and seeing that the last two repos she was interested in were [iliakan/javascript-tutorial-en](https://github.com/iliakan/javascript-tutorial-en) and [kay-is/react-from-zero](https://github.com/kay-is/react-from-zero) you may wonder if the candidate actually has the skills she pretends to have or if she's still at the tutorial level.
+想象一下，你查看一个高级 React 开发者的个人资料，发现她最新感兴趣的两个仓库是 [iliakan/javascript-tutorial-en](https://github.com/iliakan/javascript-tutorial-en) 和 [kay-is/react-from-zero](https://github.com/kay-is/react-from-zero)，你可能会怀疑这个候选者是否有她所声称的技能，或者她是否仍然处于入门级别。
 
-On the other hand, if you're clearly applying for a junior position or indicated that you're currently learning that technology then having starred those two repositories "make sense" within your story.
+另一方面，如果你确实在申请初级职位，或者表明你正在学习这项技术，那么给这两个仓库加星是说得通的。
 
-#### White Hat Vs Black Hat
+#### 白帽与黑帽
 
-I love security stuff, from a white hat perspective and I think it's a plus for any developer to feel concerned about it but do avoid having a long list obscure cracking tools starred unless you're applying for a security position. One person I reviewed the profile had a long list of wifi cracker and phishing tools followed by a bunch of share enumerator and finally a couple of password bruteforcing tools. As far as telling a story goes it wasn't the best one.
+我喜欢安全方面的东西。从白帽的角度来看，任何开发者关注安全领域都是加分项，但请避免给一长串奇怪的破解工具加星，除非你正在申请安全相关的职位。我曾经看过一个人的资料，有一长串的 wifi 破解和钓鱼工具，然后是一堆共享枚举器，以及密码暴力破解工具。这并不是一种展示自己的好的方式。
 
-Etc..
+等等……
 
-### Groom your showcased repositories
+### 整理你所展示的仓库
 
-So once you've selected a few repositories to showcase; make sure they are accessible. Here is the minimum they should have:
+一旦你选好了几个用于展示的仓库，确保它们是可以访问的。以下是它们应当具备的最低要求：
 
-### All projects should have an interesting README
+### 任何项目都应该有一个有趣的 README
 
-For the love of whatever matters to you please, please add a description to your projects. It sounds obvious but I cannot tell you how many time I've seen repos with no readme or the default readme created by whatever skeleton tool was used.
+无论为了什么，都请你一定、一定给你的项目加上说明。这听起来理所应当，但我不知道有多少次看到了没有任何 readme 的项目，或者是不知道什么框架工具生成的默认 readme。
 
-Here's the minimum you should have in your readme:
+下面是你的 readme 里应当具备的最低要求：
 
-#### A description
+#### 项目说明
 
-You need to make it very easy for someone who has 60 seconds to understand what the hell this is about and why that makes you a good programmer.
+你需要让一个人能在 60 秒内就轻易地理解这个项目究竟是什么，以及为什么能体现你是一个优秀的程序员。
 
-Make sure you answer at least the following questions:
+确保你至少回答了以下的问题：
 
-- **What does it do?** Write a short sentence and list the working functionalities.
-- **What is it?** Clearly, indicate what that code is supposed to produce. Is it a web, desktop, mobile app or a library?
-- **What technologies are used?** List all the important framework and libraries that contribute to this project. It's useful for a recruiter who is not necessarily familiar with every single framework on earth to know if this is Laravel and Vue or React and Expressjs.
-- **What is the ambition of the project?** Are you just test-driving a technology or is it something that is or will go live somewhere?
-- **What is the stage of the project?** Clearly, indicate where you are with it. Whether it is complete or a work in progress? If it's a work in progress indicate what is done and what is pending.
-- **Are there some known issues or things that are not properly done?** If yes list them because I'll be much more tolerant when/if I find shortcomings that have been highlighted than if I just discover them myself.
+- **它是做什么的？**用一句简短的话概括，列出它的功能。
+- **它是什么？**清楚地指出代码会产出什么。是网页、桌面应用，移动应用，还是库？
+- **使用了什么技术？**列出这个项目使用到的重要的框架和库。对于那些不一定熟悉地球上每一个框架的招聘者来说，这很有用，能让他知道这是 Laravel + Vue，还是 React + Expressjs。
+- **这个项目的目标是什么？**你是仅仅在试驾一项技术，还是准备做出正在或将被使用的技术？
+- **这个项目处在什么阶段？**清楚地指出你正在进行哪一阶段。这个项目是完成了，还是正在进行中？如果是正在进行中，指明已完成和待处理的内容。
+- **是否存在一些已知问题，或没有正确完成的事情？**如果有，列出这些问题，因为比起我自己发现缺点，如果它们是突出列出来的，我会宽容得多。
 
-#### Tell me what to look at
+#### 告诉我该看什么
 
-If you're insisting on showcasing a large project there is a probably a lot of boilerplate or "plumbing" that is absolutely uninteresting so do not hesitate to indicate where are the juiciest bits.
+如果你坚持展示一个大型的项目，那里面很可能会有很多完全没意思的样板代码和辅助内容，因此请毫不犹豫地指出最有趣的部分在哪里。
 
-If it's a fork in which you're contributing, make clear what you've been working on and if it's too hard to pinpoint then don't showcase that project.
+如果这是一个你正在贡献的 fork 项目，请确定你正在做的部分。如果很难定位到，请不要展示这个项目。
 
-#### How to run it
+#### 如何运行
 
-You should absolutely have a clear and precise explanation of how to run it (or how to use it if it is a library).
+你一定需要清晰明确地解释如何运行该项目（或者如果它是一个库，解释如何使用它）。
 
-Running a demo version of your project must one-liner activity such as `npm run`, `graddle serve`, `docker run` .. or whatever is used by your framework.
+必须能用一行命令运行项目的演示版本，例如 `npm run`、`graddle serve`、`docker run`…… 或者任何你的框架使用的命令。
 
-There's very little reason in this day and age to have a long list of manual dependencies and pre-setup to run anything.
+在当今时代，无论运行什么东西，都几乎不需要一大堆的手工依赖和先导设置。
 
-**This is what you should strive for:**
+**下面这样是你应该争取做到的：**
 
-```
+```bash
 # serve with hot reload at localhost:8080
 npm run dev
 
@@ -165,15 +164,15 @@ npm run theme
 
 ```
 
-#### A demo
+#### 演示
 
-If you can have a live accessible demo link it directly in the description. If you can not have a live demo use a [screen recorder](https://www.producthunt.com/alternatives/giphy-capture); and if that's too much to ask; have at least a few screenshots.
+如果你能有即时可访问的演示，直接在说明里放上链接。如果你没有即时演示，可以使用[录屏](https://www.producthunt.com/alternatives/giphy-capture)。如果这些都难以做到，至少要有几张截图。
 
-<https://asciinema.org/> seems cool for console recording but I have not tried it.
+<https://asciinema.org/> 看起来是一个很酷的控制台录制工具，但我没有用过。
 
-#### Unit test
+#### 单元测试
 
-Welcome to 2018, if your project doesn't have unit tests you should hide it. It's a bad reference and it reflects poorly on you. No excuses.
+已经 2018 年了，如果你的项目没有单元测试的话，你就不应该把它放出来。这是一个反面教材，说明你的习惯很差。没有理由不写单元测试。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
