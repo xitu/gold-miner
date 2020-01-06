@@ -161,7 +161,7 @@ Svelte 选择了相反的处理方式。除非你用 `$:` 运算符做出了明�
 
 #### Svelte 的优化不够优
 
-顺便说，如果我们要在技术上较真，其实 Svelte 检查某个更新是否必需的结果也不总是最优的。假设一个组件的计算开销非常大，它接受一个这样的 prop：`Array\<{id: string, otherProps}>`。假设我已知 id 都是唯一的，数组中的元素是不可变的，我可以通过下列代码得出某个更新是否必要：
+顺便说，如果我们要在技术上较真，其实 Svelte 检查某个更新是否必需的结果也不总是最优的。假设一个组件的计算开销非常大，它接受一个这样的 prop：`Array<{id: string, otherProps}>`。假设我已知 id 都是唯一的，数组中的元素是不可变的，我可以通过下列代码得出某个更新是否必要：
 
 ```
 const shouldUpdate = (prevArr, nextArr) => {
@@ -294,7 +294,7 @@ const App = () => (
 
 > 考虑互用性。想要用 npm 安装炫酷的日历工具并用在自己的应用中？在以前，只有你用的是（一个确定版本的）该工具适配的框架才行 —— 如果 `cool-calendar-widget` 是用 React 开发的，而你在用 Angular，那么好吧，算你倒霉。但如果该工具的作者用了 Svelte 开发，那么你可以随意用哪种框架开发要使用该工具的应用。—— Rich Harris，Svelte 的维护者<sup>[7](#footnote7)</sup>
 
-支持 React 的工具已经是应有尽有了 —— 十几个 GraphOL 客户端、超过 30 个表单状态管理工具、上百个日期组件。
+支持 React 的工具已经是应有尽有了 —— 十几个 GraphQL 客户端、超过 30 个表单状态管理工具、上百个日期组件。
 
 ![在 NPM 搜索 “svelte”](https://cdn-images-1.medium.com/max/2000/1*1M853tgrdLL2y9YnUp_Otw.png)
 
@@ -304,7 +304,7 @@ const App = () => (
 
 ## 前途光明？
 
-虽然上面说了一些局限，但我觉得 Svelte 实际上提出一了个前途无量的概念。没错，如果不牺牲灵活性和代码可重用性，就无法通过模板完整地表达现代应用程序。但**绝大多数**的应用做的都只是条件渲染和列表渲染罢了。然后，我再说一遍，如果我只是在组件中使用 `onChange={e => setState(e.target.value)}` 并渲染一打 `\<div>`，那我们为何还要去支持键盘事件、鼠标滚轮事件和内容可编辑功能呢？
+虽然上面说了一些局限，但我觉得 Svelte 实际上提出一了个前途无量的概念。没错，如果不牺牲灵活性和代码可重用性，就无法通过模板完整地表达现代应用程序。但**绝大多数**的应用做的都只是条件渲染和列表渲染罢了。然后，我再说一遍，如果我只是在组件中使用 `onChange={e => setState(e.target.value)}` 并渲染一打 `<div>`，那我们为何还要去支持键盘事件、鼠标滚轮事件和内容可编辑功能呢？
 
 实话实说，我并不相信 Svelte 能以当前这种形式打败 React、横扫世界。但如果有一个框架，它没有任何特定的限制，却能 100% 甩脱所有无用的部分，那就太酷了。要是能生成一些在运行时可用的有关其正确执行的构建时提示，那就更棒了。
 
@@ -328,20 +328,13 @@ const App = () => (
 
 引用：
 
-<a name="footnote1">1</a>：[https://svelte.dev/](https://svelte.dev/)
-
-<a name="footnote2">2</a>：[https://github.com/sveltejs/rfcs/blob/master/text/0001-reactive-assignments.md](https://github.com/sveltejs/rfcs/blob/master/text/0001-reactive-assignments.md)
-
-<a name="footnote3">3</a>：[https://svelte.dev/blog/virtual-dom-is-pure-overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead)
-
-<a name="footnote4">4</a>：[https://en.wikiquote.org/wiki/Donald_Knuth](https://en.wikiquote.org/wiki/Donald_Knuth)
-
-<a name="footnote5">5</a>：[https://www.reddit.com/r/reactjs/comments/cqx554/introducing_the_new_react_devtools/ex1r9nb/](https://www.reddit.com/r/reactjs/comments/cqx554/introducing_the_new_react_devtools/ex1r9nb/)
-
-<a name="footnote6">6</a>：[https://svelte.dev/blog/virtual-dom-is-pure-overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead)
-
-<a name="footnote7">7</a>：[https://svelte.dev/blog/frameworks-without-the-framework](https://svelte.dev/blog/frameworks-without-the-framework)
-
+<a name="footnote1">1</a>：[https://svelte.dev/](https://svelte.dev/)  
+<a name="footnote2">2</a>：[https://github.com/sveltejs/rfcs/blob/master/text/0001-reactive-assignments.md](https://github.com/sveltejs/rfcs/blob/master/text/0001-reactive-assignments.md)  
+<a name="footnote3">3</a>：[https://svelte.dev/blog/virtual-dom-is-pure-overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead)  
+<a name="footnote4">4</a>：[https://en.wikiquote.org/wiki/Donald_Knuth](https://en.wikiquote.org/wiki/Donald_Knuth)  
+<a name="footnote5">5</a>：[https://www.reddit.com/r/reactjs/comments/cqx554/introducing_the_new_react_devtools/ex1r9nb/](https://www.reddit.com/r/reactjs/comments/cqx554/introducing_the_new_react_devtools/ex1r9nb/)  
+<a name="footnote6">6</a>：[https://svelte.dev/blog/virtual-dom-is-pure-overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead)  
+<a name="footnote7">7</a>：[https://svelte.dev/blog/frameworks-without-the-framework](https://svelte.dev/blog/frameworks-without-the-framework)  
 <a name="footnote8">8</a>： [https://svelte.dev/blog/write-less-code](https://svelte.dev/blog/write-less-code)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
