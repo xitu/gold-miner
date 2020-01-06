@@ -27,7 +27,7 @@ Svelte 是一个构建用户界面的工具。主流的框架 —— 如 React �
 
 **App.svelte**
 
-```
+```html
 <script>
  import Thing from './Thing.svelte';
 
@@ -55,7 +55,7 @@ function handleClick() {
 
 **Thing.svelte**
 
-```
+```html
 <script>
  export let color;
 </script>
@@ -79,7 +79,7 @@ function handleClick() {
 
 而对应的 React 组件是这样的：
 
-```
+```jsx
 import React, {useState} from 'react'
 import styled from 'styled-components';
 
@@ -163,7 +163,7 @@ Svelte 选择了相反的处理方式。除非你用 `$:` 运算符做出了明�
 
 顺便说，如果我们要在技术上较真，其实 Svelte 检查某个更新是否必需的结果也不总是最优的。假设一个组件的计算开销非常大，它接受一个这样的 prop：`Array<{id: string, otherProps}>`。假设我已知 id 都是唯一的，数组中的元素是不可变的，我可以通过下列代码得出某个更新是否必要：
 
-```
+```js
 const shouldUpdate = (prevArr, nextArr) => {
   if (prevArr.length !== nextArr.length) return true;
   return nextArr.some((item, index) => item.id !== prevArr[index].id)
@@ -172,7 +172,7 @@ const shouldUpdate = (prevArr, nextArr) => {
 
 在 Svelte 中，无法指定自定义的反应比较器（Reaction comparator），只能像这样比较数组：
 
-```
+```js
 export function safe_not_equal(a, b) { 
   return a != a ? b == b : a !== b 
     || ((a && typeof a === 'object') || typeof a === 'function');
@@ -189,7 +189,7 @@ export function safe_not_equal(a, b) {
 
 Svelte 很神奇地给内部运行时用于出发反应的空函数添加一个调用。这可能会让人抓狂。
 
-```
+```js
 const foo = obj.foo;
 foo.bar = 'baz';
 obj = obj; // 如果你不这样做，更新就不会发生
@@ -197,7 +197,7 @@ obj = obj; // 如果你不这样做，更新就不会发生
 
 同样，用 `push` 或或其他变种方法更新一个数组，都不会自动触发组件更新。因此你必须用数组或对象扩展：
 
-```
+```js
 arr = [...arr, newItem];
 obj = {...obj, updatedValue: newValue};
 ```
@@ -262,7 +262,7 @@ Rich Harris 本人对第一个问题给出了如是答案：
 
 React 代码：
 
-```
+```jsx
 const UnorderedList = ({children}) => (
   <ul>
     {
