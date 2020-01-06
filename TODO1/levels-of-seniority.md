@@ -2,90 +2,90 @@
 > * 原文作者：[Kamran Ahmed](https://twitter.com/kamranahmedse)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/levels-of-seniority.md](https://github.com/xitu/gold-miner/blob/master/TODO1/levels-of-seniority.md)
-> * 译者：
+> * 译者：[👊Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# Levels of Seniority
+# 论资历的级别
 
-> How to Step Up as a Junior, Mid Level or a Senior Developer?
+> 如何成为初级、中级或高级开发人员？
 
-I have been working on redoing the [roadmaps](https://roadmap.sh) – splitting the skillset based on the seniority levels to make them easier to follow and not scare the new developers away. Since the roadmaps are going to be just about the technical knowledge, I thought it would be a good idea to reiterate and have an article on what I think of different seniority roles.
+一直以来，我都在重做[路径图](https://roadmap.sh) —— 根据资历级别划分技能，使它们更容易遵循，以免吓跑新入行的开发者。这些路径图只是关于技术知识的，所以我觉得有必要再重申一次，写一篇文章来表达我对不同资历的思考。
 
-I have seen many organizations decide the seniority of developers by giving more significance to the years of experience than they should. I have seen developers labeled "Junior" doing the work of Senior Developers and I have seen "Lead" developers who weren't even qualified to be called "Senior". The seniority of a developer cannot just be decided by their age, years of experience or technical knowledge that they have got. There are other factors in play here -- their perception of work, how they interact with their peers and how they approach problems. We discuss these three key factors in detail for each of the seniority levels below.
+我已经见过太多组织在给开发者评定资历时过于注重工作年数。我见过顶着“初级”头衔的开发者干着高级开发者的活儿，也见过有的“领头”开发者其实连“高级”头衔都不配。开发者的资历不应该只凭他们的年龄、工作年数或掌握的技术知识来定。还有其他因素要考虑 —— 对工作的认知、与同事的相处以及解决问题的方式。下面，我们就针对每个资历等级，详细讨论这三个关键因素。
 
-### Different Seniority Titles
+### 不同的资历头衔
 
-Different organizations might have different seniority titles but they mainly fall into three categories:
+不同的组织可能会设置不同的资历头衔，但主要可以归为三类：
 
-* Junior Developer
-* Mid Level Developer
-* Senior Developer
+* 初级开发者
+* 中级开发者
+* 高级开发者
 
-### Junior Developer
+### 初级开发者
 
-Junior developers are normally fresh graduates and either they don't have or they have minimal industry experience. Not only they have weak coding skills but also there are a few other things that give Junior developers away:
+初级开发者通常是应届毕业生，他们的行业经验为零或者极少。他们不但编程能力薄弱，而且会在其他一些方面暴露新手的短板：
 
-* Their main mantra is "making it work" without giving much attention to how the solution is achieved. To them a working software and good software are equivalent.
-* They usually require very specific and structured directions to achieve something. They suffer from tunnel vision, need supervision and continuous guidance to be effective team members.
-* Most of the Junior developers just try to live up to the role and when stuck they might leave work for a senior developer instead of at least trying to take a stab at something.
-* They don't know about the business side of the company and don't realize how management /sales/marketing/ etc think and they don't realize how much rework, wasted effort, and end-user aggravation could be saved by getting to know the business domain.
-* Over-engineering is a major problem, often leading to fragility and bugs.
-* When given a problem, they often try to fix just the current problem a.k.a. fix the symptoms instead of fixing the root problem.
-* You might notice "[Somebody Else's Problem](https://en.wikipedia.org/wiki/Somebody_else%27s_problem)" from them.
-* They don't know what or how much they don't know, thanks to [Dunning Kruger Effect](https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect).
-* They don't take initiatives and they might be afraid to work on an unfamiliar codebase.
-* They don't participate in team discussions.
+* 他们的口头禅是“能用就行”，从不关心解决方案是如何实现的。在他们眼里，能用的软件和优秀的软件没什么不同。
+* 他们通常需要非常具体和结构化的方向才能实现目标。他们眼界不够开阔，需要监督和持续的引导，才能成长为高效率的团队成员。
+* 大多数初级开发者都觉得自己做到初级就够了，当他们遇到难题，他们会甩给高级开发者，甚至不愿意浅尝一下。
+* 他们不了解公司的业务层面，没有管理、销售、市场等岗位的思维意识，也不明白如果能了解这些业务层面的东西，能避免多少次返工、无用的努力以及终端用户的流失。
+* 总是过度工程化，常常导致程序的健壮性差、Bug 多。
+* 面对问题时，他们往往只会尝试解决眼前的问题，也就是治标不治本。
+* 你会注意到，他们经常遇到“[别人的问题](https://en.wikipedia.org/wiki/Somebody_else%27s_problem”。
+* 由于[达克效应](https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect)，他们不知道自己的认知盲区在哪里、有多大。
+* 他们欠缺积极性，害怕面对不熟悉的代码库。
+* 他们不参与团队讨论。
 
-Being a Junior developer in the team is not necessarily a bad thing; since you are just starting, you are not expected to be a know-it-all person, however, it is your responsibility to learn, gain experience, not get stuck with the "Junior" title and improve yourself. Here are a few tips for Junior developers to help move up the ladder of seniority:
+没必要觉得在团队里扮演初级开发者的角色是一件坏事，既然你刚入行，大家也不期望你全知全能，然而，你有责任去学习、积累经验、摘掉菜鸟的帽子并提升你自己。下面是一些建议，能帮助初级开发者在资历的阶梯上不断攀登：
 
-* All sorts of problems can be solved if you work on them long enough. Do not give up if Stack Overflow or an issue on GitHub doesn't have an answer. Saying "I am stuck, but I have tried X, Y, and Z. Do you have any pointers?" to your lead is much better than saying "this is beyond me".
-* Read a lot of code, not just code in the projects that you are working on, but reference / framework source code, open-source. Ask your fellow developers, perhaps on Reddit also about the good opensource examples for the language/tools of your choice.
-* Do the personal side-projects, share them with people, contribute to the opensource. Reach out to people for help - you will be surprised how much support you can get from the community. I still remember my first opensource project on GitHub from around 6 years ago which was a small PHP script (a library) that fetched details for a given address from Google's Geocoding API – the codebase was super messy, it did not have any tests, did not have any linters or sniffers, and it did not have any CI because I didn't know about any of this at that time. I am not sure how but one kind soul somehow found the project, forked it, refactored it, "modernized" it, added linting, code sniffing, added CI and opened the pull request. This one pull request taught me so many things that I might have never learned that fast on my own because I was still at college, working for a small service-based company and doing just small websites all on my own without knowing what is right and what is not. This one PR on GitHub was my introduction to opensource and I owe everything to that.
-* Avoid what is known as ["Somebody Else's Problem Field"](https://en.wikipedia.org/wiki/Somebody_else%27s_problem) behavior.
-* When given a problem to solve, try to identify the root cause and fix that instead of fixing the symptoms. And remember, not being able to reproduce means not solved. It is solved when you understand why it occurred and why it no longer does.
-* Have respect for the code that was written before you. Be generous when passing judgment on the architecture or the design decisions made in the codebase. Understand that code is often ugly and weird for a reason other than incompetence. Learning to live with and thrive with legacy code is a great skill. Never assume anybody is stupid. Instead, figure out how these intelligent, well-intentioned and experienced people have come to a decision that is stupid now. Approach inheriting legacy code with an "opportunity mindset" rather than a complaining one.
-* It's okay to not know things. You don't need to be ashamed of not knowing things already. There are no stupid questions, ask however many questions that would allow you to work effectively.
-* Don't let yourself be limited by the job title that you have, keep working on your self-improvement.
-* Do your homework, predict what’s coming down the pipe. Be involved in the team discussions, even if you are wrong you will learn something.
-* Learn about the domain that you are working with. Understand the product end-to-end as an end-user. Do not assume things, ask questions and get things cleared when in doubt.
-* Learn to communicate effectively - soft skills matter. Learn how to write good emails, how to present your work, how to phrase your questions in a thoughtful manner.
-* Sit with the senior developers, watch them work, find a mentor. No one likes a know-it-all. Get hold of your ego and be humble enough to take lessons from experienced people.
-* Don't just blindly follow the advice of "experts", take it with a grain of salt.
-* If you are asked to provide an estimate for some work, do not give an answer unless you have all the details to make a reasonable estimate. If you are forced to do that then pad it 2x or more depending upon how much you don't know about what needs to be done for the task to be marked 'done'.
-* Take some time to learn how to use a debugger. Debuggers are quite beneficial when navigating new, undocumented or poorly documented codebase, or to debug weird issues.
-* Avoid saying "it works on my machine" -- yes, I have heard that a lot.
-* Try to turn any feelings of inadequacy or imposter syndrome into energy to push yourself forward and increase your skills and knowledge.
+* 只要功夫深，铁杵磨成针。当你在 Stack Overflow 或者 GitHub 中也找不到答案时，不要放弃。跟带你的前辈说“我遇到难题了，已经试过了 X 方案、Y 方案和 Z 方案。你能给我一些指点吗？”，总好过说“这太难了，我搞不定”。
+* 大量阅读代码，不要局限于你所做的项目的代码，还有引用/框架的源码、开源代码。向你的开发伙伴 —— 也可以在 Reddit 上 —— 取取经，找找你所选择的语言/工具的开源范例。
+* 做一些个人项目，并和其他人分享，为开源做贡献。向他人求助 —— 社区能带给你的帮助会让你大吃一惊。我至今还记得大概六年前我在 GitHub 上第一次开源我自己的项目，那是一个小小的 PHP 脚本（一个库），能够从 Google 的地理 API 请求数据 —— 代码写得一团糟，没有经过任何测试，毫无代码美化，完全没有代码嗅探，而且没使用任何脚手架，因为那时候我对这些统统不了解。不知是何契机，一位好心人发现了这个项目，并且一路 Fork、重构、“现代化”、增加代码美化和嗅探、增加脚手架、发起 Pull Request。这个 Pull Request 教会了我太多，单靠我自己绝对不会学得这么快，因为我还在上学，在一家做服务的小公司兼职，做一些小网站，完全单打独斗，不知对错。GitHub 上的这个 Pull Request 帮我打开了开源的大门，我所有的一切都要归功于它。
+* 不要养成[“都是别人的事，与我无关”](https://en.wikipedia.org/wiki/Somebody_else%27s_problem)这样的毛病。
+* 解决问题时，要试着抓住问题的根本，而非只解决表面。记住，不能重现的问题就是没有解决的问题。仅当你理解了问题出现的原因，以及不再出现的原因，你才算解决了它。
+* 要尊重你接手的代码。要宽容看待代码的结构或设计理念。要明白代码的丑陋和奇怪往往都自有其原因。学会和遗留代码和平相处，并与其共同成长，这是一个重要技能。不要觉得别人都很蠢。相反，要弄清楚这些聪明的、善意的、有经验的人是如何做出现在这个愚蠢的决定的。用“机会心态”而不是抱怨的心态来接手遗留代码。
+* 有所不知很正常。你不必因为自己不知道而羞愧。世界上不存在愚蠢的问题，尽可能多地提问题可以让你更有效率地工作。
+* 不要让你的职称限制你，要坚持不懈地自我提升。
+* 做好功课，预测接下来会发生什么。要积极参与团队讨论，即使你说错了，那你也有所斩获。
+* 了解你的工作所在的的领域。从终端用户的角度去理解产品端对端的概念。不要想当然，有疑问时就发问、一探究竟。
+* 学会有效沟通 —— 软技能很重要。学会如何写出漂亮的 Email、如何汇报工作、如何三思而后问。
+* 近距离接触高级开发者，看看他们是如何工作的，找一个做你的导师。没人喜欢万事通。放低自我，以谦逊的态度向有经验的人学习。
+* 不要迷信“专家”的建议，要有自己的判断。
+* 如果让你评估某些工作，在你掌握了能做出合理评估的所有细节前，不要妄下言论。如果实在迫不得已，那就以双倍甚至更高的预备量去考虑，这取决于你对完成任务的必要工作知道多少。
+* 花些时间去学习如何使用调试工具。当遇到全新的、没有文档或者文档不全的代码库，或者调试疑难杂症时，调试工具是十分得力的助手。
+* 尽量不要说“在我电脑上是好的呀” —— 是是是，我听过一万遍了。
+* 试着把任何不足感或冒名顶替综合征（Imposter Syndrome）转化为能量，推动自己前进，增加自己的技能和知识。
 
-### Mid Level Developers
+### 中级开发者
 
-The next level after the Junior developers is Mid Level developers. They are technically stronger than the Junior developers and can work with minimal supervision they still have some of the issues to address in order to jump to the Senior level.
+比初级开发者高一级的是中级开发者。他们的技术水平比初级开发者高，能够在最少的监督下保持工作。要想跃进高级开发者的龙门，他们还欠一些火候。
 
-Intermediate developers are more competent than the Junior developer, they start to see the flaws in their old codebase, they gain the knowledge but they get trapped into the next chain i.e. messing things up while trying to do them "the right way" e.g. hasty abstractions, overuse or unnecessary usage of Design Patterns -- they may be able to provide solution faster than the Junior developers but the solution might put you into another rabbit-hole in the long run. Without supervision, they might delay the execution while trying to "do things properly". They don't know when to make tradeoffs and they still don't know when to be dogmatic and when to be pragmatic. They can easily become attached to their solution, become myopic, and be unable to take feedback.
+中级开发者比初级开发者更能胜任工作，他们开始审视他们之前所写的代码中的瑕疵，他们的知识量增长了，但却陷入了下一个陷阱，也就是想要“修正”,结果搞砸，比如抽象过于草率、过度使用或非必要使用设计模式 —— 他们可能能够比初级开发者更快地给出解决方案，但那个解决方案可能会在后续过程中把你绊倒。在无人监管时，他们可能会为了“正确实现”而使项目延期。他们不知道应该何时去做权衡，也不知道什么时候该教条，什么时候该务实。他们很容易对自己的解决方案产生依赖，变得目光短浅，无法接受反馈。
 
-Mid-level developers are quite common, most of the organizations wrongly label them as "Senior Developers". However, they need further mentoring in order to become Senior Developers. The next section describes the responsibilities of a senior developer and how you can become one.
+中级开发人员非常普遍，大多数组织错误地将他们标记为“高级开发人员”。然而，他们需要更进一步的引导，才能成为高级开发者。 下一部分描述了高级开发者的职责，以及如何成为高级开发者。
 
-### Senior Developers
+### 高级开发者
 
-Senior developers are the next level after the Mid-level developers. They are the people who can get things done on their own without any supervision and without creating any issues down the road. They are more mature, have gained experience by delivering both good and bad software in the past and have learned from it - they know how to be pragmatic. Here is the list of things that are normally expected of a Senior Developer:
+比中级开发者高一级的是高级开发者。他们能够独立完成任务，无需监督，也不会产生任何问题。他们更加成熟，在以往交付的或优或劣的软件中积累了经验，并从中学习 —— 他们知道如何务实。以下是高级开发人员通常会做的事情：
 
-* With their past experiences, mistakes made, issues faced by over-designed or under-designed software, they can foresee the problems and persuade the direction of the codebase or the architecture.
-* They don't have a "Shiny-Toy" syndrome. They are pragmatic in the execution. They can make the tradeoffs when required, and they know why. They know where to be dogmatic and where to be pragmatic.
-* They have a good picture of the field, know what the best tool for the job is in most cases (even if they don't know the tool). They have the innate ability to pick up a new tool/ language / paradigm etc in order to solve a problem that requires it.
-* They are aware they're on a team. They view it as a part of their responsibility to mentor others. This can range from pair programming with junior devs, to taking un-glorious tasks of writing docs or tests or whatever else needs to be done.
-* They have a deep understanding of the domain - they know about the business side of the company and realize how management/sales/ marketing / etc think and benefit from their knowledge of the business domain during the development.
-* They don't make empty complaints, they make judgments based on the empirical evidence and they have suggestions for solutions.
-* They think much more than the code - they know that their job is providing solutions to the problems and not just writing code.
-* They have the ability to take on large, ill-defined problems, define them, break them up, and execute the pieces. A senior developer can take something big and abstract and run with it. They will come up with a few options, discuss them with the team and implement them.
-* They have respect for the code that was written before them. They are generous when passing judgment on the architecture or the design decisions made in the codebase. Approach inheriting legacy code with an "opportunity mindset" rather than a complaining one.
-* They know how to give feedback without hurting anyone.
+* 根据他们过去的经验、所犯的错误、过度设计或设计不足的软件所面临的问题，他们能够预见问题，能够决定代码库或体系结构的方向。
+* 他们没有“发光玩具（Shiny-Toy）”综合征。他们在执行中非常务实。他们可以在需要的时候做出权衡，而且他们知道为什么。他们知道在什么地方应该教条，在什么地方应该务实。
+* 他们对开发领域有很深的了解，知道在大多数情况下什么是最适合这个工作的工具（即使他们不熟悉这个工具）。他们有学习新工具/语言/模式等以解决问题的天赋。
+* 他们有团队意识。他们将指导他人视为自己责任的一部分。从与初级开发人员进行结对编程，到从事编写文档或测试或其他任何需要完成的脏活儿累活儿。
+* 他们对所在的领域有深刻的理解 —— 他们了解公司的业务方面，了解管理/销售/市场营销等岗位的思维模式，并在发展过程中受益于他们对业务领域的理解。
+* 他们从不空洞地抱怨，他们根据经验证据做出判断，并提出解决方案。
+* 他们的思考量比代码量多得多 —— 他们知道他们的工作是针对问题提出解决方案，而不仅仅是敲代码。
+* 他们有能力处理庞大的、模糊的问题，能够定义、分解它们并各个击破。高级开发人员能够搞定一些庞大的、抽象的东西。他们会给出一些备选方案，与团队讨论并实施它们。
+* 他们尊重接手的代码。在对体系结构或代码库中的设计决策进行判别时，他们非常宽容。他们用“机会心态”而不是抱怨的心态来接手遗留代码。
+* 他们知道如何在不伤害他人的情况下提供反馈。
 
-### Conclusion
+### 总结
 
-All the teams are made up of a mix of all these seniority roles. Being content with your role is a bad thing and you should always strive to improve yourself for the next step. This article is based on my beliefs and observations in the industry, lots of companies care more for the years of experience to decide the seniority which is a crappy metric -- you don't gain experience just by spending years, you gain it by continuously solving different sorts of problems, irrespective of the number of years you spend in the industry. I have seen fresh graduates having no industry experience get up to speed quickly and producing work of a Senior Engineer and I have seen "Senior" developers labeled senior merely because of their age and "years of experience".
+所有的团队都是由不同资历的角色组成的。满足现状是一件坏事，你应该努力把自己提高到更高的等级。本文是基于我对行业的信仰和观察，很多公司越来越依赖工作年数来评定资深程度，但这是一个蹩脚的刻度尺 —— 你的资历并不是随年龄增长的，你是通过不断解决不同类型的问题才积累的资历，不管你在行业里摸爬滚打了几年。我曾看到没有行业经验的应届毕业生迅速提升并完成高级工程师的工作，我也曾看到“高级”开发人员仅仅因为他们的年龄和“多年的经验”而被贴上“资深”的标签。
 
-The most important traits that you need to have in order to step up in your career are to not settle for the mediocrity, have an open mindset, being humble, learn from your mistakes, work on the challenging problems and have an opportunity mindset rather than a complaining one.
+要想在事业上有所进步，你需要具备的最重要的品质是不甘于平庸、心态开放、谦虚、从错误中吸取教训、解决有挑战性的问题、拥有机会心态而不是抱怨心态。
 
-With that said, this post comes to an end. What are your thoughts on the seniority of developers? Feel free to send improvements to this guide. Until next tim, stay tuned!
+话说到这里，这篇文章就该结束了。你对开发者的资历有什么看法？欢迎提出改进意见。下次再见!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
