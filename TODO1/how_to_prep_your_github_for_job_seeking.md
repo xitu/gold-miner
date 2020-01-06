@@ -78,7 +78,6 @@
 **一些启发性的项目：**
 
 -   <https://www.cs.usfca.edu/~galles/visualization/Algorithms.html>
-
 -   <https://visualgo.net/en>
 
 如果在 CS 以外你还有其他爱好，比如音乐，可以把它们融合起来。例如做一个[小的合成器](https://github.com/JanCVanB/vue-synth/blob/master/src/components/Synth.vue)或者什么。
@@ -150,7 +149,7 @@
 
 **下面这样是你应该争取做到的：**
 
-```
+```bash
 # serve with hot reload at localhost:8080
 npm run dev
 
