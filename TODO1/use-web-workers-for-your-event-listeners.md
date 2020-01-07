@@ -2,20 +2,20 @@
 > * 原文作者：[Alex MacArthur](https://macarthur.me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/use-web-workers-for-your-event-listeners.md](https://github.com/xitu/gold-miner/blob/master/TODO1/use-web-workers-for-your-event-listeners.md)
-> * 译者：
+> * 译者：[vitoxli](https://github.com/vitoxli)
 > * 校对者：
 
-# For the Sake of Your Event Listeners, Use Web Workers
+# 使用 Web Workers 优化事件监听器
 
-I’ve been tinkering with the [Web Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) lately, and as a result, I’m really feeling the guilt of not looking into this well-supported tool a lot sooner. Modern web applications are seriously upping demands on the browser’s main thread, impacting performance and the ability to deliver smooth user experiences. This tool is just one way to address the challenge.
+我最近一直在捣鼓 [Web Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)，结果，我真的后悔没有尽早去研究这个功能强大的工具。现代 Web 应用程序对浏览器主线程的要求越来越高，进而影响程序的性能和提供流畅用户体验的能力。而 Web Worker 正是应对这种挑战的一种方法。
 
-## Where Things on(‘click’)ed for Me
+## 点击后发生了什么
 
-The advantages of Web Workers are many, but things really clicked for me when it came to the several DOM event listeners in any given application (form submissions, window resizes, button clicks, etc.) These all necessarily live on the browser’s main thread, and if that thread is congested by a long-running process, the responsiveness of those listeners begins to suffer, stalling the entire application until the event loop is free to continue firing.
+Web Workers 有很多优点，但当涉及到程序中多个 DOM 事件监听器（表单提交、窗口大小调整、点击按钮等）的时候，我真的被震撼到了。这些监听器都必须存在于浏览器的主线程上，当主线程堆积了很多长时间运行的进程时，监听器的响应能力会受到影响，在事件循环可以正常运行之前，整个应用程序都会被阻塞。
 
-Admittedly, the reason listeners stick out to me so much is due to my initial misunderstanding about the problems Workers are meant to solve. At first, I thought it was mainly about the **speed** of my code execution, start to finish. “If I can do more on separate threads in parallel, my code will execute so much more quickly!” But! It’s pretty common to **need** to wait for one thing to happen before another can start, like when you don’t want to update the DOM until some sort of calculation has taken place. “If I’m gonna have to wait anyway, I don’t see the point of moving something into a separate thread,” naive me thought.
+诚然，监听器对我而言意义重大的原因是因为在最开始的时候我误解了 Workers 要解决的问题。最开始，我一直以为它主要是关于代码的执行**速度**。 “如果我可以在不同的线程上并行执行更多操作，那么我的代码将执行得更快！”但是！在一件事开始执行前等另一件事完成是很普遍的场景，例如当你希望某种计算之后才更新 DOM 时。所以我幼稚地想：“如果我仍然要等待事件完成后才进行别的操作，把一些任务移到单独的线程中执行的意义没有那么大”。
 
-Here’s the type of code that came to mind:
+这是我想到的代码：
 
 ```javascript
 const calculateResultsButton = document.getElementById('calculateResultsButton');
@@ -23,8 +23,8 @@ const openMenuButton = document.getElementById('#openMenuButton');
 const resultBox = document.getElementById('resultBox');
 
 calculateResultsButton.addEventListener('click', (e) => {
-    // "Why put this into a Worker when I 
-    // can't update the DOM until it's done anyway?"
+    // "在它执行完前，我不能更新 DOM，
+    // 所以我为什么要把它放到 Worker 里呢？"
     const result = performLongRunningCalculation();
     resultBox.innerText = result;
 });
@@ -34,21 +34,21 @@ openMenuButton.addEventListener('click', (e) => {
 });
 ```
 
-Here, I update the text of a box after performing some sort of presumably heavy calculation. Doing these things in parallel would be pointless (the DOM update necessarily depends on the calculation), so **of course** I want everything to be synchronous. What I didn’t initially understand was that **none of the **other** listeners can fire if the thread is blocked**. Meaning: things get janky.
+在这里，我在执行某种可能大计算量的操作后更新了 box 中的文本。并行执行这些操作没有什么意义（DOM 的更新取决于计算的结果），所以，**理所当然**，我希望所有操作都是同步的。但最开始我不了解的是，**如果线程被阻塞，**其它**所有的监听器都无法被触发**。这意味着，操作变得不可靠了。
 
-## The Jank, Illustrated
+## 举例说明不靠谱的场景
 
-In the example below, clicking “Freeze” will kick off a synchronous pause for three seconds (simulating a long-running calculation) before incrementing the click count, and the “Increment” button will increment that count immediately. During the first button’s pause, the whole thread is at a standstill, preventing **any** other main thread activities from firing until the event loop can turn over again.
+在下面的示例中，点击“Freeze”按钮将在增加“Click Count”进行为时三秒的同步暂停（模拟长时间运行的计算），而点击“Increment”按钮将立即增加计数。 在第一个按钮暂停期间，整个线程处于静止状态，在事件循环可以再次执行前，不会触发其它任何主线程的活动。
 
-To witness this, click the first button and immediately click the second.
+为了证明这一点，请单击第一个按钮，然后立即单击第二个按钮。
 
-See the Pen <a href='https://codepen.io/alexmacarthur/pen/XWWKyGe'>Event Blocking - No Worker</a> by Alex MacArthur (<a href='https://codepen.io/alexmacarthur'>@alexmacarthur</a>) on <a href='https://codepen.io'>CodePen</a>.
+请在 <a href='https://codepen.io'>CodePen</a> 中查看 Alex MacArthur (<a href='https://codepen.io/alexmacarthur'>@alexmacarthur</a>)的 <a href='https://codepen.io/alexmacarthur/pen/XWWKyGe'>Event Blocking - No Worker</a>。
 
-Frozen, because that long, synchronous pause is blocking the thread. And the impact goes beyond that. Do it again, but this time, immediately try to resize the blue-bordered box after clicking “Freeze.” Since the main thread is also where all layout changes and repainting occur, you’re yet again stuck until the timer is complete.
+冻结的原因是因为较长的同步暂停阻塞了线程。但造成的影响不止于此。再次执行此操作，但是这次，单击“Freeze”后立即尝试调整蓝色边框的大小。由于布局更改和重绘也在主线程中进行，因此在计时完成前，将再次被阻塞。
 
-## They’re Listening More Than You Think
+## 它们监听的远比你想象得多
 
-Any normal user would be annoyed to have to deal with an experience like this — and we were only dealing with a couple of event listeners. In the real world, though, there’s a lot more going on. Using Chrome’s `getEventListeners` method, I used the following script to take a tally of all event listeners attached to every DOM element on a page. Drop it into the inspector, and it’ll spit back a total.
+任何普通的用户都不愿意经历这种体验，而我们不过是处理了几个事件监听器。不过，在现实世界中，我们要做的还很多。通过使用 Chrome 的`getEventListeners`方法，我使用以下脚本汇总了页面上每个 DOM 元素的事件监听器。将这段代码放到控制台中，它会返回监听器的总数。
 
 ```javascript
 Array
@@ -62,7 +62,7 @@ Array
   }, 0);
 ```
 
-I ran it on an arbitrary page within each of the following applications to get a quick count of the active listeners.
+我在下列程序中任意的页面运行以上代码，得到的可用的监听器数如下。
 
 | Application     | Number of Listeners |
 | --------------- | ------------------- |
@@ -71,29 +71,29 @@ I ran it on an arbitrary page within each of the following applications to get a
 | Reddit          | 692                 |
 | YouTube         | 6,054 (!!!)         |
 
-Pay little attention to the specific numbers. The point is that the numbers are big, and **if even a single long-running process in your application goes awry, **all** of these listeners will be unresponsive.** That’s a lot of opportunity to frustrate your users.
+注意这些特殊的数字。绑定到 DOM 中监听器的数量很多，而且即使应用程序中只有一个长时间运行的进程出错了，**所有**的监听器都将无响应。这很有可能就降低你程序的用户体验。
 
-## Same Illustration, but Less Jank (Thx, Web Workers!)
+## 更靠谱一些的同样的示例（多亏了 Web Workers！）
 
-With all that in mind, let’s upgrade the example from before. Same idea, but this time, that long-running operation has been moved into its own thread. Performing the same clicks again, you’ll see that clicking “Freeze” still delays the click count from being updated for 3 seconds, but it **doesn’t block any other event listeners on the page**. Instead, other buttons still click and boxes still resize, which is exactly what we want.
+考虑到以上种种情况，让我们升级上述示例。同样的想法，但是这次，长时间运行的操作已移至其自己的线程中。再次执行相同的点击，你会发现点击“Freeze”仍然会延迟 3 秒钟更新点击次数，但是**不会阻止页面上其他任何事件监听器**。 相反，其它按钮仍可单击，并且 box 的大小仍然可以调整，这正是我们想要的。
 
-See the Pen <a href='https://codepen.io/alexmacarthur/pen/qBEORdO'>Event Blocking - Worker</a> by Alex MacArthur (<a href='https://codepen.io/alexmacarthur'>@alexmacarthur</a>) on <a href='https://codepen.io'>CodePen</a>.
+请在 <a href='https://codepen.io'>CodePen</a> 中查看 Alex MacArthur (<a href='https://codepen.io/alexmacarthur'>@alexmacarthur</a>)的 <a href='https://codepen.io/alexmacarthur/pen/qBEORdO'>Event Blocking - Worker</a>。
 
-If you dig into that code a bit, you’ll notice that while the Web Worker API could be a little more ergonomic, it really isn’t as scary as you might expect (a lot of that scariness is due to the way I quickly threw the example together). And to make things even **less** scary, there are some good tools out there to ease their implementation. Here are a few that caught my eye:
+如果你深入研究该代码，你会注意到，虽然 Web Worker API 可能更符合人机工程学，但实际上并没有想象中那么可怕（恐惧更多是由于直接将众多代码示例放在一起）。为了变得不那么吓人，有一些好的工具可以简化其实现。以下是一些我觉得不错的内容：
 
-* [workerize](https://github.com/developit/workerize) — run a module inside a Web Worker
-* [greenlet](https://github.com/developit/greenlet) — run an arbitrary piece of async code inside a worker
-* [comlink](https://github.com/GoogleChromeLabs/comlink) — a friendly layer of abstraction over the Web Worker API
+* [workerize](https://github.com/developit/workerize) — 在 Web Worker 中运行模块
+* [greenlet](https://github.com/developit/greenlet) — 在 worker 中运行任意一端异步代码
+* [comlink](https://github.com/GoogleChromeLabs/comlink) — 基于 Web Worker API 的抽象封装
 
-## Start Threadin’ (Where It Makes Sense)
+## 开始线程编程吧（可以更有意义）
 
-If your application is typical, it probably has a lot of listenin’ going on. And it also probably does a lot of computing that just doesn’t need to happen on the main thread. So, do these listeners and your users a favor by considering where it makes sense to employ Web Workers.
+如果你的应用程序是典型的，则可能已经绑定了很多监听器。而且它可能还会执行很多不需要在主线程上进行的计算。因此，可以考虑使用 Web Workers 进行监听并提高用户体验。
 
-To be clear, going all-in and throwing literally **all** non-UI work into worker threads is probably the wrong approach. You might just be introducing a lot of refactoring & complexity to your app for little gain. Instead, maybe start by identifying notably intense processes and spin up a small Web Worker for them. Over time, it could make sense to stick your feet in a little deeper and rethink your UI/Worker architecture more at a wider scale.
+需要明确的是，将所有非 UI 工作放到工作线程中可能不是一个好方法。可能只是给你的程序增加了很多重构和复杂性，而收效甚微。或许，可以考虑先确定明显的计算密集的进程，然后为它们使用一个小型的 Web Worker。随着时间的推移，再逐步深入研究并考虑在更大地范围内使用 UI/Worker 架构。
 
-Whatever the case, dig into it. With their solid browser support and the growing performance demands of modern applications, we’re running out of reasons to not invest in tools like this.
+无论如何，深入研究它吧。其强大的浏览器支持以及现代应用程序对性能的需求不断增长，我们没有理由不去研究这类工具。
 
-Happy threadin’!
+愉快地开始线程编程吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
