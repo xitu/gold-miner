@@ -58,7 +58,7 @@ ESNext 是一个动态的名字，指当前的 ECMAScript 版本。例如，在�
 
 自从 ES6 发布后，[TC39](https://github.com/tc39) 极大提高了他们的效率。 现在 TC39 以 Github 组织的形式运行，在上面有许多关于下一版的 ECMAScript 新特性和语法的[提议](https://github.com/tc39/proposals)。任何人都可以[发起提议](https://github.com/tc39/proposals)，因此开发者社区可以更多地参与进来。在正式形成规范前，每个提议都会经过[四个发展阶段](https://tc39.github.io/process-document/)。
 
-这差不多就是全部内容了，欢迎在评论区留下你的反馈。以下是原始语言规范的链接：[ES6](https://www.ecma-international.org/ecma-262/6.0/)，[ES7](https://www.ecma-international.org/ecma-262/7.0/) 和 [ES8](https://www.ecma-international.org/ecma-262/8.0/)。
+这差不多就是全部内容了，欢迎在评论区留下你的反馈。以下是原始语言规范的链接：[ES6](https://www.ecma-international.org/ecma-262/6.0/)、[ES7](https://www.ecma-international.org/ecma-262/7.0/) 和 [ES8](https://www.ecma-international.org/ecma-262/8.0/)。
 
 1. 译者注：本文写于 2017 年，所以十年前是 2007 年。<a name="note1" href="#noteref1">↩︎</a>
 2. 译者注：技术层面的分歧以及商业政治都是 ES4 失败的原因，知乎上曾经有过相关的[讨论](https://www.zhihu.com/question/24715618)。<a name="note2" href="#noteref2">↩︎</a>
