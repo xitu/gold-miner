@@ -2,114 +2,114 @@
 > * 原文作者：[Oluyemi Olususi](https://www.digitalocean.com/community/users/yemiwebby)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-blog-with-nest-js-mongodb-and-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-blog-with-nest-js-mongodb-and-vue-js.md)
-> * 译者：
+> * 译者：[Jessica](https://github.com/cyz980908)
 > * 校对者：
 
-# How To Build a Blog with Nest.js, MongoDB, and Vue.js
+# 如何用 Nest.js，MongoDB 和 Vue.js 搭建一个博客
 
-### Introduction
+### 介绍
 
-[Nest.js](https://nestjs.com/) is a scalable, server-side JavaScript framework built with TypeScript that still preserves compatibility with JavaScript, which makes it an effective tool for building efficient and reliable back-end applications. It has a modular architecture that provides a mature, structural design pattern to the Node.js development world.
+[Nest.js](https://nestjs.com/) 是一个可扩展的服务器端 JavaScript 框架。它使用 TypeScript 构建，所以它依然与 JavaScript 兼容，这使得它成为构建高效可靠的后端应用的有效工具。它还具有模块化结构，可为 Node.js 开发环境提供一个成熟的结构化的设计模式。
 
-[Vue.js](https://vuejs.org/) is a front-end JavaScript framework for building user interfaces. It has a simple, yet very powerful API along with great performance. Vue.js is capable of powering the front-end layer and logic of any web application irrespective of the size. The ease of integrating it with other libraries or existing projects makes it a perfect choice for most modern web applications.
+[Vue.js](https://vuejs.org/) 是用于构建用户界面的前端 JavaScript 框架。它不仅有简单但功能强大的 API，还具有出色的性能。Vue.js 能提供任意项目规模的 Web 应用的前端层和逻辑。它可以轻松地将自身与其他库或现有项目集成在一起，这使得它成为大多数现代 Web 应用的理想选择。
 
-In this tutorial, you’ll build a Nest.js application to get yourself familiar with its building blocks as well as the fundamental principles of building modern web applications. You’ll approach this project by separating the application into two different sections: the frontend and the backend. Firstly, you’ll concentrate on the RESTful back-end API built with Nest.js. You’ll then focus on the frontend, which you will build with Vue.js. Both applications will run on different ports and will function as separate domains.
+在本教程中，我们将通过构建一个 Nest.js 应用，来熟悉它的构建模块以及构建现代 Web 应用的基本套路。我们会将应用划分为两个不同的部分：前端和后端。首先，我们将使用 Nest.js 来构建的 RESTful 后端 API。然后，将使用 Vue.js 来构建前端。其中前后端的应用将在不同的端口上运行，并将作为独立的域运行。
 
-You’ll build a blog application with which users can create and save a new post, view the saved posts on the homepage, and carry out other processes such as editing and deleting posts. Furthermore, you’ll connect your application and persist its data with [MongoDB](https://www.mongodb.com/), which is a schema-less NoSQL database that can receive and store JSON documents. This tutorial focuses on building your application in a development environment. For a production environment, you should also consider user authentication for your application.
+我们将构建的是一个博客应用，用户可以使用该应用创建和保存新文章，在主页上查看保存的文章以及执行的其他过程，例如编辑和删除文章。此外，我们还会连接应用并将应用数据持久化到 [MongoDB](https://www.mongodb.com/) 中，MongoDB 是一种无模式（schema-less）的 NoSQL 数据库，可以接收和存储 JSON 文件。本教程的重点是介绍如何在开发环境中构建应用。如果是在生产环境，我们还应该考虑应用的用户身份验证。
 
-## Prerequisites
+## 前提
 
-To complete this tutorial, you will need:
+要完成本教程，我们需要：
 
-* A local installation of [Node.js](https://nodejs.org/en/) (at least v6) and [npm](https://www.npmjs.com/) (at least v5.2). Node.js is a JavaScript run-time environment that allows you to run your code outside of the browser. It comes with a pre-installed package manager called `npm`, which lets you install and update packages. To install these on macOS or Ubuntu 18.04, follow the steps in [How to Install Node.js and Create a Local Development Environment on macOS](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos) or the “Installing Using a PPA” section of [How To Install Node.js on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04).
-* MongoDB installed on your machine. Follow the instructions [here](https://www.mongodb.com/download-center/community) to download and install it for your choice of operating system. To successfully install MongoDB, you can either install it by using [Homebrew](https://brew.sh/) on [Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.44532076.918654254.1550698665-2018226388.1550698665#create-the-data-directory) or by downloading it from the [MongoDB website.](https://www.mongodb.com/download-center/community)
-* A basic understanding of TypeScript and [JavaScript](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-javascript).
-* A text editor installed, such as [Visual Studio Code](https://code.visualstudio.com/), [Atom](https://atom.io), or [Sublime Text](https://www.sublimetext.com).
+* 在本地安装 [Node.js](https://nodejs.org/en/)（版本至少 v6）和 [npm](https://www.npmjs.com/)（版本至少 v5.2）。Node.js 是一个允许您在浏览器之外运行 JavaScript 代码的运行环境。它带有一个名为 `npm` 的预安装的包管理工具,可让您安装和更新软件包。要在 macOS 或 Ubuntu 18.04 上安装它们，请遵循文章[如何在 macOS 上安装 Node.js 并创建本地开发环境](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos)中的步骤或者文章[如何在 Ubuntu 18.04 上安装Node.js](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04)中的“使用 PPA 进行安装”这一节。
+* 在您的机器上安装 MongoDB 数据库。按照[这里](https://www.mongodb.com/download-center/community)的说明来下载并安装您操作系统所对应的版本。您可以通过在 [Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.44532076.918654254.1550698665-2018226388.1550698665#create-the-data-directory) 上使用 [Homebrew](https://brew.sh/) 进行安装，也可以从[MongoDB网站](https://www.mongodb.com/download-center/community)下载。
+* 对 TypeScript 和 [JavaScript](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-javascript) 有基本了解。
+* 安装文本编辑器，例如 [Visual Studio Code](https://code.visualstudio.com/)、[Atom](https://atom.io) 或者 [Sublime Text](https://www.sublimetext.com)。
 
-**Note:** This tutorial uses a macOS machine for development. If you’re using another operating system, you may need to use `sudo` for `npm` commands throughout the tutorial.  
+**注意：** 本教程使用 macOS 机器进行开发。如果您正在使用其他的操作系统，可能需要在整个教程中使用 `sudo` 来执行 `npm` 命令。
 
-## Step 1 — Installing Nest.js and Other Dependencies
+## 第一步 —— 安装 Nest.js 和其他依赖
 
-In this section, you will get started with Nest.js by installing the application and its required dependencies on your local machine. You can easily install Nest.js by either using the [CLI](https://docs.nestjs.com/cli/overview) that Nest.js provides, or, by installing the starter project from GitHub. For the purpose of this tutorial, you’ll use the CLI to set up the application. To begin, run the following command from the terminal to have it installed globally on your machine:
+在本节中，在本地机器上安装我们的应用及它所需的依赖项的过程中，我们第一个接触到的便是 Nest.js。您可以使用 Nest.js 提供的 [CLI](https://docs.nestjs.com/cli/overview) 轻松地安装 Nest.js，也可以从 GitHub 上的入门项目安装。就本教程而言，我们将使用 CLI 来初始化应用。首先，在终端运行以下命令，以便在您的机器上全局安装它：
 
 ```
 npm i -g @nestjs/cli
 ```
 
-You will see output similar to the following:
+您将看到类似于以下内容的输出：
 
 ```
 Output@nestjs/cli@5.8.0
 added 220 packages from 163 contributors in 49.104s
 ```
 
-To confirm your installation of the Nest CLI, run this command from your terminal:
+要确认 Nest CLI 的安装，请在终端上运行此命令：
 
 ```
 nest --version
 ```
 
-You’ll see output showing the current version installed on your machine:
+您将看到输出，显示的是计算机上安装的当前版本：
 
 ```
 Output5.8.0
 ```
 
-You’ll make use of the `nest` command to manage your project and use it to generate relevant files — like the controller, modules, and providers.
+我们将使用 `nest` 命令来管理项目，并使用它来生成相关文件 —— 比如 controller、modules 和 provider（这些文件后文会具体介绍）。
 
-To begin the project for this tutorial, use the `nest` command to craft a new Nest.js project named `blog-backend` by running the following command from your terminal:
+要开始本教程的项目，请使用 `nest` 命令通过在终端上运行以下命令来构建名为 `blog-backend` 的新 Nest.js 项目：
 
 ```
 nest new blog-backend
 ```
 
-Immediately after running the command, `nest` will prompt you to provide some basic information like the `description`, `version`, and `author`. Go ahead and provide the appropriate details. Hit `ENTER` on your computer to proceed after responding to each prompt.
+在运行该命令之后，`nest` 将立即向您提供一些基本信息，如`描述（description）`、`版本（version）`和`作者（author）`。继续并提供适当的细节。在您回答了每个提示之后，在您的计算机上按`回车`继续。
 
-Next, you’ll choose a package manager. For the purpose of this tutorial, select `npm` and hit `ENTER` to start installing Nest.js.
+接下来，我们将选择一个包管理器。就本教程而言，选择 `npm` 并按`回车键`开始安装 Nest.js。
 
-![Alt Creating a Nest project](https://assets.digitalocean.com/articles/nest_vue_mongo/step1a.png)
+![Alt 创建一个 Nest 项目](https://assets.digitalocean.com/articles/nest_vue_mongo/step1a.png)
 
-This will generate a new Nest.js project in a `blog-backend` folder within your local development folder.
+这将在本地开发文件夹中的 `blog-backend` 文件夹中生成一个新的 Nest.js 项目。
 
-Next, navigate to the new project’s folder from your terminal:
+接下来，从终端导航到新的项目文件夹：
 
 ```
 cd blog-backend
 ```
 
-Run the following command to install other server dependencies:
+运行以下命令以安装其他服务器依赖项：
 
 ```
 npm install --save @nestjs/mongoose mongoose
 ```
 
-You’ve installed `@nestjs/mongoose`, which is a Nest.js dedicated package for an object modelling tool for MongoDB, and `mongoose`, which is a package for Mongoose.
+这时，我们已经安装了 `@nestjs/mongoose` 和 `mongoose`，前者是一个用于 MongoDB 的对象建模工具的 Nest.js 专用软件包，后者是用于 Mongoose 的软件包。
 
-Now you’ll start the application using the following command:
+现在，使用以下命令启动应用：
 
 ```
 npm run start
 ```
 
-Now, if you navigate to `http://localhost:3000` from your favorite browser, you will see your application running.
+现在，如果在您喜欢的浏览器中打开 `http://localhost:3000`，您将看到我们的应用正在运行。
 
-![Alt Welcome page of the fresh installation of Nest.js application](https://assets.digitalocean.com/articles/nest_vue_mongo/step1b.png)
+![Alt 新安装的 Nest.js 应用的欢迎页面](https://assets.digitalocean.com/articles/nest_vue_mongo/step1b.png)
 
-You’ve successfully generated the project by leveraging the availability of the Nest CLI command. Afterward, you proceeded to run the application and accessed it on the default port `3000` on your local machine. In the next section, you’ll take the application further by setting up the configuration for the database connection.
+现在，我们已经在 Nest CLI 命令的帮助下成功地创建了项目。接着，继续运行应用，并在本地机器上的默认端口 `3000` 上访问它。在下一节中，我们将通过设置数据库连接的配置来进一步了解应用。
 
-## Step 2 — Configuring and Connecting with the Database
+## 第二步 —— 配置和连接数据库
 
-In this step, you’ll configure and integrate MongoDB into your Nest.js application. You’ll use MongoDB to store data for your application. MongoDB stores its data in **documents** as **field : value** pairs. To access this data structure, you’ll use [Mongoose](https://mongoosejs.com/), which is an object document modeling (ODM) that allows you to define schemas representing the types of data that a MongoDB database stores.
+这一步, 我们将配置 MongoDB 并将其集成到 Nest.js 应用中，用 MongoDB 存储应用的数据。MongoDB 将数据以**字段：值**对的形式存储在 **document** 中。您将使用 [Mongoose](https://mongoosejs.com/) 来访问这些数据结构，Mongoose 是一个对象文档模型（Object Document Modeling，ODM），它能够让我们定义表示 MongoDB 数据库存储的数据类型的 schema 结构。
 
-To start MongoDB, open a separate terminal window so that the application can keep running, and then execute the following command:
+要启动 MongoDB，首先打开一个单独的终端，使应用可以继续运行，然后执行以下命令：
 
 ```
 sudo mongod
 ```
 
-This will start the MongoDB service and run the database in the background of your machine.
+这将启动 MongoDB 服务并在您机器的后台运行数据库。
 
-Open the project `blog-backend` in your text editor and navigate to `./src/app.module.ts`. You can set up a connection to the database by including the installed `MongooseModule` within the root `ApplicationModule`. To achieve this, update the content in `app.module.ts` with the following highlighted lines:
+在文本编辑器中打开 `blog-backend` 项目，定位到 `./src/app.module.ts` 文件。我们可以通过在根  `ApplicationModule` 中已安装的 `MongooseModule` 来建立到数据库的连接。需要用以下的几行，更新 `app.module.ts`  中的内容：
 
 ~/blog-backend/src/app.module.ts
 
@@ -129,34 +129,34 @@ import { MongooseModule } from '@nestjs/mongoose';
 export class AppModule { }
 ```
 
-In this file, you use the `forRoot()` method to supply the connection to the database. Save and close the file when you are finished editing.
+在这个文件中，我们使用 `forRoot()` 方法来完成与数据库的连接。完成编辑后，保存并关闭文件。
 
-With this in place, you have set up the database connection by using the Mongoose module for MongoDB. In the next section, you will create a database schema using the Mongoose library, a TypeScript interface, and a data transfer object (DTO) schema.
+有了这些，我们就可以使用 Mongoose 中对应 MongoDB 的模块来建立数据库连接。在下一节中，我们将使用 Mongoose 库、TypeScript 接口和数据传输对象（DTO）schema 创建一个数据库 schema。
 
-## Step 3 — Creating a Database Schema, Interfaces, and DTO
+## 第三步 —— 创建数据库 Schema，接口以及 DTO
 
-In this step, you will create a **schema**, **interface**, and a **data transfer object** for your database using Mongoose. Mongoose helps to manage relationships between data and provides schema validation for data types. To help define the structure and datatype of the data in your application’s database, you’ll create files that determine the following:
+在这一步, 我们将使用 Mongoose 为数据库创建 **schema**，**接口**和**数据传输对象**。Mongoose 帮助我们管理数据之间的关系，并提供数据类型的 schema 验证。为了更好的定义应用中数据库里数据结构和数据类型，我们将创建文件，以确定以下内容：
 
-* **database schema**: This is an organization of data as a blueprint for defining the structure and the types of data that the database needs to store.
+* **数据库 schema**： 这是一种数据组织，它是定义数据库需要存储的数据结构和类型的行动方案。
     
-* **interfaces**: TypeScript interfaces are used for type-checking. It can be used to define the types of data that should be passed for an application.
+* **接口**：TypeScript 接口用于类型检查。它可以用来定义在应用中传递的数据的类型。
     
-* **data transfer object**: This is an object that defines how data will be sent over the network and carries the data between processes.
+* **数据传输对象**： 这个对象定义了数据以何种形式通过网络发送的以及在进程之间传输。
     
 
-To begin, go back to your terminal where the application is currently running and stop the process with `CTRL + C`, then navigate to the `./src/` folder:
+首先, 回到当前应用运行的终端，使用 `CTRL + C` 停止进程，定位到 `./src/` 文件夹：
 
 ```
 cd ./src/
 ```
 
-Then, create a directory named `blog`, and a `schemas` folder within that:
+然后，创建一个名为 `blog` 的目录，并在其中创建一个 `schemas` 文件夹：
 
 ```
 mkdir -p blog/schemas
 ```
 
-In the `schemas` folder, create a new file called `blog.schema.ts` and open it using your text editor. Then, add the following content:
+在 `schemas` 文件夹，创建一个名为 `blog.schema.ts` 的新文件。使用文本编辑器打开它。然后，添加以下内容：
 
 ~/blog-backend/src/blog/schemas/blog.schema.ts
 
@@ -172,23 +172,23 @@ export const BlogSchema = new mongoose.Schema({
 })
 ```
 
-Here, you have used Mongoose to define the type of data that you will store in the database. You’ve specified that all the fields will store and only accept string values. Save and close the file when you are finished editing.
+这里，我们使用 Mongoose 来定义将存储在数据库中的数据类型。我们已经指定所有将存储并且接受的字段只有字符串类型。完成编辑后保存并关闭文件。
 
-Now, with the database schema determined, you can move on to creating the interfaces.
+现在，确定了数据库 schema 之后，就可以继续创建接口了。
 
-To begin, navigate back into the `blog` folder:
+首先，回到 `blog` 文件夹：
 
 ```
 cd ~/blog-backend/src/blog/
 ```
 
-Create a new folder named `interfaces` and move into it:
+创建一个名为 `interfaces` 的新文件夹：
 
 ```
 mkdir interfaces
 ```
 
-In the `interfaces` folder, create a new file called `post.interface.ts` and open it using your text editor. Add the following content to define the types of data for a `Post`:
+在`interfaces` 文件夹，创建一个叫 `post.interface.ts` 的文件，并用文本编辑器打开它。添加以下内容以定义 `Post` 的数据类型：
 
 ~/blog-backend/src/blog/interfaces/post.interface.ts
 
@@ -204,25 +204,25 @@ export interface Post extends Document {
 }
 ```
 
-In this file, you have successfully defined the types of data for a `Post` type as string values. Save and exit the file.
+在这个文件中，我们已经成功地将 `Post` 类型的数据类型定义为字符串值。保存并退出文件。
 
-Since your application will carry out the functionality of posting data to the database, you will create a data transfer object that will define how data will be sent over the network.
+因为我们的应用将会向数据库发送数据，所以我们将创建一个数据传输对象，它将定义数据是以怎样的对象通过网络发送出去的。
 
-To achieve this, create a folder `dto` inside the `./src/blog` folder. Within the newly created folder, create another file named `create-post.dto.ts`
+为此，请在 `./src/blog` 文件夹中创建一个文件夹 `dto`。在新创建的文件夹中，创建一个名为   `create-post.dto.ts` 的文件
 
-Navigate back into the `blog` folder:
+定位到 `blog` 文件夹：
 
 ```
 cd ~/blog-backend/src/blog/
 ```
 
-Then create a folder named `dto` and move into it:
+然后创建一个名为 `dto` 的文件夹并定位到其中：
 
 ```
 mkdir dto
 ```
 
-In the `dto` folder, create a new file called `create-post.dto.ts` and open it using your text editor to add the following content:
+在 `dto` 文件夹中，创建一个名为 `create-post.dto` 的新文件。使用文本编辑器打开它，添加以下内容：
 
 ~/blog-backend/src/blog/dto/create-post.dto.ts
 
@@ -236,27 +236,27 @@ export class CreatePostDTO {
 }
 ```
 
-You’ve marked each of the individual properties in the `CreatePostDTO` class to have a data type of `string` and as `readonly` to avoid unnecessary mutation. Save and exit the file when you are finished editing.
+我们已经将 `CreatePostDTO` 类中的每个属性都标记为数据类型为 `string`，并标记为 `readonly`，以避免不必要的数据操作。完成编辑后保存并退出文件。
 
-In this step, you have created a database schema for the database, an interface, and a data transfer object for the data your database will store. Next, you’ll generate a module, controller, and service for your blog.
+在这一步中，我们已经为数据库创建了数据库 schema、接口、以及数据库将要存储的数据的数据传输对象。接下来，我们将为博客创建模块、控制器和服务。
 
-## Step 4 — Creating the Module, Controller, and Service for the Blog
+## 第四步 —— 为你的博客创建模块（Module）、控制器（Controller）和服务（Service）
 
-In this step, you’re going to improve on the existing structure of the application by creating a module for your blog. This module will organize the file structure of your application. Next, you’ll create a controller to handle routes and process HTTP requests from the client. To wrap things up, you’ll set up a service to handle all the business logic that is too complex for the controller of the application to process.
+在这一步，我们将通过为博客创建一个模块来改进应用的现有结构。这个模块将组织应用中的文件结构。接着，我们将创建一个控制器来处理来自客户端的路由和 HTTP 请求。最后，我们将创建服务来处理应用程序中所有控制器无法处理的业务逻辑。
 
-### Generating a Module
+### 创建模块
 
-Similarly to the Angular front-end web framework, Nest.js uses a modular syntax. Nest.js applications have a modular design; it comes installed with a single root module, which is often sufficient for a small application. But when an application starts to grow, Nest.js recommends a multiple-module organization, splitting the code into related features.
+与 Angular 等前端框架类似，Nest.js 使用的是模块化语法。Nest.js 应用采用模块化设计；它预装的是单个根模块，这对小型应用来说通常是够用的。但是，当应用业务开始增长时，Nest.js 推荐使用多模块来组织应用，将代码根据相关的功能分解成不同模块。
 
-A **module** in Nest.js is identified by the `@Module()` decorator and takes in an object with properties such as `controllers` and `providers`. Each of these properties takes an array of `controllers` and `providers` respectively.
+Nest.js 中的**模块**由 `@Module()` 装饰器标识，并接受有 `controller` 和 `provider` 之类属性的对象。其中每一个属性都会分别采用一组 `controller` 和 `provider`。
 
-You will generate a new module for this blog application in order to keep the structure more organized. To begin, still in the `~/blog-backend` folder, execute the following command:
+我们将为这个博客应用生成一个新模块，使结构更有组织。首先，仍然在 `~/blog-backend` 文件夹中，执行以下命令：
 
 ```
 nest generate module blog
 ```
 
-You will see output similar to the following:
+您将看到类似于以下内容的输出：
 
 ```
 OutputCREATE /src/blog/blog.module.ts
@@ -264,9 +264,9 @@ OutputCREATE /src/blog/blog.module.ts
 UPDATE /src/app.module.ts
 ```
 
-The command generated a new module named `blog.module.ts` for the application and imported the newly created module into the root module for the application. This will allow Nest.js to be aware of another module besides the root module.
+该命令生成了一个名为 `blog.module.ts` 的新模块。将新创建的模块导入到应用的根模块中。这将允许 Nest.js 知道根模块之外的另一个模块的存在。
 
-In this file, you will see the following code:
+在这个文件中，您将看到以下代码：
 
 ~/blog-backend/src/blog/blog.module.ts
 
@@ -277,17 +277,17 @@ import { Module } from '@nestjs/common';
 export class BlogModule {}
 ```
 
-You will update this `BlogModule` with the required properties later in the tutorial. Save and exit the file.
+在本教程的后面，我们将使用所需的属性更新这个 `BlogModule`。现在保存并退出文件。
 
-### Generating a Service
+### 创建服务
 
-A **service**, which can also be called a provider in Nest.js, was designed to remove logic from controllers, which are meant to only handle HTTP requests and redirect more complex tasks to services. Services are plain JavaScript classes with an `@Injectable()` decorator on top of them. To generate a new service, run the following command from the terminal while you are still within the project directory:
+**服务**（在 Nest.js 中也称它为 provider）的意义在于从控制器中删除仅用于处理 HTTP 请求的逻辑，并会将更复杂的任务重定向到其他的服务类。服务是普通的 JavaScript 类，在它们的代码上方会带有 `@Injectable()` 装饰器。要生成新服务，请在项目目录下的终端运行以下命令：
 
 ```
 nest generate service blog
 ```
 
-You will see output similar to the following:
+您将看到类似于以下内容的输出：
 
 ```
 Output  CREATE /src/blog/blog.service.spec.ts (445 bytes)
@@ -297,9 +297,9 @@ CREATE /src/blog/blog.service.ts (88 bytes)
 UPDATE /src/blog/blog.module.ts (529 bytes)
 ```
 
-The `nest` command used here has created a `blog.service.spec.ts` file, which you can use for testing. It has also created a new `blog.service.ts` file, which will hold all the logic for this application and handle adding and retrieving documents to the MongoDB database. Also, it automatically imported the newly created service and added to blog.module.ts.
+这里使用的 `nest` 命令创建了一个 `blog.service.spec.ts` 文件，我们可以使用它进行测试。它还创建了一个新的 `blog.service.ts` 文件，它将保存这个应用的所有逻辑，并处理向 MongoDB 数据库的添加和检索文章。此外，它还会自动导入新创建的服务并将其添加到 blog.module.ts 中。
 
-The service handles all the logic within the application, is responsible for interacting with the database, and returns the appropriate responses back to the controller. To accomplish this, open the `blog.service.ts` file in your text editor and replace the contents with the following:
+服务处理应用中的所有逻辑，负责与数据库交互，并将合适的响应返回给控制器。为此，在文本编辑器中打开`blog.service.ts` 文件，并将内容替换为以下内容：
 
 ~/blog-backend/src/blog/blog.service.ts
 
@@ -347,33 +347,33 @@ export class BlogService {
 }
 ```
 
-In this file, you first imported the required module from `@nestjs/common`, `mongoose`, and `@nestjs/mongoose`. You also imported an interface named `Post` and a data transfer object `CreatePostDTO`.
+在这个文件中，我们首先从 `@nestjs/common`、`mongoose` 和 `@nestjs/mongoose` 中导入所需的模块。同时我们还导入了一个名为 `Post` 的接口和一个数据传输对象 `CreatePostDTO`。
 
-In the `constructor`, you added `@InjectModel(``'``Post``'``)`, which will inject the `Post` model into this `BlogService` class. You will now be able to use this injected model to retrieve all posts, fetch a single post, and carry out other database-related activities.
+在 `constructor` 中，我们使用了 `@InjectModel('Post')`，将 `Post` 模型注入这个 `BlogService` 类中。现在，我们可以使用这个注入的模型来检索所有的文章，获取一篇文章，并执行其他与数据库相关的活动。
 
-Next, you created the following methods:
+接着，我们创建了以下方法：
 
-* `getPosts()`: to fetch all posts from the database.
-* `getPost()`: to retrieve a single post from the database.
-* `addPost()`: to add a new post.
-* `editPost()`: to update a single post.
-* `deletePost()`: to delete a particular post.
+* `getPosts()`：从数据库中获取所有文章。
+* `getPost()`：从数据库中检索一篇文章。
+* `addPost()`：添加一篇新文章。
+* `editPost()`：更新一篇文章。
+* `deletePost()`：删除特定的文章。
 
-Save and exit the file when you are finished.
+完成后，保存并退出文件。
 
-You have finished setting up and creating several methods that will handle proper interaction with the MongoDB database from the back-end API. Now, you will create the required routes that will handle HTTP calls from a front-end client.
+我们已经完成了几个方法的设置和创建，这些方法将通过后端 API 来与 MongoDB 数据库进行的适当交互。现在，我们将创建用于处理来自前端客户端的 HTTP 调用所需的路由。
 
-### Generating a Controller
+### 创建控制器
 
-In Nest. js, **controllers** are responsible for handling any incoming requests from the client side of an application and returning the appropriate response. Similarly to most other web frameworks, it is important for the application to listen for a request and respond to it.
+在 Nest.js 中，**控制器**负责处理来自应用客户端的任何请求并返回适当的响应。与大多数其他 web 框架类似，对于应用而言重要的就是监听请求并响应。
 
-To cater to all the HTTP requests for your blog application, you will leverage the `nest` command to generate a new controller file. Ensure that you are still in the project directory, `blog-backend`, and run the following command:
+为了满足博客应用的所有 HTTP 请求，我们将利用 `nest` 命令生成一个新的控制器文件。首先确保您仍然在项目目录，`blog-backend`，然后运行以下命令：
 
 ```
 nest generate controller blog
 ```
 
-You will see output similar to:
+您将看到类似于以下内容的输出：
 
 ```
 OutputCREATE /src/blog/blog.controller.spec.ts (474 bytes)
@@ -383,9 +383,9 @@ CREATE /src/blog/blog.controller.ts (97 bytes)
 UPDATE /src/blog/blog.module.ts (483 bytes)
 ```
 
-The output indicates that this command created two new files within the `src/blog` directory. They are `blog.controller.spec.ts` and `blog.controller.ts`. The former is a file that you can use to write automated testing for the newly created controller. The latter is the controller file itself. Controllers in Nest.js are TypeScript files decorated with `@Controller` metadata. The command also imported the newly created controller and added to the blog module.
+这段输出表示该命令在 `src/blog` 目录中创建了两个新文件，`blog.controller.spec.ts` 和  `blog.controller.ts`。前者是一个可以用来为新创建的控制器编写自动测试的文件。后者是控制器文件本身。Nest.js 中的控制器是用 `@Controller` 元数据装饰的 TypeScript 文件。该命令还导入了新创建的控制器并添加它到博客模块。
 
-Next, open the `blog.controller.ts` file with your text editor and update it with the following content:
+接下来，用文本编辑器打开 `blog.controller.ts` 文件并用以下内容更新它：
 
 ~/blog-backend/src/blog/blog.controller.ts
 
@@ -426,17 +426,17 @@ export class BlogController {
 }
 ```
 
-In this file, you first imported the necessary modules to handle HTTP requests from `@nestjs/common` module. Then, you imported three new modules which are: `BlogService`, `CreatePostDTO`, and `ValidateObjectId`. After that, you injected the `BlogService` into the controller via a constructor in order to gain access and make use of the functions that are already defined within the `BlogService` file. This is a pattern regarded as **dependency injection** used in Nest.js to increase efficiency and enhance the modularity of the application.
+在这个文件中，我们首先引入了来自 `@nestjs/common` 模块的处理 HTTP 请求所需的模块。然后，我们引入了三个新模块：`BlogService`、`CreatePostDTO` 和 `ValidateObjectId`。之后，通过在构造函数中将 `BlogService` 注入到控制器，以使得拥有访问权限来使用 `BlogService` 文件中已经定义好的函数。在 Nest.js 中，这是一种模式，叫作**依赖注入**，有助于提高效率和增强应用的模块化。
 
-Finally, you created the following asynchronous methods:
+最后，我们创建了以下这些异步方法：
 
-* `getPosts()`: This method will carry out the functionality of receiving an HTTP GET request from the client to fetch all posts from the database and then return the appropriate response. It is decorated with a `@Get(``'``posts``'``)`.
+* `getPosts()`： 这个方法将执行从客户端接收 HTTP GET 请求时从数据库中获取所有文章，然后返回适当的响应的功能。它用 `@Get('posts')` 装饰。
     
-* `getPost()`: This takes a `postID` as a parameter and fetches a single post from the database. In addition to the `postID` parameter passed to this method, you realized the addition of an extra method named `ValidateObjectId()`. This method implements the `PipeTransform` interface from Nest.js. Its purpose is to validate and ensure that the `postID` parameter can be found in the database. You will define this method in the next section.
+* `getPost()`： 这将以 `postID` 作为参数，从数据库中获取一篇文章。除了传递给这个方法的 `postID` 参数之外，还实现了一个名为 `ValidateObjectId()` 的额外方法。这个方法实现了 Nest.js 中的 `PipeTransform` 接口。它是用于验证并确保可以在数据库中找到 `postID` 参数。我们将在下一节中定义这个方法。
     
-* `addPost()`: This method will handle a POST HTTP request to add a new post to the database.
+* `addPost()`： 这个方法将处理 HTTP POST 请求，以便向数据库添加新的文章。
 
-To be able to edit and delete a particular post, you will need to add two more methods to the `blog.controller.ts` file. To do that, include the following `editPost()` and `deletePost()` methods directly after the `addPost()` method you previously added to `blog.controller.ts`:
+为了能够编辑和删除特定的文章，我们需要在 `blog.controller.ts` 文件中添加两个以上的方法。我们需要，在之前添加到 `blog.controller.ts` 的 `addPost()` 方法后，直接加上 `editPost()` 和 `deletePost()` 方法：
 
 ~/blog-backend/src/blog/blog.controller.ts
 
@@ -471,41 +471,41 @@ export class BlogController {
     }
 }
 ```
+这里解释一下我们到底添加了什么：
 
-Here you have added:
-
-* `editPost()`: This method accepts a query parameter of `postID` and will carry out the functionality of updating a single post. It also made use of the `ValidateObjectId` method to provide proper validation for the post that you need to edit.
+* `editPost()`： 这个方法接受 `postID` 的查询参数，并执行更新一篇文章的功能。它还利用  `ValidateObjectId` 方法为您需要编辑文章提供适当的认证。
     
-* `deletePost()`: This method will accept a query parameter of `postID` and will delete a particular post from the database.
+* `deletePost()`： 这个方法将接受 `postID` 的查询参数，并从数据库中删除特定的文章。
     
 
-Similarly to the `BlogController`, each of the asynchronous methods you have defined here has a metadata decorator and takes in a prefix that Nest.js uses as a routing mechanism. It controls which controller receives which requests and points to the methods that should process the request and return a response respectively.
+与 `BlogController` 类似，这里定义的每个异步方法都有一个元数据装饰器，并且包含一个 Nest.js 中用于路由机制的前缀。它控制每个控制器接收的请求，以及分别指向应该处理请求和返回的响应方法。
 
-For example, the `BlogController` that you have created in this section has a prefix of `blog` and a method named `getPosts()` that takes in a prefix of `posts`. This means that any GET request sent to an endpoint of `blog/posts` (`http:localhost:3000/blog/posts`) will be handled by the `getPosts()`method. This example is similar to how other methods will handle HTTP requests.
+例如，我们在本节中创建的 `BlogController` 具有 `blog` 前缀和一个名为 `getPosts()` 采用 `posts` 前缀的方法。这意味着发送到 `blog/posts`（`http:localhost:3000/blog/posts`）的任何 GET 请求都将由 `getPosts()` 方法处理。其他处理 HTTP 请求的方法与这个示例中的方式类似。
 
-Save and exit the file.
+保存并退出文件。
 
-For the complete `blog.controller.ts` file, visit the [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-backend/src/blog/blog.controller.ts) for this application.
+关于应用的完整 `blog.controller.ts` 文件，请访问 [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-backend/src/blog/blog.controller.ts)。
 
-In this section, you have created a module to keep the application more organized. You also created a service to handle the business logic for the application by interacting with the database and returning the appropriate response. Finally, you generated a controller and created the required methods to handle HTTP requests such as `GET`, `POST`, `PUT`, and `DELETE` from the client side. In the next step, you’ll complete your back-end setup.
+在这一节中，我们创建了模块，使得应用更便于管理。我们还创建了服务，通过与数据库的交互并返回适当的响应来处理应用程序的业务逻辑。最后，我们创建了控制器并生成了必要的方法来处理来自客户端的 HTTP 请求，例如 GET、POST
+PUT 和 DELETE。在下一节中，我们将完成后端设置。
 
-## Step 5 — Creating an Extra Validation for Mongoose
+## 第五步 —— 为 Mongoose 创建一个额外的认证
 
-You can identify each post in your blog application by a unique ID, also known as `PostID`. This means that fetching a post will require you to pass this ID as a query parameter. To validate this `postID` parameter and ensure that the post is available in the database, you need to create a reusable function that can be initialized from any method within the `BlogController`.
+我们可以通过唯一的 ID （也称为 `PostID`）来区分博客应用中的每篇文章。这意味着获取文章的话，我们需要将此 ID 作为查询参数传递过去。为了验证这个 `postID` 参数并确保这篇文章在数据库确实存在可用，我们需要创建一个可复用的函数，该函数可以从 `BlogController` 中的任何方法初始化。
 
-To configure this, navigate to the `./src/blog` folder:
+要配置它，请定位到 `./src/blog` 文件夹：
 
 ```
 cd ./src/blog/
 ```
 
-Then, create a new folder named `shared`:
+然后，创建一个名为 `shared` 的新文件夹：
 
 ```
 mkdir -p shared/pipes
 ```
 
-In the `pipes` folder, using your text editor, create a new file called `validate-object-id.pipes.ts` and open it. Add the following content to define the accepted `postID` data:
+在 `pipes` 文件夹中，使用文本编辑器创建一个名为 validate-object-id.pipes.ts 的新文件，并打开它。添加以下内容以定义接受的 `postID` 数据：
 
 ~/blog-backend/src/blog/shared/pipes/validate-object-id.pipes.ts
 
@@ -523,9 +523,9 @@ export class ValidateObjectId implements PipeTransform<string> {
 }
 ```
 
-The `ValidateObjectId()` class implements the `PipeTransform` method from the `@nestjs/common` module. It has a single method named `transform()` that takes in value as a parameter — `postID` in this case. With the method above, any HTTP request from the frontend of this application with a `postID` that can’t be found in the database will be regarded as invalid. Save and close the file.
+`ValidateObjectId()` 类是由 `@nestjs/common` 模块中的 `PipeTransform` 方法实现的。它有一个名为 `transform()` 的方法，该方法将 value 作为参数 —— 在当前着种情况下为 `postID`。使用这个方法，任何带有无法在数据库中检索到的 `postID` 的应用中的前端 HTTP 请求都会被视为无效。保存并关闭文件。
 
-After creating both the service and controller, you need to set up the `Post` model that is based on the `BlogSchema`. This configuration could be set up within the root `ApplicationModule`, but in this instance building the model in `BlogModule` will maintain your application’s organization. Open the `./src/blog/blog.module.ts` and update it with the following highlighted lines:
+在创建了服务和控制器之后，我们需要建立基于 `BlogSchema` 的 `Post` 模型。这个配置可以在根  `ApplicationModule` 中设置，但是在这本例中，我们将在 `BlogModule` 中构建模型以维护应用的组织。打开`./src/blog/blog.module.ts` 并用以下内容更新它：
 
 ~/blog-backend/src/blog/blog.module.ts
 
@@ -546,15 +546,15 @@ import { BlogSchema } from './schemas/blog.schema';
 export class BlogModule { }
 ```
 
-This module uses the `MongooseModule.forFeature()` method to define which models should be registered in the module. Without this, injecting the `PostModel` within the `BlogService` using `@injectModel()` decorator wouldn’t work. Save and close the file when you have finished adding the content.
+在这里我们使用 `MongooseModule.forFeature()` 方法来定义在模块中应该注册哪些模型。如果没有这个方法，使用 `@injectModel()` 装饰器在 `BlogService` 中注入 `PostModel` 将不起作用。完成添加后，保存并关闭文件。
 
-In this step, you’ve created the complete backend RESTful API with Nest.js and integrated it with MongoDB. In the next section, you’ll configure the server to allow HTTP requests from another server, because your frontend application will be running on a different port.
+在这一步中，我们已经用 Nest.js 创建了完整的后端 RESTful API，并将其与 MongoDB 集成。在下一节中，我们将配置服务器以允许来自其他服务器的 HTTP 请求，因为我们的前端应用和后端将运行在不同的端口上。
 
-## Step 6 — Enabling CORS
+## 第六步 —— 启用 CORS
 
-An HTTP request from one domain to another is often blocked by default, except when specified by the server to allow it. For your front-end application to make a request to the back-end server, you must enable **Cross-origin resource sharing** (CORS), which is a technique that allows requests for restricted resources on a web page.
+跨域的 HTTP 请求通常在默认情况下被阻止，除非服务器指定允许它访问。要使前端应用向后端服务器发出跨域请求，必须启用**跨源资源共享（CORS）**，这是一种允许请求 Web 页面上跨域资源的技术。
 
-In Nest.js to enable CORS, you need to add a single method to your `main.ts` file. Open this file in your text editor, which is located at `./src/main.ts`, and update it with the following highlighted content:
+在 Nest.js 中启用 CORS，我们需要向 `main.ts` 文件中添加一个方法。用文本编辑器打开位于 `./src/main.ts` 中的文件，并用以下内容更新它：
 
 ~/blog-backend/src/main.ts
 
@@ -570,73 +570,73 @@ async function bootstrap() {
 bootstrap();
 ```
 
-Save and exit the file.
+保存并退出文件。
 
-Now that you have completed the back-end setup, you’ll shift your focus to the frontend and use Vue.js to consume the APIs built so far.
+现在我们已经完成了后端设置，我们将把重点转移到前端，使用 Vue.js 来使用到目前为止构建的 API。
 
-## Step 7 — Creating the Vue.js Frontend
+## 第七步 —— 创建 Vue.js 前端
 
-In this section, you are going to create your front-end application with Vue.js. [Vue CLI](https://cli.vuejs.org/) is a standard tool that allows you to quickly generate and install a new Vue.js project without much hassle.
+在本节中，我们将使用 Vue.js 创建前端应用。[Vue CLI](https://cli.vuejs.org/) 是一个脚手架，它使我们能够方便简单地快速生成和安装一个新的 Vue.js 项目。
 
-To begin, you first need to install the Vue CLI globally on your machine. Open another terminal, and instead of working from the `blog-backend` folder, navigate to your local project’s development folder and run:
+首先，您需要在您的机器上全局安装 Vue CLI 。打开另一个终端，注意路径不是在 `blog-backend` 文件夹，而是在本地项目的 development 文件夹，然后运行：
 
 ```
 npm install -g @vue/cli
 ```
 
-Once the installation process is complete, you’ll make use of the `vue` command to create a new Vue.js project:
+一旦安装过程完成，我们将利用 `vue` 命令创建一个新的 Vue.js 项目：
 
 ```
 vue create blog-frontend
 ```
 
-You’ll see a short prompt after you’ve entered this command. Choose the `manually select features` option, and then select the features you’ll need for this project by pressing `SPACE` on your computer to highlight multiple features. You’ll select `Babel`, `Router`, and `Linter / Formatter`.
+输入此命令后，我们将看到一个简短的提示。选择 `manually select features` 选项（意思是手动选择特性），然后按下计算机上的`空格`，这时会显示出多个特性来让您来选择此项目所需的特性。我们将选择`Babel`、`Router` 和 `Linter / Formatter`。
 
-![Alt Vue project CLI set up](https://assets.digitalocean.com/articles/nest_vue_mongo/step7a.png)
+![Alt CLI 初始化 Vue 项目](https://assets.digitalocean.com/articles/nest_vue_mongo/step7a.png)
 
-For the next instructions, type `y` to use history mode for a router; this will ensure that history mode is enabled within the router file, which will automatically generate for this project. In addition, select `ESLint with error prevention only` to pick a linter/formatter configuration. Next, select `Lint on save` for additional Lint features. Then select to save your configuration in a `dedicated config file` for future projects. Type a name for your preset, like `vueconfig`.
+对于下一条指令，输入 `y` 来使用路由的历史模式；这将使历史模式在 router 文件中启用，这个 router 文件将自动为我们的项目生成。此外，仅选择`可以预防错误的 ESLint` 用于 linter/formatter 的配置。下一步，选择 `Lint on save` 为保留其他的 Lint 功能。然后选择将我们的配置保存到一个 `dedicated config file`（专用配置文件）中，以供将来的项目使用。最后，为我们的这些预置设置输入一个名称，比如 `vueconfig`。
 
-![Alt Vue.js final CLI set up](https://assets.digitalocean.com/articles/nest_vue_mongo/step7b.png)
+![Alt CLI 初始化 Vue.js 项目的最后一步](https://assets.digitalocean.com/articles/nest_vue_mongo/step7b.png)
 
-Vue.js will then start creating the application and all its required dependencies in a directory named `blog-frontend`.
+Vue.js 将开始在一个名为 `blog-frontend` 的目录中创建应用及其所需的所有依赖项。
 
-Once the installation process is complete, navigate inside the Vue.js application:
+安装过程完成后，在 Vue.js 应用中定位到：
 
 ```
 cd blog-frontend
 ```
 
-Then, start the development server with:
+然后，使用以下命令启动服务器：
 
 ```
 npm run serve
 ```
 
-Your application will be running on `http://localhost:8080`.
+我们的应用将在 `http://localhost:8080` 上运行。
 
-![Alt Vue.js home view](https://assets.digitalocean.com/articles/nest_vue_mongo/step7c.png)
+![Alt Vue.js 首页界面](https://assets.digitalocean.com/articles/nest_vue_mongo/step7c.png)
 
-Since you’ll be performing HTTP requests within this application, you’ll need to install Axios, which is a promise-based HTTP client for the browser. You’ll use Axios here to perform HTTP requests from the different components within the application. Stop the front-end application by hitting `CTRL + C` from the terminal on your computer and then run the following command:
+由于我们将在此应用中执行 HTTP 请求，因此需要安装 Axios，这是一种基于 Promise 的浏览器 HTTP 客户端。这里将使用 Axios 执行来自应用中不同组件的 HTTP 请求。在您的计算机的终端上按 `CTRL + C` 终止前端应用，然后运行以下命令：
 
 ```
 npm install axios --save
 ```
 
-Your front-end application will be making an API call to the back-end API on a particular domain from different components within the application. In order to ensure proper structure for this application, you can create a `helper` file and define the server `baseURL`.
+我们的前端应用将从应用中的不同组件中对特定域上的后端 API 进行 API 调用。为了确保我们应用的路由请求结构是正确的，我们可以创建一个`辅助`文件，在其中定义服务器 `baseURL`。
 
-To begin, from you terminal still within `blog-frontend`, navigate to the `./src/` folder:
+首先，将仍然位于博客前端的终端中，定位到 `./src/` 文件夹：
 
 ```
 cd ./src/
 ```
 
-Create another folder named `utils`:
+创建另一个名为 `utils` 的文件夹：
 
 ```
 mkdir utils
 ```
 
-In the `utils` folder, using your text editor, create a new file called `helper.js` and open it. Add the following content to define the `baseURL` for the back-end Nest.js project:
+在 `utils` 文件夹，使用文本编辑器创建一个名为 `helper.js` 的新文件并将其打开。添加以下内容以定义后端 Nest.js 项目的 `baseURL`：
 
 ~blog-frontend/src/utils/helper.js
 
@@ -648,24 +648,24 @@ baseURL: 'http://localhost:3000'
 }
 ```
 
-By defining a `baseURL`, you’ll be able to call it from anywhere within you Vue.js component files. In the event that you need to change the URL, it will be an easier process to update the `baseURL` in this file rather than across your application.
+定义了 `baseURL` 之后，我们可以从 Vue.js 组件文件中的任何位置调用它。在需要更改 URL 的情况下，更改这个文件中的 baseURL 比在整个应用代码中更新更容易。
 
-In this section, you installed the Vue CLI, a tool for creating a new Vue.js application. You used this tool to craft the `blog-frontend` application. In addition, you ran the application and installed a library named Axios, which you will use whenever there is an HTTP call within the app. Next, you will create components for the application.
+在本节中，我们安装了 Vue CLI，这是一个用于创建新的 Vue.js 应用的脚手架工具。我们使用此工具来创建  `blog-frontend` 应用。此外，我们还运行了应用并安装了一个名为 Axios 的库，每当应用中出现 HTTP 调用时，我们都使用该库。接下来，我们将为应用创建组件。
 
-## Step 8 — Creating Reusable Components
+## 第八步 —— 创建可复用的组件
 
-Now you’re going to create reusable components for your application, which is the standard structure for Vue.js applications. The component system in Vue.js makes it possible for developers to build a single, independent unit of an interface that can have its own state, markup, and style. This makes it appropriate for components in Vue.js to be reusable.
+现在我们要为我们的应用创建可重用的组件，这是 Vue.js 应用的标准结构。Vue.js 中的组件系统使开发人员能够构建一个单独的、独立的接口单元，该单元具有自己的状态、HTML 和样式。这使得这些组件可以被复用。
 
-Every Vue.js component contains three different sections:
+每个 Vue.js 组件都包含三个不同的部分：
 
-* `<template>`: contains the HTML contents
+* `<template>`：包含着 HTML 内容
     
-* `<script>`: holds all the basic frontend logic and defines the functions
+* `<script>`：包含所有基本的前端逻辑并定义函数
     
-* `<style>`: the stylesheet for each separate component
+* `<style>`：每个组件的单独样式表
     
 
-First, you’ll start by creating a component to create a new post. To do that, create a new folder named `post` within the `./src/components` folder, which will house the necessary reusable components for posts. Then using your text editor, inside the newly created `post` folder, create another file and name it `Create.vue`. Open the new file and add the following code, which contains the necessary input fields for submitting a post:
+首先，我们将创建一个用来创建文章的组件。我们需要在 `./src/components` 文件夹中创建一个名为 `post` 的新文件夹，这个文件夹中存放有关文章的必要的可重用组件。然后使用文本编辑器在新创建的 `post` 文件夹中创建另一个文件并将其命名为 `Create.vue`。打开这个文件并添加以下代码，这段代码告诉了我们提交文章所需的输入字段：
 
 ~blog-frontend/src/components/post/Create.vue
 
@@ -701,9 +701,9 @@ First, you’ll start by creating a component to create a new post. To do that, 
 </template>
 ```
 
-This is the `<template>` section of the `CreatePost` component. It contains the HTML input elements required to create a new post. Each of the input fields has a `v-model` directive as an input attribute. This is to ensure two-way data bindings on each of the form input to make it easy for Vue.js to obtain the user’s input.
+这是 `CreatePost` 组件的 `<template>` 部分。它包含创建新文章所需的 HTML 元素 input。每个输入字段都有一个 `v-model` 指令作为输入属性。这是为了使每个表单上的 input 框都有双向数据绑定，以便 Vue.js 更容易获得用户的输入。
 
-Next, add the `<script>` section to the same file directly following the preceding content:
+接下来，将 `<script>` 部分直接添加到前面的文件中：
 
 ~blog-frontend/src/components/post/Create.vue
 
@@ -747,13 +747,13 @@ export default {
 </script>
 ```
 
-Here you’ve added a method named `createPost()` to create a new post and submit it to the server using Axios. Once a user creates a new post, the application will redirect back to the homepage where users can view the list of created posts.
+这里我们添加了一个名为 `createPost()` 的方法来创建一篇新文章，并使用 Axios 将其提交给服务器。一旦用户创建了一篇新文章，应用将重定向回主页，用户可以在那里查看创建的文章的列表。
 
-You will configure vue-router to implement the redirection later in this tutorial.
+我们将在本教程的后面配置 vue-router 来实现重定向。
 
-Save and close the file when you are finished editing. For the complete `Create.vue` file, visit the [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Create.vue) for this application.
+完成编辑后保存并关闭文件。关于应用的完整 `Create.vue` 文件，请访问 [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Create.vue)。
 
-Now, you need to create another component for editing a particular post. Navigate to `./src/components/post` folder and create another file and name it `Edit.vue`. Add the following code that contains the `<template>` section to it:
+现在，我们需要再创建一个用于编辑特定文章的组件。定位到 `./src/components/post` 文件夹，再创建一个名为 `Edit.vue` 文件。添加以下 `<template>` 部分的代码到文件中：
 
 ~blog-frontend/src/components/post/Edit.vue
 
@@ -795,9 +795,9 @@ Now, you need to create another component for editing a particular post. Navigat
 
 ```
 
-This template section holds similar content as the `CreatePost()` component; the only difference is that it contains the details of the particular post that needs to be edited.
+这里的 template 部分的内容与 `CreatePost()` 组件类似；唯一的区别是它包含了需要编辑的特定文章的具体内容。
 
-Next, add the`<script>` section directly following the `</template>` section in `Edit.vue`:
+接下来，直接在 `Edit.vue` 中的 `</template>` 部分后面添加 `<script>` 部分：
 
 ~blog-frontend/src/components/post/Edit.vue
 
@@ -847,11 +847,11 @@ export default {
 </script>
 ```
 
-Here, you obtained the route parameter `id` to identify a particular post. You then created a method named `getPost()` to retrieve the details of this post from the database and updated the page with it. Finally, you created an `editPost()` method to submit the edited post back to the back-end server with a PUT HTTP request.
+在这里，我们获得了路由参数 `id` 来标识特定文章。然后，我们创建了一个名为 `getPost()` 的方法来从数据库检索这篇文章的详细信息，并使用它更新页面。最后，我们创建了 `editPost()` 方法，用 HTTP PUT 请求将编辑后的文章提交回后端服务器。
 
-Save and exit the file. For the complete `Edit.vue` file, visit the [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Edit.vue) for this application.
+完成编辑后保存并关闭文件。关于应用的完整 `Edit.vue` 文件，请访问 [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Edit.vue)。
 
-Now, you’ll create a new component within the `./src/components/post` folder and name it `Post.vue`. This will allow you to view the details of a particular post from the homepage. Add the following content to `Post.vue`:
+现在，我们在 `./src/components/post` 文件夹中创建一个名为 `Post.vue` 新组件。这样我们就可以从首页中查看特定文章的详细信息。然后，将以下内容添加到 `Post.vue` 中：
 
 ~blog-frontend/src/components/post/Post.vue
 
@@ -870,9 +870,9 @@ Now, you’ll create a new component within the `./src/components/post` folder a
 </template>
 ```
 
-This code renders the details of a post that includes, `title`, `author`, and the post `body`.
+这段代码会渲染出文章的详细信息，包括`标题（titile）`、`作者（author）`和文章`正文（body）`。
 
-Now, directly following `</template>`, add the following code to the file:
+现在，直接在 `</template>` 之后，添加以下代码：
 
 ~blog-frontend/src/components/post/Post.vue
 
@@ -907,11 +907,11 @@ export default {
 </script>
 ```
 
-Similar to the `<script>` section of the edit post component, you obtained the route parameter `id` and used it to retrieve the details of a particular post.
+这里的 `<script>` 部分的内容与编辑特文章的组件类似，我们从路由中获得了参数 `id` 并使用它来检索特定文章的详细信息。
 
-Save and close the file when you are finished adding the content. For the complete `Post.vue` file, visit the [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Post.vue) for this application.
+完成编辑后保存并关闭文件。关于应用的完整 `Post.vue` 文件，请访问 [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Post.vue)。
 
-Next, to display all the created posts to users, you will create a new component. If you navigate to the `views` folder in `src/views`, you will see a `Home.vue` component — if this file is not present, use your text editor to create it, add the following code:
+接下来，要向用户显示所有创建的文章，我们需要创建一个新组件。定位到 `src/views` 中的 `views` 文件夹，您将看到 `Home.vue` 组件 —— 如果此文件不存在，请使用文本编辑器创建它，并添加以下代码：
 
 ~blog-frontend/src/views/Home.vue
 
@@ -955,18 +955,18 @@ Next, to display all the created posts to users, you will create a new component
 </template>
 ```
 
-Here, within the `<template>` section, you used the `<router-link>` to create a link for editing as well as for viewing a post by passing the `post._id` as a query parameter. You also used the `v-if` directive to conditionally render the post for users. If there is no post from the database, a user will only see this text: **No post found at the moment**.
+这里，在 `<template>` 部分中，我们使用 `<router-link>` 来创建用于编辑文章的链接，并且会通过`post._id` 参数来查看文章。id作为参数。我们还使用了 `v-if` 指令为用户有选择地呈现文章。如果数据库中没有文章，用户将只看到以下文本：**No post found at the moment（暂时没有发现任何文章）**.
 
-Save and exit the file. For the complete `Home.vue` file, visit the [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/views/Home.vue) for this application.
+完成编辑后保存并关闭文件。关于应用的完整 `Home.vue` 文件，请访问 [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Home.vue)。
 
-Now, directly following the `</template>` section in `Home.vue`, add the following `</script>` section:
+现在，直接在 `Home.vue` 中的 `</template>` 部分之后，添加以下 `</script>` 部分：
 
 ~blog-frontend/src/views/Home.vue
 
 ```js
 ...
 <script>
-// @ is an alias to /src
+// @ 是 /src 的别名
 import { server } from "@/utils/helper";
 import axios from "axios";
 
@@ -996,9 +996,9 @@ export default {
 </script>
 ```
 
-Within the `<script>` section of this file, you created a method named `fetchPosts()` to fetch all posts from the database, and you updated the page with the data returned from the server.
+在这个文件的 `<script>` 部分中，我们创建了一个名为 `fetchPosts()` 的方法来从数据库获取所有的文章，并使用服务器返回的数据更新页面。
 
-Now, you’ll update the `App` component of the front-end application in order to create links to the `Home` and `Create` components. Open `src/App.vue` and update it with the following:
+现在，我们将更新前端应用的 `App` 组件，以便创建到 `Home` 组件和  `Create` 组件的链接。打开 `src/App.vue`，用以下内容更新它：
 
 ~blog-frontend/src/App.vue
 
@@ -1036,13 +1036,13 @@ Now, you’ll update the `App` component of the front-end application in order t
 </style>
 ```
 
-Apart from including the links to both `Home` and `Create` components, you also included the `<Style>` section, which is the stylesheet for this component and holds the definition of styles for some of the elements on the page. Save and exit the file.
+上面的代码中，除了包含到 `Home` 和 `Create` 组件的链接之外，还包含了 `<Style>` 部分，它是这个组件的样式表，包含着页面上一些元素的样式定义。保存并退出文件。
 
-You have created all the required components for your application in this step. Next, you will configure the router file.
+在这一节中，我们已经创建了应用所需的所有组件。接下来，我们将配置路由文件。
 
-## Step 9 — Setting Up Routing
+## 第九步 —— 搭建路由
 
-After creating all the necessary reusable components, you can now properly configure the router file by updating its content with links to all the components you’ve created. This will ensure that all endpoints within the front-end application are mapped to a particular component for appropriate action. Navigate to `./src/router.js` and replace its content with the following:
+在创建了所有需要的可复用组件之后，现在我们可以通过更新包含所有组件链接的路由文件，来正确配置路由文件。这将保证前端应用中的所有的路由都会映射到特定的组件，以便采取适当的操作。定位到 `./src/router.js`，并将其内容替换为以下内容：
 
 ~blog-frontend/src/router.js
 
@@ -1068,9 +1068,9 @@ export default new Router({
 });
 ```
 
-You imported `Router` from the `vue-router` module and instantiated it by passing the `mode` and `routes` parameters. The default mode for `vue-router` is a hash mode, which uses the URL hash to simulate a full URL so that the page won’t be reloaded when the URL changes. In order to make the hash unnecessary, you have used history mode here to achieve URL navigation without a page reload. Finally, within the `routes` option, you specified the path for the endpoint — a name for the route and the component that should be rendered when the route is called within the application. Save and exit the file.
+我们从 `vue-router` 模块中导入了 `Router`，并通过传递 `mode` 和 `route` 参数实例化了它。`vue-router` 的默认模式是 hash 模式，该模式使用 URL 的 hash 来一个模拟完整的 URL，于是当 URL 更改时页面不会重新加载。如果不需要 hash 模式，我们可以在此处使用 history 模式来实现 URL 的路由而无需重新加载页面。最后，在 `routes` 选项中，我们指定了路由的具体对应组件 —— 应用中调用路由时应该呈现的组件和组件的名称。保存并退出文件。
 
-Now that you have set up routing to the application, you need to include the Bootstrap file to help with pre-built styling for the user interface of the application. To achieve that, open `./public/index.html` file in your text editor and include the CDN file for Bootstrap by adding the following content to the file:
+既然我们已经搭建好了应用的路由，现在就需要引入 Bootstrap 文件来预制应用用户界面的样式。我们需要在文本编辑器中打开 `./public/index.html` 文件，并通过在文件中添加以下内容来包含用于 Bootstrap 的 CDN 文件：
 
 ~blog-frontend/public/index.html
 
@@ -1088,33 +1088,33 @@ Now that you have set up routing to the application, you need to include the Boo
 </html>
 ```
 
-Save and exit the file, and then restart the application with `npm run serve` for your `blog-frontend`, if it is not currently running.
+保存并退出文件，然后使用 `npm run serve` 为我们的 `blog-frontend` 项目重新启动应用（如果它当前没有运行的话）。
 
-**Note:** Ensure that both the back-end server and the MongoDB instance are running as well. If otherwise, navigate to the `blog-backend` from another terminal and run `npm run start`. Also, start the MongoDB service by running `sudo mongod` from a new terminal as well.  
+**注意：** 确保后端服务器和 MongoDB 实例都在运行。如果没有的话，从另一个新的终端定位到 `blog-backend` 项目下并运行 `npm run start`。同样，通过从一个新的终端运行 `sudo mongod` 来启动 MongoDB 服务。
 
-Navigate to your application at: `http://localhost:8080`. Now you can test your blog by creating and editing posts.
+通过 URL 导航到我们的应用：`http://localhost:8080`。现在您可以通过创建和编辑文章来测试您的博客啦！
 
-![Alt Create a new post](https://assets.digitalocean.com/articles/nest_vue_mongo/step9a.png)
+![Alt 创建一篇新文章](https://assets.digitalocean.com/articles/nest_vue_mongo/step9a.png)
 
-Click on **Create** on your application to see the **Create Post** screen, which relates to and renders the `CreateComponent` file. Enter values into the input fields and click on the **Create Post** button to submit a post. Once you are done, the application will redirect you back to the homepage.
+单击应用上的 **Create** 以查看 **Create Post**视图，该视图与 `CreateComponent` 组件相关并会渲染该组件。在 input 框中输入内容，然后单击 **Create Post** 按钮提交一篇文章。完成后，应用将把您重定向回主页。
 
-The homepage of the application renders the `HomeComponent`. This component has a method that sends an HTTP call to fetch all posts from the database and displays them to users.
+应用的主页呈现的是组件 `HomeComponent`。这个组件会调用一个它的方法，会发送一个 HTTP 调用来从数据库获取所有的文章并将它们显示给用户。
 
-![Alt View all posts from the database](https://assets.digitalocean.com/articles/nest_vue_mongo/step9b.png)
+![Alt 从数据库中查看所有的文章](https://assets.digitalocean.com/articles/nest_vue_mongo/step9b.png)
 
-Clicking on the **Edit Post** button for a particular post will take you to an edit page where you can incorporate any changes and save your post.
+点击某个特定文章的 **Edit Post** 按钮，您会进入一个编辑页面，在那里您可以做任何修改并保存您的文章。
 
-![Alt Edit a new post](https://assets.digitalocean.com/articles/nest_vue_mongo/step9c.png)
+![Alt 修改一篇新发的文章](https://assets.digitalocean.com/articles/nest_vue_mongo/step9c.png)
 
-In this section, you configured and set up routing for the application. With this in place, your blog application is ready.
+在本节中，我们配置并搭建了应用的路由。到这里，我们的博客应用就准备好了。
 
-## Conclusion
+## 总结
 
-In this tutorial, you have explored a new way of structuring a Node.js application by using Nest.js. You created a simple blog application using Nest.js to build the back-end RESTful API and used Vue.js to handle all the front-end logic. Furthermore, you also integrated MongoDB as a database for your Nest.js application.
+在本教程中，您通过使用 Nest.js 来探索了构造 Node.js 应用的新方法。您创建了一个简单的博客应用，使用 Nest.js 构建后端 RESTful API，使用 Vue.js 处理了所有前端逻辑。此外，您还将 MongoDB 数据库集成到 Nest.js 应用中。
 
-To learn more about how to add authentication to your application, you can make use of [Passport.js](http://www.passportjs.org/), a popular Node.js authentication library. You can learn about Passport.js integration in the [Nest.js documentation](https://docs.nestjs.com/techniques/authentication).
+想要了解关于如何将身份验证添加到应用中，您可以使用 [Passport.js](http://www.passportjs.org/)。一个流行的 Node.js 认证库。您可以在 [Nest.js 文档](https://docs.nestjs.com/techniques/authentication)中了解关于 Passport.js 的集成。
 
-You can find the complete source code for this project [here on GitHub](https://github.com/do-community/nest-vue-project). For more information about Nest.js, you can visit the [official documentation](https://docs.nestjs.com/).
+您可以在[这个项目的 GitHub ](https://github.com/do-community/nest-vue-project)上找到项目的完整源代码。想要获取更多关于 Nest 的信息。您可以访问[官方文档](https://docs.nestjs.com/)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
