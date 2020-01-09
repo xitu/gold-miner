@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/use-web-workers-for-your-event-listeners.md](https://github.com/xitu/gold-miner/blob/master/TODO1/use-web-workers-for-your-event-listeners.md)
 > * 译者：[vitoxli](https://github.com/vitoxli)
-> * 校对者：
+> * 校对者：[Alfxjx](https://github.com/Alfxjx)
 
 # 使用 Web Workers 优化事件监听器
 
