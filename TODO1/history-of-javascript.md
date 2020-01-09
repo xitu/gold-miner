@@ -9,7 +9,7 @@
 
 > JavaScript 的起源以及这些年的发展情况
 
-大约十年前<sup><a href="#note1">[1]</a></sup>，Jeff Atwood（Stackoverflow 创始人）断言 JavaScript 将会是未来的方向，并创造了 “Atwood 定律”：**任何可以使用 Javascript 编写的程序，最终都会由 Javascript 编写**。十年后的今天，这个断言相比之前更加可信了。JavaScript 的应用范围不断扩大。
+大约十年前<sup><a name="noteref1" href="#note1">[1]</a></sup>，Jeff Atwood（Stackoverflow 创始人）断言 JavaScript 将会是未来的方向，并创造了 “Atwood 定律”：**任何可以使用 Javascript 编写的程序，最终都会由 Javascript 编写**。十年后的今天，这个断言相比之前更加可信了。JavaScript 的应用范围不断扩大。
 
 ### JavaScript 发布
 
@@ -21,7 +21,7 @@ JavaScript 最初由 NetScape 的 [Brendan Eich](https://twitter.com/BrendanEich
 
 ### 十年沉寂和 ES4
 
-1999 年发布 ES3 之后，官方标准出现了十年的沉寂，这期间没有任何变化。第 4 版标准起初有一些进展，部分被讨论的特性有类、模块、静态类型、解构等等。它本来定在 2008 年发布，但是由于关于语言复杂度的不同政治意见<sup><a href="#note2">[2]</a></sup>而被废弃。但是，浏览器厂商不停引入语言的扩展，这让开发者大伤脑筋 —— 他们只能添加 polyfill<sup><a href="#note3">[3]</a></sup> 来解决不同浏览器之间的兼容性问题。
+1999 年发布 ES3 之后，官方标准出现了十年的沉寂，这期间没有任何变化。第 4 版标准起初有一些进展，部分被讨论的特性有类、模块、静态类型、解构等等。它本来定在 2008 年发布，但是由于关于语言复杂度的不同政治意见<sup><a name="noteref2" href="#note2">[2]</a></sup>而被废弃。但是，浏览器厂商不停引入语言的扩展，这让开发者大伤脑筋 —— 他们只能添加 polyfill<sup><a name="noteref3" href="#note3">[3]</a></sup> 来解决不同浏览器之间的兼容性问题。
 
 ### 从沉寂到 ES5
 
@@ -29,7 +29,7 @@ Google、Microsoft、Yahoo 和其余 ES4 的争论者最终走到了一起，决
 
 ### ES6 —— ECMASript 2015 发布
 
-在 ES5 发布数年之后，事情开始有了转机。TC39（ECMA 国际之下负责 ECMAScript 标准化的委员会）持续进行下一版本的标准化的工作，该版本的 ECMAScript（ES6）起初命名为 ES Harmony<sup><a href="#note4">[4]</a></sup>，在最终发布时被命名为 ES2015。ES2015 添加了许多重要的特性和语法糖以便于编写复杂的程序。部分 ES6 提供的特性包括了类、模块、箭头函数、加强的对象字面量、模板字符串、解构、默认参数 + Rest 参数 + Spread 操作符、Let 和 Const 语法、异步迭代器 + for..of、生成器、集合 + 映射、Proxy、Symbol、Promise、math + number + string + array + object 的 API [等等](http://es6-features.org/#Constants)<sup><a href="#note5">[5]</a></sup>。
+在 ES5 发布数年之后，事情开始有了转机。TC39（ECMA 国际之下负责 ECMAScript 标准化的委员会）持续进行下一版本的标准化的工作，该版本的 ECMAScript（ES6）起初命名为 ES Harmony<sup><a name="noteref4" href="#note4">[4]</a></sup>，在最终发布时被命名为 ES2015。ES2015 添加了许多重要的特性和语法糖以便于编写复杂的程序。部分 ES6 提供的特性包括了类、模块、箭头函数、加强的对象字面量、模板字符串、解构、默认参数 + Rest 参数 + Spread 操作符、Let 和 Const 语法、异步迭代器 + for..of、生成器、集合 + 映射、Proxy、Symbol、Promise、math + number + string + array + object 的 API [等等](http://es6-features.org/#Constants)<sup><a name="noteref5" href="#note5">[5]</a></sup>。
 
 浏览器对 ES6 的支持依旧十分有限，但是开发者只需要编写 ES6 代码并将其转译至 ES5，就可以使用 ES6 的所有特性。随着第 6 版 ECMAScript 的发布，TC39 决定以每年更新的模式来发布 ECMAScript 的更新，这样新特性就可以在通过时尽快地加入标准，不需要等待完整的规范起草和通过 —— 因此第 6 版 ECMAScript 在 2015 年 6 月发布前，被命名为 ECMAScript 2015 或 ES2015。并且之后的 ECMAScript 版本发布定于每年 6 月。
 
@@ -58,13 +58,13 @@ ESNext 是一个动态的名字，指当前的 ECMAScript 版本。例如，在�
 
 自从 ES6 发布后，[TC39](https://github.com/tc39) 极大提高了他们的效率。 现在 TC39 以 Github 组织的形式运行，在上面有许多关于下一版的 ECMAScript 新特性和语法的[提议](https://github.com/tc39/proposals)。任何人都可以[发起提议](https://github.com/tc39/proposals)，因此开发者社区可以更多地参与进来。在正式形成规范前，每个提议都会经过[四个发展阶段](https://tc39.github.io/process-document/)。
 
-这差不多就是全部内容了，欢迎在评论区留下你的反馈。以下是原始语言规范的链接：[ES6](https://www.ecma-international.org/ecma-262/6.0/)，[ES7](https://www.ecma-international.org/ecma-262/7.0/) 和 [ES8](https://www.ecma-international.org/ecma-262/8.0/)。
+这差不多就是全部内容了，欢迎在评论区留下你的反馈。以下是原始语言规范的链接：[ES6](https://www.ecma-international.org/ecma-262/6.0/)、[ES7](https://www.ecma-international.org/ecma-262/7.0/) 和 [ES8](https://www.ecma-international.org/ecma-262/8.0/)。
 
-1. <a name="note1"></a>译者注：本文写于 2017 年，所以十年前是 2007 年。
-2. <a name="note2"></a>译者注：技术层面的分歧以及商业政治都是 ES4 失败的原因，知乎上曾经有过相关的[讨论](https://www.zhihu.com/question/24715618)。
-3. <a name="note3"></a>译者注：Web 开发中，polyfill 指用于实现浏览器并不支持的原生 API 的代码。
-4. <a name="note4"></a>译者注：Harmony 有和谐，协调的意思。
-5. <a name="note5"></a>译者注：如果你感兴趣，可以使用[这个中文教程](https://zh.javascript.info/)学习这些特性。
+1. 译者注：本文写于 2017 年，所以十年前是 2007 年。<a name="note1" href="#noteref1">↩︎</a>
+2. 译者注：技术层面的分歧以及商业政治都是 ES4 失败的原因，知乎上曾经有过相关的[讨论](https://www.zhihu.com/question/24715618)。<a name="note2" href="#noteref2">↩︎</a>
+3. 译者注：Web 开发中，polyfill 指用于实现浏览器并不支持的原生 API 的代码。<a name="note3" href="#noteref3">↩︎</a>
+4. 译者注：Harmony 有和谐，协调的意思。<a name="note4" href="#noteref4">↩︎</a>
+5. 译者注：如果你感兴趣，可以使用[这个中文教程](https://zh.javascript.info/)学习这些特性。<a name="note5" href="#noteref5">↩︎</a>
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
