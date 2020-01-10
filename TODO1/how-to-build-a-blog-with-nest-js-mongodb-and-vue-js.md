@@ -3,26 +3,26 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-blog-with-nest-js-mongodb-and-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-blog-with-nest-js-mongodb-and-vue-js.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：[vitoxli](https://github.com/vitoxli)，
+> * 校对者：[vitoxli](https://github.com/vitoxli)，[lihaobhsfer](https://github.com/lihaobhsfer)
 
 # 如何用 Nest.js、MongoDB 和 Vue.js 搭建一个博客
 
-### 介绍
+### 概述
 
 [Nest.js](https://nestjs.com/) 是一个可扩展的服务端 JavaScript 框架。它使用 TypeScript 构建，所以它依然与 JavaScript 兼容，这使得它成为构建高效可靠的后端应用的有效工具。它还具有模块化结构，可为 Node.js 开发环境提供一个成熟的结构化的设计模式。
 
 [Vue.js](https://vuejs.org/) 是用于构建用户界面的前端 JavaScript 框架。它不仅有简单但功能强大的 API，还具有出色的性能。Vue.js 能提供任意项目规模的 Web 应用的前端层和逻辑。它可以轻松地将自身与其他库或现有项目集成在一起，这使得它成为大多数现代 Web 应用的理想选择。
 
-在本教程中，我们将通过构建一个 Nest.js 应用，来熟悉它的构建模块以及构建现代 Web 应用的基本套路。我们会将应用划分为两个不同的部分：前端和后端。首先，我们将使用 Nest.js 来构建的 RESTful 后端 API。然后，将使用 Vue.js 来构建前端。其中前后端的应用将在不同的端口上运行，并将作为独立的域运行。
+在本教程中，我们将通过构建一个 Nest.js 应用，来熟悉它的构建模块以及构建现代 Web 应用的基本原则。我们会将应用划分为两个不同的部分：前端和后端。首先，我们将使用 Nest.js 来构建的 RESTful 后端 API。然后，将使用 Vue.js 来构建前端。其中前后端的应用将在不同的端口上运行，并将作为独立的域运行。
 
-我们将构建的是一个博客应用，用户可以使用该应用创建和保存新文章，在主页上查看保存的文章以及执行的其他过程，例如编辑和删除文章。此外，我们还会连接应用并将应用数据持久化到 [MongoDB](https://www.mongodb.com/) 中，MongoDB 是一种无模式（schema-less）的 NoSQL 数据库，可以接收和存储 JSON 文件。本教程的重点是介绍如何在开发环境中构建应用。如果是在生产环境，我们还应该考虑应用的用户身份验证。
+我们将构建的是一个博客应用，用户可以使用该应用创建和保存新文章，在主页上查看保存的文章，以及进行其他操作，例如编辑和删除文章。此外，我们还会连接应用并将应用数据持久化到 [MongoDB](https://www.mongodb.com/) 中，MongoDB 是一种无模式（schema-less）的 NoSQL 数据库，可以接收和存储 JSON 文件。本教程的重点是介绍如何在开发环境中构建应用。如果是在生产环境，我们还应该考虑应用的用户身份验证。
 
 ## 前提
 
 要完成本教程，我们需要：
 
-* 在本地安装 [Node.js](https://nodejs.org/en/)（至少 v6 版本）和 [npm](https://www.npmjs.com/)（至少 v5.2 版本）。Node.js 是一个允许您在浏览器之外运行 JavaScript 代码的运行环境。它带有一个名为 `npm` 的预安装的包管理工具,可让您安装和更新软件包。如果要在 macOS 或 Ubuntu 18.04 上安装它们，请遵循文章[如何在 macOS 上安装 Node.js 并创建本地开发环境](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos)中的步骤或者文章[如何在 Ubuntu 18.04 上安装Node.js](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04)中的“使用 PPA 进行安装”这一节。
-* 在您的机器上安装 MongoDB 数据库。按照[这里](https://www.mongodb.com/download-center/community)的说明来下载并安装您操作系统所对应的版本。您可以通过在 [Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.44532076.918654254.1550698665-2018226388.1550698665#create-the-data-directory) 上使用 [Homebrew](https://brew.sh/) 进行安装，也可以从[MongoDB网站](https://www.mongodb.com/download-center/community)下载。
+* 在本地安装 [Node.js](https://nodejs.org/en/)（至少 v6 版本）和 [npm](https://www.npmjs.com/)（至少 v5.2 版本）。Node.js 是一个允许您在浏览器之外运行 JavaScript 代码的运行环境。它带有一个名为 `npm` 的预安装的包管理工具,可让您安装和更新软件包。如果要在 macOS 或 Ubuntu 18.04 上安装它们，请遵循文章[如何在 macOS 上安装 Node.js 并创建本地开发环境](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-and-create-a-local-development-environment-on-macos)中的步骤或者文章[如何在 Ubuntu 18.04 上安装 Node.js](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04)中的“使用 PPA 进行安装”这一节。
+* 在您的机器上安装 MongoDB 数据库。按照[这里](https://www.mongodb.com/download-center/community)的说明来下载并安装您操作系统所对应的版本。您可以通过在 [Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.44532076.918654254.1550698665-2018226388.1550698665#create-the-data-directory) 上使用 [Homebrew](https://brew.sh/) 进行安装，也可以从 [MongoDB 网站](https://www.mongodb.com/download-center/community)下载。
 * 对 TypeScript 和 [JavaScript](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-javascript) 有基本了解。
 * 安装文本编辑器，例如 [Visual Studio Code](https://code.visualstudio.com/)、[Atom](https://atom.io) 或者 [Sublime Text](https://www.sublimetext.com)。
 
@@ -49,7 +49,7 @@ added 220 packages from 163 contributors in 49.104s
 nest --version
 ```
 
-您将看到安装在您计算机上的 nest 版本：
+您将看到安装在您计算机上的 Nest 版本：
 
 ```
 Output5.8.0
@@ -83,7 +83,7 @@ cd blog-backend
 npm install --save @nestjs/mongoose mongoose
 ```
 
-这时，我们已经安装了 `@nestjs/mongoose` 和 `mongoose`，前者是一个用于 MongoDB 的对象建模工具的 Nest.js 专用软件包，后者是用于 Mongoose 的软件包。
+这时，我们已经安装了 `@nestjs/mongoose` 和 `mongoose`，前者是一个用于 MongoDB 的对象建模工具的 Nest.js 专用软件包，后者是用于操作 Mongoose 的软件包。
 
 现在，使用以下命令启动应用：
 
@@ -137,14 +137,14 @@ export class AppModule { }
 
 在这一步, 我们将使用 Mongoose 为数据库创建 **schema**，**接口**和**数据传输对象**。Mongoose 帮助我们管理数据之间的关系，并提供数据类型的 schema 验证。为了更好的定义应用中数据库里数据结构和数据类型，我们将创建文件，以确定以下内容：
 
-* **数据库 schema**： 这是一种数据组织，它是定义数据库需要存储的数据结构和类型的行动方案。
+* **数据库 schema**： 这是一种数据组织，它是定义数据库需要存储的数据结构和类型的蓝图。
     
 * **接口**：TypeScript 接口用于类型检查。它可以用来定义在应用中传递的数据的类型。
     
 * **数据传输对象**： 这个对象定义了数据是以何种形式通过网络发送的以及如何在进程之间进行传输的。
     
 
-首先, 回到当前应用运行的终端，使用 `CTRL + C` 停止进程，定位到 `./src/` 文件夹：
+首先, 回到当前应用运行的终端，使用 `CTRL + C` 停止进程，跳转至 `./src/` 文件夹：
 
 ```
 cd ./src/
@@ -182,7 +182,7 @@ export const BlogSchema = new mongoose.Schema({
 cd ~/blog-backend/src/blog/
 ```
 
-创建一个名为 `interfaces` 的新文件夹：
+创建一个名为 `interfaces` 的新文件夹，并跳转至文件夹内：
 
 ```
 mkdir interfaces
@@ -242,7 +242,7 @@ export class CreatePostDTO {
 
 ## 第四步 —— 为你的博客创建模块（Module）、控制器（Controller）和服务（Service）
 
-在这一步，我们将通过为博客创建一个模块来改进应用的现有结构。这个模块将组织应用中的文件结构。接着，我们将创建一个控制器来处理来自客户端的路由和 HTTP 请求。最后，我们将创建服务来处理应用程序中所有控制器无法处理的业务逻辑。
+在这一步，我们将通过为博客创建一个模块来改进应用的现有结构。这个模块将组织应用中的文件结构。接着，我们将创建一个控制器来处理来自客户端的路由和 HTTP 请求。最后，我们将创建服务来处理应用程序中所有控制器无法处理的复杂业务逻辑。
 
 ### 创建模块
 
@@ -281,7 +281,7 @@ export class BlogModule {}
 
 ### 创建服务
 
-**服务**（在 Nest.js 中也称它为 provider）的意义在于从控制器中删除仅用于处理 HTTP 请求的逻辑，并会将更复杂的任务重定向到其他的服务类。服务是普通的 JavaScript 类，在它们的代码上方会带有 `@Injectable()` 装饰器。要生成新服务，请在该项目目录下终端运行以下命令：
+**服务**（在 Nest.js 中也称它为 provider）的意义在于从仅应处理 HTTP 请求的控制器中移除业务逻辑，并会将更复杂的任务重定向到其他的服务类。服务是普通的 JavaScript 类，在它们的代码上方会带有 `@Injectable()` 装饰器。要生成新服务，请在该项目目录下终端运行以下命令：
 
 ```
 nest generate service blog
@@ -955,7 +955,7 @@ export default {
 </template>
 ```
 
-这里，在 `<template>` 部分中，我们使用 `<router-link>` 来创建用于编辑文章的链接，并且会通过`post._id` 参数来查看文章。id作为参数。我们还使用了 `v-if` 指令为用户有选择地呈现文章。如果数据库中没有文章，用户将只看到以下文本：**No post found at the moment（暂时没有发现任何文章）**.
+这里，在 `<template>` 部分中，通过 `post._id` 参数，我们使用 `<router-link>` 来创建用于编辑文章和查看文章的链接。我们还使用了 `v-if` 指令为用户有选择地呈现文章。如果数据库中没有文章，用户将只看到以下文本：**No post found at the moment（暂时没有发现任何文章）**.
 
 完成编辑后保存并关闭文件。关于应用的完整 `Home.vue` 文件，请访问 [DO Community repository](https://github.com/do-community/nest-vue-project/blob/master/blog-frontend/src/components/post/Home.vue)。
 
@@ -1096,7 +1096,7 @@ export default new Router({
 
 ![Alt 创建一篇新文章](https://assets.digitalocean.com/articles/nest_vue_mongo/step9a.png)
 
-单击应用上的 **Create** 以查看 **Create Post**视图，该视图与 `CreateComponent` 组件相关并会渲染该组件。在 input 框中输入内容，然后单击 **Create Post** 按钮提交一篇文章。完成后，应用将把您重定向回主页。
+单击应用上的 **Create** 以查看 **Create Post** 视图，该视图与 `CreateComponent` 组件相关并会渲染该组件。在 input 框中输入内容，然后单击 **Create Post** 按钮提交一篇文章。完成后，应用将把您重定向回主页。
 
 应用的主页呈现的是组件 `HomeComponent`。这个组件会调用一个它的方法，会发送一个 HTTP 调用来从数据库获取所有的文章并将它们显示给用户。
 
