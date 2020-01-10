@@ -109,7 +109,7 @@ sudo mongod
 
 这将启动 MongoDB 服务并在您机器的后台运行数据库。
 
-在文本编辑器中打开 `blog-backend` 项目，定位到 `./src/app.module.ts` 文件。我们可以通过在根 `ApplicationModule` 中已安装的 `MongooseModule` 来建立到数据库的连接。需要添加以下几行代码来更新 `app.module.ts`  中的内容：
+在文本编辑器中打开 `blog-backend` 项目，定位到 `./src/app.module.ts` 文件。我们可以通过在根 `ApplicationModule` 中已安装的 `MongooseModule` 来建立到数据库的连接。需要添加以下几行代码来更新 `app.module.ts` 中的内容：
 
 ~/blog-backend/src/app.module.ts
 
@@ -140,7 +140,6 @@ export class AppModule { }
 * **数据库 schema**： 这是一种数据组织，它是定义数据库需要存储的数据结构和类型的蓝图。
 * **接口**：TypeScript 接口用于类型检查。它可以用来定义在应用中传递的数据的类型。
 * **数据传输对象**： 这个对象定义了数据是以何种形式通过网络发送的以及如何在进程之间进行传输的。
-    
 
 首先, 回到当前应用运行的终端，使用 `CTRL + C` 停止进程，跳转至 `./src/` 文件夹：
 
@@ -206,7 +205,7 @@ export interface Post extends Document {
 
 因为我们的应用将会向数据库发送数据，所以我们将创建一个数据传输对象，它将定义数据会怎样发送到网络。
 
-为此，请在 `./src/blog` 文件夹中创建一个文件夹 `dto`。在新创建的文件夹中，创建一个名为   `create-post.dto.ts` 的文件
+为此，请在 `./src/blog` 文件夹中创建一个文件夹 `dto`。在新创建的文件夹中，创建一个名为 `create-post.dto.ts` 的文件
 
 定位到 `blog` 文件夹：
 
@@ -381,7 +380,7 @@ CREATE /src/blog/blog.controller.ts (97 bytes)
 UPDATE /src/blog/blog.module.ts (483 bytes)
 ```
 
-这段输出表示该命令在 `src/blog` 目录中创建了两个新文件，`blog.controller.spec.ts` 和  `blog.controller.ts`。前者是一个可以用来为新创建的控制器编写自动测试的文件。后者是控制器文件本身。Nest.js 中的控制器是用 `@Controller` 元数据装饰的 TypeScript 文件。该命令还导入了新创建的控制器并添加它到博客模块。
+这段输出表示该命令在 `src/blog` 目录中创建了两个新文件，`blog.controller.spec.ts` 和 `blog.controller.ts`。前者是一个可以用来为新创建的控制器编写自动测试的文件。后者是控制器文件本身。Nest.js 中的控制器是用 `@Controller` 元数据装饰的 TypeScript 文件。该命令还导入了新创建的控制器并添加它到博客模块。
 
 接下来，用文本编辑器打开 `blog.controller.ts` 文件并用以下内容更新它：
 
@@ -470,7 +469,7 @@ export class BlogController {
 
 这里解释一下我们到底添加了什么：
 
-* `editPost()`： 这个方法接受 `postID` 的查询参数，并执行更新一篇文章的功能。它还利用  `ValidateObjectId` 方法为您需要编辑文章提供适当的认证。
+* `editPost()`： 这个方法接受 `postID` 的查询参数，并执行更新一篇文章的功能。它还利用 `ValidateObjectId` 方法为您需要编辑文章提供适当的认证。
 * `deletePost()`： 这个方法将接受 `postID` 的查询参数，并从数据库中删除特定的文章。
 
 与 `BlogController` 类似，这里定义的每个异步方法都有一个元数据装饰器，并且包含一个 Nest.js 中用于路由机制的前缀。它控制每个控制器接收的请求，以及分别指向应该处理请求和返回的响应方法。
@@ -519,7 +518,7 @@ export class ValidateObjectId implements PipeTransform<string> {
 
 `ValidateObjectId()` 类是由 `@nestjs/common` 模块中的 `PipeTransform` 方法实现的。它有一个名为 `transform()` 的方法，该方法将 value 作为参数 —— 在当前着种情况下为 `postID`。使用这个方法，任何带有无法在数据库中检索到的 `postID` 的应用中的前端 HTTP 请求都会被视为无效。保存并关闭文件。
 
-在创建了服务和控制器之后，我们需要建立基于 `BlogSchema` 的 `Post` 模型。这个配置可以在根  `ApplicationModule` 中设置，但是在这本例中，我们将在 `BlogModule` 中构建模型以维护应用的组织。打开`./src/blog/blog.module.ts` 并用以下内容更新它：
+在创建了服务和控制器之后，我们需要建立基于 `BlogSchema` 的 `Post` 模型。这个配置可以在根 `ApplicationModule` 中设置，但是在这本例中，我们将在 `BlogModule` 中构建模型以维护应用的组织。打开`./src/blog/blog.module.ts` 并用以下内容更新它：
 
 ~/blog-backend/src/blog/blog.module.ts
 
@@ -644,7 +643,7 @@ baseURL: 'http://localhost:3000'
 
 定义了 `baseURL` 之后，我们可以从 Vue.js 组件文件中的任何位置调用它。在需要更改 URL 的情况下，更改这个文件中的 baseURL 比在整个应用代码中更新更容易。
 
-在本节中，我们安装了 Vue CLI，这是一个用于创建新的 Vue.js 应用的脚手架工具。我们使用此工具来创建  `blog-frontend` 应用。此外，我们还运行了应用并安装了一个名为 axios 的库，每当应用中出现 HTTP 调用时，我们都使用该库。接下来，我们将为应用创建组件。
+在本节中，我们安装了 Vue CLI，这是一个用于创建新的 Vue.js 应用的脚手架工具。我们使用此工具来创建 `blog-frontend` 应用。此外，我们还运行了应用并安装了一个名为 axios 的库，每当应用中出现 HTTP 调用时，我们都使用该库。接下来，我们将为应用创建组件。
 
 ## 第八步 —— 创建可复用的组件
 
@@ -989,7 +988,7 @@ export default {
 
 在这个文件的 `<script>` 部分中，我们创建了一个名为 `fetchPosts()` 的方法来从数据库获取所有的文章，并使用服务器返回的数据更新页面。
 
-现在，我们将更新前端应用的 `App` 组件，以便创建到 `Home` 组件和  `Create` 组件的链接。打开 `src/App.vue`，用以下内容更新它：
+现在，我们将更新前端应用的 `App` 组件，以便创建到 `Home` 组件和 `Create` 组件的链接。打开 `src/App.vue`，用以下内容更新它：
 
 ~blog-frontend/src/App.vue
 
