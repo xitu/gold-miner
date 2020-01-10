@@ -7,7 +7,7 @@
 
 # 如何用 Nest.js、MongoDB 和 Vue.js 搭建一个博客
 
-### 概述
+## 概述
 
 [Nest.js](https://nestjs.com/) 是一个可扩展的服务端 JavaScript 框架。它使用 TypeScript 构建，所以它依然与 JavaScript 兼容，这使得它成为构建高效可靠的后端应用的有效工具。它还具有模块化结构，可为 Node.js 开发环境提供一个成熟的结构化的设计模式。
 
@@ -32,7 +32,7 @@
 
 在本节中，我们先在本地安装 Nest.js 及其所需依赖。您可以使用 Nest.js 提供的 [CLI](https://docs.nestjs.com/cli/overview) 轻松地安装 Nest.js，也可以从 GitHub 上的入门项目安装。就本教程而言，我们将使用 CLI 来初始化应用。首先，在终端运行以下命令，以便在您的机器上全局安装它：
 
-```
+```sh
 npm i -g @nestjs/cli
 ```
 
@@ -45,7 +45,7 @@ added 220 packages from 163 contributors in 49.104s
 
 要确认已完成 Nest CLI 的安装，请在终端上运行此命令：
 
-```
+```sh
 nest --version
 ```
 
@@ -59,7 +59,7 @@ Output5.8.0
 
 要开始本教程的项目，请在终端中使用 `nest` 命令运行以下命令行来构建名为 `blog-backend` 的新 Nest.js 项目：
 
-```
+```sh
 nest new blog-backend
 ```
 
@@ -73,13 +73,13 @@ nest new blog-backend
 
 接下来，从终端导航到新的项目文件夹：
 
-```
+```sh
 cd blog-backend
 ```
 
 运行以下命令以安装其他服务依赖项：
 
-```
+```sh
 npm install --save @nestjs/mongoose mongoose
 ```
 
@@ -87,7 +87,7 @@ npm install --save @nestjs/mongoose mongoose
 
 现在，使用以下命令启动应用：
 
-```
+```sh
 npm run start
 ```
 
@@ -103,13 +103,13 @@ npm run start
 
 要启动 MongoDB，首先打开一个单独的终端，使应用可以继续运行，然后执行以下命令：
 
-```
+```sh
 sudo mongod
 ```
 
 这将启动 MongoDB 服务并在您机器的后台运行数据库。
 
-在文本编辑器中打开 `blog-backend` 项目，定位到 `./src/app.module.ts` 文件。我们可以通过在根  `ApplicationModule` 中已安装的 `MongooseModule` 来建立到数据库的连接。需要添加以下几行代码来更新 `app.module.ts`  中的内容：
+在文本编辑器中打开 `blog-backend` 项目，定位到 `./src/app.module.ts` 文件。我们可以通过在根 `ApplicationModule` 中已安装的 `MongooseModule` 来建立到数据库的连接。需要添加以下几行代码来更新 `app.module.ts`  中的内容：
 
 ~/blog-backend/src/app.module.ts
 
@@ -138,21 +138,19 @@ export class AppModule { }
 在这一步, 我们将使用 Mongoose 为数据库创建 **schema**，**接口**和**数据传输对象**。Mongoose 帮助我们管理数据之间的关系，并提供数据类型的 schema 验证。为了更好的定义应用中数据库里数据结构和数据类型，我们将创建文件，以确定以下内容：
 
 * **数据库 schema**： 这是一种数据组织，它是定义数据库需要存储的数据结构和类型的蓝图。
-    
 * **接口**：TypeScript 接口用于类型检查。它可以用来定义在应用中传递的数据的类型。
-    
 * **数据传输对象**： 这个对象定义了数据是以何种形式通过网络发送的以及如何在进程之间进行传输的。
     
 
 首先, 回到当前应用运行的终端，使用 `CTRL + C` 停止进程，跳转至 `./src/` 文件夹：
 
-```
+```sh
 cd ./src/
 ```
 
 然后，创建一个名为 `blog` 的目录，并在其中创建一个 `schemas` 文件夹：
 
-```
+```sh
 mkdir -p blog/schemas
 ```
 
@@ -178,13 +176,13 @@ export const BlogSchema = new mongoose.Schema({
 
 首先，回到 `blog` 文件夹：
 
-```
+```sh
 cd ~/blog-backend/src/blog/
 ```
 
 创建一个名为 `interfaces` 的新文件夹，并跳转至文件夹内：
 
-```
+```sh
 mkdir interfaces
 ```
 
@@ -212,13 +210,13 @@ export interface Post extends Document {
 
 定位到 `blog` 文件夹：
 
-```
+```sh
 cd ~/blog-backend/src/blog/
 ```
 
 然后创建一个名为 `dto` 的文件夹并跳转到该文件夹：
 
-```
+```sh
 mkdir dto
 ```
 
@@ -252,7 +250,7 @@ Nest.js 中的**模块**由 `@Module()` 装饰器标识，并接受有 `controll
 
 我们将为这个博客应用生成一个新模块，使结构更有组织。首先，仍然在 `~/blog-backend` 文件夹中，执行以下命令：
 
-```
+```sh
 nest generate module blog
 ```
 
@@ -283,7 +281,7 @@ export class BlogModule {}
 
 **服务**（在 Nest.js 中也称它为 provider）的意义在于从仅应处理 HTTP 请求的控制器中移除业务逻辑，并会将更复杂的任务重定向到其他的服务类。服务是普通的 JavaScript 类，在它们的代码上方会带有 `@Injectable()` 装饰器。要生成新服务，请在该项目目录下终端运行以下命令：
 
-```
+```sh
 nest generate service blog
 ```
 
@@ -297,7 +295,7 @@ CREATE /src/blog/blog.service.ts (88 bytes)
 UPDATE /src/blog/blog.module.ts (529 bytes)
 ```
 
-这里通过 `nest` 命令创建了一个 `blog.service.spec.ts` 文件，我们可以使用它进行测试。它还创建了一个新的 `blog.service.ts` 文件，它将保存这个应用的所有逻辑，并处理向 MongoDB 数据库的添加和检索 document。此外，它还会自动导入新创建的服务并将其添加到 blog.module.ts 中。
+这里通过 `nest` 命令创建了一个 `blog.service.spec.ts` 文件，我们可以使用它进行测试。它还创建了一个新的 `blog.service.ts` 文件，它将保存这个应用的所有逻辑，并处理向 MongoDB 数据库的添加和检索 document。此外，它还会自动导入新创建的服务并将其添加到 `blog.module.ts` 中。
 
 服务处理应用中所有的逻辑，负责与数据库交互，并将合适的响应返回给控制器。为此，在文本编辑器中打开`blog.service.ts` 文件，并将内容替换为以下内容：
 
@@ -369,7 +367,7 @@ export class BlogService {
 
 为了满足博客应用的所有 HTTP 请求，我们将利用 `nest` 命令生成一个新的控制器文件。首先确保您仍然在项目目录，`blog-backend`，然后运行以下命令：
 
-```
+```sh
 nest generate controller blog
 ```
 
@@ -431,9 +429,7 @@ export class BlogController {
 最后，我们创建了以下这些异步方法：
 
 * `getPosts()`： 这个方法将执行从客户端接收 HTTP GET 请求时从数据库中获取所有文章，然后返回适当的响应的功能。它用 `@Get('posts')` 装饰。
-    
 * `getPost()`： 这将以 `postID` 作为参数，从数据库中获取一篇文章。除了传递给这个方法的 `postID` 参数之外，还实现了一个名为 `ValidateObjectId()` 的额外方法。这个方法实现了 Nest.js 中的 `PipeTransform` 接口。它是用于验证并确保可以在数据库中找到 `postID` 参数。我们将在下一节中定义这个方法。
-    
 * `addPost()`： 这个方法将处理 HTTP POST 请求，以便向数据库添加新的文章。
 
 为了能够编辑和删除特定的文章，我们需要在 `blog.controller.ts` 文件中添加两个以上的方法。我们需要，在之前添加到 `blog.controller.ts` 的 `addPost()` 方法后，直接加上 `editPost()` 和 `deletePost()` 方法：
@@ -475,9 +471,7 @@ export class BlogController {
 这里解释一下我们到底添加了什么：
 
 * `editPost()`： 这个方法接受 `postID` 的查询参数，并执行更新一篇文章的功能。它还利用  `ValidateObjectId` 方法为您需要编辑文章提供适当的认证。
-    
 * `deletePost()`： 这个方法将接受 `postID` 的查询参数，并从数据库中删除特定的文章。
-    
 
 与 `BlogController` 类似，这里定义的每个异步方法都有一个元数据装饰器，并且包含一个 Nest.js 中用于路由机制的前缀。它控制每个控制器接收的请求，以及分别指向应该处理请求和返回的响应方法。
 
@@ -495,13 +489,13 @@ export class BlogController {
 
 要配置它，请定位到 `./src/blog` 文件夹：
 
-```
+```sh
 cd ./src/blog/
 ```
 
 然后，创建一个名为 `shared` 的新文件夹：
 
-```
+```sh
 mkdir -p shared/pipes
 ```
 
@@ -529,7 +523,7 @@ export class ValidateObjectId implements PipeTransform<string> {
 
 ~/blog-backend/src/blog/blog.module.ts
 
-```
+```ts
 import { Module } from '@nestjs/common';
 import { BlogController } from './blog.controller';
 import { BlogService } from './blog.service';
@@ -558,7 +552,7 @@ export class BlogModule { }
 
 ~/blog-backend/src/main.ts
 
-```
+```ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -580,13 +574,13 @@ bootstrap();
 
 首先，您需要在您的机器上全局安装 Vue CLI 。打开另一个终端，注意路径不是在 `blog-backend` 文件夹，而是在本地项目的 development 文件夹，然后运行：
 
-```
+```sh
 npm install -g @vue/cli
 ```
 
 一旦安装过程完成，我们将利用 `vue` 命令创建一个新的 Vue.js 项目：
 
-```
+```sh
 vue create blog-frontend
 ```
 
@@ -602,13 +596,13 @@ Vue.js 将开始在一个名为 `blog-frontend` 的目录中创建应用及其�
 
 安装过程完成后，在 Vue.js 应用中定位到：
 
-```
+```sh
 cd blog-frontend
 ```
 
 然后，使用以下命令启动服务器：
 
-```
+```sh
 npm run serve
 ```
 
@@ -618,7 +612,7 @@ npm run serve
 
 由于我们将在此应用中执行 HTTP 请求，因此需要安装 axios，这是一种基于 Promise 的浏览器 HTTP 客户端。这里将使用 axios 执行来自应用中不同组件的 HTTP 请求。在您的计算机的终端上按 `CTRL + C` 终止前端应用，然后运行以下命令：
 
-```
+```sh
 npm install axios --save
 ```
 
@@ -626,13 +620,13 @@ npm install axios --save
 
 首先，将仍然位于博客前端的终端中，定位到 `./src/` 文件夹：
 
-```
+```sh
 cd ./src/
 ```
 
 创建另一个名为 `utils` 的文件夹：
 
-```
+```sh
 mkdir utils
 ```
 
@@ -640,7 +634,7 @@ mkdir utils
 
 ~blog-frontend/src/utils/helper.js
 
-```
+```js
 export const server = {
 
 baseURL: 'http://localhost:3000'
@@ -659,17 +653,14 @@ baseURL: 'http://localhost:3000'
 每个 Vue.js 组件都包含三个不同的部分：
 
 * `<template>`：包含着 HTML 内容
-    
 * `<script>`：包含所有基本的前端逻辑并定义函数
-    
 * `<style>`：每个组件的单独样式表
-    
 
 首先，我们将创建一个用来创建文章的组件。我们需要在 `./src/components` 文件夹中创建一个名为 `post` 的新文件夹，这个文件夹中存放有关文章的必要的可重用组件。然后使用文本编辑器在新创建的 `post` 文件夹中创建另一个文件并将其命名为 `Create.vue`。打开这个文件并添加以下代码，这段代码告诉了我们提交文章所需的输入字段：
 
 ~blog-frontend/src/components/post/Create.vue
 
-```
+```vue
 <template>
    <div>
         <div class="col-md-12 form-wrapper">
@@ -757,7 +748,7 @@ export default {
 
 ~blog-frontend/src/components/post/Edit.vue
 
-```
+```vue
 <template>
 <div>
       <h4 class="text-center mt-20">
@@ -915,7 +906,7 @@ export default {
 
 ~blog-frontend/src/views/Home.vue
 
-```
+```vue
 <template>
     <div>
 
@@ -1002,7 +993,7 @@ export default {
 
 ~blog-frontend/src/App.vue
 
-```
+```vue
 <template>
   <div id="app">
     <div id="nav">
