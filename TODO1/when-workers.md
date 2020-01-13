@@ -21,19 +21,19 @@
 
 从 [Geekbench](https://browser.geekbench.com/ios-benchmarks) 获得的基准测试分数（单核）。
 
-然而，这仅仅是真实情况的其中一个部分。 ****低阶的**的手机还留在 2014 年。** 用于制作 5 年前的芯片的流程已经变得非常便宜，以至于手机能够以大约 20 美元的价格卖出，同时便宜的手机能吸引更广的人群。 全世界大约有 50% 的人能接触到网络，同时也意味着还有大约 50% 的人没有。 然而， 这些还没上网的人也**正在**去上网的路上并且主要是在新兴市场， 那里的人买不起 [有钱的西方网络（Wealthy Western Web）](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/) 的旗舰手机。
+然而，这仅仅是真实情况的其中一个部分。 ****低阶的** 的手机还留在 2014 年。** 用于制作 5 年前的芯片的流程已经变得非常便宜，以至于手机能够以大约 20 美元的价格卖出，同时便宜的手机能吸引更广的人群。 全世界大约有 50% 的人能接触到网络，同时也意味着还有大约 50% 的人没有。 然而， 这些还没上网的人也**正在**去上网的路上并且主要是在新兴市场， 那里的人买不起 [有钱的西方网络（Wealthy Western Web）](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/) 的旗舰手机。
 
-在 Google I/O 2019， [Elizabeth Sweeny](https://twitter.com/egsweeny) 与 [Barb Palser](https://twitter.com/barb_palser) handed out Nokia 2 phones at a partner meeting and encouraged them to use it for a week to **really** get a feel for what class of device many people in the world use on a daily basis. The Nokia 2 is interesting because it looks and feels like a high-end phone but under the hood it is more like a smartphone from half a decade ago with a browser and an OS from today — and you can feel that mismatch.
+在 Google I/O 2019 大会期间， [Elizabeth Sweeny](https://twitter.com/egsweeny) 与 [Barb Palser](https://twitter.com/barb_palser) 在一个合作伙伴会议上拿出了 Nokia 2 并鼓励合作伙伴去使用它一个星期，去**真正**感受一下这个世界上很多人日常是在用什么级别的设备。 Nokia 2 是很有意思的，因为它看起来有一种高端手机的感觉但是在外表下面它更像是一台有着今天的浏览器和操作系统的来自 5 年前的智能手机 —— 你能感受到这份不协调。
 
-To make things even more extreme, feature phones are making a comeback. Remember the phones that didn’t have a touch screen but instead come with number keys and a D-Pad? Yeah, those are coming back and now they run a browser. These phones have even weaker hardware but, maybe somewhat surprisingly, better performance. That’s partly because they have considerably less pixels to control. Or to say it another way: relative to the Nokia 2, they have more CPU power per pixel.
+让事情变得更加极端的是，功能手机正在回归。记得哪些没有触摸屏，相反有着数字键和十字键的手机吗？是的，它们正在回归并且现在它们运行着一个浏览器。 这些手机有着更弱的硬件，但令人惊讶的是，也有着更好的性能。部分原因是它们只需要控制更少的像素。或者换另一种说法，对比 Nodia 2，它们有更高的 CPU 性能 - 像素比。
 
-![A picture of Paul playing PROXX on the Nokia 8110](https://dassur.ma/banana-5c71e1f7.jpg)
+![一张保罗正在使用 Nokia 8110 玩 PROXX 的照片](https://dassur.ma/banana-5c71e1f7.jpg)
 
-The Nokia 8110, or “Banana phone”
+Nokia 8110， 或者说“香蕉手机”
 
-While we are getting faster flagship phones every cycle, the vast majority of people can’t afford these. The more affordable phones are stuck in the past and have highly fluctuating performance metrics. These low-end phones will mostly likely be used by the massive number of people coming online in the next couple of years. **The gap between the fastest and the slowest phone is getting wider, and the median is going **down**.**
+当我们每个周期都能拿到更快的旗舰手机的同时，大部分人负担不起这些手机。更便宜的手机还留在过去并有着高度波动的性能指标。在接下来的几年里，这些低端手机更有可能被大量的人民用来上网。 **最快的手机与最慢的手机之间的差距正在变大， 中位数在 **减少**。**
 
-![A stacked bar graph showing the increasing portion occupied of low-end mobile users amongst all online users.](https://dassur.ma/demographic-4c15c204.svg)
+![一个堆叠柱状图展示了低端手机用户占所有手机用户的比例在不断增加。](https://dassur.ma/demographic-4c15c204.svg)
 
 The median of mobile phone performance is going down, the fraction of people using low-end mobile phones amongst all online users is going up. **This is not real data, just a visualization.** I heavily extrapolated from population growth data of the western world and emerging markets as well as making some educated guesses who owns high-end mobile phones.
 
