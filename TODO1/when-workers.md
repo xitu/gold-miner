@@ -2,28 +2,28 @@
 > * 原文作者：[Surma](https://dassur.ma/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-workers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-workers.md)
-> * 译者：
+> * 译者：[weibinzhu](https://github.com/weibinzhu)
 > * 校对者：
 
-# When should you be using Web Workers?
+# 在什么时候需要使用 Web Workers？
 
-You should always use Web Workers. And in our current landscape of frameworks it’s virtually impossible.
+你应该在什么时候都使用 Web Workers。 与此同时在我们当前的框架世界中，这几乎不可能。
 
-Did I get your attention with that? Good. Of course, as with any topic, there is nuance and I will lay that all out. But I have opinions, and they are important. Buckle up.
+我这么说吸引到你的注意吗？ 很好。 当然对于任何一个主题，都会有其精妙之处，我会将他们都展示出来。 但我会有自己的观点，并且它们很重要。 系紧你的安全带，我们马上出发。
 
-## The Performance Gap is widening
+## 性能差异正在扩大
 
-> **Note:** I hate the “emerging markets” terminology, but to makes this blog post intuitive to as many people as possible, I’ll be using it here.
+> **注意：** 我讨厌“新兴市场”这个词， 但是为了让这篇博客尽可能地通俗易懂，我会在这里使用它。
 
-Phones are getting faster. I don’t think anyone will disagree with that. Stronger GPUs, faster and more CPUs, more RAM. Phones are going through the same rapid development desktop machines did in the early 2000s.
+手机正变得越来越快。 我想不会有人不同意。更强大的 GPU，更快并且更多的 CPU，更多的 RAM。手机正经历与 2000 年代早期桌面计算机经历过的一样的快速发展时期。
 
-![A graph showing the always increasing geekbench scores from iPhone 4 to iPhone X](https://dassur.ma/iphone-scores-89f089e4.svg)
+![图片展示了从 iPhone 4 到 iPhone X 的不断上涨的 geekbench 分数](https://dassur.ma/iphone-scores-89f089e4.svg)
 
-Benchmark scores taken from [Geekbench](https://browser.geekbench.com/ios-benchmarks) (single-core).
+从 [Geekbench](https://browser.geekbench.com/ios-benchmarks) 获得的基准测试分数（单核）。
 
-However, that’s just one edge of the distribution. ****Slow** phones are stuck in 2014.** The process to create the chips from half a decade ago has gotten so cheap that phones can now be sold for around $20, and cheaper phone will reach a wider audience. ~50% of the world are online, meaning that the other ~50% are not. However, these offliners are **coming** online and are predominantly located in emerging markets, where people simply can’t afford any of the [Wealthy Western Web](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/) flagship phones.
+然而，这仅仅是真实情况的其中一个部分。 ****低阶的**的手机还留在 2014 年。** 用于制作 5 年前的芯片的流程已经变得非常便宜，以至于手机能够以大约 20 美元的价格卖出，同时便宜的手机能吸引更广的人群。 全世界大约有 50% 的人能接触到网络，同时也意味着还有大约 50% 的人没有。 然而， 这些还没上网的人也**正在**去上网的路上并且主要是在新兴市场， 那里的人买不起 [有钱的西方网络（Wealthy Western Web）](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/) 的旗舰手机。
 
-At Google I/O 2019, [Elizabeth Sweeny](https://twitter.com/egsweeny) and [Barb Palser](https://twitter.com/barb_palser) handed out Nokia 2 phones at a partner meeting and encouraged them to use it for a week to **really** get a feel for what class of device many people in the world use on a daily basis. The Nokia 2 is interesting because it looks and feels like a high-end phone but under the hood it is more like a smartphone from half a decade ago with a browser and an OS from today — and you can feel that mismatch.
+在 Google I/O 2019， [Elizabeth Sweeny](https://twitter.com/egsweeny) 与 [Barb Palser](https://twitter.com/barb_palser) handed out Nokia 2 phones at a partner meeting and encouraged them to use it for a week to **really** get a feel for what class of device many people in the world use on a daily basis. The Nokia 2 is interesting because it looks and feels like a high-end phone but under the hood it is more like a smartphone from half a decade ago with a browser and an OS from today — and you can feel that mismatch.
 
 To make things even more extreme, feature phones are making a comeback. Remember the phones that didn’t have a touch screen but instead come with number keys and a D-Pad? Yeah, those are coming back and now they run a browser. These phones have even weaker hardware but, maybe somewhat surprisingly, better performance. That’s partly because they have considerably less pixels to control. Or to say it another way: relative to the Nokia 2, they have more CPU power per pixel.
 
