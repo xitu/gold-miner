@@ -35,30 +35,31 @@ Nokia 8110， 或者说“香蕉手机”
 
 ![一个堆叠柱状图展示了低端手机用户占所有手机用户的比例在不断增加。](https://dassur.ma/demographic-4c15c204.svg)
 
-The median of mobile phone performance is going down, the fraction of people using low-end mobile phones amongst all online users is going up. **This is not real data, just a visualization.** I heavily extrapolated from population growth data of the western world and emerging markets as well as making some educated guesses who owns high-end mobile phones.
+手机性能的中位数在降低，人们使用低端手机的比例则在升高。 **这不是一个真实的数据，只是为了直观展现。** 我是根据西方世界和新兴市场的人口增长数据以及对谁会拥有高端手机的猜测推断出来的。
 
-## JavaScript is blocking
+## JavaScript 是阻塞的
 
-Maybe it’s worth spelling it out: The bad thing about long-running JavaScript is that it’s blocking. Nothing else can happen while JavaScript is running. **The main thread has other responsibilties in addition to running a web app’s JavaScript.** It also has to do page layout, paint, ship all those pixels to the screen in a timely fashion and look out for user interactions like clicking or scrolling. All of these can’t happen while JavaScript is running.
+也许值得解释清楚：长时间运行的 JavaScript 的缺点就是它是阻塞的。JavaScript 在运行的时候没有别的事情可以做。 **除了运行一个网页应用的 JavaScript 以外，主线程还有别的指责。** 它也需要渲染页面，在恰当的时候将所有像素展示在屏幕上，并且监听诸如点击或者滑动这样的用户交互。 在 JavaScript 运行的时候这些都不能发生。
 
-Browsers have shipped some mitigations for this, for example by moving the scrolling logic to a different thread under certain conditions. In general, however, if you block the main thread, your users will have a bad time. Like **bad**. They will be rage-tapping your buttons, they will be tortured by janky animations and potentially laggy scrolling.
+浏览器已经对此做了一些缓解措施，例如在某些情况下会把滚动逻辑放到不同的线程。不过整体而言，如果你阻塞了主线程，那么你的用户将会有**很差**的体验。他们会愤怒地点击你的按钮，被卡顿的动画与滚动所折磨。
 
-## Human perception
+## 人类的感知
 
-How much blocking is too much blocking? [RAIL](https://developers.google.com/web/fundamentals/performance/rail) is one attempt at answering that question by providing you with time-based budgets for different tasks based on human perception. For example, you have ~16ms until the next frame needs to get rendered to make animations feel smooth to the human eye. **These numbers are fixed**, because human psychology doesn’t change depending on what device you are holding.
+多少的阻塞才算过多的阻塞？[RAIL](https://developers.google.com/web/fundamentals/performance/rail)通过给不同的任务提供基于人类感知的时间预算来尝试回答这个问题。比如说，为了让人眼感到动画流畅，在下一帧被渲染之前你要有大约 16 毫秒的间隔。**这些数字是固定的**，因为人类心理学不会因为你所拿着的设备而改变。
 
-Looking at The Widening Performance Gap™️, this spells trouble. You can build your app, do your due diligence and do performance audits, fix all bottlenecks and hit all the marks. **But unless you are developing on the slowest low-end phone available, it is almost impossible to predict how long a piece of code will take on the slowest phone today, let alone the slowest phone tomorrow.**
+看一下 The Widening Performance Gap™️。你可以构建你的 app，做你的尽职调查以及性能分析，解决所有的瓶颈并达成所有目标。**但是除非你是在最低端的手机上开发，不然是无法预测一段代码在如今最低端手机上要运行多久，更不要说未来的最低端手机。**
 
-That is the burden of the web with its unparalleled reach. You can’t predict what class of device your app will be running on. If you say “Surma, these underpowered devices are not relevant to me/my business!”, it strikes me as awfully similar to “People who rely on screenreaders are not relevant to me/my business!”. **It’s a matter of inclusivity. I encourage you to **really** think if you are excluding people by not supporting low-end phones.** We should strive to allow every person to have access to the world’s information, and your app is part of that, whether you like it or not.
+这就是由不一样的水平带给 web 的负担。你无法预测你的 app 将会运行在什么级别的设备上。你可以说“Sura，这些性能低下的手机与我/我的生意无关！”，但对我来讲，这如同“那些依赖屏幕阅读器的人与我/我的生意无关！”一样的恶心。**这是一个包容性的问题。我建议你 **仔细** 想想，是否正在通过不支持低端手机来排除掉某些人群。**我们应该努力使每一个人都能获取到这个世界的信息，而不管喜不喜欢，你的 app 正是其中的一部分。
 
-That being said, a blog post like this can never give guidance that applies to everyone, because there is always nuance and context. This applies to the paragraph above as well. I won’t pretend that either accessibility or writing for low-end phones is easy, but I do believe that there is a lot of things we can do as a community of tooling and framework authors to set people up the right way, to make their work more accessible and more performant by default, which will also make it more inclusive by default.
+话虽如此，由于涉及到很多术语和背景知识，本博客无法给所有人提供指导。上面的那些段落也一样。我不会假装无障碍访问或者给低端手机编程是一件容易的事，但我相信作为一个工具社区和框架作者还是有很多事情可以去做，去以正确的方式帮助人们，让他们的成果默认就更具无障碍性并且性能更好，默认就更加包容。
 
-## Fixing it
+## 解决它
 
-Here we are, trying to build castles in the shifting sands. Trying to build apps that stay within the RAIL time budgets, but for a vast variety of devices where the duration for a piece of code is practically unpredictable.
+好了，尝试从沙子开始建造城堡。尝试去制作那些能在各种各样的，你都无法预测一段在代码在上面需要运行多久的设备上都能保持符合 RAIL 的时间预算的 app。
 
-### Being cooperative
+### 共同合作
 
+一个解决阻塞的方式是“分割你的 JavaScript”或者说是“让渡给浏览器”。意思是通过在代码添加一些固定时间间隔的**断点**来给浏览器一个暂停运行你的 JavaScript 的机会
 One technique to diminish blocking is “chunking your JavaScript” or “yielding to the browser”. What this means is adding **breakpoints** to your code at regular intervals which give the browser a chance to stop running your JavaScript and ship a new frame or process an input event. Once the browser is done, it will go back to running your code. The way to yield to the browser on the web platform is to schedule a task, which can be done in a variety of ways.
 
 > **Required reading:** If you are not familiar with tasks and/or the difference between a task and a microtask, I recommend [Jake Archibald](https://twitter.com/jaffathecake)’s [Event Loop Talk](https://www.youtube.com/watch?v=cCOL7MC4Pl0).
