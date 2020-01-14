@@ -59,12 +59,11 @@ Nokia 8110， 或者说“香蕉手机”
 
 ### 共同合作
 
-一个解决阻塞的方式是“分割你的 JavaScript”或者说是“让渡给浏览器”。意思是通过在代码添加一些固定时间间隔的**断点**来给浏览器一个暂停运行你的 JavaScript 的机会
-One technique to diminish blocking is “chunking your JavaScript” or “yielding to the browser”. What this means is adding **breakpoints** to your code at regular intervals which give the browser a chance to stop running your JavaScript and ship a new frame or process an input event. Once the browser is done, it will go back to running your code. The way to yield to the browser on the web platform is to schedule a task, which can be done in a variety of ways.
+一个解决阻塞的方式是“分割你的 JavaScript”或者说是“让渡给浏览器”。意思是通过在代码添加一些固定时间间隔的**断点**来给浏览器一个暂停运行你的 JavaScript 的机会然后去渲染下一帧或者处理一个输入事件。一旦浏览器完成这些工作，它就会回去执行你的代码。这种在 web 应用上让渡给浏览器的方式就是安排一个宏任务，而这可以通过多种方式实现。
 
-> **Required reading:** If you are not familiar with tasks and/or the difference between a task and a microtask, I recommend [Jake Archibald](https://twitter.com/jaffathecake)’s [Event Loop Talk](https://www.youtube.com/watch?v=cCOL7MC4Pl0).
+> **必要的阅读：** 如果你对宏任务或者宏任务与微任务的区别，我推荐你去阅读 [Jake Archibald](https://twitter.com/jaffathecake) 的[谈谈事件循环](https://www.youtube.com/watch?v=cCOL7MC4Pl0)。
 
-In PROXX, we used a `MessageChannel` and use `postMessage()` to schedule a task. To keep the code readable when adding breakpoints, I strongly recommend using `async`/`await`. Here’s what we actually shipped in [PROXX](https://proxx.app), where we generate sprites in the background while the user is interacting with the home screen of the game.
+在 PROXY，我们使用一个 `MessageChannel` 并且使用 `postMessage()` 去安排一个宏任务。为了在添加断点之后代码仍能保持可读性，我强烈推荐使用 `async/await`。在 [PROXX](https://proxx.app) 上，用户在首页与游戏交互的同时，我们在后台生成精灵。
 
 ```js
 const { port1, port2 } = new MessageChannel();
@@ -94,13 +93,13 @@ export async function generateTextures() {
 }
 ```
 
-But **chunking still suffers from the influence of The Widening Performance Gap™️**: The time a piece of code takes to reach the next break point is inherently device-dependent. What takes less than 16ms on one low-end phone, might take considerably more time on another low-end phone.
+但是**分割依旧受到 The Widening Performance Gap™️ 的影响：**一段代码运行到下一个断点的时间是取决于设备的。在一台低端手机上耗时小于 16 毫秒，但在另一台低端手机上也许就会耗费更多时间。
 
-## Off the main thread
+## 移出主线程
 
-I said before that the main thread has other responsibilities in addition to running a web app’s JavaScript, and that’s the reason why we need to avoid long, blocking JavaScript on the main thread at all costs. But what if we moved most of our JavaScript to a thread that is **dedicated** to run our JavaScript and nothing else. A thread with no other responsibilities. In such a setting we wouldn’t have to worry about our code being affect by The Widening Performance Gap™️ as the main thread is unaffected and still able to respond to user input and keep the frame rate stable.
+我之前说过，主线程除了执行网页应用的 JavaScript 以外，还有别的一些职责。而这就是为什么我们要不惜代价避免长的，阻塞的 JavaScript 在主线程。但假如说我们把大部分的 JavaScript 移动到一条**专门**用来运行我们的 JavaScript，除此之外不做别的事情的线程中呢。一条没有其他职责的线程。在这样的情况下，我们不需要担心我们的代码受到The Widening Performance Gap™️ 的影响，因为主线程不会收到影响，依然能处理用户输入并保持帧率稳定。
 
-### What are Web Workers again?
+### Web Workers 是什么？
 
 **[Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker), also called “Dedicated Workers”, are JavaScript’s take on threads.** JavaScript engines have been built with the assumption that there is a single thread, and consequently there is no concurrent access JavaScript object memory, which absolves the need for any synchronization mechanism. If regular threads with their shared memory model got added to JavaScript it would be disastrous to say the least. Instead, we have been given [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker), which are basically an entire JavaScript scope running on a separate thread, without any shared memory or shared values. To make these completely separated and isolated JavaScript scopes work together you have [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage), which allows you to trigger a `message` event in the **other** JavaScript scope together with the copy of a value you provide (copied using the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm)).
 
