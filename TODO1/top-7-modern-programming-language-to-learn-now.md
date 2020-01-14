@@ -2,105 +2,103 @@
 > * 原文作者：[Md Kamaruzzaman](https://medium.com/@md.kamaruzzaman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/top-7-modern-programming-language-to-learn-now.md](https://github.com/xitu/gold-miner/blob/master/TODO1/top-7-modern-programming-language-to-learn-now.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
+> * 校对者：[impactCn](https://github.com/impactCn)、[司徒公子](https://github.com/todaycoder001)
 
-# Top 7 Modern programming languages to learn now
+# 现在就该学习的 7 门现代编程语言
 
-> How Rust, Go, Kotlin, TypeScript, Swift, Dart, Julia can boost your career and improve your software development skills
+> 来看看 Rust、Go、Kotlin、TypeScript、Swift、Dart、Julia 能如何促进你的职业生涯发展，提升你的软件开发技能
 
-![Photo by [h heyerlein](https://unsplash.com/@heyerlein?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/future?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6000/1*sY77VQEyI1Dbm_RnO0bxIA.jpeg)
+![图片来自于 [Unsplash](https://unsplash.com/s/photos/future?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 作者 [h heyerlein](https://unsplash.com/@heyerlein?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6000/1*sY77VQEyI1Dbm_RnO0bxIA.jpeg)
 
-If we think about modern human civilization as a car, then the software development industry is like the engine of the car and programming languages are like fuel to the engine. **Which programming language should you learn?**
+如果我们把人类现代文明比做一辆车，那么软件开发行业就像汽车的发动机，编程语言就像发动机的燃料。**你该学习哪门编程语言呢**？
 
-Learning a new programming language is a big investment in **time, energy, and brainpower**. But learning a new Programming language can improve your Software development skillset and give you career boost as I have written in a separate Blog post:
-[**5 reasons to learn a new Programming Language in 2020**
-**Learn a new programming language to boost your career and skillset**medium.com](https://medium.com/@md.kamaruzzaman/5-reasons-to-learn-a-new-programming-language-in-2020-bfc9a4b9a763)
+学习一门新的编程语言需要投入大量**时间、精力和脑力**。但是，就如我在另一篇文章中所写，学习一门新的编程语言能够提升你的编程技能，加速你的职业发展
+[**2020 年学一门新的编程语言的五大理由**](https://medium.com/@md.kamaruzzaman/5-reasons-to-learn-a-new-programming-language-in-2020-bfc9a4b9a763)
 
-Usually, choose a programming language that gives you a boost in your career. Also, learn a language whose popularity is ascending. This means that you should learn established and hugely popular programming languages.
 
-I have huge respect in mainstream programming languages. But here I will give you **a list of modern programming languages that can improve your productivity, boost your career, and make you a better developer**. Also, I will cover **a wide variety of domains: system programming, app development, web development, scientific computing**.
+一般来讲，我们需要选择一门对你职业发展有益的编程语言。与此同时，我们也需要选择受欢迎程度正在上升的语言。这意味着你应该选择较成熟的、广受好评的语言来学习。
+
+我很尊敬主流编程语言。但在这篇文章中我将推荐给你**一系列能够提高生产力、助你升职加薪、成为更优秀的开发者的现代编程语言**。同时，我会涉及到**许多领域：系统编程、app 开发、web 开发、科学计算**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Jzzxrhl0uGWD1USctYOzyg.jpeg)
 
-The term “**Modern programming language**” is ambiguous. Many consider languages like Python, JavaScript as modern programming languages. At the same time, they consider Java as an Old programming language. In reality, all of them appeared around the same time: **1995**.
+**现代编程语言**这一术语定义比较模糊。许多人认为如 Python、JavaScript 这样的语言是现代编程语言，认为 Java 是比较老的语言。而实际上，他们问世的时间都在 1995 年前后。
 
-Most of the mainstream programming languages were developed in the last century, mainly in the **1970s (e.g. C), 1980s (e.g. C++), 1990s (e.g. Java, Python, JavaScript)**. These languages were not designed to take advantage of modern-day software development ecosystems: **Multi-Core CPU, GPU, fast networking, mobile devices, Container, and Cloud**. Although many of them have **retrofit features like Concurrency** in their language and adapted themselves, they also offer Backward compatibility and could not throw away the old, obsolete features.
+多数主流编程语言都是在上个世纪开发的，主要在**七十年代（例如 C 语言）、八十年代（如 C++）和九十年代（如 Java、Python 和 JavaScript）**。这些语言的设计方式，不能很好利用现代软件开发的生态系统：**多核 CPU、GPU、高速网络、移动设备、容器和云端**。尽管它们中的很多语言都有**诸如并发一类的改进特性**，并在不断适应新时代，但是他们也需要向下兼容，因此无法抛弃老旧过时的特性。
 
-Python did a Good job (or Bad depending on the context) by making a clear cut between Python 2 and Python 3. Those languages **often offer 10 ways to do the same things and do not care about developer ergonomics**. According to the StackOverflow developer survey, most of the mainstream old programming languages share top spots in the “**most dreaded language**” category:
+在这一方面，Python 在 Python 2 和 Python 3 之间就划分得很清楚，做得很好（或者很差，这取决于上下文）。这些语言**通常提供 10 种方式来做同样的事情，这对开发者很不友好**根据 StackOverflow 上的一个调查，主流的比较老的编程语言在 **最令人望而生畏的编程语言** 中都位居前列：
 
-![Source: [Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*ohNTSynK0hp_v73Y_aEl2A.jpeg)
+![来源：[Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*ohNTSynK0hp_v73Y_aEl2A.jpeg)
 
-I would put a clear boundary between the old and new programming languages is on **June 29, 2007,** when the first iPhone was released. After that, the landscape has transformed. In this list, I will consider **post-2007 programming languages**.
+我认为老编程语言和新的编程语言的界限可以定在 **2007 年 6 月 29 日**，第一代 iPhone 的发布日。在那之后，整个科技产业前景都改变了。我将主要讨论 **2007 年以后的编程语言**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vcX14UokG4fZNdORE4_Q6A.jpeg)
 
-First, **modern programming languages are developed to take the full advantages of modern computer hardware (Multi-Core CPU, GPU, TPU)**, **mobile devices, large-set of data, fast networking, Container, and Cloud**. Also, most of the modern programming languages offer much **higher developer Ergonomics** as given below:
+首先，**现代编程语言开发出来是为了最大化利用现代计算机硬件（多核 CPU、GPU、TPU）、移动设备、大数据、高速互联网、容器和云端的优势**。并且，多数现代编程语言对开发者更加友好，提供了大量如下特性：
 
-* Concise and terse code (less boilerplate coding)
-* Built-in support for concurrency
-* Null pointer safety
-* Type Inference
-* The much simpler feature set
-* Lower cognitive load
-* Blending the best features of all programming paradigms
+* 代码简洁（模板代码更少）
+* 原生支持并发
+* 空指针安全
+* 类型推断
+* 特性更精简
+* 较低的认知负荷
+* 融合所有编程范式的最佳特性
 
-Second, many programming languages of the list are **disruptive and will change the software industry forever**. Some of them are already mainstream programming languages, while others are poised to make the breakthrough. It is wise to learn those languages at least as a second programming language.
+其次，本榜单中的许多编程语言是**颠覆性的，将永远改变软件行业**。他们中有些已经是主流编程语言，而另一些则有望取得突破。至少作为第二编程语言来学习这些语言是明智的。
 
-In a previous blog post: “20 predictions about software development trends in 2020”, I have predicted breakthrough of many modern languages in 2020:
-[**20 Predictions about Software Development trends in 2020**
-**Cloud, Container, Programming, Database, Deep Learning, Software Architecture, Web, App, Batch, Streaming, Data Lake…**towardsdatascience.com](https://towardsdatascience.com/20-predictions-about-software-development-trends-in-2020-afb8b110d9a0)
+在之前发表的文章《关于 2020 年软件开发趋势的 20 项预测》中，我预测了 2020 年会有很多现代编程语言取得突破：[**关于 2020 年软件开发趋势的 20 项预测**](https://towardsdatascience.com/20-predictions-about-software-development-trends-in-2020-afb8b110d9a0)
 
 ---
 
 ## Rust
 
-![Source: [Thoughtram](https://thoughtram.io/rust-and-nickel/#/11)](https://cdn-images-1.medium.com/max/2406/1*fr1Gjc_bt6gB06fUlfQNPQ.jpeg)
+![图片来源：[Thoughtram](https://thoughtram.io/rust-and-nickel/#/11)](https://cdn-images-1.medium.com/max/2406/1*fr1Gjc_bt6gB06fUlfQNPQ.jpeg)
 
-The System programming language landscape is dominated by near-Metal languages like C, C++. Although they give full control over programs and hardware, they lack memory safety. Even if they support concurrency, it is challenging to write Concurrent programs using C/C++ as there is no Concurrency safety. The other popular programming languages are interpreted languages like Java, Python, Haskell. They offer safety but need a bulky runtime or Virtual Machine. Because of their large runtime, languages like Java are not suitable for System programming.
+系统编程语言领域被非常接近硬件层的 C 和 C++ 霸占。它们让你全权控制程序和硬件，但缺少内存安全。就算它们支持并发，用 C 或者 C++ 写并发程序也因没有并发安全而非常困难。其他编程语言是如 Java、Python 和 Haskell 这样的解释型语言。它们安全，但是需要的运行时间很长、或者依赖虚拟机。过长的运行时间使得像 Java 这样的语言不适合系统编程。
 
-**There were many attempts to combine the power of C/C++ and the safety of Haskell, Java**. It looks like Rust is the first production-grade programming language that did the trick.
+**不乏想要结合 C 或 C++ 的强大功能和 Java、Haskell 的安全性的尝试**。Rust 或许是首个成功做到这一点的生产级编程语言。
 
-**Graydon Hoare** first developed Rust as a side project. He was inspired by the research programming language **Cyclone**. Rust is open source and Mozilla is leading the language development along with many other companies and communities. Rust is first released in 2015 and has soon caught the eye of the community. In a previous post, I have taken a deeper look into Rust and argued why it is a better choice to use Rust over C++, Java in Big Data domain:
-[**Back to the metal: Top 3 Programming language to develop Big Data frameworks in 2019**
-**C++, Rust, Go over Java for Data Intensive frameworks**towardsdatascience.com](https://towardsdatascience.com/back-to-the-metal-top-3-programming-language-to-develop-big-data-frameworks-in-2019-69a44a36a842)
+**Graydon Hoare** 起初仅仅将 Rust 作为业余项目开发。他受到用于科研的编程语言 **Cyclone** 的启发。Rust 是开源的，Mozilla 与许多其他公司和社区一起领导 Rust 语言的开发。Rust 在 2015 年首次亮相，并迅速受到社区的关注。在之前一篇文章中，我更加深入地探讨了 Rust 并指出为何在大数据领域它比 C++ 和 Java 更好：
+[**回归硬件：2019 年用于开发大数据框架最好的 3 门编程语言**](https://towardsdatascience.com/back-to-the-metal-top-3-programming-language-to-develop-big-data-frameworks-in-2019-69a44a36a842)
 
-**Key Features:**
 
-* Offers Memory Safety and Concurrency safety with the concept of **Ownership and Borrowing**.
-* **Compile-time guarantee of memory safety and concurrency** safety i.e. if a program code compiles, then it is both memory safe and data-race free. This is the most appealing feature of Rust.
-* It also offers the expressiveness of ML, Haskell. With Immutable Data Structures and functional programming features, Rust offers functional Concurrency and Data Concurrency.
-* Rust is Blazingly fast. Idiomatic Rust gives better performance than Idiomatic C++ as per [**Benchmark Game**](https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust-gpp.html).
-* With no Runtime, Rust offers full control of modern Hardware (TPU, GPU, Multi-Core CPU).
-* Rust has **LLVM** support. As a result, Rust offers first-class interoperability with **WebAssembly** and allows the Blazingly fast Web Code.
+**关键特性**：
 
-**Popularity:**
+* 通过**所有权与借出**的概念提供内存安全、线程安全
+* **编译时确保内存安全和线程安全**，比如，如果一段程序成功编译，那它就是既内存安全又没有数据竞争。这是 Rust 最吸引人的特性。
+* 它也像 ML、Haskell 一样有很强的表达性。有了不可变的数据结构和函数式编程特性，Rust 提供函数并发和数据并发。
+* Rust 相当快。根据 [**Benchmark Game**](https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/rust-gpp.html)，一些常见场景下 Rust 性能比 C++ 更好
+* 由于不需要运行时环境，Rust 提供对现代硬件（TPU、GPU、多核 CPU）的完全控制
+* Rust 支持 **LLVM**。因此 Rust 和 **WebAssembly** 有上乘的互操作性，让网页应用的代码高速运行。
 
-Since its debut in 2015, Rust is well accepted by the Developers and voted as the Most beloved language for **four consecutive years (2016, 2017, 2018, 2019)** in StackOverflow developers survey:
+**受欢迎程度：**
 
-![Source: [Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*JQSUr9o0igYb22h_RnYTlA.jpeg)
+自 2015 年问世以来，Rust 就被广大开发者接受，并在 StackOverflow 开发者调查中**连续四年**（2016-2019）被选为最受喜爱的语言：
 
-According to GitHub Octoverse, Rust is the second-fastest-growing language just behind Dart:
+![来源：[Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*JQSUr9o0igYb22h_RnYTlA.jpeg)
 
-![Source: [Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2000/1*gwjGGcibFfZhUZSJKqpT-A.jpeg)
+根据 Github Octoverse，Rust 是增长第二快的编程语言，仅次于 Dart：
 
-Also, programming language Popularity website PyPl has ranked Rust in 18th position with an upward trend:
+![来源：[Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2000/1*gwjGGcibFfZhUZSJKqpT-A.jpeg)
 
-![Source: [PyPl](http://pypl.github.io/PYPL.html)](https://cdn-images-1.medium.com/max/2000/1*evWgcSuw1qfOb9wpr3ckqQ.jpeg)
+并且，Rust 在编程语言排名网站 PyPl 排在第 18 名，并呈上升趋势。
 
-Comparing the feature set it offers, it is no wonder that giant Tech companies like **Microsoft, Amazon, Google** finally announced their investment on Rust as a long term System programming language.
+![来源：[PyPl](http://pypl.github.io/PYPL.html)](https://cdn-images-1.medium.com/max/2000/1*evWgcSuw1qfOb9wpr3ckqQ.jpeg)
 
-In the last 5 years, Rust has been getting increasing traction every year, as shown by Google trends:
+看看它提供的特性，难怪像**微软、亚马逊、谷歌**那些科技公司巨头都发布声明，会将 Rust 作为长期系统编程语言进行投资。
 
-![Source: Google Trends](https://cdn-images-1.medium.com/max/2302/1*0gKyrINweN2dGDD_gj8EVw.jpeg)
+谷歌趋势显示，过去五年里，Rust 获得的关注持续增长：
 
-**Main Use Cases:**
+![来源：谷歌趋势](https://cdn-images-1.medium.com/max/2302/1*0gKyrINweN2dGDD_gj8EVw.jpeg)
 
-* System Programming
-* Serverless Computing
-* Business Applications
+**主要使用场景：**
 
-**Main competitor Languages:**
+* 系统编程
+* 无服务器计算
+* 商业应用
+
+**主要竞争语言：**
 
 * C
 * C++
@@ -109,50 +107,50 @@ In the last 5 years, Rust has been getting increasing traction every year, as sh
 
 ## Go
 
-![Source: Wikimedia](https://cdn-images-1.medium.com/max/7722/1*7kbd-tVk3co-9RiilFN1TA.png)
+![来源：维基百科](https://cdn-images-1.medium.com/max/7722/1*7kbd-tVk3co-9RiilFN1TA.png)
 
-Google is one of the biggest Web Scale companies. At the beginning of this century, Google has faced two scaling problems: **Development Scaling and Application Scaling**. Development scaling means that they could not add more features by throwing more developers. Application scaling means that they could not easily develop an application that can scale to the “Google” scale machine cluster. Around 2007, Google started to create a new “**pragmatic**” programming language that can solve these two scaling problems. In **Rob Pike** (UTF-8) and **Ken Thompson** (UNIX OS), they had two most talented Software Engineer in the world to create a new language.
+谷歌是最大的互联网公司之一。在本世纪初，谷歌面临着两个规模化问题：**开发规模和应用规模**。开发规模的意思是他们不能够再简单地通过增加开发人员来添加更多新特性。应用规模的意思是他们无法简单地开发一个能够扩大到“谷歌级”计算机集群的规模的应用。2007 年前后，谷歌提出了一个新的“**务实的**”编程语言，以解决这两个规模化的问题。在 **Rob Pike** （UTF-8） 和 **Ken Thompson** (UNIX 系统)，他们拥有全世界两个最具天赋的软件工程师来开发一门新语言。
 
-In 2012, Google has released the first official version of the **Go** programming language. Go is a system programming language but different from Rust. It also has a Runtime and Garbage collector (a few Megabytes). But unlike Java or Python, this runtime is packed with the generated code. In the end, Go generates a single native binary code that can run in a machine without additional dependency or Runtime.
+2012年，谷歌发布了 **Go** 语言的第一个官方版本。Go 是一个系统编程语言，但是和 Rust 不同。它有运行时环境和垃圾回收（几 Mb 大）。但是不像 Java 和 Python，这个运行时环境是打包在生成的代码里的。最后，Go 生成一个可以在机器上无需依赖或者运行时环境的原生二进制代码。
 
-**Key Features:**
+**关键特性：**
 
-* Go has first-class support of Concurrency. It does not offer the ‘**Shared Memory**’ concurrency via Thread and Lock as it is much more difficult to program. Instead, it offers a **CSP based message-passing concurrency** (based on **Tony Hoare** paper). Go uses “**Goroutine**” (lightweight Green thread) and “**Channel**” for message passing.
-* The most killer feature of Go is its simplicity. It is the most simple system programming language. A new Software Developer can write productive code in a matter of days like Python. Some of the biggest Cloud Native projects (**Kubernetes, Docker**) is written in Go.
-* Go also has embedded Garbage Collector which means developers do not need to worry about Memory management like C/C++.
-* Google has invested heavily in Go. As a result, Go has massive Tooling support. For new Go developers, there is a large ecosystem of tools.
-* Usually, developers spent 20% of their time writing new code and 80% time they maintain existing code. Because of its simplicity, Go excels in the language maintenance field. Nowadays, Go used heavily in Business Applications.
+* Go 有顶级的并发支持。它不通过线程和锁提供“**共享内存**”并发，因为这更难编写。相反，它提供**基于 CSP 的消息传递并发**（根据 **Tony Hoare** 的论文）。Go 使用 “**Goroutine**”（轻量的安全线程）和“**频道**”来实现消息传递。
+* Go 的杀手锏特性是它非常简洁。它是最简单的系统编程语言。一个新手软件开发者可以像用 Python 一样在几天内写出高效率的代码。几个最大的云原生项目（**Kubernetes、Docker**）就是用 Go 写的。
+* Go 也有内置的垃圾回收机制，开发者无需像在使用 C 或 C++ 时一样担心内存管理。
+* 谷歌在 Go 上投入巨大。因此，Go 拥有庞大的工具支持。对于新手 Go 开发者而言，有一个庞大的工具生态。
+* 通常，开发者花百分之二十的时间写新代码，而百分之八十的时间是在维护已有代码。Go 的简单性、使它在维护方面非常出色。现在，Go 在商业应用中被广泛使用。
 
-**Popularity:**
+**受欢迎程度：**
 
-Since Go first appears, the Software Development community has accepted it with arms. In **2009** (right after its debut) and **2018**, Go has entered the **Programming Language Hall of Fame** list by the [**TIOBE index**](https://www.tiobe.com/tiobe-index/). It is no wonder that the success of Go has paved the way for a new generation of programming languages like Rust.
+从 Go 首次问世以来，软件开发社区就对它敞开怀抱。在 2009 年（在它发布不久后）和 2018 年，根据 [**TIOBE 指数**](https://www.tiobe.com/tiobe-index/)，Go 都进入了**编程语言名人堂**名单。Go 的成功为如 Rust 一样的新一代编程语言铺路，也不足为奇。
 
-Go is already a mainstream programming language. Recently, Go team has announced the work on “**Go 2**” to only make the language more solid:
+Go 已经是一个主流编程语言。最近，Go 团队对外宣布了他们在 **Go 2** 上的进展，这使得这门语言更加坚挺。
 
-In almost all popular programming languages comparing websites, Go ranks high and has surpassed many existing languages. Here is the **TIOBE index** rating from December 2019 where Go ranks 15th:
+在几乎所有编程语言对比网站上，Go 都排名靠前并且超过了很多语言。在 2019 年 12 月的 **TIOBE 指数** 排名中 Go 排在第 15 位：
 
-![Source: TIOBE](https://cdn-images-1.medium.com/max/2328/1*4otADyzXwAXDqCjbiJnszw.jpeg)
+![来源：TIOBE](https://cdn-images-1.medium.com/max/2328/1*4otADyzXwAXDqCjbiJnszw.jpeg)
 
-According to the Stackoverflow survey, Go is one of the top 10 most loved programming languages:
+根据 StackOverflow 调查，Go 是最受欢迎的十大编程语言之一：
 
-![Source: [Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*AlZjgpQhANe7uJ_pJMQmdQ.jpeg)
+![来源：[Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*AlZjgpQhANe7uJ_pJMQmdQ.jpeg)
 
-Go is also one of the top 10 fastest growing languages according to GitHub Octoverse:
+根据GitHub Octoverse，Go 也是发展最快的十大编程语言之一：
 
-![Source: [Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2000/1*avYTdU-SuMxL3qMufe9Xag.jpeg)
+![来源：[Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2000/1*avYTdU-SuMxL3qMufe9Xag.jpeg)
 
-Google trends also show increasing traction for Go over the last five years:
+谷歌趋势也显示，Go 在过去五年中受关注程度在上升：
 
-![Source: Google Trends](https://cdn-images-1.medium.com/max/2312/1*Dm_Tfz6rQKYHP14woSpd7A.jpeg)
+![来源：谷歌趋势](https://cdn-images-1.medium.com/max/2312/1*Dm_Tfz6rQKYHP14woSpd7A.jpeg)
 
-**Main Use Cases:**
+**主要应用场景：**
 
-* System Programming
-* Serverless Computing
-* Business Applications
-* Cloud-Native Development
+* 系统编程
+* 无服务器计算
+* 商业应用
+* 云原生开发
 
-**Main competitor Languages:**
+**主要竞争语言：**
 
 * C
 * C++
@@ -164,48 +162,48 @@ Google trends also show increasing traction for Go over the last five years:
 
 ![](https://cdn-images-1.medium.com/max/2400/1*6MRnGxzKEA7tPJz-0fKLBQ.png)
 
-Java is the undisputed king of Enterprise Software Development. In recent times, Java has become the target of much criticism: It is verbose, needs lots of boilerplate coding, prone to accidental complexity. However, there is little argument about the **Java Virtual Machine (JVM)**. JVM is a masterpiece of Software Engineering and offers a battle-hardened runtime that has passed the test of time. In a previous post, I have discussed in detail the advantages of JVM:
-[**Programming language that rules the Data Intensive (Big Data+Fast Data) frameworks.**
-**A brief overview on Big Data frameworks**towardsdatascience.com](https://towardsdatascience.com/programming-language-that-rules-the-data-intensive-big-data-fast-data-frameworks-6cd7d5f754b0)
+Java 企业级软件开发无可争议的霸主。近期，Java 受到了不少批评：代码量大，需要写很多模板代码，容易一不留神就发现程序过于复杂。然而，没有谁对 **Java 虚拟机**（JVM）评头论足。JVM 是软件工程界的一项佳作，是经历了行业战场和时间双重历练的运行时环境。在一篇文章中，我详细讨论了 JVM 的优势：
+[**统治数据密集型（大数据 + 高速数据流）框架的编程语言**](https://towardsdatascience.com/programming-language-that-rules-the-data-intensive-big-data-fast-data-frameworks-6cd7d5f754b0)
 
-Over the years, JVM languages like **Scala** tried to answer the shortcomings of Java and wanted to be better Java but failed. Finally, in Kotlin, it looks like a search for better Java is over. Jet Brains (the company behind the popular IDE IntelliJ) has developed Kotlin, which runs on JVM and answers the shortcomings of Java and offered many modern features. The best part is that unlike Scala, **Kotlin is much simpler** than Java and offers Go or Python-like developer productivity in JVM.
 
-Google has declared Kotlin as a first-class language to develop **Android** and boosted Kotlin’s acceptance in the community. Also popular **Java Enterprise framework Spring** has started to support Kotlin in the Spring eco-system since 2017. I have used Kotlin with Reactive Spring and the experience was amazing.
+近几年来，像 **Scala** 运行在 JVM 环境中的语言，试着解决 Java 的短板，想要成为更好的 Java，却以失败告终。不过最后，从 Kotlin 之中可以看出，似乎对一个更好的 Java 的寻找可以告一段落了。Jet Brains（开发 IntelliJ 这款热门 IDE 的公司）开发了 Kotlin，它运行在 JVM 上，并提供很多现代特性。最好的一点是，不像 Scala，**Kotlin** 比 Java 精简很多，并且能够在 JVM 平台上提供像 Go 和 Python 一样的开发效率。
 
-**Main Features:**
+谷歌宣布将 Kotlin 作为开发**安卓**系统的首选语言，提升了 Kotlin 在社区中的接纳程度。并且，热门 Java **企业级框架 Spring** 也从 2017 年开始在 Spring 生态中支持 Kotlin。我配合响应式 Spring 使用过 Kotlin，体验相当不错。
 
-* The USP of Kotlin is its language design. I always view Kotlin as Go/Python on JVM because of its clean, concise code. As a result, Kotlin is highly productive.
-* Like many other modern languages, Kotlin offers features like Null pointer safety, Type Inference.
-* As Kotlin also runs in JVM, you can use the existing huge eco-system of Java libraries.
-* Kotlin is a first-class language to develop Android App and has already surpassed Java as the number one programming language to develop Android App.
-* Kotlin is backed by JetBrains and Open Source. So, Kotlin has excellent tooling support.
-* There are two interesting projects: **Kotlin Native** (to compile Kotlin into native code) and **kotlin.js** (Kotlin to JavaScript). If they become successful, then Kotlin can be used outside JVM.
-* Kotlin also offers a simple way to write **DSL** (Domain Specific Language)
+**主要特性：**
 
-**Popularity:**
+* Kotlin 的独特卖点是它的语言设计。因其代码简洁，我一直视 Kotlin 为 JVM 上的 Go 或 Python。因此，Kotlin 生产力很强。
+* 与其他很多现代语言一样，Kotlin 提供空指针安全，类型推断等特性。
+* 由于 Kotlin 也在 JVM 上运行，你可以使用已有的 Java 库的庞大生态。
+* Kotlin 是开发安卓应用的首选编程语言，并已经超过 Java 成为最广泛使用的安卓开发语言。
+* Kotlin 由 JetBrains 和开源社区支持，因此，Kotlin 拥有出色的工具支持。
+* 有两个有趣的项目： **Kotlin Native**（可将 Kotlin 编译为原生代码）和 **Kotlin.js**（将 Kotlin 转为 JavaScript）。如果它们成功，Kotlin 便可以在 JVM 外使用。
+* Kotlin 也提供简单的方式来编写 **DSL**（Domain Specific Language，领域专用语言，与通用编程语言相对）
 
-Since its first release in 2015, the popularity of Kotlin is soaring. As per Stack Overflow, Kotlin is the fourth most loved Programming language in 2019:
+**受欢迎程度：**
 
-![Source: [Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*PmUb6Ozt9Cngh0IA9DCpAg.jpeg)
+从 2015 年首次发布以来，Kotlin 的火热程度直线上升。在 StackOverflow 上，Kotlin 在 2019 年人们最爱的编程语言中位列第四：
 
-Kotlin is also one of the fastest-growing programming languages and ranked 4th:
+![来源：[Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*PmUb6Ozt9Cngh0IA9DCpAg.jpeg)
 
-![Source: Github Octoverse](https://cdn-images-1.medium.com/max/2000/1*P03_CPbYksuJzpdFxGiulA.jpeg)
+Kotlin 也是上升最快的编程语言之一，在其中同样位列第四：
 
-Popular programming language ranking website PyPl has ranked Kotlin as the 12th most popular programming language with a **high upward trend**:
+![来源：Github Octoverse](https://cdn-images-1.medium.com/max/2000/1*P03_CPbYksuJzpdFxGiulA.jpeg)
 
-![Source: [Pypl](http://pypl.github.io/PYPL.html)](https://cdn-images-1.medium.com/max/2000/1*YKOiuBgCDHSKU4TQBbYbXw.jpeg)
+PyPl 上，Kotlin 在最火编程语言中排名 12 位，且有**很高的上升趋势**：
 
-Since Google has declared Kotlin as the first-class language to develop Android Apps, Kotlin has experienced a huge positive boost in trending as shown below:
+![来源：[Pypl](http://pypl.github.io/PYPL.html)](https://cdn-images-1.medium.com/max/2000/1*YKOiuBgCDHSKU4TQBbYbXw.jpeg)
 
-![Source: Google Trends](https://cdn-images-1.medium.com/max/2308/1*ZqVPhJii9fxTTZZ_Pj3HZA.jpeg)
+由于谷歌宣布了将 Kotlin 作为安卓应用开发首选语言，Kotlin 在谷歌趋势中有积极上涨。
 
-**Main Use Cases:**
+![来源：谷歌趋势](https://cdn-images-1.medium.com/max/2308/1*ZqVPhJii9fxTTZZ_Pj3HZA.jpeg)
 
-* Enterprise Application
-* Android App Development
+**主要应用场景：**
 
-**Main competitor Languages:**
+* 企业级应用
+* 安卓应用开发
+
+**主要竞争语言：**
 
 * Java
 * Scala
@@ -216,50 +214,50 @@ Since Google has declared Kotlin as the first-class language to develop Android 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*TpbxEQy4ckB-g31PwUQPlg.png)
 
-JavaScript is an excellent language but pre-2015 JavaScript had many shortcomings. Even noted Software Engineer **Douglas Crockford** has written a book **“JavaScript: The Good Parts”** and implied that JavaScript has **bad parts and ugly parts**. With no modularization and with “Callback Hell”, developers did not like to maintain especially large JavaScript projects.
+JavaScript 是一门优秀的语言，但 2015 以前的 JavaScript 有不少缺点。连著名软件工程师 **Douglas Crockford** 都写了一本书《**JavaScript 语言精粹**》并指出 JavaScript 有**糟糕之处**。不支持模块化，加上“回调地狱”，开发者尤其不愿意维护那些大型的 JavaScript 项目。
 
-Google even developed a platform to transcompile Java code to JavaScript code (**GWT**). Many companies or people tried to develop better JavaScript e.g. **CoffeeScript, Flow, ClojureScript**. But **TypeScript** from Microsoft arguably hit the Jackpot. A group of engineers in Microsoft, led by famous **Anders Hejlsberg (creator of Delphi, Turbo Pascal, C#)**, created TypeScript as a Statically Typed, Modular superset of JavaScript.
+谷歌甚至开发了一个将 Java 代码转为 JavaScript 的平台（**GWT**）。很多公司或个人尝试开发更好的 JavaScript，如**Coffee Script、Flow、ClojureScript**，但是来自微软的 **TypeScript** 夺得头魁。微软的一个工程师团队，在著名的 **Anders Hejlsberg**（Delphi、Turbo Pascal、C# 的发明者）的带领下，开发了 TypeScript，作为一种静态类型、模块化的 JavaScript 超集。
 
-TypeScript is transcompiled to JavaScript during compilation. First released in 2014, it quickly attracted the attention of the community. Google was also planning to develop a Statically Typed superset of JavaScript back then. Google was so impressed by TypeScript that instead of developing a new language, they co-operated with Microsoft to improve TypeScript.
+TypeScript 会在编译时转为 JavaScript。在 2014 年首次发布后，它很快获得了社区的关注。谷歌当时也在计划开发一个提供静态类型检查的 JavaScript 的超集。谷歌被 TypeScript 惊艳，从而由策划开发一门新语言转为与微软合作来改进 TypeScript。
 
-Google has used TypeScript as the main programming language for its SPA framework **Angular2+**. Also, the popular SPA framework **React** offers support for TypeScript. The other popular JavaScript framework Vue.js has declared that they will use TypeScript to develop the new **Vue.js** 3:
+谷歌将 TypeScript 作为它 SPA 框架 **Angular2** 的主要编程语言。同样，热门 SPA 框架 **React** 也提供 TypeScript 支持。另一热门 JavaScript 框架 Vue.js 也宣布在新的 **Vue.js 3** 中使用 TypeScript 开发。
 
-![Source: [Vue.js Roadmap](https://github.com/vuejs/roadmap)](https://cdn-images-1.medium.com/max/2278/1*8Kaj35gc8dr3FmdlnmN6_A.jpeg)
+![来源：[Vue.js Roadmap](https://github.com/vuejs/roadmap)](https://cdn-images-1.medium.com/max/2278/1*8Kaj35gc8dr3FmdlnmN6_A.jpeg)
 
-Also, node.js creator **Ryan Dahl** has decided to use TypeScript to develop a secure **Node.js** alternative, **Deno**.
+并且，Node.js 的创造者 **Ryan Dahl** 决定使用 TypeScript 来开发一款安全的 **Node.js** 替代品，**Deno**。
 
-**Key Features:**
+**关键特性：**
 
-* Like Go or Kotlin in the list, the principal feature of TypeScript is the language design. With its crisp and clean code, **it is one of the most elegant programming languages out there**. In terms of Developer productivity, it is on par with Kotlin on JVM or Go/Python. TypeScript is the most productive JavaScript superset hands down.
-* TypeScript is a strongly typed superset of JavaScript. It is especially suited for large Projects and rightly termed as “**JavaScript that Scales**”.
-* The “Big Three” Single Page Application framework (**Angular, React, Vue.js**) offers excellent support for TypeScript. In Angular, TypeScript is the preferred programming language. In React and Vue.js, TypeScript is getting increasingly popular.
-* Two of the biggest Tech Giants: **Microsoft and Google** are working together to develop TypeScript supported by a vibrant open source community. As a result, the tooling support for TypeScript is one of the best.
-* As TypeScript is a superset of JavaScript, it can runs where JavaScript runs: **everywhere**. TypeScript can run on **Browser, Server, Mobile Devices, IoT devices, and Cloud**.
+* 像本名单中的 Go 和 Kotlin，TypeScript 的重要特性就是语言设计。它清晰而简洁的代码，使之成为**最优雅的编程语言之一**。至于开发者生产力，它与 Kotlin、Go、Python并驾齐驱。TypeScript 是最具生产力的 JavaScript 超集。
+* TypeScript 是强类型的 JavaScript 超集。它非常适合大型项目，不负“可规模化的 JavaScript” 的美誉。
+* 单页应用程序框架“三巨头”（**Angular、React、Vue.js**）都提供优秀的 TypeScript 支持。在 Angular 中，TypeScript 是建议使用的语言。在其他两个框架中，TypeScript 也逐渐流行起来。
+* 科技公司的两个巨头：**微软和谷歌**正在合作，与活跃的开源社区一起开发 TypeScript。因此，TypeScript 的工具支持在最优行列之中。
+* 由于 TypeScript 是 JavaScript 的超集，JavaScript 能在哪运行，它就能在哪运行 —— 也就是任何地方。TypeScript 可以运行在**浏览器、服务器、移动设备、物联网设备和云端**。
 
-**Popularity:**
+**受欢迎程度：**
 
-Developers love TypeScript for its elegant language design. In the Stackoverflow Developer survey, it has ranked joint second with Python in the most beloved language category:
+开发者因 TypeScript 优雅的语言设计而热爱它。在 StackOverflow 开发者调查中，它与 Python 在最受喜爱的编程语言榜单上并列第二：
 
-![Source: [Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*t6wkuoA1IdPg9ncsg4bLBQ.jpeg)
+![来源：[Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*t6wkuoA1IdPg9ncsg4bLBQ.jpeg)
 
-TypeScript is one of the fastest-growing Web programming languages and ranked fifth according to GitHub Octoverse:
+TypeScript 是上升最快的语言之一，在 GitHub Octoverse 上位列第五：
 
-![Source: [Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2000/1*JTRjZ8ZBee5T-cfcH64Jtg.jpeg)
+![来源：[Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2000/1*JTRjZ8ZBee5T-cfcH64Jtg.jpeg)
 
-TypeScript also entered the Top 10 List (ranked 7th) according to the GitHub Contributions:
+TypeScript 在 GitHub 贡献上位列前十（第七名）：
 
-![Source: [Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2046/1*Ad7zxTCZGSzt4ioC0ylf5A.jpeg)
+![来源：[Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2046/1*Ad7zxTCZGSzt4ioC0ylf5A.jpeg)
 
-TypeScript is having more and more eyeballs in each passing year, which is reflected by Google Trends:
+TypeScript 每年都吸引更多的眼球，在谷歌趋势上就有所体现：
 
-![Source: Google Trends](https://cdn-images-1.medium.com/max/2308/1*STnhuXU-ZRMw2Bc3O6pV7w.jpeg)
+![来源：谷歌趋势](https://cdn-images-1.medium.com/max/2308/1*STnhuXU-ZRMw2Bc3O6pV7w.jpeg)
 
-**Main Use Cases:**
+**主要应用场景：**
 
-* Web UI Development
-* Server-side development
+* Web 用户界面开发
+* 服务端开发
 
-**Main competitor Languages:**
+**主要竞争语言：**
 
 * JavaScript
 * Dart
@@ -268,39 +266,39 @@ TypeScript is having more and more eyeballs in each passing year, which is refle
 
 ![](https://cdn-images-1.medium.com/max/2400/1*OVgSA8lppCUu7idWMgMMyw.png)
 
-**Steve Jobs** has refused to support **Java** (and JVM) in iOS as he has famously quoted that Java is no more a major programming language. We now know that Steve Jobs was wrong with his assessment with Java, but iOS is still not supporting Java. Instead, Apple has chosen **Objective-C** as the first-class programming language in iOS. Objective-C is a hard language to master. Also, it does not support the high developer productivity required by modern programming languages.
+**史蒂夫·乔布斯**拒绝在 iOS 平台上支持 **Java**（和 JVM），并曾引用过一句著名的话：Java 再也不是一个主流编程语言。我们现在知道他对 Java 的评价是错的，然而 iOS 还是没有支持 Java。相反，苹果选择用 **Objective-C** 作为 iOS 平台的首选语言。Objective-C 想要精通很难。并且，它的开发者高生产力的支持也不够好，达不到现代编程语言的要求。
 
-In Apple, **Chris Lattner** and others have developed **Swift** as a multi-paradigm, general-purpose, compiled programming language that gives an alternative to Objective-C. The first stable version of Swift was released in 2014. Swift also supports **LLVM** compiler Toolchain (also developed by **Chris Lattner**). Swift has excellent interoperability with Objective-C codebase and has already established itself as the main programming language in iOS App development.
+在苹果，**Chris Lattner** 等人开发了 **Swift**，作为一个多范式、通用编译编程语言，作为 Objective-C 的备选项。Swift 的首个稳定版本发布于 2014 年。Swift 也支持 **LLVM** 编译器工具链（同样由**Chris Lattner**）开发。Swift 可以很好地与 Objective-C 代码共存，并且已经成功确立了 iOS 平台应用首选开发语言的地位。
 
-**Main Features:**
+**主要特性：**
 
-* One of the killer features of Swift is its language design. With simpler, concise and clean syntax, it offers a more productive alternative to Objective-C.
-* Swift also offers features of modern program languages: null safety. Also, it offers syntactic sugar to avoid the “**Pyramid of Doom**”.
-* As a compiled language, Swift is as fast as C++.
-* Swift has support for LLVM Compiler Toolchain. So, we can use Swift in server-side programming or even Browser programming (using WebAssembly).
-* Swift offers **Automatic Reference Counting (ARC)** support and thus limits memory mismanagement.
+* Swift 的一个杀手锏就是它的语言设计。通过更简洁的语法，它比 Objective-C 更高效。
+* Swift 也支持现代编程语言的特性，如空值安全。并且，它提供语法糖来避免缩进过多的问题。
+* 作为一门编译语言，Swift 和 C++ 一样快。
+* Swift 支持 LLVM 编译器工具链。因此，我们可以将 Swift 用于服务端编程，甚至是浏览器编程（借助 WebAssembly）。
+* Swift 支持**自动引用计数（ARC）**，由此控制了内存管理不当的问题。
 
-**Popularity:**
+**受欢迎程度：**
 
-Developers love Swift programming language like many other modern languages. According to the StackOverflow survey, Swift ranked 6th as the most beloved programming language:
+像其他很多现代编程语言一样，开发者也喜爱 Swift 编程语言。根据 StackOverflow 调查，Swift 在最受喜爱编程语言中排名第六位：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BxHjlXZ_UfQSNbnVY0F7nQ.jpeg)
 
-In the programming language ranking of TIOBE, Swift has moved to the number 10 ranking in 2019. Considering how young the language is (5 years), this is quite a feat:
+在 TIOBE 编程语言排名中，Swift 在 2019 年排在第十。考虑到这门语言多么年轻（只有 5 年），这已经很优秀了：
 
-![Source: TIOBE Index](https://cdn-images-1.medium.com/max/2332/1*wO5MgevW6NqQ0ujfNqMBZw.jpeg)
+![来源：TIOBE 指数](https://cdn-images-1.medium.com/max/2332/1*wO5MgevW6NqQ0ujfNqMBZw.jpeg)
 
-Google trends also show a sharp rise in the Popularity of Swift followed by a slight decrease in trending in the last couple of saturation:
+谷歌趋势也显示了 Swift 迅猛的上升趋势，不过近些日子有些下降：
 
-![Source: Google Trends](https://cdn-images-1.medium.com/max/2298/1*EO-TFNeitbEz_T4I3pRoIw.jpeg)
+![来源：谷歌趋势](https://cdn-images-1.medium.com/max/2298/1*EO-TFNeitbEz_T4I3pRoIw.jpeg)
 
-**Main Use Cases:**
+**主要使用场景：**
 
-* iOS App Development
-* System Programming
-* Client-side development (via WebAssembly)
+* iOS 应用开发
+* 系统编程
+* 客户端开发（通过 WebAssembly）
 
-**Main competitor Languages:**
+**主要竞争语言：**
 
 * Objective-C
 * Rust
@@ -310,42 +308,42 @@ Google trends also show a sharp rise in the Popularity of Swift followed by a sl
 
 ![](https://cdn-images-1.medium.com/max/5300/1*QCajckOeBhRaLzi0RoFqig.png)
 
-**Dart** is the second programming language in this list made by Google. Google is a key player in the Web and Android domain, and it is no surprise that Google has developed its own programming language in the Web and App Development domain. Led by the famous Danish Software Engineer **Lars Bak (who lead the Development of Chrome’s V8 JavaScript Engine)**, Google has released Dart in 2013.
+**Dart** 是本榜单中谷歌开发的第二个语言。谷歌是 Web 和 Android 领域的关键参与者，因此它在这些领域开发了自己的编程语言不足为奇。由著名丹麦软件工程师 **Lars Bak**（带领了 Chrome 浏览器的 V8 JavaScript 引擎）带领，谷歌在 2013 年发布了 Dart。
 
-Dart is a general-purpose programming language which supports Strong typing and Objected-Oriented programming. Dart can also be transcompiled to JavaScript and can run where JavaScript runs means virtually everywhere (e.g. Web, Mobile, Server).
+Dart 是一门通用编程语言，支持强类型和面向对象编程。Dart 也可以被转为 JavaScript，并在 JavaScript 的运行环境中运行 —— 几乎任何地方（网页、移动端、服务器）。
 
-**Main Features:**
+**主要特性**
 
-* Like other Google language Go, Dart also heavily focuses on developer productivity. Dart is hugely productive and loved by developers because of its clean, simple, terse syntax.
-* Dart also offers Strong Typing and Object-Oriented programming. Dart is also a second language in this list which fits the ‘**Scalable JavaScript**’ tag.
-* Dart is one of the few languages which supports **JIT compilation (compilation during Runtime) and AOT compilation (compilation during creation time)**. Thus Dart can target JavaScript runtime (V8 Engine) and Dart can be compiled to fast Native code (AOT compilation)
-* The **Cross-Platform Native App Development platform Flutter** has chosen Dart as the programming language to develop both iOS and Android App. Since then, Dart has become more popular.
-* Like other Google programming language Go, Dart also has excellent Tooling support and the huge Ecosystem of Flutter. The increasing popularity of **Flutter** will only increase the adoption of Dart.
+* 像谷歌的另外一门语言 Go，Dart 也非常专注于开发者生产效率。Dart 因其简洁精炼的语法而具有很强的生产力，并受到开发者的喜爱。
+* Dart 也提供强类型和面向对象编程，Dart 也是本榜单中可以戴上“**可规模化的 JavaScript**” 标签的第二个语言。
+* Dart 是为数不多支持 **JIT 编译**（在运行时进行编译）和 **AOT 编译**（在创建时编译）的语言。因此 Dart 可以针对 JavaScript 运行时环境（V8 引擎），也可以（通过 AOT 编译）编译成高速的原生代码。
+* **跨平台原生应用开发平台 Flutter** 选择了 Dart 作为其开发语言，来开发 iOS 和安卓应用。从那以后，Dart 就变得越来越流行。
+* 像 Go 一样，Dart 也有完善的工具支持，以及 Flutter 的庞大生态。随着 **Flutter** 越来越火，Dart 很快会被更多人接受。
 
-**Popularity:**
+**受欢迎程度**
 
-According to Github Octoverse, Dart is the **fastest-growing Programming language in 2019 and its popularity has five-folded in last year**:
+根据 GitHub Octoverse， Dart 是 **2019 年增长最快的编程语言，其受欢迎程度在过去一年中涨了五倍**：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*4yH5ZWzBmI9MJXAdNWkqyw.jpeg)
 
-According to the TIOBE index, Dart stands 23rd position and has already surpassed many other existing and modern programming languages in only 4 years:
+根据 TIOBE 指数，Dart 排在第 23 位，并在短短四年中超过了其他很多已有的现代编程语言：
 
-![Source: TIOBE index](https://cdn-images-1.medium.com/max/2324/1*mct61ZNxjiZuLa40tdOKTg.jpeg)
+![来源：TIOBE 指数](https://cdn-images-1.medium.com/max/2324/1*mct61ZNxjiZuLa40tdOKTg.jpeg)
 
-It is also one of the most beloved programming languages as ranked 12th in StackOverflow developer Survey:
+它也是最受喜爱的编程语言之一，在 StackOverflow 开发者调查中排名第 12 位：
 
-![Source: StackOverflow](https://cdn-images-1.medium.com/max/2000/1*X9_wQ80-LQWgDJ2AMLchSA.jpeg)
+![来源：StackOverflow](https://cdn-images-1.medium.com/max/2000/1*X9_wQ80-LQWgDJ2AMLchSA.jpeg)
 
-Along with Flutter, Dart has also experienced huge traction in the last two years as clear by Google Trends:
+根据谷歌趋势，和 Flutter 一起，Dart 在近两年也获得了很多的关注：
 
-![Source: Google Trends](https://cdn-images-1.medium.com/max/2310/1*HMfM_TSQmmpbKxqFiUHfYA.jpeg)
+![来源：谷歌趋势](https://cdn-images-1.medium.com/max/2310/1*HMfM_TSQmmpbKxqFiUHfYA.jpeg)
 
-**Main Use Cases:**
+**主要使用场景：**
 
-* App Development
-* UI Development
+* 应用开发
+* 用户界面开发
 
-**Main competitor languages:**
+**主要竞争语言：**
 
 * JavaScript
 * TypeScript
@@ -354,45 +352,45 @@ Along with Flutter, Dart has also experienced huge traction in the last two year
 
 ![](https://cdn-images-1.medium.com/max/2400/1*claL_4fuNqq9ZO8F5RkYqA.png)
 
-Most of the programming languages in this list are developed by large corporations except Julia. In **technical computing**, usually dynamic languages like **Python, Matlab** are used. These languages offer easy-to-use syntax but are not fit for large-scale Technical computation. They use C/C++ libraries for the CPU intensive tasks which gives the famous **Two-Language** problem as they need **Glue Code** to bind both languages. As Code is translated between two languages, there is always some performance loss.
+本榜单中多数编程语言都由大公司开发，Julia 除外。在**技术型计算**中，通常使用 **Python、Matlab** 这样的动态语言。这些语言提供易用的语法，但是不适于大型的技术运算。人们通常使用 C 或 C++ 的库来进行 CPU 密集型任务，由此导致了**双语言问题**，因为他们需要**胶水代码**来绑定两个语言。由于代码需要在两种语言之间翻译，就会有性能损失。
 
-To tackle the issue, a group of researchers at MIT planned to create a new language from the ground-up which takes the advantages of modern hardware and combines the best parts of other languages. They work in the MIT innovation lab with the following Manifesto:
+为了解决这一问题，一群 MIT 的研究人员计划从头开发一门新的语言，能够利用现代硬件，并且结合其他语言的优点。他们在 MIT 创新实验室，在下图中的宣言的指导下工作：
 
-![Source: [Julia Presentation](https://genome.sph.umich.edu/w/images/3/3e/Julia_presentation.pdf)](https://cdn-images-1.medium.com/max/2756/1*sqvWUec74Co1DpySnbQihg.jpeg)
+![来源：[Julia 展示](https://genome.sph.umich.edu/w/images/3/3e/Julia_presentation.pdf)](https://cdn-images-1.medium.com/max/2756/1*sqvWUec74Co1DpySnbQihg.jpeg)（图片译文：……我们想要一门开源、拥有自由协议的语言。我们想要它有 C 一样的速度，和 Ruby 一样的动态性。我们想要它具有[同像性](https://zh.wikipedia.org/wiki/%E5%90%8C%E5%83%8F%E6%80%A7)，像 Lisp 一样有真正的宏，但是也像 Matlab 一样有显而易见的、熟悉的数学标记。我们想要它和 Python 一样可以用于通用编程，和 R 一样对统计学友好，有像 Perl 一样自然的字符串处理，在线性代数上像 Matlab 一样强大，像 shell 脚本一样长于将程序粘合在一起。（我们想要）一个极易学习、却又能让那些硬核黑客开心的语言。我们让它可以交互，还想让它是编译语言。）
 
-Julia is a **dynamic, high-level programming language** that offers first-class support for **Concurrent, Parallel and Distributed Computing**. The first stable version of Julia is released in **2018** and soon got the attraction of the community and industry. Julia can be used in Scientific Computing, Artificial Intelligence, and many other fields and **can finally solve the “Two-Language”** problem.
+Julia 是**动态的高级编程语言**，提供顶尖的**并发、并行及分布式计算**支持。Julia 的首个稳定版本在 **2018** 年发布，并很快受到了社区和产业界的关注。Julia 可以用于科学计算、人工智能以及很多其他领域，并可以解决**双语言**问题。
 
-**Features:**
+**特性：**
 
-* Like Rust, the key feature of Julia is the design of the languages. It tries to combine some of the best features of the existing programming language in high performance and Scientific computing without sacrificing performance. Until now it has done a great job.
-* Julia is a dynamic programming language with optionally typed. Thus, Julia is easy to learn a programming language and highly productive.
-* It uses **multiple-dispatch** programming paradigm at its core.
-* It has built-in support for **Concurrent, Parallel and Distributed Computing**.
-* It also offers **asynchronous I/O** for I/O intensive tasks.
-* It is **Blazingly fast** and can be used in Scientific Computing where millions of threads are required.
+* 和 Rust 一样，Julia 的关键特性是其语言设计。它尝试在不损失性能的同时，将已有的高性能的、可用于科学计算的语言的优秀特性结合在一起。到现在为止，它做得很好。
+* Julia 是动态编程语言，可选类型支持。因此，Julia 是一个易于学习、高生产效率的编程语言。
+* 它的核心使用了**多调度**编程范式。
+* 它内置支持**并发、并行、分布式计算**。
+* 它对于读写密集型任务也提供**异步读写**。
+* 它**相当快**，并且可以用于需要百万级线程的科学计算。
 
-**Popularity:**
+**受欢迎程度：**
 
-Julia mainly competes with Python in many areas. As Python is one of the most popular programming languages, it will take a few years until Julia will be mainstream.
+Julia 主要和 Python 在多个领域竞争。由于 Python 是当下最流行的编程语言，Julia 需要几年时间才会成为主流。
 
-Julia is relatively new (only one-year-old) but still ranks 43rd in the TIOBE index:
+Julia 相对更年轻（只有一年），但是仍能在 TIOBE 上排名第 43 位：
 
-![Source: TIOBE](https://cdn-images-1.medium.com/max/2356/1*hL8eYaOW8yUpCzZDUPZXSA.jpeg)
+![来源：TIOBE](https://cdn-images-1.medium.com/max/2356/1*hL8eYaOW8yUpCzZDUPZXSA.jpeg)
 
-Google Trends also shows a stable interest in Julia over the years.
+谷歌趋势也显示了近年来稳定的关注。
 
 ![](https://cdn-images-1.medium.com/max/2306/1*nIsvOaYZdfAYgcbuEiN32g.jpeg)
 
-But considering the feature set and the number of companies is working behind Julia such as **NSF, DARPA, NASA, Intel,** it is just a matter of when instead of if for Julia to make a breakthrough:
+考虑到它的特性集，以及诸如**NSF（美国科学基金会）、DARPA（美国国防部高级研究计划局）、NASA（美国航天局）、英特尔**这些背后支持 Julia 的组织和公司，Julia 取得突破也只是时间问题，而不是能否的问题。
 
-**Main Use Cases:**
+**主要使用场景：**
 
-* Scientific Computing
-* High-performance computing
-* Data Science
-* Visualization
+* 科学计算
+* 高性能计算
+* 数据科学
+* 可视化
 
-**Main competitor languages:**
+**主要竞争语言：**
 
 * Python
 * Matlab
