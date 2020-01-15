@@ -119,14 +119,14 @@ export async function generateTextures() {
 
 ### Comlink
 
-For this exact reason I wrote [Comlink](https://github.com/GoogleChromeLabs/comlink), which not only hides `postMessage()` from you, but also the fact that you are working with Workers in the first place. It **feels** like you have shared access to variables from other threads:
+因为这样的原因，我编写了[Comlink](https://github.com/GoogleChromeLabs/comlink) 它不仅帮你隐藏掉 `postMessage()`，甚至能让你忘记正在使用 Workers。**感觉**就像是你能够访问到来自别的线程的共享变量：
 
 ```js
 // main.js
 import * as Comlink from "https://unpkg.com/comlink?module";
 
 const worker = new Worker("worker.js");
-// This `state` variable actually lives in the worker!
+// 这个 `state` 变量其实是在别的 worker 中！
 const state = await Comlink.wrap(worker);
 await state.inc();
 console.log(await state.currentCount);
@@ -147,17 +147,17 @@ const state = {
 Comlink.expose(state);
 ```
 
-> **Note:** I’m using top-level await and modules-in-workers here to keep the sample short. See [Comlink’s repository](https://github.com/GoogleChromeLabs/comlink) for real-life examples and more details.
+> **说明：**我用了顶层 await 以及模块 worker（modules-in-workers）来让例子变短。请到 [Comlink 的代码仓库](https://github.com/GoogleChromeLabs/comlink)查看真实的例子以及更多细节。
 
-Comlink is not the only solution in this problem space, it’s just the one I’m most familiar with (unsurprising, considering that I wrote it 🙄). If you want to look at some different approaches, take a look at [Andrea Giammarchi’s](https://twitter.com/webreflection) [workway](https://github.com/WebReflection/workway) or [Jason Miller’s](https://twitter.com/_developit) [workerize](https://github.com/developit/workerize).
+在这问题上 Comlink 不是唯一的解决方案，只是我最熟悉它（很正常，考虑到是我写的  🙄）。如果你对其他方法感兴趣，看一下 [Andrea Giammarchi](https://twitter.com/webreflection) 的 [workway](https://github.com/WebReflection/workway) 或者 [Jason Miller](https://twitter.com/_developit) 的 [workerize](https://github.com/developit/workerize)。
 
-I don’t care which library you use, as long as you end up switching to an off-main-thread architecture. We have used Comlink to great success in both [PROXX](https://proxx.app) and [Squoosh](https://squoosh.app), as it is small (1.2KiB gzip’d) and allowed us to use many of the common patterns from languages with “real” threads without notable development overhead.
+我不在意你用哪个库，只要你最终转换到“离开主线程”架构。我们在 [PROXX](https://proxx.app) 和 [Squoosh](https://squoosh.app) 上成功使用了 Comlink，因为它很小(gzip 后 1.2KiB)并且让我们不需要在开发上改动太多就能使用很多来自其他有“真正”线程的语言的常用模式。
 
-### Actors
+### 参与者
 
-I evaluated another approach recently together with [Paul Lewis](https://twitter.com/aerotwist). Instead of hiding the fact that you are using Workers and `postMessage`, we took some inspiration from the 70s and used [the Actor Model](https://dassur.ma/things/actormodel/), an architecture that **embraces** message passing as its fundamental building block. Out of that thought experiment, we built a [support library for actors](https://github.com/PolymerLabs/actor-helpers), a [starter kit](https://github.com/PolymerLabs/actor-boilerplate) and gave [a talk](https://www.youtube.com/watch?v=Vg60lf92EkM) at Chrome Dev Summit 2018, explaining the architecture and its implications.
+最近我和 [Paul Lewis](https://twitter.com/aerotwist) 一起评估过其他的方法。除了说隐藏你正在使用 Worker 的事实以及 `postMessage`，我们还从 70 年代和使用过的[参与者模式](https://dassur.ma/things/actormodel/)中得到灵感，这种架构模式将消息传递当作基本的积木。经过那次思想实验，我们编写了一个[支撑参与者模式的库](https://github.com/PolymerLabs/actor-helpers)，一个[入门套件](https://github.com/PolymerLabs/actor-boilerplate)，并在 2018 Chrome 开发者峰会上做了[一次演讲](https://www.youtube.com/watch?v=Vg60lf92EkM)，介绍了这个架构以及它的应用。
 
-## “Benchmarking”
+## “基准测试”
 
 Some of you are probably wondering: **is it worth the effort to adopt an off-main-thread architecture?** Let’s tackle with a cost/benefit analysis: With a library like [Comlink](https://github.com/GoogleChromeLabs/comlink), the cost of switching to an off-main-thread architecture should be significantly lower than before, getting close to zero. What about benefit?
 
