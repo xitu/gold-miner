@@ -101,21 +101,21 @@ export async function generateTextures() {
 
 ### Web Workers 是什么？
 
-**[Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker), also called “Dedicated Workers”, are JavaScript’s take on threads.** JavaScript engines have been built with the assumption that there is a single thread, and consequently there is no concurrent access JavaScript object memory, which absolves the need for any synchronization mechanism. If regular threads with their shared memory model got added to JavaScript it would be disastrous to say the least. Instead, we have been given [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker), which are basically an entire JavaScript scope running on a separate thread, without any shared memory or shared values. To make these completely separated and isolated JavaScript scopes work together you have [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage), which allows you to trigger a `message` event in the **other** JavaScript scope together with the copy of a value you provide (copied using the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm)).
+**[Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)，也被叫做 “Dedicated Workers”，是 JavaScript 在线程方面的尝试。**JavaScript 引擎在设计时就假设只有一条线程，因此时没有并发访问的 JavaScript 对象内存，而这符合所有同步机制的需求。如果一条具有共享内存模型的普通线程被添加到 JavaScript，那么少说也是一场灾难。相反，我们有了 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)，它基本上就是一个运行在另一条独立线程上的完整的 JavaScript 作用域，没有任何的共享内存或者共享值。为了使这些完全分离并且孤立的 JavaScript 作用域能共同工作，你可以使用 [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage)，它使你能够在**另一个** JavaScript 作用域内触发一个 `message` 事件并带有一个你提供的值的拷贝（使用[结构化克隆算法](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm) 来拷贝）。
 
-So far, Workers have seen practically no adoption, apart from a few “slam dunk” use-cases, which usually involve long-running number crunching tasks. I think that should change. **We should start using workers. A lot.**
+到目前为止，除了一些通常涉及长时间运行的计算密集任务的“银弹”用例以外 workers 基本没得到采用。我想这应该被改变。**我们应该开始使用 workers。经常使用。**
 
-### All the cool kids are doing it
+### 所有酷小孩都在这么做
 
-This is not novel idea. At all. Quite the opposite, actually. **Most native platforms call the main thread the UI thread, as it should **only** be used for UI work,** and they give you the tools to achieve that. Android has had [`AsyncTask`](https://developer.android.com/reference/android/os/AsyncTask) since it’s earliest versions and has added more convenient APIs since then (most recently [Coroutines](https://kotlinlang.org/docs/reference/coroutines/basics.html), which can be easily scheduled on different threads). If you opt-in to [“Strict mode”](https://developer.android.com/reference/android/os/StrictMode), certain APIs — like file operations — will crash your app when used on the UI thread, helping you notice when you are doing non-UI work on the UI thread.
+这不是一个新的想法，实际上还挺老的。**大部分原生平台都把主线程称为 UI 线程，因为它应该 **只会** 被用来处理 UI 工作，并且它们给你提供了工具去实现。安卓从很早的版本开始就有一个叫 [`AsyncTask`](https://developer.android.com/reference/android/os/AsyncTask) 的东西，并从那开始添加了更多更方便的 API（最近的是 [Coroutines](https://kotlinlang.org/docs/reference/coroutines/basics.html) 它可以很容易地被派发在不同线程）。如果你选用了[“严格模式”](https://developer.android.com/reference/android/os/StrictMode)，那么在 UI 线程上使用某些 API —— 例如文件操作 —— 会导致你的应用奔溃，以此来提醒你在 UI 线程上做了一些与 UI 无关的操作。
 
-iOS has had [Grand Central Dispatch](https://developer.apple.com/documentation/dispatch) (“GCD”) from the very start to schedule work on different, system-provided thread pools, including the UI thread. This way they are enforcing both patterns: You always have to chunk your work into tasks so that it can be put in a queue, allowing the UI thread to attend to its other responsibilities whenever necessary, but also allowing you to run non-UI work on a different thread simply by putting the task into a different queue. As a cherry on top, tasks can be assigned a priority which helps to ensure that time-critical work is done as soon as possible without sacrifcing the responsiveness of the system as a whole.
+从一开始 iOS 就有一个叫 [Grand Central Dispatch](https://developer.apple.com/documentation/dispatch) (“GCD”)的东西，用来在不同的系统提供的线程池上派发任务，其中包括 UI 线程。通过这方式他们强制了两个模式：你总是要将你的逻辑分割成若干任务，然后才能被放到队列中，允许 UI 线程在需要的时候将其放入对应的线程，但同时也允许你通过简单地将任务放到不同的队列来在不同的线程执行非 UI 相关的工作。锦上添花的是还可以给任务指定优先级，这样帮助我们确保时间敏感的工作能尽快被完成，并且不会牺牲系统整体的响应。
 
-The point is that these native platforms have had support for utilizing non-UI threads since their inception. I think it’s fair to say that, over time, they have proven that this is a Good Idea™️. Keeping work on the UI thread to a minimum helps your app to stay responsive. Why hasn’t this pattern been adopted on the web?
+我的观点是这些原生平台从一开始就已经支持使用非 UI 线程。我觉得可以公正地说，经过这么多时间，他们已经证明来这是一个好主意。将在 UI 线程的工作量降到最低有助于让你的 app 保持响应灵敏。为什么不把这样的模式用在 web 上呢？
 
-## Developer Experience as a hurdle
+## 开发体验是一个障碍
 
-The only primitive we have for threading on the web are Web Workers. When you start using Workers with the API they provide, the `message` event handler becomes the center of your universe. That doesn’t feel great. Additionally, Workers are **like** threads, but they are not the same as threads. You can’t have multiple threads access the same variable (like a state object) as everything needs to go via messages and these messages can carry many but not all JavaScript values. For example: you can’t send an `Event`, or any class instances without data loss. This, I think, has been a major deterrant for developers.
+我们只能通过 Web Worker 这么一个简陋的工具在 web 上使用线程。当你开始使用 Workers 以及他们提供的 API 时，`message` 事件处理器就是其中的核心。这感觉并不好。此外，Workers **像**线程，但又跟线程不完全一样。你无法让多个线程访问同一个变量（例如一个静态对象），所有的东西都要通过消息传递，这些消息能携带很多但不是全部 JavaScript 值。例如你不能发送一个 `Event` 或者没有数据损失的对象实例。我想，对于开发者来说这是最大的阻碍。
 
 ### Comlink
 
