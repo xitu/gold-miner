@@ -159,9 +159,9 @@ Comlink.expose(state);
 
 ## “基准测试”
 
-Some of you are probably wondering: **is it worth the effort to adopt an off-main-thread architecture?** Let’s tackle with a cost/benefit analysis: With a library like [Comlink](https://github.com/GoogleChromeLabs/comlink), the cost of switching to an off-main-thread architecture should be significantly lower than before, getting close to zero. What about benefit?
+你也许会想：**是不是值得去使用“离开主线程”架构？**让我们来做一个投入/产出分析：有了 [Comlink](https://github.com/GoogleChromeLabs/comlink) 这样的库，切换到“离开主线程”架构的代价应该会比以前有显著的降低，非常接近于零。那么好处呢？
 
-[Dion Almaer](https://twitter.com/dalmaer) asked me to write a version of [PROXX](https://proxx.app) where everything runs on the main thread, probably to clear up that very question. And so [I did](https://github.com/GoogleChromeLabs/proxx/pull/437). On a Pixel 3 or a MacBook, the difference is only rarely noticeable. Playing it on the Nokia 2, however, shows a a night-and-day difference. **With everything on the main thread, the app is frozen for up to 6.6 seconds** in the worst case scenario. And there are less powerful devices in circulation than the Nokia 2! Running the live version of PROXX using an off-main-thread architecture, the task that runs the `tap` event handler only takes 48ms, because all it does is calling `postMessage()` to send a message to the worker. What this shows is that, especially with respect to The Widening Performance Gap™️, **off-main-thread architectures increase resilience against unexpectedly large or long tasks**.
+[Dion Almaer](https://twitter.com/dalmaer) 叫过我去给 [PROXX](https://proxx.app) 写一个完全运行在主线程上的版本，这也许能解答那个问题。因此[我就这么做了](https://github.com/GoogleChromeLabs/proxx/pull/437)。在 Pixel 3 或者 MacBook 上仅仅有一点可感知的差别。但是在 Nokia 2 上则有了明显不同。**如果把所有东西都运行在主线程上，在最差的情形下应用卡住了高达 6.6 秒。**并且还有很多正在流通的设备的性能比 Nokia 2 还要低！而运行使用了“离开主线程”架构的 PROXX 版本，执行一个 `tap` 事件处理函数仅仅耗时 48 毫秒，因为所做的仅仅是通过调用 `postMessage()` 发了一条消息到 Worker 中。这代表着，特别是考虑到 The Widening Performance Gap™️，**“离开主线程”架构能够提高处理意想不到的大且长的任务的韧性**。
 
 ![A trace of PROXX running with an off-main-thread architecture.](https://dassur.ma/trace-omt-bb7bc9f7.png)
 
