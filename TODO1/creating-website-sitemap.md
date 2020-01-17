@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-website-sitemap.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-website-sitemap.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：[Chorer](https://github.com/Chorer)，
+> * 校对者：[Chorer](https://github.com/Chorer)，[Gavin](https://github.com/redagavin)
 
 # 5 个简单步骤为您的网站创建 Sitemap
 
@@ -25,7 +25,7 @@
 
 XML sitemap 使搜索引擎爬虫更容易读取站点上的内容并相应地为页面建立索引。因此，这增加了[提高您的网站 SEO 排名](https://www.quicksprout.com/ways-to-improve-seo-ranking/)的机会。
 
-您的 sitemap 会告诉搜索引擎您的网站上某个页面的位置，它是何时更新的，更新的频率如何，以及这个页面与您网站上其他页面的关系的重要性程度。如果没有合适的 sitemap，Google 机器人可能会认为您的网站有重复的内容，这实际上会降低您的 SEO 排名。
+您的 sitemap 会告诉搜索引擎您的网站上某个页面的位置，它是何时更新的，更新的频率如何，以及这个网页的重要性根据它和您网站上其他页面的关联。如果没有合适的 sitemap，Google 机器人可能会认为您的网站有重复的内容，这实际上会降低您的 SEO 排名。
 
 如果您已经准备好让您的网站更快地被搜索引擎索引，那么只需遵循以下五个简单的步骤来创建 sitemap。
 
@@ -45,7 +45,7 @@ XML sitemap 使搜索引擎爬虫更容易读取站点上的内容并相应地�
 
 根据 [搜索引擎日志](https://www.searchenginejournal.com/website-structure-affects-seo/186553/) 这篇文章的说法，您应该致力于创建深度较浅的 sitemap，这意味着只需单击三下即可导航到您网站上的任何页面。对于SEO而言，这会是极好的。
 
-因此，您需要基于页面的重要级别和您希望的它们被索引的方式，来创建一个页面层次结构。这会将内容按照逻辑层次的不同划分为不同的层次。如果您不太明白，可以看看这个[例子](https://blog.hubspot.com/marketing/build-sitemap-website)。
+因此，您需要基于页面的重要级别和您希望的它们被索引的方式，来创建一个页面层次结构。按照逻辑层次决定你的内容的优先顺序。如果您不太明白，可以看看这个[例子](https://blog.hubspot.com/marketing/build-sitemap-website)。
 
 ![页面层次结构](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/page-hierarchy.png)
 
@@ -61,11 +61,11 @@ XML sitemap 使搜索引擎爬虫更容易读取站点上的内容并相应地�
 
 ### 第 2 步：修改您的 URL
 
-现在您已经浏览并确定了每个页面的重要性程度，也根据重要性程度安排了网站结构，是时候对这些 URL 进行修改了。
+现在您已经浏览并确定了每个页面的重要性，也根据重要性安排了网站结构，是时候对这些 URL 进行修改了。
 
-实现这个的方法是使用 XML 标签格式化每个 URL。如果您写过一些 HTML，这对您来说简直是小菜一碟。如前所述，XML 中的 ML 代表”标记语言“（markup language），所以它和 HTML 是类似的。
+实现这个的方法是使用 XML 标签编排每个 URL 的格式。如果您写过一些 HTML，这对您来说简直是小菜一碟。如前所述，XML 中的 ML 代表”标记语言“（markup language），所以它和 HTML 是类似的。
 
-即使您是第一次接触它，这也并不难。首先打开一个文本编辑器，您可以在其中创建 XML 文件。
+即使您是第一次接触它，这也并不难。首先打开一个您可以在其中创建 XML 文件的文本编辑器。
 
 就文本编辑器而言，[Sublime Text](https://www.sublimetext.com/) 对您来说会是一个不错的选择。
 
