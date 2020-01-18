@@ -9,66 +9,66 @@
 
 那是一个深夜。
 
-我同事刚刚签入了他们已经写了整整一周的代码。我们在做图形编辑画布，并且他们实现了调整形状大小的方法，比如矩形或者椭圆形在它们的边缘拖拽小按钮。
+我同事刚刚合并了他们已经写了整整一周的代码。我们在做图形编辑画布，并且他们实现了调整形状大小的方法，比如矩形或者椭圆形在它们的边缘拖拽小按钮。
 
 代码生效了。
 
-但是它单调且重复。每个形状（例如矩形或者椭圆形）都有一组不同按钮，并且往不同的方向拖拽每个按钮都会通过不同的方式来影响着形状的位置和大小。如果用户按住 Shift 按键，我们还应该需要在调整大小时呈现其属性。这也有一大堆数学。
+但是它单调且重复。每个形状（例如矩形或者椭圆形）都有一组不同按钮，并且往不同的方向拖拽每个按钮都会通过不同的方式来影响着形状的位置和大小。如果用户按住 Shift 按键，我们还应该需要在调整大小时呈现其属性。这也有一大堆数学计算。
 
 代码看起来就像这样：
 
 ```jsx
 let Rectangle = {
   resizeTopLeft(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeTopRight(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeBottomLeft(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeBottomRight(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
 };
 
 let Oval = {
   resizeLeft(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeRight(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeTop(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeBottom(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
 };
 
 let Header = {
   resizeLeft(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeRight(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },  
 }
 
 let TextBlock = {
   resizeTopLeft(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeTopRight(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeBottomLeft(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
   resizeBottomRight(position, size, preserveAspect, dx, dy) {
-    // 10 条重复的数学计算行
+    // 10 行重复的数学计算
   },
 };
 ```
@@ -88,25 +88,25 @@ let TextBlock = {
 ```jsx
 let Directions = {
   top(...) {
-    // 5 条唯一的数学计算行
+    // 5 行唯一的数学计算
   },
   left(...) {
-    // 5 条唯一的数学计算行
+    // 5 行唯一的数学计算
   },
   bottom(...) {
-    // 5 条唯一的数学计算行
+    // 5 行唯一的数学计算
   },
   right(...) {
-    // 5 条唯一的数学计算行
+    // 5 行唯一的数学计算
   },
 };
 
 let Shapes = {
   Oval(...) {
-    // 5 条唯一的数学计算行
+    // 5 行唯一的数学计算
   },
   Rectangle(...) {
-    // 5 条唯一的数学计算行
+    // 5 行唯一的数学计算
   },
 }
 ```
@@ -149,7 +149,7 @@ let TextBox = createBox(Shapes.Rectangle, fourCorners);
 
 这是所有代码的一半，并且那些重复的也消失无踪啦！如此的整洁。如果我们想要改变一个特殊方向或者形状的表现，我们只需要修改一个地方的代码而不是修改所有地方。
 
-当时的确是很晚啦（我忘乎所以了）。我将我重构的代码提交到 `master`，然后就去睡觉了，并且非常骄傲我竟然解开了我同事那杂乱无章的代码。
+当时的确是很晚啦（我忘乎所以了）。我将我重构的代码合并到  `master`，然后就去睡觉了，并且非常骄傲我竟然解开了我同事那杂乱无章的代码。
 
 ## [](#the-next-morning)第二天
 
@@ -161,11 +161,11 @@ let TextBox = createBox(Shapes.Rectangle, fourCorners);
 
 ## [](#its-a-phase)这是一个阶段
 
-痴迷于“代码的整洁之道”并且移除重复是我们大多数必经的一个阶段。当我们对代码不自信时，很容易将我们的自我价值感和专业自豪感附加到可以衡量的事物上，一组严格的 lint 规则、命名规则、文件结构和难以移植。
+痴迷于“代码的整洁之道”并且移除重复是我们大多数必经的一个阶段。当我们对代码不自信时，很容易将我们的自我价值感和专业自豪感附加到可以衡量的事物上，一组严格的 lint 规则、命名规则、文件结构和没有重复。
 
 你不能使移除重复自动化，但是它**的确**随着练习变得更容易。通常情况下你都可以分辨出在每次更改之后它是更少了还是更多了。结果，移除重复感觉就像是改善代码的一种指标。更糟糕的是，它与人们的认同感交织在一起：“我就是写整洁代码的那个人”。这比任何一种自我欺骗都有效。
 
-一旦我们学习了如何去创建 [abstractions（抽象）](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction)，就很容易掌握这种技能，并且当我们看到了重复的代码就从中抽出抽象层。经过几年编码之后，如果我们随处随地看到重复性代码，那么，抽象就是我们新的超能力。如果某个人告诉我们抽象是优点，我们也会认同。并且我们开始判断其他人会不会崇拜这种“整洁”能力。
+一旦我们学习了如何去创建 [abstractions（抽象）](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction)，就很容易掌握这种技能，当我们看到重复的代码时，就会从中抽出抽象层。经过几年编码之后，如果我们随处随地看到重复性代码，那么，抽象就是我们新的超能力。如果某个人告诉我们抽象是优点，我们也会认同。并且我们开始判断其他人会不会崇拜这种“整洁”能力。
 
 我现在知道，我的“重构”在两个方面是致命的：
 
