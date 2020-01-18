@@ -47,7 +47,7 @@ Nokia 8110， 或者说“香蕉手机”
 
 多少的阻塞才算过多的阻塞？[RAIL](https://developers.google.com/web/fundamentals/performance/rail)通过给不同的任务提供基于人类感知的时间预算来尝试回答这个问题。比如说，为了让人眼感到动画流畅，在下一帧被渲染之前你要有大约 16 毫秒的间隔。**这些数字是固定的**，因为人类心理学不会因为你所拿着的设备而改变。
 
-看一下 The Widening Performance Gap™️。你可以构建你的 app，做你的尽职调查以及性能分析，解决所有的瓶颈并达成所有目标。**但是除非你是在最低端的手机上开发，不然是无法预测一段代码在如今最低端手机上要运行多久，更不要说未来的最低端手机。**
+看一下日趋扩大的性能差距。你可以构建你的 app，做你的尽职调查以及性能分析，解决所有的瓶颈并达成所有目标。**但是除非你是在最低端的手机上开发，不然是无法预测一段代码在如今最低端手机上要运行多久，更不要说未来的最低端手机。**
 
 这就是由不一样的水平带给 web 的负担。你无法预测你的 app 将会运行在什么级别的设备上。你可以说“Sura，这些性能低下的手机与我/我的生意无关！”，但对我来讲，这如同“那些依赖屏幕阅读器的人与我/我的生意无关！”一样的恶心。**这是一个包容性的问题。我建议你 **仔细** 想想，是否正在通过不支持低端手机来排除掉某些人群。**我们应该努力使每一个人都能获取到这个世界的信息，而不管喜不喜欢，你的 app 正是其中的一部分。
 
@@ -93,11 +93,11 @@ export async function generateTextures() {
 }
 ```
 
-但是**分割依旧受到 The Widening Performance Gap™️ 的影响：**一段代码运行到下一个断点的时间是取决于设备的。在一台低端手机上耗时小于 16 毫秒，但在另一台低端手机上也许就会耗费更多时间。
+但是**分割依旧受到日趋扩大的性能差距的影响：**一段代码运行到下一个断点的时间是取决于设备的。在一台低端手机上耗时小于 16 毫秒，但在另一台低端手机上也许就会耗费更多时间。
 
 ## 移出主线程
 
-我之前说过，主线程除了执行网页应用的 JavaScript 以外，还有别的一些职责。而这就是为什么我们要不惜代价避免长的，阻塞的 JavaScript 在主线程。但假如说我们把大部分的 JavaScript 移动到一条**专门**用来运行我们的 JavaScript，除此之外不做别的事情的线程中呢。一条没有其他职责的线程。在这样的情况下，我们不需要担心我们的代码受到The Widening Performance Gap™️ 的影响，因为主线程不会收到影响，依然能处理用户输入并保持帧率稳定。
+我之前说过，主线程除了执行网页应用的 JavaScript 以外，还有别的一些职责。而这就是为什么我们要不惜代价避免长的，阻塞的 JavaScript 在主线程。但假如说我们把大部分的 JavaScript 移动到一条**专门**用来运行我们的 JavaScript，除此之外不做别的事情的线程中呢。一条没有其他职责的线程。在这样的情况下，我们不需要担心我们的代码受到日趋扩大的性能差距的影响，因为主线程不会收到影响，依然能处理用户输入并保持帧率稳定。
 
 ### Web Workers 是什么？
 
@@ -161,33 +161,33 @@ Comlink.expose(state);
 
 你也许会想：**是不是值得去使用“离开主线程”架构？**让我们来做一个投入/产出分析：有了 [Comlink](https://github.com/GoogleChromeLabs/comlink) 这样的库，切换到“离开主线程”架构的代价应该会比以前有显著的降低，非常接近于零。那么好处呢？
 
-[Dion Almaer](https://twitter.com/dalmaer) 叫过我去给 [PROXX](https://proxx.app) 写一个完全运行在主线程上的版本，这也许能解答那个问题。因此[我就这么做了](https://github.com/GoogleChromeLabs/proxx/pull/437)。在 Pixel 3 或者 MacBook 上仅仅有一点可感知的差别。但是在 Nokia 2 上则有了明显不同。**如果把所有东西都运行在主线程上，在最差的情形下应用卡住了高达 6.6 秒。**并且还有很多正在流通的设备的性能比 Nokia 2 还要低！而运行使用了“离开主线程”架构的 PROXX 版本，执行一个 `tap` 事件处理函数仅仅耗时 48 毫秒，因为所做的仅仅是通过调用 `postMessage()` 发了一条消息到 Worker 中。这代表着，特别是考虑到 The Widening Performance Gap™️，**“离开主线程”架构能够提高处理意想不到的大且长的任务的韧性**。
+[Dion Almaer](https://twitter.com/dalmaer) 叫过我去给 [PROXX](https://proxx.app) 写一个完全运行在主线程上的版本，这也许能解答那个问题。因此[我就这么做了](https://github.com/GoogleChromeLabs/proxx/pull/437)。在 Pixel 3 或者 MacBook 上仅仅有一点可感知的差别。但是在 Nokia 2 上则有了明显不同。**如果把所有东西都运行在主线程上，在最差的情形下应用卡住了高达 6.6 秒。**并且还有很多正在流通的设备的性能比 Nokia 2 还要低！而运行使用了“离开主线程”架构的 PROXX 版本，执行一个 `tap` 事件处理函数仅仅耗时 48 毫秒，因为所做的仅仅是通过调用 `postMessage()` 发了一条消息到 Worker 中。这代表着，特别是考虑到日趋扩大的性能差距，**“离开主线程”架构能够提高处理意想不到的大且长的任务的韧性**。
 
-![A trace of PROXX running with an off-main-thread architecture.](https://dassur.ma/trace-omt-bb7bc9f7.png)
+![一个采用“离开主线程”架构的 PROXX 的运行跟踪](https://dassur.ma/trace-omt-bb7bc9f7.png)
 
-PROXX’ event handler are lean and are only used to send a message to a dedicated worker. All in all the task takes 48ms.
+PROXX 的事件处理器是非常简洁的并且只会被用来给指定的 worker 发送消息。总而言之这个任务耗时 48 毫秒。
 
-![A trace of PROXX running with everything on the main thread.](https://dassur.ma/trace-nonomt-0d7f2457.png)
+![一个采用所有都运行在主线程的 PROXX 的运行跟踪](https://dassur.ma/trace-nonomt-0d7f2457.png)
 
-In a branch of PROXX, everything runs on the main thread, making the task for the event handler take over 6 seconds.
+在一个所有东西都运行在主线程的 PROXX 版本，执行一个事件处理器需要耗时超过 6 秒。
 
-It’s important to note that the work doesn’t just disappear. With an off-main-thread architecture, the code still takes ~6s to run (in the case of PROXX it’s actually significantly longer). However, since that work is now happening in a different thread the UI thread stays responsive. Our worker is also sends intermediate results back to the main thread. **By keeping the event handlers lean we ensured that the UI thread stays free and can update the visuals.**
+有一个需要注意的是，任务并没有消失。即使使用了“离开主线程”架构，代码仍需要运行大约 6 秒的事件（在 PROXX 这实际上会更加长）。然而由于这些工作是在另一个线程上进行的，UI 线程仍然能保持响应。我们的 worker 也会把中间结果传回主线程。**通过保持事件处理器的简洁，我们保证了 UI 线程能保持响应并能更新视觉状态。**
 
-## The Framework Quandary
+## 框架的窘困
 
-Now for my juicy hot take: **Our current generation of frameworks makes off-main-thread architectures hard and diminishes its returns.** UI frameworks are supposed to do UI work and therefore have the right to run on the UI thread. In reality, however, the work they are doing is a mixture of UI work and other related, but ultimately non-UI work.
+现在说一下我一个脱口而出的意见：**我们现有的框架让“离开主线程”架构变得困难并减少了它的回归。**UI 框架应该去做 UI 的工作，也因此有权去运行在 UI 线程。然而实际上，它们所做的工作是 UI 工作以及其他一些相关但是非 UI 的工作。
 
-Let’s take VDOM diffing as an example: The purpose of a virtual DOM is to decouple costly updates to the real DOM from what the developers does. The virtual DOM is just a data structure mirroring the real DOM, where changes don’t have any costly side-effects. Only when the framework deems it appropriate, will the changes to the virtual DOM be replayed against the real DOM. This is often called “flushing”. Everything up until flushing has absolutely no requirement to run on the UI thread. Yet it is, wasting your precious UI thread budget. On [PROXX](https://proxx.app) we actually [opted out of VDOM diffing](https://github.com/GoogleChromeLabs/proxx/blob/94b08d0b410493e2867ff870dee1441690a00700/src/services/preact-canvas/components/board/index.tsx#L116-L118) and implemented the DOM manipulations ourselves, because the phones at the lower end of the spectrum couldn’t cope with the amount of diffing work.
+让我们拿 VDOM diff 做例子：虚拟 DOM 的目的将开发者的代码与真实 DOM 的更新解耦。虚拟 DOM 仅仅是一个模拟真实 DOM 的数据结构，这样它的改变就不会引起高消耗的副作用。只有当框架认为时机合适的时候，虚拟 DOM 的改变才会引起真实 DOM 的更新。这通常被称为“冲洗（flushing）”。直到冲洗之前的所有工作是绝对不需要运行在 UI 线程的。然而实际上它正在耗费你宝贵的 UI 线程资源。鉴于低端手机无法应付 diff 的工作量，在 [PROXX](https://proxx.app) 我们[去除了 VDOM diff](https://github.com/GoogleChromeLabs/proxx/blob/94b08d0b410493e2867ff870dee1441690a00700/src/services/preact-canvas/components/board/index.tsx#L116-L118) 并实现了我们自己的 DOM 操作。
 
-VDOM diffing is just one of many examples of a framework choosing developer experience or simplicity of implementation over being frugal with their end-user’s resources. Unless a globally launched framework labels itself as exclusively targeting the users of the [Wealthy Western Web](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/), **it has a responsibility to help developers target every phone on The Widening Performance Gap™️ spectrum.**
+VDOM diff 仅仅是其中一个框架引导的开发体验的例子，或者一个简单的克服用户设备性能的例子。一个面向全球发布的框架，除非它明确表明自己只针对哪些[富有的西方网络](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/)，**否则他是有责任去帮助开发者开发支持不同级别手机的应用。**
 
-## Conclusion
+## 结论
 
-Web Workers help your app run on a wider range of devices. Libraries like [Comlink](https://github.com/GoogleChromeLabs/comlink) help you utilize workers without losing convenience and development velocity. I think **we should question why every platform **but the web** is fighting for the UI thread to be as free as possible**. We need to shift our default approach and help shape the next generation of frameworks.
+Web Worker 帮助你的应用运行在更广泛的设备上。像 [Comlink](https://github.com/GoogleChromeLabs/comlink) 这样的库协助你在无需放弃便利以及开发速度的情况下使用 worker。我想**我们应该思考的是，为什么 **除了 web** 以外的所有平台都在尽可能的少占用 UI 线程的资源**。我们应该改变自己的老办法，并帮助促成下一代框架改变。
 
 ---
 
-Special thanks to [Jose Alcérreca](https://twitter.com/ppvi) and [Moritz Lang](https://twitter.com/slashmodev) for helping me understand how native platforms are handling this problem space.
+特别感谢 [Jose Alcérreca](https://twitter.com/ppvi) 和 [Moritz Lang](https://twitter.com/slashmodev)，他们帮我了解原生平台是如何解决类似问题的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
