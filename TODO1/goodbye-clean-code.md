@@ -2,8 +2,8 @@
 > * 原文作者：[Dan Abramov](https://mobile.twitter.com/dan_abramov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/goodbye-clean-code.md](https://github.com/xitu/gold-miner/blob/master/TODO1/goodbye-clean-code.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zh1an](https://github.com/zh1an)
+> * 校对者：[ahabhgk](https://github.com/ahabhgk), [febrainqu](https://github.com/febrainqu)
 
 # 再见，整洁的代码
 
