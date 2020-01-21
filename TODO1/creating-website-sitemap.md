@@ -2,202 +2,202 @@
 > * 原文作者：[quicksprout](https://www.quicksprout.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-website-sitemap.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-website-sitemap.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Jessica](https://github.com/cyz980908)
+> * 校对者：[Chorer](https://github.com/Chorer)，[Gavin](https://github.com/redagavin)
 
-# 5 Easy Steps to Creating a Sitemap For a Website
+# 5 个简单步骤为您的网站创建 Sitemap
 
-## Everything you need for creating and submitting a sitemap for your website
+## 创建和提交 sitemap 所需的一切
 
-When it comes to getting your website ranked, you need to take advantage of as many SEO hacks as possible. Creating a sitemap is one technique that will definitely help [improve your SEO strategy](https://www.quicksprout.com/university/how-to-optimize-your-robots-txt-file/).
+当您想要让您的网站位居搜索引擎的前列时，您需要利用尽可能多的 SEO 技巧。创建 sitemap 绝对是一种可以帮助[提高您 SEO 策略](https://www.quicksprout.com/university/how-to-optimize-your-robots-txt-file/)的技术。
 
-## What is a sitemap?
+## 什么是 sitemap？
 
-Some of you may be more familiar with this than others. I’ll give you a quick crash course on the basics of sitemaps before I show you how to build a website sitemap on your own.
+有些人已经对它很熟悉了。但是，在我向您展示如何建立您自己的 sitemap 之前，我会给您一个关于 sitemap 基础知识的速成课程。
 
-Simply put, a sitemap, or XML sitemap, is a list of different pages on a website. XML is short for “extensible markup language,” which is a way to display information on a site.  
+简单来说，sitemap，或者说 XML sitemap，是网站上不同页面的列表。XML是“extensible markup language”的缩写，这是在站点上显示信息的一种方式。 
   
-I’ve consulted with so many website owners who are intimidated by this concept because sitemaps are considered a technical component of SEO. But in all reality, you don’t need to be a tech wizard or have a tech background to create a sitemap. As you’ll learn shortly, it’s really not that difficult.
+我咨询过很多站长，他们之所以被吓到是因为他们认为 sitemap 是 SEO 的技术组成部分。但实际上，创建 sitemap 并不需要您成为一个技术大牛或是有技术背景的人。看完这篇教程之后，您很快就会发现这实际上并不难。
 
-## Why do you need a sitemap?
+## 为什么你需要 sitemap？
 
-Search engines like Google are committed to displaying the most relevant results to people for any given search query. In order do this effectively, they use site crawlers to read, organize, and index information on the Internet.
+像 Google 这样的搜索引擎，一直致力于向人们展示任何给定的搜索查询中最相关的结果。为了有效地做到这一点，他们使用站点爬虫来读取、组织和索引互联网上的信息。
 
-XML sitemaps make it easier for search engine crawlers to read the content on your site and index the pages accordingly. As a result, this increases your chances of [boosting the SEO ranking of your website](https://www.quicksprout.com/ways-to-improve-seo-ranking/).
+XML sitemap 使搜索引擎爬虫更容易读取站点上的内容并相应地为页面建立索引。因此，这增加了[提高您的网站 SEO 排名](https://www.quicksprout.com/ways-to-improve-seo-ranking/)的机会。
 
-Your sitemap will tell search engines the location of a page on your website, when it was updated, the updating frequency, and the importance of the page as it’s related to other pages on your site. Without a proper sitemap, Google bots might think that your site has duplicate content, which will actually hurt your SEO ranking.
+您的 sitemap 会告诉搜索引擎您的网站上某个页面的位置，它是何时更新的，更新的频率如何，以及这个网页的重要性根据它和您网站上其他页面的关联。如果没有合适的 sitemap，Google 机器人可能会认为您的网站有重复的内容，这实际上会降低您的 SEO 排名。
 
-If you’re ready for your website to get indexed faster by search engines, just follow these five easy steps to create a sitemap.
+如果您已经准备好让您的网站更快地被搜索引擎索引，那么只需遵循以下五个简单的步骤来创建 sitemap。
 
-### Step 1: Review the structure of your pages
+### 第 1 步: 检查页面的结构
 
-The first thing you need to do is look at the existing content on your website and see how everything is structured.
+您需要做的第一件事是查看您的网站上的现有内容以及所有内容的结构。
 
-Look at a [sitemap template](https://nationalgriefawarenessday.com/48796/website-sitemap-template) and figure out how your pages would be displayed on the table.
+看看这个 [sitemap 模板](https://nationalgriefawarenessday.com/48796/website-sitemap-template)，并弄明白如何用一张表来表示您的网页。
 
-![website sitemap template](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/website-sitemap-template.png)
+![网页 sitemap 模版](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/website-sitemap-template.png)
 
-This is a very basic example that’s easy to follow.
+这是一个简单易懂的例子。
 
-It all starts from the homepage. Then you have to ask yourself where your homepage links to. You likely already have this figured out based on the menu options on your site.
+一切都从主页开始。然后，问问自己主页会链接到哪些页面去。您可能已经根据您网站上的菜单选项找到了答案。
 
-But when it comes to SEO, not all pages are created equal. You have to keep the depth of your website in mind when you’re doing this. Recognize that the pages further away from your site’s homepage will be harder to rank for.
+但说到 SEO，并不是所有页面的排名都是一样的。当您处理页面的 SEO 时，您必须记住您网站的深度。要明白一点：离您的网站主页越远的页面排名越靠后。
 
-According to [Search Engine Journal](https://www.searchenginejournal.com/website-structure-affects-seo/186553/), you should aim to create a sitemap that has a shallow depth, meaning it only takes three clicks to navigate to any page on your website. That’s much better for SEO purposes.
+根据 [搜索引擎日志](https://www.searchenginejournal.com/website-structure-affects-seo/186553/) 这篇文章的说法，您应该致力于创建深度较浅的 sitemap，这意味着只需单击三下即可导航到您网站上的任何页面。对于SEO而言，这会是极好的。
 
-So you need to create a hierarchy of pages based on importance and how you want them to be indexed. Prioritize your content into tiers that follow a logical hierarchy. Here’s [an example](https://blog.hubspot.com/marketing/build-sitemap-website) to show you what I’m talking about.
+因此，您需要基于页面的重要级别和您希望的它们被索引的方式，来创建一个页面层次结构。按照逻辑层次决定你的内容的优先顺序。如果您不太明白，可以看看这个[例子](https://blog.hubspot.com/marketing/build-sitemap-website)。
 
-![page hierarchy](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/page-hierarchy.png)
+![页面层次结构](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/page-hierarchy.png)
 
-As you can see, the About page links to Our Team as well as Mission & Values. Then the Our Team page links to Management and Contact Us.
+正如您所看到的，ABOUT页面链接到 Our Team 页面以及 Mission & Values 页面。然后，Our Team 页面链接到  Management 页面和 Contact Us 页面。
 
-The [About Us page is the most important](https://www.quicksprout.com/how-to-create-about-page/), which is why it’s part of the top-level navigation. It wouldn’t make sense to have the management page be prioritized at the same level as Products, Pricing, and Blogs, which is why it falls under third-level content.
+[“关于”页面是最重要的](https://www.quicksprout.com/how-to-create-about-page/)，这就是为什么它位于顶级导航层。将 Management 页面放在与 PRODUCTS 页面、PRICING 页面和 BLOGS 页面同一级别是不合理的，这就是为什么它属于第三级层次。
 
-Similarly, if the Basic pricing package was positioned above the Compare Packages page, it would throw the logical structure out of whack.
+同样，如果 Basic 页面位于 Compare Packages 页面的上方，则会使逻辑结构被打乱。
 
-So use these visual sitemap templates to determine the organization of your pages. Some of you may already have a structure that makes sense but just needs some slight tweaking.
+所以，请使用这些可视化的 sitemap 模板来确定页面的组织。你们中的有些人可能已经有一个合理的网站结构，只需要进行一些微调即可。
 
-Remember, you want to try to set it up so every page can be reached in three clicks.
+请记住，您应该尽可能实现在三次单击之内就可以到达每个页面。
 
-### Step 2: Code your URLs
+### 第 2 步：修改您的 URL
 
-Now that you’ve gone through and identified the importance of each page and matched that importance in your site structure, it’s time to code those URLs.
+现在您已经浏览并确定了每个页面的重要性，也根据重要性安排了网站结构，是时候对这些 URL 进行修改了。
 
-The way to do this is by formatting each URL with XML tags. If you have any experience with HTML coding, this will be a breeze for you. As I said earlier, the “ML” in XML stands for markup language, which is the same for HTML.
+实现这个的方法是使用 XML 标签编排每个 URL 的格式。如果您写过一些 HTML，这对您来说简直是小菜一碟。如前所述，XML 中的 ML 代表”标记语言“（markup language），所以它和 HTML 是类似的。
 
-Even if this is new to you, it’s not that tough to figure it out. Start by getting a text editor where you can create an XML file.
+即使您是第一次接触它，这也并不难。首先打开一个您可以在其中创建 XML 文件的文本编辑器。
 
-[Sublime Text](https://www.sublimetext.com/) is a great option for you to consider.
+就文本编辑器而言，[Sublime Text](https://www.sublimetext.com/) 对您来说会是一个不错的选择。
 
-![sublime text editor](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/sublime-text-editor.png)
+![Sublime Text 文本编辑器](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/sublime-text-editor.png)
 
-Then add the corresponding code for each URL.
+接着，为每个 URL 添加相应的代码。
 
-* location
-* last changed
-* changed frequency
-* priority of page
+* 网站地址（location）
+* 上一次更新的时间（last changed）
+* 更新频率（changed frequency）
+* 页面的优先级（priority of page）
 
-Here are some examples of how the code will look for each one.
+下面的一些示例展示了代码的大致样子。
 
 * http://www.examplesite.com/page1
 * 2019-1-10
 * weekly
 * 2
 
-Take your time and make sure you go through this properly. The text editor makes your life much easier when it comes to adding this code, but it still requires you to be sharp.
+慢慢来，一定要把这件事做好。在添加这段代码时，文本编辑器会使您的工作变得更加轻松，但您仍需保持清晰的头脑。
 
-### Step 3: Validate the code
+### 第 3 步：验证代码的正确性
 
-Any time you code manually, human error is possible. But, for your sitemap to function properly, you can’t have any mistakes in the coding.
+任何您手敲代码的过程，都可能发生人为错误。但是，为了让您的 sitemap 正常运行，您的代码不允许有任何错误。
 
-Fortunately, there are tools that will help validate your code to ensure the syntax is correct. There’s software available online that can help you do this. Just run a quick Google search for sitemap validation, and you’ll find something.
+幸运的是，有一些工具可以帮助验证代码以确保语法的正确。网上有一些软件可以帮助你做到这一点。只要在 Google 上搜索“sitemap validation”（不翻墙的话，就百度搜“sitemap 验证”），您就会发现它们。
 
-I like to use the [XML Sitemap Validator tool](https://www.xml-sitemaps.com/validate-xml-sitemap.html).
+我喜欢使用 [XML Sitemap 验证工具](https://www.xml-sitemaps.com/validate-xml-sitemap.html)。
 
-![xml sitemap generator](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/xml-sitemap-generator.png)
+![xml sitemap 生成器](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/xml-sitemap-generator.png)
 
-This will point out any errors in your code.
+它将挑出代码中的任何错误。
 
-For example, if you forget to add an end tag or something like that, it can quickly be identified and fixed.
+例如，如果您忘记添加结束标记或者类似的东西，这个工具可以很快地发现并进行修复。
 
-### Step 4: Add your sitemap to the root and robots.txt
+### 第 4 步：将 sitemap 添加到站点根目录和 robots.txt
 
-Locate the root folder of your website and add the sitemap file to this folder.
+找到网站的根文件夹，并将 sitemap 文件添加到此文件夹中。
 
-Doing this will actually add the page to your site as well. This is not a problem at all. As a matter of fact, lots of websites have this. Just type in a website and add “/sitemap/” to the URL and see what pops up.
+这样做实际上也会将页面添加到您的站点，但这并不会有什么问题。事实上，很多网站都有这个页面。你可以输入一个网址，并在后面添加“/sitemap/”，看看会弹出什么。
 
-Here’s an example from the [Apple](https://www.apple.com/sitemap/) website.
+这是 [Apple](https://www.apple.com/sitemap/) 网站的一个例子。
 
-![apple sitemap](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/apple-sitemap.png)
+![apple 的 sitemap](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/apple-sitemap.png)
 
-Notice the structure and logical hierarchy of each section. This relates back to what we discussed in the first step.
+注意每个部分的结构和逻辑层次。这与我们在第一步中讨论的内容有关。
 
-Now, this can be taken one step further. You can even look at the code on different websites by adding “/sitemap.xml” to the URL.
+现在，我们可以更进一步。您甚至可以通过在 URL 后添加 “/sitemap.xml” 来查看不同网站上的代码。
 
-Here’s what that looks like on the [HubSpot](https://www.hubspot.com/sitemap.xml) website.
+这是 [HubSpot](https://www.hubspot.com/sitemap.xml) 网站的 sitemap 的样子。
 
-![hubspot sitemap](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/hubspot-sitemap.png)
+![hubspot 的 sitemap](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/hubspot-sitemap.png)
 
-In addition to adding the sitemap file to your root folder, you’ll also want to add it to the robots.txt file. You’ll find this in the roots folder as well.
+除了将 sitemap 文件添加到根目录之外，您还需要将其添加到 robots.txt 文件中。您也可以在根文件夹中找到它。
 
-Basically, this to give instructions for any crawlers indexing your website.
+基本上，这可以引导任何索引您网站的爬虫。
 
-There are a couple of different uses for the robots.txt folder. You can set this up to show search engines URLs that you don’t want them to index when they’re crawling on your site.
+robots.txt 文件有两种不同的用法。您可以对其进行设置，以告诉爬虫有哪些 URL 是您不希望他们在搜寻您的网站时进行索引的。
 
-Let’s go back to Apple and see what their [robots.txt page](https://www.apple.com/robots.txt) looks like.
+让我们回到 Apple 官网，看看他们的 [robots.txt 页面](https://www.apple.com/robots.txt) 长什么样子。
 
 ![robots.txt](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/robots-txt.png)
 
-As you can see, they have “disallow” for several pages on their site. So crawlers ignore these.
+如您所见，他们 “disallow” 其网站上的多个页面。因此，爬虫会忽略这些网页。
 
-![apple sitemap files](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/apple-sitemap-files.png)
+![apple sitemap 文件](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/apple-sitemap-files.png)
 
-However, Apple also includes their sitemap files on here as well.
+同时，Apple 也在这里包含了他们的 sitemap 文件。
 
-Not everyone you ask will tell you to add your sitemaps to the robots.txt file. So I’ll let you decide that for yourself.
+事实上，并不是所有人都会建议您将 sitemap 添加到 robots.txt 文件中。因此，您自己决定就好。
 
-With that said, I’m definitely a firm believer in following the best practices of successful websites and businesses. If a giant like Apple uses this, it can’t be too bad of an idea for you to consider.
+话是这样说，但是我是一个遵循成功网站和企业最佳实践的坚定信仰者。所以，如果像 Apple 这样的大公司将 sitemap 写到 robots.txt 页面，这或许对我们来说是一个不错的主意。
 
-### Step 5: Submit your sitemap
+### 第 5 步：提交 sitemap 
 
-Now that your sitemap has been created and added to your site files, it’s time to submit them to search engines.
+现在您的 sitemap 已经创建好并添加到您的站点文件中了，是时候将它们提交给搜索引擎了。
 
-In order to do this, you need to go through [Google Search Console](https://search.google.com/search-console/about). Some of you may already have this set up. If not, you can get started very easily.
+您需要通过 [Google Search Console](https://search.google.com/search-console/about) 来提交。有些人可能已经使用过它了。就算没有，您也可以快速上手。
 
-Once you’re on the search console dashboard, navigate to Crawl > Sitemaps.
+进入 Search Console 控制面板后，导航至 Crawl > Sitemaps。
 
 ![Google search console](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/google-search-console.png)
 
-Next, click on Add/Test Sitemap on the top right corner of the screen.
+接着，单击屏幕右上角的 Add/Test Sitemap。
 
-This is a chance for you to test your sitemap again for any errors before you continue. Obviously, you’ll want to fix any mistakes found. Once your sitemap is free of errors, click submit and that’s it. Google will handle everything else from here. Now crawlers will index your site with ease, which will boost your SEO ranking.
+这里可以让您在继续下一步之前再次检验 sitemap 是否有错误。显然，您需要修复所发现的任何错误。一旦您的 sitemap 没有错误，点击提交就可以了。Google 将处理这一切。现在爬虫将很容易地索引您的网站，这将提高您的 SEO 排名。
 
-## Alternative options
+## 代替方案
 
-While these five steps are pretty simple and straightforward, some of you might be a little uncomfortable manually changing the code on your website. That’s perfectly understandable. Fortunately for you, there are plenty of other solutions that can create a sitemap for you, without having to edit the code yourself.
+虽然这五个步骤非常简单明了，但是可能还是会有些人对手动修改网站上的代码感到不舒服。这完全可以理解。幸运的是，还有许多其它的解决方案可以让您不用自己编辑代码也能创建 sitemap。
 
-I’ll go through some of the top options for you to consider.
+我将介绍一些最常用的代替方案供您考虑。
 
-### Yoast plugin
+### Yoast 插件
 
-If you have a WordPress website, you can install the [Yoast plugin](https://kb.yoast.com/kb/enable-xml-sitemaps-in-the-wordpress-seo-plugin/) to create a sitemap for your website.
+如果您有一个 WordPress 网站，您可以安装 [Yoast 插件](https://kb.yoast.com/kb/enable-xml-sitemaps-in-the-wordpress-seo-plugin/)来为您的网站创建 sitemap。
 
-Yoast gives you the option to turn your sitemap on and off with a simple toggle switch. You can find all of your XML sitemap options from the SEO tab via WordPress once the plugin has been installed.
+Yoast 可以让您通过简单的拨动开关来打开和关闭 sitemap。插件安装好后，您可以从 WordPress 的 SEO 标签页中找到所有 XML sitemap 选项。
 
 ### Screaming Frog
 
-[Screaming Frog](https://www.screamingfrog.co.uk/xml-sitemap-generator/) is desktop software that offers a wide range of SEO tools. It’s free to use and generate a sitemap as long as the website has fewer than 500 pages. For those of you with larger websites, you’ll need to upgrade the paid version.
+[Screaming Frog](https://www.screamingfrog.co.uk/xml-sitemap-generator/) 是一款桌面软件，它提供了大量的 SEO 工具。只要网站的页面不超过 500 页，您就可以免费使用和生成 sitemap。对于那些拥有大型网站的用户，您就需要升级付费版本了。
 
-Screaming Frog allows you to make all of the coding changes that we talked about earlier, but without actually changing the code yourself. Instead, you follow a prompt that’s much more user-friendly, and written in plain English. Then the code for the sitemap file will be changed automatically. Here’s a screenshot to show you what I mean.
+Screaming Frog 支持我们前面讨论过的所有代码的更改，而且不需要您自己实际编写代码。相反，您根据提示操作就行了，这个提示更友好，而且是用通俗易懂的英语写的。然后 sitemap 文件的代码将自动更改。下面的截图就是我要表达的意思。
 
-![screaming frog configuration](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/screaming-frog-configuration.png)
+![screaming frog 配置](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/screaming-frog-configuration.png)
 
-Just navigate through the tabs, change your settings, and the sitemap file will be adjusted accordingly.
+只需选择标签页，更改设置，sitemap 文件就会相应地进行调整。
 
 ### Slickplan
 
-I really like Slickplan because of the visual sitemap builder feature. You’ll have the opportunity to use a sitemap template, similar to the ones we looked at earlier.
+我非常喜欢 Slickplan，因为它有可视化的 sitemap 构建功能。您将有机会使用 sitemap 模板，类似于我们前面看到的网站结构模板。
 
-From here, you can drag and drop different pages into the template to organize the structure of your website. Once you’re done, and you’re happy with the way your visual sitemap looks, you can export it as an XML file.
+在这里，您可以拖放不同的页面到模板来组织您的网站结构。完成后，如果您对可视化的 sitemap 感到满意，就可以将其导出为 XML 文件。
 
-Slickplan is paid software, but they offer a free trial. It’s at least worth trying if you’re on the fence about purchasing a plan.
+Slickplan 是付费软件，但它们提供免费试用。如果您在犹豫是否购买它，可以去试试。
 
-## Conclusion
+## 总结
 
-If you’re ready to take your SEO strategy to the next level, you need to create a sitemap for your website.
+如果您打算提升一下您的 SEO 策略，您需要做的就是为您的站点创建一个 sitemap。
 
-There is no reason to be intimidated by this anymore. As you can see from this guide, it’s easy to create a sitemap in just five steps.
+对您而言 sitemap 再也不是难题了。因为正如这篇指南所介绍的，只需五个步骤即可轻松创建 sitemap。
 
-1. Review your pages
-2. Code the URLs
-3. Validate your code
-4. Add the sitemap to the root and robots.txt
-5. Submit the sitemap
+1. 检查页面的结构
+2. 编辑 URL
+3. 验证代码的正确性
+4. 将 sitemap 添加到站点根目录和 robots.txt
+5. 提交 sitemap
 
-That’s it!
+这就完事啦！
 
-For those of you who are still on the fence about manually changing code on your website, there are other options for you to consider. The Internet is full of sitemap resources, but the Yoast plugin, Screaming Frog, and Slickplan are all great choices to start.
+对于那些仍然对手动更改网站代码束手无策的人，您还可以选择其它代替方案。尽管互联网上有着大量的 sitemap 相关的资源，但是我推荐的 Yoast 插件，Screaming Frog 和 Slickplan 依然都是很不错的入门选择。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
