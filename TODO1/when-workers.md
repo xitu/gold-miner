@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-workers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-workers.md)
 > * 译者：[weibinzhu](https://github.com/weibinzhu)
-> * 校对者：
+> * 校对者：[ahabhgk](https://github.com/ahabhgk)，[febrainqu](https://github.com/febrainqu)
 
 # 在什么时候需要使用 Web Workers？
 
