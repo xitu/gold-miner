@@ -2,68 +2,68 @@
 > * 原文作者：[Surma](https://dassur.ma/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/when-workers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/when-workers.md)
-> * 译者：
-> * 校对者：
+> * 译者：[weibinzhu](https://github.com/weibinzhu)
+> * 校对者：[ahabhgk](https://github.com/ahabhgk)，[febrainqu](https://github.com/febrainqu)
 
-# When should you be using Web Workers?
+# 在什么时候需要使用 Web Workers？
 
-You should always use Web Workers. And in our current landscape of frameworks it’s virtually impossible.
+你应该在什么时候都使用 Web Workers。与此同时在我们当前的框架世界中，这几乎不可能。
 
-Did I get your attention with that? Good. Of course, as with any topic, there is nuance and I will lay that all out. But I have opinions, and they are important. Buckle up.
+我这么说吸引到你的注意吗？很好。当然对于任何一个主题，都会有其精妙之处，我会将他们都展示出来。但我会有自己的观点，并且它们很重要。系紧你的安全带，我们马上出发。
 
-## The Performance Gap is widening
+## 性能差异正在扩大
 
-> **Note:** I hate the “emerging markets” terminology, but to makes this blog post intuitive to as many people as possible, I’ll be using it here.
+> **注意：** 我讨厌“新兴市场”这个词，但是为了让这篇博客尽可能地通俗易懂，我会在这里使用它。
 
-Phones are getting faster. I don’t think anyone will disagree with that. Stronger GPUs, faster and more CPUs, more RAM. Phones are going through the same rapid development desktop machines did in the early 2000s.
+手机正变得越来越快。我想不会有人不同意。更强大的 GPU，更快并且更多的 CPU，更多的 RAM。手机正经历与 2000 年代早期桌面计算机经历过的一样的快速发展时期。
 
-![A graph showing the always increasing geekbench scores from iPhone 4 to iPhone X](https://dassur.ma/iphone-scores-89f089e4.svg)
+![图片展示了从 iPhone 4 到 iPhone X 的不断上涨的 geekbench 分数](https://dassur.ma/iphone-scores-89f089e4.svg)
 
-Benchmark scores taken from [Geekbench](https://browser.geekbench.com/ios-benchmarks) (single-core).
+从 [Geekbench](https://browser.geekbench.com/ios-benchmarks) 获得的基准测试分数（单核）。
 
-However, that’s just one edge of the distribution. ****Slow** phones are stuck in 2014.** The process to create the chips from half a decade ago has gotten so cheap that phones can now be sold for around $20, and cheaper phone will reach a wider audience. ~50% of the world are online, meaning that the other ~50% are not. However, these offliners are **coming** online and are predominantly located in emerging markets, where people simply can’t afford any of the [Wealthy Western Web](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/) flagship phones.
+然而，这仅仅是真实情况的其中一个部分。**低阶的手机还留在 2014 年。**用于制作 5 年前的芯片的流程已经变得非常便宜，以至于手机能够以大约 20 美元的价格卖出，同时便宜的手机能吸引更广的人群。全世界大约有 50% 的人能接触到网络，同时也意味着还有大约 50% 的人没有。然而，这些还没上网的人也**正在**去上网的路上并且主要是在新兴市场，那里的人买不起[有钱的西方网络（Wealthy Western Web）](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/)的旗舰手机。
 
-At Google I/O 2019, [Elizabeth Sweeny](https://twitter.com/egsweeny) and [Barb Palser](https://twitter.com/barb_palser) handed out Nokia 2 phones at a partner meeting and encouraged them to use it for a week to **really** get a feel for what class of device many people in the world use on a daily basis. The Nokia 2 is interesting because it looks and feels like a high-end phone but under the hood it is more like a smartphone from half a decade ago with a browser and an OS from today — and you can feel that mismatch.
+在 Google I/O 2019 大会期间，[Elizabeth Sweeny](https://twitter.com/egsweeny) 与 [Barb Palser](https://twitter.com/barb_palser) 在一个合作伙伴会议上拿出了 Nokia 2 并鼓励合作伙伴去使用它一个星期，去**真正**感受一下这个世界上很多人日常是在用什么级别的设备。Nokia 2 是很有意思的，因为它看起来有一种高端手机的感觉但是在外表下面它更像是一台有着现代浏览器和操作系统的 5 年前的智能手机 —— 你能感受到这份不协调。
 
-To make things even more extreme, feature phones are making a comeback. Remember the phones that didn’t have a touch screen but instead come with number keys and a D-Pad? Yeah, those are coming back and now they run a browser. These phones have even weaker hardware but, maybe somewhat surprisingly, better performance. That’s partly because they have considerably less pixels to control. Or to say it another way: relative to the Nokia 2, they have more CPU power per pixel.
+让事情变得更加极端的是，功能手机正在回归。记得哪些没有触摸屏，相反有着数字键和十字键的手机吗？是的，它们正在回归并且现在它们运行着一个浏览器。这些手机有着更弱的硬件，也许有些奇怪，却有着更好的性能。部分原因是它们只需要控制更少的像素。或者换另一种说法，对比 Nodia 2，它们有更高的 CPU 性能 - 像素比。
 
-![A picture of Paul playing PROXX on the Nokia 8110](https://dassur.ma/banana-5c71e1f7.jpg)
+![一张保罗正在使用 Nokia 8110 玩 PROXX 的照片](https://dassur.ma/banana-5c71e1f7.jpg)
 
-The Nokia 8110, or “Banana phone”
+Nokia 8110，或者说“香蕉手机”
 
-While we are getting faster flagship phones every cycle, the vast majority of people can’t afford these. The more affordable phones are stuck in the past and have highly fluctuating performance metrics. These low-end phones will mostly likely be used by the massive number of people coming online in the next couple of years. **The gap between the fastest and the slowest phone is getting wider, and the median is going **down**.**
+虽然我们每个周期都能拿到更快的旗舰手机，但是大部分人负担不起这些手机。更便宜的手机还留在过去并有着高度波动的性能指标。在接下来的几年里，这些低端手机更有可能被大量的人民用来上网。**最快的手机与最慢的手机之间的差距正在变大，中位数在减少。**
 
-![A stacked bar graph showing the increasing portion occupied of low-end mobile users amongst all online users.](https://dassur.ma/demographic-4c15c204.svg)
+![一个堆叠柱状图展示了低端手机用户占所有手机用户的比例在不断增加。](https://dassur.ma/demographic-4c15c204.svg)
 
-The median of mobile phone performance is going down, the fraction of people using low-end mobile phones amongst all online users is going up. **This is not real data, just a visualization.** I heavily extrapolated from population growth data of the western world and emerging markets as well as making some educated guesses who owns high-end mobile phones.
+手机性能的中位数在降低，所有上网用户中使用低端手机的比例则在上升。**这不是一个真实的数据，只是为了直观展现。**我是根据西方世界和新兴市场的人口增长数据以及对谁会拥有高端手机的猜测推断出来的。
 
-## JavaScript is blocking
+## JavaScript 是阻塞的
 
-Maybe it’s worth spelling it out: The bad thing about long-running JavaScript is that it’s blocking. Nothing else can happen while JavaScript is running. **The main thread has other responsibilties in addition to running a web app’s JavaScript.** It also has to do page layout, paint, ship all those pixels to the screen in a timely fashion and look out for user interactions like clicking or scrolling. All of these can’t happen while JavaScript is running.
+也许有必要解释清楚：长时间运行的 JavaScript 的缺点就是它是阻塞的。当 JavaScript 在运行时，不能去做任何其他事情。**除了运行一个网页应用的 JavaScript 以外，主线程还有别的指责。**它也需要渲染页面，及时将所有像素展示在屏幕上，并且监听诸如点击或者滑动这样的用户交互。在 JavaScript 运行的时候这些都不能发生。
 
-Browsers have shipped some mitigations for this, for example by moving the scrolling logic to a different thread under certain conditions. In general, however, if you block the main thread, your users will have a bad time. Like **bad**. They will be rage-tapping your buttons, they will be tortured by janky animations and potentially laggy scrolling.
+浏览器已经对此做了一些缓解措施，例如在特定情况下会把滚动逻辑放到不同的线程。不过整体而言，如果你阻塞了主线程，那么你的用户将会有**很差**的体验。他们会愤怒地点击你的按钮，被卡顿的动画与滚动所折磨。
 
-## Human perception
+## 人类的感知
 
-How much blocking is too much blocking? [RAIL](https://developers.google.com/web/fundamentals/performance/rail) is one attempt at answering that question by providing you with time-based budgets for different tasks based on human perception. For example, you have ~16ms until the next frame needs to get rendered to make animations feel smooth to the human eye. **These numbers are fixed**, because human psychology doesn’t change depending on what device you are holding.
+多少的阻塞才算过多的阻塞？[RAIL](https://developers.google.com/web/fundamentals/performance/rail) 通过给不同的任务提供基于人类感知的时间预算来尝试回答这个问题。比如说，为了让人眼感到动画流畅，在下一帧被渲染之前你要有大约 16 毫秒的间隔。**这些数字是固定的**，因为人类心理学不会因为你所拿着的设备而改变。
 
-Looking at The Widening Performance Gap™️, this spells trouble. You can build your app, do your due diligence and do performance audits, fix all bottlenecks and hit all the marks. **But unless you are developing on the slowest low-end phone available, it is almost impossible to predict how long a piece of code will take on the slowest phone today, let alone the slowest phone tomorrow.**
+看一下日趋扩大的性能差距。你可以构建你的 app，做你的尽职调查以及性能分析，解决所有的瓶颈并达成所有目标。**但是除非你是在最低端的手机上开发，不然是无法预测一段代码在如今最低端手机上要运行多久，更不要说未来的最低端手机。**
 
-That is the burden of the web with its unparalleled reach. You can’t predict what class of device your app will be running on. If you say “Surma, these underpowered devices are not relevant to me/my business!”, it strikes me as awfully similar to “People who rely on screenreaders are not relevant to me/my business!”. **It’s a matter of inclusivity. I encourage you to **really** think if you are excluding people by not supporting low-end phones.** We should strive to allow every person to have access to the world’s information, and your app is part of that, whether you like it or not.
+这就是由不一样的水平带给 web 的负担。你无法预测你的 app 将会运行在什么级别的设备上。你可以说“Sura，这些性能低下的手机与我/我的生意无关！”，但对我来讲，这如同“那些依赖屏幕阅读器的人与我/我的生意无关！”一样的恶心。**这是一个包容性的问题。我建议你 仔细想想，是否正在通过不支持低端手机来排除掉某些人群。**我们应该努力使每一个人都能获取到这个世界的信息，而不管喜不喜欢，你的 app 正是其中的一部分。
 
-That being said, a blog post like this can never give guidance that applies to everyone, because there is always nuance and context. This applies to the paragraph above as well. I won’t pretend that either accessibility or writing for low-end phones is easy, but I do believe that there is a lot of things we can do as a community of tooling and framework authors to set people up the right way, to make their work more accessible and more performant by default, which will also make it more inclusive by default.
+话虽如此，由于涉及到很多术语和背景知识，本博客无法给所有人提供指导。上面的那些段落也一样。我不会假装无障碍访问或者给低端手机编程是一件容易的事，但我相信作为一个工具社区和框架作者还是有很多事情可以去做，去以正确的方式帮助人们，让他们的成果默认就更具无障碍性并且性能更好，默认就更加包容。
 
-## Fixing it
+## 解决它
 
-Here we are, trying to build castles in the shifting sands. Trying to build apps that stay within the RAIL time budgets, but for a vast variety of devices where the duration for a piece of code is practically unpredictable.
+好了，尝试从沙子开始建造城堡。尝试去制作那些能在各种各样的，你都无法预测一段在代码在上面需要运行多久的设备上都能保持符合 RAIL 模型性能评估的时间预算的 app。
 
-### Being cooperative
+### 共同合作
 
-One technique to diminish blocking is “chunking your JavaScript” or “yielding to the browser”. What this means is adding **breakpoints** to your code at regular intervals which give the browser a chance to stop running your JavaScript and ship a new frame or process an input event. Once the browser is done, it will go back to running your code. The way to yield to the browser on the web platform is to schedule a task, which can be done in a variety of ways.
+一个解决阻塞的方式是“分割你的 JavaScript”或者说是“让渡给浏览器”。意思是通过在代码添加一些固定时间间隔的**断点**来给浏览器一个暂停运行你的 JavaScript 的机会然后去渲染下一帧或者处理一个输入事件。一旦浏览器完成这些工作，它就会回去执行你的代码。这种在 web 应用上让渡给浏览器的方式就是安排一个宏任务，而这可以通过多种方式实现。
 
-> **Required reading:** If you are not familiar with tasks and/or the difference between a task and a microtask, I recommend [Jake Archibald](https://twitter.com/jaffathecake)’s [Event Loop Talk](https://www.youtube.com/watch?v=cCOL7MC4Pl0).
+> **必要的阅读：** 如果你对宏任务或者宏任务与微任务的区别，我推荐你去阅读 [Jake Archibald](https://twitter.com/jaffathecake) 的[谈谈事件循环](https://www.youtube.com/watch?v=cCOL7MC4Pl0)。
 
-In PROXX, we used a `MessageChannel` and use `postMessage()` to schedule a task. To keep the code readable when adding breakpoints, I strongly recommend using `async`/`await`. Here’s what we actually shipped in [PROXX](https://proxx.app), where we generate sprites in the background while the user is interacting with the home screen of the game.
+在 PROXY，我们使用一个 `MessageChannel` 并且使用 `postMessage()` 去安排一个宏任务。为了在添加断点之后代码仍能保持可读性，我强烈推荐使用 `async/await`。在 [PROXX](https://proxx.app) 上，用户在主界面与游戏交互的同时，我们在后台生成精灵。
 
 ```js
 const { port1, port2 } = new MessageChannel();
@@ -87,46 +87,46 @@ export async function generateTextures() {
   // ...
   for (let frame = 0; frame < numSprites; frame++) {
     drawTexture(frame, ctx);
-    await task(); // Breakpoint!
+    await task(); // 断点
   }
   // ...
 }
 ```
 
-But **chunking still suffers from the influence of The Widening Performance Gap™️**: The time a piece of code takes to reach the next break point is inherently device-dependent. What takes less than 16ms on one low-end phone, might take considerably more time on another low-end phone.
+但是**分割依旧受到日趋扩大的性能差距的影响：**一段代码运行到下一个断点的时间是取决于设备的。在一台低端手机上耗时小于 16 毫秒，但在另一台低端手机上也许就会耗费更多时间。
 
-## Off the main thread
+## 移出主线程
 
-I said before that the main thread has other responsibilities in addition to running a web app’s JavaScript, and that’s the reason why we need to avoid long, blocking JavaScript on the main thread at all costs. But what if we moved most of our JavaScript to a thread that is **dedicated** to run our JavaScript and nothing else. A thread with no other responsibilities. In such a setting we wouldn’t have to worry about our code being affect by The Widening Performance Gap™️ as the main thread is unaffected and still able to respond to user input and keep the frame rate stable.
+我之前说过，主线程除了执行网页应用的 JavaScript 以外，还有别的一些职责。而这就是为什么我们要不惜代价避免长的，阻塞的 JavaScript 在主线程。但假如说我们把大部分的 JavaScript 移动到一条**专门**用来运行我们的 JavaScript，除此之外不做别的事情的线程中呢。一条没有其他职责的线程。在这样的情况下，我们不需要担心我们的代码受到日趋扩大的性能差距的影响，因为主线程不会收到影响，依然能处理用户输入并保持帧率稳定。
 
-### What are Web Workers again?
+### Web Workers 是什么？
 
-**[Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker), also called “Dedicated Workers”, are JavaScript’s take on threads.** JavaScript engines have been built with the assumption that there is a single thread, and consequently there is no concurrent access JavaScript object memory, which absolves the need for any synchronization mechanism. If regular threads with their shared memory model got added to JavaScript it would be disastrous to say the least. Instead, we have been given [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker), which are basically an entire JavaScript scope running on a separate thread, without any shared memory or shared values. To make these completely separated and isolated JavaScript scopes work together you have [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage), which allows you to trigger a `message` event in the **other** JavaScript scope together with the copy of a value you provide (copied using the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm)).
+**[Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)，也被叫做 “Dedicated Workers”，是 JavaScript 在线程方面的尝试。**JavaScript 引擎在设计时就假设只有一条线程，因此时没有并发访问的 JavaScript 对象内存，而这符合所有同步机制的需求。如果一条具有共享内存模型的普通线程被添加到 JavaScript，那么少说也是一场灾难。相反，我们有了 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)，它基本上就是一个运行在另一条独立线程上的完整的 JavaScript 作用域，没有任何的共享内存或者共享值。为了使这些完全分离并且孤立的 JavaScript 作用域能共同工作，你可以使用 [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage)，它使你能够在**另一个** JavaScript 作用域内触发一个 `message` 事件并带有一个你提供的值的拷贝（使用[结构化克隆算法](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm) 来拷贝）。
 
-So far, Workers have seen practically no adoption, apart from a few “slam dunk” use-cases, which usually involve long-running number crunching tasks. I think that should change. **We should start using workers. A lot.**
+到目前为止，除了一些通常涉及长时间运行的计算密集任务的“银弹”用例以外 workers 基本没得到采用。我想这应该被改变。**我们应该开始使用 workers。经常使用。**
 
-### All the cool kids are doing it
+### 所有酷小孩都在这么做
 
-This is not novel idea. At all. Quite the opposite, actually. **Most native platforms call the main thread the UI thread, as it should **only** be used for UI work,** and they give you the tools to achieve that. Android has had [`AsyncTask`](https://developer.android.com/reference/android/os/AsyncTask) since it’s earliest versions and has added more convenient APIs since then (most recently [Coroutines](https://kotlinlang.org/docs/reference/coroutines/basics.html), which can be easily scheduled on different threads). If you opt-in to [“Strict mode”](https://developer.android.com/reference/android/os/StrictMode), certain APIs — like file operations — will crash your app when used on the UI thread, helping you notice when you are doing non-UI work on the UI thread.
+这不是一个新的想法，实际上还挺老的。**大部分原生平台都把主线程称为 UI 线程，因为它应该只会被用来处理 UI 工作**，并且它们给你提供了工具去实现。安卓从很早的版本开始就有一个叫 [`AsyncTask`](https://developer.android.com/reference/android/os/AsyncTask) 的东西，并从那开始添加了更多更方便的 API（最近的是 [Coroutines](https://kotlinlang.org/docs/reference/coroutines/basics.html) 它可以很容易地被派发在不同线程）。如果你选用了[“严格模式”](https://developer.android.com/reference/android/os/StrictMode)，那么在 UI 线程上使用某些 API —— 例如文件操作 —— 会导致你的应用奔溃，以此来提醒你在 UI 线程上做了一些与 UI 无关的操作。
 
-iOS has had [Grand Central Dispatch](https://developer.apple.com/documentation/dispatch) (“GCD”) from the very start to schedule work on different, system-provided thread pools, including the UI thread. This way they are enforcing both patterns: You always have to chunk your work into tasks so that it can be put in a queue, allowing the UI thread to attend to its other responsibilities whenever necessary, but also allowing you to run non-UI work on a different thread simply by putting the task into a different queue. As a cherry on top, tasks can be assigned a priority which helps to ensure that time-critical work is done as soon as possible without sacrifcing the responsiveness of the system as a whole.
+从一开始 iOS 就有一个叫 [Grand Central Dispatch](https://developer.apple.com/documentation/dispatch) (“GCD”)的东西，用来在不同的系统提供的线程池上派发任务，其中包括 UI 线程。通过这方式他们强制了两个模式：你总是要将你的逻辑分割成若干任务，然后才能被放到队列中，允许 UI 线程在需要的时候将其放入对应的线程，但同时也允许你通过简单地将任务放到不同的队列来在不同的线程执行非 UI 相关的工作。锦上添花的是还可以给任务指定优先级，这样帮助我们确保时间敏感的工作能尽快被完成，并且不会牺牲系统整体的响应。
 
-The point is that these native platforms have had support for utilizing non-UI threads since their inception. I think it’s fair to say that, over time, they have proven that this is a Good Idea™️. Keeping work on the UI thread to a minimum helps your app to stay responsive. Why hasn’t this pattern been adopted on the web?
+我的观点是这些原生平台从一开始就已经支持使用非 UI 线程。我觉得可以公正地说，经过这么多时间，他们已经证明来这是一个好主意。将在 UI 线程的工作量降到最低有助于让你的 app 保持响应灵敏。为什么不把这样的模式用在 web 上呢？
 
-## Developer Experience as a hurdle
+## 开发体验是一个障碍
 
-The only primitive we have for threading on the web are Web Workers. When you start using Workers with the API they provide, the `message` event handler becomes the center of your universe. That doesn’t feel great. Additionally, Workers are **like** threads, but they are not the same as threads. You can’t have multiple threads access the same variable (like a state object) as everything needs to go via messages and these messages can carry many but not all JavaScript values. For example: you can’t send an `Event`, or any class instances without data loss. This, I think, has been a major deterrant for developers.
+我们只能通过 Web Worker 这么一个简陋的工具在 web 上使用线程。当你开始使用 Workers 以及他们提供的 API 时，`message` 事件处理器就是其中的核心。这感觉并不好。此外，Workers **像**线程，但又跟线程不完全一样。你无法让多个线程访问同一个变量（例如一个静态对象），所有的东西都要通过消息传递，这些消息能携带很多但不是全部 JavaScript 值。例如你不能发送一个 `Event` 或者没有数据损失的对象实例。我想，对于开发者来说这是最大的阻碍。
 
 ### Comlink
 
-For this exact reason I wrote [Comlink](https://github.com/GoogleChromeLabs/comlink), which not only hides `postMessage()` from you, but also the fact that you are working with Workers in the first place. It **feels** like you have shared access to variables from other threads:
+因为这样的原因，我编写了 [Comlink](https://github.com/GoogleChromeLabs/comlink) 它不仅帮你隐藏掉 `postMessage()`，甚至能让你忘记正在使用 Workers。**感觉**就像是你能够访问到来自别的线程的共享变量：
 
 ```js
 // main.js
 import * as Comlink from "https://unpkg.com/comlink?module";
 
 const worker = new Worker("worker.js");
-// This `state` variable actually lives in the worker!
+// 这个 `state` 变量其实是在别的 worker 中！
 const state = await Comlink.wrap(worker);
 await state.inc();
 console.log(await state.currentCount);
@@ -147,47 +147,47 @@ const state = {
 Comlink.expose(state);
 ```
 
-> **Note:** I’m using top-level await and modules-in-workers here to keep the sample short. See [Comlink’s repository](https://github.com/GoogleChromeLabs/comlink) for real-life examples and more details.
+> **说明：**我用了顶层 await 以及模块 worker（modules-in-workers）来让例子变短。请到 [Comlink 的代码仓库](https://github.com/GoogleChromeLabs/comlink)查看真实的例子以及更多细节。
 
-Comlink is not the only solution in this problem space, it’s just the one I’m most familiar with (unsurprising, considering that I wrote it 🙄). If you want to look at some different approaches, take a look at [Andrea Giammarchi’s](https://twitter.com/webreflection) [workway](https://github.com/WebReflection/workway) or [Jason Miller’s](https://twitter.com/_developit) [workerize](https://github.com/developit/workerize).
+在这问题上 Comlink 不是唯一的解决方案，只是我最熟悉它（很正常，考虑到是我写的  🙄）。如果你对其他方法感兴趣，看一下 [Andrea Giammarchi](https://twitter.com/webreflection) 的 [workway](https://github.com/WebReflection/workway) 或者 [Jason Miller](https://twitter.com/_developit) 的 [workerize](https://github.com/developit/workerize)。
 
-I don’t care which library you use, as long as you end up switching to an off-main-thread architecture. We have used Comlink to great success in both [PROXX](https://proxx.app) and [Squoosh](https://squoosh.app), as it is small (1.2KiB gzip’d) and allowed us to use many of the common patterns from languages with “real” threads without notable development overhead.
+我不在意你用哪个库，只要你最终转换到“离开主线程”架构。我们在 [PROXX](https://proxx.app) 和 [Squoosh](https://squoosh.app) 上成功使用了 Comlink，因为它很小(gzip 后 1.2KiB)并且让我们不需要在开发上改动太多就能使用很多来自其他有“真正”线程的语言的常用模式。
 
-### Actors
+### 参与者
 
-I evaluated another approach recently together with [Paul Lewis](https://twitter.com/aerotwist). Instead of hiding the fact that you are using Workers and `postMessage`, we took some inspiration from the 70s and used [the Actor Model](https://dassur.ma/things/actormodel/), an architecture that **embraces** message passing as its fundamental building block. Out of that thought experiment, we built a [support library for actors](https://github.com/PolymerLabs/actor-helpers), a [starter kit](https://github.com/PolymerLabs/actor-boilerplate) and gave [a talk](https://www.youtube.com/watch?v=Vg60lf92EkM) at Chrome Dev Summit 2018, explaining the architecture and its implications.
+最近我和 [Paul Lewis](https://twitter.com/aerotwist) 一起评估过其他的方法。除了说隐藏你正在使用 Worker 的事实以及 `postMessage`，我们还从 70 年代和使用过的[参与者模式](https://dassur.ma/things/actormodel/)中得到灵感，这种架构模式将消息传递当作基本的积木。经过那次思想实验，我们编写了一个[支撑参与者模式的库](https://github.com/PolymerLabs/actor-helpers)，一个[入门套件](https://github.com/PolymerLabs/actor-boilerplate)，并在 2018 Chrome 开发者峰会上做了[一次演讲](https://www.youtube.com/watch?v=Vg60lf92EkM)，介绍了这个架构以及它的应用。
 
-## “Benchmarking”
+## “基准测试”
 
-Some of you are probably wondering: **is it worth the effort to adopt an off-main-thread architecture?** Let’s tackle with a cost/benefit analysis: With a library like [Comlink](https://github.com/GoogleChromeLabs/comlink), the cost of switching to an off-main-thread architecture should be significantly lower than before, getting close to zero. What about benefit?
+你也许会想：**是不是值得去使用“离开主线程”架构？**让我们来做一个投入/产出分析：有了 [Comlink](https://github.com/GoogleChromeLabs/comlink) 这样的库，切换到“离开主线程”架构的代价应该会比以前有显著的降低，非常接近于零。那么好处呢？
 
-[Dion Almaer](https://twitter.com/dalmaer) asked me to write a version of [PROXX](https://proxx.app) where everything runs on the main thread, probably to clear up that very question. And so [I did](https://github.com/GoogleChromeLabs/proxx/pull/437). On a Pixel 3 or a MacBook, the difference is only rarely noticeable. Playing it on the Nokia 2, however, shows a a night-and-day difference. **With everything on the main thread, the app is frozen for up to 6.6 seconds** in the worst case scenario. And there are less powerful devices in circulation than the Nokia 2! Running the live version of PROXX using an off-main-thread architecture, the task that runs the `tap` event handler only takes 48ms, because all it does is calling `postMessage()` to send a message to the worker. What this shows is that, especially with respect to The Widening Performance Gap™️, **off-main-thread architectures increase resilience against unexpectedly large or long tasks**.
+[Dion Almaer](https://twitter.com/dalmaer) 叫过我去给 [PROXX](https://proxx.app) 写一个完全运行在主线程上的版本，这也许能解答那个问题。因此[我就这么做了](https://github.com/GoogleChromeLabs/proxx/pull/437)。在 Pixel 3 或者 MacBook 上仅仅有一点可感知的差别。但是在 Nokia 2 上则有了明显不同。**如果把所有东西都运行在主线程上，在最差的情形下应用卡住了高达 6.6 秒。**并且还有很多正在流通的设备的性能比 Nokia 2 还要低！而运行使用了“离开主线程”架构的 PROXX 版本，执行一个 `tap` 事件处理函数仅仅耗时 48 毫秒，因为所做的仅仅是通过调用 `postMessage()` 发了一条消息到 Worker 中。这代表着，特别是考虑到日趋扩大的性能差距，**“离开主线程”架构能够提高处理意想不到的大且长的任务的韧性**。
 
-![A trace of PROXX running with an off-main-thread architecture.](https://dassur.ma/trace-omt-bb7bc9f7.png)
+![一个采用“离开主线程”架构的 PROXX 的运行跟踪](https://dassur.ma/trace-omt-bb7bc9f7.png)
 
-PROXX’ event handler are lean and are only used to send a message to a dedicated worker. All in all the task takes 48ms.
+PROXX 的事件处理器是非常简洁的并且只会被用来给指定的 worker 发送消息。总而言之这个任务耗时 48 毫秒。
 
-![A trace of PROXX running with everything on the main thread.](https://dassur.ma/trace-nonomt-0d7f2457.png)
+![一个采用所有都运行在主线程的 PROXX 的运行跟踪](https://dassur.ma/trace-nonomt-0d7f2457.png)
 
-In a branch of PROXX, everything runs on the main thread, making the task for the event handler take over 6 seconds.
+在一个所有东西都运行在主线程的 PROXX 版本，执行一个事件处理器需要耗时超过 6 秒。
 
-It’s important to note that the work doesn’t just disappear. With an off-main-thread architecture, the code still takes ~6s to run (in the case of PROXX it’s actually significantly longer). However, since that work is now happening in a different thread the UI thread stays responsive. Our worker is also sends intermediate results back to the main thread. **By keeping the event handlers lean we ensured that the UI thread stays free and can update the visuals.**
+有一个需要注意的是，任务并没有消失。即使使用了“离开主线程”架构，代码仍需要运行大约 6 秒的事件（在 PROXX 这实际上会更加长）。然而由于这些工作是在另一个线程上进行的，UI 线程仍然能保持响应。我们的 worker 也会把中间结果传回主线程。**通过保持事件处理器的简洁，我们保证了 UI 线程能保持响应并能更新视觉状态。**
 
-## The Framework Quandary
+## 框架的窘困
 
-Now for my juicy hot take: **Our current generation of frameworks makes off-main-thread architectures hard and diminishes its returns.** UI frameworks are supposed to do UI work and therefore have the right to run on the UI thread. In reality, however, the work they are doing is a mixture of UI work and other related, but ultimately non-UI work.
+现在说一下我一个脱口而出的意见：**我们现有的框架让“离开主线程”架构变得困难并减少了它的回归。** UI 框架应该去做 UI 的工作，也因此有权去运行在 UI 线程。然而实际上，它们所做的工作是 UI 工作以及其他一些相关但是非 UI 的工作。
 
-Let’s take VDOM diffing as an example: The purpose of a virtual DOM is to decouple costly updates to the real DOM from what the developers does. The virtual DOM is just a data structure mirroring the real DOM, where changes don’t have any costly side-effects. Only when the framework deems it appropriate, will the changes to the virtual DOM be replayed against the real DOM. This is often called “flushing”. Everything up until flushing has absolutely no requirement to run on the UI thread. Yet it is, wasting your precious UI thread budget. On [PROXX](https://proxx.app) we actually [opted out of VDOM diffing](https://github.com/GoogleChromeLabs/proxx/blob/94b08d0b410493e2867ff870dee1441690a00700/src/services/preact-canvas/components/board/index.tsx#L116-L118) and implemented the DOM manipulations ourselves, because the phones at the lower end of the spectrum couldn’t cope with the amount of diffing work.
+让我们拿 VDOM diff 做例子：虚拟 DOM 的目的将开发者的代码与真实 DOM 的更新解耦。虚拟 DOM 仅仅是一个模拟真实 DOM 的数据结构，这样它的改变就不会引起高消耗的副作用。只有当框架认为时机合适的时候，虚拟 DOM 的改变才会引起真实 DOM 的更新。这通常被称为“冲洗（flushing）”。直到冲洗之前的所有工作是绝对不需要运行在 UI 线程的。然而实际上它正在耗费你宝贵的 UI 线程资源。鉴于低端手机无法应付 diff 的工作量，在 [PROXX](https://proxx.app) 我们[去除了 VDOM diff](https://github.com/GoogleChromeLabs/proxx/blob/94b08d0b410493e2867ff870dee1441690a00700/src/services/preact-canvas/components/board/index.tsx#L116-L118) 并实现了我们自己的 DOM 操作。
 
-VDOM diffing is just one of many examples of a framework choosing developer experience or simplicity of implementation over being frugal with their end-user’s resources. Unless a globally launched framework labels itself as exclusively targeting the users of the [Wealthy Western Web](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/), **it has a responsibility to help developers target every phone on The Widening Performance Gap™️ spectrum.**
+VDOM diff 仅仅是其中一个框架引导的开发体验的例子，或者一个简单的克服用户设备性能的例子。一个面向全球发布的框架，除非它明确表明自己只针对哪些[富有的西方网络](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/)，**否则他是有责任去帮助开发者开发支持不同级别手机的应用。**
 
-## Conclusion
+## 结论
 
-Web Workers help your app run on a wider range of devices. Libraries like [Comlink](https://github.com/GoogleChromeLabs/comlink) help you utilize workers without losing convenience and development velocity. I think **we should question why every platform **but the web** is fighting for the UI thread to be as free as possible**. We need to shift our default approach and help shape the next generation of frameworks.
+Web Worker 帮助你的应用运行在更广泛的设备上。像 [Comlink](https://github.com/GoogleChromeLabs/comlink) 这样的库协助你在无需放弃便利以及开发速度的情况下使用 worker。我想**我们应该思考的是，为什么除了 web 以外的所有平台都在尽可能的少占用 UI 线程的资源**。我们应该改变自己的老办法，并帮助促成下一代框架改变。
 
 ---
 
-Special thanks to [Jose Alcérreca](https://twitter.com/ppvi) and [Moritz Lang](https://twitter.com/slashmodev) for helping me understand how native platforms are handling this problem space.
+特别感谢 [Jose Alcérreca](https://twitter.com/ppvi) 和 [Moritz Lang](https://twitter.com/slashmodev)，他们帮我了解原生平台是如何解决类似问题的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
