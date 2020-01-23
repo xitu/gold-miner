@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-blog-using-nuxt-strapi-and-apollo.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-blog-using-nuxt-strapi-and-apollo.md)
 > * 译者：[vitoxli](https://github.com/vitoxli)
-> * 校对者：
+> * 校对者：[Jessica](https://github.com/cyz980908)
 
 # 使用 Nuxt (Vue.js)、Strapi 和 Apollo 构建博客
 
 ## 介绍
 
-几周前，我对自己上网的习惯进行了思考，具体来说，我主要思考了在放松状态下我喜欢读些什么。通常我是这样做的：我先进行搜索，然后去浏览最让我感兴趣的链接。我总是发现自己在阅读有关某人经历的文章，而这与我最初寻找的内容相去甚远！
+几周前，我对自己上网的习惯进行了思考，具体来说，我主要思考了在放松状态下自己喜欢读些什么。通常我是这样做的：先进行搜索，然后去浏览最让我感兴趣的链接。然而最后发现，我总是在阅读有关别人人生经历的文章，而这与我最初搜索的内容相去甚远！
 
-博客非常适合分享经验，想法或感言。而 Strapi 可以有效地帮助你创建博客！所以，我很确定你已经了解了这篇文章是关于什么的。让我们学习如何使用 Strapi 来创建博客吧。
+博客非常适合分享经验，想法或感言。而 Strapi 可以帮助你方便地创建博客！所以，你肯定已经猜到这篇文章是关于什么的了。让我们学习如何使用 Strapi 来创建博客吧。
 
 ## 目标
 
@@ -19,11 +19,11 @@
 
 本文的目标是创建一个博客网站，这个网站使用 Strapi 作为后端，使用 Nuxt 作为前端，并使用 Apollo 通过 GraphQL 请求 Strapi API。
 
-可以在 GitHub 中查看源码：[https://github.com/strapi/strapi-tutorials/tree/master/tutorials/nuxt-strapi-apollo-blog/](https://github.com/strapi/strapi-tutorials/tree/master/tutorials/nuxt-strapi-apollo-blog/)
+可以在 GitHub 中获取源码：[https://github.com/strapi/strapi-tutorials/tree/master/tutorials/nuxt-strapi-apollo-blog/](https://github.com/strapi/strapi-tutorials/tree/master/tutorials/nuxt-strapi-apollo-blog/)
 
 ## 准备工作
 
-要遵循本教程，你的计算机上需要安装 Strapi 和 Nuxt，但是不用担心，我们来一起安装它们！
+要学习本教程，你的计算机上需要安装 Strapi 和 Nuxt，但是不用担心，我们来一起安装它们！
 
 **本教程使用 Strapi v3.0.0-beta.17.5。**
 
@@ -55,7 +55,7 @@
 
 Strapi 运行在 [http://localhost:1337](http://localhost:1337)
 
-**太棒了！**现在 Strapi 已经就绪了，我们可以开始创建 Nuxt 应用了。
+**很好！** 现在 Strapi 已经就绪了，我们可以开始创建 Nuxt 应用了。
 
 #### 安装前端
 
@@ -67,7 +67,7 @@ Strapi 运行在 [http://localhost:1337](http://localhost:1337)
 
 * `yarn create nuxt-app frontend`
 
-**注意：**终端将提示一些有关项目的详细信息。这些信息与我们的博客并不真正相关，因此可以忽略它们。不过，我仍强烈建议你阅读文档。让我们继续吧，一直按 Enter 键就好！
+**注意：** 终端将提示一些有关项目的详细信息。这些信息与我们的博客关联性不大，因此可以忽略它们。不过，我仍强烈建议你阅读官方文档。让我们继续吧，一直按 Enter 键就好！
 
 同样，安装结束后，可以启动前端应用以确保进展顺利。
 
@@ -76,11 +76,11 @@ cd frontend
 yarn dev
 ```
 
-你可能希望有人阅读你的博客或者你想让你的博客“可爱又好看”，我们将使用流行的 CSS 框架 `UiKit` 来设置样式并使用 `Apollo` 通过 **GraphQL：** 来查询 Strapi。
+你可能希望有人阅读你的博客或者你想让你的博客“可爱又好看”，我们将使用流行的 CSS 框架 `UiKit` 来设置样式并使用 `Apollo` 通过 **GraphQL** 来查询 Strapi。
 
 **安装依赖**
 
-在运行以下命令前，确保你在 `frontend` 文件夹中：
+在运行以下命令前，先确保你在 `frontend` 文件夹中：
 
 **安装 Apollo**
 
@@ -195,7 +195,7 @@ img:hover {
 }
 ```
 
-**注意：**你无需理解这个文件中的内容。只是一些样式 ;）
+**注意：** 你无需理解这个文件中的内容。只是一些样式 ;）
 
 让我们为项目添加漂亮的字体（Staatliches）吧！
 
@@ -207,13 +207,13 @@ link: [
     ]
 ```
 
-**完美！**重启服务，并准备好被你程序的前端页面惊艳吧！
+**完美！** 重启服务，并准备好被你应用的前端页面惊艳吧！
 
 ![](https://blog.strapi.io/content/images/2019/11/Capture-d-e-cran-2019-11-06-a--15.30.14.png)
 
 #### 设计数据结构
 
-终于到了这一步！我们将通过创建`文章`内容类型来构建文章的数据结构：
+终于到了这一步！我们将通过创建 `article` 内容类型来构建文章的数据结构：
 
 * 查看你的 strapi 管理面板，然后点击侧边栏中的 `Content Type Builder`
 
@@ -233,37 +233,37 @@ link: [
     * `image`：**Media** 类型 (**必填**)
     * `published_at`：**Date** 类型 (**必填**)
 
-**点击保存！**现在，你的第一个内容类型就创建好了。可能现在你就想创建你的第一篇文章，但是在此之前我们还要做一件事：**开放文章内容类型权限**
+**点击保存！** 现在，你的第一个内容类型就创建好了。可能现在你就想创建你的第一篇文章，但是在此之前我们还要做一件事：**开放文章内容类型权限**
 
 * 点击 [Roles & Permission](http://localhost:1337/admin/plugins/users-permissions/roles) 然后选择 `public`。
-* 选中文章的`find` and `findone` 选项并保存。
+* 选中文章的`find` 和 `findone` 选项并保存。
 
 ![](https://blog.strapi.io/content/images/2019/11/Capture-d-e-cran-2019-11-06-a--16.00.00.png)
 
-**棒极了！**现在你可以创建你的第一篇文章了，并可以在 GraphQL Playground 中获取到它。
+**棒极了！** 现在你可以创建你的第一篇文章了，并可以在 GraphQL Playground 中获取到它。
 
 * 创建你的第一篇文章还有更多内容！
 
 **例子如下** ![](https://blog.strapi.io/content/images/2019/11/Capture-d-e-cran-2019-11-13-a--16.51.46.png)
 
-**棒极了！**现在，你可能想通过 API 真正地获取到文章！
+**棒极了！** 现在，你可能想通过 API 真正地获取到文章！
 
 * 访问 [http://localhost:1337/articles](http://localhost:1337/articles)
 
-这是不是很棒！你也可以使用 [GraphQL Playground](http://localhost:1337/graphql)
+这是不是很棒！你还可以使用 [GraphQL Playground](http://localhost:1337/graphql) 尝试获取文章
 
 ![](https://blog.strapi.io/content/images/2019/11/Capture-d-e-cran-2019-11-06-a--16.30.06.png)
 
 #### 创建分类
 
-你可能想为文章设置一个分类（新闻，趋势，看法）。你将通过在 strapi 中创建另一种内容类型来做到这一点。
+你可能想为文章设置一个分类（新闻、趋势、看法）。你将通过在 strapi 中创建另一种内容类型来做到这一点。
 
-* Create a `category` content type with the following fields
-    * `name` with type **String**
+* 创建一个具有如下字段的 `category` 内容类型
+    * `name`：**String** 类型
 
 **点击保存!**
 
-* 在 **Article** 内容类型中创建 **Relation** 的**新字段**，如下图所示，`一个类型下有很多文章`。
+* 在 **Article** 内容类型中创建 **Relation** 的**新字段**，如下图所示，`一个分类下有很多文章`。
 
 ![](https://blog.strapi.io/content/images/2019/11/Capture-d-e-cran-2019-11-13-a--16.43.33.png)
 
@@ -274,9 +274,9 @@ link: [
 
 ![](https://blog.strapi.io/content/images/2019/11/Capture-d-e-cran-2019-11-13-a--16.51.46-1.png)
 
-现在我们已经完成了 Strapi，让我们开始前端的部分吧！
+现在我们已经熟悉了 Strapi，让我们开始前端的部分吧！
 
-#### 为程序创建布局
+#### 为应用创建布局
 
 Nuxt 将默认的布局存储在 `layouts/default.vue` 文件中。让我们将其修改为我们自己的！
 
@@ -369,7 +369,7 @@ query Categories {
 }
 ```
 
-* 解开注释并用下面的代码替换 `default.vue` 文件中 `script` 标签中的内容。
+* 取消注释并用下面的代码替换 `default.vue` 文件中 `script` 标签中的内容。
 
 ```html
 <script>  
@@ -392,7 +392,7 @@ export default {
 </script>  
 ```
 
-**注意**当前代码不适合展示很多类别，所以你可能会遇到 UI 的问题。由于本篇文章应该简短，所以你可以通过懒加载等方式来自己改进代码。
+**注意**当前代码不适合展示很多分类，所以你可能会遇到一些 UI 的问题。而且本篇文章应该要简短一些，所以你可以通过懒加载等方式来自己改进代码。
 
 目前，链接不起作用，我们将在教程后面部分进行处理 ;)
 
@@ -464,7 +464,7 @@ export default {
 </script>  
 ```
 
-如你所见，多亏了 GraphQl 查询，你可以获取文章，让我们来编写它！
+如你所见，多亏了 GraphQL 查询，你可以获取文章，让我们来编写它！
 
 * 创建一个 `apollo/queries/article/articles.gql` 文件并包含如下内容：
 
@@ -540,9 +540,9 @@ export default {
 
 ### 文章页
 
-如果你点击文章，没有任何东西。让我们一起来创建文章页吧！
+如果你点击文章，现在是没有任何东西的。让我们一起来创建文章页吧！
 
-* 创建 `pages/articles` 文件夹并在其中创建 `_id.vue` 文件，文件代码如下:
+* 创建 `pages/articles` 文件夹并在其中创建 `_id.vue` 文件，文件代码如下：
 
 ```html
 <template>  
@@ -607,7 +607,7 @@ query Articles($id: ID!) {
 
 ![](https://media.giphy.com/media/fwDprKZ2a3dqUwvEtK/giphy.gif)
 
-好了，你可能想将内容显示为 Markdown？
+好了，你可能想用 Markdown 语法来展示博客内容？
 
 * 通过 `yarn add @nuxtjs/markdownit` 安装 `markdownit`。
 * 将其添加到 `nuxt.config.js` 文件的模块中，并在下面添加 mardownit 对象的配置：
@@ -627,7 +627,7 @@ markdownit: {
 ...
 ```
 
-* 通过替换负责显示内容的代码，可以使用它在 `_id.vue` 文件中显示你的内容。
+* 通过替换负责显示内容的代码，来显示 `_id.vue` 文件中的内容。
 
 ```html
 ...
