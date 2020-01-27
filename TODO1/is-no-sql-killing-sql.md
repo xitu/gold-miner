@@ -22,11 +22,11 @@ I was completely shocked by his email: how had he reached a conclusion that was 
 
 > 在数据科学领域，你**绝对**应当学习 SQL。No-SQL 的存在对学习 SQL 的价值毫无影响。
 
-基本上有两个原因可以保证SQL在未来几十年仍然适用。
+基本上有两个原因可以保证 SQL 在未来几十年仍然适用。
 
 **原因 #1：No-SQL 数据库无法取代数据分析型数据库，例如 Presto、Redshift 或 BigQuery**
 
-Regardless of whether your applications use a SQL-backend like MySQL or a No-SQL backend like MongoDB, the data in that backend will eventually be loaded into a specialized analytics database like Redshift, Snowflake, BigQuery, or Presto.
+无论你的应用是使用以 SQL 为后端的数据库，例如 MySQL，或是以 No-SQL 为后端的数据库，例如 MongoDB，这些后端中的数据最终都将被加载到一个专用的数据分析数据库中，例如 Redshift、Snowflake、BigQuery 或 Presto。
 
 ![Example architecture of a platform with an analytics database: SQL and NoSQL](https://cdn-images-1.medium.com/max/3104/1*LBVLAfUu29FwbYCFF0vRCg.png)
 
@@ -44,7 +44,7 @@ They make that choice because SQL is actually an incredibly strong language for 
 
 Consider the simple example of a query that counts the number of documents in a collection from the NoSQL database MongoDB.
 
-> Note: Documents in MongoDB are analogous to rows, while collections are analogous to tables.
+> 注意：MongoDB 中的文档类似于行，集合类似于表。
 
 ```js
 db.sales.aggregate( [
