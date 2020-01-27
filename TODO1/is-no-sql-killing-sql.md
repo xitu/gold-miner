@@ -2,28 +2,29 @@
 > * 原文作者：[Tom Waterman](https://medium.com/@tjwaterman99)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/is-no-sql-killing-sql.md](https://github.com/xitu/gold-miner/blob/master/TODO1/is-no-sql-killing-sql.md)
-> * 译者：
+> * 译者：[江不知](http://jalan.space)
 > * 校对者：
 
-# Is No-SQL killing SQL?
+# SQL 将死于 No-SQL 之手？
 
 ![](https://cdn-images-1.medium.com/max/2688/1*b5c0bA8yVQ7Zeli-6nrXHA.png)
 
-#### Two reasons why SQL will never, ever die
+#### SQL 永生不灭的两个原因
 
-Last week a friend forwarded me an email from a successful entrepreneur that pronounced “SQL is dead.”
+上周，我的一位朋友向我转发了一封来自一位成功企业家的电子邮件，邮件宣称「SQL 已死」。
 
-The entrepreneur claimed that the wildly popular, No-SQL databases like MongoDB and Redis would slowly strangle SQL-based databases out of existence, and therefore learning SQL as a data scientist was a “legacy concern.”
+这位企业家宣称，像 MongoDB、Redis 这样广受欢迎的 No-SQL 数据库会慢慢取代基于 SQL 的数据库，因此，作为数据科学家还需学习 SQL 是一个「历史遗留问题」。
 
 I was completely shocked by his email: how had he reached a conclusion that was so off-base? But it also made me curious… Was it possible that others were similarly misinformed? The entrepreneur had developed a large following and was quite outspoken — were new data scientists receiving the advice that they should avoid learning SQL?
+看到他的电子邮件我十分震惊：他是如何得出如此毫无根据的结论？但是这也使我感到好奇……别人是否也有可能被类似地误导了？这位企业家已发展了大批追随者，且直言不讳 —— 新晋数据科学家是否已经收到了避免学习 SQL 的建议？
 
-So I thought I’d share my response to the entrepreneur publicly, in the chance that anyone else believes SQL is being ran into extinction.
+因此我觉得我应当公开分享我对该企业家的回应，以防他人认为 SQL 即将走向灭绝。
 
-> You should **absolutely** learn SQL for a career in data science, period. No-SQL will have No-effect on the value of learning SQL
+> 在数据科学领域，你**绝对**应当学习 SQL。No-SQL 的存在对学习 SQL 的价值毫无影响。
 
-There’s basically two reasons that guarantee SQL will stay relevant for many decades to come.
+基本上有两个原因可以保证SQL在未来几十年仍然适用。
 
-**Reason #1: No-SQL databases won’t replace analytics databases like Presto, Redshift, or BigQuery**
+**原因 #1：No-SQL 数据库无法取代数据分析型数据库，例如 Presto、Redshift 或 BigQuery**
 
 Regardless of whether your applications use a SQL-backend like MySQL or a No-SQL backend like MongoDB, the data in that backend will eventually be loaded into a specialized analytics database like Redshift, Snowflake, BigQuery, or Presto.
 
@@ -33,7 +34,7 @@ Why do companies transfer their data into specialized columnar stores like Redsh
 
 So the technology of the application database, NoSQL or otherwise, is typically not relevant for Data Scientists because they don’t use the application database (although there are some exceptions I’ll discuss later).
 
-**Reason #2: the benefits of NoSQL databases aren’t because they don’t support the SQL language**
+**原因 #2：No-SQL 数据库的好处不在于他们不支持 SQL 语言**
 
 It turns out that the No-SQL stores could implement a SQL-based query engine if it made sense for them to support it. Similarly, the SQL databases could support NoSQL query languages, too, but they choose not to.
 
@@ -56,7 +57,7 @@ db.sales.aggregate( [
 ] )
 ```
 
-Compare that to the equivalent SQL.
+将其与等价的 SQL 语句进行比较。
 
 ```sql
 select count(1) from sales
