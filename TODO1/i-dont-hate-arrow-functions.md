@@ -2,183 +2,183 @@
 > * 原文作者：[Kyle Simpson](https://github.com/getify)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-dont-hate-arrow-functions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-dont-hate-arrow-functions.md)
-> * 译者：
+> * 译者：[TiaossuP](https://github.com/tiaossup)
 > * 校对者：
 
-# I Don’t Hate Arrow Functions
+# 我并不讨厌箭头函数
 
-## TL;DR
+## 太短；不看
 
-Arrow functions are fine for certain usages, but they have so many variations that they need to be carefully controlled to not break down the readability of the code.
+箭头函数在某些场景下表现很好，但是在很多情况下，仍然有可能降低代码的可读性，因此要谨慎使用。
 
-While arrow functions clearly have a ubiquitous community consensus (though not unanimous support!), it turns out there's a wide variety of opinions on what makes "good" usage of `=>` and not.
+尽管箭头函数显然已经在社区中被普遍接受（尽管并非一致支持），但事实证明，对 `=>` 的「正当」用法和「不正当」用法的定义，大家有各种各样的看法。
 
-Configurable linter rules are the best solution to wrangling the variety and disagreement of arrow functions.
+可配置的 lint 规则是解决箭头功能的多样性分歧的最佳解决方案。
 
-I released [**proper-arrows** ESLint plugin](https://github.com/getify/eslint-plugin-proper-arrows) with several configurable rules to control `=>` arrow functions in your code base.
+我发布了带有一些可配置规则的 [**proper-arrows** ESLint 插件](https://github.com/getify/eslint-plugin-proper-arrows)，用于控制代码库中的 `=>` 箭头函数。
 
-## Opinions are like noses...
+## 观点就像鼻子...
 
-Anyone who's followed me (tweets, books, courses, etc) for very long knows that I have lots of opinions. In fact, that's the only thing I'm an expert on -- my own opinions -- and I'm never at a loss for them!
+任何关注我（包括推特、书籍、课程等）很久的人，都知道我总是有很多观点。事实上，这是我唯一擅长的事情（这也是我自己的观点）我从来不会对它们感到困惑！
 
-I don't subscribe to the "strong opinions, loosely held" mantra. I don't "loosely hold" my opinions because I don't see any point in having an opinion if there isn't sufficient reason for that opinion. I spend a lot of time researching and tinkering and writing and trying out ideas before I form an opinion that I would share publicly. By that point, my opinion is pretty strongly held, by necessity.
+我不赞同「强硬地表达，松散地持有」*（译注：原文 strong opinions, loosely held 大意为应该当存在若干现有事实时，就可以/必须自信而强硬的表达观点，遇到新论据时，再迅速妥协）*这种信条。我不会「松散地持有」我的观点，因为没有足够理由支持的观点本来就没有任何意义。我花了很多时间研究、修改、写作、尝试各种想法，然后才形成一个可以公开分享的观点。在这一点上，我的观点是非常坚定的，这是必然的。
 
-What's more, I teach based on these opinions -- thousands of developers in different companies all over the world -- which affords me the opportunity to deeply vet my opinions through myriad discussion and debate. I'm tremendously privleged to be in such a position.
+更重要的是，我是基于这些观点来教学的——来自世界各地不同公司的数千名开发人员——这让我有机会通过无数的讨论和辩论来深入审视我的观点。因此我这么说并不是在吹牛。
 
-That doesn't mean I can't or won't change my opinions. As a matter of fact, one of my most strongly held opinions -- that JS types and coercion are useful in JS -- has been shifting lately, to a fairly significant degree. I have a much more rounded and deepened perspective on JS types and why type-aware tooling can be useful. And even my opinion on `=>` arrow functions, the punchline of this article, has evolved and deepened.
+这并不意味着我不能或不会改变我的观点。事实上，我曾经最坚定的观点之一——「JS 类型及[转换](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)在 JS 中很有用」最近已经发生了很大程度的变化。我对 JS 类型及转换为何有用有了更全面和深入的认识。甚至我对 `=>` 箭头函数(本文的主题)的看法也在不断发展和深化。
 
-But one of the things many people tell me they appreciate about me is, I don't just state opinions, I back those opinions up with careful, thought-out reasoning. Even when people vehemently disagree with my opinions, they often compliment me on at least owning those opinions with backing.
+但是很多人告诉我他们欣赏我的一点是，我不只是陈述观点，我用仔细的、深思熟虑的推理来支持这些观点。即使当人们激烈地反对我的观点时，他们通常也会称赞我至少拥有那些有论点支持的观点。
 
-And I try to inspire the same in others through my speaking, teaching, and writing. I don't care if you agree with me, I only care that you know why you have an technical opinion and can earnestly defend it with your own line of reasoning. To me, that's a healthy relationship with technology.
+我试图通过我的演讲、教学和写作来给其他人灵感。我不介意你是否同意我的观点，我只希望你能因此知道为什么你会拥有一个技术上的观点，并且可以用你自己的推理来认真地为它辩护。对我来说，这是一种与技术的健康关系。
 
-## Arrow Functions != `function`s
+##  `=>` 箭头函数 != `function`
 
-It is my sincere belief that the `=>` arrow function is not suitable as a general purpose replacement for all (or even most) `function` functions in your JS code. I genuinely don't find them more readable in most cases. And I'm not alone. Any time I [share an opinion like that](https://twitter.com/getify/status/1105182569824346112) on social media, I often [get dozens](https://twitter.com/bence_a_toth/status/1105185760448311296) of ["me too!" responses](https://twitter.com/joehdodd/status/1105185789942603777) peppered in with [the scores](https://twitter.com/kostitsyn/status/1105229763369680896) of "you're [totally wrong!](https://twitter.com/fardarter/status/1105347990225649664)" responses.
+我真心觉得 `=>` 箭头函数并不适合作为 JS 代码中所有（或者至少说大多数）`function` 代码的替换。我发现在大多数情况下，箭头函数并没有让代码更易读。并非只有我这样想，每当我在社交媒体上分享[类似的观点](https://twitter.com/getify/status/1105182569824346112)时，我经常会收到[几十条](https://twitter.com/bence_a_toth/status/1105185760448311296)「我也是！」的回应，只掺杂着几条「你[完全错了](https://twitter.com/fardarter/status/1105347990225649664)」的[回应](https://twitter.com/kostitsyn/status/1105229763369680896)。
 
-But I'm not here to rehash the entire debate over `=>` arrow functions. I've written extensively about my opinions on them, including these sections in my books:
+但是我并不是想在这里完整的讨论 `=>` 箭头函数。关于它，我已经写了很多篇文章来表达观点，包括我书中的以下部分：
 
-* ["You Don't Know JS: ES6 & Beyond", Ch2, "Arrow Functions"](https://github.com/getify/You-Dont-Know-JS/blob/master/es6%20%26%20beyond/ch2.md#arrow-functions)
+* [“你不知道的JavaScript（下卷）”, 第二章, "箭头函数"](https://github.com/getify/You-Dont-Know-JS/blob/master/es6%20%26%20beyond/ch2.md#arrow-functions)
 * ["Functional-Light JavaScript", Ch2, "Functions Without `function`"](https://github.com/getify/Functional-Light-JS/blob/master/manuscript/ch2.md/#functions-without-function) (and the preceding section on function names).
 
-Whatever your preferences around `=>`, to suggest that it's **only** a **better** `function` is to be plainly reductive. It's a far more nuanced topic than just a one-to-one correspondence.
+无论对 `=>` 的偏好如何，把其**仅仅**视为是一个**更好的** `function` 的想法，都有些过于简略了。还有很多细微的差异值得讨论。
 
-There are things to like about `=>`. You might find that surprising for **me** to say, since most people seem to assume I hate arrow functions.
+关于 `=>` 我还是有一些喜爱的，你可能会很惊讶，因为大多数人认为我讨厌箭头函数。
 
-I don't (hate them). I think there are definitely some important benefits.
+其实并非这样。我认为箭头函数有一些重要的好处。
 
-It's just that I don't unreservedly endorse them as the new `function`. And these days, most people aren't interested in nuanced opinions in the middle. So since I'm not entirely in the pro-`=>` camp, I must be entirely in the opposition camp. **Not true**.
+只是我并不完全的把它们视为颠覆式的 `function`，而大多数人都不在意箭头函数与 `function` 的细微区别，所以因为我没有站在支持 => 的阵营，我就站在了反对的阵营。**但其实不是这样的**。
 
-What I hate is suggesting they're universally more readable, or that they're objectively **better** in basically all cases.
+我讨厌的是暗示箭头函数普遍更具可读性，或者几乎各种情况下它们客观上都**更好**的这种行为。
 
-The reason I reject this stance is because **I REALLY DO STRUGGLE TO READ THEM** in many cases. So that perspective just makes me feel dumb/inferior as a developer. "There must be something wrong with me, since I don't think it's more readable. Why do I suck so much at this?" And I'm not the only one whose impostor syndrome is seriously stoked by such absolutes.
+我拒绝这一立场的原因是，在许多情况下，**我确实努力阅读了代码**。而最终失败的我作为开发人员的我感觉自己很愚蠢/产生了自卑的感觉——「这段代码并没有非常易读，肯定是我有什么问题，为什么我这么菜？」而且，我并不是唯一一个被这种绝对观点严重煽动的[冒名顶替者综合症](https://baike.baidu.com/item/冒名顶替综合症)患者。
 
-And the cherry on top is when people tell you that the only reason you don't understand or like `=>` is because you haven't learned them or used them enough. Oh, right, thanks for the (condescending) reminder it's due to **my** ignorance and inexperience. SMH. I've written and read literally thousands of `=>`functions. I'm quite certain I know enough about them to hold the opinions I have.
+最扯淡的是，人们告诉你，「你不了解或不喜欢 `=>` 的唯一原因是因为你没有充分地学习和使用它们」。行吧，谢谢（你屈尊的）提醒，我知道这是因为**我的**无知和经验不足了。但其实我内心只想说呵呵。我已经编写并阅读了成千上万个 `=>` 函数。我很确定我对他们足够了解，有资格发表意见。
 
-I'm not in the pro-`=>` camp, but I recognize that some really do prefer them, legitimately. I recognize that some people come to JS from languages that have used `=>` and so they feel and read quite natural. I recognize that some prefer their resemblance to mathematical notation.
+我没站在赞成 `=>` 的阵营中，但我承认有些人确实喜欢它们，这是合理的。有些人从使用 `=>` 的语言来到JS，所以他们感觉和阅读都很自然。有些人还喜欢它们与数学符号的相似性。
 
-What's problematic IMO is when some in those camps simply cannot understand or empathize with dissenting opinions, as if there must just be something **wrong** with them.
+在我看来，有问题的是，某个阵营中的一些人根本无法理解或同情不同意见，就好像提出异议者一定是**有什么东西做的不对**。
 
-## Readability != Writability
+## 代码写着爽 != 高可读性
 
-I also don't think **you** know what you're talking about when you talk about code readability. By and large, the vast majority of opinions on code readability, when you break them down, are based on a personal stance about preferences in **writing**concise code.
+我也不认为**你们**在讨论代码可读性时知道自己在说什么。总的来说，大多数关于代码可读性的观点，当你把它们分解的时候，其实都是基于个人对**写**简洁代码的偏好的看法。
 
-When I push back in debates about code readability, some just dig in their heels and refuse to support their opinion. Others will waive off the concerns with, "readability is all just subjective anyway".
+在关于代码可读性的争论中，当我提出反驳时，有些人只是固执己见，拒绝支持别人的观点。另一些人则会用「可读性只是主观的」来搪塞我的反驳。
 
-The flimsiness of that response is stunning: two seconds ago they were vehemently claiming `=>` arrow is absolutely and objectively more readable, and then when pressed, they admit, "well, **I** think it's more readable, even if ignorants like you don't."
+这种回答之脆弱令人震惊：两秒钟前，他们还在激烈地宣称 `=>` 箭头**绝对地、客观地**更具有可读性，然后当被追问时，他们承认，「行吧，**我**个人认为它更具有可读性，即使像你这样的无知之人不这么认为。」
 
-Guess what? Readability **is** subjective, **but not entirely so**. It's a really complex topic. And there are some who are undertaking to formally study the topic of code readability, to try to find what parts of it are objective and what parts are subjective.
+你猜怎么着?可读性**是**主观的，**但并不完全如此**。这是一个非常复杂的话题。也有一些人开始正式研究代码可读性的话题，试图找出哪些部分是客观的，哪些部分是主观的。
 
-I have read a fair amount of such research, and I'm convinced that it's a complicated enough topic that it can't be reduced to a slogan on a t-shirt. If you want to read them, I would encourage you doing some google searching and reading of your own.
+我读过很多这样的研究，因此我确信这是一个足够复杂的话题，以至于它没法被简化成 T 恤上的 slogan。如果你想了解详情，我建议你自己去谷歌一下。
 
-While I don't have all the answers myself, one thing I'm certain about is, code is more often read than written, so perspectives on the topic which ultimately come from "it's easier/quicker to write" don't hold much standing. What needs to be considered is, not how much time do you save writing, but how clearly will the reader (future you or someone else on the team) be able to understand? And ideally, can they mostly understand it without pouring over the code with a fine-toothed comb?
+虽然我无法完整的回答所有关于可读性的问题，但有一件事我可以肯定的是，代码更多的时候是被阅读而不是被写出来的，所以从「写代码更容易/更快」这个论据出发的论点是站不住脚的。需要考虑的不是你节省了多少写代码的时间，而是读者（未来的你或团队中的其他人）能够多清楚地理解。理想来说，他们能够在不仔细梳理代码的情况下大致理解代码吗？
 
-Any attempt to justify writability affordances with unsubstantiated claims about readability benefits is a weak argument at best, and in general, nothing but a distraction.
+任何试图证明写代码容易就有利于代码可读性的说法都是站不住脚的，总的来说，这只会让人分心。
 
-So I roundly reject that `=>` is always and objectively "more readable".
+因此，我坚决反对 `=>` 总是客观地「更具可读性」。
 
-But I still don't hate arrow functions. I just think to use them effectively, we need to be more disciplined.
+但我还是不讨厌箭头函数。我只是认为，要有效地利用它们，我们需要更加自律。
 
-## Linters == Discipline
+## Linter == 纪律
 
-You might be of the (incorrect) belief that linters tell you objective facts about your code. They **can** do that, but that's not their primary purpose.
+您可能（错误的）相信，linter 会告诉您有关代码的客观事实。其实他们**可以**做到这一点，但这不是其主要目的。
 
-The tool that's best suited to tell you if your code is valid is a compiler (ie, the JS engine). The tool that's best suited to tell you whether your code is "correct" (does what you want it to do) is your test suite.
+最能告诉您代码是否有效的工具是编译器（即 JS 引擎）。测最适合告诉您代码是否「正确」（满足需求）的工具是测试。
 
-But the tool that's best suited to tell you if your code is **appropriate** is a linter. Linters are opinionated collections of rules about how you should style and structure your code, so as to avoid likely problems -- according to the authors of those opinion-based rules.
+但是最适合告诉您代码是否**合适**的工具是 linter。Linter 就是指导你格式化和组织代码的充满主观观点的规则集合，以避免可能出现的问题 —— 通过书写这些规则。
 
-That's what they're for: **to apply opinions to your code.**
+这就是规则所做的：**在你的代码中应用这些观点**
 
-That means it's almost certain that these opinions will, at one time or another, "offend" you. If you're like most of us, you fancy yourself pretty good at what you do, and you know that this thing you're doing on this line of code is **right**. And then the linter pops up and says, "Nope, don't do it that way."
+这意味着几乎可以肯定，这些观点会一次又一次地，「冒犯」您。如果您像我们大多数人一样，就会出现「幻想自己做的很好，并且知道您在此代码行上所做的事情是**正确**的。然后 linter 跳出来，说：『不，不要那样做。』」的场景。
 
-If your first instinct is sometimes to disagree, then you're like the rest of us! We get emotionally attached to our own perspectives and abilities, and when a tool tells us we're wrong, we chuff a little bit.
+如果有时，您的第一反应是不同意 linter 提出的意见，那么您就跟我们大多数人一样了！我们从情感上迷恋自己的观点和能力，并且当一种工具告诉我们我们错了时，我们就会爆炸。
 
-I don't get mad at the test suite or the JS engine. Those things are all reporting **facts** about my code. But I can definitely get irritated when the linter's **opinion** disagrees with mine.
+我不会对测试结果或 JS 引擎感到生气。这些东西都是关于我的代码的**事实**。但是当 linter 的**观点**与我的不同时，我就可以非常生气。
 
-I have this one linter rule that I enabled a few weeks ago, because I had an inconsistency in my coding that was annoying me on code re-reads. But now this lint rule is popping up two or three times an hour, nagging me like a stereotypical grandma on a 90's sitcom. Every single time, I ponder (for just a moment) if I should just go disable that rule. I leave it on, but to my chagrin.
+我在几周前启用了一个 linter 规则，因为我的代码中有一处写法不一致的地方，这仅让我在阅读老代码时很恼火。但现在，这条 lint 规则每小时会出现两三次，让我心烦，就像 90 年代情景喜剧里典型的老奶奶一样。每一次，我都思考（仅仅是片刻）我是否应该取消这个规则。但最终我让它开着，虽然这令我不爽。
 
-So why subject ourselves to this torment!? Because linter tools and their opinions are what give us discipline. They help us collaborate with others.
+为什么要如此受苦呢？因为 linter 工具及其提供的观点给了我们纪律。他们帮助我们更好地与他人协作。
 
-They ultimately help us communicate more clearly in code.
+它们最终帮助我们更清晰的表达代码。
 
-Why shouldn't we let every developer make their own decisions? Because of our tendency toward emotional attachment. While we're in the trenches working on **our own code**, against unreasonable pressure and deadlines, we're in the least trustable mindset to be making those judgement calls.
+我们为什么不让每个开发人员都自己做出决定？因为我们总是倾向于情感依恋。虽然我们写着**自己的代码**，但面对着不合理的压力和期限，我们很可能会以最不值得信赖的心态进行这些判断。
 
-We should be submitting to tools to help us maintain our discipline.
+我们应该致力于帮助我们保持纪律的工具。
 
-It's similar to how TDD advocates submit to the discipline of writing tests first, in a formal set of steps. The discipline and the bigger picture outcome of the process are what we value most, when we're level headed enough to make that analysis. We don't institute that kind of process when our code is hopelessly broken and we have no idea why and we're just resorting to trying random code changes to see if they fix it!
+类似于 TDD 倡导的写业务代码前先写测试代码的原则。当我们仔细分析时，会发现我们最看重的是流程的纪律性和全局效果。在代码无法工作、还找不到原因时，我们就只能胡乱挪一挪代码，来看是否能用的情境下，我们是无法建立这样的过程的。
 
-No. If we're being reasonable, we admit that the **overall good** is best served when we set up reasonable guidelines and then follow the discipline of adhering to them.
+讲道理，我们还是要承认，当我们制定了合理的指导方针，然后遵守遵守它们的纪律时，**整体利益**会达到最大化。
 
-## Configurability Is King
+##  可配置性为王
 
-If you're going to knowingly subject yourself to this finger wagging, you (and your team, if applicable) are certainly going to want some say-so in what rules you're required to play by. Arbitrary and unassailable opinions are the worst kind.
+如果你有意让自己接受 lint 规则，你（和你的团队，如果有的话）肯定会想要一些发言权——你需要遵守哪些规则。武断和无懈可击的观点是最糟糕的。
 
-Remember the JSLint days when 98% of the rules were just Crockford's opinions, and you either used the tool or you didn't? He straight up warned you in the README that you were going to be offended, and that you should just get over it. That was fun, right? (Some of you may still be using JSLint, but I think you should consider moving on to a more modern tool!)
+还记得 JSLint 么？那里 98% 的规则只是 Crockford 的个人观点，你要么使用这个工具，要么不使用这个工具。他直接在自述中警告你，你会被冒犯，你应该克服它。很有趣，对吧？（有些人可能还在使用 JSLint，但是我认为您应该考虑使用更现代的工具！）
 
-That's why [ESLint is king](https://eslint.org/) of the linters these days. The philosophy is, basically, let everything be configurable. Let developers and teams democratically decide which opinions they all want to submit to, for their own discipline and good.
+这就是在当代的 linter 工具中，[ESLint 为王](https://eslint.org/)的原因。其基本思想是，让一切都是可配置的。让开发者和团队民主地决定他们想要提交哪些观点，以保证他们的纪律和良好。
 
-That doesn't mean every developer picks their own rules. The purpose of rules is to conform code to a reasonable compromise, a "centralized standard", that has the best chance of communicating most clearly to the most developers on the team.
+这不意味着每个开发人员都有自己的规则。规则的目的是使代码符合一个合理的折衷方案，即「集中式标准」，这是与团队中大多数开发人员进行最清晰沟通的最佳机会。
 
-But no rule is ever 100% perfect. There's always exception cases. Which is why having the option to disable or re-configure a rule with an inline comment, for example, is not just a tiny detail but a critical feature.
+但是没有任何规则是100%完美的。总会有例外情况。这就是使用内联注释来禁用或覆盖规则这一功能不仅仅是一个小特性，而是一个关键功能的原因。
 
-You don't want a developer to just have their own local ESLint config that overrides rules while they commit code. What you want is for a developer to either follow the established rules (preferred!) **OR** to make an exception to the rules that is clear and obvious right at the point where the exception is being made.
+您不希望开发人员只拥有自己的本地 ESLint 配置，以便在提交代码时覆盖规则。您想要的是开发人员要么遵循已建立的规则（首选！），**要么**对规则进行特殊标记，且让这种特殊标记非常清晰和明显。
 
-Ideally, during a code review, that exception can be discussed and debated and vetted. Maybe it was justified, maybe it wasn't. But at least it was obvious, and at least it was possible to be discussed in the first place.
+理想情况下，在 code review 期间，可以讨论、探讨和审查这些特殊标记。也许这是合理的，也许不是。但至少它是容易被看到，至少它是可以讨论的。
 
-Configurability of tools is how we make tools work for us instead of us working for the tools.
+工具的可配置性是一种让工具为我们服务的方法，而不是我们为了工具去工作的方法。
 
-Some prefer convention-based approaches to tooling, where the rules are pre-determined so there's no discussion or debate. I'm know that works for some developers and for some teams, but I don't think it is a sustainable approach for generalized, broad application. Ultimately, a tool that is inflexible to the changing project needs and DNA of the developer(s) using it, will end up falling into obscurity and eventually replaced.
+有些人更喜欢基于约定，而非基于工具，约定的规则是预先确定的，因此没有讨论或辩论。我知道这对一些开发人员和一些团队是有效的，但是我不认为这是一种适用于广泛应用的可持续方法。最终，如果一个工具不能灵活地适应不断变化的项目需求和使用它的开发人员的 DNA，那么它将会变得模糊，并最终被取代。
 
-## Proper Arrows
+## Proper Arrows - 箭头函数的正当用法
 
-I fully recognize my usage of the the word "proper" here is going to ruffle some feathers. "Who is getify to say what is proper and not?"
+我充分理解在这里，我使用「正当」这个词会惹怒一些人。「谁有资格说什么是正当的，什么是不正当的？」
 
-Remember, I'm not trying to tell you what is proper. I'm trying to get you to embrace the idea that opinions about `=>` arrow functions are as varied as all the nuances of their syntax and usage, and that ultimately what is most appropriate is that **some set of opinions**, no matter what they are, should be applicable.
+记住，我并不是要告诉你什么是正当的。我想让大家接受这样一个观点，即关于 `=>` 箭头函数的各种观点就像它们的语法和用法的所有细微差别一样，最终最正当的是**一些观点**，不管具体是什么，总归会有一些可应用的观点。
 
-While I'm a big fan of ESLint, I've been disappointed by the lack of support from built-in ESLint rules for controlling various aspects of `=>` arrow functions. [There](https://eslint.org/docs/rules/arrow-body-style) [are](https://eslint.org/docs/rules/arrow-parens) [a](https://eslint.org/docs/rules/arrow-spacing) [few](https://eslint.org/docs/rules/implicit-arrow-linebreak) built-in rules, but I'm frustrated that they seem to focus mostly on superficial stylistic details like whitespace.
+虽然我是 ESLint 的狂热粉丝，但是我对 ESLint 的内置规则对 `=>` 箭头函数的各个方面的支持不足而感到失望，虽然有[很](https://eslint.org/docs/rules/arrow-body-style)少[的](https://eslint.org/docs/rules/arrow-parens)几[个](https://eslint.org/docs/rules/arrow-spacing)内[置](https://eslint.org/docs/rules/implicit-arrow-linebreak)规则，但我很失望，它们似乎主要关注于表面的风格细节，如空白。
 
-I think there are a number of aspects that can hamper `=>` arrow function readability, issues that go way beyond what the current ESLint ruleset can control. I [asked](https://twitter.com/getify/status/1106902287010709504) around [on twitter](https://twitter.com/getify/status/1106641030273736704), and it seems from the many replies that a lot of people have opinions on this.
+我认为有许多方面会妨碍 `=>` 箭头函数的可读性，这些问题远远超出了现有 ESLint 规则集所能控制的范围。我在[推特](https://twitter.com/getify/status/1106641030273736704)上问了[很多人](https://twitter.com/getify/status/1106902287010709504)，似乎很多人对此都有看法。
 
-The ultimate linter would not only let you configure rules to your liking, but build your own rules if something were lacking. Luckily, ESLint supports exactly that!
+顶级的 linter 就应该不仅允许您根据自己的喜好配置规则，还可以在缺少某些内容时构造自己的规则。幸运的是，ESLint 完全支持这一点！
 
-So I decided to build an ESLint plugin to define an additional set of rules around `=>` arrow functions: [**proper-arrows**](https://github.com/getify/eslint-plugin-proper-arrows).
+因此，我决定开发一个 ESLint 插件来定义一组围绕 `=>` 箭头函数的附加规则：[**proper-arrows**](https://github.com/getify/eslint-plugin-proper-arrows)。
 
-Before I explain anything about it, let me just point out: it's a set of rules that can be turned on or off, and configured, at your discretion. If you find even one detail of one rule helpful, it would be better to use the rule/plugin than not.
+在解释它之前，我要先指出：它是一组规则，可以根据您的判断打开或关闭和配置这些规则。如果你发现一个规则的一个细节对您有帮助，就可以使用这个规则/插件。
 
-I'm fine with you having your own opinions on what makes `=>` arrow functions proper. In fact, that's the whole point. If we all have different opinions on `=>` arrow functions, we should have tooling support to let us pick and configure those different opinions.
+我很高兴你对 `=>` 箭头函数有自己的看法。事实上，这才是重点。如果我们都对 `=>` 箭头函数有不同的意见，那么我们应该有工具支持来选择和配置这些不同的意见。
 
-The philosophy of this plugin is that, for each rule, when you turn the rule on, you get all of its reporting modes on by default. But you can of course either not turn the rule on, or turn the rule on and then configure its modes as you see fit. But I don't want you to have to go hunting for rules/modes to turn on, where their obscurity prevents them from even being considered. So **everything comes on per rule.**
+这个插件的原理是，对于每个规则，当你打开这个规则时，你会默认打开它的所有报告模式。您可以不打开规则，也可以打开规则，然后根据需要配置它的模式。但我不希望你必须去寻找规则/模式来开启，因为它们的晦涩甚至会阻碍你去考虑它们。所以**每个规则都默认开启**。
 
-The only exception here is that by default, all rules ignore [trivial `=>` arrow functions](https://github.com/getify/eslint-plugin-proper-arrows#trivial--arrow-functions), like `() => {}`, `x => x`, etc. If you want those to be checked, on a per-rule basis you have to turn on that checking with the `{ "trivial": true }` option.
+唯一的例外是，在默认情况下，所有的规则都忽略了[简单的 `=>` 箭头函数](https://github.com/getify/eslint-plugin-proper-arrows#trivial--arrow-functions)，比如 `()=> {}`、`x => x`等。如果您想要检查它们，那么您必须在每个规则的基础上使用 `{ "trivial": true }` 选项打开检查。
 
-### Proper Arrows Rules
+### 具体规则
 
-So what rules are provided? Here's an [excerpt from the project overview](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#overview):
+那么具体提供了哪些规则呢？以下是[对项目概述的摘录](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#overview)：
 
-* [`"params"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-params): controls definitions of `=>` arrow function parameters, such as forbidding unused parameters, forbidding short/unsemantic parameter names, etc.
-* [`"name"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-name): requires `=>` arrow functions to only be used in positions where they receive an inferred name (i.e., assigned to a variable or property, etc), to avoid the poor readbility/debuggability of anonymous function expressions.
-* [`"where"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-where): restricts where in program structure `=>` arrow functions can be used: forbidding them in the top-level/global scope, object properties, `export` statements, etc.
-* [`"return"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return): restricts the concise return value kind for `=>` arrow functions, such as forbidding object literal concise returns (`x => ({ x })`), forbidding concise returns of conditional/ternary expressions (`x => x ? y : z`), etc.
-* [`"this"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-this): requires/disallows `=>` arrow functions using a `this` reference, in the `=>` arrow function itself or in a nested `=>` arrow function. This rule can optionally forbid `this`-containing `=>` arrow functions from the global scope.
+* [`"params"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-params)：控制 `=>` 箭头函数参数的定义，例如禁止未使用的参数，禁止短/无语义的参数名称等。
+* [`"name"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-name)：要求将 `=>` 箭头函数仅在接收到推断名称的位置使用（即分配给变量或属性等），以避免匿名函数表达式的低易读性/可调试性。
+* [`"where"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-where)：限制可以在程序结构中使用 `=>` 箭头函数的位置：禁止在顶级/全局作用域、对象属性、`export` 语句等地方使用。
+* [`"return"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return)：限制  `=>` 箭头函数的简明返回值类型，例如禁止对象文字简明返回（`x => ({ x })`）、禁止条件/三元表达式的简明返回（`x => x ? y : z`）等。
+* [`"this"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-this)：要求/禁止 `=>` 箭头函数在 `=>` 箭头函数自身或嵌套 `=>` 箭头函数中使用 `this` 引用，该规则可以有选择地禁止全局作用域使用带 `this` 的 `=>` 箭头函数。
 
-Remember, each rule has various modes to configure, so none of this is all-or-nothing. Pick what works for you.
+请记住，每个规则都有不同的配置配置，所以这些并非全有或全无的。选择你需要的即可。
 
-As an illustration of what the **proper-arrows** rules can check for, let's look at the [`"return"` rule](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return), specifically its [`"sequence"` mode](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return-configuration-sequence). This mode refers to the concise return expression of `=>` arrow functions being a comma-separated **sequence**, like this:
+为了示意 **proper-arrows** 规则可以检查什么，让我们看看 [`"return"` 规则](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return)，特别是它的 [`"sequence"` 模式](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return-configuration-sequence)。这种模式将 `=>` 箭头函数的简洁返回表达式表示为逗号分隔的序列，如下所示:
 
 ```JavaScript
 var myfunc = (x,y) => ( x = 3, y = foo(x + 1), \[x,y\] );
 ```
 
-Sequences are typically used in `=>` arrow function concise returns to string together multiple (expression) statements, without needing to use a full `{ .. }` delimited function body and an explicit `return` statement.
+Sequences 通常用于 `=>` 箭头函数希望简洁的返回字符串在一起的多个(表达式)语句，而不使用完整的 `{ .. }` 分隔函数体和显式的 `return` 语句。
 
-Some may love this style -- that's OK! -- but a lot of folks think it favors clever terse style coding over readability, and would prefer instead:
+有些人可能喜欢这种风格，这没问题！不过还有很多人更倾向于可读性而不是更简洁的代码，他们更喜欢：
 
 ```JavaScript
 var fn2 = (x,y) => { x = 3; y = foo(x + 1); return \[x,y\]; };
 ```
 
-Notice that it's still an `=>` arrow function and it's not even that many more characters. But it's clearer that there are three separate statements in this function body.
+请注意，它仍然是一个 `=>` 箭头函数，其实也并没有多出几个字符。但这样可以更清楚的看到，此函数体中包含三个单独的语句。
 
-Even better:
+更好的做法：
 
 ```JavaScript
 var fn2 = (x,y) => {
@@ -188,24 +188,24 @@ var fn2 = (x,y) => {
 };
 ```
 
-To be clear, the **proper-arrows** rules don't enforce trivial styling differences like whitespace/indentation. There are other (built-in) rules if you want to enforce those requirements. **proper-arrows** focuses on what I consider to be more substantive aspects of `=>` function definition.
+需要明确的是， **proper-arrows** 规则不会对琐碎的样式差异进行强制，例如空格/缩进。如果要对这类差异进行统一，可以结合使用其他（ ESLint 内置）规则。 **proper-arrows** 规则专注于有关于 `=>` 箭头函数的更实质性的内容。
 
-## [](https://gist.github.com/getify/71680e9b86cd4895874f6a3768bd6eca#concise-summary)Concise Summary
+## 简要总结
 
-You and I almost certainly disagree on what makes **good, proper** `=>` arrow function style. That's a good and healthy thing.
+您和我几乎可以肯定的是，什么才能造就**良好、正确**的 `=>` 箭头函数的样式。这是一个良好和健康的工作模式。
 
-My goal here is two-fold:
+我有两个目标：
 
-1. Convince you that opinions on this stuff vary and that's OK.
-2. Enable you to make and enforce your own opinions (or team consensus) with configurable tooling.
+1. 说服您：对这些东西的看法不同是没关系的。
+2. 使您能够使用可配置的工具来制定和执行自己的观点（或团队共识）。
 
-There's really nothing to be gained from arguing over opinion-based rules. Take the ones you like, forget the ones you don't.
+争论基于意见的规则确实没有任何收获。选择您喜欢的，忘记您不喜欢的就够了。
 
-I hope you take a look at **[proper-arrows](https://github.com/getify/eslint-plugin-proper-arrows)**[ ](https://github.com/getify/eslint-plugin-proper-arrows)and see if there's anything in there which you could use to ensure your `=>` arrow functions are the best form they can be in your code base.
+我希望您看一下[**proper-arrows**](https://github.com/getify/eslint-plugin-proper-arrows)，然后看看有没有那些规则可以为您所用，来让您的  `=>` 箭头函数符合您心目中在代码库中的正确形式。
 
-And if the plugin is missing some rules that would help define more **proper arrows**, please [file an issue and we can discuss](https://github.com/getify/eslint-plugin-proper-arrows/issues)! It's entirely plausible we may add that rule/mode, ****even if I personally plan to keep it turned off!****
+如果这个插件缺少一些有助于定义更多正确箭头的规则，请[提出问题，咱们一起讨论](https://github.com/getify/eslint-plugin-proper-arrows/issues)！我们可以添加该规则/模式是完全合理的，即使我个人尚未想到更多合理的规则！
 
-I don't hate `=>` arrow functions, and you shouldn't either. I just hate uninformed and undisciplined debate. Let's embrace smarter and more configurable tooling and move on to more important topics!
+我不讨厌  `=>` 箭头函数，您也不应该。我只是讨厌无知无纪的争辩。让我们拥抱更智能，更可配置的工具，然后转向更重要的主题吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
