@@ -2,167 +2,167 @@
 > * 原文作者：[Tzoof Avny Brosh](https://medium.com/@tzoof)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-right-database.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-right-database.md)
-> * 译者：
+> * 译者：[Jessica](https://github.com/cyz980908)
 > * 校对者：
 
-# How to choose the right database
+# 如何选择合适的数据库
 
-#### We will go over the types of databases available and the best practices for different project types.
+#### 我们将讨论现有数据库的类型以及对于不同项目类型的数据库最佳实践。
 
-Whether you are an experienced software engineer or a student doing a university project, at some point you will need to choose a DB for your project.
+无论您是已有工作经验的软件工程师还是正在写大学课设的学生，您总会遇上要为项目选择一个数据库的情形。
 
-If you’ve used DBs before you might be saying “I’ll just choose X, it’s the DB I know and worked with” and that’s completely fine if performance is not an important requirement for your system. Otherwise, choosing the wrong DB might come as an obstacle when the project grows and is sometimes painful to fix. Even if you are working on a mature project, that uses specific DB for a while, it’s important to know its limitations and identify when you should add another type of DB to your stack (it is very common to combine several DBs).
+如果您曾经使用过数据库，您可能会说“我只会选择 X，那是我所知道并使用过的数据库”，当然如果性能不是系统的重要要求的话，这是完全可以的。否则，当项目规模发展时，错误的数据库可能会成为项目的障碍，并且有时还很难修复。即使您正在负责一个成熟项目，已经使用某个特定的数据库一段时间了，了解其局限性并清楚何时应在堆栈中添加另一种类型的数据库（多个数据组合工作是很常见的）也是很重要的。
 
-A bonus reason for understanding the different DBs and their properties is that it’s quite a common question in job interviews!
+了解不同数据库及其属性的另一个原因是，它是面试中的一个常考题！
 
-In this post we will review the 2 main types of databases:
+在这篇文章中，我们将会讨论两种主要的数据库类型：
 
-* Relational Databases (SQL based).
-* NoSQL Databases.
+* 关系型数据库（基于 SQL）。
+* NoSQL 数据库。
 
-We will go over the different types of NoSQL DBs and when to use each one.  
-And finally, discuss the advantages and disadvantages of Relational vs. NoSQL DBs.  
-This post will not include a comparison between the different products offered for each type of database (e.g. MySQL vs. MS SQL Server).
+我们将讨论不同类型的 NoSQL 数据库以及何时使用它们。
+最后，我们还会讨论关系型数据库与 NoSQL 数据库的优缺点。
+这篇文章将不会涉及对同类型数据库的不同产品之间的比较（例如 MySQL 和 MS SQL Server）。
 
-TL;DR: if you are looking for a quick cheat sheet, skip to the end of the post.
+文章总结：如果您想要一个快速看完这篇文章的小抄，请跳到文章的最后。
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/2000/1*boWbSGHBRs2Bc13aeHVDfw.png)
 
-## Relational DBs (SQL based)
+## 关系型数据库（基于 SQL）
 
-This DB consists of a collection of tables (like CSV tables), that are connected. Each row in a table represents a record.
+关系型数据库由一组连接起来的表（如 CSV 表）组成。表中的每一行代表一条记录。
 
-Why is it called relational? What are the ‘relations’ that exist in this DB?
-Let ’s say you have a table of students information, and a table of the course grades (course, grade, student id), every grade row **relates** to a student record.
-See diagram below, where the value in the ‘Student ID’ column points to rows in the ‘Students’ table by the value of their ‘ID’ column.
+为什么叫关系型? 在这种数据库中存在“关系”是什么？
+假设您有一个学生信息表和一张课程成绩表（课程，成绩，学生证），每个成绩行都与学生信息表的一条记录**相关**。
+参见下图，课程成绩表中 “Student ID” 列的值通过 “ID” 列的值指向 “Students” 表中的行。
 
-All relational DBs are queried with SQL-like languages, which are commonly used and inherently support join operations.
-They allow the indexing of columns for faster queries based on those columns.
+所有关系型数据库都使用类似 SQL 的语言进行查询，这些语言很常用，并且自带 JOIN 操作（即连接操作，用于把来自两个或多个表的行结合起来，如上文的学生信息表和课程成绩表）。
+这种数据库支持对列进行索引，使得基于这些列能进行更快的查询。
 
-Because of its structured nature, the relational DB’s schema is decided before inserting data.
+由于其结构化的特性，关系型数据库的 schema（schema 指数据库中数据的组织和结构）是在插入数据之前确定好的。
 
-**Common relational databases:** MySQL, PostgreSQL, Oracle, MS SQL Server
+**常见的关系型数据库：** MySQL、PostgreSQL、Oracle、MS SQL Server。
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/2000/1*xtPrVMwIcya4ObgwTeg9GA.jpeg)
 
-## NoSQL DBs
+## NoSQL 数据库
 
-While in relational DBs everything is structured to rows and columns, in NoSQL DBs there is no common structured schema for all records. Most of the NoSQL databases contain JSON records, and different records can include different fields.
+虽然在关系型数据库中，所有内容都是按行和列进行结构化好的，但在 NoSQL 数据库中，并没有针对所有记录通用的结构化的 schema。大多数 NoSQL 数据库存储的是 JSON 记录，不同的记录可以包含不同的字段。
 
 ---
 
-This family of databases should actually be called “Not mainly SQL” — since many NoSQL DBs support querying using SQL, but using it is not the best practice for them.
+实际上，应将 NoSQL 数据库称为“不仅仅是 SQL（Not mainly SQL）” —— 因为许多 NoSQL 数据库支持使用 SQL 进行查询，但使用它们并不是最佳实践。
 
-#### There are 4 main types of NoSQL databases:
+#### NoSQL 数据库主要有 4 种类型：
 
-## 1. Document-oriented DBs
+## 1. 文档存储数据库
 
-The atomic unit of this DB is a document.
-Each document is a JSON, the schema can vary between different documents and contain different fields.
-Document DBs allow indexing of some fields in the document to allow faster queries based on those fields (this forces all the documents to have the field).
+文档存储数据库的原子单位是一个文档（document）。
+每个文档都是一个 JSON，不同文档的 schema 不同，包含不同的字段。
+文档存储数据库允许对文档中的某些字段建立索引，从而能够基于这些字段进行更快的查询（这将会强制所有文档都具有该字段）。
 
-**When should I use it?**  
-Data analysis — Since different records are not dependent on one another (logic and structure-wise) **this DB supports parallel computations.**
-This allows you to perform big data analytics on our data easily.
+**应该什么时候选择它？**  
+数据分析 —— 由于不同的记录之间并不相互依赖（在逻辑和结构方面），所以**这种数据库支持并行计算**。
+我们可以借助它来轻松地对数据进行大数据分析。
 
-**Common document-based databases**: MongoDB, CouchDB, DocumentDB.
+**常见的文档存储数据库：** MongoDB、CouchDB、DocumentDB。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*--zqXFzt3rNFLF4hvkgX7Q.jpeg)
 
-## 2. Columnar DBs
+## 2. 列存储数据库
 
-The atomic unit of this DB is a column in the table, meaning the data is stored column by column. It makes column-based queries very efficient, and since the data on each column is quite homogeneous, this allows better compression of the data.
+列存储数据库的原子单位是表中的一列，这意味着数据是按列存储的。它的列存储特点使得基于列的查询非常高效，并且由于每列上的数据都是结构相同的，因此可以更好地压缩数据。
 
-**When should I use it?**  
-When you tend to query on a subset of columns in your data (doesn’t need to be the same subset each time!).
-Columnar DB performs such queries very fast since it only needs to read these specific columns (while row-based DB would have to read the entire data).
+**应该什么时候选择它？**  
+当您倾向于查询数据中的一个列子集时（每次查询的数据不需要都是相同的子集！）。
+列存储数据库执行此类查询的速度非常快，因为它只需要读取这些特定的列（而基于行存储的数据库则必须读取整个数据）。
 
-* This is often common in data science, where each column represents a feature. As a data scientist, I often train my models with subsets of the features and tend to check relations between features and scores (correlation, variance, significance).
-* This is also common with logs — we often store a lot more fields in our logs database but uses only a few in each query.
+* 这在数据科学中很常见，其中每一列代表一个特征。作为一名数据科学家，我经常使用特征子集来训练我的模型，并且通常还会检查特征和得分之间的关系（相关性、方差、显著性）。
+* 这在日志中也很常见 —— 我们通常在日志数据库中存储很多字段，但在每个查询中只使用几个字段。
 
-**Common column DB database:** Cassandra.
+**常见的列存储数据库：** Cassandra。
 
-![Column vs. raw based DBs.](https://cdn-images-1.medium.com/max/2000/1*4qcFp6XOvQj3_uf4_Jx-VA.jpeg)
+![列存储数据库 vs. 行存储数据库。](https://cdn-images-1.medium.com/max/2000/1*4qcFp6XOvQj3_uf4_Jx-VA.jpeg)
 
-## 3. Key-value DBs
+## 3. key-value 存储数据库
 
-The querying is only key-based — You ask for a key and get its value.
-Doesn’t support queries across different record values like ‘select all records where city == New York’
-A useful feature in this DB is the TTL field (time to live), this field can be set differently for each record and state when it should be deleted from the DB.
+查询仅基于键 —— 您请求一个键，拿到对应的值。
+不支持跨不同记录值之间的查询，比如 “select all records where city == New York”。
+这种数据库中一个有用的特性是 TTL 字段（time to live），当记录将要从数据库中删除时，这个字段可以为每个记录和状态设置不同的值。
 
-**Advantages —** It is very fast.  
-First because of the use of unique keys, and second because most of the key-values databases store the data in memory (RAM) which allows quick access.
-**Disadvantages —** You need to define unique keys that are good identifiers and built of the data you know in the time of the query.
-Often more expensive than other kinds of databases (since runs on memory).
+**优点 ——** 它很快。
+首先是因为使用唯一键，其次是因为大多数 key-value 存储数据库将数据存储在内存（RAM）中，从而可以快速访问。
+**缺点 ——** 您需要定义唯一的键，这些键是很好的标识符，是在查询时根据您所已知的数据创建的。
+通常比其他类型的数据库更加昂贵（因为它是在内存上运行的）。
 
-**When should I use it?**  
-Mainly used for cache since it is very fast and doesn’t require complex querying, also the TTL feature comes very useful for caching.
-It can also be used for any other kind of data that requires fast querying and meets the key-value format.
+**应该什么时候选择它？**  
+它主要用于缓存，因为它非常快，不需要复杂的查询，而且 TTL 特性对缓存非常有用。它还可以用于需要快速查询并满足 key-value 格式的任何其他类型的数据。
 
-**Common key-value databases:** Redis, Memcached
+
+**常见的 key-value 存储数据库：** Redis、Memcached。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*toVGNhjap7O02NgIAAo7PQ.jpeg)
 
-## 4. Graph DBs
+## 4. 图存储数据库
 
-Graph DBs contain nodes that represent entities and edges that represent relationships between entities.
+图存储数据库包含代表实体的节点和代表实体之间关系的边。
 
-**When should I use it?**  
-When your data is a graph like, like knowledge graphs and social networks.
+**应该什么时候选择它？**  
+当您的数据是类似于知识图谱和社交网络这种图时。
 
-**Common graph databases:** Neo4j, InfiniteGraph
+**常见的图存储数据库：** Neo4j、InfiniteGraph。
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/2000/1*aoxi7WigljAnHpqyTzzLEg.png)
 
-## Relational vs. Document DB
+## 关系型数据库 vs. 文档存储数据库
 
-As you probably figured out by now, there is no right answer, no ‘One DB to rule them all’.
-The most common DBs for ‘regular’ use are Relational and Document DBs so we’ll compare them.
+您现在可能已经知道了答案了，这个问题没有标准答案，没有一个数据库能够解决所有的问题。
+我们通常使用的是最常见的关系型数据库和文档存储数据库，因此我们将对它们二者进行比较。
 
-#### Relational — advantages
+#### 关系型数据库的优点
 
-* It has a simple structure that matches most kinds of data you normally have in a program.
-* It uses **SQL**, which is commonly used and inherently supports JOIN operations.
-* Allows **fast data updating**. All the DB is saved on one machine, and relations between records are used as pointers, this means you can update a record once and all its related records will update immediately.
-* Relational DB also **supports atomic transactions**.
-What are atomic transactions: let’s say I want to transfer X dollars from Alice to Bob. I want to perform 3 actions: decrease Alice’s balance by X, increase Bob’s balance by X and document the transaction. I want to treat these actions as one atomic unit — all of the actions or none will occur.
+* 它的数据结构简单，可以匹配项目中常见的大多数类型的数据。
+* 它使用 **SQL**。SQL 很常用，并且天生支持连接操作。
+* 允许**数据的快速更新**。所有数据库都保存在一台机器上，记录之间的关系用作指针，这意味着您可以一次更新一条记录，而它的所有相关记录也将立即更新。
+* 关系型数据库也 **支持原子事务**。
+什么是原子事务：假设我想把 X 美元从 Alice 账户转移到 Bob账户。我想执行 3 个操作：减少 Alice 账户 X 刀，增加 Bob 账户 X 刀，最后记录下这个交易事务。我想把这些动作当作一个原子单位 —— 要么所有的动作发生要么一个都不发生。
 
-#### Relational — disadvantages
+#### 关系型数据库的缺点
 
-* Since each query is done on a table — the **query execution** time depends on the size of the table. This is a significant limitation that requires us to keep our tables relatively small and perform optimizations on our DB in order to scale.
-* In relational DBs scaling is done by adding more computing power to the machine that holds your DB, this method is called ‘**Vertical Scaling’**.
-Why is it a disadvantage? since there is a limit for the computing power machines can provide and since adding resources to your machine can require some downtime.
-* Relational **does not support OOP** based objects, even representing simple lists is very complicated.
+* 由于每个查询都在表上完成 —— **查询执行**时间取决于表的大小。这是一个重要的限制，要求我们保持表相对较小，并在我们的数据库上进行优化以实现可伸缩性。
+* 在关系型数据库的扩展中，可以通过向运行数据库的计算机增加更多的计算能力来进行扩展，这种方法称为“**纵向扩展**”。
+为什么这是一个缺点呢？这是由于计算机能够提供的计算能力有限，而且向计算机扩展资源可能需要一些停机时间。
+* 关系型数据库 **不支持 OOP**，不支持面向对象，即使表示简单的列表也是非常复杂的。
 
-#### Document DB — advantages
+#### 文档存储数据库的优点
 
-* It allows you to keep objects with **different structures**.
-* You can represent almost all data structures including **OOP based objects**, lists, and dictionaries using good old JSON.
-* Although NoSQL is unschematized by nature, it often supports **schema** **validation**, meaning you can make a collection schematized, the schema won’t be as simple as a table, it will be a JSON schema with specific fields.
-* **Querying** NoSQL is very **fast**, each record is independent and therefore the query time is independent of the DB’s size and **supports parallelity**.
-* In NoSQL, scaling the DB is done by adding more machines and distributing your data between them, this method is called **‘Horizontal Scaling’**. This allows us to automatically add resources to our DB when needed without causing any downtime.
+* 它使您可以保留具有**不同结构**的对象。
+* 您可以使用可爱的 JSON 表示几乎所有的数据结构，包括**基于对象的 OOP**、列表以及字典。
+* 虽然 NoSQL 本质上是无模式的（指不需要像关系型数据库一样将预定义的结构，即 schema ，向数据库说明），但它通常支持**模式验证**，这意味着您可以使一个数据集合模式化，此模式不会像表那么简单，它是一个带有特定字段的JSON schema。（译者注：这里所说的模式就是 schema）。
+* NoSQL **查询**非常快，每条记录都是独立的，因此查询时间与数据库大小无关，并且**支持并行性**。
+* 在 NoSQL 中，通过添加更多的机器并在它们之间分配数据来扩展数据库，这种方法称为“**水平扩展**”。这允许我们在需要时自动向数据库扩展资源，并且不会导致任何停机。
 
-#### Document DB — disadvantages
+#### 文档存储数据库的缺点
 
-* **Updating** the data is a **slow** process in Document DB since the data can be divided between machines and can be duplicated.
-* **Atomic transactions are not inherently supported**. you can add it yourself in code by using verification and revert mechanism, but since the records are divided between machines it cannot be an atomic process and race conditions can occur.
+* 在文档存储数据库中**更新**数据是一个**缓慢**的过程，因为数据会在不同的机器之间进行划分、复制。
+* **原子事务本身不受支持**。您可以通过使用验证和恢复机制将其添加到代码中，但是由于记录是在机器之间划分的，所以它不可能是一个原子过程，并且可能会出现竞争状况。（译者注：MongoDB 4.0 版本已经提供了原生的事务操作）
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/7802/1*OeNlPHG6RC2C37ycYKxyQg.png)
 
-## Cheat Sheet:
+## 快速小抄：
 
-* For **cache** — use a **key-value DB**.
-* For **graph-** like data — use a **graph DB**.
-* If you tend to query on **subsets of columns** /features — use **column DB.**
-* For all other use cases — **Relational** or **Document DB**.
+* 对于**缓存** —— 使用 **key-value 存储数据库**。
+* 对于**类似图形**的数据 —— 使用**图存储数据库**。
+* 如果您倾向于查询**列子集**以及查询特征 —— 使用**列存储数据库**。
+* 对于所有的其他用例 —— 使用**关系型数据库**或者**文档存储数据库**。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
