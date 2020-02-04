@@ -57,7 +57,7 @@
 
 我希望这些想法能让专业的数据科学家们在开始一个新项目或为一个产品添加新功能时对产品管理进行更多的探索，变得更加灵活，并有望帮助企业经理、产品经理、数据科学家和研究人员之间的复杂关系。
 
-I would like to thank my fellow colleagues, [Natanel Davidovits](https://towardsdatascience.com/@ndor123) and [Sefi Keller](https://medium.com/@sefikeller) for reviewing this post.
+我要感谢我的同事, [Natanel Davidovits](https://towardsdatascience.com/@ndor123) 和 [Sefi Keller](https://medium.com/@sefikeller) 校验这篇文章。
 
 ---
 
