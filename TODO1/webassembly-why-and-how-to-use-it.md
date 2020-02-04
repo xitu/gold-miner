@@ -15,7 +15,7 @@
 
 Undoubtedly, web is highly portable and machine-agnostic, making it a truly universal platform.
 
-> # Web is the only one true universal platform. ☝️
+> Web is the only one true universal platform. ☝️
 
 JavaScript (JS) is the default language of web-development. It has native support of many web APIs like DOM, Fetch, Web-sockets, Storage etc., and as browsers are becoming more powerful, we are writing more complex clients using JavaScript (or languages that transpile to JS).
 
@@ -37,7 +37,7 @@ Web development community is trying to overcome these limitations and opening up
 
 ## Web Assembly (WASM)
 
-> # WebAssembly is a type of binary-code that can be run in modern web browsers, it enables us to write code in multiple languages and run it at near-native speed on the web.
+> WebAssembly is a type of binary-code that can be run in modern web browsers, it enables us to write code in multiple languages and run it at near-native speed on the web.
 
 #### Features of WASM
 
@@ -53,7 +53,7 @@ Web development community is trying to overcome these limitations and opening up
 * Running old C/C++ libraries and apps on web providing portability and eliminating need to re-write C/C++ code into JS.
 * To eliminate the need of making native apps and various compilation targets as single WASM compilation would enable it to run on different processors through web browsers.
 
-> # WASM is here not to replace JS but work alongside it. **JavaScript has already good collection of Native web APIs, WASM is here to assist with the heavy lifting.**
+> WASM is here not to replace JS but work alongside it. **JavaScript has already good collection of Native web APIs, WASM is here to assist with the heavy lifting.**
 
 > **Note:
 **Modern JavaScript engines are very fast and highly optimize our JS code, so WASM bundle size and execution time might not be very advantageous for simple tasks.
@@ -87,7 +87,7 @@ Following is the example code of using `**instantiateStreaming**` for consuming 
 
 ![JS glue code for consuming WASM files](https://cdn-images-1.medium.com/max/2524/1*To4yagUwccxkP4TXZE4P8g.png)
 
-> # To get a quick feel of the explained steps without the pain-staking setups, [WASM fiddle](https://wasdk.github.io/WasmFiddle) can be used.
+> To get a quick feel of the explained steps without the pain-staking setups, [WASM fiddle](https://wasdk.github.io/WasmFiddle) can be used.
 
 ## Browser support
 
