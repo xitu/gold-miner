@@ -125,12 +125,12 @@ In this article, we learned about some cool stuff related to Service Workers and
 ---
 
 ## Learn more
-[**5 Tools for Faster Development in React**
-**5 tools to speed the development of your React application, focusing on components.**blog.bitsrc.io](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
-[**11 JavaScript Animation Libraries For 2019**
-**Some of the finest JS and CSS animation libraries around.**blog.bitsrc.io](https://blog.bitsrc.io/11-javascript-animation-libraries-for-2018-9d7ac93a2c59)
-[**How to Build a React Progressive Web Application (PWA)**
-**A deep, comprehensive guide with live code examples**blog.bitsrc.io](https://blog.bitsrc.io/how-to-build-a-react-progressive-web-application-pwa-b5b897df2f0a)
+- [**5 Tools for Faster Development in React**
+5 tools to speed the development of your React application, focusing on components.](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
+- [**11 JavaScript Animation Libraries For 2019**
+Some of the finest JS and CSS animation libraries around.](https://blog.bitsrc.io/11-javascript-animation-libraries-for-2018-9d7ac93a2c59)
+- [**How to Build a React Progressive Web Application (PWA)**
+A deep, comprehensive guide with live code examples](https://blog.bitsrc.io/how-to-build-a-react-progressive-web-application-pwa-b5b897df2f0a)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
