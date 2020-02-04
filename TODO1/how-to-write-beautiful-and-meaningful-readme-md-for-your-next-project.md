@@ -42,8 +42,7 @@ Now that I’ve got your attention, let us see how to tackle this.
 In addition to your project's readme, documenting your components is crucial for a comprehensible codebase. It makes it much easier to reuse components and maintain your code. Use tools like [**Bit**](https://bit.dev) ([Github](https://github.com/teambit/bit)) to auto-generate documentation for components shared on [bit.dev](https://bit.dev)
 
 ![Example: searching for components shared on Bit.dev](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
-[**Share reusable code components as a team · Bit**
-**Easily share reusable components between projects and applications to build faster as a team. Collaborate to develop…**bit.dev](https://bit.dev)
+[**Share reusable code components as a team · Bit**](https://bit.dev)
 
 ## Describe your project! (TL;DR)
 
