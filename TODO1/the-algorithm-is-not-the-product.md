@@ -2,66 +2,66 @@
 > * 原文作者：[Ori Cohen](https://medium.com/@cohenori)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-algorithm-is-not-the-product.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-algorithm-is-not-the-product.md)
-> * 译者：
-> * 校对者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
+> * 校对者：[Shuyun6](https://github.com/Shuyun6),[todaycoder001](https://github.com/todaycoder001)
 
-# The Algorithm Is Not The Product
+# 算法不是产品
 
-## Why I think data-scientists should learn more about making good products
+## 为什么我认为数据科学家应该更多地学习怎样制作好的产品
 
 ![A man looking at a whiteboard, [pixabay](https://pixabay.com/photos/startup-whiteboard-room-indoors-3267505/).](https://cdn-images-1.medium.com/max/2000/0*9aCTQ8j7DiGTAZjj.jpg)
 
-One of the first lessons I learned in the industry, is that even though we build highly complex algorithms designed to solve a specific problem, these tools need to be used by a client. Whether internal or external, the client needs a lot more than a finely constructed, packaged, and deployed piece of code.
+我在行业内学到的第一个教训就是，即使我们构建了极其复杂的算法来解决特定的问题，这些工具还是要被一些客户来使用。 因此无论是内部的算法还是外部的用户体验，客户需要的不仅仅是一段精心构造、打包和部署的代码。
 
-In other words, the product is more than just an algorithm, it’s a whole system that allows your users to get great value from it. Building a product that has an algorithm at its core is not an easy task, its a collaboration of work between many teams such as product managers, developers, researchers, data engineers, DevOps, ui\ux, etc..
+换而言之，产品不仅仅是个算法，它是一个能让你的用户从中获得巨大价值的完整体系。构建一个以算法为核心的产品并不是件容易事情，它需要产品经理、开发人员、研究人员、数据工程师、DevOps、ui/ux 等团队之间的合作。
 
-Building a product relies on research methodology, you iteratively hypothesis (based on apriori or posteriori knowledge), measure, deduce insights and tweak the product until it’s you reach product-market-fit. It’s an endless battle against the unknown, where nothing is promised, except the process. The better the process, the better your chances are to get to end up with a good product.
+构建一个产品依赖于研究方法，你反复假设（基于先验或后验知识）、衡量、推断见解和调整产品，直到它适合产品市场。这是一场与未知世界的无休止的战斗，除了过程，你可能一无所获。当然，过程越好，你就越有可能得到一个好产品。
 
-**However, we tend to forget that.**
+**但是，往往我们倾向于忘记。**
 
-The following are several points, out of many, that should be emphasized, i.e., situations in which we need to place an importance on the product in addition to data-science considerations.
+以下是应重点强调的几点，即在这种情况下，除了考虑数据科学方面之外，我们还需要重视产品的情况。
 
-## The interview
+## 面试
 
-When Interviewing a new data-scientist, we usually ask about past research, algorithms, methodologies and introduce an unseen hands-on research question that the candidate needs to solve.
+在面试一个新的数据科学家（DS）的时候，我们通常会询问过去的研究、算法、方法，并提出一个看不见的、需要候选人亲自动手解决的研究问题。
 
-As hiring managers we should really think about asking product related questions from the DS point-of-view, we should look at home assignments and ask relevant questions about why the candidate made certain data- or algorithmic-decisions in relation to the product. For example, asking about feature engineering choices that relate to the product problem. Decisions such as “why did they choose to include feature X over Y” or “why did they choose process feature Z in a certain manner”.
+作为招聘经理，我们真的应该考虑从 DS 的角度问一些与产品相关的问题，我们应该看看应聘者的研究作业，问一些相关问题，比如求职者为什么要做出与产品相关的数据或算法决策。例如，询问与产品问题相关的特性工作选择。例如“为什么他们会选择将特征 X 包含在 Y 中”或“为什么他们选择用一种特定的方式去处理特征 Z”之类的决策。
 
-## The initial model
+## 初始模型
 
-For many organizations, the first model that should hit production is the simplest algorithm, often described as a “rule-based” model or an ‘80–20’ model. The motivation to put such a basic model before diving into a research period is, usually, to allow developers, DevOps & other teams to create a supportive infrastructure for the new model, the DS will then work on a “real” model to replace the temporary stand-in.
+对于许多组织来说，第一个应该投入生产的模型是最简单的算法，通常被描述为“基于规则”的模型或“80-20”模型。在进入研究阶段之前，放入这样一个基本模型的动机，通常是为了让开发人员、DevOps 和其他团队为新模型创建一个支持性的基础架构，然后 DS 将工作在一个“真实的”模型上，以取代临时的替代者。
 
-Hearing about this idea from DS candidates or executing it by current DSs is highly important. It shows a deep understanding of an organization needs to be prepared ahead of time. It allows PMs to promote and push relevant tasks in parallel, allows us to be more agile, and it encourages product-understanding from non-product people.
+从 DS 候选人那里听到这个想法，或者让当前的 DS 们来执行它是非常重要的。它显示了对一个组织需要提前做好准备的深刻理解。它允许 PM 们并行地促进和推进相关的任务，允许我们更加敏捷，并鼓励非产品人员理解产品。
 
-## Model decisions
+## 模型决策
 
-There are considerations that should be presented by candidates or practiced by your DSs. Training an algorithm with **balance=true**, in order to regularize an imbalanced dataset, is a product decision that should be decided by the data scientists. He should ask the product manager if these classes equally important for the problem at hand, or do we want to perform better in the bigger classes?
+有一些考虑应该由候选人提出，或者由你自己的数据科学家进行实践。训练一个 **balance = true** 的算法，以使不平衡的数据集正则化，这是一个数据科学家应该做出的产品决策。他应该问产品经理，这些类对于手头的问题是否同样重要，还是我们希望在更大的类中变现得更好？ 
 
-These sort of questions are the important questions that we should also ask the candidate during the interview process, immediately after asking him if he can describe all the methods he knows about balancing classes (oversampling, undersampling, loss regularization, synthetic data, etc..).
-I also talk about it briefly [here](https://towardsdatascience.com/data-science-recruitment-why-you-may-be-doing-it-wrong-b8e9c7b6dae5).
+这类问题使我们在面试过程中应该问应聘者的一些重要问题，在问完他是否能描述他所知道的关于平衡类的所有方法（过采样、欠采样、损失正则化、合成数据等）之后，我们也应该在面试过程中立即询问候选人。
+我也简单讲一下[这里](https://towardsdatascience.com/data-science-recruitment-why-you-may-be-doing-it-wrong-b8e9c7b6dae5)。
 
-## Collaboration with PMs
+## 和 PM 合作
 
-In our data-science (DS) world, we closely work with a product manager (PM) towards that coveted goal. We have many friction points with different teams, but the most important, is the one with the PM, as seen in Figure 1.
+在我们数据科学（DS）领域，我们与产品经理（PM）紧密合作，共同实现我们梦寐以求的目标。我们与不同的团队都有许多摩擦点，但最重要的还是与 PM 的摩擦点，如下图所示。
 
 ![Figure 1: a proposed flow for when working side by side with business and product](https://cdn-images-1.medium.com/max/3010/0*dboBm1rJIqrZ7Sla.png)
 
-Consider a business-product (BP) KPI that needs to be reached or optimized and a data-scientists that needs to find the proper DS-KPI, which serves the BP-KPI to its fullest. This is one of our biggest challenges and is often overlooked by all stakeholders. The following diagram (Figure 1) shows a workflow that allows for iterative research in order to optimize both types of KPIs, allowing collaboration with Business, Product and Data Science.
-You can read more about [my method of managing this friction point here](https://towardsdatascience.com/why-business-product-should-always-define-kpis-goals-for-data-science-450404392990).
+考虑一个需要达到或者优化的业务产品（BP）KPI 和一个需要找到适当的 DS-KPI 的数据科学家，DS-KPI 最大限度地为 BP-KPI 服务。这是我们面临的最大挑战之一，但经常被所有利益相关者忽视。上图显示了一个允许迭代研究的工作流，以便优化这两种 KPI 类型，允许与业务、产品和数据科学进行协作。
+你可以阅读更多关于[我管理这个摩擦点的方法](https://towardsdatascience.com/why-business-product-should-always-define-kpis-goals-for-data-science-450404392990)。
 
-## Don’t fall in love with your algorithm
+## 不要迷恋你的算法
 
-We work tediously on perfecting our algorithms, making sure that they optimize properly, however, many times over it happens that someone in the system has changed their mind or didn't research the market properly and the algorithm you built to serve a certain function is not needed or doesn't perform as expected. A common mistake is to push for, try to fix or repurpose the algorithm. However, its probably more advisable to let go and start from scratch with a new algorithm, based on new product requirements. This releases you from previous constraints and is good strategically for your team within the organization.
-
----
-
-I hope that these ideas will allow professional DSs to explore more about product management when starting a new project or adding new features to a product, to be more agile and hopefully aid the complex relations between business managers, product managers, data scientists, and researchers.
-
-I would like to thank my fellow colleagues, [Natanel Davidovits](https://towardsdatascience.com/@ndor123) and [Sefi Keller](https://medium.com/@sefikeller) for reviewing this post.
+我们在完善算法算法方面进行了乏味的工作，以确保算法能正确地进行优化，但是，很多时候，系统中的某个人改变了主意或没有适当的研究市场，并且你为服务于某个功能而构建的算法不需要或没有按预期执行。一个常见的错误是推动、尝试修复或重新利用算法。但是，根据新产品的要求，最好采用一种新算法从头开始做起。这将使你从以前的约束中解脱出来，并且对组织内的团队具有良好的战略意义。
 
 ---
 
-Dr. Ori Cohen has a Ph.D. in Computer Science with a focus on machine-learning. He is a lead data-science researcher at New Relic TLV, practicing machine and deep learning research in the field of AIOps.
+我希望这些想法能让专业的数据科学家们在开始一个新项目或为一个产品添加新功能时对产品管理进行更多的探索，变得更加灵活，并有望帮助企业经理、产品经理、数据科学家和研究人员之间的复杂关系。
+
+我要感谢我的同事，[Natanel Davidovits](https://towardsdatascience.com/@ndor123) 和 [Sefi Keller](https://medium.com/@sefikeller) 校验这篇文章。
+
+---
+
+Dr. Ori Cohen 拥有计算机科学博士学位，主要研究机器学习。他是 New Relic TLV、AIOps 领域的实践机器和深度学习研究的首席数据科学研究员。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
