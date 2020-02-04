@@ -7,11 +7,11 @@
 
 # Understanding Service Workers and Caching Strategies
 
-#### This guide will make sure that you understand service workers and know when to use which caching strategy.
+> This guide will make sure that you understand service workers and know when to use which caching strategy.
 
 ![Photo by [Maksym Zakharyak](https://unsplash.com/photos/6VBRu8jR8to?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/workflow?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*vMvkVSydVwjeXBOAXDjC5w.jpeg)
 
-If you have been in the javascript or development world for some time, you must have heard about Service Workers. So what are they? In simple and plain words, ****it’s a script that browser runs in the background and has whatsoever no relation with web pages or the DOM, and provide out of the box features**. **Some of these features are proxying network requests, push notifications and background sync. Service workers ensure that the user has a rich offline experience.
+If you have been in the javascript or development world for some time, you must have heard about Service Workers. So what are they? In simple and plain words, **it’s a script that browser runs in the background and has whatsoever no relation with web pages or the DOM, and provide out of the box features.** Some of these features are proxying network requests, push notifications and background sync. Service workers ensure that the user has a rich offline experience.
 
 You can think of the service worker as someone who sits between the client and server and all the requests that are made to the server pass through the service worker. Basically, **a middle man**. Since all the request pass through the service worker, it is capable to intercept these requests on the fly.
 
@@ -19,13 +19,13 @@ You can think of the service worker as someone who sits between the client and s
 
 Service workers are like Javascript workers and have no interaction with the DOM or web pages. They run on a different thread and can access the DOM through the **postMessage** API. If you are planning on building, progressive web apps then you should possess a good understanding of the service workers and the caching strategies.
 
-> **Note-** Service workers are not web workers. Web workers are scripts that run on a different thread to perform load intensive calculations so that the main event loop is not blocked and does not cause a slow UI.
+> **Note** Service workers are not web workers. Web workers are scripts that run on a different thread to perform load intensive calculations so that the main event loop is not blocked and does not cause a slow UI.
 
 ---
 
-Tip: Use **[Bit](https://github.com/teambit/bit)** to ****reuse and sync components between apps. Share components as a team to build together, and build multiple apps faster with components.
+Tip: Use **[Bit](https://github.com/teambit/bit)** to reuse and sync components between apps. Share components as a team to build together, and build multiple apps faster with components.
 [**Component Discovery and Collaboration · Bit**
-**Bit is where developers share components and collaborate to build amazing software together. Discover components shared…**bit.dev](https://bit.dev/)
+Bit is where developers share components and collaborate to build amazing software together. Discover components shared…bit.dev](https://bit.dev/)
 
 ![Example: React spinners with Bit- choose, play, install](https://cdn-images-1.medium.com/max/2000/1*Yhkh7jbS5Mx9uP96Y88pZg.gif)
 
@@ -66,7 +66,7 @@ Not much to talk about this stage, after the activate stage the service worker s
 
 #### Fetch
 
-Whenever a fetch request is made, a ****fetch** **event is fired. In this event, we try to implement caching strategies. As I mentioned before, the service worker works as a middle man, all the requests go through the service workers. From here on we can decide whether we want that request to go to the network or to the cache. Below is an example, where the request is intercepted by the service worker and the request is made to the cache if the cache doesn’t return a valid response then the request is fired to the network.
+Whenever a fetch request is made, a **fetch** event is fired. In this event, we try to implement caching strategies. As I mentioned before, the service worker works as a middle man, all the requests go through the service workers. From here on we can decide whether we want that request to go to the network or to the cache. Below is an example, where the request is intercepted by the service worker and the request is made to the cache if the cache doesn’t return a valid response then the request is fired to the network.
 
 ![Fetch Stage](https://cdn-images-1.medium.com/max/3520/1*kEE7vxaLlxIP4gCUUXPN8Q.png)
 
@@ -80,7 +80,7 @@ In the above **fetch** event, we discussed one of the caching strategies called 
 
 Easiest among the others. As you can guess by the name itself, it means all the requests go to the cache.
 
-****When to use- Should be used when you want to access only your static assets**.**
+**When to use: Should be used when you want to access only your static assets.**
 
 ![Cache only](https://cdn-images-1.medium.com/max/3520/1*YWa918sEIMEmeTDH6KJQDg.png)
 
