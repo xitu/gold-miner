@@ -11,7 +11,7 @@
 
 We, developers, are very good with code and all the minute details of our projects. But some of us (me included) lack in soft-skills even in the online community.
 
-> # A developer would spend an hour adjusting the padding and margin of a single button. But wouldn’t spare 15 minutes for the project description Readme file.
+> **A developer would spend an hour adjusting the padding and margin of a single button. But wouldn’t spare 15 minutes for the project description Readme file.**
 
 > I hope most of you already know what a readme.md file is and what it is used for. But for the newbies here I’ll try to explain what it exactly is.
 
@@ -58,11 +58,9 @@ Write a good description of your projects. Just for guidelines, you can format y
 
 ## Let’s dive deep into technicalities
 
-I’m gonna use this one project of mine as a reference, which I think has one of the most beautiful readme files I’ve written and even came across. You can check out the code of the Readme.md file here:-
-[**silent-lad/VueSolitaire**
-**NOW WITH DRAG AND DROP Solitaire implemented by scratch on vue.js. It contains 3 types of solitaire namely spider(which…**github.com](https://github.com/silent-lad/VueSolitaire)
+I’m gonna use this one project of mine as a reference, which I think has one of the most beautiful readme files I’ve written and even came across. You can check out the code of the Readme.md file here: [**silent-lad/VueSolitaire**](https://github.com/silent-lad/VueSolitaire)
 
-Use the pencil icon to show the markdown code :-
+Use the pencil icon to show the markdown code:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fmypQUo2pAjk9GOCO1lPnQ.png)
 
@@ -84,7 +82,7 @@ Gifs fall in the category of images and github lets you have them on your readme
 
 ## 2. The Badge of Honour
 
-Badges on your readme give the viewer some feel of authenticity. You can get custom/regularly used shields(badges) for your repository from:- [**https://shields.io**](https://shields.io/)
+Badges on your readme give the viewer some feel of authenticity. You can get custom/regularly used shields(badges) for your repository from: [**https://shields.io**](https://shields.io/)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iGaDiLE_BwCbSROvPT8XKg.png)
 
@@ -100,19 +98,19 @@ You can use Hyperlinks in your Readme. So give a Live Demo link just below the t
 
 ## 4. Use Code Formating
 
-Markdown gives you the option to format text as code. So don’t write code as plain text instead use ` (Tilde) to wrap the code inside code formatting as such- `var a = 1;`
+Markdown gives you the option to format text as code. So don’t write code as plain text instead use \` (Tilde) to wrap the code inside code formatting as such- `var a = 1;`
 
 Github also gives you the option to **specify the language the code** is written in so that it may use the specific text highlighting to make the code more readable. To do this use
 
-**```{language-extension}\<space>{Code block Inside}```**
+**\`\`\`{language-extension}\<space>{Code block Inside}\`\`\`**
 
-{ ``` }- Triple tilde is used for multi-line code and it also lets you specify the language of the code block.
+{ \`\`\` }- Triple tilde is used for multi-line code and it also lets you specify the language of the code block.
 
-**With Language Highlighting:-**
+**With Language Highlighting:**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lTbiCaBk1Y4TWG4bI1-D7A.png)
 
-**Without Langage Highlighting:-**
+**Without Langage Highlighting:**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_w3yaD4Lhcwqxa2AU4TSrA.png)
 
@@ -126,23 +124,16 @@ Yes, you can use HTML inside. Not all the features though. But most of it. Altho
 
 Now the rest is upon you, each project needs a different Readme.md and a different type of description. But remember the 15–20 minutes you spend on the readme could end up making a HUGE impact on the visitors of your github profile.
 
-Just for your reference here are some project with a readme
-[**silent-lad/VueSolitaire**
-**NOW WITH DRAG AND DROP Solitaire implemented by scratch on vue.js. It contains 3 types of solitaire namely spider(which…**github.com](https://github.com/silent-lad/VueSolitaire)
-[**silent-lad/Vue2BaremetricsCalendar**
-**A Vue.js wrapper for the beautiful date-range picker made by the Baremetrics team. The Vue-Baremetrics date range…**github.com](https://github.com/silent-lad/Vue2BaremetricsCalendar)
+Just for your reference here are some project with a readme:
 
-![Make the clapper go crazy](https://cdn-images-1.medium.com/max/2000/1*RBT4z2ElUmoJ8BMpZoOyxw.gif)
-
-And finally, if you liked this article or if it helped you in any way. **Please do give a clap**. And I wouldn’t mind 50 of them ;).
+- [**silent-lad/VueSolitaire**](https://github.com/silent-lad/VueSolitaire)
+- [**silent-lad/Vue2BaremetricsCalendar**](https://github.com/silent-lad/Vue2BaremetricsCalendar)
 
 ## Learn More
-[**How to Share React UI Components between Projects and Apps**
-**A simple guide to help you easily share and reuse React components across apps, to build faster and better.**blog.bitsrc.io](https://blog.bitsrc.io/how-to-easily-share-react-components-between-projects-3dd42149c09)
-[**13 Top React Component Libraries for 2020**
-**React UI libraries you should know in 2020**blog.bitsrc.io](https://blog.bitsrc.io/13-top-react-component-libraries-for-2020-488cc810ca49)
-[**11 Top React Developer Tools for 2020**
-**React developer tools you should add to your toolbox**blog.bitsrc.io](https://blog.bitsrc.io/11-top-react-developer-tools-for-2020-3860f734030b)
+
+- [**How to Share React UI Components between Projects and Apps**](https://blog.bitsrc.io/how-to-easily-share-react-components-between-projects-3dd42149c09)
+- [**13 Top React Component Libraries for 2020**](https://blog.bitsrc.io/13-top-react-component-libraries-for-2020-488cc810ca49)
+- [**11 Top React Developer Tools for 2020**](https://blog.bitsrc.io/11-top-react-developer-tools-for-2020-3860f734030b)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
