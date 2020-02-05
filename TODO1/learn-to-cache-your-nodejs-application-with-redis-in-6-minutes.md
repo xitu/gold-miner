@@ -27,13 +27,13 @@ If you already have Redis installed on your local machine or if you are using a 
 
 Redis can be installed on your Mac using **Homebrew**. If you do not have Homebrew installed on your Mac, you can run the following command on your terminal to install it,
 
-```
+```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 Now you can install Redis by running the following command on your terminal,
 
-```
+```bash
 brew install redis
 ```
 
@@ -49,7 +49,7 @@ You can use this [simple guide](https://redislabs.com/blog/redis-on-windows-8-1-
 
 On your terminal you can run the following command to start your Redis server locally,
 
-```
+```bash
 redis-server
 ```
 
@@ -57,7 +57,7 @@ redis-server
 
 To access the Redis CLI, you can run the following command on a separate terminal window/tab,
 
-```
+```bash
 redis-cli
 ```
 
@@ -75,7 +75,7 @@ In a separate folder, run **npm init** to setup your NodeJS project.
 
 We will use a set of dependencies with our NodeJS application. Run the following command in the terminal from your our directory,
 
-```
+```bash
 npm i express redis axios
 ```
 
@@ -85,7 +85,7 @@ npm i express redis axios
 
 We will also use **nodemon** as our **dev-dependency** to be able to save and run our changes to our server without having to restart it. Run the following command in the terminal from our project directory,
 
-```
+```bash
 npm i -D nodemon
 ```
 
@@ -132,7 +132,7 @@ Replace the existing scripts in **package.json** with the following script so th
 
 Run the following command in the terminal from our project directory to create the **index.js** file,
 
-```
+```bash
 touch index.js
 ```
 
@@ -165,7 +165,7 @@ app.listen(port, () => console.log(`Server running on Port ${port}`));
 
 If you have worked with **NodeJS** and **ExpressJS** before, this should look pretty straightforward. First, we set up the dependencies that we previously installed using npm. Secondly, we setup our port constants and create our Redis client. Also, we configure our Redis client on **port 6379** and our Express server on **port 5000**. We also setup **Body-Parser** on our server to be able to parse JSON data. You can run the following command in the terminal to run the web server using the start script from **package.json**,
 
-```
+```bash
 npm start
 ```
 
@@ -183,39 +183,24 @@ Note that we will make a GET request to **[https://swapi.co/api/starships/](http
 
 The following is how our endpoint will look like,
 
-```
+```js
 // Endpoint:  GET /starships/:id
 
 // @desc Return Starships data for particular starship id
-
 app.get("/starships/:id", async (req, res) => {
-
   try {
-
        const { id } = req.params;
-
        const starShipInfo = await axios.get(
-
        `https://swapi.co/api/starships/${id}`
        );
-
-       
        //get data from response
-
        const starShipInfoData = starShipInfo.data;
-
-
        return res.json(starShipInfoData);
-
   } 
   catch (error) {
-       
        console.log(error);
-
        return res.status(500).json(error);
-
    }
-
 });
 ```
 
@@ -262,7 +247,6 @@ app.get("/starships/:id", async (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server running on Port ${port}`));
-
 ```
 
 Let’s try running our endpoint by searching for a Starship with **id=9.**
@@ -281,7 +265,7 @@ Since Redis stores data in key value pairs, we need to make sure that whenever a
 
 In order to do that we will add the following line of code to our endpoint after we receive a response from the Star Wars API,
 
-```
+```js
 //add data to Redis
 
 redis_client.setex(id, 3600, JSON.stringify(starShipInfoData));
@@ -333,7 +317,6 @@ app.get("/starships/:id", async (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server running on Port ${port}`));
-
 ```
 
 Now if we go to the browser and make a GET request for a Starship, it’s data will also be added to our Redis cache.
@@ -342,7 +325,7 @@ Now if we go to the browser and make a GET request for a Starship, it’s data w
 
 As mentioned earlier, you can access the Redis CLI from the terminal using the following command,
 
-```
+```bash
 redis-cli
 ```
 
@@ -356,42 +339,29 @@ Now we only need to send a GET request to the **Star Wars API** if the data we n
 
 The middleware function will be as follows,
 
-```
+```js
 //Middleware Function to Check Cache
-
 checkCache = (req, res, next) => {
-
        const { id } = req.params;
-       
        //get data value for key =id
-
        redis_client.get(id, (err, data) => {
-
            if (err) {
-
                console.log(err);
-
                res.status(500).send(err);
-
            }
            //if no match found
-
            if (data != null) {
-
                res.send(data);
-
            } 
            else {
                //proceed to next middleware function
-
                next();
-
            }
-
         });
-
 };
 ```
+
+index.js after adding checkCache middleware function:
 
 ```JavaScript
 //set up dependencies
@@ -456,7 +426,6 @@ app.get("/starships/:id", checkCache, async (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server running on Port ${port}`));
-
 ```
 
 Let’s make a GET request again for Starship with **id=9**.
