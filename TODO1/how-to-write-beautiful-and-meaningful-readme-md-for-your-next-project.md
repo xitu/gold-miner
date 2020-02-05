@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-beautiful-and-meaningful-readme-md-for-your-next-project.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-beautiful-and-meaningful-readme-md-for-your-next-project.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：[Vito](https://github.com/vitoxli),[Hsu Zilin](https://github.com/Starry316)
+> * 校对者：[Vito](https://github.com/vitoxli), [Hsu Zilin](https://github.com/Starry316)
 
 # 如何写出优雅且有意义的 README.md
 
