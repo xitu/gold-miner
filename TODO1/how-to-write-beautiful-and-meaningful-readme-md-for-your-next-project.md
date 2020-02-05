@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-beautiful-and-meaningful-readme-md-for-your-next-project.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-beautiful-and-meaningful-readme-md-for-your-next-project.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Vito](https://github.com/vitoxli),[Hsu Zilin](https://github.com/Starry316)
 
 # 如何写出优雅且有意义的 README.md
 
 #### 写出一个超棒的 Readme 文件的小技巧（以及为什么 README 很重要）
 
-作为开发人员，我们对代码以及项目中的所有细节都信手拈来。然而我们中的一些人（包括我在内）就连在网络社区中都缺乏着软技能。
+作为开发人员，我们对代码以及项目中的所有细节都信手拈来。然而我们中的一些人（包括我在内）就连在网络社区中的软技能都缺乏。
 
 > **一个开发人员会花一个小时来调整一个按钮的 padding 和 margin。却不会抽出 15 分钟的来完善项目的 Readme 文件。**
 
@@ -17,13 +17,13 @@
 
 #### 什么是 Readme.md？
 
-README（顾名思义：“read me“）是启动新项目时应该阅读的第一个文件。它既包含了一系列关于项目的有用信息又是一个项目的手册。它是别人在 Github 或任何 Git 托管网站点，开你仓库时看到的第一个文件。
+README（顾名思义：“read me“）是启动新项目时应该阅读的第一个文件。它既包含了一系列关于项目的有用信息又是一个项目的手册。它是别人在 Github 或任何 Git 托管网站点，打开你仓库时看到的第一个文件。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DZa8j46R3Rw0nNYRLewSqg.png)
 
 你可以清楚地看到，**Readme.md** 文件位于仓库的根目录中，在 Github 上的项目目录下它会自动显示。
 
-`.md` 这个文件后缀名来自于单词：**markdown**。它是一种用于文本格式化的标记语言。就像 HTML 一样，使我们的文档可呈现的标记语言。
+`.md` 这个文件后缀名来自于单词：**markdown**。它是一种用于文本格式化的标记语言。就像 HTML 一样，可以优雅地展示我们的文档。
 
 下面是一个 markdown 文件的例子，以及它在 Github 上会如何渲染。这里，我使用 VSCode 预览，它可以同时显示 markdown 文件渲染后的预览。
 
@@ -31,9 +31,9 @@ README（顾名思义：“read me“）是启动新项目时应该阅读的第�
 
 如果你想要深入了解这门语言，这里有一个官方的 **[Github Markdown 备忘录](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)**。
 
-## 为什么要花时间在 Readme 上？
+## 为什么要在 Readme 上花时间？
 
-现在我们谈正事吧。你花了几个小时在一个项目上，你在 GitHub 上发布了它，并且你希望游客、招聘人员、同事、（或者前任？）看到这个项目。您真的认为他们会进入 `root/src/app/main.js` 来查看你的代码的逻辑吗？真的会吗？
+现在我们谈正事吧。你花了几个小时在一个项目上，你在 GitHub 上发布了它，并且你希望游客、招聘人员、同事、（或者前任？）看到这个项目。你真的认为他们会进入 `root/src/app/main.js` 来查看你的代码的逻辑吗？真的会吗？
 
 现在你已经意识到这个问题了，让我们看看如何解决这个问题。
 
@@ -48,12 +48,12 @@ README（顾名思义：“read me“）是启动新项目时应该阅读的第�
 
 为你的项目写一个好的描述。仅出于建议，您可以将描述的格式设置为以下主题：
 
-* 标题（如果可以的话，提供标题图像。如果你不是平面设计师，请在 canva.com 上进行编辑）。
-* 描述（用文字和图片来描述）。
-* Demo（图片、视频链接、在线演示 Demo 链接)。
-* 使用的技术栈。
-* 你项目中需要注意的几个陷阱（你遇到的坑、项目中的独特元素）。
-* 项目的技术说明，如：安装、启动、如何贡献。
+* 标题（如果可以的话，提供标题图像。如果你不是平面设计师，请在 canva.com 上进行编辑）；
+* 描述（用文字和图片来描述）；
+* Demo（图片、视频链接、在线演示 Demo 链接)；
+* 技术栈；
+* 你项目中需要注意的几个陷阱（你遇到的坑、项目中的独特元素）；
+* 项目的技术说明，如：安装、启动、如何贡献；
 
 ## 让我们深入探讨技术细节
 
@@ -115,7 +115,7 @@ Github还提供了**指定代码编写语言**的选项，这样它就可以使�
 
 ## 5. 使用 HTML
 
-是的，你可以在 Readme 里使用 HTML。但并不是 HTML 里所有的功能都可以使用，但大部分可以。虽然你最好是只包含 markdown 的语法，但一些功能，如居中图像和居中文本是只能用 HTML 实现的。
+是的，你可以在 Readme 里使用 HTML。尽管并不是 HTML 里所有的功能都可以使用，但大部分可以。虽然你最好是只包含 markdown 的语法，但一些功能，如居中图像和居中文本是只能用 HTML 实现的。
 
 ![](https://cdn-images-1.medium.com/max/2726/1*pq9WpGpyChqxmTLMz34l5A.png)
 
