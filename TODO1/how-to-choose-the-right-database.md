@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-right-database.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-right-database.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：[Ruby](https://github.com/RubyJy)
+> * 校对者：[Ruby](https://github.com/RubyJy)，[Starry](https://github.com/Starry316)
 
 # 如何选择合适的数据库
 
@@ -34,7 +34,7 @@
 
 关系型数据库由一组连接起来的表（比如 CSV 表）组成。表中的每一行代表一条记录。
 
-为什么叫关系型? 在这种数据库中存在“关系”是什么？
+为什么叫关系型? 在这种数据库中存在的“关系”是什么？
 假设您有一个学生信息表和一张课程成绩表（课程，成绩，学生证），每个成绩行都与学生信息表的一条记录**相关**。
 参见下图，课程成绩表中 “Student ID” 列的值通过 “ID” 列的值指向 “Students” 表中的行。
 
@@ -62,7 +62,7 @@
 ## 1. 文档存储数据库
 
 文档存储数据库的原子单位是一个文档（document）。
-每个文档都是一个 JSON，不同文档的 schema 不同，包含不同的字段。
+每个文档都是一个 JSON，不同文档可以有不同的 schema，包含不同的字段。
 文档存储数据库允许对文档中的某些字段建立索引，从而能够基于这些字段进行更快的查询（这将会强制所有文档都具有该字段）。
 
 **应该什么时候选择它？**  
