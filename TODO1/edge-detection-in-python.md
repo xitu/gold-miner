@@ -2,68 +2,68 @@
 > * 原文作者：[Ritvik Kharkar](https://medium.com/@ritvikmathematics)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/edge-detection-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/edge-detection-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[PingHGao](https://github.com/PingHGao), [Amberlin1970](https://github.com/Amberlin1970)
 
-# Edge Detection in Python
+# 使用 Python 进行边缘检测
 
 ![](https://cdn-images-1.medium.com/max/2298/1*I_GeYmEhSEBWTbf_kgzrgQ.png)
 
-Last quarter, I was helping teach a Python course at my university, and learned a lot about image processing as a result. I wanted to continue sharing that knowledge in this article as we talk about the **theory and execution** of edge detection using Python!
+上季度，我在学校辅助一门 Python 课程的教学，在此过程中学到了很多图像处理的知识。我希望通过本文分享一些关于边缘检测的知识，包括边缘检测的**理论**以及如何使用 Python **实现**边缘检测。
 
 ---
 
-### Why Detect Edges?
+### 为何检测边缘？
 
-The first question we should really ask is **“why bother with edge detection?”**. Besides being something cool, why is it a useful technique? To motivate that point, consider the following image of a pinwheel and its “edges-only” counterpart:
+我们首先应该了解的问题是：**“为什么要费尽心思去做边缘检测？”**除了它的效果很酷外，为什么边缘检测还是一种实用的技术？为了更好地解答这个问题，请仔细思考并对比下面的风车图片和它的“仅含边缘的图”：
 
 ![Image of pinwheel (left) and its edges (right)](https://cdn-images-1.medium.com/max/2298/1*I_GeYmEhSEBWTbf_kgzrgQ.png)
 
-We can see that the original image on the left has various colors and shades, while the “edges-only” representation on the right is black and white. If asked which image requires more data storage, I bet you would say the original image. And this makes sense; by detecting the edges of an image, we are doing away with much of the detail, thereby making the image “more lightweight”.
+可以看到，左边的原始图像有着各种各样的色彩、阴影，而右边的“仅含边缘的图”是黑白的。如果有人问，哪一张图片需要更多的存储空间，你肯定会告诉他原始图像会占用更多空间。这就是边缘检测的意义：通过对图片进行边缘检测，丢弃大多数的细节，从而得到“更轻量化”的图片。
 
-Thus, edge detection can be incredibly useful in cases where we don’t need to maintain all the intricate details of an image, but rather **only care about the overall shape**.
+因此，在无须保存图像的所有复杂细节，而**“只关心图像的整体形状”**的情况下，边缘检测会非常有用。
 
 ---
 
-### How to Perform Edge Detection — The Math
+### 如何进行边缘检测 —— 数学
 
-Before talking about the code, let’s take a quick look at the math behind edge detection. We, as humans, are pretty good at identifying the “edges” of an image, but how do we teach a computer to do the same thing?
+在讨论代码实现前，让我们先快速浏览一下边缘检测背后的数学原理。作为人类，我们非常擅长识别图像中的“边”，那如何让计算机做到同样的事呢？
 
-First, consider a rather boring image of a black square amidst a white background:
+首先，假设有一张很简单的图片，在白色背景上有一个黑色的正方形：
 
 ![Our working image](https://cdn-images-1.medium.com/max/2000/1*jVZqFGP3peOrhZ6rnhz0og.png)
 
-In this example, we consider each pixel to have a value between **0 (black)** and **1 (white)**, thus dealing with only black and white images for right now. The exact same theory will apply to color images.
+在这个例子中，由于处理的是黑白图片，因此我们可以考虑将图中的每个像素的值都用 **0（黑色）** 或 **1（白色）**来表示。除了黑白图片，同样的理论也完全适用于彩色图像。
 
-Now, let us say we are trying to determine whether or not the green highlighted pixel is part of the edge of this image. As humans, we would say **yes**, but how can we use neighboring pixels to help the computer reach the same conclusion?
+现在，我们需要判断上图中绿色高亮的像素是不是这个图像边缘的一部分。作为人类，我们当然可以认出它**是**图像的边缘；但如何让计算机利用相邻的像素来得到同样的结果呢？
 
-Let’s take a small 3 x 3 box of local pixels centered at the green pixel in question. This box is shown in red. Then, let’s “apply” a filter to this little box:
+我们以绿色高亮的像素为中心，设定一个 3 x 3 像素大小的小框，在图中以红色示意。接着，对这个小方框“应用”一个过滤器（filter）：
 
-![Apply the vertical filter to the local box of pixels](https://cdn-images-1.medium.com/max/3124/1*61U9atgGnhaPinVUHKe1rA.png)
+![对局部像素框应用纵向过滤器](https://cdn-images-1.medium.com/max/3124/1*61U9atgGnhaPinVUHKe1rA.png)
 
-The filter we will “apply” is shown above, and looks rather mysterious at first glance, but let us see how it behaves. Now, when we say **“apply the filter to the little local box of pixels”** we mean multiply each pixel in the red local box by each pixel in the filter element-wise. So, the top left pixel in the red box is 1 whereas the top left pixel in the filter is -1, so multiplying these gives -1, which is what we see in top left pixel of the result. Each pixel in the result is achieved in exactly the same way.
+上图展示了我们将要“应用”的过滤器。乍一看上去很神秘，让我们仔细研究它做的事情：当我们说**“将过滤器应用于一小块局部像素块”**时，具体是指红色框中的每个像素与过滤器中与之位置对应的像素进行相乘。因此，红色框中左上角像素值为 1，而过滤器中左上角像素值为 -1，它们相乘得到 -1，这也就是结果图中左上角像素显示的值。结果图中的每个像素都是用这种方式得到的。
 
-The next step is to sum up the pixels in the result, giving us -4. Note that -4 is actually the **smallest** value we can get by applying this filter (since the pixels in the original image can be only be between 0 and 1). Thus, we know the pixel in question is part of a **top vertical edge** because we achieve the minimum value of -4.
+下一步是对过滤结果中的所有像素值求和，得到 -4。请注意，-4 其实是我们应用这个过滤器可获得的“最小”值（因为原始图片中的像素值只能在 0 到 1 之间）。因此，当获得 -4 这个最小值的时候，我们就能知道，对应的像素点是图像中正方形**顶部竖直方向边缘**的一部分。
 
-To get the hang of this transformation, let’s see what happens if we apply the filter on a pixel at the bottom of the square:
+为了更好地掌握这种变换，我们可以看看将此过滤器应用于图中正方形底边上的一个像素会发生什么：
 
 ![](https://cdn-images-1.medium.com/max/3106/1*wIm2uGrxSjYfscQ8ACap9Q.png)
 
-We see that we get a similar result, except that the sum of the values in the result is 4, which is the **highest** value we can get by applying this filter. Thus, we know we found a pixel in a **bottom vertical edge** of our image because we got the highest value of 4.
+可以看到，我们得到了与前文相似的结果，相加之后得到的结果是 4，这是应用此过滤器能得到的**最大值**。因此，由于我们得到了 4 这一最大值，可以知道这个像素是图像中正方形**底部竖直方向边缘**的一部分。
 
-To map these values back to the 0–1 range, we simply add 4 and then divide by 8, mapping the -4 to a 0 (**black**) and mapping the 4 to a 1 (**white**). Thus, using this filter, called the **vertical Sobel filter**, we are able to very simply detect the vertical edges in our image.
+为了把这些值映射到 0-1 的范围内，我们可以简单地给其加上 4 再除以 8，这样就能把 -4 映射成 0（**黑色**），把 4 映射成 1（**白色**）。因此，我们将这种过滤器称为**纵向 Sobel 过滤器**，可以用它轻松检测图像中垂直方向的边缘。
 
-What about the horizontal edges? We simply take the **transpose of the vertical filter** (flip it about its diagonal), and apply this new filter to the image to detect the horizontal edges.
+那如何检测水平方向的边缘呢？只需简单地将**纵向过滤器**进行转置（按照其数值矩阵的对角线进行翻转）就能得到一个新的过滤器，可以用于检测水平方向的边缘。
 
-Now, if we want to detect horizontal edges, vertical edges, and edges that fall somewhere in between, we can **combine the vertical and horizontal scores**, as shown in the following code.
+如果需要同时检测水平方向、垂直方向以及介于两者之间的边缘，我们可以把**纵向过滤器得分和横向过滤器得分进行结合**，这个步骤在后面的代码中将有所体现。
 
-Hopefully the theory is clear! Now let’s finish up by looking at the code.
+希望上文已经讲清楚了这些理论！下面看一看代码是如何实现的。
 
 ---
 
-### How to Perform Edge Detection — The Code
+### 如何进行边缘检测 —— 代码
 
-First some setup:
+首先进行一些设置：
 
 ```python
 %matplotlib inline
@@ -71,27 +71,25 @@ First some setup:
 import numpy as np
 import matplotlib.pyplot as plt
 
-#define the vertical filter
+# 定义纵向过滤器
 vertical_filter = [[-1,-2,-1], [0,0,0], [1,2,1]]
 
-#define the horizontal filter
+# 定义横向过滤器
 horizontal_filter = [[-1,0,1], [-2,0,2], [-1,0,1]]
 
-#read in the pinwheel image
+# 读取纸风车的示例图片“pinwheel.jpg”
 img = plt.imread('pinwheel.jpg')
 
-#get the dimensions of the image
+# 得到图片的维数
 n,m,d = img.shape
 
-#initialize the edges image
+# 初始化边缘图像
 edges_img = img.copy()
 ```
 
-* Replace “pinwheel.jpg” with whatever fun image you want to find the edges of! Make sure it’s in the same working directory.
+* 你可以把代码中的“pinwheel.jpg”替换成其它你想要找出边缘的图片文件！需要确保此文件和代码在同一工作目录中。
 
-And the edge detection code itself:
-
-A few things to note:
+接着编写边缘检测代码本身：
 
 ```python
 %matplotlib inline
@@ -99,63 +97,65 @@ A few things to note:
 import numpy as np
 import matplotlib.pyplot as plt
 
-#define the vertical filter
+# 定义纵向过滤器
 vertical_filter = [[-1,-2,-1], [0,0,0], [1,2,1]]
 
-#define the horizontal filter
+# 定义横向过滤器
 horizontal_filter = [[-1,0,1], [-2,0,2], [-1,0,1]]
 
-#read in the pinwheel image
+# 读取纸风车的示例图片“pinwheel.jpg”
 img = plt.imread('pinwheel.jpg')
 
-#get the dimensions of the image
+# 得到图片的维数
 n,m,d = img.shape
 
-#initialize the edges image
+# 初始化边缘图像
 edges_img = img.copy()
 
-#loop over all pixels in the image
+# 循环遍历图片的全部像素
 for row in range(3, n-2):
     for col in range(3, m-2):
         
-        #create little local 3x3 box
+        # 在当前位置创建一个 3x3 的小方框
         local_pixels = img[row-1:row+2, col-1:col+2, 0]
         
-        #apply the vertical filter
+        # 应用纵向过滤器
         vertical_transformed_pixels = vertical_filter*local_pixels
-        #remap the vertical score
+        # 计算纵向边缘得分
         vertical_score = vertical_transformed_pixels.sum()/4
         
-        #apply the horizontal filter
+        # 应用横向过滤器
         horizontal_transformed_pixels = horizontal_filter*local_pixels
-        #remap the horizontal score
+        # 计算横向边缘得分
         horizontal_score = horizontal_transformed_pixels.sum()/4
         
-        #combine the horizontal and vertical scores into a total edge score
+        # 将纵向得分与横向得分结合，得到此像素总的边缘得分
         edge_score = (vertical_score**2 + horizontal_score**2)**.5
         
-        #insert this edge score into the edges image
+        # 将边缘得分插入边缘图像中
         edges_img[row, col] = [edge_score]*3
 
-#remap the values in the 0-1 range in case they went out of bounds
+# 对边缘图像中的得分值归一化，防止得分超出 0-1 的范围
 edges_img = edges_img/edges_img.max()
 ```
 
-* There will be a small border around the image since we are unable to fully create the local 3 x 3 box on the border pixels.
-* Since we are doing detection on both horizontal and vertical edges, we just divide the raw scores by 4 (rather than adding 4 and then dividing by 8). It is not a major change but one which will better highlight the edges of our image.
-* Combining the horizontal and vertical scores might cause the final edge score to go out of the 0–1 range, so we finish by re-normalizing the scores.
+有几点需要注意：
 
-Running the above code on a more complicated image:
+* 在图片的边界像素上，我们无法创建完整的 3 x 3 小方框，因此在图片的四周会有一个细边框。
+* 既然是同时检测水平方向和垂直方向的边缘，我们可以直接将原始的纵向得分与横向得分分别除以 4（而不像前文描述的分别加 4 再除以 8）。这个改动无伤大雅，反而可以更好地突出图像的边缘。
+* 将纵向得分与横向得分结合起来时，有可能会导致最终的边缘得分超出 0-1 的范围，因此最后还需要重新对最终得分进行标准化。
+
+在更复杂的图片上运行上述代码：
 
 ![](https://cdn-images-1.medium.com/max/3032/1*QnVu-wTPcpcHJ1Gixu-k2g.png)
 
-results in the edge detection:
+得到边缘检测的结果：
 
 ![](https://cdn-images-1.medium.com/max/3032/1*v4JxLC5XMqlO9kEgjwsV9Q.jpeg)
 
 ---
 
-And that’s all! Hope you learned something and stay tuned for more data science articles ~
+以上就是本文的全部内容了！希望你了解到了一点新知识，并继续关注更多数据科学方面的文章〜
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
