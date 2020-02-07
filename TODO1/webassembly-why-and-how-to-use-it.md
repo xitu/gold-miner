@@ -2,104 +2,104 @@
 > * 原文作者：[Vaibhav Kumar](https://medium.com/@vaibhav_kumar)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/webassembly-why-and-how-to-use-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/webassembly-why-and-how-to-use-it.md)
-> * 译者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
 > * 校对者：
 
-# WebAssembly: Easy explanation with code example
+# WebAssembly: 带有代码示例的简单介绍
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nXtCVLlUslu2_LjSAcOWbA.png)
 
-## Why WebAssembly?
+## 为什么要用 WebAssembly
 
-#### Background: Web and JavaScript
+#### 背景：Web 和 JavaScript
 
-Undoubtedly, web is highly portable and machine-agnostic, making it a truly universal platform.
+毫无疑问。web 具有高度移植性并且与机器无关，这使其能成为一个真正通用的平台。
 
-> Web is the only one true universal platform. ☝️
+> Web 是唯一真正的通用平台。 ☝️
 
-JavaScript (JS) is the default language of web-development. It has native support of many web APIs like DOM, Fetch, Web-sockets, Storage etc., and as browsers are becoming more powerful, we are writing more complex clients using JavaScript (or languages that transpile to JS).
+JavaScript (JS) 是 Web 开发的默认语言。它有许多原生的 Web API 例如（DOM、Fetch、Web-sockets、Storage等等），并且随着浏览器功能越来越强大，我们正在使用 JavaScript（或者其它能转译成 JS 的语言）来编写更复杂的客户端程序。
 
-However JavaScript has some limitations when it comes to running big complex applications on browser.
+但是在浏览器上运行一些大型的应用程序时，JavaScript 存在一些限制。
 
-#### Limitations of JavaScript
+#### JavaScript 的限制
 
-* Not good for CPU-intensive tasks
-* JS is text based and not binary-based, more download bytes and hence more startup time.
-* JS interpretation and JIT-optimization consumes CPU and thus battery life
+* 不利于 CPU 密集型任务
+* JS 基于文本而非二进制，因此需要下载更多的字节，启动时间也更长
+* JS 解释和 JIT 优化会消耗 CPU 和电池寿命
 
-![JavaScript execution pipeline](https://cdn-images-1.medium.com/max/4350/1*76S11i2-OTBF34xG8ohwng@2x.png)
+![JavaScript 执行管道](https://cdn-images-1.medium.com/max/4350/1*76S11i2-OTBF34xG8ohwng@2x.png)
 
-* Need to rewrite already existing non-JS libraries, modules and apps in JS
+* 需要用 JS 重写已经存在的非 JS 库，模块和应用程序
 
-Web development community is trying to overcome these limitations and opening up web to other programming languages by bringing a new entrant in web-development called **WebAssembly**.
+Web 开发社区正在尝试克服这些限制，并通过引入 Web 开发新成员 **WebAssembly** 来向其它编程语言开放 Web。
 
-> On 5th Dec. 2019, WebAssembly became the fourth language standard along with [HTML](https://en.wikipedia.org/wiki/HTML), [CSS](https://en.wikipedia.org/wiki/CSS), and [JavaScript](https://en.wikipedia.org/wiki/JavaScript) to run natively in browsers.
+> 在 2019 年 12 月 5 日，WebAssembly 和 [HTML](https://en.wikipedia.org/wiki/HTML)、[CSS](https://en.wikipedia.org/wiki/CSS)、[JavaScript](https://en.wikipedia.org/wiki/JavaScript) 一起成为了第四个 Web 语言标准，能在浏览器上运行。
 
 ## Web Assembly (WASM)
 
-> WebAssembly is a type of binary-code that can be run in modern web browsers, it enables us to write code in multiple languages and run it at near-native speed on the web.
+> WebAssembly 是一种能在现代 Web 浏览器中运行的二进制代码，它使得我们能用多种语言编写代码并以接近本地运行的速度在 web 上运行。
 
-#### Features of WASM
+#### WASM 的功能
 
-* WASM is a low-level language not to be written by humans but compilation target for other languages like C/C++, Rust, AssemblyScript etc.
-* WASM is binary-format and thus less download bytes (there is an equivalent text-format for humans too, called [**WAT**](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)).
-* Unlike JS, WASM binary is decoded and compiled to machine code without need of any optimization, as it is already optimized during generation of WASM binary
+* WASM 是一种不能由开发者编写的低级语言，而是由其它语言例如 C/C++、Rust、AssemblyScript 编译而来
+* WASM 是二进制格式因此只用下载更少的字节（开发者也有等效的文本格式，称为 [**WAT**](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)）
+* 与 JS 不同，WASM 二进制文件无需任何优化就可以解码和编译成机器代码，因为在生成 WASM 二进制文件时就已经对其进行了优化
 
-![WebAssembly execution pipeline](https://cdn-images-1.medium.com/max/3712/1*5KOcPw-Jm0b2T66XepU3TQ@2x.png)
+![WebAssembly 执行管道](https://cdn-images-1.medium.com/max/3712/1*5KOcPw-Jm0b2T66XepU3TQ@2x.png)
 
-## When to use WebAssembly?
+## 什么时候使用 WebAssembly?
 
-* CPU intensive tasks like maths in Games or other graphic apps, Image and Video manipulation etc.
-* Running old C/C++ libraries and apps on web providing portability and eliminating need to re-write C/C++ code into JS.
-* To eliminate the need of making native apps and various compilation targets as single WASM compilation would enable it to run on different processors through web browsers.
+* CPU 密集型任务，例如游戏或其它图形应用中的数学、图像和视频处理等
+* 在 Web 上运行旧的 C/C++ 库和应用程序，提供了可移植性，并且避免了将 C/C++ 代码用 JS 重写的需求
+* 消除将原生应用程序和各种编译目标作为单个 WASM 编译的需求，可以使其通过 Web 浏览器在不同的处理器上运行
 
-> WASM is here not to replace JS but work alongside it. **JavaScript has already good collection of Native web APIs, WASM is here to assist with the heavy lifting.**
+> WASM 在这里并不是要取代 JS，而是要与之一起工作。**JavaScript 本身已经具有不错的原生 Web API 集合。WASM 在这里可以协助完成繁重的工作**
 
-> **Note:
-**Modern JavaScript engines are very fast and highly optimize our JS code, so WASM bundle size and execution time might not be very advantageous for simple tasks.
-I am not doing any benchmarking in this article but would refer to resources at the bottom of this article for benchmarking links.
+> **注意:**
+现代 JavaScript 引擎非常快速并且可以高度优化我们的 JS 代码，因此 WASM 软件包的大小和执行时间对于简单任务可能不是很有利。
+在本文中，我不做任何基准测试，但请参考本文底部的参考资料，可以获取基准测试链接。
 
-## How to use WASM (deep-dive 🤿)
+## 怎么使用 WASM (加深学习 🤿)
 
-![Overview of generating and consuming WASM](https://cdn-images-1.medium.com/max/4128/1*tjXrX4_S_MM8AhA4NIZgfw@2x.png)
+![生成和使用 WASM 概述](https://cdn-images-1.medium.com/max/4128/1*tjXrX4_S_MM8AhA4NIZgfw@2x.png)
 
-Let’s follow above steps to create a function in **C** to calculate factorial of a number and consume it in JS as WASM.
+让我们参照上述步骤在 **C** 中创建一个程序，用来计算数字的阶乘并将其作为 WASM 在 JS 中使用。
 
-![C code for calculating factorial](https://cdn-images-1.medium.com/max/2000/1*FxtyDbFijWofWEOcRtyJrQ.png)
+![C 编写的计算阶乘代码](https://cdn-images-1.medium.com/max/2000/1*FxtyDbFijWofWEOcRtyJrQ.png)
 
-We can compile above C function into WASM using [Emscripten](https://emscripten.org/):
+我们可以使用 [Emscripten](https://emscripten.org/) 将上面 C 函数编译成 WASM:
 
 ```
 emcc factorial.c -s WASM=1 -o factorial.html
 ```
 
-It will generate `**factorial.wasm**`** **binary file along with** html-js **glue code. A list of output targets is referenced [here](https://emscripten.org/docs/tools_reference/emcc.html#emcc-o-target).
+它会生成 `**factorial.wasm**` 二进制文件以及 **html-js** 粘合代码。[这里](https://emscripten.org/docs/tools_reference/emcc.html#emcc-o-target)引用了输出目标的列表。
 
-Its equivalent human readable textual format [**WAT**](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format) is shown below.
+有效的可读文本格式 [**WAT**](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format) 如下所示。
 
-![factorial.wasm’s equivalent textual format: **factorial.wat**](https://cdn-images-1.medium.com/max/2384/1*odknwrBvAfktggSvpF2YEQ.png)
+![factorial.wasm’ 的等效文本格式： **factorial.wat**](https://cdn-images-1.medium.com/max/2384/1*odknwrBvAfktggSvpF2YEQ.png)
 
-There are various ways one can send the binary data of WASM to web-client and we can use javascript’s `**WebAssembly**` API to compile the binary data to create **WASM Module** and later instantiate this **Module** to access exported functions.
+可以通过多种方式将 WASM 的二进制数据发送到 Web 客户端，我们可以使用 javascript 的 `**WebAssembly**` API 编译二进制数据来创建 **WASM 模块** 然后实例化这个 **模块** 来访问导出的功能。
 
-The most efficient, optimized way to load WASM code is to use **WebAssembly.instantiateStreaming()** function that compiles and instantiates a WebAssembly module directly from a streamed underlying source.
+加载 WASM 代码最有效，最优化的方法是使用 **WebAssembly.instantiateStreaming()** 直接从流式基础源编译和实例化 WebAssembly 模块的函数。
 
-Following is the example code of using `**instantiateStreaming**` for consuming previously generated **`factorial.wasm`** file, which can be served by our server and can be called by our web-client on demand. We can then instantiate received WASM module using following JS code and can access the exported **`factorial` function**.
+以下是使用 `**instantiateStreaming**` 来调用之前生成的 **`factorial.wasm`** 文件的示例代码，该文件可以由我们的服务器提供，也可以被我们的 Web 客户端按需调用。然后，我们可以使用以下 JS 代码实例化接收到的 WASM 模块，并可以访问导出的 **`factorial` function**。
 
-![JS glue code for consuming WASM files](https://cdn-images-1.medium.com/max/2524/1*To4yagUwccxkP4TXZE4P8g.png)
+![调用 WASM 文件的 JS 代码](https://cdn-images-1.medium.com/max/2524/1*To4yagUwccxkP4TXZE4P8g.png)
 
-> To get a quick feel of the explained steps without the pain-staking setups, [WASM fiddle](https://wasdk.github.io/WasmFiddle) can be used.
+> 想快速理解所说明的步骤而无需进行繁琐的设置，可以使用 [WASM fiddle](https://wasdk.github.io/WasmFiddle)。
 
-## Browser support
+## 浏览器支持
 
-All modern browsers (Chrome, Firefox, Safari, Edge) support it. [Click here to see the latest support stats](https://caniuse.com/#search=wasm).
+所有的现代浏览器（Chrome、Firefox、Safari、Edge）都支持 WebAssembly。[点击此处以查看最新的支持统计信息](https://caniuse.com/#search=wasm)。
 
-> IE does not support WASM. If there is a need to use C/C++ code in IE, we can compile it to [**asm.js**](http://asmjs.org/)** (a subset of JS) using Emscripten.**
+> IE 不支持 WASM。如果需要在 IE 中使用 C/C++ 代码，我们可以使用 Emscripten 将其编译为 [**asm.js**](http://asmjs.org/)（a subset of JS）。
 
-## Future
+## 未来
 
-Support for **thread management** and **garbage collection** is being implemented. This will make WebAssembly more suitable as a compilation target for languages ​​like **Java**, **C#, Go**.
+正在实现对**线程管理**和**垃圾收集**的支持。这会让 WebAssembly 更适合作为 **Java**、**C#**、**Go** 之类的语言的编译目标。
 
-## Resources
+## 参考资料
 
 * [https://webassembly.org/](https://webassembly.org/)
 * [WASM Explorer](https://mbebenita.github.io/WasmExplorer/)
