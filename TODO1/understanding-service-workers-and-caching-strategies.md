@@ -2,135 +2,141 @@
 > * 原文作者：[Aayush Jaiswal](https://medium.com/@aayush1408)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-service-workers-and-caching-strategies.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-service-workers-and-caching-strategies.md)
-> * 译者：
+> * 译者：[Jessica](https://github.com/cyz980908)
 > * 校对者：
 
-# Understanding Service Workers and Caching Strategies
+# 理解 Service Worker 和缓存策略
 
-> This guide will make sure that you understand service workers and know when to use which caching strategy.
+> 看了本指南，包您能学会 Service Worker 并知道何时使用哪种缓存策略。
 
-![Photo by [Maksym Zakharyak](https://unsplash.com/photos/6VBRu8jR8to?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/workflow?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*vMvkVSydVwjeXBOAXDjC5w.jpeg)
+![[Maksym Zakharyak](https://unsplash.com/photos/6VBRu8jR8to?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 在 [Unsplash](https://unsplash.com/search/photos/workflow?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上​​发布的照片](https://cdn-images-1.medium.com/max/10368/1*vMvkVSydVwjeXBOAXDjC5w.jpeg)
 
-If you have been in the javascript or development world for some time, you must have heard about Service Workers. So what are they? In simple and plain words, **it’s a script that browser runs in the background and has whatsoever no relation with web pages or the DOM, and provide out of the box features.** Some of these features are proxying network requests, push notifications and background sync. Service workers ensure that the user has a rich offline experience.
+如果您钻研 Javascript 或从事开发工作已经有一段时间了，那您一定听说过 Service Worker。它到底是什么？简单来说，**它是浏览器在后台运行一个脚本，与 web 页面或 DOM 没有任何关系，并具有开箱即用的特性。** 这些功能包括代理网络请求、推送通知以及后台同步。Service Worker 能保证用户拥有良好的离线体验。
 
-You can think of the service worker as someone who sits between the client and server and all the requests that are made to the server pass through the service worker. Basically, **a middle man**. Since all the request pass through the service worker, it is capable to intercept these requests on the fly.
+您可以将 Service Worker 看作是一个位于客户端和服务器之间的人，对服务器的所有请求都将通过 Service Worker。本质上来说，它就是个**中间人**。由于所有请求都通过 Service Worker，所以它能够动态拦截这些请求。
 
-![Service Worker as the middle man👷‍♂️](https://cdn-images-1.medium.com/max/2000/1*st7O3EJn6_lrz9QkG0McvQ.png)
+![Service Worker 就像一个中间人👷‍♂️](https://cdn-images-1.medium.com/max/2000/1*st7O3EJn6_lrz9QkG0McvQ.png)
 
-Service workers are like Javascript workers and have no interaction with the DOM or web pages. They run on a different thread and can access the DOM through the **postMessage** API. If you are planning on building, progressive web apps then you should possess a good understanding of the service workers and the caching strategies.
+不同的 Service Worker 运行在不同的线程上，它们是没有权限直接访问 DOM 元素的，就像 一个个与 DOM 和 Web 页面没有交互的 Javascript。虽然不能直接访问 DOM，但是它们可以通过 **postMessage** 间接访问 DOM。如果您打算构建一个渐进式 Web 应用，那么您应该熟练掌握 Service Worker 和缓存策略。
 
-> **Note** Service workers are not web workers. Web workers are scripts that run on a different thread to perform load intensive calculations so that the main event loop is not blocked and does not cause a slow UI.
-
----
-
-Tip: Use **[Bit](https://github.com/teambit/bit)** to reuse and sync components between apps. Share components as a team to build together, and build multiple apps faster with components.
-[**Component Discovery and Collaboration · Bit**
-Bit is where developers share components and collaborate to build amazing software together. Discover components shared…bit.dev](https://bit.dev/)
-
-![Example: React spinners with Bit- choose, play, install](https://cdn-images-1.medium.com/max/2000/1*Yhkh7jbS5Mx9uP96Y88pZg.gif)
+> **注意：** Service worker 不是 Web Worker。Web Worker 是在不同线程上运行运行负载密集型计算的脚本，它不会阻塞主事件循环，也不会阻塞 UI 的渲染。
 
 ---
 
-## Registering the service worker
+小安利：使用 **[Bit](https://github.com/teambit/bit)** 在项目之间复用和同步组件。作为一个团队来构建与共享组件，可以使组件更快地构建多个应用。
+[**团队共享可重用的代码组件 · Bit**
+在 Bit ，开发人员可以共享组件并共同构建出优秀软件。快来 bit.dev 上发现共享的组件。](https://bit.dev/)
 
-To use service worker in a site we must first register a service worker in one of our javascript files.
+![例子：Bit 上 的 React 等待加载组件 —— 选择、演示、安装](https://cdn-images-1.medium.com/max/2000/1*Yhkh7jbS5Mx9uP96Y88pZg.gif)
+
+---
+
+## 注册 Service Worker
+
+要在网站中使用 Service Worker，我们必须首先在一个 Javascript 文件中注册一个 Service Worker。
 
 ![](https://cdn-images-1.medium.com/max/3976/1*EJh3hdqmn81tZEBTpfw6LQ.png)
 
-In the above code, we first check if the service worker API exists or not. If the support exists, we’ll register the service worker, using the register method by providing the path of the service worker file. So once the page is loaded, your service worker is registered.
+在上面的代码中，我们首先检查 Service Worker API是否存在。如果存在，我们将通过上面刚刚写的 Javascript 文件的路径使用 register 方法来注册 Service Worker。因此，一旦页面被加载，您的 Service Worker 就会被注册。
 
-## Service Worker life cycle
+## Service Worker 的生命周期
 
-![The life cycle of service worker 👀](https://cdn-images-1.medium.com/max/2000/1*2icy-zbfbPzd2kYhHwxcNQ.png)
+![Service Worker 的生命周期 👀](https://cdn-images-1.medium.com/max/2000/1*2icy-zbfbPzd2kYhHwxcNQ.png)
 
-#### Install
+#### 安装（Install）
 
-When the service worker is registered, an **install** event is fired. We can listen for this event in the **sw.js** file. Before moving into the code, let’s first understand what we should do in this **install** event.
+在 Service Worker 注册好时，将触发 **install** 事件。我们可以在 **sw.js** 文件中监听此事件。在添加代码之前，先让我们了解一下在这个 **install** 事件中应该做些什么。
 
-* We would like to set up our cache in this event.
-* Add all the static assets into the cache.
+* 我们想在此事件中设置缓存。
+* 将所有静态资源添加到缓存中。
 
-The **event.waitUntil()** method takes a promise and uses it to know how long installation takes, and whether it succeeded or not. If any single file is not cached, then the service worker is not installed. So, it is important to make sure that there is not a long list of URLs to cache because if even a single url fails to cache, it will halt the installation of the service worker.
+**event.waitUntil()** 方法接收一个 Promise ，使用它来知道安装需要多长时间，以及安装是否成功。如果任何一个文件在缓存过程中失败，那么 Service Worker 的安装也会失败。因此，确保一个短的缓存文件地址列表是很重要的，因为即使一个文件缓存的失败，也会中断 Service Worker 的安装。
 
-![Install Stage](https://cdn-images-1.medium.com/max/3520/1*0fWZsySFns4KpUqaFZk3eQ.png)
+![Install 阶段](https://cdn-images-1.medium.com/max/3520/1*0fWZsySFns4KpUqaFZk3eQ.png)
 
-#### Activate
+#### 激活（Activate）
 
-Once a new Service Worker has been installed and a previous version isn’t being used, the new one activates, and we get an **activate** event. In this event, we can remove or delete the old existing cache. The below-given code snippet is taken from the service worker guide.
+一旦一个新的 Service Worker 安装好，并且在不使用以前的版本的 Service Worker 的情况下，就会激活一个新的 Service Worker，同时我们还会得到一个 **activate** 事件。在这个激活事件里，我们可以移除或删除现有的旧缓存。下面给出的代码段摘自[离线指南 中的 Service Worker 部分](https://juejin.im/post/5c0788a65188250808259ae4)。
 
-![Activate Stage](https://cdn-images-1.medium.com/max/3520/1*KQQGF9AgvjpzvnksqQ6Q2Q.png)
+![Activate 阶段](https://cdn-images-1.medium.com/max/3520/1*KQQGF9AgvjpzvnksqQ6Q2Q.png)
 
-#### Idle
+#### 空闲（Idle）
 
-Not much to talk about this stage, after the activate stage the service worker sits idle and does nothing until another event is fired.
+这个阶段没什么好说的，在 Activate 阶段之后，Service Worker 将处于空闲，不执行任何操作，直到另一个事件被触发。
 
-#### Fetch
+#### 获取（Fetch）
 
-Whenever a fetch request is made, a **fetch** event is fired. In this event, we try to implement caching strategies. As I mentioned before, the service worker works as a middle man, all the requests go through the service workers. From here on we can decide whether we want that request to go to the network or to the cache. Below is an example, where the request is intercepted by the service worker and the request is made to the cache if the cache doesn’t return a valid response then the request is fired to the network.
+每当发出 fetch 请求时，就会触发一个 **fetch** 事件。我们在这个事件里实现缓存策略。正如我之前提到的，Service Worker 就像一个中间人，所有请求都经过 Service Worker。在这里，我们可以决定是将请求走到网络还是从缓存中获取。下面是一个例子，Service Worker 拦截请求，如果缓存没有返回有效的响应，则将请求发送到网络。
 
-![Fetch Stage](https://cdn-images-1.medium.com/max/3520/1*kEE7vxaLlxIP4gCUUXPN8Q.png)
+![Fetch 阶段](https://cdn-images-1.medium.com/max/3520/1*kEE7vxaLlxIP4gCUUXPN8Q.png)
 
-The above-shown code is one of the examples of caching strategies. Hope, you have understood about the service workers. Now, we’ll dive into some of the caching strategies.
+上面的代码是缓存策略的一个例子。您应该已经掌握了 Service Worker 的原理了。现在，我们将深入研究一些缓存策略。
 
-## Caching strategies
+## 缓存策略
 
-In the above **fetch** event, we discussed one of the caching strategies called **c**ache falling back to network**.** One thing to remember is that all the caching strategies are to be implemented in the **fetch** event. Let’s get into some of the caching strategies -
+在上面的 **fetch** 事件中，我们讨论了一种叫**缓存优先，若无缓存则回退到网络**的缓存策略。需要注意是，所有的缓存策略都将在 **fetch** 事件中实现。让我们来看看这些缓存策略。
 
-#### Cache only
+#### 仅缓存（Cache only）
 
-Easiest among the others. As you can guess by the name itself, it means all the requests go to the cache.
+最简单的。就像它名字所说的，它意味着所有请求都将进入缓存。
 
-**When to use: Should be used when you want to access only your static assets.**
+**何时使用：当您只想访问静态资源的时候使用它。**
 
-![Cache only](https://cdn-images-1.medium.com/max/3520/1*YWa918sEIMEmeTDH6KJQDg.png)
+![仅缓存](https://cdn-images-1.medium.com/max/3520/1*YWa918sEIMEmeTDH6KJQDg.png)
 
-#### Network only
+#### 仅网络（Network only）
 
-The client makes the request, the service worker intercepts it and makes the request to the network. No-brainer !!
+客户端发出请求，Service Worker 拦截该请求并将请求发送到网络。
 
-**When to use- When things that have no offline equivalent, such as analytics pings, non-GET requests.**
+**何时使用：当不是请求静态资源时，比如 ping 检测、非 GET 的请求。**
 
-![Network only](https://cdn-images-1.medium.com/max/3520/1*Rn7nC460uo0E_k6IgANO_Q.png)
+![仅网络](https://cdn-images-1.medium.com/max/3520/1*Rn7nC460uo0E_k6IgANO_Q.png)
 
-> **Note**- This will also work if we don’t use the **respondWith** method.
+> **注意：**如果我们不使用 **responseWith** 方法，请求也会正常发出。
 
-#### Cache falling back to network
+#### 缓存优先，若无缓存则回退到网络请求（Cache，falling back to network）
 
-It is the one discussed before in the fetch event, service worker makes a request to the cache if the request is not successful it goes to the network.
+这是之前在 fetch 事件中讨论的内容，如果请求缓存不成功，Service Worker 则会将请求网络。
 
-**When to use- If you are building offline first app**
+**何时使用：当您在构建离线优先的应用时**
 
-![Cache falling back to network](https://cdn-images-1.medium.com/max/3520/1*pF1Zr5gWmwEgPB2A2fPZjg.png)
+![缓存优先，若无缓存则回退到网络](https://cdn-images-1.medium.com/max/3520/1*pF1Zr5gWmwEgPB2A2fPZjg.png)
 
-#### Network falling back to cache
+#### 网络优先，若获取失败则回退到缓存获取（Network falling back to cache）
 
-First, the service worker will make a request to the network, if the request is successful then great else fallback to cache.
+首先，Service Worker 将向网络发出一个请求，如果请求成功，那么就将资源存入缓存。
 
-**When to use- When you are building something that changes very often like a post page or a game leader board. When your priority is the latest data, this strategy is the go-to.**
+**何时使用：当您在构建一些需要频繁改变的内容时，比如实时发布的页面或者游戏排行榜。当您最新数据优先时，此策略便是首选。**
 
-![Network falling back to cache](https://cdn-images-1.medium.com/max/3520/1*xn7l--f2VtZGq5c4DWmmzQ.png)
+![网络优先，若获取失败则回退到缓存获取](https://cdn-images-1.medium.com/max/3520/1*xn7l--f2VtZGq5c4DWmmzQ.png)
 
-#### Generic fallback
+#### 常规回退（Generic fallback）
 
-When both the requests fail, one to the cache and other to the network, you display a generic fallback so that your users won’t experience a blank screen or some weird error.
+当两个请求都失败时（一个请求失败于缓存，另一个失败于网络），您将显示一个通用的回退，以便您的用户不会感受到白屏或某些奇怪的错误。
 
-![Generic Fallback](https://cdn-images-1.medium.com/max/3520/1*sMjn8fVkJLWDwonMDB8gLg.png)
+![常规回退](https://cdn-images-1.medium.com/max/3520/1*sMjn8fVkJLWDwonMDB8gLg.png)
 
-We have covered the most used and basic caching strategies required while developing a progressive web app. There is more to it and you can look it up at [The offline cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/) by Jake Archibald.
+我们已经学习完了在开发一个渐进式 Web 应用最常用和最基本的缓存策略。还有更多详细内容，可以查看由 Jake Archibald 编写的 [离线指南](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook?hl=zh-cn)。
 
-## Conclusion
+## 总结
 
-In this article, we learned about some cool stuff related to Service Workers and Caching Strategies. Hope you liked this article, and if you did, clap your 💖 out and follow me for more content. Thanks for reading 🙏 Please feel free to comment and ask anything.
+在这篇文章中，我们了解了一些与 Service Worker 和缓存策略相关的很有意思的内容。希望您能喜欢这篇文章，如果您很喜欢我的文章，欢迎您为我点个赞 💖并关注我以了解更多内容。感谢您的阅读🙏，欢迎随时评论和询问。
 
 ---
 
-## Learn more
-- [**5 Tools for Faster Development in React**
-5 tools to speed the development of your React application, focusing on components.](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
-- [**11 JavaScript Animation Libraries For 2019**
-Some of the finest JS and CSS animation libraries around.](https://blog.bitsrc.io/11-javascript-animation-libraries-for-2018-9d7ac93a2c59)
-- [**How to Build a React Progressive Web Application (PWA)**
-A deep, comprehensive guide with live code examples](https://blog.bitsrc.io/how-to-build-a-react-progressive-web-application-pwa-b5b897df2f0a)
+## 了解更多
+- [**5 个 加速 React 开发的工具**
+5 个工具来加速您的 React 应用开发，专注于组件。](https://blog.bitsrc.io/5-tools-for-faster-development-in-react-676f134050f2)
+- [**11 个 2019 年流行的 JavaScript 动画库**
+一些最好的 JS 和 CSS 动画库。](https://blog.bitsrc.io/11-javascript-animation-libraries-for-2018-9d7ac93a2c59)
+- [**如何构建一个 React 渐进式 Web 应用（PWA）**
+包括透彻、全面的指南与现成的代码例子。](https://blog.bitsrc.io/how-to-build-a-react-progressive-web-application-pwa-b5b897df2f0a)
+
+## 译者注：
+
+本文是一篇入门小总结，强烈建议读者阅读文中提到的由 Jake Archibald 编写的 [离线指南](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook?hl=zh-cn)。阅读需翻墙，但在掘金已有译文：
+- [[译]前端离线指南（上）](https://juejin.im/post/5c0788a65188250808259ae4)
+- [[译]前端离线指南（下）](https://juejin.im/post/5c078e146fb9a049db72e9c3#heading-7)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
