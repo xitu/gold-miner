@@ -68,9 +68,7 @@ The fact that as a professional programmer, I didn’t think deeply about one of
 
 It’s important to know where the truth is. It’s not on Mozilla’s, W3schools, not in the hundred articles that claim `===` is better than `==`, and it’s definitely not in this one.
 
-It's in the ****JavaScript specifications, where you can find the documentation on how JavaScript works.
-[**ECMAScript® 2020 Language Specification**
-**Edit description**tc39.es](https://tc39.es/ecma262/#sec-abstract-equality-comparison)
+It's in the **JavaScript specifications**, where you can find the documentation on how JavaScript works. [**ECMAScript® 2020 Language Specification**](https://tc39.es/ecma262/#sec-abstract-equality-comparison)
 
 ---
 
@@ -106,7 +104,7 @@ Boolean(), Number(), BigInt(), String(), Object()
 
 Example:
 
-```
+```JavaScript
 let x = 'foo';
 
 typeof x // string
@@ -157,7 +155,7 @@ Implicit coercion is a double-edged sword, used sensibly it can increase readabi
 
 If the types are the same then the `===` is **exactly the same as** `==`. Therefore, you should use the more semantic one.
 
-```
+```JavaScript
 1 == 1 // true                ......        1 === 1 // true
 
 'foo' == 'foo' // true        ......       'foo' === 'foo' //true
@@ -169,7 +167,7 @@ This is not a logical argument, it’s like pressing save twice, refreshing five
 
 #### 2. Different types (primitives)
 
-First of all, I want to bring to your attention that different ****types do not mean **unknown**** **types.
+First of all, I want to bring to your attention that different **types do not mean unknown types**.
 
 Not knowing the types indicates that there is a bigger problem in your code than just using `===` vs. `==`.
 
@@ -181,7 +179,7 @@ Let’s say that we have the possibility of a number or a string.
 
 Remember that the algorithm prefers numbers so it will try to use `[toNumber()](https://tc39.es/ecma262/#sec-tonumber)`.
 
-```
+```JavaScript
 let foo = 2;
 let bar = 32; // number or string
 
@@ -196,7 +194,7 @@ foo === bar // would always fail if bar comes as string
 
 `null` and `undefined` are both equal to each other when using the `==`.
 
-```
+```JavaScript
 let foo = null
 let bar = undefined; 
 
@@ -227,7 +225,7 @@ Comparing nonprimitives such as objects and arrays should not be done using `==`
 
 There are some cases where one should not use `==` without really understanding falsy values in JavaScript.
 
-```
+```JavaScript
 == with 0 or "" or "   "
 
 == with non primtives
@@ -248,9 +246,7 @@ Here are four points for people who scrolled to the end of the post.
 3. Knowing the types leads to better code.
 4. If types are known, `==` is best otherwise fall back to `===`.
 
-Thanks for reading, I hope that this article has helped you deepen your understanding of JavaScript. I would suggest that you check the **You Don’t Know JS** series as it’s a mine full of in-depth knowledge.
-[**getify/You-Dont-Know-JS**
-**A book series on JavaScript. @YDKJS on twitter. Contribute to getify/You-Dont-Know-JS development by creating an…**github.com](https://github.com/getify/You-Dont-Know-JS)
+Thanks for reading, I hope that this article has helped you deepen your understanding of JavaScript. I would suggest that you check the **You Don’t Know JS** series as it’s a mine full of in-depth knowledge. [**You-Dont-Know-JS**](https://github.com/getify/You-Dont-Know-JS)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
