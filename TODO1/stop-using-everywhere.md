@@ -124,7 +124,7 @@ new Date() + 1 //  coerced to a string of date that ends with 1
 if(x) // x is coerced to boolean
 1 == true // true coerced to number 1
 1 == 'true' // 'true' coreced to NaN
-`this ${variable} will be coreced to string
+`this ${variable} will be coreced to string`
 ```
 
 Implicit coercion is a double-edged sword, used sensibly it can increase readability and decrease verbosity. Misused or misunderstood, you have a formula for disappointments, people ranting and blaming JavaScript.
