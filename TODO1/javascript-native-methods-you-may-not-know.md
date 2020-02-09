@@ -21,7 +21,7 @@ Yet, I’ve seen many old codes from GitHub repositories. It doesn’t necessari
 
 `NaN` is a number type.
 
-```
+```js
 typeof NaN === 'number'
 ```
 
@@ -34,7 +34,7 @@ Even Object.prototype.toString.call returns `[object Number]` for both `NaN` and
 
 Here’s the example. And this topic was already dealt with by people at [Stack Overflow](https://stackoverflow.com/questions/33164725/confusion-between-isnan-and-number-isnan-in-javascript).
 
-```
+```js
 Number.isNaN({});
 // <- false, {} is not NaN
 Number.isNaN('ponyfoo')
@@ -67,7 +67,7 @@ Basically how they work is the same, but they’re slightly different from each 
 * `isFinite` — checks if the passed value is finite. The passed value is converted to `Number` if its type isn’t `Number`.
 * `Number.isFinite` — checks if the passed value is finite. The passed value isn’t converted to `Number`.
 
-```
+```js
 Number.isFinite(Infinity) // false
 isFinite(Infinity) // false
 
@@ -98,7 +98,7 @@ In the past, when you needed to take out the digits on the right side of the dot
 
 Basically, they give you exactly the same result if a given number is positive. But the results are different if a given number is negative.
 
-```
+```js
 Math.floor(1.23) // 1
 Math.trunc(1.23) // 1
 
@@ -115,7 +115,7 @@ Math.trunc(-0.1) // -0
 
 When you’re looking for some value in a given array, how do you find it? I’ve seen many developers use `Array.prototype.indexOf`, like in the following example.
 
-```
+```js
 const arr = [1, 2, 3, 4];
 
 if (arr.indexOf(1) > -1) {
@@ -126,7 +126,7 @@ if (arr.indexOf(1) > -1) {
 * `Array.prototype.indexOf` — returns the first index at which a given element can be found in the array or `-1` if it’s not present
 * `Array.prototype.includes `— checks if a given array includes a particular value you’re looking for and returns `true`/`false` as the result
 
-```
+```js
 const students = ['Hong', 'James', 'Mark', 'James'];
 
 students.indexOf('Mark') // 1
@@ -144,7 +144,7 @@ Be careful. The passed value is case-sensitive because of the Unicode difference
 
 Before this feature was added, the way you made strings, such as `abcabcabc`, was to copy the strings and concatenate them to an empty string for however many times you wanted.
 
-```
+```js
 var str = 'abc';
 var res = '';
 
@@ -159,7 +159,7 @@ for (var i = 0; i < copyTimes; i += 1) {
 
 But this is so unnecessarily long, quite messy, and hard to read sometimes. For this purpose, you can use `String.prototype.repeat`. All you need to do is pass the number that refers to how many times you want to copy the strings.
 
-```
+```js
 'abc'.repeat(3) // "abcabcabc"
 'hi '.repeat(2) // "hi hi "
 
@@ -185,7 +185,7 @@ To check if certain words are included in the strings, there are two ways to do 
 
 The difference is that `includes` is case-sensitive, while `match` isn’t. You can put the `i` flag in the RegExp to make it perform as case-insensitive.
 
-```
+```js
 const name = 'jane';
 const nameReg = /jane/i;
 
@@ -206,14 +206,14 @@ Also, `concat` can perform this as well nicely. But the main difference is `padS
 
 I’ll show you how to use this function.
 
-```
+```js
 const rep = 'abc';
 const str = 'xyz';
 ```
 
 Here are two strings. What I want to do isadd `rep` in front of `xyz `— but not only one time. I want it to be repeated several times.
 
-```
+```js
 str.padStart(10, rep);
 ```
 
