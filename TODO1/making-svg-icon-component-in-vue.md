@@ -13,14 +13,14 @@
 
 After considering [reasons](https://www.keycdn.com/blog/icon-fonts-vs-svgs) to migrate vector icons from icon fonts to inline SVGs, I looked for a solution in Vue.js to replace icon fonts with SVGs, while still maintaining the flexibility and easy-of-use of using icon fonts — ability to change the size, color and other attributes easily through CSS.
 
-One popular method is to use `v-html` directive and `html-loader` npm module to import SVGs into our Vue template and modify the rendered `\<svg>` element in Vue’s `mounted()` lifecycle method. Styles can then be applied directly to the `\<svg>` or to its parent and everything can be wrapped in a component for reusability.
+One popular method is to use `v-html` directive and `html-loader` npm module to import SVGs into our Vue template and modify the rendered `<svg>` element in Vue’s `mounted()` lifecycle method. Styles can then be applied directly to the `<svg>` or to its parent and everything can be wrapped in a component for reusability.
 
 ## Creating Svg-icon Component
 
 Let’s create `Svg-icon.vue` component file with three props.
 
 1. `icon` string prop to pass the `.svg` filename to import
-2. `hasFill` boolean prop which tells the component if `fill` property will be used to change the color of the `\<svg>` element, default is false i.e. no `fill`
+2. `hasFill` boolean prop which tells the component if `fill` property will be used to change the color of the `<svg>` element, default is false i.e. no `fill`
 3. `growByHeight` boolean prop to determine to use `height` or `width` to scale relative to the `font-size`, default is true i.e. use `height`
 
 ```Vue
@@ -87,12 +87,12 @@ export default {
 </style>
 ```
 
-We pass the icon `.svg` file to `html-loader` in `require()` method which stringifies it and is rendered into `\<svg>` element by `v-html` directive.
+We pass the icon `.svg` file to `html-loader` in `require()` method which stringifies it and is rendered into `<svg>` element by `v-html` directive.
 
-The `mounted()` lifecycle method is where all modifications to the `\<svg>` element happen.
+The `mounted()` lifecycle method is where all modifications to the `<svg>` element happen.
 
-* Set either `height` or `width` attribute of the `\<svg>` element to `1em` (relative to 1x the `font-size`) determined by `growByHeight` and use `widthToHeight` for the other. Since not all SVGs are square shaped, we calculate `widthToHeight` ratio from the rendered element so that the SVG scales proportionately to its original dimensions as the parent’s `font-size` property changes.
-* In order to set the `fill` attribute of the `\<svg>` element, we need override the inline `fill` that comes with the SVG file. When `hasFill` is true, we recursively remove fill attributes from `\<svg>` element and its children. Then adding a `fill` value using CSS selector to its parent or the `\<svg>` element will do the trick.
+* Set either `height` or `width` attribute of the `<svg>` element to `1em` (relative to 1x the `font-size`) determined by `growByHeight` and use `widthToHeight` for the other. Since not all SVGs are square shaped, we calculate `widthToHeight` ratio from the rendered element so that the SVG scales proportionately to its original dimensions as the parent’s `font-size` property changes.
+* In order to set the `fill` attribute of the `<svg>` element, we need override the inline `fill` that comes with the SVG file. When `hasFill` is true, we recursively remove fill attributes from `<svg>` element and its children. Then adding a `fill` value using CSS selector to its parent or the `<svg>` element will do the trick.
 * Additional DOM attributes like `class` can also be added to the element which can be used to scoped-styling in the component
 
 ---
@@ -160,7 +160,7 @@ Above implementation is identical to the icon fonts method, except for the `.smi
 
 #### Rendered HTML
 
-This is the rendered HTML that `v-html` outputs. Note: all `fill` attributes are removed and `height` and `width` attributes are added to `\<svg>` .
+This is the rendered HTML that `v-html` outputs. Note: all `fill` attributes are removed and `height` and `width` attributes are added to `<svg>` .
 
 ```html
 <div class="smile-icon">
@@ -177,7 +177,7 @@ This is the rendered HTML that `v-html` outputs. Note: all `fill` attributes are
 
 ![Credit: [https://tympanus.net](https://tympanus.net)](https://cdn-images-1.medium.com/max/2000/1*gbV6Hisa64jh0tb5ughaig.gif)
 
-Since SVGs are considered the way of the future, it is good to migrate away from using icon fonts while still retaining the ease of use that icon fonts provide. The `Svg-icon` component is an example of how we can use available libraries to abstract away the messy parts of `\<svg>` element, while mimicking the good part of using icon fonts!
+Since SVGs are considered the way of the future, it is good to migrate away from using icon fonts while still retaining the ease of use that icon fonts provide. The `Svg-icon` component is an example of how we can use available libraries to abstract away the messy parts of `<svg>` element, while mimicking the good part of using icon fonts!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
