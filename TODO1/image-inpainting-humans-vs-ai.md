@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/image-inpainting-humans-vs-ai.md](https://github.com/xitu/gold-miner/blob/master/TODO1/image-inpainting-humans-vs-ai.md)
 > * 译者：[Starry](https://github.com/Starry316)
-> * 校对者：[lsvih](https://github.com/lsvih),[Amberlin1970](https://github.com/Amberlin1970) 
+> * 校对者：[lsvih](https://github.com/lsvih), [Amberlin1970](https://github.com/Amberlin1970) 
 
 # 图像修复：人类和 AI 的对决
 
@@ -58,7 +58,7 @@
 
 ## 人类 vs. 算法
 
-我们使用[Subjectify.us](http://www.subjectify.us)平台将三个专业艺术家和自动图像修复方法的结果与原始、未失真的图像（即真值（ground truth））进行对比。这个平台将结果以两两配对的方式呈现给研究参与者，让他们在每一对图片中选出一个视觉质量更好的。为了保证参与者做出的是思考后的选择，平台还会让他们在真值图片和图像修复范例结果之间进行选择来验证。 如果应答者没有在一个或两个验证问题中选择出正确答案，平台会将他的所有答案抛弃。最终，平台一共收集到了来自 215 名参与者的 6,945 个成对判断。
+我们使用[Subjectify.us](http://www.subjectify.us)平台将三个专业艺术家和自动图像修复方法的结果与原始、未失真的图像（即真值（ground truth））进行对比。这个平台将结果以两两配对的方式呈现给研究参与者，让他们在每一对图片中选出一个视觉质量更好的。为了保证参与者做出的是思考后的选择，平台还会让他们在真值图片和图像修复范例结果之间进行选择来验证。 如果应答者没有在一个或两个验证问题中选择出正确答案，平台会将他的所有答案抛弃。最终，平台一共收集到了来自 215 名参与者的 6945 个成对判断。
 
 下面是这次比较的总体和每幅图像的主观质量分数：
 
@@ -90,7 +90,7 @@
 
 ![自动图像修复方法的主观比较。](https://cdn-images-1.medium.com/max/2358/1*sfhG6AFZ546S6z51aEmuhg.png)
 
-这些结果证实了我们从其他比较中得到的观测结果。第一名（在真值之后）是在 the Places2 数据集上训练的 **Generative Image Inpainting**。没有使用神经网络的 **Content-Aware Fill Tool in Photoshop CS5** 以很小的差别位居第二名。 在 ImageNet 上训练的 **Generative Image Inpainting** 获得第三名。值得注意的是，其他所有的非神经网络方法的表现都超过了深度学习方法。
+这些结果证实了我们从其他比较中得到的观测结果。第一名（在真值之后）是在 the Places2 数据集上训练的 **Generative Image Inpainting**。没有使用神经网络的 **Content-Aware Fill Tool in Photoshop CS5** 以很小的差别位居第二名。在 ImageNet 上训练的 **Generative Image Inpainting** 获得第三名。值得注意的是，其他所有的非神经网络方法的表现都超过了深度学习方法。
 
 ## 结论
 
