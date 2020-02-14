@@ -87,11 +87,11 @@ The learning is: don’t simply trust the numbers; use your eye to check your wo
 
 An idea expressed well in just a few words feels efficient and elegant. Take this statement:
 
-> # Teaching what you know strengthens your own understanding of the subject.
+> Teaching what you know strengthens your own understanding of the subject.
 
 We could more succinctly say (from Robert Heinlein):
 
-> # When one teaches, two learn.
+> When one teaches, two learn.
 
 Beautiful.
 
@@ -271,7 +271,9 @@ A few selects:
 This is the first in a series of iconography articles. Stay tuned for:
 
 • 5 Ways to Create a Settings Icon
+
 • Icon Grids & Keylines Demystified
+
 • Pixel-Snapping in Icon Design: To Snap or Not to Snap
 ```
 
