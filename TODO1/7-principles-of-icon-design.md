@@ -7,7 +7,7 @@
 
 # 7 Principles of Icon Design
 
-#### Clarity, Readability, Alignment, Brevity, Consistency, Personality, Ease of Use.
+> Clarity, Readability, Alignment, Brevity, Consistency, Personality, Ease of Use.
 
 ![](https://cdn-images-1.medium.com/max/9600/1*a-zerv-uouThOe0ItxW8bQ@2x.png)
 
