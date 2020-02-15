@@ -7,7 +7,7 @@
 
 # A Simple Guide to A/B Testing for Data Science
 
-#### One of the most important statistical methods for data scientists
+> One of the most important statistical methods for data scientists
 
 ![Picture created by myself, Terence Shin, and Freepik](https://cdn-images-1.medium.com/max/2000/0*KS_jfZBdZ9DxAvEz.png)
 
@@ -67,8 +67,8 @@ Once you determine your null and alternative hypothesis, the next step is to cre
 **Random Sampling**
 Random sampling is a technique where each sample in a population has an equal chance of being chosen. Random sampling is important in hypothesis testing because it eliminates sampling bias, and **it’s important to eliminate bias because you want the results of your A/B test to be representative of the entire population rather than the sample itself.**
 
-**Sample Size
-**It’s essential that you determine the minimum sample size for your A/B test prior to conducting it so that you can eliminate **under coverage bias**, bias from sampling too few observations. There are plenty of [online calculators](https://www.optimizely.com/sample-size-calculator/) that you can use to calculate the sample size given these three inputs, but check out [this link](https://online.stat.psu.edu/stat414/node/306/) if you would like to understand the math behind it!
+**Sample Size**
+It’s essential that you determine the minimum sample size for your A/B test prior to conducting it so that you can eliminate **under coverage bias**, bias from sampling too few observations. There are plenty of [online calculators](https://www.optimizely.com/sample-size-calculator/) that you can use to calculate the sample size given these three inputs, but check out [this link](https://online.stat.psu.edu/stat414/node/306/) if you would like to understand the math behind it!
 
 #### 3. Conduct the test, compare the results, and reject or do not reject the null hypothesis
 
