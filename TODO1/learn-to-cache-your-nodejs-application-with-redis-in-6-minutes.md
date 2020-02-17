@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-to-cache-your-nodejs-application-with-redis-in-6-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-to-cache-your-nodejs-application-with-redis-in-6-minutes.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)，
 
 # 用 6 分钟学习如何用 Redis 缓存您的 NodeJS 应用！
 
 ![](https://cdn-images-1.medium.com/max/4800/1*4DX0Dj0zI2q4MnqeO_Bfbg.png)
 
-缓存您的 web 应用非常重要，并且在应用扩展时缓存可以提高系统性能。Redis 可以是一个 **搜索引擎**，您可以用最小的延迟来响应频繁查询的请求；可以是一个 **URL 请求的减法器**，您可以更快地重定向到经常访问的 URL；可以是一个**社交网络**，您可以更快地得到红人的用户资料。还可以是一个非常简单的从第三方 web API 请求数据的 web 服务器，它在项目扩展和缓存数据的情况下，表现是相当出色的！
+缓存您的 web 应用非常重要，并且在应用扩展时缓存可以提高系统性能。Redis 可以是一个 **搜索引擎**，可以用最小的延迟来响应频繁查询的请求；可以是一个 **URL 请求的减法器**，可以更快地重定向到经常访问的 URL；可以是一个**社交网络**，可以更快地得到红人的用户资料。还可以是一个非常简单的从第三方 web API 请求数据的 web 服务器，它在项目扩展和缓存数据的情况下，表现是相当出色的！
 
 ## 什么是 Redis？为什么要用 Redis？
 
-**Redis** 是一个高性能的开源 **NoSQL** 数据库，主要是被用作各种类型的应用的缓存解决方案。令人惊讶的是，它将所有数据存储在 RAM 中，并提供高度优化的数据读写。Redis 还支持了许多不同的数据类型和基于很多不同编程语言的客户端。您可以在[这里](https://redis.io/topics/introduction)找到更多关于 **Redis** 的信息。
+**Redis** 是一个高性能的开源 **NoSQL** 数据库，主要是被用作各种类型的应用的缓存解决方案。它将所有数据存储在 RAM 中，并提供高度优化的数据读写。Redis 还支持许多不同的数据类型和基于很多不同编程语言的客户端。您可以在[这里](https://redis.io/topics/introduction)找到更多关于 **Redis** 的信息。
 
 ## 概述
 
@@ -39,7 +39,7 @@ brew install redis
 
 #### 在 Ubuntu 上安装
 
-您可以使用这个[简易指南](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04) 在您的 Ubuntu 机器上安装 Redis。
+您可以使用这个[简易指南](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04)在您的 Ubuntu 机器上安装 Redis。
 
 #### 在 Windows 上安装
 
@@ -47,7 +47,7 @@ brew install redis
 
 ## 启动 Redis 服务端 和 Redis CLI
 
-在您的终端上，您可以运行以下命令在本地启动您的 Redis 服务器。
+在您的终端上，您可以运行以下命令在本地启动您的 Redis 服务端。
 
 ```bash
 redis-server
@@ -79,7 +79,7 @@ redis-cli
 npm i express redis axios
 ```
 
-**Express** 将帮助我们设置服务器。我们将使用 **redis** 的包来将我们的应用连接到在我们机器上的本地运行 Redis 服务器，我们还将使用 **axios** 向 [**Star Wars API**](https://swapi.co) 请求数据。
+**Express** 将帮助我们设置服务器。我们将使用 **redis** 的包来将我们的应用连接到在我们机器上的本地运行 Redis 服务端，我们还将使用 **axios** 向 [**Star Wars API**](https://swapi.co) 请求数据。
 
 #### 开发依赖
 
@@ -128,7 +128,7 @@ npm i -D nodemon
 
 ```
 
-#### 设置我们的初始服务器的入口文件：index.js。
+#### 设置我们的初始服务器的入口文件：index.js
 
 在我们的项目目录的终端中运行以下命令来创建 **index.js** 文件。
 
@@ -149,7 +149,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在端口 6379
+//配置 Redis 客户端在 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
@@ -159,19 +159,19 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//监听端口 5000
+//监听 5000 端口
 app.listen(port, () => console.log(`Server running on Port ${port}`));
 ```
 
-如果您以前使用过 **NodeJS** 和 **ExpressJS**，那么这应该难不倒您。首先，我们设置之前使用 npm 安装的依赖项。接着，我们设置端口常量并创建我们的 Redis 客户端。最后，我们在**端口 6379** 上配置我们的 Redis 客户端，在**端口 5000**上配置我们的 Express 服务器。我们还在服务器上设置了 **Body-Parser**，来解析 JSON 数据。您可以在终端中运行以下命令来使用 **package.json** 中的启动脚本运行 web 服务器。
+如果您以前使用过 **NodeJS** 和 **ExpressJS**，那么这应该难不倒您。首先，我们设置之前使用 npm 安装的依赖项。接着，我们设置端口常量并创建我们的 Redis 客户端。最后，我们在**6379 端口** 上配置我们的 Redis 客户端，在 **5000 端口**上配置我们的 Express 服务器。我们还在服务器上设置了 **Body-Parser**，来解析 JSON 数据。您可以在终端中运行以下命令来使用 **package.json** 中的启动脚本运行 web 服务器。
 
 ```bash
 npm start
 ```
 
-**注意**，如前所述，我们的 Redis 服务器应该运行在另一个终端上，以便成功地将我们的NodeJS 应用连接到 Redis。
+**注意**，如前所述，我们的 Redis 服务端应该运行在另一个终端上，以便成功地将我们的NodeJS 应用连接到 Redis。
 
-您现在应该能够在终端上看到以下输出，它表明您的 web 服务器正在**端口 5000** 上运行。
+您现在应该能够在终端上看到以下输出，它表明您的 web 服务器正在 **5000 端口** 上运行。
 
 ![](https://cdn-images-1.medium.com/max/2876/1*1W6F-j0EtdYKDrgJj4hjHg.png)
 
@@ -217,7 +217,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在端口 6379
+//配置 Redis 客户端在 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
@@ -284,7 +284,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在端口 6379
+//配置 Redis 客户端在 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
@@ -374,7 +374,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在端口 6379
+//配置 Redis 客户端在 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
@@ -436,7 +436,7 @@ app.listen(port, () => console.log(`Server running on Port ${port}`));
 
 ## 总结
 
-值得注意的是，我们在本教程中只是讲了些皮毛而已，Redis 还有很多更多的功能！ 我强烈建议您查看它的[官方文档](https://redis.io/documentation)。[**这个链接**](https://github.com/abdamin/redis-node-tutorial)是我们应用的完整代码的 Github 仓库地址。
+值得注意的是，我们在本教程中只是讲了些皮毛而已，Redis 还有很多更多的功能！我强烈建议您查看它的[官方文档](https://redis.io/documentation)。[**这个链接**](https://github.com/abdamin/redis-node-tutorial)是我们应用的完整代码的 Github 仓库地址。
 
 如果您有任何问题，请尽管留言。另外，如果这篇文章对您有帮助，您请可以帮忙转发分享。我会定期发布与 web 开发相关的文章。您可以在[**此处输入您的电子邮件**](https://abdullahsumsum.com/subscribe)以获取有关 web 开发相关的文章和教程的最新信息。您还可以在 [**abdullahsumsum.com**](http://abdullahsumsum.com/) 上找到有关我的更多信息。
 
