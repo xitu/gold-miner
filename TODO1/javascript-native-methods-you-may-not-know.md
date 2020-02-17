@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-native-methods-you-may-not-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-native-methods-you-may-not-know.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Baddyo](https://github.com/Baddyo)，[Chorer](https://github.com/Chorer)
 
 # 您可能不知道的原生 JavaScript 方法
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*v0O86GFV7H15ol_r9xwNPA.jpeg)
 
-自从 ES6 发布以来，许多新的、方便的原生方法被添加到新的 JavaScript 标准中。
+自从 ES6 发布以来，许多新的、方便的原生方法被添加到 JavaScript 的新标准中。
 
 但是，我还是在 GitHub 的仓库中看到了许多旧代码。当然，这并不是说它们不好，而是说如果使用我下面介绍的这些特性，代码将变得更具可读性、更美观。
 
@@ -19,7 +19,7 @@
 
 ## Number.isNaN 对比 isNaN
 
-`NaN` 一个 number 类型。
+`NaN` 是 number 类型。
 
 ```js
 typeof NaN === 'number'
@@ -27,45 +27,45 @@ typeof NaN === 'number'
 
 所以您不能直接区分出 `NaN` 和普通数字。
 
-甚至对于 `NaN` 和 普通数字，当调用 Object.prototype.toString.call 方法时都会返回 `[object Number]`。您可能已经知道 `isNaN` 方法可以用于检查参数是否为 `NaN`。但是自从有了 ES6 之后，`number` 类型的 constructor 也开始将 `isNaN` 作为它的方法。那么，这二者有什么不同呢？
+甚至对于 `NaN` 和 普通数字，当调用 Object.prototype.toString.call 方法时都会返回 `[object Number]`。您可能已经知道 `isNaN` 方法可以用于检查参数是否为 `NaN`。但是自从有了 ES6 之后，构造函数 **Number()** 也开始将 isNaN 作为它的方法。那么，这二者有什么不同呢？
 
-* `isNaN` —— 检查值是否为不是一个普通数字或者是否不能转换为一个普通数字。
+* `isNaN` —— 检查值是否不是一个普通数字或者是否不能转换为一个普通数字。
 * `Number.isNaN` —— 检查值是否为 NaN。
 
-这里有一些例子。[Stack Overflow](https://stackoverflow.com/questions/33164725/confusion-between-isnan-and-number-isnan-in-javascript) 上的网友已经讨论过了这个话题了。
+这里有一些例子。[Stack Overflow](https://stackoverflow.com/questions/33164725/confusion-between-isnan-and-number-isnan-in-javascript) 上的网友已经讨论过这个话题了。
 
 ```js
 Number.isNaN({});
-// <- false, {} 不是 NaN
+// <- false，{} 不是 NaN
 Number.isNaN('ponyfoo')
-// <- false, 'ponyfoo' 不是 NaN
+// <- false，'ponyfoo' 不是 NaN
 Number.isNaN(NaN)
-// <- true, NaN 是 NaN
+// <- true，NaN 是 NaN
 Number.isNaN('pony'/'foo')
-// <- true, 'pony'/'foo' 是 NaN，NaN 是 NaN
+// <- true，'pony'/'foo' 是 NaN，NaN 是 NaN
 
 isNaN({});
-// <- true, {} 不是一个普通数字
+// <- true，{} 不是一个普通数字
 isNaN('ponyfoo')
-// <- true, 'ponyfoo' 不是一个普通数字
+// <- true，'ponyfoo' 不是一个普通数字
 isNaN(NaN)
-// <- true, NaN 不是一个普通数字
+// <- true，NaN 不是一个普通数字
 isNaN('pony'/'foo')
-// <- true, 'pony'/'foo' 是 NaN, NaN 不是一个普通数字
+// <- true，'pony'/'foo' 是 NaN, NaN 不是一个普通数字
 ```
 
 ---
 
 ## Number.isFinite 对比 isFinite
 
-在 JavaScript 中，类似 1/0 这样的计算不会产生错误。相反，它会给您全局对象的一个属性 `Infinity`。
+在 JavaScript 中，类似 1/0 这样的计算不会产生错误。相反，它会返回全局对象的一个属性 `Infinity`。
 
 那么，如何检查一个值是否为无穷大呢？抱歉，您做不到。但是，您可以使用 `isFinite` 和 `Number.isFinite` 检查值是否为有限值。
 
 它们的工作原理基本相同，但彼此之间略有不同。
 
 * `isFinite` —— 检查传入的值是否是有限值。如果传入的值的类型不是 `number` 类型，会尝试将这个值转换为 `number` 类型，再判断。
-* `Number.isFinite` —— 检查传入的值是否是有限值。直接判断，如果传入的值的类型不是 `number` 类型，不会尝试转换。
+* `Number.isFinite` —— 检查传入的值是否是有限值。即使传入的值的类型不是 `number` 类型，也不会尝试转换，而是直接判断。
 
 ```js
 Number.isFinite(Infinity) // false
@@ -136,13 +136,13 @@ students.indexOf('Sam') // -1
 students.includes('Sam') // false
 ```
 
-要注意，由于 Unicode 编码，所以传入的值是大小写敏感的。
+要注意，由于 Unicode 编码的差异，所以传入的值是大小写敏感的。
 
 ---
 
 ## String.prototype.repeat 对比 for 循环 
 
-在 ES6 添加此特性之前，生成字符串像 `abcabcabc` 这样字符串的方法是，将它们执行任意次数复制连接到最初定义的空字符串操作。
+在 ES6 添加此特性之前，生成像 `abcabcabc` 这样的字符串的方法是，根据您的需要将字符串复制多次并连接到一个空字符串后面。
 
 ```js
 var str = 'abc';
@@ -234,7 +234,7 @@ str.padStart(10, rep);
 4) abcabcaxyz
 ```
 
-这个函数对于这个特定场景下非常有用，并且如果用 `concat`（一个也是用于执行字符串追加的函数）绝对很难做到。
+这个函数对于这个特定场景下非常有用，并且如果用 `concat`（ 一个同样用于执行字符串追加的函数）绝对很难做到。
 
 `padEnd` 函数和 `padStart` 函数一样，只不过从位置的末尾开始。
 
