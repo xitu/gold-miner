@@ -2,70 +2,70 @@
 > * 原文作者：[Moon](https://medium.com/@moonformeli)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-native-methods-you-may-not-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-native-methods-you-may-not-know.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Jessica](https://github.com/cyz980908)
+> * 校对者：[Baddyo](https://github.com/Baddyo)，[Chorer](https://github.com/Chorer)
 
-# JavaScript Native Methods You May Not Know
+# 您可能不知道的原生 JavaScript 方法
 
-#### Powerful but often overlooked native methods in JavaScript
+#### 一些很强大但却经常被忽视的原生 JavaScript 方法
 
 ![](https://cdn-images-1.medium.com/max/2000/1*v0O86GFV7H15ol_r9xwNPA.jpeg)
 
-Since ES6's release, many new, comfy, and handy native methods have been added into the new standard of JavaScript.
+自从 ES6 发布以来，许多新的、方便的原生方法被添加到 JavaScript 的新标准中。
 
-Yet, I’ve seen many old codes from GitHub repositories. It doesn’t necessarily mean they’re bad — but these features I’m going to introduce to you will help your code be more readable and prettier.
+但是，我还是在 GitHub 的仓库中看到了许多旧代码。当然，这并不是说它们不好，而是说如果使用我下面介绍的这些特性，代码将变得更具可读性、更美观。
 
 ---
 
-## Number.isNaN vs. isNaN
+## Number.isNaN 对比 isNaN
 
-`NaN` is a number type.
+`NaN` 是 number 类型。
 
 ```js
 typeof NaN === 'number'
 ```
 
-So you can’t distinguish `NaN` and numbers.
+所以您不能直接区分出 `NaN` 和普通数字。
 
-Even Object.prototype.toString.call returns `[object Number]` for both `NaN` and numbers. You might have known there’s the `isNaN` method to check if the parameter is `NaN`. But since ES6, the `number` constructor has started to include `isNaN` as its method. Then what’s different?
+甚至对于 `NaN` 和 普通数字，当调用 Object.prototype.toString.call 方法时都会返回 `[object Number]`。您可能已经知道 `isNaN` 方法可以用于检查参数是否为 `NaN`。但是自从有了 ES6 之后，构造函数 **Number()** 也开始将 isNaN 作为它的方法。那么，这二者有什么不同呢？
 
-* `isNaN` — checks whether the passed value isn’t a number or can’t be converted into a number.
-* `Number.isNaN` — checks whether the passed value isn’t a number.
+* `isNaN` —— 检查值是否不是一个普通数字或者是否不能转换为一个普通数字。
+* `Number.isNaN` —— 检查值是否为 NaN。
 
-Here’s the example. And this topic was already dealt with by people at [Stack Overflow](https://stackoverflow.com/questions/33164725/confusion-between-isnan-and-number-isnan-in-javascript).
+这里有一些例子。[Stack Overflow](https://stackoverflow.com/questions/33164725/confusion-between-isnan-and-number-isnan-in-javascript) 上的网友已经讨论过这个话题了。
 
 ```js
 Number.isNaN({});
-// <- false, {} is not NaN
+// <- false，{} 不是 NaN
 Number.isNaN('ponyfoo')
-// <- false, 'ponyfoo' is not NaN
+// <- false，'ponyfoo' 不是 NaN
 Number.isNaN(NaN)
-// <- true, NaN is NaN
+// <- true，NaN 是 NaN
 Number.isNaN('pony'/'foo')
-// <- true, 'pony'/'foo' is NaN, NaN is NaN
+// <- true，'pony'/'foo' 是 NaN，NaN 是 NaN
 
 isNaN({});
-// <- true, {} is not a number
+// <- true，{} 不是一个普通数字
 isNaN('ponyfoo')
-// <- true, 'ponyfoo' is not a number
+// <- true，'ponyfoo' 不是一个普通数字
 isNaN(NaN)
-// <- true, NaN is not a number
+// <- true，NaN 不是一个普通数字
 isNaN('pony'/'foo')
-// <- true, 'pony'/'foo' is NaN, NaN is not a number
+// <- true，'pony'/'foo' 是 NaN, NaN 不是一个普通数字
 ```
 
 ---
 
-## Number.isFinite vs. isFinite
+## Number.isFinite 对比 isFinite
 
-In JavaScript, calculations such as 1/0 don’t create an error. Instead, it gives you `Infinit` , which is a global property.
+在 JavaScript 中，类似 1/0 这样的计算不会产生错误。相反，它会返回全局对象的一个属性 `Infinity`。
 
-Then, how can you check if a value is an infinite value? You can’t. But you can check if a value is a finite value with `isFinite` and `Number.isFinite`.
+那么，如何检查一个值是否为无穷大呢？抱歉，您做不到。但是，您可以使用 `isFinite` 和 `Number.isFinite` 检查值是否为有限值。
 
-Basically how they work is the same, but they’re slightly different from each other.
+它们的工作原理基本相同，但彼此之间略有不同。
 
-* `isFinite` — checks if the passed value is finite. The passed value is converted to `Number` if its type isn’t `Number`.
-* `Number.isFinite` — checks if the passed value is finite. The passed value isn’t converted to `Number`.
+* `isFinite` —— 检查传入的值是否是有限值。如果传入的值的类型不是 `number` 类型，会尝试将这个值转换为 `number` 类型，再判断。
+* `Number.isFinite` —— 检查传入的值是否是有限值。即使传入的值的类型不是 `number` 类型，也不会尝试转换，而是直接判断。
 
 ```js
 Number.isFinite(Infinity) // false
@@ -89,14 +89,14 @@ isFinite('0') // true
 
 ---
 
-## Math.floor vs. Math.trunc
+## Math.floor 对比 Math.trunc
 
-In the past, when you needed to take out the digits on the right side of the dot of a number value, you probably used to use `Math.floor`. But from now on, try to use `Math.trunc` if what you really want is the integer part only.
+在过去，当您需要取出小数点右边的数字时，您可能会使用 `Math.floor` 这个函数。但是从现在开始，如果您真正想要的只是整数部分，可以尝试使用 `Math.trunc` 函数。
 
-* `Math.floor` — returns the largest integer less than or equal to a given number.
-* `Math.trunc` — truncates the dot and the digits to the right of it.
+* `Math.floor` —— 返回小于等于给定数字的最大整数。
+* `Math.trunc` —— 返回数的整数部分。
 
-Basically, they give you exactly the same result if a given number is positive. But the results are different if a given number is negative.
+基本上，如果给定的数是正数，它们会给出完全相同的结果。但是如果给定的数字是负数，结果就不同了。
 
 ```js
 Math.floor(1.23) // 1
@@ -111,9 +111,9 @@ Math.trunc(-0.1) // -0
 
 ---
 
-## Array.prototype.indexOf vs. Array.prototype.includes
+## Array.prototype.indexOf 对比 Array.prototype.includes
 
-When you’re looking for some value in a given array, how do you find it? I’ve seen many developers use `Array.prototype.indexOf`, like in the following example.
+当您想在给定数组中查找某个值时，如何查找它？我见过许多开发人员使用 `Array.prototype.indexOf`，如下面的例子所示。
 
 ```js
 const arr = [1, 2, 3, 4];
@@ -123,8 +123,8 @@ if (arr.indexOf(1) > -1) {
 }
 ```
 
-* `Array.prototype.indexOf` — returns the first index at which a given element can be found in the array or `-1` if it’s not present
-* `Array.prototype.includes `— checks if a given array includes a particular value you’re looking for and returns `true`/`false` as the result
+* `Array.prototype.indexOf` —— 返回可以在数组中找到给定元素的第一个索引，如果不存在，则返回 `-1`。
+* `Array.prototype.includes` —— 检查给定数组是否包含要查找的特定值，并返回 `true`/`false` 作为结果。
 
 ```js
 const students = ['Hong', 'James', 'Mark', 'James'];
@@ -136,13 +136,13 @@ students.indexOf('Sam') // -1
 students.includes('Sam') // false
 ```
 
-Be careful. The passed value is case-sensitive because of the Unicode differences.
+要注意，由于 Unicode 编码的差异，所以传入的值是大小写敏感的。
 
 ---
 
-## String.prototype.repeat vs. for Loop Manually
+## String.prototype.repeat 对比 for 循环 
 
-Before this feature was added, the way you made strings, such as `abcabcabc`, was to copy the strings and concatenate them to an empty string for however many times you wanted.
+在 ES6 添加此特性之前，生成像 `abcabcabc` 这样的字符串的方法是，根据您的需要将字符串复制多次并连接到一个空字符串后面。
 
 ```js
 var str = 'abc';
@@ -157,7 +157,7 @@ for (var i = 0; i < copyTimes; i += 1) {
 }
 ```
 
-But this is so unnecessarily long, quite messy, and hard to read sometimes. For this purpose, you can use `String.prototype.repeat`. All you need to do is pass the number that refers to how many times you want to copy the strings.
+但是这样写实在是又长又乱，有时候可读性也很差。为此，我们可以使用 `String.prototype.repeat` 函数。您所需要做的只是传入一个数字，该数字表示您希望重复字符串的次数。
 
 ```js
 'abc'.repeat(3) // "abcabcabc"
@@ -172,18 +172,18 @@ But this is so unnecessarily long, quite messy, and hard to read sometimes. For 
 'error'.repeat(Infinity) // RangeError
 ```
 
-The passed value must not be negative and must be less than infinity and not the overflow maximum string size.
+传入的值不能是负数，必须小于无穷大，并且还不能超过字符串的最大长度，不然会造成溢出。
 
 ---
 
-## String.prototype.match vs. String.prototype.includes
+## String.prototype.match 对比 String.prototype.includes
 
-To check if certain words are included in the strings, there are two ways to do it — `match` and `includes`.
+要检查字符串中是否包含某些特定字符串，有两种方法 —— `match` 函数和 `includes` 函数。
 
-* `String.prototype.match` — takes a parameter that is a RegExp type. All the flags that are supportive in RegExp are able to be used.
-* `String.prototype.includes` — takes two parameters, `searchString` as the first parameter and `position` as the second one. If `position` isn’t passed, the default value `0` will be used.
+* `String.prototype.match` —— 接收 RegExp 类型的参数。RegExp 中支持的所有标志都可以使用。
+* `String.prototype.includes` —— 接收两个参数，第一个参数是 `searchString`，第二个参数是 `position`。如果没有传入 `position` 参数，则使用默认值 `0`。
 
-The difference is that `includes` is case-sensitive, while `match` isn’t. You can put the `i` flag in the RegExp to make it perform as case-insensitive.
+这二者的不同之处在于 `includes` 函数是大小写敏感的，而 `match` 函数可以不是。您可以将标记 `i` 放在 RegExp 中，使其不区分大小写。
 
 ```js
 const name = 'jane';
@@ -198,65 +198,65 @@ str.match(nameReg)
 
 ---
 
-## String.prototype.concat vs. String.prototype.padStart
+## String.prototype.concat 对比 String.prototype.padStart
 
-`padStart` is a powerful method when you want to append some strings at the beginning of some strings.
+当您希望在一个字符串的开头添加一些字符串时，`padStart` 是一个很有用的方法。
 
-Also, `concat` can perform this as well nicely. But the main difference is `padStart` repeats the strings that’ll be padded from the first index of the result string to the first index of the current string.
+同样，`concat` 函数也可以很好地完成这个任务。但是最主要的区别是 `padStart` 函数会从结果字符串的第一位开始重复地将参数中的字符串填充到结果字符串。
 
-I’ll show you how to use this function.
+我将向您展示如何使用这个函数。
 
 ```js
 const rep = 'abc';
 const str = 'xyz';
 ```
 
-Here are two strings. What I want to do isadd `rep` in front of `xyz `— but not only one time. I want it to be repeated several times.
+这里有两个字符串。我想在 `xyz` 前面添加 `rep` —— 但是，不仅是只添加一次，我希望重复添加。
 
 ```js
 str.padStart(10, rep);
 ```
 
-`padStart` takes two parameters — the total length for the newly created result string and the strings that’ll be repeated. The easiest way to understand this function is to write down the letters with blanks.
+`padStart` 需要两个参数 —— 新创建的结果字符串的总长度和将要重复的字符串。理解这个函数最简单的方法是用空格代替字母写下来。
 
 ```
-// create empty 10 blanks
+// 新建 10 个空格
 1) _ _ _ _ _ _ _ _ _ _ 
 
-// fill out 'xyz' in str
+// 在空格中将 'xyz' 填入
 2) _ _ _ _ _ _ _ x y z
 
-// repeat 'abc' in rep, 
-// up until the first letter of 'xyz' appears
+// 在剩下的空格中重复 'abc'
+// 直到 'xyz' 的第一个字母出现
 3) a b c a b c a x y z
 
-// the result will be
-4) abcabcxyz
+// 结果最终会是
+4) abcabcaxyz
 ```
 
-This function is very useful for this feature, and it’s definitely hard to do this with `concat`, which also performs a string append.
+这个函数对于这个特定场景下非常有用，并且如果用 `concat`（ 一个同样用于执行字符串追加的函数）绝对很难做到。
 
-`padEnd` starts at the end of the position.
+`padEnd` 函数和 `padStart` 函数一样，只不过从位置的末尾开始。
 
 ---
 
-## Conclusion
+## 总结
 
-There are many fun and useful methods in JavaScript that aren’t widely common. But it doesn’t mean they’re useless. It’s all up to you how to use them in each situation.
+在 JavaScript 中有许多有趣又有用的方法。虽然它们并不常见，但这并不意味着它们毫无用武之地。如何巧妙地使用它们就取决于您了。
 
-#### Resources
+#### 参考资料
 
-* [Confusion Between isNaN and Number.isNaN in JavaScript](https://stackoverflow.com/questions/33164725/confusion-between-isnan-and-number-isnan-in-javascript)
-* [Number.isFinite — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite)
-* [isFinite — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isFinite)
-* [Math.trunc — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc)
-* [Math.floor — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor)
-* [Array.prototype.indexOf — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
-* [Array.prototype.includes — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
-* [String.prototype.repeat — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)
-* [String.prototype.math — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match)
-* [String.prototype.includes — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes)
-* [String.prototype.padStart — MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
+* [JavaScript 中 isNaN 函数和 Number.isNaN 函数之间的混淆](https://stackoverflow.com/questions/33164725/confusion-between-isnan-and-number-isnan-in-javascript)
+* [Number.isFinite —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite)
+* [isFinite —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isFinite)
+* [Math.trunc —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc)
+* [Math.floor —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor)
+* [Array.prototype.indexOf —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+* [Array.prototype.includes —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
+* [String.prototype.repeat —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)
+* [String.prototype.math —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match)
+* [String.prototype.includes —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes)
+* [String.prototype.padStart —— MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
