@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-to-cache-your-nodejs-application-with-redis-in-6-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-to-cache-your-nodejs-application-with-redis-in-6-minutes.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：[lsvih](https://github.com/lsvih)，
+> * 校对者：[lsvih](https://github.com/lsvih)，[GPH](https://github.com/PingHGao)
 
 # 用 6 分钟学习如何用 Redis 缓存您的 NodeJS 应用！
 
 ![](https://cdn-images-1.medium.com/max/4800/1*4DX0Dj0zI2q4MnqeO_Bfbg.png)
 
-缓存您的 web 应用非常重要，并且在应用扩展时缓存可以提高系统性能。Redis 可以是一个 **搜索引擎**，可以用最小的延迟来响应频繁查询的请求；可以是一个 **URL 请求的减法器**，可以更快地重定向到经常访问的 URL；可以是一个**社交网络**，可以更快地得到红人的用户资料。还可以是一个非常简单的从第三方 web API 请求数据的 web 服务器，它在项目扩展和缓存数据的情况下，表现是相当出色的！
+缓存您的 web 应用非常重要，并且在应用扩展时缓存可以提高系统性能。Redis 可以是一个 **搜索引擎**，可以用最小的延迟来响应频繁查询的请求；可以是一个**短链接生成器**，可以更快地重定向到经常访问的 URL；可以是一个**社交网络**，可以更快地得到红人的用户资料。还可以是一个非常简单的从第三方 web API 请求数据的 web 服务器，它在项目扩展和缓存数据的情况下，表现是相当出色的！
 
 ## 什么是 Redis？为什么要用 Redis？
 
@@ -17,7 +17,7 @@
 
 ## 概述
 
-今天，我们将在 **NodeJS** web 应用上实现基本的缓存机制，我们的 web 应用将会从 **[Star Wars API](https://swapi.co)** 请求**星球大战的星际飞船信息**。我们将学习如何将经常请求的星际飞船数据存储到我们的缓存中。之后我们 web 服务器的请求将首先搜索缓存，如果缓存不包含我们请求的数据，再向 [**Star Wars API**](https://swapi.co) 发送请求。这将使我们向第三方 API 发送更少的请求，从而总体上加快了我们应用的速度。为确保我们的缓存是最新的，缓存的数据将被设置生存时间（TTL），数据在一定时间后过期。听起来是不是很有意思？让我们开始吧！
+今天，我们将在 **NodeJS** web 应用上实现基本的缓存机制，我们的 web 应用将会从 **[Star Wars API](https://swapi.co)** 请求**星球大战的星际飞船信息**。我们将学习如何将频繁请求的星际飞船数据存储到我们的缓存中。之后我们 web 服务器的请求将首先搜索缓存，如果缓存不包含我们请求的数据，再向 [**Star Wars API**](https://swapi.co) 发送请求。这将使我们向第三方 API 发送更少的请求，从而总体上加快了我们应用的速度。为确保我们的缓存是最新的，缓存的数据将被设置生存时间（TTL），数据在一定时间后过期。听起来是不是很有意思？让我们开始吧！
 
 ## 安装 Redis
 
@@ -45,7 +45,7 @@ brew install redis
 
 您可以使用这个[简易指南](https://redislabs.com/blog/redis-on-windows-8-1-and-previous-versions/)在您的 Windows 机器上安装 Redis。
 
-## 启动 Redis 服务端 和 Redis CLI
+## 启动 Redis 服务端 和 Redis CLI 客户端
 
 在您的终端上，您可以运行以下命令在本地启动您的 Redis 服务端。
 
@@ -55,7 +55,7 @@ redis-server
 
 ![启动 Redis 服务端](https://cdn-images-1.medium.com/max/4866/1*X8YnTE55NZbp-V7ER4iKLw.png)
 
-要使用 Redis CLI，您可以新建一个终端窗口或者终端选项卡后，运行以下命令。
+要使用 Redis CLI 客户端，您可以新建一个终端窗口或者终端选项卡后，运行以下命令。
 
 ```bash
 redis-cli
@@ -79,7 +79,7 @@ redis-cli
 npm i express redis axios
 ```
 
-**Express** 将帮助我们设置服务器。我们将使用 **redis** 的包来将我们的应用连接到在我们机器上的本地运行 Redis 服务端，我们还将使用 **axios** 向 [**Star Wars API**](https://swapi.co) 请求数据。
+**Express** 将帮助我们设置服务器。我们将使用 **redis** 包来将我们的应用与在我们机器上本地运行的 Redis 服务端相连，我们还将使用 **axios** 向 [**Star Wars API**](https://swapi.co) 请求数据。
 
 #### 开发依赖
 
@@ -149,7 +149,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在 6379 端口
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
@@ -217,7 +217,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在 6379 端口
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
@@ -261,7 +261,7 @@ app.listen(port, () => console.log(`Server running on Port ${port}`));
 
 #### 添加到缓存
 
-Redis 将数据存储在键值对中，为了确保无论何时向 Star Wars API 发出请求，都能接收到成功的响应，我们要将星际飞船的 id 与其数据一起存储在缓存中。
+由于Redis 将数据以键值对的形式进行储存，我们需要确保无论何时向 Star Wars API 发出请求并成功接收到响应，我们就马上将星际飞船的 id 与其数据一起存储在缓存中。
 
 为此，我们将添加以下代码到接收到的来自 Star Wars API 的响应的那段代码后。
 
@@ -284,7 +284,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在 6379 端口
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
@@ -323,7 +323,7 @@ app.listen(port, () => console.log(`Server running on Port ${port}`));
 
 ![向 id 为 9 的星际飞船发送 GET 请求](https://cdn-images-1.medium.com/max/5760/1*0uTJdzOcDvPlEX7r3QumHw.png)
 
-如前所述，您可以使用以下命令从终端访问 Redis CLI。
+如前所述，您可以使用以下命令从终端访问 Redis CLI 客户端。
 
 ```bash
 redis-cli
@@ -374,7 +374,7 @@ const bodyParser = require("body-parser");
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//配置 Redis 客户端在 6379 端口
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
 //配置 express 服务器
