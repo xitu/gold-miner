@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-svg-icon-component-in-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-svg-icon-component-in-vue.md)
 > * 译者：[zoomdong](https://github.com/fireairforce)
-> * 校对者：
+> * 校对者：[Xu Jianxiang](https://github.com/Alfxjx)
 
 # 在 Vue 中编写 SVG 图标组件
 
-#### 一个类似图标字体的方法来使用 SVG
+#### 一种类似图标字体的酷方法来使用 SVG
 
 ![[Harpal Singh](https://unsplash.com/@aquatium?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 拍摄的照片](https://cdn-images-1.medium.com/max/12000/0*bac2YeLYkqgbsZuH)
 
 在考虑了将矢量图标从图标字体迁移到内联 SVG 的[原因](https://www.keycdn.com/blog/icon-fonts-vs-svgs)之后，我在 Vue.js 中找到了一个用 SVG 替换图标字体的解决方案，同时仍能保持使用图标字体的灵活性和易用性——能够使用 CSS 轻松改变图标的大小、颜色以及其它属性。
 
-一种流行的方法是使用 `v-html` 指令和 npm 模块 `html-loader` 来将 SVG 导入到我们的 Vue 模板中，并在 Vue 的生命周期函数 `mounted()` 中修改渲染的 `<svg>` 元素。
+一种流行的方法是使用 `v-html` 指令和 npm 模块 `html-loader` 来将 SVG 导入到我们的 Vue 模板中，并在 Vue 的生命周期函数 `mounted()` 中修改渲染的 `<svg>` 元素。CSS 样式可以直接应用到 `<svg>` 元素或者是其父元素上，并且这些能够组成一个可复用的组件。
 
 ## 创建 Svg-icon 组件
 
@@ -91,7 +91,7 @@ export default {
 
 所有对 `<svg>` 元素修改的地方都在 `mounted()` 生命周期方法里面。
 
-* 将 `<svg>` 元素的 `height` 或 `width` 属性设置为 `1em`（相对于由 `growByHeight` 定义的 `font-size` 的一倍）并对另一个元素使用 `widthToHeight`。由于并非所有的 SVG 都是正方形的，因此我们从渲染的元素计算 `withToHeight` 比率，以便 SVG 在父元素的 `font-size` 属性大小改变的时候按比例缩放到其原始尺寸。
+* 将由 `growByHeight` 定义的 `<svg>` 元素的 `height` 或 `width` 属性设置为 `1em`（`font-size` 的一倍）并对另一个元素使用 `widthToHeight`。由于并非所有的 SVG 都是正方形的，因此我们从渲染的元素计算 `withToHeight` 比率，以便 SVG 在父元素的 `font-size` 属性大小改变的时候按比例缩放到其原始尺寸。
 * 为了设置 `<svg>` 元素的 `fill` 属性，我们需要覆盖掉 SVG 文件内部附带的 `fill` 属性。当 `hasFill` 值为 true 的时候，我们从 `<svg>` 元素及其子元素中递归地删除 fill 属性。然后使用 CSS 选择器将 fill 值添加到其父元素或 `<svg>` 元素就可以了。
 * 还可以向元素中添加例如 `class` 等其它 DOM 属性，这些属性可用于设置组件中的范围样式
 
@@ -177,7 +177,7 @@ export default {
 
 ![Credit: [https://tympanus.net](https://tympanus.net)](https://cdn-images-1.medium.com/max/2000/1*gbV6Hisa64jh0tb5ughaig.gif)
 
-用于 SVG 被认为是未来的发展方向，因此最好不要使用图标字体，但同时仍然要保持图标字体的易用性。`Svg-icon` 组件是一个例子，告诉了我们如何使用可用的库来抽离出 `<svg>` 元素中的混乱部分，同时模仿使用图标字体的好处！
+由于 SVG 被认为是未来的发展方向，因此最好是在保留图标字体的易用性的基础上，逐步放弃使用图标字体。`Svg-icon` 组件是一个例子，告诉了我们如何使用可用的库来抽离出 `<svg>` 元素中的混乱部分，同时模仿使用图标字体的好处！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
