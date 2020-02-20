@@ -2,60 +2,60 @@
 > * 原文作者：[Abdullah Amin](https://medium.com/@abdamin)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-to-cache-your-nodejs-application-with-redis-in-6-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-to-cache-your-nodejs-application-with-redis-in-6-minutes.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Jessica](https://github.com/cyz980908)
+> * 校对者：[lsvih](https://github.com/lsvih)，[GPH](https://github.com/PingHGao)
 
-# Learn to Cache your NodeJS Application with Redis in 6 Minutes!
+# 用 6 分钟学习如何用 Redis 缓存您的 NodeJS 应用！
 
 ![](https://cdn-images-1.medium.com/max/4800/1*4DX0Dj0zI2q4MnqeO_Bfbg.png)
 
-Caching your web application is highly essential and can grant high performance gains as you scale. Be it a **search engine** and you want to respond to frequently requested queries with minimum latency, a **URL shortener** and you want to redirect to frequently accessed URLs faster, a **social network** and you want to load popular user profiles quicker, or perhaps a very simple web server that requests data from a third party web API and you have plans to scale, caching data can prove to be very fruitful!
+缓存您的 web 应用非常重要，并且在应用扩展时缓存可以提高系统性能。Redis 可以是一个 **搜索引擎**，可以用最小的延迟来响应频繁查询的请求；可以是一个**短链接生成器**，可以更快地重定向到经常访问的 URL；可以是一个**社交网络**，可以更快地得到红人的用户资料。还可以是一个非常简单的从第三方 web API 请求数据的 web 服务器，它在项目扩展和缓存数据的情况下，表现是相当出色的！
 
-## What is Redis? Why use Redis?
+## 什么是 Redis？为什么要用 Redis？
 
-**Redis** is a high performance open source **NoSQL** database primarily used as a caching solution for various types of applications. What is surprising is that it stores all its data in the RAM and promises highly optimized data reads and writes. Redis also supports many different data types and clients based on different programming languages. You can find out more about **Redis**[ here](https://redis.io/topics/introduction).
+**Redis** 是一个高性能的开源 **NoSQL** 数据库，主要是被用作各种类型的应用的缓存解决方案。它将所有数据存储在 RAM 中，并提供高度优化的数据读写。Redis 还支持许多不同的数据类型和基于很多不同编程语言的客户端。您可以在[这里](https://redis.io/topics/introduction)找到更多关于 **Redis** 的信息。
 
-## Overview
+## 概述
 
-Today, we will implement a basic cache mechanism ****on a **NodeJS** web application ****which requests **Star Wars Starships** information from the **[Star Wars API](https://swapi.co)**. We will learn how to store frequently requested Starships data to our cache. Future requests from our web server will first search the cache and only send a request to the [**Star Wars API**](https://swapi.co) if the cache does not contain the requested data. This will allow us to send less requests to the third party API and overall speed up our application. To make sure that our cache is up to date, the cached value will be set with a time to live (TTL) and will expire after a definite period of time. Sounds exciting? Let’s get started!
+今天，我们将在 **NodeJS** web 应用上实现基本的缓存机制，我们的 web 应用将会从 **[Star Wars API](https://swapi.co)** 请求**星球大战的星际飞船信息**。我们将学习如何将频繁请求的星际飞船数据存储到我们的缓存中。之后我们 web 服务器的请求将首先搜索缓存，如果缓存不包含我们请求的数据，再向 [**Star Wars API**](https://swapi.co) 发送请求。这将使我们向第三方 API 发送更少的请求，从而总体上加快了我们应用的速度。为确保我们的缓存是最新的，缓存的数据将被设置生存时间（TTL），数据在一定时间后过期。听起来是不是很有意思？让我们开始吧！
 
-## Redis Setup
+## 安装 Redis
 
-If you already have Redis installed on your local machine or if you are using a Redis cloud hosting solution, feel free to skip this step.
+如果您已经在本地机器上安装了 Redis，或者正在使用 Redis 云托管解决方案，就可以跳过这一步。
 
-#### Install on a Mac
+#### 在 Mac 上安装
 
-Redis can be installed on your Mac using **Homebrew**. If you do not have Homebrew installed on your Mac, you can run the following command on your terminal to install it,
+在 Mac 上 可以使用 **Homebrew** 来安装 Redis。如果您的 Mac 上没有安装 Homebrew，您可以在终端上运行以下命令来安装它。
 
 ```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Now you can install Redis by running the following command on your terminal,
+现在，您可以通过在终端上运行以下命令来安装 Redis。
 
 ```bash
 brew install redis
 ```
 
-#### Install on Ubuntu
+#### 在 Ubuntu 上安装
 
-You can use this [simple guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04) to install Redis on your Ubuntu machine.
+您可以使用这个[简易指南](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04)在您的 Ubuntu 机器上安装 Redis。
 
-#### Install on Windows
+#### 在 Windows 上安装
 
-You can use this [simple guide](https://redislabs.com/blog/redis-on-windows-8-1-and-previous-versions/) to install Redis on your Windows machine.
+您可以使用这个[简易指南](https://redislabs.com/blog/redis-on-windows-8-1-and-previous-versions/)在您的 Windows 机器上安装 Redis。
 
-## Start Redis Server and Redis CLI
+## 启动 Redis 服务端 和 Redis CLI 客户端
 
-On your terminal you can run the following command to start your Redis server locally,
+在您的终端上，您可以运行以下命令在本地启动您的 Redis 服务端。
 
 ```bash
 redis-server
 ```
 
-![Start Redis Server](https://cdn-images-1.medium.com/max/4866/1*X8YnTE55NZbp-V7ER4iKLw.png)
+![启动 Redis 服务端](https://cdn-images-1.medium.com/max/4866/1*X8YnTE55NZbp-V7ER4iKLw.png)
 
-To access the Redis CLI, you can run the following command on a separate terminal window/tab,
+要使用 Redis CLI 客户端，您可以新建一个终端窗口或者终端选项卡后，运行以下命令。
 
 ```bash
 redis-cli
@@ -63,35 +63,35 @@ redis-cli
 
 ![Redis CLI](https://cdn-images-1.medium.com/max/2874/1*lPYgPudVRWd1HoJA5khQsQ.png)
 
-Just like any other database solution installed locally on your machine, you can interact with Redis using its CLI. I recommend you to checkout this guide on the [Redis CLI](https://redis.io/topics/rediscli). However, we will only focus on setting up Redis as a caching solution for our NodeJS web application and interact with it through our web server only.
+就像在您的机器上安装的任何其他数据库解决方案一样，您可以使用 Redis 的 CLI 与它进行交互。关于 [Redis CLI](https://redis.io/topics/rediscli) 我推荐看它的官方指南。但是，在这里我们只关注于将 Redis 用于我们的 NodeJS web 应用的缓存解决方案，并只通过我们的 web 服务器与它进行交互。
 
-## NodeJS Project Setup
+## NodeJS 项目安装
 
-In a separate folder, run **npm init** to setup your NodeJS project.
+在一个单独的文件夹中，运行 **npm init**  来构建您的 NodeJS 项目。
 
-![NodeJS App Setup with **npm init**](https://cdn-images-1.medium.com/max/3728/1*sVU5v2M6FEOMd9LtLaMoOQ.png)
+![使用 **npm init** 来构建 NodeJS 应用](https://cdn-images-1.medium.com/max/3728/1*sVU5v2M6FEOMd9LtLaMoOQ.png)
 
-#### Project Dependencies
+#### 项目依赖
 
-We will use a set of dependencies with our NodeJS application. Run the following command in the terminal from your our directory,
+我们将在 NodeJS 应用中使用一系列的依赖项。在您的项目目录下的终端中运行以下命令。
 
 ```bash
 npm i express redis axios
 ```
 
-**Express** will help us set our server. We will use the **redis** package to connect our app to the Redis server running locally on our machine and we will use **axios** to make requests to the [**Star Wars API**](https://swapi.co) to fetch data.
+**Express** 将帮助我们设置服务器。我们将使用 **redis** 包来将我们的应用与在我们机器上本地运行的 Redis 服务端相连，我们还将使用 **axios** 向 [**Star Wars API**](https://swapi.co) 请求数据。
 
-#### Dev Dependencies
+#### 开发依赖
 
-We will also use **nodemon** as our **dev-dependency** to be able to save and run our changes to our server without having to restart it. Run the following command in the terminal from our project directory,
+我们还将使用 **nodemon** 作为我们的 **开发依赖** 从而能够在项目代码更改保存后立即运行到我们的服务器而不必重新启动它（译者注：也就是热更新）。在我们的项目目录的终端中运行以下命令。
 
 ```bash
 npm i -D nodemon
 ```
 
-#### Setup start script in package.json
+#### 在 package.json 中设置启动脚本
 
-Replace the existing scripts in **package.json** with the following script so that we can run our server with **nodemon**,
+用以下脚本替换 **package.json** 中的现有脚本，以便我们可以使用 **nodemon** 运行服务器。
 
 ```
 "start": "nodemon index"
@@ -128,72 +128,72 @@ Replace the existing scripts in **package.json** with the following script so th
 
 ```
 
-#### Setup our Initial Server Entry Point : index.js
+#### 设置我们的初始服务器的入口文件：index.js
 
-Run the following command in the terminal from our project directory to create the **index.js** file,
+在我们的项目目录的终端中运行以下命令来创建 **index.js** 文件。
 
 ```bash
 touch index.js
 ```
 
-The following is what our **index.js** file will look like after adding some code,
+下面是 **index.js** 文件添加了一些代码后的样子。
 
 ```JavaScript
-//set up dependencies
+//设置依赖
 const express = require("express");
 const redis = require("redis");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 
-//setup port constants
+//设置端口常量
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//configure redis client on port 6379
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
-//configure express server
+//配置 express 服务器
 const app = express();
 
-//Body Parser middleware
+//Body 解析中间件
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//listen on port 5000;
+//监听 5000 端口
 app.listen(port, () => console.log(`Server running on Port ${port}`));
 ```
 
-If you have worked with **NodeJS** and **ExpressJS** before, this should look pretty straightforward. First, we set up the dependencies that we previously installed using npm. Secondly, we setup our port constants and create our Redis client. Also, we configure our Redis client on **port 6379** and our Express server on **port 5000**. We also setup **Body-Parser** on our server to be able to parse JSON data. You can run the following command in the terminal to run the web server using the start script from **package.json**,
+如果您以前使用过 **NodeJS** 和 **ExpressJS**，那么这应该难不倒您。首先，我们设置之前使用 npm 安装的依赖项。接着，我们设置端口常量并创建我们的 Redis 客户端。最后，我们在**6379 端口** 上配置我们的 Redis 客户端，在 **5000 端口**上配置我们的 Express 服务器。我们还在服务器上设置了 **Body-Parser**，来解析 JSON 数据。您可以在终端中运行以下命令来使用 **package.json** 中的启动脚本运行 web 服务器。
 
 ```bash
 npm start
 ```
 
-**Note** that our Redis server should be running on another terminal, as mentioned earlier, in order to successfully connect our NodeJS app to Redis.
+**注意**，如前所述，我们的 Redis 服务端应该运行在另一个终端上，以便成功地将我们的NodeJS 应用连接到 Redis。
 
-You should now be able to see the following output on your terminal indicating that your web server is running on **port 5000**,
+您现在应该能够在终端上看到以下输出，它表明您的 web 服务器正在 **5000 端口** 上运行。
 
 ![](https://cdn-images-1.medium.com/max/2876/1*1W6F-j0EtdYKDrgJj4hjHg.png)
 
-## Setup Server Endpoint to send a request to the Star Wars API
+## 发送请求到 Star Wars API
 
-Now that we have our project setup, let’s write some code to setup an endpoint to send a **GET** request to the **Star Wars API** to get Starships data.
+现在我们已经完成了我们的项目设置，让我们编写一些代码来发送一个 **GET** 请求到  **Star Wars API** 来获得星际飞船的数据。
 
-Note that we will make a GET request to **[https://swapi.co/api/starships/](https://swapi.co/api/starships/${id}):id** to fetch the data of a Starship corresponding to the identifier **id** in our URL.
+注意，我们将向 **[https://swapi.co/api/starships/](https://swapi.co/api/starships/${id}):id** 发送一个 GET 请求来获取与 URL 中的标识符 **id** 相对应的星际飞船的数据。
 
-The following is how our endpoint will look like,
+下面是后端代码的样子。
 
 ```js
-// Endpoint:  GET /starships/:id
+// 请求路由： GET /starships/:id
 
-// @desc Return Starships data for particular starship id
+// @desc 返回特定 id 星际飞船的飞船数据
 app.get("/starships/:id", async (req, res) => {
   try {
        const { id } = req.params;
        const starShipInfo = await axios.get(
        `https://swapi.co/api/starships/${id}`
        );
-       //get data from response
+       //从响应中获取数据
        const starShipInfoData = starShipInfo.data;
        return res.json(starShipInfoData);
   } 
@@ -204,31 +204,31 @@ app.get("/starships/:id", async (req, res) => {
 });
 ```
 
-We will use a traditional **async** call back function with try and catch blocks to make GET requests to the **Star Wars API** using **axios**. On success, our endpoint will return the data of the Starship corresponding to the id in the URL. Otherwise our endpoint will respond with an error. Simple.
+我们将使用一个带有 try 和 catch 块的传统**异步**回调函数和 **axios** 向 **Star Wars API** 发出 GET 请求。如果成功，我们的请求路由将返回与 URL 中 id 对应的星际飞船数据。否则，我们的请求将返回一个错误。这很简单吧。
 
 ```JavaScript
-//set up dependencies
+//设置依赖
 const express = require("express");
 const redis = require("redis");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 
-//setup port constants
+//设置端口常量
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//configure redis client on port 6379
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
-//configure express server
+//配置 express 服务器
 const app = express();
 
-//Body Parser middleware
+//Body 解析中间件
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//  Endpoint:  GET /starships/:id
-//  @desc Return Starships data for particular starship id
+//  请求路由： GET /starships/:id
+//  @desc 返回特定 id 星际飞船的飞船数据
 app.get("/starships/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -236,7 +236,7 @@ app.get("/starships/:id", async (req, res) => {
       `https://swapi.co/api/starships/${id}`
     );
 
-    //get data from response
+    //从响应中获取数据
     const starShipInfoData = starShipInfo.data;
 
     return res.json(starShipInfoData);
@@ -249,53 +249,53 @@ app.get("/starships/:id", async (req, res) => {
 app.listen(port, () => console.log(`Server running on Port ${port}`));
 ```
 
-Let’s try running our endpoint by searching for a Starship with **id=9.**
+让我们尝试通过运行我们的代码来搜索 **id=9** 的星际飞船。
 
 ![http://localhost:5000/starships/9](https://cdn-images-1.medium.com/max/5684/1*8omThnreKe-2gQHS29U9Rw.png)
 
-Woah! That works. But did you notice the time it took to fulfill the request? In order to do this, you can check the network tab under chrome developer tools in your browser.
+哇！请求成功了。但是您注意到完成请求所花费的时间了吗? 您可以在浏览器的 Chrome 开发工具下检查网络选项卡来查看花费的时间。
 
-**769 ms.** That is slow! This is where **Redis** comes to rescue.
+**769 ms。** 太慢了！这就是 **Redis** 的用武之地了。
 
-## Implement Redis Cache for our Endpoint
+## 为服务实现 Redis 缓存 
 
-#### Add to Cache
+#### 添加到缓存
 
-Since Redis stores data in key value pairs, we need to make sure that whenever a request is made to the Star Wars API and we receive a successful response, we store the Starship id paired with its data in our cache.
+由于Redis 将数据以键值对的形式进行储存，我们需要确保无论何时向 Star Wars API 发出请求并成功接收到响应，我们就马上将星际飞船的 id 与其数据一起存储在缓存中。
 
-In order to do that we will add the following line of code to our endpoint after we receive a response from the Star Wars API,
+为此，我们将添加以下代码到接收到的来自 Star Wars API 的响应的那段代码后。
 
 ```js
-//add data to Redis
+//向 Redis 增加数据
 
 redis_client.setex(id, 3600, JSON.stringify(starShipInfoData));
 ```
 
-The above command allows us to add **key=id** with **expiration=3600 seconds** and **value= JSON Stringified formatted data of our Starship** to the cache. This is what our **index.js** should now look like,
+上面代码的意思是我们将 **key=id**、**expiration=3600s**、**value=JSON 字符串格式化后的星际飞船数据**添加到缓存中。现在我们的 **index.js** 是这个样子。
 
 ```JavaScript
-//set up dependencies
+//设置依赖
 const express = require("express");
 const redis = require("redis");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 
-//setup port constants
+//设置端口常量
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//configure redis client on port 6379
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
-//configure express server
+//配置 express 服务器
 const app = express();
 
-//Body Parser middleware
+//Body 解析中间件
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//  Endpoint:  GET /starships/:id
-//  @desc Return Starships data for particular starship id
+//  请求路由： GET /starships/:id
+//  @desc 返回特定 id 星际飞船的飞船数据
 app.get("/starships/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -303,10 +303,10 @@ app.get("/starships/:id", async (req, res) => {
       `https://swapi.co/api/starships/${id}`
     );
 
-    //get data from response
+    //从响应中获取数据
     const starShipInfoData = starShipInfo.data;
 
-    //add data to Redis
+    //向 Redis 增加数据
     redis_client.setex(id, 3600, JSON.stringify(starShipInfoData));
 
     return res.json(starShipInfoData);
@@ -319,11 +319,11 @@ app.get("/starships/:id", async (req, res) => {
 app.listen(port, () => console.log(`Server running on Port ${port}`));
 ```
 
-Now if we go to the browser and make a GET request for a Starship, it’s data will also be added to our Redis cache.
+现在如果我们打开浏览器，对星际飞船发送 GET 请求，它的数据就会被添加到我们的 Redis 缓存中。
 
-![GET Request for Starship id 9](https://cdn-images-1.medium.com/max/5760/1*0uTJdzOcDvPlEX7r3QumHw.png)
+![向 id 为 9 的星际飞船发送 GET 请求](https://cdn-images-1.medium.com/max/5760/1*0uTJdzOcDvPlEX7r3QumHw.png)
 
-As mentioned earlier, you can access the Redis CLI from the terminal using the following command,
+如前所述，您可以使用以下命令从终端访问 Redis CLI 客户端。
 
 ```bash
 redis-cli
@@ -331,60 +331,60 @@ redis-cli
 
 ![](https://cdn-images-1.medium.com/max/2884/1*fhmGALJ_lJ6WksnQ9fo1_A.png)
 
-Running the command **get 9** shows us that our data for Starship with **id=9** was indeed added to the cache!
+运行命令 **get 9** 表明，**id=9**的星际飞船数据确实添加到了我们的缓存中！
 
-#### Check and Retrieve from Cache
+#### 从缓存中检查并检索数据
 
-Now we only need to send a GET request to the **Star Wars API** if the data we need does not exist in the cache. We will use **Express middleware** to implement a function that checks our cache before executing the code inside our endpoint. The function will be passed as the **second argument** to our endpoint function.
+现在，只有在缓存中不存在所需的数据时，我们才需要向 **Star Wars API** 发送 GET 请求。我们将使用 **Express 中间件**来实现这个函数，它在执行向 **Star Wars API** 的请求之前会检查缓存。它将作为**第二个参数**传递到我们之前写好的请求函数中。
 
-The middleware function will be as follows,
+中间件函数如下所示。
 
 ```js
-//Middleware Function to Check Cache
+//用于检查缓存的中间件函数
 checkCache = (req, res, next) => {
        const { id } = req.params;
-       //get data value for key =id
+       //得到 key = id 的数据
        redis_client.get(id, (err, data) => {
            if (err) {
                console.log(err);
                res.status(500).send(err);
            }
-           //if no match found
+           //如果没有找到对应的数据
            if (data != null) {
                res.send(data);
            } 
            else {
-               //proceed to next middleware function
+               //继续下一个中间件函数
                next();
            }
         });
 };
 ```
 
-index.js after adding checkCache middleware function:
+添加 checkCache 中间件函数后的 index.js：
 
 ```JavaScript
-//set up dependencies
+//设置依赖
 const express = require("express");
 const redis = require("redis");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 
-//setup port constants
+//设置端口常量
 const port_redis = process.env.PORT || 6379;
 const port = process.env.PORT || 5000;
 
-//configure redis client on port 6379
+//配置 Redis 客户端使用 6379 端口
 const redis_client = redis.createClient(port_redis);
 
-//configure express server
+//配置 express 服务器
 const app = express();
 
-//Body Parser middleware
+//Body 解析中间件
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//Middleware Function to Check Cache
+//用于检查缓存的中间件函数
 checkCache = (req, res, next) => {
   const { id } = req.params;
 
@@ -393,18 +393,18 @@ checkCache = (req, res, next) => {
       console.log(err);
       res.status(500).send(err);
     }
-    //if no match found
+    //如果没有找到对应的数据
     if (data != null) {
       res.send(data);
     } else {
-      //proceed to next middleware function
+      //继续下一个中间件函数
       next();
     }
   });
 };
 
-//  Endpoint:  GET /starships/:id
-//  @desc Return Starships data for particular starship id
+//  请求路由： GET /starships/:id
+//  @desc 返回特定 id 星际飞船的飞船数据
 app.get("/starships/:id", checkCache, async (req, res) => {
   try {
     const { id } = req.params;
@@ -412,10 +412,10 @@ app.get("/starships/:id", checkCache, async (req, res) => {
       `https://swapi.co/api/starships/${id}`
     );
 
-    //get data from response
+    //从响应中获取数据
     const starShipInfoData = starShipInfo.data;
 
-    //add data to Redis
+    //向 Redis 增加数据
     redis_client.setex(id, 3600, JSON.stringify(starShipInfoData));
 
     return res.json(starShipInfoData);
@@ -428,17 +428,17 @@ app.get("/starships/:id", checkCache, async (req, res) => {
 app.listen(port, () => console.log(`Server running on Port ${port}`));
 ```
 
-Let’s make a GET request again for Starship with **id=9**.
+让我们再次发送一个 GET 请求向我们 **id=9** 的星际飞船。
 
 ![](https://cdn-images-1.medium.com/max/5760/1*Jmu98b42pna6v4t626M7gg.png)
 
-**115 ms.** That is almost a **7x** performance boost!
+**115 ms。**性能几乎提升了 **7 倍**！
 
-## Conclusion
+## 总结
 
-It is important to note that we have only scratched the surface in this tutorial and there is a lot more that Redis has to offer! I highly recommend checking out its [official documentation](https://redis.io/documentation). This is the [**link**](https://github.com/abdamin/redis-node-tutorial) to the **Github** **repository** with the complete code of our application.
+值得注意的是，我们在本教程中只是讲了些皮毛而已，Redis 还有很多更多的功能！我强烈建议您查看它的[官方文档](https://redis.io/documentation)。[**这个链接**](https://github.com/abdamin/redis-node-tutorial)是我们应用的完整代码的 Github 仓库地址。
 
-If you have any questions, feel free to leave a comment. Also, if this helped you, please like and share it with others. I publish articles related to web development regularly. Consider [**entering your email here**](https://abdullahsumsum.com/subscribe) to stay up to date with articles and tutorials related to web development. You can also find out more about what I do at [**abdullahsumsum.com**](http://abdullahsumsum.com/)
+如果您有任何问题，请尽管留言。另外，如果这篇文章对您有帮助，您请可以帮忙转发分享。我会定期发布与 web 开发相关的文章。您可以在[**此处输入您的电子邮件**](https://abdullahsumsum.com/subscribe)以获取有关 web 开发相关的文章和教程的最新信息。您还可以在 [**abdullahsumsum.com**](http://abdullahsumsum.com/) 上找到有关我的更多信息。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
