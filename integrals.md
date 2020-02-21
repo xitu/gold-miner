@@ -5931,10 +5931,12 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：256.5 当前积分：236.5
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：258.5 当前积分：238.5 二零二零：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 2 月推荐文章 1 篇|奖励|1|
+|2020 年 1 月推荐文章 1 篇|奖励|1|
 |2019 年 10 至 12 月推荐文章 5 篇|奖励|5|
 |[深入解析 Flutter Provider 包](https://juejin.im/post/5e01a677518825124c50e99d)|翻译|6.5|
 |[类型及其在参数中的应用：能优化代码的的 Dart 特性](https://juejin.im/post/5dea0a4551882512252db2d7)|翻译|3|
@@ -8644,10 +8646,11 @@
 |[用 Rust 打造你的第一个命令行工具](https://juejin.im/post/5cb33b94e51d456e63760453)|校对|1.5|
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|校对|1.5|
 
-## 译者：[ccJia](https://github.com/ccJia) 历史贡献积分：37 当前积分：37
+## 译者：[ccJia](https://github.com/ccJia) 历史贡献积分：38 当前积分：38 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 2 月推荐文章 1 篇|奖励|1|
 |[在 Python 中过度使用列表解析器和生成表达式](https://juejin.im/post/5d281b0ff265da1b8b2b8ae0)|翻译|5|
 |[在 Keras 下使用自编码器分类极端稀有事件](https://juejin.im/post/5cff17296fb9a07ec63b0a7f)|翻译|5|
 |[在数据可视化中，我们曾经“画”下的那些错误](https://juejin.im/post/5cd39e1de51d453a3a0acb7b)|翻译|7|
@@ -8804,10 +8807,13 @@
 |[ES6：理解参数默认值的实现细节](https://juejin.im/post/5cd0eab95188251b984d8abe)|翻译|3.5|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：68 当前积分：68
+## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：77 当前积分：77 二零二零：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 2 月推荐文章 4 篇|奖励|4|
+|2020 年 1 月推荐文章 4 篇|奖励|4|
+|2020 年 1 月推荐文章 1 篇|奖励|1|
 |2019 年 11 月 12 月推荐文章 2 篇|奖励|2|
 |[理解递归、尾调用优化和蹦床函数优化](https://juejin.im/post/5e003a67e51d45583f44d396)|翻译|14|
 |[将 GraphQL 概念可视化](https://juejin.im/post/5de480d7f265da05ce3b7368)|翻译|5|
@@ -9028,10 +9034,11 @@
 |[Flutter 布局备忘录](https://juejin.im/post/5cfe0d136fb9a07efc497d7d)|校对|1.5|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|1.5|
 
-## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：21.5 当前积分：21.5
+## 译者：[lihaobhsfer](https://github.com/lihaobhsfer) 历史贡献积分：22.5 当前积分：22.5 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 1 月推荐文章 1 篇|奖励|1|
 |2019 年 11 月推荐文章 1 篇|奖励|1|
 |[我们为何抛弃 Redux 拥抱 MobX](https://juejin.im/post/5e068fa551882512657bc16c)|翻译|4.5|
 |[微前端：未来前端开发的新趋势 — 第二部分](https://juejin.im/post/5d1a91c7e51d45775f516ab9)|翻译|6.5|
@@ -9261,10 +9268,11 @@
 |[作为初级开发人员，我没有学过的 7 个绝对真理](https://juejin.im/post/5d3d25dce51d457756536881)|校对|2|
 |[喷泉码和动态二维码](https://juejin.im/post/5d391ae1f265da1bb0040352)|校对|1.5|
 
-## 译者：[Pingren](https://github.com/Pingren) 历史贡献积分：40 当前积分：40
+## 译者：[Pingren](https://github.com/Pingren) 历史贡献积分：42 当前积分：42 二零二零：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 1 月推荐文章 2 篇|奖励|2|
 |2019 年 9 月推荐文章 1 篇|奖励|1|
 |[我个人的 Git 技巧备忘录](https://juejin.im/post/5e006ad4e51d45582248e63f)|翻译|4.5|
 |[如何使用 Mountebank 和 Node.js 来 Mock 服务](https://juejin.im/post/5dad5a6951882509674032cd)|翻译|12|
@@ -9279,10 +9287,11 @@
 |------|-------|-------|
 |[敏捷也许是个问题](https://juejin.im/post/5d2dfb4ae51d45775f516b1e)|校对|1.5|
 
-## 译者：[LanceZhu](https://github.com/LanceZhu) 历史贡献积分：2 当前积分：2
+## 译者：[LanceZhu](https://github.com/LanceZhu) 历史贡献积分：3 当前积分：3 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 2 月推荐文章 1 篇|奖励|1|
 |[npm 的经济风云 —— 下半部分](https://juejin.im/post/5d2d9e7af265da1b8b2b91ca)|校对|2|
 
 ## 译者：[imononoke](https://github.com/imononoke) 历史贡献积分：6 当前积分：6
@@ -9457,10 +9466,11 @@
 |------|-------|-------|
 |[关于现代应用样式的探讨](https://juejin.im/post/5db93b67f265da4d417648a1)|校对|2|
 
-## 译者：[vitoxli](https://github.com/vitoxli) 历史贡献积分：13.5 当前积分：13.5
+## 译者：[vitoxli](https://github.com/vitoxli) 历史贡献积分：14.5 当前积分：14.5 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 1 月推荐后端文章 1 篇|奖励|1|
 |[使用 JavaScript 编写 JSON 解析器](https://juejin.im/post/5e098728f265da33cd03c6c7)|校对|3.5|
 |2019 年 11 月 12 月推荐文章 2 篇|奖励|2|
 |[使用 Redux Offline 和 Apollo 进行离线 GraphQL 查询](https://juejin.im/post/5e00a06f6fb9a0161a0c3d78)|翻译|4|
