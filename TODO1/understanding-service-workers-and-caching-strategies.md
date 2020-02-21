@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-service-workers-and-caching-strategies.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-service-workers-and-caching-strategies.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[noname](https://github.com/Eternaldeath)
 
 # 理解 Service Worker 和缓存策略
 
@@ -17,7 +17,7 @@
 
 ![Service Worker 就像一个中间人👷‍♂️](https://cdn-images-1.medium.com/max/2000/1*st7O3EJn6_lrz9QkG0McvQ.png)
 
-不同的 Service Worker 运行在不同的线程上，它们是没有权限直接访问 DOM 元素的，就像 一个个与 DOM 和 Web 页面没有交互的 Javascript。虽然不能直接访问 DOM，但是它们可以通过 **postMessage** 间接访问 DOM。如果您打算构建一个渐进式 Web 应用，那么您应该熟练掌握 Service Worker 和缓存策略。
+不同的 Service Worker 运行在不同的线程上，它们是没有权限直接访问 DOM 元素的，就像一个个与 DOM 和 Web 页面没有交互的 Javascript。虽然不能直接访问 DOM，但是它们可以通过 **postMessage** 间接访问 DOM。如果您打算构建一个渐进式 Web 应用，那么您应该熟练掌握 Service Worker 和缓存策略。
 
 > **注意：** Service worker 不是 Web Worker。Web Worker 是在不同线程上运行运行负载密集型计算的脚本，它不会阻塞主事件循环，也不会阻塞 UI 的渲染。
 
@@ -45,7 +45,7 @@
 
 #### 安装（Install）
 
-在 Service Worker 注册好时，将触发 **install** 事件。我们可以在 **sw.js** 文件中监听此事件。在添加代码之前，先让我们了解一下在这个 **install** 事件中应该做些什么。
+在 Service Worker 注册好时，将触发 **install** 事件。我们可以在 **sw.js** 文件中监听此事件。在深入了解代码前，先让我们了解一下在这个 **install** 事件中应该做些什么。
 
 * 我们想在此事件中设置缓存。
 * 将所有静态资源添加到缓存中。
