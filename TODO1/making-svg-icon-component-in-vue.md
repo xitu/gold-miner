@@ -2,26 +2,26 @@
 > * 原文作者：[Achhunna Mali](https://medium.com/@achhunna)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-svg-icon-component-in-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-svg-icon-component-in-vue.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zoomdong](https://github.com/fireairforce)
+> * 校对者：[Xu Jianxiang](https://github.com/Alfxjx)
 
-# Making SVG Icon Component in Vue
+# 在 Vue 中编写 SVG 图标组件
 
-#### A Cool Way to Use SVGs Like Icon Fonts
+#### 一种类似图标字体的酷方法来使用 SVG
 
-![Photo by [Harpal Singh](https://unsplash.com/@aquatium?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*bac2YeLYkqgbsZuH)
+![[Harpal Singh](https://unsplash.com/@aquatium?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 拍摄的照片](https://cdn-images-1.medium.com/max/12000/0*bac2YeLYkqgbsZuH)
 
-After considering [reasons](https://www.keycdn.com/blog/icon-fonts-vs-svgs) to migrate vector icons from icon fonts to inline SVGs, I looked for a solution in Vue.js to replace icon fonts with SVGs, while still maintaining the flexibility and easy-of-use of using icon fonts — ability to change the size, color and other attributes easily through CSS.
+在考虑了将矢量图标从图标字体迁移到内联 SVG 的[原因](https://www.keycdn.com/blog/icon-fonts-vs-svgs)之后，我在 Vue.js 中找到了一个用 SVG 替换图标字体的解决方案，同时仍能保持使用图标字体的灵活性和易用性——能够使用 CSS 轻松改变图标的大小、颜色以及其它属性。
 
-One popular method is to use `v-html` directive and `html-loader` npm module to import SVGs into our Vue template and modify the rendered `<svg>` element in Vue’s `mounted()` lifecycle method. Styles can then be applied directly to the `<svg>` or to its parent and everything can be wrapped in a component for reusability.
+一种流行的方法是使用 `v-html` 指令和 npm 模块 `html-loader` 来将 SVG 导入到我们的 Vue 模板中，并在 Vue 的生命周期函数 `mounted()` 中修改渲染的 `<svg>` 元素。CSS 样式可以直接应用到 `<svg>` 元素或者是其父元素上，并且这些能够组成一个可复用的组件。
 
-## Creating Svg-icon Component
+## 创建 Svg-icon 组件
 
-Let’s create `Svg-icon.vue` component file with three props.
+让我们创建 `Svg-icon.vue` 组件文件，并在里面接收三个 prop 变量。
 
-1. `icon` string prop to pass the `.svg` filename to import
-2. `hasFill` boolean prop which tells the component if `fill` property will be used to change the color of the `<svg>` element, default is false i.e. no `fill`
-3. `growByHeight` boolean prop to determine to use `height` or `width` to scale relative to the `font-size`, default is true i.e. use `height`
+1. `icon` 是一个字符串类型的 prop 变量用来传递 `.svg` 文件名的导入
+2. `hasFill` 是一个布尔类型的 prop 变量来告诉组件 `fill` 属性是否用于更改 `<svg>` 元素的颜色，默认值为 false 即不使用 `fill` 属性
+3. `growByHeight` 是一个布尔类型的 prop 变量来决定 `height` 或 `width` 是否相对于 `font-size` 进行缩放，默认值为 true 即使用 `height`
 
 ```Vue
 <script>
@@ -87,23 +87,23 @@ export default {
 </style>
 ```
 
-We pass the icon `.svg` file to `html-loader` in `require()` method which stringifies it and is rendered into `<svg>` element by `v-html` directive.
+我们将 `.svg` 图标文件通过 `require()` 传递给 `html-loader` 方法，该方法会将文件字符串化，并且通过 `v-html` 指令将其渲染为 `<svg>` 元素。
 
-The `mounted()` lifecycle method is where all modifications to the `<svg>` element happen.
+所有对 `<svg>` 元素修改的地方都在 `mounted()` 生命周期方法里面。
 
-* Set either `height` or `width` attribute of the `<svg>` element to `1em` (relative to 1x the `font-size`) determined by `growByHeight` and use `widthToHeight` for the other. Since not all SVGs are square shaped, we calculate `widthToHeight` ratio from the rendered element so that the SVG scales proportionately to its original dimensions as the parent’s `font-size` property changes.
-* In order to set the `fill` attribute of the `<svg>` element, we need override the inline `fill` that comes with the SVG file. When `hasFill` is true, we recursively remove fill attributes from `<svg>` element and its children. Then adding a `fill` value using CSS selector to its parent or the `<svg>` element will do the trick.
-* Additional DOM attributes like `class` can also be added to the element which can be used to scoped-styling in the component
+* 将由 `growByHeight` 定义的 `<svg>` 元素的 `height` 或 `width` 属性设置为 `1em`（`font-size` 的一倍）并对另一个元素使用 `widthToHeight`。由于并非所有的 SVG 都是正方形的，因此我们从渲染的元素计算 `withToHeight` 比率，以便 SVG 在父元素的 `font-size` 属性大小改变的时候按比例缩放到其原始尺寸。
+* 为了设置 `<svg>` 元素的 `fill` 属性，我们需要覆盖掉 SVG 文件内部附带的 `fill` 属性。当 `hasFill` 值为 true 的时候，我们从 `<svg>` 元素及其子元素中递归地删除 fill 属性。然后使用 CSS 选择器将 fill 值添加到其父元素或 `<svg>` 元素就可以了。
+* 还可以向元素中添加例如 `class` 等其它 DOM 属性，这些属性可用于设置组件中的范围样式
 
 ---
 
-## Creating Smile Icon
+## 创建微笑图标
 
-Let’s create a smile icon using icon fonts from [Font Awesome](https://fontawesome.com/icons/smile?style=solid) as well as our `Svg-icon` component.
+让我们使用 [Font Awesome](https://fontawesome.com/icons/smile?style=solid) 和我们的 `Svg-icon` 组件中的图标字体创建一个微笑图标。
 
 ![smile-solid, credit: [https://fontawesome.com/license](https://fontawesome.com/license)](https://cdn-images-1.medium.com/max/2276/1*TegYEwSxB4dJEFql2T1k9A.png)
 
-#### Using Icon Fonts
+#### 使用图标字体
 
 ```Vue
 <template>
@@ -122,9 +122,9 @@ Let’s create a smile icon using icon fonts from [Font Awesome](https://fontawe
 </style>
 ```
 
-The CSS selector for `.smile-icon` class sets the `font-size` and `color` of the icon along with `:hover` psuedo-class.
+`.smile-icon` 类的 CSS 选择器以及伪类选择器 `:hover` 来设置图标的 `font-size` 和 `color` 属性。
 
-#### Using Svg-icon Component
+#### 使用 Svg-icon 组件
 
 ```Vue
 <script>
@@ -156,11 +156,11 @@ export default {
 </style>
 ```
 
-Above implementation is identical to the icon fonts method, except for the `.smile-icon` class is in the parent element and `color` attribute is replaced by `fill` in the `Svg-icon` component case. We also need to ensure that the `smile-solid.svg` file is in the path that’s specified in our `Svg-icon` component’s `require()` method ( `./assets/svg/` ).
+上面的实现和图标字体方法相同，除了 `.smile-icon` 类在父元素中，在 `Svg-icon` 组件中，`color` 属性被替换为 `fill`。我们还必须确保 `smile-solid.svg` 文件位于 `Svg-icon` 组件的 `require()` 方法指定的路径（`./assets/svg/`）中。
 
-#### Rendered HTML
+#### 渲染成 HTML
 
-This is the rendered HTML that `v-html` outputs. Note: all `fill` attributes are removed and `height` and `width` attributes are added to `<svg>` .
+这是由 `v-html` 的输出渲染的 HTML。注意：会删除掉所有的 `fill` 属性，并将 `height` 和 `width` 属性添加到 `<svg>` 中。
 
 ```html
 <div class="smile-icon">
@@ -173,11 +173,11 @@ This is the rendered HTML that `v-html` outputs. Note: all `fill` attributes are
 
 ---
 
-## Transitioning to SVGs
+## 过渡到 SVG
 
 ![Credit: [https://tympanus.net](https://tympanus.net)](https://cdn-images-1.medium.com/max/2000/1*gbV6Hisa64jh0tb5ughaig.gif)
 
-Since SVGs are considered the way of the future, it is good to migrate away from using icon fonts while still retaining the ease of use that icon fonts provide. The `Svg-icon` component is an example of how we can use available libraries to abstract away the messy parts of `<svg>` element, while mimicking the good part of using icon fonts!
+由于 SVG 被认为是未来的发展方向，因此最好是在保留图标字体的易用性的基础上，逐步放弃使用图标字体。`Svg-icon` 组件是一个例子，告诉了我们如何使用可用的库来抽离出 `<svg>` 元素中的混乱部分，同时模仿使用图标字体的好处！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
