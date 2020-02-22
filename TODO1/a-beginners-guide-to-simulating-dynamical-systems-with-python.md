@@ -7,7 +7,7 @@
 
 # A Beginner’s Guide to Simulating Dynamical Systems with Python
 
-#### Numerically Integrate ODEs in Python
+> Numerically Integrate ODEs in Python
 
 ![Photo by [Dan Meyers](https://unsplash.com/@dmey503?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*GZYR2gufn9IzhkSu)
 
@@ -61,7 +61,7 @@ With our equations set up, let’s turn to the code to model this.
 
 Start by importing the relevant libraries.
 
-```
+```python
 import numpy as np
 from scipy import integrate
 import matplotlib.pyplot as plt
@@ -69,7 +69,7 @@ import matplotlib.pyplot as plt
 
 We need to set some of our values. Let the mass and length be 1 kg and 1 m respectively, and for now at least, we’ll ignore friction by setting b=0. We’ll simulate the pendulum swinging starting from π/2 (raised 90 degrees to the right) and released with no initial velocity. We can simulate this for 10 seconds with a time discretization (Δt) of 0.02 seconds.
 
-```
+```python
 # Input constants 
 m = 1 # mass (kg)
 L = 1 # length (m)
@@ -90,7 +90,7 @@ We’ll demonstrate two ways to simulate this, first by numerical integration us
 
 To integrate using `scipy`, we need to build a function for our model. We’ll call it `int_pendulum_sim` for our integrated simulation. This model will take our initial values for θ_1​ and θ_2​ (labeled `theta_init` above) and integrate for a single time step. It then returns the resulting theta values. The function itself is just going to be two equations for θ˙_1​ and θ˙_2​ that we derived above.
 
-```
+```python
 def int_pendulum_sim(theta_init, t, L=1, m=1, b=0, g=9.81):
     theta_dot_1 = theta_init[1]
     theta_dot_2 = -b/m*theta_init[1] - g/L*np.sin(theta_init[0])
@@ -99,7 +99,7 @@ def int_pendulum_sim(theta_init, t, L=1, m=1, b=0, g=9.81):
 
 We can simulate our system by passing our function as an argument to `scipy.integrate.odeint`. In addition, we need to give our initial values and the time to simulate over.
 
-```
+```python
 theta_vals_int = integrate.odeint(int_pendulum_sim, theta_init, t)
 ```
 
@@ -135,7 +135,7 @@ This gives us a convenient way to update our model at each time step to get the 
 
 As we loop through these in our simulation, we’ll update t0t_0t0​ to be the previous time step, so we’ll be incrementally moving the model forward. Also, note that this is the **semi-implicit Euler method**, meaning that in our second equation, we’re using the most recent θ_1​(t) that we calculated rather than θ_1​(t_0​) as a straight application of the Taylor Series Expansion would warrant. We make this subtle substitution because, without it, our model would diverge. Essentially, the approximation we make using TSE has some error in it (remember, we threw away those higher order terms) and this error compounds. In this application, the error introduces new energy into our pendulum — something clearly in violation of the first law of thermodynamics. Making this substitution fixes all of that.
 
-```
+```python
 def euler_pendulum_sim(theta_init, t, L=1, g=9.81):
     theta1 = [theta_init[0]]
     theta2 = [theta_init[1]]
@@ -151,7 +151,7 @@ def euler_pendulum_sim(theta_init, t, L=1, g=9.81):
 
 Now running this new function:
 
-```
+```python
 theta_vals_euler = euler_pendulum_sim(theta_init, t)
 ```
 
@@ -159,7 +159,7 @@ theta_vals_euler = euler_pendulum_sim(theta_init, t)
 
 The plot looks good, so let’s see if it matches our previous results.
 
-```
+```python
 mse_pos = np.power(
     theta_vals_int[:,0] - theta_vals_euler[:,0], 2).mean()
 mse_vel = np.power(
