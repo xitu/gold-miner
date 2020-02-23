@@ -7,7 +7,7 @@
 
 # The 7 Programming Languages & Frameworks to Learn in 2020
 
-#### Curated recommendations for passionate coders
+> Curated recommendations for passionate coders
 
 ![](https://cdn-images-1.medium.com/max/3200/1*uNbcaiAZZpcxl3t_zUrT-g.jpeg)
 
