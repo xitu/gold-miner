@@ -40,8 +40,6 @@ You should consider using when:-
 * Building a large team with code controls
 * Looking for a framework that easily scalable and resilient
 
----
-
 ## 2. Golang
 
 ![](https://cdn-images-1.medium.com/max/2000/1*8qCZoI4RWtnQ03R7CgnuEg.png)
@@ -59,8 +57,6 @@ You should consider using when:-
 * Quick development, easy to build, and shorter learning curve
 * Building async & multi-threaded services
 
----
-
 ## 3. Python — Django Framework
 
 **Django** framework considered one of the best Python frameworks in building web applications, and it’s free and open-source. Django offers stability, packages, best documentation and it has good community support.
@@ -75,8 +71,6 @@ You should consider using when:-
 * API driven applications
 * Don’t mind monolith architecture
 * Data analytics solutions and Machine Learning
-
----
 
 ## 4. Node.js — Express
 
@@ -96,8 +90,6 @@ You should consider using when:-
 * Minimizing the expenses spent on hiring backend development team
 * You don’t want to disturb or wait for your existing backend team 😆
 
----
-
 ## 5. Angular — Web Framework
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Y547A1WkJDBXb4OYF_JSjg.png)
@@ -116,8 +108,6 @@ You should consider using when:-
 * You like to write Typescript than JavaScript 🙄
 * It is supported by **Google**!
 
----
-
 ## 6. Vue.js — The Progressive JavaScript Framework
 
 ![](https://cdn-images-1.medium.com/max/2000/1*cV6-boeahoMGTxf4Ob9sUw.png)
@@ -135,8 +125,6 @@ You should consider using when:-
 * Medium learning curve
 * You can read Chinese 😉
 * You like JavaScript very much (this is me!)
-
----
 
 ## 7. Ionic framework
 
