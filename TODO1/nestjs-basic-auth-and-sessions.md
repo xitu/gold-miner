@@ -2,84 +2,84 @@
 > * 原文作者：[Just Another Typescript Blog](https://blog.exceptionfound.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nestjs-basic-auth-and-sessions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nestjs-basic-auth-and-sessions.md)
-> * 译者：
+> * 译者：[Jessica](https://github.com/cyz980908)
 > * 校对者：
 
-# NestJS Basic Auth and Sessions
+# NestJS 实现基本用户认证和会话
 
-> **Code Disclaimer**
+> **代码免责声明**
 >
-> All code on this website is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+> 本网站所有代码均为免费软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证的条款，重新发布或者修改它。其中许可证的版本为 3 或者（由您选择的）任何更新版本。
 >
-> All code on this website is is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+> 我希望文章里的所有代码能够对您有所帮助，但是关于代码我**并不能作任何担保**。甚至代码的性能和特定用途的合适性我也无法保证。有关更多细节，请参阅 GNU 通用公共许可证。
 
-In this article, I am exploring NestJS and the Authentication strategy, this mostly documents my journey in figuring our how to implement auth strategy in NestJS by using knowledge from Node. **It is not meant to be used in production as it is**.
+在这篇文章中，我正在探索 NestJS 和认证策略，这主要记录了我如何使用 Node 的知识在 NestJS 中实现认证策略的过程。**但是，这不意味着您在实际项目中要像我这么做**.
 
-In this post we are going to explore how we can easily implement Basic Auth and Session management using [passport.js](https://github.com/jaredhanson/passport) in [NestJS Framework](https://docs.nestjs.com/).
+在本文中，我们将探讨如何在 [NestJS](https://docs.nestjs.com/)中使用 [passport.js](https://github.com/jaredhanson/passport) 来轻松地实现基本的身份验证和会话管理。
 
-First off all clone this pre set-up starter project from github which includes all the libraries needed for this tutorial in **package.json** and run **npm install.**
+首先，从 github 克隆这个预设置好的入门项目，其中在 **package.json** 文件中包含了本教程所需的所有库，然后执行 **npm install**。
 
 * [https://github.com/artonio/nestjs-session-tutorial](https://github.com/artonio/nestjs-session-tutorial)
-* [https://github.com/artonio/nestjs-session-tutorial-finished](https://github.com/artonio/nestjs-session-tutorial-finished) – finished source code.
+* [https://github.com/artonio/nestjs-session-tutorial-finished](https://github.com/artonio/nestjs-session-tutorial-finished) —— 项目的完整源码。
 
-This project will make use of the following concepts and libraries.
+本项目将使用以下概念和库。
 
-* [Swagger](https://swagger.io/) – the ultimate documentation for your REST API endpoints as well as a great tool to quickly test your API, the project was set up with swagger using the [documentation](https://docs.nestjs.com/recipes/swagger) from NestJS website.
-* [Exception Filters](https://docs.nestjs.com/exception-filters) – The built-in **exceptions layer** is responsible for handling all thrown exceptions across your whole application. When an unhandled exception is caught, the end-user will receive an appropriate user-friendly response. What it means is that we can throw an exception anywhere in our application and the global exception handler will catch it and return a predefined JSON response.
-* [TypeORM](http://typeorm.io/#/) – A surprisingly robust and mature ORM given how young it is. Written in TypeScript. Supports both [ActiveRecord and DataMapper](http://typeorm.io/#/active-record-data-mapper) patterns. Supports caching and many, many more features. Excellent documentation. Support most SQL and NoSQL dbs. For this project we are going to use sqlite. We will use ActiveRecord pattern for this tutorial. [TypeORM TypeDocs (like javadocs)](http://typeorm-doc.exceptionfound.com/)
-* [Custom Decorator](https://docs.nestjs.com/custom-decorators)  – We will create a custom route decorator to access our User object from the session.
-* Basic Auth – User authentication using Basic Auth header
-* [Sessions](https://github.com/expressjs/session) – Once the user is authenticated, a session and a cookie will be created so that on each request that requires the user information we will be able to access the logged in user from the session object.
+* [Swagger](https://swagger.io/) —— 它能为您的应用生成对应的 REST API 接口的最终文档。同时还是一个快速测试 API 的好工具。您可以在 NestJS 网站浏览到有关 Swagger 的[文档](https://docs.nestjs.com/recipes/swagger)，来在我们的项目中使用 Swagger。
+* [Exception Filters](https://docs.nestjs.com/exception-filters) —— 它是 NestJS 内置的异常层，负责处理整个应用中抛出的所有异常。当捕获到未处理的异常时，通过它，最终用户将收到适当的用户友好响应。这意味着我们在应用中的任何地方抛出的异常，都会被全局异常处理程序捕获并且返回预定义的 JSON 响应。
+* [TypeORM](http://typeorm.io/#/) —— 它是一个年轻的框架，但它有着令人惊讶的健壮性，也是一个成熟的 ORM 框架。它使用 TypeScript 编写。同时支持  [ActiveRecord 和 DataMapper](http://typeorm.io/#/active-record-data-mapper) 模式，还支持缓存等许多其他功能。它的文档也十分优秀。TypeORM 支持大多数 SQL 和 NoSQL 数据库。对于本项目，我们将使用 sqlite 数据库。在本教程中，我们将使用 ActiveRecord 模式。[TypeORM TypeDocs（类似 javadocs）](http://typeorm-doc.exceptionfound.com/)
+* [Custom Decorator](https://docs.nestjs.com/custom-decorators)  —— 我们将创建一个自定义的路由装饰器来在 session 中访问用户对象。
+* Basic Auth —— 使用 Basic Auth Header 的用户身份验证。
+* [Sessions](https://github.com/expressjs/session) —— 一旦用户通过身份验证，就会创建一个 session 和一个 cookie，这样在每个需要用户信息的请求中，我们都能够从 session 对象中访问登录的用户。
 
-#### Database Schema
+#### 数据库 schema
 
 ![](http://blog.exceptionfound.com/wp-content/uploads/2018/06/Screen-Shot-2018-06-06-at-8.27.09-PM-196x300.png?189db0&189db0)
 
-**What we are going to build.** The schema is very basic. Users have many Projects. We want to be able to log in with user credentials that match a record in the database, once logged in we will use a cookie to retrieve projects for the user.
+**我们将要创建的。** 本项目的 schema 很简单。我们有很多 user 和 project，但一个 user 只能够匹配到自己对应的 project。我们希望能够使用与数据库中的记录匹配的用户凭证进行登录，一旦登录，我们将使用 cookie 为用户检索项目。
 
-**Functionality**. Create users. Create a project for logged in user. Get all Users. Get all projects for logged in user. We will not cover update or delete.
+**功能设计。** 创建 user；为登录的 user 创建一个 project；获取所有 user；获取所有已登录 user 的 project。我们将不包括更新或删除功能。
 
-#### Project Structure
+#### 项目结构
 
 ![](http://blog.exceptionfound.com/wp-content/uploads/2018/06/project_structure-185x300.png?189db0&189db0)
 
-**Common.** Custom Exceptions and filters.
+**common 目录：** 自定义异常和异常过滤器。
 
-**Project.** Project Service, Project Controller, Project DB Entity, Project module.
+**project 目录：** project 服务、project 控制器、 project 数据库实体、project 模块。
 
-**User.** User Service, User Controller, User DB Entity, User Module.
+**user 目录：** user 服务、user 控制器、user 数据库实体、user 模块。
 
-**Auth.** AppAuthGuard, Cookie Serializer/Deserializer, Http Strategy, Session Guard, Auth Service, Auth Module.
+**auth 目录：** AppAuthGuard、Cookie 序列化器/反序列化器、Http 策略、Session Guard、Auth 服务、Auth 模块。
 
-#### Creating User module
+#### 创建 user 模块
 
-**Prerequisite: You must have @nest/cli installed globally**
+**前提：必须全局安装 @nest/cli**
 
-###### Create User Module
+###### 创建 user 模块
 
 ```
 nest g mo user
 ```
 
-This should create a user directory and a user module inside it.
+这将会创建一个 user 目录和一个 user 模块。
 
-###### Create User Controller
+###### 创建 user 控制器
 
 ```
 nest g co user
 ```
 
-This should place a user controller into a user directory and update user module.
+这将 user 的控制器放入 user 目录并更新 user 模块。
 
-###### Create User Service
+###### 创建 user 服务
 
 ```
 nest g s user
 ```
 
-This will create a user service and update the user module, however for me I think there is a **bug/feature**? The user service ends up being placed into root project folder instead of the user folder, make sure to move it manually into the user folder and update user module if it happens to you.
+这将创建一个 user 服务并更新 user 模块。但是我的 user 服务最终被放置在根项目文件夹下而不是 user 文件夹中，我不是很清楚这是个 **bug 还是 Nestjs的框架特性**？如果您也碰上了这种情况，请手动将其移动到 user 文件夹中，并更新 user 模块中 user 服务的引用路径。
 
-###### Create User Entity
+###### 创建 user 实体
 
 ```typescript
 import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
@@ -122,14 +122,14 @@ export class UserEntity extends BaseEntity {
     }
 
     @OneToMany(type => ProjectEntity, project => project.user)
-    projects: ProjectEntity\[\];
+    projects: ProjectEntity[];
 
-    public static async findAll(): Promise<UserEntity\[\]> {
-        const users: UserEntity\[\] = await UserEntity.find();
+    public static async findAll(): Promise<UserEntity[]> {
+        const users: UserEntity[] = await UserEntity.find();
         if (users.length > 0) {
             return Promise.resolve(users);
         } else {
-            throw new AppError(AppErrorTypeEnum.NO\_USERS\_IN_DB);
+            throw new AppError(AppErrorTypeEnum.NO_USERS_IN_DB);
         }
 
     }
@@ -148,16 +148,16 @@ export class UserEntity extends BaseEntity {
 }
 ```
 
-A few notes here on UserEntity. We will use a TypeScript **setter** to automatically hash the password when the password property is set. The file is using AppError and AppErrorTypeEnum, don’t worry we will create it in a bit. We are also going to set the following properties on the password_hash variable.:
+这里有一些关于 UserEntity 的注意事项。当设置 password 属性时，我们将使用 TypeScript 的 **setter** ，并哈希加密我们的密码。在这个文件中，我们使用到了 AppError 和 AppErrorTypeEnum。不要担心，我们稍后会创建它们。我们还将在 password_hash 变量上设置以下属性： 
 
-* **select: false –** do not return this column when using find methods or running a query to select a user.
-* **name: ‘password’ –** set the actual column name to be password, if this options is not set then TypeORM will autogenerate a column name from the variable name.
+* **select: false ——** 当查询某个用户时，不要返回此列信息。
+* **name: ‘password’ ——** 将实际列名设置为 “password”，如果未设置此选项，TypeORM 则会将变量名自动生成为列名。
 
-#### Create Project Module
+#### 创建 project 模块
 
-Create the Project Module the same way that we used to create a **User Module.** Also create a Project Service and a Project Controller.
+创建 project 模块的方式与创建 **user 模块**的方式相同。一样，也将创建一个 project 服务和一个 project 控制器。
 
-###### Create Project Entity
+###### 创建 project 实体
 
 ```typescript
 import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
@@ -179,9 +179,9 @@ export class ProjectEntity extends BaseEntity{
 }
 ```
 
-Now we need to tell TypeORM about these entities and we need to set the configuration options to let TypeORM connect to our sqlite db.
+现在我们需要告诉 TypeORM 这些实体的信息，并且还需要设置配置选项，以便让 TypeORM 连接到 sqlite 数据库。
 
-In AppModule add this:
+在 AppModule 中添加以下内容：
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -194,26 +194,26 @@ import {UserEntity} from './user/user.entity';
 import {ProjectEntity} from './project/project.entity';
 
 @Module({
-  imports: \[
+  imports: [
       TypeOrmModule.forRoot({
           type: 'sqlite',
           database: `${process.cwd()}/tutorial.sqlite`,
-          entities: \[UserEntity, ProjectEntity\],
+          entities: [UserEntity, ProjectEntity],
           synchronize: true,
           // logging: 'all'
       }),
       UserModule,
       ProjectModule,
-  \],
-  controllers: \[AppController\],
-  providers: \[ AppService \],
+  ],
+  controllers: [AppController],
+  providers: [ AppService ],
 })
 export class AppModule {}
 ```
 
-**logging** is commented out but you can read more about it [here](http://typeorm.io/#/logging).
+**logging** 是日志相关，这里我们被注释掉了，但您可以在[此处](http://typeorm.io/#/logging)了解更多信息。
 
-**User Module** should look like this:
+**user 模块**现在应该是这样的：
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -223,14 +223,14 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {UserEntity} from './user.entity';
 
 @Module({
-    imports: \[TypeOrmModule.forFeature(\[UserEntity\])\],
-    controllers: \[UserController\],
-    providers: \[UserService\]
+    imports: [TypeOrmModule.forFeature([UserEntity])],
+    controllers: [UserController],
+    providers: [UserService]
 })
 export class UserModule {}
 ```
 
-**Project Module** should look like this:
+**project 模块**现在应该是这样的：
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -240,33 +240,33 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {ProjectEntity} from './project.entity';
 
 @Module({
-    imports: \[TypeOrmModule.forFeature(\[ProjectEntity\])\],
-    controllers: \[ProjectController\],
-    providers: \[ProjectService\]
+    imports: [TypeOrmModule.forFeature([ProjectEntity])],
+    controllers: [ProjectController],
+    providers: [ProjectService]
 })
 export class ProjectModule {}
 ```
 
-###### Setting up global exception handling
+###### 设置全局异常处理
 
-Under **src/** create ‘common’ directory and inside we will have two directories: error and filters. (Refer to project structure screenshot)
+在 **src/** 目录下创建 common 目录，在它内部，我们将创建两个目录：error 和 filters。（可参考文章开头的项目结构截图）
 
-#### Error Directory
+#### Error 目录
 
-Create **AppErrorTypeEnum.ts**
+如下所示，创建 **AppErrorTypeEnum.ts** 文件。
 
 ```typescript
 export const enum AppErrorTypeEnum {
-    USER\_NOT\_FOUND,
+    USER_NOT_FOUND,
     USER_EXISTS,
-    NOT\_IN\_SESSION,
-    NO\_USERS\_IN_DB
+    NOT_IN_SESSION,
+    NO_USERS_IN_DB
 }
 ```
 
-Here we will create a **const** enum, const enums do not generate objects but rather generate a  simple var->number relationship and if you do not need to find a string representation of your enum it is more performant to create an enum const.
+这里我们将创建一个 **const** enum, 这里它并不生成对象，而是生成一个简单的 var->number 的关系映射，如果不是必须需要查找枚举的表示形式为字符串，选择创建 enum const 的话，性能会更高。
 
-Create **IErrorMessage.ts**
+如下所示，创建 **IErrorMessage.ts** 文件。
 
 ```typescript
 import {AppErrorTypeEnum} from './AppErrorTypeEnum';
@@ -280,9 +280,9 @@ export interface IErrorMessage {
 }
 ```
 
-This will be the structure of the JSON that will be returned back to the user.
+这将是返回给用户的 JSON 结构。
 
-And finally, create **AppError.ts**
+最终，如下所示，创建 **AppError.ts** 文件。
 
 ```typescript
 import {AppErrorTypeEnum} from './AppErrorTypeEnum';
@@ -314,9 +314,9 @@ export class AppError extends Error {
         let res: IErrorMessage;
 
         switch (errorCode) {
-            case AppErrorTypeEnum.USER\_NOT\_FOUND:
+            case AppErrorTypeEnum.USER_NOT_FOUND:
                 res = {
-                    type: AppErrorTypeEnum.USER\_NOT\_FOUND,
+                    type: AppErrorTypeEnum.USER_NOT_FOUND,
                     httpStatus: HttpStatus.NOT_FOUND,
                     errorMessage: 'User not found',
                     userMessage: 'Unable to find the user with the provided information.'
@@ -330,17 +330,17 @@ export class AppError extends Error {
                     userMessage: 'Username exists'
                 };
                 break;
-            case AppErrorTypeEnum.NOT\_IN\_SESSION:
+            case AppErrorTypeEnum.NOT_IN_SESSION:
                 res = {
-                    type: AppErrorTypeEnum.NOT\_IN\_SESSION,
+                    type: AppErrorTypeEnum.NOT_IN_SESSION,
                     httpStatus: HttpStatus.UNAUTHORIZED,
                     errorMessage: 'No Session',
                     userMessage: 'Session Expired'
                 };
                 break;
-            case AppErrorTypeEnum.NO\_USERS\_IN_DB:
+            case AppErrorTypeEnum.NO_USERS_IN_DB:
                 res = {
-                    type: AppErrorTypeEnum.NO\_USERS\_IN_DB,
+                    type: AppErrorTypeEnum.NO_USERS_IN_DB,
                     httpStatus: HttpStatus.NOT_FOUND,
                     errorMessage: 'No Users exits in the database',
                     userMessage: 'No Users. Create some.'
@@ -353,11 +353,11 @@ export class AppError extends Error {
 }
 ```
 
-This will be the error that we throw anywhere within our code and the global exception handler will catch it and return an Object that conforms to the IErrorMessage structure.
+这段代码表示，我们在代码中的任何地方抛出错误时，全局异常处理程序将捕获它并返回一个符合 IErrorMessage 结构的对象。
 
-#### Filters Directory
+#### filters 目录
 
-Create **DispatchError.ts**
+如下所示，创建 **DispatchError.ts** 文件。
 
 ```typescript
 import {ArgumentsHost, Catch, ExceptionFilter, HttpStatus, UnauthorizedException} from '@nestjs/common';
@@ -387,22 +387,22 @@ export class DispatchError implements ExceptionFilter {
         else {
             console.error(exception.message);
             console.error(exception.stack);
-            return res.status(HttpStatus.INTERNAL\_SERVER\_ERROR).send();
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send();
         }
     }
 
 }
 ```
 
-You can implement this class any way you like, this is just an example of things that you can do.
+您可以用任何您喜欢的方式实现这个类，上面这个代码只是一个小例子。
 
-Now all we have to do is tell our app to use this filter, nothing is simpler. In our **main.ts** add this:
+现在我们要做的就是告诉我们的应用使用此过滤器，这很简单。在我们的 **main.ts** 中添加以下内容：
 
 ```typescript
 app.useGlobalFilters(new DispatchError());
 ```
 
-Now, your **main.ts** file should look like this:
+现在，您的 **main.ts** 文件看起来应该是这样：
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -426,9 +426,9 @@ async function bootstrap() {
 bootstrap();
 ```
 
-#### Creating and fetching Users
+#### 创建和获取 user
 
-Ok, now we are ready to add some logic to create users and fetch users. Let’s follow the Spring Boot style of services. Out user service will implement IUserService. Create **IUserService.ts** in user folder. Also we are going to need to define a model that will be coming in the request to create user. Create a **user/models/CreateUserDto.ts**
+好的，现在我们准备添加一些逻辑来创建和获取 user。让我们遵循 Spring Boot 中服务的风格。我们的 user 服务将在 IUserService 中实现。在 user 文件夹，创建 **IUserService.ts** 文件。同时，我们还需要定义一个 model，这个 model 将在创建 user 的请求中使用到。创建 **user/models/CreateUserDto.ts** 文件。
 
 ```typescript
 import {ApiModelProperty} from '@nestjs/swagger';
@@ -448,9 +448,9 @@ export class CreateUserDto {
 }
 ```
 
-The purpose of this class is to essentially tell swagger what kind of data structure it should send.
+这个类的目的主要是告诉 Swagger 它应该发送什么样的数据结构。
 
-And here is our **IUserService.ts**
+这里是我们的 **IUserService.ts**。
 
 ```typescript
 import {CreateUserDto} from './models/CreateUserDto';
@@ -458,13 +458,13 @@ import {UserEntity} from './user.entity';
 import {ProjectEntity} from '../project/project.entity';
 
 export interface IUserService {
-    findAll(): Promise<UserEntity\[\]>;
+    findAll(): Promise<UserEntity[]>;
     createUser(user: CreateUserDto): Promise<UserEntity>;
-    getProjectsForUser(user: UserEntity): Promise<ProjectEntity\[\]>;
+    getProjectsForUser(user: UserEntity): Promise<ProjectEntity[]>;
 }
 ```
 
-**user.service.ts**
+这里是我们的 **user.service.ts**。
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -475,7 +475,7 @@ import {ProjectEntity} from '../project/project.entity';
 
 @Injectable()
 export class UserService implements IUserService{
-    public async findAll(): Promise<UserEntity\[\]> {
+    public async findAll(): Promise<UserEntity[]> {
         return await UserEntity.findAll();
     }
 
@@ -483,13 +483,13 @@ export class UserService implements IUserService{
        return await UserEntity.createUser(user);
     }
 
-    public async getProjectsForUser(user: UserEntity): Promise<ProjectEntity\[\]> {
+    public async getProjectsForUser(user: UserEntity): Promise<ProjectEntity[]> {
         return undefined;
     }
 }
 ```
 
-And finally: **user.controller.ts**
+最后是 **user.controller.ts**。
 
 ```typescript
 import {Body, Controller, Get, HttpStatus, Post, Req, Res, Session} from '@nestjs/common';
@@ -508,7 +508,7 @@ export class UserController {
     @ApiResponse({ status: 200, description: 'User Found.'})
     @ApiResponse({ status: 404, description: 'No Users found.'})
     public async getAllUsers(@Req() req: Request, @Res() res, @Session() session) {
-        const users: UserEntity\[\] = await this.usersService.findAll();
+        const users: UserEntity[] = await this.usersService.findAll();
         return res
                 .status(HttpStatus.OK)
                 .send(users);
@@ -524,15 +524,15 @@ export class UserController {
 }
 ```
 
-Beautiful thing about the controller is it just send the success result back to the user, we do not need to handle any errors as they are handled by the global exception handler.
+控制器的优雅之处在于它只是将成功结果返回给用户，我们不需要处理任何错误异常，因为它们是由全局异常处理程序处理的。
 
-Now let’s run our server by running either **npm run start** or **npm run start:dev** (this command will monitor your code for changes and restart the server each time you save). After the server has started, go to [http://localhost:3000/api/#/.](http://localhost:3000/api/#/)
+现在，通过运行 **npm run start** 或者 **npm run start:dev** 来启动服务器（后者将监视您的代码更改，并在每次保存时重新启动服务器）。服务器启动后，访问[http://localhost:3000/api/#/](http://localhost:3000/api/#/)。
 
-If everything went well you should see swagger interface and a few endpoints. Explore the **tutorial.sqlite** with your favorite sqlite editor (firefox has sqlite extension) and confirm the schema. Experiment with running get all users when there are no users in db. It should return 404 and a JSON containing the userMessage, errorMessage etc (the message that we defined in our **AppError.ts**). Create a User and run get all users. If that all works then let’s proceed to create a **login** endpoint. If it does not, leave comments.
+如果一切顺利，您应该会看到 Swagger 的界面和一些 API 接口。阅读 **sqlite 的教程** 并选择您喜爱的 sqlite 工具（Firefox 浏览器有 sqlite 的扩展插件）确认数据的 schema 是否正确。当数据库中没有用户时，尝试获取所有 user，它应该会返回状态码 404 和一个包含 userMessage、errorMessage 等 (我们在 **AppError.ts** 中定义的信息)的 JSON。现在，创建一个 user 再执行获取所有 user。如果一切正常，那么我们继续创建一个**登录**的 API 接口。如果有问题，请在评论区留下问题。
 
-#### Implementing Authentication
+#### 实现认证
 
-Add to the end of **user.controller.ts**
+在 **user.controller.ts** 文件后追加如下代码。
 
 ```typescript
 @Post('login')
@@ -543,7 +543,7 @@ public async login(@Req() req: Request, @Res() res: Response, @Session() session
 }
 ```
 
-**@ApiBearerAuth()** annotation is for swagger to know that with this request we want to send basic auth in header. There is however, one more thing we must add to our **main.ts**
+**@ApiBearerAuth()** 注解是为了让 Swagger 知道，通过此请求，我们希望在 Header 中发送 Basic Auth。但是，我们还必须添加一些代码到 **main.ts** 中。
 
 ```typescript
 const options = new DocumentBuilder()
@@ -555,9 +555,9 @@ const options = new DocumentBuilder()
         .build();
 ```
 
-Now, if we restart the server, we should see a little lock icon next to our api endpoint. It does not do anything yet, so let’s add some logic. Now at the time of writing this tutorial, in my opinion the documentation on how to do properly implement this is not complete, I followed this [NestJS Docs](https://docs.nestjs.com/techniques/authentication) to implement this and also I ran into the following [issue](https://github.com/nestjs/passport/issues/7). Nevertheless after poking around the [@nestjs/passport](https://github.com/nestjs/passport) lib I got it to work with the following:
+现在，如果重新启动服务器，我们可以在 API 接口旁边看到一个小锁图标。但这个接口现在什么都没有，所以让我们给它添加一些逻辑。在我写这篇教程的时候，我认为有关如何正确实现此操作的文档尚不完善，我跟着 [NestJS 官方文档](https://docs.nestjs.com/techniques/authentication) 来实现，但遇到了以下[问题](https://github.com/nestjs/passport/issues/7)。不过，我发现  [@nestjs/passport](https://github.com/nestjs/passport) 这个库，我可以将其与以下内容一起使用：
 
-Before we set up our auth logic we need to add the following to **main.ts**
+在设置我们的认整逻辑之前，我们需要将以下内容添加到 **main.ts** 中。
 
 ```typescript
 * import * as passport from 'passport';
@@ -572,9 +572,9 @@ Before we set up our auth logic we need to add the following to **main.ts**
     app.use(passport.session());
 ```
 
-#### Create Auth Module
+#### 创建 auth 模块
 
-Run **nest g mo auth** and **nest g s auth,** this will create **auth** directory with auth module in it, once again move auth.service to auth directory if it created it outside. Now the NestJS documentation says to use **@UseGuards(AuthGuard(‘bearer’))** but because of above mentioned issue I implemented my own AuthGuard which loges the user in. And we will also need to implement a PassportStrategy. Create **src/auth/AppAuthGuard.ts**
+执行 **nest g mo auth** 和 **nest g s auth**，这将创建带有 auth 模块的  **auth** 目录。和之前一样，如果 auth.service 在 auth 目录外生成了，把它移进去就好。NestJS 官方文档说这里需要使用  **@UseGuards(AuthGuard(‘bearer’))** 但是由于刚刚我提到的那个问题，我自己实现了 AuthGuard，亲测可以登录用户。接着，我们还需要实现我们的“通行证策略”。创建 **src/auth/AppAuthGuard.ts** 文件。
 
 ```typescript
 import {CanActivate, ExecutionContext, UnauthorizedException} from '@nestjs/common';
@@ -584,10 +584,10 @@ export class AppAuthGuard implements CanActivate {
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const options = { ...defaultOptions };
         const httpContext = context.switchToHttp();
-        const \[request, response\] = \[
+        const [request, response] = [
             httpContext.getRequest(),
             httpContext.getResponse()
-        \];
+        ];
         const passportFn = createPassportContext(request, response);
 
         const user = await passportFn(
@@ -626,7 +626,7 @@ const defaultOptions = {
 };
 ```
 
-Create **src/auth/http.strategy.ts**
+创建 **src/auth/http.strategy.ts** 文件。
 
 ```typescript
 import {Injectable} from '@nestjs/common';
@@ -641,10 +641,10 @@ export class HttpStrategy extends PassportStrategy(Strategy) {
 }
 ```
 
-* **token** – a token we are going to receive in the hearer in the following format **“Bearer base64encode(‘somestring’)”.**
-* **done(null, {user: test})** – store object in the second argument in the session. For now we just store a fake object, later we will retrieve the user from db and store it in the session
+* **token** —— 我们将在请求的中 Header 中接收到一个令牌，一般称它为 ”token“，其格式如下：**“Bearer base64encode(‘somestring’)”.**
+* **done(null, {user: test})** —— 将对象存储在 session 的第二个参数中。现在我们先暂时存储一个假对象，稍后我们将用从数据库检索出的用户对象替换。
 
-Update **AuthModule.ts**
+更新 **AuthModule.ts** 文件。
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -653,14 +653,14 @@ import {HttpStrategy} from './http.strategy';
 import {AppAuthGuard} from './AppAuthGuard';
 
 @Module({
-  providers: \[AuthService, HttpStrategy, AppAuthGuard\]
+  providers: [AuthService, HttpStrategy, AppAuthGuard]
 })
 export class AuthModule {}
 ```
 
-Now let’s run our server.
+现在运行我们的服务器。
 
-The way to test it is to go to swagger api in the browser, click on the lock icon and enter ‘**Bearer test**‘ and click Authorize. Then open **Chrome Dev Tools** and go to tab **Application** and on the left side pane click **Cookies->http://localhost:3000.** Now execute **POST /login**. We are expecting to see a cookie with the name ‘**sess-tutorial**‘. But we don’t see anything. What’s wrong? If we look at the [passport documentation](https://github.com/jaredhanson/passport). We see that we need to add the following to the passport.
+测试我们项目的最好方法是进入浏览器中的 Swagger API，单击锁图标并输入 “**Bearer test**”，然后单击 “Authorize”。打开 **Chrome 开发者工具** 切换到 **Application** 选项卡，在左侧面板上点击，**Cookies->http://localhost:3000**。现在点击 **POST /login** 接口的 “Execute”，来发出请求。我们期望会看到一个名为“**sess-tutorial**” 的 cookie。但是目前我们什么也没看到。哪里出了问题？如果再我们仔细看一下[passport 的文档](https://github.com/jaredhanson/passport)，会发现我们还需要在 passport 在对象上增加以下内容。
 
 ```typescript
 passport.serializeUser(function(user, done) {
@@ -674,9 +674,9 @@ passport.deserializeUser(function(id, done) {
 });
 ```
 
-Turns out that **@nestjs/passport** has an abstract class **PassportSerializer.** Why an abstract class? Hmm, let’s try to extend it and make it an **@Injectable()** and then provide it in our **auth.module.ts.**
+ 文档说，**@nestjs/passport** 中有一个名为**PassportSerializer** 的抽象类。为什么必须是一个抽象类呢？我们先试一试再说，先将抽象类实现为具体类，并加上 **@Injectable()** 注解，然后供我们的 **auth.module.ts.** 使用。
 
-Create **src/auth/cookie-serializer.ts**
+如下所示，创建 **src/auth/cookie-serializer.ts** 文件。
 
 ```typescript
 import {PassportSerializer} from '@nestjs/passport/dist/passport.serializer';
@@ -705,22 +705,22 @@ import {AppAuthGuard} from './AppAuthGuard';
 import {CookieSerializer} from './cookie-serializer';
 
 @Module({
-  providers: \[AuthService, HttpStrategy, AppAuthGuard, CookieSerializer\]
+  providers: [AuthService, HttpStrategy, AppAuthGuard, CookieSerializer]
 })
 export class AuthModule {}
 ```
 
-Now, let’s run our server and execute **POST /login** with Basic Auth Header, now we should see a cookie in Chrome Dev Tools. A little guessing, but very easy to figure out by reading the actual express documentation and reading the @nestjs/passport docs.
+现在，运行我们的服务器并使用 Basic Auth Header 请求 **POST /login** 接口，现在我们应该可以在 Chrome 开发者工具中看到一个 cookie 了。刚刚我们遇到了一点小问题，但是通过阅读开发文档和  @nestjs/passport 的文档我们很快地找到了答案。
 
-Time to add logic to authenticate the user against the record in the database and protect routes which should be only accessed if the user is logged in.
+现在需要添加逻辑来根据数据库中的记录对用户进行身份验证，并且保证只有在用户登录后才能进行路由请求。
 
-Add the following function to **UserEntity.ts**
+将下面的函数添加到 **UserEntity.ts** 中。
 
 ```typescript
 public static async authenticateUser(user: {username: string, password: string}): Promise<UserEntity> {
         let u: UserEntity;
         u = await UserEntity.findOne({
-            select: \['id', 'username', 'password_hash'\],
+            select: ['id', 'username', 'password_hash'],
             where: { username: user.username}
         });
         const passHash = crypto.createHmac('sha256', user.password).digest('hex');
@@ -731,7 +731,7 @@ public static async authenticateUser(user: {username: string, password: string})
     }
 ```
 
-and to **AuthService.ts**.
+以及更新 **AuthService.ts**。
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -745,7 +745,7 @@ export class AuthService {
 }
 ```
 
-and let’s modify our **http.strategy.ts**
+接着修改一下我们的 **http.strategy.ts**。
 
 ```typescript
 import {Injectable, UnauthorizedException} from '@nestjs/common';
@@ -777,22 +777,22 @@ export class HttpStrategy extends PassportStrategy(Strategy) {
 }
 ```
 
-Now test it in swagger by going to this free online [base64encoder](https://www.base64encode.org/). And encode the following string:
+现在在免费在线[ base64 加密网站](https://www.base64encode.org/)中加密的下面的 JSON 字段，并将在 Swagger 中发送。
 
-```typescript
+```json
 {
   "username" : "johnny",
   "password": "1234"
 }
 ```
 
-Now back in swagger enter **‘Bearer ew0KICAidXNlcm5hbWUiIDogImpvaG5ueSIsDQogICJwYXNzd29yZCI6ICIxMjM0Ig0KfQ==’.** The string after bearer is the encode json string, it will be decoded and compared in **authenticateUser** function in the **UserEntity.ts**. And now do a **POST /login**, you should see a cookie appear in chrome dev tools (provided you have the user with username ‘jonny’ and password ‘1234’ in the database).
+现在回到 Swagger 中，在刚刚点击右侧的 **Authorize** 弹出的输入框中输入 **“Bearer ew0KICAidXNlcm5hbWUiIDogImpvaG5ueSIsDQogICJwYXNzd29yZCI6ICIxMjM0Ig0KfQ==”**。Bearer 后面的字符串是上面刚刚加密过的 JSON 字符串，它将在 **UserEntity.ts** 的 **authenticateUser** 函数中被解码和匹配。现在执行 **POST /login**，您应该看到 Chrome 开发者工具 中出现了一个 cookie（如果您的用户在数据库中为用户名 “jonny”，密码为 “1234”的话）。
 
-Let’s create a route which will be used to create a project for the currently logged in user, however before we do that we need a “Session Guard” which will protect our route and throw an AppError if the user is not in session.
+让我们创建一个路由，它将用于为当前登录的用户创建一个项目，但在此之前，我们需要一个“会话保护程序”，它将保护我们的路由，并在用户不处于 session 时抛出一个 AppError。
 
-###### Protecting Routes From Unauthorized Access
+###### 保护路由免遭未经授权的访问
 
-Create **src/auth/SessionGuard.ts**
+创建 **src/auth/SessionGuard.ts** 文件。
 
 ```typescript
 import {CanActivate, ExecutionContext} from '@nestjs/common';
@@ -808,30 +808,30 @@ export class SessionGuard implements CanActivate {
             if (request.session.passport.user)
                 return true;
         } catch (e) {
-            throw new AppError(AppErrorTypeEnum.NOT\_IN\_SESSION);
+            throw new AppError(AppErrorTypeEnum.NOT_IN_SESSION);
         }
 
     }
 }
 ```
 
-And we will need a convenient way of retrieving user object from the session. So instead of doing **req.session.passport.user**. Create **src/user/user.decorator.ts:**
-
-import {createParamDecorator} from '@nestjs/common';
+我们还将用一种更方便方法来从 session 中检索 user 对象。使用  **req.session.passport.user** 这样的方式可以，但是不够优雅。现在，创建 **src/user/user.decorator.ts** 文件。
 
 ```typescript
+import {createParamDecorator} from '@nestjs/common';
+
 export const SessionUser = createParamDecorator((data, req) => {
     return req.session.passport.user;
 })
 ```
 
-Now let’s add a function to **ProjectEntity** to create projects for a given user.
+接着，我们向 **ProjectEntity** 类中添加一个函数来为给定的用户创建 project。
 
 ```typescript
-public static async createProjects(projects: CreateProjectDto\[\], user: UserEntity): Promise<ProjectEntity\[\]> {
+public static async createProjects(projects: CreateProjectDto[], user: UserEntity): Promise<ProjectEntity[]> {
        const u: UserEntity = await UserEntity.findOne(user.id);
-       if (!u) throw new AppError(AppErrorTypeEnum.USER\_NOT\_FOUND);
-       const projectEntities: ProjectEntity\[\] = \[\];
+       if (!u) throw new AppError(AppErrorTypeEnum.USER_NOT_FOUND);
+       const projectEntities: ProjectEntity[] = [];
        projects.forEach((p: CreateProjectDto) => {
            const pr: ProjectEntity = new ProjectEntity();
            pr.name = p.name;
@@ -839,21 +839,21 @@ public static async createProjects(projects: CreateProjectDto\[\], user: UserEnt
            projectEntities.push(pr);
        });
        u.projects = projectEntities;
-       const result: ProjectEntity\[\] = await ProjectEntity.save(projectEntities);
-       await UserEntity.save(\[u\]);
+       const result: ProjectEntity[] = await ProjectEntity.save(projectEntities);
+       await UserEntity.save([u]);
        return Promise.all(result);
    }
 ```
 
-To **ProjectService** we will add:
+在 **ProjectService** 类中，添加将下内容。
 
 ```typescript
-public async createProject(projects: CreateProjectDto\[\], user: UserEntity): Promise<ProjectEntity\[\]> {
+public async createProject(projects: CreateProjectDto[], user: UserEntity): Promise<ProjectEntity[]> {
        return ProjectEntity.createProjects(projects, user);
 }
 ```
 
-And let’s put it all together in **ProjectController**:
+再更新 **ProjectController**。
 
 ```typescript
 import {Body, Controller, HttpStatus, Post, Res, UseGuards} from '@nestjs/common';
@@ -874,56 +874,58 @@ export class ProjectController {
     @Post('')
     @UseGuards(SessionGuard)
     @ApiOperation({title: 'Create a project for the logged in user'})
-    public async createProject(@Body() createProjects: CreateProjectDto\[\], @Res() res, @SessionUser() user: UserEntity) {
-        const projects: ProjectEntity\[\] = await this.projectService.createProject(createProjects, user);
+    public async createProject(@Body() createProjects: CreateProjectDto[], @Res() res, @SessionUser() user: UserEntity) {
+        const projects: ProjectEntity[] = await this.projectService.createProject(createProjects, user);
         return res.status(HttpStatus.OK).send(projects);
     }
 
 }
 ```
 
-* **@UseGuards(SessionGuard)** – if the user is not in session, return predefined JSON in AppError in the response.
-* **@SessionUser()** – our custom decorator allows us to easily grab the **UserEntity** object form the session. (It’s not really necessary to store a whole object, we can store user id by modifying our CookieSerializer class)
+* **@UseGuards(SessionGuard)** —— 如果 user 不在 session 中，则响应的 AppError 中会返回预定义的 JSON。
+* **@SessionUser()** —— 我们的自定义装饰器可以使我们轻松地从 session 中获取到 **UserEntity** 对象。（其实我们没有必要存储整个 **UserEntity** 对象，我们可以通过修改 CookieSerializer 类来只存储用户的 id）。
 
-In Swagger, try to create a project without being authenticated and after logging in. You must send an array of projects. (Please note, session will be lost after a server restart). You can also delete a cookie by selecting in the Chrome Dev Tools.
+在 Swagger 中，尝试在不进行用户身份验证和用户登陆通过的情况下分别创建 project，看看有什么区别。在创建 project 时您发送的必须是一个包含项目的数组。（请注意，在服务器重启后，seesion 将会丢失）。您也可以通过使用 Chrome 开发者工具来删除一个 cookie。
 
-Now let’s add get projects for user functionality.
+现在，我们添加获取 project 的用户功能。
 
-###### Get Projects for Authenticated User
+###### 为已认证的 user 获取 project
 
-In **ProjectEntity** add:
+在 **ProjectEntity** 中添加如下代码：
 
 ```typescript
-public static async getProjects(user: UserEntity): Promise<ProjectEntity\[\]> {
-        const u: UserEntity = await UserEntity.findOne(user.id, { relations: \['projects'\]});
-        if (!u) throw new AppError(AppErrorTypeEnum.USER\_NOT\_FOUND);
+public static async getProjects(user: UserEntity): Promise<ProjectEntity[]> {
+        const u: UserEntity = await UserEntity.findOne(user.id, { relations: ['projects']});
+        if (!u) throw new AppError(AppErrorTypeEnum.USER_NOT_FOUND);
         return Promise.all(u.projects);
     }
 ```
 
-And in **ProjectService** add:
+在 **ProjectService** 中添加如下代码：
 
 ```typescript
-public async getProjectsForUser(user: UserEntity): Promise<ProjectEntity\[\]> {
+public async getProjectsForUser(user: UserEntity): Promise<ProjectEntity[]> {
         return ProjectEntity.getProjects(user);
     }
 ```
 
-And in **ProjectController** add:
+在 **ProjectController** 中添加如下代码：
 
 ```typescript
 @Get('')
 @UseGuards(SessionGuard)
 @ApiOperation({title: 'Get Projects for User'})
 public async getProjects(@Res() res, @SessionUser() user: UserEntity) {
-    const projects: ProjectEntity\[\] = await this.projectService.getProjectsForUser(user);
+    const projects: ProjectEntity[] = await this.projectService.getProjectsForUser(user);
     return res.status(HttpStatus.OK).send(projects);
 }
 ```
 
-And that’s about it.
+以上就是全部内容。
 
-You can check out the finished source code [here](https://github.com/artonio/nestjs-session-tutorial-finished).
+您可以在[此处](https://github.com/artonio/nestjs-session-tutorial-finished)查看完成的源码。
+
+译者注：原作者的文章写于 2018 年，NestJS 的版本是 5.0.0，现在 NestJS 已经更新到 v6 了，所以是不兼容的。但是 NestJS 的官方有 v5 迁移到 v6 的[迁移指南](https://docs.nestjs.cn/6/migrationguide)，有需要可以参考。同理，文章中提到的其他库也需要注意版本。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
