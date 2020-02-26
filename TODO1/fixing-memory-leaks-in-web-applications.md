@@ -1,7 +1,7 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[Fixing memory leaks in web applications](https://nolanlawson.com/2020/02/19/fixing-memory-leaks-in-web-applications/)
+> * 原文作者：[Nolan](https://nolanlawson.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/fixing-memory-leaks-in-web-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/fixing-memory-leaks-in-web-applications.md)
 > * 译者：
 > * 校对者：
 
