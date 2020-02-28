@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/7-principles-of-icon-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/7-principles-of-icon-design.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)，
 
-# 关于 icon 设计的 7 大准则
+# 关于 icon 设计的 7 个准则
 
 > 明确性、可读性、校准、简洁性、一致性、特性、易用性。
 
@@ -19,15 +19,15 @@ icon 的主要目的是快速传达一个概念。
 
 ![普锐斯主仪表盘上的 icon（来自：[2020 年手册](https://www.toyota.com/t3Portal/document/om-s/OM47C77U/pdf/OM47C77U.pdf)）](https://cdn-images-1.medium.com/max/8000/1*gIW6QI70azGalzYXicxj6A@2x.png)
 
-在上面这一系列符号中，哪些您能马上读懂？司机可能会因为职业的原因，能够了解这些图标的含义。但是的确，某些图标并不直观。您甚至需要一本手册才能明白它们含义。
+在上面这一系列符号中，哪些您能马上读懂？有经验的驾驶员也许能够了解这些图标的含义。但是的确，某些图标并不直观。您甚至需要一本手册才能明白它们含义。
 
 以下是我对它们大致的感受：
 
 ![](https://cdn-images-1.medium.com/max/8000/1*JOQqjiYvUCeyxZIk2t0FQA@2x.png)
 
-当 icon 使用了不熟悉的时隐喻时，我们很难理解它。安全带提醒灯 icon（从左数第三个）非常直观，我们马上就能明白它的意思。而电力转向系统的警示 icon（最右边）的意思我们就很难读懂。
+当 icon 使用了不熟悉的隐喻时，我们很难理解它。安全带提醒灯的 icon（从左数第三个）非常直观，我们马上就能明白它的意思。而电力转向系统警示灯的 icon（最右边）的意思我们就很难读懂。
 
-通常，一个难以读懂的 icon 会令人沮丧。并且对于驾驶员来说，误解了警告 icon 则是十分危险的。
+通常，一个难以读懂的 icon 会令人沮丧。并且对于驾驶员来说，误解了警告 icon 将是十分危险的。
 
 下面是一些我们比较熟悉的 icon —— 爱情、警告、音乐以及向上/向前的符号：
 
@@ -37,19 +37,19 @@ icon 的主要目的是快速传达一个概念。
 
 ![纽约地铁标志（来自：[纽约市交通管理局图形标准手册的原件的原始副本的截取](https://standardsmanual.com/pages/original-nycta)）](https://cdn-images-1.medium.com/max/8000/1*Qo1uR98wkC29ZyvLSzbguw@2x.png)
 
-最理想的 icon 不仅对于一群人来说易于理解的，还需要它在不同的文化、年龄和背景下都是通用的。站在您的用户角度思考，使用能与用户产生共鸣的隐喻和色彩。
+最理想的 icon 不仅对于一群人来说是易于理解的，而且在不同的文化、年龄和背景下都是通用的。站在您的用户角度思考，使用能与用户产生共鸣的隐喻和色彩。
 
-请记住，如果 icon 所表示的意思太抽象，那么单独的 icon 可能不是表达性最好的解决方案。在这种情况下，将 icon 加上文本标签，或者寻找其他的解决方法。
+请记住，如果 icon 所表示的意思太抽象，那么单独的 icon 可能不是表达性最好的解决方案。在这种情况下，将 icon 加上文本标签，或者寻找其它的解决方法。
 
-## 易读性
+## 可读性
 
-有了可以理解的 icon 后，请确保其易读性。
+有了可以理解的 icon 后，请确保其可读性。
 
 ![Amtrak App 中的 icon](https://cdn-images-1.medium.com/max/8000/1*NbBP3PbawGUgXxzzrj-T1g@2x.png)
 
-上面（第一行）的 **Amtrak** （美国铁路）App 中的车站 icon 就很难辨认出来，因为太多细节了。
+上面（第一行）的 **Amtrak** （美国铁路）App 中的车站 icon 就很难辨认出来，因为细节太多了。
 
-在 **Transit** （美国公交）App 也有类似的问题。因为在板和夹之间的间隙太小，所以它们的剪贴板图标看起来像一团墨水：
+**Transit** （美国公交）App 也有类似的问题。因为在剪贴板和夹子之间的间隙太小，所以它们的剪贴板图标看起来像一团墨水：
 
 ![Transit App 中的 icon](https://cdn-images-1.medium.com/max/8000/1*UPqYFGMOC_eCb0DiE97NRA@2x.png)
 
@@ -57,9 +57,9 @@ icon 的主要目的是快速传达一个概念。
 
 ![调整后的 剪贴板 icon](https://cdn-images-1.medium.com/max/8000/1*g-CLlEXT-PChQCVoQCb19Q@2x.png)
 
-当处理多个形状时，在它们之间留出足够的空间。过细和更多的笔触会使的 icon 更复杂，更难以阅读。
+当处理多个形状时，在它们之间留出足够的空间。过细和更多的笔触会使得 icon 更复杂，更难以阅读。
 
-**谷歌地图** 在这一方面就做得很好，他们的交通图标即使在非常小的尺寸非常易读：
+**谷歌地图** 在这一方面就做得很好，他们的交通图标即使在极小的尺寸下也非常易读：
 
 ![Google Map 的 icon](https://cdn-images-1.medium.com/max/8000/1*hFjIw309hZhvYpMTi5XV-g@2x.png)
 
@@ -71,7 +71,7 @@ icon 的主要目的是快速传达一个概念。
 
 在这个播放 icon 中，尽管三角形按长度标准放在了圆的中心，我们的眼睛还是认为它不在中心。这是因为三角形较宽的部分看起来比点“重”，使得三角形视觉上向左侧偏移。
 
-这就像排版人员通过视觉错觉来精细调整字体，从而达到平衡的视觉效果。（注意下图中，“i” 字母和 “j” 字母上偏移中心的点以及 [超出准线](https://frerejones.com/blog/typeface-mechanics-001/)的 “O” 字母)
+这就像排版人员通过视觉错觉来精细调整字体，从而达到平衡的视觉效果。（注意下图中，字母 “i” 和字母 “j” 上偏移中心的点以及 [超出准线](https://frerejones.com/blog/typeface-mechanics-001/)的字母 “O”)
 
 ![](https://cdn-images-1.medium.com/max/8000/1*LqX2JnQGszK7jtY0cw4r2A@2x.png)
 
@@ -85,7 +85,7 @@ icon 的主要目的是快速传达一个概念。
 
 ## 简洁性
 
-用简单的几句话完整地表达一个想法，会让人感到效率和优雅。比如下面这句话：
+用简单的几句话完整地表达一个想法，会让人感到高效和优雅。比如下面这句话：
 
 > 教授您所知道的东西可以加强您对这门学科的理解。（Teaching what you know strengthens your own understanding of the subject.）
 
@@ -93,25 +93,25 @@ icon 的主要目的是快速传达一个概念。
 
 > 教学相长。（When one teaches, two learn.）
 
-十分优雅。
+这就十分优雅了。
 
-**Material** 风格就在将简洁性作为系统中 icon 的设计导向这个方面做的很好。与其使用这种 icon：
+在将简洁性作为系统中 icon 的设计导向这个方面，**Material** 风格就做得很好。与其使用这种 icon：
 
 ![过于复杂的船 icon（来自：[Material](https://material.io/design/iconography/system-icons.html)）](https://cdn-images-1.medium.com/max/8000/1*MRInntlrUtShOA1q2o5hBA@2x.png)
 
-不如，使用简单的：
+不如使用简单的：
 
 ![简洁的船 icon （来自： [Material](https://material.io/design/iconography/system-icons.html)）](https://cdn-images-1.medium.com/max/8000/1*smf9YlD_yZ59FMx7d1x1AA@2x.png)
 
 简洁性尤其适用于 icon 设计，因为我们经常在小画布上工作。为您的图标使用适当的细节就好，不要增加一些您不需要的。
 
-在用户界面中，简化的风格可以帮助用户抓住重点并为更侧重与内容。比如，**Telegram** 的 icon 就很简短有趣：
+在用户界面中，简化的风格可以帮助用户抓住重点并为突出内容。比如，**Telegram** 的 icon 就很简洁有趣：
 
 ![Telegram icon](https://cdn-images-1.medium.com/max/8000/1*iF_GaiwikGuOO9aWlteRzA@2x.png)
 
 有时，UI icon 需要具有更强的说明性。**Yelp**（美国商户点评）中这些多色调的 icon 是显示热门食物搜索的一种令人愉快的方式。泰国菜里的虾很精致：
 
-![Yelp 的 icon 来自 [Scott Tusk](https://www.instagram.com/scottt0023/)](https://cdn-images-1.medium.com/max/8000/1*sfStr_fEdvb8IkkvP3DwiQ@2x.png)
+![来自 [Scott Tusk](https://www.instagram.com/scottt0023/) 的 Yelp icon](https://cdn-images-1.medium.com/max/8000/1*sfStr_fEdvb8IkkvP3DwiQ@2x.png)
 
 对于代表移动、平板和桌面应用的 **App** icon，可以用更多的深度和颜色来增加适当的细节。因为用户清楚自己现在是在设备主屏幕还是屏幕下方的菜单栏（在 iPhone 手机中，指 dock 栏）还是应用商店，所以使用更好地表达品牌和产品的 icon 会比较好。
 
@@ -125,9 +125,9 @@ icon 的主要目的是快速传达一个概念。
 
 ![在 iOS 13 之前，来自 Apple [主页屏幕的快捷操作](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/system-icons/) 的 icon](https://cdn-images-1.medium.com/max/8000/1*Fg6ZRRCMGCEw1oS90ucBhg@2x.png)
 
-瞇着眼睛看这一组 icon。您有感觉到有些图标比其他的看起来更“重”吗？
+瞇着眼睛看这一组 icon。您有感觉到有些图标比其它的看起来更“重”吗？
 
-任何给定的 icon 都有一定的视觉**权重**，由填充、笔触厚度、大小和形状等参数决定。在一个集合中保持这些参数不变就可以建立一致性。
+任何给定的 icon 都有一定的视觉**权重**，这是由填充、笔触厚度、大小和形状等参数决定的。在一系列 icon 中保持这些参数不变就可以建立一致性。
 
 ![](https://cdn-images-1.medium.com/max/8000/1*tZ2fvHU7CErrqkvgtSvFXg@2x.png)
 
@@ -135,15 +135,15 @@ icon 的主要目的是快速传达一个概念。
 
 ![来自 Apple [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview/)的 icon](https://cdn-images-1.medium.com/max/8000/1*4mYEN31EDW-0sPygspMWdw@2x.png)
 
-要维护一个庞大 icon 库的一致性可不是一件容易的事，特别是当多个作者参与其中时。解决问题的关键是要有明确的原则和规则，并且一定要遵循。
+要维护一个庞大 icon 库的一致性可不是一件容易的事，特别是当多个作者参与其中时。遵循明确的原则和规则是至关重要的。
 
-**Phosphor** icon 库 —— 由我设计由[我的另一半](https://github.com/rektdeckard)搭建，通过坚持相同的指导方针和严格测试每个图标来保持 700 多个图标的一致性。虽然每一个都有不同的形状，但它们都有相同的视觉权重，并且很好地结合在一起：
+**Phosphor** icon 库 —— 由我设计并由[我的另一半](https://github.com/rektdeckard)搭建，通过坚持相同的设计原则和严格测试每个图标来保持 700 多个图标的一致性。虽然每一个都有不同的形状，但它们都有相同的视觉权重，并且很好地结合在一起：
 
 ![[Phosphor Carbon](https://play.google.com/store/apps/details?id=com.tobiasfried.phosphor) icon 库中的一个子集](https://cdn-images-1.medium.com/max/8000/1*EjIs1qySoJTw7uq3Hup9Rg@2x.png)
 
 ## 特性
 
-每个图标集都有自己的风格。是什么让它风格不同？它又表达出了品牌的什么？它还会给我们带来怎样的心情？
+每个 icon 集都有自己的风格。是什么让它风格不同？它又表达出了品牌的什么？它还会给我们带来怎样的心情？
 
 ![Waze 的 icon](https://cdn-images-1.medium.com/max/8000/1*YnZ3LY648T0ewn4JfBj9Bw@2x.png)
 
@@ -167,13 +167,13 @@ Android 的 icon 包迎合了主屏幕主题的多种需求，下图分别是抽
 
 ## 易用性
 
-一个 icon 集被完美的设计出来还不够。它需要进一步的测试和准备，以确保贡献者可以方便地添加新 icon，设计师可以在设计中使用它们（用于屏幕、打印等），工程师可以在开发中使用它们。
+一个 icon 集被完美地设计出来还不够。它需要进一步的测试和准备，以确保贡献者可以方便地添加新 icon，设计师可以在设计中使用它们（用于屏幕、打印等），工程师可以在开发中使用它们。
 
-一个高质量图标集应该是**组织有序的**、 **文档完善的**，并在上下文中进行**测试**了的。除此之外，最好：它还可以支持一些**自定义工具**，如图标管理器。
+一个高质量 icon 集应该是**组织有序的**、 **文档完善的**，并在上下文中进行过**测试**了的。除此之外，它最好还能：支持一些**自定义工具**，如 icon 管理器。
 
 #### 组织有序的
 
-保持 master 分支文件干净，正确命名您的资源文件，把它们放在容易找到的地方。选择一个最适合的分类方法。按字母顺序？按大小？按类型？
+保持 master 分支文件干净，正确命名和存放您的资源文件，这样就很容易可以找到它们，正确命名您的资源文件，把它们放在容易找到的地方。选择一个最适合的分类方法。按字母顺序？按大小？按类型？
 
 ![[Nucleo](https://nucleoapp.com/premium-icons) 的 Sketch 文件，按类型组织并分页。](https://cdn-images-1.medium.com/max/8000/1*GRmcLkIwBIiF_x3J-4puYA@2x.png)
 
@@ -184,29 +184,29 @@ Android 的 icon 包迎合了主屏幕主题的多种需求，下图分别是抽
 ```
 Phosphor icon 库的原则示例（其实就是对上面介绍的内容）：
 
-• 明确性。首先 icon 要清晰明确。使图标易识别和易读。永远不要 icon 所表达的明确性牺牲。
+• 明确性。首先 icon 要清晰明确。使图标易识别和易读。永远不要舍弃 icon 所表达的明确性。
 
 • 简洁性。使用尽可能少的细节。Phosphor 的风格是简化的风格。icon 中的每一笔都要简明扼要，有意识地传达所要表达的本质。
 
-• 特性。可以是独具特色的的。适当地添加独特的细节，可能会为原本非常简朴的场景带来一点温暖和乐趣。
+• 特性。可以是独具特色的。适当地添加独特的细节，可能会为原本非常严肃正经的 icon 集增添一丝温暖和乐趣。
 ```
 
 列出技术规则：
 
 ```
-Phosphor icon 库 的技术规则示例：
+Phosphor icon 库的技术规则示例：
 
 • 使用 48x48px 的画布
 
-• 使用 1.5px 中心笔触
+• 使用 1.5px 的中心笔触
 
-• 使用 圆角
+• 使用圆角
 
-• 使用 连续的笔触，除非断开有助于 icon 的理解
+• 除非断开有助于 icon 的理解，否则请使用连续的笔触。
 
 • 尽可能使用笔直的线段，完美的弧度和 15° 的角度增量
 
-• 必要时调整曲线以保持设计原则
+• 必要时调整曲线以遵循设计原则
 
 • 尽可能使用整数、偶数增量进行测量；必要时可以折至 1px 和 .5px 
 
@@ -226,15 +226,15 @@ Phosphor icon 库 的技术规则示例：
 
 检查一致性。确保 icon 在上下文中以相应的大小工作。确保它们在更大的视觉系统也能协调工作。
 
-将 icon 放在一起有助于验证我们的原则，这些原则包括明确性、易读性、校准、简洁性、一致性和特性：
+将 icon 放在一起有助于验证我们的原则，这些原则包括明确性、可读性、校准、简洁性、一致性和特性：
 
 ![[Phosphor](https://play.google.com/store/apps/details?id=com.tobiasfried.phosphor) 在质量保证过程中的测试 icon 样单](https://cdn-images-1.medium.com/max/8000/1*cgP99N8laiD4jA6wh43yTA@2x.png)
 
 #### 自定义工具
 
-最后，如果您有足够的资源和能力，请创建用以方便使用图标的工具。
+最后，如果您有足够的资源和能力，请创建能够方便使用图标的工具。
 
-**Material** 通过他们自定义 icon 资料库使得我们访问 icon 更加方便容易。我们可以搜索需要的 icon，在喜欢的文件格式中下载不同风格（主题），不同颜色，不同大小的 icon：
+**Material** 通过自定义 icon 资料库我们能够更方便地访问他们的 icon。我们可以搜索需要的 icon，在喜欢的文件格式中下载不同风格（主题）、不同颜色、不同大小的 icon：
 
 ![Material’s easy-to-use [icon library](https://material.io/resources/icons/?style=baseline)](https://cdn-images-1.medium.com/max/8000/1*6xbfiFeRNVYQITy64tYYGg@2x.png)
 
@@ -242,16 +242,16 @@ Phosphor icon 库 的技术规则示例：
 
 ---
 
-## 
+## 相关资源
 
 #### icon 资料库
 
 一些可选项：
 
-* [Feather](https://feathericons.com/)， 精美的 200 多个最小轮廓 icon 集，可以很好地缩放。
-* [Material system icons](https://material.io/resources/icons/?style=baseline)，5 种风格的 1k 多个实用 icon。
+* [Feather](https://feathericons.com/)，精美的 icon 集，提供 200 多个可以自由缩放的最小轮廓 icon。
+* [Material system icons](https://material.io/resources/icons/?style=baseline)，1 千多个具有 5 种风格的实用 icon。
 * [Nucleo](https://nucleoapp.com/premium-icons)，约有 3 万种 icon，提供 3 种样式：轮廓，平面/彩色和字形。
-* [Streamline](https://streamlineicons.com/)，提供 3 种视觉权重的精美 30k 多个 icon 的线型 icon 集 
+* [Streamline](https://streamlineicons.com/)，精美的 icon 集，提供 3 万多个具有 3 种视觉权重的线性风格 icon。
 
 #### icon 大集合
 
@@ -268,7 +268,7 @@ Phosphor icon 库 的技术规则示例：
 🙏 **感谢：Toby Fried、Monica Chang、Darcy O’Donnell、Sara Thompson、Lonny Huff、Stephany Shigekuni、Clarissa Soto、Tate Chow、Christine Lee、Victor Vasquez、Chris Rodemeyer、David Landa、Pawel Piekarski、Matthew Vargas**
 
 ```
-这是我们 icon 系列的的第一篇文章。请敬请关注该系列的后续文章：
+这是我们 icon 系列的第一篇文章。请敬请关注该系列的后续文章：
 
 • 5 步创建一个 Settings icon 
 
@@ -277,7 +277,7 @@ Phosphor icon 库 的技术规则示例：
 • icon 设计中的像素捕捉：捕捉或不捕捉
 ```
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其它需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
