@@ -5,10 +5,10 @@
 > * 译者：Weirdochr
 > * 校对者：
 
-# 树莓派4代（Raspberry Pi 4） GPIO 简介及使用 Node.js 控制树莓派
+# 树莓派 4 GPIO 简介及使用 Node.js 控制树莓派
 
 > 树莓派 + NODE.JS  
-> 通过本文，我们将熟悉树莓派 GPIO 及其技术规范。并且，我们将通过了一个简单例子，说明其如何使用 LED 和开关实现输入和输出。
+> 通过本文，我们将熟悉树莓派 GPIO 及其技术规范。并且，我们将通过了一个简单例子，说明它如何使用 LED 和开关实现输入输出。
 
 ![(文章来源：[**pexels.com**](https://www.pexels.com/photo/have-a-break-led-signage-2249342/))](https://cdn-images-1.medium.com/max/12000/1*t-dr_5CrKf45RE0Uuww2sg.jpeg)
 
