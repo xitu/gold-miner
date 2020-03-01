@@ -86,19 +86,19 @@ Arduino 旨在充当外部设备的控制器，而不是成熟的物联网设备
 
 #### 🧙‍♀️ SPI、 I²C 和 UART 协议
 
-SPI ([**Serial Peripheral Interface (串行外设接口)**](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface)) 是一种同步串行通信接口， 设备使用它来实现相互间的通信。此接口需要 3 条或更多数据线将主设备连接到从设备（**一条或多条**）。
+SPI ([**Serial Peripheral Interface (串行外设接口)**](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface)) 是一种同步串行通信接口，设备使用它来实现相互间的通信。此接口需要 3 条或更多数据线将主设备连接到（**一个或多个**）从设备。
 
 I²C ([**Inter-Integrated Circuit (内置集成电路)**](http://C)) 类似于 SPI，但它支持多个主设备。此外，与 SPI 不同，它只需要两条数据线来容纳无限数量的从机。不过这会让 I²C 比 SPI 慢。
 
 UART ([Universal asynchronous receiver-transmitter (通用异步收发信机)](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter)) 也是一个串行通信接口，但数据是 [**异步**](https://en.wikipedia.org/wiki/Asynchronous_serial_communication) 发送的。
 
-树莓派提供了一个低级接口用于通过 GPIO 针脚启用这些接口，就像我们前文讨论过的输入输出模式一样。然而，并非所有的 GPIO 针脚都可以通过这种通信进行配置。
+树莓派提供了一个低级接口用于通过 GPIO 引脚启用这些接口，就像我们前文讨论过的输入输出模式一样。然而，并非所有的 GPIO 引脚都可以通过这种通信进行配置。
 
-在下图中，你可以看到哪些 GPIO 针脚可以通过 SPI、I²C 和 UART 协议进行配置。你可以访问 **[pinout.xyz](https://pinout.xyz/).** 此网站应用程序提供了一个交互界面供用户查看每个 GPIO 针脚的功能。
+在下图中，你可以看到哪些 GPIO 针脚可以通过 SPI、I²C 和 UART 协议进行配置。你可以访问 **[pinout.xyz](https://pinout.xyz/).** 该网页提供了一个交互界面供用户查看每个 GPIO 引脚的功能。
 
 ![(来源：[**pinout.xyz**](https://pinout.xyz/))](https://cdn-images-1.medium.com/max/2000/1*mpKa3QDHL6G5CmjmMWX3UQ.png)
 
-除了在简单的输入或输出模式下，GPIO 针脚可以在 **6 模式** 下工作，但只能工作一次。当你 (**在上述网站**) 点击 GPIO 针脚时，你可以在屏幕右侧看到它的工作模式。右表中的 ALT0 至 ALT5 提到了这些。
+除了简单的输入或输出模式，GPIO 引脚可以在 **6 种模式** 下工作，但一次只能有一种模式。当你（**在上述网站**）点击 GPIO 引脚时，你可以在屏幕右侧看到它的工作模式。右表中的 ALT0 至 ALT5 提到了这些。
 
 > 你可以通过 [**本视频**](https://www.youtube.com/watch?v=IyGwvGzrqp8) 了解这些通信协议的规范。在本教程中，我们不会涉及这些通信协议，但是，我将在接下来的文章中讨论相关主题。
 
