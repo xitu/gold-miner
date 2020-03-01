@@ -38,7 +38,7 @@ Arduino 旨在充当外部设备的控制器，而不是成熟的物联网设备
 
 #### 树莓派微型电脑
 
-相较于 Arduino， [**树莓派**](https://en.wikipedia.org/wiki/Raspberry_Pi) 是一只 **野兽**。促进学校和发展中国家的基础计算机科学教学是其发明之初地目的，但它却被书呆子和业余爱好者捡起来创造新垃圾。目前，它是世界上最受欢迎的 **单板计算机** 之一。
+相较于 Arduino， [**树莓派**](https://en.wikipedia.org/wiki/Raspberry_Pi) 是一只 **野兽**。促进学校和发展中国家的基础计算机科学教学是其发明之初的目的，但它却被书呆子和业余爱好者捡起来创造新垃圾。目前，它是世界上最受欢迎的 **单板计算机** 之一。
 
 树莓派 (**最新版 4B**) 配有以太网连接器、WiFi、蓝牙、HDMI output、USB 连接器、 40 针 GPIO 和其他基本功能。它由 **ARM** CPU, a **Broadcom** GPU 和 1/2/4 GB 的 **RAM** 供电。你可以从 [**此处**](https://en.wikipedia.org/wiki/Raspberry_Pi#Specifications) 的维基百科表格中查看这些规范。
 
