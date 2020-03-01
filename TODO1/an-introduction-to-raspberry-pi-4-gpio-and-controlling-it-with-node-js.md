@@ -32,7 +32,7 @@
 
 ![(来源：[**Wikipedia**](https://en.wikipedia.org/wiki/File:Arduino_Uno_-_R3.jpg))](https://cdn-images-1.medium.com/max/2000/1*-Tmb_Q7yYmmtFGaUk6iv4A.jpeg)
 
-然而，该控制器不配有内置 WiFi 或以太插孔， 并且必须连接外部外围设备 (**称为** 屏蔽) 才能将 Arduino 连接到互联网。
+然而，该控制器不配有内置 WiFi 或以太插孔， 并且必须连接外部外围设备（**称为** 屏蔽）才能将 Arduino 连接到互联网。
 
 Arduino 旨在充当外部设备的控制器，而不是成熟的物联网设备。因此，该控制器价格非常便宜。一些最新款可以低至18美元。
 
