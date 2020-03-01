@@ -12,7 +12,7 @@
 
 ![(文章来源：[**pexels.com**](https://www.pexels.com/photo/have-a-break-led-signage-2249342/))](https://cdn-images-1.medium.com/max/12000/1*t-dr_5CrKf45RE0Uuww2sg.jpeg)
 
-你可能曾见过 “**IoT**” 这个术语，它是 **Internet of Things(物联网)** 的缩写。 意思是，人们可以通过互联网控制一台设备，即“物” （**thing**）。 你家中可以通过智能手机控制的那些智能灯泡便是解释物联网（IoT）的一个很好示例。
+你可能见过 “**IoT**” 这个术语，它是 **Internet of Things(物联网)** 的缩写。意思是，人们可以通过互联网控制一台设备，即“物” （**thing**）。家中可通过智能手机控制的智能灯泡便能很好地解释物联网（IoT）这个概念。
 
 由于物联网可通过互联网控制，所以它应当始终与互联网相连。我们主要有两种方式将设备连接至互联网：以太电缆和无线网络。
 
