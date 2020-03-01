@@ -157,9 +157,9 @@ $ npm i -S onoff
 
 > 我们可以选择 330 欧姆到 1k 欧姆的电阻。这会影响电流，但不会损坏发光二极管。
 
-From the above circuit, the only variable in the circuit is BCM 4 pin output. If the pin is on (**3.3V**), the circuit will close and LED will glow. If the pin is off (**0V**), the circuit is open and LED won’t glow.
+从上述电路来看，电路中唯一的变量是 BCM 4 引脚输出。如果引脚打开（**3.3V**），电路将关闭，发光二极管将发光。如果引脚关闭（**0V**），电路打开，发光二极管不会发光。
 
-Let’s write a program that can programmatically turn on the BCM 4 pin.
+让我们编写一个程序，实现以编程方式打开 BCM 4引脚。
 
 ```JavaScript
 const { Gpio } = require( 'onoff' );
@@ -177,41 +177,41 @@ setInterval( () => {
 }, 3000 ); // 3s
 ```
 
-In the above program, we are importing `onoff` package and extracting `Gpio` constructor. The `Gpio` class configures a GPIO with a certain configuration. In the above example, we have set **BCM 4** in the **output mode**.
+在上述程序中， 我们导入 `onoff` 包并提取 `Gpio` 构造函数。 `Gpio` 类用某种配置来配置一个 GPIO。上上述例子当中，我们将 **BCM 4** 设置为 **输出模式**。
 
-> You can follow [**this API documentation**](https://github.com/fivdi/onoff#api) of the `onoff` module to understand various configurations options and API methods.
+> 您可以参考该 `onoff` 模块的 [**应用编程接口文档**](https://github.com/fivdi/onoff#api) 来理解各种配置选项和应用编程接口方法。
 
-An instance of `Gpio` class provides high-level API to interact with that pin. The `writeSync` method writes either **1** or **0** to the pin which enables or disables it. When a pin is set to **1**, it turns **on** and outputs the **3.3V** power. When it is set to **0**, it turns **off** and does not provide any power (**0V**).
+`Gpio` 类的一个实例提供了与该引脚交互的高级应用编程接口。`writeSync` 方法将 **1** 或 **0** 写入引脚，以实现开启或禁用引脚。当引脚设为 **1** 时，引脚 **开启** 并输入 **3.3V** 电源。当它设为 **0** 时，引脚 **关闭** 且不提供任何电源 (**0V**)。
 
-Using `setInterval`, we are running an endless loop that writes either 0 or 1 to the `ledOut` pin using `ledOut.writeSync(val)` method call. Let’s run this program using Node.js.
+使用 `setInterval` 时，我们就是在运行一个无限循环，在 `ledOut` 引脚中写入 0 或 1 来调用 `ledOut.writeSync(val)` 方法。让我们使用 Node.js 来运行这个程序。
 
 ```
 $ node rpi-led-out.js
 ```
 
-Since this is an endless loop, once we start the program, it will not terminate unless we interrupt it forcefull using `ctrl + c`. During the lifetime of this program, it will toggle the **BCM 4** pin every **3 seconds**.
+由于这个一个无限循环的程序，一经启动，该程序就不会终止，除非我们使用 `ctrl + c` 来进行强制中断。在该程序的生命周期内，它将每隔 **3 秒** 切换一次 **BCM 4** 引脚。
 
-One interesting thing about the Raspberry Pi GPIO, once a GPIO pin is set to **1** or **0**, it will stay like that until we override the value again or turn off the power supply to the Raspberry Pi. When when you start the program, the LED is off but when you stop it, the LED might remain on.
+树莓派 GPIO 有意思的一点是，一旦 GPIO 引脚设为 **1** 或 **0**，它将一直保持不变， 除非我们覆盖该值或关闭树莓派的电源。当你启动程序时，LED 熄灭，但当你终止程序时，LED 可能会保持亮起。
 
-## Input example with Switch
+## Switch 输入示例
 
-As we know, when a GPIO is used as an input, we need to supply a voltage close to **3.3V**. We can hook up a switch (**push button**) that supplies a voltage directly from **3.3V** pin as shown in the circuit diagram below.
+众所周知，当 GPIO 用作输入时，我们需要提供接近 **3.3V** 的电压。我们可以连接一个开关 (**按钮**) 直接从 **3.3V** 引脚提供电压，如下图所示：
 
-![(Simple Button Input)](https://cdn-images-1.medium.com/max/3126/1*8TUu5IGDaYm0movHCM9hww.png)
+![(简单按钮输入)](https://cdn-images-1.medium.com/max/3126/1*8TUu5IGDaYm0movHCM9hww.png)
 
-We have used a **1K ohm** resistor before the input of the switch to provide some resistance in the circuit. This will prevent too much current drawn from the **3.3V** supply and prevent our switch from getting fried.
+在输入开关之前，我们已经使用了一个 **1K 欧姆** 的电阻以在电路中提供电阻。这将防止从 **3.3V** 电源汲取过多电流，并防止开关熔断。
 
-We have also attached a **10K ohm** resistor that also draws the current from the output of the button and drains to the ground. These types of resistors (**because of their position in the circuit**) are called **pull-down** resistors since they drain the current (**or atmospheric charge build-up**) to the ground.
+我们还连接了一个 **10K 欧姆** 电阻，该电阻也从按钮的输出端汲取电流并接地。这些类型的电阻器 (**因为它们在电路中的位置**) 被称为 **下拉** 电阻器，因为它们将电流 (**或大气电荷聚集**) 排放至地面。
 
-> We can alternatively add a **pull-up register** which pulls the current from **3.3V** pin and provides to the input GPIO pin. In this configuration, the input pin always reads **high** or **1**. When the button is pressed, the switch creates a short circuit between the resistor and the ground draining all the current to the ground and no current is passed through the switch to the input pin and it reads **0**. [**Here is a great video**](https://www.youtube.com/watch?v=5vnW4U5Vj0k) demonstrating the pull-up and pull-down resistors.
+> 我们也可以增加一个 **上拉寄存器** ，从 **3.3V** 引脚汲取电流，并供给输入 GPIO 引脚。在这种配置下，输入引脚始终读取 **高** 或 **1**。按下按钮时，开关在电阻和地面之间产生短路，将所有电流排放到地面，并且没有电流通过开关到达输入引脚，读数为 **0**。 [**此处有一段很棒的视频**](https://www.youtube.com/watch?v=5vnW4U5Vj0k) 演示了上拉和下拉电阻。
 
-The output of the switch is connected to the **BCM 17** pin. When the button (**switch**) is pressed, the current will flow through the switch into the BCM 17 pin. However, since the 10K ohm resistor provides a greater obstacle to the current flow, most current flow through the loop represented by the **red dotted line**.
+开关的输出连接到 **BCM 17** 引脚。当按下按钮（**开关**）时，电流将通过开关流入 BCM 17 引脚。然而，由于 10K 欧姆 电阻给电流提供了更大的障碍，大多数电流流过由 **红色虚线** 表示的回路。
 
-When the button is not pressed, the loop represented by the red dotted line is closed and no current will flow through it. However, the loop represented by the **grey dotted line** is closed, and the BCM 17 pin is grounded (**0V**).
+为按下按钮时，由红色虚线表示的回路闭合，没有电流流过。然而，由 **灰色虚线** 表示的环路是闭合的，BCM 17 引脚接地 （**0V**）。
 
-> The main reason to add a 10k ohm resistor is to connect BCM 17 pin to the ground so that it can not read any atmospheric disturbance as input high. By not connecting a input pin to the ground, we keep the input pin in **floating state**. In that state the input pin can read either 0 or 1 due to atmospheric disturbances.
+> 增加一个 10k 欧姆电阻的主要原因是将 BCM 17 引脚接地，这样它就不会将任何大气干扰读取为高输入。不将输入引脚接地， 我们可以将输入引脚保持在 **浮动状态**。在这种状态下，由于大气干扰，输入引脚可以读取为 0 或 1。
 
-Now that our circuit is ready, let’s write a program to read input value.
+既然电路已经准备好了，让我们编写一个程序来读取输入值。
 
 ```JavaScript
 const { Gpio } = require( 'onoff' );
@@ -230,41 +230,41 @@ switchIn.watch( ( err, value ) => {
 } );
 ```
 
-In the above program, we have set **BCM 17** pin in the input mode. The third argument of the `Gpio` constructor configures when we want to get notified of the pin input voltage change. This is labeled as the **`edge`** argument since we are reading the value at the edge of voltage rise and drop cycle.
+在以上程序中，我们已经将 **BCM 17** 引脚设置为输入模式。`Gpio` 构造函数的第三个参数配置我们想要得到引脚输入电压变化的通知的时间。该参数标记为 **`edge`** 参数，因为我们读取的是电压上升和下降周期的边缘值。
 
-The `edge` argument can have the following values.
+`edge` 参数可以有以下值：
 
-When the `rising` value is used, we will get notified when the input voltage to a GPIO pin is **rising from 0V** (**to 3.3V**). At this position, the pin will read **logical high** or **1** because it is getting positive voltage.
+当使用 `上升` 值时，如果 GPIO 引脚的输入电压 **从 0V 上升**（**至 3.3V**）时，我们将收到通知。位于此位置时，引脚将读取 **逻辑高** 或 **1** ，因为他获得了正电压。
 
-When the `falling` value is used, we will get notified when the input voltage is **falling to 0V** (**from 3.3V**). At this position, the pin will read **logical low** or **0** because it is losing voltage.
+当使用 `下降` 值时，如果输入电压（**从 3.3V**） **降至 0V**，我们将收到通知。位于此位置时，引脚将读取 **逻辑低** 或 **0** ，因为它正在失去电压。
 
-When `both` value is used, we will get notified of the above two events. When the voltage is rising from 0V (**input high or 1**) or falling from 3.3V (**input low or 0**), we can listen to these events at once.
+当使用 `两种` 值时，我们将收到上述两个事件的通知。当电压从 0V（**输入高电平或 1**）上升或从 3.3V（**输入低电平或 0**）下降时，我们可以立即收听到这些事件。
 
-> The `none` value is not discussed here, read the [**documentation**](https://github.com/fivdi/onoff#gpiogpio-direction--edge--options) to know more.
+> 此处不讨论 `none` 值，请阅读 [**文档**](https://github.com/fivdi/onoff#gpiogpio-direction--edge--options) 了解更多信息。
 
-The `watch` method on a GPIO pin in the input mode watches for the above events. This is an asynchronous method, hence we need to pass a callback function which receives the input high (1) or input low (0) value.
+输入模式下 GPIO 引脚上的 `监听` 方法监视上述事件。这是一个异步方法，因此我们需要传递一个回调函数，该函数接收输入高 (1) 或输入低 (0) 值。
 
-Since we are using `both` value, the `watch` method will execute the callback when the input voltage is rising as well as when the input voltage is falling. Based on the button press, you should get the below values in the console.
+由于我们使用的是 `两种` 值，所以 `监听` 方法将在输入电压上升时以及输入电压下降时执行回调。按下按钮，你应该在控制台中获得以下值：
 
 ```
-Pin value 1 (when button is pressed)
-Pin value 0 (when button is released)
-Pin value 1 (when button is pressed)
-Pin value 1 (repeat value)
-Pin value 0 (when button is pressed)
+Pin value 1 (按下按钮)
+Pin value 0 (释放按钮)
+Pin value 1 (按下按钮)
+Pin value 1 (重复值)
+Pin value 0 (按下按钮)
 ```
 
-If you inspect the above output carefully, we sometimes get duplicate values when the button is pressed or released. Since the physical connection between two connectors of the switch mechanism is not always smooth, it can connect and disconnect many times when a switch is not pressed carefully.
+如果仔细检查以上输出就能发现，我们有时会在按下或释放按钮时得到重复的值。由于开关机制的两个连接器之间的物理连接并不总那么顺畅，所以，不小心按下开关时，它可以多次连接和断开。
 
-To avoid this, we can add capacity in the switch circuit which charges before the actually current flows in the GPIO pin and discharges smoothly when the button is released. You should give this a try since this is fairly simple.
+为了避免这种情况，我们可以在开关电路中增加电容，在实际电流流入 GPIO 引脚之前充电，并在按钮释放时平稳放电。该操作非常简单，你可以试一试。
 
-## Combined I/O example
+## 组合 I/O 示例
 
-Now that we have a good understanding of how GPIO pin works and how we can configure them, let’s combine our last two examples. The bigger picture is to turn on the LED when the button is pressed and turn it off when the button is released. Let’s first look at the circuit diagram.
+现在我们已经充分理解了 GPIO 引脚的工作原理以及配置方法，让我们结合最后两个例子进行讲解。更重要的是，按下按钮时，打开 LED 而释放按钮时将其关闭。 让我们先看看电路图：
 
-![(Simple I/O Example)](https://cdn-images-1.medium.com/max/3126/1*c0iV6t3t2yPUVyT0mhU3OA.png)
+![(简单 I/O 示例)](https://cdn-images-1.medium.com/max/3126/1*c0iV6t3t2yPUVyT0mhU3OA.png)
 
-As you can see from the above example, we haven’t changed a thing from the above two examples. Also, both LED and Switch circuits are independent. Which means our earlier program should work just fine with this circuit.
+从以上例子可以看出，我们没有从上面得两个例子中改变任何东西。另外，LED 和开关电路都是独立的。这意味着我们之前得程序在这条线路上应该可以正常工作。
 
 ```JavaScript
 const { Gpio } = require( 'onoff' );
@@ -286,19 +286,19 @@ switchIn.watch( ( err, value ) => {
 } );
 ```
 
-In the above program, we have GPIO pins configured in the input and output mode individually. Since the value provided by the `watch` method on an input pin is **0** or **1**, we can use the same value to write to an output pin.
+在上述程序中，我们将 GPIO 引脚分别配置为输入和输出模式。由于输入引脚上的 `监听` 方法提供的值是 **0** 或 **1**，因此，我们可以使用相同的值写入输出引脚。
 
-Since we are watching `switchIn` input pin in `both` mode, the `watch` will get triggered when the button is pressed sending the `value` **1** and also when the button is released sending the `value` **0**.
+因为我们在`两种` 模式下监视 `切换` 输入引脚, the `watch` will get triggered 当按下按钮发送 `值` **1** 时，以及当释放按钮发送 `值` **0** 时，`监视` 方法将被触发。
 
-We can use this value directly to write to the `ledOut` pin. Hence, when the button is pressed, `value` is `1` and `ledOut.writeSync(1)` will turn on the LED. the reserve will happen when the button is pressed.
+我们可以直接使用该值写入 `输入` 引脚。因此，按下按钮时，`值` 为 `1` 而 `ledOut.writeSync(1)` 将打开 LED。按下按钮时，储备发生。
 
 ---
 
-![(Demonstration)](https://cdn-images-1.medium.com/max/2000/1*a35VFbnt_AUM0ch8ftCxMA.gif)
+![(演示)](https://cdn-images-1.medium.com/max/2000/1*a35VFbnt_AUM0ch8ftCxMA.gif)
 
-Here is the demonstration of the complete input/output circuit we have just created. For your and safety of your Raspberry Pi, I would recommend you to purchase a good case and 40 pin GPIO extension ribbon cable.
+以上是我们刚才创建得完整输入/输出电路的演示。为了你本人和树莓派的安全，建议你买一个好的外壳和 40 针 GPIO 扩展带状电缆。
 
-I hope you have learned something today. In upcoming tutorials, we will build some complex circuits and learn to connect some fancy devices like character LCD screens and numeric input pad.
+希望你今天能学到一点东西。在接下来的教程中，我们将构建一些复杂的电路并学习连接一些有意思的设备，如字符 LCD 显示屏和数字输入板。
 
 ---
 
