@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/7-principles-of-icon-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/7-principles-of-icon-design.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：[Chorer](https://github.com/Chorer)，
+> * 校对者：[Chorer](https://github.com/Chorer)，[niayyy-S](https://github.com/niayyy)
 
 # 关于 icon 设计的 7 个准则
 
@@ -27,7 +27,7 @@ icon 的主要目的是快速传达一个概念。
 
 当 icon 使用了不熟悉的隐喻时，我们很难理解它。安全带提醒灯的 icon（从左数第三个）非常直观，我们马上就能明白它的意思。而电力转向系统警示灯的 icon（最右边）的意思我们就很难读懂。
 
-通常，一个难以读懂的 icon 会令人沮丧。并且对于驾驶员来说，误解了警告 icon 将是十分危险的。
+通常，一个难以理解的 icon 会令人沮丧。并且对于驾驶员来说，误解了警告 icon 将是十分危险的。
 
 下面是一些我们比较熟悉的 icon —— 爱情、警告、音乐以及向上/向前的符号：
 
@@ -49,7 +49,7 @@ icon 的主要目的是快速传达一个概念。
 
 上面（第一行）的 **Amtrak** （美国铁路）App 中的车站 icon 就很难辨认出来，因为细节太多了。
 
-**Transit** （美国公交）App 也有类似的问题。因为在剪贴板和夹子之间的间隙太小，所以它们的剪贴板图标看起来像一团墨水：
+**Transit** （美国公交）App 也有类似的问题。因为在板子和夹子之间的间隙太小，所以它们的剪贴板图标看起来像一团墨水：
 
 ![Transit App 中的 icon](https://cdn-images-1.medium.com/max/8000/1*UPqYFGMOC_eCb0DiE97NRA@2x.png)
 
@@ -71,7 +71,7 @@ icon 的主要目的是快速传达一个概念。
 
 在这个播放 icon 中，尽管三角形按长度标准放在了圆的中心，我们的眼睛还是认为它不在中心。这是因为三角形较宽的部分看起来比点“重”，使得三角形视觉上向左侧偏移。
 
-这就像排版人员通过视觉错觉来精细调整字体，从而达到平衡的视觉效果。（注意下图中，字母 “i” 和字母 “j” 上偏移中心的点以及 [超出准线](https://frerejones.com/blog/typeface-mechanics-001/)的字母 “O”)
+这就像排版人员通过视觉错觉来精细调整字体，从而达到平衡的视觉效果。（注意下图中，字母 “i” 和字母 “j” 上偏移中心的点以及[超出准线](https://frerejones.com/blog/typeface-mechanics-001/)的字母 “O”)
 
 ![](https://cdn-images-1.medium.com/max/8000/1*LqX2JnQGszK7jtY0cw4r2A@2x.png)
 
@@ -143,7 +143,7 @@ icon 的主要目的是快速传达一个概念。
 
 ## 特性
 
-每个 icon 集都有自己的风格。是什么让它风格不同？它又表达出了品牌的什么？它还会给我们带来怎样的心情？
+每个 icon 集都有自己的风格。是什么让它风格独一无二？它是如何对品牌进行的表达？它会给我们带来怎样的心情？
 
 ![Waze 的 icon](https://cdn-images-1.medium.com/max/8000/1*YnZ3LY648T0ewn4JfBj9Bw@2x.png)
 
