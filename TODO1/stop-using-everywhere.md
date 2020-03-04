@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/stop-using-everywhere.md](https://github.com/xitu/gold-miner/blob/master/TODO1/stop-using-everywhere.md)
 > * 译者：[Zavier](https://github.com/zaviertang)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)、[Long Xiong](https://github.com/xionglong58)
 
 # 停止在任何地方使用 `===`
 
@@ -56,7 +56,7 @@ if (amout === Number(userInput))
 1. `=== ` —— 严格相等操作符（三等号）。
 2. `==` —— 标准相等操作符（双等号）。
 
-我一直在使用 `===`，因为我被告知，它比 `==` 更好，更优越。我根本不需要去思考它，作为一个懒惰的人，我觉得很方便。
+我一直在使用 `===`，因为我被告知，它比 `==` 更好、更优越。我根本不需要去考虑原因，作为一个懒惰的人，我觉得很方便。
 
 直到我看了[《你不知道的 JS》](https://github.com/getify/You-Dont-Know-JS)的作者 [Kyle](https://medium.com/@getify)（Twitter:[@getfiy](https://twitter.com/getify)）在 [Frontend Masters](https://medium.com/@FrontendMasters) 上写的文章“Deep JavaScript Foundations”。
 
@@ -76,7 +76,7 @@ if (amout === Number(userInput))
 
 #### 1. == 只做值的判断 (宽松的)
 
-如果我们看一下文档，从定义上就可以清楚地看到，算法做的第一件事实际上是类型检查。
+如果我们看一下文档，从定义上就可以清楚地看到，`==` 做的第一件事实际上是类型检查。
 
 ![](https://cdn-images-1.medium.com/max/2596/1*vtLIMvTkIe-4RlSEmzoiSA.png)
 
