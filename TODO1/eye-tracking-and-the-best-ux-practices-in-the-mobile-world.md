@@ -15,7 +15,7 @@ Eye Tracking is a usability method and tool that reveals users’ focus points a
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sAtbUAIscKdVhVOoV6J1BA.jpeg)
 
-**Eye Tracking for a Mobile-Centric World**
+## Eye Tracking for a Mobile-Centric World
 
 Considering that more than 80% of the population has access to mobile devices, the percentage of mobile internet usage is surpassing traditional computing platform usage. Today’s world is mobile-centric. Thus, making it important to focus on the usability of mobile devices.
 
@@ -23,7 +23,7 @@ Jen Romano Bergstrom, a User Experience Specialist conducted a research study to
 
 ![**Image from Jen Romano Bergstrom’s eye-tracking research**](https://cdn-images-1.medium.com/max/3924/1*hoCe7meUocl79e7ZairBNg.jpeg)
 
-**Best UX Practices for Mobile Devices**
+## Best UX Practices for Mobile Devices
 
 Steve Krug, an information architect and user experience professional who is best known for his book “Don’t Make Me Think — A Common Sense Approach to Web Usability”, mentioned that designers keep in mind that the users first read before the act. Content is read through before other links are carefully chosen and clicked. The reality is that people don’t read everything, they just read what they want to. This is a big takeaway and reinforces the importance of usability tools such as the eye-tracking device.
 
@@ -45,11 +45,11 @@ If an error message pops up, it should explain what the error message is all abo
 
 Keeping in mind that the users have access to multiple devices, an interface’s layout should be consistent across various mobile devices. The flow of information should remain the same as good design gives users a consistent mental model throughout all platforms.
 
-**Conclusion**
+## Conclusion
 
 Despite the fact that eye-tracking is a time consuming and expensive process, it is a very useful technique to gain deep insights on a particular product. As far as the use of eye tracking in mobile devices is concerned, there is a lot more to explore in this area. Following these suggested UX practices will significantly improve the user’s experience.
 
-**References**
+## References
 
 [http://bit.ly/2AGPlkz](http://bit.ly/2AGPlkz)
 
