@@ -11,7 +11,7 @@
 
 Logging is a very important part of any application. It helps us to debug the issues, display important stats using [Splunk](https://en.wikipedia.org/wiki/Splunk) & a lot more. From the very start of our coding days, Logs are our true friends and helps us a lot. So basically Logs are one of the most required aspect of any server-side code architecture. There are many logging libraries available in the market like [Winston](https://github.com/winstonjs/winston), [Loggly](https://www.loggly.com/docs/api-overview/), [Bunyan](https://github.com/trentm/node-bunyan), etc. But when it comes to debugging our APIs or we need to check the value of some variable we simply call our best friend in JavaScript **console.log().** Let’s check some of the examples, How generally people put logs in their codes.
 
-```
+```js
 console.log("MY CRUSH NAME");
 console.log("AAAAAAA");
 console.log("--------------------");
@@ -39,20 +39,20 @@ The newly added log is clearly visible. Now let’s take a look at the implement
 
 ## Install
 
-```
+```bash
 npm install chalk
 ```
 
 ## Usage
 
-```
+```js
 const chalk = require('chalk');
 console.log(chalk.blue('Hello world!'));//Print String in Blue Color
 ```
 
 You can also customize your own theme and use it like this.
 
-```
+```js
 const chalk = require('chalk');
 
 const error = chalk.bold.red;
