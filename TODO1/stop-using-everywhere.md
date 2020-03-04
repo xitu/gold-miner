@@ -2,30 +2,30 @@
 > * 原文作者：[Seifeldin Mahjoub](https://medium.com/@seif.sayed)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/stop-using-everywhere.md](https://github.com/xitu/gold-miner/blob/master/TODO1/stop-using-everywhere.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zavier](https://github.com/zaviertang)
+> * 校对者：[Chorer](https://github.com/Chorer)、[Long Xiong](https://github.com/xionglong58)
 
-# Stop Using === Everywhere
+# 停止在任何地方使用 `===`
 
-#### An unpopular opinion, let’s take a look
+#### 这是一个不同寻常的观点，让我们来探讨一下吧！
 
 ![Photo by [JC Gellidon](https://unsplash.com/@jcgellidon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/stop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8480/1*ofXvrzbMMofNyhgXuY7dYw.jpeg)
 
-Many developers always use `===` in favor of `==` but why?
+大多数的开发者总是更青睐于使用 `===` 来代替 `==`，这是为什么呢？
 
-Most of the tutorials I have seen online suggest that it’s too complicated to predict how JavaScript coercions work and therefore advise to always `===`.
+我在网上看到的大多数教程都是认为：JavaScript 的强制转换机制太复杂而不能正确地预知结果，所以建议使用 `===`。
 
-There are several tutorials supporting incorrect information and myths on the internet. In addition to that, many linting rules and popular websites are opinionated towards always preferring `===`.
+网上不少教程提出的信息和观点都是错误的。除此之外，许多 lint 规则和知名网站也固执地偏好于使用 `===`。
 
-These all lead to lots of programmers excluding part of the language and treating it as a defect instead of expanding their understanding.
+这些都导致很多程序员不把它当作语法的一部分去深入理解它，而只是把它当作一个语法缺陷。
 
-Here are two use cases where it’s better to use `==` to illustrate the point.
+这里我会举两个使用 `==` 的例子，来支持我的观点。
 
 ---
 
-## 1. Testing for Empty Values
+## 1. 空值判断
 
-```
+```JavaScript
 if (x == null)
 
 vs
@@ -35,7 +35,7 @@ if (x === undefined || x === null)
 
 ---
 
-## 2. Reading Input From a User
+## 2. 读取用户输入
 
 ```JavaScript
 let userInput = document.getElementById('amount');
@@ -45,64 +45,64 @@ vs
 if (amout === Number(userInput))
 ```
 
-In this article, we will dive deep into understanding this topic by discovering the differences, understanding coercion, looking at some popular use cases, and, finally, having a guideline to help us make the decision.
+在这篇文章中，我们将会通过一些常见的例子，来深入分析它们的区别、理解强制转换机制，最终形成一个指导方案来帮助我们决定是使用 `===` 还是 `==`。
 
 ---
 
-## Introduction
+## 介绍
 
-In Javascript, equality is done by two operators.
+在 JavaScript 中，有两种操作符可以帮助我们进行相等判断。
 
-1. `=== `— Strict equality comparison a.k.a. triple equals.
-2. `==`— Abstract equality comparison a.k.a. double equals.
+1. `=== ` —— 严格相等操作符（三等号）。
+2. `==` —— 标准相等操作符（双等号）。
 
-I have always been using `===`since I was informed that it is better and superior to the `==` and that I didn’t have to think about it at all, which, as a lazy person, I found very convenient.
+我一直在使用 `===`，因为我被告知，它比 `==` 更好、更优越。我根本不需要去考虑原因，作为一个懒惰的人，我觉得很方便。
 
-This was until I watched “Deep JavaScript Foundations” on [Frontend Masters](undefined) by [Kyle](undefined) or [@getfiy](https://twitter.com/getify) author of [**You Don’t Know JS**](https://github.com/getify/You-Dont-Know-JS).
+直到我看了[《你不知道的 JS》](https://github.com/getify/You-Dont-Know-JS)的作者 [Kyle](https://medium.com/@getify)（Twitter:[@getfiy](https://twitter.com/getify)）在 [Frontend Masters](https://medium.com/@FrontendMasters) 上写的文章“Deep JavaScript Foundations”。
 
-The fact that as a professional programmer, I didn’t think deeply about one of the operators I use every day at work motivated me to spread awareness and encourage people to understand more and be mindful of the code we write.
-
----
-
-## Where Is the Source of Truth
-
-It’s important to know where the truth is. It’s not on Mozilla’s, W3schools, not in the hundred articles that claim `===` is better than `==`, and it’s definitely not in this one.
-
-It's in the **JavaScript specifications**, where you can find the documentation on how JavaScript works. [**ECMAScript® 2020 Language Specification**](https://tc39.es/ecma262/#sec-abstract-equality-comparison)
+作为一名专业的程序员，我没有深入思考我每天工作中使用的这些操作符，这一事实激励着我去传播相关意识以及鼓励人们更多地去深入理解并关注我们自己编写的代码。
 
 ---
 
-## Busting the Myths
+## 阅读文档
 
-#### 1. == checks for values only (loose)
+知道答案在哪里也许是重要的。它不在 Mozilla 的网站上，不在 W3schools 网站上，也不在那些声称 `=== ` 比 `==` 更好的文章中，当然它也不在这篇文章中。
 
-If we look at the specification, it’s very clear from the definition that the first thing the algorithm does is, in fact, check for the type.
+它在 **JavaScript 规范** 中，那里有关于 JavaScript 如何工作的文档。[**ECMAScript®2020语言规范**](https://tc39.es/ecma262/#sec-abstract-equalcomparison)
+
+---
+
+## 纠正认知
+
+#### 1. == 只做值的判断 (宽松的)
+
+如果我们看一下文档，从定义上就可以清楚地看到，`==` 做的第一件事实际上是类型检查。
 
 ![](https://cdn-images-1.medium.com/max/2596/1*vtLIMvTkIe-4RlSEmzoiSA.png)
 
-#### 2. === Checks for values and types (strict)
+#### 2. === 同时检查类型和值 (严格的)
 
-Here we can likewise see from the specification that it checks the types, and if they are different, it does not examine the value at all.
+在这里，我们同样可以看到，`===` 先检查类型，如果类型不同，则根本不检查值是否相同。
 
 ![](https://cdn-images-1.medium.com/max/2692/1*Z3tOiO0nvNEtbfGVck1B8A.png)
 
-The real difference between double equals and triple equals is whether we allow coercion.
+所以，双等号 `==` 和三重等号 `===` 的区别在于我们是否允许强制转换。
 
 ---
 
-## Coercion in JavaScript
+## JavaScript 强制类型转换
 
-Coercion or typecasting is one of the fundamentals of any programming language. This is even more crucial for a language that is dynamically typed such as JavaScript as the compiler won’t yell at you if types change.
+强制类型转换是任何编程语言的基础之一。对于动态类型语言（如 JavaScript），这更为重要，因为如果类型发生了变化，编译器并不会报错。
 
-Understanding coercion means that we are able to interpret our code the same way JavaScript does and, therefore, gives us more extensibility and minimizes mistakes.
+理解强制转换意味着我们能够去解释 JavaScript 代码的运行原理，因此，为我们提供了更多的可扩展性和更少的错误。
 
-#### Explicit coercion
+#### 显式转换
 
-Coercion can occur explicitly when the programmer calls one of these methods and thus forces the type of the variable to change.
+类型转换可以在调用下面其中一种方法时显式地发生，从而强制改变变量的类型：
 
-Boolean(), Number(), BigInt(), String(), Object()
+`Boolean()`, `Number()`, `BigInt()`, `String()`, `Object()`
 
-Example:
+例如:
 
 ```JavaScript
 let x = 'foo';
@@ -114,9 +114,9 @@ x = Boolean('foo')
 typeof x // boolean
 ```
 
-#### Implicit coercion
+#### 隐式转换
 
-In JavaScript, variables are weakly typed, so this means that they can be converted automatically (implicit coercion). This is usually the case when we use arithmetic operations `+ / — *` , surrounding context, or use `==`.
+在 JavaScript 中，变量是弱类型的，所以这意味着它们可以自动转换（隐式转换）。比如我们在当前上下文中使用算术运算 `+ / - *` 时，或者是使用 `==` 时。
 
 ```JavaScript
 2 / '3' // '3' coerced to  3
@@ -127,33 +127,33 @@ if(x) // x is coerced to boolean
 `this ${variable} will be coreced to string`
 ```
 
-Implicit coercion is a double-edged sword, used sensibly it can increase readability and decrease verbosity. Misused or misunderstood, you have a formula for disappointments, people ranting and blaming JavaScript.
+隐式转换是一把双刃剑，合理使用可以增加代码的可读性，减少冗长。如果使用不当或被误解，人们经常会咆哮并指责这是 JavaScript 语法缺陷。
 
 ---
 
-## Equality Algorithms in a Nutshell
+## 相等判断算法
 
-#### Abstract equality comparison ==
+#### 标准相等操作符 ==
 
-1. If both X and Y are the same types — perform the `===`.
-2. If X is `null` and Y is `undefined` or the other way around — `true`.
-3. If one is a number, coerce the other to a number.
-4. If one is an object, coerces to primitive.
-5. Return `false`.
+1. 如果 X 和 Y 类型相同 —— 执行 `===`；
+2. 如果 X 和 Y 一个是 `null` 一个是 `undefined` —— 返回`true`；
+3. 如果一个是 number 类型，则把另一个也强制转换为 number 类型；
+4. 如果一个是对象，则强制转换为原始类型；
+5. 其它情况，返回 `false`。
 
-#### Strict equality comparison ===
+#### 严格相等操作符 ===
 
-1. If types don’t match — `false`.
-2. If types match — compare value, return false for NaN.
-3. -0 — true.
+1. 类型不同 —— 返回`false`；
+2. 类型相同 —— 比较值是否相同（都为 `NaN` 时返回 `false`）；
+3. `-0 === +0` —— 返回`true`。
 
 ---
 
-## Popular Use Cases
+## 常见例子
 
-#### 1. Same type (most of the cases)
+#### 1. 类型相同 （大多数情况）
 
-If the types are the same then the `===` is **exactly the same as** `==`. Therefore, you should use the more semantic one.
+如果类型相同，则 `===` 与 `==` **完全相同**。因此，您应该使用语义性更强的那个。
 
 ```JavaScript
 1 == 1 // true                ......        1 === 1 // true
@@ -161,38 +161,38 @@ If the types are the same then the `===` is **exactly the same as** `==`. Theref
 'foo' == 'foo' // true        ......       'foo' === 'foo' //true
 ```
 
-“I prefer to use `===` just in case the types are different.”
+“我更喜欢使用 `===`，以防类型不同。”
 
-This is not a logical argument, it’s like pressing save twice, refreshing five times. We do not call a method twice in code just in case, do we?
+这不是一个逻辑上的错误，它就像我们会按两次保存按钮，不断地刷新网页。但是，为了以防万一，我们并不会在代码中重复调用同一个方法，不是吗？
 
-#### 2. Different types (primitives)
+#### 2. 类型不同 （常见的）
 
-First of all, I want to bring to your attention that different **types do not mean unknown types**.
+首先，我想提醒大家，不同的类型**并不意味着未知的**类型。
 
-Not knowing the types indicates that there is a bigger problem in your code than just using `===` vs. `==`.
+不知道变量的类型说明您的代码中有一个比使用 `===` 还是 `==` 更严重的问题。
 
-Knowing the types shows a deeper understanding of the code which will result in fewer bugs and more reliable software.
+了解变量的类型会对代码有更深入的理解，这将帮助您减少错误和开发更可靠的程序。
 
-In the case that we have several possible types, by understanding coercion, we can now choose to coerce or not and hence use `===` or `==`.
+在我们有几种可能类型的情况下，通过理解强制转换机制，我们可以选择是否进行强制转换，进而决定使用 `===` 还是 `==`。
 
-Let’s say that we have the possibility of a number or a string.
+假设可能是 `number` 或者 `string` 类型。
 
-Remember that the algorithm prefers numbers so it will try to use `[toNumber()](https://tc39.es/ecma262/#sec-tonumber)`.
+请记住，这个算法更愿意比较 `number` 类型，因此它将尝试使用 [`toNumber()`](https://tc39.es/ecma262/#sec-tonumber) 方法。
 
 ```JavaScript
 let foo = 2;
-let bar = 32; // number or string
+let bar = 32; // number 或者 string
 
-foo == bar // if bar is string it will be coreced to number
+foo == bar // 如果 bar 是 string 类型，它将会被强制转换为 number 类型。
 
-foo === Number(bar) // doing basically the same
+foo === Number(bar) // 原理类似
 
-foo === bar // would always fail if bar comes as string
+foo === bar // 如果 bar 是 string 类型，则总是返回 false
 ```
 
-#### 3. null and undefined
+#### 3. null 和 undefined
 
-`null` and `undefined` are both equal to each other when using the `==`.
+当使用 `==` 时，`null` 和 `undefined` 是相等的。
 
 ```JavaScript
 let foo = null
@@ -203,50 +203,50 @@ foo == bar // true
 foo === bar // false
 ```
 
-#### 4. Nonprimitive [Objects, Arrays]
+#### 4. 非原始类型 [Objects, Arrays]
 
-Comparing nonprimitives such as objects and arrays should not be done using `==` or `===`.
-
----
-
-## Guidelines for Making Decisions
-
-1. Prefer `==` in all cases where it can be used.
-2. `==` with known types, optionally when you want to cast the types.
-3. Knowing types is better than not knowing.
-4. Don't use `==` if you don’t know the types.
-5. If you know the types, `==` is `===`.
-6. `===` is pointless when types don’t match.
-7. `===` is unnecessary when types match.
+不应该使用 `==` 或 `===` 来比较对象和数组等非原始类型。
 
 ---
 
-## Reasons to Avoid ==
+## 指导方案
 
-There are some cases where one should not use `==` without really understanding falsy values in JavaScript.
+1. 能使用 `==` 时尽量使用 `==`；
+2. 知道变量类型时，或者您需要转换变量类型时，使用 `==`；
+3. 知道变量类型总比不知道好；
+4. 不知道变量类型时不要使用 `==`；
+5. 知道变量的类型时，`==` 和 `===` 就是一样的；
+6. 当类型不相同时，使用 `===` 是无意义的；
+7. 而当类型相同时，使用 `===` 是没必要的；
+
+---
+
+## 避免使用 `==` 的情况
+
+在没有真正理解 JavaScript 中 `falsy` 值之前，某些情况下应避免使用 `==`。
 
 ```JavaScript
-== with 0 or "" or "   "
+== 后面是 0 或者 "" 或者 "   "
 
-== with non primtives
+== 后面是非原始类型
 
-== true  or  == false
+== true  或者  == false
 ```
 
 ---
 
-## Summary
+## 总结
 
-In my experience, so far, I have always known the type of the variable I’m dealing with, and if I don’t, I use `typeof` to only allow the ones I expect.
+根据我的经验，到目前为止，我编码时总是会知道要处理的变量的类型，如果不知道，我就使用 `typeof` 来判断。
 
-Here are four points for people who scrolled to the end of the post.
+以下是给看到文末的读者最后的 4 点建议：
 
-1. If you can’t or won’t know the types, using `===` is the only reasonable choice.
-2. Not knowing the types likely means you don’t understand the code, try to refactor your code.
-3. Knowing the types leads to better code.
-4. If types are known, `==` is best otherwise fall back to `===`.
+1. 如果您无法知道变量的类型，那么使用 `===` 是唯一合理的选择；
+2. 不知道变量的类型可能意味着您不够理解代码，也许您需要重构；
+3. 了解变量的类型有助于编写出更好的程序；
+4. 如果变量的类型已知，则最好使用 `==`，否则只能使用 `===`。
 
-Thanks for reading, I hope that this article has helped you deepen your understanding of JavaScript. I would suggest that you check the **You Don’t Know JS** series as it’s a mine full of in-depth knowledge. [**You-Dont-Know-JS**](https://github.com/getify/You-Dont-Know-JS)
+感谢您的阅读，我希望这篇文章能够帮助您加深对 JavaScript 的理解。我建议您可以去看看**你不知道的 JS** 系列，因为它对 JavaScript 这门语言有很深度的分析。[**You-Dont-Know-JS**](https://github.com/getify/You-Dont-Know-JS)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
