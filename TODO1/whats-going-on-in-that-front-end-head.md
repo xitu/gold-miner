@@ -7,7 +7,7 @@
 
 # What’s going on in that front end head (\<head\>)?
 
-#### Must-have tags that FEs should include even if SEOs and marketers don’t ask for them.
+> Must-have tags that FEs should include even if SEOs and marketers don’t ask for them.
 
 ![Photo by [Natasha Connell](https://unsplash.com/@natcon773?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8064/1*lgPqPdewofN-QeUyeocZ8w.jpeg)
 
@@ -17,7 +17,7 @@ So if you’re a front-ender trying to make friends with marketers and SEOs, or 
 
 ## Document language
 
-```
+```html
 <html lang=”en”>…</html>
 ```
 
@@ -27,7 +27,7 @@ Typically the attribute is included in the \<head>, but can also be used on othe
 
 For example:
 
-```
+```html
 <blockquote lang="fr" cite="URL">Some french quote here</blockquote>
 ```
 
@@ -35,7 +35,7 @@ For example:
 
 If Google is ignoring the lang attribute when looking at the different languages of a document, what does it use? The hreflang tag!
 
-```
+```html
 <link rel="alternate" href="https://masterPageURL" hreflang="en-us" />
 <link rel="alternate" href="https://DEVersionURL-" hreflang="de-de" />
 ```
@@ -56,7 +56,7 @@ Canonicals are probably the most annoying and confusing of all tags, so here’s
 
 The canonical tag looks like this:
 
-```
+```html
 <link rel="canonical" href="https://masterPageURL" />
 ```
 
@@ -72,7 +72,7 @@ Please note that **all the duplicate pages** need to include this tag and to poi
 
 This is different than the robots.txt file. It’s a tag that looks like this:
 
-```
+```html
 <meta name="robots" content="noindex, nofollow" />
 ```
 
@@ -91,7 +91,7 @@ Possible values are as follows:
 
 OG stands for Open Graph Protocol and it’s a technology that allows you to control what data is shown when a page is shared in social media. Here’s how the tags look like:
 
-```
+```html
 <meta property="og:title" content="The title" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://page.com" />
@@ -110,7 +110,7 @@ These two meta tags are essential, as they tell search engines and social platfo
 
 Here’s how these tags look like:
 
-```
+```html
 <title>This is the page title<title />
 <meta name="description" content="This is the meta description, meaning the text that's displayed in SERP snippets." />
 ```
@@ -121,7 +121,7 @@ Now, you may be aware that an old answer from Google, dating back in 2009, said 
 
 This tag isn’t actually called like this, the official name is “viewport” and it looks like this:
 
-```
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
 
@@ -133,7 +133,7 @@ While this tag isn’t technically turning your website into a mobile version, i
 
 This will make your colleagues happy, as it enables browsers to display a beautiful icon or logo in the tab, next to the site’s name. The tag for adding the favicon looks like this:
 
-```
+```html
 <link rel="icon" href="favicon-img.ico" type="image/x-icon" />
 ```
 
