@@ -2,93 +2,87 @@
 > * 原文作者：[Terence Shin](https://medium.com/@terenceshin)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-a-b-testing-for-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-a-b-testing-for-data-science.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Amberlin1970](https://github.com/Amberlin1970)
+> * 校对者：[Jiangzhiqi4551](https://github.com/Jiangzhiqi4551)，[PingHGao](https://github.com/PingHGao)
 
-# A Simple Guide to A/B Testing for Data Science
+# 一份数据科学 A/B 测试的简单指南
 
-> One of the most important statistical methods for data scientists
+> 数据科学家最重要的统计方法之一
 
 ![Picture created by myself, Terence Shin, and Freepik](https://cdn-images-1.medium.com/max/2000/0*KS_jfZBdZ9DxAvEz.png)
 
-A/B testing is one of the most important concepts in data science and in the tech world in general because it is one of the most effective methods in making conclusions about any hypothesis one may have. It’s important that you understand what A/B testing is and how it generally works.
+A/B 测试是数据科学和科技界中最重要的概念之一，因为它是确定任意一个假设可能得出的结论最有效的方法之一。理解 A/B 测试并知道它的工作原理十分重要。
 
-## Table of Content
+## 什么是 A/B 测试？
 
-1. [What is A/B testing?](#64ca)
-2. [Why is it important to know?](#bd65)
-3. [How to conduct a standard A/B test](#7264)
+最简单的说法是，A/B 测试是基于一个给定的标准，判断实验中的两个变量哪一个的表现更好的实验。典型地，两个消费群体面对同一样东西的两个不同版本时，根据谈话、点击率又或是转化率这样的标准判断两个版本之间是否有很大的差异。
 
-## What is A/B testing?
+以上图为例，我们可以随机地将消费者分成两组，一个控制组和一个变量组。然后，我们可以给变量组展示一个红色的网站横幅，再观察网站的转化率是否会得到大幅提升。必须注意的是，在进行 A/B 测试时，所有其他的变量是保持不变的。
 
-A/B testing in its simplest sense is an experiment on two variants to see which performs better based on a given metric. Typically, two consumer groups are exposed to two different versions of the same thing to see if there is a significant difference in metrics like sessions, click-through rate, and/or conversions.
+从更专业的角度讲，A/B 测试是一种统计和双样本假设检验的形式。**统计假设检验**是用于一个样本数据集和总体数据进行比较的一种方法。**双样本假设检验**是决定两个样本之间的差异是否具有统计意义的一种方法。
 
-Using the visual above as an example, we could randomly split our customer base into two groups, a control group and a variant group. Then, we can expose our variant group with a red website banner and see if we get a significant increase in conversions. It’s important to note that all other variables need to be held constant when performing an A/B test.
+## 为什么一定要了解？
 
-Getting more technical, A/B testing is a form of statistical and two-sample hypothesis testing. **Statistical hypothesis testing** is a method in which a sample dataset is compared against the population data. **Two-sample hypothesis testing** is a method in determining whether the differences between the two samples are statistically significant or not.
+了解 A/B 测试是什么以及它如何工作是很重要的，因为它是量化产品变化或者市场策略变化时最好的方法。而这在由数据驱动的世界里变得日益重要，因为商业决策需要以事实和数字为依据。
 
-## Why is it important to know?
+## 怎样进行一个标准的 A/B 测试？
 
-It’s important to know what A/B testing is and how it works because it’s the best method in quantifying changes in a product or changes in a marketing strategy. And this is becoming increasingly important in a data-driven world where business decisions need to be back by facts and numbers.
+#### 1.提出你的假设
 
-## How to conduct a standard A/B test
+在进行一个 A/B 测试之前，你会提出你的零假设和备择假设：
 
-#### 1. Formulate your hypothesis
+**零假设**是指样本观察的结果完全出自偶然的假设。从 A/B 测试的角度讲，零假设是指控制组和对照组之间**无**差异。
+**备择假设**是指样本观察被一些非随机的因素影响的假设。 从 A/B 测试的角度讲 ，备择假设是指控制组和变量组之间**有**差异。
 
-Before conducting an A/B testing, you want to state your null hypothesis and alternative hypothesis:
+在提出你的零假设和备择假设时，建议遵循 PICOT 格式。Picot 代表：
 
-The **null hypothesis** is one that states that sample observations result purely from chance. From an A/B test perspective, the null hypothesis states that there is **no** difference between the control and variant group.
-The **alternative hypothesis** is one that states that sample observations are influenced by some non-random cause. From an A/B test perspective, the alternative hypothesis states that there **is** a difference between the control and variant group.
+- 对象（**P**opulation）：参与实验的人群
+- 干预（**I**ntervention）：指代研究中的新变量
+- 对照（**C**omparison）：指代你计划用于和你的干预进行比较的参考组
+- 结果（**O**utcome）：代表你预期的结果
+- 时间（**T**ime）：指代整个实验的持续时间（何时开始收集数据及收集数据所花费的时长）
 
-When developing your null and alternative hypotheses, it’s recommended that you follow a PICOT format. Picot stands for:
+例子：“相较于对照组，干预 A 将会改善临床焦虑水平在 3 个月的癌症患者的焦虑水平（以 HADS 焦虑分量表标准的平均变化来衡量）。”
 
-* **P**opulation: the group of people that participate in the experiment
-* **I**ntervention: refers to the new variant in the study
-* **C**omparison: refers to what you plan on using as a reference group to compare against your intervention
-* **O**utcome: represents what result you plan on measuring
-* **T**ime: refers to the duration of the experience (when and how long the data is collected)
+它（这个例子）符合 PICOT 的标准吗？
 
-Example: “Intervention A will improve anxiety (as measured by the mean change from baseline in the HADS anxiety subscale) in cancer patients with clinical levels of anxiety at 3 months compared to the control intervention.”
+* 对象：有临床焦虑的癌症患者
+* 干预：干预 A
+* 对照：对照干预
+* 结果：以 HADS 焦虑分量表标准的平均变化来衡量是改善了焦虑
+* 时间：与对照干预组进行3个月比较
 
-Does it follow the PICOT criteria?
+确实如此 —— 因此，这是一个强假设检验的例子。
 
-* Population: Cancer patients with clinical levels of anxiety
-* Intervention: Intervention A
-* Comparison: the control intervention
-* Outcome: improve anxiety as measured by the mean change from baseline in the HADS anxiety subscale
-* Time: at 3 months compared to the control intervention.
+#### 2.创建你的对照组和测试组
 
-Yes it does — therefore, this is an example of a strong hypothesis test.
+一旦确定了你的零假设和备择假设，下一步就是创建你的对照和测试（变量）组。在这一歩中有两个重要的概念需要考虑，随机采样和样本的大小。
 
-#### 2. Create your control group and test group
+**随机采样**
+随机采样是指对象中的每个样本都有相等的选中概率的一种技术。随机采样在假设检验时很重要，因为它消除了抽样偏差。**消除偏差是很必要的，因为你希望你的 A/B 测试的结果能够代表整个研究对象而不仅是样本自身。**
 
-Once you determine your null and alternative hypothesis, the next step is to create your control and test (variant) group. There are two important concepts to consider in this step, random samplings and sample size.
+**样本大小**
+在进行 A/B 测试之前，必须要先设定好你的 A/B 测试的最小样本大小，才能消除由于太少样本而产生的**覆盖偏差**。有大量的[在线计算器](https://www.optimizely.com/sample-size-calculator/) 可以计算给定三个输入时的样本大小，如果你有兴趣了解这背后的数学原理请点击这个[链接]( https://online.stat.psu.edu/stat414/node/306/)！
 
-**Random Sampling**
-Random sampling is a technique where each sample in a population has an equal chance of being chosen. Random sampling is important in hypothesis testing because it eliminates sampling bias, and **it’s important to eliminate bias because you want the results of your A/B test to be representative of the entire population rather than the sample itself.**
-
-**Sample Size**
-It’s essential that you determine the minimum sample size for your A/B test prior to conducting it so that you can eliminate **under coverage bias**, bias from sampling too few observations. There are plenty of [online calculators](https://www.optimizely.com/sample-size-calculator/) that you can use to calculate the sample size given these three inputs, but check out [this link](https://online.stat.psu.edu/stat414/node/306/) if you would like to understand the math behind it!
-
-#### 3. Conduct the test, compare the results, and reject or do not reject the null hypothesis
+#### 3.进行测试，对比结果，是否丢弃零假设
 
 ![](https://cdn-images-1.medium.com/max/2000/0*KIie8p4lPGVXfCgZ.png)
 
-Once you conduct your experiment and collect your data, you want to determine if the difference between your control group and variant group is statistically significant. There are a few steps in determining this:
+在你进行实验并且收集了你的数据后，你就要确定你的控制组和变量组之间的差异是否是统计显著的。如下几步可用于确定：
 
-* First, you want to set your **alpha**, the probability of making a type 1 error. Typically the alpha is set at 5% or 0.05
-* Next, you want to determine the probability value (p-value) by first calculating the t-statistic using the formula above.
-* Lastly, compare the p-value to the alpha. If the p-value is greater than the alpha, do not reject the null!
+* 首先，你需要设定你的 **α** 值，出现 1 类错误的概率。通常 α 的值设定为 5% 或 0.05 。
+* 其次，你需要利用上面的公式计算 t-统计量进而得出概率值（p 值）。
+* 最后，对比 p 值和 α 。如果 p 值大于 α ，不丢弃空假设！
 
-**If this doesn’t make sense to you, I would take the time to learn more about hypothesis testing [here](https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/idea-of-significance-tests/v/simple-hypothesis-testing)!**
+**如果上述内容对你没有意义，我将会花时间从[这里](https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/idea-of-significance-tests/v/simple-hypothesis-testing)学习更多假设检验的知识！**
 
-## Thanks for reading!
+## 谢谢阅读！
 
-If you like my work and want to support me, sign up on my email list [here](https://terenceshin.typeform.com/to/fe0gYe)!
+如果你喜欢我的文章并且想支持我，请注册我的邮箱列表[这里](https://terenceshin.typeform.com/to/fe0gYe)！
 
-## References
-[**A/B testing**
-**A/B testing (also known as bucket tests or split-run testing) is a randomized experiment with two variants, A and B. It…**en.wikipedia.org](https://en.wikipedia.org/wiki/A/B_testing)
+## 参考
+
+[**A/B 测试**](https://en.wikipedia.org/wiki/A/B_testing) 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
