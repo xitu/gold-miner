@@ -2,157 +2,157 @@
 > * 原文作者：[Kent Sia](https://medium.com/@kentscg)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-7-programming-languages-frameworks-to-learn-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-7-programming-languages-frameworks-to-learn-in-2020.md)
-> * 译者：
+> * 译者：[司徒公子](http://github.com/todaycoder001)
 > * 校对者：
 
-# The 7 Programming Languages & Frameworks to Learn in 2020
+# 2020 年要学习的 7 种编程语言和框架
 
-> Curated recommendations for passionate coders
+> 推荐给充满激情的程序员
 
-![](https://cdn-images-1.medium.com/max/3200/1*uNbcaiAZZpcxl3t_zUrT-g.jpeg)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200301104804.jpeg)
 
-Choosing the right programming languages or framework for your applications impacts not only the speed and timeline of the development, but it also influences your ability to scale in the future.
+为你的应用程序选择合适的编程语言或框架不仅会影响开发速度和开发周期，而且还会影响你未来职业发展的广度。
 
-Here I’m sharing the top 7 programming languages that you should know now in 2020 and to be relevant in the next couple of years. If you are one of the people who are still struggling or passionate about picking which programming language to learn in front-end or back-end fields, then this post is right for you.
+在这里，我将分享 2020 年你最应该学习了解的 —— 7 种编程语言，并且在未来几年与你息息相关 。如果你还在为前端或后端选择哪一门编程语言而苦苦挣扎或热情于此，那么这篇文章非常适合你。
 
-## 1. Java/Kotlin — Spring Framework
+## 1. Java/Kotlin —— Spring 框架
 
-![](https://cdn-images-1.medium.com/max/2000/1*oQTtGZg7u2f75DQN1koa7w.png)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200301104831.png)
 
-Many of you may have asked why **Java**? Is Java still even exist or popular? The answer is **Yes**. Choosing to learn any programming language is not just based on popularity metrics or whether the date it got created. Whether you like it or not, Java is still the enterprise standard programming language and it is widely used. The job opportunity is also one of the factors to take into consideration when we choose a programming language to learn.
+很多人可能会问为什么是 **Java**？Java 依然存在？还在流行？答案是**肯定的**。选择学习任何一门编程语言都不仅仅是基于流行程度或者它创建的时间。无论你喜不喜欢，Java 仍然是一门企业标准的编程语言，并且得到了广泛的运用。工作机会也是我们选择学习编程语言时要考虑的因素之一。
 
-**Kotlin** is a cross-platform, statically typed, general-purpose programming language with type inference. Kotlin is designed to interoperate fully with Java, and the JVM version of its standard library depends on the Java Class Library, but type inference allows its syntax to be more concise. Kotlin originated at JetBrains, the company behind IntelliJ IDEA, in 2010, and has been open source since 2012.
+**Kotlin** 是一门具有类型推断的跨平台、静态类型和通用的编程语言。Kotlin 旨在与 Java 完全互操作，并且它标准库的 JVM 版本依赖于 Java 类库，但是类型推断允许它的语法更简洁。在 2010 年，Kotlin 由 IntelliJ IDEA 背后的 JetBrains 公司创立，并从 2012 年开始开放源码。
 
-**Spring** framework is one of the most popular open-source Java frameworks. It is geared towards the developers and provides an all-round, flexible framework. Spring 5.0 onwards has provided dedicated support for Kotlin. People always compare Kotlin over Java. With Spring, why not we combine both? Since both languages have it’s good and bad.
+**Spring** 框架是最流行的 Java 开源框架之一。它面向开发人员，并且提供了一个全面、灵活的框架。Spring 5.0 之后的版本为 Kotlin 提供了专门的支持，人们总是将 Kotlin 与 Java 进行比较。既然两种语言都有它的优点和缺点，对于 Spring 框架来说，我们为什么不把两者结合起来呢？
 
-With the extensions, resources, and documentation found on the Internet, it makes the developers ease to find and adding dependencies required to integrate with different kinds of 3rd party applications.
+借助 Internet 上的扩展、资源和文档。使得开发人员可以更轻松的找到并添加与之不同类型的第三方应用程序集成所需的依赖项。
 
-Most popular products from the Spring framework:
+Spring 框架最受欢迎的产品：
 
-* **Spring Boot** is designed to run as quickly as possible, with minimal upfront configurations
-* **Spring Cloud** is designed for simplifies distributed and microservice-style architecture
-* **Spring Cloud Data Flow** is a unified service for creating composable data microservices
+* **Spring Boot** 旨在以最少的前期配置尽快的运行
+* **Spring Could** 旨在简化分布式和微服务风格的架构
+* **Spring Cloud Data Flow** 是用于创建可组合数据微服务的统一服务
 
-You should consider using when:-
+你用该考虑使用，当：
 
-* Building an enterprise application
-* Building microservice architecture with the popular cloud provider
-* Building a large team with code controls
-* Looking for a framework that easily scalable and resilient
+* 构建企业级应用程序
+* 使用流行的云服务提供商实现微服务架构
+* 使用代码控件构建大型项目
+* 寻找易于扩展且具有弹性的框架
 
 ## 2. Golang
 
-![](https://cdn-images-1.medium.com/max/2000/1*8qCZoI4RWtnQ03R7CgnuEg.png)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200301104840.png)
 
-**Go**, also known as **Golang**, is an open-source programming language created at Google that makes it easy to build simple, reliable and efficient software. The syntax is clean and easy to understand by newcomers.
+**Go**，也称为 **Golang**，是 Google 创建的一种开源的编程语言，它可以轻松构建简单、可靠和高效的软件。语法干净，新手易于理解。
 
-The beauty of Go is its first-class support for concurrency. Go doesn’t just support **multi-threading**, it is multi-threaded by design itself.
+Go 的美妙之处在于它对并发性的一流支持。Go 不仅支持**多线程**，它本身也是多线程的。
 
-If you are looking for something that lightweight, fast execution and quick development, Go is one of the best choices. The binary file size for Go is way much smaller (10x) compared to the Spring jar file.
+如果你在寻找轻量级、快速执行和快速开发的产品，Go 是最佳选择之一。与 Spring jar 文件相比，Go的二进制文件要小的多（10 倍）。
 
-You should consider using when:-
+你用该考虑使用，当：
 
-* Building small and lightweight applications
-* Building for microservice-based container platform
-* Quick development, easy to build, and shorter learning curve
-* Building async & multi-threaded services
+* 构建小型轻量级的应用程序
+* 构建基于微服务的容器平台
+* 快速开发，易于构建，学习曲线更平缓
+* 构建异步和多线程服务
 
-## 3. Python — Django Framework
+## 3. Python —— Django 框架
 
-**Django** framework considered one of the best Python frameworks in building web applications, and it’s free and open-source. Django offers stability, packages, best documentation and it has good community support.
+**Django** 框架被认为是构建 web 应用程序的最佳 Python 框架之一，并且它是免费和开源的。Django 提供稳定性、包、和最好的文档，并且有良好的社区支持。
 
-Django widely used in building CRM, CMS, Booking engines and all kinds of web applications. It supports the fast development of backend APIs with **minimal coding**.
+Django 广泛用于构建 CRM、CMS、预定引擎和各种 web 应用程序，它支持以**最少的编码**快速开发后端 API。
 
-Among other things, Django is great for data analysis solutions, complicated computations, and machine learning. It is one of the top picks for developers these days.
+除其他事项外，Django 非常适合用于数据分析解决方案、复杂的计算和机器学习。它是目前开发人员首选的框架之一。
 
-You should consider using when:-
+你用该考虑使用，当：
 
-* Building large scale web applications
-* API driven applications
-* Don’t mind monolith architecture
-* Data analytics solutions and Machine Learning
+* 构建大规模 web 应用程序
+* API 驱动的应用程序
+* 不在意整体架构
+* 数据分析解决方案和机器学习
 
-## 4. Node.js — Express
+## 4. Node.js —— Express
 
-JavaScript is probably one of the most powerful and fastest-growing programming languages for the last few years. In those days, JavaScript used to build only for web, but now if you well-versed in JavaScript, you can develop web applications, back-end with database integrations, desktop applications, and even mobile applications.
+JavaScript 可能是过去几年最强大和增长最快的编程语言之一。那时候，JavaScript 只用于构建 web 应用程序，但是，现在如果你精通 JavaScript，就可以开发构建 web 应用程序、后端数据库集成、桌面应用程序，甚至是移动应用程序。
 
-Nowadays, JavaScript is used almost everywhere. Since JavaScript has such high adoption and no competition, we can’t foresee it is going anywhere, anytime soon.
+如今，JavaScript 几乎无处不在。由于 JavaScript 的占比很高，并且没有竞争，因此，我们无法预见它不久的将来会走向何方。
 
-**Express** known for fast, unopinionated, minimalist web framework for Node.js. It is built on JavaScript and has a relatively small learning curve. Most of the developers today choose Express because of its **flexibility**, **simplicity,** and **extensibility**. Not to mention, Express is part of the MEAN (Software Bundle) stack, a collection of full-stack JavaScript-based technologies to develop web applications.
+**Express** 以快速、无约束、极简的 Node.js web框架而闻名。它基于 JavaScript 构建，学习曲线相对较平缓。如今，大多数开发人员都选择 Express 是因为它的灵活性、简单性和可扩展性。更不用说，Express 是 MEAN（软件捆绑包）堆栈的一部分，该堆栈是基于 JavaScript 技术开发 web 应用程序的完整全栈技术的集合。
 
-You should consider using when:-
+你用该考虑使用，当：
 
-* Building small scale web applications like portals, dashboards, etc
-* Building desktop applications
-* Building for Minimum Viable Product (MVP)
-* Shorter learning curve
-* You only have a small team and a short timeline
-* Minimizing the expenses spent on hiring backend development team
-* You don’t want to disturb or wait for your existing backend team 😆
+* 构建小型 web 应用程序，例如门户网站、仪表盘等
+* 构建桌面应用程序
+* 最小可行产品构建（MVP）
+* 学习曲线更平缓
+* 你只有一个小团队和较短的开发周期
+* 尽量减少雇用后端开发团队的成本
+* 你不想打扰或等待现有的后端团队 😆
 
-## 5. Angular — Web Framework
+## 5. Angular —— Web 框架
 
-![](https://cdn-images-1.medium.com/max/2000/1*Y547A1WkJDBXb4OYF_JSjg.png)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200301104848.png)
 
-I have been following Angular many years when AngularJS used to be one of the best frameworks back then. **Angular** is a TypeScript based open source web application framework built by Google. Angular is a complete rewrite of AngularJS by the same Angular Team at Google. It is powerful, modern and it has very good community support.
+多年来，我一直关注 Angular，那时 AngularJS 曾经是最好的框架之一。**Angular** 是一个基于 TypeScript 的开源 web 应用框架，由谷歌构建。Angular 是谷歌的同一个 Angular 团队对 AngularJS 的完全重写。它功能强大，并且有很好的社区支持。
 
-Angular is supported on various platforms on the web, mobile, and desktop. One of the main reasons learning Angular is because its ecosystem is large and thriving. The Angular Team has shipped an incredible amount of tooling and libraries to the community. I have attended an Angular conference in 2019, and it is great to meet all the great developers around the world to share the experience of using Angular.
+Angular 支持 web、手机和桌面的各种平台。学习 Angular 最主要的原因之一是因为其庞大的生态系统且蓬勃发展。Angular 团队已经向社区交付了大量的工具和库。我参加了 2019 年的 Angular 大会，非常高兴能与世界各地的所有伟大开发者会面，分享使用 Angular 的经验。
 
-The new version Angular (Version 9) is going to be the next big thing in the JavaScript framework. It comes with smaller bundles size, faster build, better debugging tools and more.
+新版本的 Angular（版本 9）将会成为 JavaScript 框架接下来的一个大事件。它有更小的包大小、更快速的构建和更好用的调试工具等。
 
-You should consider using when:-
+你用该考虑使用，当：
 
-* Building large scale web applications
-* Looking for a large and great ecosystem for all the tools and libraries in the community
-* Don’t mind a big learning curve
-* You like to write Typescript than JavaScript 🙄
-* It is supported by **Google**!
+* 构建大规模的 web 应用程序
+* 为社区中所有的工具和库寻找一个大型的生态系统
+* 不介意陡峭的学习曲线
+* 你喜欢写 Typescript 而不是 JavaScript 🙄
+* 有**谷歌**的支持
 
-## 6. Vue.js — The Progressive JavaScript Framework
+## 6. Vue.js —— 渐进式 JavaScript 框架
 
-![](https://cdn-images-1.medium.com/max/2000/1*cV6-boeahoMGTxf4Ob9sUw.png)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200301104856.png)
 
-**Vue** is a very popular JavaScript framework that grows tremendously for the last years. Vue was created by Evan You when he was working at Google on AngularJS back then.
+**Vue** 是一个非常受欢迎的 JavaScript 框架，在过去几年里发展迅猛，Vue 是尤雨溪创建的，当时他在谷歌的 AngularJS 团队工作。
 
-Why Vue is popular? Vue is a progressive JavaScript framework for building interfaces. It is designed from the ground up to be incrementally adoptable. One of the main advantages of Vue, it has taken many good ingredients from its competitors (Angular and React), by adding its spices to it.
+为什么 Vue 会这么受欢迎？Vue 是一个构建接口的渐进式 JavaScript 框架，它从一开始就被设计成为可以逐步采用的。Vue 最主要的优势之一是，它从竞争对手（Angular 和 React）那里吸取了许多优质成分，并向其中加入了自己的特色。
 
-I personally like Vue very much, due to its simplicity, flexibility and most importantly it is written purely in **JavaScript**. However, Vue is still new, the community is still small, and the majority of the developers are non-English speaking.
+我个人非常喜欢 Vue，因为它简单、灵活，最重要的是它是纯 JavaScript 编写的。然而，Vue 仍然很新，社区仍然很小，而且大多数开发人员都不会说英语。
 
-You should consider using when:-
+你用该考虑使用，当：
 
-* Building medium scale web applications
-* Looking for quick development and shorter timeline (purely in JavaScript)
-* Medium learning curve
-* You can read Chinese 😉
-* You like JavaScript very much (this is me!)
+* 构建中型规模的 web 应用程序
+* 寻找快速开发和较短交付周期（纯 JavaScript）
+* 学习曲线平稳
+* 你可以看懂中文 😉
+* 你非常喜欢 JavaScript（这就是我！）
 
-## 7. Ionic framework
+## 7. lonic 框架
 
-![](https://cdn-images-1.medium.com/max/2000/1*j-9su5M8OP5kijAyX3mhRg.png)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200301104902.png)
 
-I have started Ionic development using AngularJS and Apache Cordova somewhere in 2014. It is an open-source SDK for hybrid mobile applications. Developers can build their mobile apps using JavaScript frameworks. Ionic includes mobile components, typography, mobile themes, and interactive paradigms to build mobile apps.
+2014年，我开始使用 AngularJS 和 Apache Cordova 对 Ionic 进行开发。它是一个用于混合移动应用程序的开源 SDK。开发人员可以使用 JavaScript 框架构建移动应用程序。Ionic 包括移动组件、排版、移动主题和交互范例来构建移动应用程序。
 
-In the latest release of Ionic, it allowing the user to choose any user interface framework, such as Angular, React or Vue.js. Ionic is promoting one codebase for any platform (iOS/Android/Electron/PWA). Ionic also provide the tools to live updating and CI/CD using Ionic Appflow to achieve the DevOps lifecycle.
+在最新版本的 Ionic 中，它允许用户选择任何用户界面框架，例如 Angular，React 或 Vue.js。Ionic 正在为任何平台（IOS/Android/Electron/PWA）推广一个代码库。Ionic 也提供了实时更新的工具，并且使用 Appflow 来实现 DevOps 生命周期的持续集成、持续交付。
 
-You should consider using when:-
+你用该考虑使用，当：
 
-* You want to build small/medium mobile apps
-* Quick development and medium learning curve
-* You do not want to learn native programming
-* Save time and cost to build for both Android and iOS mobile app
-* You love to use your JavaScript framework to build a mobile app
+* 你想构建小型/中型手机应用
+* 快速开发和平稳的学习曲线
+* 你不想学习原生编程
+* 节省构建 Android 和 IOS 移动应用程序的时间和成本
+* 你喜欢使用 JavaScript 框架来构建移动应用程序
 
-## Conclusions
+## 结论
 
-In summary, there is no right or wrong to learn any programming languages. There are several other good programming languages to learn, such as Swift for iOS, Dart by Google, R for Data Science, Flask for Python, etc. Selecting the best programming languages for correct use cases are fairly important for its long run.
+总之，学习任何编程语言都没有对错之分。还有其他好的一些编程语言可以学习，比如 iOS 的 Swift，谷歌的 Dart、数据科学的 R，Python 的 Flask 等等。从长远来看，为正确的应用场景选择最佳的编程语言非常重要。
 
-The top list here is selected based on the popularity, learning curves, features, and my humble views. I believe learning only a single programming language and expert on it is no longer a thing in 2020. Everyone is talking about full-stack programming these days.
+以上的排名列表都是基于受欢迎程度、学习曲线、特性以及我的拙见选出来的。我相信，在 2020 年，只学习一门编程语言并成为这方面的专家已经不可能了。如今，每个人都在讨论全栈编程。
 
-> True programmers never stop learning.
+> 真正的程序员是活到老，学到老。
 
-I hope you guys enjoy this article. If you guys found this article is useful for you, please share it with your friends and share your comments with me. Thanks!
+我希望你们喜欢这篇文章，如果你觉得这篇文章对你有用，请把它分享给你的朋友，并与我分享你的评论。感谢！
 
-Happy coding! 😊
+开心写代码！ 😊
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
