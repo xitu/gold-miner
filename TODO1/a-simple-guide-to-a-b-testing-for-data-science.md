@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-a-b-testing-for-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-a-b-testing-for-data-science.md)
 > * 译者：[Amberlin1970](https://github.com/Amberlin1970)
-> * 校对者：[Jiangzhiqi4551 ](https://github.com/Jiangzhiqi4551),[PingHGao](https://github.com/PingHGao)
+> * 校对者：[Jiangzhiqi4551](https://github.com/Jiangzhiqi4551)，[PingHGao](https://github.com/PingHGao)
 
 # 一份数据科学 A/B 测试的简单指南
 
@@ -42,11 +42,11 @@ A/B 测试是数据科学和科技界中最重要的概念之一，因为它是�
 
 在提出你的零假设和备择假设时，建议遵循 PICOT 格式。Picot 代表：
 
-* **对**象：参与实验的人群
-* **干**预：指代研究中的新变量
-* **对**照：指代你计划用于和你的干预进行比较的参考组
-* **结**果：代表你预期的结果
-* **时**间：指代整个实验的持续时间（何时开始收集数据及收集数据所花费的时长）
+- **对**象（**P**opulation）：参与实验的人群
+- **干**预（**I**ntervention）：指代研究中的新变量
+- **对**照（**C**omparison）：指代你计划用于和你的干预进行比较的参考组
+- **结**果（**O**utcome）：代表你预期的结果
+- **时**间（**T**ime）：指代整个实验的持续时间（何时开始收集数据及收集数据所花费的时长）
 
 例子：“相较于对照组，干预 A 将会改善临床焦虑水平在 3 个月的癌症患者的焦虑水平（以 HADS 焦虑分量表标准的平均变化来衡量）。”
 
@@ -88,8 +88,7 @@ A/B 测试是数据科学和科技界中最重要的概念之一，因为它是�
 
 ## 参考
 
-[**A/B 测试**
-**A/B 测试（也称为桶测试或分步运行测试）是一个随机实验，有两个变量 A 和 B。它……**en.wikipedia.org](https://en.wikipedia.org/wiki/A/B_testing) 
+[**A/B 测试**](https://en.wikipedia.org/wiki/A/B_testing) 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
