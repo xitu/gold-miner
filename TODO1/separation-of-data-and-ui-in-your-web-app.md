@@ -7,8 +7,6 @@
 
 # Separation of Data and Ui in your Web App
 
----
-
 Hello everyone, My name is Georgy and I’m a Full-stack developer at **[Bringg](http://bringg.com/)** and ****this is the first article I'm writing. 😅
 
 So today I want to focus on the concept of separation of data and UI while building you web app, how it can help you build much cleaner, easier to maintain and more awesome web apps, and a small example of how I was able to render 4 different UI/frameworks libraries with the same consistent. 😄
@@ -23,7 +21,6 @@ So you go and choose a framework/UI library like React, Angular, Vue, etc… and
 You start writing your first feature, let's take for example a users list, and you have a checkbox to select users, And then you need to decide where to keep your current selected users.
 
 > Do you keep them in your react component state ? or do you keep them in your redux store ? or do you keep them in your angular service or controller ?
->
 > Is selected users is something related do your Data somehow ? or is just pure View indicator ?
 
 Okay, so I gonna share with you the mindset, or thoughts you should have while writing features that can help you make the separation more clear through the above example.
@@ -85,6 +82,7 @@ I really love this separation, It makes the code in a much cleaner as it just ne
 Hope you liked the concept and if anyone has any question or would just like to discuss, or give me any points to improve is more than welcome to talk to me on [Facebook](https://www.facebook.com/gglezer), or by mail stolenng@gmail.com.
 
 Here is a link to the repository and a website:
+
 [**stolenng/mobx-cross-data-example**](https://github.com/stolenng/mobx-cross-data-example)
 
 [http://mobx-cross-data.georgy-glezer.com/](http://mobx-cross-data.georgy-glezer.com/)
