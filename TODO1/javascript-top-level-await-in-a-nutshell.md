@@ -1,34 +1,34 @@
-> * 原文地址：[How the new ‘Top Level Await’ feature works in JavaScript](https://medium.com/javascript-in-plain-english/javascript-top-level-await-in-a-nutshell-4e352b3fc8c8)
+> * 原文地址：[How the new ‘Top Level await’ feature works in JavaScript](https://medium.com/javascript-in-plain-english/javascript-top-level-await-in-a-nutshell-4e352b3fc8c8)
 > * 原文作者：[Kesk noren](https://medium.com/@kesk)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-top-level-await-in-a-nutshell.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-top-level-await-in-a-nutshell.md)
-> * 译者：
+> * 译者：[ssshooter](https://ssshooter.com/tag/coding/)
 > * 校对者：
 
-# How the new ‘Top Level Await’ feature works in JavaScript
+# 如何在 JavaScript 中使用新特性“顶层 await”
 
-> Short, useful JavaScript lessons — make it easy.
+> 简短有效的 JavaScript 课，让你看懂顶层 await。
 
 ![Photo by John Petalcurin](https://cdn-images-1.medium.com/max/11720/1*Pct48neOTBFhjsQHYYoTLw.jpeg)
 
-Previously, in order to use await, code needed to be inside a function marked as async. This meant that you couldn’t use await outside any function notation. Top-level await enables modules to act like async functions.
+以前要使用 await，相关代码必须位于 async 函数内部。换言之你不能在函数外使用 await。顶层 await 能使模块表现得像 async 函数一样。
 
-Modules are asynchronous and have an import and export, and those also expressed at the top-level. The practical implication of this is that if you wanted to provide a module that relied on some asynchronous task in order to do something you had really no good choices.
+模块是异步的，拥有 import 和 export，而这两者也是存在于顶层。这样做的实际意义是，如果你想提供一个模块，它依赖于其他异步任务，这时候你往往没有更好的选择。
 
-Top-level await comes to solve this and enables developers to use the await keyword outside async functions. With top-level await, ECMAScript Modules can await resources, causing other modules who import them to wait before they start evaluating their body, or you can use it also as a loading dependency fallback if a module loading fails or to use to load the first resource downloaded.
+顶层 await 可以解决这个问题，开发人员可以在 async 函数外使用 await 关键字。凭借顶层 await，ECMAScript 模块可以 await 资源，让 import 他们的模块等待他们加载完才开始执行。也可以用于模块加载失败时，使用依赖回退或使用加载完成的第一个资源。
 
-Notes:
+注意：
 
-* Top-level await **only works at the top level of modules**. There is no support for classic scripts or non-async functions.
-* ECMAScript stage 3 as of the time of this writing(23/02/2020).
+* 顶层 await **只能用在模块的顶层**，经典脚本或非 async 函数不支持。
+* 此文撰写时（23/02/2020），此特性处于 ECMAScript stage 3。
 
-## Use cases
+## 使用示例
 
-With top-level await, the next code works the way you’d expect within modules
+使用顶层 await，在模块中以下代码将正常工作
 
-## 1. Using a fallback if module loading fails
+## 1. 模块加载失败时使用回退
 
-The following example attempts to load a JavaScript module from first.com, falling back to if that fails:
+以下例子尝试加载一个来自 first.com 的 JavaScript 模块，加载失败会有回退方案：
 
 ```js
 //module.mjs
@@ -42,9 +42,9 @@ try {
 }
 ```
 
-## 2. Using whichever resource loads fastest
+## 2. 使用加载最快的资源
 
-Here res variable is initialized via whichever download finishes first.
+这里 res 变量的初始值由最先结束的下载请求决定。
 
 ```js
 //module.mjs
@@ -57,9 +57,9 @@ const resPromises = [
 const res = await Promise.any(resPromises);
 ```
 
-## 3. Resource initialization
+## 3. 资源初始化
 
-The top-level await allows you to await promises in modules as if they were wrapped in an async function. This is useful, for example, to perform app initialization:
+顶层 await 允许你在模块中 await promise，如同它们被包裹在一个 async 函数中。这在执行应用程序初始化时很有用：
 
 ```js
 //module.mjs
@@ -72,9 +72,9 @@ const connection = await dbConnector.connect();
 export default function(){connection.list()}
 ```
 
-## 4. Loading modules dynamically
+## 4. 动态加载模块
 
-This allows for Modules to use runtime values in order to determine dependencies.
+允许模块以运行时的值决定依赖库。
 
 ```js
 //module.mjs
@@ -84,11 +84,11 @@ const lang = params.get('lang');
 const messages = await import(`./messages-${lang}.mjs`);
 ```
 
-## 5. Using await outside async functions in DevTools?
+## 5. DevTools 中也能在函数 async 外部使用 await？
 
-Before with async/await, attempting to use an await outside an async function resulted in a: “ SyntaxError: await is only valid in async function” Now, you can use it without it being inside in an async function.
+以前在 async 函数外使用 await 会报语法错误 `SyntaxError: await is only valid in async function`，而现在可以正常使用了。
 
-This has been tested in chrome 80 and in firefox 72.0.2 **DevTools**. However, this functionality is non-standard and doesn’t work in nodejs.
+chrome 80 和 firefox 72.0.2 的 **DevTools** 测试可行。但此功能暂时还是非标准功能，不能再 nodejs 中使用。
 
 ```js
 const helloPromise = new Promise((resolve)=>{
@@ -101,18 +101,18 @@ const result =  await helloPromise;console.log(result);
 //Hello world!
 ```
 
-## Implementations
+## 实现情况
 
-* V8 with flag: — — harmony-top-level-await
-* Webpack (experimental support in 5.0.0)
-* Parser support has been added to Babel ([babel/plugin-syntax-top-level-await](https://babeljs.io/docs/en/babel-plugin-syntax-top-level-await)).
+* V8 启用 flag：— — harmony-top-level-await
+* WebPack（5.0.0 实验性支持）
+* Babel 已支持 ([babel/plugin-syntax-top-level-await](https://babeljs.io/docs/en/babel-plugin-syntax-top-level-await))
 
-## References
+## 参考资料
 
 * [https://github.com/bmeck/top-level-await-talking/](https://github.com/bmeck/top-level-await-talking/)
 * [https://github.com/tc39/proposal-top-level-await#use-cases](https://github.com/tc39/proposal-top-level-await#use-cases)
 
-Thanks for reading me!!
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
