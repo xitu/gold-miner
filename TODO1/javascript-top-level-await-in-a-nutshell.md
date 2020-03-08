@@ -7,7 +7,7 @@
 
 # How the new ‘Top Level Await’ feature works in JavaScript
 
-#### Short, useful JavaScript lessons — make it easy.
+> Short, useful JavaScript lessons — make it easy.
 
 ![Photo by John Petalcurin](https://cdn-images-1.medium.com/max/11720/1*Pct48neOTBFhjsQHYYoTLw.jpeg)
 
@@ -15,7 +15,7 @@ Previously, in order to use await, code needed to be inside a function marked as
 
 Modules are asynchronous and have an import and export, and those also expressed at the top-level. The practical implication of this is that if you wanted to provide a module that relied on some asynchronous task in order to do something you had really no good choices.
 
-Top-level await comes to solve this and enables developers to use the await keyword outside async functions. With top-level await, ****ECMAScript Modules can await resources, causing other modules who import them to wait before they start evaluating their body, or you can use it also as a loading dependency fallback if a module loading fails or to use to load the first resource downloaded.
+Top-level await comes to solve this and enables developers to use the await keyword outside async functions. With top-level await, ECMAScript Modules can await resources, causing other modules who import them to wait before they start evaluating their body, or you can use it also as a loading dependency fallback if a module loading fails or to use to load the first resource downloaded.
 
 Notes:
 
@@ -30,7 +30,7 @@ With top-level await, the next code works the way you’d expect within modules
 
 The following example attempts to load a JavaScript module from first.com, falling back to if that fails:
 
-```
+```js
 //module.mjs
 
 let module;
@@ -46,7 +46,7 @@ try {
 
 Here res variable is initialized via whichever download finishes first.
 
-```
+```js
 //module.mjs
 
 const resPromises = [    
@@ -61,7 +61,7 @@ const res = await Promise.any(resPromises);
 
 The top-level await allows you to await promises in modules as if they were wrapped in an async function. This is useful, for example, to perform app initialization:
 
-```
+```js
 //module.mjs
 
 import { dbConnector} from './dbUtils.js'
@@ -76,7 +76,7 @@ export default function(){connection.list()}
 
 This allows for Modules to use runtime values in order to determine dependencies.
 
-```
+```js
 //module.mjs
 
 const params = new URLSearchParams(window.location.search);
@@ -90,7 +90,7 @@ Before with async/await, attempting to use an await outside an async function re
 
 This has been tested in chrome 80 and in firefox 72.0.2 **DevTools**. However, this functionality is non-standard and doesn’t work in nodejs.
 
-```
+```js
 const helloPromise = new Promise((resolve)=>{
   setTimeout(()=> resolve('Hello world!'), 5000);
 })
