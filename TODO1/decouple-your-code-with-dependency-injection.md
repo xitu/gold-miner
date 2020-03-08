@@ -272,8 +272,8 @@ We should design our code against abstractions, like interfaces, and not concret
 
 The only information our code should need must be available in the interface, we can’t assume anything about the actual implementation.
 
-> # **“One should depend upon abstractions, [not] concretions.” 
-> # **— Robert C. Martin (2000), Design Principles and Design Patterns
+> **“One should depend upon abstractions, [not] concretions.” 
+> **— Robert C. Martin (2000), Design Principles and Design Patterns
 
 Dependency injection is a great way to do that by decoupling our components. It allows us to write cleaner and more concise code that’s easier to maintain and refactor.
 
