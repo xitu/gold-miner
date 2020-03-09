@@ -127,7 +127,7 @@ Press **Copy** (**not** **OK**). This will copy your shape with the angle and re
 
 ![](https://cdn-images-1.medium.com/max/4000/1*CaoipHnbmfFitWDLsSlO_A.png)
 
-Repeat the action by pressing **Command** + **D** (macOS) ****or **Ctrl + D** (Windows). Do this twice to complete the circle.
+Repeat the action by pressing **Command** + **D** (macOS) or **Ctrl + D** (Windows). Do this twice to complete the circle.
 
 ![](https://cdn-images-1.medium.com/max/4000/1*4IyH9hCk6usy8IAmJhuTSA.png)
 
@@ -149,7 +149,7 @@ Draw a smaller concentric circle.
 
 ![](https://cdn-images-1.medium.com/max/4000/1*Vo4vsPYqBJVfb-IinHiwFw.png)
 
-Use **Pathfinder** panel ****> **Minus Front** to subtract the smaller circle from the larger shape.
+Use **Pathfinder** panel > **Minus Front** to subtract the smaller circle from the larger shape.
 
 Experiment! Different source shapes yield different end results.
 
@@ -177,7 +177,7 @@ Press **Copy**.
 
 ![](https://cdn-images-1.medium.com/max/4000/1*xkpTHE3W9Y4JcYZ_aV1fyg.png)
 
-Repeat the action by pressing **Command** + **D** (macOS) ****or **Ctrl + D** (Windows) 4 times.
+Repeat the action by pressing **Command** + **D** (macOS) or **Ctrl + D** (Windows) 4 times.
 
 ![](https://cdn-images-1.medium.com/max/4000/1*hGWMbewTlFDoxs_B--RICw.png)
 
