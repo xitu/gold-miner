@@ -30,7 +30,7 @@
 Spring 框架最受欢迎的产品：
 
 * **Spring Boot** 旨在以最少的前期配置实现尽快的运行
-* **Spring Could** 旨在简化分布式和微服务风格的架构
+* **Spring Cloud** 旨在简化分布式和微服务风格的架构
 * **Spring Cloud Data Flow** 是用于创建可组合数据微服务的统一服务
 
 你应该考虑使用，当：
