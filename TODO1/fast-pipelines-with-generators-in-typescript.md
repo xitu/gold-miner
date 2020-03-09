@@ -9,7 +9,7 @@
 
 ![Photo by [Quinten de Graaf](https://unsplash.com/@quinten149?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9704/1*wEQnHaPoHc_QJo5vxwrCEg.jpeg)
 
-近年来，JavaScript 社区已经接受了函数数组方法，例如 `map` 和 `filter`。 编写 for 循环已经成为与2015年和 JQuery 相关的内容。但是在性能方面，JavaScript 中的数组方法远远达不到预期。让我们看一个例子来说明这些问题:
+近年来，JavaScript 社区已经接受了函数式的数组方法，例如 `map` 和 `filter`。for循环 只能在Jquery中见到。但是在性能方面，JavaScript 中的数组方法远远达不到预期。让我们看一个例子来说明这些问题:
 
 ```TypeScript
 const x = [1,2,3,4,5]
@@ -21,21 +21,21 @@ const x = [1,2,3,4,5]
 这段代码将执行以下步骤:
 
 * 创建一个含有五个元素的数组
-* 创建是个每个数字乘2的新数组
+* 创建一个新数组，元素时前一个数组对应元素的2倍
 * 创建一个符合过滤条件的新数组
 * 取数字的第一个元素
 
-这涉及到比实际需要的更多的事情. 这里唯一必要的是处理并返回通过 `x > 5` 的第一项。 在其他语言中 (例如 Python)，用迭代器来解决此类问题。 这些迭代器是一个惰性集合，只在请求时处理数据。 如果JavaScript将懒惰的迭代器用于其数组方法，则会发生以下情况：
+实际上有很步骤是多余的，唯一必要的就是返回第一个大于 5 的元素。 在其他语言中 (例如 Python)，用迭代器来解决此类问题。 这些迭代器是一个惰性集合，只在请求时处理数据。 如果 JavaScript 将懒惰的迭代器用于其数组方法，则会发生以下情况：
 
-* `[0]` 从 `filter` 请求第一项
+* `[0]` 请求经  `filter` 操作后数组的第一个元素
 * `filter` 从 `map` 中请求元素，直到发现一个符合条件的元素，并返回 (‘returns’) 它
-* `map` 已经处理了每一次 `filter` 请求
+* 每当 `filter` 发送一次请求， `map` 便处理一个元素
 
 在这里，我们只对数组中的第一个树项进行了 `map` 和 `filter` 操作，因为迭代器不再请求树项。 T这里也没有额外的数组或迭代器，因为每一项都是一个接一个地遍历整个管道。这是一个概念：**可以** 在处理大量数据时获得巨大的性能收益。
 
 ## JavaScript 中的生成器和迭代器
 
-幸运的是JavaScript确实支持[迭代器](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)的概念. 可以使用生成集合项的[生成器](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators) 函数来创建它们。一个生成器函数如下:
+幸运的是 JavaScript 确实支持[迭代器](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)的概念。 可以使用生成集合项的[生成器](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators) 函数来创建它们。一个生成器函数如下:
 
 ```TypeScript
 function* iterator() {
@@ -93,7 +93,7 @@ function to_array<a>(a: Iterator<a>) {
 }
 ```
 
-从迭代器中读取数据的另一种方法是 `first`. 它的实现如下所示。 注意，它只向迭代器请求第一项! 这意味着将永远不会计算所有以下潜在值，从而减少数据管道中的资源浪费。
+从迭代器中读取数据的另一种方法是 `first`。 它的实现如下所示。 注意，它只向迭代器请求第一项! 这意味着将永远不会计算所有以下潜在值，从而减少数据管道中的资源浪费。
 
 ```TypeScript
 export function first<a>(a: Iterator<a>) {
@@ -105,7 +105,7 @@ export function first<a>(a: Iterator<a>) {
 
 ## 高阶迭代器
 
-高阶迭代器将现有的迭代器转换为新的迭代器。 这些迭代器组成了管道中的操作。 著名的转换函数 `map` 如下所示. 它接受一个迭代器和一个函数，并返回一个新的迭代器，其中该函数应用于原始迭代器中的所有项。 请注意，我们仍然生成项目对项目，并在转换迭代器时保留迭代器的惰性。 这是非常重要的，如果我们想要真正实现更高的效率，我在介绍这篇文章!
+高阶迭代器将现有的迭代器转换为新的迭代器。 这些迭代器组成了管道中的操作。 著名的转换函数 `map` 如下所示。 它接受一个迭代器和一个函数，并返回一个新的迭代器，其中该函数应用于原始迭代器中的所有项。 请注意，我们仍然生成项目对项目，并在转换迭代器时保留迭代器的惰性。 这是非常重要的，如果我们想要真正实现更高的效率，我在介绍这篇文章!
 
 ```TypeScript
 function* map<a, b>(a: Iterator<a>, f:(a:a) => b){
@@ -129,11 +129,11 @@ function* filter<a>(a: Iterator<a>, p: (a:a) => boolean) {
 }
 ```
 
-可以用上面介绍的概念构造更多的高阶迭代器。 图书馆里有很多这样的书，可以看 [这里](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods).
+可以用上面介绍的概念构造更多的高阶迭代器。 图书馆里有很多这样的书，可以看 [这里](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods)。
 
 ## 构建器接口
 
-库的最后一部分是面向公众的API。 该库使用构建器模式来允许您像在数组上那样链接方法。 这是通过创建一个接受迭代器并返回带有方法的对象的函数来完成的。 这些方法可以再次调用构造函数与更新迭代器的链接:
+库的最后一部分是面向公众的 API。 该库使用构建器模式来允许您像在数组上那样链接方法。 这是通过创建一个接受迭代器并返回带有方法的对象的函数来完成的。 这些方法可以再次调用构造函数与更新迭代器的链接:
 
 ```TypeScript
 const fromIterator = <a>(itt: Iterator<a>) => ({
