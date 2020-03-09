@@ -7,7 +7,7 @@
 
 # 5 Ways to Create a Settings Icon
 
-#### Learn to use an array of Illustrator features through this exercise
+> Learn to use an array of Illustrator features through this exercise
 
 ![](https://cdn-images-1.medium.com/max/4000/1*KXjeemJInI5xQg7HpC2Z9g.png)
 
