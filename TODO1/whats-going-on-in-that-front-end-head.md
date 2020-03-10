@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-going-on-in-that-front-end-head.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-going-on-in-that-front-end-head.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Long Xiong](https://github.com/xionglong58)
 
-# 前端代码顶部的 Header 标签里都有些什么？
+# 前端代中的 head 标签里都有些什么？
 
 > 即使负责 SEO 和市场营销的同事没有要求，在我们前端代码中也应该有的必备标签。
 
@@ -40,15 +40,15 @@ Google 会忽略 lang 标签，但 Bing 和屏幕阅读器不会，所以，对�
 <link rel="alternate" href="https://DEVersionURL-" hreflang="de-de" />
 ```
 
-这些标签是用来干什么的呢?
+这些标签里面发生了什么?
 
 第一个行告诉 Google，该页面上使用的语言是英语，更准确地说，是针对我们的美国用户的。
 
-第二行告诉 Google，如果有来自德国的用户在浏览，应该提供**有 hreflang=”de-de” 属性** 的标签的 href 属性中的页面版本。
+第二行告诉 Google，如果有来自德国的用户在浏览，应该加载有 **hreflang=”de-de”** 的标签中 href 属性对应的页面。
 
 如上图所示，hreflang 标签可以在 <head> 中使用，它还可以在 sitemap 中使用。如果您有多种语言的内容，并且希望降低异国用户获取到不相匹配的语言内容的风险，那么此标签非常有用。
 
-但是，注意 lang 和 hreflang 标签都是**信号**，而不是指令。这意味着搜索引擎仍然可以显示页面的错误版本。
+但是，注意 lang 和 hreflang 标签都是**参考信息**，而不是指令。这意味着搜索引擎仍然可以显示页面的错误版本。
 
 ## canonical 标签
 
@@ -60,11 +60,11 @@ canonical 标签长这样：
 <link rel="canonical" href="https://masterPageURL" />
 ```
 
-它有什么用？它告诉搜索引擎在 href 属性中添加的 URL 是主页面，或者是一组重复页面中和主题最相关的。
+它有什么用？它告诉搜索引擎在 href 属性中添加的 URL 是主版页，或者是一组重复页面中和主题最相关的。
 
 例如，在一个商城网站中，动态 URL 非常常见。在动态 URL 中，通过添加诸如 ?category= 或会话 ID 之类的参数来表示页面中的需要传递的值。
 
-当这种情况发生时，您需要告诉 Google 哪些参数是应该被主页面索引的。您可以通过添加 canonical 标签并将其指向主页面的 URL 来实现。
+当这种情况发生时，您需要告诉 Google 哪些参数是应该被主版页索引的。您可以通过添加 canonical 标签并将其指向主版页的 URL 来实现。
 
 请注意，**所有重复的页面**都需要包含此标签并指向主页面。
 
@@ -76,7 +76,7 @@ canonical 标签长这样：
 <meta name="robots" content="noindex, nofollow" />
 ```
 
-它有什么用？这个标签告诉搜索引擎机器人如何爬取一个页面来建立索引或不建立索引，继续爬取或不继续爬取。
+它有什么用？这个标签告诉搜索引擎机器人如何爬取一个页面，建立索引或不建立索引，继续爬取或不继续爬取。
 
 与 lang 标签 和 robots.txt 文件不同，robots meta 标签是一个**指令**，因此它为搜索引擎机器人提供严格的指令。
 
@@ -104,7 +104,7 @@ OG 是 Open Graph Protocol 的缩写，它是一种允许您控制在社交媒�
 
 ## Meta title & meta description 标签
 
-老实说，我认为这些是在 \<header> 中必须存在的。但为了以防万一，您可以点击右键和检查。
+老实说，我认为这些是在 \<head> 中必须存在的。但为了以防万一，您可以点击右键并检查。
 
 这两个 meta 标签非常重要，因为它们告诉搜索引擎和社交平台该页面是关于什么的，并且它们会在搜索结果页面中显示出来。此外，title 将显示在浏览器选项卡中以及在添加书签时的书签中。
 
@@ -125,7 +125,7 @@ OG 是 Open Graph Protocol 的缩写，它是一种允许您控制在社交媒�
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
 
-将其添加到文档的 /<head> 中，可以使页面是响应式的，并且使页面在移动设备和平板电脑上展示正常。您可能也听说过，Google 会首先扫描和索引移动版本的网站，目的是使网络更加移动友好。
+将其添加到文档的 /<head> 中，可以使页面是响应式的，并且使页面在移动设备和平板电脑上展示正常。您可能也听说过，Google 会首先扫描和索引移动版本的网站，目的是使网页在移动端更友好。
 
 虽然它在技术上来说并没有把您的网站变成一个移动版本，但是如果搜索引擎没有找到移动优先的设计，它会参考这个标签。因此，当 m.site.com 缺失时，Google 将扫描 web 版本，理想情况下它应该能找到 viewport 标签。不支持移动和响应的页面排名较低。
 
@@ -137,7 +137,7 @@ OG 是 Open Graph Protocol 的缩写，它是一种允许您控制在社交媒�
 <link rel="icon" href="favicon-img.ico" type="image/x-icon" />
 ```
 
-图片需要以 .ico 的格式保存，在这方面它比 .png 和 .gif 得到了更好的支持。
+图片最好以 .ico 的格式保存，在这方面它比 .png 和 .gif 支持得更好。
 
 （我觉得这里可以不翻译了，没读懂作者的意思。看看校对的意见，我再改）
 
