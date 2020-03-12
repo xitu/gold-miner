@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/nestjs-basic-auth-and-sessions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/nestjs-basic-auth-and-sessions.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[samyu2000](https://github.com/samyu2000)
 
 # NestJS 实现基本用户认证和会话
 
@@ -11,22 +11,22 @@
 >
 > 本网站所有代码均为免费软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证的条款，重新发布或者修改它。其中许可证的版本为 3 或者（由您选择的）任何更新版本。
 >
-> 我希望文章里的所有代码能够对您有所帮助，但是关于代码我**并不能作任何担保**。甚至代码的性能和特定用途的合适性我也无法保证。有关更多细节，请参阅 GNU 通用公共许可证。
+> 我希望文章里的所有代码能够对您有所帮助，但**不作任何担保**。也不保证代码的性能以及它适用于某种功能。有关更多细节，请参阅 GNU 通用公共许可证。
 
-在这篇文章中，我正在探索 NestJS 和认证策略，这主要记录了我如何使用 Node 的知识在 NestJS 中实现认证策略的过程。**但是，这不意味着您在实际项目中要像我这么做**.
+本文研究NestJS 和认证策略，并记录了我使用Node知识在NestJS 中实现认证策略的过程。**但是，这不意味着您在实际项目中要像我这么做**。
 
 在本文中，我们将探讨如何在 [NestJS](https://docs.nestjs.com/)中使用 [passport.js](https://github.com/jaredhanson/passport) 来轻松地实现基本的身份验证和会话管理。
 
-首先，从 github 克隆这个预设置好的入门项目，其中在 **package.json** 文件中包含了本教程所需的所有库，然后执行 **npm install**。
+首先，从 github 克隆这个预设置好的入门项目，其中 **package.json** 文件中包含了本项目所需的所有库，然后执行 **npm install**。
 
 * [https://github.com/artonio/nestjs-session-tutorial](https://github.com/artonio/nestjs-session-tutorial)
 * [https://github.com/artonio/nestjs-session-tutorial-finished](https://github.com/artonio/nestjs-session-tutorial-finished) —— 项目的完整源码。
 
-本项目将使用以下概念和库。
+本项目将使用以下方法和库。
 
-* [Swagger](https://swagger.io/) —— 它能为您的应用生成对应的 REST API 接口的最终文档。同时还是一个快速测试 API 的好工具。您可以在 NestJS 网站浏览到有关 Swagger 的[文档](https://docs.nestjs.com/recipes/swagger)，来在我们的项目中使用 Swagger。
-* [Exception Filters](https://docs.nestjs.com/exception-filters) —— 它是 NestJS 内置的异常层，负责处理整个应用中抛出的所有异常。当捕获到未处理的异常时，通过它，最终用户将收到适当的用户友好响应。这意味着我们在应用中的任何地方抛出的异常，都会被全局异常处理程序捕获并且返回预定义的 JSON 响应。
-* [TypeORM](http://typeorm.io/#/) —— 它是一个年轻的框架，但它有着令人惊讶的健壮性，也是一个成熟的 ORM 框架。它使用 TypeScript 编写。同时支持  [ActiveRecord 和 DataMapper](http://typeorm.io/#/active-record-data-mapper) 模式，还支持缓存等许多其他功能。它的文档也十分优秀。TypeORM 支持大多数 SQL 和 NoSQL 数据库。对于本项目，我们将使用 sqlite 数据库。在本教程中，我们将使用 ActiveRecord 模式。[TypeORM TypeDocs（类似 javadocs）](http://typeorm-doc.exceptionfound.com/)
+* [Swagger](https://swagger.io/) —— 它能为您的应用生成对应的 REST API 接口的最终文档。同时还是一个快速测试 API 的好工具。您可以在 NestJS 网站浏览到有关 Swagger 的[文档](https://docs.nestjs.com/recipes/swagger)，以便在我们的项目中使用 Swagger。
+* [Exception Filters](https://docs.nestjs.com/exception-filters) —— 它是 NestJS 内置的异常处理模块，负责处理整个应用中抛出的所有异常。当应用程序捕获到未处理的异常时，用户得到的响应是友好得体的。这意味着我们在应用中的任何地方抛出的异常，都会被全局异常处理程序捕获并且返回预定义的 JSON 响应。
+* [TypeORM](http://typeorm.io/#/) —— 它是一个健壮性极好、成熟的ORM框架，虽然是不久前面世的。它使用 TypeScript 编写。同时支持  [ActiveRecord 和 DataMapper](http://typeorm.io/#/active-record-data-mapper) 模式，还支持缓存等许多其他功能。它的文档也十分优秀。TypeORM 支持大多数 SQL 和 NoSQL 数据库。对于本项目，我们将使用 sqlite 数据库。并使用 ActiveRecord 模式。[TypeORM TypeDocs（类似 javadocs）](http://typeorm-doc.exceptionfound.com/)
 * [Custom Decorator](https://docs.nestjs.com/custom-decorators)  —— 我们将创建一个自定义的路由装饰器来在 session 中访问用户对象。
 * Basic Auth —— 使用 Basic Auth Header 的用户身份验证。
 * [Sessions](https://github.com/expressjs/session) —— 一旦用户通过身份验证，就会创建一个 session 和一个 cookie，这样在每个需要用户信息的请求中，我们都能够从 session 对象中访问登录的用户。
@@ -37,7 +37,7 @@
 
 **我们将要创建的。** 本项目的 schema 很简单。我们有很多 user 和 project，但一个 user 只能够匹配到自己对应的 project。我们希望能够使用与数据库中的记录匹配的用户凭证进行登录，一旦登录，我们将使用 cookie 为用户检索项目。
 
-**功能设计。** 创建 user；为登录的 user 创建一个 project；获取所有 user；获取所有已登录 user 的 project。我们将不包括更新或删除功能。
+**功能设计。** 创建 user；为登录的 user 创建一个 project；获取所有 user；获取所有已登录 user 的 project。本项目没有更新或删除的功能。
 
 #### 项目结构
 
@@ -155,7 +155,7 @@ export class UserEntity extends BaseEntity {
 
 #### 创建 project 模块
 
-创建 project 模块的方式与创建 **user 模块**的方式相同。一样，也将创建一个 project 服务和一个 project 控制器。
+创建 project 模块的方式与创建 **user 模块**的方式相同。也需要创建一个project 服务和一个 project 控制器。
 
 ###### 创建 project 实体
 
@@ -181,7 +181,7 @@ export class ProjectEntity extends BaseEntity{
 
 现在我们需要告诉 TypeORM 这些实体的信息，并且还需要设置配置选项，以便让 TypeORM 连接到 sqlite 数据库。
 
-在 AppModule 中添加以下内容：
+在 AppModule 中添加以下代码：
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -211,7 +211,7 @@ import {ProjectEntity} from './project/project.entity';
 export class AppModule {}
 ```
 
-**logging** 是日志相关，这里我们被注释掉了，但您可以在[此处](http://typeorm.io/#/logging)了解更多信息。
+**logging** 是日志相关，我们对它加了注释符号，但您可以在 [http://typeorm.io/#/logging](http://typeorm.io/#/logging) 了解更多信息。
 
 **user 模块**现在应该是这样的：
 
@@ -249,7 +249,7 @@ export class ProjectModule {}
 
 ###### 设置全局异常处理
 
-在 **src/** 目录下创建 common 目录，在它内部，我们将创建两个目录：error 和 filters。（可参考文章开头的项目结构截图）
+在 **src/** 目录下创建 common 目录，在 common 目录下，我们将创建两个目录：error 和 filters。（可参考文章开头的项目结构截图）
 
 #### Error 目录
 
@@ -264,7 +264,7 @@ export const enum AppErrorTypeEnum {
 }
 ```
 
-这里我们将创建一个 **const** enum, 这里它并不生成对象，而是生成一个简单的 var->number 的关系映射，如果不是必须需要查找枚举的表示形式为字符串，选择创建 enum const 的话，性能会更高。
+我们将创建一个枚举类型变量，它不是对象，而是生成一个简单的 var->number 的关系映射，如果不是必须需要查找枚举的表示形式为字符串，选择创建 enum const 的话，性能会更高。
 
 如下所示，创建 **IErrorMessage.ts** 文件。
 
@@ -353,7 +353,7 @@ export class AppError extends Error {
 }
 ```
 
-这段代码表示，我们在代码中的任何地方抛出错误时，全局异常处理程序将捕获它并返回一个符合 IErrorMessage 结构的对象。
+这段代码表示，我们在代码中的任何地方抛出错误时，全局异常处理程序将捕获它并返回一个结构与 IErrorMessage 一致的对象。
 
 #### filters 目录
 
@@ -394,15 +394,15 @@ export class DispatchError implements ExceptionFilter {
 }
 ```
 
-您可以用任何您喜欢的方式实现这个类，上面这个代码只是一个小例子。
+您可以用任何您认为合适的方式实现这个类，上面这段代码只是一个小例子。
 
-现在我们要做的就是告诉我们的应用使用此过滤器，这很简单。在我们的 **main.ts** 中添加以下内容：
+现在我们要做的就是让应用程序使用此过滤器，这很简单。在我们的 **main.ts** 中添加以下内容：
 
 ```typescript
 app.useGlobalFilters(new DispatchError());
 ```
 
-现在，您的 **main.ts** 文件看起来应该是这样：
+现在，您的 **main.ts** 文件内容大致如下：
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -448,7 +448,7 @@ export class CreateUserDto {
 }
 ```
 
-这个类的目的主要是告诉 Swagger 它应该发送什么样的数据结构。
+这个类的主要功能是告诉 Swagger 它应该发送什么样的数据结构。
 
 这里是我们的 **IUserService.ts**。
 
@@ -526,9 +526,9 @@ export class UserController {
 
 控制器的优雅之处在于它只是将成功结果返回给用户，我们不需要处理任何错误异常，因为它们是由全局异常处理程序处理的。
 
-现在，通过运行 **npm run start** 或者 **npm run start:dev** 来启动服务器（后者将监视您的代码更改，并在每次保存时重新启动服务器）。服务器启动后，访问[http://localhost:3000/api/#/](http://localhost:3000/api/#/)。
+现在，通过运行 **npm run start** 或者 **npm run start:dev** 来启动服务器（**npm run start:dev** 会监视您的代码更改，并在每次保存时重新启动服务器）。服务器启动后，访问[http://localhost:3000/api/#/](http://localhost:3000/api/#/)。
 
-如果一切顺利，您应该会看到 Swagger 的界面和一些 API 接口。阅读 **sqlite 的教程** 并选择您喜爱的 sqlite 工具（Firefox 浏览器有 sqlite 的扩展插件）确认数据的 schema 是否正确。当数据库中没有用户时，尝试获取所有 user，它应该会返回状态码 404 和一个包含 userMessage、errorMessage 等 (我们在 **AppError.ts** 中定义的信息)的 JSON。现在，创建一个 user 再执行获取所有 user。如果一切正常，那么我们继续创建一个**登录**的 API 接口。如果有问题，请在评论区留下问题。
+如果一切顺利，您应该会看到 Swagger 的界面和一些 API 接口。阅读 **sqlite 的教程** 并选择您认为合适的 sqlite 工具（Firefox 浏览器有 sqlite 的扩展插件）确认数据的 schema 是否正确。当数据库中没有用户时，尝试获取所有 user，它应该会返回状态码 404 和一个包含 userMessage、errorMessage 等 (我们在 **AppError.ts** 中定义的信息)的 JSON。现在，创建一个 user 再执行获取所有 user。如果一切正常，那么我们继续创建一个**登录**的 API 接口。如果有问题，请在评论区留下问题。
 
 #### 实现认证
 
@@ -543,7 +543,7 @@ public async login(@Req() req: Request, @Res() res: Response, @Session() session
 }
 ```
 
-**@ApiBearerAuth()** 注解是为了让 Swagger 知道，通过此请求，我们希望在 Header 中发送 Basic Auth。但是，我们还必须添加一些代码到 **main.ts** 中。
+**@ApiBearerAuth()** 注解是为了让 Swagger 知道，通过此请求，我们希望在 Header 中发送 Basic Auth。不过，我们还必须添加一些代码到 **main.ts** 中。
 
 ```typescript
 const options = new DocumentBuilder()
@@ -555,9 +555,9 @@ const options = new DocumentBuilder()
         .build();
 ```
 
-现在，如果重新启动服务器，我们可以在 API 接口旁边看到一个小锁图标。但这个接口现在什么都没有，所以让我们给它添加一些逻辑。在我写这篇教程的时候，我认为有关如何正确实现此操作的文档尚不完善，我跟着 [NestJS 官方文档](https://docs.nestjs.com/techniques/authentication) 来实现，但遇到了以下[问题](https://github.com/nestjs/passport/issues/7)。不过，我发现  [@nestjs/passport](https://github.com/nestjs/passport) 这个库，我可以将其与以下内容一起使用：
+现在，如果重新启动服务器，我们可以在 API 接口旁边看到一个小锁图标。但这个接口现在什么都没有，所以让我们给它添加一些逻辑。在我写这篇教程的时候，我认为文档中关于如何正确实现这种功能的内容不够完善，我跟着 [NestJS 官方文档](https://docs.nestjs.com/techniques/authentication) 来实现，但遇到了以下[问题](https://github.com/nestjs/passport/issues/7)。不过，我发现  [@nestjs/passport](https://github.com/nestjs/passport) 这个库，我可以将其与以下内容一起使用：
 
-在设置我们的认整逻辑之前，我们需要将以下内容添加到 **main.ts** 中。
+在设计认证的逻辑之前，我们需要将以下内容添加到 **main.ts** 中。
 
 ```typescript
 * import * as passport from 'passport';
@@ -777,7 +777,7 @@ export class HttpStrategy extends PassportStrategy(Strategy) {
 }
 ```
 
-现在在免费在线[ base64 加密网站](https://www.base64encode.org/)中加密的下面的 JSON 字段，并将在 Swagger 中发送。
+现在打开免费[ base64 加密网站](https://www.base64encode.org/)，加密的下面的 JSON 字段，并将在 Swagger 中发送。
 
 ```json
 {
@@ -788,7 +788,7 @@ export class HttpStrategy extends PassportStrategy(Strategy) {
 
 现在回到 Swagger 中，在刚刚点击右侧的 **Authorize** 弹出的输入框中输入 **“Bearer ew0KICAidXNlcm5hbWUiIDogImpvaG5ueSIsDQogICJwYXNzd29yZCI6ICIxMjM0Ig0KfQ==”**。Bearer 后面的字符串是上面刚刚加密过的 JSON 字符串，它将在 **UserEntity.ts** 的 **authenticateUser** 函数中被解码和匹配。现在执行 **POST /login**，您应该看到 Chrome 开发者工具 中出现了一个 cookie（如果您的用户在数据库中为用户名 “jonny”，密码为 “1234”的话）。
 
-让我们创建一个路由，它将用于为当前登录的用户创建一个项目，但在此之前，我们需要一个“会话保护程序”，它将保护我们的路由，并在用户不处于 session 时抛出一个 AppError。
+让我们创建一个路由，它将用于为当前登录的用户创建一个项目，但在此之前，我们需要一个“会话保护程序”，它将保护我们的路由，如果 session 中没有用户，它会抛出一个 AppError。
 
 ###### 保护路由免遭未经授权的访问
 
@@ -815,7 +815,7 @@ export class SessionGuard implements CanActivate {
 }
 ```
 
-我们还将用一种更方便方法来从 session 中检索 user 对象。使用  **req.session.passport.user** 这样的方式可以，但是不够优雅。现在，创建 **src/user/user.decorator.ts** 文件。
+我们还可以用一种更方便的方法来从 session 中检索 user 对象。使用  **req.session.passport.user** 这样的方式可以，但是不够优雅。现在，创建 **src/user/user.decorator.ts** 文件。
 
 ```typescript
 import {createParamDecorator} from '@nestjs/common';
@@ -883,7 +883,7 @@ export class ProjectController {
 ```
 
 * **@UseGuards(SessionGuard)** —— 如果 user 不在 session 中，则响应的 AppError 中会返回预定义的 JSON。
-* **@SessionUser()** —— 我们的自定义装饰器可以使我们轻松地从 session 中获取到 **UserEntity** 对象。（其实我们没有必要存储整个 **UserEntity** 对象，我们可以通过修改 CookieSerializer 类来只存储用户的 id）。
+* **@SessionUser()** —— 我们的自定义装饰器可以使我们轻松地从 session 中获取到 **UserEntity** 对象。（其实我们没有必要存储整个 **UserEntity** 对象，我们可以通过修改 CookieSerializer 类来保存用户的 id）。
 
 在 Swagger 中，尝试在不进行用户身份验证和用户登陆通过的情况下分别创建 project，看看有什么区别。在创建 project 时您发送的必须是一个包含项目的数组。（请注意，在服务器重启后，seesion 将会丢失）。您也可以通过使用 Chrome 开发者工具来删除一个 cookie。
 
@@ -923,7 +923,7 @@ public async getProjects(@Res() res, @SessionUser() user: UserEntity) {
 
 以上就是全部内容。
 
-您可以在[此处](https://github.com/artonio/nestjs-session-tutorial-finished)查看完成的源码。
+您可以在 [https://github.com/artonio/nestjs-session-tutorial-finished](https://github.com/artonio/nestjs-session-tutorial-finished) 查看完成的源码。
 
 译者注：原作者的文章写于 2018 年，NestJS 的版本是 5.0.0，现在 NestJS 已经更新到 v6 了，所以是不兼容的。但是 NestJS 的官方有 v5 迁移到 v6 的[迁移指南](https://docs.nestjs.cn/6/migrationguide)，有需要可以参考。同理，文章中提到的其他库也需要注意版本。
 
