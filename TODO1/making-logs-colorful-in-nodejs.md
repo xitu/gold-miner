@@ -2,16 +2,16 @@
 > * 原文作者：[Prateek Singh](https://medium.com/@prateeksingh_31398)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-logs-colorful-in-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-logs-colorful-in-nodejs.md)
-> * 译者：
+> * 译者：[Jessica](https://github.com/cyz980908)
 > * 校对者：
 
-# Making Logs Colorful in NodeJS
+# 给 NodeJS 的 Logs 点颜色看看！
 
-![Image Credits: [Bapu Graphics](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bapugraphics.com%2Fmultimediacoursetips%2F7-nodejs-tips-and-also-tricks-for-javascript-developers%2F&psig=AOvVaw3ZA2cfk0Y7Q-TxrYBfFgd0&ust=1580829786882000&source=images&cd=vfe&ved=0CAMQjB1qFwoTCMiwnIfYtecCFQAAAAAdAAAAABAD)](https://cdn-images-1.medium.com/max/2000/1*fVkQKafnrC3U6YL7yynPag.jpeg)
+![图片致谢：[Bapu Graphics](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bapugraphics.com%2Fmultimediacoursetips%2F7-nodejs-tips-and-also-tricks-for-javascript-developers%2F&psig=AOvVaw3ZA2cfk0Y7Q-TxrYBfFgd0&ust=1580829786882000&source=images&cd=vfe&ved=0CAMQjB1qFwoTCMiwnIfYtecCFQAAAAAdAAAAABAD)](https://cdn-images-1.medium.com/max/2000/1*fVkQKafnrC3U6YL7yynPag.jpeg)
 
-Logging is a very important part of any application. It helps us to debug the issues, display important stats using [Splunk](https://en.wikipedia.org/wiki/Splunk) & a lot more. From the very start of our coding days, Logs are our true friends and helps us a lot. So basically Logs are one of the most required aspect of any server-side code architecture. There are many logging libraries available in the market like [Winston](https://github.com/winstonjs/winston), [Loggly](https://www.loggly.com/docs/api-overview/), [Bunyan](https://github.com/trentm/node-bunyan), etc. But when it comes to debugging our APIs or we need to check the value of some variable we simply call our best friend in JavaScript **console.log().** Let’s check some of the examples, How generally people put logs in their codes.
+在任何应用中，日志都是一个非常重要的部分。我们借助它来调试代码，还可以将它通过 [Splunk](https://en.wikipedia.org/wiki/Splunk) 等框架的分析处理，了解应用中的重要统计数据。从我们敲出 “Hello Word!” 的那一天起，日志就是我们好朋友，帮助了我们很多。所以说，日志基本上是所有后端代码架构中必不可少的部分之一。市面上有许多可用的日志库，比如 [Winston](https://github.com/winstonjs/winston)、[Loggly](https://www.loggly.com/docs/api-overview/)、[Bunyan](https://github.com/trentm/node-bunyan) 等等。但是，在调试我们的 API 或者需要检查某个变量的值时，我们需要的只是用 JavaScript 的 **console.log（）** 来输出调试。我们先来看一些您可能会觉得很熟悉的日志代码。
 
-```js
+```javascript
 console.log("MY CRUSH NAME");
 console.log("AAAAAAA");
 console.log("--------------------");
@@ -19,40 +19,40 @@ console.log("Step 1");
 console.log("Inside If");
 ```
 
-Why we put logs like this? Is it because we are lazy? No, we put logs like this because we need to differentiate it from other logs printing on the console.
+为什么我们要放这样做？是因为我们懒吗？不，我们这样输出日志，是因为我们需要将我们期待的输出与控制台上打印的其他日志区分开。
 
-![Image 1](https://cdn-images-1.medium.com/max/2730/1*UdH0W6yGIk3z3ptPrO5nog.png)
+![图 1](https://cdn-images-1.medium.com/max/2730/1*UdH0W6yGIk3z3ptPrO5nog.png)
 
-For the moment we need only currently added console.log(“Got the packets”) on the terminal and not other logs. Are you able to see the “Got the packets” printed in the logs(Image 1)? I know its difficult to figure out the log. So what to do? How we can make our life easy and logs beautiful.
+目前我们仅仅在当前的控制台增加了 console.log(“Got the packets”) 这一行。您能在这堆日志（图 1）中找到 “Got the packets” 吗？我知道找到这条 log 是很困难的。那么该怎么做呢？如何才能使我们的开发更加顺手，日志看起来更加优雅。
 
-## Colorful Logs
+## 有颜色的 Log
 
-If I tell you that, these logs can be printed in different & multiple colors at the same time. Life would be much easier, right? Let’s take a look at the next image and try to find the same log “**Got the packets**”.
+如果我告诉您，这些日志可以同时用各种各样的颜色打印出来。这样开发就会更加顺手了，对吧?让我们看看下一张图片，并再次找一找 “**Got the packets**” 这条 log。
 
-![Image 2](https://cdn-images-1.medium.com/max/2732/1*yPiqGs3XlYqywqZ0AdoTAg.png)
+![图 2](https://cdn-images-1.medium.com/max/2732/1*yPiqGs3XlYqywqZ0AdoTAg.png)
 
-“**Got the packets**” is now clearly visible in Red color. Isn’t it great? We can put different logs in different colors. I bet this is gonna change your logging style and make it a lot easier. See one more example…
+“**Got the packets**“ 现在是明显的红色。很棒吧？我们可以将不同的 log 用不同的颜色表示。我打赌这个技能会改变您的日志风格，让日志变得更简单。我们来再看一个例子。
 
-![Image 3](https://cdn-images-1.medium.com/max/2732/1*puJJ71wiSgqCv_h_L4qREg.png)
+![图 3](https://cdn-images-1.medium.com/max/2732/1*puJJ71wiSgqCv_h_L4qREg.png)
 
-The newly added log is clearly visible. Now let’s take a look at the implementation of this functionality. We can achieve this by adding the **Chalk** module into our code.
+新添加的 log 也是明显的。现在让我们来看看如何实现这个功能。我们可以通过在代码中添加 **Chalk** 包来实现这一点。
 
-## Install
+## 安装
 
 ```bash
 npm install chalk
 ```
 
-## Usage
+## 使用
 
-```js
+```javascript
 const chalk = require('chalk');
-console.log(chalk.blue('Hello world!'));//Print String in Blue Color
+console.log(chalk.blue('Hello world!'));//打印蓝色字符串
 ```
 
-You can also customize your own theme and use it like this.
+您也可以自己定制主题并使用，就像下面这样。
 
-```js
+```javascript
 const chalk = require('chalk');
 
 const error = chalk.bold.red;
@@ -63,21 +63,21 @@ console.log(error('Error!'));
 console.log(warning('Warning!'));
 ```
 
-So basically it's like chalk[MODIFIER][COLOR] & we are good to go to print colorful logs in our code 😊. “**Chalk**” module gives us numbers of modifiers and colors to print in.
+基本上它就像 chalk[修改符][颜色] 这样，我们可以在代码中打印彩色日志 😊。“**Chalk**” 包给我们提供了很多修改符和颜色来打印。
 
-## Modifier
+## 修饰符
 
-* `reset` - Resets the current color chain.
-* `bold` - Make text bold.
-* `dim` - Emitting only a small amount of light.
-* `italic` - Make text italic. **(Not widely supported)**
-* `underline` - Make text underline. **(Not widely supported)**
-* `inverse`- Inverse background and foreground colors.
-* `hidden` - It prints the text but makes it invisible.
-* `strikethrough` - Puts a horizontal line through the center of the text. **(Not widely supported)**
-* `visible`- Prints the text only when Chalk has a color level > 0. It can be useful for things that are purely cosmetic.
+* `reset` —— 重置当前颜色链。
+* `bold` —— 加粗文本。
+* `dim` —— 使亮度降低。
+* `italic` —— 将文字设为斜体。**（未被广泛支持）**
+* `underline` —— 使文字加下划线。**（未被广泛支持）**
+* `inverse` —— 反色背景和前景色。
+* `hidden` —— 打印文本，但使其不可见。
+* `strikethrough` —— 在文本的中间画一条水平线。**（未被广泛支持）**
+* `visible` —— 仅当 Chalk 的颜色级别 > 0 时才打印文本。它对于输出一个整洁好看的日志很有帮助。
 
-## Colors
+## 颜色
 
 * `black`
 * `red`
@@ -87,7 +87,7 @@ So basically it's like chalk[MODIFIER][COLOR] & we are good to go to print color
 * `magenta`
 * `cyan`
 * `white`
-* `blackBright` (alias: `gray`, `grey`)
+* `blackBright`（即：`gray`、`grey`）
 * `redBright`
 * `greenBright`
 * `yellowBright`
@@ -96,11 +96,7 @@ So basically it's like chalk[MODIFIER][COLOR] & we are good to go to print color
 * `cyanBright`
 * `whiteBright`
 
-Thanks for reading the article. In the future, I will update you with some of the less-known tricks and tips of JavaScript which will make your development quite easy.
-
-![](https://cdn-images-1.medium.com/max/2000/1*puO9QPsENQ5ww1QKNuf6tw.gif)
-
-> # **Happy Coding || Write to Learn**
+感谢您的阅读。后续，我将向您更新一些不太为人所知的 JavaScript 小技巧，帮助您的开发更加顺手。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
