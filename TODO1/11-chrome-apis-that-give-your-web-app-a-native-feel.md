@@ -7,8 +7,6 @@
 
 # 11 Chrome APIs That Will Give Your Web App a Native Feel
 
-#### 11 Chrome APIs that will give your web app a native-like user experience.
-
 ![](https://cdn-images-1.medium.com/max/2560/1*M4FLqVN1o0AVstiq1FmWdA.jpeg)
 
 ## Why aim for a “native feel” ?
@@ -234,7 +232,7 @@ To avail this feature, get a [token](https://developers.chrome.com/origintrials/
 
 `<meta http-equiv=”origin-trial” content=”TOKEN_GOES_HERE”>` Or `Origin-Trial: TOKEN_GOES_HERE`
 
-Instead of using the token, you can enable it using #experimental-web-platform-features flag in chrome://flags.
+Instead of using the token, you can enable it using `#experimental-web-platform-features` flag in chrome://flags.
 
 To request a wake lock, call navigator.wavelock.request() method that returns a WakeLockSentinel object. Excapuslate the call in try…catch block. To release the wake lock, call release() method of wavelocksentinel.
 
