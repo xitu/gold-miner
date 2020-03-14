@@ -2,86 +2,86 @@
 > * 原文作者：[Georgy Glezer](https://medium.com/@georgyglezer)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/separation-of-data-and-ui-in-your-web-app.md](https://github.com/xitu/gold-miner/blob/master/TODO1/separation-of-data-and-ui-in-your-web-app.md)
-> * 译者：
+> * 译者：[fireairforce](https://github.com/fireairforce)
 > * 校对者：
 
-# Separation of Data and Ui in your Web App
+# Web 应用程序中的数据和 UI 分离
 
-Hello everyone, My name is Georgy and I’m a Full-stack developer at **[Bringg](http://bringg.com/)** and ****this is the first article I'm writing. 😅
+大家好，我是 Georgy，我是 **[Bringg](http://bringg.com/)** 的一个全栈开发人员，这是我写的第一篇文章。 😅
 
-So today I want to focus on the concept of separation of data and UI while building you web app, how it can help you build much cleaner, easier to maintain and more awesome web apps, and a small example of how I was able to render 4 different UI/frameworks libraries with the same consistent. 😄
+今天我想重点介绍一下在构建 web 应用程序时数据和 UI 分离的概念，它是怎样帮助你构建更清晰、更易于维护和更出色的 web 应用程序，以及我如何能够呈现 4 个具有一致性的不同 UI/框架库的一个小例子。😄
 
-Usually, in any web app, you have 2 main parts:
+通常在任意的 web 应用程序中，都有两个主要部分：
 
-* Data
+* 数据
 * UI
 
-So you go and choose a framework/UI library like React, Angular, Vue, etc… and then you go on and decide what state manager to use or how to manage your data maybe without state manager.
+因此，你可以选择一个框架/UI 库，比如 React、Angular、Vue 等等，然后决定使用什么状态管理器，或者在没有状态管理器的情况下如何管理你的数据。
 
-You start writing your first feature, let's take for example a users list, and you have a checkbox to select users, And then you need to decide where to keep your current selected users.
+你开始写你的第一个功能，以一个用户列表为例，你有一个复选框来选择用户，然后由你决定在哪里保存你当前选择的用户。
 
-> Do you keep them in your react component state ? or do you keep them in your redux store ? or do you keep them in your angular service or controller ?
-> Is selected users is something related do your Data somehow ? or is just pure View indicator ?
+> 你是否将它们保存在 react 组件的 state 里？或者把它们放在你的 redux store 里？也或者是把它们放在你的 angular 服务或 controller 里？
+> 被选择的用户是否与你的数据有关？或者只是纯粹的视图指示器？
 
-Okay, so I gonna share with you the mindset, or thoughts you should have while writing features that can help you make the separation more clear through the above example.
+好的，我将和你分享思路或想法，以帮助你通过下面的例子来编写功能从而使分离更加清晰。
 
-Users is our data in our application, we can add user, we can modify user data, and we can remove the user, we can derive information from the users we have like who is online and how many users total we have an so on.
+用户是我们应用程序中的数据，我们可以添加用户、修改用户数据、删除用户、从我们拥有的用户中获取信息，例如谁在线以及我们拥有的用户总数等等。
 
-When we show a user list, we just represent our data in a more visible way to the user, like a list for him to see. We allow him to select users and unselect users which is the current state of the view, the selected users on the page, This have no relation to the data at all and should be separated.
+当我们显示一个用户列表时，我们只是以一种对用户更可见的方式来展示我们的数据，就像一个供用户查看的列表一样。我们允许他选择用户和取消选择用户，这是视图的当前状态，在页面上选择的用户，和数据没有任何关系，应该分离开。
 
-By having this separation we are developing javascript applications as plain javascript applications and then choose however we want to represent our data. This can allow us maximum flexibility like using whatever UI library we want to each purpose, this set of components I want to represent with react and the other few I want to represent with web components, I can do that easily now with that separation.
+通过这种分离，我们将 javascript 应用程序开发为普通的 javascript 应用程序，然后选择我们想要表示数据的方式。这可以让我们获得最大的灵活性，比如使用任何我们想要 UI 库，我想用 react 来表示这组组件，而我想用 web 组件来表示其它一些组件，现在我可以很容易实现这些分离。
 
-> # Here is an example I made to show this cool concept:
+> # 下面是我为展示这个概念而制作的一个示例：
 
-I choose [MobX](https://github.com/mobxjs/mobx) to manage my state in my application and to help me with the rendering across different frameworks/UI libraries. It has a cool reactivity system which allows you to respond automatically to events you want.
+我选择 [MobX](https://github.com/mobxjs/mobx) 来管理我的应用程序中的状态，并帮助我进行跨不同框架/UI 库的渲染。它具有出色的反应系统，可让你自动响应所需的事件。
 
-My model here is **Template,** it’s really simple it just have a name and setter(MobX action) to it, I keep a list of all the templates in the project and I have a store for it `TemplateList` and this is all my **Data.**
+我这里的 model 是 **Template,**它只有一个名称和 setter（MobX action）, 我在项目中保存了一个所有模板的列表，我为它存储了一个 `TemplateList`，这是我所有的**数据**。
 
 ![](https://cdn-images-1.medium.com/max/2424/1*sUeiUDg6QXbe08GrEyZNfg.png)
 
 ![](https://cdn-images-1.medium.com/max/2508/1*Klb2cKUIoGzbYmjxOFwcuA.png)
 
-So I have already my app running as a javascript application, I can add templates and update its text but I still don’t have a UI for this, So let's add React as our first UI here.
+我的程序已经可以作为 javascript 应用程序运行了，我可以添加模板并更新它的文本，但我仍然没有它的 UI，让我们添加 React 来作为第一个 UI。
 
-For react I used **[mobx-react](https://github.com/mobxjs/mobx-react)** which is a library connecting to MobX and uses its abilities to render in react.
+对于 react，我使用了 **[mobx-react](https://github.com/mobxjs/mobx-react)**，它是一个连接 MobX 的库，并使用其功能在 react 中渲染。
 
 ![](https://cdn-images-1.medium.com/max/3328/1*_jHARXfsu4DPvfK6G55lFg.png)
 
-Then I choose another library, Vue JS and I keep almost same Html, and CSS classes, I just render with Vue,
+然后我选择另一个库，Vue JS 和我保持几乎相同的 Html 和 CSS 类，我只是用 Vue 来渲染。
 
-I used MobX `autorun`(https://mobx.js.org/refguide/autorun.html) and on each new template addition, or removal I re-render the view.
+我使用 MobX `autorun`(https://mobx.js.org/refguide/autorun.html) 并在每次添加或删除新模板时重新渲染视图。
 
 ![](https://cdn-images-1.medium.com/max/2168/1*k5ArS-smHdbb6rJlc2WMKQ.png)
 
-and now we have another UI represent with different library but with the same store without changing 1 line of our data management in the app.
+现在，我们有了另一个 UI 展示，它使用不同的库，但使用相同的存储，而不改变一行应用程序数据管理代码。
 
 ![](https://cdn-images-1.medium.com/max/3376/1*tGpOEofa1jIjxrwDQxqjLg.png)
 
-So now we had a bit more space on screen so we need to choose more 2 libraries so let's go for AngularJS this time.
+因此现在屏幕有了更多的空间，所以我们可以选择更多其它的库，所以这次我们选择 AngularJS。
 
-AngularJS was a bit more annoying to render because its `ng-model` was messing with the model so I had to save the texts of the templates in an object and apply re-render on new templates.
+AngularJS 的渲染有点烦人，因为它的 `ng-model` 把模型搞乱了，所以我不得不把模板的文本保存在一个对象中，然后在新模板上重新渲染。
 
 ![](https://cdn-images-1.medium.com/max/2620/1*rMgQ3As1LMKkb7GWLmn9Lg.png)
 
 ![](https://cdn-images-1.medium.com/max/3344/1*Z2M5mSR8Vc4TRQKCzkySDw.png)
 
-So for our last library I choose [Preact](https://preactjs.com), it’s really similar to React, Here again, I used `autorun` to update my UI.
+最后一个库，我决定选择 [Preact](https://preactjs.com)，它实际上与 React 类似，在这里，我还是用 `autorun` 来更新 UI 的。
 
 ![](https://cdn-images-1.medium.com/max/2372/1*lqV2noA23HzDulsXr4OKLQ.png)
 
-Here I also had to update the template itself on each change(similar to what mobx-react does).
+在这里，我还必须在每次更改时更新模板本身（类似于 mobx-react 所做的）。
 
 ![](https://cdn-images-1.medium.com/max/2112/1*gzHJHBLK-ImmilyTK2FXIA.png)
 
-And that’s it now we have 4 different UI/framework libraries showing the same data exactly on the same screen.
+现在我们有 4 个不同的 UI/框架库，在同一个屏幕上显示相同的数据。
 
 ![](https://cdn-images-1.medium.com/max/6716/1*_Dccz9ks746qQAs4P20vYQ.png)
 
-I really love this separation, It makes the code in a much cleaner as it just needs to manage the UI state or even just represent the data without any games, it helps the code to be more maintainable and easier to scale.
+我真的很喜欢这种分离，它使代码更加清晰，因为它只需要管理 UI 状态，甚至只需要表示数据，它使得代码更加易于维护和扩展。
 
-Hope you liked the concept and if anyone has any question or would just like to discuss, or give me any points to improve is more than welcome to talk to me on [Facebook](https://www.facebook.com/gglezer), or by mail stolenng@gmail.com.
+希望你喜欢这个概念，如果有人有任何问题或想要讨论，或给我任何改进的意见，欢迎通过 [Facebook](https://www.facebook.com/gglezer) 或邮件 stolenng@gmail.com 与我交流。
 
-Here is a link to the repository and a website:
+以下是仓库和网站的链接：
 
 [**stolenng/mobx-cross-data-example**](https://github.com/stolenng/mobx-cross-data-example)
 
