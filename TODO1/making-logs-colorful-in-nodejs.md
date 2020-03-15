@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-logs-colorful-in-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-logs-colorful-in-nodejs.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Long Xiong](https://github.com/xionglong58)，[Zavier Tang](https://github.com/ZavierTang)
 
 # 给 NodeJS 的 Logs 点颜色看看！
 
-![图片致谢：[Bapu Graphics](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bapugraphics.com%2Fmultimediacoursetips%2F7-nodejs-tips-and-also-tricks-for-javascript-developers%2F&psig=AOvVaw3ZA2cfk0Y7Q-TxrYBfFgd0&ust=1580829786882000&source=images&cd=vfe&ved=0CAMQjB1qFwoTCMiwnIfYtecCFQAAAAAdAAAAABAD)](https://cdn-images-1.medium.com/max/2000/1*fVkQKafnrC3U6YL7yynPag.jpeg)
+![图片版权：[Bapu Graphics](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bapugraphics.com%2Fmultimediacoursetips%2F7-nodejs-tips-and-also-tricks-for-javascript-developers%2F&psig=AOvVaw3ZA2cfk0Y7Q-TxrYBfFgd0&ust=1580829786882000&source=images&cd=vfe&ved=0CAMQjB1qFwoTCMiwnIfYtecCFQAAAAAdAAAAABAD)](https://cdn-images-1.medium.com/max/2000/1*fVkQKafnrC3U6YL7yynPag.jpeg)
 
-在任何应用中，日志都是一个非常重要的部分。我们借助它来调试代码，还可以将它通过 [Splunk](https://en.wikipedia.org/wiki/Splunk) 等框架的分析处理，了解应用中的重要统计数据。从我们敲出 “Hello Word!” 的那一天起，日志就是我们好朋友，帮助了我们很多。所以说，日志基本上是所有后端代码架构中必不可少的部分之一。市面上有许多可用的日志库，比如 [Winston](https://github.com/winstonjs/winston)、[Loggly](https://www.loggly.com/docs/api-overview/)、[Bunyan](https://github.com/trentm/node-bunyan) 等等。但是，在调试我们的 API 或者需要检查某个变量的值时，我们需要的只是用 JavaScript 的 **console.log（）** 来输出调试。我们先来看一些您可能会觉得很熟悉的日志代码。
+在任何应用中，日志都是一个非常重要的部分。我们借助它来调试代码，还可以将它通过 [Splunk](https://en.wikipedia.org/wiki/Splunk) 等框架的分析处理，了解应用中的重要统计数据。从我们敲出 “Hello Word!” 的那一天起，日志就成为了我们的好朋友，帮助了我们很多。所以说，日志基本上是所有后端代码架构中必不可少的部分之一。市面上有许多可用的日志库，比如 [Winston](https://github.com/winstonjs/winston)、[Loggly](https://www.loggly.com/docs/api-overview/)、[Bunyan](https://github.com/trentm/node-bunyan) 等等。但是，在调试我们的 API 或者需要检查某个变量的值时，我们需要的只是用 JavaScript 的 **console.log（）** 来输出调试。我们先来看一些您可能会觉得很熟悉的日志代码。
 
 ```javascript
 console.log("MY CRUSH NAME");
@@ -19,11 +19,11 @@ console.log("Step 1");
 console.log("Inside If");
 ```
 
-为什么我们要放这样做？是因为我们懒吗？不，我们这样输出日志，是因为我们需要将我们期待的输出与控制台上打印的其他日志区分开。
+为什么我们要放这样做？是因为懒吗？不，这样输出日志，是因为需要将我们期待的输出与控制台上打印的其他日志区分开。
 
 ![图 1](https://cdn-images-1.medium.com/max/2730/1*UdH0W6yGIk3z3ptPrO5nog.png)
 
-目前我们仅仅在当前的控制台增加了 console.log(“Got the packets”) 这一行。您能在这堆日志（图 1）中找到 “Got the packets” 吗？我知道找到这条 log 是很困难的。那么该怎么做呢？如何才能使我们的开发更加顺手，日志看起来更加优雅。
+目前我们仅仅在当前的控制台增加了 console.log(“Got the packets”) 这一行。您能在这堆日志（图 1）中找到 “Got the packets” 吗？我知道找到这条日志是很困难的。那么该怎么做呢？如何才能使我们的开发更加顺手，日志看起来更加优雅。
 
 ## 有颜色的 Log
 
@@ -35,7 +35,7 @@ console.log("Inside If");
 
 ![图 3](https://cdn-images-1.medium.com/max/2732/1*puJJ71wiSgqCv_h_L4qREg.png)
 
-新添加的 log 也是明显的。现在让我们来看看如何实现这个功能。我们可以通过在代码中添加 **Chalk** 包来实现这一点。
+新添加的 log 也是明显的。现在让我们来看看如何实现这个功能。我们可以使用 **Chalk** 包来实现这一点。
 
 ## 安装
 
