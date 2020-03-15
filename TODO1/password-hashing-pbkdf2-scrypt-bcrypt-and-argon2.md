@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/password-hashing-pbkdf2-scrypt-bcrypt-and-argon2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/password-hashing-pbkdf2-scrypt-bcrypt-and-argon2.md)
 > * 译者：[司徒公子](https://github.com/todaycoder001)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)、[GJXAIOU](https://github.com/GJXAIOU)
 
 # 密码哈希的方法：PBKDF2，Scrypt，Bcrypt 和 ARGON2
 
 关于如何安全的存储密码以及使用何种算法总是有很多的争论：MD5、SHA1，SHA256、PBKDF2，Bcrypt、Scrypt、Argon2、明文？？
 
-因此，我试图分析和总结最新的合理选择：Scrypt、Bcrypt 和 Argon2 没问题，MD5、SHA1、SHA256 就不太适合存储密码！😉
+因此，我试图分析并总结了最新的合理选择：Scrypt、Bcrypt 和 Argon2 是符合条件的，MD5、SHA1、SHA256 就不太适合存储密码！😉
 
 ![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200309210312.png)
 
@@ -21,14 +21,14 @@
 
 > 攻击者通常拥有与我们不同的、更专业（强大）的硬件
 >
-> 攻击者之所以使用专业的硬件，是因为它能根据某些算法进行定制，不同的硬件架构允许某些算法能比非专业硬件（CPU）上运行的更快，而且 —— 总体而言 —— 某些算法还可以并行化；
+> 攻击者之所以使用专业的硬件，是因为它能根据某些算法进行定制，定制化的硬件允许某些算法能比非专业硬件（CPU）上运行的更快，而且 —— 总体而言 —— 某些算法还可以并行化；
 >
-> 为了平等的与攻击者做斗争，我们依赖慢哈希方法来对密码进行哈希：你的处理器（CPU/GPU）防御攻击者的 GPU/FPGA/ASIC 的处理器。
+> 我们依赖慢哈希方法来对密码进行哈希，从而实现你采用的 CPU/GPU 处理器与攻击者的 GPU/FPGA/ASIC 处理器在计算能力上处于同一水准。
 
 **以上这些都是正确的**，然而，数字加密货币的竞争又上升到另一个层面：数十亿美元的市值，
 基于软件/硬件，以最快的速度来实现一种数字加密货币的底层算法，这相比于其他矿工来说也是一种优势，因此，也是最赚钱的一个。
 
-在比特币使用 SHA256 来作为其底层加密方法的时候（因此，可以在已经优化的硬件上对其进行极大的优化，使其对矿工来说成为一种‘不公平’的数字货币），但其他的创建者试图通过依赖内存的方法来使新的数字加密货币能被更加公平的开采：[莱特币](https://litecoin.org/)（[Scrypt](https://en.wikipedia.org/wiki/Scrypt)）  是早期的示例，[Zcash](https://z.cash/)（[Equihash](https://en.wikipedia.org/wiki/Equihash)）是最近的示例。
+在比特币使用 SHA256 来作为其底层加密方法的时候（因此，可以在已经优化的硬件上对其进行极大的优化，使其对矿工来说成为一种‘不公平’的数字货币），但其他加密货币的创建者试图通过依赖内存的方法来使新的数字加密货币能被更加公平的开采：[莱特币](https://litecoin.org/)（[Scrypt](https://en.wikipedia.org/wiki/Scrypt)）  是早期的示例，[Zcash](https://z.cash/)（[Equihash](https://en.wikipedia.org/wiki/Equihash)）是最近的示例。
 
 这意味着用于密码哈希的慢方法正在被用来保护数百万甚至数十亿美元市值的数字加密货币，这使得慢哈希方法的最快实现是有意义的，而且通常这也是[公开可用的](https://github.com/tpruvot/ccminer)。
 
@@ -36,9 +36,9 @@
 
 原理还是一样的：我们需要一个加密社区审核过的慢函数并且依然未被破解。
 
-**PBKDF2** 已经存在很长时间了，并且没有[之前文章](https://medium.com/@mpreziuso/password-hashing-pbkdf2-scrypt-bcrypt-1ef4bb9c19b3)讨论的那么成熟：轻松的在多核系统（GPU）上实现并行，这对于定制系统（FPGA/ASIC）来说微不足道。所以我拒绝了它。
+**PBKDF2** 已经存在很长时间了，像[之前文章](https://medium.com/@mpreziuso/password-hashing-pbkdf2-scrypt-bcrypt-1ef4bb9c19b3)讨论的一样，它有点过时了：轻松的在多核系统（GPU）上实现并行，这对于定制系统（FPGA/ASIC）来说微不足道。所以我拒绝了它。
 
-**BCrypt** 自从 1999 年就存在了，在对抗 GPU/ASIC 方面要优于 PBKDF2，但是我还是不建议你在新系统中使用它，因为它在离线破解的威胁模型分析中表现并不突出。
+虽然在 1999 年 **BCrypt** 就产生了，并且在对抗 GPU/ASIC 方面要优于 PBKDF2，但是我还是不建议你在新系统中使用它，因为它在离线破解的威胁模型分析中表现并不突出。
 尽管有一些数字加密货币依赖于它（即：NUD），但它并没有因此获得较大的普及，因此，FPGA/ASIC 社区也并没有足够的兴趣来构建它的硬件实现。
 话虽如此，[Solar Designer](https://twitter.com/solardiz)（OpenWall）、Malvoni 和 Knezovic（萨格勒布大学）在 2014 年撰写了一篇论文，这篇文章描述了一种混合使用 ARM/FPGA 的单片系统来攻击该算法。
 
@@ -49,7 +49,7 @@
 
 写完[我的第一篇文章](https://medium.com/@mpreziuso/password-hashing-pbkdf2-scrypt-bcrypt-1ef4bb9c19b3)后不久，Argon2 在 2015 年 7 月赢得了密码哈希竞赛。
 
-#### 竞赛
+#### 密码哈希竞赛
 
 该竞赛于 2012 年秋季启动，2013 年第一季度，竞赛委员会发布了征集参赛作品的通知，截止日期为 2014 年 3 月底。作为比赛的一部分，小组成员对提交的参赛作品进行了全面审核，并发布了一份初步的简短报告，其中描述了他们的选择标准和理由。
 
@@ -59,9 +59,9 @@ Argon2 有两个主要的版本：**Argon2i** 是对抗侧信道攻击的最安�
 
 源代码可以在 [Github](https://github.com/p-h-c/phc-winner-argon2) 上获得，使用兼容 C89 的 C 语言编写，并在知识共享许可协议下获取许可，并且可以在大多数 ARM、x86 和 x64 架构的硬件上编译。
 
-#### 基于高级加密标准
+#### 基于 AES 实现
 
-Argon2 基于[高级加密标准](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) ，现代的 x64 和 ARM 处理器已经在指令集扩展中实现了它，从而大大缩小了普通系统和攻击者之间的性能差距，
+Argon2 基于 [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)  实现，现代的 x64 和 ARM 处理器已经在指令集扩展中实现了它，从而大大缩小了普通系统和攻击者系统之间的性能差距，
 
 #### 参数调整
 
@@ -94,7 +94,7 @@ Argon2 基于[高级加密标准](https://en.wikipedia.org/wiki/Advanced_Encrypt
 
 在 2019 年，我建议你以后**不要使用** PBKDF2 或 BCrypt，并强烈建议将 Argon2（最好是 Argon2id）用于最新系统。
 
-Scrypt 是当 Argon2 不可用时的第二选择，但要记住，它在侧侧信道泄露方面也存在相同的问题。
+Scrypt 是当 Argon2 不可用时的不二选择，但要记住，它在侧侧信道泄露方面也存在相同的问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
