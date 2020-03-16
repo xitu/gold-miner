@@ -7,7 +7,7 @@
 
 # How To Write a Front-End Developer Resume That Will Land You an Interview
 
-#### An article for junior to mid-level front-end developers, from the interviewer’s point of view
+> An article for junior to mid-level front-end developers, from the interviewer’s point of view
 
 ![](https://cdn-images-1.medium.com/max/4120/1*zbDy-S2TCDK93sO7FhcyXA.png)
 
@@ -20,8 +20,6 @@ As a front-end developer, you build visible stuff, and hopefully, you make it lo
 3. A step by step guide on how to present your past experience.
 4. How to build your frontend portfolio.
 5. Using a [resume builder](https://www.cakeresume.com) to write your resume.
-
----
 
 ## 1. Start With the Basics
 
@@ -45,8 +43,6 @@ Keep in mind a few things when you’re writing it:
 
 Unless you’re a recent college graduate, there’s no need to list your GPA. Your achievements are more important than your GPA.
 
----
-
 ## 2. Technical Skills
 
 ![Photo by [Filiberto Santillán](https://unsplash.com/@filijs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/react?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12000/1*9JIvQ9NwFCmdo0VNGaTu6Q.jpeg)
@@ -68,8 +64,6 @@ For a software developer, this part is the most important section to make you st
 Don’t do this. That’s an entire IT department.
 
 Try not to present your skills like the example above. If you’ve literally just started learning a new skill, don’t put it on your resume. This will stop recruiters from recommending you for jobs you’re not qualified for.
-
----
 
 ## 3. Working Experience
 
@@ -125,8 +119,6 @@ Technologies: React, Deck.gl, Python, Recharts, Node.js
 
 ![](https://cdn-images-1.medium.com/max/4484/1*GfaGcGu8oOVsTNG5FNcJDg.png)
 
----
-
 ## 4. Portfolio — Set Yourself Apart From Your Peers
 
 ![[Trantor Liu’s Portfolio on CakeResume](https://www.cakeresume.com/trantorliu/portfolio?ref=resume-header-portfolio)](https://cdn-images-1.medium.com/max/3836/1*e-lvUJN69OBx3GOhmqM94A.png)
@@ -149,10 +141,10 @@ When you’re building your portfolio, include these things:
 * The language, framework, or pattern you used.
 
 A few examples:
-[**ThisIsMe Web App Information Architecture - Jayd Gibbon's Portfolio**
-**ThisIsMe's IA diagram for the entire frontend system was illustrated using Lucidchart. I used different components to…**www.cakeresume.com](https://www.cakeresume.com/portfolios/thisisme-web-app-information-architecture)
-[**Seul Landing Part 1 - Stefan's Portfolio**
-**The design inspiration came from a project management app called monday.com(formerly known as dapulse). I was…**www.cakeresume.com](https://www.cakeresume.com/portfolios/seul)
+
+[**ThisIsMe Web App Information Architecture - Jayd Gibbon's Portfolio**](https://www.cakeresume.com/portfolios/thisisme-web-app-information-architecture)
+
+[**Seul Landing Part 1 - Stefan's Portfolio**](https://www.cakeresume.com/portfolios/seul)
 
 #### A few suggestions if you’re starting from scratch
 
@@ -161,22 +153,16 @@ A few examples:
 * Go to your first Hackathon and make something.
 * Start to solve your own problem.
 
----
-
 ## 5. Online Resume Builders
 
 Before we start writing a great resume, try thinking about the kind of format you want your resume to have. Personally, I suggest that software developers write their resumes with an online resume builder, such as [CakeResume](https://www.cakeresume.com/) (free).
-[**Resume/Jobs/Recruitment - CakeResume Comprehensive Talent Services**
-**CakeResume provides comprehensive talent services, no matter you want to make a resume, find a job or hire a talent…**www.cakeresume.com](https://www.cakeresume.com)
 
 Here are some advantages of online [resume builders](https://www.cakeresume.com):
 
 * They help you create your resume with up-to-date designs, which gives a good impression to your future employer.
 * They save you time. Especially for those who don’t know where to start and those who don’t want to mess around with adjusting columns and borders.
 * They help to ensure that you don’t leave out any vital information.
-* They make it ****easy to update a resume and swap out information. You can slightly tweak a resume to tailor the information for different employers.
-
----
+* They make it easy to update a resume and swap out information. You can slightly tweak a resume to tailor the information for different employers.
 
 ## 6. Make Good Use of the Hyperlink
 
@@ -187,8 +173,6 @@ If you decided to build your resume with an online resume builder, you have the 
 * You want to showcase the website you’ve been working on — you could simply provide the URL to the website.
 * You want to mention third-party services or SDKs you used.
 * You want to present the documented solution for a previous problem you tried to solve on your personal blog or Medium.
-
----
 
 ## Learn More:
 
