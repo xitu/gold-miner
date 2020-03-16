@@ -18,8 +18,6 @@ A **JavaScript Symbol** is a relatively new JavaScript “feature”. It was int
 5. Well-known JavaScript symbols
 6. Benefiting from the data type
 
----
-
 ## JavaScript symbol
 
 Symbols were added to the lineup of primitive data types in JavaScript in 2015. It was part of ES6 specification and its sole purpose is to act as a **unique identifier of object properties**, i.e. it can be used as a **key** in objects. You can **think** of symbols as big numbers and every time you create a symbol, a new random number gets generated **(uuid)**. You can use that symbol **(the random big number)** as a key in objects.
@@ -42,8 +40,6 @@ And the `**Symbol.keyFor()**` method looks for the symbol in the global symbol r
 
 Symbols registered to the global symbol registry are not only accessible in all scopes, but even accessible across realms.
 
----
-
 ## Motivations of adding the new data type
 
 One of the reasons of adding the data type was to enable private properties in JavaScript. Before symbols, privacy or immutability were being solved with closures, proxies, and other workarounds. But all of the solutions are too verbose and require a lot of code and logic to achieve their purpose.
@@ -64,8 +60,6 @@ Symbols defined in the global symbol registry can be accessed with **`Symbol.for
 
 Okay, so symbols are cool. They help us make unique values that can never be repeated and use them to **hide** properties. But do they really solve the privacy problem?
 
----
-
 ## Do symbols achieve property privacy?
 
 JavaScript symbol does **NOT** achieve property privacy. You cannot rely on symbols to hide something from the user of your library. There is a method defined on the Object class called **Object.getOwnPropertySymbols()** that takes an object as an argument and returns an array of property symbols of the argument object.
@@ -73,8 +67,6 @@ JavaScript symbol does **NOT** achieve property privacy. You cannot rely on symb
 ![](https://cdn-images-1.medium.com/max/7072/1*mzNkoGU403VrYTL0T2GBtw.png)
 
 Additionally, if the symbol is assigned to the global symbol registry, nothing can stop accessing the symbol and its property value.
-
----
 
 ## Symbol in computer programming
 
@@ -116,8 +108,6 @@ To conclude, we can say that symbols are not the same and do not share the same 
 
 **Note: In some programming languages ([erlang](https://www.erlang.org/), [elixir](https://elixir-lang.org/)), symbol is called an [atom](https://elixir-lang.org/getting-started/basic-types.html#atoms).**
 
----
-
 ## Well-known JavaScript symbols
 
 JavaScript has some built-in symbols which allow the developer to access some properties which were not exposed before the introduction of symbols to the language.
@@ -133,9 +123,9 @@ This symbol gives the developer access to the default iterator for an object. It
 ![](https://cdn-images-1.medium.com/max/5520/1*qYvPQJVoT5tQKCjoQ5Hkuw.png)
 
 > `function*() {}` is the syntax for defining a **generator function.** A generator function returns a Generator object.
->
+
 > `yield` is a keyword used to pause and resume generator functions.
->
+
 > See more on [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) and [yield](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield).
 
 For async iteration there is **Symbol.asyncIterator** which is used by `**for await…of**` loop.
@@ -155,8 +145,6 @@ Actually, what happens is that the functions check specifically whether the pass
 ![](https://cdn-images-1.medium.com/max/5256/1*bE28F0Oz0o5Sl6LGuHVR4Q.png)
 
 **Note: Honestly, I am not sure why you would want to do this. The code above is an example to demonstrate how to use the `Symbol.match` . It seems like a hack and it will be problematic if used like this because it changes the behavior of functions that are used a lot. I cannot think of any real use-cases for using this one.**
-
----
 
 ## Benefiting from JavaScript symbols
 
@@ -180,25 +168,16 @@ And of course, well-known symbols like `**Symbol.iterator**` or `**Symbol.asyncI
 
 ![](https://cdn-images-1.medium.com/max/5448/1*ZkrQzQrm6Xf9LV_C9-KyZw.png)
 
----
-
 I covered the important concepts and practices needed for grasping the idea of JavaScript Symbol. Of course there is a lot more to cover like other well-known symbols, or use cases of crossing realms with symbols, but I will leave out some useful material that cover those and other parts of JavaScript Symbol.
-
----
 
 #### Additional Material
 
-> [JavaScript Symbol MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
->
-> [ES6 Symbol tc39wiki](http://tc39wiki.calculist.org/es6/symbols/)
->
-> [JS Symbols exploringjs.com](https://exploringjs.com/es6/ch_symbols.html)
->
-> [JS Realms stackoverflow](https://stackoverflow.com/questions/49832187/how-to-understand-js-realms)
->
-> [Symbol (programming) wikipedia](https://en.wikipedia.org/wiki/Symbol_(programming))
->
-> [Ruby Symbols](https://ruby-doc.org/core-2.2.0/Symbol.html)
+- [JavaScript Symbol MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
+- [ES6 Symbol tc39wiki](http://tc39wiki.calculist.org/es6/symbols/)
+- [JS Symbols exploringjs.com](https://exploringjs.com/es6/ch_symbols.html)
+- [JS Realms stackoverflow](https://stackoverflow.com/questions/49832187/how-to-understand-js-realms)
+- [Symbol (programming) wikipedia](https://en.wikipedia.org/wiki/Symbol_(programming))
+- [Ruby Symbols](https://ruby-doc.org/core-2.2.0/Symbol.html)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
