@@ -123,8 +123,7 @@ public class DataProcessor {
 }
 ```
 
-No constructor is needed anymore, we can provide the dependencies at any time after initialization. But this way of injection also comes with drawbacks: **Mutability**.
-不再需要构造函数，在初始化后我们可以随时提供依赖项。但这种注入方式也有缺点：**易变性**。
+我们不再需要构造函数了，在初始化后我们可以随时提供依赖项。但这种注入方式也有缺点：**易变性**。
 
 在初始化后，我们不再保证 `DataProcessor` 是「随时可用」的。能够随意更改依赖关系可能会给我们带来更大的灵活性，但同时也会带来运行时检查过多的缺点。
 
@@ -133,10 +132,12 @@ No constructor is needed anymore, we can provide the dependencies at any time af
 #### 方法注入
 
 Even though we decoupled the dependencies with constructor injection and/or property injection, by doing so, we still only have a single choice. What if we need another `Calculator` in some situations?
+即使我们将依赖项与构造函数注入与/或属性注入分离，我们也仍然只有一个选择。
 
 We don’t want to add additional properties or constructor arguments for a second `Calculator`, because there might be a third one needed in the future. And changing the property every time before we call `calc(...)` isn't feasible either, and will most likely lead to bugs using the wrong one.
+我们不想为第二个 `Calculator` 类添加额外的属性或构造函数参数，因为将来可能会出现第三个这样的类。而且在每次调用 `calc(...)` 前更改属性也不可行，并且很可能因为使用错误的属性而导致 bug。
 
-A better way is to parameterize the method call itself with its dependency:
+更好的方法是参数化调用方法本身及其依赖项：
 
 ```Java
 public class DataProcessor {
@@ -149,9 +150,9 @@ public class DataProcessor {
 }
 ```
 
-Now the caller of `calc(...)` is responsible for providing an appropriate `Calculator` instance, and `DataProcessor` is completely decoupled from it.
+现在，`calc(...)` 的调用者负责提供一个合适的 `Calculator` 实例，并且 `DataProcessor` 类与之完全分离。
 
-Even more flexibility can be gained by mixing different types of injection, and providing a default `Calculator`:
+通过混合使用不同的注入类型来提供一个默认的 `Calculator` 可以获得更大的灵活性：
 
 ```Java
 public class DataProcessor {
@@ -174,31 +175,31 @@ public class DataProcessor {
 }
 ```
 
-The caller **could** provide a different kind of `Calculator`, but it doesn’t **have to**. We still have a decoupled, ready-to-go `DataProcessor`, with the ability to adapt to specific scenarios.
+调用者**可以**提供另一种类型的 `Calculator`，但这不是**必须**的。我们仍然有一个解耦的、随时可用的 `DataProcessor`，它能够适应特定的场景。
 
 ## 选择哪种注入方式？
 
-Every type of dependency injection has its own merits, and there isn’t a “right way”. It all depends on your actual requirements and the circumstances.
+每种注入类型都有自己的优点，没有一种「正确的选择」。对注入方式的选择完全取决于你的实际需求和情况。
 
 #### 构造函数注入
 
-Constructor injection is my favorite, and often preferred by DI frameworks.
+构造函数注入是我的最爱，它也常受 DI 框架的青睐。
 
-It clearly tells us all the dependencies needed to create a specific component, and that they are not optional. Those dependencies should be required throughout the component.
+它清楚地告诉我们创建特定组件所需的所有依赖关系，并且这些依赖不是可选的，整个组件中都需要这些依赖项。
 
 #### 属性注入
 
-Property injection matches better for optional parameters, like listeners or delegates. Or if we can’t provide the dependencies at initialization time.
+属性注入更适合可选参数，例如监听或委托。又或是我们无法在初始化时提供依赖关系。
 
-Some other languages, like Swift, make heavy use of the [delegation pattern](https://en.wikipedia.org/wiki/Delegation_pattern) with properties. So, using it will make our code more familiar to other developers.
+其它编程语言，例如 Swift，大量使用了带属性的 [委托模式](https://en.wikipedia.org/wiki/Delegation_pattern)。因此，使用属性注入将使其它语言的开发人员更熟悉我们的代码。
 
 #### 方法注入
 
-Method injection is a perfect match if the dependency might not be the same for every call. It will decouple the component even more because now, just the method itself has a dependency, not the whole component.
+如果在每次调用时依赖项可能不同，那么使用方法注入最好不过了。方法注入进一步解耦组件，它使方法本身持有依赖项，而非整个组件。
 
-Remember that it’s not either-or. We can freely mix the different types where it’s appropriate.
+请记住，这不是非此即彼。我们可以根据需要自由组合各种注入类型。
 
-## Inversion of Control Containers
+## 控制反转容器
 
 We can cover a lot of use cases with these simple implementations of dependency injection. It’s an excellent tool for decoupling, but we actually still need to create the dependencies at some point.
 
