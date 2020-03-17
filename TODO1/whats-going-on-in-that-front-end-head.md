@@ -2,94 +2,94 @@
 > * 原文作者：[Andreea Macoveiciuc](https://medium.com/@andreea.macoveiciuc)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-going-on-in-that-front-end-head.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-going-on-in-that-front-end-head.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Jessica](https://github.com/cyz980908)
+> * 校对者：[Long Xiong](https://github.com/xionglong58)
 
-# What’s going on in that front end head (\<head\>)?
+# 前端代中的 head 标签里都有些什么？
 
-> Must-have tags that FEs should include even if SEOs and marketers don’t ask for them.
+> 即使负责 SEO 和市场营销的同事没有要求，在我们前端代码中也应该有的必备标签。
 
-![Photo by [Natasha Connell](https://unsplash.com/@natcon773?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8064/1*lgPqPdewofN-QeUyeocZ8w.jpeg)
+![来自 [Natasha Connell](https://unsplash.com/@natcon773?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 的照片](https://cdn-images-1.medium.com/max/8064/1*lgPqPdewofN-QeUyeocZ8w.jpeg)
 
-While preparing a SEO workshop for stakeholders, I was going through some tags that I assumed we already included in our \<head>. To my surprise, quite some were missing, probably because nobody ever asked for them.
+当我在准备团队内分享的 SEO 研讨会时，我仔细列出了一些我认为我们应该在 \<head> 中使用的标签。但令我惊讶的是，现实代码中有许多标签并未出现，可能是因为这些标签不是必须项。
 
-So if you’re a front-ender trying to make friends with marketers and SEOs, or a PO trying to find some quick-wins for improving the search performance of your platform, make sure the tags and attributes below aren’t missing from your code.
+因此，如果您是一个想要与负责市场营销和 SEO 的同时成为好基友的前端人员，或者是一个想要寻找一些能够快速提高平台搜索性能的产品负责人，请确保您的代码中没有漏掉下面的标签和属性。
 
-## Document language
+## 文档的语言 —— lang 标签
 
 ```html
 <html lang=”en”>…</html>
 ```
 
-The lang attribute is ignored by Google, but is used by Bing and also by screen readers, so it is an important attribute for accessibility and ranking. Well it’s actually not ignored by Google, because it does help in recognizing the document language and providing translation services. But it’s just not important for SEO.
+Google 会忽略 lang 标签，但 Bing 和屏幕阅读器不会，所以，对于可访问性和排名来说，它是一个重要的标签。准确来说，Google 并不是忽略它，而是它是用于识别文档语言并提供翻译服务的。但这对 SEO 来说并不重要。
 
-Typically the attribute is included in the \<head>, but can also be used on other tags such as quotes or paragraphs, if the language (the **actual** language) of those elements changes.
+通常，lang 标签都包含在 \<head> 中，但是也可以用于其他标签，如 \<blockquote> 或 \<p>。当这些元素的语言（实际内容中的语言）发生了变化，就可以使用 lang 标签。
 
-For example:
+例如：
 
 ```html
 <blockquote lang="fr" cite="URL">Some french quote here</blockquote>
 ```
 
-## Hreflang tag
+## hreflang 标签
 
-If Google is ignoring the lang attribute when looking at the different languages of a document, what does it use? The hreflang tag!
+前面我们提到 Google 在检索到不同语言的文档时会忽略 lang 标签，那么 Google 又是使用什么的呢？答案就是 hreflang 标签！
 
 ```html
 <link rel="alternate" href="https://masterPageURL" hreflang="en-us" />
 <link rel="alternate" href="https://DEVersionURL-" hreflang="de-de" />
 ```
 
-What’s happening in those tags?
+这些标签里面发生了什么?
 
-The first one tells Google that the language used on that page is English, more specifically for US users.
+第一个行告诉 Google，该页面上使用的语言是英语，更准确地说，是针对我们的美国用户的。
 
-The second line tells Google that if there are users browsing from Germany, that version of the page — **with the hreflang=”de-de” attribute** — should be served.
+第二行告诉 Google，如果有来自德国的用户在浏览，应该加载有 **hreflang=”de-de”** 的标签中 href 属性对应的页面。
 
-The hreflang attribute can be added in the \<head>, as shown, or in the sitemap. This tag is useful if you have content in multiple languages and want to decrease the risk for Spanish users to get Dutch content and so on.
+如上图所示，hreflang 标签可以在 <head> 中使用，它还可以在 sitemap 中使用。如果您有多种语言的内容，并且希望降低异国用户获取到不相匹配的语言内容的风险，那么此标签非常有用。
 
-However, note that the lang and the hreflang attributes are both s**ignals**, not directives. This means that SE can still display the “wrong” version of the page.
+但是，注意 lang 和 hreflang 标签都是**参考信息**，而不是指令。这意味着搜索引擎仍然可以显示页面的错误版本。
 
-## Canonical tag
+## canonical 标签
 
-Canonicals are probably the most annoying and confusing of all tags, so here’s the simplest explanation possible, so that you understand what they do, once and for all.
+canonical 标签可能是所有标签中最烦人和最令人困惑的，下面是最通俗易懂的解释，这样您就能一劳永逸地理解它们的作用。
 
-The canonical tag looks like this:
+canonical 标签长这样：
 
 ```html
 <link rel="canonical" href="https://masterPageURL" />
 ```
 
-What does it do? It tells the search engines that the URL that’s added in the href attribute is the master page, or the most relevant from a set of duplicate pages.
+它有什么用？它告诉搜索引擎在 href 属性中添加的 URL 是主版页，或者是一组重复页面中和主题最相关的。
 
-In a webshop for example, it’s extremely common to have dynamic URLs where the product variations are formed by adding parameters like ?category=… or session IDs.
+例如，在一个商城网站中，动态 URL 非常常见。在动态 URL 中，通过添加诸如 ?category= 或会话 ID 之类的参数来表示页面中的需要传递的值。
 
-When this happens, you need to tell Google which of those variants is the master page that should be indexed. You do that by adding the canonical tag and pointing it to the master URL.
+当这种情况发生时，您需要告诉 Google 哪些参数是应该被主版页索引的。您可以通过添加 canonical 标签并将其指向主版页的 URL 来实现。
 
-Please note that **all the duplicate pages** need to include this tag and to point to the master page.
+请注意，**所有重复的页面**都需要包含此标签并指向主页面。
 
-## Robots meta tags
+## Robots meta 标签
 
-This is different than the robots.txt file. It’s a tag that looks like this:
+它和 robots.txt 文件不同。它是一个像下面这样的标签：
 
 ```html
 <meta name="robots" content="noindex, nofollow" />
 ```
 
-What does it do? This tag tells search engine bots how to crawl a page — to index or not to index, to follow or not to follow.
+它有什么用？这个标签告诉搜索引擎机器人如何爬取一个页面，建立索引或不建立索引，继续爬取或不继续爬取。
 
-Unlike the lang tags and the robots.txt file, the robots meta tag is a **directive**, so it provide strict instructions for the bots.
+与 lang 标签 和 robots.txt 文件不同，robots meta 标签是一个**指令**，因此它为搜索引擎机器人提供严格的指令。
 
-Possible values are as follows:
+可能的值如下：
 
-* noindex: Tells the SE to not index the page.
-* index: Tells the SE to index the page. This is the default value, so you can skip it if you want the page to be indexed anyway.
-* nofollow: Tells the crawler to not follow any links from that page and to not pass any link equity.
-* follow: Tells the crawlers to follow the links on the page and pass link equity (“juice”). This happens even if the page isn’t indexed.
+* noindex：告诉搜索引擎不索引该页面。
+* index：告诉搜索引擎索引该页面。这是默认值，因此如果希望页面被索引，可以跳过不设置它。
+* nofollow：告诉爬虫不要继续爬取该页面中的任何链接，也不要传递任何链接权重。
+* follow：告诉爬虫继续爬取页面上的链接并传递链接权重（“juice”）。即使页面不能被索引到，也不影响。
 
-## Social meta tags: OG
+## 社交 meta 标签：OG
 
-OG stands for Open Graph Protocol and it’s a technology that allows you to control what data is shown when a page is shared in social media. Here’s how the tags look like:
+OG 是 Open Graph Protocol 的缩写，它是一种允许您控制在社交媒体上分享页面时显示什么数据的技术。下面是标签的样子：
 
 ```html
 <meta property="og:title" content="The title" />
@@ -98,48 +98,48 @@ OG stands for Open Graph Protocol and it’s a technology that allows you to con
 <meta property="og:image" content="img.jpg" />
 ```
 
-The four tags above are mandatory, but you can add many others — you can check the list [here](https://ogp.me/).
+以上四个标签是必须的，但是您可以添加更多其他标签，您可以在[这里](https://ogp.me/)查看列表。
 
-If these are missing, you’ll probably hear some complaints sooner or later, as whenever a colleague will share a page in social, the image will be chosen randomly unless specified in the og:image tag.
+如果缺少这些，您可能迟早会听到一些抱怨，因为每当同事分享一个页面时，如果 og:image 标签没被指定，将随机选择图像。
 
-## Meta title & meta description tags
+## Meta title & meta description 标签
 
-In all honesty, I don’t think it’s even possible for these to be missing, but just in case, click right & inspect.
+老实说，我认为这些是在 \<head> 中必须存在的。但为了以防万一，您可以点击右键并检查。
 
-These two meta tags are essential, as they tell search engines and social platforms what the page is about, and they are displayed in the snippets in SERPs. Also, the title appears in the browser tab and shows the page name when bookmarked.
+这两个 meta 标签非常重要，因为它们告诉搜索引擎和社交平台该页面是关于什么的，并且它们会在搜索结果页面中显示出来。此外，title 将显示在浏览器选项卡中以及在添加书签时的书签中。
 
-Here’s how these tags look like:
+下面是标签的样子：
 
 ```html
 <title>This is the page title<title />
 <meta name="description" content="This is the meta description, meaning the text that's displayed in SERP snippets." />
 ```
 
-Now, you may be aware that an old answer from Google, dating back in 2009, said that meta description tags don’t add SEO value. Even so, they are — along with the meta title and page URL — the elements most likely to convince users to click on your snippet. So with or without SEO value, they’re definitely important.
+现在，您可能想起了一个来自 Google 的老答案，这个答案可以追溯到 2009 年，它说 meta description 标签对 SEO 没有帮助。尽管如此，它们与 meta title 和页面 URL 一起依然是最能说服用户点击页面的元素。所以不管对 SEO 有没有帮助，它们都是非常重要的。
 
-## Responsive design meta tag
+## 用于响应式设计的 meta 标签
 
-This tag isn’t actually called like this, the official name is “viewport” and it looks like this:
+这个标签的官方名称是 viewport，它看起来是这样的：
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
 
-Adding this to the \<head> of the document ensures that the page is responsive and it behaves correctly on mobile and tablet. As you may know, Google scans and indexes mobile versions of websites first, in an attempt to make the web more mobile-friendly.
+将其添加到文档的 /<head> 中，可以使页面是响应式的，并且使页面在移动设备和平板电脑上展示正常。您可能也听说过，Google 会首先扫描和索引移动版本的网站，目的是使网页在移动端更友好。
 
-While this tag isn’t technically turning your website into a mobile version, it is considered by search engines if no mobile-first design is found. So when the m.site.com is missing, Google will scan the web version and ideally it should find the viewport tag. Pages that aren’t mobile-friendly and responsive are ranked lower.
+虽然它在技术上来说并没有把您的网站变成一个移动版本，但是如果搜索引擎没有找到移动优先的设计，它会参考这个标签。因此，当 m.site.com 缺失时，Google 将扫描 web 版本，理想情况下它应该能找到 viewport 标签。不支持移动和响应的页面排名较低。
 
-## Favicon tag
+## 用于展示网站图标的标签
 
-This will make your colleagues happy, as it enables browsers to display a beautiful icon or logo in the tab, next to the site’s name. The tag for adding the favicon looks like this:
+您的同事会因为它高兴的，因为它使浏览器能够在选项卡中显示一个漂亮的图标或徽标，旁边是站点的名称。添加 favicon 的标签是这样的：
 
 ```html
 <link rel="icon" href="favicon-img.ico" type="image/x-icon" />
 ```
 
-The image is saved in .ico format, which is better supported than .png and .gif for this purpose.
+图片最好以 .ico 的格式保存，在这方面它比 .png 和 .gif 支持得更好。
 
-P.S. As a content-everything turned front end developer, I’m in the middle of this tag war. Shall I keep quiet? :)
+（我觉得这里可以不翻译了，没读懂作者的意思。看看校对的意见，我再改）
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
