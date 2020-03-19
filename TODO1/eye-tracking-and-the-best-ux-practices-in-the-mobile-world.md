@@ -1,17 +1,17 @@
-> * 原文地址：[眼动跟踪和移动世界的最佳用户体验实践](https://medium.com/nyc-design/eye-tracking-and-the-best-ux-practices-in-the-mobile-world-a101f67f20dd)
+> * 原文地址：[眼动追踪和移动世界的最佳用户体验实践](https://medium.com/nyc-design/eye-tracking-and-the-best-ux-practices-in-the-mobile-world-a101f67f20dd)
 > * 原文作者：[Naman Sehgal](https://medium.com/@sehgal.naman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/eye-tracking-and-the-best-ux-practices-in-the-mobile-world.md](https://github.com/xitu/gold-miner/blob/master/TODO1/eye-tracking-and-the-best-ux-practices-in-the-mobile-world.md)
 > * 译者：[Charlo](https://github.com/Charlo-O?tab=repositories)
-> * 校对者：[Long Xiong]()
+> * 校对者：[Long Xiong](https://github.com/xionglong58)
 
-# 眼动跟踪和移动世界的最佳用户体验实践
+# 眼动追踪和移动世界的最佳用户体验实践
 
 ![](https://imgkr.cn-bj.ufileos.com/2c668962-2d6a-4f85-96a0-5b3485f64c45.jpeg)
 
-在当今世界，可用性测试对于设计用户友好的界面至关重要。这些测试采用不同的形式和方法来帮助设计师发现可用性问题。在分析（把握）设计期望和用户行为之间的关系时至关重要。基于如眼球追踪的传感技术，在深入了解用户如何与技术交互方面具有革命性意义。
+在当今世界，可用性测试对于设计用户友好的界面至关重要。这些测试采用不同的形式和方法来帮助设计师发现可用性问题。在分析（把握）设计期望和用户行为之间的关系时至关重要。基于如眼动追踪的传感技术，在深入了解用户如何与技术交互方面具有革命性意义。
 
-眼动跟踪是一种可用方法和工具，它可以在给定的界面上显示用户的焦点和访问模式。它使得设计者明晰界面哪些元素吸引用户眼球，哪些元素被视而不见。它还可以有效地评估设计/内容层次结构。眼动跟踪是一种很有洞察力的研究技术，它决定了用户的关注焦点和用户的注意力。
+眼动追踪是一种可用方法和工具，它可以在给定的界面上显示用户的焦点和访问模式。它使得设计者明晰界面哪些元素吸引用户眼球，哪些元素被视而不见。它还可以有效地评估设计/内容层次结构。眼动追踪是一种很有洞察力的研究技术，它决定了用户的关注焦点和用户的注意力。
 
 ![](https://imgkr.cn-bj.ufileos.com/56680bdb-32e8-491f-9990-a041a6a7818b.jpeg)
 
