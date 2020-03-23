@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-dont-hate-arrow-functions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-dont-hate-arrow-functions.md)
 > * 译者：[TiaossuP](https://github.com/tiaossup)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer),[scarqin](https://github.com/scarqin)
 
 # 我并不讨厌箭头函数
 
@@ -31,7 +31,7 @@
 
 我试图通过我的演讲、教学和写作来给其他人同样的灵感。我不在乎你是否同意我的观点，我只在乎你能知道自己为什么会在技术上持有这么一个观点，并且可以用你自己的推理来认真地捍卫它。对我来说，这是一种与技术「和谐共处」的方式。
 
-##  `=>` 箭头函数 != `function`
+## `=>` 箭头函数 != `function`
 
 我真心觉得 `=>` 箭头函数并不适合替换 JS 代码中所有（或者至少说大多数）的 `function` 函数代码。我发现在大多数情况下，箭头函数并没有让代码更易读。并非只有我这样想，每当我在社交媒体上分享[类似的观点](https://twitter.com/getify/status/1105182569824346112)时，我经常会收到[几十条](https://twitter.com/bence_a_toth/status/1105185760448311296)「我也是！」的回应，只掺杂着几条「你[完全错了](https://twitter.com/fardarter/status/1105347990225649664)」的[回应](https://twitter.com/kostitsyn/status/1105229763369680896)。
 
@@ -108,7 +108,7 @@
 
 讲道理，我们还是要承认，当我们制定了合理的指导方针，然后遵守它们的准则时，**整体利益**会达到最大化。
 
-##  可配置性为王
+## 可配置性为王
 
 如果你有意让自己接受 lint 规则，你（和你的团队，如果有的话）肯定会想要一些发言权 —— 你需要遵守哪些规则。武断和不容置疑的观点是最糟糕的。
 
@@ -157,7 +157,7 @@
 * [`"params"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-params)：控制 `=>` 箭头函数参数的定义，例如禁止未使用的参数，禁止短/无语义的参数名称等。
 * [`"name"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-name)：要求仅在接收到推断名称的位置使用 `=>` 箭头函数（即分配给变量或属性等），以避免匿名函数表达式的不可读/可调试性。
 * [`"where"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-where)：限制可以在程序结构中使用 `=>` 箭头函数的位置：禁止在顶级/全局作用域、对象属性、`export` 语句等地方使用。
-* [`"return"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return)：限制  `=>` 箭头函数的简明返回值类型，例如禁止对象文字简明返回（`x => ({ x })`）、禁止条件/三元表达式的简明返回（`x => x ? y : z`）等。
+* [`"return"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-return)：限制 `=>` 箭头函数的简明返回值类型，例如禁止对象文字简明返回（`x => ({ x })`）、禁止条件/三元表达式的简明返回（`x => x ? y : z`）等。
 * [`"this"`](https://github.com/getify/eslint-plugin-proper-arrows/blob/master/README.md#rule-this)：要求/禁止 `=>` 箭头函数在 `=>` 箭头函数自身或嵌套 `=>` 箭头函数中使用 `this` 引用，该规则可以有选择地禁止全局作用域使用带 `this` 的 `=>` 箭头函数。
 
 请记住，每个规则都有不同的模式可供配置，所以这些并非全有或全无的。选择你需要的即可。
@@ -201,11 +201,11 @@ var fn2 = (x,y) => {
 
 争论基于意见的规则确实没有任何收获。选择您喜欢的，忘记您不喜欢的就够了。
 
-我希望您看一下[**proper-arrows**](https://github.com/getify/eslint-plugin-proper-arrows)，然后看看有没有哪些规则可以为您所用，让您的 `=>` 箭头函数符合您心目中代码的正确形式。
+我希望您看一下 [**proper-arrows**](https://github.com/getify/eslint-plugin-proper-arrows)，然后看看有没有哪些规则可以为您所用，让您的 `=>` 箭头函数符合您心目中代码的正确形式。
 
 如果这个插件缺少一些有助于定义更多正确箭头的规则，请[提出 issue，咱们一起讨论](https://github.com/getify/eslint-plugin-proper-arrows/issues)！我们完全有可能添加该规则/模式，尽管我个人并不打算开启该规则！
 
-我不讨厌  `=>` 箭头函数，您也不应该。我只是讨厌无知无纪的争辩。让我们拥抱更智能，可配置性更强的工具，然后转向更重要的主题吧！
+我不讨厌 `=>` 箭头函数，您也不应该。我只是讨厌无知无纪的争辩。让我们拥抱更智能，可配置性更强的工具，然后转向更重要的主题吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
