@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：
+> * 校对者：[Long Xiong](https://github.com/xionglong58)
 
 # JSON.stringify() 的 5 个秘密特性
 
@@ -11,7 +11,7 @@
 
 > JSON.stringify() 方法能将一个 JavaScript 对象或值转换成一个 JSON 字符串。
 
-作为一名 JavaScript 开发人员，`JSON.stringify()` 是用于调试的最常见函数。但是这有什么用呢，难道我们不能使用 `console.log()` 来做同样的事情吗？让我们试一试。
+作为一名 JavaScript 开发人员，`JSON.stringify()` 是用于调试的最常见函数。但是它的作用是什么呢，难道我们不能使用 `console.log()` 来做同样的事情吗？让我们试一试。
 
 ```js
 //初始化一个 user 对象
@@ -42,11 +42,11 @@ console.log(JSON.stringify(user));
 
 ---
 
-一般来说，开发人员使用这个 `stringify` 函数的方式很简单，就像我们在上面做的那样。但我要告诉你一些隐藏的秘密，这些小秘密会让你开发起来更加轻松。
+一般来说，开发人员使用 `stringify` 函数的场景较为普遍，就像我们在上面做的那样。但我要告诉你一些隐藏的秘密，这些小秘密会让你开发起来更加轻松。
 
 ## 1: 第二个参数（数组）
 
-是的，`stringify` 函数也可以有第二个参数。它是要在控制台中打印的对象的键数组。看起来很简单？让我们仔细看看。我们有一个对象 **product** 并且我们想知道 product 的 name 属性值。当我们将其打印出来：
+是的，`stringify` 函数也可以有第二个参数。它是要在控制台中打印的对象的键数组。看起来很简单？让我们更深入一点。我们有一个对象 **product** 并且我们想知道 product 的 name 属性值。当我们将其打印出来：
  console.log(JSON.stringify(product)); 
 它会输出下面的结果。
 
@@ -54,7 +54,7 @@ console.log(JSON.stringify(user));
 {“id”:”0001",”type”:”donut”,”name”:”Cake”,”ppu”:0.55,”batters”:{“batter”:[{“id”:”1001",”type”:”Regular”},{“id”:”1002",”type”:”Chocolate”},{“id”:”1003",”type”:”Blueberry”},{“id”:”1004",”type”:”Devil’s Food”}]},”topping”:[{“id”:”5001",”type”:”None”},{“id”:”5002",”type”:”Glazed”},{“id”:”5005",”type”:”Sugar”},{“id”:”5007",”type”:”Powdered Sugar”},{“id”:”5006",”type”:”Chocolate with Sprinkles”},{“id”:”5003",”type”:”Chocolate”},{“id”:”5004",”type”:”Maple”}]}
 ```
 
-在日志中很难找到 **name** 键，因为控制台上显示了很多没用的信息。当对象变大时，找到难度增加。
+在日志中很难找到 **name** 键，因为控制台上显示了很多没用的信息。当对象变大时，查找属性的难度增加。
 stringify 函数的第二个参数这时就有用了。让我们重写代码并查看结果。
 
 ```js
@@ -64,7 +64,7 @@ console.log(JSON.stringify(product,[‘name’]);
 {"name" : "Cake"}
 ```
 
-问题解决了，与打印整个 JSON 对象不同，我们可以在第二个参数中将所需的键作为数组传递，从而只打印所需的键。
+问题解决了，与打印整个 JSON 对象不同，我们可以在第二个参数中将所需的键作为数组传递，从而只打印所需的属性。
 
 ## 2: 第二个参数（函数）
 
@@ -117,7 +117,7 @@ JSON.stringify(user, null,'**');
 
 ## 5: toJSON 方法
 
-我们有一个叫 `toJSON` 的方法，它可以选择任何对象的一部分作为其属性。`stringify` 返回这个函数的结果并对其进行 stringify，而不是将整个对象转换为字符串。参考下面的例子。
+我们有一个叫 `toJSON` 的方法，它可以作为任意对象的属性。`stringify` 返回这个函数的结果并对其进行 stringify，而不是将整个对象转换为字符串。参考下面的例子。
 
 ```js
 const user = {
