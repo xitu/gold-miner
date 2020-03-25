@@ -2,8 +2,8 @@
 > * 原文作者：[Prateek Singh](https://medium.com/@prateeksingh_31398)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md)
-> * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[Long Xiong](https://github.com/xionglong58)
+> * 译者：[zoomdong](https://github.com/fireairforce)
+> * 校对者：[Long Xiong](https://github.com/xionglong58),[niayyy](https://github.com/niayyy-S)
 
 # JSON.stringify() 的 5 个秘密特性
 
@@ -16,8 +16,8 @@
 ```js
 //初始化一个 user 对象
 const user = {
- “name” : “Prateek Singh”,
- “age” : 26
+ "name" : "Prateek Singh",
+ "age" : 26
 }
 
 console.log(user);
@@ -26,12 +26,12 @@ console.log(user);
 // [object Object]
 ```
 
-哦！`console.log()` 没有帮助我们打印出期望的结果。它输出 `**[object object]**`，**因为从对象到字符串的默认转换是 `[object object]`**。因此，我们使用 `JSON.stringify()` 首先将对象转换成字符串，然后在控制台中打印，如下所示。
+哦！`console.log()` 没有帮助我们打印出期望的结果。它输出 `**[object Object]**`，**因为从对象到字符串的默认转换是 `[object Object]`**。因此，我们使用 `JSON.stringify()` 首先将对象转换成字符串，然后在控制台中打印，如下所示。
 
 ```js
 const user = {
- “name” : “Prateek Singh”,
- “age” : 26
+ "name" : "Prateek Singh",
+ "age" : 26
 }
 
 console.log(JSON.stringify(user));
@@ -51,14 +51,14 @@ console.log(JSON.stringify(user));
 它会输出下面的结果。
 
 ```js
-{“id”:”0001",”type”:”donut”,”name”:”Cake”,”ppu”:0.55,”batters”:{“batter”:[{“id”:”1001",”type”:”Regular”},{“id”:”1002",”type”:”Chocolate”},{“id”:”1003",”type”:”Blueberry”},{“id”:”1004",”type”:”Devil’s Food”}]},”topping”:[{“id”:”5001",”type”:”None”},{“id”:”5002",”type”:”Glazed”},{“id”:”5005",”type”:”Sugar”},{“id”:”5007",”type”:”Powdered Sugar”},{“id”:”5006",”type”:”Chocolate with Sprinkles”},{“id”:”5003",”type”:”Chocolate”},{“id”:”5004",”type”:”Maple”}]}
+{"id":"0001","type":"donut","name":"Cake","ppu":0.55,"batters":{"batter":[{"id":"1001","type":"Regular"},{"id":"1002","type":"Chocolate"},{"id":"1003","type":"Blueberry"},{"id":"1004","type":"Devil’s Food"}]},"topping":[{"id":"5001","type":"None"},{"id":"5002","type":"Glazed"},{"id":"5005","type":"Sugar"},{"id":"5007","type":"Powdered Sugar"},{"id":"5006","type":"Chocolate with Sprinkles"},{"id":"5003","type":"Chocolate"},{"id":"5004","type":"Maple"}]}
 ```
 
 在日志中很难找到 **name** 键，因为控制台上显示了很多没用的信息。当对象变大时，查找属性的难度增加。
 stringify 函数的第二个参数这时就有用了。让我们重写代码并查看结果。
 
 ```js
-console.log(JSON.stringify(product,[‘name’]);
+console.log(JSON.stringify(product,['name' ]);
 
 // 结果
 {"name" : "Cake"}
@@ -68,12 +68,12 @@ console.log(JSON.stringify(product,[‘name’]);
 
 ## 2: 第二个参数（函数）
 
-我们还可以将第二个参数作为函数传递。它根据函数中写入的逻辑来计算每个键值对。如果返回 `undefined`，则不会打印键值对。请参考示例以获得更好的理解。
+我们还可以传入函数作为第二个参数。它根据函数中写入的逻辑来计算每个键值对。如果返回 `undefined`，则不会打印键值对。请参考示例以获得更好的理解。
 
 ```js
 const user = {
- “name” : “Prateek Singh”,
- “age” : 26
+ "name" : "Prateek Singh",
+ "age" : 26
 }
 ```
 
@@ -84,14 +84,14 @@ const user = {
 { "age" : 26 }
 ```
 
-只有 `age` 被打印为我们的函数条件返回值 `typeOf` 字符串的 `undefined`。
+只有 `age` 被打印出来，因为函数判断 `typeOf` 为 String 的值返回 `undefined`。
 
 ## 3: 第三个参数为数字
 
 第三个参数控制最后一个字符串的间距。如果参数是一个**数字**，则字符串化中的每个级别都将缩进这个数量的空格字符。
 
 ```js
-// 注意：为了达到理解的目的，使用 ‘--’替代了空格
+// 注意：为了达到理解的目的，使用 '--' 替代了空格
 
 JSON.stringify(user, null, 2);
 //{
@@ -117,7 +117,7 @@ JSON.stringify(user, null,'**');
 
 ## 5: toJSON 方法
 
-我们有一个叫 `toJSON` 的方法，它可以作为任意对象的属性。`stringify` 返回这个函数的结果并对其进行 stringify，而不是将整个对象转换为字符串。参考下面的例子。
+我们有一个叫 `toJSON` 的方法，它可以作为任意对象的属性。`JSON.stringify` 返回这个函数的结果并对其进行序列化，而不是将整个对象转换为字符串。参考下面的例子。
 
 ```js
 const user = {
