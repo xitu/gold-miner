@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md)
 > * 译者：[zoomdong](https://github.com/fireairforce)
-> * 校对者：[Long Xiong](https://github.com/xionglong58),[niayyy](https://github.com/niayyy-S)
+> * 校对者：[Long Xiong](https://github.com/xionglong58), [niayyy](https://github.com/niayyy-S)
 
 # JSON.stringify() 的 5 个秘密特性
 
