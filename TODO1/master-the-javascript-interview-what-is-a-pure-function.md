@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/master-the-javascript-interview-what-is-a-pure-function.md](https://github.com/xitu/gold-miner/blob/master/TODO1/master-the-javascript-interview-what-is-a-pure-function.md)
 > * 译者：[niayyy-S](https://github.com/niayyy-S)
-> * 校对者：
+> * 校对者：[chaingangway](https://github.com/chaingangway)
 
 # 掌握 JavaScript 面试：什么是纯函数？
 ![Image: Pure — carnagenyc (CC-BY-NC 2.0)](https://cdn-images-1.medium.com/max/2048/1*gF8oCkYNvktBbAAG-nxYrg.jpeg)
