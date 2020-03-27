@@ -8,7 +8,7 @@
 # 掌握 JavaScript 面试：什么是纯函数？
 ![Image: Pure — carnagenyc (CC-BY-NC 2.0)](https://cdn-images-1.medium.com/max/2048/1*gF8oCkYNvktBbAAG-nxYrg.jpeg)
 
-纯函数对于实现各种目的是必不可少的，包括函数式编程，高并发和 React + Redux 构造的应用程序。但是纯函数是什么意思？
+纯函数对于实现各种目的是必不可少的，包括函数式编程，可靠地并发和 React + Redux 构造的应用程序。但是纯函数是什么意思？
 
 我们将通过来自 [《跟 Eric Elliott 学习 JavaScript》](http://ericelliottjs.com/product/lifetime-access-pass/) 的免费课程来回答的这个问题：
 
