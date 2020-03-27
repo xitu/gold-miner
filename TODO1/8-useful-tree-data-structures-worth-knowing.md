@@ -118,7 +118,7 @@
 
 1. 在计算几何中作为数据结构的基础。
 2. 用于现在的 Linux 内核的**完全公平调度算法**中。
-3. 用于 Linux 内核的**epoll**系统中。
+3. 用于 Linux 内核的 **epoll** 系统中。
 
 ## 6. 伸展树
 
@@ -196,7 +196,8 @@ B树是一种自平衡的搜索树，而且包含了多个排过序的节点。�
  - [1] 算法导论（第三版），作者：Thomas H.Cormen / Charles E.Leiserson / Ronald L.Rivest / Clifford Stein.
  - [2] [https://en.wikipedia.org/wiki/List_of_data_structures](https://en.wikipedia.org/wiki/List_of_data_structures)
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 
+*本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
