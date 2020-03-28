@@ -29,7 +29,7 @@
 
 **`Math.max()`** 以一组数字作为参数并返回最大数字：
 
-```
+```js
 Math.max(2, 8, 5); // 8
 ```
 
@@ -57,13 +57,13 @@ Math.max(2, 8, 5); // 8
 
 现在让我们用 JavaScript 来描述这个函数：
 
-```
+```js
 const double = x => x * 2;
 ```
 
 你可以使用 **`console.log()`** 检查函数输出：
 
-```
+```js
 console.log( double(5) ); // 10
 ```
 
@@ -116,7 +116,7 @@ console.log( double(5) ); // 10
 
 考虑以下示例：
 
-```
+```js
 Math.random(); // => 0.4011148700956255
 Math.random(); // => 0.8533405303023756
 Math.random(); // => 0.3550692005082965
@@ -130,7 +130,7 @@ Math.random(); // => 0.3550692005082965
 
 有时我们必须询问计算机当前时间。我们不会详细地了解时间函数的工作原理。只需复制以下代码：
 
-```
+```js
 const time = () => new Date().toLocaleTimeString();
 
 time(); // => "5:15:45 PM"
@@ -144,13 +144,13 @@ time(); // => "5:15:45 PM"
 
 **如果函数在给定相同的输入的情况下始终产生相同的输出，则该函数是纯函数**。你可能还记得代数课上的这个规则：相同的输入值将始终映射到相同的输出值。但是，许多输入值可能会映射到相同的输出值。例如，以下函数是**纯函数**：
 
-```
+```js
 const highpass = (cutoff, value) => value >= cutoff;
 ```
 
 相同的输入值将始终映射到相同的输出值：
 
-```
+```js
 highpass(5, 5); // => true
 highpass(5, 5); // => true
 highpass(5, 5); // => true
@@ -158,7 +158,7 @@ highpass(5, 5); // => true
 
 许多输入值可能映射到相同的输出值：
 
-```
+```js
 highpass(5, 123); // true
 highpass(5, 6);   // true
 highpass(5, 18);  // true
@@ -286,12 +286,6 @@ test('addToCart()', assert => {
 * [软技能](https://medium.com/javascript-scene/master-the-javascript-interview-soft-skills-a8a5fb02c466)
 
 > 该帖子已包含在《Composing Software》书中。**[ 买这本书](https://leanpub.com/composingsoftware) | [索引](https://medium.com/javascript-scene/composing-software-the-book-f31c77fc3ddc) | [<上一页](https://medium.com/javascript-scene/why-learn-functional-programming-in-javascript-composing-software-ea13afc7a257) | [下一页>](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0)**
-
----
-
-## 在 EricElliottJS.com 上了解更多信息
-
-EricElliottJS.com 的成员可以观看带有交互式代码挑战的视频课程。如果你还不是会员，[立即注册](https://ericelliottjs.com/).
 
 ---
 
