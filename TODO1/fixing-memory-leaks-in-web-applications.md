@@ -1,124 +1,124 @@
-> * 原文地址：[Fixing memory leaks in web applications](https://nolanlawson.com/2020/02/19/fixing-memory-leaks-in-web-applications/)
+> * 原文地址：[Fixing memory leaks in web applications](https://nolanlawson.com/2020/02/19/fixing-memory-leaks-in-web-applications/)
 > * 原文作者：[Nolan](https://nolanlawson.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/fixing-memory-leaks-in-web-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/fixing-memory-leaks-in-web-applications.md)
 > * 译者：
 > * 校对者：
 
-## Fixing memory leaks in web applications
+## 解决 web 应用程序中的内存泄漏问题
 
-Part of the bargain we struck when we switched from building server-rendered websites to client-rendered SPAs is that we suddenly had to take a lot more care with the resources on the user’s device. Don’t block the UI thread, don’t make the laptop’s fan spin, don’t drain the phone’s battery, etc. We traded better interactivity and “app-like” behavior for a new class of problems that don’t really exist in the server-rendered world.
+当我们从构建服务器渲染的网站转向构建客户端渲染的单页面应用时，我们达成的协议的包括，我们突然必须更加注意用户设备上的资源。不要阻塞 UI 进程，不要让笔记本的风扇旋转，不要耗尽手机电池等等。我们使用更好的交互性和类似 app 的行为，但产生了在服务端渲染世界并没有的一些新问题。
 
-One of these problems is memory leaks. A poorly-coded SPA can easily eat up megabytes or even gigabytes of memory, continuing to gobble up more and more resources, even as it’s sitting innocently in a background tab. At this point, the page might start to slow to a crawl, or the browser may just terminate the tab and you’ll see Chrome’s familiar “Aw, snap!” page.
+其中一个问题是内存泄漏。一个差的单页面应用会消耗兆甚至千兆的内存，持续的占用越来越多的资源，即使它仅存在于一个背景标签。 因此，页面可能开始变慢，或者浏览器会终止这个页面，你会看到 Chrome 熟悉的 ”喔唷 崩溃啦！“ 页面。
 
-[![Chrome page saying "Aw snap! Something went wrong while displaying this web page."](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png?w=570&h=186)](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png)
+[![Chrome 显示 ”喔唷 崩溃啦！显示此页面时出了点问题“](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png?w=570&h=186)](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png)
 
-(Of course, a server-rendered website can also leak memory on the server side. But it’s extremely unlikely to leak memory on the client side, since the browser will clear the memory every time you navigate between pages.)
+（当然，一个服务端渲染的网站也会在服务器端出现内存泄漏。 但是在客户端出现内存泄漏的可能性非常小，因为每当我们切换页面时浏览器都会清除内存。）
 
-The subject of memory leaks is not well-covered in the web development literature. And yet, I’m pretty sure that most non-trivial SPAs leak memory, unless the team behind them has a robust infrastructure for catching and fixing memory leaks. It’s just far too easy in JavaScript to accidentally allocate some memory and forget to clean it up.
+关于内存泄漏的主题在 web 开发文献中没有得到很好的覆盖。但是，我确定大多数重要的单页面应用都存在内存泄漏问题，除非他们背后有一个健壮的基础架构团队来捕获和修复内存泄漏。在 JavaScript 中，很容易意外地分配一些内存而忘记清理。
 
-So why is so little written about memory leaks? My guesses:
+那么，为什么关于内存泄漏的文献如此之少呢?我的猜测：
 
-* **Lack of complaints**: most users are not diligently watching Task Manager while they surf the web. Typically, you won’t hear about it from your users unless the leak is so bad that the tab is crashing or the app is slowing down.
-* **Lack of data**: the Chrome team doesn’t provide data about how much memory websites are using in the wild. Nor are websites often measuring this themselves.
-* **Lack of tooling**: it’s still not easy to identify or fix memory leaks with existing tooling.
-* **Lack of caring**: browsers are pretty good at killing tabs that consume too much memory. Plus people seem to [blame the browser](https://www.google.com/search?hl=en&q=chrome%20memory%20hog) rather than the websites.
+* **缺乏反馈**：大多数使用者在他们上网时不会认真观察他们的任务管理器。通常，除非泄漏严重到页面崩溃或应用程序运行缓慢，否则您不会得到用户的反馈。
+* **缺乏数据**：Chrome 团队不会提供关于网站通常使用了多少内存的数据。网站通常也不自己测量。
+* **缺乏工具**：使用现有工具识别或修复内存泄漏仍然困难。
+* **缺乏关心**：浏览器非常擅长杀死消耗过多内存的页面。大多数人似乎认为这是[浏览器的责任](https://www.google.com/search?hl=en&q=chrome%20memory%20hog) 而不是网页的责任。
 
-In this post, I’d like to share some of my experience fixing memory leaks in web applications, and provide some examples of how to effectively track them down.
+在这篇文章中，我想分享一些我在解决 Web 应用程序中的内存泄漏方面的经验，并提供一些示例来说明如何有效地跟踪它们。
 
-## Anatomy of a memory leak
+## 内存泄漏的解剖
 
-Modern web app frameworks like React, Vue, and Svelte use a component-based model. Within this model, the most common way to introduce a memory leak is something like this:
+现代 Web 应用程序框架，例如 React，Vue 和 Svelte 都是基于组件的模型。在此模型中，引入内存泄漏的最常见方法是这样的：
 
 window.addEventListener('message', this.onMessage.bind(this));
 
-That’s it. That’s all it takes to introduce a memory leak. If you call [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) on some global object (the `window`, the `<body>`, etc.) and then forget to clean it up with [`removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener) when the component is unmounted, then you’ve created a memory leak.
+就是这样。就这样引入内存泄漏的。如果你调用 [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) 在一些全局对象中（例如 `window`， `<body>` 等。）然后忘记用 [`removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener) 将他们清理干净。当组件被卸载，你就已经创建了一个内存泄漏。
 
-Worse, you’ve just leaked your entire component. Because `this.onMessage` is bound to `this`, the component has leaked. So have all of its child components. And very likely, so have all the DOM nodes associated with the components. This can get very bad very fast.
+更糟糕的是，您刚刚泄漏了整个组件。因为 `this.onMessage` 绑定到 `this`，因此组件已泄漏。因此他的所有子组件也泄漏。 而且很可能所有与组件相关联的 DOM 节点也是如此。这会很快变得非常糟糕。
 
-Here is the fix:
+解决方法是：
 
 ```js
-// Mount phase
+// 挂载
 this.onMessage = this.onMessage.bind(this);
 window.addEventListener('message', this.onMessage);
 
-// Unmount phase
+// 卸载阶段
 window.removeEventListener('message', this.onMessage);
 ```
 
-Note that we saved a reference to the bound `onMessage` function. You have to pass in exactly the same function to `removeEventListener` that you passed in to `addEventListener`, or else it won’t work.
+注意，我们保存了对 `onMessage` 函数的引用。你必须传递和 `addEventListener` 相同的参数给`removeEventListener`，否则它不会生效。
 
-## The memory leak landscape
+## 内存泄漏情况
 
-In my experience, the most common sources of memory leaks are APIs like these:
+根据我的经验，最常见的内存泄漏来源于这样的 API：
 
-1. `addEventListener`. This is the most common one. Call `removeEventListener` to clean it up.
-2. [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout) / [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval). If you create a recurring timer (e.g. to run every 30 seconds), then you need to clean it up with [`clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout) or [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval). (`setTimeout` can leak if it’s used like `setInterval` – i.e., scheduling a new `setTimeout` inside of the `setTimeout` callback.)
-3. [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver), [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver), [`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver), etc. These new-ish APIs are very convenient, but they are also likely to leak. If you create one inside of a component, and it’s attached to a globally-available element, then you need to call `disconnect()` to clean them up. (Note that DOM nodes which are garbage-collected will have their listeners and observers garbage-collected as well. So typically, you only need to worry about global elements, e.g. the `<body>`, the `document`, an omnipresent header/footer element, etc.)
-4. [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), [Observables](https://rxjs.dev/guide/observable), [EventEmitters](https://nodejs.org/api/events.html#events_class_eventemitter), etc. Any programming model where you’re setting up a listener can leak memory if you forget to stop listening. (A Promise can leak if it’s never resolved or rejected, in which case any `.then()` callbacks attached to it will leak.)
-5. Global object stores. With something like [Redux](https://redux.js.org/) the state is global, so if you’re not careful, you can just keep appending memory to it and it will never get cleaned up.
-6. Infinite DOM growth. If you implement an infinite scrolling list without [virtualization](https://github.com/WICG/virtual-scroller#readme), then the number of DOM nodes will grow without bound.
+1. `addEventListener`。这是最常见的一种。调用 `removeEventListener` 来清理它。
+2. [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout) / [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval)。如果您创建一个循环计时器（例如，每30秒运行一次），然后你就需要用 [`clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout) 或 [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval)来清除它。（`setTimeout` 如果像 `setInterval` 那样使用就会造成内存泄漏 – 即，在 `setTimeout` 中回调一个 `setTimeout`。）
+3. [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)，[`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)，[`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)，等。这些新 API 非常方便，但是它们也可能会造成内存泄漏。如果您在组件内部创建了一个，并且它附加到一个全局变量，那么您需要调用 `disconnect()` 来清除它们。（注意，被垃圾收集的 DOM 节点的侦听器和观察者也将被垃圾收集。通常，你只需要考虑全局元素，例如 `<body>`，`document`，无处不在的 header 或 footer 元素，等等。）
+4. [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，[Observables](https://rxjs.dev/guide/observable)，[EventEmitters](https://nodejs.org/api/events.html#events_class_eventemitter)，等。如果您忘记停止监听，任何正在设置侦听器的编程模型都可能会造成内存泄漏。（如果一个 Promise 从未执行 resolved 或 rejected，那么它可能造成内存泄漏，在这种情况下，任何附加到它的 `.then()` 回调都会泄漏。）
+5. 全局对象。像 [Redux](https://redux.js.org/) 这样的全局对象，如果你不小心，你会一直消耗内存，它永远不会被清理。
+6. 无限的新增 DOM。如果您在没有 [virtualization](https://github.com/WICG/virtual-scroller#readme)的情况下，实现无限滚动列表，那么 DOM 节点的数量将无限制地增长。
 
-Of course, there are plenty of other ways to leak memory, but these are the most common ones I’ve seen.
+当然，还有许多其他方法会导致内存泄漏，但这些是我见过的最常见的方式。
 
-## Identifying memory leaks
+## 确定内存泄漏
 
-This is the hard part. I’ll start off by saying that I just don’t think any of the tooling out there is very good. I’ve tried Firefox’s memory tool, the Edge and IE memory tools, and even Windows Performance Analyzer. The best-in-class is still the Chrome Developer Tools, but it has a lot of rough edges that are worth knowing about.
+这是困难的一部分。我首先要说的是，我认为现有的工具都不好。我尝试了 Firefox 的内存工具、Edge 和 IE 的内存工具，甚至 Windows 性能分析器。同类中最好的仍然是 Chrome 开发工具，但它有很多不足需说明。
 
-In the Chrome DevTools, our main tool of choice is going to be the “heap snapshot” tool in the “Memory” tab. There are other memory tools in Chrome, but I don’t find them very helpful for identifying leaks.
+在 Chrome 开发工具中，我们选择的主要工具是 “heap snapshot” 选项卡中的 “Memory” 工具。下面是 Chrome 中的其他内存工具，但我认为它们对识别内存泄漏没有很多帮助。
 
-[![Screenshot of the Chrome DevTools Memory tab with the Heap Snapshot tool](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-11-03-49.png?w=570&h=333)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-11-03-49.png)
+[![使用 Heap Snapshot 工具的 Chrome 开发者工具内存选项卡的屏幕截图](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-11-03-49.png?w=570&h=333)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-11-03-49.png)
 
-The Heap Snapshot tool allows you to take a memory capture of the main thread or web workers or iframes.
+Heap Snapshot 工具允许您获取主线程或 web workers 或 iframe 的内存捕获。
 
-When you click the “take snapshot” button, you’ve captured all the live objects in a particular JavaScript VM on that web page. This includes objects referenced by the `window`, objects referenced by `setInterval` callbacks, etc. Think of it as a frozen moment in time representing all the memory used by that web page.
+当您单击 “take snapshot” 按钮时，您已经捕获了该 web 页面上特定 JavaScript VM 中的所有活动对象。这包括  `window` 引用的对象，`setInterval` 回调引用的对象，等等。你可以把它想象成一个代表了那个网页所使用的所有内存的凝固瞬间。
 
-The next step is to reproduce some scenario that you think may be leaking – for instance, opening and closing a modal dialog. Once the dialog is closed, you’d expect memory to return back to the previous level. So you take another snapshot, and then **diff it with the previous snapshot**. This diffing is really the killer feature of the tool.
+下一步是重现一些您认为可能泄漏的场景——例如，打开和关闭一个模态对话框。一旦对话框关闭，您将期望内存返回到以前的级别。因此，您获取另一个 snapshot，并 **与前一个 snapshot 不同**。这种差异实际上是该工具的杀手级特性。
 
-![Diagram showing a first heapsnapshot followed by a leaking scenario followed by a second heap snapshot which should be equal to the first](https://nolanwlawson.files.wordpress.com/2020/02/leak-scenario.png?w=570&h=285)
+![图中显示了第一个 heap snapsho，随后是一个泄漏场景，然后是第二个 heap snapsho，它应该等于第一个 heap snapsho](https://nolanwlawson.files.wordpress.com/2020/02/leak-scenario.png?w=570&h=285)
 
-However, there are a few limitations of the tool that you should be aware of:
+然而，该工具有一些限制，你应该知道：
 
-1. Even if you click the little “collect garbage” button, you may need to take a few consecutive snapshots for Chrome to truly clean up the unreferenced memory. In my experience, three should be enough. (Check the total memory size of each snapshot – it should eventually stabilize.)
-2. If you have web workers, service workers, iframes, shared workers, etc., then this memory will not be represented in the heap snapshot, because it lives in another JavaScript VM. You can capture this memory if you want, but just be sure you know which one you’re measuring.
-3. Sometimes the snapshotter will get stuck or crash. In that case, just close the browser tab and start all over again.
+1. 即使你点击了 “collect garbage” 按钮，你也可能需要连续几个 snapshot 才能真正清理未引用的内存。根据我的经验，三个就足够了。（检查每个 snapshot 的总内存大小——它最终应该稳定下来。）
+2. 如果你有 web workers，service workers，iframes, shared workers，等，那么这个内存将不会在 snapshot 中表示，因为它位于另一个 JavaScript VM 中。如果你想的话，你可以捕获这些记忆，但是要确保你知道你在测量的是哪一个。
+3. 有时 snapshotter 会卡住或崩溃。在这种情况下，只需关闭浏览器选项卡并重新开始。
 
-At this point, if your app is non-trivial, then you’re probably going to see a **lot** of leaking objects between the two snapshots. This is where things get tricky, because not all of these are true leaks. Many of these are just normal usage – some object gets de-allocated in favor of another one, something gets cached in a way that will get cleaned up later, etc.
+此时，如果您的应用程序不是普通的，那么您可能会看到两个 snapshot 之间有**很多**泄漏对象。这就是事情变得棘手的地方，因为并不是所有这些都是真正的泄漏。其中很多都是正常的使用——一些对象被另一个对象取代，一些对象被缓存，然后被清理，等等。
 
-## Cutting through the noise
+## 去掉干扰
 
-I’ve found that the best way to cut through the noise is to repeat the leaking scenario several times. For instance, instead of just opening and closing a modal dialog once, you might open and close it 7 times. (7 is a nice conspicuous prime number.) Then you can check the heap snapshot diff to see if any objects leaked 7 times. (Or 14 times, or 21 times.)
+我发现减少干扰的最好方法是重复几次泄漏的场景。例如，不只是打开和关闭一个模态对话框一次，你可以打开和关闭它7次。（7是一个很明显的质数。）然后您可以检查 snapshot 的差异，以查看是否有任何对象泄漏了7次。（或14次、21次。）
 
-[![Screenshot of the Chrome DevTools heap snapshot diff showing six heap snapshot captures with several objects leaking 7 times](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png?w=570&h=264)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png)
+[![屏幕截图的 Chrome 开发者工具 heap snapshot diff 显示6个 heap snapshot 捕获与几个对象泄漏7次](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png?w=570&h=264)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png)
 
-A heap snapshot diff. Note that we’re comparing snapshot #6 to snapshot #3, because I take three captures in a row to allow more garbage collection to occur. Also note that several objects are leaking 7 times.
+请注意，我们正在比较 snapshot#6和 snapshot#3，因为我在一行中捕获了三个 snapshot，以便进行更多的垃圾收集。还要注意，有几个对象泄漏了7次。
 
-(Another helpful technique is to run through the scenario once before recording the first snapshot. Especially if you are using a lot of code-splitting, then your scenario is likely to have a one-time memory cost of loading the necessary JavaScript modules.)
+（另一种有用的技术是在记录第一个 snapshot 之前遍历场景一次。特别是如果您使用了大量的代码分解，那么您的场景很可能需要一次性的内存开销来加载必要的 JavaScript 模块。）
 
-At this point, you might wonder why we should sort by the number of objects rather than the total memory. Intuitively, we’re trying to reduce the amount of memory leaking, so shouldn’t we focus on the total memory usage? Well, this doesn’t work very well, for an important reason.
+此时，您可能想知道为什么我们应该根据对象的数量而不是总内存来排序。直观地说，我们试图减少内存泄漏的数量，所以我们不应该关注总的内存使用量吗?但是由于一个重要的原因，这个方法不是很有效。
 
-When something is leaking, it’s because ([to paraphrase Joe Armstrong](https://www.johndcook.com/blog/2011/07/19/you-wanted-banana/)) you’re holding onto the banana, but you ended up getting the banana, the gorilla holding the banana, and the whole jungle. If you measure based on total bytes, you’re measuring the jungle, not the banana.
+当发生内存泄漏时，是因为([套用乔·阿姆斯特朗的话](https://www.johndcook.com/blog/2011/07/19/you-wanted-banana/)) 你抓着香蕉，但你最终得到了香蕉，大猩猩抓着香蕉，整个丛林。如果您基于总字节进行度量，那么您是在度量丛林，而不是香蕉。
 
-![Gorilla eating a banana](https://nolanwlawson.files.wordpress.com/2020/02/gorilla_eating_optimized.jpg?w=570&h=428)
+![大猩猩吃香蕉](https://nolanwlawson.files.wordpress.com/2020/02/gorilla_eating_optimized.jpg?w=570&h=428)
 
-Via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Gorilla_Eating.jpg).
+通过 [维基共享](https://commons.wikimedia.org/wiki/File:Gorilla_Eating.jpg).
 
-Let’s go back to the `addEventListener` example above. The source of the leak is an event listener, which is referencing a function, which references a component, which probably references a ton of stuff like arrays, strings, and objects.
+让我们回到上面的 `addEventListener` 事例。内存泄漏的来源是一个事件监听器，它引用一个函数，这个函数引用一个组件，这个组件可能引用大量的东西，比如数组、字符串和对象。
 
-If you sort the heap snapshot diff by total memory, then it’s going to show you a bunch of arrays, strings, and objects – most of which are probably unrelated to the leak. What you really want to find is the event listener, but this takes up a minuscule amount of memory compared to the stuff it’s referencing. To fix the leak, you want to find the banana, not the jungle.
+如果您根据总内存对 heap snapshot 进行排序，那么它将向您显示一组数组、字符串和对象—其中大多数可能与内存泄漏无关。您真正想要找到的是事件监听器，但是与它所引用的东西相比，它只占用了极小的内存。要修复漏洞，你需要找到的是香蕉，而不是丛林。
 
-So if you sort by the number of objects leaked, you’re going to see 7 event listeners. And maybe 7 components, and 14 sub-components, or something like that. That “7” should stand out like a sore thumb, since it’s such an unusual number. And no matter how many times you repeat the scenario, you should see exactly that number of objects leaking. This is how you can quickly find the source of the leak.
+因此，如果按泄漏对象的数量排序，您将看到7个事件监听器。可能有7个组件，14个子组件，或者类似的东西。“7”这个数字应该很醒目，因为它是一个不寻常的数字。无论您重复该场景多少次，您都应该确切地看到泄漏的对象数量。这就是如何快速找到泄漏源的方法。
 
-## Walking the retainer tree
+## 走保持器树
 
-The heap snapshot diff will also show you a “retainer” chain showing which objects are pointing to which other objects and thus keeping the memory alive. This is how you can figure out where the leaking object was allocated.
+heap snapshot diff 还将向您显示一个“保持器”链，显示哪些对象指向哪些其他对象，从而保持内存活动。这就是您如何确定泄漏对象被分配到何处的方法。
 
-[![Screenshot of a retainer chain showing someObject referenced by a closure referenced by an event listener](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png?w=570&h=111)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png)
+[![一个保持器链的屏幕截图，显示了一个事件监听器引用的闭包引用的对象](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png?w=570&h=111)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png)
 
-The retainer chain shows you which object is referencing the leaked object. The way to read it is that each object is referenced by the object below it.
+保持器链显示哪个对象正在引用泄漏的对象。读取它的方法是每个对象都由它下面的对象引用。
 
-In the above example, there is a variable called `someObject` which is referenced by a closure (aka “context”), which is referenced by an event listener. If you click the source link, it will take you to the JavaScript declaration, which is fairly straightforward:
+在上面的例子中，有一个名为 `someObject` 的变量，它是由一个闭包(又名“上下文”)引用的，它是由一个事件监听器引用的。 如果你点击源链接，它会带你到JavaScript声明，这是相当简单的:
 
 ```js
 class SomeObject () { /* ... */ }
@@ -128,39 +128,39 @@ const onMessage = () => { /* ... */ };
 window.addEventListener('message', onMessage);
 ```
 
-In the above example, the “context” is the `onMessage` closure which references the `someObject` variable. (This is a [contrived example](https://github.com/nolanlawson/pinafore/commit/de6ca2d85334ad5f657ddd0f335750b60afab895); real memory leaks can be much less obvious!)
+在上面的例子中，“上下文”是 `onMessage` 的闭包，它引用了 `someObject` 变量。（这是一个 [不自然的例子](https://github.com/nolanlawson/pinafore/commit/de6ca2d85334ad5f657ddd0f335750b60afab895)；真正的内存泄漏可能不那么明显!）
 
-But the heap snapshotting tool has several limitations:
+但 heap snapshotting 工具有几个限制：
 
-1. If you save and re-load the snapshot file, then you will lose all the file references to where the object was allocated. So for instance, you won’t see that the event listener’s closure comes from line 22 of `foo.js`. Since this is really critical information, it’s almost useless to save and send heap snapshot files.
-2. If there are [`WeakMap`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) involved, then Chrome will show you those references even though they don’t really matter – those objects would be de-allocated as soon as the other references are cleaned up. So they are just noise.
-3. Chrome classifies the objects by their prototype. So the more you use actual classes/functions and the less you use anonymous objects, the easier it will be to see what exactly is leaking. As an example, imagine if our leak was somehow due to an `object` rather than an `EventListener`. Since `object` is extremely generic, we’re unlikely to see exactly 7 of them leaking.
+1. 如果保存并重新加载 snapshot 文件，则将丢失对分配对象的位置的所有文件引用。例如，您不会看到 `foo.js` 第22行的事件监听器闭包。由于这是非常重要的信息，所以保存和发送 heap snapshot 文件几乎毫无用处。
+2. 如果涉及到 [`WeakMap`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)，那么 Chrome 将向您显示这些引用，即使它们实际上并不重要——只要清除了其他引用，这些对象就会被取消分配。所以它们只是杂音。
+3. Chrome 根据原型对这些对象进行分类。因此，使用实际的类/函数越多，使用匿名对象越少，就越容易发现究竟是什么东西在泄漏。例如，想象一下，如果我们的泄漏是由于 `object` 而不是 `EventListener`。由于 `object` 是非常通用的，所以我们不太可能正好看到其中7个被泄漏。
 
-This is my basic strategy for identifying memory leaks. I’ve successfully used this technique to find dozens of memory leaks in the past.
+这是我识别内存泄漏的基本策略。我曾经成功地使用这种技术来查找过去的几十个内存泄漏。
 
-This guide is just the start, though – beyond this, you will also have to be handy with setting breakpoints, logging, and testing your fix to see if it resolves the leak. Unfortunately, this is just inherently a time-consuming process.
+不过，本指南只是一个开始——除此之外，您还必须能够方便地设置断点、记录日志并测试修复程序，以查看它是否解决了泄漏。不幸的是，这本身就是一个耗时的过程。
 
-## Automated memory leak analysis
+## 自动的内存泄漏分析
 
-I’ll precede this by saying that I haven’t found a great way to automate the detection of memory leaks. Chrome has a non-standard [performance.memory](https://webplatform.github.io/docs/apis/timing/properties/memory/) API, but for privacy reasons [it doesn’t have a very precise granularity](https://bugs.webkit.org/show_bug.cgi?id=80444), so you can’t really use it in production to identify leaks. The [W3C Web Performance Working Group](https://github.com/w3c/web-performance) has discussed [memory](https://docs.google.com/document/d/1tFCEOMOUg4zmqeHNg1Xo11Xpdm7Bmxl5y98_ESLCLgM/edit) [tooling](https://github.com/WICG/memory-pressure) in the past, but has yet to agree on a new standard to replace this API.
+在此之前，我要说的是，我还没有找到一个自动检测内存泄漏的好方法。Chrome 提供了非标准的 [performance.memory](https://webplatform.github.io/docs/apis/timing/properties/memory/) API，但是由于隐私原因[没有一个非常精确的粒度](https://bugs.webkit.org/show_bug.cgi?id=80444)，所以您不能在生产中真正使用它来识别泄漏。[W3C Web 性能工作组](https://github.com/w3c/web-performance) 曾讨论了 [内存](https://docs.google.com/document/d/1tFCEOMOUg4zmqeHNg1Xo11Xpdm7Bmxl5y98_ESLCLgM/edit) [工具](https://github.com/WICG/memory-pressure) 但尚未达成新的标准来取代这个API。
 
-In a lab or synthetic testing environment, you can increase the granularity on this API by using the Chrome flag [`--enable-precise-memory-info`](https://github.com/paulirish/memory-stats.js/blob/master/README.md). You can also create heap snapshot files by calling the proprietary Chromedriver command [`:takeHeapSnapshot`](https://webdriver.io/docs/api/chromium.html#takeheapsnapshot). This has the same limitation mentioned above, though – you probably want to take three in a row and discard the first two.
+在实验环境或综合测试环境中，您可以通过使用 Chrome 标志 [`--enable-precise-memory-info`](https://github.com/paulirish/memory-stats.js/blob/master/README.md)来增加这个API的粒度。您还可以通过调用专用的 Chromedriver 命令 [`:takeHeapSnapshot`](https://webdriver.io/docs/api/chromium.html#takeheapsnapshot)来创建 heap snapshot 文件。不过，这也有上面提到的限制—您可能想要连续取三个，并放弃前两个。
 
-Since event listeners are the most common source of memory leaks, another technique that I’ve used is to monkey-patch the `addEventListener` and `removeEventListener` APIs to count the references and ensure they return to zero. Here is [an example](https://github.com/nolanlawson/pinafore/blob/2edbd4746dfb5a7c894cb8861cf315c800a16393/tests/spyDomListeners.js) of how to do that.
+由于事件监听器是最常见的内存泄漏源，所以我使用的另一种技术是对 `addEventListener` 和 `removeEventListener` 的 API 进行重写以记录原型并确保它们返回零。这个[例子](https://github.com/nolanlawson/pinafore/blob/2edbd4746dfb5a7c894cb8861cf315c800a16393/tests/spyDomListeners.js)讲述了如何操作。
 
-In the Chrome DevTools, you can also use the proprietary [`getEventListeners()`](https://developers.google.com/web/tools/chrome-devtools/console/utilities#geteventlisteners) API to see the event listeners attached to a particular element. Note that this can only be used in DevTools, though.
+在 Chrome 开发者工具中，您还可以使用专用的 [`getEventListeners()`](https://developers.google.com/web/tools/chrome-devtools/console/utilities#geteventlisteners) API 来查看附加到特定元素的事件监听器。注意，这只能在开发者工具中使用。
 
-****Update:** Mathias Bynens has informed me of another useful DevTools API: [`queryObjects()`](https://developers.google.com/web/updates/2017/08/devtools-release-notes#query-objects), which can show you all objects created with a particular constructor. Christoph Guttandin also has [an interesting blog post](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer) about using this API for automated memory leak detection in Puppeteer.**
+****更新：** Mathias Bynens告诉了我另一个有用的开发者工具的 API:[`queryObjects()`](https://developers.google.com/web/updates/2017/08/devtools-release-notes#query-objects)，它可以显示使用特定构造函数创建的所有对象。Christoph Guttandin 也有 [一篇有趣的博客](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer) 关于在 Puppeteer 中使用这个API进行自动内存泄漏检测。**
 
-## Summary
+## 总结
 
-The state of finding and fixing memory leaks in web apps is still fairly rudimentary. In this blog post, I’ve covered some of the techniques that have worked for me, but admittedly this is still a difficult and time-consuming process.
+在 web 应用程序中查找和修复内存泄漏的状态仍然相当初级。在这篇博客文章中，我介绍了一些对我有用的技术，但必须承认，这仍然是一个困难和耗时的过程。
 
-As with most performance problems, an ounce of prevention can be worth a pound of cure. You might find it worthwhile to put synthetic testing in place rather than trying to debug a memory leak after the fact. Especially if there are several leaks on a page, it will probably turn into an onion-peeling exercise – you fix one leak, then find another, then repeat (while weeping the whole time!). Code review can also help catch common memory leak patterns, if you know what to look for.
+与大多数性能问题一样，一分预防抵得上十分治疗。您可能会发现，在适当的地方进行综合测试比在事后调试内存泄漏更有价值。特别是当一个页面上有几个漏洞时，它可能会变成一个剥洋葱的练习——你修复一个漏洞，然后找到另一个，然后重复(在整个过程中哭泣!)如果您知道要查找什么，代码检查还可以帮助捕获常见的内存泄漏模式。
 
-JavaScript is a memory-safe language, so it’s somewhat ironic how easy it is to leak memory in a web application. Part of this is just inherent to UI design, though – we need to listen for mouse events, scroll events, keyboard events, etc., and these are all patterns that can easily lead to memory leaks. But by trying to keep our web applications’ memory usage low, we can improve runtime performance, avoid crashes, and be respectful of resource constraints on the user’s device.
+JavaScript 是一种内存安全语言，因此在 web 应用程序中泄漏内存是多么容易，这有点讽刺意味。这部分是 UI 设计固有的——我们需要监听鼠标事件、滚动事件、键盘事件等等，而这些都是很容易导致内存泄漏的模式。但是，通过尽量降低 web 应用程序的内存使用量，我们可以提高运行时性能，避免崩溃，并尊重用户设备上的资源限制。
 
-**Thanks to Jake Archibald and Yang Guo for feedback on a draft of this post. And thanks to Dinko Bajric for inventing the “choose a prime number” technique, which I’ve found so helpful in memory leak analysis.**
+**感谢 Jake Archibald 和 Yang Guo 对本文草稿的反馈。感谢 Dinko Bajric 发明了“选择质数”技术，我发现它对内存泄漏分析很有帮助。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
