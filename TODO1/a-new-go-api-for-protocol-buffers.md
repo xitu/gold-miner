@@ -130,6 +130,7 @@ func Redact(pb proto.Message) {
 }
 ```
 
+
 一个更加完整的实现应该是以递归的方式深入这些 message 值字段。我们希望这些简单的示例能让你更了解 protocol buffer reflection（反射）以及它的用法。
 
 ## 版本
