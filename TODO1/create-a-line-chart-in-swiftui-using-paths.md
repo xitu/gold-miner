@@ -2,36 +2,37 @@
 > * 原文作者：[Anupam Chugh](https://medium.com/@anupamchugh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/create-a-line-chart-in-swiftui-using-paths.md](https://github.com/xitu/gold-miner/blob/master/TODO1/create-a-line-chart-in-swiftui-using-paths.md)
-> * 译者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：
 
 # Create a Line Chart in SwiftUI Using Paths
 
-> Create beautiful stock charts in your iOS application
+> 在iOS程序中创建美观的股票图表
 
 ![Photo by [Chris Liverani](https://unsplash.com/@chrisliverani?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8064/0*eZh1HfzXfAjD_9ME)
 
-Introduced at WWDC 2019, the SwiftUI framework gave the iOS community a lot to cheer about. An easy-to-use, declarative API written in Swift lets developers quickly build UI prototypes.
+SwiftUI 框架在2019年的 WWDC 大会引入后，给了 iOS 社区很多欢呼的理由。一种用 Swift 语言编写，易用的、声明式的 API 让开发者可以快速构建 UI 原型。
 
-While we can leverage the Shapes protocol to build [Bar Charts](https://medium.com/better-programming/swiftui-bar-charts-274e9fbc8030) from the ground up, the same cannot be said about Line Charts. Thankfully, we’ve got the `Paths` structure to help us with that.
+虽然我们能用 Shapes 协议从头开始构建 [条形图](https://medium.com/better-programming/swiftui-bar-charts-274e9fbc8030)，但是构建折线图就不一样了。幸运的是，我们有 `Paths` 这个结构体来帮助我们。
 
-Using SwiftUI paths, which are similar to `CGPaths` from the Core Graphics framework, we can combine lines and curves to build beautiful logos and shapes.
+使用 SwiftUI 中的 paths，跟 Core Graphics 框架中的 `CGPaths` 类似，我们可以把线条与曲线结合，来构建美观的标志和形状。
 
-Being true to the declarative way of writing UI, SwiftUI paths are built with a set of instructions. In the next few sections, we’ll discuss what that means.
+SwiftUI 中的 paths 是用一套指令编写的，是真正用声明式的方式来写 UI。在下面的几节中，我们将会讨论它的意义。
 
-## Our Goal
 
-* Exploring SwiftUI’s Path API and creating simple shapes out of it.
-* Using Combine and URLSession to fetch the historical stock data. We’ll be using [Alpha Vantage](https://www.alphavantage.co/)’s API to retrieve the stock information.
-* Creating a Line Chart in SwiftUI that displays the stock’s prices over time.
+## 我们的目标
+* 探索 SwiftUI 的 Path API，通过它来创建简单的模型。
+* 用 Combine 和 URLSession 来获取历史股票数据。我们将会用 [Alpha Vantage](https://www.alphavantage.co/) 的 API 来取得股票信息。
+* 在 SwiftUI 中创建折线图，来展示根据时间变化的股票价格。
 
-By the end of this article, you should be able to create an iOS application similar to the one below:
+读完本文后，你应该能够开发与下面类似的 iOS 程序。
+
 
 ![An NSE India and two US-based stock charts.](https://cdn-images-1.medium.com/max/2000/1*0_IPSWXsxHgGDRk51CAPbw.png)
 
-## Create a Simple SwiftUI Path
+## 创建一个简单的 Swift Path
 
-Here’s an example of creating a right-angled triangle using paths in SwiftUI:
+下面的例子，是通过在 SwiftUI 中使用 paths 来创建直角三角形：
 
 ```Swift
 var body: some View {
@@ -42,22 +43,26 @@ path.addLine(to: CGPoint(x: 300, y: 300))
 }.fill(Color.green)
 }
 ```
+Path API 有很多函数。`move` 是负责设置路径的起点。`addline` 是负责向特定的目标点，画一条直线。
 
-The Path API consists of a bunch of functions. `move` is responsible for setting the starting point of the path. `addLine` is responsible for drawing a straight line to the destination point specified.
+`addArc`, `addCurve`, `addQuadCurve`, `addRect` 和  `addEllipse` 仅仅是一些其他的方法，它们可以让我们创建圆弧或者贝塞尔曲线。
 
-`addArc`, `addCurve`, `addQuadCurve`, `addRect`, and `addEllipse` are just a few other methods that let us create circular arcs or Bezier curves among many other things with paths.
+用 `addPath` 可以添加两条或者多条路径。
 
-Appending two or more paths is possible using `addPath`.
+下面的插图展示了一个三角形，后面跟着一个圆饼图。
 
-The following illustration shows a triangle followed by a circular pie:
 
 ![](https://cdn-images-1.medium.com/max/2186/1*8XNc1miVjNhzzDCYW44p8g.png)
 
-Now that we’ve got an idea of how to create paths in SwiftUI, let’s jump to Line Charts in SwiftUI.
+既然我们已经了解怎样在 SwiftUI 中创建 paths，赶紧来看看 SwiftUI 中的折线图。
 
-## SwiftUI Line Chart
 
-The model to decode the JSON response from the API is given below:
+
+## SwiftUI 折线图
+
+下面给出的模型，是用来解析 API 响应返回的 JSON。
+
+
 
 ```Swift
 struct StockPrice : Codable{
@@ -90,7 +95,8 @@ struct StocksDaily : Codable {
 }
 ```
 
-Let’s create an `ObservableObject` class. We’ll perform the API requests using the URLSession’s Combine Publisher and transform the results using the Combine operators.
+创建一个 `ObservableObject` 类。我们用 URLSession 中的  Combine Publisher 来处理 API 请求，然后用 Combine 操作来转换结果。
+
 
 ```Swift
 class Stocks : ObservableObject{
@@ -156,9 +162,9 @@ extension String {
 }
 ```
 
-The API results consist of nested JSON with the key being the dates. These are unordered in the dictionary and we need to sort them. For that, we’ve declared an extension that converts the string to date and does a comparison in the `sort` function.
+API 结果中包含用日期作为 key 的内置 JSON。它们在字典中无序的，需要进行排序。因此，我们声明了一个把字符串转换为日期的扩展，然后在 `sort` 函数中进行比较。
 
-Now that we’ve got the prices and stock data in the `Published` properties, we need to pass them to the `LineView` — a custom SwiftUI view that we will see next:
+既然已经在 `Published` 属性中获得了价格和股票数据，我们需要将它们传递给 `LineView` — 下面我们将会看到的一个自定义的 SwiftUI 视图:
 
 ```Swift
 struct LineView: View {
@@ -210,8 +216,7 @@ struct LineView: View {
 }
 ```
 
-The view above gets invoked from our SwiftUI ContentView, where the name, price, and an array of price history are passed. Using the GeometryReader, we’ll pass the width and height of the frame to the `Line` struct, where we’ll eventually join the points using SwiftUI paths:
-
+上面的视图从 SwiftUI 中的 ContentView 唤起，传入了姓名、价格和历史价格的数组。使用 GeometryReader，我们要向 `Line` 结构中的 frame 传入宽和高，这里我们最终会用 SwiftUI 的路径来连接这些点:
 ```Swift
 struct Line: View {
     var data: [(Double)]
@@ -264,7 +269,7 @@ struct Line: View {
 }
 ```
 
-`stepWidth` and `stepHeight` are computed for constraining the chart within a given width and height of the frame. They’re then passed to the extension function of the `Path` struct to create the line chart:
+计算 `stepWidth` 和 `stepHeight` 是用来在给定 frame 的宽和高的情况下，对图表进行约束。然后，把它们传递给 `Path` 结构体扩展函数，用来创建折线图:
 
 ```Swift
 extension Path {
@@ -286,19 +291,19 @@ extension Path {
 }
 ```
 
-Finally, the SwiftUI application displaying the stocks chart in action is ready. The following illustration showcases that:
+最后，展示股票折线图的 SwiftUI 程序就绪了。下面的插图进行了展示:
 
 ![](https://cdn-images-1.medium.com/max/2186/1*51q3BlLa-XLLKtHn-mgTOA.png)
 
-## Conclusion
+## 总结
 
-In this article, we managed to bring together SwiftUI and Combine once again — this time for fetching stock prices and displaying them in a Line Chart. Knowing the intricacies of SwiftUI paths is a good starting point for working with SwiftUI shapes, which require you to implement the `path` function.
+本文中，我们再次将 SwiftUI 和 Combine 成功结合 — 这次是抓取股票价格数据，然后在折线图中展示。通过了解 SwiftUI 中 paths 的错综复杂，实现 `path` 方法，来使用 SwiftUI 中的图形来工作，是一个好的开始。
 
-You can take the SwiftUI Line Charts above a step further by using gestures to highlight the points and their respective values. To know how to do that and more, refer [to this repository](https://github.com/AppPear/ChartView).
+你可以使用手势对点和相应的值进行高亮处理，来进一步了解上文中的 SwiftUI 折线图。想知道怎样实现和更多资料，请参照 [这个仓库](https://github.com/AppPear/ChartView)。
 
-The full source code of the application above is available in the [GitHub repository](https://github.com/anupamchugh/iowncode/tree/master/SwiftUILineChart).
+上文程序中的全部源码都在这个 [GitHub 仓库](https://github.com/anupamchugh/iowncode/tree/master/SwiftUILineChart).
 
-That’s it for this one. Thanks for reading.
+文章结束了。感谢阅读。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
