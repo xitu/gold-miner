@@ -14,8 +14,8 @@ Let's start with our familiar `ReactDOM.render(<App />, document.getElementBy
 
 The ReactDOM module will pass the `<App/ >` along to the reconciler. There are two questions here:
 
-1.  What does `<App />` refer to?
-2.  What is the reconciler?
+1. What does `<App />` refer to?
+2. What is the reconciler?
 
 Let's unpack these two questions.
 
@@ -39,18 +39,32 @@ This size of the flowchart and the number of lines of code grow exponentially as
 
 React has elements precisely to solve this problem. In React, there are two kinds of elements:
 
--   DOM element: When the element's type is a string, e.g., `<button class="okButton"> OK </button>`
--   Component element: When the type is a class or a function, e.g., `<Button className="okButton"> OK </Button>`, where `<Button>` is a either a class or a functional component. These are the typical React components we generally use
+- DOM element: When the element's type is a string, e.g., `<button class="okButton"> OK </button>`
+- Component element: When the type is a class or a function, e.g., `<Button className="okButton"> OK </Button>`, where `<Button>` is a either a class or a functional component. These are the typical React components we generally use
 
 It is important to understand that both types are simple objects. They are mere descriptions of what needs to be rendered on the screen and don't actually cause any rendering to happen when you create and instantiate them. This makes it easier for React to parse and traverse them to build the DOM tree. The actual rendering happens later when the traversing is finished.
 
 When React encounters a class or a function component, it will ask that element what element it renders to based on its props. For instance, if the `<App>` component rendered this:
 
-<Form>  <Button> Submit </Button>  </Form>
+```html
+<Form>
+  <Button>
+    Submit
+  </Button>
+</Form>
+```
 
 Then React will ask the `<Form>` and `<Button>` components what they render to based on their corresponding props. For instance, if the `Form` component is a functional component that looks like this:
 
-const  Form  =  (props)  =>  {  return(  <div className="form">  {props.form}  </div>  )  }
+```jsx
+const Form = (props) => {
+  return(
+    <div className="form">
+      {props.form}
+    </div>
+  )
+}
+```
 
 React will call `render()` to know what elements it renders and will eventually see that it renders a `<div>` with a child. React will repeat this process until it knows the underlying DOM tag elements for every component on the page.
 
@@ -60,7 +74,7 @@ So this means that when you call `ReactDOM.render()` or `setState()`, React p
 
 Now that we understand what reconciliation is, let's look at the pitfalls of this model.
 
-Oh, by the way --- why is this called the "stack" reconciler?
+Oh, by the way -- why is this called the "stack" reconciler?
 
 This name is derived from the "stack" data structure, which is a last-in, first-out mechanism. And what does stack have anything to do with what we just saw? Well, as it turns out, since we are effectively doing a recursion, it has everything to do with a stack.
 
@@ -68,7 +82,16 @@ This name is derived from the "stack" data structure, which is a last-in, first-
 
 To understand why that's the case, let's take a simple example and see what happens in the [call stack](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack).
 
-function fib(n)  {  if  (n <  2){  return n }  return fib(n -  1)  + fib (n -  2)  } fib(10)
+```js
+function fib(n) {
+  if (n < 2){
+    return n
+  }
+  return fib(n - 1) + fib (n - 2)
+}
+
+fib(10)
+```
 
 ![Call Stack Diagram](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/call-stack-diagram.png?resize=730%2C352&ssl=1)
 
@@ -76,14 +99,14 @@ As we can see, the call stack pushes every call to `fib()` into the stack unti
 
 The reconciliation algorithm we just saw is a purely recursive algorithm. An update results in the entire subtree being re-rendered immediately. While this works well, this has some limitations. As [Andrew Clark notes](https://github.com/acdlite/react-fiber-architecture):
 
--   In a UI, it's not necessary for every update to be applied immediately; in fact, doing so can be wasteful, causing frames to drop and degrading the user experience
--   Different types of updates have different priorities --- an animation update needs to complete more quickly than, say, an update from a data store
+- In a UI, it's not necessary for every update to be applied immediately; in fact, doing so can be wasteful, causing frames to drop and degrading the user experience
+- Different types of updates have different priorities --- an animation update needs to complete more quickly than, say, an update from a data store
 
 Now, what do we mean when we refer to dropped frames, and why is this a problem with the recursive approach? In order to grasp this, let me briefly explain what frame rate is and why it's important from a user experience point of view.
 
 Frame rate is the frequency at which consecutive images appear on a display. Everything we see on our computer screens are composed of images or frames played on the screen at a rate that appears instantaneous to the eye.
 
-To understand what this means, think of the computer display as a flip-book, and the pages of the flip-book as frames played at some rate when you flip them. In other words, a computer display is nothing but an automatic flip-book that plays at all times when things are changing on the screen. If this doesn't make sense, watch the video below.
+To understand what this means, think of the computer display as a flip-book, and the pages of the flip-book as frames played at some rate when you flip them. In other words, a computer display is nothing but an automatic flip-book that plays at all times when things are changing on the screen. If this doesn't make sense, watch [this video](https://youtu.be/FV97j-z3B7U).
 
 Typically, for video to feel smooth and instantaneous to the human eye, the video needs to play at a rate of about 30 frames per second (FPS). Anything higher than that will give an even better experience. This is one of the prime reasons why gamers prefer higher frame rate for first-person shooter games, where precision is very important.
 
@@ -103,10 +126,10 @@ Now that we know what motivated the development of Fiber, let's summarize the fe
 
 Again, I am referring to Andrew Clark's notes for this:
 
--   Assign priority to different types of work
--   Pause work and come back to it later
--   Abort work if it's no longer needed
--   Reuse previously completed work
+- Assign priority to different types of work
+- Pause work and come back to it later
+- Abort work if it's no longer needed
+- Reuse previously completed work
 
 One of the challenges with implementing something like this is how the JavaScript engine works and to a little extent the lack of threads in the language. In order to understand this, let's briefly explore how the JavaScript engine handles execution contexts.
 
@@ -116,7 +139,18 @@ Whenever you write a function in JavaScript, the JS engine creates what we call 
 
 So, when you write something like this:
 
-function a()  { console.log("i am a") b()  }  function b()  { console.log("i am b")  } a()
+```js
+function a() {
+  console.log("i am a")
+  b()
+}
+
+function b() {
+  console.log("i am b")
+}
+
+a()
+```
 
 The JavaScript engine first creates a global execution context and pushes it into the execution stack. Then it creates a function execution context for the function `a()`. Since `b()` is called inside `a()`, it will create another function execution context for `b()` and push it into the stack.
 
@@ -166,7 +200,15 @@ Same as the key we pass to the React element.
 
 Represents the element returned when we call `render()` on the component. For example:
 
-const  Name  =  (props)  =>  {  return(  <div className="name">  {props.name}  </div>  )  }
+```jsx
+const Name = (props) => {
+  return(
+    <div className="name">
+      {props.name}
+    </div>
+  )
+}
+```
 
 The child of `<Name>` is `<div>` here as it returns a `<div>` element.
 
@@ -174,7 +216,11 @@ The child of `<Name>` is `<div>` here as it returns a `<div>` element.
 
 Represents a case where `render` returns a list of elements.
 
-const  Name  =  (props)  =>  {  return([<Customdiv1  />,  <Customdiv2  />])  }
+```jsx
+const Name = (props) => {
+  return([<Customdiv1 />, <Customdiv2 />])
+}
+```
 
 In the above case, `<Customdiv1>` and `<Customdiv2>` are the children of `<Name>`, which is the parent. The two children form a singly linked list.
 
@@ -194,7 +240,12 @@ A number indicating the priority of the work represented by the fiber. The [`Re
 
 For example, you could use the following function to check if a fiber's priority is at least as high as the given level. The scheduler uses the priority field to search for the next unit of work to perform.
 
-function matchesPriority(fiber, priority)  {  return fiber.pendingWorkPriority !==  0  && fiber.pendingWorkPriority <= priority }
+```js
+function matchesPriority(fiber, priority) {
+  return fiber.pendingWorkPriority !== 0 &&
+         fiber.pendingWorkPriority <= priority
+}
+```
 
 #### Alternate
 
@@ -208,7 +259,29 @@ Conceptually, the output of a fiber is the return value of a function. Every fib
 
 The output is eventually given to the renderer so that it can flush the changes to the rendering environment. For example, let's look at how the fiber tree would look for an app whose code looks like this:
 
-const  Parent1  =  (props)  =>  {  return([<Child11  />,  <Child12  />])  }  const  Parent2  =  (props)  =>  {  return(<Child21  />)  }  class  App  extends  Component  {  constructor(props)  {  super(props)  } render()  {  <div>  <Parent1  />  <Parent2  />  </div>  }  }  ReactDOM.render(<App  />, document.getElementById('root'))
+```jsx
+const Parent1 = (props) => {
+  return([<Child11 />, <Child12 />])
+}
+
+const Parent2 = (props) => {
+  return(<Child21 />)
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    <div>
+      <Parent1 />
+      <Parent2 />
+    </div>
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
+```
 
 ![Fiber Tree Diagram](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/fiber-tree-diagram.png?resize=730%2C586&ssl=1)
 
@@ -220,7 +293,77 @@ In order to understand how React builds this tree and performs the reconciliatio
 
 If you're interested in this process, clone the React source code and navigate to [this directory](https://github.com/facebook/react/tree/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-dom/src/__tests__). Add a Jest test and attach a debugger. The test I wrote is a simple one that basically renders a button with text. When you click the button, the app destroys the button and renders a `<div>` with different text, so the text is a state variable here.
 
-'use strict';  let  React;  let  ReactDOM; describe('ReactUnderstanding',  ()  =>  { beforeEach(()  =>  {  React  =  require('react');  ReactDOM  =  require('react-dom');  }); it('works',  ()  =>  {  let instance;  class  App  extends  React.Component  {  constructor(props)  {  super(props)  this.state =  { text:  "hello"  }  } handleClick =  ()  =>  {  this.props.logger('before-setState',  this.state.text);  this.setState({ text:  "hi"  })  this.props.logger('after-setState',  this.state.text);  } render()  { instance =  this;  this.props.logger('render',  this.state.text);  if(this.state.text ===  "hello")  {  return  (  <div>  <div>  <button onClick={this.handleClick.bind(this)}>  {this.state.text}  </button>  </div>  </div>  )}  else  {  return  (  <div> hello </div>  )  }  }  }  const container = document.createElement('div');  const logger = jest.fn();  ReactDOM.render(<App logger={logger}/>, container); console.log("clicking"); instance.handleClick(); console.log("clicked"); expect(container.innerHTML).toBe(  '<div>hello</div>'  ) expect(logger.mock.calls).toEqual(  [["render",  "hello"],  ["before-setState",  "hello"],  ["render",  "hi"],  ["after-setState",  "hi"]]  );  })  });
+```jsx
+'use strict';
+
+let React;
+let ReactDOM;
+
+describe('ReactUnderstanding', () => {
+  beforeEach(() => {
+    React = require('react');
+    ReactDOM = require('react-dom');
+  });
+
+  it('works', () => {
+    let instance;
+  
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          text: "hello"
+        }
+      }
+
+      handleClick = () => {
+        this.props.logger('before-setState', this.state.text);
+        this.setState({ text: "hi" })
+        this.props.logger('after-setState', this.state.text);
+      }
+
+      render() {
+        instance = this;
+        this.props.logger('render', this.state.text);
+        if(this.state.text === "hello") {
+        return (
+          <div>
+            <div>
+              <button onClick={this.handleClick.bind(this)}>
+                {this.state.text}
+              </button>
+            </div>
+          </div>
+        )} else {
+          return (
+            <div>
+              hello
+            </div>
+          )
+        }
+      }
+    }
+    const container = document.createElement('div');
+    const logger = jest.fn();
+    ReactDOM.render(<App logger={logger}/>, container);
+    console.log("clicking");
+    instance.handleClick();
+    console.log("clicked");
+
+    expect(container.innerHTML).toBe(
+      '<div>hello</div>'
+    )
+
+    expect(logger.mock.calls).toEqual(
+      [["render", "hello"],
+      ["before-setState", "hello"],
+      ["render", "hi"],
+      ["after-setState", "hi"]]
+    );
+  })
+
+});
+```
 
 In the initial render, React creates a current tree, which is the tree that gets rendered initially.
 
@@ -230,7 +373,14 @@ In the initial render, React creates a current tree, which is the tree that gets
 
 As we can see, the call stack tracks back to a `render()` call, which eventually goes down to `createFiberFromTypeAndProps()`. There are a few other functions that are of interest to us here: `workLoopSync()`, `performUnitOfWork()`, and `beginWork()`.
 
-function workLoopSync()  {  // Already timed out, so perform work without checking if we need to yield.  while  (workInProgress !==  null)  { workInProgress = performUnitOfWork(workInProgress);  }  }
+```js
+function workLoopSync() {
+  // Already timed out, so perform work without checking if we need to yield.
+  while (workInProgress !== null) {
+    workInProgress = performUnitOfWork(workInProgress);
+  }
+}
+```
 
 `workLoopSync()` is where React starts building up the tree, starting with the `<App>` node and recursively moving on to `<div>`, `<div>`, and `<button>`, which are the children of `<App>`. The `workInProgress` holds a reference to the next fiber node that has work to do.
 
