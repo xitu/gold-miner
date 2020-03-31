@@ -1,4 +1,4 @@
-> * 原文地址：[https://blog.logrocket.com/deep-dive-into-react-fiber-internals/](https://blog.logrocket.com/deep-dive-into-react-fiber-internals/)
+> * 原文地址：[A deep dive into React Fiber internals](https://blog.logrocket.com/deep-dive-into-react-fiber-internals/)
 > * 原文作者：[Karthik Kalyanaraman](https://blog.logrocket.com/author/karthikkalyanaraman/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deep-dive-into-react-fiber-internals.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deep-dive-into-react-fiber-internals.md)
