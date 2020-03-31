@@ -7,13 +7,9 @@
 
 # Generator Functions in JavaScript
 
-#### Functions that wait until they’re ready to continue
-
 ![Photo by [matthew Feeney](https://unsplash.com/@matt__feeney?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/wait?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10180/1*T-HFCdKSrA6dhlyN66g1uw.jpeg)
 
 With ES6, EcmaScript released a new way of working with functions. In this article, we will take a look at them and how and where we can use them
-
----
 
 ## What Are Generator Functions?
 
@@ -23,7 +19,7 @@ They have also simplified the creation of iterators but we will get into that la
 
 Creating a generator function is simple. The `function*` declaration (`function` keyword followed by an asterisk) defines a generator function.
 
-```
+```js
 function* generatorFunction() {
    yield 1;
 }
@@ -41,7 +37,7 @@ The `next()` method returns an object with two properties, `done` and `value`. Y
 
 ```JavaScript
 function* generatorFunction() {
-yield 1;
+   yield 1;
 }
 const iterator = generatorFunction()
 const value=iterator.next().value
@@ -54,9 +50,9 @@ Now, as I said earlier, we can also pass values to the generator function throug
 
 ```JavaScript
 function* generatorFunction() {
-let value = yield null
-yield value+ 2;
-yield 3 + value
+   let value = yield null
+   yield value+ 2;
+   yield 3 + value
 }
 const iterator:Generator = generatorFunction()
 const value=iterator.next(10).value // returns null
@@ -85,14 +81,12 @@ So, you need to be very careful using `return` and it should only be used once y
 
 ```JavaScript
 function* generatorFunction() {
-yield  2;
-return 2;
-yield 3; //generator function will never reach here
+   yield  2;
+   return 2;
+   yield 3; //generator function will never reach here
 }
 const iterator:Generator = generatorFunction()
 ```
-
----
 
 ## Uses of the Generator Function
 
@@ -100,11 +94,11 @@ Now, generator functions can very easily simplify the creation of iterators, imp
 
 ```JavaScript
 function* countInfinite(){
-let i=0;
-while(true){
-yield i;
-i++
-}
+   let i=0;
+   while(true){
+      yield i;
+      i++
+   }
 }
 const iterator= countInfinite()
 console.log(iterator.next().value)
@@ -121,16 +115,16 @@ This is just a very basic example of how it can be used but we can use more comp
 ```JavaScript
 function* fibonacci(num1:number, num2:number) {
 while (true) {
-yield (() => {
-num2 = num2 + num1;
-num1 = num2 - num1;
-return num2;
-})();
-}
+   yield (() => {
+         num2 = num2 + num1;
+         num1 = num2 - num1;
+         return num2;
+      })();
+   }
 }
 const iterator = fibonacci(0, 1);
 for (let i = 0; i < 10; i++) {
-console.log(iterator.next().value);
+   console.log(iterator.next().value);
 }
 ```
 
@@ -143,8 +137,6 @@ Another big advantage of generator functions is that they are really memory effi
 In the case of a normal function, we generate a lot of values without even knowing whether we are going to use them or not. However, in the case of the generator function, we can defer the computation and only use it when needed.
 
 Before using the generator function, just keep some things in mind. You cannot access a value again if you have already accessed it.
-
----
 
 ## Conclusion
 
