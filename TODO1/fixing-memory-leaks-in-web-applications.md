@@ -136,29 +136,29 @@ window.addEventListener('message', onMessage);
 2. 如果涉及到 [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)，那么 Chrome 将向您显示这些引用，即使它们实际上并不重要 —— 只要清除了其他引用，这些对象就会被取消分配。所以它们只是干扰。
 3. Chrome 根据原型对这些对象进行分类。因此，使用实际的类/函数越多，使用匿名对象越少，就越容易发现究竟是什么东西在泄漏。例如，想象一下，如果我们的泄漏是由于 `object` 而不是 `EventListener`。由于 `object` 是非常通用的，所以我们不太可能正好看到其中 7 个被泄漏。
 
-这是我识别内存泄漏的基本策略。我曾经成功地使用这种技术来查找过去的几十个内存泄漏。
+这是我识别内存泄漏的基本策略。我曾经成功地使用这种技术来发现了许多内存泄漏。
 
 不过，本指南只是一个开始 —— 除此之外，您还必须能够方便地设置断点、记录日志并测试修复程序，以查看它是否解决了泄漏。不幸的是，这本身就是一个耗时的过程。
 
 ## 自动的内存泄漏分析
 
-在此之前，我要说的是，我还没有找到一个自动检测内存泄漏的好方法。Chrome 提供了非标准的 [performance.memory](https://webplatform.github.io/docs/apis/timing/properties/memory/) API，但是由于隐私原因[没有一个非常精确的粒度](https://bugs.webkit.org/show_bug.cgi?id=80444)，所以您不能在生产中真正使用它来识别泄漏。[W3C Web 性能工作组](https://github.com/w3c/web-performance) 曾讨论了 [内存](https://docs.google.com/document/d/1tFCEOMOUg4zmqeHNg1Xo11Xpdm7Bmxl5y98_ESLCLgM/edit) [工具](https://github.com/WICG/memory-pressure) 但尚未达成新的标准来取代这个API。
+在此之前，我要说的是，我还没有找到一个自动检测内存泄漏的好方法。Chrome 提供了非标准的 [performance.memory](https://webplatform.github.io/docs/apis/timing/properties/memory/) API，但是由于隐私原因[没有一个非常精确的粒度](https://bugs.webkit.org/show_bug.cgi?id=80444)，所以您不能在生产中真正使用它来识别泄漏。[W3C Web 性能工作组](https://github.com/w3c/web-performance) 曾讨论了 [内存](https://docs.google.com/document/d/1tFCEOMOUg4zmqeHNg1Xo11Xpdm7Bmxl5y98_ESLCLgM/edit) [工具](https://github.com/WICG/memory-pressure)，但尚未达成新的标准来取代这个API。
 
-在实验环境或综合测试环境中，您可以通过使用 Chrome 标志 [`--enable-precise-memory-info`](https://github.com/paulirish/memory-stats.js/blob/master/README.md)来增加这个API的粒度。您还可以通过调用专用的 Chromedriver 命令 [`:takeHeapSnapshot`](https://webdriver.io/docs/api/chromium.html#takeheapsnapshot)来创建堆快照文件。不过，这也有上面提到的限制—您可能想要连续取三个，并放弃前两个。
+在实验环境或综合测试环境中，您可以通过使用 Chrome 标志 [`--enable-precise-memory-info`](https://github.com/paulirish/memory-stats.js/blob/master/README.md)来增加这个 API 的粒度。您还可以通过调用专用的 Chromedriver 命令 [`:takeHeapSnapshot`](https://webdriver.io/docs/api/chromium.html#takeheapsnapshot) 来创建堆快照文件。不过，这也有上面提到的限制 —— 你可能想要连续取三个，并丢弃前两个。
 
-由于事件监听器是最常见的内存泄漏源，所以我使用的另一种技术是对 `addEventListener` 和 `removeEventListener` 的 API 进行重写以记录原型并确保它们返回零。这个[例子](https://github.com/nolanlawson/pinafore/blob/2edbd4746dfb5a7c894cb8861cf315c800a16393/tests/spyDomListeners.js)讲述了如何操作。
+由于事件监听器是最常见的内存泄漏源，所以我使用的另一种技术是对 `addEventListener` 和 `removeEventListener` 的 API 进行功能追加以记录原型并确保它们返回零。这个[例子](https://github.com/nolanlawson/pinafore/blob/2edbd4746dfb5a7c894cb8861cf315c800a16393/tests/spyDomListeners.js)讲述了如何操作。
 
 在 Chrome 开发者工具中，您还可以使用专用的 [`getEventListeners()`](https://developers.google.com/web/tools/chrome-devtools/console/utilities#geteventlisteners) API 来查看附加到特定元素的事件监听器。注意，这只能在开发者工具中使用。
 
-****更新：** Mathias Bynens 告诉了我另一个有用的开发者工具的 API:[`queryObjects()`](https://developers.google.com/web/updates/2017/08/devtools-release-notes#query-objects)，它可以显示使用特定构造函数创建的所有对象。Christoph Guttandin 也有 [一篇有趣的博客](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer) 关于在 Puppeteer 中使用这个 API 进行自动内存泄漏检测。**
+****更新：** Mathias Bynens 告诉了我另一个有用的开发者工具的 API:[`queryObjects()`](https://developers.google.com/web/updates/2017/08/devtools-release-notes#query-objects)，它可以显示使用特定构造函数创建的所有对象。Christoph Guttandin 也有 [一篇有趣的博客文章](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer) 关于在 Puppeteer 中使用这个 API 进行自动内存泄漏检测。**
 
 ## 总结
 
 在 web 应用程序中查找和修复内存泄漏的状态仍然相当初级。在这篇博客文章中，我介绍了一些对我有用的技术，但必须承认，这仍然是一个困难和耗时的过程。
 
-与大多数性能问题一样，一分预防抵得上十分治疗。您可能会发现，在适当的地方进行综合测试比在事后调试内存泄漏更有价值。特别是当一个页面上有几个漏洞时，它可能会变成一个剥洋葱的练习——你修复一个漏洞，然后找到另一个，然后重复(在整个过程中哭泣!)如果您知道要查找什么，代码检查还可以帮助捕获常见的内存泄漏模式。
+与大多数性能问题一样，一分预防抵得上十分治疗。您可能会发现，在适当的地方进行综合测试比在事后调试内存泄漏更有价值。特别是当一个页面上有几个漏洞时，它可能会变成一个剥洋葱的练习 —— 你修复一个漏洞，然后找到另一个，然后重复（在整个过程中哭泣！）如果您知道要查找什么，代码检查也可以帮助捕获常见的内存泄漏模式。
 
-JavaScript 是一种内存安全语言，因此在 web 应用程序中泄漏内存是多么容易，这有点讽刺意味。这部分是 UI 设计固有的——我们需要监听鼠标事件、滚动事件、键盘事件等等，而这些都是很容易导致内存泄漏的模式。但是，通过尽量降低 web 应用程序的内存使用量，我们可以提高运行时性能，避免崩溃，并尊重用户设备上的资源限制。
+JavaScript 是一种内存安全语言，因此在 web 应用程序中泄漏内存是多么容易，这有点讽刺意味。其中一部分是 UI 设计固有的 —— 我们需要监听鼠标事件、滚动事件、键盘事件等等，而这些都是很容易导致内存泄漏的模式。但是，通过尽量降低 web 应用程序的内存使用量，我们可以提高运行时性能，避免崩溃，并尊重用户设备上的资源限制。
 
 **感谢 Jake Archibald 和 Yang Guo 对本文草稿的反馈。感谢 Dinko Bajric 发明了“选择质数”技术，我发现它对内存泄漏分析很有帮助。**
 
