@@ -7,9 +7,9 @@
 
 # How to Keep Your Dependencies Secure and Up to Date
 
-#### Automatically update your dependencies using Dependabot
-
 ![Photo by [Lenin Estrada](https://unsplash.com/@lenin33?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/robot?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/4320/1*dJ1mhPOPA1MVEnUfpaCGjA.jpeg)
+
+> Automatically update your dependencies using Dependabot
 
 A couple of weeks ago, I was searching for examples on GitHub for my latest article about the [open-closed principle](https://medium.com/better-programming/do-you-use-the-most-crucial-principle-of-object-oriented-design-9045dbd1321e). When I browsed through the [.NET Core repository](https://github.com/dotnet/core), I saw a folder that I did not recognize.
 
@@ -24,8 +24,6 @@ And the real beauty of this service is:
 **Dependabot automatically creates a pull request to update the dependency.**
 
 I started using Dependabot for most of my repositories. In this article, I will show you how to use and configure Dependabot.
-
----
 
 ## Using Dependabot
 
@@ -92,8 +90,6 @@ Dependabot has some extra options for changing things such as the branch, the co
 #### Validate configuration file
 
 There is a [page](https://dependabot.com/docs/config-file/validator/) on the Dependabot website that validates your configuration file. Make sure that your configuration file is correct.
-
----
 
 ## Conclusion
 
