@@ -5,9 +5,9 @@
 > * 译者：
 > * 校对者：
 
-# The Dao of Immutability
+# 不变性之道
 
-> The Way of the Functional Programmer
+> 函数式编程的方法
 
 ## Forward
 
@@ -73,12 +73,12 @@ Shared objects and data fixtures can cause functions to interfere with each othe
 >
 ---
 
-> **Note:** This is part of the “Composing Software” serie**s [(now a book!)](https://leanpub.com/composingsoftware)** on learning functional programming and compositional software techniques in JavaScriptES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-**[Buy the Book](https://leanpub.com/composingsoftware) | [Index](https://medium.com/javascript-scene/composing-software-the-book-f31c77fc3ddc) | [\< Previous](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea) | [Next >](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c)**
+> **注意：** 这是“组合软件”系列[**（现在出版成书了！）**](https://leanpub.com/composingsoftware)中的从头学习 JavaScript ES6+ 中的函数式编程和组合软件技术。后续还有更多文章！敬请关注。
+**[购买这本书](https://leanpub.com/composingsoftware) | [索引](https://medium.com/javascript-scene/composing-software-the-book-f31c77fc3ddc) | [\< 上一篇](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea) | [下一篇 >](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c)**
 
 ---
 
-## Learn More at EricElliottJS.com
+## 在 EricElliottJS.com 上学习更多
 
 Video lessons with interactive code challenges are available for members of EricElliottJS.com. If you’re not a member, [sign up today](https://ericelliottjs.com/).
 
