@@ -1,55 +1,55 @@
-> * 原文地址：[Eye Tracking and The Best UX Practices in The Mobile World](https://medium.com/nyc-design/eye-tracking-and-the-best-ux-practices-in-the-mobile-world-a101f67f20dd)
+> * 原文地址：[眼动追踪和移动世界的最佳用户体验实践](https://medium.com/nyc-design/eye-tracking-and-the-best-ux-practices-in-the-mobile-world-a101f67f20dd)
 > * 原文作者：[Naman Sehgal](https://medium.com/@sehgal.naman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/eye-tracking-and-the-best-ux-practices-in-the-mobile-world.md](https://github.com/xitu/gold-miner/blob/master/TODO1/eye-tracking-and-the-best-ux-practices-in-the-mobile-world.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Charlo](https://github.com/Charlo-O?tab=repositories)
+> * 校对者：[Long Xiong](https://github.com/xionglong58)、[PingHGao](https://github.com/PingHGao)
 
-# Eye Tracking and The Best UX Practices in The Mobile World
+# 眼动追踪和移动世界的最佳用户体验实践
 
-![](https://cdn-images-1.medium.com/max/2000/1*spEmZXSrMLBkTQFEQY-jVA.jpeg)
+![](https://imgkr.cn-bj.ufileos.com/2c668962-2d6a-4f85-96a0-5b3485f64c45.jpeg)
 
-In today’s world, usability testing is critical for designing user-friendly interfaces. These tests take on different forms and methods that help designers identify usability issues. This is critical when analyzing the bridge between design expectations and user behavior. Sensory-based technology, such as eye-tracking, has been revolutionary in gaining deeper insights on how users interact with technology.
+在当今世界，可用性测试对于设计用户友好的界面至关重要。这些测试采用不同的形式和方法来帮助设计师发现可用性问题。这在把握设计期望和用户行为之间的关系时至关重要。诸如眼动追踪一类的以传感器为基础的技术，在深入了解用户如何与技术交互方面具有革命性意义。
 
-Eye Tracking is a usability method and tool that reveals users’ focus points and navigational patterns on a given interface. It provides designers with thorough feedback on which interface elements are visible and attention-grabbing. It also effectively evaluates design/content hierarchy. Eye Tracking is an insightful form of research technique, which determines the user’s focus and attention of the user.
+眼动追踪是一种可用方法和工具，它可以在给定的界面上显示用户的焦点和访问模式。它能够为设计者提供详尽反馈，界面哪些元素能够吸引用户的眼球。它还可以有效地评估设计/内容层次结构。眼动追踪是一种很有洞察力的研究技术，它决定了用户的关注焦点和用户的注意力。
 
-![](https://cdn-images-1.medium.com/max/2000/1*sAtbUAIscKdVhVOoV6J1BA.jpeg)
+![](https://imgkr.cn-bj.ufileos.com/56680bdb-32e8-491f-9990-a041a6a7818b.jpeg)
 
-## Eye Tracking for a Mobile-Centric World
+## 移动互联网中的眼动追踪
 
-Considering that more than 80% of the population has access to mobile devices, the percentage of mobile internet usage is surpassing traditional computing platform usage. Today’s world is mobile-centric. Thus, making it important to focus on the usability of mobile devices.
+考虑到超过 80% 的人口可以使用移动设备，移动互联网的使用率正在超过传统计算平台。今天的世界是以移动为中心的。因此，关注移动设备的可用性非常重要。
 
-Jen Romano Bergstrom, a User Experience Specialist conducted a research study to compare the user experience of the same interface across multiple devices using eye tracking. As a result, she uncovered different issues across different devices. Below is the heat map of the data. The red spots are the main focus points, and the green and yellow are the areas which get less attention from the users. It is clearly visible that users have a different area of focus for the same interface on different devices.
+用户体验专家珍妮弗·罗曼诺·伯格斯特伦(Jen Romano Bergstrom)进行了一项研究，利用眼动追踪技术，在多个设备之间比较同一界面的用户体验。结果，她在不同的设备上发现了不同的问题。下面是数据的热点图。红点是主要的焦点，绿色和黄色是用户关注较少的区域。很明显，用户在不同的设备上对相同的界面有不同的关注点。
 
-![**Image from Jen Romano Bergstrom’s eye-tracking research**](https://cdn-images-1.medium.com/max/3924/1*hoCe7meUocl79e7ZairBNg.jpeg)
+![**Image from Jen Romano Bergstrom’s eye-tracking research**](https://imgkr.cn-bj.ufileos.com/00330430-8823-4131-ae2f-50f3e6a5954c.jpeg)
 
-## Best UX Practices for Mobile Devices
+## 移动设备的最佳用户体验实践
 
-Steve Krug, an information architect and user experience professional who is best known for his book “Don’t Make Me Think — A Common Sense Approach to Web Usability”, mentioned that designers keep in mind that the users first read before the act. Content is read through before other links are carefully chosen and clicked. The reality is that people don’t read everything, they just read what they want to. This is a big takeaway and reinforces the importance of usability tools such as the eye-tracking device.
+史蒂夫·克鲁格（Steve Krug）是一名信息架构师和用户体验专家，以著作《点石成金 —— 访客至上的网页设计秘笈法》闻名。他在书中提到，用户在采取行动前会先看。在仔细选择和点击其他链接之前，会先阅读文本。事实上，人们并不是什么都看，他们只是看他们想看的。这是一个重大突破，它强化了可用性工具(如眼动追踪设备)的重要性。
 
-![**Image from Steve Krug’s book — “Don’t Make Me Think”**](https://cdn-images-1.medium.com/max/2000/1*YHZz6pAqHABKtVVsrhLwJg.jpeg)
+![**图片源自史蒂夫·克鲁格的著作 ——《点石成金 —— 访客至上的网页设计秘笈法》**](https://imgkr.cn-bj.ufileos.com/5fef551e-8671-4dae-9d1d-db1b95243746.jpeg)
 
-Jen Romano Bergstrom explained some key guidelines on the best UX practices that every User Experience professional should follow. These practices were drafted after several eye tracking researches were performed.
+珍妮弗·罗曼诺·伯格斯特伦(Jen Romano Bergstrom)解释了一些最佳用户体验实践的关键准则，每个用户体验专家都应该遵循。这些准则是在进行了几次眼动跟踪研究后起草的。
 
-**1. Functional icons across devices**
+**1、跨设备的功能图标**
 
-Icons and images should be clickable across the devices as users expect them to be interactive. Making things clickable on the homepage will help make the page more intuitive.
+>图标和图像应该像用户希望的那样，能在不同的设备下被点击，从而产生交互。让主页上的元素可点击将使网页更直观。 
 
-**2. Clear and precise error messages**
+**2、清晰而准确的错误信息**
 
-If an error message pops up, it should explain what the error message is all about. Below is an example from one of Jen’s research. On the left side, an error message popped up. However, it was not clear to state which mandatory field was to be filled. On the right side of being the user’s gaze plots. The user is trying to search all over the screen for the mandatory field which is left. So, the error message should clearly point out the problem in order for the user to quickly move forward.
+如果出现一个错误消息，它应该解释这个错误消息与什么有关。下面是 Jen 研究中的一个例子。在左侧，弹出一个错误消息。但是，尚不清楚应填写哪个必填字段。右边是用户的注视图。用户试图在整个屏幕上搜索剩下的必填字段。因此，错误消息应该清楚地指出问题所在，便于用户快速进行下一步操作。
 
-![**Image from Jen Romano Bergstrom’s eye-tracking research**](https://cdn-images-1.medium.com/max/2688/1*D4lUGwQswG5pSr9uwIf-Xg.png)
+![**图片源自珍妮弗·罗曼诺·伯格斯特伦的眼动跟踪研究**](https://imgkr.cn-bj.ufileos.com/fd2bac1b-49f5-4b2c-9f18-5027fc434148.png)
 
-**3. Consistent layout across devices**
+**3、统一页面布局**
 
-Keeping in mind that the users have access to multiple devices, an interface’s layout should be consistent across various mobile devices. The flow of information should remain the same as good design gives users a consistent mental model throughout all platforms.
+请记住，用户可以访问多个设备，一个界面的布局应该在各种移动设备之间保持一致。信息流应该保持不变，因为好的设计可以在所有平台上为用户提供一致的心智模型。
 
-## Conclusion
+##  结论
 
-Despite the fact that eye-tracking is a time consuming and expensive process, it is a very useful technique to gain deep insights on a particular product. As far as the use of eye tracking in mobile devices is concerned, there is a lot more to explore in this area. Following these suggested UX practices will significantly improve the user’s experience.
+尽管眼动追踪是一个耗时且昂贵的过程，但它是一种非常有用的技术，可以让你对特定产品有更深刻的了解。就移动设备中眼球追踪的使用而言，这一领域还有很多值得探索的地方。遵循这些建议的 UX 实践将极大地改善用户体验。
 
-## References
+## 参考文献
 
 [http://bit.ly/2AGPlkz](http://bit.ly/2AGPlkz)
 
