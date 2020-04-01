@@ -21,7 +21,7 @@ If you’re looking for raw performance, this is indubitably your solution of ch
 
 There are two ways to use `LOAD DATA INFILE`. You can copy the data file to the server's data directory (typically `/var/lib/mysql-files/`) and run:
 
-```
+```sql
 LOAD DATA INFILE '/path/to/products.csv' INTO TABLE products;
 ```
 
@@ -29,7 +29,7 @@ This is quite cumbersome as it requires you to have access to the server’s fil
 
 The good news is, you can also store the data file **on the client side**, and use the `LOCAL` keyword:
 
-```
+```sql
 LOAD DATA LOCAL INFILE '/path/to/products.csv' INTO TABLE products;
 ```
 
@@ -43,13 +43,13 @@ While `LOAD DATA INFILE` is your best option performance-wise, it requires you t
 
 A typical SQL `INSERT` statement looks like:
 
-```
+```sql
 INSERT INTO user (id, name) VALUES (1, 'Ben');
 ```
 
 An extended `INSERT` groups several records into a single query:
 
-```
+```sql
 INSERT INTO user (id, name) VALUES (1, 'Ben'), (2, 'Bob');
 ```
 
@@ -95,7 +95,7 @@ It takes around 1,000 inserts per query to reach the maximum throughput in both 
 
 The benefit of extended inserts is higher over the network, because sequential insert speed becomes a function of your latency:
 
-```
+```sql
 max sequential inserts per second ~= 1000 / ping in milliseconds
 ```
 
@@ -115,8 +115,6 @@ Be careful when increasing the number of inserts per query, as it may require yo
 * increase the [max_allowed_packet](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet) setting on the MySQL server
 
 As a final note, it’s worth mentioning that according to Percona, you can achieve even better performance using concurrent connections, partitioning, and multiple buffer pools. See [this post on their blog](http://www.percona.com/blog/2011/01/07/high-rate-insertion-with-mysql-and-innodb/) for more information.
-
----
 
 **The benchmarks have been run on a bare metal server running Centos 7 and MySQL 5.7, Xeon E3 @ 3.8 GHz, 32 GB RAM and NVMe SSD drives. The MySQL benchmark table uses the InnoDB storage engine.**
 
