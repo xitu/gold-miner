@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/fixing-memory-leaks-in-web-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/fixing-memory-leaks-in-web-applications.md)
 > * 译者：[febrainqu](https://github.com/febrainqu)
-> * 校对者：[niayyy-S](https://github.com/niayyy-S)、[QinRoc](https://github.com/QinRoc)、[cyz980908](https://github.com/cyz980908)、
+> * 校对者：[niayyy-S](https://github.com/niayyy-S)、[QinRoc](https://github.com/QinRoc)、[cyz980908](https://github.com/cyz980908)
 
 ## 解决 web 应用程序中的内存泄漏问题
 
