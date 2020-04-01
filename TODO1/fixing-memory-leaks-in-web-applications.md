@@ -51,7 +51,7 @@ window.removeEventListener('message', this.onMessage);
 
 ## 内存泄漏情况
 
-根据我的经验，内存泄漏最常见的来源是这样的 API：：
+根据我的经验，内存泄漏最常见的来源是这样的 API：
 
 1. `addEventListener`。这是最常见的一种。调用 `removeEventListener` 来清理它。
 2. [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout) / [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval)。如果你创建一个循环计时器（例如，每 30 秒运行一次），那么你就需要用 [`clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout) 或 [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval)来清除它。（如果像 `setInterval` 那样使用 `setTimeout` 会造成内存泄漏 —— 即，在 `setTimeout` 中回调一个新的 `setTimeout`。）
@@ -92,7 +92,7 @@ Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存
 
 [![Chrome 开发者工具的屏幕截图 heap snapshot 差异显示6个 heap snapshot 捕获，其中多个对象泄漏 7 次](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png?w=570&h=264)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png)
 
-一个堆快照差异。请注意，我们正在比较快照 #6 和快照 #3，因为我在连续进行了三次捕获，以便进行更多的垃圾回收。还要注意，有几个对象泄漏了 7 次。。
+一个堆快照差异。请注意，我们正在比较快照 #6 和快照 #3，因为我在连续进行了三次捕获，以便进行更多的垃圾回收。还要注意，有几个对象泄漏了 7 次。
 
 （另一种有用的技巧是在记录第一个快照之前遍历场景一次。特别是如果你使用了大量的代码拆分，来实现按需加载，那么你的场景很可能需要一次性的内存开销来加载必要的 JavaScript 模块）
 
