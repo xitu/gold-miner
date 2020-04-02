@@ -2,24 +2,24 @@
 > * 原文作者：[Ben Weidig](https://medium.com/@benweidig)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/decouple-your-code-with-dependency-injection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/decouple-your-code-with-dependency-injection.md)
-> * 译者：
-> * 校对者：
+> * 译者：[江不知](https://juejin.im/user/5ae03306f265da0b702592d1)
+> * 校对者：[GJXAIOU](https://github.com/GJXAIOU), [司徒公子](https://github.com/todaycoder001)
 
-# Decouple Your Code With Dependency Injection
+# 用依赖注入解耦你的代码
 
-> No third-party frameworks required
+> 无需第三方框架
 
-![Photo by [Icons8 Team](https://unsplash.com/@icons8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/ingredients?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12032/1*PfS1KYIt9IIDZTIyIIfMsQ.jpeg)
+![[Icons8 团队](https://unsplash.com/@icons8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 摄于 [Unsplash](https://unsplash.com/s/photos/ingredients?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12032/1*PfS1KYIt9IIDZTIyIIfMsQ.jpeg)
 
-Not many components live on their own, without any dependencies on others. Instead of creating tightly coupled components, we can improve the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns) by utilizing **dependency injection** (DI).
+没有多少组件是能够独立存在而不依赖于其它组件的。除了创建紧密耦合的组件，我们还可以利用**依赖注入**（DI）来改善 [关注点的分离](https://en.wikipedia.org/wiki/Separation_of_concerns)。
 
-This article will introduce you to the core concept of dependency injection, without the need for third-party frameworks. All code examples will be in Java, but the general principles apply to any other language, too.
+这篇文章将会脱离第三方框架向你介绍依赖注入的核心概念。所有的示例代码都将使用 Java，但所介绍的一般原则也适用于其它任何语言。
 
 ---
 
-## Example: DataProcessor
+## 示例：数据处理器
 
-To better visualize how to use dependency injection**,** we start with a simple type:
+为了让如何使用依赖注入更加形象化，我们将从一个简单的类型开始：
 
 ```Java
 public class DataProcessor {
@@ -37,35 +37,35 @@ public class DataProcessor {
 }
 ```
 
-The `DataProcessor` has two dependencies: `DbManager` and `Calculator`. Creating them directly in our type has several apparent disadvantages:
+`DataProcessor` 有两个依赖项：`DbManager` 和 `Calculator`。直接在我们的类型中创建它们有几个明显的缺点：
 
-* The constructor calls can crash.
-* Constructor signatures might change.
-* Tightly bound to explicit implementation type.
+* 调用构造函数时可能发生崩溃
+* 构造函数签名可能会改变
+* 紧密绑定到显式实现类型
 
-It’s time to improve it!
+是时候改进它了！
 
 ---
 
-## Dependency Injection
+## 依赖注入
 
-James Shore, the author of [**The Art of Agile Development**](https://www.amazon.com/Art-Agile-Development-Pragmatic-Software/dp/0596527675), [put it quite nicely](https://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html):
+[**《敏捷开发的艺术》**](https://www.amazon.com/Art-Agile-Development-Pragmatic-Software/dp/0596527675) 的作者 James Shore [很好地指出](https://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html)：
 
-> **“Dependency injection is a 25-dollar term for a 5-cent concept.”**
+> **「依赖注入听起来复杂，实际上它的概念却十分简单。」**
 
-The concept is actually really simple: Giving a component all the things it needs to do its job.
+依赖注入的概念实际上非常简单：为组件提供完成其工作所需的一切。
 
-In general, it means decoupling components by providing their dependencies from the outside, instead of creating them directly, which would create adhesion.
+通常，这意味着通过从外部提供组件的依赖关系来解耦组件，而非直接在组件内创建依赖，让组件间过度耦合。
 
-There are different ways how we can provide an instance with its necessary dependencies:
+我们可以通过多种方式为实例提供必要的依赖关系：
 
-* Constructor injection
-* Property injection
-* Method injection
+* 构造函数注入
+* 属性注入
+* 方法注入
 
-#### Constructor injection
+#### 构造函数注入
 
-Constructor, or initializer-based dependency injection, means providing all required dependencies during the initialization of an instance, as constructor arguments:
+构造函数注入，或称基于初始化器的依赖注入，意味着在实例初始化期间提供所有必需的依赖项，将其作为构造函数的参数：
 
 ```Java
 public class DataProcessor {
@@ -82,24 +82,24 @@ public class DataProcessor {
 }
 ```
 
-Thanks to this simple change, we can offset most of the initial disadvantages:
+由于这一简单的改变，我们可以弥补大多数最开始的缺点：
 
-* Easily replaceable: `DbManager` and `Calculator` are no longer bound to the concrete implementations, and are now mockable for unit-testing.
-* Already initialized and “ready-to-go”: We don’t need to worry about any sub-dependencies required by our dependencies (e.g., database filename, significant digits), or that they might crash during initialization.
-* Mandatory requirements: The caller knows exactly what’s needed to create a `DataProcessor`.
-* Immutability: Dependencies are still final.
+* 易于替换：`DbManager` 和 `Calculator` 不再被具体的实现所束缚，现在可以模拟单元测试了。
+* 已经初始化并且「准备就绪」：我们不必担心依赖项所需要的任何子依赖项（例如，数据库文件名、[有效数字（译者注）](https://zh.wikipedia.org/wiki/%E6%9C%89%E6%95%88%E6%95%B0%E5%AD%97)等），也不必担心它们可在初始化期间发生崩溃的可能性。
+* 强制要求：调用方确切地知道创建 `DataProcessor` 的所需内容。
+* 不变性：依赖关系始终如初。
 
-Even though constructor injection is the preferred way of many DI frameworks, it has its obvious disadvantages, too. The most significant one is that all dependencies must be provided at initialization.
+尽管构造函数注入是许多依赖注入框架的首选方法，但它也有明显的缺点。其中最大的缺点是：必须在初始化时提供所有依赖项。
 
-Sometimes, we don’t initialize a component ourselves or we aren’t able to provide all dependencies at that point. Or we need to use another constructor. And once the dependencies are set, they can’t be changed.
+有时，我们无法自己初始化一个组件，或者在某个时刻我们无法提供组件的所有依赖关系。或者我们需要使用另外一个构造函数。一旦设置了依赖项，我们就无法再改变它们了。
 
-But we can mitigate these problems by using one of the other injection types.
+但是我们可以使用其它注入类型来缓解这些问题。
 
-#### Property injection
+#### 属性注入
 
-Sometimes we don’t have access to the actual initialization of type, and only have an already initialized instance. Or the needed dependency is not explicitly known at initialization as it would be later on.
+有时，我们无法访问类型实际的初始化方法，只能访问一个已经初始化的实例。或者在初始化时，所需要的依赖关系并不像之后那样明确。
 
-In these cases, instead of relying on a constructor, we can use **property injection**:
+在这些情况下，我们可以使用**属性注入**而不是依赖于构造函数：
 
 ```Java
 public class DataProcessor {
@@ -121,19 +121,19 @@ public class DataProcessor {
 }
 ```
 
-No constructor is needed anymore, we can provide the dependencies at any time after initialization. But this way of injection also comes with drawbacks: **Mutability**.
+我们不再需要构造函数了，在初始化后我们可以随时提供依赖项。但这种注入方式也有缺点：**易变性**。
 
-Our `DataProcessor` is no longer guaranteed to be “ready-to-go” after initialization. Being able to change the dependencies at will might give us more flexibility, but also the disadvantage of more runtime-checks.
+在初始化后，我们不再保证 `DataProcessor` 是「随时可用」的。能够随意更改依赖关系可能会给我们带来更大的灵活性，但同时也会带来运行时检查过多的缺点。
 
-We now have to deal with the possibility of a `NullPointerException` when accessing the dependencies.
+现在，我们必须在访问依赖项时处理出现 `NullPointerException` 的可能性。
 
-#### Method injection
+#### 方法注入
 
-Even though we decoupled the dependencies with constructor injection and/or property injection, by doing so, we still only have a single choice. What if we need another `Calculator` in some situations?
+即使我们将依赖项与构造函数注入与/或属性注入分离，我们也仍然只有一个选择。如果在某些情况下我们需要另一个 `Calculator` 该怎么办呢？
 
-We don’t want to add additional properties or constructor arguments for a second `Calculator`, because there might be a third one needed in the future. And changing the property every time before we call `calc(...)` isn't feasible either, and will most likely lead to bugs using the wrong one.
+我们不想为第二个 `Calculator` 类添加额外的属性或构造函数参数，因为将来可能会出现第三个这样的类。而且在每次调用 `calc(...)` 前更改属性也不可行，并且很可能因为使用错误的属性而导致 bug。
 
-A better way is to parameterize the method call itself with its dependency:
+更好的方法是参数化调用方法本身及其依赖项：
 
 ```Java
 public class DataProcessor {
@@ -146,9 +146,9 @@ public class DataProcessor {
 }
 ```
 
-Now the caller of `calc(...)` is responsible for providing an appropriate `Calculator` instance, and `DataProcessor` is completely decoupled from it.
+现在，`calc(...)` 的调用者负责提供一个合适的 `Calculator` 实例，并且 `DataProcessor` 类与之完全分离。
 
-Even more flexibility can be gained by mixing different types of injection, and providing a default `Calculator`:
+通过混合使用不同的注入类型来提供一个默认的 `Calculator`，这样可以获得更大的灵活性：
 
 ```Java
 public class DataProcessor {
@@ -171,47 +171,47 @@ public class DataProcessor {
 }
 ```
 
-The caller **could** provide a different kind of `Calculator`, but it doesn’t **have to**. We still have a decoupled, ready-to-go `DataProcessor`, with the ability to adapt to specific scenarios.
+调用者**可以**提供另一种类型的 `Calculator`，但这不是**必须**的。我们仍然有一个解耦的、随时可用的 `DataProcessor`，它能够适应特定的场景。
 
-## Which Injection Type to Choose?
+## 选择哪种注入方式？
 
-Every type of dependency injection has its own merits, and there isn’t a “right way”. It all depends on your actual requirements and the circumstances.
+每种依赖注入类型都有自己的优点，并没有一种「正确的方法」。具体的选择完全取决于你的实际需求和情况。
 
-#### Constructor injection
+#### 构造函数注入
 
-Constructor injection is my favorite, and often preferred by DI frameworks.
+构造函数注入是我的最爱，它也常受依赖注入框架的青睐。
 
-It clearly tells us all the dependencies needed to create a specific component, and that they are not optional. Those dependencies should be required throughout the component.
+它清楚地告诉我们创建特定组件所需的所有依赖关系，并且这些依赖不是可选的，这些依赖关系在整个组件中应该都是必需的。
 
-#### Property injection
+#### 属性注入
 
-Property injection matches better for optional parameters, like listeners or delegates. Or if we can’t provide the dependencies at initialization time.
+属性注入更适合可选参数，例如监听或委托。又或是我们无法在初始化时提供依赖关系。
 
-Some other languages, like Swift, make heavy use of the [delegation pattern](https://en.wikipedia.org/wiki/Delegation_pattern) with properties. So, using it will make our code more familiar to other developers.
+其它编程语言，例如 Swift，大量使用了带属性的 [委托模式](https://en.wikipedia.org/wiki/Delegation_pattern)。因此，使用属性注入将使其它语言的开发人员更熟悉我们的代码。
 
-#### Method injection
+#### 方法注入
 
-Method injection is a perfect match if the dependency might not be the same for every call. It will decouple the component even more because now, just the method itself has a dependency, not the whole component.
+如果在每次调用时依赖项可能不同，那么使用方法注入最好不过了。方法注入进一步解耦组件，它使方法本身持有依赖项，而非整个组件。
 
-Remember that it’s not either-or. We can freely mix the different types where it’s appropriate.
+请记住，这不是非此即彼。我们可以根据需要自由组合各种注入类型。
 
-## Inversion of Control Containers
+## 控制反转容器
 
-We can cover a lot of use cases with these simple implementations of dependency injection. It’s an excellent tool for decoupling, but we actually still need to create the dependencies at some point.
+这些简单的依赖注入实现可以覆盖很多用例。依赖注入是很好的解耦工具，但事实上我们仍然需要在某些时候创建依赖项。
 
-But as our applications and codebases grow, we might need a more complete solution that simplifies the creation and assembling process, too.
+但随着应用程序和代码库的增长，我们可能还需要一个更完整的解决方案来简化依赖注入的创建和组装过程。
 
-**Inversion of control** (IoC) is an abstract principle of the [flow of control](https://en.wikipedia.org/wiki/Control_flow). And dependency injection is one of its more concrete implementations.
+**控制反转**（IoC）是 [控制流](https://en.wikipedia.org/wiki/Control_flow) 的抽象原理。依赖注入是控制反转的具体实现之一。
 
-An **IoC container** is a special kind of object that knows how to instantiate and configure other objects, including doing the dependency injection for you.
+**控制反转容器**是一种特殊类型的对象，它知道如何实例化和配置其它对象，它也知道如何帮助你执行依赖注入。
 
-Some containers can detect relationships via reflection, others have to be configured manually. Some are runtime-based, others generate all the code needed at compile-time.
+有些容器可以通过反射来检测关系，而另一些必须手动配置。有些容器基于运行时，而有些则在编译时生成所需要的所有代码。
 
-Comparing all the different options is beyond the scope of this article, but let’s check out a small example to get a better understanding of the concept.
+比较所有容器的不同之处超出了本文的讨论范围，但是让我通过一个小示例来更好地理解这个概念。
 
-#### Example: Dagger 2
+#### 示例: Dagger 2
 
-[Dagger](https://dagger.dev/) is a lightweight, compile-time dependency injection framework. We need to create a `Module` that knows how to build our dependencies, that later can be injected by merely adding an `@Inject` annotation:
+[Dagger](https://dagger.dev/) 是一个轻量级、编译时进行依赖注入的框架。我们需要创建一个 `Module`，它就知道如何构建我们的依赖项，稍后我们只要添加 `@Inject` 注释就可以注入这个 `Module`。
 
 ```Java
 @Module
@@ -231,9 +231,9 @@ public class InjectionModule {
 }
 ```
 
-The `@Singleton` ensures that only one instance of a dependency will be created.
+`@Singleton` 确保只能创建一个依赖项的实例。
 
-To get injected with a dependency, we simply add `@Inject` to a constructor, field, or method:
+要注入依赖项，我们只需要将 `@Inject` 添加到构造函数、字段或方法中。
 
 ```Java
 public class DataProcessor {
@@ -248,56 +248,56 @@ public class DataProcessor {
 }
 ```
 
-These are just the absolute basics, and might not seem impressive at first. But IoC containers and frameworks allow us to not just decouple our component, but also to maximize the flexibility of dependency creation.
+这些仅仅是一些基础知识，乍一看不可能会给人留下深刻的印象。但是控制反转容器和框架不仅解耦了组件，也让创建依赖关系的灵活性得以最大化。
 
-The creation process becomes more configurable and enables new ways of using the dependencies, thanks to the advanced features provided.
+由于提供了高级特性，创建过程的可配置性变得更强，并且支持了使用依赖项的新方法。
 
-#### Advanced features
+#### 高级特性
 
-The features vary widely between the different kinds of IoC containers and the underlying languages, like:
+这些特性在不同类型的控制反转容器和底层语言之间差异很大，比如：
 
-* [Proxy pattern](https://en.wikipedia.org/wiki/Proxy_pattern) and lazy-loading.
-* Lifecycle scopes (e.g., singleton vs. one per thread).
-* Auto-wiring.
-* Multiple implementations for a single type.
-* Circular dependencies.
+* [代理模式](https://en.wikipedia.org/wiki/Proxy_pattern) 和延迟加载。
+* 生命周期（例如：单例模式与每个线程一个实例）。
+* 自动绑定。
+* 单一类型的多种实现。
+* 循环依赖。
 
-These features are the real power of IoC containers. You might think features like “circular dependencies” are not a good idea. And you’re right.
+这些特性是控制反转容器真正的能力。你可能会认为诸如「循环依赖」这样的特性并非好的主意，确实如此。
 
-But if we actually need such weird code constructs due to legacy code, or unchangeable bad design decisions in the past, we now have the power to do so.
+但是，如果由于遗留代码或是过去不可更改的错误设计而需要这种奇怪的代码构造，那么我们现在有能力可以这样做。
 
-## Conclusion
+## 总结
 
-We should design our code against abstractions, like interfaces, and not concrete implementations, to reduce adhesion.
+我们应该根据抽象（例如接口）而不是具体的实现来设计代码，这样可以帮助我们减少代码耦合。
 
-The only information our code should need must be available in the interface, we can’t assume anything about the actual implementation.
+接口必须提供我们代码所需要的唯一信息，我们不能对实际实现情况做任何假设。
 
-> **“One should depend upon abstractions, [not] concretions.” 
-> **— Robert C. Martin (2000), Design Principles and Design Patterns
+> **「程序应当依赖抽象，而非具体的实现」**
+> —— Robert C. Martin (2000), 《设计原则与设计模式》
 
-Dependency injection is a great way to do that by decoupling our components. It allows us to write cleaner and more concise code that’s easier to maintain and refactor.
+依赖注入是通过解耦组件来实现这一点的好办法。它使我们能够编写更简洁明了、更易于维护和重构的代码。
 
-Which of the three dependency injection types to choose depends much on the circumstances and requirements, but we can also mix the types to maximize the benefit.
+选择三种依赖注入类型中的哪种很大程度上取决于环境和需求，但是我们也可以混合使用三种类型使收益最大化。
 
-IoC containers can provide another layout of convenience by simplifying the component creation process, sometimes in an almost magical way.
+控制反转容器有时几乎以一种神奇的方式通过简化组件创建过程来提供另一种便利的布局。
 
-Should we use it everywhere? Of course not.
+我们应该处处使用它吗？当然不是。
 
-Just like other patterns and concepts, we should apply them if appropriate, not only because we can.
+就像其它模式和概念一样，我们应该在适当的时候应用它们，而不是能用则用。
 
-Never restrict yourself to a single way of doing things. Maybe the [factory pattern](https://en.wikipedia.org/wiki/Factory_method_pattern) or even the widely-loathed [singleton pattern](https://en.wikipedia.org/wiki/Singleton_pattern) might be a better solution for your requirements.
-
----
-
-## Resources
-
-* [Inversion of Control Containers and the Dependency Injection pattern](https://www.martinfowler.com/articles/injection.html) (Martin Fowler)
-* [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle) (Wikipedia)
-* [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control) (Wikipedia)
+永远不要把自己局限在一种做事的方式上。也许 [工厂模式](https://en.wikipedia.org/wiki/Factory_method_pattern) 甚至是广为厌恶的 [单例模式](https://en.wikipedia.org/wiki/Singleton_pattern) 是能够满足你需求的更好的解决方案。
 
 ---
 
-## IoC Containers
+## 资料
+
+* [控制反转容器与依赖注入模式](https://www.martinfowler.com/articles/injection.html) (Martin Fowler)
+* [依赖反转原则](https://en.wikipedia.org/wiki/Dependency_inversion_principle)（维基百科）
+* [控制反转](https://en.wikipedia.org/wiki/Inversion_of_control)（维基百科）
+
+---
+
+## 控制反转容器
 
 #### Java
 
