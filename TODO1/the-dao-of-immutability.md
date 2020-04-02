@@ -7,69 +7,69 @@
 
 # 不变性之道
 
-> 函数式编程的方法
+> 函数式程序设计方法
 
-## Forward
+## 前言
 
-I was wandering the archives of an old library, and found a dark tunnel that led to the chamber of computation. There I found a scroll that seemed to have fallen on the floor, forgotten.
+我徘徊在一个旧图书馆档案室，发现了一条通往计算机教室的黑暗隧道。在哪里，我发现了一个似乎被遗落在地上的卷轴。
 
-The scroll was encased in a dusty steel tube and labeled: “From the archives of **The Church of Lambda**.”
+卷轴装载满是灰尘的铁筒中，上面贴着这样的标签：“**Lambda（匿名函数）教堂**的档案。”
 
-It was wrapped in a thin sheet of paper that read:
-
----
-
-**A master programmer and his apprentice sat in Turing meditation, contemplating the Lambda. The apprentice looked at the master and asked, “Master, you tell me to simplify, but programs are complex. Frameworks ease the work of creation by removing hard choices. Which is better, a class or a framework?”**
-
-**The master programmer looked at his apprentice and asked, “did you not read the teachings of wise master Carmack?”, quoting…**
-
-> “Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework. Just a function.”
-
-**“But master,” the apprentice started — but the master interrupted, asking:**
-
-**“Is it not true that the word for ‘not functional’ is ‘dysfunctional’?”**
-
-**And then the apprentice understood.**
+它被包裹在一张纸上，上面写道：
 
 ---
 
-On the back of the sheet was an index that seemed to refer to many books in the chamber of computation. I peeked inside the books, but they were filled with big words I did not understand, so I put them back and continued to read the scroll. I noticed that the margins of the index were filled with short commentary, which I will reproduce here, faithfully, along with the writing from the scroll:
+**一位高级程序员和他的徒弟坐在图灵冥想中，思考着 Lambda。徒弟看着这个高级程序员，问道：“师傅，你告诉我要简单化，但是程序是复杂的。框架通过消除困难的选择来简化创建的工作。类库和框架哪个更好？”**
+
+**高级程序员看着他的徒弟回答道：“你不读明智的 Carmack 大师的教义吗？”，并引用道…**
+
+> “有时，优雅的实现仅仅是一个函数。不是一个方法。不是一个类库。也不是一个框架。仅仅是函数”
+
+**徒弟又开始说到：“但是，师傅，” —— 但是师傅打断来他的话，问道：**
+
+**“‘not functional（无功能）’这个词不就是 ‘dysfunctional（功能障碍）’吗？”**
+
+**然后徒弟明白了。**
 
 ---
 
-> **Immutability:** The true constant is change. Mutation hides change. Hidden change manifests chaos. Therefore, the wise embrace history.
-
-If you have a dollar, and I give you another dollar, it does not change the fact that a moment ago you only had one dollar, and now you have two. Mutation attempts to erase history, but history cannot be truly erased. When the past is not preserved, it will come back to haunt you, manifesting as bugs in the program.
-
-> **Separation:** Logic is thought. Effects are action. Therefore the wise think before acting, and act only when the thinking is done.
-
-If you try to perform effects and logic at the same time, you may create hidden side effects which cause bugs in the logic. Keep functions small. Do one thing at a time, and do it well.
-
-> **Composition:** All things in nature work in harmony. A tree cannot grow without water. A bird cannot fly without air. Therefore the wise mix ingredients together to make their soup taste better.
-
-Plan for composition. Write functions whose outputs will naturally work as inputs to many other functions. Keep function signatures as simple as possible.
-
-> **Conservation:** Time is precious, and effort takes time. Therefore the wise reuse their tools as much as they can. The foolish create special tools for each new creation.
-
-Type-specific functions can’t be reused for data of a different type. Wise programmers lift functions to work on many data types, or wrap data to make it look like what the function is expecting. Lists and items make great universal abstractions.
-
-> **Flow:** still waters are unsafe to drink. Food left alone will rot. The wise prosper because they let things flow.
-
-**[Editor’s note: The only illustration on the scroll was a row of different-looking ducks floating down a stream just above this verse. I have not reproduced the illustration because I don’t believe I could do it justice. Curiously, it was captioned:]**
+在这张纸的背面是一个是一个索引，似乎引用了计算机行业的许多书籍。我偷偷看了这些书籍，但是里面充满着我不能理解的语句，因此我放回数据并继续阅读卷轴。我注意到在索引的边缘充满了简短的评论，我将在这忠诚地复制这些评论以及卷轴里面的文字：
 
 ---
 
-> A list expressed over time is a stream.
+> **不变性：**真正的不变就是改变。变异隐藏变化。暗变则乱。因此，智者拥抱历史。
+
+如果你有一美元，而我又给你了亿美元，前一刻你仅有一美元，现在你拥有了两美元，这一事实并没有改变。变异会尝试删除历史记录，但是历史记录无法真正被删除。如果不完好的保存过去，他将表现为程序中的 bug，再次困扰你。
+
+> **分离：**逻辑就是思考，效果就是行动。因此，智者三思而后行，只有在深思熟虑后才采取行动。
+
+如果你尝试同时执行效果和逻辑，你可能创建导致逻辑错误的副作用。保存函数小的。一次只做一件事并做好。
+
+> **组合：**自然界中万物和谐相处。没有水，树木无法生长。没有空气，鸟儿不能飞翔。因此，明智的把配料混合在一起，让糖尝起来更美味。
+
+计划性的组合。编写输出自然可以用于许多其他函数输入的函数。让函数标识尽可能的简单。
+
+> **节约：**时间是宝贵的，而努力需要时间。因此，明智的做法是尽可能地重用他们的工具。愚蠢的人会为每个新的东西创造特殊的工具。
+
+特定类型的函数不能用于其它类型的数据。明智的程序员提升函数来处理多种数据类型，或者包装数据为函数所期望的那样的那样。lists 和 items 构成了很好的通用抽象。
+
+> **流动：**静水不适于饮用。不加处理的食物会腐烂。智者之所以成功，是因为他们让事务顺其流动。
+
+**[编者注：卷轴上唯一的插画是一排看起来不同的鸭子在这节经文的上方流淌而下。我没有复制插画，因为我不相信我可以做到这一点。奇怪的是，他的标题是：]**
 
 ---
 
-**[The corresponding note read:]**
+> 随时间表达的列表是一个流。
 
-Shared objects and data fixtures can cause functions to interfere with each other. Threads competing for the same resources can trip each other up. A program can be reasoned about and outcomes predicted only when data flows freely through pure functions.
+---
 
-**[Editor’s note: The scroll ended with this final verse, which had no commentary:]**
+**[相应的说明如下]**
 
-> **Wisdom:** The wise programmer understands the way before walking the path. Therefore the wise programmer is functional, while the unwise get lost in [the jungle](https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3).
+共享对象和数据配件可能导致函数相互干扰。竞争相同资源的线程可能会互相绊倒。只有当数据通过纯函数自由流动时，才能对程序进行推理并预测结果。
+
+**[编者注：卷轴以最后一节经文结尾，没有注释：]**
+
+> **智慧：**明智的程序员走上这条路前先了解路。因此，明智的程序员是有用的，而不明智的程序员会迷失在[丛林中](https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3)。
 >
 ---
 
@@ -80,13 +80,13 @@ Shared objects and data fixtures can cause functions to interfere with each othe
 
 ## 在 EricElliottJS.com 上学习更多
 
-Video lessons with interactive code challenges are available for members of EricElliottJS.com. If you’re not a member, [sign up today](https://ericelliottjs.com/).
+EricElliottJS.com 上的会员可以观看带有交互式代码挑战的视频课程。如果你还不是，[立即注册](https://ericelliottjs.com/)。
 
 ---
 
-****Eric Elliott** is a distributed systems expert and author of the books, [“Composing Software”](https://leanpub.com/composingsoftware) and [“Programming JavaScript Applications”](https://ericelliottjs.com/product/programming-javascript-applications-ebook/). As co-founder of [DevAnywhere.io](https://devanywhere.io/), he teaches developers the skills they need to work remotely and embrace work/life balance. He builds and advises development teams for crypto projects, and has contributed to software experiences for **Adobe Systems,Zumba Fitness,** **The Wall Street Journal,** **ESPN,** **BBC,** and top recording artists including **Usher, Frank Ocean, Metallica,** and many more.**
+**埃里克·埃利奥特（Eric Elliott）** 是一名分布式系统专家，并且是[《Composing Software》](https://leanpub.com/composingsoftware)和[《Programming JavaScript Applications》](https://ericelliottjs.com/product/programming-javascript-applications-ebook/)这两本书的作者。作为 [DevAnywhere.io](https://devanywhere.io/) 的联合创始人，他教开发人员远程工作和实现工作 / 生活平衡所需的技能。他建立并为加密项目的开发团队提供咨询，并为 **Adobe 公司、Zumba Fitness、《华尔街日报》、ESPN、BBC** 和包括 **Usher、Frank Ocean、Metallica** 在内的顶级唱片艺术家的软件体验做出了贡献。
 
-**He enjoys a remote lifestyle with the most beautiful woman in the world.**
+**他与世界上最美丽的女人一起享受着远程办公的生活方式。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
