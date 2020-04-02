@@ -2,54 +2,55 @@
 > * 原文作者：[Joey Colon](https://medium.com/@joey_colon)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/should-you-learn-vim-as-a-developer-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/should-you-learn-vim-as-a-developer-in-2020.md)
-> * 译者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：
 
-# Should You Learn VIM as a Developer in 2020?
+# 作为2020年的开发者，你应该学习 VIM 吗？
 
 ![Photo by [Helloquence ](https://unsplash.com/photos/5fNmWej4tAA)on [Unsplash](http://unsplash.com)](https://cdn-images-1.medium.com/max/2000/1*6RF4SWv3nDsFlX1vDzc8Nw.jpeg)
 
-## Introduction
+## 开场白
 
-The discussion of which text editor, which shell, or which OS you use has always been a hot topic for developers to chime in on. I’m sure we all know that one person who is crazy over VIM. I’m sorry to disappoint you, but this post will not be glorifying VIM itself. Instead, this post will be used to discuss why I decided to learn VIM, what VIM solved for me, what it didn’t, and most importantly, should you learn VIM?
+关于使用什么文本编辑器，哪一种 shell 和操作系统一直是开发者热衷于讨论的话题。我们知道，肯定有人很热衷于 VIM。遗憾的是，这篇文章不打算赞美 VIM，而是来讨论为什么我学习 VIM，它能为我解决什么问题，不能为我解决什么问题，以及最重要的，你应不应该学习 VIM？
 
-A brief introduction about my programming background as it will give context. I started programming seriously around late 2018 after deciding to pursue it for a career path. Before then, I would often create (pretty bad) scripts for different games I played and run a few websites/game servers as side hustles. Since taking up programming as a career, I have dabbled in several languages, but I find myself doing a lot of work in the JavaScript ecosystem. Now that we’ve got intros out of the way, let’s get started!
+下文中我会对我的编程背景做一个简要介绍。在2018年末，我决定把编程作为职业道路后，就开始认真对待编码。在这之前，我经常在我玩的各种游戏中创建（很烂的）脚本，然后运营一些网站或者游戏服务器，作为副业。自从把编程作为事业之后，我涉猎了几种语言，其中在 JavaScript 的生态中我做了很多事情。介绍结束，我们来开始正文吧！
 
 ![](https://cdn-images-1.medium.com/max/2400/1*djasmygBIiqOqTCnXUehxA.jpeg)
 
-## What VIM Didn’t Solve for Me
+## VIM 没有为我解决的问题
 
-VIM didn’t make me a better software engineer. I will say it again: Learning VIM does not make you a better software engineer. At its core, software engineering is agnostic of what shell/editor/OS you develop on. I believe that too many people implicitly have this notion that you need to use X or Y in order to be a “good” software engineer.
+VIM 没有让我变成更好的软件工程师。我要重申一遍：学习 VIM 不会让你变成更好的软件工程师。核心意思是，软件工程是不关注你开发所使用的 shell、编辑器或者操作系统。我相信肯定有很多人会有这样的观点：为了让你变成一个“好”的软件工程师，你需要使用 X 或者 Y。
 
-As a newcomer in this industry, I find the general “____ OR BUST” mentality to be cringe and elitist. We’re all creating solutions to complex problems. The toolkit you use to write your solution doesn't make you a better or worse developer.
+作为这个行业的新人，我发现“要么不做，要么破产”的心态是畏缩者和精英主义者所有的。我们都是在为复杂问题创造解决方案。用于写下方案的工具包，不会让你成为更好的或者更差的开发者。
 
-## Why I Decided to Learn VIM
+## 我为什么学习 VIM
 
-#### Building habits
+#### 建立习惯
 
-Since I’m a relatively new programmer, I have a lot of room for areas of improvement, and workflow is definitely one of those areas. Before learning VIM, I was never really a person to utilize hotkeys/keybindings to my advantage. I was extremely reliant on using my mouse. When being pitched the typical VIM spiel, the whole “keep your hands on the keyboard” point appealed to me since I have always been a fast typer. I knew in the back of my head that learning VIM wouldn’t lead to any sort of negatives.
+既然我是一个相对比较萌新的程序员，我在很多领域有提升的空间，工作流方面绝对是这些领域之一。在学习 VIM 之前，我是一个连快捷键都不会设置的人。我非常依赖于鼠标。在 VIM 给我洗脑时，“让手专注于键盘”这个观点吸引了我，因为我打字一直很快。我的潜意识里告诉我，学习 VIM 不会产生任何负面因素。
 
-#### Limitless potential
+#### 无限潜能
 
-When debating if I should learn VIM, I decided to watch a tech talk about it, and the single major takeaway I had from it was that people can use VIM for years and still be improving their usage on the tool.
+在纠结应不应该学 VIM 时，我看了一个关于它的科技讨论，唯一能获得的要点是，人们用 VIM 很多年了，现在还能在这个工具上进行改善。
 
-This hinted at a few things for me. First, picking up VIM is a huge time investment, but more importantly, you’re always finding ways to level up your craft. As someone who’s a pretty new developer, I want to parallelize my efforts when I can. This is a reiteration of my previous point, but when I incorporate different tools (VIM in this case) into my development workflow, I give myself the ability to kill two birds with one stone.
+这个观点提示了我很多事情。首先，学会 VIM 需要巨大的时间投资，但更重要的是，你是在找提升技术水平的路子。作为一个萌新的开发者，我想同步我的努力。这是我之前观点的重申，当我把开发工作流中的各种工具（本例中的 VIM ）掌握了，我就有一石二鸟的能力了。
 
-#### I no longer need nano on my Linux servers
+#### 在 Linux 服务器上，我再也不需要 nano 
 
-This is a bit of a random tidbit, but coming from someone who has worked in a Linux environment remotely over the years to run a few sites/servers, not knowing VIM was definitely annoying. If I needed to ever modify a config file for a service I was running on a box, it would require me to install nano as my knowledge with VIM was `:q!`.
+这句话有点传闻的味道，说这句话的人，在 Linux 远程环境下，运营了很多年的网站和服务器，他肯定不知道 VIM 确实很烦人。如果要为正在运行的服务修改配置文件，我得安装 nano，因为我对 VIM 的认知是用 `:q!` 来操作。
 
-## My Work Environment
+## 我的工作环境
 
-In my day-to-day, I utilize VSCode with the VIM plugin. I’ve tried installing VIM plugins such as coc.nvim and developing through the terminal itself, but it wasn’t something I was crazy over. I always really enjoyed the experience of writing code on VSCode. Using the VIM VSCode plugin gives me the same experience of running VIM, but I get to reap the benefits of the ecosystem VSCode provides to me. For me, I get the best of both worlds when utilizing this setup.
+日常工作中，我在 VSCode 上设置了 VIM 的插件。我曾经尝试安装过像 coc.nvim 这样的插件，借助终端本身来进行开发，但是这些都不是我的菜。我只喜欢在 VSCode 上写代码的体验。使用 VSCode 上的 VIM 插件提供了与运行 VIM 同样的体验，除此之外，我还能获得 VSCode 生态圈提供的好处。对于我来说，使用这个设置两全其美。
 
-## Conclusion
+## 总结
 
-Should you learn VIM? If you don’t have any sort of habit/strict keybindings for yourself, I think you should at least give it a try. The fact that I had no “comfortable” keybindings/workflow established for myself made learning VIM appealing to me. After learning VIM, I can say that I have gained a new foundation that I am only building off of.
+你应该学习 VIM 吗？如果你没有任何快捷键的习惯，我觉得你至少需要试一下。事实上，为了让学习 VIM 能够吸引我，我没有设置“不舒服”的热键或者工作流。学完 VIM 之后，我可以说我获得了只有自己才能构建的新的基础知识。
 
-It took me about two weeks of lightly running through vimtutor before I felt comfortable enabling the VSCode plugin. From there, it took another week of development time to innately navigate through code using the keybindings through muscle memory. The way I see it is I was coding either way for that time. I was able to get more value for my time by picking up VIM.
+浏览 VIM 的教程大概花了我两周的时间，然后我才适应打开 VSCode 上的插件。之后，又花了我另外一周的开发时间，用依靠肌肉记忆的快捷键来浏览代码。这种方式现在看来，我是在用两种方式写代码。通过学会 VIM，我能在时间上获得更多价值。
 
-Though, I would like to reiterate that, at the end of the day, programmers are creating solutions to problems. Which keybindings/editor/etc. you want to use is entirely based on your preference. The speed at which you edit files is often not the bottleneck in your development work.
+但是，我想重申，程序员最终还是为难题创造解决方案。你想用哪一种快捷键或者编辑器等等，完全基于你的偏好。你编辑文件的速度往往不是你开发工作的瓶颈。
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
