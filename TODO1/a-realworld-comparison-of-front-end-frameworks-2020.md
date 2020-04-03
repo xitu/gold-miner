@@ -2,8 +2,8 @@
 > - 原文作者：[Jacek Schae](https://medium.com/@jacekschae)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-realworld-comparison-of-front-end-frameworks-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-realworld-comparison-of-front-end-frameworks-2020.md)
-> - 译者：
-> - 校对者：
+> - 译者：[snowyYU](https://github.com/snowyYU)
+> - 校对者：[Baddyo](https://github.com/Baddyo)、[IAMSHENSH](https://github.com/IAMSHENSH)
 
 # 2020 年用各大前端框架构建的 RealWorld 应用对比
 
@@ -16,7 +16,7 @@
 
 请记住哦，好了，让我们开始吧：
 
-**我们对比 RealWorld 应用** —— 相较 “to do” 类型的应用，它的功能更加强大。通常来说，“to-dos” 并不能说明各框架在实际应用中的表现情况。
+**我们对比 RealWorld 应用** —— 相较“to do”类型的应用，它的功能更加强大。通常来说，“to-dos”并不能说明各框架在实际应用中的表现情况。
 
 **项目有一定的规范** —— 一个符合特定规则的项目 —— [相关规范在此](https://github.com/gothinkster/realworld/tree/master/spec)。提供了后端 API，静态 html 模版和样式。
 
@@ -136,13 +136,14 @@ Svelte 和 Stencil 社区完成的 RealWorld 应用太棒了，把需要加载�
 
 #### #4 包括了哪个版本的库/框架？
 
-所涉及的库/框架在撰写本文时（2020 年 3 月）均可用。该信息来自 [RealWorld 仓库](https://github.com/gothinkster/realworld)。我确定你可以在[GitHub 仓库](https://github.com/gothinkster/realworld) 中找到相关信息。
+所涉及的库/框架在撰写本文时（2020 年 3 月）均可用。该信息来自 [RealWorld 仓库](https://github.com/gothinkster/realworld)。我确定你可以在 [GitHub 仓库](https://github.com/gothinkster/realworld) 中找到相关信息。
 
 #### #5 有比本文中出现的更流行的框架，你怎么忘记比较啦？
 
 同样，请参阅问题 1 和问题 3。以该框架为基础构建的 RealWorld 应用尚未在 [RealWorld 仓库](https://github.com/gothinkster/realworld) 上出现或按照规范构建完成；原因就是这么简单。
 
 > 如果你喜欢这篇文章，请 [在Twitter上关注我](https://twitter.com/JacekSchae)。我只写/推有关编程和技术的文章。
+
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
