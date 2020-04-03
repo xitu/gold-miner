@@ -7,8 +7,6 @@
 
 # The Top 6 JavaScript frameworks for 2020
 
-#### Let’s see what the top JS frameworks are for 2020
-
 ![In the Javascript world (Image source and credits: JS tips)](https://cdn-images-1.medium.com/max/3200/0*0bpy35Lc6rAdvivL.gif)
 
 ## 1.Vue.js
@@ -23,7 +21,7 @@ Vue.Js is an open-source framework. It has been built on — Angular and React. 
 
 ![Behance](https://cdn-images-1.medium.com/max/2698/0*kFWAmDIqI1JjI5dN.png)
 
-Behance- The website is used by Graphic designers to showcase their talents across the world. They have used Vue.JS as a front-end programming language.
+Behance - The website is used by Graphic designers to showcase their talents across the world. They have used Vue.JS as a front-end programming language.
 
 #### Gitlab
 
@@ -101,7 +99,7 @@ Where to get started? Start from here :
 
 [https://github.com/WebRxJS/WebRx](https://github.com/WebRxJS/WebRx)
 
-**Last but the most promising one ( one which is always battle-ready)…**
+**Last but the most promising one (one which is always battle-ready)…**
 
 ## 6. Angular
 
@@ -110,7 +108,7 @@ Angular is a full-blown framework and not a flexible framework like React. It ha
 1. A powerful JavaScript framework that will organize your projects seamlessly.
 2. It offers incredible speed and versatility.
 
-Where to get started? Start from here :
+Where to get started? Start from here:
 
 [https://github.com/angular/angular](https://github.com/angular/angular)
 
