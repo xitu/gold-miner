@@ -57,7 +57,6 @@ Aurelia is a front-end JavaScript framework. It is —
 Next.Js is a JavaScript written an open-source framework. It is —
 
 1. Built for developing highly customizable web-based applications.
-
 2. It’s a zero-configuration, single-command toolchain for React apps.
 
 ![Next.js (Image source and credits: Next.js website)](https://cdn-images-1.medium.com/max/2800/0*Xs8fycEdNqhhQ9jZ.jpg)
@@ -78,8 +77,7 @@ Riot.Js focuses on providing users with the most effective and simplest architec
 
 Some of its features :
 
-1.Riot.Js enables users to apply custom HTML tags all over the pages and web applications. You can also reuse those tags.
-
+1. Riot.Js enables users to apply custom HTML tags all over the pages and web applications. You can also reuse those tags.
 2. It highly focuses on micro-functions that allows you to work individually with different applications at a time.
 
 Where to get started? Start from here:
@@ -97,8 +95,7 @@ WebRx is a browser-based model-view-view-model JavaScript framework. It brings �
 Some of its best features :
 
 1. It offers an effective collection processing that comes with filtering projections, paging, etc.
-
-3. It offers a strong inter-component communication provided by different message bus.
+2. It offers a strong inter-component communication provided by different message bus.
 
 Where to get started? Start from here :
 
