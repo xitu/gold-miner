@@ -12,29 +12,29 @@
 来了来了，本篇写于 2020 年，往年的版本请看这里：[2019](https://medium.com/free-code-camp/a-realworld-comparison-of-front-end-frameworks-with-benchmarks-2019-update-4be0d3c78075)、[2018](https://medium.com/free-code-camp/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-2018-update-e5760fb4a962) 和 [2017](https://medium.com/free-code-camp/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c)。
 
 
-**首先，请务必明白 ———— 本篇不是告诉你应该选择哪种作为你未来的前端框架，在此只简短浅显的对比三个方面：各 RealWorld 应用的性能，大小、代码行数。**
+**首先，请务必明白 —— 本篇不是告诉你应该选择哪种作为你未来的前端框架，在此只简短浅显的对比三个方面：各 RealWorld 应用的性能，大小、代码行数。**
 
 请记住哦，好了，让我们开始吧：
 
-**我们对比 RealWorld 应用 **———— 相较 “to do” 类型的应用，它的功能更加强大。通常来说，“to-dos” 并不能说明各框架在实际应用中的表现情况。
+**我们对比 RealWorld 应用 **—— 相较 “to do” 类型的应用，它的功能更加强大。通常来说，“to-dos” 并不能说明各框架在实际应用中的表现情况。
 
-**项目有一定的规范 **———— 一个符合特定规则的项目 ———— [相关规范在此](https://github.com/gothinkster/realworld/tree/master/spec)。提供了后端 API，静态 html 模版和样式。
+**项目有一定的规范 **—— 一个符合特定规则的项目 —— [相关规范在此](https://github.com/gothinkster/realworld/tree/master/spec)。提供了后端 API，静态 html 模版和样式。
 
-**项目的构建和检查都是由相关技术的大牛完成的 **———— 一般来说，相关框架的技术大牛会构建并检查自己 real-world 项目，确保其和别的项目的一致性。
+**项目的构建和检查都是由相关技术的大牛完成的 **—— 一般来说，相关框架的技术大牛会构建并检查自己 real-world 项目，确保其和别的项目的一致性。
 
 ## 我们正在比较哪些库 / 框架？
 
-截至撰写本文时，[RealWorld 仓库](https://github.com/gothinkster/realworld) 中已有 24 个相关实现。也许有受众更多的框架没有出现在这里。但进行对比的前提只有一个 ———— 它必须出现在 [RealWorld 仓库](https://github.com/gothinkster/realworld) 页面里。
+截至撰写本文时，[RealWorld 仓库](https://github.com/gothinkster/realworld) 中已有 24 个相关实现。也许有受众更多的框架没有出现在这里。但进行对比的前提只有一个 —— 它必须出现在 [RealWorld 仓库](https://github.com/gothinkster/realworld) 页面里。
 
 ![](https://cdn-images-1.medium.com/max/5892/1*hztR7Zs5pFMvAaaqnGGBAA.png)
 
 ## 我们关注什么指标？
 
-**性能** ———— 此应用需要多长时间才能显示内容并变得可用。
+**性能** —— 此应用需要多长时间才能显示内容并变得可用。
 
-**大小** ———— 应用有多大的体积? 我们只会比较编译后的 JavaScript 文件大小。HTML 和 CSS 对所有的 RealWorld 应用都是通用的，并且都可从 CDN 下载。此外，所有技术均可编译或转换为 JavaScript，综上，我们只比较编译后的 JavaScript 文件大小。
+**大小** —— 应用有多大的体积? 我们只会比较编译后的 JavaScript 文件大小。HTML 和 CSS 对所有的 RealWorld 应用都是通用的，并且都可从 CDN 下载。此外，所有技术均可编译或转换为 JavaScript，综上，我们只比较编译后的 JavaScript 文件大小。
 
-**代码行数** ———— 开发者需要多少行代码才能根据规范创建 RealWorld 应用？公平来说，有些应用有更多的功能，但这应该没啥大的影响。我们只看 `src/` 文件夹中各文件的代码行数。即使它是自动生成的也可以 ———— 你仍需要持续维护它。
+**代码行数** —— 开发者需要多少行代码才能根据规范创建 RealWorld 应用？公平来说，有些应用有更多的功能，但这应该没啥大的影响。我们只看 `src/` 文件夹中各文件的代码行数。即使它是自动生成的也可以 —— 你仍需要持续维护它。
 
 ---
 
@@ -50,7 +50,7 @@
 
 渲染的越快，用户就能越早地使用该应用，同样，用户的体验就越好。
 
-![性能（分数 0–100）———— 分数越高越好。](https://cdn-images-1.medium.com/max/11192/1*-adYkKBH0YgvRYPp2gbs5Q.png)
+![性能（分数 0–100）—— 分数越高越好。](https://cdn-images-1.medium.com/max/11192/1*-adYkKBH0YgvRYPp2gbs5Q.png)
 
 #### 备注
 
@@ -72,13 +72,13 @@ Lighthouse Audit 可没闲着。您可以看到未维护/未更新的应用程�
 
 文件越小，下载速度越快，并且需要解析的内容越少。
 
-![加载资源的大小以 KB 为单位计算 ———— 越小越好](https://cdn-images-1.medium.com/max/11176/1*6HK361f-UDqNpWuTA68jHw.png)
+![加载资源的大小以 KB 为单位计算 —— 越小越好](https://cdn-images-1.medium.com/max/11176/1*6HK361f-UDqNpWuTA68jHw.png)
 
 #### 备注
 
 **注意：由于缺少 demo 应用，这里再次忽略 PureScript。**
 
-**Angular + ngrx + nx 方案的支持者可别打我哟 ———— 看一下 Chrome 开发者工具中的 Network 标签里的加载情况，如果我算错了 — 还请告知。**
+**Angular + ngrx + nx 方案的支持者可别打我哟 —— 看一下 Chrome 开发者工具中的 Network 标签里的加载情况，如果我算错了 — 还请告知。**
 
 **Rust + Yew + WebAssembly 方案的大小计算，包括了以 .wasm 结尾的文件。**
 
@@ -92,7 +92,7 @@ Svelte 和 Stencil 社区完成的 RealWorld 应用太棒了，把需要加载�
 
 我们使用 [cloc](https://github.com/AlDanial/cloc) 计算每个库的 src 文件夹中的代码行数。**不包含**空白行和注释。考量这个指标的意义何在呢？
 
-> **如果说调试是消灭 bug 的过程, 那么编码则是产生它的过程 ———— Edsger Dijkstra**
+> **如果说调试是消灭 bug 的过程, 那么编码则是产生它的过程 —— Edsger Dijkstra**
 
 #### 基本原则
 
@@ -111,6 +111,7 @@ Svelte 和 Stencil 社区完成的 RealWorld 应用太棒了，把需要加载�
 #### 总结
 
 只有 Imba 和 [ClojureScript + re-frame](https://www.learnreframe.com/) 能在 1000 行代码以内实现 RealWorld 应用。Clojure 以独特的表现力而著称。Imba 第一次出现在这里（去年是因为 cloc 还不能识别以 .imba 为后缀的文件），看起来之后会一直出现在这里。如果你关心自己项目的代码行数，那么你现在知道该怎么做啦。
+
 ---
 
 ## 最后
@@ -127,7 +128,7 @@ Svelte 和 Stencil 社区完成的 RealWorld 应用太棒了，把需要加载�
 
 #### #2 为什么你们称其为 real world？
 
-因为它不只是一个 To-Do 应用程序。通过 RealWorld 应用，我们并不是要比较相关技术能拿到的薪水，可维护性，生产力，学习曲线等方面。这有[其他调查](https://insights.stackoverflow.com/survey/2018/)回答了其中一些问题。我们所说的 RealWorld 是指连接到服务器，进行身份验证并允许用户进行 CRUD 操作的应用程序 ———— 就像现实世界中的应用程序一样。
+因为它不只是一个 To-Do 应用程序。通过 RealWorld 应用，我们并不是要比较相关技术能拿到的薪水，可维护性，生产力，学习曲线等方面。这有[其他调查](https://insights.stackoverflow.com/survey/2018/)回答了其中一些问题。我们所说的 RealWorld 是指连接到服务器，进行身份验证并允许用户进行 CRUD 操作的应用程序 —— 就像现实世界中的应用程序一样。
 
 #### #3 你为什么不比较我最喜欢的框架？
 
