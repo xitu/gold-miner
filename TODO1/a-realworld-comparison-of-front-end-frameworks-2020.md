@@ -11,7 +11,6 @@
 
 来了来了，本篇写于 2020 年，往年的版本请看这里：[2019](https://medium.com/free-code-camp/a-realworld-comparison-of-front-end-frameworks-with-benchmarks-2019-update-4be0d3c78075)、[2018](https://medium.com/free-code-camp/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-2018-update-e5760fb4a962) 和 [2017](https://medium.com/free-code-camp/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c)。
 
-
 **首先，请务必明白 —— 本篇不是告诉你应该选择哪种作为你未来的前端框架，在此只简短浅显的对比三个方面：各 RealWorld 应用的性能，大小、代码行数。**
 
 请记住哦，好了，让我们开始吧：
@@ -32,7 +31,7 @@
 
 **性能** —— 此应用需要多长时间才能显示内容并变得可用。
 
-**大小** —— 应用有多大的体积? 我们只会比较编译后的 JavaScript 文件大小。HTML 和 CSS 对所有的 RealWorld 应用都是通用的，并且都可从 CDN 下载。此外，所有技术均可编译或转换为 JavaScript，综上，我们只比较编译后的 JavaScript 文件大小。
+**大小** —— 应用有多大的体积？我们只会比较编译后的 JavaScript 文件大小。HTML 和 CSS 对所有的 RealWorld 应用都是通用的，并且都可从 CDN 下载。此外，所有技术均可编译或转换为 JavaScript，综上，我们只比较编译后的 JavaScript 文件大小。
 
 **代码行数** —— 开发者需要多少行代码才能根据规范创建 RealWorld 应用？公平来说，有些应用有更多的功能，但这应该没啥大的影响。我们只看 `src/` 文件夹中各文件的代码行数。即使它是自动生成的也可以 —— 你仍需要持续维护它。
 
