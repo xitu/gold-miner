@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-cloud-services-help-improve-your-businessess-efficiency.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-cloud-services-help-improve-your-businessess-efficiency.md)
 > * 译者：[Roc](https://github.com/QinRoc)
-> * 校对者：[GPH](https://github.com/PingHGao)
+> * 校对者：[GPH](https://github.com/PingHGao)，[Yinjia](https://github.com/yvonneit)
 
 # 云服务如何帮助你提高业务效率？
 
@@ -13,7 +13,7 @@
 
 在 20 世纪，企业依靠内部机房里的服务器和计算机开展业务。
 
-这意味着，当需要启用新的服务器时，要耗费数周乃至数月的时间才能把一切准备就绪。从批准预算，到下订单，到运输服务器，再到安装 —— 这是一个漫长而艰巨的过程。
+这意味着，当需要启用新的服务器时，要耗费数周乃至数月的时间才能把一切准备就绪。从批准预算、下订单、运输服务器，直到安装 —— 这是一个漫长而艰巨的过程。
 
 但是时代已经改变，企业应该在现场配置价值百万美金的服务器的观念已经被云计算服务改变。
 
@@ -31,13 +31,13 @@
 
 IaaS，是 Infrastructure-as-a-Service（基础设施即服务）的简称。这种服务模式提供大量的虚拟或物理的基础设施，[包括服务器、网络、数据中心、虚拟机管理程序层，甚至虚拟化](https://www.theseattledataguy.com/5-aws-technologies-thatll-make-your-life-easier/)。
 
-通常，这个服务也包括对基础设施和弹性存储的管理。通过 IaaS，企业可以安装操作系统，部署他们的[数据库](https://www.theseattledataguy.com/big-data-bigger-results-data-driven-solutions-for-company/)，拥有不断变更存储空间大小或者他们所使用的环境的灵活性。只要你觉得方便，按月、按小时或者按周支付，哪种都可以。
+通常，这个服务也包括对基础设施和弹性存储的管理。通过 IaaS，企业可以安装操作系统，部署他们的[数据库](https://www.theseattledataguy.com/big-data-bigger-results-data-driven-solutions-for-company/)，拥有不断变更存储容量或者运行环境的灵活性。只要你觉得方便，按月、按小时或者按周支付，哪种都可以。
 
 IaaS 是[云计算领域](https://logitanalytics.com/what-are-the-different-kinds-of-cloud-computing-services/)的基础服务提供方式之一。它允许企业通过第三方云计算服务提供商来访问互联网上的存储空间、网络、服务器和其他东西。IaaS 允许组织创建足以满足他们业务需求的 IT 环境。
 
 ##### 真实案例
 
-一些最受欢迎的 IaaS 案例包括类似 AWS 的 EC2 或 RDS 的产品。这些服务让你能很简单地就启动一台 Linux 服务器或者一个数据库，并且可以根据你的需要进行扩展。你不再需要获取一台新的服务器，只需要在 AWS 上点击创建按钮就可以了。还有 AWS 工作区，能够让企业在一个虚拟私有云网络中启动虚拟的台式机。这让安全管理和远程工作更简单了。
+一些最受欢迎的 IaaS 案例包括类似 AWS 的 EC2 或 RDS 的产品。这些服务让你能很简单地就启动一台 Linux 服务器或者一个数据库，并且可以根据你的需要进行扩展。你不再需要获取一台新的服务器，只需要在 AWS 上点击创建按钮就可以了。除此以外，AWS 工作区能够让企业在一个虚拟私有云网络中启动虚拟的台式机，这种方式让安全管理和远程工作更简单了。
 
 ##### 不需要买一台计算机
 
@@ -75,15 +75,15 @@ FaaS 最大的好处是它提供无服务器计算，这点让开发者可以直
 
 ##### 真实案例
 
-FaaS 最受欢迎的案例有 Amazon Lambda、Microsoft Azure Function、IBM Cloud Functions 和 Google Cloud Functions。以 Lambda 为例，它可以按需执行代码，并且根据需求来自动伸缩每天的请求。因此，将它和 API 网关结合使用，可以很方便地开发出一个最佳解决方案。
+FaaS 最受欢迎的案例有 Amazon Lambda、Microsoft Azure Function、IBM Cloud Functions 和 Google Cloud Functions。以 Lambda 为例，它可以按需执行代码，并且根据需求来自动伸缩每天的请求。因此，将它和 API 网关结合使用，可以很方便地生成一个最佳解决方案。
 
 ## 结论
 
 云计算可以帮助一家企业快速扩展他们的 IT 解决方案。它可以提供一个成熟的平台，来管理存储、服务器和虚拟桌面。在诸如 IaaS、PaaS、SaaS 和 FaaS 的云计算服务的帮助下，你的公司可以使用虚拟基础设施来管理其 IT 相关业务。
 
-不仅如此，虚拟化还让企业更容易降低成本并进行更好的分析。
+不仅如此，这种虚拟化技术也让企业更容易降低成本并更好地处理分析业务。
 
-云计算都是有关简化技术流程的。如果你的组织还没有使用这些服务，你最好开始研究它们以维持组织的市场地位。
+云计算就是要简化技术流程。如果你所在的企业或者部门还没有开始使用云计算相关服务，那么最好就从现在开始吧，不要和当前的市场脱节了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
