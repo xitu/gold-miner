@@ -2,123 +2,125 @@
 > * 原文作者：[Benjamin Morel](https://medium.com/@benmorel)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/high-speed-inserts-with-mysql.md](https://github.com/xitu/gold-miner/blob/master/TODO1/high-speed-inserts-with-mysql.md)
-> * 译者：
+> * 译者：[司徒公子](https://github.com/todaycoder001)
 > * 校对者：
 
-# High-speed inserts with MySQL
+# MySQL 最佳实践—— 高效插入数据
 
-![Get the dolphin up to speed — Photo by [JIMMY ZHANG](https://unsplash.com/photos/5Xm_LIystCg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6528/1*9Ihf50zErzTg4KR4JnodzA.jpeg)
+![Get the dolphin up to speed — Photo by [JIMMY ZHANG](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200402002543.jpeg) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6528/1*9Ihf50zErzTg4KR4JnodzA.jpeg)
 
-When you need to bulk-insert many million records in a MySQL database, you soon realize that sending `INSERT` statements one by one is not a viable solution.
+当你需要在 MySQL 数据库中批量插入数百万条数据时，你就会意识到，逐条发送 `INSERT` 语句并不是一个可行的方法。
 
-The MySQL documentation has some [INSERT optimization tips](https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html) that are worth reading to start with.
+MySQL 文档中有些值得一读的 [INSERT 优化技巧](https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html)。
 
-I will try to summarize here the two main techniques to efficiently load data into a MySQL database.
+这篇文章，我将会尝试总结 —— 将数据高效加载到 MySQL 数据库的两大技术点。
 
 ## LOAD DATA INFILE
 
-If you’re looking for raw performance, this is indubitably your solution of choice. `LOAD DATA INFILE` is a highly optimized, MySQL-specific statement that directly inserts data into a table from a CSV / TSV file.
+如果你正在寻找原始性能，这无疑是你的首选方案。`LOAD DATA INFILE` 是一个高度优化的、特定用于 MySQL 的语句，它直接将数据从 CSV / TSV 文件插入到表中。
 
-There are two ways to use `LOAD DATA INFILE`. You can copy the data file to the server's data directory (typically `/var/lib/mysql-files/`) and run:
+有两种方法可以使用 `LOAD DATA INFILE`。你能将数据文件拷贝到服务端数据目录（通常 `/var/lib/mysql-files/`），并且运行：
 
 ```sql
 LOAD DATA INFILE '/path/to/products.csv' INTO TABLE products;
 ```
 
-This is quite cumbersome as it requires you to have access to the server’s filesystem, set the proper permissions, etc.
+这是相当麻烦的，因为它需要你赋予其访问服务器文件的权限、设置合适的权限，等。
 
-The good news is, you can also store the data file **on the client side**, and use the `LOCAL` keyword:
+好消息是，你也能将数据文件存储**在客户端**，并且使用 `LOCAL` 关键词：
 
 ```sql
 LOAD DATA LOCAL INFILE '/path/to/products.csv' INTO TABLE products;
 ```
 
-In this case, the file is read from the client’s filesystem, transparently copied to the server’s temp directory, and imported from there. All in all, **it’s almost as fast as loading from the server’s filesystem directly**. You do need to ensure that this [option](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_local_infile) is enabled on your server, though.
+在这种情况下，从客户端文件系统中读取文件，将其透明的拷贝到服务端临时目录，然后从该目录导入。总而言之，**这几乎与直接从服务器文件系统加载模块一样快**，不过，你需要确保服务器启用了此 [选项](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_local_infile)。
 
-There are many options to `LOAD DATA INFILE`, mostly related to how your data file is structured (field delimiter, enclosure, etc.). Have a look at the [documentation](https://dev.mysql.com/doc/refman/5.7/en/load-data.html) to see them all.
+`LOAD DATA INFILE` 有很多可选项，主要与数据文件的结构有关（字段分隔符、附件等）。请查看 [文档](https://dev.mysql.com/doc/refman/5.7/en/load-data.html) 以查看全部内容。
 
-While `LOAD DATA INFILE` is your best option performance-wise, it requires you to have your data ready as delimiter-separated text files. If you don’t have such files, you’ll need to spend additional resources to create them, and will likely add a level of complexity to your application. Fortunately, there’s an alternative.
+虽然 `LOAD DATA INFILE` 是考虑到性能方面的最佳选项，但是它需要你将数据准备至逗号分隔符的文本文件中。如果你没有这样的文件，你就需要花费额外的资源来创建他们，并且可能会在一定程度上增加应用程序的复杂性。幸运的是，还有一种另外的选择。
 
 ## Extended inserts
 
 A typical SQL `INSERT` statement looks like:
+一个典型的 `INSERT` SQL 语句是这样的：
 
 ```sql
 INSERT INTO user (id, name) VALUES (1, 'Ben');
 ```
 
-An extended `INSERT` groups several records into a single query:
+extended `INSERT` 将多条插入记录聚合到一个查询语句中：
 
 ```sql
 INSERT INTO user (id, name) VALUES (1, 'Ben'), (2, 'Bob');
 ```
 
-The key here is to find the optimal number of inserts per query to send. There is no one-size-fits-all number, so you need to benchmark a sample of your data to find out the value that yields the maximum performance, or the best tradeoff in terms of memory usage / performance.
+这里的关键就是，找到每个要发送查询的最佳插入数量。没有一个放之四海而皆准的数字，因此，你需要对数据样本做基准测试，以找到性能收益的最大值，或者在内存使用和性能方面找到最佳折衷。
 
-To get the most out of extended inserts, it is also advised to:
+为了充分利用 extended insert，我们还建议：
 
-* use prepared statements
-* run the statements in a transaction
+* 使用预处理语句
+* 在事务中运行该语句
 
-## The benchmark
+## 基准测试
 
-I’m inserting 1.2 million rows, 6 columns of mixed types, ~26 bytes per row on average. I tested two common configurations:
+插入了 120 万行、6 列 混合类型数据，平均每一行 26 个字节，我测试了两种常见的配置：
 
-* Client and server on the same machine, communicating through a UNIX socket
-* Client and server on separate machines, on a very low latency (\< 0.1 ms) Gigabit network
+* 客户端和服务端在同一机器上，通过 UNIX 套接字进行通信
+* 客户端和服务端在不同的机器上，非常低延迟（小于 0.1 毫秒）的千兆网络上
 
-As a basis for comparison, I copied the table using `INSERT … SELECT`, yielding a performance of **313,000 inserts / second**.
+作为比较的基础，我使用 `INSERT ... SELECT` 复制了该表，**每秒插入 313,000 条**数据的表现。
 
 #### LOAD DATA INFILE
 
-To my surprise, `LOAD DATA INFILE` proves **faster** than a table copy:
+令我吃惊的是，`LOAD DATA INFILE` 被证明比拷贝表**更快**：
 
-* `LOAD DATA INFILE`: **377,000** inserts / second
-* `LOAD DATA LOCAL INFILE` over the network: **322,000** inserts / second
+* `LOAD DATA INFILE`：每秒 **377,000** 次插入
+* `LOAD DATA LOCAL INFILE` 通过网络：每秒 **322,000** 次插入
 
-The difference between the two numbers seems to be directly related to the time it takes to transfer the data from the client to the server: the data file is 53 MiB in size, and the timing difference between the 2 benchmarks is 543 ms, which would represent a transfer speed of 780 mbps, close to the Gigabit speed.
+这两个数字的差异似乎与从客户端到服务端传输数据的耗时有直接的关系：数据文件的大小为 53 MB，两个基准测试的时间差了 543 ms，这表示传输速度为 780 mbps，接近千兆速度。
 
-This means that, in all likelihood, **the MySQL server does not start processing the file until it is fully transferred**: your insert speed is therefore directly related to the bandwidth between the client and the server, which is important to take into account if they are not located on the same machine.
+这意味着，很有可能，**在完全传输文件之前，MySQL 服务器并没有开始处理该文件**：因此，插入的速度与客户端和服务端之间的带宽直接相关，如果它们不在同一台机器上，考虑这一点则非常重要。
 
 #### Extended inserts
 
-I measured the insert speed using `BulkInserter`, a PHP class part of [an open-source library](https://github.com/brick/db) that I wrote, with up to 10,000 inserts per query:
+我使用 `BulkInserter` 来测试插入的速度，`BulkInserter` 是我编写的 [开源库](https://github.com/brick/db) PHP 类的一部分，每个查询最多插入 10,000 个：
 
-![](https://cdn-images-1.medium.com/max/2000/1*k_QS1qtgN5-UyrDkjSRg_w.png)
+![](http://blog-private.oss-cn-shanghai.aliyuncs.com/20200402002600.png)
 
-As we can see, the insert speed raises quickly as the number of inserts per query increases. We got a 6× increase in performance on localhost and a 17× increase over the network, compared to the sequential `INSERT` speed:
+正如我们所看到的，随着每条查询插入数的增长，插入速度也会迅速提高。与逐条`插入`速度相比，我们在本地主机上性能提升了 6 倍，在网络主机上性能提升了 17 倍：
 
-* 40,000 → 247,000 inserts / second on localhost
-* 12,000 → 201,000 inserts / second over the network
+* 在本地主机上每秒插入数量从 40,000 提升至 247,000
+* 在网络主机上每秒插入数量从 1,2000 提升至 201,000
 
-It takes around 1,000 inserts per query to reach the maximum throughput in both cases, but **40 inserts per query are enough to achieve 90% of this throughput** on localhost, which could be a good tradeoff here. It’s also important to note that **after a peak, the performance actually decreases** as you throw in more inserts per query.
+在这两种情况下，每个查询大约需要达到 1,000 个插入能达到最大吞吐量。但是**每条查询 40 个插入就足以在本地主机上达到 90% 的吞吐量**，这可能是一个很好的折衷。还需要注意的是，达到峰值之后，随着每个查询插入数量的增加，性能实际上是会下降。
 
-The benefit of extended inserts is higher over the network, because sequential insert speed becomes a function of your latency:
+extended insert 相比于在网络上，优势更加显著，因为逐条插入的速度取决于你的延迟。
 
 ```sql
 max sequential inserts per second ~= 1000 / ping in milliseconds
 ```
 
 The higher the latency between the client and the server, the more you’ll benefit from using extended inserts.
+客户端和服务端之间的延迟越高，你从 extended insert 中获益越多。
 
-## Conclusion
+## 结论
 
-As expected, **`LOAD DATA INFILE` is the preferred solution when looking for raw performance on a single connection**. It requires you to prepare a properly formatted file, so if you have to generate this file first, and/or transfer it to the database server, be sure to take that into account when measuring insert speed.
+不出所料，**当在单个连接上开始寻找原始性能的时候，`LOAD DATA INFILE` 是首选解决方案**。它要求你准备格式正确的文件，因此，首先你必须生成这个文件，并/或将其传输到数据库服务器，那么在测试插入速度时一定要考虑这一点。
 
-Extended inserts on the other hand, do not require a temporary text file, and can give you around 65% of the `LOAD DATA INFILE` throughput, which is a very reasonable insert speed. It’s interesting to note that it doesn’t matter whether you’re on localhost or over the network, **grouping several inserts in a single query always yields better performance**.
+另一方面，extended insert 不要求临时的文本文件，并且可以提供大约 65% 的 `LOAD DATA INFILE` 吞吐量，这是非常合理的插入速度。有意思的是，无论是基于网络还是本地主机，**聚集多条插入到单个查询总是会产生更好的性能**。
 
-If you decide to go with extended inserts, be sure to **test your environment with a sample of your real-life data** and a few different inserts-per-query configurations before deciding upon which value works best for you.
+如果你决定开始使用 extended insert，在决定哪个值最适合你之前，**使用真实的样本数据**，为每个查询配置不同的插入数来**测试你的环境**。
 
-Be careful when increasing the number of inserts per query, as it may require you to:
+在增加单个查询的插入数的时候要小心，因此它可能需要：
 
-* allocate more memory on the client side
-* increase the [max_allowed_packet](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet) setting on the MySQL server
+* 在客户端分配更多的内存
+* 增加 MySQL 服务器的 [max allowed packet](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet) 参数配置。
 
-As a final note, it’s worth mentioning that according to Percona, you can achieve even better performance using concurrent connections, partitioning, and multiple buffer pools. See [this post on their blog](http://www.percona.com/blog/2011/01/07/high-rate-insertion-with-mysql-and-innodb/) for more information.
+最后，值得一提的是，根据 Percona 的说法，你可以使用并发连接、分区以及多个缓冲池，以获得更好的性能。更多信息请查看 [他们博客的这篇文章](http://www.percona.com/blog/2011/01/07/high-rate-insertion-with-mysql-and-innodb/)。
 
-**The benchmarks have been run on a bare metal server running Centos 7 and MySQL 5.7, Xeon E3 @ 3.8 GHz, 32 GB RAM and NVMe SSD drives. The MySQL benchmark table uses the InnoDB storage engine.**
+**基准测试已运行在 Centos 7 和 MySQL 5.7、Xeon E3 @3.8 GHz，32 GB RAM 和 NVMe SSD 驱动的裸服务器上。MySQL 的基准表使用 InnoBD 存储引擎。**
 
-**The benchmark source code can be found in [this gist](https://gist.github.com/BenMorel/78f742356391d41c91d1d733f47dcb13). The benchmark result graph is available on [plot.ly](https://plot.ly/~BenMorel/52).**
+**基准测试源代码你能在 [本要点](https://gist.github.com/BenMorel/78f742356391d41c91d1d733f47dcb13) 中找到，[plot.ly](https://plot.ly/~BenMorel/52) 上可以找到基准测试的结果图。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
