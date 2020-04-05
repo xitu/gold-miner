@@ -2,96 +2,96 @@
 > * 原文作者：[Prateek Singh](https://medium.com/@prateeksingh_31398)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-secret-features-of-json-stringify.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zoomdong](https://github.com/fireairforce)
+> * 校对者：[Long Xiong](https://github.com/xionglong58), [niayyy](https://github.com/niayyy-S)
 
-# 5 Secret features of JSON.stringify()
+# JSON.stringify() 的 5 个秘密特性
 
 ![Credits: [Kirmeli.com](https://www.google.com/url?sa=i&url=https%3A%2F%2Fahmedalkiremli.com%2Fwhy-to-learn-what-to-learn-and-how-to-learn%2F&psig=AOvVaw3IGik44VGBXe661UZsW5Mh&ust=1581750442478000&source=images&cd=vfe&ved=0CAMQjB1qFwoTCMj-5Oi90OcCFQAAAAAdAAAAABAR)](https://cdn-images-1.medium.com/max/2000/1*aQy1TrGzC_n_UC0j9hXBbw.jpeg)
 
-> The JSON. stringify() method converts a JavaScript object or value to a JSON string.
+> JSON.stringify() 方法能将一个 JavaScript 对象或值转换成一个 JSON 字符串。
 
-Being a JavaScript developer, `JSON.stringify()` is the most common functions used for debugging. But what is the use of this, can’t we use our friend `console.log()` alone for the same? Let’s give it a try.
+作为一名 JavaScript 开发人员，`JSON.stringify()` 是用于调试的最常见函数。但是它的作用是什么呢，难道我们不能使用 `console.log()` 来做同样的事情吗？让我们试一试。
 
 ```js
-//Initialize a User object
+//初始化一个 user 对象
 const user = {
- “name” : “Prateek Singh”,
- “age” : 26
+ "name" : "Prateek Singh",
+ "age" : 26
 }
 
 console.log(user);
 
-RESULT
+// 结果
 // [object Object]
 ```
 
-Oops! `console.log()` didn’t help us print the desired result. It prints `**[object Object]**` **because the default conversion from an object to string is “[object Object]”**. So we use `JSON.stringify()` to first convert the object into a string and then print in the console, like this.
+哦！`console.log()` 没有帮助我们打印出期望的结果。它输出 `**[object Object]**`，**因为从对象到字符串的默认转换是 `[object Object]`**。因此，我们使用 `JSON.stringify()` 首先将对象转换成字符串，然后在控制台中打印，如下所示。
 
 ```js
 const user = {
- “name” : “Prateek Singh”,
- “age” : 26
+ "name" : "Prateek Singh",
+ "age" : 26
 }
 
 console.log(JSON.stringify(user));
 
-RESULT
+// 结果
 // "{ "name" : "Prateek Singh", "age" : 26 }"
 ```
 
 ---
 
-Generally, developers use this `stringify` function in a simple way as we did above. But I am gonna tell you some hidden secrets of this little gem which will make your life easy.
+一般来说，开发人员使用 `stringify` 函数的场景较为普遍，就像我们在上面做的那样。但我要告诉你一些隐藏的秘密，这些小秘密会让你开发起来更加轻松。
 
-## 1: The second argument (Array)
+## 1: 第二个参数（数组）
 
-Yes, ours `stringify` function can have a 2nd argument also. It’s an array of keys to the object which you want to print in the console. Look simple? Let’s take a closer look. We have an object **product** & we want to know the name of the product. When when we print it as:
+是的，`stringify` 函数也可以有第二个参数。它是要在控制台中打印的对象的键数组。看起来很简单？让我们更深入一点。我们有一个对象 **product** 并且我们想知道 product 的 name 属性值。当我们将其打印出来：
  console.log(JSON.stringify(product)); 
-it gives the below result.
+它会输出下面的结果。
 
 ```js
-{“id”:”0001",”type”:”donut”,”name”:”Cake”,”ppu”:0.55,”batters”:{“batter”:[{“id”:”1001",”type”:”Regular”},{“id”:”1002",”type”:”Chocolate”},{“id”:”1003",”type”:”Blueberry”},{“id”:”1004",”type”:”Devil’s Food”}]},”topping”:[{“id”:”5001",”type”:”None”},{“id”:”5002",”type”:”Glazed”},{“id”:”5005",”type”:”Sugar”},{“id”:”5007",”type”:”Powdered Sugar”},{“id”:”5006",”type”:”Chocolate with Sprinkles”},{“id”:”5003",”type”:”Chocolate”},{“id”:”5004",”type”:”Maple”}]}
+{"id":"0001","type":"donut","name":"Cake","ppu":0.55,"batters":{"batter":[{"id":"1001","type":"Regular"},{"id":"1002","type":"Chocolate"},{"id":"1003","type":"Blueberry"},{"id":"1004","type":"Devil’s Food"}]},"topping":[{"id":"5001","type":"None"},{"id":"5002","type":"Glazed"},{"id":"5005","type":"Sugar"},{"id":"5007","type":"Powdered Sugar"},{"id":"5006","type":"Chocolate with Sprinkles"},{"id":"5003","type":"Chocolate"},{"id":"5004","type":"Maple"}]}
 ```
 
-It is difficult to find the **name** key in the log as there is a lot of useless info displayed on the console. When the object grows bigger, difficulty increases.
-The 2nd argument of stringify function comes into the rescue. Let’s rewrite the code again & see the result.
+在日志中很难找到 **name** 键，因为控制台上显示了很多没用的信息。当对象变大时，查找属性的难度增加。
+stringify 函数的第二个参数这时就有用了。让我们重写代码并查看结果。
 
 ```js
-console.log(JSON.stringify(product,[‘name’]);
+console.log(JSON.stringify(product,['name' ]);
 
-//RESULT
+// 结果
 {"name" : "Cake"}
 ```
 
-Problem solved, instead of printing the whole JSON object we can print only the required key by passing it as an array in the 2nd argument.
+问题解决了，与打印整个 JSON 对象不同，我们可以在第二个参数中将所需的键作为数组传递，从而只打印所需的属性。
 
-## 2: The second argument (Function)
+## 2: 第二个参数（函数）
 
-We can also pass a 2nd argument as a function. It evaluates each key-value pair according to the logic written in the function. If you return `undefined` the key-value pair will not print. See this example for a better understanding.
+我们还可以传入函数作为第二个参数。它根据函数中写入的逻辑来计算每个键值对。如果返回 `undefined`，则不会打印键值对。请参考示例以获得更好的理解。
 
 ```js
 const user = {
- “name” : “Prateek Singh”,
- “age” : 26
+ "name" : "Prateek Singh",
+ "age" : 26
 }
 ```
 
 ![Passing function as 2nd argument](https://cdn-images-1.medium.com/max/2000/1*V3EQcCdgRLDish8PkY0s5A.png)
 
 ```js
-// Result
+// 结果
 { "age" : 26 }
 ```
 
-Only `age` is printed as our function condition return `undefined` for the value `typeOf` String.
+只有 `age` 被打印出来，因为函数判断 `typeOf` 为 String 的值返回 `undefined`。
 
-## 3: The third argument as Number
+## 3: 第三个参数为数字
 
-The third argument controls the spacing in the final string. If the argument is a **number**, each level in the stringification will be indented with this number of space characters.
+第三个参数控制最后一个字符串的间距。如果参数是一个**数字**，则字符串化中的每个级别都将缩进这个数量的空格字符。
 
 ```js
-// Note: '--' represnts the spacing for understanding purpose
+// 注意：为了达到理解的目的，使用 '--' 替代了空格
 
 JSON.stringify(user, null, 2);
 //{
@@ -101,9 +101,9 @@ JSON.stringify(user, null, 2);
 //}
 ```
 
-## 4: The third argument as String
+## 4: 第三个参数为字符串
 
-If the third argument is a **string**, it will be used instead of the space character as displayed above.
+如果第三个参数是 **string**，那么将使用它来代替上面显示的空格字符。
 
 ```js
 JSON.stringify(user, null,'**');
@@ -112,12 +112,12 @@ JSON.stringify(user, null,'**');
 //**"age": 26,
 //**"country": "India"
 //}
-Here * replace the space character.
+// 这里 * 取代了空格字符
 ```
 
-## 5: The toJSON method
+## 5: toJSON 方法
 
-We have one method named `toJSON` which can be a part of any object as its property. `JSON.stringify` returns the result of this function and stringifies it instead of converting the whole object into the string. See this example.
+我们有一个叫 `toJSON` 的方法，它可以作为任意对象的属性。`JSON.stringify` 返回这个函数的结果并对其进行序列化，而不是将整个对象转换为字符串。参考下面的例子。
 
 ```js
 const user = {
@@ -128,20 +128,20 @@ const user = {
     return { 
       fullName: `${this.firstName} + ${this.lastName}`
     };
-
+ }
 }
 
 console.log(JSON.stringify(user));
 
-RESULT
+// 结果
 // "{ "fullName" : "Prateek Singh"}"
 ```
 
-Here we can see instead of printing the whole object, it only prints the result of `toJSON` function.
+这里我们可以看到，它只打印 `toJSON` 函数的结果，而不是打印整个对象。
 
-I hope you learned some owsmm features of our little friend `stringify()` .
+我希望你能学到 `stringify()` 的一些基本特征。
 
-If you find this article useful, please hit the ‘clap’ button and follow me with more exciting articles like this.
+如果你觉得这篇文章有用，请点赞，然后跟我读更多类似的精彩文章。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
