@@ -158,7 +158,7 @@ if (data?.[0]?.status === 'fulfilled' && data?.[1]?.status === 'fulfilled') {
 }
 ```
 
-Optional chaining is the feature I’m most excited about in ES2020. The optional chaining operator — `\?.` — allows you to safely access deeply-nested properties of an object without checking for the existence of each property.
+Optional chaining is the feature I’m most excited about in ES2020. The optional chaining operator — `?.` — allows you to safely access deeply-nested properties of an object without checking for the existence of each property.
 
 For example, prior to ES2020, you might write code that looks like this in order to access the `street` property of some `user` object:
 
