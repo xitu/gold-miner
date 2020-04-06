@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-dao-of-immutability.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-dao-of-immutability.md)
 > * 译者：[niayyy](https://github.com/niayyy-S)
-> * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH)、[QinRoc](https://github.com/QinRoc)
+> * 校对者：[S_Shi-Hua](https://github.com/IAMSHENSH)、[Roc](https://github.com/QinRoc)
 
 # 不变性之道
 
