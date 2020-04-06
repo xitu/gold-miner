@@ -7,9 +7,9 @@
 
 ## 解决 web 应用程序中的内存泄漏问题
 
-当我们由服务端渲染的应用切换到客户端渲染的单页面应用时，我们要付出的一部分代价就是，必须更加注重用户设备上的资源。不要阻塞 UI 进程，不要让笔记本的风扇旋转，不要损耗手机电池等等。我们用在服务端渲染中不存在的一类新问题换来了更好的交互性和更类似 app 的表现。
+当我们由服务端渲染的应用切换到客户端渲染的单页面应用时，我们要付出的一部分代价是，必须更加注重用户设备上的资源。不要阻塞 UI 进程，不要让笔记本的风扇旋转，不要损耗手机电池等等。我们用在服务端渲染中不存在的一类新问题换来了更好的交互性和更类似 app 的表现。
 
-这类新问题中，其中一个问题就是内存泄漏。一个差的单页面应用会消耗 MB 甚至 GB 的内存，持续的占用越来越多的资源，即使它仅存在于一个背景标签。 因此，页面可能开始变慢，或者浏览器终止这个页面，你会看到 Chrome 熟悉的“喔唷 崩溃啦” 页面。
+这类新问题中，其中一个问题就是内存泄漏。一个差的单页面应用会消耗 MB 甚至 GB 的内存，持续地占用越来越多的资源，即使它仅存在于一个背景标签。 因此，页面可能开始变慢，或者浏览器终止这个页面，你会看到 Chrome 熟悉的“喔唷 崩溃啦” 页面。
 
 [![Chrome 显示 ”喔唷 崩溃啦！显示此页面时出了点问题“](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png?w=570&h=186)](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png)
 
@@ -32,9 +32,9 @@
 
 window.addEventListener('message', this.onMessage.bind(this));
 
-就是这样。就这样导致内存泄漏的。如果你调用 [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) 在一些全局对象中（例如 `window`， `<body>` 等。）然后忘记用 [`removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener) 将他们清理干净。当组件被卸载，你就已经创建了一个内存泄漏。
+就是这样。这样就会导致内存泄漏。如果你在一些全局对象（例如 window， <body> 等）中调用 addEventListener ，然后忘记用 removeEventListener 将它们清理干净。当组件被卸载时，你就创建了一个内存泄漏。
 
-更糟糕的是，你刚刚泄漏了整个组件。因为 `this.onMessage` 绑定到了 `this` 上，导致组件泄漏。因此它的所有子组件也都会泄漏。 而且所有与这些组件相关联的 DOM 节点很可能也都会泄露。这很快就会变得非常糟糕。
+更糟糕的是，你刚刚泄漏了整个组件。因为 this.onMessage 绑定到了 this 上，这个组件就会泄漏。进而它的所有子组件也都会泄漏。因此它的所有子组件也都会泄漏。 而且所有与这些组件相关联的 DOM 节点很可能也都会泄露。这很快就会变得非常糟糕。
 
 解决方法是：
 
@@ -55,7 +55,7 @@ window.removeEventListener('message', this.onMessage);
 
 1. `addEventListener`。这是最常见的一种。调用 `removeEventListener` 来清理它。
 2. [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout) / [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval)。如果你创建一个循环计时器（例如，每 30 秒运行一次），那么你就需要用 [`clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout) 或 [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval)来清除它。（如果像 `setInterval` 那样使用 `setTimeout` 会造成内存泄漏 —— 即，在 `setTimeout` 中回调一个新的 `setTimeout`。）
-3. [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)，[`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)，[`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 等。这些新 API 非常方便，但是它们也可能会造成内存泄漏。如果你在组件内部创建了一个，并且它附加到一个全局变量，那么你需要调用 `disconnect()` 来清除它们。（注意，被垃圾收集的 DOM 节点上绑定的 listener 和 observer 事件也将被垃圾回收。通常，你只需要考虑全局元素，例如 `<body>`，`document`，无处不在的 header 或 footer 元素等等。）
+3. [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)，[`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)，[`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 等。这些新 API 非常方便，但是它们也可能会造成内存泄漏。如果你在组件内部创建了一个观察器，并且将它绑定到一个全局变量上，那么你需要调用 `disconnect()` 来清除它们。（注意，被被垃圾回收的 DOM 节点上绑定的 listener 和 observer 事件也将被垃圾回收。通常，你只需要考虑全局元素，例如 `<body>`，`document`，无处不在的 header 或 footer 元素等等。）
 4. [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，[Observables](https://rxjs.dev/guide/observable)，[EventEmitters](https://nodejs.org/api/events.html#events_class_eventemitter)，等。如果你忘记停止监听，任何用于设置侦听器的编程模型都可能会造成内存泄漏。（如果一个 Promise 从未执行 resolved 或 rejected，那么它可能造成内存泄漏，在这种情况下，任何这个 Promise 对象上的 .then() 回调都会泄漏。）
 5. 全局对象存储。像 [Redux](https://redux.js.org/) 这样的全局对象，如果你不小心，你可以一直为它追加内存，它永远不会被清理。
 6. 无限的新增 DOM。如果你在没有 [virtualization](https://github.com/WICG/virtual-scroller#readme)的情况下，实现无限滚动列表，那么 DOM 节点的数量将无限制地增长。
@@ -64,7 +64,7 @@ window.removeEventListener('message', this.onMessage);
 
 ## 识别内存泄漏
 
-这是最难的部分。我首先要说的是，我认为现有的工具都不够好。我尝试了 Firefox 的内存工具、Edge 和 IE 的内存工具，甚至 Windows 性能分析器。同类中最好的仍然是 Chrome 开发工具，但它有很多值得我们去了解的不足。
+这是最难的部分。我首先要说的是，我认为现有的工具都不够好。我尝试了 Firefox 的内存工具、Edge 和 IE 的内存工具，甚至 Windows 性能分析器。同类中最好的仍然是 Chrome 开发者工具，但它有很多值得我们去了解的不足。
 
 在 Chrome 开发者工具中，我们选择的主要工具是 “Memory” 选项卡中的 “heap snapshot” 工具。Chrome 中有其他内存工具，但我没有发现它们对识别内存泄漏有多大帮助。
 
@@ -74,14 +74,14 @@ Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存
 
 当你单击 “take snapshot” 按钮时，你已经捕获了该 web 页面上特定 JavaScript VM 中的所有活动对象。这包括  `window` 引用的对象，`setInterval` 回调引用的对象，等等。你可以把它想象成一个代表了那个网页所使用的所有内存的凝固瞬间。
 
-下一步是重现一些你认为可能泄漏的场景 —— 例如，打开和关闭一个模态对话框。一旦对话框关闭，你将期望内存返回到以前的级别。因此，你获取另一张快照，并 **比较与前一个快照比较**。这个比较功能确实是该工具的杀手级功能。
+下一步是重现一些你认为可能泄漏的场景 —— 例如，打开和关闭一个模态对话框。一旦对话框关闭，你期望内存恢复到以前的水平。因此，你获取另一张快照，并 **与前一个快照比较**。这个比较功能确实是该工具的杀手级功能。
 
-![图中显示了第一个 heap snapsho，随后是一个泄漏场景，然后是第二个 heap snapsho，它应该等于第一个 heap snapsho](https://nolanwlawson.files.wordpress.com/2020/02/leak-scenario.png?w=570&h=285)
+![图中显示了第一个堆快照，随后是一个泄漏场景，然后是第二个堆快照，它应该等于第一个堆快照](https://nolanwlawson.files.wordpress.com/2020/02/leak-scenario.png?w=570&h=285)
 
 然而，你应该意识到这个工具有一些限制：
 
 1. 即使你点击了 “collect garbage” 按钮，你也可能需要拍几个连续的快照才能真正清理未引用的内存。根据我的经验，三个就足够了。（检查每个快照的总内存大小 —— 它最终应该稳定下来。）
-2. 如果你使用了 web workers、service workers、iframes、shared workers等，那么这个内存将不会显示在 heap snapshot 上，因为它位于另一个 JavaScript VM 中。如果你想的话，你可以捕获这个内存，但是要确保你知道你在测量的是哪一个。
+2. 如果你使用了 web workers、service workers、iframes、shared workers等，那么这个内存将不会显示在堆快照上，因为它位于另一个 JavaScript VM 中。如果你想的话，你可以捕获这个内存，但是要确保你知道你在测量的是哪一个。
 3. 有时 snapshotter 会卡住或崩溃。在这种情况下，只需关闭浏览器选项卡并重新开始。
 
 此时，如果你的应用程序很简单，那么你可能会在两个快照之间看到**很多**对象泄漏。这是个棘手的问题，因为这些并非都是真正的泄漏。其中很多都是正常的使用 —— 一些对象被释放以满足另一个对象的内存需求，一些对象以某种方式被缓存，以便之后的清理，等等
@@ -90,11 +90,11 @@ Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存
 
 我发现去除干扰的最好方法是重复几次泄漏的场景。例如，不只是打开和关闭一个模态对话框一次，你可以打开和关闭它7次。（7是一个很明显的质数。）然后你可以检查堆快照的差异，以查看是否有任何对象泄漏了7次。（或14次、21次。）
 
-[![Chrome 开发者工具的屏幕截图 heap snapshot 差异显示6个 heap snapshot 捕获，其中多个对象泄漏 7 次](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png?w=570&h=264)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png)
+[![Chrome 开发者工具的屏幕截图堆快照差异显示6个堆快照捕获，其中多个对象泄漏 7 次](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png?w=570&h=264)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png)
 
-一个堆快照差异。请注意，我们正在比较快照 #6 和快照 #3，因为我在连续进行了三次捕获，以便进行更多的垃圾回收。还要注意，有几个对象泄漏了 7 次。
+一个堆快照差异。请注意，我们正在比较快照 #6 和快照 #3，因为我连续进行了三次捕获，以便进行更多的垃圾回收。还要注意，有几个对象泄漏了 7 次。
 
-（另一种有用的技巧是在记录第一个快照之前遍历场景一次。特别是如果你使用了大量的代码拆分，来实现按需加载，那么你的场景很可能需要一次性的内存开销来加载必要的 JavaScript 模块）
+（另一种有用的技巧是在记录第一个快照之前遍历一次场景。特别是如果你使用了大量的代码拆分，来实现按需加载，那么你的场景很可能需要一次性的内存开销来加载必要的 JavaScript 模块）
 
 此时，你可能想知道为什么我们应该根据对象的数量而不是总内存来排序。根据直觉，既然我们在试图减少内存泄漏的数量，那么难道我们不应该关注总的内存使用量吗？但是由于一个重要的原因，这个方法不是很有效。
 
@@ -104,7 +104,7 @@ Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存
 
 通过 [维基共享](https://commons.wikimedia.org/wiki/File:Gorilla_Eating.jpg).
 
-让我们回到上面的 `addEventListener` 事例。内存泄漏的来源是一个事件监听器，它引用一个函数，这个函数引用一个组件，这个组件可能引用大量的东西，比如数组、字符串和对象。
+让我们回到上面的 `addEventListener` 事例。内存泄漏的来源是一个事件监听器，它在引用一个函数，这个函数又引用一个组件，这个组件可能还引用大量的东西，比如数组、字符串和对象。
 
 如果你根据总内存对堆快照差异进行排序，那么它将向你显示一堆数组、字符串和对象 —— 其中大多数可能与内存泄漏无关。你真正想要找到的是事件监听器，但是与它所引用的东西相比，它只占用了极小的内存。要修复泄漏，你需要找到的是香蕉，而不是丛林。
 
@@ -112,13 +112,13 @@ Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存
 
 ## 查找 retainer 树
 
-堆快照差异还将向你显示一个 “retainer” 链，显示对象间的指向，从而保持内存活动。这样你就可以找出内存泄漏对象的分配位置。
+堆快照差异还将向你展示一个 “retainer” 链，它显示着保持内存活动的对象间的相互指向。这样你就可以找出内存泄漏对象的分配位置。
 
 [![一个 retainer 链的屏幕截图，显示了一个事件监听器引用的闭包中引用的一些对象](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png?w=570&h=111)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png)
 
-retainer 链显示哪个对象正在引用泄漏的对象。读取它的方法是每个对象都由它下面的对象引用。
+retainer 链显示哪个对象正在引用泄漏的对象。阅读它的方法是每个对象都由它下面的对象引用。
 
-在上面的例子中，有一个名为 `someObject` 的变量，它被一个闭包(又名“上下文”)引用，这个闭包由被一个事件监听器引用。 如果你点击源链接，它会跳转到 JavaScript 声明，这种方式相当直接明了：
+在上面的例子中，有一个名为 `someObject` 的变量，它被一个闭包(又名“上下文”)引用，这个闭包又被一个事件监听器引用。 如果你点击源链接，它会跳转到 JavaScript 声明，这种方式相当直接明了：
 
 ```js
 class SomeObject () { /* ... */ }
@@ -132,11 +132,11 @@ window.addEventListener('message', onMessage);
 
 但 heap snapshotting 工具有几个限制：
 
-1. 如果保存并重新加载快照文件，则将丢失对分配对象的位置的所有文件引用。例如，你不会看到 `foo.js` 第22行的事件监听器闭包。由于这是非常重要的信息，所以保存和发送堆快照文件几乎毫无用处。
+1. 如果保存并重新加载快照文件，则将丢失对分配对象的位置的所有文件引用。例如，你不会看到 `foo.js` 第 22 行的事件监听器闭包。由于这是非常重要的信息，所以保存和发送堆快照文件几乎毫无用处。
 2. 如果涉及到 [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)，那么 Chrome 将向你显示这些引用，即使它们实际上并不重要 —— 只要清除了其他引用，这些对象就会被释放。所以它们只是干扰。
 3. Chrome 根据原型对这些对象进行分类。因此，使用实际的类/函数越多，使用匿名对象越少，就越容易发现究竟是什么东西在泄漏。例如，想象一下，如果我们的泄漏是由于 `object` 而不是 `EventListener`。由于 `object` 是非常通用的，所以我们不太可能正好看到其中 7 个被泄漏。
 
-这是我识别内存泄漏的基本策略。我曾经成功地使用这种技术来发现了许多内存泄漏。
+这是我识别内存泄漏的基本策略。我曾经成功地使用这种技术发现了许多内存泄漏。
 
 不过，本指南只是一个开始 —— 除此之外，你还必须能够灵活地设置断点、记录日志并测试修复程序，以查看它是否解决了泄漏。不幸的是，这本身就是一个耗时的过程。
 
@@ -148,7 +148,7 @@ window.addEventListener('message', onMessage);
 
 由于事件监听器是最常见的内存泄漏源，所以我使用的另一种技术是对 `addEventListener` 和 `removeEventListener` 的 API 进行功能追加以对引用计数并确保它们归零。这个[例子](https://github.com/nolanlawson/pinafore/blob/2edbd4746dfb5a7c894cb8861cf315c800a16393/tests/spyDomListeners.js)讲述了如何操作。
 
-在 Chrome 开发者工具中，你还可以使用专用的 [`getEventListeners()`](https://developers.google.com/web/tools/chrome-devtools/console/utilities#geteventlisteners) API 来查看附加到特定元素的事件监听器。注意，这只能在开发者工具中使用。
+在 Chrome 开发者工具中，你还可以使用专用的 [`getEventListeners()`](https://developers.google.com/web/tools/chrome-devtools/console/utilities#geteventlisteners) API 来查看绑定到特定元素上的事件监听器。注意，这只能在开发者工具中使用。
 
 ****更新：** Mathias Bynens 告诉了我另一个有用的开发者工具的 API:[`queryObjects()`](https://developers.google.com/web/updates/2017/08/devtools-release-notes#query-objects)，它可以显示使用特定构造函数创建的所有对象。Christoph Guttandin 也有 [一篇有趣的博客文章](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer) 关于在 Puppeteer 中使用这个 API 进行自动内存泄漏检测。**
 
