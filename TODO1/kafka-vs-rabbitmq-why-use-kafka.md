@@ -37,8 +37,6 @@ Launched in 2007, RabbitMQ started as a primary element in messaging and SOA sys
 
 So, if you are considering whether to use Apache Kafka or RabbitMQ, read on to learn about the difference in architectures, approaches, and their performance pros and cons.
 
----
-
 ## Architecture Differences
 
 #### Apache Kafka architecture
