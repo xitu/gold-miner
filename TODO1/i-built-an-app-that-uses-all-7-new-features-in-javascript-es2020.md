@@ -21,8 +21,6 @@ But what if the unit price wasn’t displayed?
 
 In this article, I’ll build a unit price calculator app using vanilla JavaScript for the front end and [Node.js](https://nodejs.org/en/) with [Express.js](https://expressjs.com/) for the back end. I’ll deploy the app on [Heroku](http://heroku.com/), which is an easy place to [quickly deploy a node.js app](https://devcenter.heroku.com/articles/getting-started-with-nodejs).
 
----
-
 ## What’s New in JavaScript ES2020?
 
 The JavaScript programming language conforms to a specification known as ECMAScript. Starting with the release of ES2015 (or ES6), a new version of JavaScript has been released each year. As of right now, the latest version is ES2020 (ES11). ES2020 is packed with seven exciting new features that JavaScript developers have been waiting for quite some time to see. The new features are:
@@ -37,8 +35,6 @@ The JavaScript programming language conforms to a specification known as ECMAScr
 
 You should note that not all browsers support these features — yet. If you want to start using these features now, make sure you provide appropriate polyfills or use a transpiler like Babel to ensure your code is compatible with older browsers.
 
----
-
 ## Getting Started
 
 If you want to follow along with your own copy of the code, first create a Heroku account and install the Heroku CLI on your machine. See this [Heroku guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) for installation instructions.
@@ -47,15 +43,13 @@ Once you’ve done that, you can create and deploy the project easily using the 
 
 Below are step-by-step instructions on how to clone the repo and deploy to Heroku:
 
-```
+```bash
 git clone https://github.com/thawkin3/unit-price-calculator.git
 cd unit-price-calculator
 heroku create
 git push heroku master
 heroku open
 ```
-
----
 
 ## System Overview
 
@@ -64,8 +58,6 @@ My unit price calculator app is fairly simple: it lets you compare various price
 ![Unit Price Calculator App](https://cdn-images-1.medium.com/max/2506/0*10AyqKCN-035dR-L.png)
 
 Now that you’ve seen the app, let’s take a look at how I used all seven of those ES2020 features. For each feature, I’ll discuss exactly what it is, how it’s useful, and how I used it.
-
----
 
 ## 1. Promise.allSettled()
 
@@ -151,8 +143,6 @@ Promise.allSettled([promise4, promise5, promise6])
 // ]
 ```
 
----
-
 ## 2. Optional Chaining
 
 Once the product data is fetched, we handle the response. The data coming back from the server contains an array of objects with deeply-nested properties. In order to safely access those properties, we use the new optional chaining operator:
@@ -216,8 +206,6 @@ const badProp = user?.fakeProp?.fakePropChild
 
 If at any point in your chain a value does not exist, `undefined` will be returned. Otherwise, the return value will be the value of the property you wanted to access, as expected.
 
----
-
 ## 3. Nullish Coalescing
 
 When the app loads, we also fetch the user’s preference for their unit of measurement: kilograms or pounds. The preference is stored in local storage, so the preference won’t yet exist for first-time visitors. To handle either using the value from local storage or defaulting to using kilograms, we use the nullish coalescing operator:
@@ -269,8 +257,6 @@ getUserFeaturePreference(useCoolFeature3) // true
 getUserFeaturePreference(useCoolFeature4) // true
 ```
 
----
-
 ## 4. globalThis
 
 As mentioned above, in order to get and set the user’s preference for unit of measurement, we use local storage. For browsers, the local storage object is a property of the `window` object. While you can just call `localStorage` directly, you can also call it with `window.localStorage`. In ES2020, we can also access it through the `globalThis` object (also note the use of optional chaining again to do some feature detection to make sure the browser supports local storage):
@@ -280,8 +266,6 @@ const doesPreferKilograms = globalThis.localStorage?.getItem?.('prefersKg')
 ```
 
 The `globalThis` feature is pretty simple, but it solves many inconsistencies that can sometimes bite you. Simply put, `globalThis` contains a reference to the global object. In the browser, the global object is the `window` object. In a node environment, the global object is literally called `global`. Using `globalThis` ensures that you always have a valid reference to the global object no matter what environment your code is running in. That way, you can write portable JavaScript modules that will run correctly in the main thread of the browser, in a web worker, or in the node environment.
-
----
 
 ## 5. Dynamic Imports
 
@@ -337,8 +321,6 @@ exportPdfButton.addEventListener('click', () => {
 // the 'pdf-download.js' module is only imported once the user click the "Export PDF" button
 ```
 
----
-
 ## 6. String.prototype.matchAll()
 
 When calling the `calculateUnitPrice` method, we pass the product name and the price/weight combination. The price/weight combination is a string that looks like "$200 for 10 kg". We need to parse that string to get the price, weight, and unit of measurement. (There's certainly a better way to architect this app to avoid parsing a string like this, but I'm setting it up this way for the sake of demonstrating this next feature.) To extract the necessary data, we can use `String.prototype.matchAll()`:
@@ -386,8 +368,6 @@ for (const match of matchesFromMatchAll) {
 
 ```
 
----
-
 ## 7. BigInt
 
 Finally, we’ll make the unit price calculation by simply dividing the price by the weight. You can do this with normal numbers, but when working with large numbers, ES2020 introduces the `BigInt` which allows you to do calculations on large integers without losing precision. In the case of our app, using `BigInt` is overkill, but who knows, maybe our API endpoint will change to include some crazy bulk deals!
@@ -424,8 +404,6 @@ const correctLargerNumber = biggestNumber + 10n
 // should be: 9007199254741001n
 // actually stored as: 9007199254741001n
 ```
-
----
 
 ## Conclusion
 
