@@ -45,7 +45,7 @@ Like the little girl, we want to break the cycle of doing without understanding.
 
 Code tells you **how** a software system works. Docs tell you **why** a system works this way.
 
-> Code tells what, docs tell you why.” — **[Steve Konves](undefined) at [Hacker Noon](https://hackernoon.com/write-good-documentation-6caffb9082b4)**
+> Code tells what, docs tell you why.” — **Steve Konves at [Hacker Noon](https://hackernoon.com/write-good-documentation-6caffb9082b4)**
 
 Writing down “why” as we build will:
 
