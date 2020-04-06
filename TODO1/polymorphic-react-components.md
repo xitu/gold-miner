@@ -351,9 +351,6 @@ We completely defused the type bomb by getting rid of the 173-constituent union 
 ## The overwritten prop caveat
 There’s a small cost to an API design like this. It’s fairly easy to make a mistake like this:
 
-<!--@
-  name: GoodButton.tsx
--->
 ```tsx
 <Button
   color={ColorName.Blue}
