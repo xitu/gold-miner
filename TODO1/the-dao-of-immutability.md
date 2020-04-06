@@ -70,17 +70,33 @@
 **[编者注：卷轴以最后一节经文结尾，没有注释：]**
 
 > **智慧：** 明智的程序员在走上这条路之前，会先了解透彻这条路的走法。因此，明智的程序员是有价值的，而不明智的程序员会迷失在[丛林](https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3)中。
->
----
 
 > **注意：** 这是“组合软件”系列[**（丛书）**](https://leanpub.com/composingsoftware)中的从头学习 JavaScript ES6+ 中的函数式编程和组合软件技术。后续还有更多文章！敬请关注。
-**[购买这本书](https://leanpub.com/composingsoftware) | [索引](https://medium.com/javascript-scene/composing-software-the-book-f31c77fc3ddc) | [\< 上一篇](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea) | [下一篇 >](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c)**
 
----
+本系列目录：
 
-## 在 EricElliottJS.com 上学习更多
-
-EricElliottJS.com 上的会员可以观看带有交互式代码挑战的视频课程。如果你还不是会员，[立即注册](https://ericelliottjs.com/)。
+* [简介](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
+* [不变性之道](https://medium.com/javascript-scene/the-dao-of-immutability-9f91a70c88cd)
+* [跌宕起伏的函数式编程](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c)
+* [为什么用 JavaScript 学习函数式编程？](https://medium.com/javascript-scene/why-learn-functional-programming-in-javascript-composing-software-ea13afc7a257)
+* [纯函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)
+* [什么是函数式编程？](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0)
+* [函数式程序员的 JavaScript 简介](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30)
+* [高阶函数](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99)
+* [柯里化与函数组合](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983)
+* [抽象与组合](https://medium.com/javascript-scene/abstraction-composition-cb2849d5bdd6)
+* [Functor 与 Category](https://medium.com/javascript-scene/functors-categories-61e031bac53f)
+* [JavaScript 让 Monad 更简单](https://medium.com/javascript-scene/javascript-monads-made-simple-7856be57bfe8)
+* [被遗忘的面向对象编程史](https://medium.com/javascript-scene/the-forgotten-history-of-oop-88d71b9b2d9f)
+* [对象组合中的宝藏](https://medium.com/javascript-scene/the-hidden-treasures-of-object-composition-60cd89480381)
+* [ES6+ 中的 JavaScript 工厂函数](https://medium.com/javascript-scene/javascript-factory-functions-with-es6-4d224591a8b1)
+* [函数式 Mixin](https://medium.com/javascript-scene/functional-mixins-composing-software-ffb66d5e731c)
+* [为什么类中使用组合很难](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa)
+* [可自定义数据类型](https://medium.com/javascript-scene/composable-datatypes-with-functions-aec72db3b093)
+* [Lenses：可组合函数式编程的 Getter 和 Setter](https://medium.com/javascript-scene/lenses-b85976cb0534)
+* [Transducers：JavaScript 中高效的数据处理 Pipeline](https://medium.com/javascript-scene/transducers-efficient-data-processing-pipelines-in-javascript-7985330fe73d)
+* [JavaScript 样式元素](https://medium.com/javascript-scene/elements-of-javascript-style-caa8821cb99f)
+* [模拟是一种代码异味](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a)
 
 ---
 
