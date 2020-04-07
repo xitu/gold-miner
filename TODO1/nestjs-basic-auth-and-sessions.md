@@ -26,8 +26,8 @@
 
 * [Swagger](https://swagger.io/) —— 它能为您的应用生成对应的 REST API 接口的最终文档。同时还是一个快速测试 API 的好工具。您可以在 NestJS 网站浏览到有关 Swagger 的[文档](https://docs.nestjs.com/recipes/swagger)，以便在我们的项目中使用 Swagger。
 * [Exception Filters](https://docs.nestjs.com/exception-filters) —— 它是 NestJS 内置的异常处理模块，负责处理整个应用中抛出的所有异常。当应用程序捕获到未处理的异常时，用户得到的响应是友好得体的。这意味着我们在应用中的任何地方抛出的异常，都会被全局异常处理程序捕获并且返回预定义的 JSON 响应。
-* [TypeORM](http://typeorm.io/#/) —— 它是一个健壮性极好、成熟的ORM框架，虽然是不久前面世的。它使用 TypeScript 编写。同时支持  [ActiveRecord 和 DataMapper](http://typeorm.io/#/active-record-data-mapper) 模式，还支持缓存等许多其他功能。它的文档也十分优秀。TypeORM 支持大多数 SQL 和 NoSQL 数据库。对于本项目，我们将使用 sqlite 数据库。并使用 ActiveRecord 模式。[TypeORM TypeDocs（类似 javadocs）](http://typeorm-doc.exceptionfound.com/)
-* [Custom Decorator](https://docs.nestjs.com/custom-decorators)  —— 我们将创建一个自定义的路由装饰器来在 session 中访问用户对象。
+* [TypeORM](http://typeorm.io/#/) —— 它是一个健壮性极好、成熟的ORM框架，虽然是不久前面世的。它使用 TypeScript 编写。同时支持 [ActiveRecord 和 DataMapper](http://typeorm.io/#/active-record-data-mapper) 模式，还支持缓存等许多其他功能。它的文档也十分优秀。TypeORM 支持大多数 SQL 和 NoSQL 数据库。对于本项目，我们将使用 sqlite 数据库。并使用 ActiveRecord 模式。[TypeORM TypeDocs（类似 javadocs）](http://typeorm-doc.exceptionfound.com/)
+* [Custom Decorator](https://docs.nestjs.com/custom-decorators) —— 我们将创建一个自定义的路由装饰器来在 session 中访问用户对象。
 * Basic Auth —— 使用 Basic Auth Header 的用户身份验证。
 * [Sessions](https://github.com/expressjs/session) —— 一旦用户通过身份验证，就会创建一个 session 和一个 cookie，这样在每个需要用户信息的请求中，我们都能够从 session 对象中访问登录的用户。
 
@@ -555,7 +555,7 @@ const options = new DocumentBuilder()
         .build();
 ```
 
-现在，如果重新启动服务器，我们可以在 API 接口旁边看到一个小锁图标。但这个接口现在什么都没有，所以让我们给它添加一些逻辑。在我写这篇教程的时候，我认为文档中关于如何正确实现这种功能的内容不够完善，我跟着 [NestJS 官方文档](https://docs.nestjs.com/techniques/authentication) 来实现，但遇到了以下[问题](https://github.com/nestjs/passport/issues/7)。不过，我发现  [@nestjs/passport](https://github.com/nestjs/passport) 这个库，我可以将其与以下内容一起使用：
+现在，如果重新启动服务器，我们可以在 API 接口旁边看到一个小锁图标。但这个接口现在什么都没有，所以让我们给它添加一些逻辑。在我写这篇教程的时候，我认为文档中关于如何正确实现这种功能的内容不够完善，我跟着 [NestJS 官方文档](https://docs.nestjs.com/techniques/authentication) 来实现，但遇到了以下[问题](https://github.com/nestjs/passport/issues/7)。不过，我发现 [@nestjs/passport](https://github.com/nestjs/passport) 这个库，我可以将其与以下内容一起使用：
 
 在设计认证的逻辑之前，我们需要将以下内容添加到 **main.ts** 中。
 
@@ -574,7 +574,7 @@ const options = new DocumentBuilder()
 
 #### 创建 auth 模块
 
-执行 **nest g mo auth** 和 **nest g s auth**，这将创建带有 auth 模块的  **auth** 目录。和之前一样，如果 auth.service 在 auth 目录外生成了，把它移进去就好。NestJS 官方文档说这里需要使用  **@UseGuards(AuthGuard(‘bearer’))** 但是由于刚刚我提到的那个问题，我自己实现了 AuthGuard，亲测可以登录用户。接着，我们还需要实现我们的“通行证策略”。创建 **src/auth/AppAuthGuard.ts** 文件。
+执行 **nest g mo auth** 和 **nest g s auth**，这将创建带有 auth 模块的 **auth** 目录。和之前一样，如果 auth.service 在 auth 目录外生成了，把它移进去就好。NestJS 官方文档说这里需要使用 **@UseGuards(AuthGuard(‘bearer’))** 但是由于刚刚我提到的那个问题，我自己实现了 AuthGuard，亲测可以登录用户。接着，我们还需要实现我们的“通行证策略”。创建 **src/auth/AppAuthGuard.ts** 文件。
 
 ```typescript
 import {CanActivate, ExecutionContext, UnauthorizedException} from '@nestjs/common';
@@ -660,7 +660,7 @@ export class AuthModule {}
 
 现在运行我们的服务器。
 
-测试我们项目的最好方法是进入浏览器中的 Swagger API，单击锁图标并输入 “**Bearer test**”，然后单击 “Authorize”。打开 **Chrome 开发者工具** 切换到 **Application** 选项卡，在左侧面板上点击，**Cookies->http://localhost:3000**。现在点击 **POST /login** 接口的 “Execute”，来发出请求。我们期望会看到一个名为“**sess-tutorial**” 的 cookie。但是目前我们什么也没看到。哪里出了问题？如果再我们仔细看一下[passport 的文档](https://github.com/jaredhanson/passport)，会发现我们还需要在 passport 在对象上增加以下内容。
+测试我们项目的最好方法是进入浏览器中的 Swagger API，单击锁图标并输入 “**Bearer test**”，然后单击 “Authorize”。打开 **Chrome 开发者工具** 切换到 **Application** 选项卡，在左侧面板上点击，`Cookies->http://localhost:3000`。现在点击 **POST /login** 接口的 “Execute”，来发出请求。我们期望会看到一个名为“**sess-tutorial**” 的 cookie。但是目前我们什么也没看到。哪里出了问题？如果再我们仔细看一下[passport 的文档](https://github.com/jaredhanson/passport)，会发现我们还需要在 passport 在对象上增加以下内容。
 
 ```typescript
 passport.serializeUser(function(user, done) {
@@ -710,7 +710,7 @@ import {CookieSerializer} from './cookie-serializer';
 export class AuthModule {}
 ```
 
-现在，运行我们的服务器并使用 Basic Auth Header 请求 **POST /login** 接口，现在我们应该可以在 Chrome 开发者工具中看到一个 cookie 了。刚刚我们遇到了一点小问题，但是通过阅读开发文档和  @nestjs/passport 的文档我们很快地找到了答案。
+现在，运行我们的服务器并使用 Basic Auth Header 请求 **POST /login** 接口，现在我们应该可以在 Chrome 开发者工具中看到一个 cookie 了。刚刚我们遇到了一点小问题，但是通过阅读开发文档和 `@nestjs/passport` 的文档我们很快地找到了答案。
 
 现在需要添加逻辑来根据数据库中的记录对用户进行身份验证，并且保证只有在用户登录后才能进行路由请求。
 
@@ -815,7 +815,7 @@ export class SessionGuard implements CanActivate {
 }
 ```
 
-我们还可以用一种更方便的方法来从 session 中检索 user 对象。使用  **req.session.passport.user** 这样的方式可以，但是不够优雅。现在，创建 **src/user/user.decorator.ts** 文件。
+我们还可以用一种更方便的方法来从 session 中检索 user 对象。使用 **req.session.passport.user** 这样的方式可以，但是不够优雅。现在，创建 **src/user/user.decorator.ts** 文件。
 
 ```typescript
 import {createParamDecorator} from '@nestjs/common';
