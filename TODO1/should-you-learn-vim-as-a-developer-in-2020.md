@@ -3,7 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/should-you-learn-vim-as-a-developer-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/should-you-learn-vim-as-a-developer-in-2020.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH) [QinRoc](https://github.com/QinRoc) [Amberlin1970](https://github.com/Amberlin1970)
+
 
 # 作为 2020 年的开发者，你应该学习 VIM 吗？
 
