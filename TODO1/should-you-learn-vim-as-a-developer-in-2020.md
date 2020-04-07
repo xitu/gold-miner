@@ -5,7 +5,6 @@
 > * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH) [QinRoc](https://github.com/QinRoc) [Amberlin1970](https://github.com/Amberlin1970)
 
-
 # 作为 2020 年的开发者，你应该学习 VIM 吗？
 
 ![Photo by [Helloquence ](https://unsplash.com/photos/5fNmWej4tAA)on [Unsplash](http://unsplash.com)](https://cdn-images-1.medium.com/max/2000/1*6RF4SWv3nDsFlX1vDzc8Nw.jpeg)
