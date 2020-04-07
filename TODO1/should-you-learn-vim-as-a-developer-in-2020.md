@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/should-you-learn-vim-as-a-developer-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/should-you-learn-vim-as-a-developer-in-2020.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH) [QinRoc](https://github.com/QinRoc) [Amberlin1970](https://github.com/Amberlin1970)
+> * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH)、[QinRoc](https://github.com/QinRoc)、[Amberlin1970](https://github.com/Amberlin1970)
 
 # 作为 2020 年的开发者，你应该学习 VIM 吗？
 
@@ -50,7 +50,6 @@ VIM 没有让我变成更优秀的软件工程师。我要重申一遍：学习 
 浏览 VIM 的教程（Vimtutor）大概花了我两周的时间，然后我才适应 VSCode 上的 VIM 插件。之后，又花了我另外一周的开发时间，通过肌肉记忆建立用快捷键浏览代码的习惯。这种方式现在看来，我是在用两种方式写代码。学会 VIM 让我的时间更有价值。
 
 但是，我想重申，程序员最终还是为难题创造解决方案的。你想用哪一种快捷键方案、编辑器或者其他的东西，完全基于你的偏好。你编辑文件的速度往往不是你开发工作的瓶颈。
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
