@@ -5,7 +5,7 @@
 > * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：
 
-# 作为2020年的开发者，你应该学习 VIM 吗？
+# 作为 2020 年的开发者，你应该学习 VIM 吗？
 
 ![Photo by [Helloquence ](https://unsplash.com/photos/5fNmWej4tAA)on [Unsplash](http://unsplash.com)](https://cdn-images-1.medium.com/max/2000/1*6RF4SWv3nDsFlX1vDzc8Nw.jpeg)
 
