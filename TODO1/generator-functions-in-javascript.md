@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# Generator Functions in JavaScript
+# JavaScript 中的 Generator 函数
 
 ![Photo by [matthew Feeney](https://unsplash.com/@matt__feeney?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/wait?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10180/1*T-HFCdKSrA6dhlyN66g1uw.jpeg)
 
-With ES6, EcmaScript released a new way of working with functions. In this article, we will take a look at them and how and where we can use them
+在 ES6 中, EcmaScript 发布了一种使用函数的新方法。在本文中，我们将研究这种函数以及研究如何使用和在哪里使用它们
 
-## What Are Generator Functions?
+## 什么是 Generator 函数？
 
-Generator functions are a special type of function that allows you to suspend their execution so they are later resumed at any time.
+Generator 函数是一种特殊的函数，它允许你暂停执行，之后你可以随时恢复。
 
-They have also simplified the creation of iterators but we will get into that later. Let’s start simply by understanding what they are with some examples.
+它们还简化了迭代器的创建，稍后我们将介绍。让我们简单地从一些示例中了解它们是什么开始。
 
-Creating a generator function is simple. The `function*` declaration (`function` keyword followed by an asterisk) defines a generator function.
+创建 Generator 函数很简单。这个 `function*` 声明（`function` 关键字后跟一个星号）定义了一个 Generator 函数。
 
 ```js
 function* generatorFunction() {
@@ -25,11 +25,11 @@ function* generatorFunction() {
 }
 ```
 
-Now, in generator functions, we don’t use return statements but rather a `yield` that specifies the value to be returned from the iterator. Now, in the above example, it will return a value of 1.
+现在，在 Generator 函数中，我们不用使用 return 语句，而是使用一个 `yield` 来指定从迭代器返回的值。现在，在上面的示例中，它将返回 1。
 
-When we call generator functions like a normal ES6 function, it does not directly execute the function but rather returns a `Generator` object.
+当我们像调用常规的 ES6 函数那样调用 Generator 函数时，它不直接执行该函数，而是返回一个 `Generator` 对象。
 
-The `Generator` object contains `next()`, `return`, and `throw` which can be used to interact with our generator functions. It works similarly to an `iterator` but you have more control over it.
+这个 `Generator` 对象包含 `next()`、`return` 和 `throw` which can be used to interact with our generator functions. It works similarly to an `iterator` but you have more control over it.
 
 Let’s see, with an example, how we can use the `generatorFunction`. Now, as I told you before, we get `next()`.
 
