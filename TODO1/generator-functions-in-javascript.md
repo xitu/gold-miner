@@ -29,11 +29,11 @@ function* generatorFunction() {
 
 当我们像调用常规的 ES6 函数那样调用 Generator 函数时，它不直接执行该函数，而是返回一个 `Generator` 对象。
 
-这个 `Generator` 对象包含 `next()`、`return` 和 `throw` which can be used to interact with our generator functions. It works similarly to an `iterator` but you have more control over it.
+这个 `Generator` 对象包含 `next()`、`return` 和 `throw`，可用于和 Generator 函数进行交互。它的工作原理类似于 `iterator`，但是你可以有更多的控制权。
 
-Let’s see, with an example, how we can use the `generatorFunction`. Now, as I told you before, we get `next()`.
+让我们看一下示例，了解如何使用 `generatorFunction`。现在，正如我前文所说的那样，我们得到了 `next()` 方法。
 
-The `next()` method returns an object with two properties, `done` and `value`. You can also provide a parameter to the `next` method to send a value to the generator. Let’s see this with an example.
+这个 `next()` 方法返回一个对象，包含了两个属性，`done` 和 `value`。你也可以为 `next` 方法提供一个参数传递给 Generator。让我们看一下这个例子。
 
 ```JavaScript
 function* generatorFunction() {
@@ -46,12 +46,12 @@ console.log(value)
 
 ![Output after calling next on generator function](https://cdn-images-1.medium.com/max/2000/1*CuDQhYcZ3xLZKvFTosFFrg.png)
 
-Now, as I said earlier, we can also pass values to the generator function through `next` and that value can be used inside the `generator` function. Let’s see how that works with another example.
+现在，正如我前文所说，我们可以通过 `next` 传递一个值给 Generator 函数，并且这个值可以在 `Generator` 函数内部使用。让我们通过另一个示例看一下它是如何工作的。
 
 ```JavaScript
 function* generatorFunction() {
    let value = yield null
-   yield value+ 2;
+   yield value + 2;
    yield 3 + value
 }
 const iterator:Generator = generatorFunction()
@@ -61,29 +61,29 @@ console.log(iterator.next(11).value) //return 13
 
 ![Passing Value to generator function through next](https://cdn-images-1.medium.com/max/2000/1*ywIGvmfO_r3j0rTdccplEQ.png)
 
-Here, when you obtain the generator, you don’t have a `yield` you can push values to. So, first you have to reach a yield by calling the next on the generator initially. It will return `null`, always.
+当你首次调用 Generator 函数的时候， 没有一个可以传入值的 `yield` 。因此，必须通过调用 Generator 上的 next 来获取到 yield。它将始终返回 `null`。
 
-You can pass arguments or not, it does not matter, it will always return `null`. Once you have done that, you have a `yield` at your disposal and you can push your value via `iterator.next()` which will effectively replace `yield null` with the input passed through `next`.
+无论是否传递参数，都没问题。它始终返回 `null`。完成这个操作后，就可以使用 `yield` 了，你可以通过 `iterator.next()` 传递一个值，通过 `next` 传递的输入值将高效的替换掉 `yield null`。
 
-Then, when it finds another `yield`, it returns to the consumer of the generator which is our `iterator` here.
+然后，当它找到另一个 `yield` 时， it returns to the consumer of the generator which is our `iterator` here.
 
-Now, let’s talk a little about the `yield` keyword. It looks like it’s working like return but on steroids because return simply returns a value from a function after a function is called.
+现在，让我们谈谈关于 `yield` 关键字。它看起来像 return 一样工作，但是更加的强大，因为 return 只是返回当函数调用后，从函数中返回一个值。
 
-It will also not allow you to do anything after the `return` keyword in a normal function but in our case, `yield` is doing much more than that. It’s returning a value but when you call it again, it will move on to the next `yield` statement.
+在正常的函数中，不允许在 `return` 关键字后执行任何操作，但是在 Generator 函数中，`yield` 可以做的更多。它会返回一个值，但是当你再次调用时，它会继续执行下一个 `yield` 语句。
 
-The `yield` keyword is used to pause and resume a generator function. The `yield` returns an object and it contains a `value` and `done`.
+`yield` 关键字用于暂停和恢复一个 Generator 函数。`yield` 返回一个包含 `value` 和 `done` 的对象。
 
-The `value` is the result of the evaluating of the generator functions and the `done` indicates whether our generator function has been fully completed or not, its values can be either `true` or `false`.
+`value` 是 generator 函数求值后的结果，`done` 表明是否 generator 函数完全地执行完成,，它的值为可为 `true` 或者 `false`。
 
-We can also use the `return` keyword in the generator function and it will return the same object but it will not go any further than that and the code after `return` will never be reached, even if you have six `yield`s after that.
+在 generator 函数中也可以使用 `return` 关键字，它会返回相同的对象，但是不会像 `yield` 一样继续执行下去，`return` 之后的代码将永远不会执行，即使后面有许多 `yield`。
 
-So, you need to be very careful using `return` and it should only be used once you are certain the job of the generator function is done.
+因此，需要非常小心的使用 `return`，仅当确定 generator 函数的工作完成后才能使用。
 
 ```JavaScript
 function* generatorFunction() {
    yield  2;
    return 2;
-   yield 3; //generator function will never reach here
+   yield 3; // generator 函数永远不会到达这
 }
 const iterator:Generator = generatorFunction()
 ```
