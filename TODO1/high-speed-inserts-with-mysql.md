@@ -41,7 +41,6 @@ LOAD DATA LOCAL INFILE '/path/to/products.csv' INTO TABLE products;
 
 ## 扩展的插入语句（Extended inserts）
 
-A typical SQL `INSERT` statement looks like:
 一个典型的 `INSERT` SQL 语句是这样的：
 
 ```sql
@@ -100,7 +99,6 @@ extended insert 的优势在网络连接的情况下更加明显，因为连续�
 max sequential inserts per second ~= 1000 / ping in milliseconds
 ```
 
-The higher the latency between the client and the server, the more you’ll benefit from using extended inserts.
 客户端和服务端之间的延迟越高，你从 extended insert 中获益越多。
 
 ## 结论
