@@ -13,7 +13,7 @@
 
 ![Vue.js (Image source and credits: Vue.js website)](https://cdn-images-1.medium.com/max/2430/0*Yk9b_HN-r7SCgzPD.png)
 
-Vue.Js 是一个开源框架。它在 Angular 和 React 的基础上发展而来。Vue.Js 提供了很多有用的特性，对于很多跨平台应用程序而言，它是一个简单而有效的解决方案。使用 Vue.js 开发的顶尖网站有：
+Vue.js 是一个开源框架。它在 Angular 和 React 的基础上发展而来。Vue.js 提供了很多有用的特性，对于很多跨平台应用程序而言，它是一个简单而有效的解决方案。使用 Vue.js 开发的顶尖网站有：
 
 [**Behance**](https://www.behance.net/)
 
@@ -21,7 +21,7 @@ Vue.Js 是一个开源框架。它在 Angular 和 React 的基础上发展而来
 
 ![Behance](https://cdn-images-1.medium.com/max/2698/0*kFWAmDIqI1JjI5dN.png)
 
-Behance - 平面设计师通过这个网站向全世界展示他们的才华。Behance 的开发团队使用 Vue.JS 作为前端开发语言。
+Behance —— 平面设计师通过这个网站向全世界展示他们的才华。Behance 的开发团队使用 Vue.js 作为前端编程语言。
 
 #### Gitlab
 
@@ -50,11 +50,11 @@ Aurelia 是一个 JavaScript 前端框架。它是 ——
 
 [**Aurelia Projects**](https://github.com/aurelia-project)
 
-## 3. Next.Js
+## 3. Next.js
 
-Next.Js 是一个基于 JavaScript 的开源框架。它 ——
+Next.js 是一个基于 JavaScript 的开源框架。它 ——
 
-1. 为开发高度可定制的基于 web 的应用程序而生。
+1. 为开发高度可定制的 Web 应用程序而生。
 2. 是 React 应用的零配置、单命令工具链。
 
 ![Next.js (Image source and credits: Next.js website)](https://cdn-images-1.medium.com/max/2800/0*Xs8fycEdNqhhQ9jZ.jpg)
@@ -67,15 +67,15 @@ Next.Js 是一个基于 JavaScript 的开源框架。它 ——
 
 [**学习 Next.js**](https://nextjs.org/learn/basics/getting-started)
 
-## 4. Riot.Js
+## 4. Riot.js
 
-Riot.Js 专注于为用户提供具有 JS 生态中最高效简洁架构的框架。它与 polymer 和 react.js 类似。
+Riot.js 专注于为用户提供具有 JavaScript 生态中最高效简洁架构的框架。它与 polymer 和 react.js 类似。
 
 ![Riot.js (Image source and credits: Riot.js website)](https://cdn-images-1.medium.com/max/2000/0*ioaCESwyj2JbpW_m.jpg)
 
 它的部分特性如下：
 
-1. 允许用户在所有页面和网络应用程序中应用自定义 HTML 标签。用户可以重用这些标签。
+1. 允许用户在所有页面和 Web 应用程序中应用自定义 HTML 标签。用户可以重用这些标签。
 2. 高度专注于微函数，让用户可以一次分别处理不同的应用程序。
 
 从这里开始了解 Riot.js：
@@ -93,8 +93,8 @@ WebRx 是一个基于浏览器的 model-view-view-model 架构模式的 JavaScri
 
 它的部分最佳特性如下：
 
-1. 一个高效的收集进程，还有过滤映射、分页等等功能。
-2. 由不同消息总线支持的强大组件间通信。
+1. 一个高效的收集进程，包括过滤映射、分页等功能。
+2. 由不同消息总线支持的强大的组件间通信方式。
 
  从这里开始了解 WebRx：
 
