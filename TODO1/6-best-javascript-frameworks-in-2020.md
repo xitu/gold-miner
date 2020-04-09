@@ -2,8 +2,8 @@
 > * 原文作者：[Naina Chaturvedi](https://medium.com/@Naina04)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/6-best-javascript-frameworks-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/6-best-javascript-frameworks-in-2020.md)
-> * 译者： [Roc](https://github.com/QinRoc)
-> * 校对者：
+> * 译者：[Roc](https://github.com/QinRoc)
+> * 校对者：[钱俊颖](https://github.com/Baddyo), [niayyy](https://github.com/niayyy-S)
 
 # 2020 年排名前 6 位的 JavaScript 框架
 
