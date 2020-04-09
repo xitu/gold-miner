@@ -21,7 +21,7 @@ Mutability! In essence, the concept of mutability describes whether or not the s
 
 Consider this, we have a variable and we assign it a value when we declare it. Later in our code, we run into a scenario where we need to now modify the value of this variable. If we now go ahead and are able to change the value of this variable, changing its state, the object is considered to be **mutable**.
 
-```
+```js
 // Original array
 const foo = [ 1, 2, 3, 4, 5 ]
 
@@ -43,7 +43,7 @@ Here comes the but…
 
 JavaScript has the concept of primitive types which are **String** and **Number**. These are considered to be immutable out of the box. The tricky part to understand here is that while the string itself is immutable, the variable assignment is still mutable. Meaning if we were to create a variable and assign it a string, if we reassign that variable to a new string, it’s technically not mutating the original string but rather the variables assignment. This is an important distinction to make.
 
-```
+```js
 // Instantiate and declare variable
 let foo = 'something'
 
@@ -66,7 +66,7 @@ The flip side of mutability is immutability. This is where once the variable has
 
 Let’s take a look at how we would insert an item into an array immutably.
 
-```
+```js
 const foo = [ 1, 2, 3, 4, 5 ]
 
 // Immutable, not mutating original array (ES6 Spread)
@@ -78,7 +78,7 @@ We are now creating `bar` and `arr` from the original array and including the ch
 
 If we had a more complex array, such as an array of objects, how could we modify each object without breaking immutability? Simple! We could use `.map` which is a native array function.
 
-```
+```js
 const foo = [{ a: 'b', c: 'd' }]
 
 // Immutable, not mutating original array
@@ -90,7 +90,7 @@ const bar = foo.map(item => ({
 
 What about objects? How would we update properties on a standalone object without mutating the original? Well yet again, we can simply use the spread syntax.
 
-```
+```js
 const foo = { becky: 'lemme' }
 
 // Immutable, not mutating original object
@@ -101,7 +101,7 @@ The initial object of `foo` remains untouched and in the same state that we foun
 
 Let’s however for a moment assume that we can’t use ES6 standards. How could we achieve the immutability?
 
-```
+```js
 const foo = { becky: 'lemme' }
 
 // Immutable, not mutating original object
@@ -112,7 +112,7 @@ In the above example, we’re using an older method of assigning values to a new
 
 NB — Be aware that using a spread operator at the top level of a nested object does not guarantee immutability in the objects nested within it. As we can see in the below example.
 
-```
+```js
 const personA = {
   address: {
    city: 'Cape Town'
@@ -151,7 +151,7 @@ This could potentially cause complications in the execution of that promise if i
 
 The result of the diagram above, depending on which promise happens to resolve first, may differ if both promises mutate the `foo` object. This is known as a race-condition. When the object is passed in, it’s merely a pointer to the underlying object that is passed instead of a new object.
 
-```JavaScript
+```js
 // Initial object
 const obj = {
   a: 'b',
@@ -172,7 +172,6 @@ Promise.all([ foo(obj), bar(obj) ])
 
 // Actual outcome
 > { a: "something", c: "d" }
-  
 ```
 
 This could potentially cause some headaches when debugging your code or even trying to implement a new feature. I would suggest remaining immutable!
@@ -181,7 +180,7 @@ This could potentially cause some headaches when debugging your code or even try
 
 In short, yes. However you should **not** simply set your new variable to the old one directly. This could also cause complications and may not go quite as we expect it to.
 
-```
+```js
 const foo = { a: 'b', c: 'd' }
 
 // This creates a pointer or shallow copy
@@ -227,8 +226,6 @@ Here are some references to resources that may peak your interest should you wis
 [MDN — Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 Thank you for reading, I hope you enjoyed and learned something. If you happen to have any feedback, criticism or contributions, feel free to jot them down in the comment section below.
-
-Auf Wedersen!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
