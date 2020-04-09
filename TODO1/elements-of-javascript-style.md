@@ -2,8 +2,8 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/elements-of-javascript-style.md](https://github.com/xitu/gold-miner/blob/master/TODO1/elements-of-javascript-style.md)
-> * 译者：
-> * 校对者：
+> * 译者：[febrainqu](https://github.com/febrainqu)
+> * 校对者：[Baddyo](https://github.com/Baddyo)、[niayyy-S](https://github.com/niayyy-S)
 
 # JavaScript 风格元素
 
