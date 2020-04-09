@@ -71,7 +71,7 @@
 
 借用《英文写作指南》中的一个词：简洁的代码更**有活力。**
 
-```
+```js
 function secret (message) {
   return function () {
     return message;
@@ -81,7 +81,7 @@ function secret (message) {
 
 可以简化为：
 
-```
+```js
 const secret = msg => () => msg;
 ```
 
@@ -99,7 +99,7 @@ const secret = msg => () => msg;
 
 例如，在大多数情况下，应该省略仅为了命名返回值而命名的变量。函数的名称应该提供关于函数返回内容的足够信息。请思考下面的代码：
 
-```
+```js
 const getFullName = ({firstName, lastName}) => {
   const fullName = firstName + ' ' + lastName;
   return fullName;
@@ -108,7 +108,7 @@ const getFullName = ({firstName, lastName}) => {
 
 对比：
 
-```
+```js
 const getFullName = ({firstName, lastName}) => (
   firstName + ' ' + lastName
 );
@@ -120,7 +120,7 @@ const getFullName = ({firstName, lastName}) => (
 
 让我们来看一个使用柯里化的例子：
 
-```
+```js
 const add2 = a => b => a + b;
 
 // 现在我们定义一个无参的函数 inc()
@@ -136,7 +136,7 @@ inc(3); // 4
 
 当你将两个函数组合在一起时，就不需要创建一个变量来保存两个函数之间的中间值。我们看一下函数组合如何简化代码：
 
-```
+```js
 const g = n => n + 1;
 const f = n => n * 2;
 
@@ -159,7 +159,7 @@ incThenDoublePointFree(20); // 42
 
 你可以对任何函子做同样的事情。[**函子**](https://medium.com/javascript-scene/functors-categories-61e031bac53f) 是任何你可以映射的东西，例如，数组（`Array.map()`）和 promises （`promise.then()`）。让我们用 map 链写另一个版本的 `compose2`：
 
-```
+```js
 const compose2 = (f, g) => x => [x].map(g).map(f).pop();
 
 const incThenDoublePointFree = compose2(f, g);
@@ -169,18 +169,18 @@ incThenDoublePointFree(20); // 42
 
 每当你使用 promise 链时，你都是在做相同的事情。
 
-实际上，每个函数式编程库都至少有两个组合实用程序版本:从右向左应用函数的 `compose()`，从左向右应用函数的 `pipe()`。
+实际上，每个函数式编程库都至少有两个组合实用程序版本：从右向左应用函数的 `compose()`，从左向右应用函数的 `pipe()`。
 
 Lodash 把它们命名为 `compose()` 和 `flow()`。当我在 Lodash 中使用它们时，我通常这样引入它们：
 
-```
+```js
 import pipe from 'lodash/fp/flow';
 pipe(g, f)(20); // 42
 ```
 
 然而，这不是更多的代码，下面的代码也能够实现：
 
-```
+```js
 const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x);
 pipe(g, f)(20); // 42
 ```
@@ -262,7 +262,7 @@ pipe(g, f)(20); // 42
 
 思考以下顺序代码：
 
-```
+```js
 const drawUserProfile = ({ userId }) => {
   const userData = loadUserData(userId);
   const dataToDisplay = calculateDisplayData(userData);
@@ -335,7 +335,7 @@ const drawUserProfile = ({ userId }) => {
 
 #### If 语句
 
-```
+```js
 if (err) return reject(err);
 
 // 其它代码...
@@ -343,7 +343,7 @@ if (err) return reject(err);
 
 …优于：
 
-```
+```js
 if (!err) {
   // ... 其它代码
 } else {
@@ -353,7 +353,7 @@ if (!err) {
 
 #### 三元运算符
 
-```
+```js
 {
   [Symbol.iterator]: iterator ? iterator : defaultIterator
 }
@@ -361,7 +361,7 @@ if (!err) {
 
 …优于：
 
-```
+```js
 {
   [Symbol.iterator]: (!iterator) ? defaultIterator : iterator
 }
@@ -379,7 +379,7 @@ if (!err) {
 
 调用函数时不需要使用 `undefined` 或 `null` 替代可选参数。最好使用命名选项对象：
 
-```
+```js
 const createEvent = ({
   title = 'Untitled',
   timeStamp = Date.now(),
@@ -395,7 +395,7 @@ const birthdayParty = createEvent({
 
 …优于：
 
-```
+```js
 const createEvent = (
   title = 'Untitled',
   timeStamp = Date.now(),
@@ -417,7 +417,7 @@ const birthdayParty = createEvent(
 
 程序中很少有问题是在之前的程序中从未出现过的。我们最终会一遍又一遍做同样的事情。发生这种情况时，这就是抽象化的机会。确定相同的部分，并构建一个抽象，你只需完成不同的部分。这正是库和框架为我们所做的。
 
-UI 组件就是一个很好的例子。不到 10 年前，将使用 jQuery 的 UI 更新与应用程序逻辑和网络 I/O 结合在一起是很常见的。然后人们开始意识到我们可以将  MVC 应用于客户端的 web 应用程序，然后人们开始将模型与 UI 更新逻辑分开。
+UI 组件就是一个很好的例子。不到 10 年前，将使用 jQuery 的 UI 更新与应用程序逻辑和网络 I/O 结合在一起是很常见的。然后人们开始意识到我们可以将 MVC 应用于客户端的 web 应用程序，然后人们开始将模型与 UI 更新逻辑分开。
 
 最终，Web 应用程序采用了组件模型方法，这使我们可以使用 JSX 或 HTML 模板等方式对组件进行声明式建模。
 
