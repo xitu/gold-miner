@@ -19,8 +19,6 @@ It is a sad story that any company and developer would not want to experience.
 
 I won’t write more details about it. Instead, I hope more people know how to avoid it. Here are my suggestions for you to keep safe from Git leaks.
 
----
-
 ## Build security awareness
 
 Most junior developers don’t have enough security awareness. Some companies will train new employees, but some companies don’t have systematic training.
@@ -36,8 +34,6 @@ Attackers can easily find some code with a company copyright on GitHub, which wa
 
 My advice is, try to distinguish between company affairs and personal stuff strictly.
 
----
-
 ## Use Git ignore
 
 When we create a new project with Git, we must set a **.gitignore** properly. **gitignore** is a Git configuration file that lists the files or directories that will not be checked into the Git repository.
@@ -48,8 +44,6 @@ We need to know the pattern matching rules of **gitignore** and add our own rule
 
 ![](https://cdn-images-1.medium.com/max/2000/0*VmEolB6qYNCYr9Wf.png)
 
----
-
 ## Check commits with Git hooks and CI
 
 No tools could find out all the sensitive data from a Git repository, but a couple of tools and practices can help.
@@ -57,8 +51,6 @@ No tools could find out all the sensitive data from a Git repository, but a coup
 [git-secrets](https://github.com/awslabs/git-secrets) and [talisman](https://github.com/thoughtworks/talisman) are similar tools, they are meant to be installed in local repositories as [pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). Every change will be checked before committed, pre-commit hooks will reject the commit if they detect a prospective commit may contain sensitive information.
 
 [gitleaks](https://github.com/zricethezav/gitleaks) provides another way to find unencrypted secrets and other unwanted data types in git repositories. We could integrate it into automation workflows such as CICD.
-
----
 
 ## Code review
 
@@ -71,8 +63,6 @@ Most unintended changes can be found out during the code review stage.
 Setting master to a restricted branch helps us to enforce the code review workflow.
 
 ![](https://cdn-images-1.medium.com/max/2208/0*RUqDCQlDgym-Jo8x.png)
-
----
 
 ## Fix it quickly and correctly
 
@@ -88,13 +78,13 @@ What we need to do is remove all the sensitive data from the entire Git history.
 
 Use the `--mirror` to clone a bare repository; this is a full copy of the Git database.
 
-```
+```bash
 git clone --mirror git://example.com/need-clean-repo.git
 ```
 
 We need **git filter-branch** to remove data from all branches and commit histories. Suppose we want to remove `./config/passwd` from Git:
 
-```
+```bash
 $ git filter-branch --force --index-filter \
   'git rm --cached --ignore-unmatch ./config/password' \
   --prune-empty --tag-name-filter cat -- --all
@@ -102,7 +92,7 @@ $ git filter-branch --force --index-filter \
 
 Remember to add the sensitive file to .gitignore:
 
-```
+```bash
 $ echo "./config/password" >> .gitignore
 $ git add .gitignore
 $ git commit -m "Add password to .gitignore"
@@ -110,14 +100,14 @@ $ git commit -m "Add password to .gitignore"
 
 Then we push all branches to remote:
 
-```
+```bash
 $ git push --force --all
 $ git push --force --tags
 ```
 
 Tell our collaborators to rebase:
 
-```
+```bash
 $ git rebase
 ```
 
@@ -128,8 +118,6 @@ BFG will leave the latest commit untouched. It’s designed to protect us from m
 If the leaked Git repository is forked by others, we need to follow the [DMCA Takedown Policy](https://help.github.com/en/github/site-policy/dmca-takedown-policy#c-what-if-i-inadvertently-missed-the-window-to-make-changes) to ask Github to remove the forked repositories.
 
 The whole procedure requires some time to finish, but it’s the only way to remove all the copies.
-
----
 
 ## Conclusion
 
