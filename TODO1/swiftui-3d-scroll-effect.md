@@ -7,21 +7,15 @@
 
 # SwiftUI 3D Scroll Effect
 
-## SwiftUI 3D Scroll Effect — Tutorial
-
-#### Jean-Marc Boullianne
-
 ![Finished 3D Scroll Effect](https://cdn-images-1.medium.com/max/2000/0*pYnR4ym84WIZk3tf.gif)
 
 Here’s a look at the kind of 3D scroll effect we’ll be making today. At the end of this tutorial, you’ll be able to add this 3D effect to any custom SwiftUI view in your app. Let’s get started!
 
-> Before getting started, please consider subscribing using this [link](https://trailingclosure.com/signup/), and if you aren’t reading this on [TrailingClosure.com](https://trailingclosure.com/), please come check us out sometime!
-
-#### Getting Started
+## Getting Started
 
 Start by creating a new SwiftUI View. For example purposes, I’ll be showing a list of rectangles in different colors, so I named my view `ColorList`.
 
-```
+```swift
 import SwiftUI
 
 struct ColorList: View {
@@ -37,19 +31,19 @@ struct ColorList_Previews: PreviewProvider {
 }
 ```
 
-#### Color Data
+## Color Data
 
 At the top of your view struct, add a variable for keeping track of colors.
 
-```
+```swift
 var colors: [Colors]
 ```
 
-#### Making the List
+## Making the List
 
 Inside your `body` variable, get rid of the placeholder `Text`. Add in a `HStack` wrapping in a `ScrollView` like this.
 
-```
+```swift
 var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
         HStack(alignment: .center, spacing: 50) {
@@ -59,11 +53,11 @@ var body: some View {
 }
 ```
 
-#### Show the Rectangles
+## Show the Rectangles
 
 Inside your `HStack` we need to show a `Rectangle` for each color stored in `colors`. For this we'll use a `ForEach`. I've gone ahead and modified the frame for the rectangle to something more relatable to a traditional UI Card.
 
-```
+```swift
 var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
         HStack(alignment: .center, spacing: 20) {
@@ -79,7 +73,7 @@ var body: some View {
 
 And if you go ahead and provide the preview struct with a list of colors like this:
 
-```
+```swift
 struct ColorList_Previews: PreviewProvider {
     static var previews: some View {
         ColorList(colors: [.blue, .green, .orange, .red, .gray, .pink, .yellow])
@@ -91,11 +85,11 @@ You should see this!
 
 ![](https://cdn-images-1.medium.com/max/2000/0*NfpStvbJHfMO2Tqq.png)
 
-#### Adding the 3D Effect
+## Adding the 3D Effect
 
 Start by wrapping your `Rectangle` in a `GeometryReader`. This will allow us to grab a reference to the frame of the `Rectangle` as it moves across the screen.
 
-```
+```swift
 var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
         HStack(alignment: .center, spacing: 230) {
@@ -115,7 +109,7 @@ You will need to change the `HStack` spacing you defined above, due to the way `
 
 Then add this line to your `Rectangle`
 
-```
+```swift
 .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 210) / -20), axis: (x: 0, y: 1.0, z: 0))
 ```
 
@@ -131,9 +125,9 @@ If you go ahead and run the example you should see your `Rectangles` rotating as
 
 ![Pretty cool right!?](https://cdn-images-1.medium.com/max/2000/0*IidRWGBSe936-9Ls.gif)
 
-#### Final Product
+## Final Product
 
-```
+```swift
 struct ColorList: View {
     
     var colors:[Color]
@@ -157,7 +151,7 @@ struct ColorList: View {
 }
 ```
 
-#### That’s all Folks!
+## That’s all Folks!
 
 If you enjoyed this post, please consider subscribing to my website using this [link](https://trailingclosure.com/signup/), and if you aren’t reading this on [TrailingClosure.com](https://trailingclosure.com/), please come check us out sometime!
 
