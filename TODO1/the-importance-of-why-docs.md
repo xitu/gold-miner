@@ -2,107 +2,107 @@
 > * 原文作者：[Bytebase](https://medium.com/@bytebase)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-why-docs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-why-docs.md)
-> * 译者：
+> * 译者：[Roc](https://github.com/QinRoc)
 > * 校对者：
 
-# The Importance of “Why” Docs
+# “为什么”文档的重要性
 
-> Giving future engineers context on why decisions were made
+> 为未来的工程师们提供制定决定时的背景
 
 ![Photo by [Emily Morter](https://unsplash.com/@emilymorter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/why?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*2KhDOt8Dgcq17b-8rlMsig.jpeg)
 
-Many of us have, at one time or another, blindly followed a pattern we noticed, thinking that must be the way to do it. We do so without questioning if that pattern is the best fit for our particular situation or if that pattern was ever a good idea to begin with.
+我们中的许多人曾经盲目地遵循我们所被告知的模式，认为那一定是做这件事情的正确方式。我们就这样照做了，而没有怀疑那个模式对于我们所处的特殊情形是不是最佳选择，或者那个模式从一开始就不够好。
 
-In doing this, we rob ourselves of the opportunity to learn and deepen our understanding, to be intentional with our work, and, ultimately, to get better at our craft. Even more, we set yet another precedent for colleagues to do the same, instead of encouraging them to dig deeper.
+在我们盲目照做的时候，我们放弃了学习和深化理解、专心工作以及最终提高技术的机会。甚至我们为同事树立了另一个照做的先例，而不是鼓励他们更深入其中。
 
-## The Girl and the Fish
+## 女孩和鱼
 
 ![](https://cdn-images-1.medium.com/max/10944/1*mvAQ0v229MXNdrTWSglD1w.jpeg)
 
-I recently learned about the fable of a young girl watching her mother cook fish:
+我最近听说了一则关于一个小女孩儿观察她的妈妈烤鱼的寓言：
 
-> A little girl was watching her mother prepare a fish for dinner. Her mother cut the head and tail off the fish and then placed it into a baking pan.
+> 一个小女孩儿正看着她的妈妈为晚餐做一条烤鱼。她的妈妈切除了鱼的头和尾巴，然后把剩下的部分放到了烤盘里。
 >
-> The little girl asked her mother why she cut the head and tail off the fish.
+> 这个小女孩就问她的妈妈：“为什么你要切下鱼的头和尾巴呢？”
 >
-> Her mother thought for a while and then said, “I’ve always done it that way. That’s how grandma always did it.”
+> 她的妈妈想了一会儿，然后说：“我一直是这样做的呀。你的奶奶也是一直这么做的。”
 >
-> Not satisfied with the answer, the little girl went to visit her grandma to find out why she cut the head and tail off the fish before baking it. Grandma thought for a while and replied, “I don’t know. My mother always did it that way.”
+> 小女孩对这个答案不满意，于是就去拜访了奶奶，想找出她在烤鱼前切掉鱼的头和尾巴的原因。奶奶想了一会儿，然后回答道：“我也不知道。我的妈妈一直是这么做的。”
 >
-> So the little girl and the grandma went to visit great-grandma to find ask if she knew the answer. Great-grandma thought for a while and said, “Because my baking pan was too small to fit in the whole fish!”
+> 于是小女孩和她的奶奶就去拜访了曾祖母，询问她是否知道这个答案。曾祖母想了一会儿，然后说：“因为我的烤盘太小了，放不下整条鱼。”
 
-**— [via Ptex Group](https://ptexgroup.com/learned-story-fish/)**
+**——[ 来自 Ptex Group](https://ptexgroup.com/learned-story-fish/)**
 
-The girl’s mother took off the head and tail of the fish because she was unaware of the great grandmother’s constraint of a small pan. She didn’t ask “why” when she adopted the recipe, and the great grandmother didn’t realize she should tell her. As a result, the girl’s mother was still able to cook fish, but she was cooking suboptimally. She was cooking uninformed.
+女孩的妈妈切下了鱼的头和尾巴，因为她没有意识到小烤盘对曾祖母的约束才是需要这样做的原因。当她采用这个菜谱的时候，没有问为什么。曾祖母也没有意识到应该告诉她这样做的原因。于是这个女孩儿的妈妈虽然也能够做鱼，但是她做鱼的方式不是最优的。她在情况不明的时候做鱼。
 
-By asking “why,” the little girl can change the recipe with confidence because she knows the original constraint of a small pan no longer holds.
+通过询问“为什么”，这个小女孩儿可以自信地改变菜谱，因为她知道现在已经没有了当初小烤盘的约束。
 
 ---
 
-## Asking “Why” in Docs
+## 在文档中问“为什么”
 
-Like the little girl, we want to break the cycle of doing without understanding. We can break this cycle by asking “why,” and by documenting why as we build.
+像这个小女孩一样，我们也想打破在不理解的情况下就做事的循环。为了实现这个目标，我们可以问“为什么”，然后把问题和答案记录在文档里。
 
-Code tells you **how** a software system works. Docs tell you **why** a system works this way.
+代码可以告诉你一个软件系统是**如何**工作的。文档则告诉你这个系统**为什么**以这种方式工作。
 
-> Code tells what, docs tell you why.” — **Steve Konves at [Hacker Noon](https://hackernoon.com/write-good-documentation-6caffb9082b4)**
+> “代码告诉你做什么，文档告诉你为什么。” —— **Steve Konves 在 [Hacker Noon](https://hackernoon.com/write-good-documentation-6caffb9082b4) 写道。**
 
-Writing down “why” as we build will:
+在我们编程的时候写下“为什么”可以：
 
-* Reduce the number of outages caused by changing code without understanding it
-* Reduce the time spent hunting down why software was written a certain way
-* Build a culture of craft and critical thinking in our teams
-* Empower our teams to build better
+* 减少在不理解的情况下就改动代码所引发的事故的数量。
+* 减少花费在理解软件为什么这样编写上的时间。
+* 在我们的团队中建立一种包含工匠精神和批判性思考的文化。
+* 赋能我们的团队以更好地编程。
 
-#### When to write “why”
+#### 什么时候记录“为什么”？
 
-As you code, throughout the day, ask yourself:
+在你编写代码的时候，一直问自己：
 
-> Are there certain constraints that are impacting my work?
+> 有没有一些影响我的工作的约束？
 >
-> Is there anything I’m doing that requires explanation to understand fully?
+> 我在做的事情中有没有需要解释才能完全明白的？
 
-These constraints can be related to:
+这些约束可能和这些事情有关：
 
-* Tight deadlines
-* Lacking resources on a project
-* Known bugs we’d like to mitigate
-* User-traffic patterns
+* 紧迫的截止期限。
+* 项目所缺少的资源。
+* 我们想要缓解的已知缺陷。
+* 用户流量的模式。
 
-Some building that requires explanation can be:
+一些需要解释的编码方式可能有：
 
-* Why we decided to duplicate code instead of reuse code
-* Why we’re committing code in this order
-* Why we have this unusual-looking edge case handling
+* 我们为什么决定复制代码而不是复用代码？
+* 我们为什么以这种顺序提交代码？
+* 我们为什么要处理这种特别的极端情况？
 
-Write those constraints and explanations down.
+把这些限制和解释一一记录下来。
 
-#### Example constraints
+#### 约束的案例
 
-* This feature needs to be released immediately, so we’re accepting poorer code quality
-* We need to support backward compatibility of our iOS app to v1.1, so we have to pass this extra field
-* We’re expecting a 100x burst load tomorrow, so we’re increasing our base instance size
-* Team size is three engineers, so we only want to support one programming stack
-* Our project requirements aren’t clear enough, so we’re holding off on updating this feature for now
+* 这个功能需要立即发布，所以我们接受较差的代码质量。
+* 我们需要向后兼容我们的 iOS 应用到 1.1 版本，所以我们不得不传递这个额外的参数。
+* 我们预计明天的负载会暴增 100 倍，所以我们增加了基础实例大小。
+* 我们的团队只有三个工程师，所以我们只能支持一种技术栈。
+* 我们的项目的需求不够清晰，所以我们暂时不更新这个功能。
 
-#### Example explanations
+#### 解释的案例
 
-* We’re duplicating our blog model because we want to move to a backward-incompatible model
-* We’re avoiding our usual API for this because that API has been known to cause performance issues in use cases like ours
-* The special account balance value of -$200 indicates this is an employee account
+* 我们复制了博客模型，因为我们想要迁移到一个不向后兼容的模型。
+* 我们在这里避免使用常用的 API，因为已知这个 API 会在类似的用例里造成性能问题。
+* -$200 的特殊账户余额意味着这是一个员工账户。
 
-## How to Make “Why” Easy to Find
+## 如何更容易地发现“为什么”
 
-Part 2 of this post will cover how you can use Git to capture the “why” related to your code as part of your daily routine.
+这篇文章的第二部分会讲述在日常工作中如何使用 Git 来捕捉和你的代码有关的“为什么”。
 
-We’ll also go over how Bytebase makes sharing and finding the “why” behind your team’s work easy.
+我们也会复盘 Bytebase 是如何让发现和分享团队工作中隐藏的“为什么”变得容易的。
 
-## References
+## 参考资料
 
-[**Write Good Documentation**](https://hackernoon.com/write-good-documentation-6caffb9082b4)
+* [**撰写优秀的文档**](https://hackernoon.com/write-good-documentation-6caffb9082b4)
 
-* [“Etsy’s experiment with immutable documentation”](https://codeascraft.com/2018/10/10/etsys-experiment-with-immutable-documentation/) via Code as Craft
-* [“What I Learned from the Story of the Fish”](https://ptexgroup.com/learned-story-fish/) via Ptex Group
+* [“Etsy 的关于不可变更的文档的实验”](https://codeascraft.com/2018/10/10/etsys-experiment-with-immutable-documentation/) 来自 Code as Craft
+* [“我从鱼的故事获得的感悟”](https://ptexgroup.com/learned-story-fish/)来自 Ptex Group
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
