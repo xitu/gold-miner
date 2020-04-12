@@ -314,7 +314,7 @@ Web Components 标准不断发展，越来越多的新功能经过讨论并被�
 2.  [编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)
 3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Web Components 的高级工具（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+5.  [Web Components 的高级工具（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

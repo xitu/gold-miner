@@ -2,30 +2,30 @@
 > * 原文作者：[Adam Polak](https://pl.linkedin.com/in/adam-polak-3267a99b)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/new-node-js-features.md](https://github.com/xitu/gold-miner/blob/master/TODO1/new-node-js-features.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[Alfxjx](https://github.com/Alfxjx), [cyz980908](https://github.com/cyz980908)
 
-# New Node.js 12 features will see it disrupt AI, IoT and more surprising areas
+# Node.js 新特性将颠覆 AI、物联网等更多惊人领域
 
-**New Node.js features isn’t the usual selling point of this platform. Node.js is primarily well-known for its [speed and simplicity](https://tsh.io/blog/node-js-tutorial-for-beginners/). This is why so many companies are willing to give it a shot. However, with the release of a new LTS (long-term support) version, Node.js will gain a lot of new features [every Node.js developer](https://tsh.io/services/web-development/node/) can be excited about. Why? That’s because the new Node.js 12 features and the possibilities they create are simply that amazing!**
+**新版 Node.js 的特性并非这个平台此前的那些等闲卖点。Node.js 主要以其[迅速和简洁](https://tsh.io/blog/node-js-tutorial-for-beginners/)而闻名。这也是为何那么多公司都愿意尝试 Node.js。然而，随着最新的 LTS（long-term support，长期支持）版本的发布，Node.js 将会带来很多让每位 Node.js 开发者欣喜若狂的新特性。为什么？因为 Node.js 12 新鲜出炉的特性及其带来的可能性简直让人惊艳！**
 
-## Threads are almost stable!
+## 多线程趋向稳定！
 
-With the last LTS we’ve got access to threads. Of course, it was an experimental feature and required a special flag called **–experimental-worker** for it to work.
+在上一个 LTS 版本中，我们已经可以使用多线程了。诚然，这是一个试验性特性，需要一个名为 **--experimental-worker** 的标志（flag）才能生效。
 
-With the upcoming LTS (Node 12) it’s still experimental, but won’t require a flag anymore. We are getting closer to a stable version!
+在即将问世的这个 LTS 版本（Node 12）中，多线程仍是试验性的，但不再需要依赖 **--experimental-worker** 这种标志了。稳定版本正在向我们翩跹走来！
 
-## ES modules support
+## 支持 ES 模块
 
-Let’s face it, ES modules are currently the way to go in JavaScript development. We are using it in our frontend apps. We are using it on our desktop or even mobile apps. And yet, in case of Node we were stuck with common.js modules.
+我们需要认清这样的事实：ES 模块是目前 JavaScript 开发的必经之路。我们在前端应用中使用它。我们在桌面端乃至移动端应用中使用它。可是，在 Node.js 领域，我们还卡在 Common.js 模块停滞不前。
 
-Of course, we could use Babel or Typescript, but since Node.js is a backend technology, the only thing we should care about is a Node version installed on the server. We don’t need to care about multiple different browsers and support for them, so what’s the point of installing a tool that was made precisely with that in mind (Babel/Webpack etc.)?
+当然了，我们还有 Babel 和 TypeScript 可以用，但既然 Node.js 是一门后端技术，我们应当关心的应该只是服务器上安装的 Node 的版本是否更新。我们不必去在意五花八门的浏览器和 Node.js 对它们的支持情况，那么安装专门针对此目的而设计的工具（Babel、Webpack 等）有什么意义呢？
 
-With Node 10, we could finally play a little with ES modules (current LTS has experimental implementation for modules), but it required us to use special file extension **– .mjs** (module javascript).
+在 Node 10 版本中，我们总算是可以用 ES 模块小试牛刀了（目前的 LTS 版本对模块进行了试验性的实现），但还需要使用一个特定的文件扩展 —— **.mjs**（模块 JavaScript 代码文件）。
 
-With Node 12, it’s getting a little bit easier to work with. Much like it is with web apps, we get a special property type called that will define if code should be treated like common.js or es module.
+而在 Node 12 版本中，使用 ES 模块要稍微容易一些了。正如在 Web App 中一样，我们可以用一个专有的属性类型来定义某段代码是应该处理为 Common.js 还是 ES 模块。
 
-The only thing you need to do to treat all your files as a module is to add the property **type** with the value **module** to your package.json.
+要想把文件都作为模块使用，你只需在 package.json 中添加 **type** 属性并赋值为 **module**。
 
 ```json
 {
@@ -33,27 +33,27 @@ The only thing you need to do to treat all your files as a module is to add the 
 }
 ```
 
-From now on, if this package.json is the **closest** to our .js file, it will be treated like a module. No more **mjs** (we can still use it if we want to)!
+从现在起，如果离 .js 文件**最近**的 package.json 文件带有 type 属性，那么这些 .js 文件将作为模块存在。再见了您呐，**mjs**（如果想用，还是可以继续用的）！
 
-So, what if we wanted to use some common.js code?
+那么，要是我们想要用 Common.js 风格的模块，该怎么办呢？
 
-As long as the closest package.json does not contain a module type property, it will be treated like common.js code.
+只要离它最近的 package.json 不包含模块属性 type，那它就将被视为是遵循 Common.js 规范的代码。
 
-What’s more, we are getting new an extension called **cjs** – a common.js file.
+另外，我们可以使用一种新型的扩展文件，叫做 **cjs** —— 代表一个 Common.js 文件。
 
-Every **mjs** file is treated as a module and every **cjs** as a common.js file.
+每个 **mjs** 文件都是一个 ES 模块，而每个 **cjs** 都是一个 Common.js 文件。
 
-If you didn’t have a chance to try it out, now is the time!
+如果你还没尝过这一勺鲜，那现在赶紧试试吧！
 
-## JS and private variables
+## JavaScript 和私有变量
 
-When it comes to JavaScript, we have always struggled to protect some data in our classes/functions from the outside.
+说起 JavaScript，我们总需要绞尽脑汁防止类或函数中的数据外泄。
 
-JS is famous for its monkey patching, meaning we could always somehow access almost everything.
+JavaScript 因其猴子补丁（[Monkey patching](https://segmentfault.com/n/1330000004293098)）而闻名，这意味着我们总是能通过某种门路拿到所有数据。
 
-We tried with closures, symbols and more to simulate private-like variables. Node 12 ships with the new V8 and so we’ve got access to one cool feature – private properties in the class.
+我们尝试过用闭包、Symbol 等等模拟私有变量。Node 12 版本装载了新版 V8 引擎，因此我们有机会使用一个炫酷特性 —— 类中的私有属性。
 
-I’m sure you all remember the old approach to privates in Node:
+我想你们都还记得在 Node 中实现私有性的老方法：
 
 ```js
 class MyClass {
@@ -67,7 +67,7 @@ class MyClass {
 }
 ```
 
-We all know it’s not really a private – we are still able to access it anyway, but most of IDEs treated it like a private field and most of Node devs knew about this convention. Finally, we can all forget about it.
+我们都清楚，这并非真正的私有 —— 我们总有办法拿到它，但大多数 IDE 都把它看作私有字段，多数 Node 开发者都知道这个惯例。现在，我们终于可以将这种方法抛之脑后了。
 
 ```js
 class MyClass {
@@ -79,54 +79,54 @@ class MyClass {
 }
 ```
 
-Can you see the difference? Yes, we use **#** character to tell Node that this variable is private and we want it to be accessible only from the inside of this class.
+能看到二者的差异吗？没错，我们用 **#** 告诉 Node，这个变量是私有变量，只能在类内部访问到。
 
-Try to access it directly, you’ll get an error that this variable does not exists.
+如果试图直接访问它，你会看到报错信息，说这个变量不存在。
 
-Sadly some IDE do not recognize them as proper variables yet.
+令人郁闷的是，有些 IDE 目前还不能识别这种私有变量。
 
-## Flat and flatMap
+## Flat 和 flatMap
 
-With Node 12, we’re getting access to new JavaScript features.
+在 Node 12 版本中，我们可以尽情使用 JavaScript 的新特性。
 
-First of all, we’re getting access to new array methods – **flat** and **flatMap**. The first one is similar to **Lodash’s** **flattenDepth** method.
+首先，我们可以使用数组的新方法 —— **flat** 和 **flatMap**。前者很像 **Lodash** 中的 **flattenDepth** 方法。
 
-If we pass a nested arrays to it, we will get a flatten array as a result.
+如果向方法中传入一个嵌套的数组，可以得到一个展开的数组。
 
 ```js
 [10, [20, 30], [40, 50, [60, 70]]].flat() // => [10, 20, 30, 40, 50, [60, 70]]
 [10, [20, 30], [40, 50, [60, 70]]].flat(2) // => [10, 20, 30, 40, 50, 60, 70]
 ```
 
-As you can see, it also has a special parameter – **depth**. By using it, you can decide how many levels down you want to flatten.
+如你所见，该方法还有个特别的参数 —— **depth**（深度）。这个参数决定了嵌套数组将以何种深度被降维。
 
-The second one – **flatMap** – works just like **map**, followed by **flat** 🙂
+第二个新特性 —— **flatMap**，其作用类似于首先执行 **map** 方法，再执行 **flat**。🙂
 
-## Optional catch binding
+## 可选的 Catch 绑定
 
-Another new feature is **optional catch binding.** Until now we always had to define an error variable for **try** – **catch.**
+另一个新特性就是 **可选的 Catch 绑定**（Optional catch binding）。此前，我们总是需要为 **try - catch** 定义一个 error 变量。
 
 ```js
 try {
   someMethod()
 } catch(err) {
-  // err is required
+  // err 变量是必须的
 }
 ```
 
-With Node 12 we can’t skip the entire catch clause, but we can skip the variable at least.
+而在 Node 12 版本中，我们虽不能完全摆脱 **try - catch** 语句，但 error 变量是可以省了。
 
 ```js
 try {
   someMethod()
 } catch {
-  // err is optional
+  // err 变量是可选的
 }
 ```
 
 ## Object.fromEntries
 
-Another new JavaScript feature is the **Object.fromEntries** method. It’s main usage is to create an object either from **Map** or from a **key/value** array.
+还有一个新特性就是 **Object.fromEntries** 方法。其主要用途是通过 **Map** 或者**键值对**数组创建一个对象。
 
 ```js
 Object.fromEntries(new Map([['key', 'value'], ['otherKey', 'otherValue']]));
@@ -137,48 +137,48 @@ Object.fromEntries([['key', 'value'], ['otherKey', 'otherValue']]);
 // { key: 'value', otherKey: 'otherValue' }
 ```
 
-## V8 changes
+## V8 引擎的变化
 
-I did mention that the new Node comes with the V8. This gives us not only access to the private field, but also some performance optimizations.
+我提到过，新版的 Node 装载了 V8 引擎。这使得 Node 不仅支持私有变量，还带有一些性能优化功能。
 
-Awaits should work much faster, as should JS parsing.
+Await 将会像 Javascript 解析那样运行飞快。
 
-Our apps should load quicker and asyncs should be much easier to debug, because we’re finally getting stack traces for them.
+而由于支持堆栈追踪，我们的应用将会加载得更快，Async 代码将更加易于调试。
 
-What’s more, the heap size is getting changed. Until now, it was either 700MB (for 32bit systems) or 1400MB (for 64bit). With new changes, it’s based on the available memory!
+另外，堆（Heap）的大小也正在改变。此前，其体量为 700MB（在 32 位系统中）或 1400MB（在 64 位系统中）。随着新版本带来的变化，堆大小将依可用内存大小而定！
 
-## 12 is coming!
+## Node 12 版本来啦！
 
-I don’t know about you, but I’m waiting for Node 12. We are still a few months (October 2019 is the planned release date) from an official change to 12 as LTS, but the features we are getting are very promising.
+我不知道你期不期待，反正我是对 Node 12 拭目以待。距离官方将 12 版本更新为 LTS 版本还要几个月（发布日期定于 2019 年 10 月），但我们将要得到的新特性无疑是前途无量的。
 
-Just a few more months!
+只有几个月啦！
 
-## The new Node.js is all about threads!
+## 新版 Node.js 最大的看点就是多线程！
 
-If there is one thing we can all agree on, it’s that **every programming language has its pros and cons**. Most popular technologies have found their own niche in the world of technology. Node.js is no exception.  
+**每种编程语言都各有其利弊**，这是我们大家都毋庸置疑的。大多数流行的技术都在技术世界有各自的一席之地。Node.js 也不例外。
   
-We’ve been told for years that [Node.js is good for API gateways](https://tsh.io/blog/serverless-in-node-js-beginners-guide/) and real-time dashboards ([e.g. with websockets](https://tsh.io/blog/php-websocket/)). As a matter of fact, its design itself forced us to depend on the microservice architecture to overcome some of its common obstacles.  
+几年来，我们一直都说 [Node.js 适用于 API gateway](https://tsh.io/blog/serverless-in-node-js-beginners-guide/) 和实时仪表板（[如基于 Websocket](https://tsh.io/blog/php-websocket/)）。事实上，Node 的设计让我们不得不依赖微服务架构来弥补其本身的常见缺陷。
+
+经过时间的检验，我们已知悉，由于其单线程设计理念，Node.js 不适合处理耗时长、严重占用 CPU 算力或阻塞操作的任务。这是事件循环机制本身的问题。
   
-At the end of the day, we knew that Node.js was simply not meant for time-consuming, CPU-heavy computation or blocking operations due to its single-threaded design. This is the nature of the event loop itself.  
+如果有一个复杂的同步操作阻塞了事件循环，那么在该操作完成前，别的什么也做不了。这就是我们频繁使用 Async 或将耗时间的逻辑移到单独的微服务中的原因。
   
-If we block the loop with a complex synchronous operation, it won’t be able to do anything until it’s done. That’s the very reason we use async so heavily or move time-consuming logic to a separate microservice.  
-  
-This workaround may no longer be necessary thanks to new Node.js features that debuted in its 10 version. **The tool that will make the difference are worker threads**. Finally, Node.js will be able to excel in fields where normally we would use a different language.
+随着 Node.js 10 版本中的新特性的面世，这种权宜之计将变得不再必要。**这个化腐朽为神奇的工具就是 Worker thread**。正因如此，Node.js 将能够在通常我们会使用其他语言的领域中大放异彩。
 
-A good example could be AI, machine learning or big data processing. Previously, all of those required CPU-heavy computation, which left us no choice, but to build another service or pick a better-suited language. No more.
+人工智能、机器学习或大数据都是很好的佐证，就目前来说，这些领域的研究需要大量的 CPU 算力，这让我们别无他选，只能搭建更多的服务或者换一个更适合的语言。但从新版 Node.js 开始，一切都不一样了。
 
-## Threads!? But how?
+## 支持多线程？怎么做到的？
 
-This new Node.js feature is still experimental – it’s not meant to be used in a production environment just yet. Still, we are free to play with it. So where do we start?
+这个新特性仍处在试验阶段 —— 还不能在生产环境中使用。但我们还是可以随意玩玩的。那从哪开始呢？
 
-Starting from Node 12+ we no longer need to use special feature flag **–experimental-worker.** Workers are on by default!
+从 Node 12 开始及至更高版本中，我们不再需要使用特定的特性标志 **--experimental-worker**。 Worker 将是默认激活的！
 
 **node index.js**
 
-Now we can take full advantage of the **worker_threads** module. Let’s start with a simple HTTP server with two methods:
+现在我们可以充分利用 **worker_threads** 模块。让我们先写一个简单的带有两个方法的 HTTP 服务器：
 
-* GET /hello (returning JSON object with “Hello World” message),
-* GET /compute (loading a big JSON file multiple times using a synchronous method).
+* GET /hello（返回带有“Hello World”信息的 JSON 对象），
+* GET /compute（使用一个同步方法重复加载一个大 JSON 文件）。
 
 ```js
 const express = require('express');
@@ -208,9 +208,9 @@ app.get('/compute', (req, res) => {
 app.listen(3000);
 ```
 
-The results are easy to predict. When **GET /compute** and **/hello** are called simultaneously, we have to wait for the **compute** path to finish before we can get a response from our **hello** path. The Event loop is blocked until file loading is done.
+这段代码的运行结果很容易预测。当 **GET /compute** 和 **/hello** 被同时调用，我们必须等到 **compute** 调用完成才能从 **hello** 得到响应。事件循环被阻塞，直到文件加载完成。
 
-Let’s fix it with threads!
+让我们用多线程优化一下吧！
 
 ```js
 const express = require('express');
@@ -256,25 +256,25 @@ if (isMainThread) {
 }
 ```
 
-As you can see, the syntax is very similar to what we know from Node.js scaling with Cluster. But the interesting part begins here.
+很明显，这种语法和我们所知道的 Node.js 集群扩展非常相似。但从这儿就开始变得有趣起来了。
 
-Try to call both paths at the same time. Noticed something? Indeed, the event loop is no longer blocked so we can call **/hello** during file loading.
+你可以试着同时调用两个路径。注意到什么了吗？。没错，事件循环不再被阻塞，这样我们就能在文件加载期间调用 **/hello** 了。
 
-Now, this is something we have all been waiting for! All that’s left is to wait for a stable API.
+现在，这就是我们都翘首以盼的东西！剩下的就是等待稳定版本的 API 出炉了。
 
-## Want even more new Node.js features? Here is an N-API for building C/C++ modules!
+## 渴望更多的 Node.js 新特性？这个 N-API 能够构建 C/C++ 模块！
 
-The raw speed of Node.js is one of the reason we choose this technology. Worker threads are the next step to improve it. But is it really enough?
+Node.js 的原生运行速度正是我们青睐这个技术的原因之一。Worker threads 将会更进一步地提升 Node.js 的速度。但仅仅是这样就够了吗？
 
-Node.js is a C-based technology. Naturally, we use JavaScript as a main programming language. But what if we could use C for more complex computation?
+Node.js 是一种基于 C 语言的技术。当然了，我们把 JavaScript 当作一个主要编程语言来使用。但如果我们能用 C 语言做更加复杂的计算呢？
 
-Node.js 10 gives us a stable **N-API.** It’s a standardized API for native modules, making it possible to build modules in C/C++ or even Rust. Sounds cool, doesn’t it?
+Node.js 10 版本给我们带来了 **N-API**。这是一个标准化的 API，适用于原生模块，让用 C/C++ 甚至是 Rust 语言构建模块成为可能。听起来很棒，对吧？
 
 ![C++ logo](https://tsh.io/wp-content/uploads/2018/12/c-logo-267x300.png)
 
-Building native Node.js modules in C/C++ has just got way easier
+用 C/C++ 构建 Node.js 原生模块变得更加容易。
 
-A very simple native module can look like this:
+下面是一个很简单的原生模块示例：
 
 ```cpp
 #include <napi.h>
@@ -296,9 +296,9 @@ namespace helloworld {
 }
 ```
 
-If you have a basic knowledge of C++, it’s not too hard to write a custom module. The only thing you need to remember is to convert C++ types to Node.js at the end of your module.
+如果你有 C++ 的基础，写一个自定义模块肯定不费吹灰之力。你只需记得在模块结尾将 C++ 的类型转化为 Node.js 类型即可。
 
-Next thing we need is **binding**:
+接下来我们需要**绑定**（binding）：
 
 ```gyp
 {
@@ -314,9 +314,9 @@ Next thing we need is **binding**:
 }
 ```
 
-This simple configuration allows us to build *.cpp files, so we can later use them in Node.js apps.
+这个简单的配置让我们能够构建 *.cpp 文件，以便于后续在 Node.js 应用中使用。
 
-Before we can make use of it in our JavaScript code, we have to build it and configure our package.json to look for gypfile (binding file).
+在用于 JavaScript 代码之前，我们必须进行构建并配置 package.json 文件来查找 gyp 文件（绑定文件）。
 
 ```json
 {
@@ -338,7 +338,7 @@ Before we can make use of it in our JavaScript code, we have to build it and con
 }
 ```
 
-Once the module is good to go, we can use the **node-gyp rebuild** command to build and then require it in our code. Just like any popular module we use!
+当模块准备就绪，我们就可以用 **node-gyp rebuild** 命令进行构建并导入到 JavaScript 代码中。用法和其他流行的模块的用法一样！
 
 ```js
 const addon = require('./build/Release/helloworld.node');
@@ -346,17 +346,17 @@ const addon = require('./build/Release/helloworld.node');
 console.log(addon.hello());
 ```
 
-Together with worker threads, N-API gives us a pretty good set of tools to build high-performance apps. Forget APIs or dashboards – even complex data processing or machine learning systems are far from impossible. Awesome!
+N-API 以及 Worker threads 赋予我们功能强大的工具，帮我们构建高性能的应用。不用说 API 或仪表板 —— 即使是复杂的数据处理或者机器学习系统都将垂手可得。多么棒啊！
 
-**See also: **[Swoole – Is it Node in PHP? ](https://tsh.io/blog/swoole-is-it-node-in-php-or-am-i-wrong/)
+**另请参阅：**[Swoole – Is it Node in PHP? ](https://tsh.io/blog/swoole-is-it-node-in-php-or-am-i-wrong/)
 
-## Full support for HTTP/2 in Node.js? Sure, why not!
+## Node.js 会全面支持 HTTP/2 吗？当然了！何乐不为？
 
-We’re able to **compute faster**. We’re able to **compute in parallel**. So how about **assets and pages serving**?
+我们能够**计算得更快**。我们能进行**分布式计算**。那么**资源和页面服务**方面表现如何？
 
-For years, we were stuck with the good old **http** module and HTTP/1.1. As more and more assets are being served by our servers, we increasingly struggle with loading times. Every browser has a maximum number of simultaneous persistent connections per server/proxy, especially for HTTP/1.1. With HTTP/2 support, we can finally kiss this problem goodbye.
+多年来，我们一直都卡在优秀却陈旧的 **http** 模块和 HTTP/1.1 上没有进步。随着服务器要提供的资源越来越多，我们越来越受制于加载所花费的时间。针对每个服务器或代理服务器，各个浏览器都有个并发持久连接数上限，特别是 HTTP/1.1 协议下。有了对 HTTP/2 的支持，我们就可以和这个问题吻别了。
 
-So where do we start? Do you remember this basic Node.js server example from every tutorial on web ever? Yep, this one:
+那我们该从哪里下手呢？你是否还记得网上每个教程中都会出现的这个 Node.js 基础示例？对，就是这个：
 
 ```js
 const http = require('http');
@@ -367,7 +367,7 @@ http.createServer(function (req, res) {
 }).listen(3000);
 ```
 
-With Node.js 10, we get a new **http2** module allowing us to use HTTP/2.0! Finally!
+在 Node.js 10 版本中，有一个崭新的 **http2** 模块可以让我们使用 HTTP/2.0！可算是迎来了 HTTP/2.0！
 
 ```js
 const http = require('http2');
@@ -384,25 +384,25 @@ http.createSecureServer(options, function (req, res) {
 }).listen(3000);
 ```
 
-![Http/2 protocol logo](https://tsh.io/wp-content/uploads/2018/12/https2-logo-300x300.png)
+![Http/2 协议 logo](https://tsh.io/wp-content/uploads/2018/12/https2-logo-300x300.png)
 
-Full HTTP/2 support in Node.js 10 is what we have all been waiting for
+我们心心念念的就是 Node.js 10 版本中全面支持的 HTTP/2。
 
-## With these new features, the future of Node.js is bright
+## 这些新特性会让 Node.js 的未来一片光明
 
-The new Node.js features bring fresh air to our tech ecosystem. They open up completely new possibilities for Node.js. Have you ever imagined that this technology could one day be used for image processing or data science? Neither have I.
+Node.js 的新特性为我们的技术生态注入了新鲜血液。它们给 Node.js 插上翅膀，让它飞向新的天地。你想到过这个技术有一天会用于图像识别或者数据科学吗？我也从来没有想到过。
 
-This version gives us even more long-awaited features such as support for **es modules** (still experimental, though) or changes to **fs** methods, which finally use promises rather than callbacks.
+这个版本的 Node.js 还带来了更多的人们期盼已久的特性，例如对 **ES 模块**的支持（虽然仍出于试验阶段）；又如 **fs** 方法的更新，终于让我们能够脱离回调地狱、拥抱 Promise 天堂了。
 
-Want **even more new Node.js features**? Watch [this short video](https://youtu.be/FuWZeUfaI4s).
+想知道**更多的 Node.js 新特性**吗？请观看[这个短视频](https://youtu.be/FuWZeUfaI4s)。
 
-As you can see from the chart below, the popularity of Node.js seems to have peaked in early 2017, after years and years of growth. It’s not really a sign of slowdown, but rather of  maturation of this technology.
+在下面的折线图中，我们可以发现，经过历年的增长，Node.js 的人气在 2017 年早期达到了巅峰。这并不是增长开始缓慢的迹象，而是标志着这个技术的成熟。
 
-![Popularity of Node.js over time chart, peaked in 2017](https://tsh.io/wp-content/uploads/2018/12/node-popularity-over-the-years-chart-1024x425.png)
+![Node.js 历年人气折线图，2017 年达到峰值](https://tsh.io/wp-content/uploads/2018/12/node-popularity-over-the-years-chart-1024x425.png)
 
-However, I can definitely see how all of these new improvements, as well as the growing popularity of Node.js blockchain apps (based on the truffle.js framework), may give Node.js a further boost so that it can blossom again – in new types of projects, roles and circumstances.
+不论如何，我能够清晰地看出，所有这些新的改进和 Node.js 区块链应用（基于 truffle.js 框架）的走红，或可进一步推动 Node.js 的发展，让 Node.js 在新型的项目、角色和环境中梅开二度。
 
-The TSH Node.js team is so looking forward to 2020!
+TSH（The Software House）Node.js 团队非常期待 2020 年的到来!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
