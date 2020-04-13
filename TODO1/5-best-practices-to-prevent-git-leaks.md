@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md)
 > - 译者：[YueYongDEV](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[Roc](https://github.com/QinRoc)
 
 # 防止 Git 泄漏的 5 种最佳做法
 
@@ -25,12 +25,12 @@
 
 作为开发人员，我们需要知道哪些数据可能会带来安全问题。千万记住，下面这些数据不要上传到 Git 仓库中：
 
-1. 任何配置数据，包括密码，API 密钥，AWS 密钥，私钥等。
+1. 任何配置数据，包括密码，API 密钥，AWS 密钥和私钥等。
 2. [个人身份信息](https://en.wikipedia.org/wiki/Personal_data)（PII）。根据 GDPR 的说法，如果公司泄露了用户的 PII，则该公司需要通知用户和有关部门，否则会带来更多的法律麻烦。
 
 如果你在公司工作，未经允许，请勿共享任何与公司相关的源代码或数据。
 
-攻击者可以在 GitHub 上轻松的找到某些具有公司版权的代码，而这些代码都是无意中被员工泄露在 Github 上。
+攻击者可以在 GitHub 上轻松地找到某些具有公司版权的代码，而这些代码都是被员工无意中泄露到 Github 上的。
 
 我的建议是，应该将公司项目和个人项目严格区分。
 
@@ -38,7 +38,7 @@
 
 当我们使用 Git 创建一个新项目时，我们必须正确地设置一个 **.gitignore** 文件。**.gitignore** 是一个 Git 配置文件，它列出了不会被存入 Git 仓库的文件或目录。
 
-[这个项目的 .gitignore](https://github.com/github/gitignore) 是一个实际使用着的 .gitignore 模板集合，其中包含各种编程语言文件、框架、工具或环境配置文件。
+[这个 gitignore 项目](https://github.com/github/gitignore) 是一个实际使用着的 .gitignore 模板集合，其中包含对应各种编程语言、框架、工具或环境的配置文件。
 
 我们需要了解 **gitignore** 的模式匹配规则，并根据模板添加我们自己的规则。
 
@@ -74,7 +74,7 @@
 
 我们需要做的是从整个 Git 历史记录中删除所有敏感数据。
 
-**请记住在进行任何清理之前务必先进行备份，然后在确认一切正常后再删除备份文件。**
+**在进行任何清理之前请记得进行备份，然后在确认一切正常后再删除备份文件。**
 
 使用 `--mirror` 参数克隆一个仓库；这是 Git 数据库的完整副本。
 
@@ -82,9 +82,9 @@
 git clone --mirror git://example.com/need-clean-repo.git
 ```
 
-我们需要执行 **git filter-branch** 来从所有分支中删除数据并提交历史记录。
+我们需要执行 **git filter-branch** 命令来从所有分支中删除数据并提交历史记录。
 
-下面举个例子，假设我们要从 Git 中删除 `./ config / passwd`：
+下面举个例子，假设我们要从 Git 中删除 `./config /passwd`：
 
 ```bash
 $ git filter-branch --force --index-filter \
@@ -117,7 +117,7 @@ $ git rebase
 
 BFG 保留最新的提交记录。它是用来防止我们犯错误的。我们应该显式地删除文件，提交删除，然后清除历史记录以此删除它。
 
-如果泄漏的 Git 代码库是由其他人创建的，我们需要遵循 [DMCA](https://help.github.com/en/github/site-policy/dmca-takedown-policy#c-what-if-i-inadvertently-missed-the-window-to-make-changes) 的删除策略，要求 Github 删除创建的代码库。
+如果泄漏的 Git 代码库被其他人 fork 了，我们需要遵循 [DMCA](https://help.github.com/en/github/site-policy/dmca-takedown-policy#c-what-if-i-inadvertently-missed-the-window-to-make-changes) 的删除策略，请求 Github 删除创建的代码库。
 
 整个过程需要一些时间才能完成，但这是删除所有副本的唯一方法。
 
