@@ -15,15 +15,15 @@ SwiftUI 框架在2019年的 WWDC 大会引入后，给了 iOS 社区很多欢呼
 
 虽然我们能用 Shapes 协议从头开始构建 [条形图](https://medium.com/better-programming/swiftui-bar-charts-274e9fbc8030)，但是构建折线图就不一样了。幸运的是，我们有 `Paths` 这个结构体来帮助我们。
 
-使用 SwiftUI 中的 paths，跟 Core Graphics 框架中的 `CGPaths` 类似，我们可以把线条与曲线结合，来构建美观的标志和形状。
+使用 SwiftUI 中的 paths，跟 Core Graphics 框架中的 `CGPaths` 类似，我们可以把直线与曲线结合，来构建美观的标志和形状。
 
-SwiftUI 中的 paths 是用一套指令编写的，是真正用声明式的方式来写 UI。在下面的几节中，我们将会讨论它的意义。
+SwiftUI 中的 paths 是一套真正用声明式的方式来构建 UI的指令集。在下面的几节中，我们将会讨论它的意义。
 
 ## 我们的目标
 
 * 探索 SwiftUI 的 Path API，通过它来创建简单的模型。
 * 用 Combine 和 URLSession 来获取历史股票数据。我们将会用 [Alpha Vantage](https://www.alphavantage.co/) 的 API 来取得股票信息。
-* 在 SwiftUI 中创建折线图，来展示根据时间变化的股票价格。
+* 在 SwiftUI 中创建折线图，来展示随时间变化的股票价格。
 
 读完本文后，你应该能够开发与下面类似的 iOS 程序。
 
@@ -43,13 +43,13 @@ path.addLine(to: CGPoint(x: 300, y: 300))
 }
 ```
 
-Path API 有很多函数。`move` 是负责设置路径的起点。`addline` 是负责向特定的目标点，画一条直线。
+Path API 有很多函数。`move` 是用来设置路径的起点。`addline` 是用来向特定的目标点，画一条直线。
 
 `addArc`, `addCurve`, `addQuadCurve`, `addRect` 和  `addEllipse` 是一些其他的方法，它们可以让我们创建圆弧或者贝塞尔曲线。
 
 用 `addPath` 可以添加两条或者多条路径。
 
-下面的插图展示了一个三角形，后面跟着一个圆饼图。
+下面的插图展示了一个三角形，这个三角形下面有一个圆饼图。
 
 
 ![](https://cdn-images-1.medium.com/max/2186/1*8XNc1miVjNhzzDCYW44p8g.png)
@@ -94,7 +94,7 @@ struct StocksDaily : Codable {
 
 
 ```Swift
-class Stocks : ObservableObject{
+class Stocks : ObservableObject {
     
     @Published var prices = [Double]()
     @Published var currentPrice = "...."
@@ -127,7 +127,7 @@ class Stocks : ObservableObject{
             
             guard let stockData = orderedDates else {return}
             
-            for (_, stock) in stockData{
+            for (_, stock) in stockData {
                 if let stock = Double(stock.close){
                     if stock > 0.0{
                         stockPrices.append(stock)
@@ -156,7 +156,7 @@ extension String {
     }
 }
 ```
-API 结果中包含用日期作为 key 的内置 JSON。它们在字典中无序的，需要进行排序。因此，我们声明了一个把字符串转换为日期的扩展，然后在 `sort` 函数中进行比较。
+API 结果中包含用日期作为 key 的内置 JSON。它们在字典中是无序的，需要进行排序。因此，我们声明了一个把字符串转换为日期的扩展，然后在 `sort` 方法中进行比较。
 
 既然已经在 `Published` 属性中获得了价格和股票数据，我们需要将它们传递给 `LineView` — 下面我们将会看到的一个自定义的 SwiftUI 视图:
 
@@ -210,14 +210,14 @@ struct LineView: View {
 }
 ```
 
-上面的视图从 SwiftUI 中的 ContentView 唤起，传入了姓名、价格和历史价格的数组。使用 GeometryReader，我们要向 `Line` 结构中的 frame 传入宽和高，这里我们最终会用 SwiftUI 的路径来连接这些点:
+上面的视图从 SwiftUI 中的 ContentView 唤起，传入了姓名、价格和历史价格的数组。由于使用了 GeometryReader，我们要向 `Line` 结构中的 frame 传入 reader 的宽和高。我们最后会用 SwiftUI 中的 paths 来连接这些点:
 
 ```Swift
 struct Line: View {
     var data: [(Double)]
     @Binding var frame: CGRect
 
-    let padding:CGFloat = 30
+    let padding: CGFloat = 30
     
     var stepWidth: CGFloat {
         if data.count < 2 {
@@ -264,7 +264,7 @@ struct Line: View {
 }
 ```
 
-计算 `stepWidth` 和 `stepHeight` 是用来在给定 frame 的宽和高的情况下，对图表进行约束。然后，把它们传递给 `Path` 结构体扩展函数，用来创建折线图:
+计算 `stepWidth` 和 `stepHeight` 的目的是在给定 frame 的宽和高的情况下，对图表进行约束。然后，把它们传递给 `Path` 结构体的扩展函数，用来创建折线图:
 
 ```Swift
 extension Path {
@@ -292,7 +292,7 @@ extension Path {
 
 ## 总结
 
-本文中，我们再次将 SwiftUI 和 Combine 成功结合 — 这次是抓取股票价格数据，然后在折线图中展示。通过了解 SwiftUI 中 paths 的错综复杂，实现 `path` 方法，来使用 SwiftUI 中的图形来工作，是一个好的开始。
+本文中，我们再次将 SwiftUI 和 Combine 成功结合 — 这次是抓取股票价格数据，然后在折线图中展示。通过了解 SwiftUI 中 paths 用法的复杂性，来构建 SwiftUI 中需要你使用 `path` 方法才能实现的各种图形，是一个好的开始。
 
 你可以使用手势对点和相应的值进行高亮处理，来进一步了解上文中的 SwiftUI 折线图。想知道怎样实现和更多资料，请参照 [这个仓库](https://github.com/AppPear/ChartView)。
 
