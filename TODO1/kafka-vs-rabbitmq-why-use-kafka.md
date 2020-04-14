@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/kafka-vs-rabbitmq-why-use-kafka.md](https://github.com/xitu/gold-miner/blob/master/TODO1/kafka-vs-rabbitmq-why-use-kafka.md)
 > * 译者：[Roc](https://github.com/QinRoc)
-> * 校对者：
+> * 校对者：[icy](https://github.com/Raoul1996)
 
 # Kafka vs. RabbitMQ：为什么使用 Kafka？
 
@@ -15,43 +15,43 @@
 
 一个悬而未决的重要问题是：选择 Apache Kafka 还是 RabbitMQ？这两个平台都有独特的功能和用例，了解这些可以帮助用户做出明智的选择。
 
-Apache Kafka 和 RabbitMQ 是消息服务领域的两大顶尖平台。虽然这两个平台处理消息的方式存在差异，但是最主要的区别还是在它们的架构、设计和消息传递方式上。
+Apache Kafka 和 RabbitMQ 是消息服务领域的两大顶尖平台。这两个平台处理消息的方式存在差异，主要体现在它们的架构、设计和消息传递方式上。
 
 ## 但是 Apache Kafka 和 RabbitMQ 到底什么是呢？
 
-Apache Kafka 和 RabbitMQ 都是开源平台，可用于流数据处理，并配备了[推送/订阅（pub/sub）](https://www.rabbitmq.com/tutorials/tutorial-three-ruby.html)系统（我们将在后面介绍）。已经有多家企业推出了基于这两个平台的商业产品。
+Apache Kafka 和 RabbitMQ 都是可用于流数据处理的开源平台，同样也配备有商业化的[发布/订阅（pub/sub）](https://www.rabbitmq.com/tutorials/tutorial-three-ruby.html)系统（我们将在后面介绍） —— 由多家企业支持并使用。
 
 #### Apache Kafka 是什么？
 
-简而言之，Apache Kafka 是针对高速存取数据的重放和流而优化的消息总线。Kafka 健壮的消息代理使应用程序可以连续地处理和再处理流数据。
+简而言之，Apache Kafka 是针对高速存取数据的重放和流而优化的消息总线。Kafka 健壮的消息代理使应用程序可以连续地处理和重新消费流数据。
 
-这个开源平台使用了一种简单易行的路由方法，该方法使用了路由键（routing key）来将消息发送到某个主题。Kafka 于 2011 年推出，它为流处理体系而生。
+这个开源平台使用了一种简单易行的路由方法，该方法使用了路由键（routing key）来将消息发送到某个主题（topic）。Kafka 于 2011 年推出，它为流处理体系而生。
 
 #### RabbitMQ 是什么？
 
 RabbitMQ 是一个多功能的消息代理，它支持多种协议的，例如 高级消息队列协议（Advanced Message Queuing Protocol，AMQP），MQ 遥测传输（MQ Telemetry Transport，MQTT）和 面向文本的简单（或流）消息协议（Simple (or Streaming) Text-Oriented Messaging Protocol，STOMP）。
 
-RabbitMQ 可以处理追求高效率的用例，例如处理在线支付。RabbitMQ 也可以用作微服务间的消息代理。
+RabbitMQ 可以处理追求高效的用例，例如处理在线支付场景。RabbitMQ 也可以用作微服务间的消息代理。
 
-RabbitMQ 推出于 2007 年，甫一问世，就成为了消息和 SOA 系统的主要成员。现在，它的扩展角色也涵盖了流处理的用例。
+RabbitMQ 推出于 2007 年，甫一问世，就成为了消息处理和 SOA 系统的主要成员。现在，它的扩展角色也涵盖了流处理的用例。
 
-如果你正在考虑是选用 Apache Kafka 还是 RabbitMQ，那么请继续阅读，进一步了解两者在架构和方法上的差异，以及各自的性能优缺点。
+如果你正在纠结是选用 Apache Kafka 还是 RabbitMQ，那么请继续阅读，进一步了解两者在架构、方法以及性能优缺点方面的差异。
 
 ## 架构差异
 
 #### Apache Kafka 的架构
 
-Apache Kafka 的高速和可扩展的架构使用了高容量的推送-订阅消息和流平台。通过利用服务器集群来存储不同主题（分类）下的记录，实现了健壮的消息存储，例如日志。
+Apache Kafka 的架构使用了大量的发布-订阅消息和一个高速、可扩展的流平台。它的健壮的消息存储机制（如日志）利用了服务器集群来存储不同 topic（即类别）下的多条记录。
 
-Kafka 的每条消息都由键、值和时间戳组成。聪明消费者或愚蠢代理模型不会试图追踪消费者的消息，而只是保留未读消息。Apache Kafka 会在一个规定的时间范围内保留全部的消息。
+[Kafka 的每条消息都由键、值和时间戳组成](http://kth.diva-portal.org/smash/get/diva2:813137/FULLTEXT01.pdf)。智能消费者（smart consumer）或哑代理（dumb broker）模型不会试图追踪消费者的消息，而只是保留未读消息。Apache Kafka 会在一个规定的时间范围内保留全部的消息。
 
 #### RabbitMQ 的架构
 
-RabbitMQ 的架构使用了多功能的消息代理，这个代理的设计综合了点对点、请求/响应和推送/订阅的多种通信方案的变体。
+RabbitMQ 的架构使用了多功能的消息代理，这个代理的设计综合了点对点、请求/响应和发布/订阅的多种通信方案的变体。
 
-愚蠢消费者和聪明代理模型的运用可以为消费者可靠地投递消息，并且这种方法的速度与使用代理监控消费者状态的方法的速度不相上下。
+哑消费者（dumb consumer）和智能代理（smart broker）模型的运用可以为消费者可靠地投递消息，并且这种方法的速度与使用代理监控消费者状态的方法的速度不相上下。
 
-通过使用同步或异步的通信方法，该平台充分支持多种插件，包括 .NET、客户端库、Java、Node.js、Ruby等）。
+通过使用同步或异步的通信方法，该平台对包括 .NET、Java、Node.js、Ruby 在内的多种语言客户端库和其他插件提供了足够的支持。
 
 RabbitMQ 还在不依赖外部服务的情况下，实现了分布式部署方案和多节点集群联合。
 
@@ -69,31 +69,31 @@ RabbitMQ 还在不依赖外部服务的情况下，实现了分布式部署方�
 
 RabbitMQ 的设计方案中有多功能的消息代理，这个代理基于点对点、请求/响应和发布-订阅通信模式的变体来实现。
 
-## 推/拉模型
+## 推/拉（Push/Pull）模型
 
-#### Apache Kafka：基于拉的方法
+#### Apache Kafka：基于拉（Pull）的方法
 
 Kafka 使用拉模型，在该模型中，消费者从特定的偏移量开始批量地请求消息。Apache Kafka 还支持长轮询，当通过偏移量不再获取到消息时，长轮询会停止紧凑的轮询请求。
 
-由于分区的存在，Apache Kafka 使用拉取模型是合理的。Kafka 可以在没有消费者相互竞争的情况下提供消息排序。
+由于分区（partitions）的存在，Apache Kafka 使用拉取模型是合理的。Kafka 可以在没有消费者相互竞争的情况下提供消息排序。
 
-这种方法让用户可以利用消息批处理来实现高效的消息传递和更高的吞吐量。
+这种方法让用户可以利用消息批处理来实现高效的消息传递，获取更高的吞吐量。
 
-#### RabbitMQ：基于推的方法
+#### RabbitMQ：基于推（Push）的方法
 
 RabbitMQ 将消息推送给消费者，这个过程包括预读取限制的配置，该配置对于防止消费者被多个消息淹没至关重要。
 
 它们对于低延迟的消息传递也很有用。推送方法的目的是快速而独立地分发各个消息，在这个过程中保证所有的分发是均匀地并行进行的，并使消息能够按照到达的顺序获得处理。
 
-## 用例
+## 使用案例
 
 #### Apache Kafka
 
 众所周知，Apache Kafka 本身提供了一个额外的代理，该代理是这个平台的流行元素。这个额外的代理已经在流处理体系的方向上做了预先考虑和推广。
 
-另外，新增的 Kafka Streams 可以替代 Apache Flink、Apache Spark、Google Cloud Data Flow 和 Spring Cloud Data Flow等流处理平台。
+另外，增加的 Kafka Streams 可以替代 Apache Flink、Apache Spark、Google Cloud Data Flow 和 Spring Cloud Data Flow等流处理平台。
 
-Kafka 优秀的[用例](https://kafka.apache.org/uses)文档提供了详细用例说明，包括提交日志、事件源、日志聚合、指标、Web 活动跟踪和更多其他任务。
+Kafka 优秀的[用例文档](https://kafka.apache.org/uses)提供了详细用例说明，包括提交日志、事件源、日志聚合、指标、Web 活动跟踪和更多其他任务。
 
 #### RabbitMQ
 
