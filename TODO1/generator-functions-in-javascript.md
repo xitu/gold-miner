@@ -2,8 +2,8 @@
 > * 原文作者：[Sachin Thakur](https://medium.com/@thakursachin467)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/generator-functions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/generator-functions-in-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[niayyy](https://github.com/niayyy-S)
+> * 校对者：[icy](https://github.com/Raoul1996)
 
 # JavaScript 中的 Generator 函数
 
@@ -110,7 +110,7 @@ console.log(iterator.next().value)
 
 在上面示例中，是一个无限循环，但是它只会执行和我们在迭代器上调用 `next` 一样多的次数，它保存着函数继续计数之前的状态。
 
-这只是一个关于如何使用的一个基本的示例，我们在 generator 函数中还可以使用更复杂的逻辑，为我们提供更多的功能。
+这只是一个关于如何使用的一个基本的示例，我们在 generator 函数中还可以使用更复杂的逻辑，为我们提供更多的能力。
 
 ```JavaScript
 function* fibonacci(num1:number, num2:number) {
