@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/create-a-line-chart-in-swiftui-using-paths.md](https://github.com/xitu/gold-miner/blob/master/TODO1/create-a-line-chart-in-swiftui-using-paths.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 用 SwiftUI 的 Paths 创建折线图
 
