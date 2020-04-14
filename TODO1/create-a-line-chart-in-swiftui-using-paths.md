@@ -158,7 +158,7 @@ extension String {
 ```
 API 结果中包含用日期作为 key 的内置 JSON。它们在字典中是无序的，需要进行排序。因此，我们声明了一个把字符串转换为日期的扩展，然后在 `sort` 方法中进行比较。
 
-既然已经在 `Published` 属性中获得了价格和股票数据，我们需要将它们传递给 `LineView` — 下面我们将会看到的一个自定义的 SwiftUI 视图:
+既然已经在 `Published` 属性中获得了价格和股票数据，我们需要将它们传递给 `LineView` — 下面我们将会看到的一个自定义的 SwiftUI 视图：
 
 ```Swift
 struct LineView: View {
