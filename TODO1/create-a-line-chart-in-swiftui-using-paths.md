@@ -17,7 +17,7 @@ SwiftUI 框架在 2019 年的 WWDC 大会引入后，广受 iOS 社区欢迎。�
 
 使用 SwiftUI 中的 paths，跟 Core Graphics 框架中的 `CGPaths` 类似，我们可以把直线与曲线结合，来构建美观的标志和形状。
 
-SwiftUI 中的 paths 是一套真正用声明式的方式来构建 UI的指令集。在下面的几节中，我们将会讨论它的意义。
+SwiftUI 中的 paths 是一套真正用声明式的方式来构建 UI 的指令集。在下面的几节中，我们将会讨论它的意义。
 
 ## 我们的目标
 
