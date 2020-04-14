@@ -11,7 +11,7 @@
 
 ![Photo by [Chris Liverani](https://unsplash.com/@chrisliverani?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8064/0*eZh1HfzXfAjD_9ME)
 
-SwiftUI 框架在2019年的 WWDC 大会引入后，给了 iOS 社区很多欢呼的理由。一种用 Swift 语言编写，易用的、声明式的 API 让开发者可以快速构建 UI 原型。
+SwiftUI 框架在 2019 年的 WWDC 大会引入后，广受 iOS 社区欢迎。这种用 Swift 语言编写，易用的、声明式的 API 让开发者可以快速构建 UI 原型。
 
 虽然我们能用 Shapes 协议从头开始构建 [条形图](https://medium.com/better-programming/swiftui-bar-charts-274e9fbc8030)，但是构建折线图就不一样了。幸运的是，我们有 `Paths` 这个结构体来帮助我们。
 
