@@ -264,7 +264,7 @@ struct Line: View {
 }
 ```
 
-计算 `stepWidth` 和 `stepHeight` 的目的是在给定 frame 的宽和高的情况下，对图表进行约束。然后，把它们传递给 `Path` 结构体的扩展函数，用来创建折线图:
+计算 `stepWidth` 和 `stepHeight` 的目的是在给定 frame 的宽和高的情况下，对图表进行约束。然后，把它们传递给 `Path` 结构体的扩展函数，用来创建折线图：
 
 ```Swift
 extension Path {
