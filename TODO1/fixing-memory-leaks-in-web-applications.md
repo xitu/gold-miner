@@ -11,7 +11,7 @@
 
 这类新问题中，其中一个问题就是内存泄漏。一个差的单页面应用会消耗 MB 甚至 GB 的内存，持续地占用越来越多的资源，即使它仅存在于一个背景标签。 因此，页面可能开始变慢，或者浏览器终止这个页面，你会看到 Chrome 熟悉的“喔唷 崩溃啦” 页面。
 
-[![Chrome 显示 ”喔唷 崩溃啦！显示此页面时出了点问题“](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png?w=570&h=186)](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png)
+[![Chrome 显示“喔唷 崩溃啦！显示此页面时出了点问题”](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png?w=570&h=186)](https://nolanwlawson.files.wordpress.com/2020/02/awsnap.png)
 
 （当然，一个服务端渲染的网站也会在服务器端出现内存泄漏。但是在客户端出现内存泄漏的可能性非常小，因为每当我们切换页面时浏览器都会清除内存。）
 
