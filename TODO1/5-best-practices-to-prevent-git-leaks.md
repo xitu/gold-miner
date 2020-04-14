@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md)
 > - 译者：[YueYongDEV](https://github.com/YueYongDev)
-> - 校对者：[Roc](https://github.com/QinRoc)
+> - 校对者：[Roc](https://github.com/QinRoc)、[icy](https://github.com/Raoul1996)
 
 # 防止 Git 泄漏的 5 种最佳做法
 
@@ -34,7 +34,7 @@
 
 我的建议是，应该将公司项目和个人项目严格区分。
 
-## 使用 Git 忽略
+## 使用 Git 忽略（Git ignore）
 
 当我们使用 Git 创建一个新项目时，我们必须正确地设置一个 **.gitignore** 文件。**.gitignore** 是一个 Git 配置文件，它列出了不会被存入 Git 仓库的文件或目录。
 
@@ -44,19 +44,19 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*VmEolB6qYNCYr9Wf.png)
 
-## 使用 Git 钩子 和 CI 检查提交
+## 使用 Git 钩子（Git hooks）和 CI 检查提交
 
 没有工具可以从 Git 仓库中找出所有敏感数据，但是有一些工具可以为我们提供帮助。
 
-[git-secrets](https://github.com/awslabs/git-secrets) 和 [talisman](https://github.com/thoughtworks/talisman) 是类似的工具，它们应作为[预提交的钩子](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)安装在本地代码库中。每次都会在提交之前对更改的内容进行检查，如果钩子检测到预期的提交内容可能包含敏感信息，那它们将会拒绝提交。
+[git-secrets](https://github.com/awslabs/git-secrets) 和 [talisman](https://github.com/thoughtworks/talisman) 是类似的工具，它们应作为[预提交的钩子](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)（pre-commit hooks）安装在本地代码库中。每次都会在提交之前对更改的内容进行检查，如果钩子检测到预期的提交内容可能包含敏感信息，那它们将会拒绝提交。
 
 [gitleaks](https://github.com/zricethezav/gitleaks) 提供了另一种在 git 仓库中查找未加密的密钥和其他一些不需要的数据类型的方法。我们可以将其集成到自动化工作流程中，例如 CICD。
 
-## 代码审查
+## 代码审查（Code review）
 
 代码审查是团队合作的最佳实践。所有队友都将从彼此的源代码中学习。初级开发人员的代码应由具有更多经验的开发人员进行审查。
 
-在代码检查阶段可以发现大多数意外更改。
+在代码检查阶段可以发现大多数不符合预期的更改。
 
 [启用分支限制](https://help.github.com/en/github/administering-a-repository/enabling-branch-restrictions) 可以强制执行分支限制，以便只有部分用户才能推送到代码库中受保护的分支。 Gitlab 也有类似的选择。
 
@@ -100,14 +100,14 @@ $ git add .gitignore
 $ git commit -m "Add password to .gitignore"
 ```
 
-然后我们将所有分支推送到远程：
+然后我们将所有分支推送到远端：
 
 ```bash
 $ git push --force --all
 $ git push --force --tags
 ```
 
-告诉我们的小伙伴进行基准调整：
+告诉我们的小伙伴进行复位基底（rebase）：
 
 ```bash
 $ git rebase
