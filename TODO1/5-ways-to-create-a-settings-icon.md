@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-ways-to-create-a-settings-icon.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-ways-to-create-a-settings-icon.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[QinRoc](https://github.com/QinRoc)
 
-# 创建一个 Settings icon 的五种方法
+# 5 步创建一个 Settings icon 
 
 > 通过这篇文章我们可以学习如何使用 Illustrator 的一系列功能
 
@@ -21,7 +21,7 @@
 
 ## 方法 1：圆角星
 
-这种简单的方法能很方便生成带有尖齿的齿轮。
+这种简单的方法能很方便地生成带有尖齿的齿轮。
 
 ![](https://cdn-images-1.medium.com/max/3200/1*nUCNYG_c9hNEnMm66rd2zQ.gif)
 
@@ -33,7 +33,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*gQtrRMFzcjAEudBS1SdQnw.png)
 
-用**直接选择工具**（**A**）选中圆角，将鼠标悬停在图标上。**拖动**其中的一个小圆形手柄来修改所有的圆角。**双击**手柄可以指定精确的角半径。
+用**直接选择工具**（**A**）选中圆角，将鼠标悬停在图标上。**拖动**其中的一个小圆形手柄来修改所有的圆角。**双击**手柄可以来定精确的角半径。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*KgDXl0u5M1WbrAn5MHPWzQ.png)
 
@@ -79,9 +79,9 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*Dvsus1_nX3QpU7E3Db8Akg.png)
 
-选择这两个形状。因为我们已经使用了一些效果，所以我们必须在合并形状之前先扩充外观。点击**对象（Object）** > **扩展外观（Expand Appearance）**。
+选择这两个形状。因为我们已经使用了一些特效，所以在合并形状之前必须扩充外观。点击**对象（Object）** > **扩展外观（Expand Appearance）**。
 
-**为什么要这样做?因为特效是可回退的是不会被破坏的，这意味着你可以随时返回并更改参数。因此，在对图形执行进一步的操作之前，需要对特效进行扩展。**
+**为什么要这样做？因为特效是可回退的、不会被破坏的，这意味着你可以随时返回并更改参数。因此，在对图形执行进一步的操作之前，需要对特效进行扩展。**
 
 ![](https://cdn-images-1.medium.com/max/4000/1*TpvBycrleLcrPgQhobWR2g.png)
 
@@ -91,7 +91,7 @@
 
 ## 方法 3：加法和旋转
 
-这是一个相对来说更复杂的方法，它需要我们对齿轮进行更多的定制。这次我们要看得更仔细一些。
+这是一个相对来说更复杂的方法，它允许我们对齿轮进行更多的定制。这次我们要看得更仔细一些。
 
 ![](https://cdn-images-1.medium.com/max/3200/1*GzTAZ69HhqNh9bRO_iaifQ.gif)
 
@@ -119,19 +119,19 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*ogbTsoIyKr2kYnQjKBe71g.png)
 
-选择一个角度。45 度角会创造出有8个齿的齿轮（360度 除以 8 等于 45度)。
+选择一个角度。45° 角会创造出有 8 个齿的齿轮（360° 除以 8 等于 45°)。
 
 接下来有趣的事情发生了。
 
-点击 **复制（Copy）** (**注意不是点击** **OK**)。这将会根据你指定和角度和参考点复制你的图案。
+点击 **复制（Copy）** (**注意不是点击** **OK**)。这将会按照你设定的角度和参考点复制你的图案。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*CaoipHnbmfFitWDLsSlO_A.png)
 
-通过按 **Command** + **D**（macOS）或 **Ctrl** + **D**（Windows）的复制操作，这样做两次后，就可以完成这个圆。
+通过按 **Command** + **D**（macOS）或 **Ctrl** + **D**（Windows）的重复操作，这样做两次后，就可以完成这个圆。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*4IyH9hCk6usy8IAmJhuTSA.png)
 
-或者，你可以使用变换特效（**特效（Effect）** > **扭曲 & 变形（Distort & Transform）** > **变换（Transform）** 同样也能实现旋转拷贝。
+或者，你可以使用**变换特效**（**特效（Effect）** > **扭曲 & 变形（Distort & Transform）** > **变换（Transform）** 来实现同样的旋转拷贝。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*8JoVfMIcd7fUc4A72VS1PQ.png)
 
@@ -197,7 +197,7 @@
 
 ## 方法 5：交叉贯穿
 
-对于最后一种方法，我们将又会使用到**星型工具（Star Tool）**。
+最后一种方法又会用到**星型工具（Star Tool）**。
 
 ![](https://cdn-images-1.medium.com/max/3200/1*06OYxdrlLjWHY1_7szWRSQ.gif)
 
@@ -213,7 +213,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*GvWwEYCuXHmZ7lzpp0nZnQ.png)
 
-再像下面这样在上面画一个同心圆：
+再如下图所示，在上面画一个同心圆：
 
 ![](https://cdn-images-1.medium.com/max/4000/1*NclTXoSkV7L1ESDlALrGAg.png)
 
@@ -243,7 +243,7 @@
 
 #### 2 个正方形 = 1 个星
 
-你可以通过画两个正方形来创建一个八角星。按下 **Shift** + **矩形工具（M）** **拖动**鼠标创建一个正方形，选择**Shift**键 + **拖动旋转工具（R）来旋转** 45°。
+你可以通过画两个正方形来创建一个八角星。按下 **Shift** 键的同时，拖动 **矩形工具（M）** 创建一个正方形，选中这个正方形，按下 **Shift** 键的同时，**拖动旋转工具（R）** 来旋转 45°。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*4KOU3XYdLAiaWe33ipWsNg.png)
 
@@ -255,7 +255,7 @@
 
 #### 涂鸦的造型
 
-如果你使用的是平板电脑或者是触控板，你可以使用古怪的**Shaper工具**（**shift** + **N**）来对图形进行不会被破坏的组合或删减。就像下面这样乱涂乱画来“删除”想要的区域。最后保留原始的图形下来。
+如果你使用的是平板电脑或者是触控板，你可以使用古怪的 **Shaper 工具**（**Shift** + **N**）来对图形进行不会被破坏的组合或删减。就像下面这样乱涂乱画来“删除”想要的区域。最后原始的图形会被保留下来。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*O-W5KyVHqmUgO4TWnvO0nA.png)
 
@@ -271,7 +271,7 @@
 
 * [关于 icon 设计的 7 个准则](https://medium.com/@minoraxis/7-principles-of-icon-design-e7187539e4a2) （[译文连接](https://juejin.im/post/5e5dbd3e6fb9a07cd323dd2b)）
 * icon 网格 & 关键线大揭秘 **（即将推出）**
-* Picon 设计中的像素捕捉：捕捉或不捕捉 **（即将推出）**
+* icon 设计中的像素捕捉：捕捉或不捕捉 **（即将推出）**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
