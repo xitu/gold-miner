@@ -2,22 +2,22 @@
 > * 原文作者：[Sachin Thakur](https://medium.com/@thakursachin467)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/generator-functions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/generator-functions-in-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[niayyy](https://github.com/niayyy-S)
+> * 校对者：[icy](https://github.com/Raoul1996)
 
-# Generator Functions in JavaScript
+# JavaScript 中的 Generator 函数
 
 ![Photo by [matthew Feeney](https://unsplash.com/@matt__feeney?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/wait?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10180/1*T-HFCdKSrA6dhlyN66g1uw.jpeg)
 
-With ES6, EcmaScript released a new way of working with functions. In this article, we will take a look at them and how and where we can use them
+在 ES6 中, EcmaScript 发布了一种使用函数的新方法。在本文中，我们将研究这种函数以及研究如何使用和在哪里使用它们
 
-## What Are Generator Functions?
+## Generator 函数是什么？
 
-Generator functions are a special type of function that allows you to suspend their execution so they are later resumed at any time.
+Generator 函数是一种特殊类型的函数，它允许你暂停执行，之后可以随时恢复。
 
-They have also simplified the creation of iterators but we will get into that later. Let’s start simply by understanding what they are with some examples.
+它们还简化了迭代器的创建，稍后我们将介绍。让我们简单地从一些示例中了解它们是什么开始。
 
-Creating a generator function is simple. The `function*` declaration (`function` keyword followed by an asterisk) defines a generator function.
+创建 generator 函数很简单。这个 `function*` 声明（`function` 关键字后跟一个星号）定义了一个 generator 函数。
 
 ```js
 function* generatorFunction() {
@@ -25,15 +25,15 @@ function* generatorFunction() {
 }
 ```
 
-Now, in generator functions, we don’t use return statements but rather a `yield` that specifies the value to be returned from the iterator. Now, in the above example, it will return a value of 1.
+现在，在 generator 函数中，我们不用使用 `return` 语句，而是使用 `yield` 来指定从迭代器返回的值。现在，在上面的示例中，将会返回 1。
 
-When we call generator functions like a normal ES6 function, it does not directly execute the function but rather returns a `Generator` object.
+当我们像调用常规的 ES6 函数那样调用 generator 函数时，它不会直接执行函数，而是返回一个 `Generator` 对象。
 
-The `Generator` object contains `next()`, `return`, and `throw` which can be used to interact with our generator functions. It works similarly to an `iterator` but you have more control over it.
+`Generator` 对象中包含 `next()`、`return` 和 `throw`，可用于和 generator 函数进行交互。它的工作原理类似于 `iterator`，但是你可以有更多的控制权。
 
-Let’s see, with an example, how we can use the `generatorFunction`. Now, as I told you before, we get `next()`.
+让我们看一个示例，了解如何使用 `generatorFunction`。现在，正如我前文所说，我们得到了 `next()` 方法。
 
-The `next()` method returns an object with two properties, `done` and `value`. You can also provide a parameter to the `next` method to send a value to the generator. Let’s see this with an example.
+这个 `next()` 方法返回一个对象，包含了两个属性，`done` 和 `value`。你也可以向 `next` 方法提供一个参数传递给 generator。让我们看一个示例。
 
 ```JavaScript
 function* generatorFunction() {
@@ -46,12 +46,12 @@ console.log(value)
 
 ![Output after calling next on generator function](https://cdn-images-1.medium.com/max/2000/1*CuDQhYcZ3xLZKvFTosFFrg.png)
 
-Now, as I said earlier, we can also pass values to the generator function through `next` and that value can be used inside the `generator` function. Let’s see how that works with another example.
+现在，正如我前文所说，我们可以通过 `next` 传递一个值给 generator 函数，并且这个值可以在 `generator` 函数内部使用。让我们通过另一个示例看一下它是如何工作的。
 
 ```JavaScript
 function* generatorFunction() {
    let value = yield null
-   yield value+ 2;
+   yield value + 2;
    yield 3 + value
 }
 const iterator:Generator = generatorFunction()
@@ -61,36 +61,36 @@ console.log(iterator.next(11).value) //return 13
 
 ![Passing Value to generator function through next](https://cdn-images-1.medium.com/max/2000/1*ywIGvmfO_r3j0rTdccplEQ.png)
 
-Here, when you obtain the generator, you don’t have a `yield` you can push values to. So, first you have to reach a yield by calling the next on the generator initially. It will return `null`, always.
+当首次获得 generator 对象时，没有一个可以传递值的 `yield` 。因此，首先必须通过调用 generator 上的 `next` 来获取到 `yield`。它将始终返回 `null`。
 
-You can pass arguments or not, it does not matter, it will always return `null`. Once you have done that, you have a `yield` at your disposal and you can push your value via `iterator.next()` which will effectively replace `yield null` with the input passed through `next`.
+无论是否传递参数，都无关紧要，它始终返回 `null`。完成这个操作后，就可以使用 `yield` 了，你可以通过 `iterator.next()` 传递一个值，通过 `next` 传递的输入值将高效的替换掉 `yield null`。
 
-Then, when it finds another `yield`, it returns to the consumer of the generator which is our `iterator` here.
+然后，当找到另一个 `yield` 时，它将返回给 generator 的使用者，也就是我们的 `iterator`。
 
-Now, let’s talk a little about the `yield` keyword. It looks like it’s working like return but on steroids because return simply returns a value from a function after a function is called.
+现在，让我们谈谈关于 `yield` 关键字。它看起来像 return 一样工作，但是更加的强大，因为 `return` 只是返回当函数调用后，从函数中返回一个值。
 
-It will also not allow you to do anything after the `return` keyword in a normal function but in our case, `yield` is doing much more than that. It’s returning a value but when you call it again, it will move on to the next `yield` statement.
+在普通函数中，不允许在 `return` 关键字后执行任何操作，但是在 Generator 函数中，`yield` 可以做更多的事情。它会返回一个值，但是当你再次调用时，它会继续执行下一个 `yield` 语句。
 
-The `yield` keyword is used to pause and resume a generator function. The `yield` returns an object and it contains a `value` and `done`.
+`yield` 关键字用于暂停和恢复一个 generator 函数。`yield` 返回一个包含 `value` 和 `done` 的对象。
 
-The `value` is the result of the evaluating of the generator functions and the `done` indicates whether our generator function has been fully completed or not, its values can be either `true` or `false`.
+`value` 是 generator 函数求值后的结果，`done` 表明是否 generator 函数完全地执行完成,，它的值可以为 `true` 或 `false`。
 
-We can also use the `return` keyword in the generator function and it will return the same object but it will not go any further than that and the code after `return` will never be reached, even if you have six `yield`s after that.
+在 generator 函数中也可以使用 `return` 关键字，它会返回相同的对象，但是不会像 `yield` 一样继续执行下去，`return` 之后的代码将永远不会执行，即使后面有许多 `yield` 语句。
 
-So, you need to be very careful using `return` and it should only be used once you are certain the job of the generator function is done.
+所以，需要非常小心的使用 `return`，仅当确定 generator 函数的工作完成后才能使用。
 
 ```JavaScript
 function* generatorFunction() {
    yield  2;
    return 2;
-   yield 3; //generator function will never reach here
+   yield 3; // generator 函数永远不会到达这
 }
 const iterator:Generator = generatorFunction()
 ```
 
-## Uses of the Generator Function
+## Generator 函数的用途
 
-Now, generator functions can very easily simplify the creation of iterators, implementation of the recursion, and better async functionality. Let’s look at some examples.
+现在，generator 函数可以非常容易的简化迭代器的创建、递归的实现以及更好的异步编程。让我们看一些示例。
 
 ```JavaScript
 function* countInfinite(){
@@ -108,9 +108,9 @@ console.log(iterator.next().value)
 
 ![Count infinity example](https://cdn-images-1.medium.com/max/2504/1*YVzFY7yj2GwKBQUKbnhkug.png)
 
-In the above, it’s an infinite loop but it will only be executed as many times as we call `next` on the iterator since it preserves the previous state of the function it continues to count.
+在上面示例中，是一个无限循环，但是它只会执行和我们在迭代器上调用 `next` 一样多的次数，它保存着函数继续计数之前的状态。
 
-This is just a very basic example of how it can be used but we can use more complex logic inside the generator functions, giving us more power.
+这只是一个关于如何使用的一个基本的示例，我们在 generator 函数中还可以使用更复杂的逻辑，为我们提供更多的能力。
 
 ```JavaScript
 function* fibonacci(num1:number, num2:number) {
@@ -130,21 +130,21 @@ for (let i = 0; i < 10; i++) {
 
 ![Fibonacci series Example](https://cdn-images-1.medium.com/max/2700/1*UOMv0GIOFyRWOqhFMSxgMA.png)
 
-In the above example, we implemented a Fibonacci series without any recursion. The generator functions are really powerful and are only limited by your own imagination.
+在上面的示例中，我们实现了无递归的斐波那契数列。 generator 函数功能非常强大，并且只会被你想象力的所限制。
 
-Another big advantage of generator functions is that they are really memory efficient. We generate a value that is needed.
+generator 函数另一个优点是它们能高效存储。我们可以在需要的时候再生成值。
 
-In the case of a normal function, we generate a lot of values without even knowing whether we are going to use them or not. However, in the case of the generator function, we can defer the computation and only use it when needed.
+在使用、普通函数的情况下，我们生成许多值，但是不知道我们是否会使用。但是，对于 generator 函数而言，我们可以在我们需要使用的时候再进行计算。
 
-Before using the generator function, just keep some things in mind. You cannot access a value again if you have already accessed it.
+在使用 generator 函数前，请记住一些注意事项。你不能再次获取你已经获取过的值。
 
-## Conclusion
+## 结论
 
-Iterator functions are a great and efficient way to do a lot of things in JavaScript. There are many other possible ways of using a generator function.
+在 JavaScript 中，迭代器函数在做许多事情方面是出色而有效的。使用 generator 函数还有许多其它可能的方向。
 
-For example, working with asynchronous operations can be made easy. Since a generator function can emit many values over time, it can be used as an observable too.
+例如：使用异步操作会更容易。因为 generator 函数可以在一段时间内生成许多值，所以它也可以被用作一个可观察对象。
 
-I hope this article helped you understand a little about the `generator` function and let me know what else you can do or are doing with the `generator` function.
+我希望本文对你理解 `generator` 函数有所帮助，告诉我你还能使用 `generator` 函数做什么或者正在做什么。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
