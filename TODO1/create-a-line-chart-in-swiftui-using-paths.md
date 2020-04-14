@@ -43,7 +43,7 @@ path.addLine(to: CGPoint(x: 300, y: 300))
 }
 ```
 
-Path API 有很多函数。`move` 是用来设置路径的起点。`addline` 是用来向特定的目标点，画一条直线。
+Path API 有很多函数。`move` 是用来设置路径的起点，`addline` 是用来向指定目标点绘制一条直线。
 
 `addArc`, `addCurve`, `addQuadCurve`, `addRect` 和  `addEllipse` 是一些其他的方法，它们可以让我们创建圆弧或者贝塞尔曲线。
 
