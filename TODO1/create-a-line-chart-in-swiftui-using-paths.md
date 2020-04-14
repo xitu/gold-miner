@@ -286,7 +286,7 @@ extension Path {
 }
 ```
 
-最后，展示股票折线图的 SwiftUI 程序就绪了。下面的插图进行了展示:
+最后，展示股票折线图的 SwiftUI 程序就完成了，如下图所示：
 
 ![](https://cdn-images-1.medium.com/max/2186/1*51q3BlLa-XLLKtHn-mgTOA.png)
 
