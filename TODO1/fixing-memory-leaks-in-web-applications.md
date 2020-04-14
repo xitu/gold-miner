@@ -66,13 +66,13 @@ window.removeEventListener('message', this.onMessage);
 
 这是最难的部分。我首先要说的是，我认为现有的工具都不够好。我尝试了 Firefox 的内存工具、Edge 和 IE 的内存工具，甚至 Windows 性能分析器。同类中最好的仍然是 Chrome 开发者工具，但它有很多值得我们去了解的不足。
 
-在 Chrome 开发者工具中，我们选择的主要工具是 “Memory” 选项卡中的 “heap snapshot” 工具。Chrome 中有其他内存工具，但我没有发现它们对识别内存泄漏有多大帮助。
+在 Chrome 开发者工具中，我们选择的主要工具是“Memory”选项卡中的“heap snapshot”工具。Chrome 中有其他内存工具，但我没有发现它们对识别内存泄漏有多大帮助。
 
 [![使用 Heap Snapshot 工具的 Chrome 开发者工具内存选项卡中的屏幕截图](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-11-03-49.png?w=570&h=333)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-11-03-49.png)
 
 Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存捕获。
 
-当你单击 “take snapshot” 按钮时，你已经捕获了该 web 页面上特定 JavaScript VM 中的所有活动对象。这包括  `window` 引用的对象，`setInterval` 回调引用的对象，等等。你可以把它想象成一个代表了那个网页所使用的所有内存的凝固瞬间。
+当你单击“take snapshot”按钮时，你已经捕获了该 web 页面上特定 JavaScript VM 中的所有活动对象。这包括 `window` 引用的对象，`setInterval` 回调引用的对象，等等。你可以把它想象成一个代表了那个网页所使用的所有内存的凝固瞬间。
 
 下一步是重现一些你认为可能泄漏的场景 —— 例如，打开和关闭一个模态对话框。一旦对话框关闭，你期望内存恢复到以前的水平。因此，你获取另一张快照，并 **与前一个快照比较**。这个比较功能确实是该工具的杀手级功能。
 
@@ -80,17 +80,17 @@ Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存
 
 然而，你应该意识到这个工具有一些限制：
 
-1. 即使你点击了 “collect garbage” 按钮，你也可能需要拍几个连续的快照才能真正清理未引用的内存。根据我的经验，三个就足够了。（检查每个快照的总内存大小 —— 它最终应该稳定下来。）
-2. 如果你使用了 web workers、service workers、iframes、shared workers等，那么这个内存将不会显示在堆快照上，因为它位于另一个 JavaScript VM 中。如果你想的话，你可以捕获这个内存，但是要确保你知道你在测量的是哪一个。
+1. 即使你点击了“collect garbage”按钮，你也可能需要拍几个连续的快照才能真正清理未引用的内存。根据我的经验，三个就足够了。（检查每个快照的总内存大小 —— 它最终应该稳定下来。）
+2. 如果你使用了 web workers、service workers、iframes、shared workers 等，那么这个内存将不会显示在堆快照上，因为它位于另一个 JavaScript VM 中。如果你想的话，你可以捕获这个内存，但是要确保你知道你在测量的是哪一个。
 3. 有时 snapshotter 会卡住或崩溃。在这种情况下，只需关闭浏览器选项卡并重新开始。
 
 此时，如果你的应用程序很简单，那么你可能会在两个快照之间看到**很多**对象泄漏。这是个棘手的问题，因为这些并非都是真正的泄漏。其中很多都是正常的使用 —— 一些对象被释放以满足另一个对象的内存需求，一些对象以某种方式被缓存，以便之后的清理，等等
 
 ## 去除干扰
 
-我发现去除干扰的最好方法是重复几次泄漏的场景。例如，不只是打开和关闭一个模态对话框一次，你可以打开和关闭它7次。（7是一个很明显的质数。）然后你可以检查堆快照的差异，以查看是否有任何对象泄漏了7次。（或14次、21次。）
+我发现去除干扰的最好方法是重复几次泄漏的场景。例如，不只是打开和关闭一个模态对话框一次，你可以打开和关闭它 7 次。（7 是一个很明显的质数。）然后你可以检查堆快照的差异，以查看是否有任何对象泄漏了 7 次。（或 14 次、21 次。）
 
-[![Chrome 开发者工具的屏幕截图堆快照差异显示6个堆快照捕获，其中多个对象泄漏 7 次](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png?w=570&h=264)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png)
+[![Chrome 开发者工具的屏幕截图堆快照差异显示 6 个堆快照捕获，其中多个对象泄漏 7 次](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png?w=570&h=264)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-2.png)
 
 一个堆快照差异。请注意，我们正在比较快照 #6 和快照 #3，因为我连续进行了三次捕获，以便进行更多的垃圾回收。还要注意，有几个对象泄漏了 7 次。
 
@@ -108,17 +108,17 @@ Heap Snapshot 工具允许你对主线程或 web workers 或 iframe 进行内存
 
 如果你根据总内存对堆快照差异进行排序，那么它将向你显示一堆数组、字符串和对象 —— 其中大多数可能与内存泄漏无关。你真正想要找到的是事件监听器，但是与它所引用的东西相比，它只占用了极小的内存。要修复泄漏，你需要找到的是香蕉，而不是丛林。
 
-因此，如果按泄漏对象的数量排序，你将看到7个事件监听器。可能有7个组件，14个子组件，或者类似的东西。“7”这个数字应该很醒目，因为它是一个不寻常的数字。无论你重复该场景多少次，你都应该确切地看到泄漏的对象数量。这就是如何快速找到泄漏源的方法。
+因此，如果按泄漏对象的数量排序，你将看到 7 个事件监听器。可能有 7 个组件，14 个子组件，或者类似的东西。“7”这个数字应该很醒目，因为它是一个不寻常的数字。无论你重复该场景多少次，你都应该确切地看到泄漏的对象数量。这就是如何快速找到泄漏源的方法。
 
 ## 查找 retainer 树
 
-堆快照差异还将向你展示一个 “retainer” 链，它显示着保持内存活动的对象间的相互指向。这样你就可以找出内存泄漏对象的分配位置。
+堆快照差异还将向你展示一个“retainer”链，它显示着保持内存活动的对象间的相互指向。这样你就可以找出内存泄漏对象的分配位置。
 
 [![一个 retainer 链的屏幕截图，显示了一个事件监听器引用的闭包中引用的一些对象](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png?w=570&h=111)](https://nolanwlawson.files.wordpress.com/2020/02/screenshot-from-2020-02-16-10-56-12-3.png)
 
 retainer 链显示哪个对象正在引用泄漏的对象。阅读它的方法是每个对象都由它下面的对象引用。
 
-在上面的例子中，有一个名为 `someObject` 的变量，它被一个闭包(又名“上下文”)引用，这个闭包又被一个事件监听器引用。 如果你点击源链接，它会跳转到 JavaScript 声明，这种方式相当直接明了：
+在上面的例子中，有一个名为 `someObject` 的变量，它被一个闭包（又名“上下文”）引用，这个闭包又被一个事件监听器引用。 如果你点击源链接，它会跳转到 JavaScript 声明，这种方式相当直接明了：
 
 ```js
 class SomeObject () { /* ... */ }
@@ -150,7 +150,7 @@ window.addEventListener('message', onMessage);
 
 在 Chrome 开发者工具中，你还可以使用专用的 [`getEventListeners()`](https://developers.google.com/web/tools/chrome-devtools/console/utilities#geteventlisteners) API 来查看绑定到特定元素上的事件监听器。注意，这只能在开发者工具中使用。
 
-****更新：** Mathias Bynens 告诉了我另一个有用的开发者工具的 API:[`queryObjects()`](https://developers.google.com/web/updates/2017/08/devtools-release-notes#query-objects)，它可以显示使用特定构造函数创建的所有对象。Christoph Guttandin 也有 [一篇有趣的博客文章](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer) 关于在 Puppeteer 中使用这个 API 进行自动内存泄漏检测。**
+**更新：** Mathias Bynens 告诉了我另一个有用的开发者工具的 API:[`queryObjects()`](https://developers.google.com/web/updates/2017/08/devtools-release-notes#query-objects)，它可以显示使用特定构造函数创建的所有对象。Christoph Guttandin 也有 [一篇有趣的博客文章](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer) 关于在 Puppeteer 中使用这个 API 进行自动内存泄漏检测。
 
 ## 总结
 
