@@ -292,7 +292,7 @@ extension Path {
 
 ## 总结
 
-本文中，我们再次将 SwiftUI 和 Combine 成功结合 — 这次是抓取股票价格数据，然后在折线图中展示。通过了解 SwiftUI 中 paths 用法的复杂性，来构建 SwiftUI 中需要你使用 `path` 方法才能实现的各种图形，是一个好的开始。
+本文中，我们再次将 SwiftUI 和 Combine 成功结合 — 这次是抓取股票价格数据，然后在折线图中展示。通过了解 SwiftUI 中 paths 的各种用法，并使用 `path` 方法来构建各种复杂的图形，是一个了解并入门 SwiftUI 的好机会。
 
 你可以使用手势对点和相应的值进行高亮处理，来进一步了解上文中的 SwiftUI 折线图。想知道怎样实现和更多资料，请参照 [这个仓库](https://github.com/AppPear/ChartView)。
 
