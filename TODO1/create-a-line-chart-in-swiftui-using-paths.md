@@ -21,7 +21,7 @@ SwiftUI 中的 paths 是一套真正用声明式的方式来构建 UI 的指令�
 
 ## 我们的目标
 
-* 探索 SwiftUI 的 Path API，通过它来创建简单的模型。
+* 探索 SwiftUI 的 Path API，通过它来创建简单的图形。
 * 用 Combine 和 URLSession 来获取历史股票数据。我们将会用 [Alpha Vantage](https://www.alphavantage.co/) 的 API 来取得股票信息。
 * 在 SwiftUI 中创建折线图，来展示随时间变化的股票价格。
 
@@ -51,8 +51,8 @@ Path API 有很多函数。`move` 是用来设置路径的起点，`addline` 是
 
 下面的插图展示了一个三角形，这个三角形下面有一个圆饼图。
 
-
 ![](https://cdn-images-1.medium.com/max/2186/1*8XNc1miVjNhzzDCYW44p8g.png)
+
 既然我们已经了解怎样在 SwiftUI 中创建 paths，赶紧来看看 SwiftUI 中的折线图。
 
 ## SwiftUI 折线图
@@ -91,7 +91,6 @@ struct StocksDaily : Codable {
 ```
 
 创建一个 `ObservableObject` 类。我们用 URLSession 中的  Combine Publisher 来处理 API 请求，然后用 Combine 操作来转换结果。
-
 
 ```Swift
 class Stocks : ObservableObject {
@@ -156,6 +155,7 @@ extension String {
     }
 }
 ```
+
 API 结果中包含用日期作为 key 的内置 JSON。它们在字典中是无序的，需要进行排序。因此，我们声明了一个把字符串转换为日期的扩展，然后在 `sort` 方法中进行比较。
 
 既然已经在 `Published` 属性中获得了价格和股票数据，我们需要将它们传递给 `LineView` — 下面我们将会看到的一个自定义的 SwiftUI 视图：
