@@ -210,7 +210,7 @@ struct LineView: View {
 }
 ```
 
-上面的视图从 SwiftUI 中的 ContentView 唤起，传入了姓名、价格和历史价格的数组。由于使用了 GeometryReader，我们要向 `Line` 结构中的 frame 传入 reader 的宽和高。我们最后会用 SwiftUI 中的 paths 来连接这些点:
+上面的视图从 SwiftUI 中的 ContentView 唤起，传入了名称、价格和历史价格的数组。由于使用了 GeometryReader，我们要向 `Line` 结构中的 frame 传入 reader 的宽和高。我们最后会用 SwiftUI 中的 paths 来连接这些点：
 
 ```Swift
 struct Line: View {
