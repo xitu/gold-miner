@@ -9,7 +9,7 @@
 
 ## 为什么要对象不变性?
 
-为了探索不变性的重要性，我们应该先了解可变性的概念。我们要知道可变性是什么，有什么意义，以及会造成什么影响。
+为了探索不变性的重要性，我们应该先了解可变性的概念。我们需要知道可变性是什么，有什么意义，以及会造成什么影响。
 
 在这篇文章中，我们将会使用 JavaScript 介绍可变性概念。不过其中原理是跟编程语言无关的。
 
@@ -19,7 +19,7 @@
 
 可变性呀！从本质上来说，可变性描述的是对象被声明后，是否还能被修改。就这么简单。
 
-设想一下，在声明变量时为其赋值。在后面的代码中，我们遇到需要在那里立刻修改此变量的值的情况。如果我们能立刻修改此变量的值，更改其状态，则认为这个对象是**可变的**。
+设想一下，声明一个变量并为其赋值。在后面的代码中，我们遇到需要在那里立刻修改此变量的值的情况。如果我们能立刻修改此变量的值，更改其状态，则认为这个对象是**可变的**。
 
 ```js
 // 原始数组
@@ -35,9 +35,9 @@ const bar = { becky: 'lemme' }
 bar.becky = true
 ```
 
-说起数组，数组的值与值的状态几乎是最容易被改变的。而为了防止这种情况发生，我们保持一个不可变的状态，需要从原始数组上派生出新数组，并将新的内容插入其中。
+说起数组，修改它的值和改变它值的状态实在是太容易了。而为了防止这种情况发生，我们保持一个不可变的状态，需要从原始数组上派生出新数组，并将新的内容插入其中。
 
-对象也是一样的，需要从现有对象上派生出新对象，并对其添加上所需的改变。
+对象也是一样的，需要从现有对象上派生出新对象，并将所需的改变添加到其中。
 
 不过……
 
@@ -64,7 +64,7 @@ console.log(foo, bar)
 
 可变性的反面是不变性。不变性在这里的意思是，一旦变量被声明并且状态被设置，就不能被再次修改。而基于原始的新对象，任何改变都**需要**被重新创建。
 
-让我们看看 如何不可变地插入一项内容到数组中。
+让我们看看如何不可变地插入一项内容到数组中。
 
 ```js
 const foo = [ 1, 2, 3, 4, 5 ]
@@ -141,7 +141,7 @@ console.log(personC.address.city) // 'Cape Town'
 
 ## 你是在回答怎么做，但到底是为什么呢？
 
-在大多数应用中，数据的完整性和一致性通常是最重要的。我们不愿意数据被莫名修改，因此被错误地存到数据库中，或者被错误地返回给使用者。我们期望有最佳的可预测性，以确保所使用的数据与预期保持一致。特别是对于异步与多线程应用，这至关重要。
+在大多数应用中，数据的完整性和一致性通常是最重要的。我们不愿意数据被莫名修改，因此被错误地存到数据库中，或者被错误地返回给使用者。我们期望有最佳的可预测性，以确保所使用的数据与预期保持一致。当涉及到异步和多线程应用程序时，这至关重要。
 
 为了更好地理解以上内容，让我们看看下面的图。让我们假设 `foo` 依稀包含着我们系统中一个用户的重要数据。如果我们有 Promise A 和 Promise B，他们都同时运行在 Promise 中。这两个以及所有接收 `foo` 作为参数的 Promise，如果其中的一个 Promise 修改 `foo`，那么 `foo` 的新状态就会泄露到另一个 Promise 中去。
 
@@ -149,7 +149,7 @@ console.log(personC.address.city) // 'Cape Town'
 
 如果 Promise 依赖于 `foo` 的原始状态，则在执行的过程中可能会产生副作用。
 
-上图的最终结果，如果两个 Promise 都修改 `foo` 对象可能会不同。如果两个 Promise 都有修改 `foo` 对象的话，上图的结果可能会有不同的情况，结果取决于哪个 Promise 先执行。这被称为资源竞争 (race-condition)。当对象被传入时，被传入的只是一个指针，指向所传递的基础对象，而不是新的对象。
+如果两个 Promise 都有修改 `foo` 对象的话，上图的结果可能会有不同的情况，结果取决于哪个 Promise 先执行。这被称为资源竞争 (race-condition)。当对象被传入时，被传入的只是一个指针，指向所传递的基础对象，而不是新的对象。
 
 ```js
 // 初始化对象
@@ -164,7 +164,7 @@ const foo = item => setTimeout(() => console.log(item), 1000)
 // 修改被传入的 `item`
 const bar = item => item.a = 'something'
 
-// 使用 Promise 对象同时运行这两个方法，，并提供 `obj` 作为这两个方法输入参数。
+// 使用 Promise 对象同时运行这两个方法，并提供 `obj` 作为这两个方法输入参数。
 Promise.all([ foo(obj), bar(obj) ])
 
 // 预期结果
@@ -183,16 +183,16 @@ Promise.all([ foo(obj), bar(obj) ])
 ```js
 const foo = { a: 'b', c: 'd' }
 
-// 这将创建一个指针，或者是浅复制
+// 这将创建一个指针，或者是浅拷贝
 const bar = foo
 
-// 这创建一个深复制
+// 这创建一个深拷贝
 const bar = { ...foo }
 ```
 
 在 JavaScript 中，这两者是有根本区别的，特别是涉及到如何将变量存储在内存中时。
 
-更多技术层面的解释是：当创建 `foo` 对象时，其被储存在所谓的[堆](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中，并在[栈](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中创建指向这块内存的指针。和上面示例中第一个声明一样，当我们创建一个浅复制，一个新的指针会被放在[栈](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中，但其指向[堆](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中相同的内存块。
+更多技术层面的解释是：当创建 `foo` 对象时，其被储存在所谓的[堆](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中，并在[栈](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中创建指向这块内存的指针。和上面示例中第一个声明一样，当我们创建一个浅拷贝，一个新的指针会被放在[栈](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中，但其指向[堆](https://medium.com/javascript-in-plain-english/understanding-javascript-heap-stack-event-loops-and-callback-queue-6fdec3cfe32e)中相同的内存块。
 
 ![上面示例中对象被创建在栈和堆中的简单图例](https://cdn-images-1.medium.com/max/2000/1*06XtgCM-VsMXRtBtpzf40w.png)
 
@@ -200,7 +200,7 @@ const bar = { ...foo }
 
 ## 那性能怎么样呢？
 
-好吧，在性能方便，您可能会认为与对现有对象简单地修改相比，这会是一个更繁琐的过程。是的，您是正确的。但这并不像您认为的那样糟糕。
+好吧，在性能方面，您可能会认为与对现有对象简单地修改相比，这会是一个更繁琐的过程。是的，您是正确的。但这并不像您认为的那样糟糕。
 
 JavaScript 使用结构共享的概念，这意味着从您的第一个对象派生出修改后的对象，其实不会产生太多的开销。考虑到这一点以及不变性带来的好处，这开始看起来是个不错的选择。下面列举一些好处……
 
