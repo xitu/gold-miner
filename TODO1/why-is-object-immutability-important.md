@@ -2,8 +2,8 @@
 > * 原文作者：[Alex Pickering](https://medium.com/@pickeringacw)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-is-object-immutability-important.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-is-object-immutability-important.md)
-> * 译者：
-> * 校对者：
+> * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
+> * 校对者：[zhanght9527](https://github.com/zhanght9527)
 
 # 为什么对象不变性很重要？
 
