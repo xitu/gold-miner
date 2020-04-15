@@ -107,7 +107,7 @@ $ git push --force --all
 $ git push --force --tags
 ```
 
-告诉我们的小伙伴进行复位基底（rebase）：
+告诉我们的小伙伴进行变基（rebase）：
 
 ```bash
 $ git rebase
