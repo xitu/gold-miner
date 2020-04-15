@@ -33,7 +33,7 @@ CSS should be concatenated and minified to reduce the number of the stylesheet t
 
 We can also mark `link` tags as non-render blocking by using media queries. For instance, we can write the following to do that:
 
-```
+```html
 <link href="portrait.css" rel="stylesheet" media="orientation:portrait">
 ```
 
@@ -43,7 +43,7 @@ We should move style manipulation outside of our JavaScript and put styles insid
 
 For instance, we can write the following code to add a class in our CSS file:
 
-```
+```css
 .highlight {
   background-color: red;
 }
@@ -51,7 +51,7 @@ For instance, we can write the following code to add a class in our CSS file:
 
 and then we can add a class with the `classList` object as follows:
 
-```
+```js
 const p = document.querySelector('p');
 p.classList.add('highlight');
 ```
@@ -64,7 +64,7 @@ If we have scripts that no other script depends on, we can load then asynchronou
 
 We just put `async` in our script tag so that we can load our script asynchronously as follows:
 
-```
+```html
 <script async src="script.js"></script>
 ```
 
