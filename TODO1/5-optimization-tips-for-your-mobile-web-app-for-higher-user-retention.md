@@ -9,9 +9,7 @@
 
 ![Photo by [Jaelynn Castillo](https://unsplash.com/@jaelynnalexis?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9310/0*Cj9Dw7l2u-wSTCqK)
 
-## 5 optimization tips for your mobile web app to increase user retention
-
-#### Your mobile website can be more appealing to mobile users by going beyond css style optimization
+> Your mobile website can be more appealing to mobile users by going beyond css style optimization
 
 As of 2020, internet traffic is around half mobile and half desktop. Google looks to your mobile website version to determine at what position to rank your pages when it indexes. A significant share of young users don’t even use desktop devices at all anymore.
 
@@ -29,7 +27,7 @@ But what if your website actually is responsive enough already and includes effe
 
 You can use the following code in your style-sheet to get rid of this shadow click effect. Don’t worry, it won’t break anything else, even though you need to include it as a global style.
 
-```
+```css
 * { 
   /*prevents tabing highlight issue in mobile */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -45,7 +43,7 @@ However, what if there is an additional effect that you want to show based on wh
 
 For these kind of situations, my advice is to use a globally accessible Helper-function that determines based on the user-agent of the browser if the user device is a mobile device or not.
 
-```
+```js
 $_HelperFunctions_deviceIsMobile: function() {
   if (/Mobi/i.test(navigator.userAgent)) {
      return true;
@@ -63,7 +61,7 @@ If you use large images and want to make sure that the loading time on mobile is
 
 You don’t even need JavaScript for it (well, you can also do it with JavaScript too…). For a css version of this strategy, look at the following code.
 
-```
+```html
 <!-- ===== LARGER VERSION OF FILE ========== -->
 <div class="generalcontainer nomobile">
     <div class="aboutus-picture" id="blend-in-cover" v-bind:style="{ 'background-image': 'url(' + image1 + ')' }"></div>
@@ -77,7 +75,7 @@ You don’t even need JavaScript for it (well, you can also do it with JavaScrip
 
 And in your CSS file, define mobile-only and nomobile.
 
-```
+```css
 .mobile-only {   display: none; }
 
 @media (max-width: 599px) {
@@ -97,7 +95,7 @@ You add a reference ($ref) to an element in your template or simply rely on the 
 
 The following code shows how to implement this effect in a Vue-app. Similar code can be added in other frameworks such as Angular or React.
 
-```
+```js
 mounted() {
   this.$nextTick(function() {
      window.addEventListener('scroll', this.onScroll);
@@ -111,7 +109,7 @@ beforeDestroy() {
 
 The onScroll function loads data if a user scrolls to a certain element or to the bottom of the page:
 
-```
+```js
 onScroll() {    
    var users = this.$refs["users"];
    if (users) {
