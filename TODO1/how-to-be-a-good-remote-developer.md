@@ -2,90 +2,90 @@
 > * 原文作者：[John Au-Yeung](https://medium.com/@hohanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-be-a-good-remote-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-be-a-good-remote-developer.md)
-> * 译者：
+> * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# How to Be a Good Remote Developer
+# 如何成为一名优秀的远程开发者
 
-![Photo by [Nicole Wolf](https://unsplash.com/@joeel56?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*gcJQWqRaHf8E66Bw)
+![图片来自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的 [Nicole Wolf](https://unsplash.com/@joeel56?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*gcJQWqRaHf8E66Bw)
 
-Being a good remote worker takes a lot of discipline. We have to do everything ourselves without anyone watching.
+要成为一名优秀的远程办公人士，需要极强的自制力。我们做的每一项工作，都是在无人监督的环境中独自完成的。
 
-In this article, we’ll look at some habits we can adopt to become a good remote developer.
+在本文中，我们将一起探究，看看哪些习惯能让我们成为优秀的远程开发者。
 
-## Practice Good Meeting Etiquette
+## 养成良好的会议礼仪
 
-Good meeting etiquette is very important. Since we're starting at our screen for meetings and don’t have to go to a physical meeting room, it’s all on us to be a practice good meeting etiquette.
+良好的会议礼仪极其重要。由于我们参加会议只需出现在屏幕前，不用进入真实的会议室，所以想要养成良好的会议礼仪，全凭自我约束。
 
-We should have everyone on separate screens. Our face should be on video if we’re participating.
+我们应该把每个人的图像都放在单独的窗口里。当我们参与讨论时，应保持出现在视频画面里。
 
-Also, we have to pay attention and don’t get distracted by random things around us.
+同时，我们必须全神贯注，不能被身边琐事干扰。
 
-If we don’t have anything urgent, then we should do other things.
+除非有其他紧急事情，否则的话，有这么几件事是我们应该做的。
 
-Being on the computer, it’s easy to take notes, so we should do it.
+保持人在电脑旁，这样方便记笔记，所以应该做到这一点。
 
-Also, we should probably wear work attire if we turn on video so that we won’t embarrass ourselves if we stand up and have underwear on.
+另外，如果开启了摄像头，我们应该着装端正，这样就不会出现起身时内衣意外上镜的尴尬场面。
 
-## Experiment With What Makes Us the Most Productive
+## 尝试能让我们以最高效率产出的方式
 
-Since we aren’t using only office equipment and staying in the office, we can experiment with our home office setup to see what works for us.
+既然我们不仅仅是使用办公设备，更是生活在办公空间中，我们尽可以尝试不一样的家庭办公方式，看看哪些适合我们。
 
-We can wear whatever makes us comfortable as long it’s not underwear or any non-business clothing.
+除了内衣和其他非正式的着装，我们大可以让自己穿得舒服一些。
 
-Also, we can shift our start and end times a bit as long we don’t miss any meetings.
+我们还可以稍稍地调整作息时间，只要不错过会议就行。
 
-The type of work that we do during the day can also change according to our schedule since no one is watching and micromanaging what we’re doing.
+既然不会有人目不转睛地监督，我们也可以根据日程调整当日的工作类型。
 
-We can listen to whatever we want and sit anywhere that makes us more comfortable.
+我们可以听任何我们自己喜欢的音乐，可以坐在任何我们觉得更舒服的地方。
 
-Also, we probably don’t have any set lunch hour. That’s nice since that means we can adjust our lunch schedule the way we wish.
+另外，我们的午餐时间可以不固定。我们可以想什么时候吃就什么时候吃，太棒了。
 
-## Clear Communication
+## 清晰的沟通
 
-Since we don’t see each other in person, we can’t read people’s body language to get what they mean when they type a message or talk.
+由于我们无法见到其他人本人，所以当通过打字或者语音电话沟通时，我们无法通过他们的肢体语言来理解他们的意思。
 
-Therefore, we should make sure that everything is clear and that people understand what we want to convey.
+因此，我们应该确保把所有细节说清楚，以便于他人理解我们想传达的内容。
 
-Dealing with different time zones and different mediums of communication also makes things harder for us.
+时区的差异、沟通媒介的差异让远程沟通难上加难。
 
-Therefore, to make everyone’s lives easier, we should outline our ideas clearly and type out actionable steps.
+所以，为了帮他人降低理解难度，我们应该清晰地描述我们的想法、给出可执行的步骤。
 
-Meeting notes are more important since we aren’t sitting beside each other to ask questions.
+由于我们并不是坐在一起提出问题，会议记录的作用显得更加重要。
 
-Instead of using a real whiteboard, we have to use a virtual one.
+没有真实的白板，我们就用白板软件。
 
-If we have to pair program, we have to talk and share our screens.
+如果我们需要结对编程，我们应该开启语音通话并共享屏幕。
 
-Also, no one will know how we feel over the Internet, so we should convey those clearly.
+另外，在网上，没人能感知我们的感受，所以我们应该把自己的感受清晰地传达出来。
 
-If we need help, we’ve to ask around since not everyone may answer.
+当我们需要帮助，我们需要勤于求助，因为不是每个人都能为我们解答。
 
-Also, we should check our notifications so that we’ll answer people when we see them. People are waiting for our answers and this is more important since no one is around us to answer urgent questions if we need to.
+还有，我们应该经常检查消息通知，以便及时回复他人。别人在等我们的回复呢，当我们急于寻求答复但周围没有人能响应时，我们就更能体会这一点的重要性。
 
-![Photo by [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/15904/0*jlbf4_s4q88Oz-IR)
+![图片来自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的 [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/15904/0*jlbf4_s4q88Oz-IR)
 
-## Create Boundaries Between Work and Life
+## 划清工作和生活的边界
 
-If we’re working 9 to 5 at the office, then we got to set similar boundaries even if we’re working at the office.
+如果我们在办公室时的作息时间是朝九晚五，那么在家办公时，也应该设置相近的时间点。
 
-There’s just no way that we can work 24 hours a day and not burn out and be tired.
+我们不可能一天工作 24 小时而不感到疲惫。
 
-Therefore, we should set some boundaries so that we cut off work the same way that we go home at the end of the day.
+所以，我们应该设置些许边界，让我们能像结束一天的工作然后下班回家那样中止工作。
 
-At the end of the day, turn off work notifications, close all our work stuff and relax. Also, we should take breaks like we do when we’re in the office.
+当一天结束时，关闭工作消息通知，收起所有工作相关事物，好好休息吧。另外，我们应该像在办公室里那样，适时休息、劳逸结合。
 
-We got to walk around and clear our minds. Also, lunch breaks are equally important, so we should have them.
+我们得四处走走、放空头脑。而且，午休也相当重要，所有也应该午休。
 
-## Conclusion
+## 总结
 
-Even though we’re working remotely, we got to set our boundaries like we do when we’re working at the office.
+即使我们是在远程办公，我们也应该像在办公室上班那样，确立工作和生活的边界。
 
-The difference is that we have to make sure that we check our notifications more frequently during work hours so that we can answer people’s questions.
+区别在于，我们要确保在工作时间内，更加频繁地查看消息通知，这样就能及时回复他人。
 
-Also, we should make sure that we convey everything clearly so that we can be sure that everyone understands us.
+另外，我们应该确保清晰地传达意图，让他人准确领会我们的想法。
 
-Finally, to collaborate, we have to use share screens and use video conference software.
+最后，我们要通过共享屏幕和视频会议软件来协同办公。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
