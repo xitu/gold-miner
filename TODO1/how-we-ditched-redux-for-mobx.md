@@ -2,28 +2,28 @@
 > * 原文作者：[Luis Aguilar](https://medium.com/@ldiego08)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-ditched-redux-for-mobx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-ditched-redux-for-mobx.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
+> * 校对者：[动力小车](https://github.com/Stevens1995)
 
-# How We Ditched Redux for MobX
+# 我们如何抛弃了 Redux 而选用 MobX
 
-We at Skillshare embrace change; not because it looks cool in a company’s vision statement, but because it’s **necessary.** That is the premise behind the recent decision to migrate the whole platform to React, leveraging all the goodness it entails. The group tasked with introducing these changes is but a small delta of our lovely engineering team. Making the right decisions early it’s crucial for getting the rest of the team onboard as smoothly and quickly as possible.
+在 Skillshare 我们拥抱改变；不仅因为把它写在公司的前景宣言中很酷，也因为改变确实有必要。这是我们近期将整个平台迁移至 React 并利用其所有优势这一决定背后的前提。执行这个任务的小组仅仅是我们工程师团队的一小部分。尽早做出正确的决定对于让团队其他成员尽可能快而顺畅地切换平台来说至关重要。
 
-A smooth development experience is everything.
+顺畅的开发体验就是一切。
 
-**Everything.**
+**一切。**
 
-And so, along the road of getting React into our codebase, we stumbled upon the most challenging bits of doing frontend development: **state management.**
+然后，在将 React 引入我们的代码库时，我们遇到了前端开发最有挑战的一部分：**状态管理**。
 
-Oh boy… were we in for some fun.
+唉…接下来就有意思了。
 
-## Setup
+## 设置
 
-It all started simple: **“migrate Skillshare’s header to React.”**
+一切都开始于简单的任务：**“将 Skillshare 的页头迁移至 React。”**
 
-**“Ah, easy as pie,”** we dared saying—it was only the “guest” view which only had a few links and a simple search box. No authentication logic, no session management, nothing magical going on.
+“**小菜一碟**！”我们立下了 flag —— 这个页头只是访客视图，只包含几个链接和一个简单的搜索框。没有授权逻辑，没有 session 管理，没有什么特别神奇的东西。
 
-Alright, let’s get into some code:
+好的，来敲点代码吧：
 
 ```TSX
 interface HeaderProps {
@@ -49,34 +49,34 @@ interface SearchBoxProps {
 
 class SearchBox extends Component<SearchBoxProps> {
     render() {
-        // Render the component ..
+        // 渲染组件…
     }
 }
 ```
 
-Oh yeah, we use TypeScript—it’s the cleanest, most intuitive, and friendly to all devs. How not to love it? We also use [Storybook](https://storybook.js.org/) for UI development, so we’d like to keep components as dumb as possible and do any wiring up at the highest level possible. Since we use [Next](https://nextjs.org/) for server-side rendering, that level would be the page components, which in the end are just plain old components residing in a designated **pages** folder and automatically mapped to URL requests by the runtime. So, if you have a `home.tsx `****file there, it will be automatically mapped to the `/home` route—bye bye goes `renderToString()`.
+没错，我们用 TypeScript —— 它是最简洁、最直观、对所有开发者最友好的语言。怎能不爱它呢？我们还使用 [Storybook](https://storybook.js.org/) 来做 UI 开发，所以我们希望让组件越傻瓜越好，在越高层级将其拼接起来越好。由于我们用 [Next](https://nextjs.org/) 做服务端渲染，那个层级就是页面组件，它们最终就仅仅是广为人知的位于指定 `pages` 目录中的组件，并在运行时自动映射到 URL 请求中。所以，如果你有一个 `home.tsx` 文件，它就会被自动映射到 `/home` 路由 —— 和 `renderToString()` 说再见吧。
 
-Alright, that’s it for components… but wait! Getting that search box working also involved setting up a state management strategy, and plain local state wouldn’t get us very far.
+好的，组件就讲到这里吧…但等一下！实现搜索框功能还需要制定一个状态管理策略，本地状态不会给我们带来什么长足发展。
 
-## Confrontation: Redux
+## 对抗：Redux
 
-In React, when it comes to state management, Redux is the gold standard—it’s got over 40k stars on GitHub, has full TypeScript support, and big guys like Instagram use it.
+在 React 中，提到状态管理时，Redux 就是黄金法则 —— 它在 Github 上有 4w+ Star（截至英文原文发布时。截至本译文发布时已有 5w+ Star。），完全支持 TypeScript，并且像 Instagram 这样的大公司也用它。
 
-Here’s how it works:
+下图描述了它的原理：
 
-![Image by [@abhayg772](http://twitter.com/abhayg772)](https://cdn-images-1.medium.com/max/2400/1*kDO26wU8yMn0Xq7crphztA.png)
+![图片来自 [@abhayg772](http://twitter.com/abhayg772)](https://cdn-images-1.medium.com/max/2400/1*kDO26wU8yMn0Xq7crphztA.png)
 
-Unlike traditional MVW patterns, Redux manages an application-wide state tree. UI events trigger actions, actions pass data to a reducer, the reducer updates the state tree, and ultimately the UI updates.
+不像传统的 MVW 样式，Redux 管理一个覆盖整个应用的状态树。UI 触发 actions，actions 将数据传递给 reducer，reducer 更新状态树，并最终更新 UI。
 
-Easy, right? Well, let’s do this!
+非常简单，对不？再来敲点代码！
 
-The entity involved here is called a **“tag.”** Hence, when the user types in the search box, it searches for **tags.**
+这里涉及到的实体是**标签。**因此，当用户在搜索框中输入时，搜索框搜索的是**标签**
 
 ```TypeScript
-/* We have three actions here:
- *   - Tags search: when the user types and a new search is triggered.
- *   - Tags search update: when the search results are ready and have to update.
- *   - Tags search error: bad stuff happened.
+/* 这里有三个 action:
+ *   - 标签搜索: 当用户进行输入时，触发新的搜索。
+ *   - 标签搜索更新: 当搜索结果准备好，必须进行更新。
+ *   - 标签搜索报错：发生了不好的事情。
  */
 
 enum TagActions {
@@ -103,7 +103,7 @@ interface TagsSearchErrorAction extends Action {
 type TagsSearchActions = TagsSearchAction | TagsSearchUpdateAction | TagsSearchErrorAction;
 ```
 
-Well, that was easy. Now we need some helpers to create our actions dynamically based on input parameters:
+还挺简单的。现在我们需要一些帮助函数，基于输入参数来动态创建 actions：
 
 ```TypeScript
 const search: ActionCreator<TagsSearchAction> =
@@ -126,7 +126,7 @@ const searchError: ActionCreator<TagsSearchErrorAction> =
 
 ```
 
-There! Now the reducer which updates the state depending of the action:
+搞定！接下来是负责基于 action 更新 state 的 reducer：
 
 ```TypeScript
 interface State {
@@ -171,7 +171,7 @@ const tagSearchReducer: Reducer<State> =
     };
 ```
 
-Whew, that was quite a chunk of code, but now we’re rolling! Remember all wiring goes on at the highest level, and that’d be our **page** components.
+这段代码还挺长的，但是我们正在取得进展！所有的拼接都在最顶层进行，即我们的**页面**组件。
 
 ```TSX
 interface HomePageProps {
@@ -215,55 +215,55 @@ const makeStore = (initialState: State) => {
     return createStore(reducers, initialState);
 }
 
-// it all comes to this - BEHOLD: THE WIRED-UP HOME PAGE!
+// 所有都汇聚于此 —— 看吧：拼接完成的首页！
 export default withRedux(makeStore)(connectedPage);
 ```
 
-And we’re done! Time to dust off our hands and grab a beer. We have our UI components, a lovely page, and everything nicely glued together.
+任务完成！掸掸手上的灰来瓶啤酒吧。我们已经有了 UI 组件，一个页面，所有的部分都完好地组接在一起。
 
-Uhm… wait.
+Emmm…等一下。
 
-This is just local data.
+这只是本地状态。
 
-We still have to fetch stuff from the actual API. Redux requires actions to be pure functions; they have to be executable right away. And what doesn’t execute right away? Async operations like fetching data from an API. Hence, Redux has to be paired with other libraries to achieve this. There are plenty of options, like [thunks](https://github.com/reduxjs/redux-thunk), [effects](https://github.com/redux-effects/redux-effects), [loops](https://github.com/redux-loop/redux-loop), [sagas](https://github.com/redux-saga/redux-saga), and each one works differently. That doesn’t only mean additional incline degrees on an already steep learning curve, but even more boilerplate.
+我们仍需要从真正的 API 获取数据。Redux 要求 actions 为纯函数；他们必须立即可执行。什么不会立即执行？像从API获取数据这样的异步操作。因此，Redux 必须与其他库配合来实现此功能。有不少可选用的库，比如 [thunks](https://github.com/reduxjs/redux-thunk)、[effects](https://github.com/redux-effects/redux-effects)、[loops](https://github.com/redux-loop/redux-loop)、[sagas](https://github.com/redux-saga/redux-saga)，每一个都有些差别。这不仅仅意味着在原本就陡峭的学习曲线上又增加坡度，并且意味着更多的模板。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*x2FqXWuYcGN_Pso4MRfafg.jpeg)
 
-And as we trudged along these muddy waters, the obvious echoed over and over in our heads: **“all this code just for binding a search box?”** And we were sure those would be the exact same words coming from anyone daring enough to venture into our codebase.
+当我们在泥泞中艰难前行中，那个显而易见的问题不停地回响在我们的脑海中：**这么多行代码，就为了绑定一个搜索框**？我们确信，任何一个有勇气查看我们代码库的人都会问同样的问题。
 
-One can’t diss Redux; it’s the pioneer in its field and a beautiful concept all around. However, we found it’s way too low-level, demanding you to define everything. It is constantly praised for being very opinionated, preventing you from shooting yourself in the foot by enforcing a pattern, but the price of that is an unholy amount of boilerplate and a thick learning barrier.
+我们不能 Diss Redux；它是这个领域的先锋，也是一个优雅的概念。然而，我们发现它过于“低级”，需要你亲自定义一切。它一直由于有非常明确的思想，能避免你在强制一种风格的时候搬起石头砸自己的脚而受到好评，但这些所有都有代价，代价就是大量的模板代码和一个巨大的学习障碍。
 
-That was the dealbreaker for us.
+这我们就忍不了了。
 
-How do we tell our team they won’t be seeing their families during the holidays because of boilerplate?
+我们怎么忍心告诉我们的团队，他们假期要来加班，就因为这些模板代码？
 
-There’s gotta be something else.
+肯定有别的工具。
 
-Something more **friendly.**
+更加**友好**的工具。
 
-[**You Might Not Need Redux**](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
+[**你并不一定需要 Redux**](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
 
-## Resolution: MobX
+## 解决方案：MobX
 
-At first, we thought of creating some helpers and decorators to circumvent code repetition. That would mean more code to maintain. Also, when core helpers break, or they need new functionality, it can stall the whole team while making changes. You wouldn’t want to lay fingers on a three-year-old helper used by pretty much the whole app, do you?
+起初，我们想过创建一些帮助函数和装饰器来解决代码重复。而这意味着需要维护更多代码。并且，当核心帮助函数出问题，或者需要新的功能，在修改它们时可能会迫使整个团队停止工作。三年前写的、整个应用都在用的帮助函数代码，你也不想再碰，对不？
 
-Then some wild thoughts came along…
+然后我们有了一个大胆的想法…
 
-**“What if we didn’t use redux at all?”**
+**“如果我们根本不用 Redux 呢？”**
 
-**“What else is there?”**
+**“还有啥别的可以用？”**
 
-A click on that **“I’m Feeling Lucky”** button yielded the answer: [**MobX**](https://mobx.js.org/)
+点了一下“**我今天感觉很幸运**”按钮，我们的到了答案：[**MobX**](https://mobx.js.org/)
 
-MobX promises you one thing: to just let you do your work. It applies the principles of reactive programming to React components — yeah, ironically, React is not reactive out of the box. Unlike Redux, you can have multiple stores (i.e. `TagsStore`, `UsersStore`, etc.,) or a root store, and bind them to component props. It is there to help you in managing your state, but how you shape it is entirely up to you.
+MobX 保证了一件事：保证你做你的工作。它将响应式编程的原则应用于 React 组件 —— 没错，讽刺的是，React 并不是开箱即具备响应式特点的。不像 Redux，你可以有很多个 store（比如 `TagsStore`、`UsersStore` 等等），或者一个总的 store，将它们绑定于组件的 props 上。它帮助你管理状态，但是如何构建它，决定权在你手里。
 
-![Image by [Hanno.co](https://hanno.co/blog/mobx-redux-alternative/)](https://cdn-images-1.medium.com/max/3200/1*QZ8X8IZfm7IPkZj0iyRC7w.png)
+![图片来自 [Hanno.co](https://hanno.co/blog/mobx-redux-alternative/)](https://cdn-images-1.medium.com/max/3200/1*QZ8X8IZfm7IPkZj0iyRC7w.png)
 
-So we have React integration, full TypeScript support, and minimal-to-no boilerplate.
+所以我们现在整合了 React，完整的 TypeScript 支持，还有极简的模板。
 
-You know what? I’ll let the code do the talking.
+还是让代码为自己代言吧。
 
-We start by defining our store:
+我们首先定义 store：
 
 ```TypeScript
 import { observable, action, extendObservable } from 'mobx';
@@ -288,7 +288,7 @@ export class TagsStore {
     @action public loadTags = (query: string) => {
         this.query = query;
 
-        // do something here ..
+        // 一些业务代码…
     }
 }
 
@@ -297,7 +297,7 @@ export interface StoreMap {
 }
 ```
 
-Then wire up the page:
+然后拼接一下页面：
 
 ```TSX
 import React, { Component } from 'react';
@@ -345,17 +345,17 @@ export default () => {
 }
 ```
 
-And that’s it… you’re done! We got up and running to the same place we were in the Redux example, except in a matter of a few minutes.
+就这样搞定了！我们已经实现了所有在 Redux 例子中有的功能，不过我们这次只用了几分钟。
 
-So the code is quite self-explanatory, but to clarify, the `inject` helper comes from MobX React integration; it’s the counterpart to Redux’s `connect` helper except that `mapStateToProps` and `mapDispatchToProps` are in a single function. The `Provider` component it’s also MobX, and it takes as many stores as you want which will be later passed on to the `inject` helper. Also, look at those beautiful, **beautiful** decorators—that’s how you configure your store. Any property decorated with `@observable `will notify bound components to re-render on change.
+代码相当清晰了，不过为了说明白，`inject` 帮助函数来自于 MobX React；它与 Redux 的 `connect` 帮助函数对标，只不过它的 `mapStateToProps` 和 `mapDispatchToProps` 在一个函数当中。 `Provider` 组件也来自于 MobX，可以在里面放任意多个 store，它们都会被传递至 `inject` 帮助函数中。并且，快看看那些迷人的，**迷人的**装饰器 —— 就这样配置 store 就对了。所有用 `@observable` 装饰的实体都会通知被绑定的组件在发生改变后重新渲染。
 
-Now that’s what I call **“intuitive.”**
+这才叫“**直观**”。
 
-Need I to say more?
+还需多说什么？
 
-Okay, moving onto API fetching, remember how Redux doesn’t handle async actions out-of -the-box? Remember how you had to use `thunks` (which are hard to test,) or `sagas` (which are hard to understand) if you wanted that? Well, with MobX you have plain old classes, so constructor-inject your fetching library of choice and do it in the actions. Miss sagas and generator functions?
+然后，关于访问 API，是否还记得 Redux 不能直接处理异步操作？是否还记得你为了实现异步操作不得不使用 `thunks`（它们非常不好测试）或者 `sagas`（非常不易理解）？那么，有了 MobX，你可以用普普通通的类，在构造函数里注入你选择的 API 访问库，然后在 action 里执行。还想念 sagas 和 generator 函数吗？
 
-Behold the `flow` helper!
+请看吧，这就是 `flow` 帮助函数！
 
 ```TypeScript
 import { action, flow } from 'mobx';
@@ -380,25 +380,25 @@ export class TagsStore {
 }   
 ```
 
-The `flow` helper takes a generator function which yields steps—response data, logging calls, errors, etc. It’s a series of steps which can be executed gradually or paused if needed.
+这个 `flow` 帮助函数用 generator 函数来产出步骤 —— 响应数据，记录调用，报错等等。它是可以渐进执行或在需要时暂停的一系列步骤。
 
-**A flow!** Get it?
+**一个流程!** 懂了不？
 
-The times of explaining why **sagas** are named like that are over. Hell, even generator functions seem less scary now.
+那些需要解释为什么**sagas**要这叫这名字的时光结束了。感谢上苍，就连 generator 函数都显得不那么可怕了。
 
-[**Javascript (ES6) Generators — Part I: Understanding Generators**](https://medium.com/@hidace/javascript-es6-generators-part-i-understanding-generators-93dea22bf1b)
+[**Javascript (ES6) Generators — 第一部分: 了解 Generators**](https://medium.com/@hidace/javascript-es6-generators-part-i-understanding-generators-93dea22bf1b)
 
-## Aftermath
+## 结果
 
-Although everything was rainbows and colors so far, an unsettling feeling was still there for some reason—a feeling that going against the current would end up firing back at us. Maybe we needed all that boilerplate to enforce standards. Maybe we needed an opinionated framework. Maybe we needed a well-defined application state tree.
+虽然到目前为止一切都显得那么美好，但不知为何还是有一种令人不安的感觉 —— 总感觉逆流而上总会遭到命运的报复。或许我们仍旧需要那一堆模板代码来强制一些标准。或许我们仍旧需要一个有明确思想的框架。或许我们仍旧需要一个清晰定义的状态树。
 
-What if we want something like Redux but as convenient as MobX?
+如果我们想要的是一个看上去像 Redux 但是和 MobX 一样方便的工具呢？
 
-Well, for that there is **[MobX State Tree](https://github.com/mobxjs/mobx-state-tree).**
+如果是这样，来看看 **[MobX State Tree](https://github.com/mobxjs/mobx-state-tree)** 吧。
 
-With MST, we define the application state tree using a specialized API, and it is immutable, giving you time traveling, serialization and rehydration, and everything else you can expect from an opinionated state management library.
+通过 MST，我们通过一个专门的 API 来定义状态树，并且是不可修改的，允许你回滚，序列化或者再组合，以及所有你希望一个有明确思想的状态管理库所拥有的东西。
 
-But enough talk, have at you!
+多说无用，来看代码！
 
 ```TypeScript
 import { flow } from 'mobx';
@@ -434,13 +434,13 @@ export const StoreModel = types
 export type Store = typeof StoreModel.Type;
 ```
 
-Instead of letting you do whatever you please, MST enforces a pattern by requiring you to define your state tree its way. One might think that this is just MobX but with chained functions instead of classes, but it is way more. The tree is immutable, and each change will create a new **“snapshot”** of it, enabling time travel, serialization and rehydration, and everything else you felt you were missing.
+与其让你在状态管理上为所欲为，MST 通过要求你用它的规定的方式定义状态树。有人可能回想，这就是有了链式函数而不是类的 MobX，但是还有更多。这个状态树无法被修改，并且每一次修改都会创建一个新的“**快照**”，从而允许了回滚，序列化，再组合，以及所有你想念的功能。
 
-Addressing the elephant in the room, the only low point is that this is a semi-functional approach to MobX, meaning it ditches classes and decorators, meaning [TypeScript support is best effort.](https://github.com/mobxjs/mobx-state-tree#typescript--mst)
+再来看遗留下来的问题，唯一的低分项是，这对 MobX 来讲仅仅是一个部分可用的方法，这意味着它抛弃了类和装饰器，意味着 [TypeScript 支持只能是尽力而为了。](https://github.com/mobxjs/mobx-state-tree#typescript--mst)
 
-But even so, it’s still pretty great!
+但即便如此，它还是很棒！
 
-Okay, moving on, let’s wire up the page:
+好的我们继续来构造整个页面。
 
 ```TSX
 import { Header, HeaderProps } from './header';
@@ -481,15 +481,15 @@ export default () => {
 }
 ```
 
-See that? Connecting components remains the same, so even the effort of migrating from vanilla MobX to MST is lesser than writing Redux boilerplate.
+看到了吧？连接组件还是通过同样的方式，所以花在从 MobX 迁移到 MST 的精力远小于编写 Redux 模板代码。
 
-Why didn’t we go all the way to MST?
+那为啥我们没一步到底选 MST 呢？
 
-Well, MST was overkill for our specific case. We considered it because time travel debugging is a **very** nice to have, but after stumbling upon [**Delorean**](https://github.com/BrascoJS/delorean) that’s no longer a reason to move over. The day when we need something MobX can’t provide might come, but even falling back to Redux doesn’t seem as daunting thanks to how unobtrusive MobX is.
+其实，MST 对于我们的具体例子来说有点杀鸡用牛刀了。我们考虑使用它是因为回滚操作是一个**非常**不错的附加功能，但是当我们发现有 [**Delorean**](https://github.com/BrascoJS/delorean) 这么个东西的时候就觉得没必要再费力气迁移了。以后我们可能会遇到 MobX 对付不了的情况，但是因为 MobX 很谦逊随和，即便返回去重新用上 Redux 也变得不再令人头大。
 
-All in all, we love you, MobX.
+总之，MobX，我们爱你。
 
-Stay awesome.
+愿你一直优秀下去。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
