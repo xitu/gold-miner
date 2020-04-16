@@ -2,30 +2,30 @@
 > * 原文作者：[John Au-Yeung](https://medium.com/@hohanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/more-reasons-why-developers-should-blog.md](https://github.com/xitu/gold-miner/blob/master/TODO1/more-reasons-why-developers-should-blog.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# More Reasons Why Developers Should Blog
+# 开发者应该写博客的各种原因
 
 ![Photo by [Thought Catalog](https://unsplash.com/@thoughtcatalog?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*HJLkHYtt8SbRtrra)
 
-Blogging is a way to share what we learn with others.
+写博客是我们与他人分享自己所学的一种方式。
 
-In this article, we’ll look at why developers should keep a blog.
+在这篇文章中，我们将探讨为什么开发者应该有自己的博客。
 
-## Become a Better Writer
+## 成为一个更好的作者
 
-By writing on our blogs repeatedly, we’ll become better writers. The more we write and adapt to better writing habits, we can become better writers.
+通过不断地在我们的博客中进行写作，我们将会成为更好的作者。我们写的越多、养成更多更好的写作习惯, 我们才能成为更好的作者。
 
-Better writers are better communications and that’ll bring us more and better opportunities in the long run.
+更好的作者意味着更好的交流，而这从长远来看会给我们带来更多更好的机会。
 
-## Explaining Things to Others is the Best Way to Learn
+## 向他人讲解是最好的学习方式
 
-There’s no question that explaining things to others is the best way to learn.
+毫无疑问向他人讲解是最好的学习方式。
 
-We get to do research on our topics that we’re writing about and we have to be able to produce our own examples for any technical topic we’re writing about to explain our points.
+我们需要对想要写作的话题进行调研并且不得不局部为我们正在介绍的任何技术性话题创造例子的能力以阐明我们的观点。
 
-Also, we’ve to able to explain the different aspects of the technologies ourselves.
+同样，我们需要具备从不同角度介绍各种技术的能力。
 
 If we learn enough to explain to others without looking through online resources, then we know that we’re proficient at what we’ve learned.
 
