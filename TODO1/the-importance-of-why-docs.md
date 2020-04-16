@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-why-docs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-why-docs.md)
 > * 译者：[Roc](https://github.com/QinRoc)
-> * 校对者：
+> * 校对者：[icy](https://github.com/Raoul1996)
 
 # “为什么”文档的重要性
 
-> 为未来的工程师们提供制定决定时的背景
+> 帮助未来的工程师们了解决定的来龙去脉
 
 ![Photo by [Emily Morter](https://unsplash.com/@emilymorter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/why?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*2KhDOt8Dgcq17b-8rlMsig.jpeg)
 
 我们中的许多人曾经盲目地遵循我们所被告知的模式，认为那一定是做这件事情的正确方式。我们就这样照做了，而没有怀疑那个模式对于我们所处的特殊情形是不是最佳选择，或者那个模式从一开始就不够好。
 
-在我们盲目照做的时候，我们放弃了学习和深化理解、专心工作以及最终提高技术的机会。甚至我们为同事树立了另一个照做的先例，而不是鼓励他们更深入其中。
+在我们盲目照做的时候，我们放弃了学习和深化理解、专心工作以及最终提高技术的机会。甚至我们为同事树立了另一个照做的先例，而不是鼓励他们深入钻研。
 
 ## 女孩和鱼
 
@@ -69,7 +69,7 @@
 * 我们想要缓解的已知缺陷。
 * 用户流量的模式。
 
-一些需要解释的编码方式可能有：
+一些需要解释的编码方式可能是这样的：
 
 * 我们为什么决定复制代码而不是复用代码？
 * 我们为什么以这种顺序提交代码？
