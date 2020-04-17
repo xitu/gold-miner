@@ -27,15 +27,15 @@
 
 同样，我们需要具备从不同角度介绍各种技术的能力。
 
-If we learn enough to explain to others without looking through online resources, then we know that we’re proficient at what we’ve learned.
+如果我们学习到不需要查看在线资料就可以向他人讲解的程度，我们就可以认为对所学的知识掌握得非常熟练了。
 
-Blogging will let us internalize our knowledge by writing about it and practicing by producing examples as we explain the technologies in our blog.
+写博客将会让我们对相关的知识有更深刻的理解，因为在写博客的过程中会叙述相关的知识同时举例解释相关的技术。
 
-## Create a Discussion and Learn New Things from That
+## 创造一场讨论并从中学习新的知识
 
-We can create a discussion based on our blog and engage with our audience.
+基于我们的博客，我们会创造一场讨论并与我们的读者交流。
 
-If our blog has an audience then we’ll get a discussion going in no time.
+如果我们的博客有一位读者的话，我们将会离开得到一场讨论。
 
 And from the discussion, we learn new things from that. This is a win-win situation. We know that our blog has engagement from the audience, which is good.
 
