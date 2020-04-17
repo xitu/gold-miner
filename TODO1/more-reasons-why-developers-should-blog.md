@@ -35,21 +35,21 @@
 
 基于我们的博客，我们会创造一场讨论并与我们的读者交流。
 
-如果我们的博客有一位读者的话，我们将会离开得到一场讨论。
+如果我们的博客有一位读者的话，我们将会立刻得到一场讨论。
 
-And from the discussion, we learn new things from that. This is a win-win situation. We know that our blog has engagement from the audience, which is good.
+然后我们就能从这场讨论中学到新的东西。这是一种双赢的情况。我们知道我们的博客有观众的参与, 这是一件好事。
 
-Also, we can learn new things from the discussions that we’re raising by posting our blog posts.
+此外，我们可以通过发表博客发起的讨论中学到新东西。
 
-## Present Our Own View On a Topic
+## 对某个话题发表自己的观点
 
-Even the topic we’re writing about already had lots of people writing on it, we can still write about it since people will appreciate new views on our existing topic.
+哪怕我们正在论述的主题已经有很多人发表过相关的博客了，我们仍然可以论述。因为关于旧的主题的新观点总是受人欢迎的。
 
-As long as we aren’t copying someone else’s work directly, it’s fine to write on a topic that many people have written about before.
+只要我们不是直接的抄袭他人的工作，论述已经有很多其他人写过的话题也是可以的。
 
-We all have our own style and we can present new angles on the same topic that people have written about before by presenting our own view on it.
+我们都有自己独自的风格，并且通过阐述我们自己的观点，我们能够呈现新的看待已经有很多人论述过的话题的角度。
 
-Therefore, we should write our own pieces on a topic despite many people writing about them already.
+因此，尽管可能已经有很多人论述过相关的话题了，我们还是应该有一篇自己写的相关的文章。
 
 ## Read More and More for Writing a Blog
 
