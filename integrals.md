@@ -9356,10 +9356,12 @@
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：63 当前积分：63 二零二零：21
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：68 当前积分：68 二零二零：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|4 月推荐文章 3 篇|奖励|3|
+|3 月推荐前端文章 2 篇|奖励|2|
 |20 年 3 月推荐文章 2 篇|奖励|2|
 |[2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)|翻译|7.5|
 |[SQL 将死于 No-SQL 之手？](https://juejin.im/post/5e5517bff265da576b566551)|校对|1.5|
@@ -9602,10 +9604,12 @@
 |[使用 Web Workers 优化事件监听器](https://juejin.im/post/5e241bb9f265da3e46090215)|校对|1|
 |[再见，整洁的代码](https://juejin.im/post/5e2411e0f265da3e4244e683)|校对|1.5|
 
-## 译者：[ahabhgk](https://github.com/ahabhgk) 历史贡献积分：3 当前积分：3 二零二零：3
+## 译者：[ahabhgk](https://github.com/ahabhgk) 历史贡献积分：5 当前积分：5 二零二零：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|4 月推荐前端文章 1 篇|奖励|1|
+|3 月推荐文章一篇|奖励|1|
 |[在什么时候你需要使用 Web Workers？](https://juejin.im/post/5e290aaee51d451c8836284f)|校对|1.5|
 |[再见，整洁的代码](https://juejin.im/post/5e2411e0f265da3e4244e683)|校对|1.5|
 
@@ -9662,3 +9666,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)|校对|3|
+
+## 译者：[chaingangway](https://github.com/chaingangway) 历史贡献积分：1 当前积分：1 二零二零：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|4 月推荐 iOS 文章 1 篇|奖励|1|
