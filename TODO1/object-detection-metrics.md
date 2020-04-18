@@ -1,4 +1,5 @@
 原文地址：[Metrics for object detection](https://github.com/rafaelpadilla/Object-Detection-Metrics)
+中文文档地址：[https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md](https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md)
 译者：
 校对：
 
@@ -381,3 +382,5 @@ http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.157.5766&rep=rep1&type=
 * Evaluation of ranked retrieval results (Salton and Mcgill 1986)  
 https://www.amazon.com/Introduction-Information-Retrieval-COMPUTER-SCIENCE/dp/0070544840  
 https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR。
