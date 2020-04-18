@@ -166,9 +166,3 @@ Other go-to resources are:
 - [Conversion XL blog](https://conversionxl.com/blog/)
 - Chris Mercer, [Seriously Simple Marketing](https://seriouslysimplemarketing.com/beginners-guide-google-tag-manager-digital-marketing-week-episode-33/)
 - [AnalyticsPros blog](https://www.analyticspros.com/blog/)
-
-## Your turn. What do you think of Google Tag Manager?
-
-Google Tag Manager can definitely make your life easier if you are willing to learn how it works. Make sure that you are actually using the data that you are setting up in GTM. Otherwise, what's the point?
-
-I'm curious to hear your experience with Google Tag Manager. Has it been easy or hard? How are you using it in your marketing?
