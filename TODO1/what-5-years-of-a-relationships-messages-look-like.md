@@ -7,7 +7,7 @@
 
 # What 5 Years of a Relationship’s  Messages Look Like
 
-#### Or, some cool ways to deal with time series data (and emojis) in Python
+> Or, some cool ways to deal with time series data (and emojis) in Python
 
 ![Source: Pexels (Not my girlfriend)](https://cdn-images-1.medium.com/max/11232/1*_9_n9-CBegAclYiJEhndug.jpeg)
 
@@ -19,7 +19,7 @@ It’s the kind of remark that a house-bound data scientist isn’t going to ign
 
 Note — a key feature here is the Timestamp column. It is important for the Pandas methods we’ll use later that this is of type ‘datetime’, rather than simply a string. This is pretty easy to achieve with Pandas’ in-buit to_datetime method:
 
-```
+```python
 df[‘Timestamp’] = pd.to_datetime(df[‘Timestamp’], dayfirst=True)
 ```
 
@@ -31,7 +31,7 @@ So what can we do with this dataset? We could certainly attempt some NLP work (t
 
 Let’s first investigate how our message volumes have evolved over the last five years by creating a line chart of messages sent per day. Pandas comes with a built-in method allowing us to aggregate data by given time intervals (e.g. a count of messages per day).
 
-```
+```python
 df.set_index('Timestamp').groupby(pd.Grouper(freq ='D')).count()
 ```
 
@@ -64,7 +64,7 @@ We can clean this up a bit by using rolling averages — in other words, the val
 
 Pandas has a handy method for this:
 
-```
+```python
 df[‘WordCount’].rolling(window = x).mean()
 ```
 
@@ -108,7 +108,7 @@ We can attempt to see how volumes of these non-text messages have changed over t
 
 Instead, let’s build a graph showing the accumilation of these non-text messages by type. To do this, we can employ NumPy’s cumsum() method, which will take a cumulative sum of a series. Supposing we have a dataframe whose index is a date range, and each column describes the number of messages of each type sent on that day:
 
-```
+```python
 #Create a list of message types
 required_cols = ['Emoji','Photo','Sticker','Link','Voice message','Animation']
 
@@ -136,7 +136,7 @@ Something that our previous analysis has not touched on is the time of day that 
 
 A heatmap allows us to do this fairly neatly. Here, I’ve created a dataframe showing the sum of words sent by hour, by each day of the week, before and after we started living together (using Pandas’ pivot_table method):
 
-```
+```python
 df_times = pd.pivot_table(df,fill_value=0,
                index=['LivingTogether','Day'],
                columns='Hour',
@@ -147,7 +147,7 @@ df_times = pd.pivot_table(df,fill_value=0,
 
 I can then get the average words sent per hour by dividing the two parts of the dataframe by the appropriate number of weeks spent not living, and living together. We can then use Seaborn’s heatmap function to visualise the dataframe.
 
-```
+```python
 sns.heatmap(df_times)
 ```
 
