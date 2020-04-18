@@ -2,17 +2,16 @@
 
 If you're not that familiar with Google Tag Manager, you are probably wondering what it is and why you should use it. Let's answer the most common questions around Google Tag Manager.
 
--   What is Google Tag Manager?
--   How is it different from Google Analytics?
--   Is it easy to use?
--   Why should I use Google Tag Manager?
-    -   What are the benefits?
-    -   What are the downfalls?
--   What can I track in Google Tag Manager?
--   Where can I learn more about Google Tag Manager?
+- What is Google Tag Manager?
+- How is it different from Google Analytics?
+- Is it easy to use?
+- Why should I use Google Tag Manager?
+  - What are the benefits?
+  - What are the downfalls?
+- What can I track in Google Tag Manager?
+- Where can I learn more about Google Tag Manager?
 
-What is Google Tag Manager (GTM)?
----------------------------------
+## What is Google Tag Manager (GTM)?
 
 Google Tag Manager is a free tool that allows you manage and deploy marketing tags (snippets of code or tracking pixels) on your website (or mobile app) without having to modify the code.
 
@@ -24,18 +23,7 @@ A huge benefit of Tag Manager is that you, the marketer, can manage the code on 
 
 Sounds easy right? Unfortunately, it's not that simple.
 
-* * * * *
-
-| ![](https://www.orbitmedia.com/wp-content/uploads/2015/07/circle-angie.png) |
-
-*"GTM is unfortunately misunderstood, overused, and abused. Although the idea of empowering marketers to easily do technical stuff on websites was/is very appealing, the fallout of not fully understanding the technical implications of code insertion and tagging can be detrimental to page structure and load time performance." -- [Angie Schottmuller, Conversion Optimizer](https://www.linkedin.com/in/angieschottmuller/)*
-
- |
-
-* * * * *
-
-Is Google Tag Manager easy to use?
-----------------------------------
+## Is Google Tag Manager easy to use?
 
 According to Google,
 
@@ -51,28 +39,13 @@ If you want to set up event tracking in Google Tag Manager, you'll need *some*�
 
 Although it is "easy" to manage multiple tags in GTM, there is a learning curve. Once you're over the hump, GTM is pretty slick about what you can track.
 
-* * * * *
-
-| ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/charles-farina.png) |
-
-*"Google Tag Manager has made the process of managing analytics and marketing tags easier than ever before. With this, most marketers do not realize what Google Tag Manager is actually doing and what happens when mistakes are made.*
-
-*At Analytics Pros, we never recommend anyone use Google Tag Manager on their live site without a few months of training and experience. GTM is injecting code directly on the site, which means while unlikely, there is a possibility could break your website.*
-
-*We have seen issues where users have injected plaintext on their pages, broken URLs and broken marketing tags and Analytics.** The most successful GTM accounts have both marketing and technical resources involved with configuration, maintenance and updates.**" **-- **Charles Farina, [Analytics Pros](https://www.analyticspros.com/), [@CharlesFarina](https://twitter.com/CharlesFarina)*
-
- |
-
-* * * * *
-
-Let's go over how Google Tag Manager works...
--------------------------------------------
+## Let's go over how Google Tag Manager works...
 
 There are three main parts to Google Tag Manager:
 
--   **Tags**: Snippets of Javascript or tracking pixels
--   **Triggers**: This tells GTM when or how to fire a tag
--   **Variables**: Additional information GTM may need for the tag and trigger to work
+- **Tags**: Snippets of Javascript or tracking pixels
+- **Triggers**: This tells GTM when or how to fire a tag
+- **Variables**: Additional information GTM may need for the tag and trigger to work
 
 ### What are tags?
 
@@ -80,11 +53,11 @@ Tags are snippets of code or tracking pixels from third-party tools. These tags 
 
 Examples of common tags within Google Tag Manager are:
 
--   Google Analytics Universal tracking code
--   Adwords Remarketing code
--   Adwords Conversion Tracking code
--   Heatmap tracking code (Hotjar, CrazyEgg, etc...)
--   Facebook pixels
+- Google Analytics Universal tracking code
+- Adwords Remarketing code
+- Adwords Conversion Tracking code
+- Heatmap tracking code (Hotjar, CrazyEgg, etc...)
+- Facebook pixels
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/examples-of-tags.png)
 
@@ -108,8 +81,7 @@ Those are the very basic elements of GTM that you will need to know to start man
 
 If you're bored reading this right now, you won't have any issues managing your tags. If you are completely lost, you are going to need help from someone more technical.
 
-How is Google Tag Manager different from Google Analytics?
-----------------------------------------------------------
+## How is Google Tag Manager different from Google Analytics?
 
 Google Tag Manager is a completely different tool used only for storing and managing third-party code. There are no reports or any way to do analysis in GTM.
 
@@ -123,8 +95,7 @@ All reporting (conversion reports, custom segments, ecommerce sales, time on pag
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/google-analytics.png)
 
-What are the benefits of Google Tag Manager?
---------------------------------------------
+## What are the benefits of Google Tag Manager?
 
 Once you get over the learning curve, what you can do in Google Tag Manager is pretty amazing. You can customize the data that is sent to Analytics.
 
@@ -148,16 +119,15 @@ Want to try out a tool on a free trial basis? You can add the code to Tag Manage
 
 Other perks:
 
--   It *may* help your site load faster depending on how many tags you are using.
--   It works with non-Google products.
--   Flexibility to play around and test out almost anything you want.
--   All third-party code is in one place.
--   GTM has a preview and debug mode so you can see what's working and what's not before you make anything live. It shows you what tags are firing on the page. *Love this feature!*
+- It *may* help your site load faster depending on how many tags you are using.
+- It works with non-Google products.
+- Flexibility to play around and test out almost anything you want.
+- All third-party code is in one place.
+- GTM has a preview and debug mode so you can see what's working and what's not before you make anything live. It shows you what tags are firing on the page. *Love this feature!*
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/preview-mode.png)
 
-What are the drawbacks?
------------------------
+## What are the drawbacks?
 
 **1\. You must have some technical knowledge**, even for the basic setup.
 
@@ -173,56 +143,31 @@ Unless you're a seasoned developer, you will need to carve out a chunk of resear
 
 There is a lot of troubleshooting that takes place when setting up tags, triggers and variables. Especially if you are not in Tag Manager regularly, it's very easy to forget what you just learned. For more complex tags, you will likely need a developer with knowledge of how the site was built.
 
-What can you track in GTM?
---------------------------
+## What can you track in GTM?
 
--   Events (link clicks, PDF downloads, add to cart click, remove from cart click)
--   Scroll tracking
--   Form abandonment
--   Shopping cart abandonment
--   [Video views tracking](https://www.orbitmedia.com/blog/tracking-video-views-google-analytics-tag-manager/)
--   [All exit link clicks](https://www.orbitmedia.com/blog/whered-they-go-track-every-exit-click-using-google-tag-manager-in-10-steps/)
--   ...??????
-
-* * * * *
-
-| ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/shanelle-mullin.png) |
-
-*"One of my favorites is content grouping in Google Analytics combined with Google Tag Manager. It allows you to define content groups by Rules/Macros. You can then see which elements of your blog posts (e.g. images, videos, length, title length) lead to the most conversions, longest time on page, etc.*
-
-*I also use it for cross-domain tracking, tracking social interaction and phone number clicks on mobile. -- Shanelle Mullin, [ConversionXL](https://conversionxl.com/), [@shanelle_mullin](https://twitter.com/shanelle_mullin)*
-
- |
-
-* * * * *
+- Events (link clicks, PDF downloads, add to cart click, remove from cart click)
+- Scroll tracking
+- Form abandonment
+- Shopping cart abandonment
+- [Video views tracking](https://www.orbitmedia.com/blog/tracking-video-views-google-analytics-tag-manager/)
+- [All exit link clicks](https://www.orbitmedia.com/blog/whered-they-go-track-every-exit-click-using-google-tag-manager-in-10-steps/)
+- ...??????
 
 We are just scratching the surface of what you can do in Google Tag Manager. The possibilities seem almost endless. But, as[ Himanshu Sharma points out](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/), the more tags and data sources you have the harder they are to manage.
 
-* * * * *
-
-| ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/himanshu-sharma.png) |
-
-*"The happiness that you get by managing all the tags from one central location is short lived and the trouble is around the corner. As your need for integrating website data with various data sources increases and become more complex, you quickly realize, how hard it can be to create and maintain each integration."* -- *Himanshu Sharma, Optimize Smart, [@optimizesmart ](https://twitter.com/OptimizeSmart)*
-
- |
-
-* * * * *
-
-Where can I learn more about Google Tag Manager?
-------------------------------------------------
+## Where can I learn more about Google Tag Manager?
 
 I took a live course through Conversion XL with Chris Mercer. It was one of the best online classes I've taken. You can [purchase the recordings](https://conversionxl.com/institute/live-courses/#view-recordings) if you are interested.
 
 Other go-to resources are:
 
--   Himanshu Sharma, [Optimize Smart blog](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/)
--   [Simo Hava blog](https://www.simoahava.com/)
--   [Conversion XL blog](https://conversionxl.com/blog/)
--   Chris Mercer, [Seriously Simple Marketing](https://seriouslysimplemarketing.com/beginners-guide-google-tag-manager-digital-marketing-week-episode-33/)
--   [AnalyticsPros blog](https://www.analyticspros.com/blog/)
+- Himanshu Sharma, [Optimize Smart blog](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/)
+- [Simo Hava blog](https://www.simoahava.com/)
+- [Conversion XL blog](https://conversionxl.com/blog/)
+- Chris Mercer, [Seriously Simple Marketing](https://seriouslysimplemarketing.com/beginners-guide-google-tag-manager-digital-marketing-week-episode-33/)
+- [AnalyticsPros blog](https://www.analyticspros.com/blog/)
 
-Your turn. What do you think of Google Tag Manager?
----------------------------------------------------
+## Your turn. What do you think of Google Tag Manager?
 
 Google Tag Manager can definitely make your life easier if you are willing to learn how it works. Make sure that you are actually using the data that you are setting up in GTM. Otherwise, what's the point?
 
