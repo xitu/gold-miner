@@ -3923,11 +3923,10 @@
 |[AI 能解决你的 UX 设计问题吗？](https://juejin.im/post/5992aa306fb9a03c445df727)|校对|1|
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 
-## 译者：[calpa](https://github.com/calpa) 历史贡献积分：34.5 当前积分：34.5
+## 译者：[calpa](https://github.com/calpa) 历史贡献积分：30 当前积分：30
 
 |文章|类型|积分|
 |------|-------|-------|
-|[创建并发布一个小而美的 npm 包](https://juejin.im/post/5c26c1b65188252dcb312ad6)|翻译|4.5|
 |推荐优秀英文文章两篇|奖励|2|
 |[Rust 开发完整的 Web 应用程序](https://juejin.im/post/5bd66dee6fb9a05cdb1081ca)|校对|2|
 |[设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944)|校对|1|
@@ -5506,13 +5505,14 @@
 |[从 SQLite 逐步迁移到 Room](https://juejin.im/post/5a8c3a2cf265da4e761fd721)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1.5|
 
-## 译者：[snowyYU](https://github.com/snowyYU) 历史贡献积分：8 当前积分：8 二零二零：5
+## 译者：[snowyYU](https://github.com/snowyYU) 历史贡献积分：14 当前积分：14 二零二零：5
 
 |文章|类型|积分|
 |------|-------|-------|
 |[2020 年用各大前端框架构建的 RealWorld 应用对比](https://juejin.im/post/5e887c48f265da47f60ea6ce)|翻译|5|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|翻译|2.5|
 |[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|校对|0.5|
+|[创建并发布一个小而美的 npm 包](https://juejin.im/post/5c26c1b65188252dcb312ad6)|翻译|6|
 
 ## 译者：[weberpan](https://github.com/weberpan) 历史贡献积分：41 当前积分：41
 
