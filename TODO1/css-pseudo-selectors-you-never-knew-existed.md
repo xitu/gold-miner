@@ -14,10 +14,6 @@
 
 This post is a sort-of encouragement to use more plain CSS and less JS when building your UI. Getting familiar with everything CSS has to offer is one way to achieving that — another one is implementing best practices and reusing that code, as much as possible.
 
-To reuse your UI components try using cloud component hubs like [**Bit.dev**](https://bit.dev). Use it to publish, document and organize all your team’s reusable UI components. It’s not only a way to build faster but also a way to build better as it encourages you to standardize and modularize your code.
-
-![Exploring shared UI components on [bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
-
 ## ::first-line | Selects the first line of text
 
 This pseudo selector affects the first line of text before a line breaks.
@@ -272,12 +268,10 @@ Thanks!!
 * [CSS: The Definitive guide — Eric A. Meyer, Estelle Weyl](https://www.amazon.com/CSS-Definitive-Guide-Eric-Meyer/dp/0596527330)
 
 ## Learn More
-[**Theming React Components with CSS Variables**
-**Two ways to theme React components using CSS custom properties.**blog.bitsrc.io](https://blog.bitsrc.io/theming-react-components-with-css-variables-ee52d1bb3d90)
-[**11 Chrome APIs That Will Give Your Web App a Native Feel**
-**11 Chrome APIs that will give your web app a native-like user experience.**blog.bitsrc.io](https://blog.bitsrc.io/11-chrome-apis-that-give-your-web-app-a-native-feel-ad35ad648f09)
-[**10 Useful Web APIs for 2020**
-**Awesome Web APIs for your next web app — with examples.**blog.bitsrc.io](https://blog.bitsrc.io/10-useful-web-apis-for-2020-8e43905cbdc5)
+
+[Theming React Components with CSS Variables](https://blog.bitsrc.io/theming-react-components-with-css-variables-ee52d1bb3d90)
+[11 Chrome APIs That Will Give Your Web App a Native Feel](https://blog.bitsrc.io/11-chrome-apis-that-give-your-web-app-a-native-feel-ad35ad648f09)
+[10 Useful Web APIs for 2020](https://blog.bitsrc.io/10-useful-web-apis-for-2020-8e43905cbdc5)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
