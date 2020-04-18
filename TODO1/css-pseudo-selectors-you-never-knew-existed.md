@@ -7,13 +7,10 @@
 
 # CSS Pseudo-Classes You Might Have Missed
 
-#### Useful CSS pseudo-classes that are often overlooked.
-
 ![](https://cdn-images-1.medium.com/max/2560/1*jrpPfGEYlAZlB5aRNMt2dA.jpeg)
 
-> # **(Pseudo) selectors let you assign styles to what are, in effect, phantom classes that are inferred by the state of certain elements, or markup patterns within the document, or even by the state of the document itself.**
-
-> # **— CSS: The Definitive Guide: Eric Meyer, Estelle Weyl**
+> **(Pseudo) selectors let you assign styles to what are, in effect, phantom classes that are inferred by the state of certain elements, or markup patterns within the document, or even by the state of the document itself.**
+> **— CSS: The Definitive Guide: Eric Meyer, Estelle Weyl**
 
 This post is a sort-of encouragement to use more plain CSS and less JS when building your UI. Getting familiar with everything CSS has to offer is one way to achieving that — another one is implementing best practices and reusing that code, as much as possible.
 
@@ -25,7 +22,7 @@ To reuse your UI components try using cloud component hubs like [**Bit.dev**](ht
 
 This pseudo selector affects the first line of text before a line breaks.
 
-```
+```css
 p:first-line {
     color: lightcoral;
 }
@@ -35,7 +32,7 @@ p:first-line {
 
 This pseudo selector applies to the first letter of the text in an element.
 
-```
+```css
 .innerDiv p:first-letter {
     color: lightcoral;
     font-size: 40px
@@ -48,7 +45,7 @@ This applies to any area that has been highlighted by the user.
 
 With the `::selection` pseudo-selector, we can apply our styling to the area that we highlight.
 
-```
+```css
 div::selection {
     background: yellow;
 }
@@ -81,7 +78,7 @@ The rule will apply to empty div elements. The rule will be applied to the first
 
 This applies to an element that is the only child of its parent element.
 
-```
+```css
 .innerDiv p:only-child {
     color: orangered;
 }
@@ -89,7 +86,7 @@ This applies to an element that is the only child of its parent element.
 
 ## :first-of-type | Selects the first child element of a specified type
 
-```
+```css
 .innerDiv p:first-of-type {
     color: orangered;
 }
@@ -97,7 +94,7 @@ This applies to an element that is the only child of its parent element.
 
 This would apply to the first child of `.innerDiv` of `p` paragraph element.
 
-```
+```html
 <div class="innerDiv">
     <div>Div1</div>
     <p>These are the necessary steps</p>
@@ -116,7 +113,7 @@ The p ("These are the necessary step") would be selected.
 
 Same as `:first-of-type`, but this will affect the last child element of the same type.
 
-```
+```css
 .innerDiv p:last-of-type {
     color: orangered;
 }
@@ -124,7 +121,7 @@ Same as `:first-of-type`, but this will affect the last child element of the sam
 
 This would apply to the last child of `innerDiv` of type `p` paragraph element.
 
-```
+```html
 <div class="innerDiv">
     <p>These are the necessary steps</p>
     <p>hiya</p>
@@ -142,7 +139,7 @@ So, the `p` element `("Do the same")` would be selected.
 
 This selector would select an element of a certain type from the list of the specified parent element.
 
-```
+```css
 .innerDiv p:nth-of-type(1) {
     color: orangered;
 }
@@ -152,7 +149,7 @@ This selector would select an element of a certain type from the list of the spe
 
 This will select the last child element of a certain type.
 
-```
+```css
 .innerDiv p:nth-last-of-type() {
     color: orangered;
 }
@@ -160,7 +157,7 @@ This will select the last child element of a certain type.
 
 This will select the last child element in the list contained in the `innerDiv` element and of type, paragraph element.
 
-```
+```html
 <div class="innerDiv">
     <p>These are the necessary steps</p>
     <p>hiya</p>
@@ -192,7 +189,7 @@ This will make all `a` anchor elements with a href attribute that has not been c
 
 This applies to checkbox that has been checked.
 
-```
+```css
 input:checked {
     border: 2px solid lightcoral;
 }
@@ -204,7 +201,7 @@ This rule applies to all checkboxes that have been clicked on to check it.
 
 This is mostly used in forms to visualize form elements that pass validation set by the user. When a validation passes, the defaulting element is set with the `valid` attribute.
 
-```
+```css
 input:valid {
     boder-color: lightsalmon;
 }
@@ -214,7 +211,7 @@ input:valid {
 
 Same as `:valid` but this will apply to elements that have failed the validation test.
 
-```
+```css
 input[type="text"]:invalid {
     border-color: red;
 }
@@ -226,7 +223,7 @@ This applies to elements that have their language specified.
 
 It can be set in two ways either by this:
 
-```
+```css
 p:lang(fr) {
     background: yellow;
 }
@@ -234,7 +231,7 @@ p:lang(fr) {
 
 or
 
-```
+```css
 p[lang|="fr"] {
     background: yellow;
 }
