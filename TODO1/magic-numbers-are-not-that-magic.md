@@ -21,15 +21,39 @@ Developers, you are allowed to use your numpad in your code. Just be careful of 
 
 I mean, you can google it and get a bunch of lame definitions, but the bottom line is that a magic number is a number in your code that is hard to reason about.
 
+```kotlin
+fun generate() {
+    for (i in 0 until 52) {
+        deck[i] = uniqueCard()
+    }
+}
+```
+
 Where does 52 come from?
 
 Well, it turns out that this is code to generate a deck of cards because 52 is the number of cards in a deck. Let’s give the number a name.
+
+```kotlin
+const val numberOfCardsInADeck = 52
+
+fun generate() {
+    for (i in 0 until numberOfCardsInADeck) {
+        deck[i] = uniqueCard()
+    }
+}
+```
 
 This is code that’s more readable, more maintainable, and better. Great, you have mastered clean code.
 
 No, this is just the tip of the iceberg. The thing with this example (and this is a very common example) is that a developer probably could have easily figured out what the hell 52 was from the rest of the code. This is a pretty tame magic number.
 
-Where magic numbers really bite you is when they come from nowhere. ****Take this code for tuning a search algorithm:
+Where magic numbers really bite you is when they come from nowhere. Take this code for tuning a search algorithm:
+
+```kotlin
+fun search(query: String) {
+    find(query, 2.4f, 10.234f, 999, Int.MAX_VALUE, false)
+}
+```
 
 What the heck do these numbers mean? It’s not easy to understand what these numbers are for and what they do.
 
@@ -47,17 +71,44 @@ Bonus points for explaining the algorithm, too.
 
 Let’s fix this:
 
+```kotlin
+const val searchWeight = 2.4f // How specific your query must be. Increase this number to get more fuzzy results
+const val searchSpread = 10.234f // How spread the result are. Selects more words in a row in the database
+const val searchPageSize = 999 // The number of results we want per search page
+const val searchMaxResults = Int.MAX_VALUE // We want every possible result from the search
+const val shouldSearchIndex = false // We don't want to search indicies 
+
+fun search(query: String) {
+    find(query, searchWeight, searchSpread, searchPageSize, searchMaxResults, shouldSearchIndex)
+}
+
+// Calls our weighted search algorithim. Read the docs about this alogirthim at foo.bar.com
+fun find(query: String, weight: Float, spread: Float, pageSize: Int, maxResults: Int, index: Boolean) {}
+```
+
 Wouldn’t you feel more comfortable working on code like this? You might even have an idea of what to change to get started. Tuning search can be difficult, but someone would be much more well-equipped to tackle this bug with this documentation.
 
 ## What Isn’t a Magic Number?
 
 In reality, numbers that are hard to reason about don’t come up as often as numbers that are easy to reason about. Take these hardcoded numbers
 
+```kotlin
+view.height = 42
+```
+
 This is not a magic number. I repeat: This is not a magic number.
 
 I know. I am giving some Java purists and clean freaks an aneurysm.
 
 But this number is not hard to reason about. Its idea is entirely self-contained. The height of this view is 42**.** It just is. What value is added by giving it a name, like this?
+
+```kotlin
+const val viewHeight = 42
+
+fun buildView() {
+    view.height = viewHeight
+}
+```
 
 This is just code bloat. It may seem like a small example, but this idea of needlessly naming numbers quickly puffs up the size of UI code and only serves to increase the number of lines of code.
 
