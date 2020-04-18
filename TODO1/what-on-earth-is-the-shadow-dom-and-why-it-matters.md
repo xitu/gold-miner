@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-on-earth-is-the-shadow-dom-and-why-it-matters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-on-earth-is-the-shadow-dom-and-why-it-matters.md)
 > * 译者：[Renzi](https://github.com/mengrenzi)
-> * 校对者：
+> * 校对者：[niayyy](https://github.com/niayyy-S), [Siva](https://github.com/IAMSHENSH)
 
 # 影子 DOM（Shadow DOM）到底是什么？它为什么重要？
 
@@ -151,7 +151,7 @@ paragraph.innerHTML = "helloooo!";
 
 这将在影子根内部创建一个带有 `helloooo!` 的新 `p` 元素。
 
-#### 影子DOM 的一部分
+#### Shadow DOM 的一部分
 
 Shadow DOM 由四部分组成：影子宿主、影子树、影子边界和影子根结点。
 
