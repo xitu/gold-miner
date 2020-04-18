@@ -7,7 +7,7 @@
 
 # Magic Numbers Are Not That Magic
 
-#### A better solution for hardcoded numbers
+> A better solution for hardcoded numbers
 
 ![Photo by [Maail](https://unsplash.com/@maail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/feathers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9562/1*fzMDTQAsZ8D9O3YXJwLW5A.jpeg)
 
@@ -16,8 +16,6 @@ I really dislike the phrase **magic number**. I see so many people get it wrong.
 (I also really dislike the fact that we feel the need to put all the variables to the top of a file, but that’s for another day.)
 
 Developers, you are allowed to use your numpad in your code. Just be careful of how you do.
-
----
 
 ## What Is a Magic Number?
 
@@ -35,8 +33,6 @@ Where magic numbers really bite you is when they come from nowhere. ****Take thi
 
 What the heck do these numbers mean? It’s not easy to understand what these numbers are for and what they do.
 
----
-
 ## What’s the Problem With Magic Numbers?
 
 Let’s say your app grows in size and has a bunch more things to search through, and all of a sudden your search results are not exactly yielding what you want.
@@ -53,8 +49,6 @@ Let’s fix this:
 
 Wouldn’t you feel more comfortable working on code like this? You might even have an idea of what to change to get started. Tuning search can be difficult, but someone would be much more well-equipped to tackle this bug with this documentation.
 
----
-
 ## What Isn’t a Magic Number?
 
 In reality, numbers that are hard to reason about don’t come up as often as numbers that are easy to reason about. Take these hardcoded numbers
@@ -66,8 +60,6 @@ I know. I am giving some Java purists and clean freaks an aneurysm.
 But this number is not hard to reason about. Its idea is entirely self-contained. The height of this view is 42**.** It just is. What value is added by giving it a name, like this?
 
 This is just code bloat. It may seem like a small example, but this idea of needlessly naming numbers quickly puffs up the size of UI code and only serves to increase the number of lines of code.
-
----
 
 ## Wait, So Can I Use Numbers in My Code or Not?
 
