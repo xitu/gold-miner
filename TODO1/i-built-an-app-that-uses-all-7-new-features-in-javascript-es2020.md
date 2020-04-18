@@ -2,8 +2,8 @@
 > - 原文作者：[Tyler Hawkins](https://medium.com/@thawkin3)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020.md)
-> - 译者：
-> - 校对者：
+> - 译者：[yvonneit](https://github.com/yvonneit)
+> - 校对者：[Raoul1996](https://github.com/Raoul1996), [niayyy-S](https://github.com/niayyy-S)
 
 # 使用 JavaScript ES2020 中所有的 7 个新特性构建 App
 
