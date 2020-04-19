@@ -51,41 +51,40 @@
 
 因此，尽管可能已经有很多人论述过相关的话题了，我们还是应该有一篇自己写的相关的文章。
 
-## Read More and More for Writing a Blog
+## 为写博客而阅读的越来越多
 
-For most blog posts that we write, we have to do research so that we can write about them.
+就大多数我们所写的博客而言，我们需要做一些调研才能够进行写作。
 
-There’s just no way that we hold enough information and insights on our heads to write stuff to put into our blogs.
+我们的大脑所存储的想法和信息是不可能足够用于完成我们的博客的。
 
-Therefore, we have to do lots of lots of research if we’re going to maintain a developer blog.
+因此，如果我们要维护一个开发者博客，我们必须做大量的研究。
 
-This makes blogging a great way to learn about whatever we’re writing about and absorb the knowledge by explaining and writing examples.
+这使得写博客成为一种很好的学习我们所写的任何东西的方式，并且通过解释和写例子，我们能够吸收知识。
 
-## Educate Others
+## 教育别人
 
-Educating others is a good reason to maintain our own developer blog. With it, we can help each other learn by providing our own views and insights to help us learn, which in turn helps other people learn.
+教育他人是维护我们自己的开发者博客的一个很好的理由。有了它，我们可以通过提供我们自己的观点和见解来帮助我们学习，从而帮助其他人学习。
 
-There aren’t enough resources on developer topics, so getting readers is pretty much guaranteed if we keep maintaining and promoting our blog.
+在开发者主题上没有足够的资源，所以如果我们继续维护和推广我们的博客，获得读者是很有保证的。
 
-People will look at our stuff and learn them even though they might not be commenting on our blogs or be engaging with us.
+人们会查阅我们的博客并学习它们，即使他们可能不会在我们的博客上发表评论或与我们交流。
 
-They’ll find our stuff when they’re looking for help and some people will stumble on our blog and they get the help they need.
-
+当他们寻求帮助时，他们会找到我们的东西。有些人会在无意中发现我们的博客，得到他们需要的帮助。
 ![Photo by [Andrew Neel](https://unsplash.com/@andrewtneel?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*4SGrplnJ1EYYeSt4)
 
-## Enjoyment
+## 乐趣
 
-Blogging is a great hobby. It’s something that we can do for enjoyment. It’s a lost cost hobby as we can blog on sites like Medium or WordPress or web can pay a few bucks a month to blog in our own blog.
+写博客是一个很好的爱好。这是我们可以享受的事情。 这是一个低成本的爱好，因为我们能够在诸如 Medium、WordPress 或者网络上，每个月只需要几块钱我们就可以在自己的博客上写作。
 
-Both are great ways to spend time since we’ve to do lots of research and wire about stuff that we want to write about.
+这两种方式都是消磨时间的好方法，因为我们要做大量的研究，还要把我们想写的东西联系起来。
 
-## Conclusion
+## 总结
 
-We can use blogging as a hobby. It’s a great hobby since it’s cheap or free to set up a blog.
+我们可以把写博客当作一种爱好。 这是一个很好的爱好，因为建立一个博客很便宜甚至免费。
 
-Also, we’ll help people they don’t comment on us. If we keep our blog for long enough, someone will stumble onto our blog eventually.
+同时，我们也会帮助那些不评论我们的人。如果我们的博客持续足够长的时间，最终会有人偶然发现我们的博客。
 
-Finally, we become better writers by practicing our writing skills by blogging and presenting our work in front of the audience worldwide.
+最后，通过写博客和在全世界的观众面前展示我们的作品来练习写作技巧，我们成为了更好的作家。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
