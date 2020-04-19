@@ -2,171 +2,172 @@
 > * 原文作者：[Amanda Gant](https://www.orbitmedia.com/team/amanda-gant/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-google-tag-manager-and-why-use-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-google-tag-manager-and-why-use-it.md)
-> * 译者：
+> * 译者：[zhanght9527](https://github.com/zhanght9527)
 > * 校对者：
 
-# What is Google Tag Manager and why use it? The truth about Google Tag Manager
+# Google Tag Manager 的真相大揭秘
 
-If you're not that familiar with Google Tag Manager, you are probably wondering what it is and why you should use it. Let's answer the most common questions around Google Tag Manager.
+如果你对 Google Tag Manager 不太熟悉，你可能会想知道它是什么以及为什么要使用它。让我们来回答关于 Google Tag Manager 的一些最常见的问题。
 
-- What is Google Tag Manager?
-- How is it different from Google Analytics?
-- Is it easy to use?
-- Why should I use Google Tag Manager?
-  - What are the benefits?
-  - What are the downfalls?
-- What can I track in Google Tag Manager?
-- Where can I learn more about Google Tag Manager?
+- 什么是 Google Tag Manager ？
+- 它和 Google Analytics 有哪些不同？
+- 它用起来容易吗？
+- 为什么我们要使用 Google Tag Manager ？
+  - 它有哪些好处？
+  - 它还存在哪些问题？
+- 我们可以在 Google Tag Manager 中跟踪哪些东西？
+- 在哪里可以了解更多关于 Google Tag Manager 的信息？
 
-## What is Google Tag Manager (GTM)?
+## 什么是 Google Tag Manager (GTM)?
 
-Google Tag Manager is a free tool that allows you manage and deploy marketing tags (snippets of code or tracking pixels) on your website (or mobile app) without having to modify the code.
+Google Tag Manager 一款允许你在你的网站（或移动应用）上管理和部署营销标签（代码片段或跟踪像素）而不必修改任何代码的工具，并且它是完全免费的。
 
-Here's a very simple example of how GTM works. Information from one data source (your website) is shared with another data source (Analytics) through Google Tag Manager. GTM becomes very handy when you have lots of tags to manage because all of the code is stored in one place.
+下面是一个 GTM 如何工作的非常简单的例子。来自一个数据源（你的网站）的信息通过 Google Tag Manager 与另一个数据源（Analytics）共享。当有很多标签需要管理时，GTM 变得非常方便，因为所有的代码都存储在一个地方。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/GTM-v2.jpg)
 
-A huge benefit of Tag Manager is that you, the marketer, can manage the code on your own. "No more developers needed. Whoo hoo!"
+Tag Manager 的一个巨大的好处就是，作为运营人员，你可以自己管理代码。“终于不再需要开发小哥哥了。 Whoo hoo！”
 
-Sounds easy right? Unfortunately, it's not that simple.
+听起来很简单吧？不幸的是，事情没那么简单。
 
-## Is Google Tag Manager easy to use?
+## Google Tag Manager 易于上手吗？
 
-According to Google,
+根据 Google 的说法，
 
-> "Google Tag Manager helps make tag management ***simple***, ***easy*** and ***reliable*** by allowing marketers and webmasters to deploy website tags all in one place."
+> “Google Tag Manager 允许运营人员和网站管理员在同一个位置部署网站标签，从而帮助实现标签管理的**简单性**、**易用性**和**可靠性**。
 
-They say it's a "simple" tool that any marketer can use without needing a web developer.
+他们说，这是一个“简单”的工具，任何运营人员都可以使用，而不需要网络开发人员。
 
-I may get run over in the comments section for saying this, but I'm standing my ground. **Google Tag Manager is not "easy" to use without some technical knowledge or training (courses or self-taught).**
+我可能会因为说这些而在评论区被人批评，但我仍然坚持自己的立场。 **如果没有一些技术知识或培训（课程或自学），Google Tag Manager 使用起来还是比较困难的。**
 
-You have to have *some* technical knowledge to understand how to set up tags, triggers and variables. If you're dropping in Facebook pixels, you'll need *some* understanding of how Facebook tracking pixels work.
+你必须具备**一些**技术知识才能理解如何设置标签、触发器和变量。如果你也在使用 Facebook pixels，你也需要了解**一些** Facebook 像素追踪的原理。
 
-If you want to set up event tracking in Google Tag Manager, you'll need *some* knowledge about what "events" are, how Google Analytics works, what data you can track with events, what the reports look like in Google Analytics and how to name your categories, actions and labels.
+如果你想在 Google Tag Manager 中设置事件跟踪，你需要了解**一些**关于什么是“事件”、Google Analytics 的工作原理、你可以用事件跟踪什么数据、Google Analytics 中的报告是什么样子以及如何命名你的类别、动作和标签的知识。
 
-Although it is "easy" to manage multiple tags in GTM, there is a learning curve. Once you're over the hump, GTM is pretty slick about what you can track.
+虽然在 GTM 中管理多个标签是很“容易的”，但是也有一个学习曲线。一旦你越过了这个障碍，你便能轻松地驾驭 GTM。
 
-## Let's go over how Google Tag Manager works...
+## 让我们看看 Google Tag Manager 是如何工作的...
 
-There are three main parts to Google Tag Manager:
+Google Tag Manager 有三个主要部分：
 
-- **Tags**: Snippets of Javascript or tracking pixels
-- **Triggers**: This tells GTM when or how to fire a tag
-- **Variables**: Additional information GTM may need for the tag and trigger to work
+- **标签**：Javascript片段或跟踪像素
+- **触发器**：告诉 GTM 何时或如何触发标签
+- **变量**：GTM 可能需要的能使代码和触发器正常工作的附加信息
 
-### What are tags?
+### 什么是标签？
 
-Tags are snippets of code or tracking pixels from third-party tools. These tags tell Google Tag Manager ***what*** to do.
+标签来自第三方工具的代码片段或跟踪像素。这些标签告诉 Google Tag Manager 需要去做**什么**。
 
-Examples of common tags within Google Tag Manager are:
+Google Tag Manager 中常见的标签示例如下：
 
-- Google Analytics Universal tracking code
-- Adwords Remarketing code
-- Adwords Conversion Tracking code
-- Heatmap tracking code (Hotjar, CrazyEgg, etc...)
+- Google Analytics Universal tracking 代码
+- Adwords Remarketing 代码
+- Adwords Conversion Tracking 代码
+- Heatmap tracking 代码 (Hotjar, CrazyEgg, etc...)
 - Facebook pixels
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/examples-of-tags.png)
 
-### What are triggers?
+### 什么是触发器？
 
-Triggers are a way to fire the tag that you set up. They tell Tag Manager ***when*** to do what you want it to do. Want to fire tags on a page view, link click or is it custom?
+触发器是触发设置的标签的方法。它们告诉 Tag Manager **什么时候**去做你想做的事情。是要在页面视图中触发标签，单击链接还是自定义？
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/example-triggers.png)
 
-### What are variables?
+### 什么是变量？
 
-Variables are additional information that GTM ***may*** need for your tag and trigger to work. Here are some examples of different variables.
+变量是 GTM 用于标签和触发器的工作的**可能**需要的附加信息。下面是一些不同变量的例子。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/example-variables-2.png)
 
-The most basic type of constant variable that you can create in GTM is the Google Analytics UA number (the tracking ID number).
+在 GTM 中可以创建的最基本的常量变量类型是 Google Analytics UA number（跟踪ID编号）。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/example-variables.png)
 
-Those are the very basic elements of GTM that you will need to know to start managing tags on your own.
+这些是 GTM 的一些基本元素，你需要知道这些元素才能开始自己管理标签。
 
-If you're bored reading this right now, you won't have any issues managing your tags. If you are completely lost, you are going to need help from someone more technical.
+如果你现在觉得无聊的话，那么你管理你的标签将不会有任何问题。如果你仍然没有头绪，那么你需要去寻求技术人员的帮助了。
 
-## How is Google Tag Manager different from Google Analytics?
+## Google Tag Manager 和 Google Analytics 有哪些不同？
 
-Google Tag Manager is a completely different tool used only for storing and managing third-party code. There are no reports or any way to do analysis in GTM.
+Google Tag Manager 是一个只用于存储和管理第三方代码的完全不同的工具，在GTM中没有任何报告或分析的功能。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/gtm-workspace.png)
 
-Google Analytics is used for actual reporting and analysis. All conversion tracking goals or filters are managed through Analytics.
+Google Analytics 用于实际的报告和分析。所有转化跟踪目标（Goals）和过滤器（Filters）都通过 Analytics 进行管理。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/filters-goals.png)
 
-All reporting (conversion reports, custom segments, ecommerce sales, time on page, bounce rate, engagement reports, etc...) are done in Google Analytics.
+所有的报告（转化报告、自定义部分、电子商务销售、页面停留时间、跳出率、参与报道等）都在 Google Analytics 中完成。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/google-analytics.png)
 
-## What are the benefits of Google Tag Manager?
+## Google Tag Manager 有哪些好处？
 
-Once you get over the learning curve, what you can do in Google Tag Manager is pretty amazing. You can customize the data that is sent to Analytics.
+一旦你越过了学习曲线，你可以在 Google Tag Manager 中做很多神奇的事情。你可以自定义发送到 Analytics 的数据。
 
-You can setup and track basic events like PDF downloads, outbound links or button clicks. Or, complex enhanced ecommerce product and promotion tracking.
+你可以设置和跟踪基本事件，如PDF下载、出站链接或按钮单击。或者，复杂的增强电子商务产品和促销跟踪也可以设置。
 
-Let's say we want to track all outbound links on the website. In GTM, choose the category name, action and label. We chose offsite link, click and click URL.
+
+假设我们想要跟踪网站上所有的出站链接。在 GTM 中，选择类别名称、动作和标签。我们选择站外链接，点击和点击URL。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/customize-data.png)
 
-In Google Analytics go to Behavior > Events > Top Events > Offsite link.
+在 Google Analytics 前往行为 > 事件 > 热门事件 > 站外链接。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/ga-events.png)
 
-Now select either event action or label to get the full reports. The data that we setup in Google Tag Manager is now appearing in the Analytics reports. Nifty!
+现在，选择事件操作或标签以获得完整的报告。我们在 Google Tag Manager 中设置的数据现在出现在分析报告中。漂亮！
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/event-action-label.png)
 
-Want to try out a tool on a free trial basis? You can add the code to Tag Manager and test it out without needing to get your developers involved.
+想要免费试用某个工具吗？你可以将代码添加到 Tag Manager 并进行测试，而不需要让开发人员参与其中。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/freetrial.png)
 
-Other perks:
+小贴士：
 
-- It *may* help your site load faster depending on how many tags you are using.
-- It works with non-Google products.
-- Flexibility to play around and test out almost anything you want.
-- All third-party code is in one place.
-- GTM has a preview and debug mode so you can see what's working and what's not before you make anything live. It shows you what tags are firing on the page. *Love this feature!*
+- 它**可能**帮助加快你的网站加载速度但取决于你使用了多少标签。
+- 它适用于非 Google 的产品。
+- 你可以灵活玩转并测试几乎任何你想要的东西。
+- 所有的第三方代码都在一个地方。
+- GTM 有一个预览和调试模式，所以在你做任何事情之前，你可以看到哪些是有效的，哪些不是。它会向你展示页面上正在触发的标签。**爱死这个功能了！**
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/preview-mode.png)
 
-## What are the drawbacks?
+## 缺点是什么？
 
-**1\. You must have some technical knowledge**, even for the basic setup.
+**1\. 你必须得有一些技术知识**，即使是基本设置。
 
-Check out the [documentation from Google](https://developers.google.com/tag-manager/devguide#thepits) on how to setup Google Tag Manager. Once you get past the "Quick Start Guide," it takes you to a developer guide. Not a marketer's guide. If you are a first time user, this will read like gibberish.
+查看 [documentation from Google](https://developers.google.com/tag-manager/devguide#thepits) 如何设置 Google Tag Manager。一旦你读完了“快速入门指南”，它会让你感觉到这是一个开发指南，而不是运营指南。如果你是第一次使用，这会读起来像胡言乱语。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/developer-guide.png)
 
-**2\. It's a time investment.**
+**2\. 这是一个时间投资。**
 
-Unless you're a seasoned developer, you will need to carve out a chunk of research and testing time. Even if it's reading a few blog posts or taking an online class.
+除非你是一名经验丰富的开发人员，否则你需要留出大量的研究和测试时间。即使是在看一些博客文章或者上一堂网络课。
 
-**3\. Make time for troubleshooting issues.**
+**3\. 腾出时间解决问题。**
 
-There is a lot of troubleshooting that takes place when setting up tags, triggers and variables. Especially if you are not in Tag Manager regularly, it's very easy to forget what you just learned. For more complex tags, you will likely need a developer with knowledge of how the site was built.
+在设置标记、触发器和变量时，会产生很多问题。尤其是如果你不是经常在 Tag Manager 中工作，会很容易让你忘记刚刚学到的东西。对于更复杂的标记，你可能需要一个了解网站构建方式的开发人员。
 
-## What can you track in GTM?
+## 你可以在 GTM 跟踪什么？
 
-- Events (link clicks, PDF downloads, add to cart click, remove from cart click)
-- Scroll tracking
-- Form abandonment
-- Shopping cart abandonment
-- [Video views tracking](https://www.orbitmedia.com/blog/tracking-video-views-google-analytics-tag-manager/)
-- [All exit link clicks](https://www.orbitmedia.com/blog/whered-they-go-track-every-exit-click-using-google-tag-manager-in-10-steps/)
-- ...??????
+- 事件(链接点击、PDF下载、添加购物车点击、删除购物车点击)
+- 滚动跟踪
+- 表单被放弃
+- 购物车被遗弃
+- [视频播放次数跟踪](https://www.orbitmedia.com/blog/tracking-video-views-google-analytics-tag-manager/)
+- [所有退出链接的单击](https://www.orbitmedia.com/blog/whered-they-go-track-every-exit-click-using-google-tag-manager-in-10-steps/)
+- ......
 
-We are just scratching the surface of what you can do in Google Tag Manager. The possibilities seem almost endless. But, as[ Himanshu Sharma points out](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/), the more tags and data sources you have the harder they are to manage.
+我们只是粗略地介绍了一下你在 Google Tag Manager 中能做些什么，但是你可以做的东西似乎无穷无尽。但是，正如 [Himanshu Sharma 指出](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/) ，标签和数据源越多，管理起来就越困难。
 
-## Where can I learn more about Google Tag Manager?
+## 我在哪里可以了解更多关于 Google Tag Manager 的信息？
 
-I took a live course through Conversion XL with Chris Mercer. It was one of the best online classes I've taken. You can [purchase the recordings](https://conversionxl.com/institute/live-courses/#view-recordings) if you are interested.
+我和 Chris Mercer 通过 Conversion XL 参加了一个现场课程，这是我上过的最好的在线课程之一。如果你感兴趣，可以 [购买视频](https://conversionxl.com/institute/live-courses/#view-recordings) 。
 
-Other go-to resources are:
+其他可以参考的资源：
 
 - Himanshu Sharma, [Optimize Smart blog](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/)
 - [Simo Hava blog](https://www.simoahava.com/)
