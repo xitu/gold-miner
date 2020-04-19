@@ -2,88 +2,88 @@
 > * 原文作者：[SeattleDataGuy](https://medium.com/@SeattleDataGuy)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-cloud-services-help-improve-your-businessess-efficiency.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-can-cloud-services-help-improve-your-businessess-efficiency.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Roc](https://github.com/QinRoc)
+> * 校对者：[GPH](https://github.com/PingHGao)，[Yinjia](https://github.com/yvonneit)
 
-# How Can Cloud Services Help Improve Your Businesses’s Efficiency?
+# 云服务如何帮助你提高业务效率？
 
 ![Photo by [Uwe Hensel](https://unsplash.com/@sonnar_mc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/skyscraper-crane?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/5000/1*qryfe9oN-vJx75kLCWlYDQ.jpeg)
 
-> Going over IaaS, SaaS, PaaS, and FaaS
+> 了解 IaaS，SaaS，PaaS 和 FaaS
 
-In the 20th century, companies relied on servers and computers that were on the premises.
+在 20 世纪，企业依靠内部机房里的服务器和计算机开展业务。
 
-This meant when new servers had to be spun up, it could take weeks or even months to get everything set up. From getting the budget approved, to putting out orders, to having servers shipped and then installed — it was a long and arduous process.
+这意味着，当需要启用新的服务器时，要耗费数周乃至数月的时间才能把一切准备就绪。从批准预算、下订单、运输服务器，直到安装 —— 这是一个漫长而艰巨的过程。
 
-But times have changed and the concept of companies having millions of dollars of unused servers on-site has been replaced by cloud computing services.
+但是时代已经改变，企业应该在现场配置价值百万美金的服务器的观念已经被云计算服务改变。
 
-Simply put, cloud computing is a remote service that takes the form of infrastructure, software, storage, platforms, and a host of others.
+简而言之，云计算是一个远程服务，通常能够提供基础设施、软件、存储、平台和许多其他形式的服务。
 
-## Why Do Companies Invest In Cloud Computing Like AWS And Azure?
+## 为什么企业会购买 AWS 和 Azure 这样的云计算服务呢？
 
-The variety of services offered allows companies to not only reduce their technical hardware costs but also their employee costs. Much of what used to require a whole team of engineers can now be done by one or two developers.
+云计算所提供的多种服务不仅能降低企业的硬件成本，还能降低企业的人力成本。现在 1 到 2 个 开发者就可以完成大部分曾经需要一整个团队的工程师才能完成的工作。
 
-With all the variety, it can be difficult to keep track of all the possible options for cloud service types — let’s take a look at what’s available.
+由于种类繁多，要了解所有可能的云服务类型是很困难的 —— 让我们来看看目前有什么可用的云服务类型吧。
 
-## Types of Cloud Computing Services
+## 云计算服务类型
 
-#### IaaS — what is it?
+#### IaaS 是什么？
 
-IaaS, or Infrastructure-as-a-Service, is a service model that works as a pool of virtual or physical infrastructure that [includes servers, networking, data centers, hypervisor layer, and even virtualization](https://www.theseattledataguy.com/5-aws-technologies-thatll-make-your-life-easier/).
+IaaS，是 Infrastructure-as-a-Service（基础设施即服务）的简称。这种服务模式提供大量的虚拟或物理的基础设施，[包括服务器、网络、数据中心、虚拟机管理程序层，甚至虚拟化](https://www.theseattledataguy.com/5-aws-technologies-thatll-make-your-life-easier/)。
 
-Typically, this service also includes management of infrastructure as well as storage resiliency. Through IaaS, companies can install OS, deploy their [databases](https://www.theseattledataguy.com/big-data-bigger-results-data-driven-solutions-for-company/) and have the flexibility to constantly change the amount of storage, or environments they’re using. You can use pay monthly, hourly, or weekly — whichever is convenient for you.
+通常，这个服务也包括对基础设施和弹性存储的管理。通过 IaaS，企业可以安装操作系统，部署他们的[数据库](https://www.theseattledataguy.com/big-data-bigger-results-data-driven-solutions-for-company/)，拥有不断变更存储容量或者运行环境的灵活性。只要你觉得方便，按月、按小时或者按周支付，哪种都可以。
 
-IaaS is one of the fundamental service delivery methods in [cloud computing](https://logitanalytics.com/what-are-the-different-kinds-of-cloud-computing-services/). It allows companies to access storage, network, servers and much more, over the internet, via third-party cloud computing service providers. IaaS allows organizations to create an IT environment that meets their business requirements.
+IaaS 是[云计算领域](https://logitanalytics.com/what-are-the-different-kinds-of-cloud-computing-services/)的基础服务提供方式之一。它允许企业通过第三方云计算服务提供商来访问互联网上的存储空间、网络、服务器和其他东西。IaaS 允许组织创建足以满足他们业务需求的 IT 环境。
 
-##### Real-life use cases
+##### 真实案例
 
-Some of the most popular IaaS examples include products likes AWS’s EC2 or RDS. These services allow you to easily spin up a Linux server or a database and scale it to your needs. No need to get a new server, just click create on AWS. There are also AWS workspaces which allow companies to spin up virtual PCs on a virtual private cloud network. This makes it easier to manage security and do remote work.
+一些最受欢迎的 IaaS 案例包括类似 AWS 的 EC2 或 RDS 的产品。这些服务让你能很简单地就启动一台 Linux 服务器或者一个数据库，并且可以根据你的需要进行扩展。你不再需要获取一台新的服务器，只需要在 AWS 上点击创建按钮就可以了。除此以外，AWS 工作区能够让企业在一个虚拟私有云网络中启动虚拟的台式机，这种方式让安全管理和远程工作更简单了。
 
-##### No need to buy a computer
+##### 不需要买一台计算机
 
-Startups and small companies work with IaaS specifically to avoid spending more on hardware and software. They require scalability of IaaS and service providers like Google are great for it! You can actually keep exchanging day-to-day documentation on one central sheet via a simple link.
+初创企业和小公司特意使用 IaaS 来工作以避免在软硬件上花费过多。他们需要 IaaS 的可扩展性，而 Google 这样的服务提供商很擅长做这个。实际上，你可以通过一个简单的链接来访问一个中央表，然后在上面交换日常文档。
 
-#### SaaS — what is it?
+#### SaaS 是什么？
 
-SaaS, or Software-as-a-Service, is a software distribution model that hosts applications online and makes them available for consumers. All you need is an internet connection and a web browser to use these apps.
+SaaS 是 Software-as-a-Service（软件即服务）的简称。它是一种软件分发模型，可以在线托管应用程序，并且让消费者可以访问。你只需要一个互联网连接和一个浏览器就能使用这些应用程序。
 
-The biggest benefit of SaaS is that it offers a web delivery model that completely eliminates the need to have an IT staff to install or download applications on every computer. For example, I use Google Docs a lot which not only helps me greatly by offering online storage but is accessible anywhere, on any device, with auto-saving options.
+SaaS 最大的好处在于它提供的网页分发模型能彻底终结需要由一个 IT 员工来安装或下载应用到每台计算机上的情况。例如，我经常使用 Google 文档，它提供的在线存储可以在任何地点、任何设备上进行访问，并且拥有自动保存选项，这两点特性很好地帮助了我。
 
-Besides, the vendor manages technical issues which makes app usage more convenient for SaaS users.
+此外，供应商负责处理技术问题，这让 SaaS 用户更方便地使用应用。
 
-##### Real-life use cases
+##### 真实案例
 
-Some of the most popular SaaS providers include Google GSuite, Salesforce, Dropbox, and SAP Concur. The best example of SaaS is Gmail, an online email service, that allows you to access the files and applications hosted by Google from any device via the internet. The ability to use the product anywhere you have an internet connection without downloading software or using a product key allows employees to be productive anywhere.
+一些最受欢迎的 SaaS 提供商包括 Google GSuite、Salesforce、Dropbox 和 SAP Concur。SaaS 最好的例子是 Gmail，一个在线邮件服务，它让你从任何设备上都可以访问到 Google 托管的文件和应用。在任何有互联网连接的地方，你都能使用产品，而不需要下载软件或者使用产品密钥。这种能力让员工们在任何地方都有很高的生产力。
 
-#### PaaS — what is it?
+#### PaaS 是什么？
 
-PaaS, or Platform-as-a-Service, is a cloud model that delivers software and hardware tools enabling consumers to develop, run, and test their applications. One of the biggest advantages of using PaaS is that it offers easy migration towards a hybrid model.
+PaaS 是 Platform-as-a-Service（平台即服务）的简称。这种云服务模式分发软件和硬件工具，使得消费者能够开发、运行并且测试他们的应用程序。使用 PaaS 的最大优势之一是它可以简单地迁移到混合模型。
 
-PaaS is similar to SaaS, however, instead of delivering software over the internet, it delivers a platform for creating software online. This makes building websites and apps much simpler.
+PaaS 类似于 SaaS，然而，PaaS 提供一个在线创造软件的平台，而不是像 SaaS 那样通过互联网分发软件。这一点让创建网站和应用更简单。
 
-Typically, PaaS delivers a framework for developers so they can create customized applications without having to worry about the infrastructure. PaaS works specifically for developers who can create the design and manage applications online. These applications tend to be highly scalable and always available.
+通常，PaaS 给开发者们提供一个框架，使得他们能够在不需担心基础设施的情况下创建自定义的应用程序。PaaS 专为那些能够在线设计并管理应用程序的开发者服务。这些应用程序往往具有高度的可伸缩性，并且始终可用。
 
-##### Real-life use cases
+##### 真实案例
 
-Some of the most popular PaaS service providers include OpenShift, AWS Beanstalk, Google App Engine, and Windows Azure. OpenShift, for instance, includes Linux OS, networking, registry, monitoring, authentication, and container runtime solutions so customers can use OpenShift to set up the infrastructure for their own enterprise developers.
+一些最受欢迎的 PaaS 服务提供商包括 OpenShift，AWS Beantalk，Google App Engine 和 Windows Azure。以 OpenShift 为例，它包括 Linux 操作系统、网络、注册、监控、授权和容器运行方案，所以消费者可以使用 OpenShift 为自己的企业开发人员搭建基础设施。
 
-#### FaaS — what is it?
+#### FaaS 是什么？
 
-FaaS, or Function-as-a-Service, is a category of cloud services that provides a platform for developers to run and manage the functionalities of their application without worrying about the infrastructure or complexity associated with the development of the app.
+FaaS 是 Function-as-a-Service（功能即服务）的简称。这类云服务为开发者提供运行和管理应用的功能的平台，让他们不需要担心基础设施或者应用开发相关的复杂问题。
 
-The biggest benefit of FaaS is that it offers serverless computing, letting developers deploy their production-ready code to the internet without the hassle of planning, provision, or maintenance of computing resources.
+FaaS 最大的好处是它提供无服务器计算，这点让开发者可以直接把他们的生产代码部署到网络上，而不需要为计算资源的规划、供应或维护发愁。
 
-##### Real-life use cases
+##### 真实案例
 
-Most Popular examples of FaaS include Amazon Lambda, Microsoft Azure Functions, IBM Cloud Functions, and Google Cloud Functions. Lambda, for instance, executes the code only when it is needed, and scales the requests per day as per requirement automatically. Therefore, it comes in handy when combined with API Gateways to develop one optimal solution.
+FaaS 最受欢迎的案例有 Amazon Lambda、Microsoft Azure Function、IBM Cloud Functions 和 Google Cloud Functions。以 Lambda 为例，它可以按需执行代码，并且根据需求来自动伸缩每天的请求。因此，将它和 API 网关结合使用，可以很方便地生成一个最佳解决方案。
 
-## Conclusion
+## 结论
 
-Cloud computing can help a company scale up their IT solutions fast. It can offer a full-fledged platform that takes care of storage, servers, and virtual desktops. With cloud computing services such as IaaS, PaaS, SaaS, and FaaS, your business can use virtualized infrastructure to manage its IT side.
+云计算可以帮助一家企业快速扩展他们的 IT 解决方案。它可以提供一个成熟的平台，来管理存储、服务器和虚拟桌面。在诸如 IaaS、PaaS、SaaS 和 FaaS 的云计算服务的帮助下，你的公司可以使用虚拟基础设施来管理其 IT 相关业务。
 
-Not only this, but the virtualization also makes it easier for companies to reduce costs and allow better analytics.
+不仅如此，这种虚拟化技术也让企业更容易降低成本并更好地处理分析业务。
 
-Cloud computing is all about simplifying technological processes. If your organization hasn’t taken up the services yet, you better begin the research to stay relevant in the market.
+云计算就是要简化技术流程。如果你所在的企业或者部门还没有开始使用云计算相关服务，那么最好就从现在开始吧，不要和当前的市场脱节了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
