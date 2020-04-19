@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/performant-javascript-best-practices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/performant-javascript-best-practices.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：
+> * 校对者：[niayyy-S](https://github.com/niayyy-S)
 
 # 高性能 JavaScript 最佳实践
 
@@ -19,7 +19,7 @@ DOM 操作是缓慢的。我们操作得越多，其速度就越慢。由于 DOM
 
 所以，我们应该尽量减少正在执行的 DOM 操作。
 
-可以通过加载 CSS 和 JavaScript 来阻塞 DOM。 不过，图像是不会阻塞渲染的，因此加载图像不会耽搁页面加载完毕。
+加载 CSS 和 JavaScript 会阻塞 DOM。 不过，图像是不会阻塞渲染的，因此加载图像不会耽搁页面加载。
 
 但是，我们仍然希望能尽可能降低图像的大小。
 
@@ -29,7 +29,7 @@ DOM 操作是缓慢的。我们操作得越多，其速度就越慢。由于 DOM
 
 我们应该将它们全部移动到其所属的样式表中，放在 `style` 标签内，并放在 body 元素下方。
 
-串联并缩小 CSS，以减少要加载的样式表数量及其大小。
+为了减少要加载的样式表数量及其大小，CSS 应该进行合并和压缩。
 
 我们也能通过媒体查询将 `link` 标签标记为不渲染的部分。例如，我们能通过编写以下代码来实现：
 
@@ -39,7 +39,7 @@ DOM 操作是缓慢的。我们操作得越多，其速度就越慢。由于 DOM
 
 这样它就只会在页面纵向显示的时候被加载。
 
-我们应该将样式操作移到 JavaScript 以外，并通过将样式放入样式表文件所属的类中，以达到将样式放入 CSS 中的目的。
+我们应该将样式操作移到 JavaScript 以外，并通过将样式放入样式表文件内它们所属的类中，以达到将样式放入 CSS 中的目的。
 
 例如，我们可以编写以下代码，以在 CSS 文件中添加一个类：
 
@@ -56,9 +56,9 @@ const p = document.querySelector('p');
 p.classList.add('highlight');
 ```
 
-我们将 `p` 元素的 DOM 对象设置为常量，这样就可以持有它，以在任何地方复用，然后调用 `classList.add` 方法来给它添加 `hightlight` 类。
+我们将 `p` 元素的 DOM 对象设置为常量，这样就可以缓存它，以便在任何地方复用，然后调用 `classList.add` 方法来给它添加 `hightlight` 类。
 
-我们也可以在不想要的时候删掉它。这样，我们就不用在 JavaScript 代码中进行很多不必要的 DOM 操作了。
+我们也可以在不使用的时候删掉它。这样，我们就不用在 JavaScript 代码中进行很多不必要的 DOM 操作了。
 
 如果我们的脚本没有依赖其它脚本，则可以异步地加载它们，这样它们就不会阻塞其它脚本的加载了。
 
@@ -68,27 +68,27 @@ p.classList.add('highlight');
 <script async src="script.js"></script>
 ```
 
-现在 `script.js` 将在后台加载，而非前台。
+现在 `script.js` 将能够异步加载。
 
 我们也可以通过 `defer` 指令来延迟脚本的加载。它还保证了脚本会按照页面上指定的顺序执行。
 
 如果希望我们的脚本按顺序地加载，并且不阻塞其它加载，这是一个更好的选择。
 
-在将我们的代码投入生产之前，最小化脚本也是一项必做的工作。为此，我们使用像 Webpack 和 Parcel 这样的模块化打包工具，它会创建并为我们自动地编译项目。
+在将我们的代码投入生产之前，压缩脚本也是一项必做的工作。为此，我们使用像 Webpack 和 Parcel 这样的模块化打包工具，它会为我们自动地创建并编译项目。
 
-同样的，Vue 和 Angular 框架的命令行工具也会自动进行最小化代码的工作。
+同样的，Vue 和 Angular 框架的命令行工具也会自动进行压缩代码的工作。
 
-## 尽量减少我们的应用程序使用的依赖数量
+## 最小化我们的应用程序使用的依赖数量
 
-我们应该尽量减少所使用的脚本和库的数量，无用的依赖也要删除掉。
+我们应该尽量最小化所使用的脚本和库，无用的依赖应该删除掉。
 
 例如，如果我们为了操作数组而使用 Lodash 库的方法，那么我们可以使用原生的 JavaScript 数组方法替换之，效果同样好。
 
-一旦删除依赖后，我们同时应该从 `package.json` 中也将其删除，并且运行 `npm prune` 命令，将这些依赖从我们的系统中清除。
+一旦删除依赖，我们同时应该从 `package.json` 中将其删除，并且运行 `npm prune` 命令，将这些依赖从我们的系统中清除。
 
 ![Photo by [Tim Carey](https://unsplash.com/@baudy?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6154/0*9Qx9V9XpyjsjvSME)
 
-## 不良的事件处理
+## 糟糕的事件处理
 
 复杂的事件处理代码总是很慢。我们可以通过减少调用堆栈的深度来提高性能。
 
