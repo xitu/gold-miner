@@ -2,38 +2,38 @@
 > * 原文作者：[Aphinya Dechalert](https://medium.com/@PurpleGreenLemon)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-on-earth-is-the-shadow-dom-and-why-it-matters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-on-earth-is-the-shadow-dom-and-why-it-matters.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Renzi](https://github.com/mengrenzi)
+> * 校对者：[niayyy](https://github.com/niayyy-S), [Siva](https://github.com/IAMSHENSH)
 
-# What on Earth is the Shadow DOM and Why Does it Matter?
+# 影子 DOM（Shadow DOM）到底是什么？它为什么重要？
 
 ![Photo by [Tom Barrett](https://unsplash.com/@wistomsin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/shadow?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6538/1*wDb9Aw5YXEM_O8DqrsG0vQ.jpeg)
 
-> Isn’t one DOM enough?
+> 一个 DOM 还不够吗？
 
-We’ve all heard of the DOM at some point. It’s a topic that is quickly brushed over, and there’s not enough discussion of it. The name **shadow DOM** sounds somewhat sinister — but trust me, it’s not.
+我们都曾听说过 DOM，它是一个容易被忽略的话题，而且对此也没有充足的讨论，**Shadow DOM** 这个名字听起来有点邪恶，但是相信我，它不是。
 
-The concept of DOMs is one of the foundations of the web and interfaces, and it’s deeply intertwined with JavaScript.
+DOM 的概念是 Web 和界面的基础之一，并且与 JavaScript 息息相关。
 
-Many know what a DOM is. For starters, it stands for Document Object Model. But what does that mean? Why is it important? And how is understanding how it works relevant to your next coding project?
+许多人都知道 DOM 是什么。首先，它代表文档对象模型。但这意味着什么？为什么它很重要？了解它如何工作与你的下一个编码项目有什么关系？
 
 ---
 
-Read on to find out.
+继续往下看吧。
 
-## What Exactly Is a DOM?
+## DOM 到底是什么？
 
-There’s a misconception that HTML elements and DOM are one and the same. However, they are separate and different in terms of functionality and how they are created.
+有一种误解认为 HTML 元素和 DOM 是一回事。但是，它们在功能和创建方式上是独立且不同的。
 
-HTML is a markup language. Its sole purpose is to dress up content for rendering. It uses tags to define elements and uses words that are human-readable. It is a standardized markup language with a set of predefined tags.
+HTML 是一种标记语言。其唯一目的是修饰呈现的内容。它使用标记来定义元素，并使用人类可读的单词。它是一种标准化的标记语言，具有一组预定义的标记。
 
-Markup languages are different from typical programming syntaxes because they don’t do anything other than create demarcations for content.
+标记语言与典型的编程语法不同，因为标记语言只能用来创建内容分界。
 
-The DOM, however, is a constructed tree of objects that are created by the browser or rendering interface. In essence, it acts sort of like an API for things to hook into the markup structure.
+然而，DOM 是由浏览器或渲染接口创建的对象构造的树。从本质上说，它有点像一个 API，用于将内容挂接到标记结构中。
 
-So what does this tree look like?
+那么这棵树是什么样的呢？
 
-Let’s take a quick look at the HTML below:
+让我们快速浏览以下 HTML：
 
 ```HTML
 <!doctype html>
@@ -48,69 +48,69 @@ Let’s take a quick look at the HTML below:
    </html>
 ```
 
-This will result in the following DOM tree.
+这将生成下面的 DOM 树。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*J8n54a_p1jI6bPPJIKufbg.jpeg)
 
-Since all elements and any styling in an HTML document exist on the global scope, it also means that the DOM is one big globally scoped object.
+由于 HTML 文档中的所有元素和样式都位于全局范围内，因此这也意味着 DOM 是一个大的全局作用域内的对象。
 
-`document` in JavaScript refers to the global space of a document. The `querySelector()` method lets you find and access a particular element type, regardless of how deeply nested it sits in the DOM tree, provided that you have the pathway to it correct.
+`document` 在 JavaScript 中是指文档的全局空间。`querySelector()` 方法允许你查找和访问特定的元素类型，而不管它在 DOM 树中的嵌套有多深，只要你有正确的路径即可。
 
-For example:
+比如：
 
 ```js
 document.querySelector(".heading");
 ```
 
-This will select the first element in the document with `class="heading"`.
+这将选择文档中带有 `class="heading"` 的第一个元素。
 
-Suppose you do something like the following:
+假设你执行以下操作：
 
 ```js
 document.querySelector("p");
 ```
 
-This will target the first `\<p>` element that exists in a document.
+这将指向文档中存在的第一个 `\<p>` 元素。
 
-To be more specific, you can also do something like this:
+具体来讲，你还可以执行以下操作：
 
 ```js
 document.querySelector("h1.heading");
 ```
 
-This will target the first instance of `\<h1 class="heading">`.
+这将指向第一个 `\<h1 class="heading">` 实例。
 
-Using `.innerHTML = ""` will give you the ability to modify whatever sits in between the tags. For example, you can do something like this:
+使用 `.innerHTML = ""` 将使你能够修改标签之间的任何内容。例如，你可以这样做：
 
 ```js
 document.querySelector("h1").innerHTML = "Moooo!"
 ```
 
-This will change the content inside the first `\<h1>` tags to `Moooo!`.
+这会将第一个 `\<h1>` 标签内的内容更改为 `Moooo!`。
 
 ---
 
-Now that we have the basics of DOMs sorted, let’s talk about when a DOM starts to exist within a DOM.
+现在，我们已经梳理了 DOM 的基础知识，下面我们来讨论存在于 DOM 中的 DOM 的来历。
 
-## DOM Within DOMs (aka Shadow DOMs)
+## 存在于 DOM 中的 DOM（又名 Shadow DOM）
 
-There are times when a straight single-object DOM will suffice for all the requirements of your web app or web page. Sometimes, though, you need third-party scripts to display things without it messing with your pre-existing elements.
+有时候，一个简单的单一对象 DOM 就可以满足 Web 应用程序或 Web 页面的所有需求。但是，有时你需要第三方脚本来显示内容，而不想它与你现有的元素混淆。
 
-This is where shadow DOMs come into play.
+这就是 Shadow DOM 发挥作用的地方。
 
-Shadow DOMs are DOMs that sit in isolation, have their own set of scopes, and aren’t part of the original DOM.
+Shadow DOM 是独立存在的 DOM，有自己的作用域集，不属于原始 DOM 的一部分。
 
-Shadow DOMs are essentially self-contained web components, making it possible to build modular interfaces without them clashing with one another.
+Shadow DOM 本质上是独立的 Web 组件，使构建模块化的接口而不会相互冲突成为了可能。
 
-Browsers automatically attach shadow DOMs to some elements, such as `\<input>` , `\<textarea>` and, `\<video>`.
+浏览器会自动将 Shadow DOM 附加到某些元素，例如 `\<input>`、`\<textarea>` 和 `\<video>`。
 
-But sometimes you need to manually create the shadow DOM to extract the parts you need. To do this, you need to first create a shadow host, followed by a shadow root.
+但是有时你需要手动创建 Shadow DOM 来提取所需的部分。为此，你需要首先创建一个影子宿主，然后再创建一个根节点。
 
-#### Setting up the shadow host
+#### 设置影子宿主
 
-To split out a shadow DOM, you need to figure out which set of wrappers you want to extract.
+为了分割出一个 Shadow DOM，你需要确定提取哪一组包装器。
 
-For example, you want the `host` class to be the set of wrappers that defines the boundaries of your shadow DOM.
+例如，你希望 `host` 类成为定义 Shadow DOM 边界的包装器集合。
 
 ```HTML
 <!doctype html>
@@ -128,20 +128,20 @@ For example, you want the `host` class to be the set of wrappers that defines th
    </html>
 ```
 
-Under normal circumstances, `span` isn’t automatically converted into a shadow DOM by the browser. To do this via JavaScript, you need to use `querySelector()` and `attachShadow()` methods.
+通常情况下，浏览器不会将 `span` 自动转换为 Shadow DOM。要通过 JavaScript 做到这一点，你需要使用 `querySelector()` 和 `attachShadow()` 方法。
 
 ```js
 const shadowHost = document.querySelector(".host");
 const shadow = shadowHost.attachShadow({mode: 'open'});
 ```
 
-`shadow` is set up to be the shadow root of our shadow DOM. The elements then become a child of an extracted and separate DOM with `.host` as the root class element.
+`shadow` 被设置为我们的 Shadow DOM 的根节点。 然后，这些元素以 `.host` 作为根类元素，成为一个独立 DOM 的子级。
 
-While you can still see the HTML in your inspector, the `host` portion of the code is no longer visible to the root code.
+虽然你仍然可以在检查器中看到 HTML，但是根代码不再可见代码的 `host` 部分。
 
-To access this new shadow DOM, you just need to use a reference to the shadow root, i.e., `shadow` in the example above.
+要访问这个新的 Shadow DOM，你只需要使用一个对根节点的引用，即上面例子中的 `shadow`。
 
-For example, you want to add some content. You can do so with something like this:
+例如，你希望添加一些内容，可以这样做:
 
 ```js
 const paragraph = document.createElement("p");
@@ -149,44 +149,44 @@ paragraph.text = shadow.querySelector("p");
 paragraph.innerHTML = "helloooo!";
 ```
 
-This will create a new `p` element with the text `helloooo!` inside your shadow root.
+这将在影子根内部创建一个带有 `helloooo!` 的新 `p` 元素。
 
-#### Parts of a shadow DOM
+#### Shadow DOM 的一部分
 
-A shadow DOM consists of four parts: the shadow host, the shadow tree, the shadow boundary, and the shadow root.
+Shadow DOM 由四部分组成：影子宿主、影子树、影子边界和影子根结点。
 
-The shadow host is the regular DOM node that the shadow DOM is attached to. In the examples previously, this is through the class `host`.
+影子宿主是 Shadow DOM 所连接的常规 DOM 节点。在前面的示例中，这是通过类 `host` 实现的。
 
-The shadow tree looks and acts like a normal DOM tree, except its scope is limited to the edges of the shadow host.
+这个影子树的外观和行为与普通的 DOM 树类似，只是它的作用域仅限于影子宿主的边缘。
 
-The shadow boundary is the place where the shadow DOM starts and ends.
+影子边界是 Shadow DOM 开始和结束的地方。
 
-And finally, the shadow root is the root node of the shadow tree. This is different from the shadow host (i.e., `host` class, based on the examples above).
+最后，影子根是影子树的根节点，这是不同于影子宿主（即 `host` 类，基于上面的例子）。
 
-Let’s look at this code again:
+让我们再看看这段代码:
 
 ```js
 const shadowHost = document.querySelector(".host");
 const shadow = shadowHost.attachShadow({mode: 'open'});
 ```
 
-The `shadowHost` constant is our shadow host, while `shadow` is actually the shadow root. The difference between these two is that `shadow` returns a `DocumentFragment` while the `shadowHost` returns a `document` element.
+`shadowHost` 常量是我们的影子宿主，而 `shadow` 实际上是影子的根。两者之间的区别是 `shadow` 返回 `DocumentFragment`，而 `shadowHost` 返回 `document` 元素。
 
 ---
 
-Think of the host as a placeholder for the location of your actual shadow DOM.
+将宿主视为实际 Shadow DOM 的占位符。
 
-## Why Do Shadow DOMs Matter?
+## 为什么 Shadow DOM 很重要？
 
-Now comes the big question — why do shadow DOMs matter?
+现在的大问题是：为什么 Shadow DOM 很重要？
 
-Shadow DOM is a browser technology that’s used to scope variables and CSS in web components.
+Shadow DOM 是一种浏览器技术，用于在 Web 组件中定义变量和 CSS 的作用域。
 
-For starters, a DOM is an object, and you can’t possibly do all you need to do with a single object without it stepping over boundaries you want to certainly keep separate.
+首先，DOM 是一个对象，如果你不能跨过你想确保彼此独立的边界，那么你不可能对单个对象进行所有操作。
 
-This means that shadow DOMs allow for encapsulation, that is, the ability to keep markup structure, style, and behavior separated and hidden from other code so they don’t clash.
+这意味着 Shadow DOM 支持封装，也就是说，能够将标记结构、样式和行为与其他代码分离并隐藏起来，以使它们不会发生冲突。
 
-And those are the basics of shadow DOMs.
+这就是 Shadow DOM 的核心。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
