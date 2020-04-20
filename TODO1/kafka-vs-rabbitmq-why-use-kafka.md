@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/kafka-vs-rabbitmq-why-use-kafka.md](https://github.com/xitu/gold-miner/blob/master/TODO1/kafka-vs-rabbitmq-why-use-kafka.md)
 > * 译者：[Roc](https://github.com/QinRoc)
-> * 校对者：[icy](https://github.com/Raoul1996)
+> * 校对者：[icy](https://github.com/Raoul1996)，[cyril](https://github.com/shixi-li)
 
 # Kafka vs. RabbitMQ：为什么使用 Kafka？
 
@@ -13,13 +13,13 @@
 
 任何项目的圆满完成都离不开选择正确的工具来实现必需的基础功能。对开发者而言，从多个消息服务中挑选出一个合适的，一直是一个挑战。
 
-一个悬而未决的重要问题是：选择 Apache Kafka 还是 RabbitMQ？这两个平台都有独特的功能和用例，了解这些可以帮助用户做出明智的选择。
+一个悬而未决的重要问题是：选择 Apache Kafka 还是 RabbitMQ？这两个平台都有独特的功能和使用场景，了解这些可以帮助用户做出明智的选择。
 
 Apache Kafka 和 RabbitMQ 是消息服务领域的两大顶尖平台。这两个平台处理消息的方式存在差异，主要体现在它们的架构、设计和消息传递方式上。
 
 ## 但是 Apache Kafka 和 RabbitMQ 到底什么是呢？
 
-Apache Kafka 和 RabbitMQ 都是可用于流数据处理的开源平台，同样也配备有商业化的[发布/订阅（pub/sub）](https://www.rabbitmq.com/tutorials/tutorial-three-ruby.html)系统（我们将在后面介绍） —— 由多家企业支持并使用。
+Apache Kafka 和 RabbitMQ 都是可用于流数据处理的开源平台，由多家企业支持并使用，同样也配备有商业化的[发布/订阅（pub/sub）](https://www.rabbitmq.com/tutorials/tutorial-three-ruby.html)系统（我们将在后面介绍）。
 
 #### Apache Kafka 是什么？
 
@@ -31,9 +31,9 @@ Apache Kafka 和 RabbitMQ 都是可用于流数据处理的开源平台，同样
 
 RabbitMQ 是一个多功能的消息代理，它支持多种协议的，例如 高级消息队列协议（Advanced Message Queuing Protocol，AMQP），MQ 遥测传输（MQ Telemetry Transport，MQTT）和 面向文本的简单（或流）消息协议（Simple (or Streaming) Text-Oriented Messaging Protocol，STOMP）。
 
-RabbitMQ 可以处理追求高效的用例，例如处理在线支付场景。RabbitMQ 也可以用作微服务间的消息代理。
+RabbitMQ 可以处理追求高效的场景，例如处理在线支付场景。RabbitMQ 也可以用作微服务间的消息代理。
 
-RabbitMQ 推出于 2007 年，甫一问世，就成为了消息处理和 SOA 系统的主要成员。现在，它的扩展角色也涵盖了流处理的用例。
+RabbitMQ 推出于 2007 年，甫一问世，就成为了消息处理和 SOA 系统的主要组件。现在，它已经覆盖了流处理的使用场景。
 
 如果你正在纠结是选用 Apache Kafka 还是 RabbitMQ，那么请继续阅读，进一步了解两者在架构、方法以及性能优缺点方面的差异。
 
@@ -89,11 +89,11 @@ RabbitMQ 将消息推送给消费者，这个过程包括预读取限制的配�
 
 #### Apache Kafka
 
-众所周知，Apache Kafka 本身提供了一个额外的代理，该代理是这个平台的流行元素。这个额外的代理已经在流处理体系的方向上做了预先考虑和推广。
+众所周知，Apache Kafka 本身提供了一个额外的代理，该代理是这个平台的流行元素。这个额外的代理已经在流处理体系的方向上做了预先考虑和布局。
 
-另外，增加的 Kafka Streams 可以替代 Apache Flink、Apache Spark、Google Cloud Data Flow 和 Spring Cloud Data Flow等流处理平台。
+另外，增加的 Kafka Streams 可以替代 Apache Flink、Apache Spark、Google Cloud Data Flow 和 Spring Cloud Data Flow 等流处理平台。
 
-Kafka 优秀的[用例文档](https://kafka.apache.org/uses)提供了详细用例说明，包括提交日志、事件源、日志聚合、指标、Web 活动跟踪和更多其他任务。
+Kafka 优秀的[案例文档](https://kafka.apache.org/uses)提供了详细的使用案例说明，包括提交日志、事件源、日志聚合、指标、Web 活动跟踪和更多其他任务。
 
 #### RabbitMQ
 
@@ -105,11 +105,11 @@ RabbitMQ 还非常适合于将消息分发给多个接收者，因为它提供�
 
 ## 结论
 
-Apache Kafka 和 RabbitMQ 平台均提供多种关键服务，以适应大量的需求。
+Apache Kafka 和 RabbitMQ 平台均提供了多种关键服务，以适应大量的需求。
 
-对于低数据流量的简单用例，RabbitMQ 就够用了。此外，RabbitMQ 还提供其他的好处，例如灵活的路由预测和优先级队列选项。
+对于低数据流量的简单场景，RabbitMQ 就够用了。此外，RabbitMQ 还有其他的优势，例如灵活的路由预测和优先级队列选项。
 
-另一方面，如果是需要大量数据和高流量的用例，那么 Apache Kafka 值得考虑。
+另一方面，如果是需要大量数据和高流量的场景，那么 Apache Kafka 值得考虑。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
