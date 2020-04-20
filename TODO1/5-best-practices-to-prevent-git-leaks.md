@@ -7,11 +7,11 @@
 
 # 防止 Git 泄漏的 5 种最佳做法
 
-![Photo by Clint Patterson on Unsplash](https://cdn-images-1.medium.com/max/4000/0*bskmb4Tr98q5if_y.jpg)
+![](https://cdn-images-1.medium.com/max/4000/0*bskmb4Tr98q5if_y.jpg)
 
-无数的开发人员正在使用 Git 进行版本控制，但是许多开发人员对 Git 的工作方式并没有足够的了解。有些人甚至将 Git 和 Github 用作备份文件的工具。这些做法导致 Git 仓库中的信息遭到泄露。[每天都有数千个新的 API 或加密密钥从 GitHub 泄漏出去。](https://www.zdnet.com/article/over-100000-github-repos-have-leaked-api-or-cryptographic-keys/)
+无数的开发人员正在使用 Git 进行版本控制，但是许多开发人员对 Git 的工作方式并没有足够的了解。有些人甚至将 Git 和 Github 用作备份文件的工具。这些做法导致 Git 仓库中的信息遭到泄露，[每天都有数千个新的 API 或加密密钥从 GitHub 泄漏出去](https://www.zdnet.com/article/over-100000-github-repos-have-leaked-api-or-cryptographic-keys/)。
 
-我在信息安全领域工作了三年。 大约在两年前，我们公司发生了一起非常严重的安全问题，是由于 Git 仓库发生了信息泄露导致的。
+我在信息安全领域工作了三年。大约在两年前，我们公司发生了一起非常严重的安全问题，是由于 Git 仓库发生了信息泄露导致的。
 
 一名员工意外地在 Github 上泄露了 AWS 的密钥。攻击者使用此密钥从我们的服务器下载很多敏感的数据。我们花了很多时间来解决这个问题，我们试图统计出泄漏了多少数据，并分析了受影响的系统和相关用户，最后替换了系统中所有泄漏的密钥。
 
@@ -58,7 +58,7 @@
 
 在代码检查阶段可以发现大多数不符合预期的更改。
 
-[启用分支限制](https://help.github.com/en/github/administering-a-repository/enabling-branch-restrictions) 可以强制执行分支限制，以便只有部分用户才能推送到代码库中受保护的分支。 Gitlab 也有类似的选择。
+[启用分支限制](https://help.github.com/en/github/administering-a-repository/enabling-branch-restrictions) 可以强制执行分支限制，以便只有部分用户才能推送到代码库中受保护的分支。Gitlab 也有类似的选择。
 
 将 master 设置为受限制的分支有助于我们执行代码审查的工作。
 
