@@ -1,88 +1,90 @@
-> * 原文地址：[5 Best Practices To Prevent Git Leaks](https://levelup.gitconnected.com/5-best-practices-to-prevent-git-leaks-4997b96c1cbe)
-> * 原文作者：[Coder’s Cat](https://medium.com/@coderscat)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[5 Best Practices To Prevent Git Leaks](https://levelup.gitconnected.com/5-best-practices-to-prevent-git-leaks-4997b96c1cbe)
+> - 原文作者：[Coder’s Cat](https://medium.com/@coderscat)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-best-practices-to-prevent-git-leaks.md)
+> - 译者：[YueYongDEV](https://github.com/YueYongDev)
+> - 校对者：[Roc](https://github.com/QinRoc)、[icy](https://github.com/Raoul1996)
 
-# 5 Best Practices To Prevent Git Leaks
+# 防止 Git 泄漏的 5 种最佳做法
 
-![Photo by Clint Patterson on Unsplash](https://cdn-images-1.medium.com/max/4000/0*bskmb4Tr98q5if_y.jpg)
+![](https://cdn-images-1.medium.com/max/4000/0*bskmb4Tr98q5if_y.jpg)
 
-Countless developers are using Git for version control, but many don’t have enough knowledge about how Git works. Some people even use Git and Github as tools for backup files. This leads to information disclosure in Git repositories. [Thousands of new API or cryptographic keys leak via GitHub projects every day.](https://www.zdnet.com/article/over-100000-github-repos-have-leaked-api-or-cryptographic-keys/)
+无数的开发人员正在使用 Git 进行版本控制，但是许多开发人员对 Git 的工作方式并没有足够的了解。有些人甚至将 Git 和 Github 用作备份文件的工具。这些做法导致 Git 仓库中的信息遭到泄露，[每天都有数千个新的 API 或加密密钥从 GitHub 泄漏出去](https://www.zdnet.com/article/over-100000-github-repos-have-leaked-api-or-cryptographic-keys/)。
 
-I have been working in the field of information security for three years. About two years ago, our company had a severe security issue triggered by the information leak in a Git repository.
+我在信息安全领域工作了三年。大约在两年前，我们公司发生了一起非常严重的安全问题，是由于 Git 仓库发生了信息泄露导致的。
 
-An employee accidentally leaked an AWS key to Github. The attacker used this key to download more sensitive data from our servers. We put a lot of time into fixing this issue, we tried to find out how much data leaked, analyzed the affected systems and related users, and replaced all the leaked keys in systems.
+一名员工意外地在 Github 上泄露了 AWS 的密钥。攻击者使用此密钥从我们的服务器下载很多敏感的数据。我们花了很多时间来解决这个问题，我们试图统计出泄漏了多少数据，并分析了受影响的系统和相关用户，最后替换了系统中所有泄漏的密钥。
 
-It is a sad story that any company and developer would not want to experience.
+这是一个任何公司和开发人员都不愿经历的悲惨故事。
 
-I won’t write more details about it. Instead, I hope more people know how to avoid it. Here are my suggestions for you to keep safe from Git leaks.
+关于整件事情的细节我就不多写了。事实上，我希望更多的人知道如何去避免 Git 的信息泄露。以下是我提出的一些建议。
 
-## Build security awareness
+## 建立安全意识
 
-Most junior developers don’t have enough security awareness. Some companies will train new employees, but some companies don’t have systematic training.
+大多数新人开发者没有足够的安全意识。有些公司会培训新员工，但有些公司没有系统的培训。
 
-As a developer, we need to know which kind of data may introduce security issues. Remember these categories of data can not be checked into Git repository:
+作为开发人员，我们需要知道哪些数据可能会带来安全问题。千万记住，下面这些数据不要上传到 Git 仓库中：
 
-1. Any configuration data, including password, API keys, AWS keys, private keys, etc.
-2. [Personally Identifiable Information](https://en.wikipedia.org/wiki/Personal_data) (PII). According to GDPR, if a company leaked the users’ PII, the company needs to notify users, relevant departments and there will be more legal troubles.
+1. 任何配置数据，包括密码，API 密钥，AWS 密钥和私钥等。
+2. [个人身份信息](https://en.wikipedia.org/wiki/Personal_data)（PII）。根据 GDPR 的说法，如果公司泄露了用户的 PII，则该公司需要通知用户和有关部门，否则会带来更多的法律麻烦。
 
-If you are working for a company, don’t share any source code or data related to the company without permission.
+如果你在公司工作，未经允许，请勿共享任何与公司相关的源代码或数据。
 
-Attackers can easily find some code with a company copyright on GitHub, which was accidentally leaked to Github by employees.
+攻击者可以在 GitHub 上轻松地找到某些具有公司版权的代码，而这些代码都是被员工无意中泄露到 Github 上的。
 
-My advice is, try to distinguish between company affairs and personal stuff strictly.
+我的建议是，应该将公司项目和个人项目严格区分。
 
-## Use Git ignore
+## 使用 Git 忽略（Git ignore）
 
-When we create a new project with Git, we must set a **.gitignore** properly. **gitignore** is a Git configuration file that lists the files or directories that will not be checked into the Git repository.
+当我们使用 Git 创建一个新项目时，我们必须正确地设置一个 **.gitignore** 文件。**.gitignore** 是一个 Git 配置文件，它列出了不会被存入 Git 仓库的文件或目录。
 
-This project’s [gitignore](https://github.com/github/gitignore) is a collection of useful .gitignore templates, with all kinds of programming language, framework, tool or environment.
+[这个 gitignore 项目](https://github.com/github/gitignore) 是一个实际使用着的 .gitignore 模板集合，其中包含对应各种编程语言、框架、工具或环境的配置文件。
 
-We need to know the pattern matching rules of **gitignore** and add our own rules based on the templates.
+我们需要了解 **gitignore** 的模式匹配规则，并根据模板添加我们自己的规则。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*VmEolB6qYNCYr9Wf.png)
 
-## Check commits with Git hooks and CI
+## 使用 Git 钩子（Git hooks）和 CI 检查提交
 
-No tools could find out all the sensitive data from a Git repository, but a couple of tools and practices can help.
+没有工具可以从 Git 仓库中找出所有敏感数据，但是有一些工具可以为我们提供帮助。
 
-[git-secrets](https://github.com/awslabs/git-secrets) and [talisman](https://github.com/thoughtworks/talisman) are similar tools, they are meant to be installed in local repositories as [pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). Every change will be checked before committed, pre-commit hooks will reject the commit if they detect a prospective commit may contain sensitive information.
+[git-secrets](https://github.com/awslabs/git-secrets) 和 [talisman](https://github.com/thoughtworks/talisman) 是类似的工具，它们应作为[预提交的钩子](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)（pre-commit hooks）安装在本地代码库中。每次都会在提交之前对更改的内容进行检查，如果钩子检测到预期的提交内容可能包含敏感信息，那它们将会拒绝提交。
 
-[gitleaks](https://github.com/zricethezav/gitleaks) provides another way to find unencrypted secrets and other unwanted data types in git repositories. We could integrate it into automation workflows such as CICD.
+[gitleaks](https://github.com/zricethezav/gitleaks) 提供了另一种在 git 仓库中查找未加密的密钥和其他一些不需要的数据类型的方法。我们可以将其集成到自动化工作流程中，例如 CICD。
 
-## Code review
+## 代码审查（Code review）
 
-Code review is a best practice for team working. All the teammates will learn from each other’s source code. Junior developer’s code should be reviewed by developers with more experience.
+代码审查是团队合作的最佳实践。所有队友都将从彼此的源代码中学习。初级开发人员的代码应由具有更多经验的开发人员进行审查。
 
-Most unintended changes can be found out during the code review stage.
+在代码检查阶段可以发现大多数不符合预期的更改。
 
-[Enabling branch restrictions](https://help.github.com/en/github/administering-a-repository/enabling-branch-restrictions) can enforce branch restrictions so that only certain users can push to a protected branch in repositories. Gitlab has a similar option.
+[启用分支限制](https://help.github.com/en/github/administering-a-repository/enabling-branch-restrictions) 可以强制执行分支限制，以便只有部分用户才能推送到代码库中受保护的分支。Gitlab 也有类似的选择。
 
-Setting master to a restricted branch helps us to enforce the code review workflow.
+将 master 设置为受限制的分支有助于我们执行代码审查的工作。
 
 ![](https://cdn-images-1.medium.com/max/2208/0*RUqDCQlDgym-Jo8x.png)
 
-## Fix it quickly and correctly
+## 快速并且正确地修复它
 
-With all the above tools and mechanisms, errors still could happen. If we fix it quickly and correctly, the leak may introduce no actual security issue.
+即使使用了上面提到的工具和方法，却仍然可能会发生错误。但如果我们快速且正确地修复它，则代码泄漏可能就不会引起实际的安全问题。
 
-If we find some sensitive data leaked in the Git repository, we can not just make another commit to clean up.
+如果我们在 Git 仓库中发现了一些敏感数据泄漏，我们就不能仅仅通过提交另一个提交覆盖的方式来进行清理。
 
 ![This fix is self-deception](https://cdn-images-1.medium.com/max/2000/0*FsGBhHSlXdeSpTk4.png)
 
-What we need to do is remove all the sensitive data from the entire Git history.
+我们需要做的是从整个 Git 历史记录中删除所有敏感数据。
 
-**Remember to backup before any cleanup, and then remove the backup clone after we confirmed everything is OK**.
+**在进行任何清理之前请记得进行备份，然后在确认一切正常后再删除备份文件。**
 
-Use the `--mirror` to clone a bare repository; this is a full copy of the Git database.
+使用 `--mirror` 参数克隆一个仓库；这是 Git 数据库的完整副本。
 
 ```bash
 git clone --mirror git://example.com/need-clean-repo.git
 ```
 
-We need **git filter-branch** to remove data from all branches and commit histories. Suppose we want to remove `./config/passwd` from Git:
+我们需要执行 **git filter-branch** 命令来从所有分支中删除数据并提交历史记录。
+
+下面举个例子，假设我们要从 Git 中删除 `./config /passwd`：
 
 ```bash
 $ git filter-branch --force --index-filter \
@@ -90,7 +92,7 @@ $ git filter-branch --force --index-filter \
   --prune-empty --tag-name-filter cat -- --all
 ```
 
-Remember to add the sensitive file to .gitignore:
+请记住将敏感文件添加到 .gitignore 中：
 
 ```bash
 $ echo "./config/password" >> .gitignore
@@ -98,32 +100,32 @@ $ git add .gitignore
 $ git commit -m "Add password to .gitignore"
 ```
 
-Then we push all branches to remote:
+然后我们将所有分支推送到远端：
 
 ```bash
 $ git push --force --all
 $ git push --force --tags
 ```
 
-Tell our collaborators to rebase:
+告诉我们的小伙伴进行变基（rebase）：
 
 ```bash
 $ git rebase
 ```
 
-[BFG](https://rtyley.github.io/bfg-repo-cleaner/) is a faster and simpler alternative to **git filter-branch** for removing sensitive data. It’s usually 10–720x faster than **git filter-branch**. Except for deleting files, BFG could also be used to replace secrets in files.
+[BFG](https://rtyley.github.io/bfg-repo-cleaner/) 是一种比 **git filter-branch** 更快、更简单的用于删除敏感数据的替代方法。通常比 **git filter-branch** 快 10–720 倍。除删除文件外，BFG 还可以用于替换文件中的机密信息。
 
-BFG will leave the latest commit untouched. It’s designed to protect us from making mistakes. We should explicitly delete the file, commit the deletion, then clean up the history to remove it.
+BFG 保留最新的提交记录。它是用来防止我们犯错误的。我们应该显式地删除文件，提交删除，然后清除历史记录以此删除它。
 
-If the leaked Git repository is forked by others, we need to follow the [DMCA Takedown Policy](https://help.github.com/en/github/site-policy/dmca-takedown-policy#c-what-if-i-inadvertently-missed-the-window-to-make-changes) to ask Github to remove the forked repositories.
+如果泄漏的 Git 代码库被其他人 fork 了，我们需要遵循 [DMCA](https://help.github.com/en/github/site-policy/dmca-takedown-policy#c-what-if-i-inadvertently-missed-the-window-to-make-changes) 的删除策略，请求 Github 删除创建的代码库。
 
-The whole procedure requires some time to finish, but it’s the only way to remove all the copies.
+整个过程需要一些时间才能完成，但这是删除所有副本的唯一方法。
 
-## Conclusion
+## 总结
 
-Don’t make the same mistake that countless people have made. Try to put some effort to avoid safety accidents.
+不要犯无数人犯过的错误。尽力避免发生安全事故。
 
-Use these tools and strategies will help much in avoiding Git leaks.
+使用上面提到的这些工具和策略将有助于避免 Git 泄漏。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
