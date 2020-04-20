@@ -2,81 +2,81 @@
 > * 原文作者：[Ana Solaguren-Beascoa, PhD](https://medium.com/@ana.solagurenbeascoa)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/active-learning-in-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO1/active-learning-in-machine-learning.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# Active Learning in Machine Learning
+# 机器学习中的主动学习
 
-> A brief introduction to the implementation of active learning
+> 主动学习实实现简介
 
 ![Photo by [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*wvT88RaaNLyiCLt8)
 
-Most supervised machine learning models require large amounts of data to be trained with good results. And even if this statement sounds naive, most companies struggle to provide their data scientists this data, in particular **labelled** data. The latter is key to train any supervised model and can become the main bottleneck for any data team.
+大多数有监督机器学习模型都需要对大量数据进行训练才能取得良好的效果。即使听起来很可笑，大多数公司仍很难向其数据科学家提供此类数据，尤其是带有“**标记**”的数据。后者是训练任何监督模型的关键，并且可能成为任何数据团队的主要瓶颈。
 
-In most cases, data scientists are provided with a big, unlabelled data sets and are asked to train well-performing models with them. Generally, the amount of data is too large to manually label it, and it becomes quite challenging for data teams to train good supervised models with that data.
+在大多数情况下，数据科学家所有的是一个庞大的、未标记的数据集，并要求使用它们来训练性能良好的模型。通常，这些数据的量太大，无法手动标记。因此数据团队要用该数据训练良好的监督模型变得非常具有挑战性。
 
-## Active learning: Motivation
+## 主动学习: 动机
 
-Active learning is the name used for the process of prioritising the data which needs to be labelled in order to have the highest impact to training a supervised model. Active learning can be used in situations where the amount of data is too large to be labelled and some priority needs to be made to label the data in a smart way.
+主动学习是用于优先处理需要标记数据的过程的名称，以便对训练监督模型产生最大影响。主动学习可以用于数据量太大而无法标记的情况，并且为了更聪明的标记数据，需要在优先级上做一些权衡。
 
-**But, why don’t we just chose a random subset of data to manually label them?**
+**但是, 为什么我们不随机选取一个子集进行手动标注呢？**
 
-Let’s look at a very simple example to motivate the discussion. Assume we have millions of data points which need to be classified based on two features. The actual solution is shown in the following plot:
+让我们看一个非常简单的例子来抛砖引玉。假设我们有数百万个数据点，需要根据两个特征进行分类。下图显示了实际的解决方案：
 
 ![Model prediction if all data points were labelled](https://cdn-images-1.medium.com/max/2000/1*Z_5GyCdFfcz_oVFnUuYczg.png)
 
-As one can see, both classes (red and purple) can quite nicely be separated by a vertical blue line crossing at 0. The problem is that none of the data points are labelled, so the data is given to us as in the following plot:
+可以看到，两个类（红色和紫色）都可以很好地用一条过0点的垂直蓝色直线分开。问题是没有任何数据点经过标注，因此数据如下图所示:
 
 ![Unlabelled data](https://cdn-images-1.medium.com/max/2000/1*fmnhkOPVsXNIUiroRg2CfQ.png)
 
-Unfortunately, we don’t have enough time to label all of the data and we randomly chose a subset of the data to label and train a binary classification model on it. The result is not great, as the model prediction deviates quite a lot from the optimal boundary.
+不幸的是，我们没有足够的时间标记所有数据。我们随机选择了一部分数据来标记和训练一个二分类模型。结果不是很好，因为模型预测与最佳边界有很大的偏差。
 
 ![Model trained on a random subset of labelled data points](https://cdn-images-1.medium.com/max/2000/1*2bpj99Fppl2mqLb7Jb98XA.png)
 
-This is where active learning can be used to optimise the data points chosen for labelling and training a model based on them. The following plot shows an example of training a binary classification model after choosing the training of the model based on data points labelled after implementing active learning.
+此时可以使用主动学习来优化选择的数据点，以便标记和训练模型。下图显示了在基于主动学习后标记的数据点对模型进行训练之后得到的二分类模型的示例。
 
 ![Model trained on a subset of data points chosen ho to be labelled using active learning](https://cdn-images-1.medium.com/max/2000/1*8eOKeWFNg29ruakj9b1Nzg.png)
 
-Making a smart choice of which data points to prioritise when labelling can save data science teams large amounts of time, computation and headaches!
+明智地选择在标记时应优先考虑的数据点可以为数据科学团队节省大量的时间，计算量和麻烦！
 
-## Active learning strategy
+## 主动学习策略
 
-#### Steps for active learning
+#### 主动学习步骤
 
-There are multiple approaches studied in the literature on how to prioritise data points when labelling and how to iterate over the approach. We will nevertheless only present the most common and straightforward methods.
+不同文献中研究了多种方法，这些方法涉及在标记时如何确定数据点的优先级以及如何不断迭代优化。尽管如此，我们将仅介绍最常见，最直接的方法。
 
-The steps to use active learning on an unlabelled data set are:
+在未标注的数据集上应用主动学习的步骤是：
 
-1. The first thing which needs to happen is that a very small subsample of this data needs to be manually labelled.
-2. Once there is a small amount of labelled data, the model needs to be trained on it. The model is of course not going to be great but will help us get some insight on which areas of the parameter space need to be labelled first to improve it.
-3. After the model is trained, the model is used to predict the class of each remaining unlabelled data point.
-4. A score is chosen on each unlabelled data point based on the prediction of the model. In the next subsection we will present some of the possible scores most commonly used.
-5. Once the best approach has been chosen to prioritise the labelling, this process can be iteratively repeated: a new model can be trained on a new labelled data set, which has been labelled based on the priority score. Once the new model has been trained on the subset of data, the unlabelled data points can be ran through the model to update the prioritisation scores to continue labelling. In this way, one can keep optimising the labelling strategy as the models become better and better.
+1. 首先需要做的是，手动标记此数据的很小的子样本。
+2. 一旦有了少量标记数据，就需要对模型进行训练。该模型当然不会很好，但是它将帮助我们了解参数空间的哪些区域需要首先标记以对其进行改进。
+3. 训练模型后，该模型将用于预测每个剩余的未标记数据点的类别。
+4. 基于模型的预测，在每个未标记的数据点上选择一个分数。在下一个小节中，我们将介绍一些可能的最常用的分数。
+5. 一旦选择了最佳方法来决定标准顺序，就可以反复重复此过程：可以在已基于优先级评分进行标注的新数据集上训练新模型。一旦在数据子集上训练了新模型，即可将该模型遍历未标记的数据点以更新优先级评分，然后继续标记。这样，随着模型变得越来越好，人们可以不断优化标注策略。
 
-#### Prioritisation scores
+#### 优先级评分
 
-There are several approaches to assign a priority score to each data point. Below we describe the three basic ones.
+有几种方法可以为每个数据点分配优先级分数。下面我们描述三个基本的方法。
 
-**Least confidence:**
+**最小置信度:**
 
-This is probably the most simple method. It takes the highest probability for each data point’s prediction, and sorts them from smaller to larger. The actual expression to prioritise using least confidence would be:
+这可能是最简单的方法。对于每个数据点的选择概率的最大值，并将其从小到大进行排序。使用最小置信度进行优先排序的实际表达式为:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RJ0wYr0LXxpxezaUc_z75A.png)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7taQkELyPNhYFH6-JgMsGA.png)
 
-Let’s use an example to see how this would work. Assume we have the following data with three possible classes:
+让我们举个例子来看一下它是如何工作的。假设我们有以下可能属于三类之一的数据:
 
 ![Table 1: Example of probability predictions of a model on three different classes for four different data points.](https://cdn-images-1.medium.com/max/6676/1*dUxgoL1aVNSyO1cP7C9riQ.png)
 
-In this case, the algorithm would first chose the maximum probability for each data point, hence:
+在这种情况下，该算法将首先为每个数据点选择最大概率，因此有:
 
 * X1: 0.9
 * X2: 0.87
 * X3:0.5
 * X4:0.99.
 
-The second step is to sort the data based on this maximum probability (from smaller to bigger), hence X3, X2, X1 and X4.
+第二步是根据最大概率（从小到大）对数据进行排序，因此顺序为 X3，X2，X1 和 X4。
 
 **Margin sampling:**
 
