@@ -78,22 +78,22 @@
 
 第二步是根据最大概率（从小到大）对数据进行排序，因此顺序为 X3，X2，X1 和 X4。
 
-**Margin sampling:**
+**边际抽样:**
 
-This method takes into account the difference between the highest probability and the second highest probability. Formally, the expression to prioritise would look like:
+该方法考虑了最高概率和第二最高概率之间的差异。形式上，优先级排列方式看起来像：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*c-Qqr2TEzaaA-zGH01JalA.png)
 
-The data points with the lower margin sampling score would be the ones labelled the first; these are the data points the model is least certain about between the most probably and the next-to-most probable class.
+边际抽样得分较低的数据点是被标记为第一类的点；同时是模型在最可能的类别和第二个最可能的类别之间不确定的数据点。
 
-Following the example of Table 1, the corresponding scores for each data point are:
+依照 Table 1 的例子, 各个点对应的分数为:
 
 * X1: 0.9–0.07 = 0.83
 * X2: 0.87–0.1 = 0.86
 * X3: 0.5–0.3 = 0.2
 * X4: 0.99–0.01 = 0.98
 
-Hence the data points would be shown to label as follows: X3, X1, X2 and X4. As one can see the priority in this case is slightly different to the least confident one.
+因此，数据点按标准优先顺序排列如下：X3，X1，X2 和 X4。可以看出，在这种情况下，优先级与最小置信度略有不同。
 
 **Entropy:**
 
