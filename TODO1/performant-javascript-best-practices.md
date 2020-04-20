@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/performant-javascript-best-practices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/performant-javascript-best-practices.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：[niayyy-S](https://github.com/niayyy-S)
+> * 校对者：[niayyy-S](https://github.com/niayyy-S), [xionglong58](https://github.com/xionglong58)
 
 # 高性能 JavaScript 最佳实践
 
 ![Photo by [Jason Chen](https://unsplash.com/@ja5on?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/5760/0*UyQ42ciE79LF-bK4)
 
-与其它程序一样，如果我们不细心编写代码，JavaScript 程序的运行速度可能会迅速地变慢。
+与其它程序一样，如果我们不细心编写代码，JavaScript 程序的运行速度可能会变得很慢。
 
 在本文中，我们将介绍一些关于编写高性能 JavaScript 程序的最佳实践。
 
@@ -58,7 +58,7 @@ p.classList.add('highlight');
 
 我们将 `p` 元素的 DOM 对象设置为常量，这样就可以缓存它，以便在任何地方复用，然后调用 `classList.add` 方法来给它添加 `hightlight` 类。
 
-我们也可以在不使用的时候删掉它。这样，我们就不用在 JavaScript 代码中进行很多不必要的 DOM 操作了。
+我们也可以在不使用的时候删掉它。这样，就不用在 JavaScript 代码中进行很多不必要的 DOM 操作了。
 
 如果我们的脚本没有依赖其它脚本，则可以异步地加载它们，这样它们就不会阻塞其它脚本的加载了。
 
@@ -70,11 +70,11 @@ p.classList.add('highlight');
 
 现在 `script.js` 将能够异步加载。
 
-我们也可以通过 `defer` 指令来延迟脚本的加载。它还保证了脚本会按照页面上指定的顺序执行。
+我们也可以通过 `defer` 指令来延迟脚本的加载。它还保证了脚本会按照页面上出现的顺序执行。
 
 如果希望我们的脚本按顺序地加载，并且不阻塞其它加载，这是一个更好的选择。
 
-在将我们的代码投入生产之前，压缩脚本也是一项必做的工作。为此，我们使用像 Webpack 和 Parcel 这样的模块化打包工具，它会为我们自动地创建并编译项目。
+在将我们的代码投入生产之前，压缩脚本也是一项必做的工作。为此，我们使用像 Webpack 和 Parcel 这样的模块化打包工具，它会为我们自动地创建并打包项目。
 
 同样的，Vue 和 Angular 框架的命令行工具也会自动进行压缩代码的工作。
 
@@ -90,7 +90,7 @@ p.classList.add('highlight');
 
 ## 糟糕的事件处理
 
-复杂的事件处理代码总是很慢。我们可以通过减少调用堆栈的深度来提高性能。
+复杂的事件处理代码总是很慢。我们可以通过减少调用栈的深度来提高性能。
 
 这意味着我们将尽可能地少调用方法。如果我们在事件处理中操作样式的话，尽量将样式操作放入 CSS 样式表中。
 
@@ -102,7 +102,7 @@ p.classList.add('highlight');
 
 另外，我们应该减少代码中的 CSS，并将它们挪到各自所属的样式表中。
 
-我们还可以添加媒体查询，以便样式表不会在每个地方都加载。
+我们还可以添加媒体查询，以便样式表不会在每种设备都加载。
 
 最后，我们应该减少代码中方法被调用的次数。
 
