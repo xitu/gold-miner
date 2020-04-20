@@ -2,56 +2,56 @@
 > * 原文作者：[Karthik Kalyanaraman](https://blog.logrocket.com/author/karthikkalyanaraman/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deep-dive-into-react-fiber-internals.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deep-dive-into-react-fiber-internals.md)
-> * 译者：
+> * 译者：[MarchYuanx](https://github.com/MarchYuanx)
 > * 校对者：
 
-# A deep dive into React Fiber internals
+# 深入了解 React Fiber 内部实现
 
-![A Deep Dive Into react Fiber Internals](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/deep-dive-react-fiber-internals.jpeg?fit=730%2C486&ssl=1)
+![深入了解 React Fiber 内部实现](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/deep-dive-react-fiber-internals.jpeg?fit=730%2C486&ssl=1)
 
-Ever wondered what happens when you call `ReactDOM.render(<App />, document.getElementById('root'))`?
+有没有想过当你调用 `ReactDOM.render(<App />, document.getElementById('root'))` 时发生了什么？
 
-We know that ReactDOM builds up the DOM tree under the hood and renders the application on the screen. But how does React actually build the DOM tree? And how does it update the tree when the app's state changes?
+我们知道 ReactDOM 会在后台构建 DOM 树并将应用渲染在屏幕上。那么 React 实际上是如何构建 DOM 树的呢？当应用的 state 改变时，它又如何更新 DOM 树？
 
-In this post, I am going to start by explaining how React built the DOM tree until React 15.0.0, the pitfalls of that model, and how the new model from React 16.0.0 solved those problems. This post will cover a wide range of concepts that are purely internal implementation details and are not strictly necessary for actual frontend development using React.
+在本文中，我将首先说明在 React 15.0.0 之前 React 是如何构建 DOM 树的，这种模式的陷阱，以及 React 16.0.0 的新模型如何解决这些问题。这篇文章将涵盖广泛的概念，这些概念纯属内部实现细节，对于使用 React 进行的实际的前端开发，并不是绝对必要的。
 
 ## Stack reconciler
 
-Let's start with our familiar `ReactDOM.render(<App />, document.getElementById('root'))`.
+让我们从熟悉的 `ReactDOM.render(<App />, document.getElementById('root'))` 开始。
 
 The ReactDOM module will pass the `<App/ >` along to the reconciler. There are two questions here:
 
 1. What does `<App />` refer to?
 2. What is the reconciler?
 
-Let's unpack these two questions.
+让我们解开这两个问题。
 
-`<App />` is a React element, and "elements describe the tree."
+`<App />` 是一个 React 元素，“描述树的元素”。
 
-> "An element is a plain object describing a component instance or DOM node and its desired properties." -- [React Blog](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree)
+> “React 元素是描述对象实例或 DOM 节点及其所需属性的普通对象。” -- [React 博客](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree)
 
-In other words, elements are *not* actual DOM nodes or component instances; they are a way to *describe* to React what kind of elements they are, what properties they hold, and who their children are.
+换句话说，React 元素*不是*实际的 DOM 节点或组件实例；它们是一种*描述* React 的方式，它们是什么类型的元素，它们拥有的属性以及它们的子元素。
 
-This is where React's real power lies. React abstracts away all the complex pieces of how to build, render, and manage the lifecycle of the actual DOM tree by itself, effectively making the life of the developer easier. To understand what this really means, let's look at a traditional approach using object-oriented concepts.
+这正是 React 厉害之处。React 抽象了如何构建、渲染、管理真实 DOM 树的生命周期的所有复杂部分，从而有效地简化了开发人员的工作。要了解其真正含义，让我们看一下使用面向对象概念的传统方法。
 
-In the typical object-oriented programming world, the developer needs to instantiate and manage the lifecycle of every DOM element. For instance, if you want to create a simple form and a submit button, the state management even for something as simple as this requires some effort from the developer.
+在典型的面向对象的编程世界中，开发者需要实例化并管理每个 DOM 元素的生命周期。例如，如果你想要创建一个简单的表单和一个提交按钮，那么状态管理甚至对于像这样简单的事情都需要开发者的一些功夫。
 
 [](https://blog.logrocket.com/deep-dive-into-react-fiber-internals/)
 
-Let's assume the `Button` component has a state variable, `isSubmitted`. The lifecycle of the `Button` component looks something like the flowchart below, where each state needs to be taken care of by the app:
+假设 Button 组件有一个 state 变量 isSubmitted。Button 组件的生命周期类似于以下流程图，其中每个 state 都需要由应用程序处理：
 
-![Button Component Lifecycle Flowchart](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/button-component-lifecycle.png?resize=730%2C465&ssl=1)
+![按钮组件生命周期流程图](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/button-component-lifecycle.png?resize=730%2C465&ssl=1)
 
-This size of the flowchart and the number of lines of code grow exponentially as the number of states variables increase.
+流程图的大小和代码行数随着 state 数量的增加而呈指数增长。
 
-React has elements precisely to solve this problem. In React, there are two kinds of elements:
+React 具有精确解决此问题的元素。在 React 中，有两种元素：
 
-- DOM element: When the element's type is a string, e.g., `<button class="okButton"> OK </button>`
-- Component element: When the type is a class or a function, e.g., `<Button className="okButton"> OK </Button>`, where `<Button>` is a either a class or a functional component. These are the typical React components we generally use
+- DOM 元素: 当元素的类型为字符串时，例如 `<button class="okButton"> OK </button>`
+- 组件元素: 当类型是类或函数时，例如 `<Button className="okButton"> OK </Button>`，其中 `<Button>` 是类或函数组件。这些是我们常用的典型的 React 组件
 
-It is important to understand that both types are simple objects. They are mere descriptions of what needs to be rendered on the screen and don't actually cause any rendering to happen when you create and instantiate them. This makes it easier for React to parse and traverse them to build the DOM tree. The actual rendering happens later when the traversing is finished.
+重要的是要了解这两种类型都是简单的对象。它们只是对需要在屏幕上渲染的内容的描述，在你创建实例化它们时并不会有实际的渲染发生。这使得 React 更容易解析和遍历它们来构建 DOM 树。实际的渲染将在遍历完成后进行。
 
-When React encounters a class or a function component, it will ask that element what element it renders to based on its props. For instance, if the `<App>` component rendered this:
+当 React 遇到一个类或一个函数组件时，它会询问该元素，根据它的 props 该元素应该如何渲染。例如，如果 `<App>` 组件渲染以下内容：
 
 ```html
 <Form>
@@ -61,7 +61,7 @@ When React encounters a class or a function component, it will ask that element 
 </Form>
 ```
 
-Then React will ask the `<Form>` and `<Button>` components what they render to based on their corresponding props. For instance, if the `Form` component is a functional component that looks like this:
+然后 React 会根据它们对应的 props 询问`<Form>`和`<Button>`组件它们渲染什么。例如，如果`表单`组件是一个函数组件，如下所示：
 
 ```jsx
 const Form = (props) => {
@@ -73,7 +73,7 @@ const Form = (props) => {
 }
 ```
 
-React will call `render()` to know what elements it renders and will eventually see that it renders a `<div>` with a child. React will repeat this process until it knows the underlying DOM tag elements for every component on the page.
+React 会调用 `render()` 以了解它渲染的元素，并最终会看到它渲染了一个带有子元素的 `<div>`。React 将重复此过程，直到知道页面上每个组件的基础 DOM 标签元素为止。
 
 This exact process of recursively traversing a tree to know the underlying DOM tag elements of a React app's component tree is known as reconciliation. By the end of the reconciliation, React knows the result of the DOM tree, and a renderer like react-dom or react-native applies the minimal set of changes necessary to update the DOM nodes
 
@@ -85,7 +85,7 @@ Oh, by the way -- why is this called the "stack" reconciler?
 
 This name is derived from the "stack" data structure, which is a last-in, first-out mechanism. And what does stack have anything to do with what we just saw? Well, as it turns out, since we are effectively doing a recursion, it has everything to do with a stack.
 
-## Recursion
+## 递归
 
 To understand why that's the case, let's take a simple example and see what happens in the [call stack](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack).
 
@@ -421,9 +421,9 @@ And what about the 16ms frame time? React effectively runs an internal timer for
 
 Then, in the next frame, React picks up where it left off and continues building the tree. Then, when it has enough time, it commits the `workInProgress` tree and completes the render.
 
-## Conclusion
+## 结论
 
-I hope you enjoyed reading this post. Please feel free to leave comments or questions if you have any.
+希望你喜欢这篇文章。如果有任何意见或问题，请随时发表。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
