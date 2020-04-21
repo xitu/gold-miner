@@ -5,7 +5,7 @@
 > * 译者：[Jessica](https://github.com/cyz980908)
 > * 校对者：[QinRoc](https://github.com/QinRoc)
 
-# 5 步创建一个 Settings icon 
+# 创建一个 Settings icon 的五种方法
 
 > 通过这篇文章我们可以学习如何使用 Illustrator 的一系列功能
 
