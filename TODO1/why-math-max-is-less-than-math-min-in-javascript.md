@@ -9,11 +9,11 @@
 
 ![Photo by [Brett Jordan](https://unsplash.com/@brett_jordan?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9196/0*NqSH9Eveu-3BTQ2V)
 
-> **Math.max() \< Math.min() === true **
+> **Math.max() \< Math.min() === true**
 
 Surprised? Here’s why JavaScript’s maximum function is less than its minimum function when no arguments are passed.
 
-Did you know that `[Math.max()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)` with no arguments returns a value that is smaller than `[Math.min()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min)` with no arguments in JavaScript?
+Did you know that [`Math.max()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max) with no arguments returns a value that is smaller than [`Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min) with no arguments in JavaScript?
 
 ```JavaScript
 console.log(Math.max() < Math.min()) // true
@@ -25,7 +25,7 @@ Why is that? Let’s check what the functions return:
 console.log(Math.max()) // -Infinity
 ```
 
-That’s weird — `[Infinity](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc)` is actually the biggest number in JavaScript, along with the values `[Number.MAX_VALUE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_VALUE)` and `[Number.MAX_SAFE_INTEGER](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)`.
+That’s weird — [`Infinity`](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc) is actually the biggest number in JavaScript, along with the values [`Number.MAX_VALUE`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_VALUE) and [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER).
 
 What does `Math.min()` return with no arguments?
 
@@ -33,15 +33,15 @@ What does `Math.min()` return with no arguments?
 console.log(Math.min()) // Infinity
 ```
 
-Again, we have the reverse of what we might expect — `[-Infinity](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc)` is the smallest number in JavaScript, along with `[Number.MIN_VALUE](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_VALUE)`.
+Again, we have the reverse of what we might expect — [`-Infinity`](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc) is the smallest number in JavaScript, along with [`Number.MIN_VALUE`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_VALUE).
 
 So why do `Math.min()` and `Math.max()` seem to have it backwards?
 
 The answer is buried in the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max#Description):
 
-> “`[-Infinity](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity)` is the initial comparant because almost every other value is bigger, that's why when no arguments are given, -`[Infinity](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity)` is returned.
+> “[`-Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity) is the initial comparant because almost every other value is bigger, that's why when no arguments are given, -[`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity) is returned.
 >
-> If at least one of arguments cannot be converted to a number, the result is `[NaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN)`.” — [MDN Docs for `Math.max()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max#Description)
+> If at least one of arguments cannot be converted to a number, the result is [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).” — [MDN Docs for `Math.max()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max#Description)
 
 Of course! `Math.max()` is just an implementation of a `for` loop over the parameters (check out [the actual Chrome V8 implementation](https://github.com/v8/v8/blob/cd81dd6d740ff82a1abbc68615e8769bd467f91e/src/js/math.js#L77-L102)).
 
@@ -49,9 +49,9 @@ So, `Math.max()` starts with a search value of `-Infinity`, because any other nu
 
 Similarly, `Math.min()` starts with the search value of `Infinity`:
 
-> “If no arguments are given, the result is `[Infinity](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity)`.
+> “If no arguments are given, the result is [`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity).
 >
-> If at least one of arguments cannot be converted to a number, the result is `[NaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN)`.” — [MDN Docs for `Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min#Description)
+> If at least one of arguments cannot be converted to a number, the result is [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).” — [MDN Docs for `Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min#Description)
 
 [The ECMAScript Specification](https://www.ecma-international.org/ecma-262/10.0/index.html#sec-math.max) for `Math.max()` and `Math.min()` also points out that `+0` is considered to be larger than `-0` by these functions:
 
@@ -67,7 +67,7 @@ console.log(Object.is(+0,-0)) // false
 
 That behavior is different than the [`>` greater than and `\<` less than operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators), which consider `-0` [negative zero](https://medium.com/coding-at-dawn/is-negative-zero-0-a-number-in-javascript-c62739f80114) to be equal to `+0` positive zero.
 
-Technically, `-0` negative zero is equal to `0` positive zero according to [the `==` and `===` equality operators,](https://medium.com/better-programming/making-sense-of-vs-in-javascript-f9dbbc6352e3) but not according to `[Object.is()](https://medium.com/coding-at-dawn/es6-object-is-vs-in-javascript-7ce873064719)`.
+Technically, `-0` negative zero is equal to `0` positive zero according to [the `==` and `===` equality operators,](https://medium.com/better-programming/making-sense-of-vs-in-javascript-f9dbbc6352e3) but not according to [`Object.is()`](https://medium.com/coding-at-dawn/es6-object-is-vs-in-javascript-7ce873064719).
 
 So, in a sense, `Math.max()` and `Math.min()` are smarter for `-0` negative zero than a naive implementation ([see lines 96–99 in the V8 code](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators)).
 
