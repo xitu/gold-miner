@@ -17,7 +17,7 @@
 
 有许多有趣的方法可以实现这个图标。我们将学习使用 Adobe Illustrator 实现的 5 个方法，同时还可以学习到适用于任何矢量绘图的技术。
 
-(**键盘快捷键**备注在括号中。)
+（**键盘快捷键**备注在括号中。）
 
 ## 方法 1：圆角星
 
@@ -49,7 +49,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*taP3_LzZS0jakCB8K2Cg3w.png)
 
-在选中两个图案后，通过从圆角星上减去较小的圆来清理图标（**探路者（Pathfinder）** 面板 > **减去前面的图案（Minus Front）**)。
+在选中两个图案后，通过从圆角星上减去较小的圆来清理图标（**路径查找器（Pathfinder）** 面板 > **减去前面的图案（Minus Front）**)。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*OXarwXairILpFXYEXZ-6IA.png)
 
@@ -85,7 +85,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*TpvBycrleLcrPgQhobWR2g.png)
 
-与方法 1 类似，我们将通过从较大的形状中减去较小的圆来得到图标（**探路者（Pathfinder）** 面板 > **减去前面（Minus Front）**）。
+与方法 1 类似，我们将通过从较大的形状中减去较小的圆来得到图标（**路径查找器（Pathfinder）** 面板 > **减去前面（Minus Front）**）。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*Dvsus1_nX3QpU7E3Db8Akg.png)
 
@@ -141,7 +141,7 @@
 
 接着我们给图案添加内圆。
 
-点击**探路者（Pathfinder）**面板组合 > 合并**（Unite）**，来将所有图形合并。
+点击**路径查找器（Pathfinder）**面板组合 > 合并**（Unite）**，来将所有图形合并。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*BJVbsvvgcKtWpKjAH3AEmw.png)
 
@@ -149,7 +149,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*Vo4vsPYqBJVfb-IinHiwFw.png)
 
-点击 **探路者（Pathfinder）** 面板 > **减去前面的图案（Minus Front）** 来从较大的形状中减去中心较小的圆。
+点击 **路径查找器（Pathfinder）** 面板 > **减去前面的图案（Minus Front）** 来从较大的形状中减去中心较小的圆。
 
 不断尝试！不同的源图形会产生不同的齿轮结果。
 
@@ -181,7 +181,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*hGWMbewTlFDoxs_B--RICw.png)
 
-使用**探路者（Pathfinder）** 面板 > **减去前面的图案（Minus Front）**，从大的圆中减去小的圆。
+使用**路径查找器（Pathfinder）** 面板 > **减去前面的图案（Minus Front）**，从大的圆中减去小的圆。
 
 接着我们给拐角加一些圆角。使用**直接选择工具（Direct Selection Tool）**（**A**），拖动小圆点来调整圆角的半径。
 
@@ -209,7 +209,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*Zqu7DDvt0TVfV2rmlYqJLQ.png)
 
-选择这两个图形。**探路者（Pathfinder）** 面板 > **相交（Intersect）**。 
+选择这两个图形。**路径查找器（Pathfinder）** 面板 > **相交（Intersect）**。 
 
 ![](https://cdn-images-1.medium.com/max/4000/1*GvWwEYCuXHmZ7lzpp0nZnQ.png)
 
@@ -217,7 +217,7 @@
 
 ![](https://cdn-images-1.medium.com/max/4000/1*NclTXoSkV7L1ESDlALrGAg.png)
 
-**探路者（Pathfinder）** 面板 > **联合（Unite）**。 现在我们得到一个齿轮的轮廓啦。
+**路径查找器（Pathfinder）** 面板 > **联合（Unite）**。 现在我们得到一个齿轮的轮廓啦。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*9kHuhbQmdzgV6HPRi07jAA.png)
 
@@ -267,7 +267,7 @@
 
 ---
 
-更多关于图像学的文章:
+更多关于图像设计的文章:
 
 * [关于 icon 设计的 7 个准则](https://medium.com/@minoraxis/7-principles-of-icon-design-e7187539e4a2) （[译文连接](https://juejin.im/post/5e5dbd3e6fb9a07cd323dd2b)）
 * icon 网格 & 关键线大揭秘 **（即将推出）**
