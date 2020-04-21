@@ -7,11 +7,11 @@
 
 # Why Math.max() is Less Than Math.min() in JavaScript
 
-#### Math.max() \< Math.min() === true
-
-#### Surprised? Here’s why JavaScript’s maximum function is less than its minimum function when no arguments are passed.
-
 ![Photo by [Brett Jordan](https://unsplash.com/@brett_jordan?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9196/0*NqSH9Eveu-3BTQ2V)
+
+> **Math.max() \< Math.min() === true **
+
+Surprised? Here’s why JavaScript’s maximum function is less than its minimum function when no arguments are passed.
 
 Did you know that `[Math.max()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)` with no arguments returns a value that is smaller than `[Math.min()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min)` with no arguments in JavaScript?
 
@@ -72,14 +72,11 @@ Technically, `-0` negative zero is equal to `0` positive zero according to [the 
 So, in a sense, `Math.max()` and `Math.min()` are smarter for `-0` negative zero than a naive implementation ([see lines 96–99 in the V8 code](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators)).
 
 Like this article? Then you’ll like my article on the fastest way to [find the min and max in a JavaScript array](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621) — where I show a method of using `Math.max()` and `Math.min()` that is much faster than using the [`...` spread operator](https://medium.com/coding-at-dawn/how-to-use-the-spread-operator-in-javascript-b9e4a8b06fab):
-[**The Fastest Way to Find Minimum and Maximum Values in an Array in JavaScript**
-**JavaScript offers several ways to find the smallest and largest numbers in a list, including the built-in Math…**medium.com](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621)
+[**The Fastest Way to Find Minimum and Maximum Values in an Array in JavaScript**](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621)
 
 Now you know all the quirks of `Math.max()` and `Math.min()`!
 
 Happy Coding! 😊💻😉🔥🙃
-
-![Photo by [DaYsO](https://unsplash.com/@dayso?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6098/0*4LIUeFlJirUg9atL)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
