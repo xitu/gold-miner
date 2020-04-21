@@ -95,26 +95,26 @@
 
 因此，数据点按标准优先顺序排列如下：X3，X1，X2 和 X4。可以看出，在这种情况下，优先级与最小置信度略有不同。
 
-**Entropy:**
+**熵:**
 
-Finally, the last scoring function that we are gonna present here is the entropy score. Entropy is a concept that comes from thermodynamics; in a simple way, it can be understood as a measure of disorder in a system, for instance a gas in a closed box. The higher the entropy the more disorder there is, whereas if the entropy is low, it means that the gas might be mainly in one particular area such as a corner of the box (maybe when the experiment started, before expanding across the box).
+最后，我们在这里要给出的最后一个评分函数是熵得分。熵是一个来自热力学的概念。简单的说，熵可以理解为系统中无序性的度量，例如密闭盒中的气体。熵越高，无序性就越大，而如果熵低，则意味着气体可能主要位于一个特定区域，例如盒子的一角（也许在实验开始时，气体还未在整个盒子中扩展之前）。
 
-This concept can be reused to measure the certainty of a model. If a model is highly certain about a class for a given data point, it will probably have a high certainty for a particular class, whereas all the other classes will have low probability. Isn’t this very similar to having a gas in the corner of a box? In this case we have most of the probability assigned to a particular class. In the case of high entropy it would mean that the model distributes equally the probability for all classes as it is not certain at all which class that data point belongs to, similarly to having the gas distributed equally in all parts of the box. It is therefore straightforward to prioritise data points with higher entropy to the ones with lower entropy.
+可以重用此概念以度量模型的确定性。如果模型对给定数据点的类别具有高度的确定性，则对于特定类可能具有较高的确定性，而所有其他类的可能性均较低。这不正与气体在盒子的一角很相似吗？在这种情况下，我们将大部分概率分配给特定类别。在高熵的情况下，这意味着该模型将概率近似的分配给所有类别，因为模型根本不确定该数据点属于哪个类别，这与使气体均匀分布在盒子的所有区域的情况相似。因此，具有较高熵的数据点较具有较低熵的数据点应该有更高的优先级。
 
-Formally, we can define the entropy score prioritisation as follows:
+形式上，我们可以以如下形式定义熵得分：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sUuF5qqrW0CpArzejhNTNA.png)
 
-If we apply the entropy score to the example in Table 1:
+如果我们将熵得分方法应用于表 1 中的例子，有：
 
 * X1: **-0.9*log(0.9)-0.07*log(0.07)-0.03*log(0.03)** = 0.386
 * X2: **-0.87*log(0.87)-0.03*log(0.03)-0.1*log(0.1)** = 0.457
 * X3: **-0.2*log(0.2)-0.5*log(0.5)-0.3*log(0.3)** =1.03
 * X4: **-0*log(0)-0.01*log(0.01)-0.99*log(0.99)** = 0.056
 
-**Note that for X4, 0 should be changed for a small epsilon (e.g. 0.00001) for numerical stability.**
+**注意，对于 X4，0 应该被替换为小的正数（如 0.00001）以保证数值稳定。**
 
-In this case the data points should be shown in the following order: X3, X2, X1 and X4, which coincides with the order of the least confident scoring method!
+在这种情况下，数据点应按以下顺序显示：X3，X2，X1 和 X4，这与置信度方法的顺序一致！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
