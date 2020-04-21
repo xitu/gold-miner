@@ -25,13 +25,13 @@ To get started, I created a folder in my VSCode called `webscraper` . Within the
 
 In the terminal, we need to install puppeteer.
 
-```
+```bash
 npm i puppeteer
 ```
 
 Next, we need to import the required modules and libraries. The first lines of code in `netflixscrape.js` will be:
 
-```
+```js
 const puppeteer= require('puppeteer')
 const fs = require('fs')
 ```
@@ -42,11 +42,11 @@ const fs = require('fs')
 
 Let’s begin coding our `scrape()` function.
 
-```
+```js
 async function scrape (url) {
-const browser = await puppeteer.launch();
-const page = await browser.newPage();
-await page.goto(url)
+   const browser = await puppeteer.launch();
+   const page = await browser.newPage();
+   await page.goto(url)
 ```
 
 `scrape()` is going to take in an argument of a url. We start up our browser using `puppeteer.launch()` . `browser.newPage()` opens a blank page on the browser. Then, we tell the browser to go to the specified url.
@@ -67,7 +67,7 @@ Since I want to grab the movies’ titles and their summaries from the article, 
 
 Continuing with our code:
 
-```
+```js
 var movies = await page.evaluate(() => {
    var titlesList = document.querySelectorAll('h2');
    var movieArr = [];
@@ -98,13 +98,13 @@ If you’ve carefully navigated through the DevTools console, you’ll notice th
 
 Now that we’ve completed the main data extraction part, let’s store all of this in a JSON file.
 
-```
+```js
 fs.writeFile("./netflixscrape.json", JSON.stringify(movies, null, 3), (err) => {
-if (err) {
-console.error(err);
-return;
-};
-console.log("Great Success");
+   if (err) {
+      console.error(err);
+      return;
+   };
+   console.log("Great Success");
 });
 ```
 
@@ -129,12 +129,6 @@ If all goes well (which it should), you will get “Great Success” in your con
 ![](https://cdn-images-1.medium.com/max/5220/1*J8LazvNXbPlTgSCTs0n5cQ.png)
 
 Congrats!!👏 You’re officially a hacker! Just kidding. But now you know how to scrape the web to obtain data and create your own API’s, which is so much more thrilling.
-
-#### A note from JavaScript In Plain English
-
-We have launched three new publications! Show some love for our new publications by following them: [**AI in Plain English**](https://medium.com/ai-in-plain-english), [**UX in Plain English**](https://medium.com/ux-in-plain-english), **[Python in Plain English](https://medium.com/python-in-plain-english)** — thank you and keep learning!
-
-We are also always interested in helping to promote quality content. If you have an article that you would like to submit to any of our publications, send us an email at **[submissions@plainenglish.io](mailto:submissions@plainenglish.io)** with your Medium username and we will get you added as a writer. Also let us know which publication/s you want to be added to.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
