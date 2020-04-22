@@ -21,8 +21,8 @@
 
 The ReactDOM module will pass the `<App/ >` along to the reconciler. There are two questions here:
 
-1. What does `<App />` refer to?
-2. What is the reconciler?
+1. `<App />` 指的是什么?
+2. reconciler 是什么?
 
 让我们解开这两个问题。
 
@@ -75,19 +75,19 @@ const Form = (props) => {
 
 React 会调用 `render()` 以了解它渲染的元素，并最终会看到它渲染了一个带有子元素的 `<div>`。React 将重复此过程，直到知道页面上每个组件的基础 DOM 标签元素为止。
 
-This exact process of recursively traversing a tree to know the underlying DOM tag elements of a React app's component tree is known as reconciliation. By the end of the reconciliation, React knows the result of the DOM tree, and a renderer like react-dom or react-native applies the minimal set of changes necessary to update the DOM nodes
+递归遍历树以了解 React 应用程序组件树的底层 DOM 标签元素的确切过程称为协调。在协调结束时，React 知道了 DOM 树的结果，并且像 react-dom 或 react-native 这样的渲染器将应用更新 DOM 节点所需的最小更改集。
 
-So this means that when you call `ReactDOM.render()` or `setState()`, React performs a reconciliation. In the case of `setState`, it performs a traversal and figures out what changed in the tree by diffing the new tree with the rendered tree. Then it applies those changes to the current tree, thereby updating the state corresponding to the `setState()` call.
+因此，这意味着当你调用 `ReactDOM.render()` 或 `setState()` 时，React 将执行协调。在 setState 的情况下，它执行遍历并通过将新树与已渲染的树进行区分来找出树中发生了什么变化。然后，将这些更改应用于当前树，从而更新与 `setState()` 调用相关的 state。
 
-Now that we understand what reconciliation is, let's look at the pitfalls of this model.
+现在我们了解了协调是什么，让我们看一下该模式的陷阱。
 
-Oh, by the way -- why is this called the "stack" reconciler?
+哦，顺便说一句 —— 为什么将此称为“栈”协调器？
 
-This name is derived from the "stack" data structure, which is a last-in, first-out mechanism. And what does stack have anything to do with what we just saw? Well, as it turns out, since we are effectively doing a recursion, it has everything to do with a stack.
+此名称是从“栈”数据结构派生的，该数据结构是一种后进先出的机制。栈与我们刚刚看到的内容有什么关系？好吧，事实证明，由于我们有效地进行了递归，因此它与栈有关。
 
 ## 递归
 
-To understand why that's the case, let's take a simple example and see what happens in the [call stack](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack).
+要了解为什么会发生这种情况，让我们举一个简单的例子，看看[调用栈](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack)中会发生什么。
 
 ```js
 function fib(n) {
