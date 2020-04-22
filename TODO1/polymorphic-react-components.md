@@ -2,14 +2,14 @@
 > * 原文作者：[Andrew Branch](https://blog.andrewbran.ch/about) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/polymorphic-react-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/polymorphic-react-components.md)
-> * 译者：
+> * 译者：[zoomdong](https://github.com/fireairforce)
 > * 校对者：
 
-# Writing Type-Safe Polymorphic React Components (Without Crashing TypeScript)
+# 编写类型安全的多态 React 组件（不会导致 TypeScript 崩溃）
 
-When designing a React component for reusability, you often need to be able to pass different DOM attributes to the component’s container in different situations. Let’s say you’re building a `<Button />`. At first, you just need to allow a custom `className` to be merged in, but later, you need to support a wide range of attributes and event handlers that aren’t related to the component itself, but rather the context in which it’s used—say, `aria-describedby` when composed with a Tooltip component, or `tabIndex` and `onKeyDown` when contained in a component that manages focus with arrow keys.
+在设计具有可重用性的 React 组件时，通常需要能够在不同的情况下向组件的容器传递不同的 DOM 属性。假设你正在构建一个 `<Button />` 组件。首先，你只需要允许将自定义的 `className` 合并进去，但以后，你需要支持和该组件无关的各种属性和事件处理程序，而与组件所使用的上下文无关。例如，与工具提示组件组合时的 `aria-describedby` 属性，或者在用箭头管理焦点的组件中包含 `tableIndex` 和 `onKeyDown` 属性时。
 
-It’s impossible for Button to predict and to handle every special context where it might be used, so there’s a reasonable argument for allowing arbitrary extra props to be passed to Button, and letting it pass extra ones it doesn’t understand through.
+Button 组件不可能预测和处理每一个可能使用的特殊的上下文，因此有一个合理的理由可以允许任意额外的 props 给 Button 组件，并让它传递无法理解的额外的 props。
 
 ```tsx
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -32,17 +32,17 @@ function Button({ color, icon, className, children, ...props }: ButtonProps) {
 }
 ```
 
-Awesome: we can now pass extra props to the underlying `<button>` element, and it’s perfectly type-checked too. Since the props type extends `React.ButtonHTMLAttributes`, we can pass only props that are actually valid to end up on a `<button>`:
+这太棒了：我们现在可以将额外的 props 传递给底层的 `<button>` 元素，而且它也经过了完美的类型检查。由于 props 类型继承自 `React.ButtonHTMLAttributes`，因此我们能只能传递一些实际有效的 props 来结束 `<button>`：
 
 ```tsx
 <Button onKeyDown={({ currentTarget }) => { /* do something */ }} />
 <Button foo="bar" /> // Correctly errors 👍
 ```
 
-## When passthrough isn’t enough
-Half an hour after you send Button v1 to the product engineering team, they come back to you with a question: how do we use Button as a react-router Link? How about as an HTMLAnchorElement, a link to an external site? The component you sent them _only_ renders as an HTMLButtonElement.
+## 当直传参数还不够时
+在你将 Button v1 版本发给产品研发团队半小时之后，他们会来问你一个问题：怎么使用 Button 来做 react-router 的 Link？怎样做一个链接到外部站点的 HTMLAnchorElement？你发给他们的组件**仅仅**是渲染成 HTMLButtonElement。
 
-If we weren’t concerned about type safety, we could write this pretty easily in plain JavaScript:
+如果我们不关心类型安全，我们可以很轻松的使用普通 JavaScript 来写这个：
 
 ```tsx
 function Button({
@@ -69,20 +69,20 @@ function Button({
 Button.defaultProps = { tagName: 'button' };
 ```
 
-This makes it trivial for a consumer to use whatever tag or component they like as the container:
+这使得使用者可以轻松的使用他们喜欢的任意标签或组件来作为容器：
 
 ```tsx
 <Button tagName="a" href="https://github.com">GitHub</Button>
 <Button tagName={Link} to="/about">About</Button>
 ```
 
-But, how do we type this correctly? Button’s props can no longer unconditionally extend `React.ButtonHTMLAttributes`, because the extra props might not be passed to a `<button>`.
+但是？我们如何使用使类型正确呢？Button 的 props 不能再无条件的继承自 `React.ButtonHTMLAttributes`，因为多余的 props 可能不会传递给 `<button>`。
 
-> Fair warning: I’m going to go down a serious rabbit hole to explain several reasons why this doesn’t work well. If you’d rather just take my word for it, feel free to [jump ahead](#an-alternative-approach) to a better solution.
+> 警告：我将深入兔子窝，来解释为什么不能很好地工作的几个原因。如果你更愿意相信我的话，你可以[跳到](#an-alternative-approach)一个更好的解决方案。
 
 ![ ](https://github.com/andrewbranch/blog/blob/master/posts/images/rabbit-dark.png)
 
-Let’s start with a slightly simpler case where we only need to allow `tagName` to be `'a'` or `'button'`. (I’ll also remove props and elements that aren’t relevant to the point for brevity.) This would be a reasonable attempt:
+我们先从一个简单的例子开始，只允许 `tagName` 为 `'a'` 或 `'button'`。（我还会删除一些影响简洁性的 props 和属性。）这是一次合理的尝试：
 
 ```tsx
 interface ButtonProps {
@@ -96,29 +96,29 @@ function Button<P extends ButtonProps>({ tagName: TagName, ...props }: P & JSX.I
 <Button tagName="a" href="/" />
 ```
 
-> N.B. To make sense of this, a basic knowledge of [JSX.IntrinsicElements](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0bb210867d16170c4a08d9ce5d132817651a0f80/types/react/index.d.ts#L2829) is required. Here’s a [great deep dive on JSX in TypeScript](https://dev.to/ferdaber/typescript-and-jsx-part-iii---typing-the-props-for-a-component-1pg2) by one of the maintainers of the React type definitions.
+> 注意：要理解这一点，要具备 [JSX.IntrinsicElements](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0bb210867d16170c4a08d9ce5d132817651a0f80/types/react/index.d.ts#L2829) 的基础知识。这是 React 类型定义的维护者之一对 [TypeScript 中的 JSX 的深入研究](https://dev.to/ferdaber/typescript-and-jsx-part-iii---typing-the-props-for-a-component-1pg2)。
 
-The two immediate observations that arise are
+出现的两个直接观察的结果是
 
-1. It doesn’t compile—it tells us, in so many words, that the type of `props.ref` is not correct for the type of `TagName`.
-2. Despite that, it _does_ kind of produce the results we want when `tagName` is inferred as a string literal type. We even get completions from `AnchorHTMLAttributes`:
+1. 它不会编译 —— 它用很多字告诉我们，`props.ref` 的类型不适合 `TagName` 的类型。
+2. 尽管如此，当 `tagName` 被推断为字符串文字类型时，它确实会产生我们想要的结果。我们甚至可以从 `AnchorHTMLAttributes` 那里得到完整的信息：
 
 ![A screenshot of VS Code’s completion list in a JSX property position on the Button JSX tag from the previous example. The list includes href, hrefLang, inputMode, and other valid properties of anchor tags and button tags.](https://github.com/andrewbranch/blog/blob/master/posts/images/jsx-prop-completions.png)
 
-However, a little more experimentation reveals that we’ve also effectively disabled excess property checking:
+然而，更多的实验表明，我们也有效地禁用了多余的属性检查：
 
 ```tsx
 <button href="/" fakeProp={1} /> // correct errors 👍
 <Button tagName="button" href="/" fakeProp={1} /> // no errors 👎
 ```
 
-Every prop you put on Button will be inferred as a property of the type parameter `P`, which in turn becomes part of the props that are allowed. In other words, the set of allowed props always includes all the props you pass. The moment you add a prop, it becomes part of the very definition of what Button’s props should be. (In fact, you can witness this by hovering `Button` in the example above.) This is decidedly the opposite of how you intend to define React components.
+Button 上的每个 prop 都将被推断为类型参数 `P` 的属性，而类型参数 `P` 又成为被允许的 prop 的一部分。换句话说，允许的 props 总是包括你传递的所有 props。当你添加一个 prop 时，它就成为了 Button 的 props 的一部分。（实际上，你可以通过在上面的示例中悬停在 `Button` 的内容来看到这一点。）这显然与你打算如何定义 React 组件相反。
 
-### What’s the problem with `ref`?
+### `ref` 有什么问题？
 
-If you’re not yet convinced to abandon this approach, or if you’re just curious why the above snippet doesn’t compile cleanly, let’s go deeper down the rabbit hole. And before you implement a clever workaround with `Omit<typeof props, 'ref'>`, spoiler alert: `ref` isn’t the only problem; it’s just the _first_ problem. The rest of the problems are _every event handler prop_.[^1]
+如果你还没有被说服放弃使用这种方法，或者你只是好奇为什么上面的代码片段编译得不好，那让我们深入兔子窝。在你使用 `Omit<typeof props, 'ref'>` 实现一个比较清晰的解决方案时，会被警告：`ref` 并不是唯一的问题，这只是第一个问题。其余的问题是每个事件处理程序的 prop。[^1]
 
-So what do `ref` and `onCopy` have in common? They both have the general form `(param: T) => void` where `T` mentions the instance type of the DOM element rendered: `HTMLButtonElement` for buttons and `HTMLAnchorElement` for anchors, for example. If you want to call a _union_ of call signatures, you have to pass the _intersection_ of their parameter types to ensure that regardless of which function gets called at runtime, it receives a subtype of what it expects for its parameter.[^2] Easier shown than said:
+那么 `ref` 和 `onCopy` 有什么共同点呢？他们都有共同的形式：`(param: T) => void`，其中 `T` 指的是渲染的 DOM 元素的实例类型：例如 `HTMLButtonElement` 用于按钮， `HTMLAnchorElement` 用于锚点。如果要调用被调用参数类型的并集，则必须传递它们的参数类型的交集，以确保无论在运行时调用哪个函数，该函数都将接收对其参数期望的子类型。[^2] 简单的例子如下：
 
 ```ts
 function addOneToA(obj: { a: number }) {
@@ -129,44 +129,44 @@ function addOneToB(obj: { b: number }) {
   obj.b++;
 }
 
-// Let’s say we have a function that could be either
-// of the ones declared above
+// 假设我们有一个函数
+// 它可以是上面声明的函数类型
 declare var fn: typeof addOneToA | typeof addOneToB;
 
-// The function might access a property 'a' or 'b'
-// of whatever we pass, so intuitively, the object
-// needs to define both those properties.
+// 函数可能会访问我们传递的任何一个属性 'a' 或 'b'
+// 因此直观地说
+// 对象需要定义这两个属性
 fn({ a: 0 });
 fn({ b: 0 });
 fn({ a: 0, b: 0 });
 ```
 
-In this example, it should be easy to recognize that we have to pass `fn` an object with the type `{ a: number, b: number }`, which is the _intersection_ of `{ a: number }` and `{ b: number }`. The same thing is happening with `ref` and all the event handlers:
+在这个例子中，可以很容易看出来我们必须向 `fn` 传递一个类型为 `{ a: number, b: number }` 的对象，它是 `{ a: number }` 和 `{ b: number }` 的交集。同样这也会发生在 `ref` 和所有的事件处理程序上面：
 
 ```ts
 type Props1 = JSX.IntrinsicElements['a' | 'button'];
 
-// Simplifies to...
+// 简化为：
 type Props2 =
   | JSX.IntrinsicElements['a']
   | JSX.IntrinsicElements['button'];
 
-// Which means ref is...
+// 这意味着 ref 是...
 type Ref =
   | JSX.IntrinsicElements['a']['ref']
   | JSX.IntrinsicElements['button']['ref'];
 
-// Which is a union of functions!
+// 这是函数的并集！
 declare var ref: Ref;
-// (Let’s ignore string refs)
+// 忽略掉字符串的引用
 if (typeof ref === 'function') {
-  // So it wants `HTMLButtonElement & HTMLAnchorElement`
+  // 因此，它需要 `HTMLButtonElement & HTMLAnchorElement`
   ref(new HTMLButtonElement());
   ref(new HTMLAnchorElement());
 }
 ```
 
-So now we can see why, rather than requiring the _union_ of the parameter types, `HTMLAnchorElement | HTMLButtonElement`, `ref` requires the _intersection_: `HTMLAnchorElement & HTMLButtonElement`—a theoretically possible type, but not one that will occur in the wild of the DOM. And we know intuitively that if we have a React element that’s either an anchor or a button, the value passed to `ref` will be either be an `HTMLAnchorElement` or an `HTMLButtonElement`, so the function we provide for `ref` _should_ accept an `HTMLAnchorElement | HTMLButtonElement`. Ergo, back to our original component, we can see that `JSX.IntrinsicElements[P['tagName']]` legitimately allows unsafe types for callbacks when `P['tagName']` is a union, and that’s what the compiler is complaining about. The manifest example of an unsafe operation that could occur by ignoring this type error:
+现在我们可以看到，为什么 `ref` 不要参数类型是 `HTMLAnchorElement | HTMLButtonElement` 的并集，而是需要它们的交集：`HTMLAnchorElement & HTMLButtonElement` —— 理论上可行的类型，但不是在 DOM 中出现的类型。而且我们直观地知道，如果我们有一个 React 元素，要么是锚，要么是 Button，传递给 `ref` 的值要么是 `HTMLAnchorElement`，要么是 `HTMLButtonElement`，所以我们提供给 `ref` 的函数应该是能够接受 `HTMLAnchorElement | HTMLButtonElement` 的。因此，回到原来的组件，我们可以看到当 `P['tagName']` 是一个并集的时候，`JSX.IntrinsicElements[P['tagName']]` 能够合理的允许使用不安全的回调类型，而这正是编译器所抱怨的。通过忽略此类型错误可能发生的不安全操作的例子：
 
 ```tsx
 <Button
@@ -175,9 +175,9 @@ So now we can see why, rather than requiring the _union_ of the parameter types,
 />
 ```
 
-### Writing a better type for `props`
+### 写一个更好的 `props` 类型
 
-I think what makes this problem unintuitive is that you always expect `tagName` to instantiate as exactly one string literal type, not a union. And in that case, `JSX.IntrinsicElements[P['tagName']]` is sound. Nevertheless, inside the component function, `TagName` looks like a union, so the props need to be typed as an intersection. As it turns out, it this [is possible](https://stackoverflow.com/questions/50374908/transform-union-type-to-intersection-type), but it’s a bit of a hack. So much so, I’m not going even going to put `UnionToIntersection` down in writing here. Don’t try this at home:
+我认为使这个问题不直观的原因是你总是希望将 `tagName` 实例化为一个字符串文本类型，而不是一个联合类型。在这种情况下，`JSX.IntrinsicElements[P['tagName']]` 是合理。然而在组件函数内部，`TagName` 看起来是联合类型，因此 props 输入的时候要为交集。事实证明，这是[可能的](https://stackoverflow.com/questions/50374908/transform-union-type-to-intersection-type)，但这有点老生常谈。因此在这我们甚至不会把 `UnionToIntersection` 写下来。不要一个人尝试这个：
 
 ```tsx
 interface ButtonProps {
@@ -194,7 +194,7 @@ function Button<P extends ButtonProps>({
 <Button tagName="button" type="foo" /> // Correct error! 🎉
 ```
 
-How about when `tagName` is a union?
+当 `tagName` 是一个类型的时候又会怎么样呢？
 
 ```tsx
 <Button
@@ -203,11 +203,11 @@ How about when `tagName` is a union?
 />
 ```
 
-Let’s not celebrate prematurely, though: we haven’t solved our effective lack of excess property checking, which is an unacceptable tradeoff.
+不过，我们不要过早地庆祝：我们还没有有效的解决缺乏过多的属性检查，这是一个不可接受的折衷。
 
-### Getting excess property checking back
+### 取回多余的属性检查
 
-As we discovered earlier, the problem with excess property checking is that all of our props become part of the type parameter `P`. We need a type parameter in order to infer `tagName` as a string literal unit type instead of a large union, but maybe the rest of our props don’t need to be generic at all:
+正如我们之前所发现的，过量属性检查来带问题是，我们所有的props都会成为类型参数 `P` 的一部分。我们需要一个类型参数，以便将 `tagName` 推断为字符串文字单位类型，而不是一个联合类型，可能其他属性根本不需要是泛型的：
 
 ```tsx
 interface ButtonProps<T extends 'a' | 'button'> {
@@ -222,9 +222,9 @@ function Button<T extends 'a' | 'button'>({
 }
 ```
 
-Uh-oh. What is this new and unusual error?
+这是什么新的和不寻常的错误？
 
-It comes from the combination of the generic `TagName` and React’s definition for [JSX.LibraryManagedAttributes](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e4a0d4f532b177fc800e8ade7f1b39e9879d4b3c/types/react/index.d.ts#L2817-L2821) as a [distributive conditional type](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types). TypeScript currently doesn’t allow _anything_ to be assigned to conditional type whose “checked type” (the bit before the `?`) is generic:
+它来自 `TagName` 泛型 和 React 对 [JSX.LibraryManagedAttributes](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e4a0d4f532b177fc800e8ade7f1b39e9879d4b3c/types/react/index.d.ts#L2817-L2821) 的定义作为一种[分布式条件类型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types)的组合。TypeScript 目前不允许将任何东西赋值给条件类型，条件类型的检查类型（在 `?` 之前）是通用的：
 
 ```ts
 type AlwaysNumber<T> = T extends unknown ? number : number;
@@ -234,27 +234,27 @@ function fn<T>() {
 }
 ```
 
-Clearly, the declared type of `x` will always be `number`, and yet `3` isn’t assignable to it. What you’re seeing is a conservative simplification guarding against cases where distributivity might change the resulting type:
+显然，声明的 `x` 类型总是 `number`，但 `3` 不能赋值给它。你看到的是一个保守的简化，可以防止分布可能更改结果类型的情况：
 
 ```ts
-// These types appear the same, since all `T` extend `unknown`...
+// 这些类型看起来相同，因为所有的 `T` 都拓展了 `unknown`
 type Keys<T> = keyof T;
 type KeysConditional<T> = T extends unknown ? keyof T : never;
 
-// They’re the same here...
+// 这里是一样的
 type X1 = Keys<{ x: any, y: any }>;
 type X2 = KeysConditional<{ x: any, y: any }>;
 
-// But not here!
+// 但这里不相同
 type Y1 = Keys<{ x: any } | { y: any }>;
 type Y2 = KeysConditional<{ x: any } | { y: any }>;
 ```
 
-Because of the distributivity demonstrated here, it’s often unsafe to assume anything about a generic conditional type before it’s instantiated.
+由于这里演示的分布式特性，在实例化泛型条件类型之前假设它的任何内容通常都是不安全的。
 
-### Distributivity schmistributivity, I’m gonna make it work
+### 分布式施密特分布性，我将让它工作
 
-Ok, fine. Let’s say you work out a way around that assignability error, and you’re ready to replace `'a' | 'button'` with all `keyof JSX.IntrinsicElements`.
+假设你解决了这个可分配性错误，并准备将所有的 `'a' | 'button'` 替换为 `keyof JSX.IntrinsicElements`。
 
 ```tsx
 interface ButtonProps<T extends keyof JSX.IntrinsicElements> {
@@ -272,24 +272,24 @@ function Button<T extends keyof JSX.IntrinsicElements>({
 <Button tagName="a" href="/" />
 ``` 
 
-…and, congratulations, you’ve crashed TypeScript 3.4! The constraint type `keyof JSX.IntrinsicElements` is a union type of 173 keys, and the type checker will instantiate generics with their constraints to ensure all possible instantiations are safe. So that means `ButtonProps<T>` is a union of 173 object types, and, suffice it to say that `UnionToIntersection<...>` is one conditional type wrapped in another, one of which distributes into another union of 173 types upon which type inference is invoked. Long story short, you’ve just invented a button that cannot be reasoned about within Node’s default heap size. And we never even got around to supporting `<Button tagName={Link} />`!
+那么，恭喜你成功弄崩了 TypeScript 3.4！约束类型 `keyof JSX.IntrinsicElements` 173 个键的联合类型，类型检查器将用它们的约束实例化泛型，来确保所有可能的实例化都是安全的。这意味着 `ButtonProps<T>` 是 173 个对象类型的并集，并且可以说 `UnionToIntersection<...>` 是一个包裹在另一个对象类型中的条件类型，其中一个条件类型分布到另一个 173 个类型的并集上，并在此类型推断上进行调用。简而言之，你刚刚发明了一个无法在节点的默认堆大小内进行推理的 Button。而且我们甚至从来没有考虑过支持 `<Button tagName={Link} />`！
 
-TypeScript 3.5 _does_ handle this without crashing by deferring a lot of the work that was happening to simplify conditional types, but do you _really_ want to write components that are just waiting for the right moment to explode?
+TypeScript 3.5 可以通过推迟大量简化条件类型的工作来处理这个问题，而不会崩溃，但是你真的想编写只等待合适时机爆发的组件吗？
 
-> If you followed me this far down the rabbit hole, I’m duly impressed. I spent weeks getting here, and it only took you ten minutes!
+> 如果你跟着我走到兔子窝这么远，我真的很感动。我花了几个星期才到这里，但只花了你十分钟！
 
 ![ ](https://github.com/andrewbranch/blog/raw/master/posts/images/rabbit-head-dark.png)
 
-## An alternative approach
+## 另一种方法
 
-As we go back to the drawing board, let’s refresh on what we’re actually trying to accomplish. Our Button component should:
+当我们回到画板，刷新一下我们真正想要完成的东西。我们的按钮组件是这样的：
 
-* be able to accept arbitrary props like `onKeyDown` and `aria-describedby`
-* be able to render as a `button`, an `a` with an `href` prop, or a `Link` with a `to` prop
-* ensure that the root element has all the props it requires, and none that it doesn’t support
-* not crash TypeScript or bring your favorite code editor to a screeching halt
+* 能够接受任意的 props，例如 `onKeyDown` 和 `aria-describedby`
+* 能够被渲染为 `button`， 带有 `href` 属性的 `a` 标签， 或者带有 `to` 属性的 `Link` 组件
+* 确保根元素具有它需要的所有 props，并且没有不支持的
+* 不会使 TypeScript 崩溃或者使编辑器停下来
 
-It turns out that we can accomplish all of these with a render prop. I propose naming it `renderContainer` and giving it a sensible default:
+事实证明，我们可以使用渲染 prop 来完成这些工作。我建议命名为 `renderContainer` 并给它一个合理的默认值：
 
 ```tsx
 interface ButtonInjectedProps {
@@ -323,33 +323,33 @@ const defaultProps: Pick<ButtonProps, 'renderContainer'> = {
 Button.defaultProps = defaultProps;
 ```
 
-Let’s try it out:
+让我们尝试一下：
 
 ```tsx
-// Easy defaults
+// 简单的默认设置
 <Button />
 
-// Renders a Link, enforces `to` prop set
+// 渲染为 Link，强制设置 `to` 属性
 <Button
   renderContainer={props => <Link {...props} to="/" />}
 />
 
-// Renders an anchor, accepts `href` prop
+// 渲染为锚点，接收 `href` 属性
 <Button
   renderContainer={props => <a {...props} href="/" />}
 />
 
-// Renders a button with `aria-describedby`
+// 渲染为带有 `aria-describedby` 属性的 button
 <Button
   renderContainer={props =>
     <button {...props} aria-describedby="tooltip-1" />}
 />
 ```
 
-We completely defused the type bomb by getting rid of the 173-constituent union `keyof JSX.IntrinsicElements` while simultaneously allowing even more flexibility, _and_ it’s perfectly type-safe. Mission accomplished. 🎉 
+我们完全消除了 `keyof JSX.IntrinsicElements` 的 173 个组成联合键类型造成的类型错误，同时允许更大的灵活性，它是完美的，类型安全的。任务也完成了 🎉 
 
-## The overwritten prop caveat
-There’s a small cost to an API design like this. It’s fairly easy to make a mistake like this:
+## 覆盖的 prop 警告
+这样的 API 设计成本很小。犯这样的错误很容易：
 
 ```tsx
 <Button
@@ -359,11 +359,11 @@ There’s a small cost to an API design like this. It’s fairly easy to make a 
 />
 ```
 
-Oops. `{...props}` already included a  `className`, which was needed to make the Button look nice and be blue, and here we’ve completely overwritten that class with `my-custom-button`.
+`{...props}` 已经包含了 `className`，它使 Button 看起来更漂亮并且呈蓝色，并且这里我们已经完全覆盖了类 `my-custom-button`。
 
-On one hand, this provides the ultimate degree of customizability—the consumer has total control over what does and doesn’t go onto the container, allowing for fine-grained customizations that weren’t possible before. But on the other hand, you probably wanted to merge those classes 99% of the time, and it might not be obvious why it appears visually broken in this case.
+一方面，这提供了最高程度的可定制性 —— 用户可以完全控制哪些内容可以放到容器中，哪些不可以，允许进行以前不可能进行的细粒度定制。但是另一方面，你可能在 99% 的情况下都希望合并这些类，而且在这种情况下，为什么它在视觉上看起来是破碎的，这可能不是很明显。
 
-Depending on the complexity of the component, who your consumers are, and how solid your documentation is, this may or may not be a serious problem. When I started using patterns like this in my own work, I wrote a [small utility](https://github.com/andrewbranch/merge-props) to help with the ergonomics of merging injected and additional props:
+根据组件的复杂性、用户的身份以及文档的可靠性，这些可能是严重的问题，也可能不是。当我开始在自己的工作中使用这样的模式时，我写了一个 [小的实用程序](https://github.com/andrewbranch/merge-props)来帮忙实现附加 props 的合并：
 
 ```tsx
 <Button
@@ -376,12 +376,12 @@ Depending on the complexity of the component, who your consumers are, and how so
 />
 ```
 
-This ensures the class names are merged correctly, and if `ButtonInjectedProps` ever expands its definition to inject its own `onKeyDown`, both the injected one and the console-logging one provided here will be run.
+这样可以确保正确合并类名，如果 `ButtonInjectedProps` 扩展其定义来注入自己的 `onKeyDown`，则将运行此处提供的注入的类名和控制台日志记录的类名。
 
 - [^1]:
-  You can discover this, if you want, by going into the React typings and commenting out [the `ref` property](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/86303f134e12cf701a3f3f5e24867c3559351ea2/types/react/index.d.ts#L97). The compiler error will remain, substituting `onCopy` where it previously said `ref`.
-- [^2]:
-  I attempt to explain this relationship intuitively, but it arises from the fact that parameters are _contravariant_ positions within function signatures. There are several [good](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-6.html) [explanations](https://www.stephanboyer.com/post/132/what-are-covariance-and-contravariance) of this topic.
+  如果需要，你可以通过查看 React 类型并注释掉 [ref属性](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/86303f134e12cf701a3f3f5e24867c3559351ea2/types/react/index.d.ts#L97) 来发现这一点。编译器错误仍然存在，只是将 `onCopy` 替换为前面所说的 `ref`。
+- [^2]: 
+我试图直观地解释这种关系，但这是因为参数是函数签名中的逆变位置。关于这个话题有几个[很好](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-6.html)的[解释](https://www.stephanboyer.com/post/132/what-are-covariance-and-contravariance)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
