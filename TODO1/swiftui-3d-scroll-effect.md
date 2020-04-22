@@ -55,7 +55,7 @@ var body: some View {
 
 ## 展示矩形
 
-在 `HStack` 内部，我们根据 `colors` 中的数据分别创建不同颜色的矩形，所以我们使用 `ForEach`。我修改了矩形的 frame，目的是让它看起来与传统 UI 布局更像一些。
+我们使用 `ForEach` 在 `HStack` 内部根据 `colors` 中的数据分别创建不同颜色的矩形。此外，我修改了矩形的 frame，让它看起来与传统 UI 布局更像一些。
 
 ```swift
 var body: some View {
