@@ -2,46 +2,46 @@
 > * 原文作者：[John Au-Yeung](https://medium.com/@hohanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/performant-javascript-best-practices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/performant-javascript-best-practices.md)
-> * 译者：
-> * 校对者：
+> * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
+> * 校对者：[niayyy-S](https://github.com/niayyy-S), [xionglong58](https://github.com/xionglong58)
 
-# Performant JavaScript Best Practices
+# 高性能 JavaScript 最佳实践
 
 ![Photo by [Jason Chen](https://unsplash.com/@ja5on?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/5760/0*UyQ42ciE79LF-bK4)
 
-Like any program, JavaScript programs can get slow fast if we aren’t careful with writing our code.
+与其它程序一样，如果我们不细心编写代码，JavaScript 程序的运行速度可能会变得很慢。
 
-In this article, we’ll look at some best practices for writing fast JavaScript programs.
+在本文中，我们将介绍一些关于编写高性能 JavaScript 程序的最佳实践。
 
-## Reduce DOM Manipulation With Host Object and User’s Browser
+## 通过宿主对象 (Host Object) 与用户的浏览器来减少 DOM 操作
 
-DOM manipulation is slow. The more we do, the slower it’ll be. Since DOM manipulation is synchronous, each action is done one at a time, holding the rest of our program.
+DOM 操作是缓慢的。我们操作得越多，其速度就越慢。由于 DOM 操作是同步的，因此每个操作都是一次性完成的，同一时间程序的其它操作就被挂起了。
 
-Therefore, we should minimize the number of DOM manipulation actions that we're doing.
+所以，我们应该尽量减少正在执行的 DOM 操作。
 
-The DOM can be blocked by loading CSS and JavaScript. However, images aren’t blocking render so that they don’t hold up our page from finishing loading.
+加载 CSS 和 JavaScript 会阻塞 DOM。 不过，图像是不会阻塞渲染的，因此加载图像不会耽搁页面加载。
 
-However, we still want to minimize the size of our images.
+但是，我们仍然希望能尽可能降低图像的大小。
 
-Render blocking JavaScript code can be detected with Google PageSpeed Insights, which tells us how many pieces of render-blocking JavaScript code we have.
+可以通过 Google 的网页加载速度检测工具 (Google PageSpeed Insights) 检测阻塞渲染的 JavaScript 代码，它会告诉我们有多少段阻塞渲染的 JavaScript 代码。
 
-Any inline CSS would block the rendering of the whole page. They are the styles that are scattered within our page with `style` attributes.
+任何内联的 CSS 都会阻塞整个页面的渲染。它们是分散在页面中，使用 `style` 属性的样式。
 
-We should move them all to their own style sheets, inside the `style` tag, and below the body element.
+我们应该将它们全部移动到其所属的样式表中，放在 `style` 标签内，并放在 body 元素下方。
 
-CSS should be concatenated and minified to reduce the number of the stylesheet to load and their size.
+为了减少要加载的样式表数量及其大小，CSS 应该进行合并和压缩。
 
-We can also mark `link` tags as non-render blocking by using media queries. For instance, we can write the following to do that:
+我们也能通过媒体查询将 `link` 标签标记为不渲染的部分。例如，我们能通过编写以下代码来实现：
 
 ```html
 <link href="portrait.css" rel="stylesheet" media="orientation:portrait">
 ```
 
-so that it only loads when the page is displayed in portrait orientation.
+这样它就只会在页面纵向显示的时候被加载。
 
-We should move style manipulation outside of our JavaScript and put styles inside our CSS by putting styles within their own class in a stylesheet file.
+我们应该将样式操作移到 JavaScript 以外，并通过将样式放入样式表文件内它们所属的类中，以达到将样式放入 CSS 中的目的。
 
-For instance, we can write the following code to add a class in our CSS file:
+例如，我们可以编写以下代码，以在 CSS 文件中添加一个类：
 
 ```css
 .highlight {
@@ -49,62 +49,62 @@ For instance, we can write the following code to add a class in our CSS file:
 }
 ```
 
-and then we can add a class with the `classList` object as follows:
+然后我们可以通过 `classList` 对象添加一个类，如下所示：
 
 ```js
 const p = document.querySelector('p');
 p.classList.add('highlight');
 ```
 
-We set the p element DOM object to its own constant so we can cache it and reuse it anywhere and then we call `classList.add` to add the `hightlight` class to it.
+我们将 `p` 元素的 DOM 对象设置为常量，这样就可以缓存它，以便在任何地方复用，然后调用 `classList.add` 方法来给它添加 `hightlight` 类。
 
-We can also remove it if we no longer want it. This way, we don’t have to do a lot of unnecessary DOM manipulation operations in our JavaScript code.
+我们也可以在不使用的时候删掉它。这样，就不用在 JavaScript 代码中进行很多不必要的 DOM 操作了。
 
-If we have scripts that no other script depends on, we can load then asynchronously so that they don’t block the loading of other scripts.
+如果我们的脚本没有依赖其它脚本，则可以异步地加载它们，这样它们就不会阻塞其它脚本的加载了。
 
-We just put `async` in our script tag so that we can load our script asynchronously as follows:
+我们只需将 `async` 放进我们的脚本标签中，就可以实现异步加载了，如下所示：
 
 ```html
 <script async src="script.js"></script>
 ```
 
-Now `script.js` will load in the background instead of in the foreground.
+现在 `script.js` 将能够异步加载。
 
-We can also defer the loading of scripts by using the `defer` directive. However, it guarantees that the script in the order they were specified on the page.
+我们也可以通过 `defer` 指令来延迟脚本的加载。它还保证了脚本会按照页面上出现的顺序执行。
 
-This is a better choice if we want our scripts to load one after another without blocking the loading of other things.
+如果希望我们的脚本按顺序地加载，并且不阻塞其它加载，这是一个更好的选择。
 
-Minifying scripts is also a must-do task before putting our code into production. To do that, we use module bundlers like Webpack and Parcel, which so create a project and then build them for us automatically.
+在将我们的代码投入生产之前，压缩脚本也是一项必做的工作。为此，我们使用像 Webpack 和 Parcel 这样的模块化打包工具，它会为我们自动地创建并打包项目。
 
-Also, command-line tools for frameworks like Vue and Angular also do code minification automatically.
+同样的，Vue 和 Angular 框架的命令行工具也会自动进行压缩代码的工作。
 
-## Minimize the Number of Dependencies Our App Uses
+## 最小化我们的应用程序使用的依赖数量
 
-We should minimize the number of scripts and libraries that we use. Unused dependencies should also be removed.
+我们应该尽量最小化所使用的脚本和库，无用的依赖应该删除掉。
 
-For instance, if we’re using Lodash methods for array manipulation, then we can replace them with native JavaScript array methods, which are just as good.
+例如，如果我们为了操作数组而使用 Lodash 库的方法，那么我们可以使用原生的 JavaScript 数组方法替换之，效果同样好。
 
-Once we remove our dependency, we should remove them from `package.json` and the run `npm prune` to remove the dependency from our system.
+一旦删除依赖，我们同时应该从 `package.json` 中将其删除，并且运行 `npm prune` 命令，将这些依赖从我们的系统中清除。
 
 ![Photo by [Tim Carey](https://unsplash.com/@baudy?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6154/0*9Qx9V9XpyjsjvSME)
 
-## Poor Event Handling
+## 糟糕的事件处理
 
-Event handling code is always slow if they’re complex. We can improve performance by reducing the depth of our call stack.
+复杂的事件处理代码总是很慢。我们可以通过减少调用栈的深度来提高性能。
 
-That means we call as few functions as possible. Put everything in CSS style sheets if possible if we’re manipulating styles in our event handlers.
+这意味着我们将尽可能地少调用方法。如果我们在事件处理中操作样式的话，尽量将样式操作放入 CSS 样式表中。
 
-And do everything to reduce calling functions like using the `**` operator instead of calling `Math.pow` .
+尽量少调用方法，例如使用 `**` 操作符来代替 `Math.pow` 方法。
 
-## Conclusion
+## 结论
 
-We should reduce the number of dependencies and loading them in an async manner if possible.
+我们应该尽可能减少依赖的数量，并异步地加载它们。
 
-Also, we should reduce the CSS in our code and move them to their own stylesheets.
+另外，我们应该减少代码中的 CSS，并将它们挪到各自所属的样式表中。
 
-We can also add media queries so that stylesheets don’t load everywhere.
+我们还可以添加媒体查询，以便样式表不会在每种设备都加载。
 
-Finally, we should reduce the number of functions that are called in our code.
+最后，我们应该减少代码中方法被调用的次数。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
