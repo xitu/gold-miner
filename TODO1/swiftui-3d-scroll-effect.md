@@ -81,7 +81,7 @@ struct ColorList_Previews: PreviewProvider {
 }
 ```
 
-你可以看到下图中的效果:
+你可以看到下图中的效果：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*NfpStvbJHfMO2Tqq.png)
 
