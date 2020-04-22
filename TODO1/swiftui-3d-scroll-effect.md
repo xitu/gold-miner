@@ -121,7 +121,7 @@ var body: some View {
 
 下一步，把这个案例跑起来。当矩形在屏幕上移动时，你可以看到它们在旋转。
 
-> 我也修改了矩形的 cornerRadius 属性，又加上坠落的阴影效果，让它更美观。
+> 我还修改了矩形的 cornerRadius 属性，并加上了投影效果，让它更美观。
 
 ![Pretty cool right!?](https://cdn-images-1.medium.com/max/2000/0*IidRWGBSe936-9Ls.gif)
 
