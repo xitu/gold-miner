@@ -87,7 +87,7 @@ struct ColorList_Previews: PreviewProvider {
 
 ## 增加 3D 效果
 
-首先，把 `Rectangle` 嵌套在 `GeometryReader`中。这样的话，当 `Rectangle` 在屏幕上移动的时候，我们就可以获得 frame 的引用。
+首先，把 `Rectangle` 嵌套在 `GeometryReader` 中。这样的话，当 `Rectangle` 在屏幕上移动的时候，我们就可以获得其 frame 的引用。
 
 ```swift
 var body: some View {
