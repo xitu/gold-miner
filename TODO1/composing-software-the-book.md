@@ -60,7 +60,7 @@
 
 ---
 
-****Eric Elliott** 是一名分布式系统专家，并且是 [“组合软件”](https://leanpub.com/composingsoftware)和[“编写 JavaScript 程序”](https://ericelliottjs.com/product/programming-javascript-applications-ebook/)这两本书的作者。作为 [DevAnywhere.io](https://devanywhere.io/)的联合创始人，他教开发人员远程工作和实现工作以及生活平衡所需的技能。他创建了加密项目的开发团队，并为他们提供建议。他还在软件体验上为 **Adobe 系统、Zumba Fitness、华尔街日报、ESPN、BBC** 以及包括 **Usher、Frank Ocean、Metallica** 等在内的顶级唱片艺术家做出了贡献。**。
+**Eric Elliott** 是一名分布式系统专家，并且是 [《组合软件》](https://leanpub.com/composingsoftware)和[《编写 JavaScript 程序》](https://ericelliottjs.com/product/programming-javascript-applications-ebook/)这两本书的作者。作为 [EricElliottJS.com](https://ericelliottjs.com) 和 [DevAnywhere.io](https://devanywhere.io/) 的联合创始人，他教开发人员远程工作和实现工作以及生活平衡所需的技能。他创建了加密项目的开发团队，并为他们提供建议。他还在软件体验上为 **Adobe 系统、Zumba Fitness、华尔街日报、ESPN、BBC** 以及包括 **Usher、Frank Ocean、Metallica** 等在内的顶级唱片艺术家做出了贡献。
 
 **他和世界上最漂亮的女人一起享受着远程（工作）的生活方式。**
 
