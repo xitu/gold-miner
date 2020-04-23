@@ -2,58 +2,58 @@
 > * 原文作者：[Dr. Derek Austin 🥳](https://medium.com/@derek_develops)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-math-max-is-less-than-math-min-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-math-max-is-less-than-math-min-in-javascript.md)
-> * 译者：
+> * 译者：[zhanght9527](https://github.com/zhanght9527)
 > * 校对者：
 
-# Why Math.max() is Less Than Math.min() in JavaScript
+# 在 JavaScript 中为什么 Math.max() 会比 Math.min() 小？
 
-![Photo by [Brett Jordan](https://unsplash.com/@brett_jordan?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9196/0*NqSH9Eveu-3BTQ2V)
+![图片来自 [Brett Jordan](https://unsplash.com/@brett_jordan?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9196/0*NqSH9Eveu-3BTQ2V)
 
 > **Math.max() \< Math.min() === true**
 
-Surprised? Here’s why JavaScript’s maximum function is less than its minimum function when no arguments are passed.
+惊讶吗？这就是为什么在不传递参数时，JavaScript 中取最大值函数小于取最小值函数的原因。
 
-Did you know that [`Math.max()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max) with no arguments returns a value that is smaller than [`Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min) with no arguments in JavaScript?
+你知道在 JavaScript 中 [`Math.max()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max) 不传参数返回的值要比 [`Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min) 不传参数返回的值小的原因吗？
 
 ```JavaScript
 console.log(Math.max() < Math.min()) // true
 ```
 
-Why is that? Let’s check what the functions return:
+为什么会这样？让我们检查一下这个函数返回了什么：
 
 ```JavaScript
 console.log(Math.max()) // -Infinity
 ```
 
-That’s weird — [`Infinity`](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc) is actually the biggest number in JavaScript, along with the values [`Number.MAX_VALUE`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_VALUE) and [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER).
+很奇怪 —— 在 JavaScript 中 [`Infinity`](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc) 实际上是数值最大的数，还有 [`Number.MAX_VALUE`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_VALUE) 和 [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER).
 
-What does `Math.min()` return with no arguments?
+那么 `Math.min()` 不带参数会返回什么呢？
 
 ```JavaScript
 console.log(Math.min()) // Infinity
 ```
 
-Again, we have the reverse of what we might expect — [`-Infinity`](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc) is the smallest number in JavaScript, along with [`Number.MIN_VALUE`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_VALUE).
+又一次，我们所期待的恰恰相反 —— 在 JavaScript 中 [`-Infinity`](https://medium.com/swlh/what-is-infinity-in-javascript-%EF%B8%8F-1faf82f100bc) 应该是数值最小的数，还有 [`Number.MIN_VALUE`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_VALUE).
 
-So why do `Math.min()` and `Math.max()` seem to have it backwards?
+那么为什么 `Math.min()` 和 `Math.max()` 实际的值和我们预期的会相反呢？
 
-The answer is buried in the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max#Description):
+答案就藏在 [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max#Description) ：
 
-> “[`-Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity) is the initial comparant because almost every other value is bigger, that's why when no arguments are given, -[`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity) is returned.
+> “[`-Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity) 是初始比较项，因为几乎所有其他值都比它更大，这就是为什么没有给出参数的时候，会返回 -[`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity)。
 >
-> If at least one of arguments cannot be converted to a number, the result is [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).” — [MDN Docs for `Math.max()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max#Description)
+> 如果至少有一个参数让其不能转换为一个数字，那么结果将是 [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).” — [`Math.max()` 在 MDN 中的文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max#Description)
 
-Of course! `Math.max()` is just an implementation of a `for` loop over the parameters (check out [the actual Chrome V8 implementation](https://github.com/v8/v8/blob/cd81dd6d740ff82a1abbc68615e8769bd467f91e/src/js/math.js#L77-L102)).
+当然了！ `Math.max()` 只是一个基于 `for` 循环的参数实现 （看看 [Chrome V8 的实现](https://github.com/v8/v8/blob/cd81dd6d740ff82a1abbc68615e8769bd467f91e/src/js/math.js#L77-L102)）。
 
-So, `Math.max()` starts with a search value of `-Infinity`, because any other number is going to be greater than -Infinity.
+因此，`Math.max()` 会从 `-Infinity` 开始搜索，因为任何其他数字都比 `-Infinity` 大。 
 
-Similarly, `Math.min()` starts with the search value of `Infinity`:
+同样，`Math.min()` 会从 `Infinity` 开始搜索：
 
-> “If no arguments are given, the result is [`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity).
+> “如果没有传任何参数，那么将返回 [`Infinity`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity)。
 >
-> If at least one of arguments cannot be converted to a number, the result is [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).” — [MDN Docs for `Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min#Description)
+> 如果至少有一个参数不能转换为数字，那么将返回 [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN)。” — [MDN Docs for `Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min#Description)
 
-[The ECMAScript Specification](https://www.ecma-international.org/ecma-262/10.0/index.html#sec-math.max) for `Math.max()` and `Math.min()` also points out that `+0` is considered to be larger than `-0` by these functions:
+[ECMAScript 规范](https://www.ecma-international.org/ecma-262/10.0/index.html#sec-math.max) 对于 `Math.max()` 和 `Math.min()`也指出，通过这些函数，`+0` 被认为大于 `-0`：
 
 ```JavaScript
 console.log(Math.max(+0,-0)) // 0
