@@ -7,8 +7,6 @@
 
 # VueJS 3.0.0 Beta: Features I’m Excited About
 
-#### Exciting things in the new Vue 3.0.0 beta version and the history behind it.
-
 ![](https://cdn-images-1.medium.com/max/2560/1*RldyrFWyMYS5mhvUNmkw7g.jpeg)
 
 As of this writing VueJS 3.0.0 is now in Beta, in this article we will look at a quick overview of the Journey to the big release as presented by the Vue team at the latest ThisDot meetup online.
@@ -41,7 +39,7 @@ Support is now also available in this version for things like tree-shaking. Most
 
 The Vue team has introduced a new way to deal with code organization, initially in the 2.x versions we used options. Options are great but it has compiler drawbacks when trying to match or access Vue logic, also having to deal with JavaScript’s this too. So the composition API is a better solution for handling these and it also comes with freedom and flexibility to use and re-use pure JS functions in your Vue components which would result to use less lines of code entirely. The composition API looks like this:
 
-```
+```js
 <script>
 export default {
          setup() {
@@ -63,7 +61,7 @@ Do we now lose the options API? No, rather the composition API would be used sid
 
 Just like React, Vue JS will introduce fragments in Vue version 3.0.0, one of the main needs for fragments is that Vue templates can only have one tag. So a code block like this in a Vue template will return an error:
 
-```
+```html
 <template>   
  <div>Hello</div>   
  <div>World</div>   
@@ -99,14 +97,6 @@ Chances are low but you might run into inconsistencies with the 2.x versions and
 ## Conclusion
 
 This is an overview of the features shipping with the third version of Vue JS. The team at Vue has made sure that this version is the fastest frontend framework in the market. You can view the slides to the ThisDot online meetup [here](https://t.co/7TP5ZMtjK4?amp=1), stay safe and happy hacking. What is your favorite new feature?
-
-## Learn More
-[**How to Easily Share Vue Components Between Applications**
-**Learn how to easily share Vue components between different projects, sync changes, and build faster using Bit.**blog.bitsrc.io](https://blog.bitsrc.io/how-to-easily-share-vue-components-between-applications-1d30a1ad4e4d)
-[**10 Top VueJS Boilerplates for 2020**
-**Different VueJS boilerplates for different occasions.**blog.bitsrc.io](https://blog.bitsrc.io/10-top-vuejs-boilerplates-for-2020-c70192003d20)
-[**11 Top VueJS Developer Tools for 2020**
-**Vue developer tools you should add to your toolbox.**blog.bitsrc.io](https://blog.bitsrc.io/top-10-vuejs-developer-tools-becd61375447)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
