@@ -53,7 +53,7 @@ console.log(Math.min()) // Infinity
 >
 > 如果至少有一个参数不能转换为数字，那么将返回 [`NaN`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN)。” — [MDN Docs for `Math.min()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min#Description)
 
-[ECMAScript 规范](https://www.ecma-international.org/ecma-262/10.0/index.html#sec-math.max) 对于 `Math.max()` 和 `Math.min()`也指出，通过这些函数，`+0` 被认为大于 `-0`：
+[ECMAScript 规范](https://www.ecma-international.org/ecma-262/10.0/index.html#sec-math.max) 中对于 `Math.max()` 和 `Math.min()`也指出，通过这些函数，`+0` 被认为大于 `-0`：
 
 ```JavaScript
 console.log(Math.max(+0,-0)) // 0
@@ -65,16 +65,16 @@ console.log(+0 == -0) // true
 console.log(Object.is(+0,-0)) // false
 ```
 
-That behavior is different than the [`>` greater than and `\<` less than operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators), which consider `-0` [negative zero](https://medium.com/coding-at-dawn/is-negative-zero-0-a-number-in-javascript-c62739f80114) to be equal to `+0` positive zero.
+这种行为不同于 [`>` 大于和 `\<` 小于运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators)，后者认为 `-0` [负零](https://medium.com/coding-at-dawn/is-negative-zero-0-a-number-in-javascript-c62739f80114) 等于 `+0` 正零。
 
-Technically, `-0` negative zero is equal to `0` positive zero according to [the `==` and `===` equality operators,](https://medium.com/better-programming/making-sense-of-vs-in-javascript-f9dbbc6352e3) but not according to [`Object.is()`](https://medium.com/coding-at-dawn/es6-object-is-vs-in-javascript-7ce873064719).
+从技术上讲，根据 [`==` 和 `===` 相等运算符](https://medium.com/better-programming/making-sense-of-vs-in-javascript-f9dbbc6352e3) `-0` 负零是和 `0` 正零相等的，而不是根据 [`Object.is()`](https://medium.com/coding-at-dawn/es6-object-is-vs-in-javascript-7ce873064719)。
 
-So, in a sense, `Math.max()` and `Math.min()` are smarter for `-0` negative zero than a naive implementation ([see lines 96–99 in the V8 code](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators)).
+因此，在某种意义上，`Math.max()` 和 `Math.min()` 比 `-0` 负零单纯的实现更加地优雅（[参见V8代码中的第96-99行](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators)）。
 
-Like this article? Then you’ll like my article on the fastest way to [find the min and max in a JavaScript array](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621) — where I show a method of using `Math.max()` and `Math.min()` that is much faster than using the [`...` spread operator](https://medium.com/coding-at-dawn/how-to-use-the-spread-operator-in-javascript-b9e4a8b06fab):
-[**The Fastest Way to Find Minimum and Maximum Values in an Array in JavaScript**](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621)
+喜欢这篇文章吗？ 那么你会喜欢我的这篇文章：用最快的方式[在 JavaScript 数组中找到最大和最小值](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621) —— 我展示了一个使用 `Math.max()` 和 `Math.min()` 的方法，比使用 [`...` 扩展运算符](https://medium.com/coding-at-dawn/how-to-use-the-spread-operator-in-javascript-b9e4a8b06fab) 更快：
+[**用最快的方法在 JavaScript 中查找数组中最小值和最大值**](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621)
 
-Now you know all the quirks of `Math.max()` and `Math.min()`!
+现在你已经了解了 `Math.max()` 和 `Math.min()`的所有特性！
 
 Happy Coding! 😊💻😉🔥🙃
 
