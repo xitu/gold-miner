@@ -68,12 +68,12 @@ console.log(Object.is(+0,-0)) // false
 
 从技术上讲，根据 [`==` 和 `===` 相等运算符](https://medium.com/better-programming/making-sense-of-vs-in-javascript-f9dbbc6352e3) `-0` 负零是和 `0` 正零相等的，而不是根据 [`Object.is()`](https://medium.com/coding-at-dawn/es6-object-is-vs-in-javascript-7ce873064719)。
 
-因此，在某种意义上，`Math.max()` 和 `Math.min()` 比 `-0` 负零单纯的实现更加地优雅（[参见V8代码中的第96-99行](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators)）。
+因此，在某种意义上，`Math.max()` 和 `Math.min()` 比 `-0` 负零单纯的实现更加地优雅（[参见V8代码中的第 96-99 行](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Relational_operators)）。
 
 喜欢这篇文章吗？ 那么你会喜欢我的这篇文章：用最快的方式[在 JavaScript 数组中找到最大和最小值](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621) —— 我展示了一个使用 `Math.max()` 和 `Math.min()` 的方法，比使用 [`...` 扩展运算符](https://medium.com/coding-at-dawn/how-to-use-the-spread-operator-in-javascript-b9e4a8b06fab) 更快：
 [**用最快的方法在 JavaScript 中查找数组中最小值和最大值**](https://medium.com/coding-at-dawn/the-fastest-way-to-find-minimum-and-maximum-values-in-an-array-in-javascript-2511115f8621)
 
-现在你已经了解了 `Math.max()` 和 `Math.min()`的所有特性！
+现在你已经了解了 `Math.max()` 和 `Math.min()` 的所有特性！
 
 Happy Coding! 😊💻😉🔥🙃
 
