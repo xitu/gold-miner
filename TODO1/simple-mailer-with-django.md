@@ -7,8 +7,6 @@
 
 # Build a Simple Mailing Service with Django
 
-#### Easily modifying the content and changing email delivery platforms
-
 ![](https://cdn-images-1.medium.com/max/3840/1*vXc5t2OrAan1o9viF-MkBQ.png)
 
 When creating a web application, it is frequently requested to send emails: no matter if it has to be done when users sign up in our platform, or if they forget their password, or if a payment confirmation has to be sent after a purchase. The email requirement is actually very important and it can be messy if we don’t structure an email service from the beginning.
@@ -63,7 +61,6 @@ class RegisterView(APIView):
         except Exception as e:
             logger.error('Error at %s', 'register view', exc_info=e)
             return JsonResponse({'errors': 'Wrong data provided'}, status=400)
-
 ```
 
 Of course you must set up some important configurations in your settings like EMAIL_HOST and EMAIL_PORT, as the documentation says.
@@ -101,7 +98,6 @@ class BaseMailer():
             recipient_list=[self.to_email],
             fail_silently=False,
         )
-
 ```
 
 Let’s see how our register view will look like after this change:
@@ -143,7 +139,6 @@ class RegisterView(APIView):
         except Exception as e:
             logger.error('Error at %s', 'register view', exc_info=e)
             return JsonResponse({'errors': 'Wrong data provided'}, status=400)
-
 ```
 
 ## Subclass mailers
@@ -193,7 +188,6 @@ class NewOrderMailer(BaseMailer):
                          subject='New Order', 
                          message='You have just created a new order', 
                          html_message='<p>You have just created a new order.</p>')
-
 ```
 
 This shows that it is very easy to incorporate more mailers for different situations. You just have to let the basic mailer handle the implementation, and the subclasses set the content.
@@ -234,7 +228,6 @@ class RegisterView(APIView):
         except Exception as e:
             logger.error('Error at %s', 'register view', exc_info=e)
             return JsonResponse({'errors': 'Wrong data provided'}, status=400)
-
 ```
 
 ## Using Sendgrid
@@ -284,7 +277,6 @@ class RegisterMailer(BaseMailer):
 class NewOrderMailer(BaseMailer):
     def __init__(self, to_email):
         super().__init__(to_email, subject='New Order', template_id=5678)
-
 ```
 
 Be aware that you must set Sendgrid’s api key in your settings and also note that html templates will be managed directly from Sendrid’s web page, and you will need to have the templates’ ids to specify which one should be used.
@@ -347,7 +339,6 @@ class RegisterMailer(BaseMailer):
 class NewOrderMailer(BaseMailer):
     def __init__(self, to_email):
         super().__init__(to_email, subject='New Order', template_id=5678)
-
 ```
 
 The only problem I see here is that this substitutions scheme isn’t very flexible. It is likely to happen that we have to pass other data depending on the context that cannot be accessed via the user, for instance: new order’s number, reset password link, etc. There can be quite a lot of these variables and passing them as named parameters could make the code messier and dirtier. We want a keyworded, variable-length argument list, usually called ****kwargs, **but let’s name them** **substitutions** to make it more expressive:
@@ -404,7 +395,6 @@ class RegisterMailer(BaseMailer):
 class NewOrderMailer(BaseMailer):
     def __init__(self, to_email):
         super().__init__(to_email, subject='New Order', template_id=5678, **substitutions)
-
 ```
 
 In case you have to pass extra information to the mailer, you will do something like this:
