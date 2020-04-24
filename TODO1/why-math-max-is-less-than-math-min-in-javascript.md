@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-math-max-is-less-than-math-min-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-math-max-is-less-than-math-min-in-javascript.md)
 > * 译者：[zhanght9527](https://github.com/zhanght9527)
-> * 校对者：
 
 # 在 JavaScript 中为什么 Math.max() 会比 Math.min() 小？
 
