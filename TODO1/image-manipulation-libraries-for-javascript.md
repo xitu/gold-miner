@@ -7,21 +7,11 @@
 
 # 10 JavaScript Image Manipulation Libraries for 2020
 
-#### Image compression, processing, resizing, and more, for your next web app.
-
 ![](https://cdn-images-1.medium.com/max/2560/1*lXwMUm79vvrK_ZjazwqcbA.jpeg)
-
----
 
 Working with images in JavaScript can be quite difficult and cumbersome. Thankfully, there are a number of libraries that can make things a lot easier. Below are my favorite ones in different categories.
 
 If you’ve found something useful, try to wrap it as a component of your framework of choice. This way, you’d have a reusable component with a declarative API, always ready to be used.
-
-You can publish it to a cloud component hub, like [**Bit.dev**](https://bit.dev), with documentation and code examples. Once published, you can keep updating it from whatever project using it.
-
-![Exploring published React components in [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
-
----
 
 ## 1. Pica
 
@@ -146,7 +136,7 @@ This plugin would be my personal pick out of this list as I have gone through so
 
 **The HTML file**
 
-```
+```html
 <!--the gradients will be applied to these outer divs, as background-images-->
 <div class="gradient-wrap">
     <img src="./samples/finding-dory.jpg" alt="" />
@@ -158,7 +148,7 @@ This plugin would be my personal pick out of this list as I have gone through so
 
 **The JS script**
 
-```
+```html
 <script src="path/to/grade.js"></script>
 <script type="text/javascript">
     window.addEventListener('load', function(){
@@ -183,13 +173,6 @@ Hope you liked this article. If you think something deserves to be on this, feel
 
 Happy Coding!
 
-## Learn More
-[**10 Top Javascript Libraries and Tools for an Awesome UI/UX**
-**Recommended tools and libraries that will help you build a stunning web app in 2020**blog.bitsrc.io](https://blog.bitsrc.io/10-top-javascript-libraries-and-tools-for-an-awesome-ui-ux-828a314752cc)
-[**10 Useful Web APIs for 2020**
-**Awesome Web APIs for your next web app — with examples.**blog.bitsrc.io](https://blog.bitsrc.io/10-useful-web-apis-for-2020-8e43905cbdc5)
-[**11+ JavaScript Features You’ve Probably Never Used**
-**11+ useful JavaScript features you might have missed.**blog.bitsrc.io](https://blog.bitsrc.io/features-of-javascript-you-probably-never-used-4c117ba3f025)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
