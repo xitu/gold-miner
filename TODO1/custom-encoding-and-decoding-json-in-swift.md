@@ -30,7 +30,7 @@ So, first things first: let’s create an object and convert it to a JSON data f
 
 Let’s assume we have the following `struct` for insects:
 
-```
+```swift
 struct Insect: Codable {
     let insectId: Int
     let name: String
@@ -48,20 +48,20 @@ To sum up, we have three properties. **insectId** for the insect identifier, **n
 
 Now let’s create an insect:
 
-```
+```swift
 let newInsect = Insect(insectId: 1006, name: "ants", isHelpful: true)
 ```
 
 Our RESTful API expects to receive a JSON with this new insect information. Then we have to encode it:
 
-```
+```swift
 let encoder = JSONEncoder() 
 let insectData: Data? = try? encoder.encode(newInsect)
 ```
 
 That was easy: now **insectData** is an object of type `Data?`. We might want to check whether the encoding actually worked (just a check, you probably won't do this in your code). Let's rewrite the code above and use some optional unwrapping:
 
-```
+```swift
 let encoder = JSONEncoder()
 if let insectData = try? encoder.encode(newInsect),
     let jsonString = String(data: insectData, encoding: .utf8)
@@ -76,7 +76,7 @@ if let insectData = try? encoder.encode(newInsect),
 
 Then we print out the result which will look like this:
 
-```
+```json
 {"name":"ants","is_helpful":true,"insect_id":1006}
 ```
 
@@ -86,7 +86,7 @@ Then we print out the result which will look like this:
 
 Let’s suppose our RESTful API expects to receive the name of the insect uppercased. We need to create our own implementation of the encoding method so to make sure the name of the insect is sent uppercased. We must implement the method **func** encode(to encoder: Encoder) **throws** of the `Encodable` protocol inside our **Insect** `struct`.
 
-```
+```swift
 struct Insect: Codable {
     let insectId: Int
     let name: String
@@ -125,7 +125,7 @@ As you might have seen, the name of the insect is now uppercased despite we’ve
 
 So far we’ve been relying on the default decoding method of the `Decodable` protocol. But let's take a look at another scenario.
 
-```
+```json
 [
    {
       "insect_id":1001,
@@ -178,7 +178,7 @@ Time to use our own implementation of the **init**(from decoder: Decoder) **thro
 
 First of all, coding keys has changed because **is_helpful** is not a key in the same level as before AND there’s a new one called **details**. To fix that:
 
-```
+```swift
 enum CodingKeys: String, CodingKey {
         case insectId = "insect_id"
         case name
@@ -198,7 +198,7 @@ In lines 7 and 9 we create a new set of keys, the ones that exist inside **detai
 
 Now let’s dive into the decoder initialization:
 
-```
+```swift
 init(from decoder: Decoder) throws {
    let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -219,7 +219,7 @@ In line 7 we just decode the `Bool` value for the **isHelpful** property inside 
 
 BUT that’s not it. Since our **CodingKeys** has changed by adding the **details** case, our custom encoding implementation must be fixed. So let’s do that:
 
-```
+```swift
 func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(insectId, forKey: .insectId)
@@ -237,7 +237,7 @@ In line 6 we encode **isHelpful** INSIDE the brand new **details** nested contai
 
 So, to sum up, our **Insect** `struct` looks like this:
 
-```
+```swift
 struct Insect: Codable {
     let insectId: Int
     let name: String
@@ -275,7 +275,7 @@ struct Insect: Codable {
 
 If we decode it:
 
-```
+```swift
 let decoder = JSONDecoder()
 if let insects = try? decoder.decode([Insect].self, from: jsonData!) {
     print(insects)
