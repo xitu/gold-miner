@@ -18,7 +18,7 @@
 - 我们可以在 Google Tag Manager 中跟踪哪些东西？
 - 在哪里可以了解更多关于 Google Tag Manager 的信息？
 
-## 什么是 Google Tag Manager (GTM)?
+## 什么是 Google Tag Manager（GTM）？
 
 Google Tag Manager 一款允许你在你的网站（或移动应用）上管理和部署营销跟踪代码（代码片段或跟踪像素）而不必修改任何代码的工具，并且它是完全免费的。
 
@@ -26,7 +26,7 @@ Google Tag Manager 一款允许你在你的网站（或移动应用）上管理�
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/GTM-v2.jpg)
 
-Tag Manager 的一个巨大的好处就是，作为运营人员，你可以自己管理代码。“终于不再需要开发小哥哥了。 Whoo hoo！”
+Tag Manager 的一个巨大的好处就是，作为运营人员，你可以自己管理代码。“终于不再需要开发小哥哥了。Whoo hoo！”
 
 听起来很简单吧？不幸的是，事情没那么简单。
 
@@ -38,7 +38,7 @@ Tag Manager 的一个巨大的好处就是，作为运营人员，你可以自�
 
 他们说，这是一个“简单”的工具，任何运营人员都可以使用，而不需要网络开发人员。
 
-我可能会因为说下面的话而在评论区里被人批评，但我仍然坚持自己的立场。 **如果没有一些技术知识或培训（课程或自学），Google Tag Manager 使用起来还是比较困难的。**
+我可能会因为说下面的话而在评论区里被人批评，但我仍然坚持自己的立场。**如果没有一些技术知识或培训（课程或自学），Google Tag Manager 使用起来还是比较困难的。**
 
 你必须具备**一些**技术知识才能理解如何设置跟踪代码、触发器和变量。如果你也在使用 Facebook pixels，你也需要了解**一些** Facebook 像素追踪的原理。
 
@@ -63,7 +63,7 @@ Google Tag Manager 中常见的跟踪代码示例如下：
 - Google Analytics Universal tracking 代码
 - Adwords Remarketing 代码
 - Adwords Conversion Tracking 代码
-- Heatmap tracking 代码 (Hotjar, CrazyEgg, etc...)
+- Heatmap tracking 代码（Hotjar、CrazyEgg 等）
 - Facebook pixels
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/examples-of-tags.png)
@@ -107,7 +107,6 @@ Google Analytics 用于实际的报告和分析。所有转化跟踪目标（Goa
 一旦你越过了学习曲线，你可以在 Google Tag Manager 中做很多神奇的事情。你可以自定义发送到 Analytics 的数据。
 
 你可以设置和跟踪基本事件，如 PDF 下载、出站链接或按钮单击。或者，复杂的增强电子商务产品和促销跟踪也可以设置。
-
 
 假设我们想要跟踪网站上所有的出站链接。在 GTM 中，选择类别名称、动作和代码。我们选择站外链接，点击和点击 URL 。
 
@@ -153,7 +152,7 @@ Google Analytics 用于实际的报告和分析。所有转化跟踪目标（Goa
 
 ## 你可以在 GTM 跟踪什么？
 
-- 事件(链接点击、PDF 下载、添加购物车点击、删除购物车点击)
+- 事件（链接点击、PDF 下载、添加购物车点击、删除购物车点击）
 - 滚动跟踪
 - 表单被放弃
 - 购物车被遗弃
