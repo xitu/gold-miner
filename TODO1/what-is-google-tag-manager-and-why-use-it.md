@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-google-tag-manager-and-why-use-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-google-tag-manager-and-why-use-it.md)
 > * 译者：[zhanght9527](https://github.com/zhanght9527)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)
 
 # Google Tag Manager 的真相大揭秘
 
@@ -20,9 +20,9 @@
 
 ## 什么是 Google Tag Manager (GTM)?
 
-Google Tag Manager 一款允许你在你的网站（或移动应用）上管理和部署营销标签（代码片段或跟踪像素）而不必修改任何代码的工具，并且它是完全免费的。
+Google Tag Manager 一款允许你在你的网站（或移动应用）上管理和部署营销跟踪代码（代码片段或跟踪像素）而不必修改任何代码的工具，并且它是完全免费的。
 
-下面是一个 GTM 如何工作的非常简单的例子。来自一个数据源（你的网站）的信息通过 Google Tag Manager 与另一个数据源（Analytics）共享。当有很多标签需要管理时，GTM 变得非常方便，因为所有的代码都存储在一个地方。
+下面是一个 GTM 如何工作的非常简单的例子。来自一个数据源（你的网站）的信息通过 Google Tag Manager 与另一个数据源（Analytics）共享。当有很多代码需要管理时，GTM 变得非常方便，因为所有的代码都存储在一个地方。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/GTM-v2.jpg)
 
@@ -34,31 +34,31 @@ Tag Manager 的一个巨大的好处就是，作为运营人员，你可以自�
 
 根据 Google 的说法，
 
-> “Google Tag Manager 允许运营人员和网站管理员在同一个位置部署网站标签，从而帮助实现标签管理的**简单性**、**易用性**和**可靠性**。
+> “Google Tag Manager 允许运营人员和网站管理员在同一个位置部署网站跟踪代码，从而帮助实现代码管理的**简单性**、**易用性**和**可靠性**。
 
 他们说，这是一个“简单”的工具，任何运营人员都可以使用，而不需要网络开发人员。
 
-我可能会因为说这些而在评论区被人批评，但我仍然坚持自己的立场。 **如果没有一些技术知识或培训（课程或自学），Google Tag Manager 使用起来还是比较困难的。**
+我可能会因为说下面的话而在评论区里被人批评，但我仍然坚持自己的立场。 **如果没有一些技术知识或培训（课程或自学），Google Tag Manager 使用起来还是比较困难的。**
 
-你必须具备**一些**技术知识才能理解如何设置标签、触发器和变量。如果你也在使用 Facebook pixels，你也需要了解**一些** Facebook 像素追踪的原理。
+你必须具备**一些**技术知识才能理解如何设置跟踪代码、触发器和变量。如果你也在使用 Facebook pixels，你也需要了解**一些** Facebook 像素追踪的原理。
 
-如果你想在 Google Tag Manager 中设置事件跟踪，你需要了解**一些**关于什么是“事件”、Google Analytics 的工作原理、你可以用事件跟踪什么数据、Google Analytics 中的报告是什么样子以及如何命名你的类别、动作和标签的知识。
+如果你想在 Google Tag Manager 中设置事件跟踪，你需要了解**一些**关于什么是“事件”、Google Analytics 的工作原理、你可以用事件跟踪什么数据、Google Analytics 中的报告是什么样子以及如何命名你的类别、动作和跟踪代码的知识。
 
-虽然在 GTM 中管理多个标签是很“容易的”，但是也有一个学习曲线。一旦你越过了这个障碍，你便能轻松地驾驭 GTM。
+虽然在 GTM 中管理多个跟踪代码是很“容易的”，但是也有一个学习曲线。一旦你越过了这个障碍，你便能轻松地驾驭 GTM。
 
 ## 让我们看看 Google Tag Manager 是如何工作的...
 
 Google Tag Manager 有三个主要部分：
 
-- **标签**：Javascript片段或跟踪像素
-- **触发器**：告诉 GTM 何时或如何触发标签
+- **跟踪代码**：Javascript 片段或跟踪像素
+- **触发器**：告诉 GTM 何时或如何触发跟踪代码
 - **变量**：GTM 可能需要的能使代码和触发器正常工作的附加信息
 
-### 什么是标签？
+### 什么是跟踪代码？
 
-标签来自第三方工具的代码片段或跟踪像素。这些标签告诉 Google Tag Manager 需要去做**什么**。
+跟踪代码来自第三方工具的代码片段或跟踪像素。这些代码告诉 Google Tag Manager 需要去做**什么**。
 
-Google Tag Manager 中常见的标签示例如下：
+Google Tag Manager 中常见的跟踪代码示例如下：
 
 - Google Analytics Universal tracking 代码
 - Adwords Remarketing 代码
@@ -70,27 +70,27 @@ Google Tag Manager 中常见的标签示例如下：
 
 ### 什么是触发器？
 
-触发器是触发设置的标签的方法。它们告诉 Tag Manager **什么时候**去做你想做的事情。是要在页面视图中触发标签，单击链接还是自定义？
+触发器是触发设置的跟踪代码的方法。它们告诉 Tag Manager **什么时候**去做你想做的事情。是要在页面视图中触发代码，单击链接还是自定义？
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/example-triggers.png)
 
 ### 什么是变量？
 
-变量是 GTM 用于标签和触发器的工作的**可能**需要的附加信息。下面是一些不同变量的例子。
+变量是 GTM 跟踪代码和触发器工作**可能**需要的附加信息。下面是一些不同变量的例子。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/example-variables-2.png)
 
-在 GTM 中可以创建的最基本的常量变量类型是 Google Analytics UA number（跟踪ID编号）。
+在 GTM 中可以创建的最基本的常量变量类型是 Google Analytics UA number（跟踪 ID 编号）。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/example-variables.png)
 
-这些是 GTM 的一些基本元素，你需要知道这些元素才能开始自己管理标签。
+这些是 GTM 的一些基本元素，你需要知道这些元素才能开始自己管理跟踪代码。
 
-如果你现在觉得无聊的话，那么你管理你的标签将不会有任何问题。如果你仍然没有头绪，那么你需要去寻求技术人员的帮助了。
+如果读到这里你已经觉得枯燥的话，那么证明你可以熟练管理跟踪代码了。如果你仍然没有头绪，那么你需要去寻求技术人员的帮助了。
 
 ## Google Tag Manager 和 Google Analytics 有哪些不同？
 
-Google Tag Manager 是一个只用于存储和管理第三方代码的完全不同的工具，在GTM中没有任何报告或分析的功能。
+Google Tag Manager 是一个只用于存储和管理第三方代码的完全不同的工具，在 GTM 中没有任何报告或分析的功能。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/gtm-workspace.png)
 
@@ -98,7 +98,7 @@ Google Analytics 用于实际的报告和分析。所有转化跟踪目标（Goa
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/filters-goals.png)
 
-所有的报告（转化报告、自定义部分、电子商务销售、页面停留时间、跳出率、参与报道等）都在 Google Analytics 中完成。
+所有的报告（目标转化报告、自定义细分报告、电子商务销售报告、用户页面停留时间、用户跳出率、用户参与度报告等）都在 Google Analytics 中完成。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/google-analytics.png)
 
@@ -106,32 +106,32 @@ Google Analytics 用于实际的报告和分析。所有转化跟踪目标（Goa
 
 一旦你越过了学习曲线，你可以在 Google Tag Manager 中做很多神奇的事情。你可以自定义发送到 Analytics 的数据。
 
-你可以设置和跟踪基本事件，如PDF下载、出站链接或按钮单击。或者，复杂的增强电子商务产品和促销跟踪也可以设置。
+你可以设置和跟踪基本事件，如 PDF 下载、出站链接或按钮单击。或者，复杂的增强电子商务产品和促销跟踪也可以设置。
 
 
-假设我们想要跟踪网站上所有的出站链接。在 GTM 中，选择类别名称、动作和标签。我们选择站外链接，点击和点击URL。
+假设我们想要跟踪网站上所有的出站链接。在 GTM 中，选择类别名称、动作和代码。我们选择站外链接，点击和点击 URL 。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/customize-data.png)
 
-在 Google Analytics 前往行为 > 事件 > 热门事件 > 站外链接。
+在 Google Analytics 前往 Behavior > Events > Top Events > Offsite link。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/ga-events.png)
 
-现在，选择事件操作或标签以获得完整的报告。我们在 Google Tag Manager 中设置的数据现在出现在分析报告中。漂亮！
+现在，选择事件动作或代码以获得完整的报告。我们在 Google Tag Manager 中设置的数据现在出现在分析报告中。漂亮！
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/event-action-label.png)
 
-想要免费试用某个工具吗？你可以将代码添加到 Tag Manager 并进行测试，而不需要让开发人员参与其中。
+想要自由试用某个工具吗？你可以将代码添加到 Tag Manager 并进行测试，而不需要让开发人员参与其中。
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/freetrial.png)
 
 小贴士：
 
-- 它**可能**帮助加快你的网站加载速度但取决于你使用了多少标签。
+- 它**可能**帮助加快你的网站加载速度但取决于你使用了多少跟踪代码。
 - 它适用于非 Google 的产品。
 - 你可以灵活玩转并测试几乎任何你想要的东西。
 - 所有的第三方代码都在一个地方。
-- GTM 有一个预览和调试模式，所以在你做任何事情之前，你可以看到哪些是有效的，哪些不是。它会向你展示页面上正在触发的标签。**爱死这个功能了！**
+- GTM 有一个预览和调试模式，所以在你做任何事情之前，你可以看到哪些是有效的，哪些不是。它会向你展示页面上正在触发的跟踪代码。**爱死这个功能了！**
 
 ![](https://www.orbitmedia.com/wp-content/uploads/2017/03/preview-mode.png)
 
@@ -153,7 +153,7 @@ Google Analytics 用于实际的报告和分析。所有转化跟踪目标（Goa
 
 ## 你可以在 GTM 跟踪什么？
 
-- 事件(链接点击、PDF下载、添加购物车点击、删除购物车点击)
+- 事件(链接点击、PDF 下载、添加购物车点击、删除购物车点击)
 - 滚动跟踪
 - 表单被放弃
 - 购物车被遗弃
@@ -161,7 +161,7 @@ Google Analytics 用于实际的报告和分析。所有转化跟踪目标（Goa
 - [所有退出链接的单击](https://www.orbitmedia.com/blog/whered-they-go-track-every-exit-click-using-google-tag-manager-in-10-steps/)
 - ......
 
-我们只是粗略地介绍了一下你在 Google Tag Manager 中能做些什么，但是你可以做的东西似乎无穷无尽。但是，正如 [Himanshu Sharma 指出](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/) ，标签和数据源越多，管理起来就越困难。
+我们只是粗略地介绍了一下你在 Google Tag Manager 中能做些什么，但是你可以做的东西似乎无穷无尽。但是，正如 [Himanshu Sharma 指出](https://www.optimizesmart.com/may-no-longer-need-google-tag-manager/) ，跟踪代码和数据源越多，管理起来就越困难。
 
 ## 我在哪里可以了解更多关于 Google Tag Manager 的信息？
 
