@@ -5,11 +5,11 @@
 > * 译者：
 > * 校对者：
 
-# CSS Pseudo-Classes You Might Have Missed
+# 你可能会错过的 CSS 伪类
 
 ![](https://cdn-images-1.medium.com/max/2560/1*jrpPfGEYlAZlB5aRNMt2dA.jpeg)
 
-> **(Pseudo) selectors let you assign styles to what are, in effect, phantom classes that are inferred by the state of certain elements, or markup patterns within the document, or even by the state of the document itself.**
+> **（伪）选择器让你 selectors let you assign styles to what are, in effect, 幻影类phantom classes that are inferred by the state of certain elements, or markup patterns within the document, or even by the state of the document itself.**
 > **— CSS: The Definitive Guide: Eric Meyer, Estelle Weyl**
 
 This post is a sort-of encouragement to use more plain CSS and less JS when building your UI. Getting familiar with everything CSS has to offer is one way to achieving that — another one is implementing best practices and reusing that code, as much as possible.
