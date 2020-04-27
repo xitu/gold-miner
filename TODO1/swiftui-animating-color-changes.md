@@ -7,8 +7,6 @@
 
 # SwiftUI: Animating Color Changes
 
-#### Jean-Marc Boullianne
-
 Time to spice up your color changes! You’re going to learn how to animate background color changes in SwiftUI using `Paths` and `AnimatableData`!
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ZiMbs5MNguBktfIt.gif)
@@ -25,7 +23,7 @@ The key to our background color changing magic is going to be creating our own c
 
 Go ahead and create a new `Shape` struct called `SplashStruct`.
 
-```
+```swift
 import SwiftUI
 
 struct SplashShape: Shape {
@@ -44,7 +42,7 @@ For starters we’ll be creating two animations. `leftToRight` and `rightToLeft`
 
 We will create an `enum` called `SplashAnimation` for our custom animations. This will allow us to easily add more animations in the future (see the end for more!).
 
-```
+```swift
 import SwiftUI
 
 struct SplashShape: Shape {
@@ -62,7 +60,7 @@ struct SplashShape: Shape {
 
 In our `path()` function we'll switch on which animation our shape is using and generate the required `Path` for the animation. But first, we must create variables to hold the animation type as well as the progress of the animation.
 
-```
+```swift
 import SwiftUI
 
 struct SplashShape: Shape {
@@ -87,7 +85,7 @@ struct SplashShape: Shape {
 
 As said earlier we need to figure out what type of animation we’re using in order to return the correct `Path`. Start off by writing a `switch` statement in your `path()` function using the `animationType` defined earlier.
 
-```
+```swift
 func path(in rect: CGRect) -> Path {
    switch animationType {
        case .leftToRight:
@@ -104,7 +102,7 @@ As of right now, this will return empty paths. We need to actually create the fu
 
 Below your `path()` function, create two new functions called `leftToRight()` and `rightToLeft()` for each type of animation. Within each function, we will create a `Path` in the shape of a rectangle that will grow over time according to our `progress` variable.
 
-```
+```swift
 func leftToRight(rect: CGRect) -> Path {
     var path = Path()
     path.move(to: CGPoint(x: 0, y: 0)) // Top Left
@@ -128,7 +126,7 @@ func rightToLeft(rect: CGRect) -> Path {
 
 Then utilize the two new functions in your `path()` function above.
 
-```
+```swift
 func path(in rect: CGRect) -> Path {
    switch animationType {
        case .leftToRight:
@@ -143,7 +141,7 @@ func path(in rect: CGRect) -> Path {
 
 In order to make sure Swift knows how to animate our `Shape` when the `progress` variable is changed, we need to specify which variable is animating. Just below our `progress` and `animationType` variables, define `animatableData`. It's a variable based on the [`Animatable` protocol](https://developer.apple.com/documentation/swiftui/animatable) which helps SwiftUI know how to animate views when they change.
 
-```
+```swift
 var progress: CGFloat
 var animationType: SplashAnimation
 
@@ -161,7 +159,7 @@ Up to now we’ve created a `Shape` which will animate over time. Next we need t
 
 Get started by creating the `SplashView` struct.
 
-```
+```swift
 import SwiftUI
 
 struct SplashView: View {
@@ -177,7 +175,7 @@ Remember our `SplashShape` takes a `SplashAnimation` enum as a parameter so we'l
 
 `ColorStore` is a custom ObservableObject. It is used to recieve `Color` updates in the `SplashView` struct, so that we can initiate the `SplashShape` animation, and ultimately the background color change. We'll show how that works in a second.
 
-```
+```swift
 struct SplashView: View {
     
     var animationType: SplashShape.SplashAnimation
@@ -210,7 +208,7 @@ class ColorStore: ObservableObject {
 
 Inside the `body` variable we need to return a `Rectangle` set to the current color of the `SplashView`. Then using the `ColorStore` Obseravble Object defined earlier, we can receive color updates to animate our view.
 
-```
+```swift
 var body: some View {
     Rectangle()
         .foregroundColor(self.prevColor) // Current Color
@@ -228,7 +226,7 @@ When changing the colors, we need some way to keep track of the color that the `
 
 Now back inside our `body` variable we need to add the newly received `Colors` to the `layers` variable. When we add them, we set the progress to `0` since they were just added. Then, over the course of half a second we animate their progress to `1`.
 
-```
+```swift
 var body: some View {
     Rectangle()
         .foregroundColor(self.prevColor) // Current Color
@@ -245,7 +243,7 @@ var body: some View {
 
 As of right now, this will add the new colors to the` layers` variable, but they aren't displayed on top of the `SplashView`. To do this we need to display each layer as an overlay on the `Rectangle` inside the `body` variable.
 
-```
+```swift
 var body: some View {
     Rectangle()
         .foregroundColor(self.prevColor)
@@ -274,7 +272,7 @@ var body: some View {
 
 Using the code below you can give it a run inside an emulator. What this does, is when the button inside `ContentView` is pressed, it advances the `index` used to select the `SplashView` color, which triggers an update to the `ColorStore` inside. This make the `SplashView` add a `SplashShape` layer and animate it's addition to the view.
 
-```
+```swift
 import SwiftUI
 
 struct ContentView: View {
@@ -310,7 +308,7 @@ We’re missing one thing. AS of right now, we’re continuously adding layer up
 
 Inside your `onReceive()` function inside your `SplashView` struct's `body` variable, make the following change:
 
-```
+```swift
 .onReceive(self.colorStore.$color) { color in
     self.layers.append((color, 0))
 
@@ -344,7 +342,7 @@ If you’re familiar with my previous tutorials, you know I love extra credit �
 
 Wooohoo!! Remember this? I told you we’d come back to it to add more animation types.
 
-```
+```swift
 enum SplashAnimation {
     case leftToRight
     case rightToLeft
@@ -382,7 +380,7 @@ Let’s take this animation by animation…
 
 Much like `leftToRight` and `rightToLeft` these functions create a path which starts from the bottom or top of the shape and grows over time using the `progress` variable.
 
-```
+```swift
 func topToBottom(rect: CGRect) -> Path {
     var path = Path()
     path.move(to: CGPoint(x: 0, y: 0))
@@ -414,7 +412,7 @@ If you remember some of your grade school geometry, you’ll know the Pythagorea
 
 `a` and `b` can be considered our rectangle's `height` and `width`. This allows us to solve for `c`, the radius of the circle that is required to cover the entirety of the rectangle. We can build the circular path from this and grow it over time using the `progress` variable.
 
-```
+```swift
 func circle(rect: CGRect) -> Path {
     let a: CGFloat = rect.height / 2.0
     let b: CGFloat = rect.width / 2.0
@@ -441,7 +439,7 @@ This one is a little more involved. You need to calculate the slope of the angle
 
 The function is as follows:
 
-```
+```swift
 func angle(rect: CGRect, angle: Angle) -> Path {
         
     var cAngle = Angle(degrees: angle.degrees.truncatingRemainder(dividingBy: 90))
