@@ -1,7 +1,7 @@
 原文地址：[Metrics for object detection](https://github.com/rafaelpadilla/Object-Detection-Metrics)
 中文文档地址：[https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md](https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md)
 译者：[PingHGao](https://github.com/PingHGao)
-校对：
+校对：[xionglong58](https://github.com/xionglong58)
 
 <p align="left"> 
 <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.2554189.svg">
@@ -49,7 +49,7 @@ PASCAL VOC 的 MATLAB 版本评价代码从 XML 文件读取标签。当你需�
 
 * **[COCO Detection Challenge](https://competitions.codalab.org/competitions/5181)** 使用不同的标准来衡量不同的目标检测方法的准确率。[这里](http://cocodataset.org/#detection-eval)你可以找到解释 12 种用于确定一个目标检测器在 COCO 上的性能的标准的文档。该竞赛提供了 Python 和 MATLAB 版本的代码，以便参赛者在提交结果前检验他们的得分。同样，将输出转化为特定的[格式](http://cocodataset.org/#format-results) 也是必要的。
 
-* **[Google Open Images Dataset V4 Competition](https://storage.googleapis.com/openimages/web/challenge.html)** 同样使用在超过500类别数据上的 mean Average Precision（mAP）来评估目标检测任务。
+* **[Google Open Images Dataset V4 Competition](https://storage.googleapis.com/openimages/web/challenge.html)** 同样使用在 500 类别数据上的 mean Average Precision（mAP）来评估目标检测任务。
 
 * **[ImageNet Object Localization Challenge](https://www.kaggle.com/c/imagenet-object-detection-challenge)** 定义了一种考虑类别和 bbox 检测结果与标签的重叠区域的错误计算方式，为每张图片计算误差。最后总的误差是测试集所有图像最小的误差的均值。[这里](https://www.kaggle.com/c/imagenet-object-localization-challenge#evaluation) 是该方法的详细解释。  
 
