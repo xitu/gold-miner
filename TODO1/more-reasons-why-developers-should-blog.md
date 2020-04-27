@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/more-reasons-why-developers-should-blog.md](https://github.com/xitu/gold-miner/blob/master/TODO1/more-reasons-why-developers-should-blog.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：
+> * 校对者：[samyu2000](https://github.com/samyu2000), [febrainqu](https://github.com/febrainqu)
 
 # 开发者应该写博客的各种原因
 
