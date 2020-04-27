@@ -70,11 +70,12 @@
 人们会查阅我们的博客并学习相关内容，即使他们可能不会在我们的博客上发表评论或与我们交流。
 
 当他们寻求帮助时，会看到我们的博客。有些人会在无意中发现我们的博客，得到他们需要的帮助。
+
 ![Photo by [Andrew Neel](https://unsplash.com/@andrewtneel?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*4SGrplnJ1EYYeSt4)
 
 ## 乐趣
 
-写博客是一种有益的爱好，也是我们享受生活的一种方式。 这种爱好成本很低，因为只要我们每月花几块钱，就可以在Medium、WordPress等网站上进行博客写作。
+写博客是一种有益的爱好，也是我们享受生活的一种方式。这种爱好成本很低，因为只要我们每月花几块钱，就可以在 Medium、WordPress 等网站上进行博客写作。
 
 这两种方式都是消磨时间的好方法，因为我们要做大量的研究，还要把我们想写的东西联系起来。
 
