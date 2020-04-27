@@ -7,11 +7,11 @@
 
 # 5 Better Practices for JavaScript Promises in Real Projects
 
-#### Use Promise.all, Promise.race and Promise.prototype.then to improve your code quality.
-
 ![Photo by [Kelly Sikkema](https://unsplash.com/@kellysikkema?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10814/0*WrO6pqf5aLgB319V)
 
 After learning the basic usage of Promise, this article hopes to help you better use Promise in real projects.
+
+> Use Promise.all, Promise.race and Promise.prototype.then to improve your code quality.
 
 ## Promise.all
 
@@ -21,7 +21,7 @@ For example, assume that you have ten promises (Async operation to perform a net
 
 **Let’s see it in code:**
 
-```
+```js
 Promise.all([promise1, promise2, promise3])
  .then(result) => {
    console.log(result)
@@ -135,7 +135,7 @@ When all the requests are completed, we process the data uniformly.
 
 In the example above, we took this approach very directly to handling exceptions:
 
-```
+```js
 Promise.all([p1, p2]).then(res => {
   // ...
 }).catch(error => {
@@ -346,7 +346,7 @@ Promise
 
 We know that `promise.then()` always returns a promise object, so `promise.then` supports chain calls.
 
-```
+```js
 Promise.then().then().then()
 ```
 
@@ -398,12 +398,6 @@ getInfo().then(res=>{
     return res
 })
 ```
-
-#### A note from JavaScript In Plain English
-
-We have launched three new publications! Show some love for our new publications by following them: [**AI in Plain English**](https://medium.com/ai-in-plain-english), [**UX in Plain English**](https://medium.com/ux-in-plain-english), **[Python in Plain English](https://medium.com/python-in-plain-english)** — thank you and keep learning!
-
-We are also always interested in helping to promote quality content. If you have an article that you would like to submit to any of our publications, send us an email at **[submissions@plainenglish.io](mailto:submissions@plainenglish.io)** with your Medium username and we will get you added as a writer. Also let us know which publication/s you want to be added to.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
