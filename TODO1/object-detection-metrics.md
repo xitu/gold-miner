@@ -1,7 +1,7 @@
-原文地址：[Metrics for object detection](https://github.com/rafaelpadilla/Object-Detection-Metrics)
-中文文档地址：[https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md](https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md)
-译者：[PingHGao](https://github.com/PingHGao)
-校对：[xionglong58](https://github.com/xionglong58)
+原文地址：[Metrics for object detection](https://github.com/rafaelpadilla/Object-Detection-Metrics)  
+中文文档地址：[https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md](https://github.com/xitu/gold-miner/blob/master/TODO1/object-detection-metrics.md)  
+译者：[PingHGao](https://github.com/PingHGao)  
+校对：[xionglong58](https://github.com/xionglong58)  
 
 <p align="left"> 
 <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.2554189.svg">
