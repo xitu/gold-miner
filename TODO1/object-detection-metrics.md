@@ -24,7 +24,7 @@ year = {2020}
 
 如果不只考虑单一赛事，研究者需要实现他们自己的一套评价指标，以便在不同的数据集上评价他们的方法。而有时一个错误或者不同的实现方法会导致不同且有偏差的结果。为了获得值得信赖的能够应对不同的方法的标准，更理想的方式是提供一种灵活的实现方式，使得所有人都可以使用，无论使用的是什么数据集。
 
-**本项目提供了易于使用的各类函数，这些函数实现的评价标准与目标检测领域最受欢迎的几大竞赛使用的评价标准相同**。我们的实现不需要将你的检测模型修改为复杂的输入格式，避免了向 XML 文件或者 JSON 文件的转化。我们对输入数据进行了简化（bbox 标签以及检测结果）并且将学术界和各类竞赛主流的评价标准集合在了一起。我们的实现与各类官方实现进行了仔细的对比，并且我们的结果与官方完全一致。
+**本项目提供了易于使用的各类函数，这些函数实现的评价标准与目标检测领域最受欢迎的几大竞赛使用的评价标准相同**。我们的实现不需要将你的检测模型修改为复杂的输入格式，避免了向 XML 文件或者 JSON 文件的转化。我们对输入数据进行了简化（bbox 标签以及检测结果）并且将学术界和各类竞赛主流的评价标准集合在了一起。我们将自己的实现与各类官方实现进行了仔细的对比，得到了完全一致的结果。
 
 在接下来的章节你将会了解到在不同的竞赛和工作中最受欢迎的评价标准以及我们的代码的使用例程。
 
@@ -44,7 +44,7 @@ year = {2020}
 <a name="different-competitions-different-metrics"></a> 
 ## 不同的竞赛，不同的标准 
 
-* **[PASCAL VOC Challenge](http://host.robots.ox.ac.uk/pascal/VOC/)** 提供了一个 MATLAB 脚本以评估检测结果的质量。在提交结果之前，参赛者可以使用该 MATLAB 脚本来评估他们的检测结果。关于该标准的官方解释可以在[这里](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/htmldoc/devkit_doc.html#SECTION00050000000000000000)查看。 PASCAL VOC 目标检测挑战目前使用的评价标准是**精度×召回率曲线**以及 **AP**。
+* **[PASCAL VOC Challenge](http://host.robots.ox.ac.uk/pascal/VOC/)** 提供了一个 MATLAB 脚本以评估检测结果的质量。在提交结果之前，参赛者可以使用该 MATLAB 脚本来评估他们的检测结果。关于该标准的官方解释可以在[这里](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/htmldoc/devkit_doc.html#SECTION00050000000000000000)查看。 PASCAL VOC 目标检测挑战目前使用的评价标准是**精度×召回率曲线**以及 **平均精度**。
 PASCAL VOC 的 MATLAB 版本评价代码从 XML 文件读取标签。当你需要应用到其它的数据集或者自定义的数据集时，就需要做出修改。尽管诸如 [Faster-RCNN](https://github.com/rbgirshick/py-faster-rcnn) 等工作实现了 PASCAL VOC 的评价标准，也需要把检测结果转化为特定的格式。 [Tensorflow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/evaluation_protocols.md) 框架也实现了相应版本的 PASCAL VOC 评价标准。
 
 * **[COCO Detection Challenge](https://competitions.codalab.org/competitions/5181)** 使用不同的标准来衡量不同的目标检测方法的准确率。[这里](http://cocodataset.org/#detection-eval)你可以找到解释 12 种用于确定一个目标检测器在 COCO 上的性能的标准的文档。该竞赛提供了 Python 和 MATLAB 版本的代码，以便参赛者在提交结果前检验他们的得分。同样，将输出转化为特定的[格式](http://cocodataset.org/#format-results) 也是必要的。
@@ -156,7 +156,7 @@ AP 是通过计算 11 个点处的精度的平均值得到的。每个点的精�
 
 #### 一个图文并茂的例子
 
-一个例子能够帮助我们更好地理解如果通过插值计算平均精度。考虑如下的检测结果：
+一个例子能够帮助我们更好地理解如何通过插值计算平均精度。考虑如下的检测结果：
   
 <!--- Image samples 1 --->
 <p align="center">
@@ -300,7 +300,7 @@ AP 是通过计算 11 个点处的精度的平均值得到的。每个点的精�
 
 ## 如何使用本项目
 
-本项目是为了简单的对你的检测结果进行评估而创造的。如果你想用最为广泛使用的方法对你的算法进行评估，那么你来对地方了。
+本项目是为了轻松的对你的检测结果进行评估而创造的。如果你想用最为广泛使用的方法对你的算法进行评估，那么你来对地方了。
 
 [例_1](https://github.com/rafaelpadilla/Object-Detection-Metrics/tree/master/samples/sample_1) and [例_2](https://github.com/rafaelpadilla/Object-Detection-Metrics/tree/master/samples/sample_2) 是两个非常实用的例子，阐述了如何直接使用本项目的核心函数，以便灵活的使用这些评价标准。但如果你不想花你的时间来理解我们的代码，看看下面的说明，以方便的评估你的检测结果:  
 
@@ -315,7 +315,7 @@ AP 是通过计算 11 个点处的精度的平均值得到的。每个点的精�
 ### 创造标签文件
 
 - 为文件夹 **groundtruths/** 中的每个图像创建一个单独的标签文本文件。
-- 在这些文件中，每一行的格式都应该为: `<类别名> <左> <顶> <右> <底>`.    
+- 在这些文件中，每一行的格式都应该为: `<class_name> <left> <top> <right> <bottom>`.    
 - 例如，图像 "2008_000034.jpg" 的矩形框的标签值记录在文件 "2008_000034.txt" 中：
   ```
   bottle 6 234 45 362
@@ -324,7 +324,7 @@ AP 是通过计算 11 个点处的精度的平均值得到的。每个点的精�
   person 91 42 338 500
   ```
     
-如果你喜欢，矩形框的格式也可以为: `<类别名> <左> <顶> <宽> <高>` (参考此处 [**\***](#asterisk) 以了解如何使用). 此时， 你的 "2008_000034.txt" 内容应如下:
+如果你喜欢，矩形框的格式也可以为: `<class_name> <left> <top> <right> <bottom>` (参考此处 [**\***](#asterisk) 以了解如何使用). 此时， 你的 "2008_000034.txt" 内容应如下:
   ```
   bottle 6 234 39 128
   person 1 156 102 180
@@ -336,7 +336,7 @@ AP 是通过计算 11 个点处的精度的平均值得到的。每个点的精�
 
 - 为文件夹 **detections/** 中的每个图像创建一个单独的检测文本文件。
 - 检测文件的名称必须与其对应的标签文件名称匹配 (e.g. "detections/2008_000182.txt" 对应标签文件 "groundtruths/2008_000182.txt" 的检测结果)。
-- 在这些检测文件中，每行的格式应该为: `<类别名> <置信度> <做> <上> <右> <下>` (参考此处 [**\***](#asterisk) 了解如何使用)。
+- 在这些检测文件中，每行的格式应该为: `<class_name> <confidence> <left> <top> <right> <bottom>` (参考此处 [**\***](#asterisk) 了解如何使用)。
 - E.g. "2008_000034.txt":
     ```
     bottle 0.14981 80 1 295 500  
@@ -346,7 +346,7 @@ AP 是通过计算 11 个点处的精度的平均值得到的。每个点的精�
     tvmonitor 0.070565 388 89 500 196  
     ```
 
-如果你喜欢，Bbox 的格式可以为: `<类别名> <左> <上> <宽> <高>`.
+如果你喜欢，Bbox 的格式可以为: `<class_name> <left> <top> <width> <height>`.
 
 ### 可选参数
 
@@ -368,7 +368,7 @@ Optional arguments:
 | `-np`,<br>`--noplot` | 如果提供该参数，则执行过程中不会有图像展示 | `python pascalvoc.py -np` | not presented.<br>Therefore, plots are shown |  
 
 <a name="asterisk"> </a>
-(**\***) 如果格式为 `<左> <上> <宽> <高>`， 设置应为 `-gtformat xywh` and/or `-detformat xywh`。如果格式为`<左> <上> <右> <下>`，设置应为 `-gtformat xyrb` and/or `-detformat xyrb`  if format is `<left> <top> <right> <bottom>`.
+(**\***) 如果格式为 `<left> <top> <width> <height>`， 设置应为 `-gtformat xywh` and/or `-detformat xywh`。如果格式为`<left> <top> <right> <bottom>`，设置应为 `-gtformat xyrb` and/or `-detformat xyrb`  if format is `<left> <top> <right> <bottom>`.
   
 ## 参考
 
