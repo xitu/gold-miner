@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/active-learning-in-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO1/active-learning-in-machine-learning.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：[samyu2000](https://github.com/samyu2000), []()
+> * 校对者：[samyu2000](https://github.com/samyu2000), [shixi-li](https://github.com/shixi-li)
 
 # 机器学习中的主动学习
 
@@ -21,7 +21,7 @@
 
 **但是, 为什么我们不随机选取一个子集进行手动标注呢？**
 
-让我们看一个非常简单的例子来抛砖引玉。假设我们有数百万个数据点，需要根据两个特征进行分类。下图显示了实际的解决方案：
+让我们以一个非常简单的例子来抛砖引玉。假设我们有数百万个数据点，需要根据两个特征进行分类。下图显示了实际的解决方案：
 
 ![Model prediction if all data points were labelled](https://cdn-images-1.medium.com/max/2000/1*Z_5GyCdFfcz_oVFnUuYczg.png)
 
@@ -43,7 +43,7 @@
 
 #### 主动学习步骤
 
-不同文献中研究了多种方法，这些方法涉及在标记时如何确定数据点的优先级以及如何不断迭代优化。尽管如此，我们将仅介绍最常见，最直接的方法。
+不同文献中研究了多种方法，这些方法涉及在标记时如何确定数据点的优先级以及如何不断迭代优化。但在此我们将仅介绍最常见、最简明的方法。。
 
 在未标注的数据集上应用主动学习的步骤是：
 
@@ -80,7 +80,7 @@
 
 **边际抽样:**
 
-该方法考虑了最高概率和第二最高概率之间的差异。形式上，优先级排列方式看起来像：
+该方法考虑了最高概率和第二高概率之间的差异。形式上，优先级排列方式看起来像：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*c-Qqr2TEzaaA-zGH01JalA.png)
 
@@ -101,7 +101,7 @@
 
 可以重用此概念以度量模型的确定性。如果模型对给定数据点的类别具有高度的确定性，则对于特定类可能具有较高的确定性，而所有其他类的可能性均较低。这不正与气体在盒子的一角很相似吗？在这种情况下，我们将大部分概率分配给特定类别。在高熵的情况下，这意味着该模型将概率近似的分配给所有类别，因为模型根本不确定该数据点属于哪个类别，这与使气体均匀分布在盒子的所有区域的情况相似。因此，具有较高熵的数据点较具有较低熵的数据点应该有更高的优先级。
 
-形式上，我们可以以如下形式定义熵得分：
+在形式上，我们可以定义熵分数优先顺序如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sUuF5qqrW0CpArzejhNTNA.png)
 
