@@ -2,33 +2,33 @@
 > * 原文作者：[Leandro Fournier](https://medium.com/@lean4nier)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/custom-encoding-and-decoding-json-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/custom-encoding-and-decoding-json-in-swift.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Custom encoding and decoding JSON in Swift
+# 在 Swift 中对 JSON 进行自定义编码和解码的小技巧
 
 ![](https://cdn-images-1.medium.com/max/2000/0*-t2P3atrbgHMKR6P.jpg)
 
-> This post was originally written by me at [Swift Delivery](https://www.leandrofournier.com/custom-encoding-and-decoding-json/).
+本文我最早发表在 [Swift Delivery](https://www.leandrofournier.com/custom-encoding-and-decoding-json/)。
 
-In our last [Working with JSON in Swift series](https://levelup.gitconnected.com/working-with-json-in-swift-c5faea0b19a1), we explore various items:
+在最近的 [Working with JSON in Swift series](https://levelup.gitconnected.com/working-with-json-in-swift-c5faea0b19a1) 文章中，我们学习了这些知识点：
 
-* `Codable` protocol, which contains two other protocols: `Encodable` and `Decodable`
-* How to decode a JSON data object into a readable Swift struct
-* Usage of custom keys
-* Custom objects creation
-* Arrays
-* Different top level entities
+* `Codable` 协议，它还包含另外两个协议: `Encodable` 和 `Decodable`。
+* 如何将 JSON 数据对象解析成具有可读性的 Swift 结构体。
+* 自定义 key 的使用。
+* 自定义对象的创建。
+* 数组
+* 各种一级实体
 
-That’s enough for a basic usage of JSON in Swift, which will enable us to read JSON data (decode) and create a new object which can be converted back to JSON (encode) and send it, for instance, to a RESTFul API.
+通过了解这些，你能掌握 Swift 中 JSON 的基本使用。比如，你可以读取 JSON 数据（解码），创建可以被转换为 JSON 格式的对象（编码），然后把这个对象发送给 RestFul API。
 
-So, first things first: let’s create an object and convert it to a JSON data format.
+首先，我们来创建一个对象，把它转换成 JSON 数据格式。
 
-## Encoding
+## 编码
 
-#### Default encoding
+#### 默认编码
 
-Let’s assume we have the following `struct` for insects:
+下面的代码中定义了 Insect 结构体:
 
 ```swift
 struct Insect: Codable {
@@ -44,22 +44,22 @@ struct Insect: Codable {
 }
 ```
 
-To sum up, we have three properties. **insectId** for the insect identifier, **name** for its name and **isHelpful** to specify if the insect is helpful or not to our garden. Two of these properties use custom keys (**insectId** and **isHelpful**).
+结构体中一共有三个属性。**insectId** 表示昆虫的身份，**name** 表示昆虫的名称，**isHelpful** 表示昆虫是否对我们的花园有益。其中两个属性使用了自定义 key（**insectId** 和 **isHelpful**）。
 
-Now let’s create an insect:
+现在我们新建一个昆虫实例：
 
 ```swift
 let newInsect = Insect(insectId: 1006, name: "ants", isHelpful: true)
 ```
 
-Our RESTful API expects to receive a JSON with this new insect information. Then we have to encode it:
+我们的 RESTFul API 需要接收 JSON 格式的昆虫数据，所以我们需要对它进行编码:
 
 ```swift
 let encoder = JSONEncoder() 
 let insectData: Data? = try? encoder.encode(newInsect)
 ```
 
-That was easy: now **insectData** is an object of type `Data?`. We might want to check whether the encoding actually worked (just a check, you probably won't do this in your code). Let's rewrite the code above and use some optional unwrapping:
+这一步很简单：现在 **insectData** 已经是 `Data?` 类型。我们可能还想检查一下编码是否真的生效了（只是一个验证，你在写代码时可以不必这样）。我们用解包的方式来重构上面的代码：
 
 ```swift
 let encoder = JSONEncoder()
@@ -70,21 +70,21 @@ if let insectData = try? encoder.encode(newInsect),
 }
 ```
 
-1. Create the encoder
-2. Try to encode the object we’ve created
-3. Convert, if possible, the `Data` object into a `String`
+1. 创建 encoder。
+2. 尝试对我们创建的对象编码。
+3. 进行转换，如果编码成功的话，`Data` 对象会变成 `String` 类型。
 
-Then we print out the result which will look like this:
+我们打印一下结果，它的格式如下：
 
 ```json
 {"name":"ants","is_helpful":true,"insect_id":1006}
 ```
 
-> Note that the keys used while encoding are not the custom keys (**insectId** and **isHelpful**) but the expected keys (**insect_id** and **is_helpful**). Nice!
+> 注意编码时的 key 不是自定义的 key（**insectId** 和 **isHelpful**），而是我们希望的 key（**insect_id** 和 **is_helpful**）。太棒了！
 
-#### Custom encoding
+#### 自定义编码
 
-Let’s suppose our RESTful API expects to receive the name of the insect uppercased. We need to create our own implementation of the encoding method so to make sure the name of the insect is sent uppercased. We must implement the method **func** encode(to encoder: Encoder) **throws** of the `Encodable` protocol inside our **Insect** `struct`.
+假设 RESTful API 需要接受大写名称的昆虫数据。我们就需要实现自己的编码方法，来保证昆虫名称是大写的。要这样做的话，我们就必须在 **Insect** 结构体中实现 `Encodable` 协议中的 **func** encode(to encoder: Encoder) **throws** 方法。
 
 ```swift
 struct Insect: Codable {
@@ -99,31 +99,31 @@ struct Insect: Codable {
     }
     
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(insectId, forKey: .insectId)
-        try container.encode(name.uppercased(), forKey: .name)
-        try container.encode(isHelpful, forKey: .isHelpful)
+        var container = encoder.container(keyedBy: CodingKeys.self) // 13
+        try container.encode(insectId, forKey: .insectId) // 14
+        try container.encode(name.uppercased(), forKey: .name) // 15
+        try container.encode(isHelpful, forKey: .isHelpful) // 16
     }
 }
 ```
 
-Line 13 is where we create a container where encoded values will be stored. The container MUST be a `var` because it's mutable and MUST receive the keys to be used.
+第 13 行我们创建了一个用于存储编码数据的容器。这个容器必须是 `var` 类型，它要接收这些 key，因此是可变类型的。
 
-Lines 14 to 16 are used to encode the values into the container, which is done using `try` because any of these can throw an error.
+第 14 到 16 行是把数据进行编码后，存储到容器中。每一次存储都可能抛出异常，所以这里用到了 `try`。
 
-Now, look at line 15: we don’t just put the value as it is but we uppercase it, which is main reason we’re implementing a custom encoding.
+现在，看第 15 行：我们没有原封不动地把数据存储，而是对其进行了大写处理。这就是我们要实现自定义编码的主要原因。
 
-If you run the code above, where we create the **Insect** “ants”, we’ll see that after encoding and converting the resulting JSON `Data` into a `String` we get the following:
+运行上面的代码后，你会发现 **Insect** 中的“ants”属性在编码转换成 JSON 字符串后，格式是下面这样的：
 
 ```
 {"name":"ANTS","is_helpful":true,"insect_id":1006}
 ```
 
-As you might have seen, the name of the insect is now uppercased despite we’ve created it lowercased. How cool is that!
+即使昆虫名称的初始值是小写的，现在它的名称也变成了大写。这太酷了！
 
-## Custom decoding
+## 自定义解码
 
-So far we’ve been relying on the default decoding method of the `Decodable` protocol. But let's take a look at another scenario.
+目前为止，我们一直都依赖 `Decodable` 协议中默认的解码方法。下面我们来看看另外的方法：
 
 ```json
 [
@@ -172,70 +172,70 @@ So far we’ve been relying on the default decoding method of the `Decodable` pr
 ]
 ```
 
-The API is retrieving the **is_helpful** property inside a **details** entity. But we don’t want to create a **Details** object: we just want to flatten that object so we can use our existing **Insect** object.
+API 获取的 **is_helpful** 属性在 **details** 实体内部。但是我们不想创建 **Details** 对象，我们只想展开它，这样就可以直接用现有的 **Insect** 对象了。
 
-Time to use our own implementation of the **init**(from decoder: Decoder) **throws** method of the `Decodable` protocol and some extra work. Let's get started.
+现在我们要实现 `Decodable` 协议中的 **init**(from decoder: Decoder) **throws** 方法，然后做一些额外处理。
 
-First of all, coding keys has changed because **is_helpful** is not a key in the same level as before AND there’s a new one called **details**. To fix that:
+首先，key 不一样了，**is_helpful** 不是同级的 key了，这里新的 key 是 **details**。我们这样编写代码：
 
 ```swift
 enum CodingKeys: String, CodingKey {
         case insectId = "insect_id"
         case name
-        case details
+        case details // 4
     }
     
-    enum DetailsCodingKeys: String, CodingKey {
-        case isHelpful = "is_helpful"
-    }
+    enum DetailsCodingKeys: String, CodingKey { // 7
+        case isHelpful = "is_helpful" // 8
+    } // 9
 ```
 
-In line 4 we replace the existing key with the new one, **details**.
+第 4 行，我们用 **details** 替换了之前的 key。
 
-In lines 7 and 9 we create a new set of keys, the ones that exist inside **details**, which in this case is just one, **isHelpful**.
+第 7 行到第 9 行，我们新建了一个枚举，对应 **details** 内部的 key，在本例中，只有一个 **isHelpful**。
 
-> Note that we didn’t touch the properties of the **Insect** `struct`.
+> 注意我们还没有接触到 **Insect** `结构体`的属性。
 
-Now let’s dive into the decoder initialization:
+下面我们深入了解一下解码的初始化方法:
 
 ```swift
 init(from decoder: Decoder) throws {
-   let container = try decoder.container(keyedBy: CodingKeys.self)
+   let container = try decoder.container(keyedBy: CodingKeys.self) // 2
         
-   insectId = try container.decode(Int.self, forKey: .insectId)
-   name = try container.decode(String.self, forKey: .name)
-   let details = try container.nestedContainer(keyedBy: DetailsCodingKeys.self, forKey: .details)
-   isHelpful = try details.decode(Bool.self, forKey: .isHelpful)
+   insectId = try container.decode(Int.self, forKey: .insectId) // 4
+   name = try container.decode(String.self, forKey: .name) // 5
+   let details = try container.nestedContainer(keyedBy: DetailsCodingKeys.self, forKey: .details) // 6
+   isHelpful = try details.decode(Bool.self, forKey: .isHelpful) // 7
 }
 ```
 
-In line 2 we create the container which decodes the whole JSON structure.
+第 2 行中我们创建了用于解析整个 JSON 结构的容器。
 
-In line 4 and 5 we just decode the `Int` value for the **insectId** property and the `String` value for the **name** property.
+第 4 行和第 5 行，我们解析了 **insectId** 属性的 `Int` 数据和 **name** 属性的 `String` 数据。 
 
-In line 6 we grab the nested container under the **details** key which is keyed by the brand new **DetailsCodingKeys** `enum`.
+第 6 行，我们获得了 **details** key 内部的容器，容器内的 key 是通过 **DetailsCodingKeys** `枚举`创建的。
 
-In line 7 we just decode the `Bool` value for the **isHelpful** property inside our new **details** container.
+第 7 行，我们在 **details** 的容器中解析了 **isHelpful** 属性的 `Bool` 数据。
 
-BUT that’s not it. Since our **CodingKeys** has changed by adding the **details** case, our custom encoding implementation must be fixed. So let’s do that:
+但是事情还没有做完。我们在 **CodingKeys** 中加入了 **details**，所以我们自定义的编码方法也要如下修改：
 
 ```swift
 func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(insectId, forKey: .insectId)
     try container.encode(name.uppercased(), forKey: .name)
-    var details = container.nestedContainer(keyedBy: DetailsCodingKeys.self, forKey: .details)
-    try details.encode(isHelpful, forKey: .isHelpful)
+    var details = container.nestedContainer(keyedBy: DetailsCodingKeys.self, forKey: .details) // 5
+    try details.encode(isHelpful, forKey: .isHelpful) // 6
 }
 ```
 
-We just changed the way we encode the **isHelpful** property.
+我们只用修改 **isHelpful** 属性的编码方式就可以了。
+ 
+在第 5 行中我们用 **DetailsCodingKeys** `枚举`作为 key 创建了一个内部容器，用于在 **details** 实体的内部使用。
 
-In line 5 we create a new nested container, using the keys inside the **DetailsCodingKeys** `enum` and to be used inside the **details** entity inside our JSON.
+第 6 行我们在新建的 **details** 内部容器中对 **isHelpful** 进行编码。
 
-In line 6 we encode **isHelpful** INSIDE the brand new **details** nested container.
-
-So, to sum up, our **Insect** `struct` looks like this:
+所以，最终的 **Insect** `结构体`是这样的：
 
 ```swift
 struct Insect: Codable {
@@ -273,7 +273,7 @@ struct Insect: Codable {
 }
 ```
 
-If we decode it:
+下面开始解码：
 
 ```swift
 let decoder = JSONDecoder()
@@ -282,21 +282,21 @@ if let insects = try? decoder.decode([Insect].self, from: jsonData!) {
 }
 ```
 
-We’ll get something like this:
+我们会得到下面的结果：
 
 ```
 [__lldb_expr_54.Insect(insectId: 1001, name: "BEES", isHelpful: true), __lldb_expr_54.Insect(insectId: 1002, name: "LADYBUGS", isHelpful: true), __lldb_expr_54.Insect(insectId: 1003, name: "SPIDERS", isHelpful: true), __lldb_expr_54.Insect(insectId: 2001, name: "TOMATO HORN WORMS", isHelpful: false), __lldb_expr_54.Insect(insectId: 2002, name: "CABBAGE WORMS", isHelpful: false), __lldb_expr_54.Insect(insectId: 2003, name: "CABBAGE MOTHS", isHelpful: false)]
 ```
 
-As you can see, there’s no **details** entity: just our `struct` properties.
+你可以看到，并没有 **details** 实体，只有 `结构体` 的属性。
 
-The encoding will work as expected as well.
+编码流程也是正常的。
 
-This post, plus the previous series, sums up pretty much the most common scenarios you may run into when working with JSON in Swift.
+本文和之前的一系列文章，总结了很多在 Swift 中处理 JSON 最常见的场景。
 
-## Need more information?
+## 更多内容
 
-Ben Scheirman’s [Ultimate Guide to JSON Parsing with Swift](https://benscheirman.com/2017/06/swift-json/) is the most useful source I could find for this subject.
+推荐 Ben Scheirman 写的 [Ultimate Guide to JSON Parsing with Swift](https://benscheirman.com/2017/06/swift-json/) 这篇文章，它是与本文主题相关最实用的资料。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
