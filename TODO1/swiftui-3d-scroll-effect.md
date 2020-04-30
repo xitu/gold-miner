@@ -2,18 +2,18 @@
 > * 原文作者：[Jean-Marc Boullianne](https://medium.com/@jboullianne)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swiftui-3d-scroll-effect.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swiftui-3d-scroll-effect.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# SwiftUI 3D Scroll Effect
+# 用 SwiftUI 实现 3D Scroll 效果
 
 ![Finished 3D Scroll Effect](https://cdn-images-1.medium.com/max/2000/0*pYnR4ym84WIZk3tf.gif)
 
-Here’s a look at the kind of 3D scroll effect we’ll be making today. At the end of this tutorial, you’ll be able to add this 3D effect to any custom SwiftUI view in your app. Let’s get started!
+我们预览下今天要实现的 3D scroll 效果。学完本教程后，你就可以在你的 App 中把这种 3D 效果加入任何自定义的 SwiftUI 视图。下面我们来开始本教程的学习。
 
-## Getting Started
+## 入门
 
-Start by creating a new SwiftUI View. For example purposes, I’ll be showing a list of rectangles in different colors, so I named my view `ColorList`.
+首先，创建一个新的 SwiftUI 视图。为了举例说明，在这个新视图中，我会展示一个有各种颜色的矩形列表，并把新视图命名为 `ColorList`。
 
 ```swift
 import SwiftUI
@@ -31,17 +31,17 @@ struct ColorList_Previews: PreviewProvider {
 }
 ```
 
-## Color Data
+## 颜色数据
 
-At the top of your view struct, add a variable for keeping track of colors.
+在视图的结构体里，添加一个用于记录颜色的变量。
 
 ```swift
 var colors: [Colors]
 ```
 
-## Making the List
+## 实现这个列表
 
-Inside your `body` variable, get rid of the placeholder `Text`. Add in a `HStack` wrapping in a `ScrollView` like this.
+在 `body` 变量的内部，删除掉占位 `Text`。在 `ScrollView` 嵌套中添加一个 `HStack`，如下：
 
 ```swift
 var body: some View {
@@ -53,9 +53,9 @@ var body: some View {
 }
 ```
 
-## Show the Rectangles
+## 展示矩形
 
-Inside your `HStack` we need to show a `Rectangle` for each color stored in `colors`. For this we'll use a `ForEach`. I've gone ahead and modified the frame for the rectangle to something more relatable to a traditional UI Card.
+我们使用 `ForEach` 在 `HStack` 内部根据 `colors` 中的数据分别创建不同颜色的矩形。此外，我修改了矩形的 frame，让它看起来与传统 UI 布局更像一些。
 
 ```swift
 var body: some View {
@@ -71,7 +71,7 @@ var body: some View {
 }
 ```
 
-And if you go ahead and provide the preview struct with a list of colors like this:
+在 Preview 结构体中传入如下的颜色参数：
 
 ```swift
 struct ColorList_Previews: PreviewProvider {
@@ -81,13 +81,13 @@ struct ColorList_Previews: PreviewProvider {
 }
 ```
 
-You should see this!
+你可以看到下图中的效果：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*NfpStvbJHfMO2Tqq.png)
 
-## Adding the 3D Effect
+## 增加 3D 效果
 
-Start by wrapping your `Rectangle` in a `GeometryReader`. This will allow us to grab a reference to the frame of the `Rectangle` as it moves across the screen.
+首先，把 `Rectangle` 嵌套在 `GeometryReader` 中。这样的话，当 `Rectangle` 在屏幕上移动的时候，我们就可以获得其 frame 的引用。
 
 ```swift
 var body: some View {
@@ -105,27 +105,27 @@ var body: some View {
 }
 ```
 
-You will need to change the `HStack` spacing you defined above, due to the way `GeometryReader` works.
+根据 `GeometryReader` 的用法要求，我们需要修改上面定义的 `HStack` 的 spacing 属性。
 
-Then add this line to your `Rectangle`
+在 `Rectangle` 中加入下面这行代码。
 
 ```swift
 .rotation3DEffect(Angle(degrees: (Double(geometry.frame(in: .global).minX) - 210) / -20), axis: (x: 0, y: 1.0, z: 0))
 ```
 
-The `Angle` you're passing into the function is changing as the `Rectangle` moves across the screen. Take a particular look at the `.frame(in:)` function. It allows you to grab the `CGRect` of the `Rectangle` and uses its `minX` coordinate for angle calculations.
+当 `Rectangle` 在屏幕上移动时，这个方法的 `Angle` 参数会发生改变。请重点看 `.frame(in:)` 这个函数，你可以获取 `Rectangle` 的 `CGRect` 属性 `minX` 变量来计算角度。
 
-The `axis` parameter is a Tuple that details which axis to modify using the angle you just passed in. In this case it's the Y-axis.
+`axis` 参数是一个元组类型，它定义了在使用你传入的角度参数时，哪一个坐标轴要发生改变。在本例中，是 Y 轴。
 
-> The documentation for the rotation3DEffect() can be found [here](https://developer.apple.com/documentation/swiftui/scrollview/3287538-rotation3deffect) on Apple’s Official Website.
+> rotation3DEffect() 方法的文档可以在苹果官方网站的 [这里](https://developer.apple.com/documentation/swiftui/scrollview/3287538-rotation3deffect) 找到。
 
-If you go ahead and run the example you should see your `Rectangles` rotating as they move across the screen!
+下一步，把这个案例跑起来。当矩形在屏幕上移动时，你可以看到它们在旋转。
 
-> I’ve also modified the corner radius of the rectangle as well as added a drop shadow to make it look a little better.
+> 我还修改了矩形的 cornerRadius 属性，并加上了投影效果，让它更美观。
 
 ![Pretty cool right!?](https://cdn-images-1.medium.com/max/2000/0*IidRWGBSe936-9Ls.gif)
 
-## Final Product
+## 最终效果
 
 ```swift
 struct ColorList: View {
@@ -151,9 +151,9 @@ struct ColorList: View {
 }
 ```
 
-## That’s all Folks!
+## 结束
 
-If you enjoyed this post, please consider subscribing to my website using this [link](https://trailingclosure.com/signup/), and if you aren’t reading this on [TrailingClosure.com](https://trailingclosure.com/), please come check us out sometime!
+如果您喜欢这篇文章，可以用这个 [链接](https://trailingclosure.com/signup/) 订阅我们的网站。如果您不是在 [TrailingClosure.com](https://trailingclosure.com/) 阅读本文，以后也可以来这个网站看看。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
