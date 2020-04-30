@@ -83,14 +83,6 @@ Creativity comes from the mind but it implies the whole scenario of the surround
 
 ---
 
-> Connect with me- **[LinkedIn](https://www.linkedin.com/in/darshan-chauhan-b29a88111/), [Facebook](https://facebook.com/darshan.chauhan.9638), [Twitter](https://twitter.com/Darshan0211)**
-
----
-
-#### A note from UX In Plain English
-
-We are always interested in helping to promote quality content. If you have an article that you would like to submit to any of our publications, send us an email at **[submissions@plainenglish.io](mailto:submissions@plainenglish.io)** with your Medium username and we will get you added as a writer.
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
