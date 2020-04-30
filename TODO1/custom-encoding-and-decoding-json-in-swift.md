@@ -172,7 +172,7 @@ struct Insect: Codable {
 ]
 ```
 
-API 获取的 **is_helpful** 属性在 **details** 实体内部。但是我们不想创建 **Details** 对象: 我们只想展开它，这样就可以直接用现有的 **Insect** 对象了。
+API 获取的 **is_helpful** 属性在 **details** 实体内部。但是我们不想创建 **Details** 对象，我们只想展开它，这样就可以直接用现有的 **Insect** 对象了。
 
 现在我们要实现 `Decodable` 协议中的 **init**(from decoder: Decoder) **throws** 方法，然后做一些额外处理。
 
