@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/custom-encoding-and-decoding-json-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/custom-encoding-and-decoding-json-in-swift.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 在 Swift 中对 JSON 进行自定义编码和解码的小技巧
 
