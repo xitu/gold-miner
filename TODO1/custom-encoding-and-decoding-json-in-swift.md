@@ -59,7 +59,7 @@ let encoder = JSONEncoder()
 let insectData: Data? = try? encoder.encode(newInsect)
 ```
 
-这一步很简单: 现在 **insectData** 已经是 `Data?` 类型。我们可能还想检查一下编码是否真的生效了(只是一个验证，你在写代码时可以不必这样)。我们用解包的方式来重构上面的代码:
+这一步很简单：现在 **insectData** 已经是 `Data?` 类型。我们可能还想检查一下编码是否真的生效了（只是一个验证，你在写代码时可以不必这样）。我们用解包的方式来重构上面的代码：
 
 ```swift
 let encoder = JSONEncoder()
