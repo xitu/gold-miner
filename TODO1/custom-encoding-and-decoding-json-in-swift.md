@@ -80,7 +80,7 @@ if let insectData = try? encoder.encode(newInsect),
 {"name":"ants","is_helpful":true,"insect_id":1006}
 ```
 
-> 注意编码时的 key 不是自定义的 key(**insectId** 和 **isHelpful**)，而是我们希望的 (**insect_id** 和 **is_helpful**)。太棒了！
+> 注意编码时的 key 不是自定义的 key（**insectId** 和 **isHelpful**），而是我们希望的 key（**insect_id** 和 **is_helpful**）。太棒了！
 
 #### 自定义编码
 
