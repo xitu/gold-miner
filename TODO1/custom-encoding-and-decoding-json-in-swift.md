@@ -74,7 +74,7 @@ if let insectData = try? encoder.encode(newInsect),
 2. 尝试对我们创建的对象编码。
 3. 进行转换，如果编码成功的话，`Data` 对象会变成 `String` 类型。
 
-我们打印一下结果，它的格式如下:
+我们打印一下结果，它的格式如下：
 
 ```json
 {"name":"ants","is_helpful":true,"insect_id":1006}
