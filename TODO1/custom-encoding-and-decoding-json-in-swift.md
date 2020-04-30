@@ -273,7 +273,7 @@ struct Insect: Codable {
 }
 ```
 
-下面开始解码:
+下面开始解码：
 
 ```swift
 let decoder = JSONDecoder()
