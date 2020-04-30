@@ -21,7 +21,7 @@ The `pullAllBy` returns an array that removes the given values that matches the 
 
 We can implement it as follows:
 
-```
+```js
 const pullAllBy = (arr, values, iteratee) => arr.filter(a => !values.map(iteratee).includes(iteratee(a)))
 ```
 
@@ -29,7 +29,7 @@ In the code above, we call the given `iteratee` function to map the values befor
 
 Then we can use our `pullAllBy` function as follows:
 
-```
+```js
 const result = pullAllBy([1, 2.1, 3], [2.2, 3], Math.floor)
 ```
 
@@ -41,7 +41,7 @@ The Lodash `pullAllWith` method takes a comparator instead of the `iteratee` to 
 
 For instance, we can implement it as follows:
 
-```
+```js
 const pullAllWith = (arr, values, comparator) => arr.filter(a => values.findIndex((v) => comparator(a, v)) === -1)
 ```
 
@@ -51,7 +51,7 @@ We call `filter` to filter out them items that are included with the `values` ar
 
 Then when we call it as follows:
 
-```
+```js
 const result = pullAllWith([1, 2, 3], [2, 3], (a, b) => a === b)
 ```
 
@@ -65,7 +65,7 @@ It also removes the elements in-place with those indexes.
 
 Again, we can use the `filter` method to filter out the items that we want to remove as follows:
 
-```
+```js
 const pullAt = (arr, indexes) => {
   let removedArr = [];
   const originalLength = arr.length
@@ -96,7 +96,7 @@ Finally, we call `flat` to flatten the array since `splice` returns an array.
 
 Therefore, when we call it as follows:
 
-```
+```js
 const arr = [1, 2, 3]
 const result = pullAt(arr, [1, 2])
 ```
@@ -111,7 +111,7 @@ The `remove` method removes the items from an array in place with the given cond
 
 We can implement it ourselves with the `for` loop as follows:
 
-```
+```js
 const remove = (arr, predicate) => {
   let removedArr = [];
   const originalLength = arr.length
@@ -135,7 +135,7 @@ Like `pullAt` , we have to loop through the array indexes in reverse to avoid `s
 
 Then when we call `remove` as follows:
 
-```
+```js
 const arr = [1, 2, 3]
 const result = remove(arr, a => a > 1)
 ```
@@ -147,12 +147,6 @@ We get that `result` is `[2, 3]` and `arr` is `[1]` since we specified that the 
 The `pullAt` and `remove` methods are very similar, except that `pullAt` takes an array of index and `remove` takes a callback with the given condition.
 
 `pullAllBy` and `pullAllWith` are implemented with the `filter` method. `pullAllBy` also needs to map the values with the `iteratee` function before doing comparisons.
-
-#### A note from JavaScript In Plain English
-
-We have launched three new publications! Show some love for our new publications by following them: [**AI in Plain English**](https://medium.com/ai-in-plain-english), [**UX in Plain English**](https://medium.com/ux-in-plain-english), **[Python in Plain English](https://medium.com/python-in-plain-english)** — thank you and keep learning!
-
-We are also always interested in helping to promote quality content. If you have an article that you would like to submit to any of our publications, send us an email at **[submissions@plainenglish.io](mailto:submissions@plainenglish.io)** with your Medium username and we will get you added as a writer. Also let us know which publication/s you want to be added to.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
