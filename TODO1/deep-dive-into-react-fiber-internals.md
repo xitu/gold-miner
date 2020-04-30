@@ -15,20 +15,20 @@
 
 在本文中，我将首先说明在 React 15.0.0 之前 React 是如何构建 DOM 树的，这种模式的陷阱，以及 React 16.0.0 的新模型如何解决这些问题。这篇文章将涵盖广泛的概念，这些概念纯属内部实现细节，对于使用 React 进行的实际的前端开发，并不是绝对必要的。
 
-## Stack reconciler
+## 栈协调器
 
 让我们从熟悉的 `ReactDOM.render(<App />, document.getElementById('root'))` 开始。
 
-The ReactDOM module will pass the `<App/ >` along to the reconciler. There are two questions here:
+ReactDOM 模块将把 `<App />` 传递给协调器。这里有两个问题：
 
 1. `<App />` 指的是什么?
-2. reconciler 是什么?
+2. 协调器是什么?
 
 让我们解开这两个问题。
 
 `<App />` 是一个 React 元素，“描述树的元素”。
 
-> “React 元素是描述对象实例或 DOM 节点及其所需属性的普通对象。” -- [React 博客](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree)
+> “React 元素是描述对象实例或 DOM 节点及其所需属性的普通对象。” —— [React 博客](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree)
 
 换句话说，React 元素*不是*实际的 DOM 节点或组件实例；它们是一种*描述* React 的方式，它们是什么类型的元素，它们拥有的属性以及它们的子元素。
 
@@ -100,45 +100,45 @@ function fib(n) {
 fib(10)
 ```
 
-![Call Stack Diagram](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/call-stack-diagram.png?resize=730%2C352&ssl=1)
+![调用栈图](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/call-stack-diagram.png?resize=730%2C352&ssl=1)
 
-As we can see, the call stack pushes every call to `fib()` into the stack until it pops `fib(1)`, which is the first function call to return. Then it continues pushing the recursive calls and pops again when it reaches the return statement. In this way, it effectively uses the call stack until `fib(3)` returns and becomes the last item to get popped from the stack.
+如我们所见，调用栈将每个对 `fib()` 的调用入栈，直到 `fib(1)` 出栈，这是返回的第一个函数调用。然后，它继续递归调用入栈，并在到达 return 语句时再次出栈。 这样，它有效地使用了调用栈，直到 fib(3) 返回并成为出栈的最后一项为止。
 
-The reconciliation algorithm we just saw is a purely recursive algorithm. An update results in the entire subtree being re-rendered immediately. While this works well, this has some limitations. As [Andrew Clark notes](https://github.com/acdlite/react-fiber-architecture):
+我们刚刚看到的协调算法是纯递归算法。更新导致整个子树立即重新渲染。虽然这很好用，但是有一些限制。如 [Andrew Clark 指出](https://github.com/acdlite/react-fiber-architecture)：
 
-- In a UI, it's not necessary for every update to be applied immediately; in fact, doing so can be wasteful, causing frames to drop and degrading the user experience
-- Different types of updates have different priorities --- an animation update needs to complete more quickly than, say, an update from a data store
+- 在用户界面中，无需立即应用每个更新；实际上，这样做可能是浪费的，导致丢帧并降低用户体验。
+- 不同类型的更新具有不同的优先级 —— 动画更新需要比数据存储中的更新更快地完成。
 
-Now, what do we mean when we refer to dropped frames, and why is this a problem with the recursive approach? In order to grasp this, let me briefly explain what frame rate is and why it's important from a user experience point of view.
+现在，当我们说丢帧时，我们说的是什么？为什么递归方法会出现这个问题？为了掌握这一点，让我从用户体验的角度简要说明什么是帧频以及为什么它很重要。
 
-Frame rate is the frequency at which consecutive images appear on a display. Everything we see on our computer screens are composed of images or frames played on the screen at a rate that appears instantaneous to the eye.
+帧频是连续图像出现在显示器上的频率。我们在计算机屏幕上看到的所有内容都是由屏幕上播放的帧或图像组成，并且以瞬时出现的速率显示。
 
-To understand what this means, think of the computer display as a flip-book, and the pages of the flip-book as frames played at some rate when you flip them. In other words, a computer display is nothing but an automatic flip-book that plays at all times when things are changing on the screen. If this doesn't make sense, watch [this video](https://youtu.be/FV97j-z3B7U).
+要理解这是什么意思，可以将计算机显示屏看作一本翻页书，而将翻页书的页面看作是翻页时以一定速率播放的帧。换句话说，计算机显示器不过是一本自动翻页书，当屏幕上的事物发生变化时，它会一直播放。如果不够清楚，请观看[此视频](https://youtu.be/FV97j-z3B7U)。
 
-Typically, for video to feel smooth and instantaneous to the human eye, the video needs to play at a rate of about 30 frames per second (FPS). Anything higher than that will give an even better experience. This is one of the prime reasons why gamers prefer higher frame rate for first-person shooter games, where precision is very important.
+通常，如果要让人眼对视频感觉到平滑并即时，那么视频需要以每秒 30 帧（FPS）的频率播放。高于此值将提供更好的体验。这就是为什么游戏玩家在玩第一人称射击游戏中喜欢更高的帧频的主要原因之一，精确度非常重要。
 
-Having said that, most devices these days refresh their screens at 60 FPS --- or, in other words, 1/60 = 16.67ms, which means a new frame is displayed every 16ms. This number is very important because if React renderer takes more than 16ms to render something on the screen, the browser will drop that frame.
+话虽这么说，如今大多数设备以 60 FPS 刷新屏幕，换句话说就是 1/60 = 16.67ms，这意味着每 16ms 就会显示一个新帧。这个数字非常重要，因为如果 React 渲染器花费 16ms 以上的时间在屏幕上渲染某些东西，浏览器将丢帧。
 
-In reality, however, the browser has housekeeping work to do, so all of your work needs to be completed inside 10ms. When you fail to meet this budget, the frame rate drop, and the content judders on screen. This is often referred to as jank, and it negatively impacts the user's experience.
+但是，实际上，浏览器有“家务活”要做，因此你的所有工作都需要在 10 ms 内完成。当你不能满足这个预算时，帧频下降，屏幕上的内容会抖动。这通常被称为 jank，会对用户体验产生负面影响。
 
-Of course, this is not a big cause of concern for static and textual content. But in the case of displaying animations, this number is critical. So if the React reconciliation algorithm traverses the entire `App` tree each time there is an update and re-renders it, and if that traversal takes more than 16ms, it will cause dropped frames, and dropped frames are bad.
+当然，对于静态和文本内容来说，这并不是什么大问题。但在显示动画的情况下，此数字至关重要。因此，如果每次有更新时 React 协调算法遍历整个 `App` 树并重新渲染，如果遍历时间超过 16 ms，则会导致讨厌的丢帧的问题。
 
-This is a big reason why it would be nice to have updates categorized by priority and not blindly apply every update passed down to the reconciler. Also, another nice feature to have is the ability to pause and resume work in the next frame. This way, React will have better control over working with the 16ms budget it has for rendering.
+这是为什么最好按优先级对更新进行分类，而不是盲目地应用传递给协调器的每个更新的重要原因。另外，另一个不错的功能是能够在下一帧中暂停和恢复工作。这样，React 可以更好地控制其渲染用的 16 ms 预算。
 
-This led the React team to rewrite the reconciliation algorithm, and the new algorithm is called Fiber. I hope now it makes sense as to how and why Fiber exists and what significance it holds. Let's look at how Fiber works to solve this problem.
+这导致 React 团队重写了协调算法，新算法称为 Fiber。我认为有必要去了解 Fiber 是如何存在，为什么存在，它有什么意义。让我们看看 Fiber 是如何解决这个问题的。
 
-## How Fiber works
+## Fiber 工作原理
 
-Now that we know what motivated the development of Fiber, let's summarize the features that are needed to achieve it.
+现在我们知道了 Fiber 的开发动机是什么，让我们总结实现 Fiber 所需的功能。
 
-Again, I am referring to Andrew Clark's notes for this:
+再次，我将引用 Andrew Clark 所指出的：
 
-- Assign priority to different types of work
-- Pause work and come back to it later
-- Abort work if it's no longer needed
-- Reuse previously completed work
+- 为不同类型的工作分配优先级
+- 暂停工作，稍后再返回
+- 如果不再需要，就中止工作
+- 复用先前完成的工作
 
-One of the challenges with implementing something like this is how the JavaScript engine works and to a little extent the lack of threads in the language. In order to understand this, let's briefly explore how the JavaScript engine handles execution contexts.
+实现这样的事情的挑战之一是 JavaScript 引擎的工作方式，并且在某种程度上该语言缺乏线程。为了理解这一点，让我们简要地探讨一下 JavaScript 引擎如何处理执行上下文。
 
 ### JavaScript execution stack
 
