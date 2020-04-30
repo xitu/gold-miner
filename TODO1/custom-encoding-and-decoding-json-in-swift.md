@@ -11,7 +11,7 @@
 
 本文我最早发表在 [Swift Delivery](https://www.leandrofournier.com/custom-encoding-and-decoding-json/)。
 
-在最近的 [Working with JSON in Swift series](https://levelup.gitconnected.com/working-with-json-in-swift-c5faea0b19a1) 文章中，我们学习了这些知识点:
+在最近的 [Working with JSON in Swift series](https://levelup.gitconnected.com/working-with-json-in-swift-c5faea0b19a1) 文章中，我们学习了这些知识点：
 
 * `Codable` 协议，它还包含另外两个协议: `Encodable` 和 `Decodable`。
 * 如何将 JSON 数据对象解析成具有可读性的 Swift 结构体。
