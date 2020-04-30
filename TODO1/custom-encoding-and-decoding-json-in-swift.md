@@ -235,7 +235,7 @@ func encode(to encoder: Encoder) throws {
 
 第 6 行我们在新建的 **details** 内部容器中对 **isHelpful** 进行编码。
 
-所以，最终的 **Insect** `结构体`是这样的:
+所以，最终的 **Insect** `结构体`是这样的：
 
 ```swift
 struct Insect: Codable {
