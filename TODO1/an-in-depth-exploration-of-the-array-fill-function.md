@@ -7,8 +7,6 @@
 
 # An In-Depth Exploration of the Array.fill() Function
 
-#### A Complete Guide to Javascript Array Methods
-
 ![Photo by [Tracy Adams](https://unsplash.com/@tracycodes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/javascript?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6364/1*KWkWLwUxBxxLh6ZzXg0-8Q.jpeg)
 
 There have been many useful functions that have been added to the Javascript `Array` global object over the last few years that offer developers a wide variety of options when they are writing code that works with arrays. These functions offer a number of advantages, the most noteworthy of which is the fact that, while at one time in the past developers had to implement their own complex logic to perform various array operations, now the need for such homegrown implementations has been eliminated by all of these new functions. One of those useful functions that will be explored in this article is the `[fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)` function.
@@ -25,7 +23,7 @@ The first parameter is the `value` parameter. This parameter can have any desire
 
 With the general function behavior covered, let’s take a look at some examples of how the `fill()` function works in practice. The following example demonstrates the situation where only a primitive `value` parameter value is specified:
 
-```
+```js
 var array = [1, 2, 3, 4, 5];
 array.fill(0);
 // array: [0, 0, 0, 0, 0]
@@ -39,7 +37,7 @@ This code sample exemplifies what was mentioned earlier about how the `fill()` f
 
 The following example demonstrates the situation where a primitive `value` parameter value and a positive `start` parameter value are specified:
 
-```
+```js
 var array = [1, 2, 3, 4, 5];
 array.fill(0, 2);
 // array: [1, 2, 0, 0, 0]
@@ -51,7 +49,7 @@ The `fill()` function is called with a `value` parameter value of `0` and a `sta
 
 The following example demonstrates the situation where a primitive `value` parameter value and a negative `start` parameter value are specified:
 
-```
+```js
 var array = [1, 2, 3, 4, 5];
 array.fill(0, -2);
 // array: [1, 2, 3, 0, 0]
@@ -63,7 +61,7 @@ The `fill()` function is called with a `value` parameter value of `0` and a `sta
 
 The following example demonstrates the situation where a primitive `value` parameter value and positive `start` and `end` parameter values are specified:
 
-```
+```js
 var array = [1, 2, 3, 4, 5];
 array.fill(0, 2, 4);
 // array: [1, 2, 0, 0, 5]
@@ -75,7 +73,7 @@ The `fill()` function is called with a `value` parameter value of `0`, a `start`
 
 The following example demonstrates the situation where a primitive `value` parameter value, a positive `start` parameter value, and a negative `end` parameter value are specified:
 
-```
+```js
 var array = [1, 2, 3, 4, 5];
 array.fill(0, 2, -3);
 // array: [1, 2, 3, 4, 5]
@@ -89,7 +87,7 @@ This same behavior where the resulting array is in the exact same state as it wa
 
 The following example demonstrates the situation where an object `value` parameter value is specified:
 
-```
+```js
 var array = [1, 2, 3];
 array.fill({ a: 1, b: 2 });
 // array: [{ a: 1, b: 2 }, { a: 1, b: 2 }, { a: 1, b: 2 }]
@@ -105,7 +103,7 @@ Another takeaway from this article should be that it is no longer necessary to i
 
 The final thing to keep in mind about the `fill()` function is how it handles an object that is passed as the `value` parameter value. When passing any value as the `value` parameter value, all of the items in the array that are filled with that value will be exactly the same. In the case of an object, all of the items that are filled will have a reference to the same exact object. This means that updating any one of the objects that has been filled in the array will also update all of the other objects that were filled. The following example shows this functionality in action:
 
-```
+```js
 var array1 = [1, 2, 3];
 array1.fill([1, 2, 3]);
 
