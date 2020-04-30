@@ -140,9 +140,9 @@ fib(10)
 
 实现这样的事情的挑战之一是 JavaScript 引擎的工作方式，并且在某种程度上该语言缺乏线程。为了理解这一点，让我们简要地探讨一下 JavaScript 引擎如何处理执行上下文。
 
-### JavaScript execution stack
+### JavaScript 执行栈
 
-Whenever you write a function in JavaScript, the JS engine creates what we call function execution context. Also, each time the JS engine begins, it creates a global execution context that holds the global objects --- for example, the `window` object in the browser and the `global` object in Node.js. Both these contexts are handled in JS using a stack data structure also known as the execution stack.
+每当你使用 JavaScript 编写函数时，JS 引擎都会创建所谓的函数执行上下文。另外，每次 JS 引擎启动时，它都会创建一个全局执行上下文，其中包含全局对象 —— 例如，浏览器中的 `window` 对象和 Node.js 中的 `global` 对象。这两个上下文都是在 JS 中使用栈数据结构（也称为执行栈）处理的。
 
 So, when you write something like this:
 
