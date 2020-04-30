@@ -217,7 +217,7 @@ init(from decoder: Decoder) throws {
 
 第 7 行，我们在 **details** 的容器中解析了 **isHelpful** 属性的 `Bool` 数据。
 
-但是事情还没有做完。我们在 **CodingKeys** 中加入了 **details**，所以我们自定义的编码方法也要如下修改:
+但是事情还没有做完。我们在 **CodingKeys** 中加入了 **details**，所以我们自定义的编码方法也要如下修改：
 
 ```swift
 func encode(to encoder: Encoder) throws {
