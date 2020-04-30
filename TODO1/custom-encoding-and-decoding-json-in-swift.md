@@ -44,7 +44,7 @@ struct Insect: Codable {
 }
 ```
 
-结构体中一共有三个属性。**insectId** 表示昆虫的身份，**name** 表示昆虫的名称，**isHelpful** 表示昆虫是否对我们的花园有益。其中两个属性使用了自定义 key (**insectId** 和 **isHelpful**)。
+结构体中一共有三个属性。**insectId** 表示昆虫的身份，**name** 表示昆虫的名称，**isHelpful** 表示昆虫是否对我们的花园有益。其中两个属性使用了自定义 key（**insectId** 和 **isHelpful**）。
 
 现在我们新建一个昆虫实例:
 
