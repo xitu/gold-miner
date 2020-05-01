@@ -2,52 +2,52 @@
 > * 原文作者：[Nwose Lotanna](https://medium.com/@viclotana)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/vuejs-3-0-0-beta-features-im-excited-about.md](https://github.com/xitu/gold-miner/blob/master/TODO1/vuejs-3-0-0-beta-features-im-excited-about.md)
-> * 译者：
+> * 译者：[zhanght9527](https://github.com/zhanght9527)
 > * 校对者：
 
-# VueJS 3.0.0 Beta: Features I’m Excited About
+# VueJS 3.0.0 Beta：那些令人兴奋的功能
 
 ![](https://cdn-images-1.medium.com/max/2560/1*RldyrFWyMYS5mhvUNmkw7g.jpeg)
 
-As of this writing VueJS 3.0.0 is now in Beta, in this article we will look at a quick overview of the Journey to the big release as presented by the Vue team at the latest ThisDot meetup online.
+在撰写本文时，VueJS 3.0.0 已经处于 Beta 阶段。在这篇文章中，我们将会看到 Vue 团队在最新的 ThisDot 在线会议上所展示的关于这个大版本的概述。
 
 ![](https://cdn-images-1.medium.com/max/2952/1*jfs5yQ21kQKLCvbvuHmSXA.png)
 
 ## Vue JS
 
-Vue JS is a very popular and progressive JavaScript library created by Evan You and 284+ members of the Vue community. It has more than 1.2 million users and consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.
+Vue JS 是一个非常流行的渐进式 JavaScript 框架，由尤雨溪（Evan You）与超过 284 名的 Vue 社区成员创建。它已经拥有120多万用户，由一个只关注视图层的可访问核心库和一个支持该核心库的生态系统组成，该生态系统可以帮助您处理大型单页应用中的难题。
 
-#### The Eco-System
+#### 生态系统
 
-It’s quite amazing to see how vast Vue’s eco-system has become. One of the things I’m particularly excited about is the recent release of [**Bit.dev**](https://bit.dev) with support for VueJS. So, now, finally, Vue developers can publish, document, and organize reusable components in a cloud component hub (just like React developers). Every new VueJS library or tool that comes out strengthens this great framework but some are more impactful than others (not having the freedom to publish components from any codebase is a deal-breaker for many developers).
+看到 Vue 的生态系统变得如此庞大，真是太不可思议了。我特别兴奋的一件事是最近发布了支持VueJS的 [**Bit.dev**]（https://Bit.dev）。因此，现在 Vue 开发人员终于可以在云组件中心中发布、记录和组织可重用组件了（就像React开发人员一样）。每一个新的 VueJS 库或工具都增强了这个伟大的框架，但是有些比其他的更有影响力（不能够自由地从任何代码库发布组件对许多开发人员来说是一个障碍）。
 
-![Published React components on [Bit.dev](https://bit.dev) — now supports VueJS](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
+![在 [Bit.dev](https://bit.dev) 发布 React 组件 —— 现在已经支持 VueJS](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
 
-#### This Dot Meetup
+#### This Dot 会议
 
-During this pandemic period, the ThisDot meetup was held on the 16th of April online where the core team showed what is to come in the future with Vue JS and that is what we will summarize in this post.
+疫情期间，ThisDot 会议于 4 月 16 日在线上举行，核心团队展示了未来 Vue JS 的发展趋势，这也是我们将在本文中总结的。
 
-## Performance
+## 性能
 
-This new version of Vue JS is built for speed, there is a significant speed bump between version 3.0 and the previous versions of Vue. It has up to 2x better update performance and up to 3x faster for server-side renderings. The component initialization is also now more efficient, with even compiler-informed fast paths to execution. The virtual DOM was also totally re-written and this new version will be totally faster than ever.
+这个新版本的 Vue JS 是为速度而构建的，在 3.0 版本和之前的 Vue 版本之间有一个明显的速度差异。它的更新性能提高了 2 倍，服务器端渲染的速度提高了 3 倍。组件初始化现在也更高效了，甚至优化了模板编译（Compiler informed fast paths）。虚拟DOM也被完全重写了，这个新版本将比以往任何时候都要快。
 
-## Tree-shaking support
+## 支持 Tree-shaking
 
-Support is now also available in this version for things like tree-shaking. Most features that were optional in Vue are now tree-shakable, features like transition and v-model. This has drastically reduced the size of Vue applications, a bare-bone HelloWorld is now 13.5kb in file size and with the composition API support it can go as low as 11.75kb in file size. With all the runtime features included, a project can weigh as small as 22.5kb. This means that even with the addition of way more features, Vue 3.0 is still lighter than any 2.x version.
+在这个版本中，现在还可以支持诸如 tree-shaking 之类的操作。在 Vue 中大多数可选功能现在都是可以 tree-shakable，比如 transition 和 v-model 。这大大减少了 Vue 应用程序的大小，一个 HelloWorld 的文件大小现在是13.5kb，而有了复合 API 的支持，它的文件大小可以低至 11.75kb。包含了所有的运行时特性后，一个项目的大小可能只有 22.5kb。这意味着即使增加了更多的特性，Vue 3.0 仍然比任何的 2.x 版本都要轻量。
 
 ## Composition API
 
-The Vue team has introduced a new way to deal with code organization, initially in the 2.x versions we used options. Options are great but it has compiler drawbacks when trying to match or access Vue logic, also having to deal with JavaScript’s this too. So the composition API is a better solution for handling these and it also comes with freedom and flexibility to use and re-use pure JS functions in your Vue components which would result to use less lines of code entirely. The composition API looks like this:
+Vue 团队引入了一种新的方法来处理代码组织，最初是在 2.x 版本我们使用了 options。Options 很好，但是在尝试匹配或访问 Vue 逻辑时它有编译器的缺点，还必须处理 JavaScript 的这个问题。因此，composition API 是处理这些问题的更好的解决方案，它还具有在 Vue 组件中使用和重用纯 JS 函数的自由和灵活性，使我们可以写更少的代码。composition API 是这样的:
 
 ```js
 <script>
 export default {
-         setup() {
-           return {
-             average(), range(), median()
-           }
-         }
-       } 
+  setup() {
+    return {
+      average(), range(), median()
+    }
+  }
+} 
 
 function average() { } 
 function range() { } 
@@ -55,11 +55,11 @@ function median() { }
 </script>
 ```
 
-Do we now lose the options API? No, rather the composition API would be used side by side with the options API. (This reminds me so much of React hooks)
+这让我们会失去 options API 吗？不，相反 composition API 和 options API 可以一起使用。（这让我想起了 React hooks）
 
 ## Fragments
 
-Just like React, Vue JS will introduce fragments in Vue version 3.0.0, one of the main needs for fragments is that Vue templates can only have one tag. So a code block like this in a Vue template will return an error:
+就像 React 一样，Vue JS 将在 Vue 3.0.0 版本中引入 fragments, fragments 的主要需求之一是 Vue 模板只能有一个标签。所以像这样的代码块在 Vue 模板会返回一个错误：
 
 ```html
 <template>   
@@ -68,19 +68,19 @@ Just like React, Vue JS will introduce fragments in Vue version 3.0.0, one of th
 </template>
 ```
 
-The first place I saw this idea implemented was in React 16, fragments are template wrapper tags that are used to structure your HTML code but does not alter the semantics. Like a Div tag but this time without any effect on the DOM. With fragments, manual render functions can just return arrays and it just works like you it does in React.
+我第一次看到这个想法是在 React 16 中实现的，fragments 是模板包装标签，用于构造 HTML 代码，但不会改变语义。就像 Div 标签，但是对 DOM 没有任何影响。对于 fragments，手动渲染函数可以返回数组，并且它的工作方式与 React 中的工作方式类似。
 
 ## Teleport
 
-Teleports which were previously called portals are safe channels for rendering child nodes into DOM nodes outside the DOM lineage like for pop-ups and even modals. Before now, this is usually handled with a lot of pain in CSS, now Vue lets you use \<Teleport> to handle that in your template section. I believe teleport was inspired by React portals and it will be shipped with the version 3.0.0 of Vue JS.
+Teleports 在之前被称为 portals ，是一种子节点渲染到父组件以外的 DOM 节点的方式，比如用于弹出窗口甚至 modals 。以前，在 CSS 中处理这个问题通常会很麻烦，现在Vue允许您在模板部分使用 \<Teleport> 来处理这个问题。我相信 teleport 的灵感来自React portals，它将与 Vue JS 3.0.0 版本一起发布。
 
 ## Suspense
 
-Suspense is a component required during lazy loading basically used to wrap lazy components. Multiple lazy components can be wrapped with the suspense component. In the 3.0.0 version of Vue JS suspense will be introduced to wait on nested async dependencies in a nested tree and it will work well with async components.
+Suspense 是延迟加载期间需要的组件，主要用于包装延迟组件。可以使用 suspense 组件包装多个延迟组件。在 3.0.0 版本中，将引入 Vue JS suspense ，以便在嵌套树中等待嵌套的异步依赖项，它可以很好地处理异步组件。
 
-## Better TypeScript support
+## 更好的 TypeScript 支持
 
-Vue started to support TypeScript from versions in the 2.x and for version 3.0.0 is continuing to do so. So generating new projects with the current latest TypeScript version will be possible with Vue 3.0.0 with TSX support and no much difference between the TS and the JS code and the APIs. Class component is still supported ([vue-class-component@next](https://github.com/vuejs/vue-class-component/tree/next) is currently in alpha)
+Vue 从 2.x 版本开始已经支持 TypeScript，而对于 3.0.0 版本，Vue将继续支持 TypeScript 。因此，在支持 TSX 的 Vue 3.0.0 中，可能使用当前最新的 TypeScript 版本生成新项目，而 TS 和 JS 代码以及 api 之间并没有太大区别。类组件仍然受支持（[vue Class component@next](https://github.com/vuejs/vue-Class-component/tree/next) 当前位于 alpha 中）。
 
 ## Version 3.0.0 Status Report
 
