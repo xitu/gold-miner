@@ -11,7 +11,7 @@
 
 用 JavaScript 处理图像可能非常困难且繁琐。幸运的是，有许多库可以使这事变得非常简单。以下是我最喜欢的不同类别的库。
 
-如果发现有用的东西，尝试封装成所选框架的组件。通过这种方式，您将拥有一个具备声明式 API 的可复用组件，并随时待命。
+如果发现有用的东西，尝试将其封装成所选框架的组件。通过这种方式，您将拥有一个具备声明式 API 的可复用组件，并随时待命。
 
 ## 1. Pica
 
@@ -38,7 +38,7 @@
 
 ## 3. Compressor.js
 
-这是一个简单的 JavaScript 图像压缩器，它使用浏览器原生 [canvas.toBlob](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob) API 来处理图像压缩。这使您可以将压缩输出质量设置为0到1。
+这是一个简单的 JavaScript 图像压缩器，它使用浏览器原生 [canvas.toBlob](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob) API 来处理图像压缩。这使您可以将压缩输出质量设置为 0 到 1。
 
 [演示](https://fengyuanchen.github.io/compressorjs/)
 [Github](https://github.com/fengyuanchen/compressorjs)
