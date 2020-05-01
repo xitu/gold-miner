@@ -7,8 +7,6 @@
 
 # How to simulate a UDP Flood DoS attack on your computer
 
-#### Everything you need to reproduce a UDP Flood Denial of Service attack with two virtual machines
-
 ![](https://cdn-images-1.medium.com/max/12048/0*5IXgILaawtazZ2Tx)
 
 **Disclaimer: The following tutorial has only educational purposes. Perform the attack only on computers you own.**
@@ -23,8 +21,6 @@ The attacker sends packets to the server’s IP address, choosing **random ports
 
 The attacker’s IP address can possibly be spoofed to prevent both their identification and the saturation of their own resources by the ICMP responses.
 
----
-
 ## Setup
 
 In order to simulate this attack you need two virtual machines. Network cards must be configured to have their own address in the subnet. I used VirtualBox, with two instances of BunsenLabs, which is very lightweight. They are configured with a network card in bridged mode. Here are the requirements for each of the virtual machines:
@@ -32,13 +28,11 @@ In order to simulate this attack you need two virtual machines. Network cards mu
 * an **attacker** with python3
 * a **victim** with python, version 3.7 or greater
 
----
-
 #### Server configuration
 
 We will run a simple HTTP server to verify that there is a drop in performance while the server is under attack. Below is the server written in Python.
 
-```
+```py
 import sys
 import time
 import random
@@ -81,7 +75,7 @@ This server can be reached at localhost:80. What it does is to pick a very large
 
 We can perform the attack with the following Python script, using sockets.
 
-```
+```py
 import time
 import socket
 import random
@@ -104,15 +98,11 @@ while time.time() < timeout:
 
 In this script we can specify the IP address of our victim and the duration of the attack. Each time we send a packet we choose a different port, as explained above.
 
----
-
 ## The attack
 
 To execute the attack we run the server and check its performance with the method described above. Next, from the attacker’s virtual machine, we run the script that performs the attack. When the machine is under attack we can see an increase in CPU usage as it is busy processing incoming traffic and responding with ICMP Destination Unreachable packets.
 
 We can then proceed to reload the browser page and count the response time of the server. It is therefore easy to see that server performance has deteriorated significantly. The response time should be at least twice as long as under normal conditions.
-
----
 
 ## Mitigation
 
@@ -120,7 +110,7 @@ We can then proceed to reload the browser page and count the response time of th
 
 It is very difficult to mitigate a UDP Flood attack. It is possible to change the number of ICMP packets that the operating system sends every second. We can use these two commands in Linux, for example:
 
-```
+```bash
 sudo sysctl -w net.ipv4.icmp_ratelimit=0
 sudo sysctl -w net.ipv4.icmp_msgs_per_sec=1000
 ```
@@ -133,7 +123,7 @@ We can easily verify this by launching the attack for 10 seconds and using Wires
 
 We can try to change this parameter and check with Wireshark how the number of packets sent during 10 seconds changes. For example by indicating a rate of 1 message per second we can capture about 10 messages.
 
-```
+```bash
 sudo sysctl -w net.ipv4.icmp_msgs_per_sec=1000
 ```
 
@@ -144,8 +134,6 @@ The difficult part is choosing an appropriate value for these parameters. The op
 #### Firewalls
 
 We can also try to defend ourselves against this attack using firewalls. A firewall can block UDP packets before they reach the server. This way the server resources are not used at all. However, firewalls are also vulnerable to this type of attack: they have to process incoming traffic and they could become a bottleneck during the attack. Furthermore, if we use a stateful firewall we can easily block an attack if it always comes from the same IP address, but if the attacker spoofs their IP, all the state tables of the firewall could potentially be filled and all the available memory consumed. So firewalls are not always the solution.
-
----
 
 ## Conclusions
 
