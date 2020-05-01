@@ -2,26 +2,26 @@
 > * 原文作者：[Jean-Marc Boullianne](https://medium.com/@jboullianne)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swiftui-animating-color-changes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swiftui-animating-color-changes.md)
-> * 译者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：
 
-# SwiftUI: Animating Color Changes
+# 用 SwiftUI 实现酷炫的颜色切换动画
 
-Time to spice up your color changes! You’re going to learn how to animate background color changes in SwiftUI using `Paths` and `AnimatableData`!
+老铁们，是时候燥起来了！本文中我们将学习如何使用 SwiftUI 中的 `Paths` 和 `AnimatableData` 来制作颜色切换动画。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ZiMbs5MNguBktfIt.gif)
 
 ![](https://cdn-images-1.medium.com/max/2000/0*Wc0gTdaBCBHCYpYL.gif)
 
-What kind of color changing madness is this?!
+这些快速切换的动画是怎么实现的呢？让我们来看下文吧！
 
-#### Getting Started
+#### 基础
 
-The key to our background color changing magic is going to be creating our own custom SwiftUI `Shape` struct. We'll call it `SplashShape`. `Shape` structs utilize the function `path(in rect: CGRect) -> Path` to define what they look like. This is the function we'll be using to create the various animations.
+要实现动画的关键是在 SwiftUI 中创建一个实现 `Shape` 协议的结构体。我们把它命名为 `SplashShape`。在 `Shape` 协议中，有一个方法叫做 `path(in rect: CGRect) -> Path`，这个方法可以用来设置图形的外观。我们就用这个方法来实现本文中的各种动画。
 
-#### Create the SplashShape struct
+#### 创建 SplashShape 结构体
 
-Go ahead and create a new `Shape` struct called `SplashStruct`.
+下面我们创建一个叫做 `SplashStruct` 的结构体，它继承于 `Shape` 协议。
 
 ```swift
 import SwiftUI
@@ -34,13 +34,13 @@ struct SplashShape: Shape {
 }
 ```
 
-For starters we’ll be creating two animations. `leftToRight` and `rightToLeft` shown below.
+我们首先创建两种动画类型。`leftToRight` 和 `rightToLeft`，效果如下所示:
 
 ![`leftToRight` & `rightToLeft`](https://cdn-images-1.medium.com/max/2000/0*IhBr4_qhxe5FRnTN.gif)
 
-#### SplashAnimation
+#### Splash 动画
 
-We will create an `enum` called `SplashAnimation` for our custom animations. This will allow us to easily add more animations in the future (see the end for more!).
+我们创建一个名为 `SplashAnimation` 的`枚举`来定义动画类型，便于以后更方便地扩展新动画(文章末尾可以验证！)。
 
 ```swift
 import SwiftUI
@@ -58,7 +58,7 @@ struct SplashShape: Shape {
 }
 ```
 
-In our `path()` function we'll switch on which animation our shape is using and generate the required `Path` for the animation. But first, we must create variables to hold the animation type as well as the progress of the animation.
+在 `path()` 方法中，我们可以选择需要使用的动画，并且返回动画的 `Path`。但是首先，我们必须创建变量来存储动画类型，记录动画过程。
 
 ```swift
 import SwiftUI
@@ -79,11 +79,11 @@ struct SplashShape: Shape {
 }
 ```
 
-`progress` will be a value between `0` and `1`, which will detail how far we are through the animation of the color change. This will come in handy next when we write our `path()` function.
+`progress` 的取值范围在 `0` 和 `1` 之间，它代表整个动画的完成进度。当我们编写 `path()` 方法时，它就会派上用场。
 
-#### Writing the path() function
+#### 编写 path() 方法
 
-As said earlier we need to figure out what type of animation we’re using in order to return the correct `Path`. Start off by writing a `switch` statement in your `path()` function using the `animationType` defined earlier.
+跟之前说的一样，为了返回正确的 `Path`，我们需要明确正在使用哪一种动画。在 `path()` 方法中编写 `switch` 语句，并且用上我们之前定义的 `animationType`。
 
 ```swift
 func path(in rect: CGRect) -> Path {
@@ -96,11 +96,11 @@ func path(in rect: CGRect) -> Path {
 }
 ```
 
-As of right now, this will return empty paths. We need to actually create the functions to animate the paths.
+现在这个方法只会返回空 paths。我们需要创建产生真实动画的方法。
 
-#### Create The Animation Functions
+#### 实现动画方法
 
-Below your `path()` function, create two new functions called `leftToRight()` and `rightToLeft()` for each type of animation. Within each function, we will create a `Path` in the shape of a rectangle that will grow over time according to our `progress` variable.
+在 `path()` 方法的下面，创建两个新的方法： `leftToRight()` 和 `rightToLeft()`，每个方法表示一种动画类型。在每个方法体内，我们会创建一个矩形形状的 `Path`，它会根据 `progress` 变量的值随时间发生变换。
 
 ```swift
 func leftToRight(rect: CGRect) -> Path {
@@ -124,7 +124,7 @@ func rightToLeft(rect: CGRect) -> Path {
 }
 ```
 
-Then utilize the two new functions in your `path()` function above.
+然后在 `path()` 方法中调用上面两个新方法。
 
 ```swift
 func path(in rect: CGRect) -> Path {
@@ -137,9 +137,9 @@ func path(in rect: CGRect) -> Path {
 }
 ```
 
-#### AnimatableData
+#### 动画数据
 
-In order to make sure Swift knows how to animate our `Shape` when the `progress` variable is changed, we need to specify which variable is animating. Just below our `progress` and `animationType` variables, define `animatableData`. It's a variable based on the [`Animatable` protocol](https://developer.apple.com/documentation/swiftui/animatable) which helps SwiftUI know how to animate views when they change.
+为了确保 Swift 知道在更改 `progress `变量时如何对 `Shape` 进行动画处理，我们需要指定一个响应动画的变量。在 `progress` 和 `animationType` 变量下面，定义 `animatableData`。这是一个基于[`Animatable` 协议](https://developer.apple.com/documentation/swiftui/animatable) 的变量，它可以通知 SwiftUI 在数据改变时，对视图进行动画处理。
 
 ```swift
 var progress: CGFloat
@@ -153,11 +153,11 @@ var animatableData: CGFloat {
 
 ![`SplashShape` animating as `progress` changes.](https://cdn-images-1.medium.com/max/2000/0*8vr8fNf-Fa86z6XF.gif)
 
-#### Animating the Color Change
+#### 颜色切换时产生动画
 
-Up to now we’ve created a `Shape` which will animate over time. Next we need to add this shape to a view and automatically animate it when the view's color changes. This is where `SplashView` comes in to play. We're going to create a `SplashView` to automatically update the `progress` variable of `SplashShape`. When `SplashView` receives a new `Color` it triggers the animation.
+到目前为止，我们已经创建了一个 `Shape`，它将随着时间的变化而变化。接下来，我们需要将它添加到视图中，并在视图颜色改变时自动对其进行动画处理。这时候我们引入 `SplashView`。我们将创建一个 `SplashView` 来自动更新 `SplashShape` 的 `progress` 变量。当 `SplashView` 接收到新的 `Color` 时，它将触发动画。
 
-Get started by creating the `SplashView` struct.
+首先，我们创建 `SplashView` 结构体。
 
 ```swift
 import SwiftUI
@@ -171,9 +171,9 @@ struct SplashView: View {
 }
 ```
 
-Remember our `SplashShape` takes a `SplashAnimation` enum as a parameter so we'll need to add this as a parameter to our `SplashView`. In addition, we're animating the background color change of the view, so we'll need to take in a `Color` as well. Our initializer is detailed below.
+`SplashShape` 需要使用 `SplashAnimation` 枚举作为参数，所以我们会把它作为参数传递给 `SplashView`。另外，我们要在视图的背景颜色变化时设置动画，所以我们也要传递 `Color` 参数。这些细节会在我们的初始化方法中详细说明。
 
-`ColorStore` is a custom ObservableObject. It is used to recieve `Color` updates in the `SplashView` struct, so that we can initiate the `SplashShape` animation, and ultimately the background color change. We'll show how that works in a second.
+`ColorStore` 是自定义 ObservableObject。它用来监听 `SplashView` 结构体中 `Color` 值的改变 ，以便我们可以初始化 `SplashShape` 动画，并最终改变背景颜色。我们稍后展示它的工作原理。
 
 ```swift
 struct SplashView: View {
@@ -204,9 +204,9 @@ class ColorStore: ObservableObject {
 }
 ```
 
-#### Creating the SplashView body
+#### 构建 SplashView body
 
-Inside the `body` variable we need to return a `Rectangle` set to the current color of the `SplashView`. Then using the `ColorStore` Obseravble Object defined earlier, we can receive color updates to animate our view.
+在 `body` 内部，我们需要返回一个 `Rectangle`，它和 `SplashView` 当前的颜色保持一致。然后使用之前定义的 `ColorStore`，以便于我们接收更新的颜色值来驱动动画。
 
 ```swift
 var body: some View {
@@ -218,13 +218,13 @@ var body: some View {
 }
 ```
 
-When changing the colors, we need some way to keep track of the color that the `SplashView` is being changed to, as well as the progress. We'll define the `layers` variable in order to do this.
+当颜色改变时，我们需要记录 `SplashView` 中正在改变的颜色和进度。为此，我们定义 `layers` 变量。
 
 ```
 @State var layers: [(Color,CGFloat)] = [] // New Color & Progress
 ```
 
-Now back inside our `body` variable we need to add the newly received `Colors` to the `layers` variable. When we add them, we set the progress to `0` since they were just added. Then, over the course of half a second we animate their progress to `1`.
+现在回到 `body` 变量内部，我们给 `layers` 变量添加新接收的 `Colors` 。添加的时候我们把进度设置为 `0`。然后，在半秒之内的动画过程中，我们把进度设置为 `1`。
 
 ```swift
 var body: some View {
@@ -241,7 +241,7 @@ var body: some View {
 }
 ```
 
-As of right now, this will add the new colors to the` layers` variable, but they aren't displayed on top of the `SplashView`. To do this we need to display each layer as an overlay on the `Rectangle` inside the `body` variable.
+现在在这段代码中，`layers` 变量中添加了更新后的颜色，但是颜色并没有展示出来。为了展示颜色，我们需要在 `body` 变量内部为 `Rectangle` 的每一个图层添加一个覆盖层。
 
 ```swift
 var body: some View {
@@ -268,9 +268,9 @@ var body: some View {
 }
 ```
 
-#### Give it a Run
+#### 测试效果
 
-Using the code below you can give it a run inside an emulator. What this does, is when the button inside `ContentView` is pressed, it advances the `index` used to select the `SplashView` color, which triggers an update to the `ColorStore` inside. This make the `SplashView` add a `SplashShape` layer and animate it's addition to the view.
+你可以在模拟器中运行下面的代码。这段代码的意思是，当你点击 `ContentView` 中的按钮时，它会计算 `index` 来选择 `SplashView` 中的颜色，同时也会触发 `ColorStore` 内部的更新。所以，当 `SplashShape` 图层添加到 `SplashView` 时，就会触发动画。
 
 ```swift
 import SwiftUI
@@ -302,11 +302,11 @@ struct ContentView: View {
 
 ![Color Changing Goodness!](https://cdn-images-1.medium.com/max/2000/0*0cplu29bi4dyHzkt.gif)
 
-#### Not Finished Yet!
+#### 还没有完成!
 
-We’re missing one thing. AS of right now, we’re continuously adding layer upon layer to our `SplashView`. We need to make sure we delete those layers after they finish animating and are displayed.
+我们还有一个功能没实现。现在我们持续地把图层添加到 `SplashView` 上，但是没有删除它们。因此，我们需要在动画完成时把这些图层清理掉。
 
-Inside your `onReceive()` function inside your `SplashView` struct's `body` variable, make the following change:
+在 `SplashView` 结构体 `body` 变量的 `onReceive()` 方法内部，做如下改变：
 
 ```swift
 .onReceive(self.colorStore.$color) { color in
@@ -322,25 +322,25 @@ Inside your `onReceive()` function inside your `SplashView` struct's `body` vari
 }
 ```
 
-This makes sure we delete old entries to the `layers` array and that our `SplashView` is showing the correct background color based on the latest update.
+这行代码能让我们删除 `layers` 数组中使用过的值，并确保 ` SplashView` 基于最新更新的值显示正确的背景色。
 
-#### Show us What You Made!
+#### 展示成果!
 
-Have you completed one of my tutorials? Send me a screenshot or drop me a link to the project. [TrailingClosure.com](https://trailingclosure.com) will be featuring user’s work! Find us on Twitter [@TrailingClosure](https://twitter.com/TrailingClosure), or email us at [howdy@TrailingClosure.com](mailto:howdy@trailingclosure.com)
+您完成了本教程的案例吗？您可以给我发一个截图或者链接来展示你的成果。[TrailingClosure.com](https://trailingclosure.com) 将会为用户的成果制作专题。您可以通过 Twitter [@TrailingClosure](https://twitter.com/TrailingClosure)联系我们，或者给我们发邮件 [howdy@TrailingClosure.com](mailto:howdy@trailingclosure.com)。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*vuSb0VxT6pvGpp9z.gif)
 
-#### Source Code Posted on GitHub
+#### GitHub 源码
 
-Checkout the [source code](https://github.com/jboullianne/SplashView) for this tutorial on my Github! Full source code for both `SplashShape` and `SplashView` are included, in addition to the examples shown. .... But wait, there's more!
+您可以在我的 Github 上查看本教程的[源代码](https://github.com/jboullianne/SplashView)！除了显示的示例外，还包括 `SplashShape` 和 ` SplashView` 的完整源代码。 ....但是等等，还有更多！
 
-#### EXTRA CREDIT!
+#### 彩蛋!
 
-If you’re familiar with my previous tutorials, you know I love extra credit 😉. I said in the beginning there would be more animations. This is the moment you’ve been waiting for…. **drum roll**….
+如果你熟悉我之前的教程，你应该了解我喜欢彩蛋 😉。在本文开头，我说过会实现更多动画。此刻终于来了…… **击鼓**……。
 
-## SplashAnimation 🥳
+## Splash 动画 🥳
 
-Wooohoo!! Remember this? I told you we’d come back to it to add more animation types.
+哈哈哈！！ 还记得吗？我说过会添加更多动画种类。
 
 ```swift
 enum SplashAnimation {
@@ -372,13 +372,13 @@ func path(in rect: CGRect) -> Path {
 }
 ```
 
-I know what you’re thinking… **“Whoa, that’s a lot of extra credit…”**. Don’t fret. By modifying our `path()` function inside `SplashShape`, and creating just a few more functions, we'll be animating like no one's business.
+你肯定会想…… **“哇, 彩蛋也太多了……”**。不必苦恼。我们只需要在 `SplashShape` 的 `path()` 方法中添加几个方法，就能搞定。
 
-Let’s take this animation by animation…
+下面我们逐个动画来搞定……
 
-#### topToBottom & bottomToTop
+#### topToBottom 和 bottomToTop 动画
 
-Much like `leftToRight` and `rightToLeft` these functions create a path which starts from the bottom or top of the shape and grows over time using the `progress` variable.
+这些方法与 `leftToRight` 和 `rightToLeft` 非常相似，它们创建的 path 从 shape 的底部或顶部开始，并使用 `progress` 变量随时间变换。
 
 ```swift
 func topToBottom(rect: CGRect) -> Path {
@@ -404,13 +404,13 @@ func bottomToTop(rect: CGRect) -> Path {
 
 ![](https://cdn-images-1.medium.com/max/2000/0*R5UO4dzgtvlUUjtC.gif)
 
-#### circle
+#### circle 动画
 
-If you remember some of your grade school geometry, you’ll know the Pythagorean Theorem. `a^2 + b^2 = c^2`
+如果你还记得小学几何知识，就应该了解勾股定理。 `a ^ 2 + b ^ 2 = c ^ 2`
 
 ![`c` is the radius of the final circle our path needs to draw](https://cdn-images-1.medium.com/max/2100/0*taOHhdEX-GycqkbL.png)
 
-`a` and `b` can be considered our rectangle's `height` and `width`. This allows us to solve for `c`, the radius of the circle that is required to cover the entirety of the rectangle. We can build the circular path from this and grow it over time using the `progress` variable.
+`a` 和 `b` 可以视为矩形的 `高度` 和 `宽度`。这使我们能够求解 `c`，即覆盖整个矩形所需的圆的半径。我们以此为基础构建圆的半径，并使用 `progress` 变量随时间变换。
 
 ```swift
 func circle(rect: CGRect) -> Path {
@@ -431,13 +431,13 @@ func circle(rect: CGRect) -> Path {
 
 ![Animating Using a Circle Path](https://cdn-images-1.medium.com/max/2000/0*a4qFyDe5jvcD-B1J.gif)
 
-#### angle
+#### angle 动画
 
-This one is a little more involved. You need to calculate the slope of the angle using the tangent. Then create a line with the given slope. You’ll plot this line as a right triangle as you move the line across the rectangle. See the picture below. The various colored lines represent the line moving over time to cover the entire rectangle.
+这个动画知识点有点多。你需要使用切线计算角度的斜率。然后根据这个斜率创建一条直线。在矩形上移动这条直线时，根据它来绘制一个直角三角形。参见下图，各种彩色的线表示该线随时间移动时，覆盖整个矩形的状态。
 
 ![The line moves in order from the red, blue, green, then purple. to cover the rectangle](https://cdn-images-1.medium.com/max/2000/0*ogi8WYEI-T3-GsWh.png)
 
-The function is as follows:
+方法如下：
 
 ```swift
 func angle(rect: CGRect, angle: Angle) -> Path {
@@ -487,9 +487,9 @@ func angle(rect: CGRect, angle: Angle) -> Path {
 
 ![Angles 45°, 135°, 225°, 315°](https://cdn-images-1.medium.com/max/2000/0*gxQtfGVNpOr50amB.gif)
 
-#### Support Future Tutorials Like This One!
+#### 请支持我！
 
-Please consider subscribing using this [link](https://trailingclosure.com/signup/). If you aren’t reading this on [TrailingClosure.com](https://trailingclosure.com/), please come check us out sometime!
+您可以用此[链接](https://trailingclosure.com/signup)进行订阅。如果您不是在 [TrailingClosure.com](https://trailingclosure.com/)上阅读本文，以后可以来逛逛！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
