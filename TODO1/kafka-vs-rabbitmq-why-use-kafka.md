@@ -2,114 +2,114 @@
 > * 原文作者：[SeattleDataGuy](https://medium.com/@SeattleDataGuy)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/kafka-vs-rabbitmq-why-use-kafka.md](https://github.com/xitu/gold-miner/blob/master/TODO1/kafka-vs-rabbitmq-why-use-kafka.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Roc](https://github.com/QinRoc)
+> * 校对者：[icy](https://github.com/Raoul1996)，[cyril](https://github.com/shixi-li)
 
-# Kafka vs. RabbitMQ: Why Use Kafka?
+# Kafka vs. RabbitMQ：为什么使用 Kafka？
 
-> Are all data streaming services made equal?
+> 所有的数据流服务都是一样的么？
 
 ![Photo by [Levi Jones](https://unsplash.com/@ev?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/data?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/5754/1*DJvGajoZpUGKsSSEFyzwwQ.jpeg)
 
-A vital part of the successful completion of any project is the selection of the right tools for performing essential basic functions. For developers, the availability of several messaging services to pick from always poses a challenge.
+任何项目的圆满完成都离不开选择正确的工具来实现必需的基础功能。对开发者而言，从多个消息服务中挑选出一个合适的，一直是一个挑战。
 
-One crucial question unanswered is the use of [Apache Kafka](https://kafka.apache.org/) or [RabbitMQ](https://www.rabbitmq.com/) services. Both platforms feature several functionalities and use cases that can help users make an informed decision.
+一个悬而未决的重要问题是：选择 Apache Kafka 还是 RabbitMQ？这两个平台都有独特的功能和使用场景，了解这些可以帮助用户做出明智的选择。
 
-Apache Kafka and RabbitMQ are two top platforms in the area of messaging services. Although both platforms handle messaging differently, the difference lies in their selected architecture, design, and approach to delivery.
+Apache Kafka 和 RabbitMQ 是消息服务领域的两大顶尖平台。这两个平台处理消息的方式存在差异，主要体现在它们的架构、设计和消息传递方式上。
 
-## But What Are Apache Kafka and RabbitMQ?
+## 但是 Apache Kafka 和 RabbitMQ 到底什么是呢？
 
-Apache Kafka and RabbitMQ are open-source platforms that are utilized for streaming data as well as come equipped with [pub/sub](https://www.rabbitmq.com/tutorials/tutorial-three-ruby.html) (which we will describe later) systems that are commercial — supported and used by several enterprises.
+Apache Kafka 和 RabbitMQ 都是可用于流数据处理的开源平台，由多家企业支持并使用，同样也配备有商业化的[发布/订阅（pub/sub）](https://www.rabbitmq.com/tutorials/tutorial-three-ruby.html)系统（我们将在后面介绍）。
 
-#### What is Apache Kafka?
+#### Apache Kafka 是什么？
 
-Apache Kafka, in simple terms, is a message bus optimized for high-access data replays and streams. The robust message broker allows applications to continually process and re-process stream data.
+简而言之，Apache Kafka 是针对高速存取数据的重放和流而优化的消息总线。Kafka 健壮的消息代理使应用程序可以连续地处理和重新消费流数据。
 
-The open-source platform uses an uncomplicated and easy routing approach that engages a routing key in sending messages to a topic. Launched in 2011, the Kafka tool was created for streaming setups.
+这个开源平台使用了一种简单易行的路由方法，该方法使用了路由键（routing key）来将消息发送到某个主题（topic）。Kafka 于 2011 年推出，它为流处理体系而生。
 
-#### What is RabbitMQ?
+#### RabbitMQ 是什么？
 
-RabbitMQ is an all-round messaging broker with support protocols like Advanced Message Queuing Protocol (AMQP), MQ Telemetry Transport (MQTT), and Simple (or Streaming) Text-Oriented Messaging Protocol (STOMP).
+RabbitMQ 是一个多功能的消息代理，它支持多种协议的，例如 高级消息队列协议（Advanced Message Queuing Protocol，AMQP），MQ 遥测传输（MQ Telemetry Transport，MQTT）和 面向文本的简单（或流）消息协议（Simple (or Streaming) Text-Oriented Messaging Protocol，STOMP）。
 
-RabbitMQ can handle use cases seeking high efficiency, like processing online payments. RabbitMQ can also serve as a message broker amongst microservices.
+RabbitMQ 可以处理追求高效的场景，例如处理在线支付场景。RabbitMQ 也可以用作微服务间的消息代理。
 
-Launched in 2007, RabbitMQ started as a primary element in messaging and SOA systems. Nowadays, its expanded roles also include streaming use cases.
+RabbitMQ 推出于 2007 年，甫一问世，就成为了消息处理和 SOA 系统的主要组件。现在，它已经覆盖了流处理的使用场景。
 
-So, if you are considering whether to use Apache Kafka or RabbitMQ, read on to learn about the difference in architectures, approaches, and their performance pros and cons.
+如果你正在纠结是选用 Apache Kafka 还是 RabbitMQ，那么请继续阅读，进一步了解两者在架构、方法以及性能优缺点方面的差异。
 
-## Architecture Differences
+## 架构差异
 
-#### Apache Kafka architecture
+#### Apache Kafka 的架构
 
-The Apache Kafka architecture uses a high volume of publish-subscribe messages and a streams platform that is quick and scalable. The robust message store, like logs, makes use of server clusters that hold several records in topics (categories).
+Apache Kafka 的架构使用了大量的发布-订阅消息和一个高速、可扩展的流平台。它的健壮的消息存储机制（如日志）利用了服务器集群来存储不同 topic（即类别）下的多条记录。
 
-[All Kafka messages feature a key, value, and timestamp](http://kth.diva-portal.org/smash/get/diva2:813137/FULLTEXT01.pdf). The smart consumer or dumb broker model do not attempt tracking on consumer messages and only retain unread messages. Apache Kafka holds all messages for a defined time frame.
+[Kafka 的每条消息都由键、值和时间戳组成](http://kth.diva-portal.org/smash/get/diva2:813137/FULLTEXT01.pdf)。智能消费者（smart consumer）或哑代理（dumb broker）模型不会试图追踪消费者的消息，而只是保留未读消息。Apache Kafka 会在一个规定的时间范围内保留全部的消息。
 
-#### RabbitMQ architecture
+#### RabbitMQ 的架构
 
-The RabbitMQ architecture makes use of an all-round message broker which entails variations in point-to-point, request/reply, and pub/sub communication designs.
+RabbitMQ 的架构使用了多功能的消息代理，这个代理的设计综合了点对点、请求/响应和发布/订阅的多种通信方案的变体。
 
-The use of a dumb consumer and smart broker method allows for reliable message delivery to consumers with similar speed to that of a broker monitoring the state of consumers.
+哑消费者（dumb consumer）和智能代理（smart broker）模型的运用可以为消费者可靠地投递消息，并且这种方法的速度与使用代理监控消费者状态的方法的速度不相上下。
 
-With the use of synchronous or asynchronous communication methods, the platform provides adequate support for several plugins including .NET, client libraries, Java, Node.js, Ruby, and more.
+通过使用同步或异步的通信方法，该平台对包括 .NET、Java、Node.js、Ruby 在内的多种语言客户端库和其他插件提供了足够的支持。
 
-It also makes available distributed deployment scenarios alongside a multi-node cluster to cluster federation with zero reliance on external services.
+RabbitMQ 还在不依赖外部服务的情况下，实现了分布式部署方案和多节点集群联合。
 
-With [RabbitMQ](http://kth.diva-portal.org/smash/get/diva2:813137/FULLTEXT01.pdf), publishers can transmit messages to exchanges, and retrieve messages from queues by consumers. The decoupling producers from lines through exchanges guarantee that producers are not troubled with hardcoded routing choices.
+使用 [RabbitMQ](http://kth.diva-portal.org/smash/get/diva2:813137/FULLTEXT01.pdf)，发布者可以将消息传输到交换机，消费者再从队列中取出消息。交换机将消息生产者从生产线中解耦出来，确保生产者不用担心硬编码的路由选择。
 
-## Publish/Subscribe (Pub/Sub)
+## 发布/订阅（Pub/Sub）
 
-Publish/subscribe is amongst the main messaging patterns for asynchronous messaging, a messaging scheme where message production is decoupled from its processing by a consumer.
-
-#### Apache Kafka
-
-In Apache Kafka, the platform is created for high volume publish-subscribe messages and streams, which are intended to be durable, quick, and scalable. In essence, Kafka makes available a sustainable message store and a server cluster.
-
-#### RabbitMQ
-
-In RabbitMQ, the design entails an all-round message broker, using several variations of point-to-point, request/reply, and pub-sub communication style patterns.
-
-## Push/Pull Model
-
-#### Apache Kafka: Pull-based method
-
-Kafka makes use of a pull model where consumers make message requests in batches from a specified offset. Apache Kafka also allows for long-pooling, which stops tight loops when no message goes through the offset.
-
-The pull model remains logical for Apache Kafka due to its partitions. Its platform makes available message order within a barrier without contending consumers.
-
-This approach lets users leverage message batching for efficient message delivery and better throughput.
-
-#### RabbitMQ: Push-based method
-
-RabbitMQ pushes messages to the consumer, which includes a prefetch limit configuration essential to preventing the consumer from becoming overwhelmed by multiple messages.
-
-They can also be useful for low latency messaging. The purpose of the push method is the quick distribution of individual messages individually, alongside a guarantee that all of it is parallelized evenly and messages are processed in an ordered queue, usually as they arrive.
-
-## Use Cases
+发布/订阅是异步消息传递的主要模式之一。异步消息传递方案解耦了消息的生产与消费者对它的处理。
 
 #### Apache Kafka
 
-Apache Kafka provides an additional broker itself, for which it is best known and it is a popular element of the platform. The additional broker has been premeditated and marketed in the direction of stream processing setups.
-
-Also, the addition of Kafka Streams serves as an alternative to streaming platforms like Apache Flink, Apache Spark, Google Cloud Data Flow, and Spring Cloud Data Flow.
-
-The exceptional [use cases](https://kafka.apache.org/uses) documentation provides a detailed use case for Apache Kafka including its commit logs, event sourcing, log aggregation, metrics, web activity tracking, and more tasks.
+在 Apache Kafka 中，该发布/订阅平台是为大量发布-订阅消息和流而创建的，旨在持久、高速和可扩展。本质上，Kafka 带来了持久化的消息存储和服务器集群。
 
 #### RabbitMQ
 
-RabbitMQ delivers an all-round messaging solution with widespread usage amongst web servers’ timely response to requests in place of enforced response to performing resource-heavy measures while users await the result.
+RabbitMQ 的设计方案中有多功能的消息代理，这个代理基于点对点、请求/响应和发布-订阅通信模式的变体来实现。
 
-RabbitMQ is also excellent for distributing messages to multiple receivers as it offers a lot of [features for reliable delivery](http://www.rabbitmq.com/confirms.html), federation, management tools, routing, security, and [other functions](http://www.rabbitmq.com/features.html).
+## 推/拉（Push/Pull）模型
 
-With assistance from additional software, RabbitMQ can also effectively address several substantial uses cases. A combination with Apache Cassandra can provide access to stream history, or with the [LevelDB](https://github.com/google/leveldb) plugin for access to an “infinite” queue.
+#### Apache Kafka：基于拉（Pull）的方法
 
-## Conclusion
+Kafka 使用拉模型，在该模型中，消费者从特定的偏移量开始批量地请求消息。Apache Kafka 还支持长轮询，当通过偏移量不再获取到消息时，长轮询会停止紧凑的轮询请求。
 
-Both [Apache Kafka and RabbitMQ](https://www.theseattledataguy.com/kafka-vs-rabbitmq-why-use-kafka/) platforms offer a variety of critical services intended to suit a lot of demands.
+由于分区（partitions）的存在，Apache Kafka 使用拉取模型是合理的。Kafka 可以在没有消费者相互竞争的情况下提供消息排序。
 
-RabbitMQ is sufficient for simple use cases that entail low data traffic. Also, with RabbitMQ, other additional benefits include flexible routing prospects and priority queue options.
+这种方法让用户可以利用消息批处理来实现高效的消息传递，获取更高的吞吐量。
 
-On the other hand, if the proposed use case features the need for massive data and high traffic, then Apache Kafka is worth considering.
+#### RabbitMQ：基于推（Push）的方法
+
+RabbitMQ 将消息推送给消费者，这个过程包括预读取限制的配置，该配置对于防止消费者被多个消息淹没至关重要。
+
+它们对于低延迟的消息传递也很有用。推送方法的目的是快速而独立地分发各个消息，在这个过程中保证所有的分发是均匀地并行进行的，并使消息能够按照到达的顺序获得处理。
+
+## 使用案例
+
+#### Apache Kafka
+
+众所周知，Apache Kafka 本身提供了一个额外的代理，该代理是这个平台的流行元素。这个额外的代理已经在流处理体系的方向上做了预先考虑和布局。
+
+另外，增加的 Kafka Streams 可以替代 Apache Flink、Apache Spark、Google Cloud Data Flow 和 Spring Cloud Data Flow 等流处理平台。
+
+Kafka 优秀的[案例文档](https://kafka.apache.org/uses)提供了详细的使用案例说明，包括提交日志、事件源、日志聚合、指标、Web 活动跟踪和更多其他任务。
+
+#### RabbitMQ
+
+RabbitMQ 提供了一种全面的消息传递解决方案，该方案广泛用于实现 Web 服务器对请求的及时响应，已经代替了让用户一直等待资源密集型计算的结果的响应方式。
+
+RabbitMQ 还非常适合于将消息分发给多个接收者，因为它提供了许多[实现可靠投递的功能](http://www.rabbitmq.com/confirms.html)、联合、管理工具、路由和安全性，还有一些[其他功能](http://www.rabbitmq.com/features.html)。
+
+借助其他软件的帮助，RabbitMQ 还可以有效地解决几个实际使用案例。RabbitMQ 与 Apache Cassandra 的组合可以提供对流历史的访问，或者与 [LevelDB](https://github.com/google/leveldb) 插件一起提供对“无限”队列的访问。
+
+## 结论
+
+Apache Kafka 和 RabbitMQ 平台均提供了多种关键服务，以适应大量的需求。
+
+对于低数据流量的简单场景，RabbitMQ 就够用了。此外，RabbitMQ 还有其他的优势，例如灵活的路由预测和优先级队列选项。
+
+另一方面，如果是需要大量数据和高流量的场景，那么 Apache Kafka 值得考虑。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

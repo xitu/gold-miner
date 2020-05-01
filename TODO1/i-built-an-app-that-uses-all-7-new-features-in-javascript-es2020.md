@@ -1,47 +1,47 @@
-> * 原文地址：[I Built an App That Uses All 7 New Features in JavaScript ES2020](https://levelup.gitconnected.com/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020-647205024984)
-> * 原文作者：[Tyler Hawkins](https://medium.com/@thawkin3)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[I Built an App That Uses All 7 New Features in JavaScript ES2020](https://levelup.gitconnected.com/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020-647205024984)
+> - 原文作者：[Tyler Hawkins](https://medium.com/@thawkin3)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-built-an-app-that-uses-all-7-new-features-in-javascript-es2020.md)
+> - 译者：[yvonneit](https://github.com/yvonneit)
+> - 校对者：[Raoul1996](https://github.com/Raoul1996), [niayyy-S](https://github.com/niayyy-S)
 
-# I Built an App That Uses All 7 New Features in JavaScript ES2020
+# 使用 JavaScript ES2020 中所有的 7 个新特性构建 App
 
 ![Unit Price Calculator App](https://cdn-images-1.medium.com/max/2506/0*10AyqKCN-035dR-L.png)
 
-The world of web development moves fast, especially in the JavaScript ecosystem. New features, frameworks, and libraries are constantly emerging, and the minute you stop learning is the minute your skill set starts to become obsolete.
+web 开发领域发展迅速，尤其是 JavaScript 生态系统。新的特性、框架和库层出不穷，停止学习的那一刻，即是你技术栈开始过时之时。
 
-One important part of keeping your JavaScript skills sharp is staying current on the latest features in JavaScript. So, I thought it would be fun to build an app that incorporates all seven of the new features in JavaScript ES2020.
+保持 JavaScript 技能前沿性的一个重点就是掌握 JavaScript 的最新特性。因此，我认为如果能够结合 JavaScript ES2020 中的所有七个新特性来构建 app 肯定会很有趣。
 
 ---
 
-I recently did a bit of bulk shopping at Costco to stock up on some food essentials. Like most stores, their price tags display the unit price for each item, so you can assess and compare the quality of each deal. Do you go with the small bag or the large bag? (Who am I kidding? It’s Costco. Go large!)
+我最近去 Costco 采购了很多东西，以储备一些食品必需品。像大多数商店一样，Costco 中的价格标签用以标示每件商品的单价，这样顾客就可以比较每笔交易值不值得。如果是你，你会带着小购物袋还是大购物袋去买东西呢？（我在跟谁开玩笑呢？这是 Costco 啊，肯定带大的！）
 
-But what if the unit price wasn’t displayed?
+但如果不显示商品的单价呢？
 
-In this article, I’ll build a unit price calculator app using vanilla JavaScript for the front end and [Node.js](https://nodejs.org/en/) with [Express.js](https://expressjs.com/) for the back end. I’ll deploy the app on [Heroku](http://heroku.com/), which is an easy place to [quickly deploy a node.js app](https://devcenter.heroku.com/articles/getting-started-with-nodejs).
+在本文中，我将构建一个单价计算器 app。其中，前端使用 vanilla JS，后端使用 [Node.js](https://nodejs.org/en/) 和 [Express.js](https://expressjs.com/)。然后在 [Heroku](http://heroku.com/) 上部署该 app，利用 Heroku 可以很容易[快速部署 node.js 应用程序](https://devcenter.heroku.com/articles/getting-started-with-nodejs)。
 
-## What’s New in JavaScript ES2020?
+## JavaScript ES2020 中有什么新特性？
 
-The JavaScript programming language conforms to a specification known as ECMAScript. Starting with the release of ES2015 (or ES6), a new version of JavaScript has been released each year. As of right now, the latest version is ES2020 (ES11). ES2020 is packed with seven exciting new features that JavaScript developers have been waiting for quite some time to see. The new features are:
+ECMAScript 是 JavaScript 的一种语言规范。从 ES2015（ES6）开始，每年都会发布一个新版本的 JavaScript。截至目前，最新版本为 ES2020（ES11）。ES2020 包含了七个令 JS 开发人员既兴奋又期待已久的七个新特性，这些新特性包括：
 
 1. Promise.allSettled()
-2. Optional Chaining
-3. Nullish Coalescing
+2. 可选链（Optional Chaining）
+3. 空值合并（Nullish Coalescing
 4. globalThis
-5. Dynamic Imports
+5. 动态导入（Dynamic Imports
 6. String.prototype.matchAll()
 7. BigInt
 
-You should note that not all browsers support these features — yet. If you want to start using these features now, make sure you provide appropriate polyfills or use a transpiler like Babel to ensure your code is compatible with older browsers.
+需要注意的是并不是所有的浏览器都支持这些特性，如果想现在就开始使用这些特性，那么就要确保使用了合适的 polyfill 或者像 Babel 这样的编译器以确保代码与低版本浏览器兼容。
 
-## Getting Started
+## 入门指南
 
-If you want to follow along with your own copy of the code, first create a Heroku account and install the Heroku CLI on your machine. See this [Heroku guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) for installation instructions.
+如果你想使用自己的代码副本，请首先创建一个 Heroku 帐户并在计算机上安装 Heroku CLI。有关安装说明可以参阅 [Heroku guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) 指南。
 
-Once you’ve done that, you can create and deploy the project easily using the CLI. All of the source code needed to run this example app [is available on GitHub](https://github.com/thawkin3/unit-price-calculator).
+完成以上操作后，就可以使用 CLI 轻松创建和部署项目了。运行此示例应用程序所需的所有源代码都[可以在 GitHub 上找到](https://github.com/thawkin3/unit-price-calculator)。
 
-Below are step-by-step instructions on how to clone the repo and deploy to Heroku:
+以下是有关如何克隆仓库并部署到 Heroku 的分步说明：
 
 ```bash
 git clone https://github.com/thawkin3/unit-price-calculator.git
@@ -51,17 +51,17 @@ git push heroku master
 heroku open
 ```
 
-## System Overview
+## 系统概述
 
-My unit price calculator app is fairly simple: it lets you compare various price and weight options for fictional products and then calculates the unit price. When the page loads, it fetches product data from the server by hitting two API endpoints. You can then choose your product, your preferred unit of measurement, and a price/weight combination. The unit price calculation is done once you hit the submit button.
+单价计算器 app 非常简单：用户可以比较虚拟产品的各种价格和重量选项，然后计算单价。当页面加载时，通过请求两个 API 接口从服务器获取产品数据。然后，用户就可以选择产品、首选的计量单位和价格/重量的组合了，最后点击提交按钮完成单价计算。
 
-![Unit Price Calculator App](https://cdn-images-1.medium.com/max/2506/0*10AyqKCN-035dR-L.png)
+![单价计算器 App](https://cdn-images-1.medium.com/max/2506/0*10AyqKCN-035dR-L.png)
 
-Now that you’ve seen the app, let’s take a look at how I used all seven of those ES2020 features. For each feature, I’ll discuss exactly what it is, how it’s useful, and how I used it.
+现在你已经看到了这个 App，让我们了解一下我是如何使用 ES2020 中所有七个新特性的。下面我们将详细讨论每个特性是什么、它的用途以及使用方式。
 
 ## 1. Promise.allSettled()
 
-When a user first visits the calculator app, three API requests are kicked off to fetch product data from the server. We wait for all three requests to finish by using `Promise.allSettled()`:
+当用户第一次访问单价计算器 app 时，会发送三个 API 请求来向服务器获取产品数据，这时可以使用`Promise.allSettled()`等待所有三个请求完成：
 
 ```JavaScript
 const fetchProductsPromise = fetch('/api/products')
@@ -75,77 +75,82 @@ const fetchDescriptionsPromise = fetch('/api/descriptions')
 
 Promise.allSettled([fetchProductsPromise, fetchPricesPromise, fetchDescriptionsPromise])
   .then(data => {
-    // handle the response
+    // 处理响应
   })
   .catch(err => {
-    // handle any errors
+    // 处理报错
   })
 ```
 
-`Promise.allSettled()` is a new feature that improves upon the existing `Promise.all()` functionality. Both of these methods allow you to provide an array of promises as an argument, and both methods return a promise.
+`Promise.allSettled()` 作为新特性之一拓展了现有的 `Promise.all()` 功能，以上两种方法都允许提供一个 promises 实例数组作为参数，并且都返回一个新的 promise 实例。
 
-The difference is that `Promise.all()` will short-circuit and reject itself early if any of the promises are rejected. On the other hand, `Promise.allSettled()` waits for **all** of the promises to be settled, regardless of whether they are resolved or rejected, and then resolves itself.
+区别是， 如果 promises 实例数组中有一个被 rejected，那么`Promise.all()` 就会中断请求过程，而 `Promise.allSettled()` 会等待**所有** promises 请求完成， 无论它们是被 resolved 或者 rejected。
 
-So if you want the results from all your promises, even if some of the promises are rejected, then start using `Promise.allSettled()`.
+所以如果你想获得所有 promises 的解析结果，即使其中一些 promises 被 rejected，那么就可以使用 `Promise.allSettled()` 这个新特性。
 
-Let’s look at another example with `Promise.all()`:
-
-```JavaScript
-const fetchProductsPromise = fetch('/api/products')
-  .then(response => response.json())
-
-const fetchPricesPromise = fetch('/api/prices')
-  .then(response => response.json())
-
-const fetchDescriptionsPromise = fetch('/api/descriptions')
-  .then(response => response.json())
-
-Promise.allSettled([fetchProductsPromise, fetchPricesPromise, fetchDescriptionsPromise])
-  .then(data => {
-    // handle the response
-  })
-  .catch(err => {
-    // handle any errors
-  })
-```
-
-And now let’s look at another example with `Promise.allSettled()` to note the difference in behavior when a promise gets rejected:
+让我们看一下使用 `Promise.all()` 的另外一个例子：
 
 ```JavaScript
-// promises 1-3 all will be resolved
+// promises 1-3 都 resolved
 const promise1 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 1 resolved!'), 100))
 const promise2 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 2 resolved!'), 200))
 const promise3 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 3 resolved!'), 300))
 
-// promise 4 and 6 will be resolved, but promise 5 will be rejected
+// promise 4 和 6 将会 resolved，但是 promise 5 将被 rejected
 const promise4 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 4 resolved!'), 1100))
 const promise5 = new Promise((resolve, reject) => setTimeout(() => reject('promise 5 rejected!'), 1200))
 const promise6 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 6 resolved!'), 1300))
 
-// Promise.allSettled() with no rejections
+// 没有 rejected 时 Promise.all() 的表现
+Promise.all([promise1, promise2, promise3])
+  .then(data => console.log('all resolved! here are the resolve values:', data))
+  .catch(err => console.log('got rejected! reason:', err))
+// 所有的请求都 resolved！这是 resolve 到的值：["promise 1 resolved!", "promise 2 resolved!", "promise 3 resolved!"]
+
+// 有一个 rejected 时 Promise.all() 的表现
+Promise.all([promise4, promise5, promise6])
+  .then(data => console.log('all resolved! here are the resolve values:', data))
+  .catch(err => console.log('got rejected! reason:', err))
+// 输出：got rejected! reason: promise 5 rejected!
+```
+
+以下是使用 `Promise.allSettled()` 的实例，注意当 promise 被 rejected 之后二者的区别：
+
+```JavaScript
+// promises 1-3 都 resolved
+const promise1 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 1 resolved!'), 100))
+const promise2 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 2 resolved!'), 200))
+const promise3 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 3 resolved!'), 300))
+
+// promise 4 和 6 将会resolved, 但是 promise 5 将被 rejected
+const promise4 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 4 resolved!'), 1100))
+const promise5 = new Promise((resolve, reject) => setTimeout(() => reject('promise 5 rejected!'), 1200))
+const promise6 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 6 resolved!'), 1300))
+
+// 没有 rejected 时的 Promise.allSettled() 的表现
 Promise.allSettled([promise1, promise2, promise3])
   .then(data => console.log('all settled! here are the results:', data))
   .catch(err => console.log('oh no, error! reason:', err))
-// all settled! here are the results: [
+// 所有请求都完成了！这里是结果： [
 //   { status: "fulfilled", value: "promise 1 resolved!" },
 //   { status: "fulfilled", value: "promise 2 resolved!" },
 //   { status: "fulfilled", value: "promise 3 resolved!" },
 // ]
 
-// Promise.allSettled() with a rejection
+// 当有一个为 rejected 时 Promise.allSettled() 的表现
 Promise.allSettled([promise4, promise5, promise6])
   .then(data => console.log('all settled! here are the results:', data))
   .catch(err => console.log('oh no, error! reason:', err))
-// all settled! here are the results: [
+// 所有请求都完成了！这里是结果： [
 //   { status: "fulfilled", value: "promise 4 resolved!" },
 //   { status: "rejected", reason: "promise 5 rejected!" },
 //   { status: "fulfilled", value: "promise 6 resolved!" },
 // ]
 ```
 
-## 2. Optional Chaining
+## 2. 可选链（Optional Chaining）
 
-Once the product data is fetched, we handle the response. The data coming back from the server contains an array of objects with deeply-nested properties. In order to safely access those properties, we use the new optional chaining operator:
+一旦数据请求完成，我们开始处理响应。从服务器返回的数据包含一个具有深层嵌套属性的对象数组，为了安全访问这些属性，我们可以使用新发布的可选链操作符：
 
 ```JavaScript
 if (data?.[0]?.status === 'fulfilled' && data?.[1]?.status === 'fulfilled') {
@@ -158,9 +163,9 @@ if (data?.[0]?.status === 'fulfilled' && data?.[1]?.status === 'fulfilled') {
 }
 ```
 
-Optional chaining is the feature I’m most excited about in ES2020. The optional chaining operator — `?.` — allows you to safely access deeply-nested properties of an object without checking for the existence of each property.
+可选链是在 ES2020 中最让我激动的特性，可选链操作符 `?.` 支持安全地访问对象的深层嵌套属性，而无需检查每个属性是否存在。
 
-For example, prior to ES2020, you might write code that looks like this in order to access the `street` property of some `user` object:
+例如，在 ES2020 之前，为了访问 `user` 对象的 `street` 属性，可能需要写下面这样的代码：
 
 ```JavaScript
 const user = {
@@ -181,9 +186,9 @@ const badProp = user && user.fakeProp && user.fakePropChild
 // undefined
 ```
 
-In order to safely access the `street` property, you first must make sure that the `user` object exists and that the `address` property exists, and then you can try to access the `street` property.
+为了安全地访问 `street` 属性，必须首先确保 `user` 对象和 `address` 属性的存在，然后才能尝试去访问 `street` 属性。
 
-With optional chaining, the code to access the nested property is much shorter:
+借助可选链，访问嵌套属性的代码简洁了许多：
 
 ```JavaScript
 const user = {
@@ -204,21 +209,21 @@ const badProp = user?.fakeProp?.fakePropChild
 // undefined
 ```
 
-If at any point in your chain a value does not exist, `undefined` will be returned. Otherwise, the return value will be the value of the property you wanted to access, as expected.
+如果在可选链上的值都不存在，则会返回 `undefined`。否则，返回访问的属性值。
 
-## 3. Nullish Coalescing
+## 3. 空值合并（Nullish Coalescing）
 
-When the app loads, we also fetch the user’s preference for their unit of measurement: kilograms or pounds. The preference is stored in local storage, so the preference won’t yet exist for first-time visitors. To handle either using the value from local storage or defaulting to using kilograms, we use the nullish coalescing operator:
+当 app 加载时，还需要获取用户对测量单位的偏好设置：千克或磅。但是首选项保存在本地存储中，对于首次访问 app 的用户来说首选项还不存在。可以利用空值合并运算符来解决是使用本地存储中的值还是使用默认值千克的问题：
 
 ```JavaScript
 appState.doesPreferKilograms = JSON.parse(doesPreferKilograms ?? 'true')
 ```
 
-The nullish coalescing operator — `??` — is a handy operator for when you specifically want to use a variable's value as long as it is not `undefined` or `null`. You should use this operator rather than a simple OR — `||`— operator if the specified variable is a boolean and you want to use its value even when it's `false`.
+当你想要获取一个非 `undefined` 或者 `null` 的变量值时，空值合并运算符 `??` 十分方便。如果指定的变量是一个布尔值，你想要使用它的值，即使它的值为 `false` ，就需要使用 `??` 操作符来替代 `||`。
 
-For example, say you have a toggle for some feature setting. If the user has specifically set a value for that feature setting, then you want to respect his or her choice. If they haven’t specified a setting, then you want to default to enabling that feature for their account.
+例如，假设要开发某些功能设置的切换，如果用户专门为该功能设置了一个值，则需要首先考虑他们的选择，而如果用户没有指定相关值，你希望通过设置默认值来为用户帐户启用该功能。
 
-Prior to ES2020, you might write something like this:
+在 ES2020 发布之前，你可能需要这样写：
 
 ```JavaScript
 const useCoolFeature1 = true
@@ -239,7 +244,7 @@ getUserFeaturePreference(useCoolFeature3) // true
 getUserFeaturePreference(useCoolFeature4) // true
 ```
 
-With the nullish coalescing operator, your code is much shorter and easier to understand:
+通过使用空值合并操作符，代码会变得更加简洁且易懂：
 
 ```JavaScript
 const useCoolFeature1 = true
@@ -259,39 +264,39 @@ getUserFeaturePreference(useCoolFeature4) // true
 
 ## 4. globalThis
 
-As mentioned above, in order to get and set the user’s preference for unit of measurement, we use local storage. For browsers, the local storage object is a property of the `window` object. While you can just call `localStorage` directly, you can also call it with `window.localStorage`. In ES2020, we can also access it through the `globalThis` object (also note the use of optional chaining again to do some feature detection to make sure the browser supports local storage):
+如上所述，使用本地存储来获取和设置用户对测量单位的偏好。对于浏览器来说，本地存储对象是 `window` 对象的一个属性，可以直接调用 `localStorage` 访问一个 Storage 对象，也可以调用 `window.localStorage`。在 ES2020 中，还可以通过 `globalThis` 对象来访问本地存储（注意：还需要使用可选链进行一些功能检测，以确保浏览器支持本地存储功能）：
 
 ```JavaScript
 const doesPreferKilograms = globalThis.localStorage?.getItem?.('prefersKg')
 ```
 
-The `globalThis` feature is pretty simple, but it solves many inconsistencies that can sometimes bite you. Simply put, `globalThis` contains a reference to the global object. In the browser, the global object is the `window` object. In a node environment, the global object is literally called `global`. Using `globalThis` ensures that you always have a valid reference to the global object no matter what environment your code is running in. That way, you can write portable JavaScript modules that will run correctly in the main thread of the browser, in a web worker, or in the node environment.
+`globalThis` 特性非常简单，但它解决了一些你可能会踩坑的问题。简单来说，`globalThis` 包含对全局对象的引用，在浏览器中，全局对象就是 `window`，而在 Node 环境中，全局对象即字面上的 `global`。使用 `globalThis` 可以确保无论代码运行在什么环境中，始终对全局对象具有有效的引用。这样你就可以编写可移植的 JavaScript 模块，无论是在浏览器的主线程、 Web Worker 或 Node 环境，这些 JS 模块都可以正确运行。
 
-## 5. Dynamic Imports
+## 5. 动态导入（Dynamic Imports）
 
-Once the user has chosen a product, a unit of measurement, and a weight and price combination, he or she can click the submit button to find the unit price. When the button is clicked, a JavaScript module for calculating the unit price is lazy loaded. You can check the network request in the browser’s dev tools to see that the second file isn’t loaded until you click the button:
+当用户选择了产品、计量单位、重量和价格组合之后，就可以单击提交按钮来查询单价信息。当按钮被点击之后，懒加载用于计算单价的 JavaScript 模块。在浏览器开发工具中检查网络请求，可以发现在点击按钮之前不会加载第二个文件：
 
 ```JavaScript
 import('./calculate.js')
   .then(module => {
-    // use a method exported by the module
+    // 使用模块导出的方法
   })
   .catch(err => {
-    // handle any errors loading the module or any subsequent errors
+    // 处理加载模块的错误或其他后续错误
   })
 ```
 
-Prior to ES2020, using an `import` statement in your JavaScript meant that the imported file was automatically included inside the parent file when the parent file was requested.
+ES2020 发布之前，在 JavaScript 中使用 `import` 语句意味着请求父文件时导入的文件将自动包含在父文件中。
 
-Bundlers like [webpack](https://webpack.js.org/) have popularized the concept of “code splitting,” which is a feature that allows you to split your JavaScript bundles into multiple files that can be loaded on demand. React has also implemented this feature with its `React.lazy()` method.
+像 [webpack](https://webpack.js.org/) 这样的模块打包器使得“代码分离”的概念流行起来，即能够将 JavaScript 包拆分为多个可以按需加载的文件的功能，React 中通过 `React.lazy()` 方法实现了此功能。
 
-Code splitting is incredibly useful for single page applications (SPAs). You can split your code into separate bundles for each page, so only the code needed for the current view is downloaded. This significantly speeds up the initial page load time so that end users don’t have to download the entire app upfront.
+代码拆分对于单页应用程序（SPA）非常有用，可以在每个页面把代码分离到不同的包中，因此只需要下载当前视图所需的代码，显著加速了首屏加载时间，这样终端用户就不必提前下载整个应用程序。
 
-Code splitting is also helpful for large portions of rarely-used code. For example, say you have an “Export PDF” button on a page in your app. The PDF download code is large, and including it when the page loads reduces overall load time. However, not every user visiting this page needs or wants to export a PDF. To increase performance, you can make your PDF download code be lazy loaded so that the additional JavaScript bundle is only downloaded when the user clicks the “Export PDF” button.
+代码拆分对于大部分特定环境下才需使用的代码很有帮助。比如应用程序页面上有一个“导出 PDF”的按钮，PDF 文件下载功能的代码比较大，当所需页面加载时再包含这部分代码可以减少总体加载时间。但是并非每个访问此页面的用户都需要或希望导出 PDF 文件，为了提高性能，可以懒加载 PDF 下载代码，以便只有当用户单击“导出 PDF”按钮时，才下载附加的 JavaScript 包。
 
-In ES2020, dynamic imports are baked right into the JavaScript specification!
+在 ES2020 中，JavaScript 规范直接加入了动态导入！
 
-Let’s look at an example setup for the “Export PDF” functionality without dynamic imports:
+让我们看一个没有动态导入的“导出 PDF”功能的示例：
 
 ```JavaScript
 import { exportPdf } from './pdf-download.js'
@@ -299,10 +304,10 @@ import { exportPdf } from './pdf-download.js'
 const exportPdfButton = document.querySelector('.exportPdfButton')
 exportPdfButton.addEventListener('click', exportPdf)
 
-// this code is short, but the 'pdf-download.js' module is loaded on page load rather than when the button is clicked
+// 这段代码很短，但“pdf-download.js”模块是在页面加载时加载的，而不是在单击按钮时加载
 ```
 
-And now let’s look at how you could use a dynamic import to lazy load the large PDF download module:
+现在让我们看看如何使用动态导入懒加载大体量的 PDF 下载模块：
 
 ```JavaScript
 const exportPdfButton = document.querySelector('.exportPdfButton')
@@ -310,47 +315,47 @@ const exportPdfButton = document.querySelector('.exportPdfButton')
 exportPdfButton.addEventListener('click', () => {
   import('./pdf-download.js')
     .then(module => {
-      // call some exported method in the module
+      // 在模块中调用一些导出的方法
       module.exportPdf()
     })
     .catch(err => {
-      // handle the error if the module fails to load
+      // 模块无法加载时处理错误
     })
 })
 
-// the 'pdf-download.js' module is only imported once the user click the "Export PDF" button
+// “pdf-download.js”模块仅在用户单击“导出 PDF”按钮时导入
 ```
 
 ## 6. String.prototype.matchAll()
 
-When calling the `calculateUnitPrice` method, we pass the product name and the price/weight combination. The price/weight combination is a string that looks like "$200 for 10 kg". We need to parse that string to get the price, weight, and unit of measurement. (There's certainly a better way to architect this app to avoid parsing a string like this, but I'm setting it up this way for the sake of demonstrating this next feature.) To extract the necessary data, we can use `String.prototype.matchAll()`:
+调用 `calculateUnitPrice` 方法时传入产品名称和价格/重量组合参数，价格/重量组合是一个类似“\$200 for 10 kg”的字符串，我们需要解析字符串得到价格、重量和度量单位。（当然有更好的方法来设计这个应用程序，以避免像上面这样解析字符串，这是为了演示下一个特性而设置的。）我们可以使用 `String.prototype.matchAll()` 来提取必要的数据：
 
 ```JavaScript
 const matchResults = [...weightAndPrice.matchAll(/\d+|lb|kg/g)]
 ```
 
-There’s a lot going on in that one line of code. We look for matches in our string based on a regular expression that is searching for digits and the strings “lb” or “kg”. It returns an iterator, which we can then spread into an array. This array ends up with three elements in it, one element for each match (200, 10, and “kg”).
+这一行代码包含了很多内容：基于正则表达式来查找字符串中的数字和字符串匹配项“lb”或“kg”。它返回一个可以拓展到数组中的迭代器，这个数组最终包括三个分别相匹配的元素（200、10 和“kg”）。
 
-This feature is probably the most difficult to understand, particularly if you’re not well-versed in regular expressions. The short and simple explanation of `String.prototype.matchAll()` is that it's an improvement on the functionality found in `String.prototype.match()` and `RegExp.prototype.exec()`. This new method allows you to match a string against a regular expression and returns an iterator of all the matching results, including capture groups.
+这个特性可能是所有新特性中最难理解的一个，尤其是如果你对正则表达式不是很熟悉的话。 `String.prototype.matchAll()` 可以简短解释为是对 `String.prototype.match()` 和 `RegExp.prototype.exec()` 功能的改进。这个新方法允许你将字符串与正则表达式进行匹配，并返回所有匹配结果的迭代器，包括捕获组。
 
-Did you get all that? Let’s look at another example to help solidify the concept:
+明白以上的基本概念了吗？让我们看看另一个有助于巩固这一概念的例子：
 
 ```JavaScript
 const regexp = /t(e)(st(\d?))/
 const regexpWithGlobalFlag = /t(e)(st(\d?))/g
 const str = 'test1test2'
 
-// Using `RegExp.prototype.exec()`
+// 使用 `RegExp.prototype.exec()`
 const matchFromExec = regexp.exec(str)
 console.log(matchFromExec)
 // ["test1", "e", "st1", "1", index: 0, input: "test1test2", groups: undefined]
 
-// Using `String.prototype.match()` on a regular expression WITHOUT a global flag returns the capture groups
+// 对**不带**全局标志的正则表达式使用 `String.prototype.match()` 将返回捕获组
 const matchFromMatch = str.match(regexp)
 console.log(matchFromMatch)
 // ["test1", "e", "st1", "1", index: 0, input: "test1test2", groups: undefined]
 
-// Using `String.prototype.match()` on a regular expression WITH a global flag does NOT return the capture groups :(
+// 对具有全局标志的正则表达式使用 `String.prototype.matchAll()` 不会返回捕获组 :(
 const matchesFromMatchWithGlobalFlag = str.match(regexpWithGlobalFlag)
 for (const match of matchesFromMatchWithGlobalFlag) {
   console.log(match)
@@ -358,7 +363,7 @@ for (const match of matchesFromMatchWithGlobalFlag) {
 // test1
 // test2
 
-// Using `String.prototype.matchAll()` correctly returns even the capture groups when the global flag is used :)
+// 正确使用 `String.prototype.matchAll()` 可以返回使用全局标志时的捕获组  :)
 const matchesFromMatchAll = str.matchAll(regexpWithGlobalFlag)
 for (const match of matchesFromMatchAll) {
   console.log(match)
@@ -370,7 +375,7 @@ for (const match of matchesFromMatchAll) {
 
 ## 7. BigInt
 
-Finally, we’ll make the unit price calculation by simply dividing the price by the weight. You can do this with normal numbers, but when working with large numbers, ES2020 introduces the `BigInt` which allows you to do calculations on large integers without losing precision. In the case of our app, using `BigInt` is overkill, but who knows, maybe our API endpoint will change to include some crazy bulk deals!
+最后，当使用普通数字时，可以简单地用重量除以价格来计算单价。但是当需要使用大数时，ES2020 引入了 `BigInt` 以在不损失精度的情况下对大整数进行计算。在我们的应用程序中，使用 `BigInt` 比较过犹不及，但是谁知道会不会出现 API 接口改变的情况，包括一些疯狂的批量交易呢！
 
 ```JavaScript
 const price = BigInt(matchResults[0][0])
@@ -383,31 +388,31 @@ const unitPriceInDollars = unitPriceInPennies / 100
 const unitPriceFormatted = unitPriceInDollars.toFixed(2)
 ```
 
-If you’ve ever worked with data that contains extremely large numbers, then you know what a pain it can be to ensure the integrity of your numeric data while performing JavaScript math operations. Prior to ES2020, the largest whole number you could safely store was represented by `Number.MAX_SAFE_INTEGER`, which is 2^53 - 1.
+如果你曾经处理过包含大数的数据，那么就知道在执行 JavaScript 数学操作时确保数字数据的完整性是多么痛苦。在 ES2020 发布前可以安全存储的最大整数是`Number.MAX_SAFE_INTEGER`，即 2^53-1。
 
-If you tried to store a number larger than that value in a variable, sometimes the number wouldn’t be stored correctly:
+如果试图在变量中存储大于该值的数字，则有时该数字将无法正确存储：
 
 ```JavaScript
 const biggestNumber = Number.MAX_SAFE_INTEGER // 9007199254740991
 
 const incorrectLargerNumber = biggestNumber + 10
-// should be: 9007199254741001
-// actually stored as: 9007199254741000
+// 应该是： 9007199254741001
+// 实际存储为： 9007199254741000
 ```
 
-The new `BigInt` data type helps solve this problem and allows you to work with much larger integers. To make an integer a `BigInt`, you simply append the letter `n` to the end of the integer or call the function `BigInt()` on your integer:
+新的 `BigInt` 数据类型有助于解决此问题，还能够处理更大的整数。只需对整数调用 `BigInt()` 函数或者将字母 `n` 附加到整数的末尾，就可以将整数设为 `BigInt`数据类型：
 
 ```JavaScript
 const biggestNumber = BigInt(Number.MAX_SAFE_INTEGER) // 9007199254740991n
 
 const correctLargerNumber = biggestNumber + 10n
-// should be: 9007199254741001n
-// actually stored as: 9007199254741001n
+// 应该是： 9007199254741001n
+// 实际存储为： 9007199254741001n
 ```
 
-## Conclusion
+## 总结
 
-That’s it! Now that you know all about the new ES2020 features, what are you waiting for? Get out there and start writing new JavaScript today!
+如上所述！既然你已经了解了 ES2020 的所有新特性，那还等什么呢？马上开始写新的 JavaScript 项目吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
