@@ -82,21 +82,21 @@ Suspense 是延迟加载期间需要的组件，主要用于包装延迟组件�
 
 Vue 从 2.x 版本开始已经支持 TypeScript，而对于 3.0.0 版本，Vue将继续支持 TypeScript 。因此，在支持 TSX 的 Vue 3.0.0 中，可能使用当前最新的 TypeScript 版本生成新项目，而 TS 和 JS 代码以及 api 之间并没有太大区别。类组件仍然受支持（[vue Class component@next](https://github.com/vuejs/vue-Class-component/tree/next) 当前位于 alpha 中）。
 
-## Version 3.0.0 Status Report
+## Version 3.0.0 进度报告
 
-Initial official release plans for the version 3.0.0 of Vue JS was slated for [first quarter of 2020](https://github.com/vuejs/vue/projects/6) according to the timeline on the project on GitHub. Starting from 16th of April 2020, the Vue version 3.0.0 is now in beta! This means that all planned request for comments have been worked on and implemented and the team’s focus is now on library integrations. There is now available an experimental support for [the Vue CLI here](https://github.com/vuejs/vue-cli-plugin-vue-next) and there is a very simple single file component support based on [Webpack here](https://github.com/vuejs/vue-next-webpack-preview).
+根据 GitHub 上的项目时间表，Vue JS 的 3.0.0 版本最初的官方发布计划定于 [2020年第一季度](https://github.com/vuejs/vue/projects/6)，从 2020 年 4 月 16 日开始，Vue 版本 3.0.0 现在处于 beta 阶段！这意味着所有计划中的评论请求都已得到处理和实现，团队现在的重点是库集成。现在有一个对 [Vue CLI here](https://github.com/vuejs/vue-cli-pluging-vue-next) 的实验性支持，还有一个非常简单的基于 [Webpack here](https://github.com/vuejs/vue-next-webpack-preview) 的单文件组件支持。
 
-## One more release
+## 另一个版本
 
-Vue version 2.7 which is a minor release will be out soon and it will probably be the last version in the 2.x series before the official release of the 3.0.0 version. It is going to back port compatible improvements from the version 3.0.0 and show depreciation warnings for features that would not be in 3.0.0.
+Vue 2.7 是一个小版本，很快就会发布，它可能是 3.0.0 版本正式发布之前 2.x 系列的最后一个版本。它将支持 3.0.0 版本的端口兼容改进，并对不在 3.0.0 版本中的功能给出对应的警告。
 
-## Want to support…
+## 想要获得支持 ......
 
-Chances are low but you might run into inconsistencies with the 2.x versions and you have to check if that issue’s fix has already been proposed in a RFC and if it is not, open an issue. Remember to [read the issue helper](https://new-issue.vuejs.org/?repo=vuejs/vue-next) to guide you through opening new issues.
+可能性很低，但您可能会遇到与 2.x 版本不一致的情况，您必须检查 RFC 中是否已经提出了该问题的解决方案，如果没有，那么需要新建一个 issue。记得 [阅读问题助手](https://new-issue.vuejs.org/?repo=vuejs/vue-next) 指导您新建 issues。
 
-## Conclusion
+## 结论
 
-This is an overview of the features shipping with the third version of Vue JS. The team at Vue has made sure that this version is the fastest frontend framework in the market. You can view the slides to the ThisDot online meetup [here](https://t.co/7TP5ZMtjK4?amp=1), stay safe and happy hacking. What is your favorite new feature?
+以上是 Vue JS 第三版的新功能概述。Vue 的团队已经确定这个版本是市场上最快的前端框架。您可以查看 ThisDot 在线会议的幻灯片 [这里](https://t.co/7TP5ZMtjK4?amp=1)，stay safe and happy hacking！那么，你最喜欢的新功能是什么呢？
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
