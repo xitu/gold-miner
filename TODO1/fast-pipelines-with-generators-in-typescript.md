@@ -2,14 +2,14 @@
 > * 原文作者：[Wim Jongeneel](https://medium.com/@wim.jongeneel1)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/fast-pipelines-with-generators-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/fast-pipelines-with-generators-in-typescript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[febrainqu](https://github.com/febrainqu)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[GJXAIOU](https://github.com/GJXAIOU)，[lsvih](https://github.com/lsvih)
 
-# Lazy Pipelines with Generators in TypeScript
+# TypeScript 中带生成器的惰性管道
 
 ![Photo by [Quinten de Graaf](https://unsplash.com/@quinten149?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9704/1*wEQnHaPoHc_QJo5vxwrCEg.jpeg)
 
-In recent years the JavaScript community has embraced the functional array methods like `map` and `filter`. Writing for-loops has become something that gets associated with 2015 and JQuery. But the array methods in JavaScript are far from ideal when we are talking about performance. Lets look at an example to clarify the issues:
+近年来，JavaScript 社区已经接受了 `map` 和 `filter` 之类的函数式数组方法，for 循环成为了只能在 Jquery 中见到的东西。但在性能方面，JavaScript 中的数组方法还远远达不到预期。让我们看一个例子：
 
 ```TypeScript
 const x = [1,2,3,4,5]
@@ -18,24 +18,24 @@ const x = [1,2,3,4,5]
   [0]
 ```
 
-This code will execute the following steps:
+这段代码将执行以下步骤：
 
-* create the array with 5 items
-* create a new array with all the numbers doubled
-* create a new array with the numbers filtered
-* take the first item
+* 创建一个含有五个元素的数组
+* 创建一个新数组，其元素值是前一个数组对应元素的 2 倍
+* 创建一个符合过滤条件的新数组
+* 取数组的第一个元素
 
-This involves a lot more stuff happening then is actually needed. The only thing has to happen is that the first item that passes `x > 5` gets processed and returned. In other languages (like Python) iterators are used to solve this issue. Those iterators are a lazy collection and only processes data when it is requested. If JavaScript would use lazy iterators for its array methods the following would happen instead:
+实际上有很步骤是多余的，上述代码做的唯一的事就是返回第一个大于 5 的元素。在其他语言中（例如 Python）可以用迭代器来解决此类问题。这些迭代器是一个惰性集合，只在请求时处理数据。如果用 JavaScript 的惰性迭代器代替上面的一系列数组方法，则需要进行如下步骤：
 
-* `[0]` requests the first item from `filter`
-* `filter` requests items from `map` until it has found one item that passes the predicate and yields (‘returns’) it
-* `map` has processed an item for each time `filter` requested it
+* `[0]` 请求经 `filter` 操作后数组的第一个元素
+* `filter` 从 `map` 中请求元素，直到发现一个符合条件的元素，并返回（‘yield’）它
+* 每当 `filter` 发送一次请求，`map` 便处理一个元素
 
-Here we did only `map` and `filter` the first tree items in the array because no more items where requested from the iterator. There where also no additional arrays or iterators constructed because every item goes through the entire pipeline one after the other. This is a concept that **can** result in massive performance gains when processing a lot of data.
+在本例中，我们只对数组中的第一项进行了 `map` 和 `filter` 操作，接着迭代器就不会再请求其它项。这样也不需要另外构建数组或迭代器，因为每一项都是一步接一步地完成整个管道。因此，**惰性管道**这个概念**可以**在处理大量数据时获得巨大的性能收益。
 
-## Generators and iterators in JavaScript
+## JavaScript 中的生成器和迭代器
 
-Luckily for us JavaScript does actually support the concept of [iterators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators). They can be created with [generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators) functions that yield the items of the collection. A generator function looks as follows:
+幸运的是 JavaScript 确实支持[迭代器](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)的概念。可以使用[生成器](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)函数来创建集合中的各个元素。一个生成器函数如下：
 
 ```TypeScript
 function* iterator() {
@@ -49,7 +49,7 @@ for(let x of iterator()) {
 }
 ```
 
-Here the for-loop will request an item of the iterator for each loop. The generator function uses the `yield` keyword to return the next item in the collection. As you see we can yield multiple times to create iterators that contain multiple items. There will never be any array constructed in memory. We can make this a bit better to understand when we remove some of the syntax sugar:
+在这里，for 循环将在每次循环中请求迭代器的一个元素。生成器函数使用 `yield` 关键字来返回集合中的下一项。如你所见，我们可以多次生成包含多个项的迭代器，因此永远不需要在内存中构造额外的数组。我们可以删除一些语法糖方便理解：
 
 ```TypeScript
 const itt = iterator()
@@ -61,17 +61,17 @@ while(current.done == false) {
 }
 ```
 
-Here you can see that an iterator has a `next` method for requesting the next item. The result of this method has the value and a boolean indicating of we have more results left in the iterator. While this all very interesting, we will need some more things if we want to construct proper data pipelines with iterators:
+你可以看到迭代器有一个 `next` 方法用于请求下一项，此方法的将返回一个值和一个布尔值，布尔值用于指示迭代器中是否还有更多结果。虽然这一切都很有趣，但如果我们想要使用迭代器构建正确的数据管道，还需要做更多的事情：
 
-* conversions from arrays to iterators and back
-* iterators that operate on other iterators, like `map` and `filter` (also called ‘higher-order iterators’)
-* a proper interface to chain all of those together in an elegant and practical way
+* 从数组到迭代器的转换
+* 在其它迭代器上运作的迭代器，如 `map` 和 `filter`（也称为“高阶迭代器”）
+* 一个合适的接口，以优雅和实用的方式将所有步骤链接在一起
 
-In the rest of this article I will show how to do those things. At the end I have included a link to a library I created that contains a lot more features. Sadly, this is not a native implementations of lazy iterators. This means that there is overhead and in a lot of cases this library is not worth it. But I still want to show you the concept in action and discuss its pros and cons.
+下面，我将展示如何实现这些功能。在文末我留了一个链接，指向我创建的有着更多功能的库。遗憾的是，这不是惰性迭代器的原生实现，这也意味着用这个库存在额外开销，而且导致在一些情况下不值得用它。但我还是想向你们展示这个概念的实际应用，并讨论它的利弊。
 
-## Iterator constructors
+## 迭代器的构造函数
 
-We want to be able to create iterators from multiple data sources. The most oblivious one is arrays. This one is quite easy, we loop over the array and yield all items:
+我们希望能够从多个数据源创建迭代器。最容易被遗忘的就是数组。这是相当容易的，我们循环数组，并产生所有项目：
 
 ```TypeScript
 function* from_array<a>(a:a[]) {
@@ -79,7 +79,7 @@ function* from_array<a>(a:a[]) {
 }
 ```
 
-Turning an iterator in an array will require us to call `next` until we have gotten all the items. After this we can return our array. Of course you only want to turn an iterator into an array when absolutely needed because this function causes a full iteration.
+在数组中可以用 `next` 调用迭代器，直到获得所有的数组元素。当然希望你只在别无选择时再将迭代器转换回数组，因为这个函数需要进行一次完整的迭代：
 
 ```TypeScript
 function to_array<a>(a: Iterator<a>) {
@@ -93,7 +93,7 @@ function to_array<a>(a: Iterator<a>) {
 }
 ```
 
-Another method for reading data from an iterator is `first`. Its implementation is shown bellow. Note that it only request the first item from the iterator! This means that all the following potential values will never be calculated, resulting in less waste of resources in the data pipeline.
+从迭代器中读取数据的另一种方法是 `first`，它的实现如下所示。注意，它只向迭代器请求第一项，这也意味着剩下的值将永远不会被计算到，从而减少数据管道中的资源浪费。
 
 ```TypeScript
 export function first<a>(a: Iterator<a>) {
@@ -101,11 +101,11 @@ export function first<a>(a: Iterator<a>) {
 }
 ```
 
-In the complete library there are also constructors that create iterators from [functions](https://github.com/WimJongeneel/ts-lazy-collections/blob/master/src/main.ts#L65-L74) or [ranges](https://github.com/WimJongeneel/ts-lazy-collections/blob/master/src/main.ts#L57-L63).
+在完整的库中还有一些构造函数，它们会从 [functions](https://github.com/WimJongeneel/ts-lazy-collections/blob/master/src/main.ts#L65-L74) 或 [ranges](https://github.com/WimJongeneel/ts-lazy-collections/blob/master/src/main.ts#L57-L63) 创建迭代器。
 
-## Higher-order iterators
+## 高阶迭代器
 
-A higher-order iterator transforms an existing iterator into a new iterator. Those iterators are what makes up the operations in a pipeline. The well-known transform function `map` is shown bellow. It takes an iterator and a function and returns a new iterator where the function is applied to all items in the original iterator. Note that we still yield item-for-item and preserve the lazy nature of the iterators while transforming them. This is very important if we want to actually achieve the higher efficiency I talked about in the intro of this article!
+高阶迭代器会将现有的迭代器转换为新的迭代器，这些迭代器组成了管道中的操作。著名的转换函数 `map` 如下所示。它接受一个迭代器和一个函数，并返回一个新的迭代器，其中该函数应用于原始迭代器中的所有项。请注意，我们仍然会一项一项地生成（yield），并在转换迭代器时保留迭代器的惰性性质，这也是实现这篇文中所说的“更高效率”的关键点。
 
 ```TypeScript
 function* map<a, b>(a: Iterator<a>, f:(a:a) => b){
@@ -117,7 +117,7 @@ function* map<a, b>(a: Iterator<a>, f:(a:a) => b){
 }
 ```
 
-Filter can be implemented in a similar way. When requested for the next item, it will keep requesting items from its inner iterator until it has found one that passed the predicate. This item will be yielded and execution is halted until the request for the next item comes in.
+过滤器可以用类似的方式实现。当请求下一项时，它将一直从内部迭代器请求元素，直到找到一个通过条件的元素，生成（yield）此项，并停止执行迭代，直到收到生成下一个元素的请求。
 
 ```TypeScript
 function* filter<a>(a: Iterator<a>, p: (a:a) => boolean) {
@@ -129,11 +129,11 @@ function* filter<a>(a: Iterator<a>, p: (a:a) => boolean) {
 }
 ```
 
-Many more higher-order iterators can be constructed in with the same concepts I have show above. The complete library ships with a lot of them, check them out over [here](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods).
+可以用上面介绍的概念构造更多的高阶迭代器。[完整的库](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods)中有更多种类的高阶迭代器用于参考，欢迎访问。
 
-## The builder interface
+## 构建器接口
 
-The last part of the library is the public facing API. The library uses the builder pattern to allow you to chain methods like on arrays. This is done by creating a function that takes an iterator and returns an object with the methods on it. Those methods can call the constructor again with an updated iterator for the chaining:
+库的最后一部分是面向用户的 API。该库使用了构建器模式，来让你像在数组上那样进行链式调用。这是通过创建一个接受迭代器，并返回带有方法的对象的函数来完成的。这些方法可以再次调用构造函数与更新迭代器的链接：
 
 ```TypeScript
 const fromIterator = <a>(itt: Iterator<a>) => ({
@@ -144,7 +144,7 @@ const fromIterator = <a>(itt: Iterator<a>) => ({
 })
 ```
 
-The example of the start of this article can be written as bellow. In this implementation we don’t create additional arrays and only process the data that is actually used!
+本文开头的例子可以写成如下形式。在这个实现中，我们不再需要创建额外的数组，只需要处理实际使用的数据！
 
 ```TypeScript
 const x = fromIterator(from_array([1,2,3,4,5]))
@@ -153,11 +153,11 @@ const x = fromIterator(from_array([1,2,3,4,5]))
   .first()
 ```
 
-## Conclusion
+## 结论
 
-In this article I have shown you how generators and iterators can be used to create a powerful and very efficient library for processing lots of data. Of course iterators are not the golden bullet that will fix everything. The gains in efficiency are down to saving on unnecessary calculations. How much this means in real numbers is completely down to how much calculations there can be optimized out, how heavy those calculations are and how much data you are processing. When there are no calculations to save or the collections are relative small, you will potentially lose performance to the overhead of the library.
+在本文中，我向您展示了如何使用生成器和迭代器来创建功能强大且非常高效的库来处理大量数据。当然，迭代器并不是解决所有问题的金钥匙。效率的提高是由于节省了不必要的计算。实际上提升了多少，完全取决于可以优化多少计算、这些计算有多繁重以及要处理多少数据。当没有要保存的计算或集合相对较小时，你可能会因为库的开销而损失性能。
 
-The full source code can be found on [Github](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods) and contains more features that fitted in this article. I would love to hear your opinion on this. Do you think it is a pity that JavaScript doesn’t use lazy iteration for the array methods? And do you think that using generators is the way forward for collections in JavaScript? If JavaScript would use lazy iterators by default they should be able to optimize the overhead away (like other languages have done) while still preserving the potential wins with efficiency.
+完整的源代码可以在 [Github](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods) 找到并包含本文中包含的更多特性。我很想听听你对此的意见。你是否认为 JavaScript 不对数组方法使用惰性迭代是很可惜的？你是否认为使用生成器是 JavaScript 集合的前进方向？如果JavaScript在默认情况下使用惰性迭代器，则它们应该能够优化开销（就像其他语言一样），同时仍然保持效率的潜在优势。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
