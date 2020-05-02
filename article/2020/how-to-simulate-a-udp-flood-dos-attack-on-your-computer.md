@@ -2,35 +2,35 @@
 > * 原文作者：[RiccardoM](https://medium.com/@riccardom)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-simulate-a-udp-flood-dos-attack-on-your-computer.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-simulate-a-udp-flood-dos-attack-on-your-computer.md)
-> * 译者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：
 
-# How to simulate a UDP Flood DoS attack on your computer
+# 如何在自己的计算机上模拟 UDP Flood DoS 攻击
 
 ![](https://cdn-images-1.medium.com/max/12048/0*5IXgILaawtazZ2Tx)
 
-**Disclaimer: The following tutorial has only educational purposes. Perform the attack only on computers you own.**
+**免责声明：以下教程仅用于教学目的。您只能在自己的计算机上模拟攻击**
 
-A UDP Flood is a Denial of Service attack where the attacker sends a large number of **UDP** (User Datagram Protocol) packets towards a victim server, in order to overwhelm the server’s ability to process and respond to incoming traffic.
+UDP 洪水攻击能让服务器拒绝服务，攻击者向目标服务器发送大量 **UDP**（用户数据报文协议）数据包，以压垮服务器处理和响应传入流量的能力。
 
-The attacker sends packets to the server’s IP address, choosing **random ports** as the destination. When the server receives a packet:
+攻击者将数据包发送到服务器 IP 地址的随机端口。当服务器收到数据包时：
 
-1. it checks if an application is listening at the specified port
-2. it sees that no application is listening; this happens most of the times, as destinations are random ports
-3. it responds with an **ICMP Destination Unreachable** packet
+1. 检查是否有程序监听该端口。
+2. 如果发现没有程序监听；大部分情况都是这样，因为目标端口是随机的。
+3. 返回 **ICMP Destination Unreachable** 的数据包。
 
-The attacker’s IP address can possibly be spoofed to prevent both their identification and the saturation of their own resources by the ICMP responses.
+攻击者的 IP 地址可以伪装，以防止 ICMP 响应包的身份识别和自身资源饱和。
 
-## Setup
+## 初始化
 
-In order to simulate this attack you need two virtual machines. Network cards must be configured to have their own address in the subnet. I used VirtualBox, with two instances of BunsenLabs, which is very lightweight. They are configured with a network card in bridged mode. Here are the requirements for each of the virtual machines:
+为了模拟这种攻击，您需要两台虚拟机。网卡必须配置为在子网中并且有自己的地址。我使用的是 VirtualBox 中非常轻量级的两个 BunsenLabs 实例。它们以桥接模式配置网卡。下面是对每个虚拟机的要求：
 
-* an **attacker** with python3
-* a **victim** with python, version 3.7 or greater
+* **攻击者**的虚拟机需要安装 python3
+* **目标服务器**的虚拟机需要安装 python 3.7 及以上版本
 
-#### Server configuration
+#### 服务器端配置
 
-We will run a simple HTTP server to verify that there is a drop in performance while the server is under attack. Below is the server written in Python.
+我们将运行一个简单的 HTTP 服务器，以验证服务器受到攻击时性能是否下降。下面是用 Python 编写的服务器端程序。
 
 ```py
 import sys
@@ -69,11 +69,11 @@ if __name__ == '__main__':
     base_http_server_start()
 ```
 
-This server can be reached at localhost:80. What it does is to pick a very large random number and check if it is a prime number via a deliberately very inefficient function. Thanks to this mechanism it is possible to roughly estimate the response time of the server by reloading the browser page. Response times vary from the computational capacity of your hardware, but on average they should be around 5–10 seconds.
+通过地址 localhost: 80 访问服务器。在这个服务器程序中，我们生成了一个非常大的随机数，并故意用非常低效的方法检验它是否为质数。通过这种机制，我们在重新加载浏览器页面时就能大致估计服务器的响应时间。响应时间因硬件的计算能力而异，平均值在 5-10 秒左右。
 
-#### Attack script
+#### 攻击脚本
 
-We can perform the attack with the following Python script, using sockets.
+我们用下面的 Python 脚本执行攻击，这里用到了 socket。
 
 ```py
 import time
@@ -96,48 +96,48 @@ while time.time() < timeout:
   sent_packets += 1
 ```
 
-In this script we can specify the IP address of our victim and the duration of the attack. Each time we send a packet we choose a different port, as explained above.
+在脚本中，我们可以指定目标的 IP 地址和攻击的持续时间。如上所述，每次发送数据包时，我们都会选择一个不同的端口。
 
-## The attack
+## 攻击
 
-To execute the attack we run the server and check its performance with the method described above. Next, from the attacker’s virtual machine, we run the script that performs the attack. When the machine is under attack we can see an increase in CPU usage as it is busy processing incoming traffic and responding with ICMP Destination Unreachable packets.
+要执行攻击，我们首先需要运行服务器并使用上述方法检查其性能。接下来，在攻击者的虚拟机中，运行执行攻击的脚本。当服务器受到攻击时，由于其忙于处理传入流量并返回 ICMP Destination Unreachable 数据包，我们可以看到其 CPU 使用率在增加。
 
-We can then proceed to reload the browser page and count the response time of the server. It is therefore easy to see that server performance has deteriorated significantly. The response time should be at least twice as long as under normal conditions.
+然后，我们来重新加载浏览器页面并计算服务器的响应时间。很显然看到服务器性能已极具下降。响应时间至少应为正常情况下的两倍。
 
-## Mitigation
+## 缓解
 
-#### Linux settings
+#### Linux 设置
 
-It is very difficult to mitigate a UDP Flood attack. It is possible to change the number of ICMP packets that the operating system sends every second. We can use these two commands in Linux, for example:
+想缓解 UDP 洪水攻击很难。但是我们可以更改操作系统每秒发送的 ICMP 数据包的数量。我们在Linux中使用这两个命令，例如：
 
 ```bash
 sudo sysctl -w net.ipv4.icmp_ratelimit=0
 sudo sysctl -w net.ipv4.icmp_msgs_per_sec=1000
 ```
 
-The first command causes the rate at which ICMP responses are sent to be set only by the parameter of the second command. In this case, therefore, with the second command, we set a rate of 1000 ICMP messages per second.
+第一条命令让 ICMP 响应的速率仅能通过第二条命令的参数来设置。因此，在这种情况下，使用第二个命令，我们就能设置 ICMP 消息的速率为每秒 1000 条 。
 
-We can easily verify this by launching the attack for 10 seconds and using Wireshark on the server’s virtual machine to intercept the ICMP packets that are sent in response. We can see that in 10 seconds about 10.000 ICMP packets are sent, which is correct since we set the rate to 1000 packets per second.
+现在我们来验证这一点，对服务器持续攻击 10 秒钟，并在服务器的虚拟机上使用 Wireshark 来拦截响应的 ICMP 数据包，观察数据包的数量是否符合预期。因为我们将速率设置为每秒 1000 个数据包，所以可以看到在 10 秒内大约发送了 10000 个ICMP数据包，这是正确的。
 
 ![10.000 packets captured with Wireshark during a 10 seconds attack](https://cdn-images-1.medium.com/max/2000/1*Kb3xNdtJxxD0L87W9i3IJg.png)
 
-We can try to change this parameter and check with Wireshark how the number of packets sent during 10 seconds changes. For example by indicating a rate of 1 message per second we can capture about 10 messages.
+我们可以尝试更改此参数，并使用 Wireshark 检查 10 秒钟内发送的数据包数量如何变化。例如，设置速率为每秒 1 条消息，我们可以捕获大约 10 条消息。
 
 ```bash
-sudo sysctl -w net.ipv4.icmp_msgs_per_sec=1000
+sudo sysctl -w net.ipv4.icmp_msgs_per_sec=1
 ```
 
 ![10 packets captured with Wireshark during a 10 seconds attack](https://cdn-images-1.medium.com/max/2000/1*3MVskJJFtm4wKB4kT5GiYg.png)
 
-The difficult part is choosing an appropriate value for these parameters. The optimal value depends on the hardware we have available, on our application, on the average traffic our server interacts with. If we lower the number of responses sent every second we clearly decrease the load on the server, since many more incoming requests are simply dropped, without sending the ICMP response packet and therefore using less resources. However, by lowering this parameter we run a greater risk of rejecting even legitimate requests and of not processing and managing traffic that does not come from an attack, but from real users of our server. It is therefore necessary to find a compromise to balance the two aspects.
+为这些参数设置最佳值是个难点。因为最佳值取决于我们的硬件，应用程序以及与服务器交互的平均流量。如果我们减少每秒发送的响应数，虽然能减少服务器的负载，但这只是丢弃了更多传入的请求，而没有发送 ICMP 响应包。通过减少参数的值，我们可能会拒绝合法的请求，没有处理真实用户的流量，这会有更大的风险。因此，我们要有一种折衷的办法。
 
-#### Firewalls
+#### 防火墙
 
-We can also try to defend ourselves against this attack using firewalls. A firewall can block UDP packets before they reach the server. This way the server resources are not used at all. However, firewalls are also vulnerable to this type of attack: they have to process incoming traffic and they could become a bottleneck during the attack. Furthermore, if we use a stateful firewall we can easily block an attack if it always comes from the same IP address, but if the attacker spoofs their IP, all the state tables of the firewall could potentially be filled and all the available memory consumed. So firewalls are not always the solution.
+我们还可以使用防火墙来抵御这种攻击。防火墙可以在 UDP 数据包到达服务器之前将其阻止。这样就不会耗费服务器资源。但是，防火墙本身也容易受到此类攻击：它们必须处理传入的流量，并且可能在攻击过程中成为瓶颈。此外，如果我们使用的是状态防火墙，虽然可以轻松地阻止来自同一 IP 地址的攻击，但是如果攻击者使用了 IP 欺骗，防火墙的状态表可能会塞满，可用内存将被耗尽。因此，防火墙也不是终极解决方案。
 
-## Conclusions
+## 结论
 
-It is not difficult to simulate this type of attack in a few steps to better understand how it works. You can also explore its mitigation in more detail, trying different parameters, and eventually configuring the server. It is also interesting because it is a simple but powerful attack: as we have seen it is difficult to take effective countermeasures to stop it. If you are interested in a more complex attack based on UDP, take a look at [this](https://levelup.gitconnected.com/how-to-simulate-a-ntp-amplification-dos-attack-on-your-computer-72b3c6f60eb7) story, where I explain how to exploit an NTP server to amplify the traffic volume and saturate the victim’s bandwidth.
+在本文中，我们通过几个简单的步骤模拟攻击，来帮助我们更好地了解其工作原理。您还可以更详细地研究其缓解措施，尝试使用不同的参数来配置服务器。这个过程也很有趣，因为这是一种简单而强大的攻击：如上所述，我们很难采取有效的对策来阻止它。如果您对更复杂的基于 UDP 的攻击感兴趣，请查看[这个](https://levelup.gitconnected.com/how-to-simulate-a-ntp-amplification-dos-attack-on-your-computer-72b3c6f60eb7)故事，在此我解释了如何利用 NTP 服务器来扩大流量，让受攻击的服务器带宽饱和。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
