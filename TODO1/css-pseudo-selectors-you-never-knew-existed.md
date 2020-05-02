@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/css-pseudo-selectors-you-never-knew-existed.md](https://github.com/xitu/gold-miner/blob/master/TODO1/css-pseudo-selectors-you-never-knew-existed.md)
 > * 译者：[niayyy](https://github.com/niayyy-S)
-> * 校对者：
+> * 校对者：[Long Xiong](https://github.com/xionglong58)、[CoolRice](https://github.com/CoolRice)
 
 # 你可能会错过的 CSS 伪选择器
 
@@ -265,7 +265,7 @@ p[lang|="fr"] {
 
 ## 引用
 
-* [CSS 权威指南 —— Eric A. Meyer, Estelle Weyl](https://www.amazon.com/CSS-Definitive-Guide-Eric-Meyer/dp/0596527330)
+* [CSS 权威指南 —— Eric A. Meyer、Estelle Weyl](https://www.amazon.com/CSS-Definitive-Guide-Eric-Meyer/dp/0596527330)
 
 ## 了解更多
 
