@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# An In-Depth Exploration of the Array.fill() Function
+# 深入浅出 Array.fill() 函数
 
 ![Photo by [Tracy Adams](https://unsplash.com/@tracycodes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/javascript?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6364/1*KWkWLwUxBxxLh6ZzXg0-8Q.jpeg)
 
-There have been many useful functions that have been added to the Javascript `Array` global object over the last few years that offer developers a wide variety of options when they are writing code that works with arrays. These functions offer a number of advantages, the most noteworthy of which is the fact that, while at one time in the past developers had to implement their own complex logic to perform various array operations, now the need for such homegrown implementations has been eliminated by all of these new functions. One of those useful functions that will be explored in this article is the `[fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)` function.
+过去几年来，Javascript `Array` 全局对象添加了许多有用的函数，为开发人员编写 `Array` 相关代码时提供了更多选择。这些函数具有许多优点，最值得注意的是，过去，开发人员不得不一次实现自己的复杂逻辑来执行各种数组操作，而现在，所有这些新的函数淘汰了数组操作的本地实现。本文将探索有用的数组函数之一：`[fill()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)` 函数。
 
-## Function Overview
+## 函数概述
 
-The `fill()` function provides the ability to change all elements in a given range within an array to a specific value. Not only does this function modify the array in-place, but it also returns the updated version of the array upon function completion. A very important thing to keep in mind if you choose to use the `fill()` function is that you will not be able to maintain the original array without making a completely new copy of it beforehand. It is also worth pointing out that this function will not alter the length of the original array.
+`fill()` 函数提供将数组中给定范围内的所有元素更改为特定值的功能。这个函数会直接修改数组，然后返回修改后的函数版本。要记住一件非常重要的事情，如果你选择使用 `fill()` 函数如果不先保存一个复制，将会改变原数组。还值得指出的是，此函数不会更改原始数组的长度。
 
-The `fill()` function takes up to three parameters with the first parameter being **required** and the second and third parameters being **optional**. While the first parameter can be any desired value, the second and third parameters are zero-based indexes. If either of these parameters has a negative value, it will be counted from the end of the array instead of from the beginning. This means that a parameter value of `-3` would actually result in the value of that parameter being `3` less than the length of the array (`Array.length + -3`).
+`fill()` 函数最多接收三个参数，第一个参数是**必须的**，第二个和第三个参数是**可选的**。 While the first parameter can be any desired value, the second and third parameters are zero-based indexes. If either of these parameters has a negative value, it will be counted from the end of the array instead of from the beginning. This means that a parameter value of `-3` would actually result in the value of that parameter being `3` less than the length of the array (`Array.length + -3`).
 
 The first parameter is the `value` parameter. This parameter can have any desired value and the same exact value will be used to fill the array within the specified range. The second parameter is the `start` parameter. This parameter is the starting index of the range that will be filled with the specified value and the range **will** include the item at this index. As this parameter is optional, it has a default value of `0` and the array will be filled from the beginning of the array if this parameter is not specified. The third parameter is the `end` parameter. This parameter is the ending index of the range that will be filled with the specified value and the range **will not** include the item at this index. As this parameter is optional, it has a default value of the length of the array (`Array.length`) and the array will be filled through the end of the array if this parameter is not specified.
 
