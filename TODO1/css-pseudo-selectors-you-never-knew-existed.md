@@ -2,21 +2,21 @@
 > * 原文作者：[Chidume Nnamdi 🔥💻🎵🎮](https://medium.com/@kurtwanger40)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/css-pseudo-selectors-you-never-knew-existed.md](https://github.com/xitu/gold-miner/blob/master/TODO1/css-pseudo-selectors-you-never-knew-existed.md)
-> * 译者：
-> * 校对者：
+> * 译者：[niayyy](https://github.com/niayyy-S)
+> * 校对者：[Long Xiong](https://github.com/xionglong58)、[CoolRice](https://github.com/CoolRice)
 
-# CSS Pseudo-Classes You Might Have Missed
+# 你可能会错过的 CSS 伪选择器
 
 ![](https://cdn-images-1.medium.com/max/2560/1*jrpPfGEYlAZlB5aRNMt2dA.jpeg)
 
-> **(Pseudo) selectors let you assign styles to what are, in effect, phantom classes that are inferred by the state of certain elements, or markup patterns within the document, or even by the state of the document itself.**
-> **— CSS: The Definitive Guide: Eric Meyer, Estelle Weyl**
+> **（伪）选择器可以为文档中不一定具体存在的结构指定样式，或者为某些元素、文档的标记模式、甚至是文档本身的状态所指示的幻像类指定样式。**
+> **— CSS 权威指南：Eric Meyer、Estelle Weyl**
 
-This post is a sort-of encouragement to use more plain CSS and less JS when building your UI. Getting familiar with everything CSS has to offer is one way to achieving that — another one is implementing best practices and reusing that code, as much as possible.
+这篇文章鼓励构造 UI 时使用更多纯 CSS 和更少的 JS。熟悉所有的 CSS 是实现这个目标的一种方法 —— 另一种是实施最佳实践和尽可能的减少代码。
 
-## ::first-line | Selects the first line of text
+## ::first-line | 选择首行文本
 
-This pseudo selector affects the first line of text before a line breaks.
+这个伪元素选择器选择换行之前文本的首行。
 
 ```css
 p:first-line {
@@ -24,9 +24,9 @@ p:first-line {
 }
 ```
 
-## ::first-letter | Selects the first letter
+## ::first-letter | 选择首字母
 
-This pseudo selector applies to the first letter of the text in an element.
+这个伪元素选择器应用于元素中文本的首字母。
 
 ```css
 .innerDiv p:first-letter {
@@ -35,11 +35,11 @@ This pseudo selector applies to the first letter of the text in an element.
 }
 ```
 
-## ::selection | Selects the highlighted (selected) area
+## ::selection | 选择高亮（被选中）的区域
 
-This applies to any area that has been highlighted by the user.
+应用于任何被用户选中的高亮区域。
 
-With the `::selection` pseudo-selector, we can apply our styling to the area that we highlight.
+通过 `::selection` 伪元素选择器，我们可以将样式应用于高亮区域。
 
 ```css
 div::selection {
@@ -47,15 +47,15 @@ div::selection {
 }
 ```
 
-## :root | Basic element
+## :root | 根元素
 
-The `:root` pseudo-class selects the root element of the document. In HTML, it is always the HTML element. In RSS, it is the RSS element.
+`:root` 伪类选中文档的根元素。在 HTML 中，为 HTML 元素。在 RSS 中，则为 RSS 元素.
 
-This pseudo selector is most used to store global rule values using CSS variable as it applies to the root element.
+这个伪类选择器应用于根元素，多用于存储全局 CSS 自定义属性。
 
-## :empty | Applies only if the item is empty
+## :empty | 仅当元素为空时触发
 
-This pseudo selector will select any element that has no children of any kind. The element must be empty. An element is empty if it has no whitespace, visible content, or descendant elements.
+这个伪类选择器将选中没有任何子项的元素。该元素必须为空。如果一个元素没有空格、可见的内容、后代元素，则为空元素。
 
 ```
 div:empty {
@@ -68,11 +68,11 @@ div:empty {
 </div>
 ```
 
-The rule will apply to empty div elements. The rule will be applied to the first and second div because they are truly empty, not the third div because it has whitespace.
+这个规则将应用于空的 `div` 元素。这个规则将应用于第一个和第二个 `div`，因为他们是真为空，而第三个 `div` 包含空格。
 
-## :only-child | Selects an only child
+## :only-child | 选择仅有的子元素
 
-This applies to an element that is the only child of its parent element.
+匹配父元素中没有任何兄弟元素的子元素。
 
 ```css
 .innerDiv p:only-child {
@@ -80,7 +80,7 @@ This applies to an element that is the only child of its parent element.
 }
 ```
 
-## :first-of-type | Selects the first child element of a specified type
+## :first-of-type | 选择第一个指定类型的子元素
 
 ```css
 .innerDiv p:first-of-type {
@@ -88,7 +88,7 @@ This applies to an element that is the only child of its parent element.
 }
 ```
 
-This would apply to the first child of `.innerDiv` of `p` paragraph element.
+这将应用于 `.innerDiv` 下的第一个 `p` 元素。
 
 ```html
 <div class="innerDiv">
@@ -103,11 +103,11 @@ This would apply to the first child of `.innerDiv` of `p` paragraph element.
 </div>
 ```
 
-The p ("These are the necessary step") would be selected.
+这个 `p`（“These are the necessary step”）将被选中。
 
-## :last-of-type | Selects the last child element of a specified type
+## :last-of-type | 选择最后一个指定类型的子元素
 
-Same as `:first-of-type`, but this will affect the last child element of the same type.
+像 `:first-of-type` 一样，但是会应用于最后一个同类型的子元素。
 
 ```css
 .innerDiv p:last-of-type {
@@ -115,7 +115,7 @@ Same as `:first-of-type`, but this will affect the last child element of the sam
 }
 ```
 
-This would apply to the last child of `innerDiv` of type `p` paragraph element.
+这将应用于 `innerDiv` 下的最后一个 `p` 段落元素。
 
 ```html
 <div class="innerDiv">
@@ -129,11 +129,11 @@ This would apply to the last child of `innerDiv` of type `p` paragraph element.
 </div>
 ```
 
-So, the `p` element `("Do the same")` would be selected.
+因此，这个 `p` 元素（“Do the same”）将被选中。
 
-## :nth-of-type() | Selects the child element of a specified type
+## :nth-of-type() | 选择特定类型的子元素
 
-This selector would select an element of a certain type from the list of the specified parent element.
+这个选择器将从指定的父元素的孩子列表中选择某种类型的子元素。
 
 ```css
 .innerDiv p:nth-of-type(1) {
@@ -141,9 +141,9 @@ This selector would select an element of a certain type from the list of the spe
 }
 ```
 
-## :nth-last-of-type() | Selects the child element of a type by the end of a list
+## :nth-last-of-type() | 选择列表末尾中指定类型的子元素
 
-This will select the last child element of a certain type.
+这将选择最后一个指定类型的子元素。
 
 ```css
 .innerDiv p:nth-last-of-type() {
@@ -151,7 +151,7 @@ This will select the last child element of a certain type.
 }
 ```
 
-This will select the last child element in the list contained in the `innerDiv` element and of type, paragraph element.
+这将选择 `innerDiv` 列表元素中包含的最后一个段落类型子元素。
 
 ```html
 <div class="innerDiv">
@@ -165,11 +165,11 @@ This will select the last child element in the list contained in the `innerDiv` 
 </div>
 ```
 
-The p `Do the same` is the last paragraph child element inside the `innerDiv` so it will be selected and affected by the CSS rule.
+`innerDiv` 中最后一个段落子元素 `p`（“Do the same”）将会被选中。
 
-## :link | Selects an unvisited hyperlink
+## :link | 选择一个未访问过的超链接
 
-This selector applies to links that have not been visited. This is mostly used with the `a` anchor element with href attribute.
+这个选择器应用于未被访问过的链接。常用于带有 href 属性的 `a` 锚元素。
 
 ```
 a:link {
@@ -179,11 +179,11 @@ a:link {
 <a href="/login">Login<a>
 ```
 
-This will make all `a` anchor elements with a href attribute that has not been clicked to visit the page in its href attribute to have an orangered color text.
+这将选中未被点击过带有 `href` 的指定界面的 `a` 锚点元素，选中的元素中的文字将会显示为橙色。
 
-## :checked | Selects a checked checkbox
+## :checked | 选择一个选中的复选框
 
-This applies to checkbox that has been checked.
+这个应用于已经被选中的复选框。
 
 ```css
 input:checked {
@@ -191,11 +191,11 @@ input:checked {
 }
 ```
 
-This rule applies to all checkboxes that have been clicked on to check it.
+这个规则应用到所有被选中的复选框。
 
-## :valid | Selects an element that is valid
+## :valid | 选择一个通过验证的元素
 
-This is mostly used in forms to visualize form elements that pass validation set by the user. When a validation passes, the defaulting element is set with the `valid` attribute.
+这主要用于可视化表单元素，以让用户判断是否验证通过。验证通过时，默认元素带有 `valid` 属性。
 
 ```css
 input:valid {
@@ -203,9 +203,9 @@ input:valid {
 }
 ```
 
-## :invalid | Selects an element that is invalid
+## :invalid | 选择一个未通过验证的元素
 
-Same as `:valid` but this will apply to elements that have failed the validation test.
+像 `:valid` 一样，但是会应用到未通过验证的元素。
 
 ```css
 input[type="text"]:invalid {
@@ -213,11 +213,11 @@ input[type="text"]:invalid {
 }
 ```
 
-## :lang() | Selects an element by a specified lang value
+## :lang() | 选择指定语言的元素
 
-This applies to elements that have their language specified.
+应用于指定了语言的元素。
 
-It can be set in two ways either by this:
+可以通过以下两种方式使用：
 
 ```css
 p:lang(fr) {
@@ -225,7 +225,7 @@ p:lang(fr) {
 }
 ```
 
-or
+或者
 
 ```css
 p[lang|="fr"] {
@@ -235,11 +235,11 @@ p[lang|="fr"] {
 <p lang="fr">Paragraph 1</p>
 ```
 
-## :not() | Negates the following selections (this is an operator)
+## :not() | 对于选择取反（这是一个运算符）
 
-A negation pseudo-selector selects what is not.
+否定伪类选择器选中相反的。
 
-Let’s see an example:
+让我们看一个示例：
 
 ```
 .innerDiv :not(p) {
@@ -255,19 +255,19 @@ Let’s see an example:
 </div>
 ```
 
-`Div 1` and `Div 2` will be selected because they are not `p` elements.
+`Div 1` 和 `Div 2` 会被选中，因为他们不是 `p` 元素。
 
-## Conclusion
+## 结论
 
-That’s it. We exhausted the list. There are more pseudoselectors, but they are not standard so I left them out.
+就这些了。这是全部内容。还有更多的伪选择器，但是为非标准的，因此我省略了它们。
 
-Thanks!!
+感谢！！
 
-## References
+## 引用
 
-* [CSS: The Definitive guide — Eric A. Meyer, Estelle Weyl](https://www.amazon.com/CSS-Definitive-Guide-Eric-Meyer/dp/0596527330)
+* [CSS 权威指南 —— Eric A. Meyer、Estelle Weyl](https://www.amazon.com/CSS-Definitive-Guide-Eric-Meyer/dp/0596527330)
 
-## Learn More
+## 了解更多
 
 [Theming React Components with CSS Variables](https://blog.bitsrc.io/theming-react-components-with-css-variables-ee52d1bb3d90)
 [11 Chrome APIs That Will Give Your Web App a Native Feel](https://blog.bitsrc.io/11-chrome-apis-that-give-your-web-app-a-native-feel-ad35ad648f09)
