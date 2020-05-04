@@ -7,13 +7,11 @@
 
 # UX Case Study: Mood Talk — A mental health app
 
-## Mood Talk — Tell how you feel to others who face the same challenges
+> Mood Talk — Tell how you feel to others who face the same challenges
 
 In the world lots of people face some sort of mental problem, such as **loneliness, insomnia, depression, stress, anxiety or personal disorders.** Unfortunately the list of possibilities was not finished at all.
 
 ![](https://cdn-images-1.medium.com/max/4000/1*ChYK0nSlbyqz3x2p1cBABw.jpeg)
-
----
 
 Wouldn’t be nice, if you could talk to **people who face or already gone trough** these same exact problems, know how you feel and able to give actually helpful, legit advices on how to overcome these terrible situations? I think it would be super great. In fact, I was thinking that it would be so 
 excellent , that I created an app design which tends to solve that exact problem.
@@ -23,8 +21,6 @@ excellent , that I created an app design which tends to solve that exact problem
 ![](https://cdn-images-1.medium.com/max/2000/1*V7xKbTLAqakMAtciwZBz2g.jpeg)
 
 As a part of my design school I was challenged to create an application within the **topic of Wellness**. I believe that **connection is the key to** most of our **problems**. Indeed to have precious connections is one of our biggest assets in life, either we think about **personal relations** or **networks**, which help us get better positions in our carrier, or just in life in general.
-
----
 
 That was my main thought process when I decided that I’m going to work on a project where **my goal is to try make people**, who faces mental disorders, a **little bit happier**. Or, what would be even better, to **“talk them out” from their rough situation.**
 
@@ -75,8 +71,6 @@ Since It’s turned out that communication and connections are the key elements 
 * Private group chats
 * Mood share function
 
----
-
 While I was figuring out the possible solutions, I was keeping in mind that these features has to create connection, but at the same time I have to be aware, that some people probably wouldn’t attend a real life event at all.
 
 ## Structure
@@ -84,8 +78,6 @@ While I was figuring out the possible solutions, I was keeping in mind that thes
 My idea was simple, a Home screen where you can see your friends latest posts. The user have the chance to also write a new post. In the navigation bar I included the real life events and the private group chats option as well.
 
 ![](https://cdn-images-1.medium.com/max/5616/1*2GPEQ8AjlS00wjFduJXXzw.png)
-
----
 
 After a lot of feedback and usability testing a lot has changed by the final version.
 
@@ -120,8 +112,6 @@ And finally here is the final looks of some of the pages of the app design of th
 Since the next big step was to add micro animations to our project I would like to show how it turned out in a short video format. To create the inter actions I’ve used InVision studio.
 
 ![](https://cdn-images-1.medium.com/max/2000/0*_AY_yjb7XGKJUwy2.gif)
-
-## Summary of the project
 
 ## Summary of the project
 
