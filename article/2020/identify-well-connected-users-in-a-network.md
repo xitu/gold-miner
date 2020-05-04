@@ -7,7 +7,7 @@
 
 # Identify well-connected Users in a Network
 
-#### This publication is primarily about how to use an undirected graph and Scipy’s Sparse Matrix implementation (COO) to store data and analyse user connections.
+This publication is primarily about how to use an undirected graph and Scipy’s Sparse Matrix implementation (COO) to store data and analyse user connections.
 
 ![“Connections“ — Photo by [NASA](https://unsplash.com/@nasa?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/13292/0*Ry3dSWy5ckRtkTHY)
 
@@ -57,7 +57,7 @@ First, we create a dot product of the matrix (where M and M.T are always equival
 
 **What an elegant solution!**
 
-```
+```py
 M = (m.dot(m)) * m # dot & pairwise multiplication
 ```
 
