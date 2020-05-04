@@ -7,10 +7,6 @@
 
 # Greedy Algorithms 101
 
-#### YOU ARE FALLING BEHIND IF YOU DON’T KNOW GREEDY ALGORITHMS
-
-#### … and why you should learn to build them right now
-
 ![](https://cdn-images-1.medium.com/max/2000/0*udmPDWYUmHDNJX5D)
 
 Greedy algorithms are easy to implement in most cases, they are one of the most used programming schemas when it comes to solving optimization problems, they are also a very good option because of their low resource consumption.
@@ -25,8 +21,6 @@ Most problems for which they produce very good results share a couple of charact
 2. **An optimal** substructure****: I kind of mentioned it before. The problem must have the capability of been divided into subsets with each having an optimal solution.
 
 Now let me show you how to write your own greedy algorithm and then we will look at a very well known problem and solve it using our new greedy superpower.
-
----
 
 ## General Greedy schema (Java)
 
@@ -64,19 +58,20 @@ solution
 
 Then we see this main **while** loop with a couple of functions inside. Those functions must also be build but sometimes you don’t need a whole other function to see for example if you have left candidates to try.
 
-```
+```js
 while (!isSolution(solution) && (candidatesLeft(candidates))
 ```
 
 Once we have checked that we didn’t yet find a solution and that we still have candidates left to try, we select one candidate and immediately remove it from our list of candidates.
 
-```
-cadidate = selectCandidate(candidates);                removeCandidate(candidate, candidates);
+```js
+cadidate = selectCandidate(candidates);
+removeCandidate(candidate, candidates);
 ```
 
 The next step is pretty straight forward. If the candidate is suitable for our solution, then simply add it to the solution structure.
 
-```
+```js
 if (isGoodCandidate(candidate, solution)) { 
     addCandidate(candidate, solution); 
 }
@@ -84,7 +79,7 @@ if (isGoodCandidate(candidate, solution)) {
 
 Then we simply check if we have reached the solution state and finally return it
 
-```
+```js
 if (isSolution(solution)) { 
     return solution; 
 } else { 
@@ -163,15 +158,11 @@ ArrayList < Coin > greedySchema(ArrayList < Integer > values, int quantity) {
 }
 ```
 
----
-
 #### Resources
 
 If you did like how Greedy algorithms work and now feel the urge to go and investigate more about them, pages like [Hackerrank](https://www.hackerrank.com/) or [Hackerearth](https://www.hackerearth.com/practice/) provide a huge amount of problems to solve, I’m sure you already knew about them but it is always good to mention 😊.
 
 Sometimes what I personally do is use GitHub as a search engine and simply write the topic I’m looking for [[greedy algorithms](https://github.com/search?q=greedy+algorithm)].
-
----
 
 ## Conclusion
 
