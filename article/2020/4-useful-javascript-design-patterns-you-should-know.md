@@ -70,27 +70,6 @@ function checkAuth(data) {
 }
 ```
 
-```
-function checkAuth(data) {
-  if (data.role !== 'registered') {
-    console.log('The user is not a registered user');
-    return false;
-  }
-  if (data.grade < 1) {
-    console.log("The user's level is less than 1");
-    return false;
-  }
-  if (data.job !== 'FE') {
-    console.log('The user is not a front-end development engineer');
-    return false;
-  }
-  if (data.type !== 'active user') {
-    console.log('The user is not an active user');
-    return false;
-  }
-}
-```
-
 I’m sure you’ve all written similar code before, but it has the following problems:
 
 * The `checkAuth` function is bloated.
@@ -105,37 +84,6 @@ Now let’s use the strategy pattern to improve the previous code.
 
 ```JavaScript
 const jobList = ['FE', 'BE'];
-var strategies = {
-  checkRole: function(value) {
-    if (value === 'registered') {
-      return true;
-    }
-    return false;
-  },
-  checkGrade: function(value) {
-    if (value >= 1) {
-      return true;
-    }
-    return false;
-  },
-  checkJob: function(value) {
-    if (jobList.indexOf(value) > 1) {
-      return true;
-    }
-    return false;
-  },
-  checkType: function(value) {
-    if (value === 'active user') {
-      return true;
-    }
-    return false;
-  }
-};
-```
-
-```
-const jobList = ['FE', 'BE'];
-
 var strategies = {
   checkRole: function(value) {
     if (value === 'registered') {
@@ -190,32 +138,6 @@ var Validator = function() {
 };
 ```
 
-```
-var Validator = function() {
-  // Store strategies
-  this.cache = [];
-
-// add strategy to cache
-  this.add = function(value, method) {
-    this.cache.push(function() {
-      return strategies[method](value);
-    });
-  };
-
-// check all strategies
-  this.check = function() {
-    for (let i = 0; i < this.cache.length; i++) {
-      let valiFn = this.cache[i];
-      var data = valiFn();
-      if (!data) {
-        return false;
-      }
-    }
-    return true;
-  };
-};
-```
-
 All right, now let’s implement the previous requirement.
 
 ```JavaScript
@@ -236,25 +158,6 @@ const result = validator.check();
 };
 ```
 
-```
-var compose1 = function() {
-  var validator = new Validator();
-  const data1 = {
-    role: 'register',
-    grade: 3,
-    job: 'FE',
-    type: 'active user'
-  };
-  validator.add(data1.role, 'checkRole');
-  validator.add(data1.grade, 'checkGrade');
-  validator.add(data1.type, 'checkType');
-  validator.add(data1.job, 'checkJob');
-
-const result = validator.check();
-  return result;
-};
-```
-
 After looking at the code above, you may think: the amount of code seems to have increased!
 
 As we said before, the value of design patterns is that they make it easier for you to cope with change. If your requirements don’t change from the beginning to the end, there’s really not much value in using design patterns. However, if the requirements of the project change, then the value of the design pattern can be reflected.
@@ -267,20 +170,6 @@ For example, on another page, our verification logic for the user is different, 
 At this point, we find that we can easily reuse the previous code:
 
 ```JavaScript
-var compose2 = function() {
-  var validator = new Validator();
-  const data2 = {
-    role: 'register',
-    job: 'FE'
-  };
-  validator.add(data2.role, 'checkRole');
-  validator.add(data2.job, 'checkJob');
-  const result = validator.check();
-  return result;
-};
-```
-
-```
 var compose2 = function() {
   var validator = new Validator();
   const data2 = {
@@ -321,19 +210,6 @@ function applySuccess() {
 }
 ```
 
-```
-function applySuccess() {
-  // Notify the message center for the latest content
-  MessageCenter.fetch();
-
-  // Update order information
-  Order.update();
-
-  // Inform the person in charge to review
-  Checker.alert();
-}
-```
-
 This makes the code look fine.
 
 Sure, there’s nothing directly wrong with the code itself, but in practice, it’s likely to happen:
@@ -357,25 +233,6 @@ function applySuccess() {
 }
 ```
 
-```
-function applySuccess() {
-  // Notify the message center for the latest content
-  MessageCenter.fetch();
-
-  // Update order information
-  Order.update();
-
-  // Inform the person in charge to review
-  Checker.alert();
-
-  Log.write();
-
-  // Maybe more
-  // ...
-
-}
-```
-
 As more and more modules are involved, our code becomes more bloated and harder to maintain. That’s when the publish-and-subscribe model can save the disaster.
 
 ![](https://cdn-images-1.medium.com/max/3764/1*WkZyWe_HUw7YUuE-ASrL9Q.png)
@@ -387,26 +244,6 @@ Publish-subscribe is a messaging paradigm in which the publisher of a message do
 First, let’s write an EventEmit function:
 
 ```JavaScript
-const EventEmit = function() {
-  this.events = {};
-  this.on = function(name, cb) {
-    if (this.events[name]) {
-      this.events[name].push(cb);
-    } else {
-      this.events[name] = [cb];
-    }
-  };
-  this.trigger = function(name, ...arg) {
-    if (this.events[name]) {
-      this.events[name].forEach(eventListener => {
-        eventListener(...arg);
-      });
-    }
-  };
-};
-```
-
-```
 const EventEmit = function() {
   this.events = {};
   this.on = function(name, cb) {
@@ -448,28 +285,6 @@ Checker.alert() {
 event.trigger('success');
 ```
 
-```
-let event = new EventEmit();
-
-MessageCenter.fetch() {
-  event.on('success', () => {
-    console.log('update MessageCenter');
-  });
-}
-Order.update() {
-  event.on('success', () => {
-    console.log('update Order');
-  });
-}
-Checker.alert() {
-  event.on('success', () => {
-    console.log('Notify Checker');
-  });
-}
-
-event.trigger('success');
-```
-
 Isn’t that better? All events are independent of each other. We can add, modify, and delete an event at any time without affecting other modules.
 
 When you’re responsible for a module that basically satisfies the following conditions, you might consider using the publish-subscribe pattern.
@@ -496,22 +311,6 @@ const yellowHOC = WrapperComponent => {
 export default yellowHOC;
 ```
 
-```
-import React from 'react';
-
-const yellowHOC = WrapperComponent => {
-  return class extends React.Component {
-    render() {
-      <div style={{ backgroundColor: 'yellow' }}>
-        <WrapperComponent {...this.props} />
-      </div>;
-    }
-  };
-};
-
-export default yellowHOC;
-```
-
 In the code above, we define a higher-order component that decorates a yellow background, which we use to decorate the target component.
 
 Here’s how this higher-order component is used:
@@ -524,19 +323,6 @@ class TargetComponent extends Reac.Compoment {
     return <div>hello world</div>;
   }
 }
-export default yellowHOC(TargetComponent);
-```
-
-```
-import React from 'react';
-import yellowHOC from './yellowHOC';
-
-class TargetComponent extends Reac.Compoment {
-  render() {
-    return <div>hello world</div>;
-  }
-}
-
 export default yellowHOC(TargetComponent);
 ```
 
@@ -562,31 +348,6 @@ const Decorator = function(old) {
     this.writeEnglish();
   };
 };
-const oldJonWrite = new jonWrite();
-const decorator = new Decorator(oldJonWrite);
-decorator.newWrite();
-```
-
-```
-// Jon was originally a Chinese speaker
-const jonWrite = function() {
-  this.writeChinese = function() {
-    console.log('I can only write Chinese');
-  };
-};
-
-// Add the ability to write English to Jon through the decorator
-const Decorator = function(old) {
-  this.oldWrite = old.writeChinese;
-  this.writeEnglish = function() {
-    console.log('Give Jon the ability to write English');
-  };
-  this.newWrite = function() {
-    this.oldWrite();
-    this.writeEnglish();
-  };
-};
-
 const oldJonWrite = new jonWrite();
 const decorator = new Decorator(oldJonWrite);
 decorator.newWrite();
@@ -622,29 +383,6 @@ function selectChecker(data) {
 }
 ```
 
-```
-function applyDevice(data) {
-  // some code to apply device
-  // ...
-
-// Then go to the next step
-  selectAddress(nextData);
-}
-
-function selectAddress(data) {
-  // some code to select address
-  // ...
-  
-  // Then go to the next step
-  selectChecker(nextData);
-}
-
-function selectChecker(data) {
-  // Some code to select a person to review
-  // ...
-}
-```
-
 It looks like the requirements have been met, but in fact, the above has a very big drawback: our purchase process may change, such as adding an inventory checking process. Then you have to change the original code drastically, which is very difficult to maintain code design.
 
 At this point, we can consider using the chain of responsibility pattern.
@@ -664,28 +402,6 @@ const selectAddress = function() {}
 const chainSelectAddress = new Chain(selectAddress);
 const selectChecker = function() {}
 const chainSelectChecker = new Chain(selectChecker);
-chainApplyDevice.setNext(chainSelectAddress).setNext(chainSelectChecker);
-chainApplyDevice.run();
-```
-
-```
-const Chain = function(fn) {
-  this.fn = fn;
-  
-  this.setNext = function() {}
-
-this.run = function() {}
-}
-
-const applyDevice = function() {}
-const chainApplyDevice = new Chain(applyDevice);
-
-const selectAddress = function() {}
-const chainSelectAddress = new Chain(selectAddress);
-
-const selectChecker = function() {}
-const chainSelectChecker = new Chain(selectChecker);
-
 chainApplyDevice.setNext(chainSelectAddress).setNext(chainSelectChecker);
 chainApplyDevice.run();
 ```
