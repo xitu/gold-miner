@@ -7,7 +7,7 @@
 
 # 6 Months Of Using GraphQL
 
-#### Having worked on a project for 6 months using GraphQL on the backend, I weigh up the technology’s fit into the development workflow
+Having worked on a project for 6 months using GraphQL on the backend, I weigh up the technology’s fit into the development workflow
 
 ![The output from my terminal](https://cdn-images-1.medium.com/max/2526/1*SYo5JVMz3D79G_OEfs8q_g.png)
 
@@ -45,8 +45,6 @@ With GraphQL, the front-end and back-end teams can work independently. With the 
 
 ![Photo by [Perry Grone](https://unsplash.com/@perrygrone?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*ClSi_KEJVSWlHwUL)
 
----
-
 ## The bad
 
 #### Not all APIs can be evolved
@@ -64,8 +62,6 @@ Since the queries can evolve and become huge, it can sometimes take a toll on th
 #### Caching
 
 The goal of caching an API response is primarily to obtain the response from future requests faster. Unlike GraphQL, caching is built into in the HTTP specification which RESTful APIs are able to leverage. And as mentioned earlier a GraphQL query can ask for any field of a resource, caching is inherently difficult.
-
----
 
 ## Conclusion
 
