@@ -7,8 +7,6 @@
 
 # 4 Useful JavaScript Design Patterns You Should Know
 
-#### Learn the design patterns in the front end through 4 real cases.
-
 ![Photo by [Neven Krcmarek](https://unsplash.com/@nevenkrcmarek?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9820/0*0VPoIQRlovWvRq4d)
 
 I wonder if you are as confused about the design patterns as I was before. In my case, I developed my own personal projects before, with almost no thought of design. Therefore, there are many design defects and code implementation defects, which bring a lot of trouble for later maintenance and development iterations.
@@ -416,11 +414,7 @@ Consider using the chain of responsibility pattern when the module you are respo
 * Each process has a fixed order of execution
 * Each process can be recombined
 
-#### A note from JavaScript In Plain English
-
-We have launched three new publications! Show some love for our new publications by following them: [**AI in Plain English**](https://medium.com/ai-in-plain-english), [**UX in Plain English**](https://medium.com/ux-in-plain-english), **[Python in Plain English](https://medium.com/python-in-plain-english)** — thank you and keep learning!
-
-We are also always interested in helping to promote quality content. If you have an article that you would like to submit to any of our publications, send us an email at **[submissions@plainenglish.io](mailto:submissions@plainenglish.io)** with your Medium username and we will get you added as a writer. Also let us know which publication/s you want to be added to.
+---
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
