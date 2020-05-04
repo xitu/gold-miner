@@ -7,8 +7,6 @@
 
 # Which Should You Use: Asynchronous Programming or Multi-Threading?
 
-#### Differences, common misunderstandings, and Python examples
-
 ![Image source: Author](https://cdn-images-1.medium.com/max/4608/1*G-JcOwcbJfFe70evn2FoNA.png)
 
 When it comes to software engineering, there is often a little confusion about these two concepts. They are both forms of [concurrency,](https://en.wikipedia.org/wiki/Concurrency_(computer_science)) but they do not mean the same thing and are not applied the same way, or used in the same scenarios.
@@ -16,8 +14,6 @@ When it comes to software engineering, there is often a little confusion about t
 The simple explanation is that t[hreading is about workers; asynchrony is about tasks](https://stackoverflow.com/questions/34680985/what-is-the-difference-between-asynchronous-programming-and-multithreading). But let’s explore that a bit.
 
 Analogously, let’s say we want to cook a breakfast of eggs and toast. How would we do it?
-
----
 
 ## Synchronous Approach
 
@@ -43,8 +39,6 @@ Ok cool, we’ve cooked eggs. But what if we wanted to make our morning even fas
 
 You’re thinking like an engineer now. Let’s try this again, but this time, we decide we want to cook the eggs and the toast at the same time, and silently thank the inventor of the toast-timer.
 
----
-
 ## Asynchronous Approach
 
 We can still have one person doing everything, but we can work on a separate task while we wait for another task to complete. Here’s what that looks like:
@@ -69,8 +63,6 @@ If we make an API call, have to get input from a user, or something of the like,
 
 Great! Now we have two approaches to making eggs. But let’s say our roommate Kevin wants to help out making eggs. What would this look like?
 
----
-
 ## Multi-Threading Approach
 
 1. Get out the eggs, bread, and pan, and turn on the stove.
@@ -89,8 +81,6 @@ You might say, “Well, I can only cook breakfast with two people if there are t
 ![Multi-threaded synchronous way to cook breakfast](https://cdn-images-1.medium.com/max/4608/1*qQOr-cdzcg2S3bqQLMjcvg.png)
 
 [So which one is better](https://www.quora.com/What-is-the-difference-between-asynchronous-programming-and-multi-threading), multi-threading or asynchronous? That really depends on a lot of factors, but if you understand how they work, that should give you some insight on which one to use. [Does it have a lot of I/O? Maybe try async. Is it computationally intensive? Maybe try multi-thread.](https://stackify.com/when-to-use-asynchronous-programming/) It can be much easier to write a multithreaded application than an asynchronous one, language depending, but that’s something to keep in mind. Can you build a [multi-threaded asynchronous system](https://codewala.net/2015/07/29/concurrency-vs-multi-threading-vs-asynchronous-programming-explained/)? Of course! Just as often, these two are used in tandem with each other.
-
----
 
 ## Python Example
 
