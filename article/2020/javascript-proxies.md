@@ -11,7 +11,7 @@
 
 Proxies are an ES6 feature enabling to monitor how a given object is accessed. For example, let’s say we have an object `alice` that contains some information about Alice, like her birthdate, her age, her height, her weight and her BMI.
 
-```
+```js
 const alice = {
   birthdate: '2000-04-06',
   age: 20,
@@ -23,7 +23,7 @@ const alice = {
 
 Properties can be simply read and set by doing:
 
-```
+```js
 console.log(alice.height);
 console.log(alice.age);
 alice.weight = 64;
@@ -35,21 +35,21 @@ An idea would be to create methods like `getAge` or `setWeight`. That would part
 
 A native JavaScript solution is to use a proxy. A proxy is simply a wrapper around your original object (called the **target**).
 
-```
+```js
 const handler = {};
 const proxy = new Proxy(alice, handler);
 ```
 
 You create it by calling the `Proxy` constructor, to which you pass the **target**, in our case ****`alice`, and a **handler** as an argument. The **handler** is an object in which we can define how each property should be accessed. In this example, our **handler** is empty, so the proxy just forwards every access request to the object.
 
-```
+```js
 console.log(proxy.age); // 20
 console.log(proxy.height); // 170
 ```
 
 Let’s now use the **handler** to define what is returned when the `age` property is read.
 
-```
+```js
 const handler = {
   get (target, key) {
     if (key === 'age') {
@@ -63,7 +63,7 @@ const proxy = new Proxy(alice, handler);
 
 Here is the `calculateAge` function if you are testing along:
 
-```
+```js
 const calculateAge = (birthdate) => {
   const today = new Date();
   let age = today.getFullYear() - birthdate.getFullYear();
@@ -79,7 +79,7 @@ Our **handler** now contains a `get `**trap**. When trying to read any property 
 
 You can test:
 
-```
+```js
 alice.age = 22;
 console.log(proxy.age); // 20
 console.log(proxy.height); // 170
@@ -87,7 +87,7 @@ console.log(proxy.height); // 170
 
 We can also define a `set` trap, defining if and how properties should be set. For example we want to prevent the birthdate property to be set and we want to recalculate the BMI if the weight is changed:
 
-```
+```js
 const handler = {
   get (target, key) {
     ...
@@ -112,7 +112,7 @@ If you try to set a new birthdate you are now going to receive an error:
 
 Every property is otherwise set to the value (this is what the `return true;` means). When the weight is being set we now recalculate the BMI. You can test that:
 
-```
+```js
 console.log(proxy.bmi); // 22.5
 proxy.weight = 63;
 console.log(proxy.bmi); // 21.8
@@ -133,12 +133,6 @@ There is a long list of possible traps, I just listed the most commons here. You
 ---
 
 Proxies let you control how fields are accessed, if and how fields can be read, modified, added or deleted, and generally let you monitor everything that can be done to your object. They are really helpful to implement a kind of encapsulation in JavaScript. As a matter of example, they can be used for validation (write the validation in the `set` trap of the proxy), to change a value before setting it (transform a `string` into a `Date` for example) or trace and log changes to an object.
-
-#### A note from JavaScript In Plain English
-
-We have launched three new publications! Show some love for our new publications by following them: [**AI in Plain English**](https://medium.com/ai-in-plain-english), [**UX in Plain English**](https://medium.com/ux-in-plain-english), **[Python in Plain English](https://medium.com/python-in-plain-english)** — thank you and keep learning!
-
-We are also always interested in helping to promote quality content. If you have an article that you would like to submit to any of our publications, send us an email at **[submissions@plainenglish.io](mailto:submissions@plainenglish.io)** with your Medium username and we will get you added as a writer. Also let us know which publication/s you want to be added to.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
