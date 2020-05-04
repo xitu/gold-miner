@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/vuejs-3-0-0-beta-features-im-excited-about.md](https://github.com/xitu/gold-miner/blob/master/TODO1/vuejs-3-0-0-beta-features-im-excited-about.md)
 > * 译者：[zhanght9527](https://github.com/zhanght9527)
-> * 校对者：
+> * 校对者：[shixi-li](https://github.com/shixi-li)、[xionglong58](https://github.com/xionglong58)、[TUARAN](https://github.com/TUARAN)
 
 # VueJS 3.0.0 Beta：那些令人兴奋的功能
 
