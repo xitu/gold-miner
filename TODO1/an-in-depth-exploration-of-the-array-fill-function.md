@@ -15,9 +15,9 @@
 
 `fill()` 函数提供将数组中给定范围内的所有元素更改为特定值的功能。这个函数会直接修改数组，然后返回修改后的函数版本。要记住一件非常重要的事情，如果你选择使用 `fill()` 函数如果不先保存一个复制，将会改变原数组。还值得指出的是，此函数不会更改原始数组的长度。
 
-`fill()` 函数最多接收三个参数，第一个参数是**必须的**，第二个和第三个参数是**可选的**。 While the first parameter can be any desired value, the second and third parameters are zero-based indexes. If either of these parameters has a negative value, it will be counted from the end of the array instead of from the beginning. This means that a parameter value of `-3` would actually result in the value of that parameter being `3` less than the length of the array (`Array.length + -3`).
+`fill()` 函数最多接收三个参数，第一个参数是**必须的**，第二个和第三个参数是**可选的**。第一个参数可以是任何期望的值，第二个和第三个参数是从零开始的索引。如果这些参数中有一个负值，将会从数组的结尾开始计算，这意味着参数 `-3` 相当于数组的长度加上 `-3`（`Array.length + -3`）。
 
-The first parameter is the `value` parameter. This parameter can have any desired value and the same exact value will be used to fill the array within the specified range. The second parameter is the `start` parameter. This parameter is the starting index of the range that will be filled with the specified value and the range **will** include the item at this index. As this parameter is optional, it has a default value of `0` and the array will be filled from the beginning of the array if this parameter is not specified. The third parameter is the `end` parameter. This parameter is the ending index of the range that will be filled with the specified value and the range **will not** include the item at this index. As this parameter is optional, it has a default value of the length of the array (`Array.length`) and the array will be filled through the end of the array if this parameter is not specified.
+第一个参数是`值`。这个参数可以是任何值，将会用来把指定范围数组的填充为相同的值。第二个参数是`起始索引`。这个参数指定了 The second parameter is the `start` parameter. This parameter is the starting index of the range that will be filled with the specified value and the range **will** include the item at this index. As this parameter is optional, it has a default value of `0` and the array will be filled from the beginning of the array if this parameter is not specified. The third parameter is the `end` parameter. This parameter is the ending index of the range that will be filled with the specified value and the range **will not** include the item at this index. As this parameter is optional, it has a default value of the length of the array (`Array.length`) and the array will be filled through the end of the array if this parameter is not specified.
 
 ## Primitive Value
 
@@ -126,11 +126,11 @@ array2[2].b = 4;
 
 In the case of the first array, the original array is filled with three arrays and then the first of these arrays is filled with zeroes. This results in the other two arrays also being filled with zeroes. In the case of the second array, the original array is filled with three objects and the second and third objects are both altered. This results in all three of the objects being altered in the same way. Of course, as mentioned earlier, this is a result of each of the filled arrays or objects referencing the exact same object in all places where the array or object was filled. Altering any of the arrays or objects will only ever be altering the single array or object that is actually being referenced.
 
-## Conclusions
+## 结论
 
 Thank you very much for reading this article. I hope that this exploration of the `fill()` function on the Javascript `Array` global object has been informative and I hope that after gaining some knowledge about it you will be able to put it to good use in your own code. I encourage you to consult the resource link below for all information pertaining to the `fill()` function if you still have any further questions about how it works. Please stop back in the future for more articles about interesting and useful functions that can be found on the Javascript `Array` global object.
 
-## Resources
+## 相关资源
 
 [Javascript Array.fill() function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)
 
