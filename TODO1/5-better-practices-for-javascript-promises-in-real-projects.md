@@ -5,21 +5,21 @@
 > * 译者：
 > * 校对者：
 
-# 5 Better Practices for JavaScript Promises in Real Projects
+# 实际项目中关于 JavaScript 中 Promises 的最佳实践
 
 ![Photo by [Kelly Sikkema](https://unsplash.com/@kellysikkema?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10814/0*WrO6pqf5aLgB319V)
 
-After learning the basic usage of Promise, this article hopes to help you better use Promise in real projects.
+在学习了 Promise 的基本用法后，本文希望可以帮助你在实际项目中更好地使用 Promise。
 
-> Use Promise.all, Promise.race and Promise.prototype.then to improve your code quality.
+> 使用 Promise.all，Promise.race 和 Promise.prototype.then 可以提高你的代码质量。
 
 ## Promise.all
 
-Promise.all is actually a promise that takes an array(or an iterable) of promises as an input. Then it gets resolved when all the promises get resolved or any one of them gets rejected.
+Promise.all 实际上是一个promise，它将一个 promise 数组（或一个可迭代的对象）做为参数。然后当所有的 promise 都变为 resolved 状态，或其中一个变为 rejected 状态，它就会变为 resolved 状态。
 
-For example, assume that you have ten promises (Async operation to perform a network call or a database connection). You have to know when all the promises get resolved or you have to wait till all the promises resolve. So you are passing all ten promises to promise.all. Then, Promise.all itself as a promise will get resolved once all the ten promises get resolved or any of the ten promises get rejected with an error.
+例如，假设你有十个 promise（执行网络请求或数据库连接的异步操作）。你必须知道什么时候所有的 promises 都转为  resolved 状态，或者等到所有的 promise 执行完。所以你要通过十个 promise 去完成 promise.all。然后，一旦十个  promise 都转为 resolved 状态，或者它们中的任意一个因为发生异常转为 rejected 状态，Promise.all 自身做为一个 promise 会转为 resolved 状态。
 
-**Let’s see it in code:**
+**让我们在代码中理解它：**
 
 ```js
 Promise.all([promise1, promise2, promise3])
@@ -29,12 +29,12 @@ Promise.all([promise1, promise2, promise3])
  .catch(error => console.log(`Error in promises ${error}`))
 ```
 
-As you can see, we are passing an array to promise.all. And when all three promises get resolved, promise.all resolves and the output is consoled.
+你可以看到，我们将一个数组传递给了 promise.all。并且当三个 promise 都转为 resolved 状态时，promise.all 完成并在控制台输出。
 
-**Let’s see an example:**
+**让我们看一个例子：**
 
 ```JavaScript
-// A simple promise that resolves after a given time
+// 一个简单的 promise，经过给定时间会执行 resolve
 const timeOut = (t) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -42,30 +42,30 @@ const timeOut = (t) => {
     }, t)
   })
 }
-// Resolving a normal promise.
+// Resolve 一个正常的 promise。
 timeOut(1000)
- .then(result => console.log(result)) // Completed in 1000
+ .then(result => console.log(result)) //设定时间为 1000ms
 // Promise.all
 Promise.all([timeOut(1000), timeOut(2000)])
- .then(result => console.log(result)) // ["Completed in 1000", "Completed in 2000"]
+ .then(result => console.log(result)) // [“设定时间为 1000ms”，“设定时间为 2000ms”]
 ```
 
-In the above example, Promise.all resolves after 2000 ms and the output is consoled as an array.
+在上面的示例中，Promise.all 在 2000ms 之后 resolve，并且将输出作为数组显示在控制台上。
 
-One interesting thing about Promise.all is that the order of the promises is maintained. The first promise in the array will get resolved to the first element of the output array, the second promise will be a second element in the output array, and so on.
+关于 Promise.all 的一件有趣的事情是，promise 的顺序得以保持。数组中的第一个 promise 转为 resolved 为输出数组的第一个元素，第二个 promise 转为 resolved 为输出数组的第二个元素，以此类推。
 
-OK, the above is the basic usage of promise.all. Let me introduce its application to the real project.
+好的，以上是 promise.all 的基本用法。让我向实际项目介绍它的应用。
 
-#### 1. Synchronize multiple asynchronous requests
+#### 1. 同步多个异步请求
 
-In a real project, a page often needs to send multiple asynchronous requests to the background. And wait until the results in the background return before we start rendering the page.
+在实际的项目中，页面通常需要将多个异步请求发送到后台。然后等到后台结果返回后，再开始渲染页面。
 
-Some programmers may write code like this:
+一些程序员可能会编写如下代码：
 
 ```JavaScript
 function getBannerList(){
   return new Promise((resolve,reject)=>{
-      // Suppose we make an asynchronous request to the server
+      // 假设我们向服务器发出异步请求
       setTimeout(function(){
           resolve('BannerList')
       },300)
@@ -74,7 +74,7 @@ function getBannerList(){
 
 function getStoreList(){
  return new Promise((resolve,reject)=>{
-      // Suppose we make an asynchronous request to the server
+      // 假设我们向服务器发出异步请求
       setTimeout(function(){
           resolve('StoreList')
       },500)
@@ -83,7 +83,7 @@ function getStoreList(){
 
 function getCategoryList(){
  return new Promise((resolve,reject)=>{
-      // Suppose we make an asynchronous request to the server
+      // 假设我们向服务器发出异步请求
       setTimeout(function(){
           resolve('CategoryList')
       },700)
@@ -91,22 +91,22 @@ function getCategoryList(){
 }
 
 getBannerList().then(function(data){
-  // render data
+  // 渲染数据
 })
 getStoreList().then(function(data){
-  // render data
+  // 渲染数据
 })
 getCategoryList().then(function(data){
-  // render data
+  // 渲染数据
 })
 ```
 
-The above code does work, but there are two defects in this code:
+上面的代码确实有效，但是有两个缺陷：
 
-* Each time we request data from the server, we need to write a separate function to process the data. This will lead to code redundancy and is not convenient for future upgrades and expansion.
-* Each request takes a different amount of time, resulting in functions that render the page three times out of sync, and the user feels the page is stuck.
+* 每次我们从服务端请求数据时，我们都需要编写一个单独的函数来处理数据。这将导致代码冗余，并且不便于将来的升级和扩展。
+* 每个请求花费的时间不同，导致函数需要渲染三次页面，会使用户感觉页面卡顿。
 
-Now we can use Promise.all to optimize our code.
+现在我们可以使用 Promise.all 来优化我们的代码。
 
 ```JavaScript
 function getBannerList(){
@@ -121,7 +121,7 @@ function getCategoryList(){
 
 function initLoad(){
   Promise.all([getBannerList(),getStoreList(),getCategoryList()]).then(res=>{
-      // render datas
+      // 渲染数据
   }).catch(err=>{
       // ...
   })
@@ -129,25 +129,25 @@ function initLoad(){
 initLoad()
 ```
 
-When all the requests are completed, we process the data uniformly.
+所有请求完成后，我们将统一处理数据。
 
-#### 2. Handle exceptions
+#### 2. 处理异常
 
-In the example above, we took this approach very directly to handling exceptions:
+在上面的示例中，我们非常直接地将这种方法用于异常处理：
 
 ```js
 Promise.all([p1, p2]).then(res => {
   // ...
 }).catch(error => {
-  // handle error
+  // 异常处理
 })
 ```
 
-As we know, the Promise.all mechanism is that only if any promise instance in the promise array as a parameter throws an exception, then the entire Promise.all function will go directly into the catch method, regardless of whether other promise instances succeed or fail.
+众所周知，Promise.all 的机制是，只要做为参数的 promise 数组中的任何一个 promise 抛出异常时，整个 Promise.all 函数进入 catch 方法， 而与其它 promise 成功失败无关。
 
-But in practice, what we often need is this: even if one or more promise instances throw an exception, we still want Promise.all to continue executing normally. For example, in the above example, even if an exception occurs in `getBannerList()`, we continue to want to execute the program as long as no exception occurs in `getStoreList()` or `getCategoryList()`.
+但实际上，我们经常需要这样：即使一个或多个 promise 抛出异常，我们仍熙攘 Promise.all 继续正常执行。例如，在上面的例子中，即使在 `getBannerList()` 中发生异常，只要在 `getStoreList()` 或 `getCategoryList()` 中没有发生异常，我们仍然希望该程序继续执行。
 
-To address this need, we can use a tip to enhance the Promise.all feature. We can write our code in this way:
+为了满足这个需求，我们可以使用一个技巧来增强 Promise.all 的功能。我们可以这样编写代码：
 
 ```JavaScript
 Promise.all([p1.catch(error => error), p2.catch(error => error)]).then(res => {
@@ -155,15 +155,15 @@ Promise.all([p1.catch(error => error), p2.catch(error => error)]).then(res => {
 }))
 ```
 
-This way, even if an exception occurs in one promise instance, it does not interrupt other instances of Promise.all.
+这样，即使一个 promise 发生异常，它也不会使 Promise.all 中其它 promise 中断。
 
-Applied to the previous example, this is the result.
+应用到前面的示例，结果是这样的。
 
 ```JavaScript
 function getBannerList(){
   return new Promise((resolve,reject)=>{
       setTimeout(function(){
-          // Suppose here reject an Error
+          // 假设这里 reject 一个异常
           reject(new Error('error'))
       },300)
   })
@@ -186,21 +186,21 @@ function initLoad(){
   ]).then(res=>{
 
     if(res[0] instanceof Error){
-      // handle error
+      // 处理异常
     } else {
-      // render data
+      // 渲染数据
     }
 
     if(res[1] instanceof Error){
-      // handle error
+      // 处理异常
     } else {
-      // render data
+      // 渲染数据
     }
 
     if(res[2] instanceof Error){
-     // handle error
+     // 处理异常
     } else {
-      // render data
+      // 渲染数据
     }
   })
 }
@@ -208,16 +208,16 @@ function initLoad(){
 initLoad()
 ```
 
-#### 3. Let multiple promise instances work together
+#### 3. 让多个 promise 一起工作
 
-When users try to upload or publish some content, we may need to verify the content provided by users. For example, check whether the content contains bloody violence, pornography, fake news, etc. In many cases, these detection behaviors are performed by different APIs provided by the backend or different cloud functions provided by SaaS service providers.
+当用户要上传或发布某些内容时，我们可能需要验证用户上传的内容。例如，检查内容是否包含血腥暴力，色情，虚假新闻等。在多数情况下，这些检测行为是由后端提供的不同 API 或 SaaS 服务提供商提供的不同云功能执行的。
 
-Some programmers may write code like this:
+一些程序员可能会编写如下代码：
 
 ```JavaScript
 function verify1(content){
   return new Promise((resolve,reject)=>{
-      // Suppose we perform an asynchronous operation
+      // 假设我们执行异步操作
       setTimeout(function(){
           resolve(true)
       },200)
@@ -226,7 +226,7 @@ function verify1(content){
 
 function verify2(content){
   return new Promise((resolve,reject)=>{
-      // Suppose we perform an asynchronous operation
+      // 假设我们执行异步操作
       setTimeout(function(){
           resolve(true)
       },700)
@@ -234,7 +234,7 @@ function verify2(content){
 }
 
 function verify3(content){
-  // Suppose we perform an asynchronous operation
+  // 假设我们执行异步操作
   return new Promise((resolve,reject)=>{
       setTimeout(function(){
           resolve(true)
@@ -245,24 +245,24 @@ function verify3(content){
 verify1().then(() => {
   verify2().then(() => {
     verify3().then(() => {
-      // User content is approved and can be published.
+      // 用户上传的内容已通过验证并可以发布。
     }).catch(() => {
-      // User content is not approved and cannot be published.
+      // 用户上传的内容没有通过验证，并且不能发布。
     })
   }).catch(() => {
-    // User content is not approved and cannot be published.
+    // 用户上传的内容没有通过验证，并且不能发布。
   })
 }).catch(() => {
-  // User content is not approved and cannot be published.
+  // 用户上传的内容没有通过验证，并且不能发布。
 })
 ```
 
-But with Promise.all, we can make different promise tasks work together:
+但是使用 Promise.all，我们可以使不同的 promise 任务一起工作：
 
 ```JavaScript
 function verify1(content){
   return new Promise((resolve,reject)=>{
-      // Suppose we perform an asynchronous operation
+      // 假设我们执行异步操作
       setTimeout(function(){
           resolve(true)
       },200)
@@ -271,7 +271,7 @@ function verify1(content){
 
 function verify2(content){
   return new Promise((resolve,reject)=>{
-      // Suppose we perform an asynchronous operation
+      // 假设我们执行异步操作
       setTimeout(function(){
           resolve(true)
       },700)
@@ -279,7 +279,7 @@ function verify2(content){
 }
 
 function verify3(content){
-  // Suppose we perform an asynchronous operation
+  // 假设我们执行异步操作
   return new Promise((resolve,reject)=>{
       setTimeout(function(){
           resolve(true)
@@ -289,23 +289,23 @@ function verify3(content){
 
 let content = 'some content'
 Promise.all([verify1(content),verify2(content),verify3(content)]).then(result=>{
-  // User content is approved and can be published.
+  // 用户上传的内容已通过验证并可以发布。
 }).catch(err => {
-  // User content is not approved and cannot be published.
+  // 用户上传的内容没有通过验证，并且不能发布。
 })
 ```
 
 ## Promise.race
 
-The parameter of `promise.race` is the same as `promise.all`, which can be a promise array or an iterable object.
+`promise.race` 的参数与 `promise.all` 相同，它可以是一个 promise 数组或一个可迭代的对象。
 
-The `Promise.race()` method returns a promise that fulfills or rejects as soon as one of the promises in an iterable fulfills or rejects, with the value or reason from that promise.
+`Promise.race()` 方法返回一个 promise，一旦迭代器中的某个 promise 解决或拒绝，返回的 promise 就会解决或拒绝。
 
-#### 4. Timing function
+#### 4. 定时功能
 
-When we request a resource asynchronously from the back-end server, we often limit a time. If no data is received within the specified time, an exception is thrown.
+当我们从后端服务器异步请求资源时，通常会限制时间。如果在指定时间内未接收到任何数据，则将引发异常。
 
-Consider how you would implement this feature? Promise.race can help us solve this problem.
+考虑一下，你会怎么实现这个功能？Promise.race 可以帮我们解决这个问题。
 
 ```JavaScript
 function requestImg(){
@@ -319,7 +319,7 @@ function requestImg(){
     return p;
 }
 
-// Delay function for timing requests
+// 定时请求的 delay 函数
 function timeout(){
     var p = new Promise(function(resolve, reject){
         setTimeout(function(){
@@ -332,11 +332,11 @@ function timeout(){
 Promise
 .race([requestImg(), timeout()])
 .then(function(results){
-    // The resource request was completed within the specified time
+    // 该资源请求在指定时间内完成
     console.log(results);
 })
 .catch(function(reason){
-    // The resource request did not complete within the specified time
+    // 该资源请求被在指定时间内没有完成
     console.log(reason);
 });
 
@@ -344,18 +344,18 @@ Promise
 
 ## Promise.then
 
-We know that `promise.then()` always returns a promise object, so `promise.then` supports chain calls.
+我们知道 `promise.then()` 总返回一个 promise 对象，因此 `promise.then` 支持链式调用。
 
 ```js
 Promise.then().then().then()
 ```
 
-#### 5. Promise Chaining
+#### 5. Promise 链
 
-Therefore, if the amount of data returned by the interface is large and the processing in one then seems bloated, we can consider interviewing the processing logic and executing it in turns in multiple then methods:
+因此，如果接口返回的数据量很大，并且其中一个接口的处理似乎过于庞大，我们可以考虑在多个 then 方法中依次访问处理逻辑并执行：
 
 ```JavaScript
-// Suppose this is the data returned by the backend
+// 假设这是后端返回的数据
 let result = {
     bannerList:[
       //...
@@ -381,10 +381,10 @@ getInfo().then(res=>{
 
     let { bannerList } = res
 
-    // do something with bannerList
+    // 使用 bannerList 进行操作
     console.log(bannerList)
 
-    // Return res for the next then method
+    // 为下一个 then 方法返回 res 
     return res
 
 }).then(res=>{
