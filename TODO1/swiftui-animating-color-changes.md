@@ -40,7 +40,7 @@ struct SplashShape: Shape {
 
 #### Splash 动画
 
-我们创建一个名为 `SplashAnimation` 的`枚举`来定义动画类型，便于以后更方便地扩展新动画(文章末尾可以验证！)。
+我们创建一个名为 `SplashAnimation` 的`枚举`来定义动画类型，便于以后更方便地扩展新动画（文章末尾可以验证！）。
 
 ```swift
 import SwiftUI
