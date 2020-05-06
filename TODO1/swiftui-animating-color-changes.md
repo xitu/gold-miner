@@ -433,7 +433,7 @@ func circle(rect: CGRect) -> Path {
 
 #### angle 动画
 
-这个动画知识点有点多。你需要使用切线计算角度的斜率。然后根据这个斜率创建一条直线。在矩形上移动这条直线时，根据它来绘制一个直角三角形。参见下图，各种彩色的线表示该线随时间移动时，覆盖整个矩形的状态。
+这个动画知识点有点多。你需要使用切线计算角度的斜率，然后根据这个斜率创建一条直线。在矩形上移动这条直线时，根据它来绘制一个直角三角形。参见下图，各种彩色的线表示该线随时间移动时，覆盖整个矩形的状态。
 
 ![The line moves in order from the red, blue, green, then purple. to cover the rectangle](https://cdn-images-1.medium.com/max/2000/0*ogi8WYEI-T3-GsWh.png)
 
