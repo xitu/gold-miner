@@ -378,7 +378,7 @@ func path(in rect: CGRect) -> Path {
 
 #### topToBottom 和 bottomToTop 动画
 
-这些方法与 `leftToRight` 和 `rightToLeft` 非常相似，它们创建的 path 从 shape 的底部或顶部开始，并使用 `progress` 变量随时间变换。
+这些方法与 `leftToRight` 和 `rightToLeft` 非常相似，它们从 shape 的底部或顶部开始创建 path ，并使用 `progress` 变量随时间对其进行变换。
 
 ```swift
 func topToBottom(rect: CGRect) -> Path {
