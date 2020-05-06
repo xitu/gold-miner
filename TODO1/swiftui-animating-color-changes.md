@@ -340,7 +340,7 @@ struct ContentView: View {
 
 ## Splash 动画 🥳
 
-哈哈哈！！ 还记得吗？我说过会添加更多动画种类。
+哈哈哈！！还记得吗？我说过会添加更多动画种类。
 
 ```swift
 enum SplashAnimation {
