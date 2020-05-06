@@ -410,7 +410,7 @@ func bottomToTop(rect: CGRect) -> Path {
 
 ![`c` is the radius of the final circle our path needs to draw](https://cdn-images-1.medium.com/max/2100/0*taOHhdEX-GycqkbL.png)
 
-`a` 和 `b` 可以视为矩形的 `高度` 和 `宽度`。这使我们能够求解 `c`，即覆盖整个矩形所需的圆的半径。我们以此为基础构建圆的半径，并使用 `progress` 变量随时间变换。
+`a` 和 `b` 可以视为矩形的 `高度` 和 `宽度`，我们能够根据它们求得 `c`，即覆盖整个矩形所需的圆的半径。我们以此为基础构建圆的 path，并使用 `progress` 变量随时间对它进行变换。
 
 ```swift
 func circle(rect: CGRect) -> Path {
