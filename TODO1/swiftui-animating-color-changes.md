@@ -34,7 +34,7 @@ struct SplashShape: Shape {
 }
 ```
 
-我们首先创建两种动画类型。`leftToRight` 和 `rightToLeft`，效果如下所示:
+我们首先创建两种动画类型：`leftToRight` 和 `rightToLeft`，效果如下所示：
 
 ![`leftToRight` & `rightToLeft`](https://cdn-images-1.medium.com/max/2000/0*IhBr4_qhxe5FRnTN.gif)
 
