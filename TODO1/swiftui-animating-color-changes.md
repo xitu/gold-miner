@@ -173,7 +173,7 @@ struct SplashView: View {
 
 `SplashShape` 需要使用 `SplashAnimation` 枚举作为参数，所以我们会把它作为参数传递给 `SplashView`。另外，我们要在视图的背景颜色变化时设置动画，所以我们也要传递 `Color` 参数。这些细节会在我们的初始化方法中详细说明。
 
-`ColorStore` 是自定义 ObservableObject。它用来监听 `SplashView` 结构体中 `Color` 值的改变 ，以便我们可以初始化 `SplashShape` 动画，并最终改变背景颜色。我们稍后展示它的工作原理。
+`ColorStore` 是自定义的 ObservableObject。它用来监听 `SplashView` 结构体中 `Color` 值的改变，以便我们可以初始化 `SplashShape` 动画，并最终改变背景颜色。我们稍后展示它的工作原理。
 
 ```swift
 struct SplashView: View {
