@@ -100,7 +100,7 @@ func path(in rect: CGRect) -> Path {
 
 #### 实现动画方法
 
-在 `path()` 方法的下面，创建两个新的方法： `leftToRight()` 和 `rightToLeft()`，每个方法表示一种动画类型。在每个方法体内，我们会创建一个矩形形状的 `Path`，它会根据 `progress` 变量的值随时间发生变换。
+在 `path()` 方法的下面，创建两个新的方法：`leftToRight()` 和 `rightToLeft()`，每个方法表示一种动画类型。在每个方法体内，我们会创建一个矩形形状的 `Path`，它会根据 `progress` 变量的值随时间发生变换。
 
 ```swift
 func leftToRight(rect: CGRect) -> Path {
