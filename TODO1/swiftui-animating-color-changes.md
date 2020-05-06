@@ -322,7 +322,7 @@ struct ContentView: View {
 }
 ```
 
-这行代码能让我们删除 `layers` 数组中使用过的值，并确保 ` SplashView` 基于最新更新的值显示正确的背景色。
+这行代码能让我们删除 `layers` 数组中使用过的值，并确保 `SplashView` 基于最新更新的值显示正确的背景色。
 
 #### 展示成果!
 
