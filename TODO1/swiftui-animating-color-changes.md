@@ -302,7 +302,7 @@ struct ContentView: View {
 
 ![Color Changing Goodness!](https://cdn-images-1.medium.com/max/2000/0*0cplu29bi4dyHzkt.gif)
 
-#### 还没有完成!
+#### 还没有完成！
 
 我们还有一个功能没实现。现在我们持续地把图层添加到 `SplashView` 上，但是没有删除它们。因此，我们需要在动画完成时把这些图层清理掉。
 
