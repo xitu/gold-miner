@@ -406,7 +406,7 @@ func bottomToTop(rect: CGRect) -> Path {
 
 #### circle 动画
 
-如果你还记得小学几何知识，就应该了解勾股定理。 `a ^ 2 + b ^ 2 = c ^ 2`
+如果你还记得小学几何知识，就应该了解勾股定理。`a^2 + b^2 = c^2`
 
 ![`c` is the radius of the final circle our path needs to draw](https://cdn-images-1.medium.com/max/2100/0*taOHhdEX-GycqkbL.png)
 
