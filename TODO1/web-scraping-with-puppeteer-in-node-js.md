@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/web-scraping-with-puppeteer-in-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/web-scraping-with-puppeteer-in-node-js.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[shixi-li](https://github.com/shixi-li)
 
 # 在 Node.js 中用 Puppeteer 实现网络爬虫
 
@@ -82,7 +82,7 @@ var movies = await page.evaluate(() => {
 })
 ```
 
-我们用 `page.evaluate()` 来进入页面的 DOM 结构，这样就能像在调试工具的 Console 面板中那样执行自己的 JavaScript 代码了。
+我们用 `page.evaluate()` 来进入页面的 DOM 结构，这样就能像在调试工具的 Console 面板中那样执行我们自己的 JavaScript 代码了。
 
 `document.querySelector('h2')` 选中了页面中所有的 `h2` 元素。我们把它们统统存到变量 `titlesList` 中。
 
@@ -92,7 +92,7 @@ var movies = await page.evaluate(() => {
 
 为了取得影片标题，我们得遍历 `titlesList` —— 所有的 `h2` 元素节点都在其中。我们使用 `innerText` 属性来获得 `h2` 的文本内容。然后，我们用 `.trim()` 方法去除空格。
 
-如果你仔细看过调试工具的 Console 面板，你会注意到，这个页面有很多没有指定唯一类名或 id 的 `p` 元素。这样的话，就真的很难精确地抓取到我们需要的影片简介 `p` 元素了。为了解决这个问题，我们在 `h2` 节点（即 `titlesList[i]`）上调用了 `nextElementSibling` 属性。仔细看看 Console 面板，包含影片简介的 `p` 元素是包含影片标题的 `h2` 元素的兄弟元素。
+如果你仔细看过调试工具的 Console 面板，你会注意到，这个页面有很多没有指定唯一类名或 id 的 `p` 元素。这样的话，就真的很难精确地抓取到我们需要的影片简介 `p` 元素了。为了解决这个问题，我们在 `h2` 节点（即 `titlesList[i]`）上调用了 `nextElementSibling` 属性。当你仔细看看 Console 面板，你会发现，包含影片简介的 p 元素是包含影片标题的 h2 元素的兄弟元素。
 
 #### 把爬取到的数据存到 JSON 文件中
 
