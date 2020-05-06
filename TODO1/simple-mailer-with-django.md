@@ -280,7 +280,7 @@ class NewOrderMailer(BaseMailer):
         super().__init__(to_email, subject='New Order', template_id=5678)
 ```
 
-请注意你必须在配置文件中设置 Sendgrid 的 api 密钥，以及 html 模板会直接从 Sendrid 的页面进行加载，并且你需要获取模板的 ID 以指定需要被使用的模板。
+请注意你必须在配置文件中设置 Sendgrid 的 api 密钥，以及指定需要被使用的模板的 ID，Sendrid 会直接从自己的页面中根据这个 ID 来加载指定的 html 邮件模版。
 
 太好了！这并不困难，而且我们不用去修改发送邮件的每一行代码。
 
