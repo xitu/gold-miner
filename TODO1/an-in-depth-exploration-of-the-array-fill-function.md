@@ -17,11 +17,11 @@
 
 `fill()` 函数最多接收三个参数，第一个参数是**必须的**，第二个和第三个参数是**可选的**。第一个参数可以是任何期望的值，第二个和第三个参数是从零开始的索引。如果这些参数中有一个负值，将会从数组的结尾开始计算，这意味着参数 `-3` 相当于数组的长度加上 `-3`（`Array.length + -3`）。
 
-第一个参数是`值`。这个参数可以是任何值，将会用来把指定范围数组的填充为相同的值。第二个参数是`起始索引`。这个参数指定了 The second parameter is the `start` parameter. This parameter is the starting index of the range that will be filled with the specified value and the range **will** include the item at this index. As this parameter is optional, it has a default value of `0` and the array will be filled from the beginning of the array if this parameter is not specified. The third parameter is the `end` parameter. This parameter is the ending index of the range that will be filled with the specified value and the range **will not** include the item at this index. As this parameter is optional, it has a default value of the length of the array (`Array.length`) and the array will be filled through the end of the array if this parameter is not specified.
+第一个参数是`值`。这个参数可以是任何值，将会用来把指定范围数组的填充为相同的值。第二个参数是`起始索引`。这个参数是填充指定值范围的起始索引，且范围**将会**包括该索引处的值。这个参数是可选的，未指定的话则默认为 `0`，如果未指定这个参数的话将会从第一个值开始填充数组。第三个参数是`结尾索引`。这个参数是填充指定值范围的结尾索引，并且范围**将不**包括索引处的值。这个参数是可选的，为指定的话则默认为数组的长度值（`Array.length`），如果位置顶这个参数的话将会填充到数组的结尾。
 
-## Primitive Value
+## 原始值
 
-With the general function behavior covered, let’s take a look at some examples of how the `fill()` function works in practice. The following example demonstrates the situation where only a primitive `value` parameter value is specified:
+包含了大多数的函数行为，让我们看一些 `fill()` 函数在实际中如何工作的示例。下面的示例仅指定了原始`值`参数：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -29,13 +29,13 @@ array.fill(0);
 // array: [0, 0, 0, 0, 0]
 ```
 
-The `fill()` function is called with a `value` parameter value of `0`. Considering the optional parameter default values, this function call is the same as `fill(0, 0, 5)`. This means that the fill range for the specified value is the entire array from beginning to end.
+`fill()` 函数传入 `0` 作为参数值来进行调用。考虑到可选参数的默认值，这个函数调用相当于 `fill(0, 0, 5)`。这意味着指定值的填充范围为从头到尾包含整个数组。
 
-This code sample exemplifies what was mentioned earlier about how the `fill()` function does not alter the length of the array. Despite the fact that no bounds to the fill range were explicitly specified, the fill range simply defaults to the exact size of the array and the function only fills each of the existing array items with the specified value and no more.
+代码示例举例说明了前面提到的有关 `fill()` 函数如何不改变数组长度的内容。尽管没有明确填充范围的边界，但填充范围默认未数组的实际大小，这个函数用指定值填充数组中的每一项。
 
-## Primitive Value, Positive Start
+## 原始值，正起始索引
 
-The following example demonstrates the situation where a primitive `value` parameter value and a positive `start` parameter value are specified:
+下面示例演示了指定原始`值`和正`起始索引`参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -43,11 +43,11 @@ array.fill(0, 2);
 // array: [1, 2, 0, 0, 0]
 ```
 
-The `fill()` function is called with a `value` parameter value of `0` and a `start` parameter value of `2`. Considering the optional parameter default values, this function call is the same as `fill(0, 2, 5)`. This means that the fill range for the specified value begins at index `2` and continues to the end of the array.
+`fill()` 函数传入 `0` 和 `2` 作为参数来进行调用，考虑到可选参数的默认值，这个函数调用相当于 `fill(0, 2, 5)`。这意味着指定值的填充范围为从索引 `2` 开始直到数组的结尾。
 
-## Primitive Value, Negative Start
+## 原始值，负起始索引
 
-The following example demonstrates the situation where a primitive `value` parameter value and a negative `start` parameter value are specified:
+下面示例演示了指定原始`值`和负`起始索引`参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -55,11 +55,11 @@ array.fill(0, -2);
 // array: [1, 2, 3, 0, 0]
 ```
 
-The `fill()` function is called with a `value` parameter value of `0` and a `start` parameter value of `-2`. Considering the optional parameter default values and how negative parameter values are evaluated, this function call is the same as `fill(0, 3, 5)`. This means that the fill range for the specified value begins at index `3` and continues to the end of the array. One important thing to keep in mind when specifying a negative `start` parameter value is that if the value causes the `start` parameter value to be less than `0` when added to the array length, the `fill()` function will ignore the `start` parameter value and instead fill the specified value from the beginning of the array.
+`fill()` 函数传入 `0` 和 `-2` 作为参数来进行调用，考虑到可选参数的默认值和负值的转换，这个函数调用相当于 `fill(0, 3, 5)`。这意味着指定值的填充范围为从索引 `3` 开始直到数组的结尾。指定负`起始索引`时要注意的是，如果这个值导致`起始索引`加上数组长度仍然小于 `0` 的话，`fill()` 函数将忽略`起始索引`值，并从数组的开头用指定值填充数组。
 
-## Primitive Value, Positive Start, Positive End
+## 原始值，正起始索引，正结尾索引
 
-The following example demonstrates the situation where a primitive `value` parameter value and positive `start` and `end` parameter values are specified:
+下面示例演示了指定原始`值`、正`起始索引`和正`结尾索引`参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -67,7 +67,7 @@ array.fill(0, 2, 4);
 // array: [1, 2, 0, 0, 5]
 ```
 
-The `fill()` function is called with a `value` parameter value of `0`, a `start` parameter value of `2`, and an `end` parameter value of `4`. With the fill range for the specified value beginning at index `2` and ending at index `3`, only the two indexes beginning at index `2` are filled with the specified value. One important thing to keep in mind when specifying a positive `end` parameter value is that if the value is greater than the length of the array, the `fill()` function will ignore the `end` parameter value and instead fill the specified value to the end of the array.
+`fill()` 函数传入 `0`、`2` 和 `4`作为参数来进行调用，指定值的填充范围为以索引 `2` 开始，在索引 `3` 处结束，只用两个从索引 `2` 开始的数组项填充了指定值。指定正`结尾索引`时需要注意的是，如果这个值大于数组长度，则 `fill()` 函数将忽略`结尾索引`，并填充特定值到数组结尾。
 
 ## Primitive Value, Positive Start, Negative End
 
