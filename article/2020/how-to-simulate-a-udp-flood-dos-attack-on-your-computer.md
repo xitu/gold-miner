@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-simulate-a-udp-flood-dos-attack-on-your-computer.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-simulate-a-udp-flood-dos-attack-on-your-computer.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[shixi-li](https://github.com/shixi-li)
 
 # 如何在自己的计算机上模拟 UDP Flood DoS 攻击
 
@@ -117,7 +117,7 @@ sudo sysctl -w net.ipv4.icmp_msgs_per_sec=1000
 
 第一条命令让 ICMP 响应的速率仅能通过第二条命令的参数来设置。因此，在这种情况下，使用第二个命令，我们就能设置 ICMP 消息的速率为每秒 1000 条 。
 
-现在我们来验证这一点，对服务器持续攻击 10 秒钟，并在服务器的虚拟机上使用 Wireshark 来拦截响应的 ICMP 数据包，观察数据包的数量是否符合预期。因为我们将速率设置为每秒 1000 个数据包，所以可以看到在 10 秒内大约发送了 10000 个ICMP数据包，这是正确的。
+现在我们来验证这一点，对服务器持续攻击 10 秒钟，并在服务器的虚拟机上使用 Wireshark 来拦截响应的 ICMP 数据包，观察数据包的数量是否符合预期。因为我们将速率设置为每秒 1000 个数据包，所以可以看到在 10 秒内大约发送了 10000 个 ICMP 数据包，这是正确的。
 
 ![10.000 packets captured with Wireshark during a 10 seconds attack](https://cdn-images-1.medium.com/max/2000/1*Kb3xNdtJxxD0L87W9i3IJg.png)
 
@@ -129,15 +129,15 @@ sudo sysctl -w net.ipv4.icmp_msgs_per_sec=1
 
 ![10 packets captured with Wireshark during a 10 seconds attack](https://cdn-images-1.medium.com/max/2000/1*3MVskJJFtm4wKB4kT5GiYg.png)
 
-为这些参数设置最佳值是个难点。因为最佳值取决于我们的硬件，应用程序以及与服务器交互的平均流量。如果我们减少每秒发送的响应数，虽然能减少服务器的负载，但这只是丢弃了更多传入的请求，而没有发送 ICMP 响应包。通过减少参数的值，我们可能会拒绝合法的请求，没有处理真实用户的流量，这会有更大的风险。因此，我们要有一种折衷的办法。
+为这些参数设置最佳值是个难点。因为最佳值取决于我们的硬件，应用程序以及与服务器交互的平均流量。如果我们减少每秒发送的响应数，虽然能减少服务器的负载，但这只是丢弃了更多传入的请求，而没有发送 ICMP 响应包。通过减少参数的值，我们可能会拒绝合法的请求，而没有处理真实用户的流量，这会有更大的风险。因此，我们要有一种折衷的办法。
 
 #### 防火墙
 
-我们还可以使用防火墙来抵御这种攻击。防火墙可以在 UDP 数据包到达服务器之前将其阻止。这样就不会耗费服务器资源。但是，防火墙本身也容易受到此类攻击：它们必须处理传入的流量，并且可能在攻击过程中成为瓶颈。此外，如果我们使用的是状态防火墙，虽然可以轻松地阻止来自同一 IP 地址的攻击，但是如果攻击者使用了 IP 欺骗，防火墙的状态表可能会塞满，可用内存将被耗尽。因此，防火墙也不是终极解决方案。
+我们还可以使用防火墙来抵御这种攻击。防火墙可以在 UDP 数据包到达服务器之前将其阻止。这样就不会耗费服务器资源。但是，防火墙本身也容易受到此类攻击：它们必须处理传入的流量，并且可能在攻击过程中成为瓶颈。此外，如果我们使用的是有状态的防火墙，虽然可以轻松地阻止来自同一 IP 地址的攻击，但是如果攻击者使用了 IP 欺骗，防火墙的状态表可能会塞满，可用内存将被耗尽。因此，防火墙也不是终极解决方案。
 
 ## 结论
 
-在本文中，我们通过几个简单的步骤模拟攻击，来帮助我们更好地了解其工作原理。您还可以更详细地研究其缓解措施，尝试使用不同的参数来配置服务器。这个过程也很有趣，因为这是一种简单而强大的攻击：如上所述，我们很难采取有效的对策来阻止它。如果您对更复杂的基于 UDP 的攻击感兴趣，请查看[这个](https://levelup.gitconnected.com/how-to-simulate-a-ntp-amplification-dos-attack-on-your-computer-72b3c6f60eb7)故事，在此我解释了如何利用 NTP 服务器来扩大流量，让受攻击的服务器带宽饱和。
+在本文中，我们通过几个简单的步骤模拟攻击，来帮助我们更好地了解其工作原理。您还可以更详细地研究应对攻击的缓解措施，尝试使用不同的参数来配置服务器。这个过程也很有趣，因为这是一种简单而强大的攻击：如上所述，我们很难采取有效的对策来阻止它。如果您对更复杂的基于 UDP 的攻击感兴趣，请查看[这个](https://levelup.gitconnected.com/how-to-simulate-a-ntp-amplification-dos-attack-on-your-computer-72b3c6f60eb7)故事，在此我解释了如何利用 NTP 服务器来扩大流量，让受攻击的服务器带宽饱和。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
