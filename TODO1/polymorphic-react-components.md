@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/polymorphic-react-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/polymorphic-react-components.md)
 > * 译者：[zoomdong](https://github.com/fireairforce)
-> * 校对者：
+> * 校对者：[Raoul1996](https://github.com/Raoul1996),[Gesj-yean](https://github.com/Gesj-yean)
 
 # 编写类型安全的多态 React 组件（不会导致 TypeScript 崩溃）
 
-在设计具有可重用性的 React 组件时，通常需要能够在不同的情况下向组件的容器传递不同的 DOM 属性。假设你正在构建一个 `<Button />` 组件。首先，你只需要允许将自定义的 `className` 合并进去，但以后，你需要支持和该组件无关的各种属性和事件处理程序，而与组件所使用的上下文无关。例如，与工具提示组件组合时的 `aria-describedby` 属性，或者在用箭头管理焦点的组件中包含 `tableIndex` 和 `onKeyDown` 属性时。
+在设计可重用性的 React 组件时，通常需要组件支持在不同情况下传入不同的 DOM 属性。假设你正在构建一个 `<Button />` 组件。首先，你只需要允许将自定义的 `className` 合并进去，但以后，你需要支持与该组件无关，但是和组件使用的上下文有关的各种属性和事件处理方法。例如：需要传入 Tooltip 组件的 `aria-describedby` 属性，或是在组件内写 `tableIndex` 和 `onKeyDown` 属性触发的焦点事件。
 
 Button 组件不可能预测和处理每一个可能使用的特殊的上下文，因此有一个合理的理由可以允许任意额外的 props 给 Button 组件，并让它传递无法理解的额外的 props。
 
@@ -32,14 +32,14 @@ function Button({ color, icon, className, children, ...props }: ButtonProps) {
 }
 ```
 
-这太棒了：我们现在可以将额外的 props 传递给底层的 `<button>` 元素，而且它也经过了完美的类型检查。由于 props 类型继承自 `React.ButtonHTMLAttributes`，因此我们能只能传递一些实际有效的 props 来结束 `<button>`：
+举个例子，我们可以将额外的 props 传递给 `<button>` 元素，它支持参数的类型检查。由于 props 类型继承自 `React.ButtonHTMLAttributes`，我们只能通过 props 传递一些参数来完善 `<button>`：
 
 ```tsx
 <Button onKeyDown={({ currentTarget }) => { /* do something */ }} />
 <Button foo="bar" /> // Correctly errors 👍
 ```
 
-## 当直传参数还不够时
+## 当透传参数还不够时
 在你将 Button v1 版本发给产品研发团队半小时之后，他们会来问你一个问题：怎么使用 Button 来做 react-router 的 Link？怎样做一个链接到外部站点的 HTMLAnchorElement？你发给他们的组件**仅仅**是渲染成 HTMLButtonElement。
 
 如果我们不关心类型安全，我们可以很轻松的使用普通 JavaScript 来写这个：
@@ -76,9 +76,9 @@ Button.defaultProps = { tagName: 'button' };
 <Button tagName={Link} to="/about">About</Button>
 ```
 
-但是？我们如何使用使类型正确呢？Button 的 props 不能再无条件的继承自 `React.ButtonHTMLAttributes`，因为多余的 props 可能不会传递给 `<button>`。
+但是？我们如何使用使类型正确呢？Button 的 props 不能再无条件的继承自 `React.ButtonHTMLAttributes`，因为多余的 props 不能传递给 `<button>`。
 
-> 警告：我将深入兔子窝，来解释为什么不能很好地工作的几个原因。如果你更愿意相信我的话，你可以[跳到](#an-alternative-approach)一个更好的解决方案。
+> 适当的警告：深入到完全未知的领域，来解释为什么不能很好地工作的几个原因。如果你更愿意相信我的话，你可以[跳到](#an-alternative-approach)一个更好的解决方案。
 
 ![ ](https://github.com/andrewbranch/blog/blob/master/posts/images/rabbit-dark.png)
 
@@ -116,7 +116,7 @@ Button 上的每个 prop 都将被推断为类型参数 `P` 的属性，而类�
 
 ### `ref` 有什么问题？
 
-如果你还没有被说服放弃使用这种方法，或者你只是好奇为什么上面的代码片段编译得不好，那让我们深入兔子窝。在你使用 `Omit<typeof props, 'ref'>` 实现一个比较清晰的解决方案时，会被警告：`ref` 并不是唯一的问题，这只是第一个问题。其余的问题是每个事件处理程序的 prop。[^1]
+如果你还没有被说服放弃使用这种方法，或者你只是好奇为什么上面的代码片段编译得不好，更深入一些。在你使用 `Omit<typeof props, 'ref'>` 实现一个比较清晰的解决方案时，会被警告：`ref` 并不是唯一的问题，这只是第一个问题。其余的问题是每个事件处理程序的 prop。[^1]
 
 那么 `ref` 和 `onCopy` 有什么共同点呢？他们都有共同的形式：`(param: T) => void`，其中 `T` 指的是渲染的 DOM 元素的实例类型：例如 `HTMLButtonElement` 用于按钮， `HTMLAnchorElement` 用于锚点。如果要调用被调用参数类型的并集，则必须传递它们的参数类型的交集，以确保无论在运行时调用哪个函数，该函数都将接收对其参数期望的子类型。[^2] 简单的例子如下：
 
@@ -166,7 +166,7 @@ if (typeof ref === 'function') {
 }
 ```
 
-现在我们可以看到，为什么 `ref` 不要参数类型是 `HTMLAnchorElement | HTMLButtonElement` 的并集，而是需要它们的交集：`HTMLAnchorElement & HTMLButtonElement` —— 理论上可行的类型，但不是在 DOM 中出现的类型。而且我们直观地知道，如果我们有一个 React 元素，要么是锚，要么是 Button，传递给 `ref` 的值要么是 `HTMLAnchorElement`，要么是 `HTMLButtonElement`，所以我们提供给 `ref` 的函数应该是能够接受 `HTMLAnchorElement | HTMLButtonElement` 的。因此，回到原来的组件，我们可以看到当 `P['tagName']` 是一个并集的时候，`JSX.IntrinsicElements[P['tagName']]` 能够合理的允许使用不安全的回调类型，而这正是编译器所抱怨的。通过忽略此类型错误可能发生的不安全操作的例子：
+现在我们可以看到，为什么 `ref` 不要参数类型是 `HTMLAnchorElement | HTMLButtonElement` 的并集，而是需要它们的交集：`HTMLAnchorElement & HTMLButtonElement` —— 理论上可行的类型，但不是在 DOM 中出现的类型。而且我们直观地知道，如果我们有一个 React 元素，要么是锚，要么是 Button，传递给 `ref` 的值要么是 `HTMLAnchorElement`，要么是 `HTMLButtonElement`，所以我们提供给 `ref` 的函数应该是能够接受 `HTMLAnchorElement | HTMLButtonElement` 的。因此，回到原来的组件，我们可以看到当 `P['tagName']` 是一个并集的时候，`JSX.IntrinsicElements[P['tagName']]` 能够合理的允许使用不安全的回调类型，而这正是编译器所不接受的。通过忽略此类型错误可能出现的不安全操作的例子：
 
 ```tsx
 <Button
@@ -177,7 +177,7 @@ if (typeof ref === 'function') {
 
 ### 写一个更好的 `props` 类型
 
-我认为使这个问题不直观的原因是你总是希望将 `tagName` 实例化为一个字符串文本类型，而不是一个联合类型。在这种情况下，`JSX.IntrinsicElements[P['tagName']]` 是合理。然而在组件函数内部，`TagName` 看起来是联合类型，因此 props 输入的时候要为交集。事实证明，这是[可能的](https://stackoverflow.com/questions/50374908/transform-union-type-to-intersection-type)，但这有点老生常谈。因此在这我们甚至不会把 `UnionToIntersection` 写下来。不要一个人尝试这个：
+我认为使这个问题不直观的原因是你总是希望将 `tagName` 实例化为一个字符串文本类型，而不是一个联合类型。在这种情况下，`JSX.IntrinsicElements[P['tagName']]` 是合理。然而在组件函数内部，`TagName` 看起来是联合类型，因此 props 输入的时候要为交集。事实证明，这是[可能的](https://stackoverflow.com/questions/50374908/transform-union-type-to-intersection-type)，但是这有点老套。因此在这我们甚至不会把 `UnionToIntersection` 写下来。私底下不要这么做：
 
 ```tsx
 interface ButtonProps {
@@ -194,7 +194,7 @@ function Button<P extends ButtonProps>({
 <Button tagName="button" type="foo" /> // Correct error! 🎉
 ```
 
-当 `tagName` 是一个类型的时候又会怎么样呢？
+当 `tagName` 是一个联合类型的时候又会怎么样呢？
 
 ```tsx
 <Button
@@ -205,7 +205,7 @@ function Button<P extends ButtonProps>({
 
 不过，我们不要过早地庆祝：我们还没有有效的解决缺乏过多的属性检查，这是一个不可接受的折衷。
 
-### 取回多余的属性检查
+### 回到多余属性检查
 
 正如我们之前所发现的，过量属性检查来带问题是，我们所有的props都会成为类型参数 `P` 的一部分。我们需要一个类型参数，以便将 `tagName` 推断为字符串文字单位类型，而不是一个联合类型，可能其他属性根本不需要是泛型的：
 
@@ -224,7 +224,7 @@ function Button<T extends 'a' | 'button'>({
 
 这是什么新的和不寻常的错误？
 
-它来自 `TagName` 泛型 和 React 对 [JSX.LibraryManagedAttributes](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e4a0d4f532b177fc800e8ade7f1b39e9879d4b3c/types/react/index.d.ts#L2817-L2821) 的定义作为一种[分布式条件类型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types)的组合。TypeScript 目前不允许将任何东西赋值给条件类型，条件类型的检查类型（在 `?` 之前）是通用的：
+它来自 `TagName` 泛型 和 React 对 [JSX.LibraryManagedAttributes](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e4a0d4f532b177fc800e8ade7f1b39e9879d4b3c/types/react/index.d.ts#L2817-L2821) 的定义作为一种[分配性条件类型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types)的组合。TypeScript 目前不允许将任何东西赋值给条件类型，条件类型的检查类型（在 `?` 之前）是通用的：
 
 ```ts
 type AlwaysNumber<T> = T extends unknown ? number : number;
@@ -274,9 +274,9 @@ function Button<T extends keyof JSX.IntrinsicElements>({
 
 那么，恭喜你成功弄崩了 TypeScript 3.4！约束类型 `keyof JSX.IntrinsicElements` 173 个键的联合类型，类型检查器将用它们的约束实例化泛型，来确保所有可能的实例化都是安全的。这意味着 `ButtonProps<T>` 是 173 个对象类型的并集，并且可以说 `UnionToIntersection<...>` 是一个包裹在另一个对象类型中的条件类型，其中一个条件类型分布到另一个 173 个类型的并集上，并在此类型推断上进行调用。简而言之，你刚刚发明了一个无法在节点的默认堆大小内进行推理的 Button。而且我们甚至从来没有考虑过支持 `<Button tagName={Link} />`！
 
-TypeScript 3.5 可以通过推迟大量简化条件类型的工作来处理这个问题，而不会崩溃，但是你真的想编写只等待合适时机爆发的组件吗？
+TypeScript 3.5 可以通过推迟大量简化条件类型的工作来处理这个问题，而不会崩溃，但是你真的想编写只等待合适时机爆发处理操作的组件吗？
 
-> 如果你跟着我走到兔子窝这么远，我真的很感动。我花了几个星期才到这里，但只花了你十分钟！
+> 如果你认真看到了这里，我真的很感动。我花了几个星期才到这里，但只花了你十分钟！
 
 ![ ](https://github.com/andrewbranch/blog/raw/master/posts/images/rabbit-head-dark.png)
 
@@ -287,7 +287,7 @@ TypeScript 3.5 可以通过推迟大量简化条件类型的工作来处理这�
 * 能够接受任意的 props，例如 `onKeyDown` 和 `aria-describedby`
 * 能够被渲染为 `button`， 带有 `href` 属性的 `a` 标签， 或者带有 `to` 属性的 `Link` 组件
 * 确保根元素具有它需要的所有 props，并且没有不支持的
-* 不会使 TypeScript 崩溃或者使编辑器停下来
+* 不会使 TypeScript 崩溃或者使编辑器卡顿
 
 事实证明，我们可以使用渲染 prop 来完成这些工作。我建议命名为 `renderContainer` 并给它一个合理的默认值：
 
@@ -359,9 +359,9 @@ Button.defaultProps = defaultProps;
 />
 ```
 
-`{...props}` 已经包含了 `className`，它使 Button 看起来更漂亮并且呈蓝色，并且这里我们已经完全覆盖了类 `my-custom-button`。
+`{...props}` 已经包含了 `className`，它使 Button 看起来更漂亮并且呈蓝色，并且这里我们用 `my-custom-button` 完全覆盖了类 `className`。
 
-一方面，这提供了最高程度的可定制性 —— 用户可以完全控制哪些内容可以放到容器中，哪些不可以，允许进行以前不可能进行的细粒度定制。但是另一方面，你可能在 99% 的情况下都希望合并这些类，而且在这种情况下，为什么它在视觉上看起来是破碎的，这可能不是很明显。
+一方面，这提供了最高程度的可定制性 —— 用户可以完全控制哪些内容可以放到容器中，哪些不可以，允许进行以前不可能进行的细粒度定制。但是另一方面，你可能在 99% 的情况下都希望合并这些类，因为它视觉上看起来是零碎的，并不是明显的。
 
 根据组件的复杂性、用户的身份以及文档的可靠性，这些可能是严重的问题，也可能不是。当我开始在自己的工作中使用这样的模式时，我写了一个 [小的实用程序](https://github.com/andrewbranch/merge-props)来帮忙实现附加 props 的合并：
 
