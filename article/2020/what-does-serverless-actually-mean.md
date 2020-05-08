@@ -7,9 +7,9 @@
 
 # What Does Serverless Actually Mean?
 
-#### It’s actually not serverless at all
-
 ![Photo by [Taylor Vick](https://unsplash.com/@tvick?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/servers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7912/1*poXRRZdZAElrrP9C3ZQLoQ.jpeg)
+
+> It’s actually not serverless at all
 
 The word **serverless** is really misleading. It’s a buzzword, for sure.
 
@@ -39,13 +39,11 @@ With serverless, however, in theory, you pay for exactly only what you use. You 
 
 This is where the name **serverless** comes from. You, as a user of server power, don’t have to think about the servers that are working behind the scenes. But they are still there!
 
----
-
 ## So What’s the Catch?
 
 So why isn’t everything serverless? It seems like everyone would win because we don’t end up with wasted server time.
 
-But it isn’t that simple. Behind the scenes, the serverless provider is still doing the same thing as the traditional model. ****And it won’t become magically perfectly granular.
+But it isn’t that simple. Behind the scenes, the serverless provider is still doing the same thing as the traditional model. And it won’t become magically perfectly granular.
 
 The serverless provider — meaning a service like AWS Lambda, Cloudflare, Azure, and Google Cloud — is still scaling up and down, and allocating boxes to work that goes up and down. And sometimes they will have unused servers. And someone still has to pay for the servers, whether they are unused or not.
 
@@ -74,8 +72,6 @@ Or when users start writing in that your software isn’t working or is slow, yo
 This means debugging your system is more difficult. It’s not impossible; you still have logging and the like. But most back-end maintainers I know like having the ability to hop onto a box that is having a problem and see exactly what is going on.
 
 There are also myriad other problems with serverless that I’m not going to get into (vendor lock-in, cold starts, security?), but they are worth considering if you’re thinking about using serverless for your application.
-
----
 
 ## But We Are Getting There
 
