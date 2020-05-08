@@ -7,13 +7,11 @@
 
 # 5 String Manipulation Libraries for JavaScript
 
-#### Handle Case Conversions, Removing Diacritic Characters, Unicode Handling, Url Handling and More
-
 ![](https://cdn-images-1.medium.com/max/2560/1*pdPTFvogzT9vzmc7k-qY2Q.jpeg)
 
 Working with strings can be a cumbersome task as there are many different use cases. For example, a simple task like converting a string to camel case can require several lines of code to achieve the end goal.
 
-```
+```js
 function camelize(str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
     if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
@@ -30,23 +28,13 @@ This is where string manipulation libraries come to the rescue. They make it eas
 
 Let’s look at a few string manipulation libraries for JavaScript.
 
-#### Making Your Own Reusable String Manipulation Components
-
-If you’ve found something useful, try to wrap it as a component of your framework of choice (React, Vue, Angular, etc.). This way, you’d have a reusable component with a declarative API, always ready to be used.
-
-You can publish it to a cloud component hub, like [**Bit.dev**](https://bit.dev/), with documentation and code examples. Once published, you can keep updating it from whatever project using it and of course, share it with your team.
-
-![Exploring published React components in [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*XauNZ51FpyhblC6k.gif)
-
----
-
 ## 1. String.js
 
 `string.js`, or simply `S` is a lightweight (**\< 5 kb** minified and gzipped) JavaScript library for the browser or for Node.js that provides extra String methods.
 
 #### Installation
 
-```
+```bash
 npm i string
 ```
 
@@ -56,7 +44,7 @@ npm i string
 
 This can be used when trying to get the elements between two tags in HTML.
 
-```
+```js
 var S = require('string');
 S('<a>This is a link</a>').between('<a>', '</a>').s 
 // 'This is a link'
@@ -66,7 +54,7 @@ S('<a>This is a link</a>').between('<a>', '</a>').s
 
 This function can be used to solve the problem mentioned at the beginning of this article.
 
-```
+```js
 var S = require('string');
 S('---Foo---bAr---').camelize().s; 
 //'fooBar'
@@ -76,7 +64,7 @@ S('---Foo---bAr---').camelize().s;
 
 This function implemented from scratch would definitely require quite a number of lines of code.
 
-```
+```js
 var S = require('string');
 S('   capitalize dash-CamelCase_underscore trim  ').humanize().s //'Capitalize dash camel case underscore trim'
 ```
@@ -85,7 +73,7 @@ S('   capitalize dash-CamelCase_underscore trim  ').humanize().s //'Capitalize d
 
 If you implement this function from scratch, there is a high chance that you might miss a punctuation.
 
-```
+```js
 var S = require('string');
 S('My, st[ring] *full* of %punct)').stripPunctuation().s; 
 //My string full of punct
@@ -93,15 +81,13 @@ S('My, st[ring] *full* of %punct)').stripPunctuation().s;
 
 You can check out more methods over [here](https://github.com/jprichardson/string.js).
 
----
-
 ## 2. Voca
 
 Voca is a JavaScript library for manipulating strings. The Voca library offers helpful functions to make string manipulations comfortable: **change case, trim, pad, slugify, latinise, sprintf’y, truncate, escape** and much more. The **modular design** allows to load the entire library, or individual functions to minimize the application builds. The library is **fully tested**, **well documented** and **long-term supported**.
 
 #### Installation
 
-```
+```bash
 npm i voca
 ```
 
@@ -111,7 +97,7 @@ npm i voca
 
 Converts the data to camel case.
 
-```
+```js
 var v = require('voca');
 v.camelCase('foo Bar');
 // => 'fooBar'
@@ -127,7 +113,7 @@ v.camelCase('---Foo---bAr---');
 
 Latinises the `data` by removing diacritic characters.
 
-```
+```js
 var v = require('voca');
 v.latinise('cafe\u0301'); // or 'café'
 // => 'cafe'
@@ -143,7 +129,7 @@ v.latinise('как прекрасен этот мир');
 
 Checks whether `data` contains only alpha and digit characters. (Alphanumeric)
 
-```
+```js
 var v = require('voca');
 v.isAlphaDigit('year2020');
 // => true
@@ -159,7 +145,7 @@ v.isAlphaDigit('40-20');
 
 Counts the number of words in the `data`.
 
-```
+```js
 var v = require('voca');
 v.countWords('gravity can cross dimensions');
 // => 4
@@ -175,7 +161,7 @@ v.countWords('Gravity - can cross dimensions!');
 
 Escapes the regular expression special characters - [ ] / { } ( ) * + ? . \ ^ $ | in `data`.
 
-```
+```js
 var v = require('voca');
 v.escapeRegExp('(hours)[minutes]{seconds}');
 // => '\(hours\)\[minutes\]\{seconds\}'
@@ -195,13 +181,13 @@ This is a tiny, fast Javascript library that helps detect links / URLs / Emails 
 
 #### Installation
 
-```
+```bash
 npm i anchorme
 ```
 
 #### Usage
 
-```
+```js
 import anchorme from "anchorme"; 
 //or 
 //var anchorme = require("anchorme").default;
@@ -221,7 +207,7 @@ Underscore.string provides you several useful functions: capitalize, clean, incl
 
 #### Installation
 
-```
+```bash
 npm install underscore.string
 ```
 
@@ -231,7 +217,7 @@ npm install underscore.string
 
 Format numbers into strings with decimal and order separation.
 
-```
+```js
 var _ = require("underscore.string");
 
 _.numberFormat(1000, 3)
@@ -245,7 +231,7 @@ _.numberFormat(123456789.123, 5, '.', ',');
 
 Learn more about the levenshtein distance algorithm [here](https://dzone.com/articles/the-levenshtein-algorithm-1).
 
-```
+```js
 var _ = require("underscore.string");
 
 _.levenshtein('kitten', 'kittah');
@@ -254,7 +240,7 @@ _.levenshtein('kitten', 'kittah');
 
 * chop(string, step) — chops the given string into pieces
 
-```
+```js
 var _ = require("underscore.string");
 
 _.chop('whitespace', 3);
@@ -267,7 +253,7 @@ Learn more about Underscore String over [here](http://gabceb.github.io/underscor
 
 The main highlight of this library is that it is unicode aware. If you run this below code, the output will be 2.
 
-```
+```js
 "🤔".length
 // -> 2
 ```
@@ -278,7 +264,7 @@ You can read more about the JavaScript unicode problem [here](https://mathiasbyn
 
 #### Installation
 
-```
+```js
 npm install stringz
 ```
 
@@ -288,7 +274,7 @@ npm install stringz
 
 Limit the string to a given width.
 
-```
+```js
 const stringz = require('stringz');
 
 // Truncate:
@@ -312,7 +298,7 @@ stringz.limit('👍🏽👍🏽', 4, '👍🏽');
 
 Convert the string to an Array
 
-```
+```js
 const stringz = require('stringz');
 
 stringz.toArray('abc');
@@ -335,14 +321,6 @@ If you have any suggestions or comments, kindly let me know in the comments.
 [Stringz](https://github.com/sallar/stringz)
 [Underscore String](http://gabceb.github.io/underscore.string.site/)
 [Anchorme](https://github.com/alexcorvi/anchorme.js)
-
-## Learn More
-[**Tools for Consistent JavaScript Code Style**
-**Tools and methodologies that will help you maintain consistency in your JavaScript code style.**blog.bitsrc.io](https://blog.bitsrc.io/tools-for-consistent-javascript-code-style-56a6e93d75d)
-[**13 Top Serverless Solutions for 2020**
-**Best serverless solutions for different categories.**blog.bitsrc.io](https://blog.bitsrc.io/13-top-serverless-solutions-for-2020-c84157f8c9d7)
-[**10 Top Javascript Libraries and Tools for an Awesome UI/UX**
-**Recommended tools and libraries that will help you build a stunning web app in 2020**blog.bitsrc.io](https://blog.bitsrc.io/10-top-javascript-libraries-and-tools-for-an-awesome-ui-ux-828a314752cc)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
