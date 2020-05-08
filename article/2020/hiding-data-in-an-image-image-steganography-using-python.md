@@ -11,8 +11,6 @@
 
 ## Image Steganography using Python
 
-#### Understanding LSB Image Steganography and implementing it using Python!
-
 > Today the world is witnessing a data explosion like never before. The amount of data we produce every day is truly mind-boggling. The Forbes article **“How Much Data Do We Create Every Day?”** states that there are about [2.5 quintillion bytes of data](https://www.domo.com/learn/data-never-sleeps-5?aid=ogsm072517_1&sf100871281=1) created each day at our current pace, but that pace is only accelerating with the growth of the Internet of Things (IoT). Over the last two years alone 90 percent of the data in the world was generated. This is worth re-reading!
 
 Data. In essence, the modern computing world revolves around this word. But just what is so intriguing about it? In today’s world, businesses have started realizing that data is power as it can potentially predict customer trends, increase sales, and push the organization to newer heights. With the fast pace advancement in technology and use of data for continuous innovation it has become our topmost priority to secure data. Data sharing is increasing as thousands of messages and data are being transmitted on the internet everyday from one place to another. The protection of data is the primary concern of the sender and it is really important that we encrypt our message in a secret way that only the receiver is able to understand.
