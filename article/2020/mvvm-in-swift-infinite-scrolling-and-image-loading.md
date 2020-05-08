@@ -7,8 +7,6 @@
 
 # MVVM in Swift: Infinite Scrolling and Image Loading
 
-#### Using RxSwift, Codable, and the Coordinator design pattern
-
 ![Photo by [Julian O'hayon](https://unsplash.com/@anckor?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6400/0*VKT7xUSB-F86d8-H)
 
 In this article, we’ll explore a complete reactive MVVM implementation based on the sample app that fetches photos from the [Unsplash API](https://unsplash.com/developers) and loads them in an asynchronous manner.
@@ -18,8 +16,6 @@ We’ll cover how to implement infinite scrolling, image caching, and doing navi
 The source code of the project is available at the bottom of the article.
 
 Without further ado, let’s get started.
-
----
 
 ## Quick Setup
 
@@ -39,8 +35,6 @@ struct APIKeys {
 
 Now we’re ready to explore the project.
 
----
-
 ## Let’s Start
 
 Our project is divided into four layers (folders):
@@ -51,8 +45,6 @@ Our project is divided into four layers (folders):
 * **Core Layer:** Defines all of the settings we need for our Business Logic Layer to function and other small utilities. For example, it contains base URLs, API keys, and a network client.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*b7fL11UWBMkqkhhzYsUsDw.png)
-
----
 
 ## Using Coordinators
 
@@ -123,8 +115,6 @@ class AppCoordinator: Coordinator {
 We can see that inside the `start()` method of the `AppCoordinator`, we coordinate to the `PhotosCoordinator`, which creates the initial scene of our app: `Photos`.
 
 Let’s explore its implementation.
-
----
 
 ## The ‘Photos’ Scene
 
@@ -1037,8 +1027,6 @@ photosCollectionView.rx.modelSelected(UnsplashPhoto.self)
 
 Great! We’ve covered the `Photos` scene, let’s now move on to the final one — `PhotoDetail`.
 
----
-
 ## ‘PhotoDetail’
 
 When we coordinate to this scene from `Photos`, the `PhotoDetailCoordinator` constructs it like this:
@@ -1445,8 +1433,6 @@ As a result, we have this final workflow:
 ![](https://cdn-images-1.medium.com/max/2000/1*Eh1Sn4gGfe6U2BrtfxpKsw.gif)
 
 We’ve implemented a fully functional app using a reactive MVVM architecture.
-
----
 
 ## Resources
 
