@@ -7,17 +7,11 @@
 
 # How and Why You Should Avoid CORS in Single Page Apps
 
-#### Learn how to avoid CORS by using the proxy configuration in frontend development server.
-
 Over the past decade, Single Page Apps have become the norm technology to build web apps. Today, frameworks like Angular, React, and Vue dominate the frontend development, providing the underlying platform for these apps. The good news is, it serves the frontend and backend APIs from a single domain. But there are instances, where we serve frontend (e.g., web.myapp.com) and backend (e.g., api.myapp.com) from separate sub-domains. Sometimes, we allow cross-origin access at the backend API for the development environment only.
 
 ![](https://cdn-images-1.medium.com/max/12500/1*TKYFiZnIhfHi_PAFcG0geg.jpeg)
 
 [Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) is a mechanism implemented in web browsers to allow or deny requests coming from a different domain to your web app. With CORS, web browsers and web servers agree on a standard protocol to understand whether the resources are allowed to access or not. So remember, implementing CORS doesn’t mean that Bots or any other mechanism can’t access your server resources.
-
-This “relationship” between frontends and backends becomes even more complex when sharing and reusing what could be referred to as “micro apps”. For example, some developers use [**Bit.dev**](https://bit.dev), a cloud component hub, to publish “smart” front end components (as opposed to “dumb” logic-less UI components) with their network requests written in. This way they can be reused across projects as fully-operational widgets or micro-apps, “straight out of the box”. That is, of course, a challenge as the source of these requests to the backend can vary.
-
-![Exploring React components published on [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
 
 ## Do you need CORS?
 
@@ -51,7 +45,7 @@ At this stage, the proxy does its magic. Inside the proxy configuration, you can
 
 Since your development server is the middleman communicating with your backend API, it can safely avoid CORS. The example below shows how you can add proxy configuration in the [Webpack dev server](https://webpack.js.org/configuration/dev-server/#devserverproxy).
 
-```
+```js
 module.exports = {
   //...
   devServer: {
@@ -89,12 +83,10 @@ However, you must establish a proper path conversion for your backend API to avo
 At last, I would like to reemphasize that if you don’t have any requirement to use CORS, enable only the same-origin access for your backend API, both in development and production environments. From my experience, it will save a lot of time down the line avoiding many pitfalls.
 
 ## Learn More
-[**Fetching Data in React using Hooks**
-**Making network requests, memoizing, and handling errors using React hooks.**blog.bitsrc.io](https://blog.bitsrc.io/fetching-data-in-react-using-hooks-c6fdd71cb24a)
-[**Code Principles Every Programmer Should Follow**
-**YAGNI, Law of Demeter, Single Responsibility and other useful principles for better coding.**blog.bitsrc.io](https://blog.bitsrc.io/code-principles-every-programmer-should-follow-e01bfe976daf)
-[**How to Set Up a Private NPM Registry Locally**
-**Setting up a local NPM registry for private packages.**blog.bitsrc.io](https://blog.bitsrc.io/how-to-set-up-a-private-npm-registry-locally-1065e6790796)
+
+[**Fetching Data in React using Hooks**](https://blog.bitsrc.io/fetching-data-in-react-using-hooks-c6fdd71cb24a)
+[**Code Principles Every Programmer Should Follow**](https://blog.bitsrc.io/code-principles-every-programmer-should-follow-e01bfe976daf)
+[**How to Set Up a Private NPM Registry Locally**](https://blog.bitsrc.io/how-to-set-up-a-private-npm-registry-locally-1065e6790796)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
