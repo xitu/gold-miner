@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/6-months-of-using-graphql.md](https://github.com/xitu/gold-miner/blob/master/article/2020/6-months-of-using-graphql.md)
 > - 译者：[YueYongDEV](https://github.com/YueYongDev)
-> - 校对者：[JohnieXu](https://github.com/JohnieXu)
+> - 校对者：[JohnieXu](https://github.com/JohnieXu)、[cyril](https://github.com/shixi-li)
 
 # 使用 GraphQL 的 6 个月
 
@@ -13,7 +13,7 @@
 
 ## 首先
 
-GraphQL 是一种实现 API 的查询语言，也是使用现有数据完成这些查询的运行时。GraphQL 为你的 API 中的数据提供了完整且易于理解的描述，并且让用户有权决定他们所需要的东西，除此之外别无他求。
+GraphQL 是一种实现 API 的查询语言，也是使用现有数据完成这些查询的运行时。GraphQL 为你的 API 中的数据提供了完整且易于理解的描述，并且让用户有权决定他们所需要的东西，仅此而已。
 
 它由 Facebook 开发，作为其移动应用程序的内部解决方案，后来向社区开放了源代码。
 
@@ -31,7 +31,7 @@ GraphQL 是一种实现 API 的查询语言，也是使用现有数据完成这�
 
 #### 公开数据和数据库模型之间的解耦
 
-GraphQL 的一大优点是可以将数据库建模数据和给用户公开的数据解耦。这样，在设计持久层时，我们可以专注于该层的需求，然后分别考虑如何采取最好的方式将数据暴露给使用者。这与 dataloader 的使用密切相关，因为 你可以在将数据发送给用户之前将它们组合在一起，从而使得公开数据的设计模型变得非常容易。
+GraphQL 的一大优点是可以将数据库建模数据和给用户公开的数据解耦。这样，在设计持久层时，我们可以专注于该层的需求，然后分别考虑如何采取最好的方式将数据暴露给使用者。这与 dataloader 的使用密切相关，因为你可以在将数据发送给用户之前将它们组合在一起，从而使得公开数据的设计模型变得非常容易。
 
 #### 忘记 API 的版本控制
 
@@ -41,7 +41,7 @@ API 的版本控制是一个常见问题，通常一个简单的解决方案是�
 
 #### 独立团队
 
-使用 GraphQL，前端团队和后端团队可以独立工作。因为 GraphQL 具有的严格类型化架构，因此团队可以并行工作。首先，**前端团队**可以轻松地从后端生成数据模型，而无需查看代码。生成的数据模型可以直接用于创建查询。其次，**前端团队**可以模拟使用该 API。他们还可以使用它来测试代码。这为开发人员提供了愉快的体验，而不会停止他们的开发工作。
+使用 GraphQL，前端和后端可以独立工作。因为 GraphQL 具有严格的类型化架构，因此两个团队可以并行工作互不影响。首先，**前端**无需查看后端代码即可轻松地生成数据模型，且生成的数据模型可以直接用于创建数据查询。其次，**前端**可以使用模拟（mock）出来的 API 来测试代码。这样便不会阻碍前后端的开发工作，大大的提升了程序员的开发体验。
 
 ![Photo by [Perry Grone](https://unsplash.com/@perrygrone?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*ClSi_KEJVSWlHwUL)
 
@@ -53,7 +53,7 @@ API 的版本控制是一个常见问题，通常一个简单的解决方案是�
 
 #### 不可读的代码
 
-由于经历了多次，所以有时在使用 Dataloader 读取数据时，代码有时会分散到多个位置，这可能很难维护。
+由于经历了多次迭代，所以有时在使用 Dataloader 读取数据时代码会分散到多个位置，这可能很难维护。
 
 #### 响应时间更长
 
