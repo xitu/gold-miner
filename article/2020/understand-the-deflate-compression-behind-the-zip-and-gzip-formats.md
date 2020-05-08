@@ -9,7 +9,7 @@
 
 ![Photo by [JJ Ying](https://unsplash.com/@jjying?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/compress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10944/1*-epDKh4om1nhGYKdJJN_qw.jpeg)
 
-Whether stored or sent over some network, every bit counts and costs money. There are tens, probably hundreds of compression algorithms available, but the most popular one is probably zip. gzip, even though it has a similar name, is a different algorithm. It is one of the three standard formats used in HTTP compression, making it also a broadly used algorithm. These algorithms are best at different things but share their compression method: DEFLATE *. DEFLATE is a lossless compression algorithm combining LZ77 and Huffman Coding.
+Whether stored or sent over some network, every bit counts and costs money. There are tens, probably hundreds of compression algorithms available, but the most popular one is probably zip. gzip, even though it has a similar name, is a different algorithm. It is one of the three standard formats used in HTTP compression, making it also a broadly used algorithm. These algorithms are best at different things but share their compression method: DEFLATE \*. DEFLATE is a lossless compression algorithm combining LZ77 and Huffman Coding.
 
 ## LZ77
 
@@ -155,7 +155,7 @@ Even though we didn’t go into the details of the algorithms and their implemen
 
 ---
 
-* **Technically, other methods are allowed for the zip format, but DEFLATE is the most common one.**
+\* **Technically, other methods are allowed for the zip format, but DEFLATE is the most common one.**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
