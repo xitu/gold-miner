@@ -2,14 +2,14 @@
 > * 原文作者：[Dornhoth](https://medium.com/@dornhoth)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-proxies.md](https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-proxies.md)
-> * 译者：
+> * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# JavaScript Proxies
+# 小品 JavaScript Proxy
 
-![Photo by [Tim Mossholder](https://unsplash.com/@timmossholder?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/private?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/13200/1*MrmHIH3lN9LjMFcWS8GSVQ.jpeg)
+![图片来自 [Unsplash](https://unsplash.com/s/photos/private?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 的 [Tim Mossholder](https://unsplash.com/@timmossholder?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/13200/1*MrmHIH3lN9LjMFcWS8GSVQ.jpeg)
 
-Proxies are an ES6 feature enabling to monitor how a given object is accessed. For example, let’s say we have an object `alice` that contains some information about Alice, like her birthdate, her age, her height, her weight and her BMI.
+Proxy 是一个 ES6 特性，可以用来监控给定对象的访问方式。比如说，我们有一个对象 `alice`，它包含关于 Alice 的一些信息，诸如生日、年龄、身高、体重以及 BMI 值。
 
 ```js
 const alice = {
@@ -21,7 +21,7 @@ const alice = {
 };
 ```
 
-Properties can be simply read and set by doing:
+对象中的属性可以像这样来读取和写入：
 
 ```js
 console.log(alice.height);
@@ -29,25 +29,25 @@ console.log(alice.age);
 alice.weight = 64;
 ```
 
-This object might be used by other parts of the code and a few problems can occur. We might want to let external consumers of the object change the weight of Alice, but not her birthdate. If she is a grown up, changing her height also doesn’t make much sense. We should recalculate the BMI if her weight changes. And her age should probably be calculated when being requested.
+这个对象可能会被代码的其他部分使用到，这样的话就会出现一些问题。我们可以允许对象的外部消费者更改 Alice 的体重，但生日是改不了的。如果她是成年人，那么她的身高也是不能更改的。当她的体重发生变化，就应该重新计算 BMI 值。而且，她的年龄应该在每次被请求时都计算一次。
 
-An idea would be to create methods like `getAge` or `setWeight`. That would partially work, but wouldn’t prevent anyone from simply doing `alice.weight = 64;`. JavaScript doesn’t natively have private fields.
+有一种思路是创建像 `getAge` 或 `setWeight` 这样的方法。部分情况下这种思路是有效的，但类似 `alice.weight = 64` 这样的操作，它是无法阻止的。原生的 JavaScript 没有私有字段。
 
-A native JavaScript solution is to use a proxy. A proxy is simply a wrapper around your original object (called the **target**).
+原生的 JavaScript 方案是使用代理 —— Proxy。代理只不过是在原始对象（即 **target**）上包装了一层。
 
 ```js
 const handler = {};
 const proxy = new Proxy(alice, handler);
 ```
 
-You create it by calling the `Proxy` constructor, to which you pass the **target**, in our case ****`alice`, and a **handler** as an argument. The **handler** is an object in which we can define how each property should be accessed. In this example, our **handler** is empty, so the proxy just forwards every access request to the object.
+调用 `Proxy` 构造器，向它传入 **target** 对象（即本例的 `alice`）、**handler** 作为参数，这样就生成了一个 Proxy 实例。**handler** 是一个对象，我们在其中定义目标对象中每个属性被访问的方式。在本例中，**handler** 是一个空对象，因此 proxy 对象仅仅是把每个访问都原封不动地传达给目标对象。
 
 ```js
 console.log(proxy.age); // 20
 console.log(proxy.height); // 170
 ```
 
-Let’s now use the **handler** to define what is returned when the `age` property is read.
+现在，我们用 **handler** 来定义读取 `age` 属性时的返回值。
 
 ```js
 const handler = {
@@ -61,7 +61,7 @@ const handler = {
 const proxy = new Proxy(alice, handler);
 ```
 
-Here is the `calculateAge` function if you are testing along:
+如果你在跟着我测试 Proxy 的特性，那么你可以用下面这个 `calculateAge` 函数：
 
 ```js
 const calculateAge = (birthdate) => {
@@ -75,9 +75,9 @@ const calculateAge = (birthdate) => {
 }
 ```
 
-Our **handler** now contains a `get `**trap**. When trying to read any property of the proxy, this `get` function is going to be called with the `target` ( `alice` ) and the `key`. When trying to read the `age` , instead of simply returning `alice.age`, we return a calculated value from the `birhdate`. For any other property, we just return `target[key]` .
+现在，我们这个 `handler` 包含了一个 `get` **拦截器（Trap）**。每当我们读取 proxy 对象的任意属性时，这个接收 `target`（即对象 `alice`）和对应的 `key` 为参数的 `get` 函数就会被调用。在读取 `age` 属性时，返回的是根据 `birthdate` 计算得出的值，而非 `alice.age`。而对于其他属性，就只返回 `target[key]`。
 
-You can test:
+你可以这样试试：
 
 ```js
 alice.age = 22;
@@ -85,7 +85,7 @@ console.log(proxy.age); // 20
 console.log(proxy.height); // 170
 ```
 
-We can also define a `set` trap, defining if and how properties should be set. For example we want to prevent the birthdate property to be set and we want to recalculate the BMI if the weight is changed:
+我们还可以定义一个 `set` 拦截器，决定属性是否可以被写入、以何种方式写入。例如，我们想防止 birthdate 属性被改写，且在 weight 改变时重新计算 BMI 值：
 
 ```js
 const handler = {
@@ -106,11 +106,11 @@ const handler = {
 };
 ```
 
-If you try to set a new birthdate you are now going to receive an error:
+当你试图更改 birthdate 属性的值，你会看到这样的报错信息：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*F8c3i-QoEFYTEsXGLSAbiA.png)
 
-Every property is otherwise set to the value (this is what the `return true;` means). When the weight is being set we now recalculate the BMI. You can test that:
+而其他属性的值都可以更改（这就是 `return true;` 的作用）。当 weight 的值更新时，BMI 值就会被重新计算。验证代码如下：
 
 ```js
 console.log(proxy.bmi); // 22.5
@@ -118,21 +118,21 @@ proxy.weight = 63;
 console.log(proxy.bmi); // 21.8
 ```
 
-We could do something similar for other readonly properties like `age` and `height` . We could also add `_` in front of their names and write our `set` trap a way that an error is thrown for any property with a name starting with `_`.
+我们可以对像 `age` 和 `height` 这样的其他只读属性进行类似的定义。还可以在只读属性的名称前加上 `_`，然后定义一个 `set` 拦截器，使得每次访问名称开头带有 `_` 的属性时都会抛出一个错误。
 
-By the way, all this is only worth if you don’t give access to the `alice` object but only to the `proxy`. The `alice` object should therefore not be exported.
+顺便提一句，仅当你只访问 `proxy 对象`而不触碰 `alice` 对象时，上述拦截器才起作用。也就是说 `alice` 对象是不应该对外暴露的。
 
-There are more traps than just `set` and `get` . You can for example define the behavior when:
+除了 `set` 和 `get`，还有许多的拦截器可以用。比如，你可以按照下列情形定义行为：
 
-* a property is being deleted ( `delete alice.height;` ) with the `deleteProperty` trap.
-* it is being checked if a property exists on the object ( `console.log('age' in proxy);` ) with the `has` trap.
-* a new property is defined on the proxy (`proxy.name = 'Alice';` ) with the `defineProperty` trap.
+* 用 `deleteProperty` 拦截器监控删除属性（`delete alice.height;`）的行为。
+* 用 `has` 拦截器监控检查属性是否存在于对象中（`console.log('age' in proxy);`）的行为。
+* 用 `defineProperty` 拦截器监控在 proxy 对象上定义新属性（`proxy.name = 'Alice';`）的行为。
 
-There is a long list of possible traps, I just listed the most commons here. You can find the whole list [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+Proxy 支持的拦截器有一长列，我只是列举了最常用的几个。你可以点击[这里](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)查看完整列表。
 
 ---
 
-Proxies let you control how fields are accessed, if and how fields can be read, modified, added or deleted, and generally let you monitor everything that can be done to your object. They are really helpful to implement a kind of encapsulation in JavaScript. As a matter of example, they can be used for validation (write the validation in the `set` trap of the proxy), to change a value before setting it (transform a `string` into a `Date` for example) or trace and log changes to an object.
+Proxy 使你能够控制属性的访问方式、是否可读/写/增/删、如何读/写/增/删，你几乎可以监控一切对对象的操作行为。它能得力地帮助你在 JavaScript 中实现封装。举个例子，Proxy 可以用来校验合法性（在 `set` 拦截器中写入校验逻辑）、在写入某个属性值之前先更改它（如把 `string` 变为 `Date`），或者跟踪并记录某个对象的变更。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
