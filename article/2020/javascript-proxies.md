@@ -75,7 +75,7 @@ const calculateAge = (birthdate) => {
 }
 ```
 
-现在，我们这个 `handler` 包含了一个 `get` **拦截器（Trap）**。每当我们读取 proxy 对象的任意属性时，这个接收 `target`（即对象 `alice`）和对应的 `key` 为参数的 `get` 函数就会被调用。在读取 `age` 属性时，返回的是根据 `birthdate` 计算得出的值，而非 `alice.age`。而对于其他属性，就只返回 `target[key]`。
+现在，我们这个 **handler** 包含了一个 `get` **拦截器（Trap）**。每当我们读取 proxy 对象的任意属性时，这个接收 `target`（即对象 `alice`）和对应的 `key` 为参数的 `get` 函数就会被调用。在读取 `age` 属性时，返回的是根据 `birthdate` 计算得出的值，而非 `alice.age`。而对于其他属性，就只返回 `target[key]`。
 
 你可以这样试试：
 
