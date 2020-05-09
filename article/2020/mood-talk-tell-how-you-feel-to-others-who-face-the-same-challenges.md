@@ -2,122 +2,121 @@
 > * 原文作者：[Balint Nagy](https://medium.com/@pinaban81)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/mood-talk-tell-how-you-feel-to-others-who-face-the-same-challenges.md](https://github.com/xitu/gold-miner/blob/master/article/2020/mood-talk-tell-how-you-feel-to-others-who-face-the-same-challenges.md)
-> * 译者：
+> * 译者：[niayyy](https://github.com/niayyy-S)
 > * 校对者：
 
-# UX Case Study: Mood Talk — A mental health app
+# 用户体验案例学习：Mood Talk ——  一个心理健康应用
 
-> Mood Talk — Tell how you feel to others who face the same challenges
+> Mood Talk —— 将你的感受告诉和你面临同样挑战的人
 
-In the world lots of people face some sort of mental problem, such as **loneliness, insomnia, depression, stress, anxiety or personal disorders.** Unfortunately the list of possibilities was not finished at all.
+在这个世界上，很多人都面临着某种心理问题，例如：**孤独，失眠，沮丧，压力大，焦虑或者人格障碍。**不幸的是，这些可能性还没有列举完。
 
 ![](https://cdn-images-1.medium.com/max/4000/1*ChYK0nSlbyqz3x2p1cBABw.jpeg)
 
-Wouldn’t be nice, if you could talk to **people who face or already gone trough** these same exact problems, know how you feel and able to give actually helpful, legit advices on how to overcome these terrible situations? I think it would be super great. In fact, I was thinking that it would be so 
-excellent , that I created an app design which tends to solve that exact problem.
+如果你能够**和那些面临着或者已经经历过同样问题的人**交流，了解他们的感受，并就如何克服这些可怕的情况给出切实有效的建议，那不是很好吗？我认为这会非常棒。事实上，我认为它是如此优秀，所以我设计了一款应用程序来解决这个问题。
 
-## Context
+## 背景
 
 ![](https://cdn-images-1.medium.com/max/2000/1*V7xKbTLAqakMAtciwZBz2g.jpeg)
 
-As a part of my design school I was challenged to create an application within the **topic of Wellness**. I believe that **connection is the key to** most of our **problems**. Indeed to have precious connections is one of our biggest assets in life, either we think about **personal relations** or **networks**, which help us get better positions in our carrier, or just in life in general.
+作为我在设计学校的一部分，我被要求设计一个**健康主题**的应用程序。我相信**人脉是解决我们大多数问题的关键**。甚至拥有宝贵人脉也是我们人生的最大财富之一，我们看待**人际关系**和**交际网**的方式也能帮助自己在事业上取得更好的职位，在人生中取得优势。
 
-That was my main thought process when I decided that I’m going to work on a project where **my goal is to try make people**, who faces mental disorders, a **little bit happier**. Or, what would be even better, to **“talk them out” from their rough situation.**
+当我决定要做一个项目的时候，我的主要想法是**让那些面对精神障碍的人更快乐一点**。或者，最好**把他们从困境中“劝出来”。**
 
-## Research & findings
+## 考证和发现
 
-#### Surveys
+#### 调查
 
-Eventually I managed to collect **42 survey** answers. Trough my research process and these were the most important questions which I wanted to find the answer for:
+最后我设法收集了 **42 个调查答案**。在我的研究过程，这些是我想要找到答案的最重要的问题：
 
-* How much people faces mental issues?
-* Which age group is the most affected?
-* What’s the best way to solve these problems?
+* 有多少人面临心理问题？
+* 哪个年龄组受影响最大？
+* 解决这些问题的最好方法是什么？
 
 ![](https://cdn-images-1.medium.com/max/7732/1*gqBIsxJG1LIwVsYZ5rstPA.png)
 
-#### Interviews
+#### 采访
 
 ![](https://cdn-images-1.medium.com/max/7364/1*NRsq36KAGGzwcGDStpb-Nw.jpeg)
 
-I’ve conducted **5** **interviews** to open up the topic a little bit more, to emphasise more with real people. Although I had some answers from the surveys, here I wanted to focus on the **“How it begin”** part.
+我已经进行了 **5 次访谈**来进一步拓展这个话题，更强调与真实的人。虽然我从调查中得到了一些答案，但这里我想把重点放在**“它是如何开始的”**部分。
 
-It turned out that most of the time a **tragic life event** plays a the biggest roles in these cases. But sometimes even just normal things could create problems, such as, **can’t find the time to meet with friends and family** due to work or study. **Moving to a different city or country.** Moreover just simply having a **stressful, overwhelmed** life also could cause serious issues.
+事实证明，在大多数情况下，一个**悲剧性的人生事件**在这些案件中扮演着最重要的角色。但有时即使是正常的事情也会产生问题，例如，由于工作或学习而**找不到时间与朋友和家人见面**。**搬到另一个城市或国家。**此外，仅仅是**有压力，不堪重负**的生活也会导致严重的问题。
 
-#### Analyse given data
+#### 分析给定的数据
 
-On this topic numerous studies has been made already by field experts and professors from different universities. Lot of information is accessible for free, just by searching on Google.
+关于这一主题，来自不同大学的领域专家和教授已经做了大量的研究。只要在谷歌上搜索，就可以免费获取信息。
 
 ---
 
-I found a lot of information which **confirmed my previous findings**. I’ve also read a lot about the **way of prevention** and **more ways to overcome** these situations.
+我找到了很多信息，**证实了我之前的发现**。我也读了很多关于**预防的方法**和**更多克服这些情况的方法**。
 
-## My user
+## 我的用户
 
-Carl Williams Just moved to the Netherlands because he has got a nice job offer. Unfortunately he doesn’t speak the local language, and even though at the workplace everyone can speak in English, when it comes to more personal conversations, his collages switch back to their native language, which makes it hard for Carl to assimilate socially.
+卡尔·威廉姆斯刚搬到荷兰，因为他得到了一份不错的工作。不幸的是，他不会说当地的语言，即使在工作场所，每个人都会说英语，但当涉及到更多的私人对话时，他的同事们会切换回他们的母语，这让卡尔很难融入社会。
 
 ![](https://cdn-images-1.medium.com/max/5612/1*zDPYQpVvs3YgkBG25e3A5Q.png)
 
-After a while, since he struggles to form new relationships, he is becoming lonely. It has a high chance that it going to turn into depression soon.
+一段时间后，由于他努力建立新的关系，他变得孤独。很有可能他很快就会得抑郁症。
 
-> Carl who moved to The Netherlands recently, needs to find new friends and a listening community because he feels lonely
+> 卡尔最近搬到了荷兰，他需要找到新的朋友和一个倾听的社区，因为他感到孤独
 
-## Solution
+## 解决方案
 
-Since It’s turned out that communication and connections are the key elements of solving the problem, I needed to find features which help the user in these actions. I brainstormed the following ideas, features for the project.
+因为沟通和人脉是解决问题的关键元素，所以我需要找到在这些操作中帮助用户的特性。我为项目的特性头脑风暴了以下想法。
 
-* Daily mood tracking
-* Real life group events
-* Private group chats
-* Mood share function
+* 每日情绪追踪
+* 真实生活团体活动
+* 私人群组聊天
+* 情绪分享功能
 
-While I was figuring out the possible solutions, I was keeping in mind that these features has to create connection, but at the same time I have to be aware, that some people probably wouldn’t attend a real life event at all.
+当我在寻找可能的解决方案时，我一直牢记这些功能必须建立联系，但同时我必须意识到，有些人可能根本不会参加现实生活中的活动。
 
-## Structure
+## 结构
 
-My idea was simple, a Home screen where you can see your friends latest posts. The user have the chance to also write a new post. In the navigation bar I included the real life events and the private group chats option as well.
+我的想法很简单，一个主屏幕，你可以看到你的朋友最新的帖子。用户也有机会写一篇新文章。在导航栏中，还有真实生活事件和私人群组聊天选项。
 
 ![](https://cdn-images-1.medium.com/max/5616/1*2GPEQ8AjlS00wjFduJXXzw.png)
 
-After a lot of feedback and usability testing a lot has changed by the final version.
+经过大量的反馈和可用性测试之后，最终的版本发生了很大的变化。
 
-## Visuals
+## 视觉效果
 
-As the 1st step I analysed my main competitors applications to see what kind of colors, images and icons are they using to make their site more attractive and functional.
+第一步，我分析了我的主要竞争对手的应用程序，看看他们使用什么样的颜色，图像和图标，使他们的网站更有吸引力和功能。
 
 ![](https://cdn-images-1.medium.com/max/5698/1*HofxPYER9IFxJdw73leaRw.png)
 
-I wanted to find applications which operate in the same niche, connecting people to create better mood. After the visual analysis I could make some conclusions. Apps tent to use friendly, relaxing colours. They focus on the community and how to connect them which gave me a lot of inspirations to make the visuals.
+我想要找到在相同领域运行的应用程序，将人们联系起来，创造更好的情绪。通过视觉分析，我可以得出一些结论。应用程序往往使用友好，轻松的颜色。他们专注于社区以及如何将他们联系起来，这给了我很多灵感去制作视觉效果。
 
-## Mood board
+## 情绪板
 
-After all I created my mood board, where I was focusing on a playful, friendly approach. Somewhat childish. I used Baloo Da 2 as my primary font, because it really matched my ideas about the visuals.
+最终我创建了我的情绪板，在那里我专注于一个有趣的，友好的方法。有点孩子气。我使用Baloo Da 2作为我的主要字体，因为它确实符合我对视觉效果的想法。
 
 ![](https://cdn-images-1.medium.com/max/5200/0*j0jcJZTm0SY3ymbn.png)
 
-## Building a design system
+## 建立设计体系
 
-Needless to say that in a real life design project, building up a real life design system would take much longer, but here we were focusing only on the essentials of the app.
+毋庸置疑，在现实生活的设计项目中，建立一个现实生活的设计系统需要更长的时间，但在这里我们只关注应用程序的本质。
 
 ![](https://cdn-images-1.medium.com/max/3628/0*rUqmFLPT3Lchm_Wn.png)
 
-## Final Appearance
+## 最终界面
 
-And finally here is the final looks of some of the pages of the app design of the final version
+最后这是一些最终版本的应用程序设计页面的最终外观
 
 ![](https://cdn-images-1.medium.com/max/5200/0*h47wVSrSZ5wZgl_V.png)
 
-## Micro animations
+## 微动画
 
-Since the next big step was to add micro animations to our project I would like to show how it turned out in a short video format. To create the inter actions I’ve used InVision studio.
+因为下一个大的步骤是添加微动画到我们的项目，我想展示它是如何以一种简短的视频格式呈现出来的。为了创建内部动作，我使用了InVision studio。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*_AY_yjb7XGKJUwy2.gif)
 
-## Summary of the project
+## 项目总结
 
-That was my really first full project from UX to UI. If I could start over I would definitely choose a topic which is not that wide. Looking back the idea itself to solve mental disability without any field knowledge feels really bold. As a first project I’m okay with the result, but with my current knowledge I would definitely be able to do a much better work.
+这是我第一个从UX到UI的完整项目。如果可以重新来过，我一定会选择一个不那么宽泛的话题。回过头来看，在没有任何领域知识的情况下解决精神障碍的想法本身就很大胆。作为第一个项目，我对结果很满意，但以我目前的知识，我确信我能做得更好。
 
-Since that was the first project where I needed to implement micro animations as well, it was an extra challenge, but I learned a lot about the importance of proper layer naming and proper grouping and now I see how important they are in a bigger project.
+因为这是我第一个需要实现微动画的项目，这是一个额外的挑战，但我学到了很多关于正确的层命名和正确的分组的重要性，现在我看到了它们在一个更大的项目中是多么的重要。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
