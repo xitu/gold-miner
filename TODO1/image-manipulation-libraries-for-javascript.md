@@ -2,22 +2,22 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/image-manipulation-libraries-for-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/image-manipulation-libraries-for-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
+> * 校对者：[niayyy-S](https://github.com/niayyy-S)
 
-# 10 JavaScript Image Manipulation Libraries for 2020
+# 2020 十大 JavaScript 图像处理库
 
 ![](https://cdn-images-1.medium.com/max/2560/1*lXwMUm79vvrK_ZjazwqcbA.jpeg)
 
-Working with images in JavaScript can be quite difficult and cumbersome. Thankfully, there are a number of libraries that can make things a lot easier. Below are my favorite ones in different categories.
+用 JavaScript 处理图像可能非常困难且繁琐。幸运的是，有许多库可以使这事变得非常简单。以下是我最喜欢的不同类别的库。
 
-If you’ve found something useful, try to wrap it as a component of your framework of choice. This way, you’d have a reusable component with a declarative API, always ready to be used.
+如果你发现有用的东西，尝试将其封装成所选框架的组件。通过这种方式，你将拥有一个具备声明式 API 的可复用组件，并随时可用。
 
 ## 1. Pica
 
-This plugin helps you reduce upload size for large images thereby saving upload time. It allows you to resize images in your browser without pixelation and reasonably fast. It autoselects the best of available technologies out of web-workers, web assembly, createImageBitmap and pure JS.
+此插件可助你减小大图的上传大小，从而节省上传时间。它允许你在浏览器中调整图像大小，响应迅速并且不会出现像素化，因为它会从 Web Workers、WebAssembly、createImageBitmap 方法以及纯 JavaScript 中自动选择最佳的可用技术。
 
-[Demo](http://nodeca.github.io/pica/demo/)
+[演示](http://nodeca.github.io/pica/demo/)
 [Github](https://github.com/nodeca/pica)
 
 ![](https://cdn-images-1.medium.com/max/2086/1*01gc8wM7mYZxRvzM592r-A.png)
@@ -26,10 +26,10 @@ This plugin helps you reduce upload size for large images thereby saving upload 
 
 ## 2. Lena.js
 
-This cool image library is very tiny in size but has around 22 image filters that are pretty cool to play around with. You can also create and add new filters to the Github repo as well.
+这个炫酷的图像库虽然非常小，但其大约有 22 个图像滤镜，非常好玩。你还可以向 GitHub 仓库中创建并添加新滤镜。
 
-[Demo](https://fellipe.com/demos/lena-js/)
-[Tutorial](https://ourcodeworld.com/articles/read/515/how-to-add-image-filters-photo-effects-to-images-in-the-browser-with-javascript-using-lena-js)
+[演示](https://fellipe.com/demos/lena-js/)
+[教程](https://ourcodeworld.com/articles/read/515/how-to-add-image-filters-photo-effects-to-images-in-the-browser-with-javascript-using-lena-js)
 [Github](https://github.com/davidsonfellipe/lena.js)
 
 ![](https://cdn-images-1.medium.com/max/2718/1*rLKUyfeo_LUvvcRr7cYN0Q.png)
@@ -38,9 +38,9 @@ This cool image library is very tiny in size but has around 22 image filters tha
 
 ## 3. Compressor.js
 
-This is a simple JS image compressor that uses the Browser’s native [canvas.toBlob](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob) API to handle the image compression. This allows you to set the compression output quality ranging from 0 to 1.
+这是一个简单的 JavaScript 图像压缩器，它使用浏览器原生的 [canvas.toBlob](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob) API 来处理图像压缩。这使你可以在 0 到 1 之间设置压缩输出质量。
 
-[Demo](https://fengyuanchen.github.io/compressorjs/)
+[演示](https://fengyuanchen.github.io/compressorjs/)
 [Github](https://github.com/fengyuanchen/compressorjs)
 
 ![](https://cdn-images-1.medium.com/max/2334/1*hp85KWNmfPftt0MFj_qtEA.png)
@@ -49,12 +49,12 @@ This is a simple JS image compressor that uses the Browser’s native [canvas.to
 
 ## 4. Fabric.js
 
-Fabric.js allows you to easily create simple shapes like rectangles, circles, triangles and other polygons or more complex shapes made up of many paths, onto the HTML `\<canvas>` element on a webpage using JavaScript. Fabric.js will then allow you to manipulate the size, position and rotation of these objects with a mouse.
+Fabric.js 允许你使用 JavaScript 在网页上的 HTML `\ <canvas>` 元素上轻松创建简单的形状，例如矩形、圆形、三角形和其他多边形，或者由许多路径组成的更复杂的形状。Fabric.js 还允许你使用鼠标来操纵这些对象的大小，位置和旋转。
 
-It’s also possible to change some of the attributes of these objects such as their colour, transparency, depth position on the webpage or selecting groups of these objects using the Fabric.js library. Fabric.js will also allow you to convert an SVG image into JavaScript data that can be used for putting it onto the `\<canvas>` element.
+也可以使用 Fabric.js 库更改这些对象的属性，例如它们的颜色，透明度，网页上的深度位置，或选择这些对象的组。Fabric.js 还允许你将 SVG 图像转换为 JavaScript 数据，并直接在 `\ <canvas>` 元素中使用。
 
-[Demo](http://fabricjs.com/) 
-[Tutorials](http://fabricjs.com/articles/)
+[演示](http://fabricjs.com/)
+[教程](http://fabricjs.com/articles/)
 [Github](https://github.com/fabricjs/fabric.js)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*XRnIeG6-8cZe9BGjt5Hf-w.png)
@@ -63,15 +63,15 @@ It’s also possible to change some of the attributes of these objects such as t
 
 ## 5. Blurify
 
-This is a tiny(~2kb) library to blur pictures, with graceful downgrade support from `css` mode to `canvas` mode. This plugin works under three modes:
+这是一个很小的（约 2kb）库，用于模糊图片，并具有从 `css` 模式到 `canvas` 模式的优秀降级支持。该插件在以下三种模式下工作：
 
-* `css`: use `filter` property(`default`)
-* `canvas`: use `canvas` export base64
-* `auto`: use `css` mode firstly, otherwise switch to `canvas` mode by automatically
+* `css`：使用 `filter` 属性（默认）
+* `canvas`：使用 `canvas` 导出 base64 格式
+* `auto`：优先使用 `css` 模式，不支持则自动转换为 `canvas` 模式
 
-You are simply required to pass the images, blur value and mode to the function to get the blurred image-simple and efficient.
+你只需要将图像，模糊值和模式传递给函数，即可简单有效地获得模糊图像。
 
-[Demo](https://justclear.github.io/blurify/)
+[演示](https://justclear.github.io/blurify/)
 [Github](https://github.com/JustClear/blurify)
 
 ![](https://cdn-images-1.medium.com/max/2590/1*9qSBhOXTK3ao_69WZDp0Cw.png)
@@ -80,9 +80,9 @@ You are simply required to pass the images, blur value and mode to the function 
 
 ## 6. Merge Images
 
-This library allows you to easily compose images together without messing around with canvas. Canvas can be kind of a pain to work with sometimes, especially if you just need a canvas context to do something relatively simple like merge some images together. `merge-images` abstracts away all the repetitive tasks into one simple function call.
+该库让你可以轻松地合成图像，而不会弄乱画布。有时，使用画布可能会有些痛苦，尤其是在你只需要一个画布上下文来执行相对简单的操作时（例如合并图像）。`merge-images` 将所有重复性任务抽象为一个简单的函数。
 
-Images can be overlaid on top of each other and repositioned. The function returns a Promise which resolves to a base64 data URI. Supports both the browser and Node.js.
+图像可以彼此重叠和调换位置。该函数返回一个 `Promise`，并 `resolve` 一个 base64 数据类型的 URI。同时支持浏览器和 Node.js。
 
 [Github](https://github.com/lukechilds/merge-images)
 
@@ -92,9 +92,9 @@ Images can be overlaid on top of each other and repositioned. The function retur
 
 ## 7. Cropper.js
 
-This plugin is a simple JavaScript image cropper that allows you to crop, rotate, scale, zoom around your images in an interactive environment. It also allows the aspect ratios to be set as well.
+该插件是一个简单的 JavaScript 图像裁剪器，允许在可交互的环境中裁剪、旋转和缩放图像。它还允许设置纵横比。
 
-[Demo](https://fengyuanchen.github.io/cropperjs/)
+[演示](https://fengyuanchen.github.io/cropperjs/)
 [Github](https://github.com/fengyuanchen/cropperjs)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zrOLnVUpw-97XRCZ2mFuaw.png)
@@ -103,12 +103,12 @@ This plugin is a simple JavaScript image cropper that allows you to crop, rotate
 
 ## 8. CamanJS
 
-It is a canvas manipulation library for Javascript. It’s a combination of a simple-to-use interface with advanced and efficient image/canvas editing techniques. It is very easy to extend with new filters and plugins, and it comes with a wide array of image editing functionality, which continues to grow. It’s complete library independent and works both in NodeJS and the browser.
+这是 JavaScript 的画布操作库。其具有简单易用的接口与先进高效的图像/画布编辑技术。通过新滤镜和插件很容易进行扩展，并且它具有一系列的图像编辑功能，而这种功能还在不断增加。它完全无依赖，并可以同时在 Node.js 和浏览器中使用。
 
-You can choose a set of preset filters or change properties such as brightness, contrast, saturation manually to get the desired output.
+你可以选择一组预设滤镜或手动更改属性（例如亮度，对比度，饱和度）以获得所需的结果。
 
-[Demo](http://camanjs.com/examples/)
-[Website](http://camanjs.com/)
+[演示](http://camanjs.com/examples/)
+[官网](http://camanjs.com/)
 [Github](https://github.com/meltingice/CamanJS/)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ORO_SftbsqsTRQudlvfn2A.png)
@@ -117,11 +117,11 @@ You can choose a set of preset filters or change properties such as brightness, 
 
 ## 9. MarvinJ
 
-MarvinJ is a pure javascript image processing framework derived from Marvin Framework. MarvinJ is easy and powerful for many different image processing applications.
+MarvinJ 是派生自 Marvin 框架的纯 JavaScript 图像处理框架。MarvinJ 对于许多不同的图像处理应用程序而言，既简单又强大。
 
-Marvin provides many algorithms to manipulate colour and appearance. Marvin also detects features automatically. The ability to work with basic image features like edges, corners and shapes are fundamental to image processing. The plugin helps to detect and analyze the corners of objects in order to determine the position of the main object in the scene. Due to these points, it is possible to automatically crop out the object.
+Marvin 除了提供许多算法来控制颜色和外观，还具有自动检测特征的能力。其图像处理能力是基于图像的基础特征（例如边缘、拐角与形状）来实现的。此插件通过检测与分析对象的角点，从而定位场景中主要对象。基于这些功能，让它可以自动裁剪出对象。
 
-[Website](https://www.marvinj.org/en/index.html)
+[官网](https://www.marvinj.org/en/index.html)
 [Github](https://github.com/gabrielarchanjo/marvinj)
 
 ![](https://cdn-images-1.medium.com/max/2462/1*oC9aNZECOL97bXRZSdjp_Q.png)
@@ -130,14 +130,14 @@ Marvin provides many algorithms to manipulate colour and appearance. Marvin also
 
 ## 10. Grade
 
-This JS library produces complementary gradients generated from the top 2 dominant colours in supplied images. This allows your website to fill your div with a matching gradient derived from your image. This is an easy to use plugin that helps you keep your website visually pleasing.
+此 JavaScript 库从图像中的前 2 种主要颜色生成互补的渐变。这样，你就可以从图像中提取出渐变效果，来填充网站上的 `div`。这是一个易用的插件，可帮助你保持网站视觉上的优美。
 
-This plugin would be my personal pick out of this list as I have gone through so much trouble to achieve a similar output given by this plugin.
+该插件是我个人从此列表中挑选出来的，我经历了许多困难才通过此插件获得类似的输出。
 
-**The HTML file**
+**HTML 文件**
 
 ```html
-<!--the gradients will be applied to these outer divs, as background-images-->
+<!--渐变将应用于这些外部 div，作为背景图像-->
 <div class="gradient-wrap">
     <img src="./samples/finding-dory.jpg" alt="" />
 </div>
@@ -146,33 +146,31 @@ This plugin would be my personal pick out of this list as I have gone through so
 </div>
 ```
 
-**The JS script**
+**JavaScript 脚本**
 
 ```html
 <script src="path/to/grade.js"></script>
 <script type="text/javascript">
     window.addEventListener('load', function(){
         /*
-            A NodeList of all your image containers (Or a single Node).
-            The library will locate an <img /> within each
-            container to create the gradient from.
+            你所有图像容器的节点列表（或单个节点）。
+            该库将在每个容器中找到一个 <img /> 来创建渐变。
          */
         Grade(document.querySelectorAll('.gradient-wrap'))
     })
 </script>
 ```
 
-[Demo](https://benhowdle89.github.io/grade/)
+[演示](https://benhowdle89.github.io/grade/)
 [Github](https://github.com/benhowdle89/grade)
 
 ![](https://cdn-images-1.medium.com/max/2326/1*-SqADlYfholv_yjT9YY75Q.png)
 
 ---
 
-Hope you liked this article. If you think something deserves to be on this, feel free to comment your pick.
+希望你喜欢本文。如果你觉得有什么需要补充，请随时评论。
 
-Happy Coding!
-
+编码愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
