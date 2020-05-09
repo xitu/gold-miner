@@ -2,45 +2,45 @@
 > * 原文作者：[Belle Poopongpanit](https://medium.com/@bellex0)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/web-scraping-with-puppeteer-in-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/web-scraping-with-puppeteer-in-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[shixi-li](https://github.com/shixi-li)
 
-# Web Scraping with Puppeteer in Node.js
+# 在 Node.js 中用 Puppeteer 实现网络爬虫
 
 ![](https://cdn-images-1.medium.com/max/2328/1*laoZh8fB6iCGTuBbR_2zig.png)
 
-Have you ever wanted to use your favorite company’s or favorite website’s API for a new app project and discovered that they either a) never had one to begin with or b) eradicated it’s API for public use? (I’m looking at you, Netflix) Well, that’s what happened to me and being the persistent person that I am, I uncovered a solution for this problem: web scraping.
+你是否曾想要用你最喜欢的公司或网站的 API 做一个新的 App 项目，结果发现人家要么压根没有 API 支持，要么已经不对外开放了？（说的就是你，Netflix）好吧，这事儿就发生在我身上，而鉴于我是一个不达目的不罢休的人，我最终还是找到了破局的办法：网络爬虫。
 
-Web scraping is the technique of automatically extracting and collecting data from a website using software. After collecting the data, you can use it to make your own API’s.
+网络爬虫是一种使用软件从一个网站中自动提取和收集数据的技术。收集到数据之后，你就可以用来开发自己的 API 了。
 
-There are numerous technologies that can be used for web scraping; Python is a popular language that is used. However, I am a JavaScript kinda girl. So, in this blog I will use Node.js and Puppeteer.
+有多种技术可以实现网络爬虫，Python 就是其中的明星。然而我可是 JavaScript 的迷妹。因此，我会在本文中介绍用 Node.js 和 Puppeteer 来实现的方式。
 
-Puppeteer is a Node.js library that allows us to run a Chrome browser in the background (called a headless browser since it doesn’t need a graphic user interface) and helps extract data from a website.
+Puppeteer 是一个 Node.js 库，它让我们能够暗地里运行一个 Chrome 浏览器（即无头浏览器，因为它无需图形用户界面），来帮我们从网站中提取数据。
 
-Since the majority of us have been held hostage in our homes by COVID-19, Netflix binge-watching has been a popular pastime for many (what else are we supposed to do aside from crying?). To support my fellow indecisive and bored Netflix-watchers, I found a website, [https://www.digitaltrends.com/movies/best-movies-on-netflix/](https://www.digitaltrends.com/movies/best-movies-on-netflix/) that lists the current best movies to watch in April 2020. Once I scrape this page and retrieve the data, I want to store it in a JSON file. That way, if I ever need a best current Netflix movies API, I can go back and obtain the data from this repository.
+由于新冠肺炎，我们大多数都被囚禁在家中，于是在 Netflix 上刷剧刷片就成为了很多人打发时间的不二选择（除了哭泣，我们还能干嘛呢）。为了与其他像我这样有选择困难症而又百无聊赖的 Netflix 观众共飨福利，我找到了一个网站 —— [https://www.digitaltrends.com/movies/best-movies-on-netflix/](https://www.digitaltrends.com/movies/best-movies-on-netflix/)，它列出了 2020 年 4 月份的近期最佳影片。等我爬取了这个页面并提取出数据，我就把数据存进一个 JSON 文件。这样，当我什么时候想要做一个 Netflix 近期最佳影片的 API，就直接从这个 JSON 文件拿数据就好了。
 
-## Getting Started
+## 开动
 
-To get started, I created a folder in my VSCode called `webscraper` . Within the folder, I will create a file called `netflixscrape.js` .
+首先，我在 VS Code 中新建一个 `webscraper` 文件夹。在此文件夹中新建一个 `netflixscrape.js` 文件。
 
-In the terminal, we need to install puppeteer.
+我们需要在终端中安装 Puppeteer。
 
 ```bash
 npm i puppeteer
 ```
 
-Next, we need to import the required modules and libraries. The first lines of code in `netflixscrape.js` will be:
+然后，导入所需的模块和库。`netflixscrape.js` 中的开头代码如下：
 
 ```js
 const puppeteer= require('puppeteer')
 const fs = require('fs')
 ```
 
-`fs` is the Node.js file system module. We will need to use this to create a JSON file from our data.
+`fs` 是 Node.js 的文件系统模块。我们要用这个模块来创建存数据的 JSON 文件。
 
-## Writing the scrape function
+## 写爬虫函数
 
-Let’s begin coding our `scrape()` function.
+现在就要开始写 `scrape()` 函数啦。
 
 ```js
 async function scrape (url) {
@@ -49,23 +49,23 @@ async function scrape (url) {
    await page.goto(url)
 ```
 
-`scrape()` is going to take in an argument of a url. We start up our browser using `puppeteer.launch()` . `browser.newPage()` opens a blank page on the browser. Then, we tell the browser to go to the specified url.
+`scrape()` 将会接收一个 url 作为参数。我们用 `puppeteer.launch()` 来启动无头浏览器。`browser.newPage()` 则在无头浏览器中打开一个空白页面。然后，我们让浏览器打开指定的 url。
 
-#### How to retrieve the data we want to scrape
+#### 如何取得想要爬取的数据
 
-In order to scrape the data we want from the site, we need to grab the data using their specific HTML elements. Go to [https://www.digitaltrends.com/movies/best-movies-on-netflix/](https://www.digitaltrends.com/movies/best-movies-on-netflix/) and open up Inspector/Chrome DevTools. To do this:
+为了从网站中爬取我们想要的数据，我们需要通过数据所在的特定 HTML 元素来抓取它们。打开 [https://www.digitaltrends.com/movies/best-movies-on-netflix/](https://www.digitaltrends.com/movies/best-movies-on-netflix/)，然后打开 Inspector 或者 Chrome 调试工具。可以用如下快捷键：
 
-“command + option + j” on a Mac or “control + shift + j” on Windows
+Mac 中为 “Command + Option + j”；Windows 中为 “Ctrl + Shift + i”
 
-Since I want to grab the movies’ titles and their summaries from the article, I see that I have to select `h2` elements (title) and its’ sibling `p` elements (summary).
+既然我想要从文章中抓取影片的标题和简介，那么就得选择 `h2` 元素（标题）和对应的兄弟元素 `p`（简介）。
 
-![h2 for movie title](https://cdn-images-1.medium.com/max/5724/1*BEQd106SvxT1_jGuS4I23A.png)
+![影片标题元素 h2](https://cdn-images-1.medium.com/max/5724/1*BEQd106SvxT1_jGuS4I23A.png)
 
-![p for movie summary](https://cdn-images-1.medium.com/max/5760/1*RH8gGDJeIGE8Wz3VcDgyaQ.png)
+![影片简介元素 p](https://cdn-images-1.medium.com/max/5760/1*RH8gGDJeIGE8Wz3VcDgyaQ.png)
 
-#### How to manipulate the retrieved data
+#### 如何操作取到的元素
 
-Continuing with our code:
+我们接着写代码：
 
 ```js
 var movies = await page.evaluate(() => {
@@ -74,29 +74,29 @@ var movies = await page.evaluate(() => {
 
    for (var i = 0; i < titlesList.length; i++) {
       movieArr[i] = {
-     title: titlesList[i].innerText.trim(),
-     summary: titlesList[i].nextElementSibling.innerText.trim()
-   };
-}
-return movieArr;
+         title: titlesList[i].innerText.trim(),
+         summary: titlesList[i].nextElementSibling.innerText.trim()
+      };
+   }
+   return movieArr;
 })
 ```
 
-`page.evaluate()` is used to enter the DOM of the website and allows us to run custom JavaScript code as if we were executing it in the DevTools console.
+我们用 `page.evaluate()` 来进入页面的 DOM 结构，这样就能像在调试工具的 Console 面板中那样执行我们自己的 JavaScript 代码了。
 
-`document.querySelector('h2')` selects ALL `h2` elements on the page. We save them all in the `titlesList` variable.
+`document.querySelector('h2')` 选中了页面中所有的 `h2` 元素。我们把它们统统存到变量 `titlesList` 中。
 
-Then, we create an empty array called `movieArr`.
+然后，我们创建一个名为 `movieArr` 的空数组。
 
-We want to save each movie’s title and summary in their own individual object. In order to do this, we run a **for loop**. The loop indicates that each element in the `movieArr` is equal to an object with properties of `title` and `summary`.
+我们想把每个影片的标题和简介存到单独的对象中。于是我们运行了一个 **for 循环**。这个循环使得 `movieArr` 中的每个元素都是具有 `title` 和 `summary` 属性的对象。
 
-To get the movie title, we have to go through the `titlesList`, which are all `h2` element nodes. We apply the `innerText` property to get the text of the `h2`. Then, we apply the `.trim()` method to remove any white space.
+为了取得影片标题，我们得遍历 `titlesList` —— 所有的 `h2` 元素节点都在其中。我们使用 `innerText` 属性来获得 `h2` 的文本内容。然后，我们用 `.trim()` 方法去除空格。
 
-If you’ve carefully navigated through the DevTools console, you’ll notice that the page has many `p` elements with no unique classes or id’s. Thus, it’s really difficult to precisely grab the summary `p` element we need. In order to get around this, we call the `.nextElementSibling` property on the `h2` node (titlesList[i]). When you take a closer look at the console, you see that the `p` element of the summary is a sibling of the `h2` element of the title.
+如果你仔细看过调试工具的 Console 面板，你会注意到，这个页面有很多没有指定唯一类名或 id 的 `p` 元素。这样的话，就真的很难精确地抓取到我们需要的影片简介 `p` 元素了。为了解决这个问题，我们在 `h2` 节点（即 `titlesList[i]`）上调用了 `nextElementSibling` 属性。当你仔细看看 Console 面板，你会发现，包含影片简介的 p 元素是包含影片标题的 h2 元素的兄弟元素。
 
-#### Storing the scraped data to a JSON file
+#### 把爬取到的数据存到 JSON 文件中
 
-Now that we’ve completed the main data extraction part, let’s store all of this in a JSON file.
+到此，我们已经完成了主要的数据提取部分，可以把拿到的数据存入一个 JSON 文件了。
 
 ```js
 fs.writeFile("./netflixscrape.json", JSON.stringify(movies, null, 3), (err) => {
@@ -108,27 +108,62 @@ fs.writeFile("./netflixscrape.json", JSON.stringify(movies, null, 3), (err) => {
 });
 ```
 
-`fs.writeFile()` creates a new JSON file containing our movies data. It takes in 3 arguments: 1) the name of the file to be created
+`fs.writeFile()` 新建了一个用来存储影片数据的 JSON 文件。它接收三个参数：
 
-2) **JSON**. **stringify**() method converts a JavaScript object to a **JSON** string. Takes in 3 arguments here. The object: `movies`, replacer (which filters out what properties you do or don’t want to be included): `null `, and space (used to insert white space into the output JSON string for readability): `3` . This way essentially makes the JSON file prettier and clean.
+1) 要新建的文件的名称
 
-3) `err`, in case we get an error
+2) **JSON.stringify()** 方法把 JavaScript 对象转换为 **JSON** 字符串。它接收 3 个参数。要转换的对象：`movies` 对象，替换参数（用于把你不想要的属性过滤掉）：`null`，空格（用于在输出的 JSON 字符串中插入空格，增加易读性）：`3`。这样生成的的 JSON 文件就会又好看又整洁。
 
-`err` takes a callback function which states that if there is an error, console.log the error. If there is no error, console.log “Great Success.”
+3) `err`，处理报错情况
 
-Finally, putting the whole code together:
+`err` 接收一个回调函数，当程序出现错误时，这个回调函数就在控制台打印出错误信息。如果没有错误，就打印 “Great Success”。
 
-We add `browser.close()` to close the puppeteer browser. We call the `scrape()` function in the last line with our url.
+最终，整体代码如下：
 
-## Last Step: Run scrape() function
+```js
+const puppeteer = require('puppeteer')
+const fs = require('fs')
 
-Let’s run this code by typing `node netflixscrape.js` in the terminal.
+async function scrape (url) {
+   const browser = await puppeteer.launch();
+   const page = await browser.newPage();
+   await page.goto(url)
 
-If all goes well (which it should), you will get “Great Success” in your console and you will see a newly created JSON file with all the Netflix movie titles and summaries.
+   var movies = await page.evaluate(() => {
+      var titlesList = document.querySelectorAll('h2');
+      var movieArr = [];
+      for (var i = 0; i < titlesList.length; i++) {
+         movieArr[i] = {
+         title: titlesList[i].innerText.trim(),
+         summary: titlesList[i].nextElementSibling.innerText.trim(),
+         };
+      }
+      return movieArr;
+   })
+   fs.writeFile("./netflixscrape.json", JSON.stringify(movies, null, 3),  (err) => {
+      if (err) {
+         console.error(err);
+         return;
+      };
+      console.log("Great Success");
+   });
+   browser.close()
+}
+
+scrape("https://www.digitaltrends.com/movies/best-movies-on-netflix/")
+```
+
+我们增加了 `browser.close()` 来关闭 Puppeteer 的无头浏览器。在最后一行，我们调用 `scrape()` 函数并传入 url。
+
+## 临门一脚：运行 scrape() 函数
+
+在终端中键入 `node netflixscrape.js` 来运行这段代码。
+
+如果一切顺利（那是必须的），你会在控制台看到 “Great Success” 字样，并且得到一个新鲜出炉的含有所有 Netflix 影片标题和简介的 JSON 文件。
 
 ![](https://cdn-images-1.medium.com/max/5220/1*J8LazvNXbPlTgSCTs0n5cQ.png)
 
-Congrats!!👏 You’re officially a hacker! Just kidding. But now you know how to scrape the web to obtain data and create your own API’s, which is so much more thrilling.
+恭喜！！👏 你现在正式成为了一名黑客！好吧我开玩笑的。但现在你已经知道如何通过网络爬虫来获取数据、开发自己的 API 了，这样一说，是不是带劲儿多了？
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
