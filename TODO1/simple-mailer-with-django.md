@@ -2,8 +2,8 @@
 > * 原文作者：[Juli Colombo](https://medium.com/@julietanataliacolombo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/simple-mailer-with-django.md](https://github.com/xitu/gold-miner/blob/master/TODO1/simple-mailer-with-django.md)
-> * 译者：
-> * 校对者：
+> * 译者：[shixi-li](https://github.com/shixi-li)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 使用 Django 构建一个简单的邮件服务
 
