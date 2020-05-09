@@ -2,7 +2,7 @@
 > * 原文作者：[Keith Dawson](https://medium.com/@keithvictordawson)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-exploration-of-the-array-fill-function.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-exploration-of-the-array-fill-function.md)
-> * 译者：
+> * 译者：[niayyy](https://github.com/niayyy-S)
 > * 校对者：
 
 # 深入浅出 Array.fill() 函数
@@ -21,7 +21,7 @@
 
 ## 原始值
 
-包含了大多数的函数行为，让我们看一些 `fill()` 函数在实际中如何工作的示例。下面的示例仅指定了原始`值`参数：
+包含了大多数的函数行为，让我们看一些 `fill()` 函数在实际中如何工作的示例。下面的示例指定了原始`值`作为参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -35,7 +35,7 @@ array.fill(0);
 
 ## 原始值，正起始索引
 
-下面示例演示了指定原始`值`和正`起始索引`参数的情况：
+下面示例演示了指定原始`值`和正`起始索引`作为参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -47,7 +47,7 @@ array.fill(0, 2);
 
 ## 原始值，负起始索引
 
-下面示例演示了指定原始`值`和负`起始索引`参数的情况：
+下面示例演示了指定原始`值`和负`起始索引`作为参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -55,11 +55,11 @@ array.fill(0, -2);
 // array: [1, 2, 3, 0, 0]
 ```
 
-`fill()` 函数传入 `0` 和 `-2` 作为参数来进行调用，考虑到可选参数的默认值和负值的转换，这个函数调用相当于 `fill(0, 3, 5)`。这意味着指定值的填充范围为从索引 `3` 开始直到数组的结尾。指定负`起始索引`时要注意的是，如果这个值导致`起始索引`加上数组长度仍然小于 `0` 的话，`fill()` 函数将忽略`起始索引`值，并从数组的开头用指定值填充数组。
+`fill()` 函数传入 `0` 和 `-2` 作为参数来进行调用，考虑到可选参数的默认值和负索引值的转换，这个函数调用相当于 `fill(0, 3, 5)`。这意味着指定值的填充范围为从索引 `3` 开始直到数组的结尾。指定负`起始索引`时要注意的是，如果这个值导致`起始索引`加上数组长度仍然小于 `0` 的话，`fill()` 函数将忽略`起始索引`值，并从数组的开头用指定值填充数组。
 
 ## 原始值，正起始索引，正结尾索引
 
-下面示例演示了指定原始`值`、正`起始索引`和正`结尾索引`参数的情况：
+下面示例演示了指定原始`值`、正`起始索引`和正`结尾索引`作为参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -67,11 +67,11 @@ array.fill(0, 2, 4);
 // array: [1, 2, 0, 0, 5]
 ```
 
-`fill()` 函数传入 `0`、`2` 和 `4`作为参数来进行调用，指定值的填充范围为以索引 `2` 开始，在索引 `3` 处结束，只用两个从索引 `2` 开始的数组项填充了指定值。指定正`结尾索引`时需要注意的是，如果这个值大于数组长度，则 `fill()` 函数将忽略`结尾索引`，并填充特定值到数组结尾。
+`fill()` 函数传入 `0`、`2` 和 `4` 作为参数来进行调用，指定值的填充范围为以索引 `2` 开始，在索引 `3` 处结束，只用两个从索引 `2` 开始的数组项填充了指定值。指定正`结尾索引`时需要注意的是，如果这个值大于数组长度，则 `fill()` 函数将忽略`结尾索引`，并填充特定值到数组结尾。
 
-## Primitive Value, Positive Start, Negative End
+## 原始值，正起始索引，负结尾索引
 
-The following example demonstrates the situation where a primitive `value` parameter value, a positive `start` parameter value, and a negative `end` parameter value are specified:
+下面示例演示了指定原始`值`、正`起始索引`和负`结尾索引`作为参数的情况：
 
 ```js
 var array = [1, 2, 3, 4, 5];
@@ -79,13 +79,13 @@ array.fill(0, 2, -3);
 // array: [1, 2, 3, 4, 5]
 ```
 
-The `fill()` function is called with a `value` parameter value of `0`, a `start` parameter value of `1`, and an `end` parameter value of `-3`. Considering how negative parameter values are evaluated, this function call is the same as `fill(0, 2, 2)`. This code sample is the first example that we have seen in this article where the `start` and `end` parameter values are the same. Due to the fact that these two parameter values reference the same index, no array items are filled with the specified value, resulting in an array that is in the exact same state as it was before the function was executed.
+`fill()` 函数传入 `0`, `2` 和 `-3` 作为参数来进行调用。考虑到负索引值的转换，这个函数调用相当于 `fill(0, 2, 2)`。这个代码示例是在文章中我们第一次看到`起始索引`和`结尾索引`相同的示例。由于这两个索引参数值相同，索引特定值不会填充任何数组项，因此数组状态和执行函数前的状态完全相同。
 
-This same behavior where the resulting array is in the exact same state as it was before the function was executed will occur in any of the following situations when using the `fill()` function: the `end` parameter index falls before the `start` parameter index; the `start` parameter value is equal to or greater than the length of the array; and the `end` parameter value is equal to or less than `0`.
+当使用 `fill()` 函数时，在以下任何一种情况下，都会发生结果数组与执行该函数之前状态完全相同的情况：`结尾索引`参数值小于`起始索引`参数值；the `起始索引`参数值等于或大于数组长度；并且`结尾索引`参数值等于或小于`0`。
 
-## Object Value
+## 对象值
 
-The following example demonstrates the situation where an object `value` parameter value is specified:
+下面示例演示了指定对象`值`作为参数的情况：
 
 ```js
 var array = [1, 2, 3];
@@ -93,15 +93,15 @@ array.fill({ a: 1, b: 2 });
 // array: [{ a: 1, b: 2 }, { a: 1, b: 2 }, { a: 1, b: 2 }]
 ```
 
-The `fill()` function is called with an object `value` parameter value. Considering the optional parameter default values, this function call is the same as `fill({ a: 1, b: 2 }, 0, 3)`. This means that the fill range for the specified value is the entire array from beginning to end. Whereas all of the previous code samples only used a primitive value of `0` for the `value` parameter value, this code sample shows that it is equally acceptable to use an object should it be necessary to fill a range in an array with such a value.
+`fill()` 函数传入对象`值`作为参数来进行调用。考虑到可选参数的默认值，这个函数调用相当于 `fill({ a: 1, b: 2 }, 0, 3)`。这意味着特定值的填充范围是从头到尾包含整个数组。尽管之前的示例中都使用的是原始值 `0` 用作 `value` 参数的值，但该代码示例表明当必要时页可使用对象值来填充数组的指定范围。
 
-## Lessons Learned
+## 经验教训
 
-There are a few lessons to take away from this article regarding the `fill()` function. The first thing to keep in mind is that the `fill()` function **will not** alter the size of the original array at all, no matter what values are specified for the `start` and `end` parameters. The second thing to keep in mind is that the `fill()` function **will** modify the original array in-place, in addition to returning a reference to the modified array. This means that it is absolutely imperative that you make a completely new copy of the original array before executing the function if you need to maintain the state of the original array for any reason.
+关于 `fill()` 函数，从本文中可以吸取到一些教训。第一是无论`起始索引`和`结尾索引`指定什么值作为参数，`fill()` 函数**都不会**改变原始数组的大小。第二是除了返回一个修改后数组以外，`fill()` 函数还**会**就地修改原始数组。这意味着，如果出于某种原因需要维护原始数组的状态，那么需要在执行函数前深拷贝一个原始的数组。
 
-Another takeaway from this article should be that it is no longer necessary to implement any sort of custom logic for replacing all or a subset of items in an array with a single value. In such a situation, the first impulse may be to implement such logic using a for loop, which would certainly work just fine, but it would not be nearly as compact and easy-to-read as using the `fill()` function. Another similar use case may be when it is necessary to create an array of a specific size with a default value set for every index within that array. Once again, the first impulse may be to create the array and then use a for loop to fill the entire array with the default value. Using the `fill()` function, however, it is as simple as writing the following statement: `Array(10).fill(0)`.
+本文带来的另一个收获是，对于用单个值取代数组中的所有或部分项不再需要实现任何类型的自定义逻辑。在这种情况下，首先想到的是通过 for 循环来实现这样的逻辑，这当然可以很好的工作，但是不会像使用 `fill()` 函数一样严谨和易于阅读。另一种类似的用例可能是创建特定大小的数组，并为每个索引设置默认值，我们首先想到的可能是创建数组，然后使用 for 循环来对数组进行默认值的填充。但是，使用 `fill()` 函数可以非常简单的实现，比如接下来的语句：`Array(10).fill(0)`。
 
-The final thing to keep in mind about the `fill()` function is how it handles an object that is passed as the `value` parameter value. When passing any value as the `value` parameter value, all of the items in the array that are filled with that value will be exactly the same. In the case of an object, all of the items that are filled will have a reference to the same exact object. This means that updating any one of the objects that has been filled in the array will also update all of the other objects that were filled. The following example shows this functionality in action:
+关于 `fill()` 函数需要直到的最后一件事情是如何处理作为 `value` 参数值传递的对象。当传递任何值作为 `value` 参数值时，数组中所有的填充项将会完全相同。对于对象，所有的填充项都将指向完全相同的对象。这意味着更新数组中已填充的任何对象都将更新其他数组里填充的对象。下面的示例展示了这个功能的实际作用：
 
 ```js
 var array1 = [1, 2, 3];
@@ -124,15 +124,15 @@ array2[2].b = 4;
 // array2: [{ a: 3, b: 4 }, { a: 3, b: 4 }, { a: 3, b: 4 }]
 ```
 
-In the case of the first array, the original array is filled with three arrays and then the first of these arrays is filled with zeroes. This results in the other two arrays also being filled with zeroes. In the case of the second array, the original array is filled with three objects and the second and third objects are both altered. This results in all three of the objects being altered in the same way. Of course, as mentioned earlier, this is a result of each of the filled arrays or objects referencing the exact same object in all places where the array or object was filled. Altering any of the arrays or objects will only ever be altering the single array or object that is actually being referenced.
+在第一个数组的情况下，原始数组填充了三个数组，然后把这三个数组中的第一个数组用零填充。这导致其他两个数组也填充了零。在第二个数组的情况下，原始数组填充了三个对象，第二个和第三个对象都以相同的方式进行更改，导致三个对象都同时更新了值。当然，正如前面说到的，这是每个填充的数组或对象在填充数组时指向了完全相同的对象的结果。更改任何数组或对象相当于更改了实际引用的单个数组或对象。
 
 ## 结论
 
-Thank you very much for reading this article. I hope that this exploration of the `fill()` function on the Javascript `Array` global object has been informative and I hope that after gaining some knowledge about it you will be able to put it to good use in your own code. I encourage you to consult the resource link below for all information pertaining to the `fill()` function if you still have any further questions about how it works. Please stop back in the future for more articles about interesting and useful functions that can be found on the Javascript `Array` global object.
+非常感谢你阅读本篇文章。我希望Thank you very much for reading this article.我希望对 JavaScript `Array` 全局对象上的 `fill()` 函数的探索能提供很多有用的信息，并且希望获取这些知识能让你在自己的代码中充分利用到。如果你还有其他关于这个函数的疑问，建议你参考下面的链接获取与 `fill()` 函数有关的所有信息。请在将来继续浏览更多关于 JavaScript `Array` 全局对象上的有趣和有用的函数的文章。
 
 ## 相关资源
 
-[Javascript Array.fill() function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)
+[Javascript Array.fill() 函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
