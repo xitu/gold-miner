@@ -5937,10 +5937,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：258.5 当前积分：238.5 二零二零：2
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：259.5 当前积分：239.5 二零二零：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|4 月推荐前端文章一篇|奖励|1|
 |2020 年 2 月推荐文章 1 篇|奖励|1|
 |2020 年 1 月推荐文章 1 篇|奖励|1|
 |2019 年 10 至 12 月推荐文章 5 篇|奖励|5|
@@ -9384,10 +9385,11 @@
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：85.5 当前积分：85.5 二零二零：43.5
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：86.5 当前积分：86.5 二零二零：44.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|5 月推荐后端文章一篇|奖励|1|
 |[MySQL 最佳实践 — 高效插入数据](https://juejin.im/post/5e8dc755e51d4546d32bcdd1)|翻译|4|
 |[Go 发布新版 Protobuf API](https://juejin.im/post/5e83e1176fb9a03c80278e6d)|翻译|6|
 |[用依赖注入来解耦你的代码](https://juejin.im/post/5e80a1d46fb9a03c8c03fe51)|校对|2|
@@ -9581,10 +9583,11 @@
 |------|-------|-------|
 |[为什么自己动手写代码能让你成为更好的开发者](https://juejin.im/post/5de88ed16fb9a016470c151a)|校对|1.5|
 
-## 译者：[PingHGao](https://github.com/PingHGao) 历史贡献积分：31 当前积分：31 二零二零：26
+## 译者：[PingHGao](https://github.com/PingHGao) 历史贡献积分：32 当前积分：32 二零二零：27
 
 |文章|类型|积分|
 |------|-------|-------|
+|4 月推荐 AI 文章一篇|奖励|1|
 |[眼动跟踪和移动世界的最佳用户体验实践](https://zhuanlan.zhihu.com/p/120424545)|校对|2|
 |[云服务如何帮助你提高业务效率？](https://juejin.im/post/5e8d07a96fb9a03c73797cef)|校对|2|
 |[8 个值得了解的树形数据结构](https://juejin.im/post/5e7dfd0551882573b7535f23)|校对|2|
