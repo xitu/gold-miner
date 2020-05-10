@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/localize-swift-application.md](https://github.com/xitu/gold-miner/blob/master/TODO1/localize-swift-application.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[Bruce-pac](https://github.com/Bruce-pac)
 
 # 如何运用 Swift 的属性包装器实现应用本地化
 
 ![](https://cdn-images-1.medium.com/max/4800/1*SjXk6V6r3e94guJcg5mRzw.png)
 
-您好，Swift开发者，在本文中，我想与您分享我的经验和知识，主要内容有**属性包装器**（**Property Wrapper**）的使用，以及如何简化代码并使其易于维护。我会通过几个主题对此进行说明。
+您好，Swift 开发者，在本文中，我想与您分享我的经验和知识，主要内容有**属性包装器**（**Property Wrapper**）的使用，以及如何简化代码并使其易于维护。我会通过几个主题对此进行说明。
 
 在 Swift 5.1 中，Apple 引入了**属性包装器**，它可以让我们在属性和访问逻辑（getter 和 setter）之间设置中间层。
 
@@ -47,8 +47,8 @@ class NatureViewController: UIViewController {
 }
 ```
 
-代码看起来是不是看起来很优雅？下面让我们创建 `@Localized` 属性包装器。
-将 key 声明为枚举类型，如：`@Localized(.natureTitle)`。
+这代码看起来很优雅，不是吗？下面让我们创建 `@Localized` 属性包装器。
+将 key 当做枚举来使用会更好，如：`@Localized(.natureTitle)`。
 
 ```Swift
 @propertyWrapper
@@ -123,7 +123,7 @@ class NatureViewController: UIViewController {
 本章结束！关于 `@Localized` 还有一些潜在功能：
 
 * 格式化字符串数据，并进行动态替换。
-* 能改变来自特定表单和包的字符串。
+* 能够确定来自指定的表单和资源包的字符串。
 
 **想了解更多关于属性包装器的知识，请阅读官方文档：**
 [**Properties - The Swift Programming Language (Swift 5.2)**](https://docs.swift.org/swift-book/LanguageGuide/Properties.html)
