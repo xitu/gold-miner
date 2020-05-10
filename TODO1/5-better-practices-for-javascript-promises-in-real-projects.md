@@ -2,22 +2,22 @@
 > * 原文作者：[bitfish](https://medium.com/@bf2)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-better-practices-for-javascript-promises-in-real-projects.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-better-practices-for-javascript-promises-in-real-projects.md)
-> * 译者：
-> * 校对者：
+> * 译者：[febrainqu](https://github.com/febrainqu)
+> * 校对者：[niayyy-S](https://github.com/niayyy-S)、[IAMSHENSH](https://github.com/IAMSHENSH)
 
-# 实际项目中关于 JavaScript 中 Promises 的最佳实践
+# 实际项目中关于 JavaScript 中 Promises 的 5 种最佳实践
 
 ![Photo by [Kelly Sikkema](https://unsplash.com/@kellysikkema?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10814/0*WrO6pqf5aLgB319V)
 
 在学习了 Promise 的基本用法后，本文希望可以帮助你在实际项目中更好地使用 Promise。
 
-> 使用 Promise.all，Promise.race 和 Promise.prototype.then 可以提高你的代码质量。
+> 使用 Promise.all，Promise.race 和 Promise.prototype.then 来改善代码质量。
 
 ## Promise.all
 
-Promise.all 实际上是一个promise，它将一个 promise 数组（或一个可迭代的对象）做为参数。然后当所有的 promise 都变为 resolved 状态，或其中一个变为 rejected 状态，它就会变为 resolved 状态。
+Promise.all 实际上是一个 Promise，接收一个 Promise 数组（或一个可迭代的对象）做为参数。然后当其中所有的 Promise 都变为 resolved 状态，或其中一个变为 rejected 状态，会回调完成。
 
-例如，假设你有十个 promise（执行网络请求或数据库连接的异步操作）。你必须知道什么时候所有的 promises 都转为  resolved 状态，或者等到所有的 promise 执行完。所以你要通过十个 promise 去完成 promise.all。然后，一旦十个  promise 都转为 resolved 状态，或者它们中的任意一个因为发生异常转为 rejected 状态，Promise.all 自身做为一个 promise 会转为 resolved 状态。
+例如，假设你有十个 promise（执行网络请求或数据库连接的异步操作）。你必须知道什么时候所有的 promises 都转为 resolved 状态，或者等到所有的 promise 执行完。所以你要通过十个 promise 去完成 promise.all。然后，一旦十个 promise 都转为 resolved 状态，或者它们中的任意一个因为发生异常转为 rejected 状态，Promise.all 自身做为一个 promise 会转为 resolved 状态。
 
 **让我们在代码中理解它：**
 
@@ -29,7 +29,7 @@ Promise.all([promise1, promise2, promise3])
  .catch(error => console.log(`Error in promises ${error}`))
 ```
 
-你可以看到，我们将一个数组传递给了 promise.all。并且当三个 promise 都转为 resolved 状态时，promise.all 完成并在控制台输出。
+你可以看到，我们将一个数组传递给了 Promise.all。并且当三个 Promise 都转为 resolved 状态时，Promise.all 完成并在控制台输出。
 
 **让我们看一个例子：**
 
@@ -44,17 +44,17 @@ const timeOut = (t) => {
 }
 // Resolve 一个正常的 promise。
 timeOut(1000)
- .then(result => console.log(result)) //设定时间为 1000ms
+ .then(result => console.log(result)) // Completed in 1000
 // Promise.all
 Promise.all([timeOut(1000), timeOut(2000)])
- .then(result => console.log(result)) // [“设定时间为 1000ms”，“设定时间为 2000ms”]
+ .then(result => console.log(result)) // ["Completed in 1000", "Completed in 2000"]
 ```
 
-在上面的示例中，Promise.all 在 2000ms 之后 resolve，并且将输出作为数组显示在控制台上。
+在上面的示例中，Promise.all 在 2000ms 之后 resolved，并且在控制台上输出结果数组。
 
-关于 Promise.all 的一件有趣的事情是，promise 的顺序得以保持。数组中的第一个 promise 转为 resolved 为输出数组的第一个元素，第二个 promise 转为 resolved 为输出数组的第二个元素，以此类推。
+关于 Promise.all 的一件有趣的事情是，Promise 的顺序是固定的。数组中的第一个 Promise 转为 resolved 并作为数组的第一个元素输出，第二个 Promise 转为 resolved 作为数组的第二个元素输出，以此类推。
 
-好的，以上是 promise.all 的基本用法。让我向实际项目介绍它的应用。
+好的，以上是 promise.all 的基本用法。让我介绍一下它在实际项目中的应用。
 
 #### 1. 同步多个异步请求
 
@@ -104,7 +104,7 @@ getCategoryList().then(function(data){
 上面的代码确实有效，但是有两个缺陷：
 
 * 每次我们从服务端请求数据时，我们都需要编写一个单独的函数来处理数据。这将导致代码冗余，并且不便于将来的升级和扩展。
-* 每个请求花费的时间不同，导致函数需要渲染三次页面，会使用户感觉页面卡顿。
+* 每个请求花费的时间不同，导致函数会异步渲染三次页面，会使用户感觉页面卡顿。
 
 现在我们可以使用 Promise.all 来优化我们的代码。
 
@@ -143,9 +143,9 @@ Promise.all([p1, p2]).then(res => {
 })
 ```
 
-众所周知，Promise.all 的机制是，只要做为参数的 promise 数组中的任何一个 promise 抛出异常时，整个 Promise.all 函数进入 catch 方法， 而与其它 promise 成功失败无关。
+众所周知，Promise.all 的机制是，只要做为参数的 Promise 数组中的任何一个 Promise 抛出异常时，无论其他 Promise 成功或失败，整个 Promise.all 函数都会进入 catch 方法。
 
-但实际上，我们经常需要这样：即使一个或多个 promise 抛出异常，我们仍熙攘 Promise.all 继续正常执行。例如，在上面的例子中，即使在 `getBannerList()` 中发生异常，只要在 `getStoreList()` 或 `getCategoryList()` 中没有发生异常，我们仍然希望该程序继续执行。
+但实际上，我们经常需要这样：即使一个或多个 Promise 抛出异常，我们仍希望 Promise.all 继续正常执行。例如，在上面的例子中，即使在 `getBannerList()` 中发生异常，只要在 `getStoreList()` 或 `getCategoryList()` 中没有发生异常，我们仍然希望该程序继续执行。
 
 为了满足这个需求，我们可以使用一个技巧来增强 Promise.all 的功能。我们可以这样编写代码：
 
@@ -155,7 +155,7 @@ Promise.all([p1.catch(error => error), p2.catch(error => error)]).then(res => {
 }))
 ```
 
-这样，即使一个 promise 发生异常，它也不会使 Promise.all 中其它 promise 中断。
+这样，即使一个 Promise 发生异常，也不会中断 Promise.all 中其它 Promise 的执行。
 
 应用到前面的示例，结果是这样的。
 
@@ -208,7 +208,7 @@ function initLoad(){
 initLoad()
 ```
 
-#### 3. 让多个 promise 一起工作
+#### 3. 让多个 Promise 一起工作
 
 当用户要上传或发布某些内容时，我们可能需要验证用户上传的内容。例如，检查内容是否包含血腥暴力，色情，虚假新闻等。在多数情况下，这些检测行为是由后端提供的不同 API 或 SaaS 服务提供商提供的不同云功能执行的。
 
@@ -257,7 +257,7 @@ verify1().then(() => {
 })
 ```
 
-但是使用 Promise.all，我们可以使不同的 promise 任务一起工作：
+但是使用 Promise.all，我们可以使不同的 Promise 任务一起工作：
 
 ```JavaScript
 function verify1(content){
@@ -297,15 +297,15 @@ Promise.all([verify1(content),verify2(content),verify3(content)]).then(result=>{
 
 ## Promise.race
 
-`promise.race` 的参数与 `promise.all` 相同，它可以是一个 promise 数组或一个可迭代的对象。
+`Promise.race` 的参数与 `Promise.all` 相同，可以是一个 Promise 数组或一个可迭代的对象。
 
-`Promise.race()` 方法返回一个 promise，一旦迭代器中的某个 promise 解决或拒绝，返回的 promise 就会解决或拒绝。
+`Promise.race()` 方法返回一个 Promise 对象，一旦迭代器中的某个 Promise 为 fulfilled 或 rejected 状态，就会返回结果或者错误信息。
 
 #### 4. 定时功能
 
 当我们从后端服务器异步请求资源时，通常会限制时间。如果在指定时间内未接收到任何数据，则将引发异常。
 
-考虑一下，你会怎么实现这个功能？Promise.race 可以帮我们解决这个问题。
+思考一下，你会怎么实现这个功能？Promise.race 可以帮我们解决这个问题。
 
 ```JavaScript
 function requestImg(){
@@ -319,7 +319,7 @@ function requestImg(){
     return p;
 }
 
-// 定时请求的 delay 函数
+// 定时功能的延迟函数
 function timeout(){
     var p = new Promise(function(resolve, reject){
         setTimeout(function(){
@@ -344,7 +344,7 @@ Promise
 
 ## Promise.then
 
-我们知道 `promise.then()` 总返回一个 promise 对象，因此 `promise.then` 支持链式调用。
+我们知道 `promise.then()` 总返回一个 Promise 对象，因此 `promise.then` 支持链式调用。
 
 ```js
 Promise.then().then().then()
