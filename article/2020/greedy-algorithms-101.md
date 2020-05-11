@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/greedy-algorithms-101.md](https://github.com/xitu/gold-miner/blob/master/article/2020/greedy-algorithms-101.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[PingHGao](https://github.com/PingHGao)
 
 # 贪心算法，你入门了吗？
 
@@ -17,7 +17,7 @@
 
 这个算法能解决的大多数问题都有以下两个特性：
 
-1. **贪心属性**：它的意思是每次迭代时都采用局部最优解，而无需考虑对全局的影响。通过每一步采用局部的最优解来求得全局最优解，但是正如我之前所说，这个结论不一定成立。为了证明在每次迭代中都求得了最优解，我们需要使用归纳法（显然不是简单的证明）。
+1. **贪心属性**：它的意思是每次迭代时都采用局部最优解，而无需考虑对全局的影响。我们相信通过不断求解局部最优解终会得到全局最优解，但是正如我之前所说，这个结论不一定成立。为了证明在每次迭代中都求得了最优解，我们需要使用归纳法（显然不是简单的证明）。
 2. **最优子结构**: 我之前提到过一些。求解的问题必须能划分为子问题，每个子问题都有最优解。
 
 本文中，我们将学习如何编写自己的贪心算法，然后用这个算法解决一个非常著名的难题。
@@ -43,12 +43,12 @@ public ArrayList greedy(ArrayList candidates) {
 }
 ```
 
-在讲解代码之前，我首先定义一下伪代码中使用的术语名称。
+我首先给出一些在伪代码中用到的术语的定义。
 
 1. **Candidates:** 所有可能的解集。它可以是任意的数据类型，但通常是可迭代的。在我们处理示例问题时，会加深对它的理解。现在请先记住结论 😁。
 2. **Candidate:** 在解集中，我们当前选中的一个解。
 3. **Solution:** 解变量的第一个实例只需是一种数据结构，在这里我们将存储当前的解。
-4. **isSolution, candidatesLeft, removeCandidate, addCandidate, isGoodCandidate:** 这些也是我们要创建的方法，其中的某些方法在一些实际问题中不必是完整的，但是为了总结代码模版，我才把它们全部定义为方法。
+4. **isSolution, candidatesLeft, removeCandidate, addCandidate, isGoodCandidate:** 这些也是我们要创建的方法，其中的某些方法在一些实际问题中不必是完整的，但是为了总结代码模版，我把它们全部定义为方法。
 
 首先，我们初始化解的数据结构，它可以是数组，布尔值，整数…… 我们只需要声明一下。
 
@@ -56,7 +56,7 @@ public ArrayList greedy(ArrayList candidates) {
 solution
 ```
 
-然后，我们看一下这个 while 循环，它的循环条件中有两个方法。这些方法必须编写，但有时并不需要完整的方法体，例如，判断是否剩余的备选解这个方法。
+然后，我们看一下这个 while 循环，它的循环条件中有两个方法。这些方法必须编写，但有时并不需要完整的方法体，例如，判断是否有剩余备选解的这个方法。
 
 ```js
 while (!isSolution(solution) && (candidatesLeft(candidates))
@@ -93,7 +93,7 @@ if (isSolution(solution)) {
 
 ## 零钱兑换的问题
 
-有6种硬币，每种硬币的值分别为 {50，20，10，5，2，1，1}，它们按递减排序作为参数传递。 **每种硬币都可能成为我们的候选解**。您必须找到一种最佳的兑换方式。（**用最少的硬币找零**）
+有6种硬币，每种硬币的值分别为 {50，20，10，5，2，1}，它们按递减排序作为参数传递。 **每种硬币都可能成为我们的候选解**。您必须找到一种最佳的兑换方式。（**用最少的硬币找零**）
 
 **示例输入：** 15（**我们必须以最少的硬币数量凑齐 15 并返回硬币集合**）
 
@@ -103,7 +103,7 @@ if (isSolution(solution)) {
 
 #### 提示
 
-如果您没有足够努力，就不应该看这一段内容 🤨……开个玩笑，继续吧，我确信~~我希望~~您已经学到了一些新知识 😄。
+如果您没有足够努力尝试，就不应该看这一段内容 🤨…… 开个玩笑，继续吧，我确信~~我希望~~您已经学到了一些新知识 😄。
 
 * 在 **selectCandidate()**   方法中，首先选择面额最大的硬币，然后用较小的硬币填充剩余的零钱。在这个过程中，您要一直检查是否超出剩余的零钱。
 
@@ -162,7 +162,7 @@ ArrayList < Coin > greedySchema(ArrayList < Integer > values, int quantity) {
 
 如果您喜欢贪心算法的工作原理，并且想深入研究，请访问 [Hackerrank](https://www.hackerrank.com/) 或者 [Hackerearth](https://www.hackerearth.com/practice/)，这里有有很多要解决的问题，我相信您已经对它们有一定了解 😊。
 
-有时，我就是使用 GitHub 作为搜索引擎，并简单地写下我寻找的主题 [[贪心算法](https://github.com/search?q=greedy+algorithm)]。
+有时，我个人也会把 GitHub 作为搜索引擎，并简单地写下我寻找的主题 [[贪心算法](https://github.com/search?q=greedy+algorithm)]。
 
 ## 结论
 
