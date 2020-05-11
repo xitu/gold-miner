@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-proxies.md](https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-proxies.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH)
+> * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH)、[Gesj-yean](https://github.com/Gesj-yean)
 
 # 小品 JavaScript Proxy
 
@@ -29,7 +29,7 @@ console.log(alice.age);
 alice.weight = 64;
 ```
 
-这个对象可能会被代码的其他部分使用到，这样的话就会出现一些问题。我们可以允许对象的外部消费者更改 Alice 的体重，但不能改生日。如果她是成年人，那么她的身高也是不能更改的。当她的体重发生变化，就应该重新计算 BMI 值。而且，她的年龄应该在每次被请求时都计算一次。
+这个对象可能会被其他代码更改，这样就会出现一些问题。我们可以允许对象的外部消费者更改 Alice 的体重，但不能改生日。如果她是成年人，那么她的身高也是不能更改的。当她的体重发生变化，就应该重新计算 BMI 值。而且，她的年龄应该在每次被请求时都计算一次。
 
 有一种思路是创建像 `getAge` 或 `setWeight` 这样的方法。部分情况下这种思路是有效的，但类似 `alice.weight = 64` 这样的操作，它是无法阻止的。原生的 JavaScript 没有私有字段。
 
