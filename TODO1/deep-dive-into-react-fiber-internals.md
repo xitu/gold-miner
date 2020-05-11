@@ -144,7 +144,7 @@ fib(10)
 
 每当你使用 JavaScript 编写函数时，JS 引擎都会创建所谓的函数执行上下文。另外，每次 JS 引擎启动时，它都会创建一个全局执行上下文，其中包含全局对象 —— 例如，浏览器中的 `window` 对象和 Node.js 中的 `global` 对象。这两个上下文都是在 JS 中使用栈数据结构（也称为执行栈）处理的。
 
-So, when you write something like this:
+因此，当你编写如下内容时：
 
 ```js
 function a() {
@@ -159,25 +159,25 @@ function b() {
 a()
 ```
 
-The JavaScript engine first creates a global execution context and pushes it into the execution stack. Then it creates a function execution context for the function `a()`. Since `b()` is called inside `a()`, it will create another function execution context for `b()` and push it into the stack.
+JavaScript 引擎首先创建一个全局执行上下文，并将其推入执行栈。然后为 `a()` 函数创建函数执行上下文。由于 `b()` 在 `a()` 内部被调用，它将为 `b()` 创建另一个函数执行上下文并将其入栈。
 
-When the function `b()` returns, the engine destroys the context of `b()`, and when we exit function `a()`, the context of `a()` is destroyed. The stack during execution looks like this:
+当函数 `b()` 返回时，引擎将清除 `b()` 的上下文，而当我们退出函数 `a()` 时，将清除 `a()` 的上下文。执行期间的栈如下所示：
 
-![Execution Stack Diagram](https://i2.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/execution-stack.png?resize=534%2C822&ssl=1)
+![执行栈图](https://i2.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/execution-stack.png?resize=534%2C822&ssl=1)
 
-But what happens when the browser makes an asynchronous event like an [HTTP request](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)? Does the JS engine stock the execution stack and handle the asynchronous event, or wait until the event completes?
+但是，当浏览器发出像 [HTTP 请求](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)这样的的异步事件时会发生什么？JS 引擎是存储执行栈并处理异步事件，还是等到事件完成？
 
-The JS engine does something different here. On top of the execution stack, the JS engine has a queue data structure, also known as the event queue. The event queue handles asynchronous calls like HTTP or network events coming into the browser.
+JS 引擎在这里做了一些不同的事情。在执行堆栈的顶部，JS 引擎具有队列数据结构，也称为事件队列。事件队列处理进入浏览器的异步调用，例如 HTTP 请求或网络事件。
 
-![Event Queue Diagram](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/event-queue-diagram.png?resize=730%2C542&ssl=1)
+![事件队列图](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/event-queue-diagram.png?resize=730%2C542&ssl=1)
 
-The way the JS engine handles the stuff in the queue is by waiting for the execution stack to become empty. So each time the execution stack becomes empty, the JS engine checks the event queue, pops items off the queue, and handles that event. It is important to note that the JS engine checks the event queue only when the execution stack is empty or the only item in the execution stack is the global execution context.
+JS 引擎处理队列中内容的方式是等待执行栈变空。因此，每次执行堆栈变空时，JS 引擎都会检查事件队列，将里面的项目弹出队列，然后处理该事件。需要注意的是，JS 引擎只在执行栈为空或执行栈中只有全局执行上下文时才检查事件队列。
 
-Although we call them asynchronous events, there is a subtle distinction here: the events are asynchronous with respect to when they arrive into the queue, but they're not really asynchronous with respect to when they get actually get handled.
+尽管我们称它们为异步事件，但这里有一个微妙的区别：事件相对于它们何时进入队列是异步的，但是相对于它们何时真正得到处理，它们并不是真正的异步。
 
 Coming back to our stack reconciler, when React traverses the tree, it is doing so in the execution stack. So when updates arrive, they arrive in the event queue (sort of). And only when the execution stack becomes empty, the updates get handled. This is precisely the problem Fiber solves by almost reimplementing the stack with intelligent capabilities --- pausing and resuming, aborting, etc.
 
-Again referencing Andrew Clark's notes here:
+在这里再次引用 Andrew Clark 所提到的：
 
 > "Fiber is reimplementation of the stack, specialized for React components. You can think of a single fiber as a virtual stack frame.
 >
