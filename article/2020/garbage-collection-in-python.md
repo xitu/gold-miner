@@ -7,13 +7,9 @@
 
 # Garbage Collection in Python
 
-#### The process of reclaiming memory
-
 ![Artwork created by [Katerina Limpitsouni](https://twitter.com/ninalimpi)](https://cdn-images-1.medium.com/max/2298/1*GPhtmRdktXK9Aldvyl02yw.png)
 
 If you’ve been programming for a while, you’ve probably heard about **garbage collection.** Let’s delve deeper into what it is and how it works.
-
----
 
 ## What and Why
 
@@ -25,15 +21,13 @@ Depending on the language, garbage collection can be an automatic or a manual pr
 
 Now, let’s see how garbage collection works.
 
----
-
 ## How
 
 There are some techniques, but most garbage-collected languages, including Python, use **reference counting.** In reference counting, we track the number of references to an object and discard an object when the count is `0`.
 
 An object’s reference count changes as the number of aliases pointing to it changes. The count increases when it’s assigned a new name or placed in a container such as a list or dictionary. The count decreases when it’s deleted with the `del` command, it’s reference is out of scope, or it’s reassigned. For example:
 
-```
+```python
 sample = 100 # Creates object <100>. Ref count = 1 
 
 sample_copy = sample # Ref count = 2. 
@@ -51,21 +45,21 @@ Reference counting can immediately reclaim objects when the reference count goes
 
 However, a problem with reference counting is the notion of **reference cycles.** If two objects, A and B, reference each other, they’re essentially in a bubble where the reference count will always be greater than or equal to `1`. This is common in lists, classes, and functions. For example, when an object refers to itself:
 
-```
+```python
 x = []
 x.append(x)
 ```
 
 Or when objects cyclically refer to each other:
 
-```
+```python
 a.attribute_1 = b
 b.attribute_2 = a
 ```
 
 The garbage collector periodically looks out for reference cycles and removes them. Since this an expensive process in terms of resources, this is done periodically and is scheduled. The Python Garbage Collector interface provides methods to explore the schedule and the threshold at which the garbage collection is performed.
-[**gc - Garbage Collector interface - Python 3.8.3rc1 documentation**
-**This module provides an interface to the optional garbage collector. It provides the ability to disable the collector…**docs.python.org](https://docs.python.org/3.7/library/gc.html)
+
+[**gc - Garbage Collector interface - Python 3.8.3rc1 documentation**](https://docs.python.org/3.7/library/gc.html)
 
 ---
 
@@ -74,10 +68,9 @@ The garbage collector periodically looks out for reference cycles and removes th
 I hope this article helped you.
 
 References and further reading:
-[**How does garbage collection work in Python?**
-**Python deletes unwanted objects (built-in types or class instances) automatically to free the memory space. The process…**www.tutorialspoint.com](https://www.tutorialspoint.com/How-does-garbage-collection-work-in-Python)
-[**What is a reference cycle in python?**
-**Thanks for contributing an answer to Stack Overflow! Please be sure to answer the question. Provide details and share…**stackoverflow.com](https://stackoverflow.com/questions/9910774/what-is-a-reference-cycle-in-python)
+
+- [**How does garbage collection work in Python?**](https://www.tutorialspoint.com/How-does-garbage-collection-work-in-Python)
+- [**What is a reference cycle in python?**](https://stackoverflow.com/questions/9910774/what-is-a-reference-cycle-in-python)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
