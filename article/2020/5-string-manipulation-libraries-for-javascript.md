@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-string-manipulation-libraries-for-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-string-manipulation-libraries-for-javascript.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：[Gesj-yean](https://github.com/Gesj-yean)
+> * 校对者：[Gesj-yean](https://github.com/Gesj-yean), [CoolRice](https://github.com/CoolRice)
 
 # 5 大 JavaScript 字符串操作库
 
@@ -42,7 +42,7 @@ npm i string
 
 * between(left, right) — 提取 `left` 和 `right` 之间的字符串。
 
-这能获取两个 HTML 标签之前的元素。
+这能获取两个 HTML 标签之间的元素。
 
 ```js
 var S = require('string');
@@ -50,9 +50,9 @@ S('<a>This is a link</a>').between('<a>', '</a>').s
 // 'This is a link'
 ```
 
-* camelize() — 删除所有下划线或者连接号，并转化为驼峰格式。
+* camelize() — 删除所有下划线或者连接符，并转化为驼峰格式。
 
-此功能可解决本文开头提到的问题。
+此方法可解决本文开头提到的问题。
 
 ```js
 var S = require('string');
@@ -62,7 +62,7 @@ S('---Foo---bAr---').camelize().s;
 
 * humanize() — 将输入转换为人性化的形式。
 
-从零开始实现此功能，肯定需要很多行代码。
+从零开始实现此方法，肯定需要很多行代码。
 
 ```js
 var S = require('string');
@@ -72,7 +72,7 @@ S('   capitalize dash-CamelCase_underscore trim  ').humanize().s
 
 * stripPunctuation() — 删除目标字符串的所有符号。
 
-如果从零开始实现此功能，很大可能会漏掉某个符号。
+如果从零开始实现此方法，很大可能会漏掉某个符号。
 
 ```js
 var S = require('string');
@@ -198,13 +198,13 @@ const resultA = anchorme(input);
 //some text with a <a href="http://link.com">link.com</a>
 ```
 
-你可以传入额外的参数，以进一步的自定义功能。
+你可以传入额外的参数，进一步自定义功能。
 
 ## 4. Underscore String
 
 [Underscore.string](https://github.com/epeli/underscore.string) 是 JavaScript 字符串操作扩展库，有无 Underscore.js 你都可以使用它。Underscore.string 受到 [Prototype.js](http://api.prototypejs.org/language/String/)，[Right.js](http://rightjs.org/docs/string) 和 [Underscore](http://documentcloud.github.com/underscore/) 启发，是一个能让你舒适操作字符串的 JavaScript 库。
 
-Underscore.string 提供了一些有用的功能：首字母大写、清除、包含、计数、转义 HTML、反转义 HTML、插入、拼接、头部检查、尾部检查、标题化、修剪、截短等等。
+Underscore.string 提供了一些有用的方法：首字母大写、清除、包含、计数、转义 HTML、反转义 HTML、插入、拼接、头部检查、尾部检查、标题化、修剪、截短等等。
 
 #### 安装
 
@@ -228,7 +228,7 @@ _.numberFormat(123456789.123, 5, '.', ',');
 => "123,456,789.12300"
 ```
 
-* levenshtein(string1,string2) — 计算两个字符串之前的 Levenshtein。
+* levenshtein(string1,string2) — 计算两个字符串之间的 Levenshtein。
 
 [在这里](https://dzone.com/articles/the-levenshtein-algorithm-1)了解更多关于 Levenshtein 距离算法的信息。
 
