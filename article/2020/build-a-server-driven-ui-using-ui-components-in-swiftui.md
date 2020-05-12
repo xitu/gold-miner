@@ -7,13 +7,11 @@
 
 # Build a Server-Driven UI Using UI Components in SwiftUI
 
-#### Make changes to your app on the fly without submitting to Apple
-
 ![Photo by [Charles Deluvio](https://unsplash.com/@charlesdeluvio?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8512/0*V5kRzEsP5a7zxJwY)
 
-This article will talk about server-driven UI, its implementation using re-usable components called **UIComponents**, and creating a generic vertical list view for rendering UI components. It will conclude with a brief discussion of how UI components can serve different purposes.
+> Make changes to your app on the fly without submitting to Apple
 
----
+This article will talk about server-driven UI, its implementation using re-usable components called **UIComponents**, and creating a generic vertical list view for rendering UI components. It will conclude with a brief discussion of how UI components can serve different purposes.
 
 ## What Is Server-Driven UI?
 
@@ -28,8 +26,6 @@ Working — The screen does not have a predefined layout like a storyboard. Rath
 
 Contract — For every server component, we have a UIComponent.
 
----
-
 ## SwiftUI
 
 Swift is a UI toolkit that lets you design application screens in a programmatic, declarative way.
@@ -43,10 +39,7 @@ struct NotificationView: View {
         Text(notificationMessage)
     }
 }
-
 ```
-
----
 
 ## Server-Driven UI Implementation in SwiftUI
 
@@ -177,7 +170,6 @@ struct HomePageView: View {
         
     }
 }
-
 ```
 
 Generic `Vstack:` All the UIComponents are rendered vertically using a `VStack` inside. As the UIComponents are uniquely identifiable, we can use the `ForEach` construct for rendering.
@@ -193,8 +185,6 @@ extension View {
 
 ```
 
----
-
 ## Conclusion
 
 We saw how `UIComponent` can be used to give the server control over the UI of the application. But with `UIComponents` you can achieve something more.
@@ -205,7 +195,7 @@ Having them this way will let the domain-layer/business layer define and constru
 
 You can find [the project](https://github.com/AnupAmmanavar/SwiftUI-Server-Driver-UI) on GitHub.
 
-Have a look at the article “[Android Jetpack Compose — Create a Component-Based Architecture](https://medium.com/better-programming/create-a-component-based-architecture-in-android-jetpack-compose-96980c191351),” ****which explains UI-Components in detail. As it uses Jetpack compose-Android’s declarative UI kit, it wouldn’t be hard to understand.
+Have a look at the article “[Android Jetpack Compose — Create a Component-Based Architecture](https://medium.com/better-programming/create-a-component-based-architecture-in-android-jetpack-compose-96980c191351),” which explains UI-Components in detail. As it uses Jetpack compose-Android’s declarative UI kit, it wouldn’t be hard to understand.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
