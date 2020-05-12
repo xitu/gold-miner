@@ -7,9 +7,9 @@
 
 # Safe Recursion with Trampoline in JavaScript
 
-Using recursion in JavaScript is not safe — consider trampoline. This converts recursion to a `while` loop to get around JavaScript’s limitations and prevent an overflow.
-
 ![Photo by [Charles Cheng](https://unsplash.com/@charlesc7?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7274/0*9Sxt2ppwVpNELxC0)
+
+Using recursion in JavaScript is not safe — consider trampoline. This converts recursion to a `while` loop to get around JavaScript’s limitations and prevent an overflow.
 
 An idiomatic example of a recursive function is a factorial calculation. We call `factorial` function `n` times to get a result. Every call will add one more `factorial` function to the call stack.
 
@@ -89,7 +89,7 @@ console.log('No range error!');
 
 Next time you want to use recursion, try `trampoline`!
 
-You can try `trampoline` in CodePen below.
+You can try `trampoline` in this [CodePen](https://codepen.io/baranovxyz/pen/zYvjKGN).
 
 ---
 
