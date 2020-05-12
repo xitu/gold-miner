@@ -7,8 +7,6 @@
 
 # UX Case Study: KoinStreet Homepage Redesign
 
-#### How I updated KoinStreet’s landing page to look more modern and minimize confusion
-
 ![](https://cdn-images-1.medium.com/max/11634/1*_4OaRdRVy_x_luuum4_plg.png)
 
 ## Project Introduction
@@ -39,11 +37,11 @@ Create a visually stunning landing page that was **Futuristic, Bold, and Trustwo
 
 ![](https://cdn-images-1.medium.com/max/2534/1*2AgPz1LHQO7V01xCLlWt6Q.png)
 
-![KoinStreet’s current landing page](https://cdn-images-1.medium.com/max/2522/1*19rvK3Fin_uCEGQg5eoqoQ.png)
+![](https://cdn-images-1.medium.com/max/2522/1*19rvK3Fin_uCEGQg5eoqoQ.png)
 
 ![](https://cdn-images-1.medium.com/max/2528/1*bjMZUvzgrXUjQiSZmYbwLQ.png)
 
-![KoinStreet’s current landing page](https://cdn-images-1.medium.com/max/2450/1*3NWciJ5AwkDCcGuNU4il5A.png)
+![](https://cdn-images-1.medium.com/max/2450/1*3NWciJ5AwkDCcGuNU4il5A.png)
 
 #### Heuristics Evaluation
 
