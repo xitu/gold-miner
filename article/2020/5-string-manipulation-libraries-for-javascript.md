@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-string-manipulation-libraries-for-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-string-manipulation-libraries-for-javascript.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：
+> * 校对者：[Gesj-yean](https://github.com/Gesj-yean)
 
 # 5 大 JavaScript 字符串操作库
 
@@ -20,11 +20,11 @@ function camelize(str) {
 }
 ```
 
-上面的代码是 StackOverflow 中点赞最多的答案。但这也无法解决 `---Foo---bAr---` 这样的字符串。
+上面的代码是 StackOverflow 中点赞最多的答案。但这也无法处理 `---Foo---bAr---` 这样的字符串。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*B2BkvkI5nmrksHi8UpLHIQ.png)
 
-这就是字符串处理库的存在价值。这些库会让字符串操作变得简单，并且对所有情况都考虑周全，而你只需要简单地调用一个方法即可获得有效的解决方案。
+这就是字符串处理库的存在价值。这些库会让字符串操作变得简单，并且对所有情况都考虑周全，而你只需要简单地调用一个方法。
 
 下面我们来看一些 JavaScript 的字符串操作库。
 
