@@ -7,17 +7,13 @@
 
 # How to Write Log Files That Save You Hours of Time
 
-#### Easier debugging using more thoughtful and descriptive errors
-
 ![Photo by [Pietro Jeng](https://unsplash.com/@pietrozj?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/11232/0*iqdOil183vfy81IT)
 
-I need to rant a bit here: The program I maintain at work has many cute quirks. “An error has occurred” ****is not one of them. This is not just how that error message starts. It’s also how it **ends.**
+I need to rant a bit here: The program I maintain at work has many cute quirks. “An error has occurred” is not one of them. This is not just how that error message starts. It’s also how it **ends.**
 
 Or how about “Information about the error is stored in the server logs,” but there’s no indication of which server actually threw that exception?
 
 This article is about how to write log and error messages that don’t suck.
-
----
 
 ## Do You Really Need This?
 
@@ -29,15 +25,11 @@ Most of this article will be about giving **more** information. But just for a m
 
 As I said, it’s better to have more information than you need than too little in most cases, but it’s still worth keeping in mind to avoid falling off the other end.
 
----
-
 ## Please Tell Me What the Error Is
 
 Most exceptions we deal with in daily life aren’t explicitly handled, meaning we often get a stack traceback that tells us exactly what happened, where, and when. That’s fine. It’s not particularly readable, but at least you can follow down to the source.
 
 If, however, you were to catch an exception and use that catch block to then print “Something don’t work yo” to the console without even printing it into the log file, just please don’t. If you write a custom exception handler, then just take the extra minute to explain what the error is. Is it a wrong database entry, like an incorrectly formatted name? Nice, now I don’t have to clone the repo and debug and can just fix that entry on the database right away.
-
----
 
 ## Please Tell Me Where the Error Originated
 
@@ -48,8 +40,6 @@ fatal error: invalid cast at serverIWouldLikeToSlaughter
 ```
 
 And I’m much happier.
-
----
 
 ## Give Me Some Extra Parameters to Work With
 
@@ -75,8 +65,6 @@ Catch ex as Exception{
 }
 ```
 
----
-
 ## Let’s Look at Some Log File Examples, Shall We?
 
 Here are just some randomly selected samples of what I would consider useful log entries — stuff that makes it that much easier to understand where the error originated and how to fix it:
@@ -92,8 +80,6 @@ Here are just some randomly selected samples of what I would consider useful log
 ```
 
 Each of these error messages would save me half an hour just looking for a specific bug compared to either not logging it at all or logging it in an ineffective way.
-
----
 
 ## Takeaway
 
