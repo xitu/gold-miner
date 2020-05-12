@@ -61,7 +61,6 @@ function trampoline(f) {
 Let's rewrite the `factorial` function to use `trampoline`. We need to:
 
 1. return a value in a base case.
-
 2. return a function to be called in other cases.
 
 We also add accumulator argument for our internal implementation of `_factorial`.
