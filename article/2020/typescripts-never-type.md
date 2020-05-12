@@ -11,7 +11,7 @@
 
 As its name indicates, TypeScript’s `never` type is the type of values that never occur. For example:
 
-```
+```ts
 type A = 'A';
 type B = 'B';
 type C = A & B;
@@ -25,7 +25,7 @@ If you think of types as sets of elements, `A` corresponds to the set `{'A'}` , 
 
 `never` can be used as a return type for a function to declare that the function doesn’t return anything.
 
-```
+```ts
 function a(): never {
   throw new Error('error');
 }
@@ -33,7 +33,7 @@ function a(): never {
 
 You would maybe use `void` in a such case, but `void` is less specific. `void` allows a function to return `undefined`, whereas `never` doesn’t.
 
-```
+```ts
 function a(): void {
   return undefined; // this is OK
 }
@@ -53,7 +53,7 @@ But TypeScript will not infer it on function declarations, it will instead infer
 
 This is not a bug. This was done to ensure backward compatibility. A lot of abstract functions out there that require the user to implement them don’t implicit declare the return type to be `void`. If TypeScript were to infer the type `never`, these functions couldn’t be overridden correctly anymore.
 
-```
+```ts
 class AbstractClass {
     methodToBeOverriden() { // the intended type is probably void
         throw new Error('Not implemented!');
