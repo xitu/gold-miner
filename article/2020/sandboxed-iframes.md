@@ -9,7 +9,7 @@
 
 Constructing a rich experience on today's web almost unavoidably involves embedding components and content over which you have no real control. Third-party widgets can drive engagement and play a critical role in the overall user experience, and user-generated content is sometimes even more important than a site's native content. Abstaining from either isn't really an option, but both increase the risk that Something Bad™ could happen on your site. Each widget that you embed -- every ad, every social media widget -- is a potential attack vector for those with malicious intent:
 
-
+![](https://user-images.githubusercontent.com/5164225/81707370-2fc15180-94a3-11ea-82c4-f63ed25cbb61.png)
 
 [Content Security Policy (CSP)](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) can mitigate the risks associated with both of these types of content by giving you the ability to whitelist specifically trusted sources of script and other content. This is a major step in the right direction, but it's worth noting that the protection that most CSP directives offer is binary: the resource is allowed, or it isn't. There are times when it would be useful to say "I'm not sure I actually *trust* this source of content, but it's soooo pretty! Embed it please, Browser, but don't let it break my site."
 
