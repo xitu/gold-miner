@@ -179,33 +179,33 @@ Coming back to our stack reconciler, when React traverses the tree, it is doing 
 
 在这里再次引用 Andrew Clark 所提到的：
 
-> "Fiber is reimplementation of the stack, specialized for React components. You can think of a single fiber as a virtual stack frame.
+> “Fiber 是对栈的重新实现，专用于 React 组件。你可以将单个的 Fiber 视为虚拟栈的帧。
 >
-> The advantage of reimplementing the stack is that you can keep stack frames in memory and execute them however (and whenever) you want. This is crucial for accomplishing the goals we have for scheduling.
+> 重新实现栈的优点是，你可以将栈帧保留在内存中，并根据需要（以及在任何时候）执行它们。这对于实现我们计划的目标至关重要。
 >
-> Aside from scheduling, manually dealing with stack frames unlocks the potential for features such as concurrency and error boundaries. We will cover these topics in future sections."
+> 除了调度之外，手动处理堆栈帧还可以开放并发和错误边界等功能。我们将在以后的章节中介绍这些主题。”
 
-In simple terms, a fiber represents a unit of work with its own virtual stack. In the previous implementation of the reconciliation algorithm, React created a tree of objects (React elements) that are immutable and traversed the tree recursively.
+简单来说，一个 fiber 相当于具有自己的虚拟栈的工作单元。在之前的协调算法实现中，React 创建了一个不可变的对象树（React 元素），并且递归遍历该树。
 
-In the current implementation, React creates a tree of fiber nodes that can be mutated. The fiber node effectively holds the component's state, props, and the underlying DOM element it renders to.
+在当前的实现中，React 创建了一个可以变化的 fiber 节点树。fiber 节点有效地保存组件的 state、props 和它渲染的底层 DOM 元素。
 
-And since fiber nodes can be mutated, React doesn't need to recreate every node for updates --- it can simply clone and update the node when there is an update. Also, in the case of a fiber tree, React doesn't do a recursive traversal; instead, it creates a singly linked list and does a parent-first, depth-first traversal.
+而且由于 fiber 节点可以变化，React 不需要重新创建每个节点来进行更新 —— 它可以在更新时简单地克隆并更新节点。另外，对于 fiber 树，React 不会进行递归遍历。而是创建一个单链表，进行父级优先、深度优先的遍历。
 
-### Singly linked list of fiber nodes
+### fiber 节点的单链表
 
-A fiber node represents a stack frame, but it also represents an instance of a React component. A fiber node comprises the following members:
+一个fiber 节点代表一个栈帧，也代表一个 React 组件的实例。一个fiber 节点包括以下成员：
 
-#### Type
+#### 类型
 
 `<div>`, `<span>`, etc. for host components (string), and class or function for composite components.
 
-#### Key
+#### 健
 
-Same as the key we pass to the React element.
+与传给 React 元素的键相同。
 
-#### Child
+#### 子元素
 
-Represents the element returned when we call `render()` on the component. For example:
+表示当我们在组件上调用 `render()` 时返回的元素。例如：
 
 ```jsx
 const Name = (props) => {
@@ -217,11 +217,11 @@ const Name = (props) => {
 }
 ```
 
-The child of `<Name>` is `<div>` here as it returns a `<div>` element.
+`<Name>` 的子元素是 `<div>`，因为它返回一个 `<div>` 元素。
 
 #### Sibling
 
-Represents a case where `render` returns a list of elements.
+代表 `render` 返回元素列表的情况。
 
 ```jsx
 const Name = (props) => {
@@ -229,13 +229,13 @@ const Name = (props) => {
 }
 ```
 
-In the above case, `<Customdiv1>` and `<Customdiv2>` are the children of `<Name>`, which is the parent. The two children form a singly linked list.
+在上述情况下，`<Customdiv1>` 和 `<Customdiv2>` 是父元素 `<Name>` 的子元素。 这两个子元素组成一个单链表。
 
-#### Return
+#### 返回
 
-Represents the return back to the stack frame, which is logically a return back to the parent fiber node. Thus, it represents the parent.
+表示返回栈帧，从逻辑上讲，它是返回到父 fiber 节点。 因此，它代表父级。
 
-#### `pendingProps` and `memoizedProps`
+#### `pendingProps` 和 `memoizedProps`
 
 Memoization means storing the values of a function execution's result so you can use it later on, thereby avoiding recomputation. `pendingProps` represents the props passed to the component, and `memoizedProps` gets initialized at the end of the execution stack, storing the props of this node.
 
@@ -243,9 +243,9 @@ When the incoming `pendingProps` are equal to `memoizedProps`, it signals tha
 
 #### `pendingWorkPriority`
 
-A number indicating the priority of the work represented by the fiber. The [`ReactPriorityLevel`](https://github.com/facebook/react/blob/master/src/renderers/shared/fiber/ReactPriorityLevel.js) module lists the different priority levels and what they represent. With the exception of `NoWork`, which is zero, a larger number indicates a lower priority.
+表示 fiber 工作优先级的数字。[`ReactPriorityLevel`](https://github.com/facebook/react/blob/master/src/renderers/shared/fiber/ReactPriorityLevel.js) 模块列出了不同的优先级及其代表的含义。除了为零的 `NoWork` 之外，数字越大优先级越低。
 
-For example, you could use the following function to check if a fiber's priority is at least as high as the given level. The scheduler uses the priority field to search for the next unit of work to perform.
+例如，可以使用以下函数检查某个 fiber 的优先级是否至少与给定的级别一样高。调度程序使用优先级字段搜索要执行的下一个工作单元。
 
 ```js
 function matchesPriority(fiber, priority) {
@@ -254,15 +254,15 @@ function matchesPriority(fiber, priority) {
 }
 ```
 
-#### Alternate
+#### 备用
 
-At any time, a component instance has at most two fibers that correspond to it: the current fiber and the in-progress fiber. The alternate of the current fiber is the fiber in progress, and the alternate of the fiber in progress is the current fiber. The current fiber represents what is rendered already, and the in-progress fiber is conceptually the stack frame that has not returned.
+任何时候，一个组件实例最多具有两个与其对应的 fiber：当前 fiber 和进行中 fiber。它们互为彼此的备用。当前 fiber 表示已经渲染的内容，而进行中 fiber 从概念上讲是尚未返回的栈帧。
 
-#### Output
+#### 输出
 
-The leaf nodes of a React application. They are specific to the rendering environment (e.g., in a browser app, they are `div`, `span`, etc.). In JSX, they are denoted using lowercase tag names.
+React 应用程序的叶节点。它们特定于渲染环境（例如，在浏览器应用中，它们是 `div`、`span` 等）。在 JSX 中，它们用小写标签名表示。
 
-Conceptually, the output of a fiber is the return value of a function. Every fiber eventually has output, but output is created only at the leaf nodes by host components. The output is then transferred up the tree.
+从概念上讲，fiber 的输出是函数的返回值。每个 fiber 最终都有输出，但是输出仅由主组件在叶节点上创建。输出之后将传到树上。
 
 The output is eventually given to the renderer so that it can flush the changes to the rendering environment. For example, let's look at how the fiber tree would look for an app whose code looks like this:
 
@@ -290,13 +290,13 @@ class App extends Component {
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
-![Fiber Tree Diagram](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/fiber-tree-diagram.png?resize=730%2C586&ssl=1)
+![Fiber 树图](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/fiber-tree-diagram.png?resize=730%2C586&ssl=1)
 
-We can see that the fiber tree is composed of singly linked lists of child nodes linked to each other (sibling relationship) and a linked list of parent-to-child relationships. This tree can be traversed using a [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search).
+我们可以看到，fiber 树由相互链接的子节点的单链表（兄弟关系）和父子关系的链表组成。可以使用[深度优先搜索](https://en.wikipedia.org/wiki/Depth-first_search)遍历此树。
 
-### Render phase
+### 渲染阶段
 
-In order to understand how React builds this tree and performs the reconciliation algorithm on it, I decided to write a unit test in the React source code and attached a debugger to follow the process.
+为了理解 React 如何构建此树并对其执行协调算法，我决定在 React 源码中写一个单元测试，并附加一个调试器来追踪该过程。
 
 If you're interested in this process, clone the React source code and navigate to [this directory](https://github.com/facebook/react/tree/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-dom/src/__tests__). Add a Jest test and attach a debugger. The test I wrote is a simple one that basically renders a button with text. When you click the button, the app destroys the button and renders a `<div>` with different text, so the text is a state variable here.
 
@@ -409,7 +409,7 @@ It's important to note here that each node doesn't move to `completeUnitOfWork(
 
 This is when React completes its render phase. The tree that's newly built based on the `click()` update is called the `workInProgress` tree. This is basically the draft tree waiting to be rendered.
 
-## Commit phase
+## 提交阶段
 
 Once the render phase completes, React moves on to the commit phase, where it basically swaps the root pointers of the current tree and `workInProgress` tree, thereby effectively swapping the current tree with the draft tree it built up based on the `click()` update.
 
