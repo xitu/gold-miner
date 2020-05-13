@@ -9,9 +9,9 @@
 
 ![来自[Charles Cheng](https://unsplash.com/@charlesc7?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7274/0*9Sxt2ppwVpNELxC0)
 
-在JS中使用递归是不安全的，请考虑使用蹦床函数。它将递归转化为 `while` 循环去绕过JavaScript的限制，目的是为了防止溢出。
+在 JavaScript 中使用递归是不安全的，请考虑使用蹦床函数。它将递归转化为 `while` 循环去绕过 JavaScript 的限制，目的是为了防止溢出。
 
-典型的递归函数就是阶乘计算。我们调用 `factorial` 函数 `n` 次来得到一个结果。每次调用都会向调用的堆栈添加一个 `factorial` 函数。
+一个典型的递归函数就是阶乘计算。我们调用 `factorial` 函数 `n` 次来得到一个结果。每次调用都会向调用的堆栈添加一个 `factorial` 函数。
 
 ```JavaScript
 function factorial(n) {
@@ -22,7 +22,7 @@ function factorial(n) {
 console.log(factorial(5)); // 120
 ```
 
-JavaScript中的递归通常是代码嗅觉的象征，通常应该避免使用。因为JavaScript是一种基于堆栈的语言，但目前没有尾调用优化。如果你运行了以下代码，将会报错RangeError: Maximum call stack size exceeded，意思是超过最大调用堆栈大小。
+JavaScript 中的递归通常是代码出现问题的象征，通常应该避免使用。因为 JavaScript 是一种基于堆栈的语言，但目前没有尾调用优化。如果你运行了以下代码，将会报错 RangeError: Maximum call stack size exceeded，意思是超过最大调用堆栈大小。
 
 ```JavaScript
 function recursiveFn(n) {
@@ -44,7 +44,7 @@ function traverseDOM(tree) {
 
 #### 蹦床函数 —— JavaScript中的安全递归方式
 
-使用 `蹦床函数` ，你可以将递归函数转化为 `while` 循环：
+使用 `蹦床函数`，你可以将递归函数转化为 `while` 循环：
 
 ```JavaScript
 function trampoline(f) {
@@ -86,15 +86,15 @@ recursiveFn(100000);
 console.log('No range error!');
 ```
 
-下一次你想使用递归的时候，试试 `trampoline` 吧！
+下一次你想使用递归的时候，试试 `蹦床函数` 吧！
 
-你可以尝试 `trampoline` 在这里[CodePen](https://codepen.io/baranovxyz/pen/zYvjKGN)。
+你可以尝试 `trampoline` 在这里 [CodePen](https://codepen.io/baranovxyz/pen/zYvjKGN)。
 
 ---
 
-蹦床函数并不是一种流行的技术。即使在ramda和lodash中，也没有提供蹦床函数。
+蹦床函数并不是一种流行的技术。即使在 ramda 和 lodash 中，也没有提供蹦床函数。
 
-感谢Kyle Simpson为我提供了蹦床函数的灵感。
+感谢 Kyle Simpson 为我提供了蹦床函数的灵感。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
