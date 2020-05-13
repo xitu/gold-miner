@@ -2,62 +2,61 @@
 > * 原文作者：[Shubham Gupta](https://medium.com/@shubham08gupta)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-write-clean-code-lessons-learnt-from-the-clean-code-robert-c-martin.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-write-clean-code-lessons-learnt-from-the-clean-code-robert-c-martin.md)
-> * 译者：
-> * 校对者：
+> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[niayyy-S](https://github.com/niayyy-S)
 
-# How to write clean code? Lessons learnt from “The Clean Code” — Robert C. Martin
+# 如何编写整洁代码？从 Robert C. Martin 的“代码整洁之道”中吸取的教训
 
-There are two things- Programming and Good Programming. Programming is what we have all been doing. Now is the time to do good programming. We all know that even the bad code works. But it takes time and resources to make a program good. Moreover, other developers mock you when they are trying to find what all is happening in your code. But it’s never too late to care for your programs.
+有两件事 —— 编程和良好的编程。编程是我们一直在做的事情。现在是时候关注良好的编程了。我们都知道，即使是糟糕的代码也能工作。但是写好代码，需要花费时间和资源。此外，当其他开发者试图找出你代码的运行细节，他们会嘲笑你。但是，关心你的程序永远不会太迟。
 
-This book has given me a lot of knowledge on what are the best practises and how to actually write code. Now I feel ashamed of my coding skills. Though I always strive to better my code, this book has taught a lot more.
+这本书给了我很多关于最佳实践和如何编写代码的知识。现在，我为自己的编程技能感到羞愧。尽管我总是努力改善我的代码，但是这本书教会我的更多。
 
-Now, you are reading this blog for two reasons. First, you are a programmer. Second, you want to be a better programmer. Good. We need better programmers.
+现在，你阅读这篇博客有两种原因。第一，你是个程序员；第二，你想成为更好的程序员。很好，我们需要更好的程序员。
 
-**Characteristics of a Clean code**:
+**整洁代码的特征**：
 
-1. It should be elegant — Clean code should be **pleasing** to read. Reading it should make you smile the way a well-crafted music box or well-designed car would.
-2. Clean code is focused —Each function, each class, each module exposes a single-minded attitude that remains entirely undistracted, and unpolluted, by the surrounding details.
-3. Clean code is taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.
+1. 应该是优雅的 —— 整洁的代码读起来令人**愉悦**。读这种代码，就像见到手工精美的音乐盒或者设计精良的汽车一般，让你会心一笑。
+2. 整洁的代码力求集中。每个函数、每个类和每个模块都全神贯注于一件事，完全不受四周细节的干扰和污染。
+3. 整洁的代码是有意维护的 —— 有人曾花时间让它保持简单有序。他们适当地关注到了细节。他们在意过。
+4. 能通过所有的测试
+5. 没有重复代码
+6. 包括尽量少的实体，比如类、方法、函数等
 
-**4.** Runs all the tests
+## 如何编写整洁代码？
 
-5. Contains no duplication
+## 有意义的命名
 
-6. Minimize the number of entities such as classes, methods, functions, and the like.
+名副其实。选个好名字要花时间，但省下来的时间要比花掉的多。变量、函数或类的名称应该已经回复了所有的大问题。它该告诉你，它为什么会存在，它做什么事，它应该怎么用。如果名称需要注释来补充，那就不算是名副其实。
 
-## How to write Clean code?
+Eg- int d; // 消逝的时间，以日计
 
-## Meaningful Names
+> **我们应该选择指明了计量对象和计量单位的名称。**
 
-Use intention revealing names. Choosing good names takes time but saves more than it takes.The name of a variable, function, or class, should answer all the big questions. It should tell you why it exists, what it does, and how it is used. If a name requires a comment, then the name does not reveal its intent.
+更好的命名应该是：-int elapsedTime。（尽管书中说的是 elapsedTimeInDays，但是我仍然倾向于前者。假设运行的时间改为毫秒，我们不得不将 int 改为 long，并且用 elapsedTimeInMillis 替换 elapsedTimeInDays。我们不知道何时是个尽头。）
 
-Eg- int d; // elapsed time in days.
+**类名** —— 类名和对象名应该是名词或名词短语，如 Customer、WikiPage、Account 和 AddressParser。避免使用 Manager、Processor、Data 或 Info 这样的类名。类名不应当是动词。
 
-> **We should choose a name that specifies what is being measured and the unit of that measurement.**
+**方法名** —— 方法名应当是动词或动词短语，如 postPayment、deletePage 或者 save。属性访问器、修改器和断言应该根据其值命名，并加上 get、set 前缀。
 
-A better name would be:- int elapsedTime. (Even though the book says elapsedTimeInDays, I would still prefer the former one. Suppose the elapsed time is changed to milliseconds. Then we would have to change long to int and elapsedTimeInMillis instead of elapsedTimeInDays. And for how long we’ll keep changing both the data type and name.)
+重载构造器时，使用描述了参数的静态工厂方法名。例如，
 
-**Class Names** — Classes and objects should have noun or noun phrase names like Customer, WikiPage, Account, and AddressParser. Avoid words like Manager, Processor, Data, or Info in the name of a class. A class name should not be a verb.
+Complex fulcrumPoint = Complex.FromRealNumber(23.0); 
+通常好于 
+Complex fulcrumPoint = new Complex(23.0);
 
-**Method Names —**Methods should have verb or verb phrase names like postPayment, deletePage, or save. Accessors, mutators, and predicates should be named for their value and prefixed with get, set.
+**每个概念对应一个词** —— 每个抽象概念选一个词，而且一以贯之。例如，使用 fetch、retrieve 和 get 来给多种类中的同种方法命名。你怎么能记得住哪个类中对应的是哪个名字呢？同样，在一堆代码中有 controller，又有 manager，还有 driver，就会令人困惑。DeviceManager 和 Protocol-Controller 之间有何根本区别？
 
-When constructors are overloaded, use static factory methods with names that describe the arguments. For example,
+## 函数
 
-Complex fulcrumPoint = Complex.FromRealNumber(23.0); is generally better than Complex fulcrumPoint = new Complex(23.0);
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200506082602.png)
 
-**Pick One Word per Concept —**Pick one word for one abstract concept and stick with it. For instance, it’s confusing to have fetch, retrieve, and get as equivalent methods of different classes. How do you remember which method name goes with which class? Likewise, it’s confusing to have a controller and a manager and a driver in the same code base. What is the essential difference between a DeviceManager and a Protocol- Controller?
+函数的第一规则就是要短小，第二条规则是还要更短小。这意味着 if 语句、else 语句、while 语句等，其中的代码块应该只有一行。该行大抵应该是一个函数调用语句。这样不仅能保持函数短小，而且，因为块内调用的函数拥有具体说明性的名称，从而增加了文档上的价值。
 
-## Functions
+#### 函数参数
 
-![](https://cdn-images-1.medium.com/max/2000/1*-4gyjQwWkHbhW7Mbx5PBKw.png)
+一个函数不应该有超过 3 个参数，尽可能使其少点。一个函数需要两个或者三个以上参数的时候，就说明这些参数应该封装为类了。通过创建参数对象，从而减少参数数量，看起来像是在作弊，但实则并非如此。
 
-The first rule of functions is that they should be small. The second rule of functions is that they should be smaller than that. This implies that the blocks within if statements, else statements, while statements, and so on should be one line long. Probably that line should be a function call. Not only does this keep the enclosing function small, but it also adds documentary value because the function called within the block can have a nicely descriptive name.
-
-#### Function arguments
-
-A function shouldn’t have more than 3 arguments. Keep it as low as possible. When a function seems to need more than two or three arguments, it is likely that some of those arguments ought to be wrapped into a class of their own. Reducing the number of arguments by creating objects out of them may seem like cheating, but it’s not.
-
-Now when I say to reduce a function size, you would definitely think how to reduce try-catch as it already makes your code so much bigger. My answer is make a function containing just the try-catch-finally statements. And separate the bodies of try/catch/finally block in a separate functions. Eg-
+现在，当我说要减少函数大小的时候，你肯定在想如何减少 try-catch 的内容，因为，它使你的代码变得越来越臃肿。我的答案是只生成一个仅包含 try-catch-finally 语句的方法。将 try/catch/finally 代码块从主体部分抽离出来，另外形成函数。
 
 ```Java
 public void delete(Page page) { 
@@ -80,23 +79,23 @@ private void logError(Exception e) {
 }
 ```
 
-This makes the logic crystal clear. Function names easily describe what we are trying to achieve. Error handling can be ignored. This provides a nice separation that makes the code easier to understand and modify.
+这使得逻辑变得清晰明了，函数名能更容易描述我们想要表达的。错误处理可以忽略。有了这样美妙的区隔，代码就更易于理解和修改了。
 
-**Error Handling is one thing** — Function should do one thing. Error handling is one another thing. If a function has try keyword then it should be the very first keyword and there should be nothing after the catch/finally blocks.
+**错误处理就是一件事** —— 函数应该只做一件事。错误处理就是一件事。如果关键字 try 在某个函数中存在，它就该是这个函数的第一个关键字，而且在 catch/finally 代码块后面也不该有其他内容。
 
-#### Comments
+#### 注释
 
-If you are writing comments to prove your point, you are doing a blunder. Ideally, comments are not required at all. If your code needs commenting, you are doing something wrong. Our code should explain everything. Modern programming languages are english like through which we can easily explain our point. Correct naming can prevent comments.
+如果你通过写注释来证明你的观点，那你就大错特错了。理想情况下，根本不需要注释。如果你的代码需要注释，说明你做错了。我们的代码应该阐述一切。现代编程语言是英语，我们能更加容易阐述自己的观点。正确的命名能避免注释。
 
-Legal comments are not considered here. They are necessary to write. Legal comments means copyright and licenses statements.
+与法律有关的注释除外，它们是有必要的，与法律有关的注释是指版权及著作权声明。
 
-#### Objects and Data Structures
+#### 对象和数据结构
 
-This is a complex topic so pay good attention to it. First we need to clarify the difference between object and Data Structures.
+这是个复杂的话题，所以要多加留意。首先，我们要澄清对象与数据结构之间的区别。
 
-> **Objects hide their data behind abstractions and expose functions that operate on that data. Data structure expose their data and have no meaningful functions.**
+> **对象把数据隐藏于抽象之后，暴露操作数据的函数。数据结构暴露其数据，没有提供有意义的函数。**
 
-These 2 things are completely different. One is just about storing data and other is how to manipulate that data. Consider, for example, the procedural shape example below. The Geometry class operates on the three shape classes. The shape classes are simple data structures without any behavior. All the behavior is in the Geometry class.
+这两件事完全不同，一个是关于存储 数据，另一个是关于如何操作这些数据。例如，考虑到过程式代码形状规范，Geometry 类操作三个形状类。形状类都是简单的数据结构，没有任何行为。所有行为都在 Geometry 类中。
 
 ```Java
 public class Square { 
@@ -133,9 +132,9 @@ public class Geometry {
 }
 ```
 
-Consider what would happen if a perimeter() function were added to Geometry. The shape classes would be unaffected! Any other classes that depended upon the shapes would also be unaffected! On the other hand, if I add a new shape, I must change all the functions in Geometry to deal with it. Again, read that over. Notice that the two conditions are diametrically opposed.
+想想看，如果给 Geometry 类添加一个 perimeter() 函数会怎么样。那些形状类根本不会因此而受影响！另一方面，如果添加一个新形状，就得修改 Geometry 中的所有函数来处理它，再读一遍代码，注意，这两种情形也是直接对立的。
 
-Now consider another approach for the above scenario.
+现在考虑上述场景的另一种方法。
 
 ```Java
 public class Square implements Shape {
@@ -165,31 +164,31 @@ public class Circle implements Shape {
 }
 ```
 
-Now we can easily add new Shapes i.e. data structures as compared to previous case. And if we have to add perimeter() function in only one Shape, we are forced to implement that function in all the Shapes as Shape class is an interface containing area() and perimeter() function. This means:
+现在，与之前的案例相比，我们能很轻松的添加新形状，即数据结构。而且，如果我们只需在一个 Shape 类中添加 perimeter() 方法，则我们就必须在所有 Shapes 类中实现该函数，因为 Shapes 类是一个包含 area() 和 perimeter() 方法的接口。这意味着：
 
-> **Data structures makes it easy to add new functions without changing the existing data structures. OO code(using objects), makes it easy to add new classes without changing existing functions.**
+> **数据结构便于在不改动既有数据结构的前提下添加新函数。面向对象代码（使用对象）便于在不改动既有函数的前提下添加新类。**
 
-The complimentary is also true:
+反过来讲也说得通：
 
-> **Procedural code(using data structures) makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change.**
+> **过程式代码（使用数据结构的代码）难以添加新的数据结构，因为必须修改所有的函数。面向对象代码难以添加新函数，因为必须修改所有的类。**
 
-So, the things that are hard for OO are easy for procedures, and the things that are hard for procedures are easy for OO!
+因此，对于面向对象困难的事情对于面向过程来说很容易，对于面向对象容易的事情对于面向过程来说很困难。
 
-In any complex system there are going to be times when we want to add new data types rather than new functions. For these cases objects and OO are most appropriate. On the other hand, there will also be times when we’ll want to add new functions as opposed to data types. In that case procedural code and data structures will be more appropriate.
+在任何复杂的系统中，我们有时会希望能够灵活的添加新的数据类型而不是新的函数。在这种情况下，对象和面向对象就是最合适的。另外一些时候，我们希望能灵活的添加新函数而不是数据类型。在这种情况下，过程式代码和数据结构将会更加合适。
 
-Mature programmers know that the idea that everything is an object **is a myth**. Sometimes you really **do** want simple data structures with procedures operating on them. So you have to carefully think what to implement also thinking about the future perspective that what will be easy to update. As for in this example, as any new shape can be added in the future, I will pick OO approach for it.
+老练的程序员知道，一切都是对象**只是一个传说**。有时，你真的想要在简单的数据结构上**做**一些过程试的操作。因此，你必须仔细思考要实现什么，也要考虑未来的前景，什么是容易更新的。在这个例子中，因为以后可能会添加其他新的形状，所以我会选择面向对象的方法。
 
 ---
 
-I understand it’s hard to write good programs given the timeline in which you have to do your tasks. But till how long you’ll delay? Start slow and be consistent. Your code can do wonders for yourself and mostly for others. I’ve started and found so many mistakes I’ve been doing all the time. Though it has taken some extra hours of my daily time limit, it will pay me in the future.
+我知道，在给定时间期限内完成你的工作，很难写好代码。但是你要耽搁多久呢？慢慢开始，坚持不懈。你的代码可以为你自己和其他人（主要受益者）创造奇迹。我已经开始，并且发现了许多我一直在犯的错误。虽然它每天占用我一些额外的时间，但将来我会得到报酬的。
 
-> This is not an end to this blog. I will continue to write about new ways to clean your code. Moreover, I will also write about some basic design patterns which are must know for every developer in any technology.
+> 这不是博客的结尾。我将继续编写关于代码整洁之道的新方法。此外，我还将写一些基础的设计模式，这是从事任何技术的开发者都必须了解的知识。
 
-In the mean time, if you like my blog and learnt from it, please applause. It gives me motivation to create a new blog faster :) Comments/Suggestions are welcomed as always. Keep learning and keep sharing.
+同时，如果你喜欢我的博客并从中获益，请鼓掌。它给了我更快创建新博客的动力 :) 欢迎进行评论/建议。不断学习，不断分享。
 
-[**A complete guide for learning Android App development**](https://mindorks.com/android-app-development-online-course)
+[**学习 Android APP 开发的完整指南**](https://mindorks.com/android-app-development-online-course)
 
-**Check out all the top tutorial at [mindorks.com](https://mindorks.com/android-tutorial)**
+**在 [mindorks.com](https://mindorks.com/android-tutorial) 上查看所有顶级教程**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

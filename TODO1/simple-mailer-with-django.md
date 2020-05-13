@@ -2,24 +2,24 @@
 > * 原文作者：[Juli Colombo](https://medium.com/@julietanataliacolombo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/simple-mailer-with-django.md](https://github.com/xitu/gold-miner/blob/master/TODO1/simple-mailer-with-django.md)
-> * 译者：
-> * 校对者：
+> * 译者：[shixi-li](https://github.com/shixi-li)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Build a Simple Mailing Service with Django
+# 使用 Django 构建一个简单的邮件服务
 
 ![](https://cdn-images-1.medium.com/max/3840/1*vXc5t2OrAan1o9viF-MkBQ.png)
 
-When creating a web application, it is frequently requested to send emails: no matter if it has to be done when users sign up in our platform, or if they forget their password, or if a payment confirmation has to be sent after a purchase. The email requirement is actually very important and it can be messy if we don’t structure an email service from the beginning.
+当我们创建一个 web 应用时，经常会有发送邮件的需要。无论是用户注册，还是用户忘记密码，又或者是用户下单后进行付款确认，都需要发送不同的邮件。所以发送邮件的需求实际上是非常重要的，而且如果不在一开始就构建结构清晰的邮件服务，到后面可能会是一团糟。 
 
-This post aims not only to help you define a flexible email service from scratch that allows you to change the email delivery platform easily, but also to be supple in terms of the content of the actual email.
+这篇文章不仅会教你如何定义一个能轻松切换发送平台的电子邮件服务，并且还可以对实际的邮件内容进行定制。
 
-I will be using [Django](https://www.djangoproject.com/) to show an example this time, but I hope the main idea can be spread to other frameworks and programming languages you might be using.
+本文中使用 [Django](https://www.djangoproject.com/) 来做出示例，但我希望你可以将其中主要的思路应用到其他你可能正在使用的语言或者框架中。
 
-Let’s start!
+让我们开始吧！
 
-## Sending a basic email
+## 基本的邮件发送
 
-Suppose we want to send an email to a user after he or she signs up to our web application. We can use [Django’s documentation](https://docs.djangoproject.com/en/3.0/topics/email/) to send that email in the view after all validations were run and the user was created. We will come up with something like this:
+假设我们希望在用户注册到我们的 web 应用后向他发送邮件。我们可以参照 [Django 文档](https://docs.djangoproject.com/en/3.0/topics/email/)，向验证通过并创建成功的用户发送邮件。具体实现如下：
 
 ```Python
 import logging
@@ -63,13 +63,13 @@ class RegisterView(APIView):
             return JsonResponse({'errors': 'Wrong data provided'}, status=400)
 ```
 
-Of course you must set up some important configurations in your settings like EMAIL_HOST and EMAIL_PORT, as the documentation says.
+当然正如文档中所说的那样，你也必须提前设定好一些重要的配置项，比如 EMAIL_HOST 和 EMAIL_PORT。
 
-Great! We are already sending our welcome email!
+很好！现在我们已经发送了欢迎邮件！
 
-## Create a mailer
+## 创建一个 mailer 类
 
-As I said before, we will probably need to send emails in several parts of our application, so it would be nice to have an email service or mailer who handles all the email requests, making it easier to add fixes or changes, because we won’t have to search through the whole code.
+正如我之前所说，在我们的应用中不同的模块可能都需要发送邮件，所以最好有一个电子邮件服务或者 mailer 类来处理所有的邮件请求。这样子会让改动和迭代邮件的需求变得更简单，因为我们不再需要每次都去翻遍全部代码。
 
 ```Python
 import logging
@@ -100,7 +100,8 @@ class BaseMailer():
         )
 ```
 
-Let’s see how our register view will look like after this change:
+让我们来看看经过这次改变后，注册服务的视图层是什么样子：
+
 
 ```Python
 import logging
@@ -141,9 +142,9 @@ class RegisterView(APIView):
             return JsonResponse({'errors': 'Wrong data provided'}, status=400)
 ```
 
-## Subclass mailers
+## mailer 子类
 
-Now that we have moved all the “email code” to a single place, we can take advantage of that! How about creating specific mailers that know what content to send when they are called? Let’s add a mailer that will get into action everytime new users sign up and another one that sends orders’ confirmations!
+现在我们已经把所有的“邮件代码”移动到一个单独的地方，可以把它利用起来啦！这时候就能继续创建特定的 mailer 类，并让它们知道每次被调用时该发送什么内容。现在让我们创建一个 mailer 类用来在每次用户注册时进行调用，另一个 mailer 类用来发送订单的确认信息。
 
 ```Python
 import logging
@@ -190,9 +191,9 @@ class NewOrderMailer(BaseMailer):
                          html_message='<p>You have just created a new order.</p>')
 ```
 
-This shows that it is very easy to incorporate more mailers for different situations. You just have to let the basic mailer handle the implementation, and the subclasses set the content.
+这表明在不同的场景下集成邮件服务是非常简单的。你只需要构造一个基础的 mail 类来进行实现，然后在子类中设置具体内容。
 
-Now our register view will look much cleaner, because it doesn’t have to handle all the email stuff:
+因为不用实现所有邮件相关的代码，所以现在我们注册服务的视图层看起来更加简明：
 
 ```Python
 import logging
@@ -230,9 +231,9 @@ class RegisterView(APIView):
             return JsonResponse({'errors': 'Wrong data provided'}, status=400)
 ```
 
-## Using Sendgrid
+## 使用 Sendgrid
 
-Suppose that we have to move our email backend to [Sendgrid](https://sendgrid.com/) (a customer communication platform for transactional and marketing email) using its official [python library](https://github.com/sendgrid/sendgrid-python). We won’t be using Django’s **send_email** any longer. Instead we will have to use the new library’s syntax. Well… We are lucky! We have all the code related to email management in just one place and it will be easier for us to do this refactor 😉
+假设我们必须使用正式的 [python 库](https://github.com/sendgrid/sendgrid-python) 将我们的邮件服务后端迁移 [Sendgrid](https://sendgrid.com/) （一个用于交易和营销邮件的客户通信平台）。我们将不能再使用 Django 的 **send_email** 方法，而且我们还不得不使用新库的语法。嗯，但我们还是很幸运地！因为我们已经将所有与邮件管理相关的代码都放到了一个单独的地方，所以我们可以很轻松的做出这次改动 😉
 
 ```Python
 import logging
@@ -279,15 +280,15 @@ class NewOrderMailer(BaseMailer):
         super().__init__(to_email, subject='New Order', template_id=5678)
 ```
 
-Be aware that you must set Sendgrid’s api key in your settings and also note that html templates will be managed directly from Sendrid’s web page, and you will need to have the templates’ ids to specify which one should be used.
+请注意你必须在配置文件中设置 Sendgrid 的 api 密钥，以及指定需要被使用的模板的 ID，Sendrid 会直接从自己的页面中根据这个 ID 来加载指定的 html 邮件模版。
 
-Great! It was not so difficult and we don’t have to modify each line of code where we want to send an email!
+太好了！这并不困难，而且我们不用去修改发送邮件的每一行代码。
 
-Let’s get a little bit further now.
+现在让我们的步子再迈大一点。
 
-## Personalize email’s content with domain data
+## 根据域信息定制邮件内容
 
-Of course when we send emails, it is likely to use some domain data to fill in the email’s template. For example, it would be friendlier if our welcome email had the new user’s name in it. Sendgrid allows you to define variables in the template that will be replaced with the actual information that receives from us. So let’s add this data!
+当然我们发送邮件的时候，有时候可能也会使用一些域信息来填充模板。比如说，如果在欢迎邮件里面能有新用户的名字，那肯定会显得更友好。Sendgrid 允许你在邮件模板中定义变量，这些变量将替换为从我们这里接收的实际信息。所以现在让我们来添加这部分数据吧！
 
 ```Python
 import logging
@@ -341,7 +342,7 @@ class NewOrderMailer(BaseMailer):
         super().__init__(to_email, subject='New Order', template_id=5678)
 ```
 
-The only problem I see here is that this substitutions scheme isn’t very flexible. It is likely to happen that we have to pass other data depending on the context that cannot be accessed via the user, for instance: new order’s number, reset password link, etc. There can be quite a lot of these variables and passing them as named parameters could make the code messier and dirtier. We want a keyworded, variable-length argument list, usually called ****kwargs, **but let’s name them** **substitutions** to make it more expressive:
+这里我看到的唯一一个问题是替换方案不那么灵活。很可能会发生的情况是，我们传递的数据可能是用户根据请求的上下文访问不到的。比如说，新的订单编号、重置密码的链接等等。这些变量参数可能很多，把它们作为命名参数传递可能会让代码变得比较脏乱。我们希望的是一个基于关键字，并且长度可变的参数列表，一般来说会被定义为 **kwargs，但在此我们命名它为 **substitutions，让这个表达会更形象：
 
 ```Python
 import logging
@@ -397,18 +398,18 @@ class NewOrderMailer(BaseMailer):
         super().__init__(to_email, subject='New Order', template_id=5678, **substitutions)
 ```
 
-In case you have to pass extra information to the mailer, you will do something like this:
+如果希望将额外信息传递给 mailer 类，就需要按如下编码：
 
 ```
 NewOrderMailer(user.email, order_id=instance.id).send_email()
 PasswordResetMailer(user.email, key=password_token.key).send_email()
 ```
 
-## Summing up
+## 总结
 
-We have created a flexible mailer which encapsulates all the code related to emails in one place, making it easier to maintain, and that also receives variable context parameters to fill in the email content! Thinking of the whole approach at once could be difficult, but making it step by step is simpler and the benefits are a lot. **I encourage you to add the feature of attaching files to an email using this design!**
+我们已经创建了一个灵活的 mailer 类，它将所有与电子邮件相关的代码封装在一个单独的地方，使代码维护变得更容易，并且还接收可变的上下文参数来填充电子邮件内容！一下子设计这整个方案肯定会很困难，但是我们一步一步的去实现就会简单得多，并且会在这个过程中受益良多。**我鼓励你基于这个设计，继续开发邮件附件的功能！**
 
-Thank you very much for reading this post and I hope it helps you for your projects. Follow me for upcoming posts, and I wish you good luck and happy coding!
+非常感谢你阅读这篇文章，我希望它能对你的项目有所帮助。也请关注我即将发布的帖子，祝你人生幸运，编码愉快。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

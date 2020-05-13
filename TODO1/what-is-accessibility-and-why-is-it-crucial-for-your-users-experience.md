@@ -2,38 +2,38 @@
 > * 原文作者：[Ania Puchala](https://medium.com/@itsaniahere)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-accessibility-and-why-is-it-crucial-for-your-users-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-accessibility-and-why-is-it-crucial-for-your-users-experience.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Roc](https://github.com/QinRoc)
+> * 校对者：[samyu2000](https://github.com/samyu2000)，[z0gSh1u](https://github.com/z0gSh1u)
 
-# What is accessibility and why is it crucial for your user’s experience?
+# 什么是无障碍？为什它对于用户体验很重要？
 
 ![Illustration made using Humaaans by Pablo Stanley](https://cdn-images-1.medium.com/max/3000/1*qYEhqdw3LaYgol-wrjrjDg.png)
 
-We are all different. We may have different gender, age, culture, health conditions. But probably we use many common products. So what makes them usable for so many different people? Accessibility.
+我们每个人都不相同。我们可能有不同的性别、年龄、文化和健康状况。但是我们可能使用许多共同的产品。所以是什么让这些产品对于这么多不同的人都可用呢？答案就是无障碍。
 
-Let’s see what accessibility stands for. 
+让我们来看看无障碍代表着什么。
 
-Following Wikipedia, “accessibility refers to the design of products, devices, services, or environments for people who experience disabilities.” 
+根据 Wikipedia 的说法，“无障碍是指针对残障人士的产品、设备、服务或者环境的设计。”
 
-What kind of pictures appeared in your mind when you read the word “disabilities”? Was it a man in a wheelchair? Or maybe a deaf woman? Or a blind child?
+当你读到“残障”这个单词的时候，你的脑海中浮现出了怎样的画面？是一个坐在轮椅上的男人？或者是一个失聪的女人？还是一个失明的儿童？
 
-These are probably the most common understandings of disabilities. But are they showing the spectrum of the problem?
+这些可能是对于残障的最常见的理解。但是它们是否反映了问题的全部呢？
 
-In fact, disability literally means that the person is not able to do something using their senses, body or mind for some reason. And there are plenty of possible reasons.
+事实上，残障人士的字面意思是指那些由于某种原因，不能够使用他们的感觉、身体、或者意识去做某些事情的人。并且其中的原因是多种多样的。
 
-World Health Organization says that disability is context depended. It means that “Disability is not just a health problem. It is a complex phenomenon, reflecting the interaction between features of a person’s body and features of the society in which he or she lives.” In other words, each situation that you are in defines your ability to achieve your goal. When the person has a broken arm she will not be able to use their smartphone using both hands. But the same experience would get the person on a crowded bus while holding a handrail. And if someone is in the loud restaurant he will not be able to hear the video — he would need, for example, the closed caption.
+世界卫生组织称残障的意思取决于上下文。这句话的意思是“残障不只是一个健康问题。它是一个复杂的现象。这个现象反映了一个人的身体功能和他或她所生活的社会的功能的相互作用。”换句话说，你所处的环境定义了你实现目标的能力。当一个人断了一只手的时候，她就无法用两只手来使用智能手机。但是当一个人在一辆拥挤的公共汽车上，握住一个把手的时候，也会有相同的体验。有的人在嘈杂的餐馆中会无法听到视频的声音，这时他可能就需要隐藏式字幕。
 
-In Inclusive Design Toolkit, Microsoft called it the persona spectrum. It reveals the range of users’ disabilities depending on the context. Following the toolkit — users can have either permanent, temporary or situational disabilities. This knowledge can help you analyze your product in terms of not obvious use cases. If your product meets a deaf person’s needs, the person with an ear infection or who stays in a loud restaurant will benefit from it as well.
+在包容性设计工具箱（Inclusive Design Toolkit）中，Microsoft 称不同用户的情况为“用户画像谱”。它反映了用户在不同环境中残障的范围。有了这个工具箱，那些有永久的、暂时的或者环境相关的残障的用户就可以使用这个产品。这个知识可以帮助你分析你的产品在不明显的用例中的表现。如果你的产品满足了一个失聪者的需求，那么那些一只耳朵受到感染的人，或者是待在嘈杂餐馆中的人也会从中受益。
 
-When you solve the accessibility problem for one group, you actually extend the value of it to many other people who will use your solution in temporary or situational circumstances. Thanks to that you can include as many people as possible in a similar experience of similar quality and value.
+当你为一个群体解决了无障碍问题的时候，你实际上扩大了它的价值，让其他很多人也受益。这些人可以在某些特殊环境下使用你的解决方案。多亏了这个，你能够让尽可能多的人们以相似的质量和价值体验相似的经历。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*c54uroDrwHzhtVj6CE-3cg.png)
 
-If you want to comprehensively evaluate your product in terms of accessibility, get familiar with WCAG standards. This guideline created by W3C organization provides complex recommendations for creating web and mobile products, so as many people as possible can use it in any circumstances. And remember, when you cover the accessibility problems for the group of permanently disabled people, a lot more people will benefit from it.
+如果你想要综合评估你的产品的无障碍，请去熟悉 WCAG 标准。这个指南由 W3C 组织创造，它为制作网页和移动产品提供了复杂的建议，以便让尽可能多的人可以在任何环境中使用它。记住，当你为永久残障的人群解决了无障碍问题的时候，更多的人也会从中受益。
 
 ---
 
-Read more:
+了解更多：
 
 - [https://www.microsoft.com/design/inclusive/](https://www.microsoft.com/design/inclusive/)
 - [https://www.w3.org/WAI/standards-guidelines/wcag/](https://www.w3.org/WAI/standards-guidelines/wcag/)

@@ -5,6 +5,7 @@
 > * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：[PingHGao](https://github.com/PingHGao)、[司徒公子](https://github.com/todaycoder001)
 
+
 # 贪心算法，你入门了吗？
 
 ![](https://cdn-images-1.medium.com/max/2000/0*udmPDWYUmHDNJX5D)
