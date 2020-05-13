@@ -3,7 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/greedy-algorithms-101.md](https://github.com/xitu/gold-miner/blob/master/article/2020/greedy-algorithms-101.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：[PingHGao](https://github.com/PingHGao)
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[司徒公子](https://github.com/todaycoder001)
+
 
 # 贪心算法，你入门了吗？
 
@@ -11,7 +12,7 @@
 
 贪心算法在大多数情况下都易于实现，在求解最优问题时，也是最常用的编码套路之一，而且它的资源消耗也比较低。
 
-不过这个算法也有缺点，它不能保证每次都能找到最优解，有时候只能找到接近最优解的方案。不管怎样，在很多情况下，能找到接近最优解的方案已经绰绰有余了。
+不过这个算法也有缺点，它不能保证每次都能找到最优解，有时候只能找到接近最优解的方案。不管怎样，在很多情况下，接近最优解就足够了。
 
 这个算法一般是对规模为 “**n**” 的问题迭代 “**n**” 次，所以它的复杂度可能是 O(n)，O(n × log(n))，但是不会超过 O(n²)。
 
@@ -43,7 +44,7 @@ public ArrayList greedy(ArrayList candidates) {
 }
 ```
 
-我首先给出一些在伪代码中用到的术语的定义。
+在解释代码之前，我先给出一些在伪代码中用到的术语的定义。
 
 1. **Candidates:** 所有可能的解集。它可以是任意的数据类型，但通常是可迭代的。在我们处理示例问题时，会加深对它的理解。现在请先记住结论 😁。
 2. **Candidate:** 在解集中，我们当前选中的一个解。
@@ -168,7 +169,7 @@ ArrayList < Coin > greedySchema(ArrayList < Integer > values, int quantity) {
 
 综上所述，即使对于简单的个人项目，贪心算法也能表现优异，它不需要你花费太多时间去思考，并且只消耗很少的资源。而且，使用贪心算法可以轻松解决很多面试问题。大多数时候，使用贪心或动态规划都可以满足内存和复杂度方面的要求，但这就是另一个话题了 😉。
 
-感谢您的阅读，请多多评论哦 😄。
+感谢您的阅读，欢迎评论 😄。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
