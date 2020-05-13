@@ -2,24 +2,24 @@
 > * 原文作者：[Dornhoth](https://medium.com/@dornhoth)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understand-the-deflate-compression-behind-the-zip-and-gzip-formats.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understand-the-deflate-compression-behind-the-zip-and-gzip-formats.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JohnieXu](hptts://github.com/johniexu)
+> * 校对者：[Jessica](https://github.com/cyz980908)
 
 # 理解 zip 和 gzip 压缩格式背后的压缩算法
 
-![Photo by [JJ Ying](https://unsplash.com/@jjying?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/compress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10944/1*-epDKh4om1nhGYKdJJN_qw.jpeg)
+![图片来自 [Unsplash](https://unsplash.com/s/photos/compress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 由 [JJ Ying](https://unsplash.com/@jjying?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 发布 ](https://cdn-images-1.medium.com/max/10944/1*-epDKh4om1nhGYKdJJN_qw.jpeg)
 
-众所周知每一个字节的数据通过网络上传或者下载都是要花流量的，即需要花钱的。尽管现存的压缩算法已经有几十上百种，但其中最流行的压缩算法可能还是 zip。gzip 压缩算法虽然和 zip 有着相似的名字，但却是另一种不同的算法。gzip 算法应用也相当广泛，它被 HTTP 三种标准压缩规范之一（译者注：属于端到端压缩技术，参见[HTTP 协议中的数据压缩](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Compression)）所采用。虽然各种压缩算法适用于不同场景，但是它们的底层都是基于 **DEFLATE**。**DEFLATE** 是同时使用了**LZ77**算法与**哈夫曼编码**（Huffman Coding）的一个无损数据压缩算法。
+众所周知，通过网络上传或者下载数据的每一个字节都是要花流量的，即需要花钱的。尽管现存的压缩算法已经有几十上百种，但其中最流行的压缩算法可能还是 zip。gzip 压缩算法虽然和 zip 有着相似的名字，但却是另一种不同的算法。gzip 算法应用也相当广泛，它被 HTTP 三种标准压缩规范之一（译者注：属于端到端压缩技术，参见[HTTP 协议中的数据压缩](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Compression)）所采用。虽然各种压缩算法适用于不同场景，但是它们的底层都是基于 **DEFLATE**。**DEFLATE** 是同时使用了 **LZ77** 算法与**哈夫曼编码**（Huffman Coding）的一种无损数据压缩算法。
 
 ## LZ77
 
-**DEFLATE** 基于 **LZ77**算法——这是一种用于文本压缩的无损压缩技术。
+**DEFLATE** 基于 **LZ77** 算法——这是一种用于文本压缩的无损压缩技术。
 
 #### 压缩
 
 **LZ77** 算法通过使用编码器或者解码器中已经出现过的相应匹配数据信息替换当前数据从而实现压缩功能。
 
-此算法并非同时在整个文本中查找重复的字母，一般会先设定一个固定大小的搜索缓冲区，例如 20 (在真实场景中，这个缓冲区的大小一般是几十 kB )。接着在逐一对文本中字母进行编码时，首先会判断当前字母是否有出现在前面缓冲区的 20 个字母中。如果能找到匹配的字母，就记录下当前字母与找到的字母的偏移量 `d`，这样就完成了一个字母编码的第一阶段。接来下，用当前在编码字母邻近的下一个字母与缓冲区中匹配上字母邻近的下一字母进行匹配，如果匹配上就继续进行下一个字母的匹配，如此循环往复直到缓冲区 20 个字母匹配完或者邻近的字母未匹配上，就结束匹配过程。结束上述过程后，将当前位置匹配上的连续字母替换成与缓冲区字母的偏移量以及这段连续字母的个数 `l` 。这样，字母编码的第二阶段就完成了。
+此算法并非同时在整个文本中查找重复的字母，一般会先设定一个固定大小的搜索缓冲区，例如 20（在真实场景中，这个缓冲区的大小一般是几十 kB ）。接着在逐一对文本中字母进行编码时，首先会判断当前字母是否有出现在前面缓冲区的 20 个字母中。如果能找到匹配的字母，就记录下当前字母与找到的字母的偏移量 `d`，这样就完成了一个字母编码的第一阶段。接来下，用当前在编码字母邻近的下一个字母与缓冲区中匹配上字母邻近的下一字母进行匹配，如果匹配上就继续进行下一个字母的匹配，如此循环往复直到缓冲区 20 个字母匹配完或者邻近的字母未匹配上，就结束匹配过程。结束上述过程后，将当前位置匹配上的连续字母替换成与缓冲区字母的偏移量以及这段连续字母的个数 `l` 。这样，字母编码的第二阶段就完成了。
 
 让我们用这个例子来看看它是如何工作的:
 
@@ -56,7 +56,7 @@ ERTO(1, 1)(4, 3)(3, 1)(1, 1)
 abc(3, 2)(1, 1)
 ```
 
-字母 `abc `保持不变，标记对 `(3, 2)` 表示从当前位置向左移动 3 个单位，然后取出 2 个字母，因此其转换为 `ab` 。现在原始文本变成了这样 `abcab(1, 1)`，最后的一个标记对表示从当前位置向左移动 1 个单位，然后取出 1 个字母，因此转换为 `b` 。最终解压完成的文本为 `abcabb` 。
+字母 `abc` 保持不变，标记对 `(3, 2)` 表示从当前位置向左移动 3 个单位，然后取出 2 个字母，因此其转换为 `ab`。现在原始文本变成了这样 `abcab(1, 1)`，最后的一个标记对表示从当前位置向左移动 1 个单位，然后取出 1 个字母，因此转换为 `b`。最终解压完成的文本为 `abcabb`。
 
 ## 哈夫曼编码
 
