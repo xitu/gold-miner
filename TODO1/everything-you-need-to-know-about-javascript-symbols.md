@@ -3,20 +3,20 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-javascript-symbols.md](https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-javascript-symbols.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[Gesj-yean](https://github.com/Gesj-yean)，[X1ny](https://github.com/x1ny)
 
 # 关于 JavaScript 中 Symbol 数据类型你需要了解的一切
 
 ![](https://cdn-images-1.medium.com/max/3684/1*13nRTbL0V3Idd3fDdKGkjQ.png)
 
-**JavaScript 的 Symbol** 是一个相对较新的 JavaScript “特性”。它是 [ES6](http://es6-features.org) 中的一部分，早在 2015 年就被引入了。在这篇文章中，我将会讲到：
+**JavaScript 的 Symbol** 是一个相对较新的 JavaScript “特性”。它于 2015 年作为 [ES6](http://es6-features.org) 的一部分被引入。在这篇文章中，我将会讲到：
 
 1. 究竟 JavaScript 中的 Symbol 是什么
 2. 在语言中加入这种数据类型的动机
 3. Symbol 数据类型是否成功地解决了它所要解决的问题？
 4. 与其他语言中的 Symbol 数据类型的区别，例如 Ruby
 5. JavaScript 中一些比较出名的 symbol
-6. 这种数据类型的用途
+6. 这种数据类型的好处
 
 ## JavaScript 中的 Symbol
 
@@ -42,13 +42,13 @@ symbol 是通过调用 Symbol 函数创建的，该函数接受一个可选参�
 
 ## 在 Javascript 中加入这种数据类型的动机
 
-添加这种数据类型的原因之一是为了在 JavaScript 中可以使用私有属性。在 Symbol 之前，私有属性和不变属性都是通过闭包、代理和其他变通的方法来解决的。但是这些解决方案都过于冗长，并且需要大量的代码和逻辑才能实现。
+添加这种数据类型的原因之一是为了在 JavaScript 中可以使用私有属性。在 Symbol 之前，私有性和不变性是通过闭包、代理和其他变通的方法来解决的。但是所有这些解决方案都过于冗长，需要大量的代码和逻辑才能实现。
 
 因此，让我们看一下 Symbol 会如何解决该问题。从 Symbol 函数返回的每个 symbol 值都是唯一的，并且可用作对象属性标识符。这是 Symbol 的主要用途。
 
 ![](https://cdn-images-1.medium.com/max/4328/1*4aakLJrmi1vCnqPIncSFDw.png)
 
-由于每个 symbol 都是唯一的，并且两个 symbol 之间不相等，所以如果当一个 symbol 用作属性标识符，并且在某个作用域内不可时用，那么就不应该从该作用域内访问该属性。
+由于每个 symbol 都是唯一的，并且两个 symbol 之间不相等，所以如果当一个 symbol 用作属性标识符，并且在某个作用域内不可时用，那么这个属性则无法在该作用域中访问。
 
 ![](https://cdn-images-1.medium.com/max/4656/1*DOx36fH8NLbGYatdUKWG9w.png)
 
@@ -62,7 +62,7 @@ symbol 是通过调用 Symbol 函数创建的，该函数接受一个可选参�
 
 ## symbol 能实现私有属性吗?
 
-JavaScript 的 Symbol **没有** 实现属性私有化。你不能指望用 Symbol 使你的库的内容对用户隐藏。在 Object 类上定义了一个名为 **Object.getOwnPropertySymbols()** 的方法，该方法需要传入一个对象作为参数并返回参数对象的属性 symbol 数组，所以即使是 symbol 也都无法隐藏属性。
+JavaScript 的 Symbol **没有** 实现属性私有化。你不能指望用 Symbol 来对使用者隐藏一些你的库中的内容。在 Object 类上定义了一个名为 **Object.getOwnPropertySymbols()** 的方法，该方法需要传入一个对象作为参数并返回参数对象的属性 symbol 数组，所以即使是 symbol 也都无法隐藏属性。
 
 ![](https://cdn-images-1.medium.com/max/7072/1*mzNkoGU403VrYTL0T2GBtw.png)
 
@@ -74,7 +74,7 @@ JavaScript 的 Symbol **没有** 实现属性私有化。你不能指望用 Symb
 
 现在让我们讨论一下编程中的 symbol。[维基百科](https://en.wikipedia.org/wiki/Symbol_(programming))中 symbol 的定义如下：
 
-> 计算机编程中的 symbol 是一种原始数据类型，它的实例具有唯一的可读性。
+> 在计算机编程中 symbol 一般指的都是一种原始数据类型，它的实例具有唯一的可读性。
 
 在 JavaScript 中，symbol 是一种基本的数据类型，虽然 JavaScript 不会强制你把实例变成易于阅读的，但你可以为 symbol 提供一个用于调试的描述属性。
 
@@ -82,7 +82,7 @@ JavaScript 的 Symbol **没有** 实现属性私有化。你不能指望用 Symb
 
 ![](https://cdn-images-1.medium.com/max/5176/1*0u8FeH7Nn_fSmLWV2ixcLg.png)
 
-或许你也注意到了，在 Ruby 中，我们绝不会将“创建的” symbol 分配给变量。如果我们在 Ruby 代码中使用（创建）了symbol，则在程序的整个执行过程中，不管其创建上下文如何，symbol 将始终是相同的。
+或许你也注意到了，在 Ruby 中，我们绝不会将“创建的” symbol 分配给变量。如果我们在 Ruby 代码中使用（**创建**）了 symbol，则在程序的整个执行过程中，不管其创建上下文如何，symbol 将始终是相同的。
 
 ![](https://cdn-images-1.medium.com/max/5088/1*KbQyAg5yHC7KXSdBSWyR7Q.png)
 
@@ -162,7 +162,7 @@ JavaScript 有一些内置的 symbol，允许开发者在 Javascript 还没引�
 
 ![](https://cdn-images-1.medium.com/max/3184/1*yhZemW2nIYKx_CLHWP72-g.png)
 
-动态值键的情况不会发生，是因为除了 symbol 之外，没有其他值等于 symbol。
+动态值键的情况不会发生，因为一个 symbol 不等于其他任何值，除了它本身。
 
 当然，还有一些众所周知的 symbol，比如 **`Symbol.iterator`** 以及 **`Symbol.asyncIterator`** 也很有趣。
 
