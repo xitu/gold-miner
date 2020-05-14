@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2560/1*M4FLqVN1o0AVstiq1FmWdA.jpeg)
 
-## 为什么要追求所谓的"原生体验"?
+## 为什么要追求所谓的"原生体验"？
 
 原生 App 更加稳定、运行速度更快，并且提供了许多 Web App 所缺乏的特性（可以说直到最近 Web App 依旧缺乏）。简而言之，通常原生 App 比 Web App 提供更好的用户体验。
 
@@ -185,7 +185,6 @@ const supported = await (async () => 'FaceDetector' in window &&
     await new FaceDetector().detect(document.createElement('canvas'))
     .then(_ => true)
     .catch(e => e.name === 'NotSupportedError' ? false : true))();
-
 ```
 
 这些检测是异步工作的，所以需要一些时间来检测人脸。
@@ -258,7 +257,6 @@ window.setTimeout(() => {
   wakeLock.release();
   wakeLock = null;
 }, 5000);
-
 ```
 
 唤醒锁有一个生命周期，并且对页面可见性和全屏模式很敏感。所以在请求唤醒锁之前检查这些状态。
@@ -271,10 +269,10 @@ const handleVisibilityChange = () => {
 };
 document.addEventListener('visibilitychange', handleVisibilityChange);
 document.addEventListener('fullscreenchange', handleVisibilityChange);
-
 ```
 
 查看 Demo：
+
 [**唤醒锁 API Demo**](https://wake-lock-demo.glitch.me/)
 
 ## 7. Service worker 和 Cache 缓存 API
@@ -345,10 +343,10 @@ async function getClipboardContents() {
 	console.error(e, e.message);
   }
 }
-
 ```
 
 该 API 如何使用：
+
 [**支持异步剪贴板 API 的图像**](https://web.dev/image-support-for-async-clipboard/#demo)
 
 ## 9. Web 目标共享 API
@@ -377,7 +375,6 @@ async function getClipboardContents() {
 	"url": "url"
   }
 }
-
 ```
 
 ## 10. 定期向后台同步 API
@@ -401,7 +398,6 @@ self.addEventListener('periodicsync', (event) => {
 	event.waitUntil(updateArticles());
   }
 });
-
 ```
 
 ## 结论
