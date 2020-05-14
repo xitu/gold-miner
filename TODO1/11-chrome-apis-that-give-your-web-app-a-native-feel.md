@@ -3,33 +3,33 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/11-chrome-apis-that-give-your-web-app-a-native-feel.md](https://github.com/xitu/gold-miner/blob/master/TODO1/11-chrome-apis-that-give-your-web-app-a-native-feel.md)
 > * 译者：[Jessica](https://github.com/cyz980908)
-> * 校对者：
+> * 校对者：[niayyy-S](https://github.com/niayyy)，[Gesj-yean](https://github.com/Gesj-yean)
 
-# 11 个能让你的 App 像原生 App 的 Chrome API
+# 11 个能让你的 Web App 像原生 App 的 Chrome API
 
 ![](https://cdn-images-1.medium.com/max/2560/1*M4FLqVN1o0AVstiq1FmWdA.jpeg)
 
-## 为什么要追求所谓的"像原生 App"?
+## 为什么要追求所谓的"原生体验"?
 
-原生 App 更加稳定、运行速度更快，并且提供了许多 Web App 所缺乏的特性（可以说直到最近才体现出其相对于 Web App 的优势）。简而言之，通常原生 App 的用户体验要比 Web APP 好。
+原生 App 更加稳定、运行速度更快，并且提供了许多 Web App 所缺乏的特性（可以说直到最近 Web App 依旧缺乏）。简而言之，通常原生 App 比 Web App 提供更好的用户体验。
 
 当然，Web App 有其自身的优势 —— 它具有通用性，入门简单，而且始终是最新版本。此外，对我们开发人员来说更重要的是，它的性价比很高。
 
-我们最好的解决方案不应该是两者之间的选择，而是“小孩子才做选择，我全都要”。
+我们最好的解决方案不应该是两者之间的折中，而是“小孩子才做选择，我全都要”。
 
 ## 1. 短信服务接收
 
 ![来自：[https://web.dev/sms-receiver-api-announcement/](https://web.dev/sms-receiver-api-announcement/)](https://cdn-images-1.medium.com/max/2234/0*K3DcqnbwAiKsFJf9)
 
-手机本质上是用来与用户进行通信和验证的。对于在线交易，App 会通过短信向手机发送一次性密码（one-time password，OTP）来验证用户的手机号码。用户复制再 OTP 并通过 Web 浏览器将其发送到相应的代理。
+手机本质上是用于用户的通信和验证。对于在线交易，App 会通过短信向手机发送一次性密码（one-time password，OTP）来验证用户的手机号码。用户复制 OTP 并通过 Web 浏览器将其发送到相应的代理商。
 
 用户每次的确认过程中都需要操作两次 OTP，搜索到验证码短信，复制最新的 OTP 是一项繁琐而又有风险的工作。而通过短信接收 API，可以直接将短信验证信息获取的 OTP 进行复制并验证，不需要用户自己进行复制粘贴操作。
 
-一旦你收到一个有 OTP 的验证码短信，你会看到一个底页弹出，提示验证电话号码。点击应用上的”验证“，就会将 OTP 程序化地传输到浏览器，自动提交表单。除了短信接收 API 之外，建议使用表单验证等附加安全层，为用户建立新的会话。
+一旦你收到一个有 OTP 的验证码短信，你会看到一个底页弹出，提示验证电话号码。点击应用上的“验证”，就会将 OTP 程序化地传输到浏览器，自动提交表单。使用短信接收 API 时，建议使用表单验证等附加安全层，为用户建立新的会话。
 
 #### 该 API 如何使用：
 
-1. 功能检测：短信服务（SMS）对象进行功能检测判断。
+1. 功能检测：对短信服务（SMS）对象进行功能检测判断。
 
 ```JavaScript
 if ('sms' in navigator) {
@@ -38,7 +38,7 @@ if ('sms' in navigator) {
 
 ```
 
-2. 处理 OTP：接收方收到短信后，会出现一个底页，上面有验证按钮。当用户点击后，通过正则表达式提取 OTP 并验证用户。
+2. 处理 OTP：接收方收到短信后，底部弹出带有验证按钮的页面。当用户点击验证按钮后，通过正则表达式提取 OTP 并验证用户。
 
 ```JavaScript
 const code = sms.content.match(/^[\s\S]*otp=([0-9]{6})[\s\S]*$/m)[1];
@@ -48,10 +48,10 @@ const code = sms.content.match(/^[\s\S]*otp=([0-9]{6})[\s\S]*$/m)[1];
 
 ![来自：[https://web.dev/sms-receiver-api-announcement/](https://web.dev/sms-receiver-api-announcement/)](https://cdn-images-1.medium.com/max/2000/0*Gjiw69Zc0oTeQkDG)
 
-观看此 Demo：
+查看 Demo：
 [**短信服务接收 API Demo**](https://sms-receiver-demo.glitch.me/)
 
-## 2. 联系人选择
+## 2. 联系人选择器
 
 ![来自：[https://web.dev/contact-picker/](https://web.dev/contact-picker/)](https://cdn-images-1.medium.com/max/2000/0*IdpUhLkaa07MSVKj)
 
@@ -59,7 +59,7 @@ const code = sms.content.match(/^[\s\S]*otp=([0-9]{6})[\s\S]*$/m)[1];
 
 使用联系人选择 API，你可以毫不费力地从联系人列表中搜索联系人，选择并将其添加到 Web App 中的表单中。这是 Chrome 80 版本针对该需求提供的功能。联系人选择 API 允许用户选择一个或多个联系人，然后在浏览器中添加有限的详细信息。
 
-有了它，你可以快速提取电子邮件、电话号码、姓名等联系信息，用于多种用途。一些使用案例有，选择收件人的电子邮件进行 Web 端的邮件发送，选择收件人的电话号码进行语音通话，以及在 Facebook 上搜索联系人等。
+有了它，你可以快速提取电子邮件、电话号码、姓名等联系人信息，用于多种用途。一些使用案例有：选择收件人的电子邮件进行 Web 端的邮件发送，选择收件人的电话号码进行 IP 语音通话，以及在 Facebook 上搜索联系人等。
 
 Chrome 需要保护好你的所有联系信息和数据的安全。所以，在 App 中使用此 API 之前，请查看[安全和隐私条款](https://web.dev/contact-picker/#security-considerations)。
 
@@ -72,7 +72,7 @@ const supported = ('contacts' in navigator && 'ContactsManager' in window);
 
 ```
 
-接着，使用 ”navigator.contacts.select()“ 打开“联系人选择”，然后让用户选择想要分享的联系人，点击**完成**。API 使用 Promise 来显示联系人选择和显示操作。
+接着，使用 “navigator.contacts.select()” 打开“联系人选择器”，然后让用户选择想要分享的联系人，然后点击**完成**。API 返回一个可以显示选择和操作联系人的 `Promise`。
 
 ```JavaScript
 const props = ['name', 'email', 'tel', 'address', 'icon'];
@@ -92,23 +92,23 @@ try {
 观看此 Demo：
 [**联系人选择 API Demo**](https://contact-picker.glitch.me/)
 
-## 3.本地文件系统 API
+## 3.原生文件系统 API
 
 ![来自：[https://web.dev/native-file-system/](https://web.dev/native-file-system/)](https://cdn-images-1.medium.com/max/2000/0*Tdc9sdhDmrHaTEa4)
 
-文件读取和写入是数字世界中的很常见的场景。现在，我们可以使用本机文件系统 API，构建与用户本地设备上的文件进行交互的 App。在用户的许可下，你可以允许他们选择文件，对文件进行修改并将其保存回设备存储中。
+文件读取和写入是数字世界中的很常见的场景。现在，我们可以使用原生文件系统 API，构建与用户本地设备上的文件进行交互的 App。在用户的许可下，你可以允许他们选择文件，对文件进行修改并将其保存回设备存储中。
 
-可以通过这种方式访问​​，更改和存储 IDE、编辑器和文本类型文件等文件，并将其存储在磁盘上。在打开和保存文件之前，Web App 需要请求用户的许可。
+像 IDE、编辑器和文本文件等类型的文件可以被访问、修改和存储在磁盘上。在打开和保存文件之前，Web App 需要请求用户的许可。
 
-在将文件写入磁盘时，允许用户为它们选择不同的名称。要修改磁盘上现有的文件时，用户需要授予额外的权限。系统文件和其他重要文件无法访问，以确保设备的安全和稳定。
+在将文件写入磁盘时，用户可以对文件进行重命名。要修改磁盘上现有的文件时，用户需要授予额外的权限。系统文件和其他重要文件为了确保设备的安全和稳定，无法被访问。
 
-1) 本地文件系统 API 可以用来打开一个目录并枚举其内容。
+1) 原生文件系统 API 可以用来打开一个目录并列出其中包含的内容。
 
 2) 用户给出的修改现有文件或目录的权限可以被撤销。
 
-3) 权限只在到标签页打开的时间范围内有效。
+3) 权限只在标签页打开的时间范围内有效。
 
-一旦标签页被关闭，Web App 将失去用户所允许的权限。即使再次打开相同的 App，每次都需要提示获得许可。本机文件系统 API 是以 Origin 试用版的形式提供的，你可以使用这个试用版的原生文件系统 API 工作。
+一旦标签页被关闭，Web App 将失去用户所允许的权限。即使再次打开相同的 App，每次都需要提示获得许可。原生文件系统 API 在原始试用版（Origin Trials）中可用，你可以使用这个试用版的原生文件系统 API 工作。
 
 在使用此 API 之前，请查看其[安全性和权限](https://web.dev/native-file-system/#security-considerations)。
 
@@ -120,7 +120,7 @@ try {
 
 `<meta http-equiv=”origin-trial” content=”TOKEN_GOES_HERE”>` 或者 `Origin-Trial: TOKEN_GOES_HERE`.
 
-API 开启后，使用 window.chooseFileSystEmentries() 来让用户选择要编辑的文件。接下来，从系统中获取文件并读取它。
+API 开启后，使用 `window.chooseFileSystEmentries()` 来让用户选择要编辑的文件。然后从系统中获取文件并读取。
 
 ```JavaScript
 const file = await fileHandle.getFile();
@@ -160,15 +160,15 @@ async function writeFile(fileHandle, contents) {
 
 ```
 
-应用需要权限才能将内容写入磁盘。获取到写入权限后，调用 FileSystemWriter.Writer() 来写入内容。之后使用 close() 方法关闭 FileSystemSWriter()。
+应用需要权限才能将内容写入磁盘。获取到写入权限后，调用 `FileSystemWriter.Writer()` 来写入内容。之后使用 `close()` 方法关闭 `FileSystemSWriter()`。
 
-观看此 Demo：
+查看 Demo：
 
 [**文本编辑器**](https://googlechromelabs.github.io/text-editor/)
 
 ## 4. 图形检测 API
 
-现在，你可以使用图形检测 API 在 Web App 中捕捉人脸。借助浏览器的 API 以及 Android 的Chrome 浏览器，你可以通过设备摄像头轻松捕捉图像或实时视频。并且它在硬件层面与 Android、iOS 和 macOS 系统的集成，可以在不影响应用性能的情况下访问设备摄像头模块。
+现在，你可以使用图形检测 API 在 Web App 中捕捉人脸。借助基于浏览器的 API 以及 Android 中的 Chrome 浏览器，你可以通过设备摄像头轻松捕捉图像或实时视频。并且它在硬件层面与 Android、iOS 和 macOS 系统的集成，可以在不影响应用性能的情况下访问设备摄像头模块。
 
 这些是通过一组 JavaScript 库来实现的。支持的功能包括人脸检测、条形码检测等。在 Web App 中的人脸识别可以使你：
 
@@ -192,13 +192,13 @@ const supported = await (async () => 'FaceDetector' in window &&
 
 ## 5. Web 支付 API
 
-Web 支付 API 遵循 Web 支付标准。它简化了在线支付的流程，适用于各种支付系统、浏览器和设备类型。支付请求 API 可以在多种浏览器上使用，包括 Chrome、Edge、Safari 和Mozilla。它加速了商家和用户之间的支付流。商家可以用最少的花费整合各种支付方式。
+Web 支付 API 遵循 Web 支付标准。它简化了在线支付的流程，适用于各种支付系统、浏览器和设备类型。支付请求 API 可以在多种浏览器上使用，包括 Chrome、Edge、Safari 和 Mozilla。它加速了商家和用户之间的支付流。商家可以用最少的花费整合各种支付方式。
 
-Web 支付 API的工作基于以下三个原则：
+Web 支付 API 的工作基于以下三个原则：
 
 1. 标准且开放：提供了一个任何人都可以实现的通用标准。
 2. 简单且一致：通过恢复付款细节和需要在付款表单中填写的地址，为用户提供方便的付款体验。
-3. 安全且灵活:为许多支付流提供行业领先的安全性和灵活性。
+3. 安全且灵活：为许多支付流提供行业领先的安全性和灵活性。
 
 #### 该 API 如何使用：
 
@@ -232,9 +232,9 @@ if (request.hasEnrolledInstrument) {
 
 `<meta http-equiv=”origin-trial” content=”TOKEN_GOES_HERE”>` 或者 `Origin-Trial: TOKEN_GOES_HERE`
 
-除了使用令牌，你还可以在 chrome://flags 页面的 `#experimental-web-platform-features` 标志位开启。
+除了使用令牌，你还需要确保 chrome://flags 页面中的 `#experimental-web-platform-features` 标志位开启。
 
-要请求唤醒锁，请调用 navigator.wavelock.request() 方法来返回一个 WakeLockSentinel 对象。并将这个调用添加到 try catch 块中。要释放唤醒锁，请调用 wavelocksentinel 的 release() 方法。
+要请求唤醒锁，请调用 `navigator.wavelock.request()` 方法来返回一个 `WakeLockSentinel` 对象。并将这个调用添加到 `try...catch` 块中。要释放唤醒锁，请调用 `wavelocksentinel` 的 `release()` 方法。
 
 ```JavaScript
 // 唤醒锁.
@@ -274,18 +274,18 @@ document.addEventListener('fullscreenchange', handleVisibilityChange);
 
 ```
 
-观看此 Demo：
+查看 Demo：
 [**唤醒锁 API Demo**](https://wake-lock-demo.glitch.me/)
 
-## 7. Service worker 和缓存存储 API
+## 7. Service worker 和 Cache 缓存 API
 
-浏览器的缓存曾经是重新加载网页的旧内容的唯一方法，但是现在你可以使用 Service worker 和缓存存储 API 来更好地控制此过程。
+浏览器的缓存曾经是重新加载网页的旧内容的唯一方法，但是现在你可以使用 Service worker 和 cache 缓存 API 来更好地控制这个过程。
 
 Service worker 是一个 JavaScript 文件，用于拦截网络请求、执行缓存并通过推送传递消息。它们独立于主线程，在后台运行。
 
-使用缓存存储 API，开发人员可以决定和控制浏览器缓存的内容。它遵循代码驱动的方法来存储缓存，并从 Service worker 中调用。你可以使用 cache-control 头来配置缓存存储 API。
+使用 cache 缓存 API，开发人员可以决定和控制浏览器缓存的内容。它遵循代码驱动的方法来存储缓存，并从 Service worker 中调用。你可以使用 cache-control 头来配置 cache 缓存 API。
 
-需要清除设置的 Cache-Control 才能访问版本化和未版本化的 URL。如果将版本化的 URL 添加到缓存存储中，浏览器会避免对这些 URL 进行额外的网络请求。
+需要清除设置的 Cache-Control 才能访问版本化和未版本化的 URL。如果将版本化的 URL 添加到 cache 缓存中，浏览器会避免对这些 URL 进行额外的网络请求。
 
 HTTP缓存、Service worker 和缓存存储 API 的组合可以使开发人员这样做：
 
@@ -300,7 +300,7 @@ HTTP缓存、Service worker 和缓存存储 API 的组合可以使开发人员�
 
 异步剪贴板 API 可用于复制图像并将其粘贴到浏览器中。需要复制的图像会被存储为一个 **Blob** 对象。因此，在每次需要复制图像时是不会向服务器发出的请求。
 
-现在，可以直接从剪贴板中使用 HTMLCanvasElement.toBlob() 将图像写入 Web 表单上的画布元素。虽然目前只能复制一个图像，但将来的版本将允许同时复制多个图像。粘贴图像时，API 在剪贴板中会以 Promise 的异步方式对其进行更新。
+现在，可以直接从剪贴板中使用 HTMLCanvasElement.toBlob() 将图像写入 Web 表单上的画布元素。虽然目前只能复制一个图像，但将来的版本将允许同时复制多个图像。粘贴图像时，API 在剪贴板中会以基于 Promise 的异步方式对其进行更新。
 
 自定义的粘贴处理程序和自定义的复制处理程序允许你可以处理图像的粘贴和复制事件。在 Chrome 上复制和粘贴图像的一个主要问题是访问图像“压缩炸弹”。这是指一些大型的压缩过的图像文件，一旦解压缩，就无法在 Web 表单上处理。这些图像也可以是恶意图像，有可能会利用操作系统中已知的漏洞来进行破坏。
 
@@ -325,7 +325,7 @@ try {
 
 ```
 
-在粘贴时，navigator.Clipboard.read()用于迭代剪贴板对象并读取项。
+在粘贴时，navigator.Clipboard.read() 用于迭代剪贴板对象并读取项。
 
 ```JavaScript
 async function getClipboardContents() {
