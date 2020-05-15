@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/plain-javascript-versions-of-lodash-array-filtering-and-manipulation-methods.md](https://github.com/xitu/gold-miner/blob/master/TODO1/plain-javascript-versions-of-lodash-array-filtering-and-manipulation-methods.md)
 > * 译者：[Coolrice](https://github.com/CoolRice)
-> * 校对者：
+> * 校对者：[X. Zhuo](https://github.com/z0gSh1u)
 
 # 纯 JavaScript 版本的 Lodash 数组 Filtering 和 Manipulation 方法
 
@@ -17,7 +17,7 @@ Lodash 是一个十分有用的工具库，它能让我们轻松地处理对象�
 
 ## pullAllBy
 
-`pullAllBy` 会返回一个函数，此函数会先通过 `iteratee` 函数转换 ，然后通过给定值匹配来移除我们想移除的元素。
+`pullAllBy` 会返回一个数组，此数组会先通过 `iteratee` 函数转换元素，然后通过给定值匹配来移除我们想移除的元素。
 
 我们按如下方式来实现：
 
@@ -33,7 +33,7 @@ const pullAllBy = (arr, values, iteratee) => arr.filter(a => !values.map(iterate
 const result = pullAllBy([1, 2.1, 3], [2.2, 3], Math.floor)
 ```
 
-然后 `result` 得到 `[1]`。
+`result` 得到 `[1]`。
 
 ## pullAllWith
 
@@ -45,7 +45,7 @@ Lodash 的 `pullAllWith` 方法需要一个比较器来比较然后排除值，�
 const pullAllWith = (arr, values, comparator) => arr.filter(a => values.findIndex((v) => comparator(a, v)) === -1)
 ```
 
-上面的代码中，使用纯 JavaScript 中的带回调函数的 `findIndex` 方法，此回调函数调用 `comparator` 来比较值。
+上面的代码中，使用纯 JavaScript 中的带回调函数的 `findIndex` 方法，此方法调用回调函数 `comparator` 来比较值。
 
 我们调用 `filter` 来过滤出 `values` 数组包含的元素。
 
@@ -88,13 +88,13 @@ const pullAt = (arr, indexes) => {
 
 然后我们把要被移除的元素推送到 `removedArr` 数组中。
 
-之后我们的第二个循环会反向遍历 `arr`，这样在我们调用 `splice` 之前不会改变 `arr` 的索引。
+之后我们的第二个循环会反向遍历 `arr`，这样在我们调用 `splice` 时不会改变 `arr` 在当前 `i` 以前部分的索引。
 
 在循环中，我们只用调用 `splice` 来移除给定索引的元素。
 
 最终，我们调用 `flat` 来对数组做扁平化处理，因为 `splice` 会返回一个数组。
 
-因此，当我们向下面这样调用它时：
+因此，当我们像下面这样调用它时：
 
 ```js
 const arr = [1, 2, 3]
@@ -129,11 +129,11 @@ const remove = (arr, predicate) => {
 }
 ```
 
-在上文的代码中，我们的 `pullAt` 方法有两次循环。然而现在我们用 `predicate` 来检查索引。
+在上文的代码中，我们的 `pullAt` 方法有两次循环。然而现在我们用 `predicate` 函数，而不是用数组索引来检查。。
 
 就像 `pullAt` 一样，我们必须反向遍历数组来防止在循环 `arr` 时 `splice` 改变索引。
 
-然后，当我们向下面这样调用它时：
+然后，当我们像下面这样调用它时：
 
 ```js
 const arr = [1, 2, 3]
@@ -144,7 +144,7 @@ const result = remove(arr, a => a > 1)
 
 ## 总结
 
-`pullAt` 和 `remove` 非常相似，除了 `pullAt` 接收一组索引而 `remove` 接收一个指定的条件回调函数。
+`pullAt` 和 `remove` 非常相似，除了 `pullAt` 接收一组索引而 `remove` 接收一个指定条件的回调函数。
 
 `pullAllBy` 和 `pullAllWith` 都使用 `filter` 方法实现。`pullAllBy` 在对比之前使用 `iteratee` 来映射元素。
 
