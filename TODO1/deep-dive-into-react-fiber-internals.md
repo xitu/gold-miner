@@ -175,7 +175,7 @@ JS 引擎处理队列中内容的方式是等待执行栈变空。因此，每�
 
 尽管我们称它们为异步事件，但这里有一个微妙的区别：事件相对于它们何时进入队列是异步的，但是相对于它们何时真正得到处理，它们并不是真正的异步。
 
-Coming back to our stack reconciler, when React traverses the tree, it is doing so in the execution stack. So when updates arrive, they arrive in the event queue (sort of). And only when the execution stack becomes empty, the updates get handled. This is precisely the problem Fiber solves by almost reimplementing the stack with intelligent capabilities --- pausing and resuming, aborting, etc.
+回到我们的栈协调器，当 React 遍历树时，它正在执行栈中执行。因此，当获得更新时，它们到达事件队列（某种程度上）。只有当执行堆栈为空时，更新才会得到处理。这正是 Fiber 通过使用智能功能几乎重新实现栈来解决的问题 —— 暂停、继续和中止等。
 
 在这里再次引用 Andrew Clark 所提到的：
 
@@ -197,7 +197,7 @@ Coming back to our stack reconciler, when React traverses the tree, it is doing 
 
 #### 类型
 
-`<div>`, `<span>`, etc. for host components (string), and class or function for composite components.
+主组件（字符串）的 `<div>`、`<span>` 等，复合组件的类或函数。
 
 #### 健
 
@@ -229,7 +229,7 @@ const Name = (props) => {
 }
 ```
 
-在上述情况下，`<Customdiv1>` 和 `<Customdiv2>` 是父元素 `<Name>` 的子元素。 这两个子元素组成一个单链表。
+在上述情况下，`<Customdiv1>` 和 `<Customdiv2>` 是父元素 `<Name>` 的子元素。这两个子元素组成一个单链表。
 
 #### 返回
 
@@ -237,9 +237,9 @@ const Name = (props) => {
 
 #### `pendingProps` 和 `memoizedProps`
 
-Memoization means storing the values of a function execution's result so you can use it later on, thereby avoiding recomputation. `pendingProps` represents the props passed to the component, and `memoizedProps` gets initialized at the end of the execution stack, storing the props of this node.
+记忆化意味着存储函数执行结果的值，以便以后可以使用它，从而避免重新计算。`pendingProps` 表示传递给组件的 props，而 `memoizedProps` 在执行栈的末尾初始化，存储该节点的 props。
 
-When the incoming `pendingProps` are equal to `memoizedProps`, it signals that the fiber's previous output can be reused, preventing unnecessary work.
+当传入的 `pendingProps` 等于 `memoizedProps` 时，它表示 fiber 之前的输出可以复用，从而避免不必要的工作。
 
 #### `pendingWorkPriority`
 
@@ -264,7 +264,7 @@ React 应用程序的叶节点。它们特定于渲染环境（例如，在浏�
 
 从概念上讲，fiber 的输出是函数的返回值。每个 fiber 最终都有输出，但是输出仅由主组件在叶节点上创建。输出之后将传到树上。
 
-The output is eventually given to the renderer so that it can flush the changes to the rendering environment. For example, let's look at how the fiber tree would look for an app whose code looks like this:
+输出最终被提供给渲染器，以便它可以刷新对渲染环境的更改。例如，let's look at how the fiber tree would look for an app whose code looks like this:
 
 ```jsx
 const Parent1 = (props) => {
@@ -298,7 +298,7 @@ ReactDOM.render(<App />, document.getElementById('root'))
 
 为了理解 React 如何构建此树并对其执行协调算法，我决定在 React 源码中写一个单元测试，并附加一个调试器来追踪该过程。
 
-If you're interested in this process, clone the React source code and navigate to [this directory](https://github.com/facebook/react/tree/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-dom/src/__tests__). Add a Jest test and attach a debugger. The test I wrote is a simple one that basically renders a button with text. When you click the button, the app destroys the button and renders a `<div>` with different text, so the text is a state variable here.
+如果你对此过程感兴趣，复制 React 源码并导航到[此目录](https://github.com/facebook/react/tree/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-dom/src/__tests__)。添加一个 Jest 测试并附加调试器。我编写的测试是一个简单的测试，基本上是渲染一个带文本的按钮。当你点击按钮时，应用程序会销毁该按钮，并渲染一个带不同文本的 `<div>`，因此文本在这里是一个 state 变量。
 
 ```jsx
 'use strict';
@@ -372,13 +372,13 @@ describe('ReactUnderstanding', () => {
 });
 ```
 
-In the initial render, React creates a current tree, which is the tree that gets rendered initially.
+在初始渲染中，React创建一个当前树，该树是最初被渲染的树。
 
-`[createFiberFromTypeAndProps()](https://github.com/facebook/react/blob/f6b8d31a76cbbcbbeb2f1d59074dfe72e0c82806/packages/react-reconciler/src/ReactFiber.js#L593)` is the function that creates each React fiber using the data from the specific React element. When we run the test, put a breakpoint at this function, and look at the call stack, it looks something like this:
+`[createFiberFromTypeAndProps()](https://github.com/facebook/react/blob/f6b8d31a76cbbcbbeb2f1d59074dfe72e0c82806/packages/react-reconciler/src/ReactFiber.js#L593)` 是使用来自特定 React 元素的数据创建每个 React fiber 的函数。当我们运行测试时，在此函数处放置一个断点，并查看调用栈，它看起来像这样：
 
-![createFiberFromTypeAndProps() Call Stack](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/function-call-stack-1.png?resize=730%2C716&ssl=1)
+![createFiberFromTypeAndProps() 调用栈](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/function-call-stack-1.png?resize=730%2C716&ssl=1)
 
-As we can see, the call stack tracks back to a `render()` call, which eventually goes down to `createFiberFromTypeAndProps()`. There are a few other functions that are of interest to us here: `workLoopSync()`, `performUnitOfWork()`, and `beginWork()`.
+如我们所见，调用栈会追踪到一个 `render()` 调用，该调用最终会返回到 `createFiberFromTypeAndProps()`。这里还有一些我们感兴趣的其他函数：`workLoopSync()`、`performUnitOfWork()` 和 `beginWork()`。
 
 ```js
 function workLoopSync() {
@@ -389,21 +389,21 @@ function workLoopSync() {
 }
 ```
 
-`workLoopSync()` is where React starts building up the tree, starting with the `<App>` node and recursively moving on to `<div>`, `<div>`, and `<button>`, which are the children of `<App>`. The `workInProgress` holds a reference to the next fiber node that has work to do.
+`workLoopSync()` 是 React 开始构建树的地方，从 `<App>` 节点开始，递归地转到 `<div>`、`<div>` 和 `<button>`，这些是 `<App>` 的子节点。`workInProgress` 保存对下一个有工作要做的 fiber 节点的引用。
 
-`performUnitOfWork()` takes a fiber node as an input argument, gets the alternate of the node, and calls `beginWork()`. This is the equivalent to starting the execution of the function execution contexts in the execution stack.
+`performUnitOfWork()` 将一个 fiber 节点作为输入参数，获取该节点的备用节点，然后调用 `beginWork()`。这相当于在执行栈中开始执行函数执行上下文。
 
 When React builds the tree, `beginWork()` simply leads up to `createFiberFromTypeAndProps()` and creates the fiber nodes. React recursively performs work and eventually `performUnitOfWork()` returns a null, indicating that it has reached the end of the tree.
 
 Now what happens when we do `instance.handleClick()`, which basically clicks the button and triggers a state update? In this case, React traverses the fiber tree, clones each node, and checks whether it needs to perform any work on each node. When we look at the call stack of this scenario, it looks something like this:
 
-![instance.handleClick() Call Stack](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/function-call-stack-2.png?resize=730%2C517&ssl=1)
+![instance.handleClick() 调用栈](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/function-call-stack-2.png?resize=730%2C517&ssl=1)
 
-Although we did not see `completeUnitOfWork()` and `completeWork()` in the first call stack, we can see them here. Just like `performUnitOfWork()` and `beginWork()`, these two functions perform the completion part of the current execution which effectively means returning back to the stack.
+尽管我们在第一个调用堆栈中没有看到 `completeUnitOfWork()` 和 `completeWork()`，但是我们可以在这里看到它们。就像 `performUnitOfWork()` 和 `beginWork()` 一样，这两个函数执行当前执行的完成部分，这实际上意味着返回到栈。
 
 As we can see, these four functions together perform the work of executing the unit of work, and also give control over the work being done currently, which is exactly what was missing in the stack reconciler. As we can see from the image below, each fiber node is composed of four phases required to complete that unit of work.
 
-![Fiber Node Diagram](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/fiber-node-diagram.png?resize=730%2C405&ssl=1)
+![Fiber 节点图](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/fiber-node-diagram.png?resize=730%2C405&ssl=1)
 
 It's important to note here that each node doesn't move to `completeUnitOfWork()` until its children and siblings return `completeWork()`. For instance, it starts with `performUnitOfWork()` and `beginWork()` for `<App/>`, then moves on to `performUnitOfWork()` and `beginWork()` for Parent1, and so on. It comes back and completes the work on `<App>` once all the children of `<App/>` complete work.
 
@@ -419,7 +419,7 @@ Not just that, React also reuses the old current after swapping the pointer from
 
 And what about the 16ms frame time? React effectively runs an internal timer for each unit of work being performed and constantly monitors this time limit while performing the work. The moment the time runs out, React pauses the current unit of work being performed, hands the control back to the main thread, and lets the browser render whatever is finished at that point.
 
-Then, in the next frame, React picks up where it left off and continues building the tree. Then, when it has enough time, it commits the `workInProgress` tree and completes the render.
+然后，在下一帧，React 从它停止的地方开始，继续构建树。然后，当有足够的时间，它会提交 `workInProgress` 树并完成渲染。
 
 ## 结论
 
