@@ -31,7 +31,7 @@
 
 很简单吧？如果我们以这种烹饪的方式来类比于程序执行，它就是用一种[同步的方式](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)来做早餐。
 
-我们用一个人来完成一系列（[串行](https://en.wikipedia.org/wiki/Serialism)）任务。我们按顺序执行每个步骤，如果没有完成正在执行的任务，就无法继续进行下一步。从技术上来说，更严格的定义是，每个任务的执行都会被前一个任务挂起，所有的任务都只有一条路径去执行。每个任务的执行不到最后一步，我们就无法前进。在此示例中，我们是计算机的 [CPU](https://en.wikipedia.org/wiki/Central_processing_unit)。每个任务都由一个人（一个CPU）完成。
+我们用一个人来完成一系列（[串行](https://en.wikipedia.org/wiki/Serialism)）任务。我们按顺序执行每个步骤，如果没有完成正在执行的任务，就无法继续进行下一步。从技术上来说，更严格的定义是，每个任务的执行前都会被上一个任务挂起，所有的任务都只有一条路径去执行。每个任务的执行不到最后一步，我们就无法前进。在此示例中，我们是计算机的 [CPU](https://en.wikipedia.org/wiki/Central_processing_unit)。每个任务都由一个人（一个CPU）完成。
 
 ![Single-threaded synchronous way to cook breakfast](https://cdn-images-1.medium.com/max/4608/1*tqb0_sHBGF4TlSWPDY7j7w.png)
 
@@ -103,7 +103,7 @@ for symbol in symbols:
 print(results)
 ```
 
-这是最暴力的方式。当我们调用 API 获得一个值（在`ts.get_quote_endpoint（symbol)`中完成）时，就将其打印出来，然后开始获取下一个股票数据。
+这是最暴力的方式。当我们调用 API 获得一个值（在 `ts.get_quote_endpoint（symbol)` 中完成）时，就将其打印出来，然后开始获取下一个股票数据。
 
 但是在学习了异步和多线程之后，我们知道可以在等待返回值的同时启动另一个 API 调用。
 
@@ -129,7 +129,7 @@ print(results)
 
 这里代码的调用可能有些混乱，我们来分解一下。`loop` 是处理器在等待任务和执行其他任务之间不断循环的地方。这是为了持续检查任务（例如我们的 API 调用）是否完成。
 
-task 变量是方法调用的列表。我们将这些任务放在异步任务的收集列表中，称为 `group1`，然后在 `loop.run_until_complete` 中运行它们。这比我们之前的同步版本快得多，因为我们可以进行多个 API 调用，而无需等待每个 API 完成。
+task 变量是方法调用的列表。我们将这些任务放在收集异步任务的列表中，称为 `group1`，然后在 `loop.run_until_complete` 中运行它们。这比我们之前的同步版本快得多，因为我们可以进行多个 API 调用，而无需等待每个 API 完成。
 
 注意：Asyncio 在 Python 文档中的使用是比较奇怪的，[这里有更多详情](https://stackoverflow.com/questions/47518874/how-do-i-run-python-asyncio-code-in-a-jupyter-notebook)。
 
