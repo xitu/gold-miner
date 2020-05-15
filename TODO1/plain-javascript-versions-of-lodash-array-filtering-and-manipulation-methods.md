@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/plain-javascript-versions-of-lodash-array-filtering-and-manipulation-methods.md](https://github.com/xitu/gold-miner/blob/master/TODO1/plain-javascript-versions-of-lodash-array-filtering-and-manipulation-methods.md)
 > * 译者：[Coolrice](https://github.com/CoolRice)
-> * 校对者：[X. Zhuo](https://github.com/z0gSh1u)
+> * 校对者：[z0gSh1u](https://github.com/z0gSh1u)
 
 # 纯 JavaScript 版本的 Lodash 数组 Filtering 和 Manipulation 方法
 
