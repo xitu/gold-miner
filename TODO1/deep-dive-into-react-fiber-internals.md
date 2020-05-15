@@ -219,7 +219,7 @@ const Name = (props) => {
 
 `<Name>` 的子元素是 `<div>`，因为它返回一个 `<div>` 元素。
 
-#### Sibling
+#### 兄弟元素
 
 代表 `render` 返回元素列表的情况。
 
@@ -264,7 +264,7 @@ React 应用程序的叶节点。它们特定于渲染环境（例如，在浏�
 
 从概念上讲，fiber 的输出是函数的返回值。每个 fiber 最终都有输出，但是输出仅由主组件在叶节点上创建。输出之后将传到树上。
 
-输出最终被提供给渲染器，以便它可以刷新对渲染环境的更改。例如，let's look at how the fiber tree would look for an app whose code looks like this:
+输出最终被提供给渲染器，以便它可以刷新对渲染环境的更改。例如，让我们看看 fiber 树将如何查找代码如下所示的应用程序：
 
 ```jsx
 const Parent1 = (props) => {
@@ -393,19 +393,19 @@ function workLoopSync() {
 
 `performUnitOfWork()` 将一个 fiber 节点作为输入参数，获取该节点的备用节点，然后调用 `beginWork()`。这相当于在执行栈中开始执行函数执行上下文。
 
-When React builds the tree, `beginWork()` simply leads up to `createFiberFromTypeAndProps()` and creates the fiber nodes. React recursively performs work and eventually `performUnitOfWork()` returns a null, indicating that it has reached the end of the tree.
+当 React 构建树时, `beginWork()` 只会指向 `createFiberFromTypeAndProps()` 并创建 fiber 节点。React 递归执行工作，最终 `performUnitOfWork()` 返回 null, 表示它已到达树的末尾。
 
-Now what happens when we do `instance.handleClick()`, which basically clicks the button and triggers a state update? In this case, React traverses the fiber tree, clones each node, and checks whether it needs to perform any work on each node. When we look at the call stack of this scenario, it looks something like this:
+现在，当我们执行 `instance.handleClick()` 时会发生什么，基本上是单击按钮并触发状态更新？在这个情况，React 遍历 fiber 树，克隆每个节点，并检查它是否需要在某些节点上执行某些工作。当我们查看这个情况的调用栈时，它看起来像这样：
 
 ![instance.handleClick() 调用栈](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/function-call-stack-2.png?resize=730%2C517&ssl=1)
 
 尽管我们在第一个调用堆栈中没有看到 `completeUnitOfWork()` 和 `completeWork()`，但是我们可以在这里看到它们。就像 `performUnitOfWork()` 和 `beginWork()` 一样，这两个函数执行当前执行的完成部分，这实际上意味着返回到栈。
 
-As we can see, these four functions together perform the work of executing the unit of work, and also give control over the work being done currently, which is exactly what was missing in the stack reconciler. As we can see from the image below, each fiber node is composed of four phases required to complete that unit of work.
+如我们所见，这四个函数一起执行工作单元的工作，并且还控制当前正在完成的工作，这正是栈协调器中缺少的。如下图所示，每个 fiber 节点由完成该工作单元所需的四个阶段组成。
 
 ![Fiber 节点图](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/fiber-node-diagram.png?resize=730%2C405&ssl=1)
 
-It's important to note here that each node doesn't move to `completeUnitOfWork()` until its children and siblings return `completeWork()`. For instance, it starts with `performUnitOfWork()` and `beginWork()` for `<App/>`, then moves on to `performUnitOfWork()` and `beginWork()` for Parent1, and so on. It comes back and completes the work on `<App>` once all the children of `<App/>` complete work.
+这里需要注意的是，在其子节点和兄弟节点返回 `completeWork()` 之前，每个节点都不会移动到 `completeUnitOfWork()`。For instance, it starts with `performUnitOfWork()` and `beginWork()` for `<App/>`, then moves on to `performUnitOfWork()` and `beginWork()` for Parent1, and so on. It comes back and completes the work on `<App>` once all the children of `<App/>` complete work.
 
 This is when React completes its render phase. The tree that's newly built based on the `click()` update is called the `workInProgress` tree. This is basically the draft tree waiting to be rendered.
 
@@ -413,7 +413,7 @@ This is when React completes its render phase. The tree that's newly built based
 
 Once the render phase completes, React moves on to the commit phase, where it basically swaps the root pointers of the current tree and `workInProgress` tree, thereby effectively swapping the current tree with the draft tree it built up based on the `click()` update.
 
-![Commit Phase Diagram](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/commit-phase-diagram.png?resize=730%2C874&ssl=1)
+![提交阶段图](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/commit-phase-diagram.png?resize=730%2C874&ssl=1)
 
 Not just that, React also reuses the old current after swapping the pointer from Root to the `workInProgress` tree. The net effect of this optimized process is a smooth transition from the previous state of the app to the next state, and the next state, and so on.
 
