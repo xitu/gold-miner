@@ -146,7 +146,7 @@ const result = remove(arr, a => a > 1)
 
 `pullAt` 和 `remove` 非常相似，除了 `pullAt` 接收一组索引而 `remove` 接收一个指定条件的回调函数。
 
-`pullAllBy` 和 `pullAllWith` 都使用 `filter` 方法实现。`pullAllBy` 在对比之前使用 `iteratee` 来映射元素。
+`pullAllBy` 和 `pullAllWith` 都使用 `filter` 方法实现。`pullAllBy` 在对比之前使用 `iteratee` 来预处理元素。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
