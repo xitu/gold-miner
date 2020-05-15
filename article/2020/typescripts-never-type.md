@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/typescripts-never-type.md](https://github.com/xitu/gold-miner/blob/master/article/2020/typescripts-never-type.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)
-> * 校对者：
+> * 校对者：[z0gSh1u](https://github.com/z0gSh1u)
 
 # TypeScript 中的 never 类型
 
 ![图片源自 [Unsplash](https://unsplash.com/s/photos/never?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 由 [Kristopher Roller](https://unsplash.com/@krisroller?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 发布](https://cdn-images-1.medium.com/max/9646/1*p6LlQrG79vtjZfGpeXdBBw.jpeg)
 
-正如 `never` 的中文释义所示，TypeScript 中的 `never` 类型表示的是值永远不会有结果的一种类型。例如：
+正如 `never` 的中文释义所示，TypeScript 中的 `never` 类型表示的是值永远不会出现的一种类型。例如：
 
 ```ts
 type A = 'A';
@@ -17,13 +17,13 @@ type B = 'B';
 type C = A & B;
 ```
 
-联合类型 `C` 是类型 `A` 和类型 `B` 的交集，这意味着其类型值同时等于 `A` 和 `B`，很明显这是不可能达到的条件，所以这里类型 `C` 就是 `never` 类型。
+联合类型 `C` 是类型 `A` 和类型 `B` 的交集，这意味着其类型值同时等于 `A` 和 `B`。这种类型定义叫做联合类型，在 TypeScript 中是支持的，但是该例子的写法表示类型 `C` 的值同时等于 `A` 和 `B`，显然这是不可能达到的条件，所以这里类型 `C` 就是 `never` 类型。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*X1y39jBeMMstRMhcI9HbQw.png)
 
 可以把类型信息看成是一系列元素的集合，类型 `A` 相当于集合 `{'A'}`，类型 `B` 相当于集合 `{'B'}`，类型 `C` 相当于集合 `{'C'}`，而类型 `never` 则对应一个空集合。
 
-`never` 类型可以作用于函数的返回值，表示该函数不会有任何返回值。
+`never` 类型可以用于声明函数的返回值类型，表示该函数不会有任何返回值。
 
 ```ts
 function a(): never {
@@ -31,7 +31,7 @@ function a(): never {
 }
 ```
 
-当然，`void` 类型也可以作用于函数的返回值来表示函数没有任何返回值，但是 `void` 所表示的意思就不那么明确了。使用 `void` 的话，函数是可以返回 `undefined` 的，而采用 `never` 则不允许函数返回 `undefined`。
+当然，`void` 类型也可以用于声明函数的返回值类型来表示函数没有任何返回值，但是 `void` 所表示的意思就不那么明确了。使用 `void` 的话，函数是可以返回 `undefined` 的，而采用 `never` 则不允许函数返回 `undefined`。
 
 ```ts
 function a(): void {
@@ -51,7 +51,7 @@ function b(): never {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*wejYn3jah0h8PQuCdyaiKQ.png)
 
-这并非是 TypeScript 的 bug，之所以设计成这样是处于向后兼容性的考虑。现存的很多库中有大量抽象函数定义的返回值类型信息并没有明确指定为 `void`。由于这些函数只是抽象的类型定义，函数的具体实现交给了库使用者，使用者在实现过程中可自由决定函数是否有返回值。如果这种情况下函数类型被 TypeScript 推断为 `never`，则表示函数实现不能有返回值（函数实现中不可出现 `return` 关键字），很显然这样就出现了冲突，导致函数的实现无法被正确重写。
+这并非是 TypeScript 的 bug，之所以设计成这样是出于对向后兼容的考虑。现存的很多库中有大量抽象函数定义的返回值类型信息并没有明确指定为 `void`。由于这些函数是抽象的（抽象函数仅有类型信息，无函数功能实现），函数的具体实现交给了库使用者，使用者在实现过程中可自由决定函数是否有返回值。如果这种情况下函数类型被 TypeScript 推断为 `never`，则表示函数实现不能有返回值（函数实现中不可出现 `return` 关键字），很显然这样就出现了冲突，导致函数的实现无法被正确重写。
 
 ```ts
 class AbstractClass {
