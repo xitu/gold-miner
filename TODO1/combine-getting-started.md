@@ -461,7 +461,7 @@ subscriptions.forEach { $0.cancel() }
 
 你可以在[原文页面](https://www.raywenderlich.com/7864801-combine-getting-started)下载本工程的完整版本。
 
-本教程中，你学习了 Combine 的基础知识: `Publisher` 和 `Subscriber`。你也学会了 operator 和定时器的使用。恭喜，你已经入门了！
+本教程中，你学习了 Combine 的基础知识：`Publisher` 和 `Subscriber`。你也学会了 operator 和定时器的使用。恭喜，你已经入门了！
 
 想学习更多 Combine 的用法，请看我们的书籍 [Combine: Asynchronous Programming with Swift](https://store.raywenderlich.com/products/combine-asynchronous-programming-with-swift) !
 
