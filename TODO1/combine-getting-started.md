@@ -328,7 +328,7 @@ firstImage.zip(secondImage)
 1. `zip` 通过组合现有的 pulisher 的 output，来创建一个新的 publisher。它会等所有的 publisher 都发送 output 之后，才会把组合值发送给下游。
 2. `receive(on:)` 可以指定上游的事件在哪里处理。如果要在 UI 上操作，就必须使用主队列。
 3. 这是我们的第一个 subscriber。`sink(receiveCompletion:receiveValue:)` 创建了一个 subscriber，它有两个闭包参数。当收到完成事件或者正常值时，闭包就会调用。
-4. Publisher 有两种方式结束调用 --- 完成或者异常。如果产生了异常，游戏就会终止。
+4. Publisher 有两种方式结束调用 — 完成或者异常。如果产生了异常，游戏就会终止。
 5. 将两张随机图片的数据加入到数组中进行随机化，然后更新 UI。
 6. 把订阅信息存储到 `subscriptions` 中，用于消除引用。没有引用之后，订阅信息就会取消，publisher 也会立即停止发送。
 
