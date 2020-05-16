@@ -7,7 +7,7 @@
 
 # 0202 年了，是时候学习 Combine 了
 
-> 学习如何使用 Combine 框架中的 Publisher(发布者) 和 Subscriber(订阅者) 来处理随时间变化的事件流，合并多个 publisher。
+> 学习如何使用 Combine 框架中的 Publisher（发布者）和 Subscriber（订阅者）来处理随时间变化的事件流，合并多个 publisher。
 
 在 2019 年的 WWDC 大会上，Combine 框架登场，它是苹果公司新推出的“响应式”框架，用来处理随时间变化的事件。你可以用 Combine 来统一和简化像代理、通知、定时器、完成回调这样的代码。在 iOS 平台上，之前也有可用的第三方响应式框架，但现在苹果开发了自己的框架。
 
