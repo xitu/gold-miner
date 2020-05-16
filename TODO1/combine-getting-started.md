@@ -443,7 +443,7 @@ subscriptions.forEach { $0.cancel() }
 
 ### iOS 低版本
 
-首先，你得为用户考虑。如果你打算继续支持 iOS 12，你就不能使用 Combine。(Combine 需要 iOS 13 及以上的版本才支持)
+首先，你得为用户考虑。如果你打算继续支持 iOS 12，你就不能使用 Combine。（Combine 需要 iOS 13 及以上的版本才支持）
 
 ### 团队
 
