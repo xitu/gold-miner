@@ -465,7 +465,7 @@ subscriptions.forEach { $0.cancel() }
 
 想学习更多 Combine 的用法，请看我们的书籍 [Combine: Asynchronous Programming with Swift](https://store.raywenderlich.com/products/combine-asynchronous-programming-with-swift)！
 
-如果你对本教程有问题或者评价，请加入下面的论坛！
+如果你对本教程有问题或者评价，欢迎在下讨论区讨论！
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
