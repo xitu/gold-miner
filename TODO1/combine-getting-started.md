@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/combine-getting-started.md](https://github.com/xitu/gold-miner/blob/master/TODO1/combine-getting-started.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 0202 年了，是时候学习 Combine 了
 
