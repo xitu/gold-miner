@@ -15,7 +15,7 @@
 
 - 使用 `Publisher` 和 `Subscriber`。
 - 处理事件流。
-- 用 Combine 框架中的方式使用 `Timer` 。
+- 用 Combine 框架中的方式使用 `Timer`。
 - 确定在项目中使用 Combine 的时机。
 
 我们通过优化 FindOrLose 来学习这些核心概念。FindOrLose 是一个游戏，它的玩法是: 在四张图中，有一张图与其他三张图不同，你需要快速辨别出这张图。
