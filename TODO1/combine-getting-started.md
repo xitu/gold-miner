@@ -415,7 +415,7 @@ self.gameTimer = Timer.publish(every: 0.1, on: RunLoop.main, in: .common)
 
 ## 改进 App
 
-这里还有几个待优化的地方，我们用 `.store(in: &subscriptions)` 连续添加多个 subscriber，但并没有移除。下面我们来改进。
+这里还有几个待优化的地方，我们用 `.store(in: &subscriptions)` 连续添加了多个 subscriber，但没有移除它们。下面我们来改进。
 
 在 `resetImages()` 的顶部添加下面这行代码:
 
