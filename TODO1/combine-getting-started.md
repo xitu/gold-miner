@@ -78,7 +78,7 @@ Combine 框架提供了一套声明式的 API，用来计算随时间变化的�
 
 ### Publishers
 
-遵循 `Publisher` 协议的对象能发送随时间变化的值序列。协议中有两个关联类型：`Output`，是产生值的类型；`Failure`，是异常类型。
+遵循 `Publisher` 协议的对象能发送随时间变化的值序列。协议中有两个关联类型：`Output` 是产生值的类型；`Failure` 是异常类型。
 
 每一个 publisher 可以发送多种事件：
 
