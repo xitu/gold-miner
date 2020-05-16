@@ -72,7 +72,7 @@ Combine 框架提供了一套声明式的 API，用来计算随时间变化的�
 
 1. Publishers：产生值
 2. Operators：对值进行运算
-3. Subscribers: 接收值
+3. Subscribers：接收值
 
 下面我们依次来看每一个要素：
 
