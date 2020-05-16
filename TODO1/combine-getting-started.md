@@ -183,7 +183,7 @@ return session.dataTaskPublisher(for: urlRequest)
 这段代码看起来有很多，但是它用到了很多 Combine 的特性。下面一步一步来讲解：
 
 1. URL session 返回了 URL 请求的 publisher。这个 publisher 是 `URLSession.DataTaskPublisher` 类型，它的 output 类型是 (data: Data, response: URLResponse)。这不是正确的输出类型，所以你要用一系列 operator 进行转换来达到目的。
-2. 使用 `tryMap` 。这个 operator 会接收上游的值，并尝试将它映射成其它的类型，映射过程中可能会抛出错误。还有一个叫 `map` 的 operator 可以执行映射操作，但它不会抛出错误。
+2. 使用 `tryMap`。这个 operator 会接收上游的值，并尝试将它映射成其它的类型，映射过程中可能会抛出错误。还有一个叫 `map` 的 operator 可以执行映射操作，但它不会抛出错误。
 3. 检查 HTTP 状态是否为 `200 OK`。
 4. 如果 HTTP 状态码不是 `200 OK`，抛出自定义的 `GameError.statusCode` 错误。
 5. 如果一切都 OK，返回 `response.data`。这意味着现在链式调用的输出类型是 `Data`。
