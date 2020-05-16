@@ -405,19 +405,19 @@ function workLoopSync() {
 
 ![Fiber 节点图](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/fiber-node-diagram.png?resize=730%2C405&ssl=1)
 
-这里需要注意的是，在其子节点和兄弟节点返回 `completeWork()` 之前，每个节点都不会移动到 `completeUnitOfWork()`。For instance, it starts with `performUnitOfWork()` and `beginWork()` for `<App/>`, then moves on to `performUnitOfWork()` and `beginWork()` for Parent1, and so on. It comes back and completes the work on `<App>` once all the children of `<App/>` complete work.
+这里需要注意的是，在其子节点和兄弟节点返回 `completeWork()` 之前，每个节点都不会移动到 `completeUnitOfWork()`。例如，对于 `<App/>`，它从 `performUnitOfWork()` 和 `beginWork()` 开始，对于 Parent1，则转到 `performUnitOfWork()` 和 `beginWork()`，依此类推。一旦 `<App/>` 的所有子节点完成工作，它将返回并完成对 `<App>` 的工作。
 
-This is when React completes its render phase. The tree that's newly built based on the `click()` update is called the `workInProgress` tree. This is basically the draft tree waiting to be rendered.
+这是 React 完成其渲染阶段的时间。 基于 `click()` 更新而新建的树称为 `workInProgress` 树。这基本上是等待渲染的草稿树。
 
 ## 提交阶段
 
-Once the render phase completes, React moves on to the commit phase, where it basically swaps the root pointers of the current tree and `workInProgress` tree, thereby effectively swapping the current tree with the draft tree it built up based on the `click()` update.
+渲染阶段完成后，React 进入提交阶段，在提交阶段，基本上是交换当前树和 `workInProgress` 树的根指针，从而有效地交换当前树与基于 `click()` 更新创建的草稿树。
 
 ![提交阶段图](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/commit-phase-diagram.png?resize=730%2C874&ssl=1)
 
-Not just that, React also reuses the old current after swapping the pointer from Root to the `workInProgress` tree. The net effect of this optimized process is a smooth transition from the previous state of the app to the next state, and the next state, and so on.
+不仅如此，在交换根指针到 `workInProgress` 树后，React 还复用了老的当前树。这个优化过程的净效果是从应用程序的前一个状态平稳过渡到下一个状态，下下个状态，依此类推。
 
-And what about the 16ms frame time? React effectively runs an internal timer for each unit of work being performed and constantly monitors this time limit while performing the work. The moment the time runs out, React pauses the current unit of work being performed, hands the control back to the main thread, and lets the browser render whatever is finished at that point.
+那么 16 ms 的帧时间呢？React 有效地为正在执行的每个工作单元运行一个内部计时器，并在执行工作时持续监视此时间限制。时间一到，React 就会暂停当前正在执行的工作单元，交给主线程控制，并让浏览器渲染此时完成的所有内容。
 
 然后，在下一帧，React 从它停止的地方开始，继续构建树。然后，当有足够的时间，它会提交 `workInProgress` 树并完成渲染。
 
