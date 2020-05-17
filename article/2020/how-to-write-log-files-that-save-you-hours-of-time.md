@@ -71,22 +71,22 @@ Catch ex as Exception{
 以下是一些我随机选择的认为有用的日志条目示例，这些示例使您可以更轻松地理解错误的来源和解决方法：
 
 ```
--booting up server1 application4 
--Connecting to otherServer at Port 1337…ok
--Checking database Connection to databaseServer5 Error 400:Of course it doesn’t work, your credentials are outdated but not even the database admins have a clue what the new one are.
--program shut down at 00:34 pm, 1234 files processed successfully, 23 unsuccessful, 45 skipped
--Can't access file asdfadsfa.txt because the file is open in another process
--error updating database table tb_xyz, maximum column length of 50 exceeded at column "name"
--processing HTML text box failed, this is often caused by formatting issues on the database side. Check with database admins, the following value was retrieved from DB: <a\">helloworld\"</a>
+-正在启动 server1 application4 
+-正在连接 otherServer，端口号为 1337 …… 完成
+-正在检查到 databaseServer5 的数据库连接。错误 400 ：当然它不起作用，您的凭据已过时，但是即使数据库管理员也不知道新的凭据是什么。
+-程序于 00:34 pm 关闭，成功处理了 1234 个文件，23 失败, 跳过了 45 个
+-无法打开文件 asdfadsfa.txt 因为该文件已被其它进程打开
+-更新数据库表 tb_xyz 时出错，列 “name” 超过最大列长度限制 50
+-处理 HTML 文本框失败，这通常是由数据库方面的格式问题引起的。与数据库管理员联系，从数据库中检索了以下值：<a \“> helloworld \” </a>
 ```
 
-Each of these error messages would save me half an hour just looking for a specific bug compared to either not logging it at all or logging it in an ineffective way.
+与根本不记录日志或以无效方式记录日志相比，仅仅是查找特定的错误，每条错误消息都可以为我节省半小时的时间。
 
-## Takeaway
+## 要点
 
-A minute of your time can save you hours down the road.
+多花一分钟时间可以为以后节省数小时的时间。
 
-I hope you found this article interesting. It’s an issue that seems quite small and pedantic until you’ve been repairing and fixing bugs for a couple of years and have seen all the ways in which logging can go wrong.
+希望您觉得这篇文章有趣。在您有了数年修复 bug 的经验并了解了各种错误的日志记录形式之前，这个问题似乎很小而且很老套。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
