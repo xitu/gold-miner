@@ -19,7 +19,7 @@ UserDefault can save integers, booleans, strings, arrays, dictionaries, dates an
 
 UserDefaults is just like dictionaries, it consists of keys and values. For example:
 
-```
+```swift
 var dict = [
     "Name": "Yafonia",
     "Age" : 21,
