@@ -2,59 +2,60 @@
 > * 原文作者：[keypressingmonkey](https://medium.com/@keypressingmonkey)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-write-log-files-that-save-you-hours-of-time.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-write-log-files-that-save-you-hours-of-time.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# How to Write Log Files That Save You Hours of Time
+# 如何编写可节省您时间的日志文件
 
 ![Photo by [Pietro Jeng](https://unsplash.com/@pietrozj?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/11232/0*iqdOil183vfy81IT)
 
-I need to rant a bit here: The program I maintain at work has many cute quirks. “An error has occurred” is not one of them. This is not just how that error message starts. It’s also how it **ends.**
+我需要在这里大声疾呼：我在工作中维护的程序有很多可爱的怪癖。“发生了错误” 并不是其中之一。这不是错误消息的开头，也是消息的**结尾**。
 
-Or how about “Information about the error is stored in the server logs,” but there’s no indication of which server actually threw that exception?
+“该错误相关的信息保存在服务日志中 ”，但是根本没有指明哪个服务器抛出了这个异常一类的错误信息怎么样呢？
 
-This article is about how to write log and error messages that don’t suck.
+本文介绍如何编写不会出错的日志和错误消息。
 
-## Do You Really Need This?
+## 您真的需要这个吗？
 
-Most of this article will be about giving **more** information. But just for a moment, let’s look at some log messages that can be safely cut. Why? Well, when you have to read through a mile-long log file, you’ll be thankful for everything that doesn’t consume your sanity and focus.
+本文大部分内容都是关于提供**更多**信息。但是，让我们看一下可以安全删除的一些日志消息。为什么？好吧，当您需要仔细阅读非常长的日志文件时，对于所有节省你理智和精力的事情，您将心怀感激。
 
-* “All is good” log entries for every single iteration in a loop. As long as I know the program started alright and is maybe now about to enter that loop, all I really care about are errors.
-* Random performance logs when I’m not performance testing.
-* Logs on every step of a function/calculation. You don’t really need to log “a” and “b” when you’re already logging “a+b=c.”
+* 循环中每个迭代的“一切都好”的日志。只要我知道程序正常启动并且可能即将进入该循环，我真正关心的就是错误。
+* 随机记录性能的日志，但我并不是在进行性能测试。
+* 记录函数/计算的每个步骤的日志。当您已经记录了 “a + b = c” 时，您实际上不需要再记录 “a” 和 “b”。
 
-As I said, it’s better to have more information than you need than too little in most cases, but it’s still worth keeping in mind to avoid falling off the other end.
+就像我说的，在大多数情况下，拥有更多的信息总是比拥有更少的信息好，哪怕信息量比需要的大。但最好还是要谨记避免走向另一个极端。
 
-## Please Tell Me What the Error Is
+## 请告诉我错误是什么
 
-Most exceptions we deal with in daily life aren’t explicitly handled, meaning we often get a stack traceback that tells us exactly what happened, where, and when. That’s fine. It’s not particularly readable, but at least you can follow down to the source.
 
-If, however, you were to catch an exception and use that catch block to then print “Something don’t work yo” to the console without even printing it into the log file, just please don’t. If you write a custom exception handler, then just take the extra minute to explain what the error is. Is it a wrong database entry, like an incorrectly formatted name? Nice, now I don’t have to clone the repo and debug and can just fix that entry on the database right away.
+我们在日常生活中处理的大多数异常都没有得到明确处理，这意味着我们经常会得到堆栈回溯，准确地告诉我们何时何地发生了什么。尽管它的可读性不是很高，但是至少您可以一路追溯到源代码。
 
-## Please Tell Me Where the Error Originated
+但是，如果您要捕获异常并使用该 catch 块在控制台上打印“有些东西无法使用”一类的信息，甚至不将其输出到日志文件中，请不要这样做。如果您编写了一个自定义的异常处理程序，则只需多花一点时间来解释错误是什么。它是错误的数据库条目，例如名称格式错误吗？很好，现在我不必克隆该 repo 并进行调试，只需立即修复数据库中的条目即可。
 
-This is my biggest pain point while bug fixing: We get daily monitoring of error messages, but the best-written error message won’t get me far when I don’t even know where it originated from. Just write something like:
+## 请告诉我错误的出处
 
-```
-fatal error: invalid cast at serverIWouldLikeToSlaughter
-```
-
-And I’m much happier.
-
-## Give Me Some Extra Parameters to Work With
-
-Sticking with the previous example, you probably have all the information on hand right at that moment when you wrote the error message, so why don’t you give it to me? Just print out the customer ID, the billing number, the email address that you can’t deserialize.
+这是我修复错误时最大的痛苦：我们每天都会监控到错误消息，但是如果我甚至不知道错误消息的来源，写得再好的错误消息也不会有太大帮助。就应该像这样写：
 
 ```
-Fatal error: Invalid cast type Boolean to Integer numberOfSwearwords at serverIWouldLikeToSlaughter 
+致命错误：在 serverIWouldLikeToSlaughter 有无效转换
+```
+
+这样我就会非常高兴。
+
+## 给我提供一些额外的参数
+
+继续前面的示例，当您在记录错误消息时可能拥有所有的信息，那么为什么不将其提供给我呢？只需打印出您无法反序列化的客户 ID，帐单号和电子邮件地址。
+
+```
+致命错误：在 serverIWouldLikeToSlaughter 发生了从 Boolean 到 Integer 的无效的强制类型转换 
 ```
 
 ---
 
-## Only Overload the Specific Exceptions
+## 仅重载特定异常
 
-If you want to throw an exception for wrong data types or something like that, you should hook into the `invalidCastException` or something like that — not the “exception." This way, the most common error will have a great error message with a speaking name and description. But when anything out of the ordinary happens, you still log the full stack trace and it won’t get lost.
 
+如果您想为错误的数据类型或类似的东西抛出异常，则应该挂接到 “invalidCastException” 或类似的东西上，而不是 “exception”。这样，最常见的错误将带有一个很棒的错误消息，有有意义的名称和描述。但是当发生任何非同寻常的异常时，您仍然会记录完整的堆栈跟踪，并且不会丢失。
 ```
 Try{thisOrthat();}
 Catch castEx as InvalidCastException{
@@ -65,9 +66,9 @@ Catch ex as Exception{
 }
 ```
 
-## Let’s Look at Some Log File Examples, Shall We?
+## 我们来看一些日志文件示例吗？
 
-Here are just some randomly selected samples of what I would consider useful log entries — stuff that makes it that much easier to understand where the error originated and how to fix it:
+以下是一些我随机选择的认为有用的日志条目示例，这些示例使您可以更轻松地理解错误的来源和解决方法：
 
 ```
 -booting up server1 application4 
