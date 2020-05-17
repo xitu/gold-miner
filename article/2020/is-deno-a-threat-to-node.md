@@ -7,19 +7,19 @@
 
 # Is Deno a Threat to Node?
 
-#### Deno 1.0 was launched on May 13, 2020, by Ryan Dahl — the creator of Node
-
 ![Image copyrights Deno team — [deno.land](https://deno.land/)](https://cdn-images-1.medium.com/max/4000/0*eWlvIft04L3P3uPm.jpg)
+
+> Deno 1.0 was launched on May 13, 2020, by Ryan Dahl — the creator of Node
 
 It’s been around for two years now. We’re hearing the term **Deno**, and the developer community, especially the JavaScript community, is quite excited since it’s coming from the author of [Node](https://en.wikipedia.org/wiki/Node.js), Ryan Dahl. In this article, we’ll discuss a brief history of [Deno](https://deno.land/) and Node along with their salient features and popularity.
 
 Deno was announced at JSConf EU 2018 by [Ryan Dahl](https://en.wikipedia.org/wiki/Ryan_Dahl) in his talk “10 Things I Regret About Node.js.” In his talk, Ryan mentioned his regrets about the initial design decisions with Node.
 
+[Watching his excellent talk here (youtube)](https://youtu.be/M3BM9TB-8yA)
+
 In his JSConf presentation, he explained his regrets while developing Node, like not sticking with promises, security, the build system (GYP), `package.json`, and `node_modules`, etc. But in the same presentation, after explaining all the regret, he launched his new work named **Deno**. It was in the process of development then.
 
 But on 13th May 2020, around two years later, Deno 1.0 was launched by Ryan and the team (Ryan Dahl, Bert Belder, and Bartek Iwańczuk). So let’s talk about some features of Deno.
-
----
 
 ## What Is Deno?
 
@@ -37,13 +37,13 @@ Deno ships as a single executable with no dependencies. You can install it using
 
 Using Shell:
 
-```
+```bash
 curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
 Or using Homebrew:
 
-```
+```bash
 brew install deno
 ```
 
@@ -51,15 +51,13 @@ See [deno_install](https://github.com/denoland/deno_install) for more installati
 
 A basic Hello-World program in Deno looks like the following (same as in Node):
 
-```
+```js
 console.log("Hello world");
 ```
 
 We will try to compare the features of Deno with Node throughout the article. And in the end, we’ll try to find out whether or not it’s really a threat.
 
-There is no doubt that Node is a hugely successful JavaScript runtime environment. Today, more than thousands of production builds are using Node. Another reason for this success is NPM, ****a ****package manager for the JavaScript runtime environment Node, which has millions of reusable libraries and packages for every JavaScript developer out there. Node is a decade old now: It was initially launched on May 27, 2009. On the other hand, Deno is relatively very new and still not used in production builds much. It can be used to create web servers like Node, perform scientific computations, etc.
-
----
+There is no doubt that Node is a hugely successful JavaScript runtime environment. Today, more than thousands of production builds are using Node. Another reason for this success is NPM, a package manager for the JavaScript runtime environment Node, which has millions of reusable libraries and packages for every JavaScript developer out there. Node is a decade old now: It was initially launched on May 27, 2009. On the other hand, Deno is relatively very new and still not used in production builds much. It can be used to create web servers like Node, perform scientific computations, etc.
 
 ## Highlighted Features of Deno
 
@@ -72,13 +70,13 @@ There is no doubt that Node is a hugely successful JavaScript runtime environmen
 
 The program in Deno is executed in a secure sandbox (by default). Scripts cannot access the hard drive, open network connections, or make any other potentially malicious actions without permission. For example, the following runs a basic Deno script without any read/write/network permissions:
 
-```
+```bash
 deno run index.ts
 ```
 
 Explicit flags are required to expose corresponding permission:
 
-```
+```bash
 deno run --allow-read --allow-net index.ts
 ```
 
@@ -90,13 +88,11 @@ Deno attempts to provide a standalone tool for quickly scripting complex functio
 
 Here, we do not have any `package.json` or `node_modules`. Source files can be imported using a relative path, an absolute path, or a fully qualified URL of a source file. as shown below:
 
-```
+```js
 import { serve } from “https://deno.land/std@0.50.0/http/server.ts";
 
 for await (const req of serve({ port: 8000 })) {
-
   req.respond({ body: “Hello from Deno\n” });
-
 }
 ```
 
@@ -111,8 +107,6 @@ Deno is a new runtime for executing JavaScript and TypeScript outside of the web
 Slowly, Deno is also getting popular, like Node. You can see the popularity by Deno’s official twitter handle [@deno_land](https://twitter.com/deno_land) with [11.5K followers](https://twitter.com/deno_land/followers) and 50k+ stars on Github [https://github.com/denoland/deno](https://github.com/denoland/deno).
 
 ![Deno on GitHub](https://cdn-images-1.medium.com/max/4028/1*-Yautd54wWFt9irbMVx0Iw.png)
-
----
 
 ## Limitations of Deno
 
