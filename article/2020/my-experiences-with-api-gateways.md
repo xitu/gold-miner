@@ -15,8 +15,6 @@ As we began our search, we started evaluating a few options that came up based o
 
 ****Disclaimer** — This article does not provide any sort of performance comparison of API gateways, even though, this was also a criterion on which we based our selection. I do not claim that implementations discussed here are the only options available, but these implementations were the most popular choices based on our product requirements at the time of writing this article.**
 
----
-
 ## Lets list Requirements…
 
 First, lets quickly list down what was the minimum that we expected from an API gateway solution. Please note, this is not an exhaustive list or something that might match a solution that you are looking for, but it should cover most of the scenarios where API Gateways are applicable.
@@ -35,8 +33,6 @@ First, lets quickly list down what was the minimum that we expected from an API 
 12. Caching — Will further reduce the network bandwidth and round trip time consumption and improve performance if frequently requested data can be cached
 13. Documentation — If you plan to expose your APIs to developers outside of your organization, then you must think about using API documentation such as [Swagger or OpenAPI](https://swagger.io/docs/specification/about/).
 
----
-
 ## API Gateways and Service Mesh
 
 Before going into comparisons on actual implementations, I must also talk about another pattern which you might run into while looking for gateways, [Service Mesh](https://www.nginx.com/blog/what-is-a-service-mesh/). It might be confusing at first to know the difference between API gateway and Service Mesh and each of their purpose, so I am going to describe them in a little detail before we proceed.
@@ -46,8 +42,6 @@ API gateways are applied on Layer 7 of [OSI model](https://en.wikipedia.org/wiki
 Service Mesh, on the other hand, works like a proxy or a side-car pattern which de-couples the communication responsibility of the service and handles other concerns such as Circuit breaker, timeouts, retries, service-discovery, etc. [Istio ](https://istio.io/docs/concepts/what-is-istio/)is a very well known implementation of service mesh at the time of this article being published.
 
 You must have noticed that I have included in my list requirements some of the features provided by Service Mesh as well. Quite a few of API gateway implementations today can work at both Layer 4 and 7 and handle requirements of service mesh as well. It would be nice if we could get an implementation which can also handle some of the service mesh requirements even though it is not a must. Here is a good [article](https://dzone.com/articles/api-gateway-vs-service-mesh) citing differences between the two in little detail.
-
----
 
 ## Comparisons
 
@@ -107,8 +101,6 @@ Its advantages are its ability to serve large traffic with low footprint and min
 
 AWS API gateway requires no setup as it is all managed, you can quickly create or route APIs in few clicks, secure them using SSL, provide Authentication and Authorization, create API Keys for external clients of your APIs, manage versioning of your APIs and also generate client SDKs if you wish to do so. AWS API gateway really packs a punch with its offering, making it really easy to setup an API gateway in a matter of few minutes. So if you are already on AWS or planning to go to AWS, you must really think about using this gateway as your first choice unless you have some mandatory feature requirements that it cannot fulfill as of yet. The obvious disadvantage being that you might get locked in with AWS service and this dependency might make your migration task to some other framework difficult at a later point in time.
 
----
-
 ## Comparison Matrix
 
 Here is a summary of feature comparison in the form of a table for above five API gateways.
@@ -124,15 +116,11 @@ Here is a summary of feature comparison in the form of a table for above five AP
 3. Kong Open source edition does not come with its dashboard, but there are [third party open source dashboards](https://github.com/pantsel/konga) available which let you manage API and plugins through Web-UI.
 4. [Ambassador can be installed along with Istio](https://www.getambassador.io/user-guide/with-istio/) to cover roles of service mesh.
 
----
-
 ## Time for Decision
 
 Finally, here is a flowchart, I have kept it simplistic on purpose. You should use the below chart alongside the above feature comparison matrix to narrow down your choice.
 
 ![](https://cdn-images-1.medium.com/max/2050/1*96rrH7-cdgGxKWmFzLPPNw.jpeg)
-
----
 
 ## Implementations that are worth mentioning
 
