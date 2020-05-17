@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2048/0*NaSZcL23r-soB27b)
 
-#### Deno 1.0.0 is finally here. Here are some resources that will help you create your first Deno web app.
+Deno 1.0.0 is finally here. Here are some resources that will help you create your first Deno web app.
 
 ## What is Deno?
 
@@ -60,8 +60,8 @@ app(
 ```
 
 You can create CRUD methods, access Query and Body parameters, and return JSON all out of the box.
-[**syumai/dinatra**
-**Sinatra like light weight web app framework for deno. - syumai/dinatra**github.com](https://github.com/syumai/dinatra)
+
+[**syumai/dinatra**](https://github.com/syumai/dinatra)
 
 ## 2. Deno Postgres
 
@@ -85,8 +85,8 @@ main();
 ```
 
 With Deno-Postgres, you can connect to your Postgres database and make SQL queries. All methods returns **promises**, so you will be able to use **await** for all the results.
-[**buildondata/deno-postgres**
-**PostgreSQL driver for Deno. It's still work in progress, but you can take it for a test drive! deno-postgres is being…**github.com](https://github.com/buildondata/deno-postgres)
+
+[**buildondata/deno-postgres**](https://github.com/buildondata/deno-postgres)
 
 ## 3. Deno Nessie
 
@@ -115,8 +115,8 @@ export const down = (schema: Schema): void => {
   schema.drop("users");
 };
 ```
-[**halvardssm/deno-nessie**
-**A database migration tool for deno inspired by Laravel. Supports PostgreSQL and MySQL, soon: SQLite. See documentation…**github.com](https://github.com/halvardssm/deno-nessie)
+
+[**halvardssm/deno-nessie**](https://github.com/halvardssm/deno-nessie)
 
 ## 4. Deno Mongo
 
@@ -164,8 +164,7 @@ const users = await users.find({ username: { $ne: null } });
 const count = await users.count({ username: { $ne: null } });
 
 ```
-[**manyuanrong/deno_mongo**
-**MongoDB driver for Deno. Contribute to manyuanrong/deno_mongo development by creating an account on GitHub.**github.com](https://github.com/manyuanrong/deno_mongo)
+[**manyuanrong/deno_mongo**](https://github.com/manyuanrong/deno_mongo)
 
 ## 5. Deno SMTP
 
@@ -199,8 +198,7 @@ await client.send({
 
 await client.close();
 ```
-[**manyuanrong/deno-smtp**
-**SMTP implements for deno. Contribute to manyuanrong/deno-smtp development by creating an account on GitHub.**github.com](https://github.com/manyuanrong/deno-smtp)
+[**manyuanrong/deno-smtp**](https://github.com/manyuanrong/deno-smtp)
 
 ## 6. Deno Dotenv
 
@@ -227,8 +225,7 @@ This will print
 > deno dotenv.ts
 { GREETING: "hello world" }
 ```
-[**pietvanzoen/deno-dotenv**
-**Dotenv handling for deno. Setup a .env file in the root of your project. GREETING=hello world Then import the…**github.com](https://github.com/pietvanzoen/deno-dotenv)
+[**pietvanzoen/deno-dotenv**](https://github.com/pietvanzoen/deno-dotenv)
 
 ## 7. Denon
 
@@ -238,14 +235,14 @@ Denon is exactly that, but for Deno.
 
 You need to install it first with **deno install**
 
-```
+```bash
 deno install --unstable --allow-read --allow-run -f 
 https://deno.land/x/denon/denon.ts
 ```
 
 And then you can start your local app with denon followed by your app file path. Next time you will make a change to your app, Denon will automatically reloads your Deno server!
-[**eliassjogreen/denon**
-**Denon aims to be the deno replacement for nodemon providing a feature packed and easy to use experience. Denon provides…**github.com](https://github.com/eliassjogreen/denon)
+
+[**eliassjogreen/denon**](https://github.com/eliassjogreen/denon)
 
 ## But… lots of npm libraries are already compatible with Deno!
 
@@ -273,12 +270,6 @@ Have any questions about Deno? Let me know [on Twitter](https://twitter.com/urco
 
 * Want lo learn more about Deno? The official website has a great documentation: [https://deno.land/manual/introduction](https://deno.land/manual/introduction)
 * Want to find some more awesome Modules for Deno? [https://github.com/denolib/awesome-deno](https://github.com/denolib/awesome-deno) has lots of other modules to explore and to use ✨
-
-#### A note from the Plain English team
-
-Did you know that we have four publications? Show some love by giving them a follow: [**JavaScript in Plain English**](https://medium.com/javascript-in-plain-english), [**AI in Plain English**](https://medium.com/ai-in-plain-english), [**UX in Plain English**](https://medium.com/ux-in-plain-english), **[Python in Plain English](https://medium.com/python-in-plain-english)** — thank you and keep learning! We’ve also launched a YouTube and would love for you to support us by [**subscribing to our Plain English channel**](https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw)
-
-And as always, Plain English wants to help promote good content. If you have an article that you would like to submit to any of our publications, send an email to **[submissions@plainenglish.io](mailto:submissions@plainenglish.io)** with your Medium username and what you are interested in writing about and we will get back to you!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
