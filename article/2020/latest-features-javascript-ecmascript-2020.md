@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/latest-features-javascript-ecmascript-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2020/latest-features-javascript-ecmascript-2020.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：[Chorer](https://github.com/Chorer)
+> * 校对者：[Chorer](https://github.com/Chorer) [CoolRice](https://github.com/CoolRice)
 
 # ECMAScript 2020 新特性
 
@@ -101,7 +101,7 @@ let myNumber = number ?? 7
 
 ## Private Fields 私有字段
 
-许多具有 **classes** 的编程语言允许定义类作为公共的，受保护的，私有的属性。**Public** 属性可以从类的外部或者子类访问，**protected** 属性只能被子类访问， **private** 属性只能被类内部访问。JavaScript 从 **ES6** 开始支持类语法，但直到现在才引入了私有字段。要定义私有属性，必须在其前面加上散列符号：**`#`**。
+许多具有 **classes** 的编程语言允许定义类作为公共的，受保护的或私有的属性。**Public** 属性可以从类的外部或者子类访问，**protected** 属性只能被子类访问， **private** 属性只能被类内部访问。JavaScript 从 **ES6** 开始支持类语法，但直到现在才引入了私有字段。要定义私有属性，必须在其前面加上散列符号：**`#`**。
 
 ```javascript
 class Flower {
@@ -209,7 +209,7 @@ Promise.allSettled([promise_1, promise_2])
 
 ## Dynamic Import 动态引入
 
-你也许在 **webpack** 的模块绑定中已经使用过动态引入。但对于该特性的原生支持在这：
+你也许在 **webpack** 的模块绑定中已经使用过动态引入。但对于该特性的原生支持已经到来：
 
 ```javascript
 // Alert.js
@@ -231,7 +231,7 @@ import('/components/Alert.js')
 
 ## MatchAll 匹配所有项
 
-如果你想要查找字符串中所有匹配项目和它们的位置，MatchAll 非常有用。
+如果你想要查找字符串中所有正则表达式的匹配项和它们的位置，MatchAll 非常有用。
 
 ```javascript
 const regex = /\b(apple)+\b/;
@@ -247,7 +247,7 @@ for (const match of fruits.match(regex)) {
 // 'apple'
 ```
 
-相比之下，**matchAll**返回更多的信息，包括找到匹配项的索引。
+相比之下，**matchAll** 返回更多的信息，包括找到匹配项的索引。
 
 ```javascript
 for (const match of fruits.matchAll(regex)) {
@@ -293,7 +293,7 @@ global == globalThis // true
 
 ## BigInt
 
-JavaScript 中能够精确的表达地最大数字是 2^53 - 1。而 BigInt 可以用来创建更大的数字。
+JavaScript 中能够精确表达的最大数字是 2^53 - 1。而 BigInt 可以用来创建更大的数字。
 
 ```javascript
 const theBiggerNumber = 9007199254740991n
