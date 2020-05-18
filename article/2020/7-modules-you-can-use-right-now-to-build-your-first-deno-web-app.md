@@ -5,15 +5,15 @@
 > * 译者：
 > * 校对者：
 
-# 7 modules you can use right now to build your first Deno web app
+# 使用 7 个模块来构建你的第一个基于 Deno 的 Web 应用
 
 ![](https://cdn-images-1.medium.com/max/2048/0*NaSZcL23r-soB27b)
 
-Deno 1.0.0 is finally here. Here are some resources that will help you create your first Deno web app.
+Deno 1.0.0 终于来了。这有一些资源将帮助你创建你的第一个 Deno Web 应用。
 
-## What is Deno?
+## Deno 是什么？
 
-Deno is created by [**Ryan Dahl**](https://en.wikipedia.org/wiki/Ryan_Dahl), that is also the creator of something that you may have heard of… yes, [**Node.js**](https://nodejs.org/en/).
+Deno is created by [**Ryan Dahl**](https://en.wikipedia.org/wiki/Ryan_Dahl)创造的 Deno，他也是你可能会听说的一个项目的创造者… 是的，[**Node.js**](https://nodejs.org/en/)。
 
 2 years ago, Ryan did a presentation at JSConf called ’10 Things I Regret About Node.js’ where he announced that he was working on Deno, that was going to be a **more secure** version of Node and without the **node_modules** folder that bloats your project.
 
