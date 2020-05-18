@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 使用 7 个模块来构建你的第一个基于 Deno 的 Web 应用
+# 使用 7 个模块来构建第一个 Deno Web 应用
 
 ![](https://cdn-images-1.medium.com/max/2048/0*NaSZcL23r-soB27b)
 
@@ -13,23 +13,23 @@ Deno 1.0.0 终于来了。这有一些资源将帮助你创建你的第一个 De
 
 ## Deno 是什么？
 
-Deno is created by [**Ryan Dahl**](https://en.wikipedia.org/wiki/Ryan_Dahl)创造的 Deno，他也是你可能会听说的一个项目的创造者… 是的，[**Node.js**](https://nodejs.org/en/)。
+Deno  是由 [**Ryan Dahl**](https://en.wikipedia.org/wiki/Ryan_Dahl)创造的，你可能会听说他创造的另一个项目 —— 是的，那就是 [**Node.js**](https://nodejs.org/en/)。
 
-2 years ago, Ryan did a presentation at JSConf called ’10 Things I Regret About Node.js’ where he announced that he was working on Deno, that was going to be a **more secure** version of Node and without the **node_modules** folder that bloats your project.
+两年前，Ryan 在 JSConf 上做了一个演讲，题目为 ‘对于 Node.js 我感到遗憾的 10 件事情’，在那里他宣布他正在从事于 Deno，它将会成为 Node **更安全**的版本，同时没有让项目臃肿的 **node_modules** 文件夹。
 
-From the [**deno.land**](http://deno.land) website (best domain ever since the Deno mascotte is a Dinosaur), Deno is a **JavaScript/TypeScript runtime with secure defaults and a great developer experience. It’s built on V8, Rust, and Tokio**.
+从 [**deno.land**](http://deno.land) 这个网站（自从 Deno 的吉祥物是一个恐龙以来最好的域名），Deno 是一个 **JavaScript/TypeScript 运行时，拥有默认的安全特性和良好的开发者体验。使用 V8、Rust 和 Tokio 构建**.
 
-The premises are great, but if you are like me, you will want to get your hands dirty on this to understand it better.
+前提概论很好，但如果你像我一样，你会想亲自动手来更好地理解它。
 
-Here are **7 Deno modules** that can help you create a web app and learn about Deno:
+这有 **7 个 Deno 模块**可以帮助你创造一个 Web 应用和学习 Deno：
 
 ## 1. Dinatra
 
-If you are coming from the Ruby language, you may have heard of [Sinatra](http://sinatrarb.com/), a little web framework that permits in 5 minutes to put online a web server with minimal effort.
+如果你学习过 Ruby 语言，你可能听说过 [Sinatra](http://sinatrarb.com/)，一个小型的 Web 框架，允许在 5 分钟内使用最小的工作量来构建一个 Web 服务器。
 
-**Dinatra** is Sinatra but for Deno, a lightweight web app framework that you can use right now to create your first web app in Deno.
+**Dinatra** 是基于 Deno 的 Sinatra，一个轻量的 Web 应用程序框架，现在你可以使用它来创建你的第一个基于 Deno 的 Web 应用程序。
 
-Here is an example:
+这是一个示例：
 
 ```TypeScript
 import {
@@ -50,7 +50,7 @@ app(
   get("/error", () => [500, "an error has occured"]),
   get("/callName", ({ params }) => `Hi, ${params.name}!`),
   post("/callName", ({ params }) => `Hi, ${params.name}!`),
-  get("/foo", () => redirect("/hello", 302)), // redirect from /foo to /hello
+  get("/foo", () => redirect("/hello", 302)), // 从 /foo 从定向到 /hello
   get("/info", () => [
     200,
     contentType("json"),
@@ -59,7 +59,7 @@ app(
 );
 ```
 
-You can create CRUD methods, access Query and Body parameters, and return JSON all out of the box.
+你可以创建一个 CRUD 的方法，获取查询和 Body 内的参数，然后全部返回 JSON 格式的结果。
 
 [**syumai/dinatra**](https://github.com/syumai/dinatra)
 
@@ -84,15 +84,15 @@ async function main() {
 main();
 ```
 
-With Deno-Postgres, you can connect to your Postgres database and make SQL queries. All methods returns **promises**, so you will be able to use **await** for all the results.
+使用 Deno-Postgres，可以连接你的 Postgres 数据库和进行 SQL 查询。所有的方法返回 **Promise**，因此你可以对所有的结果使用 **await**。
 
 [**buildondata/deno-postgres**](https://github.com/buildondata/deno-postgres)
 
 ## 3. Deno Nessie
 
-Accessing and reading a Postgres database is fun, but you know what is not fun? **Changing the database structure.** You have no version control and a single error can destroy all your stored data. Always backup your data first, kids!
+访问和读取一个 Postgres 数据库是有趣的，但是你知道什么是无趣的吗？**更改数据库结构**。由于没有版本控制，单个的错误可能会破坏你所有存储的数据。一定要先备份数据，孩子们！
 
-**Deno-nessie is a database migration tool for Deno**, that will help you create migration files and altering your tables. In this way you can add to your version control all the history of your database changes and your colleagues will be able to alter their local databases in a breeze.
+**Deno-nessie 是一个基于 Deno 的数据库迁移工具**，这将帮助你创建迁移文件和改变你的数据库中的表。通过这种方式你可以添加你的版本来控制所有的数据库修改历史，你的同事将能够轻松更改他们的本地数据库。
 
 ```TypeScript
 import { Schema } from "https://deno.land/x/nessie/mod.ts";
