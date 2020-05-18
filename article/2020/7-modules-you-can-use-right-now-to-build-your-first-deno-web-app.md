@@ -13,11 +13,11 @@ Deno 1.0.0 终于来了。这有一些资源将帮助你创建你的第一个 De
 
 ## Deno 是什么？
 
-Deno  是由 [**Ryan Dahl**](https://en.wikipedia.org/wiki/Ryan_Dahl)创造的，你可能会听说他创造的另一个项目 —— 是的，那就是 [**Node.js**](https://nodejs.org/en/)。
+Deno  是由 [**Ryan Dahl**](https://en.wikipedia.org/wiki/Ryan_Dahl)创造的，你可能会听说他创造的另一个项目 —— 是的，正是 [**Node.js**](https://nodejs.org/en/)。
 
-两年前，Ryan 在 JSConf 上做了一个演讲，题目为 ‘对于 Node.js 我感到遗憾的 10 件事情’，在那里他宣布他正在从事于 Deno，它将会成为 Node **更安全**的版本，同时没有让项目臃肿的 **node_modules** 文件夹。
+两年前，Ryan 在 JSConf 上做了一个演讲，题目为 ‘对于 Node.js 我感到遗憾的 10 件事情’，在那里他宣布他正在从事于 Deno，它将会成为比 Node **更安全**的版本，同时没有让项目臃肿的 **node_modules** 文件夹。
 
-从 [**deno.land**](http://deno.land) 这个网站（自从 Deno 的吉祥物是一个恐龙以来最好的域名），Deno 是一个 **JavaScript/TypeScript 运行时，拥有默认的安全特性和良好的开发者体验。使用 V8、Rust 和 Tokio 构建**.
+从 [**deno.land**](http://deno.land) 这个网站（自从 Deno 的吉祥物是一个恐龙以来最好的域名）上可以看出，Deno 是一个 **JavaScript/TypeScript 运行时，拥有默认的安全特性和良好的开发者体验。使用 V8、Rust 和 Tokio 构建**.
 
 前提概论很好，但如果你像我一样，你会想亲自动手来更好地理解它。
 
@@ -120,9 +120,9 @@ export const down = (schema: Schema): void => {
 
 ## 4. Deno Mongo
 
-Are you a NoSQL fanboy? Do you prefer to put all your data inside your database without a fixed structure?
+你是一个 NoSQL 迷吗？你更喜欢把所有的数据放到一个没有固定结构的数据库吗？
 
-Deno_mongo is what you need to use MongoDB with Deno. You will start adding unstructured data to your repos in less than a minute 💪
+如果你打算在 Deno 中使用 MongoDB，Deno_mongo 是你所需要的。快速添加非结构化的数据到你的仓库吧💪。
 
 ```TypeScript
 import { init, MongoClient } from "https://deno.land/x/mongo@v0.5.2/mod.ts";
@@ -168,14 +168,14 @@ const count = await users.count({ username: { $ne: null } });
 
 ## 5. Deno SMTP
 
-Lots of times you will need to send emails inside your web app. Here are some example of email that you will need to send:
+很多时候，你将在 Web 应用程序中发送邮件。这是一些你需要发送邮件的示例：
 
-* Confirmation emails for new users;
-* Forgot password emails;
-* Subscriptions Receipts;
-* ‘**Do you miss us**’ emails when the user doesn’t visit your app for 7+ days (these are the worst. Please, don’t do this)
+* 新用户的确认邮件；
+* 忘记密码邮件；
+* 订阅内容接收；
+* ‘**Do you miss us**’ 邮件，当用户超过 7 天未使用你的应用程序（这是最糟糕的，请不要这样做）。
 
-**Deno-smtp** is what you need to send those important email that will help your day-to-day activity. You can also add html to the content of the email!
+如果你需要发送那些重要的邮件，**Deno-smtp** 是你需要的，它将有助于你的日常活动。你也可以在邮件内容中添加 html！
 
 ```TypeScript
 import { SmtpClient } from "https://deno.land/x/smtp/mod.ts";
@@ -202,12 +202,12 @@ await client.close();
 
 ## 6. Deno Dotenv
 
-You will start coding your shiny new Deno app on your local PC, and lots of the modules above uses some kind of credentials (SMTP credentials, MongoDB urls, ect…). But you can’t put these credentials directly in your code, because:
+你将开始在你本机上编写你的闪亮的新的 Deno 应用程序，上面的许多模块都使用了某种凭证（SMTP 证书、MongoDB url、ect…）。但是你不能直接把这些凭证放入你的代码中，因为：
 
-* on the production server you will use different credentials (or at least I hope so)
-* you don’t want to expose them on some git repository.
+* 在生产服务器上你将使用不同的凭证（或者至少我希望如此）；
+* 你不想在一些仓库暴露它们。
 
-Deno-dotenv permits to handle **dotenv** files. Just put your credentials and ENV Variables in the **.env** file and access them with this module:
+Deno-dotenv 允许去设置 **.env** 文件。把你的凭证和环境变量放到 **.env** 文件中，然后使用这个模块获取它们：
 
 ```TypeScript
 # .env
@@ -219,7 +219,7 @@ import { config } from "https://deno.land/x/dotenv/mod.ts";
 console.log(config());
 ```
 
-This will print
+这将打印出
 
 ```
 > deno dotenv.ts
@@ -229,47 +229,47 @@ This will print
 
 ## 7. Denon
 
-If you worked with node, you surely used [Nodemon](https://nodemon.io/) to automatically reload your local server when you saved a file you were working on.
+如果你使用 node 工作，你一定使用过 [Nodemon](https://nodemon.io/) 来当保存你在编写的文件时，自动重载你的本地服务器。
 
-Denon is exactly that, but for Deno.
+Denon 是基于 Deno 的这样的模块。
 
-You need to install it first with **deno install**
+你首先需要使用 **deno install** 去安装
 
 ```bash
 deno install --unstable --allow-read --allow-run -f 
 https://deno.land/x/denon/denon.ts
 ```
 
-And then you can start your local app with denon followed by your app file path. Next time you will make a change to your app, Denon will automatically reloads your Deno server!
+然后你可以在你的应用程序文件路径使用 denon 来启动你的本地应用程序。下次你修改了你的应用程序，Denon 将自动重载你的 Deno 服务器！
 
 [**eliassjogreen/denon**](https://github.com/eliassjogreen/denon)
 
-## But… lots of npm libraries are already compatible with Deno!
+## 除这些外，许多 npm 库已经兼容了 Deno！
 
-Yes, lots of npm libraries are already compatible with Deno! That’s one of the best feature: write the code once and run it on both Node and Deno.
+是的，许多 npm 库已经兼容了 Deno！这是一个最新的特性：写一次代码，在 Node 和 Deno 中都能运行。
 
-For example, you can already import and use these libraries in Deno right now:
+例如，你现在可以即刻在 Deno 中使用这些库了：
 
 [https://www.i18next.com/overview/getting-started](https://www.i18next.com/overview/getting-started)
 
 [https://github.com/adrai/enum](https://github.com/adrai/enum)
 
-And lots of other will become full-compatible with Deno in the next months.
+许多其它的库将在下个月完全兼容 Deno。
 
-## Will Deno replace Node.js in the future?
+## 在未来，Deno 将取代 Node.js 吗？
 
-It’s still quite early to give a clear response. Deno has reached 1.0.0 but it’s far from finished.
+作出明确的回复还为时尚早。Deno 虽然已经到达了 1.0.0 版本，但还远远没有完成。
 
-For some years Node will still be the #1 choice for backend JavaScript, but it’s great to have an alternative that is more secure and addresses in the right way one of the most embarassing parts of JavaScript (yes, I’m speaking about that big massive hard disk eater of node_modules).
+未来这几年，Node 还将是后端 JavaScript 的首选，但是拥有一个更安全和以正确的方式解决 JavaScript 最令人尴尬的部分之一（是的，我说的正是吃了太多的硬盘空间的 node_modules）的选择真是太棒了。
 
-These modules surely will help working on some first web apps written in Deno and will help the community around this new runtime become stronger.
+这些模块无疑将帮助你使用 Deno 编写你的第一个 Web 应用程序，将帮助围绕着这个新的运行时的社区更加的强大。
 
-Have any questions about Deno? Let me know [on Twitter](https://twitter.com/urcoilbisurco) or reply to this article!
+有任何关于 Deno 的问题？[在 Twitter](https://twitter.com/urcoilbisurco) 上告诉我，或者在文章下留言！
 
-#### Resources
+#### 相关资源
 
-* Want lo learn more about Deno? The official website has a great documentation: [https://deno.land/manual/introduction](https://deno.land/manual/introduction)
-* Want to find some more awesome Modules for Deno? [https://github.com/denolib/awesome-deno](https://github.com/denolib/awesome-deno) has lots of other modules to explore and to use ✨
+* 关于 Deno 想学习更多？官方网站有很棒的文档：[https://deno.land/manual/introduction](https://deno.land/manual/introduction)
+* 想发现更多基于 Deno 的很棒的模块？[https://github.com/denolib/awesome-deno](https://github.com/denolib/awesome-deno) 有许多其它可以探索和使用的模块 ✨
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
