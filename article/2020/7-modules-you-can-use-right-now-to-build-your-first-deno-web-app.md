@@ -2,10 +2,10 @@
 > * 原文作者：[francesco marassi](https://medium.com/@marassi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/7-modules-you-can-use-right-now-to-build-your-first-deno-web-app.md](https://github.com/xitu/gold-miner/blob/master/article/2020/7-modules-you-can-use-right-now-to-build-your-first-deno-web-app.md)
-> * 译者：
+> * 译者：[niayyy](https://github.com/niayyy-S)
 > * 校对者：
 
-# 使用 7 个模块来构建第一个 Deno Web 应用
+# 可以用来构建 Deno Web 应用程序的 7 个模块
 
 ![](https://cdn-images-1.medium.com/max/2048/0*NaSZcL23r-soB27b)
 
