@@ -1,7 +1,7 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[CSS fix for 100vh in mobile WebKit](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/)
+> * 原文作者：[Matt Smith](https://allthingssmitty.com/about)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/.md](https://github.com/xitu/gold-miner/blob/master/article/2020/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/css-fix-for-100vh-in-mobile-webkit.md](https://github.com/xitu/gold-miner/blob/master/article/2020/css-fix-for-100vh-in-mobile-webkit.md)
 > * 译者：
 > * 校对者：
 
