@@ -19,13 +19,13 @@ The `vue-dummy` package lets us add dummy text to our app when while we’re dev
 
 We can install it by running:
 
-```
+```bash
 npm install --save vue-dummy
 ```
 
 It’s also available as a standalone script that we can add by adding:
 
-```
+```html
 <script src="https://unpkg.com/vue-dummy"></script>
 ```
 
@@ -35,7 +35,7 @@ Then we can use it as follows:
 
 `main.js` :
 
-```
+```js
 import Vue from "vue";
 import App from "./App.vue";
 import VueDummy from "vue-dummy";
@@ -51,7 +51,7 @@ new Vue({
 
 `App.vue` :
 
-```
+```html
 <template>
   <div id="app">
     <p v-dummy="150"></p>
@@ -72,7 +72,7 @@ Next, we added an image that’s 200px wide by 150px high.
 
 We can also have a random number of words between a range for the dummy text. To use this feature, we can write:
 
-```
+```html
 <template>
   <div id="app">
     <p v-dummy="'100,130'"></p>
@@ -88,7 +88,7 @@ export default {
 
 Then we get a random block of text between 100 to 130 words. It can also be written as a directive argument. For instance, we can write:
 
-```
+```html
 <template>
   <div id="app">
     <p v-dummy:100,130></p>
@@ -108,25 +108,25 @@ Likewise, dummy images dimensions can be set as directive arguments or modifiers
 
 To set dummy image dimensions as an argument, we can write:
 
-```
+```html
 <img v-dummy:300x200>
 ```
 
 To set dummy image dimensions as a directive modifer, we can write:
 
-```
+```html
 <img v-dummy.400x300>
 ```
 
 We can also set the width and height attributes of the `img` tag to set its dimensions:
 
-```
+```html
 <img v-dummy width="250" height="150">
 ```
 
 We can also create randomly sized images:
 
-```
+```html
 <img v-dummy="'100,400x200,400'">
 ```
 
@@ -134,13 +134,13 @@ The code above will create images that’s between 100 to 400px wide and 200 to 
 
 We can also put the numbers as a directive argument as follows:
 
-```
+```html
 <img v-dummy:100,400x200,400>
 ```
 
 The `dummy` component is also available to generate the placeholder text or image as follows:
 
-```
+```html
 <dummy text="100"></dummy>
 <dummy img="420x300"></dummy>
 ```
@@ -149,7 +149,7 @@ The first line creates a text block that’s 100 words long, and the 2nd creates
 
 We can also create a table with fake content as follows:
 
-```
+```html
 <table v-dummy></table>
 ```
 
@@ -161,13 +161,13 @@ The Vue.ImagesLoaded directive detects whether an image has been loaded.
 
 It calls a callback when the image is loaded or fails to load. We can install it by running:
 
-```
+```bash
 npm install vue-images-loaded --save
 ```
 
 Then we can use it as follows:
 
-```
+```html
 <template>
   <div id="app">
     {{loaded}}
