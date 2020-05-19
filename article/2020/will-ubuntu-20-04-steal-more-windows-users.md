@@ -5,7 +5,7 @@
 > * 译者：[z0gSh1u](https://github.com/z0gSh1u)
 > * 校对者：
 
-# Ubuntu 20.04 会不会偷走更多的 Windows 用户?
+# Ubuntu 20.04 会不会偷走更多的 Windows 用户？
 
 又到了一年的这个时候，Ubuntu [**20.04 发布了**](https://bit.ly/DownloadUbuntu20)。 这会不会是偷走更多 Windows 用户的发行版？
 
