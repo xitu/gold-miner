@@ -7,7 +7,7 @@
 
 # Vue Plugins You Don’t Know You May Need
 
-![Photo by [Sharon McCutcheon](https://unsplash.com/@sharonmccutcheon?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*l8DvH63lfQLRxqCj)
+![Photo by [Creative Nerds](https://unsplash.com/@creativenerds?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8000/0*rwLCSJM5TWHmJPtB)
 
 Vue.js is an easy to use web app framework that we can use to develop interactive front end apps.
 
@@ -152,8 +152,6 @@ We can also create a table with fake content as follows:
 ```html
 <table v-dummy></table>
 ```
-
-![Photo by [Creative Nerds](https://unsplash.com/@creativenerds?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8000/0*rwLCSJM5TWHmJPtB)
 
 ## Vue.ImagesLoaded
 
