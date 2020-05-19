@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/latest-features-javascript-ecmascript-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2020/latest-features-javascript-ecmascript-2020.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：[Chorer](https://github.com/Chorer) [CoolRice](https://github.com/CoolRice)
+> * 校对者：[Chorer](https://github.com/Chorer)，[CoolRice](https://github.com/CoolRice)
 
 # ECMAScript 2020 新特性
 
@@ -11,7 +11,7 @@
 
 JavaScript 是最流行的编程语言之一，每年都会添加新的特性。本文介绍了添加在 ECMAScript 2020（又称ES11）中的新特性。
 
-在引入 ECMAScript 2015（又称 ES6）之前，JavaScript 发展的非常缓慢。但自 2015 年起，每年都有新特性添加进来。需要注意的是，不是所有特性都被现代浏览器支持，但是由于 JavaScript 编译器 [Babel](https://babeljs.io/)的存在，我们已经可以使用新特性了。本文将介绍 ECMAScript 2020 (ES11) 的一些最新特性。
+在引入 ECMAScript 2015（又称 ES6）之前，JavaScript 发展的非常缓慢。但自 2015 年起，每年都有新特性添加进来。需要注意的是，不是所有特性都被现代浏览器支持，但是由于 JavaScript 编译器 [Babel](https://babeljs.io/) 的存在，我们已经可以使用新特性了。本文将介绍 ECMAScript 2020（ES11）的一些最新特性。
 
 ## Optional Chaining 可选链式调用
 
@@ -76,32 +76,32 @@ console.log(plantFlowers?.()) // 输出：undefined
 
 ## Nullish Coalescing 空值合并
 
-目前，要为变量提供回退值，逻辑操作符 **` || `** 还是必须的。它适用于很多情况，但不能应用在一些特殊的场景。例如，初始值是布尔值或数字的情况。举例说明，我们要把数字赋值给一个变量，当变量的初始值不是数字时，就默认其为 7 ：
+目前，要为变量提供回退值，逻辑操作符 **`||`** 还是必须的。它适用于很多情况，但不能应用在一些特殊的场景。例如，初始值是布尔值或数字的情况。举例说明，我们要把数字赋值给一个变量，当变量的初始值不是数字时，就默认其为 7 ：
 
 ```javascript
 let number = 1
 let myNumber = number || 7
 ```
 
-变量 **myNumber** 等于1，因为左边的 （**number**）是一个 [**真**](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) 值 1 。但是，当变量 **number** 不是 1 而是 0 呢？
+变量 **myNumber** 等于 1，因为左边的（**number**）是一个 [**真**](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) 值 1。但是，当变量 **number** 不是 1 而是 0 呢？
 
 ```javascript
 let number = 0
 let myNumber = number || 7
 ```
 
-0 是 [**假**](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) 值，所以即使 0 是数字。变量 **myNumber** 将会被赋值为右边的 7 。但结果并不是我们想要的。幸好，由两个问号组成： **`??`** 的合并操作符就可以检查变量 **number** 是否是一个数字，而不用写额外的代码了。
+0 是 [**假**](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) 值，所以即使 0 是数字。变量 **myNumber** 将会被赋值为右边的 7。但结果并不是我们想要的。幸好，由两个问号组成：**`??`** 的合并操作符就可以检查变量 **number** 是否是一个数字，而不用写额外的代码了。
 
 ```javascript
 let number = 0
 let myNumber = number ?? 7
 ```
 
-操作符右边的值仅在左边的值等于  **null** 或 **undefined** 时有效，因此，例子中的变量 **myNumber** 现在的值等于 0 了。
+操作符右边的值仅在左边的值等于 **null** 或 **undefined** 时有效，因此，例子中的变量 **myNumber** 现在的值等于 0 了。
 
 ## Private Fields 私有字段
 
-许多具有 **classes** 的编程语言允许定义类作为公共的，受保护的或私有的属性。**Public** 属性可以从类的外部或者子类访问，**protected** 属性只能被子类访问， **private** 属性只能被类内部访问。JavaScript 从 **ES6** 开始支持类语法，但直到现在才引入了私有字段。要定义私有属性，必须在其前面加上散列符号：**`#`**。
+许多具有 **classes** 的编程语言允许定义类作为公共的，受保护的或私有的属性。**Public** 属性可以从类的外部或者子类访问，**protected** 属性只能被子类访问，**private** 属性只能被类内部访问。JavaScript 从 **ES6** 开始支持类语法，但直到现在才引入了私有字段。要定义私有属性，必须在其前面加上散列符号：**`#`**。
 
 ```javascript
 class Flower {
@@ -192,7 +192,7 @@ try {
 
 ## Promise.allSettled 方法
 
-等待多个 promise 返回结果时，我们可以用 **Promise.all(\[promise\_1, promise\_2\])**。但问题是，如果其中一个请求失败了，就会抛出错误。然而，有时候我们希望某个请求失败后，其他请求的结果能够正常返回。 针对这种情况 **ES11** 引入了 **Promise.allSettled** 。
+等待多个 promise 返回结果时，我们可以用 **Promise.all(\[promise\_1, promise\_2\])**。但问题是，如果其中一个请求失败了，就会抛出错误。然而，有时候我们希望某个请求失败后，其他请求的结果能够正常返回。针对这种情况 **ES11** 引入了 **Promise.allSettled** 。
 
 ```javascript
 promise_1 = Promise.resolve('hello')
