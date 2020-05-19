@@ -7,9 +7,9 @@
 
 # The limits of knowledge
 
-#### Gödel, Turing, and the science of what we can and cannot know
-
 ![Crater Lake in Oregon (image source: Sebastien Goldberg, [Unsplash](https://unsplash.com/photos/L1Xqp235CYk))](https://cdn-images-1.medium.com/max/9678/0*CpmVADktVXeu5Jk2)
+
+> Gödel, Turing, and the science of what we can and cannot know
 
 In the seventeenth century, German mathematician Gottfried Leibnitz proposed a machine that could read any mathematical statement as input and determine whether it is true or false, based on the axioms of Mathematics. But is every statement decidable like that? Or are the limits to what we can know? This question has become known as the **Entscheidungsproblem** (decision problem).
 
@@ -52,7 +52,7 @@ Turing was working on the so-called **halting problem**, which can be posed as f
 
 Turing proved that the answer to the halting problem is “No”, such a program cannot exist. Similar to Gödel’s work, his proof is a ‘proof by contradiction’. Assume that there exists a program **halts()** that determines whether a given program will halt or not. But then we can also construct the following program:
 
-```
+```python
 def g():
     if halts(g):
         loop_forever()
@@ -79,8 +79,6 @@ The P vs NP question is so important that it is included in the list of the ‘[
 
 Most scientists today believe that P does not equal NP, but will we ever know for sure? The P vs NP question itself might be similar to Hilbert’s Entscheidungsproblem or Turing’s Halting problem: **there might simply be no answer to the question.**
 
----
-
 #### Resources and further reading
 
 * Complexity, a guided tour (by Melanie Mitchell)
@@ -88,10 +86,9 @@ Most scientists today believe that P does not equal NP, but will we ever know fo
 * Gödel’s Incompleteness Theorem ([video](https://www.youtube.com/watch?v=O4ndIDcDSGc))
 
 If you liked this article, also check out the following:
-[**How to be less wrong**
-**A Bayesian’s guide to predicting the future with limited data**towardsdatascience.com](https://towardsdatascience.com/how-to-be-less-wrong-5d6632a08f)
-[**Trajectories Formed by Chance**
-**Random walks in physics, finance, and in our lives**medium.com](https://medium.com/swlh/trajectories-formed-by-chance-bc96c8e236a5)
+
+- [How to be less wrong - A Bayesian’s guide to predicting the future with limited data](https://towardsdatascience.com/how-to-be-less-wrong-5d6632a08f)
+- [Trajectories Formed by Chance - Random walks in physics, finance, and in our lives](https://medium.com/swlh/trajectories-formed-by-chance-bc96c8e236a5)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
