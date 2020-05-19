@@ -7,15 +7,13 @@
 
 # What’s New in Swift 5.3?
 
-#### Cross-platform support, multiple trailing closures, multi-pattern catch clauses, and more
-
 ![Photo by [Kira auf der Heide](https://unsplash.com/@kadh?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/10368/0*FYXrss0agbTq1JVx)
+
+> Cross-platform support, multiple trailing closures, multi-pattern catch clauses, and more
 
 The Swift 5.3 release process started at the end of March and has only recently entered the final stage of development. Extending the language support across platforms like Windows and Linux distributions has been one of the primary goals of this version.
 
 But Apple has also given a lot of focus on improving the overall language and its performance to boost SwiftUI and machine learning for iOS. Let’s dig through the major changes that we’ll see in the soon-to-be-released update.
-
----
 
 ## Multiple Trailing Closures
 
@@ -40,8 +38,6 @@ UIView.animate(withDuration: 0.5) {
 ```
 
 The change above would make our SwiftUI views a lot easier to write.
-
----
 
 ## Multi-Pattern Catch Clauses
 
@@ -77,8 +73,6 @@ func networkCall(){
 
 Multi-pattern catch clauses would help make our codebase clear and concise.
 
----
-
 ## Synthesized Comparable Conformance for Enums
 
 Up until now, comparing two enum cases wasn’t straightforward. You’d have to conform to `Comparable` and write up a `static fun \<` for determining if the raw value of a case is lower than the other (or vice versa for `>`).
@@ -97,8 +91,6 @@ enum Brightness: Comparable {
 ([.high, .low(1), .medium, .low(0)] as [Brightness]).sorted()
 // [Brightness.low(0), Brightness.low(1), Brightness.medium, Brightness.high]
 ```
-
----
 
 ## Enum Cases As Protocol Witnesses
 
@@ -130,8 +122,6 @@ enum JSONDecodingError: DecodingError {
   case keyNotFound(_ key: String)
 }
 ```
-
----
 
 ## self Isn’t Explicitly Required Everywhere
 
@@ -169,8 +159,6 @@ struct NewView: View {
 
 Developers using SwiftUI would happily embrace this. As views are held in `structs`, which are value types, reference cycles cannot occur.
 
----
-
 ## Type-Based Program Entry Points
 
 [SE-0281](https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md) gifted us with a new `@main` attribute that lets us define entry points for our apps. You needn’t invoke an `AppDelegate.main()` method manually anymore, as marking a struct or class with the attribute ensures it’s the starting point of your program.
@@ -185,8 +173,6 @@ static func main() {
 ```
 
 One can assume that the older domain-specific provided attributes, `@UIApplicationMain` and `@NSApplicationMain`, would be deprecated in the future versions in favor of `@main`.
-
----
 
 ## where Clauses on Contextually Generic Declarations
 
@@ -209,8 +195,6 @@ extension Base{
 
 By allowing `where` clauses on member declarations, we can easily create shorter and more concise generic interfaces and stay away from creating separate extensions.
 
----
-
 ## New Collection Operations for Noncontiguous Elements
 
 Currently, accessing a continuous range of elements in a collection is straightforward. For arrays, all you need to do is `[startIndex...endIndex]`.
@@ -229,17 +213,14 @@ let multiplesofThree = numbers.subranges(where: { $0.isMultiple(of: 3) })
 let combinedIndexes = multiplesofThree.intersection(indicesOfEvens)
 let sum = numbers[combinedIndexes].reduce(0, +)
 //Sum of 6 + 12 = 18
-
 ```
 
 Using `RangeSet`, we can do a whole lot of computations and manipulations on collections. For example, by using the `moveSubranges` function, we can shift a range of indexes in an array. See how easy it is to tweak an array by moving all the even numbers to the beginning:
 
-```
+```Swift
 let rangeOfEvens = numbers.moveSubranges(indicesOfEvens, to: numbers.startIndex)
 // numbers == [2, 4, 6, 8, 10, 12, 14, 1, 3, 5, 7, 9, 11, 13, 15]
 ```
-
----
 
 ## Refine didSet Semantics
 
@@ -269,8 +250,6 @@ a.firstArray = [1,2]
 a.secondArray = [1]
 ```
 
----
-
 ## A New Float16 Type
 
 [SE-0277](https://github.com/apple/swift-evolution/blob/master/proposals/0277-float16.md) introduces `Float16` — a half-precision floating point. With the advent of machine learning on mobile in recent years, this only indicates Apple’s ambitions in pushing the envelope even further. A `Float16` is commonly used on mobile GPUs for computation and as a compressed format for weights in ML applications.
@@ -278,8 +257,6 @@ a.secondArray = [1]
 ```
 let f16: Float16 = 7.29
 ```
-
----
 
 ## Closing Thoughts
 
