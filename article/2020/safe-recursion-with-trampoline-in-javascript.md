@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/safe-recursion-with-trampoline-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/safe-recursion-with-trampoline-in-javascript.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：
+> * 校对者：[cyz980908](https://github.com/cyz980908)，[z0gSh1u](https://github.com/z0gSh1u)
 
-# 用JavaScript中的蹦床函数实现安全递归
+# 使用JavaScript中的蹦床函数实现安全递归
 
 ![来自[Charles Cheng](https://unsplash.com/@charlesc7?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7274/0*9Sxt2ppwVpNELxC0)
 
@@ -88,7 +88,7 @@ console.log('No range error!');
 
 下一次你想使用递归的时候，试试 `蹦床函数` 吧！
 
-你可以尝试 `trampoline` 在这里 [CodePen](https://codepen.io/baranovxyz/pen/zYvjKGN)。
+你可以尝试 `蹦床函数` 在这里 [CodePen](https://codepen.io/baranovxyz/pen/zYvjKGN)。
 
 ---
 
