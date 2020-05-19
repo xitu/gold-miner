@@ -11,14 +11,13 @@ Not long ago there was some buzz around how WebKit handles `100vh` in CSS, essen
 
 The other day I was doing some work with a basic flexbox layout – header, main, sticky footer – the kind we’ve all seen and used many times before:
 
-```
+```html
 <header>HEADER GOES HERE</header>
 <main>MAIN GOES HERE</main>
 <footer>FOOTER GOES HERE</footer>
-
 ```
 
-```
+```css
 body {
   display: flex; 
   flex-direction: column;
@@ -29,7 +28,6 @@ body {
 main {
   flex: 1;
 }
-
 ```
 
 I began running some browser tests on my iPhone, and that’s when I noticed that my sticky footer wasn’t looking so sticky:
@@ -38,9 +36,7 @@ I began running some browser tests on my iPhone, and that’s when I noticed tha
 
 The footer was hiding below Safari’s menu bar. This is the `100vh` bug (feature?) that Nicolas originally uncovered and reported. I did a little sleuthing – hoping that maybe by now a non-hacky fix had been found – and that’s when I stumbled upon my own solution (btw, it’s totally hacky):
 
-> 🔥 TIL a [#CSS](https://twitter.com/hashtag/CSS?src=hash&ref_src=twsrc%5Etfw) trick to handle that annoying mobile viewport bug with \`100vh\` in WebKit (iOS Safari)! [#WebDev](https://twitter.com/hashtag/WebDev?src=hash&ref_src=twsrc%5Etfw) [#ProTip](https://twitter.com/hashtag/ProTip?src=hash&ref_src=twsrc%5Etfw) [pic.twitter.com/lefD0Klqzd](https://t.co/lefD0Klqzd)
-> 
-> — Matt Smith (@AllThingsSmitty) [April 25, 2020](https://twitter.com/AllThingsSmitty/status/1254151507412496384?ref_src=twsrc%5Etfw)
+![image](https://user-images.githubusercontent.com/5164225/82304565-182c2080-99ef-11ea-9a18-c27545f53b87.png)
 
 ## Using -webkit-fill-available
 
@@ -48,7 +44,7 @@ The idea behind `-webkit-fill-available` – at least at one point – was to al
 
 However, the above problem is specifically in WebKit, which **does** support `-webkit-fill-available`. So with that in mind, I added it to my ruleset with `100vh` as the fallback for all other browsers.
 
-```
+```css
 body {
   min-height: 100vh;
   /* mobile viewport bug fix */
