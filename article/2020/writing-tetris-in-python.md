@@ -13,8 +13,6 @@ In this tutorial, we will write a simple Tetris using the PyGame library in Pyth
 
 ![Tetris Game](https://cdn-images-1.medium.com/max/2000/1*zJwBMHhqoVES9LbIg68qxQ.gif)
 
----
-
 #### Prerequisites
 
 1. Python3. This may be downloaded from the [official website](https://www.python.org/downloads/).
@@ -25,8 +23,6 @@ You may experience issues with installing PyGame or Python itself, but this is o
 
 I personally experienced a problem on Mac with having anything displayed on the screen, and installing some specific version of PyGame solved the problem: pip install pygame==2.0.0.dev4.
 
----
-
 #### The Figure Class
 
 We start with the Figures class. Our goal is to store the figure types together with the rotations. We could, of course, rotate them using matrix rotation, but that can make it too complex.
@@ -35,7 +31,7 @@ We start with the Figures class. Our goal is to store the figure types together 
 
 So, we simply have a list of lists of figures like that:
 
-```
+```python
 class Figure:
     figures = [
         [[1, 5, 9, 13], [4, 5, 6, 7]],
@@ -52,7 +48,7 @@ As an exercise try to add some missing figures here, namely the “z” figures.
 
 The `__init__` function would be as follows:
 
-```
+```python
 class Figure:
     ...    
     def __init__(self, x, y):
@@ -67,7 +63,7 @@ where we randomly pick a type and a color.
 
 And we need to quickly be able to rotate and get the current rotation of a figure, for this we have these two simple methods:
 
-```
+```python
 class Figure:
     ...
     def image(self):
@@ -77,13 +73,11 @@ class Figure:
         self.rotation = (self.rotation + 1) % len(self.figures[self.type])
 ```
 
----
-
 #### The Tetris Class
 
 We first initialize the Game with some variables:
 
-```
+```python
 class Tetris:
     level = 2
     score = 0
@@ -101,7 +95,7 @@ where the state tells us if we are still playing a game or not. The `field` is t
 
 We initialize the game with the following simple method:
 
-```
+```python
 class Tetris:
     ...    
     def __init__(self, height, width):
@@ -118,7 +112,7 @@ That creates a field with the size `height x width`.
 
 Creating a new figure and position it at coordinates (3,0) is simple:
 
-```
+```python
 class Tetris:
     ...
     def new_figure(self):
@@ -127,7 +121,7 @@ class Tetris:
 
 The more interesting function is to check if the currently flying figure intersecting with something fixed on the field. This may happen when the figure is moving left, right, down, or rotating.
 
-```
+```pyton
 class Tetris:
     ...
     def intersects(self):
@@ -147,7 +141,7 @@ It is pretty simple: we go and check each cell in the 4x4 matrix of the current 
 
 Having this function, we can now check if we are allowed to move or rotate the Figure. If it moves down and intersects, then this means we have reached the bottom, so we need to “freeze” the figure on our field:
 
-```
+```python
 class Tetris:
     ...
     def freeze(self):
@@ -165,7 +159,7 @@ After freezing, we have to check if there are some full horizontal lines that sh
 
 Checking the full lines is relatively simple and straightforward, but pay attention to the fact that destroying a line goes from the bottom to the top:
 
-```
+```python
 class Tetris:
     ...
     def break_lines(self):
@@ -185,7 +179,7 @@ class Tetris:
 
 Now, we are missing the moving methods:
 
-```
+```python
 class Tetris:
     ...
     def go_space(self):
@@ -223,7 +217,7 @@ We are almost done!
 
 There is some simple logic left, which is the game loop and the PyGame stuff. So, let’s see at the complete code now:
 
-```
+```python
 import pygame
 import random
 
