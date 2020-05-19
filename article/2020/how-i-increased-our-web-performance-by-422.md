@@ -2,53 +2,53 @@
 > * 原文作者：[Perry Martijena](https://medium.com/@thisisnotperry)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-i-increased-our-web-performance-by-422.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-i-increased-our-web-performance-by-422.md)
-> * 译者：
+> * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
 > * 校对者：
 
-# How I Increased Our Web Performance by 422%
+# 看我如何把网站性能提升 422%
 
 ![Our application now…](https://cdn-images-1.medium.com/max/5200/0*jDO8rVIDpzTq0vGx.jpeg)
 
-I increased our web performance by 422%. Surprisingly, it mainly came down to better data structures and a few other tricks.
+我把网站性能提升了 422%。没想到的是，单凭改良数据结构和其他一些技巧就能达到这么好的效果。
 
-Recently I re-designed the UI at my job. We’re running on AngularJS, and most of the application was built with ES5 as it’s been running in production for 4 years now. We had some performance issues, including slow updates, long loading times, and some clunky code from the days when jQuery was the standard for responsive resizing. I took on these tasks, and thought I’d share the 6 most important lessons I learned in the process.
+在近期的工作中，我重新设计了网站的用户界面。我们的网站基于 AngularJS 开发，而且由于它已经在线上运行了 4 年，所以其中大部分应用都是用 ES5 开发的。我们的网站存在一些性能问题，包括更新缓慢、加载时间长，而且一些代码块来自于 jQuery 主宰响应式布局的年代。我搞定了这些优化项，并想与大家分享在这个过程中我学到的 6 个最重要的经验。
 
-## 1) Learn your Data Structures and Algorithms
+## 1) 学习数据结构和算法
 
-JavaScript is no longer an inferior language. It has every data structure implementation you’d expect, and performance matters on the front-end. Up to 45% of a web application’s speed is on the front end (via [High Performance Web Sites: Essential Knowledge For Front-End Engineers by Steve Souders](http://shop.oreilly.com/product/9780596529307.do)). Chances are, your back-end developer is using them, so you should be too. It’s extremely important to use good data structures and algorithms that can scale, so your app can also scale.
+JavaScript 已经不再是一个弱小的语言了。你想要的每个数据结构实现它都有，而性能对前端来说很重要。决定 Web 应用的性能的因素中，有 45% 来自前端（来自 Steve Souders 的《[High Performance Web Sites: Essential Knowledge For Front-End Engineers](http://shop.oreilly.com/product/9780596529307.do)》）。你身边的后端开发者很有可能在用数据结构和算法，所以你也应该用得上它们。使用良好的数据结构和可扩展的算法极其重要，这样你的应用也是可扩展的。
 
-The most useful data structures that helped me in increasing performance were the [ES6 Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and Stacks. Hash-maps are amazing, and should be used anywhere you need constant accesses from a key. In front-end development, a lot of the time we need to check for display conditions (e.g. permissions). I found it super useful caching data that we accessed many times per page through an array into a Map. That improved time complexity from O(n) to O(1) and there is a very noticeable improvement. Stacks were very useful for things like wizards where you need to “undo” a lot. Recursion was extremely important to know, especially working with objects. I was able to replace a lot of slow functions with good recursive functions (that had solid base cases) using the divide and conquer strategy.
+最有用的数据结构就是 [ES6 Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 和栈，它们有效地帮我提升了网站性能。哈希 Map 简直太令人惊艳了，每一个需要用键访问常量的地方都应该使用它。在前端开发中，我们需要花大量时间检查显示条件（比如鉴权）。我发现缓存数据是非常有用的，我们可以把每个页面中需要通过数组多次访问的数据缓存到 Map 中。这个优化能把时间复杂度从 O(n) 降到 O(1)，这是一个非常显著的性能提升。堆栈对于像向导（Wizard）这样经常需要执行“撤消”操作的场景非常有用。递归也是必知必会的概念，特别是处理对象时。使用分而治之策略，我用良好的递归函数（具有固定的基线条件）替换了大量缓慢的函数。
 
-## 2) Caching
+## 2) 缓存
 
-Any sort of list value or data you might need to access more than a few times that doesn’t change often should be cached. Generally, I try to store those things in session storage. There are cases where local storage is useful, but most data I cache I want to be refreshed when the user’s session ends. Make sure you are careful about what you are caching. For instance, storing sensitive data in local storage (such as username, part of last user messages, etc) is a very, very, bad idea as it’s accessible to anyone on the computer. When possible, if something doesn’t change per session and is accessed more than once, cache it!
+无论任何列表数值或数据，只要是需要多次访问且不经常改变，你都应该缓存起来。一般来说，我把这些数据存到会话存储（Session Storage）中。虽说本地存储在一些场景中更有用，但对于我缓存的大多数数据来说，我希望当用户的会话中止时就刷新它们。缓存数据一定要谨慎。例如，把敏感信息（如用户名、上个用户的部分消息等）存到本地存储中是一个极为糟糕的做法，因为任何使用这台电脑的人都能得到它们。如果某些数据不随着会话的改变而改变，且需要经常访问，那就果断缓存之！
 
-## 3) Make less HTTP Calls
+## 3) 减少 HTTP 请求
 
-Making less HTTP calls is very important for the user. Depending on their network, your API calls that are lightning fast locally could be very slow on a 3G network. I recommend using Chrome’s network and CPU throttling features to see how your website performs on a slower network computer.
+减少 HTTP 请求对用户来说意义重大。本地调试时快如闪电的 API 接口调用，可能在 3G 网络下慢似树懒，实际的速度取决于用户的网络状况。推荐大家使用 Chrome 的 Network 面板和 CPU 节流功能来测试你的网站在较缓慢的网络中性能如何。
 
-## 4) Remove jank (smooth CSS animations)
+## 4) 消除卡顿（顺滑的 CSS 动画）
 
-CSS animations are very powerful. “Jank” is when your animations are choppy. Chrome’s performance section in the dev tools let’s you record and view the FPS of your CSS animations/transitions. I noticed that smooth animations make users feel increasingly confident in the system. Elements moving around after loading or noticeably choppy transitions can be concerning for a user.
+CSS 动画十分强大。 “卡顿（Jank）”指的是动画不稳定的情况。Chrome 调试工具中的 Performance 面板能帮你记录并观察 CSS 动画/过渡（Transition）的 FPS 值。我发现顺滑的动画能让用户更加信赖系统。加载后的元素乱跳或明显的过渡抖动，都会让用户担忧。
 
-## 5) Don’t use eval….(not just for security reasons)
+## 5) 不要使用 eval……（不仅仅是为了安全）
 
-Security reasons aside, I noticed that eval is SLOWWWWW. Eval interprets code, and then has to find variables you’ve mentioned by tracing it through machine code. Replacing eval conditions with other solutions (recursive solutions a lot of the time) can be a lot faster. Even if you’re using eval in a secure way, if there’s another solution that is potentially just as good, go with that one.
+先抛开安全因素不谈，我发现 eval 实在是太太太慢了。eval 会解析代码，而后通过追踪机器代码来查找代码中提及的变量。用其他解决方案（通常是递归）替代 eval 能提速不少。即使你以安全的方式使用着 eval，如果有另一个可能同样好的解决方案，那就赶紧取用替代方案。
 
-## 6) Learn how JavaScript actually works
+## 6) 理解 JavaScript 的运行原理
 
-Knowing what is happening when you create a Promise/Observable, about the event loop and the call stack, asynchronous behavior, how a framework you’re using is compiled, the prototype/scope chains, etc will go milestones. Knowing what JS is actually doing gives you the knowledge to make the right decisions when it comes to performance and designing scalable applications. I’d also highly recommend checking out this resource on [Javascript Design Patterns](https://www.dofactory.com/javascript/design-patterns) which is free and extremely useful.
+从事件循环、调用栈、异步行为、框架的编译原理、原型、作用域链等角度，去理解当你创建了一个 Promise/Observable 时发生了什么，将会是里程碑般的进步。理解 JavaScript 的运行原理能让你知道当涉及到性能和可扩展应用的设计时，应该如何做出正确的决策。也极力推荐大家看看 [Javascript Design Patterns](https://www.dofactory.com/javascript/design-patterns)，免费且裨益良多。
 
-Finally, don’t worry about the micro-optimizations. It’s important to be performance conscious, but make sure you are writing understandable and manageable code first and foremost. So to recap:
+最后，不要担心微优化（Micro-optimization）。虽说有性能意识很重要，但记住，第一要务仍是写出易懂、易维护的代码。再强调一遍：
 
-* Use good data structures and algorithms
-* Cache when you can
-* Make less HTTP calls
-* Remove Jank
-* Don’t use eval
-* Learn how JavaScript works internally!
+* 使用良好的数据结构和算法
+* 适当做缓存
+* 减少 HTTP 请求
+* 消除卡顿
+* 别用 eval
+* 理解 JavaScript 运行原理！
 
-I hope you got something out of this! 😃
+希望本文能给你带来启发！😃
 
 ---
 
