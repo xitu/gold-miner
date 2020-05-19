@@ -7,9 +7,9 @@
 
 # Rethinking the Front-end: Micro Frontend
 
-> The front end is getting bigger and bigger for most of the **web apps** and the back end is becoming less relevant. I would assume that the majority of new web applications that are being developed today are facing a similar situation.
-
 ![](https://cdn-images-1.medium.com/max/2000/1*8wFsg7DNlsY8IFpEr6_Szg.jpeg)
+
+> The front end is getting bigger and bigger for most of the **web apps** and the back end is becoming less relevant. I would assume that the majority of new web applications that are being developed today are facing a similar situation.
 
 This includes support to enable the coexistence of different front-end frameworks, e.g. older modules built-in JQuery or AngularJS 1.x, in conjunction with newer modules built-in React or Vue.
 
@@ -19,15 +19,11 @@ Managing 10 projects with 10 people each is simpler than managing one big projec
 
 Scalability is the main conception here. By simplifying, we ‘re getting:
 
-> Separate repositories
->
-> Independent deployments
->
-> Builds and releases faster
->
-> Autonomous teams
->
-> Easier testing and handling
+- Separate repositories
+- Independent deployments
+- Builds and releases faster
+- Autonomous teams
+- Easier testing and handling
 
 **To give an example:**
 
@@ -39,11 +35,9 @@ Scalability is the main conception here. By simplifying, we ‘re getting:
 
 I would imagine it requires the following:
 
-> # A shared codebase in pure JavaScript e.g. routing management and user session management. Some have exchanged CSS. Both should be as slim as they can be.
-
-> # A series of “mini-apps” independent modules designed in various frameworks, stored in different code repositories.
-
-> # A deployment framework that bundles all modules from different repositories together, and deploys to a server whenever a module is modified.
+- > A shared codebase in pure JavaScript e.g. routing management and user session management. Some have exchanged CSS. Both should be as slim as they can be.
+- > A series of “mini-apps” independent modules designed in various frameworks, stored in different code repositories.
+- > A deployment framework that bundles all modules from different repositories together, and deploys to a server whenever a module is modified.
 
 **But as it turns out, several other people are pondering the same thoughts. The typical term is “micro frontends”.**
 
