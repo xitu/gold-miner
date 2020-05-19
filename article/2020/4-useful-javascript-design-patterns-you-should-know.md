@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)
 > * 译者：[Zavier Tang](https://github.com/zaviertang)
-> * 校对者：
+> * 校对者：[niayyy-S](https://github.com/niayyy-S)、[CuteSunLee](https://github.com/CuteSunLee)
 
 # 最常用的 4 种 JavaScript 设计模式
 
