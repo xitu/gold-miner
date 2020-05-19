@@ -7,8 +7,6 @@
 
 # 3 Essential Questions About Hashable in Python
 
-#### From general discussion to specific implementation
-
 ![Photo by [Yeshi Kangrang](https://unsplash.com/@omgitsyeshi?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7648/0*eL1s2Ik6LMju82xU)
 
 As a general-purpose programming language, Python provides a good range of built-in data types for various use cases.
@@ -32,15 +30,13 @@ You may wonder — What does hashable mean exactly? Which objects are hashable a
 
 In this article, we’ll go over some key points about hashability such that you’ll learn how to address these questions. In the end, you’ll probably find out that these questions are actually not hard at all, unlike what you may have thought initially.
 
----
-
 ## Which Objects Are Hashable and Which Are Not?
 
 Before we begin any mechanistic explanation, the first question that we want to address is which objects are hashable and which are not.
 
 Because we know that Python explicitly requires that the elements in a `set` should be hashable, we can test an object’s hashability by simply trying to add the object to a `set`. Successful insertion indicates the objects being hashable and vice versa.
 
-```
+```python
 >>> # Create an empty set object
 >>> elements = set()
 >>> 
@@ -86,8 +82,6 @@ If you’re completely new to Python programming, you may have noticed that thes
 In essence, these mutable data are objects whose values can be changed after their creation, while the values of immutable objects can’t be changed after the creation.
 
 Data mutability is a standalone topic that I have covered previously in my other [article](https://medium.com/swlh/6-things-to-understand-python-data-mutability-b52f5c5db191).
-
----
 
 ## What Does Hashable Mean?
 
@@ -139,8 +133,6 @@ However, neither the `list` object nor the `dict` object had hash values. These 
 #### Answer to the section’s question
 
 * Hashable: A characteristic of a Python object to indicate whether the object has a hash value, which allows the object to serve as a key in a dictionary or an element in a set.
-
----
 
 ## How Can We Customize Hashability?
 
@@ -247,8 +239,6 @@ Another thing to note is that when Python checks whether the elements in the `se
 #### Answer to the section’s question
 
 Customization: To provide customized behaviors in terms of hashability and equality, we need to implement the `__hash__` and `__eq__` functions in our custom classes.
-
----
 
 ## Conclusion
 
