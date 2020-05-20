@@ -7,15 +7,11 @@
 
 # 10 Best Practices for Improving Your CSS
 
-#### Building scalable and manageable stylesheets
-
 ![](https://cdn-images-1.medium.com/max/3400/1*m7oyUcMoJsW5wyzGfh6ydA.png)
 
 CSS may seem like a pretty straightforward language, on that’s hard to make mistakes in. You just add your rules to style your website and you’re done, right? With small sites that require only a couple of CSS files, this might be the case. But in large applications, styles can quickly spiral out of control. How do you keep them manageable?
 
 The reality is that, just as with any other language, CSS has its own nuances that can make or break your design. Here are 10 tips for CSS — best practices that can help you bring out the best from your styles.
-
----
 
 ## 1. Do You Really Need a Framework?
 
@@ -28,8 +24,6 @@ If you’re only using styles for buttons, outsource them to your own CSS file a
 To open it, search for Coverage in the Tools panel. You can open the Tools panel by clicking `Ctrl` + `Shift` + `P`. Once open, start recording by clicking on the reload icon. Everything shown in red is unused.
 
 You can see that in the example above, it says that 98% of the CSS is not used. Note that this is not actually true — some CSS styles are only applied after the user interacts with the site. Styles for mobile devices are also flagged as unused bytes. So before you remove everything, make sure you verify that it is indeed not used anywhere.
-
----
 
 ## 2. Prefer Using a CSS Methodology
 
@@ -59,8 +53,9 @@ Inverted Triangle CSS helps you better organize your files by introducing differ
 
 Object-oriented CSS, or OOCSS, has two main principles.
 
-**Separating structure and skin 
-**This means you want to define visuals separately from structural code. What does this mean in practice?
+**Separating structure and skin**
+
+This means you want to define visuals separately from structural code. What does this mean in practice?
 
 ```CSS
 /* Instead of  */
@@ -87,8 +82,9 @@ Object-oriented CSS, or OOCSS, has two main principles.
 }
 ```
 
-**2. Separating container and content
-**This means you don’t want any element to depend on its location. The same elements should look the same regardless of where they are on the page.
+**Separating container and content**
+
+This means you don’t want any element to depend on its location. The same elements should look the same regardless of where they are on the page.
 
 ```CSS
 /* Instead */
@@ -97,8 +93,6 @@ Object-oriented CSS, or OOCSS, has two main principles.
 /* Do */
 .breadcrumb { ... }
 ```
-
----
 
 ## 3. Set Up a Pre-Processor
 
@@ -219,8 +213,6 @@ $color-white: #FAFAFA;
 $color-black: #212121;
 ```
 
----
-
 ## 4. Use Markup Instead of CSS
 
 Now let’s move on to actual CSS. This is often overlooked. Usually, you can reduce the size of your CSS bundles by simply using the correct HTML elements. Say you have a heading with the following set of rules:
@@ -236,8 +228,6 @@ span.heading {
 
 You’re using a `span` element as a header. You override the default display, spacing or font style. This can be avoided by using an `h1`, `h2`, or `h3` instead. By default, they have the styles you’re trying to achieve with other elements. You can immediately get rid of four unnecessary rules.
 
----
-
 ## 5. Use Shorthand Properties
 
 To further reduce the number of rules, always try to go with [shorthand properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties). For the above example, we could have said:
@@ -251,8 +241,6 @@ To further reduce the number of rules, always try to go with [shorthand properti
 This is true for other properties such as paddings, borders, or backgrounds.
 
 ![Using shorthand properties can greatly reduce the weight of your CSS files](https://cdn-images-1.medium.com/max/2000/1*7KmDiqi1dJ7iQT2TUD87oA.gif)
-
----
 
 ## 6. Reduce Redundancy
 
@@ -301,8 +289,6 @@ Try to go with a similar approach:
 <div class="warning">⚠️</div>
 <div class="warning warning--elevated">🚨</div>
 ```
-
----
 
 ## 7. Avoid Complex Selectors
 
@@ -354,8 +340,6 @@ Now it looks much more pleasant. If you still find yourself in need of an overly
 }
 ```
 
----
-
 ## 8. Don’t Remove Outlines
 
 This is one of the most common mistakes developers make when writing CSS. While you may think there’s nothing wrong about removing the highlight that outlines create, in fact, you’re making the site inaccessible. It’s common practice to add this rule as a reset to your CSS.
@@ -371,8 +355,6 @@ This way, however, users with only keyboard navigation will have no clue about w
 ![](https://cdn-images-1.medium.com/max/2000/1*O46YMp_-UZPNFpQtqXbVYQ.gif)
 
 If the default styling looks bad for your brand, create custom outlines. Just make sure there is some kind of indication when it comes to focusing elements.
-
----
 
 ## 9. Use Mobile First
 
@@ -394,8 +376,6 @@ How can you tell if you use mobile-first? If your media queries use `min-width`,
 }
 ```
 
----
-
 ## 10. Compress
 
 Lastly, compress your bundles to reduce their size. Compression removes comments and whitespaces your bundles require less bandwidth to fetch.
@@ -413,8 +393,6 @@ To achieve this, you have a couple of options based on your project setup:
 * **Webpack**: for Webpack, you can use the `[css-loader](https://github.com/webpack-contrib/css-loader)` module.
 * **Gulp**: for Gulp, you can use the `[gulp-minify-cssnames](https://www.npmjs.com/package/gulp-minify-cssnames)` plugin.
 * **Create your own**: If you don’t have a dedicated package for your project setup, I have a tutorial that shows you how you can create [your own implementation](https://medium.com/swlh/how-i-reduced-my-css-bundle-size-by-more-than-20-76433e7330eb).
-
----
 
 ## Summary
 
