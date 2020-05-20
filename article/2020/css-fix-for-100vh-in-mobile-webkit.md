@@ -5,7 +5,7 @@
 > * 译者：[z0gSh1u](https://github.com/z0gSh1u)
 > * 校对者：
 
-## 手机端 Webkit 内核浏览器 100vh 问题的 CSS 修复方法
+## 手机端 WebKit 内核浏览器 100vh 问题的 CSS 修复方法
 
 不久以前，有人在讨论 WebKit 是怎么处理 CSS 的 `100vh` 的，本质上就是会忽略浏览器视口的下边沿。有的人建议避免使用 `100vh`，其他人有一些 [不同的替代方法](https://medium.com/@susiekim9/how-to-compensate-for-the-ios-viewport-unit-bug-46e78d54af0d) 来变通解决这个问题。实际上，在早几年，Nicolas Hoizey 就 [记录了 WebKit 的一个 bug](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) ，正是关于这个问题 （概括一下：WebKit 说这种处理是故意的 🧐)。
 
