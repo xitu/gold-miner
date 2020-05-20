@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-and-why-you-should-avoid-cors-in-single-page-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-and-why-you-should-avoid-cors-in-single-page-apps.md)
 > * 译者：[ZiXYu](https://github.com/ZiXYu)
-> * 校对者：
+> * 校对者：[Xiny](https://github.com/x1ny)
 
 # 如何且为何要在单页应用中防止跨域资源共享 
 
