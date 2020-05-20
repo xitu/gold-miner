@@ -2,83 +2,83 @@
 > * 原文作者：[bitfish](https://medium.com/@bf2)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zavier Tang](https://github.com/zaviertang)
+> * 校对者：[niayyy-S](https://github.com/niayyy-S)、[CuteSunLee](https://github.com/CuteSunLee)
 
-# 4 Useful JavaScript Design Patterns You Should Know
+# 最常用的 4 种 JavaScript 设计模式
 
 ![Photo by [Neven Krcmarek](https://unsplash.com/@nevenkrcmarek?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9820/0*0VPoIQRlovWvRq4d)
 
-I wonder if you are as confused about the design patterns as I was before. In my case, I developed my own personal projects before, with almost no thought of design. Therefore, there are many design defects and code implementation defects, which bring a lot of trouble for later maintenance and development iterations.
+你是否像我以前一样对设计模式感到非常困惑呢？就我自身而言，我以前的个人项目，几乎没有考虑过设计模式。因此，存在很多设计缺陷和代码缺陷，给以后的维护和迭代带来了不少的麻烦。
 
-But to be a high-level developer, one of the basic requirements is to be proficient in design patterns. To this end, I read a lot of books and blogs about design patterns, but I only learned some theoretical knowledge at the beginning. I never put it into practice.
+但是要成为一名优秀的程序员，其基本要求之一就是精通设计模式。为此，我阅读了大量关于设计模式的书籍和博客，但一开始只学习到了一些理论知识。从来没有在实际项目中使用到。
 
-It was not until later that I began to study the source code of some well-known open-source projects and consulted many predecessors in real work that I gradually mastered the use of design patterns. Now I have summed up some of my experience and written this article, I hope it can help you.
+直到后来我开始去阅读一些知名开源项目的源码，并在实际工作中请教了许多前辈，我才逐渐掌握了设计模式的使用。于是，我总结了一些自己的经验并写下了这篇文章，希望能对大家有所帮助。
 
-This article discusses the use of the following design patterns:
+本文将讨论以下设计模式的使用：
 
-* **Strategy Pattern**
-* **Publish–subscribe pattern**
-* **Decorator Pattern**
-* **Chain of Responsibility Pattern**
+* **策略模式**
+* **发布-订阅模式**
+* **装饰者模式**
+* **责任链模式**
 
-#### What are design patterns?
+#### 什么是设计模式？
 
-Wiki said:
+引用维基百科：
 
-> # A software design pattern is a general, reusable solution to a commonly occurring problem within a given context in software design.
+> # 在软件工程中，设计模式（design pattern）是对软件设计中普遍存在（反复出现）的各种问题，所提出的解決方案。
 
-This may be a little abstract, but you can understand it this way: Now imagine you’re playing a video game and it takes you five hours to get through. And then you play it again, because you’ve played it before, and you’ve accumulated some skills, so it only takes you two hours. Your friend asks you for tips on how to play the game, so you tell him some tips, which are design patterns.
+这可能有点抽象，但你可以这样去理解：现在假设你正在玩一个电子游戏，你花了五个小时才完成通关。但是在你下一次玩的时候，因为你之前已经玩过了，积累了一些技巧，所以这次只需要两个小时就可以完成通关。这时你的朋友问你玩这个游戏的技巧，于是你告诉了他一些自己的经验，这就是所谓的设计模式。
 
-#### Why do we need design patterns?
+#### 为什么需要设计模式？
 
-The functionality of the software we develop always changes over time. The value of design patterns is to better organize our current code and make it easier to iterate in the future.
+我们开发的软件的功能总是随着时间而变化。设计模式的价值在于更好地组织我们当前的代码，并使其在未来更易于迭代。
 
-Let’s learn about design patterns through real examples now.
+现在让我们通过真实的例子来学习设计模式吧。
 
-## Strategy Pattern
+## 策略模式
 
-Suppose we have the requirement that when a user tries to open a page, the correct content can only be seen if the following conditions are met:
+假设我们有这样的需求，当用户试图打开一个页面时，只有满足以下的条件才能看到对应的内容:
 
-* The user is a registered user of this site
-* The user’s level is not less than 1
-* The user must be a front-end development engineer
-* The type of user is an active user
+* 用户是网站的注册用户
+* 用户级别不小于 1
+* 用户必须是前端工程师
+* 用户的属性是活跃用户
 
-Now we need to write the judgment logic to make sure that only the right users can see the content. What do you do? Many novice programmers might simply pick up the ‘if-else’ and write code like this:
+现在我们需要编写判断逻辑，以确保只有符合条件的用户才能看到内容。你会怎么做？许多初学编程的人可能会简单地选择 `if-else` 并像下面这样编写代码：
 
 ```JavaScript
 function checkAuth(data) {
   if (data.role !== 'registered') {
-    console.log('The user is not a registered user');
+    console.log('该用户不是注册用户');
     return false;
   }
   if (data.grade < 1) {
-    console.log("The user's level is less than 1");
+    console.log("用户级别小于1");
     return false;
   }
   if (data.job !== 'FE') {
-    console.log('The user is not a front-end development engineer');
+    console.log('该用户不是前端开发工程师');
     return false;
   }
   if (data.type !== 'active user') {
-    console.log('The user is not an active user');
+    console.log('该用户不是活跃用户');
     return false;
   }
 }
 ```
 
-I’m sure you’ve all written similar code before, but it has the following problems:
+我相信大家以前都写过类似的代码，但它有以下问题：
 
-* The `checkAuth` function is bloated.
-* Each judgment function cannot be reused
-* Violates the open-closed principle
+* 函数 `checkAuth` 是臃肿的
+* 每个判断函数不能被复用
+* 违反了开闭原则
 
-So how do we solve this problem? This is where the strategy pattern comes into play.
+那么我们如何解决这个问题呢？这就是策略模式发挥作用的时候了。
 
-It is a design pattern that allows the encapsulation of alternative algorithms for a particular task. It defines a family of algorithms and encapsulates them in such a way that they are interchangeable at runtime without client interference or knowledge.
+它是一种允许封装用于特定任务的备选算法的设计模式。它可以定义一系列算法，并以这样一种方式封装它们。它们在运行时可以互换调用顺序，而不需要编写额外的代码。
 
-Now let’s use the strategy pattern to improve the previous code.
+现在让我们使用策略模式来改写上面的代码。
 
 ```JavaScript
 const jobList = ['FE', 'BE'];
@@ -110,19 +110,19 @@ var strategies = {
 };
 ```
 
-The above code is a list of the strategies we will use, and we continue to complete the validation logic.
+上面的代码是我们将使用的策略列表，我们将继续完成验证逻辑。
 
 ```JavaScript
 var Validator = function() {
   // Store strategies
   this.cache = [];
-// add strategy to cache
+  // add strategy to cache
   this.add = function(value, method) {
     this.cache.push(function() {
       return strategies[method](value);
     });
   };
-// check all strategies
+  // check all strategies
   this.check = function() {
     for (let i = 0; i < this.cache.length; i++) {
       let valiFn = this.cache[i];
@@ -136,7 +136,7 @@ var Validator = function() {
 };
 ```
 
-All right, now let’s implement the previous requirement.
+好了，现在让我们来实现前面的需求。
 
 ```JavaScript
 var compose1 = function() {
@@ -151,21 +151,21 @@ var compose1 = function() {
   validator.add(data1.grade, 'checkGrade');
   validator.add(data1.type, 'checkType');
   validator.add(data1.job, 'checkJob');
-const result = validator.check();
+  const result = validator.check();
   return result;
 };
 ```
 
-After looking at the code above, you may think: the amount of code seems to have increased!
+看了上面的代码之后，你可能会想：代码量似乎增加了。
 
-As we said before, the value of design patterns is that they make it easier for you to cope with change. If your requirements don’t change from the beginning to the end, there’s really not much value in using design patterns. However, if the requirements of the project change, then the value of the design pattern can be reflected.
+但正如我们之前所说的，设计模式的价值在于它能使你更容易地应对变化的需求。如果你的需求从头到尾都没有改变，那么使用设计模式真的没有多大价值。但是，如果当项目的需求发生了变化，那么设计模式的价值就可以得到体现。
 
-For example, on another page, our verification logic for the user is different, we just need to ensure that:
+例如，在另一个页面，我们对用户的验证逻辑是不同的，比如我们只需要确保：
 
-* The user is a registered user of this site
-* The user’s level is not less than 1
+* 用户是网站的注册用户
+* 用户级别不小于 1
 
-At this point, we find that we can easily reuse the previous code:
+在这里，我们发现我们可以很容易地重用以前的代码：
 
 ```JavaScript
 var compose2 = function() {
@@ -181,65 +181,65 @@ var compose2 = function() {
 };
 ```
 
-We can see that by applying the strategy pattern, our code becomes more maintainable. You can now consider applying the strategy pattern to your own projects, such as when handling form validation.
+我们可以看到，通过使用策略模式，我们的代码变得更易于维护。现在可以考虑将策略模式应用到你自己的项目中了，例如在处理表单验证时。
 
-When the module you are responsible for basically meets the following conditions, you might consider using the strategy pattern to optimize your code.
+当你的需求基本上满足以下条件时，你可以考虑使用策略模式来优化代码。
 
-* The strategies under each judgment condition are independent and reusable
-* The internal logic of the strategy is relatively complex
-* Strategies need to be flexibly combined
+* 每个判断条件下的策略是独立的、可重用的
+* 策略的内在逻辑比较复杂
+* 策略需要灵活结合
 
-## Publish–subscribe pattern
+## 发布-订阅模式
 
-Now let’s look at another requirement: when the user successfully completes an application, the background needs to trigger the corresponding order, message, and audit modules.
+现在我们来看另一个需求：当用户成功提交申请时，后台需要触发相应的订单、消息和审计模块。
 
 ![](https://cdn-images-1.medium.com/max/3032/1*tTKBtTxsUjuSUkZIw9l3Dw.png)
 
-How would you code? Many programmers might write something like this:
+如何编写代码呢？许多程序员可能会这样写：
 
 ```JavaScript
 function applySuccess() {
-  // Notify the message center for the latest content
+  // 通知消息中心获取最新内容
   MessageCenter.fetch();
-  // Update order information
+  // 更新订单信息
   Order.update();
-  // Inform the person in charge to review
+  // 通知负责人审核
   Checker.alert();
 }
 ```
 
-This makes the code look fine.
+这看起来还不错。
 
-Sure, there’s nothing directly wrong with the code itself, but in practice, it’s likely to happen:
+当然，代码本身并没有什么直接的错误，但是在实践中，它很可能会发生：
 
-* MessageCenter was originally developed by Jon, who later renamed `MessageCenter.fetch` to `MessageCenter.request` for some reason. This causes you to change the applySuccess function, or your code will crash.
-* The Order module was originally developed by Bob, but he hasn’t written `Order.update` yet because of the number of tasks. This makes your code unusable and you can only temporarily remove the function.
+* `MessageCenter` 最初是由 Jon 开发的，他后来因为某些原因将 `MessageCenter.fetch` 重新命名为`MessageCenter.request`。这将导致你需要更改 `applySuccess` 函数，否则代码会报错。
+* 订单模块最初是由 Bob 开发的，但是他因为工作量太大还没有写 `Order.update` 方法。这使得你的代码不可用，并且只能临时删除该函数。
 
-Even worse, your project often relies on more than just these three modules. For example, when the application is successful, we need to submit a log. How do you handle this situation? You may have to modify the original function again.
+更糟糕的是，你的项目常常不只依赖于这三个模块。例如，当申请成功时，我们需要提交一个日志。你如何处理这种情况？可能需要再次修改原始函数。
 
 ```JavaScript
 function applySuccess() {
-  // Notify the message center for the latest content
+  // 通知消息中心获取最新内容
   MessageCenter.fetch();
-  // Update order information
+  // 更新订单信息
   Order.update();
-  // Inform the person in charge to review
+  // 通知负责人审核
   Checker.alert();
   Log.write();
-  // Maybe more
+  // 更多...
   // ...
 }
 ```
 
-As more and more modules are involved, our code becomes more bloated and harder to maintain. That’s when the publish-and-subscribe model can save the disaster.
+随着涉及的模块越来越多，我们的代码变得越来越臃肿，维护起来也越来越困难。这时，发布-订阅模式就可以优雅地解决问题。
 
 ![](https://cdn-images-1.medium.com/max/3764/1*WkZyWe_HUw7YUuE-ASrL9Q.png)
 
-Do you find EventEmitter familiar? That’s right, it comes up a lot in interview questions?
+你是否觉得 EventEmitter 很熟悉？没错，在面试中经常会出现？
 
-Publish-subscribe is a messaging paradigm in which the publisher of a message does not send the message directly to a particular subscriber, but instead broadcasts it over a message channel, and subscribers get the message they want through the subscription.
+发布-订阅是一种消息传递范例，消息的发布者不直接将消息发送给特定的订阅者，而是通过消息通道广播消息，订阅者通过订阅获得他们想要的消息。
 
-First, let’s write an EventEmit function:
+首先，让我们写一个 EventEmit 函数：
 
 ```JavaScript
 const EventEmit = function() {
@@ -261,7 +261,7 @@ const EventEmit = function() {
 };
 ```
 
-Above we wrote an EventEmit, then our code can be changed to this:
+上面我们写了一个 EventEmit 函数，然后我们的代码可以改为：
 
 ```JavaScript
 let event = new EventEmit();
@@ -283,17 +283,17 @@ Checker.alert() {
 event.trigger('success');
 ```
 
-Isn’t that better? All events are independent of each other. We can add, modify, and delete an event at any time without affecting other modules.
+这样是不是更好呢？所有的事件都是相互独立的。我们可以在不影响其他模块的情况下随时添加、修改和删除事件。
 
-When you’re responsible for a module that basically satisfies the following conditions, you might consider using the publish-subscribe pattern.
+当你负责一个基本上满足以上条件的模块时，可以考虑使用发布-订阅模式。
 
-## Decorator Pattern
+## 装饰者模式
 
-Now let’s go straight to an example.
+让我们直接来看一个例子吧。
 
-As anyone who knows React knows, a higher-order component is really just a function. It takes a component as an argument and returns a new component.
+了解 React 的人都知道，高阶组件实际上只是一个函数。它接受一个组件作为参数并返回一个新组件。
 
-So let’s write a higher-order component, HOC, and use it to decorate the TargetComponent.
+所以，让我们来编写一个高阶组件（HOC），并使用它来装饰 TargetComponent。
 
 ```JavaScript
 import React from 'react';
@@ -309,9 +309,9 @@ const yellowHOC = WrapperComponent => {
 export default yellowHOC;
 ```
 
-In the code above, we define a higher-order component that decorates a yellow background, which we use to decorate the target component.
+在上面的代码中，我们定义了一个装饰黄色背景的高阶组件，我们使用它来装饰目标组件。
 
-Here’s how this higher-order component is used:
+让我们看看，这里是如何使用这个高阶组件：
 
 ```JavaScript
 import React from 'react';
@@ -324,9 +324,9 @@ class TargetComponent extends Reac.Compoment {
 export default yellowHOC(TargetComponent);
 ```
 
-In the above example, we designed the component yellowHOC to wrap around the other components. This is decorator pattern.
+在上面的例子中，我们设计了组件 yellowHOC 来包装其他组件。这就是装饰者模式。
 
-If you have any questions, let’s look at another example of the decorator pattern.
+你是否会感到困惑呢？让我们看一下装饰者模式的另一个例子。
 
 ```JavaScript
 // Jon was originally a Chinese speaker
@@ -351,21 +351,21 @@ const decorator = new Decorator(oldJonWrite);
 decorator.newWrite();
 ```
 
-## Chain of Responsibility Pattern
+## 责任链模式
 
-Suppose that when we apply to purchase a piece of a device from the company, we must follow the following procedure in order:
+假设我们在向公司申请购买一件设备时，必须遵循以下流程：
 
-1. To apply for the device
-2. Select shipping address
-3. Select a person in charge to review
+1. 申请该装置
+2. 选择送货地址
+3. 选择一位负责人审批
 
-Many novices see this as a very simple requirement and start writing code like this.
+许多初学者将此视为非常简单的需求，并开始编写这样的代码。
 
 ```JavaScript
 function applyDevice(data) {
   // some code to apply device
   // ...
-// Then go to the next step
+  // Then go to the next step
   selectAddress(nextData);
 }
 function selectAddress(data) {
@@ -381,18 +381,18 @@ function selectChecker(data) {
 }
 ```
 
-It looks like the requirements have been met, but in fact, the above has a very big drawback: our purchase process may change, such as adding an inventory checking process. Then you have to change the original code drastically, which is very difficult to maintain code design.
+看起来已经满足了要求，但实际上，上面有一个非常大的缺点：我们的采购流程可能会改变，比如增加一个库存检查流程。然后，你必须彻底地更改原始代码，这对于维护代码设计是非常困难的。
 
-At this point, we can consider using the chain of responsibility pattern.
+在这一点上，我们可以考虑使用责任链模式。
 
-We can rewrite the code like this:
+我们可以这样改写代码：
 
 ```JavaScript
 const Chain = function(fn) {
   this.fn = fn;
   
   this.setNext = function() {}
-this.run = function() {}
+  this.run = function() {}
 }
 const applyDevice = function() {}
 const chainApplyDevice = new Chain(applyDevice);
@@ -404,15 +404,15 @@ chainApplyDevice.setNext(chainSelectAddress).setNext(chainSelectChecker);
 chainApplyDevice.run();
 ```
 
-What are the benefits? The first thing we did was we decoupled the nodes, and the way we did it was we called function B in function A, and then we called function C in function B. But now it’s different, each function is independent of each other.
+这样有什么好处呢？我们做的第一件事是解耦，我们之前的方法是在函数 A 中调用函数 B，然后在函数 B 中调用函数 C。但是现在它不同了，每个函数都是相互独立的。
 
-Now, suppose we need to check the inventory before we select the address after we apply for the device. In the responsibility chain pattern of the code, we can complete the requirements by simply modify the code.
+现在，假设我们需要在申请设备后选择地址之前检查库存。在代码中使用责任链模式，我们可以通过简单地修改代码来完成需求。
 
-Consider using the chain of responsibility pattern when the module you are responsible for meets the following criteria.
+当你负责的模块满足以下条件时，请考虑使用责任链模式。
 
-* The code of each process can be reused
-* Each process has a fixed order of execution
-* Each process can be recombined
+* 每个流程的代码都可以复用
+* 每个流程都有固定的执行顺序
+* 每个流程都可以重新组合
 
 ---
 

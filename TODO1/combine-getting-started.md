@@ -2,39 +2,39 @@
 > * 原文作者：[Fabrizio Brancati](https://www.raywenderlich.com/u/fbrancati) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/combine-getting-started.md](https://github.com/xitu/gold-miner/blob/master/TODO1/combine-getting-started.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Combine: Getting Started
+# 0202 年了，是时候学习 Combine 了
 
-> Learn how to use Combine’s Publisher and Subscriber to handle event streams, merge multiple publishers and more.
+> 学习如何使用 Combine 框架中的 Publisher（发布者）和 Subscriber（订阅者）来处理随时间变化的事件流，合并多个 publisher。
 
-Combine, announced at WWDC 2019, is Apple's new "reactive" framework for handling events over time. You can use Combine to unify and simplify your code for dealing with things like delegates, notifications, timers, completion blocks and callbacks. There have been third-party reactive frameworks available for some time on iOS, but now Apple has made its own.
+在 2019 年的 WWDC 大会上，Combine 框架登场，它是苹果公司新推出的“响应式”框架，用来处理随时间变化的事件。你可以用 Combine 来统一和简化像代理、通知、定时器、完成回调这样的代码。在 iOS 平台上，之前也有可用的第三方响应式框架，但现在苹果开发了自己的框架。
 
-In this tutorial, you'll learn how to:
+在本教程中，你将学到：
 
-- Use `Publisher` and `Subscriber`.
-- Handle event streams.
-- Use `Timer` the Combine way.
-- Identify when to use Combine in your projects.
+- 使用 `Publisher` 和 `Subscriber`。
+- 处理事件流。
+- 用 Combine 框架中的方式使用 `Timer`。
+- 确定在项目中使用 Combine 的时机。
 
-You'll see these key concepts in action by enhancing FindOrLose, a game that challenges you to quickly identify the one image that's different from the other three.
+我们通过优化 FindOrLose 来学习这些核心概念。FindOrLose 是一个游戏，它的玩法是：在四张图中，有一张图与其他三张图不同，你需要快速辨别出这张图。
 
-Ready to explore the magic world of Combine in iOS? Time to dive in!
+准备好探索 iOS 中 Combine 的奇妙世界吗？是时候开始了！
 
-## Getting Started
+## 入门
 
-Download the project materials using the Download Materials button at the top or bottom of this tutorial.
+你可以在这里下载本教程的[项目资源](https://koenig-media.raywenderlich.com/uploads/2020/04/FindOrLose.zip)。
 
-Open the starter project and check out the project files.
+打开 starter 项目，查看一下项目文件。
 
-Before you can play the game, you must register at [Unsplash Developers Portal](https://unsplash.com/developers) to get an API key. After registration, you'll need to create an app on their developer's portal. Once complete, you'll see a screen like this:
+在玩游戏之前，你必须先在 [Unsplash Developers Portal](https://unsplash.com/developers) 上注册并获取一个 API key。注册完之后，在他们的开发者门户网站上创建一个 App。创建完成后，在屏幕上看到下面的内容：
 
 [![Creating Unsplash app to get the API key](https://koenig-media.raywenderlich.com/uploads/2020/01/FinalUnsplashFindOrLose-634x500.jpg)](https://koenig-media.raywenderlich.com/uploads/2020/01/FinalUnsplashFindOrLose.jpg)
 
-> Note: Unsplash APIs have a rate limit of 50 calls per hour. Our game is fun, but please avoid playing it too much :]
+> 注释: Unsplash APIs 每小时有 50 次的调用上限。我们的游戏很有趣，但不要玩太多哟 :]
 
-Open UnsplashAPI.swift and add your Unsplash API key to `UnsplashAPI.accessToken` like this:
+打开 UnsplashAPI.swift，然后在 `UnsplashAPI.accessToken` 中添加你的 Unsplash API key，如下：
 
 
 ```swift
@@ -44,15 +44,16 @@ enum UnsplashAPI {
 }
 ```
 
-Build and run. The main screen shows you four gray squares. You'll also see a button for starting or stopping the game:
+编译运行。主屏幕上会显示四个灰色正方形，还有一个用于开始或者停止游戏的按钮。
 
 [![First screen of FindOrLose with four gray squares](https://koenig-media.raywenderlich.com/uploads/2020/01/StartScreen-231x500.png)](https://koenig-media.raywenderlich.com/uploads/2020/01/StartScreen.png)
 
-Tap Play to start the game:
+点击 Play 开始游戏：
 
 [![First run of FindOrLose with four images](https://koenig-media.raywenderlich.com/uploads/2020/01/StartGaming-231x500.png)](https://koenig-media.raywenderlich.com/uploads/2020/01/StartGaming.png)
 
-Right now, this is a fully working game, but take a look at `playGame()` in GameViewController.swift. The method ends like this:
+现在，游戏运行完全正常，但是请看看 GameViewController.swift 文件中的 `playGame()`，这个方法的结尾是这样的：
+
 
 ```
             }
@@ -63,61 +64,61 @@ Right now, this is a fully working game, but take a look at `playGame()` in G
   }
 ```
 
-That's too many nested closures. Can you work out what's happening, and in what order? What if you wanted to change the order things happen in, or bail out, or add new functionality? Time to get some help from Combine!
+有太多内嵌的闭包了。你能理清里面的逻辑和顺序吗？如果你想改变调用顺序或者增加新功能，要怎么办？Combine 帮你的时候到了。
 
-## Introduction to Combine
+## Combine 介绍
 
-The Combine framework provides a declarative API to process values over time. There are three main components:
+Combine 框架提供了一套声明式的 API，用来计算随时间变化的值。它有三个要素：
 
-1. Publishers: Things that produce values.
-2. Operators: Things that do work with values.
-3. Subscribers: Things that care about values.
+1. Publishers：产生值
+2. Operators：对值进行运算
+3. Subscribers：接收值
 
-Taking each component in turn:
+下面我们依次来看每一个要素：
 
 ### Publishers
 
-Objects that conform to `Publisher` deliver a sequence of values over time. The protocol has two associated types: `Output`, the type of value it produces, and `Failure`, the type of error it could encounter.
+遵循 `Publisher` 协议的对象能发送随时间变化的值序列。协议中有两个关联类型：`Output` 是产生值的类型；`Failure` 是异常类型。
 
-Every publisher can emit multiple events:
+每一个 publisher 可以发送多种事件：
 
-- An output value of `Output` type.
-- A successful completion.
-- A failure with an error of `Failure`type.
+- `Output` 类型的值输出
+-  完成回调
+- `Failure` 类型的异常输出
 
-Several Foundation types have been enhanced to expose their functionality through publishers, including `Timer` and `URLSession`, which you'll use in this tutorial.
+为了支持 Publishers，在 Foundation 框架中已经优化了一些类型的函数式特性，比如 `Timer` 和 `URLSession`。在本教程我们也会用到它们。
 
 ### Operators
 
-Operators are special methods that are called on publishers and return the same or a different publisher. An operator describes a behavior for changing values, adding values, removing values or many other operations. You can chain multiple operators together to perform complex processing.
+Operators 是特殊的方法，它能被 Publishers 调用并且返回相同的或者不同的 Publisher。Operator 描述了对一个值进行修改、增加、删除或者其他操作的行为。你可以通过链式调用将这些操作组合在一起，进行复杂的运算。
 
-Think of values flowing from the original publisher, through a series of operators. Like a river, values come from the upstream publisher and flow to the downstream publisher.
+想象一下，值从原始的 Publisher 开始流动，然后经过一系列 Operator 的处理，形成新的 Publisher。这个过程就像一条河，值从上游的 Publisher 流向下游的 Publisher。
 
 ### Subscribers
 
-Publishers and operators are pointless unless something is listening to the published events. That something is the `Subscriber`.
+如果没有监听这些发布的事件，Publishers 和 Operators 就没有意义。所以我们需要 Subscriber 来监听。
 
-`Subscriber` is another protocol. Like `Publisher`, it has two associated types: `Input` and `Failure`. These must match the `Output` and `Failure` of the publisher.
+`Subscriber` 是另一个协议。跟 `Publisher` 协议类似，它也有两个关联类型：`Input` 和 `Failure`。这两个类型必须和 Publisher 中的 `Output` 和 `Failure` 类型相对应。
 
-A subscriber receives a stream of value, completion or failure events from a publisher.
+Subscriber 接收 Publisher 的值序列以及正常或者异常的事件。
 
-### Putting it together
+### 组合
 
-A publisher starts delivering values when you call `subscribe(_:)` on it, passing your subscriber. At that point, the publisher sends a subscription to the subscriber. The subscriber can then use this subscription to make a request from the publisher for a definite or indefinite number of values.
+在调用 publisher 的 `subscribe(_:)` 方法时，它就准备给 subscriber 传值。这个时候，publisher 会给 subscriber 发送一个 subscription。subscriber 就可以用这个 subscription 向 publisher 请求数据。
 
-After that, the publisher is free to send values to the Subscriber. It might send the full number of requested values, but it might also send fewer. If the publisher is finite, it will eventually return the completion event or possibly an error. This diagram summarizes the process:
+这些完成之后，publisher 就可以自由地向 subscriber 传送数据了。在这个过程中，publisher 有可能会传送请求的所有数据，有可能只会传送部分数据。如果 publisher 是有限事件流，它最终会以完成事件或者错误事件结束。下面的图表总结了这个过程：
 
 [![Publisher-Subscriber pattern](https://koenig-media.raywenderlich.com/uploads/2020/01/Publisher-Subscriber-474x500.png)](https://koenig-media.raywenderlich.com/uploads/2020/01/Publisher-Subscriber.png)
 
-## Networking with Combine
+## 在网络层使用 Combine
 
-That gives you a quick overview of Combine. Time to use it in your own project!
+上文是对 Combine 的概述。现在我们在项目中使用它。
 
-First, you need to create the `GameError` enum to handle all `Publisher` errors. From Xcode's main menu, select File ▸ New ▸ File... and choose the template iOS ▸ Source ▸ Swift File.
+首先，创建 `GameError` 枚举来处理所有的 `Publisher` 错误。在 Xcode 的主目录中，进入 File ▸ New ▸ File... 选项卡，然后选择 template iOS ▸ Source ▸ Swift File。
 
-Name the new file GameError.swift and add it to the Game folder.
+给这个新文件命名为 GameError.swift，然后添加到 Game 文件夹中。
 
-Now add the `GameError` enum:
+下面来完善 `GameError` 这个枚举：
 
 ```swift
 enum GameError: Error {
@@ -133,27 +134,27 @@ enum GameError: Error {
 }
 ```
 
-This gives you all of the possible errors you can encounter while running the game, plus a handy function to take an error of any type and make sure it's a `GameError`. You'll use this when dealing with your publishers.
+枚举中定义了在游戏中所有可能遇到的错误，还定义了一个处理任意类型错误的方法，用来保证错误是 GameError 类型。我们在处理 publisher 的时候就会用到。
 
-With that, you're now ready to handle HTTP status code and decoding errors.
+有了这些，我们就可以处理 HTTP 状态码和 decoding 中的错误了。
 
-Next, import Combine. Open UnsplashAPI.swift and add the following at the top of the file:
+下一步，导入 Combine 框架。打开 UnsplashAPI.swift，在文件的开头加入下面这段：
 
 ```swift
 import Combine
 ```
 
-Then change the signature of `randomImage(completion:)` to the following:
+然后把 `randomImage(completion:)` 的签名改成如下:
 
 ```swift
 static func randomImage() -> AnyPublisher<RandomImageResponse, GameError> {
 ```
 
-Now, the method doesn't take a completion closure as a parameter. Instead, it returns a publisher, with an output type of `RandomImageResponse` and a failure type of `GameError`.
+现在这个方法没有把回调闭包作为参数，而是返回了一个 publisher，它的 output 是 RandomImageResponse 类型，faliure 是 GameError 类型。
 
-`AnyPublisher` is a system type that you can use to wrap "any" publisher, which keeps you from needing to update method signatures if you use operators, or if you want to hide implementation details from callers.
+`AnyPublisher` 是一个系统类型，你可以用它来包装“任意”的 publisher。这意味着，如果你想使用 operators 或者对调用者隐藏实现细节时，就不必修改方法签名了。
 
-Next, you'll update your code to use `URLSession`'s new Combine functionality. Find the line that begins `session.dataTask(with:`. Replace from that line to the end of the method with the following code:
+下一步，我们来修改代码，让 `URLSession` 支持 Combine 的新功能。找到以 `session.dataTask(with:` 开头的那一行，从这行开始到方法的末尾，用下面的代码替换。
 
 ```swift
 // 1
@@ -179,30 +180,30 @@ return session.dataTaskPublisher(for: urlRequest)
   .eraseToAnyPublisher()
 ```
 
-This looks like a lot of code, but it's using a lot of Combine features. Here's the step-by-step:
+这段代码看起来有很多，但是它用到了很多 Combine 的特性。下面一步一步来讲解：
 
-1. You get a publisher from the URL session for your URL request. This is a `URLSession.DataTaskPublisher`, which has an output type of `(data: Data, response: URLResponse)`. That's not the right output type, so you're going to use a series of operators to get to where you need to be.
-2. Apply the `tryMap` operator. This operator takes the upstream value and attempts to convert it to a different type, with the possibility of throwing an error. There is also a `map` operator for mapping operations that can't throw errors.
-3. Check for `200 OK` HTTP status.
-4. Throw the custom `GameError.statusCode` error if you did not get a `200 OK` HTTP status.
-5. Return the `response.data` if everything is OK. This means the output type of your chain is now `Data`
-6. Apply the `decode` operator, which will attempt to create a `RandomImageResponse` from the upstream value using `JSONDecoder`. Your output type is now correct!
-7. Your failure type still isn't quite right. If there was an error during decoding, it won't be a `GameError`. The `mapError` operator lets you deal with and map any errors to your preferred error type, using the function you added to `GameError`.
-8. If you were to check the return type of `mapError` at this point, you would be greeted with something quite horrific. The `.eraseToAnyPublisher` operator tidies all that mess up so you're returning something more usable.
+1. URL session 返回了 URL 请求的 publisher。这个 publisher 是 `URLSession.DataTaskPublisher` 类型，它的 output 类型是 (data: Data, response: URLResponse)。这不是正确的输出类型，所以你要用一系列 operator 进行转换来达到目的。
+2. 使用 `tryMap`。这个 operator 会接收上游的值，并尝试将它映射成其它的类型，映射过程中可能会抛出错误。还有一个叫 `map` 的 operator 可以执行映射操作，但它不会抛出错误。
+3. 检查 HTTP 状态是否为 `200 OK`。
+4. 如果 HTTP 状态码不是 `200 OK`，抛出自定义的 `GameError.statusCode` 错误。
+5. 如果一切都 OK，返回 `response.data`。这意味着现在链式调用的输出类型是 `Data`。
+6. 使用 `decode`，它将尝试用 `JSONDecoder` 把上游的值解析为 `RandomImageResponse`类型。到这一步，输出类型才是正确的。
+7. 错误类型没有完全正确。如果在 decode 的过程中产生了错误，错误的类型不会是 GameError。在 mapError 这个 operator 中，我们使用 GameError 中定义的方法，把任意的错误类型映射成你想要的错误类型。
+8. 如果查看一下 `mapError` 的返回类型，你可能会被吓到。`.eraseToAnyPublisher` 操作者会帮你把一切都收拾好，让返回值会更有可读性。
 
-Now, you could have written almost all of this in a single operator, but that's not really in the spirit of Combine. Think of it like UNIX tools, each step doing one thing and passing the results on.
+上面的绝大部分逻辑，你也可以在一个 operator 中实现，但这明显不是 Combine 的思想。你可以思考一下 UNIX 中的一些工具，它们每一步只做一件事情，然后把每一步中的结果向下一步传递。
 
-### Downloading an Image With Combine
+### 用 Combine 框架下载图片
 
-Now that you have the networking logic, it's time to download some images.
+重构好了网络层的逻辑，我们来下载图片
 
-Open the ImageDownloader.swift file and import Combine at the start of the file with the following code:
+打开 ImageDownloader.swift 文件，然后在文件的开头用下面的代码导入 Combine：
 
 ```swift
 import Combine
 ```
 
-Like `randomImage`, you don't need a closure with Combine. Replace `download(url:, completion:)` with this:
+和 `randomImage` 一样，有了 Combine 你不必使用闭包。用下面的代码替换 `download(url:, completion:)` 方法：
 
 ```swift
 // 1
@@ -239,34 +240,34 @@ static func download(url: String) -> AnyPublisher<UIImage, GameError> {
 }
 ```
 
-A lot of this code is similar to the previous example. Here's the step-by-step:
+这里的代码与之前例子中的非常类似。下面一步一步来讲解：
 
-1. Like before, change the signature so that the method returns a publisher instead of accepting a completion block.
-2. Get a `dataTaskPublisher` for the image URL.
-3. Use `tryMap` to check the response code and extract the data if everything is OK.
-4. Use another `tryMap` operator to change the upstream `Data` to `UIImage`, throwing an error if this fails.
-5. Map the error to a `GameError`.
-6. `.eraseToAnyPublisher` to return a nice type.
+1. 跟之前一样，修改方法签名。让它返回一个 publisher，而不是接收闭包参数。
+2. 获得图片 URL 的 `dataTaskPublisher`。
+3. 使用 `tryMap` 检查响应码，如果没有错误，就提取数据。
+4. 用另一个 `tryMap` 操作者把上游的 `Data` 转换成 `UIImage`，如果失败，就抛出错误。
+5. 将错误映射成 `GameError` 类型。
+6. `.eraseToAnyPublisher` 返回一个优雅的类型
 
-### Using Zip
+### 使用 Zip
 
-At this point, you've changed all of your networking methods to use publishers instead of completion blocks. Now you're ready to use them.
+我们已经用 publisher 来代替回调闭包修改完了所有网络相关的方法。现在，我们来调用这些方法。
 
-Open GameViewController.swift. Import Combine at the start of the file:
+打开 GameViewController.swift，在文件的开头导入 Combine：
 
 ```swift
 import Combine
 ```
 
-Add the following property at the start of the `GameViewController` class:
+在 `GameViewController` 类的开头加入下面的属性：
 
 ```swift
 var subscriptions: Set<AnyCancellable> = []
 ```
 
-You'll use this property to store all of your subscriptions. So far you've dealt with publishers and operators, but nothing has subscribed yet.
+这个属性是用来存储所有的 subscriptions。目前为止，我们使用过 publishers 和 operators，但是没有订阅。
 
-Now, remove all the code in `playGame()`, right after the call to `startLoaders()`. Replace it with this:
+删除 `playGame()` 中所有的代码，在 `startLoaders()` 方法调用的后面，用下面的代码替换：
 
 ```swift
 // 1
@@ -277,12 +278,13 @@ let firstImage = UnsplashAPI.randomImage()
   }
 ```
 
-In the code above, you:
+在上面的代码中：
 
-1. Get a publisher that will provide you with a random image value.
-2. Apply the `flatMap` operator, which transforms the values from one publisher into a new publisher. In this case you're waiting for the output of the random image call, and then transforming that into a publisher for the image download call.
+1. 获得一个随机图片的 publisher。
+2. 使用 `flatMap`，把上一个 publisher 的值映射为新的 publisher。在本例中，你首先调用了 randomImage，获得了 output 后，将它映射成下载图片的 publisher。
 
-Next, you'll use the same logic to retrieve the second image. Add this right after `firstImage`:
+下一步，我们用同样的逻辑来获取第二张图片。把下面的代码添加到 `firstImage` 后面：
+
 
 ```swift
 let secondImage = UnsplashAPI.randomImage()
@@ -290,8 +292,7 @@ let secondImage = UnsplashAPI.randomImage()
     ImageDownloader.download(url: randomImageResponse.urls.regular)
   }
 ```
-
-At this point, you have downloaded two random images. Now it's time to, pardon the pun, *combine* them. You'll use `zip` to do this. Add the following code right after `secondImage`:
+现在我们已经下载了两张随机图片了。用 `zip` 对这些操作进行组合。在 `secondImage` 的后面添加下面的代码：
 
 ```swift
 // 1
@@ -322,26 +323,26 @@ firstImage.zip(secondImage)
   .store(in: &subscriptions)
 ```
 
-Here's the breakdown:
+下面的步骤分解：
 
-1. `zip` makes a new publisher by combining the outputs of existing ones. It will wait until both publishers have emitted a value, then it will send the combined values downstream.
-2. The `receive(on:)` operator allows you to specify where you want events from the upstream to be processed. Since you're operating on the UI, you'll use the main dispatch queue.
-3. It's your first subscriber! `sink(receiveCompletion:receiveValue:)` creates a subscriber for you which will execute those two closures on completion or receipt of a value.
-4. Your publisher can complete in two ways --- either it finishes or fails. If there's a failure, you stop the game.
-5. When you receive your two random images, add them to an array and shuffle, then update the UI.
-6. Store the subscription in `subscriptions`. Without keeping this reference alive, the subscription will cancel and the publisher will terminate immediately.
+1. `zip` 通过组合现有的 pulisher 的 output，来创建一个新的 publisher。它会等所有的 publisher 都发送 output 之后，才会把组合值发送给下游。
+2. `receive(on:)` 可以指定上游的事件在哪里处理。如果要在 UI 上操作，就必须使用主队列。
+3. 这是我们的第一个 subscriber。`sink(receiveCompletion:receiveValue:)` 创建了一个 subscriber，它有两个闭包参数。当收到完成事件或者正常值时，闭包就会调用。
+4. Publisher 有两种方式结束调用 — 完成或者异常。如果产生了异常，游戏就会终止。
+5. 将两张随机图片的数据加入到数组中进行随机化，然后更新 UI。
+6. 把订阅信息存储到 `subscriptions` 中，用于消除引用。没有引用之后，订阅信息就会取消，publisher 也会立即停止发送。
 
-Finally, build and run!
+最后，编译运行吧。
 
 [![Playing the FindOrLose game made with Combine](https://koenig-media.raywenderlich.com/uploads/2020/01/GameWithCombine-231x500.png)](https://koenig-media.raywenderlich.com/uploads/2020/01/GameWithCombine.png)
 
-Congratulations, your app now successfully uses Combine to handle streams of events!
+恭喜，现在你的 App 成功使用了 Combine 来处理事件流。
 
-## Adding a Score
+## 加入分数
 
-As you may notice, scoring doesn't work any more. Before, your score counted down while you were choosing the correct image, now it just sits there. You're going to rebuild that timer functionality, but with Combine!
+你也许会注意到，分数逻辑没有起作用。重构之前，我们选择图片的同时分数也在倒数，但是现在分数是静止的。现在我们要用 Combine 重构计时器的功能。
 
-First, restore the original timer functionality by replacing `// TODO: Handling game score` in `playGame()` with this code:
+首先，用下面的代码替换 playGame() 方法中的 `// TODO: Handling game score`，用来恢复计时器功能：
 
 ```swift
 self.gameTimer = Timer
@@ -358,31 +359,31 @@ self.gameTimer = Timer
 }
 ```
 
-In the code above, you schedule `gameTimer` to fire every very `0.1` seconds and decrease the score by `10`. When the score reaches `0`, you invalidate `timer`.
+在上面的代码中，我们打算让 `gameTimer` 每 `0.1` 秒触发一次，同时让分数减小 `10`。当分数达到 `0` 的时候，终止定时器。
 
-Now, build and run to confirm that the game score decreases as time elapses.
+现在编译运行，确定游戏分数是否随着时间流逝在减小。
 
 [![Game score decreases as time elapses](https://koenig-media.raywenderlich.com/uploads/2020/01/ScoreDecreases-231x500.png)](https://koenig-media.raywenderlich.com/uploads/2020/01/ScoreDecreases.png)
 
-## Using Timers in Combine
+## 在 Combine 中使用定时器
 
-Timer is another Foundation type that has had Combine functionality added to it. You're going to migrate across to the Combine version to see the differences.
+定时器是另外一种支持 Combine 功能的 Foundation 类型。现在我们把定时器迁移到 Combine 的版本来看看差异。
 
-At the top of `GameViewController`, change the definition of `gameTimer`:
+在 `GameViewController` 的顶部，修改  `gameTimer` 的定义。
 
 ```swift
 var gameTimer: AnyCancellable?
 ```
 
-You're now storing a subscription to the timer, rather than the timer itself. This can be represented with `AnyCancellable` in Combine.
+现在是在定时器里存储一个 subscription，而不是定时器本身。在 Combine 中我们使用 `AnyCancellable`。
 
-Change the first line of`playGame()` and `stopGame()` with the following code:
+用下的代码替换 `playGame()` 和 `stopGame()` 方法的第一行：
 
 ```swift
 gameTimer?.cancel()
 ```
 
-Now, change the `gameTimer` assignment in `playGame()` with the following code:
+现在用下面的代码在 `playGame()` 方法中修改 `gameTimer` 的赋值：
 
 ```swift
 // 1
@@ -402,69 +403,70 @@ self.gameTimer = Timer.publish(every: 0.1, on: RunLoop.main, in: .common)
   }
 ```
 
-Here's the breakdown:
+下面是分解步骤：
 
-1. You use the new API for vending publishers from `Timer`. The publisher will repeatedly send the current date at the given interval, on the given run loop.
-2. The publisher is a special type of publisher that needs to be explicitly told to start or stop. The `.autoconnect` operator takes care of this by connecting or disconnecting as soon as subscriptions start or are canceled.
-3. The publisher can't ever fail, so you don't need to deal with a completion. In this case, `sink` makes a subscriber that just processes values using the closure you supply.
+1. 用这个新 API 可以通过 Timer 创建 publisher。这个 publisher 会在给定的时间间隔下和给定的 runloop 上重复发送当前的时刻。
+2. 这个 publisher 是一个特殊的 Publisher 类型，它需要明确指定开始和结束的 时机。当订阅开始或取消时，`.autoconnect` 通过连接或者断开连接来进行管理。
+3. 这个 publisher 不可能异常，所以不用处理异常回调。在这个例子中，`sink` 创建的 subscriber，只需要处理正常值。
 
-Build and run and play with your Combine app!
+编译运行，玩一下你的 Combine App 吧。
 
 [![FindOrLose game made with Combine](https://koenig-media.raywenderlich.com/uploads/2020/01/FinalGame-231x500.png)](https://koenig-media.raywenderlich.com/uploads/2020/01/FinalGame.png)
 
-## Refining the App
+## 改进 App
 
-There are just a couple of refinements that are missing. You're continuously adding subscribers with `.store(in: &subscriptions)` without ever removing them. You'll fix that next.
+这里还有几个待优化的地方，我们用 `.store(in: &subscriptions)` 连续添加了多个 subscriber，但没有移除它们。下面我们来改进。
 
-Add the following line at the top of `resetImages()`:
+在 `resetImages()` 的顶部添加下面这行代码:
 
 ```swift
 subscriptions = []
 ```
 
-Here, you assign an empty array that will remove all the references to the unused subscriptions.
+这里，你声明了一个空数组，用来移除所有无用订阅信息的引用。
 
-Next, add the following line at the top of `stopGame()`:
+下一步，在 `stopGame()` 方法的顶部添加下面这行代码:
 
 ```swift
 subscriptions.forEach { $0.cancel() }
 ```
 
-Here, you iterate over all `subscriptions` and cancel them.
+这里，你遍历了所有的 `subscriptions`，然后取消了它们。
 
-Time to build and run one last time!
+最后一次编译运行了。
 
 [![FindOrLose game made with Combine](https://koenig-media.raywenderlich.com/uploads/2020/01/FinalGameGIF-1.gif)](https://koenig-media.raywenderlich.com/uploads/2020/01/FinalGameGIF-1.gif)
 
-## I want to Combine All The Things Now!
+## 用 Combine 做所有的事情！
 
-Using Combine may seem like a great choice. It's hot, new, and first party, so why not use it now? Here are some things to think about before you go all-in:
+使用 Combine 框架是一个很好的选择。它既流行又新颖，而且还是官方的，为什么不现在就用呢？不过在你打算全面使用之前，你得考虑一些事情：
 
-### Older iOS Versions
+### iOS 低版本
 
-First of all, you need to think about your users. If you want to continue to support iOS 12, you can't use Combine. (Combine requires iOS 13 or above.)
+首先，你得为用户考虑。如果你打算继续支持 iOS 12，你就不能使用 Combine。（Combine 需要 iOS 13 及以上的版本才支持）
 
-### Your Team
+### 团队
 
-Reactive programming is quite a change of mindset, and there is going to be a learning curve while your team gets up to speed. Is everyone on your team as keen as you to change the way things are done?
+响应式编程在思维上的转变很大，会有学习曲线，但是你的团队要赶进度。在你的团队中是否每个人都像你一样热衷于改变固有的工作方式？
 
-### Other SDKs
+### 其他的 SDK
 
-Think about the technologies your app already uses before adopting Combine. If you have other callback-based SDKs, like Core Bluetooth, you'll have to build wrappers to use them with Combine.
+在采用 Combine 之前，思考一下你的 app 中已经用到的技术。如果你有其他基于回调的 SDK，比如 Core Bluetooth，你必须用 Combine 对它们进行封装。
 
-### Gradual Integration
+### 逐渐整合
 
-You can mitigate many of these concerns if you start using Combine gradually. Start from the network calls and then move to the other parts of the app. Also, consider using Combine where you currently have closures.
+当你逐渐掌握 Combine 时，就没有那么多顾虑了。你可以先从网络层调用开始重构，然后切换到 app 的其他模块。你也可以在使用闭包的地方使用 Combine。
 
-## Where to Go From Here?
+## 接下来怎么学？
 
-You can download the completed version of the project using the Download Materials button at [original article page](https://www.raywenderlich.com/7864801-combine-getting-started).
+你可以在[原文页面](https://www.raywenderlich.com/7864801-combine-getting-started)下载本工程的完整版本。
 
-In this tutorial, you've learned the basics behind Combine's `Publisher` and `Subscriber`. You also learned about using operators and timers. Congratulations, you're off to a good start with this technology!
+本教程中，你学习了 Combine 的基础知识：`Publisher` 和 `Subscriber`。你也学会了 operator 和定时器的使用。恭喜，你已经入门了！
 
-To learn even more about using Combine, check out our book [Combine: Asynchronous Programming with Swift](https://store.raywenderlich.com/products/combine-asynchronous-programming-with-swift)!
+想学习更多 Combine 的用法，请看我们的书籍 [Combine: Asynchronous Programming with Swift](https://store.raywenderlich.com/products/combine-asynchronous-programming-with-swift)！
 
-If you have any questions or comments on this tutorial, please join the forum discussion below!
+如果你对本教程有问题或者评价，欢迎在下讨论区讨论！
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
