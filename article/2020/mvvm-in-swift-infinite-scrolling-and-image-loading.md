@@ -112,7 +112,7 @@ class AppCoordinator: Coordinator {
 }
 ```
 
-在 `AppCoordinator` 的 `start()` 方法内部，我们与 `PhotosCoordinator` 进行 通信，创建了应用的初始场景：`Photos`。
+在 `AppCoordinator` 的 `start()` 方法内部，我们与 `PhotosCoordinator` 进行通信，创建了应用的初始场景：`Photos`。
 
 现在来看看它的实现。
 
