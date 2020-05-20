@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/mvvm-in-swift-infinite-scrolling-and-image-loading.md](https://github.com/xitu/gold-miner/blob/master/article/2020/mvvm-in-swift-infinite-scrolling-and-image-loading.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 在 Swift 中使用 MVVM 架构实现无限滚动和图片加载
 
@@ -398,9 +398,9 @@ final class PhotosViewModelImplementation: PhotosViewModel {
 
 在这个文件中定义 `PhotosViewModel` 协议并实现它。该协议描述了输入（从视图控制器接收的事件）和输出（视图控制器用来驱动 UI 的视图模型数据）。在  `PhotosViewModelImplementation` 内部响应输入的事件并提供输出值：
 
-* `PhotosViewController` 加载并将值发送到视图模型中的 `viewDidLoad` 中继
+* `PhotosViewController` 加载并将值发送到视图模型中的 `viewDidLoad` relay
 * 触发视图模型中的 `getPhotos()` 方法
-* 处理 `UnsplashPhotos` 数组并将其发送到 `unsplashPhotos` 中继
+* 处理 `UnsplashPhotos` 数组并将其发送到 `unsplashPhotos` relay
 
 ```Swift
 private func bindOnViewDidLoad() {
@@ -455,11 +455,11 @@ private func getPhotos() {
 }
 ```
 
-注意，我们还将相关的 `Bool` 事件发送到 `isLoadingFirstPage` 和 `isLoadingAdditionalPhotos` 中继上，视图控制器使用这些事件来显示/隐藏加载指示符（有关更多信息，请参见视图控制器章节）。
+注意，我们还将相关的 `Bool` 事件发送到 `isLoadingFirstPage` 和 `isLoadingAdditionalPhotos` relay 上，视图控制器使用这些事件来显示/隐藏加载指示符（有关更多信息，请参见视图控制器章节）。
 
 * `PhotosViewController` 使用 `unsplashPhotos` 属性来驱动 `UICollectionView` 并根据接收到的模型的数量显示对应数量的 cell
 * `PhotosViewController` 将值发送到视图模型的 `willDisplayCellAtIndex` 属性，这会触发数据加载
-* 加载图片后，将其发送到 `imageRetrievedSuccess` 中继上，`PhotosViewController` 把图片显示在相应的 cell
+* 加载图片后，将其发送到 `imageRetrievedSuccess` relay 上，`PhotosViewController` 把图片显示在相应的 cell
 
 ```Swift
 private func bindOnWillDisplayCell() {
@@ -509,9 +509,9 @@ private func bindOnWillDisplayCell() {
 
 首先，我们检查一下 `unsplashPhotos` 属性是否包含要显示的 cell 的索引。然后，获取图像的 URL，调用 `DataLoadingService` 的 `loadData(at:)` 方法，为了不阻塞主线程，我们在后台线程观察结果。
 
-收到 `Data` 时，我们调用 `DataToImageService` 的 `getImage(from:)` 方法来获取 `UIImage` 对象。最后，如果图像获取成功，我们将事件发送至 `imageRetrievedSuccess` 中继，否则发送到 `imageRetrievedError` 中继。
+收到 `Data` 时，我们调用 `DataToImageService` 的 `getImage(from:)` 方法来获取 `UIImage` 对象。最后，如果图像获取成功，我们将事件发送至 `imageRetrievedSuccess`  relay，否则发送到 `imageRetrievedError` relay。
 
-为了优化内存使用，如果正在加载数据的 cell 从屏幕上消失了，我们还要取消数据加载任务。为此，我们实现了 `didEndDisplayingCellAtIndex` 中继，其用法如下：
+为了优化内存使用，如果正在加载数据的 cell 从屏幕上消失了，我们还要取消数据加载任务。为此，我们实现了 `didEndDisplayingCellAtIndex` relay，其用法如下：
 
 * 视图控制器监听到在滚动 `UICollectionView` 时某个 cell 消失了，会将其索引发送到 `didEndDisplayingCellAtIndex` 属性上
 * 视图模型调用 `DataLoadingService` 的 `stopLoading(at:)` 方法来取消正在进行的任务
@@ -599,7 +599,7 @@ class DataLoadingServiceImplementation: DataLoadingService {
 
 ```
 
-当点击图片时，界面需要导航到新的场景并在其中显示点击的图片及其描述，因此我们定义了 `didChoosePhotoWithId` 中继。当中继接收到值时，我们触发 `PhotosCoordinator` 的 `pushToPhotoDetail(with:)` 方法：
+当点击图片时，界面需要导航到新的场景并在其中显示点击的图片及其描述，因此我们定义了 `didChoosePhotoWithId` relay。当 relay 接收到值时，我们触发 `PhotosCoordinator` 的 `pushToPhotoDetail(with:)` 方法：
 
 ```Swift
 private func bindOnDidChoosePhoto() {
@@ -611,9 +611,9 @@ private func bindOnDidChoosePhoto() {
 }
 ```
 
-现在我们还剩下最后一个功能要实现—无限滚动。它允许我们按页面加载 `UnsplashPhoto`，这样可以节省 API 资源并优化性能。我们的做法是生成一个额外的 `UnsplashPhoto` 数组并将其附加到现有数组中。通过在视图模型内部定义 `didScrollToTheBottom` 中继来实现：
+现在我们还剩下最后一个功能要实现—无限滚动。它允许我们按页面加载 `UnsplashPhoto`，这样可以节省 API 资源并优化性能。我们的做法是生成一个额外的 `UnsplashPhoto` 数组并将其附加到现有数组中。通过在视图模型内部定义 `didScrollToTheBottom` relay 来实现：
 
-* 视图控制器监听用户滚动到最后一个可用的 cell，并向 `didScrollToTheBottom` 中继发送一个 `Void` 事件。
+* 视图控制器监听用户滚动到最后一个可用的 cell，并向 `didScrollToTheBottom` relay 发送一个 `Void` 事件。
 * 视图模型中增加 `pageNumber` 的值，并获取新数据
 
 ```Swift
@@ -959,7 +959,7 @@ viewModel.imageRetrievedError
     .disposed(by: disposeBag)
 ```
 
-当某个 cell 消失时，我们将值发送到视图模型的 `didEndDisplayingCellAtIndex` 中继上：
+当某个 cell 消失时，我们将值发送到视图模型的 `didEndDisplayingCellAtIndex` relay 上：
 
 ```Swift
 /// Cancelling image loading operation for a cell that disappeared
@@ -972,7 +972,7 @@ photosCollectionView.rx.didEndDisplayingCell
 
 再次使用 RxSwift 的 `willDisplayCell` 包装器，来确定是否滑动到列表末尾。
 
-如果是，我们将 `Void` 值发送到 `didScrollToTheBottom` 中继上：
+如果是，我们将 `Void` 值发送到 `didScrollToTheBottom` relay 上：
 
 ```Swift
 /// Infinite scrolling
@@ -1016,7 +1016,7 @@ private func bindBottomActivityIndicator() {
 }
 ```
 
-最后，当我们点击某个单元格时，我们获取所选 `UnsplashPhoto` 的 `id` 并将其 `Int` 值发送到 `didChoosePhotoWithId` 中继：
+最后，当我们点击某个单元格时，我们获取所选 `UnsplashPhoto` 的 `id` 并将其 `Int` 值发送到 `didChoosePhotoWithId` relay ：
 
 ```Swift
 photosCollectionView.rx.modelSelected(UnsplashPhoto.self)
@@ -1442,7 +1442,7 @@ extension PhotoDetailViewController {
 
 ---
 
-## Wrapping Up
+## 结束
 
 想更多地了解架构设计模式？请随时查看我的其他相关文章：
 
