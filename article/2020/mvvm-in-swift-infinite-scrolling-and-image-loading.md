@@ -42,7 +42,7 @@ struct APIKeys {
 * **应用层：** 包含 `AppDelegate.swift` 文件和 `AppCoordinator`，它们负责设置应用程序初始的视图控制器（下文将详细说明）。
 * **表示层：** 包含视图控制器，视图模型及其协调器。它有两个场景：`Photos` （在 `UICollectionView` 中显示 Unsplash 的图片）和 `PhotoDetail`（显示用户在 `Photos` 场景中选择的图片）。
 * **业务逻辑层：** 由模型和服务组成。`UnsplashPhoto` 结构体充当模型，代表我们从 API 中获取的特定照片。服务用来实现业务逻辑—例如，获取 Unsplash 照片列表并从网络上加载数据。
-* **核心层：** 定义我们的业务逻辑层和其它小工具所需的所有设置。例如，它包含基本的 URL，API 密钥和网络客户端。
+* **核心层：** 定义我们的业务逻辑层和其它小工具所需的所有设置。例如，它包含基本的 URL、API 密钥和网络客户端。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*b7fL11UWBMkqkhhzYsUsDw.png)
 
