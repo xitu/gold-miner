@@ -195,12 +195,6 @@ Now that the app is running on localhost:4000, use postman or similar apps for t
 
 **Source-Code link :**[ https://github.com/Kailashw/deno-api-oak](https://github.com/Kailashw/deno-api-oak)
 
-## A note from the Plain English team
-
-Did you know that we have four publications and a YouTube channel? You can find all of this from our homepage at [**plainenglish.io**](https://plainenglish.io/) — show some love by giving our publications a follow and **[subscribing to our YouTube channel](https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw)!**
-
-Did you know that we have four publications and a YouTube channel? You can find all of this from our homepage at [**plainenglish.io**](https://plainenglish.io/) — show some love by giving our publications a follow and **[subscribing to our YouTube channel](https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw)!**
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
