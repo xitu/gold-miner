@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/will-ubuntu-20-04-steal-more-windows-users.md](https://github.com/xitu/gold-miner/blob/master/article/2020/will-ubuntu-20-04-steal-more-windows-users.md)
 > * 译者：[z0gSh1u](https://github.com/z0gSh1u)
-> * 校对者：
+> * 校对者：[lhd951220](https://github.com/lhd951220)
 
 # Ubuntu 20.04 会不会偷走更多的 Windows 用户？
 
 又到了一年的这个时候，Ubuntu [**20.04 发布了**](https://bit.ly/DownloadUbuntu20)。 这会不会是偷走更多 Windows 用户的发行版？
 
-不，2020 年并不会属于是 Linux 桌面的一年。然而，正如 [**Jason Evangelho 在几天前指出的**](https://www.forbes.com/sites/jasonevangelho/2020/05/06/windows-10-is-bleeding-users-while-ubuntu-linux-enjoys-an-astonishing-increase/#61d822b33ccd)，Windows 10 的使用率突然遭遇了罕见的下降，而 Ubuntu 的使用率却上升了 **599%**。这一点点信息虽然说明不了什么，但可以发现 Ubuntu 正在从 Windows 10 偷走用户的说法，也不是那么难领会。
+不，2020 年并不是属于 Linux 桌面的一年。然而，正如 [**Jason Evangelho 在几天前指出的**](https://www.forbes.com/sites/jasonevangelho/2020/05/06/windows-10-is-bleeding-users-while-ubuntu-linux-enjoys-an-astonishing-increase/#61d822b33ccd)，Windows 10 的使用率突然遭遇了罕见的下降，而 Ubuntu 的使用率却上升了 **599%**。这一点点信息虽然说明不了什么，但可以发现 Ubuntu 正在从 Windows 10 偷走用户的说法，也不是那么难以理解了。
 
 > **可用性和兼容性问题一直是从 Windows 迁移到 Linux 的症结，但一些发行版正在逐步解决这些问题。Ubuntu 就是其中之一。**
 
@@ -43,11 +43,11 @@ Ubuntu 20.04 还使用了 Gnome 3.36 标准，如果你喜欢 Gnome，这应该�
 
 ![](https://cdn-images-1.medium.com/max/2000/0*5jTS6Z_buw0IAYgT.jpg)
 
-Ubuntu 20.04 的一个大变化是 Ubuntu 应用商店现在指向 Snap 商店了。那里有成吨的好东西。里面的包比我最近看到的任何发行版的都要多。Snap 确实不错，但如果你还是想用 apt-get 也行。
+Ubuntu 20.04 的一个大变化是 Ubuntu 应用商店现在指向 Snap 商店了。这里有很多好东西，里面的包比我最近看到的任何发行版的都要多。Snap 确实不错，但如果你还是想用 apt-get 也行。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*E0d7StkgMkwGbrVO.jpg)
 
-你还可以选择从哪个通道安装：稳定、测试，或者 edge。真酷！
+你还可以选择从哪个通道安装：稳定版、测试版，或者 edge 版。真酷！
 
 ## 性能
 
@@ -61,7 +61,7 @@ Ubuntu 20.04 的一个大变化是 Ubuntu 应用商店现在指向 Snap 商店�
 
 Ubuntu 一直都是一个开箱即用的操作系统。如果你选择什么都安装，那各种花哨的玩意儿它都有。帮你管理备份，还有自动更新。办公软件、图像查看器之类的都安装好了。如果你想快点开始干活，它就是个“一条龙”式的操作系统。
 
-## Ubuntu 会不会诱惑 Windows 用户？
+## Ubuntu 会不会吸引 Windows 用户？
 
 对 [**Linux**](http://bit.ly/PluralsightLinux) 有日益增长的兴趣是好的。我从九十年代中期就开始用它了，所以很明显，我很喜欢它。我也注意到很多前端开发领域来的新人也对 Linux 越来越好奇。
 
@@ -74,7 +74,7 @@ Ubuntu 一直都是一个开箱即用的操作系统。如果你选择什么都�
 * 有很多开箱即用的，或是在商店里的程序
 * 干净又快速
 
-Linux 会继续迅速发展并从 Windows 和 OSX 那里偷走一些用户。如果你想换换口味，试试 Ubuntu 吧。他们在 20.04 中做了很多很棒的改进，而且它足以胜任一个稳固的桌面操作系统。
+Linux 会继续迅速发展并从 Windows 和 OSX 那里偷走一些用户。如果你想换换口味，试试 Ubuntu 吧。他们在 20.04 中做了很多很棒的改进，而且它非常有能力成为一个可靠、稳定的桌面操作系统，不会成为你的阻碍。
 
 你可以从 [**这里下载 Ubuntu 20.04**](https://bit.ly/DownloadUbuntu20) 。
 
