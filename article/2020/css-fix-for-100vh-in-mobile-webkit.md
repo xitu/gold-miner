@@ -7,7 +7,7 @@
 
 ## 移动端 WebKit 内核浏览器 100vh 问题的 CSS 修复方法
 
-不久以前，有人在讨论 WebKit 是怎么处理 CSS 的 `100vh` 的，本质上就是会忽略浏览器视口的下边沿。有的人建议避免使用 `100vh`，其他人有一些 [不同的替代方法](https://medium.com/@susiekim9/how-to-compensate-for-the-ios-viewport-unit-bug-46e78d54af0d) 来变通解决这个问题。实际上，这个问题可以追溯到几年Nicolas Hoizey [向 WebKit 提交的关于该主题的 bug](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) （概括一下：WebKit 说这种处理是故意的 🧐)。
+不久以前，有人在讨论 WebKit 是怎么处理 CSS 的 `100vh` 的，本质上就是会忽略浏览器视口的下边沿。有的人建议避免使用 `100vh`，其他人有一些 [不同的替代方法](https://medium.com/@susiekim9/how-to-compensate-for-the-ios-viewport-unit-bug-46e78d54af0d) 来变通解决这个问题。实际上，这个问题可以追溯到几年前 Nicolas Hoizey [向 WebKit 提交的关于该主题的 bug](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) （概括一下：WebKit 说这种处理是故意的 🧐)。
 
 有一天，我在做一个基本的 Flex 布局 —— header、main 和 sticky footer —— 就是我们经常看到、经常使用的那种：
 
