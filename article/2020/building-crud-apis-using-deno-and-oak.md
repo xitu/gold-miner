@@ -11,9 +11,9 @@
 
 相对于 Node 来说，Deno是相当新的环境。开发者在学习 Deno 的时候通常想做的第一件事就是构建 CRUD API。 Deno 有一系列的项目帮助我们实现这个目的，包括 [deno-express](https://github.com/NMathar/deno-express)，[oak](https://github.com/oakserver/oak)，[servest](https://github.com/keroxp/servest)，[deno-drash](https://github.com/drashland/deno-drash) 和 [pogo](https://github.com/sholladay/pogo)。在这篇文章，我们将会使用 Deno 和 Oak 学习构建一个待办事项清单。
 
-#### 我们需要构建什么?
+#### 我们要构建什么?
 
-Oak 是一个受到 [Koa](https://github.com/koajs/koa) 启发的项目，并且是一个流行的 Node.js HTTP 中间件框架。我们将会使用 oak 和 Deno 构建一个处理待办实现清单的小应用。我们将要创建的 api 如下面的 Endpoint 显示。
+Oak 是一个受到 [Koa](https://github.com/koajs/koa) 启发的项目，Koa 是一个很受欢迎并提供HTTP服务的 Node.js 中间件框架。我们将会使用 oak 和 Deno 构建一个处理待办实现清单的小应用。我们将要创建的 api 如下面的 Endpoint 显示。
 
 ![List of API end points](https://cdn-images-1.medium.com/max/2000/1*gIltBeBAq5xdY7vpW-sFag.png)
 
@@ -21,7 +21,7 @@ Oak 是一个受到 [Koa](https://github.com/koajs/koa) 启发的项目，并且
 
 我们需要在我们的项目库中创建两个文件，分别是 **app.ts** 和 **routes.ts** 。一个用于应用，另一个则是用于服务的路由。
 
-**app.ts** 文件的内容如下面的文件显示。看看我们是如何在 **app.ts** 文件中从 oak 引入 Application 模块的。我们在第 8 行创建了新的 oak 应用。我们让这个应用使用了稍后将会在 **routes.ts** 文件中定义的路由。现在，这个应用将可以运行在第 5 行指定的地址和第 6 行指定的端口上。
+**app.ts** 文件的内容如下面的文件显示。看看我们是如何在 **app.ts** 文件中从 oak 引入 Application 模块的。我们在第 8 行创建了新的 oak 应用。我们让这个应用使用了稍后将会在 **routes.ts** 文件中定义的路由。现在，这个应用将可以运行在第 6 行指定的地址和第 5 行指定的端口上。
 
 ```TypeScript
 import { Application } from 'https://deno.land/x/oak/mod.ts';
@@ -179,7 +179,7 @@ router
 
 > **deno run — allow-env — allow-net app.ts**
 
-现在，应用运行在 localhost:4000 上，使用 postman 或者其他类似的工具来测试这些 api 端点。以下是使用 postman 测试得到的结果的屏幕截图。
+现在，应用运行在 localhost:4000 上，使用 postman 或者其他类似的工具来测试这些 api 路由接口。以下是使用 postman 测试得到的结果的屏幕截图。
 
 ![Health Check API respone](https://cdn-images-1.medium.com/max/2814/1*t3M9YRG9BL6SLkZ8c8rk9w.png)
 
