@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/rethinking-the-front-end-micro-frontend.md](https://github.com/xitu/gold-miner/blob/master/article/2020/rethinking-the-front-end-micro-frontend.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：
+> * 校对者：[刘海东](https://github.com/lhd951220)
 
 # 重新思考前端：微前端
 
@@ -39,7 +39,7 @@
 - > 在各种框架中设计的一系列“微型应用”独立模块，存储在不同的代码库中。
 - > 一套部署架构，将不同代码库的模块都捆绑在一起，并在模块被修改时，将其更新到服务器。
 
-**但事实证明，其他人也在思考同样的问题。典型术语是“微型前端”。**
+**但事实证明，其他人也在思考同样的问题。典型术语是“微前端”。**
 
 ![来源: cygnismedia](https://cdn-images-1.medium.com/max/2100/1*rxsVRHNFdG-6gvOIUGAdcw.jpeg)
 
