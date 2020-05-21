@@ -15,9 +15,9 @@ Deno 1.0.0 终于来了。这有一些资源将帮助你创建你的第一个 De
 
 Deno  是由 [**Ryan Dahl**](https://en.wikipedia.org/wiki/Ryan_Dahl)创造的，你可能会听说他创造的另一个项目 —— 是的，正是 [**Node.js**](https://nodejs.org/en/)。
 
-两年前，Ryan 在 JSConf 上做了一个演讲，题目为 ‘对于 Node.js 我感到遗憾的 10 件事情’，在那里他宣布他正在从事于 Deno，它将会成为比 Node **更安全**的版本，同时没有让项目臃肿的 **node_modules** 文件夹。
+两年前，Ryan 在 JSConf 上做了一个演讲，题目为 《对于 Node.js 我感到遗憾的 10 件事情》，在那里他宣布他正在从事于 Deno，它将会成为比 Node **更安全**的版本，同时没有让项目臃肿的 **node_modules** 文件夹。
 
-从 [**deno.land**](http://deno.land) 这个网站（自从 Deno 的吉祥物是一个恐龙以来最好的域名）上可以看出，Deno 是一个 **JavaScript/TypeScript 运行时，拥有默认的安全特性和良好的开发者体验。使用 V8、Rust 和 Tokio 构建**.
+从 [**deno.land**](http://deno.land) 这个网站（从 Deno 的顶级域名可以看出吉祥物是一个恐龙）上可以看出，Deno 是一个**拥有默认的安全特性和良好的开发者体验的 JavaScript/TypeScript 运行时。它是使用 V8、Rust 和 Tokio 来构建的**.
 
 前提概论很好，但如果你像我一样，你会想亲自动手来更好地理解它。
 
@@ -122,7 +122,7 @@ export const down = (schema: Schema): void => {
 
 你是一个 NoSQL 迷吗？你更喜欢把所有的数据放到一个没有固定结构的数据库吗？
 
-如果你打算在 Deno 中使用 MongoDB，Deno_mongo 是你所需要的。快速添加非结构化的数据到你的仓库吧💪。
+如果你打算在 Deno 中使用 MongoDB，那么 Deno_mongo 是你所需要的。快速添加非结构化的数据到你的仓库吧💪。
 
 ```TypeScript
 import { init, MongoClient } from "https://deno.land/x/mongo@v0.5.2/mod.ts";
@@ -168,7 +168,7 @@ const count = await users.count({ username: { $ne: null } });
 
 ## 5. Deno SMTP
 
-很多时候，你将在 Web 应用程序中发送邮件。这是一些你需要发送邮件的示例：
+很多时候，你将在 Web 应用程序中发送邮件。如果你需要发送邮件，这里有一些例子：
 
 * 新用户的确认邮件；
 * 忘记密码邮件；
@@ -248,7 +248,7 @@ https://deno.land/x/denon/denon.ts
 
 是的，许多 npm 库已经兼容了 Deno！这是一个最新的特性：写一次代码，在 Node 和 Deno 中都能运行。
 
-例如，你现在可以即刻在 Deno 中使用这些库了：
+例如，你现在可以在 Deno 中导入并使用这些库：
 
 [https://www.i18next.com/overview/getting-started](https://www.i18next.com/overview/getting-started)
 
@@ -262,7 +262,7 @@ https://deno.land/x/denon/denon.ts
 
 未来这几年，Node 还将是后端 JavaScript 的首选，但是拥有一个更安全和以正确的方式解决 JavaScript 最令人尴尬的部分之一（是的，我说的正是吃了太多的硬盘空间的 node_modules）的选择真是太棒了。
 
-这些模块无疑将帮助你使用 Deno 编写你的第一个 Web 应用程序，将帮助围绕着这个新的运行时的社区更加的强大。
+这些模块无疑将帮助你使用 Deno 编写你的第一个 Web 应用程序，并且将帮助围绕着这个新的运行时的社区更加的强大。
 
 有任何关于 Deno 的问题？[在 Twitter](https://twitter.com/urcoilbisurco) 上告诉我，或者在文章下留言！
 
