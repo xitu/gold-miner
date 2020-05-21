@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/7-modules-you-can-use-right-now-to-build-your-first-deno-web-app.md](https://github.com/xitu/gold-miner/blob/master/article/2020/7-modules-you-can-use-right-now-to-build-your-first-deno-web-app.md)
 > * 译者：[niayyy](https://github.com/niayyy-S)
-> * 校对者：
+> * 校对者：[qicoo](https://github.com/MangoTsing)
 
 # 可以用来构建 Deno Web 应用程序的 7 个模块
 
