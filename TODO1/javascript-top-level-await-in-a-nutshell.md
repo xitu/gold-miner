@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-top-level-await-in-a-nutshell.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-top-level-await-in-a-nutshell.md)
 > * 译者：[ssshooter](https://ssshooter.com/tag/coding/)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58) [niayyy-S](https://github.com/niayyy-S)
 
 # 如何在 JavaScript 中使用新特性“顶层 await”
 
@@ -13,13 +13,13 @@
 
 以前要使用 await，相关代码必须位于 async 函数内部。换言之你不能在函数外使用 await。顶层 await 能使模块表现得像 async 函数一样。
 
-模块是异步的，拥有 import 和 export，而这两者也是存在于顶层。这样做的实际意义是，如果你想提供一个模块，它依赖于其他异步任务，这时候你往往没有更好的选择。
+模块是异步的，拥有 import 和 export，而这两者也是存在于顶层。这样做的实际意义是，如果你想提供一个依赖于其它异步任务的模块来做某些操作，那么你实际上没有更好的选择。
 
-顶层 await 可以解决这个问题，开发人员可以在 async 函数外使用 await 关键字。凭借顶层 await，ECMAScript 模块可以 await 资源，让 import 他们的模块等待他们加载完才开始执行。也可以用于模块加载失败时，使用依赖回退或使用加载完成的第一个资源。
+顶层 await 可以解决这个问题，能让开发人员可以在 async 函数外使用 await 关键字。凭借顶层 await，ECMAScript 模块可以等待资源的获取，导致其它 import 它们的模块也等待资源加载完后才开始执行。如果模块加载失败或者用于加载第一个下载的资源，也可以将其用作加载依赖的回退。
 
 注意：
 
-* 顶层 await **只能用在模块的顶层**，经典脚本或非 async 函数不支持。
+* 顶层 await **只能用在模块的顶层**，不支持传统的 script 标签或非 async 函数。
 * 此文撰写时（23/02/2020），此特性处于 ECMAScript stage 3。
 
 ## 使用示例
@@ -59,7 +59,7 @@ const res = await Promise.any(resPromises);
 
 ## 3. 资源初始化
 
-顶层 await 允许你在模块中 await promise，如同它们被包裹在一个 async 函数中。这在执行应用程序初始化时很有用：
+顶层 await 允许你在模块中 await promise，如同它们被包裹在一个 async 函数中。这非常有用，比如说，初始化应用程序：
 
 ```js
 //module.mjs
@@ -74,7 +74,7 @@ export default function(){connection.list()}
 
 ## 4. 动态加载模块
 
-允许模块以运行时的值决定依赖库。
+允许模块动态决定依赖库。
 
 ```js
 //module.mjs
