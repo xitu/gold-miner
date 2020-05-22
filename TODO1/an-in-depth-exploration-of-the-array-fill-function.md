@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-exploration-of-the-array-fill-function.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-exploration-of-the-array-fill-function.md)
 > * 译者：[niayyy](https://github.com/niayyy-S)
-> * 校对者：[Siva](https://github.com/IAMSHENSH)
+> * 校对者：[Siva](https://github.com/IAMSHENSH)、[Long Xiong](https://github.com/xionglong58)
 
 # 深入浅出 Array.fill() 函数
 
