@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/css-fix-for-100vh-in-mobile-webkit.md](https://github.com/xitu/gold-miner/blob/master/article/2020/css-fix-for-100vh-in-mobile-webkit.md)
 > * 译者：[z0gSh1u](https://github.com/z0gSh1u)
-> * 校对者：[lhd951220](https://github.com/lhd951220)
+> * 校对者：[lhd951220](https://github.com/lhd951220)、[Gesj-yean](https://github.com/Gesj-yean)
 
 ## 移动端 WebKit 内核浏览器 100vh 问题的 CSS 修复方法
 
-不久以前，有人在讨论 WebKit 是怎么处理 CSS 的 `100vh` 的，本质上就是会忽略浏览器视口的下边沿。有的人建议避免使用 `100vh`，其他人有一些 [不同的替代方法](https://medium.com/@susiekim9/how-to-compensate-for-the-ios-viewport-unit-bug-46e78d54af0d) 来变通解决这个问题。实际上，这个问题可以追溯到几年前 Nicolas Hoizey [向 WebKit 提交的关于该主题的 bug](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) （概括一下：WebKit 说这种处理是故意的 🧐)。
+不久以前，有人在讨论 WebKit 是怎么处理 CSS 的 `100vh` 的，本质上就是会忽略浏览器视口的下边沿。有的人建议避免使用 `100vh`，其他人有一些 [不同的替代方法](https://medium.com/@susiekim9/how-to-compensate-for-the-ios-viewport-unit-bug-46e78d54af0d) 来变通解决这个问题。实际上，这个问题可以追溯到几年前 Nicolas Hoizey [向 WebKit 提交的关于该主题的 bug](https://nicolas-hoizey.com/articles/2015/02/18/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers/) （概括一下：WebKit 说这种处理是故意的 🧐）。
 
 有一天，我在做一个基本的 Flex 布局 —— header、main 和 sticky footer —— 就是我们经常看到、经常使用的那种：
 
@@ -32,11 +32,11 @@ main {
 
 我开始在我的 iPhone 上做一些浏览器测试，正是那时，我发现 sticky footer 并不像预想的那样落在视口最底部：
 
-![Mobile screen showing sticky footer below Safari's menu bar](https://allthingssmitty.com/img/posts/2020-05-11-css-fix-for-100vh-in-mobile-webkit-01.png)
+![sticky footer 显示在 Safari 菜单栏以下的手机屏幕](https://allthingssmitty.com/img/posts/2020-05-11-css-fix-for-100vh-in-mobile-webkit-01.png)
 
-footer 藏在了 Safari 的菜单栏后面。这就是 Nicolas 最初发现并报告的所谓的 `100vh` bug （或者是 feature ？） 。我做了一点调查 —— 希望现在已经找到一种不那么 hack 的解决方案 —— 正是那是，我找到了我的解决方法 （顺带一提，它完全是一种 hack 的方法）：
+footer 藏在了 Safari 的菜单栏后面。这就是 Nicolas 最初发现并报告的所谓的 `100vh` bug （或者是 feature ？） 。我做了一点调查 —— 希望现在已经找到一种不那么 hack 的解决方案 —— 然后，我找到了我的解决方法 （顺带一提，它完全是一种 hack 的方法）：
 
-![image](https://user-images.githubusercontent.com/5164225/82304565-182c2080-99ef-11ea-9a18-c27545f53b87.png)
+![图片](https://user-images.githubusercontent.com/5164225/82304565-182c2080-99ef-11ea-9a18-c27545f53b87.png)
 
 ## 使用 -webkit-fill-available
 
@@ -57,11 +57,11 @@ html {
 
 ```
 
-**注：**上面的代码段更新了在 `html ` 元素中添加 `-webkit-fill-available` 的部分，因为 [我得知](https://twitter.com/bfgeek/status/1262459015155441664) Chrome 正在更新它的行为，来与 Firefox 的实现保持一致。
+**注：**上面的代码段更新了在 `html` 元素中添加 `-webkit-fill-available` 的部分，因为 [我得知](https://twitter.com/bfgeek/status/1262459015155441664) 为了与 Firefox 的实现保持一致，Chrome 正在更新它的行为。
 
 现在，sticky footer 在移动端 Safari 中落到了正确的位置！
 
-![Mobile screen showing sticky footer at the bottom of the viewport above Safari's menu bar](https://allthingssmitty.com/img/posts/2020-05-11-css-fix-for-100vh-in-mobile-webkit-02.png)
+![Safari 菜单栏上方视口底部显示有 sticky footer 的手机屏幕](https://allthingssmitty.com/img/posts/2020-05-11-css-fix-for-100vh-in-mobile-webkit-02.png)
 
 ## 这真的有用吗？
 
