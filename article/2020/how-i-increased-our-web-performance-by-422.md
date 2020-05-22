@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-i-increased-our-web-performance-by-422.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-i-increased-our-web-performance-by-422.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[hansonfang](https://github.com/hansonfang)、[IAMSHENSH](https://github.com/IAMSHENSH)
 
 # 看我如何把网站性能提升 422%
 
 ![Our application now…](https://cdn-images-1.medium.com/max/5200/0*jDO8rVIDpzTq0vGx.jpeg)
 
-我把网站性能提升了 422%。没想到的是，单凭改良数据结构和其他一些技巧就能达到这么好的效果。
+我把网站性能提升了 422%。没想到，单凭改良数据结构和其他一些技巧就能达到这么好的效果。
 
-在近期的工作中，我重新设计了网站的用户界面。我们的网站基于 AngularJS 开发，而且由于它已经在线上运行了 4 年，所以其中大部分应用都是用 ES5 开发的。我们的网站存在一些性能问题，包括更新缓慢、加载时间长，而且一些代码块来自于 jQuery 主宰响应式布局的年代。我搞定了这些优化项，并想与大家分享在这个过程中我学到的 6 个最重要的经验。
+在近期的工作中，我重新设计了网站的用户界面。我们的网站基于 AngularJS 开发，而且由于它已经在线上运行了 4 年，所以其中大部分应用都是用 ES5 开发的。网站存在一些性能问题，包括更新缓慢、加载时间长，和一些来自 jQuery 主宰响应式布局年代的过时笨重的代码。我承担了这些优化工作，并想与大家分享在这个过程中我学到的 6 个最重要的经验。
 
 ## 1) 学习数据结构和算法
 
-JavaScript 已经不再是一个弱小的语言了。你想要的每个数据结构实现它都有，而性能对前端来说很重要。决定 Web 应用的性能的因素中，有 45% 来自前端（来自 Steve Souders 的《[High Performance Web Sites: Essential Knowledge For Front-End Engineers](http://shop.oreilly.com/product/9780596529307.do)》）。你身边的后端开发者很有可能在用数据结构和算法，所以你也应该用得上它们。使用良好的数据结构和可扩展的算法极其重要，这样你的应用也是可扩展的。
+JavaScript 已经不再是一个弱小的语言了。你想要的每个数据结构实现它都有，yin'y性能对前端来说很重要。决定 Web 应用的性能的因素中，有 45% 来自前端（来自 Steve Souders 的《[High Performance Web Sites: Essential Knowledge For Front-End Engineers](http://shop.oreilly.com/product/9780596529307.do)》）。你身边的后端开发者很有可能在用数据结构和算法，所以你也应该用得上它们。使用良好的、可扩展的数据结构和算法极其重要，这样你的应用也是可扩展的。
 
-最有用的数据结构就是 [ES6 Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 和栈，它们有效地帮我提升了网站性能。哈希 Map 简直太令人惊艳了，每一个需要用键访问常量的地方都应该使用它。在前端开发中，我们需要花大量时间检查显示条件（比如鉴权）。我发现缓存数据是非常有用的，我们可以把每个页面中需要通过数组多次访问的数据缓存到 Map 中。这个优化能把时间复杂度从 O(n) 降到 O(1)，这是一个非常显著的性能提升。堆栈对于像向导（Wizard）这样经常需要执行“撤消”操作的场景非常有用。递归也是必知必会的概念，特别是处理对象时。使用分而治之策略，我用良好的递归函数（具有固定的基线条件）替换了大量缓慢的函数。
+最有用的数据结构就是 [ES6 Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 和栈，它们有效地帮我提升了网站性能。哈希 Map 简直太令人惊艳了，它应该被用于频繁的访问某个键的地方。在前端开发中，我们需要花大量时间检查显示条件（比如鉴权）。我发现缓存数据是非常有用的，我们可以把每个页面中需要通过数组多次访问的数据缓存到 Map 中。这个优化能把时间复杂度从 O(n) 降到 O(1)，这是一个非常显著的性能提升。堆栈对于像向导（Wizard）这样经常需要执行“撤消”操作的场景非常有用。递归也是必知必会的概念，特别是处理对象时。使用分而治之策略，我用良好的递归函数（具有固定的基线条件）替换了大量缓慢的函数。
 
 ## 2) 缓存
 
@@ -29,7 +29,7 @@ JavaScript 已经不再是一个弱小的语言了。你想要的每个数据结
 
 ## 4) 消除卡顿（顺滑的 CSS 动画）
 
-CSS 动画十分强大。 “卡顿（Jank）”指的是动画不稳定的情况。Chrome 调试工具中的 Performance 面板能帮你记录并观察 CSS 动画/过渡（Transition）的 FPS 值。我发现顺滑的动画能让用户更加信赖系统。加载后的元素乱跳或明显的过渡抖动，都会让用户担忧。
+CSS 动画十分强大。 “卡顿（Jank）”指的是动画不稳定的情况。Chrome 调试工具中的 Performance 面板能帮你记录并观察 CSS 动画和过渡（Transition）的 FPS 值。我发现顺滑的动画能让用户更加信赖系统。加载后的元素乱跳或明显的过渡抖动，都会让用户担忧。
 
 ## 5) 不要使用 eval……（不仅仅是为了安全）
 
