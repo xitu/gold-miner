@@ -7,13 +7,7 @@
 
 # How to Generate Random Text CAPTCHAs Using Python
 
-#### Make sure your users are who they say they are
-
 ![Photo by [Massimo Virgilio](https://unsplash.com/@massimovirgilio?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/10944/0*QNr379hDEZHrJX3q)
-
-**Stuck behind the paywall? Click [here](https://medium.com/better-programming/how-to-generate-random-text-captchas-using-python-e734dd2d7a51?source=friends_link&sk=14e06b373dc1b033a4463541cd48ee79) to read the full article with my friend link**
-
----
 
 You have surely come across [CAPTCHAs](https://en.wikipedia.org/wiki/CAPTCHA) on websites to validate if you are a human or a robot. What started as a collaboration platform for the [digitization of illegible books](https://www.wikiwand.com/en/ReCAPTCHA#/Origin) has now evolved to a crowd-funded image tagging (and in some cases, audio recognition) project where you don’t even know that you are the service provider — not the customer.
 
@@ -21,19 +15,17 @@ In this article, we will explore how to generate our own very rudimentary text C
 
 Let’s get started!
 
----
-
 ## Creating the Canvas
 
 First, we need to import the `ImageFont`, `ImageDraw`, and `Image` modules from PIL:
 
-```
+```py
 from PIL import ImageFont, ImageDraw, Image
 ```
 
 Now, we have to create a blank image object. For this, we first need to create a three-dimensional (for the three color channels) numpy zeros array:
 
-```
+```py
 import numpy as np
 img = np.zeros(shape=(25, 60, 3), dtype=np.uint8)
 ```
@@ -60,13 +52,11 @@ The image is black because each pixel has a value of `(0, 0, 0)`, which correspo
 
 Since we need a white background, we’ll use the last canvas.
 
----
-
 ## Adding Text
 
 Now, we need to draw text over our canvas. For this, we first create a drawing interface using `ImageDraw`'s `Draw()` function on our canvas:
 
-```
+```py
 draw = ImageDraw.Draw(img_pil)
 ```
 
@@ -79,7 +69,7 @@ Then, we can use `Draw`’s `text()` method to write text over the canvas. The `
 
 We need to have our font object ready for this. We will use `ImageDraw`'s `truetype()` function:
 
-```
+```py
 font = ImageFont.truetype(font = ‘arial’, size=12)
 ```
 
@@ -97,7 +87,7 @@ The tuples indicate the starting and ending pixels of the lines. The first line 
 
 A better way to see this is to use OpenCV’s `imshow()` method, which renders an image from an array:
 
-```
+```py
 import cv2
 cv2.imshow(‘OpenCV’,np.array(img_pil))
 cv2.waitKey() #Displays the image till a key is pressed
@@ -105,8 +95,6 @@ cv2.destroyAllWindows()
 ```
 
 ![](https://cdn-images-1.medium.com/max/2000/1*peKZgKeIKeRgFEbyY6yatA.png)
-
----
 
 ## Adding Noise
 
@@ -116,7 +104,7 @@ The easiest way to do this is by randomly adding white and black pixels to the i
 
 First, we have to create an array from our image:
 
-```
+```py
 img = np.array(img_pil)
 ```
 
@@ -143,15 +131,13 @@ The pepper noise (black pixels) is pretty evident, but a few pixels on the text 
 
 We can add more noise by blurring the image, which will make the noise a bit more spread out. With cv2, this is just a one-liner!
 
-```
+```py
 img_blurred = cv2.blur(img,(2,2))
 ```
 
 Here, `(2,2)` is the size of the kernel used to smoothen the image. Read more about it in OpenCV’s [documentation](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html#averaging).
 
 ![Blurred image](https://cdn-images-1.medium.com/max/2000/1*pYqGijJa9-nMelu28gGboA.png)
-
----
 
 ## Randomizing Everything!
 
@@ -161,14 +147,14 @@ So, what can be randomized? Well, everything, but we will concentrate on the ima
 
 The image size will depend on the length of the text and the font size. So we first make a font-size variable and the length of the string:
 
-```
+```py
 size = random.randint(10,16)
 length = random.randint(4,8)
 ```
 
 After a lot of experimentation on the relation between the font size, string length, and canvas size, I reached the following for the size of the canvas:
 
-```
+```py
 img = np.zeros(((size*2)+5, length*size, 3), np.uint8)
 ```
 
@@ -178,13 +164,13 @@ Now, to randomize the fonts, we can pick some from the system fonts path using t
 
 Then we can choose a random font by using randint:
 
-```
+```py
 fonts[random.randint(0, len(fonts)-1)]
 ```
 
 Now to the text. We generate a random sequence of ASCII alphanumeric characters given the length of the string:
 
-```
+```py
 text = ''.join(
         random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) 
                    for _ in range(length))
@@ -205,7 +191,7 @@ draw.line([(0, 0),(length*size,(size*2)+5)], width=1,
 
 For the noise threshold, we can set it to any random value between 1% and 5%:
 
-```
+```py
 thresh = random.randint(1,5)/100
 ```
 
@@ -220,8 +206,6 @@ for i in range(img.shape[0]):
         elif rdn > 1-thresh:
             img[i][j] = random.randint(123,255) #bright pixels
 ```
-
----
 
 ## Putting It All Together
 
@@ -261,8 +245,6 @@ cv2.destroyAllWindows()
 ```
 
 ![cZRaOxb](https://cdn-images-1.medium.com/max/2000/1*2uG3N9uCArPw-QHrgwvn_Q.png)
-
----
 
 ## Applications?
 
