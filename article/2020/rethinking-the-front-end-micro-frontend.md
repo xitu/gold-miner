@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/rethinking-the-front-end-micro-frontend.md](https://github.com/xitu/gold-miner/blob/master/article/2020/rethinking-the-front-end-micro-frontend.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：[刘海东](https://github.com/lhd951220)
+> * 校对者：[刘海东](https://github.com/lhd951220) [X. Zhuo](https://github.com/z0gSh1u)
 
 # 重新思考前端：微前端
 
@@ -17,7 +17,7 @@
 
 管理十个十人的项目，要比管理一个百人的大项目更简单。
 
-可扩展性在这里是主要的概念。我们可以简化得到：
+可扩展性在这里是主要的构想。我们可以简化得到：
 
 - 独立仓库
 - 单独部署
