@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/vue-plugins-you-dont-know-you-may-need.md](https://github.com/xitu/gold-miner/blob/master/article/2020/vue-plugins-you-dont-know-you-may-need.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：
+> * 校对者：[lhd951220](https://github.com/lhd951220)
 
 # 一个你不知道但可能会需要的 Vue 插件
 
