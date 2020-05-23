@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understand-the-deflate-compression-behind-the-zip-and-gzip-formats.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understand-the-deflate-compression-behind-the-zip-and-gzip-formats.md)
 > * 译者：[JohnieXu](hptts://github.com/johniexu)
-> * 校对者：[Jessica](https://github.com/cyz980908)
+> * 校对者：[Jessica](https://github.com/cyz980908)、[shixi-li](https://github.com/shixi-li)
 
 # 理解 zip 和 gzip 压缩格式背后的压缩算法
 
