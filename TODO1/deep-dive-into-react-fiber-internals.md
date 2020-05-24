@@ -3,51 +3,51 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deep-dive-into-react-fiber-internals.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deep-dive-into-react-fiber-internals.md)
 > * 译者：[MarchYuanx](https://github.com/MarchYuanx)
-> * 校对者：
+> * 校对者：[JohnieXu](https://github.com/JohnieXu) 
 
 # 深入了解 React Fiber 内部实现
 
 ![深入了解 React Fiber 内部实现](https://i1.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/deep-dive-react-fiber-internals.jpeg?fit=730%2C486&ssl=1)
 
-有没有想过当你调用 `ReactDOM.render(<App />, document.getElementById('root'))` 时发生了什么？
+你是否曾思考过当调用 `ReactDOM.render(<App />, document.getElementById('root'))` 时 React 内部到底发生了什么？
 
 我们知道 ReactDOM 会在后台构建 DOM 树并将应用渲染在屏幕上。那么 React 实际上是如何构建 DOM 树的呢？当应用的 state 改变时，它又如何更新 DOM 树？
 
-在本文中，我将首先说明在 React 15.0.0 之前 React 是如何构建 DOM 树的，这种模式的陷阱，以及 React 16.0.0 的新模型如何解决这些问题。这篇文章将涵盖广泛的概念，这些概念纯属内部实现细节，对于使用 React 进行的实际的前端开发，并不是绝对必要的。
+在本文中，我将先介绍在 React 15.0.0 之前 React 构建 DOM 树的原理，以及其不足之处，然后再讲解 React 16.0.0 新的 DOM 渲染机制，以及这个新的渲染机制是如何解决前一版本的不足的。这篇文章将涵盖大量关于 React 内部实现原理的细节，对于在常规使用 React 进行项目开发，这些可能并非必须掌握的。以及这个新的渲染机制解决是如何解决前一版本的不足的。
 
 ## 栈协调器
 
-让我们从熟悉的 `ReactDOM.render(<App />, document.getElementById('root'))` 开始。
+让我们从之前提到的 `ReactDOM.render(<App />, document.getElementById('root'))` 这段代码开始。
 
-ReactDOM 模块将把 `<App />` 传递给协调器。这里有两个问题：
+这里 `ReactDOM` 接收 `<App />` 作为参数，并将其传递给协调器（reconciler）。你可能会有如下两个疑问：
 
 1. `<App />` 指的是什么?
-2. 协调器是什么?
+2. 协调器（reconciler）又是什么?
 
-让我们解开这两个问题。
+下面将来回答这两个问题。
 
-`<App />` 是一个 React 元素，“描述树的元素”。
+`<App />` 是一个 React 元素，用于描述 DOM 树的元素。
 
-> “React 元素是描述对象实例或 DOM 节点及其所需属性的普通对象。” —— [React 博客](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree)
+> “React 元素是描述组件实例或 DOM 节点及其所需属性的普通对象。” —— [React 博客](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree)
 
-换句话说，React 元素*不是*实际的 DOM 节点或组件实例；它们是一种*描述* React 的方式，它们是什么类型的元素，它们拥有的属性以及它们的子元素。
+换句话说，React 元素并非真实的 DOM 节点或组件实例，而是一种描述方式，用于描述 DOM 元素的类型、拥有的属性以及包含的子元素。
 
-这正是 React 厉害之处。React 抽象了如何构建、渲染、管理真实 DOM 树的生命周期的所有复杂部分，从而有效地简化了开发人员的工作。要了解其真正含义，让我们看一下使用面向对象概念的传统方法。
+这正是 React 的核心所在，React 将构建、渲染以及管理真实 DOM 树生命周期这些复杂的逻辑进行了抽象，从而有效地简化了开发人员的工作。要彻底理解这样做的独到之处，我们可以对比看一下使用传统的面向对象思想如何处理。
 
-在典型的面向对象的编程世界中，开发者需要实例化并管理每个 DOM 元素的生命周期。例如，如果你想要创建一个简单的表单和一个提交按钮，甚至对于像这样简单的事情的状态管理，都需要开发者的一些功夫。
+在典型的面向对象的编程世界中，开发者需要实例化并管理每个 DOM 元素的生命周期。例如，如果开发者想要创建一个简单的表单和一个提交按钮，对于这里简单的表单和提交按钮自身的状态管理，都需要开发者去单独维护。
 
 [](https://blog.logrocket.com/deep-dive-into-react-fiber-internals/)
 
 假设 Button 组件有一个 state 变量 isSubmitted。Button 组件的生命周期类似于以下流程图，其中每个 state 都需要由应用程序处理：
 
-![按钮组件生命周期流程图](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/button-component-lifecycle.png?resize=730%2C465&ssl=1)
+![Button 组件生命周期流程图](https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/button-component-lifecycle.png?resize=730%2C465&ssl=1)
 
 流程图的大小和代码行数随着 state 数量的增加而呈指数增长。
 
-React 具有精确解决此问题的元素。在 React 中，有两种元素：
+React 使用元素来巧妙地解决了这个问题。React 中存在两种元素：
 
 - DOM 元素: 当元素的类型为字符串时，例如 `<button class="okButton"> OK </button>`
-- 组件元素: 当类型是类或函数时，例如 `<Button className="okButton"> OK </Button>`，其中 `<Button>` 是类或函数组件。这些是我们常用的典型的 React 组件
+- 组件元素: 当类型是类或函数时，例如 `<Button className="okButton"> OK </Button>`，其中 `<Button>` 就是我们常用的典型的类组件、函数组件之一
 
 重要的是要了解这两种类型都是简单的对象。它们只是对需要在屏幕上渲染的内容的描述，在你创建、实例化它们时并不会有实际的渲染发生。这使得 React 更容易解析和遍历它们来构建 DOM 树。而实际的渲染将在遍历完成后进行。
 
@@ -61,7 +61,7 @@ React 具有精确解决此问题的元素。在 React 中，有两种元素：
 </Form>
 ```
 
-然后 React 会根据它们对应的 props 询问 `<Form>` 和 `<Button>` 组件它们渲染什么。例如，如果`表单`组件是一个函数组件，如下所示：
+然后 React 会根据它们对应的 props 询问 `<Form>` 和 `<Button>` 组件它们渲染什么。例如，如果 `Form` 组件是一个函数组件，如下所示：
 
 ```jsx
 const Form = (props) => {
@@ -423,7 +423,7 @@ function workLoopSync() {
 
 ## 结论
 
-希望你喜欢这篇文章。如果有任何意见或问题，请随时发表。
+希望你喜欢这篇文章，如果有任何意见或问题，请在文章后面评论留言。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
