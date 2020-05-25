@@ -2,95 +2,95 @@
 > * 原文作者：[Patrick Collins](https://medium.com/@patrick.collins_58673)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/which-should-you-use-asynchronous-programming-or-multi-threading.md](https://github.com/xitu/gold-miner/blob/master/article/2020/which-should-you-use-asynchronous-programming-or-multi-threading.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
+> * 校对者：[QinRoc](https://github.com/QinRoc)、[PingHGao][https://github.com/PingHGao]
 
-# Which Should You Use: Asynchronous Programming or Multi-Threading?
+# 异步编程和多线程，我该选择哪个方案？
 
 ![Image source: Author](https://cdn-images-1.medium.com/max/4608/1*G-JcOwcbJfFe70evn2FoNA.png)
 
-When it comes to software engineering, there is often a little confusion about these two concepts. They are both forms of [concurrency,](https://en.wikipedia.org/wiki/Concurrency_(computer_science)) but they do not mean the same thing and are not applied the same way, or used in the same scenarios.
+在软件工程中，这两个概念经常容易搞混。它们都是实现[并发](https://en.wikipedia.org/wiki/Concurrency_(computer_science))的方案，但它们是不同的技术，而且使用方式和应用场景也不同。
 
-The simple explanation is that t[hreading is about workers; asynchrony is about tasks](https://stackoverflow.com/questions/34680985/what-is-the-difference-between-asynchronous-programming-and-multithreading). But let’s explore that a bit.
+关于它们之间区别的简单解释是[线程是相对于具体实现而言的；异步编程是针对于具体任务而言的](https://stackoverflow.com/questions/34680985/what-is-the-difference-between-asynchronous-programming-and-multithreading)。下面我们来深入探讨一下。
 
-Analogously, let’s say we want to cook a breakfast of eggs and toast. How would we do it?
+假设现在要做一份鸡蛋吐司的早餐。我们该如何下手？
 
-## Synchronous Approach
+## 同步的方案
 
-The simplest way would be to do it in sequence:
+最简单的方法是依次执行：
 
-1. Get out the eggs, bread, and pan, and turn on the stove.
-2. Crack eggs and pour them into the pan.
-3. Wait for eggs to finish cooking.
-4. Take eggs off and add seasoning.
-5. Place bread into the toaster.
-6. Wait for the toaster to complete.
-7. Take out toast.
+1.取出鸡蛋，面包和锅，然后打开炉子。
+2.弄碎鸡蛋并将其倒入锅中。
+3.等待鸡蛋煎好。
+4.取出鸡蛋并加入调味料。
+5.将面包放入烤面包机。
+6.等待烤面包机烤完。
+7.拿出烤面包。
 
-Total time for breakfast: 15 minutes.
+制作早餐的总时间：15 分钟。
 
-Simple enough right? If we say the cooking of the eggs in this fashion is analogous to executing a program, we’d say that this was a [synchronous way](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean) to cook the eggs.
+很简单吧？如果我们以这种烹饪方式来类比程序执行，它就是用一种[同步的方式](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)来做早餐。
 
-We have one person doing all the tasks, in a series ([serialism](https://en.wikipedia.org/wiki/Serialism)). We are doing each step in order, and we can’t move on to the next step without completion of the last. A more technical definition is that each task is blocked from execution from the previous step, and it’s all being done by one worker. We can’t move forward without doing the last step. In this example, we are our computer’s [central processing unit](https://en.wikipedia.org/wiki/Central_processing_unit), or CPU. Every task completed is done by one person (one CPU).
+我们用一个人（[串行](https://en.wikipedia.org/wiki/Serialism)）地完成一系列任务。我们按顺序执行每个步骤，如果没有完成正在执行的任务，就无法继续进行下一步。从技术上来说，更严格的定义是，每个任务在执行前都会被上一个任务挂起，所有的任务都只由一个工作单元完成。不完成上一个任务，我们就无法前进。在此示例中，我们是计算机的 [CPU](https://en.wikipedia.org/wiki/Central_processing_unit)。每个任务都由一个人（一个 CPU）完成。
 
 ![Single-threaded synchronous way to cook breakfast](https://cdn-images-1.medium.com/max/4608/1*tqb0_sHBGF4TlSWPDY7j7w.png)
 
-Ok cool, we’ve cooked eggs. But what if we wanted to make our morning even faster? You may be saying to yourself, “I don’t wait for my eggs to finish to put the toast in.”
+好了，我们已经煎好鸡蛋了。但是，如果我们想让早晨的效率更高，该怎么办呢？您可能会说：“我不用等我的鸡蛋煎完才去烤面包。”
 
-You’re thinking like an engineer now. Let’s try this again, but this time, we decide we want to cook the eggs and the toast at the same time, and silently thank the inventor of the toast-timer.
+您现在已经像工程师一样思考了。让我们再来做一次早餐，但是这次，我们要同时煎鸡蛋和烤面包。
 
-## Asynchronous Approach
+## 异步的方案
 
-We can still have one person doing everything, but we can work on a separate task while we wait for another task to complete. Here’s what that looks like:
+我们仍然可以让一个人做所有事情，但是在等待一个任务完成时，我们可以开始执行另一个任务。步骤如下：
 
-1. Get out the eggs, bread, and pan, and turn on the stove.
-2. Crack eggs and pour them into the pan.
-3. Wait for eggs to finish cooking.
-4. Place bread into the toaster.
-5. Wait for the toaster to complete.
-6. **Once eggs are complete**, take eggs off, and add seasoning.
-7. **Once toast is complete**, take out toast.
+1. 取出鸡蛋，面包和锅，然后打开炉子。
+2. 弄碎鸡蛋并将其倒入锅中。
+3. 等待鸡蛋煎好。
+4. 将面包放入烤面包机。
+5. 等待烤面包机烤完。
+6. **鸡蛋煎熟**后，取出鸡蛋，然后添加调味料。
+7. **面包烤熟**后，取出烤面包。
 
-Total time for breakfast: eight minutes.
+制作早餐的总时间：8 分钟。
 
-It looks like all the same steps, right? Except for one major upgrade. Instead of finishing the eggs and moving on to the toast, we put the toast in while we’re waiting for the eggs to finish. We still have only one worker doing all the tasks, but they are doing this asynchronously now. Now it doesn’t seem like much with only two tasks to make asynchronous, you can imagine how having thousands of eggs and toast and thousands of frying pans and toasters would make doing each one at a time ridiculous!
+看起来所有步骤都没变，是吧？但是其中有一个步骤做了重大调整。在等待鸡蛋煎好的过程中，我们就开始烤面包，而不是得等鸡蛋煎好后才烤面包。我们仍然只需一名工人来完成所有任务，但是现在任务是异步进行的。可能只让两个任务异步执行效果没那么明显，想象一下，如果有几千个鸡蛋和面包以及几千个煎锅和几千台烤面包机，同一时间只执行一个任务是多么低效！
 
-This is one of the biggest advantages of [asynchronous](https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)) engineering. Often we have to wait for an action to complete that is out of our control. In this case, it’s waiting for the eggs and toast to cook. We can have the most efficient and best cook on the planet, but for the most part, those eggs just have to sit and wait to finish. Waiting for these to cook is analogous to [input/output (I/O)](https://en.wikipedia.org/wiki/Input/output), and when we are building something with a lot of waiting on I/O, it’s a great time to use asynchronous programming.
+这是[异步](https://en.wikipedia.org/wiki/Asynchrony_(computer_programming))编程的最大优势之一。很多时候，我们不得不去等待一个无法控制的动作完成。在本例中，等待的是煎好鸡蛋和烤熟面包。我们可以有世界上最高效，最好的厨师，但是在大多数情况下，我们还是要坐等蛋煎好。等待这些东西烹饪的过程类似于等待[输入/输出 (I/O)](https://en.wikipedia.org/wiki/Input/output)操作，如果我们在执行任务时需要等待大量 I/O 操作，那么使用异步编程确实是一个好的方案。
 
-If we make an API call, have to get input from a user, or something of the like, no matter how many processors we have or how fast our computer is, we have to wait. We have to wait for the API call to complete, wait for the user to input information. It’s out of our control and not something that becoming faster or dedicating resources to will have any impact on.
+如果我们调用一个必须从用户那里获得输入的 API ，无论我们拥有多少处理器或者多快的计算机，我们都必须等待。我们必须等待 API 调用完成，等待用户输入完信息。这个过程我们无法控制的，它不会因为处理器越来越快或分配专用资源而发生改变。
 
 ![Single-threaded asynchronous way to cook breakfast](https://cdn-images-1.medium.com/max/4608/1*WXtQa9WJYl96TjkCB2Fu9w.png)
 
-Great! Now we have two approaches to making eggs. But let’s say our roommate Kevin wants to help out making eggs. What would this look like?
+现在我们已经有两种制作鸡蛋的方法。但是，假如我们的室友凯文（Kevin）想帮忙做鸡蛋。这次我们采用什么方案呢？
 
-## Multi-Threading Approach
+## 多线程的方案
 
-1. Get out the eggs, bread, and pan, and turn on the stove.
-2. Crack eggs and pour them into the pan. **1. Kevin puts bread into the toaster.**
-3. Wait for eggs to finish cooking. **2. Kevin waits for toast to finish.**
-4. Take eggs off and add seasoning. **3. Kevin takes out toast.**
+1.取出鸡蛋，面包和锅，然后打开炉子。
+2.弄碎鸡蛋并将其倒入锅中。 **1. 凯文将面包放进烤面包机。**
+3.等待鸡蛋煎好。 **2. 凯文等待面包烤完。**
+4.取出鸡蛋并加入调味料。 **3. 凯文拿出面包。**
 
-Total time for breakfast: eight minutes.
+制作早餐的总时间：8 分钟。
 
-We have two people making breakfast, each assigned to one sequence of tasks. This is an example of synchronous [multi-threading](https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)) since neither you nor Kevin is performing more than one task at a time (including waiting).
+我们有两个人做早餐，每个人分配一个任务序列。这是[多线程](https://en.wikipedia.org/wiki/Multithreading_(computer_architecture))同步的示例，因为您和 Kevin 都不会在同一时刻执行多个任务（包括等待）。
 
-In computer science, a process can have one or multiple threads. In this case, we have two threads (people). You can learn more about what a thread is [here](https://www.computerhope.com/jargon/t/thread.htm).
+在计算机科学中，一个进程可以有一个或多个线程。在本例中，我们有两个线程（人员）。您可以在[这里](https://www.computerhope.com/jargon/t/thread.htm)进一步了解什么是线程。
 
-You might say, “Well, I can only cook breakfast with two people if there are two people around.” It’s the same with computers. You can only multi-thread if your computer has the resources to do so. Multi-threading is often used when there are tasks that are more computationally complex, require more resources, or for a number of other reasons.
+您可能会说：“好吧，如果周围有两个人，我就只能和两个人一起做早餐。”计算机也一样。只有当计算机有足够的资源时，您才能使用多线程。它通常是完成某些复杂度高的、需要更多资源的任务。
 
 ![Multi-threaded synchronous way to cook breakfast](https://cdn-images-1.medium.com/max/4608/1*qQOr-cdzcg2S3bqQLMjcvg.png)
 
-[So which one is better](https://www.quora.com/What-is-the-difference-between-asynchronous-programming-and-multi-threading), multi-threading or asynchronous? That really depends on a lot of factors, but if you understand how they work, that should give you some insight on which one to use. [Does it have a lot of I/O? Maybe try async. Is it computationally intensive? Maybe try multi-thread.](https://stackify.com/when-to-use-asynchronous-programming/) It can be much easier to write a multithreaded application than an asynchronous one, language depending, but that’s something to keep in mind. Can you build a [multi-threaded asynchronous system](https://codewala.net/2015/07/29/concurrency-vs-multi-threading-vs-asynchronous-programming-explained/)? Of course! Just as often, these two are used in tandem with each other.
+[哪种方案更好](https://www.quora.com/What-is-the-difference-between-asynchronous-programming-and-multi-threading)，多线程还是异步？这取决于很多因素，如果您了解它们的工作原理，就应该知道使用哪种方案。[如果有很多 I/O，也许应该用异步。如果有密集计算，也许应该用多线程。](https://stackify.com/when-to-use-asynchronous-programming/) 编写多线程程序要比编写异步程序要容易得多，但你要记住，编写难度取决于编程语言。我们可以实现一个[多线程异步系统](https://codewala.net/2015/07/29/concurrency-vs-multi-threading-vs-asynchronous-programming-explained/)吗？当然可以！这两者可以联合使用。
 
-## Python Example
+## Python 示例
 
-Let’s look at how the three examples above (single-threaded synchronous, single-threaded asynchronous, and multi-threaded synchronous) would work in a Python example.
+我们来看看上面的三个示例（单线程同步，单线程异步和多线程同步）如何在 Python 中实现。
 
-Let’s look at a few different ways to get stock data from the [Alpha Vantage](https://www.alphavantage.co/) API, using the Python wrapper `pip install alpha_vantage`
+我们用不同的方法从 [Alpha Vantage](https://www.alphavantage.co/) API 获取股票数据。你可以使用 Python 包装器 `pip install alpha_vantage` 来安装。
 
-#### Synchronous
+#### 同步
 
-We want to get the current price of four tickers, 'AAPL', ‘GOOG’, ‘TSLA', ‘MSFT' , and print them out only when we have all four. The simplest way to do this is with a `for` loop.
+我们将获取四种代号为 'AAPL'，'GOOG'，'TSLA'，'MSFT' 的股票的当前价格，并且在获取全部数据时打印出来。最简单的方法是使用 `for` 循环。
 
 ```Python
 from alpha_vantage.timeseries import TimeSeries
@@ -103,11 +103,11 @@ for symbol in symbols:
 print(results)
 ```
 
-This is the most brute-force way. Once we get a value from our API call (done in `ts.get_quote_endpoint(symbol)` ) we print it out and then start the next symbol.
+这是最暴力的方式。当我们调用 API 获得一个值（在 `ts.get_quote_endpoint（symbol)` 中完成）时，就将其打印出来，然后开始获取下一个股票数据。
 
-But after learning about async and multi-threading, we know we can start another API call while we wait for a value to be returned.
+但是在学习了异步和多线程之后，我们知道可以在等待返回值的同时启动另一个 API 调用。
 
-#### Asynchronous
+#### 异步
 
 ```Python
 import asyncio
@@ -125,23 +125,23 @@ results = loop.run_until_complete(group1)
 print(results)
 ```
 
-In Python, we have the keywords `await` and `async` that give us the new power of asynchronous programming. These are new as of Python 3.5, so you’ll need to update if you’re still on Python 2. A lot of Python 2 is being depreciated anyway, so please update.
+在 Python 中，我们有关键字 `await` 和 `async`，它们为我们提供了异步编程的新功能。这些是自 Python 3.5 以来的新功能，如果您仍在使用 Python 2，则需要进行更新，因为很多 Python 2 的功能都过时了。
 
-It may be a little confusing as to what is happening here, so let’s break it down. The `loop` is where the processor will keep looping between waiting tasks and doing other tasks. This is to keep checking to see if a task (an API call, in our case) is done.
+这里代码的调用可能有些混乱，我们来分解一下。`loop` 是处理器在等待任务和执行其他任务之间不断循环的地方。这是为了持续检查任务（例如我们的 API 调用）是否完成。
 
-The `tasks` variable is a list of method calls. We put those tasks in a gathered list for asyncio, called `group1` and then run them in `loop.run_until_complete`. This is much faster than our original synchronous version since we can make multiple API calls without waiting for each one to finish.
+tasks 变量是方法调用的列表。我们将这些任务放在收集异步任务的列表中，称为 `group1`，然后在 `loop.run_until_complete` 中运行它们。这比我们之前的同步版本快得多，因为我们可以进行多个 API 调用，而无需等待每个 API 完成。
 
-NOTE: Asyncio is odd in Python notebooks, s[ee here for more information](https://stackoverflow.com/questions/47518874/how-do-i-run-python-asyncio-code-in-a-jupyter-notebook).
+注意：Python 文档对 Asyncio 的说明有很多奇怪的地方，[这里有更多详情](https://stackoverflow.com/questions/47518874/how-do-i-run-python-asyncio-code-in-a-jupyter-notebook)。
 
-#### Multi-threading
+#### 多线程
 
-I have already written a little bit more intensely about some multithreading, so if you’d like to learn more and see some examples in Python, [check out this link](https://medium.com/alpha-vantage/data-is-taking-to-long-to-get-back-d48e3bf8f59b) to learn more!
+我已经写过一些有关多线程的文章，如果您想学习更多并查看 Python 示例，请[点击此链接](https://medium.com/alpha-vantage/data-is-taking-to-long-to-get-back-d48e3bf8f59b)！
 
 ---
 
-There are a few more layers to learn about, like what parallelism is, deeper interaction of each application, how to sync threads, channels, and how each language handles them differently.
+我们还有更多的知识需要学习，例如什么是并行性，每个应用程序之间通信的底层原理是什么，如何同步线程，通道以及如何用不同的编程语言来实现它们。
 
-Think I missed something? Don’t understand something? Leave a question, comment, or insight below!
+如果您觉得我讲漏了或者有什么不懂的，您可以在下面留下问题，评论或见解！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
