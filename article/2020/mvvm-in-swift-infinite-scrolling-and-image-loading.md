@@ -2,28 +2,28 @@
 > * 原文作者：[Zafar Ivaev](https://medium.com/@z.ivaev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/mvvm-in-swift-infinite-scrolling-and-image-loading.md](https://github.com/xitu/gold-miner/blob/master/article/2020/mvvm-in-swift-infinite-scrolling-and-image-loading.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# MVVM in Swift: Infinite Scrolling and Image Loading
+# 在 Swift 中使用 MVVM 架构实现无限滚动和图片加载
 
 ![Photo by [Julian O'hayon](https://unsplash.com/@anckor?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6400/0*VKT7xUSB-F86d8-H)
 
-In this article, we’ll explore a complete reactive MVVM implementation based on the sample app that fetches photos from the [Unsplash API](https://unsplash.com/developers) and loads them in an asynchronous manner.
+在本文中，我们将基于示例程序来探索一个完整的响应式 MVVM 架构实现，该示例程序的主要功能是从 [Unsplash API](https://unsplash.com/developers) 获取照片数据并以异步方式加载它们。
 
-We’ll cover how to implement infinite scrolling, image caching, and doing navigation just right. We’ll also learn how to deal with some lower-level features in accordance to the overall app architecture, as MVVM is responsible only for the presentation layer.
+我们将介绍如何实现无限滚动，图片缓存以及导航功能。由于 MVVM 仅负责表示层，我们还将学习如何根据整体应用架构处理一些较低级别的功能。
 
-The source code of the project is available at the bottom of the article.
+本项目的源代码位于文章底部。
 
-Without further ado, let’s get started.
+事不宜迟，我们开始吧。
 
-## Quick Setup
+## 快速设置
 
-First, in order for our app to function the way we want, we need to obtain a free Unsplash API key:
-[**Unsplash Image API | Free HD Photo API**
-**Create with the largest collection of high-quality images that are free to use. Trusted by Trello, Medium, and…**unsplash.com](https://unsplash.com/developers)
+首先，为了使应用按我们想要的方式运行，我们需要申请一个免费的 Unsplash API 密钥：
+[**Unsplash Image API | Free HD Photo API**](https://unsplash.com/developers)
 
-Paste it into the the `APIKeys.swift` file inside the `Core Layer/Network/API Keys` directory:
+
+将其粘贴到 `Core Layer/Network/API Keys` 目录下的 `APIKeys.swift` 文件中：
 
 ```Swift
 import Foundation
@@ -33,24 +33,24 @@ struct APIKeys {
 }
 ```
 
-Now we’re ready to explore the project.
+下面我们开始探索项目。
 
-## Let’s Start
+## 开始
 
-Our project is divided into four layers (folders):
+我们的项目分为四层（文件夹）:
 
-* **Application Layer:** Contains the `AppDelegate.swift` file and `AppCoordinator`, which is responsible for setting up the initial view controller of our app (you’ll learn more about it soon in this article)
-* **Presentation Layer:** Contains view controllers, view models, and their coordinators. It has two scenes: `Photos` (displays Unsplash photos in a `UICollectionView`) and `PhotoDetail` (shows a photo that the user selects on the `Photos` scene).
-* **Business Logic Layer:** Consists of a model and services. The `UnsplashPhoto` struct acts as a model and represents a particular photo we retrieve from the API. We use services to implement a certain business logic — e.g., fetching a list of Unsplash photos and loading data from the internet.
-* **Core Layer:** Defines all of the settings we need for our Business Logic Layer to function and other small utilities. For example, it contains base URLs, API keys, and a network client.
+* **应用层：** 包含 `AppDelegate.swift` 文件和 `AppCoordinator`，它们负责设置应用程序初始的视图控制器（下文将详细说明）。
+* **表示层：** 包含视图控制器，视图模型及其协调器。它有两个场景：`Photos` （在 `UICollectionView` 中显示 Unsplash 的图片）和 `PhotoDetail`（显示用户在 `Photos` 场景中选择的图片）。
+* **业务逻辑层：** 由模型和服务组成。`UnsplashPhoto` 结构体充当模型，代表我们从 API 中获取的特定照片。服务用来实现业务逻辑—例如，获取 Unsplash 照片列表并从网络上加载数据。
+* **核心层：** 定义我们的业务逻辑层和其它小工具所需的所有设置。例如，它包含基本的 URL、API 密钥和网络客户端。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*b7fL11UWBMkqkhhzYsUsDw.png)
 
-## Using Coordinators
+## 使用协调器（Coordinator）
 
-I’ve chosen to use the Coordinator design pattern because MVVM doesn’t cover navigation inside the app. Though it’s relatively simple and you could catch the idea of it reading this article, feel free to learn about it [here](https://medium.com/better-programming/leverage-the-coordinator-design-pattern-in-swift-5-cd5bb9e78e12).
+MVVM 架构中并不包括应用内的导航，因此我选择使用协调器设计模式。这种模式相对简单，您可以在阅读本文时了解它的内涵，还可以随时来[这里](https://medium.com/better-programming/leverage-the-coordinator-design-pattern-in-swift-5-cd5bb9e78e12)学习。
 
-We provide the base `Coordinator` protocol, which `PhotosCoordinator` and `PhotoDetailCoordinator` will conform to:
+我们定义基本的 `Coordinator` 协议并且让 `PhotosCoordinator` 和 `PhotoDetailCoordinator` 实现这个协议：
 
 ```Swift
 protocol Coordinator: class {
@@ -65,9 +65,9 @@ extension Coordinator {
 }
 ```
 
-The `start()` method is responsible for creating the current view controller and its dependencies, while the `coordinate(to)` is run when we want to navigate to another view controller, which, in its order, triggers the `start()` method of that view controller.
+`start()` 方法负责创建当前的视图控制器及其依赖。当我们需要导航至另一个视图控制器时，则执行 `coordinate(to)` 方法，它按其顺序触发另一个视图控制器的 `start()` 方法。
 
-Now we can set up the initial flow of our app. We define the `AppCoordinator`, which has a dependency on the `UIWindow` property that `AppDelegate` provides:
+现在，我们可以开发应用的初始功能了。我们定义了 `AppCoordinator`，它依赖于 `AppDelegate` 提供的 `UIWindow` 属性：
 
 ```Swift
 import UIKit
@@ -112,13 +112,13 @@ class AppCoordinator: Coordinator {
 }
 ```
 
-We can see that inside the `start()` method of the `AppCoordinator`, we coordinate to the `PhotosCoordinator`, which creates the initial scene of our app: `Photos`.
+在 `AppCoordinator` 的 `start()` 方法内部，我们与 `PhotosCoordinator` 进行通信，创建了应用的初始场景：`Photos`。
 
-Let’s explore its implementation.
+现在来看看它的实现。
 
-## The ‘Photos’ Scene
+## Photos 场景
 
-The `PhotosCoordinator` constructs the `PhotosViewController` and `PhotosViewModel`, as follows:
+`PhotosCoordinator` 创建了 `PhotosViewController` 和 `PhotosViewModel`，如下：
 
 ```Swift
 import UIKit
@@ -162,19 +162,19 @@ extension PhotosCoordinatorImplementation: PhotosCoordinator {
 }
 ```
 
-We provide three dependencies for the `PhotosViewModel`:
+我们为 PhotosViewModel 提供了三个依赖项：
 
-* `UnsplashPhotosService`: Fetches an array of `UnsplashPhoto` models
-* `DataLoadingService`: Loads and returns `Data` based on the URL provided
-* `DataToImageService`: Returns a `UIImage` based on the provided `Data`
+* `UnsplashPhotosService`：获取 `UnsplashPhoto` 模型数组
+* `DataLoadingService`：根据提供的 URL 加载并返回 `Data`
+* `DataToImageService`：基于提供的 `Data` 返回 `UIImage`
 
-This is how our screen looks like:
+界面效果如下：
 
 ![](https://cdn-images-1.medium.com/max/2680/1*JmScSaJIuhw1as8CY_p2Hw.png)
 
-Let’s explore the view model and view controller implementations in detail (we’ll start with the view model because it is UI-independent and has clear input/output distinctions, so the view controller’s code will make more sense after this).
+我们将详细研究视图模型和视图控制器的实现（因为它是独立于 UI 之外的，并且具有明确的输入/输出的区别，之后再研究视图控制器的代码会更有意义）。
 
-#### ‘PhotosViewModel’
+#### 实现 PhotosViewModel
 
 ```Swift
 import RxSwift
@@ -396,11 +396,11 @@ final class PhotosViewModelImplementation: PhotosViewModel {
 }
 ```
 
-We define the `PhotosViewModel` protocol and its implementation in this file. The protocol describes input (events received from the view controller) and output (results of the view model’s work that’s used by the view controller to drive its UI). Here’s how we react to input and provide output inside the `PhotosViewModelImplementation`:
+在这个文件中定义 `PhotosViewModel` 协议并实现它。该协议描述了输入（从视图控制器接收的事件）和输出（视图控制器用来驱动 UI 的视图模型数据）。在  `PhotosViewModelImplementation` 内部响应输入的事件并提供输出值：
 
-* `PhotosViewController` loads and sends a value on to the `viewDidLoad` relay of the view model
-* The `getPhotos()` method of the view model is fired
-* An array of `UnsplashPhoto`s is retrieved and sent onto the `unsplashPhotos` relay
+* `PhotosViewController` 加载并将值发送到视图模型中的 `viewDidLoad` relay
+* 触发视图模型中的 `getPhotos()` 方法
+* 处理 `UnsplashPhotos` 数组并将其发送到 `unsplashPhotos` relay
 
 ```Swift
 private func bindOnViewDidLoad() {
@@ -455,11 +455,11 @@ private func getPhotos() {
 }
 ```
 
-Notice that we also send relevant `Bool` events onto the `isLoadingFirstPage` and `isLoadingAdditionalPhotos` relays, which our view controller uses to show/hide a loading indicator (more about this in the view controller part).
+注意，我们还将相关的 `Bool` 事件发送到 `isLoadingFirstPage` 和 `isLoadingAdditionalPhotos` relay 上，视图控制器使用这些事件来显示/隐藏加载指示符（有关更多信息，请参见视图控制器章节）。
 
-* `PhotosViewController` uses the `unsplashPhotos` property to drive the `UICollectionView` and to display a number of cells corresponding to the count of models received
-* `PhotosViewController` sends values onto the `willDisplayCellAtIndex` property of the view model, which triggers the loading of data
-* When the image is loaded, it’s sent onto the `imageRetrievedSuccess` relay, which `PhotosViewController` uses to display the image in the corresponding cell
+* `PhotosViewController` 使用 `unsplashPhotos` 属性来驱动 `UICollectionView` 并根据接收到的模型的数量显示对应数量的 cell
+* `PhotosViewController` 将值发送到视图模型的 `willDisplayCellAtIndex` 属性，这会触发数据加载
+* 加载图片后，将其发送到 `imageRetrievedSuccess` relay 上，`PhotosViewController` 把图片显示在相应的 cell
 
 ```Swift
 private func bindOnWillDisplayCell() {
@@ -507,14 +507,14 @@ private func bindOnWillDisplayCell() {
 }
 ```
 
-First, we check if the `unsplashPhotos` property contains the index of the cell that’s being displayed. Then, we obtain the URL of the image and fire the `DataLoadingService`’s `loadData(at:)` method and observe for the result in the background so our main thread isn’t blocked.
+首先，我们检查一下 `unsplashPhotos` 属性是否包含要显示的 cell 的索引。然后，获取图像的 URL，调用 `DataLoadingService` 的 `loadData(at:)` 方法，为了不阻塞主线程，我们在后台线程观察结果。
 
-When we receive `Data`, we call the `DataToImageService`’s `getImage(from:)` method to obtain a `UIImage` object. Finally, we either send an event onto the `imageRetrievedError` property (if we couldn’t obtain an image) or to the `imageRetrievedSuccess` relay.
+收到 `Data` 时，我们调用 `DataToImageService` 的 `getImage(from:)` 方法来获取 `UIImage` 对象。最后，如果图像获取成功，我们将事件发送至 `imageRetrievedSuccess`  relay，否则发送到 `imageRetrievedError` relay。
 
-To optimize memory usage, we also want to cancel a data-loading task if the cell for which it was intended for disappears from the screen. For this purpose, we provide the `didEndDisplayingCellAtIndex` relay, which is used as follows:
+为了优化内存使用，如果正在加载数据的 cell 从屏幕上消失了，我们还要取消数据加载任务。为此，我们实现了 `didEndDisplayingCellAtIndex` relay，其用法如下：
 
-* The view controller notices that a certain cell disappeared while scrolling the `UICollectionView` and sends its index onto the `didEndDisplayingCellAtIndex` property
-* The view model calls the `DataLoadingService`’s `stopLoading(at:)` method to cancel the task in progress
+* 视图控制器监听到在滚动 `UICollectionView` 时某个 cell 消失了，会将其索引发送到 `didEndDisplayingCellAtIndex` 属性上
+* 视图模型调用 `DataLoadingService` 的 `stopLoading(at:)` 方法来取消正在进行的任务
 
 ```Swift
 private func bindOnDidEndDisplayingCell() {
@@ -528,7 +528,7 @@ private func bindOnDidEndDisplayingCell() {
 }
 ```
 
-The `DataLoadingService` keeps track of tasks in a dictionary and disposes ones we no longer need:
+`DataLoadingService` 会将任务存储到字典中，并处理掉我们不需要的任务：
 
 ```Swift
 import RxSwift
@@ -599,7 +599,7 @@ class DataLoadingServiceImplementation: DataLoadingService {
 
 ```
 
-We also want to navigate to another screen and display a selected image and its description in it, so we define the `didChoosePhotoWithId` relay. When a value is sent onto the relay, we trigger `PhotosCoordinator`’s `pushToPhotoDetail(with:)` method:
+当点击图片时，界面需要导航到新的场景并在其中显示点击的图片及其描述，因此我们定义了 `didChoosePhotoWithId` relay。当 relay 接收到值时，我们触发 `PhotosCoordinator` 的 `pushToPhotoDetail(with:)` 方法：
 
 ```Swift
 private func bindOnDidChoosePhoto() {
@@ -611,10 +611,10 @@ private func bindOnDidChoosePhoto() {
 }
 ```
 
-Now the final feature remains — infinite scrolling. It allows us to load `UnsplashPhoto`s by pages, saving API resources and optimizing performance. So our goal is to load an additional array of `UnsplashPhoto`s and append it to the existing array. We do it by defining the `didScrollToTheBottom` relay inside the view model and using it like this:
+现在我们还剩下最后一个功能要实现—无限滚动。它允许我们按页面加载 `UnsplashPhoto`，这样可以节省 API 资源并优化性能。我们的做法是生成一个额外的 `UnsplashPhoto` 数组并将其附加到现有数组中。通过在视图模型内部定义 `didScrollToTheBottom` relay 来实现：
 
-* The view controller notices that the user scrolled till the last cell available and sends a `Void` event onto the `didScrollToTheBottom` relay
-* The view model reacts by incrementing the `pageNumber` and triggering an additional data fetching
+* 视图控制器监听用户滚动到最后一个可用的 cell，并向 `didScrollToTheBottom` relay 发送一个 `Void` 事件。
+* 视图模型中增加 `pageNumber` 的值，并获取新数据
 
 ```Swift
 private func bindOnDidScrollToBottom() {
@@ -636,11 +636,11 @@ private func bindPageNumber() {
 }
 ```
 
-As a result, we have the pagination feature implemented:
+我们实现的分页功能效果如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*8byt48cw_FgHp8LrABYjiA.gif)
 
-#### ‘PhotosViewController’
+#### 实现 PhotosViewController
 
 ```Swift
 import UIKit
@@ -876,11 +876,11 @@ extension PhotosViewController {
 }
 ```
 
-We won’t cover how the UI is created, as it’s not the focus of this article. If you wish to learn about programmatic `UICollectionView` implementation, visit [this](https://medium.com/cleansoftware/quickly-implement-tableview-collectionview-programmatically-df12da694af9) article. We’ll focus on two key responsibilities here: providing input for the view model and hooking up the output from the view model to our UI.
+我们不打算讲解 UI 的创建方式，因为它不是本文的重点。如果您想了解的 `UICollectionView` 的编码实现，请访问[这篇](https://medium.com/cleansoftware/quickly-implement-tableview-collectionview-programmatically-df12da694af9)文章。现在我们重点关注两个关键职责：为视图模型提供输入；将视图模型的输出连接 UI。
 
-We create the `cachedImages` property to save loaded images in a dictionary so we can later save resources by using a cached image in a cell, instead of firing a data-loading operation again.
+我们创建 `cachedImages` 属性将加载的图片保存在字典中，以便于稍后可以在 cell 中使用缓存的图像来节省资源，而不是再次触发数据加载操作。
 
-This is how we bind the view model’s `unsplashPhotos` property to the `photosCollectionView`:
+这是将视图模型的 `unsplashPhotos` 属性绑定到 `photosCollectionView` 的方式：
 
 ```Swift
 // MARK: - Binding
@@ -895,7 +895,7 @@ extension PhotosViewController {
     ....
 ```
 
-Send the value onto the `willDisplayCellAtIndex` to trigger data loading (if no cached image is found at that index):
+将值发送到 `willDisplayCellAtIndex` 上以触发数据加载（如果在该索引处未找到缓存的图像）：
 
 ```Swift
 photosCollectionView.rx.willDisplayCell
@@ -918,7 +918,7 @@ photosCollectionView.rx.willDisplayCell
     .disposed(by: disposeBag)
 ```
 
-We also react to the view model’s `imageRetrievedSuccess` and `imageRetrievedError` events:
+我们还会对视图模型中的 `imageRetrievedSuccess` 和 `imageRetrievedError` 事件做出响应：
 
 ```Swift
 /// On image retrival, 1)stop activity indicator, 2) animate the cell, 3) assign the image, and 4) add it to cached images
@@ -959,7 +959,7 @@ viewModel.imageRetrievedError
     .disposed(by: disposeBag)
 ```
 
-We send a value onto the `didEndDisplayingCellAtIndex` relay of the view model when a particular cell disappears:
+当某个 cell 消失时，我们将值发送到视图模型的 `didEndDisplayingCellAtIndex` relay 上：
 
 ```Swift
 /// Cancelling image loading operation for a cell that disappeared
@@ -970,9 +970,9 @@ photosCollectionView.rx.didEndDisplayingCell
     .disposed(by: disposeBag)
 ```
 
-Using RxSwift’s `willDisplayCell` wrapper again, we determine if we reached the end of the list.
+再次使用 RxSwift 的 `willDisplayCell` 包装器，来确定是否滑动到列表末尾。
 
-If so, we send a `Void` value onto the `didScrollToTheBottom` relay:
+如果是，我们将 `Void` 值发送到 `didScrollToTheBottom` relay 上：
 
 ```Swift
 /// Infinite scrolling
@@ -992,7 +992,7 @@ photosCollectionView.rx.willDisplayCell
     .disposed(by: disposeBag)
 ```
 
-We react to the view model’s `isLoadingFirstPage` and `isLoadingAdditionalPhotos` by changing the title on the `navigationItem` and showing/hiding a loading indicator in each `PhotoCell`:
+通过更新 `navigationItem` 上的标题对视图模型的 `isLoadingFirstPage` 和 `isLoadingAdditionalPhotos` 做出响应，并在每个 `PhotoCell` 中显示/隐藏加载指示器：
 
 ```Swift
 private func bindLoadingState() {
@@ -1016,7 +1016,7 @@ private func bindBottomActivityIndicator() {
 }
 ```
 
-Finally, when we tap on a particular cell, we grab the selected `UnsplashPhoto`’s `id` and send an `Int` value to the `didChoosePhotoWithId` relay:
+最后，当我们点击某个单元格时，我们获取所选 `UnsplashPhoto` 的 `id` 并将其 `Int` 值发送到 `didChoosePhotoWithId` relay ：
 
 ```Swift
 photosCollectionView.rx.modelSelected(UnsplashPhoto.self)
@@ -1025,11 +1025,11 @@ photosCollectionView.rx.modelSelected(UnsplashPhoto.self)
     .disposed(by: disposeBag)
 ```
 
-Great! We’ve covered the `Photos` scene, let’s now move on to the final one — `PhotoDetail`.
+我们已经介绍了 `Photos` 场景，现在进入最后一个场景— `PhotoDetail`。
 
-## ‘PhotoDetail’
+## 实现 PhotoDetail
 
-When we coordinate to this scene from `Photos`, the `PhotoDetailCoordinator` constructs it like this:
+此场景由 `Photos` 场景过渡而来，其中 `PhotoDetailCoordinator` 的实现如下：
 
 ```Swift
 import UIKit
@@ -1064,11 +1064,11 @@ class PhotoDetailCoordinatorImplementation: Coordinator {
 extension PhotoDetailCoordinatorImplementation: PhotoDetailCoordinator {}
 ```
 
-We can see we have the `photoId` property that we get from a previous coordinator and assign it to the `photoId` property of the `PhotoDetailViewModel`.
+我们可以看到，前一个协调器的 `photoId` 属性赋值给了 `PhotoDetailViewModel` 的 `photoId`。
 
-#### ‘PhotoDetailViewModel’
-
-Similarly to how we did it in the `PhotosViewModel`, here we use the `viewDidLoad` property as an input and the `isLoading`, `imageRetrievedError`, `imageRetrievedSuccess`, and `description` properties as outputs:
+#### 实现 PhotoDetailViewModel
+ 
+与 `PhotosViewModel` 中的操作类似，在这里我们将 `viewDidLoad` 属性用作输入，并将 `isLoading`、`imageRetrievedError`、`imageRetrievedSuccess` 和 `description` 属性作为输出：
 
 ```Swift
 import RxSwift
@@ -1205,7 +1205,7 @@ final class PhotoDetailViewModelImplementation: PhotoDetailViewModel {
 }
 ```
 
-As before, when we receive a `Void` value on `viewDidLoad`, we fire the `getPhoto()` method, which binds the result to the `unsplashPhoto` property:
+和之前一样，当我们在 `viewDidLoad` 上收到一个 `Void` 值时，我们将触发 `getPhoto()` 方法，该方法将结果绑定到 `unsplashPhoto` 属性：
 
 ```Swift
 private func getPhoto() {
@@ -1225,7 +1225,7 @@ private func getPhoto() {
 }
 ```
 
-As a result, it triggers the loading of image data and its description:
+这样就会触发图片数据及其描述的加载：
 
 ```Swift
 private func bindOnPhotoRetrieval() {
@@ -1280,9 +1280,9 @@ private func bindOnPhotoRetrieval() {
 }
 ```
 
-#### ‘PhotoDetailViewController’
+#### 实现 PhotoDetailViewController
 
-Here we similarly send events on to the `viewDidLoad` property and bind `imageRetrievedSuccess`, `imageRetrievedError`, `description`, and `isLoading` to the UI:
+这里的实现也类似，我们将事件发送到 `viewDidLoad` 属性，并将 `imageRetrievedSuccess`、`imageRetrievedError`、`description` 和 `isLoading` 绑定到 UI：
 
 ```Swift
 import UIKit
@@ -1428,30 +1428,30 @@ extension PhotoDetailViewController {
 }
 ```
 
-As a result, we have this final workflow:
+最后的功能已完成，效果如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Eh1Sn4gGfe6U2BrtfxpKsw.gif)
 
-We’ve implemented a fully functional app using a reactive MVVM architecture.
+至此，我们已经用 MVVM 响应式架构实现了一个纯函数式的应用。
 
-## Resources
+## 资源
 
-The source code of the project is available on GitHub:
-[**zafarivaev/MVVM-RxSwift**
-**Reactive MVVM demo app fetching photos from Unsplash and displaying them in a UICollectionView. Showcases usage of the…**github.com](https://github.com/zafarivaev/MVVM-RxSwift)
+
+该项目的源代码可在 GitHub 上找到：
+[**zafarivaev/MVVM-RxSwift**](https://github.com/zafarivaev/MVVM-RxSwift)
 
 ---
 
-## Wrapping Up
+## 结束
 
-Want to learn more about design or architectural patterns? Feel free to check out my other relevant pieces:
+想更多地了解架构设计模式？请随时查看我的其他相关文章：
 
-* [“Implement the Facade Design Pattern in Swift 5](https://medium.com/better-programming/implement-the-facade-design-pattern-in-swift-dcc4325754ff)”
-* [“Implement the Builder Design Pattern in Swift 5](https://medium.com/better-programming/implement-the-builder-design-pattern-in-swift-5-ff5bc6f2fc3d)”
-* [“Implement the Strategy Design Pattern in Swift 5](https://medium.com/better-programming/implement-the-strategy-design-pattern-in-swift-5d9c3f221277)”
-* [“Implement a VIPER Architecture in Swift 5](https://medium.com/better-programming/how-to-implement-viper-architecture-in-your-ios-app-rest-api-and-kingfisher-f494a0891c43)”
+* [在 Swift 5 中实现外观模式](https://medium.com/better-programming/implement-the-facade-design-pattern-in-swift-dcc4325754ff)
+* [在 Swift 5 中实现生成器模式](https://medium.com/better-programming/implement-the-builder-design-pattern-in-swift-5-ff5bc6f2fc3d)”
+* [在 Swift 5 中实现策略模式](https://medium.com/better-programming/implement-the-strategy-design-pattern-in-swift-5d9c3f221277)
+* [在 Swift 5 中实现 VIPER 架构](https://medium.com/better-programming/how-to-implement-viper-architecture-in-your-ios-app-rest-api-and-kingfisher-f494a0891c43)
 
-Thanks for reading!
+感谢阅读!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
