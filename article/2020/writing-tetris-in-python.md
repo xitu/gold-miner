@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/writing-tetris-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/writing-tetris-in-python.md)
 > * 译者：[z0gSh1u](https://github.com/z0gSh1u)
-> * 校对者：
+> * 校对者：[Park-ma](https://github.com/Park-ma)
 
 # 用 Python 写一个俄罗斯方块游戏
 
@@ -11,7 +11,7 @@
 
 在这篇教程中，我们会用 Python 的 PyGame 库写一个简单的俄罗斯方块游戏。里面的算法很简单，但对新手可能有一点挑战性。我们不会太关注 PyGame 的内部原理，而更关注游戏的逻辑。如果你懒得阅读整篇文章，你可以简单地复制粘贴文末的代码。
 
-![Tetris Game](https://cdn-images-1.medium.com/max/2000/1*zJwBMHhqoVES9LbIg68qxQ.gif)
+![俄罗斯方块游戏](https://cdn-images-1.medium.com/max/2000/1*zJwBMHhqoVES9LbIg68qxQ.gif)
 
 #### 准备工作
 
@@ -27,7 +27,7 @@
 
 让我们从 Figure 类开始。我们的目标是储存图形的各种类型和它们的旋转结果。我们当然可以通过矩阵旋转来实现，但是这会让问题变得太复杂了。
 
-![The main idea of figures representation](https://cdn-images-1.medium.com/max/2000/1*UjtAS8CTRpUJMnzw2PjF0Q.png)
+![图形表示的主要思想](https://cdn-images-1.medium.com/max/2000/1*UjtAS8CTRpUJMnzw2PjF0Q.png)
 
 所以，我们简单地用这样的列表表示图形：
 
@@ -59,7 +59,7 @@ class Figure:
         self.rotation = 0
 ```
 
-在这里，我们随机选择一个类型和颜色。
+在这里，我们随机选择一个形状和颜色。
 
 并且，我们需要能够快速地旋转图形并获得当前的旋转结果，为此我们给出这两个简单的方法：
 
@@ -91,7 +91,7 @@ class Tetris:
     figure = None
 ```
 
-其中，`state` 表示我们是否仍在进行游戏；`field` 表示游戏的场地，为 0 处表示为空，为颜色值处表示有图形（除了仍在下落的）。
+其中，`state` 表示我们是否仍在进行游戏；`field` 表示游戏的场地，为 0 处表示为空，有颜色值则表示此处有图形（除了仍在下落的）。
 
 我们通过下面这个简单的方法来初始化游戏：
 
