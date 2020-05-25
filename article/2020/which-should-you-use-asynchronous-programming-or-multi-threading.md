@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/which-should-you-use-asynchronous-programming-or-multi-threading.md](https://github.com/xitu/gold-miner/blob/master/article/2020/which-should-you-use-asynchronous-programming-or-multi-threading.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：[QinRoc](https://github.com/QinRoc)、[PingHGao][https://github.com/PingHGao]
+> * 校对者：[QinRoc](https://github.com/QinRoc)、[PingHGao](https://github.com/PingHGao)
 
 # 异步编程和多线程，我该选择哪个方案？
 
