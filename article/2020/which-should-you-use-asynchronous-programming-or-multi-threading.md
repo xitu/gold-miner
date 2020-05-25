@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/which-should-you-use-asynchronous-programming-or-multi-threading.md](https://github.com/xitu/gold-miner/blob/master/article/2020/which-should-you-use-asynchronous-programming-or-multi-threading.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[QinRoc](https://github.com/QinRoc)、[PingHGao][https://github.com/PingHGao]
 
 # 异步编程和多线程，我该选择哪个方案？
 
@@ -29,13 +29,13 @@
 
 制作早餐的总时间：15 分钟。
 
-很简单吧？如果我们以这种烹饪的方式来类比于程序执行，它就是用一种[同步的方式](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)来做早餐。
+很简单吧？如果我们以这种烹饪方式来类比程序执行，它就是用一种[同步的方式](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)来做早餐。
 
-我们用一个人来完成一系列（[串行](https://en.wikipedia.org/wiki/Serialism)）任务。我们按顺序执行每个步骤，如果没有完成正在执行的任务，就无法继续进行下一步。从技术上来说，更严格的定义是，每个任务的执行前都会被上一个任务挂起，所有的任务都只有一条路径去执行。每个任务的执行不到最后一步，我们就无法前进。在此示例中，我们是计算机的 [CPU](https://en.wikipedia.org/wiki/Central_processing_unit)。每个任务都由一个人（一个CPU）完成。
+我们用一个人（[串行](https://en.wikipedia.org/wiki/Serialism)）地完成一系列任务。我们按顺序执行每个步骤，如果没有完成正在执行的任务，就无法继续进行下一步。从技术上来说，更严格的定义是，每个任务在执行前都会被上一个任务挂起，所有的任务都只由一个工作单元完成。不完成上一个任务，我们就无法前进。在此示例中，我们是计算机的 [CPU](https://en.wikipedia.org/wiki/Central_processing_unit)。每个任务都由一个人（一个 CPU）完成。
 
 ![Single-threaded synchronous way to cook breakfast](https://cdn-images-1.medium.com/max/4608/1*tqb0_sHBGF4TlSWPDY7j7w.png)
 
-好了，我们已经煎好鸡蛋了。但是，如果我们想让早晨的效率更高，该怎么办呢？您可能会说：“我不用等我的鸡蛋煮完再去烤面包。”
+好了，我们已经煎好鸡蛋了。但是，如果我们想让早晨的效率更高，该怎么办呢？您可能会说：“我不用等我的鸡蛋煎完才去烤面包。”
 
 您现在已经像工程师一样思考了。让我们再来做一次早餐，但是这次，我们要同时煎鸡蛋和烤面包。
 
@@ -51,17 +51,17 @@
 6. **鸡蛋煎熟**后，取出鸡蛋，然后添加调味料。
 7. **面包烤熟**后，取出烤面包。
 
-制作早餐的总时间：八分钟。
+制作早餐的总时间：8 分钟。
 
-看起来所有步骤都没变，是吧？但是其中有一个步骤做了重大调整。在等待鸡蛋煮熟的过程中，我们就开始烤面包，而不是的等鸡蛋煮好后才烤面包。我们仍然只需一名工人来完成所有任务，但是现在任务是异步进行的。可能只让两个任务异步执行效果没那么明显，想象一下，如果有几千个鸡蛋和面包以及几千个煎锅和几千台烤面包机，同一时间只执行一个任务是多么低效！
+看起来所有步骤都没变，是吧？但是其中有一个步骤做了重大调整。在等待鸡蛋煎好的过程中，我们就开始烤面包，而不是得等鸡蛋煎好后才烤面包。我们仍然只需一名工人来完成所有任务，但是现在任务是异步进行的。可能只让两个任务异步执行效果没那么明显，想象一下，如果有几千个鸡蛋和面包以及几千个煎锅和几千台烤面包机，同一时间只执行一个任务是多么低效！
 
-这是[异步](https://en.wikipedia.org/wiki/Asynchrony_(computer_programming))编程的最大优势之一。很多时候，我们不得不去等待一个无法控制的动作完成。在本例中，等待的是煎好鸡蛋和烤熟面包。我们可以有世界上最高效，最好的厨师，但是在大多数情况下，我们还是要坐等蛋煎好。等待这些东西煮熟的过程类似于[输入/输出 (I/O)](https://en.wikipedia.org/wiki/Input/output)，如果我们在执行任务时需要等待大量 I/O 操作，那么使用异步编程确实是一个好的方案。
+这是[异步](https://en.wikipedia.org/wiki/Asynchrony_(computer_programming))编程的最大优势之一。很多时候，我们不得不去等待一个无法控制的动作完成。在本例中，等待的是煎好鸡蛋和烤熟面包。我们可以有世界上最高效，最好的厨师，但是在大多数情况下，我们还是要坐等蛋煎好。等待这些东西烹饪的过程类似于等待[输入/输出 (I/O)](https://en.wikipedia.org/wiki/Input/output)操作，如果我们在执行任务时需要等待大量 I/O 操作，那么使用异步编程确实是一个好的方案。
 
 如果我们调用一个必须从用户那里获得输入的 API ，无论我们拥有多少处理器或者多快的计算机，我们都必须等待。我们必须等待 API 调用完成，等待用户输入完信息。这个过程我们无法控制的，它不会因为处理器越来越快或分配专用资源而发生改变。
 
 ![Single-threaded asynchronous way to cook breakfast](https://cdn-images-1.medium.com/max/4608/1*WXtQa9WJYl96TjkCB2Fu9w.png)
 
-现在我们已经有两种制作鸡蛋的方法。但是，我们的室友凯文（Kevin）想帮忙做鸡蛋。这次我们采用什么方案呢？
+现在我们已经有两种制作鸡蛋的方法。但是，假如我们的室友凯文（Kevin）想帮忙做鸡蛋。这次我们采用什么方案呢？
 
 ## 多线程的方案
 
@@ -70,7 +70,7 @@
 3.等待鸡蛋煎好。 **2. 凯文等待面包烤完。**
 4.取出鸡蛋并加入调味料。 **3. 凯文拿出面包。**
 
-制作早餐的总时间：8 分钟.
+制作早餐的总时间：8 分钟。
 
 我们有两个人做早餐，每个人分配一个任务序列。这是[多线程](https://en.wikipedia.org/wiki/Multithreading_(computer_architecture))同步的示例，因为您和 Kevin 都不会在同一时刻执行多个任务（包括等待）。
 
@@ -84,7 +84,7 @@
 
 ## Python 示例
 
-我们来看看上面的三个示例（单线程同步，单线程异步和多线程同步）如何在Python 中实现。
+我们来看看上面的三个示例（单线程同步，单线程异步和多线程同步）如何在 Python 中实现。
 
 我们用不同的方法从 [Alpha Vantage](https://www.alphavantage.co/) API 获取股票数据。你可以使用 Python 包装器 `pip install alpha_vantage` 来安装。
 
@@ -129,9 +129,9 @@ print(results)
 
 这里代码的调用可能有些混乱，我们来分解一下。`loop` 是处理器在等待任务和执行其他任务之间不断循环的地方。这是为了持续检查任务（例如我们的 API 调用）是否完成。
 
-task 变量是方法调用的列表。我们将这些任务放在收集异步任务的列表中，称为 `group1`，然后在 `loop.run_until_complete` 中运行它们。这比我们之前的同步版本快得多，因为我们可以进行多个 API 调用，而无需等待每个 API 完成。
+tasks 变量是方法调用的列表。我们将这些任务放在收集异步任务的列表中，称为 `group1`，然后在 `loop.run_until_complete` 中运行它们。这比我们之前的同步版本快得多，因为我们可以进行多个 API 调用，而无需等待每个 API 完成。
 
-注意：Asyncio 在 Python 文档中的使用是比较奇怪的，[这里有更多详情](https://stackoverflow.com/questions/47518874/how-do-i-run-python-asyncio-code-in-a-jupyter-notebook)。
+注意：Python 文档对 Asyncio 的说明有很多奇怪的地方，[这里有更多详情](https://stackoverflow.com/questions/47518874/how-do-i-run-python-asyncio-code-in-a-jupyter-notebook)。
 
 #### 多线程
 
