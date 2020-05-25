@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/garbage-collection-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/garbage-collection-in-python.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[江不知](https://github.com/JalanJiang)、[PingHGao](https://github.com/PingHGao)
 
 # Python 内存管理之垃圾回收
 
@@ -13,7 +13,7 @@
 
 ## What 和 Why
 
-在现实世界中，我们会清理掉一些东西——例如旧笔记，不再需要的盒子——将它们丢弃在垃圾桶中。因为存储的空间有限，所以我们要为其它重要的物品腾出存储空间。
+在现实世界中，我们会清理掉一些东西 —— 例如旧笔记，不再需要的盒子 —— 将它们丢弃在垃圾桶或者回收箱中。因为存储的空间有限，所以我们要为其它重要的物品腾出存储空间。
 
 同样地，在计算机中，空间——也称为**内存**是重要且有限的资源。因此，垃圾回收器会收集不再需要的数据对象并将其丢弃。
 
@@ -23,27 +23,26 @@
 
 ## How
 
-垃圾回收原理中有一些技术含量的东西，大多数垃圾回收语言（包括 Python）都使用**引用计数**。在引用计数中，我们记录对象的引用数，并在计数为 0 时丢弃对象。
+垃圾回收原理中有一些不同的技术，但大多数垃圾回收语言（包括 Python）都使用**引用计数**。在引用计数中，我们记录对象的引用数，并在计数为 0 时丢弃对象。
 
 对象的引用计数随着指向该对象的别名数量的变化而变化。给对象分配新名称或将其放置在列表或字典等容器中时，引用计数会增加。当使用 `del` 命令删除对象，引用超出范围或重新分配对象时，计数会减少。例如：
 
 ```python
-sample = 100 # Creates object <100>. Ref count = 1 
+sample = 100 # 创建 <100> 对象，引用计数 = 1。
 
-sample_copy = sample # Ref count = 2. 
+sample_copy = sample # 引用计数 = 2. 
 
-sample_list = [sample] # Ref count = 3.
+sample_list = [sample] # 引用计数 = 3.
 
-del sample # Ref count = 2. Note that this doesn't affect sample_copy and sample_list as they directly point to <100>. 
+del sample # 引用计数 = 2。注意这里不会影响 sample_copy 和 sample_list，因为它们直接指向 <100>。
+sample_copy = 10 # 引用计数 = 1，因为变量重新分配了。
 
-sample_copy = 10 # Ref count = 1 as alias was reassigned.
-
-sample_list.clear() # Ref count = 0 as list is cleared and doesn't store the alias pointing to <100>. 
+sample_list.clear() # 引用计数 = 0，当 list 清空后就不会存储指向 <100> 的变量了。
 ```
 
 当引用计数下降到 `0` 时，对象会被立即回收。但是这样做有一个代价：我们需要为每个对象存储一个附加的整数值，以指示其引用计数（空间与时间的权衡）。
 
-但是，引用计数系统中存在 **`循环引用`** 的问题。如果两个对象 A 和 B 互相引用，则它们的引用计数将会始终大于或等于 `1`。这种情况在列表、类和函数中很常见。例如，当对象引用自身时：
+但是，引用计数系统中存在 **循环引用** 的问题。如果两个对象 A 和 B 互相引用，则它们的引用计数将会始终大于或等于 `1`。这种情况在列表、类和函数中很常见。例如，当对象引用自身时：
 
 ```python
 x = []
@@ -59,11 +58,12 @@ b.attribute_2 = a
 
 垃圾回收器会定期找出循环引用并将其删除。这个过程会耗费昂贵的资源，所以它是定期执行的并且是可计划的。Python 中的垃圾回收器接口提供了一些方法，您可以用它们来探索执行垃圾回收的计划和阈值。
 
-[**gc - Garbage Collector interface - Python 3.8.3rc1 documentation**](https://docs.python.org/3.7/library/gc.html)
+[**gc - 垃圾回收器接口 - Python 3.8.3rc1 文档**](https://docs.python.org/3.7/library/gc.html)
 
 ---
 
 ## 结论
+
 
 希望本文能帮到你。
 请进一步阅读以下参考资料：
