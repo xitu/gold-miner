@@ -5,28 +5,28 @@
 > * 译者：
 > * 校对者：
 
-# On let vs const
+# 关于 let 和 const 的对比
 
-My [previous post](https://overreacted.io/what-is-javascript-made-of/) included this paragraph:
+我 [之前的帖子](https://overreacted.io/what-is-javascript-made-of/) 包括了这一段:
 
-> **`let` vs `const` vs `var`**: Usually you want `let`. If you want to forbid assignment to this variable, you can use `const`. (Some codebases and coworkers are pedantic and force you to use `const` when there is only one assignment.)
+> **`let` 和 `const` 和 `var` 的比较**: 通常你会想用 `let`。如果你想要防止给这个变量赋值，你可以使用 `const`。 （一些代码库或者开发者是很教条的，要求你在只有一次赋值的时候使用 `const`。）
 
-This turned out to be very controversial, sparking conversations on Twitter and Reddit. It seems that the majority view (or at least, the most vocally expressed view) is that one should **use `const` wherever possible,** only falling back to `let` where necessary, as can be enforced with the [`prefer-const`](https://eslint.org/docs/rules/prefer-const) ESLint rule.
+这件事很有争议，在 Twitter 和 Reddit 上引发了大量讨论。看起来大多数人的意见（至少是声音最响的意见）是应该**尽可能使用 `const`** ，只在必须的时候使用 let，就像 [`prefer-const`](https://eslint.org/docs/rules/prefer-const) 这条 ESLint 规则规定的一样。
 
-In this post, I will briefly summarize some of the arguments and counter-arguments I’ve encountered, as well as my personal conclusion on this topic.
+在本帖中，我将简短概括我见到的正反论据，以及我个人对此的结论。
 
-## Why `prefer-const`
+## 为什么 `倾向于 const`
 
-* **One Way to Do It**: It is mental overhead to have to choose between `let` and `const` every time. A rule like “always use `const` where it works” lets you stop thinking about it and can be enforced by a linter.
-* **Reassignments May Cause Bugs**: In a longer function, it can be easy to miss when a variable is reassigned. This may cause bugs. Particularly in closures, `const` gives you confidence you’ll always “see” the same value.
-* **Learning About Mutation**: Folks new to JavaScript often get confused thinking `const` implies immutability. However, one could argue that it’s important to learn the difference between variable mutation and assignment anyway, and preferring `const` forces you to confront this distinction early on.
-* **Meaningless Assignments**: Sometimes, an assignment doesn’t make sense at all. For example, with React Hooks, the values you get from a Hook like `useState` are more like parameters. They flow in one direction. Seeing an error on their assignment helps you learn earlier about the React data flow.
-* **Performance Benefits**: There are occasional claims that JavaScript engines could make code using `const` run faster due to the knowledge the variable won’t be reassigned.
+* **只有一种方式**: 每次在 `let` 和 `const` 之间选择会造成精神负担。像 “只要能用就使用 `const`” 这样的规则使你停止思考这个问题。它可以通过一个 linter 实现。
+* **重新赋值可能造成 Bug**: 在较长的函数中，你可能漏掉一个变量的赋值。这可能造成bug。特别是在闭包中，`const` 使你确信每次你可以“看见”同一个值。
+* **学习修改变量**: 新学  JavaScript 的人们经常以为 `const` 意味着不可变。有些人说，学习修改变量的值和变量的重新赋值之间的区别，是非常重要的；而且倾向使用 `const` 迫使你从一开始就面对这种区别。
+* **无意义的赋值**: 有时候，赋值并没有任何意义。例如对于 React Hooks，你从 Hook 中获取的值，像 `useState` 之类，更像是参数。他们只在一个方向上流动。在赋值中看到一个错误帮助你更早学习到 React 数据流相关的知识。
+* **性能优势**: 有时候有人声称 JavaScript 引擎能让使用 `const` 的代码运行得更快，因为这些变量不会被重新赋值。
 
-## Why Not `prefer-const`
+## 为什么不 `倾向于 const`
 
-* **Loss of Intent**: If we force `const` everywhere it can work, we lose the ability to communicate whether it was **important** for something to not be reassigned.
-* **Confusion with Immutability**: In every discussion about why you should prefer `const`, someone always confuses with immutability. This is unsurprising, as both assignment and mutation use the same `=` operator. In response, people are usually told that they should “just learn the language”. However, the counter-argument is that if a feature that prevents mostly beginner mistakes is confusing to beginners, it isn’t very helpful. And unfortunately, it doesn’t help prevent mutation mistakes which span across modules and affect everyone.
+* **失去意图**: 如果我们在所有能用的地方都使用 `const`，我们就丧失了表达某些东西不被重新赋值是否 **重要** 的能力。
+* **Confusion with Immutability**: 在每一个为什么你应该倾向于 `const` 的讨论中, someone always confuses with immutability. This is unsurprising, as both assignment and mutation use the same `=` operator. In response, people are usually told that they should “just learn the language”. However, the counter-argument is that if a feature that prevents mostly beginner mistakes is confusing to beginners, it isn’t very helpful. And unfortunately, it doesn’t help prevent mutation mistakes which span across modules and affect everyone.
 * **Pressure to Avoid Redeclaring**: A `const`-first codebase creates a pressure to not use `let` for conditionally assigned variables. For example, you might write `const a = cond ? b : c` instead of an `if` condition, even if both `b` and `c` branches are convoluted and giving them explicit names is awkward.
 * **Reassignments May Not Cause Bugs**: There are three common cases when reassignments cause bugs: when the scope is very large (such as module scope or huge functions), when the value is a parameter (so it’s unexpected that it would be equal to something other than what was passed), and when a variable is used in a nested function. However, in many codebases most variables won’t satisfy either of those cases, and parameters can’t be marked as constant at all.
 * **No Performance Benefits**: It is my understanding that the engines are already aware of which variables are only assigned once — even if you use `var` or `let`. If we insist on speculating, we could just as well speculate that extra checks can **create** performance cost rather than reduce it. But really, engines are smart.
