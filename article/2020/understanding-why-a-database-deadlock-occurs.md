@@ -181,10 +181,6 @@ Concurrency is a reality and is unavoidable. It is very much possible that multi
 
 Deadlock should be handled at the application level in such cases. There has to be exception handling code to catch deadlock errors and retry the failed transaction.
 
----
-
-Stay tuned for our next post on handling deadlocks in a Django web application.
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
