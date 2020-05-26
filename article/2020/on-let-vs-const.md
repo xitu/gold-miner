@@ -7,9 +7,7 @@
 
 # On let vs const
 
-December 22, 2019 • ☕️ 3 min read
-
-My [previous post](/what-is-javascript-made-of/) included this paragraph:
+My [previous post](https://overreacted.io/what-is-javascript-made-of/) included this paragraph:
 
 > **`let` vs `const` vs `var`**: Usually you want `let`. If you want to forbid assignment to this variable, you can use `const`. (Some codebases and coworkers are pedantic and force you to use `const` when there is only one assignment.)
 
@@ -17,7 +15,7 @@ This turned out to be very controversial, sparking conversations on Twitter and 
 
 In this post, I will briefly summarize some of the arguments and counter-arguments I’ve encountered, as well as my personal conclusion on this topic.
 
-## [](#why-prefer-const)Why `prefer-const`
+## Why `prefer-const`
 
 * **One Way to Do It**: It is mental overhead to have to choose between `let` and `const` every time. A rule like “always use `const` where it works” lets you stop thinking about it and can be enforced by a linter.
 * **Reassignments May Cause Bugs**: In a longer function, it can be easy to miss when a variable is reassigned. This may cause bugs. Particularly in closures, `const` gives you confidence you’ll always “see” the same value.
@@ -25,7 +23,7 @@ In this post, I will briefly summarize some of the arguments and counter-argumen
 * **Meaningless Assignments**: Sometimes, an assignment doesn’t make sense at all. For example, with React Hooks, the values you get from a Hook like `useState` are more like parameters. They flow in one direction. Seeing an error on their assignment helps you learn earlier about the React data flow.
 * **Performance Benefits**: There are occasional claims that JavaScript engines could make code using `const` run faster due to the knowledge the variable won’t be reassigned.
 
-## [](#why-not-prefer-const)Why Not `prefer-const`
+## Why Not `prefer-const`
 
 * **Loss of Intent**: If we force `const` everywhere it can work, we lose the ability to communicate whether it was **important** for something to not be reassigned.
 * **Confusion with Immutability**: In every discussion about why you should prefer `const`, someone always confuses with immutability. This is unsurprising, as both assignment and mutation use the same `=` operator. In response, people are usually told that they should “just learn the language”. However, the counter-argument is that if a feature that prevents mostly beginner mistakes is confusing to beginners, it isn’t very helpful. And unfortunately, it doesn’t help prevent mutation mistakes which span across modules and affect everyone.
@@ -33,7 +31,7 @@ In this post, I will briefly summarize some of the arguments and counter-argumen
 * **Reassignments May Not Cause Bugs**: There are three common cases when reassignments cause bugs: when the scope is very large (such as module scope or huge functions), when the value is a parameter (so it’s unexpected that it would be equal to something other than what was passed), and when a variable is used in a nested function. However, in many codebases most variables won’t satisfy either of those cases, and parameters can’t be marked as constant at all.
 * **No Performance Benefits**: It is my understanding that the engines are already aware of which variables are only assigned once — even if you use `var` or `let`. If we insist on speculating, we could just as well speculate that extra checks can **create** performance cost rather than reduce it. But really, engines are smart.
 
-## [](#my-conclusion)My Conclusion
+## My Conclusion
 
 I don’t care.
 
@@ -42,8 +40,6 @@ I would use whatever convention already exists in the codebase.
 If you care, use a linter that automates checking and fixing this so that changing `let` to `const` doesn’t become a delay in code review.
 
 Finally, remember that linters exist to serve **you**. If a linter rule annoys you and your team, delete it. It may not be worth it. Learn from your own mistakes.
-
-[Discuss on Twitter](https://mobile.twitter.com/search?q=https%3A%2F%2Foverreacted.io%2Fon-let-vs-const%2F) • [Edit on GitHub](https://github.com/gaearon/overreacted.io/edit/master/src/pages/on-let-vs-const/index.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
