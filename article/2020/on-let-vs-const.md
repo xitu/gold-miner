@@ -1,7 +1,7 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[On let vs const](https://overreacted.io/on-let-vs-const/)
+> * 原文作者：[Dan Abramov](https://mobile.twitter.com/dan_abramov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/.md](https://github.com/xitu/gold-miner/blob/master/article/2020/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/on-let-vs-const.md](https://github.com/xitu/gold-miner/blob/master/article/2020/on-let-vs-const.md)
 > * 译者：
 > * 校对者：
 
