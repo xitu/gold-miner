@@ -9,14 +9,6 @@
 
 ![](https://cdn-images-1.medium.com/max/5868/1*zjJka96wmgZpOMTw5CnCIg.png)
 
-[Schema.org](https://schema.org/) was an **unknown unknown** to me for most of my time as a frontend developer. I have been building websites since 2010 and it was just over a year ago when I started at [Manifold](https://manifold.co/) that I learned of its existence.
-
-As someone who keeps up with modern web development trends, Schema.org flew under my radar for far too long. Why?
-
-No one talks about it! Ever!
-
-Well, now I am.
-
 ## What is Schema.org?
 
 Established as an open standard by Google, Microsoft, Yahoo, and Yandex, Schema.org cut its v1 release **waaaay** back in April 2013. Yes, it has really been around for **that** long. However, it continues to evolve to support how people use the web in new and unpredictable ways.
@@ -35,8 +27,6 @@ In this preview for **Avengers: Endgame** on IMDb we see rating data has been ad
 
 Another way to think of Schema.org is it’s like [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA), but for SEO instead of accessibility. It doesn’t change the functionality of your website but enhances it for a specific audience (in this case, that audience is search engines).
 
----
-
 ## Adding Schema.org to HTML Content
 
 Schema.org supports several encodings, however, the most common one used is **Microdata**, which allows us to directly tag markup with schema data via HTML attributes.
@@ -51,7 +41,7 @@ The API is quite simple. There are just three attributes:
 
 Here’s a simple example using the [Person Type](https://schema.org/Person):
 
-```
+```html
 <div itemscope itemtype="https://schema.org/Person">
   <img
     src="/david-leger.png"
@@ -107,7 +97,7 @@ Sometimes we want to give context to search engines that we don’t necessarily 
 
 For the Person item, let’s add my nickname (dave.js) using a `\<meta>` tag:
 
-```
+```html
 <div itemscope itemtype="https://schema.org/Person">
   <img
     src="/david-leger.png"
@@ -127,8 +117,6 @@ For the Person item, let’s add my nickname (dave.js) using a `\<meta>` tag:
 </div>
 ```
 
----
-
 ## Testing Schema.org Items
 
 Testing out your items is simple. Google offers a [Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool) to validate your items. It parses your HTML and shows a tree of how the item attributes are interpreted. It also shows errors and warnings for missing properties that are required or recommended for each `itemtype`.
@@ -136,8 +124,6 @@ Testing out your items is simple. Google offers a [Structured Data Testing Tool]
 Here’s our example parsed with the Structured Data Testing Tool.
 
 ![](https://cdn-images-1.medium.com/max/2000/0*aXWVolaitY_AbKtL.png)
-
----
 
 ## A Living Standard
 
