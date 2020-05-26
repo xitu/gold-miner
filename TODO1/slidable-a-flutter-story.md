@@ -7,7 +7,7 @@
 
 # Slidable：一个 Flutter 的故事
 
-![](https://cdn-images-1.medium.com/max/800/1*BBp8dGLaZ8v8IHvXUYoZng.png)
+![](https://user-gold-cdn.xitu.io/2018/7/30/164e93653902d36d?w=800&h=694&f=png&s=62625)
 
 ### 概要
 
@@ -45,7 +45,7 @@
 
 使用这个对象，滑动操作在列表项后。
 
-![](https://cdn-images-1.medium.com/max/800/1*-lxI0VkO5MCC3PW74VaLWA.gif)
+![](https://user-gold-cdn.xitu.io/2018/7/30/164e93651d8445f1?w=324&h=75&f=gif&s=260891)
 
 SlidableBehindDelegate 的例子
 
@@ -53,7 +53,7 @@ SlidableBehindDelegate 的例子
 
 使用此对象，幻灯片操作将以与列表项相同的方向滚动。
 
-![](https://cdn-images-1.medium.com/max/800/1*KW9wXmgPGHbCV24gGIl8ZA.gif)
+![](https://user-gold-cdn.xitu.io/2018/7/30/164e93654143651b?w=324&h=75&f=gif&s=462626)
 
  SlidableScrollDelegate 的例子
 
@@ -61,7 +61,7 @@ SlidableBehindDelegate 的例子
 
 使用此对象，当列表项滑动时，幻灯片操作正在增长。
 
-![](https://cdn-images-1.medium.com/max/800/1*lwGjFSE0--Ij7U5YbvOiSQ.gif)
+![](https://user-gold-cdn.xitu.io/2018/7/30/164e936543565f81?w=324&h=75&f=gif&s=350910)
 
 SlidableStrechDelegate 的例子
 
@@ -69,7 +69,7 @@ SlidableStrechDelegate 的例子
 
 有了这个，滑动动作显示出一种视差效果，就像在 iOS 中一样。
 
-![](https://cdn-images-1.medium.com/max/800/1*OlubJ7rmOK5QgvsC3aVY8Q.gif)
+![](https://user-gold-cdn.xitu.io/2018/7/30/164e93659d3e090c?w=324&h=75&f=gif&s=374223)
 
 SlidableDrawerDelegate 的例子
 
@@ -88,7 +88,7 @@ SlidableDrawerDelegate 的例子
 
 完成这些内置对象后，我认为这将是一个很好的初始版本。所以我公开了我的 [GitHub 代码库](https://github.com/letsar/flutter_slidable)，并在 [Dart Pub](https://pub.dartlang.org/packages/flutter_slidable) 上发布了它。
 
-![](https://cdn-images-1.medium.com/max/800/1*FXzo-qRHkPFTZ-hiQwb_gQ.gif)
+![](https://user-gold-cdn.xitu.io/2018/7/30/164e93651f42101c?w=324&h=627&f=gif&s=1159747)
 
 Slidable 部件预览
 

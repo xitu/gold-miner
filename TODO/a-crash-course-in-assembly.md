@@ -32,13 +32,13 @@
 
 指令分解的方式是特定于当前大脑构造的。
 
-例如，这种结构的大脑可能总是将前六个字节传送给 ALU。ALU 根据接收到的序列中 1 和 0 的排列，就会明白需要将两个东西加在一起。
+例如，这种结构的大脑可能总是将前六位传送给 ALU。ALU 根据接收到的序列中 1 和 0 的排列，就会明白需要将两个东西加在一起。
 
 这个字段称为操作码(opcode)，它的作用是告诉 ALU 要执行的操作。
 
 ![6-bits being taken from a 16-bit instruction and being piped into the ALU](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/03-03-computer_architecture12-500x354.png)
 
-接下来大脑会取后续两个三字节的字段来确定要相加的两个数。这两个数会存储在寄存器中。
+接下来大脑会取后续两个三位的字段来确定要相加的两个数。这两个数会存储在寄存器中。
 
 ![Two 3-bit chunks being decoded to determine source registers](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/03-04-computer_architecture17-500x352.png)
 

@@ -2,7 +2,7 @@
 > * 原文作者：[Maksim Ryzhikov](https://medium.com/@maksimrv?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md)
-> * 译者：[Starriers](https://github.com/Starriers)
+> * 译者：[Starrier](https://github.com/Starriers)
 
 # Flutter 中的原生应用程序状态
 
@@ -104,7 +104,7 @@ class Provider extends StatelessWidget {
 }
 ```
 
-是的，直截了当。现在我们将“提供者”导入 “main.dart”
+是的，直截了当。现在我们将 "Provider" 导入 “main.dart”
 
 ```
 import 'package:flutter/material.dart';
@@ -135,7 +135,7 @@ class _InheritedProvider extends InheritedWidget {
 }
 ```
 
-“InheritedWidget” 的所有子类都应该实现 “updateShouldNotify” 方法。此时，我们只需检查传递的“数据”是否已更改。例如，当我们将计数器从 “0” 改为 “1” 时，该方法应该返回 “true”。
+“InheritedWidget” 的所有子类都应该实现 “updateShouldNotify” 方法。此时，我们只需检查传递的 “data” 是否已更改。例如，当我们将计数器从 “0” 改为 “1” 时，该方法应该返回 “true”。
 
 我们现在讲“继承”小部件，然后添加到小部件树中：
 
@@ -193,7 +193,7 @@ class MyHomePage extends StatelessWidget {
 
 我们删除了全局变量 “_counter” 并使用 “Provider.of” 在 “MyHomePage” 小部件中取得了 “counter”。如你所见，我们没有将它作为参数传递给 “MyHomePage”，而是使用 “Provider.of” 来获取应用程序的状态，他可以应用于树下的任何小部件。 此外，“Provider.of” 还包括当前小部件的上下文和[重建](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)，并在更改 “`_InheritedProvider`” 小部件时对其进行[注册](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)。
 
-现在是时候检测我们的应用程序是否起作用了：我们重新加载它。为了确保我们的“提供者”正常工作，我们可以将“数据”从“0”更改为 “MyApp” 小部件中的 “1”，然后我们必须重新加载应用程序。然而，我们的 “+” 按钮仍然无法工作。
+现在是时候检测我们的应用程序是否起作用了：我们重新加载它。为了确保我们的 "Provider" 正常工作，我们可以将 “data” 从 “0” 更改为 “MyApp” 小部件中的 “1”，然后我们必须重新加载应用程序。然而，我们的 “+” 按钮仍然无法工作。
 
 在这里，我们面临的第二个问题是“如何在改变应用程序的状态后重建小部件”，现在我们应该重新开始思考。
 
@@ -216,7 +216,7 @@ class AppState extends ValueNotifier {
 var appState = new AppState(0);
 ```
 
-然后将其传递给“提供者”
+然后将其传递给 "Provider"
 
 ```
 Widget build(BuildContext context) {
@@ -254,11 +254,11 @@ Widget build(BuildContext context) {
 
 最后的挑战是在我们更改应用程序的状态后重建小部件。但在此之前，我们看看已有的东西：
 
-1.  “提供者” —— 我们应用程序状态的容器
+1.  “Provider” —— 我们应用程序状态的容器
 2.  “AppState” —— 跟踪应用程序状态改变并通知“监听者”的类
 3.  “_InheritedProvider” —— 小部件将有效地将应用程序状态传播到网上，并在改变了自己的状态之后重建用户。
 
-首先，我们回顾一下 “_InheritedProvider” 的方法 “updateShouldNotify”：
+首先，我们回顾一下 “_InheritedProvider” 的 “updateShouldNotify” 方法：
 
 ```
   @override
@@ -267,7 +267,7 @@ Widget build(BuildContext context) {
   }
 ```
 
-现在“数据”等于 “AppState” 的实例，这意味着我们在 “`_incrementCounter`” 方法中更改此实例的“值”时，它实际上并不会改变实例本身。因此，这个比较总是返回 “false”。我们通过比较  “value”-s 来解决这个问题。但为此，我们应该将“值”曝出在小部件中，这允许我们可以不丢失重构之间的“值”：
+现在 “data” 等于 “AppState” 的实例，这意味着我们在 “`_incrementCounter`” 方法中更改此实例的 “value” 时，它实际上并不会改变实例本身。因此，这个比较总是返回 “false”。我们通过比较  “value”-s 来解决这个问题。但为此，我们应该将“值”曝出在小部件中，这允许我们可以不丢失重构之间的 “value”：
 
 ```
 class _InheritedProvider extends InheritedWidget {
@@ -288,7 +288,7 @@ class _InheritedProvider extends InheritedWidget {
 
 现在它可以正确地工作了：当我们改变状态值时，小部件会重新构建消费者。但在重新构建消费者之前，我们应该在改变应用程序的状态后重建小部件本身。
 
-我们的代码中只有一个可以了解 “_InheritedProvider” 的小部件，就是 “Provider” 小部件。如果我们想要跟踪小部件中的某种状态，我们应该创建 “statefull” 小部件。好的，让我们将“提供者”小部件从 “stateless” 转换为 “statefull”：
+我们的代码中只有一个可以了解 “_InheritedProvider” 的小部件，就是 “Provider” 小部件。如果我们想要跟踪小部件中的某种状态，我们应该创建 “statefull” 小部件。好的，让我们将 “Provider” 小部件从 “stateless” 转换为 “statefull”：
 
 ```
 class Provider extends StatefulWidget {

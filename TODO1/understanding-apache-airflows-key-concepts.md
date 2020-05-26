@@ -2,49 +2,49 @@
 > * 原文作者：[Dustin Stansbury](https://medium.com/@dustinstansbury?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-apache-airflows-key-concepts.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-apache-airflows-key-concepts.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
-# Understanding Apache Airflow’s key concepts
+# 理解 Apache Airflow 的关键概念
 
-## Part Three of a Four-part Series
+## 四部分系列的第三系列
 
-In [Part I](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e) and [Part II](https://medium.com/@dustinstansbury/going-with-the-flow-part-ii-a-workflow-management-system-wish-list-3f97d40e9571) of [Quizlet’s](https://quizlet.com) [Hunt for the Best Workflow Management System Around](https://medium.com/@dustinstansbury/going-with-the-air-flow-quizlets-hunt-for-the-best-workflow-management-system-around-1ca546f8cc68), we motivated the need for workflow management systems (WMS) in modern business practices, and provided a wish list of features and functions that led us to choose [Apache Airflow](https://airflow.incubator.apache.org/) as our WMS of choice. This post aims to give the curious reader a detailed overview of Airflow’s components and operation. We’ll cover Airflow’s key concepts by implementing the example workflow introduced in [Part I](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e) of the series (see **Figure 3.1**).
+在 [Quizlet](https://quizlet.com) 的[寻找最优工作流管理系统](https://medium.com/@dustinstansbury/going-with-the-air-flow-quizlets-hunt-for-the-best-workflow-management-system-around-1ca546f8cc68)的[第一部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e)和[第二部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-ii-a-workflow-management-system-wish-list-3f97d40e9571)中，我们促进了现代商业实践中对工作流管理系统（WMS）的需求，并提供了一份希望获得的特性以及功能列表，这使得我们最后选择了 [Apache Airflow](https://airflow.incubator.apache.org/) 作为我们的 WMS 选择。这篇文章旨在给好奇的读者提供提供关于 Airflow 的组件和操作的详细概述。我们会通过实现本系列[第一部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e)中介绍的示例工作流（查阅 **图 3.1**）来介绍 Airflow 的关键概念。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ytMWtgd5h-1EiGiCe_D3ew.png)
 
-**Figure 3.1: An example data processing workflow.**
+**图 3.1：数据处理工作流的示例。**
 
-Airflow is a WMS that defines tasks and and their dependencies as code, executes those tasks on a regular schedule, and distributes task execution across worker processes. Airflow offers an excellent UI that displays the states of currently active and past tasks, shows diagnostic information about task execution, and allows the user to manually manage the execution and state of tasks.
+Airflow 是一种 WMS，即：它将任务以及它们的依赖看作代码，按照那些计划规范任务执行，并在 worker 进程之间分发需执行的任务。Airflow 提供了一个用于显示当前活动任务和过去任务状态的优秀 UI，并允许用户手动管理任务的执行和状态。
 
-#### Workflows are “DAGs”
+#### 工作流都是“有向无环图”
 
-Workflows in Airflow are collections of tasks that have directional dependencies. Specifically, Airflow uses directed acyclic graphs — or DAG for short — to represent a workflow. Each node in the graph is a task, and edges define dependencies amongst tasks (The graph is enforced to be acyclic so that there are no circular dependencies that can cause infinite execution loops).
+Airflow 中的工作流是具有方向性依赖的任务集合。具体说明则是 Airflow 使用有向有向无环图 —— 或简称的 DAG —— 来表现工作流。图中的每个节点都是一个任务，图中的边表示的是任务之间的依赖（该图强制为无循环的，因此不会出现循环依赖，从而导致无限执行循环）。
 
-The top of **Figure 3.2** demonstrates how our example workflow is represented in Airflow as a DAG. Notice the similarity in the structure of the execution plan for our example workflow tasks in [**Figure 1.1**](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e) and the structure of the DAG in **Figure 3.2**.
+**图 3.2** 顶部演示了我们的示例工作流是如何在 Airflow 中变现为 DAG 的。注意在[**图 1.1**](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e) 中我们的示例工作流任务的执行计划结构与**图 3.2** 中的 DAG 结构相似。
 
 ![](https://cdn-images-1.medium.com/max/800/1*N2CWqwBZiulBUwiPprKg4g.png)
 
-**Figure 3.2 Screenshots from the Airflow UI, Representing the example workflow DAG. Top Subpanel**: The Graph View of the `DagRun` for Jan. 25th. Dark green nodes indicate `TaskInstance`s with “success” states. The light green node depicts a `TaskInstance` in the “running” state. **Bottom Subpanel**: The Tree View of the `example_workflow` DAG. The main components of Airflow are highlighted in screen shot, including Sensors, Operators, Tasks, `DagRuns`, and `TaskInstances`. `DagRuns` are represented as columns in the graph view — the `DagRun` for Jan. 25th is outlined in cyan. Each square in the graph view represents a `TaskInstance` — the `TaskInstance` for the (“running”) `perform_currency_conversion` task on Jan. 25th is outlined in blue.
+**图 3.2 来自 Airflow UI 的屏幕截图，表示示例工作流 DAG。面板顶部**：1 月 25 号 `DagRun` 的图表视图。深绿色节点表示 `TaskInstance` 的“成功”状态。淡绿色描绘了 `TaskInstance` 的“运行”状态。**底部子面板**：`example_workflow` DAG 的树图。Airflow 的主要组件在屏幕截图中高亮显示，包括 Sensor、Operator、任务、`DagRuns` 和 `TaskInstances`。`DagRuns` 在图视中表示为列 —— `DagRun` 在 1 月 25 号用青色表示。图示中的每个方框表示一个 `TaskInstance` —— 1 月 25 号 为 `perform_currency_conversion` 任务的 `TaskInstance`（“运行态”）用蓝色表示。
 
-At a high level, a DAG can be thought of as a container that holds tasks and their dependencies, and sets the context for when and how those tasks should be executed. Each DAG has a set of properties, most important of which are its `dag_id`, a unique identifier amongst all DAGs, its `start_date`, the point in time at which the DAG’s tasks are to begin executing, and the `schedule_interval`, or how often the tasks are to be executed. In addition to the `dag_id`, `start_date`, and `schedule_interval`, each DAG can be initialized with a set of `default_arguments`. These default arguments are inherited by all tasks in the DAG.
+在高级别中，可以将 DAG 看作是一个包含任务极其依赖，何时以及如何设置那些任务的上下文的容器。每个 DAG 都有一组属性，最重要的是它的 `dag_id`，在所有 DAG 中的唯一标识符，它的 `start_date` 用于说明 DAG 任务被执行的时间，`schedule_interval` 用于说明任务被执行的频率。此外，`dag_id`、`start_date` 和 `schedule_interval`，每个 DAG 都可以使用一组 `default_arguments` 进行初始化。这些默认参数由 DAG 中的所有任务继承。
 
-In the code block below, we define a DAG that implements our gaming company example workflow in Airflow.
+在下列代码块中，我们在 Airflow 中定义了一个用于实现我们游戏公司示例工作流的 DAG。
 
 ```
-# each Workflow/DAG must have a unique text identifier
+# 每个工作流/DAG 都必须要有一个唯一的文本标识符
 WORKFLOW_DAG_ID = 'example_workflow_dag'
 
-# start/end times are datetime objects
-# here we start execution on Jan 1st, 2017
+# 开始/结束时间是 datetime 对象
+# 这里我们在 2017 年 1 月 1 号开始执行
 WORKFLOW_START_DATE = datetime(2017, 1, 1)
 
-# schedule/retry intervals are timedelta objects
-# here we execute the DAGs tasks every day
+# 调度器/重试间隔是 timedelta 对象
+# 这里我们每天都执行 DAG 任务
 WORKFLOW_SCHEDULE_INTERVAL = timedelta(1)
 
-# default arguments are applied by default to all tasks 
-# in the DAG
+# 默认参数默认应用于所有任务
+# 在 DAG 中
 WORKFLOW_DEFAULT_ARGS = {
     'owner': 'example',
     'depends_on_past': False,
@@ -56,7 +56,7 @@ WORKFLOW_DEFAULT_ARGS = {
     'retry_delay': timedelta(minutes=5)
 }
 
-# initialize the DAG
+# 初始化 DAG
 dag = DAG(
     dag_id=WORKFLOW_DAG_ID,
     start_date=WORKFLOW_START_DATE,
@@ -65,15 +65,15 @@ dag = DAG(
 )
 ```
 
-#### `Operators`, `Sensors`, and Tasks
+#### `Operators`、`Sensors` 和 Tasks
 
-Although the DAG is used to organize tasks and set their execution context, DAGs do not perform any actual computation. Instead, tasks are the element of Airflow that actually “do the work” we want performed. Tasks can have two flavors: they can either execute some explicit operation, in which case they are an **Operator**, or they can pause the execution of dependent tasks until some criterion has been met, in which case they are a **Sensor**. In principle, Operators can perform any function that can be executed in Python. Similarly, Sensors can check the state of any process or data structure.
+尽管 DAG 用于组织并设置执行上下文，但 DAG 不会执行任何实际计算。相反，任务实际上是 Airflow 中我们想要执行“所做工作”的元素。任务有两种特点：它们可以执行一些显示操作，在这种情况下，它们是 **Operator**，或者它们可以暂停执行依赖任务，直到满足某些条件，在这种情况下，它们是 **Sensors**。原则上来说，Operator 可以执行在 Python 中被执行的任何函数。同样，Sensors 可以检查任何进程或者数据结构的状态。
 
-The code block below shows how we would define some (hypothetical) Operator and Sensor classes to implement our example workflow.
+下述代码块显示了如何定义一些（假设的）Operator 和 Sensor 类来实现我们的工作流示例。
 
 ```
 ##################################################
-# Examples of Custom Sensors / Operators (NoOps) #
+# 自定义 Sensors 示例/ Operators (NoOps) #
 ##################################################
 
 class ConversionRatesSensor(BaseSensorOperator):
@@ -139,25 +139,25 @@ class TransformAppStoreJSONDataOperator(BaseOperator):
         upload_data(app_stores_transformed_data, context)
 ```
 
-The code defines a subclass of `BaseSensorOperator`, the `ConversionRatesSensor`. This class implements a `poke` method, which is required for all `BaseSensorOperator` objects. The `poke` method must return `True` if the downstream tasks are to continue and `False` otherwise. In our example, this sensor would be used to determine when exchange rates from the external API have become available.
+代码定义了 `BaseSensorOperator` 的子类，即 `ConversionRatesSensor`。这个类实现了所有 `BaseSensorOperator` 对象必需的 `poke` 方法。如果下游任务要继续执行，`poke` 方法必须返回 `True`，否则返回 `False`。在我们的示例中，这个 sensor 将用于决定何时外部 API 的交换率何时可用。
 
-The two classes, `ExtractAppStoreRevenueOperator` and `TransformAppStoreJSONDataOperator` are inherited from Airflow’s `BaseOperator` class and implement an `execute` method. In our example, these two classes’ `execute` methods pull data from the app store APIs, and transform them into the company’s preferred storage format. Notice that the `ExtractAppStoreRevenueOperator` also takes a custom parameter, `app_store_name`,which tells the class the app store from which to request data.
+`ExtractAppStoreRevenueOperator` 和 `TransformAppStoreJSONDataOperator` 这两个类都继承自 Airflow 的`BaseOperator` 类，并实现了 `execute` 方法。在我们的示例中，这两个类的 `execute` 方法都从应用程序存储 API 中获取数据，并将它们转换为公司首选的存储格式。注意  `ExtractAppStoreRevenueOperator` 也接受一个自定义参数 `app_store_name`，它告诉类应用程序存储应该从哪里获取请求数据。
 
-Note that generally Operators and Sensors are defined in separate files and imported into the same namespace we define the DAG. However, we could have added these class definitions to the same DAG-definition file as well.
+注意，Operator 和 Sensor 通常在单独文件中定义，并导入到我们定义 DAG 的同名命名空间中。但我们也可以将这些类定义添加到同一个 DAG 定义的文件中。
 
-Formally, Airflow defines a task as an instantiations of either the Sensor or Operator classes. Instantiating a task requires providing a unique `task_id` and DAG container in which to add the task (Note: in versions ≥ 1.8, there is no longer a DAG object requirement). The code block below shows how we would instantiate all the tasks needed to perform our example workflow. (Note: We assume that all Operators that are being referenced in our examples have been defined in or imported into our namespace).
+形式上，Airflow 定义任务为 Sensor 或 Operator 类实例化。实例化任务需要提供一个唯一的 `task_id` 和 DAG 容器来添加任务（注意：在高于 1.8 的版本中，不再需要 DAG 对象）。下面的代码块显示了如何实例化执行示例工作流所需的所有任务。（注意：我们假设示例中引用的所有 Operator 都是在命名空间中定义或导入的）。
 
 ```
 ########################
-# Instantiating Tasks  #
+# 实例化任务  #
 ########################
 
-# instantiate the task to extract ad network revenue
+# 实例化任务来提取广告网络收入
 extract_ad_revenue = ExtractAdRevenueOperator(
     task_id='extract_ad_revenue',
     dag=dag)
 
-# dynamically instantiate tasks to extract app store data
+# 动态实例化任务来提取应用程序存储数据
 APP_STORES = ['app_store_a', 'app_store_b', 'app_store_c']
 app_store_tasks = []
 for app_store in APP_STORES:
@@ -168,67 +168,67 @@ for app_store in APP_STORES:
         )
     app_store_tasks.append(task)
 
-# instantiate task to wait for conversion rates data avaibility
+# 实例化任务来等待转换率、数据均衡
 wait_for_conversion_rates = ConversionRatesSensor(
     task_id='wait_for_conversion_rates',
     dag=dag)
 
-# instantiate task to extract conversion rates from API
+# 实例化任务，从 API 中提取转化率
 extract_conversion_rates = ExtractConversionRatesOperator(
     task_id='get_conversion_rates',
     dag=dag)
 
-# instantiate task to transform Spreadsheet data
+# 实例化任务来转换电子表格数据
 transform_spreadsheet_data = TransformAdsSpreadsheetDataOperator(
     task_id='transform_spreadsheet_data',
     dag=dag) 
 
-# instantiate task transform JSON data from all app stores
+# 从所有应用程序存储中实例化任务转换 JSON 数据
 transform_json_data = TransformAppStoreJSONDataOperator(
     task_id='transform_json_data',
     dag=dag,
     app_store_names=APP_STORES)
 
-# instantiate task to apply currency exchange rates
+# 实例化任务来应用
 perform_currency_conversions = CurrencyConversionsOperator(
     task_id='perform_currency_conversions',
     dag=dag)
 
-# instantiate task to combine all data sources
+# 实例化任务来组合所有数据源
 combine_revenue_data = CombineDataRevenueDataOperator(
     task_id='combine_revenue_data',
     dag=dag)  
 
-# instantiate task to check that historical data exists
+# 实例化任务来检查历史数据是否存在
 check_historical_data = CheckHistoricalDataOperator(
     task_id='check_historical_data',
     dag=dag)
 
-# instantiate task to make predictions from historical data
+# 实例化任务来根据历史数据进行预测
 predict_revenue = RevenuePredictionOperator(
     task_id='predict_revenue',
     dag=dag)  
 ```
 
-This task instantiation code is executed in the same file/namespace as the DAG definition. We can see that the code for adding tasks is concise and allows for in-line documentation via comments. Lines 10–19 demonstrate one of the strengths of defining workflows in code. We are able to dynamically define three separate tasks for extracting data from each of the app stores using a `for` loop. Though this approach may not buy us much in this small example, the benefits are huge as the number of app stores increases.
+此任务实例化代码在与 DAG 定义相同的文件/命名空间中执行。我们可以看到添加任务的代码非常简洁，而且允许通过注解进行内联文档。第 10–19 行展示了在代码中定义工作流的优势之一。我们能够动态地定义三个不同的任务，用于使用 `for` 循环从每个应用程序存储中提取数据。这种方法可能在这个小示例中不会给我们带来太大的好处，但随着应用程序商店数量的增加，好处会日益显著。
 
-#### Defining Task Dependencies
+#### 定义任务依赖关系
 
-A key strength of Airflow is the concise and intuitive conventions for defining dependencies among tasks. The code below shows how we would define the task dependency graph for our example workflow:
+Airflow 的关键优势是定义任务之间依赖关系的简洁性和直观约定。下述代码表明了我们如何为示例工作流定义任务依赖关系图：
 
 ```
 ###############################
-# Defining Tasks Dependencies #
+# 定义任务依赖关系 #
 ###############################
 
-# dependencies are set using the `.set_upstream` and/or 
-# `.set_downstream` methods
-# (in version >=1.8.1, can also use the
-# `extract_ad_revenue << transform_spreadsheet_data` syntax)
+# 依赖设置使用 `.set_upstream` 和/或  
+# `.set_downstream` 方法
+# （in version >=1.8.1，也可以使用
+# `extract_ad_revenue << transform_spreadsheet_data` 语法）
 
 transform_spreadsheet_data.set_upstream(extract_ad_revenue)
 
-# dynamically define app store dependencies
+# 动态定义应用程序存储依赖项
 for task in app_store_tasks:
     transform_json_data.set_upstream(task)
 
@@ -245,90 +245,72 @@ check_historical_data.set_upstream(combine_revenue_data)
 predict_revenue.set_upstream(check_historical_data) 
 ```
 
-Again, this code is run in the same file/namespace as the DAG definition. Task dependencies are set using the `set_upstream` and `set_downstream` operators (Though, in version ≥ 1.8, it’s also possible to use the bitshift operators `<<` and `>>` to perform the same operations more concisely). A task can have multiple dependencies (e.g. `combine_revenue_data`), or none at all (e.g. all `extract_*` tasks).
+同时，此代码在与 DAG 定义相同的文件/命名空间中运行。任务依赖使用 `set_upstream` 和 `set_downstream` operators 来设置（但在高于 1.8 的版本中，使用移位运算符 `<<` 和 `>>` 来更简洁地执行相似操作是可行的）。一个任务还可以同时具有多个依赖（例如，`combine_revenue_data`），或一个也没有（例如，所有的 `extract_*` 任务）。
 
-The **Top Subpanel of Figure 3.2** shows the Airflow DAG created by the above code, as rendered by Airflow’s UI (we’ll soon get to the UI in more detail). The DAG has a dependency structure that is very similar the execution plan we came up with for our example workflow shown in **Figure 1.1**. When the DAG is being executed, Airflow will also use this dependency structure to automagically figure out which tasks can be run simultaneously at any point in time (e.g. all the `extract_*` tasks).
+**图 3.2 的顶部子面板**显示了由上述代码所创建的 Airflow DAG，渲染为 Airflow 的 UI（稍后我们会详细介绍 UI）。 DAG 的依赖结构与在**图 1.1** 显示的我们为我们的示例工作流所提出的执行计划非常相似。当 DAG 被执行时，Airflow 会使用这种依赖结构来自动确定哪些任务可以在任何时间点同时运行（例如，所有的 `extract_*` 任务）。
 
-#### DagRuns and TaskInstances
+#### DagRuns 和 TaskInstances
 
-Once we’ve defined a DAG — i.e. we’ve instantiated tasks and defined their dependencies — we can then execute the tasks based on the parameters of the DAG. A key concept in Airflow is that of an `execution_time`. When the Airflow scheduler is running, it will define a regularly-spaced schedule of dates for which to execute a DAG’s associated tasks. The execution times begin at the DAG’s `start_date` and repeat every `schedule_interval`. For our example the scheduled execution times would be `(‘2017–01–01 00:00:00’, ‘2017–01–02 00:00:00’, ...)`. For each `execution_time`, a `DagRun` is created and operates under the context of that execution time. Thus a `DagRun` is simply a DAG with some execution time (see the **Bottom Subpanel of Figure 3.2**).
+一旦我们定义了 DAG —— 即，我们已经实例化了任务并定义了它们的依赖项 —— 我们就可以基于 DAG 的参数来执行任务。Airflow 中的一个关键概念是 `execution_time`。当 Airflow 调度器正在运行时，它会定义一个用于执行 DAG 相关任务的定期间断的日期计划。执行时间从 DAG `start_date` 开始，并重复每一个 `schedule_interval`。在我们的示例中，调度时间是 `(‘2017–01–01 00:00:00’, ‘2017–01–02 00:00:00’, ...)`。对于每一个 `execution_time`，都会创建 `DagRun` 并在执行时间上下文中进行操作。因此，`DagRun` 只是具有一定执行时间的 DAG（参见 **图 3.2 的底部子面板**）。
 
-All the tasks associated with a `DagRun` are referred to as `TaskInstance`s. In other words a `TaskInstance` is a task that has been instantiated and has an `execution_date` context (see **Bottom Subpanel of Figure 3.2**). `DagRun`s and `TaskInstance`s are central concepts in Airflow. Each `DagRun` and `TaskInstance` is associated with an entry in Airflow’s metadata database that logs their state (e.g. “queued”, “running”, “failed”, “skipped”, “up for retry”). Reading and updating these states is key for Airflow’s scheduling and execution processes.
+所有与 `DagRun` 关联的任务都称为 `TaskInstance`。换句话说，`TaskInstance` 是一个已经实例化而且拥有 `execution_date` 上下文的任务（参见 **图 3.2 的底部子面板**）。`DagRun`s 和 `TaskInstance` 是 Airflow 的核心概念。每个`DagRun` and `TaskInstance` 都与记录其状态的 Airflow 元数据库中的一个条目相关联（例如 “queued”、“running”、“failed”、“skipped”、“up for retry”）。读取和更新这些状态是 Airflow 调度和执行过程的关键。
 
-#### Airflow’s Architecture
+#### Airflow 的架构
 
-At its core, Airflow is simply a queuing system built on top of a metadata database. The database stores the state of queued tasks and a scheduler uses these states to prioritize how other tasks are added to the queue. This functionality is orchestrated by four primary components (refer to the **Left Subpanel of Figure 3.2**):
+在其核心中，Airflow 是建立在元数据库上的队列系统。数据库存储队列任务的状态，调度器使用这些状态来确定如何将其它任务添加到队列的优先级。此功能由四个主要组件编排。（请参阅**图 3.2 的左子面板**）：
 
-1.  **Metadata Database**: this database stores information regarding the state of tasks. Database updates are performed using an abstraction layer implemented in SQLAlchemy. This abstraction layer cleanly separates the function of the remaining components of Airflow from the database.  
-2. **Scheduler**: The Scheduler is a process that uses DAG definitions in conjunction with the state of tasks in the metadata database to decide which tasks need to be executed, as well as their execution priority. The Scheduler is generally run as a service.  
-3. **Executor**: The Executor is a message queuing process that is tightly bound to the Scheduler and determines the worker processes that actually execute each scheduled task. There are different types of Executors, each of which uses a specific class of worker processes to execute tasks. For example, the `LocalExecutor` executes tasks with parallel processes that run on the same machine as the Scheduler process. Other Executors, like the `CeleryExecutor` execute tasks using worker processes that exist on a separate cluster of worker machines.  
-4. **Workers**: These are the processes that actually execute the logic of tasks, and are determined by the Executor being used.
+1.  **元数据库**：这个数据库存储有关任务状态的信息。数据库使用在 SQLAlchemy 中实现的抽象层执行更新。该抽象层将 Airflow 剩余组件功能从数据库中干净地分离了出来。
+2. **调度器**：调度器是一种使用 DAG 定义结合元数据中的任务状态来决定哪些任务需要被执行以及任务执行优先级的过程。调度器通常作为服务运行。 
+3. **执行器**：Excutor 是一个消息队列进程，它被绑定到调度器中，用于确定实际执行每个任务计划的工作进程。有不同类型的执行器，每个执行器都使用一个指定工作进程的类来执行任务。例如，`LocalExecutor` 使用与调度器进程在同一台机器上运行的并行进程执行任务。其他像 `CeleryExecutor` 的执行器使用存在于独立的工作机器集群中的工作进程执行任务。
+4. **Workers**：这些是实际执行任务逻辑的进程，由正在使用的执行器确定。
 
 ![](https://cdn-images-1.medium.com/max/800/1*czjWSmrjiRY1goA0emv7IA.png)
 
-**Figure 3.2: Airflow’s General Architecture.** Airflow’s operation is built atop a Metadata Database which stores the state of tasks and workflows (i.e. DAGs). The Scheduler and Executor send tasks to a queue for Worker processes to perform. The Webserver runs (often-times running on the same machine as the Scheduler) and communicates with the database to render task state and Task Execution Logs in the Web UI. Each colored box indicates that each component can exist in isolation from the other components, depending on the type of deployment configuration.
+**图 3.2：Airflow 的一般架构**。Airflow 的操作建立于存储任务状态和工作流的元数据库之上（即 DAG）。调度器和执行器将任务发送至队列，让 Worker 进程执行。WebServer 运行（经常与调度器在同一台机器上运行）并与数据库通信，在 Web UI 中呈现任务状态和任务执行日志。每个有色框表明每个组件都可以独立于其他组件存在，这取决于部署配置的类型。
 
-#### Scheduler Operation
+#### 调度器操作
 
-At first, the operation of Airflow’s scheduler can seem more like black magic than a logical computer program. That said, understanding the workings of the scheduler can save you a ton of time if you ever find yourself debugging its execution. To save the reader from having to dig through Airflow’s source code (though we DO highly recommend it!), we outline the basic operation of the scheduler in pseudo-code:
+首先，Airflow 调度器操作看起来更像是黑魔法而不是逻辑程序。也就是说，如果你发现自己正在调试它的执行，那么了解调度器的工作原理久可以节省大量的时间，为了让读者免于深陷 Airflow 的源代码（尽管我们非常推荐它!）我们用伪代码概述了调度器的基本操作：
 
 ```
-Step 0. Load available DAG definitions from disk (fill DagBag)
+步骤 0. 从磁盘中加载可用的 DAG 定义（填充 DagBag）
 
-While the scheduler is running:
-	Step 1. The scheduler uses the DAG definitions to 
-	        identify and/or initialize any DagRuns in the
-	        metadata db.
+当调度器运行时：
+	步骤 1. 调度器使用 DAG 定义来标识并且/或者初始化在元数据的 db 中的任何 DagRuns。
 	
-	Step 2. The scheduler checks the states of the 
-	        TaskInstances associated with active DagRuns, 
-		resolves any dependencies amongst TaskInstances, 
-		identifies TaskInstances that need to be executed, 
-		and adds them to a worker queue, updating the status 
-		of newly-queued TaskInstances to "queued" in the
-		datbase.
+	步骤 2. 调度器检查与活动 DagRun 关联的 TaskInstance 的状态，解析 TaskInstance 之间的任何依赖，标识需要被执行的 TaskInstance，然后将它们添加至 worker 队列，将新排列的 TaskInstance 状态更新为数据库中的“排队”状态。
 	
-	Step 3. Each available worker pulls a TaskInstance from 
-		the queue and starts executing it, updating the 
-	        database record for the TaskInstance from "queued" 
-	        to "running".
+	步骤 3. 每个可用的 worker 从队列中取一个 TaskInstance，然后开始执行它，将此 TaskInstance 的数据库记录从“排队”更新为“运行”。
 	
-	Step 4. Once a TaskInstance is finished running, the 
-	        associated worker reports back to the queue 
-	        and updates the status for the TaskInstance 
-	        in the database (e.g. "finished", "failed", 
-	        etc.)
+	步骤 4. 一旦一个 TaskInstance 完成运行，关联的 worker 就会报告到队列并更新数据库中的 TaskInstance 的状态（例如“完成”、“失败”等）。
 	
-	Step 5. The scheduler updates the states of all active 
-	        DagRuns ("running", "failed", "finished") according 
-	        to the states of all completed associated 
-	        TaskInstances.
+	步骤 5. 调度器根据所有已完成的相关 TaskInstance 的状态更新所有活动 DagRuns 的状态（“运行”、“失败”、“完成”）。
 	
-	Step 6. Repeat Steps 1-5
+	步骤 6. 重复步骤 1-5
 ```
 
 #### Web UI
 
-In addition to the primary scheduling and execution components, Airflow also includes components that support a full-featured Web UI (refer to **Figure 3.2** for some UI examples), including:
+除了主要的调度和执行组件外，Airflow 还支持包括全功能的 Web UI 组件（参阅**图 3.2** 的一些 UI 示例)，包括：
 
-1. **Webserver**: This process runs a simple Flask application which reads the state of all tasks from the metadata database and renders these states for the Web UI.  
-2. **Web UI**: This component allows a client-side user to view and edit the state of tasks in the metadata database. Because of the coupling between the Scheduler and the database, the Web UI allows users to manipulate the behavior of the scheduler.  
-3. **Execution Logs**: These logs are written by the worker processes and stored either on disk or a remote file store (e.g. [GCS](https://cloud.google.com/storage) or [S3](https://aws.amazon.com/s3)). The Webserver accesses the logs and makes them available to the Web UI.
+1. **Webserver**：此过程运行一个简单的 Flask 应用程序，它从元数据库中读取所有任务状态，并让 Web UI 呈现这些状态。 
+2. **Web UI**：此组件允许客户端用户查看和编辑元数据库中的任务状态。由于调度器和数据库之间的耦合，Web UI 允许用户操作调度器的行为。
+3. **执行日志**：这些日志由 worker 进程编写，存储在磁盘或远程文件存储区（例如 [GCS](https://cloud.google.com/storage) 或 [S3](https://aws.amazon.com/s3)）中。Webserver 访问日志并将其提供给 Web UI。
 
-Though these additional components are not necessary to the basic operation of Airflow, they offer functionally that really sets Airflow apart from other current workflow managers. Specifically the UI and integrated execution logs allows users to inspect and diagnose task execution, as well as view and manipulate task state.
+尽管对于 Airflow 的基本操作来说，这些附加组件都不是必要的，但从功能性角度来说，它们确实使 Airflow 有别于当前的其他工作流管理。 具体来说，UI 和集成执行日志允许用户检查和诊断任务执行，以及查看和操作任务状态。
 
-#### Command Line Interface
+#### 命令行接口
 
-In addition to the Scheduler and Web UI, Airflow offers robust functionality through a command line interface (CLI). In particular, we found the following commands to be helpful when developing Airflow:
+除了调度程序和 Web UI，Airflow 还通过命令行接口（CLI）提供了健壮性的特性。尤其是，当我们开发 Airflow 时，发现以下的这些命令非常有用： 
 
-*   `airflow test DAG_ID TASK_ID EXECUTION_DATE`. Allows the user to run a task in isolation, without affecting the metadata database, or being concerned about task dependencies. This command is great for testing basic behavior of custom Operator classes in isolation.
-*   `airflow backfill DAG_ID TASK_ID -s START_DATE -e END_DATE`. Performs backfills of historical data between `START_DATE` and `END_DATE` without the need to run the scheduler. This is great when you need to change some business logic of a currently-existing workflow and need to update historical data. (Note that backfills **do not** create `DagRun` entries in the database, as they are not run by the `[SchedulerJob](https://github.com/apache/incubator-airflow/blob/master/airflow/jobs.py#L471)` class).
-*   `airflow clear DAG_ID`. Removes `TaskInstance` records in the metadata database for the `DAG_ID`. This can be useful when you’re iterating on the functionality of a workflow/DAG.
-*   `airflow resetdb`: though you generally do not want to run this command often, it can be very helpful if you ever need to create a “clean slate,” a situation that may arise when setting up Airflow initially (Note: this command only affects the database, and does not remove logs).
+*   `airflow test DAG_ID TASK_ID EXECUTION_DATE`。允许用户在不影响元数据库或关注任务依赖的情况下独立运行任务。这个命令很适合独立测试自定义 Operator 类的基本行为。
+*   `airflow backfill DAG_ID TASK_ID -s START_DATE -e END_DATE`。在 `START_DATE` 和 `END_DATE` 之间执行历史数据的回填，而不需要运行调度器。当你需要更改现有工作流的一些业务逻辑并需要更新历史数据时，这是很好的。（请注意，回填**不需要**在数据库中创建 `DagRun` 条目，因为它们不是由 `[SchedulerJob](https://github.com/apache/incubator-airflow/blob/master/airflow/jobs.py#L471)` 类运行的）。
+*   `airflow clear DAG_ID`。移除 `DAG_ID` 元数据库中的 `TaskInstance` 记录。当你迭代工作流/DAG 功能时，这会很有用。
+*   `airflow resetdb`：虽然你通常不想经常运行这个命令，但如果你需要创建一个“干净的历史记录”，这是非常有帮助的，这种情况载最初设置 Airflow 时可能会出现（注意：这个命令只影响数据库，不删除日志）。
 
-Above, we provided an outline of some of the more abstract concepts underlying Airflow’s operation. In the [Final installment](https://medium.com/@dustinstansbury/going-with-the-flow-part-iv-airflow-in-practice-a903cbb5626d) of our series, we’ll touch on some of the more practical considerations when deploying Airflow in production.
+综上所述，我们提供了一些更加抽象的概念，作为 Airflow 的基础。在此系列的[最后部分 installment](https://medium.com/@dustinstansbury/going-with-the-flow-part-iv-airflow-in-practice-a903cbb5626d) 中，我们将讨论在生产中部署 Airflow 时的一些更实际的注意事项。
 
-Thanks to [Laura Oppenheimer](https://medium.com/@laura.oppenheimer?source=post_page).
+感谢 [Laura Oppenheimer](https://medium.com/@laura.oppenheimer?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
