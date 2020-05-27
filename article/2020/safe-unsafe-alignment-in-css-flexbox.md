@@ -7,31 +7,15 @@
 
 # Safe/unsafe alignment in CSS flexbox
 
-Published at
-
-May 18 2020
-
-Updated at
-
-May 18 2020
-
-Reading time
-
-3 min
-
-This post is part of my [Today I learned](/today-i-learned/) series in which I share all my learnings regarding web development.
-
 I recently watched the talk [Making Things Better: Redefining the Technical Possibilities of CSS](https://aneventapart.com/news/post/making-things-better-aea-video) by [Rachel Andrews](https://twitter.com/rachelandrew). Rachel's talks are always full of useful information presented clearly and compactly. The talk included one line of CSS that I haven't seen before.
 
-```
+```css
 .something {
   display: flex;
   // 👇 what is that? 😲 
   align-items: safe center;
 }
 ```
-
-[#](#the-css-goal-of-data-loss-prevention)
 
 ## The CSS goal of data loss prevention
 
@@ -41,13 +25,11 @@ The goal of CSS is to keep content and elements visible to the visitor. CSS does
 
 I learned that when you use Flexbox there are situations in which the prevention of data loss is not guaranteed.
 
-[#](#data-loss-in-the-context-of-css-flexbox)
-
 ## Data loss in the context of CSS Flexbox
 
 Let's say you have the following HTML:
 
-```
+```html
 <div class="container">
   <span>CSS</span>
   <span>is</span>
@@ -57,7 +39,7 @@ Let's say you have the following HTML:
 
 paired with the following CSS:
 
-```
+```css
 .container {
   display: flex;
   flex-direction: column;
@@ -77,7 +59,7 @@ This situation is where the `safe` keyword of the `align-items` property can hel
 
 If you define `safe` alignment, the aligning elements will switch to `start` alignment in case of an overflowing situation.
 
-```
+```css
 .container {
   display: flex;
   flex-direction: column;
@@ -89,8 +71,6 @@ If you define `safe` alignment, the aligning elements will switch to `start` ali
 
 `safe` alignment leads the browser to always place elements accessible to the user.
 
-[#](#browser-support-of-code-safe-code-alignment)
-
 ## Browser support of `safe` alignment
 
 With only Firefox supporting the `safe` keyword [cross-browser support](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items#Support_in_Flex_layout) is not given. **I wouldn't recommend using it today** because it is not falling back nicely. One could argue that the safe way should be the `align-items` default, but what can I say, CSS is hard. Writing CSS specs is even more complicated. 🤷🏻‍♂️
@@ -98,8 +78,6 @@ With only Firefox supporting the `safe` keyword [cross-browser support](https://
 How can you prevent data loss today, though?
 
 [Bramus Van Damme pointed out](https://twitter.com/bramus/status/1259776833589051392) that a `margin: auto;` on the flex children does the job even without the `safe` keyword. 🎉
-
-[#](#problems-that-i-didn-39-t-know-i-had)
 
 ### Problems that I didn't know I had
 
