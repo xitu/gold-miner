@@ -1,13 +1,11 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[My React components render twice and drive me crazy](https://mariosfakiolas.com/blog/my-react-components-render-twice-and-drive-me-crazy/)
+> * 原文作者：[Marios Fakiolas](https://mariosfakiolas.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/.md](https://github.com/xitu/gold-miner/blob/master/article/2020/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-react-components-render-twice-and-drive-me-crazy.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-react-components-render-twice-and-drive-me-crazy.md)
 > * 译者：
 > * 校对者：
 
 # My React components render twice and drive me crazy
-
-8th of May, 2020 · 2 mins read ·  [React](/tags/react)
 
 Many frontend developers who use modern React, have been pulling their hair out from time to time trying to figure out why their components render twice during development.
 
@@ -19,7 +17,7 @@ The reason why all these happen is `React.StrictMode`.
 
 Let's dive into some real examples in order to replicate this and then investigate why this is happening in the first place.
 
-## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#example-with-a-function-component) Example with a function component
+## Example with a function component
 
 We can start by running a brand new `CRA` installation:
 
@@ -42,7 +40,6 @@ function App() {
     </div>
   );
 }
-
 ```
 
 Now we can launch our application with `yarn start` and open `http://localhost:3000` in the browser:
@@ -51,7 +48,7 @@ Now we can launch our application with `yarn start` and open `http://localhost:3
 
 Hmmm, the `I render 😁` statement got printed just once, so we cannot reproduce double-rendering with a dead simple function component.
 
-## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#example-with-a-function-component-with-state) Example with a function component with state
+## Example with a function component with state
 
 What will happen though when we use a React hook and add some state management to our function component?
 
@@ -84,7 +81,7 @@ Here we are!! So it rendered twice at first and then it kept rendering twice eve
 
 Obviously, `React.useState` affected our component's behaviour regarding re-renderings.
 
-## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#example-with-a-function-component-with-state-in-production) Example with a function component with state in production
+## Example with a function component with state in production
 
 What about the production bundle? In order to check this, we need to build our application first, and then we can serve it with a package like `serve` in port 3000:
 
@@ -101,7 +98,7 @@ Phew!!! The debugging statement got printed once at the beginning and once again
 
 The double-rendering behaviour is definitely not reproducible in production as we see despite the fact that we had exactly the same setup by using `React.useState`.
 
-## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#why-this-is-happening) Why this is happening?
+## Why this is happening?
 
 As mentioned above the reason why is `React.StrictMode`. If we check the file `src/index.js` in the application we launched before with `CRA`, we 'll see that our `<App />` component is wrapped with it:
 
@@ -131,7 +128,7 @@ These hints are extremely helpful for better debugging, since the library is mov
 
 How useful, right?
 
-## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#why-the-double-rendering-then) Why the double rendering then?
+## Why the double rendering then?
 
 One of the benefits that we get from `React.StrictMode` usage, is that it helps us to detect unexpected side effects in the render-phase lifecycles.
 
