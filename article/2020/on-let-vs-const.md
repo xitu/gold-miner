@@ -26,20 +26,20 @@
 ## 为什么不 `倾向于 const`
 
 * **失去意图**: 如果我们在所有能用的地方都使用 `const`，我们就丧失了表达某些东西不被重新赋值是否 **重要** 的能力。
-* **Confusion with Immutability**: 在每一个为什么你应该倾向于 `const` 的讨论中, someone always confuses with immutability. This is unsurprising, as both assignment and mutation use the same `=` operator. In response, people are usually told that they should “just learn the language”. However, the counter-argument is that if a feature that prevents mostly beginner mistakes is confusing to beginners, it isn’t very helpful. And unfortunately, it doesn’t help prevent mutation mistakes which span across modules and affect everyone.
-* **Pressure to Avoid Redeclaring**: A `const`-first codebase creates a pressure to not use `let` for conditionally assigned variables. For example, you might write `const a = cond ? b : c` instead of an `if` condition, even if both `b` and `c` branches are convoluted and giving them explicit names is awkward.
-* **Reassignments May Not Cause Bugs**: There are three common cases when reassignments cause bugs: when the scope is very large (such as module scope or huge functions), when the value is a parameter (so it’s unexpected that it would be equal to something other than what was passed), and when a variable is used in a nested function. However, in many codebases most variables won’t satisfy either of those cases, and parameters can’t be marked as constant at all.
-* **No Performance Benefits**: It is my understanding that the engines are already aware of which variables are only assigned once — even if you use `var` or `let`. If we insist on speculating, we could just as well speculate that extra checks can **create** performance cost rather than reduce it. But really, engines are smart.
+* **和不可变搞混**: 在每一个为什么你应该倾向于 `const` 的讨论中, 总有人把它和不可变混淆。这并不奇怪，因为修改和赋值都使用 `=` 操作符。人们通常回应说，他们应该 “多学学这门语言”。但是，相反的论据是，如果这个特性主要用于防止新手犯错，却难以被新手理解，它就不是很有帮助。不幸的是，它无法防止修改变量导致的错误，这些错误会跨模块传播，影响到所有人。
+* **防止重新声明的压力**: 优先使用 `const` 的代码库迫使人们不对有条件赋值的变量使用 `let`. 例如，你可能会写 `const a = cond ? b : c` 而不是一个 `if` 判断，哪怕 `b` 和 `c` 分支都很费解，而且给他们取名很尴尬。
+* **重新赋值可能不会产生 Bug**: 有三种常见的情况，会导致重新赋值产生 bug: 范围特别大（例如模块或巨型的函数），值是一个参数（所以往往想不到它会等于传入的值以外的值），以及在嵌套函数中使用。但是，很多代码库中，大多数变量不满足上述任何一种情况，而且参数不能被标记为常量。
+* **没有性能优势**: 我的理解是，JS 引擎已经知道哪些变量只被赋值一次，哪怕你使用 `var` 或 `let`。如果我们坚持推测，也可以推测说额外的检查会 **创造** 性能代价而不是减少它. 但是，真的，引擎是很聪明的。
 
-## My Conclusion
+## 我的结论
 
-I don’t care.
+我不关心。
 
-I would use whatever convention already exists in the codebase.
+我可以使用任何在代码库中已经存在的规范。
 
-If you care, use a linter that automates checking and fixing this so that changing `let` to `const` doesn’t become a delay in code review.
+如果你关心的话，可以使用一个自动检查和修复的 linter，这样，把 `let` 变为 `const` 不会在 code review 时耽误时间。
 
-Finally, remember that linters exist to serve **you**. If a linter rule annoys you and your team, delete it. It may not be worth it. Learn from your own mistakes.
+最后，记住 linter 是为 **你** 服务的。如果一个 linter 规则使你和你的团队烦恼，删除它。它也许不值得。从你自己的错误中学习。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
