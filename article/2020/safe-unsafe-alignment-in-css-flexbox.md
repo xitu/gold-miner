@@ -1,7 +1,7 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[Safe/unsafe alignment in CSS flexbox](https://www.stefanjudis.com/today-i-learned/safe-unsafe-alignment-in-css-flexbox/)
+> * 原文作者：[Stefan](https://www.stefanjudis.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/.md](https://github.com/xitu/gold-miner/blob/master/article/2020/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/safe-unsafe-alignment-in-css-flexbox.md](https://github.com/xitu/gold-miner/blob/master/article/2020/safe-unsafe-alignment-in-css-flexbox.md)
 > * 译者：
 > * 校对者：
 
@@ -84,20 +84,6 @@ How can you prevent data loss today, though?
 It never appeared to me that centered alignment could cause data loss. The described example shows how complex CSS specs and layout are. The people working on specs have my most profound respect!
 
 And that's it for today, let's see when safe alignment makes it into cross-browser support. 👋🏻
-
-### Related Topics
-
-* [CSS](/topics/css)
-
-[Share article on Twitter](https://twitter.com/intent/tweet?text=Safe/unsafe%20alignment%20in%20CSS%20flexbox&url=https://www.stefanjudis.com/today-i-learned/safe-unsafe-alignment-in-css-flexbox&via=stefanjudis)
-
-[... or say Hi! 👋](https://twitter.com/stefanjudis)
-
-### Related posts
-
-* [The CSS "content" property accepts alternative text](/today-i-learned/css-content-accepts-alternative-text/)
-* [inset is an upcoming shorthand for top, right, bottom and left](/today-i-learned/inset-is-a-shorthand-for-top-right-bottom-and-left/)
-* [text-transforms affect screen readers, too!](/today-i-learned/text-transforms-affects-screen-readers-too/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
