@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-a-threat-to-node.md](https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-a-threat-to-node.md)
 > * 译者：[ZiXYu](https://github.com/ZiXYu)
-> * 校对者：
+> * 校对者：[X. Zhuo](https://github.com/z0gSh1u), [tanglie](https://github.com/tanglie1993)
 
 # Deno 会对 Node 造成威胁吗？
 
@@ -13,11 +13,11 @@
 
 从我们第一次听到 **Deno** 一词到现在大概快有两年的时间了，同时开发者社区，尤其是 JavaScript 社区对此非常兴奋，因为 Deno 是由 Node 之父 Ryan Dahl 创造的。在这篇文章中，我们将会对 [Deno](https://deno.land/) 和 Node 的历史进行一个简单的介绍，同时介绍它们的主要功能和受欢迎程度。
 
-Deno 是在 2018 年的欧洲 JS 大会上由 [Ryan Dahl](https://en.wikipedia.org/wiki/Ryan_Dahl) 在他的演讲 ”我对 Node.js 感到遗憾的十件事“ 中宣布的。在本次演讲中，Ryan 提到了他对 Node 在最初的设计决策上的一些遗憾。
+Deno 是在 2018 年的欧洲 JS 大会上由 [Ryan Dahl](https://en.wikipedia.org/wiki/Ryan_Dahl) 在他的演讲 “我对 Node.js 感到遗憾的十件事” 中宣布的。在本次演讲中，Ryan 提到了他对 Node 在最初的设计决策上的一些遗憾。
 
 [点此观看他出色的演讲 (youtube)](https://youtu.be/M3BM9TB-8yA)
 
-在他的 JS 大会演讲中，他解释了在开发 Node 时的遗憾，例如没有坚持他的一些想法，比如 promises，安全，构建系统 (GYP)，`package.json` 和 `node_modules` 等等。但是也就是在这同一演讲中，在解释完所有的遗憾之后，他推出了当时正处于开发之中的名为 **Deno** 的新作品。
+在他的 JS 大会演讲中，他解释了在开发 Node 时的遗憾，例如没有坚持他的一些想法，比如 promises、安全、构建系统 (GYP)、`package.json` 和 `node_modules` 等等。但是也就是在这同一演讲中，在解释完所有的遗憾之后，他推出了当时正处于开发之中的名为 **Deno** 的新作品。
 
 在大约两年后的 2020 年 5 月 13 日，Ryan 和他的开发团队 (Ryan Dahl, Bert Belder, and Bartek Iwańczuk) 发布了 Deno 1.0。接下来，让我们来了解一下 Deno 的一些特性。
 
@@ -26,7 +26,7 @@ Deno 是在 2018 年的欧洲 JS 大会上由 [Ryan Dahl](https://en.wikipedia.o
 Deno 是一种 JavaScript / TypeScript 的运行时，拥有默认的安全机制和绝佳的开发体验。Deno 由三大支柱组成：
 
 1. [**Chrome V8**](https://v8.dev/) — JavaScript 运行时引擎
-2. [**Rust**](https://www.rust-lang.org/) - 编程语言
+2. [**Rust**](https://www.rust-lang.org/) — 编程语言
 3. **[Tokio](https://github.com/tokio-rs/tokio)** — 如在 Github 上写的那样, “一个用于编写可靠、异步和轻巧的应用的运行时
 
 Deno 的目标是为现代程序员提供高效且可执行脚本的运行环境。和 Node 类似，Deno 强调了[事件驱动架构](https://en.wikipedia.org/wiki/Event-driven_architecture)，提供了一套非阻塞的核心 IO 使用程序和它们的阻塞版本。
@@ -61,20 +61,20 @@ console.log("Hello world");
 
 ## Deno 的亮点
 
-* 安全 (默认没有文件、网络或者网络访问权限)
+* 安全（默认没有文件、网络或者网络访问权限）
 * 是一个单个可执行文件
 * 没有 `node_modules` 和 `package.json`
 * 开箱即用的 TypeScript 支持
 
 #### 安全性
 
-Deno 中的程序是在一个安全的沙箱中执行的 (在默认情况下)。未经允许，脚本无法访问硬件，打开网络连接或者或进行任何其它潜在的恶意操作。例如，下面的命令行会在没有任何读/写/网络权限的情况下运行基本的 Deno 脚本：
+Deno 中的程序是在一个安全的沙箱中执行的（在默认情况下）。未经允许，脚本无法访问硬件，打开网络连接或者或进行任何其它潜在的恶意操作。例如，下面的命令行会在没有任何读 / 写 / 网络权限的情况下运行基本的 Deno 脚本：
 
 ```bash
 deno run index.ts
 ```
 
-可以在命令行中添加显式标签来打开相应的权限：
+需要在命令行中添加显式标志来打开相应的权限：
 
 ```bash
 deno run --allow-read --allow-net index.ts
@@ -102,9 +102,9 @@ TypeScript 是 Microsoft 开发及维护的一种开源编程语言。TypeScript
 
 ---
 
-Deno 类似于 Node，是一种新的可以在 web 浏览器之外执行 JavaScript 和 TypeScript 的运行时。但是我们必须要认识到，Deno 并不是 Node 的一种拓展 - 它完全是一种全新的实现。
+Deno 类似于 Node，是一种新的可以在 web 浏览器之外执行 JavaScript 和 TypeScript 的运行时。但是我们必须要认识到，Deno 并不是 Node 的一种拓展 —— 它完全是一种全新的实现。
 
-渐渐地 Deno 也越来越受欢迎，就像 Node 一样。你可以从 Deno 拥有 [1.15 万粉丝](https://twitter.com/deno_land/followers) 的官方 Twitter 账号 [@deno_land](https://twitter.com/deno_land) 和 5 万+ 点赞的 [Github 页面](https://github.com/denoland/deno) 中发现它到底有多受欢迎。
+渐渐地 Deno 也越来越受欢迎，就像 Node 一样。你可以从 Deno 拥有 [1.15 万粉丝](https://twitter.com/deno_land/followers) 的官方 Twitter 账号 [@deno_land](https://twitter.com/deno_land) 和 5 万+ star 的 [Github 页面](https://github.com/denoland/deno) 中发现它到底有多受欢迎。
 
 ![Deno 在 Github 中的页面](https://cdn-images-1.medium.com/max/4028/1*-Yautd54wWFt9irbMVx0Iw.png)
 
@@ -114,7 +114,7 @@ Deno 类似于 Node，是一种新的可以在 web 浏览器之外执行 JavaScr
 * 由于它内部使用了 TypeScript 编译器将代码解析为纯 JavaScript，因此它相对而言仍然很慢。
 * 它在 HTTP 服务器性能方面比较落后
 
-最后，我们可以得出结论，Node 和 Deno 是两个完全不同的 JavaScript 运行时环境 - 因此我们最好不要把它们放在一起比较。在它们两个之间做出的选择取决于给定的要求。在观察了十年来 Node 在开发人员之间逐渐流行的过程之后，我认为对 Deno 而言很难在更短的时间里实现这一点。但是确实，Deno 的新功能让它绝对值得一试。我们将会持续关注 Deno 的进一步发展，并且在未来几年中找到更多的解决方案。所以，今天我们可以得出这样一个结论：
+最后，我们可以得出结论，Node 和 Deno 是两个完全不同的 JavaScript 运行时环境 —— 因此我们最好不要把它们放在一起比较。在它们两个之间做出的选择取决于给定的要求。在观察了十年来 Node 在开发人员之间逐渐流行的过程之后，我认为对 Deno 而言很难在更短的时间里实现这一点。但是确实，Deno 的新功能让它绝对值得一试。我们将会持续关注 Deno 的进一步发展，并且在未来几年中找到更多的解决方案。所以，今天我们可以得出这样一个结论：
 
 在 2020 年，Deno 还完全称不上 Node 的威胁。
 
