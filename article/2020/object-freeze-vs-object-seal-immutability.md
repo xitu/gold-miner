@@ -7,10 +7,6 @@
 
 # Object.freeze vs Object.seal — Immutability
 
-#### JavaScript
-
-#### Two native methods are related to immutability
-
 ![Photo by [Christine Donaldson](https://unsplash.com/@christineashleydonaldson?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7060/0*1n-sZ1kdhyX6Wf8_)
 
 Data immutability has kept been very important in the Programming languages, in JavaScript as well. Here, there two JavaScript methods for partially guaranteeing immutability — Object.freeze and Object.seal. In this post, I will give you a comparison of those two methods, which are quite confusing.
@@ -32,7 +28,7 @@ I know you’d be thinking what I’m talking about. So let’s take a look at s
 
 #### Enumerable
 
-```
+```js
 const obj = {};
 
 Object.defineProperty(obj, 'a', {
@@ -51,7 +47,7 @@ Object.keys(obj);
 
 #### Writable
 
-```
+```js
 const obj = {};
 
 Object.defineProperty(obj, 'a', {
@@ -71,7 +67,7 @@ obj.a === 100; // true
 
 #### Configurable
 
-```
+```js
 const obj = {};
 
 Object.defineProperty(obj, 'a', {
@@ -110,7 +106,7 @@ What do you think of when you hear the word “seal”? The first meaning of “
 
 `Object.seal` makes all the properties of an object passed into it non-configurable. Let’s take an example.
 
-```
+```js
 const obj = { a: 100 };
 Object.getOwnPropertyDescriptors(obj);
 
@@ -154,19 +150,19 @@ console.log(obj.b);
 
 So, the object `obj` has one property inside which the value is 100. And the initial descriptors of `obj` was like the above, `configurable`, `enumerable` and `writable` were all `true`. Then I sealed the object with `Object.seal` and look at what descriptors were changed and what weren’t — only `configurable`’s changed to `false`.
 
-```
+```js
 obj.a = 200;
 ```
 
 Even though the sealed object’s `configurable` is now false, the existing property value is changed to 200. As I explained earlier, setting `configurable` to `false` makes the property non-writable, it doesn’t work if `writable` is explicitly `true` , though. And when you create an object and set a new property, it has `writable: true` by default.
 
-```
+```js
 delete obj.a;
 ```
 
 Sealing the object makes every property non-configurable, which prevents them from non-deletable.
 
-```
+```js
 obj.b = 500;
 ```
 
@@ -176,7 +172,7 @@ This failed after sealing the object, but why? When `Object.seal` or `Object.fre
 
 This restricts the passed object more than `Object.seal` . Let’s also take a similar example.
 
-```
+```js
 const obj = { a: 100 };
 Object.getOwnPropertyDescriptors(obj);
 
@@ -220,19 +216,19 @@ console.log(obj.b);
 
 So, the difference from `Object.seal` is that `writable` is also set to `false` , after freezing it.
 
-```
+```js
 obj.a = 200;
 ```
 
 Thus, modifying the exiting property always fails.
 
-```
+```js
 delete obj.a;
 ```
 
 Like `Object.seal` , `Object.freeze` also makes the passed object non-configurable, which makes every property inside it non-deletable.
 
-```
+```js
 obj.b = 500;
 ```
 
@@ -254,7 +250,7 @@ Both `Object.freeze` and `Object.seal` have a “flaw” in terms of “practica
 
 Here’s the quick comparison.
 
-```
+```js
 const obj = {
   foo: {
     bar: 10
@@ -264,7 +260,7 @@ const obj = {
 
 Now `obj` has the nested object inside, `foo` . It has `bar` inside.
 
-```
+```js
 Object.getOwnPropertyDescriptors(obj);
 /* { 
  *   foo: { 
@@ -290,7 +286,7 @@ Object.getOwnPropertyDescriptors(obj.foo);
 
 And after sealing or freezing it,
 
-```
+```js
 Object.seal(obj);
 Object.freeze(obj);
 
@@ -299,7 +295,7 @@ Object.freeze(obj);
 
 Let’s see how descriptors got changed.
 
-```
+```js
 Object.getOwnPropertyDescriptors(obj);
 /* { 
  *   foo: { 
@@ -325,14 +321,14 @@ Object.getOwnPropertyDescriptors(obj.foo);
 
 `foo` ’s descriptors got changed but `obj.foo` the nested object. This means it’s still be modifiable.
 
-```
+```js
 obj.foo = { bar: 50 };
 // Doesn't work
 ```
 
 Since `obj.foo` doesn’t let you change its value because it’s frozen,
 
-```
+```js
 obj.foo.bar = 50;
 // It works
 ```
@@ -341,7 +337,7 @@ obj.foo.bar = 50;
 
 Then how can you freeze/seal the object to the bottommost nested object? MDN suggests you the [workaround](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze#What_is_shallow_freeze) for this.
 
-```
+```js
 function deepFreeze(object) {
 
   // Retrieve the property names defined on object
@@ -363,7 +359,7 @@ function deepFreeze(object) {
 
 The result of testing is as follows.
 
-```
+```js
 const obj = { foo: { bar: 10 } };
 deepFreeze(obj);
 
@@ -377,10 +373,6 @@ obj.foo.bar = 50;
 ## Conclusion
 
 `Object.freeze` and `Object.seal` could be definitely useful methods. But you should consider that the nested objects also should be frozen as well, using `deepFreeze`.
-
-## A note In Plain English
-
-Did you know that we have four publications and a YouTube channel? You can find all of this from our homepage at [**plainenglish.io**](https://plainenglish.io/) — show some love by giving our publications a follow and **[subscribing to our YouTube channel](https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw)!**
 
 ## Resources
 
