@@ -7,8 +7,6 @@
 
 # How I Learned SASS in 20 Hours and Why You Should Too.
 
-#### A guide to SASS (CSS with superpowers)
-
 ![Photo by [Kevin Ku](https://unsplash.com/@ikukevk?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6706/0*CEjxaCtfB0OSJDzJ)
 
 A Front-end developer’s world revolves around CSS for a lot of time and we love writing CSS and making our websites beautiful. But when it comes to efficiency we may have to consider Sass, a CSS preprocessor with great capabilities.
@@ -18,8 +16,6 @@ Vendor prefixes have always irritated me but for cross-browser compatibility you
 Recently I discovered Learning any skill in 20 hours by Josh Kaufman and it could transform my learning process, so I decided to do it. I set my goal to learn SASS in 20 hours.
 
 I read the basics of what Sass is and an overview of what to expect after I have learned it.
-
----
 
 ## Deconstructing what I needed to learn
 
@@ -51,8 +47,6 @@ I prepared a syllabus of what I needed to learn to reduce struggle jumping from 
 
 This is the syllabus I prepared. You can use it as your guide to what you have to learn in order to get good understanding of SASS.
 
----
-
 #### The Process
 
 I designed the syllabus for learning by sorting some of the best courses in SASS on udemy, pluralsight and codecademy and then looking for their common curriculum of SASS. This gives me the overall structure of it.
@@ -65,8 +59,6 @@ A prefer to go through the documentation as it has the essence of why the langua
 
 After learning the concepts, practice comes into the picture. I can’t stress enough on the importance of practice. Learn enough so that you can find mistakes in your own code. Find projects on front-end development or work on your own projects. the goal is **deliberate practice.**
 
----
-
 ## Why you should learn Sass?
 
 Sass has a large developer community so most of the problems will have solutions available and are just a search away. The main aim is to make the coding process simpler and efficient. Sass has an easy learning curve so you won’t face any difficulty getting a grasp of it and it helps a lot in writing **cleaner, modular code in less time**.
@@ -76,7 +68,7 @@ Sass has a large developer community so most of the problems will have solutions
 * **SASS vs SCSS
 **The main difference is in the syntax as SCSS has braces and semi-colons like regular CSS whereas SASS is based on indentation, line breaks and tabs will do your job. Sass files have .sass extension and Scss files have .scss extension
 
-```
+```scss
 .scss-code {
        color: white;
        background-color: #081018;
@@ -87,10 +79,9 @@ Sass has a large developer community so most of the problems will have solutions
        line-height: 40px
 ```
 
-* **Variables
-**Suppose you work for a brand and they opt for a rebrand and change their brand colors. It will be a lot of work to change the color at infinite places, sass can help as you can define variables such as primary-color and change it only once to see the results.
+* **Variables**Suppose you work for a brand and they opt for a rebrand and change their brand colors. It will be a lot of work to change the color at infinite places, sass can help as you can define variables such as primary-color and change it only once to see the results.
 
-```
+```scss
 $primary-color: #081018;
 
 .btn-lg {
@@ -98,8 +89,7 @@ $primary-color: #081018;
 }
 ```
 
-* **Nesting
-**In SASS you can nest style rules making selection much easier than CSS-
+* **Nesting**In SASS you can nest style rules making selection much easier than CSS-
 
 ```
 ul {
@@ -110,12 +100,9 @@ ul {
 }
 ```
 
-* **Vendor prefixes
-**Vendor prefixes are the additional rules we write for properties like box shadow for browser compatibility. In SASS you don’t have to, after compiling it automatically generates vendor prefixes for you.
-* **Modular
-**A lot of times we struggle to find particular style rules for a specific element in that long stylesheet and it can take ages. Sass makes your code modular but implementing partials. You can have separate modules for header, sidebars, navbars, cards, footer, and import them in the main file just using @import or @use rule. This really saves a lot of time and makes the job a lot easier.
-* **Extending
-**Sometimes we have some common rules which are used for many elements so instead of writing them again you can use @extend or @mixins from SASS. Mixins support passing in arguments which is not possible in extend rule.
+* **Vendor prefixes**Vendor prefixes are the additional rules we write for properties like box shadow for browser compatibility. In SASS you don’t have to, after compiling it automatically generates vendor prefixes for you.
+* **Modular**A lot of times we struggle to find particular style rules for a specific element in that long stylesheet and it can take ages. Sass makes your code modular but implementing partials. You can have separate modules for header, sidebars, navbars, cards, footer, and import them in the main file just using @import or @use rule. This really saves a lot of time and makes the job a lot easier.
+* **Extending**Sometimes we have some common rules which are used for many elements so instead of writing them again you can use @extend or @mixins from SASS. Mixins support passing in arguments which is not possible in extend rule.
 
 ---
 
