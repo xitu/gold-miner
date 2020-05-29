@@ -65,8 +65,7 @@ Sass has a large developer community so most of the problems will have solutions
 
 ## Guide to SASS for beginners-
 
-* **SASS vs SCSS
-**The main difference is in the syntax as SCSS has braces and semi-colons like regular CSS whereas SASS is based on indentation, line breaks and tabs will do your job. Sass files have .sass extension and Scss files have .scss extension
+* **SASS vs SCSS** The main difference is in the syntax as SCSS has braces and semi-colons like regular CSS whereas SASS is based on indentation, line breaks and tabs will do your job. Sass files have .sass extension and Scss files have .scss extension
 
 ```scss
 .scss-code {
@@ -79,7 +78,7 @@ Sass has a large developer community so most of the problems will have solutions
        line-height: 40px
 ```
 
-* **Variables**Suppose you work for a brand and they opt for a rebrand and change their brand colors. It will be a lot of work to change the color at infinite places, sass can help as you can define variables such as primary-color and change it only once to see the results.
+* **Variables** Suppose you work for a brand and they opt for a rebrand and change their brand colors. It will be a lot of work to change the color at infinite places, sass can help as you can define variables such as primary-color and change it only once to see the results.
 
 ```scss
 $primary-color: #081018;
@@ -89,7 +88,7 @@ $primary-color: #081018;
 }
 ```
 
-* **Nesting**In SASS you can nest style rules making selection much easier than CSS-
+* **Nesting** In SASS you can nest style rules making selection much easier than CSS-
 
 ```
 ul {
@@ -100,9 +99,9 @@ ul {
 }
 ```
 
-* **Vendor prefixes**Vendor prefixes are the additional rules we write for properties like box shadow for browser compatibility. In SASS you don’t have to, after compiling it automatically generates vendor prefixes for you.
-* **Modular**A lot of times we struggle to find particular style rules for a specific element in that long stylesheet and it can take ages. Sass makes your code modular but implementing partials. You can have separate modules for header, sidebars, navbars, cards, footer, and import them in the main file just using @import or @use rule. This really saves a lot of time and makes the job a lot easier.
-* **Extending**Sometimes we have some common rules which are used for many elements so instead of writing them again you can use @extend or @mixins from SASS. Mixins support passing in arguments which is not possible in extend rule.
+* **Vendor prefixes** Vendor prefixes are the additional rules we write for properties like box shadow for browser compatibility. In SASS you don’t have to, after compiling it automatically generates vendor prefixes for you.
+* **Modular** A lot of times we struggle to find particular style rules for a specific element in that long stylesheet and it can take ages. Sass makes your code modular but implementing partials. You can have separate modules for header, sidebars, navbars, cards, footer, and import them in the main file just using @import or @use rule. This really saves a lot of time and makes the job a lot easier.
+* **Extending** Sometimes we have some common rules which are used for many elements so instead of writing them again you can use @extend or @mixins from SASS. Mixins support passing in arguments which is not possible in extend rule.
 
 ---
 
