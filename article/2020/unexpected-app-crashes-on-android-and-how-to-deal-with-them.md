@@ -27,15 +27,13 @@ Since all your singleton objects were lost at this point, when the activity trie
 
 This is a problem and before we move on to the solution, let us replicate this scenario.
 
----
-
 ## Replicating the Crash
 
 1. Go ahead and run any of your applications from Android Studio in an emulator or an actual device connected by a USB cable.
 2. Navigate to a random screen and press the ‘home’ button
 3. Open terminal and type the following command to get the process ID (PID) of your application
 
-```
+```bash
 adb shell pidof com.darktheme.example
 ```
 
@@ -45,7 +43,7 @@ Note the PID that you see on the terminal window. (This can be used to verify wh
 
 4. Type the following terminal command to kill your app process
 
-```
+```bash
 adb shell am kill com.darktheme.example
 ```
 
@@ -56,8 +54,6 @@ At this point, your terminal windows should look like this:
 Now open your app from the background tasks and check whether the app crashes. If yes, don’t worry we will discuss how to deal with this issue in the next section. If not, give yourself a pat on the back because you deserve it :)
 
 Note: After opening the app from the background, check the PID of the new process. If the PID that you noted down in Step 3 and the new PID are equal, the process was never killed.
-
----
 
 ## Proposed Solution
 
@@ -131,8 +127,6 @@ For a RecyclerView in a Fragment, it would look something like this:
 
 * Save the required information in a Bundle object by overriding the ‘onSaveInstanceState’ function.
 * Check whether data from the bundle is available in ‘onViewCreated’ function, otherwise, get data from source through ViewModel.
-
----
 
 ## Conclusion
 
