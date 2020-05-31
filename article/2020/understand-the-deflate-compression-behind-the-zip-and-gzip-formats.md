@@ -2,34 +2,34 @@
 > * 原文作者：[Dornhoth](https://medium.com/@dornhoth)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understand-the-deflate-compression-behind-the-zip-and-gzip-formats.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understand-the-deflate-compression-behind-the-zip-and-gzip-formats.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JohnieXu](hptts://github.com/johniexu)
+> * 校对者：[Jessica](https://github.com/cyz980908)、[shixi-li](https://github.com/shixi-li)
 
-# Understand the DEFLATE Compression behind the zip and gzip Formats
+# 理解 zip 和 gzip 压缩格式背后的压缩算法
 
-![Photo by [JJ Ying](https://unsplash.com/@jjying?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/compress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10944/1*-epDKh4om1nhGYKdJJN_qw.jpeg)
+![图片来自 [Unsplash](https://unsplash.com/s/photos/compress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 由 [JJ Ying](https://unsplash.com/@jjying?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 发布 ](https://cdn-images-1.medium.com/max/10944/1*-epDKh4om1nhGYKdJJN_qw.jpeg)
 
-Whether stored or sent over some network, every bit counts and costs money. There are tens, probably hundreds of compression algorithms available, but the most popular one is probably zip. gzip, even though it has a similar name, is a different algorithm. It is one of the three standard formats used in HTTP compression, making it also a broadly used algorithm. These algorithms are best at different things but share their compression method: DEFLATE \*. DEFLATE is a lossless compression algorithm combining LZ77 and Huffman Coding.
+众所周知，通过网络上传或者下载数据的每一个字节都是要花流量的，即需要花钱的。尽管现存的压缩算法已经有几十上百种，但其中最流行的压缩算法可能还是 zip。gzip 压缩算法虽然和 zip 有着相似的名字，但却是另一种不同的算法。gzip 算法应用也相当广泛，它被 HTTP 三种标准压缩规范之一（译者注：属于端到端压缩技术，参见[HTTP 协议中的数据压缩](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Compression)）所采用。虽然各种压缩算法适用于不同场景，但是它们的底层都是基于 **DEFLATE**。**DEFLATE** 是同时使用了 **LZ77** 算法与**哈夫曼编码**（Huffman Coding）的一种无损数据压缩算法。
 
 ## LZ77
 
-DEFLATE starts with LZ77, which is a lossless compression technique used for text compression.
+**DEFLATE** 基于 **LZ77** 算法——这是一种用于文本压缩的无损压缩技术。
 
-#### Compression
+#### 压缩
 
-LZ77 compresses a text by replacing repeated occurrences of data by a pointer to a previous occurrence.
+**LZ77** 算法通过使用编码器或者解码器中已经出现过的相应匹配数据信息替换当前数据从而实现压缩功能。
 
-We are not looking for doublons in the whole text at once. We define the size of a search buffer, for example 20 (in real life the size of this buffer is in the tens of kB order). When encoding a letter, we check if the same letter appears in the previous 20 characters. If we find a match, we save the distance of our current letter to that match, `d`. That will be the first part of our encoding. Second, we check if we can match more than just one letter. It can be that the letter following our match is the same as the one following our current letter, in which case we compress them together. We check the next letter, then the next if that one matches too, until it doesn’t match anymore. We save the amount of letters we could match at once as `l`, this is the second part of our encoding.
+此算法并非同时在整个文本中查找重复的字母，一般会先设定一个固定大小的搜索缓冲区，例如 20（在真实场景中，这个缓冲区的大小一般是几十 kB ）。接着在逐一对文本中字母进行编码时，首先会判断当前字母是否有出现在前面缓冲区的 20 个字母中。如果能找到匹配的字母，就记录下当前字母与找到的字母的偏移量 `d`，这样就完成了一个字母编码的第一阶段。接来下，用当前在编码字母邻近的下一个字母与缓冲区中匹配上字母邻近的下一字母进行匹配，如果匹配上就继续进行下一个字母的匹配，如此循环往复直到缓冲区 20 个字母匹配完或者邻近的字母未匹配上，就结束匹配过程。结束上述过程后，将当前位置匹配上的连续字母替换成与缓冲区字母的偏移量以及这段连续字母的个数 `l` 。这样，字母编码的第二阶段就完成了。
 
-Let’s see how it works using an example:
+让我们用这个例子来看看它是如何工作的:
 
 ```
 ERTOORTORR
 ```
 
-The basic idea is to replace the second occurring `O` by a pointer to the first `O`, or the second occurring `RTO` by a pointer to the first one.
+首先能想到的最简单做法就是直接替换第二次出现的 `O`为指向第一次出现的 `O` 的一个标记，或者替换第二次出现的`RTO`为指向第一次出现的`RTO`。
 
-More concretely, we have a sliding window going through the text. For example with a buffer size of 4:
+下面更具体地描述一下这个过程，假定我们设置的缓冲区大小是 4，把这 4 个长度的缓冲区看成是一个滑动窗口沿着正文文本向右滑动：
 
 ```
 1) [....E]RTOORTORR
@@ -42,44 +42,44 @@ More concretely, we have a sliding window going through the text. For example wi
 8) ERTOO[RTORR] -> ERTO(1, 1)(4, 3)(3, 1)(1, 1)
 ```
 
-At each iteration, we make the window slide. Until the fourth step, we are only doing that, as there are no match in the search buffer for the letters we are checking. Then on the fifth step, we get a letter that we already have in the search buffer: `O` . The next letter is `R` , we check if by any chance we already have `OR` in the search buffer, this is not the case, so we just replace `O` by `(1, 1)` (one position away, one letter). At the sixth step, we check `R` and find that we already have it in the search buffer. We check with the next letter, `T` , and see that we have `RT` as well. We check with the next one, `O` , yes again, with `RTO` . It stops there. We can therefore replace this 3 letter group by `(4, 3)`, 4 because we are pointing 4 positions before and 3 because we are pointing to a 3 letter group. Finally, in the seventh iteration we find a `R` 3 positions away but no `RR` , and in the eight iteration with find a `R` just before. The final result is :
+滑动窗口随着随着编码的迭代一步步向右移动，前面 4 步中滑动窗口内的字母都没有发现重复。到了第 5 步，滑动窗口内字母 `O` 已经出现重复了，然后查看字母 `O` 右侧的`R` 发现在滑动窗口中匹配字母 `O ` 右侧相邻的字母并非 `R` ，便不再继续向右进行匹配，将第 2 个 `O` 替换成 `(1, 1)` （表示：滑动窗口中匹配的字母离当前字母偏移距离为 1，匹配上的连续字母长度为 1）。在第 6 步中，滑动窗口中字母 `R` 与其左边第 4 个字母匹配上了，继续检查下一个字母 `T` 的匹配情况，然后发现滑动窗口中 `RT` 也匹配上了。然后继续下一个字母 `O` ，在滑动窗口中匹配 `RTO` 也匹配上了，并且到此为止，因为下一个字母匹配上了。滑动窗口中匹配上的字母与当前字母的偏移距离为 4，同时有连续 3 个字母匹配上了，所以这里将匹配上的 3 个字母替换成 `(4, 3)`  。接着在第 7 步中，字母 `R` 与偏移距离 3 出的字母匹配上，但是接下来的 `RR` 并未匹配上，在第 8 步中发现最近的匹配上的 `R` 的偏移距离为 1。最终整段文本经过编码的结果如下：
 
 ```
 ERTO(1, 1)(4, 3)(3, 1)(1, 1)
 ```
 
-#### Decompression
+#### 解压
 
-A compressed text is a succession of unmatched letters and `(d, l)` pairs. When decompressing, letters stay letters and pairs are replaced by the occurrences they indicate. Let’s take a short example:
+压缩过的文本其实是由一系列的这种 `(d, 1)` 标记对和字母组成，标记对无法直接找到相匹配的字母。在解压过程中，字母保持不变，这种标记对转换为其指向位置的字母。下面看一个解压的例子：
 
 ```
 abc(3, 2)(1, 1)
 ```
 
-`abc` stays `abc` . Then we have the pair `(3, 2)` , meaning that we have to go 3 positions back, to `a` and take 2 letters, so `ab` . We now have `abcab(1, 1)` . The last pair tells us to take one letter from one position away, so the previous letter `b` . Finally we have `abcabb` .
+字母 `abc` 保持不变，标记对 `(3, 2)` 表示从当前位置向左移动 3 个单位，然后取出 2 个字母，因此其转换为 `ab`。现在原始文本变成了这样 `abcab(1, 1)`，最后的一个标记对表示从当前位置向左移动 1 个单位，然后取出 1 个字母，因此转换为 `b`。最终解压完成的文本为 `abcabb`。
 
-## Huffman Coding
+## 哈夫曼编码
 
-After having eliminated duplicated series of letters with LZ77, a second compression is done using Huffman coding. This method replaces commonly used symboles by shorter encodings and more rare symboles by longer ones, reducing the total length of the text.
+在用 LZ77 消除了文本中重复的字母后，再使用 **哈夫曼编码** 进行第二次压缩。这种方法用较短的编码代替较常用的字母，用较长的编码代替较少用的字母，从而减少了文本的总长度。
 
-Let’s see with a simple example text how this works.
+让我们用一个简单的示例文本来看看它是如何工作的。
 
-#### Compression
+#### 压缩
 
 ```
 EFTUPOEERRREOOPRRUTUTTEEE
 ```
 
-We want to make this text smaller without losing any information. Normally, each letter is coded over 8 bits, making this text 200 bits long. Here, like in any real text, letters have different frequencies. `F` appears only once, while `E` appears 7 times. Huffman coding takes advantage of this to optimise the total bit length, by reducing the bit length of more frequent letters.
+这个例子中，我们希望能无损地压缩这段文本。通常一个字母占用 8 字节，所以这段文本总长度有 200 字节。在这段本文中，我们发现其中字母 `F` 只出现了 1 次，而字母 `E` 出现了 7 次。哈夫曼编码正是利用了这一特性，通过减少出现频率高的字母本身的字节长度，来减少整个文本所占的总长度。
 
-To compress this file using Huffman coding, we first need to count how often each character appears, in our case:
+要采用哈夫曼编码压缩文章，首先需要统计各个文本中各个字母的出现频率，上述例子中的字母频率如下：
 
 ```
-Frequencies: 
+频率: 
 E: 7, R: 5, T: 4, U: 3, O: 3, P: 2, F: 1
 ```
 
-From there, we need to build a tree in which the letters are the leaves. This tree will tell us how to code each letter. We start with the two less frequent letters: `P` and `F`. For each letter we create a node with a weight, the weight being their frequency or number of occurrences in the text to compress. We give them a parent whose weight is the sum of their weights, and obtain a first tree:
+我们需要使用文本中的字母作为叶子节点来构建一颗二叉树，通过这颗二叉树来编码文本中的每一个字母。从出现频率最小的字母：`P` 和 `F` 开始，让其作为底层的叶子节点，将其频率相加的值作为父节点，这样便得到了如下的二叉树：
 
 ```
                                 (3)
@@ -87,7 +87,7 @@ From there, we need to build a tree in which the letters are the leaves. This tr
                              P(2)  F(1)
 ```
 
-We repeat this with the two next letters, `U` and `O`, then the next ones `R` and `T`, and we finally have a lonely `E` with the weight `7`.
+重复上面的步骤，依次使用频率最小的字母：`U` 和 `O` 以及 `R` 和 `T`，最后剩下频率最高的字母 `E ` 先单独放着。
 
 ```
        (6)                      (9)                      E(7)
@@ -95,7 +95,7 @@ We repeat this with the two next letters, `U` and `O`, then the next ones `R` an
     U(3)  O(3)               R(5)  T(4)
 ```
 
-We then combine these little trees to make a bigger tree, starting with the trees whose root nodes have the lowest weight, here the tree made by `P` and `F` on one side and `U` and `O` on the other side:
+接下来使用上面得到的 4 个二叉树作为子节点来创建一颗更大的二叉树，将上面的二叉树的根节点的频率值递增排序，优先使用根节点频率值小的二叉树作为新的二叉树子节点。这里使用 `U` 和 `O`、`R` 和 `T` 这两组二叉树组成了如下的一颗二叉树：
 
 ```
                                 (9)
@@ -106,7 +106,7 @@ We then combine these little trees to make a bigger tree, starting with the tree
                           U     O P     F
 ```
 
-The next subtree with the lowest weight is now the lonely `E`, we combine it to our tree:
+这时候还有 3 颗二叉树，根节点分别为：9、9、7（第一个 9 是上一步创建的二叉树），同样的，将根节点频率值最小的两个作为子节点创建新的二叉树如下：
 
 ```
                                (16)
@@ -119,7 +119,7 @@ The next subtree with the lowest weight is now the lonely `E`, we combine it to 
                        U     O P     F
 ```
 
-And finally we combine our two last subtrees to obtain the complete Huffman tree.
+现在剩下一颗将根节点值为 16 的大二叉树和根节点值为 9 叶子节点为 `R`、`T` 的二叉树，将其作为子节点创建一颗新的二叉树如下：
 
 ```
                                    (25)
@@ -135,27 +135,27 @@ And finally we combine our two last subtrees to obtain the complete Huffman tree
                        U     O P     F
 ```
 
-We now only have to use this tree to code our text in a compressed way. Let’s assign the bit `0` to all left branches and the bit `1` to all right branches and code each letter using the path in the tree to reach them. For example to reach `E` we go once left and once right, so `E` is `10` . To code `U` we go four times left so `U` is `1111` . For F, we go twice left and twice right so `F` is `1100` . You can see on our small example that frequent letters, like `E`, have a smaller code than less frequent letters, like `F`. Finally, our compressed text looks like this:
+现在我们要做的就是根据这棵二叉树来对文本进行编码。依次从跟节点访问各个字母，遇到左分支当成 0，遇到右分支当成 1，按照字母沿着二叉树访问路径的顺序所将这些 0、1 连接起来。比如，从根节点到字母 `E` 先后需要经过 1 次左分支和 1 次右分支，所以字母 `E` 的编码为 `10` 。字母 `U` 需要经过 4 次左分支，其编码为 `1111`；`F` 需要经过 2 次左分支和 2 次右分支，其编码为 `1100` 。可以发现，在这里例子中出现频率非常高的字母 `E` 编码后位数比出现频率较少的字母 `F` 编码后位数要少。经过这样的编码处理，最终压缩过的文本如下：
 
 ```
 10110000111111011110101001010110111011101101010111110011110000101010
 ```
 
-It takes 68 bits, instead of 200 originally.
+这段压缩后的文本长度只有 68 位，远比原始的 200 位长度小。
 
-#### Decompression
+#### 解压
 
-Now let’s say we receive such a text and want to decompress it to read it. For an uncompress text we know that a character correspond to 8 bits but how do we do now if `011` is one, two or even three characters?
+假如收到这样一段压缩过的文本，我们希望能够解压它让其变得可以理解。我们都知道一段未压缩过的文本中的一个字符占用 8 位，上面说过经过哈夫曼编码压缩后一个字符的位数并不是固定 8 位的，所以并不清楚一段数据（比如：`011`）是表示 1 个字符、2 个字符或者 3 个字符，因此这段压缩过的文本将如何解压呢？
 
-There is no miracle, we need the tree. We can whether save the tree with the compress text, which, in cases like ours, could make the compressed file even bigger than the uncompressed one. Another solution would be to use a common tree that has been decided in advance. We know the frequencies of letters in the English language and could build such a tree based on them. Applying a common tree would not give results as good as by building the tree for a given text, but you would spare having to save the tree with the file. Once again, both solutions have advantages and drawbacks.
-
----
-
-Even though we didn’t go into the details of the algorithms and their implementations, you now have an idea of how text is being compressed in the zip and gzip formats. I hope your curiosity is satisfied :)
+这一步不存在任何奇迹，要准确解压还需要上面编码中构建的二叉树。得到这个用于编码的二叉树有两种方案，第一种是其和压缩后的文本放一起作为原始文本的压缩结果，这可能会导致压缩后的文本比原始文本还要大；第二种方案是使用预先定义好的二叉树。我们知道各个字母在英语中的使用频率，完全可以根据这个频率来构建上述的二叉树。使用这种预先定义的公共字母频率二叉树压缩部分文本的结果可能比根据文本内容字母频率二叉树压缩的效果差一些，但是这样不再需要将字母频率二叉树保存到压缩后的文件中。总而言之，这两种方案各有优缺点。
 
 ---
 
-\* **Technically, other methods are allowed for the zip format, but DEFLATE is the most common one.**
+虽然本文没有深入的分析各种压缩算法原理的细节和对应的实现，但是经过上述讲解你应该已经对文本如何被压缩成 zip 和 gzip 等格式有了大概的认识。希望本文能满足你对压缩算法神秘面纱的好奇心:)
+
+---
+
+\* **从技术上来说，zip 压缩格式是支持使用其他的压缩算法的，但是 DEFLATE 是其中最常用的一种。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
