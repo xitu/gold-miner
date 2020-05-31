@@ -2,55 +2,55 @@
 > * 原文作者：[Samuel Flender](https://medium.com/@samuel.flender)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-limits-of-knowledge.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-limits-of-knowledge.md)
-> * 译者：
+> * 译者：[Roc](https://github.com/QinRoc)
 > * 校对者：
 
-# The limits of knowledge
+# 知识的极限
 
-![Crater Lake in Oregon (image source: Sebastien Goldberg, [Unsplash](https://unsplash.com/photos/L1Xqp235CYk))](https://cdn-images-1.medium.com/max/9678/0*CpmVADktVXeu5Jk2)
+![美国俄勒冈州的火山口湖（Crater Lake）(图片来源：Sebastien Goldberg，[Unsplash](https://unsplash.com/photos/L1Xqp235CYk))](https://cdn-images-1.medium.com/max/9678/0*CpmVADktVXeu5Jk2)
 
-> Gödel, Turing, and the science of what we can and cannot know
+> 哥德尔，图灵以及关于我们能知道和不能知道什么的科学
 
-In the seventeenth century, German mathematician Gottfried Leibnitz proposed a machine that could read any mathematical statement as input and determine whether it is true or false, based on the axioms of Mathematics. But is every statement decidable like that? Or are the limits to what we can know? This question has become known as the **Entscheidungsproblem** (decision problem).
+在 17 世纪，德国数学家戈特弗里德·莱布尼茨（Gottfried Leibnitz）提出了一种机器，该机器可以读取任意数学陈述，并根据数学公理来判断其是否正确。但是，每个陈述都可以这样判定么？或者我们所能知道的东西是否存在着极限呢？这个问题被称为**Entscheidungsproblem**（判定性问题）。
 
-Two centuries later, another German mathematician, David Hilbert, declared optimistically that the answer to the Entscheidungsproblem had to be, yes, we can and will know the answer to any mathematical question. In an address in 1930 in German town Königsberg he famously said,
+两个世纪后，另一位德国数学家戴维·希尔伯特（David Hilbert）乐观地宣布，判定性问题的答案必须是，是的，我们能并且会知道任何数学问题的答案。他于 1930 年在德国柯尼斯堡（Königsberg）的一次讲话中曾说：
 
-> Wir müssen wissen — wir werden wissen. (‘We must know — we will know.’)
+> Wir müssen wissen — wir werden wissen. （“我们必须知道 —— 我们会知道。”）
 
-But will we?
+但是我们会知道吗？
 
-#### The limits of Mathematics
+#### 数学的极限
 
-Hilbert’s optimism turned out to be short-lived. In the same year, Austrian Mathematician Kurt Gödel demonstrated that there are limits to our knowledge in Mathematics by proving his famous **incompleteness theorem**.
+历史表明希尔伯特的乐观主义是短暂的。同年，奥地利数学家库尔特·哥德尔（Kurt Gödel）通过证明他著名的**不完全性定理（incompleteness theorem）**表明我们的数学知识是有极限的。
 
-Here’s a simplified way to understand Gödel’s theorem. Consider the following statement.
+下面是理解哥德尔定理的简单方法。请考虑以下陈述。
 
-**Statement S: This statement is not provable.**
+**陈述 S：此陈述不可证明。**
 
-Now, suppose that within the context of Mathematics we could prove S to be true. But then, the statement S itself would be false, leading to an inconsistency. Okay, then let’s assume the opposite, that we cannot prove S within the context of Mathematics. But that would mean that S itself is true, and that Mathematics contains at least one statement that is true but cannot be shown to be true. Hence, Mathematics must be either inconsistent or incomplete. If we assume it to be consistent (statements cannot be true and false at the same time), this only leaves the conclusion that Mathematics is incomplete, i.e., there are true statements that simply cannot be shown to be true.
+现在，假设在数学中我们可以证明 S 是正确的。但是这样一来，陈述 S 本身将为假，从而导致不一致。好吧，那么让我们假设相反的情况，即我们无法在数学中证明 S。但这将意味着 S 本身是正确的，并且数学包含至少一个正确的陈述，但无法证明它是正确的。因此，数学要么不一致，要么不完整。如果我们假设它是一致的（陈述不能同时为真和假），这只能得出数学是不完整的结论，即存在不能完全证明是正确的正确陈述。
 
-Gödel’s mathematical proof of the incompleteness theorem, which is much more complicated than I outlined here, fundamentally changed the view advertised by Hilbert that complete knowledge is feasible (“**wir werden wissen**”). In other words, if we assume Mathematics to be consistent, we are bound to discover true statements that are not provable.
+哥德尔（Gödel）对不完全性定理的数学证明比我在此概述的要复杂得多，这从根本上改变了希尔伯特（Hilbert）所宣称的完整知识是可行的观点（“**我们会知道**”）。换句话说，如果我们假设数学是一致的，那么我们必然会发现无法证明的正确陈述。
 
-For example, consider the Goldbach conjecture, according to which every even number is the sum of two primes:
+例如，哥德巴赫猜想（The Goldbach conjecture），根据该猜想，每个偶数都是两个素数的和：
 
 6 = 3 + 3
 8 = 3 + 5
-10 = 3 + 7 
-12 = 7 + 5, and so on.
+10 = 3 + 7
+12 = 7 + 5，依此类推。
 
-No one has yet found a counter-example, and there might be none, if the conjecture is true. Because of Gödel we know that there are true statements out there that have no proof, but unfortunately, there is no way to identify these statements. The Goldbach conjecture might be one of them, and if it is, then attempt of finding a proof would be a waste of time.
+至今还没有人发现反例，如果猜想是真的，那也就不存在反例。由于 Gödel 的贡献，我们知道存在着没有证明的正确陈述，但不幸的是，我们没有办法识别出这些陈述。哥德巴赫猜想可能就是其中之一，如果是这样，那么尝试证明它就是浪费时间。
 
-![Kurt Gödel (left) and AlanTuring (right) (image source: [Cantor’s Paradise](https://medium.com/cantors-paradise/a-computability-proof-of-g%C3%B6dels-first-incompleteness-theorem-2d685899117c))](https://cdn-images-1.medium.com/max/5760/1*OEtkquO--eZVJAIt_dGvTA.jpeg)
+![Kurt Gödel（左）和 Alan Turing（右）(图片来源：[Cantor’s Paradise](https://medium.com/cantors-paradise/a-computability-proof-of-g%C3%B6dels-first-incompleteness-theorem-2d685899117c))](https://cdn-images-1.medium.com/max/5760/1*OEtkquO--eZVJAIt_dGvTA.jpeg)
 
-#### The limits of computation
+#### 计算的极限
 
-Alan Turing was a graduate student at Cambridge University when he first learned about Gödel’s incompleteness theorem. During that time, Turing was working on formulating the mathematical design of machines that could process any input and compute a result, similar to what Leibnitz had envisioned centuries earlier. These conceptualized machines are today known as **Turing machines**, and turned out to be the blueprint for the modern digital computer. In simple terms, a Turing machine can be likened to a modern computer program.
+艾伦·图灵（Alan Turing）第一次了解哥德尔的不完全性定理时还是剑桥大学的研究生。在那段时间里，图灵忙于做一种机器的数理设计。这种机器可以处理任何输入并计算结果，与莱布尼茨几个世纪前所设想的相似。今天这些概念化的机器被称为**图灵机**，是现代数字计算机的蓝图。简单来说，图灵机可以看作现代计算机程序。
 
-Turing was working on the so-called **halting problem**, which can be posed as follows:
+图灵当时在研究所谓的**停机问题**，可以描述如下：
 
-**Can there be a program that can determine whether another program will halt (finish execution) or not (loop forever)?**
+**是否有一个程序可以确定另一个程序会停止（执行结束）还是不停（永远循环）？**
 
-Turing proved that the answer to the halting problem is “No”, such a program cannot exist. Similar to Gödel’s work, his proof is a ‘proof by contradiction’. Assume that there exists a program **halts()** that determines whether a given program will halt or not. But then we can also construct the following program:
+图灵证明了停机问题的答案是“否”，即不存在这样的程序。与哥德尔的工作类似，他也是用“反证法（proof by contradiction）”证明的。假设存在一个程序 **halts()**，它能确定给定程序是否将停止。但是，我们还可以构建以下程序：
 
 ```python
 def g():
@@ -59,36 +59,36 @@ def g():
     return
 ```
 
-See what’s happening here? If g holds, g doesn’t hold, and if g doesn’t hold, g holds. Either way, we have a contradiction. **Hence, the program halts() cannot exist.**
+看看这里发生了什么？如果 g 成立，则 g 不成立；如果 g 不成立，则 g 成立。无论哪种方式，我们都将得到一个矛盾。**因此，程序 halts() 不存在。**
 
-While Gödel proved that Mathematics is incomplete, Turing proved that Computer Science is in some sense ‘incomplete’, too. Certain programs simply cannot exist. This is not just a theoretical curiosity: the halting problem has many practical implications in Computer Science today. For instance, if we want a compiler to find the fastest possible machine code for a given program, we are actually trying to solve the halting problem — and we already know that the problem is not solvable.
+Gödel 证明了数学是不完整的，而 Turing 证明了计算机科学在某种意义上也是“不完整的”。某些程序根本不存在。这不仅是理论上的好奇：停机问题在当今的计算机科学中具有许多实际意义。例如，如果我们希望编译器为给定的程序找到最快的机器码，那么我们实际上是在尝试解决停机问题 —— 而我们已经知道该问题是无法解决的。
 
-![A complicated protein structure — predicting how proteins fold is an NP-problem. (image source: [Nature](https://www.nature.com/articles/d41586-019-01357-6))](https://cdn-images-1.medium.com/max/2000/1*CZyv_a9CKoOQ1gzAliYdEQ.jpeg)
+![一个复杂的蛋白质结构 —— 预测蛋白质如何折叠是一个 NP 问题（NP-problem）。(图片来源：[Nature](https://www.nature.com/articles/d41586-019-01357-6))](https://cdn-images-1.medium.com/max/2000/1*CZyv_a9CKoOQ1gzAliYdEQ.jpeg)
 
-#### Practical limits of knowledge: the P vs NP problem
+#### 知识的实际极限：P 与 NP 问题（P vs NP problem）
 
-By showing that there are problems that are fundamentally not solvable, Gödel and Turing demonstrated that there are theoretical limits to what we can ever know. But in addition, there are other problems that we could solve in theory, but not in practice because it simply takes too long to compute the solution. This is where we get into the distinction between **P-problems and NP-problems.**
+通过揭示存在着一些根本无法解决的问题，Gödel 和 Turing 证明了我们能知道什么在理论上存在极限。但是此外，还有其他问题是理论上可以解决，但是因为求解的时间太长了，而我们实际上无法解决的。这里我们将会说明**P 问题和 NP 问题**的区别。
 
-P-problems are problems that that can be solved in ‘reasonable time’, where reasonable in this context means ‘polynomial’ (hence the P). The computational complexity of finding a solution to these problems grows with some power of the size of the input to the problem. Think multiplication or sorting problems.
+P 问题是可以在“合理的时间”内解决的问题，在这里，合理的含义是“多项式的（polynomial）”（因此称为 P）。寻找这些问题的解的计算复杂性随问题输入规模的增长而倍数增加。想想乘法或排序问题。
 
-NP-problems on the other hand are problems that cannot be solved in reasonable time. NP stands for non-deterministic polynomial, meaning that a solution can be confirmed, but not found, with polynomial computational complexity. The complexity of finding a solution for NP-problems is exponential instead of polynomial, which makes an enormous practical difference. Examples for NP-problems are optimal scheduling, predicting how proteins fold, encrypting messages, solving Sudoku puzzles, optimal packing (a.k.a. the knapsack problem), or optimal routing (a.k.a. the traveling salesman problem). Some problems, such as finding the discrete Fourier transform of a function, start out in NP, but ultimately end up in P because of the development of new, clever algorithms that simplify the solution.
+另一方面，NP 问题是无法在合理时间内解决的问题。NP 代表非确定性多项式的（non-deterministic polynomial），它的含义是可以用多项式级的计算复杂度验证问题的一个解，但不能用多项式级的计算复杂度求解。求 NP 问题的解的复杂度是指数级的，而不是多项式的，这会产生巨大的实际差异。NP 问题的例子包括最佳调度，预测蛋白质的折叠方式，加密消息，解决数独难题，最佳包装（又称背包问题）或最佳路由（又称旅行商问题）。一些问题（例如找到函数的离散傅立叶变换）最开始属于 NP 问题，但由于开发了新的、巧妙的算法来简化求解，最终变成了 P 问题。
 
-One of the biggest unanswered questions in Computer Science today is the P vs NP question: Is P equal to NP, or not? In other words, for all problems for which we can **confirm** a solution in reasonable time, can we also **find** a solution in reasonable time?
+当今计算机科学领域中最大的未解之谜之一就是P 与 NP 问题 ：P 是否等于 NP？换句话说，对于所有我们可以在合理时间内**验证**一个解的问题，我们是否能在合理的时间内**求**解？
 
-The P vs NP question is so important that it is included in the list of the ‘[Millenium prize problems](https://www.claymath.org/millennium-problems)’, and you’ll win one Million dollars if you find the answer. It is hard to overstate the significance of the problem: a world in which P=NP would be fundamentally different from a world in which P≠NP. If P=NP, then we could say with certainty that there is a much faster way to solve Sudoku puzzles, or to predict how proteins fold, we just have not found that method yet. Needless to say, knowing how proteins fold could have all sorts of real-world implications, like understanding Alzheimer’s disease or curing cancer.
+P 与 NP 问题非常重要，因此被列入“[千禧年大奖难题（Millenium prize problems）](https://www.claymath.org/millennium-problems)”。如果找到答案，你会赢得一百万美元。再怎么夸大这个问题的重要性也不为过：P=NP 的世界与 P≠NP 的世界有着根本的不同。如果 P=NP，那么我们可以肯定地说，有一种更快的方法可以解决数独难题，或者预测蛋白质的折叠方式，我们只是还没有找到这种方法。毫无疑问，了解蛋白质的折叠方式会对现实世界产生全方面的影响，例如理解阿兹海默症的病理或治愈癌症。
 
-Most scientists today believe that P does not equal NP, but will we ever know for sure? The P vs NP question itself might be similar to Hilbert’s Entscheidungsproblem or Turing’s Halting problem: **there might simply be no answer to the question.**
+如今，大多数科学家相信 P 不等于 NP，但是我们能确定吗？P 与 NP 问题本身可能类似于希尔伯特的 Entscheidungs 问题或图灵的停机问题：**这个问题可能根本没有答案。**
 
-#### Resources and further reading
+#### 参考资料和进一步阅读
 
-* Complexity, a guided tour (by Melanie Mitchell)
-* P vs NP and the Complexity Zoo ([video](https://www.youtube.com/watch?v=YX40hbAHx3s))
-* Gödel’s Incompleteness Theorem ([video](https://www.youtube.com/watch?v=O4ndIDcDSGc))
+* 《复杂》梅拉妮・米歇尔
+* P vs NP 和动物园的复杂性（[视频](https://www.youtube.com/watch?v=YX40hbAHx3s)）
+* 哥德尔的不完全性定理（[视频](https://www.youtube.com/watch?v=O4ndIDcDSGc)）
 
-If you liked this article, also check out the following:
+如果你喜欢本文，也可以查看以下内容：
 
-- [How to be less wrong - A Bayesian’s guide to predicting the future with limited data](https://towardsdatascience.com/how-to-be-less-wrong-5d6632a08f)
-- [Trajectories Formed by Chance - Random walks in physics, finance, and in our lives](https://medium.com/swlh/trajectories-formed-by-chance-bc96c8e236a5)
+- [如何减少错误 —— 用有限数据预测未来的贝叶斯指南](https://towardsdatascience.com/how-to-be-less-wrong-5d6632a08f)
+- [偶然形成的轨迹 —— 在物理，金融和我们的生活中随机漫步](https://medium.com/swlh/trajectories-formed-by-chance-bc96c8e236a5)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
