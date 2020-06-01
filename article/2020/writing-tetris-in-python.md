@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/writing-tetris-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/writing-tetris-in-python.md)
 > * 译者：[z0gSh1u](https://github.com/z0gSh1u)
-> * 校对者：[Park-ma](https://github.com/Park-ma)
+> * 校对者：[Park-ma](https://github.com/Park-ma)、[Zhengjian-L](https://github.com/Zhengjian-L)
 
 # 用 Python 写一个俄罗斯方块游戏
 
