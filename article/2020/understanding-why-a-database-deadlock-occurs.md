@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-why-a-database-deadlock-occurs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-why-a-database-deadlock-occurs.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：
+> * 校对者：[samyu2000](https://github.com/samyu2000)
 
 # 你理解数据库死锁发生的原因吗?
 
@@ -15,7 +15,7 @@
 
 这篇文章将向你解释什么是数据库死锁以及为什么会发生死锁。
 
-我们将写一条 SQL 语句故意造成死锁，然后讨论如何减轻死锁的错误发生。
+我们将写一条故意造成死锁的 SQL 语句，然后讨论如何减轻死锁的错误发生。
 
 说明一下，这里使用 PostgreSQL 作为我们的数据库。
 
@@ -61,7 +61,7 @@ acct_id | amount
 
 银行账户转账是理解数据库事务的经典案例。假设我们的应用程序提供了将金额从帐户 A 转移到帐户 B 的功能。
 
-在转账过程中，A 账户应该借记，B 账户应该贷记。借款和贷款构成一个工作单位。要么两个操作都发生，要么两个都不发生。这就是为什么这两个语句应该是单个事务的一部分。
+在转账过程中，A 账户金额增加，B 账户金额减少。两者构成一个程序执行单元。要么两个操作都发生，要么两个都不发生。所以这两个语句是单个事务的一部分。
 
 让我们启动一个 `psql` shell 并执行一个事务，将钱从一个帐户转移到另一个帐户。
 
@@ -93,9 +93,9 @@ acct_id | amount
 
 任何生产就绪的 DBMS 都能够提供多个并发进程服务。我们将通过运行两个 `psql` shell 来模拟两个同时进行的转账。
 
-第一 shell 将模拟一个从帐户 1 向帐户 2 进行金额转移。第二个 shell 将模拟一个从帐户 2 转移到帐户 1。
+第一个 shell 将模拟从账户 1 向账户 2 转账的过程。第二个 shell 将模拟从账户 2 向账户 1 转账的过程。
 
-我们将在第一个 shell 中执行账户 1 转账金额 10 到账户 2中。
+账户 1 向账户 2 转账，金额为 10，我们将执行第一个 shell 来完成这一过程。
 
 ```base
 akshar=# begin transaction;
@@ -103,7 +103,7 @@ BEGIN
 akshar=# update accounts set amount=amount-10 where acct_id=1; UPDATE 1
 ```
 
-同时在第一次交易完成之前，账户 2 决定将金额 20 转到账户 1。我们将在第二个 shell 中做这个操作。
+同时在第一次交易完成之前，账户 2 向账户 1 转账 20 的金额。我们将在第二个 shell 中做这个操作。
 
 ```base
 akshar=# begin transaction;
@@ -136,7 +136,7 @@ Process 76034 waits for ShareLock on transaction 173313; blocked by process 7771
 HINT: See server log for query details. CONTEXT: while updating tuple (0,3) in relation "accounts"
 ```
 
-当进程 1 从帐户 1 借记金额 10 时，它已经锁定了 acct_id=1 的 db 行。现在，进程 2 尝试对同一行进行更新，这一步需要锁。进程 2 只有在进程 1 释放锁时才能获得锁。但是进程 1 被阻塞，等待进程 2 释放 acct_id=2 上的锁。总的来说，进程 1 正在等待进程 2 释放一个锁，而进程 2 正在等待进程 1 释放一个锁。这就是死锁。
+当进程 1 从帐户 1 扣除金额 10 时，它已经锁定了 acct_id=1 的 db 行。现在，进程 2 尝试对同一行进行更新，这一步需要锁。进程 2 只有在进程 1 释放锁时才能获得锁。但是进程 1 被阻塞，等待进程 2 释放 acct_id=2 上的锁。总的来说，进程 1 正在等待进程 2 释放一个锁，而进程 2 正在等待进程 1 释放一个锁。这就是死锁。
 
 数据库能灵敏的检测到死锁。
 
@@ -155,7 +155,7 @@ akshar=# commit;
 ROLLBACK
 ```
 
-由于检测到死锁，这意味着命令执行失败，因此 commit 可能导致数据库进入不一致和不可靠的状态。DBMS 也聪明地意识到这一点，所以即使发出 `commit`，也将 `回滚`。
+由于检测到死锁，这意味着命令执行失败，因此 commit 可能导致数据库进入不一致和不可靠的状态。DBMS 也聪明地意识到这一点，所以即使执行 `提交` 事务的命令，也将 `回滚`。
 
 但是由于进程 1 命令成功执行，所以可以在进程 1 的 shell 上发出 `commit`。
 
@@ -164,7 +164,7 @@ akshar=# commit;
 COMMIT
 ```
 
-你现在能够验证账户 1 借款了金额 10，而账户 2 贷款了金额 10。
+现在能够验证账户 1 借款了金额 10，而账户 2 贷款了金额 10。
 
 ```base
 akshar=# select * from accounts;
