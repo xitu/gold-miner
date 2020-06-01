@@ -2,86 +2,86 @@
 > * 原文作者：[Steven Popovich](https://medium.com/@steven.popovich)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/what-does-serverless-actually-mean.md](https://github.com/xitu/gold-miner/blob/master/article/2020/what-does-serverless-actually-mean.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Roc](https://github.com/QinRoc)
+> * 校对者：[Xiny](https://github.com/x1ny)，[江不知](https://github.com/JalanJiang)
 
-# What Does Serverless Actually Mean?
+# 无服务器实际上是什么意思？
 
 ![Photo by [Taylor Vick](https://unsplash.com/@tvick?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/servers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7912/1*poXRRZdZAElrrP9C3ZQLoQ.jpeg)
 
-> It’s actually not serverless at all
+> 无服务器实际上根本不是没有服务器
 
-The word **serverless** is really misleading. It’s a buzzword, for sure.
+**无服务器（serverless）** 这个单词真是误导人。当然，这是个流行词。
 
-If you google “serverless,” the Wikipedia definition is actually pretty good:
+如果你用 Google 搜索“无服务器”，搜索结果中 Wikipedia 的定义实际上相当好：
 
-> **“**Serverless computing is a [cloud computing](https://en.wikipedia.org/wiki/Cloud_computing) [execution model](https://en.wikipedia.org/wiki/Execution_model) in which the cloud provider runs the [server](https://en.wikipedia.org/wiki/Server_(computing)), and dynamically manages the allocation of machine resources. Pricing is based on the actual amount of resources consumed by an application, rather than on pre-purchased units of capacity.[[1]](https://en.wikipedia.org/wiki/Serverless_computing#cite_note-techcrunch-lambda-1)It can be a form of [utility computing](https://en.wikipedia.org/wiki/Utility_computing).” — Wikipedia
+> “无服务器计算是[云计算](https://en.wikipedia.org/wiki/Cloud_computing)的一种[运行模型](https://en.wikipedia.org/wiki/Execution_model)。在这个模型中，云服务商负责运行[服务器](https://en.wikipedia.org/wiki/Server_(computing))，动态分配机器资源。这种方式基于应用实际消耗的资源量计费，而不是基于预先购买的容量单位。[[1]](https://en.wikipedia.org/wiki/Serverless_computing#cite_note-techcrunch-lambda-1) 它是[效用计算](https://en.wikipedia.org/wiki/Utility_computing)的一种形式。” —— Wikipedia
 
-This is all true. And if you can digest this jargony definition, you can see that serverless, in fact, involves many servers.
+这都是真的。而且，如果你可以消化这个术语的定义，就会发现无服务器实际上包括许多服务器。
 
-What serverless actually means that you don’t have to worry about what size of the server box (processing power) or how many boxes you need to serve your users. The provider of the serverless service deals with the size and numbers of boxes you need, based on the amount of work you throw at it.
+无服务器实际上意味着你不必担心服务器的配置（处理能力）或为用户服务所需的服务器数量。无服务器服务的提供商会根据你投入的工作量来调整所需的服务器配置和数量。
 
-Cloudflare, one provider of serverless back ends has a great graphic about how serverless can save you money and how it scales:
+Cloudflare(一个无服务器后端提供商)用下图很好地展示了无服务器是如何为你节省资金以及如何扩展的：
 
-![Taken from [Cloudfare’s great piece on the cost/benefit of serverless](https://www.cloudflare.com/learning/serverless/why-use-serverless/)](https://cdn-images-1.medium.com/max/2000/1*e3EE-9xCRweHvYnK44wYlQ.png)
+![源自 [Cloudfare 的无服务器的成本效益分析图](https://www.cloudflare.com/learning/serverless/why-use-serverless/)](https://cdn-images-1.medium.com/max/2000/1*e3EE-9xCRweHvYnK44wYlQ.png)
 
-In a traditional system, when your application gets more users or your users do more things, or really anything that causes your back end to do more processing, you have to increase the number of boxes (or the power of the boxes) as you get more demand.
+在传统系统中，当更多的用户涌入你的应用程序，或者用户执行了更多操作，又或者任何导致后端程序需要进行更多处理的事情发生时，你都必须增加服务器的数量（或服务器的性能）来应对增长的需求。
 
-Let's take an example. Let’s say you operate Reddit. You have to have servers to serve the website to the user and a database to keep all your links, comments, and user profiles.
+让我们举个例子。假设你运营 Reddit。你必须有一个服务器集群来为用户提供网站服务，并需要一个数据库来保存所有链接、评论和用户个人资料。
 
-In the traditional model, you could have one box serving traffic. You might have a scaling policy that if the box has 95% CPU or more for five minutes, add another box to serve the traffic. That’s the blue boxes above. You would be paying a fixed price per box, per hour. When you go from one box to two boxes, you are doubling your cost.
+在传统模型中，你可能只有一台服务器来处理访问流量。你可能有一个扩展策略 —— 如果该服务器的 CPU 负载持续 5 分钟超过了 95％，就添加另一台服务器来分流。这台新加的服务器就是上图中的蓝色服务器。你将为每台服务器每小时支付固定费用。当你从一台服务器扩展到两台服务器时，你的成本就会增加一倍。
 
-But what if, when you scale up to two boxes, users get off your site. Your new box doesn’t even get used. You could have a scaling policy that will scale back down to one box, but the point is, if you have two boxes spun up, you are paying for them.
+但是，如果扩展到两台服务器后，用户离开了你的网站，你该怎么办呢？你的新服务器甚至都没发挥作用。你可能有一个缩放策略，可以缩减到一台服务器，但关键是，如果你启用了两台服务器，就需要为它们付费。
 
-You can see the overhead this introduces. You are technically paying for server power you may not be using.
+你可以看到增加的开销。从技术上讲，你是在为可能不会使用的服务器性能付费。
 
-With serverless, however, in theory, you pay for exactly only what you use. You don’t set scaling policies or pick how many servers you need. You just throw traffic at the provider and pay for how much it costs. You don’t know how many boxes the provider is using, and you don’t care. And the savings are passed on to you. In theory.
+但是，在理论上，使用无服务器，你就只需为使用的东西付费。你无需设置扩展策略或选择所需的服务器数量。你只需要向无服务器提供商提供流量并支付费用即可。你不知道提供商使用了多少台服务器，也不在乎。节省下来的钱理论上会留给你。
 
-This is where the name **serverless** comes from. You, as a user of server power, don’t have to think about the servers that are working behind the scenes. But they are still there!
+这就是**无服务器**这个名词的由来。你使用的是服务器性能，不必考虑后台运行的服务器。但是它们还在那里！
 
-## So What’s the Catch?
+## 有什么隐患么？
 
-So why isn’t everything serverless? It seems like everyone would win because we don’t end up with wasted server time.
+所以为什么不处处使用无服务器呢？似乎每个人都会从中受益，因为我们不会浪费服务器时间。
 
-But it isn’t that simple. Behind the scenes, the serverless provider is still doing the same thing as the traditional model. And it won’t become magically perfectly granular.
+但是这没那么简单。在幕后，无服务器提供商仍然做着和传统模型一样的事情。而且它不会神奇地变得完美。
 
-The serverless provider — meaning a service like AWS Lambda, Cloudflare, Azure, and Google Cloud — is still scaling up and down, and allocating boxes to work that goes up and down. And sometimes they will have unused servers. And someone still has to pay for the servers, whether they are unused or not.
+无服务器提供商（即 AWS Lambda，Cloudflare，Azure 和 Google Cloud 之类的服务）仍然在幕后伸缩，并增减投入工作的服务器。有时它们会有闲置的服务器。无论服务器是否被使用，仍然有人需要为它们付费。
 
-Now, they might be better at it. They can have advanced machine-learning algorithms and distribute your work across many boxes intelligently. Boxes can run work from different people. Since it is their main purpose to cost-effectively provide server time without wasting server time, they can probably do it more efficiently than you. But they, just as you did when you were managing your own boxes, have to deal with the scaling of boxes.
+现在，它们可能会在这方面做得更好。它们可以使用先进的机器学习算法，来将你的工作智能地分配到多台服务器上。服务器可以由不同的人运行。由于以节省成本的方式提供服务器时间且避免服务器时间的浪费是其主要目的，因此它们可能比你更有效地做到这一点。但是，就像你管理自己的服务器那样，它们也必须处理服务器集群的缩放。
 
-Serverless really just puts the job of scaling onto the service provider. So what if the provider isn’t good at it? And remember, you are paying for the engineering of the serverless algorithms and infrastructure. This means, for some workloads, you could end up paying more.
+无服务器实际上只是将扩展工作交给了服务提供商。那么，如果提供商不擅长做这个，又该怎么办呢？请记住，你在为无服务器算法和基础架构的工程付费。这意味着，对于某些工作负载，你可能需要支付更多的费用。
 
-Remember: These providers are businesses.
+请记住：这些提供商是企业。
 
-It is important to keep in mind that if you’re using one of the providers, they are still businesses that need to make money.
+请务必记住，无论你选择其中哪个提供商，无服务器都是需要赚钱的业务。
 
-And they can lose money on small projects and make all their money on big projects.
+它们可能在小项目上赔钱，而在大项目上赚钱。
 
-A lot of providers of developer back-end services (Google Maps API and Firebase, to name a few I have used) employ a “you’ll pay when you scale” model. In that, for some small workloads, the cost is much cheaper than provisioning your own boxes. But when you scale up your workload (your business grows) the cost would be much more than your own setup. Keep this in mind and use the provider's calculators as necessary.
+许多面向开发者的后端服务的提供商（Google Maps API 和 Firebase，仅举几个我使用过的）都采用了“扩展时就付款”的策略。在这种情况下，对于一些小的工作负载，其成本要比你自己配置服务器便宜得多。但是，当你扩大工作量（业务增长）时，无服务器的成本将远远超过你自己配置服务器的成本。请记住这一点，并在必要时使用提供商的计价方式来计算成本。
 
-#### There is also a man behind a curtain
+#### 幕后还有一人
 
-Furthermore, serverless has another problem that makes me nervous as a distributed system maintainer: You can’t see exactly what is happening.
+此外，无服务器还存在另一个问题，让作为分布式系统维护人员的我感到紧张：你无法确切地了解正在发生的事情。
 
-When you spin up your own boxes, run your own software on them, and roll your own monitoring and scaling for all the boxes you manage, you have **control.** And for large-scale applications, developers and companies want control. You want insight as to what is happening in your system.
+当你运行自己的服务器，在其上运行自己的软件，并对自己管理的所有服务器进行自己的监控和缩放时，你拥有**控制权**。开发人员和公司都需要对大型应用程序进行控制。你需要洞悉系统中正在发生的事情。
 
-With serverless, if you have a problem with your workload, it’s much harder to tell what is going on because you can’t just look at the logs on a box. The computation that is happening is hidden away from you.
+使用无服务器时，如果你的工作负载出现问题，会很难判断发生了什么，因为你不能只看服务器上的日志来分析问题。正在进行的计算对你是隐藏的。
 
-Or when users start writing in that your software isn’t working or is slow, you can’t see exactly why your system didn’t scale. The best you can do is file a ticket with your provider and hope that it was just a blip.
+或者，当用户开始投诉你的软件无法运行或运行缓慢时，你将无法准确地了解系统为何无法扩展。你所能做的就是向你的提供商提交工单，并希望这只是个短暂的现象。
 
-This means debugging your system is more difficult. It’s not impossible; you still have logging and the like. But most back-end maintainers I know like having the ability to hop onto a box that is having a problem and see exactly what is going on.
+这意味着调试系统会更加困难。虽然你仍然可以依靠日志记录之类的内容来调试系统，但是我知道大多数后端维护者都希望能够登录到出现问题的服务器上，并确切地了解发生了什么。
 
-There are also myriad other problems with serverless that I’m not going to get into (vendor lock-in, cold starts, security?), but they are worth considering if you’re thinking about using serverless for your application.
+无服务器还存在许多其他问题，我就不在这里一一赘述了（供应商锁定，冷启动，安全性？）。但是如果你正在考虑将无服务器用于你的应用程序，那么这些问题就值得你认真考虑了。
 
-## But We Are Getting There
+## 但我们需要无服务器
 
-I wish serverless was perfect. I and many other people spend too much worrying about if our system will scale.
+我希望无服务器是完美的。我和许多其他人都过多地担心我们的系统是否会扩展。
 
-Remember, any time you can reduce the number of variables you have to worry about in a system, it’s a better system. You always want to reduce complexity.
+请记住，任何时候只要你可以减少系统中需要担心的变量数，它都会让系统变得更好。你总是希望能降低系统的复杂性。
 
-But going serverless tomorrow doesn’t necessarily reduce complexity and doesn’t necessarily reduce costs, either. As with any other technical or architectural decision, it’s important to see if it fits your project. Take your time and do a strong analysis of what is right for you.
+但是明天就拥抱无服务器并不一定能降低复杂性，也不一定能降低成本。和其他任何技术或架构决策一样，重要的是确定它是否适合你的项目。花点时间来深入分析什么是适合自己的东西吧。
 
-It also still uses servers — don’t be fooled! Thanks for reading!
+无服务器还在使用服务器 —— 别被骗了！感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
