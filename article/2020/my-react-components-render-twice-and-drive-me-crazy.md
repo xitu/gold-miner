@@ -116,50 +116,50 @@ ReactDOM.render(
 
 ## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#what-is-reactstrictmode) 什么是 React.StrictMode?
 
-`React.StrictMode` is a wrapper introduced in version [16.3.0](https://github.com/facebook/react/releases/tag/v16.3.0) back in 2018. At first, it was applied only for class components and after [16.8.0](https://github.com/facebook/react/releases/tag/v16.8.0) it is applied also for hooks.
+`React.StrictMode` 是在 2018 年的 [16.3.0](https://github.com/facebook/react/releases/tag/v16.3.0) 版本中引入的封装。首先，它只用在类组件中，而在 [16.8.0](https://github.com/facebook/react/releases/tag/v16.8.0) 中，它对 hook 同样适用。
 
-As mentioned in the release notes:
+就像在版本说明中提及的一样：
 
-> React.StrictMode is a wrapper to help prepare apps for async rendering
+> React.StrictMode 是帮助应用适应异步渲染的封装
 
-So it is meant to help engineers to avoid common pitfalls and upgrade their `React` applications progressively by dropping legacy APIs.
+所以它应该用来帮助工程师避免常见的错误，并使他们的 `React` 应用抛弃过时的 API，从而逐步升级。
 
-These hints are extremely helpful for better debugging, since the library is moving towards to the async rendering era so big changes take place from time to time.
+这些提示对于更好地调试是有帮助的，因为这个库正在向异步渲染时代迈进，所以大的改动时时发生。
 
-How useful, right?
+很有用，对吧？
 
-## Why the double rendering then?
+## 为什么会渲染两次呢?
 
-One of the benefits that we get from `React.StrictMode` usage, is that it helps us to detect unexpected side effects in the render-phase lifecycles.
+我们从使用 `React.StrictMode` 中获得的好处之一是，它帮助我们检测到渲染期生命周期的预期之外的副作用。
 
-These lifecycles are:
+这些生命周期有：
 
 * `constructor`
-* `componentWillMount` (or UNSAFE_componentWillMount)
-* `componentWillReceiveProps` (or UNSAFE_componentWillReceiveProps)
-* `componentWillUpdate` (or UNSAFE_componentWillUpdate)
+* `componentWillMount` (或者 UNSAFE_componentWillMount)
+* `componentWillReceiveProps` (或者 UNSAFE_componentWillReceiveProps)
+* `componentWillUpdate` (或者 UNSAFE_componentWillUpdate)
 * `getDerivedStateFromProps`
 * `shouldComponentUpdate`
 * `render`
-* `setState` updater functions (the first argument)
+* `setState` 更新函数 (第一个参数)
 
-All these methods are called more than once, so it is important to avoid having side-effects in them. If we ignore this principle it is likely to end up with inconsistent state issues and memory leaks.
+所有这些方法都被调用不止一次，所以避免副作用是十分重要的。如果我们无视这个原则，就有可能造成状态不一致问题或者内存泄漏。
 
-`React.StrictMode` cannot spot side-effects at once, but it can help us find them by intentionally invoking twice some key functions.
+`React.StrictMode` 不能马上检测到副作用，但是它可以通过故意调用一些关键函数两次，来帮助我们发现副作用。
 
-These functions are:
+这些函数有:
 
-* Class component `constructor`, `render`, and `shouldComponentUpdate` methods
-* Class component static `getDerivedStateFromProps` method
-* Function component bodies
-* State updater functions (the first argument to `setState`)
-* Functions passed to `useState`, `useMemo`, or `useReducer`
+* 类组件 `constructor`, `render`, 以及 `shouldComponentUpdate` 方法
+* 类组件静态 `getDerivedStateFromProps` 方法
+* 方法组件的方法体
+* 状态更新函数 (`setState` 的第一个参数)
+* 传给 `useState`, `useMemo`, 或 `useReducer` 的函数
 
-This behaviour definitely has some performance impact, but we should not worry since it takes place only in development and not in production.
+这个行为肯定对性能有一些影响，但我们不应该担心，因为它只在开发而不是生产环境中发生。
 
-That is why we managed to reproduce double-rendering only in development for a function component that was using `React.useState`. Cheers!!
+这就是我们在使用 `React.useState` 的组件函数中，只在开发环境复现渲染两次问题的原因。Cheers!!
 
-You can read the [official documentation](https://reactjs.org/docs/strict-mode.html) if you need to go deeper regarding React.StrictMode
+如果你需要继续深入研究 React.StrictMode，你可以阅读 [官方文档](https://reactjs.org/docs/strict-mode.html)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
