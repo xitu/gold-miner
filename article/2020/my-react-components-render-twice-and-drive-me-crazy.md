@@ -116,7 +116,7 @@ ReactDOM.render(
 
 ## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#what-is-reactstrictmode) 什么是 React.StrictMode?
 
-`React.StrictMode` 是在 2018 年的 [16.3.0](https://github.com/facebook/react/releases/tag/v16.3.0) 版本中引入的封装。首先，它只用在类组件中，而在 [16.8.0](https://github.com/facebook/react/releases/tag/v16.8.0) 中，它对 hook 同样适用。
+`React.StrictMode` 是在 2018 年的 [16.3.0](https://github.com/facebook/react/releases/tag/v16.3.0) 版本中引入的封装。一开始，它只用在类组件中，而在 [16.8.0](https://github.com/facebook/react/releases/tag/v16.8.0) 中，它对 hook 同样适用。
 
 就像在版本说明中提及的一样：
 
