@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/object-freeze-vs-object-seal-immutability.md](https://github.com/xitu/gold-miner/blob/master/article/2020/object-freeze-vs-object-seal-immutability.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：
+> * 校对者：[rachelcdev](https://github.com/rachelcdev)
 
 # Object.freeze VS Object.seal —— JavaScript 数据不变性
 
@@ -102,7 +102,7 @@ obj.a === 100; // 输出：true
 
 ![图片来自 [戸山 神奈](https://unsplash.com/@samuelsparkle?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*8hPZaRH0h2uk2UpX)
 
-当你听到 “seal” 这个词时，你会想到什么？ “seal” 的第一个意思是邮票或封信蜡之类的东西。在 JavaScript 中 `Object.seal` 的作用与 “密封” 相同。
+当你听到 “seal” 这个词时，你会想到什么？ “seal” 的第一个意思是印章或者蜜蜡之类封信件的东西。在 JavaScript 中 `Object.seal` 的作用与 “密封” 相同。
 
 `Object.seal` 使传入对象的所有属性都不可配置。来举个例子。
 
@@ -284,7 +284,7 @@ Object.getOwnPropertyDescriptors(obj.foo);
  */
 ```
 
-使用`Object.freeze` 和 `Object.seal` 之后，
+使用 `Object.freeze` 和 `Object.seal` 之后，
 
 ```js
 Object.seal(obj);
@@ -319,7 +319,7 @@ Object.getOwnPropertyDescriptors(obj.foo);
  */
 ```
 
-`foo` 的基础属性已经改变但嵌套的 `obj.foo` 基础属性并没有变. 这意味着嵌套的第二层仍然是可修改的。
+`foo` 的基础属性已经改变但嵌套的 `obj.foo` 基础属性并没有变。这意味着嵌套的第二层仍然是可修改的。
 
 ```js
 obj.foo = { bar: 50 };
