@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/find-top-10-meaningful-web-design-trends-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/find-top-10-meaningful-web-design-trends-in-2020.md)
 > * 译者：[Charlo](https://github.com/Charlo-O)
-> * 校对者：[hansonfang
-](https://github.com/hansonfang)、 [xujunjiejack](https://github.com/xujunjiejack)
+> * 校对者：[hansonfang](https://github.com/hansonfang)、 [xujunjiejack](https://github.com/xujunjiejack)
 
 # 寻找 2020 年最有意义的十大网页设计流行趋势
 
