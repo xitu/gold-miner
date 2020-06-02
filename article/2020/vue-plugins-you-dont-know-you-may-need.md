@@ -205,7 +205,7 @@ export default {
 
 `instance` 参数中具有 `elements` 属性，它包含加载中图片的父元素的数组。`images` 属性有一个加载中的图片数组。
 
-`v-images.on` 指令的其他修饰符包括了 `always`， `done`， `fail`， `progress`，用于监测所有的图片的加载事件、监测图片成功加载，监测图片载失败或在图像加载中状态。
+`v-images.on` 指令的其他修饰符包括了 `always`，`done`，`fail`，`progress`，用于监测所有的图片的加载事件、监测图片成功加载，监测图片载失败或在图像加载中状态。
 
 
 ## 小结
