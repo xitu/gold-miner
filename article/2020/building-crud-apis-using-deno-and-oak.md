@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/building-crud-apis-using-deno-and-oak.md](https://github.com/xitu/gold-miner/blob/master/article/2020/building-crud-apis-using-deno-and-oak.md)
 > * 译者：[lhd951220](https://github.com/lhd951220)
-> * 校对者：
+> * 校对者：[MangoTsing](https://github.com/MangoTsing)
 
 # 使用 Deno 和 Oak 构建 CRUD API
 
 ![Building CRUD api’s using Deno and oak](https://cdn-images-1.medium.com/max/2420/1*7H0kXkVQGqg-pto23TY_eQ.png)
 
-相对于 Node 来说，Deno是相当新的环境。开发者在学习 Deno 的时候通常想做的第一件事就是构建 CRUD API。 Deno 有一系列的项目帮助我们实现这个目的，包括 [deno-express](https://github.com/NMathar/deno-express)，[oak](https://github.com/oakserver/oak)，[servest](https://github.com/keroxp/servest)，[deno-drash](https://github.com/drashland/deno-drash) 和 [pogo](https://github.com/sholladay/pogo)。在这篇文章，我们将会使用 Deno 和 Oak 学习构建一个待办事项清单。
+相对于 Node 来说，Deno 是相当新的环境。开发者在学习 Deno 的时候通常想做的第一件事就是构建 CRUD API。Deno 有一系列的项目帮助我们实现这个目的，包括 [deno-express](https://github.com/NMathar/deno-express)、[oak](https://github.com/oakserver/oak)、[servest](https://github.com/keroxp/servest)、[deno-drash](https://github.com/drashland/deno-drash) 和 [pogo](https://github.com/sholladay/pogo)。在这篇文章，我们将会使用 Deno 和 Oak 学习构建一个待办事项清单。
 
 #### 我们要构建什么?
 
-Oak 是一个受到 [Koa](https://github.com/koajs/koa) 启发的项目，Koa 是一个很受欢迎并提供HTTP服务的 Node.js 中间件框架。我们将会使用 oak 和 Deno 构建一个处理待办实现清单的小应用。我们将要创建的 api 如下面的 Endpoint 显示。
+Oak 是一个受到 [Koa](https://github.com/koajs/koa) 启发的项目，Koa 是一个很受欢迎并提供 HTTP 服务的 Node.js 中间件框架。我们将会使用 oak 和 Deno 构建一个处理待办实现清单的小应用。我们将要创建的 API 如下面的 Endpoint 显示。
 
 ![List of API end points](https://cdn-images-1.medium.com/max/2000/1*gIltBeBAq5xdY7vpW-sFag.png)
 
 #### 我们如何构建它?
 
-我们需要在我们的项目库中创建两个文件，分别是 **app.ts** 和 **routes.ts** 。一个用于应用，另一个则是用于服务的路由。
+我们需要在我们的项目库中创建两个文件，分别是 **app.ts** 和 **routes.ts**。一个用于应用，另一个则是用于服务的路由。
 
 **app.ts** 文件的内容如下面的文件显示。看看我们是如何在 **app.ts** 文件中从 oak 引入 Application 模块的。我们在第 8 行创建了新的 oak 应用。我们让这个应用使用了稍后将会在 **routes.ts** 文件中定义的路由。现在，这个应用将可以运行在第 6 行指定的地址和第 5 行指定的端口上。
 
@@ -41,7 +41,7 @@ console.log(`Listening on port ${PORT}...`)
 await app.listen(`${HOST}:${PORT}`)
 ```
 
-我们将会在 **routes.ts** 中创建一个 Todo 接口，该接口包含两个字段 **id** 和 **description** 。我们将会使待办事项的 id 和待办事项的描述分别存储在这两个字段上。我们还有一个待办事项清单，其中包含首次返回时使用的初始清单。
+我们将会在 **routes.ts** 中创建一个 Todo 接口，该接口包含两个字段 **id** 和 **description**。我们将会使待办事项的 id 和待办事项的描述分别存储在这两个字段上。我们还有一个待办事项清单，其中包含首次返回时使用的初始清单。
 
 ```TypeScript
 interface Todo {
@@ -175,11 +175,11 @@ router
     .delete('/todos/:id', removeTodo)
 ```
 
-运行以下命令即可让应用运行在 [http://localhost:4000,](http://localhost:4000,) 上
+运行以下命令即可让应用运行在 [http://localhost:4000](http://localhost:4000) 上
 
 > **deno run — allow-env — allow-net app.ts**
 
-现在，应用运行在 localhost:4000 上，使用 postman 或者其他类似的工具来测试这些 api 路由接口。以下是使用 postman 测试得到的结果的屏幕截图。
+现在，应用运行在 localhost:4000 上，使用 postman 或者其他类似的工具来测试这些 API 路由接口。以下是使用 postman 测试得到的结果的屏幕截图。
 
 ![Health Check API respone](https://cdn-images-1.medium.com/max/2814/1*t3M9YRG9BL6SLkZ8c8rk9w.png)
 
