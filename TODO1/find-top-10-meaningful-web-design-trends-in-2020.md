@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/find-top-10-meaningful-web-design-trends-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/find-top-10-meaningful-web-design-trends-in-2020.md)
 > * 译者：[Charlo](https://github.com/Charlo-O)
-> * 校对者：[hansonfang](https://github.com/hansonfang)、 [xujunjiejack](https://github.com/xujunjiejack)
+> * 校对者：[hansonfang](https://github.com/hansonfang)、[xujunjiejack](https://github.com/xujunjiejack)
 
 # 寻找 2020 年最有意义的十大网页设计流行趋势
 
@@ -70,7 +70,7 @@
 
 在网站上制作高质量的内容是 SEO 时期最重要的因素，也会影响到你的网站排名和网站的整体表现。
 
-受众会关注你独特的内容，因为每天都有很多内容发布在　Google　上，但你如何为用户提供独特的内容才是最重要的。
+受众会关注你独特的内容，因为每天都有很多内容发布在 Google 上，但你如何为用户提供独特的内容才是最重要的。
 
 ## 总结
 
