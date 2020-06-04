@@ -25,7 +25,9 @@ Diversity and representativeness are usually optimized at the same time, given t
 
 Diversity is necessary to compensate for the lack of exploration of uncertainty methods, which mainly focus on regions close to the decision boundaries.
 
-![**Figure 1. In this toy example, the colored samples have been labeled, and the current classifier boundary is shown in purple. Uncertainty-based methods are more likely to select samples in the red area, closer to the classifier boundary. Representative methods are more likely to select samples in the green area since the density of samples is higher. Only diversity-based methods are likely to explore the blue area.**](https://cdn-images-1.medium.com/max/2620/1*QhL8OivIkEFZRjYTRbgAHg.png)
+![](https://cdn-images-1.medium.com/max/2620/1*QhL8OivIkEFZRjYTRbgAHg.png)
+
+Figure 1. In this toy example, the colored samples have been labeled, and the current classifier boundary is shown in purple. Uncertainty-based methods are more likely to select samples in the red area, closer to the classifier boundary. Representative methods are more likely to select samples in the green area since the density of samples is higher. Only diversity-based methods are likely to explore the blue area.
 
 Figure 1 shows a toy active learning experiment on a binary classification (square vs. triangle). It shows that uncertainty or representativeness-based functions can miss the entire part of the feature space and fail to build a model with good generalization on unseen data.
 
