@@ -23,7 +23,7 @@ Schema.org 是由 Google，Microsoft，Yahoo 和 Yandex 一起建立的一个开
 
 ![](https://cdn-images-1.medium.com/max/2000/0*WuvNN7OKDhL59cPN.png)
 
-通过 IMDb 上有关**Avengers: Endgame**的预览信息，我们可以在搜索结果中看到评分数据。这是因为 IMDb 恰当的使用 Schema.org 标记它们的内容。
+通过 IMDb 上有关 **Avengers: Endgame** 的预览信息，我们可以在搜索结果中看到评分数据。这是因为 IMDb 恰当的使用 Schema.org 标记它们的内容。
 
 从另一个角度来看 Schema.org，它类似于 [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)，但它是利了 SEO 而不是可访问性。这使得你无需修改网站的功能，但却可以增强指定的用户（在这里，用户就是搜索引擎）。
 
@@ -119,7 +119,7 @@ API 非常简单。只有三个属性：
 
 ## 测试 Schema.org 项目
 
-测试你的项目是很简单的。Google 提供了一个[结构化数据测试工具](https://search.google.com/structured-data/testing-tool) 来测试你的项目。它解析你的 HTML，并且会显示一个如何解析项中属性的树。如果 `itemtype` 中必需或建议的属性缺失，那么就会显示这些缺失属性导致的错误和警告。
+测试你的项目是很简单的。Google 提供了一个[结构化数据测试工具](https://search.google.com/structured-data/testing-tool)来测试你的项目。它解析你的 HTML，并且会显示一个如何解析项中属性的树。如果 `itemtype` 中必需或建议的属性缺失，那么就会显示这些缺失属性导致的错误和警告。
 
 这是我们使用结构化测试工具进行解析的示例：
 
