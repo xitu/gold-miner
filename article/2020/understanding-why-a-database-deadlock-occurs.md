@@ -2,43 +2,43 @@
 > * 原文作者：[Akshar Raaj](https://medium.com/@raaj.akshar)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-why-a-database-deadlock-occurs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-why-a-database-deadlock-occurs.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Gesj-yean](https://github.com/Gesj-yean)
+> * 校对者：[samyu2000](https://github.com/samyu2000), [Roc](https://github.com/QinRoc)
 
-# Understanding why a database deadlock occurs
+# 你理解数据库死锁发生的原因吗?
 
-![Photo by [Jose Fontano](https://unsplash.com/@josenothose?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11762/0*_u9DVXa89MGK57qy)
+![图片来自 [Jose Fontano](https://unsplash.com/@josenothose?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11762/0*_u9DVXa89MGK57qy)
 
-![Database deadlock](https://cdn-images-1.medium.com/max/2000/1*5fAlgCSLLbV3ByPQrtgbgQ.png)
+![数据库死锁](https://cdn-images-1.medium.com/max/2000/1*5fAlgCSLLbV3ByPQrtgbgQ.png)
 
-## Agenda
+## 说明
 
-This post attempts to explain what a database deadlock is and why they occur.
+这篇文章将向你解释什么是数据库死锁以及为什么会发生死锁。
 
-We will write SQL statements and cause deliberate deadlocks and discuss how deadlocks could be mitigated.
+我们将写一条故意造成死锁的 SQL 语句，然后讨论如何减少死锁的发生。
 
-We will use PostgreSQL as our database.
+说明一下，这里使用 PostgreSQL 作为我们的数据库。
 
-## Setup
+## 开始
 
-Let’s start a PostgreSQL shell and create a table called accounts.
+让我们启动 PostgreSQL shell 并创建一个名为 accounts 的表。
 
-```
+```base
 akshar=# create table accounts (acct_id integer, amount integer); CREATE TABLE
 ```
 
-Let’s insert two rows in this table.
+在表中插入两行。
 
-```
+```base
 akshar=# insert into accounts values (1, 500);
 INSERT 0 1
 akshar=# insert into accounts values (2, 300);
 INSERT 0 1
 ```
 
-Let’s verify the rows are inserted.
+让我们来确认一下这两行是否成功插入了。
 
-```
+```base
 akshar=# select * from accounts;
 acct_id | amount
 ---------+--------
@@ -47,25 +47,25 @@ acct_id | amount
 (2 rows)
 ```
 
-## Transaction
+## 事务
 
-It’s essential to have a basic understanding of transaction to properly understand a deadlock.
+要正确理解死锁，必须对事务有基本的了解。
 
-Transaction is a DBMS feature which keeps the database in a coherent and reliable state. Wikipedia defines a transaction as:
+事务是 DBMS 的一个特性，它使数据库保持一致和可靠的状态。维基百科将事务定义为：
 
+```base
+在数据库管理系统中，数据库事务象征着数据库执行的工作单元，并以独立于其他事务的一致和可靠的方式进行处理。
 ```
-A database transaction symbolizes a unit of work performed within a database management system against a database, and treated in a coherent and reliable way independent of other transactions.
-```
 
-Transaction guarantees ACID compliance. Read [this for an understanding of ACID](https://en.wikipedia.org/wiki/ACID).
+事务保证了对 ACID 的遵守。阅读 [理解 ACID](https://en.wikipedia.org/wiki/ACID)。
 
-A bank account transfer is a classic case to understand database transaction. Let’s assume our application provides a functionality to transfer an amount from account A to account B.
+银行账户转账是理解数据库事务的经典案例。假设我们的应用程序提供了从帐户 A 转账到帐户 B 的功能。
 
-During a transfer, account A should get debited and B should get credited. Debit and Credit form a single unit of work. Either both the operations should happen or neither of them should happen. That’s why these two statements should be part of a single transaction.
+在转账过程中，A 账户金额减少，B 账户金额增加。两者构成一个程序执行单元。要么两个操作都发生，要么两个都不发生。所以这两个语句是单个事务的一部分。
 
-Let’s start a `psql` shell and do a transaction to transfer money from one account to another.
+让我们启动一个 `psql` shell 并执行一个事务，将钱从一个帐户转移到另一个帐户。
 
-```
+```base
 akshar=# begin transaction;
 BEGIN
 akshar=# update accounts set amount=amount-10 where acct_id=1; UPDATE 1
@@ -74,9 +74,9 @@ akshar=# commit;
 COMMIT
 ```
 
-Let’s check the amounts in both accounts.
+让我们核对一下这两个账户的金额。
 
-```
+```base
 akshar=# select * from accounts;
 acct_id | amount
 ---------+--------
@@ -85,88 +85,88 @@ acct_id | amount
 (2 rows)
 ```
 
-This suggests that the transfer was successfully done and our transaction code is correct.
+结果表示转账成功，我们的事务代码是正确的。
 
-## Causing deadlock
+## 引起死锁
 
-We will deliberately cause a deadlock now.
+我们现在要故意制造死锁的情况。
 
-Any production ready DBMS is capable of serving multiple simultaneous processes. We will simulate two simultaneous amount of transfers by running two `psql` shells.
+任何生产环境使用的 DBMS 都能够提供多个并发进程服务。我们将通过运行两个 `psql` shell 来模拟两个同时进行的转账。
 
-First shell will simulate a process which does amount transfer from account 1 to 2. Second shell will simulate a process which does a transfer from account 2 to 1.
+第一个 shell 将模拟从账户 1 向账户 2 转账的过程。第二个 shell 将模拟从账户 2 向账户 1 转账的过程。
 
-Account 1 wants to transfer amount 10 to account 2. We will do this on first shell.
+账户 1 向账户 2 转账，金额为 10，我们将执行第一个 shell 来完成这一过程。
 
-```
+```base
 akshar=# begin transaction;
 BEGIN
 akshar=# update accounts set amount=amount-10 where acct_id=1; UPDATE 1
 ```
 
-Simultaneously i.e before first transaction could complete, account 2 decided to transfer amount 20 to account 1. We will do this on second shell
+同时在第一次交易完成之前，账户 2 向账户 1 转账 20 的金额。我们将在第二个 shell 中做这个操作。
 
-```
+```base
 akshar=# begin transaction;
 BEGIN
 akshar=# update accounts set amount=amount-20 where acct_id=2; UPDATE 1
 ```
 
-Let’s assume the DBMS gave the first process a chance to run next. So let’s simulate that by crediting account 2 on first shell.
+假设 DBMS 给了第一个进程执行下一步的机会。这时我们在第一个 shell 中模拟帐户 2 增加金额。
 
-```
+```base
 akshar=# update accounts set amount=amount+10 where acct_id=2;
 ```
 
-You should notice that the database wouldn’t return with a success message, instead it is blocked and you wouldn’t get any response.
+你应该注意到数据库没有返回成功消息，因为进程被阻塞了，所以我们得不到任何响应。
 
-This happened because the row for acct_id=2 is currently `locked` because process 2 did an update on that row. Process 1 cannot get hold of that lock until process 2 releases it.
+这种情况之所以发生，是因为进程 2 对该行进行了更新，acct_id=2 的行当前被 锁定了。进程 1 在进程 2 释放该进程之前无法获得该锁。
 
-The database would now give process 2, a chance to run. So let’s simulate that by crediting account 1 on second shell.
+数据库现在将给进程 2 一个执行的机会。我们在第二个 shell 中模拟帐户 1 增加金额。
 
-```
+```base
 akshar=# update accounts set amount=amount+20 where acct_id=1;
 ```
 
-The database would have returned an `ERROR: deadlock detected`.
+数据库将返回： `错误: 检测到死锁`。
 
-```
+```base
 ERROR: deadlock detected
 DETAIL: Process 77716 waits for ShareLock on transaction 173312; blocked by process 76034.
 Process 76034 waits for ShareLock on transaction 173313; blocked by process 77716.
 HINT: See server log for query details. CONTEXT: while updating tuple (0,3) in relation "accounts"
 ```
 
-Process 1 had already locked the db row with acct_id=1 when it debited amount 10 from account 1. Now process 2 tried to do an update on the same row, this step needs the lock. Process 2 could only acquire the lock if process 1 releases it. But process 1 is blocked waiting for process 2 to release the lock on acct_id=2. Essentially process 1 is waiting for a lock to be released by process 2 and process 2 is waiting for a lock to be released by process 1. This is a deadlock.
+当进程 1 从帐户 1 扣除金额 10 时，它已经锁定了 acct_id=1 的 db 行。现在，进程 2 尝试对同一行进行更新，这一步需要锁。进程 2 只有在进程 1 释放锁时才能获得锁。但是进程 1 被阻塞，等待进程 2 释放 acct_id=2 上的锁。总的来说，进程 1 正在等待进程 2 释放一个锁，而进程 2 正在等待进程 1 释放一个锁。这就是死锁。
 
-Database is smart enough to detect a deadlock.
+数据库能灵敏的检测到死锁。
 
-Database would raise this deadlock error in process 2 shell. Once deadlock error is raised all the locks held by this process are released. This also gives process 1 a chance to acquire the needed lock.
+数据库将在进程 2 的 shell 中引发此死锁。一旦抛出死锁错误，进程 2 持有的所有锁都会被释放。这也让进程 1 有机会获得所需的锁。
 
-Check process 1 shell, the blocked command would have returned and amount 10 would have been credited to account 2.
+检查进程 1 的 shell，已阻塞的命令将被 return，金额 10 被记入帐户 2。
 
-```
+```base
 akshar=# update accounts set amount=amount+10 where acct_id=2; UPDATE 1
 ```
 
-Try to issue a `commit` on process 2 shell.
+尝试在进程 2 的 shell 上 `commit`。
 
-```
+```base
 akshar=# commit;
 ROLLBACK
 ```
 
-Since a deadlock was detected, it means the commands wouldn’t have succeeded and so commit could lead database into an inconsistent and unreliable state. DBMS is smart to realize that and so even issuing a `commit` would lead to a `rollback`.
+由于检测到死锁，这意味着命令执行失败，因此 commit 可能导致数据库进入不一致和不可靠的状态。DBMS 也聪明地意识到这一点，所以即使执行 `提交` 事务的命令，也将 `回滚`。
 
-But since process 1 commands executed successfully, so `commit` can be issued on process 1 shell.
+但是由于进程 1 命令成功执行，所以可以在进程 1 的 shell 上发出 `commit`。
 
-```
+```base
 akshar=# commit;
 COMMIT
 ```
 
-You should be able to verify that account 1 was debited by amount 10 and account 2 was credited by amount 10.
+现在能够验证账户 1 转出了金额 10，而账户 2 转入了金额 10。
 
-```
+```base
 akshar=# select * from accounts;
 acct_id | amount
 ---------+--------
@@ -175,11 +175,11 @@ acct_id | amount
 (2 rows)
 ```
 
-## Handling deadlock
+## 处理死锁
 
-Concurrency is a reality and is unavoidable. It is very much possible that multiple processes simultaneously attempt to update the same set of rows and get blocked by each other. Deadlock is inevitable in such cases.
+并发操作是一种真实和不可避免的情况。很有可能多个进程同时尝试操作一行导致彼此阻塞。在这种情况下，死锁是无法避免的。
 
-Deadlock should be handled at the application level in such cases. There has to be exception handling code to catch deadlock errors and retry the failed transaction.
+在这种情况下，应该在应用程序中处理死锁。必须有异常处理代码来捕获死锁错误，然后重新执行失败的事务。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
