@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-why-a-database-deadlock-occurs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-why-a-database-deadlock-occurs.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：[samyu2000](https://github.com/samyu2000)，[Roc](https://github.com/QinRoc)
+> * 校对者：[samyu2000](https://github.com/samyu2000), [Roc](https://github.com/QinRoc)
 
 # 你理解数据库死锁发生的原因吗?
 
