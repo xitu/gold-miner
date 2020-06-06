@@ -2,26 +2,26 @@
 > * 原文作者：[dave.js](https://medium.com/@_davejs)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/some-arbitrary-number-of-lesser-known-graphql-features.md](https://github.com/xitu/gold-miner/blob/master/article/2020/some-arbitrary-number-of-lesser-known-graphql-features.md)
-> * 译者：
-> * 校对者：
+> * 译者：[hansonfang](https://github.com/hansonfang)
+> * 校对者：[rachelcdev](https://github.com/rachelcdev), [lhd951220](https://github.com/lhd951220)
 
-# Some Arbitrary Number of Lesser-Known GraphQL Features
+# 鲜为人知的 GraphQL 特性
 
 ![](https://cdn-images-1.medium.com/max/7256/1*fcV8mO_Z0iAO3iXmGNlMwA.png)
 
-Every time you turn your head some new web technology spontaneously spawns into existence. It seemed like just yesterday, GraphQL was one of them. In reality, GraphQL has been out in the wild for about five years. Oh how the precious years escape us…
+新的 Web 技术每次都会在你不经意的扭头的一瞬间就出现了。好像就是昨天，GrapQL 还是其中之一。但事实上，GraphQL 出世已经差不多五年了。不禁让人感叹时光的流逝。
 
-Despite it being relatively old news, it’s still quite new to the vast majority of software developers. If you’re one of those developers, just dipping your toes into the pond of GraphQL — **RUN! IT’S A TRAP!** Nah, just kidding. GraphQL is great! Hope I didn’t scare you away.
+尽管 GraphQL 已经是个相对比较旧的事物，但对于大多数软件工程师来说，它仍然是个新鲜玩意。如果你就是这大多数软件工程师之一，不妨去试试水 ——— **快跑吧，这玩意就是个陷阱** 当然我是开玩笑的。GraphQL 实际上是很棒的，希望你不要被我吓跑。
 
-This list includes only client-side features so they’re usable with any GraphQL endpoint. No special changes need to be made to the server for these to work. (Perhaps lesser-known GraphQL server features will be my next blog post.)
+以下列表内容仅仅是 GraphQL 客户端的特性，这样你可以在任意 GraphQL 发送端使用，服务端不需要特别的修改(可能下次我会写篇鲜为人知的 GraphQL 服务端特性)
 
-Anyway, enough rambling. Here’s a list of neat lesser-known GraphQL features that I think are pretty neat!
+闲话少说，下面就是我列举的一些鲜为人知的 GraphQL 功能，这些功能点都是非常简洁的。
 
-For the examples in this post, we’ll be using the [SpaceX GraphQL API](https://api.spacex.land/graphql/).
+对于文中的示例 API，我用的是 [SpaceX GraphQL API](https://api.spacex.land/graphql/).
 
-## 1. Field Aliases
+## 1. 字段别名
 
-Aliases allow you to rename a field in your query. Here’s a simple query that renames the `ceo` field to `bossMan`:
+别名允许你在一段查询中重命名一个字段。这里有一个把字段 `ceo` 改为 `bossMan` 的查询样例:
 
 ```
 query CEO {
@@ -31,7 +31,7 @@ query CEO {
 }
 ```
 
-which resolves the following result:
+解析返回的数据是：
 
 ```
 {
@@ -43,9 +43,9 @@ which resolves the following result:
 }
 ```
 
-This is a trivial example, so let’s do something more useful with it now.
+这就是一个小例子，我们现在来看点更有用的。
 
-Aliasing can also be used to get different sets of data from the same GraphQL field. For example, let’s get two rockets and rename them based on their `id`:
+别名也能用于在相同的 GraphQL 字段中拿到不同名称的数据集合。比如，我想获取两个火箭信息并根据他们的 `id` 重命名:
 
 ```
 query Ships {
@@ -66,7 +66,7 @@ query Ships {
 }
 ```
 
-which resolves to the following result:
+解析返回的数据是：
 
 ```
 {
@@ -89,9 +89,9 @@ which resolves to the following result:
 }
 ```
 
-## 2. Fragments
+## 2. 片段
 
-Fragments let you reuse common pieces of a query or mutation. To demonstrate this, we can refactor our last example to reuse the ship details.
+片段可以复用一段查询或变更中多次使用的公共语句，下面演示一下，可以重构上一个例子为获取飞船信息。
 
 ```
 fragment shipDetails on Rocket {
@@ -112,13 +112,13 @@ query Ships {
 }
 ```
 
-Notice that for fragments, we need to use `on [Type]` to specify which fields are available on the fragment. This helps GraphQL autocomplete your fragment, and more importantly, catch errors when you try to use a fragment in a type that doesn’t match.
+注意在片段中，需要使用 `on [Type]` 来指定片段上哪些字段是可用的。这将对自动补全非常有用，还有一件重要的事，在使用片段时要捕捉错误防止出现类型不匹配的情况。
 
-## 3. Default Variables
+## 3. 默认变量
 
-When writing your queries for use in an app, you’ll typically want to pass variables into it so you can change the query at runtime. Just like default function parameters in JavaScript, GraphQL can also take advantage of default values.
+当在一个应用中写查询时，通常会传递给查询一些变量以便在运行时改变查询。就像 JavaScript 中的函数默认参数，GraphQL 也可以利用默认值。
 
-Let’s query a given rocket and set the default rocket to `"falconheavy"` because it’s dope AF. 🚀
+让我们查询一个火箭信息并将默认火箭信息设置为 `"falconheavy"`( SpaceX 的重型猎鹰)，简直帅呆了。 🚀
 
 ```
 query Ship($rocketId: ID! = "falconheavy") {
@@ -132,9 +132,9 @@ query Ship($rocketId: ID! = "falconheavy") {
 }
 ```
 
-## Bonus: Variables Within Fragments
+## 额外一条：带变量的片段
 
-Yes! Variables can even be used within fragments. This seems a bit odd to me because the usage of the variable looks like it’s out of scope of where it’s defined, but that’s just how it works.
+是的！变量甚至可以用在片段中。这在我看来有点奇怪，因为变量的使用似乎超出了它定义的范围，但它的确能工作。
 
 ```
 fragment ship on Query {
