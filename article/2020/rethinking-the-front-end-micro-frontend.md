@@ -2,64 +2,64 @@
 > * 原文作者：[Ritesh Kumar](https://medium.com/@riteshiitbbs)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/rethinking-the-front-end-micro-frontend.md](https://github.com/xitu/gold-miner/blob/master/article/2020/rethinking-the-front-end-micro-frontend.md)
-> * 译者：
-> * 校对者：
+> * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
+> * 校对者：[刘海东](https://github.com/lhd951220) [X. Zhuo](https://github.com/z0gSh1u)
 
-# Rethinking the Front-end: Micro Frontend
+# 重新思考前端：微前端
 
 ![](https://cdn-images-1.medium.com/max/2000/1*8wFsg7DNlsY8IFpEr6_Szg.jpeg)
 
-> The front end is getting bigger and bigger for most of the **web apps** and the back end is becoming less relevant. I would assume that the majority of new web applications that are being developed today are facing a similar situation.
+> 假设如今正在开发的大多数 Web 应用程序，都面临着类似的情况：前端变得越来越大，而与后端的相关性越来越小。
 
-This includes support to enable the coexistence of different front-end frameworks, e.g. older modules built-in JQuery or AngularJS 1.x, in conjunction with newer modules built-in React or Vue.
+重新思考不同的前端框架如何共存，例如，使用 JQuery 或 AngularJS 1.x 构建的旧模块，与使用 React 或 Vue 构建的新模块联动。
 
-#### The monolithic method isn’t working for broader web applications.
+#### 整体方法不适用于普遍的 Web 应用程序。
 
-Managing 10 projects with 10 people each is simpler than managing one big project with 100 people each.
+管理十个十人的项目，要比管理一个百人的大项目更简单。
 
-Scalability is the main conception here. By simplifying, we ‘re getting:
+可扩展性在这里是主要的构想。我们可以简化得到：
 
-- Separate repositories
-- Independent deployments
-- Builds and releases faster
-- Autonomous teams
-- Easier testing and handling
+- 独立仓库
+- 单独部署
+- 更快速构建与发布
+- 自主的团队
+- 更轻松测试与处理
 
-**To give an example:**
+**举个例子:**
 
-**Myapp.com/-** Static HTML-built landing page.
+**Myapp.com/** - 静态 HTML 构建的登录页面.
 
-**Myapp.com/settings -**old module of settings installed into AngularJS 1.x.
+**Myapp.com/settings** - 安装了 AngularJS 1.x 的陈旧设置模块。
 
-**Myapp.com/dashboard** - Built in React, new dashboard module.
+**Myapp.com/dashboard** - 使用 React 构建的新仪表盘模块。
 
-I would imagine it requires the following:
+我可以想象它有以下需求：
 
-- > A shared codebase in pure JavaScript e.g. routing management and user session management. Some have exchanged CSS. Both should be as slim as they can be.
-- > A series of “mini-apps” independent modules designed in various frameworks, stored in different code repositories.
-- > A deployment framework that bundles all modules from different repositories together, and deploys to a server whenever a module is modified.
+- > 纯 JavaScript 的共享代码库，例如路由管理与用户会话管理。以及一些可共用的 CSS。两者都应该尽可能的轻量。
+- > 在各种框架中设计的一系列“微型应用”独立模块，存储在不同的代码库中。
+- > 一套部署架构，将不同代码库的模块都捆绑在一起，并在模块被修改时，将其更新到服务器。
 
-**But as it turns out, several other people are pondering the same thoughts. The typical term is “micro frontends”.**
+**但事实证明，其他人也在思考同样的问题。典型术语是“微前端”。**
 
-![Source: cygnismedia](https://cdn-images-1.medium.com/max/2100/1*rxsVRHNFdG-6gvOIUGAdcw.jpeg)
+![来源: cygnismedia](https://cdn-images-1.medium.com/max/2100/1*rxsVRHNFdG-6gvOIUGAdcw.jpeg)
 
-![Source: cygnismedia](https://cdn-images-1.medium.com/max/2896/1*rhF-hehEm-EN1lu8FnDvgw.png)
+![来源: cygnismedia](https://cdn-images-1.medium.com/max/2896/1*rhF-hehEm-EN1lu8FnDvgw.png)
 
-React is by far the most popular one as it has greatly evolved over the years and has made the life of developer easy.
+React 多年来发展迅捷，并且使开发人员的工作变得更轻松，是目前最流行的微前端框架.
 
-## Implementing micro frontends
+## 实现微前端
 
-Here are a few different methods to implementing micro frontends:
+以下是实现微前端的几种不同方法：
 
-1. [**Single-SPA** “meta framework”](https://github.com/CanopyTax/single-spa) to combine multiple frameworks on the same page without refreshing the page (see [this demo](https://single-spa.surge.sh/) that combines React, Vue, Angular 1, Angular 2, etc). See [Bret Little’s explanation here](https://medium.com/@blittle/great-article-d618ef46161c).
-2. [**Multiple single-page apps that existat different URLs**](https://news.ycombinator.com/item?id=13011795). The apps use NPM/Bower components for shared functionality.
-3. Isolating micro-apps into [**IFrames** using libraries and Window.postMessage APIs](https://news.ycombinator.com/item?id=13009285) to coordinate. IFrames share APIs exposed by their parent window.
-4. [**Web Components** as the integration layer](https://technologyconversations.com/2015/08/09/including-front-end-web-components-into-microservices/).
-5. [“Blackbox” **React** components](https://news.ycombinator.com/item?id=13012916).
+1. [**Single-SPA** “元框架”](https://github.com/CanopyTax/single-spa) 无须刷新，便可将多个框架组合在同一页面（参考组合了 React、 Vue、 Angular 1 与 Angular 2 等框架的[示例](https://single-spa.surge.sh/)）。[在这里参考 Bret Little 的解释](https://medium.com/@blittle/great-article-d618ef46161c)。
+2. [**存在于不同 URL 的多个单页应用程序**](https://news.ycombinator.com/item?id=13011795)。 这些应用程序使用 NPM 或 Bower 组件来共享功能。
+3. 通过[第三方库与 Window.postMessage API 配合](https://news.ycombinator.com/item?id=13009285)，将微应用隔离到 **IFrames** 中。
+4. [**Web组件**作为集成层](https://technologyconversations.com/2015/08/09/including-front-end-web-components-into-microservices/)。
+5. [**React** 的“黑盒”组件](https://news.ycombinator.com/item?id=13012916)。
 
-Happy reading!
+阅读愉快！
 
-Cheers,
+干杯，
 Ritesh :)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。

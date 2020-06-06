@@ -2,26 +2,26 @@
 > * 原文作者：[Kailas Walldoddi](https://medium.com/@kailashwall)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/building-crud-apis-using-deno-and-oak.md](https://github.com/xitu/gold-miner/blob/master/article/2020/building-crud-apis-using-deno-and-oak.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lhd951220](https://github.com/lhd951220)
+> * 校对者：[MangoTsing](https://github.com/MangoTsing)
 
-# Building CRUD APIs using Deno and oak
+# 使用 Deno 和 Oak 构建 CRUD API
 
 ![Building CRUD api’s using Deno and oak](https://cdn-images-1.medium.com/max/2420/1*7H0kXkVQGqg-pto23TY_eQ.png)
 
-Deno is fairly new environment compared to Node. One of the first thing that a developer would want to do while learning Deno is to build CRUD api’s. Deno has several several projects which help us achieve this namely, [deno-express](https://github.com/NMathar/deno-express), [oak](https://github.com/oakserver/oak), [servest](https://github.com/keroxp/servest), [deno-drash](https://github.com/drashland/deno-drash),and [pogo](https://github.com/sholladay/pogo). In this article we will learn about building a todo list using Deno and Oak.
+相对于 Node 来说，Deno 是相当新的环境。开发者在学习 Deno 的时候通常想做的第一件事就是构建 CRUD API。Deno 有一系列的项目帮助我们实现这个目的，包括 [deno-express](https://github.com/NMathar/deno-express)、[oak](https://github.com/oakserver/oak)、[servest](https://github.com/keroxp/servest)、[deno-drash](https://github.com/drashland/deno-drash) 和 [pogo](https://github.com/sholladay/pogo)。在这篇文章，我们将会使用 Deno 和 Oak 学习构建一个待办事项清单。
 
-#### What are we building?
+#### 我们要构建什么?
 
-Oak is project that has been inspired by [Koa](https://github.com/koajs/koa), a popular Node.js HTTP middle-ware framework. We will use oak and Deno to build a small application which will deal with todos list. The api we are going to build will have following end points.
+Oak 是一个受到 [Koa](https://github.com/koajs/koa) 启发的项目，Koa 是一个很受欢迎并提供 HTTP 服务的 Node.js 中间件框架。我们将会使用 oak 和 Deno 构建一个处理待办实现清单的小应用。我们将要创建的 API 如下面的 Endpoint 显示。
 
 ![List of API end points](https://cdn-images-1.medium.com/max/2000/1*gIltBeBAq5xdY7vpW-sFag.png)
 
-#### How are we building it?
+#### 我们如何构建它?
 
-we need to create two files **app.ts** and **routes.ts** in our project repository. one for app and other one for serving routes.
+我们需要在我们的项目库中创建两个文件，分别是 **app.ts** 和 **routes.ts**。一个用于应用，另一个则是用于服务的路由。
 
-The content of **app.ts** file is as shown in following gist file. Look at how we are importing Application module from oak in **app.ts** file. We create a new oak application at line #8. we make this app use the routes we will later define in **routes.ts** file. Now this app will run on the specified host and port given on line#5 and line #6.
+**app.ts** 文件的内容如下面的文件显示。看看我们是如何在 **app.ts** 文件中从 oak 引入 Application 模块的。我们在第 8 行创建了新的 oak 应用。我们让这个应用使用了稍后将会在 **routes.ts** 文件中定义的路由。现在，这个应用将可以运行在第 6 行指定的地址和第 5 行指定的端口上。
 
 ```TypeScript
 import { Application } from 'https://deno.land/x/oak/mod.ts';
@@ -41,7 +41,7 @@ console.log(`Listening on port ${PORT}...`)
 await app.listen(`${HOST}:${PORT}`)
 ```
 
-We will create an interface for Todo in **routes.ts** which will have two fields **id** and **description**. we will store todo id and todo description in these fields respectively. We also have a **todos** list with initial values to be returned for the first time.
+我们将会在 **routes.ts** 中创建一个 Todo 接口，该接口包含两个字段 **id** 和 **description**。我们将会使待办事项的 id 和待办事项的描述分别存储在这两个字段上。我们还有一个待办事项清单，其中包含首次返回时使用的初始清单。
 
 ```TypeScript
 interface Todo {
@@ -61,7 +61,7 @@ let todos: Array<Todo> = [
 ]
 ```
 
-We will now define functions to support the listing operation of todos, fetching specific todo by id, creation of new todo, update/delete of specific todo description by id. The code for the same can be seen in following gist file.
+我们现在来定义一些支持待办事项的列表操作的相关函数，通过 id 获取指定的待办事项，创建新的待办事项，通过 id 更新/删除指定待办事项的描述。可以从下面的文件中看到类似的代码。
 
 ```TypeScript
 export const getTodos = ({ response }: { response: any }) => {
@@ -160,7 +160,7 @@ export const getHome = ({ response }: { response: any }) => {
 }
 ```
 
-We have created and exported routes to consume these functions as following.
+我们通过下面的函数创建并导出了路由。
 
 ```TypeScript
 import { Router } from 'https://deno.land/x/oak/mod.ts'
@@ -175,11 +175,11 @@ router
     .delete('/todos/:id', removeTodo)
 ```
 
-Run the following command to get the app running on [http://localhost:4000,](http://localhost:4000,)
+运行以下命令即可让应用运行在 [http://localhost:4000](http://localhost:4000) 上
 
 > **deno run — allow-env — allow-net app.ts**
 
-Now that the app is running on localhost:4000, use postman or similar apps for testing the api endpoints. Following are screenshot of the results in postman.
+现在，应用运行在 localhost:4000 上，使用 postman 或者其他类似的工具来测试这些 API 路由接口。以下是使用 postman 测试得到的结果的屏幕截图。
 
 ![Health Check API respone](https://cdn-images-1.medium.com/max/2814/1*t3M9YRG9BL6SLkZ8c8rk9w.png)
 
@@ -191,9 +191,9 @@ Now that the app is running on localhost:4000, use postman or similar apps for t
 
 ![DELETE operation to delete todo by Id.](https://cdn-images-1.medium.com/max/2820/1*9gQDicmapSbarTQsNgCcnA.png)
 
-**If you simple want to clone the code, I used in this article and see how it is working. you can checkout the code from GitHub using following link.**
+**如果你想克隆我在文章中使用的代码，以此观察它是如何工作的。你可以使用下面的链接在 GitHub 上查看。**
 
-**Source-Code link :**[ https://github.com/Kailashw/deno-api-oak](https://github.com/Kailashw/deno-api-oak)
+**源码链接 :**[ https://github.com/Kailashw/deno-api-oak](https://github.com/Kailashw/deno-api-oak)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
