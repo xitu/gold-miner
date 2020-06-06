@@ -2,8 +2,8 @@
 > * 原文作者：[dave.js](https://medium.com/@_davejs)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/some-arbitrary-number-of-lesser-known-graphql-features.md](https://github.com/xitu/gold-miner/blob/master/article/2020/some-arbitrary-number-of-lesser-known-graphql-features.md)
-> * 译者：
-> * 校对者：
+> * 译者：[hansonfang](https://github.com/hansonfang)
+> * 校对者：[rachelcdev](https://github.com/rachelcdev), [lhd951220](https://github.com/lhd951220)
 
 # 鲜为人知的 GraphQL 特性
 
