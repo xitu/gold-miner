@@ -200,7 +200,8 @@ cache.items()
   head • (x|"three"|•)  (•|"two"|•)  (•|"one"|x) • tail
                └<────────┘   └<───────┘   └<─────┘
 
-2. 访问 "two" 键，我们先将该元素从列表中提取出来，并将它的前一个元素和后一个元素重新链接起来。
+2. 访问 "two" 键，我们先将该元素从列表中提取出来
+并将它的前一个元素和后一个元素重新链接起来。
 
   提取：(x|"two"|x)
 
@@ -265,7 +266,6 @@ function DoublyLinkedList() {
 
 //执行操作
 // 应该被包裹在列表的方法内
-
 const list = new DoublyLinkedList();
 
 const node1 = new Node('one');
@@ -303,18 +303,15 @@ node2.previous = node1;
 
 ```js
 // 由 256 位无符号的 16 位字节整数组成的类型化数组
-
 const array = new Uint16Array(256);
 
 // 将每个索引都初始化为 0。
 // 我们可以很自然地读取/设置元素
-
 array[10] = 34;
 array[10];
 >>> 34
 
 // 但是这个缓存：我们不能添加一个新的元素
-
 array.push(45);
 >>> throw `TypeError: array.push is not a function`
 ```
@@ -369,7 +366,6 @@ node2.previous = node1;
 const list = new FixedCapacityDoublyLinkedList(2);
 
 // 第一个节点
-
 list.keys[0] = 'one';
 list.values[0] = 1;
 
@@ -408,7 +404,8 @@ list.tail = 1;
   prev   = [    1,     2,       x]
   next   = [    x,     0,       1]
 
-// x (空指针) 应该为 0 ，但是简单起见不用考虑这么多
+// x (空指针) 应该为 0 
+//但是简单起见不用考虑这么多
 ```
 
 所以，如果我们使用新方案 “重新运行” [前面的例子](#lru-cache-list-operations) 所需的列表操作，我们会得到：
@@ -562,6 +559,7 @@ list.tail = 1;
 所以，恳请您测试您的代码，因为您的具体场景可能不尽相同。
 
 祝您生活愉快！
+
 -----
 
 ## 杂记
@@ -578,7 +576,6 @@ list.tail = 1;
 > 我尝试实现基于树的键值关联数据结构，如 [CritBit trees](https://cr.yp.to/critbit.html)，但必须说还是无法击败 JavaScript 对象或 map 映射。
 > 您仍然可以实现这些树，以便它们在特定用例下的性能仅比原生对象低 2 到 5 倍，同时保持字典顺序。我猜这也不算太坏?
 > 自由查阅尚未归档的代码 [这里](https://github.com/Yomguithereal/mnemonist/blob/master/critbit-tree-map.js)
-
 
 这意味着您不可能在 JavaScript 中运行您自己的 map，比如，一个具有低消耗删除功能的固定容量映射，并且希望能够超越原生对象已经提供给您的 map。
 
@@ -624,7 +621,6 @@ list.tail = 1;
 ### 相关链接
 
 * 你会发现 [mnemonist](https://yomguithereal.github.io/mnemonist/) 非常有用。它包含的很多 JavaScript 高效和内聚的数据结构的实现。
-
 * 我做了一个关于 2019 年在 FOSDEM 用 JavaScript 实现数据结构的演讲 ([slides](https://yomguithereal.github.io/mnemonist/presentations/fosdem2019))。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
