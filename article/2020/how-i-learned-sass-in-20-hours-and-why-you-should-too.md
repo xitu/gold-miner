@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-i-learned-sass-in-20-hours-and-why-you-should-too.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-i-learned-sass-in-20-hours-and-why-you-should-too.md)
 > * 译者：[z0gSh1u](https://github.com/z0gSh1u)
-> * 校对者：
+> * 校对者：[Rachel Cao](https://github.com/rachelcdev)、[hansonfang](https://github.com/hansonfang)
 
 # 我是如何用 20 小时学会 Sass 的以及为什么你也应该这么做
 
@@ -49,11 +49,11 @@
 
 #### 过程
 
-我排了排一些 udemy、pluralsight 和 codecademy 上面的关于 Sass 的好课程，探究了一下它们间的相似之处，设计了这份大纲。这给我的 Sass 学习构建了一个大概的结构。
+我通过整理在 udemy、pluralsight 和 codecademy 上面的关于 Sass 的优质课程，探究了一下它们间的相似之处，设计了这份大纲。这给我的 Sass 学习构建了一个大概的结构。
 
 #### 寻找资源
 
-我更喜欢通读文档，因为它包括了这门语言为什么诞生的精髓，是一个很好的入门之处。如果你想，你也可以去找一个好的课程。对于 Sass 来说，官方文档就是最好的学习之处。
+我更喜欢通读文档，因为它包括了这门语言为什么诞生的精髓，同时也是很好的入门资源。如果你想，你也可以去找一个好的课程。对于 Sass 来说，官方文档就是最好的学习之处。
 
 #### 多加练习
 
@@ -65,7 +65,7 @@ Sass 拥有一个大的开发者社区环境，所以大多数问题都有现成
 
 ## 给 Sass 初学者的指引
 
-* **Sass 还是 Scss** 最主要的区别是语法方面的，Scss 有大括号和分号，就像平常的 CSS 一样，而 Sass 是基于缩进、换行的，Tab 能够解决你的需要。Sass 文件的后缀是 .sass，Scss 文件的后缀是 .scss。
+* **Sass 还是 Scss** 最主要的区别是语法方面的，Scss 有大括号和分号，就像平常的 CSS 一样，而 Sass 是基于缩进、换行和制表符的。Sass 文件的后缀是 .sass，Scss 文件的后缀是 .scss。
 
 ```scss
 .scss-code {
@@ -100,7 +100,7 @@ ul {
 ```
 
 * **浏览器产商前缀** 浏览器产商前缀是我们为了浏览器兼容性，给 box-shadow 之类的属性添加的额外规则。在 Sass 中你不需要这么做。在编译后，它会为你自动生成浏览器厂商前缀。
-* **模块化** 很多时候，我们要花很长时间、很多工夫在长长的样式表中找到一个特定元素的特定样式规则。Sass 让你的代码模块化、实现局部化。你可以为 header、sidebar、navbar、cards、footer 编写独立的规则文件，然后只需用 @import 或者 @use 就可以在主文件中导入它们。这真的会省很多时间，也让事情变得简单多了。
+* **模块化** 长期以来，我们经常要花很多工夫在长长的样式表中，找到一个特定元素的样式规则。Sass 让你的代码模块化、实现局部化。你可以为 header、sidebar、navbar、cards、footer 编写独立的规则文件，然后只需用 @import 或者 @use 就可以在主文件中导入它们。这真的会省很多时间，也让事情变得简单多了。
 * **继承** 有时候，我们会有在很多元素上使用的公共的样式。无需再写一次，你可以使用 Sass 中的 @extend 或 @mixins。mixins 支持传入参数，extend 就不支持了。
 
 ---
