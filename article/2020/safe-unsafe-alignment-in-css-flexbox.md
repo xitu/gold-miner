@@ -53,7 +53,7 @@ CSS 的使命是让访问者看到内容和元素。CSS 就是为此而生的。
 
 由于 Flexbox 的对齐机制，子元素无论如何都是居中的。子元素的左侧和右侧发生了溢出。问题是，左侧的溢出部分在视口的起始边缘以外。你无法通过滚动来显示这一部分 —— 这样就发生了数据的丢失。
 
-在这种情况下，`align-items` 属性的 `safe` 关键词就派上用场了。 [The CSS Box Alignment Module Level 3](https://drafts.csswg.org/css-align-3/#overflow-values)（仍处于草稿状态）中对安全对齐是这样定义的：
+在这种情况下，`align-items` 属性的 `safe` 关键词就派上用场了。[The CSS Box Alignment Module Level 3](https://drafts.csswg.org/css-align-3/#overflow-values)（仍处于草稿状态）中对安全对齐是这样定义的：
 
 > “安全” 的对齐方式在溢出时改变了对齐模式，以避免数据丢失。
 
@@ -73,7 +73,7 @@ CSS 的使命是让访问者看到内容和元素。CSS 就是为此而生的。
 
 ## `safe` 对齐的浏览器支持情况
 
-仅有 Firefox 支持 `safe` 关键字，暂未实现[跨浏览器支持](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items#Support_in_Flex_layout)。 **我不推荐现在就使用它**，因为它无法优雅地降级。你可以说这种安全方式本应该是 `align-items` 属性默认支持的，但我也没辙，CSS 确实有些难以驯服。而制定 CSS 规范就更复杂了。🤷🏻‍♂️
+仅有 Firefox 支持 `safe` 关键字，暂未实现[跨浏览器支持](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items#Support_in_Flex_layout)。**我不推荐现在就使用它**，因为它无法优雅地降级。你可以说这种安全方式本应该是 `align-items` 属性默认支持的，但我也没辙，CSS 确实有些难以驯服。而制定 CSS 规范就更复杂了。🤷🏻‍♂️
 
 那我们当下如何防止数据丢失？
 
