@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/safe-unsafe-alignment-in-css-flexbox.md](https://github.com/xitu/gold-miner/blob/master/article/2020/safe-unsafe-alignment-in-css-flexbox.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：
+> * 校对者：[rachelcdev](https://github.com/rachelcdev)、[TUARAN](https://github.com/TUARAN)
 
 # CSS Flexbox 中安全/不安全的对齐方式
 
@@ -51,7 +51,7 @@ CSS 的使命是让访问者看到内容和元素。CSS 就是为此而生的。
 
  [![例子：使用 align-items 导致数据丢失](//images.ctfassets.net/f20lfrunubsq/tX5IzlfIse4rtopH41xJY/2efc8dc4ca4d3e41da194292257fc02a/Screenshot_2020-05-17_19.54.42.png&fm=jpg)](//images.ctfassets.net/f20lfrunubsq/tX5IzlfIse4rtopH41xJY/2efc8dc4ca4d3e41da194292257fc02a/Screenshot_2020-05-17_19.54.42.png) 
 
-由于 Flexbox 的对齐机制，子元素无论如何都是居中的。左侧和右侧的子元素发生了溢出。问题是，左侧的溢出部分在视口的起始边缘以外。你无法通过滚动来显示这一部分 —— 就这样被数据丢失迎头痛击。
+由于 Flexbox 的对齐机制，子元素无论如何都是居中的。子元素的左侧和右侧发生了溢出。问题是，左侧的溢出部分在视口的起始边缘以外。你无法通过滚动来显示这一部分 —— 这样就发生了数据的丢失。
 
 在这种情况下，`align-items` 属性的 `safe` 关键词就派上用场了。 [The CSS Box Alignment Module Level 3](https://drafts.csswg.org/css-align-3/#overflow-values)（仍处于草稿状态）中对安全对齐是这样定义的：
 
