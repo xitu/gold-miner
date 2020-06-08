@@ -2,36 +2,36 @@
 > * 原文作者：[Ferenc Almasi](https://medium.com/@ferencalmasi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/10-best-practices-for-improving-your-css.md](https://github.com/xitu/gold-miner/blob/master/article/2020/10-best-practices-for-improving-your-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[febrainqu](https://github.com/febrainqu)
+> * 校对者：[rachelcdev](https://github.com/rachelcdev)、[lhd951220](https://github.com/lhd951220)
 
-# 10 Best Practices for Improving Your CSS
+# 改善 CSS 的 10 个最佳实践
 
 ![](https://cdn-images-1.medium.com/max/3400/1*m7oyUcMoJsW5wyzGfh6ydA.png)
 
-CSS may seem like a pretty straightforward language, on that’s hard to make mistakes in. You just add your rules to style your website and you’re done, right? With small sites that require only a couple of CSS files, this might be the case. But in large applications, styles can quickly spiral out of control. How do you keep them manageable?
+CSS 看起来是一种非常直接且不易犯错的语言。只需要添加规则以对网站进行样式设置就可以了，对吗？对于只需要几个 CSS 文件的小型站点，可能是这种情况。但是在大型程序中，这样可能会使样式迅速失控。如何让它们更可控？
 
-The reality is that, just as with any other language, CSS has its own nuances that can make or break your design. Here are 10 tips for CSS — best practices that can help you bring out the best from your styles.
+事实是，就像其他任何语言一样，CSS的细微差别可以使你的设计有天壤之别。这是 CSS 的 10 条技巧 —— 可以帮助你从样式中获得最大收益的最佳实践。
 
-## 1. Do You Really Need a Framework?
+## 1. 你真的需要框架吗？
 
-First of all, decide whether you really need to use a CSS framework. There are now many lightweight alternatives to robust frameworks. Usually, you won’t be using every selector from a framework, so your bundle will contain dead code.
+首先，确定你是否真的需要使用 CSS 框架。现在有许多轻量级的方法可以替代繁重的框架。通常，你不会使用框架中的每个选择器，因此你的程序中会包含冗余代码。
 
-If you’re only using styles for buttons, outsource them to your own CSS file and get rid of the rest. Also, you can identify unused CSS rules using code coverage in DevTools.
+如果你只需要使用按钮的样式，将它们复制到你自己的 CSS 文件中，然后删除其余的样式。另外，你可以使用开发者工具中的代码覆盖率检测来识别未使用的 CSS 规则。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9XvQSS3wJLIIx7GdzsDSBQ.png)
 
-To open it, search for Coverage in the Tools panel. You can open the Tools panel by clicking `Ctrl` + `Shift` + `P`. Once open, start recording by clicking on the reload icon. Everything shown in red is unused.
+要打开它，请在“工具”面板中搜索 Coverage。您可以通过单击 `Ctrl` + `Shift` + `P` 来打开工具面板。打开后，单击重新加载图标开始录制。所有显示红色的内容都是没有使用的。
 
-You can see that in the example above, it says that 98% of the CSS is not used. Note that this is not actually true — some CSS styles are only applied after the user interacts with the site. Styles for mobile devices are also flagged as unused bytes. So before you remove everything, make sure you verify that it is indeed not used anywhere.
+你可以在上面的例子中看到，它表示了 98% 的 CSS 都没有被使用。请注意，实际上并非如此 —— 某些 CSS 样式仅在用户与网站互动后才应用。移动设备的样式也会被标记为未使用。因此，在删除所有内容之前，请确保这些样式确实没有在任何地方使用。
 
-## 2. Prefer Using a CSS Methodology
+## 2. 选用一套 CSS 规范
 
-Consider using a CSS methodology for your project. CSS methodologies are used to create consistency in your CSS files. They help in scaling and maintaining your projects. Here are some popular CSS methodologies that I can recommend.
+考虑为你的项目使用一套 CSS 规范。CSS 规范使 CSS 文件具有一致性。它们有助于扩展和维护您的项目。这里有一些我推荐的 CSS 规范。
 
 #### BEM
 
-BEM —Block, Element, Modifier **—** is one of the most popular CSS methodologies out there. It’s a collection of naming conventions you can use to easily craft reusable components. The naming conventions follow this pattern:
+BEM —— Block（块）、Element（元素）、Modifier（修饰符）—— 是最流行的 CSS 规范之一。它是一组命名约定，你可以使用它们轻松地设计可复用组件。命名约定遵循以下模式：
 
 ```CSS
 .block { ... }
@@ -39,26 +39,26 @@ BEM —Block, Element, Modifier **—** is one of the most popular CSS methodolo
 .block--modifier { ... }
 ```
 
-* `.block`: Blocks represent a component. They’re standalone entities and are meaningful on their own.
-* `.block__element`: These are parts of a `.block`. They have no standalone meaning and must be tied to a block.
-* `.block--modifier`: These are used as flags on blocks or elements. We can use them to change the appearance, behavior, or state of elements. For example, to use a hidden flag, we could say `.block--hidden`.
+* `.block`：块代表一个组件。它们是独立的实体，并且对自身有意义。
+* `.block__element`：这些是 `.block` 的一部分。它们没有独立的含义，必须绑定到一个块上。
+* `.block--modifier`：它们被用作块或元素的标志。我们可以使用它们来改变元素的外观、行为或状态。例如，要使用隐藏标记，我们可以命名为 `.block--hidden`。
 
 #### ITCSS
 
-Inverted Triangle CSS helps you better organize your files by introducing different layers to different specificities. The deeper you go, the more specific.
+倒三角 CSS 通过引入不同的层来实现不同的特性，帮助你更好地组织你的文件。你走得越深，就越具体。
 
 ![The 7 layers of ITCSS](https://cdn-images-1.medium.com/max/2796/1*8w0OVv3Z8z2eQdtPBasfnA.png)
 
 #### OOCSS
 
-Object-oriented CSS, or OOCSS, has two main principles.
+Object-oriented CSS 或 OOCSS 遵循两个主要的原则。
 
-**Separating structure and skin**
+**分离结构和视觉效果**
 
-This means you want to define visuals separately from structural code. What does this mean in practice?
+这意味着你要将视觉效果与结构代码分开定义。这在实践中意味着什么？
 
 ```CSS
-/* Instead of  */
+/* 待优化的内容  */
 .box {
     width: 250px;
     height: 250px;
@@ -68,7 +68,7 @@ This means you want to define visuals separately from structural code. What does
     border-radius: 5px;
 }
 
-/* Do */
+/* 优化后 */
 .box {
     width: 250px;
     height: 250px;
@@ -82,32 +82,32 @@ This means you want to define visuals separately from structural code. What does
 }
 ```
 
-**Separating container and content**
+**分隔容器和内容**
 
-This means you don’t want any element to depend on its location. The same elements should look the same regardless of where they are on the page.
+这意味着你不希望任何元素依赖于它的位置。相同的元素无论在页面的什么位置看起来都应该是相同的。
 
 ```CSS
-/* Instead */
+/* 待优化的内容 */
 .main span.breadcumb { ... }
 
-/* Do */
+/* 优化后 */
 .breadcrumb { ... }
 ```
 
-## 3. Set Up a Pre-Processor
+## 3. 设置预处理器
 
-Setting up a pre-processor can benefit you in various ways. A pre-processor is a tool that lets you use advanced features that don’t exist in CSS. These can be things like variables for loops, or even functions.
+设置预处理器可以在很多方面给你带来好处。预处理器是一种工具，它允许你使用 CSS 中不存在的高级特性。这些特性可能是循环变量甚至函数之类的东西。
 
-There are plenty of pre-processors out there. Probably the most famous three are [Sass](https://sass-lang.com/), [Less](http://lesscss.org/), and [Stylus](https://stylus-lang.com/). I recommend using Sass because of it’s thriving community and the extensive documentation you can find for it on the web.
+现在有很多预处理器。最著名的三个大概是 [Sass](https://sass-lang.com/)、[Less](http://lesscss.org/) 和 [Stylus](https://stylus-lang.com/)。我建议使用 Sass，因为它有一个成熟的社区，而且你可以在网上找到大量关于它的文档。
 
-So, how can pre-processors help you?
+那么，预处理器能提供什么帮助？
 
-#### Organize your styles better
+#### 更好地组织样式
 
-Pre-processors help you organize your styles better. They have the ability to break down your files into smaller, reusable pieces. These can be imported into each other, or later separately into your application.
+预处理可以帮你更好地组织样式。它们能够将你的文件拆解成更小的可复用文件。它们可以相互导入，或者分别导入你的应用。
 
 ```SCSS
-// Import different modules into one SCSS file
+// 为一个 SCSS 文件导入不同的模块
 @import 'settings';
 @import 'tools';
 @import 'generic';
@@ -117,9 +117,9 @@ Pre-processors help you organize your styles better. They have the ability to br
 @import 'trumps';
 ```
 
-#### Nest your selectors
+#### 嵌套选择器
 
-Another great way to enhance readability is by nesting your selectors. This is a simple, powerful feature that CSS lacks.
+另一种增强可读性的好方法是嵌套选择器。这是一个简单而强大但 CSS 所缺少的功能。
 
 ```SCSS
 .wrapper {
@@ -141,18 +141,18 @@ Another great way to enhance readability is by nesting your selectors. This is a
 }
 ```
 
-The hierarchical structure makes it easier to visualize how different elements tie together.
+分层结构使我们更加清晰的看出不同元素的结合关系。
 
-#### Automatically vendor prefix your rules
+#### 自动为你的规则添加前缀
 
-Some nonstandard or experimental features are prefixed in CSS. Different browsers use different prefixes for them, such as:
+CSS 中有一些非标准或实验性功能的前缀。不同的浏览器为其使用不同的前缀，例如：
 
-* `-webkit-`: for WebKit based browsers such as Chrome, Safari, or newer versions of Opera.
-* `-moz-`: for Firefox.
-* `-o-`: for older versions of Opera.
-* `-ms-`: for IE and Edge.
+* `-webkit-`：适用于基于 WebKit 的浏览器，例如 Chrome、Safari 或 Opera 的较新版本。
+* `-moz-`：适用于 Firefox。
+* `-o-`：适用于旧版 Opera。
+* `-ms-`：用于 IE 和 Edge。
 
-To support all major browsers, we have to define certain properties multiple times.
+为了支持所有主流浏览器，我们必须多次定义某些属性。
 
 ```CSS
 .gradient {
@@ -164,7 +164,7 @@ To support all major browsers, we have to define certain properties multiple tim
 }
 ```
 
-Pre-processors help us tackle this with `mixin`s — functions that can be used in place of hard-coded values.
+预处理器可以解决此问题，它借助了 `mixin` —— 可以代替硬编码值使用的函数。
 
 ```SCSS
 @mixin gradient() {
@@ -180,15 +180,15 @@ Pre-processors help us tackle this with `mixin`s — functions that can be used 
 }
 ```
 
-Instead of writing out the same thing over and over again, you can just include `mixin`s whenever you need them.
+在需要的时候添加 `mixin` 可以避免编写冗余代码。
 
-#### Using post-processors
+#### 使用后处理器
 
-An even better option is a post-processor. A post-processor can run additional optimization steps once your CSS is generated by a pre-processor. One of the most popular post-processors is `[PostCSS](https://postcss.org/)`.
+更好的选择是后处理器。一旦 CSS 由预处理器生成，则后处理器可以运行其他优化步骤。最受欢迎的后处理器之一是 `[PostCSS](https://postcss.org/)`。
 
-You can use `PostCSS` to automatically prefix your CSS rules, so you don’t have to worry about leaving out major browsers. They use values from [Can I Use](https://caniuse.com/), so it’s always up to date.
+你可以使用 `PostCSS` 来自动为 CSS 规则添加前缀，就必担心会遗漏主要的浏览器。他们使用 [Can I Use](https://caniuse.com/) 中的值，因此它始终保持最新的。
 
-Another great post-processor is `[autoprefixer](https://www.npmjs.com/package/autoprefixer)`. With `autoprefixer`, when you want to support the last four versions — you’re all done without having to write any vendor prefixes in your CSS files!
+另一个很好的后处理器是 `[autoprefixer](https://www.npmjs.com/package/autoprefixer)`。使用 `autoprefixer`，当您要支持最新四个版本时 — 无需在CSS文件中写入任何前缀就可以完成所有工作！
 
 ```JavaScript
 const autoprefixer = require('autoprefixer')({
@@ -199,23 +199,23 @@ const autoprefixer = require('autoprefixer')({
 });
 ```
 
-#### Use configs for consistent designs
+#### 使用配置进行一致的设计
 
-Apart from `mixin`s, you also have the option to use variables. In conjunction with a linter, you can enforce design rules.
+除了 `mixin`，你还可以选择使用变量。与 linter 一起，你可以强制执行自己的设计规则。
 
 ```SCSS
-// Font definitions
+// 字体定义
 $font-12: 12px;
 $font-21: 21px;
 
-// Color definitions
+// 颜色定义
 $color-white: #FAFAFA;
 $color-black: #212121;
 ```
 
-## 4. Use Markup Instead of CSS
+## 4. 使用标签代替 CSS
 
-Now let’s move on to actual CSS. This is often overlooked. Usually, you can reduce the size of your CSS bundles by simply using the correct HTML elements. Say you have a heading with the following set of rules:
+现在让我们进入实际的 CSS 应用。这经常被忽略。通常，你可以简单地通过使用正确的 HTML 标签来减小 CSS 包的大小。假设你的标题包含以下规则：
 
 ```CSS
 span.heading {
@@ -226,11 +226,11 @@ span.heading {
 }
 ```
 
-You’re using a `span` element as a header. You override the default display, spacing or font style. This can be avoided by using an `h1`, `h2`, or `h3` instead. By default, they have the styles you’re trying to achieve with other elements. You can immediately get rid of four unnecessary rules.
+你使用了一个 `span` 标签作为标题。你重写了默认的显示、间距和字体样式。这可以通过使用 `h1`、`h2` 或 `h3` 来避免。默认情况下，它们具有你试图用其他标签达到的样式。你可以立即少写四条不必要的样式规则。
 
-## 5. Use Shorthand Properties
+## 5. 使用简写属性
 
-To further reduce the number of rules, always try to go with [shorthand properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties). For the above example, we could have said:
+为了进一步减少样式规则数量，通常使用 [简写属性](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties)。对于上面的示例，我们可以写：
 
 ```CSS
 .heading {
@@ -238,13 +238,13 @@ To further reduce the number of rules, always try to go with [shorthand properti
 }
 ```
 
-This is true for other properties such as paddings, borders, or backgrounds.
+对于其他属性，如边框、边框或背景，也是如此。
 
 ![Using shorthand properties can greatly reduce the weight of your CSS files](https://cdn-images-1.medium.com/max/2000/1*7KmDiqi1dJ7iQT2TUD87oA.gif)
 
-## 6. Reduce Redundancy
+## 6. 减少冗余
 
-This goes hand in hand with the previous point. Sometimes it’s hard to spot redundancy, especially when repeating rules don’t follow the same order in both selectors. But if your classes differ in just one or two rules, it’s better to outsource those rules and use them as an extra class. Instead of this:
+这与上一点是密切相关的。有时很难发现冗余，特别是当两个选择器中的重复规则未遵循相同顺序时。但是，如果你的类仅在一个或两个规则中有所不同，最好将这些规则外包出去，作为一个额外的类使用。这是优化前的代码：
 
 ```HTML
 <style>
@@ -269,7 +269,7 @@ This goes hand in hand with the previous point. Sometimes it’s hard to spot re
 <div class="elevated-warning">🚨</div>
 ```
 
-Try to go with a similar approach:
+试着用类似的方法：
 
 ```HTML
 <style>
@@ -290,13 +290,13 @@ Try to go with a similar approach:
 <div class="warning warning--elevated">🚨</div>
 ```
 
-## 7. Avoid Complex Selectors
+## 7. 避免使用复杂的选择器
 
-There are two major problems with using complex selectors. First, your increased specificity will not only make it harder to later rewrite existing rules, but also increase the time it takes for the browser to match selectors.
+使用复杂的选择器有两个主要问题。首先，增加的特性不仅会使以后重写现有规则变得更加困难，还会增加浏览器匹配选择器所需的时间。
 
-#### Matching selectors
+#### 匹配选择器
 
-When your browser is trying to interpret selectors and decide which element it matches, they go from [right to left](https://stackoverflow.com/questions/5797014/why-do-browsers-match-css-selectors-from-right-to-left/5813672#5813672). This is faster in terms of performance than doing the other way around. Let’s take the selector below as an example.
+当浏览器解析选择器并确定它与哪个元素匹配时，它们是[从右到左](https://stackoverflow.com/questions/5797014/why-do-browsers-match-css-selectors-from-right-to-left/5813672#5813672)进行的。就性能而言，这比相反的方式更快。让我们以下面的选择器为例。
 
 ```CSS
 .deeply .nested .selector span {
@@ -304,13 +304,13 @@ When your browser is trying to interpret selectors and decide which element it m
 }
 ```
 
-Your browser will first start from the `span`. It will match all the `span` tags then go to the next one. It will filter out the `span`s that are inside a `.selector` class, and so on.
+浏览器将首先从 `span` 开始。它将匹配所有 `span` 标签，然后转到下一个匹配项。它将过滤掉 `.selector` 类中的 `span`，以此类推。
 
-It’s not recommended to use tags for CSS selectors because it will match for every tag. While the difference can only be measured in a fraction of a millisecond, little things add up. More importantly, it’s good practice to reduce complexity for another reason.
+不建议使用 CSS 的标签选择器，因为它会匹配所有的标签。虽然只有几分之一毫秒的差异，但积少成多。另一个更重要的原因是，减少选择器复杂性是一种好习惯。
 
-#### Understanding the selector
+#### 理解选择器
 
-It’s not only hard for machines to parse, but it’s also hard for humans to do so. Take the following as an example:
+不仅机器很难进行解析，人类也难以理解。以如下为例：
 
 ```CSS
 [type="checkbox"]:checked + [class$="-confirmation"]::after {
@@ -318,7 +318,7 @@ It’s not only hard for machines to parse, but it’s also hard for humans to d
 }
 ```
 
-When do you think the rule above will be applied? This can be simplified by making a custom class and switching it with JavaScript.
+你认为上述规则什么时候适用？通过创建自定义类并使用 JavaScript 进行切换，可以简化此过程。
 
 ```CSS
 .confirmation-icon::after {
@@ -326,23 +326,23 @@ When do you think the rule above will be applied? This can be simplified by maki
 }
 ```
 
-Now it looks much more pleasant. If you still find yourself in need of an overly complicated selector and you believe you have no other option, please leave a comment below explaining your solution.
+现在看起来舒服多了。如果你发现自己仍然需要过于复杂的选择器，而且你相信没有其他选择，请在下面留下你的评论解释你的解决方案。
 
 ```CSS
 /**
- * Creates a confirmation icon after a checkbox is selected.
- * Select all labels ending with a class name of "-confirmation"
- * that are preceeded by a checked checkbox.
- * PS.: There's no other way to get around this, don't try to fix it.
+ * 选中复选框后创建确认图标。
+ * 选择所有以类名“-confirmation”结尾的标签
+ * 前面有一个选中的复选框。
+ * PS.：没有其他方法可以解决此问题，请不要尝试修复它。
  **/
 .checkbox:checked + label[class$="-confirmation"]::after {
     ...
 }
 ```
 
-## 8. Don’t Remove Outlines
+## 8. 不要删除轮廓
 
-This is one of the most common mistakes developers make when writing CSS. While you may think there’s nothing wrong about removing the highlight that outlines create, in fact, you’re making the site inaccessible. It’s common practice to add this rule as a reset to your CSS.
+这是开发人员在编写 CSS 时最常犯的错误之一。虽然你可能认为删除轮廓创建的高亮没有什么错，但事实上，你正在使网站无法访问。通常将此规则添加为 CSS 的重置值。
 
 ```CSS
 :focus {
@@ -350,63 +350,63 @@ This is one of the most common mistakes developers make when writing CSS. While 
 }
 ```
 
-This way, however, users with only keyboard navigation will have no clue about what they’re focusing on your site.
+然而，这样的话，那些只能用键盘导航的用户将对网站聚焦的地方和内容一无所知。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*O46YMp_-UZPNFpQtqXbVYQ.gif)
 
-If the default styling looks bad for your brand, create custom outlines. Just make sure there is some kind of indication when it comes to focusing elements.
+如果默认样式对你的品牌不利，请创建自定义轮廓。只要确保在聚焦元素方面有某种指示即可。
 
-## 9. Use Mobile First
+## 9. 以移动设备优先
 
-When you have to deal with media queries, always use mobile-first. The mobile-first approach means you start writing CSS for small screen devices first and build from there. This is also called progressive enhancement.
+当你必须处理媒体查询时，请始终使用移动设备优先。以移动设备为先的方法意味着当你开始编写 CSS 时，需要以小屏幕开发为基础，然后再扩展到其他设备。这也称为渐进增强。
 
-This will ensure that you mostly add extra rules to cater for large screen devices, rather than rewriting existing CSS rules. This can reduce the number of rules you end up with.
+这将确保你主要添加额外的规则来迎合大屏幕设备，而不是重写现有的 CSS 规则。这样可以减少最终使用的规则数量。
 
-How can you tell if you use mobile-first? If your media queries use `min-width`, you’re on the right track.
+您如何判断是否使用移动优先？如果你的媒体查询使用 `min-width`，你就在正确的轨道上。
 
 ```CSS
-/* Mobile-first media query, everything above 600px will get the below styles */
+/* 移动优先的媒体查询，所有 600px 以上的设备都会获得以下样式 */
 @media (min-width: 600px) {
-    /* your CSS rules */
+    /* 你的CSS规则 */
 }
 
-/* Non mobile-first media query, everything below 600px will get the below styles */
+/* 非移动优先媒体查询，所有 600px 以下的设备都会获得以下样式 */
 @media (max-width: 600px) {
-    /* your CSS rules */
+    /* 你的CSS规则 */
 }
 ```
 
-## 10. Compress
+## 10. 压缩
 
-Lastly, compress your bundles to reduce their size. Compression removes comments and whitespaces your bundles require less bandwidth to fetch.
+最后，压缩文件包以减少它们的大小。因为压缩过程删除了注释和空白字符，所以文件包只需更少的宽带就能获取。
 
 ![before and after compressing a set of rules in CSS](https://cdn-images-1.medium.com/max/2320/1*npjW2mjxVcPkaKse9S97CA.png)
 
-If you haven’t already, enable compression on the server-side as well.
+如果还没有，也可以在服务器端启用压缩。
 
-Another great way to further reduce the size of your CSS — **and markup**— is obfuscating class names.
+进一步减小 CSS —— **和标记** —— 大小的另一种好方法是混淆类名。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UHDONG8KhB1kcGAFuiDhGw.png)
 
-To achieve this, you have a couple of options based on your project setup:
+为此，你可以根据项目设置选择几个选项：
 
-* **Webpack**: for Webpack, you can use the `[css-loader](https://github.com/webpack-contrib/css-loader)` module.
-* **Gulp**: for Gulp, you can use the `[gulp-minify-cssnames](https://www.npmjs.com/package/gulp-minify-cssnames)` plugin.
-* **Create your own**: If you don’t have a dedicated package for your project setup, I have a tutorial that shows you how you can create [your own implementation](https://medium.com/swlh/how-i-reduced-my-css-bundle-size-by-more-than-20-76433e7330eb).
+* **Webpack**：对于 Webpack，可以使用 `[css-loader](https://github.com/webpack-contrib/css-loader)` 模块。
+* **Gulp**: 对于 Gulp，可以使用 `[gulp-minify-cssnames](https://www.npmjs.com/package/gulp-minify-cssnames)` 插件。
+* **自定义**: 如果你没有用于项目设置的专用软件包，那么我会提供一个教程，向你展示如何创建 [自己的实现](https://medium.com/swlh/how-i-reduced-my-css-bundle-size-by-more-than-20-76433e7330eb).
 
-## Summary
+## 总结
 
-Following these 10 simple steps will help you to write CSS files that are:
+遵循以上 10 个简单步骤将有助于你编写有以下优点的 css 文件：
 
-* more lightweight
-* easier to maintain
-* easier to scale
+* 更轻巧
+* 易于维护
+* 易于扩展
 
-Not only that, but using utilities such as a predefined color palette or typography rules, will help you create more consistent designs. Your styles will also be more reusable, so you can save time on your next project.
+不仅如此，使用一些实用工具，如预定义的调色板或排版规则，将帮助您创建更稳定的设计。你的样式复用性也将更高，你就可以为下一个项目节省时间。
 
-What are some other CSS best practices you follow, but were not mentioned in this article? Let us know in the comments!
+还有哪些未在本文提及，而你遵循的 CSS 最佳实践呢？在评论中告诉我们！
 
-Thanks for taking the time to read this article and happy styling!
+感谢你花时间阅读本文，祝你愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
