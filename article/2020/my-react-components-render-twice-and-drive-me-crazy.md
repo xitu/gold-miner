@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-react-components-render-twice-and-drive-me-crazy.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-react-components-render-twice-and-drive-me-crazy.md)
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
-> * 校对者：
+> * 校对者：[racheldev](https://github.com/racheldev), [lhd951220](https://github.com/lhd951220)
 
 # 我的 React 组件会渲染两次，我快疯了
 
@@ -42,7 +42,7 @@ function App() {
 }
 ```
 
-现在我们可以通过 `yarn start` 启动我们的应用，并且在浏览器中打开a `http://localhost:3000`:
+现在我们可以通过 `yarn start` 启动我们的应用，并且在浏览器中打开 `http://localhost:3000`:
 
 ![我的 React 组件会渲染两次，我快疯了](https://d33wubrfki0l68.cloudfront.net/78209eaf74cbe91d5550a535981e6f4aa460985c/410d0/uploads/my-react-components-render-twice-and-drive-me-crazy-1.gif)
 
@@ -50,7 +50,7 @@ function App() {
 
 ## 带状态的函数组件例子
 
-如果我们使用一个  React hook，然后在函数组件中加入一些状态语句会发生什么？
+如果我们使用一个 React hook，然后在函数组件中加入一些状态语句会发生什么？
 
 ```jsx
 function App() {
@@ -116,11 +116,11 @@ ReactDOM.render(
 
 ## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#what-is-reactstrictmode) 什么是 React.StrictMode?
 
-`React.StrictMode` 是在 2018 年的 [16.3.0](https://github.com/facebook/react/releases/tag/v16.3.0) 版本中引入的封装。一开始，它只用在类组件中，而在 [16.8.0](https://github.com/facebook/react/releases/tag/v16.8.0) 中，它对 hook 同样适用。
+`React.StrictMode` 是在 2018 年的 [16.3.0](https://github.com/facebook/react/releases/tag/v16.3.0) 版本中引入的组件。一开始，它只用在类组件中，而在 [16.8.0](https://github.com/facebook/react/releases/tag/v16.8.0) 中，它对 hook 同样适用。
 
 就像在版本说明中提及的一样：
 
-> React.StrictMode 是帮助应用适应异步渲染的封装
+> React.StrictMode 是帮助应用适应异步渲染的组件
 
 所以它应该用来帮助工程师避免常见的错误，并使他们的 `React` 应用抛弃过时的 API，从而逐步升级。
 
@@ -157,7 +157,7 @@ ReactDOM.render(
 
 这个行为肯定对性能有一些影响，但我们不应该担心，因为它只在开发而不是生产环境中发生。
 
-这就是我们在使用 `React.useState` 的组件函数中，只在开发环境复现渲染两次问题的原因。Cheers!!
+这就是我们只有在开发环境下使用带 React.useState 的组件函数，才可以成功复现渲染两次的原因。Cheers!!
 
 如果你需要继续深入研究 React.StrictMode，你可以阅读 [官方文档](https://reactjs.org/docs/strict-mode.html)。
 
