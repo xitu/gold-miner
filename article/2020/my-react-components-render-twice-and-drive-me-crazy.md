@@ -23,7 +23,6 @@
 
 ```bash
 npx create-react-app my-app && cd my-app
-
 ```
 
 我们稍稍改动 `App.js` ，增加一个超级简单的 `console.log` 语句：
@@ -70,7 +69,6 @@ function App() {
     </div>
   );
 }
-
 ```
 
 我们再看一下浏览器：
@@ -87,7 +85,6 @@ function App() {
 
 ```bash
 yarn build && npx serve build -l 3000
-
 ```
 
 在浏览器中再次打开 `http://localhost:3000`：
@@ -109,10 +106,9 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
 ```
 
-显然，重新渲染并不是一个 bug，或者和库的渲染机制有关的东西。正相反，它是 `React` 提供的一种调试机制🤗。
+显然，重新渲染并不是一个 bug，或者和库的渲染机制有关的东西。正相反，它是 `React` 提供的一种调试机制 🤗。
 
 ## [#](/blog/my-react-components-render-twice-and-drive-me-crazy#what-is-reactstrictmode) 什么是 React.StrictMode?
 
@@ -149,11 +145,11 @@ ReactDOM.render(
 
 这些函数有:
 
-* 类组件 `constructor`, `render`, 以及 `shouldComponentUpdate` 方法
+* 类组件 `constructor`、`render` 以及 `shouldComponentUpdate` 方法
 * 类组件静态 `getDerivedStateFromProps` 方法
 * 方法组件的方法体
 * 状态更新函数 (`setState` 的第一个参数)
-* 传给 `useState`, `useMemo`, 或 `useReducer` 的函数
+* 传给 `useState`、`useMemo`、或 `useReducer` 的函数
 
 这个行为肯定对性能有一些影响，但我们不应该担心，因为它只在开发而不是生产环境中发生。
 
