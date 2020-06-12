@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-server-driven-ui-using-ui-components-in-swiftui.md](https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-server-driven-ui-using-ui-components-in-swiftui.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[lhd951220](https://github.com/lhd951220)
 
 # 在 SwiftUI 中构建服务端驱动的 UI 组件
 
@@ -28,7 +28,7 @@
 
 ## SwiftUI
 
-SwiftUI 是一个以声明式编程方式设计屏幕布局的 UI 框架。
+SwiftUI 是一个用声明式编程来设计屏幕布局的 UI 框架。
 
 ```Swift
 struct NotificationView: View {
@@ -41,9 +41,9 @@ struct NotificationView: View {
 }
 ```
 
-## 在 SwiftUI 中的实现服务端驱动的 UI 
+## 在 SwiftUI 中实现服务端驱动的 UI 
 
-它有三步流程。
+它分为三个步骤。
 
 1. 定义独立的 UIComponents。
 2. 根据 API 响应结果构建 UIComponents。
@@ -193,7 +193,7 @@ extension View {
 
 这种方式可以让控制层/业务层定义和构造 UI 组件。另外，业务层也可以承担控制 UI 的责任。
 
-在 GitHub 上找到[这个项目](https://github.com/AnupAmmanavar/SwiftUI-Server-Driver-UI)。
+你可以在 GitHub 上找到[这个项目](https://github.com/AnupAmmanavar/SwiftUI-Server-Driver-UI)。
  
 您还可以阅读[在 Android 中使用 Jetpack Compose 创建基于组件的架构](https://medium.com/better-programming/create-a-component-based-architecture-in-android-jetpack-compose-96980c191351)这篇文章，它详细解释了 UI 组件原理。文中使用的是 Jetpack compose——Android 中声明式的 UI 框架，因此这篇文章的内容也不难理解。
 
