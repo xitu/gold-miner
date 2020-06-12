@@ -17,14 +17,14 @@
 
 * 它是一种架构，其中约定应用程序中 UI 视图在屏幕上的渲染是由服务器决定的。
 * 应用程序和服务器之间存在协议。该协议的基础是让服务器可以控制应用程序的 UI。
- 
-协议是什么？——服务器定义的组件列表。对于服务器上定义的每个组件，我们在应用程序（UIComponent）中都有一个相应的 UI 实现。比如像 Hotstar 这样的娱乐应用，其协议定义如下。左边是服务器中的组件，右边是相应的 UI 组件。
+
+协议是什么？—— 服务器定义的组件列表。对于服务器上定义的每个组件，我们在应用程序（UIComponent）中都有一个相应的 UI 实现。比如像 Hotstar 这样的娱乐应用，其协议定义如下。左边是服务器中的组件，右边是相应的 UI 组件。
 
 ![](https://cdn-images-1.medium.com/max/2796/1*e0caqOJanQdl7yvrU1Y0pg.png)
 
-运行——屏幕上没有像 storyboard 一样预定义的布局。取而代之的是一个普通的列表视图，它会根据服务器的响应，在垂直方向上渲染多个不同的视图。为了实现这一点，我们必须创建独立并且在整个应用中可重用的视图。我们将这些可重用的视图称为 **UIComponent**。
+运行 —— 屏幕上没有像 storyboard 一样预定义的布局。取而代之的是一个普通的列表视图，它会根据服务器的响应，在垂直方向上渲染多个不同的视图。为了实现这一点，我们必须创建独立并且在整个应用中可重用的视图。我们将这些可重用的视图称为 **UIComponent**。
 
-协议——对于每个服务端的组件，我们有与之对应的 UIComponent。
+协议 —— 对于每个服务端的组件，我们有与之对应的 UIComponent。
 
 ## SwiftUI
 
@@ -67,7 +67,7 @@ protocol UIComponent {
 ```
 
 * 所有 UI 视图都必须遵守 UIComponent 协议。
-* 由于组件是在通用垂直列表中渲染的，所以每个 UIComponent 必须有一个独立的标识。 `uniqueId` 属性用于实现标识的功能。
+* 由于组件是在通用垂直列表中渲染的，所以每个 UIComponent 必须有一个独立的标识。`uniqueId` 属性用于实现标识的功能。
 * 我们在 `render()` 方法中定义组件的 UI。调用这个方法时会在屏幕上渲染组件。现在我们来看一下 `NotificationComponent` 的实现。
 
 ```Swift
@@ -188,14 +188,14 @@ extension View {
 ## 结论
 
 我们学习了如何使用 `UIComponent` 来使服务器控制应用程序的 UI。其实 `UIComponents` 还可以实现更多功能。
- 
+
 现在我们考虑没有服务器端驱动时界面的情况。这种情况下，UI 片段在整个应用程序中使用很多次。这会导致视图和视图逻辑的重复。因此，最好将界面定义为有意义的，可重用的组件。
 
 这种方式可以让控制层/业务层定义和构造 UI 组件。另外，业务层也可以承担控制 UI 的责任。
 
 你可以在 GitHub 上找到[这个项目](https://github.com/AnupAmmanavar/SwiftUI-Server-Driver-UI)。
- 
-您还可以阅读[在 Android 中使用 Jetpack Compose 创建基于组件的架构](https://medium.com/better-programming/create-a-component-based-architecture-in-android-jetpack-compose-96980c191351)这篇文章，它详细解释了 UI 组件原理。文中使用的是 Jetpack compose——Android 中声明式的 UI 框架，因此这篇文章的内容也不难理解。
+
+您还可以阅读[在 Android 中使用 Jetpack Compose 创建基于组件的架构](https://medium.com/better-programming/create-a-component-based-architecture-in-android-jetpack-compose-96980c191351)这篇文章，它详细解释了 UI 组件原理。文中使用的是 Jetpack compose —— Android 中声明式的 UI 框架，因此这篇文章的内容也不难理解。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
