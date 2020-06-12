@@ -2,33 +2,33 @@
 > * 原文作者：[Anup Ammanavar](https://medium.com/@ammanavaranup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-server-driven-ui-using-ui-components-in-swiftui.md](https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-server-driven-ui-using-ui-components-in-swiftui.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
+> * 校对者：[lhd951220](https://github.com/lhd951220)
 
-# Build a Server-Driven UI Using UI Components in SwiftUI
+# 在 SwiftUI 中构建服务端驱动的 UI 组件
 
 ![Photo by [Charles Deluvio](https://unsplash.com/@charlesdeluvio?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8512/0*V5kRzEsP5a7zxJwY)
 
-> Make changes to your app on the fly without submitting to Apple
+> 在不提交给 Apple 审核的情况下即时修改应用
 
-This article will talk about server-driven UI, its implementation using re-usable components called **UIComponents**, and creating a generic vertical list view for rendering UI components. It will conclude with a brief discussion of how UI components can serve different purposes.
+本文将讨论使用可重用 **UIComponents** 组件来实现服务端驱动的 UI，以及如何创建通用垂直列表视图。最后将简要讨论如何使用 UI 组件实现不同的需求。
 
-## What Is Server-Driven UI?
+## 什么是服务端驱动的 UI ?
 
-* It is an architecture where the server decides the UI views that need to be rendered on the application screen.
-* There exists a contract between the application and the server. The basis of this contract gives the server control over the UI of the application.
+* 它是一种架构，其中约定应用程序中 UI 视图在屏幕上的渲染是由服务器决定的。
+* 应用程序和服务器之间存在协议。该协议的基础是让服务器可以控制应用程序的 UI。
 
-What is that contract?- The server defines the list of components. For each of the components defined at the server, we have a corresponding UI implementation in the app (UIComponent). Consider an entertainment app like Hotstar, whose contract is defined as shown below. On the left are the components from the server, and on the right are the corresponding UI components.
+协议是什么？—— 服务器定义的组件列表。对于服务器上定义的每个组件，我们在应用程序（UIComponent）中都有一个相应的 UI 实现。比如像 Hotstar 这样的娱乐应用，其协议定义如下。左边是服务器中的组件，右边是相应的 UI 组件。
 
 ![](https://cdn-images-1.medium.com/max/2796/1*e0caqOJanQdl7yvrU1Y0pg.png)
 
-Working — The screen does not have a predefined layout like a storyboard. Rather, it consists of a generic list view rendering multiple different views vertically, as per the server response. To make it possible, we have to create views that are standalone and can be reused throughout the application. We call these re-usable views the **UIComponent**.
+运行 —— 屏幕上没有像 storyboard 一样预定义的布局。取而代之的是一个普通的列表视图，它会根据服务器的响应，在垂直方向上渲染多个不同的视图。为了实现这一点，我们必须创建独立并且在整个应用中可重用的视图。我们将这些可重用的视图称为 **UIComponent**。
 
-Contract — For every server component, we have a UIComponent.
+协议 —— 对于每个服务端的组件，我们有与之对应的 UIComponent。
 
 ## SwiftUI
 
-Swift is a UI toolkit that lets you design application screens in a programmatic, declarative way.
+SwiftUI 是一个用声明式编程来设计屏幕布局的 UI 框架。
 
 ```Swift
 struct NotificationView: View {
@@ -41,23 +41,23 @@ struct NotificationView: View {
 }
 ```
 
-## Server-Driven UI Implementation in SwiftUI
+## 在 SwiftUI 中实现服务端驱动的 UI 
 
-This is a three-step process.
+它分为三个步骤。
 
-1. Define the standalone UIComponents.
-2. Construct the UIComponents based on the API response.
-3. Render the UIComponents on the screen.
+1. 定义独立的 UIComponents。
+2. 根据 API 响应结果构建 UIComponents。
+3. 在屏幕上渲染 UIComponents。
 
-#### 1. Define the standalone UIComponents
+#### 1. 定义独立的 UIComponents
 
 ![Pictorial representation of UI-component](https://cdn-images-1.medium.com/max/2872/1*vaTfkYDRJuPnUQm8nYskgQ.png)
 
-Input: Firstly, for the UIComponent to render itself, it should be provided with data.
+输入：首先，要使 UIComponent 能够渲染，应为其提供数据。
 
-Output: ****UIComponent defines its UI. When used for rendering inside a screen, it renders itself based on the data (input) provided to it.
+输出：**UIComponent** 中定义的 UI。当屏幕渲染时，它根据提供的数据（输入）进行渲染。
 
-**UIComponent implementation**
+**UIComponent 实现**
 
 ```Swift
 protocol UIComponent {
@@ -66,9 +66,9 @@ protocol UIComponent {
 }
 ```
 
-* All the UI views have to conform to this UI-component protocol.
-* As the components are rendered inside a generic vertical list, each UIComponent has to be independently identified. The`uniqueId` property is used to serve that purpose.
-* The `render()` is where the UI of the component is defined. Calling this function on a screen will render the component. Let's look at `NotificationComponent`.
+* 所有 UI 视图都必须遵守 UIComponent 协议。
+* 由于组件是在通用垂直列表中渲染的，所以每个 UIComponent 必须有一个独立的标识。`uniqueId` 属性用于实现标识的功能。
+* 我们在 `render()` 方法中定义组件的 UI。调用这个方法时会在屏幕上渲染组件。现在我们来看一下 `NotificationComponent` 的实现。
 
 ```Swift
 struct NotificationComponent: UIComponent {
@@ -105,10 +105,10 @@ struct NotificationView: View {
 }
 ```
 
-* `NotificationUIModel` is the data required by the component to render. This is the input to the UIComponent.
-* `NotificationView` is a SwiftUI view that defines the UI of the component. It takes in `NotificationUIModel` as a dependency. This view is the output of the UIComponent when used for rendering on the screen.
+* `NotificationUIModel` 是组件渲染所需的数据。这是 UIComponent 的输入。
+* `NotificationView` 是一个 SwiftUI 视图，用于定义组件的 UI。它以 `NotificationUIModel` 作为依赖。当屏幕渲染时，此视图是 UIComponent 的输出。
 
-#### 2. Construct the UIComponents based on the API response
+#### 2. 根据 API 响应结果构建 UIComponents
 
 ```Swift
  class HomePageController: ObservableObject {
@@ -143,12 +143,12 @@ func parseToUIComponent(serverComponent: ServerComponent) -> UIComponent {
 }
 ```
 
-* `HomePageController` loads the server components from the repository and converts them into the UIComponents.
-* The `uiComponent`'s property is responsible for holding the list of UIComponents. Wrapping it with the `@Published` property makes it an observable. Any change in its value will be published to the `Observer(View)`. This makes it possible to keep the `View` in sync with the state of the application.
+* `HomePageController` 从存储库加载服务器组件并将其转换为 UIComponents。
+* `uiComponent` 属性负责保存 UIComponents 的列表。我们用 `@Published` 属性包装使其转化为可观察的对象。其值的任何更改都将发布到 `Observer(View)`。这样可以使 `视图` 与应用程序状态保持同步。
 
-#### 3. Render UIComponents on the screen
+#### 3. 在屏幕上渲染 UIComponents
 
-This the last part. The screen’s only responsibility is to render the `UIComponents`. It subscribes to the `uiComponents` observable. Whenever the value of the `uiComponents` changes, the `HomePage` is notified, which then updates its UI. A generic `ListView` is used for rendering the UIComponents.
+这是最后一部分。屏幕的唯一职责是渲染 `UIComponents`。它订阅了可观察的 `uiComponents`。每当 `uiComponents` 的值更改时，就会通知 `HomePage`，然后更新其 UI。通用的 `ListView` 用于展示 UIComponent。
 
 ```Swift
 struct HomePageView: View {
@@ -172,9 +172,9 @@ struct HomePageView: View {
 }
 ```
 
-Generic `Vstack:` All the UIComponents are rendered vertically using a `VStack` inside. As the UIComponents are uniquely identifiable, we can use the `ForEach` construct for rendering.
+通用的 `VStack`：`VStack` 内部所有的 UIComponent 都在垂直方向上展示。因为 UIComponent 是唯一可识别的，所以我们可以使用 `ForEach` 进行渲染。
 
-Since all the components conforming to UIComponent protocol must return a common type, the `render()` function returns `AnyView` . Below is an extension on the `View` for converting it to`AnyView`.
+所有遵守 UIComponent 协议的组件都必须返回通用类型，因此 `render()` 方法返回的类型是 `AnyView`。以下是 `View` 的扩展，用于将其转换为 `AnyView`。
 
 ```Swift
 extension View {
@@ -185,17 +185,17 @@ extension View {
 
 ```
 
-## Conclusion
+## 结论
 
-We saw how `UIComponent` can be used to give the server control over the UI of the application. But with `UIComponents` you can achieve something more.
+我们学习了如何使用 `UIComponent` 来使服务器控制应用程序的 UI。其实 `UIComponents` 还可以实现更多功能。
 
-Let’s consider a case without server-driven UI. It's often the case that the pieces of UI are used many times across the application. This leads to duplication of the view and view logic. So, it’s better to divide the UI into meaningful, reusable UI-components.
+现在我们考虑没有服务器端驱动时界面的情况。这种情况下，UI 片段在整个应用程序中使用很多次。这会导致视图和视图逻辑的重复。因此，最好将界面定义为有意义的，可重用的组件。
 
-Having them this way will let the domain-layer/business layer define and construct the UI components. Additionally, the business-layer can take the responsibility of controlling the UI.
+这种方式可以让控制层/业务层定义和构造 UI 组件。另外，业务层也可以承担控制 UI 的责任。
 
-You can find [the project](https://github.com/AnupAmmanavar/SwiftUI-Server-Driver-UI) on GitHub.
+你可以在 GitHub 上找到[这个项目](https://github.com/AnupAmmanavar/SwiftUI-Server-Driver-UI)。
 
-Have a look at the article “[Android Jetpack Compose — Create a Component-Based Architecture](https://medium.com/better-programming/create-a-component-based-architecture-in-android-jetpack-compose-96980c191351),” which explains UI-Components in detail. As it uses Jetpack compose-Android’s declarative UI kit, it wouldn’t be hard to understand.
+您还可以阅读[在 Android 中使用 Jetpack Compose 创建基于组件的架构](https://medium.com/better-programming/create-a-component-based-architecture-in-android-jetpack-compose-96980c191351)这篇文章，它详细解释了 UI 组件原理。文中使用的是 Jetpack compose —— Android 中声明式的 UI 框架，因此这篇文章的内容也不难理解。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
