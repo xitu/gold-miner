@@ -3,33 +3,33 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/schema-org-the-popular-web-standard-youve-never-heard-of.md](https://github.com/xitu/gold-miner/blob/master/article/2020/schema-org-the-popular-web-standard-youve-never-heard-of.md)
 > - 译者：[lhd951220](https://github.com/lhd951220)
-> - 校对者：
+> - 校对者：[rachelcdev](https://github.com/rachelcdev)  [noirlyrik](https://github.com/noirlyrik)
 
 # Schema.org: 你未曾耳闻的流行网页标准 🤫
 
 ![](https://cdn-images-1.medium.com/max/5868/1*zjJka96wmgZpOMTw5CnCIg.png)
 
-## Schema.org 是什么?
+## Schema.org 是什么？
 
 Schema.org 是由 Google，Microsoft，Yahoo 和 Yandex 一起建立的一个开放标准，在 2013 年 4 月 发布了 v1 版本。是的，它已经存在了相当长的时间。但是，它不断的发展以支持人们以新的和未知的方式使用网络。
 
-那它到底是什么呢？根据 [Schema.org 主页](https://schema.org/):
+那它到底是什么呢？根据 [Schema.org 主页](https://schema.org/)：
 
-> **Schema.org 是一个由社区驱动的议案，它负责创建，维护和促进互联网，网页，邮件信息等等的结构化数据的模式。**
+> **Schema.org 是一个由社区驱动的议案，它负责创建、维护和促进，那些在互联网、网页、邮件等平台上的结构化数据的模式。**
 
 总结而言：Schema.org 为网络内容赋予含义。它建立在 [语义化 HTML 元素](https://developer.mozilla.org/en-US/docs/Glossary/Semantics#Semantics_in_HTML) 之上，并且为网络内容赋予丰富的含义。
 
-类似于语义化 HTML，Schema.org 也是协助搜索引擎优化（SEO）。通过给你的内容添加更多的上下文信息，搜索引擎可以更好的解析你的内容，并且为你的内容做更好的分类，使之可以被人们更容易的查找得到。搜索引擎还可以使用这些结构化数据创建丰富的预览信息。
+和语义化 HTML 一样，Schema.org 也用来帮助搜索引擎优化（SEO）。通过给你的内容添加更多的上下文信息，搜索引擎可以更好的解析你的内容，并且为你的内容做更好的分类，使之可以被人们更容易的查找得到。搜索引擎还可以使用这些结构化数据创建丰富的预览信息。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*WuvNN7OKDhL59cPN.png)
 
-通过 IMDb 上有关 **Avengers: Endgame** 的预览信息，我们可以在搜索结果中看到评分数据。这是因为 IMDb 恰当的使用 Schema.org 标记它们的内容。
+通过 IMDb 上有关 **Avengers: Endgame** 的预览信息，我们可以在搜索结果中看到评分数据。这是因为 IMDb 应用 Schema.org 恰当地标记它们的内容。
 
-从另一个角度来看 Schema.org，它类似于 [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)，但它是利了 SEO 而不是可访问性。这使得你无需修改网站的功能，但却可以增强指定的用户（在这里，用户就是搜索引擎）。
+从另一个角度来看 Schema.org，它类似于 [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)，但它是为了 SEO 而不是可访问性。这使得你无需修改网站的功能，但却可以增强指定的用户（在这里，用户就是搜索引擎）。
 
 ## 为 HTML 内容添加 Schema.org
 
-Schema.org 支持几种编码方式，但是，最常用的一种是 **Microdata**，它允许我们通过 HTML 属性直接使用标记模式数据。
+Schema.org 支持几种编码方式，但是，最常用的一种是 **Microdata**，它允许我们直接通过 HTML 属性使用模式数据标记。
 
 API 非常简单。只有三个属性：
 
@@ -66,7 +66,7 @@ API 非常简单。只有三个属性：
 
 ## 嵌套项
 
-如果我们想要将项嵌套在项中该怎么办？为了达到这个目的，我们可以定义一个新的 `itemscope`。 扩展我们的 Person 项，并添加一个 [PostalAddress](https://schema.org/PostalAddress)。
+如果我们想要将一个项嵌套在另一个项中该怎么办？为了达到这个目的，我们可以定义一个新的 `itemscope`。 扩展我们的 Person 项，并添加一个 [PostalAddress](https://schema.org/PostalAddress)。
 
 ```html
 <div itemscope itemtype="https://schema.org/Person">
@@ -93,7 +93,7 @@ API 非常简单。只有三个属性：
 
 ## 隐藏数据
 
-有时，我们想要为搜索引擎提供上下文信息，但是我们并不想在页面上展示。这可以通过使用 `\<meta>` 标记来实现。这看起来也许有一点奇怪， 因为 `\<meta>` 标记通常在网页的 `\<head>` 中使用的，但是[Schema.org 建议为隐藏内容使用 meta 标记](https://schema.org/docs/gs.html#advanced_missing)。
+有时，我们想要为搜索引擎提供上下文信息，但是我们并不想在页面上展示。这可以通过使用 `\<meta>` 标记来实现。这看起来也许有一点奇怪， 因为 `\<meta>` 标记通常在网页的 `\<head>` 中使用的，但是 [Schema.org 建议为隐藏内容使用 meta 标记](https://schema.org/docs/gs.html#advanced_missing)。
 
 对于 Person 项，让我们使用 `\<meta>` 标记来添加我的昵称（dave.js）。 
 
@@ -119,7 +119,7 @@ API 非常简单。只有三个属性：
 
 ## 测试 Schema.org 项目
 
-测试你的项目是很简单的。Google 提供了一个[结构化数据测试工具](https://search.google.com/structured-data/testing-tool)来测试你的项目。它解析你的 HTML，并且会显示一个如何解析项中属性的树。如果 `itemtype` 中必需或建议的属性缺失，那么就会显示这些缺失属性导致的错误和警告。
+测试你的项目是很简单的。Google 提供了一个 [结构化数据测试工具](https://search.google.com/structured-data/testing-tool) 来测试你的项目。它解析你的 HTML，并且会显示一个如何解析项中属性的树。如果 `itemtype` 中必需或建议的属性缺失，那么就会显示这些缺失属性导致的错误和警告。
 
 这是我们使用结构化测试工具进行解析的示例：
 
@@ -127,11 +127,11 @@ API 非常简单。只有三个属性：
 
 ## 活跃的标准
 
-Schema.org 是一个开源的社区项目。尽管它得到了Google，Microsoft，Mozilla等主要公司的支持，但仍然鼓励公众作为贡献。尽管在 2013 年就已经存在了，但 Schema.org 是一个适应网络需求的活跃的标准。比如，最近的发行版包括了诸如 [CovidTestingFacility](https://schema.org/CovidTestingFacility) 之类的项类型，以帮助大流行救灾工作。
+Schema.org 是一个开源的社区项目。尽管它得到了 Google，Microsoft，Mozilla 等主要公司的支持，但仍然鼓励公众做出贡献。尽管 Schema.org 在 2013 年就已经存在了，但它是一个适应网络需求的活跃的标准。比如，最近的发行版包括了诸如 [CovidTestingFacility](https://schema.org/CovidTestingFacility) 之类的项类型，以帮助新冠疫情救灾工作。
 
-查看[文档](https://schema.org/docs/documents.html)来学习更多的 Schema.org 的知识和它的用法。这里有大量的项类型的模式，以及有关如何使用它们的详细文档。
+查看 [文档](https://schema.org/docs/documents.html) 来学习更多的 Schema.org 的知识和它的用法。这里有大量不同类型的项的模式，以及有关如何使用它们的详细文档。
 
-如果你想为 Schema.org 做出贡献，访问[社区页面](https://www.w3.org/community/schemaorg/)以了解如果提供帮助。
+如果你想为 Schema.org 做出贡献，访问 [社区页面](https://www.w3.org/community/schemaorg/) 以了解如果提供帮助。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
