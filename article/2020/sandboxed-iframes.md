@@ -19,7 +19,7 @@
 
 `iframe` 元素是为这种解决方案构建良好框架的第一步。在 `iframe` 中加载不信任的组件时，它将提供应用程序与加载内容的分离：嵌入的内容不能访问页面的 DOM 或本地存储的数据，也不能在页面上任意位置绘图；它的作用范围仅限于被嵌入的元素。然而，这种分离并不是真正可靠的。被嵌入的页面仍然有许多令人讨厌或恶意的行为：比如自动播放的视频、多余的插件和弹出窗口，而这些只是冰山一角。
 
-[`iframe` 元素的 **`沙箱`** 属性 ](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#attr-iframe-sandbox)加强了对框架内容的限制。我们可以指示浏览器在低权限环境中加载特定框架的内容，只允许完成所需功能子集。
+[`iframe` 元素的 **`sandbox`** 属性 ](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#attr-iframe-sandbox)加强了对框架内容的限制。我们可以指示浏览器在低权限环境中加载特定框架的内容，只允许完成所需功能子集。
 
 ### 先去除，再校验
 
@@ -32,7 +32,7 @@ Twitter 的 "Tweet" 按钮是个很好的示例，它可以通过沙箱更安全
 
 为了确定我们可以锁定哪些内容，需要仔细检查按钮有哪些功能。被加载的 HTML 从 Twitter 的服务器上执行一系列 JavaScript 代码，并在点击时弹出一个有推文接口的窗口。同时，为了绑定推文到正确的账号，接口需要访问 Twitter 的 cookies，最后再提交包含推文内容的表单。
 
-沙箱工作在白名单的基础上。我们首先删除所有可能的权限，然后通过向沙箱的配置中添加特定的标志，最后再重新启用各个权限。对于 Twitter 组件，我们决定启用 JavaScript、弹出窗口、表单提交和获取 twitter.com 的 cookie 的权限。我们可以通过添加一个 `沙箱` 属性到 `iframe` ，如下:
+沙箱工作在白名单的基础上。我们首先删除所有可能的权限，然后通过向沙箱的配置中添加特定的标志，最后再重新启用各个权限。对于 Twitter 组件，我们决定启用 JavaScript、弹出窗口、表单提交和获取 twitter.com 的 cookie 的权限。我们可以通过添加一个 `sandbox` 属性到 `iframe` ，如下:
 
 ```html
 <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
@@ -90,7 +90,7 @@ Twitter 的 "Tweet" 按钮是个很好的示例，它可以通过沙箱更安全
 
 ### 安全的沙箱：`eval()` 方法
 
-通过沙箱和[`postMessage` API](https://developer.mozilla.org/en-US/docs/DOM/window.postMessage)，这个模型可以成功的应用到 web 上。应用程序的各个部分可以放置在沙箱化的 `iframe` 中，父文档可以通过发布消息和侦听响应使各个部分之间通信。
+通过沙箱和 [`postMessage` API](https://developer.mozilla.org/en-US/docs/DOM/window.postMessage)，这个模型可以成功的应用到 web 上。应用程序的各个部分可以放置在沙箱化的 `iframe` 中，父文档可以通过发布消息和侦听响应使各个部分之间通信。
 
 [Evalbox](https://www.html5rocks.com/static/demos/evalbox/index.html) 可以将字符串解析成 JavaScript 代码。而这就是你一直期待的。当然，这是一个相当危险的应用程序，因为允许任意的 JavaScript 执行意味着源提供的任何数据都是可获取的。我们通过确保代码在沙箱中执行来降低风险，从框架的内容开始，从内到外完成代码：
 
@@ -118,9 +118,9 @@ Twitter 的 "Tweet" 按钮是个很好的示例，它可以通过沙箱更安全
 
 在框架内部，我们有一个最小的文档，它通过连接到 `window` 对象的 `message` 事件来侦听来自其父对象的消息。每当父进程对 iframe 的内容执行 postMessage 时，这个事件就会触发，然后执行父进程希望我们执行的字符串。
 
-在处理程序中，用父窗口获取事件的`source` 属性。一旦我们完成工作，就用它发送结果。然后，将数据传递给 `eval()` 来完成繁重的工作。这个调用包括在 try 块中，因为在沙箱化的 `iframe` 中禁止的操作经常会生成 DOM 异常；我们将捕获它们并报告一个友好的错误消息。最后，我们将结果发布回父窗口。整个过程是很简单的。
+在处理程序中，用父窗口获取事件的 `source` 属性。一旦我们完成工作，就用它发送结果。然后，将数据传递给 `eval()` 来完成繁重的工作。这个调用包括在 try 块中，因为在沙箱化的 `iframe` 中禁止的操作经常会生成 DOM 异常；我们将捕获它们并报告一个友好的错误消息。最后，我们将结果发布回父窗口。整个过程是很简单的。
 
-父类也同样简单。我们会创建一个小的 UI 层，代码有一个 `textarea` ，和一个可执行的 `button` ，我们会通过一个只允许执行脚本的沙箱 `iframe` 嵌入到 `frame.html`：
+父类也同样简单。我们会创建一个小的 UI 层，代码有一个 `textarea`，和一个可执行的 `button`，我们会通过一个只允许执行脚本的沙箱 `iframe` 嵌入到 `frame.html`：
 
 ```html
 <textarea id='code'></textarea>
