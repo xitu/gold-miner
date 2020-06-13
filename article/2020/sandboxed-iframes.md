@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/sandboxed-iframes.md](https://github.com/xitu/gold-miner/blob/master/article/2020/sandboxed-iframes.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：
+> * 校对者：[TUARAN](https://github.com/TUARAN)，[rachelcdev](https://github.com/rachelcdev)
 
 # 如何使用内联框架元素 IFrames 的沙箱属性提高安全性
 
@@ -15,7 +15,7 @@
 
 ## 最小特权
 
-本质上，我们正在寻找一种只授予其完成工作所需的最小权限的机制。如果组件不 **需要** 弹出一个新窗口，就拿走 window.open 的访问权。如果组件不需要 Flash，就关闭对 Flash 插件的支持。当我们遵守 [最小特权原则](http://en.wikipedia.org/wiki/Principle_of_least_privilege)，关闭与功能不直接相关的权限，那就会很安全了。
+本质上，我们正在寻找一种只授予其完成工作所需的最小权限的机制。如果组件不 **需要** 弹出一个新窗口，就禁止访问 window.open。如果组件不需要 Flash，就关闭对 Flash 插件的支持。当我们遵守 [最小特权原则](http://en.wikipedia.org/wiki/Principle_of_least_privilege)，关闭与功能不直接相关的权限，那就会很安全了。
 
 `iframe` 元素是为这种解决方案构建良好框架的第一步。在 `iframe` 中加载不信任的组件时，它将提供应用程序与加载内容的分离：嵌入的内容不能访问页面的 DOM 或本地存储的数据，也不能在页面上任意位置绘图；它的作用范围仅限于被嵌入的元素。然而，这种分离并不是真正可靠的。被嵌入的页面仍然有许多令人讨厌或恶意的行为：比如自动播放的视频、多余的插件和弹出窗口，而这些只是冰山一角。
 
@@ -60,7 +60,7 @@ Twitter 的 "Tweet" 按钮是个很好的示例，它可以通过沙箱更安全
 
 文件被加载到一个完全沙箱化的 `iframe` 中，带来的风险非常小，但这是十分苛刻的。当然，这样做也没有太大的价值：对于一些静态内容，可以使用一个完整的沙箱，但大多数情况下，可以放宽松一些。
 
-除了插件之外，这些限制都可以通过向 sandbox 属性的值添加一个标志来解除。沙箱化的文件是不能运行插件的，因为插件没有沙箱的源代码，除此之外其他的都一样：
+除了插件之外，这些限制都可以通过向 sandbox 属性的值添加一个标志来解除。沙箱化的文件是不能运行插件的，因为插件源码未被沙箱化，除此之外其他的都一样：
 
 - **`allow-forms`** 允许提交表单。
 - **`allow-popups`** 允许（`window.open()`, `showModalDialog()`, `target="_blank"` 等）弹出。
@@ -78,13 +78,13 @@ Twitter 的 "Tweet" 按钮是个很好的示例，它可以通过沙箱更安全
 
 需要注意的重要一点是，应用于框架的沙箱标记也适用于在沙箱中创建的任何窗口或框架。这意味着我们必须将 **`allow-forms`** 添加到框架的沙箱中，即使表单只存在于框架弹出的窗口中。
 
-有了 `sandbox` 属性后，组件需要只获得所需的权限，插件、顶部导航和 pointer lock 等功能仍然被禁用。我们降低了嵌入组件的风险，且没有产生不良影响。
+有了 `sandbox` 属性后，组件只获得所需的权限，插件、顶部导航和 pointer lock 等功能仍然被禁用。我们降低了嵌入组件的风险，且没有产生不良影响。
 
 ## 分离权限
 
 为了在低权限环境中运行不受信任的代码，对第三方内容进行沙箱化是非常有益的。但对于你自己的代码呢？你肯定相信自己，那为什么还担心沙箱化呢？
 
-试问一下：如果你的代码不需要插件，为什么给它插件的权限？最好的情况，你不会用到这个权限；但最坏的情况，对于攻击者来说，这是一个让他迈出攻击第一步的潜在危险。每个人的代码都有 bug，几乎每个应用程序都容易受到各式各样的攻击。代码沙箱化意味着即使一个攻击者成功的破坏你的应用，他们也不会被赋予对你应用程序 *完整* 的访问权；他们只能够做应用程序可以做的事情。虽然这样已经很糟糕，但还没糟糕到那个程度。
+试问一下：如果你的代码不需要插件，为什么给它插件的权限？最好的情况，你不会用到这个权限；但最坏的情况，对于攻击者来说，这给了攻击者一个可乘之机。每个人的代码都有 bug，几乎每个应用程序都容易受到各式各样的攻击。代码沙箱化意味着即使一个攻击者成功的破坏你的应用，他们也不会被赋予对你应用程序 *完整* 的访问权；他们只能够做应用程序可以做的事情。虽然这样已经很糟糕，但还没到糟糕透顶的程度。
 
 你可以通过将应用程序拆分成逻辑块，并使用尽可能少的特权对每个块进行沙箱化，以达到进一步减少危险的目的。这个方法在源码中很常见：例如 Chrome，将自己分解为一个高权限的浏览器进程，用于访问本地硬盘和网络连接；以及许多低权限的呈现进程，用于负责解析不受信任的内容。属于低权限的渲染器不需要接触磁盘，浏览器会提供渲染页面所需的所有信息。即使黑客找到了破坏渲染器的方法，也不会有什么进展，因为所有高权限访问都必须通过浏览器的进程路由。攻击者须在系统的不同部分找出漏洞，才可进行破坏，这样做就大大降低了风险。
 
@@ -175,7 +175,7 @@ document.getElementById('safe').addEventListener('click', evaluate);
 
 ## 你该如何使用沙箱
 
-你可以在各种浏览器中使用沙箱，例如Firefox 17+，IE10+ 和 Chrome。也可以根据 [最新的支持表](http://caniuse.com/#feat=iframe-sandbox) 查看是否可以使用。在 `iframes` 中使用 `sandbox` 属性，允许你授予 *仅* 保证内容正常运行的特权。这帮你减少了第三方内容风险，且超出了[内容安全策略](http://www.html5rocks.com/en/tutorials/security/content- securpolicy/)所能提供的安全范围。
+你可以在各种浏览器中使用沙箱，例如Firefox 17+，IE10+ 和 Chrome。也可以根据 [最新的支持表](http://caniuse.com/#feat=iframe-sandbox) 查看是否可以使用。在 `iframes` 中使用 `sandbox` 属性，允许你授予 *仅* 保证内容正常运行的特权。这帮你大大减少了第三方内容风险，甚至超出了[内容安全策略](http://www.html5rocks.com/en/tutorials/security/content- securpolicy/)所能提供的安全范围。
 
 此外，沙箱非常强大，可以降低攻击者巧妙利用你代码中漏洞的风险。通过将单个应用程序分离到一组沙箱服务中，每个沙箱服务只负责一小块自己的功能。这样做攻击者除了要破坏特定的构建内容，还要破坏它们的控制器。这样做很困难，特别是因为控制器的作用域可以大大减少。如果你请求浏览器帮助你完成剩下的工作，那么你可以多做审核 *这种* 代码的工作。
 
@@ -184,7 +184,7 @@ document.getElementById('safe').addEventListener('click', evaluate);
 ## 进一步了解
 
 - "[HTML5 应用中的权限分离](http://www.cs.berkeley.edu/~devdatta/LeastPrivileges.pdf)" 是一篇有趣的文章，讲述了一个小框架的设计，以及它在三个 HTML5 app 中的应用。
-- 当沙箱结合两个新的 iframe 属性时，可以更加灵活: [`srcdoc`](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#attr-iframe-srcdoc), 和[`seamless`](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#attr-iframe-seamless). 前者允许您用内容填充框架，而不需要HTTP请求的开销，后者允许样式应用到框架内容中。两者目前浏览器的支持度不高（只有 Chrome 和 WebKit nightlies）。但这将是未来一个有趣的组合。例如，你可以通过以下代码对一篇文章进行沙盒注释:
+- 当沙箱结合两个新的 iframe 属性时，可以更加灵活: [`srcdoc`](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#attr-iframe-srcdoc)， 和[`seamless`](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#attr-iframe-seamless)。 前者允许您用内容填充框架，而不需要HTTP请求的开销，后者允许样式应用到框架内容中。两者目前浏览器的支持度不高（只有 Chrome 和 WebKit nightlies）。但这将是未来一个有趣的组合。例如，你可以通过以下代码对一篇文章进行沙盒注释:
 
 ```html
 <iframe sandbox seamless
