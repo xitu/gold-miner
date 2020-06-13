@@ -1,9 +1,9 @@
 > - 原文地址：[Schema.org: The Popular Web Standard You’ve Never Heard Of 🤫](https://levelup.gitconnected.com/schema-org-the-popular-web-standard-youve-never-heard-of-d9b7ff28a22d)
 > - 原文作者：[dave.js](https://medium.com/@_davejs)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/schema-org-the-popular-web-standard-youve-never-heard-of.md](https://github.com/xitu/gold-miner/blob/master/article/2020/schema-org-the-popular-web-standard-youve-never-heard-of.md)
+> - 本文永久链接：https://github.com/xitu/gold-miner/blob/master/article/2020/schema-org-the-popular-web-standard-youve-never-heard-of.md
 > - 译者：[lhd951220](https://github.com/lhd951220)
-> - 校对者：[rachelcdev](https://github.com/rachelcdev)  [noirlyrik](https://github.com/noirlyrik)
+> - 校对者：[rachelcdev](https://github.com/rachelcdev), [noirlyrik](https://github.com/noirlyrik)
 
 # Schema.org: 你未曾耳闻的流行网页标准 🤫
 
@@ -58,7 +58,7 @@ API 非常简单。只有三个属性：
 </div>
 ```
 
-`itemscope` 和 `itemtype` 设置在顶层的 `\<div>` 元素，所以每一个在顶层元素下的 `itemprop` 都是属于 Person 类型的。
+`itemscope` 和 `itemtype` 设置在顶层的 `<div>` 元素，所以每一个在顶层元素下的 `itemprop` 都是属于 Person 类型的。
 
 `itemtype` 的值是你想要使用的类型的文档的 URL。为了了解哪一个 `itemtype` 和 `itemprop` 的值最适合你的内容，你可以查阅 Schema.org 的文档，里面有详细的描述和如何使用每种模式类型的示例。
 
@@ -89,13 +89,13 @@ API 非常简单。只有三个属性：
 </div>
 ```
 
-通过为 `\<address>` 元素添加 `itemscope`，我们限定了在这个标记中的所有 `itemprop` 的作用范围为 PostalAddress 项。通过使用 `itemprop="address"`，PostalAddress 链接到 Person 项，否则，它们将会被解释为单独的、未关联的项。
+通过为 `<address>` 元素添加 `itemscope`，我们限定了在这个标记中的所有 `itemprop` 的作用范围为 PostalAddress 项。通过使用 `itemprop="address"`，PostalAddress 链接到 Person 项，否则，它们将会被解释为单独的、未关联的项。
 
 ## 隐藏数据
 
-有时，我们想要为搜索引擎提供上下文信息，但是我们并不想在页面上展示。这可以通过使用 `\<meta>` 标记来实现。这看起来也许有一点奇怪， 因为 `\<meta>` 标记通常在网页的 `\<head>` 中使用的，但是 [Schema.org 建议为隐藏内容使用 meta 标记](https://schema.org/docs/gs.html#advanced_missing)。
+有时，我们想要为搜索引擎提供上下文信息，但是我们并不想在页面上展示。这可以通过使用 `<meta>` 标记来实现。这看起来也许有一点奇怪， 因为 `<meta>` 标记通常在网页的 `<head>` 中使用的，但是 [Schema.org 建议为隐藏内容使用 meta 标记](https://schema.org/docs/gs.html#advanced_missing)。
 
-对于 Person 项，让我们使用 `\<meta>` 标记来添加我的昵称（dave.js）。 
+对于 Person 项，让我们使用 `<meta>` 标记来添加我的昵称（dave.js）。
 
 ```html
 <div itemscope itemtype="https://schema.org/Person">
@@ -127,7 +127,7 @@ API 非常简单。只有三个属性：
 
 ## 活跃的标准
 
-Schema.org 是一个开源的社区项目。尽管它得到了 Google，Microsoft，Mozilla 等主要公司的支持，但仍然鼓励公众做出贡献。尽管 Schema.org 在 2013 年就已经存在了，但它是一个适应网络需求的活跃的标准。比如，最近的发行版包括了诸如 [CovidTestingFacility](https://schema.org/CovidTestingFacility) 之类的项类型，以帮助新冠疫情救灾工作。
+Schema.org 是一个开源的社区项目。尽管它得到了 Google、Microsoft、Mozilla 等主要公司的支持，但仍然鼓励公众做出贡献。尽管 Schema.org 在 2013 年就已经存在了，但它是一个适应网络需求的活跃的标准。比如，最近的发行版包括了诸如 [CovidTestingFacility](https://schema.org/CovidTestingFacility) 之类的项类型，以帮助新冠疫情救灾工作。
 
 查看 [文档](https://schema.org/docs/documents.html) 来学习更多的 Schema.org 的知识和它的用法。这里有大量不同类型的项的模式，以及有关如何使用它们的详细文档。
 
