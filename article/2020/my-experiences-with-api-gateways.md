@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-experiences-with-api-gateways.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-experiences-with-api-gateways.md)
 > * 译者：[司徒公子](https://github.com/todaycoder001)
-> * 校对者：
+> * 校对者：[刘海东](https://github.com/lhd951220)
 
 # 记一次 —— 构建 API 网关服务的经历...
 
-不久前，我在做一个项目，为我们的云产品实现 API 网关。它背后的主要动机是为所有外部通信和保护后端服务提供单一入口，但还有其他原因。我假设你无意中发现了这篇关于 API 网关的文章，如果不是，在深入阅读这篇文章之前，你应该阅读[这里](https://microservices.io/patterns/apigateway.html)和[这里](https://www.nginx.com/learn/api-gateway/)
+不久前，我在做一个项目，为我们的云产品实现 API 网关。它背后的主要动机是为所有外部通信和保护后端服务提供单一入口，但还有其他原因。我假设你无意中发现了这篇关于 API 网关的文章，如果不是，在深入阅读这篇文章之前，你应该阅读[这里](https://microservices.io/patterns/apigateway.html)和[这里](https://www.nginx.com/learn/api-gateway/)。
 
 找到一个满足需求的 API 网关是[过渡选择](https://en.wikipedia.org/wiki/Overchoice)。如果你认为这是在针对你，你最终心里可能会很崩溃。就像当今业界的其他主流软件技术栈一样，即使是 API 网关也有各种选择和风格。说实话，在做决定的时候，如果没有深入研究每种可选项并将其与你的特定需求相匹配，就会遇到很大的困难。本文是我简化任务的一个小小尝试，并在最后提供了一个流程图，希望能帮助你做出决定。
 
@@ -21,9 +21,9 @@
 
 1. [反向代理](https://en.wikipedia.org/wiki/Reverse_proxy) —— 这是大多数项目采用网关解决方案的最重要原因。任何已对外开放 API 的成熟项目都应该避免由于安全问题而暴露后端的 URL，将后端的复杂服务抽象到客户端。这也能为所有客户端访问后端 API 提供唯一单点入口。
 2. [负载均衡](https://www.nginx.com/resources/glossary/load-balancing/) —— 网关能将传入的单个 URL 路由到多个后端目标。 在微服务体系结构中，当你想要扩展你的应用程序以获得高可用性，或者在运行某种服务集群的配置时，甚至是在其他方面，这通常非常有用。
-3. 身份认证和授权 —— 网关应该能成功的实现身份认证，并且允许已信任的客户端访问 API，也能使用类似于[基于角色的访问控制](https://en.wikipedia.org/wiki/Role-based_access_control)的东西来提供授权服务。
-4. IP 清单 —— 允许或者禁止某些 IP 地址通过。为你的生态提供一个额外的安全层，当你发现一组恶意地址想要通过 DDOS 来关闭你应用程序的时候，这非常有用。
-5. 分析 —— 提供一种方法记录日志的使用情况以及与 API 调用相关的其他有用指标。应该能分解每个客户端的 API 使用情况，以实现可能的获利。
+3. 身份认证和授权 —— 网关应该能成功的实现身份认证，并且允许已信任的客户端访问 API，也能使用类似于[基于角色的访问控制](https://en.wikipedia.org/wiki/Role-based_access_control)的方式来提供授权服务。
+4. IP 清单 —— 允许或者禁止某些 IP 地址通过。为你的生态提供一个额外的安全层，当你发现一组恶意地址想要通过 DDOS 来瘫痪你的应用程序的时候，这非常有用。
+5. 分析 —— 提供一种方法记录日志的使用情况以及与 API 调用相关的其他有用指标。应该能分解每个客户端的 API 使用情况，以获取可能的收益。
 6. 限速 —— 限制 API 调用的能力，例如，你只希望允许所有使用者每分钟调用 10000 次，或者对特定的使用者允许每个月调用 1000 次。
 7. 转换 —— 在转发之前，转换请求和响应**（包括消息头和消息体）**的能力。
 8. 版本控制 —— 可以选择同时使用不同版本的 API，或者以[金丝雀发布](https://martinfowler.com/bliki/CanaryRelease.html)或者[蓝绿部署](https://martinfowler.com/bliki/BlueGreenDeployment.html)的形式缓慢推出 API。
@@ -35,11 +35,11 @@
 
 ## API 网关和服务网格
 
-在对比他们实际实现之前，我还必须谈谈在寻找网关、[服务网格](https://www.nginx.com/blog/what-is-a-service-mesh/)的时候，你可能遇到的另一种模式。首先，了解 API 网关和服务网格的区别以及它们各自的用途可能会让人感到困惑。所以在继续之前，我将会对其进行详细描述。
+在对比他们实际实现之前，我还必须谈谈在寻找网关、[服务网格](https://www.nginx.com/blog/what-is-a-service-mesh/)的时候，你可能遇到的另一种模式。首先，了解 API 网关和服务网格的区别以及它们各自的用途可能会让人感到困惑。所以在继续之前，我将会详细描述它们。
 
-API 网关应用于 [OSI 模型](https://en.wikipedia.org/wiki/OSI_model)的第七层，或者你也可以说管理外部的网络流量（有时也称南北向交通）。而服务网格应用于 OSI 模型的第四层，或者说是管理服务间通信（有时也被称为东西向交通）。API 网关的一些例子包括反向代理、负载均衡、认证与授权、IP 列表和限速等。
+API 网关应用于 [OSI 模型](https://en.wikipedia.org/wiki/OSI_model)的第七层，或者你也可以说管理来自外部的网络流量（有时也称南北向交通）。而服务网格应用于 OSI 模型的第四层，或者说是管理服务间通信（有时也被称为东西向交通）。API 网关的一些例子包括反向代理、负载均衡、认证与授权、IP 列表和限速等。
 
-另一方面，服务网格的工作方式类似于代理或挎斗模式，它解除了服务间的通信责任，并处理断路器、超时、重试和服务发现等。在本文发布的时候， [Istio](https://istio.io/zh/docs/concepts/what-is-istio/) 是服务网格众所周知的一种实现方式。
+另一方面，服务网格的工作方式类似于代理或挎斗模式，它解除了服务间的通信责任，并处理断路器、超时、重试和服务发现等问题。在本文发布的时候， [Istio](https://istio.io/zh/docs/concepts/what-is-istio/) 是服务网格众所周知的一种实现方式。
 
 你一定已经注意到了，我的需求列表中还包括了一些服务网格提供的功能。目前，相当多的 API 网关能实现同时在 OSI 模型的第四层和第七层工作，并处理服务网格的需求。如果我们能得到一个能处理一些网格服务需求的实现，即使不是必须的，那就太好不过了。这里有一篇很好的[文章](https://dzone.com/articles/api-gateway-vs-service-mesh)，详细介绍了它们的区别。
 
@@ -57,11 +57,11 @@ API 网关应用于 [OSI 模型](https://en.wikipedia.org/wiki/OSI_model)的第�
 
 ## Nginx
 
-[Nginx](https://www.nginx.com) 已经是七层负载均衡代理和后端应用创建单点入口的最佳选择之一了。它已经在许多不同的产品环境使用并被验证可行，并且以极低的内存使用率代替了许多已存在的负载均衡硬件，这样也为公司节省了许多的成本。许多 [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) 使用 Nginx 作为引擎来缓存边缘节点的数据
+[Nginx](https://www.nginx.com) 已经是七层负载均衡代理和后端应用创建单点入口的最佳选择之一了。它已经在许多不同的产品环境使用并被验证可行，并且以极低的内存使用率代替了许多已存在的负载均衡硬件，这样也为公司节省了许多的成本。许多 [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) 使用 Nginx 作为引擎来缓存边缘节点的数据。
 
 使用 Nginx 作为网关的最大优势是它具有从简单到复杂的功能，允许你选择满足你要求的功能。例如，如果你一开始仅需要负载均衡和反向代理的功能，Nginx 就可以很容易地以最小的代价完成这一任务，最终随着你产品的成熟，你可以升级到其他的功能。你也可以使用它们的商业产品 [NGINX Plus](https://www.nginx.com/blog/whats-difference-nginx-foss-nginx-plus/) 来实现完整的 API 网关服务，即使它的开源产品可以通过现有广泛的插件来实现这一点。
 
-Nginx 以其较小的内存占用以及低延迟下的高性能而闻名。你也可以获取一些[第三方自定义 Nginx 插件](https://www.nginx.com/resources/wiki/modules/)，这些插件可以涵盖广泛的定制场景。当然，当你在某些地方遇到问题的时候，你也可以从它巨大的开发者社区网络中寻求帮助。你唯一可能遇到的问题是，Nginx 的配置可能有点难以掌握，除非你已经亲自动手实践过。你不得不翻阅它文档中的一部分内容，直到你已经熟练掌握它。
+Nginx 以其较小的内存占用以及低延迟下的高性能而闻名。你也可以获取一些[第三方自定义 Nginx 插件](https://www.nginx.com/resources/wiki/modules/)，这些插件可以涵盖广泛的定制场景。当然，当你在某些地方遇到问题的时候，你也可以从它庞大的开发者社区网络中寻求帮助。你唯一可能遇到的问题是，Nginx 的配置可能有点难以掌握，除非你已经亲自动手实践过。否则，你不得不翻阅它文档中的一部分内容，直到你已经熟练掌握它。
 
 ## Kong
 
@@ -73,11 +73,11 @@ Kong 的架构非常简单易懂，它是由许多组件构成...
 * 数据库层，可选择 Cassandra 或者 Postgres 来存储所有的配置数据，以便在发生故障的时候可以轻松恢复。
 * 仪表盘提供用于 API 管理和查看分析的用户界面**（尽管 kong 提供了 REST API、上游 API 以及它的使用者的管理服务，但它仅提供企业级服务）**
 
-Kong 既有开源版本也有企业版本的实现，由于它们由 nginx 自身驱动，所以两者在毫秒级别的延迟下都能稳定工作。想象一下，使用 Nginx 进行网关操作，同时 REST API 和数据库层轻松管理配置。
+Kong 既有开源版本也有企业版本的实现，在 nginx 的支持下，它们两者都能在毫秒级别的延迟下稳定工作。想象一下，使用 Nginx 进行网关操作，同时 REST API 和数据库层轻松管理配置。
 
-Kong 提供了多种[插件](https://docs.konghq.com/hub/?_ga=2.135887729.1315225771.1553575126-343588371.1553575126)，这些能满足从访问控制、安全性以及缓存文档的大部分横切关注点。它也允许你使用 Lua 语言编写程序并使用自定义插件。Kong 的开源是了解它们堆栈的一个良好开端。尽管它没有 Web 界面仪表盘，但是有一些可用的开源仪表盘能帮助你来管理它们的配置。否则，如果你对 REST 很熟悉，你可以直接使用 [管理 API](https://docs.konghq.com/1.1.x/admin-api/)。
+Kong 提供了多种[插件](https://docs.konghq.com/hub/?_ga=2.135887729.1315225771.1553575126-343588371.1553575126)，这些能满足从访问控制、安全性以及缓存文档的大部分横切关注点。它也允许你使用 Lua 语言编写并使用自定义插件。Kong 的开源是了解它们堆栈的一个良好开端。尽管它没有 Web 界面仪表盘，但是有一些可用的开源仪表盘能帮助你来管理它们的配置。否则，如果你对 REST 很熟悉，你可以直接使用他们的[管理 API](https://docs.konghq.com/1.1.x/admin-api/)。
 
-Kong 也可以部署在 [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) 上，并且支持 gRPC 和 Websocket 代理。Kong 的优势是他的底层引擎，它由轻量级但是强大的 Nginx 和 OpenResty 引擎组成，它本身也可以构建成一个成熟的 API 网关，你可以把 Kong 想象成 Nginx 的自动切换版本。这种实现有一个可能的缺点，并不是所有的功能都是开箱即用的，有些必须要激活其各自的插件来手动配置，这可能需要初始设置时间和资源，但是对于许多成熟工程师的团队来说，这可能并不是一个很大的阻碍。
+Kong 也可以部署在[Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)上，并且支持 gRPC 和 Websocket 代理。Kong 的优势是他的底层引擎，它由轻量级但是强大的 Nginx 和 OpenResty 引擎组成，它本身也可以构建成一个成熟的 API 网关，你可以把 Kong 想象成 Nginx 的自动切换版本。这种实现有一个可能的缺点，并不是所有的功能都是开箱即用的，有些必须要激活其各自的插件来手动配置，这可能需要初始设置时间和资源，但是对于许多成熟工程师的团队来说，这可能并不是一个很大的阻碍。
 
 ## Tyk
 
@@ -97,7 +97,7 @@ Ambassador 非常轻量级，所有状态都存储在 Kubernetes 中，因此不
 
 ## Amazon API 网关
 
-[Amazon API 网关](https://aws.amazon.com/api-gateway/)是 AWS 提供的托管 API 管理云服务，只需要点击几下，就可以轻松创建、发布和管理 API。你可以公开 REST 或者 WebSocket 节点，使用 Swagger 或者 Open API 导入新的 API，将你的 URL 路由到各种后端，包括 AWS EC2、AWS lambda 或者甚至是内部节点。通过网关路由上百万个 API 的成本非常小，并且可以预测。因为，对于给定请求数量的场景下是有固定的[定价模型](https://aws.amazon.com/api-gateway/pricing/)可以参考的**（因此，你应该要小心由于外部数据传输带来的成本）**。
+[Amazon API 网关](https://aws.amazon.com/api-gateway/)是 AWS 提供的托管 API 管理云服务，只需要点击几下，就可以轻松创建、发布和管理 API。你可以公开 REST 或者 WebSocket 节点，使用 Swagger 或者 Open API 导入新的 API，将你的 URL 路由到各种后端，包括 AWS EC2、AWS lambda 甚至是内部节点。通过网关路由上百万个 API 的成本非常小，并且可以预测。因为，对于给定请求数量的场景下是有固定的[定价模型](https://aws.amazon.com/api-gateway/pricing/)可以参考的**（因此，你应该要小心由于外部数据传输带来的成本）**。
 
 AWS API 网关不需要设置，因为它是被管理的，你只需要轻轻点几下就能快速创建或者路由 API，使用 SSL 保护它们，提供身份验证和授权，为 API 的外部客户端创建 API 密钥，管理你的 API 版本，如果你愿意，它还可以生成客户端 SDK。AWS API 网关的服务真的很强大，只需要几分钟就可以轻松设置好一个 API 网关服务。因此，如果你已经使用 AWS 或者计划准备使用 AWS，那么你需要认真考虑将此网关作为首选，除非你有一些强制性的功能，它还无法满足。很明显的一个缺点就是你可能会被 AWS 的服务所束缚，这些依赖关系可能会在未来的某个时刻，使得你向其他框架迁移的难度大大增加。
 
