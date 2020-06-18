@@ -2,68 +2,68 @@
 > * 原文作者：[John Au-Yeung](https://medium.com/@hohanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/plain-javascript-versions-of-lodash-array-filtering-and-manipulation-methods.md](https://github.com/xitu/gold-miner/blob/master/TODO1/plain-javascript-versions-of-lodash-array-filtering-and-manipulation-methods.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Coolrice](https://github.com/CoolRice)
+> * 校对者：[z0gSh1u](https://github.com/z0gSh1u)
 
-# Plain JavaScript versions of Lodash Array Filtering and Manipulation Methods
+# 纯 JavaScript 版本的 Lodash 数组 Filtering 和 Manipulation 方法
 
 ![Photo by [Nathan Dumlao](https://unsplash.com/@nate_dumlao?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/13440/0*D1uL9uNDvEenTo3Z)
 
-Lodash is a very useful utility library that lets us work with objects and arrays easily.
+Lodash 是一个十分有用的工具库，它能让我们轻松地处理对象和数组。
 
-However, now that the JavaScript standard library is catching up to libraries such as Lodash, we can implement many of the functions in simple ways.
+而现在 JavaScript 标准库正在追赶 Lodash 这样的库，我们可以用简单的方法实现很多功能。
 
-We can implement the `pullAllBy` , `pullAllWith` , `pullAt` , and `remove` methods easily with plain JavaScript.
+我们可以用纯 JavaScript 轻松实现 `pullAllBy` 、`pullAllWith` 、`pullAt` 和 `remove` 方法。
 
 ## pullAllBy
 
-The `pullAllBy` returns an array that removes the given values that matches the items we want to remove after converting them with the `iteratee` function.
+`pullAllBy` 会返回一个数组，此数组会先通过 `iteratee` 函数转换元素，然后通过给定值匹配来移除我们想移除的元素。
 
-We can implement it as follows:
+我们按如下方式来实现：
 
 ```js
 const pullAllBy = (arr, values, iteratee) => arr.filter(a => !values.map(iteratee).includes(iteratee(a)))
 ```
 
-In the code above, we call the given `iteratee` function to map the values before doing the comparison with `includes` . Also in `includes` , we also call `iteratee` to do the same conversion so that they can be compared properly.
+上面的代码中，在使用 `includes` 对比之前调用给定的 `iteratee` 函数获得对应的值。并且在 `includes` 中也调用 `iteratee` 做同样的转换来让值能正确地对比。
 
-Then we can use our `pullAllBy` function as follows:
+然后我们可以按如下方法使用我们的 `pullAllBy`：
 
 ```js
 const result = pullAllBy([1, 2.1, 3], [2.2, 3], Math.floor)
 ```
 
-And we get `[1]` for `result` .
+`result` 得到 `[1]`。
 
 ## pullAllWith
 
-The Lodash `pullAllWith` method takes a comparator instead of the `iteratee` to compare the values to exclude with the comparator instead of an `iteratee` to convert the values before comparing them.
+Lodash 的 `pullAllWith` 方法需要一个比较器来比较然后排除值，而非用 `iteratee` 先转换再比较。
 
-For instance, we can implement it as follows:
+举一个例子，我们可以按如下方法实现：
 
 ```js
 const pullAllWith = (arr, values, comparator) => arr.filter(a => values.findIndex((v) => comparator(a, v)) === -1)
 ```
 
-In the code above, we use the plain JavaScript’s `findIndex` method with a callback that calls the `comparator` to compare the values.
+上面的代码中，使用纯 JavaScript 中的带回调函数的 `findIndex` 方法，此方法调用回调函数 `comparator` 来比较值。
 
-We call `filter` to filter out them items that are included with the `values` array.
+我们调用 `filter` 来过滤出 `values` 数组包含的元素。
 
-Then when we call it as follows:
+下面可以按如下方法调用：
 
 ```js
 const result = pullAllWith([1, 2, 3], [2, 3], (a, b) => a === b)
 ```
 
-We get `[1]` for `result` .
+`result` 得到 `[1]`。
 
 ## pullAt
 
-The Lodash `pullAt` method returns an array with the elements with the items with the given indexes.
+Lodash 的 `pullAt` 方法返回一个数组，此数组的元素通过给定的索引来得到。
 
-It also removes the elements in-place with those indexes.
+它同时会在数组中移除这些索引对应的元素。
 
-Again, we can use the `filter` method to filter out the items that we want to remove as follows:
+我们再一次使用 `filter` 方法来过滤出我们想要的元素，方法如下：
 
 ```js
 const pullAt = (arr, indexes) => {
@@ -84,32 +84,32 @@ const pullAt = (arr, indexes) => {
 }
 ```
 
-In the code above, we used a `for` loop to loop through the array and call `splice` on `arr` on the items with the given index in the `indexes` array.
+在上面的代码中，我们使用 `for` 循环遍历数组，并用给定的 `indexes` 数组调用 `includes` 对元素们做判断。
 
-Then we push the removed items into the `removedArr` array.
+然后我们把要被移除的元素推送到 `removedArr` 数组中。
 
-We then have and 2nd loop, which loops `arr` in reverse so that it doesn’t change `arr` ‘s indexes before we call `splice` on it.
+之后我们的第二个循环会反向遍历 `arr`，这样在我们调用 `splice` 时不会改变 `arr` 在当前 `i` 以前部分的索引。
 
-In the loop, we just call `splice` to remove the items with the given index.
+在循环中，我们只用调用 `splice` 来移除给定索引的元素。
 
-Finally, we call `flat` to flatten the array since `splice` returns an array.
+最终，我们调用 `flat` 来对数组做扁平化处理，因为 `splice` 会返回一个数组。
 
-Therefore, when we call it as follows:
+因此，当我们像下面这样调用它时：
 
 ```js
 const arr = [1, 2, 3]
 const result = pullAt(arr, [1, 2])
 ```
 
-We see that `result` is `[2, 3]` since we specified `[1, 2]` in the array with the index to remove and `arr` is now `[1]` since that’s the only one that’s not removed.
+我们可以看到 `result` 是 `[2, 3]`，因为指定数组中的 `[1, 2]` 索引对应的元素要被删除，并且由于索引 0 的元素是唯一没有被移除的，所以 `arr` 现在是 `[1]`。
 
 ![Photo by [Tim Mossholder](https://unsplash.com/@timmossholder?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/16384/0*3y4v9xXTGABfhW8F)
 
 ## remove
 
-The `remove` method removes the items from an array in place with the given condition and returns the removed items.
+`remove` 方法移除满足给定条件的元素并且返回被移除的元素。
 
-We can implement it ourselves with the `for` loop as follows:
+我们自己可以向下面这样来用 `for` 循环来实现它：
 
 ```js
 const remove = (arr, predicate) => {
@@ -129,24 +129,24 @@ const remove = (arr, predicate) => {
 }
 ```
 
-In the code above, we have 2 loops as we have with the `pullAt` method. However, instead of checking for indexes, we’re checking for a `predicate` .
+在上文的代码中，我们的 `pullAt` 方法有两次循环。然而现在我们用 `predicate` 函数，而不是用数组索引来检查。。
 
-Like `pullAt` , we have to loop through the array indexes in reverse to avoid `splice` changing the indexes as we’re looping through the items of `arr` .
+就像 `pullAt` 一样，我们必须反向遍历数组来防止在循环 `arr` 时 `splice` 改变索引。
 
-Then when we call `remove` as follows:
+然后，当我们像下面这样调用它时：
 
 ```js
 const arr = [1, 2, 3]
 const result = remove(arr, a => a > 1)
 ```
 
-We get that `result` is `[2, 3]` and `arr` is `[1]` since we specified that the `predicate` is `a => a > 1` , so anything bigger than 1 is removed from the original array and the rest are returned.
+`result` 的值是 `[2, 3]` 并且 `arr` 是 `[1]`，因为我们指定 `predicate` 为 `a => a > 1`，所以任何比 1 大的元素都会被移除，返回剩下的值。
 
-## Conclusion
+## 总结
 
-The `pullAt` and `remove` methods are very similar, except that `pullAt` takes an array of index and `remove` takes a callback with the given condition.
+`pullAt` 和 `remove` 非常相似，除了 `pullAt` 接收一组索引而 `remove` 接收一个指定条件的回调函数。
 
-`pullAllBy` and `pullAllWith` are implemented with the `filter` method. `pullAllBy` also needs to map the values with the `iteratee` function before doing comparisons.
+`pullAllBy` 和 `pullAllWith` 都使用 `filter` 方法实现。`pullAllBy` 在对比之前使用 `iteratee` 来预处理元素。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -2,81 +2,81 @@
 > * 原文作者：[Jeremy Morgan](https://medium.com/@jeremymorgan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/will-ubuntu-20-04-steal-more-windows-users.md](https://github.com/xitu/gold-miner/blob/master/article/2020/will-ubuntu-20-04-steal-more-windows-users.md)
-> * 译者：
-> * 校对者：
+> * 译者：[z0gSh1u](https://github.com/z0gSh1u)
+> * 校对者：[lhd951220](https://github.com/lhd951220)
 
-# Will Ubuntu 20.04 Steal More Windows Users?
+# Ubuntu 20.04 会不会偷走更多的 Windows 用户？
 
-It’s that time of year again, Ubuntu [**20.04 is now available**](https://bit.ly/DownloadUbuntu20). Will this be the release that steals away more Windows users?
+又到了一年的这个时候，Ubuntu [**20.04 发布了**](https://bit.ly/DownloadUbuntu20)。 这会不会是偷走更多 Windows 用户的发行版？
 
-No, 2020 won’t be the year of the Linux Desktop. However, as [**Jason Evangelho pointed out a couple of days ago**](https://www.forbes.com/sites/jasonevangelho/2020/05/06/windows-10-is-bleeding-users-while-ubuntu-linux-enjoys-an-astonishing-increase/#61d822b33ccd) Windows 10 usage suffered a rare drop in usage while Ubuntu usage went up **599 percent**. It’s tough to make a call with such little information. But the idea that Ubuntu could be stealing users from Windows 10 isn’t that hard to fathom.
+不，2020 年并不是属于 Linux 桌面的一年。然而，正如 [**Jason Evangelho 在几天前指出的**](https://www.forbes.com/sites/jasonevangelho/2020/05/06/windows-10-is-bleeding-users-while-ubuntu-linux-enjoys-an-astonishing-increase/#61d822b33ccd)，Windows 10 的使用率突然遭遇了罕见的下降，而 Ubuntu 的使用率却上升了 **599%**。这一点点信息虽然说明不了什么，但可以发现 Ubuntu 正在从 Windows 10 偷走用户的说法，也不是那么难以理解了。
 
-> **Usability and compatibility have always been the sticking points when moving from Windows to Linux, and some distributions are closing that gap. Ubuntu is one of them.**
+> **可用性和兼容性问题一直是从 Windows 迁移到 Linux 的症结，但一些发行版正在逐步解决这些问题。Ubuntu 就是其中之一。**
 
-I’m not a huge Ubuntu fan. I quit using it regularly at version 10.04. I will download it and play with it every release, but I’m not interested in daily use. However, it’s hard to deny it’s a well crafted Operating System. Let’s take a look at some of the new stuff that’s arrived with 20.04.
+我并不是 Ubuntu 的忠实粉丝。我从 10.04 后就没有经常用它了。我会把每个发行版下载下来玩一玩，但没兴趣日常使用。然而，不可否认，Ubuntu 是一个做得很好的操作系统。让我们一起看看 20.04 版本里的一些新东西吧。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*6PvRb8wSf2MJbwPW.jpg)
 
-## Theme Improvements
+## 主题的改进
 
-Canonical has made some improvements to the theme settings right out of the box. One of the first things I noticed: fractional scaling.
+Canonical 公司在主题设置方面做了一些开箱即用的优化。我注意到的一个是：分数化的缩放比例。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*HbPOn2bmkikis84U.jpg)
 
-This is something I use all of the time. It’s nice to have this option without having to install or configure anything.
+我一直都在用这个功能。不需要安装或者配置其他的东西就有这个选项，真的很不错。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*pDW73L6C04BTdzPB.jpg)
 
-Love the switch between modes. Cliche as it may be, I love dark mode for nearly everything unless I’m in a bright room or demonstrating code. Other than that, I’m your typical dark mode for everything geek. It’s nice to see the option here.
+我喜欢在各种模式间切换。虽然可能是很普遍的情况，我在几乎所有情况下都更喜欢黑暗模式，除非是在明亮的房间或者正在演示代码。除此之外，各种 Geek 的东西我也喜欢黑暗模式。所以有这种选项真的太棒了。
 
-Oh, and you can hide the dock. This is something I’ve grown somewhat accustomed to over the years to maximize screen space.
+噢，你还可以隐藏边栏！我习惯用这个功能来最大化显示区域好多年了。
 
-It also comes with Gnome 3.36 standard, which is great if you’re a Gnome person. They’ve made a ton of significant improvements.
+Ubuntu 20.04 还使用了 Gnome 3.36 标准，如果你喜欢 Gnome，这应该很不错。他们做了很多重要的优化。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*w_GrGexypCr0dErj.jpg)
 
-They’ve added a “do not disturb” button. You can also disable lock screen notifications, and for better security, you should.
+他们添加了一个“不要打扰”按钮。你也可以禁用锁屏通知，其实为了更好的安全性，你也应该这么做。
 
-With this being Linux, you can tinker and accomplish these things with some work, but it’s nice that it’s available out of the box.
+因为是 Linux 的原因，你当然可以自己做点小修小补来实现这些功能，但有能开箱即用的总是好的。
 
-## No More Apt, Now We Snap
+## 别用 Apt 了，试试 Snap
 
 ![](https://cdn-images-1.medium.com/max/2000/0*5jTS6Z_buw0IAYgT.jpg)
 
-A big change for 20.04 is Ubuntu Software now points to the Snap store. There’s tons of good stuff in here. It contains more packages than I’ve seen from any other distro lately. Snap is pretty nice, but if you still want to apt-get stuff, you can.
+Ubuntu 20.04 的一个大变化是 Ubuntu 应用商店现在指向 Snap 商店了。这里有很多好东西，里面的包比我最近看到的任何发行版的都要多。Snap 确实不错，但如果你还是想用 apt-get 也行。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*E0d7StkgMkwGbrVO.jpg)
 
-You can choose which channel to install from: stable, beta, or edge. Pretty cool.
+你还可以选择从哪个通道安装：稳定版、测试版，或者 edge 版。真酷！
 
-## Performance
+## 性能
 
 ![](https://cdn-images-1.medium.com/max/2000/0*dyLeZ1_vv00-vi_X.jpg)
 
-I ran this in a VM with a single core and 8 Gig of RAM. It was snappy, and I didn’t feel any lags or anything unusual. I’m confident it will perform even better natively, with any machine made in the last ten years or so.
+我是在一台单核 8 GB 内存的虚拟机上运行的。它真的很简洁，而且我没感觉到任何卡顿或者不正常。我相信它在原生机器上会运行的更好（只要不是十几年前的老爷机）。
 
-## Other Stuff
+## 其他的东西
 
 ![](https://cdn-images-1.medium.com/max/2000/0*_x5JyvJJ6RVMEw4X.jpg)
 
-Ubuntu has always been a “batteries included” operating system. It comes with all sorts of bells and whistles if you choose to install everything. Backups are managed for you, as well as auto-updating. Office applications, image viewers, and the like are all installed. It’s a turnkey OS if you want to get started doing things fast.
+Ubuntu 一直都是一个开箱即用的操作系统。如果你选择什么都安装，那各种花哨的玩意儿它都有。帮你管理备份，还有自动更新。办公软件、图像查看器之类的都安装好了。如果你想快点开始干活，它就是个“一条龙”式的操作系统。
 
-## Will It Help Lure Windows Users?
+## Ubuntu 会不会吸引 Windows 用户？
 
-The increased interest in [**Linux**](http://bit.ly/PluralsightLinux) is great. I’ve been using it since the mid-90s, so clearly, I’m sold on it. But I’ve noticed a lot of new folks from the front end development world getting curious as well.
+对 [**Linux**](http://bit.ly/PluralsightLinux) 有日益增长的兴趣是好的。我从九十年代中期就开始用它了，所以很明显，我很喜欢它。我也注意到很多前端开发领域来的新人也对 Linux 越来越好奇。
 
-> **Ubuntu destroys many of the pain points that keep people from trying Linux.**
+> **Ubuntu 消灭了很多阻止人们试试 Linux 的痛点。**
 
-Here’s how:
+原因如下：
 
-* It’s not difficult to install
-* You don’t need to configure a ton of things
-* You get many programs out of the box, or available in the store
-* It’s clean, polished and fast
+* 安装起来并不困难
+* 不用配置一大堆的东西
+* 有很多开箱即用的，或是在商店里的程序
+* 干净又快速
 
-Linux could continue gaining steam and steal some folks away from Windows, and OSX. If you’re considering the switch, try Ubuntu. They’ve made some great improvements in 20.04, and it’s very capable of being a solid desktop operating system that stays out of your way.
+Linux 会继续迅速发展并从 Windows 和 OSX 那里偷走一些用户。如果你想换换口味，试试 Ubuntu 吧。他们在 20.04 中做了很多很棒的改进，而且它非常有能力成为一个可靠、稳定的桌面操作系统，不会成为你的阻碍。
 
-You can [**download Ubuntu 20.04**](https://bit.ly/DownloadUbuntu20) here.
+你可以从 [**这里下载 Ubuntu 20.04**](https://bit.ly/DownloadUbuntu20) 。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
