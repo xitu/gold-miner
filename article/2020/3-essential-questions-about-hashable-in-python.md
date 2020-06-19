@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 三个哈希在 Python 中不可不知的问题
+# 在 Python 中，三个关于可哈希不可不知的问题
 
 ![照片由 [Yeshi Kangrang](https://unsplash.com/@omgitsyeshi?utm_source=medium&utm_medium=referral) 摄于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7648/0*eL1s2Ik6LMju82xU)
 
