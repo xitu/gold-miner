@@ -16,10 +16,10 @@
 在另一个例子中，它提到了 `集合` 中的元素需要是可哈希的。
 
 ```Python
->>> # A good dictionary declaration
+>>> # 一个正确的字典声明
 >>> good_dict = {"a": 1, "b": 2}
 >>> 
->>> # A failed dictionary declaration
+>>> # 一个错误的字典声明
 >>> failed_dict = {["a"]: 1, ["b"]: 2}
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -105,21 +105,21 @@ TypeError: unhashable type: 'set'
 Python 已经实现了内置哈希函数来为它的对象生成哈希值。具体来说，我们可以使用内置的 `hash()` 函数来找到对象的哈希值。下面的代码将向你展示一些示例。
 
 ```Python
->>> # Get an string object's hash value
+>>> # 得到一个字符串对象的哈希值
 >>> hash("Hello World!")
 5892830027481816904
 >>> 
->>> # Get a tuple object's hash value
+>>> # 得到一个元组对象的哈希值
 >>> hash((2, 'Hello'))
 -4798835419149360612
 >>> 
->>> # Get a list object's hash value
+>>> # 得到一个列表对象的哈希值
 >>> hash([1, 2, 3])
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: unhashable type: 'list'
 >>> 
->>> # Get a dict object's hash value
+>>> # 得到一个字典对象的哈希值
 >>> hash({"a": 1, "b": 2})
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -145,7 +145,7 @@ Python 作为通用编程语言的灵活性主要来自于它对创建自定义�
 同时值得注意的是，我们使用 f-string 方法重写了默认的  `__repr__()` 函数，这将允许我们用更加可读的信息显示对象，就像代码最后一行所展示的那样。
 
 ```Python
->>> # Create a custom class
+>>> # 创建一个自定义类
 >>> class Person:
 ...     def __init__(self, name, ssn):
 ...         self.name = name
@@ -154,12 +154,12 @@ Python 作为通用编程语言的灵活性主要来自于它对创建自定义�
 ...     def __repr__(self):
 ...         return f"***Name: {self.name}; SSN: {self.ssn}***"
 ... 
->>> # Create a custom object and check the hash value
+>>> # 创建一个自定义实例并检查哈希值
 >>> person0 = Person('John Smith', '012345678')
 >>> hash(person0)
 272583189
 >>> 
->>> # Create a set that consists of the Person objects
+>>> # 创建一个包含这个 Person 对象的集合
 >>> persons = {person0}
 >>> persons
 {***Name: John Smith; SSN: 012345678***}
@@ -192,7 +192,7 @@ False
 我将向你展示如何使自定义类 `Person`更智能，以便它知道哪些自然人对象是相同的，哪些是不同的。
 
 ```Python
->>> # Update the Person function
+>>> # 优化 Person 类函数
 >>> class Person:
 ...     # __init__ and __repr__ stay the same
 ...
@@ -208,11 +208,11 @@ False
 ...             self.ssn == other.ssn
 ...         )
 ...
->>> # Create two Person objects
+>>> # 创建两个 Person 对象
 >>> p0 = Person("Jennifer Richardson", 123456789)
 >>> p1 = Person("Jennifer Richardson", 123456789)
 >>> 
->>> # Create a set consisting of these two objects
+>>> # 创建一个集合，并包含这两个对象
 >>> ps = {p0, p1}
 __hash__ is called
 __hash__ is called
@@ -220,7 +220,7 @@ __eq__ is called
 >>> ps
 {***Name: Jennifer Richardson; SSN: 123456789***}
 >>> 
->>> # Compare these two objects
+>>> # 比较这两个对象
 >>> p0 == p1
 __eq__ is called
 True
