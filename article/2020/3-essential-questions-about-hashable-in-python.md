@@ -11,7 +11,7 @@
 
 作为一种通用的编程语言，Python 为不同的用户场景提供了一系列内置的数据结构。
 
-当你学习 Python 基础知识的时候，你可能在某些地方看到有提及 **可哈希**。例如，你可能会看到 `dict` 中的键需要是可哈希的（请参见下面代码片段中的一个小示例）。
+当你学习 Python 基础知识的时候，你可能在某些地方看到有提及**可哈希**。例如，你可能会看到 `dict` 中的键需要是可哈希的（请参见下面代码片段中的一个小示例）。
 
 在另一个例子中，它提到了 `set` 中的元素需要是可哈希的。
 
@@ -44,7 +44,7 @@ TypeError: unhashable type: 'list'
 >>> items = [1, 0.1, 'ab', (2, 3), {'a': 1}, [1, 2], {2, 4}, None]
 ```
 
-如上述代码所示，我创建了一个命名为 `elements` 的 `set` 变量，以及另一个命名为 `items` 的 `list` 变量，`items` 中包含了最常用的内置数据类型：`int`，`float`，`str`, `tuple`，`dict`，`list`，`set` 和 `NoneType`。
+如上述代码所示，我创建了一个命名为 `elements` 的 `set` 变量，以及另一个命名为 `items` 的 `list` 变量，`items` 中包含了最常用的内置数据类型：`int`、`float`、`str`、`tuple`、`dict`、`list`、`set` 和 `NoneType`。
 
 我将进行的实验是将 `items` 中的每一个元素添加到 `elements` 中。在这个场景下我不会使用 `for` 循环，因为任何一个可能的 `TypeError` 都会导致迭代的中止。相反，我们会是根据索引来迭代每一项。
 
@@ -74,8 +74,8 @@ TypeError: unhashable type: 'set'
 
 #### 对本节问题的回答
 
-* 可以被哈希的数据结构：`int`，`float`，`str`，`tuple` 和 `NoneType`。
-* 不可以被哈希的数据结构：`dict`，`list` 和 `set`。
+* 可以被哈希的数据结构：`int`、`float`、`str`、`tuple` 和 `NoneType`。
+* 不可以被哈希的数据结构：`dict`、`list` 和 `set`。
 
 即使你对 Python 编程还不太熟悉，但你可能也已经注意到这三种不可哈希的数据结构在实际上都是可变的，而这五种可哈希的数据结构都是不可变的。
 
@@ -87,7 +87,7 @@ TypeError: unhashable type: 'set'
 
 现在你已经知道哪些对象是可以被哈希的，哪些不是，但是哈希到底是什么意思呢？
 
-实际上，你可能听说过许多类似的计算机术语都与哈希相关，如哈希值、哈希化、哈希表和哈希图。它们的核心在于它们有着相同的基本过程 - 哈希化。
+实际上，你可能听说过许多类似的计算机术语都与哈希相关，如哈希值、哈希化、哈希表和哈希图。它们的核心在于它们有着相同的基本过程 —— 哈希化。
 
 ![哈希化的一般过程([维基百科](https://en.wikipedia.org/wiki/Hash_function)，公开发表)](https://cdn-images-1.medium.com/max/2000/1*DMk42PdjZOSHPyqynP1M-Q.png)
 
@@ -95,7 +95,7 @@ TypeError: unhashable type: 'set'
 
 哈希函数有时被称为**哈希器**，它将执行特定的计算并输出原始数据值的哈希值（在图中称为 **hashes**）。
 
-哈希化及其相关概念需要一整本书来阐述，那超出了本文的范围。不过，我在我的 [上一篇文章](https://medium.com/better-programming/what-is-hashable-in-swift-6a51627f904)中简要讨论了一些重要方面。
+哈希化及其相关概念需要一整本书来阐述，那超出了本文的范围。不过，我在我的 [上一篇文章](https://medium.com/better-programming/what-is-hashable-in-swift-6a51627f904) 中简要讨论了一些重要方面。
 
 在这里，我将强调与本次讨论相关的一些要点。
 
@@ -126,7 +126,7 @@ Traceback (most recent call last):
 TypeError: unhashable type: 'dict'
 ```
 
-正如上述代码所示，我们可以为 `int` 和 `tuple` 类型得到哈希值 — 整数串。
+正如上述代码所示，我们可以为 `int` 和 `tuple` 类型得到哈希值 —— 整数串。
 
 但是，`list` 对象和 `dict` 对象都没有哈希值，这些结果与我们在上一节中对可哈希对象和不可哈希对象所做的区分是一致的。
 
@@ -228,7 +228,7 @@ True
 
 在上述代码中，我们通过重写 `__hash__` 和 `__eq__` 函数更新了自定义类 `Person`。
 
-我们之前提到过，`__hash__()` 函数是用于计算对象的哈希值。而 `__eq__()` 函数用于比较对象与另一个对象是否相等，并且要求比较后相等的对象应该具有[相同的哈希值](https://docs.python.org/3.5/reference/datamodel.html#object.__hash__)。
+我们之前提到过，`__hash__()` 函数是用于计算对象的哈希值。而 `__eq__()` 函数用于比较对象与另一个对象是否相等，并且要求比较后相等的对象应该具有 [相同的哈希值](https://docs.python.org/3.5/reference/datamodel.html#object.__hash__)。
 
 默认情况下，自定义类的实例是通过使用内置的 `id()` 函数获取的标识进行比较的（如果需要了解更多相关 `id()` 函数的内容请参阅 [本文](https://medium.com/better-programming/use-id-to-understand-6-key-concepts-in-python-73e0bbd461ec)）。
 
