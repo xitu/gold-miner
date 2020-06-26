@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-front-end-developer-resume-that-will-land-you-an-interview.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-front-end-developer-resume-that-will-land-you-an-interview.md)
 > * 译者：[febrainqu](https://github.com/febrainqu)
-> * 校对者：[Gesj-yean](https://github.com/Gesj-yean)，[kanweiwei](https://github.com/kanweiwei)
+> * 校对者：[Gesj-yean](https://github.com/Gesj-yean)、[kanweiwei](https://github.com/kanweiwei)
 
 # 如何写一份能让你获得面试机会的前端求职简历
 
@@ -123,11 +123,11 @@ ABC 公司是一家让世界变得更美好的公司，我们试图解决人们�
 
 ![[Trantor Liu’s Portfolio on CakeResume](https://www.cakeresume.com/trantorliu/portfolio?ref=resume-header-portfolio)](https://cdn-images-1.medium.com/max/3836/1*e-lvUJN69OBx3GOhmqM94A.png)
 
-因为编程培训机构增加了前端开发人员的数量，大量的开发者[涌入开发人员就业市场](https://medium.com/@marceldegas/san-francisco-bootcamp-bubble-cee59e48bf3e).
+因为编程培训机构增加了前端开发人员的数量，大量的开发者[涌入开发人员就业市场](https://medium.com/@marceldegas/san-francisco-bootcamp-bubble-cee59e48bf3e)。
 
 加上一点你独特的经验或项目绝对会让你在同行中脱颖而出。此外，建立自己的作品集也很重要，因为“经验”的定义因人而异。
 
-展示你过去的工作和项目可以快速证明你的 web 开发能力，这会增加你在竞争激烈的市场中获得面试的机会。你可以在 [CodePen](https://codepen.io/)或 [CakeResume](https://www.cakeresume.com)上面上传你的作品。
+展示你过去的工作和项目可以快速证明你的 web 开发能力，这会增加你在竞争激烈的市场中获得面试的机会。你可以在 [CodePen](https://codepen.io/) 或 [CakeResume](https://www.cakeresume.com) 上面上传你的作品。
 
 #### 描述一下你作品集中的工作
 
@@ -170,13 +170,13 @@ ABC 公司是一家让世界变得更美好的公司，我们试图解决人们�
 
 #### 什么时候使用超链接
 
-* 你想展示你一直在做的网站 — 你只需提供该网站的 URL。
+* 你想展示你一直在做的网站 —— 你只需提供该网站的 URL。
 * 你需要提到你使用的第三方服务或 sdk。
 * 你想在个人博客或媒体上展示你先前尝试解决的问题的解决方案的记录。
 
 ## 了解更多：
 
-* [求职信（求职信样本，求职信模板，申请信）— 多合一教程](https://www.cakeresume.com/resources/cover-letter-all-in-one-tutorial?locale=en)
+* [求职信（求职信样本，求职信模板，申请信）—— 多合一教程](https://www.cakeresume.com/resources/cover-letter-all-in-one-tutorial?locale=en)
 * [如何写一份能让你获得面试机会的 iOS 求职简历](https://medium.com/better-programming/how-to-write-an-ios-developer-resume-that-will-land-you-an-interview-43cf66c6d4fa)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
