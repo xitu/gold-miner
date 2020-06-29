@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/user-defaults-in-swift.md](https://github.com/xitu/gold-miner/blob/master/article/2020/user-defaults-in-swift.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：
+> * 校对者：[chaingangway](https://github.com/chaingangway)
 
 # 在 Swift 使用 User Defaults 的小技巧
 
 ![](https://cdn-images-1.medium.com/max/2560/0*6_KzN8_SEi_uf5vh.jpg)
 
-所有 iOS 应用程序都具有内置的数据字典，在安装应用程序后，该字典可以存储少量有关用户设置的相关数据。这套机制叫做 UserDefault。
+所有 iOS 应用程序都具有内置的数据字典，在安装应用程序后，该字典可以存储少量用户设置的相关数据。这套机制叫做 UserDefault。
 
 ## User Defaults 是什么?
 
-根据 Apple 的文档，UserDefaults 是用户默认数据库的接口，您可以对在应用程序启动期间的键值对进行持久化存储。
+根据 Apple 的文档，UserDefaults 是用户默认数据库的接口，您可以对在程序启动期间的键值对进行持久化存储。
 
-UserDefault 可以存储整数，布尔值，字符串，数组，字典，日期和更多类型，但是您应注意不要保存太多数据，因为这会减慢应用程序的启动速度。
+UserDefault 可以存储整数，布尔值，字符串，数组，字典，日期和更多类型，但是不要保存太多数据，因为这会减慢程序的启动速度。
 
 UserDefaults 就类似一个包含键值对的字典。例如：
 
