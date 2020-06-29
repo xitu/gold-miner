@@ -17,7 +17,7 @@ Swift 5.3 的发布流程始于三月底，直到最近才进入最后的开发�
 
 ## 多个尾随闭包
 
-在 [SE-0279](https://github.com/apple/swift-evolution/blob/master/proposals/0279-multiple-trailing-closures.md) 提案中提出了新的尾随闭包语法，使您可以用更容易理解的方式将多个闭包作为函数的参数进行调用。这是一种更加强大的语法糖，可最大程度地减少函数签名中过多括号的使用。
+在 [SE-0279](https://github.com/apple/swift-evolution/blob/master/proposals/0279-multiple-trailing-closures.md) 提案中提出了新的尾随闭包语法，使您可以用更容易理解的方式将多个闭包作为函数的参数进行调用。这是一种更加强大的语法糖，可最大程度地减少在函数签名中使用过多括号。
 
 它允许您在初始未带标签的闭包之后附加几个带标签的闭包。以下示例演示了这种用法：
 
@@ -43,7 +43,7 @@ UIView.animate(withDuration: 0.5) {
 
 当前，do-catch 语句中的每个 catch 子句只能包含一个模式。要解决此问题，开发人员在 catch 语句的主体中最好使用 swtich case 语句，但这样会增加嵌套和重复的代码。
 
-[SE-0276](https://github.com/apple/swift-evolution/blob/master/proposals/0276-multi-pattern-catch-clauses.md) 也是一个很好的改进，它允许 catch 字句进行模式匹配。Catch 子句将允许用户指定逗号分隔的模式列表，并将变量与 catch 主体绑定，就像 switch 语句一样。下面是例子：
+[SE-0276](https://github.com/apple/swift-evolution/blob/master/proposals/0276-multi-pattern-catch-clauses.md) 是一个很好的改进，它允许 catch 字句进行模式匹配。Catch 子句将允许用户指定逗号分隔的模式列表，并将变量与 catch 主体绑定，就像 switch 语句一样。下面是例子：
 
 ```Swift
 enum NetworkError: Error {
@@ -172,7 +172,7 @@ static func main() {
 }
 ```
 
-我们可以认为，在以后的版本中将弃用旧版本中特定域的属性 `@UIApplicationMain` 和`@NSApplicationMain`，而推荐使用 `@main`。
+我们可以认为，在以后的版本中将弃用旧版本中特定域的属性 `@UIApplicationMain` 和 `@NSApplicationMain`，而推荐使用 `@main`。
 
 ## where 字句在泛型声明上下文中的变化
 
