@@ -2,8 +2,8 @@
 > * 原文作者：[Mellownie Ho](https://medium.com/@mellownie.ho)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/ux-case-study-koinstreet-homepage-redesign.md](https://github.com/xitu/gold-miner/blob/master/article/2020/ux-case-study-koinstreet-homepage-redesign.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zhengjian-L](https://github.com/Zhengjian-L)
+> * 校对者：[rachelcdev](https://github.com/rachelcdev)
 
 # 用户体验案例学习：重新设计 KoinStreet 主页
 
@@ -11,17 +11,17 @@
 
 ## 项目介绍
 
-**客户：** KoinStreet 是一个加密电子货币交易平台，可在经验丰富的交易商和消极投资者之间建立跟随交易系统（Copy trading system）。这个平台也为对电子加密货币感兴趣并想要了解更多的人构建了一个社区，精选并分享新资讯和学习资源。
-**任务：** 重新设计 [登录页](https://www.koinstreet.com/)
-**时限：** 4 天 
-**工具：** Adobe XD
+**客户**：KoinStreet 是一个加密电子货币交易平台，可在经验丰富的交易商和消极投资者之间建立跟随交易系统（Copy trading system）。这个平台也为对电子加密货币感兴趣并想要了解更多的人构建了一个社区，精选并分享新资讯和学习资源。  
+**任务**：重新设计 [登录页](https://www.koinstreet.com/)  
+**时限**：4 天  
+**工具**：Adobe XD
 
 ## 方法和时间安排
 
-**第 1 天：** 对 KoinStreet 进行启发式分析（Heuristics analysis）和实地调查，并对现存的加密电子货币交易平台进行竞争力分析（Competitive feature）和特征分析（Feature analysis）
-**第 2 天：** 对关键功能进行头脑风暴，并将设计概要写在白板
-**第 3 天：** 在纸上打草稿，在 AdobeXD 中制作线框，根据 KoinStreet 的社会媒体形象绘制心情看板
-**第 4 天：** 在 AdobeXD 中重新设计 KoinStreet 的高精度模型
+**第 1 天**：对 KoinStreet 进行启发式分析（Heuristics analysis）和实地调查，并对现存的加密电子货币交易平台进行竞争力分析（Competitive feature）和特征分析（Feature analysis）  
+**第 2 天**：对关键功能进行头脑风暴，并将设计概要写在白板  
+**第 3 天**：在纸上打草稿，在 AdobeXD 中制作线框，根据 KoinStreet 的社会媒体形象绘制心情看板  
+**第 4 天**：在 AdobeXD 中重新设计 KoinStreet 的高精度模型
 
 #### 设计理念
 
@@ -55,7 +55,7 @@
 
 #### 竞争力分析
 
-在研究了 KoinStreet 的登录页后, 我也浏览并学习了 [Coinbase](https://www.coinbase.com/),、[Luno](https://www.luno.com/en/)、 [Binance](https://www.binance.com/en?ref=16626703) 和 [Paxful](https://paxful.com/#) 的登录页。
+在研究了 KoinStreet 的登录页后，我也浏览并学习了 [Coinbase](https://www.coinbase.com/)、[Luno](https://www.luno.com/en/)、[Binance](https://www.binance.com/en?ref=16626703) 和 [Paxful](https://paxful.com/#) 的登录页。
 
 通过对这些竞争对手的观察和研究，我写下几个在浏览 KoinStreet 的网页时遗漏的几个关键功能（尤其是明确网站作用和提高安全感和信任感的功能），用于头脑风暴和设计概要环节。
 
