@@ -1,9 +1,9 @@
-> - 原文地址：[How to Generate Random Text CAPTCHAs Using Python](https://medium.com/better-programming/how-to-generate-random-text-captchas-using-python-e734dd2d7a51)
-> - 原文作者：[Siddhant Sadangi](https://medium.com/@siddhant.sadangi)
-> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-generate-random-text-captchas-using-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-generate-random-text-captchas-using-python.md)
-> - 译者：[lhd951220](https://github.com/lhd951220)
-> - 校对者：
+> * 原文地址：[How to Generate Random Text CAPTCHAs Using Python](https://medium.com/better-programming/how-to-generate-random-text-captchas-using-python-e734dd2d7a51)
+> * 原文作者：[Siddhant Sadangi](https://medium.com/@siddhant.sadangi)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-generate-random-text-captchas-using-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-generate-random-text-captchas-using-python.md)
+> * 译者：[lhd951220](https://github.com/lhd951220)
+> * 校对者：[江不知](http://jalan.space/)
 
 # 如何使用 Python 生成随机文本验证码 
 
@@ -46,7 +46,7 @@ array([[[0, 0, 0],
 
 ![](https://cdn-images-1.medium.com/max/2522/1*BBJv6KGRzyBfy8ITO3nD-A.png)
 
-因为每一个像素的值分别都是 `(0, 0, 0)`，所以图像是黑色的，其中每一个值都表示红色，绿色，蓝色像素的亮度。亮度的取值范围为 0（最暗） 到 255（最亮）。为了得到白色图像，我们在图像数组加上 255 即可：
+因为每一个像素值都是 `(0, 0, 0)`，所以图像是黑色的，其中每一个值都表示红色，绿色，蓝色像素的亮度。亮度的取值范围为 0（最暗） 到 255（最亮）。为了得到白色图像，我们在图像数组加上 255 即可：
 
 ![](https://cdn-images-1.medium.com/max/2520/1*lt5j7n4jaY5nKecD-cTLxw.png)
 
@@ -62,10 +62,10 @@ draw = ImageDraw.Draw(img_pil)
 
 然后，我们可以使用 `Draw` 的 `text()` 方法在画布上写文字。`draw` 方法需要以下参数：
 
-- `xy`：使用 (`x`, `y`) 元组指定文本的起始坐标。
-- `text`：需要绘制的文本。
-- `font`：使用的字体。这是 PIL 使用的 `FreeType` 或者 `OpenType` 字体，这也是 `ImageFont` 应用的地方。
-- `fill`：文本填充的颜色，表达式为 `(R, G, B)`。
+* `xy`：使用 (`x`, `y`) 元组指定文本的起始坐标。
+* `text`：需要绘制的文本。
+* `font`：使用的字体。这是 PIL 使用的 `FreeType` 或者 `OpenType` 字体，这也是 `ImageFont` 应用的地方。
+* `fill`：文本填充的颜色，表达式为 `(R, G, B)`。
 
 我们需要为这个函数准备字体对象。我们将会使用 `ImageDraw` 的 `truetype()` 函数：
 
@@ -90,7 +90,7 @@ font = ImageFont.truetype(font = ‘arial’, size=12)
 ```py
 import cv2
 cv2.imshow(‘OpenCV’,np.array(img_pil))
-cv2.waitKey() #Displays the image till a key is pressed
+cv2.waitKey() #等待点击按钮再显示图像
 cv2.destroyAllWindows()
 ```
 
@@ -129,11 +129,10 @@ for i in range(img.shape[0]):
 
 胡椒粉噪声（黑色像素）非常的明显，但是一些之前文本上是黑色的像素现在也变为了白色（注意行间的中断）。
 
-我们可以通过模糊图像来添加更多的噪声，这会使噪声扩散开来。通过 cv2，这只需要一行代码！
+我们可以通过模糊图像来添加更多的噪声，这会使噪声扩散开来。使用 cv2，这只需要一行代码！
 
 ```py
 img_blurred = cv2.blur(img,(2,2))
-
 ```
 
 在这里，`(2,2)` 是平滑图像所使用的核心大小。阅读 OpenCV 的[文档](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html#averaging)来了解更多相关的知识。
@@ -151,14 +150,12 @@ img_blurred = cv2.blur(img,(2,2))
 ```py
 size = random.randint(10,16)
 length = random.randint(4,8)
-
 ```
 
-经过大量的字体大小，字符串长度和画布大小之间关系的实验，我得出的画布的大小如下：
+在对字体大小、字符串长度和画布大小之间的关系进行大量实验之后，我得出的画布的大小如下：
 
 ```py
 img = np.zeros(((size*2)+5, length*size, 3), np.uint8)
-
 ```
 
 现在，为了随机化字体，我们可以使用 [glob](https://docs.python.org/2/library/glob.html) 库从系统字体路径中选择一些。我只使用 Arial 字体的变体。
@@ -169,7 +166,6 @@ img = np.zeros(((size*2)+5, length*size, 3), np.uint8)
 
 ```py
 fonts[random.randint(0, len(fonts)-1)]
-
 ```
 
 现在轮到文本了。我们生成一个给定字符串长度的随机的 ASCII 字母数字字符序列：
@@ -178,7 +174,6 @@ fonts[random.randint(0, len(fonts)-1)]
 text = ''.join(
         random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) 
                    for _ in range(length))
-
 ```
 
 因为长度已经是随机的了，我们只需要在调用这个函数的时候传递 `length` 参数：
@@ -192,14 +187,12 @@ draw.text((5, 10), text, font=font,
           fill=(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
 draw.line([(0, 0),(length*size,(size*2)+5)], width=1, 
           fill=(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
-
 ```
 
-对于噪声阈值，我们可以设置它为 1% - 5% 之间的任意随机值：
+对于噪声阈值，我们可以设置它为 1% ~ 5% 之间的任意随机值：
 
 ```py
 thresh = random.randint(1,5)/100
-
 ```
 
 最后，对于噪声强度，我们不再对盐和胡椒粉像素使用绝对的白色和黑色，我们可以分别设置它们为随机的明和暗的阴影。
@@ -212,7 +205,6 @@ for i in range(img.shape[0]):
             img[i][j] = random.randint(0,123) #暗像素
         elif rdn > 1-thresh:
             img[i][j] = random.randint(123,255) #亮像素
-
 ```
 
 ## 整合
@@ -250,12 +242,11 @@ img = cv2.blur(img,(int(size/5),int(size/5)))
 cv2.imshow(f"{text}", img)
 cv2.waitKey()
 cv2.destroyAllWindows()
-
 ```
 
 ![cZRaOxb](https://cdn-images-1.medium.com/max/2000/1*2uG3N9uCArPw-QHrgwvn_Q.png)
 
-## 应用领域?
+## 应用领域？
 
 这可以被用于生成验证码。你可以将带有文本的图像保存为要匹配的文件名。另一个新颖的应用是可以生成大量的标签图像来训练你的 OCR 模型。将上面的代码放入循环中，你将获得所需数量的图像！
 
@@ -263,6 +254,6 @@ cv2.destroyAllWindows()
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-------
+---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
