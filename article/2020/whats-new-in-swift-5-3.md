@@ -43,7 +43,7 @@ UIView.animate(withDuration: 0.5) {
 
 当前，do-catch 语句中的每个 catch 子句只能包含一个模式。要解决此问题，开发人员在 catch 语句的主体中最好使用 swtich case 语句，但这样会增加嵌套和重复的代码。
 
-[SE-0276](https://github.com/apple/swift-evolution/blob/master/proposals/0276-multi-pattern-catch-clauses.md) 是一个很好的改进，它允许 catch 字句进行模式匹配。Catch 子句将允许用户指定逗号分隔的模式列表，并将变量与 catch 主体绑定，就像 switch 语句一样。下面是例子：
+[SE-0276](https://github.com/apple/swift-evolution/blob/master/proposals/0276-multi-pattern-catch-clauses.md) 是另一个很好的改进，它允许 catch 字句进行模式匹配。Catch 子句将允许用户指定逗号分隔的模式列表，并将变量与 catch 主体绑定，就像 switch 语句一样。下面是例子：
 
 ```Swift
 enum NetworkError: Error {
@@ -125,7 +125,7 @@ enum JSONDecodingError: DecodingError {
 
 ## self 不需要在每处都显式使用
 
-在 [SE-0269](https://github.com/apple/swift-evolution/blob/master/proposals/0269-implicit-self-explicit-capture.md) 提案中允许我们在不需要的时候删除 `self`。之前，当我们从闭包外部捕获值时，必须在闭包中使用 `self`。现在，当循环引用不太可能发生时，`self` 将会隐式存在。
+在 [SE-0269](https://github.com/apple/swift-evolution/blob/master/proposals/0269-implicit-self-explicit-capture.md) 提案中允许我们在不需要的时候省略 `self`。之前，当我们从闭包外部捕获值时，必须在闭包中使用 `self`。现在，当循环引用不太可能发生时，`self` 将会隐式存在。
 
 下面的例子展示了这个更新：
 
@@ -161,7 +161,7 @@ struct NewView: View {
 
 ## 基于类型的程序入口
 
-在 [SE-0281](https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md) 中允许我们使用新的 `@main` 属性，它可以定义进入到 app 的位置。用属性对结构体或类进行标记能够保证它是程序进入的位置，所以你不必手动调用 `AppDelegate.main()`。
+在 [SE-0281](https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md) 中允许我们使用新的 `@main` 属性，它可以定义 app 的入口。用属性对结构体或类进行标记能够保证它是程序进入的位置，所以你不必手动调用 `AppDelegate.main()`。
 
 ```Swift
 @main
