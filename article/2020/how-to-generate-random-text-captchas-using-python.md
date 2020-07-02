@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-generate-random-text-captchas-using-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-generate-random-text-captchas-using-python.md)
 > * 译者：[lhd951220](https://github.com/lhd951220)
-> * 校对者：[江不知](http://jalan.space/)
+> * 校对者：[江不知](http://jalan.space/)，[lihanxiang](https://github.com/lihanxiang)
 
 # 如何使用 Python 生成随机文本验证码 
 
