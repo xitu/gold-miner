@@ -2,8 +2,8 @@
 > * 原文作者：[Kai Hao](https://kaihao.dev/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/Stale-props-and-zombie-children-in-Redux.md](https://github.com/xitu/gold-miner/blob/master/article/2020/Stale-props-and-zombie-children-in-Redux.md)
-> * 译者：
-> * 校对者：
+> * 译者：[niayyy](https://github.com/nia3y)
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)
 
 # Redux 中过时的 props 和僵尸子节点
 
