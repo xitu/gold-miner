@@ -49,7 +49,7 @@ const createStore = (reducer, initialState = {}) => {
 
 上面是一个 `Redux` 的 `createStore` API 的简单实现，我们创建的 `store` 可以使用 `getState()` 来获取状态，通过 `subscribe(listener)` 来订阅监听器，以及通过 `dispatch(action)` 来分发动作（dispatch action），就像我们习惯使用的官方 API 一样。
 
-下一步是指出如何将其和 `React` 集成。我们将构建一个 [`<Provider>`](https://react-redux.js.org/api/provider) 组件通过上下文传递 `store`，一个 [`connect`](https://react-redux.js.org/api/connect) 高阶组件用于包装表示性组件，最近的版本中，[`useSelector`](https://react-redux.js.org/api/hooks#useselector) 钩子在大多数情况下取代 `connect`。
+下一步是弄明白如何将其和 `React` 集成。我们将构建一个 [`<Provider>`](https://react-redux.js.org/api/provider) 组件通过上下文传递 `store`，一个 [`connect`](https://react-redux.js.org/api/connect) 高阶组件用于包装展示组件，最近的版本中，[`useSelector`](https://react-redux.js.org/api/hooks#useselector) 钩子在大多数情况下取代 `connect`。
 
 `<Provider>` API 相对简单，我们只需要通过 `React` 上下文传递由 `createStore` 创建的 `store`。
 
@@ -76,7 +76,7 @@ const Provider = ({ children, store }) => (
 > 
 > * 选择器函数依赖于此组件的 props 来提取数据
 > * 动作的结果会导致父组件**将**重新渲染并传递新的 props
-> * 但是这个组件的选择器函数在该组件有机会使用那些新的 props 重渲染之前执行
+> * 但是，在该组件有机会使用那些新的 props 重渲染之前，这个组件的选择器函数就会执行
 > 
 > **僵尸子节点**专门指以下情况：
 > 
@@ -85,7 +85,7 @@ const Provider = ({ children, store }) => (
 > * 父组件将因此停止渲染该子组件
 > * 但是，由于子组件先进行了订阅，它的订阅执行于父组件停止渲染它之前，当它基于 props 从 `store` 中读取一个值时，这个数据不复存在，并且如果读取逻辑不完善的话，则可能引发错误。
 
-如果你仔细的阅读以上内容，你可能已经注意到了，这些问题不是两个分开的问题，而是一个单独的问题。他们都是**过时的 props** 问题，**僵尸子节点**描述了一个特定场景的普通子问题。
+如果你仔细的阅读以上内容，你可能已经注意到了，这些问题不是两个分开的问题，而是一个单独的问题。他们都是**过时的 props** 问题，**僵尸子节点**描述了一个特定场景常见的子问题。
 
 我们现在还不必了解所有定义。我们在这里提供一个示例来演示代码问题。
 
@@ -154,7 +154,7 @@ ReactDOM.render(
 );
 ```
 
-我们首先创建两个表示组件 `<Todo>` 和 `<TodoList>`，然后用 `connect` 高阶组件进行包装。这只是通过 `Redux` 模式进行编写一个非常简单基础的 Todo 应用程序的示例，没有什么特别的。
+我们首先创建两个展示组件 `<Todo>` 和 `<TodoList>`，然后用 `connect` 高阶组件进行包装。这只是使用 `Redux` 模式进行编写的一个非常简单基础的 Todo 应用程序的示例，没有什么特别的。
 
 如果我们运行这个应用程序并点击任何 `<Todo>` 项，我们希望将其删除。
 
@@ -162,7 +162,7 @@ ReactDOM.render(
 
 ## 第一种方法
 
-我们先从 `react-redux` v4 版本开始，那时候事情变得更简单，并且 API 首次是**完整**和**稳定**的。让我们构建更简单版本的 `connect` 高阶组件 API。**我们正在使用钩子和其他现代的 React 特性来实现，但是应该与基于类的 API 大致相同。是关于未来生活的一件好事，对吧？**
+我们先从 `react-redux` v4 版本开始，这时事情变得更简单，并且 API 首次是**完整**和**稳定**的。让我们构建更简单版本的 `connect` 高阶组件 API。**我们正在使用钩子和其他现代的 React 特性来实现，但是应该与基于类的 API 大致相同。是关于未来生活的一件好事，对吧？**
 
 ```jsx
 // For demonstration purpose, we intentionally omit `mapDispatchToProps`,
@@ -273,7 +273,7 @@ const Todo = ({ id, content, dispatch }) => (
 6. `<Todo>` 渲染，调用带有最新的 state 和最新的 props 的 `mapStateToProps`。
 7. 因为父组件（`<TodoList>`）还没有渲染，`<Todo>` 中的 props 实际上是**过时的 props**，但是 state 已经是最新的了。调用 `state.todos[ownProps.id]` 导致为 `undefined`，调用 `(undefined).content` 导致一个错误。
 
-请注意，在这两种情况下，第六步是不同的。前者在父组件（`<TodoList>`）中调用另一个监视器，而后者首先渲染子组件（`<Todo>`）。 **似乎是 `<Todo>` 同步重渲染不久后调用了 `forceUpdate()`！**
+请注意，在这两种情况下，第六步是不同的。前者在父组件（`<TodoList>`）中调用另一个监视器，而后者首先渲染子组件（`<Todo>`）。 **似乎是调用 `forceUpdate()` 不久后，`<Todo>` 同步重渲染了！**
 
 “等等，我以为 `setState` 是异步的？” 是的，当然不会。在大多数情况下， `setState` 实际上是异步的，[只要 `setState` 在 React 事件处理回调中调用即可](https://twitter.com/dan_abramov/status/959507572951797761)，React 将确保在事件处理回调中**批处理**所有的更新，并一次异步执行所有的渲染。通过在 `setTimeout` 回调中包装 `setState`，我们**选择取消** 这个特性，并使 `setState` 同步。
 
@@ -283,7 +283,7 @@ const Todo = ({ id, content, dispatch }) => (
 
 所以我们仅仅是进行等待吗？当然不是。现在还有另一种解决方法。
 
-React，或者更准确的说，`react-dom`，有一个隐藏特性：`unstable_batchedUpdates`，能够精确的实现我们想要确保的更新批处理在一起。[React 中事件处理程序已经在内部使用此 API](https://react-redux.js.org/api/batch)，这是为什么在事件处理中 `setState` 将是异步的。**(正如他的名字暗示的那样，我们应该完全理解后再使用它。我们已经被警告了。**)
+React，或者更准确的说，`react-dom`，有一个隐藏特性：`unstable_batchedUpdates`，能够精确的实现我们想要确保的更新在一起批处理。[React 中事件处理程序已经在内部使用此 API](https://react-redux.js.org/api/batch)，这是为什么在事件处理中 `setState` 将是异步的。**(正如他的名字暗示的那样，我们应该完全理解后再使用它。我们已经被警告了。**)
 
 我们简单的在 `unstable_batchedUpdates` 回调中来包装我们的 `dispatch` 方法。
 
@@ -435,7 +435,7 @@ const connect = mapStateToProps => WrappedComponent => props => {
 
 对于仍然剩下一些子节点的情况，每个子节点将随后调用它们的监听器回调。因为它们将在渲染后被调用，所以它们将从父组件那里获得最新的 props。
 
-有趣的是，我们在子组件中运行了两次 `mapStateToProps`，一次是在监听器回调内，而另一次是由父组件的重渲染触发的。后者应该在前者之前发生，但是状态和 props 都应该是最新的，并且每次运行都应该相同。为了进一步优化性能，我们可以记住这个 `mapStateToProps` 函数，以便在这种情况下不必调用两次。
+有趣的是，我们在子组件中运行了两次 `mapStateToProps`，一次是在监听器回调内，而另一次是由父组件的重渲染触发的。后者应该在前者之前发生，但是状态和 props 都应该是最新的，并且在每次运行中都应该相同。为了进一步优化性能，我们可以记住这个 `mapStateToProps` 函数，以便在这种情况下不必调用两次。
 
 注意，我们甚至不必在 `notifyUpdates` 函数中使用 `unstable_batchedUpdates`。同一层次结构调用中的更新被**划分**到不同的 `subStore`，子组件仅在父组件完成重渲染后才调用监听器回调，因此无需将它们一起批处理。
 
@@ -495,7 +495,7 @@ const connect = mapStateToProps => WrappedComponent => props => {
 
 ## 钩子
 
-React 上下文不是 React 家族中的最新成员，我们有很多钩子！`react-redux` v7 引入了新的基于钩子的 API，这些 API 使代码更加简单易懂。最重要的钩子可能是 `useSelector` 钩子。
+React 上下文不是 React 家族中的最新成员，我们还有 hook（钩子）！`react-redux` v7 引入了新的基于钩子的 API，这些 API 使代码更加简单易懂。最重要的钩子可能是 `useSelector` 钩子。
 
 但是首先，我们将重写我们的 Todo 应用程序以使用钩子。更具体地说，`<Todo>` and `<TodoList>` 组件。
 
@@ -531,7 +531,7 @@ const TodoList = () => {
 };
 ```
 
-我们不再需要那些带有钩子的高阶函数容器，我们可以调用 `useSelector` 和 `useDispatch` 来获取选定的状态和分发方法。请注意一个微小的差别在普通的旧的 `mapStateToProps` 和 `useSelector` 之间的是我们不再获取**对象**的状态，并将其传播到 props，而是仅仅得到状态本身。因此代替获得 `{ content }`，我们只需要得到 `content`。在我们的 `setState` 中会稍微改变我们的相等性检查。
+我们不再需要那些带有钩子的高阶函数容器，我们可以调用 `useSelector` 和 `useDispatch` 来获取选定的状态和分发方法。请注意一个微小的差别在普通的旧的 `mapStateToProps` 和 `useSelector` 之间的是我们不再获取状态（state）的**对象**，并将其传播到 props，而是仅仅得到状态本身。因此代替获得 `{ content }`，我们只需要得到 `content`。在我们的 `setState` 中会稍微改变我们的相等性检查。
 
 `useDispatch` 钩子实现也很简单。
 
@@ -558,7 +558,7 @@ const useSelector = selector => {
 };
 ```
 
-但是，它甚至还不能立即使用。每次状态更新时，我们都会重渲染所有的 **connected** 组件。使用钩子 API 会更加糟糕，因为我们没有一个中间容器组件，该组件通常较便宜，可以挽救通常更昂贵的包装组件的更新。与以前的权衡取舍不同，我们有点必须把 `selector` 放入监听器回调中以尽早跳过更新。
+但是，它甚至还不能立即使用。每次状态更新时，我们都会重渲染所有的 **connected** 组件。使用钩子 API 会更加糟糕，因为我们没有一个中间容器组件，该组件通常能进行廉价的渲染，可以挽救通常更昂贵的包装组件的更新。与以前的权衡取舍不同，我们有点必须把 `selector` 放入监听器回调中以尽早跳过更新。
 
 ```js
 const useSelector = selector => {
@@ -577,7 +577,7 @@ const useSelector = selector => {
 };
 ```
 
-这个版本只是简单的打破。我们在整个文章中再次提到**过时的 props 和僵尸子节点**问题。与往常一样，我们将遍历每个步骤，以查看错误的原因和原因。
+这个版本只是简单的打破。我们在整个文章中再次提到**过时的 props 和僵尸子节点**问题。与往常一样，我们将遍历每个步骤，以查看错误的出处和原因。
 
 1. 在第一次渲染后，`<TodoList>` 和 `<Todo>` 组件在  `useEffect` 中订阅 store。因为 `useEffect` 自上而下触发，`<Todo>` 首先订阅，然后是 `<TodoList>`。
 2. 用户点击 `<Todo>`，向 store 分发一个 `DELETE` 动作，期待该项被删除。
@@ -592,13 +592,13 @@ const useSelector = selector => {
 
 钩子无法更改渲染树，因此我们无法为每个组件添加一个新的 `<Provider>`，以使其传播到最近的父级 subStore。我们可以快速排除第二种解决方案。
 
-对于第一个解决方案，当我们仅在渲染阶段使用 `selector`，它的性能不佳，会导致每次更改都需要重渲染，因此我们必须在监听器回调中尽早跳过更新。再者，selector如果我们在监听器回调中调用过时的 props 则可能会导致 `selector` 抛出错误。
+对于第一个解决方案，当我们仅在渲染阶段使用 `selector`，它的性能不佳，会导致每次更改都需要重渲染，因此我们必须在监听器回调中尽早跳过更新。再者，如果我们在监听器回调中调用过时的 props 则可能会导致 `selector` 抛出错误。
 
 我们的双手被束缚，尚无解决方案，我们必须做出一些妥协。
 
 如果我们忽略该错误会发生什么？我们首先要问自己一个问题：何时会发生错误？大约有 2 种情况。错误可能是由于选择器本身的错误而引起的，或者因为僵尸子节点问题导致了意外错误。无论哪种方式，我们都希望通过重新渲染组件并在渲染阶段应用 `selector(store.getState())` 以获取最新状态来安全地处理它们。前一种情况将在渲染阶段**重新引发**错误，而后者将不会产生任何错误。
 
-那种不会抛出错误的陈旧道具问题呢？我们仍然可以得到不一致状态但没有错误的情况。在这种情况下，无论如何组件仍然会在以后重新渲染，因为我们仍将处于selector(store.getState())渲染阶段，因此由于我们上面提到的第一个解决方案，问题将消失。
+那种不会抛出过时的 props 问题呢？我们仍然可以得到不一致状态但没有错误的情况。在这种情况下，无论如何组件仍然会在以后重新渲染，因为我们仍将处于 `selector(store.getState())` 渲染阶段，因此由于我们上面提到的第一个解决方案，问题将消失。
 
 看起来我们可以在第 5 步中安全地忽略该错误，而在渲染阶段重试该错误。
 
@@ -634,7 +634,7 @@ const useSelector = selector => {
 
 结合 `unstable_batchedUpdates` 的技巧，我们可以在选定状态不变的情况下尽早跳过更新，并安全地防止过时的 props 和僵尸子节点问题。我们再次运行代码，并检查一切是否正常运行。前 4 个步骤相同，因此我们从第 5 步开始。
 
-5. 由于我们在渲染阶段传递 `props` 给 `listener`，在那时，其形成了封闭的 `props`，换句话说，它是**过时的 props**。访问 `state.todos[ownProps.id]` 将导致 undefined，然后调用 `(undefined).content` 将导致错误。**我们故意捕获并隐藏错误，这是当我们知道要在渲染阶段选择状态，从而触发重渲染时**。
+5. 由于我们在渲染阶段传递 `props` 给 `listener`，在那时，其形成了封闭的 `props`，换句话说，它是**过时的 props**。访问 `state.todos[ownProps.id]` 将导致 `undefined`，然后调用 `(undefined).content` 将导致错误。**我们故意捕获并隐藏错误，这是当我们知道要在渲染阶段选择状态，从而触发重渲染时**。
 6. 由于我们正在使用 `unstable_batchedUpdates`，渲染已被批处理。`<TodoList>` 触发其监听器回调，`selector(store.getState())` 的结果为 `[]`，也计划重渲染。
 7. 渲染从上向下进行操作，`<TodoList>` 先渲染，然后再次调用 `selector(store.getState())`，返回一个空的 `<ul>`，完成渲染。
 
