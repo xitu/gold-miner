@@ -7,7 +7,6 @@
 
 # Redux 中过时的 props 和僵尸子节点
 
-
 如果你读了 `react-redux` v7 发行版本的文档，你可能会碰到[过时的 props 和“僵尸子节点”](https://react-redux.js.org/api/hooks#stale-props-and-zombie-children)这篇文章中提到的部分问题。即使它已经写的非常清晰明了，但对于不熟悉这个问题的人来说会感到迷茫。这篇文章深入探究了这个问题，并讲解了 `react-redux` 是如何解决的。
 
 **免责声明：我不是这个话题下的专家，只是因为好奇而在网上进行了学习，文章内容可能有错误，请保持开放的态度。这篇文章针对已经熟悉 `React`、`Redux` 和 `react-redux` 的人。我们不会在这介绍 API 设计的详细信息，因此，如果你还没有准备好的话，请务必查看官方文档。你无需了解所有这些内容即可使用 `Redux` 进行工作，但是，对于知名库（library）在幕后如何工作有更深入的理解很有趣。**
@@ -200,14 +199,14 @@ const connect = mapStateToProps => WrappedComponent => props => {
 
 我们像 JavaScript 运行时一样一步一步完成这个过程，看看到底发生了什么。
 
-1. 在第一次渲染时，`<TodoList>` 和 `<Todo>` 在 `useEffect` 中订阅了 `store`。因为 `useEffect` （或者 `componentDidMount`）从下往上触发， `<Todo>` 首先进行订阅，然后是 `<TodoList>`。
+1. 在第一次渲染时，`<TodoList>` 和 `<Todo>` 在 `useEffect` 中订阅了 `store`。因为 `useEffect` （或者 `componentDidMount`）从下往上触发，`<Todo>` 首先进行订阅，然后是 `<TodoList>`。
 2. 用户点击 `<Todo>` 组件，向 `store` 分发了一个 `DELETE` 动作，期待该项被删除。
 3. `store` 接收到这个动作后，通过 **reducer** 来运行，然后把 `todos` 的状态改为空数组 `{ todos: [] }`。
 4. 然后 `store` 调用已订阅的监听器。因为 `<Todo>` 先进行的订阅，因此也会先调用监听器。
 5. `<Todo>` 中的 `connect` 高阶组件触发监听器，调用带有最新的 state（`store.getState()`）和最新的 props（`propsRef.current`）的 `mapStateToProps`。
 6. **因为最新的 state 不再有 `todos` 的 state，尝试去访问 `state.todos[ownProps.id]` 导致为 `undefined`。调用 `(undefined).content` 将导致错误💥。**
 
-这就是在动作中著名的`僵尸子节点`问题。**在 Redux 分发后，state 会同步改变，但是渲染则不会。当我们尝试在 `mapStateToProps` 函数中访问 `ownProps`，我们可能会在其中运行过时的 props。** 这是类似的原因（之一）[为什么 `setState` 不是同步的](https://github.com/facebook/react/issues/11527#issuecomment-360199710)，管理 `React` 世界之外的一些状态通常需要注意一些陷阱。
+这就是在动作中著名的`僵尸子节点`问题。**在 Redux 分发后，state 会同步改变，但是渲染则不会。当我们尝试在 `mapStateToProps` 函数中访问 `ownProps`，我们可能会在其中运行过时的 props**。这是类似的原因（之一）[为什么 `setState` 不是同步的](https://github.com/facebook/react/issues/11527#issuecomment-360199710)，管理 `React` 世界之外的一些状态通常需要注意一些陷阱。
 
 我们应该如何进行修复？如果是因为我们管理了 `React` **之外**的状态，是否我们可能把状态放到 `React` **内部**？我们希望 `props` 始终保持最新，这仅在 `React` 使用最新的 props 渲染组件时发生。那么为什么不这样做呢？我们可以把 `mapStateToProps` 改到渲染阶段，我们只需要在监听器回调中触发更新来强制重新渲染。
 
@@ -497,7 +496,7 @@ const connect = mapStateToProps => WrappedComponent => props => {
 
 React 上下文不是 React 家族中的最新成员，我们还有 hook（钩子）！`react-redux` v7 引入了新的基于钩子的 API，这些 API 使代码更加简单易懂。最重要的钩子可能是 `useSelector` 钩子。
 
-但是首先，我们将重写我们的 Todo 应用程序以使用钩子。更具体地说，`<Todo>` and `<TodoList>` 组件。
+但是首先，我们将重写我们的 Todo 应用程序以使用钩子。更具体地说，`<Todo>` 和 `<TodoList>` 组件。
 
 ```jsx
 const Todo = ({ id }) => {
