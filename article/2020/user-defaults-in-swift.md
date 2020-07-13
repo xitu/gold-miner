@@ -15,7 +15,7 @@
 
 根据 Apple 的文档，UserDefaults 是用户默认数据库的接口，您可以对在程序启动期间的键值对进行持久化存储。
 
-UserDefault 可以存储整数，布尔值，字符串，数组，字典，日期和更多类型，但是不要保存太多数据，因为这会减慢程序的启动速度。
+UserDefault 可以存储整数、布尔值、字符串数组、字典、日期和更多类型，但是不要保存太多数据，因为这会减慢程序的启动速度。
 
 UserDefaults 就类似一个包含键值对的字典。例如：
 
@@ -43,19 +43,19 @@ User Defaults 最好用来存储简单的数据片段。如果需要存储多个
 
 我们可以在 UserDefaults 存储多种变量类型：
 
-* 布尔值用 `Bool` 类型，整数值用 `Int` 类型，单精度浮点数用 `Float` 类型，双精度浮点数用 `Double` 类型
-* 字符串用 `String` 类型，二进制数据用 `Data` 类型，[日期用 Date 类型](https://learnappmaking.com/swift-date-datecomponents-dateformatter-how-to/)，链接用 `URL` 类型
+* 布尔值用 `Bool` 类型、整数值用 `Int` 类型、单精度浮点数用 `Float` 类型、双精度浮点数用 `Double` 类型
+* 字符串用 `String` 类型、二进制数据用 `Data` 类型、[日期用 Date 类型](https://learnappmaking.com/swift-date-datecomponents-dateformatter-how-to/)、链接用 `URL` 类型
 * 集合用 `Array` 和 `Dictionary` 类型
 
-在 `UserDefaults` 的内部只能存储 `NSData`，`NSString`，`NSNumber`，`NSDate`，`NSArray` 和 `NSDictionary` 这些类型的数据。
+在 `UserDefaults` 的内部只能存储 `NSData`、`NSString`、`NSNumber`、`NSDate`、`NSArray` 和 `NSDictionary` 这些类型的数据。
 
-例如，在这个项目中，我想保存几个帐户信息，例如电子邮件，代码，名称，令牌和 UserID。因此，我将 loginResponse 中的值设置为这些键 (Email，LawyerCode，LayererName，Token，UserID) 的值。所有值都是字符串。
+例如，在这个项目中，我想保存几个帐户信息，例如电子邮件，代码，名称，令牌和 UserID。因此，我将 loginResponse 中的值设置为这些键 （Email、LawyerCode、LayererName、Token、UserID）的值。所有值都是字符串。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ib1Wh7T8llBLq50fMuVfrA.png)
 
 ![](https://cdn-images-1.medium.com/max/3040/1*yudXhvkyriw_lS1efU3o6Q.png)
 
-除了账户信息，还有一个叫做 `"Token"` 的 key，它用于校验登录信息。如果这个 key 有值，证明这个用户是登录的，反之亦然。你也可以使用标志位，比如命名一个叫做  `"isLoggedIn"` 的 `boolean` 值。
+除了账户信息，还有一个叫做 `"Token"` 的 key，它用于校验登录信息。如果这个 key 有值，证明这个用户是登录的，反之亦然。你也可以使用标志位，比如命名一个叫做 `"isLoggedIn"` 的 `boolean` 值。
 
 ## 在 User Defaults 获取数据
 
