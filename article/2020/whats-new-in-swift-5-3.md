@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/whats-new-in-swift-5-3.md](https://github.com/xitu/gold-miner/blob/master/article/2020/whats-new-in-swift-5-3.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：[chaingangway](https://github.com/chaingangway)
+> * 校对者：[chaingangway](https://github.com/chaingangway)、[Zorro](https://github.com/lizhenZuo)
 
 # Swift 5.3 的新功能，你了解吗?
 
