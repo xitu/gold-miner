@@ -1429,10 +1429,11 @@
 |[好的与坏的，Swift 语言面面观（一）](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91)|校对|1|
 |[Android 中美腻的下划线](http://gold.xitu.io/entry/578705faa34131005b46e9c2)|校对|1|
 
-## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：85 当前积分：85
+## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：86 当前积分：86 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|5 月推荐前端文章 1 篇|奖励|1|
 |[React Native 对 Flutter: 哪一个对创业公司更加友好？](https://juejin.im/post/5b949e5d5188255c791ae376)|翻译|3.5|
 |[关于工程师和影响力](https://juejin.im/post/5b8f9a96f265da0ab33125b0)|校对|1.5|
 |[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|翻译|5|
@@ -5946,10 +5947,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：259.5 当前积分：239.5 二零二零：3
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：260.5 当前积分：240.5 二零二零：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|5 月推荐前端文章 1 篇|奖励|1|
 |4 月推荐前端文章一篇|奖励|1|
 |2020 年 2 月推荐文章 1 篇|奖励|1|
 |2020 年 1 月推荐文章 1 篇|奖励|1|
@@ -9416,10 +9418,11 @@
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：88.5 当前积分：88.5 二零二零：46.5
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：89.5 当前积分：89.5 二零二零：47.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|5 月推荐后端文章 1 篇|奖励|1|
 |[“为什么”文档的重要性](https://juejin.im/post/5e9e2a876fb9a03c6e6438d5)|校对|2|
 |5 月推荐后端文章一篇|奖励|1|
 |[MySQL 最佳实践 — 高效插入数据](https://juejin.im/post/5e8dc755e51d4546d32bcdd1)|翻译|4|
@@ -9535,10 +9538,11 @@
 |[TypeScript 3.7 Beta 版发布](https://juejin.im/post/5db2537d6fb9a0208b11f94f)|校对|3|
 |[如何设计一款讨人喜欢的暗色主题](https://juejin.im/post/5dad4ef1f265da5bb86ad294)|校对|2|
 
-## 译者：[HytonightYX](https://github.com/HytonightYX) 历史贡献积分：3.5 当前积分：3.5
+## 译者：[HytonightYX](https://github.com/HytonightYX) 历史贡献积分：4.5 当前积分：4.5 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|5 月推荐前端文章 1 篇|奖励|1|
 |2019 年 11 月推荐文章 1 篇|奖励|1|
 |[如何设计一款讨人喜欢的暗色主题](https://juejin.im/post/5dad4ef1f265da5bb86ad294)|校对|2.5|
 
