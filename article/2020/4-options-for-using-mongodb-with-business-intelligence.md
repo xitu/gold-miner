@@ -11,8 +11,6 @@ How to do SQL-style analytics on NoSQL data
 
 ![Photo by [Major Tom Agency](https://unsplash.com/@majortomagency?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2134/0*tm1VLFJIPTSFjBcw)
 
----
-
 ## Can MongoDB be used with business intelligence?
 
 MongoDB is making a name for itself as one of the top NoSQL providers on the market, which has sparked an interesting debate: [MongoDB vs SQL](https://www.knowi.com/blog/mongodb-vs-sql/)**.**
@@ -22,8 +20,6 @@ The main question that comes up when this debate does is whether or not MongoDB 
 While the answer to this question is yes, it comes with the caveat that it can come at a cost— in terms of both money and time — to get true business intelligence features while Mongo data.
 
 In this article, I will briefly describe the advantages of using traditional relational databases such as SQL for business intelligence and compare them to the advantages of using NoSQL databases such as MongoDB for business intelligence. I will also cover the options that are available to get SQL-like BI features while still using MongoDB as the database.
-
----
 
 ## Advantages of SQL Databases
 
@@ -50,8 +46,6 @@ When these developers use MongoDB, what advantages do they enjoy?
 When it comes to business intelligence, how do these two types of databases compare? Generally speaking, the territory of [business intelligence belongs to SQL](https://www.knowi.com/mysql). SQL’s flexibility allows analysts to easily pull, filter, join, aggregate, and perform other functions on relational data. This makes it easy to visualize and report on relational data.
 
 By contrast, business intelligence in NoSQL databases is not as well developed, which makes sense since NoSQL databases are still fairly nascent. NoSQL databases are capable of being used for business intelligence, but the unstructured nature of NoSQL databases means that generating queries generally isn’t as clean as it is in SQL. To give a few examples, the query language isn’t consistent across NoSQL databases like it is across SQL databases, and NoSQL databases generally haven’t supported joining across tables.
-
----
 
 ## How Can You Use MongoDB for Business Intelligence?
 
@@ -102,8 +96,6 @@ If these limitations aren’t relevant to your use-case, MongoDB Charts may be a
 ## Conclusion
 
 The modern environment of business intelligence is dynamic, which means we must constantly conduct analysis on a wide variety of different database types, and some of these database types are more conducive to business intelligence than others. MongoDB is not the only database to create some confusion within the sphere of business intelligence. Fortunately, solutions to this problem are being presented by a few innovative companies out there that are working to standardize and streamline the process of business intelligence across various data sources. Regardless of which solution you decide is best for your business, one thing is clear: your business no longer has to decide between MongoDB and business intelligence. You can have both.
-
----
 
 ## About the Author
 
