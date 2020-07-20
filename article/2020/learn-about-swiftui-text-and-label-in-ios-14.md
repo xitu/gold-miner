@@ -17,15 +17,13 @@ Besides the introduction of `Grids` and `MatchedGeometryEffect`, SwiftUI `Text` 
 
 In the next few sections, we’ll look at what you can achieve with the new `Text` controls in SwiftUI in iOS 14.
 
----
-
 ## SwiftUI Text Now Supports Powerful Interpolation
 
 SwiftUI `Text` has been bumped up this year with new initializers to let you format dates, interpolate strings with images, and add `Text` within `Text`.
 
 Let’s look at how to wrap images with SF symbols in SwiftUI `Text`:
 
-```
+```swift
 Text("Hello, \(Image(systemName: "heart.fill"))
 
 Text(Image(systemName:))
@@ -39,7 +37,7 @@ SwiftUI `Text` has also gotten two initializers for wrapping dates in strings �
 
 Let’s look at the different ways to set and format dates in Swift `Text`:
 
-```
+```swift
 Text(Date().addingTimeInterval(600))
 Text(Date().addingTimeInterval(3600),style: .time)
 ```
@@ -48,7 +46,7 @@ Text(Date().addingTimeInterval(3600),style: .time)
 
 What’s amazing about the new semantic API is it lets you set a counter or timer within the SwiftUI `Text` initializer using the styles `relative`, `timer`, and `offset`.
 
-```
+```swift
 //countdown timer to update every minute
 Text(Date().addingTimeInterval(60),style: .offset)
 ```
@@ -63,15 +61,13 @@ Pay heed to how the three different styles of `Timer` behave differently. And al
 
 SwiftUI `Text` also makes it possible to interpolate `Text` within `Text` while preserving each of their identities. Like “Inception.”
 
----
-
 ## SwiftUI Labels to Display Text and Images Together
 
 SwiftUI `Label`s are an out-of the box substitute for a view we were using a lot: wrapping text and image in `stack`s.
 
 Here’s how to define the all-new SwiftUI `Label`:
 
-```
+```swift
 Label("Hello Label", systemImage: "sun.min")
 
 Label("Hello Label", image: "asset_image")
@@ -89,15 +85,13 @@ In the below screen grab, we’re showing the different types of `Label`s and ho
 
 Though it’d be a dream to get a SwiftUI button initializer that lets us set images as well.
 
----
-
 ## Creating Your Own Label Style
 
 We can create custom styles for our labels by conforming to the `LabelStyle`.
 
 The below code looks to set the icon and text vertically, instead of being horizontally aligned.
 
-```
+```swift
 struct VLabelStyle: LabelStyle {
         func makeBody(configuration: Configuration) -> some View {
             VStack {
@@ -109,8 +103,6 @@ struct VLabelStyle: LabelStyle {
 ```
 
 You can now set it inside the view modifier as `.labelStyle(VLabelStyle())`.
-
----
 
 ## Conclusion
 
