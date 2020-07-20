@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# How to Hide Secrets in Strings— Modern Text hiding in JavaScript
-
-**Sometimes the best hiding place is the one that’s in plain sight.**
+# How to Hide Secrets in Strings — Modern Text hiding in JavaScript
 
 ![**All Hallows’ Eve — Illustrated by [Kaiseir](https://dribbble.com/kaiseir)**](https://cdn-images-1.medium.com/max/2000/1*HOGI5cdt1MJ9MBo1qTc1zA.jpeg)
+
+> Sometimes the best hiding place is the one that’s in plain sight.
 
 If you were a spy in a hostile country, merely sending a message back to the US would be incriminating. If that message was encrypted, it’d probably be a whole bunch more incriminating, and things would only get worse when you, the spy, refused to decrypt the message for the authorities. **Steganography**, which literally means “hidden writing”, is about hiding the existence of a message.
 
 Chet Hosmer, founder of [**Python Forensics**](http://python-forensics.org/) pointed out that
 
-> Steganography hides the mere existence of the communication. Unlike its cousin cryptography, ‍‍‍‍⁣⁣⁡‍⁣⁤⁤⁣⁡‍‌‍⁢‍‌⁡⁢‍⁣⁡‍⁤⁤‌⁢⁡‍‌‍‍⁢⁢‌⁢‍⁢‍⁢‌⁡⁢‌‍‌‍⁡⁢⁣‍‌⁤‍⁡‌⁤⁢⁡‍which is easy to detect but difficult to break, steganography provides the most interesting element of all ‘To Hide in Plain sight’.
+> Steganography hides the mere existence of the communication. Unlike its cousin cryptography, which is easy to detect but difficult to break, steganography provides the most interesting element of all ‘To Hide in Plain sight’.
 
 ![Cloak of invisibility](https://cdn-images-1.medium.com/max/2000/1*Ze0Yy0Op7kqT8fJ3Le5FSg.gif)
 
