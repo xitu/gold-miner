@@ -7,8 +7,6 @@
 
 # Learn About SwiftUI Text and Label in iOS 14
 
-#### Let’s explore these powerful text controls
-
 ![Photo by [Prateek Katyal](https://unsplash.com/@prateekkatyal?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*ooJiyXobPr83YYhC)
 
 Apple didn’t exactly call the second iteration of SwiftUI a 2.0, but there were really some crackling updates announced during WWDC 2020.
