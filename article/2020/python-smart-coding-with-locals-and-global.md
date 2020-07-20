@@ -7,16 +7,16 @@
 
 # Python: smart coding with locals() and global()
 
-Coding can be hard! and one of the most common reasons for that is that we tend to solve a coding problem thinking complex ways which can create more problems than solutions.
-
 ![Photo by [Christina @ wocintechchat.com](https://unsplash.com/@wocintechchat?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12032/0*ZYy01ayW-6rkXMGV)
+
+Coding can be hard! and one of the most common reasons for that is that we tend to solve a coding problem thinking complex ways which can create more problems than solutions.
 
 **Lets try to break down the following coding problem:**
 
-* **The first server in servers list is a proxy server, so it needs to use the connect_to_proxy function.**
-* **All other server are just servers that we want to connect and get to the next server, so they need to use the hop_to_server function.**
+* The first server in servers list is a proxy server, so it needs to use the connect_to_proxy function.
+* All other server are just servers that we want to connect and get to the next server, so they need to use the hop_to_server function.
 
-```
+```python
 def connect_servers():
     '''
     Connect servers
@@ -30,8 +30,8 @@ def connect_servers():
 
 locals() returns the variables / objects declared in the scope a function. So in this case the code will do the following:
 
-1. **The first time that will run it will check if the “server_conn” variable has been created or not. Since this is the first time running the connect_to_proxy function will be executed and will return its value to the server_conn variable.**
-2. **After the first run of the loop the hop_to_server function will be executed untill the end of the loop.**
+1. The first time that will run it will check if the “server_conn” variable has been created or not. Since this is the first time running the connect_to_proxy function will be executed and will return its value to the server_conn variable.
+2. After the first run of the loop the hop_to_server function will be executed untill the end of the loop.
 
 But what about the globals() function? well it does the same thing, checks if a variable exists but not only in the scope of a function but globaly.
 
@@ -39,7 +39,7 @@ So using the locals() and globals() functions allows writing smart shortcuts, wh
 
 **Doing the same without using the locals() function:**
 
-```
+```python
 def connect_servers():
     '''
     Connect servers
