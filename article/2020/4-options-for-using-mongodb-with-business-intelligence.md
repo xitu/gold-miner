@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 4 Options for Using MongoDB with Business Intelligence
-
-How to do SQL-style analytics on NoSQL data
+# 4 Options for Using MongoDB with Business Intelligence - How to do SQL-style analytics on NoSQL data
 
 ![Photo by [Major Tom Agency](https://unsplash.com/@majortomagency?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2134/0*tm1VLFJIPTSFjBcw)
 
