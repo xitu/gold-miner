@@ -7,8 +7,6 @@
 
 # Write Cleaner Code by Using JavaScript Destructuring
 
-#### Add clarity and reduce the complexity of your code by destructuring your objects and arrays in JavaScript
-
 ![Photo by the author.](https://cdn-images-1.medium.com/max/2560/1*h-mNn0rVcSdzJ4FZq_Oj9w.jpeg)
 
 Destructuring is one of my favorite tools in JavaScript. In simple terms, destructuring allows you to break down a complex structure (like an array or an object) into simpler parts, though there’s a bit more to it than that.
@@ -38,13 +36,11 @@ Output
 
 Now, some people have been using this feature for some time — perhaps while building React apps — but they don’t quite understand it. For others, it may be the first time. So I’ll guide you through the process from start to finish so that we all have the same level of understanding by the end of this article.
 
----
-
 ## Destructuring Objects
 
 In the example above, all the magic happens in the following line:
 
-```
+```js
 const { title, rating, author: { name } } = article
 ```
 
@@ -52,7 +48,7 @@ Now it may seem a bit weird to have those brackets like that on the left side of
 
 Destructuring objects lets you bind to different properties of an object at any depth. Let’s start with an even simpler example:
 
-```
+```js
 const me = {
   name: "Juan"
 }
@@ -62,7 +58,7 @@ const { name } = me
 
 In the case above, we are declaring a variable called `name` that will be initialized from the property with the same name in the object `me` so that when we evaluate the value of `name`, we get `Juan`. Awesome! The same can be applied to any depth. Heading back to our example:
 
-```
+```js
 const { title, rating, author: { name } } = article
 ```
 
@@ -171,8 +167,6 @@ some string here
 
 These are some examples of assigning default values to our destructured objects. The default values are only assigned when the property is `undefined`. If the value of the property is `null` or a `string` for instance, the default value won’t be assigned, but the actual value of the property will be.
 
----
-
 ## Destructuring Arrays and Iterables
 
 We already saw some examples of destructuring objects, but the same can apply to arrays or iterables in general. Let’s start with an example:
@@ -265,8 +259,6 @@ missing c
 
 When destructuring arrays, it is also possible to set default values for `undefined` properties. However, it is not possible to set a default when we have the spread operator `...`. In the case of `undefined`, it will return an empty array.
 
----
-
 ## Swapping Variables
 
 This is a fun use case of destructuring. Two variables can be swapped in one single expression:
@@ -283,8 +275,6 @@ Output
 5
 1
 ```
-
----
 
 ## Destructuring With Computed Properties
 
@@ -305,8 +295,6 @@ Juan
 
 Pretty awesome, right? By using a variable between `[]`, we can evaluate its value before doing the assignment. Thus, it’s possible to do dynamic destructuring, though it is mandatory to provide a name for this new variable.
 
----
-
 ## Destructuring Function Arguments
 
 Destructured variables can be placed anywhere we can declare variables (e.g. by using `let`, `const`, or `var`), but it’s also possible to destructure function arguments. Here is a simple example of the concept:
@@ -324,8 +312,6 @@ Juan
 ```
 
 Very simple and elegant. Also, all the same rules we discussed before apply.
-
----
 
 ## Conclusion
 
