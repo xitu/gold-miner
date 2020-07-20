@@ -7,21 +7,13 @@
 
 # 14 JavaScript Code Optimization Tips for Front-End Developers
 
-#### Tips and tricks to increase performance and website load time
-
 ![](https://cdn-images-1.medium.com/max/2560/1*MgoAGKBmwDGomYOe4hspxw.jpeg)
-
----
 
 JavaScript has become one of the most popular programming languages of all time. It is used by almost 96% of websites all over the world according to [W3Tech](https://w3techs.com/technologies/details/cp-javascript). One key fact you should know about the web is that you have no control over the hardware specifications of the devices your user would access your website on. The end-user may access your website on a high-end or a low-end device with either great or poor internet connection. This means that you have to make sure your website is optimized as much as possible for you to be able to satisfy the requirements of any user.
 
 Here are a few tips for you to have a better-optimized JavaScript code that would result in greater performance.
 
 As a side-note, make sure to share and reuse your JS components to keep the right balance between high-quality code (that takes time to produce) and reasonable delivery times. You can use popular tools like [**Bit**](https://bit.dev) ([Github](https://github.com/teambit/bit)), to share components (vanilla JS, TS, React, Vue, etc.) from any project to Bit’s [component hub](https://bit.dev), without losing too much time over it.
-[**teambit/bit**
-**Documentation * Tutorials * Quick start guide * Workflows * bit.dev components cloud * Video demo Bit is an open-source…**github.com](https://github.com/teambit/bit)
-
----
 
 ## 1. Remove Unused Code and Features
 
@@ -33,13 +25,9 @@ Sometimes, you might include features that are not used at all. It is better to 
 
 You can remove unused code manually or by using tools such as [Uglify](https://github.com/mishoo/UglifyJS#compressor-options) or [Google’s Closure Compiler](https://developers.google.com/closure/compiler/docs/api-tutorial3). You can even use a technique called tree shaking which removes unused code from your application. Bundlers such as Webpack provide this technique. You can read more about tree shaking over [here](https://medium.com/@bluepnume/javascript-tree-shaking-like-a-pro-7bf96e139eb7). If you want to remove unused npm packages, you can use the command `npm prune` . More info can be read from [NPM docs.](https://docs.npmjs.com/cli-commands/prune.html)
 
----
-
 ## 2. Cache Whenever Possible
 
 Caching increases the speed and performance of your website by reducing latency and network traffic and thus lessening the time needed to display a representation of a resource. This can be achieved with the help of the [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) or [HTTP caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching). You might wonder what happens when your content changes. The above caching mechanisms are capable of handling and regenerating the cache when certain conditions are met such as the publishing of new content.
-
----
 
 ## 3. Avoid Memory Leaks
 
@@ -47,15 +35,13 @@ Being a high-level language, JS looks after several low-level management such as
 
 Even though garbage collection is performed automatically in JavaScript, there can be certain instances where it will not be perfect. In JavaScript ES6, Map and Set were introduced with their “weaker” siblings. This “weaker” counterpart known as WeakMap and WeakSet hold “weak” references to objects. They enable unreferenced values to be garbage collected and thereby prevent memory leaks. You can read more about WeakMaps [here](https://blog.bitsrc.io/understanding-weakmaps-in-javascript-6e323d9eec81).
 
----
-
 ## 4. Try to Break Out of Loops Early
 
 Looping for large cycles can definitely consume a lot of precious time. That is why you should always try to break out of a loop early. You can do this with the help of the `break` keyword and `continue` keyword. It is your responsibility to write the most efficient code.
 
 In the below example, if you did not `break` from the loop, your code will run the loop 1000000000 times which is clearly in an overload.
 
-```
+```js
 let arr = new Array(1000000000).fill('----');
 arr[970] = 'found';
 for (let i = 0; i < arr.length; i++) {
@@ -68,7 +54,7 @@ for (let i = 0; i < arr.length; i++) {
 
 In the below example, if you did not `continue` when the loop does not match your condition, you will still be running the function 1000000000 times. We only process the array element if it is in even position. This reduces the loop execution by almost half.
 
-```
+```js
 let arr = new Array(1000000000).fill('----');
 arr[970] = 'found';
 for (let i = 0; i < arr.length; i++) {
@@ -81,15 +67,13 @@ for (let i = 0; i < arr.length; i++) {
 
 You can read more about loops and performance over [here](https://www.oreilly.com/library/view/high-performance-javascript/9781449382308/ch04.html).
 
----
-
 ## 5. Minimize the Number of Times the Variables Get Computed
 
 To reduce the number of times a variable gets computed, you can use closures. In layman terms, closures in JavaScript gives you access to an outer functions scope from an inner function. The closures are created every time a function is created-**not called**. The inner functions will have access to the variables of the outer scope, even after the outer function has returned.
 
 Let’s see two examples to see this in action. These examples are inspired from Bret’s blog.
 
-```
+```js
 function findCustomerCity(name) {
   const texasCustomers = ['John', 'Ludwig', 'Kate']; 
   const californiaCustomers = ['Wade', 'Lucie','Kylie'];
@@ -103,7 +87,7 @@ If we call the above functions several times, each time a new object is created.
 
 By using a solution with closures, we can instantiate the variables only once. Let’s look at the below example.
 
-```
+```js
 function findCustomerCity() {
   const texasCustomers = ['John', 'Ludwig', 'Kate']; 
   const californiaCustomers = ['Wade', 'Lucie','Kylie'];
@@ -121,15 +105,11 @@ cityOfCustomer('Max');//Unknown
 
 In the above example, with the help of closures, the inner function which is being returned to the variable `cityOfCustomer` has access to the constants of the outer function `findCustomerCity()` . And whenever the inner function is being called with the name passed as a parameter, it does not need to instantiate the constants again. To learn more about closures, I suggest you go through this [blog post](https://medium.com/@prashantramnyc/javascript-closures-simplified-d0d23fa06ba4) by Prashant.
 
----
-
 ## 6. Minimize DOM Access
 
 Accessing the DOM is slow, compared to other JavaScript statements. If you make changes to the DOM that would trigger re-painting of the layout, this is where things can get quite slow.
 
 To reduce the number of times you access a DOM element, access it once, and use it as a local variable. When the need is complete, make sure to remove the value of the variable by setting it to `null` . This would prevent memory leakage as it would allow the garbage collection process to take place.
-
----
 
 ## 7. Compress Your Files
 
@@ -139,15 +119,11 @@ These compressions can reduce your file size by up to 80%. Read more about compr
 
 ![Photo by [JJ Ying](https://unsplash.com/@jjying?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*yUVIcTARWrjWiaPw)
 
----
-
 ## 8. Minify Your Final Code
 
 Some people believe that minification and compression are the same. But on the contrary, they are different. In compression special algorithms are used to change the output size of the file. In minification, the comments and extra spaces in JavaScript files, need to be removed. This process can be done with the help of many tools and packages that can be found online. Minification has become standard practice for page optimization and a major component of front end optimization.
 
 Minification can reduce your file size by up to 60%. You can read more about minification [here](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer#minification_preprocessing_context-specific_optimizations).
-
----
 
 ## 9. Use Throttle and Debounce
 
@@ -159,22 +135,18 @@ On the other hand, debouncing is where you specify a minimum duration of time fo
 
 You can either implement your own debounce and throttle functions or you can import them from libraries such as [Lodash](https://lodash.com/) and [Underscore](http://underscorejs.org/).
 
----
-
 ## 10. Avoid Using the Delete Keyword
 
 The `delete` keyword is used to remove a property from an object. There have been several complaints regarding the performance of this `delete` keyword. You can view them [here](https://github.com/googleapis/google-api-nodejs-client/issues/375) and [here](https://stackoverflow.com/questions/43594092/slow-delete-of-object-properties-in-js-in-v8/44008788). It was expected to be fixed in future updates.
 
 As an alternative, you can simply to set the unwanted property as `undefined`.
 
-```
+```js
 const object = {name:"Jane Doe", age:43};
 object.age = undefined;
 ```
 
 You can also use the Map object as it’s `delete` method is known to be faster according to [Bret](https://jsperf.com/delete-vs-map-prototype-delete).
-
----
 
 ## 11. Use Asynchronous Code to Prevent Thread Blocking
 
@@ -192,8 +164,6 @@ These JavaScript engines can handle tasks in the background. According to [Brian
 
 You might sometimes wonder, how does things happen with Node.js as it has no help of the browser to run. In fact, the same V8 engine that powers Chrome also powers Node.js as well. Here is an awesome [blog post](https://medium.com/better-programming/is-node-js-really-single-threaded-7ea59bcc8d64) by Salil that explains this process on the Node ecosystem.
 
----
-
 ## 12. Use Code Splitting
 
 If you have experience with Google Light House, you would be familiar with a metric called “first contentful paint”. It is one of the six metrics tracked in the Performance section of the Lighthouse report.
@@ -203,8 +173,6 @@ First Contentful Paint(FCP)measures how long it takes the browser to render the 
 One of the best ways to achieve a higher FCP score is to use code splitting. Code splitting is a technique where you send only the necessary modules to the user in the beginning. This would greatly impact the FCP score by reducing the size of the payload transmitted initially.
 
 Popular module bundlers such as webpack provide you with code splitting functionality. You can also get the help of native ES modules, to get individual modules loaded. You can read more about native ES modules in detail over [here](https://blog.bitsrc.io/understanding-es-modules-in-javascript-a28fec420f73).
-
----
 
 ## 13. Use async and defer
 
@@ -217,8 +185,6 @@ Async is where you tell the browser to load your script without affecting the re
 Defer is where you tell the browser to load the script after your rendering is complete. If you specify both, `async` takes precedence on modern browsers, while older browsers that support `defer` but not `async` will fallback to `defer`
 
 These two attributes can greatly help you reduce your page loading time. I highly advise you to read [this blog post](https://flaviocopes.com/javascript-async-defer/) by Flavio.
-
----
 
 ## 14. Use Web Workers to Run CPU Intensive Tasks in the Background
 
@@ -234,29 +200,10 @@ Happy Coding!!
 
 ---
 
-## Share & Manage Reusable JS Components with Bit
+**Resources**
 
-Use [**Bit**](https://bit.dev/) ([Github](https://girhub.com/teambit/bit)) to share, document, and manage reusable components from different projects. It’s a great way to increase code reuse, speed up development, and build apps that scale.
-
-![Example: exploring shared React components on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*qlLlbIFk4wN2LfSm.gif)
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
----
-
-## Related Stories
-[**Understanding WeakMaps in JavaScript**
-**Learn how to use this underrated data structure from ES6**blog.bitsrc.io](https://blog.bitsrc.io/understanding-weakmaps-in-javascript-6e323d9eec81)
-[**The Ultimate Guide to the ES2020 Nullish Coalescing Operator**
-**Perhaps the most interesting aspect of logical operators in JavaScript is their ability to execute code conditionally…**blog.bitsrc.io](https://blog.bitsrc.io/the-ultimate-guide-to-the-es2020-nullish-coalescing-operator-231d2b64dfde)
-[**10 Top Visual Studio Code Extensions in 2020**
-**Recommended VS Code extensions**blog.bitsrc.io](https://blog.bitsrc.io/top-10-visual-studio-extensions-in-2020-857ea6d692dd)
-
----
-
-**Resources
-**[Blog post by Nodesource](https://nodesource.com/blog/improve-javascript-performance/)
-[Blog post by Bret Cameron](https://medium.com/@bretcameron/13-tips-to-write-faster-better-optimized-javascript-dc1f9ab063d8)
+- [Blog post by Nodesource](https://nodesource.com/blog/improve-javascript-performance/)
+- [Blog post by Bret Cameron](https://medium.com/@bretcameron/13-tips-to-write-faster-better-optimized-javascript-dc1f9ab063d8)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
