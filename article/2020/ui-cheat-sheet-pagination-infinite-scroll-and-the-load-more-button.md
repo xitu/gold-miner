@@ -17,8 +17,8 @@ Before you start, I would recommend checking out my other two related cheat shee
 
 **1. Introduction**
 
-**2. Pagination
-**2.1. Fact-ish sheet
+**2. Pagination**
+2.1. Fact-ish sheet
 2.2. How many items per page
 2.3. Component: Navigation
 2.4. Component: Filters
@@ -29,14 +29,14 @@ Before you start, I would recommend checking out my other two related cheat shee
 2.9. Component: Alphabetical index
 2.10. Component: Jump to
 
-**3. Infinite scroll
-**3.1. Fact-ish sheet
+**3. Infinite scroll**
+3.1. Fact-ish sheet
 3.2. Component: Sticky nav bar
 3.3. Component: Instagram’s ‘You are all caught up’ component
 3.4. Component: Loader
 
-**4. Load more button
-**4.1. Fact-ish sheet
+**4. Load more button**
+4.1. Fact-ish sheet
 4.2. Components: ‘Load more’ button
 4.3. Component: Loader
 4.4. Component: Search suggestions tags
@@ -45,8 +45,6 @@ Before you start, I would recommend checking out my other two related cheat shee
 **5. Closing thoughts**
 
 **6. Further reading & references**
-
----
 
 ## 1. Introduction
 
@@ -58,15 +56,13 @@ In a nutshell:
 
 **Pagination** is just pages. Think most online stores.
 
-**Infinite** **scroll** tricks you into thinking that everything has been downloaded, but is, in fact, downloading as you scroll. Think Instagram.
+**Infinite scroll** tricks you into thinking that everything has been downloaded, but is, in fact, downloading as you scroll. Think Instagram.
 
-**Load** **more** **button** is ****a button at the bottom of a page that allows you to load more results. Think Google Images.
+**Load more button** is a button at the bottom of a page that allows you to load more results. Think Google Images.
 
 ![Example of pagination, infinite scroll and load more button](https://cdn-images-1.medium.com/max/2800/0*DRqqvS2DptOYkV4w)
 
-*I have no idea how servers die. I imagine that they go out in a BOOM while singing ‘don’t cry for me Argentina’. But I can’t be sure. I am also pretty sure this wouldn’t **actually** kill a server. Just crash it or something.
-
----
+> I have no idea how servers die. I imagine that they go out in a BOOM while singing ‘don’t cry for me Argentina’. But I can’t be sure. I am also pretty sure this wouldn’t **actually** kill a server. Just crash it or something.
 
 ![](https://cdn-images-1.medium.com/max/2000/0*_ZAZQ4gOtHN7ZJks)
 
@@ -117,21 +113,21 @@ So, how many items should you have on your page? Well, it will depend on a coupl
 
 Below is a list of how many items load per page on the following sites:
 
-**Grid view
-**Sears: 50
+**Grid view**
+Sears: 50
 Toy’s R Us: 100
 Shutterstock: 27
 Amazon: 48
 
-**List view
-**Udemy: 20
+**List view**
+Udemy: 20
 Alibaba: 48
 CNN: 10
 Google search: +/- 10 items (depending on if you count ads)
 Amazon: 16
 
-**Grid view with an ‘items per page’ component
-**Macy’s: 60 (default) or 120
+**Grid view with an ‘items per page’ component**
+Macy’s: 60 (default) or 120
 Superbalist: 24 (4 across) (default) or 72 (6 across) or 72 (8 across)
 Newegg: 36 (default) or 60 or 90
 Currys PC World: 20 (default) or 30 or all
@@ -139,8 +135,8 @@ Wondery: 10 or 20 (default) or 50 or 100
 Foyles: 10 or 20 (default) or 50 or 100 or 200
 Barns & Noble: 20 (default) or 40
 
-**List view with an ‘items per page’ component
-**eBay: 25 or 50 (default) or 100 or 200
+**List view with an ‘items per page’ component**
+eBay: 25 or 50 (default) or 100 or 200
 
 The above ‘item per page’ counts were gathered on the 14th of May 2020.
 
@@ -311,8 +307,9 @@ I have yet to come across an eCommerce site using infinite scroll*, and as far a
 * YouTube
 * Google play
 
-*****Post publish edit:** [Saurav Pandey](undefined) reminded me that some mobile versions (m.) of eCommerce sites use infinite scroll, for example: [https://m.snapdeal.com/](https://m.snapdeal.com/) . 
-Thank you!**
+**Post publish edit:** [Saurav Pandey](undefined) reminded me that some mobile versions (m.) of eCommerce sites use infinite scroll, for example: [https://m.snapdeal.com/](https://m.snapdeal.com/).
+
+Thank you!
 
 #### 3.2. Component: Sticky nav bar
 
@@ -341,8 +338,6 @@ In an ideal world — you will never know what an app’s loader looks like. But
 If you have poor internet connection or the server you are downloading from is slow, you will have to stare at a loader for what seems like forever. Loaders are just an indicator to let you know that the platform hasn’t crashed — it’s just struggling. It’s kinda like a pulse — it let’s you know that your body is alive, even though you feel dead on the inside after that millionth Instagram scroll.
 
 **DO YOU** NEED **IT FOR INFINITE SCROLL?** Yes, it’s required.
-
----
 
 ![](https://cdn-images-1.medium.com/max/2000/0*vMPfzQjNIkLoCDFN)
 
@@ -407,8 +402,6 @@ This handy little guy allows you to scroll all the way to the top without you ha
 
 ![**Example of a scroll to top button**](https://cdn-images-1.medium.com/max/2800/0*xMAtJo-lwOSLhYPs)
 
----
-
 ## 5. Closing thoughts
 
 **Question**: So, pagination, infinite scroll or a load more button — which should you use?
@@ -418,8 +411,6 @@ This handy little guy allows you to scroll all the way to the top without you ha
 If you’re building a site where people will reference and browse your content — look at using pagination. But if you’re looking at building a social platform where you expect users to browse — use an infinite scroll. Use a ‘load more’ button somewhere in between those two or when the situation makes sense.
 
 Happy designing!
-
----
 
 ## 6. Further reading and references
 
