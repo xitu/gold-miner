@@ -8712,10 +8712,11 @@
 |[用 Rust 打造你的第一个命令行工具](https://juejin.im/post/5cb33b94e51d456e63760453)|校对|1.5|
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|校对|1.5|
 
-## 译者：[ccJia](https://github.com/ccJia) 历史贡献积分：38 当前积分：38 二零二零：1
+## 译者：[ccJia](https://github.com/ccJia) 历史贡献积分：39 当前积分：39 二零二零：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|六月推荐 AI 文章 1 篇|奖励|1|
 |2020 年 2 月推荐文章 1 篇|奖励|1|
 |[在 Python 中过度使用列表解析器和生成表达式](https://juejin.im/post/5d281b0ff265da1b8b2b8ae0)|翻译|5|
 |[在 Keras 下使用自编码器分类极端稀有事件](https://juejin.im/post/5cff17296fb9a07ec63b0a7f)|翻译|5|
@@ -8893,10 +8894,11 @@
 |[ES6：理解参数默认值的实现细节](https://juejin.im/post/5cd0eab95188251b984d8abe)|翻译|3.5|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：192.5 当前积分：192.5 二零二零：124.5
+## 译者：[cyz980908](https://github.com/cyz980908) 历史贡献积分：193.5 当前积分：193.5 二零二零：125.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|六月推荐前端文章 1 篇|奖励|1|
 |[理解 zip 和 gzip 压缩格式背后的压缩算法](https://juejin.im/post/5ecb7f9651882542f4488845)|校对|3|
 |[关于 JavaScript 中 Symbol 数据类型你需要了解的一切](https://juejin.im/post/5ebd353c5188256d9433b103)|翻译|8.5|
 |[11 个能让你的 App 像原生 App 的 Chrome API](https://juejin.im/post/5ebd3405e51d4534287a633b)|翻译|10|
@@ -9735,10 +9737,11 @@
 |[使用 Web Workers 优化事件监听器](https://juejin.im/post/5e241bb9f265da3e46090215)|校对|1|
 |[再见，整洁的代码](https://juejin.im/post/5e2411e0f265da3e4244e683)|校对|1.5|
 
-## 译者：[ahabhgk](https://github.com/ahabhgk) 历史贡献积分：5 当前积分：5 二零二零：5
+## 译者：[ahabhgk](https://github.com/ahabhgk) 历史贡献积分：6 当前积分：6 二零二零：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|三月推荐前端文章 1 篇|奖励|1|
 |4 月推荐前端文章 1 篇|奖励|1|
 |3 月推荐文章一篇|奖励|1|
 |[在什么时候你需要使用 Web Workers？](https://juejin.im/post/5e290aaee51d451c8836284f)|校对|1.5|
