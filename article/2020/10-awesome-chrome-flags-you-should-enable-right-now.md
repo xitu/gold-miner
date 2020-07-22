@@ -7,8 +7,6 @@
 
 # 10 Awesome Chrome Flags You Should Enable Right Now
 
-#### Enhance your browsing experience with these experimental features
-
 ![Image source: Author](https://cdn-images-1.medium.com/max/4480/1*nnoOXTFecfO8aW0LqCaN5w.png)
 
 Wouldn’t it be cool if you could magically upgrade your browser with features not known to the average Chrome user?
@@ -17,23 +15,17 @@ Below are ten Chrome flags that help you to do just that.
 
 Chrome Flags are experimental features that aren’t yet enabled by default. To enable these, see chrome://flags. The flags stated below may be in the pipeline for official release in the near future. However, as of writing, they are still in testing.
 
----
-
 ## Reader Mode
 
 Reader Mode removes unnecessary visual clutter for distraction-free reading — highly important when so many visual elements fight for our attention. Poof, gone.
 
 ![chrome://flags/#enable-reader-mode](https://cdn-images-1.medium.com/max/2000/0*TkZOJVvj8nX1dh9c.gif)
 
----
-
 ## Focus Mode
 
 Focus Mode opens the tab in a new framed window, omitting the tab strip and search bar for a cleaner interface.
 
 ![chrome://flags/#focus-mode](https://cdn-images-1.medium.com/max/2000/0*HTBhDshB0IkpRZo5.gif)
-
----
 
 ## Impulsive-Style Scroll Animations
 
@@ -43,15 +35,11 @@ Rebuilding their Edge platform, Microsoft has brought their natural scrolling mo
 
 ![chrome://flags/#impulse-scroll-animations](https://cdn-images-1.medium.com/max/2000/0*mTrSM7M_NaV4CUCw.gif)
 
----
-
 ## Tab Groups
 
 Tab Groups is for grouping and managing multiple tabs together, such as for different types of cheese.
 
 ![chrome://flags/#tab-groups](https://cdn-images-1.medium.com/max/2000/0*7OEk4z2uvyg8MO3f.gif)
-
----
 
 ## PDF Two-Up View
 
@@ -59,15 +47,11 @@ PDF Two-Up View is for viewing a PDF with two pages at a time. Interesting.
 
 ![chrome://flags/#pdf-two-up-view](https://cdn-images-1.medium.com/max/2000/0*ostaBsHvTlU70wbN.gif)
 
----
-
 ## Force Dark Mode for Web Contents
 
 This forces all websites to render in a dark theme — even those that don’t have one yet, such as Medium. Yes, looking at you, Medium.
 
 ![chrome://flags/#enable-force-dark](https://cdn-images-1.medium.com/max/2000/0*D5u7w-98tffTZ-Ma.gif)
-
----
 
 ## Quieter Notification Permission Prompts
 
@@ -75,15 +59,11 @@ This is a simple feature to reduce permission prompts disrupting your flow.
 
 ![chrome://flags/#quiet-notification-prompts](https://cdn-images-1.medium.com/max/2000/0*vY-Jg_mSlk2hLCUs)
 
----
-
 ## Tab Hover Cards
 
 Tab Hover Cards displays the tab previews on hover. It probably comes in handy when you have over 30 tabs open and can’t read the tab titles anymore.
 
 ![chrome://flags/#tab-hover-cards **&** chrome://flags/#tab-hover-card-images](https://cdn-images-1.medium.com/max/2000/0*G_0Ja03m0pykQWBS.gif)
-
----
 
 ## Enable Page Sharing via QR Code
 
@@ -93,15 +73,11 @@ This flag allows you to share web pages with QR codes, for easily sending conten
 
 ![chrome://flags/#sharing-qr-code-generator](https://cdn-images-1.medium.com/max/2000/0*IzzgdVlhQKN01eqG.gif)
 
----
-
 ## Parallel Downloading
 
 Chrome can establish multiple connections to download a single file in parts, resulting in an increase in download speed.
 
 ![chrome://flags/#enable-parallel-downloading](https://cdn-images-1.medium.com/max/2000/1*e1CZu3rjlntGfMW-3QE-Zg.png)
-
----
 
 ## Conclusion
 
