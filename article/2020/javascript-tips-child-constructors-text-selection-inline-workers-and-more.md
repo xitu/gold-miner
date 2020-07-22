@@ -19,7 +19,7 @@ We can stop text selection after a double click by calling `preventDefault()` to
 
 For example, we can write:
 
-```
+```js
 document.addEventListener('mousedown', (event) => {
   if (event.detail > 1) {
     event.preventDefault();
@@ -34,7 +34,7 @@ We’ve to set the prototype constructor so that we can check with `instanceof` 
 
 For instance, if we have:
 
-```
+```js
 function Person(name) {
   this.name = name;
 }  
@@ -53,13 +53,13 @@ But we actually want to set it to `Student` , even though it inherits from `Pers
 
 Therefore, we need to write:
 
-```
+```js
 Student.prototype.constructor = Student;
 ```
 
 Now if we create an instance of `Student` , and check if it with `instanceof` :
 
-```
+```js
 student instanceof Student
 ```
 
@@ -69,7 +69,7 @@ If we use the class syntax, then we don’t have to do that anymore.
 
 We just write:
 
-```
+```js
 class Student extends Person {
 }
 ```
@@ -82,7 +82,7 @@ We can create a web worker without creating a separate JavaScript file using the
 
 For instance, we can write:
 
-```
+```html
 <script id="worker" type="javascript/worker">
   self.onmessage = (e) => {
     self.postMessage('msg');
@@ -113,7 +113,7 @@ We can trim the file extension from a string, we can use `replace` method.
 
 For instance, we can write:
 
-```
+```js
 fileName.replace(/\.[^/.]+$/, "");
 ```
 
@@ -125,7 +125,7 @@ In Node apps, we can use the `path` module.
 
 To get the name, we can write:
 
-```
+```js
 const path = require('path');
 const filename = 'foo.txt';
 path.parse(filename).name;
@@ -149,19 +149,19 @@ We get that if the radix isn’t a valid radix.
 
 Therefore, instead of writing:
 
-```
+```js
 ['1','2','3'].map(parseInt)
 ```
 
 We write:
 
-```
+```js
 ['1','2','3'].map(Number)
 ```
 
 or:
 
-```
+```js
 ['1','2','3'].map(num => parseInt(num, 10))
 ```
 
@@ -169,7 +169,7 @@ or:
 
 If we have the following ternary expressions:
 
-```
+```js
 x === 1 ? doSomething() : doSomethingElse();
 ```
 
@@ -177,7 +177,7 @@ but we don’t want to call `doSomethingElse` when `x === 1` is `false` , then w
 
 For instance, we can write:
 
-```
+```js
 x === 1 && dosomething();
 ```
 
@@ -195,7 +195,7 @@ To do the same thing other browsers, we set the `textContent` property.
 
 For instance, we write:
 
-```
+```js
 const el = document.getElementById('foo');
 el.textContent = 'foo';
 ```
