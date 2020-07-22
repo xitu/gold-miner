@@ -7,8 +7,6 @@
 
 # How to Create a Reusable Web Scraper
 
-#### Stop constantly modifying your web scrapers
-
 ![Photo from [Raconteur](https://www.raconteur.net/sponsored/reduce-reuse-recycle-smart-packaging-to-protect-what-matters).](https://cdn-images-1.medium.com/max/5200/0*b-aN9YmOsw47b5D_.jpg)
 
 Web scrapers are a ton of fun. What isn’t so fun is constantly modifying code as elements change on the web pages. That is why I set out to create a better web scraping project — one that could be updated to scrape new websites with minimal edits.
@@ -18,8 +16,6 @@ The first step was separating each part of the web scraper into separate logical
 1. Page requester
 2. Page validator
 3. Templated page processor
-
----
 
 ## Page Requester
 
@@ -54,8 +50,6 @@ def download_page(url):
     _save_page(request)
 ```
 
----
-
 ## Page Validator
 
 ![Photo from [Medium](https://medium.com/artisans-of-tech/handling-validating-user-input-more-with-sauciness-in-android-with-java-d1bbf10d767).](https://cdn-images-1.medium.com/max/5200/0*7BSzrpW_zUlqkGMq.jpeg)
@@ -64,13 +58,11 @@ The page validator goes through the files and unpickles the requests. It will re
 
 You could also collect data on why a page didn’t download. Maybe you requested pages too quickly and were banned. This data can be used to tune your page downloader so that it can run as fast as possible with the minimum amount of errors.
 
----
-
 ## Templated Page Processor
 
 Here is the magic sauce you have been waiting for. The first step is creating our data model. We start with our URL. For each different site/path, there is likely a different method for extracting data. We start with a dict then, like so:
 
-```
+```python
 models = {
   'finance.yahoo.com':{},
   'news.yahoo.com'{},
@@ -80,7 +72,7 @@ models = {
 
 In our use case, we want to extract the article content for these sites. To do this, we will create a selector for the smallest outer element that still contains all our data. For example, here is what the following might look like with a sample page for finance.yahoo.com:
 
-```
+```html
 Webpage Sample
 <div>
     <a>some link</a>
@@ -98,7 +90,7 @@ Webpage Sample
 
 In the snippet above, we want to target the article. So we will use both the article tag and the class as an identifier since that is the smallest containing element with the article content in it.
 
-```
+```python
 models = {
   'finance.yahoo.com':{
     'root-element':[
@@ -113,7 +105,7 @@ models = {
 
 Next, we will want to identify what elements within our article are garbage. We can see one has the `ad` class (keep in mind it will never be this simple in real life). So to specify that we want to remove it, we will create an `unwanted_elements` element in our config model:
 
-```
+```python
 models = {
   'finance.yahoo.com':{
        'root-element':[
@@ -132,7 +124,7 @@ models = {
 
 Now that we have weeded out some of the garbage, we need to note what elements we want to keep. Since we are only looking for article elements, we just need to specify we want to keep the `p` and `h1` elements:
 
-```
+```python
 models = {
   'finance.yahoo.com':{
        'root-element':[
@@ -221,13 +213,9 @@ def page_processer(request):
     return " ".join(text)
 ```
 
----
-
 ## Conclusion
 
-With this code, you can create a template for extracting the article text from any website. You can see the full code and how I have started implementing this on my GitHub.
-[**dtaivpp/NewsTicker**
-**This project scrapes web pages and creates a public opinion ticker for stock symbols - dtaivpp/NewsTicker**github.com](https://github.com/dtaivpp/NewsTicker/blob/master/src/scrape_page.py)
+With this code, you can create a template for extracting the article text from any website. You can see the full code and how I have started implementing this on my [GitHub](https://github.com/dtaivpp/NewsTicker/blob/master/src/scrape_page.py).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
