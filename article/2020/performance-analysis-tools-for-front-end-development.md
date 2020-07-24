@@ -7,8 +7,6 @@
 
 # 8 Performance Analysis Tools for Front-End Development
 
-#### Recommended tools to test and analyze your frontend code performance.
-
 ![](https://cdn-images-1.medium.com/max/2560/1*WIIXp_ny48NehrJCWsJy6Q.jpeg)
 
 You can have the most beautiful and engaging website in the world, if it does not load quickly on the browser, people would tend to skip it. Although there are many performance rules out there, at the end of the day, it all comes down to load time.
@@ -18,7 +16,7 @@ According to [Jakob Nielson](https://www.nngroup.com/articles/website-response-t
 * Under 100 milliseconds is perceived as instantaneous.
 * A 100ms to 300ms delay is perceptible.
 * One second is about the limit for the user’s flow of thought to stay uninterrupted. They will sense the delay, but they can manage.
-* **4**7% of consumers expect a web page to load in two seconds or less
+* 47% of consumers expect a web page to load in two seconds or less
 * 40% of consumers will wait no more than three seconds for a web page to render before abandoning the site.
 * 10 seconds is around the limit for keeping the user’s attention. Most users would leave your site after 10 seconds.
 
@@ -30,12 +28,6 @@ As you can see, it is clearly evident that you need to make sure your pages load
 
 To help you achieve this ultimate goal — here’s my list of recommended tools for performance analyst.
 
-Don’t forget to share and reuse your JS components to keep the right balance between high-quality & performant code (that takes time to produce) and reasonable delivery times. You can use popular tools like [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)), to publish components (vanilla JS, TS, React, Vue, etc.) from any project to Bit’s [component hub](https://bit.dev/), without losing too much time over it.
-[**teambit/bit**
-**Documentation * Tutorials * Quick start guide * Workflows * bit.dev components cloud * Video demo Bit is an open-source…**github.com](https://github.com/teambit/bit)
-
----
-
 ## 1. PageSpeed Insights
 
 This is a [free service](https://developers.google.com/speed/pagespeed/insights/) that analyzes the content of a web page, and then generates suggestions to make that page faster. It provides you with key metrics such as First Contentful Paint, Total Blocking Time and much more. The metrics are categorized as Field Data, Origin Summary, Lab Data, Opportunities, Diagnostics and Passed Audits. It also provides you with suggestions for further improvements.
@@ -45,8 +37,6 @@ PageSpeed works entirely on performance and uses a mix of lab and real-world dat
 ![Screenshot by Author](https://cdn-images-1.medium.com/max/6696/1*ONiEtpxiMc3KitaT7OiYRw.png)
 
 Pasting individual URLs isn’t feasible at the enterprise level. This problem can be solved by running [Automated Google PageSpeed Tests](https://pagespeedplus.com/blog/automating-google-pagespeed-testing) with PageSpeedPlus. It scans the complete site for you every week and provides the results in a user-friendly report. You can also check the PageSpeed API [here](https://developers.google.com/speed/docs/insights/v5/get-started).
-
----
 
 ## 2. Lighthouse
 
@@ -58,8 +48,6 @@ You can simply run this tool in Chrome developer tools, from the command line or
 
 Another great use of Lighthouse is integrating the API into your own systems to run the audits programmatically. For example, if you wanted to prevent releases that don’t meet SEO and Performance standards, you could use the Lighthouse to run the tests on demand.
 
----
-
 ## 3. WebPageTest
 
 This is a [free tool](https://www.webpagetest.org/) that allows you to test your website speed using browsers such as Chrome with real user connection speeds. You have options such as Advanced Testing, Simple Testing, Visual Comparison and Traceroute. You have a lot of options such as multi-step transactions, video capture, content blocking and much more. Your final results will produce rich diagnostic information including resource loading waterfall charts, Page Speed optimization checks with suggestions for improvements.
@@ -67,8 +55,6 @@ This is a [free tool](https://www.webpagetest.org/) that allows you to test your
 Web page test also provides the page statistics on the first view and repeated view along with the details of server responses.
 
 ![Screenshot by Author](https://cdn-images-1.medium.com/max/2642/1*3MrD-mCHa-vN3bP3zTQ6-Q.png)
-
----
 
 ## 4. Pingdom
 
@@ -78,8 +64,6 @@ My favourite feature is the filtered summary where you are given summaries about
 
 ![Screenshot by Author](https://cdn-images-1.medium.com/max/2542/1*KHVSkyoFYveQ_mcahOpo-g.png)
 
----
-
 ## 5. SiteSpeed
 
 [SiteSpeed](https://www.sitespeed.io/) is an open-source set of tools that allow you to monitor and measure the performance of your web site. You can get started with a docker image or by installing the NPM package. As there are several tools being provided, you should be able to choose a tool that suits you best. You can find out more about the tools on the [official website](https://www.sitespeed.io/).
@@ -87,8 +71,6 @@ My favourite feature is the filtered summary where you are given summaries about
 Although SiteSpeed is free, it will cost you to set up the servers and keep them running. If you do not own servers, SiteSpeed recommends you to get a [Digital Ocean](https://www.digitalocean.com/) optimized droplets with 2 vCPUs or on [AWS](https://aws.amazon.com/) c5.large, storing the data at S3.
 
 ![SiteSpeed Homepage — Screenshot by Author](https://cdn-images-1.medium.com/max/2662/1*n5FITnS0PUegqchHkSS2eg.png)
-
----
 
 ## 6. Calibre
 
@@ -98,8 +80,6 @@ It also comes with [much more features](https://calibreapp.com/features) that ca
 
 ![Calibre Homepage — Screenshot by Author](https://cdn-images-1.medium.com/max/2674/1*ZwqTNsAkVqH5HPe2Ggmy8w.png)
 
----
-
 ## 7. SpeedCurve
 
 [SpeedCurve](https://speedcurve.com/) captures real user data and reflects on the actual client’s experience of our website. It also allows you to compare your site with your competitors by providing a benchmark feature. This would allow you to keep ahead of the competition at all times. You are also able to generate filmstrip of the actual loading progress of your site.
@@ -107,8 +87,6 @@ It also comes with [much more features](https://calibreapp.com/features) that ca
 SpeedCurve also provides you with Synthetic monitoring. Synthetic monitoring is a simulation of your website in a controlled environment. You are able to customize options like the speed of the network, the device, the operating system and much more.
 
 ![SpeedCurve Homepage — Screenshot by Author](https://cdn-images-1.medium.com/max/2666/1*S3aC2hbCDQz7dfvDJsd_kg.png)
-
----
 
 ## 8. SpeedTracker
 
@@ -121,8 +99,8 @@ This tool is being used by big names such as BBC, University of Connecticut and 
 ---
 
 You can do quite a lot with the help of the above tools, but to make your website up to the standard, you might need to take things a step up. I found this awesome article by Vitaly Friedman that literally covered the A-Z on website optimization on the front-end. I highly suggest you have a look.
-[**Front-End Performance Checklist 2020 [PDF, Apple Pages, MS Word] - Smashing Magazine**
-**Let's make 2020&hellip; fast! A front-end performance checklist (PDF/Apple Pages/MS Word), with everything you need to…**www.smashingmagazine.com](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
+
+[**Front-End Performance Checklist 2020 (PDF, Apple Pages, MS Word)](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
 
 Happy Coding!!
 
