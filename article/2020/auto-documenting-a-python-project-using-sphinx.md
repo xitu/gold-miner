@@ -7,8 +7,6 @@
 
 # Auto-Documenting a Python Project Using Sphinx
 
-#### A step-by-step guide to auto-documenting your Python code
-
 ![Photo by [Jason Blackeye](https://unsplash.com/photos/nyL-rzwP-Mk) on [Unsplash](https://unsplash.com/photos/nyL-rzwP-Mk)](https://cdn-images-1.medium.com/max/12000/1*KOMqHlHUwgvf0RgqXUHMgA.jpeg)
 
 While thorough documentation is necessary, it’s often put on the back burner and looked upon as a chore and a low-priority task. As a developer, it’s easy to fall back on the mindset of “why document the code when you, the author, know exactly what it’s doing?” When the code is rapidly changing, keeping the docs up to date becomes an even more substantial burden.
@@ -17,15 +15,11 @@ Luckily, manually writing out documentation is not required due to the capabilit
 
 Below is a step-by-step guide to easily auto-generate clean and well-organized documentation from Python code using Sphinx.
 
----
-
 ## 1. Install Sphinx
 
 Sphinx can be installed using pip by opening up the terminal and running `pip install -U Sphinx`, or by downloading the official [Python package](https://pypi.org/project/Sphinx/#files).
 
 [Here](https://www.sphinx-doc.org/en/master/usage/installation.html) is the official page outlining other ways of installing Sphinx, depending on your platform.
-
----
 
 ## 2. Initialize the Sphinx Configuration
 
@@ -34,8 +28,6 @@ In the root directory of your project, run `sphinx-quickstart` to initialize the
 ![Initialize the sphinx config using **sphinx-quickstart**](https://cdn-images-1.medium.com/max/2412/1*NiE2w5uY6KtD8DII_vnYmA.png)
 
 As shown above, running the `sphinx-build` command creates a `Makefile`, a `make.bat` file, as well as `build` and `source` directories.
-
----
 
 ## 3. Update the conf.py File
 
@@ -72,8 +64,6 @@ The `extensions` variable is assigned to a list of extensions needed to build th
 This, of course, is optional depending on the preferred docstring format. Should the documentation in your code follow the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html), you’ll need to append `sphinx.ext.napoleon` to the extensions list.
 
 ![](https://cdn-images-1.medium.com/max/2672/1*jNTzF4AbQvDwsiSY582DdA.png)
-
----
 
 ## 4. Auto-generate the rst Files
 
@@ -137,7 +127,6 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
 ```
 
 Run the build again:
@@ -147,8 +136,6 @@ Run the build again:
 The HTML files were generated in the build/HTML folder. Open up index.html in the browser to view the generated docs:
 
 ![index.html](https://cdn-images-1.medium.com/max/4392/1*Q3YACR12o9iy3HFzVujvGQ.png)
-
----
 
 ## 6. Advanced Sphinx Markup
 
@@ -208,16 +195,12 @@ A table can be added using the **table** directive.
 
 ![Rendered table example with an embedded image](https://cdn-images-1.medium.com/max/2176/1*cw-s-06qUEIzUnQLhwR09Q.png)
 
----
-
 ## Resources
 
 * [Sphinx Documentation](https://www.sphinx-doc.org/en/master/usage/index.html)
 * [ReStructuredText Guide](https://docutils.sourceforge.io/rst.html)
 * [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
 * [Autogenerate C++ Documentation using Sphinx, Breath, and Doxygen](https://devblogs.microsoft.com/cppblog/clear-functional-c-documentation-with-sphinx-breathe-doxygen-cmake/)
-
----
 
 ## Conclusion
 
