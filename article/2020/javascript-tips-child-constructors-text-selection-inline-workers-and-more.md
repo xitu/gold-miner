@@ -2,22 +2,22 @@
 > * 原文作者：[John Au-Yeung](https://medium.com/@hohanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-tips-child-constructors-text-selection-inline-workers-and-more.md](https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-tips-child-constructors-text-selection-inline-workers-and-more.md)
-> * 译者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
-# JavaScript Tips — Child Constructors, Text Selection, Inline Workers, and More
+# JavaScript 技巧 —— 子代构造函数，文本选择，内联 Workers 等等
 
 ![Photo by [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*KOJy41sl9vEDg2M8)
 
-Like any kind of apps, there are difficult issues to solve when we write JavaScript apps.
+如同编写其他类型的应用程序，当我们在编写 JavaScript 应用的时候，也会有一些困难的问题需要解决。
 
-In this article, we’ll look at some solutions to common JavaScript problems.
+本篇文章中，我们将会介绍常见 JavaScript 问题的一些解决方法。
 
-## Prevent Text Selection After Double Click
+## 取消双击后的文本选中
 
-We can stop text selection after a double click by calling `preventDefault()` to stop the default action.
+我们可以取消在双击后对文本的选中，通过调用 `preventDefault()` 来阻止这个默认行为。
 
-For example, we can write:
+例如，我们可以这样写：
 
 ```js
 document.addEventListener('mousedown', (event) => {
@@ -28,11 +28,11 @@ document.addEventListener('mousedown', (event) => {
 }, false);
 ```
 
-## Why is it Necessary to Set the Prototype Constructor?
+## 为什么设置原型的构造函数（Prototype Constructor）是必要的？
 
-We’ve to set the prototype constructor so that we can check with `instanceof` that the prototype’s constructor is a given constructor.
+我们必须设置原型的构造函数 ，这样，我们就可以用 `instanceof` 检查原型的构造函数是否为一个给定的构造函数。
 
-For instance, if we have:
+比如：
 
 ```js
 function Person(name) {
@@ -47,40 +47,40 @@ function Student(name) {
 Student.prototype = Object.create(Person.prototype);
 ```
 
-Then the `Student` ‘s prototype is set to `Person` .
+如此，`Student` 的原型被设置为 `Person` 。
 
-But we actually want to set it to `Student` , even though it inherits from `Person` .
+但是我们实际上想要将 `Student` 的原型设置为 `Student` ，即使 `Student` 继承自 `Person` 。
 
-Therefore, we need to write:
+因此，我们需要这么写：
 
 ```js
 Student.prototype.constructor = Student;
 ```
 
-Now if we create an instance of `Student` , and check if it with `instanceof` :
+现在我们创建了 `Student` 的一个实例，用 `instanceof` 来检查一下实例：
 
 ```js
 student instanceof Student
 ```
 
-Then that would return `true` .
+结果会返回 `true` 。
 
-If we use the class syntax, then we don’t have to do that anymore.
+如果我们使用 `class` 语法，我们不必这样做了。
 
-We just write:
+我们只需要写：
 
 ```js
 class Student extends Person {
 }
 ```
 
-and everything else is handled for us.
+这样，所有的事情都自动为我们处理好了。
 
-## Creating Web Workers without a Separate Javascript File
+## 无需单独的 Javascript 文件即可创建 Web Workers
 
-We can create a web worker without creating a separate JavaScript file using the `javascript/worker` as the value of the `type` attribute.
+使用 `javascript/worker` 作为 `type` 属性的值，可以让我们无需单独创建 JavaScript 文件就能创建一个 web worker。
 
-For instance, we can write:
+例如，我们可以这样写：
 
 ```html
 <script id="worker" type="javascript/worker">
@@ -101,29 +101,29 @@ For instance, we can write:
 </script>
 ```
 
-We get the worker as a blob by using get the script element and use the `textContent` property on it.
+通过获取 script 元素以及使用 `textContent` 属性，我们得到了作为 Blob 对象的 worker（blob 变量）。
 
-Then we create the worker with the `Worker` constructor with the blob.
+然后，我们使用 `Worker` 构造函数和 blob 变量来创建一个 Worker 对象（worker 变量）。
 
-Then we write our usual worker code in the worker and the script invoking the worker.
+现在，我们就可以在 worker 线程里以及调用 worker 的 script 元素内写我们通常的 worker 代码了。
 
-## How to Trim a File Extension from a String
+## 如何去除字符串内的文件扩展名
 
-We can trim the file extension from a string, we can use `replace` method.
+从字符串去除文件的扩展名，我们可以使用 `replace` 方法。
 
-For instance, we can write:
+例如，我们可以这样写：
 
 ```js
 fileName.replace(/\.[^/.]+$/, "");
 ```
 
-We get the last part of the string that’s after the dot with the regex pattern.
+使用正则表达式的模式，我们可以得到字符串中在 . 之后的子串。
 
-And we replace it with the empty string.
+然后，我们可以用空字符串替换子串。
 
-In Node apps, we can use the `path` module.
+在 Node 应用中，我们可以使用 `path` 模块。
 
-To get the name, we can write:
+为了得到文件名，我们可以这样写：
 
 ```js
 const path = require('path');
@@ -131,69 +131,69 @@ const filename = 'foo.txt';
 path.parse(filename).name;
 ```
 
-`path.parse` takes the file path. Then we get the `name` property from it.
+`path.parse` 获得文件的路径，然后我们访问 `name` 属性得到文件名。
 
-## Why does parseInt Return NaN with Array.prototype.map?
+## 为什么在 Array.prototype.map 里使用 parseInt 会返回 NaN？
 
-`parseInt` returns `NaN` with array instance’s `map` method because `parseInt` takes arguments but the `map` callback takes 3 arguments.
+`parseInt` 在数组实例的 `map` 方法中会返回 `NaN` ，是因为 `parseInt` 接收的参数与 `map` 回调接收的 3 个参数不相对应。
 
-`parseInt` takes the number as the first argument and the radix as the 2nd argument.
+`parseInt` 将（字符串）数字（本例中）作为第一个参数，并且将 基数（radix）作为第二个参数。
 
-The `map` callback takes the array entry as the first argument, index as the 2nd argument, and the array itself as the 3rd argument.
+`map` 回调将数组项作为第一个参数，索引作为第二个参数，数组本身作为第三个参数。
 
-Therefore, if we use `parseInt` directly as the callback, then the index will be passed in as the radix, which doesn’t make sense.
+因此，如果我们直接使用 `parseInt` 作为回调，那么索引就会被传递作为基数 ，这显然不合适。
 
-This is why we may get `NaN` .
+这就是为什么我们会得到 `NaN` 。
 
-We get that if the radix isn’t a valid radix.
+当使用的基数不合理时，我们就会得到 `NaN` 。
 
-Therefore, instead of writing:
+因此，不要这么写：
 
 ```js
 ['1','2','3'].map(parseInt)
 ```
 
-We write:
+我们可以这样写：
 
 ```js
 ['1','2','3'].map(Number)
 ```
 
-or:
+或者
 
 ```js
 ['1','2','3'].map(num => parseInt(num, 10))
 ```
 
-## Omitting the Second Expression When Using the Ternary Operator
+## 使用三目运算符时省略第二个表达式
 
-If we have the following ternary expressions:
+如果我们有如下的三目表达式：
 
 ```js
 x === 1 ? doSomething() : doSomethingElse();
 ```
 
-but we don’t want to call `doSomethingElse` when `x === 1` is `false` , then we can use the `&&` operator instead.
+但是，当 `x===1` 的结果是 `false` ，我们又不想调用 `doSomethingElse` 时，我们可以使用 `&&` 操作符替代。
 
-For instance, we can write:
+举个例子，我们可以这样写：
 
 ```js
 x === 1 && dosomething();
 ```
 
-Then if `x === 1` is `true` , then `doSomething` is called.
+当 `x===1` 结果为 `true` 时，`dosomething` 就会被调用。
 
-## Clear Cache in Yarn
+## 清除 Yarn 中的缓存
 
-We can clear the cache in yarn by using the `yarn cache clean` command.
+使用 `yarn cache clean` ，我们可以清除 yarn 中的缓存。
 
-## innerText Works in IE, but not in Other Browsers
+## innerText 在 IE 中有效，但在其他浏览器中无效
 
-`innerText` is an IE-only property for populate texting content of a node.
+`innerText` 是仅用于 IE 的属性，用于填充节点的文本内容。
 
-To do the same thing other browsers, we set the `textContent` property.
+为了在其他浏览器中做到同样的事情，我们可以设置 `textContent` 属性。
 
-For instance, we write:
+例如，我们这么写：
 
 ```js
 const el = document.getElementById('foo');
@@ -202,15 +202,15 @@ el.textContent = 'foo';
 
 ![Photo by [Ron Hansen](https://unsplash.com/@ron_hansen?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*WUVX7cH9AbWz9RhL)
 
-## Conclusion
+## 总结
 
-We can stop selection after double-clicking by calling `preventDefault` to stop the default action from running.
+通过调用 `preventDefault` 来阻止默认操作，以此我们可以取消双击后的文本选中。
 
-Also, we shouldn’t use `parseInt` as a callback for `map` .
+同样，我们不应该将 `parseInt`  用于 `map` 的回调。
 
-We’ve to set the constructor to the current constructor if we create a child constructor.
+如果我们创建一个子构造函数，我们必须将它的构造函数的值设置为当前的对象。
 
-This way, we can check for the instance properly.
+通过这种方式，我们可以正确的检查实例。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
