@@ -100,34 +100,15 @@ This tool is being used by big names such as BBC, University of Connecticut and 
 
 You can do quite a lot with the help of the above tools, but to make your website up to the standard, you might need to take things a step up. I found this awesome article by Vitaly Friedman that literally covered the A-Z on website optimization on the front-end. I highly suggest you have a look.
 
-[**Front-End Performance Checklist 2020 (PDF, Apple Pages, MS Word)](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
+[**Front-End Performance Checklist 2020 (PDF, Apple Pages, MS Word)**](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
 
 Happy Coding!!
 
 ---
 
-## Share & Manage Reusable JS Components with Bit
+**Resources**
 
-Use [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)) to share, document, and manage reusable JS components from different projects. It’s a great way to increase code reuse, speed up development, and build apps that scale.
-
-![Example: exploring shared React components on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
----
-
-## Related Stories
-[**14 JavaScript Code Optimization Tips for Front-End Developers**
-**Tips and tricks to increase performance and website load time**blog.bitsrc.io](https://blog.bitsrc.io/14-javascript-code-optimization-tips-for-front-end-developers-a44763d3a0da)
-[**10 Top Visual Studio Code Extensions in 2020**
-**Recommended VS Code extensions**blog.bitsrc.io](https://blog.bitsrc.io/top-10-visual-studio-extensions-in-2020-857ea6d692dd)
-[**How to Publish React Components**
-**How to quickly publish React components from any repository.**blog.bitsrc.io](https://blog.bitsrc.io/how-to-publish-react-components-d04e0a7e33b9)
-
----
-
-**Resources
-**[PageSpeedPlus](https://pagespeedplus.com/blog/pagespeed-insights-vs-lighthouse)
+[PageSpeedPlus](https://pagespeedplus.com/blog/pagespeed-insights-vs-lighthouse)
 [Techbeacon](https://techbeacon.com/app-dev-testing/web-performance-testing-18-free-open-source-tools-consider)
 [Dzone](https://dzone.com/articles/client-side-performance-testing)
 [Blog article by Jacob Tan](https://medium.com/@jacobtan/tackling-front-end-performance-strategy-tools-and-techniques-12ca542052e7)
