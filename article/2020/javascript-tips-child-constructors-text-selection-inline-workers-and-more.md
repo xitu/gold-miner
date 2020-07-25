@@ -5,7 +5,7 @@
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
-# JavaScript 技巧 —— 子代构造函数，文本选择，内联 Workers 等等
+# JavaScript 技巧 —— 子代构造函数、文本选择、内联 Workers 等
 
 ![Photo by [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*KOJy41sl9vEDg2M8)
 
