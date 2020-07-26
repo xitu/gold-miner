@@ -9,13 +9,13 @@
 
 ![Photo by [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*KOJy41sl9vEDg2M8)
 
-如同编写其他类型的应用程序，当我们在编写 JavaScript 应用的时候，也会有一些困难的问题需要解决。
+当我们在编写 JavaScript 应用的时候，和编写其他类型的应用程序一样，需要解决一些困难的问题。
 
 本篇文章中，我们将会介绍常见 JavaScript 问题的一些解决方法。
 
 ## 取消双击后的文本选中
 
-我们可以取消在双击后对文本的选中，通过调用 `preventDefault()` 来阻止这个默认行为。
+我们可以通过调用 `preventDefault()` 来阻止在双击后对文本的选中这个默认行为。
 
 例如，我们可以这样写：
 
@@ -30,7 +30,7 @@ document.addEventListener('mousedown', (event) => {
 
 ## 为什么设置原型的构造函数（Prototype Constructor）是必要的？
 
-我们必须设置原型的构造函数 ，这样，我们就可以用 `instanceof` 检查原型的构造函数是否为一个给定的构造函数。
+我们必须设置原型的构造函数，这样，我们就可以用 `instanceof` 检查原型的构造函数是否为一个给定的构造函数。
 
 比如：
 
@@ -47,9 +47,9 @@ function Student(name) {
 Student.prototype = Object.create(Person.prototype);
 ```
 
-如此，`Student` 的原型被设置为 `Person` 。
+如此，`Student` 的原型会被设置为 `Person`。
 
-但是我们实际上想要将 `Student` 的原型设置为 `Student` ，即使 `Student` 继承自 `Person` 。
+虽然 `Student` 继承自 `Person`，但我们实际上想要将 `Student` 的原型设置为 `Student`。
 
 因此，我们需要这么写：
 
@@ -63,7 +63,7 @@ Student.prototype.constructor = Student;
 student instanceof Student
 ```
 
-结果会返回 `true` 。
+结果会返回 `true`。
 
 如果我们使用 `class` 语法，我们不必这样做了。
 
@@ -117,7 +117,7 @@ class Student extends Person {
 fileName.replace(/\.[^/.]+$/, "");
 ```
 
-使用正则表达式的模式，我们可以得到字符串中在 . 之后的子串。
+我们可以使用正则表达式的模式得到字符串中在 `.` 之后的子串。
 
 然后，我们可以用空字符串替换子串。
 
@@ -131,21 +131,21 @@ const filename = 'foo.txt';
 path.parse(filename).name;
 ```
 
-`path.parse` 获得文件的路径，然后我们访问 `name` 属性得到文件名。
+使用 `path.parse` 获得文件的路径，然后我们访问 `name` 属性得到文件名。
 
 ## 为什么在 Array.prototype.map 里使用 parseInt 会返回 NaN？
 
-`parseInt` 在数组实例的 `map` 方法中会返回 `NaN` ，是因为 `parseInt` 接收的参数与 `map` 回调接收的 3 个参数不相对应。
+之所以 `parseInt` 在数组实例的 `map` 方法中会返回 `NaN` ，是因为 `parseInt` 接收的参数与 `map` 回调接收的 3 个参数不相对应。
 
-`parseInt` 将（字符串）数字（本例中）作为第一个参数，并且将 基数（radix）作为第二个参数。
+`parseInt` 将（字符串）数字（本例中）作为第一个参数，并且将基数（radix）作为第二个参数。
 
 `map` 回调将数组项作为第一个参数，索引作为第二个参数，数组本身作为第三个参数。
 
-因此，如果我们直接使用 `parseInt` 作为回调，那么索引就会被传递作为基数 ，这显然不合适。
+因此，如果我们直接使用 `parseInt` 作为回调，那么索引就会被传递作为基数，这显然不合适。
 
-这就是为什么我们会得到 `NaN` 。
+这就是为什么我们会得到 `NaN`。
 
-当使用的基数不合理时，我们就会得到 `NaN` 。
+当使用的基数不合理时，我们就会得到 `NaN`。
 
 因此，不要这么写：
 
@@ -185,7 +185,7 @@ x === 1 && dosomething();
 
 ## 清除 Yarn 中的缓存
 
-使用 `yarn cache clean` ，我们可以清除 yarn 中的缓存。
+使用 `yarn cache clean`，我们可以清除 yarn 中的缓存。
 
 ## innerText 在 IE 中有效，但在其他浏览器中无效
 
