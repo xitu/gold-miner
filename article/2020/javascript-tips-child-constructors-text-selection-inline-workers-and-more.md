@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-tips-child-constructors-text-selection-inline-workers-and-more.md](https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-tips-child-constructors-text-selection-inline-workers-and-more.md)
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)  [loststar](https://github.com/loststar)
 
 # JavaScript 技巧 —— 子代构造函数、文本选择、内联 Workers 等
 
