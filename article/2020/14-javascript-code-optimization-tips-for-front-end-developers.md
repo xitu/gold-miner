@@ -164,7 +164,7 @@ object.age = undefined;
 
 这些 JavaScript 引擎可以在后台处理任务。根据 [Brian](https://dev.to/steelvoltage/if-javascript-is-single- thread-how-is-asynchron-56gd)，调用栈识别 Web API 的函数，并将它们交给浏览器处理。一旦浏览器处理完成这些任务，它们将返回并作为回调推到堆栈上。
 
-你有时可能想知道，Node.js 在没有浏览器帮助的情况下是如何运行的。事实上，为 Chrome 提供动力的 V8 引擎同样也为 Node.js 提供动力。下面是一篇由 Salil 撰写的非常棒的博客文章：[Node.js真的是单线程吗？](https://medium.com/better-programming/is-node- js-reallysingle -threaded-7ea59bcc8d64)，它解释了节点生态系统上的这个过程。
+你有时可能想知道，Node.js 在没有浏览器帮助的情况下是如何运行的。事实上，为 Chrome 提供动力的 V8 引擎同样也为 Node.js 提供动力。下面是一篇由 Salil 撰写的非常棒的博客文章：[Node.js真的是单线程吗](https://medium.com/better-programming/is-node- js-reallysingle -threaded-7ea59bcc8d64)，它解释了节点生态系统上的这个过程。
 
 ## 12. 使用代码分割
 
