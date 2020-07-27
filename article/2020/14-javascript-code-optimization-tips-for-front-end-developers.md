@@ -15,15 +15,15 @@ JavaScript 已经成为当下最流行的编程语言之一。根据 [W3Tech](ht
 
 顺便提一下，为了共享和复用 JS 组件，需要在高质量代码（需要花时间）和合理交付时间之间保持正确的平衡。你可以使用流行的工具例如 [**Bit**](https://bit.dev) ([Github](https://github.com/teambit/bit))，去共享组件（vanilla JS, TS, React, Vue 等）到 Bit 的 [component hub](https://bit.dev)，而不浪费太多时间。
 
-## 1. 删除不使用的代码和特性
+## 1. 删除不使用的代码和功能
 
 程序包含越多的代码，给客户端传递的数据就越多。浏览器也需要更多的时间去解析和编译代码。
 
-有时，代码里也许会包含很多未使用到的特性，在开发环境中添加这些额外的代码是有益的，但不要把它们留到生产环境中，因为无用的代码可能会增加客户端浏览器的负担。
+有时，代码里也许会包含完全未使用到的功能，最好只将这些额外的代码保留在开发环境中，并且不要把它们留到生产环境中，因为无用的代码可能会增加客户端浏览器的负担。
 
 **经常问自己那个函数、特性或代码是否是必需的。**
 
-你可以手动的删掉无用的代码，也可以用工具 [Uglify](https://github.com/mishoo/UglifyJS#compressor-options) 或 [谷歌开发的关闭编译器工具](https://developers.google.com/closure/compiler/docs/api-tutorial3) 帮你删。你甚至可以使用一种叫做 tree shaking 的技术来删除程序中未使用的代码。例如打包工具 Webpack 就提供了它。你可以在 [这里](https://medium.com/@bluepnume/javascript-tree-shaking-like-a-pro-7bf96e139eb7) 了解更多关于 tree shaking 信息。还有，如果你想删掉未使用的 npm 包，你可以输入命令 `npm prune` 。阅读 [NPM 文档](https://docs.npmjs.com/cli-commands/prune.html) 了解更多。
+你可以手动的删掉无用的代码，也可以用工具 [Uglify](https://github.com/mishoo/UglifyJS#compressor-options) 或 [谷歌开发的 Closure Compiler](https://developers.google.com/closure/compiler/docs/api-tutorial3) 帮你删。你甚至可以使用一种叫做 tree shaking 的技术来删除程序中未使用的代码。例如打包工具 Webpack 就提供了它。你可以在 [这里](https://medium.com/@bluepnume/javascript-tree-shaking-like-a-pro-7bf96e139eb7) 了解更多关于 tree shaking 信息。还有，如果你想删掉未使用的 npm 包，你可以输入命令 `npm prune` 。阅读 [NPM 文档](https://docs.npmjs.com/cli-commands/prune.html) 了解更多。
 
 ## 2. 尽可能缓存
 
@@ -31,7 +31,7 @@ JavaScript 已经成为当下最流行的编程语言之一。根据 [W3Tech](ht
 
 ## 3. 避免内存泄漏
 
-作为一种高级语言，JS 负责几个低级别的管理，比如内存管理。对于大多数编程语言来说，垃圾回收是一个常见的过程。垃圾回收对于外行人是简单地收集和释放已经分配给对象的内存，但目前没有在我们的程序的任何部分使用。在像 C 这样的编程语言中，开发者必须使用 `malloc()` 和 `dealloc()` 函数来处理内存分配和回收。
+作为一种高级语言，JS 负责几个低级别的管理，比如内存管理。对于大多数编程语言来说，垃圾回收是一个常见的过程。通俗地说，垃圾回收就是简单地收集和释放，那些已经分配给对象，但目前又不被程序任一部分使用的内存。在像 C 这样的编程语言中，开发者必须使用 `malloc()` 和 `dealloc()` 函数来处理内存分配和回收。
 
 尽管垃圾回收是 JavaScript 自动执行的，但在某些情况下，它可能并不完美。在 JavaScript ES6 中，Map 和 Set 与它们的“weaker”兄弟元素一起被引入。“weaker”对应着 WeakMap 和 WeakSet，持有的是每个键对象的“弱引用”。它们允许对未引用的值进行垃圾收集，从而防止内存泄漏。了解更多关于 [WeakMaps](https://blog.bitsrc.io/downloading-weakmaps-in-javascript-6e323d9eec81) 的信息。
 
@@ -172,21 +172,21 @@ object.age = undefined;
 
 First Contentful Paint（FCP）测量用户导航到页面后浏览器渲染 DOM 第一个内容所花费的时间。页面上的图像、非白色 `\<canvas>` 元素和 svg 被认为是 DOM 内容；iframe 中的任何内容都**不被包含**在内。
 
-获得更高 FCP 分数的最好方法之一是使用代码分割。代码分割是一种在开始时只向用户发送必要模块的技术。通过减少最初传输的有效内容的大小影响 FCP 得分。
+获得更高 FCP 分数的最好方法之一是使用代码分割。代码分割是一种在开始时只向用户发送必要模块的技术。减少最初传输的有效内容的大小，会显著地影响 FCP 得分。
 
-流行的模块打包工具（如 webpack）提供了代码分割功能。你还可以获得本地 ES 模块的帮助，以加载各个模块。你可以阅读更多关于本机 ES 模块的 [详细信息](https://blog.bitsrc.io/downloading-es-modules-in-javascript-a28fec420f73)。
+流行的模块打包工具（如 webpack）提供了代码分割功能。你可以在原生 ES 模块的帮助下，加载各个模块。你可以阅读更多关于原生 ES 模块的 [详细信息](https://blog.bitsrc.io/downloading-es-modules-in-javascript-a28fec420f73)。
 
 ## 13. 使用异步 async 和延迟 defer
 
 在现代网站中，脚本比 HTML 更密集，它们的尺寸更大，消耗更多的处理时间。默认情况下，浏览器必须等待脚本下载、执行，然后处理页面的其余部分。
 
-庞大的脚本可能会阻塞网页的加载。为了避免这种情况，JavaScript 提供了两种技术，即异步和延迟。你只需将这些属性添加到 `\<script>` 标签。
+庞大的脚本可能会阻塞网页的加载。为了避免这种情况，JavaScript 提供了两种技术，即异步和延迟。你只需将这些属性添加到 `<script>` 标签。
 
 异步是告诉浏览器在不影响页面渲染的情况下加载脚本。换句话说，页面不需要等待异步脚本，内容就会被处理和显示。
 
 延迟是在呈现完成后告诉浏览器加载脚本的地方。如果你同时指定了两者，`async` 在现代浏览器中优先执行，而只支持 `defer` 但不支持 `async` 的旧浏览器将退回到 `defer`。
 
-这两个属性可以极大地帮助你减少页面加载时间。强烈建议你阅读一下 Flavio 的[JavaScript-async-defer](https://flaviocopes.com/javascript-async-defer/)。
+这两个属性可以极大地帮助你减少页面加载时间。强烈建议你阅读一下 Flavio 的 [JavaScript-async-defer](https://flaviocopes.com/javascript-async-defer/)。
 
 ## 14. 使用 Web Workers 在后台运行 CPU 密集型任务
 
@@ -198,7 +198,7 @@ Web Workers 允许在后台线程中运行脚本。如果你有一些高度密�
 
 这篇文章就到这里，欢迎在评论中留言。
 
-快乐编码!!
+快乐编码！！
 
 ---
 
