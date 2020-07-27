@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Packaging a UI Library for Distribution
-
-#### Guidelines you may want to follow if you are publishing a UI components library.
+# Packaging a UI Library for Distribution - Guidelines you may want to follow if you are publishing a UI components library.
 
 ![Image by [Arek Socha](https://pixabay.com/users/qimono-1962238/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1893642) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1893642)](https://cdn-images-1.medium.com/max/2560/1*EXcun_D11oz0ceMYlJ0yQA.jpeg)
 
@@ -42,7 +40,7 @@ Most web browsers as well as Nodejs are supporting at least ES2015 syntax, and m
 
 Recommendation:
 
-> # Use ES5 if you are targeting old browsers, ES2015, or ES2017 for modern browsers and NodeJS.
+> Use ES5 if you are targeting old browsers, ES2015, or ES2017 for modern browsers and NodeJS.
 
 #### Module Format
 
@@ -65,7 +63,7 @@ To get the feeling of the differences, we look at how Typescript code is compile
 
 Recommendation:
 
-> # Generate your library with multiple formats: ESM, CJS, and UMD / AMD.
+> Generate your library with multiple formats: ESM, CJS, and UMD / AMD.
 
 #### Files Bundling
 
@@ -75,7 +73,7 @@ However, to use the components as a script tag, you might want to generate a sin
 
 Recommendation:
 
-> # Provide UMD formats in a single file for the browser and ESM / CJS formats in separate files and a single file format.
+> Provide UMD formats in a single file for the browser and ESM / CJS formats in separate files and a single file format.
 
 #### Package Distribution
 
@@ -83,7 +81,7 @@ Most packages are available via the NPM registry. This is the common method of p
 
 Recommendation:
 
-> # Make sure your package is providing a UMD format, so it is available via unpkg as well.
+> Make sure your package is providing a UMD format, so it is available via unpkg as well.
 
 Note: New CDN is coming that support ES Module format. Pika.dev is the one to look at!.
 
@@ -135,24 +133,6 @@ Some attribute to note:
 ## Conclusion
 
 In the future, hopefully, in the short future, we are likely to see the Javascript ecosystem converged into a standard format for syntax and modules.
-
----
-
-## Share & Manage Reusable JS Components with Bit
-
-Use [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)) to share, document, and manage reusable components from different projects. It’s a great way to increase code reuse, speed up development, and build apps that scale.
-
-![Example: exploring shared React components on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*4K1HCgUAmZCulA8H.gif)
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
-## Related Stories
-[**NPM Tips and Tricks**
-**12 useful NPM tips and tricks for more productive JavaScript coding.**blog.bitsrc.io](https://blog.bitsrc.io/npm-tips-and-tricks-24c5e9defea6)
-[**How to Publish React Components**
-**How to quickly publish React components from any repository.**blog.bitsrc.io](https://blog.bitsrc.io/how-to-publish-react-components-d04e0a7e33b9)
-[**How to Set Up a Private NPM Registry Locally**
-**Setting up a local NPM registry for private packages.**blog.bitsrc.io](https://blog.bitsrc.io/how-to-set-up-a-private-npm-registry-locally-1065e6790796)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
