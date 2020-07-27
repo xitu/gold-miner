@@ -2082,7 +2082,7 @@
 |[理解 iOS 应用程序的代码签名 (CODE SIGN) 机制](http://gold.xitu.io/entry/5826ef85570c3500586b241d/)|校对|1|
 |[Swift 3 语言中的全模块优化](http://gold.xitu.io/entry/5818b6f52f301e005cf0ef8e/)|校对|1|
 
-## 译者：[romeo0906](https://github.com/Romeo0906) 历史贡献积分：149 当前积分：54
+## 译者：[Herman](https://github.com/actini) 历史贡献积分：149 当前积分：54
 
 |文章|类型|积分|
 |------|-------|-------|
