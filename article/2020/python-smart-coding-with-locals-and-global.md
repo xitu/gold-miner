@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md](https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md)
 > * 译者：[Herman](https://github.com/actini)
-> * 校对者：
+> * 校对者：[loststar](https://github.com/loststar)
 
 # Python：使用 locals() 和 globals() 巧妙编程
 
