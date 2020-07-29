@@ -109,10 +109,6 @@ In our opinion, building a design system and a component library was worth the e
 
 I hope this article helps you in the process of making better design decisions. If you have questions, feedback, or suggestions regarding what you read here I would be happy to hear from you in the comment section below.
 
-#### JavaScript In Plain English
-
-Enjoyed this article? If so, get more similar content by **[subscribing to Decoded, our YouTube channel](https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw)!**
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
