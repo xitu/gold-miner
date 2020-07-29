@@ -7,7 +7,7 @@
 
 # Improving massively imbalanced datasets in machine learning with synthetic data
 
-#### We will use synthetic data and a few concepts from SMOTE to improve model accuracy for fraud, cyber security, or any classification with an extremely limited minority class
+We will use synthetic data and a few concepts from SMOTE to improve model accuracy for fraud, cyber security, or any classification with an extremely limited minority class
 
 Handling imbalanced datasets in machine learning is a difficult challenge, and can include topics such as payment fraud, diagnosing cancer or disease, and even cyber security attacks. What all of these have in common are that only a very small percentage of the overall transactions are actually fraud, and those are the ones that we really care about detecting. In this post, we will boost accuracy on a [popular Kaggle fraud dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud) by training a generative synthetic data model to create additional fraudulent records. Uniquely, this model will incorporate features from both fraudulent records and their nearest neighbors, which are labeled as non-fraudulent but are close enough to the fraudulent records to be a little “shady”.
 
@@ -16,8 +16,8 @@ Handling imbalanced datasets in machine learning is a difficult challenge, and c
 ## Our imbalanced dataset
 
 For this post, we selected the popular “[Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud)” dataset on Kaggle. This dataset contains labeled transactions from European credit card holders in September 2013. To protect user identities, the dataset uses dimensionality reduction of sensitive features into 27 floating point columns (V1–27) and a Time column (the number of seconds elapsed between this transaction and the first in the dataset). For this post, we will work with the first 10k records in the Credit Card fraud dataset- click below to generate the graphs below in Google Colaboratory.
-[**Classify-and-visualize-fraud-dataset**
-colab.research.google.com](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_classify_and_visualize.ipynb)
+
+[**Classify-and-visualize-fraud-dataset**](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_classify_and_visualize.ipynb)
 
 ![A massively imbalanced dataset](https://cdn-images-1.medium.com/max/2012/1*6ZeY7mc4B_KxS4lKT3VPOg.png)
 
@@ -31,7 +31,7 @@ Wow, 99.75% detection. That’s awesome, right?! Maybe- looking at overall model
 
 ![](https://cdn-images-1.medium.com/max/2604/1*RYVJjEOQ1qieAoI1zyN77w.png)
 
-> # Above we can see that despite our 99.75% overall accuracy, we misclassified 43% of fraud examples in our test set!
+> Above we can see that despite our 99.75% overall accuracy, we misclassified 43% of fraud examples in our test set!
 
 ## Augmenting fraud examples with synthetic data
 
