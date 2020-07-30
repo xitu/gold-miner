@@ -2,38 +2,38 @@
 > * 原文作者：[John Au-Yeung](https://medium.com/@hohanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/vue-plugins-you-dont-know-you-may-need.md](https://github.com/xitu/gold-miner/blob/master/article/2020/vue-plugins-you-dont-know-you-may-need.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Gesj-yean](https://github.com/Gesj-yean)
+> * 校对者：[lhd951220](https://github.com/lhd951220)
 
-# Vue Plugins You Don’t Know You May Need
+# 一个你不知道但可能会需要的 Vue 插件
 
-![Photo by [Creative Nerds](https://unsplash.com/@creativenerds?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8000/0*rwLCSJM5TWHmJPtB)
+![图片来自 [Creative Nerds](https://unsplash.com/@creativenerds?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8000/0*rwLCSJM5TWHmJPtB)
 
-Vue.js is an easy to use web app framework that we can use to develop interactive front end apps.
+Vue.js 是一个容易上手的 web 应用框架，我们能够用它去开发交互式前端应用程序。
 
-In this article, we’ll look at some Vue packages you don’t know you want to add to your app.
+这篇文章将会介绍一些你不知道，但是你也许想要添加到应用中的与 Vue 相关的软件包。
 
 ## Vue-Dummy
 
-The `vue-dummy` package lets us add dummy text to our app when while we’re developing it so we won’t have to worry about generating the text ourselves. We can also add placeholder images with it.
+我们在开发应用程序时，可以用 `vue-dummy` 软件包来添加虚拟文本，这样我们就不用担心自己生成文本了，我们还可以用它来添加占位符图像。
 
-We can install it by running:
+可以通过以下命令安装:
 
 ```bash
 npm install --save vue-dummy
 ```
 
-It’s also available as a standalone script that we can add by adding:
+它也可以作为一个独立的脚本，我们可以添加：
 
 ```html
 <script src="https://unpkg.com/vue-dummy"></script>
 ```
 
-to our HTML code.
+到 HTML 代码中。
 
-Then we can use it as follows:
+然后我们可以这样使用：
 
-`main.js` :
+在 `main.js` 文件添加：
 
 ```js
 import Vue from "vue";
@@ -66,11 +66,11 @@ export default {
 </script>
 ```
 
-In the code above, we added a p element and bind it to the `v-dummy` directive. We set the value to 150 so that we get 150 fake words on the page.
+在上面的代码中，我们添加了一个 p 元素并使用 `v-dummy` 指令。我们将值设置为150，这样页面上就会出现 150 个模拟数据单词。
 
-Next, we added an image that’s 200px wide by 150px high.
+然后，我们添加一个宽度 200px，高度 150px 的图片。
 
-We can also have a random number of words between a range for the dummy text. To use this feature, we can write:
+我们也可以在虚拟文本中添加一定范围内任意数量的单词。要使用这个功能，我们可以这样写:
 
 ```html
 <template>
@@ -86,7 +86,7 @@ export default {
 </script>
 ```
 
-Then we get a random block of text between 100 to 130 words. It can also be written as a directive argument. For instance, we can write:
+这样我们就得到了 100 到 130 范围内的数量的单词。它也可以写成一个指令参数。例如，我们可以这样写:
 
 ```html
 <template>
@@ -102,52 +102,52 @@ export default {
 </script>
 ```
 
-to do the same thing we did in the previous example.
+和前面的例子一样。
 
-Likewise, dummy images dimensions can be set as directive arguments or modifiers.
+同样，可以将虚拟图像参数设置为指令参数或修饰符。
 
-To set dummy image dimensions as an argument, we can write:
+设虚拟图像的尺寸为自变量，我们可以这样写:
 
 ```html
 <img v-dummy:300x200>
 ```
 
-To set dummy image dimensions as a directive modifer, we can write:
+将虚拟图像的尺寸设置为一个指令修饰符，我们可以写成:
 
 ```html
 <img v-dummy.400x300>
 ```
 
-We can also set the width and height attributes of the `img` tag to set its dimensions:
+我们还可以设置 `img` 标签的宽度和高度属性来设置它的尺寸:
 
 ```html
 <img v-dummy width="250" height="150">
 ```
 
-We can also create randomly sized images:
+我们还可以创建随机尺寸的图像:
 
 ```html
 <img v-dummy="'100,400x200,400'">
 ```
 
-The code above will create images that’s between 100 to 400px wide and 200 to 400px high.
+上面的代码将创建宽度在 100 到 400px 之间、高度在 200 到 400px 之间的图像。
 
-We can also put the numbers as a directive argument as follows:
+我们也可以把数字作为一个指令参数，如下:
 
 ```html
 <img v-dummy:100,400x200,400>
 ```
 
-The `dummy` component is also available to generate the placeholder text or image as follows:
+`dummy` 组件也可以像下面这样生成占位符文本或图像：
 
 ```html
 <dummy text="100"></dummy>
 <dummy img="420x300"></dummy>
 ```
 
-The first line creates a text block that’s 100 words long, and the 2nd creates a placeholder image that’s 420px wide by 300px high.
+第一行创建了一个 100 个字长的文本块，第二行创建一个 420px 宽、300px 高的占位符图像。
 
-We can also create a table with fake content as follows:
+我们也可以像下面这样创建一个模拟内容的表格：
 
 ```html
 <table v-dummy></table>
@@ -155,15 +155,15 @@ We can also create a table with fake content as follows:
 
 ## Vue.ImagesLoaded
 
-The Vue.ImagesLoaded directive detects whether an image has been loaded.
+Vue.ImagesLoaded 指令用于检测图像是否已加载。
 
-It calls a callback when the image is loaded or fails to load. We can install it by running:
+当图片加载完成或加载失败时，它调用一个回调。我们通过以下命令安装它:
 
 ```bash
 npm install vue-images-loaded --save
 ```
 
-Then we can use it as follows:
+然后这样使用:
 
 ```html
 <template>
@@ -197,21 +197,22 @@ export default {
 </script>
 ```
 
-In the code above, we registered the `imagesLoaded` directive from the `vue-image-loaded` package in our `App` component.
+在上面的代码中，我们在 `App` 组件中引入了 `vue-image-loaded` 软件包，并注册了 `imagesLoaded` 指令。
 
-Then we added the v-images-loaded:on.progress=”imageProgress” directive with the `imageProgress` method as the value.
+接着添加 v-images-loaded:on.progress="imageProgress" 指令，以及 `imageProgress` 方法作为值。
 
-Then we can get whether the image is loaded from the `image` parameter’s `isLoaded` property.
+然后我们可以从 `image` 参数的 `isLoaded` 属性中知道图片是否已加载。
 
-The `instance` parameter has the `elements` property with an array for the parent of the image element that’s being loaded. The `images` property has an array of image elements for the images that are being loaded.
+`instance` 参数中具有 `elements` 属性，它包含加载中图片的父元素的数组。`images` 属性有一个加载中的图片数组。
 
-Other modifiers for the `v-images.on` directive include `always`, `done`, `fail`, `progress` to watch for all image loading events, watching only when the image is successfully loaded, watch only when it fails to load or watch the image when it’s loading respectively.
+`v-images.on` 指令的其他修饰符包括了 `always`，`done`，`fail`，`progress`，用于监测所有的图片的加载事件、监测图片成功加载，监测图片载失败或在图像加载中状态。
 
-## Conclusion
 
-The `v-dummy` package lets us create placeholder text and images during development so we don’t have to do that ourselves.
+## 小结
 
-To watch the progress of image loading, we can use the Vue.ImageLoaded package to do that.
+`v-dummy` 软件包允许我们在开发过程中创建占位符文本和图像，这样我们就不必亲自创建了。
+
+我们可以使用 Vue.ImageLoaded 软件包来监测图像加载的过程。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

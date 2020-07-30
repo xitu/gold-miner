@@ -2,34 +2,34 @@
 > * 原文作者：[Dr Pommes](https://medium.com/@pommes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/writing-tetris-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/writing-tetris-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[z0gSh1u](https://github.com/z0gSh1u)
+> * 校对者：[Park-ma](https://github.com/Park-ma)、[Zhengjian-L](https://github.com/Zhengjian-L)
 
-# Writing Tetris in Python
+# 用 Python 写一个俄罗斯方块游戏
 
-Step by step guide to writing Tetris in Python with PyGame
+使用 Python 的 PyGame 库写一个俄罗斯方块游戏的逐步指南
 
-In this tutorial, we will write a simple Tetris using the PyGame library in Python. The algorithms inside are pretty simple but can be a little challenging for the beginners. We will not concentrate on PyGame mechanics too much, but rather focus on the game logic. If you are too lazy to read all the stuff, you may simply copy and paste the code in the end.
+在这篇教程中，我们会用 Python 的 PyGame 库写一个简单的俄罗斯方块游戏。里面的算法很简单，但对新手可能有一点挑战性。我们不会太关注 PyGame 的内部原理，而更关注游戏的逻辑。如果你懒得阅读整篇文章，你可以简单地复制粘贴文末的代码。
 
-![Tetris Game](https://cdn-images-1.medium.com/max/2000/1*zJwBMHhqoVES9LbIg68qxQ.gif)
+![俄罗斯方块游戏](https://cdn-images-1.medium.com/max/2000/1*zJwBMHhqoVES9LbIg68qxQ.gif)
 
-#### Prerequisites
+#### 准备工作
 
-1. Python3. This may be downloaded from the [official website](https://www.python.org/downloads/).
-2. PyGame. Go to your command prompt or terminal, depending on the OS you are using, and type `pip install pygame` or `pip3 install pygame`.
-3. Basic knowledge of Python. See my other articles for that if needed.
+1. Python 3。这可以从 [官方网站](https://www.python.org/downloads/) 下载。
+2. PyGame。根据你正在使用的操作系统，打开命令提示符或者终端，输入 `pip install pygame` 或 `pip3 install pygame`。
+3. Python 的基本知识。如果有需要，可以看看我的其他博文。
 
-You may experience issues with installing PyGame or Python itself, but this is out of scope here. Please refer to StackOverflow for that :)
+你在安装 Python 或者 PyGame 的时候可能会遇到一些问题，但这超出了本文的范围。请参考 StackOverflow :)
 
-I personally experienced a problem on Mac with having anything displayed on the screen, and installing some specific version of PyGame solved the problem: pip install pygame==2.0.0.dev4.
+我个人在 Mac 上遇到了没办法在屏幕上显示任何东西的问题，安装某些特定版本的 PyGame 可以解决这个问题：`pip install pygame==2.0.0.dev4` 。
 
-#### The Figure Class
+#### Figure 类
 
-We start with the Figures class. Our goal is to store the figure types together with the rotations. We could, of course, rotate them using matrix rotation, but that can make it too complex.
+让我们从 Figure 类开始。我们的目标是储存图形的各种类型和它们的旋转结果。我们当然可以通过矩阵旋转来实现，但是这会让问题变得太复杂了。
 
-![The main idea of figures representation](https://cdn-images-1.medium.com/max/2000/1*UjtAS8CTRpUJMnzw2PjF0Q.png)
+![图形表示的主要思想](https://cdn-images-1.medium.com/max/2000/1*UjtAS8CTRpUJMnzw2PjF0Q.png)
 
-So, we simply have a list of lists of figures like that:
+所以，我们简单地用这样的列表表示图形：
 
 ```python
 class Figure:
@@ -42,11 +42,11 @@ class Figure:
     ]
 ```
 
-Where the main list contains figure types, and the inner lists contain their rotations. The numbers in each figure represent the positions in a 4x4 matrix where the figure is solid. For instance, the figure [1,5,9,13] represents a line. To better understand that, please refer to the picture above.
+其中，列表第一维度存储图形的类型，第二维度存储它们的旋转结果。每个元素中的数字代表了在 4 × 4 矩阵中填充为实心的位置。例如，[1,5,9,13] 表示一条竖线。为了更好地理解，请参考上面的图片。
 
-As an exercise try to add some missing figures here, namely the “z” figures.
+作为练习，试着添加一些这里没有的图形，比如 Z 字形。
 
-The `__init__` function would be as follows:
+`__init__` 函数如下所示：
 
 ```python
 class Figure:
@@ -59,9 +59,9 @@ class Figure:
         self.rotation = 0
 ```
 
-where we randomly pick a type and a color.
+在这里，我们随机选择一个形状和颜色。
 
-And we need to quickly be able to rotate and get the current rotation of a figure, for this we have these two simple methods:
+并且，我们需要能够快速地旋转图形并获得当前的旋转结果，为此我们给出这两个简单的方法：
 
 ```python
 class Figure:
@@ -73,9 +73,9 @@ class Figure:
         self.rotation = (self.rotation + 1) % len(self.figures[self.type])
 ```
 
-#### The Tetris Class
+#### Tetris 类
 
-We first initialize the Game with some variables:
+我们先用一些变量初始化游戏：
 
 ```python
 class Tetris:
@@ -91,9 +91,9 @@ class Tetris:
     figure = None
 ```
 
-where the state tells us if we are still playing a game or not. The `field` is the field of the game that contains zeros where it is empty, and the colors where there are figures (except the one that is still flying down).
+其中，`state` 表示我们是否仍在进行游戏；`field` 表示游戏的场地，为 0 处表示为空，有颜色值则表示此处有图形（除了仍在下落的）。
 
-We initialize the game with the following simple method:
+我们通过下面这个简单的方法来初始化游戏：
 
 ```python
 class Tetris:
@@ -108,9 +108,9 @@ class Tetris:
             self.field.append(new_line)
 ```
 
-That creates a field with the size `height x width`.
+这会创建一个大小为 `height x width` 的场地。
 
-Creating a new figure and position it at coordinates (3,0) is simple:
+创建一个新的图形，并把它定位到坐标 (3, 0) 是很简单的：
 
 ```python
 class Tetris:
@@ -119,9 +119,9 @@ class Tetris:
         self.figure = Figure(3, 0)
 ```
 
-The more interesting function is to check if the currently flying figure intersecting with something fixed on the field. This may happen when the figure is moving left, right, down, or rotating.
+更有意思的函数是检查目前正在下落的图形是否与已经固定的相交。这种情形可能在图形向左、向右、向下或者旋转时发生。
 
-```pyton
+```python
 class Tetris:
     ...
     def intersects(self):
@@ -137,9 +137,9 @@ class Tetris:
         return intersection
 ```
 
-It is pretty simple: we go and check each cell in the 4x4 matrix of the current Figure, whether it is out of game bounds and whether it is touching some busy game field. We check if `self.field[..][..] > 0`, because there may be any color. And if there is a zero, that means that the field is empty, so there is no problem.
+这很简单：我们遍历并检查当前图形的 4 × 4 矩阵的每个格子，不管它是否超出了游戏的边界或者或者与场地已填充的块重合。我们还检查 `self.field[..][..] > 0`，因为场地的那一块可能有颜色。如果那里是 0，就说明那一块是空的，那就没问题。
 
-Having this function, we can now check if we are allowed to move or rotate the Figure. If it moves down and intersects, then this means we have reached the bottom, so we need to “freeze” the figure on our field:
+有了这个函数，我们就可以检查是否可以移动或旋转图形了。如果它向下移动并且满足相交，那就说明我们已经到底了，所以我们需要 “冻结” 场地上的这个图形：
 
 ```python
 class Tetris:
@@ -155,9 +155,9 @@ class Tetris:
             game.state = "gameover"
 ```
 
-After freezing, we have to check if there are some full horizontal lines that should be destroyed. Then we create a new Figure, and if it already intersects, then game over :)
+冻结以后，我们需要检查有没有已填满的、需要删除的水平线。然后创建一个新的图形，如果它刚创建就满足相交，那就 Game Over 了 :) 。
 
-Checking the full lines is relatively simple and straightforward, but pay attention to the fact that destroying a line goes from the bottom to the top:
+检查填满的水平线相当简单直接，但注意，删除水平线需要由下而上地进行：
 
 ```python
 class Tetris:
@@ -177,7 +177,7 @@ class Tetris:
         self.score += lines ** 2
 ```
 
-Now, we are missing the moving methods:
+现在，我们还差移动的方法：
 
 ```python
 class Tetris:
@@ -207,15 +207,15 @@ class Tetris:
             self.figure.rotation = old_rotation
 ```
 
-As you can see, the`go_space` method practically duplicates the `go_down` method, but it goes down until it reaches the bottom or some fixed figure.
+如你所见，`go_space` 方法重复了 `go_down` 的，但它会一直向下运动直到接触到场景底部或者某个固定的图形。
 
-And in every method, we remember the last position, change the coordinates, and check if there is an intersection. If there is, we return to the previous state.
+并且在每个方法中，我们记忆了之前的位置，改变坐标，然后检查是否满足相交。如果有相交，我们就回退到前一个状态。
 
-#### PyGame and the Complete Code
+#### PyGame 和完整的代码
 
-We are almost done!
+我们快搞定了！
 
-There is some simple logic left, which is the game loop and the PyGame stuff. So, let’s see at the complete code now:
+还剩下一些游戏循环和 PyGame 方面的逻辑。所以，现在一起看看完整的代码吧：
 
 ```python
 import pygame
@@ -343,10 +343,10 @@ class Tetris:
             self.figure.rotation = old_rotation
 
 
-# Initialize the game engine
+# 初始化游戏引擎
 pygame.init()
 
-# Define some colors
+# 定义一些颜色
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GRAY = (128, 128, 128)
@@ -356,7 +356,7 @@ screen = pygame.display.set_mode(size)
 
 pygame.display.set_caption("Tetris")
 
-# Loop until the user clicks the close button.
+# 循环，直到用户点击关闭按钮
 done = False
 clock = pygame.time.Clock()
 fps = 25
@@ -428,7 +428,7 @@ while not done:
 pygame.quit()
 ```
 
-Try to copy and paste it into a `py` file. Run and enjoy the game! :)
+试试复制然后粘贴到一个 `py` 文件里。运行，然后享受游戏吧！ :)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

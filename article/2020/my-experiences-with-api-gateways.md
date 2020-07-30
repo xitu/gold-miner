@@ -2,52 +2,52 @@
 > * 原文作者：[Mahesh Mahadevan](https://medium.com/@mahesh.mahadevan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-experiences-with-api-gateways.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-experiences-with-api-gateways.md)
-> * 译者：
-> * 校对者：
+> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 校对者：[刘海东](https://github.com/lhd951220), [shixi-li](https://github.com/shixi-li)
 
-# My experiences with API gateways…
+# 记一次 —— 构建 API 网关服务的经历......
 
-A while back, I was working on a project to implement API gateway for our product’s cloud offering. The main motivation behind it was to have a single point of entry for all the external traffic and safeguarding the back-end services, but there were other reasons too :). I will assume that you have stumbled over this link with prior knowledge on API gateways, if not, you should read about them [here](https://microservices.io/patterns/apigateway.html) and [here](https://www.nginx.com/learn/api-gateway/) before you go any further into this article.
+不久前，我在做一个项目，为我们的云产品实现 API 网关。它背后的主要动机是为所有外部通信和保护后端服务提供单一入口，但还有其他原因。我假设你无意中发现了这篇关于 API 网关的文章，并且已经提前具备了 API 网关相关的知识。如果不是，在深入阅读这篇文章之前，你应该阅读[这里](https://microservices.io/patterns/apigateway.html)和[这里](https://www.nginx.com/learn/api-gateway/)。
 
-Finding an API Gateway that matches your requirement is an [overchoice](https://en.wikipedia.org/wiki/Overchoice), you might eventually suffer a psychological breakdown if you take it personally. Like so many other software stacks prevalent in the industry today, even API gateway comes with a variety of choices and flavors. To be honest, it is quite a struggle when it comes to making this decision without digging a bit deeper into each of these possible options and matching it to your specific requirements. This article is my humble attempt in making this task a little simpler, and provide you with a flowchart at the end of it all, to hopefully arrive at a decision.
+找到一个满足需求的 API 网关是[过渡选择](https://en.wikipedia.org/wiki/Overchoice)。如果你把这件事看得太重，你最终心里可能会很崩溃。就像当今业界的其他主流软件技术栈一样，即使是 API 网关也有各种选择和风格。说实话，在做决定的时候，如果没有深入研究每种可选项并将其与你的特定需求相匹配，就会遇到很大的困难。本文是我简化任务的一个小小尝试，并在最后提供了一个流程图，希望能帮助你做出决定。
 
-As we began our search, we started evaluating a few options that came up based on our research. To do this, we mainly relied on various comparisons that already exist on the internet, then we shortlisted a few of them based on their current popularity and the feature sets they had to offer.
+当我们开始搜索时，我们开始基于我们的研究来分析这些选项。要做到这一点，我们主要依赖网络上已存在的各种比较，我们基于它们当前的流行程度和他们必须提供的特性集做一些筛选。
 
-****Disclaimer** — This article does not provide any sort of performance comparison of API gateways, even though, this was also a criterion on which we based our selection. I do not claim that implementations discussed here are the only options available, but these implementations were the most popular choices based on our product requirements at the time of writing this article.**
+**免责声明** —— *这篇文章不提供任何 API 网关的性能比较，尽管这也是我们选择的标准。我并不是说这里讨论的实现是唯一的可用选项，但是，当我撰写这篇文章的时候，基于我们的产品需求，这些实现是最受欢迎的选择。*
 
-## Lets list Requirements…
+## 需求列表......
 
-First, lets quickly list down what was the minimum that we expected from an API gateway solution. Please note, this is not an exhaustive list or something that might match a solution that you are looking for, but it should cover most of the scenarios where API Gateways are applicable.
+首先，让我们快速列出对 API 网关解决方案最低期待。请注意，这不是一个详细的列表，也不一定是你正在寻找的解决方案与之相匹配的内容。但是，它应该覆盖 API 网关的大部分应用场景。
 
-1. [Reverse Proxy](https://en.wikipedia.org/wiki/Reverse_proxy) — This is the single most important reason why most projects adopt a gateway sort of a solution. Any mature project, which has opened its APIs to the outside world would avoid exposing its back-end URLs for security reasons and abstracting the complexity of back-end services to client applications. This also gives a single point of entry to all clients accessing back-end APIs.
-2. [Load balancing](https://www.nginx.com/resources/glossary/load-balancing/) — Gateways can route a single incoming URL to multiple back-end destinations. This is often useful in micro-services architecture when you want to scale up your application for high-availability or even other-wise if you are running some sort of cluster server setup.
-3. Authentication and Authorization — Gateways should be able to successfully authenticate and allow only trusted clients to access APIs and also able to provide some sort of authorization layer using something like [RBACs](https://en.wikipedia.org/wiki/Role-based_access_control).
-4. IP Listing — Allow or Block certain IP addresses to pass through. Provides an additional layer of security to your ecosystem, useful when you discover a malicious set of addresses trying to bring down your application by using DDoS sort of attacks.
-5. Analytics — Provide a way to log usage and other useful metrics related to API calls. Should be able to disintegrate the API usages made per client for possible monetization.
-6. Rate-Limiting — Ability to throttle API calls, for example, you only want to allow 10000 calls per minute for all consumers or 1000 calls per month for a particular consumer.
-7. Transformation — Ability to transform either request and responses**(including header and body)** before forwarding them further.
-8. Versioning — An option to use different versions of API at the same time or possibly provide a slow rollout of API in form of [Canary release](https://martinfowler.com/bliki/CanaryRelease.html) or [Blue/Green deployments](https://martinfowler.com/bliki/BlueGreenDeployment.html)
-9. [Circuit Breaker](https://martinfowler.com/bliki/CircuitBreaker.html) — Useful with micro-services architecture pattern to avoid disruption in service
-10. [WebSocket](https://en.wikipedia.org/wiki/WebSocket) support — Many dynamic and real-time capabilities can be addressed by using WebSockets, providing a WebSocket interface to end clients can really reduce overheads of multiple HTTP calls for frequent data transfers
-11. [gRPC](https://grpc.io/) support — Google’s gRPC promises to further reduce load by making use of HTTP/2, can be used efficiently for inter-communication between services. I would recommend this is something you should definitely add to your list of requirements to make your solution future proof
-12. Caching — Will further reduce the network bandwidth and round trip time consumption and improve performance if frequently requested data can be cached
-13. Documentation — If you plan to expose your APIs to developers outside of your organization, then you must think about using API documentation such as [Swagger or OpenAPI](https://swagger.io/docs/specification/about/).
+1. [反向代理](https://en.wikipedia.org/wiki/Reverse_proxy) —— 这是大多数项目采用网关解决方案的最重要原因。任何已对外开放 API 的成熟项目都应该避免由于安全问题而暴露后端的 URL，将后端的复杂服务抽象到客户端。这也能为所有客户端访问后端 API 提供唯一单点入口。
+2. [负载均衡](https://www.nginx.com/resources/glossary/load-balancing/) —— 网关能将传入的单个 URL 路由到多个后端目标。在微服务体系结构中，当你想要扩展你的应用程序以获得高可用性，或者在运行某种服务集群的配置时，甚至是在其他方面，这通常非常有用。
+3. 身份认证和授权 —— 网关应该能成功的实现身份认证，并且允许已信任的客户端访问 API，也能使用类似于[基于角色的访问控制](https://en.wikipedia.org/wiki/Role-based_access_control)的方式来提供授权服务。
+4. IP 清单 —— 允许或者禁止某些 IP 地址通过。为你的生态提供一个额外的安全层，当你发现一组恶意地址想要通过 DDOS 来瘫痪你的应用程序的时候，这非常有用。
+5. 分析 —— 提供一种方法记录日志的使用情况以及与 API 调用相关的其他有用指标。应该能分解每个客户端的 API 使用情况，以获取可能的收益。
+6. 限速 —— 限制 API 调用的能力，例如，你只希望允许所有使用者每分钟调用 10000 次，或者对特定的使用者允许每个月调用 1000 次。
+7. 转换 —— 在转发之前，转换请求和响应（**包括消息头和消息体**）的能力。
+8. 版本控制 —— 可以选择同时使用不同版本的 API，或者以[金丝雀发布](https://martinfowler.com/bliki/CanaryRelease.html)或者[蓝绿部署](https://martinfowler.com/bliki/BlueGreenDeployment.html)的形式缓慢推出 API。
+9. [断路器](https://martinfowler.com/bliki/CircuitBreaker.html) —— 对于微服务架构模式很有作用，可以避免服务中断。
+10. [WebSocket](https://en.wikipedia.org/wiki/WebSocket) 支持 —— 许多动态和实时的功能都能使用 WebSocket 解决，在频繁数据交换的业务场景下，为客户端提供 WebSocket 接口，以便减少多个 HTTP 调用的开销。
+11. [gRPC](https://grpc.io/) 支持 —— Google 的 gRPC 承诺通过使用 HTTP/2 进一步减少负载，这样可以有效的用于服务端之间的内部通信。我建议你一定要将此添加到你的需求列表中，以使你的解决方案更加可靠。
+12. 缓存 ——  如果频繁请求的数据能被缓存，将会进一步减少网络带宽和往返时间消耗并提升性能。
+13. 文档 —— 如果你计划向组织外的开发者公开你的 API，你必须考虑使用 API 文档。例如 [Swagger 或者 OpenAPI](https://swagger.io/docs/specification/about/)。
 
-## API Gateways and Service Mesh
+## API 网关和服务网格
 
-Before going into comparisons on actual implementations, I must also talk about another pattern which you might run into while looking for gateways, [Service Mesh](https://www.nginx.com/blog/what-is-a-service-mesh/). It might be confusing at first to know the difference between API gateway and Service Mesh and each of their purpose, so I am going to describe them in a little detail before we proceed.
+在对比他们实际实现之前，我还必须谈谈在寻找网关、[服务网格](https://www.nginx.com/blog/what-is-a-service-mesh/)的时候，你可能遇到的另一种模式。首先，了解 API 网关和服务网格的区别以及它们各自的用途可能会让人感到困惑。所以在继续之前，我将会详细描述它们。
 
-API gateways are applied on Layer 7 of [OSI model](https://en.wikipedia.org/wiki/OSI_model) or you can say to manage traffic coming from outside network ( sometimes also called north/south traffic), whereas Service Mesh is applied to Layer 4 of OSI model or to manage inter-services communications ( sometimes also called as east/west traffic). Some examples of API Gateway features are Reverse Proxy, Load Balancing, Authentication and Authorization, IP Listing, Rate-Limiting, etc.
+API 网关应用于 [OSI 模型](https://en.wikipedia.org/wiki/OSI_model)的第七层，或者你也可以说管理来自外部的网络流量（有时也称南北向交通）。而服务网格应用于 OSI 模型的第四层，或者说是管理服务间通信（有时也被称为东西向交通）。API 网关的一些例子包括反向代理、负载均衡、认证与授权、IP 列表和限速等。
 
-Service Mesh, on the other hand, works like a proxy or a side-car pattern which de-couples the communication responsibility of the service and handles other concerns such as Circuit breaker, timeouts, retries, service-discovery, etc. [Istio ](https://istio.io/docs/concepts/what-is-istio/)is a very well known implementation of service mesh at the time of this article being published.
+另一方面，服务网格的工作方式类似于代理或挎斗模式，它解除了服务间的通信责任，并处理断路器、超时、重试和服务发现等问题。在本文发布的时候， [Istio](https://istio.io/zh/docs/concepts/what-is-istio/) 是服务网格众所周知的一种实现方式。
 
-You must have noticed that I have included in my list requirements some of the features provided by Service Mesh as well. Quite a few of API gateway implementations today can work at both Layer 4 and 7 and handle requirements of service mesh as well. It would be nice if we could get an implementation which can also handle some of the service mesh requirements even though it is not a must. Here is a good [article](https://dzone.com/articles/api-gateway-vs-service-mesh) citing differences between the two in little detail.
+你一定已经注意到了，我的需求列表中还包括了一些服务网格提供的功能。目前，相当多的 API 网关能实现同时在 OSI 模型的第四层和第七层工作，并处理服务网格的需求。如果我们能得到一个能处理一些网格服务需求的实现，即使不是必须的，那也太好不过了。这里有一篇很好的[文章](https://dzone.com/articles/api-gateway-vs-service-mesh)，详细介绍了它们的区别。
 
-## Comparisons
+## 比较
 
-## TL;DR;
+## 精华内容
 
-I am going to compare the following API gateways …**(read disclaimer)**
+我将对比以下 API 网关...... **（免责声明）**
 
 1. NGINX
 2. Kong
@@ -57,72 +57,72 @@ I am going to compare the following API gateways …**(read disclaimer)**
 
 ## Nginx
 
-[Nginx ](https://www.nginx.com)has been one of the best choices for L7 proxy, load-balancing and creating a single point entry for your back-end applications for quite some time now. It has already been used and tested in many different production environments and has replaced many existing hardware load-balancers with very low footprint and reducing a lot of cost to companies. Lot of [CDNs](https://en.wikipedia.org/wiki/Content_delivery_network) use Nginx as their engine for caching data at edge locations.
+[Nginx](https://www.nginx.com) 已经是七层负载均衡代理和后端应用创建单点入口的最佳选择之一了。它已经在许多不同的产品环境使用并被验证可行，并且以极低的内存使用率代替了许多已存在的负载均衡硬件，这样也为公司节省了许多的成本。许多 [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) 使用 Nginx 作为引擎来缓存边缘节点的数据。
 
-The biggest advantage of using Nginx as a gateway is its ability to range from simple to complex features, allowing you to cherry-pick only the required features as you progress. For example, if you only need load-balancing and reverse-proxy, to begin with, Nginx does this very easily with minimal overheads and you can eventually upgrade to other features as your product matures. You can also start with a full blown API gateway using their commercial offering, [NGINX Plus](https://www.nginx.com/blog/whats-difference-nginx-foss-nginx-plus/), even though it is possible to achieve this with its open source offering using its wide range of available plugins.
+使用 Nginx 作为网关的最大优势是它具有从简单到复杂的功能，允许你选择满足你要求的功能。例如，如果你一开始仅需要负载均衡和反向代理的功能，Nginx 就可以很容易地以最小的代价完成这一任务，最终随着你产品的成熟，你可以升级到其他的功能。你也可以使用它们的商业产品 [NGINX Plus](https://www.nginx.com/blog/whats-difference-nginx-foss-nginx-plus/) 来实现完整的 API 网关服务，即使它的开源产品可以通过现有广泛的插件来实现这一点。
 
-Nginx is known for its small footprint and ability to meet high performance with low latency. You also get a lot of [3rd party custom Nginx plugins](https://www.nginx.com/resources/wiki/modules/) which can cover a wide range of custom scenarios, and of course, you could always seek help from a huge network of its developer community in case you are stuck somewhere. The only possible cons that you might encounter while working with Nginx is the configuration might be a little difficult to get hang of until and unless you have got your hands dirty working with it, you will have to go over few pages of their documentation till you can claim your mastery over it.
+Nginx 以其较小的内存占用以及低延迟下的高性能而闻名。你也可以获取一些[第三方自定义 Nginx 插件](https://www.nginx.com/resources/wiki/modules/)，这些插件可以涵盖广泛的定制场景。当然，当你在某些地方遇到问题的时候，你也可以从它庞大的开发者社区网络中寻求帮助。你唯一可能遇到的问题是，Nginx 的配置可能有点难以掌握，除非你已经亲自动手实践过。否则，你不得不翻阅它文档中的一部分内容，直到你已经熟练掌握它。
 
 ## Kong
 
-[Kong](https://konghq.com/) is an Nginx and [OpenResty](https://openresty.org/en/) based API gateway plus Service Mesh which caters for most of our requirements listed above. It was quite an easy install following the provided [docker installation instructions](https://docs.konghq.com/install/docker/?_ga=2.29592831.1315225771.1553575126-343588371.1553575126).
+[Kong](https://konghq.com/) 是一个基于 Nginx 和 [OpenResty](https://openresty.org/cn/) 的 API 网关 + 服务网格，它满足我们以上列出的大部分需求。按照提供的 [Docker 安装说明](https://docs.konghq.com/install/docker/?_ga=2.29592831.1315225771.1553575126-343588371.1553575126) 进行安装相当容易。
 
-Kong architecture is quite simple to understand and is made up of a few components…
+Kong 的架构非常简单易懂，它是由许多组件构成......
 
-* Kong base-module which wraps OpenResty and Nginx and is the engine which does the actual work
-* Database layer with choice of Cassandra or Postgres to store all the configuration so it can be retrieved easily in case of failures
-* Dashboard which provides User-Interface for API administration and viewing analytics **(part of the enterprise offering only, though kong provides REST APIs for managing services, upstream APIs and its consumers )**
+* Kong 基本模块封装了 OpenResty 和 Nginx，是实际工作的引擎。
+* 数据库层，可选择 Cassandra 或者 Postgres 来存储所有的配置数据，以便在发生故障的时候可以轻松恢复。
+* 仪表盘提供用于 API 管理和查看分析的用户界面（**尽管 kong 提供了 REST API、上游 API 以及它的使用者的管理服务，但它仅提供企业级服务**）
 
-Kong has both Open-source and Enterprise versions of its implementation, both work very well with sub-millisecond latency as it is powered by nginx itself. Imagine using Nginx for your gateway operations but with REST APIs and database layer for managing configurations easily.
+Kong 既有开源版本也有企业版本的实现，在 nginx 的支持下，它们两者都能在毫秒级别的延迟下稳定工作。想象一下，使用 Nginx 进行网关操作，同时 REST API 和数据库层轻松管理配置。
 
-Kong comes with a variety of [plugins](https://docs.konghq.com/hub/?_ga=2.135887729.1315225771.1553575126-343588371.1553575126), which can cater for most of your crosscutting concerns ranging from access controls, security, caching to documentation. It also lets you write and use custom plugins using Lua language. Kong open-source is a good start to get familiar with their stack. Though it does not come with a Web-UI dashboard, there are few open source dashboards available which help you manage its configuration, otherwise if you are quite comfortable with REST you can work with their [admin APIs](https://docs.konghq.com/1.1.x/admin-api/) directly.
+Kong 提供了多种[插件](https://docs.konghq.com/hub/?_ga=2.135887729.1315225771.1553575126-343588371.1553575126)，这些能满足从访问控制、安全性以及缓存文档的大部分横切关注点。它也允许你使用 Lua 语言编写并使用自定义插件。Kong 的开源是了解它们堆栈的一个良好开端。尽管它没有 Web 界面仪表盘，但是有一些可用的开源仪表盘能帮助你来管理它们的配置。否则，如果你对 REST 很熟悉，你可以直接使用他们的[管理 API](https://docs.konghq.com/1.1.x/admin-api/)。
 
-Kong can also be deployed as [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) and supports gRPC and Websockets proxy. Kong’s advantage is its underlying engine is made up of lightweight yet powerful Nginx + OpenResty engine, which in itself can be built as a full-fledged API gateway. You can think of Kong as an auto-shift version of Nginx. A possible disadvantage of their implementation is not all the features come out-of-box, rather has to be manually configured by activating each of its respective plugins, which might need initial setup time and resources, but then this might not really a big hurdle for a lot of mature engineering teams.
+Kong 也可以部署在[Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)上，并且支持 gRPC 和 Websocket 代理。Kong 的优势是他的底层引擎，它由轻量级但是强大的 Nginx 和 OpenResty 引擎组成，它本身也可以构建成一个成熟的 API 网关，你可以把 Kong 想象成 Nginx 的自动切换版本。这种实现有一个可能的缺点，并不是所有的功能都是开箱即用的，有些必须要激活其各自的插件来手动配置，这可能需要初始设置时间和资源，但是对于许多成熟工程师的团队来说，这可能并不是一个很大的阻碍。
 
 ## Tyk
 
-[Tyk](https://tyk.io/) is another open-source gateway which promises excellent performance and is created in Go programming language. Tyk offers multiple features which are part of our requirements list and beyond. Tyk’s web dashboard is one of the best in class and lets you control almost all aspects of API configuration provides excellent analytics of API usages.
+[Tyk](https://tyk.io/) 是另一个承诺具有出色性能的开源网关，它是由 Go 编写的。Tyk 提供多种特性，这些特性是我们需求列表的一部分。Tyk 的 web 仪表盘是同类中最好的，允许你控制几乎 API 配置的方方面面，并提供出色的 API 使用分析。
 
-Tyk has a rich feature set along with nice Web-UI dashboard making it a good choice for projects having a complicated API management scheme. What makes Tyk stand out is it includes API dashboard, analytics, security, versioning, developer portal, rate-limiting and other gateway features out-of-box for free if you only intend to use this for non-commercial purpose. However, for commercial usage, you will need to buy their commercial license which also includes support.
+Tyk 拥有丰富的特性集和漂亮的 Web 用户界面，它对于拥有复杂 API 管理方案的项目来说是一个不错的选择。Tyk 的出色之处在于，它包括 API 仪表盘、分析、安全、版本控制、开发者门户、限速和其他开箱即用的网关特性，你可以免费将其使用在非商业场景下。但是，如果用于商业目的，你就需要购买它们的商业许可证，其中也包括它们的支持。
 
-Tyk can be really a good fit for projects looking for these features out-of-box from day one and are ready to spend for it **(i.e you are planning to use it for commercial purpose)**, rather than explore options such as Nginx and Kong which can take little bit of your developers time to get all the required features working. Where Tyk falls short in comparison to the previous two implementations, are ease of installation and cost. Tyk has too many components which do not make it that easy to install and manage on-premise. It also has a cloud and hybrid installation options which decreases installation and management overheads, but then it comes with its own pricing and increases your project costs.
+Tyk 真的很适合那些从第一天开始就寻找开箱即用并准备为其付费的项目（**例如，你打算将其用于商业目的**），而不是去探索像 Nginx 和 Kong 这样的选项，这可能会花费你的开发人员一些时间来获取所有必须的功能。与前两个实现相比，Tyk 的不足之处在于易于安装和成本。Tyk 有太多的组件，这些组件不便于在本地安装和管理。它提供云和混合安装选项，这能减少安装和管理的成本。但它也有自己的定价，它会增加你项目的支出。
 
 ## Ambassador
 
-[Ambassador](https://www.getambassador.io/) is an open-source, Kubernetes native microservices gateway built on top of [Envoy](https://www.envoyproxy.io/). It can be used as Kubernetes Ingress and load balancer and is built to publish and test microservices easily and rapidly on top on Kubernetes environment.
+[Ambassador](https://www.getambassador.io/) 是建立在 [Envoy](https://www.envoyproxy.io/) 之上的开源 Kubernetes 本地微服务网关。它可以用做 Kubernetes 入口器和负载均衡器，可以在 Kubernetes 环境上轻松快速的发布和测试微服务。
 
-Ambassador is very lightweight and all of its states is stored in Kubernetes, so there is no need for a database. Ambassador was built keeping the developer in mind, so all of its operations and concepts are more developer-centric, for example - the most recommended technique for adding a route on Ambassador is via annotations on Kubernetes services yamls. Its free version comes with features such as versioning, gRPC, and WebSockets support, Authentication, Rate-Limiting and Integration with Istio to work as Service Mesh, whereas features such as OAuth, single sign-on, JWT authentication, access control policies, and filtering are part of its paid version called [Ambassador Pro](https://www.getambassador.io/pro/).
+Ambassador 非常轻量级，所有状态都存储在 Kubernetes 中，因此不需要数据库。Ambassador 的构建是以开发者为核心的，所以，它所有的操作和概念都是以开发者为核心的，例如 —— 在 Ambassador 中添加一个路由，最推荐的方法是在 Kubernetes 服务的 yaml 配置文件中添加注释。它的免费版本包括版本控制、gRPC、WebSocket 支持、身份认证、限速、与 Istio 集成来像服务网格一样工作，然而，OAuth、单点登录、JWT 认证、访问控制策略以及过滤等功能是其付费版本 [Ambassador Pro](https://www.getambassador.io/pro/)的一部分。
 
-Its advantages are its ability to serve large traffic with low footprint and minimal setup configuration on Kubernetes environments, whereas where it lacks is not being as feature rich in comparison to previously discussed gateways as it is missing out-of-box dashboard and integration with analytics which will require some setup.
+它的优势是在 Kubernetes 环境上以低占用空间和最低初始化配置服务为大流量提供服务。然而，它缺乏的是跟之前讨论的网关相比功能不够丰富的问题。因为，它缺少开箱即用的仪表盘和分析的集成，这需要一些设置。
 
-## Amazon API Gateway
+## Amazon API 网关
 
-[Amazon API gateway](https://aws.amazon.com/api-gateway/) is an AWS cloud offering of managed API management which lets you create, publish and manage APIs in a matter of few clicks. You can currently expose REST or WebSocket endpoint, import new APIs using Swagger or Open API, Route your URL to various back-ends including AWS EC2, AWS lambda or even your in premise endpoints. The cost of routing million APIs through the gateway is very low and predictable as there is fixed [pricing model](https://aws.amazon.com/api-gateway/pricing/) for a given number of requests **(though you should be careful about costs incurred due to external data transfers)**.
+[Amazon API 网关](https://aws.amazon.com/api-gateway/)是 AWS 提供的托管 API 管理云服务，只需要点击几下，就可以轻松创建、发布和管理 API。你可以公开 REST 或者 WebSocket 节点，使用 Swagger 或者 Open API 导入新的 API，将你的 URL 路由到各种后端，包括 AWS EC2、AWS lambda 甚至是内部节点。通过网关路由上百万个 API 的成本非常小，并且可以预测。因为，对于给定请求数量的场景下是有固定的[定价模型](https://aws.amazon.com/api-gateway/pricing/)可以参考的（**因此，你应该要小心由于外部数据传输带来的成本**）。
 
-AWS API gateway requires no setup as it is all managed, you can quickly create or route APIs in few clicks, secure them using SSL, provide Authentication and Authorization, create API Keys for external clients of your APIs, manage versioning of your APIs and also generate client SDKs if you wish to do so. AWS API gateway really packs a punch with its offering, making it really easy to setup an API gateway in a matter of few minutes. So if you are already on AWS or planning to go to AWS, you must really think about using this gateway as your first choice unless you have some mandatory feature requirements that it cannot fulfill as of yet. The obvious disadvantage being that you might get locked in with AWS service and this dependency might make your migration task to some other framework difficult at a later point in time.
+AWS API 网关不需要设置，因为它是被管理的，你只需要轻轻点几下就能快速创建或者路由 API，使用 SSL 保护它们，提供身份验证和授权，为 API 的外部客户端创建 API 密钥，管理你的 API 版本，如果你愿意，它还可以生成客户端 SDK。AWS API 网关的服务真的很强大，只需要几分钟就可以轻松设置好一个 API 网关服务。因此，如果你已经使用 AWS 或者计划准备使用 AWS，那么你需要认真考虑将此网关作为首选，除非你有一些强制性的功能，它还无法满足。很明显的一个缺点就是你可能会被 AWS 的服务所束缚，这些依赖关系可能会在未来的某个时刻，使得你向其他框架迁移的难度大大增加。
 
-## Comparison Matrix
+## 比较矩阵
 
-Here is a summary of feature comparison in the form of a table for above five API gateways.
+下面以表格的形式总结了 5 种 API 网关特性的比较。
 
-* Green Tick: Feature is part of its open source version
-* Yellow Tick: Feature is only part of its paid version
-* Red Cross: Feature not present **yet**** (visit their respective portals for the current set of supported features)**
+* 绿色标记：特性中有一部分是开源版本
+* 黄色标记：特性仅支持付费版本
+* 红叉：特性**尚不**存在（**访问各自的门户网站以获取支持特性集**）
 
-![Comparison matrix](https://cdn-images-1.medium.com/max/2000/1*0m4LXv5VZAl2sDzQT-jXGA.png)
+![Comparison matrix](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200609203950.png)
 
-1. Basic features include reverse proxy, load balancing.
-2. Tyk comes with developer license for non-commercial usages which includes all the features, for production usage, you need to buy their commercial license and it can be installed as Saas or a Hybrid approach.
-3. Kong Open source edition does not come with its dashboard, but there are [third party open source dashboards](https://github.com/pantsel/konga) available which let you manage API and plugins through Web-UI.
-4. [Ambassador can be installed along with Istio](https://www.getambassador.io/user-guide/with-istio/) to cover roles of service mesh.
+1. 基础特性包括反向代理和负载均衡
+2. Tyk 提供了非商业用途的开发者许可证，其中包括所有的特性，对于生产的使用，你需要购买他们的商业许可证，这样就能够以 Saas 或者混合的方式安装。
+3. Kong 的开源版本没有仪表盘，但是有一些可用的[第三方开源仪表盘](https://github.com/pantsel/konga)提供 Web 界面来管理你的 API 和插件。
+4. [Ambassador](https://www.getambassador.io/user-guide/with-istio/) 可以和 Istio 一起安装来扮演服务网格的角色。
 
-## Time for Decision
+## 决定时刻
 
-Finally, here is a flowchart, I have kept it simplistic on purpose. You should use the below chart alongside the above feature comparison matrix to narrow down your choice.
+最后，这是一张流程图，我故意将其简化。你应该使用以下图表以及上述特性矩阵来简化你的选择。
 
-![](https://cdn-images-1.medium.com/max/2050/1*96rrH7-cdgGxKWmFzLPPNw.jpeg)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/20200609203959.jpeg)
 
-## Implementations that are worth mentioning
+## 值得一提的实现
 
 * [Apigee](https://docs.apigee.com/)
 * [WSO2](https://wso2.com/)
