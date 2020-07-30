@@ -7,17 +7,16 @@
 
 # One of the first things to understand in JavaScript — Immutability
 
-#### Mutation in JavaScript and why this is important to know
-
-#### Let us go back to basics: “In JavaScript, are variables or constants immutable?”
-
 ![](https://cdn-images-1.medium.com/max/6136/1*4PrMNL-FF9Z5G5BXJliAYg.png)
+
+Let us go back to basics: “In JavaScript, are variables or constants immutable?”
 
 The answer is **neither**, and if you even have a little hesitation on your answer, read on. Every programming language have different flavors and characteristics, and in JavaScript, this is one of the most important things to be aware of, especially while we are picking up a few languages like Python, Java, etc.
 
 You may not necessarily change how you code in JavaScript immediately, but in knowing this early, it will prevent you from getting into nasty situations that are difficult to debug later on. I will include some ways you can adopt to prevent getting into such problems as well — different ways to do shallow & deep copy.
 
 Just a quick summary before we begin:
+
 **Variables** (initialised with `let`) — Re-assignable & Mutable
 **Constants** (initialised with `const`) — Non re-assignable & Mutable
 
@@ -39,7 +38,7 @@ For primitive data types (like boolean, number and strings), they are **immutabl
 
 To ‘change/alter’ primitives, it simply means you have to reassign them, which is only possible if they are declared as variables.
 
-```
+```js
 let var1 = 'apple' //'apple' is stored in memory location A
 var1 = 'orange' //'orange' is stored in memory location B
 
@@ -53,8 +52,6 @@ In the example above, if we edit the string for var1, JavaScript will simply cre
 
 And all constants cannot be re-assigned.
 
----
-
 ## In JavaScript, Objects are Passed By Reference
 
 Problems start to occur when we are dealing with **objects**…
@@ -67,7 +64,7 @@ Objects generally refer to the non-primitive data types (Object, Array and Funct
 
 So what does this mean?
 
-```
+```js
 const profile1 = {'username':'peter'}
 profile1.username = 'tom'
 console.log(profile1) //{'username':'tom'}
@@ -81,7 +78,7 @@ Okay this looks simple enough, why would this be problematic?
 
 #### When Mutation in Objects become a PROBLEM…
 
-```
+```js
 const sampleprofile = {'username':'name', 'pw': '123'}
 const profile1 = sampleprofile
 
@@ -101,7 +98,7 @@ What is meant by ‘**passing by reference**’ in this case is, we are passing 
 
 Hence, when we change the property of the object of the constant profile1, it also affects sampleprofile because both of them are pointed to the same object.
 
-```
+```js
 console.log(sampleprofile===profile1)//true
 ```
 
@@ -116,15 +113,13 @@ There are two concepts that we should be aware of in order to effectively face p
 
 I will show you some examples of implementation in JavaScript, using vanilla JavaScript methods, as well as some useful libraries we could use.
 
----
-
 ## Preventing Mutation in Objects
 
 #### 1. Using Object.freeze() Method
 
 If you want to prevent an object from changing properties, you can use `Object.freeze()` . What this does is it will not allow the existing properties of the object to alter. Any attempts to do so will cause it to ‘silently fail’, meaning it will not be successful but and there will not be any warnings as well.
 
-```
+```js
 const sampleprofile = {'username':'name', 'pw': '123'}
 
 Object.freeze(sampleprofile)
@@ -136,7 +131,7 @@ console.log(sampleprofile) // {'username':'name', 'pw': '123'}
 
 HOWEVER, this is a form of **shallow freeze** and this will not work with deeply nested objects:
 
-```
+```js
 const sampleprofile = {
   'username':'name', 
   'pw': '123', 
@@ -176,7 +171,7 @@ You can potentially create a simple function to recursively freeze the nested ob
 
 But seriously, if you look at the [source code](https://github.com/substack/deep-freeze/blob/master/index.js) of [deep-freeze](https://www.npmjs.com/package/deep-freeze), it is essentially just a simple recursion function, but anyway this is how you can use it easily..
 
-```
+```js
 var deepFreeze = require('deep-freeze');
 
 const sampleprofile = {
@@ -206,7 +201,7 @@ Let’s start off with shallow copying, followed by deep copying.
 
 The spread operator introduced with ES6 provides us with a cleaner way to combine arrays and objects.
 
-```
+```js
 const firstSet = [1, 2, 3];
 const secondSet= [4, 5, 6];
 const firstSetCopy = [...firstset]
@@ -218,7 +213,7 @@ console.log(resultSet) // [1,2,3,4,5,6]
 
 ES2018 also extended spread properties to object literals, so we can also do the same for objects. The properties of all the objects will be merged but for conflicting properties, the subsequent objects will take precedence.
 
-```
+```js
 const profile1 = {'username':'name', 'pw': '123', 'age': 16}
 const profile2 = {'username':'tom', 'pw': '1234'}
 const profile1Copy = {...profile1}
@@ -232,11 +227,12 @@ console.log(resultProfile) // {'username':'tom', 'pw': '1234', 'age': 16}
 
 This is similar to using the spread operators above, which can be used for both arrays and objects.
 
-```
+```js
 const profile1 = {'username':'name', 'pw': '123', 'age': 16}
 const profile2 = {'username':'tom', 'pw': '1234'}
 const profile1Copy = Object.assign({}, profile1)
 const resultProfile = Object.assign({},...profile1, ...profile2)
+```
 
 Note that I have used an empty object `{}` as the first input because this method updates the first input from the result of the shallow merge.
 
@@ -244,7 +240,7 @@ Note that I have used an empty object `{}` as the first input because this metho
 
 This is just a convenient method just for **shallow cloning arrays**!
 
-```
+```js
 const firstSet = [1, 2, 3];
 const firstSetCopy = firstSet.slice()
 
@@ -258,7 +254,7 @@ console.log(firstSet===firstSetCopy) // false
 
 Also note there is a method in lodash to do shallow cloning as well. I think it is a little overkill to use this (unless you already have lodash included) but I’ll just leave an example here.
 
-```
+```js
 const clone = require('lodash/clone')
 
 const profile1 = {'username':'name', 'pw': '123', 'age': 16}
@@ -270,7 +266,7 @@ const profile1Copy = clone(profile1)
 
 For all of these examples of Shallow Cloning, issues start to come if we have **deeper nesting of objects**, like this example below.
 
-```
+```js
 const sampleprofile = {
   'username':'name', 
   'pw': '123', 
@@ -310,8 +306,6 @@ For Shallow Cloning, the nested object’s references are copied. So the objects
 
 To prevent such a thing from happening and if you want a 100% true copy with no external references, we need to use **Deep Copy**.
 
----
-
 ## Deep Copying
 
 #### 1. Using JSON.stringify() & JSON.parse()
@@ -322,7 +316,7 @@ Generally if you are only working with primitive data types and a simple object,
 
 #### 2. Using lodash.deepclone()
 
-```
+```js
 const cloneDeep = require('lodash/clonedeep')
 const sampleprofile = {
   'username':'name', 
@@ -361,7 +355,7 @@ If you don’t want to download a library just to do a deep copy, feel free to c
 
 The code below (though doesn't cover all cases) gives a rough idea of how you can create this yourself.
 
-```
+```js
 function clone(obj) {
     if (obj === null || typeof (obj) !== 'object' || 'isActiveClone' in obj)
         return obj;
@@ -388,10 +382,6 @@ Perhaps it is simpler to just download a library to implement deep cloning? Ther
 ---
 
 Hope this gives you a perspective of the Object-Oriented nature of JavaScript, and how to handle bugs related to mutation in objects! This is a popular JavaScript interview question too. Thanks for reading! :)
-
-#### JavaScript In Plain English
-
-Enjoyed this article? If so, get more similar content by **[subscribing to Decoded, our YouTube channel](https://www.youtube.com/channel/UCtipWUghju290NWcn8jhyAw)!**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
