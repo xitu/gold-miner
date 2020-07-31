@@ -7,8 +7,6 @@
 
 # From scratch to the first 10 customers: How I designed and launched a SaaS product
 
-## From Scratch to the First 10 Customers: How I designed and Launched a SaaS Product
-
 ![Photo by [PhotoMIX Company](https://www.pexels.com/@wdnet?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/black-samsung-tablet-computer-106344/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/12032/1*xNt4aprSuOo2bdYg9F-6gw.jpeg)
 
 Creating a successful software as a service (SaaS) product is the dream for many entrepreneurial-minded programmers. In the process of launching my own SaaS I discovered that sharing and comparing experiences with other founders is an essential part of this journey, and without this, I probably would never have created it at all.
@@ -124,7 +122,7 @@ Although I wrote horrible content in English with writing mistakes because Engli
 * Why use it rather than XXX?
 * And so on…
 
-It was not easy to be objective while looking at developers’ responses and comments. The emotional ****reaction could always take over and it was really hard for me to understand where the mistakes were because I am not a sales agent or a seller, but I am a damn good technician.
+It was not easy to be objective while looking at developers’ responses and comments. The emotional reaction could always take over and it was really hard for me to understand where the mistakes were because I am not a sales agent or a seller, but I am a damn good technician.
 
 ## Here are the lessons I learned along the way
 
