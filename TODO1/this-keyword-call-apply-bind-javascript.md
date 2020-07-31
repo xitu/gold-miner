@@ -270,7 +270,7 @@ sayAge() // TypeError: Cannot read property 'age' of undefined
 3.  该函数是不是用 “call”、“apply” 或者 “bind” 调用的？如果是，它会显式地指明 “this” 的引用。如果不是，继续第 4 步。
 4.  该函数是不是用 “new” 调用的？如果是，“this” 指向的就是 JavaScript 解释器新创建的对象。如果不是，继续第 5 步。
 5.  是否在“严格模式”下？如果是，“this” 就是 undefined，如果不是，继续第 6 步。
-7.  JavaScript 很奇怪，“this” 会指向 “window” 对象。
+6.  JavaScript 很奇怪，“this” 会指向 “window” 对象。
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。

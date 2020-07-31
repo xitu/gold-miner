@@ -240,7 +240,7 @@ FunctionExectionContext = {
     outer: <GlobalLexicalEnvironment>
   },
 
-VariableEnvironment: {
+  VariableEnvironment: {
     EnvironmentRecord: {
       Type: "Declarative",
       // 在这里绑定标识符
