@@ -2,21 +2,20 @@
 > * 原文作者：[Kai Hao](https://kaihao.dev/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/Stale-props-and-zombie-children-in-Redux.md](https://github.com/xitu/gold-miner/blob/master/article/2020/Stale-props-and-zombie-children-in-Redux.md)
-> * 译者：
-> * 校对者：
+> * 译者：[niayyy](https://github.com/nia3y)
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)
 
-# Stale props and zombie children in Redux
+# Redux 中过时的 props 和僵尸子节点
 
+如果你读了 `react-redux` v7 发行版本的文档，你可能会碰到[过时的 props 和“僵尸子节点”](https://react-redux.js.org/api/hooks#stale-props-and-zombie-children)这篇文章中提到的部分问题。即使它已经写的非常清晰明了，但对于不熟悉这个问题的人来说会感到迷茫。这篇文章深入探究了这个问题，并讲解了 `react-redux` 是如何解决的。
 
-If you have read the `react-redux` v7 release documentation, you might have come across the section where it mentioned the [stale props and "zombie children"](https://react-redux.js.org/api/hooks#stale-props-and-zombie-children) problem. Even though it's very well written and clear, it might seem a little bit vague for someone who's not familiar with the problem. This post is about deep diving into the problem and understanding how `react-redux` solved it.
+**免责声明：我不是这个话题下的专家，只是因为好奇而在网上进行了学习，文章内容可能有错误，请保持开放的态度。这篇文章针对已经熟悉 `React`、`Redux` 和 `react-redux` 的人。我们不会在这介绍 API 设计的详细信息，因此，如果你还没有准备好的话，请务必查看官方文档。你无需了解所有这些内容即可使用 `Redux` 进行工作，但是，对于知名库（library）在幕后如何工作有更深入的理解很有趣。**
 
-****Disclaimer**: I'm not an expert on this topic but just being curious to study it online, I could be wrong, keep open-minded. This post is for someone who has already been familiar with React, Redux, and `react-redux`. We won't cover the details of the API design here, so be sure to check out the official documentation if you haven't already. You don't have to understand all of this post to be productive with Redux, however, it's fun to have a deeper knowledge on how the well-known library works under the hood.**
+## 理解 `react-redux`
 
-## Understanding `react-redux`
+要理解这个问题，我们必须先理解 `Redux`，或者更具体的来说是 `react-redux`。我们将通过重新实现 `Redux` 和 `react-redux` 的核心功能来进行理解。注意，这只是为了演示的目的，因此我们不会重构每一个功能并对其进行优化，只是足以让我们理解我们需要解决的问题。
 
-To understand the problem, we have to first understand Redux, or more specifically, `react-redux`. We're going to do that by re-implementing the core features of Redux and `react-redux` together. Note that it's only for demonstration purpose, so we're not going to re-build every feature and optimization of them but just enough to get us to understand the problem we're going to solve.
-
-At its core, Redux is a subscription model which enforce the flux pattern operating at the global state level. A subscription model in JavaScript is often achieved by leveraging event listeners. We `subscribe` to changes and mutate the state via `reducers`, and emit the result to every listener to perform updates.
+`Redux` 的核心是一个在全局状态级别上强制使用 flux 模式操作的订阅模型。在 JavaScript 中一个订阅模型通常通过利用事件监听器来实现的。我们 `subscribe` 更改并通过 `reducers` 改变状态，并发布结果给每一个监听者以执行更新。
 
 ```js
 const createStore = (reducer, initialState = {}) => {
@@ -47,11 +46,11 @@ const createStore = (reducer, initialState = {}) => {
 };
 ```
 
-Above is a bare minimum implementation of the Redux's `createStore` API. The store we use it to create can get the state with `getState()`, subscribe to listeners via `subscribe(listener)`, and dispatch actions with `dispatch(action)`, just like the official API we're used to.
+上面是一个 `Redux` 的 `createStore` API 的简单实现，我们创建的 `store` 可以使用 `getState()` 来获取状态，通过 `subscribe(listener)` 来订阅监听器，以及通过 `dispatch(action)` 来分发动作（dispatch action），就像我们习惯使用的官方 API 一样。
 
-The next step is to figure out how to integrate it with React. We're going to build a [`<Provider>`](https://react-redux.js.org/api/provider) component to pass down `store` via context, a [`connect`](https://react-redux.js.org/api/connect) HOC to wrap presentational components, and most recently, a[`useSelector`](https://react-redux.js.org/api/hooks#useselector) hook to replace `connect` in most cases.
+下一步是弄明白如何将其和 `React` 集成。我们将构建一个 [`<Provider>`](https://react-redux.js.org/api/provider) 组件通过上下文传递 `store`，一个 [`connect`](https://react-redux.js.org/api/connect) 高阶组件用于包装展示组件，最近的版本中，[`useSelector`](https://react-redux.js.org/api/hooks#useselector) 钩子在大多数情况下取代 `connect`。
 
-The `<Provider>` API is relatively straightforward, we just have to pass down the `store` created by `createStore` via React's context.
+`<Provider>` API 相对简单，我们只需要通过 `React` 上下文传递由 `createStore` 创建的 `store`。
 
 ```jsx
 const Context = React.createContext();
@@ -64,36 +63,36 @@ const Provider = ({ children, store }) => (
 
 ```
 
-Before we jump into the implementation of `connect` and `useSelector`, it's best to first recap the problem we're dealing with and see an example in action. The implementation details heavily depend on the history of Redux, it'll be better if we can have a solid background on things we're trying to fix so that it's easier for us to discuss the evolution of the implementation.
+在我们进入 `connect` 和 `useSelector` 的实现之前，最好通过一个实例来回顾一下我们正在处理的问题。实现细节很大程度上取决于 `Redux` 的历史，如果我们对要解决的问题有扎实的背景会更好，这样我们就可以更轻松的讨论实现的演变。
 
-## The problem
+## 问题
 
-Let's quickly recap the problems' [definitions](https://react-redux.js.org/api/hooks#stale-props-and-zombie-children) we are trying to address.
+让我们快速回顾一下我们要解决的问题的[定义](https://react-redux.js.org/api/hooks#stale-props-and-zombie-children)。
 
 
-> **Stale props** means any case where:
+> **过时的 props** 意味着在任何情况下：
 > 
 > 
-> * a selector function relies on this component's props to extract data
-> * a parent component **would** re-render and pass down new props as a result of an action
-> * but this component's selector function executes before this component has had a chance to re-render with those new props
+> * 选择器函数依赖于此组件的 props 来提取数据
+> * 动作的结果会导致父组件**将**重新渲染并传递新的 props
+> * 但是，在该组件有机会使用那些新的 props 重渲染之前，这个组件的选择器函数就会执行
 > 
-> **Zombie child** refers specifically to the case where:
+> **僵尸子节点**专门指以下情况：
 > 
-> * Multiple nested connected components are mounted in a first pass, causing a child component to subscribe to the store before its parent
-> * An action is dispatched that deletes data from the store, such as a todo item
-> * The parent component would stop rendering that child as a result
-> * However, because the child subscribed first, its subscription runs before the parent stops rendering it. When it reads a value from the store based on props, that data no longer exists, and if the extraction logic is not careful, this may result in an error being thrown.
+> * 首先，挂载了多个嵌套且相关联的组件，导致子组件在父组件前订阅了 `store`
+> * 分发一个从 `store` 中删除数据的动作，例如删除一个 todo 项
+> * 父组件将因此停止渲染该子组件
+> * 但是，由于子组件先进行了订阅，它的订阅执行于父组件停止渲染它之前，当它基于 props 从 `store` 中读取一个值时，这个数据不复存在，并且如果读取逻辑不完善的话，则可能引发错误。
 
-If you've read them very closely, you might have noticed that these are not two separated problems, but a single one. They're both the **stale props** problem, **zombie children** is a common sub-problem of it which describes a certain scenario.
+如果你仔细的阅读以上内容，你可能已经注意到了，这些问题不是两个分开的问题，而是一个单独的问题。他们都是**过时的 props** 问题，**僵尸子节点**描述了一个特定场景常见的子问题。
 
-We don't have to understand every bit of the definitions just yet. We're here to provide an example to demonstrate the problem with code.
+我们现在还不必了解所有定义。我们在这里提供一个示例来演示代码问题。
 
-## An example
+## 一个例子
 
-The example we're going to build is a very simple todo app (I know, duh) which simply renders a set of `todos`, and we can remove one of them by dispatching a `DELETE` action.
+我们将构建的示例是一个非常简单的 Todo 应用程序（我知道，duh），这个应用程序将简单的渲染一组 `todos`，我们可以通过分发 `DELETE` 动作来删除其中的一个。
 
-First, we go ahead and create a store and the according reducer.
+首先，我们继续，创建一个 `store` 和对应的 `reducer`。
 
 ```jsx
 const reducer = (state, action) => {
@@ -116,7 +115,7 @@ const store = createStore(reducer, {
 });
 ```
 
-Then, let's create a todo component, and wrap it with `connect` **(We are building the API using `connect` HOC only here. We'll talk about `useSelector` later).**
+然后，让我们创建一个 `<todo>` 组件，并使用 `connect` 进行包装（**我们在这仅使用 `connect` 高阶组件构建 API。稍后再讨论 `useSelector`**）。
 
 ```jsx
 const Todo = ({ id, content, dispatch }) => (
@@ -154,15 +153,15 @@ ReactDOM.render(
 );
 ```
 
-We first create two presentational components `<Todo>` and `<TodoList>`, and then wrap them with the `connect` HOC. It's just a very simple and basic example of a Todo app written in `Redux` pattern, nothing's special about it.
+我们首先创建两个展示组件 `<Todo>` 和 `<TodoList>`，然后用 `connect` 高阶组件进行包装。这只是使用 `Redux` 模式进行编写的一个非常简单基础的 Todo 应用程序的示例，没有什么特别的。
 
-If we run the app and click on any `<Todo>` item, we would expect it to be deleted.
+如果我们运行这个应用程序并点击任何 `<Todo>` 项，我们希望将其删除。
 
-Now that we understand our application spec, we are going to build our `connect` HOC in `react-redux`.
+现在，我们了解了我们的应用程序规范，我们将在 `react-redux` 中构建我们的 `connect` 高阶组件。
 
-## First approach
+## 第一种方法
 
-We are starting from `react-redux` v4 when things are simpler and the APIs are **completed** and **stable** for the first time. Let's build our simpler version of `connect` HOC API. **We are using hooks and other modern React features for the implementation, but it should be mostly the same as the class-based APIs. A good thing about living in the future, huh?**
+我们先从 `react-redux` v4 版本开始，这时事情变得更简单，并且 API 首次是**完整**和**稳定**的。让我们构建更简单版本的 `connect` 高阶组件 API。**我们正在使用钩子和其他现代的 React 特性来实现，但是应该与基于类的 API 大致相同。是关于未来生活的一件好事，对吧？**
 
 ```jsx
 // For demonstration purpose, we intentionally omit `mapDispatchToProps`,
@@ -194,22 +193,22 @@ const connect = mapStateToProps => WrappedComponent => props => {
 };
 ```
 
-It might be the most straightforward implementation of `connect`, without almost all of the optimizations.
+如果不需要进行优化的话，这可能是 `connect` 最直接的实现。
 
-Let's click the item to delete it to see if it works. Uh, okay, everything is falling apart. It won't work. What's wrong?
+让我们点击 Todo 项去删除它，看是否有效工作。嗯，好吧，一切都崩溃了。它不能工作了，出什么问题了？
 
-We can go through the process step-by-step like a JavaScript runtime and see what exactly happened.
+我们像 JavaScript 运行时一样一步一步完成这个过程，看看到底发生了什么。
 
-1. After the first render, Both `<TodoList>` and `<Todo>` subscribe to the store in `useEffect`. Since `useEffect` (or `componentDidMount`) fires from bottom to top, `<Todo>` subscribes first, then `<TodoList>`.
-2. The user clicks `<Todo>`, dispatches a `DELETE` action to store, expects the item to be deleted.
-3. The store receives the action, runs it through the **reducer**, and changes the `todos` state to an empty array `{ todos: [] }`.
-4. The store then calls the subscribed listeners. Since `<Todo>` subscribes first, it will also call the listener first.
-5. The `connect` in `<Todo>` HOC fires the listener, calls `mapStateToProps` with the latest state (`store.getState()`) and the current props (`propsRef.current`).
-6. **Since the state doesn't have the `todos` state anymore, trying to access `state.todos[ownProps.id]` will result in `undefined`. Calling `(undefined).content` will result in error 💥.**
+1. 在第一次渲染时，`<TodoList>` 和 `<Todo>` 在 `useEffect` 中订阅了 `store`。因为 `useEffect` （或者 `componentDidMount`）从下往上触发，`<Todo>` 首先进行订阅，然后是 `<TodoList>`。
+2. 用户点击 `<Todo>` 组件，向 `store` 分发了一个 `DELETE` 动作，期待该项被删除。
+3. `store` 接收到这个动作后，通过 **reducer** 来运行，然后把 `todos` 的状态改为空数组 `{ todos: [] }`。
+4. 然后 `store` 调用已订阅的监听器。因为 `<Todo>` 先进行的订阅，因此也会先调用监听器。
+5. `<Todo>` 中的 `connect` 高阶组件触发监听器，调用带有最新的 state（`store.getState()`）和最新的 props（`propsRef.current`）的 `mapStateToProps`。
+6. **因为最新的 state 不再有 `todos` 的 state，尝试去访问 `state.todos[ownProps.id]` 导致为 `undefined`。调用 `(undefined).content` 将导致错误💥。**
 
-This is the famous `zombie children` problem in action. **Changing the state happens synchronously after dispatching in Redux, but rendering is not. Whenever we are trying to access `ownProps` in our `mapStateToProps` function, we could potentially have **stale props** running inside it.** It's the similar (one of the) reason [why `setState` is not synchronous](https://github.com/facebook/react/issues/11527#issuecomment-360199710), managing the state outside of `React`'s world often has some gotchas needed to be paid attention to.
+这就是在动作中著名的`僵尸子节点`问题。**在 Redux 分发后，state 会同步改变，但是渲染则不会。当我们尝试在 `mapStateToProps` 函数中访问 `ownProps`，我们可能会在其中运行过时的 props**。这是类似的原因（之一）[为什么 `setState` 不是同步的](https://github.com/facebook/react/issues/11527#issuecomment-360199710)，管理 `React` 世界之外的一些状态通常需要注意一些陷阱。
 
-How can we fix it though? If it's because we're managing the state **outside** of React, can we just bring it **inside** React? We want the `props` to always stay up-to-date, which only happens when React renders the component with the latest props. So why not do that? We can move our `mapStateToProps` to render phase instead, we just have to trigger an update in the listener callback to force a re-render.
+我们应该如何进行修复？如果是因为我们管理了 `React` **之外**的状态，是否我们可能把状态放到 `React` **内部**？我们希望 `props` 始终保持最新，这仅在 `React` 使用最新的 props 渲染组件时发生。那么为什么不这样做呢？我们可以把 `mapStateToProps` 改到渲染阶段，我们只需要在监听器回调中触发更新来强制重新渲染。
 
 ```jsx
 const connect = mapStateToProps => WrappedComponent => props => {
@@ -232,11 +231,11 @@ const connect = mapStateToProps => WrappedComponent => props => {
 };
 ```
 
-Now when we click the item, it successfully deletes itself. Hooray 🎉!
+现在，当我们点击该项时，他成功删除了自己，万岁🎉！
 
-Later, the PM comes and asks if we can delay the deletion to 1 second, that is, the item won't get deleted immediately after clicked, but 1 second later.
+稍后，PM 来询问我们是否可以将删除延迟到 1 秒，也就是说，单击该项后不会立即删除，而是 1 秒后将其删除。
 
-Hmm, alright, sounds easy! Right?
+嗯，听起来很简单！是吧？
 
 ```diff
 const Todo = ({ id, content, dispatch }) => (
@@ -253,39 +252,39 @@ const Todo = ({ id, content, dispatch }) => (
 );
 ```
 
-We were so confident that it would work, we saved it, committed, and released it without even testing it (which you should never do). Soon after that, we got complains bombing our channels and everyone is panicking. The app broke, just after the user clicked and waited for that 1 second, the whole app crashed.
+我们非常有信心它会工作，我们进行保存，提交，甚至没有测试（你永远不要这样做）直接发布。此后不久，我们收到了大量的投诉，每个人都惊慌失措。当用户点击并等待 1 秒后，应用程序崩溃了，整个应用程序都崩溃了
 
 ## `unstable_batchedUpdates`
 
-Why does adding a simple `setTimeout` cause the whole app to crash? To examine this issue, we have to go back and follow each step again. We can do this by adding a bunch of `console.log` in the code and verify the output, but we're going to save some time here and just provide the result. The first 4 steps are the same as before, so we can start from the 5th.
+为什么添加一个简单的 `setTimeout` 会导致整个应用程序崩溃呢？要研究这个问题，我们需要返回并再次执行每个步骤、我们可以通过在代码中添加一堆 `console.log` 来验证输出，但是为了节省时间，在这里只提供结果。前 4 步和之前相同，因此我们直接从第 5 步开始。
 
-**Before adding `setTimeout`:**
+**在添加 `setTimeout` 之前：**
 
-5. The `connect` in `<Todo>` HOC fires the listener, calls `forceUpdate()` to schedule a re-render.
-6. The `connect` in `<TodoList>` HOC fires the listener, calls `forceUpdate()` to schedule a re-render.
-7. `<TodoList>` renders, the returned element is an empty array `[]`, just renders the `<ul>` wrapper. `<Todo>` never renders.
+5. `<Todo>` 中的 `connect` 高阶组件触发监听器，调用 `forceUpdate()` 来调度重渲染。
+6. `<TodoList>` 中的 `connect` 高阶组件触发监听器，调用 `forceUpdate()` 来调度重渲染。
+7. `<TodoList>` 渲染，返回的元素是一个空数组 `[]`，只渲染 `<ul>` 容器，`<Todo>` 组件不会渲染。
 
-No errors, it works just fine. Now let's see when we add `setTimeout` while dispatching the action. The first 4 steps are also the same, the only difference is that between **(1)** and **(2)**, there's a delay for 1 second.
+没有错误，它正常工作。现在，让我们看看当我们添加 `setTimeout` 后，何时会分发动作。前 4 步也是相同的，唯一的区别是在 **（1）** 和 **（2）** 直接存在 1 秒延迟。
 
-**After adding `setTimeout`:**
+**在添加 `setTimeout` 之后：**
 
-5. The `connect` in `<Todo>` HOC fires the listener, calls `forceUpdate()` to schedule a re-render.
-6. `<Todo>` renders, calls `mapStateToProps` with current state and current props.
-7. Since the parent (`<TodoList>`) hasn't rendered yet, the props in `<Todo>` are in fact the **stale props**, but the state is already the latest. Calling `state.todos[ownProps.id]` results in `undefined` and calling `(undefined).content` results in an error.
+5. `<Todo>` 中的 `connect` 高阶组件触发监听器，调用 `forceUpdate()` 来调度重渲染。
+6. `<Todo>` 渲染，调用带有最新的 state 和最新的 props 的 `mapStateToProps`。
+7. 因为父组件（`<TodoList>`）还没有渲染，`<Todo>` 中的 props 实际上是**过时的 props**，但是 state 已经是最新的了。调用 `state.todos[ownProps.id]` 导致为 `undefined`，调用 `(undefined).content` 导致一个错误。
 
-Note that between these 2 cases, the 6th step is different. The former is calling the other listener in the parent (`<TodoList>`), while the latter renders the child (`<Todo>`) first. **Seems like `<Todo>` synchronously re-renders soon after calling `forceUpdate()`!**
+请注意，在这两种情况下，第六步是不同的。前者在父组件（`<TodoList>`）中调用另一个监视器，而后者首先渲染子组件（`<Todo>`）。 **似乎是调用 `forceUpdate()` 不久后，`<Todo>` 同步重渲染了！**
 
-"Wait, I thought `setState` is asynchronous?" Yes, and of course, no. For most cases, `setState` is in fact asynchronous, [as long as the `setState` call is inside React event handler callback](https://twitter.com/dan_abramov/status/959507572951797761). React will ensure to **batch** all updates inside the event handler callback, and perform the render all at once asynchronously. By wrapping `setState` inside a `setTimeout` callback, we **opt-out** of this feature and make `setState` synchronous.
+“等等，我以为 `setState` 是异步的？” 是的，当然不会。在大多数情况下， `setState` 实际上是异步的，[只要 `setState` 在 React 事件处理回调中调用即可](https://twitter.com/dan_abramov/status/959507572951797761)，React 将确保在事件处理回调中**批处理**所有的更新，并一次异步执行所有的渲染。通过在 `setTimeout` 回调中包装 `setState`，我们**选择取消** 这个特性，并使 `setState` 同步。
 
-In our example above, React batches both `<Todo>`'s `forceUpdate()` and `<TodoList>`'s `forceUpdate()` together and then finally render them all at once. **Another important note here is that during the re-render, React will ensure to perform it from top to bottom.** That's why the parent (`<TodoList>`) will re-render first, and then skip rendering `<Todo>`.
+在我们上面的例子中，React 把 `<Todo>` 组件的 `forceUpdate()` 和 `<TodoList>` 组件的 `forceUpdate()` 放在一个事件处理回调中，然后最终让它们一次进行渲染。**这里另一个重要的说明是，在重渲染过程中，React 将确保从下到上执行。**这就是为什么父组件（`<TodoList>`）首先进行重渲染，然后跳过 `<Todo>` 渲染的原因。
 
-Fortunately, sometime in the future, [React probably will make sure all `setState` is asynchronous](https://twitter.com/dan_abramov/status/959557687158689792), which means that even if we put our `setState` inside `setTimeout`, the updates would still batch together.
+幸运的是，在将来的某个版本中，[React 将可能确保所有的 `setState` 都是异步的](https://twitter.com/dan_abramov/status/959557687158689792)，这意味着即使我们把 `setState` 放到 `setTimeout` 里面，更新仍然将分批进行。
 
-So we're just going to wait? Of course not. There's another way to fix this now.
+所以我们仅仅是进行等待吗？当然不是。现在还有另一种解决方法。
 
-React, or more accurately, `react-dom`, has a hidden feature: `unstable_batchedUpdates`, which does exactly what we want to make sure that the updates are batched together. [The event handler in React is already using this API internally](https://react-redux.js.org/api/batch), that's why in event handler the `setState` will be asynchronous. **(As its name suggested, we shouldn't use it unless we fully understand it. We've been warned.**)
+React，或者更准确的说，`react-dom`，有一个隐藏特性：`unstable_batchedUpdates`，能够精确的实现我们想要确保的更新在一起批处理。[React 中事件处理程序已经在内部使用此 API](https://react-redux.js.org/api/batch)，这是为什么在事件处理中 `setState` 将是异步的。**(正如他的名字暗示的那样，我们应该完全理解后再使用它。我们已经被警告了。**)
 
-We simply wrap our `dispatch` method into the `unstable_batchedUpdates` callback.
+我们简单的在 `unstable_batchedUpdates` 回调中来包装我们的 `dispatch` 方法。
 
 ```diff
 +import { unstable_batchedUpdates } from 'react-dom';
@@ -306,7 +305,7 @@ const Todo = ({ id, content, dispatch }) => (
 );
 ```
 
-There's also another place we can add `unstable_batchedUpdates` to. Instead of wrapping every `dispatch` calls with `unstable_batchedUpdates`, we can simply wrap in our store dispatch method.
+还有另一个地方我们可以添加 `unstable_batchedUpdates`。我们也可以简单的包装我们 store 分发方法，来代替包装每个带有 `unstable_batchedUpdates` 的 `dispatch` 调用。
 
 ```diff
 dispatch(action) {
@@ -320,17 +319,17 @@ dispatch(action) {
 },
 ```
 
-It works. It is actually what `react-redux` v4 implementation is, without a bunch of other essential optimizations, like [memoizing the returned elements](https://github.com/reduxjs/react-redux/blob/v4.4.0/src/components/connect.js#L238-L270), or [bailing out updates early if the `mapStateToProps` function doesn't depend on `ownProps`](https://github.com/reduxjs/react-redux/pull/348). Even with these optimizations, we're still forcing the container components to re-render every time the state changed in the worst cases. For a tiny app, it should be just fine, but for a global state management library designed to be scalable, it soon becomes unacceptable.
+它工作良好。这实际上就是 `react-redux` v4 的实现，没有许多其他必要的优化，像[记住返回的元素](https://github.com/reduxjs/react-redux/blob/v4.4.0/src/components/connect.js#L238-L270)，或者[如果 `mapStateToProps` 函数不依赖于 `ownProps`，则尽早进行更新](https://github.com/reduxjs/react-redux/pull/348)。 即使进行了这些优化，在最坏的情况下，每次状态更改时，我们仍然会强制容器组件进行重渲染。对于一个很小的应用程序，它应该还不错，但是对于一个可扩展的全局状态管理库，它很快就变得无法接受。
 
-## Nested subscriptions model
+## 嵌套订阅模型
 
-We want to minimize the render calls in the container component, so we want to come up with a way to bail out updates early inside the listener callback before the `forceUpdate()` call. We also want to enforce the **top-down order** so that we don't re-introduce the stale props and zombie children problem.
+我们希望最小化容器组件中的渲染调用，因此我们想出一种方法来在 `forceUpdate()` 调用之前的监听器回调中尽早跳过更新。我们还想强制执行**自上而下的命令**，这样我们就不会再提出过时的 props 和僵尸子节点问题。
 
-Redux team came up with an interesting approach to address this in `react-redux` v5. By using the **nested subscriptions model**, we can bail out updates early and also avoid the stale props problem.
+Redux 团队提出了一种有趣的方法来解决 `react-redux` v5 中的问题。通过使用**嵌套订阅模型**，我们可以尽早跳过更新，还可以避免过时的 props 问题。
 
-**The basic idea is that instead of batching the updates to make it top-down, we delay the firing of the listener callbacks until the parents have fully re-rendered.** This way, we can be sure the updates are always top-down, the children won't get **stale props** in the listener callback because the props are already the latest when we trigger the callbacks.
+**基本思想是，我们延迟监听器回调的触发，直到父级完全重渲染为止，用来代替分批地进行更新以使其自上而下**。这样，我们可以确保更新始终是自上而下的，孩子不会在监听器回调中获得**过时的 props**，因为当我们触发回调时，props 已经是最新的了。
 
-A code snippet is worth a thousand words.
+一个代码片段价值一千句话。
 
 ```js
 const createSubscription = () => {
@@ -355,9 +354,9 @@ const createSubscription = () => {
 };
 ```
 
-We create a `createSubscription` function, which is much like `createStore`, it also has the listeners and `subscribe` function. The differences are that it doesn't keep any states, and also have a `notifyUpdates()` method. The `notifyUpdates()` method is used to notify all of the children below to trigger their listener callbacks, we'll discuss more on that later.
+我们创建一个 `createSubscription`，它和 `createStore` 函数非常像，它也有监听器，和 `subscribe` 函数。不同之处是它不保存任何的状态，也有一个 `notifyUpdates()` 方法。这个 `notifyUpdates()` 方法用来通知它的所有的孩子节点，来触发它们的监听器回调，我们将在之后进行更多的讨论。
 
-You might notice that this is simply just a function to create an **event emitter**, which is exactly right and it's just as simple as that. The next step is to write our new `connect` HOC and put our `mapStateToProps` inside the listener callbacks to bail out updates early.
+你可能会注意到，这只是创建事件触发器的函数，这是非常正确的，并且它就这么的简单。下一步是编写新的 `connect` 高阶组件，并将其 `mapStateToProps` 放入监听器回调中，以尽早跳过更新。
 
 ```jsx
 const connect = mapStateToProps => WrappedComponent => props => {
@@ -413,37 +412,37 @@ const connect = mapStateToProps => WrappedComponent => props => {
 };
 ```
 
-There're a lot of things going around here, let's break them down one by one. The basic implementation is somewhat similar to our first approach. We create a new `subStore` by creating a `subscription` we just implemented and merge it with our original `store`. As a result, the `subscribe` method will override the original `subscribe` method in `store`, and also add a new method called `notifyUpdates`.
+这里有很多事情，让我们一一分解。基本实现有点类似于我们的第一种方法。我们通过创建一个我们刚刚实现的 `subscription` 来创建一个新的 `subStore`，并将其与原始的 `store` 合并。结果，该 `subscribe` 方法将覆盖 `store` 中原始的 `subscribe` 方法，并添加一个名为的 `notifyUpdates` 的新方法。
 
-There are 2 places where we run our `mapStateToProps` selector. We run our `mapStateToProps` in the render phase so that they will always get the latest props after we call `forceUpdate()` in the callback. In our listener callback, we can see that we're also using `mapStateToProps` directly inside it and doing a shallow comparing to determine if we can bail out updates if the mapped state does not change.
+我们在 2 个地方运行 `mapStateToProps` 选择器。我们在渲染阶段运行我们的 `mapStateToProps`，以便在回调中调用 `forceUpdate()` 之后总是获得最新的 props。在我们的监听器回调中，我们可以看到我们也直接在它内部使用 `mapStateToProps`，并且进行了一个浅对比，以确定如果映射状态不变，是否可以跳过更新。
 
-In the return statement, we wrap our component again with the `<Provider>` component, and explicitly overriding the store context with our newly created `subStore`. So that every component below the tree will get our `subStore` rather than the top-most `store`.
+在 return 语句中，我们再次用该 `<Provider>` 组件包装我们的组件，并用新创建的 `subStore` 来显式覆盖 store 上下文。这样组件树下的每个组件都将获得 `subStore` 而不是最顶层的 `store`。
 
-Lastly, we create another effect to call `subStore.notifyUpdates()` to all the children below the tree **after every render**. **The children's callbacks won't get called until the latest props have already passed down to them in the next render**, thus eliminating the **stale props** problem.
+最后，我们创建另一个叫做 `subStore.notifyUpdates()` 的副作用，以便**在每次渲染之后**调用组件树下的所有子级。**直到下一个渲染中最新的 props 已经传递给子节点时，才会调用子节点的回调**，从而消除了**过时的 props** 问题。
 
-Click the item again, the item will now successfully be deleted without throwing any errors. To make the process clearer, we can go through each step again to see that it works as we expected.
+再次单击该项，该项现在将成功删除而不会引发任何错误。为了使流程更清晰，我们可以再次执行每个步骤，以确保其按预期工作。
 
-1. After the first render, `<Todo>` subscribes to the `subStore` that `<TodoList>` created and passed down via `Provider` in `useEffect`.
-2. Then `<TodoList>` subscribes to the global `store` created by `createStore` in it's `useEffect`.
-3. The user clicks `<Todo>`, dispatches a `DELETE` action to store, expects the item to be deleted.
-4. The store receives the action, run it through the **reducer**, and change the `todos` state to an empty array `{ todos: [] }`.
-5. The `store` then calls subscribed listeners. Since there's only one listener subscribed to `store`, only `<TodoList>`'s listener will be called, `<Todo>` won't.
-6. `<TodoList>` calls the listener callback, calls `mapStateToProps` with the latest state (`store.getState()`) and the latest props (`propsRef.current`).
-7. The mapped state is not shallowly equal, so we schedule an update with `forceUpdate()`. `<TodoList>` then calls `mapStateToProps` again in the render phase and return an empty `<ul>` since there're no items in the list anymore.
-8. `<Todo>` will unmount, so it calls the unsubscribe function in the effect, remove its listener callback from the `listeners` array in the `subStore`.
-9. `<TodoList>` calls the effect and run `subStore.notifyUpdates()` after the render, since we don't have any listeners in `subStore` left to call, the whole process completed successfully.
+1. 在第一次渲染后，`<Todo>` 订阅 `<TodoList>` 创建的 `subStore` 然后通过 `useEffect` 中的 `Provider` 向下传递。
+2. 然后 `<TodoList>` 订阅在它的 `useEffect` 中通过 `createStore` 创建的全局的 `store`。
+3. 用户点击 `<Todo>`，向 store 分发一个 `DELETE` 动作，期望该项被删除。
+4. store 收到这个动作，通过 **reducer** 运行它。并将 `todos` 状态更改为一个空数组 `{ todos: [] }`。
+5. `store` 然后调用订阅监听器。因为仅有一个监听器订阅了 `store`，仅仅 `<TodoList>` 的监听器将调用，`<Todo>` 的则不会。
+6. `<TodoList>` 调用监听器回调，调用带有最新状态（`store.getState()`）和最新 props （`propsRef.current`）的 `mapStateToProps`。
+7. 映射状态并不完全相等，因此我们计划使用 `forceUpdate()` 进行更新。`<TodoList>` 然后在渲染阶段再次调用 `mapStateToProps` 并返回一个空的 `<ul>` 因为列表中不再有任何项。
+8. `<Todo>` 将会卸载，因此它将调用副作用中的 `unsubscribe` 函数，从 `subStore` 中的 `listeners` 数组中移除它的监听器回调。
+9. `<TodoList>` 调用副作用并在渲染后运行 `subStore.notifyUpdates()`，因为我们没有在 `subStore` 中留下任何要调用的侦听器，因此整个过程成功完成。
 
-For cases where there are still some children left, each child will then call their listener callbacks. Because they will be called after the render, they will have the latest props passed from their parents available.
+对于仍然剩下一些子节点的情况，每个子节点将随后调用它们的监听器回调。因为它们将在渲染后被调用，所以它们将从父组件那里获得最新的 props。
 
-Interesting that we are running `mapStateToProps` potentially 2 times in the children component, one is inside the listener callback and the other is triggered by parent's re-rendering. The latter should happen before the former, but both the state and the props should be up-to-date and the same between each run. For further optimizing performance, we can memoize the `mapStateToProps` function so that it won't have to call itself twice in such cases.
+有趣的是，我们在子组件中运行了两次 `mapStateToProps`，一次是在监听器回调内，而另一次是由父组件的重渲染触发的。后者应该在前者之前发生，但是状态和 props 都应该是最新的，并且在每次运行中都应该相同。为了进一步优化性能，我们可以记住这个 `mapStateToProps` 函数，以便在这种情况下不必调用两次。
 
-Note that we don't even have to use `unstable_batchedUpdates` in the `notifyUpdates` function. The updates in the same hierarchy call are **split** into different `subStore`, the children component will only call the listener callback when the parent has finished re-rendered, so there's no need to batch them together.
+注意，我们甚至不必在 `notifyUpdates` 函数中使用 `unstable_batchedUpdates`。同一层次结构调用中的更新被**划分**到不同的 `subStore`，子组件仅在父组件完成重渲染后才调用监听器回调，因此无需将它们一起批处理。
 
-This is the basic idea of how the nested subscriptions model is implemented both in `react-redux` v5 and v7 (of course lack of tons of optimizations). [The result is gaining significant performance boost when we can bail out updates early and don't have to invoke React whenever possible](https://github.com/reduxjs/react-redux/pull/416). Also, we can get rid of `unstable_batchedUpdates`, which is tricky to be included in `react-redux` (it's from `react-dom` but `react-redux` can be used in other renderers as well). It's a huge win!
+这是 `react-redux` 在 v5 和 v7 中实现嵌套订阅模型的基本思想（当然，缺少大量的优化）。[当我们可以提早批准更新并且不必尽可能调用 React 的时候，结果将大大提高性能](https://github.com/reduxjs/react-redux/pull/416)。另外，我们可以摆脱 `unstable_batchedUpdates`，这是很难包含在 `react-redux`中的（它来自 `react-dom` 但 `react-redux` 也可以在其他渲染器中使用）。这是一个巨大的胜利！
 
-## React Context
+## React 上下文
 
-There is a more straightforward way to fix this, by using **React context**. We're already using it to pass down our `store` instance, why not make it react to state changes as well? `react-context` v6 takes this approach when the stable version of React context first came up. The approach seems much easier and since the state rendering propagation is handled by React, we get the top-down updates for free. No more `unstable_batchedUpdates`, no more nested subscriptions model. The event listeners count also decrease down to only a single one, we don't have to subscribe in each `connect` HOC anymore.
+有一个更简单的方法可以通过使用 React 上下文来解决。我们已经在使用它来传递 `store` 实例，为什么不让它也对状态更改做出反应？当 React 上下文的稳定版本首次出现时，`react-context` v6 采用这种方法。该方法似乎容易得多，并且由于状态渲染传播是由 React 处理的，因此我们轻松获得了自上而下的更新。没有更多的 `unstable_batchedUpdates`，没有更多的嵌套订阅模型。事件监听器的数量也减少到了一个，我们不再需要订阅每个 connect 高阶组件。
 
 ```jsx
 // Again, there're lack of many optimizations and error handlings
@@ -489,15 +488,15 @@ const connect = mapStateToProps => WrappedComponent => props => {
 };
 ```
 
-It all seems so perfect, the implementation looks straightforward, we can still do the same optimizations as in our first approach (`react-redux` v4), we don't have to deal with stale props and zombie children problem anymore. This is essentially how we normally do in userland and how some popular libraries like [`unstated-next`](https://github.com/jamiebuilds/unstated-next) do it for us. Still, it might be a perfect solution for multiple smaller stores, `Redux` has only one global store. The cost of performance is significant enough to force us to iterate from it again.
+一切看起来都如此完美，实现看起来很简单，我们仍然可以像第一种方法（`react-redux` v4）一样进行优化，我们不再需要处理过时的 props 和僵尸子节点问题。从本质上讲，这就是我们通常在用户区域中所做的事情，以及一些受欢迎的库，像 [`unstated-next`](https://github.com/jamiebuilds/unstated-next) 为我们所做的事情。不过，对于只有一个全局 store 的 `Redux` 来说，拥有多个更小的 store 可能是一个完美的解决方案。性能成本非常高，足以迫使我们再次对其进行迭代。
 
-Remember why we iterate from the first approach to the nested subscriptions model? It's so that we can bail out updates early even before we call `setState` and re-render the component. In this approach, since we can only get the whole state in render phase, **it means that we have to always call `setState` first and re-render the component to get the latest state later**. Only until then we can call `mapStateToProps` to get our mapped state the component cares about. In fact, there are several [performance regression incidents](https://github.com/reduxjs/react-redux/issues/1164) when `react-redux` v6 first released. Additionally, [the React team even mentioned that they don't recommend to use React context for flux-like state propagation at the time](https://github.com/facebook/react/issues/14110#issuecomment-448074060).
+还记得为什么我们要从第一种方法迭代到嵌套订阅模型吗？这样一来，我们甚至可以在调用 `setState` 和重渲染组件之前就尽早跳过更新。在这种方法中，由于我们只能在渲染阶段获得整个状态，**因此这意味着我们必须始终先调用 `setState` 然后重渲染组件才能在之后获得最新状态**。只有到那时，我们才能调用 `mapStateToProps` 来获得组件关心的映射状态。实际上，在 `react-redux` v6 首次发布时，有一些[性能下降事件](https://github.com/reduxjs/react-redux/issues/1164)。此外，[React 团队甚至提到他们不建议当时使用 React 上下文进行类似 flux 的状态传播](https://github.com/facebook/react/issues/14110#issuecomment-448074060)。
 
-## Hooks
+## 钩子
 
-React context isn't the newest member in the React family, we have hooks! `react-redux` v7 introduces the new hooks-based APIs which makes the code much simpler and easier to understand. The most important hook might be the `useSelector` hook.
+React 上下文不是 React 家族中的最新成员，我们还有 hook（钩子）！`react-redux` v7 引入了新的基于钩子的 API，这些 API 使代码更加简单易懂。最重要的钩子可能是 `useSelector` 钩子。
 
-But first, we're going to rewrite our Todo app to use the hooks. More specifically, the `<Todo>` and `<TodoList>` component.
+但是首先，我们将重写我们的 Todo 应用程序以使用钩子。更具体地说，`<Todo>` 和 `<TodoList>` 组件。
 
 ```jsx
 const Todo = ({ id }) => {
@@ -531,16 +530,16 @@ const TodoList = () => {
 };
 ```
 
-We don't need those HOC containers anymore, with hooks, we can just call `useSelector` and `useDispatch` to get the selected state and the dispatch method. Note a slight difference between the plain old `mapStateToProps` and `useSelector` is that we're no longer getting **an object** of states and spread them to props, but just get the state itself. So instead of getting `{ content }`, we're just getting `content`. This changes the equality check in our `setState` a little bit.
+我们不再需要那些带有钩子的高阶函数容器，我们可以调用 `useSelector` 和 `useDispatch` 来获取选定的状态和分发方法。请注意一个微小的差别在普通的旧的 `mapStateToProps` 和 `useSelector` 之间的是我们不再获取状态（state）的**对象**，并将其传播到 props，而是仅仅得到状态本身。因此代替获得 `{ content }`，我们只需要得到 `content`。在我们的 `setState` 中会稍微改变我们的相等性检查。
 
-The `useDispatch` hook implementation is also pretty straightforward.
+`useDispatch` 钩子实现也很简单。
 
 ```js
 const useDispatch = () =>
   React.useContext(Content).dispatch;
 ```
 
-We can create our `useSelector` hook pretty easily too.
+我们也可以轻松创建我们的 `useSelector` 钩子。
 
 ```js
 const useSelector = selector => {
@@ -558,7 +557,7 @@ const useSelector = selector => {
 };
 ```
 
-However, it's not even close to being ready to use. Every time the state updated, we'll be re-rendering all of our **connected** components. It's even worse with hooks API because we don't have an intermediate container component that's usually cheaper to render to potentially bail out updates of the usually more expensive wrapped component. Different from the previous trade-offs, we kind of **have to** put `selector` in the listener callback to bail out updates early.
+但是，它甚至还不能立即使用。每次状态更新时，我们都会重渲染所有的 **connected** 组件。使用钩子 API 会更加糟糕，因为我们没有一个中间容器组件，该组件通常能进行廉价的渲染，可以挽救通常更昂贵的包装组件的更新。与以前的权衡取舍不同，我们有点必须把 `selector` 放入监听器回调中以尽早跳过更新。
 
 ```js
 const useSelector = selector => {
@@ -577,30 +576,30 @@ const useSelector = selector => {
 };
 ```
 
-This version simply just break. We suffer from the **stale props and zombie children** problem again we mentioned throughout the whole post. As always, we'll go through each step to see where and why it went wrong.
+这个版本只是简单的打破。我们在整个文章中再次提到**过时的 props 和僵尸子节点**问题。与往常一样，我们将遍历每个步骤，以查看错误的出处和原因。
 
-1. After the first render, Both `<TodoList>` and `<Todo>` subscribe to the store in `useEffect`. Since `useEffect` fires from bottom to top, `<Todo>` subscribes first, then `<TodoList>`.
-2. The user clicks `<Todo>`, dispatches a `DELETE` action to store, expects the item to be deleted.
-3. The store receives the action, run it through the **reducer**, and change the `todos` state to an empty array `{ todos: [] }`.
-4. The store then calls the subscribed listeners. Since `<Todo>` subscribes first, it will also call the listener first.
-5. **Since we are passing `props` to `listener` in render phase, it forms a closure with the `props` at that time. They're the **stale props**.** Accessing `state.todos[ownProps.id]` will results in `undefined` and calling `(undefined).content` will results in an error 💥.
+1. 在第一次渲染后，`<TodoList>` 和 `<Todo>` 组件在  `useEffect` 中订阅 store。因为 `useEffect` 自上而下触发，`<Todo>` 首先订阅，然后是 `<TodoList>`。
+2. 用户点击 `<Todo>`，向 store 分发一个 `DELETE` 动作，期待该项被删除。
+3. store 收到这个动作,通过 **reducer** 运行它，然后将 `todos` 状态更改为空数组 `{ todos: [] }`。
+4. 然后，store 调用已订阅的监听器。由于 `<Todo>` 先订阅，因此也会先调用它的监听器。
+5. **由于我们在渲染阶段传递 `props` 给 `listener`，在那时其形成了封闭的 `props`。它们是过时的 props**。访问 `state.todos[ownProps.id]` 将导致 `undefined`，然后调用 `(undefined).content` 将导致一个错误💥。
 
-Recall what we know about the stale props problem so far. **Stale props will happen in a synchronous subscription model when children are using props derived from the store.** There are 2 solutions so far.
+回想一下到目前为止我们对过时的 props 问题的了解。**当子节点们使用从 store 派生的 props 时，过时的 props 将在同步订阅模型中发生**。到目前为止，有2个解决方案。
 
-1. Move `selector` to the render phase and use `unstable_batchedUpdates`
-2. Use the nested subscriptions model
+1. 移动 `selector` 到渲染阶段和使用 `unstable_batchedUpdates`
+2. 使用嵌套订阅模型
 
-Hooks cannot change the render tree, so we cannot add a new `<Provider>` for every component to make them propagate to the nearest parent's sub-store. We can quickly cross out the second solution.
+钩子无法更改渲染树，因此我们无法为每个组件添加一个新的 `<Provider>`，以使其传播到最近的父级 subStore。我们可以快速排除第二种解决方案。
 
-For the first solution, due to its bad performance when we only use `selector` in the render phase causing re-render for every change, we have to bail out updates early in the listener callback. Then again, stale props would potentially cause the `selector` to throw errors if we call it in the listener callback.
+对于第一个解决方案，当我们仅在渲染阶段使用 `selector`，它的性能不佳，会导致每次更改都需要重渲染，因此我们必须在监听器回调中尽早跳过更新。再者，如果我们在监听器回调中调用过时的 props 则可能会导致 `selector` 抛出错误。
 
-Our hands are tied, there's no solution yet to be known, we have to make some compromises.
+我们的双手被束缚，尚无解决方案，我们必须做出一些妥协。
 
-What if we ignore the error? We first have to ask ourselves the question: when will the error occur? There are roughly 2 cases. Either the error occurs as expected as a bug in the selector itself, or it's because of the zombie children problem causing an unexpected error. Either way, we want to safely handle them by re-rendering the component and apply `selector(store.getState())` in the render phase to get the latest state. The former case will then **re-throw** the error in the render phase, and the latter will not produce any errors.
+如果我们忽略该错误会发生什么？我们首先要问自己一个问题：何时会发生错误？大约有 2 种情况。错误可能是由于选择器本身的错误而引起的，或者因为僵尸子节点问题导致了意外错误。无论哪种方式，我们都希望通过重新渲染组件并在渲染阶段应用 `selector(store.getState())` 以获取最新状态来安全地处理它们。前一种情况将在渲染阶段**重新引发**错误，而后者将不会产生任何错误。
 
-What about the kind of stale props problem which doesn't throw errors? The cases which we could still get the inconsistent state but there are no errors. In such cases, the component will still get re-rendered afterward anyway, since we will still be getting `selector(store.getState())` in the render phase, the issue will go away because of the first solution we mentioned above.
+那种不会抛出过时的 props 问题呢？我们仍然可以得到不一致状态但没有错误的情况。在这种情况下，无论如何组件仍然会在以后重新渲染，因为我们仍将处于 `selector(store.getState())` 渲染阶段，因此由于我们上面提到的第一个解决方案，问题将消失。
 
-Looks like we can safely ignore the error in the 5th step, and re-try it in the render phase instead.
+看起来我们可以在第 5 步中安全地忽略该错误，而在渲染阶段重试该错误。
 
 ```js
 const useSelector = selector => {
@@ -632,34 +631,34 @@ const useSelector = selector => {
 };
 ```
 
-Together with the `unstable_batchedUpdates` trick, we can then both bail out updates early if the selected state doesn't change and also prevent stale props and zombie children problem safely. We run the code again and check that everything operates normally in order. The first 4 steps are the same, so we begin with the 5th.
+结合 `unstable_batchedUpdates` 的技巧，我们可以在选定状态不变的情况下尽早跳过更新，并安全地防止过时的 props 和僵尸子节点问题。我们再次运行代码，并检查一切是否正常运行。前 4 个步骤相同，因此我们从第 5 步开始。
 
-5. Since we are passing `props` to `listener` in render phase, it forms a closure with the `props` at that time, in other words, it's the **stale props**. Accessing `state.todos[ownProps.id]` will results in `undefined` and calling `(undefined).content` will results in an error. **We catch and swallow the error intentionally, this is when we know that we want to select the state in the render phase instead, thus triggering a re-render.**
-6. Since we're using `unstable_batchedUpdates`, the render is batched. `<TodoList>` fires its listener callback, `selector(store.getState())` results in `[]`, also schedule a re-render.
-7. The render operates from top-down, `<TodoList>` renders first, calls `selector(store.getState())` again, and returns an empty `<ul>`, done rendering.
+5. 由于我们在渲染阶段传递 `props` 给 `listener`，在那时，其形成了封闭的 `props`，换句话说，它是**过时的 props**。访问 `state.todos[ownProps.id]` 将导致 `undefined`，然后调用 `(undefined).content` 将导致错误。**我们故意捕获并隐藏错误，这是当我们知道要在渲染阶段选择状态，从而触发重渲染时**。
+6. 由于我们正在使用 `unstable_batchedUpdates`，渲染已被批处理。`<TodoList>` 触发其监听器回调，`selector(store.getState())` 的结果为 `[]`，也计划重渲染。
+7. 渲染从上向下进行操作，`<TodoList>` 先渲染，然后再次调用 `selector(store.getState())`，返回一个空的 `<ul>`，完成渲染。
 
-In this approach, we assume that the `selector` function provided by the user has to follow 2 rules.
+在这种方法中，我们假设用户提供的 `selector` 函数必须遵循 2 条规则。
 
-1. The `selector` has no side-effects.
-2. The code doesn't rely on or expect `selector` throwing errors.
+1. `selector` 没有任何副作用。
+2. 代码不依赖也不期望 `selector` 抛出错误。
 
-In short, the `selector` must be a **pure function**. We could potentially be running the `selector` multiple times during updates. As long as the `selector` is pure, then running them multiple times shouldn't be an issue. Furthermore, `React.StrictMode` has kind of already enforced the rules for rendering for quite some time, it should be a better practice to do so in `selector` too.
+简而言之，`selector` 必须是一个**纯函数**。在更新过程中，我们可能会运行 `selector` 多次。只要 `selector` 是纯的，那么多次运行它们就不成问题。而且，`React.StrictMode` 已经执行了一段时间的渲染规则，在 `selector` 中，这样做也是一种更好的做法。
 
-We can also decide to deal with the problem ourselves as the users. Carefully guard the `selector` function and gracefully handle the errors is a bit much, but is still a good solution.
+我们也可以决定以用户身份自行处理问题。谨慎地保护 `selecto` 函数并适当地处理错误，虽然有点多，但是仍然是一个很好的解决方案。
 
-We can do many more optimizations to enhance the performance, like only forcing it to call the `selector` in render phase when it needs to (when it has stale props or the selector has changed). However, it's the basic idea of how `useSelector` work under the hood and why we have to keep our selectors **pure**.
+我们可以做更多的优化来增强性能，例如仅在需要时（当它有过时的 props 或选择器发生更改时）在渲染阶段才强制其调用 `selector`。但是，这是 `useSelector` 在后台如何工作以及为什么我们必须保持选择器为**纯的**基本思想。
 
-## Takeaways
+## 收获
 
-Phew! It's a long journey. Give yourself a round of applause for making to the end. It's not easy to follow along!
+Phew！这是一段漫长的旅程。给自己一个走到最后的掌声。跟着走并不容易！
 
-As simple as it seems to re-create Redux, there are many gotchas have to be handled carefully. We didn't even bring up the numerous optimizations and error handlings in this post.
+重新创建 `Redux` 看起来很简单，但要小心处理许多陷阱。在这篇文章中，我们甚至没有提到大量的优化和错误处理。
 
-I hope you find this post helpful to better understand how Redux and `react-redux` work behind the scenes. Also kudos to all the maintainers and contributors for creating such a wonderful library and consistently working on improving it. Even though I agree you probably don't need Redux, it still provides a useful pattern for a medium-to-big team to collaborate smoothly together.
+希望这篇文章对你更好地了解 `Redux` 和 `react-redux` 的背后的工作原理很有帮助。也赞扬所有维护者和贡献者创建了如此出色的库并不断地对其进行改进。即使我同意你可能不需要 `Redux`，它仍然为中型乃至大型团队提供了一种有用的模式，使他们可以顺利地进行协作。
 
-Next time, when you find someone is taking Redux for granted, just ask her/him how to solve the **stale props and zombie children** problem and show her/him this post 😉.
+下次，当你发现其它人将 `Redux` 视为理所当然时，请问他/他如何解决**过时的 props 和僵尸子节点**问题，并向她/他展示此帖子😉。
 
-## References
+## 参考文章
 
 * [Idiomatic Redux: The History and Implementation of React-Redux](https://blog.isquaredsoftware.com/2018/11/react-redux-history-implementation/)
 * [reduxjs/react-redux#99 (Fix issues with stale props #99) Where the stale props first fixed back in v4](https://github.com/reduxjs/react-redux/pull/99)
