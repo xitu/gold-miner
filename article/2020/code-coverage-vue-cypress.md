@@ -7,6 +7,8 @@
 
 # Code Coverage for Vue Applications
 
+![](https://vuejsdevelopers.com/images/posts/versions/code_coverage_1200.webp)
+
 Let's take a Vue application scaffolded with [Vue CLI](https://cli.vuejs.org/) like this [bahmutov/vue-calculator](https://github.com/bahmutov/vue-calculator) app. In this blog post, I will show how to instrument the application's source code to collect the code coverage information. We then will use the code coverage reports to guide the end-to-end test writing.
 
 ## The application
@@ -34,7 +36,7 @@ When we start the application with `npm run serve`, we execute the NPM script
 
 The application runs at port 8080 by default.
 
-![Vue calculator application](/images/posts/code_coverage/calculator.png)
+![Vue calculator application](https://vuejsdevelopers.com/images/posts/code_coverage/calculator.png)
 
 Tada! You can calculate anything you want.
 
@@ -56,7 +58,7 @@ module.exports = {
 
 The application runs, and now we should find the `window.__coverage__` object with counters for every statement, every function, and every branch of every file.
 
-![Application coverage object](/images/posts/code_coverage/coverage.png)
+![Application coverage object](https://vuejsdevelopers.com/images/posts/code_coverage/coverage.png)
 
 Except the coverage object as shown above, includes only a single entry `src/main.js`, and the coverage object is missing both `src/App.vue` and `src/components/Calculator.vue` files.
 
@@ -80,13 +82,13 @@ module.exports = {
 
 When we restart the application, we get a new `window.__coverage__` object with entries for `.js` and for `.vue` files.
 
-![Instrumented JS and Vue files](/images/posts/code_coverage/vue-covered.png)
+![Instrumented JS and Vue files](https://vuejsdevelopers.com/images/posts/code_coverage/vue-covered.png)
 
 ## Conditional instrumentation
 
 If you look at the application's bundle, you will see what the instrumentation does. It inserts counters around every statement, keeping track how many times a statement was executed. There are separate counters for every function and every branch path.
 
-![Instrumented source code](/images/posts/code_coverage/instrumented.png)
+![Instrumented source code](https://vuejsdevelopers.com/images/posts/code_coverage/instrumented.png)
 
 We do not want to instrument the production code. Let's only instrument the code when `NODE_ENV=test` since we will use the collected code coverage to help us write better tests.
 
@@ -182,7 +184,7 @@ describe('Calculator', () => {
 
 Locally, I will use `npm run test:e2e` command to start the application and open Cypress. The above test passes quickly. Our calculator seems to add and divide numbers just fine.
 
-![Calculator test](/images/posts/code_coverage/calculator.gif)
+![Calculator test](https://vuejsdevelopers.com/images/posts/code_coverage/calculator.gif)
 
 The code coverage plugin automatically generates code coverage reports at the end of the run, as you can see from the messages in the Command Log on the left of the Test Runner. The reports are stored in the folder `coverage`, and by default there are several output formats.
 
@@ -205,13 +207,13 @@ $ open coverage/lcov-report/index.html
 
 The `index.html` is a static page that shows a table for each source folder with coverage information.
 
-![Coverage report](/images/posts/code_coverage/coverage-report.png)
+![Coverage report](https://vuejsdevelopers.com/images/posts/code_coverage/coverage-report.png)
 
 **Tip:** store the entire `coverage/lcov-report` folder as a test artifact on your Continuous Integration (CI) server. Then browse or download the report to see the collected code coverage after the test run.
 
 End-to-end tests are **effective**. With a single test that loads and interacts with the entire application we have covered 60% of the source code. Even better, by drilling down to the individual files, we discover in `src/components/Calculator.vue` the features we have not tested yet.
 
-![Covered lines in Calculator.vue file](/images/posts/code_coverage/covered-lines.png)
+![Covered lines in Calculator.vue file](https://vuejsdevelopers.com/images/posts/code_coverage/covered-lines.png)
 
 The source lines highlighted in red are the lines missed by the test. We can see that we still need to write a test that clears the current number, changes the sign, sets the decimal point, multiplies, etc. But we did test entering and dividing numbers. The test writing thus becomes following the code coverage as a guide to writing end-to-end; add tests until you hit all lines marked in red!
 
@@ -225,7 +227,7 @@ The source lines highlighted in red are the lines missed by the test. We can see
 
 As we write more tests we quickly gain coverage and confidence in our application. In the last test we will cover the `decimal () { ... }` method that remained red so far.
 
-![Decimal method without any coverage](/images/posts/code_coverage/decimal.png)
+![Decimal method without any coverage](https://vuejsdevelopers.com/images/posts/code_coverage/decimal.png)
 
 The test below types a single digit number and clicks the "." button. The display should show "5.".
 
@@ -239,7 +241,7 @@ it('decimal', () => {
 
 Hmm, this is weird, the test fails.
 
-![Decimal test fails](/images/posts/code_coverage/decimal-fails.png)
+![Decimal test fails](https://vuejsdevelopers.com/images/posts/code_coverage/decimal-fails.png)
 
 A power of Cypress test is that it runs in the real browser. Let's debug the failing test. Put a breakpoint in the `src/components/Calculator.vue`
 
@@ -254,7 +256,7 @@ decimal() {
 
 Open the DevTools in the browser and run the test again. It will run until it hits the `debugger` keyword in the application code.
 
-![Debugging decimal method](/images/posts/code_coverage/debugger.png)
+![Debugging decimal method](https://vuejsdevelopers.com/images/posts/code_coverage/debugger.png)
 
 Ohh, the `this.display` is a Number, not a String. Thus `.indexOf()` does not exist and the expression `this.display.indexOf(".")` throws an error.
 
@@ -283,7 +285,7 @@ decimal() {
 
 The test passes. Now the code coverage report tells us that the "Else" path of the condition has not been taken yet.
 
-![Else path not taken](/images/posts/code_coverage/decimal-else.png)
+![Else path not taken](https://vuejsdevelopers.com/images/posts/code_coverage/decimal-else.png)
 
 Extend the test to click the "." operator twice during the test and it will cover all code paths and turn the entire method coverage green.
 
@@ -298,17 +300,17 @@ it('decimal', () => {
 })
 ```
 
-![Decimal test passes](/images/posts/code_coverage/decimal-test-passes.png)
+![Decimal test passes](https://vuejsdevelopers.com/images/posts/code_coverage/decimal-test-passes.png)
 
-![All code paths covered](/images/posts/code_coverage/decimal-covered.png)
+![All code paths covered](https://vuejsdevelopers.com/images/posts/code_coverage/decimal-covered.png)
 
 Now let's run all tests again. All tests pass in less than 3 seconds
 
-![All tests passing](/images/posts/code_coverage/all-tests.gif)
+![All tests passing](https://vuejsdevelopers.com/images/posts/code_coverage/all-tests.gif)
 
 And the tests together cover our entire code base.
 
-![Full code coverage](/images/posts/code_coverage/full-cover.png)
+![Full code coverage](https://vuejsdevelopers.com/images/posts/code_coverage/full-cover.png)
 
 ## Conclusions
 
