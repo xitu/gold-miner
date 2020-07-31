@@ -1,7 +1,7 @@
 > * 原文地址：[Build Yourself a Redux](https://zapier.com/engineering/how-to-build-redux/)
 > * 原文作者：[Justin Deal](https://github.com/jdeal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/.md](https://github.com/xitu/gold-miner/blob/master/article/2020/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-redux.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-redux.md)
 > * 译者：
 > * 校对者：
 
