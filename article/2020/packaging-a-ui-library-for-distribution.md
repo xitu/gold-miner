@@ -2,7 +2,7 @@
 > * 原文作者：[Tally Barak](https://medium.com/@tally_b)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/packaging-a-ui-library-for-distribution.md](https://github.com/xitu/gold-miner/blob/master/article/2020/packaging-a-ui-library-for-distribution.md)
-> * 译者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
 # Packaging a UI Library for Distribution - Guidelines you may want to follow if you are publishing a UI components library.
