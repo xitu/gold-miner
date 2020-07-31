@@ -19,7 +19,7 @@ Let's get started!
 
 Most useful apps will get their state from a server, but let's start by creating our state locally. Even if we are retrieving from the server, we have to seed the app with something anyway. Our app will be a simple note-taking app. This is mostly to avoid making yet another todo app, but it will also force us to make an interesting state decision later.
 
-```
+```js
 const initialState = {
   nextNoteId: 1,
   notes: {}
@@ -32,13 +32,13 @@ So first of all, notice our data is just a plain JS object. Redux helps **manage
 
 Before we dig any deeper, let's see what it's like to build our app without Redux. Let's just go ahead and attach our `initialState` object to `window` like this:
 
-```
+```js
 window.state = initialState;
 ```
 
 Boom, there's our store! We don't need no stinking Redux. Let's make a component that adds new notes.
 
-```
+```jsx
 const onAddNote = () => {
   const id = window.state.nextNoteId;
   window.state.notes[id] = {
@@ -83,7 +83,7 @@ Let's look down the road a little bit. We add a bunch of features, build a nice 
 
 It's difficult to see in this simple example, but on our road to success, our app may grow to include hundreds of components across hundreds of files. Our app will have asynchronous actions, so we'll have code like this:
 
-```
+```js
 const onAddNote = () => {
   window.state.onLoading = true;
   renderApp();
@@ -98,7 +98,7 @@ const onAddNote = () => {
 
 And we'll have bugs like this:
 
-```
+```js
 const ARCHIVE_TAG_ID = 0;
 
 const onAddTag = (noteId, tagId) => {
@@ -124,7 +124,7 @@ const onAddTag = (noteId, tagId) => {
 
 And some hacky ad-hoc state changes like this that nobody even knows what they do:
 
-```
+```js
 const SomeEvilComponent = () => {
   <button onClick={() => window.state.pureEvil = true}>Do Evil</button>
 };
@@ -143,7 +143,7 @@ That last point is by far the worst problem and the main reason to choose Redux.
 
 So how does Redux provide those constraints and help you manage state? Well, you start with a simple function that takes the current state and an action and returns the new state. So for our note-taking app, if we provide an action that adds a note, we should get a new state that has our note added to it.
 
-```
+```js
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
 
@@ -161,7 +161,7 @@ const reducer = (state = initialState, action) => {
 
 If `switch` statements make you nauseous, you don't have to write your reducer that way. I usually use an object and point a key for each type to its corresponding handler like this:
 
-```
+```js
 const handlers = {
   [CREATE_NOTE]: (state, action) => {
     return // some new state with new note
@@ -177,7 +177,6 @@ const reducer = (state = initialState, action) => {
   }
   return state;
 };
-
 ```
 
 That part isn't too important though. The reducer is your function, and you can implement it however you want. Redux really doesn't care.
@@ -186,7 +185,7 @@ That part isn't too important though. The reducer is your function, and you can 
 
 What Redux **does** care about is that your reducer is a **pure** function. Meaning, you should never, ever, ever in a million years implement your reducer like this:
 
-```
+```js
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_NOTE: {
@@ -207,7 +206,6 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
-
 ```
 
 As a practical matter, if you mutate state like that, Redux simply won't work. Because you're mutating state, the object references won't change, so the parts of your app simply won't update correctly. It'll also make it impossible to use some Redux developer tools, because those tools keep track of previous states. If you're constantly mutating state, there's no way to go back to those previous states.
@@ -216,7 +214,7 @@ As a matter of principal, mutating state makes it harder to build your reducer (
 
 This predictability comes at a cost though, especially since JavaScript doesn't natively support immutable objects. For our examples, we'll make do with vanilla JavaScript, which will add some verbosity. Here's how we really need to write that reducer:
 
-```
+```js
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_NOTE: {
@@ -252,12 +250,11 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
-
 ```
 
 I'm using [object spread properties](https://github.com/tc39/proposal-object-rest-spread?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) (`...`) here which aren't technically part of ECMAScript yet, but it's a pretty safe bet that they will be. `Object.assign` can be used if you want to avoid non-standard features. The concept is the same either way: Don't change the state. Instead, create shallow copies of the state and any nested objects/arrays. For any parts of an object that don't change, we just reference the existing parts. If we take a closer look at this code:
 
-```
+```js
 return {
   ...state,
   notes: {
@@ -265,12 +262,11 @@ return {
     [id]: editedNote
   }
 };
-
 ```
 
 We're only changing the `notes` property, so other properties of `state` will remain exactly the same. The `...state` just says to re-use those existing properties as-is. Similarly, within `notes`, we're only changing the one note we're editing. The other notes that are part of `...state.notes` will remain untouched. This way, we can leverage [`shouldComponentUpdate`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) or [`PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent). If a component has an unchanged note as a prop, it can avoid re-rendering. Keeping that in mind, we also have to avoid writing our reducer like this:
 
-```
+```js
 const reducer = (state = initialState, action) => {
   // Well, we avoid mutation, but still... DON'T DO THIS!
   state = _.cloneDeep(state)
@@ -285,7 +281,6 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
-
 ```
 
 That gives back your terse mutation code, and Redux will **technically** work if you do that, but you'll knee-cap all potential optimizations. Every single object and array will be brand-new for every state change, so any components depending on those objects and arrays will have to re-render, even if you didn't actually do any mutations.
@@ -296,16 +291,15 @@ Our immutable reducer definitely requires more typing and a little more cognitiv
 
 Let's plug an action into our reducer and get out a new state.
 
-```
+```js
 const state0 = reducer(undefined, {
   type: CREATE_NOTE
 });
-
 ```
 
 Now `state0` looks like this:
 
-```
+```json
 {
   nextNoteId: 2,
   notes: {
@@ -315,23 +309,21 @@ Now `state0` looks like this:
     }
   }
 }
-
 ```
 
 Notice we fed `undefined` in as the state in this case. Redux always passes in `undefined` as the initial state, and typically you use a default parameter like `state = initialState` to pick up your initial state object. The next time through, Redux will feed in the previous state.
 
-```
+```js
 const state1  = reducer(state0, {
   type: UPDATE_NOTE,
   id: 1,
   content: 'Hello, world!'
 });
-
 ```
 
 Now `state1` looks like this:
 
-```
+```json
 {
   nextNoteId: 2,
   notes: {
@@ -341,26 +333,24 @@ Now `state1` looks like this:
     }
   }
 }
-
 ```
 
 You can play with our reducer here. Follow the "Edit in JSFiddle" link to edit the code and try other actions. I'll wait here!
 
 Of course, Redux doesn't keep making more variables like this, but we'll get to a real implementation soon enough. The point is that the core of Redux is really just a piece of code that you write, a simple function that takes the previous state and an action and returns the next state. Why is that function called a reducer? Because it would plug right into a standard [`reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) function.
 
-```
+```js
 const actions = [
   {type: CREATE_NOTE},
   {type: UPDATE_NOTE, id: 1, content: 'Hello, world!'}
 ];
 
 const state = actions.reduce(reducer, undefined);
-
 ```
 
 After this, `state` would look identical to our previous `state1`:
 
-```
+```json
 {
   nextNoteId: 2,
   notes: {
@@ -370,7 +360,6 @@ After this, `state` would look identical to our previous `state1`:
     }
   }
 }
-
 ```
 
 Play around with adding actions to our `actions` array and feeding them into the reducer.
@@ -381,7 +370,7 @@ Now you can understand why Redux bills itself as "a predictable state container 
 
 Let's build a store now, which will hold onto our single state variable as well as some useful methods for setting and getting the state.
 
-```
+```js
 const validateAction = action => {
   if (!action || typeof action !== 'object' || Array.isArray(action)) {
     throw new Error('Action must be an object!');
@@ -401,14 +390,13 @@ const createStore = (reducer) => {
     getState: () => state
   };
 };
-
 ```
 
 Now you can see why we use constants instead of strings. Our action validation is a little looser than Redux's, but it's close enough to enforce that we don't misspell action types. If we pass along strings, then our action will just fall through to the default case of our reducer, and nothing much will happen, and the error may go unnoticed. But if we use constants, then typos will go through as `undefined`, which will throw an error. So we'll know right away and fix it.
 
 Let's create a store now and use it.
 
-```
+```js
 // Pass in the reducer we made earlier.
 const store = createStore(reducer);
 
@@ -426,12 +414,11 @@ store.getState();
 //     }
 //   }
 // }
-
 ```
 
 This is fairly functional at this point. We have a store that can use any reducer we provide to manage the state. But it's still missing an important bit: A way to subscribe to changes. Without that, it's going to require some awkward imperative code. And later when we introduce asynchronous actions, it's not going to work at all. So let's go ahead and implement subscriptions.
 
-```
+```js
 const createStore = reducer => {
   let state;
   const subscribers = [];
@@ -455,7 +442,6 @@ const createStore = reducer => {
   store.dispatch({type: '@@redux/INIT'});
   return store;
 };
-
 ```
 
 A little more code, but not **too** hard to follow. The `subscribe` function takes a `handler` function and adds that to the list of `subscribers`. It also returns a function to unsubscribe. Any time we call `dispatch`, we notify all those handlers. Now it's easy to re-render every time the state changes.
@@ -466,7 +452,7 @@ Play with the code and dispatch more actions. The rendered HTML will always refl
 
 How do you make components that work with Redux? Just make plain old React components that take props. You bring your own state, so make components that work with that state (or parts of it). There are some nuances that **might** affect your design later, particularly with respect to performance, but for the most part, boring components are a good place to start. So let's do that for our app now.
 
-```
+```jsx
 const NoteEditor = ({note, onChangeNote, onCloseNote}) => (
   <div>
     <div>
@@ -530,7 +516,6 @@ const NoteApp = ({
     }
   </div>
 );
-
 ```
 
 Not much to see there. We could feed props into these components and render them right now. But let's look at the `openNoteId` prop and those `onOpenNote` and `onCloseNote` callbacks. We'll need to decide where that state and those callbacks live. We could just use component state for that. And there's nothing wrong with that. Once you start using Redux, there's no rule that says **all** your state needs to go into the Redux store. If you want to know when you have to use store state, just ask yourself:
@@ -545,7 +530,7 @@ The other reason you might want transient state in the store is simply to have a
 
 So, let's tweak our reducer to handle this transient state.
 
-```
+```js
 const OPEN_NOTE = 'OPEN_NOTE';
 const CLOSE_NOTE = 'CLOSE_NOTE';
 
@@ -583,14 +568,13 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
-
 ```
 
 ## Wire Things up, the Manual Way
 
 Okay, now we can wire this thing up. We won't touch our existing components for this. Instead, we'll create a new container component that gets the state from the store and passes it along to our `NoteApp`.
 
-```
+```jsx
 class NoteAppContainer extends React.Component {
   constructor(props) {
     super();
@@ -648,7 +632,6 @@ ReactDOM.render(
   <NoteAppContainer store={store}/>,
   document.getElementById('root')
 );
-
 ```
 
 Yay, it's alive! Try it out!
@@ -665,7 +648,7 @@ Okay, so everything is working. But… there are some problems.
 
 This is why we need `Provider` and `connect` from React Redux. First, let's make a `Provider` component.
 
-```
+```js
 class Provider extends React.Component {
   getChildContext() {
     return {
@@ -680,7 +663,6 @@ class Provider extends React.Component {
 Provider.childContextTypes = {
   store: PropTypes.object
 };
-
 ```
 
 Pretty simple. The `Provider` component uses React's [context feature](https://facebook.github.io/react/docs/context.html) to convert a `store` prop into a context property. Context is a way to pass information from a top-level component down to descendant components without components in the middle having to explicitly pass props. In general, you should avoid context, because the [React documentation](https://facebook.github.io/react/docs/context.html#why-not-to-use-context) says so:
@@ -691,7 +673,7 @@ And that's why our implementation won't require anyone to use context directly. 
 
 So now we need a way to convert context back into props. That's where `connect` comes in.
 
-```
+```js
 const connect = (
   mapStateToProps = () => ({}),
   mapDispatchToProps = () => ({})
@@ -729,14 +711,13 @@ const connect = (
 
   return Connected;
 }
-
 ```
 
 That one is a little more complicated. And truth be told, we've cheated **a lot** compared to the actual implementation. (We'll discuss that a little [at the end](#performance).) But this is close enough to get the idea. `connect` is a [higher-order component](https://facebook.github.io/react/docs/higher-order-components.html). Well, actually, it's more of a higher order component factory. It takes two functions and returns a function that takes a component and returns a new component. That component subscribes to the store and updates your component's props when there are changes. Let's use it, and it will make more sense.
 
 ## Wire Things up the Automatic Way
 
-```
+```js
 const mapStateToProps = state => ({
   notes: state.notes,
   openNoteId: state.openNoteId
@@ -764,7 +745,6 @@ const NoteAppContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(NoteApp);
-
 ```
 
 Hey, that looks nicer!
@@ -773,7 +753,7 @@ The first function passed to `connect` (`mapStateToProps`) takes the current `st
 
 Now we just need to use our `Provider` component so `connect` can get the `store` off of the `context`.
 
-```
+```jsx
 ReactDOM.render(
   <Provider store={store}>
     <NoteAppContainer/>
@@ -798,7 +778,7 @@ Since Redux is synchronous, how is this going to work? By putting something in t
 
 We need a way to pass middleware into our store, so let's do that.
 
-```
+```js
 const createStore = (reducer, middleware) => {
   let state;
   const subscribers = [];
@@ -831,12 +811,11 @@ const createStore = (reducer, middleware) => {
   coreDispatch({type: '@@redux/INIT'});
   return store;
 }
-
 ```
 
 Things are a little more complicated now, but the important part is that last `if` statement:
 
-```
+```js
 if (middleware) {
   const dispatch = action => store.dispatch(action);
   store.dispatch = middleware({
@@ -844,46 +823,41 @@ if (middleware) {
     getState
   })(coreDispatch);
 }
-
 ```
 
 We make a function that will "re-dispatch".
 
-```
+```js
 const dispatch = action => store.dispatch(action);
-
 ```
 
 That's so if a middleware decides to dispatch a new action, that new action goes back through the middleware. We have to create this function because we're about to change the store's `dispatch` function. This is another place where mutation makes things easier. Redux can break the rules as long as it helps you enforce them. :-)
 
-```
+```js
 store.dispatch = middleware({
   dispatch,
   getState
 })(coreDispatch);
-
 ```
 
 That calls the middleware, passing it an object that has access to our re-dispatch function as well as our `getState` function. The middleware should return a new function that accepts the ability to call the next dispatch function, which in this case is just the original dispatch function. If your head is spinning a little, don't worry, creating and using middleware is actually pretty easy.
 
 Okay, let's create a piece of middleware that delays dispatch for a second. Pretty useless, but it will illustrate async.
 
-```
+```js
 const delayMiddleware = () => next => action => {
   setTimeout(() => {
     next(action);
   }, 1000);
 };
-
 ```
 
 That signature looks super goofy, but it fits into the puzzle we created before. It's a function that returns a function that takes the next dispatch function. That function takes the action. Okay, it may seem like Redux went arrow function crazy here, but there's a reason, which we'll point out soon.
 
 Now, let's use that middleware for our store.
 
-```
+```js
 const store = createStore(reducer, delayMiddleware);
-
 ```
 
 Yay, we made our app slower! Wait, no, boo! But we have async now. Yay! Experience this terrible app for yourself. Typing is particularly humorous.
@@ -894,7 +868,7 @@ Play with the `setTimeout` time to make it more or less terrible.
 
 Now let's make another (more useful) middleware for logging.
 
-```
+```js
 const loggingMiddleware = ({getState}) => next => action => {
   console.info('before', getState());
   console.info('action', action);
@@ -902,12 +876,11 @@ const loggingMiddleware = ({getState}) => next => action => {
   console.info('after', getState());
   return result;
 };
-
 ```
 
 Hey, that's useful. Let's add that to our store. Hmm, our store only takes one middleware function. No problem! We just need a way to compose our middleware together. So, let's make a way to turn lots of middleware functions into one middleware function. Let's build `applyMiddleware`!
 
-```
+```js
 const applyMiddleware = (...middlewares) => store => {
   if (middlewares.length === 0) {
     return dispatch => dispatch;
@@ -922,7 +895,6 @@ const applyMiddleware = (...middlewares) => store => {
     next => a(b(next));
   );
 };
-
 ```
 
 That's a funky function, but hopefully you can kind of follow along. First thing to notice is it takes a list of middlewares and returns a middleware function. (Not sure if middlewares is a word, but it comes in handy here.) That new middleware function has the same signature as our earlier middleware. It takes a store (really just our re-`dispatch` and `getState` methods, not really the whole store) and returns another function. For that function:
@@ -934,12 +906,11 @@ That's a funky function, but hopefully you can kind of follow along. First thing
 
 Phew! Okay, now we can use all the middleware we want.
 
-```
+```js
 const store = createStore(reducer, applyMiddleware(
   delayMiddleware,
   loggingMiddleware
 ));
-
 ```
 
 Yay! Now our Redux implementation can handle all the things!
@@ -950,29 +921,27 @@ Open the console in your browser to see the logging middleware at work.
 
 Let's really do some async now. To do that we'll introduce a "thunk" middleware:
 
-```
+```js
 const thunkMiddleware = ({dispatch, getState}) => next => action => {
   if (typeof action === 'function') {
     return action(dispatch, getState);
   }
   return next(action);
 };
-
 ```
 
 "Thunk" is really just another name for "function", but it typically means "a function that is wrapping some work to be done later". If we add in `thunkMiddleware`:
 
-```
+```js
 const store = createStore(reducer, applyMiddleware(
   thunkMiddleware,
   loggingMiddleware
 ));
-
 ```
 
 Now we can do something like this:
 
-```
+```js
 store.dispatch(({getState, dispatch}) => {
   // Grab something from the state
   const someId = getState().someId;
@@ -986,14 +955,13 @@ store.dispatch(({getState, dispatch}) => {
       });
     });
 });
-
 ```
 
 The thunk middleware is a big hammer. We can pull anything we want out of state, and we can dispatch any action we want at any time. This is really flexible, but as your app grows, it **may** become a little dangerous. It's a good place to start though. Let's use it to do some async work.
 
 First, let's create a fake API.
 
-```
+```js
 const createFakeApi = () => {
   let _id = 0;
   const createNote = () => new Promise(resolve => setTimeout(() => {
@@ -1008,12 +976,11 @@ const createFakeApi = () => {
 };
 
 const api = createFakeApi()
-
 ```
 
 This API only supports one method to create a note and returns the new id for that note. Since we're now getting the id from the server, we'll want to tweak our reducer again.
 
-```
+```js
 const initialState = {
   notes: {},
   openNoteId: null,
@@ -1052,7 +1019,7 @@ Here, we're using the `CREATE_NOTE` action to set the loading state and for actu
 
 Now let's tweak our `mapDispatchToProps` to dispatch a thunk.
 
-```
+```js
 const mapDispatchToProps = dispatch => ({
   onAddNote: () => dispatch(
     (dispatch) => {
@@ -1080,7 +1047,7 @@ But wait… besides that being some ugly code we dumped in our component, we inv
 
 Instead of dispatching the thunk from our component, let's abstract it away by putting it inside a function.
 
-```
+```js
 const createNote = () => {
   return (dispatch) => {
     dispatch({
@@ -1107,7 +1074,7 @@ We could have introduced action creators earlier, but there really was no reason
 
 Let's tweak our `mapDispatchToProps` again to use our action creator.
 
-```
+```js
 const mapDispatchToProps = dispatch => ({
   onAddNote: () => dispatch(createNote()),
   // ...
@@ -1136,7 +1103,7 @@ Beyond that, for larger apps, we have to start thinking about performance of any
 
 If you use plain JS data (and not something like Immutable.js), then one important detail I left out is freezing the reducer state in development. Because this is JavaScript, nothing is stopping you from mutating the state once you get it from the store. You could mutate it in a `render` method or wherever. This leads to very bad things and ruins some of the predictability you're trying to add with Redux. At Zapier, we do something like this:
 
-```
+```js
 import deepFreeze from 'deep-freeze';
 import reducer from 'your-reducer';
 
@@ -1170,7 +1137,7 @@ We stored our notes in an object that just so happens to have numeric keys. That
 
 At some point, you may be tempted to create some middleware that works with promises like this:
 
-```
+```js
 store.dispatch(fetch('/something'));
 ```
 
