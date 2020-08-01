@@ -5,134 +5,133 @@
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
-# Packaging a UI Library for Distribution - Guidelines you may want to follow if you are publishing a UI components library.
+# 打包用于分发的 UI 库 —— 当你要发布一个 UI 组件库时，你可能需要遵守的指南
 
 ![Image by [Arek Socha](https://pixabay.com/users/qimono-1962238/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1893642) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1893642)](https://cdn-images-1.medium.com/max/2560/1*EXcun_D11oz0ceMYlJ0yQA.jpeg)
 
-## The problem
+## 问题的由来
 
-The JavaScript world has a unique feature: it has multiple runtime environments all running the same code. On one side we have the browsers, provided by different manufacturers and in different versions. On the other side, we have Nodejs running on the server, also in different versions. (Side note: you probably want to watch out Deno, an interesting server runtime).
+JavaScript 有个特性：对于相同的代码，可以运行在多个运行时（runtime）环境。其中一个环境，是由众多厂商生产提供的不同版本的浏览器。而另一个，则是运行在服务器端的不同版本的 Nodejs。（附注：你可能需要注意一下 Deno，一个有趣的服务器端运行时环境）
 
-After almost two decades of hibernation of the language, JavaScript gained huge momentum with new features coming to the language daily (well, yearly, but the metaphor works better this way). At the same time, new flavors of JS, such as Typescript and Flow showed up, adding additional syntax to the language.
+经历了将近 20 年的蛰伏后，JavaScript获得了巨大的发展势头，每天都有新的功能被添加到语言中。（好吧，应该是每年不是每天，但是这样修饰更恰当） 与此同时，新的 JS 风格，比如：TypeScript 和 Flow 的出现，为语言增加了额外的语法。
 
-We end up with a mixture of dialects, execution platforms, and evolving standards. All leading to the fact that building a UI components package in Javascript and sharing it with the world is anything but simple.
+我们最终都要面对语言的各种方言，执行环境以及不断发展的标准。所有这些都导致了这样一个事实，用JavaScript 构建 UI 组件包然后在世界上分享，并不简单。
 
-Anyone publishing a library should consider how the components are going to be consumed: as a browser tag, installed as an NPM module on the server, or compiled with bundlers like Webpack for the browser.
+任何人在发布一个库的时候都应该考虑库会被如何使用：以浏览器标签引入，在服务器端以 NPM 模块安装或者由 webpack 等打包工具编译后再提供给浏览器。
 
 ## What to deliver then?
 
-Here are my suggestions for the formats that you want to deliver for your package, and in the last section, we will go through the tools that can help you get there.
+以下是我的一些建议，关于用以分发的 package 可使用的一些语法格式。在最后一部分，我们会介绍一些工具以帮你实现这些语法格式的 package。
 
 ![mage by [Annalise Batista](https://pixabay.com/users/AnnaliseArt-7089643/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5293336) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5293336) (modified)](https://cdn-images-1.medium.com/max/2560/1*xPmTGN5rwQH_IQ94TRIhmw.png)
 
-I will discuss the delivery of the package in the following 4 aspects. But worth noticing that they are interrelated.
+我将在以下四个方面讨论 package 的分发。但值得注意的是，它们是互相关联的。
 
 * ES syntax format
 * Module format
 * Files bundling
 * Package distribution
 
-You will also notice that the discussion is completely framework agnostic. The guidelines discussed here are cross-framework and are relevant to components written in Angular, React, and Vue.
+你同样会注意到这里的讨论与框架无关。这里讨论的守则都是跨框架的，而且与用 Angular，React，Vue 编写的组件是相关的。
 
 #### ES Syntax Format
 
-Most web browsers as well as Nodejs are supporting at least ES2015 syntax, and most of them are evergreen and are up to date on new features of the language. The infamous exception is IE11, which its market share is thankfully declining. Unless explicit support for IE11 is needed, it is ok to assume that ES2015 can be considered as the lingua franca of the JS environment. Modern browsers and NodeJs newer formats such as ES2017 can also be acceptable.
+大多数的 web 浏览器和 Nodejs 都支持 ES2015 的语法，并且紧跟语言的新特性。其中臭名昭著的例外是 IE 浏览器，它的市场份额正在令人欣慰的下降。 除非明确需要支持 IE11，否则的话，将 ES2015 视为 JS 环境的通用标准是可行的。 现代浏览器和 Nodejs 对于较新的语法（如：ES2017）也都是支持的。
 
-Recommendation:
+建议：
 
-> Use ES5 if you are targeting old browsers, ES2015, or ES2017 for modern browsers and NodeJS.
+> 在老的浏览器上使用 ES5，将 ES2015 或者 ES2017 用于现代浏览器和 NodeJS。
 
 #### Module Format
 
-It was not until 2015 that Javascript, or Ecamscript as it is officially known, has a norm for module format — the ES6 Module format (AKA ESM, ES2015 Modules). During this twilight zone, multiple formats were created by the community but with not a single standard to adhere to.
+并不是直到 2015 年，Javascript 或者说 Ecamscript 才被人们熟知，有一套模块语法的规范 —— ES6 模块语法（也被称为 ESM，ES2015 模块）。在这个领域诞生之初，社区里创建了各种各样的语法规范，但是没有统一的标准可以遵守。
 
-formats were created to support browsers and NodeJS.
+用于支持浏览器和 NodeJS 的模块语法：
 
-* AMD (Asynchronous Module Definition) — Requirejs describe the reasons for developing it back in 2011. [https://requirejs.org/docs/whyamd.html](https://requirejs.org/docs/whyamd.html)
-* CommonJS / CJS — developed for server-side modules.
-* UMD (Universal Module Definition) is a pattern for supporting both client and server and combines AMD with CJS.
-* ESM / ES Modules / ES6 Modules / ES2015 modules — the standard format introduced in ES6. Support is still experimental in NodeJS 14 and before that was behind a flag ( — experimental-modules).
+* AMD (Asynchronous Module Definition) —— Requirejs 中描述了在 2011 年开发它的原因，见[此处](https://requirejs.org/docs/whyamd.html)。
+* CommonJS / CJS —— 开发用于服务器端的模块语法。
+* UMD (Universal Module Definition) 结合 AMD 和 CJS 并支持浏览器和服务器端的模式。
+* ESM / ES Modules / ES6 Modules / ES2015 modules —— 在 ES6 中引入的标准语法格式。在 NodeJS 14 中还是试验性质的支持，使用时需要带有标志（如：experimental-modules）。
 
-This table summarizes some of the differences between the formats:
+如下表格总结了各种模块语法间的一些差异：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ohOcheaTdGZpG4nnK97swg.png)
 
-To get the feeling of the differences, we look at how Typescript code is compiled to the different formats:
+为了进一步感受模块语法之间的差异，我们来看一下将 Typescript 代码编译为不同的模块格式的结果。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*X9Mvq1jM5-uw__W6WABTTQ.png)
 
-Recommendation:
+建议：
 
-> Generate your library with multiple formats: ESM, CJS, and UMD / AMD.
+> 使用多种模块语法来生成库，如：ESM，CJS，以及 UMD / AMD 。
 
 #### Files Bundling
 
-When distributing as an NPM package for browser-based or server-based applications, it is acceptable to provide a directory with multiple files. The server can easily read them one by one, while the browser is likely to have a preparation step that bundles the whole application into a single file (or split into chunks).
+基于浏览器或服务器端的应用的 NPM 包在分发时，可以使用一个包含多个文件的目录。服务器可以轻松地一一读取目录中的文件，在浏览器端需要预先将整个应用打包为一个文件（或划分为几个 chunk）后才能使用。
 
-However, to use the components as a script tag, you might want to generate a single file that contains all of the library code. A single file can also improve the performance of the bundlers as it reduces the number of disk accesses during the process.
+但是，为了能将组件通过 script 标签引入，你需要生成一个包含了所有库的代码的文件。单个文件可以提升打包工具的性能，因为这可以减少处理过程中磁盘访问的次数。
 
-Recommendation:
+建议：
 
-> Provide UMD formats in a single file for the browser and ESM / CJS formats in separate files and a single file format.
+> 为浏览器提供使用 UMD 格式的单个文件，ESM / CJS 模块用单独文件夹或单个文件创建。
 
 #### Package Distribution
 
-Most packages are available via the NPM registry. This is the common method of publishing them. Publishing a package to NPM also makes it available on CDN for directly used in the browser (via script tags).
+大多数 package 在 NPM 注册表上都是可用的。这是一种常见的方法来发布 package。将 package 发布到 NPM 同样会使得 package 在 CDN 上可用，因此能直接用于浏览器（通过 script 标签）。
 
-Recommendation:
+建议：
 
-> Make sure your package is providing a UMD format, so it is available via unpkg as well.
+> 确保你的 package 提供了 UMD 格式，通过 unpkg 也是可用的。
 
-Note: New CDN is coming that support ES Module format. Pika.dev is the one to look at!.
+注：新的 CDN 即将支持 ES 模块语法，具体请见[此处](https://www.pika.dev/)
 
-## Tools
+## 工具
 
-The tools for creating those files are:
+创建打包文件的工具有：
 
 * Transpilers
 * Bundlers
-* Manifest (package.json)
+* Manifest（如：package.json）
 
 #### Transpilers
 
-For code written in modern ES formats or Typescript, you should use Babel or Typescript transpilers. Both of them support JS syntax and TS syntax, but [with some differences](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing)[.](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing.)
+对于使用 ES 语法或者 Typescript 编写的代码，你应该使用 Babel 或者 Typescript 转译器。这两个转译器都支持 JS 和 TS 语法，但是会一些 [区别](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing)[.](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing.)
 
-**Babel** includes transformation plugins that transform the code, such as [transform-modules-commonjs](https://babeljs.io/docs/en/babel-plugin-transform-modules-commonjs) and [transform-modules-umd](https://babeljs.io/docs/en/babel-plugin-transform-modules-umd) . They will generate the relevant module format.
+**Babel** 包含有转换代码的转换插件，比如 [transform-modules-commonjs](https://babeljs.io/docs/en/babel-plugin-transform-modules-commonjs) 和 [transform-modules-umd](https://babeljs.io/docs/en/babel-plugin-transform-modules-umd)。他们会生成相关的模块语法。
 
-**Typescript** compiler can also produce different formats using the “module” property in the tsconfig.json is responsible for generating the relevant module output.
+**Typescript** 编译器，通过使用 tsconfig.json 中负责生成相关模块输出的 “module” 属性，也能生成不同模块格式。
 
 #### Bundlers
 
-Bundlers usually run plugins that execute the transpilation. This includes the language and module format but also generates additional assets such as CSS and images.
+Bundlers 通常运行插件来执行转译过程。转译不仅包括语言和模块的转换，还会生成额外的资源文件如：CSS 和图片。
 
-bundlers work best with ES Modules format as it has the best support for tree shaking unused code done by the
+在 ES 模块语法下，使用 bundlers 的效果很好，因为这为 tree shaking 未使用的代码提供了极好的支持。
 
-The common tools are:
+常见的打包工具有：
 
-**Webpack**, up until version 4, can only generate UMD and CommonJS bundles. It also contains some more fine-grained definitions (such as CommonJS2). Read the details [here](https://webpack.js.org/configuration/output/#outputlibrarytarget).
+**Webpack**，直到第 4 版，才刚刚能生成 UMD 和 CommonJS 的打包。webpack 还包含了一些精细的定义（如：CommonJS2）。[此处](https://webpack.js.org/configuration/output/#outputlibrarytarget)了解详细信息。
 
-**Rollup** is the other bundler. Rollup can export ES modules as an [output format](https://rollupjs.org/guide/en/#outputformat).
-
+**Rollup** 是另一个打包工具。Rollup 可以将 ES 模块作为[输出格式](https://rollupjs.org/guide/en/#outputformat) 导出。
 [This article](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c) summarizes the differences (as of 2017…), but with a conclusion that is probably still valid: Use Webpack for apps, and Rollup for libraries.
 
 #### Manifest
 
-Package.json is the way to manifest the contents of the library. Besides the name of the version, it should point to relevant files in the directory or bundle.
+Package.json 用于表示库的内容。除了版本名称外，它还应该指向目录或 bundles 中的相关文件。
 
-Sadly, as there is no official standard, some ad-hoc tools are using agreed-upon properties for different uses:
+遗憾的是，由于没有正式的标准，一些工具会将约定的属性用于其他的用途。
 
-Some attribute to note:
+一些需要注意的属性：
 
-* **main**: should point to the main file (the default is index.js at the root). For files that are transpiled it should point to the dist folder, e.g. dist/index.js. Normally this should point to a CJS bundle, as it is the most common format.
-* **module**: this should point to an ES entry point or file. Bundlers such as Webpack know to search for this entry when bundling. Using ES6 for bundling can improve tree shaking.
-* **browser**: should point to an AMD / UMD entry. Usually a single file.
-* **typings**: points to the definitions of the types as used by the Typescript compiler. This is a d.ts file. e.g. dist/index.d.ts
-* **unpkg**: points to the UMD single file that is available via CDN. Unpkg uses this property if exist, or falls back to main.
-* **type**: setting a type field to **module** makes node identifies it as ESM and tries to load it as such.
+* **main**: 应该指向主文件（默认值是根目录的 index.js 文件）。对于被转译的多个文件，它应该指向 dist 文件夹，比如，dist/index.js。通常应该指向一个 CJS 包，因为这是最常用的格式。
+* **module**: 这个应该指向一个 ES 入口项或入口文件。打包工具中的 Webpack 在打包时，可以根据入口项来进行搜索。使用 ES6 进行打包可以提升 tree shaking 的效果。
+* **browser**: 应该指向一个 AMD/UMD 入口项。通常是一个单独的文件。
+* **typings**: 指向 Typescript 编译器使用的类型定义。比如：一个 d.ts 文件，可以这样写：dist/index.d.ts
+* **unpkg**: 指向通过 CDN 可用的 UMD 单个文件。unpkg 会使用此属性（如果存在），或者回退使用 main 属性的值。
+* **type**: 为模块设置一个 type 域，来让 node 将其视作 ESM 并按此加载。
 
-## Conclusion
+## 总结
 
-In the future, hopefully, in the short future, we are likely to see the Javascript ecosystem converged into a standard format for syntax and modules.
+在将来，希望在不久的未来，我们能看到 Javascript 生态系统对语法和模块拥有一个统一的标准。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
