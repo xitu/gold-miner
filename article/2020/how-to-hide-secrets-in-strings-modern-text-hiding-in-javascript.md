@@ -11,15 +11,15 @@
 
 > 最危险的地方就是最安全的地方。
 
-如果你是一个在敌对国家的间谍，那么仅向美国发送信息便是犯罪。如果消息是加密的，那可能导致更大的罪名，当你拒绝为当局解密消息时，情况会变得更糟。**隐语术**，字面意思是“隐藏的文字”，是指隐藏消息的存在。
+如果你是一个在敌对国家的间谍，那么仅向美国发送信息便是犯罪。如果消息是加密的，那可能导致更大的罪名，当你拒绝为当局解密消息时，情况会变得更糟。**隐写术**，字面意思是“隐藏的文字”，是指隐藏消息的存在。
 
 [**Python Forensics**](http://python-forensics.org/) 的创始人 Chet Hosmer 指出：
 
-> 隐写术掩盖了交流的存在。不像它的表亲密码学一样容易检测，难以破解，隐写术提供最有趣的元素是“藏在众目睽睽之下”。(Steganography hides the mere existence of the communication. Unlike its cousin cryptography, which is easy to detect but difficult to break, steganography provides the most interesting element of all ‘To Hide in Plain sight’.)
+> 隐写术掩盖了信息的存在。不像它的表亲密码学一样容易检测，难以破解，隐写术提供最有趣的特点在于“藏在众目睽睽之下”。(Steganography hides the mere existence of the communication. Unlike its cousin cryptography, which is easy to detect but difficult to break, steganography provides the most interesting element of all ‘To Hide in Plain sight’.)
 
 ![Cloak of invisibility](https://cdn-images-1.medium.com/max/2000/1*Ze0Yy0Op7kqT8fJ3Le5FSg.gif)
 
-**你是否知道上面的隐写术引用中有一个不为人知的隐藏秘密？** 如果我没有提到它，你是否能够检测到它的存在？好吧，请阅读本文的其余部分，以理解其中的意义。
+**你是否知道上面的隐写术引用中有一个不为人知的隐藏秘密？** 如果我没有提到它，你是否能够感知它的存在？好吧，请阅读本文的其余部分，以理解其中的意义。
 
 ## Unicode 中的不可见字符
 
@@ -27,11 +27,11 @@
 
 ![The characters `zwj` join the emoji’s but they are not visible](https://cdn-images-1.medium.com/max/2000/1*ATrlUYwomSvUtygin5ndIA.png)
 
-这些字符越来越多地发现其隐藏在文本中的方式，它们的完全隐形性是一个了不起的特点。由于它们在多种语言和表情符号中不可或缺，因此无法阻止它们。而且，事实证明，ZWC 并不是唯一不可见的字符。例如：隐形的分隔符 —— U+2063。
+这些字符越来越多地发现其隐藏在文本中的方式，它们的完全隐形性是一个了不起的特点。由于它们在多种语言和表情符号中不可或缺，因此无法屏蔽它们。而且，事实证明，ZWC 并不是唯一不可见的字符。例如：隐形的分隔符 —— U+2063。
 
 ![The table that contains mostly used invisible characters](https://cdn-images-1.medium.com/max/2000/1*eP3yPonDN-Px68R1gO0PXw.png)
 
-但是这个表格有一个小问题，Gmail 会阻止 U+200B（零宽度空格）。更不用说其它软件，Twitter 会将不必要的不可见字符列入黑名单，除 U+200C，U+200D 和 U+180e 之外，表中的所有字符均不起作用。因此，现在我们有了三个字符！
+但是这个表格有一个小问题，Gmail 会屏蔽 U+200B（零宽度空格）。更不用说其它软件，Twitter 会将不必要的不可见字符列入黑名单，除 U+200C，U+200D 和 U+180e 之外，表中的所有字符均不起作用。因此，现在我们有了三个字符！
 
 ![](https://cdn-images-1.medium.com/max/2160/1*pnl_e3gWWQ3z1l58LTxaBg.jpeg)
 
@@ -59,7 +59,7 @@ StegCloak 是一个纯 JavaScript 的隐写模块，在经过两层最大可能�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ALhxrbOw6UBJf858ckg9ew.png)
 
-安全从未在这些“hack”中发挥作用，我们希望借助 StegCloak 来满足 **[Kerckhoff 原则](https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle)**，其中指出：
+安全策略从未在这些“hack”中发挥作用，我们希望借助 StegCloak 来满足 **[Kerckhoff 原则](https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle)**，其中指出：
 
 > 理想的加密系统应该是“在除密钥之外，系统的所有内容都向公众公开”的情况下也是安全的。
 
@@ -79,7 +79,7 @@ StegCloak 是一个纯 JavaScript 的隐写模块，在经过两层最大可能�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HfXp1u543ZaLCC5MaQ05_w.png)
 
-如上图所示，即使我们有 6 个 ZWC 字符，也只有 4 个被使用，因为 6 不是 2 的幂。两个额外的字符（U+2063，U+2064）被用来做一个额外的抽象霍夫曼层压缩减少冗余。将机密转换为 ZWC 后，将确定流中两个重复最多的 ZWC，例如 U + 200D 和 U + 200C。现在，每两个连续出现的 U + 200D 和 U + 200C 被一个 U + 2063 或 U + 2064 替换。由于经常观察到冗余，因此可以节省很多。
+如上图所示，即使我们有 6 个 ZWC 字符，也只有 4 个被使用，因为 6 不是 2 的幂。两个额外的字符（U+2063，U+2064）被用来做一个额外的抽象霍夫曼层压缩减少冗余。将机密转换为 ZWC 后，将确定流中两个重复最多的 ZWC，例如 U+200D 和 U+200C。现在，每两个连续出现的 U+200D 和 U+200C 被一个 U+2063 或 U+2064 替换。由于经常观察到冗余，因此可以节省很多。
 
 步骤 3：**将不可见的流嵌入**封面文字的开头。
 
@@ -103,7 +103,7 @@ StegCloak 是一个纯 JavaScript 的隐写模块，在经过两层最大可能�
 
 > 当你可以将函数可视化为图形中的曲线时，生活会更加轻松 —— Kyle simpson
 
-StegCloak 遵循编函数式编程范例，并且总体上仅包含两个功能：隐藏和显示。这两个功能是使用许多 Lego 代码段构建的。这些片段不过是纯函数或与 Curried 等相同的纯函数的不同版本。StegCloak 仅具有 `encrypt()` 不是纯函数，因为它会生成随机盐来增加密码的安全性。
+StegCloak 遵循编函数式编程范例，并且总体上仅包含两个功能：隐藏和显示。这两个功能是将许多代码段如堆积木般构建而成。这些片段不过是纯函数或柯里化后相同纯函数的不同版本。StegCloak 仅具有 `encrypt()` 不是纯函数，因为它会生成随机盐来增加密码的安全性。
 
 #### 流
 
