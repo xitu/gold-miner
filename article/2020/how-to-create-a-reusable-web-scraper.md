@@ -3,13 +3,13 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-a-reusable-web-scraper.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-a-reusable-web-scraper.md)
 > - 译者：[YueYongDEV](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[iceytea](https://github.com/iceytea)
 
 # 如何创建一个可复用的网页爬虫
 
 ![Photo from [Raconteur](https://www.raconteur.net/sponsored/reduce-reuse-recycle-smart-packaging-to-protect-what-matters).](https://cdn-images-1.medium.com/max/5200/0*b-aN9YmOsw47b5D_.jpg)
 
-网页爬虫是个非常有趣的玩具。不过不好玩的是，我们需要根据不同网页上的元素不断的调整自己的代码。这就是为什么我着手实现一个更好的网页爬虫项目的原因——通过该项目可以以最少的更改实现对新网页的爬取。
+网页爬虫是个非常有趣的玩具。不过不好玩的是，我们需要根据不同网页上的元素不断的调整自己的代码。这就是为什么我要着手实现一个更好的网页爬虫项目——通过该项目可以以最少的更改实现对新网页的爬取。
 
 第一步是将网页爬虫按照逻辑分成每个独立的部分：
 
@@ -23,7 +23,7 @@
 
 页面请求器的实现有一些技巧。下载网页时要考虑很多因素。你需要确保你可以随机的使用用户代理，并且不要过于频繁地从同一域中请求。
 
-此外，停下手头的工作去分析为什么网页无法下载是一件出力不讨好的事。尤其是当你的爬虫已经在多个站点运行了好几个小时的情况下。因此，我们会限制一些请求，并将它们另存为文件。
+此外，停下手头的工作去分析为什么网页无法下载是一件出力不讨好的事。尤其是当你的爬虫已经在多个站点运行了好几个小时的情况下。因此，我们会处理一些请求，并将它们另存为文件。
 
 将请求保存到文件中还有另一个好处。你不必担心一个标签的消失会影响你的爬虫。如果页面处理器是独立的，并且你已经完成了页面的下载，你还可以根据需要快速且频繁的对其进行处理。如果发现有另一个要抓取的数据元素怎么办？别担心。只需添加一个标签，然后在你已下载的页面上重新运行处理器即可。
 
@@ -90,7 +90,7 @@ Webpage Sample
 </div>
 ```
 
-在上面的代码段中，我们希望定位 article 元素。因此，我们将使用 article 标签和 classs 作为标识符，因为这是包含 article 内容的最小元素。
+在上面的代码段中，我们希望定位 article 元素。因此，我们将使用 article 标签和 class 作为标识符，因为这是包含 article 内容的最小元素。
 
 ```python
 models = {
@@ -146,7 +146,7 @@ models = {
 }
 ```
 
-现在是最后一部分——主聚合器！我将不考虑配置文件的解析和加载。如果我写了整个代码，这篇文章永远不会结束：
+现在是最后一部分——主聚合器！我将不考虑配置文件的解析和加载。如果我把所有代码都放上来，一篇文章不足以全部介绍完。
 
 ```Python
 # Get outer element
@@ -217,7 +217,7 @@ def page_processer(request):
 
 ## 总结
 
-使用此代码，你可以创建一个模板，从任何网站提取文章文本。你可以在我的 [GitHub](https://github.com/dtaivpp/NewsTicker/blob/master/src/scrape_page.py) 上看到完整的代码以及查看我是如何实现它的。
+使用此代码，你可以创建一个模板，从任何网站提取文章文本。你可以在我的 [GitHub](https://github.com/dtaivpp/NewsTicker/blob/master/src/scrape_page.py) 上看到完整的代码并查看我是如何实现它的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
