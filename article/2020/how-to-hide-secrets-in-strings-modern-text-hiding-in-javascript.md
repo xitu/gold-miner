@@ -2,8 +2,8 @@
 > * 原文作者：[Mohan Sundar](https://medium.com/@itsmohanpierce)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-hide-secrets-in-strings-modern-text-hiding-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-hide-secrets-in-strings-modern-text-hiding-in-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[niayyy](https://github.com/nia3y)
+> * 校对者：[FateZeros](https://github.com/FateZeros)、[zenblo](https://github.com/zenblo)
 
 # 如何在字符串中隐藏秘密 —— JavaScript 中的现代文本隐藏
 
