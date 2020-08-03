@@ -13,13 +13,13 @@
 
 JavaScript 有个特性：对于相同的代码，可以运行在多个运行时（runtime）环境。其中一个环境，是由众多厂商生产提供的不同版本的浏览器。而另一个，则是运行在服务器端的不同版本的 Nodejs。（附注：你可能需要注意一下 Deno，一个有趣的服务器端运行时环境）
 
-经历了将近 20 年的蛰伏后，JavaScript获得了巨大的发展势头，每天都有新的功能被添加到语言中。（好吧，应该是每年不是每天，但是这样修饰更恰当） 与此同时，新的 JS 风格，比如：TypeScript 和 Flow 的出现，为语言增加了额外的语法。
+经历了将近 20 年的蛰伏后，JavaScript 获得了巨大的发展势头，每天都有新的功能被添加到语言中。（好吧，应该是每年不是每天，但是这样修饰更恰当） 与此同时，新的 JS 风格，比如：TypeScript 和 Flow 的出现，为语言增加了额外的语法。
 
-我们最终都要面对语言的各种方言，执行环境以及不断发展的标准。所有这些都导致了这样一个事实，用JavaScript 构建 UI 组件包然后在世界上分享，并不简单。
+我们最终都要面对语言的各种方言，执行环境以及不断发展的标准。所有这些都导致了这样一个事实，用 JavaScript 构建 UI 组件包然后在世界上分享，并不简单。
 
 任何人在发布一个库的时候都应该考虑库会被如何使用：以浏览器标签引入，在服务器端以 NPM 模块安装或者由 webpack 等打包工具编译后再提供给浏览器。
 
-## What to deliver then?
+## 如何交付 package？
 
 以下是我的一些建议，关于提供的 package 可使用的一些语法格式。在最后一部分，我们会介绍一些工具以帮你实现这些语法格式的 package。
 
@@ -36,7 +36,7 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 #### ES 语法格式（ES Syntax Format）
 
-大多数的 web 浏览器和 Nodejs 都支持 ES2015 的语法，并且紧跟语言的新特性。其中臭名昭著的例外是 IE 浏览器，它的市场份额正在令人欣慰的下降。 除非明确需要支持 IE11，否则的话，将 ES2015 视为 JS 环境的通用标准是可行的。 现代浏览器和 Nodejs 对于较新的语法（如：ES2017）也都是支持的。
+大多数的 web 浏览器和 Nodejs 都支持 ES2015 的语法，并且紧跟语言的新特性。其中臭名昭著的例外是 IE 浏览器，但它的市场份额正在令人欣慰的下降。 除非明确需要支持 IE11，否则的话，将 ES2015 视为 JS 环境的通用标准是可行的。 现代浏览器和 Nodejs 对于较新的语法（如：ES2017）也都是支持的。
 
 建议：
 
@@ -44,14 +44,14 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 #### 模块格式（Module Format）
 
-并不是直到 2015 年，Javascript 或者说 Ecamscript 才被人们熟知，有一套模块格式的规范 —— ES6 模块语法（也被称为 ESM，ES2015 模块）。在这个领域（模块格式）诞生之初，社区里创建了各种各样的语法规范，但是没有统一的标准可以遵守。
+并不是直到 2015 年，JavaScript 或者说 ECMAScript 才被人们熟知，有一套模块格式的规范 —— ES6 模块语法（也被称为 ESM，ES2015 模块）。在这个领域（模块格式）诞生之初，社区里创建了各种各样的相关语法规范，但是没有统一的标准可以遵守。
 
 用于支持浏览器和 NodeJS 的模块格式：
 
 * AMD (Asynchronous Module Definition) —— Requirejs 中描述了在 2011 年开发它的原因，见[此处](https://requirejs.org/docs/whyamd.html)。
 * CommonJS / CJS —— 开发用于服务器端的模块格式。
 * UMD (Universal Module Definition) 结合 AMD 和 CJS 并支持浏览器和服务器端的模式。
-* ESM / ES Modules / ES6 Modules / ES2015 modules —— 在 ES6 中引入的标准语法格式。在 NodeJS 14 中还是试验性质的支持，使用时需要带有标志（如：experimental-modules）。
+* ESM / ES Modules / ES6 Modules / ES2015 modules —— 在 ES6 中引入的标准语法格式。在 NodeJS 14 中还是试验性质的支持，使用时需要带有标志（如：--experimental-modules）。
 
 如下表格总结了各种模块格式间的一些差异：
 
@@ -69,7 +69,7 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 用于浏览器或服务器端的应用的 NPM 包在分发时，可以提供一个包含多个文件的目录。服务器可以轻松地一一读取目录中的文件，而在浏览器端需要预先将整个应用打包为一个文件（或者几个 chunk）后才能使用。
 
-为了能将代码通过 script 标签引入，你需要生成一个包含了所有库的代码的文件。单个文件可以提升打包工具的性能，因为这可以减少处理过程中磁盘访问的次数。
+为了能将代码通过 script 标签引入，你需要生成一个包含了所有库的代码的文件。使用单个文件可以提升打包工具的性能，因为这可以减少处理过程中磁盘访问的次数。
 
 建议：
 
@@ -77,7 +77,7 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 #### Package 分发（Package distribution）
 
-大多数 package 在 NPM 注册表上都是可用的。这是一种常见的方法来发布 package。将 package 发布到 NPM 同样会使得 package 在 CDN 上可用，因此能直接用于浏览器（通过 script 标签）。
+大多数 package 在 NPM 注册表（registry）上都是可用的。这是一种常见的方法来发布 package。将 package 发布到 NPM 同样会使得 package 在 CDN 上可用，因此能直接用于浏览器（通过 script 标签）。
 
 建议：
 
@@ -93,9 +93,9 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 * 打包工具（Bundlers）
 * Manifest（如：package.json）
 
-#### 转译器（Transpilers）Transpilers
+#### 转译器（Transpilers）
 
-对于使用 ES 语法或者 Typescript 编写的代码，你应该使用 Babel 或者 Typescript 转译器。这两个转译器都支持 JS 和 TS 语法，但是有一些 [区别](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing)[.](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing.)
+对于使用 ES 语法或者 Typescript 编写的代码，你应该使用 Babel 或者 Typescript 转译器。这两个转译器都支持 JS 和 TS 语法，但是有一些[区别](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing)[.](https://blog.logrocket.com/choosing-between-babel-and-typescript-4ed1ad563e41/#:~:text=TypeScript%20by%20default%20compiles%20an,that%20require%20reading%20multiple%20files.&text=A%20const%20enum%20is%20an%20enum%20that%20TypeScript%20compiles%20away%20to%20nothing.)
 
 **Babel** 包含有转换代码的转换插件，比如 [transform-modules-commonjs](https://babeljs.io/docs/en/babel-plugin-transform-modules-commonjs) 和 [transform-modules-umd](https://babeljs.io/docs/en/babel-plugin-transform-modules-umd)。他们会生成相关的模块格式。
 
@@ -111,9 +111,9 @@ Bundlers 通常运行插件来执行转译过程。转译不仅包括语言和�
 
 **Webpack**，直到第 4 版，才刚刚能生成 UMD 和 CommonJS 的打包。webpack 还包含了一些精细的定义（如：CommonJS2）。[此处](https://webpack.js.org/configuration/output/#outputlibrarytarget)了解详细信息。
 
-**Rollup** 是另一个打包工具。Rollup 可以将 ES 模块作为[输出格式](https://rollupjs.org/guide/en/#outputformat) 导出。
+**Rollup** 是另一个打包工具。Rollup 可以将 ES 模块作为[输出格式](https://rollupjs.org/guide/en/#outputformat)导出。
 
-[本文](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c) 总结了两个打包工具间的差异。虽然文章写于 2017，但其结论如今仍然有效：将 Webpack 用于应用打包，Rollup 用于库的打包。
+[本文](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c)总结了两个打包工具间的差异。虽然文章写于 2017，但其结论如今仍然有效：将 Webpack 用于应用程序打包，Rollup 用于库的打包。
 
 #### Manifest
 
@@ -130,7 +130,7 @@ Package.json 用于表示库的内容。除了版本名称外，它还应该指�
 * **unpkg**: 指向通过 CDN 可用的 UMD 单个文件。unpkg 会使用此属性（如果存在），或者回退使用 main 属性的值。
 * **type**: 为模块设置一个 type 域，来让 node 将其视作 ESM 并按此加载。
 
-## 总结
+## 最后
 
 在将来，希望在不久的未来，我们能看到 Javascript 生态系统对于语法和模块拥有一个统一的标准。
 
