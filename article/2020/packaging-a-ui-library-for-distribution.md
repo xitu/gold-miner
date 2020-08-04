@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/packaging-a-ui-library-for-distribution.md](https://github.com/xitu/gold-miner/blob/master/article/2020/packaging-a-ui-library-for-distribution.md)
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)
 
 # 打包用于分发的 UI 库 —— 当你要发布一个 UI 组件库时，你可能需要遵守的指南
 
@@ -15,7 +15,7 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 经历了将近 20 年的蛰伏后，JavaScript 获得了巨大的发展势头，每天都有新的功能被添加到语言中。（好吧，应该是每年不是每天，但是这样修饰更恰当） 与此同时，新的 JS 风格，比如：TypeScript 和 Flow 的出现，为语言增加了额外的语法。
 
-我们最终都要面对语言的各种方言，执行环境以及不断发展的标准。所有这些都导致了这样一个事实，用 JavaScript 构建 UI 组件包然后在世界上分享，并不简单。
+我们最终都要面对夹杂着其它语言特性的 JavaScript，多种执行环境以及不断发展的标准。所有这些都导致了这样一个事实，用 JavaScript 构建 UI 组件包然后在世界上分享，并不简单。
 
 任何人在发布一个库的时候都应该考虑库会被如何使用：以浏览器标签引入，在服务器端以 NPM 模块安装或者由 webpack 等打包工具编译后再提供给浏览器。
 
@@ -36,7 +36,7 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 #### ES 语法格式（ES Syntax Format）
 
-大多数的 web 浏览器和 Nodejs 都支持 ES2015 的语法，并且紧跟语言的新特性。其中臭名昭著的例外是 IE 浏览器，但它的市场份额正在令人欣慰的下降。 除非明确需要支持 IE11，否则的话，将 ES2015 视为 JS 环境的通用标准是可行的。 现代浏览器和 Nodejs 对于较新的语法（如：ES2017）也都是支持的。
+大多数的 web 浏览器和 Nodejs 都支持 ES2015 的语法，并且紧跟语言的新特性。其中臭名昭著的例外是 IE 浏览器，幸好它的市场份额正在不断缩减。 除非明确需要支持 IE11，否则的话，将 ES2015 视为 JS 环境的通用标准是可行的。 现代浏览器和 Nodejs 对于较新的语法（如：ES2017）也都是支持的。
 
 建议：
 
@@ -132,7 +132,7 @@ Package.json 用于表示库的内容。除了版本名称外，它还应该指�
 
 ## 最后
 
-在将来，希望在不久的未来，我们能看到 Javascript 生态系统对于语法和模块拥有一个统一的标准。
+希望在不久的未来，我们能看到 Javascript 生态系统对于语法和模块拥有一个统一的标准。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
