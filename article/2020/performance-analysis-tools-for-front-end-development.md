@@ -32,7 +32,6 @@
 
 这是一项分析网页内容的[免费服务](https://developers.google.com/speed/pagespeed/insights/)，生成能使网页更快的建议。为你提供了关键指标，例如 FCP(First Contentful Paint)、累积阻塞时长等。指标分为现场数据、原始摘要、实验室数据、因素、诊断与过审信息。它还为你提供了进一步带改进建议。
 
-PageSpeed works entirely on performance and uses a mix of lab and real-world data to build a comprehensive report on the speed of a website. Below is the PageSpeed Insight result for my portfolio website. As you can see, there is not enough real-world speed data for the summary.
 PageSpeed 完全致力于性能方面，结合实验室数据和实际数据来构建有关网站速度的综合报告。以下是我的[作品集网站](https://thisismahdhi.ml)的 PageSpeed Insight 结果。如你所见，摘要中是没有足够的实际速度数据的。
 
 ![Screenshot by Author](https://cdn-images-1.medium.com/max/6696/1*ONiEtpxiMc3KitaT7OiYRw.png)
