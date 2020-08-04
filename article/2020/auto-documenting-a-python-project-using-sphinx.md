@@ -11,15 +11,27 @@
 
 While thorough documentation is necessary, it’s often put on the back burner and looked upon as a chore and a low-priority task. As a developer, it’s easy to fall back on the mindset of “why document the code when you, the author, know exactly what it’s doing?” When the code is rapidly changing, keeping the docs up to date becomes an even more substantial burden.
 
+尽管详尽的文档非常必要，但写文档这个事儿还是经常被推迟，并且被视为是一项繁琐的、优先级不高的任务。开发人员也常常会反思“既然你对自己写的代码了如指掌，为啥还要写文档呢？”另外代码经常会改，更新文档也变成了一个繁重的负担。
+
 Luckily, manually writing out documentation is not required due to the capabilities of [Sphinx](https://www.sphinx-doc.org/en/master/), a tool that automatically generates documentation from the docstrings in your code.
+
+幸运的是，得益于 [Sphinx](https://www.sphinx-doc.org/en/master/) 的强大功能，我们无须再手动写文档了，Sphinx 可以从代码的注释中自动生成文档。
 
 Below is a step-by-step guide to easily auto-generate clean and well-organized documentation from Python code using Sphinx.
 
+接下来我们手把手学习在 Python 代码中使用 Sphinx 自动生成结构良好、形式整洁的文档。
+
 ## 1. Install Sphinx
+
+## 1. 安装 Sphinx
 
 Sphinx can be installed using pip by opening up the terminal and running `pip install -U Sphinx`, or by downloading the official [Python package](https://pypi.org/project/Sphinx/#files).
 
 [Here](https://www.sphinx-doc.org/en/master/usage/installation.html) is the official page outlining other ways of installing Sphinx, depending on your platform.
+
+Sphinx 既可以通过在终端中执行 `pip install -U Sphinx` 使用 pip 安装，也可以直接从 [Python package](https://pypi.org/project/Sphinx/#files) 官网上下载。
+
+Sphinx 官网上简述了其他的安装方式，可以根据你的实际情况自由选择，详见[这里](https://www.sphinx-doc.org/en/master/usage/installation.html)。
 
 ## 2. Initialize the Sphinx Configuration
 
