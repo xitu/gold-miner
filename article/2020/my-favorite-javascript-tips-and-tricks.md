@@ -7,6 +7,8 @@
 
 # My Favorite JavaScript Tips and Tricks
 
+![image](https://user-images.githubusercontent.com/5164225/89246151-0dbc1300-d63d-11ea-982e-fa61dd13b7d9.png)
+
 ## Motivation
 
 Most of the programming languages are open enough to allow programmers doing things multiple ways for the similar outcome. JavaScript is no way different. With JavaScript, we often find multiple ways of doing things for a similar outcome, and that's confusing at times.
