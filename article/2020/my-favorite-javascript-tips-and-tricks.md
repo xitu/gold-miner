@@ -256,7 +256,7 @@ console.log('Object assign', Object.assign({}, emp, job));
 
 The technique of breaking down the array elements and object properties as variables called, `destructuring`. Let us see it with few examples,将数组元素和对象属性分解为变量的技术称为“ destructuring”。 让我们看几个例子，
 
-### 数组Array
+### 数组 Array
 
 在这里，我们有一系列的表情符号，
 
@@ -291,7 +291,7 @@ console.log(rest);
 
 ![11.a.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595932001526/GdWuvDoP8.png?auto=format&q=60)
 
-### 对象Object
+### 对象 Object
 
 像数组一样，我们也可以分解对象。
 
@@ -342,7 +342,7 @@ let obj = {};
 console.log(Array.isArray(obj));
 ```
 
-## 14. undefined和null
+## 14. undefined 和 null
 
 `undefined`是未为变量定义值，但已声明该变量的地方。
 
