@@ -5,15 +5,15 @@
 > * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# 分享我喜欢的十五条JavaScript编程技巧
+# 分享我喜欢的十五条 JavaScript 编程技巧
 
 ![image](https://user-images.githubusercontent.com/5164225/89246151-0dbc1300-d63d-11ea-982e-fa61dd13b7d9.png)
 
 ## 本文目的
 
-大多数编程语言都足够开放，以允许程序员以多种方式得到类似的结果。 JavaScript 也是如此，使用 JavaScript，我们通常会找到多种方法来达到相似的结果，虽然有时会造成混淆。
+大多数编程语言都足够开放，以允许程序员以多种方式得到类似的结果。JavaScript 也是如此，使用 JavaScript，我们通常会找到多种方法来达到相似的结果，虽然有时会造成混淆。
 
-其中一些用法比其他方法要好，而这些就是我要分享的。 我将在本文中列出它们，我敢肯定，您在阅读本文中会有很多收获。
+其中一些用法比其他方法要好，而这些就是我要分享的。我将在本文中列出它们，我敢肯定，您在阅读本文中会有很多收获。
 
 ## 1. 忘记字符串连接，使用模板字符串（文字）
 
@@ -26,11 +26,11 @@ let isPrime = bit => {
   return (bit === 'P' ? 'Prime' : 'Nom-Prime');
 }
 
-// 使用+运算符的字符串连接
+// 使用 + 运算符的字符串连接
 let messageConcat = 'Mr. ' + name + ' is from ' + place + '. He is a' + ' ' + isPrime('P') + ' member.'
 ```
 
-模板文字（或模板字符串）允许嵌入表达式。 它具有独特的语法，该字符串必须用反引号（\`\`）括起来。 模板字符串可以包含动态值的占位符。 这些以美元符号和大括号（$ {expression}）标记。
+模板文字（或模板字符串）允许嵌入表达式。它具有独特的语法，该字符串必须用反引号（\`\`）括起来。模板字符串可以包含动态值的占位符。这些以美元符号和大括号（${expression}）标记。
 
 以下是一个演示它的例子，
 
@@ -48,7 +48,7 @@ console.log(messageTemplateStr);
 
 ## 2. isInteger
 
-有一种更简洁的方法可以知道值是否为整数。 JavaScript 的 Number API 提供了名为 isInteger() 的方法来实现此目的。 这是非常有用的，最好知道。
+有一种更简洁的方法可以知道值是否为整数。JavaScript 的 Number API 提供了名为 isInteger() 的方法来实现此目的。这是非常有用的，最好知道。
 
 ```js
 let mynum = 123;
@@ -58,7 +58,7 @@ console.log(`${mynum} is a number?`, Number.isInteger(mynum));
 console.log(`${mynumStr} is a number?`, Number.isInteger(mynumStr));
 ```
 
-输出结果:
+输出结果：
 
 ![2.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595930285107/RiLxixUxC.png?auto=format&q=60)
 
@@ -66,13 +66,13 @@ console.log(`${mynumStr} is a number?`, Number.isInteger(mynumStr));
 
 您是否曾经注意到，即使输入框的类型为数字，`event.target.value`仍始终返回字符串类型的值？
 
-请参见下面的示例。 我们有一个简单的数字类型的文本框。这意味着它仅接受数字作为输入，它具有事件处理程序来处理按键事件。
+请参见下面的示例。我们有一个简单的数字类型的文本框。这意味着它仅接受数字作为输入，它具有事件处理程序来处理按键事件。
 
 ```html
 <input type='number' onkeyup="trackChange(event)" />
 ```
 
-在事件处理程序方法中，我们使用`event.target.value`取出值。 但是它返回一个字符串类型值。 现在，我将不得不将其解析为整数。 如果输入框接受浮点数（例如16.56）怎么办？ 使用parseFloat() 然后呢？ 啊，各种各样的困惑和额外的工作！
+在事件处理程序方法中，我们使用`event.target.value`取出值。但是它返回一个字符串类型值。现在，我将不得不将其解析为整数。如果输入框接受浮点数（例如 16.56）怎么办？使用parseFloat() 然后呢？啊，各种各样的困惑和额外的工作！
 
 ```js
 function trackChange(event) {
@@ -109,7 +109,7 @@ if (isPrime) {
 }
 ```
 
-能否通过AND（&&）运算符使用简写形式？ 是的，完全可以避免使用 if 语句。 酷吧？
+能否通过 AND（&&）运算符使用简写形式？是的，完全可以避免使用 if 语句。酷吧！
 
 ```js
 isPrime && startWatching();
@@ -117,7 +117,7 @@ isPrime && startWatching();
 
 ## 5. 使用 || 运算符处理默认值
 
-如果您想为变量设置默认值，则可以使用OR（||）运算符轻松实现。
+如果您想为变量设置默认值，则可以使用 OR（||）运算符轻松实现。
 
 ```js
 let person = {name: 'Jack'};
@@ -127,7 +127,7 @@ console.log(`Age of ${person.name} is ${age}`);
 
 ## 6. 获取随机项
 
-生成随机数或从数组中获取随机项是非常有用的方便方法。 我已经看到它们在我的许多项目中多次出现。
+生成随机数或从数组中获取随机项是非常有用的方便方法。我已经看到它们在我的许多项目中多次出现。
 
 从数组中获取随机项，
 
@@ -148,9 +148,9 @@ console.log('Get random', getRandom(0, 10));
 
 ## 7. 函数默认参数
 
-在JavaScript中，函数参数（或参数）就像该函数的局部变量一样。 调用函数时，您可以传递也可以不传递值。 如果您不为参数传递值，则该值将是 “undefined”，并且可能会导致一些不必要的副作用。
+在JavaScript中，函数参数（或参数）就像该函数的局部变量一样。调用函数时，您可以传递也可以不传递值。如果您不为参数传递值，则该值将是 “undefined”，并且可能会导致一些不必要的副作用。
 
-有一种在定义参数时将默认值传递给函数参数的简单方法。 在以下示例中，我们将默认值“ Hello”传递给“ greetings”函数的参数“ message”。
+有一种在定义参数时将默认值传递给函数参数的简单方法。在以下示例中，我们将默认值“Hello”传递给“greetings”函数的参数“message”。
 
 ```js
 let greetings = (name, message='Hello,') => {
@@ -164,7 +164,7 @@ console.log(greetings('Jack', 'Hola!'));
 
 ## 8. 获取参数返回值
 
-扩展默认参数方法，我们可以将参数标记为强制性。 首先定义一个函数以使用错误消息抛出错误，
+扩展默认参数方法，我们可以将参数标记为强制性。首先定义一个函数以使用错误消息抛出错误，
 
 ```js
 let isRequired = () => {
@@ -172,7 +172,7 @@ let isRequired = () => {
 }
 ```
 
-然后将功能分配为所需参数的默认值。 请记住，在调用时为参数传递值时，将忽略默认值。 但是，如果参数值为“ undefined”，则考虑使用默认值。
+然后将功能分配为所需参数的默认值。请记住，在调用时为参数传递值时，将忽略默认值。但是，如果参数值为“ undefined”，则考虑使用默认值。
 
 ```js
 let greetings = (name=isRequired(), message='Hello,') => {
@@ -181,13 +181,13 @@ let greetings = (name=isRequired(), message='Hello,') => {
 console.log(greetings());
 ```
 
-在上面的代码中，`name`将是未定义的，并且将尝试为其设置默认值，即isRequired（）函数。 它将引发错误，因为
+在上面的代码中，`name`将是未定义的，并且将尝试为其设置默认值，即 isRequired() 函数。 它将引发错误，因为
 
 ![8.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595930079306/ossRyuA7X.png?auto=format&q=60)
 
 ## 9. 逗号运算符
 
-当我意识到逗号（,）是一个单独的运算符并且从未被发现时，我感到惊讶。 我已经在代码中使用了很多，但是从未意识到它的真实存在。
+当我意识到逗号 (,) 是一个单独的运算符并且从未被发现时，我感到惊讶。我已经在代码中使用了很多，但是从未意识到它的真实存在。
 
 运算符用于从左到右评估其每个操作数，并返回最后一个操作数的值。
 
@@ -204,7 +204,7 @@ let val = (12, 32);
 console.log(val);
 ```
 
-我们在哪里使用它？ 有什么猜想吗？ comma（，）运算符最常见的用法是在for循环中提供多个参数。
+我们在哪里使用它？ 有什么猜想吗？ comma (,) 运算符最常见的用法是在for循环中提供多个参数。
 
 ```js
 for (var i = 0, j = 50; i <= 50; i++, j--)
@@ -212,7 +212,7 @@ for (var i = 0, j = 50; i <= 50; i++, j--)
 
 ## 10. 合并多个对象
 
-您可能需要将两个对象合并在一起，并创建一个更好的信息对象来使用。 您可以使用扩展运算符`...`（是，三个点！）。
+您可能需要将两个对象合并在一起，并创建一个更好的信息对象来使用。您可以使用扩展运算符`...`（是，三个点！）。
 
 分别考虑 emp 和 job 这两个对象，
 
@@ -238,23 +238,23 @@ let merged = {...emp, ...job};
 console.log('Spread merged', merged);
 ```
 
-还有另一种执行合并的方法。 使用 Object.assign() 你可以这样
+还有另一种执行合并的方法。使用 Object.assign() 你可以这样
 
 ```js
 console.log('Object assign', Object.assign({}, emp, job));
 ```
 
-输出结果:
+输出结果：
 
 ![10.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595930544621/2jCCxCSnz.png?auto=format&q=60)
 
-注意，扩展运算符和 Object.assign 都执行浅合并。 在浅表合并中，第一个对象的属性将被第二个对象的相同属性值覆盖。
+注意，扩展运算符和 Object.assign 都执行浅合并。 在浅合并中，第一个对象的属性将被第二个对象的相同属性值覆盖。
 
-要进行深度合并，请使用类似的_mergeof [lodash](https://lodash.com/).
+要进行深度合并，请使用类似的 _mergeof [lodash](https://lodash.com/).
 
 ## 11. 解构
 
-The technique of breaking down the array elements and object properties as variables called, `destructuring`. Let us see it with few examples,将数组元素和对象属性分解为变量的技术称为“ destructuring”。 让我们看几个例子，
+将数组元素和对象属性分解为变量的技术称为“ destructuring”。让我们看几个例子，
 
 ### 数组 Array
 
@@ -270,17 +270,17 @@ let emojis = ['🔥', '⏲️', '🏆', '🍉'];
 let [fire, clock, , watermelon] = emojis;
 ```
 
-这与“ let fire = emojis [0];”相同，但具有更大的灵活性。 您是否注意到，我只是在奖杯表情符号之间使用了空白空间而忽略了它？ 那么，这将输出什么呢？
+这与“let fire = emojis [0];”相同，但具有更大的灵活性。您是否注意到，我只是在奖杯表情符号之间使用了空白空间而忽略了它？那么，这将输出什么呢？
 
 ```js
 console.log(fire, clock, watermelon);
 ```
 
-输出结果:
+输出结果：
 
 ![11.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595931639636/TXaeEwgGq.png?auto=format&q=60)
 
-让我在这里还介绍一个叫做“rest”运算符的东西。 如果您想对数组进行解构，以便要将一个或多个项目分配给变量并将其其余部分停放在另一个数组中，则可以使用“...rest”来完成，如下所示。
+让我在这里还介绍一个叫做“rest”运算符的东西。如果您想对数组进行解构，以便要将一个或多个项目分配给变量并将其其余部分停放在另一个数组中，则可以使用“...rest”来完成，如下所示。
 
 ```js
 let [fruit, ...rest] = emojis;
@@ -312,7 +312,7 @@ console.log(name, sides);
 console.log(restObj);
 ```
 
-输出结果:
+输出结果：
 
 ![11.b.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595932176160/97vWj-QQl.png?auto=format&q=60)
 
@@ -358,7 +358,7 @@ undefined === null // false
 
 ## 15. 获取查询参数
 
-`window.location`对象具有许多实用方法和属性。 使用这些属性和方法，我们可以从浏览器URL中获取有关协议、主机、端口、域等的信息。
+`window.location`对象具有许多实用方法和属性。使用这些属性和方法，我们可以从浏览器URL中获取有关协议、主机、端口、域等的信息。
 
 我发现非常有用的属性是以下部分，
 
@@ -366,7 +366,7 @@ undefined === null // false
 window.location.search
 ```
 
-`search`属性从位置url返回查询字符串。 这是一个示例网址：`https：//tapasadhiary.com？project = js`。 `location.search`将返回`？project = js`
+`search`属性从位置url返回查询字符串。这是一个示例网址：`https：//tapasadhiary.com？project = js`。 `location.search`将返回`？project = js`
 
 我们可以使用另一个名为`URLSearchParams`的有用接口以及`location.search`来获取查询参数的值。
 
@@ -374,13 +374,13 @@ window.location.search
 let project = new URLSearchParams(location.search).get('project');
 ```
 
-输出结果: `js`
+输出结果：`js`
 
 阅读有关此主题的更多信息 [from here](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
 
 # 本文并未结束
 
-这不是本文技巧列表的结尾，还有很多，当我遇到它们时，我肯定会将它们作为小的示例推送到GitHub项目中。
+这不是本文技巧列表的结尾，还有很多，当我遇到它们时，我肯定会将它们作为补充示例推送到GitHub项目中。
 
 [https://github.com/atapas/js-tips-tricks](https://github.com/atapas/js-tips-tricks)
 
