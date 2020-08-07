@@ -9,8 +9,6 @@
 
 Redux is a simple library that helps you manage the state of your JavaScript app. Despite that simplicity, it's easy to fall down rabbit holes when learning it. I often find myself explaining Redux, and almost always start by showing how I'd implement it. So that's what we'll do here: Start from scratch and build a working Redux implementation. Our implementation won't cover every nuance, but we'll remove most of the mystery.
 
-At Zapier, we love digging into these meaty technical topics. Sound like something you'd be into? Check out [our current open positions](https://zapier.com/jobs/) and work from anywhere on challenging problems. We'd love to hear from you.  
-
 Note that technically we'll be building [Redux](https://github.com/reactjs/redux?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) **and** [React Redux](https://github.com/reactjs/react-redux?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier). At Zapier, we pair Redux with the (awesome) UI library [React](https://facebook.github.io/react/), and that's the pairing that shows up most in the wild. But even if you use Redux with something else, most everything here will still apply.
 
 Let's get started!
@@ -73,7 +71,49 @@ const renderApp = () => {
 renderApp();
 ```
 
-You can try out this example live with [JSFiddle](https://jsfiddle.net). Just click on the Result tab to play with the app. Use the "Edit in JSFiddle" link if you want to play with the code.
+You can try out this example live with [JSFiddle](https://jsfiddle.net/justindeal/5j3can1z/102/):
+
+```jsx
+const initialState = {
+  nextNoteId: 1,
+  notes: {}
+};
+
+window.state = initialState;
+
+const onAddNote = () => {
+  const id = window.state.nextNoteId;
+  window.state.notes[id] = {
+    id,
+    content: ''
+  };
+  window.state.nextNoteId++;
+  renderApp();
+};
+
+const NoteApp = ({notes}) => (
+  <div>
+    <ul className="note-list">
+    {
+      Object.keys(notes).map(id => (
+        // Obviously we should render something more interesting than the id.
+        <li className="note-list-item" key={id}>{id}</li>
+      ))
+    }
+    </ul>
+    <button className="editor-button" onClick={onAddNote}>New Note</button>
+  </div>
+);
+
+const renderApp = () => {
+  ReactDOM.render(
+    <NoteApp notes={window.state.notes}/>,
+    document.getElementById('root')
+  );
+};
+
+renderApp();
+```
 
 Not a very useful app, but what's there works fine. Seems like we've proved we can get by without Redux. So this blog post is done, right?
 
@@ -335,7 +375,68 @@ Now `state1` looks like this:
 }
 ```
 
-You can play with our reducer here. Follow the "Edit in JSFiddle" link to edit the code and try other actions. I'll wait here!
+You can play with our reducer [here (JSFiddle)](https://jsfiddle.net/justindeal/kLkjt4y3/37/):
+
+```jsx
+const CREATE_NOTE = 'CREATE_NOTE';
+const UPDATE_NOTE = 'UPDATE_NOTE';
+
+const initialState = {
+  nextNoteId: 1,
+  notes: {}
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_NOTE: {
+      const id = state.nextNoteId;
+      const newNote = {
+        id,
+        content: ''
+      };
+      return {
+        ...state,
+        nextNoteId: id + 1,
+        notes: {
+          ...state.notes,
+          [id]: newNote
+        }
+      };
+    }
+    case UPDATE_NOTE: {
+      const {id, content} = action;
+      const editedNote = {
+        ...state.notes[id],
+        content
+      };
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          [id]: editedNote
+        }
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const state0 = reducer(undefined, {
+  type: CREATE_NOTE
+});
+
+const state1  = reducer(state0, {
+  type: UPDATE_NOTE,
+  id: 1,
+  content: 'Hello, world!'
+});
+
+ReactDOM.render(
+  <pre>{JSON.stringify(state1, null, 2)}</pre>,
+  document.getElementById('root')
+);
+```
 
 Of course, Redux doesn't keep making more variables like this, but we'll get to a real implementation soon enough. The point is that the core of Redux is really just a piece of code that you write, a simple function that takes the previous state and an action and returns the next state. Why is that function called a reducer? Because it would plug right into a standard [`reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) function.
 
@@ -362,7 +463,65 @@ After this, `state` would look identical to our previous `state1`:
 }
 ```
 
-Play around with adding actions to our `actions` array and feeding them into the reducer.
+Play around with adding actions to our `actions` array and feeding them into the reducer [(JSFiddle link)](https://jsfiddle.net/justindeal/edogdh33/13/):
+
+```jsx
+const CREATE_NOTE = 'CREATE_NOTE';
+const UPDATE_NOTE = 'UPDATE_NOTE';
+
+const initialState = {
+  nextNoteId: 1,
+  notes: {}
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_NOTE: {
+      const id = state.nextNoteId;
+      const newNote = {
+        id,
+        content: ''
+      };
+      return {
+        ...state,
+        nextNoteId: id + 1,
+        notes: {
+          ...state.notes,
+          [id]: newNote
+        }
+      };
+    }
+    case UPDATE_NOTE: {
+      const {id, content} = action;
+      const editedNote = {
+        ...state.notes[id],
+        content
+      };
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          [id]: editedNote
+        }
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const actions = [
+  {type: CREATE_NOTE},
+  {type: UPDATE_NOTE, id: 1, content: 'Hello, world!'}
+];
+
+const state = actions.reduce(reducer, undefined);
+
+ReactDOM.render(
+  <pre>{JSON.stringify(state, null, 2)}</pre>,
+  document.getElementById('root')
+);
+```
 
 Now you can understand why Redux bills itself as "a predictable state container for JavaScript apps". Feed in the same set of actions, and you'll end up in the same state. Functional programming for the win! If you hear about Redux facilitating replay, this is roughly how that works. Out of the box though, Redux doesn't hold onto a list of actions. Instead, there's a single variable that points to the state object, and we keep changing that variable to point to the next state. That is one important mutation that **is** allowed in your app, but we'll control that mutation inside a store.
 
@@ -446,7 +605,129 @@ const createStore = reducer => {
 
 A little more code, but not **too** hard to follow. The `subscribe` function takes a `handler` function and adds that to the list of `subscribers`. It also returns a function to unsubscribe. Any time we call `dispatch`, we notify all those handlers. Now it's easy to re-render every time the state changes.
 
-Play with the code and dispatch more actions. The rendered HTML will always reflect the store state. Of course, for a real app, we want to wire up those `dispatch` functions to user actions. We'll get to that soon enough!
+```jsx
+///////////////////////////////
+// Mini Redux implementation //
+///////////////////////////////
+
+const validateAction = action => {
+  if (!action || typeof action !== 'object' || Array.isArray(action)) {
+    throw new Error('Action must be an object!');
+  }
+  if (typeof action.type === 'undefined') {
+    throw new Error('Action must have a type!');
+  }
+};
+
+const createStore = reducer => {
+  let state;
+  const subscribers = [];
+  const store = {
+    dispatch: action => {
+      validateAction(action);
+      state = reducer(state, action);
+      subscribers.forEach(handler => handler());
+    },
+    getState: () => state,
+    subscribe: handler => {
+      subscribers.push(handler);
+      return () => {
+        const index = subscribers.indexOf(handler);
+        if (index > 0) {
+          subscribers.splice(index, 1);
+        }
+      };
+    }
+  };
+  store.dispatch({type: '@@redux/INIT'});
+  return store;
+};
+
+//////////////////////
+// Our action types //
+//////////////////////
+
+const CREATE_NOTE = 'CREATE_NOTE';
+const UPDATE_NOTE = 'UPDATE_NOTE';
+
+/////////////////
+// Our reducer //
+/////////////////
+
+const initialState = {
+  nextNoteId: 1,
+  notes: {}
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_NOTE: {
+      const id = state.nextNoteId;
+      const newNote = {
+        id,
+        content: ''
+      };
+      return {
+        ...state,
+        nextNoteId: id + 1,
+        notes: {
+          ...state.notes,
+          [id]: newNote
+        }
+      };
+    }
+    case UPDATE_NOTE: {
+      const {id, content} = action;
+      const editedNote = {
+        ...state.notes[id],
+        content
+      };
+      return {
+        ...state,
+        notes: {
+          ...state.notes,
+          [id]: editedNote
+        }
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+///////////////
+// Our store //
+///////////////
+
+const store = createStore(reducer);
+
+///////////////////////////////////////////////
+// Render our app whenever the store changes //
+///////////////////////////////////////////////
+
+store.subscribe(() => {
+  ReactDOM.render(
+    <pre>{JSON.stringify(store.getState(), null, 2)}</pre>,
+    document.getElementById('root')
+  );
+});
+
+//////////////////////
+// Dispatch actions //
+//////////////////////
+
+store.dispatch({
+  type: CREATE_NOTE
+});
+
+store.dispatch({
+  type: UPDATE_NOTE,
+  id: 1,
+  content: 'Hello, world!'
+});
+```
+
+[Play with the code](https://jsfiddle.net/justindeal/8cpu4ydj/27/) and dispatch more actions. The rendered HTML will always reflect the store state. Of course, for a real app, we want to wire up those `dispatch` functions to user actions. We'll get to that soon enough!
 
 ## Bring Your own Components
 
@@ -634,7 +915,7 @@ ReactDOM.render(
 );
 ```
 
-Yay, it's alive! Try it out!
+Yay, it's alive! [Try it out!](https://jsfiddle.net/justindeal/8bL9tL0z/23/)
 
 Our app is dispatching actions, which update the store state via our reducer, and our subscription is keeping our view in sync. If we end up in a weird state, we don't have to peek into all of our components—we just look at our reducer and actions.
 
@@ -763,7 +1044,7 @@ ReactDOM.render(
 
 ```
 
-Nice! Our `store` is passed in once at the top, and `connect` picks it up and does all the work. Declarative for the win! Here's our app again cleaned up with `Provider` and `connect`:
+Nice! Our `store` is passed in once at the top, and `connect` picks it up and does all the work. Declarative for the win! [Here is our app](https://jsfiddle.net/justindeal/srnf5n20/10/) again cleaned up with `Provider` and `connect`.
 
 ## Middleware
 
@@ -860,7 +1141,7 @@ Now, let's use that middleware for our store.
 const store = createStore(reducer, delayMiddleware);
 ```
 
-Yay, we made our app slower! Wait, no, boo! But we have async now. Yay! Experience this terrible app for yourself. Typing is particularly humorous.
+Yay, we made our app slower! Wait, no, boo! But we have async now. Yay! [Experience this terrible app](https://jsfiddle.net/justindeal/56uf0uy7/7/) for yourself. Typing is particularly humorous.
 
 Play with the `setTimeout` time to make it more or less terrible.
 
@@ -913,7 +1194,7 @@ const store = createStore(reducer, applyMiddleware(
 ));
 ```
 
-Yay! Now our Redux implementation can handle all the things!
+Yay! Now our Redux implementation can handle all the things! [Try it out](https://jsfiddle.net/justindeal/3ukd4mL7/52/)!
 
 Open the console in your browser to see the logging middleware at work.
 
@@ -1039,7 +1320,7 @@ const mapDispatchToProps = dispatch => ({
 });
 ```
 
-Our app is doing async work now!
+Our app is doing async work now! [Try it out](https://jsfiddle.net/justindeal/o27j5zs1/8/)!
 
 But wait… besides that being some ugly code we dumped in our component, we invented middleware to try to get that out of our code. And now we put it right back in. If we made some custom api middleware instead of using the thunk hammer, we could get rid of that. But even when using thunk middleware, we can still make things more declarative.
 
@@ -1081,7 +1362,7 @@ const mapDispatchToProps = dispatch => ({
 });
 ```
 
-Much better! Here's our final app:
+Much better! [Here's our final app](https://jsfiddle.net/justindeal/5j3can1z/171/).
 
 ## That's About it!
 
