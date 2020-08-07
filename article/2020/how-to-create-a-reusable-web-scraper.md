@@ -3,11 +3,11 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-a-reusable-web-scraper.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-a-reusable-web-scraper.md)
 > - 译者：[YueYongDEV](https://github.com/YueYongDev)
-> - 校对者：[iceytea](https://github.com/iceytea)
+> - 校对者：[iceytea](https://github.com/iceytea)、[shixi-li](https://github.com/shixi-li)
 
 # 如何创建一个可复用的网页爬虫
 
-![Photo from [Raconteur](https://www.raconteur.net/sponsored/reduce-reuse-recycle-smart-packaging-to-protect-what-matters).](https://cdn-images-1.medium.com/max/5200/0*b-aN9YmOsw47b5D_.jpg)
+![照片来自 [Raconteur](https://www.raconteur.net/sponsored/reduce-reuse-recycle-smart-packaging-to-protect-what-matters).](https://cdn-images-1.medium.com/max/5200/0*b-aN9YmOsw47b5D_.jpg)
 
 网页爬虫是个非常有趣的玩具。不过不好玩的是，我们需要根据不同网页上的元素不断的调整自己的代码。这就是为什么我要着手实现一个更好的网页爬虫项目——通过该项目可以以最少的更改实现对新网页的爬取。
 
@@ -19,7 +19,7 @@
 
 ## 页面请求器
 
-![Photo from [Toy Bros](https://toybros.com/should-guests-be-able-to-request-music-at-your-wedding/).](https://cdn-images-1.medium.com/max/2000/0*gUnzcgKznbinsJoa.jpg)
+![照片来自 [Toy Bros](https://toybros.com/should-guests-be-able-to-request-music-at-your-wedding/).](https://cdn-images-1.medium.com/max/2000/0*gUnzcgKznbinsJoa.jpg)
 
 页面请求器的实现有一些技巧。下载网页时要考虑很多因素。你需要确保你可以随机的使用用户代理，并且不要过于频繁地从同一域中请求。
 
@@ -52,7 +52,7 @@ def download_page(url):
 
 ## 页面验证器
 
-![Photo from [Medium](https://medium.com/artisans-of-tech/handling-validating-user-input-more-with-sauciness-in-android-with-java-d1bbf10d767).](https://cdn-images-1.medium.com/max/5200/0*7BSzrpW_zUlqkGMq.jpeg)
+![照片来自 [Medium](https://medium.com/artisans-of-tech/handling-validating-user-input-more-with-sauciness-in-android-with-java-d1bbf10d767).](https://cdn-images-1.medium.com/max/5200/0*7BSzrpW_zUlqkGMq.jpeg)
 
 页面验证器浏览文件并释放请求。它将读取请求的状态码，如果请求代码类似于 408（超时），您可以让它重新排队下载网页。否则，验证器可以将文件移动到实际的 web 抓取模块中进行处理。
 
@@ -105,7 +105,7 @@ models = {
 }
 ```
 
-接下来，我们将确定本文中的哪些元素是无用的。我们可以看到一个有 `ad` 类(值得注意的是，在现实生活中它永远不会这么简单)。因此，为了指定我们想要删除的元素，我们将在配置模型中创建一个 `unwanted_elements` 元素：
+接下来，我们将确定本文中的哪些元素是无用的。我们可以看到一个有 `ad` 类（值得注意的是，在真实场景中它永远不会这么简单）。因此，为了指定我们想要删除的元素，我们将在配置模型中创建一个 `unwanted_elements` 元素：
 
 ```python
 models = {
@@ -146,10 +146,10 @@ models = {
 }
 ```
 
-现在是最后一部分——主聚合器！我将不考虑配置文件的解析和加载。如果我把所有代码都放上来，一篇文章不足以全部介绍完。
+现在是最后一部分——主聚合器！这里我将不关注配置文件的解析和加载。如果我把所有代码都放上来，一篇文章不足以全部介绍完。
 
 ```Python
-# Get outer element
+# 获取外部元素
 def outer_element(page, identifier):
     root = page.find(*identifier)
         if root == None:
@@ -157,9 +157,9 @@ def outer_element(page, identifier):
      return root
 
 
-# Remove unwanted elements
+# 移除不需要的元素
 def trim_unwanted(page, identifier_list):
-    # Check if list has elements
+    # 判断 list 中是否有该元素
     if len(identifier_list) != 0:
         for identifier in identifier_list:
             for element in page.find_all(*identifier):
@@ -167,9 +167,9 @@ def trim_unwanted(page, identifier_list):
     return page
 
 
-# Extract text
+# 提取文字
 def get_text(page, identifier_list):
-    # Check if list has elements
+    # 判断 list 中是否有该元素
     if len(identifier_list) == 0:
         raise Exception("Need text elements")
     page_text = []
@@ -180,15 +180,15 @@ def get_text(page, identifier_list):
         return page_text
 
 
-# Get page config
+# 获取页面配置
 def load_scrape_config():
-    '''Loads page scraping config data'''
+    '''加载页面爬取配置数据'''
     return get_scrape_config()
 
 
-# Get the scraping config for the site
+# 获取站点的抓取配置
 def get_site_config(url):
-    '''Get the scrape config for the site'''
+    '''获取站点的抓取配置'''
     domain = extract_domain(url)
     config_data = load_scrape_config()
     config = config_data.get(domain, None)
@@ -197,20 +197,20 @@ def get_site_config(url):
     return config
 
 
-# Build Soup
+# 构建返回字段
 def page_processer(request):
-    '''Returns Article Text'''
-    # Get the page scrape config
+    '''返回文本'''
+    # 获取站点的抓取配置
     site_config = get_site_config(request.url)
 
-    # Soupify page
+    # 解析页面
     soup = BeautifulSoup(request.text, 'lxml')
 
-    # Retrieve root element
+    # 获取根元素
     root = outer_element(soup, site_config["root_element"])
-    # Remove unwanted elements
+    # 移除不需要的元素
     trimmed_tree = trim_unwanted(root, site_config["unwanted"])
-    # Get the desired elements
+    # 获得所需的元素
     text = get_text(trimmed_tree, site_config["text_elements"])
     return " ".join(text)
 ```
