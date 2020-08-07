@@ -339,7 +339,7 @@ const state0 = reducer(undefined, {
 
 Now `state0` looks like this:
 
-```json
+```js
 {
   nextNoteId: 2,
   notes: {
