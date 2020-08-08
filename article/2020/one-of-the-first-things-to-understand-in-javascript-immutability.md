@@ -5,7 +5,7 @@
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
-# One of the first things to understand in JavaScript — Immutability
+# JavaScript 首要知识之不可变性
 
 ![](https://cdn-images-1.medium.com/max/6136/1*4PrMNL-FF9Z5G5BXJliAYg.png)
 
