@@ -228,8 +228,6 @@ Do:
 }
 ```
 
-* * * * *
-
 These are by no means an exhaustive list of best coding practices, but they certainly play a vital role in designing readable, scalable web apps. Is there any CSS guideline that you follow as your north star? Let me know in the comments!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
