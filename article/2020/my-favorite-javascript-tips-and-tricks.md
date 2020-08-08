@@ -13,7 +13,7 @@
 
 大多数编程语言都足够开放，以允许程序员以多种方式得到类似的结果。JavaScript 也是如此，使用 JavaScript，我们通常会找到多种方法来达到相似的结果，虽然有时会造成混淆。
 
-其中一些用法比其他方法要好，而这些就是我要分享的。我将在本文中列出它们，我敢肯定，您在阅读本文中会有很多收获。
+其中一些用法比其他方法要好，而这些就是我要分享的。我将在本文中列出它们，我敢肯定，您在阅读本文时会发现，在很多地方您和我的做法是相同的。
 
 ## 1. 忘记字符串连接，使用模板字符串（文字）
 
@@ -164,7 +164,7 @@ console.log(greetings('Jack', 'Hola!'));
 
 ## 8. 获取参数返回值
 
-扩展默认参数方法，我们可以将参数标记为强制性。首先定义一个函数以使用错误消息抛出错误，
+扩展默认参数方法，我们可以将参数标记为强制参数。首先定义一个函数以使用错误消息抛出错误，
 
 ```js
 let isRequired = () => {
@@ -172,7 +172,7 @@ let isRequired = () => {
 }
 ```
 
-然后将功能分配为所需参数的默认值。请记住，在调用时为参数传递值时，将忽略默认值。但是，如果参数值为“undefined”，则考虑使用默认值。
+然后将函数分配为所需参数的默认值。请记住，在调用时为参数传递值时，将忽略默认值。但是，如果参数值为“undefined”，则考虑使用默认值。
 
 ```js
 let greetings = (name=isRequired(), message='Hello,') => {
@@ -181,7 +181,7 @@ let greetings = (name=isRequired(), message='Hello,') => {
 console.log(greetings());
 ```
 
-在上面的代码中，`name`将是未定义的，并且将尝试为其设置默认值，即 isRequired() 函数。 它将引发错误，因为
+在上面的代码中，`name`将是未定义的，并且将尝试为其设置默认值，即 isRequired() 函数。 它将引发错误，如下所示
 
 ![8.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595930079306/ossRyuA7X.png?auto=format&q=60)
 
@@ -270,7 +270,7 @@ let emojis = ['🔥', '⏲️', '🏆', '🍉'];
 let [fire, clock, , watermelon] = emojis;
 ```
 
-这与“let fire = emojis [0];”相同，但具有更大的灵活性。您是否注意到，我只是在奖杯表情符号之间使用了空格而忽略了它？那么，这将输出什么呢？
+这与“let fire = emojis [0];”相同，但具有更大的灵活性。您是否注意到，我只是在奖杯表情符号的位置上使用了空格而忽略了它？那么，这将输出什么呢？
 
 ```js
 console.log(fire, clock, watermelon);
@@ -280,7 +280,7 @@ console.log(fire, clock, watermelon);
 
 ![11.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595931639636/TXaeEwgGq.png?auto=format&q=60)
 
-让我在这里还介绍一个叫做“rest”运算符的东西。如果您想对数组进行解构，以便要将一个或多个项目分配给变量并将其余部分停放在另一个数组中，则可以使用“...rest”来完成，如下所示。
+让我在这里再介绍一个叫做“rest”运算符的东西。如果您想对数组进行解构，以便要将一个或多个项目分配给变量并将其余部分停放在另一个数组中，则可以使用“...rest”来完成，如下所示。
 
 ```js
 let [fruit, ...rest] = emojis;
