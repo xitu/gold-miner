@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/14-javascript-code-optimization-tips-for-front-end-developers.md](https://github.com/xitu/gold-miner/blob/master/article/2020/14-javascript-code-optimization-tips-for-front-end-developers.md)
 > * 译者：(Gesj-yean)[https://github.com/Gesj-yean]
-> * 校对者：(plusmultiply0)[https://github.com/plusmultiply0]，(rachelcdev)[https://github.com/rachelcdev]
+> * 校对者：(plusmultiply0)[https://github.com/plusmultiply0] (rachelcdev)[https://github.com/rachelcdev]
 
 # 给前端开发者的 14 个 JavaScript 代码优化建议
 
