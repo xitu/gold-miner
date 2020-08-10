@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/14-javascript-code-optimization-tips-for-front-end-developers.md](https://github.com/xitu/gold-miner/blob/master/article/2020/14-javascript-code-optimization-tips-for-front-end-developers.md)
 > * 译者：(Gesj-yean)[https://github.com/Gesj-yean]
-> * 校对者：
+> * 校对者：(plusmultiply0)[https://github.com/plusmultiply0]，(rachelcdev)[https://github.com/rachelcdev]
 
 # 给前端开发者的 14 个 JavaScript 代码优化建议
 
 ![](https://cdn-images-1.medium.com/max/2560/1*MgoAGKBmwDGomYOe4hspxw.jpeg)
 
-JavaScript 已经成为当下最流行的编程语言之一。根据 [W3Tech](https://w3techs.com/technologies/details/cp-javascript)，全世界几乎 96% 的网站都在使用它。关于网站，有最关键的一点你应该了解的是，你无法控制访问你网站的用户的硬件设备规格。访问你的网站的终端用户也许使用了高端或低端的设备，用着好的或差的网络连接。这意味着你必须确保你的网站是尽可能优化的，你能够满足任何用户的要求。
+JavaScript 已经成为当下最流行的编程语言之一。根据 [W3Tech](https://w3techs.com/technologies/details/cp-javascript)，全世界几乎 96% 的网站都在使用它。关于网站，你需要知道的最关键的一点是，你无法控制访问你网站的用户的硬件设备规格。访问你的网站的终端用户也许使用了高端或低端的设备，用着好的或差的网络连接。这意味着你必须确保你的网站是尽可能优化的，你能够满足任何用户的要求。
 
 这里有一些技巧，可以帮助你更好地优化 JavaScript 代码，从而提高性能。
 
@@ -103,7 +103,7 @@ cityOfCustomer('Wade');//California
 cityOfCustomer('Max');//Unknown
 ```
 
-上述例子中，在闭包的帮助下，返回给变量 `cityOfCustomer` 的内部函数可以访问外部函数 `findCustomerCity()` 的常量。并且当调用内部函数并传参 name 时，不需要再次实例化这些常量。
+上述例子中，在闭包的帮助下，返回给变量 `cityOfCustomer` 的内部函数可以访问外部函数 `findCustomerCity()` 的常量。并且当调用内部函数并传参 name 时，不需要再次实例化这些常量。如果想要对闭包有更多了解，我建议你浏览Prashant的这篇[博客](https://medium.com/@prashantramnyc/javascript-closures-simplified-d0d23fa06ba4)。
 
 ## 6. 最小化 DOM 的访问
 
