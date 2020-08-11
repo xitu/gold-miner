@@ -7,15 +7,11 @@
 
 # Improve MongoDB Performance Using Projection
 
-#### Speed up your Mongo database’s performance
-
 ![Photo by [Greg Rosenke](https://unsplash.com/@greg_rosenke?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10744/0*xNUvb3ABjaziY-2J)
 
 This article documents all my findings and analysis on how much performance was improved using projection in MongoDB. At the end of this article, we will be able to know whether MongoDB query performance will be improved by leveraging projection.
 
 Without further ado, let’s start.
-
----
 
 ## Problem Statement
 
@@ -29,8 +25,6 @@ Thus, I was wondering — how much does the query performance improve if project
 
 * Discover whether performance will be improved if projection was used in MongoDB query.
 * Discover the best scenario to use projection in MongoDB query.
-
----
 
 ## Solution Analysis
 
@@ -50,8 +44,6 @@ From this screenshot, we knew that we have generated 500K documents with the fol
 * `destination` - Arrival City
 * `persons` - An array of people which consists of `first_name`, `last_name` and `dob` field
 
----
-
 ## Performance Experiment
 
 Before we started any experiment, let’s ensure the setup is correct. There are no indexes created the collection yet, except the default `_id` field.
@@ -60,8 +52,6 @@ The experiments I would like to perform here are:
 
 * Experiment 1: Will query performance increase if I project lesser fields?
 * Experiment 2: If experiment 1 result is no, what other scenarios will find out how projection will improve query performance?
-
----
 
 ## Experiment 1: Will Query Performance Increase If I Project Lesser Fields?
 
@@ -80,8 +70,6 @@ Thus, the performance did not improve — instead, it took a much longer time to
 ![](https://cdn-images-1.medium.com/max/2000/1*1jXiJv35xCeu0cYVUtsuZQ.png)
 
 The conclusion for Experiment 1 — Performance did not improve when you implement projection in the query. 👎👎
-
----
 
 ## Experiment 2: If the Experiment 1 Result is No, Find Other Scenarios on How Projection Improves Query Performance
 
@@ -110,8 +98,6 @@ You might be satisfied with this performance, but this is not the end of the opt
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_07K8c-uv2n9X9cahQnEGQ.png)
 
----
-
 ## Query with Projection (Covered Query)
 
 Using the covered query means we’re querying fields that are is indexed.
@@ -122,8 +108,6 @@ Aside from improving execution time, we also improve the query strategy. From th
 
 ![](https://cdn-images-1.medium.com/max/2000/1*R24vSTP-N7x_kfh2ucWr-g.png)
 
----
-
 ## Conclusion
 
 Here are the key points of this article.
@@ -133,8 +117,6 @@ Here are the key points of this article.
 * Covered Query performed 60% faster than Normal Optimized Query using Index Scan.
 
 Thank you for reading. See you in the next article.
-
----
 
 ## References
 
