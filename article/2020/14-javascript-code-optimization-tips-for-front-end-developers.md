@@ -2,44 +2,44 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/14-javascript-code-optimization-tips-for-front-end-developers.md](https://github.com/xitu/gold-miner/blob/master/article/2020/14-javascript-code-optimization-tips-for-front-end-developers.md)
-> * 译者：
-> * 校对者：
+> * 译者：(Gesj-yean)[https://github.com/Gesj-yean]
+> * 校对者：(plusmultiply0)[https://github.com/plusmultiply0] (rachelcdev)[https://github.com/rachelcdev]
 
-# 14 JavaScript Code Optimization Tips for Front-End Developers
+# 给前端开发者的 14 个 JavaScript 代码优化建议
 
 ![](https://cdn-images-1.medium.com/max/2560/1*MgoAGKBmwDGomYOe4hspxw.jpeg)
 
-JavaScript has become one of the most popular programming languages of all time. It is used by almost 96% of websites all over the world according to [W3Tech](https://w3techs.com/technologies/details/cp-javascript). One key fact you should know about the web is that you have no control over the hardware specifications of the devices your user would access your website on. The end-user may access your website on a high-end or a low-end device with either great or poor internet connection. This means that you have to make sure your website is optimized as much as possible for you to be able to satisfy the requirements of any user.
+JavaScript 已经成为当下最流行的编程语言之一。根据 [W3Tech](https://w3techs.com/technologies/details/cp-javascript)，全世界几乎 96% 的网站都在使用它。关于网站，你需要知道的最关键的一点是，你无法控制访问你网站的用户的硬件设备规格。访问你的网站的终端用户也许使用了高端或低端的设备，用着好的或差的网络连接。这意味着你必须确保你的网站是尽可能优化的，你能够满足任何用户的要求。
 
-Here are a few tips for you to have a better-optimized JavaScript code that would result in greater performance.
+这里有一些技巧，可以帮助你更好地优化 JavaScript 代码，从而提高性能。
 
-As a side-note, make sure to share and reuse your JS components to keep the right balance between high-quality code (that takes time to produce) and reasonable delivery times. You can use popular tools like [**Bit**](https://bit.dev) ([Github](https://github.com/teambit/bit)), to share components (vanilla JS, TS, React, Vue, etc.) from any project to Bit’s [component hub](https://bit.dev), without losing too much time over it.
+顺便提一下，为了共享和复用 JS 组件，需要在高质量代码（需要花时间）和合理交付时间之间保持正确的平衡。你可以使用流行的工具例如 [**Bit**](https://bit.dev) ([Github](https://github.com/teambit/bit))，去共享组件（vanilla JS, TS, React, Vue 等）到 Bit 的 [component hub](https://bit.dev)，而不浪费太多时间。
 
-## 1. Remove Unused Code and Features
+## 1. 删除不使用的代码和功能
 
-The more code your application contains, the more data needs to be transmitted to the client. It would also require more time for the browser to analyze and interpret the code.
+程序包含越多的代码，给客户端传递的数据就越多。浏览器也需要更多的时间去解析和编译代码。
 
-Sometimes, you might include features that are not used at all. It is better to keep this extra code only in the development environment, and not to push it for production so that you would not burden the client’s browser with unused code.
+有时，代码里也许会包含完全未使用到的功能，最好只将这些额外的代码保留在开发环境中，并且不要把它们留到生产环境中，因为无用的代码可能会增加客户端浏览器的负担。
 
-**Always ask yourself whether that function, feature, or piece of code is a necessity.**
+**经常问自己那个函数、特性或代码是否是必需的。**
 
-You can remove unused code manually or by using tools such as [Uglify](https://github.com/mishoo/UglifyJS#compressor-options) or [Google’s Closure Compiler](https://developers.google.com/closure/compiler/docs/api-tutorial3). You can even use a technique called tree shaking which removes unused code from your application. Bundlers such as Webpack provide this technique. You can read more about tree shaking over [here](https://medium.com/@bluepnume/javascript-tree-shaking-like-a-pro-7bf96e139eb7). If you want to remove unused npm packages, you can use the command `npm prune` . More info can be read from [NPM docs.](https://docs.npmjs.com/cli-commands/prune.html)
+你可以手动的删掉无用的代码，也可以用工具 [Uglify](https://github.com/mishoo/UglifyJS#compressor-options) 或 [谷歌开发的 Closure Compiler](https://developers.google.com/closure/compiler/docs/api-tutorial3) 帮你删。你甚至可以使用一种叫做 tree shaking 的技术来删除程序中未使用的代码。例如打包工具 Webpack 就提供了它。你可以在 [这里](https://medium.com/@bluepnume/javascript-tree-shaking-like-a-pro-7bf96e139eb7) 了解更多关于 tree shaking 信息。还有，如果你想删掉未使用的 npm 包，你可以输入命令 `npm prune` 。阅读 [NPM 文档](https://docs.npmjs.com/cli-commands/prune.html) 了解更多。
 
-## 2. Cache Whenever Possible
+## 2. 尽可能缓存
 
-Caching increases the speed and performance of your website by reducing latency and network traffic and thus lessening the time needed to display a representation of a resource. This can be achieved with the help of the [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) or [HTTP caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching). You might wonder what happens when your content changes. The above caching mechanisms are capable of handling and regenerating the cache when certain conditions are met such as the publishing of new content.
+缓存通过减少等待时间和网络请求提高了网站的速度和性能，因此减少了展示资源的时间。可以借助于 [缓存 API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) 或 [HTTP 缓存](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching) 实现它。你也许好奇当内容改变时发生了什么。上述缓存机制能够在满足某些条件（如发布新内容）时处理和重新生成缓存。
 
-## 3. Avoid Memory Leaks
+## 3. 避免内存泄漏
 
-Being a high-level language, JS looks after several low-level management such as memory management. Garbage collection is a process common for most programming languages. Garbage Collection in layman terms is simply collecting and freeing back memory of which has been allocated to objects but which is not currently in use in any part of our program. In programming languages like C, the developer has to take care of memory allocation and deallocation using `malloc()` and `dealloc()` functions.
+作为一种高级语言，JS 负责几个低级别的管理，比如内存管理。对于大多数编程语言来说，垃圾回收是一个常见的过程。通俗地说，垃圾回收就是简单地收集和释放，那些已经分配给对象，但目前又不被程序任一部分使用的内存。在像 C 这样的编程语言中，开发者必须使用 `malloc()` 和 `dealloc()` 函数来处理内存分配和回收。
 
-Even though garbage collection is performed automatically in JavaScript, there can be certain instances where it will not be perfect. In JavaScript ES6, Map and Set were introduced with their “weaker” siblings. This “weaker” counterpart known as WeakMap and WeakSet hold “weak” references to objects. They enable unreferenced values to be garbage collected and thereby prevent memory leaks. You can read more about WeakMaps [here](https://blog.bitsrc.io/understanding-weakmaps-in-javascript-6e323d9eec81).
+尽管垃圾回收是 JavaScript 自动执行的，但在某些情况下，它可能并不完美。在 JavaScript ES6 中，Map 和 Set 与它们的“weaker”兄弟元素一起被引入。“weaker”对应着 WeakMap 和 WeakSet，持有的是每个键对象的“弱引用”。它们允许对未引用的值进行垃圾收集，从而防止内存泄漏。了解更多关于 [WeakMaps](https://blog.bitsrc.io/downloading-weakmaps-in-javascript-6e323d9eec81) 的信息。
 
-## 4. Try to Break Out of Loops Early
+## 4. 尽早跳出循环 Try to Break Out of Loops Early
 
-Looping for large cycles can definitely consume a lot of precious time. That is why you should always try to break out of a loop early. You can do this with the help of the `break` keyword and `continue` keyword. It is your responsibility to write the most efficient code.
+执行循环在代码量大的循环中肯定会消耗大量宝贵的时间，这就是为什么要尽早打破循环的原因。你可以使用 `break` 关键字和`continue` 关键字跳出循环。编写最有效的代码是开发者们的责任。
 
-In the below example, if you did not `break` from the loop, your code will run the loop 1000000000 times which is clearly in an overload.
+在下面的例子中，如果你不在循环中使用 `break` ，你的代码将运行循环 1000000000 次，显然是超出负荷的。
 
 ```js
 let arr = new Array(1000000000).fill('----');
@@ -52,7 +52,7 @@ for (let i = 0; i < arr.length; i++) {
 }
 ```
 
-In the below example, if you did not `continue` when the loop does not match your condition, you will still be running the function 1000000000 times. We only process the array element if it is in even position. This reduces the loop execution by almost half.
+在下面的例子中，当不满足条件时如果你不使用 `continue`，那么将执行函数 1000000000 次。而我们只处理了位于偶数位置的数组元素，就将循环执行减少了近一半。
 
 ```js
 let arr = new Array(1000000000).fill('----');
@@ -65,13 +65,13 @@ for (let i = 0; i < arr.length; i++) {
 }
 ```
 
-You can read more about loops and performance over [here](https://www.oreilly.com/library/view/high-performance-javascript/9781449382308/ch04.html).
+你可以在 [这里](https://www.oreilly.com/library/view/high-performance-javascript/9781449382308/ch04.html) 了解更多关于循环和性能。
 
-## 5. Minimize the Number of Times the Variables Get Computed
+## 5. 最小化变量的计算次数
 
-To reduce the number of times a variable gets computed, you can use closures. In layman terms, closures in JavaScript gives you access to an outer functions scope from an inner function. The closures are created every time a function is created-**not called**. The inner functions will have access to the variables of the outer scope, even after the outer function has returned.
+要减少计算变量的次数，可以使用闭包。JavaScript 中的闭包允许你从内部函数访问外部函数作用域。每次创建一个函数时都会创建闭包——**但不调用**。内部函数可以访问外部作用域的变量，即使外部函数已经调用结束。
 
-Let’s see two examples to see this in action. These examples are inspired from Bret’s blog.
+让我们看两个例子，看看这是怎么回事。这些例子的灵感来自 Bret 的博客。
 
 ```js
 function findCustomerCity(name) {
@@ -83,9 +83,9 @@ function findCustomerCity(name) {
 };
 ```
 
-If we call the above functions several times, each time a new object is created. For every call, memory is unnecessarily re-allocated to the variables `texasCustometrs` and `californiaCustomers` .
+如果我们多次调用上述函数，每次都会创建一个新对象。对于每个调用，不会将内存重新分配给变量 `texasCustometrs` 和 `californiaCustomers`。
 
-By using a solution with closures, we can instantiate the variables only once. Let’s look at the below example.
+通过使用带有闭包的解决方案，我们只能实例化变量一次。让我们看看下面的例子。
 
 ```js
 function findCustomerCity() {
@@ -103,107 +103,109 @@ cityOfCustomer('Wade');//California
 cityOfCustomer('Max');//Unknown
 ```
 
-In the above example, with the help of closures, the inner function which is being returned to the variable `cityOfCustomer` has access to the constants of the outer function `findCustomerCity()` . And whenever the inner function is being called with the name passed as a parameter, it does not need to instantiate the constants again. To learn more about closures, I suggest you go through this [blog post](https://medium.com/@prashantramnyc/javascript-closures-simplified-d0d23fa06ba4) by Prashant.
+上述例子中，在闭包的帮助下，返回给变量 `cityOfCustomer` 的内部函数可以访问外部函数 `findCustomerCity()` 的常量。并且当调用内部函数并传参 name 时，不需要再次实例化这些常量。如果想要对闭包有更多了解，我建议你浏览Prashant的这篇[博客](https://medium.com/@prashantramnyc/javascript-closures-simplified-d0d23fa06ba4)。
 
-## 6. Minimize DOM Access
+## 6. 最小化 DOM 的访问
 
-Accessing the DOM is slow, compared to other JavaScript statements. If you make changes to the DOM that would trigger re-painting of the layout, this is where things can get quite slow.
+与其他 JavaScript 语句相比，访问 DOM 要慢一些。如果你要操作 DOM，从而触发重绘布局，那么操作会变得相当缓慢。
 
-To reduce the number of times you access a DOM element, access it once, and use it as a local variable. When the need is complete, make sure to remove the value of the variable by setting it to `null` . This would prevent memory leakage as it would allow the garbage collection process to take place.
+要减少访问 DOM 元素的次数，请访问它一次，并将其作为局部变量使用。当需求完成时，确保通过将变量设置为 `null` 来删除该变量的值。这将防止内存泄漏，因为它允许垃圾回收。
 
-## 7. Compress Your Files
 
-By using compression methods such as Gzip, you can reduce the file size of your JavaScript files. These smaller files would result in an increase in your website performance as the browser would need to download smaller assets.
+## 7. 压缩文件
 
-These compressions can reduce your file size by up to 80%. Read more about compression [here](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer#text_compression_with_gzip).
+通过使用诸如 Gzip 之类的压缩方法，可以减小 JavaScript 文件的大小。这些较小的文件将提升网站性能，因为浏览器只需要下载较小的资源。
 
-![Photo by [JJ Ying](https://unsplash.com/@jjying?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*yUVIcTARWrjWiaPw)
+这些压缩可以减少多达 80% 的文件大小。 在这里了解更多关于 [压缩](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer#text_compression_with_gzip)。
 
-## 8. Minify Your Final Code
+![图片来自 JJ Ying](https://unsplash.com/@jjying?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*yUVIcTARWrjWiaPw)
 
-Some people believe that minification and compression are the same. But on the contrary, they are different. In compression special algorithms are used to change the output size of the file. In minification, the comments and extra spaces in JavaScript files, need to be removed. This process can be done with the help of many tools and packages that can be found online. Minification has become standard practice for page optimization and a major component of front end optimization.
+## 8. 缩小你的最终代码
 
-Minification can reduce your file size by up to 60%. You can read more about minification [here](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer#minification_preprocessing_context-specific_optimizations).
+有些人认为缩小和压缩是一样的。但却相反，它们是不同的。在压缩中，使用特殊的算法来改变输出文件的大小。但在缩小中，需要删除 JavaScript 文件中的注释和额外的空格。这个过程可以在网上找到的许多工具和软件包的帮助下完成。缩小已经成为页面优化的标准实践和前端优化的主要组成部分。
 
-## 9. Use Throttle and Debounce
+缩小可以减少你的文件大小高达 60%。 在这里了解更多关于 [缩小](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer#minification_preprocessing_context-specific_optimizations)。
 
-By using these two techniques, we can strictly enforce the number of times your event needs to be handled by your code.
+## 9. 使用节流 throttle 和防抖 debounce
 
-Throttling is where you specify a maximum number of times a function can be called overtime. For example, “execute the `onkeyup` event function at most once every 1000 milliseconds”. This would mean that if you type 20 keys per second, the event will be fired only once every second. This would reduce the load on your code.
+通过使用这两种技术，我们可以严格执行代码需要处理事件的次数。
 
-On the other hand, debouncing is where you specify a minimum duration of time for a function to be run again since the previous execution of the same function. In other words, “execute this function only if 600 milliseconds have passed without it being called”. This would mean that your function would not be called until 600 milliseconds have passed since the last execution of the same function. To know more about throttling and debouncing, here is a [quick read for you](https://css-tricks.com/the-difference-between-throttling-and-debouncing/).
+节流是指函数在指定时间内被调用的最大次数。例如，“最多每 1000 毫秒执行一次 `onkeyup` 事件函数”。这意味着如果你每秒输入 20 个键，该事件将每秒只触发一次。这将减少代码的加载。
 
-You can either implement your own debounce and throttle functions or you can import them from libraries such as [Lodash](https://lodash.com/) and [Underscore](http://underscorejs.org/).
+另一方面，防抖是指函数在上次触发后再次触发要间隔的最短时间。换句话说，“仅当经过 600 毫秒而没有调用该函数时才执行该函数”。这将意味着，你的函数将不会被调用，直到 600 毫秒后，最后一次执行相同的函数。要了解更多关于节流和防抖的知识，这里有一个[快速阅读](https://css-tricks.com/the-difference-between-throttling-and-debouncing/)。
 
-## 10. Avoid Using the Delete Keyword
+你可以实现自己的防抖和节流函数，也可以从 [Lodash](https://lodash.com/) 和 [Underscore](http://underscorejs.org/) 等库导入它们。
 
-The `delete` keyword is used to remove a property from an object. There have been several complaints regarding the performance of this `delete` keyword. You can view them [here](https://github.com/googleapis/google-api-nodejs-client/issues/375) and [here](https://stackoverflow.com/questions/43594092/slow-delete-of-object-properties-in-js-in-v8/44008788). It was expected to be fixed in future updates.
+## 10. 避免使用 delete 关键字
+
+`delete` 关键字用于从对象中删除属性。关于这个 `delete` 关键字的性能，已经有一些争议。你可以在 [此处](https://github.com/googleapis/google-api-nodejs-client/issues/375) 和 [此处](https://stackoverflow.com/questions/43594092/slow-delete-of-object- propertieses-in-js-in-v8/44008788) 中查看它们。这个问题有望在未来的更新中得到解决。
 
 As an alternative, you can simply to set the unwanted property as `undefined`.
+另一种选择是，你可以直接将将不想要的属性设置为 `undefined`。
 
 ```js
 const object = {name:"Jane Doe", age:43};
 object.age = undefined;
 ```
 
-You can also use the Map object as it’s `delete` method is known to be faster according to [Bret](https://jsperf.com/delete-vs-map-prototype-delete).
+你还可以使用 Map 对象，因为根据 [Bret](https://jsperf.com/delete-vs-map-prototype-delete)，Map 的 `delete` 方法被认为更快。
 
-## 11. Use Asynchronous Code to Prevent Thread Blocking
+## 11. 使用异步代码防止线程阻塞
 
-You should know that JavaScript is synchronous by default and **is also single-threaded**. But there can be instances where your code requires a lot of time to compute. Being synchronous in nature would mean that, this piece of code would block other code statements from running until it is done executing. This would reduce your performance overall.
+你应该知道 JavaScript 是同步的，**也是单线程的**。但是在某些情况下，可能会花费大量的时间来执行一段代码。在本质上同步意味着，这段代码将阻止其他代码语句的运行，直到它完成执行，这会降低代码的整体性能。
 
-But we can avert this situation by implementing asynchronous code. Asynchronous code was earlier written in the form of callbacks, but a new style of handling asynchronous code was introduced with ES6. This new style was called promises. You can learn more about callbacks and promises in the [official docs of MDN](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing).
+但其实，我们可以通过实现异步代码来避免这种情况。异步代码以前是以回调的形式编写的，但是在 ES6 中引入了一种处理异步代码的新风格。这种新风格被称为 promises。你可以在 [MDN 的官方文档](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing) 中了解更多关于回调和 promises 的信息。
 
-**But wait…**
+**等等…**
 
-> JavaScript is synchronous by default and **is also single-threaded**.
+> JavaScript默认是同步的，**也是单线程的**。
 
-How can you run on a single thread yet still manage to run asynchronous code? This is where a lot of people get confused. This is possible thanks to the JavaScript engine that runs under the browser hood. A JavaScript engine is a computer program or an interpreter which executes JavaScript code. A JavaScript engine can be written in a wide variety of languages. For example, the V8 engine which powers Chrome browsers was written in C++, while the SpiderMonkey engine which powers Firefox browsers was written in C and C++.
+为什么在单一线程上运行，还能运行异步代码？这是很多人感到困惑的地方。这要归功于浏览器外壳下运行的 JavaScript 引擎。JavaScript 引擎是执行 JavaScript 代码的计算机程序或解释器。JavaScript 引擎可以用多种语言编写。例如，支持 Chrome 浏览器的 V8 引擎是用 c++ 编写的，而支持 Firefox 浏览器的 SpiderMonkey 引擎是用 C 和 c++ 编写的。
 
-These JavaScript engines can handle tasks in the background. According to [Brian](https://dev.to/steelvoltage/if-javascript-is-single-threaded-how-is-it-asynchronous-56gd), the callstack recognizes functions of the Web API and hands them off to be handled by the browser. Once those tasks are finished by the browser, they return and are pushed onto the stack as a callback.
+这些 JavaScript 引擎可以在后台处理任务。根据 [Brian](https://dev.to/steelvoltage/if-javascript-is-single-threaded-how-is-it-asynchronous-56gd)，调用栈识别 Web API 的函数，并将它们交给浏览器处理。一旦浏览器处理完成这些任务，它们将返回并作为回调推到堆栈上。
 
-You might sometimes wonder, how does things happen with Node.js as it has no help of the browser to run. In fact, the same V8 engine that powers Chrome also powers Node.js as well. Here is an awesome [blog post](https://medium.com/better-programming/is-node-js-really-single-threaded-7ea59bcc8d64) by Salil that explains this process on the Node ecosystem.
+你有时可能想知道，Node.js 在没有浏览器帮助的情况下是如何运行的。事实上，为 Chrome 提供动力的 V8 引擎同样也为 Node.js 提供动力。下面是一篇由 Salil 撰写的非常棒的博客文章：[Node.js真的是单线程吗](https://medium.com/better-programming/is-node-js-really-single-threaded-7ea59bcc8d64)，它解释了节点生态系统上的这个过程。
 
-## 12. Use Code Splitting
+## 12. 使用代码分割
 
-If you have experience with Google Light House, you would be familiar with a metric called “first contentful paint”. It is one of the six metrics tracked in the Performance section of the Lighthouse report.
+如果你有使用 Google Light House 的经验，你就会熟悉一个叫做“first contentful paint”的度量。它是 Lighthouse 报告的性能部分跟踪的六个指标之一。
 
-First Contentful Paint(FCP)measures how long it takes the browser to render the first piece of DOM content after a user navigates to your page. Images, non-white `\<canvas>` elements and SVGs on your page are considered DOM content; anything inside an iframe **isn't** included.
+First Contentful Paint（FCP）测量用户导航到页面后浏览器渲染 DOM 第一个内容所花费的时间。页面上的图像、非白色 `<canvas>` 元素和 SVG 被认为是 DOM 内容；iframe 中的任何内容都**不被包含**在内。
 
-One of the best ways to achieve a higher FCP score is to use code splitting. Code splitting is a technique where you send only the necessary modules to the user in the beginning. This would greatly impact the FCP score by reducing the size of the payload transmitted initially.
+获得更高 FCP 分数的最好方法之一是使用代码分割。代码分割是一种在开始时只向用户发送必要模块的技术。减少最初传输的有效内容的大小，会显著地影响 FCP 得分。
 
-Popular module bundlers such as webpack provide you with code splitting functionality. You can also get the help of native ES modules, to get individual modules loaded. You can read more about native ES modules in detail over [here](https://blog.bitsrc.io/understanding-es-modules-in-javascript-a28fec420f73).
+流行的模块打包工具（如 webpack）提供了代码分割功能。你可以在原生 ES 模块的帮助下，加载各个模块。你可以阅读更多关于原生 ES 模块的 [详细信息](https://blog.bitsrc.io/downloading-es-modules-in-javascript-a28fec420f73)。
 
-## 13. Use async and defer
+## 13. 使用异步 async 和延迟 defer
 
-In modern websites, scripts are more intensive than HTML, where their size is bigger and they consume more processing time. By default, the browser must wait until the script downloads, execute it, and then it processes the rest of the page.
+在现代网站中，脚本比 HTML 更密集，它们的尺寸更大，消耗更多的处理时间。默认情况下，浏览器必须等待脚本下载、执行，然后处理页面的其余部分。
 
-This can lead to your bulky script blocking the loading of your webpage. In order to escape this, JavaScript provides us with two techniques known as async and defer. You have to simply add these attributes to the `\<script>` tags.
+庞大的脚本可能会阻塞网页的加载。为了避免这种情况，JavaScript 提供了两种技术，即异步和延迟。你只需将这些属性添加到 `<script>` 标签。
 
-Async is where you tell the browser to load your script without affecting the rendering. In other words, the page doesn’t wait for async scripts, the contents are processed and displayed.
+异步是告诉浏览器在不影响页面渲染的情况下加载脚本。换句话说，页面不需要等待异步脚本，内容就会被处理和显示。
 
-Defer is where you tell the browser to load the script after your rendering is complete. If you specify both, `async` takes precedence on modern browsers, while older browsers that support `defer` but not `async` will fallback to `defer`
+延迟是在呈现完成后告诉浏览器加载脚本的地方。如果你同时指定了两者，`async` 在现代浏览器中优先执行，而只支持 `defer` 但不支持 `async` 的旧浏览器将退回到 `defer`。
 
-These two attributes can greatly help you reduce your page loading time. I highly advise you to read [this blog post](https://flaviocopes.com/javascript-async-defer/) by Flavio.
+这两个属性可以极大地帮助你减少页面加载时间。强烈建议你阅读一下 Flavio 的 [JavaScript-async-defer](https://flaviocopes.com/javascript-async-defer/)。
 
-## 14. Use Web Workers to Run CPU Intensive Tasks in the Background
+## 14. 使用 Web Workers 在后台运行 CPU 密集型任务
 
-Web Workers allow you to run scripts in background threads. If you have some highly intensive tasks, you can assign them to web workers which would run them without interfering with the user interface. After creation, the web worker can communicate with the JavaScript code by posting messages to an event handler specified by that code. This can happen vice versa as well.
+Web Workers 允许在后台线程中运行脚本。如果你有一些高度密集的任务，你可以将任务分配给 web workers, web workers 将运行它们而不干扰用户界面。创建之后，web worker 可以通过向 JavaScript 代码指定的事件处理程序发送消息来与 JavaScript 代码通信。反之亦然。
 
-To know more about web workers, I suggest you go through the [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers).
-
----
-
-That’s it for this post. Drop your queries in the comments.
-
-Happy Coding!!
+要了解更多关于 web workers 的信息，建议浏览 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)。
 
 ---
 
-**Resources**
+这篇文章就到这里，欢迎在评论中留言。
 
-- [Blog post by Nodesource](https://nodesource.com/blog/improve-javascript-performance/)
-- [Blog post by Bret Cameron](https://medium.com/@bretcameron/13-tips-to-write-faster-better-optimized-javascript-dc1f9ab063d8)
+快乐编码！！
+
+---
+
+**一些资源**
+
+- [Nodesource 的博客](https://nodesource.com/blog/improve-javascript-performance/)
+- [Bret Cameron 的博客](https://medium.com/@bretcameron/13-tips-to-write-faster-better-optimized-javascript-dc1f9ab063d8)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
