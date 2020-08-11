@@ -7,15 +7,13 @@
 
 # Create your own ‘CamScanner’ using Python & OpenCV
 
-#### Have you ever wondered how a ‘CamScanner’ converts your mobile camera’s fuzzy document picture into a defined, properly lit and scanned image? I have and until recently I thought it was a very difficult task. But it’s not and we can make our own ‘CamScanner’ with relatively few lines of code. (compared to what we have in mind)
-
 ![Photo by [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/15904/0*yUJT2q2_mrzBObA8)
 
-#### Thanks to Soham Mhatre for contributing significantly towards this article.
+Have you ever wondered how a ‘CamScanner’ converts your mobile camera’s fuzzy document picture into a defined, properly lit and scanned image? I have and until recently I thought it was a very difficult task. But it’s not and we can make our own ‘CamScanner’ with relatively few lines of code (compared to what we have in mind). Thanks to Soham Mhatre for contributing significantly towards this article.
 
 ## Computer Vision and why the buzz?
 
-Computer vision is an interdisciplinary scientific field that deals with how computers can gain high-level understanding from digital images or videos. From the perspective of engineering, it seeks to understand and automate tasks that the human visual system can do. ****Basically**, **it’s a scientific field to make the computers understand a photo/video similar to how it will be interpreted by a human being.
+Computer vision is an interdisciplinary scientific field that deals with how computers can gain high-level understanding from digital images or videos. From the perspective of engineering, it seeks to understand and automate tasks that the human visual system can do. **Basically**, it’s a scientific field to make the computers understand a photo/video similar to how it will be interpreted by a human being.
 
 #### So why the buzz
 
@@ -23,11 +21,9 @@ Advancement in AI and Machine Learning has accelerated the developments in compu
 
 At the end of the day, a computer will learn by consuming data. And AI helps the computers to not only process, but also improve it’s **Understanding/Interpretation** by trial-and-error. So now, if we can combine the data from images and run complex machine learning algorithms on it, what we get is an actual AI.
 
-> One modern company who has pioneered the technology of Computer Vision is [Tesla Motors](undefined)
+> One modern company who has pioneered the technology of Computer Vision is Tesla Motors
 
-> # Tesla Motors is known for pioneering the self-driving vehicle revolution in the world. They are also known for achieving high reliability in autonomous vehicles. Tesla cars depend entirely upon computer vision.
-
----
+> Tesla Motors is known for pioneering the self-driving vehicle revolution in the world. They are also known for achieving high reliability in autonomous vehicles. Tesla cars depend entirely upon computer vision.
 
 ## What are we gonna achieve today?
 
@@ -39,8 +35,6 @@ For this article we will concentrate only on Computer Vision and leave Machine L
 2. Preprocess the image using different concepts such as blurring, thresholding, denoising (Non-Local Means).
 3. Canny Edge detection & Extraction of biggest contour
 4. Finally — Sharpening & Brightness correction
-
----
 
 ## What is OpenCV
 
@@ -90,8 +84,6 @@ Use `cv2.fastNlMeansDenoising` for the same.
 
 ![Original vs Gaussian Blurred vs Non-Local Means Denoised](https://cdn-images-1.medium.com/max/2000/1*M6wLOv72dSroNnaByPJscg.jpeg)
 
----
-
 ## Canny Edge detection & Extraction of biggest contour
 
 After image blurring & thresholding, the next step is to find the biggest contour (biggest bounding box) and crop out the image. This is done by using Canny Edge Detection followed by extraction of biggest contour using four-point transformation.
@@ -128,17 +120,15 @@ For this first you pass the co-ordinates of the approx rectangle(biggest contour
 
 Now that we have cropped out the relevant info (biggest contour) from the image, the last step is to sharpen the picture so that we get well illuminated and readable document.
 
-— For this we use **hue, saturation, value (h,s,v)** concept where **value** represents the **brightness.** Can play around with this value to increase the brightness of the documents
+— For this we use **hue, saturation, value (h,s,v)** concept where **value** represents the **brightness**. Can play around with this value to increase the brightness of the documents
 
-— ****Kernel Sharpening -** A kernel**,** convolution matrix**, or** mask** is a small matrix. It is used for blurring, sharpening, embossing, edge detection, and more. This is accomplished by doing a convolution between a kernel and an image
+— **Kernel Sharpening** - A **kernel**, **convolution matrix**, or **mask** is a small matrix. It is used for blurring, sharpening, embossing, edge detection, and more. This is accomplished by doing a convolution between a kernel and an image.
 
 #### Resultant
 
 ![](https://cdn-images-1.medium.com/max/2000/1*f6D514542_eM6LQL75bIhA.jpeg)
 
 ![Original Vs Final Resultant (Cropped, Brightened & Sharpened)](https://cdn-images-1.medium.com/max/2000/1*_LcK7kSdZUQ_YCRvtu58CQ.jpeg)
-
----
 
 ## Complete Code
 
@@ -339,15 +329,9 @@ def final_image(rotated):
 blurred_threshold = transformation(image)
 cleaned_image = final_image(blurred_threshold)
 cv2.imwrite(path + "Final_Image2.jpg", cleaned_image)
-
-
 ```
 
 ---
-
-To go through my other Data Science/Machine Learning blogs please visit:
-[**Shirish Gupta - Medium**
-**Read writing from Shirish Gupta on Medium. I am an Economist by academia, Data Scientist by profession and a Traveler…**medium.com](https://medium.com/@shirishgupta)
 
 The end for now. Have any ideas to improve this or want me to try any new ideas? Please give your suggestions in the comments. Adios.
 
