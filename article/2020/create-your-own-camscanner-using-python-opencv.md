@@ -27,7 +27,7 @@ At the end of the day, a computer will learn by consuming data. And AI helps the
 
 ## What are we gonna achieve today?
 
-For this article we will concentrate only on Computer Vision and leave Machine Learning for some later time. Also we will just use just one library ****OpenCV** to create the whole thing**.****
+For this article we will concentrate only on Computer Vision and leave Machine Learning for some later time. Also we will just use just one library **OpenCV** to create the whole thing.
 
 ## Index
 
@@ -54,9 +54,14 @@ The goal of blurring is to reduce the noise in the image. It removes high freque
 
 **Bilateral Filter** — Advanced version of Gaussian blurring. Not only does it removes noise, but also smoothens edges.
 
+
+Original photo:
+
 ![](https://cdn-images-1.medium.com/max/2000/1*M-bea60NgKRxn1nO5IuCug.jpeg)
 
-![Original Vs Gaussian Blurred](https://cdn-images-1.medium.com/max/2000/1*vWSnV0jCZVoZRvN6jEkzjw.jpeg)
+Gaussian Blurred photo:
+
+![](https://cdn-images-1.medium.com/max/2000/1*vWSnV0jCZVoZRvN6jEkzjw.jpeg)
 
 #### THRESHOLDING
 
@@ -66,9 +71,11 @@ In image processing, thresholding is the simplest method of segmenting images. F
 
 **Adaptive Thresholding** — Algorithm calculates the threshold for a small regions of the image. So we get different thresholds for different regions of the same image and it gives us better results for images with varying illumination.
 
-> Note:Remember to convert the images to grayscale before thresholding
+> Note:Remember to convert the images to grayscale before thresholding.
 
-![GreyScaled on Original Vs Adaptive Gaussian](https://cdn-images-1.medium.com/max/2800/1*L09YTPI5Azq9pd12n_kVQQ.jpeg)
+GreyScaled on Original Vs Adaptive Gaussian:
+
+![](https://cdn-images-1.medium.com/max/2800/1*L09YTPI5Azq9pd12n_kVQQ.jpeg)
 
 #### DENOISING
 
@@ -78,11 +85,17 @@ But what if there is **edge** or **elongated** pattern where denoising by averag
 
 Use `cv2.fastNlMeansDenoising` for the same.
 
+Original photo:
+
 ![](https://cdn-images-1.medium.com/max/2000/1*M-bea60NgKRxn1nO5IuCug.jpeg)
+
+Gaussian Blurred photo:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vWSnV0jCZVoZRvN6jEkzjw.jpeg)
 
-![Original vs Gaussian Blurred vs Non-Local Means Denoised](https://cdn-images-1.medium.com/max/2000/1*M6wLOv72dSroNnaByPJscg.jpeg)
+Non-Local Means Denoised photo:
+
+![](https://cdn-images-1.medium.com/max/2000/1*M6wLOv72dSroNnaByPJscg.jpeg)
 
 ## Canny Edge detection & Extraction of biggest contour
 
@@ -98,9 +111,13 @@ After finding the edges, pass the image through `cv2.findcontours()`. It joins a
 
 Use `cv2.convexHull()` and `cv2.approxPolyDP` to find the biggest rectangular contour(approx) in the photo.
 
+Original photo:
+
 ![](https://cdn-images-1.medium.com/max/2000/1*f6D514542_eM6LQL75bIhA.jpeg)
 
-![Original vs Original with biggest bounding box](https://cdn-images-1.medium.com/max/2000/1*QSsfzQ-XD0mebbaRs5Bsow.jpeg)
+Original with biggest bounding box photo:
+
+![](https://cdn-images-1.medium.com/max/2000/1*QSsfzQ-XD0mebbaRs5Bsow.jpeg)
 
 #### EXTRACTING THE BIGGEST CONTOUR
 
@@ -110,9 +127,13 @@ For this first you pass the co-ordinates of the approx rectangle(biggest contour
 
 **Four Point Transformation** — Using the above (x,y) coordinates, calculate the width and height of the contour. Pass it through the `cv2.warpPerspective()`to crop the contour. Voila — you have the successfully cropped out the **relevant** data from the input image
 
+Original photo:
+
 ![](https://cdn-images-1.medium.com/max/2000/1*f6D514542_eM6LQL75bIhA.jpeg)
 
-![Original vs Cropped Image](https://cdn-images-1.medium.com/max/2000/1*ypj-VH1ZaG5ABclgJHF-JA.jpeg)
+Cropped Image:
+
+![](https://cdn-images-1.medium.com/max/2000/1*ypj-VH1ZaG5ABclgJHF-JA.jpeg)
 
 > Notice — How well the image is cropped out even though its a poorly lit and clicked image
 
@@ -126,9 +147,13 @@ Now that we have cropped out the relevant info (biggest contour) from the image,
 
 #### Resultant
 
+Original photo:
+
 ![](https://cdn-images-1.medium.com/max/2000/1*f6D514542_eM6LQL75bIhA.jpeg)
 
-![Original Vs Final Resultant (Cropped, Brightened & Sharpened)](https://cdn-images-1.medium.com/max/2000/1*_LcK7kSdZUQ_YCRvtu58CQ.jpeg)
+Final Resultant (Cropped, Brightened & Sharpened) example:
+
+![](https://cdn-images-1.medium.com/max/2000/1*_LcK7kSdZUQ_YCRvtu58CQ.jpeg)
 
 ## Complete Code
 
