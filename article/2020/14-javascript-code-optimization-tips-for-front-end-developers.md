@@ -118,7 +118,7 @@ cityOfCustomer('Max');//Unknown
 
 这些压缩可以减少多达 80% 的文件大小。 在这里了解更多关于 [压缩](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer#text_compression_with_gzip)。
 
-![Photo by [JJ Ying](https://unsplash.com/@jjying?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*yUVIcTARWrjWiaPw)
+![图片来自 JJ Ying](https://unsplash.com/@jjying?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*yUVIcTARWrjWiaPw)
 
 ## 8. 缩小你的最终代码
 
@@ -132,13 +132,13 @@ cityOfCustomer('Max');//Unknown
 
 节流是指函数在指定时间内被调用的最大次数。例如，“最多每 1000 毫秒执行一次 `onkeyup` 事件函数”。这意味着如果你每秒输入 20 个键，该事件将每秒只触发一次。这将减少代码的加载。
 
-另一方面，防抖是指函数在上次触发后再次触发要间隔的最短时间。换句话说，“仅当经过 600 毫秒而没有调用该函数时才执行该函数”。这将意味着，你的函数将不会被调用，直到 600 毫秒后，最后一次执行相同的函数。要了解更多关于节流和防抖的知识，这里有一个[快速阅读](https://css-tricks.com/the-difference-between-throttling-and debouncing/)。
+另一方面，防抖是指函数在上次触发后再次触发要间隔的最短时间。换句话说，“仅当经过 600 毫秒而没有调用该函数时才执行该函数”。这将意味着，你的函数将不会被调用，直到 600 毫秒后，最后一次执行相同的函数。要了解更多关于节流和防抖的知识，这里有一个[快速阅读](https://css-tricks.com/the-difference-between-throttling-and-debouncing/)。
 
 你可以实现自己的防抖和节流函数，也可以从 [Lodash](https://lodash.com/) 和 [Underscore](http://underscorejs.org/) 等库导入它们。
 
 ## 10. 避免使用 delete 关键字
 
-`delete` 关键字用于从对象中删除属性。关于这个 `delete` 关键字的性能，已经有一些争议。你可以在 [此处](https://github.com/googleapis/google-ap-nodejs-client/issues/375) 和 [此处](https://stackoverflow.com/questions/43594092/slow-delete-of-object- propertieses-in-js-in-v8/44008788) 中查看它们。这个问题有望在未来的更新中得到解决。
+`delete` 关键字用于从对象中删除属性。关于这个 `delete` 关键字的性能，已经有一些争议。你可以在 [此处](https://github.com/googleapis/google-api-nodejs-client/issues/375) 和 [此处](https://stackoverflow.com/questions/43594092/slow-delete-of-object- propertieses-in-js-in-v8/44008788) 中查看它们。这个问题有望在未来的更新中得到解决。
 
 As an alternative, you can simply to set the unwanted property as `undefined`.
 另一种选择是，你可以直接将将不想要的属性设置为 `undefined`。
@@ -154,7 +154,7 @@ object.age = undefined;
 
 你应该知道 JavaScript 是同步的，**也是单线程的**。但是在某些情况下，可能会花费大量的时间来执行一段代码。在本质上同步意味着，这段代码将阻止其他代码语句的运行，直到它完成执行，这会降低代码的整体性能。
 
-但其实，我们可以通过实现异步代码来避免这种情况。异步代码以前是以回调的形式编写的，但是在 ES6 中引入了一种处理异步代码的新风格。这种新风格被称为 promises。你可以在 [MDN 的官方文档](https://developer.mozilla.org/en-us/docs/learn/javascript/asynchronous/introduction) 中了解更多关于回调和 promises 的信息。
+但其实，我们可以通过实现异步代码来避免这种情况。异步代码以前是以回调的形式编写的，但是在 ES6 中引入了一种处理异步代码的新风格。这种新风格被称为 promises。你可以在 [MDN 的官方文档](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing) 中了解更多关于回调和 promises 的信息。
 
 **等等…**
 
@@ -162,15 +162,15 @@ object.age = undefined;
 
 为什么在单一线程上运行，还能运行异步代码？这是很多人感到困惑的地方。这要归功于浏览器外壳下运行的 JavaScript 引擎。JavaScript 引擎是执行 JavaScript 代码的计算机程序或解释器。JavaScript 引擎可以用多种语言编写。例如，支持 Chrome 浏览器的 V8 引擎是用 c++ 编写的，而支持 Firefox 浏览器的 SpiderMonkey 引擎是用 C 和 c++ 编写的。
 
-这些 JavaScript 引擎可以在后台处理任务。根据 [Brian](https://dev.to/steelvoltage/if-javascript-is-single- thread-how-is-asynchron-56gd)，调用栈识别 Web API 的函数，并将它们交给浏览器处理。一旦浏览器处理完成这些任务，它们将返回并作为回调推到堆栈上。
+这些 JavaScript 引擎可以在后台处理任务。根据 [Brian](https://dev.to/steelvoltage/if-javascript-is-single-threaded-how-is-it-asynchronous-56gd)，调用栈识别 Web API 的函数，并将它们交给浏览器处理。一旦浏览器处理完成这些任务，它们将返回并作为回调推到堆栈上。
 
-你有时可能想知道，Node.js 在没有浏览器帮助的情况下是如何运行的。事实上，为 Chrome 提供动力的 V8 引擎同样也为 Node.js 提供动力。下面是一篇由 Salil 撰写的非常棒的博客文章：[Node.js真的是单线程吗](https://medium.com/better-programming/is-node- js-reallysingle -threaded-7ea59bcc8d64)，它解释了节点生态系统上的这个过程。
+你有时可能想知道，Node.js 在没有浏览器帮助的情况下是如何运行的。事实上，为 Chrome 提供动力的 V8 引擎同样也为 Node.js 提供动力。下面是一篇由 Salil 撰写的非常棒的博客文章：[Node.js真的是单线程吗](https://medium.com/better-programming/is-node-js-really-single-threaded-7ea59bcc8d64)，它解释了节点生态系统上的这个过程。
 
 ## 12. 使用代码分割
 
 如果你有使用 Google Light House 的经验，你就会熟悉一个叫做“first contentful paint”的度量。它是 Lighthouse 报告的性能部分跟踪的六个指标之一。
 
-First Contentful Paint（FCP）测量用户导航到页面后浏览器渲染 DOM 第一个内容所花费的时间。页面上的图像、非白色 `\<canvas>` 元素和 svg 被认为是 DOM 内容；iframe 中的任何内容都**不被包含**在内。
+First Contentful Paint（FCP）测量用户导航到页面后浏览器渲染 DOM 第一个内容所花费的时间。页面上的图像、非白色 `<canvas>` 元素和 SVG 被认为是 DOM 内容；iframe 中的任何内容都**不被包含**在内。
 
 获得更高 FCP 分数的最好方法之一是使用代码分割。代码分割是一种在开始时只向用户发送必要模块的技术。减少最初传输的有效内容的大小，会显著地影响 FCP 得分。
 
