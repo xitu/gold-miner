@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/performance-analysis-tools-for-front-end-development.md](https://github.com/xitu/gold-miner/blob/master/article/2020/performance-analysis-tools-for-front-end-development.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：[FateZeros](https://github.com/FateZeros)
+> * 校对者：[FateZeros](https://github.com/FateZeros)，[Rachel Cao](https://github.com/rachelcdev)
 
 # 前端开发 8 大性能分析工具
 
@@ -98,7 +98,7 @@ Lighthouse 的另一个重要运用是将 API 集成到你自己的系统中，�
 
 ---
 
-使用上述工具，你可以做许多有用的事情，但如果要让网站达到标准，则可能需要更进一步的优化。我发现 Vitaly Friedman 撰写了一篇极好的文章，涵盖了全方位的前端网站优化方案。强烈建议了解一下。
+使用上述工具，你可以做许多有用的事情，但如果要让网站达到标准，则可能需要更进一步的优化。我发现了一篇由 Vitaly Friedman 撰写的文章，涵盖了全方位的前端网站优化方案。强烈建议了解一下。
 
 [**2020 前端性能清单（PDF，Apple Pages，MS Word）**](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
 
