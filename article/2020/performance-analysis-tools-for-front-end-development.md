@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/performance-analysis-tools-for-front-end-development.md](https://github.com/xitu/gold-miner/blob/master/article/2020/performance-analysis-tools-for-front-end-development.md)
 > * 译者：[IAMSHENSH](https://github.com/IAMSHENSH)
-> * 校对者：
+> * 校对者：[FateZeros](https://github.com/FateZeros)
 
 # 前端开发 8 大性能分析工具
 
@@ -16,8 +16,8 @@
 * 小于 100 毫秒是瞬时的。
 * 100 毫秒至 300 毫秒的延迟是可被感知的。
 * 一秒内，用户能保持思绪不间断，虽然他们会感觉到延迟，但能自己控制住思绪。
-* 47% 的消费者期望网页在两秒或更短时间内被加载。
-* 40% 的消费者在放弃网站之前，等待网页渲染的时间不超过三秒。
+* 47% 的用户期望网页在两秒或更短时间内被加载。
+* 40% 的用户在等待网站渲染超过3秒后，就会离开网站。
 * 10 秒是保持用户注意力的极限。大多数用户会在 10 秒后离开你的网站。
 
 在[这里](https://www.hobo-web.co.uk/your-website-design-should-load-in-4-seconds/)和[这里](https://www.nngroup.com/articles/website-response-times/)详细了解这些统计信息。
@@ -32,7 +32,7 @@
 
 这是一项分析网页内容的[免费服务](https://developers.google.com/speed/pagespeed/insights/)，生成能使网页更快的建议。为你提供了关键指标，例如 FCP(First Contentful Paint)、累积阻塞时长等。指标分为现场数据、原始摘要、实验室数据、因素、诊断与过审信息。它还为你提供了进一步带改进建议。
 
-PageSpeed 完全致力于性能方面，结合实验室数据和实际数据来构建有关网站速度的综合报告。以下是我的[作品集网站](https://thisismahdhi.ml)的 PageSpeed Insight 结果。如你所见，摘要中是没有足够的实际速度数据的。
+PageSpeed 完全致力于性能方面，结合实验室数据和实际数据来构建有关网站加载速度的综合报告。以下是我的[作品集网站](https://thisismahdhi.ml)的 PageSpeed Insight 结果。如你所见，摘要中是没有足够的实际速度数据的。
 
 ![Screenshot by Author](https://cdn-images-1.medium.com/max/6696/1*ONiEtpxiMc3KitaT7OiYRw.png)
 
@@ -50,9 +50,9 @@ Lighthouse 的另一个重要运用是将 API 集成到你自己的系统中，�
 
 ## 3. WebPageTest
 
-这是一个[免费工具](https://www.webpagetest.org/)，可让你使用具有真实的用户连接速度的浏览器（例如 Chrome）测试网站速度。你可以选择诸如高级测试，简单测试，视觉比较（Visual Comparison）与路由跟踪等功能。你还有很多选择，例如多步骤交互（Multi-step Transactions）、视频捕获（Video Capture）、以及内容阻塞等。最终将产生丰富的诊断信息，包括资源加载瀑布图，页面速度优化检查以及改进建议。
+这是一个[免费工具](https://www.webpagetest.org/)，可让你使用具有真实的用户连接速度的浏览器（例如 Chrome）测试网站加载速度。你可以选择诸如高级测试，简单测试，视觉比较（Visual Comparison）与路由跟踪等功能。你还有很多选择，例如多步骤交互（Multi-step Transactions）、视频捕获（Video Capture）、以及内容阻塞等。最终将产生丰富的诊断信息，包括资源加载瀑布图，页面速度优化检查以及改进建议。
 
-网页测试还提供首个视图与重复视图上的页面统计信息以及服务器响应的详细信息。
+网页测试还提供首屏页面渲染、重复页面渲染以及服务器响应的详细信息分析。
 
 ![Screenshot by Author](https://cdn-images-1.medium.com/max/2642/1*3MrD-mCHa-vN3bP3zTQ6-Q.png)
 
@@ -66,7 +66,7 @@ Lighthouse 的另一个重要运用是将 API 集成到你自己的系统中，�
 
 ## 5. SiteSpeed
 
-[SiteSpeed](https://www.sitespeed.io/) 是一套开源工具，可让你监控和测量网站的性能。你可以通过 Docker 镜像或者安装 NPM 包来使用。由于其提供了几种工具，因此你应该能够选择到最适合自己的。你还可以在其[官网](https://www.sitespeed.io/)上找到更多这些工具的相关信息。
+[SiteSpeed](https://www.sitespeed.io/) 是一套开源工具，可让你监控和检测网站的性能。你可以通过 Docker 镜像或者安装 NPM 包来使用。由于其提供了几种工具，因此你应该能够选择到最适合自己的。你还可以在其[官网](https://www.sitespeed.io/)上找到更多这些工具的相关信息。
 
 虽然 SiteSpeed 是免费的，但建立与维护服务器是需要额外的开销的。如果你没有自己的服务器，SiteSpeed 建议你使用拥有 2 个 vCPUs 的 [Digital Ocean](https://www.digitalocean.com/) Optimized Droplets 方案，或者使用 [AWS](https://aws.amazon.com/) 的 c5.large 实例，并将数据存储在 S3(Amazon 的一种对象存储服务) 上。
 
