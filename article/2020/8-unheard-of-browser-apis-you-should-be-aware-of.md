@@ -3,25 +3,25 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[onlinelei](https://github.com/onlinelei)
 
 # 你应该了解的八种浏览器 API
 
 ![Photo by [Szabo Viktor](https://unsplash.com/@vmxhu?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9990/0*WzOJqPzOSrcQrX5b)
 
-随着网页流行度的提高，浏览器开始发布用于复杂功能的 API，这些 API 有时只能通过本机应用程序实现。快速发展到现在，很难找到只使用一两个浏览器 API 的网络应用程序。
+随着网页流行度的提高，浏览器开发商开始发布用于复杂功能的 API，这些 API 有时只能通过本机应用程序实现。快速发展到现在，很难找到只使用一两个浏览器 API 的 web 应用程序。
 
-随着 Web 开发领域的不断发展，浏览器供应商也试图跟上行业的快速发展。他们不断开发更新的 API，这些 API 可以为您的 Web 应用程序带来类似 Native 的新功能。此外，即使现代浏览器已完全支持某些 API，人们也不了解这些 API。
+随着 Web 开发领域的不断发展，浏览器供应商也试图跟上行业的快速发展。他们不断开发更新的 API，这些 API 可以为您的 Web 应用程序带来类似 Native 的新功能。虽然现在很多主流的浏览器已完全支持这些 API，但是人们对这些 API还不是很了解。
 
 您应该了解以下这些 API，因为它们在未来会发挥至关重要的作用。
 
 ## Web 锁 API
 
-这个 [API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API) 允许您在多个选项卡上运行 Web 应用程序，以访问和协调资源共享。尽管简单的日常 Web 应用程序在多个选项卡上运行并不常见，但是在某些高级用例中，您需要运行 Web 应用程序的多个浏览器选项卡并使它们保持同步。在这些情况下，这个 API 可能会派上用场。
+该 [API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API) 允许您在多个选项卡上运行 Web 应用程序，以访问和协调资源共享。虽然简单的日常 Web 应用程序在多个选项卡上运行并不常见，但是在某些复杂的情况，您运行的 Web 应用程序需要开启多个选项卡并使它们保持同步。在这些情况下，这个 API 可能会派上用场。
 
-尽管可以使用诸如 SharedWorker，BroadcastChannel，localStorage，sessionStorage，postMessage，卸载处理程序之类的 API 来管理选项卡通信和同步，但它们各自都有缺点，并且需要变通办法，这会降低代码的可维护性。Web 锁 API 试图通过引入更标准化的解决方案来简化此过程。可以使用共享工作器，广播通道，localStorage，sessionStorage，postMessage 等。
+尽管可以使用诸如 SharedWorker，BroadcastChannel，localStorage，sessionStorage，postMessage，卸载处理程序之类的 API 来管理选项卡通信和同步，但它们各自都有缺点，而且急待解决方案，这会降低代码的可维护性。Web 锁 API 试图通过引入更标准化的解决方案来简化此过程。可以使用共享工作器，广播通道，localStorage，sessionStorage，postMessage 等。
 
-尽管 Chrome 69 默认启用了该功能，但主流浏览器（如 Firefox 和 Safari）仍不支持该功能。
+虽然 Chrome 69 默认启用了该功能，但主流浏览器（如 Firefox 和 Safari）仍不支持该功能。
 
 **小贴士：** 你应该了解诸如“死锁”之类的概念，以避免在使用此 API 时陷入困惑。
 
@@ -47,7 +47,7 @@ Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的[形状�
 
 借助[页面可见性API](https://developer.mozilla.org/zh-CN/docs/Web/API/Page_Visibility_API)，您可以检测网页是否空闲。换句话说，您可以找出用户是否正在查看包含网页的选项卡。
 
-尽管这听起来很简单，但是在增加网站的用户体验方面可能非常有效。 在几种使用情况下，都可以使用此 API。
+尽管这听起来很简单，但是在提高网站的用户体验方面可能非常有效。在下面几种使用情况，都可以使用此 API。
 
 * 在浏览器选项卡处于非活动状态时，下载其余的应用程序捆绑包资源和媒体资源。这将帮助您非常有效地利用空闲时间。
 * 当用户最小化或切换到另一个选项卡时，暂停视频。
@@ -61,11 +61,11 @@ Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的[形状�
 
 ## Web 分享 API
 
-这个 [Web 分享 API](https://www.w3.org/TR/web-share/) 允许您以与本机应用程序相同的方式将链接，文本和文件共享到设备上安装的其他应用程序。 该 API 可以帮助增加用户对 Web 应用程序的参与度。 您可以阅读 Joe Medley 的博客 [post](https://web.dev/web-share/)，以了解有关此炫酷 API 的更多信息。
+这个 [Web 分享 API](https://www.w3.org/TR/web-share/) 可以让你像使用本地应用程序一样分享链接，文本和文件，给你的本地应用程序。该 API 可以帮助增加用户对 Web 应用程序的参与度。您可以阅读 Joe Medley 的博客 [post](https://web.dev/web-share/)，以了解有关此炫酷 API 的更多信息。
 
-截至 2020 年中，此 API 仅在 Safari 和 Chromium fork 中的 Android 上可用。 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#Browser_compatibility) 具有有关浏览器兼容性的更多详细信息。
+截至 2020 年中，此 API 仅在 Safari 和 Chromium fork 中的 Android 上可用。 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#Browser_compatibility) 查看更多浏览器兼容性信息。
 
-![The native Share interface. Screenshot by the author.本机 Share 接口,作者的屏幕截图。](https://cdn-images-1.medium.com/max/2000/1*uhEtWw7OEueQkMPXrn6Akw.png)
+![The native Share interface. Screenshot by the author.](https://cdn-images-1.medium.com/max/2000/1*uhEtWw7OEueQkMPXrn6Akw.png)
 
 ## 共享目标 API
 
@@ -75,15 +75,15 @@ Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的[形状�
 
 ## 推送 API
 
-这个[推送 API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) 允许 Web 应用程序接收从服务器推送到它们的消息，而不管该应用程序是否在前台。即使未在浏览器中加载应用，它也可以正常工作。这使开发人员可以及时向用户传递异步通知。但这要起作用，应该在使用 API 之前获得用户许可。
+这个[Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) 允许 Web 应用程序接收从服务器推送到它们的消息，而不管该应用程序是否在前台。即使未在浏览器中加载应用，它也可以正常工作。这使开发人员可以及时向用户传递异步通知。但这要起作用，应该在使用 API 之前获得用户许可。
 
-您可以在 Flavio 的[精彩文章](https://flaviocopes.com/push-api/) 中阅读有关  Push API 的更多信息。
+您可以在 Flavio 的[精彩文章](https://flaviocopes.com/push-api/) 中阅读有关 Push API 的更多信息。
 
 ## Cookie 缓存 API
 
 众所周知，使用 Cookie 会有点慢，因为它是同步的。但是 [Cookie 缓存 API](https://developers.google.com/web/updates/2018/09/asynchronous-access-to-http-cookies) 提供了对 HTTP cookie 的异步访问。此外，此 API 还向服务工作者公开了这些 HTTP cookie。
 
-尽管有一些帮助程序库可以帮助完成所有通常的 cookie 操作，但借助 Cookie Store API，它会变得更加轻松和高效。 该 API 有时也称为 Async Cookies API。
+尽管有一些帮助程序库可以帮助完成所有通常的 cookie 操作，但借助 Cookie Store API，它会变得更加轻松和高效。该 API 有时也称为 Async Cookies API。
 
 您可以在[此处](https://wicg.github.io/cookie-store/explainer.html)了解有关此 API 的更多信息。
 
