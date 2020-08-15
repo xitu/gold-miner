@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih) 和 [tanglie1993](https://github.com/tanglie1993)
 
-# 分享我喜欢的十五条 JavaScript 编程技巧
+# 我常用的 JavaScript 编程技巧
 
 ![image](https://user-images.githubusercontent.com/5164225/89246151-0dbc1300-d63d-11ea-982e-fa61dd13b7d9.png)
 
@@ -250,7 +250,7 @@ console.log('Object assign', Object.assign({}, emp, job));
 
 注意，扩展运算符和 Object.assign 都执行浅合并。在浅合并中，第一个对象的属性将被第二个对象的相同属性值覆盖。
 
-要进行深度合并，请使用类似的 _mergeof [lodash](https://lodash.com/).
+要进行深度合并，请使用类似的 [lodash](https://lodash.com/)。
 
 ## 11. 解构
 
@@ -380,9 +380,7 @@ let project = new URLSearchParams(location.search).get('project');
 
 # 本文并未结束
 
-这不是本文技巧列表的结尾，还有很多，当我遇到它们时，我肯定会将它们作为补充示例推送到GitHub项目中。
-
-[https://github.com/atapas/js-tips-tricks](https://github.com/atapas/js-tips-tricks)
+这不是本文技巧列表的结尾，还有很多，当我遇到它们时，我肯定会将它们作为补充示例推送到 GitHub 项目 [https://github.com/atapas/js-tips-tricks](https://github.com/atapas/js-tips-tricks)
 
 
 
