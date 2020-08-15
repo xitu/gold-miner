@@ -19,7 +19,7 @@ Luckily, manually writing out documentation is not required due to the capabilit
 
 Below is a step-by-step guide to easily auto-generate clean and well-organized documentation from Python code using Sphinx.
 
-接下来我们手把手学习在 Python 代码中使用 Sphinx 自动生成结构良好、形式整洁的文档。
+接下来我们逐步学习在 Python 代码中使用 Sphinx 自动生成结构良好、形式整洁的文档。
 
 ## 1. Install Sphinx
 
@@ -35,15 +35,25 @@ Sphinx 官网上简述了其他的安装方式，可以根据你的实际情况�
 
 ## 2. Initialize the Sphinx Configuration
 
+## 2. 初始化 Sphinx 配置
+
 In the root directory of your project, run `sphinx-quickstart` to initialize the sphinx source directory to create a default configuration. Running this command will prompt you to fill out some basic configuration properties such as whether to create separate source and build directories, the project name, author name, and project version.
 
 ![Initialize the sphinx config using **sphinx-quickstart**](https://cdn-images-1.medium.com/max/2412/1*NiE2w5uY6KtD8DII_vnYmA.png)
 
 As shown above, running the `sphinx-build` command creates a `Makefile`, a `make.bat` file, as well as `build` and `source` directories.
 
+在项目根目录下运行 `sphinx-quickstart` 来初始化 sphinx 源目录并创建默认配置。运行这个命令的时候，会提示你填写一些基本的配置属性，比如是否创建单独的构建目录、项目名称、作者以及项目版本。
+
+![使用 **sphinx-quickstart** 初始化 sphinx 配置](https://cdn-images-1.medium.com/max/2412/1*NiE2w5uY6KtD8DII_vnYmA.png)
+
 ## 3. Update the conf.py File
 
+## 3. 更新 `conf.py` 文件
+
 The `conf.py` file inside the `source` folder describes the Sphinx configuration, which controls how Sphinx builds the documentation. If you wish to override the theme, version, or module directory, you’ll need to override these changes here. Below are some recommended overrides:
+
+在 `source` 目录下的 `conf.py` 是 Sphinx 的配置文件，控制着 Sphinx 如何生成文档。如果你想重新定义主题、版本或者模块目录，可以在这里做修改。以下是一些推荐的配置：
 
 #### Update the theme
 
@@ -55,9 +65,23 @@ Update the `html_theme` variable inside the `conf.py` file to point to the desir
 
 ![](https://cdn-images-1.medium.com/max/2884/1*Yy0z8_qggtEY2STcw7DIXw.png)
 
+#### 修改主题
+
+Sphinx 默认的主题是 [alabaster](https://alabaster.readthedocs.io/en/latest/)。你既可以从[这里](https://www.sphinx-doc.org/en/1.8/theming.html)选择心仪的主题，也可以自定义主题。推荐使用 `sphinx_rtd_theme` 的主题，不仅样式美观、具有现代感，还兼容手机视图。
+
+要使用 `sphinx_rtd_theme`，你首先需要安装该主题，在命令行中运行 `pip install sphinx-rtd-theme` 或者手动[下载](https://pypi.org/project/sphinx-rtd-theme/#files)。然后在 `conf.py` 文件中更新 `html_theme` 的值：
+
+![](https://cdn-images-1.medium.com/max/2884/1*Yy0z8_qggtEY2STcw7DIXw.png)
+
 #### Update the version
 
 During each release, you’ll want to update the documentation version to point to the project release version, either manually or using an automated process.
+
+![](https://cdn-images-1.medium.com/max/2724/1*cggJvzpzN1__-Om7rhwi9w.png)
+
+#### 修改版本
+
+每次项目发布的时候，你都需要更新文档的版本，使其和项目的版本保持一致，既可以手动也可以自动实现。
 
 ![](https://cdn-images-1.medium.com/max/2724/1*cggJvzpzN1__-Om7rhwi9w.png)
 
@@ -66,6 +90,10 @@ During each release, you’ll want to update the documentation version to point 
 Update the system **path** to point to the project’s modules directory so that sphinx can find the source files. Lines 13–15 will append the module directory to the system path, and are commented out by default. Uncomment these lines and update the line that reads sys.path.insert(0, os.path.abspath(‘.’)) to append the directory that contains the Python modules.
 
 ![](https://cdn-images-1.medium.com/max/2808/1*RYT_TSZLL8haGobmqXrrUA.png)
+
+#### 指定 Python 模块的路径
+
+你也可以将项目的模块目录添加到系统**路径**中，这样 sphinx 就能找到源文件了。13 ～ 15 行会将模块目录添加到系统路径中，这些内容默认是被注释掉的。移除注释并更新 `sys.path.insert(0, os.path.abspath(‘.’))` 这一行，把 Python 模块目录添加进去。
 
 #### Add extension support for autodoc
 
