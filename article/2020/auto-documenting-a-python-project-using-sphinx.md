@@ -215,7 +215,7 @@ HTML 文件都被生成在 `build/HTML` 目录下，在浏览器中打开 index.
 
 ## 6. Advanced Sphinx Markup
 
-## 6. 高级 Shpinx 标记
+## 6. 高级 Shpinx 指令
 
 There are additional Sphinx [directives](https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html) that will help your documentation look and feel more modern and organized. Here are some of the top useful features that will help you further customize the documentation. All examples are generated with the `sphinx_rtd_theme`:
 
@@ -283,6 +283,8 @@ An image can be added using the **image** directive.
 
 A table can be added using the **table** directive.
 
+可以使用 **table** 指令创建表格。
+
 ```Text
 .. table::
 	:align: center
@@ -297,9 +299,11 @@ A table can be added using the **table** directive.
 
 ```
 
-![Rendered table example with an embedded image](https://cdn-images-1.medium.com/max/2176/1*cw-s-06qUEIzUnQLhwR09Q.png)
+![表格和图片](https://cdn-images-1.medium.com/max/2176/1*cw-s-06qUEIzUnQLhwR09Q.png)
 
 ## Resources
+
+## 其他资源
 
 * [Sphinx Documentation](https://www.sphinx-doc.org/en/master/usage/index.html)
 * [ReStructuredText Guide](https://docutils.sourceforge.io/rst.html)
@@ -308,7 +312,11 @@ A table can be added using the **table** directive.
 
 ## Conclusion
 
+## 结束语
+
 In this article, we covered the basics required to configure and build Sphinx documentation for any Python project. Sphinx relies on rst files, so any kind of customization that reStructuredText can handle is possible. Being familiar with the capabilities of Sphinx and automation tools when it comes to generating documentation will hopefully encourage you to write and maintain up-to-date documentation.
+
+本文中，
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
