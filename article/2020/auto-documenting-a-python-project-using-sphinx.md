@@ -27,9 +27,9 @@ Below is a step-by-step guide to easily auto-generate clean and well-organized d
 
 Sphinx can be installed using pip by opening up the terminal and running `pip install -U Sphinx`, or by downloading the official [Python package](https://pypi.org/project/Sphinx/#files).
 
-[Here](https://www.sphinx-doc.org/en/master/usage/installation.html) is the official page outlining other ways of installing Sphinx, depending on your platform.
-
 Sphinx 既可以通过在终端中执行 `pip install -U Sphinx` 使用 pip 安装，也可以直接从 [Python package](https://pypi.org/project/Sphinx/#files) 官网上下载。
+
+[Here](https://www.sphinx-doc.org/en/master/usage/installation.html) is the official page outlining other ways of installing Sphinx, depending on your platform.
 
 Sphinx 官网上简述了其他的安装方式，可以根据你的实际情况自由选择，详见[这里](https://www.sphinx-doc.org/en/master/usage/installation.html)。
 
@@ -39,13 +39,15 @@ Sphinx 官网上简述了其他的安装方式，可以根据你的实际情况�
 
 In the root directory of your project, run `sphinx-quickstart` to initialize the sphinx source directory to create a default configuration. Running this command will prompt you to fill out some basic configuration properties such as whether to create separate source and build directories, the project name, author name, and project version.
 
+在项目根目录下运行 `sphinx-quickstart` 来初始化 sphinx 的 `source` 目录并创建默认配置。运行这个命令的时候，会提示你填写一些基本的配置属性，比如是否创建单独的 `build` 目录、项目名称、作者以及项目版本。
+
 ![Initialize the sphinx config using **sphinx-quickstart**](https://cdn-images-1.medium.com/max/2412/1*NiE2w5uY6KtD8DII_vnYmA.png)
+
+![使用 **sphinx-quickstart** 初始化 sphinx 配置](https://cdn-images-1.medium.com/max/2412/1*NiE2w5uY6KtD8DII_vnYmA.png)
 
 As shown above, running the `sphinx-build` command creates a `Makefile`, a `make.bat` file, as well as `build` and `source` directories.
 
-在项目根目录下运行 `sphinx-quickstart` 来初始化 sphinx 源目录并创建默认配置。运行这个命令的时候，会提示你填写一些基本的配置属性，比如是否创建单独的构建目录、项目名称、作者以及项目版本。
-
-![使用 **sphinx-quickstart** 初始化 sphinx 配置](https://cdn-images-1.medium.com/max/2412/1*NiE2w5uY6KtD8DII_vnYmA.png)
+如上所示，运行 `sphinx-build` 命令会创建 `Makefile` 和 `make.bat` 文件以及 `build` 和 `source` 目录。
 
 ## 3. Update the conf.py File
 
@@ -57,29 +59,27 @@ The `conf.py` file inside the `source` folder describes the Sphinx configuration
 
 #### Update the theme
 
-The default theme for sphinx is [alabaster](https://alabaster.readthedocs.io/en/latest/). There are many existing [themes](https://www.sphinx-doc.org/en/1.8/theming.html) to choose from, and it’s even possible to create your own. A recommended theme is `sphinx_rtd_theme`, which is a nice-looking, modern, mobile-friendly theme.
-
-To use `sphinx_rtd_theme`, you’ll need to install the sphinx-rtd-theme Python package by running `pip install sphinx-rtd-theme` in the terminal or by downloading the theme [here](https://pypi.org/project/sphinx-rtd-theme/#files).
-
-Update the `html_theme` variable inside the `conf.py` file to point to the desired theme name:
-
-![](https://cdn-images-1.medium.com/max/2884/1*Yy0z8_qggtEY2STcw7DIXw.png)
-
 #### 修改主题
+
+The default theme for sphinx is [alabaster](https://alabaster.readthedocs.io/en/latest/). There are many existing [themes](https://www.sphinx-doc.org/en/1.8/theming.html) to choose from, and it’s even possible to create your own. A recommended theme is `sphinx_rtd_theme`, which is a nice-looking, modern, mobile-friendly theme.
 
 Sphinx 默认的主题是 [alabaster](https://alabaster.readthedocs.io/en/latest/)。你既可以从[这里](https://www.sphinx-doc.org/en/1.8/theming.html)选择心仪的主题，也可以自定义主题。推荐使用 `sphinx_rtd_theme` 的主题，不仅样式美观、具有现代感，还兼容手机视图。
 
-要使用 `sphinx_rtd_theme`，你首先需要安装该主题，在命令行中运行 `pip install sphinx-rtd-theme` 或者手动[下载](https://pypi.org/project/sphinx-rtd-theme/#files)。然后在 `conf.py` 文件中更新 `html_theme` 的值：
+To use `sphinx_rtd_theme`, you’ll need to install the sphinx-rtd-theme Python package by running `pip install sphinx-rtd-theme` in the terminal or by downloading the theme [here](https://pypi.org/project/sphinx-rtd-theme/#files).
+
+要使用 `sphinx_rtd_theme`，你首先需要安装该主题，在命令行中运行 `pip install sphinx-rtd-theme` 或者手动[下载](https://pypi.org/project/sphinx-rtd-theme/#files)。
+
+Update the `html_theme` variable inside the `conf.py` file to point to the desired theme name:
+
+然后在 `conf.py` 文件中更新 `html_theme` 的值：
 
 ![](https://cdn-images-1.medium.com/max/2884/1*Yy0z8_qggtEY2STcw7DIXw.png)
 
 #### Update the version
 
-During each release, you’ll want to update the documentation version to point to the project release version, either manually or using an automated process.
-
-![](https://cdn-images-1.medium.com/max/2724/1*cggJvzpzN1__-Om7rhwi9w.png)
-
 #### 修改版本
+
+During each release, you’ll want to update the documentation version to point to the project release version, either manually or using an automated process.
 
 每次项目发布的时候，你都需要更新文档的版本，使其和项目的版本保持一致，既可以手动也可以自动实现。
 
@@ -87,41 +87,63 @@ During each release, you’ll want to update the documentation version to point 
 
 #### Specify the location of the Python modules
 
+#### 指定模块目录的路径
+
 Update the system **path** to point to the project’s modules directory so that sphinx can find the source files. Lines 13–15 will append the module directory to the system path, and are commented out by default. Uncomment these lines and update the line that reads sys.path.insert(0, os.path.abspath(‘.’)) to append the directory that contains the Python modules.
+
+你也可以将项目的模块目录（即需要使用 sphinx 自动生成文档的代码文件所在的目录，译者注）添加到系统路径中，这样 sphinx 就能找到源文件了。默认被注释掉的 13 ～ 15 行意在将模块目录添加到系统路径中，移除注释并修改 `sys.path.insert(0, os.path.abspath(‘.’))` 这一行，把你的模块目录添加进去。
 
 ![](https://cdn-images-1.medium.com/max/2808/1*RYT_TSZLL8haGobmqXrrUA.png)
 
-#### 指定 Python 模块的路径
-
-你也可以将项目的模块目录添加到系统**路径**中，这样 sphinx 就能找到源文件了。13 ～ 15 行会将模块目录添加到系统路径中，这些内容默认是被注释掉的。移除注释并更新 `sys.path.insert(0, os.path.abspath(‘.’))` 这一行，把 Python 模块目录添加进去。
-
 #### Add extension support for autodoc
+
+#### 添加 actodoc 的扩展支持
 
 The `extensions` variable is assigned to a list of extensions needed to build the documentation. For instance, if you’re planning to include documentation from your doc using the [autodoc directives](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html), you’ll need to activate it by adding `sphinx.ext.autodoc `****to the extension list.
 
+`extensions` 属性表示了在构建文档的时候需要用到的一系列扩展。比如，你可以将 `sphinx.ext.autodoc` 添加到扩展列表中，从而可以在文档中使用 [autodoc 指令](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html)包含其他文档。
+
 #### Add extension support for NumPy and Google Doc style docstrings
 
+#### 添加扩展支持 NumPy 和 Google Doc 风格的注释
+
 This, of course, is optional depending on the preferred docstring format. Should the documentation in your code follow the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html), you’ll need to append `sphinx.ext.napoleon` to the extensions list.
+
+当然，这取决于你喜欢哪种格式的注释。如果代码的注释遵循了 [Google Python 风格指南](https://google.github.io/styleguide/pyguide.html)的话，你需要将 `sphinx.ext.napoleon` 添加到扩展列表中。
 
 ![](https://cdn-images-1.medium.com/max/2672/1*jNTzF4AbQvDwsiSY582DdA.png)
 
 ## 4. Auto-generate the rst Files
 
+## 4. 自动生成 rst 文件
+
 Sphinx generates the HTML documentation from reStructuredText (rst) files. These rst files describe each webpage and may contain autodoc directives which will ultimately generate the documentation from docstrings in an automatic way. There’s an automatic way to generate these files, so there’s no need to manually write out the autodoc directives for each class and module.
+
+Sphinx 从 reStructruedText(rst) 文件生成 HTML 文档。这些 rst 文件是对每个页面的描述，并且可能会包含一些 autodoc 指令，并且最终会根据注释内容自动生成文档。由于可以自动生成这些文档，所以就没必要靠人工去给每个类或者模块去手写 autodoc 指令啦。
 
 The `sphinx-autodoc` command will automatically generate rst files with [autodoc directives](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) from your code. This command only needs to be run when a new module is added to the project.
 
+`sphinx-autodoc` 命令会根据代码生成包含 [autodoc 指令](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) 的 rst 文件。一旦 rst 文件生成之后，只有在项目中添加了新的模块时才需要重新运行这个命令。
+
 First, make sure that the `sphinx.ext.autodoc` extension is included in the extensions list in `conf.py` as described in the section above.
+
+首先，按照前文将 `sphinx.ext.autodoc` 扩展添加到 `conf.py` 文件的扩展列表中。
 
 To autogenerate the rst files, run the `sphinx-apidoc` command using the following syntax:
 
-sphinx-apidoc -o \<OUTPUT_PATH> \<MODULE_PATH>
+要自动生成 tst 文件，只需按照下面的语法运行 `sphinx-apidoc` 命令：
+
+`sphinx-apidoc -o \<输出目录> \<模块目录>`
 
 In our example, the output directory is `source` , and the module directory is `python`.
 
-sphinx-apidoc -f -o source python
+在本例中，`source` 是输出目录，`python` 是模块目录，
+
+`sphinx-apidoc -f -o source python`
 
 Running the sphinx-apidoc -o source python command will generate the rst files `test.rst`, and `modules.rst`. `test.rst` includes directives to write out the documentation for the classes and functions in `test.py`, and the `modules.rst` contains a list of which module files to include on the modules page (i.e. test).
+
+运行 `sphinx-apidoc -o source python` 命令会生成 `rest.rst` 和 `modules.rst` 文件。`test.rst` 包含了生成 `test.py` 文件中的类和方法文档所需的指令，而 `modules.rst` 文件包含了在模块列表需要包含哪些文件（比如 test 文件）。
 
 ![Generate rst files using **sphinx-apidoc**](https://cdn-images-1.medium.com/max/2588/1*NYjOLtNGK77AAhDai5vekA.png)
 
