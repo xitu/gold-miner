@@ -101,7 +101,7 @@ Update the system **path** to point to the project’s modules directory so that
 
 The `extensions` variable is assigned to a list of extensions needed to build the documentation. For instance, if you’re planning to include documentation from your doc using the [autodoc directives](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html), you’ll need to activate it by adding `sphinx.ext.autodoc `****to the extension list.
 
-`extensions` 属性表示了在构建文档的时候需要用到的一系列扩展。比如，你可以将 `sphinx.ext.autodoc` 添加到扩展列表中，从而可以在文档中使用 [autodoc 指令](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html)包含其他文档。
+`extensions` 属性表示了在生成文档的时候需要用到的一系列扩展。比如，你可以将 `sphinx.ext.autodoc` 添加到扩展列表中，从而可以在文档中使用 [autodoc 指令](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html)包含其他文档。
 
 #### Add extension support for NumPy and Google Doc style docstrings
 
@@ -147,6 +147,8 @@ Running the sphinx-apidoc -o source python command will generate the rst files `
 
 ![Generate rst files using **sphinx-apidoc**](https://cdn-images-1.medium.com/max/2588/1*NYjOLtNGK77AAhDai5vekA.png)
 
+![使用 **sphinx-apidoc** 生成 rst 文件](https://cdn-images-1.medium.com/max/2588/1*NYjOLtNGK77AAhDai5vekA.png)
+
 ```Text
 test module
 ===========
@@ -160,11 +162,19 @@ test module
 
 ## 5. Build the HTML
 
+## 5. 生成 HTML
+
 Now that you have the configuration and rst files set up, we can now run the `make html` command from the terminal in the main directory to generate the HTML files. The HTML files will be created inside the build/HTML folder.
+
+既然你已经准备好了配置文件和 rst 文件，现在我们可以运行 `make html` 命令来生成 HTML 文件了。HTML 文件将会保存在 `build/HTML` 目录中。
 
 ![Build HTML using **make HTML**](https://cdn-images-1.medium.com/max/2484/1*3h79Oyr6zuvy3efZ3kq0Jg.png)
 
+![使用 **make HTML** 生成 HTML](https://cdn-images-1.medium.com/max/2484/1*3h79Oyr6zuvy3efZ3kq0Jg.png)
+
 As you can see in this particular case, the warning Warning: "Document isn't included in any toctree was issued since we haven’t included the modules.rst file in any toctree. To fix this, add `modules` under the toctree directive in `index.rst` as shown below:
+
+如你所见，这里出现了一个警告“Document isn't included in any toctree was issued since we haven’t included the modules.rst file in any toctree”，将 `modules` 添加到 `index.rst` 的 `toctree` 指令下可以修复这个问题：
 
 ```Text
 .. SphinxDemo documentation master file, created by
@@ -193,41 +203,71 @@ Indices and tables
 
 Run the build again:
 
+重新生成：
+
 ![](https://cdn-images-1.medium.com/max/2468/1*W3nn6gsVP2UhBUBgrPGWkQ.png)
 
 The HTML files were generated in the build/HTML folder. Open up index.html in the browser to view the generated docs:
+
+HTML 文件都被生成在 `build/HTML` 目录下，在浏览器中打开 index.html 来一睹为快：
 
 ![index.html](https://cdn-images-1.medium.com/max/4392/1*Q3YACR12o9iy3HFzVujvGQ.png)
 
 ## 6. Advanced Sphinx Markup
 
+## 6. 高级 Shpinx 标记
+
 There are additional Sphinx [directives](https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html) that will help your documentation look and feel more modern and organized. Here are some of the top useful features that will help you further customize the documentation. All examples are generated with the `sphinx_rtd_theme`:
+
+还有许多其他的 Sphinx [指令](https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html) 能帮你把文档组织地更好看、更具有现代感。这里列出一些备受好评的功能，希望对你优化文档有帮助。以下所有的案例都是使用 `sphinx_rtd_theme` 主题来生成的：
 
 #### Table of contents
 
+#### 目录
+
 Sphinx uses a custom directive, known as the **toctree** directive, to describe the relations between different files in the form of a tree, or table of contents.
+
+Sphinx 使用了传统的广为人知的 **toctree** 指令以树状结构来描述不同文件之间的关系，也就是目录。
 
 ![Rendered toctree example](https://cdn-images-1.medium.com/max/4396/1*Jx7OJnsEzr6azKdYihxFKA.png)
 
+![目录](https://cdn-images-1.medium.com/max/4396/1*Jx7OJnsEzr6azKdYihxFKA.png)
+
 #### Note box
 
+#### 提示框
+
 A note box can be created using the **note** directive.
+
+可以使用 **note** 指令创建提示框。
 
 .. note:: This is a **note** box.
 
 ![Rendered note example](https://cdn-images-1.medium.com/max/2832/1*ziyCsuYgUZd6isrSn18DXA.png)
 
+![提示框](https://cdn-images-1.medium.com/max/2832/1*ziyCsuYgUZd6isrSn18DXA.png)
+
 #### Warning box
 
+#### 警告框
+
 A warning box can be created using the **warning** directive.
+
+可以使用 **warning** 指令创建警告框。
 
 .. warning:: This is a **warning** box.
 
 ![Rendered warning example](https://cdn-images-1.medium.com/max/2844/1*lKsiVUE_OmCkc7vJutDEpw.png)
 
+![警告框](https://cdn-images-1.medium.com/max/2844/1*lKsiVUE_OmCkc7vJutDEpw.png)
+
 #### Image
 
+#### 图片
+
 An image can be added using the **image** directive.
+
+可以使用 **image** 指令创建图片。
 
 ```Text
 .. image:: sphinx.png
@@ -238,6 +278,8 @@ An image can be added using the **image** directive.
 ```
 
 #### Table
+
+#### 表格
 
 A table can be added using the **table** directive.
 
