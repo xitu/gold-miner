@@ -48,7 +48,7 @@ console.log(messageTemplateStr);
 
 ## 2. isInteger
 
-有一种更简洁的方法可以知道值是否为整数。JavaScript 的 Number API 提供了名为 isInteger() 的方法来实现此目的。这是非常有用的，最好知道。
+有一种更简洁的方法可以知道值是否为整数。JavaScript 的 `Number` API 提供了名为 `isInteger()` 的方法来实现此目的。这是非常有用的，最好了解一下。
 
 ```js
 let mynum = 123;
@@ -72,7 +72,7 @@ console.log(`${mynumStr} is a number?`, Number.isInteger(mynumStr));
 <input type='number' onkeyup="trackChange(event)" />
 ```
 
-在事件处理程序方法中，我们使用`event.target.value`取出值。但是它返回一个字符串类型值。现在，我将不得不将其解析为整数。如果输入框接受浮点数（例如 16.56）怎么办？使用 parseFloat() 然后呢？啊，各种各样的困惑和额外的工作！
+在事件处理程序中，我们使用`event.target.value`取出值，但是它返回一个字符串类型值。现在，我将不得不将其解析为整数。如果输入框接受浮点数（例如 16.56）怎么办？使用 `parseFloat()` 然后呢？啊，我不得不面对各种各样的困惑和额外的工作！
 
 ```js
 function trackChange(event) {
@@ -101,7 +101,7 @@ const startWatching = () => {
 }
 ```
 
-这里代码太多了，并且无法检查布尔条件并调用该函数，
+像下面这样，通过检查布尔值来确定是否调用函数，代码太多了。
 
 ```js
 if (isPrime) {
@@ -117,7 +117,7 @@ isPrime && startWatching();
 
 ## 5. 使用 || 运算符处理默认值
 
-如果您想为变量设置默认值，则可以使用 OR（||）运算符轻松实现。
+如果您想为变量设置默认值，可以使用 OR（||）运算符轻松实现。
 
 ```js
 let person = {name: 'Jack'};
@@ -127,7 +127,7 @@ console.log(`Age of ${person.name} is ${age}`);
 
 ## 6. 获取随机项
 
-生成随机数或从数组中获取随机项是非常有用的方便方法。我已经看到它们在我的许多项目中多次出现。
+生成随机数或从数组中获取随机项是非常有用且方便的方法。我已经在我的许多项目中多次看到它们了。
 
 从数组中获取随机项，
 
@@ -137,7 +137,7 @@ let randomPlanet = planets[Math.floor(Math.random() * planets.length)];
 console.log('Random Planet', randomPlanet);
 ```
 
-通过指定最小值和最大值，从一个范围生成一个随机数，
+通过指定最小值和最大值，在一个范围内生成一个随机数，
 
 ```js
 let getRandom = (min, max) => {
@@ -148,9 +148,9 @@ console.log('Get random', getRandom(0, 10));
 
 ## 7. 函数默认参数
 
-在JavaScript中，函数参数（或参数）就像该函数的局部变量一样。调用函数时，您可以传递也可以不传递值。如果您不为参数传递值，则该值将是“undefined”，并且可能会导致一些不必要的副作用。
+在JavaScript中，函数实参（或形参）就像该函数的局部变量一样。调用函数时，您可以传递也可以不传递值。如果您不为参数传递值，则该值将是`undefined`，并且可能会导致一些多余的副作用。
 
-有一种在定义参数时将默认值传递给函数参数的简单方法。在以下示例中，我们将默认值“Hello”传递给“greetings”函数的参数“message”。
+有一种在定义参数时将默认值传递给函数参数的简单方法。在以下示例中，我们将默认值`Hello`传递给`greetings`函数的参数`message`。
 
 ```js
 let greetings = (name, message='Hello,') => {
@@ -162,9 +162,9 @@ console.log(greetings('Jack', 'Hola!'));
 
 ```
 
-## 8. 获取参数返回值
+## 8. 必需的函数参数
 
-扩展默认参数方法，我们可以将参数标记为强制参数。首先定义一个函数以使用错误消息抛出错误，
+基于默认参数的特性，我们可以将参数作为必需参数。首先定义一个函数以使用错误消息抛出错误，
 
 ```js
 let isRequired = () => {
@@ -172,7 +172,7 @@ let isRequired = () => {
 }
 ```
 
-然后将函数分配为所需参数的默认值。请记住，在调用时为参数传递值时，将忽略默认值。但是，如果参数值为“undefined”，则考虑使用默认值。
+然后将函数作为必需参数的默认值。请记住，在调用函数时如果为参数传递值，那么默认值会被忽略。但是，如果参数值为“undefined”，则默认值会被使用。
 
 ```js
 let greetings = (name=isRequired(), message='Hello,') => {
@@ -181,15 +181,15 @@ let greetings = (name=isRequired(), message='Hello,') => {
 console.log(greetings());
 ```
 
-在上面的代码中，`name`将是未定义的，并且将尝试为其设置默认值，即 isRequired() 函数。 它将引发错误，如下所示
+在上面的代码中，`name`将是未定义的，因此将会尝试使用默认值，即 `isRequired()` 函数。 它将引发如下所示的错误：
 
 ![8.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595930079306/ossRyuA7X.png?auto=format&q=60)
 
 ## 9. 逗号运算符
 
-当我意识到逗号 (,) 是一个单独的运算符并且从未被发现时，我感到惊讶。我已经在代码中使用了很多，但是从未意识到它的真实存在。
+当我意识到逗号(`,`) 是一个单独的运算符，并且我此前从未注意到时，我感到很惊讶。我已经在代码中使用了大量逗号，但是从未意识到它的其它用途。
 
-运算符用于从左到右评估其每个操作数，并返回最后一个操作数的值。
+运算符用于从左到右计算其每个操作数，并返回最后一个操作数的值。
 
 ```js
 let count = 1;
@@ -197,14 +197,14 @@ let ret = (count++, count);
 console.log(ret);
 ```
 
-在上面的示例中，变量“ret”的值将为 2。类似的方式，以下代码的输出将值 32 记录到控制台中。
+在上面的示例中，变量`ret`的值将为 2。同理，下面的代码将在控制台中输出值 32 记录到控制台中。
 
 ```js
 let val = (12, 32);
 console.log(val);
 ```
 
-我们在哪里使用它？有什么猜想吗？comma (,) 运算符最常见的用法是在 for 循环中提供多个参数。
+我们在哪里使用它？有什么想法吗？逗号 (`,`)运算符最常见的用法是在 for 循环中提供多个参数。
 
 ```js
 for (var i = 0, j = 50; i <= 50; i++, j--)
@@ -212,9 +212,9 @@ for (var i = 0, j = 50; i <= 50; i++, j--)
 
 ## 10. 合并多个对象
 
-您可能需要将两个对象合并在一起，并创建一个更好的信息对象来使用。您可以使用扩展运算符`...`（是三个点！）。
+您可能需要将两个对象合并在一起，并创建一个更好的、内容更丰富的对象来使用。为此，您可以使用扩展运算符`...`（对的，就是三个点！）。
 
-分别考虑 emp 和 job 这两个对象，
+分别考虑 `emp` 和 `job` 这两个对象，
 
 ```js
 let emp = {
@@ -238,7 +238,7 @@ let merged = {...emp, ...job};
 console.log('Spread merged', merged);
 ```
 
-还有另一种执行合并的方法。使用 Object.assign() 你可以这样
+还有另一种实现合并的方法。你可以像下面这样使用 `Object.assign()`：
 
 ```js
 console.log('Object assign', Object.assign({}, emp, job));
@@ -248,15 +248,15 @@ console.log('Object assign', Object.assign({}, emp, job));
 
 ![10.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595930544621/2jCCxCSnz.png?auto=format&q=60)
 
-注意，扩展运算符和 Object.assign 都执行浅合并。在浅合并中，第一个对象的属性将被第二个对象的相同属性值覆盖。
+注意，扩展运算符和 `Object.assign` 都执行浅合并。在浅合并中，第一个对象的属性将被第二个对象的相同属性值覆盖。
 
-要进行深度合并，请使用类似的 [lodash](https://lodash.com/)。
+要进行深度合并，可以考虑使用 [lodash](https://lodash.com/) 中的 `_merge`。
 
 ## 11. 解构
 
-将数组元素和对象属性分解为变量的技术称为“destructuring”。让我们看几个例子，
+将数组元素和对象属性分解为变量的技术称为“解构”。让我们看几个例子，
 
-### 数组 Array
+### 数组
 
 在这里，我们有一系列的表情符号，
 
@@ -270,7 +270,7 @@ let emojis = ['🔥', '⏲️', '🏆', '🍉'];
 let [fire, clock, , watermelon] = emojis;
 ```
 
-这与“let fire = emojis [0];”相同，但具有更大的灵活性。您是否注意到，我只是在奖杯表情符号的位置上使用了空格而忽略了它？那么，这将输出什么呢？
+这与`let fire = emojis [0];`相同，但具有更大的灵活性。您是否注意到，我只是在奖杯表情符号的位置上使用了空格而忽略了它？那么，这将输出什么呢？
 
 ```js
 console.log(fire, clock, watermelon);
@@ -280,7 +280,7 @@ console.log(fire, clock, watermelon);
 
 ![11.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595931639636/TXaeEwgGq.png?auto=format&q=60)
 
-让我在这里再介绍一个叫做“rest”运算符的东西。如果您想对数组进行解构，以便要将一个或多个项目分配给变量并将其余部分停放在另一个数组中，则可以使用“...rest”来完成，如下所示。
+让我在这里再介绍一个叫做“rest”运算符的东西。如果您想对数组进行解构，从而将一个或多个项目分配给变量并将其余部分暂放在另一个数组中，就可以使用`...rest`来完成，如下所示。
 
 ```js
 let [fruit, ...rest] = emojis;
@@ -291,9 +291,9 @@ console.log(rest);
 
 ![11.a.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1595932001526/GdWuvDoP8.png?auto=format&q=60)
 
-### 对象 Object
+### 对象
 
-像数组一样，我们也可以分解对象。
+像数组一样，我们也可以解构对象。
 
 ```js
 let shape = {
@@ -304,7 +304,7 @@ let shape = {
 };
 ```
 
-进行销毁，以便获得名称，几个变量中的边以及其余部分在另一个对象中。
+像下面这样进行解构，我们可以把对象的 `name` 属性和 `sides` 属性赋值给两个变量，而其余的属性则存放在另一个对象中。
 
 ```js
 let {name, sides, ...restObj} = shape;
@@ -320,7 +320,7 @@ console.log(restObj);
 
 ## 12. 交换变量
 
-现在，使用我们刚刚学习的解构概念，这当然非常容易。
+现在，使用我们刚刚学习的解构，变量交换将会变得非常容易。
 
 ```js
 let fire = '🔥';
@@ -344,7 +344,7 @@ console.log(Array.isArray(obj));
 
 ## 14. undefined 和 null
 
-`undefined`是未为变量定义值，但已声明该变量。
+`undefined`指的是还没有给变量定义值，但已经声明了该变量。
 
 `null`本身是一个空且不存在的值，必须将其显式赋值给变量。
 
