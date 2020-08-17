@@ -344,7 +344,7 @@ console.log(Array.isArray(obj));
 
 ## 14. undefined 和 null
 
-`undefined`是未为变量定义值，但已声明该变量的地方。
+`undefined`是未为变量定义值，但已声明该变量。
 
 `null`本身是一个空且不存在的值，必须将其显式赋值给变量。
 
