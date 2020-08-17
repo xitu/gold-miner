@@ -81,7 +81,7 @@ const findSongAlbum: IQuery<Album, Params> = (title, artist) => {
 
 You can see in the `Params` type above, the first item type is `string` making the first argument “title” a `string`. The second, of course, following the same pattern, is `string` making the second parameter “artist” also a `string`. This will give us the proper type safety for the arguments list.
 
-![findSongAlbum() showing useless argument labels](https://cdn-images-1.medium.com/max/2000/1*ZZTq2-il42ITd06l-GZjyg.gif)
+![findSongAlbum() showing useless argument labels](https://user-images.githubusercontent.com/5164225/90373125-09174600-e0a4-11ea-8290-c7a976da28d8.gif)
 
 Unfortunately, using Tuple types this way doesn’t give useful type safe **labels** when you’re using the function. Instead it just lists the arguments as args_0: string, args_1: string. Besides knowing that the first argument is a `string`, “arg_0” doesn’t tell me that the first parameter should be the “title” of the song I’m searching for.
 
@@ -105,7 +105,7 @@ const findSongAlbum: IQuery<Album, Params> = (title, artist) => {
 }
 ```
 
-![findSongAlbum() showing valuable argument labels](https://cdn-images-1.medium.com/max/2000/1*8DQ2mM364SRO6OV2nPHLnQ.gif)
+![findSongAlbum() showing valuable argument labels](https://user-images.githubusercontent.com/5164225/90373135-0c123680-e0a4-11ea-8e49-4467ee3345e8.gif)
 
 Now, instead of `arg_0: string`, we get `title: string` in our intellisense which tells us **what** string we need to pass in.
 
