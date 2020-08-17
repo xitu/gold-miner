@@ -1,5 +1,5 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[Interactive WebGL Hover Effects](https://tympanus.net/codrops/2020/04/14/interactive-webgl-hover-effects/)
+> * 原文作者：[Yuriy Artyukh](https://tympanus.net/codrops/author/akella/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)
 > * 译者：
@@ -7,21 +7,15 @@
 
 # Interactive WebGL Hover Effects
 
-A simple tutorial on how to achieve an interactive mouseover/hover effect on images in some easy steps.
+> A simple tutorial on how to achieve an interactive mouseover/hover effect on images in some easy steps.
 
-By [Yuriy Artyukh](https://tympanus.net/codrops/author/akella/ "Posts by Yuriy Artyukh") in [Tutorials](https://tympanus.net/codrops/category/tutorials/) on April 14, 2020
-
-[![mousefeatured](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2020/04/mousefeatured.jpg)](https://tympanus.net/Tutorials/webgl-mouseover-effects/step3.html "Interactive WebGL Hover Effects Demo")
-
-[View demo](https://tympanus.net/Tutorials/webgl-mouseover-effects/step3.html) [Download Source](https://github.com/akella/webgl-mouseover-effects/archive/master.zip)
-
-From our sponsor: [Reach inboxes when it matters most. Instantly deliver transactional emails to your customers.](https://ad.doubleclick.net/ddm/clk/468663188;274327225;t)
+[View demo](https://tympanus.net/Tutorials/webgl-mouseover-effects/step3.html)\& [Download Source](https://github.com/akella/webgl-mouseover-effects/archive/master.zip)
 
 I love WebGL, and in this article I will explain one of the cool effects you can make if you master shaders. The effect I want to recreate is originally from [Jesper Landberg’s website](https://jesperlandberg.dev/). He’s a really cool dude, make sure to check out his stuff:
 
 So let’s get to business! Let’s start with this simple HTML:
 
-```
+```html
 <div class="item">
     <img src="img.jpg" class="js-image" alt="">
     <h2>Some title</h2>
@@ -38,7 +32,7 @@ All the animations will happen in a Canvas element. So now we need to add a bit 
 
 So let’s add some JavaScript and start with a basic Three.js setup from the official documentation:
 
-```
+```js
 import * as THREE from "three";
 
 var scene = new THREE.Scene();
@@ -83,7 +77,7 @@ Once you have all this in place, you can just run it with \`parcel index.html\`.
 
 Let’s create a simple [PlaneBufferGeometry](https://threejs.org/docs/#api/en/geometries/PlaneBufferGeometry) object with an image on it. Just like this:
 
-```
+```js
 let TEXTURE = new TextureLoader().load('supaAmazingImage.jpg'); 
 let mesh = new Mesh(
 	new PlaneBufferGeometry(), 
@@ -103,7 +97,7 @@ It turns out that the output of the Three.js renderer is just another image. We 
 
 Here is the missing part of the code:
 
-```
+```js
 // set up post processing
 let composer = new EffectComposer(renderer);
 let renderPass = new RenderPass(scene, camera);
@@ -126,7 +120,7 @@ There are a bunch of things happening here, but it’s pretty straightforward: y
 
 So let’s do that final shader with the effect:
 
-```
+```js
 // get small circle around mouse, with distances to it
 float c = circle(uv, mouse, 0.0, 0.2);
 // get texture 3 times, each time with a different offset, depending on mouse speed:
@@ -149,7 +143,7 @@ For our Three.js scene, this means that if want an image with a width of 100px o
 
 When the page loads, I will loop through all the images, get their dimensions, and add them to my 3D world:
 
-```
+```js
 let images = [...document.querySelectorAll('.js-image')];
 images.forEach(image=>{
 	// and we have the width, height and left, top position of the image now!
@@ -175,7 +169,7 @@ With different shaders you can come up with any kind of effect with this approac
 
 Instead of separating the image in three color layers, we could simply displace it depending on the distance to the mouse:
 
-```
+```js
 vec2 newUV = mix(uv, mouse, circle); 
 color = texture2D(tDiffuse,newUV);
 ```
