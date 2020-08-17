@@ -7,15 +7,9 @@
 
 # What to Expect in Python 3.9
 
-#### PYTHON
-
-#### Discover what’s new on the next release of Python
-
 ![Photo by [Ankush Minda](https://unsplash.com/@an_ku_sh?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/release?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/2400/1*3o3fDm_d8ZeNdSdpdaa7mA.jpeg)
 
 Python 3.9 is expected to release on Monday, 05 October 2020. Prior to releasing the official version, the developers had planned to release six alpha, five beta preview, and two release candidates.
-[**What Is Python Best For?**
-**Learn what are the main applications of the Python programming languages and maybe you can use it on your next project.**medium.com](https://medium.com/@bajcmartinez/what-is-python-best-for-6f509fea0727)
 
 At the time of writing this article, the first candidate was recently released on 11 August. Now, we are anxiously waiting for the second release candidate which will probably be available from 14 September.
 
@@ -24,8 +18,6 @@ So, you might be wondering what’s new in Python 3.9. Right?
 There are some significant changes that will dictate the way Python programs work. Most importantly, in this recent version, you will get a new parser that is based on **Parsing Expression Grammar (PEG)**. Similarly, merge `|` and update `|=` **Union Operators** are added to [dict](https://docs.python.org/3.9/library/stdtypes.html#dict).
 
 Let’s have a more in-depth look at all the upcoming features and improvements of Python 3.9.
-
----
 
 ## New Parser Based on PEG
 
@@ -36,8 +28,6 @@ The major difference between PEG and a context-free-grammar based parsers (e.g. 
 Let’s suppose we write this `rule: A | B | C`.
 
 Now, in the case of LL(1) parser, it will generate constructions to conclude which one from A, B, or C must be expanded. On the other hand, PEG will try to check whether the first alternative (e.g. A) succeeds or not. It will continue to the next alternative only when `A` doesn’t succeed. In simple words, PEG will check the alternatives in the order in which they are written.
-
----
 
 ## Support for the IANA Time Zone
 
@@ -55,8 +45,6 @@ In Python 3.9, they are going to add support for the IANA time zone database. Mo
 
 All of the IANA time zone functionality is packed inside the [zoneinfo](https://docs.python.org/3.9/library/zoneinfo.html) module. This database is very popular and widely distributed in Unix-like operating systems. But, remember that Windows uses a completely different method for handling the time zones.
 
----
-
 ## Added Union Operators
 
 In previous versions of Python, it’s not very efficient to merge or update two dicts. That’s why the developers are now introducing Union Operators like `|` for merging and `|=` for updating the dicts.
@@ -64,8 +52,6 @@ In previous versions of Python, it’s not very efficient to merge or update two
 For example, earlier when we use `d1.update(d2)` then it also modifies `d1`. So, to fix it, we have to implement a small “hack” something like `e = d1.copy(); e.update(d2)`.
 
 Actually, here we are creating a new temporary variable to hold the value. But, this solution is not very efficient. That’s the main reason behind adding those new Union Operators.
-
----
 
 ## Introducing removeprefix() and removesuffix()
 
@@ -77,8 +63,6 @@ So, there is definitely a need for some separate functions that can remove the s
 
 Another reason for providing built-in support for `removeprefix()` and `removesuffix()` is that application developers usually write this functionality on their own to enhance their productivity. But, in most cases, they make mistakes while handling empty strings. So, a built-in solution can be very helpful for real-world apps.
 
----
-
 ## Type Hinting Generics In Standard Collections
 
 Did you ever notice the duplicate collection hierarchy in the `typing` module?
@@ -87,23 +71,17 @@ For example, you can either use `typing.List` or the built-in `list`. So, in Pyt
 
 The major plus point of this feature is that now user can easily annotate their code. It even helps the instructors to teach Python in a better way.
 
----
-
 ## Added graphlib module
 
 In graphs, a topological order plays an important role to identify the flow of jobs. Meaning that it follows a linear order to tell which task will run before the other.
 
 The `graphlib` module enables us to perform a topological sort or order of a graph. It is mostly used with hashable nodes.
 
----
-
 ## Modules That Are Enhance in Python 3.9
 
 In my opinion, the major effort took place while improving the existing modules. You can evaluate this with the fact that a massive list of 35 modules is updated to optimize the Python programming language.
 
 Some of the most significant changes happened inside `gc`, `http`, `imaplib`, `ipaddress`, `math`, `os`, `pydoc`, `random`, `signal`, `socket`, `time`, and `sys` modules.
-
----
 
 ## Features Deprecated
 
@@ -112,8 +90,6 @@ Around 16 features are deprecated in Python version 3.9. You can get detailed in
 If you have ever worked with `random` module then you probably know that it can accept any hashable type as a seed value. This can have unintended consequences because there is no guarantee whether the hash value is deterministic or not. That’s why the developers decided to only accept None, int, float, str, bytes, and bytearray as the seed value.
 
 Also, from now onwards you must specify the `mode` argument to open a `GzipFile` file for writing.
-
----
 
 ## What’s Removed?
 
