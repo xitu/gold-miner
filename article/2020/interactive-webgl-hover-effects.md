@@ -13,6 +13,8 @@
 
 I love WebGL, and in this article I will explain one of the cool effects you can make if you master shaders. The effect I want to recreate is originally from [Jesper Landberg’s website](https://jesperlandberg.dev/). He’s a really cool dude, make sure to check out his stuff:
 
+![](https://user-images.githubusercontent.com/5164225/90354320-8d090800-e07b-11ea-8a3c-6b35ea7de050.gif)
+
 So let’s get to business! Let’s start with this simple HTML:
 
 ```html
@@ -73,8 +75,6 @@ canvas {
 
 Once you have all this in place, you can just run it with \`parcel index.html\`. Now, you wouldn’t see much, its an empty 3D scene so far. Let’s leave the HTML for a moment, and concentrate on the 3D scene for now.
 
-![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/themes/codropstheme03/images/advertisement.jpg)
-
 Let’s create a simple [PlaneBufferGeometry](https://threejs.org/docs/#api/en/geometries/PlaneBufferGeometry) object with an image on it. Just like this:
 
 ```js
@@ -86,6 +86,8 @@ let mesh = new Mesh(
 ```
 
 And now we’ll see the following:
+
+![](https://user-images.githubusercontent.com/5164225/90354323-909c8f00-e07b-11ea-9a1c-be5642528f2a.gif)
 
 Obviously we are not there yet, we need that color trail following our mouse. And of course, we need shaders for that. If you are interested in shaders, you’ve probably come across some tutorials on how to displace images, like [displacing on hover](https://tympanus.net/codrops/2018/04/10/webgl-distortion-hover-effects/)?or?[liquid distortion effects](https://tympanus.net/codrops/2017/10/10/liquid-distortion-effects/).
 
