@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[lsvih](https://github.com/lsvih) 和 [tanglie1993](https://github.com/tanglie1993)
+> * 校对者：[tanglie1993](https://github.com/tanglie1993) 和 [Chorer](https://github.com/Chorer)
 
 # 我常用的 JavaScript 编程技巧
 
@@ -11,11 +11,11 @@
 
 ## 本文目的
 
-大多数编程语言都足够开放，以允许程序员以多种方式得到类似的结果。JavaScript 也是如此，使用 JavaScript，我们通常会找到多种方法来达到相似的结果，虽然有时会造成混淆。
+大多数编程语言都足够开放，以允许程序员以多种方式得到类似的结果。JavaScript 也是如此，使用 JavaScript，我们通常可以通过多种方法来达到相似的结果，虽然有时会造成混淆。
 
-其中一些用法比其他方法要好，而这些就是我要分享的。我将在本文中列出它们，我敢肯定，您在阅读本文时会发现，在很多地方您和我的做法是相同的。
+其中一些用法比其他方法要好，而这些就是我要分享的。我将在本文中一一列举，我敢肯定，您在阅读本文时会发现，在很多地方您和我的做法是相同的。
 
-## 1. 忘记字符串连接，使用模板字符串（文字）
+## 1. 使用模板字符串
 
 使用`+`运算符拼接字符串来构建有意义的字符串，这是过时的做法。此外，将字符串与动态值（或表达式）连接可能会导致计算或表达错误。
 
@@ -26,11 +26,11 @@ let isPrime = bit => {
   return (bit === 'P' ? 'Prime' : 'Nom-Prime');
 }
 
-// 使用 + 运算符的字符串连接
+// 使用`+`运算符的字符串连接
 let messageConcat = 'Mr. ' + name + ' is from ' + place + '. He is a' + ' ' + isPrime('P') + ' member.'
 ```
 
-模板文字（或模板字符串）允许嵌入表达式。它具有独特的语法，该字符串必须用反引号（\`\`）括起来。模板字符串可以包含动态值的占位符。这些以美元符号和大括号（${expression}）标记。
+模板字面量（或模板字符串）允许嵌入表达式。它具有独特的语法，该字符串必须用反引号（``）括起来。模板字符串提供了可以包含动态值的占位符，以美元符号和大括号标记（${expression}）。
 
 以下是一个演示它的例子，
 
@@ -346,7 +346,7 @@ console.log(Array.isArray(obj));
 
 `undefined`是未为变量定义值，但已声明该变量的地方。
 
-`null`本身是一个空且不存在的值，必须明确地将其分配给变量。
+`null`本身是一个空且不存在的值，必须将其显式赋值给变量。
 
 `undefined`和`null`并不严格相等，
 
@@ -358,15 +358,15 @@ undefined === null // false
 
 ## 15. 获取查询参数
 
-`window.location`对象具有许多实用方法和属性。使用这些属性和方法，我们可以从浏览器URL中获取有关协议、主机、端口、域等的信息。
+`window.location`对象具有许多实用方法和属性。使用这些属性和方法，我们可以从浏览器 URL 中获取有关协议、主机、端口、域等的信息。
 
-我发现非常有用的属性是以下部分，
+下面是我发现的一个非常有用的属性：
 
 ```js
 window.location.search
 ```
 
-`search`属性从位置url返回查询字符串。这是一个示例网址：`https：//tapasadhiary.com？project = js`。 `location.search`将返回`？project = js`
+`search`属性从位置 url 返回查询字符串。以这个 url 为例：`https：//tapasadhiary.com？project = js`。 `location.search`将返回`？project = js`
 
 我们可以使用另一个名为`URLSearchParams`的有用接口以及`location.search`来获取查询参数的值。
 
@@ -380,7 +380,7 @@ let project = new URLSearchParams(location.search).get('project');
 
 # 本文并未结束
 
-这不是本文技巧列表的结尾，还有很多，当我遇到它们时，我肯定会将它们作为补充示例推送到 GitHub 项目 [https://github.com/atapas/js-tips-tricks](https://github.com/atapas/js-tips-tricks)
+JavaScript 的编程技巧远远不止这些，我也计划在学到一些新的技巧时，将它们作为示例更新到 GitHub 项目 [https://github.com/atapas/js-tips-tricks](https://github.com/atapas/js-tips-tricks)
 
 
 
