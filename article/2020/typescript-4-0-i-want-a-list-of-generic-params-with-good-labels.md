@@ -7,8 +7,6 @@
 
 # TypeScript 4.0 finally delivers what I’ve been waiting for
 
-#### A list of generic params with good labels!
-
 Yesterday, Microsoft announced the [release candidate of TypeScript 4.0](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-rc). And with that comes [Labeled Tuple Elements](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-rc/#labeled-tuple-elements), which is the answer to the title of this post.
 
 ![Arguments with useful labels and arguments with useless labels](https://cdn-images-1.medium.com/max/2148/1*G00zmJivkNGN1L6fDo9vnQ.png)
@@ -17,7 +15,7 @@ Yesterday, Microsoft announced the [release candidate of TypeScript 4.0](https:/
 
 Here’s a contrived example. `IQuery`. It’s meant to describe the shape of functions that query things. It always returns a promise and takes a [Generic](https://www.typescriptlang.org/docs/handbook/generics.html) to describe what the promise emits (`TReturn`). The interface is also flexible enough to take no arguments **or** an unknown number of arguments (`UParams extends any[] = []`).
 
-```
+```ts
 interface IQuery<TReturn, UParams extends any[] = []> {
   (...args: UParams): Promise<TReturn>
 }
@@ -27,7 +25,7 @@ interface IQuery<TReturn, UParams extends any[] = []> {
 
 Leveraging this interface, we’ll write a function that finds a song album by a title and an artist. It returns a promise that emits a single object of type `Album`.
 
-```
+```ts
 type Album = {
   title: string
 }
@@ -35,7 +33,7 @@ type Album = {
 
 Without TypeScript, the function could look like this:
 
-```
+```js
 const findSongAlbum = (title, artist) => {
   // data fetching code...
   
@@ -49,7 +47,7 @@ const findSongAlbum = (title, artist) => {
 
 With TypeScript, and leveraging the `IQuery` interface, you’d pass in `Album` type as the first Generic parameter to ensure the shape of what the promise emits always matches `Album` type.
 
-```
+```ts
 const findSongAlbum: IQuery<Album> = (title, artist) => {
   // data fetching code...
   
@@ -67,7 +65,7 @@ You also want to define the parameters and what their types are. In this case `t
 
 On the example, **before TypeScript 4.0**, `Params` would be defined as a list of types. Each item in the list defines the type in the same order as the list of arguments. This kind of typing is called [Tuple](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple) types.
 
-```
+```ts
 type Params: [string, string]
 
 const findSongAlbum: IQuery<Album, Params> = (title, artist) => {
@@ -93,7 +91,7 @@ With the TypeScript 4 release candidate we get **Labeled Tuple Elements** which 
 
 Each item in the `Params` type now gets a label which will show up nicely in your IDE anytime you use the `findSongAlbum` function.
 
-```
+```ts
 type Params: [title: string, artist: string]
 
 const findSongAlbum: IQuery<Album, Params> = (title, artist) => {
