@@ -7,8 +7,6 @@
 
 # Making Neural Networks Smaller for Better Deployment
 
-#### Solving the Size Problem of CNNs Using Network Pruning With Keras
-
 ![Credit [JC Gellidon](https://unsplash.com/@jcgellidon?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*tGuAv2o2UGUDsC1RDtLPFA.jpeg)
 
 There is a clear trend in the data science and machine learning industry on training bigger and bigger models. These models achieve near-human performance, but they are usually too big to be deployed on a device with constrained resources like a mobile phone or a drone. This is one of the main blockers to the broader adoption of AI in our everyday lives.
@@ -29,9 +27,9 @@ The other type of approach is to leverage large, pre-trained neural networks and
 
 In particular, we will focus on pruning techniques, the low hanging fruit of neural network compression. Network pruning aims at removing specific weights and their respective connections in a neural network to compress its size. Although pruning is less popular than other approaches, it achieves pretty good results and is quite easy to implement, as we will see in the rest of this article.
 
-> # **“The ability to simplify means to eliminate the unnecessary so that the necessary may speak.” Hans Hoffman**
+> **“The ability to simplify means to eliminate the unnecessary so that the necessary may speak.” Hans Hoffman**
 
-It might seem odd that removing weights from a neural network wouldn’t drastically harm its performance. Still, in 1991, Y. LeCun et al. showed in a paper called **[Optimal Brain Damage](http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf)** that one could ****reduce the size of a neural network by selectively deleting weights. They found it was possible to remove half of a network’s weights and end up with a lightweight, sometimes better-performing network.
+It might seem odd that removing weights from a neural network wouldn’t drastically harm its performance. Still, in 1991, Y. LeCun et al. showed in a paper called **[Optimal Brain Damage](http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf)** that one could reduce the size of a neural network by selectively deleting weights. They found it was possible to remove half of a network’s weights and end up with a lightweight, sometimes better-performing network.
 
 In the particular case of CNNs, instead of removing individual weights, most approaches focus on removing entire filters and their corresponding feature maps from convolutional layers. The main benefit of this method is that it doesn’t introduce any sparsity in the network’s weight matrices. This is important to take into account as most deep learning frameworks, including Keras, don’t support sparse weight layers.
 
@@ -80,7 +78,6 @@ Since we’re going to use L1 norm to compare filters with different sizes, we�
 The code below computes L1 norm of the convolutional filters in a Keras model and outputs a matrix of dimension Nb_of_layers x Nb_of_filters.
 
 ```Python
-
 import tensorflow as tf
 import keras.backend as K
 from keras.preprocessing.image import ImageDataGenerator
@@ -129,7 +126,6 @@ model is a Keras model"""
             l1 = np.array(l1) / kernel_size
             norms[layer_ix, :nb_filters] = l1
     return norms
-
 ```
 
 The second option you can try is to compute the APoZ activations. The intuition is that if a filter is rarely activated over a batch of random input images, it doesn’t contribute much to the output predictions of the model. Note that this metric makes a lot of sense if the activation functions used in the convolutional layers zero out a lot of values. This is the case for ReLU but when using other functions like Leaky ReLU, the APoZ criteria might not be as relevant.
@@ -329,8 +325,6 @@ This has been observed in several papers and can be interpreted as a post-traini
 This Rank — Prune — Retrain cycle can be repeated iteratively until a certain criterion is met. For example we could repeat this cycle until the difference between the pruned model’s performance and the original model’s performance is bigger than a certain threshold.
 
 In practice, we found that a single iteration of this cycle could lead to up to a~70% compression in number of weights while maintaining or improving the performance of our baseline CNN.
-
----
 
 ## Conclusion
 
