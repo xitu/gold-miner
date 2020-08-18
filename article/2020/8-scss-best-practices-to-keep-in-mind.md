@@ -2,20 +2,20 @@
 > * 原文作者：[Annie Liao](https://github.com/liaowow)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/8-scss-best-practices-to-keep-in-mind.md](https://github.com/xitu/gold-miner/blob/master/article/2020/8-scss-best-practices-to-keep-in-mind.md)
-> * 译者：
-> * 校对者：
+> * 译者：[snowyYU](https://github.com/snowyYU)
+> * 校对者：[onlinelei](https://github.com/onlinelei)，[iceytea](https://github.com/iceytea)
 
-# 8 SCSS Best Practices to Keep in Mind
+# 8 个有用的 SCSS 最佳实践
 
-This past week I had an opportunity to browse through a company's coding guideline, some of which I found very useful not only in collaborative settings but also in developing personal projects.
+上周我看了一家公司的代码规范，我发现其中一些规则同样适用于个人项目的开发。
 
-Here are eight of SCSS best practices from the guideline that made me rethink the way I structure my CSS code:
+我觉得以下的 8 个最佳实践特别棒：
 
-## 1. Mobile First
+## 1. 移动端优先
 
-When it comes to responsive design, it's common to prioritize the desktop version, which can make customizing for mobile a painful process. Instead, we should design to expand, not cram things to fit mobile.
+做响应式项目的时候，一般会先写 PC 版本的样式，但这会使移动端样式的书写变得特别痛苦。因此，我们应该先进行移动端样式的书写，在移动端样式的基础上向 PC 端的样式拓展。
 
-Don't:
+不要这样做:
 
 ```scss
 .bad {
@@ -27,7 +27,7 @@ Don't:
 }
 ```
 
-Do:
+应该这样做:
 
 ```scss
 .good {
@@ -39,24 +39,24 @@ Do:
 }
 ```
 
-## 2. Set Variables
+## 2. 提前定义好变量
 
-Defining CSS variables and mixins should be part of the initial setup, which can make the project much more maintainable.
+初始化项目中，要先定义 CSS 变量和 mixins，这样可以提升项目的可维护性。
 
-According to the guideline, here are some common properties that will benefit from variables:
+规范中提到，以下这些属性会经常读取 CSS 变量：
 
 - `border-radius`
 - `color`
 - `font-family`
 - `font-weight`
-- `margin` (gutters, grid gutters)
-- `transition` (duration, easing) -- consider a mixin
+- `margin` (间隔, 常见网格布局的间隔)
+- `transition` (持续时间, easing) -- 建议用 mixin
 
-## 3. Avoid `#id` and `!important`
+## 3. 不要使用 `#id` 和 `!important`
 
-Both `!important` and `#id`s are considered overly specific and can mess with the order of CSS rendering especially when developing collaboratively.
+`!important` 和 `#id` 这俩太霸道啦，经常会搞乱 CSS 渲染的顺序和展示的优先级，在团队开发中尤甚。
 
-Don't:
+不要这样做：
 
 ```scss
 #bad {
@@ -66,7 +66,7 @@ Don't:
 }
 ```
 
-Do:
+应该这样做：
 
 ```scss
 .good {
@@ -76,13 +76,13 @@ Do:
 }
 ```
 
-## 4. Avoid Magic Numbers
+## 4. 不要写具体的数值
 
-Try not to set arbitrary numbers because they "just work"; other developers might not understand why the property has to be set in such particular numbers. Instead, create relative values whenever possible.
+写样式的时候尽量不要给属性设置具体的数值，从页面渲染的结果上来看，它可能 “恰好合适”；但是其他开发人员可能不理解为什么必须将属性设置为这种特定的数字。因此，尽量写一些有含义的表达式或者计算式来使此处的可读性更高。
 
-If you're interested, CSS Tricks have a [clear explainer](https://css-tricks.com/magic-numbers-in-css/) of why Magic Numbers are bad.
+有兴趣的话， 在 CSS Tricks 上有一个 [说明](https://css-tricks.com/magic-numbers-in-css/) 指出了使用具体数值的坏处。
 
-Don't:
+不要这样做：
 
 ```scss
 .bad {
@@ -90,7 +90,7 @@ Don't:
 }
 ```
 
-Do:
+应该这样做：
 
 ```scss
 .good {
@@ -99,11 +99,11 @@ Do:
 }
 ```
 
-## 5. Descriptive Naming
+## 5. 描述性良好的命名
 
-It's easy to define CSS selectors according to the looks. It's better to describe the hierarchy.
+很多人都是根据样式的显示结果来命名 CSS。 其实根据结构来命名更好。
 
-Don't:
+不要这样做：
 
 ```scss
 .huge-font {
@@ -115,7 +115,7 @@ Don't:
 }
 ```
 
-Do:
+应该这样做：
 
 ```scss
 .brand__title {
@@ -127,11 +127,11 @@ Do:
 }
 ```
 
-## 6. Zero Values and Units
+## 6. 值为 0 时的单位
 
-This one might be up to personal choice or specific project style guide, but consistency is key. The rule below asks that you specify units on zero-duration times, but not on zero-length values. Also, add a leading zero for decimal places, but don't go crazy (more than three) on decimal places.
+可能根据别的规范和个人习惯的原因对本条有意见，不过为了说明规范对一个项目的重要性。下面这条规则要求你在持续时间为 0 时加上单位（这种情况常见于编写 CSS 动效时，如过渡效果 transition-duration，规定完成过渡效果需要花费的时间（以秒或毫秒计） ），不要为长度为 0 的值指定单位（这里指 width、height、top、margin、padding 等可度量尺寸、位置的属性）。此外，为小数位添加前导零，注意啊，小数位别太长啦，最好别超过三位。
 
-Don't:
+不要这样做:
 
 ```scss
 .not-so-good {
@@ -141,7 +141,7 @@ Don't:
 }
 ```
 
-Do:
+应该这样做:
 
 ```scss
 .better {
@@ -151,36 +151,36 @@ Do:
 }
 ```
 
-## 7. Inline Commenting
+## 7. 单行注释
 
-The best practice here is to comment on top of the property you're describing. Also, use inline commenting (`//`) instead of block-level comments (`/* */`), which is harder to uncomment.
+这里建议在所要描述属性的上一行添加注释。使用块级注释符 (`/* */`) 不利于注释的删除和取消，所以使用单行注释符 (`//`) 来替代它。
 
-Don't:
+不要这样做：
 
 ```scss
 .bad {
-  background-color: red; // Not commenting on top of property
+  background-color: red; // 没在属性的上方写注释
   /* padding-top: 30px;
   width: 100% */
 }
 ```
 
-Do:
+应该这样做：
 
 ```scss
 .good {
-  // Commenting on top of property
+  // 在属性的上方写注释
   background-color: red;
   // padding-top: 30px;
   // width: 100%;
 }
 ```
 
-## 8. Nesting Media Queries
+## 8. 嵌套媒体查询
 
-In order to easily locate media queries, it is recommended that you keep the media queries at the root of the declaration instead of nesting them inside each selector.
+为了方便的定位媒体查询的声明，不要将它们嵌套在每个选择器中，而是将它们放在本页最顶级 scss 选择器中。
 
-Don't:
+不要这样做：
 
 ```scss
 .bad {
@@ -203,7 +203,7 @@ Don't:
 }
 ```
 
-Do:
+应该这样做：
 
 ```scss
 .good {
@@ -228,7 +228,7 @@ Do:
 }
 ```
 
-These are by no means an exhaustive list of best coding practices, but they certainly play a vital role in designing readable, scalable web apps. Is there any CSS guideline that you follow as your north star? Let me know in the comments!
+这里虽然只有寥寥几条不尽详细的规范，但是它们在项目中可是相当重要的。如果你见到了觉得很棒棒的 CSS 规范准则，还请在评论区中分享出来！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
