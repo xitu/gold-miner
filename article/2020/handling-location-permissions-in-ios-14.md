@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Handling Location Permissions in iOS 14
+# Handling Location Permissions and Managing Approximate Location Access in iOS 14
 
 ![Photo by [Heidi Fin](https://unsplash.com/@heidifin?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/10944/0*AUpXEd4-yyCDLhMn)
 
