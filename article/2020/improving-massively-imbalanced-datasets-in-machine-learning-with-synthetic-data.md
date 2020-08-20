@@ -2,7 +2,7 @@
 > * 原文作者：[Alexander Watson](https://medium.com/@zredlined)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/improving-massively-imbalanced-datasets-in-machine-learning-with-synthetic-data.md](https://github.com/xitu/gold-miner/blob/master/article/2020/improving-massively-imbalanced-datasets-in-machine-learning-with-synthetic-data.md)
-> * 译者：[PingHGap](https://github.com/PingHGao)
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
 # 使用合成数据改善机器学习中的极度不平衡数据集
