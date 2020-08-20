@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[onlinelei](https://github.com/onlinelei)
+> * 校对者：[onlinelei](https://github.com/onlinelei) 和 [Inchill](https://github.com/Inchill)
 
 # 你应该了解的八个浏览器 API
 
@@ -44,7 +44,7 @@
 
 对于您来说偶尔遇到一台打开了 20 个奇怪的标签页的电脑是见怪不怪了。我曾经有一个朋友，在修复了一个 bug 之后，他关闭了大约 100 多个标签页。浏览器甚至已经开始[实现功能](https://blog.google/products/chrome/manage-tabs-with-google-chrome/)来对标签页进行分组以使得它们更加有序。
 
-借助[页面可见性API](https://developer.mozilla.org/zh-CN/docs/Web/API/Page_Visibility_API)，您可以检测网页是否空闲。换句话说，您可以检测到包含了您网页的标签页是否有用户正在浏览。
+借助[页面可见性 API](https://developer.mozilla.org/zh-CN/docs/Web/API/Page_Visibility_API)，您可以检测网页是否空闲。换句话说，您可以检测到包含了您网页的标签页是否有用户正在浏览。
 
 尽管这听起来很简单，但是在提高网站的用户体验方面可能非常有效。在下面几种使用情况，都可以使用此 API。
 
@@ -68,13 +68,13 @@
 
 ## 共享目标 API
 
-渐进式 Web 应用程序通过在 Web 窗体中提供类似应用程序的体验，正在改变我们对应用程序的理解方式。根据 StateOfJS 网站的数据，大约 48.2％的用户使用了 PWA，而 45.5％的用户知道什么是 PWA,这表明了 PWA 的影响。您可以在[此处](https://medium.com/better-programming/progressive-web-apps-an-overview-c6e4328ef2d2?source=friends_link&sk=94b7cf9919c4bb86e407604dd975dadb)上阅读有关 PWA 的更多信息。
+渐进式 Web 应用程序通过在 Web 窗体中提供类似应用程序的体验，正在改变我们对应用程序的理解方式。根据 StateOfJS 网站的数据，大约 48.2％的用户使用了 PWA，而 45.5％的用户知道什么是 PWA，这表明了 PWA 的影响。您可以在[此处](https://medium.com/better-programming/progressive-web-apps-an-overview-c6e4328ef2d2?source=friends_link&sk=94b7cf9919c4bb86e407604dd975dadb)上阅读有关 PWA 的更多信息。
 
 尽管 PWA 具有许多类似原生的功能，但是它们缺乏从原生应用程序接收文件的方法。使用此 API，您可以从其他本机应用程序接收链接，文本和文件。Chrome 76 及更高版本仅支持 Android。您可以通过[此处](https://web.dev/web-share-target/)阅读有关此 API 的更多信息。
 
 ## 推送 API
 
-这个[Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) 允许 Web 应用程序接收从服务器推送到它们的消息，而不管该应用程序是否在前台。即使未在浏览器中加载应用，它也可以正常工作。这使开发人员可以及时向用户传递异步通知。但这要起作用，应该在使用 API 之前获得用户许可。
+这个 [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)  允许 Web 应用程序接收从服务器推送到它们的消息，而不管该应用程序是否在前台。即使未在浏览器中加载应用，它也可以正常工作。这使开发人员可以及时向用户传递异步通知。但这要起作用，应该在使用 API 之前获得用户许可。
 
 您可以在 Flavio 的[精彩文章](https://flaviocopes.com/push-api/) 中阅读有关 Push API 的更多信息。
 
