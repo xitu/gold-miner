@@ -381,9 +381,9 @@ Please let me know if you have any question [@codrops](https://twitter.com/codro
 
 Thank you for reading!
 
-**The images used in the demo are by [Andrey Yakovlev and Lili Aleeva](https://www.behance.net/AndrewLili). All images used are licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en_US)**
-
 [Find this project on Github](https://github.com/codrops/RapidImageHoverMenu/)
+
+> The images used in the demo are by [Andrey Yakovlev and Lili Aleeva](https://www.behance.net/AndrewLili). All images used are licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en_US)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
