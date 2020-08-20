@@ -7,8 +7,6 @@
 
 # Handling Location Permissions in iOS 14
 
-#### Managing approximate location access in your apps
-
 ![Photo by [Heidi Fin](https://unsplash.com/@heidifin?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/10944/0*AUpXEd4-yyCDLhMn)
 
 Apple is without a doubt the leader in data privacy. Location access is something that’s been wrongfully used or rather abused in the past by various apps. It’s a security threat — or rather a breach — and with iOS 14, Apple once again looks to give users better control of the data they’re sharing.
@@ -16,8 +14,6 @@ Apple is without a doubt the leader in data privacy. Location access is somethin
 iOS 14 brings a slight change to the `CoreLocation` framework. Going forward, users can choose whether to give precise or approximate location access.
 
 Before we see how to manage the new iOS 14 location changes, let’s quickly recap what was new in iOS 13 location permissions.
-
----
 
 ## Quick Recap of iOS 13 Location Permissions
 
@@ -32,8 +28,6 @@ For an in-depth look at handling iOS 13 location permissions in your application
 In the following section, we’ll see how to manage location changes in an iOS 14 SwiftUI application.
 
 Let’s get started.
-
----
 
 ## iOS 14 CoreLocation Changes
 
@@ -52,7 +46,7 @@ To determine the location accuracy status, we can invoke the new enum property `
 
 Setting up `CoreLocation` for location updates is exactly the same as in iOS 13:
 
-```
+```swift
 locationManager.delegate = self
 locationManager.requestAlwaysAuthorization()
 
@@ -62,7 +56,7 @@ locationManager.allowsBackgroundLocationUpdates = true
 locationManager.pausesLocationUpdatesAutomatically = false
 ```
 
-**Note: For allowsBackgroundLocationUpdates, ensure that you’ve enabled the Background mode location from the capabilities in your Xcode project.**
+> Note: For allowsBackgroundLocationUpdates, ensure that you’ve enabled the Background mode location from the capabilities in your Xcode project.
 
 Now, when you run the code above on your device, you’ll get the following revamped prompt in iOS 14:
 
@@ -90,8 +84,6 @@ The full source code for a sample iOS 14 `CoreLocation` application in SwiftUI i
 
 It’s important to note that for background location updates with `reducedAccuracy`, the time interval of location updates isn’t changed. Also, beacons and region monitoring are disabled under `reducedAccuracy`.
 
----
-
 ## CoreLocation Updates for AppClips, Widgets, and Default Settings
 
 AppClips are like mini-app modules that can run without installing the complete application.
@@ -99,8 +91,6 @@ AppClips are like mini-app modules that can run without installing the complete 
 * When you’re accessing a location within AppClips, there’s no “While Using App” permission. Instead, there’s a “While Using Until Tomorrow” permission that automatically gets reset at the end of the day.
 * For accessing a location inside WidgetKit, you need to define the `NSWidgetWantsLocation` key in the widget’s `info.plist` file.
 * To only show a prompt for approximate location by default in your app, you can add the `info.plist` key NSLocationDefaultAccuracyReduced. By doing so, the precise location toggle button won’t be displayed in the permission dialog. But the user can still enable the toggle from the phone’s settings.
-
----
 
 ## Conclusion
 
