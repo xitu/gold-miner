@@ -9790,25 +9790,6 @@
 |------|-------|-------|
 |[数学编程  ——  一个为推进数据科学发展而培养的关键习惯](https://zhuanlan.zhihu.com/p/100212596)|翻译|7|
 
-## 译者：[niayyy-S](https://github.com/niayyy-S) 历史贡献积分：42 当前积分：42 二零二零：42
-
-|文章|类型|积分|
-|------|-------|-------|
-|[2020 十大 JavaScript 图像处理库](https://juejin.im/post/5eb0fe97e51d454def22679c)|校对|3|
-|[你可能会错过的 CSS 伪选择器](https://juejin.im/post/5eaea84f51882558dc24bc94)|翻译|3.5|
-|[5 个优化技巧助你提高移动 Web 应用的用户留存率](https://juejin.im/post/5eb2a377f265da7bb563871f)|校对|2|
-|[高性能 JavaScript 最佳实践](https://juejin.im/post/5e9e3b6ee51d4547134bead3)|校对|1.5|
-|[解决 web 应用程序中的内存泄漏问题](https://juejin.im/post/5e97b29851882573b21965a2)|校对|4|
-|[JavaScript 中的 Generator 函数](https://juejin.im/post/5e9560def265da47e6492423)|翻译|3.5|
-|[2020 年排名前 6 位的 JavaScript 框架](https://juejin.im/post/5e8f33b951882573be11c546)|校对|1|
-|[JavaScript 风格元素](https://juejin.im/post/5e8ee9866fb9a03c546c3454)|校对|1|
-|[不变性之道](https://juejin.im/post/5e8b2e7451882573c32a15e6)|翻译|4|
-|[组合软件：书](https://juejin.im/post/5e88346cf265da47e159366a)|校对|2|
-|[JSON.stringify() 的 5 个秘密特性](https://juejin.im/post/5e842da76fb9a03c854610c7)|校对|1.5|
-|[掌握 JavaScript 面试：什么是纯函数？](https://juejin.im/post/5e7f3c3df265da7951664547)|翻译|9|
-|[2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)|校对|3|
-|[关于 icon 设计的 7 大准则](https://juejin.im/post/5e5dbd3e6fb9a07cd323dd2b)|校对|3|
-
 ## 译者：[Jiangzhiqi4551](https://github.com/Jiangzhiqi4551) 历史贡献积分：4.5 当前积分：4.5 二零二零：4.5
 
 |文章|类型|积分|
@@ -10035,10 +10016,12 @@
 |[什么是无障碍？为什它对于用户体验很重要？](https://juejin.im/post/5ebf96a5f265da7b9754dd7d)|校对|1|
 |[我是如何用 20 小时学会 Sass 的以及为什么你也应该这么做](https://juejin.im/post/5ede14f6e51d4578885ca8fc)|翻译|3.5|
 
-## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：38 当前积分：38 二零二零：38
+## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：80 当前积分：48 二零二零：80
 
 |文章|类型|积分|
 |------|-------|-------|
+|兑换水杯 1 个，笔记本 1 个|减去积分|14|
+|兑换小黄鸭 6 个|减去积分|18|
 |[用户体验案例学习：Mood Talk ——  一个心理健康应用](https://juejin.im/post/5ebbb38ae51d454dca711099)|翻译|6|
 |[可以用来构建 Deno Web 应用程序的 7 个模块](https://juejin.im/post/5ed46435e51d45788619c778)|翻译|4|
 |[如何编写整洁代码？从 Robert C. Martin 的“代码整洁之道”中吸取的教训](https://juejin.im/post/5eb78370f265da7be959ffc2)|校对|3|
@@ -10048,6 +10031,20 @@
 |[11 个能让你的 App 像原生 App 的 Chrome API](https://juejin.im/post/5ebd3405e51d4534287a633b)|校对|4.5|
 |[如何在 JavaScript 中使用新特性“顶层 await”](https://juejin.im/post/5ec67516e51d45787161978e)|校对|1.5|
 |[Redux 中过时的 props 和僵尸子节点](https://juejin.im/post/5f0c1fd76fb9a07e8e44f2e5)|翻译|7|
+|[2020 十大 JavaScript 图像处理库](https://juejin.im/post/5eb0fe97e51d454def22679c)|校对|3|
+|[你可能会错过的 CSS 伪选择器](https://juejin.im/post/5eaea84f51882558dc24bc94)|翻译|3.5|
+|[5 个优化技巧助你提高移动 Web 应用的用户留存率](https://juejin.im/post/5eb2a377f265da7bb563871f)|校对|2|
+|[高性能 JavaScript 最佳实践](https://juejin.im/post/5e9e3b6ee51d4547134bead3)|校对|1.5|
+|[解决 web 应用程序中的内存泄漏问题](https://juejin.im/post/5e97b29851882573b21965a2)|校对|4|
+|[JavaScript 中的 Generator 函数](https://juejin.im/post/5e9560def265da47e6492423)|翻译|3.5|
+|[2020 年排名前 6 位的 JavaScript 框架](https://juejin.im/post/5e8f33b951882573be11c546)|校对|1|
+|[JavaScript 风格元素](https://juejin.im/post/5e8ee9866fb9a03c546c3454)|校对|1|
+|[不变性之道](https://juejin.im/post/5e8b2e7451882573c32a15e6)|翻译|4|
+|[组合软件：书](https://juejin.im/post/5e88346cf265da47e159366a)|校对|2|
+|[JSON.stringify() 的 5 个秘密特性](https://juejin.im/post/5e842da76fb9a03c854610c7)|校对|1.5|
+|[掌握 JavaScript 面试：什么是纯函数？](https://juejin.im/post/5e7f3c3df265da7951664547)|翻译|9|
+|[2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)|校对|3|
+|[关于 icon 设计的 7 大准则](https://juejin.im/post/5e5dbd3e6fb9a07cd323dd2b)|校对|3|
 
 ## 译者：[plusmultiply0](https://github.com/plusmultiply0) 历史贡献积分：3 当前积分：3 二零二零：3
 
