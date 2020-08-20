@@ -21,29 +21,30 @@
 
 ![一个极度不平衡的数据集](https://cdn-images-1.medium.com/max/2012/1*6ZeY7mc4B_KxS4lKT3VPOg.png)
 
-## The metric trap
+## 评价标准的陷阱
 
-Let’s see what kind of performance we can get detecting fraudulent records with a cutting edge ML classifier. We will start by dividing our dataset into a Train and Test set.
+让我们看看使用最先进的 ML 分类器来检测欺诈记录可以达到的性能。首先，我们将数据集分为训练集和测试集。
 
-![Results of classifying our default Fraud dataset](https://cdn-images-1.medium.com/max/3960/1*E_C6xE2vKiCayWSgV_E_Xw.png)
+![默认欺诈数据集的分类结果](https://cdn-images-1.medium.com/max/3960/1*E_C6xE2vKiCayWSgV_E_Xw.png)
 
-Wow, 99.75% detection. That’s awesome, right?! Maybe- looking at overall model accuracy just shows how well the model performed across the entire set, but not how well we did on detecting fraudulent records. To see how well we really performed, print a confusion matrix and accuracy report.
+哇，检出率为 99.75％。太好了吧？ 也许模型整体的准确率仅反映了该模型在整个集合中的表现，而并没有反映我们在检测欺诈性记录方面的表现。要查看我们的实际效果如何，需要打印混淆矩阵和准确性报告。
 
 ![](https://cdn-images-1.medium.com/max/2604/1*RYVJjEOQ1qieAoI1zyN77w.png)
 
-> Above we can see that despite our 99.75% overall accuracy, we misclassified 43% of fraud examples in our test set!
+> 从上面我们可以看到，尽管总体准确率为99.75％，但我们错过了测试集中43％的欺诈示例！
 
-## Augmenting fraud examples with synthetic data
+## 使用合成数据对欺诈示例进行增广
 
-In this section we will focus on how we can improve model performance and generalization for the Fraud records, by using [gretel-synthetics](https://github.com/gretelai/gretel-synthetics) to generate additional examples of fraudulent records. Let’s start with what we want to accomplish- our goal is to generate additional samples of fraudulent records that will help our classifier generalize and better detect the fraudulent records in our test set.
 
-## Synthetic Minority Oversampling Technique
+在本节中，我们将重点介绍如何通过使用 [gretel-synthetics](https://github.com/gretelai/gretel-synthetics) 产生额外的欺诈记录样本以提高模型性能以及对欺诈记录的泛化能力。让我们从我们想要完成的事情开始 —— 我们的目标是生成额外的欺诈记录样本以提高我们分类器的泛化能力，更好地检测测试集中的欺诈记录。
 
-A popular technique in the data science community to achieve this is called SMOTE (**S**ynthetic **M**inority **O**versampling **Te**chnique), described by Nitesh Chawla et al. in their 2002 [paper](https://arxiv.org/abs/1106.1813). SMOTE works by selecting examples from the minority class, finding their nearest neighbors in the minority class, and effectively interpolating new points between them. SMOTE does not have the ability to incorporate data from records outside of the minority class, which in our examples may include useful information- including fraudulent-like or mislabeled records.
+## 合成少数类过采样技术
+
+数据科学界中一种实现此目标的流行技术称为 SMOTE(**S**ynthetic **M**inority **O**versampling **Te**chnique)，由 Nitesh Chawla 等人在他们 2002 年的[文章](https://arxiv.org/abs/1106.1813)中提出。 SMOTE 的原理是从少数群体中选择示例，找到它们在少数群体中的最近邻居，并在它们之间有效地插值新点。SMOTE无法合并少数群体类别之外的数据记录，而这在我们的示例中却可能包含有用的信息 —— 将类似欺诈或者错误标记的记录包含进去。
 
 ## Gretel synthetics with concepts from SMOTE
 
-Having only 31 examples of fraudulent data in our training set presents a unique challenge for generalization, as [gretel-synthetics](https://github.com/gretelai/gretel-synthetics) utilizes deep learning techniques to learn and generate new samples, which traditionally require a lot of data to converge. Open the notebook below to generate your own synthetic fraud dataset for free with Google Colab.
+我们的训练集中只有31个欺诈数据示例，这对网络泛化能力提出了独特的挑战，因为 [gretel-synthetics](https://github.com/gretelai/gretel-synthetics) 利用深度学习技术来学习和生成新样本，传统上需要大量数据才能收敛。打开下面的笔记本，使用 Google Colab 免费生成您自己的合成欺诈数据集。
 [**gretel-synthetics-generate-fraud-data**
 colab.research.google.com](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_generate.ipynb)
 
