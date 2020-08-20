@@ -1,5 +1,5 @@
 > * 原文地址：[Creating a Menu Image Animation on Hover](https://tympanus.net/codrops/2020/07/01/creating-a-menu-image-animation-on-hover/)
-> * 原文作者：[]()
+> * 原文作者：[Mary Lou](http://www.codrops.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/creating-a-menu-image-animation-on-hover.md](https://github.com/xitu/gold-miner/blob/master/article/2020/creating-a-menu-image-animation-on-hover.md)
 > * 译者：
@@ -33,7 +33,7 @@ We’ll use a nested structure for each menu item because we’ll have several t
 
 But we’ll not go into the text animation on load or the hover effect so what we are interested in here is how we’ll make the image appear for each item. The first thing I do when I want to make a certain effect is to write up the structure that I need using no JavaScript. So let’s take a look at that:
 
-```
+```html
 <a class="menu__item">
     <span class="menu__item-text">
         <span class="menu__item-textinner">Maria Costa</span>
@@ -52,7 +52,7 @@ In order to construct this markup for the image, we need to save the source some
 
 Next, we’ll have some styling for it:
 
-```
+```css
 .hover-reveal {
     position: absolute;
     z-index: -1;
@@ -95,7 +95,7 @@ Once that’s done, we can initialize the smooth scroll instance, the custom cur
 
 Here’s how the entry JavaScript file (index.js) looks like:
 
-```
+```js
 import Cursor from './cursor';
 import {preloader} from './preloader';
 import LocomotiveScroll from 'locomotive-scroll';
@@ -112,7 +112,7 @@ preloader('.menu__item').then(() => {
 
 Now, let’s create a class for the **Menu** (in menu.js):
 
-```
+```js
 import {gsap} from 'gsap';
 import MenuItem from './menuItem';
 
@@ -134,7 +134,7 @@ element) and the menu item elements. We’ll also create an array of our **MenuI
 
 What we’ll want to do now is to update the transform (both, X and Y translate) value as we move the mouse over the menu items. But we might as well want to update other properties. In our case we will additionally be updating the rotation and the CSS filter value (brightness). For that, let’s create an object that stores this configuration:
 
-```
+```js
 constructor(el) {
     ...
 
@@ -149,13 +149,13 @@ constructor(el) {
 
 With interpolation, we can achieve the smooth animation effect when moving the mouse. The “previous” and “current” values are the values we’ll be interpolating. The current value of one of these “animatable” properties will be one between these two values at a specific increment. The value of “amt” is the amount to interpolate. As an example, the following formula calculates our current **translationX** value:
 
-```
+```js
 this.animatableProperties.tx.previous = MathUtils.lerp(this.animatableProperties.tx.previous, this.animatableProperties.tx.current, this.animatableProperties.tx.amt);
 ```
 
 Finally, we can show the menu items, which are hidden by default. This was just a little extra, and totally optional, but it’s definitely a nice add-on to reveal each item with a delay on page load.
 
-```
+```js
 constructor(el) {
     ...
 
@@ -180,7 +180,7 @@ Next, we need to get access to the mouse position at any given time, since the i
 
 Hence, that’s what we’ll have so far in the menuItem.js file:
 
-```
+```js
 import {gsap} from 'gsap';
 import { map, lerp, clamp, getMousePos } from './utils';
 const images = Object.entries(require('../img/*.jpg'));
@@ -203,7 +203,7 @@ An item will be passed its position/index in the menu (inMenuPosition) and the *
 
 Now, in order to be possible to show and hide the menu item image in a fancy way, we need to create that specific markup we’ve shown in the beginning and append it to the item. Remember, our menu item is this by default:
 
-```
+```html
 <a class="menu__item" data-img="img/3.jpg">
     <span class="menu__item-text"><span class="menu__item-textinner">Franklin Roth</span></span>
     <span class="menu__item-sub">Amber Convention London</span>
@@ -212,7 +212,7 @@ Now, in order to be possible to show and hide the menu item image in a fancy way
 
 Let’s append the following structure to the item:
 
-```
+```html
 <div class="hover-reveal">
     <div class="hover-reveal__inner" style="overflow: hidden;">
         <div class="hover-reveal__img" style="background-image: url(pathToImage);">
@@ -224,7 +224,7 @@ Let’s append the following structure to the item:
 The **hover-reveal** element will be the one moving as we move the mouse.  
 The **hover-reveal__inner** element together with the **hover-reveal__img** (the one with the background image) will be the ones that we can animate together to create fancy animations like reveal/unreveal effects.
 
-```
+```js
 layout() {
     this.DOM.reveal = document.createElement('div');
     this.DOM.reveal.className = 'hover-reveal';
@@ -241,7 +241,7 @@ layout() {
 
 And the **MenuItem** constructor completed:
 
-```
+```js
 constructor(el, inMenuPosition, animatableProperties) {
     this.DOM = {el: el};
     this.inMenuPosition = inMenuPosition;
@@ -256,7 +256,7 @@ The last step is to initialize some events. We need to show the image when hover
 
 Also, when hovering it we need to update the **animatableProperties** object properties, and make the image move, rotate and change its brightness as the mouse moves:
 
-```
+```js
 initEvents() {
     this.mouseenterFn = (ev) => {
         this.showImage();
@@ -280,7 +280,7 @@ We can create a GSAP timeline for this. Let’s start by setting the opacity to 
 Next, we can animate the appearance of the image. Let’s do it like this: the image gets revealed to the right or left, depending on the mouse x-axis movement direction (which we have in direction.x). For this to happen, the image element (revealImage) needs to animate its translationX value to the opposite side of its parent element (revealInner element).  
 That’s basically it:
 
-```
+```js
 showImage() {
     gsap.killTweensOf(this.DOM.revealInner);
     gsap.killTweensOf(this.DOM.revealImage);
@@ -308,7 +308,7 @@ showImage() {
 
 To hide the image we just need to reverse this logic:
 
-```
+```js
 hideImage() {
     gsap.killTweensOf(this.DOM.revealInner);
     gsap.killTweensOf(this.DOM.revealImage);
@@ -346,7 +346,7 @@ In the end, we take these values together with the previous cycle values and use
 
 This is how the render function looks like:
 
-```
+```js
 render() {
     this.requestId = undefined;
     
