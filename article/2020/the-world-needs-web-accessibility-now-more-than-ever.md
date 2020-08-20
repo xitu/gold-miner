@@ -44,7 +44,7 @@ Not to mention, search engines will rank your site higher if it has clear and ea
 
 Look at web accessibility as opening doors for new clients, new relationships, satisfied customers, and increased profits. Also, it’s just the right thing to do.
 
-**Kelly Bron Johnson is the founder of**[** Completely Inclusive**](https://compinclus.ca/)**, a consultancy devoted to helping businesses create inclusive and accessible workplaces and spaces.**
+> The author is the founder of [**Completely Inclusive**](https://compinclus.ca/), a consultancy devoted to helping businesses create inclusive and accessible workplaces and spaces.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
