@@ -11,7 +11,7 @@
 
 现在有一种流行的趋势，即浏览器开发商开始推出一些能够实现复杂功能的 API，这些 API 有时只能通过原生应用程序实现。快速发展到如今，我们很难找到只使用一两个浏览器 API 的 Web 应用程序了。
 
-随着 Web 开发领域的不断发展，浏览器供应商也试图跟上行业的快速发展。他们不断开发更新的 API，这些 API 可以为您的 Web 应用程序带来类似原生的新功能。虽然现在很多主流的浏览器已完全支持这些 API，但是人们对这些 API还不是很了解。
+随着 Web 开发领域的不断发展，浏览器供应商也试图跟上行业的快速发展。他们不断开发更新的 API，这些 API 可以为您的 Web 应用程序带来类似原生的新功能。虽然现在很多主流的浏览器已完全支持这些 API，但是人们对这些 API 还不是很了解。
 
 您应该了解以下这些 API，因为它们在未来会发挥至关重要的作用。
 
@@ -19,7 +19,7 @@
 
 该 [API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API) 允许您在多个标签页运行 Web 应用程序，以访问和协调资源共享。虽然简单的日常 Web 应用程序在多个标签页运行并不常见，但是在一些高级用例中，您在浏览器多个标签页中运行的 Web 应用程序需要保持同步。在这些情况下，此 API 可能会派上用场。
 
-尽管可以使用诸如 SharedWorker，BroadcastChannel，localStorage，sessionStorage，postMessage，卸载处理程序之类的 API 来管理选项卡通信和同步，但它们各自都有缺点，而且急待解决方案，这会降低代码的可维护性。Web 锁 API 试图通过引入更标准化的解决方案来简化此过程。可以使用共享工作器，广播通道，localStorage，sessionStorage，postMessage 等。
+尽管可以使用诸如 SharedWorker、BroadcastChannel、localStorage、sessionStorage、postMessage 和卸载处理程序（unload handler）之类的 API 来管理选项卡通信和同步，但它们各自都有缺点，而且急待解决方案，这会降低代码的可维护性。Web 锁 API 试图通过引入更标准化的解决方案来简化此过程。可以使用共享工作器，广播通道，localStorage，sessionStorage，postMessage 等。
 
 虽然 Chrome 69 默认启用了该功能，但主流浏览器（如 Firefox 和 Safari）仍不支持该功能。
 
@@ -31,7 +31,7 @@
 
 因此谷歌 Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的形状检测 API 来改变现状并努力使它成为一个 Web 标准。
 
-尽管此功能目前是实验性的，但可以通过启用 chrome://flags 中的 ＃enable-experimental-web-platform-features 标志来本地访问。
+尽管此功能目前是实验性的，但可以通过启用 chrome://flags 中的 `#enable-experimental-web-platform-features` 标志来本地访问。
 
 ![Photo by [Element5 Digital](https://unsplash.com/@element5digital?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9542/0*0NoSa7j_eQ1npFws)
 
@@ -40,6 +40,7 @@
 [付款请求 API](https://developer.mozilla.org/zh-CN/docs/Web/API/Payment_Request_API) 可以帮助消费者和商家使得结账流程变得更加顺畅。这种新方法消除了结帐表格，并从根本上改善了用户的付款体验。借助对 Apple Pay 和 Google Pay 的支持，该 API 有望成为电子商务领域的主要组成部分。
 
 此外，由于凭据是在浏览器中管理的，因此用户可以更轻松地从移动浏览器切换到桌面浏览器，并且仍然可以获取其银行卡信息。该 API 还允许从商家端进行自定义。您可以提供支持的付款方式以及支持的银行卡类型，甚至可以根据送货地址提供送货选项。
+
 ## 页面可见性 API
 
 对于您来说偶尔遇到一台打开了 20 个奇怪的标签页的电脑是见怪不怪了。我曾经有一个朋友，在修复了一个 bug 之后，他关闭了大约 100 多个标签页。浏览器甚至已经开始[实现功能](https://blog.google/products/chrome/manage-tabs-with-google-chrome/)来对标签页进行分组以使得它们更加有序。
@@ -50,7 +51,7 @@
 
 * 当浏览器标签页处于非活动状态时，将下载剩余的应用程序捆绑包资源和媒体资源。这将帮助您非常有效地利用空闲时间。
 * 当用户最小化或切换到另一个标签页时，暂停视频。
-* 当标签页处于非活动状态时，暂停图像幻灯片/回声显示。
+* 当标签页处于非活动状态时，暂停图像幻灯片轮播。
 
 尽管开发人员过去曾经在窗口上使用过诸如“模糊”和“聚焦”之类的事件，但他们并没有告诉您您的页面是否实际上对用户隐藏了。页面可见性 API 帮助解决了这个问题。
 
@@ -62,7 +63,7 @@
 
 这个 [Web 分享 API](https://www.w3.org/TR/web-share/) 可以让你像使用本地应用程序一样分享链接，文本和文件，给你的本地应用程序。该 API 可以帮助增加用户对 Web 应用程序的参与度。您可以阅读 Joe Medley 的博客 [post](https://web.dev/web-share/)，以了解有关此炫酷 API 的更多信息。
 
-截至 2020 年中，此 API 仅在 Safari 和 Chromium fork 中的 Android 上可用。 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#Browser_compatibility) 查看更多浏览器兼容性信息。
+截至 2020 年中，此 API 仅在 Safari 和 Chromium fork 中的 Android 上可用。请参阅 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#Browser_compatibility) 查看更多浏览器兼容性信息。
 
 ![The native Share interface. Screenshot by the author.](https://cdn-images-1.medium.com/max/2000/1*uhEtWw7OEueQkMPXrn6Akw.png)
 
@@ -74,7 +75,7 @@
 
 ## 推送 API
 
-这个 [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)  允许 Web 应用程序接收从服务器推送到它们的消息，而不管该应用程序是否在前台。即使未在浏览器中加载应用，它也可以正常工作。这使开发人员可以及时向用户传递异步通知。但这要起作用，应该在使用 API 之前获得用户许可。
+这个 [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) 允许 Web 应用程序接收从服务器推送到它们的消息，而不管该应用程序是否在前台。即使未在浏览器中加载应用，它也可以正常工作。这使开发人员可以及时向用户传递异步通知。但这要起作用，应该在使用 API 之前获得用户许可。
 
 您可以在 Flavio 的[精彩文章](https://flaviocopes.com/push-api/) 中阅读有关 Push API 的更多信息。
 
