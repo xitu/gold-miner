@@ -7,12 +7,6 @@
 
 # Detect Faces, Texts and Even Barcodes With Chrome’s Shape Detection API
 
-## Detect Faces, Texts, and Even Barcodes with Chrome’s Shape Detection API
-
-#### Access native implementations simply via JavaScript interfaces
-
----
-
 ![](https://cdn-images-1.medium.com/max/2560/1*sw-UYEsreElKPUGOtHHkfg.jpeg)
 
 ## Introduction
@@ -24,14 +18,6 @@ The Chrome team is trying to change this by providing an experimental [Shape Det
 ---
 
 Although this feature is experimental, it can be accessed locally, by enabling the #enable-experimental-web-platform-features flag in `chrome://flags` .
-
-**Tip**: Use [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)) to share, document, and manage reusable React components from different projects. It’s a great way to increase code reuse, speed up development, and build apps that scale.
-
-![Reusable React components shared on [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
-
----
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
 
 ## Use Cases
 
@@ -62,8 +48,6 @@ The use cases of the above three features are boundless. You can use these APIs 
 * Provide `alt` attributes for `\<img>` tags dynamically which are made up of texts.
 * Text-to-Speech from images of text.
 
----
-
 ![Photo by [Jason Leung](https://unsplash.com/@ninjason?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*rlAeIQ_f994PC7ca)
 
 ## Let’s Get Into The Details
@@ -88,7 +72,29 @@ This API always returns the bounding box of the faces detected in the image. Dep
 
 > Note: This API is for **face detection**, not face recognition. “**Face Detection**” is where you are able to detect whether a face is present and if present, the location of it’s facial features such as mouth, eyes, nose etc. But in “**Face Recognition**” you are able to differentiate between two faces. This API does not provide that feature as of now.
 
----
+```js
+async function detectFace(image) {
+    const faceDetector = new FaceDetector({
+        // (Optional) Hint to try and limit the amount of detected faces
+        // on the scene to this maximum number.
+        maxDetectedFaces: 3,
+        // (Optional) Hint to try and prioritize speed over accuracy
+        // by, e.g., operating on a reduced scale or looking for large features.
+        fastMode: false
+    });
+    try {
+        const faces = await faceDetector.detect(image);
+        console.log(faces);
+    } catch (e) {
+        console.error('Face detection failed:', e);
+    }
+}
+
+function readFace() {
+    let img = document.getElementById("img");
+    detectFace(img);
+}
+```
 
 Simply call the `readFace()` method in the above example to use this. It’s simple as that.
 
@@ -98,19 +104,67 @@ The `BarcodeDetector` constructor receives an optional parameter named `formats`
 
 This API returns the bounding boxes of the barcode detected in the image, as well as the `rawValue` of the barcode. It would also return the format of the barcode identified — ex: `qr_code`, `data_matrix`, etc.
 
----
+```js
+async function detectBarcode(image) {
+    const barcodeDetector = new BarcodeDetector({
+        // (Optional) A series of barcode formats to search for.
+        // Not all formats may be supported on all platforms
+        formats: [
+            'aztec',
+            'code_128',
+            'code_39',
+            'code_93',
+            'codabar',
+            'data_matrix',
+            'ean_13',
+            'ean_8',
+            'itf',
+            'pdf417',
+            'qr_code',
+            'upc_a',
+            'upc_e'
+        ]
+    });
+    try {
+        const barcodes = await barcodeDetector.detect(image);
+        console.log(barcodes);
+    } catch (e) {
+        console.error('Barcode detection failed:', e);
+    }
+}
+
+function readBarcode() {
+    let img = document.getElementById("img");
+    detectBarcode(img);
+}
+```
 
 You can call the `readBarcode()` method to detect the barcodes in your image.
 
 ## Text Detection
 
-**Note: `TextDetector` is not universally available. Although being an interesting domain, this feature is still considered to be not stable enough. According to the docs, “(it) is not considered stable enough across either computing platforms or character sets to be standardized at the moment, which is why text detection has been moved to a separate [informative specification](https://wicg.github.io/shape-detection-api/text.html)”.**
+> Note: `TextDetector` is not universally available. Although being an interesting domain, this feature is still considered to be not stable enough. According to the docs, “(it) is not considered stable enough across either computing platforms or character sets to be standardized at the moment, which is why text detection has been moved to a separate [informative specification](https://wicg.github.io/shape-detection-api/text.html)”.
 
 The `TextDetector` API would always return the bounding boxes of the detected texts and on some platforms the recognized characters.
 
 Here is a sample implementation code.
 
----
+```js
+async function detectText(image) {
+    const textDetector = new TextDetector();
+    try {
+        const texts = await textDetector.detect(image);
+        console.log(texts);
+    } catch (e) {
+        console.error('Text detection failed:', e);
+    }
+}
+
+function readText() {
+    let img = document.getElementById("img1");
+    detectText(img);
+}
+```
 
 ## Conclusion
 
@@ -129,21 +183,12 @@ Hope you learned something new from this article. You can go through the below-a
 
 Thank you for reading & Happy coding!
 
-## Related Stories
-[**Debugging Javascript Like a Pro**
-**Discover the best debugging tools Chrome has to offer**blog.bitsrc.io](https://blog.bitsrc.io/debugging-javascript-like-a-pro-a2e0f6c53c2e)
-[**11 Chrome APIs That Will Give Your Web App a Native Feel**
-**11 Chrome APIs that will give your web app a native-like user experience.**blog.bitsrc.io](https://blog.bitsrc.io/11-chrome-apis-that-give-your-web-app-a-native-feel-ad35ad648f09)
+**Resources**
 
----
-[**7 New Chrome APIs You Should Know**
-**7 top Chrome features that blur the lines between native apps and web apps**blog.bitsrc.io](https://blog.bitsrc.io/7-new-chrome-apis-you-should-know-cf2dcb9f42dc)
-
-**Resources
-**[Chrome Shape Detection API](https://web.dev/shape-detection/)
-[W3C Drafts](https://wicg.github.io/shape-detection-api/)
-[Repo](https://github.com/WICG/shape-detection-api)
-[Project by Eyevinn Technology](https://medium.com/@eyevinntechnology/using-shape-detection-api-in-chrome-to-detect-if-anyone-is-watching-the-video-f3f898d2912)
+- [Chrome Shape Detection API](https://web.dev/shape-detection/)
+- [W3C Drafts](https://wicg.github.io/shape-detection-api/)
+- [Repo](https://github.com/WICG/shape-detection-api)
+- [Project by Eyevinn Technology](https://medium.com/@eyevinntechnology/using-shape-detection-api-in-chrome-to-detect-if-anyone-is-watching-the-video-f3f898d2912)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
