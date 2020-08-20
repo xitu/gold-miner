@@ -7,13 +7,7 @@
 
 # Optimization in Python — Interning
 
-#### PROGRAMMING, PYTHON
-
-#### Understand Python’s optimization technique — Interning.
-
 ![Photo by [George Stewart](https://unsplash.com/@_stewart_) on [Unsplash](https://unsplash.com/photos/D8gtlT7j1v4)](https://cdn-images-1.medium.com/max/2000/0*TVH3cYeJ4s6F-4F3)
-
----
 
 There are different Python implementations out there such as **CPython**, **Jython**, **IronPython**, etc. The optimization techniques we are going to discuss in this article are related to **CPython** which is standard Python implementation.
 
@@ -21,7 +15,7 @@ There are different Python implementations out there such as **CPython**, **Jyth
 
 **Interning is re-using the objects on-demand** instead of creating the new objects. What does this mean? Let’s try to understand Integer and String interning with examples.
 
-> **is** — this is used to compare the memory location of two python objects.
+**is** — this is used to compare the memory location of two python objects.
 **id** — this returns memory location in base-10.
 
 #### Integer interning
@@ -60,15 +54,15 @@ The string “Data” is a valid identifier, Python interns the string so both t
 
 ![Image by Author](https://cdn-images-1.medium.com/max/2000/1*TwabGuCDNvtJZF4Z--hxfQ.png)
 
-****Example 2**:**
+**Example 2:**
 
 The string “Data Science” is not a valid identifier. Hence string interning is not applied here so both a and b will point to two different memory locations.
 
 ![Image by Author](https://cdn-images-1.medium.com/max/2000/1*75_mJbYlq-pIEpRtzyxVXQ.png)
 
 > All the above examples are from Google Colab which has Python version 3.6.9
->
-> In Python 3.6, any valid string with length ≥ 20 will get interned. But in Python 3.7, this has been changed to 4096. So as I mentioned earlier, these things will keep changing for different Python versions.
+
+In Python 3.6, any valid string with length ≥ 20 will get interned. But in Python 3.7, this has been changed to 4096. So as I mentioned earlier, these things will keep changing for different Python versions.
 
 Since not all strings are interned, Python provides the option force the string to be interned using `sys.intern()`. This should not be used unless there is a need. Refer the sample code below.
 
@@ -83,12 +77,6 @@ Let’s assume that you have an application where a lot of string operations are
 Hope that you have understood the concept of interning in Python. Follow me if you would like to read more such articles on Python and Data Science.
 
 If you are interested in understanding **Mutability and Immutability in Python**, please [**click here**](https://towardsdatascience.com/mutability-immutability-in-python-b698bc592cbc) to read my article.
-
----
-
-## References
-[**Python 3: Deep Dive (Part 1 - Functional)**
-**Hello! This is Part 1 of a series of courses intended to dive into the inner mechanics and more complicated aspects of…**www.udemy.com](https://www.udemy.com/course/python-3-deep-dive-part-1/)
 
 ---
 
