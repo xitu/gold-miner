@@ -7,15 +7,10 @@
 
 # Creating a Menu Image Animation on Hover
 
-A tutorial on how to create a hover effect for a menu where images appear with an animation on each item.
-
-By [Mary Lou](https://tympanus.net/codrops/author/crnacura/ "Posts by Mary Lou") in [Tutorials](https://tympanus.net/codrops/category/tutorials/) on July 1, 2020
-
 [![rapid_feat](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2020/07/rapid_feat.jpg)](http://tympanus.net/Tutorials/RapidImageHoverMenu/ "Creating a Menu Image Animation on Hover Demo")
 
-[View demo](http://tympanus.net/Tutorials/RapidImageHoverMenu/) [Download Source](https://github.com/codrops/RapidImageHoverMenu/archive/master.zip)
-
-From our sponsor: [Reach inboxes when it matters most. Instantly deliver transactional emails to your customers.](https://ad.doubleclick.net/ddm/clk/468663188;274327225;t)
+- [View demo](http://tympanus.net/Tutorials/RapidImageHoverMenu/)
+- [Download Source](https://github.com/codrops/RapidImageHoverMenu/archive/master.zip)
 
 At Codrops, we love experimenting with playful hover effects. Back in 2018, we explored a set of fun hover animations for links. We called that [Image Reveal Hover Effects](https://tympanus.net/codrops/2018/11/27/image-reveal-hover-effects/) and it shows how to make images appear with a fancy animation when hovering items of a menu. After seeing the fantastic [portfolio of Marvin Schwaibold](https://www.marvinschwaibold.com/projects/), I wanted to try this effect again on a larger menu and add that beautiful swing effect when moving the mouse. Using some filters, this can also be made more dramatic.
 
