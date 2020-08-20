@@ -2,24 +2,24 @@
 > * 原文作者：[Alexander Watson](https://medium.com/@zredlined)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/improving-massively-imbalanced-datasets-in-machine-learning-with-synthetic-data.md](https://github.com/xitu/gold-miner/blob/master/article/2020/improving-massively-imbalanced-datasets-in-machine-learning-with-synthetic-data.md)
-> * 译者：
+> * 译者：[PingHGap](https://github.com/PingHGao)
 > * 校对者：
 
-# Improving massively imbalanced datasets in machine learning with synthetic data
+# 使用合成数据改善机器学习中的极度不平衡数据集
 
-We will use synthetic data and a few concepts from SMOTE to improve model accuracy for fraud, cyber security, or any classification with an extremely limited minority class
+我们将使用合成数据和SMOTE的一些概念来提高模型的准确性，防止欺诈，提高网络安全或改善任何只有非常有限样本的分类任务。
 
-Handling imbalanced datasets in machine learning is a difficult challenge, and can include topics such as payment fraud, diagnosing cancer or disease, and even cyber security attacks. What all of these have in common are that only a very small percentage of the overall transactions are actually fraud, and those are the ones that we really care about detecting. In this post, we will boost accuracy on a [popular Kaggle fraud dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud) by training a generative synthetic data model to create additional fraudulent records. Uniquely, this model will incorporate features from both fraudulent records and their nearest neighbors, which are labeled as non-fraudulent but are close enough to the fraudulent records to be a little “shady”.
+在机器学习中处理不平衡的数据集是一项艰巨的挑战，并且可能涉及诸如支付欺诈，诊断癌症或疾病甚至网络安全等主题。所有这些的问题的共同点在于，实际上只有很小一部分实例是消极的，而这却正是我们真正在意并试图检测的。在这篇文章中，我们将通过训练一个生成额外欺诈记录的模型来大大提高算法在[ Kaggle 欺诈数据集](https://www.kaggle.com/mlg-ulb/creditcardfraud)上的准确率。独特的是，该模型将会合并来自欺诈记录以及与其相邻的足够相似的非欺诈记录的特征，显得更加难以分别。
 
 ![Feature image © Gretel.ai](https://cdn-images-1.medium.com/max/2880/1*ncKq5awHMpuwL6Ckv0QSXA.png)
 
-## Our imbalanced dataset
+## 我们的不平衡数据集
 
-For this post, we selected the popular “[Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud)” dataset on Kaggle. This dataset contains labeled transactions from European credit card holders in September 2013. To protect user identities, the dataset uses dimensionality reduction of sensitive features into 27 floating point columns (V1–27) and a Time column (the number of seconds elapsed between this transaction and the first in the dataset). For this post, we will work with the first 10k records in the Credit Card fraud dataset- click below to generate the graphs below in Google Colaboratory.
+在本文中，我们选择了 Kaggle 上较多使用的“[信用卡欺诈检测](https://www.kaggle.com/mlg-ulb/creditcardfraud)” 数据集。 此数据集包含2013年9月来自欧洲信用卡持有人的已标记交易记录。为了保护用户隐私，数据集使用降维方法将敏感的数据转化为27个浮点列（V1-27）以及一个时间列（本条记录与首条记录的时间差，秒为单位）。对于本文，我们将使用信用卡欺诈数据集中的前 1 万条记录-单击下面的内容以在 Google 合作实验室中生成以下图形。
 
-[**Classify-and-visualize-fraud-dataset**](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_classify_and_visualize.ipynb)
+[**欺诈数据的分类和可视化**](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_classify_and_visualize.ipynb)
 
-![A massively imbalanced dataset](https://cdn-images-1.medium.com/max/2012/1*6ZeY7mc4B_KxS4lKT3VPOg.png)
+![一个极度不平衡的数据集](https://cdn-images-1.medium.com/max/2012/1*6ZeY7mc4B_KxS4lKT3VPOg.png)
 
 ## The metric trap
 
