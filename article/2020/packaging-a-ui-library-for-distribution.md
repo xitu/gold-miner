@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/packaging-a-ui-library-for-distribution.md](https://github.com/xitu/gold-miner/blob/master/article/2020/packaging-a-ui-library-for-distribution.md)
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
-> * 校对者：[zenblo](https://github.com/zenblo)
+> * 校对者：[zenblo](https://github.com/zenblo)、[rocwong-cn](https://github.com/rocwong-cn)
 
 # 打包用于分发的 UI 库 —— 当你要发布一个 UI 组件库时，你可能需要遵守的指南
 
@@ -15,13 +15,13 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 经历了将近 20 年的蛰伏后，JavaScript 获得了巨大的发展势头，每天都有新的功能被添加到语言中。（好吧，应该是每年不是每天，但是这样修饰更恰当） 与此同时，新的 JS 风格，比如：TypeScript 和 Flow 的出现，为语言增加了额外的语法。
 
-我们最终都要面对夹杂着其它语言特性的 JavaScript，多种执行环境以及不断发展的标准。所有这些都导致了这样一个事实，用 JavaScript 构建 UI 组件包然后在世界上分享，并不简单。
+我们最终都要面对夹杂着其它语言特性的 JavaScript，多种执行环境以及不断发展的标准。所有这些导致以 Javascript 构建 UI 组件包然后与世界共享，并非易事。
 
 任何人在发布一个库的时候都应该考虑库会被如何使用：以浏览器标签引入，在服务器端以 NPM 模块安装或者由 webpack 等打包工具编译后再提供给浏览器。
 
 ## 如何交付 package？
 
-以下是我的一些建议，关于提供的 package 可使用的一些语法格式。在最后一部分，我们会介绍一些工具以帮你实现这些语法格式的 package。
+以下是我为你想要分发的 package 的格式提供的一些建议。在最后一部分，我们将通过一些工具来实现这些。
 
 ![mage by [Annalise Batista](https://pixabay.com/users/AnnaliseArt-7089643/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5293336) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5293336) (modified)](https://cdn-images-1.medium.com/max/2560/1*xPmTGN5rwQH_IQ94TRIhmw.png)
 
@@ -32,7 +32,7 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 * 文件打包（Files Bundling）
 * Package 分发（Package distribution）
 
-你同样会注意到这里的讨论与框架无关。这里讨论的守则都是跨框架的，而且与用 Angular，React，Vue 编写的组件是相关的。
+你同样会注意到这里的讨论与框架无关。这里讨论的守则都是跨框架的，而且与用 Angular，React，Vue 编写的组件是无关的。
 
 #### ES 语法格式（ES Syntax Format）
 
@@ -44,7 +44,7 @@ JavaScript 有个特性：对于相同的代码，可以运行在多个运行时
 
 #### 模块格式（Module Format）
 
-并不是直到 2015 年，JavaScript 或者说 ECMAScript 才被人们熟知，有一套模块格式的规范 —— ES6 模块语法（也被称为 ESM，ES2015 模块）。在这个领域（模块格式）诞生之初，社区里创建了各种各样的相关语法规范，但是没有统一的标准可以遵守。
+直到 2015 年，JavaScript（即众所周知的 ECMAScript ）才有了模块格式的规范 —— ES6 模块格式（也被称为 ESM，ES2015 模块）。 在这个混沌时期，社区创建了多种格式，但没有一个统一的标准可遵循。
 
 用于支持浏览器和 NodeJS 的模块格式：
 
@@ -109,7 +109,7 @@ Bundlers 通常运行插件来执行转译过程。转译不仅包括语言和�
 
 常见的打包工具有：
 
-**Webpack**，直到第 4 版，才刚刚能生成 UMD 和 CommonJS 的打包。webpack 还包含了一些精细的定义（如：CommonJS2）。[此处](https://webpack.js.org/configuration/output/#outputlibrarytarget)了解详细信息。
+**Webpack**，直到第 4 版，才刚刚能生成 UMD 和 CommonJS 的包。webpack 还包含了一些精细的定义（如：CommonJS2）。[此处](https://webpack.js.org/configuration/output/#outputlibrarytarget)了解详细信息。
 
 **Rollup** 是另一个打包工具。Rollup 可以将 ES 模块作为[输出格式](https://rollupjs.org/guide/en/#outputformat)导出。
 
