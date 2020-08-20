@@ -22,6 +22,8 @@ If you are interested in other similar effect, have a look at these:
 
 So, today we’ll have a look at how to create this juicy image hover reveal animation:
 
+![ezgif-1-49e5dab6c59e](https://user-images.githubusercontent.com/5164225/90801365-659a8f80-e348-11ea-9d32-ff9c90c5836f.gif)
+
 ## Some Markup and Styling
 
 We’ll use a nested structure for each menu item because we’ll have several text elements that will appear on page load and hover.
