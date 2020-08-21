@@ -69,7 +69,7 @@ Apart from these two, there are many features provided by Service Workers to PWA
 
 If we take a simple explanation, the web app manifest is the JSON file responsible for the native look of the progressive web app. If we install an application from the play store or app store, we can see an app icon on our mobile phone, and it makes users more interactive with mobile apps rather than websites. For PWA, the web app manifest file is the entry point for all user interactions, and all the metadata about how we display the application to the user is included in here. Using this JSON file, we can easily change many elements of the application, including app icons, theme colors, orientation, and splash screen. Let’s talk a bit more about those properties using an example.
 
-```json
+```
 {
   "name": "My Example App",
   "short_name": "My App",
