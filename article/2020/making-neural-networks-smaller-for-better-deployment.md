@@ -2,60 +2,61 @@
 > * 原文作者：[Vincent Houdebine](https://medium.com/@vhoudebine)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md](https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao/gold-miner/edit/translate/making-neural-networks-smaller-for-better-deployment/article/2020/making-neural-networks-smaller-for-better-deployment.md)
 > * 校对者：
 
-# Making Neural Networks Smaller for Better Deployment
+# 让神经网络变得更小巧以方便部署
 
 ![Credit [JC Gellidon](https://unsplash.com/@jcgellidon?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*tGuAv2o2UGUDsC1RDtLPFA.jpeg)
 
-There is a clear trend in the data science and machine learning industry on training bigger and bigger models. These models achieve near-human performance, but they are usually too big to be deployed on a device with constrained resources like a mobile phone or a drone. This is one of the main blockers to the broader adoption of AI in our everyday lives.
+数据科学和机器学习领域存在一种明显地训练越来越大模型的趋势。这些模型的性能接近人类，但通常太大，无法部署在资源受限的设备上，例如手机或无人机。这是阻碍AI在我们日常生活中广泛使用的主要障碍之一。
 
-**How can I fit my 98Mb ResNet model in a 15Mb mobile app?**
+**我如何在 15Mb 的移动应用程序中安装 98Mb 的 ResNet 模型？**
 
-On Android, the average app size is 15Mb, whereas NASNet, a state of the art image classification model released by Google, achieves over 80% accuracy on ImageNet — a famous image classification competition — but has a 355Mb size in its large version and 21.4Mb in its mobile-optimized version.
+在安卓上，应用程序平均大小为 15Mb。而由 Google 发布的最先进的图像分类模型 NASNet （在 ImageNet —— 著名的图像分类竞赛 —— 上可达到 80％ 的精度），其大型版本大小为 355Mb，移动优化版本也有 21.4Mb。
 
-If you’re a data scientist trying to fit high-performing models into devices with constrained resources, this article will give you practical tips on how you can compress your model size by up to 70% with Keras and NumPy only, without losing performance.
+如果您是一位数据科学家，试图将高性能的模型安装到资源有限的设备中，那么本文将为您提供实用的技巧，如何仅使用Keras和NumPy将模型大小压缩到70％，而又不损失性能。
 
 ---
 
-In the last few years, there has been a lot of interest in making models smaller for resource-efficient training and inference on such constrained devices. Two main approaches have been used:
+在过去的几年中，如何是模型更小以高效的使用训练资源以及在资源有限的设备上进行应用的问题受到了极大地关注。主要存在两种方法：
 
-The first and most popular method is to train neural networks that are lightweight by design. A good example of this is MobileNet by Google. MobileNet’s architecture only features 4.2 million parameters while achieving a 70% accuracy on ImageNet. This compression maintains reasonable performance and is achieved by the introduction of depth-wise convolution layers which help reduce model size and complexity.
+第一种也是最流行的方法是设计训练轻便的神经网络。Google 的 MobileNet 就是一个很好的例子。MobileNet 的架构仅具有420万个参数，而 ImageNet 的准确率达到了 70％。这种压缩可保持合理的性能，是通过引入有助于减小模型的大小和复杂性的深度卷积层来实现的。
 
-The other type of approach is to leverage large, pre-trained neural networks and compress them to reduce their size while minimizing loss in performance. This article will focus on reviewing and implementing some of these compression techniques on convolutional neural networks (CNNs).
+另一种方法是利用预先训练的大型神经网络，对其进行压缩以减小大小，同时最大程度地降低性能损失。本文将重点对卷积神经网络（CNN）压缩技术进行回顾和实现。
 
-In particular, we will focus on pruning techniques, the low hanging fruit of neural network compression. Network pruning aims at removing specific weights and their respective connections in a neural network to compress its size. Although pruning is less popular than other approaches, it achieves pretty good results and is quite easy to implement, as we will see in the rest of this article.
+特别地，我们将专注于剪枝技术，一种较为容易实现的神经网络压缩技术。网络剪枝旨在消除神经网络中的特定权重及其各自的联系，以压缩网络大小。尽管剪枝技术不如其他方法流行，但它取得了很好的效果，并且很容易实现，正如接下来我们将在文章看到的那样。
 
-> **“The ability to simplify means to eliminate the unnecessary so that the necessary may speak.” Hans Hoffman**
+> **“简化的能力意味着消除不必要的东西，从而使必要的东西可以发声。” Hans Hoffman**
 
-It might seem odd that removing weights from a neural network wouldn’t drastically harm its performance. Still, in 1991, Y. LeCun et al. showed in a paper called **[Optimal Brain Damage](http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf)** that one could reduce the size of a neural network by selectively deleting weights. They found it was possible to remove half of a network’s weights and end up with a lightweight, sometimes better-performing network.
+从神经网络消除权重并不会严重损害其性能，这似乎很奇怪。尽管如此，在 1991 年，Y.LeCun 等人在一篇名为 **[Optimal Brain Damage](http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf)** 的论文证明，可以通过选择性删除神经网络权重来减小神经网络的大小。他们发现有可能通过删除一半的神经网络权重，最终得到一个重量轻，性能有时更好的网络。
 
-In the particular case of CNNs, instead of removing individual weights, most approaches focus on removing entire filters and their corresponding feature maps from convolutional layers. The main benefit of this method is that it doesn’t introduce any sparsity in the network’s weight matrices. This is important to take into account as most deep learning frameworks, including Keras, don’t support sparse weight layers.
+在CNN这一特殊领域下，大多数方法不是除去单个权重，而是专注于从卷积层中除去整个滤波器及其对应的特征图。这种方法的主要优点是它不会在网络的权重矩阵中引入任何稀疏性。这一点很重要，因为包括 Keras 在内的大多数深度学习框架都不支持稀疏的权重层。
 
-Although convolution layers only account for a minority of the network’s weights — the bulk of the network is in the fully connected layers — pruning filters eventually reduces the number of weights in the dense layers.
+尽管卷积层仅占网络权重的一小部分 —— 网络权重的大部分位于全连接的层中 —— 修剪滤波器最终还是间接减少了全连接层的权重数。
 
-![Pruning convolution filters from CNNs](https://cdn-images-1.medium.com/max/2252/1*nCFPvBeDBmOzwJKzemmYPA.png)
+![对 CNNs 中的卷积滤波器进行剪枝](https://cdn-images-1.medium.com/max/2252/1*nCFPvBeDBmOzwJKzemmYPA.png)
 
-## What Is the Intuition Behind Network Pruning ?
+## 网络修剪背后的直觉是什么？
 
-Let’s take a step back for a second and look at the intuition behind network pruning. There are two hypotheses on neural networks that motivate pruning:
+让我们退后一步，看看网络修剪背后的直觉。关于神经网络的两个假设会催生剪枝技术：
 
-The first one is **weight redundancy**. This means that several neurons — or filters in the particular case of CNNs — will be activated by very similar input values. Consequently, most networks are actually over-parameterized and we can safely assume that deleting redundant weights won’t harm performance too much.
+第一个是“权重冗余”。这意味着多个神经元（或在CNN的情况下为过滤器）会被非常相似的输入值激活。因此，大多数网络实际上都是参数冗余的，我们可以放心地假设删除冗余权重不会对性能造成太大影响。
 
-The second one is that **not all weights contribute equally** to the output prediction. Instinctively, we can assume that lower magnitude weights will have a lower importance to the network, Y. LeCun calls them **low saliency weights**. Indeed, all things being equal, lower magnitude weights will have a lower effect on the network’s training error.
 
-As we can see in the figure below, a large number of the convolution filters across the network have a low L1 norm while a very small number of filters have a much larger norm.
+第二个是**并非所有权重均对输出预测做出了同等贡献**。本能地，我们可以假设较低幅值的权重对网络的重要性较低，Y.LeCun 称它们为“低显著性权重”。实际上，在所有条件都相同的情况下，较低幅值的权重将对网络的训练错误产生更小的影响。
 
-![**Distribution of L1 norm of filters on all layers of a CNN trained on imagenette.**](https://cdn-images-1.medium.com/max/3612/1*30JNcr-p7ssE-btMwY1BQA.png)
+如下图所示，网络中的大量卷积滤波器的 L1 范数较低，而很少数量的滤波器的范数则相对较大。
 
-Although using L1 norm is a simplistic heuristic to rank the importance of filters, we can assume that pruning low importance convolution filters away from the network would have a lesser impact than others.
+![**在 imagenette 上训练的一个 CNN 的所有层的滤波器的 L1 范数分布**](https://cdn-images-1.medium.com/max/3612/1*30JNcr-p7ssE-btMwY1BQA.png)
 
-Now that we have a better understanding of pruning and how it can help compress networks without harming their performance, let’s see how we can implement it on a Keras network.
+尽管使用 L1 范数来对滤波器的重要性进行排序是一种简单的启发式方法，但我们可以假设将低重要性的卷积滤波器从网络中删除会比删除其他滤波器的影响更小。
 
-## How to Prune a Model Trained With Keras?
+现在，我们对剪枝及其如何在不损害网络性能的情况下帮助压缩网络有了更好的了解，让我们看看如何在 Keras 网络上实现它。
 
-In the remainder of this article, we’ll use a vanilla CNN trained on imagenette, a subset of 10,000 images from 10 ImageNet categories. After training and evaluating our full baseline network, we’ll implement and compare different pruning strategies.
+## 如何对使用 Keras 训练的模型进行剪枝？
+
+在本文的其余部分，我们将使用在 imagenette（一个包含 10，000 张图片共 10 个类别的 ImageNet 的子集） 上训练的普通 CNN。在训练和评估了完整的基准网络之后，我们将实施并比较不同的剪枝策略。
 
 #### Rank-Prune-Retrain
 
