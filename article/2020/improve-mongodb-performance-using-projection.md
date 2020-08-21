@@ -2,20 +2,20 @@
 > * 原文作者：[Tek Loon](https://medium.com/@tcguy)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/improve-mongodb-performance-using-projection.md](https://github.com/xitu/gold-miner/blob/master/article/2020/improve-mongodb-performance-using-projection.md)
-> * 译者：
-> * 校对者：
+> * 译者：[onlinelei](https://github.com/onlinelei)
+> * 校对者：[ivileey](https://github.com/ivileey)
 
 # 利用映射提高 MongoDB 性能
 
 ![Photo by [Greg Rosenke](https://unsplash.com/@greg_rosenke?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10744/0*xNUvb3ABjaziY-2J)
 
-这篇文章分析和记录了在 MongoDB 中使用映射时对查询性能的提升力度。在文章的最后，我们将得到结果。
+本文记录了我的所有发现并且分析了在 MongoDB 中使用映射时对查询性能的提升。在文章的最后，我们将知道是否能通过映射提高 MongoDB 的查询性能。
 
 事不宜迟，让我们开始吧。
 
 ## 问题描述
 
-谈到这篇文章的灵感来源，那是工作的时候我用到了 MongoDB 的 [映射](https://docs.mongodb.com/manual/reference/glossary/#term-projection)。映射就是**查询 MongoDB 时返回的结果集**具体可以查看 MongoDB 的官方 [文档](https://docs.mongodb.com/manual/reference/glossary/#term-projection)
+这篇文章的灵感来源于我在工作中使用[映射](https://docs.mongodb.com/manual/reference/glossary/#term-projection)在 MongoDB 数据库中查询数据时。映射就是**在文档中查询时指定返回的结果集字段**具体可以查看 MongoDB 的官方[文档](https://docs.mongodb.com/manual/reference/glossary/#term-projection)
 
 就像在麦当劳里买汉堡一样，我们可以选择单点一些菜品，而不是选择包含饮料和薯条的套餐。
 
@@ -69,15 +69,15 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1jXiJv35xCeu0cYVUtsuZQ.png)
 
-在查询中使用映射，实验1的结论是 - 性能没有提高。👎👎
+在查询中使用映射，实验 1 的结论是 - 性能没有提高。👎👎
 
 ## 实验 2：如果减少字段不能提高查询性能，还有哪些方法能够提升查询性能？
 
-因为第一个实验的失败，我研究了 MongoDB 大学提供的 [性能优化课程](https://university.mongodb.com/courses/M201/about)。这个课程是免费的，如果你项学习 MongoDB 性能优化课程，点击前面的链接。
+因为第一个实验的失败，我研究了 MongoDB 大学提供的 [性能优化课程](https://university.mongodb.com/courses/M201/about)。这个课程是免费的，如果你想学习 MongoDB 性能优化课程，点击前面的链接。
 
 然后我就发现了覆盖索引。根据 MongoDB 的官方 [文档](https://docs.mongodb.com/manual/core/query-optimization/#covered-query) 描述，覆盖索引是一种“可以完全使用索引的查询，不需要去访问文档”。
 
-让我们拿烹饪来举例子，你所需要的食材都已经在冰箱里了，你要做的就只是加工一下而已。
+让我们拿烹饪来举例子，当你要做一顿饭时，你所需要的食材都已经准备好在冰箱里了，你要做的就只是加工一下而已。
 
 在我们创建任何索引之前，我们要知道我们期望返回的字段有哪些，例如下面这些情况。
 
