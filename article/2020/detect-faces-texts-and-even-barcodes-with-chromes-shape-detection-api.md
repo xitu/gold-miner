@@ -2,84 +2,84 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/detect-faces-texts-and-even-barcodes-with-chromes-shape-detection-api.md](https://github.com/xitu/gold-miner/blob/master/article/2020/detect-faces-texts-and-even-barcodes-with-chromes-shape-detection-api.md)
-> * 译者：
+> * 译者：[rocwong-cn](https://github.com/rocwong-cn)
 > * 校对者：
 
-# Detect Faces, Texts and Even Barcodes With Chrome’s Shape Detection API
+# 使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码
 
 ![](https://cdn-images-1.medium.com/max/2560/1*sw-UYEsreElKPUGOtHHkfg.jpeg)
 
-## Introduction
+## 初步介绍
 
-As a web developer, we would have had many instances where we were required to install external libraries to handle the detection of elements such as faces, text, and barcode. This was because there was no web standard API for developers to utilize.
+作为一名 Web 开发人员，我们会有很多场景需要安装外部库来处理，诸如人脸、文本和条形码之类的元素的检测。 这是因为没有 Web 标准 API 供开发人员使用。
 
-The Chrome team is trying to change this by providing an experimental [Shape Detection API](https://web.dev/shape-detection/) in Chrome browsers and make it a web standard.
+Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的 [形状检测API（Shape Detection API）](https://web.dev/shape-detection/)并将其设为 web 标准来改善这种情况。
 
 ---
 
-Although this feature is experimental, it can be accessed locally, by enabling the #enable-experimental-web-platform-features flag in `chrome://flags` .
+此特性目前是实验性的，但可以通过启用 `chrome://flags` 中的 #enable-experimental-web-platform-features 标志来在本地访问。
 
-## Use Cases
+## 使用场景
 
-The use cases of the above three features are boundless. You can use these APIs in substitute to the libraries you have been using all these days instead. Here are some of the use cases in which you can use these APIs.
+以上三个特性的使用场景是没有界限的。您可以使用这些 API 代替这些天来一直在使用的库。以下是一些可以使用这些 API 的案例。
 
-#### Barcode Detection
+#### 条码检测
 
-* Web applications will be able to open themselves into a wide variety of use cases which include online payments and they can even be used in social applications to create a connection between users.
-* Airports can provide kiosks that can simply scan the boarding pass of the passenger by using a web camera.
-* Get more details of a product by simply scanning the barcode via the store’s web application.
-* With the rise of Progressive Web Apps, these features would eventually allow them to use all the above-mentioned use cases.
+* Web 应用可能在各种各样的场景中使用条码，包括在线支付，甚至可以在社交应用中用于用户间的建联。
+* 机场可以提供自助服务终端，这些自助服务终端可以使用网络摄像头轻松地扫描乘客的登机牌。
+* 只需通过商店的 web 应用扫描条形码，即可获得产品的更多详细信息。
+* 随着 PWA（Progressive Web App） 的兴起，这些新特性最终将使它们能够用于上述的使用场景中。
 
 ![Photo by [Simon Bak](https://unsplash.com/@simon_bak?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*XpBiW2yV0QShFeT3)
 
-#### Face Detection
+#### 人脸检测
 
-* Provide interactive multimedia playback by recognizing whether the user is in front of the device. (Auto pause video when the user looks away)
-* Auto crop and resize images using face detection.
-* Allow tagging faces of individuals — similar to what’s found on websites like Facebook.
-* Realtime overlay of product models over facial features — virtual try-on products such as sunglasses, spectacles, etc.
-* Apply real-time filters with selfies similar to applications like Snapchat.
+* 通过检测用户是否在设备前面来提供交互式多媒体播放。（用户移开时自动暂停视频）
+* 使用人脸检测功能自动裁剪和调整图像大小。
+* 允许标记个人的面孔 —— 类似于在 Facebook 等网站上找到的面孔。
+* 产品模型在面部特征上的实时叠加 —— 虚拟试戴产品，例如太阳镜，眼镜等。
+* 应用类似于 Snapchat 之类的实时滤镜。
 
 ![Photo by [Aditya Ali](https://unsplash.com/@aditya_ali?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*fMdy36i2XzHSyqkC)
 
-#### Text Detection
+#### 文本检测
 
-* Translation to text where the image is, for example, a restaurant menu, a CV, or even language translations — English to Foreign Language, and number recognition.
-* Provide `alt` attributes for `\<img>` tags dynamically which are made up of texts.
-* Text-to-Speech from images of text.
+* 将图像翻译为文字，例如餐厅菜单，简历或者甚至语言翻译（英语到外语）以及数字检测。
+* 动态地为 `<img>` 标签提供由文本组成的 `alt` 属性。
+* 图像转文字，文字再转语音。（译者注：此处原文中的 `of` 是否应为 `to` ? 表达图像转文字后的进一步处理。）
 
 ![Photo by [Jason Leung](https://unsplash.com/@ninjason?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*rlAeIQ_f994PC7ca)
 
-## Let’s Get Into The Details
+## 来让我们一探究竟
 
-The interfaces of all three detectors, `FaceDetector`, `BarcodeDetector`, and `TextDetector` are similar. They all provide a single asynchronous method called `detect()` that takes an `ImageBitmapSource` as an input (that is, either a `CanvasImageSource`, a `Blob`, or `ImageData`).
+`FaceDetector`、`BarcodeDetector` 和 `TextDetector` 这三个检测器的接口类似。它们都提供一个名为 `detect()` 的异步方法，该方法以一个 `ImageBitmapSource` 作为输入（即，`CanvasImageSource`，`Blob` 或 `ImageData` ）。
 
-Moreover optional parameters can be fed into the `FaceDetector` and `BarcodeDetector` to get a more customized detection.
+此外，可以将可选参数传到 `FaceDetector` 和 `BarcodeDetector` 中，以获得更自定义的检测。
 
-**Note: These features are platform dependent for now. Although the three JavaScript interfaces are accessible after enabling the #enable-experimental-web-platform-features flag, it still does not guarantee that your platform would support the APIs. As I said earlier, this is still under development.**
+**注意：目前，这些功能取决于平台。 尽管启用 #enable-experimental-web-platform-features 标志后即可访问这三个 JavaScript 接口，但仍不能保证您的平台支持这些 API。 正如我之前所说，这仍在开发中。**
 
 ![Platform Support — Source: [Repo Readme](https://github.com/WICG/shape-detection-api#overview)](https://cdn-images-1.medium.com/max/2000/1*5iilBTzWa_E_5V23Jduutw.png)
 
 ---
 
-You can read more about this platform-specific implementation over [here](https://github.com/WICG/shape-detection-api#platform-specific-implementation-notes-computer).
+您可以在[此处]((https://github.com/WICG/shape-detection-api#platform-specific-implementation-notes-computer))阅读更多有关特定平台的实现信息。
 
-## Face Detection
+## 人脸检测
 
-You can provide optional parameters such as `maxDetectedFaces` and `fastMode` to the `FaceDetector` constructor. The `maxDetectedFaces` property specifies the maximum number of faces to be detected (limit) while the `fastMode` property specifies whether to prioritize speed over accuracy.
+您可以向 `FaceDetector` 构造函数提供可选参数，例如 `maxDetectedFaces` 和 `fastMode`。 `maxDetectedFaces` 属性指定要检测的最大面孔数量（有限制），而 `fastMode` 属性则指定是否优先考虑速度而不是准确性。
 
-This API always returns the bounding box of the faces detected in the image. Depending on the platform, more information regarding face landmarks like eyes, nose, or mouth may be available.
+该 API 始终返回图像中检测到的面部的边界框。根据平台的不同，可能会提供有关眼睛，鼻子或嘴等面部标志的更多信息。
 
-> Note: This API is for **face detection**, not face recognition. “**Face Detection**” is where you are able to detect whether a face is present and if present, the location of it’s facial features such as mouth, eyes, nose etc. But in “**Face Recognition**” you are able to differentiate between two faces. This API does not provide that feature as of now.
+> 注意：此API用于**人脸检测**，而不是人脸识别。您可以在“**人脸检测**”中检测到是否存在人脸，如果存在，则可以检测其面部特征的位置，例如嘴，眼，鼻子等。但是在“**面部识别**”中，您能够区分两个面孔。到目前为止，此 API 尚未提供该功能。
 
 ```js
 async function detectFace(image) {
     const faceDetector = new FaceDetector({
-        // (Optional) Hint to try and limit the amount of detected faces
-        // on the scene to this maximum number.
+        // （可选）提示，尝试将场景中检测到的面部数量
+        // 限制为该最大数量。
         maxDetectedFaces: 3,
-        // (Optional) Hint to try and prioritize speed over accuracy
-        // by, e.g., operating on a reduced scale or looking for large features.
+        // （可选）提示，例如通过缩小规模操作或寻找大的特性
+        // 来尝试优先考虑速度而不是准确性。
         fastMode: false
     });
     try {
@@ -96,19 +96,19 @@ function readFace() {
 }
 ```
 
-Simply call the `readFace()` method in the above example to use this. It’s simple as that.
+只需在以上示例中调用 `readFace()` 方法即可。就是这么简单。
 
-## Barcode Detection
+## 条码检测
 
-The `BarcodeDetector` constructor receives an optional parameter named `formats` . This parameter is an `Array` of barcode formats to search for. It should be noted that not all barcode formats are supported on all platforms.
+`BarcodeDetector` 构造函数接收一个名为 `formats` 的可选参数。此参数是要搜索的条形码格式的 `Array`。应该注意的是，并非所有平台都支持所有条形码格式。
 
-This API returns the bounding boxes of the barcode detected in the image, as well as the `rawValue` of the barcode. It would also return the format of the barcode identified — ex: `qr_code`, `data_matrix`, etc.
+该 API 返回图像中检测到的条形码的边界框以及条形码的 `rawValue`。它还将返回所识别的条形码的格式，例如：`qr_code`，`data_matrix` 等。
 
 ```js
 async function detectBarcode(image) {
     const barcodeDetector = new BarcodeDetector({
-        // (Optional) A series of barcode formats to search for.
-        // Not all formats may be supported on all platforms
+        //（可选）要搜索的一系列条形码格式。
+        // 并非所有平台都支持所有格式
         formats: [
             'aztec',
             'code_128',
@@ -139,15 +139,15 @@ function readBarcode() {
 }
 ```
 
-You can call the `readBarcode()` method to detect the barcodes in your image.
+您可以调用 `readBarcode()` 方法来检测图像中的条形码。
 
-## Text Detection
+## 文本检测
 
-> Note: `TextDetector` is not universally available. Although being an interesting domain, this feature is still considered to be not stable enough. According to the docs, “(it) is not considered stable enough across either computing platforms or character sets to be standardized at the moment, which is why text detection has been moved to a separate [informative specification](https://wicg.github.io/shape-detection-api/text.html)”.
+> 注意：`TextDetector` 不是通用的。 尽管这是一个有趣的领域，但仍认为此功能不够稳定。根据文档，“目前，它在任何计算平台或字符集上都不够稳定，无法标准化，这就是为什么文本检测已移至单独的 [信息规范](https://wicg.github.io/shape-detection-api/text.html) ”。
 
-The `TextDetector` API would always return the bounding boxes of the detected texts and on some platforms the recognized characters.
+`TextDetector` API 会始终返回检测到的文本的边界框，并且在某些平台上会返回识别出的字符。
 
-Here is a sample implementation code.
+这是示例实现代码。
 
 ```js
 async function detectText(image) {
@@ -166,24 +166,24 @@ function readText() {
 }
 ```
 
-## Conclusion
+## 结论
 
-The applications of the above APIs are countless. As they are still in the experimental stage, you can play around with them and get to know them better.
+以上 API 的应用不胜枚举。由于它们仍处于实验阶段，因此您可以与他们一起玩耍，并更好地了解它们。
 
-To easily find out whether your device supports these APIs, simply enable the flags as mentioned in the article and visit the [demo](https://shape-detection-demo.glitch.me/) provided by the team. You will be alerted if a feature is not available in your platform. You can also view the source code of the demo over [here](https://glitch.com/edit/#!/shape-detection-demo?path=index.html%3A3%3A8).
+要简单地确定您的设备是否支持这些API，只需启用文章中提到的标志，然后访问团队提供的 [demo](https://shape-detection-demo.glitch.me/) 。如果您的平台不提供某功能，则会提醒您。您也可以在 [此处](https://glitch.com/edit/#!/shape-detection-demo?path=index.html%3A3%3A8) 查看 demo 的源代码。
 
-If you are planning to use the API on your site, you can contact the Chrome team and let them know. This would help them prioritize the features and show other browser vendors that support for these APIs are critical.
+如果您打算在您的网站上使用该 API，可以联系 Chrome 小组并告知他们。这将有助于他们确定功能的优先级，并显示其他支持这些 API 的浏览器厂商至关重要。
 
-According to the team, you can contact them as below.
+根据团队的说法，您可以按以下方式与他们联系。
 
-* Share how you plan to use it on the [WICG Discourse thread](https://discourse.wicg.io/t/rfc-proposal-for-face-detection-api/1642/3)
-* Send a Tweet to [@ChromiumDev](https://twitter.com/chromiumdev) with `#shapedetection` and let us know where and how you're using it.
+* 在 [WICG讨论主题](https://discourse.wicg.io/t/rfc-proposal-for-face-detection-api/1642/3) 上分享您打算如何使用它
+* 使用 `#shapedetection` 将推文发送到 [@ChromiumDev](https://twitter.com/chromiumdev)，并告诉我们您在哪里以及如何使用它。
 
-Hope you learned something new from this article. You can go through the below-attached resources for more information.
+希望您从本文中学到了新东西。您可以浏览下面附带的资源以获取更多信息。
 
-Thank you for reading & Happy coding!
+感谢您的阅读，编码愉快！
 
-**Resources**
+**资源**
 
 - [Chrome Shape Detection API](https://web.dev/shape-detection/)
 - [W3C Drafts](https://wicg.github.io/shape-detection-api/)
