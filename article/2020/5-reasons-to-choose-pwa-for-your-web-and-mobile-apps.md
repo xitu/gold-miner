@@ -13,8 +13,6 @@ I’m sure that most of you must have heard about Progressive Web Apps (PWAs). P
 
 So, In this article, I will explain five valuable features of PWA, useful for your future web and mobile apps.
 
----
-
 ## 1. Single Technology for Web and Mobile Platforms
 
 In the modern technical world, we can see that developers have branded themselves as web developers, mobile developers, etc.
@@ -28,16 +26,6 @@ If we take native app development as an example, it requires knowledge about a f
 In contrast, it’s easy to get going with JavaScript/TypeScript, HTML, CSS, and use a framework like Angular or a library like React. If we looked at the [survey result from stack overflow in 2019](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted), we could see that those web development languages are the most popular ones.
 
 These results influence the technology adoption by developers, and as a result, it’s easier to find developers on the web track.
-
-#### Reduce Development Costs, Deliver Faster
-
-Using the same stack for Native and Web is not only a way to avoid learning new languages and frameworks, but it is also a way to reuse code as much as possible.
-
-By sharing and managing your reusable components/modules in [cloud component hubs](https://bit.dev/frontend-teams), you’re able to focus on composing awesome apps instead of wasting your time building from scratch for multiple technologies and platforms.
-
-![Example: React components shared and managed on [Bit.dev](https://bit.dev/frontend-teams)](https://cdn-images-1.medium.com/max/2000/1*Nj2EzGOskF51B5AKuR-szw.gif)
-[**Bit · UI component library for frontend teams**
-**Organize all your shared components in your team's hub, making them easy to find, choose and use in your apps. Found…**bit.dev](https://bit.dev/frontend-teams)
 
 ## 2. Reliable Performance
 
@@ -59,7 +47,7 @@ Being able to work offline is one of the competitive features of PWA compared to
 
 Background sync is another feature provided by Service Workers, and this allows the application to respond to any critical request when the connection is available, even you make that call during offline mode. For example, if you send a message when you are offline service worker will take care of that and complete that request when the connection is available. Demo implementation of background sync is shown below:
 
-```
+```js
 navigator.serviceWorker.register('/service_worker.js');
 
 navigator.serviceWorker.ready.then(function(swRegistration) {
@@ -81,7 +69,7 @@ Apart from these two, there are many features provided by Service Workers to PWA
 
 If we take a simple explanation, the web app manifest is the JSON file responsible for the native look of the progressive web app. If we install an application from the play store or app store, we can see an app icon on our mobile phone, and it makes users more interactive with mobile apps rather than websites. For PWA, the web app manifest file is the entry point for all user interactions, and all the metadata about how we display the application to the user is included in here. Using this JSON file, we can easily change many elements of the application, including app icons, theme colors, orientation, and splash screen. Let’s talk a bit more about those properties using an example.
 
-```
+```json
 {
   "name": "My Example App",
   "short_name": "My App",
@@ -113,21 +101,11 @@ PWA enforces transport layer security. So, users, sensitive information will be 
 
 Also, PWA does not interact with the device hardware without users’ permission, and it is not easy to hide any malicious codes inside PWA applications. If we follow the best practices to request only the necessary access to the device and use trusted JavaScript libraries kept up to date, the risk becomes significantly lower.
 
----
-
 ## Conclusion
 
 In addition to those 5, PWA contains many qualities that we expect from any web or mobile application like speed, reliability, user experience, etc. As developers, it is easy to develop PWA since you don’t have a burden about languages and frameworks. PWA takes very little time to develop when compared to native app development.
 
 On the business side, the cost will be less, the market reach will be high and can be optimized very quickly in search engines if you decided to go with PWA. So don’t hesitate to try PWA when you seek for a web or mobile solution next time.
-
-## Learn More
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
-[**14 JavaScript Code Optimization Tips for Front-End Developers**
-**Tips and tricks to increase performance and website load time**blog.bitsrc.io](https://blog.bitsrc.io/14-javascript-code-optimization-tips-for-front-end-developers-a44763d3a0da)
-[**5 Service Worker Caching Strategies for Your Next PWA App**
-**There are ways or strategies we can use in Service Workers to respond to “fetch” events. These strategies determine how…**blog.bitsrc.io](https://blog.bitsrc.io/5-service-worker-caching-strategies-for-your-next-pwa-app-58539f156f52)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
