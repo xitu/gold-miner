@@ -7,13 +7,9 @@
 
 # 7 Helpful Time Complexities
 
-#### “Big O” Notation Explained with Examples
-
 ![](https://cdn-images-1.medium.com/max/2000/1*6C2DkLB3o2RjBbb0aCvKUQ.jpeg)
 
 As programmers, we’re often striving to write the most efficient code possible. But how do we know if the code we’ve written is efficient? The answer: Big O analysis. The goal of this article is to explain this concept in the simplest terms possible. I’ll start with an introduction to Big O, followed by examples of the seven most common cases you’re likely to come across. Feel free to skip to the second section if you’re already familiar with the concept but want a concrete refresher with real Python code!
-
----
 
 ## Explain it Like I’m 5: The Big O Edition
 
@@ -33,9 +29,7 @@ There are many factors that could affect how long an algorithm takes to run in s
 
 In Big O, we’re interested in how algorithms diverge in terms of performance as we give them more and more data to process. For example, you could probably write several fairly similarly optimized functions for finding the maximum value in a list of three random numbers. But what if the list instead contained 100 numbers? Or 1,000? 1,000,000? This is what we mean by the “input size growing arbitrarily large”, and is why Big O is sometimes called “asymptotic analysis”. In Big O, the size of the input is referred to as “**n**”.
 
-***In addition to running time, Big O can also be used to describe how much space (memory, disk, etc.) an algorithm uses relative to the input size. In this article, I will focus on time complexity.**
-
----
+In addition to running time, Big O can also be used to describe how much space (memory, disk, etc.) an algorithm uses relative to the input size. In this article, I will focus on time complexity.
 
 #### How to Read and Write Big O
 
@@ -56,8 +50,6 @@ Below is a graph plotting the number of operations (the running time) against th
 You can see that, as the size of the input increases, the running time of the algorithms in the red shaded area increases drastically. On the other hand, the performance of the algorithms in the yellow and green shaded areas is much less dependent upon the size of the input and is, therefore, more efficient and scalable.
 
 As a final point of clarification, Big O analysis is usually used to describe the **dominant trend** of an algorithm as the input gets very large. Thus, insignificant terms can be dropped if they are overpowered by more significant terms. For instance, an algorithm with a computed time complexity **O(n² + n)** would simply be referred to as **O(n²)** due to the fact that as **n** grows very large, the effect of the **n²** term greatly outstrips that of the **n** term.
-
----
 
 ## Examples
 
@@ -210,8 +202,6 @@ In the example above, the number of operations performed doubles whenever the in
 Last but not least (but certainly least efficient) are algorithms with factorial time complexity. These should generally be avoided, as they rapidly become unviable as the input scales. One example of such an algorithm is a brute-force solution to [The Traveling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem). This problem seeks to find the shortest possible route that visits all points in a coordinate system and return to the starting point. The brute-force solution involves comparing all possible routes (read: permutations) against each other and selecting the shortest one. Note that this is not usually an acceptable solution to the problem, unless the number of points to visit is very low.
 
 ![A Traveling Salesman Solution. Source: [https://en.wikipedia.org/wiki/Travelling_salesman_problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)](https://cdn-images-1.medium.com/max/2000/1*Vq7Dq63LQrL9xC9Y8XqtGQ.png)
-
----
 
 ## Final Thoughts
 
