@@ -67,7 +67,7 @@ body { margin: 0; }
 canvas { 
 	display: block; 
 	position: fixed;
-	z-index: -1; // 背景设置
+	z-index: -1; // 将其设置为背景
 	left: 0; // 铺满整个屏幕
 	top: 0; // 铺满整个屏幕
 }
@@ -89,7 +89,7 @@ let mesh = new Mesh(
 
 ![](https://user-images.githubusercontent.com/5164225/90354323-909c8f00-e07b-11ea-9a1c-be5642528f2a.gif)
 
-显然我们还没有实现效果，我们需要追踪鼠标的颜色轨迹。当然，我们还需要着色器。如果您对着色器感兴趣，或者您可能已经学过一些有关如何放置图像的教程，例如[如何将鼠标放在悬停位置上](https://tympanus.net/codrops/2018/04/10/webgl-distortion-hover-effects/)？[液体变形效应](https://tympanus.net/codrops/2017/10/10/liquid-distortion-effects/)。
+显然我们还没有实现效果，我们需要追踪鼠标的颜色轨迹。当然，我们还需要着色器。如果您对着色器感兴趣，或者您可能已经学过一些有关如何放置图像的教程，例如[如何将鼠标放在悬停位置上？](https://tympanus.net/codrops/2018/04/10/webgl-distortion-hover-effects/)[液体变形效果？](https://tympanus.net/codrops/2017/10/10/liquid-distortion-effects/)
 
 但是我们有一个问题：我们只能在上面的示例中在该图像上（和内部）使用着色器。但是效果并不局限于任何图像边界，而是流动的，覆盖整个区域，就像整个屏幕一样。
 
