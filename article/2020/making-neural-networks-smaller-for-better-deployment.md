@@ -60,23 +60,23 @@
 
 #### Rank-Prune-Retrain
 
-The algorithm we will adopt to efficiently prune our CNN is surprisingly simple: Rank — Prune — Retrain. First, we’ll need to **rank** our filters by importance in order to identify low magnitude, unimportant filters. Then, we’ll **prune** away a certain percentage of them based on their estimated importance. Finally, we’ll **retrain** the network for a few epochs using the same learning rate as for the initial training to fine-tune weights to the new pruned architecture. That’s it, it’s so simple it can fit in one Tweet.
+我们将采用的有效修剪CNN的方法非常简单：排序-修剪-重新训练。首先，我们需要对滤波器的重要性进行**排序**，以筛选出幅值低，重要性低的滤波器。然后，我们会根据估计的重要性**修剪**掉其中一定比例的滤波器。最后，我们将使用与初始训练相同的学习率来对网络**重新训练**几个 epoch，以将权重微调到修剪后的新架构上。就是这样，它非常简单，甚至可以放入一条 Tweet 中。
 
-![The NN compression algorithm by Alex Renda](https://cdn-images-1.medium.com/max/2416/0*3zblyMx9iyG9u8FQ)
+![Alex Renda 提出的 NN 压缩方法](https://cdn-images-1.medium.com/max/2416/0*3zblyMx9iyG9u8FQ)
 
-1. **Rank: Identifying Filters to Prune**
+1. **排序：筛选出待修剪的滤波器**
 
-There is no consensus on how to rank weights according to how much they contribute to the output performance of the network. A perfect strategy would be to prune each weight individually and compute the performance of the model without the weight. This method is called oracle pruning, but with several millions (sometimes billions) of weights in a network, it is a very expensive strategy to say the least.
+关于如何根据权重对网络输出性能的贡献程度进行排名，尚无共识。理想的策略是分别修剪每个权重并计算没有该权重的模型的性能。这种方法被称为 oracle 剪枝，但是由于网络一般具有数百万（有时数十亿）的权重，可以说这种策略至少非常昂贵。
 
-Other proxies to rank weights involve computing their norm (L1 or L2) or computing the mean, standard deviation or percentage of 0 activation values over a batch of input data.
+其他对权重进行排序的方法包括计算其范数（L1 或 L2）或计算一批输入数据上的均值，标准差或 0 激活值的百分比。
 
-For this experiment, we’ll use both **L1 norm** and **Average Percentage of Zero (APoZ) Activations** of the convolutional filters to rank them by importance.
+在本实验中，我们将同时使用卷积过滤器的 **L1 范数**和**平均零激活百分比（APoZ）**来对重要性进行排名。
 
-Since we’re going to use L1 norm to compare filters with different sizes, we’ll have to use a normalized L1 norm:
+由于我们将使用 L1 范数来比较大小不同的滤波器，因此我们必须使用归一化的 L1 范数：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*oYZbmKC0v67e5TiT)
 
-The code below computes L1 norm of the convolutional filters in a Keras model and outputs a matrix of dimension Nb_of_layers x Nb_of_filters.
+下面的代码计算 Keras 模型中卷积滤波器的 L1 范数，并输出尺寸为 Nb_of_layers x Nb_of_filters 的矩阵。
 
 ```Python
 import tensorflow as tf
@@ -90,7 +90,7 @@ import numpy as np
 import math
   
 def get_filter_weights(model, layer=None):
-    """function to return weights array for one or all conv layers of a Keras model"""
+    """用于返回 Keras 模型中一个或者所有卷积层的权重的函数"""
     if layer or layer==0:
         weight_array = model.layers[layer].get_weights()[0]
         
@@ -102,8 +102,7 @@ def get_filter_weights(model, layer=None):
     return weight_array
 
 def get_filters_l1(model, layer=None):
-    """Returns L1 norm of a Keras model filters at a given conv layer, if layer=None, returns a matrix of norms
-model is a Keras model"""
+    """返回 Keras 模型中指定卷积层中滤波器的 L1 范数，如果 layer=None，返回 APoZ 矩阵"""
     if layer or layer==0:
         weights = get_filter_weights(model, layer)
         num_filter = len(weights[0,0,0,:])
@@ -118,28 +117,28 @@ model is a Keras model"""
         norms = np.empty((len(weights), max_kernels))
         norms[:] = np.NaN
         for layer_ix in range(len(weights)):
-            # compute norm of the filters
+            # 计算滤波器的范数
             kernel_size = weights[layer_ix][:,:,:,0].size
             nb_filters = weights[layer_ix].shape[3]
             kernels = weights[layer_ix]
             l1 = [np.sum(abs(kernels[:,:,:,i])) for i in range(nb_filters)]
-            # divide by shape of the filters
+            # 除以滤波器的形状
             l1 = np.array(l1) / kernel_size
             norms[layer_ix, :nb_filters] = l1
     return norms
 ```
 
-The second option you can try is to compute the APoZ activations. The intuition is that if a filter is rarely activated over a batch of random input images, it doesn’t contribute much to the output predictions of the model. Note that this metric makes a lot of sense if the activation functions used in the convolutional layers zero out a lot of values. This is the case for ReLU but when using other functions like Leaky ReLU, the APoZ criteria might not be as relevant.
+您可以尝试的第二个选项是计算 APoZ 激活。直觉是，如果一个滤波器几乎没有被一批随机输入图像激活，那么它对模型的输出的贡献就不会很大。请注意，如果卷积层中使用的激活函数将很多值归零，则此度量方法很有意义。对于 ReLU 就是这种情况，但是当使用 Leaky ReLU 之类的其他激活函数时，APoZ 标准可能不那么相关。
 
-To compute APoZ per filter, we’ll have to select a subset of the dataset, score it with our CNN, and compute each filter’s average percentage of activation values equal to 0. The filters we will prune are the ones with the biggest percentage of zero activations.
+要计算每个滤波器的 APoZ，我们必须选择数据集的一个子集，用 CNN 对其评分，然后计算每个滤波器的值为零的激活值所占百分比的均值。我们要修剪的滤波器是零激活值平均百分比最大的。
 
 ![](https://cdn-images-1.medium.com/max/2912/0*lJEZuER30NWzlfmE)
 
-The following function does that for one convolutional layer:
+以下的代码为一个卷积层完成上述工作：
 
 ```Python
 def compute_apoz(model, layer_ix, nb_filters, generator):
-    """Compute Average percentage of zeros over a layer’s activation maps"""
+    """计算一层的激活值中零激活值得平均百分比"""
     act_layer = model.get_layer(index=layer_ix)
     node_index = 0
     temp_model = Model(model.inputs,
@@ -147,7 +146,7 @@ def compute_apoz(model, layer_ix, nb_filters, generator):
                         )
 
 
-    # count the percentage of zeros per activation
+    # 计算每个激活值零值的百分比
     a = temp_model.predict_generator(generator,944, workers=3, verbose=1)
     activations = a.reshape(a.shape[0]*a.shape[1]*a.shape[2],nb_filters).T
     apoz_layer = np.sum(activations == 0, axis=1) / activations.shape[1]
@@ -155,11 +154,11 @@ def compute_apoz(model, layer_ix, nb_filters, generator):
     return apoz_layer
 ```
 
-Generalizing that to all layers, again, we’re outputting a Nb_of_layers x Nb_of_filters matrix with an APoZ value for each individual filter in the network:
+将其推广到所有层，我们再次输出一个 Nb_of_layers x Nb_of_filters 矩阵，其中包含网络中每个滤波器的 APoZ 值：
 
 ```Python
 def get_filters_apoz(model, layer=None):
-    """Compute Average percentage of zeros over one or all conv layers activation maps, if layer=None, returns a matrix of APoZ"""
+    """计算一个或者所有卷积层激活值中零值得平均百分比，如果 layer=None，返回一个 APoZ 矩阵"""
     test_generator = ImageDataGenerator(rescale=1./255, validation_split=0.1)
     apoz_dir = "/home/ec2-user/experiments/data/imagenette2-320/train"
 
@@ -186,11 +185,11 @@ def get_filters_apoz(model, layer=None):
         activations_indexes = [i for i,v in enumerate(model.layers) if 'activation' \
                        in v.name and 'conv' in model.layers[i-1].name]
 
-        # create nd array to collect values
+        # 创建一个 n 维的 array 来存储数据
         apoz = np.zeros((len(weights_array), max_kernels))
 
         for i, act_ix in enumerate(activations_indexes):
-            # score this sample with our model (trimmed to the layer of interest)
+            # 用我们的模型对该样本评分（修剪到感兴趣的图层）
             nb_filters = weights_array[i].shape[3]
             apoz_layer = compute_apoz(model, act_ix, nb_filters, apoz_generator)
             apoz[i, :nb_filters] = apoz_layer
