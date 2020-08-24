@@ -25,7 +25,7 @@ Chrome 团队正在尝试通过在 Chrome 浏览器中提供实验性的 [形状
 
 #### 条码检测
 
-* Web 应用可能在各种各样的场景中使用条码，包括在线支付，甚至可以在社交应用中用于用户间的建联。
+* Web 应用可能在各种各样的场景中使用条码，包括在线支付，甚至可以应用在社交软件中建立用户间的联系。
 * 机场可以提供自助服务终端，这些自助服务终端可以使用网络摄像头轻松地扫描乘客的登机牌。
 * 只需通过商店的 Web 应用扫描条码，即可获得产品的更多详细信息。
 * 随着 PWA（Progressive Web App）的兴起，这些新特性最终将使它们能够用于上述的使用场景中。
@@ -52,7 +52,7 @@ Chrome 团队正在尝试通过在 Chrome 浏览器中提供实验性的 [形状
 
 ## 来让我们一探究竟
 
-`FaceDetector`、`BarcodeDetector` 和 `TextDetector` 这三个检测器的接口类似。它们都提供一个名为 `detect()` 的异步方法，该方法以一个 `ImageBitmapSource` 作为输入（即 `CanvasImageSource`、`Blob` 或 `ImageData` ）。
+`FaceDetector`、`BarcodeDetector` 和 `TextDetector` 这三个检测器的接口类似。它们都提供一个名为 `detect()` 的异步方法，该方法以一个 `ImageBitmapSource` 作为输入（即 `CanvasImageSource`、`Blob` 或 `ImageData`）。
 
 此外，可以将可选参数传到 `FaceDetector` 和 `BarcodeDetector` 中，以获得自定义程度更高的检测。
 
@@ -66,7 +66,7 @@ Chrome 团队正在尝试通过在 Chrome 浏览器中提供实验性的 [形状
 
 ## 人脸检测
 
-您可以向 `FaceDetector` 构造函数提供可选参数，例如 `maxDetectedFaces` 和 `fastMode`。 `maxDetectedFaces` 属性指定要检测的最大面孔数量（有限制），而 `fastMode` 属性则指定是否优先考虑速度而不是准确性。
+您可以向 `FaceDetector` 构造函数提供可选参数，例如 `maxDetectedFaces` 和 `fastMode`。`maxDetectedFaces` 属性指定要检测的最大面孔数量（有限制），而 `fastMode` 属性则指定是否优先考虑速度而不是准确性。
 
 该 API 始终返回图像中检测到的面部的边界框。根据平台的不同，可能会提供有关眼睛，鼻子或嘴等面部标志的更多信息。
 
@@ -143,7 +143,7 @@ function readBarcode() {
 
 ## 文本检测
 
-> 注意：`TextDetector` 不是通用的。 尽管这是一个有趣的领域，但该功能仍不够稳定。根据文档，“目前，它在任何计算平台或字符集上都不够稳定，无法标准化，这就是为什么文本检测已移至单独的 [信息规范](https://wicg.github.io/shape-detection-api/text.html) ”。
+> 注意：`TextDetector` 不是通用的。尽管这是一个有趣的领域，但该功能仍不够稳定。根据文档，“目前，它在任何计算平台或字符集上都不够稳定，无法标准化，这就是为什么文本检测已移至单独的 [信息规范](https://wicg.github.io/shape-detection-api/text.html) ”。
 
 `TextDetector` API 会始终返回检测到的文本的边界框，并且在某些平台上会返回识别出的字符。
 
