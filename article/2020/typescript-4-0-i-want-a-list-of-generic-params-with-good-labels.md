@@ -13,7 +13,7 @@
 
 ## 具有未知参数的泛型接口
 
-这是一个人为的例子。`IQuery`，它旨在描述查询事物的函数的形状。它总是返回一个 Promise 并且使用一个 [泛型](https://www.typescriptlang.org/docs/handbook/generics.html) 来描述这个 Promise 发出的的内容 （`TReturn`）。该接口对于没有参数或者未知数量的参数（UParams extends any[] = []）的场景也足够灵活。
+这是一个人为的例子。`IQuery`，它旨在描述查询事物的函数的形状。它总是返回一个 Promise 并且使用一个 [泛型](https://www.typescriptlang.org/docs/handbook/generics.html) 来描述这个 Promise 发出的的内容 （`TReturn`）。该接口对于没有参数或者未知数量的参数（`UParams extends any[] = []`）的场景也足够灵活。
 
 ```ts
 interface IQuery<TReturn, UParams extends any[] = []> {
