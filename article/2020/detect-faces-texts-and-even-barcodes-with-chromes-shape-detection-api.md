@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/detect-faces-texts-and-even-barcodes-with-chromes-shape-detection-api.md](https://github.com/xitu/gold-miner/blob/master/article/2020/detect-faces-texts-and-even-barcodes-with-chromes-shape-detection-api.md)
 > * 译者：[rocwong-cn](https://github.com/rocwong-cn)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)、[Chorer](https://github.com/Chorer)
 
 # 使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码
 
@@ -11,9 +11,9 @@
 
 ## 初步介绍
 
-作为一名 Web 开发人员，我们会有很多场景需要安装外部库来处理，诸如人脸、文本和条形码之类的元素的检测。 这是因为没有 Web 标准 API 供开发人员使用。
+作为一名 Web 开发人员，我们会有很多场景需要安装外部库来处理，诸如人脸、文本和条形码之类的元素的检测。这是因为没有 Web 标准 API 供开发人员使用。
 
-Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的 [形状检测API（Shape Detection API）](https://web.dev/shape-detection/)并将其设为 web 标准来改善这种情况。
+Chrome 团队正在尝试通过在 Chrome 浏览器中提供实验性的 [形状检测 API（Shape Detection API）](https://web.dev/shape-detection/)并将其设为 Web 标准来改善这种情况。
 
 ---
 
@@ -27,34 +27,34 @@ Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的 [形状
 
 * Web 应用可能在各种各样的场景中使用条码，包括在线支付，甚至可以在社交应用中用于用户间的建联。
 * 机场可以提供自助服务终端，这些自助服务终端可以使用网络摄像头轻松地扫描乘客的登机牌。
-* 只需通过商店的 web 应用扫描条形码，即可获得产品的更多详细信息。
-* 随着 PWA（Progressive Web App） 的兴起，这些新特性最终将使它们能够用于上述的使用场景中。
+* 只需通过商店的 Web 应用扫描条码，即可获得产品的更多详细信息。
+* 随着 PWA（Progressive Web App）的兴起，这些新特性最终将使它们能够用于上述的使用场景中。
 
 ![Photo by [Simon Bak](https://unsplash.com/@simon_bak?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*XpBiW2yV0QShFeT3)
 
 #### 人脸检测
 
-* 通过检测用户是否在设备前面来提供交互式多媒体播放。（用户移开时自动暂停视频）
+* 通过检测用户是否在设备前面来提供交互式多媒体播放。（用户视线移开时自动暂停视频）
 * 使用人脸检测功能自动裁剪和调整图像大小。
 * 允许标记个人的面孔 —— 类似于在 Facebook 等网站上找到的面孔。
 * 产品模型在面部特征上的实时叠加 —— 虚拟试戴产品，例如太阳镜，眼镜等。
-* 应用类似于 Snapchat 之类的实时滤镜。
+* 应用类似于 Snapchat 之类的自拍实时滤镜。
 
 ![Photo by [Aditya Ali](https://unsplash.com/@aditya_ali?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*fMdy36i2XzHSyqkC)
 
 #### 文本检测
 
-* 将图像翻译为文字，例如餐厅菜单，简历或者甚至语言翻译（英语到外语）以及数字检测。
+* 将图像翻译为文字，例如餐厅菜单，简历或者甚至语言翻译（英语翻译为其它语言）以及数字检测。
 * 动态地为 `<img>` 标签提供由文本组成的 `alt` 属性。
-* 图像转文字，文字再转语音。（译者注：此处原文中的 `of` 是否应为 `to` ? 表达图像转文字后的进一步处理。）
+* 图像转文字，文字再转语音。
 
 ![Photo by [Jason Leung](https://unsplash.com/@ninjason?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*rlAeIQ_f994PC7ca)
 
 ## 来让我们一探究竟
 
-`FaceDetector`、`BarcodeDetector` 和 `TextDetector` 这三个检测器的接口类似。它们都提供一个名为 `detect()` 的异步方法，该方法以一个 `ImageBitmapSource` 作为输入（即，`CanvasImageSource`，`Blob` 或 `ImageData` ）。
+`FaceDetector`、`BarcodeDetector` 和 `TextDetector` 这三个检测器的接口类似。它们都提供一个名为 `detect()` 的异步方法，该方法以一个 `ImageBitmapSource` 作为输入（即 `CanvasImageSource`、`Blob` 或 `ImageData` ）。
 
-此外，可以将可选参数传到 `FaceDetector` 和 `BarcodeDetector` 中，以获得更自定义的检测。
+此外，可以将可选参数传到 `FaceDetector` 和 `BarcodeDetector` 中，以获得自定义程度更高的检测。
 
 **注意：目前，这些功能取决于平台。 尽管启用 #enable-experimental-web-platform-features 标志后即可访问这三个 JavaScript 接口，但仍不能保证您的平台支持这些 API。 正如我之前所说，这仍在开发中。**
 
@@ -70,7 +70,7 @@ Chrome 小组正在尝试通过在 Chrome 浏览器中提供实验性的 [形状
 
 该 API 始终返回图像中检测到的面部的边界框。根据平台的不同，可能会提供有关眼睛，鼻子或嘴等面部标志的更多信息。
 
-> 注意：此API用于**人脸检测**，而不是人脸识别。您可以在“**人脸检测**”中检测到是否存在人脸，如果存在，则可以检测其面部特征的位置，例如嘴，眼，鼻子等。但是在“**面部识别**”中，您能够区分两个面孔。到目前为止，此 API 尚未提供该功能。
+> 注意：此 API 用于**人脸检测**，而不是人脸识别。您可以在“**人脸检测**”中检测到是否存在人脸，如果存在，则可以检测其面部特征的位置，例如嘴，眼，鼻子等。但是在“**面部识别**”中，您能够区分两个面孔。到目前为止，此 API 尚未提供该功能。
 
 ```js
 async function detectFace(image) {
@@ -143,7 +143,7 @@ function readBarcode() {
 
 ## 文本检测
 
-> 注意：`TextDetector` 不是通用的。 尽管这是一个有趣的领域，但仍认为此功能不够稳定。根据文档，“目前，它在任何计算平台或字符集上都不够稳定，无法标准化，这就是为什么文本检测已移至单独的 [信息规范](https://wicg.github.io/shape-detection-api/text.html) ”。
+> 注意：`TextDetector` 不是通用的。 尽管这是一个有趣的领域，但该功能仍不够稳定。根据文档，“目前，它在任何计算平台或字符集上都不够稳定，无法标准化，这就是为什么文本检测已移至单独的 [信息规范](https://wicg.github.io/shape-detection-api/text.html) ”。
 
 `TextDetector` API 会始终返回检测到的文本的边界框，并且在某些平台上会返回识别出的字符。
 
@@ -168,22 +168,22 @@ function readText() {
 
 ## 结论
 
-以上 API 的应用不胜枚举。由于它们仍处于实验阶段，因此您可以与他们一起玩耍，并更好地了解它们。
+以上 API 的应用不胜枚举。由于它们仍处于实验阶段，因此您可以随便折腾，以更好地了解它们。
 
-要简单地确定您的设备是否支持这些API，只需启用文章中提到的标志，然后访问团队提供的 [demo](https://shape-detection-demo.glitch.me/) 。如果您的平台不提供某功能，则会提醒您。您也可以在 [此处](https://glitch.com/edit/#!/shape-detection-demo?path=index.html%3A3%3A8) 查看 demo 的源代码。
+要简单地确定您的设备是否支持这些 API，只需启用文章中提到的标志，然后访问团队提供的 [demo](https://shape-detection-demo.glitch.me/) 。如果您的平台不提供某功能，则会提醒您。您也可以在 [此处](https://glitch.com/edit/#!/shape-detection-demo?path=index.html%3A3%3A8) 查看 demo 的源代码。
 
-如果您打算在您的网站上使用该 API，可以联系 Chrome 小组并告知他们。这将有助于他们确定功能的优先级，并显示其他支持这些 API 的浏览器厂商至关重要。
+如果您打算在您的网站上使用该 API，可以联系 Chrome 团队并告知他们。这将有助于他们确定功能的优先级，同时也向其他浏览器厂商展示支持这些 API 的重要性。
 
-根据团队的说法，您可以按以下方式与他们联系。
+根据团队的说法，您可以通过以下方式与他们联系。
 
-* 在 [WICG讨论主题](https://discourse.wicg.io/t/rfc-proposal-for-face-detection-api/1642/3) 上分享您打算如何使用它
-* 使用 `#shapedetection` 将推文发送到 [@ChromiumDev](https://twitter.com/chromiumdev)，并告诉我们您在哪里以及如何使用它。
+* 在 [WICG 讨论主题](https://discourse.wicg.io/t/rfc-proposal-for-face-detection-api/1642/3) 上分享您打算如何使用它
+* 发送一条带 `#shapedetection` 标签的推特给 [@ChromiumDev](https://twitter.com/chromiumdev)，并告诉我们您是在哪种场景、以何种方式使用它的。
 
 希望您从本文中学到了新东西。您可以浏览下面附带的资源以获取更多信息。
 
 感谢您的阅读，编码愉快！
 
-**资源**
+**参考资料**
 
 - [Chrome Shape Detection API](https://web.dev/shape-detection/)
 - [W3C Drafts](https://wicg.github.io/shape-detection-api/)
