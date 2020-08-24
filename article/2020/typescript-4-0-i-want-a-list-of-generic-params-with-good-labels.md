@@ -7,7 +7,7 @@
 
 # TypeScript 4.0 终于发布了我一直在等待的东西
 
-昨天，微软官宣了 [TypeScript 4.0 的候选版本](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-rc)。然后随之而来的[「具标签的元组元素（Labeled Tuple Elements）」](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-rc/#labeled-tuple-elements)，就成为了这篇文章标题的答案。
+昨天，微软官宣了 [TypeScript 4.0 的候选版本](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-rc)。然后随之而来的[具标签的元组元素（Labeled Tuple Elements）](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-rc/#labeled-tuple-elements)，就成为了这篇文章标题的答案。
 
 ![具有有用标签的参数和具有无用标签的参数](https://cdn-images-1.medium.com/max/2148/1*G00zmJivkNGN1L6fDo9vnQ.png)
 
