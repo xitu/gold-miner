@@ -7,7 +7,7 @@
 
 # 交互式 WebGL 悬停效果
 
-> 这是一篇介绍如何通过一些简单的步骤，在图像上实现交互式鼠标悬停效果的教程。
+> 本文主要内容是介绍如何通过一些简单的步骤，在图像上实现交互式鼠标悬停效果。
 
 [查看 Demo](https://tympanus.net/Tutorials/webgl-mouseover-effects/step3.html) \& [下载源码](https://github.com/akella/webgl-mouseover-effects/archive/master.zip)
 
@@ -15,7 +15,7 @@
 
 ![](https://user-images.githubusercontent.com/5164225/90354320-8d090800-e07b-11ea-8a3c-6b35ea7de050.gif)
 
-让我们开始吧！让我们从这个简单的 HTML 开始：
+让我们开始吧！让我们从编写简单的 HTML 开始：
 
 ```html
 <div class="item">
@@ -26,7 +26,7 @@
 <script src="app.js"></script>
 ```
 
-再简单不过了！让我们对其添加样式以使其看起来更漂亮：
+这个例子再简单不过了！接下来，让我们来添加些样式，以使其它起来更漂亮：
 
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2020/04/webglhover.jpg)
 
