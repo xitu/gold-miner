@@ -2,14 +2,14 @@
 > * 原文作者：[Ellis Andrews](https://medium.com/@ellisandrews1)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/7-helpful-time-complexities.md](https://github.com/xitu/gold-miner/blob/master/article/2020/7-helpful-time-complexities.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# 7 Helpful Time Complexities
+# 7种有用的时间复杂度
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6C2DkLB3o2RjBbb0aCvKUQ.jpeg)
 
-As programmers, we’re often striving to write the most efficient code possible. But how do we know if the code we’ve written is efficient? The answer: Big O analysis. The goal of this article is to explain this concept in the simplest terms possible. I’ll start with an introduction to Big O, followed by examples of the seven most common cases you’re likely to come across. Feel free to skip to the second section if you’re already familiar with the concept but want a concrete refresher with real Python code!
+作为程序员，我们经常努力编写尽可能高效的代码。但是我们怎么知道我们编写的代码是否高效？答案：大O分析。本文的目的是用尽可能简单的术语来解释这个概念。我将首先介绍 Big O，然后举例说明您可能会遇到的七个最常见的情况。如果您已经熟悉这个概念，但是想要使用真实的 Python 代码进行具体的复习，请随时跳到第二部分！
 
 ## Explain it Like I’m 5: The Big O Edition
 
