@@ -11,23 +11,22 @@
 
 作为程序员，我们经常努力编写尽可能高效的代码。但是我们怎么知道我们编写的代码是否高效？答案：大O分析。本文的目的是用尽可能简单的术语来解释这个概念。我将首先介绍 Big O，然后举例说明您可能会遇到的七个最常见的情况。如果您已经熟悉这个概念，但是想要使用真实的 Python 代码进行具体的复习，请随时跳到第二部分！
 
-## Explain it Like I’m 5: The Big O Edition
-
+## 像我只有5岁一样给我解释：大O 版
 ![](https://cdn-images-1.medium.com/max/2000/1*34pO-qdgbiTPThB7lmV91Q.png)
 
-Put simply, “Big O” notation is how we talk about the efficiency of an algorithm. Specifically, it describes how the running time* of an algorithm changes as the algorithm’s input grows arbitrarily large. While this is a succinct definition, I don’t know a single five-year-old who would understand that statement, so let’s break it down further. Here are a few definitions:
+简而言之，“大O” 表示法是我们谈论算法效率的方法。具体来说，它描述了算法的运行时间如何随着算法输入的任意增加而改变。虽然这是一个简洁的定义，但我不认识任何一个能理解这个说法的五岁孩子，所以让我们进一步详细讲解。以下是一些定义：
 
-> **1. Algorithm** **—** A set of logical steps that acts on an input to produce an output.
+> **1. 算法** **—** 一组逻辑步骤，作用于输入以产生输出。
 
-In this article, I will conflate an **algorithm** with something a little more familiar: a **function**. Think about what most functions do that you’ve written. They take one or more arguments as input, perform a specified recipe of operations on those arguments, and then return a value as output. Don’t be scared by the fancy word, you’ve probably already written tons of algorithms! From here on out, when I say “algorithm” you can really think “function”.
+在本文中，我将“算法”与更熟悉的概念联系：“函数”。思考一下您编写的大多数函数的功能。它们将一个或多个参数作为输入，对这些参数执行指定的操作步骤，然后返回一个值作为输出。不要害怕这个花哨的词，您可能已经写了很多算法！从现在开始，当我说“算法”时，您真的可以直接联想到“函数”。
 
-> **2. Running Time** **—** The number of operations an algorithm has to perform.
+> **2. 运行时间** **—** 算法需要执行的操作数量。
 
-There are many factors that could affect how long an algorithm takes to run in seconds, minutes, hours, etc. on a given computer. So instead of focusing on the actual **time** that an algorithm takes to run, Big O frames the run time in terms of the **number of operations** performed. Fewer operations equal a shorter running time (more efficient), whereas more operations equal a longer running time (less efficient). Thus, we have a standard way of comparing algorithms.
+有许多因素可能会影响算法在给定计算机上运行时间，无论是以秒、分、时等单位进行统计。因此，大O 不再关注算法运行的实际“时间”，而是根据需要执行的“操作数”来定义运行时间。较少的操作等于较短的运行时间（效率更高），而较多的操作等于较长的运行时间（效率较低）。因此，我们有了比较算法的标准方法。
 
-> **3. Input Size —** The amount of data the algorithm is given to process.
+> **3. 输入规模 —** 算法所需要的处理的数据的数量。
 
-In Big O, we’re interested in how algorithms diverge in terms of performance as we give them more and more data to process. For example, you could probably write several fairly similarly optimized functions for finding the maximum value in a list of three random numbers. But what if the list instead contained 100 numbers? Or 1,000? 1,000,000? This is what we mean by the “input size growing arbitrarily large”, and is why Big O is sometimes called “asymptotic analysis”. In Big O, the size of the input is referred to as “**n**”.
+在 大O 中，我们对随着我们所给的输入数据越来越多时，算法在性能方面的差异感兴趣。例如，您可能编写了一些相当优化的相似函数，以在三个随机数的列表中查找最大值。但是，如果列表包含 100 个数字怎么办？1,000？ 1,000,000 呢？这就是我们所说的“输入大小任意增大”，也是为什么 大O 有时被称为“渐近分析”的原因。在 大O 中，输入的大小称为 “**n**”。
 
 In addition to running time, Big O can also be used to describe how much space (memory, disk, etc.) an algorithm uses relative to the input size. In this article, I will focus on time complexity.
 
