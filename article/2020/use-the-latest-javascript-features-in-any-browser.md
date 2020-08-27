@@ -220,7 +220,7 @@ var mySuperClassInstance = new mySuperClass("Rick");
 console.log(mySuperClassInstance.hello());
 ```
 
-**Conclusion**
+#### Conclusion
 
 JavaScript language is changing continuously, and thanks to these tools, we can write code with new syntax and new features not yet implemented by all browser versions.
 
