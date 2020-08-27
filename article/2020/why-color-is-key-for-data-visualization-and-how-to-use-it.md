@@ -11,9 +11,7 @@
 
 #### An illustrated guide to optimal color utilization
 
-**The objective of data visualization is to communicate hidden patterns uncovered during analysis. And while a visualization must look aesthetically appealing, its primary objective is not to ‘look pretty’.**
-
----
+The objective of data visualization is to communicate hidden patterns uncovered during analysis. And while a visualization must look aesthetically appealing, its primary objective is not to ‘look pretty’.
 
 > Use of color in visualisation should be to help disseminate key findings and not to chase some artistic endeavor
 
