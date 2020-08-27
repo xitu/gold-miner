@@ -63,7 +63,7 @@ Fig: Number of satellites in service of top 15 nations. \[made by author\]. [Sou
 
 Use of a separate colour for each of the 15 countries makes the chart on the left difficult to read, especially for countries with fewer satellites. The one on the right is much more readable at the cost of losing information on countries with fewer satellites, all of which is grouped in the “others” bin.
 
-**Note that we have used a categorical color scheme here as the data for each country is completely uncorrelated. The number of India satellites, for instance, is completely independent of those of say France.**
+Note that we have used a categorical color scheme here as the data for each country is completely uncorrelated. The number of India satellites, for instance, is completely independent of those of say France.
 
 #### Change in chart type can often reduce the need for colors
 
