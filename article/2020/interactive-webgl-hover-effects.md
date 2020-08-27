@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[jacob-lcs](https://github.com/jacob-lcs)、[whatwewant](https://github.com/whatwewant)、[rachelcdev](https://github.com/rachelcdev)
 
-# 交互式 WebGL 悬停效果
+# 如何实现交互式 WebGL 悬停效果
 
 > 本文主要内容是介绍如何通过一些简单的步骤，在图像上实现交互式鼠标悬停效果。
 
@@ -112,13 +112,13 @@ let customPass = new ShaderPass({vertexShader,fragmentShader});
 customPass.renderToScreen = true;
 composer.addPass(customPass);
 
-// 实际上使用我们的着色器过程渲染场景
+// 最后真正使用我们的着色器渲染场景
 composer.render()
 // 而不是以前的 render()
 // renderer.render(scene, camera);
 ```
 
-这里发生了很多事情，但这很简单：将着色器应用于整个屏幕。
+但整个过程用一句话概括就是，着色器被应用到了整个屏幕上。
 
 接下来，让我们完成具有炫酷效果的最终着色器：
 
@@ -139,7 +139,7 @@ color = vec4(r, g, b, 1.);
 
 屏幕具有不同尺寸，3D 图像也各自具有尺寸。因此，我们现在要做的是计算这两者之间的某种关系。
 
-就像我一样吗？在[上一篇文章](https://tympanus.net/codrops/2019/11/05/creative-webgl-image-transitions/)中，我们可以制作一个宽度为 1 的平面，并将其完全适配屏幕宽度。所以实际上，我们有 `WidthOfPlane=ScreenSize`。
+就像我一样吗？在[上一篇文章](https://tympanus.net/codrops/2019/11/05/creative-webgl-image-transitions/)中，我们可以制作一个宽度为 1 的平面，并将其完全适配屏幕宽度。所以实际上，我们使用了： `WidthOfPlane=ScreenSize`。
 
 对于我们的 Three.js 场景，这意味着如果要在屏幕上显示 100px 宽的图像，我们将创建一个 Three.js 对象，其宽度为 `100*(WidthOfPlane/ScreenSize)`。通过这种数学运算，我们还可以轻松设置一些边距和位置。
 
@@ -148,7 +148,7 @@ color = vec4(r, g, b, 1.);
 ```js
 let images = [...document.querySelectorAll('.js-image')];
 images.forEach(image=>{
-	// 现在，我们有了图像的宽度，高度和左侧最高位置
+	// 现在，我们有了图像的大小和左边、上边的位置
 	let dimensions = image.getBoundingClientRect();
 	// 隐藏原始图像
 	image.style.visibility = hidden;
@@ -159,7 +159,7 @@ images.forEach(image=>{
 
 现在，制作[这个](https://tympanus.net/Tutorials/webgl-mouseover-effects/step1.html)[HTML-3D混合结构](https://tympanus.net/Tutorials/webgl-mouseover-effects/step2.html)非常简单。
 
-我在这里添加的另一件事是 `mouseVelocity`，我用它来改变效果的半径，鼠标移动得越快，半径越大。
+关于 `mouseVelocity` 我想补充的是，我用它来改变效果的半径，鼠标移动得越快，半径越大。
 
 要使其可滚动，我们只需要移动整个场景即可，与滚动屏幕的数量相同。使用我之前提到的相同公式：`NumberOfPixels*(WidthOfPlane/ScreenSize)`。
 
