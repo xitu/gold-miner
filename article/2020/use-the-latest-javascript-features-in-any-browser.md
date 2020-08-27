@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# How to use the latest JavaScript features in any browser
-
-#### A practical introduction, from Polyfilling to Transpiling
+# How to use the latest JavaScript features in any browser - from Polyfilling to Transpiling
 
 ![Photo of Lukas in Pexels showing a keyboard and two closed fists](https://cdn-images-1.medium.com/max/9856/1*gTFV4inx3uD5192A9EiGwA.jpeg)
 
@@ -27,7 +25,7 @@ Let’s imagine that we are using an old browser that not support the Number.isN
 
 To achieve this, we are going to create a function that simulates the isNaN feature behavior and adds it to the Number prototype property.
 
-```
+```js
 //Simulates the isNaN feature
 if (!Number.isNan) {//not already available.
     Number.prototype.isNaN = function isNaN(n) {
@@ -41,7 +39,7 @@ console.log(myNumber.isNaN(100));
 
 Now, we are going to transpile the code for a newly invented feature in which we are going to imagine that most browsers cannot execute it, and in this case, we can’t create a polyfill to emulate the behavior. We want to run the following code on internet explorer 11, so we are going to transform it with a transpiler:
 
-```
+```js
 class mySuperClass {
   constructor(name) {
     this.name = name;
@@ -59,7 +57,7 @@ console.log(mySuperClassInstance.hello());
 
 The resulting code has been transpiled with **[Babel online transpiler](https://babeljs.io/en/repl),** and now, ****we can execute it on internet explorer 11:
 
-```
+```js
 "use strict";
 
 function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return !!right[Symbol.hasInstance](left); } else { return left instanceof right; } }
@@ -97,18 +95,18 @@ Babel has become a standard for compiling ECMAScript applications into a version
 
 In the next steps where are going to see how to use Babel to transpile and execute the previous “mySuperMethod” class in a Linux machine with an old Nodejs installed. In other operating systems like Windows 10 or macOS, In the next steps where are going to see how to use Babel to transpile and execute the previous “mySuperMethod” class in a Linux machine with an old Nodejs installed. In other operating systems like Windows 10 or macOS, the steps to follow are similar.
 
-Note: **You need to have [Node.js ](https://nodejs.org/en/)installed in your machine. N**pm is added as a feature in Node.js installer
+> Note: You need to have [Node.js](https://nodejs.org/en/) installed in your machine. Npm is added as a feature in Node.js installer.
 
 1. Open a command line, and create a directory called babelExample:
 
-```
+```bash
 /mkdir babelExample
 /cd babelExample
 ```
 
 2. Create an [npm](https://www.npmjs.com/) project and leave the default values. The following command will create a file called package.json:
 
-```
+```bash
 npm init
 ```
 
@@ -116,7 +114,7 @@ npm init
 
 Here “index.js” (can be another) is the entry point to our application. Here we are going to put our javascript code, therefore create an index.js file a put the following code:
 
-```
+```js
 class mySuperClass {
   constructor(name) {
     this.name = name;
@@ -134,7 +132,7 @@ console.log(mySuperClassInstance.hello());
 
 3. While we can install Babel CLI globally, it’s better to do it locally project by project. The next command will add the node_modules directory and modify the package.json file to add Babel’s dependencies:
 
-```
+```bash
 npm install -save-dev @babel/core @babel/cli
 ```
 
@@ -142,11 +140,11 @@ npm install -save-dev @babel/core @babel/cli
 
 4. Add a .babelrc config file into your project root folder and enable the plugins for ES2015+transforms.
 
-Note: **In Babel, each transformer is a plugin that we can install individually. Each preset is a collection of related plugins. Using a** preset**, we don’t have to install and update dozens of plugins independently.**
+> Note: In Babel, each transformer is a plugin that we can install individually. Each preset is a collection of related plugins. Using a **preset**, we don’t have to install and update dozens of plugins independently.**
 
 Install the preset for all ES6 features(contains a group of plugins):
 
-```
+```bash
 npm install @babel/preset-env --save-dev
 ```
 
@@ -156,7 +154,7 @@ Edit your .babelrc file and add the following configuration, which enables trans
 
 .babelrc file:
 
-```
+```json
 {
   "presets": ["@babel/preset-env"]
 }
@@ -164,20 +162,20 @@ Edit your .babelrc file and add the following configuration, which enables trans
 
 5. Usage
 
-Note: **If you are using Windows 10 PowerShell, be careful about encoding your files because you may get parsing errors when running Babel. It is advisable that the encoding of the files is UTF-8.**
+> Note: If you are using Windows 10 PowerShell, be careful about encoding your files because you may get parsing errors when running Babel. It is advisable that the encoding of the files is UTF-8.
 
 * in: index.js
 * out: the out folder (Here Babel will leave the transpiled files)
 
 Directly, executing the next command in your console:
 
-```
+```bash
 ./node_modules/.bin/babel index.js -d out
 ```
 
 With an npm script adding the following line to your package.json file:
 
-```
+```bash
 "build": "babel index.js -d out"
 ```
 
@@ -185,13 +183,13 @@ With an npm script adding the following line to your package.json file:
 
 Execute the following command:
 
-```
+```bash
 npm run build
 ```
 
 In both cases, you obtain in the /out folder the file(or files) transpiled ready to work in browsers that not support the ES6 Class syntax:
 
-```
+```js
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
