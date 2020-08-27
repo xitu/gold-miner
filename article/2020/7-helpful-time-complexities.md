@@ -28,27 +28,28 @@
 
 在 大O 中，我们对随着我们所给的输入数据越来越多时，算法在性能方面的差异感兴趣。例如，您可能编写了一些相当优化的相似函数，以在三个随机数的列表中查找最大值。但是，如果列表包含 100 个数字怎么办？1,000？ 1,000,000 呢？这就是我们所说的“输入大小任意增大”，也是为什么 大O 有时被称为“渐近分析”的原因。在 大O 中，输入的大小称为 “**n**”。
 
-In addition to running time, Big O can also be used to describe how much space (memory, disk, etc.) an algorithm uses relative to the input size. In this article, I will focus on time complexity.
+除了运行时间外，大O 还可以用于描述算法相对于输入大小的空间（内存，磁盘等）消耗。在本文中，我将聚焦于介绍时间复杂度。
 
 #### How to Read and Write Big O
 
-Now that we understand what Big O helps us do, what does it look like? Well, it’s written with a capital “O” followed by a mathematical expression in terms of “n” (the size of the input) in parentheses. Here are the seven examples that you will most frequently encounter, ranked from most efficient to least efficient.
+既然我们了解了 大O 是帮助我们做什么的，那么它看起来像什么呢？好吧，它的写法是大写的 “O”，后面带一个括起来的 “n” （表示输入大小）表示的数学表达式。这是您最常遇到的七个示例，从最高效到最低效排序。
 
-1. **O(1) —** Constant
-2. **O(log n) —** Logarithmic
-3. **O(n) —** Linear
-4. **O(n log n) —** Log-linear
-5. **O(nᵏ) —** Polynomial
-6. **O(kⁿ) —** Exponential
-7. **O(n!) —** Factorial
+1. **O(1) —** 常量
+2. **O(log n) —** 对数型
+3. **O(n) —** 线性
+4. **O(n log n) —** 对数线性
+5. **O(nᵏ) —** 多项式型
+6. **O(kⁿ) —** 指数型
+7. **O(n!) —** 阶乘型
 
-Below is a graph plotting the number of operations (the running time) against the size of the input for an algorithm with each complexity.
+下图是针对每种复杂度的算法，将操作数量（运行时间）与输入大小作图的图表。
 
 ![Source: [https://www.bigocheatsheet.com/](https://www.bigocheatsheet.com/)](https://cdn-images-1.medium.com/max/3412/1*PpKIWUPNwB0a4kJvywCgqA.png)
 
-You can see that, as the size of the input increases, the running time of the algorithms in the red shaded area increases drastically. On the other hand, the performance of the algorithms in the yellow and green shaded areas is much less dependent upon the size of the input and is, therefore, more efficient and scalable.
 
-As a final point of clarification, Big O analysis is usually used to describe the **dominant trend** of an algorithm as the input gets very large. Thus, insignificant terms can be dropped if they are overpowered by more significant terms. For instance, an algorithm with a computed time complexity **O(n² + n)** would simply be referred to as **O(n²)** due to the fact that as **n** grows very large, the effect of the **n²** term greatly outstrips that of the **n** term.
+您会看到，随着输入大小的增加，红色阴影区域中算法的运行时间急剧增加。另一方面，在黄色和绿色阴影区域中算法的性能几乎不依赖于输入的大小，因此更加有效和可推广。
+
+最后需要指明的一点，大O法通常用于描述当输入变得非常大时算法的“主要趋势”。因此，如果无关紧要的子项被更重要的子项所压制，则可以将其删除。例如，计算时间复杂度为 **O（n²+ n）**的算法将被简化为 **O（n²）**，原因是随着** n **变得非常大， **n²** 项的效果大大超过了** n **项的效果。
 
 ## Examples
 
