@@ -5,17 +5,9 @@
 > * 译者：
 > * 校对者：
 
-# Why Color Is Key for Data Visualization and How to Use It
+# Why Color Is Key for Data Visualization and How to Use It - Data Analysis & Applied Color Theory
 
-![](https://cdn-images-1.medium.com/max/3840/1*GMaZPipSy2qQKHcSzOvPxQ.jpeg)
-
-![](https://cdn-images-1.medium.com/max/3840/1*I0l9ZJ0B34CBZ80WQO1h-g.jpeg)
-
-![[source](https://unsplash.com)](https://cdn-images-1.medium.com/max/3840/1*VHsz6QtBo7P3FSTCYt2uPg.jpeg)
-
-#### DATA ANALYSIS + APPLIED COLOR THEORY
-
-## Why Color Is Key for Data Visualization and How to Use It
+![image](https://user-images.githubusercontent.com/5164225/91420085-bea57e80-e886-11ea-9bd5-f291b8da6711.png)
 
 #### An illustrated guide to optimal color utilization
 
@@ -23,13 +15,15 @@
 
 ---
 
-> # Use of color in visualisation should be to help disseminate key findings and not to chase some artistic endeavor
+> Use of color in visualisation should be to help disseminate key findings and not to chase some artistic endeavor
 
 #### More is not better when it comes to color
 
 Use of color must be carefully strategized to communicate key findings and this decision, therefore, cannot be left for automated algorithms to make. **Most data should be in neutral colors like grey with bright colors reserved for directing attention to significant or atypical data points.**
 
-![Sales in million USD from 1991–1996. Red colour is used to draw attention to unusually low sales in 1995. Nearly uniform sales in other years are all rendered in grey. [made by author]](https://cdn-images-1.medium.com/max/2000/1*k67hW4R2Pb6NWdFgXJ5wFg.png)
+![](https://cdn-images-1.medium.com/max/2000/1*k67hW4R2Pb6NWdFgXJ5wFg.png)
+
+Fig: Sales in million USD from 1991–1996. Red colour is used to draw attention to unusually low sales in 1995. Nearly uniform sales in other years are all rendered in grey. \[made by author\]
 
 #### Colour can help to group related data points
 
@@ -37,15 +31,17 @@ Color can be used to group data points of similar value and to render the extent
 
 ![[made by author]](https://cdn-images-1.medium.com/max/2000/1*dhyh0FhGdRKBtQYuNXYFig.png)
 
-**A** sequential color palettes **is composed of varying intensities of a single hue of color at uniform saturation. Variability in luminance of adjacent colors corresponds to the variation in data values that they are used to render.**
+A **sequential color palettes** is composed of varying intensities of a single hue of color at uniform saturation. Variability in luminance of adjacent colors corresponds to the variation in data values that they are used to render.
 
 ![[made by author]](https://cdn-images-1.medium.com/max/2000/1*Rps6Rqc2LbFZyhW1YIyHLw.png)
 
-**A** divergent color palettes **is made of two sequential color palettes (each of a different hue) stacked next to each other with an inflection point in the middle. These become helpful when visualizing data with variations in two different directions.**
+A **divergent color palettes** is made of two sequential color palettes (each of a different hue) stacked next to each other with an inflection point in the middle. These become helpful when visualizing data with variations in two different directions.
 
 The chart below on the left uses a sequential color palette made of a single hue **(green)** for values ranging from -0.25 to +0.25 while chart on the right uses a divergent color scheme with different hues for positive **(blue)** and negative **(red)** values.
 
-![Percentage change in population in the USA from 2010–2019. The divergent color scheme made of two hues (red and blue) with an inflection point at zero is more suitable than a sequential color scheme. [made by author]. [Source of data](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html).](https://cdn-images-1.medium.com/max/2620/1*ypk58BjbbjxuB0VUslVyKw.png)
+![](https://cdn-images-1.medium.com/max/2620/1*ypk58BjbbjxuB0VUslVyKw.png)
+
+Fig: Percentage change in population in the USA from 2010–2019. The divergent color scheme made of two hues (red and blue) with an inflection point at zero is more suitable than a sequential color scheme. \[made by author\]. [Source of data](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html).
 
 In the map on the right, positive and negative values can be identified immediately based on color alone. We can immediately conclude that the population of mid-western and southern towns had declined and that in the east and west coast has increased. **This key insight into the data is not immediately obvious in the chart on the left where not color itself, but the intensity of color green must be used to read the map.**
 
@@ -53,15 +49,17 @@ In the map on the right, positive and negative values can be identified immediat
 
 ![[made by author]](https://cdn-images-1.medium.com/max/2000/1*16lnKOqQDF2nWfRhEzLkhg.png)
 
-****Categorical color palettes** are derived from colors of different hues but uniform saturation and intensity and can be used to visualize unrelated data points of completely dissimilar origin or unrelated values. Check out [this ](http://archive.nytimes.com/www.nytimes.com/interactive/2011/01/23/nyregion/20110123-nyc-ethnic-neighborhoods-map.html?_r=0)visualisation of different ethnicities in New York City. There is no correlation between the data for different ethnicities and a categorical palette is therefore used here.**
+**Categorical color palettes** are derived from colors of different hues but uniform saturation and intensity and can be used to visualize unrelated data points of completely dissimilar origin or unrelated values. Check out [this](http://archive.nytimes.com/www.nytimes.com/interactive/2011/01/23/nyregion/20110123-nyc-ethnic-neighborhoods-map.html?_r=0) visualisation of different ethnicities in New York City. There is no correlation between the data for different ethnicities and a categorical palette is therefore used here.
 
-> # Sequential and divergent color palettes should be used to render changes in magnitude by encoding qualitative values while categorical color palettes should be used to render unrelated data categories by encoding quantative values.
+> Sequential and divergent color palettes should be used to render changes in magnitude by encoding qualitative values while categorical color palettes should be used to render unrelated data categories by encoding quantative values.
 
 #### Categorical colors have only a few easily discernible bins
 
 While the use of different colors can help distinguish between different data points, a chart should at most comprise of 6–8 distinct color categories for each of those to be readily distinguishable.
 
-![Number of satellites in service of top 15 nations. [made by author]. [Source of data](https://www.n2yo.com/satellites/?c=&t=country)](https://cdn-images-1.medium.com/max/2482/1*WTKqzvNWimO5Hxe-HZJiZw.png)
+![](https://cdn-images-1.medium.com/max/2482/1*WTKqzvNWimO5Hxe-HZJiZw.png)
+
+Fig: Number of satellites in service of top 15 nations. \[made by author\]. [Source of data](https://www.n2yo.com/satellites/?c=&t=country)
 
 Use of a separate colour for each of the 15 countries makes the chart on the left difficult to read, especially for countries with fewer satellites. The one on the right is much more readable at the cost of losing information on countries with fewer satellites, all of which is grouped in the “others” bin.
 
@@ -71,9 +69,11 @@ Use of a separate colour for each of the 15 countries makes the chart on the lef
 
 A pie chart probably is not the best option in the previous example. The resulting loss of categories may not always be acceptable. Plotting a bar chart instead, we can use a single color and retain all 15 data categories.
 
-![Number of satellites in service of top 15 nations. [made by author]. [Source of data](https://www.n2yo.com/satellites/?c=&t=country)](https://cdn-images-1.medium.com/max/2000/1*3dvxxps_iDNeTuZICwyd4g.png)
+![](https://cdn-images-1.medium.com/max/2000/1*3dvxxps_iDNeTuZICwyd4g.png)
 
-> # If there is a need for more than 6–8 different colours (hues) in a visualization, either merge some of the categories or explore other charts types
+Fig: Number of satellites in service of top 15 nations. \[made by author\]. [Source of data](https://www.n2yo.com/satellites/?c=&t=country)
+
+> If there is a need for more than 6–8 different colours (hues) in a visualization, either merge some of the categories or explore other charts types
 
 #### When not to use sequential color scheme
 
@@ -81,25 +81,27 @@ For the subtle difference in color of a sequential palette to be readily apparen
 
 ![Sequential color schemes are difficult to interpret when the data points are not located immediately next to each other as in the scatter plot on the right. These colors may only be used to visualize relative values as in the chart on the left. [made by author]](https://cdn-images-1.medium.com/max/2000/1*HqwJC1UmrFRhlvrbss7JnQ.png)
 
-> # Best use of a sequential color scheme is to render relative difference in values. It is not suitable for plotting absolute values which are best rendered with a categorical color scheme.
+> Best use of a sequential color scheme is to render relative difference in values. It is not suitable for plotting absolute values which are best rendered with a categorical color scheme.
 
 #### Choose appropriate background
 
-Check out this animation by Akiyoshi Kitaoka ****that demonstrates how our perception of color of the moving square changes with changes in its background. **The human perception of colors is not absolute. It is made relative to the surroundings.**
+Check out [this animation](https://twitter.com/i/status/1028473566193315841) by Akiyoshi Kitaoka that demonstrates how our perception of color of the moving square changes with changes in its background. **The human perception of colors is not absolute. It is made relative to the surroundings.**
 
-**Perceived colour of an object is dependent not only on the colour of the object itself but also of its background. This leads us to conclude the following with respect to use of background colors in charts :**
+Perceived colour of an object is dependent not only on the colour of the object itself but also of its background. This leads us to conclude the following with respect to use of background colors in charts:
 
-> # **Different objects grouped by same colour should also have same background. This in g**eneral means that variations in the background colour must be minimised.
+> Different objects grouped by same colour should also have same background. This in general means that variations in the background colour must be minimised.
 
 #### Not everyone can see all colors
 
 Roughly 10% of the world population is colour blind and to make coloured infographics accessible to everyone, avoid use of combinations of red and green.
 
-![How colour blindness affects perception of colours. [made by author]](https://cdn-images-1.medium.com/max/2000/1*a411ds64pbdeuwK7R5yu3w.png)
+![](https://cdn-images-1.medium.com/max/2000/1*a411ds64pbdeuwK7R5yu3w.png)
+
+Fig: How colour blindness affects perception of colours. \[made by author\]
 
 #### Conclusion
 
-> # The impetus of visualisation is to tell the story behind data. Only a thoughtful use of colour can help strengthen key arguments in this story.
+> The impetus of visualisation is to tell the story behind data. Only a thoughtful use of colour can help strengthen key arguments in this story.
 
 Summarised below are some resources that I have found helpful in my work on the use of colours in data analysis and visualization.
 
