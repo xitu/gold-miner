@@ -58,11 +58,11 @@ Let’s find out where Svelte has its downsides.
 
 Svelte’s blazing fast build time and tiny bundle sizes are quite appealing when compared to React, especially for small everyday applications. Yet the enhanced features (context API, suspense, etc.), community support, a wide range of plugins and integrations along with certain syntax simplifications does render React attractive as well.
 
-> # Is Svelte better than react or vice versa?
+> Is Svelte better than react or vice versa?
 
 Well, Svelte does provide noticeable improvements in certain features when compared to React. But it may not still be significant or large enough to replace React completely. React is still robust and broadly adopted. Svelte has quite some catching up to do. But concept-wise, the compiling approach taken by Svelte has proven that virtual DOM diffing isn’t the only approach to build fast reactive applications, and a good enough compiler can get the same job done as good as it gets.
 
-> # So which framework should you use for your next application?
+> So which framework should you use for your next application?
 
 When weighing the Pros and Cons, In my opinion, if you are building a small application, like a simple e-commerce application for your startup, I would recommend Svelte. If you have a good knowledge of JS, HTML, and CSS, its easier to master Svelte. You can also build some powerful fast and lightweight applications with Svelte.
 
@@ -71,14 +71,6 @@ For huge production applications that require several integrations and specific 
 Both contenders are practical and efficient tools to build brilliant user interfaces. Choosing between the two as of now is mostly based on your scenario and preferences. As I have mentioned above, it’s challenging to announce one winner since they both perform beautifully to achieve their primary goals.
 
 I hope this article gave you a quick comparison of React and Svelte. And it would be helpful to decide which library to choose for your next application. Cheers!
-
-## Learn More
-[**Getting started with Adobe’s React Spectrum**
-**React Spectrum is a collection of libraries authored by Adobe Team to help developers build a feature-rich application…**blog.bitsrc.io](https://blog.bitsrc.io/getting-started-with-adobes-react-spectrum-15322be00c12)
-[**Blazor VS JavaScript**
-**Will Blazor replace JavaScript and become the framework of choice for frontend apps?**blog.bitsrc.io](https://blog.bitsrc.io/frontend-dev-blazor-vs-javascript-35f27e0fd618)
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
