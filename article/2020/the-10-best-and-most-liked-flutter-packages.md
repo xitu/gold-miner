@@ -7,8 +7,6 @@
 
 # The 10 Best and Most Liked Flutter Packages
 
-#### Increase your productivity and development speed today
-
 ![Illustration by author](https://cdn-images-1.medium.com/max/2000/1*MI0cApYdiUIa0ZcmvhIAdQ.png)
 
 [Flutter](https://flutter.dev/) is “Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.”
@@ -18,8 +16,6 @@ Flutter is based on the Dart programming language. It has a large and lively com
 This article lists the most promising and most popular packages to give you an idea of Flutter’s maturity as a platform.
 
 If you haven’t done so already, [read my introductory article](https://medium.com/tech-explained/your-first-steps-with-flutter-dffa77378bd0) first. It will get you set up and running with a basic Flutter project in no time. This allows you to try out the packages you like most quickly!
-
----
 
 ## 1. HTTP
 
@@ -46,8 +42,6 @@ print('Response body: ${response.body}');
 print(await http.read('https://example.com/foobar.txt'));
 ```
 
----
-
 ## 2. flutter_slidable
 
 URL: [https://pub.dev/packages/flutter_slidable](https://pub.dev/packages/flutter_slidable)**
@@ -69,8 +63,6 @@ This plugin is packed with features and ready for use, but also highly customiza
 * Closes when the nearest `Scrollable` starts to scroll (overridable)
 * Option to disable the slide effect easily
 
----
-
 ## 3. Shared Preferences
 
 URL: [https://pub.dev/packages/shared_preferences](https://pub.dev/packages/shared_preferences)
@@ -83,16 +75,14 @@ This package wraps platform-specific persistent storage libraries. It’s indent
 * `LocalStorage` on websites
 * A JSON file on the local filesystem for Linux
 
-Data may ****be persisted to disk asynchronously, and there is no guarantee that writes will be persisted to disk after returning, so this plugin is not meant for storing critical data. For that look into sqflite (see below).
-
----
+Data may be persisted to disk asynchronously, and there is no guarantee that writes will be persisted to disk after returning, so this plugin is not meant for storing critical data. For that look into sqflite (see below).
 
 ## 4. sqflite
 
 URL: [https://pub.dev/packages/sqflite](https://pub.dev/packages/sqflite)
 Works on: iOS, Android, MacOS
 
-This is the ****SQLite plugin for Flutter. It supports iOS, Android, and MacOS. The web is not supported since there is no SQL-based persistence system in web browsers. Some of its features are:
+This is the SQLite plugin for Flutter. It supports iOS, Android, and MacOS. The web is not supported since there is no SQL-based persistence system in web browsers. Some of its features are:
 
 * Support for transactions and batches
 * Automatic version management
@@ -100,8 +90,6 @@ This is the ****SQLite plugin for Flutter. It supports iOS, Android, and MacOS. 
 * Operations are executed in a background thread on iOS and Android to prevent the UI from locking up
 
 If you need more than basic (`shared_preferences`) data storage, look no further.
-
----
 
 ## 5. url_launcher
 
@@ -127,8 +115,6 @@ if (await canLaunch(url)) {
 }
 ```
 
----
-
 ## 6. video_player
 
 URL: [https://pub.dev/packages/video_player](https://pub.dev/packages/video_player)
@@ -141,8 +127,6 @@ Many formats are supported, but it all depends on the platform you’re running.
 Note that even though it’s called video_player, this plugin can also play audio. Since the plugin is pretty mature and has reached API stability, it’s not a bad idea to use this for audio over some of the alternatives.
 
 This plugin can play video from a local file (assets) and a remote server (e.g., a website). For some example code, head over to [this page](https://pub.dev/packages/video_player/example).
-
----
 
 ## 7. crypto
 
@@ -161,8 +145,6 @@ The following hashing algorithms are supported:
 * HMAC (i.e. HMAC-MD5, HMAC-SHA1, HMAC-SHA256)
 
 Since this is not a GUI tool but simply a crypto library, it works on all supported platforms.
-
----
 
 ## 8. carousel_slider
 
@@ -207,8 +189,6 @@ The carousel has several configurable options, like:
 * enabling autoplay with a configurable interval, animation duration
 * defining the scroll direction (vertical, horizontal)
 
----
-
 ## 9. path
 
 URL: [https://pub.dev/packages/path](https://pub.dev/packages/path)
@@ -220,8 +200,6 @@ Paths are both easy and incredibly complex because they differ from platform to 
 import 'package:path/path.dart' as p;
 p.join('directory', 'file.txt');
 ```
-
----
 
 ## 10. location
 
