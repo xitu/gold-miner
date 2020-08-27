@@ -21,7 +21,7 @@ A generator is an object that can produce a sequence of values but can also be i
 
 Concretely, because generators are iterators, we can do this:
 
-```
+```js
 const generator = ... // we will see later how to create a generator
 
 generator.next();
@@ -32,7 +32,7 @@ generator.next();
 
 And because they also are iterables we can do this:
 
-```
+```js
 const generator = ... // a bit of patience
 
 for (const value of generator) {
@@ -48,7 +48,7 @@ Generators are created using generator functions. These functions are declared u
 
 In a generator function you define the values that are going to be returned when the `next` function is called on the generator. To do so, you use the keyword `yield` :
 
-```
+```js
 function* generatorFunction() {
   yield 1;
   yield 2;
@@ -67,7 +67,7 @@ When the `next` method is called, the generator is executed until the next `yiel
 
 `yield` is actually a two-way street. You can also use it to **pass** value to your generator. Let’s say you want a generator that can receive some value as input to then return this value every time the `next` method is called. You would do it by using `yield` like this:
 
-```
+```js
 function* generatorFunction() {
   const a = yield;
 
@@ -100,7 +100,7 @@ In other words: F(0) = 0; F(1) = 1; ... F(n) = F(n-1) + F(n-2);
 
 How would you create a generator generating these values? You would probably want to do it recursively.
 
-```
+```js
 function* fibonacciGeneratorFunction() {
   yield 0;
   yield 1;
@@ -112,7 +112,7 @@ const fibonacciGenerator = fibonacciGeneratorFunction();
 
 We actually want to yield the values of an other generator, inside our generator. This is where `yield*` comes in:
 
-```
+```js
 function* fibonacciGeneratorFunction(a = 0, b = 1) {
   yield a;   
   yield* fibonacciGeneratorFunction(b, b + a);
@@ -129,7 +129,7 @@ fibonacciGenerator.next(); // { value: 5, done: false }
 
 `yield*` isn’t only used in recursive cases. It generally enables you to delegate to another generator. A simple example from the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*) is:
 
-```
+```js
 function* g1() {
   yield 2;
   yield 3;
