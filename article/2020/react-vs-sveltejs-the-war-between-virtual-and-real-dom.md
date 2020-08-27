@@ -13,9 +13,7 @@ I recently had the pleasure of playing around with Svelte and learned how to bui
 
 ## Svelte is a Compiler while React uses Virtual DOM
 
-React and Svelte, both provide a similar component-based architecture — that means both enable a CDD bottom-up development, and both enable sharing their components between apps, via tools and platforms like [Bit](https://bit.dev) ([Github](https://github.com/teambit/bit)).
-
-![Example: React components shared on [Bit.dev](https://bit.dev) using [Bit](https://github.com/teambit/bit)](https://cdn-images-1.medium.com/max/2000/1*T6i0a9d9RykUYZXNh2N-DQ.gif)
+React and Svelte, both provide a similar component-based architecture — that means both enable a CDD bottom-up development, and both enable sharing their components between apps.
 
 The significant difference between them is that Svelte is a compiler that converts your application into ideal JavaScript during build time as opposed to React, which uses a virtual DOM to interpret the application code during runtime. Yes, that was quite a lot of jargon, let me break it down.
 
@@ -58,11 +56,11 @@ Let’s find out where Svelte has its downsides.
 
 Svelte’s blazing fast build time and tiny bundle sizes are quite appealing when compared to React, especially for small everyday applications. Yet the enhanced features (context API, suspense, etc.), community support, a wide range of plugins and integrations along with certain syntax simplifications does render React attractive as well.
 
-> Is Svelte better than react or vice versa?
+**Is Svelte better than react or vice versa?**
 
 Well, Svelte does provide noticeable improvements in certain features when compared to React. But it may not still be significant or large enough to replace React completely. React is still robust and broadly adopted. Svelte has quite some catching up to do. But concept-wise, the compiling approach taken by Svelte has proven that virtual DOM diffing isn’t the only approach to build fast reactive applications, and a good enough compiler can get the same job done as good as it gets.
 
-> So which framework should you use for your next application?
+**So which framework should you use for your next application?**
 
 When weighing the Pros and Cons, In my opinion, if you are building a small application, like a simple e-commerce application for your startup, I would recommend Svelte. If you have a good knowledge of JS, HTML, and CSS, its easier to master Svelte. You can also build some powerful fast and lightweight applications with Svelte.
 
