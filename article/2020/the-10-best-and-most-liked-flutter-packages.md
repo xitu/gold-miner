@@ -26,7 +26,7 @@ Everything is web-based these days, so a robust HTTP library is a must-have. Thi
 
 The library offers top-level functions that make it easy to work with HTTP:
 
-```
+```dart
 import 'package:http/http.dart' as http;
 
 # Posting data
@@ -105,7 +105,7 @@ This plugin helps you launch a URL. URLs can be of the following types:
 
 Basic usage is very straightforward:
 
-```
+```dart
 const url = 'https://flutter.dev';
 
 if (await canLaunch(url)) {
@@ -161,7 +161,7 @@ For live examples, you can visit [this website](https://serenader2014.github.io/
 
 Here’s an example of how to create a carousel in your app:
 
-```
+```dart
 CarouselSlider(
   options: CarouselOptions(height: 400.0),
   items: [1,2,3,4,5].map((i) {
@@ -196,7 +196,7 @@ Works on: iOS, Android, Web
 
 Paths are both easy and incredibly complex because they differ from platform to platform. To make sure you don’t introduce bugs or security vulnerabilities in your code, always use the path library when dealing with paths. To join a directory and a file with the file separator for the current OS, use:
 
-```
+```dart
 import 'package:path/path.dart' as p;
 p.join('directory', 'file.txt');
 ```
