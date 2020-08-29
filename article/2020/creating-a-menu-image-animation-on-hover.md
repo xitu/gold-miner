@@ -5,9 +5,6 @@
 > * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-> * 原文地址：[Creating a Menu Image Animation on Hover](https://tympanus.net/codrops/2020/07/01/creating-a-menu-image-animation-on-hover/)
-> * 原文作者：[Mary Lou](http://www.codrops.com)
-
 # 如何在悬停时创建菜单图像动画
 
 [![rapid_feat](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2020/07/rapid_feat.jpg)](http://tympanus.net/Tutorials/RapidImageHoverMenu/ "Creating a Menu Image Animation on Hover Demo")
