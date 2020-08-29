@@ -49,38 +49,38 @@
 
 您会看到，随着输入大小的增加，红色阴影区域中算法的运行时间急剧增加。另一方面，在黄色和绿色阴影区域中算法的性能几乎不依赖于输入的大小，因此更加有效和可推广。
 
-最后需要指明的一点，大O法通常用于描述当输入变得非常大时算法的“主要趋势”。因此，如果无关紧要的子项被更重要的子项所压制，则可以将其删除。例如，计算时间复杂度为 **O（n²+ n）**的算法将被简化为 **O（n²）**，原因是随着** n **变得非常大， **n²** 项的效果大大超过了** n **项的效果。
+最后需要指明的一点，大O法通常用于描述当输入变得非常大时算法的“主要趋势”。因此，如果无关紧要的子项被更重要的子项所压制，则可以将其删除。例如，计算得到时间复杂度为 **O（n²+ n）**的算法将被简化为 **O（n²）**，原因是随着** n **变得非常大， **n²** 项的效果大大超过了** n **项的效果。
 
-## Examples
+## 例子
 
-Now, let’s look at some common examples of algorithms that fall under each of the aforementioned complexities.
+现在，让我们看一下属于上述每种复杂性的一些常见算法示例。
 
-#### 1. O(1) — Constant
+#### 1. O(1) — 常数型
 
-The running time of algorithms of this complexity does not increase as the size of the input increases. A common operation of this nature is a value lookup by index in an array or key in a hash table:
+这种复杂性的算法的运行时间不会随着输入大小的增加而增加。这种性质的常见操作是通过数组中的索引或哈希表中的键来进行查询：
 
 ```Python
 from typing import Any, Dict, List
 
 
-# Example 1
+# 例 1
 def list_lookup(list_: List[Any], index: int) -> Any:
     """Lookup a value in a list by index."""
     return list_[index]
 
 
-# Example 2
+# 例 2
 def dict_lookup(dict_: Dict[Any, Any], key: Any) -> Any:
     """Lookup a value in a dictionary by key."""
     return dict_[key]
 
 ```
 
-No matter how large the list or dictionary passed into these functions is, they will complete at the same time (one operation).
+无论传递到这些函数的列表或字典有多大，它们都将同时完成（一步操作）。
 
-#### 2. O(log n) — Logarithmic
+#### 2. O(log n) — 对数型
 
-The classic logarithmic algorithm example is a [binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm). This is an algorithm for finding a value in a sorted array by iteratively looking at the middle value, checking if the target value is less than or greater than the middle value, and then eliminating the half of the array in which we are certain that the value does not lie. Here is an implementation:
+典型的对数复杂度算法是[二分搜索算法](https://en.wikipedia.org/wiki/Binary_search_algorithm)。这是一种用于在有序序列中查找指定值的算法，通过迭代查看中间值，检查目标值是小于还是大于中间值，以排除确信不包含目标的数组的一半。如下是一种实现：
 
 ```Python
 from typing import Any, List
@@ -88,41 +88,41 @@ from typing import Any, List
 
 def binary_search(list_: List[int], target_value: int) -> int:
     """
-    Perform a binary search of a sorted input list for a target value. 
-    Return the index of the target value in the list, or -1 if not found.
+    对有序的输入列表执行二分搜索以找到目标值。
+    返回列表中目标值的索引，如果未找到则返回 -1。
     """
-    # Initialize left and right indexes for start of search
+    # 初始化左右索引以开始搜索
     left = 0
     right = len(list_) - 1
 
-    # Perform binary search
+    # 执行二分搜索
     while left <= right:
 
-        # Calculate the middle index of the remaining list values to be searched
+        # 计算要搜索的剩余列表的中间位置的索引
         middle = left + (right - left) // 2
 
-        # Check if target_value is at the middle index. If so, we've found it and we're done.
+        # 检查目标值是否在中间索引处。如果是，我们已经找到并完成。
         if list_[middle] == target_value:
             return middle
 
-        # If target_value is greater than the middle value, ignore the left half of the remaining list values
+        # 如果目标值大于中间值，请忽略剩余列表的左半部分
         elif list_[middle] < target_value:
             left = middle + 1
 
-        # If target_value is less than the middle value, ignore right half of the remaining list values
+        # 如果目标值小于中间值，请忽略剩余列表的右半部分
         else:
             right = middle - 1
 
-    # Return a sentinel value of -1 if the target_value was not found in the whole list
+    # 如果在整个列表中未找到目标值，则返回 -1
     return -1
 
 ```
 
-Given that the size of the array yet to be searched is halved on each iteration, searching an array twice as large would only take one additional iteration! Thus, as the array size increases the runtime increases logarithmically.
+由于每次迭代将要搜索的数组大小减半，那么搜索两倍大的数组将只需要进行一次额外的迭代！因此，随着数组大小的增加，运行时间将呈对数增长。
 
-#### 3. O(n) — Linear
+#### 3. O(n) — 线性型
 
-Algorithms with linear time complexity typically involve iterating over a data structure serially. To borrow from our previous logarithmic search example, a search for a value in an array can also be performed in (less efficient) linear time:
+具有线性时间复杂度的算法通常涉及串行地迭代一种数据结构。参考先前的对数搜索示例，执行数组中值的搜索还可以以（效率较低）线性时间进行：
 
 ```Python
 from typing import Any, List
@@ -130,64 +130,64 @@ from typing import Any, List
 
 def linear_search(list_: List[Any], target_value: Any) -> int:
     """
-    Perform a linear search of an input list for a target value.
-    Return the index of the target value in the list, or -1 if not found.
+    对输入列表执行线性搜索以找到目标值。
+    返回列表中目标值的索引，如果未找到则返回 -1。
     """
-    # Iterate over each item in the list, checking whether it is the target value
+    # 遍历列表中的每一项，检查其是否为目标值
     for index, item in enumerate(list_):
         if item == target_value:
             return index
 
-    # Return a sentinel value if the target_value was not found in the list
+    # 如果在列表中未找到目标值，则返回一个标记值
     return -1
 
 ```
 
-It’s clear that as the size of the input list grows, the worst-case scenario for the number of loop iterations required to find the item is directly proportional to the size increase, as every item in the list needs to be checked.
+显然，随着输入列表大小的增加，找到项目所需的循环迭代次数的最坏情况与大小增加成正比，因为需要检查列表中的每个项目。
 
-#### 4. O(n log n) — Log-linear
+#### 4. O(n log n) — 对数线性型
 
-Log-linear complexity algorithms are a little harder to spot than our previous examples. As their name suggests, they involve both a logarithmic and a linear component. The most common examples of these are sorting algorithms. “Merge sort” is one such algorithm for sorting an array in which the array is iteratively halved, sorted in pieces, and merged back together in sorted order. This is perhaps easier to see through a diagram, so I’ll omit the code implementation for this one.
+对数线性复杂度算法比我们之前的示例更难找到。顾名思义，它们同时包含对数和线性成分。其中最常见的示例是排序算法。 “合并排序”是这样一种排序的算法，它不断的将数组分半、排序，然后再按顺序重新合并在一起。通过图像可以更容易看明白，因此我将省略代码的实现。
 
-![Merge sort algorithm. Source: [https://en.wikipedia.org/wiki/Merge_sort](https://en.wikipedia.org/wiki/Merge_sort)](https://cdn-images-1.medium.com/max/2560/1*jgT8yBf2lsaCjdbsIPZJsQ.png)
+![合并排序算法。来源：[https://en.wikipedia.org/wiki/Merge_sort](https://en.wikipedia.org/wiki/Merge_sort)](https://cdn-images-1.medium.com/max/2560/1*jgT8yBf2lsaCjdbsIPZJsQ.png)
 
-#### 5. O(nᵏ) — Polynomial
+#### 5. O(nᵏ) — 多项式型
 
-At this point, we’re getting into algorithms with time complexities that do not scale very well and should usually be avoided if possible (referring back to the graph above, we’re in the red zone!). However, many “brute-force” algorithms fall under the polynomial complexity category and can be useful starting points for solving a problem. For example, below is a quadratic (k=2) polynomial algorithm for finding the duplicate items in an array:
+目前，我们正在研究时间复杂度不够好的算法，通常应尽可能避免使用它（请参考上图，我们正处于红色区域！）。但是，许多“暴力”算法都属于多项式复杂度类别，却可以作为解决问题的有用起点。例如，下面是用于查找数组中重复项的二次（k = 2）多项式算法：
 
 ```Python
 from typing import Any, List, Set
 
 
 def find_duplicates(list_: List[Any]) -> Set[Any]:
-    """Find all duplicate items in a list."""
+    """查找列表中所有的重复项。"""
     
-    # Initialize a set to hold the duplicate items
+    # 初始化一个集合以保存重复项
     duplicates = set()
 
-    # Check each item in the list against every other item in the list
+    # 将列表中的每一项与列表中的其他所有项进行检查
     for index_1, item_1 in enumerate(list_):
         for index_2, item_2 in enumerate(list_):
             if index_1 != index_2 and item_1 == item_2:
                 duplicates.add(item_1)
 
-    # Return the set of duplicate items
+    # 返回重复项的集合
     return duplicates
 
 ```
 
-For each item in the array, we check it against every other item in the array. Thus, if the array contains **n** items we perform **n** * **n = n**² operations for a time complexity of **O(n²)**.
+对于数组中的每一项，我们将其与数组中的每个其他项进行检查。因此，如果数组包含** n **个项目，我们将执行** n ** * ** n = n **²个运算，时间复杂度为 O（n²）**。
 
-Extra credit: Can you think of a better algorithm for solving this problem?
+额外的奖励：您能想出一种解决此问题的更好的算法吗？
 
-#### 6. O(kⁿ) — Exponential
+#### 6. O(kⁿ) — 指数型
 
-Our penultimate common time complexity is exponential, in which the running time increases by a constant factor as the size of the input increases. A typical example of this is naively computing the **n**th term in the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number).
+我们的倒数第二个常见时间复杂度是指数型，即，随着输入大小的增加，运行时间将增加一个固定倍数。一个典型的例子是直接计算[斐波纳契数列](https://en.wikipedia.org/wiki/Fibonacci_number)中的第 n 个项。
 
 ```Python
 def nth_fibonacci_term(n: int) -> int:
-    """Recursively finds the nth term in the Fibonacci sequence. Assumes positive n."""
-    # Base case -- The first two numbers of the sequence are {0, 1}
+    """递归的计算斐波纳契数列的第 n 项。假设 n 是整数。"""
+    # 基本情况 —— 前两项的值为 {0，1}
     if n <= 2:
         return n - 1
 
@@ -195,17 +195,17 @@ def nth_fibonacci_term(n: int) -> int:
 
 ```
 
-In the example above, the number of operations performed doubles whenever the input **n** increases by 1. This is due to the fact that we do not cache the results of each function call, and must re-calculate all previous values down to the base case each time. Thus, the time complexity of the algorithm is **O(2ⁿ)**.
+在上面的示例中，每当输入** n **增加1时，执行的操作数量就会加倍。这是因为我们没有缓存每个函数调用的结果，因此必须从最开始重新计算所有先前的值。因此，该算法的时间复杂度为** O（2ⁿ）**。
 
-#### 7. O(n!) — Factorial
+#### 7. O(n!) — 阶乘型
 
-Last but not least (but certainly least efficient) are algorithms with factorial time complexity. These should generally be avoided, as they rapidly become unviable as the input scales. One example of such an algorithm is a brute-force solution to [The Traveling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem). This problem seeks to find the shortest possible route that visits all points in a coordinate system and return to the starting point. The brute-force solution involves comparing all possible routes (read: permutations) against each other and selecting the shortest one. Note that this is not usually an acceptable solution to the problem, unless the number of points to visit is very low.
+最后但同样重要（但肯定是效率最低）的类型是阶乘时间复杂度的算法。通常应避免这一情况，因为随着输入比例的增加它们将很快变得不可行。这种算法的一个示例是[旅行商问题](https://en.wikipedia.org/wiki/Travelling_salesman_problem)的暴力解决方案。这个问题试图找到一条最短的路径，该路径可以访问坐标系中的所有点并返回到起点。暴力解决方案涉及相互比较所有可能的路线（读取：排列）并选择最短的。请注意，除非要访问的点数很少，否则这通常不是解决此问题的方法。
 
-![A Traveling Salesman Solution. Source: [https://en.wikipedia.org/wiki/Travelling_salesman_problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)](https://cdn-images-1.medium.com/max/2000/1*Vq7Dq63LQrL9xC9Y8XqtGQ.png)
+![一个旅行商问题的解法。来源：[https://en.wikipedia.org/wiki/Travelling_salesman_problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)](https://cdn-images-1.medium.com/max/2000/1*Vq7Dq63LQrL9xC9Y8XqtGQ.png)
 
-## Final Thoughts
+## 结语
 
-While we’ve covered a lot of cases here, there is more to learn on the topic! I’ve focused on **worst-case time complexity**, but it can also be useful to think in terms of the average or best case as well. I also didn’t touch on space complexity, which can be equally important if memory is limited. The good news is that the syntax and general thought process is the same for that kind analysis. Hopefully the next time you’re in a coding interview or need to write a performant function, you now have the tools to attack it with confidence.
+尽管我们在这里介绍了很多案例，但在该主题上还有很多东西要学习！我关注的是“最坏情况下的时间复杂度”，但考虑平均情况或最佳情况也很有用。我也没有提到空间的复杂性，如果内存有限，这也同样重要。好消息是，这种分析的方法和一般思考过程是相同的。希望下次您进行代码面试时或需要编写性能函数时，你有了可以放心地解决它的工具。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
