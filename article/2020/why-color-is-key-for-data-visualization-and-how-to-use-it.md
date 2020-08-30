@@ -2,128 +2,128 @@
 > * 原文作者：[Aseem Kashyap](https://medium.com/@aseem.kash)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-color-is-key-for-data-visualization-and-how-to-use-it.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-color-is-key-for-data-visualization-and-how-to-use-it.md)
-> * 译者：
+> * 译者：贺雪
 > * 校对者：
 
-# Why Color Is Key for Data Visualization and How to Use It - Data Analysis & Applied Color Theory
+# 颜色为何成为数据可视化的关键，怎样使用它？-数据分析&色彩应用理论
 
-![image](https://user-images.githubusercontent.com/5164225/91420085-bea57e80-e886-11ea-9bd5-f291b8da6711.png)
+![图片](https://user-images.githubusercontent.com/5164225/91420085-bea57e80-e886-11ea-9bd5-f291b8da6711.png)
 
-#### An illustrated guide to optimal color utilization
+#### 最佳颜色应用用图解指南
 
-The objective of data visualization is to communicate hidden patterns uncovered during analysis. And while a visualization must look aesthetically appealing, its primary objective is not to ‘look pretty’.
+数据可视化的目标是传递出在分析过程中发现的隐藏模式。虽然可视化结果必须看起来有审美吸引力，但它的主要目标并非“看着漂亮”。
 
-> Use of color in visualisation should be to help disseminate key findings and not to chase some artistic endeavor
+> 在可视化中使用颜色应该有助于关键发现的传播，而非追求一些艺术造诣
 
-#### More is not better when it comes to color
+#### 就颜色而言，并非多多益善
 
-Use of color must be carefully strategized to communicate key findings and this decision, therefore, cannot be left for automated algorithms to make. **Most data should be in neutral colors like grey with bright colors reserved for directing attention to significant or atypical data points.**
+必须仔细地制定颜色的实用策略，以便关键发现的传递，因此，不能交给自动化算法来完成。 **大多数数据应为明亮的中性色，例如灰色，以便将注意力引导至重要或非典型数据点上**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*k67hW4R2Pb6NWdFgXJ5wFg.png)
 
-Fig: Sales in million USD from 1991–1996. Red colour is used to draw attention to unusually low sales in 1995. Nearly uniform sales in other years are all rendered in grey. \[made by author\]
+图: 1991–1996 年的销售额（单位：百万美元）。红色用来将提醒人们注意到1995年异常低的销售量。其他年份近乎一致的销售额都是用灰色呈现的。\[由作者制作\]
 
-#### Colour can help to group related data points
+#### 颜色有助于对相关数据点进行分组
 
-Color can be used to group data points of similar value and to render the extent of this similarity using the following two color palettes :
+颜色可用于对包含相似值的数据点进行分组，并且通过使用以下两个调色板来呈现这种相似程度：
 
-![[made by author]](https://cdn-images-1.medium.com/max/2000/1*dhyh0FhGdRKBtQYuNXYFig.png)
+![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*dhyh0FhGdRKBtQYuNXYFig.png)
 
-A **sequential color palettes** is composed of varying intensities of a single hue of color at uniform saturation. Variability in luminance of adjacent colors corresponds to the variation in data values that they are used to render.
+**顺序调色板** 是在统一的饱和度下，由单一色相中不同强度的色调组成的。临近颜色的明度变化与它们用于呈现的数据值的变化相对应。
 
-![[made by author]](https://cdn-images-1.medium.com/max/2000/1*Rps6Rqc2LbFZyhW1YIyHLw.png)
+![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*Rps6Rqc2LbFZyhW1YIyHLw.png)
 
-A **divergent color palettes** is made of two sequential color palettes (each of a different hue) stacked next to each other with an inflection point in the middle. These become helpful when visualizing data with variations in two different directions.
+**相异调色板** 是由两个顺序的调色板（每个均为不同色调）堆叠在一起，中间有个拐点。当需要在两个不同方向上呈现可视化数据时，这些调色板会非常有用。
 
-The chart below on the left uses a sequential color palette made of a single hue **(green)** for values ranging from -0.25 to +0.25 while chart on the right uses a divergent color scheme with different hues for positive **(blue)** and negative **(red)** values.
+下方左边的图表使用了由单一色相（绿色）组成的顺序调色板，用以表示-0.25到+0.25之间的值，而右边的图表则使用了相异调色板来表示正值（蓝色）和负值（红色）。
 
 ![](https://cdn-images-1.medium.com/max/2620/1*ypk58BjbbjxuB0VUslVyKw.png)
 
-Fig: Percentage change in population in the USA from 2010–2019. The divergent color scheme made of two hues (red and blue) with an inflection point at zero is more suitable than a sequential color scheme. \[made by author\]. [Source of data](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html).
+图：2010-2019 年间，美国人口百分比变化。以零为拐点，由两种色相（红色和蓝色）组成的相异调色板比顺序配色方案更合适。 \[由作者制作\]。 [数据来源](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html).
 
-In the map on the right, positive and negative values can be identified immediately based on color alone. We can immediately conclude that the population of mid-western and southern towns had declined and that in the east and west coast has increased. **This key insight into the data is not immediately obvious in the chart on the left where not color itself, but the intensity of color green must be used to read the map.**
+在右侧的地图中，单凭颜色即可立即分辨出正负值。我们可以马上得出这样的结论：中西部和南部城镇的人口减少了，而东海岸和西海岸的人口增加了。**这种对数据的关键洞察在左侧的图表中并非一目了然，我们必须通过绿色的强度，而非颜色本身来读懂地图。**
 
-#### Categorical colors can be used for completely unrelated data
+#### 类别色彩可以用于表示完全不相关的数据
 
-![[made by author]](https://cdn-images-1.medium.com/max/2000/1*16lnKOqQDF2nWfRhEzLkhg.png)
+![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*16lnKOqQDF2nWfRhEzLkhg.png)
 
-**Categorical color palettes** are derived from colors of different hues but uniform saturation and intensity and can be used to visualize unrelated data points of completely dissimilar origin or unrelated values. Check out [this](http://archive.nytimes.com/www.nytimes.com/interactive/2011/01/23/nyregion/20110123-nyc-ethnic-neighborhoods-map.html?_r=0) visualisation of different ethnicities in New York City. There is no correlation between the data for different ethnicities and a categorical palette is therefore used here.
+**类别调色板** 是在统一的饱和度和色调强度下，由不同色相派生而来的，可用于将来源完全不同的无关数据点或是无关数值进行可视化。[请查看](http://archive.nytimes.com/www.nytimes.com/interactive/2011/01/23/nyregion/20110123-nyc-ethnic-neighborhoods-map.html?_r=0)纽约市不同种族的可视化数据图表。不同种族的数据之间没有相关性，因而这里采用了类别调色板。
 
-> Sequential and divergent color palettes should be used to render changes in magnitude by encoding qualitative values while categorical color palettes should be used to render unrelated data categories by encoding quantative values.
+> 通过对定性值进行编码，顺序调色板和相异调色板应该用以呈现幅度变化；而通过对定性值进行编码，类别调色板应该用以呈现无关数据的类别。
 
-#### Categorical colors have only a few easily discernible bins
+#### 类别色彩只有几个容易分辨的区块
 
-While the use of different colors can help distinguish between different data points, a chart should at most comprise of 6–8 distinct color categories for each of those to be readily distinguishable.
+虽然使用不同的颜色有助于区分不同的数据点，但图表最多只应有6-8种不同的颜色类别，以便快速进行分辨。
 
 ![](https://cdn-images-1.medium.com/max/2482/1*WTKqzvNWimO5Hxe-HZJiZw.png)
 
-Fig: Number of satellites in service of top 15 nations. \[made by author\]. [Source of data](https://www.n2yo.com/satellites/?c=&t=country)
+图：在役卫星数量排名前 15 名的国家。 \[由作者制作\]. [数据来源](https://www.n2yo.com/satellites/?c=&t=country)
 
-Use of a separate colour for each of the 15 countries makes the chart on the left difficult to read, especially for countries with fewer satellites. The one on the right is much more readable at the cost of losing information on countries with fewer satellites, all of which is grouped in the “others” bin.
+在15个国家中，每个国家都使用了不同的颜色，这让左边图表的阅读性变差，特别是那些拥有较少卫星的国家。右边的图表更易阅读，代价是舍弃拥有较少卫星的国家的信息，所有此类信息都被归在“其他”区块中。
 
-Note that we have used a categorical color scheme here as the data for each country is completely uncorrelated. The number of India satellites, for instance, is completely independent of those of say France.
+请注意，我们在这里采用类别配色方案的原因是：各个国家间的数据完全不相关，例如，印度卫星的数量完全独立于法国。
 
-#### Change in chart type can often reduce the need for colors
+#### 图表类型的变化经常伴随着对颜色需求的减少
 
-A pie chart probably is not the best option in the previous example. The resulting loss of categories may not always be acceptable. Plotting a bar chart instead, we can use a single color and retain all 15 data categories.
+在前面的例子中，饼图可能并非最佳选择。由此产生的类别方面的损失并非总能被接受。通过绘制条形图来进行代替，我们就可以只用一种颜色，同时还能保留全部的 15 个数据类别。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3dvxxps_iDNeTuZICwyd4g.png)
 
-Fig: Number of satellites in service of top 15 nations. \[made by author\]. [Source of data](https://www.n2yo.com/satellites/?c=&t=country)
+图：前15个国家服务的卫星数量。 \[由作者制作\]. [数据来源](https://www.n2yo.com/satellites/?c=&t=country)
 
-> If there is a need for more than 6–8 different colours (hues) in a visualization, either merge some of the categories or explore other charts types
+> 如果在可视化数据图表中需要使用不止 6-8 种不同的颜色（色相），要么合并一些类别，要么尝试一下其他图表类型
 
-#### When not to use sequential color scheme
+#### 什么时候不要使用顺序配色方案
 
-For the subtle difference in color of a sequential palette to be readily apparent, these colors must be places right next to each other like in the chart on the left below. When place away from each other like in a scatter plot, the subtle differences become difficult to grasp.
+为了使一个顺序调色板中细微的色彩差异变得十分明显，这些颜色必须如下面左边的图表所示，放置于彼此相邻的地方。当它们如在散点图中彼此分开时，那些细微的色彩差异就会变得难以掌握。
 
-![Sequential color schemes are difficult to interpret when the data points are not located immediately next to each other as in the scatter plot on the right. These colors may only be used to visualize relative values as in the chart on the left. [made by author]](https://cdn-images-1.medium.com/max/2000/1*HqwJC1UmrFRhlvrbss7JnQ.png)
+![当数据点如右边的散点图中那样，没有被紧挨着放置时，顺序配色方案的阅读性变差。这些颜色只能如左边的图表中那样，用来可视化相对值。[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*HqwJC1UmrFRhlvrbss7JnQ.png)
 
-> Best use of a sequential color scheme is to render relative difference in values. It is not suitable for plotting absolute values which are best rendered with a categorical color scheme.
+> 顺序配色方案的最佳使用方式是呈现数值间的差异。它并不适用于绘制绝对值，绝对值最好是通过类别配色方案进行呈现。
 
-#### Choose appropriate background
+#### 选择合适的背景
 
-Check out [this animation](https://twitter.com/i/status/1028473566193315841) by Akiyoshi Kitaoka that demonstrates how our perception of color of the moving square changes with changes in its background. **The human perception of colors is not absolute. It is made relative to the surroundings.**
+请查看由 Akiyoshi Kitaoka 制作的 [动画](https://twitter.com/i/status/1028473566193315841)，它展示了我们对移动方块颜色的感知是如何随着背景的变化而变化的。 **人类对颜色的感知并非绝对的。它是与周围环境相关联的。**
 
-Perceived colour of an object is dependent not only on the colour of the object itself but also of its background. This leads us to conclude the following with respect to use of background colors in charts:
+对一个物体的颜色感知不仅取决于物体本身的颜色，而且会有被其背景所影响。因此，我们得出以下关于在图表中使用背景色的结论：
 
-> Different objects grouped by same colour should also have same background. This in general means that variations in the background colour must be minimised.
+> 按相同颜色分组的不同对象应该搭配相同的背景。这通常意味着背景色的变化必须被最小化。
 
-#### Not everyone can see all colors
+#### 不是每个人都能看到所有的颜色
 
-Roughly 10% of the world population is colour blind and to make coloured infographics accessible to everyone, avoid use of combinations of red and green.
+世界上大约有 10% 的人是色盲，为了让每个人都能看到彩色的信息图，请避免使用红色和绿色的组合。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*a411ds64pbdeuwK7R5yu3w.png)
 
-Fig: How colour blindness affects perception of colours. \[made by author\]
+图：色盲如何影响对颜色的感知。\[由作者制作\]
 
-#### Conclusion
+#### 结论
 
-> The impetus of visualisation is to tell the story behind data. Only a thoughtful use of colour can help strengthen key arguments in this story.
+> 视觉化的推动力是讲述数据背后的故事。只有充分地使用颜色才有助于强化这个故事中的关键论点。
 
-Summarised below are some resources that I have found helpful in my work on the use of colours in data analysis and visualization.
+下面是一些我总结的，在工作中我发现有助于颜色在数据分析和可视化中进行使用的资源。
 
-## Tools for selecting colour combinations.
+## 用以挑选颜色组合的工具。
 
-1. Colour brewer [Link](https://colorbrewer2.org/#type=qualitative&scheme=Set3&n=6)
-2. d3-interpolate [Link](https://github.com/d3/d3-interpolate)
-3. Colourco [Link](https://colourco.de)
-4. Color Palette Helper [Link](https://vis4.net/palettes/#/9|d|00429d,96ffea,ffffe0|ffffe0,ff005e,93003a|1|1)
-5. I want hue [Link](https://medialab.github.io/iwanthue/)
-6. Adobe Colour [Link](https://color.adobe.com/create/color-wheel)
+1. [Colour brewer](https://colorbrewer2.org/#type=qualitative&scheme=Set3&n=6)
+2. [d3-interpolate](https://github.com/d3/d3-interpolate)
+3. [Colourco](https://colourco.de)
+4. [Color Palette Helper](https://vis4.net/palettes/#/9|d|00429d,96ffea,ffffe0|ffffe0,ff005e,93003a|1|1)
+5. [I want hue](https://medialab.github.io/iwanthue/)
+6. [Adobe Colour](https://color.adobe.com/create/color-wheel)
 
-## Applied colour theory: A reading list
+## 颜色应用理论：阅读列表
 
-1. Practical Rules for Using Color in Charts by **Stephen Few**. [Link](https://nbisweden.github.io/Rcourse/files/rules_for_using_color.pdf)
-2. The Importance Of Colour In Data Visualisations by **Eva Murray**. [Link](https://www.forbes.com/sites/evamurray/2019/03/22/the-importance-of-color-in-data-visualizations/#451901e057ec)
-3. 100 Colour combinations and how to apply them. [Link](https://www.canva.com/learn/100-color-combinations/)
-4. How to Pick the Perfect Color Combination for Your Data Visualization by **Bethany Cartwright**. [Link](https://blog.hubspot.com/marketing/color-combination-data-visualization)
-5. The Power of The Palette: Why Color is Key in Data Visualization and How to Use It by **Alan Wilson**[ Link](https://theblog.adobe.com/the-power-of-the-palette-why-color-is-key-in-data-visualization-and-how-to-use-it/)
-6. What to Consider When Choosing Colours for Data Visualisation [Link](https://www.dataquest.io/blog/what-to-consider-when-choosing-colors-for-data-visualization/)
-7. Use of Color in Data Visualization by **Robert Simmon**[ Link](https://earthobservatory.nasa.gov/resources/blogs/intro_to_color_for_visualization.pdf)
-8. The use of color in maps [Link](https://morphocode.com/the-use-of-color-in-maps/)
+1. [颜色在图表中的实战规则](https://nbisweden.github.io/Rcourse/files/rules_for_using_color.pdf) by **Stephen Few**.
+2. [颜色在数据可视化中的重要性](https://www.forbes.com/sites/evamurray/2019/03/22/the-importance-of-color-in-data-visualizations/#451901e057ec) by **Eva Murray**.
+3. [100种颜色组合以及如何应用它们.](https://www.canva.com/learn/100-color-combinations/)
+4. [如何为你的数据可视化作品挑选完美的颜色组合](https://blog.hubspot.com/marketing/color-combination-data-visualization) by **Bethany Cartwright**.
+5. [调色板的影响力：为什么颜色是数据可视化的关键，以及如何使用它](https://theblog.adobe.com/the-power-of-the-palette-why-color-is-key-in-data-visualization-and-how-to-use-it/) by **Alan Wilson** Link
+6. [在进行数据可视化时选择颜色时要考虑什么](https://www.dataquest.io/blog/what-to-consider-when-choosing-colors-for-data-visualization/)
+7. [颜色在数据可视化中的使用](https://earthobservatory.nasa.gov/resources/blogs/intro_to_color_for_visualization.pdf) by **Robert Simmon**
+8. [颜色在地图中的使用](https://morphocode.com/the-use-of-color-in-maps/)
 
-Please do leave a comment or write to me at aseem.kash@gmail.com with suggestions. Thanks for reading.
+请留下您的评论或给我的邮箱 aseem.kash@gmail.com 写信发表建议，感谢您的阅读。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
