@@ -95,7 +95,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*a411ds64pbdeuwK7R5yu3w.png)
 
-图：色盲如何影响对颜色的感知。\[由作者制作\]
+图：色盲如何影响对颜色的感知。[由作者制作]
 
 #### 结论
 
