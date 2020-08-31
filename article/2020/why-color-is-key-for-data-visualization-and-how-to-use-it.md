@@ -47,7 +47,7 @@
 
 ![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*16lnKOqQDF2nWfRhEzLkhg.png)
 
-**类别调色板** 是在统一的饱和度和色调强度下，由不同色相派生而来的，可用于将来源完全不同的无关数据点或是无关数值进行可视化。[请查看](http://archive.nytimes.com/www.nytimes.com/interactive/2011/01/23/nyregion/20110123-nyc-ethnic-neighborhoods-map.html?_r=0)纽约市不同种族的可视化数据图表。不同种族的数据之间没有相关性，因而这里采用了类别调色板。
+**类别调色板** 是在统一的饱和度和色调强度下，由不同色相派生而来的，可用于将来源完全不同的无关数据点或是无关数值进行可视化。[请查看](http://archive.nytimes.com/www.nytimes.com/interactive/2011/01/23/nyregion/20110123-nyc-ethnic-neighborhoods-map.html?_r=0)纽约市不同种族的可视化数据图表。不同种族的数据之间没有相关性，因此这里采用了类别调色板。
 
 > 通过对定性值进行编码，顺序调色板和相异调色板应该用以呈现幅度变化；而通过对定性值进行编码，类别调色板应该用以呈现无关数据的类别。
 
