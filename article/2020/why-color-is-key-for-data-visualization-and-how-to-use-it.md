@@ -21,17 +21,17 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*k67hW4R2Pb6NWdFgXJ5wFg.png)
 
-图: 1991–1996 年的销售额（单位：百万美元）。红色用于提醒人们注意到 1995 年异常低的销售量，其它年份近乎一致的销售额则都是用灰色呈现的。[由作者制作]
+图: 1991–1996 年的销售额（单位：百万美元）。红色用于提醒人们注意到 1995 年异常低的销售量，其它年份近乎一致的销售额则都是用灰色呈现的。[图源来自作者]
 
 #### 颜色有助于对相关数据点进行分组
 
 颜色可用于对包含相似值的数据点进行分组，并且通过使用以下两个调色板来呈现这种相似程度：
 
-![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*dhyh0FhGdRKBtQYuNXYFig.png)
+![[图源来自作者]](https://cdn-images-1.medium.com/max/2000/1*dhyh0FhGdRKBtQYuNXYFig.png)
 
 **顺序调色板** 是在统一的饱和度下，由单一色相中不同强度的色调组成的。邻近颜色的明度变化与它们用于呈现的数据值的变化相对应。
 
-![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*Rps6Rqc2LbFZyhW1YIyHLw.png)
+![[图源来自作者]](https://cdn-images-1.medium.com/max/2000/1*Rps6Rqc2LbFZyhW1YIyHLw.png)
 
 **相异调色板** 是由两个顺序的调色板（每个均为不同色调）堆叠在一起，中间有个拐点。当需要在两个不同方向上呈现可视化数据时，这些调色板会非常有用。
 
@@ -39,13 +39,13 @@
 
 ![](https://cdn-images-1.medium.com/max/2620/1*ypk58BjbbjxuB0VUslVyKw.png)
 
-图：2010-2019 年间的美国人口百分比变化。以零为拐点、由两种色相（红色和蓝色）组成的相异调色板比顺序配色方案更合适。[由作者制作]。[数据来源](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html)。
+图：2010-2019 年间的美国人口百分比变化。以零为拐点、由两种色相（红色和蓝色）组成的相异调色板比顺序配色方案更合适。[图源来自作者]。[数据来源](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html)。
 
 在右侧的地图中，单凭颜色即可立即分辨出正负值。我们可以马上得出这样的结论：中西部和南部城镇的人口减少了，而东海岸和西海岸的人口增加了。**这种对数据的关键洞察在左侧的图表中并非一目了然，我们必须通过绿色的强度，而非颜色本身来读懂地图。**
 
 #### 类别色彩可以用于表示完全不相关的数据
 
-![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*16lnKOqQDF2nWfRhEzLkhg.png)
+![[图源来自作者]](https://cdn-images-1.medium.com/max/2000/1*16lnKOqQDF2nWfRhEzLkhg.png)
 
 **类别调色板** 是在统一的饱和度和色调强度下，由不同色相派生而来的，可用于将来源完全不同的无关数据点或是无关数值进行可视化。[请查看](http://archive.nytimes.com/www.nytimes.com/interactive/2011/01/23/nyregion/20110123-nyc-ethnic-neighborhoods-map.html?_r=0)纽约市不同种族的可视化数据图表。不同种族的数据之间没有相关性，因此这里采用了类别调色板。
 
@@ -57,7 +57,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2482/1*WTKqzvNWimO5Hxe-HZJiZw.png)
 
-图：在役卫星数量排名前 15 名的国家。[由作者制作]。[数据来源](https://www.n2yo.com/satellites/?c=&t=country)
+图：在役卫星数量排名前 15 名的国家。[图源来自作者]。[数据来源](https://www.n2yo.com/satellites/?c=&t=country)
 
 在15个国家中，每个国家都使用了不同的颜色，这让左边图表的阅读性变差，特别是那些拥有较少卫星的国家。右边的图表更易阅读，代价是舍弃拥有较少卫星的国家的信息，所有此类信息都被归在“其他”区块中。
 
@@ -69,7 +69,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3dvxxps_iDNeTuZICwyd4g.png)
 
-图：前 15 个国家的在役卫星数量。[由作者制作]。[数据来源](https://www.n2yo.com/satellites/?c=&t=country)
+图：前 15 个国家的在役卫星数量。[图源来自作者]。[数据来源](https://www.n2yo.com/satellites/?c=&t=country)
 
 > 如果在可视化数据图表中需要使用不止 6-8 种不同的颜色（色相），要么合并一些类别，要么尝试一下其它图表类型。
 
@@ -77,7 +77,7 @@
 
 为了使一个顺序调色板中细微的色彩差异变得十分明显，这些颜色必须如下面左边的图表所示，互相之间紧挨着放置。当它们如在散点图中彼此分开时，那些细微的色彩差异就会变得难以掌握。
 
-![当数据点如右边的散点图中那样，没有被紧挨着放置时，顺序配色方案的阅读性变差。这些颜色只能如左边的图表中那样，用来可视化相对值。[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*HqwJC1UmrFRhlvrbss7JnQ.png)
+![当数据点如右边的散点图中那样，没有被紧挨着放置时，顺序配色方案的阅读性变差。这些颜色只能如左边的图表中那样，用来可视化相对值。[图源来自作者]](https://cdn-images-1.medium.com/max/2000/1*HqwJC1UmrFRhlvrbss7JnQ.png)
 
 > 顺序配色方案的最佳使用方式是呈现数值间的差异。它并不适用于绘制绝对值，绝对值最好是通过类别配色方案进行呈现。
 
@@ -95,7 +95,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*a411ds64pbdeuwK7R5yu3w.png)
 
-图：色盲如何影响对颜色的感知。[由作者制作]
+图：色盲如何影响对颜色的感知。[图源来自作者]
 
 #### 结论
 
@@ -116,7 +116,7 @@
 
 1. [颜色在图表中的实战规则](https://nbisweden.github.io/Rcourse/files/rules_for_using_color.pdf) by **Stephen Few**.
 2. [颜色在数据可视化中的重要性](https://www.forbes.com/sites/evamurray/2019/03/22/the-importance-of-color-in-data-visualizations/#451901e057ec) by **Eva Murray**.
-3. [100种颜色组合以及如何应用它们.](https://www.canva.com/learn/100-color-combinations/)
+3. [100 种颜色组合以及如何应用它们。](https://www.canva.com/learn/100-color-combinations/)
 4. [如何为你的数据可视化作品挑选完美的颜色组合](https://blog.hubspot.com/marketing/color-combination-data-visualization) by **Bethany Cartwright**.
 5. [调色板的影响力：为什么颜色是数据可视化的关键，以及如何使用它](https://theblog.adobe.com/the-power-of-the-palette-why-color-is-key-in-data-visualization-and-how-to-use-it/) by **Alan Wilson** Link
 6. [在进行数据可视化时选择颜色时要考虑什么](https://www.dataquest.io/blog/what-to-consider-when-choosing-colors-for-data-visualization/)
