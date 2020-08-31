@@ -69,7 +69,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3dvxxps_iDNeTuZICwyd4g.png)
 
-图：前15个国家服务的卫星数量。 \[由作者制作\]. [数据来源](https://www.n2yo.com/satellites/?c=&t=country)
+图：前 15 个国家的在役卫星数量。[由作者制作]。[数据来源](https://www.n2yo.com/satellites/?c=&t=country)
 
 > 如果在可视化数据图表中需要使用不止 6-8 种不同的颜色（色相），要么合并一些类别，要么尝试一下其他图表类型
 
