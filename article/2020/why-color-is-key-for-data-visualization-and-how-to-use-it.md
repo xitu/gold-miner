@@ -118,7 +118,7 @@
 2. [颜色在数据可视化中的重要性](https://www.forbes.com/sites/evamurray/2019/03/22/the-importance-of-color-in-data-visualizations/#451901e057ec) by **Eva Murray**.
 3. [100 种颜色组合以及如何应用它们。](https://www.canva.com/learn/100-color-combinations/)
 4. [如何为你的数据可视化作品挑选完美的颜色组合](https://blog.hubspot.com/marketing/color-combination-data-visualization) by **Bethany Cartwright**.
-5. [调色板的影响力：为什么颜色是数据可视化的关键，以及如何使用它](https://theblog.adobe.com/the-power-of-the-palette-why-color-is-key-in-data-visualization-and-how-to-use-it/) by **Alan Wilson** Link
+5. [调色板的影响力：为什么颜色是数据可视化的关键，以及如何使用它](https://theblog.adobe.com/the-power-of-the-palette-why-color-is-key-in-data-visualization-and-how-to-use-it/) by **Alan Wilson** 
 6. [在进行数据可视化时选择颜色时要考虑什么](https://www.dataquest.io/blog/what-to-consider-when-choosing-colors-for-data-visualization/)
 7. [颜色在数据可视化中的使用](https://earthobservatory.nasa.gov/resources/blogs/intro_to_color_for_visualization.pdf) by **Robert Simmon**
 8. [颜色在地图中的使用](https://morphocode.com/the-use-of-color-in-maps/)
