@@ -57,7 +57,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2482/1*WTKqzvNWimO5Hxe-HZJiZw.png)
 
-图：在役卫星数量排名前 15 名的国家。 \[由作者制作\]. [数据来源](https://www.n2yo.com/satellites/?c=&t=country)
+图：在役卫星数量排名前 15 名的国家。[由作者制作]。[数据来源](https://www.n2yo.com/satellites/?c=&t=country)
 
 在15个国家中，每个国家都使用了不同的颜色，这让左边图表的阅读性变差，特别是那些拥有较少卫星的国家。右边的图表更易阅读，代价是舍弃拥有较少卫星的国家的信息，所有此类信息都被归在“其他”区块中。
 
