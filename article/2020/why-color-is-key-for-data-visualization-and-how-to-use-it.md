@@ -103,7 +103,7 @@
 
 下面是一些我总结的，在工作中发现有助于颜色在数据分析和可视化中进行使用的资源。
 
-## 用以挑选颜色组合的工具。
+## 用以挑选颜色组合的工具
 
 1. [Colour brewer](https://colorbrewer2.org/#type=qualitative&scheme=Set3&n=6)
 2. [d3-interpolate](https://github.com/d3/d3-interpolate)
