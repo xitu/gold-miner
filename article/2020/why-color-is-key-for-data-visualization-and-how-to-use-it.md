@@ -29,7 +29,7 @@
 
 ![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*dhyh0FhGdRKBtQYuNXYFig.png)
 
-**顺序调色板** 是在统一的饱和度下，由单一色相中不同强度的色调组成的。临近颜色的明度变化与它们用于呈现的数据值的变化相对应。
+**顺序调色板** 是在统一的饱和度下，由单一色相中不同强度的色调组成的。邻近颜色的明度变化与它们用于呈现的数据值的变化相对应。
 
 ![[由作者制作]](https://cdn-images-1.medium.com/max/2000/1*Rps6Rqc2LbFZyhW1YIyHLw.png)
 
