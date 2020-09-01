@@ -110,7 +110,7 @@ Babel 已成为将 ECMAScript 应用程序转译为 ECMAScript 版本的标准�
 npm init
 ```
 
-![package.json file image after executing the npm init command](https://cdn-images-1.medium.com/max/2000/1*9Vr8T71sWnkXpMEeFeuwSw.png)
+![package.json 执行 npm init 命令后的文件](https://cdn-images-1.medium.com/max/2000/1*9Vr8T71sWnkXpMEeFeuwSw.png)
 
 这里的 `index.js` (也可以是其他的) 作为我们应用的一个入口文件。在这里我们放置我们的 JavaScript 代码，然后创建一个 `index.js` 文件写入下面的代码：
 
@@ -135,7 +135,7 @@ console.log(mySuperClassInstance.hello());
 npm install -save-dev @babel/core @babel/cli
 ```
 
-![package.json image with babel dependencies](https://cdn-images-1.medium.com/max/2000/1*dp_jnVa5YeBAPp1MDg-zWQ.png)
+![package.json 与 babel 依赖关系的截图](https://cdn-images-1.medium.com/max/2000/1*dp_jnVa5YeBAPp1MDg-zWQ.png)
 
 4. 将 `.babelrc` 配置文件添加到你的项目根目录下，并启用 ES2015+ 的转换插件。
 
@@ -147,7 +147,7 @@ npm install -save-dev @babel/core @babel/cli
 npm install @babel/preset-env --save-dev
 ```
 
-![package.json image with babel preset-env dependency](https://cdn-images-1.medium.com/max/2000/1*pWq8uX0turri10aG-TXaIw.png)
+![package.json 与 babel 预设截图](https://cdn-images-1.medium.com/max/2000/1*pWq8uX0turri10aG-TXaIw.png)
 
 编辑您的 `.babelrc` 文件并添加以下配置，以启动 ES6 转换。
 
@@ -179,7 +179,7 @@ npm install @babel/preset-env --save-dev
 "build": "babel index.js -d out"
 ```
 
-![Image of package.json after adding the build script](https://cdn-images-1.medium.com/max/2000/1*IAlvZL-QsbkAhrB2ayu9LA.png)
+![package.json 添加 build 脚本后的截图](https://cdn-images-1.medium.com/max/2000/1*IAlvZL-QsbkAhrB2ayu9LA.png)
 
 执行以下命令：
 
