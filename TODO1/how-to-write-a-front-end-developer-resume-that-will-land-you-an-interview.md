@@ -2,182 +2,182 @@
 > * 原文作者：[Gareth Cheng](https://medium.com/@garethcheng)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-front-end-developer-resume-that-will-land-you-an-interview.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-front-end-developer-resume-that-will-land-you-an-interview.md)
-> * 译者：
-> * 校对者：
+> * 译者：[febrainqu](https://github.com/febrainqu)
+> * 校对者：[Gesj-yean](https://github.com/Gesj-yean)、[kanweiwei](https://github.com/kanweiwei)
 
-# How To Write a Front-End Developer Resume That Will Land You an Interview
+# 如何写一份能让你获得面试机会的前端求职简历
 
-> An article for junior to mid-level front-end developers, from the interviewer’s point of view
+> 这是一篇从面试官角度描述的，为初中级前端开发人员所写的文章。
 
 ![](https://cdn-images-1.medium.com/max/4120/1*zbDy-S2TCDK93sO7FhcyXA.png)
 
-As a front-end developer, you build visible stuff, and hopefully, you make it look good. This same kind of mentality should be reflected in your resume. Well-spaced, readable, and breathable.
+作为一名前端开发，你会构建可见的东西，并且你希望能让它看起来不错。同样的道理也体现在你的简历上。间隔合理，可读性强，令人舒服。
 
-#### What you’ll learn through this article
+#### 通过这篇文章你将学到的：
 
-1. Basic resume writing tips for software developers.
-2. How to put IT skills and technical abilities on your resume.
-3. A step by step guide on how to present your past experience.
-4. How to build your frontend portfolio.
-5. Using a [resume builder](https://www.cakeresume.com) to write your resume.
+1. 针对软件开发人员的基本简历写作技巧。
+2. 如何将 IT 技能和技术能力写在简历上。
+3. 有关如何介绍你过去的工作经验的分步指南。
+4. 如何建立你的前端作品集。
+5. 使用[简历生成器](https://www.cakeresume.com)编写简历。
 
-## 1. Start With the Basics
+## 1. 从基础开始
 
 ![](https://cdn-images-1.medium.com/max/3840/1*wk6xlKGvlqrbFoKmTkoMcg.jpeg)
 
-#### Your contact information
+#### 你的联系方式
 
-Contact information should be located at the top of your resume. Include as much detail as you’re willing to share.
+联系方式应该放在简历的顶部。尽可能多的展示你想要分享的信息。
 
-#### Summary statement
+#### 总结性陈述
 
-Your summary statement should contain a short, compelling professional synopsis of your career accomplishments and future goals.
+你的总结性陈述应该是一个简短而引人注目的专业概要，包括你的职业成就和未来规划。
 
-Keep in mind a few things when you’re writing it:
+在编写时，请记住以下几点：
 
-* Don’t call yourself an Angular[JS]/React developer unless the position explicitly calls for that. Labeling yourself as an X developer tells people that you only want to do X and you may be a rigid person or otherwise not adaptable.
-* Ask yourself, which keywords should I include to ensure the intended audience continues reading the rest of my resume?
-* Read the job description, keeping in mind keywords and key phrases. What are they looking for? What sets you apart from the other applicants?
+* 除非职位明确要求，否则不要声明你自己是一个 Angular[JS]/React 开发人员。把自己标记为 X 开发人员意味着告诉别人你只想做 X 开发，而且会使别人认为你可能是一个死板的人，或者在其他方面不能适应。
+* 问问自己，我应该包括哪些关键字以确保目标受众能继续阅读我的简历的其余部分？
+* 阅读公司发布的岗位介绍，记住关键词和关键短语。他们在找什么？什么能让你和其他申请者不同？
 
-#### Education
+#### 教育
 
-Unless you’re a recent college graduate, there’s no need to list your GPA. Your achievements are more important than your GPA.
+除非你是应届大学毕业生，否则无需列出你的 GPA。你的职业成就比 GPA 更重要。
 
-## 2. Technical Skills
+## 2. 技术技能
 
 ![Photo by [Filiberto Santillán](https://unsplash.com/@filijs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/react?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12000/1*9JIvQ9NwFCmdo0VNGaTu6Q.jpeg)
 
-For a software developer, this part is the most important section to make you stand out. When you list your skills, you should convey a deep understanding of what each skill is, what context it’s used in, and at what level it’s used. Try to be honest and clear here.
+对于软件开发人员来说，这是让你脱颖而出的最重要的部分。在你列举你的技能时，你需要表现出深入的理解关于这项技能是什么、在什么背景下使用、什么级别下使用。这里需要尽量做到诚实和清晰。
 
-#### A few tips getting started
+#### 入门技巧
 
-* If you list HTML5, there’s no need to list HTML4. HTML5 implies HTML4 and below. The same goes for CSS3/CSS2.
-* Be specific about your proficiency levels, and be honest. By stating your proficiency levels, the person reading your resume will quickly get a clearer picture of you, and this will save you both time.
-* If a skill isn’t directly related to the position but may be relevant to the industry, include it. This gives you a better chance of being sourced by recruiters.
+* 如果你列举了 HTML5，则无需列出 HTML4。HTML5 暗含了 HTML4 及其以下版本。CSS3/CSS2 也是如此。
+* 具体说明你的熟练程度，并且要诚实。通过你的熟练程度描述，读你简历的人会很快对你有一个更清楚的了解，这将节省你们双方的时间。
+* 如果一项技能与这个职位没有直接关系，但可能与整个行业相关，那么就把它写进去。这会让你有更多被招聘人员挑选出的机会。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*UbhkE5vN-FOzYoFQ7jT5TA.jpeg)
 
-#### How not to present your skills
+#### 什么样的技能不需要展示
 
 ![](https://cdn-images-1.medium.com/max/3840/1*HwvJtfNwyAg0dcP0Ddfeyw.jpeg)
 
-Don’t do this. That’s an entire IT department.
+不要像这样写。这是整个 IT 部门。
 
-Try not to present your skills like the example above. If you’ve literally just started learning a new skill, don’t put it on your resume. This will stop recruiters from recommending you for jobs you’re not qualified for.
+尽量不要像上面的示例那样展示你的技能。如果你刚开始学习一项新技能，不要将其放在简历中。这样能避免招聘人员推荐你从事不适合的工作。
 
-## 3. Working Experience
+## 3. 工作经验
 
 ![](https://cdn-images-1.medium.com/max/3840/1*Dd1dVcccqN6gd6KUgfCFdA.jpeg)
 
-#### Use action words
+#### 使用动词
 
-In this section, you need to present details in a concise manner. Use action words that pop out to impress the intended audience, but avoid hyperbole.
+在这一部分，你需要简洁的呈现信息。使用动词来给招聘人员留下深刻印象，但要避免夸张。
 
-#### Customization
+#### 定制化
 
-Highlight the relevant information for the position you’re applying for, and keep it short. This will make you stand out from those writing a boilerplate document to send everywhere.
+突出你所申请职位的相关信息，并保持简短。这将使你从那些任何岗位都投递同样一份简历的人中脱颖而出。
 
-#### Less is more
+#### 少即是多
 
-However, please don’t exaggerate your experience because the interviewer is going to ask about everything you put on your resume. Keep in mind that less is more.
+但是，请不要夸大你的经历，因为面试官会根据你简历呈现的内容提问。记住少即是多。
 
-#### Include relevant keywords
+#### 包括相关的关键词
 
-The purpose of this is to beat the AOS (Applicant Tracking System) and develop a resume that will actually be findable by headhunters and hiring managers.
+这样做的目的是击败 AOS（申请者追踪系统），并编写一份能被猎头公司和招聘经理发现的简历。
 
-You can do this by analyzing the job postings of your desired position, identifying specific words and phrases that best describe it, and then implementing them to your resume.
+你可以通过分析目标职位的职位描述，确定最能描述它的特定单词和短语，然后将其应用于简历来做到这一点。
 
-#### Follow a step by step guide:
-
-```
-// First things first, write down your company name, your title, and the time period you have been working here.
-```
-
-ABC Company, Frontend Developer, 2017-present
+#### 遵循下面的分步指导：
 
 ```
-// a short intro if your company is not well known
+// 首先，写下你的公司名称，你的职位，以及你在这里工作的时间。
 ```
 
-ABC Company is a company that makes the world a better place, we’re trying to solve people’s problems.
+ABC 公司，前端开发人员，2017 年至今
 
 ```
-// List a few major achievements and put in relevant key words
+// 如果你的公司不是很出名，就简短的介绍
 ```
 
-* Developed a prototype used to visualize transportation routes using React, Antd, and Deck.gl.
-* Built a scheduling tool in the form of a Gantt chart using React and Material-UI.
-* Balanced requirements, UX, and deadlines in order to get most of the business value in a limited timeframe.
+ABC 公司是一家让世界变得更美好的公司，我们试图解决人们的问题。
 
 ```
-// List the technology you used
+// 列出几个主要的成就，并写上相关的关键词
 ```
 
-Technologies: React, Deck.gl, Python, Recharts, Node.js
+* 使用 React，Antd 和 Deck.gl 开发了一个用于可视化运输路线的原型。
+* 使用 React 和 Material-UI 构建了一个以甘特图形式呈现的调度工具。
+* 平衡的需求，用户体验和截止日期，以便在有限的时间内获得大部分商业价值。
 
-#### This is how your work experience should be presented:
+```
+// 列举你使用的技术
+```
+
+技术：React、Deck.gl、Python、Recharts、Node.js
+
+#### 你的工作经历应该这样来描述：
 
 ![](https://cdn-images-1.medium.com/max/4484/1*GfaGcGu8oOVsTNG5FNcJDg.png)
 
-## 4. Portfolio — Set Yourself Apart From Your Peers
+## 4. 作品集 — 使你从同行中脱颖而出
 
 ![[Trantor Liu’s Portfolio on CakeResume](https://www.cakeresume.com/trantorliu/portfolio?ref=resume-header-portfolio)](https://cdn-images-1.medium.com/max/3836/1*e-lvUJN69OBx3GOhmqM94A.png)
 
-As Coding Bootcamps increase the supply side for front-end developers, a great number of developers are [flooding into the developer job market](https://medium.com/@marceldegas/san-francisco-bootcamp-bubble-cee59e48bf3e).
+因为编程培训机构增加了前端开发人员的数量，大量的开发者[涌入开发人员就业市场](https://medium.com/@marceldegas/san-francisco-bootcamp-bubble-cee59e48bf3e)。
 
-Adding a little bit about your unique experience or projects would absolutely set you apart from your peers. Also, it’s crucial to building up your own portfolio since the definition of “experience” is different for everyone.
+加上一点你独特的经验或项目绝对会让你在同行中脱颖而出。此外，建立自己的作品集也很重要，因为“经验”的定义因人而异。
 
-Showcasing your past works and projects quickly proves your web development ability, increasing the chances of landing an interview in the competitive market. You can upload your work on [CodePen](https://codepen.io/) or [CakeResume](https://www.cakeresume.com).
+展示你过去的工作和项目可以快速证明你的 web 开发能力，这会增加你在竞争激烈的市场中获得面试的机会。你可以在 [CodePen](https://codepen.io/) 或 [CakeResume](https://www.cakeresume.com) 上面上传你的作品。
 
-#### Describe the work in your portfolio
+#### 描述一下你作品集中的工作
 
-Keep in mind, though, that giving a link to your app isn’t building your portfolio. A wireframe or the visual outcome of your app without including your thinking is also a terrible idea.
+不过要记住，提供你的作品的链接并不是在构建作品集。同样，一个无法体现你的想法的线框图或者你的应用程序的视觉效果，也是一个糟糕的想法。
 
-When you’re building your portfolio, include these things:
+当你建立作品集时，可以包含这些内容：
 
-* A screenshot or a live demo link.
-* What does your work do?
-* What did you contribute?
-* The language, framework, or pattern you used.
+* 屏幕截图或现场演示链接。
+* 你的工作是什么？
+* 你的贡献是什么？
+* 你使用的语言、框架和设计模式。
 
-A few examples:
+一些例子：
 
-[**ThisIsMe Web App Information Architecture - Jayd Gibbon's Portfolio**](https://www.cakeresume.com/portfolios/thisisme-web-app-information-architecture)
+[**ThisIsMe Web App Information Architecture - Jayd Gibbon 的作品集**](https://www.cakeresume.com/portfolios/thisisme-web-app-information-architecture)
 
-[**Seul Landing Part 1 - Stefan's Portfolio**](https://www.cakeresume.com/portfolios/seul)
+[**Seul Landing Part 1 - Stefan 的作品集**](https://www.cakeresume.com/portfolios/seul)
 
-#### A few suggestions if you’re starting from scratch
+#### 如果你是从零开始，我有一些建议
 
-* Imitate the websites you often use.
-* Start writing a tech blog. This could also be part of your portfolio.
-* Go to your first Hackathon and make something.
-* Start to solve your own problem.
+* 模仿你常用的网站。
+* 开始写一个技术博客。这也可以是你作品集的一部分。
+* 去参加黑客马拉松，并做点什么。
+* 开始解决你自己的问题。
 
-## 5. Online Resume Builders
+## 5. 线上简历生成器
 
-Before we start writing a great resume, try thinking about the kind of format you want your resume to have. Personally, I suggest that software developers write their resumes with an online resume builder, such as [CakeResume](https://www.cakeresume.com/) (free).
+在我们开始写一份出色的简历之前，试着想想你希望你的简历是什么样的板式。就个人而言，我建议软件开发人员使用线上简历生成器来写简历，例如 [CakeResume](https://www.cakeresume.com/)（免费的）。
 
-Here are some advantages of online [resume builders](https://www.cakeresume.com):
+这是线上[简历生成器](https://www.cakeresume.com)的优势：
 
-* They help you create your resume with up-to-date designs, which gives a good impression to your future employer.
-* They save you time. Especially for those who don’t know where to start and those who don’t want to mess around with adjusting columns and borders.
-* They help to ensure that you don’t leave out any vital information.
-* They make it easy to update a resume and swap out information. You can slightly tweak a resume to tailor the information for different employers.
+* 他们帮你使用最新的设计来创建你的简历，这会给你未来的雇主留下好印象。
+* 它们能节省你的时间。特别是对于那些不知道从哪里开始以及不想在调整列和边框上浪费时间的人。
+* 它们有助于确保你不会遗漏任何重要信息。
+* 它们能更容易的更新简历和置换信息。你可以根据不同的雇主的要求稍微调整简历的信息。
 
-## 6. Make Good Use of the Hyperlink
+## 6. 善用超链接
 
-If you decided to build your resume with an online resume builder, you have the advantage of using hyperlinks. Even if you convert your online version to PDF, your links would still work.
+如果你决定使用在线简历构建器来构建简历，则可以使用超链接。即使你把你的在线版本转换成 PDF，你的链接仍然可以使用。
 
-#### When to use hyperlinks
+#### 什么时候使用超链接
 
-* You want to showcase the website you’ve been working on — you could simply provide the URL to the website.
-* You want to mention third-party services or SDKs you used.
-* You want to present the documented solution for a previous problem you tried to solve on your personal blog or Medium.
+* 你想展示你一直在做的网站 —— 你只需提供该网站的 URL。
+* 你需要提到你使用的第三方服务或 sdk。
+* 你想在个人博客或媒体上展示你先前尝试解决的问题的解决方案的记录。
 
-## Learn More:
+## 了解更多：
 
-* [Cover Letter (cover letter samples, cover letter templates, application letters) — All-in-One Tutorial](https://www.cakeresume.com/resources/cover-letter-all-in-one-tutorial?locale=en)
-* [How To Write an iOS Developer Resume That Will Land You an Interview](https://medium.com/better-programming/how-to-write-an-ios-developer-resume-that-will-land-you-an-interview-43cf66c6d4fa)
+* [求职信（求职信样本，求职信模板，申请信）—— 多合一教程](https://www.cakeresume.com/resources/cover-letter-all-in-one-tutorial?locale=en)
+* [如何写一份能让你获得面试机会的 iOS 求职简历](https://medium.com/better-programming/how-to-write-an-ios-developer-resume-that-will-land-you-an-interview-43cf66c6d4fa)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
