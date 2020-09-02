@@ -161,7 +161,7 @@ npm install @babel/preset-env --save-dev
 
 5. 用法
 
-> 注意: 如果您使用的是Windows 10 PowerShell，请谨慎对待文件编码，因为在运行 Babel 时可能会遇到解析错误。建议文件的编码为UTF-8。
+> 注意: 如果您使用的是 Windows 10 PowerShell，请谨慎对待文件编码，因为在运行 Babel 时可能会遇到解析错误。建议文件的编码为UTF-8。
 
 * 输入: index.js
 * 输出: out 目录 (Babel 将会在这里保存已转译的文件)
