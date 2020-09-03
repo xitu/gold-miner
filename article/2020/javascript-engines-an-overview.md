@@ -7,19 +7,13 @@
 
 # JavaScript Engines: An Overview
 
-#### Understand the basics of a JavaScript Engine and get an introduction into Chrome’s V8 Engine
-
 ![Photo by [JOSHUA COLEMAN](https://unsplash.com/@joshstyle?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/t/technology?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10944/1*VzPVDApZ_xVLY0qGZGMAoA.jpeg)
-
----
 
 ## Introduction
 
 A JavaScript engine is a computer program or an interpreter that executes JavaScript code. A JavaScript engine can be written in a wide variety of languages. For example, the V8 engine which powers Chrome browsers was written in C++, while the SpiderMonkey engine which powers Firefox browsers was written in C and C++.
 
 A JavaScript engine can be implemented as a standard interpreter, or just-in-time compiler that compiles JavaScript to bytecode in some form. The first JavaScript engines were almost only interpreters, but most modern engines employ just-in-time (JIT) compilation for upgraded performance.
-
----
 
 ## Popular JavaScript Engines
 
@@ -29,8 +23,6 @@ All popular browsers have their own implementation of a JavaScript engine. Here 
 * Firefox’s [SpiderMonkey](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey)
 * Safari’s [JavaScriptCore](https://developer.apple.com/documentation/javascriptcore) (a.k.a Nitro, SquirrelFish and SquirrelFish Extreme)
 * Edge’s [Chakra](https://github.com/microsoft/ChakraCore) — **but Edge has recently embraced Chromium‘s V8 engine**
-
----
 
 ## Flow Diagram of the JavaScript Engine
 
@@ -104,8 +96,6 @@ The V8 team has given many reasons for this newly updated pipeline, some of them
 
 You can read more from the team over [here](https://github.com/thlorenz/v8-perf/blob/master/compiler.md#advantages-over-old-pipeline).
 
----
-
 ## New Developments from V8
 
 #### JIT-less mode
@@ -122,22 +112,13 @@ Read more in the official blog post over [here](https://v8.dev/blog/background-c
 
 ---
 
-## Related Stories
-[**11 JavaScript and TypeScript Shorthands You Should Know**
-**Some very useful (and sometimes cryptic) JS/TS shorthands to use or at least understand when reading others’ code.**blog.bitsrc.io](https://blog.bitsrc.io/11-javascript-and-typescript-shorthands-you-should-know-690a002674e0)
-[**10 Super Useful Tricks for JavaScript Developers**
-**Useful Javascript tricks you might have missed.**blog.bitsrc.io](https://blog.bitsrc.io/10-super-useful-tricks-for-javascript-developers-f1b76691199b)
-[**14 JavaScript Code Optimization Tips for Front-End Developers**
-**Tips and tricks to increase performance and website load time**blog.bitsrc.io](https://blog.bitsrc.io/14-javascript-code-optimization-tips-for-front-end-developers-a44763d3a0da)
-
----
-
 I hope you got a great overview of a JavaScript Engine. Happy Coding!
 
-**Resources
-**[V8 Docs](https://v8.dev/)
-[A crash course in just-in-time (JIT) compilers by Lin Clark](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)
-[Article by Sander](https://dev.to/sanderdebr/a-brief-explanation-of-the-javascript-engine-and-runtime-2idg)
+**Resources**
+
+- [V8 Docs](https://v8.dev/)
+- [A crash course in just-in-time (JIT) compilers by Lin Clark](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)
+- [Article by Sander](https://dev.to/sanderdebr/a-brief-explanation-of-the-javascript-engine-and-runtime-2idg)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
