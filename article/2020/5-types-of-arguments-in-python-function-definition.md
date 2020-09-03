@@ -284,10 +284,10 @@ def add(a,b,/,c,d):
     return a+b+c+d
 
 print (add(3,4,5,6))
-#Output:12
+#Output:18
 
 print (add(3,4,c=1,d=2))
-#Output:6
+#Output:10
 ```
 
 If we specify keyword arguments for positional only arguments, it will raise **TypeError.**
