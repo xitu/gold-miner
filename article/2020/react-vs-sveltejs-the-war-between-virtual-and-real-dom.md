@@ -2,73 +2,73 @@
 > * 原文作者：[Keshav Kumaresan](https://medium.com/@keshavkumaresan1002)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/react-vs-sveltejs-the-war-between-virtual-and-real-dom.md](https://github.com/xitu/gold-miner/blob/master/article/2020/react-vs-sveltejs-the-war-between-virtual-and-real-dom.md)
-> * 译者：
+> * 译者：[niayyy](https://github.com/nia3y)
 > * 校对者：
 
-# React vs. Svelte: The War Between Virtual and Real DOM
+# React vs. Svelte: 虚拟与真实 DOM 间的战争
 
-I recently had the pleasure of playing around with Svelte and learned how to build a simple shopping cart application. Moreover, I couldn’t help but notice many similarities it has with React. It’s surprising to see how well of a contender it can be, to one of the most popular JavaScript libraries for building user interfaces. In this article, I’m going to compare Svelte vs. React and how they fare against each other behind the scenes.
+我最近有幸使用到了 Svelte，并学习到了如何去创建一个简单的购物车应用程序。此外，我注意到了它和 React 的许多相似之处。它能成为如此出色的竞争者，成为用来构建用户界面的最流行的 JavaScript 库之一，非常令人吃惊。这篇文章中，我将比较 Svelte 和 React，看看他们是如何在幕后进行对抗的。
 
 ![Image by [Iván Tamás](https://pixabay.com/users/thommas68-2571842/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2354583) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2354583)](https://cdn-images-1.medium.com/max/3840/1*SVLGTQm3xUZgU8n2QJfmyA.jpeg)
 
-## Svelte is a Compiler while React uses Virtual DOM
+##  Svelte 是一个编译器，而 React 使用虚拟 DOM
 
-React and Svelte, both provide a similar component-based architecture — that means both enable a CDD bottom-up development, and both enable sharing their components between apps.
+React 和 Svelte，都提供了相似的基于组件的结构 —— 这意味着两者都能够进行一个由组件驱动的自底向上的开发，并且都能够在不同的应用程序间共享组件。
 
-The significant difference between them is that Svelte is a compiler that converts your application into ideal JavaScript during build time as opposed to React, which uses a virtual DOM to interpret the application code during runtime. Yes, that was quite a lot of jargon, let me break it down.
+它们间的显著差异在于 Svelte 是一个编译器，可以让你的应用程序代码在编译阶段转换成理想的 JavaScript 代码片段，而 React 使用虚拟 DOM 在运行时去解释应用程序代码，二者恰恰相反。是的，这有很多术语，让我来解释一下。
 
 ![Svelte vs. React Behind the Scenes](https://cdn-images-1.medium.com/max/5916/1*_7upPeJparkaxnpBhOkZig.png)
 
-#### React Virtual DOM
+#### React 虚拟 DOM
 
-React uses a concept known as Virtual DOM (VDOM), where a virtual representation of the UI is kept in memory and synced with the real DOM through a process called [reconciliation](https://reactjs.org/docs/reconciliation.html). The reconciliation process will find the difference (diffing) between the Virtual DOM (An object in memory, where we push the latest updates to the UI) and the real DOM (DOM holding the previously rendered UI). Using specific heuristic algorithms, it decides how to update the UI. This process, for the most part, is fast, reliable, and immensely reactive. Pun intended 😄.
+React 使用一个叫做虚拟 DOM（VDOM）—— UI 的虚拟表示形式保存在内存中，并通过叫做 [reconciliation](https://reactjs.org/docs/reconciliation.html) 的过程来和真实 DOM 进行同步 —— 的技术。 在 reconciliation 过程中将找出虚拟 DOM（内存中的一个对象，保存了最新的 UI 更新）和真实 DOM（DOM 保持更新前渲染的 UI）间的不同（diffing 算法）。使用特定的启发式算法，来决定如何更新 UI。这个过程，大多数情况下是快速的、可靠且反应迅速的。双关语义😄。
 
-To achieve this, React bundles a certain amount of overhead code, which will run in the browser’s JS engine to monitor and update the DOM based on various user interactions.
+为了实现这些，React 打包了一些额外的代码，这些代码运行在浏览器的 JS 引擎中来监视和更新基于各种用户交互的 DOM 节点。
 
-#### Svelte Compiler
+#### Svelte 编译器
 
-Svelte is purely a compiler, that converts your application into ideal JavaScript code when you build the application for production. Meaning it won’t inject any overhead code to run in the browser when your application is running to update the DOM.
+Svelte 是一个纯编译器，当你构建线上的应用程序时，它会把你的应用程序代码转换为理想的 JavaScript 代码片段。这意味着当你的应用程序运行更新 DOM 时，它不会注入任何需要在浏览器运行的额外代码。
 
-This approach is relatively new when compared to React, which generally takes advantage of the virtual DOM.
+与通常使用虚拟 DOM 的 React 相比，这个方法相对更加新颖。
 
-## Where Svelte is Strong
+## Svelte 的优势
 
-Let’s find out what are key benefits we can gain by using Svelte.
+让我们总结一下通过使用 Svelte 我们可以获得的主要好处。
 
-1. The building time is blazing fast when compared to React or even other frameworks. Usage of rollup plugin as the bundler might be the secret here.
-2. Bundle size is smaller and tiny when gzipped when compared to React, and this is a huge plus point. Even with the shopping cart application I built, the initial load time and the duration to render the UI is extremely low, only the chunky images I have added takes some time :).
-3. Binding classes and variables are relatively easy, and custom logic is not needed when binding classes.
-4. Scoping CSS `\<style>` within the component itself allows flexible styling.
-5. Easier to understand and get started when compared to other frameworks as the significant portion of Svelte is plain JavaScript, HTML, and CSS.
-6. More straightforward store implementation when compared to React’s context API, granted context API provides more features, and Svelte might be simple enough for common scenarios.
+1. 对比 React 或者甚至其他框架，有更短的构建时间。把 rollup 插件作为捆绑程序可能是这里的秘密。
+2. 对比 React，当使用 gzipped 压缩时，包的尺寸较小，这是一个巨大的优点。甚至我构建的购物车应用程序，首次加载时间和 UI 渲染时间都非常少，只有较大的图片需要花费更多的时间 :)。
+3. 类和变量的绑定相对容易，并且绑定类时不需要自定义逻辑。
+4. 在组件本身为 CSS `\<style>` 设置范围允许灵活的样式。
+5. 比起其他的框架，Svelte 的重要组成部分是纯 JavaScript、HTML 和 CSS，因此更易于理解和入门。
+6. 对比 React 上下文 API 有更直截了当的存储实现，获取上下文 API 提供更多的特性，并且对常见的场景来说，Svelte 可能更简单。
 
-## Where Svelte Falls Behind
+## Svelte 的缺点
 
-Let’s find out where Svelte has its downsides.
+让我们找一下 Svelte 的不足。
 
-1. Svelte won’t listen for reference updates and array mutations, which is a bummer, and developers need to actively look out for this and make sure arrays are reassigned so the UI will be updated.
-2. Usage style for DOM events can also be annoying, as we need to follow Svelte’s specific syntax instead of using the predefined JS syntax. Cannot directly use `onClick` like in React, but instead, have to use special syntax such as `on:click`.
-3. Svelte is a new and young framework with minimal community support, thereby doesn’t have support for a wide range of plugins and integrations that might be required by a heavy production application. React is a powerful contender here.
-4. No additional improvements. Ex- React suspense actively controls your code and how it runs and tries to optimize when the DOM is updated and sometimes even provide automatic loading spinners when waiting for data. These extra features and continued improvements are relatively low in Svelte.
-5. Some developers might not prefer using special syntaxes such as `#if` and `#each` within their templates and instead would want to use plain JavaScript, which React allows. This might come down to personal preferences.
+1. Svelte 不会监听引用更新和数组突变，这很糟糕，开发者需要积极关心这个问题，并确保数组被分配以便 UI 能进行更新。
+2. DOM 事件的使用方式可能也是令人恼怒的，我们需要遵循 Svelte 特定的语法代替使用原生的 JS 语法。像 React 一样不能直接的使用 `onClick`，而是使用特殊的语法，像：`on:click`。
+3. Svelte 是一个新的、年幼的框架，有极小的社区支持，不能提供大型应用程序可能需要的丰富的插件和集成。React 是这里的一个强力的竞争者。
+4. 没有其他改进。React suspense 主动控制你的代码及其运行方式，并尝试优化 DOM 更新的时间，有时甚至在等待数据时提供自动加载微调器。这些额外的特性和持续改进在 Svelte 中非常少。
+5. 一些开发者可能不喜欢使用特殊的语法，像模板中的 `#if` 和 `#each`，他们更倾向于使用纯 JavaScript，像在 React 中那样。这可能取决于个人爱好。
 
-## Conclusion
+## 结论
 
-Svelte’s blazing fast build time and tiny bundle sizes are quite appealing when compared to React, especially for small everyday applications. Yet the enhanced features (context API, suspense, etc.), community support, a wide range of plugins and integrations along with certain syntax simplifications does render React attractive as well.
+和 React 相比，Svelte 的非常低的构建时间和极小的包尺寸非常吸引人，特别是对于小型的日常应用。但是增强功能（上下文 API、suspense 等）、社区支持、丰富的插件和集成以及某些特别语法的简化让 React 更有吸引力。
 
-**Is Svelte better than react or vice versa?**
+**Svelte 比 React 更好吗？反之亦然?**
 
-Well, Svelte does provide noticeable improvements in certain features when compared to React. But it may not still be significant or large enough to replace React completely. React is still robust and broadly adopted. Svelte has quite some catching up to do. But concept-wise, the compiling approach taken by Svelte has proven that virtual DOM diffing isn’t the only approach to build fast reactive applications, and a good enough compiler can get the same job done as good as it gets.
+相比 React，Svelte 确实在一些功能有显著改善。但是还不足以完全取代 React。React 仍然强大且被广泛使用。Svelte 还有许多工作要做。但在概念上，Svelte 采取的编译方法证明，虚拟 DOM diffing 算法并不是构建快速响应式应用程序的唯一方法，一个足够好的编译器可以很好地完成相同的工作。
 
-**So which framework should you use for your next application?**
+**你的下一个应用程序会使用那个框架？**
 
-When weighing the Pros and Cons, In my opinion, if you are building a small application, like a simple e-commerce application for your startup, I would recommend Svelte. If you have a good knowledge of JS, HTML, and CSS, its easier to master Svelte. You can also build some powerful fast and lightweight applications with Svelte.
+在权衡利弊时，在我看来，如果你正在构建一个小的应用程序，像为了你的创业构建一个简单的电子商务应用程序，我会推荐 Svelte。如果你对于 JS、HTML 和 CSS 有很好的了解，那更容易去掌握 Svelte。你也可以使用 Svelte 来构建一些功能强大地快速和轻量的应用程序。
 
-For huge production applications that require several integrations and specific plugins, then maybe React still might be the way to go. Then again, much like React provides Next.js, Svelte also provides its production-ready Single Page Application framework called [Sapper](https://sapper.svelte.dev/), which might be worth looking into.
+对于大型线上应用程序，需要一些集成和特定的插件，可能 React 是更好的选择。像 React提供了 Next.js，Svelte 也提供了他的生产就绪的单页面应用程序框架，叫做 [Sapper](https://sapper.svelte.dev/)，可能值得去研究。
 
-Both contenders are practical and efficient tools to build brilliant user interfaces. Choosing between the two as of now is mostly based on your scenario and preferences. As I have mentioned above, it’s challenging to announce one winner since they both perform beautifully to achieve their primary goals.
+这两个竞争者都是构建出色的用户界面的实用而有效的工具。到目前为止，在这两者之间进行选择主要取决于你的方案和首选项。正如我在上文中提到的，要宣布一名获胜者是一项挑战，因为他们都为实现自己的主要目标而表现出色。
 
-I hope this article gave you a quick comparison of React and Svelte. And it would be helpful to decide which library to choose for your next application. Cheers!
+我希望这篇文章能让你对 React 和 Svelte 进行快速对比。这将对你决定下一个应用程序使用哪个库很有帮助。干杯！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
