@@ -7,8 +7,6 @@
 
 # 6 Ways to Speed Up Your Vue.js Application
 
-#### A checklist you can use to ensure your Vue app is lightning fast
-
 ![](https://cdn-images-1.medium.com/max/2400/1*aW-r70mA9ByajQQfiFh5hQ.png)
 
 If you’ve ever used Google’s Pagespeed Insights or Google Lighthouse then you’ve seen this webpage performance assessment:
@@ -22,8 +20,6 @@ Some of the diagnostics can be pretty useful, indicating some easy fixes, unused
 Other diagnostics, such as main-thread work and Javascript execution time do show problems but they don’t really help you fix them.
 
 In this article I’ll go through the steps you can follow to make sure your Vue application is working as fast as possible. With these steps, you’ll know exactly what to fix and you won’t have to guess anything.
-
----
 
 ## 1. Update Only What’s Needed
 
@@ -55,13 +51,13 @@ values: [{id: 1, t: 'a'}, {id: 2, t: 'b'}]
 
 And you’re rendering it using `v-for`:
 
-```
+```vue
 <div v-for="value in values" :key="value.id">{{ value.t }}</div>
 ```
 
 When a new element is added to the list Vue will re-render the whole list. Not convinced? Try writing it like this:
 
-```
+```vue
 <div v-for="value in values" :key="value.id">
   {{ value.t }}
   {{ new Date() }}
@@ -76,7 +72,7 @@ So, what does `key` do and why are we passing it? The `key` property helps Vue u
 
 Specifying a `key` is important, but it’s not enough. In order to make sure you’re getting the best performance, you need to create `Child` components. That’s right — the solution is pretty simple. You just have to divide your Vue app into small, lightweight components.
 
-```
+```vue
 <item :itemValue="value" v-for="item in items" :key="item.id"></item>
 ```
 
@@ -86,8 +82,6 @@ The performance gain of using components to render lists is tremendous. If an el
 
 If the component is really lightweight, you can do one better. Instead of passing a complete object like `value` you could pass a primitive property (String or Number) like `:itemText="value.t”`. With that in place, `\<item> `will only be re-rendered if the primitive values you passed have changed. This means that even reactive changes will cause an update — but it’s not needed!
 
----
-
 ## 2. Eliminate Duplicate Rendering
 
 Rendering full lists or heavy elements more times than needed is quite a sneaky issue, but it’s very easy to make happen.
@@ -96,7 +90,7 @@ Let’s say you have a component that has an `entities` property in the data obj
 
 If you followed the previous step, then you probably have a child component to render each entity.
 
-```
+```vue
 <entity :entity="entity" v-for="entity in entities" :key="entity.id" />
 ```
 
@@ -133,15 +127,11 @@ This can happen if your code changes the `entities` value many times instead of 
 
 The solution here is to avoid changing entities more times than is necessary. In the case of Firestore snapshots, you can use debounce or throttle functions to avoid changing the `entities` property too often.
 
----
-
 ## 3. Optimize Event Handling
 
 Not all events are created equal and as such you have to make sure you’re correctly optimizing for each of them.
 
 Two great examples are `@mouseover` and `window.scroll` events. These two types of events can be triggered many times even with normal usage. If the event handlers you have in place make costly calculations, these calculations will run multiple times per second causing lag in your application. A solution is to use a debounce function to limit how many times you process these events.
-
----
 
 ## 4. Remove or Reduce Slow Components
 
@@ -153,8 +143,6 @@ If the new component takes considerably more time than your own components, then
 
 ![](https://cdn-images-1.medium.com/max/2000/1*SLEt6zuG1eYEhKfq9Fxw4A.png)
 
----
-
 ## 5. Render Once
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6PL_PU-Dg-UHrIPZutTLfw.png)
@@ -162,8 +150,6 @@ If the new component takes considerably more time than your own components, then
 This is from the official Vue.js documentation. If you have elements that once everything is mounted should only be rendered once, you can use the v-once directive.
 
 Let’s say you have a section in your app that requires that data does not change for the entire session. By using the v-once directive you ensure this section is only rendered once.
-
----
 
 ## 6. Virtual Scrolling
 
@@ -175,8 +161,6 @@ If you decide to implement endless scrolling instead of paging, you can and shou
 * [https://github.com/Akryum/vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller)
 
 I have used both and in my experience `vue-virtual-scroll-list` is better because it’s easier to use and doesn’t rely on absolute positions that can break the UI.
-
----
 
 ## Conclusion
 
