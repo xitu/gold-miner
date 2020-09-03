@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/use-the-latest-javascript-features-in-any-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2020/use-the-latest-javascript-features-in-any-browser.md)
 > * 译者：[MangoTsing](https://github.com/MangoTsing)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer) [Isildur46](https://github.com/Isildur46)
 
 # 如何利用 Polyfill 和转译在所有浏览器中使用 JavaScript 的最新特性
 
