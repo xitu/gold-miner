@@ -19,8 +19,6 @@ I’d love to introduce a **Boundary Case** also (a subject of the doubt too). I
 
 What about **Corner Cases**? I won’t give any definition since you’ll be able to do by yourself after you take a look at the next examples.
 
----
-
 ## You won’t believe this
 
 If I ask you can something be coercive equal to the negation of itself, what would be your answer? You’d probably said that is a nonsense question, but:
@@ -99,9 +97,9 @@ if (students == false) {
 }
 ```
 
-**Being explicit can sometimes produce unnecessary problems.** In the second if-clause, we compare array with boolean. You may have thought that the result of this operation is boolean **true**, but it isn’t. ******The same effect will be with strict equality.**
+**Being explicit can sometimes produce unnecessary problems.** In the second if-clause, we compare array with boolean. You may have thought that the result of this operation is boolean **true**, but it isn’t. **The same effect will be with strict equality.**
 
-Comparison of an array and a boolean value will go throughout lots of corner cases. Before we take a look at examples, I’ll give you a hint: **Don’t ever use double equals with boolean (**true **and** false**)**. Let’s analyze how the algorithm works:
+Comparison of an array and a boolean value will go throughout lots of corner cases. Before we take a look at examples, I’ll give you a hint: **Don’t ever use double equals with boolean (true and false)**. Let’s analyze how the algorithm works:
 
 ```JavaScript
 var students = [];
@@ -129,7 +127,7 @@ The first if-clause is self-explanatory, so I won’t waste time explaining. Lik
 
 Next three steps are straight forward. Firstly, we convert a boolean to a number (rule №9: [**ToNumber(true)**](https://www.ecma-international.org/ecma-262/#sec-tonumber)), in the next step the string becomes number (rule №5: [**ToNumber(“”)**](https://www.ecma-international.org/ecma-262/#sec-tonumber)), and the last step is to perform a strict equality comparison. The third clause is the same as the previous.
 
-One of the downsides of the coercion is an abstract operation **ToNumber()**. I’m not sure that converting an empty string to a number should return **0**. **It would be much better to return** NaN **since** NaN **is representing an invalid number.**
+One of the downsides of the coercion is an abstract operation **ToNumber()**. I’m not sure that converting an empty string to a number should return **0**. **It would be much better to return NaN since NaN is representing an invalid number.**
 
 Conclusion: **Senseless input will always produce senseless output. We don’t have to be explicit all time. Implicitly can sometimes be better than explicitly.**
 
