@@ -10,7 +10,7 @@ We'll be building a simple ecommerce site called "RustMart" that will have 2 pag
 - HomePage - list all the products that the customer can add to cart
 - ProductDetailPage - show the product details when a product card is clicked
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-1.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-1.png)
 
 I'm using this example as it tests the minimal set of capabilities required to build modern SPAs:
 
@@ -135,7 +135,7 @@ Start the serve task in a new terminal and load `http://localhost:3000` in your 
 $ cargo make serve
 ```
 
-![](/images/2020-rust-wasm-yew-single-page-application/image-1.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-1.png)
 
 It works!! It's only "hello world" but this is fully written in Rust.
 
@@ -360,7 +360,7 @@ The `view` lifecycle method is invoked when the component is rendered. Here we'v
 
 Save some random images as `static/products/apple.png` and `static/products/banana.png` and you'll get this UI:
 
-![](/images/2020-rust-wasm-yew-single-page-application/image-2.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-2.png)
 
 Let's implement the "add to cart" functionality:
 
@@ -509,11 +509,11 @@ Let's implement the "add to cart" functionality:
 
 If you've used [Redux](https://redux.js.org) before, `update` is similar to [`Reducer`](https://redux.js.org/basics/reducers) (for state updates) and [`Action Creator`](https://redux.js.org/basics/actions#action-creators) (for side-effects), `Message` is similar to [`Action`](https://redux.js.org/basics/actions) and `link` is similar to [`Dispatch`](https://redux.js.org/basics/store#dispatching-actions).
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-2.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-2.png)
 
 Here's how the UI looks like, try clicking the "Add To Cart" button and see the changes in "Cart Value":
 
-![](/images/2020-rust-wasm-yew-single-page-application/image-3.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-3.png)
 
 ## Fetching Data
 
@@ -815,7 +815,7 @@ Quite a number of changes, but you should be able to understand most of them.
 - These two messages set the `products` and `get_products_error` fields in state respectively. They also set the `get_products_loaded` state to true after the request is fulfilled.
 - In the `view` method, we've used conditional rendering to render either the loading view, error view or products view based on the component's state.
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-3.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-3.png)
 
 ## Splitting into reusable components
 
@@ -929,13 +929,13 @@ Pretty straightforward, except for `Properties`, `Callback` and `reform`.
 - `Properties` - As mentioned in the beginning of the post, "Properties" or "Props" are input to a component. If you think of components as functions, then Props are the function arguments.
 - For the `ProductCard` component, we're passing the `Product` struct as well as a `on_add_to_cart` callback. This component doesn't hold any state, so when user clicks on the "Add To Cart" button, this component calls the parent component to update the `cart_products` state. This callback is represented using the `Callback<T>` type and to call this from child component, we either use `emit` or `reform` methods on the callback.
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-4.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-4.png)
 
 ## Styling
 
 The UI looks barebones as we haven't added any styles.
 
-![](/images/2020-rust-wasm-yew-single-page-application/image-3.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-3.png)
 
 We can either use the [class attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class) or [inline styles](https://developer.mozilla.org/en-US/docs/Web/API/ElementCSSInlineStyle/style) with Yew. Let's add some styles so the UI looks good.
 
@@ -978,7 +978,7 @@ Let's create a new CSS file `static/styles.css`, add it to `static/index.html` a
 
 After adding the styles and a few more products, here's how the UI looks like:
 
-![](/images/2020-rust-wasm-yew-single-page-application/image-4.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-4.png)
 
 CSS changes are outside the scope of this post, please refer to the [GitHub repo](https://github.com/sheshbabu/rustmart-yew-example).
 
@@ -1096,7 +1096,7 @@ Let's make the corresponding change in `lib.rs`:
 
 This is how our component hierarchy looks like so far:
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-5.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-5.png)
 
 ## ProductDetailPage
 
@@ -1351,14 +1351,14 @@ Very similar to the HomePage component. Let's also add this file to the module t
 
 This is how it looks like:
 
-![](/images/2020-rust-wasm-yew-single-page-application/image-5.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-5.png)
 
 We can now move between multiple pages without refreshing the page!
 
 ## State Management
 
 One thing you might have noticed in the `ProductDetail` page is that clicking on the "Add To Cart" button doesn't update the cart. This is because the state that holds the list of products in cart `cart_products` currently resides inside `Home` page component:
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-6.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-6.png)
 
 To share state between two components, we can either:
 
@@ -1367,7 +1367,7 @@ To share state between two components, we can either:
 
 The `App` component is a common ancestor to both `ProductDetail` and `Home`. We can move the `cart_products` state there and pass it as props to `ProductDetail` and `Home`.
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-7.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-7.png)
 
 This works fine for shallow component hierarchies but when you have deep component hierarchy (which is common in larger SPAs), you'll need to pass this state through multiple layers of components (which might not have use for this prop) to reach the desired node. This is called "Prop Drilling".
 
@@ -1375,7 +1375,7 @@ You can see that `cart_products` is now passed from `App` to `AddToCart` compone
 
 This is the problem the global state solves. Here's how it would look like:
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-8.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-8.png)
 
 Notice how there's a direct link between the components that need this state and the global state.
 
@@ -1387,7 +1387,7 @@ Let's solve our problem by hoisting the state.
 
 We'll be refactoring our code by moving `cart_products` state to `App` and extracting `Navbar` and `AtcButton` as separate components:
 
-![](/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-9.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-9.png)
 
 ```rust
 // src/components/navbar.rs
@@ -1836,8 +1836,8 @@ Finally, move the `cart_products` state from `Home` to `App`:
 
 Now we can finally add to cart from `ProductDetail` page and we can also see the navbar in all pages
 
-![](/images/2020-rust-wasm-yew-single-page-application/image-6.png)
-![](/images/2020-rust-wasm-yew-single-page-application/image-4.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-6.png)
+![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-4.png)
 
 We've successfully built a SPA fully in Rust!
 
