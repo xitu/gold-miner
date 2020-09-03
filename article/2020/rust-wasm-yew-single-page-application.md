@@ -1,3 +1,9 @@
+> * 原文地址：[Single Page Applications using Rust](http://www.sheshbabu.com/posts/rust-wasm-yew-single-page-application/)
+> * 原文作者：[Shesh](http://www.sheshbabu.com/) 
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md](https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md)
+> * 译者：
+> * 校对者：
 
 # Single Page Applications using Rust
 
@@ -1848,3 +1854,9 @@ I've hosted the demo [here](https://rustmart-yew.netlify.app) and the code is in
 The Yew community has done a good job designing abstractions like `html!`, `Component` etc so someone like me who's familiar with React can immediately start being productive. It definitely has some rough edges like FetchTask, lack of [_predictable_](https://redux.js.org/introduction/motivation) state management and the documentation is sparse, but has potential to become a good alternative to React, Vue etc once these issues are fixed.
 
 Thanks for reading! Feel free to follow me in [Twitter](https://twitter.com/sheshbabu) for more posts like this :)
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
