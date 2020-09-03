@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-reasons-to-choose-pwa-for-your-web-and-mobile-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-reasons-to-choose-pwa-for-your-web-and-mobile-apps.md)
 > * 译者：[rocwong-cn](https://github.com/rocwong-cn)
-> * 校对者：
+> * 校对者：[Isildur46](https://github.com/Isildur46)、[Misszhu](https://github.com/Misszhu)
 
 # 让你的 Web 应用和移动应用选择 PWA 的 5 个理由
 
@@ -23,7 +23,7 @@
 
 ![Screenshot by Auther (Source — [StackOverflow](https://insights.stackoverflow.com/survey/2019#technology))](https://cdn-images-1.medium.com/max/2000/1*ugxSh7SYNtRB_CmJD_gn_A.png)
 
-相比之下，使用 JavaScript / TypeScript、HTML、CSS 以及 Angular 这样的框架或 React 这样的库是很容易的。 [2019 年 stack overflow 的调查结果](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-wanted)显示，上述这些 Web 开发语言是最受欢迎的。
+相比之下，使用 JavaScript/TypeScript、HTML、CSS 以及 Angular 这样的框架或 React 这样的库是很容易的。[2019 年 stack overflow 的调查结果](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-wanted)显示，上述这些 Web 开发语言是最受欢迎的。
 
 这些结果影响着开发人员的技术选型，因此，会有更多的开发人员选择 Web 领域。
 
@@ -103,7 +103,7 @@ PWA 强制要求在传输层使用安全协议。因此，对用户而言，敏�
 
 ## 结论
 
-除了这 5 个原因以外， PWA 还满足了我们对其他 Web 或者移动应用的要求，例如响应速度、可靠性以及用户体验等。作为开发人员，您无需承担语言和框架上负担，因此开发 PWA 很容易。与原生应用的开发相比，PWA 花费的时间更少。
+除了这 5 个原因以外，PWA 还满足了我们对其他 Web 或者移动应用的要求，例如响应速度、可靠性以及用户体验等。作为开发人员，您无需承担语言和框架上负担，因此开发 PWA 很容易。与原生应用的开发相比，PWA 花费的时间更少。
 
 如果您决定使用 PWA，在业务层面，成本会更低，市场占有率会更高，并且可以快速地进行搜索引擎优化。因此，下次寻求 Web 或者移动端的解决方案时，请马上尝试 PWA 吧。
 
