@@ -80,7 +80,7 @@ This item component will only update if the specific item has a reactive change 
 
 The performance gain of using components to render lists is tremendous. If an element is added or removed from the array, Vue won’t render all the components one-by-one again. If the array is sorted, Vue just shuffles the elements by relying on the provided `key`.
 
-If the component is really lightweight, you can do one better. Instead of passing a complete object like `value` you could pass a primitive property (String or Number) like `:itemText="value.t”`. With that in place, `\<item> `will only be re-rendered if the primitive values you passed have changed. This means that even reactive changes will cause an update — but it’s not needed!
+If the component is really lightweight, you can do one better. Instead of passing a complete object like `value` you could pass a primitive property (String or Number) like `:itemText="value.t”`. With that in place, `<item>` will only be re-rendered if the primitive values you passed have changed. This means that even reactive changes will cause an update — but it’s not needed!
 
 ## 2. Eliminate Duplicate Rendering
 
