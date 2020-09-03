@@ -7,8 +7,6 @@
 
 # 5 Types of Arguments in Python Function Definition
 
-#### Learn about different types of arguments used in the python function definition
-
 ![Photo by [Sharon McCutcheon](https://www.pexels.com/@mccutcheon?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/person-s-hand-with-paints-1174932/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/11232/1*TqNYpk6OZ6qBS8CNPWz1tQ.jpeg)
 
 #### 5 Types of Arguments in Python Function Definition:
@@ -16,10 +14,8 @@
 1. `default arguments`
 2. `keyword arguments`
 3. `positional arguments`
-4. arbitrary positional arguments
+4. `arbitrary positional arguments`
 5. `arbitrary keyword arguments`
-
----
 
 #### Python Function Definition:
 
@@ -27,11 +23,9 @@ The function definition starts with the keyword `def`. It must be followed by th
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DhAUznkbAFfBUvMqF8rFuw.png)
 
-**Formal parameters** are mentioned in function definition .**Actual parameters(arguments)** are passed during function call.
+**Formal parameters** are mentioned in function definition. **Actual parameters(arguments)** are passed during function call.
 
 We can define a function with a variable number of arguments
-
----
 
 #### 1.default arguments:
 
@@ -46,7 +40,7 @@ We can define a function with a variable number of arguments
 
 In the below example, the default value is given to argument `b`,`c`
 
-```
+```py
 def add(a,b=5,c=10):
     return (a+b+c)
 ```
@@ -55,7 +49,7 @@ This function can be called in 3 ways
 
 1. **Giving only the mandatory argument**
 
-```
+```py
 print(add(3))
 #Output:18
 ```
@@ -63,21 +57,19 @@ print(add(3))
 **2. Giving one of the optional arguments.**
 3 is assigned to a, 4 is assigned to b.
 
-```
+```py
 print(add(3,4))
 #Output:14
 ```
 
 **3.Giving all the arguments**
 
-```
+```py
 print(add(2,3,4))
 #Output:9
 ```
 
 **Note:** Default values are evaluated only once at the point of the function definition in the defining scope. So, it makes a difference when we pass mutable objects like list,dictionary as default values.
-
----
 
 #### 2. Keyword Arguments:
 
@@ -87,7 +79,7 @@ During function call, values passed through arguments need not be in the order o
 
 **Example:**
 
-```
+```py
 def add(a,b=5,c=10):
     return (a+b+c)
 ```
@@ -96,19 +88,17 @@ Calling the `function add` by giving keyword arguments
 
 1. All parameters are given as keyword arguments. So no need to maintain the same order.
 
-```
+```py
 print (add(b=10,c=15,a=20))
 #Output:45
 ```
 
 2. During function call, only giving mandatory argument as a keyword argument. Optional default arguments are skipped.
 
-```
+```py
 print (add(a=10))
 #Output:25
 ```
-
----
 
 #### 3. Positional Arguments
 
@@ -118,7 +108,7 @@ Keyword arguments should follow positional arguments only.
 
 **Example:**
 
-```
+```py
 def add(a,b,c):
     return (a+b+c)
 ```
@@ -127,19 +117,17 @@ The above function can be called in two ways:
 
 1. During function call, all arguments are given as positional arguments. Values passed through arguments are passed to parameters by their position. `10` is assigned to` a`,`20` is assigned to` b` and `30` is assigned to `c`
 
-```
+```py
 print (add(10,20,30))
 #Output:60
 ```
 
 2. Giving a mix of positional and keyword arguments. keyword arguments should always follow positional arguments
 
-```
+```py
 print (add(10,c=30,b=20))
 #Output:60
 ```
-
----
 
 **Default vs positional vs keyword arguments:**
 
@@ -149,11 +137,9 @@ print (add(10,c=30,b=20))
 
 **Important points to remember:**
 
-![Photo by Author](https://cdn-images-1.medium.com/max/3744/1*wUnUIMdsTwd9QE-ziQfJjA.png)
-
 **1.default arguments should follow non-default arguments**
 
-```
+```py
 def add(a=5,b,c):
     return (a+b+c)
 
@@ -162,7 +148,7 @@ def add(a=5,b,c):
 
 **2. keyword arguments should follow positional arguments**
 
-```
+```py
 def add(a,b,c):
     return (a+b+c)
 
@@ -172,7 +158,7 @@ print (add(a=10,3,4))
 
 **3. All the keyword arguments passed must match one of the arguments accepted by the function and their order is not important.**
 
-```
+```py
 def add(a,b,c):
     return (a+b+c)
 
@@ -182,7 +168,7 @@ print (add(a=10,b1=5,c=12))
 
 **4.No argument should receive a value more than once**
 
-```
+```py
 def add(a,b,c):
     return (a+b+c)
 
@@ -194,7 +180,7 @@ print (add(a=10,b=5,b=10,c=12))
 
 **Example 1:** Giving only the mandatory arguments
 
-```
+```py
 def add(a,b=5,c=10):
     return (a+b+c)
 
@@ -204,15 +190,13 @@ print (add(2))
 
 **Example 2:** Giving all arguments(optional and mandatory arguments)
 
-```
+```py
 def add(a,b=5,c=10):
     return (a+b+c)
 
 print (add(2,3,4))
 #Output:9
 ```
-
----
 
 #### Variable-length arguments
 
@@ -225,9 +209,9 @@ Variable-length arguments are also known as **arbitary arguments**. If we don’
 
 #### 4. arbitrary positional arguments:
 
-For arbitrary positional argument, an **asterisk (*)** is placed before a parameter in function definition which can hold non-keyword variable-length arguments. These arguments will be wrapped up in a **tuple**. Before the variable number of arguments, zero or more normal arguments may occur.
+For arbitrary positional argument, an **asterisk(`*`)** is placed before a parameter in function definition which can hold non-keyword variable-length arguments. These arguments will be wrapped up in a **tuple**. Before the variable number of arguments, zero or more normal arguments may occur.
 
-```
+```py
 def add(*b):
     result=0
     for i in b:
@@ -241,15 +225,13 @@ print (add(10,20))
 #Output:30
 ```
 
----
-
 #### 5.arbitrary keyword arguments:
 
-For arbitrary positional argument, a **double asterisk (**)** is placed before a parameter in function which can hold keyword variable-length arguments.
+For arbitrary positional argument, a **double asterisk(`**`)** is placed before a parameter in function which can hold keyword variable-length arguments.
 
 **Example:**
 
-```
+```py
 def fn(**a):
     for i in a.items():
         print (i)
@@ -261,8 +243,6 @@ Output:
 ('fruits', 'apple')
 '''
 ```
-
----
 
 #### Special Parameters:
 
@@ -284,7 +264,7 @@ where `/` and `*` are optional. If used, these symbols indicate the kind of para
 
 If `/` and `*` are not present in the function definition, arguments may be passed to a function by position or by keyword
 
-```
+```py
 def add(a,b,c):
     return a+b+c
 
@@ -299,7 +279,7 @@ print (add(3,c=1,b=2))
 
 Positional-only parameters are placed before a `/` (forward-slash)in the function definition. The `/` is used to logically separate the positional-only parameters from the rest of the parameters. Parameters following the `/` may be **positional-or-keyword** or **keyword-only**.
 
-```
+```py
 def add(a,b,/,c,d):
     return a+b+c+d
 
@@ -312,7 +292,7 @@ print (add(3,4,c=1,d=2))
 
 If we specify keyword arguments for positional only arguments, it will raise **TypeError.**
 
-```
+```py
 def add(a,b,/,c,d):
     return a+b+c+d
 
@@ -324,7 +304,7 @@ print (add(3,b=4,c=1,d=2))
 
 To mark parameters as **keyword-only**, place an `*` in the arguments list just before the first **keyword-only** parameter.
 
-```
+```py
 def add(a,b,*,c,d):
     return a+b+c+d
 
@@ -334,7 +314,7 @@ print (add(3,4,c=1,d=2))
 
 If we specify positional arguments for keyword-only arguments it will raise **TypeError.**
 
-```
+```py
 def add(a,b,*,c,d):
     return a+b+c+d
 
@@ -347,10 +327,10 @@ print (add(3,4,1,d=2))
 In the below-given example`,function add` has all three arguments
 
 `a`,`b` — positional only arguments
-`c`-positional or keyword arguments
-`d`-keyword-only arguments
+`c` - positional or keyword arguments
+`d` - keyword-only arguments
 
-```
+```py
 def add(a,b,/,c,*,d):
     return a+b+c+d
 
@@ -358,16 +338,12 @@ print (add(3,4,1,d=2))
 #Output:10
 ```
 
----
-
 **Important Points to remember:**
 
 1. Use **positional-only** if you want the name of the parameters to not be available to the user. This is useful when parameter names have no real meaning.
 2. Use **positional-only** if you want to enforce the order of the arguments when the function is called.
 3. Use **keyword-only** when names have meaning and the function definition is more understandable by being explicit with names.
 4. Use **keyword-only** when you want to prevent users from relying on the position of the argument being passed.
-
----
 
 #### Resources(Python Documentation):
 
