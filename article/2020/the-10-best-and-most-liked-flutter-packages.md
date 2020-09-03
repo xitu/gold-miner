@@ -59,32 +59,36 @@ print(await http.read('https://example.com/foobar.txt'));
 ![flutter_slidable 用法示例 ([source](https://pub.dev/packages/flutter_slidable))](https://cdn-images-1.medium.com/max/2000/1*-lxI0VkO5MCC3PW74VaLWA.gif)
 
 The flutter_slidable plugin adds a feature-rich slider widget to your project. Sliders like this are often seen in scrollable lists. The Gmail app is a notable example, in which sliding list items offer a significant productivity enhancement.
+这款 Flutter 插件能给你的项目添加一个功能丰富的最常在可滚动列表中用到的 slider 组件。Gmail 这款 APP 对 slider 组件的应用就非常广泛，足以说明其对用户操作便利性的帮助之大。
 
 This plugin is packed with features and ready for use, but also highly customizable if needed. Some of the listed features are:
+这个插件自带有很多开箱即用的特性，同时这不限制开发者对你进行个性化的定制，列举其重点特性如下：
 
 * Accepts primary (left/top) and secondary (right/bottom) widget lists as slide actions
-* Can be dismissed
-* Four built-in action panes
-* Two built-in slide action widgets
-* Built-in dismiss animation
-* Easily create custom layouts and animations
-* Closes when a slide action has been tapped (overridable)
+* 滑动状态可以取消
+* 内建有四个操作按钮位
+* 内建有两个滑动部件
+* 内置滑动动画
+* 轻松创建自定义布局与动画
+* 点击操作按钮后自动关闭滑动状态（可以被覆写）
 * Closes when the nearest `Scrollable` starts to scroll (overridable)
-* Option to disable the slide effect easily
+* 可通过配置关闭左右滑动特性
 
 ## 3. Shared Preferences
 
-URL: [https://pub.dev/packages/shared_preferences](https://pub.dev/packages/shared_preferences)
+仓库地址: [https://pub.dev/packages/shared_preferences](https://pub.dev/packages/shared_preferences)
 支持平台: iOS, Android, Web, Linux
 
 This package wraps platform-specific persistent storage libraries. It’s indented for simple data, like user preferences, and it uses:
+这个库将各个系统平台的持久缓存库进行了包装，一般用来存储想用户设置这样简单的数据，其在各个系统平台的原生实现如下：
 
-* `NSUserDefaults` on iOS and macOS
-* `SharedPreferences` on Android
-* `LocalStorage` on websites
-* A JSON file on the local filesystem for Linux
+* iOS 和 macOS 采用 `NSUserDefaults` 实现
+* Android 采用 `SharedPreferences`实现
+* Web 环境采用 `LocalStorage` 实现
+* Linux 环境下使用一个本地的 JSON 文件来存储
 
 Data may be persisted to disk asynchronously, and there is no guarantee that writes will be persisted to disk after returning, so this plugin is not meant for storing critical data. For that look into sqflite (see below).
+这个库一般情况下回异步将数据做本地持久缓存，但无法保证一定100%缓存成功，因此其一般用于存储那些非关键性的数据，对于 APP 关键数据请采用 sqflite 来实现。
 
 ## 4. sqflite
 
