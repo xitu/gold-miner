@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 我的网站加载时间不到10秒，这是我如何做到的！
+# 我的网站加载时间不到 1 秒，这是我如何做到的！
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--c4GvYfuf--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/ihdeq6ry7wuuv1tdo317.PNG)
 
