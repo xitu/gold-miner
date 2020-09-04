@@ -3,11 +3,10 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/creating-a-menu-image-animation-on-hover.md](https://github.com/xitu/gold-miner/blob/master/article/2020/creating-a-menu-image-animation-on-hover.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[qq1037305420](https://github.com/qq1037305420)
-
+> * 校对者：[qq1037305420](https://github.com/qq1037305420) 和 [rachelcdev](https://github.com/rachelcdev)
 # 如何在悬停时创建菜单图像动画
 
-![rapid_feat](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2020/07/rapid_feat.jpg)](http://tympanus.net/Tutorials/RapidImageHoverMenu/ "Creating a Menu Image Animation on Hover Demo")
+![rapid_feat](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2020/07/rapid_feat.jpg)
 
 - [查看演示](http://tympanus.net/Tutorials/RapidImageHoverMenu/)
 - [下载源码](https://github.com/codrops/RapidImageHoverMenu/archive/master.zip)
