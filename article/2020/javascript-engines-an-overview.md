@@ -2,119 +2,119 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-engines-an-overview.md](https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-engines-an-overview.md)
-> * 译者：
+> * 译者：[Isildur46](https://github.com/Isildur46)
 > * 校对者：
 
-# JavaScript Engines: An Overview
+# JavaScript 引擎概述
 
 ![Photo by [JOSHUA COLEMAN](https://unsplash.com/@joshstyle?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/t/technology?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10944/1*VzPVDApZ_xVLY0qGZGMAoA.jpeg)
 
-## Introduction
+## 引言
 
-A JavaScript engine is a computer program or an interpreter that executes JavaScript code. A JavaScript engine can be written in a wide variety of languages. For example, the V8 engine which powers Chrome browsers was written in C++, while the SpiderMonkey engine which powers Firefox browsers was written in C and C++.
+JavaScript 引擎是指一种执行 JavaScript 代码的程序或者解释器。JavaScript 引擎可以用很多编程语言来实现。例如，Chrome 浏览器使用的 V8 引擎是用 C++ 写的，而 Firefox 浏览器的 SpiderMonkey 引擎则是用 C 和 C++。
 
-A JavaScript engine can be implemented as a standard interpreter, or just-in-time compiler that compiles JavaScript to bytecode in some form. The first JavaScript engines were almost only interpreters, but most modern engines employ just-in-time (JIT) compilation for upgraded performance.
+JavaScript 引擎可以作为标准解释器来实现，或者也可以作为编译器，将 JavaScript 即时编译（just-in-time）成某种形式的字节码。第一批 JavaScript 引擎基本都是解释器，但是有些现代引擎为了提升性能会采用即时编译（JIT）的方式。
 
-## Popular JavaScript Engines
+## 主流的 JavaScript 引擎
 
-All popular browsers have their own implementation of a JavaScript engine. Here are some popular JavaScript engines.
+所有主流的浏览器都有它们自己的 JavaScript 引擎实现。以下是一些主流的 JavaScript 引擎：
 
-* Chrome’s [V8 engine](https://v8.dev/)
-* Firefox’s [SpiderMonkey](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey)
-* Safari’s [JavaScriptCore](https://developer.apple.com/documentation/javascriptcore) (a.k.a Nitro, SquirrelFish and SquirrelFish Extreme)
-* Edge’s [Chakra](https://github.com/microsoft/ChakraCore) — **but Edge has recently embraced Chromium‘s V8 engine**
+* Chrome 的 [V8 引擎](https://v8.dev/)
+* Firefox 的 [SpiderMonkey](https://developer.mozilla.org/zh-CN/docs/Mozilla/Projects/SpiderMonkey)
+* Safari 的 [JavaScriptCore](https://developer.apple.com/documentation/javascriptcore) (又被称为 Nitro、SquirrelFish 和 SquirrelFish Extreme)
+* Edge 的 [Chakra](https://github.com/microsoft/ChakraCore) — **不过最近 Edge 采用了 Chromium 的 V8 引擎**
 
-## Flow Diagram of the JavaScript Engine
+## JavaScript 引擎流程图
 
 ![Image Credits: Sander in [Dev.to](https://dev.to/sanderdebr/a-brief-explanation-of-the-javascript-engine-and-runtime-2idg)](https://cdn-images-1.medium.com/max/2000/0*NzDz1ZLZxP6ZgbvO.jpeg)
 
-If you have ever wondered, how your JavaScript is processed, here is a simplified flow diagram.
+如果你好奇 JavaScript 是如何运作的，这里有一个简单的流程图。
 
-#### 1. Parser
+#### 1. 解析器
 
-Initially, the HTML parser would come across a script tag with a JavaScript source. The source code within this script will be loaded as a UTF-16 byte stream to the byte stream decoder. These bytes are decoded into tokens that are forwarded to the parser. The engine would always avoid parsing code that isn’t currently needed, to be more efficient.
+首先，HTML 解析器遇到带有 JavaScript 源的 script 标签。这个 script 中的源代码会以 UTF-16 字节流的形式加载到字节流解码器。这些字节会被解码成 token（标记、令牌）并传递给解析器。为了提升效率，引擎总是避免解析暂时用不到的代码。
 
 #### 2. AST
 
-The parser generates nodes that are based on the tokens it receives. With these nodes, the Abstract Syntax Tree (AST) is created. ASTs play a crucial role in the semantic analysis where the compiler validates the proper use of language elements and keywords.
+解析器基于它接收到的 token 来生成节点，基于这些节点来生成抽象语法树（AST）。语义分析阶段，编译器会校验语言要素和关键字，此时 AST 会起到至关重要的作用。
 
-You can check out a live example by visiting [https://astexplorer.net/](https://astexplorer.net/)
+你可以访问 [https://astexplorer.net/](https://astexplorer.net/) 查看在线示例。
 
-#### 3. Interpreter
+#### 3. 解释器
 
-Next in the flow is the interpreter, it analyzes through the AST and generates byte code. It interprets the code line by line. When the byte code is generated, the AST will be removed and the memory space will be cleared. The interpreter produces unoptimized machine code quickly and can start running without delay.
+接下来是解释器的环节，它会逐行解释代码，分析 AST 并生成字节码。字节码生成后，AST 会从内存中移除并清空它占据的空间。解释器能够快速生成未优化的字节码，在无延迟的情况下让程序立即开始运行。
 
-The concern with interpreters is that executing the same function several times can get very sluggish, which is why we have a compiler that doesn’t repeat loops and is more streamlined.
+需要注意的是，解释器如果多次遇到同一个函数，它会多次解释并执行这个函数，那总体效率就会很慢了，这就是为什么我们需要编译器，它不会在循环中重复劳动、重复编译，它运行起来更线性。
 
-#### 4. Profiler
+#### 4. 分析工具
 
-The profiler assesses the code as it runs and recognizes areas where optimization techniques can be performed.
+分析工具会评估正在运行的代码，标识出哪些区域可以利用技术手段来优化。
 
-#### 5. Compiler
+#### 5. 编译器
 
-With the support of the profiler, any unoptimized code is passed to the compiler to perform enhancements and produce machine code that ultimately replaces its equivalent in the previously created unoptimized code by the interpreter.
+在分析工具的帮助下，任何未优化的代码都会传递给编译器去进行优化、增强，它会生成同等功能但运行更快的机器码，这些机器码最终会替换掉之前解释器生成的字节码。
 
-#### 6. Optimized code
+#### 6. 优化过的代码
 
-At the end of these 6 steps, you will receive a highly optimized code.
+这 6 个步骤的最后一步，你会得到高度优化过的代码。
 
-**Let's now have a brief look at Chrome’s V8 engine and what makes it stand out from others.**
+**现在让我们简要了解一下 Chrome 的 V8 引擎，看看它之所以能傲视群雄的原因。**
 
-## Chrome’s V8 Engine
+## Chrome 的 V8 引擎
 
-V8 JavaScript engine is an open-source application written in C++ that compiles JavaScript to optimized machine code before execution. The V8 engine was initially created with the intention of increasing JavaScript performance in Chrome and Chromium-based browsers. Later on, with time, the latest versions enabled the execution of JavaScript code outside of the browser, enabling server-side scripting.
+V8 JavaScript 引擎是用 C++ 写的一个开源应用程序，它先将 JavaScript 代码编译为优化过的字节码，再进行运行。起初，V8 引擎的目的是提升 JavaScript 在 Chrome 和基于 Chromium 的浏览器中的运行效率。之后随着时间的推移，后续几个版本 V8 引擎能够让 JavaScript 代码脱离于浏览器运行，使得它可以作为服务器端脚本。
 
-As initial JavaScript engines were interpreters, they worked on the code line by line. With time, this was not good enough. The Chrome V8 implemented a technique called Just-In-Time (JIT) compilation. This technique uses a mix of both interpreters and compilers to get better execution.
+早起的 JavaScript 引擎都是解释器，会逐行解释代码并运行。随着时间的推移，这样的运行方式已经不能满足需求了。Chrome V8 实现了一种叫做即时编译（JIT）的技术，这种技术结合了解释器和编译器，带来了更高的代码执行效率。
 
-#### How does V8 differ from other engines?
+#### 为何 V8 与众不同？
 
-V8 and other modern engines like SpiderMonkey, Rhino follow the same approach. But what makes V8 stand out is that it does not produce any intermediate code or bytecode.
+V8 和 SpiderMonkey、Rhino 这样的现代引擎遵循相同的方法，但是 V8 的特色在于它不生成任何中间代码或者字节码。
 
-But this all changed after 2016 where Chrome V8 team introduced an interpreter called **Ignition**. With Ignition, V8 compiles JavaScript functions to a short bytecode, which is between 50% to 25% the size of the equivalent baseline machine code. This bytecode is then executed by a high-performance interpreter which produces execution speeds on real-world websites close to those of code generated by V8’s existing baseline compiler.
+但是 2016 Chrome V8 团队推出了一款名叫 **Ignition** 的解释器之后，一切都变了。在 Ignition 加持下，V8 将 JavaScript 编译为较短的字节码，长度大概是同等基线机器码的 50% 到 25%。接着用高性能解释器来运行这些字节码，在实际网站中，它们的运行速度几乎和 V8 现有的基线编译器生成的代码差不多。
 
 ![V8’s compilation pipeline with Ignition enabled (2016)— Source: [V8 Docs](https://v8.dev/blog/ignition-interpreter)](https://cdn-images-1.medium.com/max/2000/0*zEOYOFjXg-iJE3_i.png)
 
-#### Rapid Change
+#### 快速变化
 
-You must keep in mind that the domain of web development is rapidly changing every day. Especially with browsers, there are numerous attempts to make performance and experience better. This results in regular changes and updates to the structure of the JavaScript engines. Therefore I would always advise you to check the official docs of an engine if you would like to learn more about it, as blog posts can become outdated. Even sometimes, this blog post can be outdated, by the time you read this 😜
+你必须时刻记住 Web 开发的版图是在快速变化的，特别是对于浏览器来说，人们为了提升性能和体验，总是在不断尝试，JavaScript 引擎定期更新时会应用这些改变。博客中文章会过时，因此我始终建议你，如果想学习更多知识的话，请查阅引擎的官方文档。甚至可能当你阅读本文时，它已经过时了。
 
-**In the case of V8, the above-shown pipeline illustration is not what is present currently.** The below diagram shows the current pipeline. Be aware, this too can change soon as the V8 team is constantly working hard for continuous performance enhancements.
+**在 V8 的例子中， 上面那个管线演示图并不是最新的。**下面这个流程图显示的才是当前的管线。请注意，V8 团队始终致力于提升引擎性能，所以这张图不久之后可能也会变化。
 
 ![V8’s latest abstract compilation pipeline(2017) — Source: [V8 Presentation](https://docs.google.com/presentation/d/1chhN90uB8yPaIhx_h2M3lPyxPgdPmkADqSNAoXYQiVE/edit#slide=id.g18d89eb289_1_362)](https://cdn-images-1.medium.com/max/2000/1*qKBM3zUTK_lE3vu87vwdlg.png)
 
 ![V8’s latest compilation pipeline(2017) — Source: [V8 Presentation](https://docs.google.com/presentation/d/1_eLlVzcj94_G4r9j9d_Lj5HRKFnq6jgpuPJtnmIBs88/edit#slide=id.g2134da681e_0_125)](https://cdn-images-1.medium.com/max/2000/1*Da6ylguo0X6aIKW1v51YcQ.png)
 
-If you compare the above diagrams with the 2016 version of the pipeline, you would find that the Baseline section of the pipeline has completely been removed. You would also find that the Crankshaft has also been removed.
+如果你和上面的 2016 版的管线图对比，你会发现管线的基线（Baseline）部分完全被移除了，Crankshaft 也没有了。
 
-#### Advantages over old pipeline
+#### 新版本管线的优势
 
-The V8 team has given many reasons for this newly updated pipeline, some of them are,
+V8 团队提供了很多更新管线的理由，以下是其中一部分：
 
-* Reduced memory usage — the ignition code is up to 8 times smaller than full-codegen code
-* Improved startup time — the byte code is smaller and faster to generate
-* Improved baseline performance — no longer relying on optimizing compiler for **sufficiently** fast code
+* 减少内存占用 — Ignition 的代码比起 full-codegen 的代码简短了 8 倍。
+* 优化启动时间 — 字节码更简短，可以更快速地生成。
+* 提升基线性能 — 不再需要优化编译器，就能提供**极其**高效的代码。
 
-You can read more from the team over [here](https://github.com/thlorenz/v8-perf/blob/master/compiler.md#advantages-over-old-pipeline).
+你可以在[这里](https://github.com/thlorenz/v8-perf/blob/master/compiler.md#advantages-over-old-pipeline)读到 V8 团队发布的更多内容。 
 
-## New Developments from V8
+## V8 新功能开发
 
-#### JIT-less mode
+#### 无 JIT（JIT-less）模式
 
-V8 even has a JIT-less mode to run without any runtime allocation of executable memory. This is extremely useful in situations where there is no write access to executable memory in platforms such as iOS, smart TVs, game consoles.
+V8 甚至有一个无 JIT 模式，该模式中不会在运行时分配任何可执行内存。这个模式在 iOS、智能电视、游戏主机等无法写入可执行内存的平台上非常有用。
 
-You can read more over [here](https://v8.dev/blog/jitless).
+你可以在[这里](https://v8.dev/blog/jitless)看到更多信息。
 
-#### Background compilation
+#### 后台编译
 
-With Chrome 66, V8 compiles JavaScript source code on a background thread, reducing the amount of time spent compiling on the main thread by between 5% to 20% on standard websites.
+在 Chrome 66 中，V8 使用一个后台线程来编译 JavaScript 源代码，相比于在主线程中编译代码的标准浏览器来说，Chrome 66 能节省 5% 到 20% 的时间。
 
-Read more in the official blog post over [here](https://v8.dev/blog/background-compilation).
+在官方博客的[这篇文章](https://v8.dev/blog/background-compilation)中可以看到更多内容。
 
 ---
 
-I hope you got a great overview of a JavaScript Engine. Happy Coding!
+我希望你已对 JavaScript 引擎的概况有了较好的了解。祝您编程愉快！
 
-**Resources**
+**资料**
 
 - [V8 Docs](https://v8.dev/)
 - [A crash course in just-in-time (JIT) compilers by Lin Clark](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)
