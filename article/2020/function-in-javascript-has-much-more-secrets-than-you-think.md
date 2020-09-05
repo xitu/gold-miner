@@ -7,10 +7,6 @@
 
 # Function in JavaScript Has Much More Secrets Than You Think
 
-## Function in JavaScript Has More Secrets Than You Think
-
-#### Things that advanced JavaScript programmers must know.
-
 ![Photo by [Luca Bravo](https://unsplash.com/@lucabravo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*9flb0rn0PvVk8f88)
 
 Functions are a familiar syntax to every programmer. In JavaScript, functions have a very high status and are often referred to as first-class citizens. But are you really good at using functions?
@@ -35,7 +31,7 @@ A function that meets both of the following conditions is called a pure function
 
 Example 1:
 
-```
+```js
 function circleArea(radius){
   return radius * radius * 3.14
 }
@@ -45,7 +41,7 @@ When the values of the radius are the same, the function always returns the same
 
 Example 2:
 
-```
+```js
 let counter = (function(){
   let initValue = 0
   return function(){
@@ -61,7 +57,7 @@ This counter function will run differently every time, so this is not a pure fun
 
 Example 3:
 
-```
+```js
 let femaleCounter = 0;
 let maleCounter = 0;
 
@@ -88,7 +84,7 @@ Each pure function always accomplishes a specific task and has an exact result. 
 
 Let’s say I have a code snippet like this:
 
-```
+```js
 for (int i = 0; i < 1000; i++){
     console.log(fun(10));
 }
@@ -98,7 +94,7 @@ If `fun` were not a pure function, then `fun(10)` would need to be executed 1,00
 
 If `fun` were a pure function, the editor would be able to optimize the code at compile time. The optimized code might look like this:
 
-```
+```js
 let result = fun(10)
 for (int i = 0; i < 1000; i++){
     console.log(result);
@@ -111,7 +107,7 @@ Tests of pure functions do not need to be context-dependent. When we write unit 
 
 A simple example: A pure function takes an array of numbers as an argument and increments each element of the array by 1.
 
-```
+```js
 const incrementNumbers = function(numbers){
   // ...
 }
@@ -119,7 +115,7 @@ const incrementNumbers = function(numbers){
 
 We just need to write the unit test for it like this:
 
-```
+```js
 let list = [1, 2, 3, 4, 5];
 
 assert.equals(incrementNumbers(list), [2, 3, 4, 5, 6])
@@ -142,7 +138,7 @@ Let’s say we now have an array of integers, and we want to create a new array.
 
 Without using higher-order functions, we might write like this:
 
-```
+```js
 const arr1 = [1, 2, 3];
 const arr2 = [];
 
@@ -153,9 +149,9 @@ for (let i = 0; i < arr1.length; i++) {
 
 In JavaScript, the array object has a `map()` method.
 
-> The `**map(callback)**` method creates a new array populated with the results of **calling a provided function** on every element in the calling array.
+> The `map(callback)` method creates a new array populated with the results of **calling a provided function** on every element in the calling array.
 
-```
+```js
 const arr1 = [1, 2, 3];
 const arr2 = arr1.map(function(item) {
   return item * 2;
@@ -171,9 +167,7 @@ Using higher-order functions correctly can improve the quality of our code. The 
 
 Let’s say we have a pure function that looks like this:
 
-![](https://cdn-images-1.medium.com/max/2112/1*I6_ntKBi7pBS03jbyexzMg.png)
-
-```
+```js
 function computed(str) {    
     // Suppose the calculation in the funtion is very time consuming        
     console.log('2000s have passed')
@@ -220,9 +214,7 @@ We can improve the performance of the function by ‘deleting’ these statement
 
 For example, we now need to write a function called `foo` that always returns the Date object from the `first call`, note ‘the first call’.
 
-![](https://cdn-images-1.medium.com/max/2000/1*EO_O90uQVGtGVVLWK7B6AQ.png)
-
-```
+```js
 let fooFirstExecutedDate = null;
 function foo() {
     if ( fooFirstExecutedDate != null) {
@@ -238,9 +230,7 @@ Each time the above function is run, the judgment statement needs to be executed
 
 We could write code like this:
 
-![](https://cdn-images-1.medium.com/max/2000/1*YJLZSc5r7SCKzsYH1Qnr_A.png)
-
-```
+```js
 var foo = function() {
     var t = new Date();
     foo = function() {
@@ -256,7 +246,7 @@ Then let’s look at a more practical example.
 
 When we add DOM events to the element, in order to be compatible with modern browsers and IE browsers, we need to make a judgment on the browser environment:
 
-```
+```js
 function addEvent (type, el, fn) {
     if (window.addEventListener) {
         el.addEventListener(type, fn, false);
@@ -269,9 +259,7 @@ function addEvent (type, el, fn) {
 
 Every time we call the `addEvent` function, we hava to make a judgment. Using lazy functions, we can do this:
 
-![](https://cdn-images-1.medium.com/max/2132/1*Lckc0KzdoRSSkzVZ99qJ0w.png)
-
-```
+```js
 function addEvent (type, el, fn) {
     if (window.addEventListener) {
         addEvent = function (type, el, fn) {
@@ -304,7 +292,7 @@ Why it’s useful?
 
 Let’s look at a simple `add` function. It accepts three operands as arguments and returns the sum of all three as the result.
 
-```
+```js
 function add(a,b,c){
  return a + b + c;
 }
@@ -312,9 +300,9 @@ function add(a,b,c){
 
 You can call it with too few (with odd results), or too many (excess arguments get ignored).
 
-```
-add(1,2,3) --> 6 
-add(1,2) --> NaN
+```js
+add(1,2,3) // --> 6 
+add(1,2) // --> NaN
 add(1,2,3,4) --> 6 //Extra parameters will be ignored.
 ```
 
@@ -357,7 +345,7 @@ As you can see, this function has two components:
 
 So we can write the code like this:
 
-```
+```js
 let toUpperCase = function(x) { return x.toUpperCase(); };
 let hello = function(x) { return 'HELLO, ' + x; };
 
@@ -372,7 +360,7 @@ There are only two steps in this example, so the greet function does not look co
 
 To do this, we can write a `compose` function exclusively for composing functions:
 
-```
+```js
 let compose = function(f,g) {
     return function(x) {
         return f(g(x));
@@ -382,7 +370,7 @@ let compose = function(f,g) {
 
 Thus, the `greet` function can be obtained through the `compose` function:
 
-```
+```js
 let greet = compose(hello, toUpperCase);
 greet('kevin');
 ```
@@ -395,7 +383,7 @@ The composer function is implemented this way in the well-known open source proj
 
 ![](https://cdn-images-1.medium.com/max/2372/1*UW-P_I4wRqvbneYQh5ZrUw.png)
 
-```
+```js
 function compose() {
     var args = arguments;
     var start = args.length - 1;
