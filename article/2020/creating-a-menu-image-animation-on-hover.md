@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/creating-a-menu-image-animation-on-hover.md](https://github.com/xitu/gold-miner/blob/master/article/2020/creating-a-menu-image-animation-on-hover.md)
 > * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：[qq1037305420](https://github.com/qq1037305420) 和 [rachelcdev](https://github.com/rachelcdev)
+
 # 如何在悬停时创建菜单图像动画
 
 ![rapid_feat](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2020/07/rapid_feat.jpg)
@@ -197,7 +198,7 @@ export default class MenuItem {
 }
 ```
 
-图像的位置和索引会被传入menu和我们之前描述的  `animatableProperties`。“动画”属性值在不同菜单项之间共享和更新的结果，将使图像的移动和旋转得以连续展现。
+图像的位置和索引会被传入 menu 和我们之前描述的  `animatableProperties`。“动画”属性值在不同菜单项之间共享和更新的结果，将使图像的移动和旋转得以连续展现。
 
 现在，为了能够以一种精美的方式显示和隐藏菜单项图像，我们需要创建在开始时显示的特定标记，并将其添加到对应项。请记住，默认情况下，我们的菜单项如下：
 
