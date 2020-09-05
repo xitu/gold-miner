@@ -7,8 +7,6 @@
 
 # How to build a recommendation system in a graph database using a latent factor model
 
-#### In-database training avoids exporting the data from the DBMS to other machine learning platforms thus better support continuous model updates
-
 ## What is a recommendation system?
 
 A recommendation system is any rating system which predicts an individual’s preferred choices, based on available data. Recommendation systems are utilized in a variety of services, such as video streaming, online shopping, and social media. Typically, the system provides the recommendation to the users based on its prediction of the rating a user would give to an item. Recommendation systems can be categorized by two aspects, the utilized information and the prediction models.
@@ -33,7 +31,7 @@ Some typical examples of different types of recommendation systems are shown bel
 
 As discussed above, a collaborative filtering method, such as KNN, can predict the movie rating without knowing the attributes of the movies and users. However, such an approach may not generate accurate predictions when the rating data is sparse, i.e., the typical user has rated only a few movies. In Fig. 1, KNN cannot predict Alice’s rating of **Iron Man** if Bob has not rated **Toy Story**, since there would be no path between Alice and Bob, and there would be no “neighbor” per se for Alice. To address this challenge, the graph factorization approach [1] combines the model-based method with the collaborative filtering method to improve prediction accuracy when the rating record is sparse.
 
-Fig. 2 illustrates the intuition of the graph factorization method. Graph factorization is also known as a latent factor or matrix factorization method. The objective is to obtain a vector for each user and movie, which represents their latent features. In this example (Fig. 2), the dimension of the vectors is specified as 2. The two elements of the vector for a movie **x**(**i**) represent the degrees of romance and action content of this movie, and the two elements of the vector for a user **θ**(**j**) represent the user’s degree of preference for romance and action content, respectively. The prediction of the rating that user **j** would give to movie **i** is the dot product of **x**(**i**) and **θ**(**j**), as we expect a better alignment of these two vectors indicates a higher degree of preference from the user to the movie.
+Fig. 2 illustrates the intuition of the graph factorization method. Graph factorization is also known as a latent factor or matrix factorization method. The objective is to obtain a vector for each user and movie, which represents their latent features. In this example (Fig. 2), the dimension of the vectors is specified as 2. The two elements of the vector for a movie **x(i)** represent the degrees of romance and action content of this movie, and the two elements of the vector for a user **θ(j)** represent the user’s degree of preference for romance and action content, respectively. The prediction of the rating that user **j** would give to movie **i** is the dot product of **x(i)** and **θ(j)**, as we expect a better alignment of these two vectors indicates a higher degree of preference from the user to the movie.
 
 ![Figure. 2 (Image by Author). The table shows the rating records of 6 movies given by 4 users. The ratings are in the range of 0 to 5. The missing ratings are represented by question marks. **θ(j)** and x(i) represent the latent factor vectors. The rating predictions for Alice are computed from the latent factors and shown in orange next to the real values.](https://cdn-images-1.medium.com/max/2796/0*T2BPqSnRLLUpGHMa)
 
@@ -41,15 +39,15 @@ The example in Fig.2 is only meant to illustrate the intuition of the graph fact
 
 ![](https://cdn-images-1.medium.com/max/2000/0*Mhilgi_E_Xo1XymH)
 
-where **M** is the number of rating records, **n** is the dimension of the latent factor vector, **y**(**i**,**j**) is the rating that user **j** gave to movie **i** , and 𝝀 is the regularization factor. The first term is essentially the square error of the prediction (sum of **θ(j)_k** and ****x(i)_k over k), and the second term is a regularization term to avoid overfitting. The first term of the loss function can also be expressed in the form of matrices,
+where **M** is the number of rating records, **n** is the dimension of the latent factor vector, **y**(i, j) is the rating that user **j** gave to movie **i**, and 𝝀 is the regularization factor. The first term is essentially the square error of the prediction (sum of **θ(j)\_k** and **x(i)\_k** over k), and the second term is a regularization term to avoid overfitting. The first term of the loss function can also be expressed in the form of matrices,
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_A0x9iQr48JjpMuT9SCqtw.png)
 
-where **R** is the rating matrix with **y**(**i**,**j**) as its elements, and **U** and **V** are matrices formed of the latent factor vectors for users and movies, respectively. To minimize the square error of the prediction is equivalent to minimizing the Frobenius norm of **R**-**UV^T**. Thus this method is also called a matrix factorization method.
+where **R** is the rating matrix with **y(i, j)** as its elements, and **U** and **V** are matrices formed of the latent factor vectors for users and movies, respectively. To minimize the square error of the prediction is equivalent to minimizing the Frobenius norm of **R-UV^T**. Thus this method is also called a matrix factorization method.
 
 You may wonder why we also refer to this method as a graph factorization approach. As discussed earlier, the rating matrix **R** is most likely to be a sparse matrix, since not all the users will give ratings to all the movies. Based on the consideration of the storage efficiency, this sparse matrix is often stored as a graph where each vertex represents a user or a movie, and each edge represents a rating record with its weight as the rating. As will be shown below, the gradient descent algorithm that will be used to optimize the loss function and thus obtain the latent factors can also be expressed as a graph algorithm.
 
-The partial derivatives of **θ(j)_k** and x(i)_k can be expressed as follows:
+The partial derivatives of **θ(j)\_k** and **x(i)\_k** can be expressed as follows:
 
 ![](https://cdn-images-1.medium.com/max/2000/0*TvDNRImZS2IxFHGe)
 
@@ -57,7 +55,7 @@ The equations above show that the partial derivative of a latent vector on a ver
 
 ![(Image by Author)](https://cdn-images-1.medium.com/max/2616/1*cKGDWSOgTxd9gJCp6nVOBQ.png)
 
-It is worth mentioning that computing the derivatives and updating the latent factors can be done in a Map-Reduce framework, where step 2 can be done in parallel for each **edge**_(**i**, **j**) (i.e. rating) and step 3 can also be done in parallel for each **vertex_i** (i.e. user or movie).
+It is worth mentioning that computing the derivatives and updating the latent factors can be done in a Map-Reduce framework, where step 2 can be done in parallel for each **edge\_(i, j)** (i.e. rating) and step 3 can also be done in parallel for each **verte\_i** (i.e. user or movie).
 
 ## Why you need a graph database for recommendation
 
