@@ -1429,10 +1429,11 @@
 |[好的与坏的，Swift 语言面面观（一）](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91)|校对|1|
 |[Android 中美腻的下划线](http://gold.xitu.io/entry/578705faa34131005b46e9c2)|校对|1|
 
-## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：90.5 当前积分：90.5 二零二零：5.5
+## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：91.5 当前积分：91.5 二零二零：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|8 月推荐前端文章 1 篇|奖励|1|
 |[Deno 会对 Node 造成威胁吗？](https://juejin.im/post/5ecf6f166fb9a047d77cbe35)|校对|2|
 |[关于 let 和 const 的对比](https://juejin.im/post/5ed5ec4ae51d457b3e77e37c)|翻译|2.5|
 |5 月推荐前端文章 1 篇|奖励|1|
@@ -7943,10 +7944,11 @@
 |------|-------|-------|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：32 当前积分：32
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：34 当前积分：34 二零二零：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|8 月推荐前端文章 2 篇|奖励|2|
 |[监测与调试 Vue.js 的响应式系统：计算属性树（Computed Tree）](https://juejin.im/post/5c9ca62e5188251d80672b0d)|翻译|5|
 |[网速敏感的视频延迟加载方案](https://juejin.im/post/5c7b84356fb9a049ab0e5630)|翻译|3|
 |推荐英文文章一篇|奖励|1|
@@ -9033,10 +9035,11 @@
 |[声音设计与无声设计](https://juejin.im/post/5ce354bee51d4510727c7fd1)|翻译|2.5|
 |[Swift 里的强制 @inline 注解](https://juejin.im/post/5cd67d64518825686244635a)|校对|1.5|
 
-## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：60 当前积分：60
+## 译者：[suhanyujie](https://github.com/suhanyujie) 历史贡献积分：61 当前积分：61 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|9 月推荐后端文章 1 篇|奖励|1|
 |[PHP 7.4 有什么新功能？你必须掌握的 10 大特性](https://juejin.im/post/5dfa04316fb9a0160770a501)|校对|2|
 |[通过 Rust 学习解析器组合器 — 第四部分](https://juejin.im/post/5d629f75e51d456210163bc0)|校对|2|
 |[思考实践：用 Go 实现 Flutter](https://juejin.im/post/5d215b8df265da1b7b31ac8f)|翻译|11|
@@ -10076,3 +10079,10 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
+
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：3 当前积分：3 二零二零：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|8 月推荐前端文章 2 篇|奖励|2|
+|8 月推荐前端文章 1 篇|奖励|1|
