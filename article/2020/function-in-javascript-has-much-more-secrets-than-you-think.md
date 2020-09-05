@@ -336,7 +336,7 @@ function curry(fn) {
 
 Suppose we now need to write a function that does this:
 
-> # Input ‘bitfish’, return ‘HELLO, BITFISH’.
+> Input ‘bitfish’, return ‘HELLO, BITFISH’.
 
 As you can see, this function has two components:
 
