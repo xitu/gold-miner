@@ -2,24 +2,25 @@
 > * 原文作者：[Aris Pattakos](https://medium.com/@aris.pattakos)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/6-ways-to-speed-up-your-vue-js-application.md](https://github.com/xitu/gold-miner/blob/master/article/2020/6-ways-to-speed-up-your-vue-js-application.md)
-> * 译者：
+> * 译者：[黄梵高](https://github.com/MangoTsing)
 > * 校对者：
 
-# 6 Ways to Speed Up Your Vue.js Application
+# 提升 Vue.js 应用速度的六种办法
 
 ![](https://cdn-images-1.medium.com/max/2400/1*aW-r70mA9ByajQQfiFh5hQ.png)
 
-If you’ve ever used Google’s Pagespeed Insights or Google Lighthouse then you’ve seen this webpage performance assessment:
+如果你曾经使用过谷歌的 Pagespeed Insights 或者 Google Lighthouse，那你肯定会看到如下图的网页性能评估：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UzMBfW8YlXv39Mc9vfKt6Q.png)
 
-You receive a set of statistics, then some diagnostics on how fast (or slow) your website is.
+你会收到一组统计数据，还有一些对于你的网站究竟是快还是慢的诊断。
 
-Some of the diagnostics can be pretty useful, indicating some easy fixes, unused files, and requests that are slow or take a lot of space.
+有些诊断非常实用，可以指出一些简单的修改意见，未使用的文件，以及速度过慢或资源过大的一些请求。
 
-Other diagnostics, such as main-thread work and Javascript execution time do show problems but they don’t really help you fix them.
+至于其他的诊断，比如主线程的一些运行和 JavaScript 执行代码所消耗的时间过长，这会提示可能存在的问题，但这些并不能真正的帮助你去修复它。
 
 In this article I’ll go through the steps you can follow to make sure your Vue application is working as fast as possible. With these steps, you’ll know exactly what to fix and you won’t have to guess anything.
+在本文中，你们可以通过跟随下面这些步骤，确保你的 Vue 应用尽可能快的运行。并且通过这些步骤，也可以准确知道那里需要修复，而不用靠猜。
 
 ## 1. Update Only What’s Needed
 
