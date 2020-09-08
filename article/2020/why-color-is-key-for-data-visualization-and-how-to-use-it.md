@@ -2,8 +2,8 @@
 > * 原文作者：[Aseem Kashyap](https://medium.com/@aseem.kash)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-color-is-key-for-data-visualization-and-how-to-use-it.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-color-is-key-for-data-visualization-and-how-to-use-it.md)
-> * 译者：贺雪-Amy
-> * 校对者：
+> * 译者：贺雪
+> * 校对者：Chorer, lsvih
 
 # 颜色为何成为数据可视化的关键，怎样使用它？—— 数据分析&色彩应用理论
 
