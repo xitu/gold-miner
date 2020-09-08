@@ -5,7 +5,7 @@
 > * 译者：[黄梵高](https://github.com/MangoTsing)
 > * 校对者：
 
-# 加速 Vue.js 应用的六个绝招
+# 加速 Vue.js 应用的六种绝技
 
 ![](https://cdn-images-1.medium.com/max/2400/1*aW-r70mA9ByajQQfiFh5hQ.png)
 
