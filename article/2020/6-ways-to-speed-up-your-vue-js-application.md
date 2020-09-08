@@ -41,7 +41,7 @@ vm.b = 2
 
 但是一段普通的 JavaScript 代码，例如 `{{ 'value' }}` 或 `{{ new Date() }}`，是不会被作为响应式属性被监测。
 
-那么响应性是怎么样去进行重复渲染的呢？
+那么响应式对象是怎么样去进行重复渲染的呢？
 
 让我们假设在你的 `data` 对象中，你有一个类似以下对象的数组：
 
@@ -66,11 +66,11 @@ values: [{id: 1, t: 'a'}, {id: 2, t: 'b'}]
 
 因为 JavaScript 的 `Date` 对象并不是响应式的，因此它不会影响渲染。只有在必须再次渲染的时候才会调用它。在这个例子中你可以看到，每次在 `values` 中添加或删除值时，所有渲染完成的元素上都会弹出一个新的日期。
 
-What should you expect in a more optimized page? You should expect only the new or changed elements to show a new `Date`, while the others should not be rendered at all.
+在这个优化后的页面里你期待看到的结果是什么？你应该只希望新的或者发生变化的元素展示一个新的 `Date`，而不是重新渲染所有元素。
 
-So, what does `key` do and why are we passing it? The `key` property helps Vue understand which element is which. If the order of the array changes, `key` helps Vue shuffle the elements into place, rather than going through them one-by-one again.
+所以，`key` 是做什么的？我们为什么要传这个值？其实 `key` 这个属性可以帮助 Vue 理解哪个元素的唯一标识。如果数组的顺序发生变化，`key` 可以帮助 Vue 将元素无序的排列到适当的位置，而不是重复逐个去遍历。
 
-Specifying a `key` is important, but it’s not enough. In order to make sure you’re getting the best performance, you need to create `Child` components. That’s right — the solution is pretty simple. You just have to divide your Vue app into small, lightweight components.
+指定一个 `key` 很重要，但这还不够。为了确保能获得最佳的性能，你还需要创建一个 `Child` 组件。没错，解决办法很简单，你需要把你的 Vue 应用分成几个小组件。
 
 ```vue
 <item :itemValue="value" v-for="item in items" :key="item.id"></item>
