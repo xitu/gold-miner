@@ -5,7 +5,7 @@
 > * 译者：[黄梵高](https://github.com/MangoTsing)
 > * 校对者：
 
-# 提升 Vue.js 应用速度的六种办法
+# 加速 Vue.js 应用的六个绝招
 
 ![](https://cdn-images-1.medium.com/max/2400/1*aW-r70mA9ByajQQfiFh5hQ.png)
 
@@ -84,17 +84,17 @@ item 组件只会在具有明确的响应式数据变化时更新（举个例子
 
 ## 2. 消除重复渲染
 
-Rendering full lists or heavy elements more times than needed is quite a sneaky issue, but it’s very easy to make happen.
+渲染完整的列表或复杂的元素时，超过预计渲染次数是一个很难发现的问题，但它非常容易发生。
 
-Let’s say you have a component that has an `entities` property in the data object.
+让我们假设一个组件在它的 data 对象内有一个 `entities` 属性。
 
-If you followed the previous step, then you probably have a child component to render each entity.
+如果你按照上面的步骤进行，那大概会有一个子组件来渲染每一块内容。
 
 ```vue
 <entity :entity="entity" v-for="entity in entities" :key="entity.id" />
 ```
 
-The entity template looks something like this:
+这个 entity 组件的模版如下所示：
 
 ```Vue
 <template>
@@ -105,70 +105,70 @@ The entity template looks something like this:
 </template>
 ```
 
-It outputs `entity.value`, but it also uses `user` from the `vuex` state. Now let’s say you have an `auth` function that refreshes the user token, or the global user property is changed in any way. This would cause the entire view to update any time something changes, even if `user.status` stays the same!
+它输出 `entity.value`，同时也使用了来自 `vuex` 中 state 的 `user` 对象。现在我们假设有一个 `auth` 方法可以刷新用户的 token，或者有任意的方式导致全局的 user 对象属性发生了改变。这将导致整个 entire 的视图每当 user 对象发生改变都会重新渲染，即使 `user.status` 保持不变！
 
-There are a few ways to handle it. A simple one would be to pass the `user.status` value as a `userStatus` prop from the parent. If the value is unchanged, Vue will not render it again since it doesn’t have to.
+有几种方法可以解决这个问题。一种简单的办法就是将 `user.status` 的值作为父组件一个 `userStatus` 属性传进来。如果这个值保持不变，那么 Vue 就不会也没必要将它重复渲染。
 
-The key here is to be aware of the rendering dependencies. Any prop, data value, or computed value that changes can cause a re-render.
+这里的关键是要注意渲染的依赖关系。更改任何 prop 属性，data 中的值，或者计算属性的值都有可能会造成重复渲染。
 
-How can you identify duplicate renders?
+那我们怎么样才能识别出来重复渲染呢？
 
-First of all download the official [Vue.js dev tools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en)!
+首先让我们下载官方的 [Vue.js dev tools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en)!
 
-Then use the “Performance tab” to measure your Vue app’s performance. Press start and stop to run a performance check, ideally during the app load.
+然后进入 Performance 选项来测试你 Vue 应用的性能。按下 start 和 stop 运行性能检查，当然最好是在这个 app 加载的期间。
 
-![Vue.js dev tools Screenshot](https://cdn-images-1.medium.com/max/3710/1*uRo4r7Rbncqnrx8dbhVCtw.png)
+![Vue.js dev tools 截图](https://cdn-images-1.medium.com/max/3710/1*uRo4r7Rbncqnrx8dbhVCtw.png)
 
-And then go to the “Component Render” tab. If your page renders 100 components, then you should see 100 `created` events.
+然后我们前往 Component Render 选项。如果你的页面渲染了 100 个组件，那你应该看见 100 个 `created` 事件。
 
-What’s important to note here are the `updated` events. If you have more updated events than created events, without an update in the actual values, it’s likely you have duplicate changes that lead to duplicate rendering.
+这里需要注意的是 `updated` 事件。如果 `updated` 事件超过 `created` 事件，但实际上值并没有更新，那有可能存在重复的数据更改，导致重复渲染。
 
-This can happen if your code changes the `entities` value many times instead of batching the updates. Or it can happen if you’re using some sort of realtime database like Firestore and you’re getting more snapshots than expected. (Firestore can send many snapshots per update, especially if you have Firestore triggers that update related documents).
+如果代码多次更改 `entities` 的值而不是批处理更新，则很有可能出现这个问题。或者，如果你在使用某种实时数据库，类似 Firestore，并且你每次获得的快照都比预期的多，也有可能会出现这个问题。（Firestore 可以在每次更新时发送许多快照，特别是当你设置了频繁更新相关文本的 Firestore 触发器时）
 
-The solution here is to avoid changing entities more times than is necessary. In the case of Firestore snapshots, you can use debounce or throttle functions to avoid changing the `entities` property too often.
+这个问题的解决方案是避免更改内容的次数，超过必要的次数。对于 Firestore 快照，你可以使用节流或者防抖函数去别面过于频繁的更改 `entities` 对象的属性。
 
-## 3. Optimize Event Handling
+## 3. 优化事件监听
 
-Not all events are created equal and as such you have to make sure you’re correctly optimizing for each of them.
+并非所有的事件生而平等，因此你不得不确认是否合理优化了每一个事件。
 
-Two great examples are `@mouseover` and `window.scroll` events. These two types of events can be triggered many times even with normal usage. If the event handlers you have in place make costly calculations, these calculations will run multiple times per second causing lag in your application. A solution is to use a debounce function to limit how many times you process these events.
+有两个很好的例子是 `@mouseover` 和 `window.scroll` 事件。这两种类型事件即使在正常情况下也会多次触发。如果你的事件监听函数进行了很复杂的计算，这些计算每一秒都会运行很多次，结果就是导致应用程序出现延迟。解决方案之一就是使用防抖函数来限制这些事件的处理次数。
 
-## 4. Remove or Reduce Slow Components
+## 4. 删除或减少过慢的组件
 
-When creating new components yourself, but especially when importing third-party components, you need to make sure they perform well.
+当你自己创建新的组件，尤其是引入第三方组件时，你需要确认他们的性能良好。
 
-You can use the Vue.js dev tools performance tab to estimate the rendering time of each component you’re using. When adding a new component, you can see how much time it takes to render in comparison with your own components.
+你可以进入并使用 Vue.js 开发工具的 performance 选项来预估每个组件的渲染时间。当增加一个新组件时，可以看到与自己的组件相比，渲染所需要的时间。
 
-If the new component takes considerably more time than your own components, then you may need to look at alternative components, remove it, or try to reduce its usage.
+如果这个新组件花费的时间比你自己的组件更长，那你可能需要去查找一些其他的组件，删除这个组件，或者尝试减少使用这个组件。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*SLEt6zuG1eYEhKfq9Fxw4A.png)
 
-## 5. Render Once
+## 5. 只渲染一次
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6PL_PU-Dg-UHrIPZutTLfw.png)
 
-This is from the official Vue.js documentation. If you have elements that once everything is mounted should only be rendered once, you can use the v-once directive.
+这是 Vue.js 的官方文档。如果你有一个元素希望每次组件触发 mounted 后只会被渲染一次，那么你可以使用 v-once 命令。
 
-Let’s say you have a section in your app that requires that data does not change for the entire session. By using the v-once directive you ensure this section is only rendered once.
+假设你的应用程序有一部分内容在整个会话期间，数据不会发生变化。那么使用 v-once 命令可以确保你的这个部分内容只会渲染一次。
 
-## 6. Virtual Scrolling
+## 6. 虚拟滚动
 
-This is the final step towards optimizing your Vue app performance. Have you ever scrolled Facebook on desktop? (Or Twitter, or Instagram, or any popular social media app?) I bet you have! You can scroll endlessly, without the page slowing down. But if you have a huge list to render in your Vue app you will see the page slowing down the longer the page becomes.
+这是优化 Vue 应用性能的最后一步啦。你曾经在屏幕上滚动过 Facebook 嘛？（或者是 Twitter，Instagram，或者任何流行的社交软件）我打赌你有过！你可以无尽的滚动，并且页面不会越来越卡顿。但如果你有一个巨大的列表要在你的 Vue 应用中渲染，你会看到页面随着长度变长越来越卡顿。
 
-If you decide to implement endless scrolling instead of paging, you can and should use one of these two open-source projects for virtual scrollers and rendering huge lists of items:
+如果你决定实现无限的滚动，而不是分页功能，那么你应该可以使用下面两个开源项目之一，来实现虚拟滚动条和渲染大量的列表：
 
 * [https://github.com/tangbc/vue-virtual-scroll-list](https://github.com/tangbc/vue-virtual-scroll-list)
 * [https://github.com/Akryum/vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller)
 
-I have used both and in my experience `vue-virtual-scroll-list` is better because it’s easier to use and doesn’t rely on absolute positions that can break the UI.
+这两个我都使用过，个人体验 `vue-virtual-scroll-list` 更好一点，使用起来更容易，而且不依赖绝对定位来破坏用户本身的 UI。
 
-## Conclusion
+## 结论
 
-Even though this guide doesn’t account for all scenarios, these six ways cover a lot of common performance issues for Vue applications.
+虽然这篇指南没有包含所有可能遇到的情况，但这六种方法涵盖了 Vue 应用程序的许多常见性能问题。
 
-Achieving great front end performance is more important than you may realize. Developers usually have much better computers than the users who end up using your app. Your users may not even use computers but rather slow and outdated smartphones.
+维护优秀的前端性能可能比你想象的更重要。开发人员的计算机通常有比最终使用 app 的用户更好。甚至你的用户可能都不使用电脑，而是速度慢并且已经过时的智能手机。
 
-So it’s up to us, the developers, to do the best in our power and deliver an optimal user experience. You can use these six ways as a checklist to help ensure your Vue app is running smoothly for all users.
+因此我们被赋予了这项重任，作为开发人员尽可能的做到最好，提供最佳的用户体验。你可以使用这六种绝招作为一个自测清单，用来帮助确认你的 Vue 应用程序可以让所有的用户顺利运行。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
