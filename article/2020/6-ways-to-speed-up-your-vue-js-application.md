@@ -21,9 +21,9 @@
 
 在本文中，你可以通过遵循下面这些步骤，确保你的 Vue 应用尽可能快的运行。并且通过这些步骤，也可以准确知道那里需要修复，而不用仅仅靠猜。
 
-## 1. 仅仅更新必须的内容
+## 1. 只更新需要更新的内容
 
-当使用 VueJS 时可能会遇到最麻烦的问题之一就是，渲染相同的元素或元素列表的次数，超过需要的次数。为了理解为什么会发生这样的事情，我们不得不先理解一下 Vue 中的响应式对象。
+当使用 VueJS 时可能会遇到最麻烦的问题之一就是，渲染相同的元素或元素列表的次数，超过预计的次数。为了理解为什么会发生这样的事情，我们不得不先理解一下 Vue 中的响应式对象。
 
 下面这个例子出自 Vue.js 官方文档，并且它显示了哪些属性是具有响应性，哪些属性不具有。Vue 中有许多的响应式元素：分配给 data 对象的属性，计算属性，以及依赖于响应式 methods 中的方法。
 
@@ -76,13 +76,13 @@ values: [{id: 1, t: 'a'}, {id: 2, t: 'b'}]
 <item :itemValue="value" v-for="item in items" :key="item.id"></item>
 ```
 
-This item component will only update if the specific item has a reactive change (for example with [Vue.set](https://vuejs.org/v2/api/#Vue-set))
+item 组件只会在具有明确的响应式数据变化时更新（举个例子 [Vue.set](https://vuejs.org/v2/api/#Vue-set)）
 
-The performance gain of using components to render lists is tremendous. If an element is added or removed from the array, Vue won’t render all the components one-by-one again. If the array is sorted, Vue just shuffles the elements by relying on the provided `key`.
+使用组件来渲染列表可以让性能得到巨大提升。如果从数组中添加或删除元素，Vue 将不会再次逐个渲染所有的组件。如果这个数组重新排序，Vue 只需要根据元素依赖的 `key` 来重新排序并渲染。
 
-If the component is really lightweight, you can do one better. Instead of passing a complete object like `value` you could pass a primitive property (String or Number) like `:itemText="value.t”`. With that in place, `<item>` will only be re-rendered if the primitive values you passed have changed. This means that even reactive changes will cause an update — but it’s not needed!
+如果是轻量级的组件，你还可以做另一个优化。可以传入一个私有属性（字符串或数字）类似 `value.t`，而不是传入一个完整的对象类似 `value`。这么做的话，只有当传入的值发生更改时，`<item>` 组件才会被重新渲染。这一点也告诉我们，即使我们不需要更新，但响应式对象发生变化也会导致重复渲染。
 
-## 2. Eliminate Duplicate Rendering
+## 2. 消除重复渲染
 
 Rendering full lists or heavy elements more times than needed is quite a sneaky issue, but it’s very easy to make happen.
 
