@@ -19,14 +19,13 @@
 
 至于其他的诊断，比如主线程的一些运行和 JavaScript 执行代码所消耗的时间过长，这会提示可能存在的问题，但这些并不能真正的帮助你去修复它。
 
-In this article I’ll go through the steps you can follow to make sure your Vue application is working as fast as possible. With these steps, you’ll know exactly what to fix and you won’t have to guess anything.
-在本文中，你们可以通过跟随下面这些步骤，确保你的 Vue 应用尽可能快的运行。并且通过这些步骤，也可以准确知道那里需要修复，而不用靠猜。
+在本文中，你可以通过遵循下面这些步骤，确保你的 Vue 应用尽可能快的运行。并且通过这些步骤，也可以准确知道那里需要修复，而不用仅仅靠猜。
 
-## 1. Update Only What’s Needed
+## 1. 仅仅更新必须的内容
 
-One of the nastiest issues you can run into with VueJS is rendering the same elements or list of elements more times than needed. To understand why or how this can happen we have to understand reactivity in Vue.
+当使用 VueJS 时可能会遇到最麻烦的问题之一就是，渲染相同的元素或元素列表的次数，超过需要的次数。为了理解为什么会发生这样的事情，我们不得不先理解一下 Vue 中的响应式对象。
 
-This example is from the official Vue.js documentation and it shows which properties are reactive and which are not. There are many reactive elements in Vue: properties assigned to the data object, computed properties, or methods that rely on reactive properties.
+下面这个例子出自 Vue.js 官方文档，并且它显示了哪些属性是具有响应性，哪些属性不具有。Vue 中有许多的响应式元素：分配给 data 对象的属性，计算属性，以及依赖于响应式 methods 中的方法。
 
 ```JavaScript
 var vm = new Vue({
@@ -34,29 +33,29 @@ var vm = new Vue({
     a: 1
   }
 })
-// `vm.a` is now reactive
+// `vm.a` 现在是响应式的了
 
 vm.b = 2
-// `vm.b` is NOT reactive
+// `vm.b` 并不是响应式
 ```
 
-But a plain JavaScript code, such as `{{ 'value' }}` or `{{ new Date() }}`, is not tracked by Vue as a reactive property.
+但是一段普通的 JavaScript 代码，例如 `{{ 'value' }}` 或 `{{ new Date() }}`，是不会被作为响应式属性被监测。
 
-So what does reactivity have to do with duplicate rendering?
+那么响应性是怎么样去进行重复渲染的呢？
 
-Let’s say you have an array of objects like this in your `data` object:
+让我们假设在你的 `data` 对象中，你有一个类似以下对象的数组：
 
 ```
 values: [{id: 1, t: 'a'}, {id: 2, t: 'b'}]
 ```
 
-And you’re rendering it using `v-for`:
+并且你使用 `v-for` 命令来渲染它：
 
 ```vue
 <div v-for="value in values" :key="value.id">{{ value.t }}</div>
 ```
 
-When a new element is added to the list Vue will re-render the whole list. Not convinced? Try writing it like this:
+当一个新的元素被添加到这个列表中，Vue 将会重新渲染整个列表。难以置信吗？试一试就知道了：
 
 ```vue
 <div v-for="value in values" :key="value.id">
@@ -65,7 +64,7 @@ When a new element is added to the list Vue will re-render the whole list. Not c
 </div>
 ```
 
-The JavaScript `Date` object is not reactive so it doesn’t affect rendering. It will only be called if the element has to be rendered again. What you will see in this example, is that every time a value is added or removed from `values` a new Date will pop up on all rendered elements.
+因为 JavaScript 的 `Date` 对象并不是响应式的，因此它不会影响渲染。只有在必须再次渲染的时候才会调用它。在这个例子中你可以看到，每次在 `values` 中添加或删除值时，所有渲染完成的元素上都会弹出一个新的日期。
 
 What should you expect in a more optimized page? You should expect only the new or changed elements to show a new `Date`, while the others should not be rendered at all.
 
