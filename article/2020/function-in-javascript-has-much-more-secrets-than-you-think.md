@@ -5,31 +5,31 @@
 > * 译者：
 > * 校对者：
 
-# Function in JavaScript Has Much More Secrets Than You Think
+# JavaScript 函数中一些你不知道的秘密
 
 ![Photo by [Luca Bravo](https://unsplash.com/@lucabravo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*9flb0rn0PvVk8f88)
 
-Functions are a familiar syntax to every programmer. In JavaScript, functions have a very high status and are often referred to as first-class citizens. But are you really good at using functions?
+每个程序员对函数语法都非常熟悉。JavaScript 中函数有非常高的地位，经常被称为第一公民。但是你真的擅长使用函数吗？
 
-Here I’ll introduce some advanced tips for using functions that I hope will help you. This article includes the following sections:
+接下来我将介绍一些函数的进阶用法，希望能对你有所帮助。本文包含以下几个章节：
 
-* Pure Function
-* Higher-Order Function
-* Function Caching
-* Lazy Function
-* Currying
-* Function Compose
+* 纯函数
+* 高阶函数
+* 函数缓存
+* 惰性函数
+* 柯里化
+* 函数组合
 
-## Pure Function
+## 纯函数
 
-#### What is a pure function?
+#### 什么是纯函数？
 
-A function that meets both of the following conditions is called a pure function:
+当一个函数满足以下 2 个条件，它就是纯函数：
 
-* It was always returned the same result if given the same arguments.
-* No side effects occur during the execution of the function
+* 传入的参数相同时，函数总是返回相同的结果。
+* 函数执行时不产生副作用。
 
-Example 1:
+例子 1：
 
 ```js
 function circleArea(radius){
@@ -37,9 +37,9 @@ function circleArea(radius){
 }
 ```
 
-When the values of the radius are the same, the function always returns the same result. And the execution of the function has no effect on the outside of the function, so this is a pure function.
+当参数 `radius` 传入相同的值时，函数总是会返回相同的结果，同时执行过程中函数没有对外产生副作用，所以这是一个纯函数。
 
-Example 2:
+例子 2：
 
 ```js
 let counter = (function(){
@@ -53,9 +53,9 @@ let counter = (function(){
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-ao0govuJNMZH1Pg_vAu8g.png)
 
-This counter function will run differently every time, so this is not a pure function.
+这个计数器函数每次执行结果都不同，因此它不是一个纯函数。
 
-Example 3:
+例子 3：
 
 ```js
 let femaleCounter = 0;
@@ -70,19 +70,19 @@ function isMale(user){
 }
 ```
 
-In the example above, the function `isMale`, given the same argument, always has the same result, but it has side effects. The side effect is to change the value of the global variable `maleCounter`, so it is not pure.
+例子中的函数 `isMale` 传入了相同的参数时总是返回相同的结果，但是它有副作用。它的副作用是改变全局变量 `maleCounter` 的值，所以它不是纯函数。
 
-#### What’s the use of pure functions?
+#### 纯函数有何用处？
 
-Why do we distinguish pure functions from other functions? Because pure functions have many advantages, we can use pure functions to improve the quality of our code during the programming process.
+我们为何要区分纯函数和非纯函数？因为纯函数有很多优势，我们可以在编程过程中使用纯函数来提升代码质量。
 
-1. Pure functions are much clearer and easier to read
+1. 纯函数读起来更明确、更简洁。
 
-Each pure function always accomplishes a specific task and has an exact result. This will greatly improve the readability of the code and make it easier to write documents.
+每个纯函数都能完成特定任务并产生一个明确的值，这会大大增加代码的可读性，更容易写文档。
 
-2. The compiler can do more optimization on pure functions
+1. 编译器对纯函数能做更多优化。
 
-Let’s say I have a code snippet like this:
+比如说我们有这样一段代码：
 
 ```js
 for (int i = 0; i < 1000; i++){
@@ -90,9 +90,9 @@ for (int i = 0; i < 1000; i++){
 }
 ```
 
-If `fun` were not a pure function, then `fun(10)` would need to be executed 1,000 times while this code is running.
+如果 `fun` 不是纯函数，那么 `fun(10)` 在代码执行时需要调用 1,000 次。
 
-If `fun` were a pure function, the editor would be able to optimize the code at compile time. The optimized code might look like this:
+如果 `fun` 是纯函数，那么编辑器就可以在编译时优化代码，优化后的代码可能像这样：
 
 ```js
 let result = fun(10)
@@ -101,11 +101,11 @@ for (int i = 0; i < 1000; i++){
 }
 ```
 
-3. Pure functions are easier to test
+1. 纯函数更容易测试
 
-Tests of pure functions do not need to be context-dependent. When we write unit tests for pure functions, we simply give an input value and assert that the output of the function meets our requirements.
+纯函数测试时不需要依赖上下文。当我们给纯函数写单元测试时，我们只需简单地传入一个值，然后检验输出值是否符合我们预期就行了。
 
-A simple example: A pure function takes an array of numbers as an argument and increments each element of the array by 1.
+举个简单的例子：一个纯函数以数字组成的数组为参数，将数组中每个数字都加 1。
 
 ```js
 const incrementNumbers = function(numbers){
@@ -113,7 +113,7 @@ const incrementNumbers = function(numbers){
 }
 ```
 
-We just need to write the unit test for it like this:
+我们只需要把单元测试写成这样就行了：
 
 ```js
 let list = [1, 2, 3, 4, 5];
@@ -121,22 +121,22 @@ let list = [1, 2, 3, 4, 5];
 assert.equals(incrementNumbers(list), [2, 3, 4, 5, 6])
 ```
 
-If it’s not a pure function, we have a lot of external factors to consider, and it’s not a simple task.
+如果它不是纯函数，我们需要考虑很多外部因素，这可不是一个简单的工作。
 
-## Higher-Order Function
+## 高阶函数
 
-What is a higher-order function?
+什么是高阶函数？
 
-A higher-order function is a function that does at least one of the following:
+高阶函数至少需要满足以下 1 项条件：
 
-* takes one or more functions as arguments
-* returns a function as its result.
+* 以一个或多个函数作为参数。
+* 返回一个函数作为返回值。
 
-Using higher-order functions can increase the flexibility of our code, allowing us to write a more concise and efficient code.
+使用高阶函数能够提升我们代码的灵活性，它能够让我们的代码更灵活更简洁。
 
-Let’s say we now have an array of integers, and we want to create a new array. The elements of the new array have the same length as the original array, and the value of the corresponding element is twice the value of the original array.
+我们假设现在有一个整数组成的数组，我们希望基于它创建一个新数组。新数组元素的数量和原数组相同，新数组中每个值是原数组对应值的两倍。
 
-Without using higher-order functions, we might write like this:
+不用高阶函数的话，代码可能类似这样：
 
 ```js
 const arr1 = [1, 2, 3];
@@ -147,9 +147,9 @@ for (let i = 0; i < arr1.length; i++) {
 }
 ```
 
-In JavaScript, the array object has a `map()` method.
+在 JavaScript 中，数组对象有一个 `map()` 方法。
 
-> The `map(callback)` method creates a new array populated with the results of **calling a provided function** on every element in the calling array.
+> `map(callback)` 方法创建一个新数组，该方法在调用它的数组上依次**执行给定的函数**，将返回值作为内容来填充新数组。
 
 ```js
 const arr1 = [1, 2, 3];
@@ -159,41 +159,41 @@ const arr2 = arr1.map(function(item) {
 console.log(arr2);
 ```
 
-The `map` function is a higher-order function.
+`map` 函数是一个高阶函数。
 
-Using higher-order functions correctly can improve the quality of our code. The next sections are all about higher-order functions, so let’s move on.
+正确使用高阶函数能够提高代码质量。下一章节都是和高阶函数有关的，让我们继续吧。
 
-## Function Caching
+## 函数缓存
 
-Let’s say we have a pure function that looks like this:
+比如我们有这样一个纯函数：
 
 ```js
 function computed(str) {    
-    // Suppose the calculation in the funtion is very time consuming        
+    // 假设函数中的计算非常耗时
     console.log('2000s have passed')
       
-    // Suppose it is the result of the function
+    // 假设这是函数返回值
     return 'a result'
 }
 ```
 
-To increase the speed of the program, we want to cache the result of the function operation. When it is called later, if the parameters are the same, the function will no longer be executed, but the result in the cache will be returned directly. What can we do?
+为了提升程序运行速度，我们希望将函数执行的结果缓存起来。当我们之后再调用它时，如果参数相同，函数就不会再次执行，而是直接将缓存中的结果返回出去。我们该怎么做？
 
-We can write a `cached` function to wrap around our target function. This cache function takes the target function as an argument and returns a new wrapped function. Inside the `cached` function, we can cache the result of the previous function call with an `Object` or `Map`.
+我们可以写一个 `cached` 函数来包装我们的目标函数。这个缓存函数将目标函数作为参数，并返回一个包装后的函数。在 `cached` 函数里面，我们可以用 `Object` 或 `Map` 缓存函数之前调用的结果。
 
 ```JavaScript
 function cached(fn){
-  // Create an object to store the results returned after each function execution.
+  // 创建一个对象来，存储每次函数执行的结果
   const cache = Object.create(null);
 
-  // Returns the wrapped function
+  // 返回包装后的函数
   return function cachedFn (str) {
 
-    // If the cache is not hit, the function will be executed
+    // 如果没有缓存过，则执行函数
     if ( !cache[str] ) {
         let result = fn(str);
 
-        // Store the result of the function execution in the cache
+        // 在缓存中记录函数的执行结果
         cache[str] = result;
     }
 
@@ -202,17 +202,17 @@ function cached(fn){
 }
 ```
 
-Here is an example:
+这里有个例子：
 
 ![](https://cdn-images-1.medium.com/max/2528/0*iLTBkgsiO05dd_XZ.png)
 
-## Lazy Function
+## 惰性函数
 
-The body of a function usually contains some conditional statements. Sometimes these statements only need to be executed once.
+函数体通常包含某些条件判断语句，有时候这些语句只需要执行一次。
 
-We can improve the performance of the function by ‘deleting’ these statements after the first execution, so that the function does not need to execute these statements in subsequent executions. That is lazy function.
+我们可以在第一次执行后“删除”这些语句来提升函数的性能，这样一来函数就不必在之后调用过程中再去运行这些语句了。这样一种函数成为惰性函数。
 
-For example, we now need to write a function called `foo` that always returns the Date object from the `first call`, note ‘the first call’.
+举个例子，我们需要写一个叫做 `foo` 的函数，它总是返回**第一次调用**时的日期对象，请注意是**第一次调用**。
 
 ```js
 let fooFirstExecutedDate = null;
@@ -226,9 +226,9 @@ function foo() {
 }
 ```
 
-Each time the above function is run, the judgment statement needs to be executed. If this judgment condition is very complex, then it will result in the performance degradation of our program. At this point, we can use the technique of lazy functions to optimize this code.
+每次函数运行时，会执行判断语句，如果条件判断很复杂，那么最终就会拖慢我们程序的性能。针对这一问题，我们可以使用惰性函数的技术来优化这段代码。
 
-We could write code like this:
+我们可以写成这样：
 
 ```js
 var foo = function() {
@@ -240,11 +240,11 @@ var foo = function() {
 }
 ```
 
-After the first execution, we overwrite the original function with the new function. When this function is executed in the future, the judgment statement will no longer be executed. This will improve the performance of our code.
+第一次执行之后，我们用一个新函数覆盖了原函数。以后再执行这个函数的话，就不会再执行条件判断语句了，这提升了我们代码的性能。
 
-Then let’s look at a more practical example.
+然后我们再来看看一个更实际的例子。
 
-When we add DOM events to the element, in order to be compatible with modern browsers and IE browsers, we need to make a judgment on the browser environment:
+当我们在元素中添加 DOM 事件时，为了兼容现代浏览器和 IE 浏览器，我们需要判断浏览器环境：
 
 ```js
 function addEvent (type, el, fn) {
@@ -257,7 +257,7 @@ function addEvent (type, el, fn) {
 }
 ```
 
-Every time we call the `addEvent` function, we hava to make a judgment. Using lazy functions, we can do this:
+每次我们调用 `addEvent` 函数，我们都需要去判断。使用惰性函数的话，我们可以这么写：
 
 ```js
 function addEvent (type, el, fn) {
@@ -274,23 +274,23 @@ function addEvent (type, el, fn) {
 }
 ```
 
-To sum up, if there is a conditional judgment within a function that only needs to be executed once, then we can optimize it with lazy functions. In particular, after the first judgment is made, the original function is overwritten with the new function, and the new function removes the conditional judgment.
+总而言之，如果函数中的条件判断只需要做一次，那么我们可以用惰性函数来优化它。更具体地说，第一次条件判断之后，原函数会被新函数所覆盖，新函数会移除条件判断语句。
 
-## Function Currying
+## 函数柯里化
 
-Currying is a technique of evaluating function with **multiple arguments**, into a sequence of functions with a single argument.
+柯里化的意思是将接受多参数的函数，转化为多个接受单一参数的函数的技术。
 
-In other words, when a function, instead of taking all arguments at one time, takes the first one and return a new function that takes the second one and returns a new function which takes the third one, and so forth until all arguments have been fulfilled.
+换言之，柯里化是将原本一次性接受所有参数的函数做一个转化，转化后，第一次调用时接受第一个参数并返回新函数，这个新函数调用时接受第二个参数并又返回一个新函数，接着这个新函数调用时接受第三个参数，以此类推，直到囊括所有参数为止。
 
-That is when we turn a function call `add(1,2,3)` into `add(1)(2)(3)` . By using this technique, the little piece can be configured and reused with ease.
+当我们给 `add(1,2,3)` 这种函数调用逻辑进行柯里化之后，我们会得到 `add(1)(2)(3)` 这样的形式。通过使用此技术，我们可以轻松地配置和复用代码片段。
 
-Why it’s useful?
+它有什么好处？
 
-* Currying helps you to avoid passing the same variable again and again.
-* It helps to create a higher-order function. It is extremely helpful in event handling.
-* Little pieces can be configured and reused with ease.
+* 在柯里化帮助下，你可以不用重复传入相同的参数。
+* 它可以创建高阶函数，在处理事件时极为有用。
+* 小段代码可以轻松地配置和复用。
 
-Let’s look at a simple `add` function. It accepts three operands as arguments and returns the sum of all three as the result.
+让我们来看一个简单的 `add` 函数，它接受三个操作数作为参数并返回它们相加的结果。
 
 ```js
 function add(a,b,c){
@@ -298,17 +298,17 @@ function add(a,b,c){
 }
 ```
 
-You can call it with too few (with odd results), or too many (excess arguments get ignored).
+你可以用较少的参数来调用（结果会比较奇怪），或者传入更多的参数（会忽略多余参数）。
 
 ```js
 add(1,2,3) // --> 6 
 add(1,2) // --> NaN
-add(1,2,3,4) --> 6 //Extra parameters will be ignored.
+add(1,2,3,4) --> 6 // 会忽略多余的参数
 ```
 
-How to convert an existing function to a curried version?
+怎么把一个现有的函数转化为柯里化函数？
 
-#### Code:
+#### 代码：
 
 ```JavaScript
 function curry(fn) {
@@ -328,22 +328,22 @@ function curry(fn) {
 }
 ```
 
-#### Example:
+#### 例子：
 
 ![](https://cdn-images-1.medium.com/max/3172/1*xWlaYdGM43c5UtE-2sDbLw.png)
 
-## Function Compose
+## 函数组合
 
-Suppose we now need to write a function that does this:
+假设我们要写一个函数实现以下功能：
 
-> Input ‘bitfish’, return ‘HELLO, BITFISH’.
+> 输入“bitfish”，返回“HELLO, BITFISH”。
 
-As you can see, this function has two components:
+如你所见，这个函数有两个组成部分：
 
-* Concatenated strings
-* Converts the string to uppercase
+* 拼接后的字符串
+* 将字符串转为大写
 
-So we can write the code like this:
+所以我们代码可以这么写：
 
 ```js
 let toUpperCase = function(x) { return x.toUpperCase(); };
@@ -356,9 +356,9 @@ let greet = function(x){
 
 ![](https://cdn-images-1.medium.com/max/2836/1*jK2JpMEe_O4ZSdC1c75y8g.png)
 
-There are only two steps in this example, so the greet function does not look complex. If there were more operations, the greet function would need more nesting in it, writing code similar to `fn3(fn2(fn1(fn0(x))))`.
+这个例子中只有两个步骤，所以这个大的函数看上去不复杂。如果有更多操作，这么大函数可能会有更多的内部嵌套，写成类似 `fn3(fn2(fn1(fn0(x))))` 这样的形式。
 
-To do this, we can write a `compose` function exclusively for composing functions:
+为了做到这一点，我们需要写一个 `compose` 函数，专门用于组合函数：
 
 ```js
 let compose = function(f,g) {
@@ -368,18 +368,18 @@ let compose = function(f,g) {
 };
 ```
 
-Thus, the `greet` function can be obtained through the `compose` function:
+因此，`greet` 函数可以通过 `compose` 函数来得到：
 
 ```js
 let greet = compose(hello, toUpperCase);
 greet('kevin');
 ```
 
-Using `compose` functions to combine two functions into a single function makes the code run from right to left, rather than from the inside out, making it much more readable.
+使用 `compose` 函数将两个函数组合成一个，使得代码可以从左到右地运行，而不是从内到外地运行，这提升了代码的可读性。
 
-But now the `compose` function can only support two parameters, and we really want the function to accept any number of parameters.
+但是现在 `compose` 函数只支持两个参数，我们非常希望它能够接受任意数量的参数。
 
-The composer function is implemented this way in the well-known open source project [underscore](https://underscorejs.org/).
+著名的开源项目 [underscore](https://underscorejs.org/) 是这样实现组合器函数的。
 
 ![](https://cdn-images-1.medium.com/max/2372/1*UW-P_I4wRqvbneYQh5ZrUw.png)
 
@@ -396,7 +396,7 @@ function compose() {
 };
 ```
 
-Through function compose, we can optimize the logical relationships between functions, improve the readability of the code, and facilitate future extensions and refactoring.
+通过函数组合，我们可以优化函数之间的逻辑关系，提升代码可读性，便于将来扩展和重构。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
