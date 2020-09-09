@@ -2,8 +2,8 @@
 > * 原文作者：[C M Pandey](https://dev.to/cmcodes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-website-now-loads-in-less-than-2-sec-here-s-how-i-did-it-hoj.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-website-now-loads-in-less-than-2-sec-here-s-how-i-did-it-hoj.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wangqinggang](https://github.com/wangqinggang)
+> * 校对者：[Chorer](https://github.com/Chorer)   [Inchill](https://github.com/Inchill)
 
 # 我的网站加载时间不到 1 秒，这是我如何做到的！
 
