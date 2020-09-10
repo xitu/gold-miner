@@ -7,8 +7,6 @@
 
 # A Comprehensive Guide to Slices in Golang
 
-#### Slices in Golang
-
 ![Photo by [Paweł Czerwiński](https://unsplash.com/@pawel_czerwinski) on [Unsplash](https://unsplash.com/s/photos/array)](https://cdn-images-1.medium.com/max/12000/1*i7lsjZyVnJxDEIg8Qibdlw.jpeg)
 
 In this article, we will go over the concept of a “slice” which is an important data structure used in Golang. A slice is a data structure that provides a way for you to work with — and manage collections of — data. Slices are built around the concept of dynamic arrays that can grow and shrink as you see fit.
@@ -411,7 +409,7 @@ Index: 3 Value: 40
 
 #### Conclusions
 
-Over the course of this article, we dove into the concept of slices and discovered a lot about them. We learned that a slice ****doesn’t store any data — rather it describes a section of an underlying array. We also saw that a slice can grow and shrink within the bounds of the underlying array and used with the index as an array; that the default zero value of a slice is nil; the functions **len**, **cap** and **append** ****all regard** nil **as an** empty slice **with 0 capacity; and that you create a slice either by a** slice literal **or a call to the** make ******function (which takes the length and an optional capacity as arguments). I hope you have found this helpful!
+Over the course of this article, we dove into the concept of slices and discovered a lot about them. We learned that a slice doesn’t store any data — rather it describes a section of an underlying array. We also saw that a slice can grow and shrink within the bounds of the underlying array and used with the index as an array; that the default zero value of a slice is nil; the functions **len**, **cap** and **append** all regard **nil** as an **empty slice** with 0 capacity; and that you create a slice either by a **slice literal** or a call to the **make** function (which takes the length and an optional capacity as arguments). I hope you have found this helpful!
 
 **Disclaimer**
 
