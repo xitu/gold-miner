@@ -7,9 +7,9 @@
 
 # Tutorial on Python Logging
 
-Logging is a very important functionality for a programmer. For both debugging and displaying run-time information, logging is equally useful. In this article, I will present why and how you could use the python’s logging module in your programs.
-
 ![Photo by [Chris Ried](https://unsplash.com/@cdr6934?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/codes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12032/1*1X0-98EiQNkwBJj2vnTTqQ.jpeg)
+
+Logging is a very important functionality for a programmer. For both debugging and displaying run-time information, logging is equally useful. In this article, I will present why and how you could use the python’s logging module in your programs.
 
 ## Why Logging and not print()
 
@@ -53,8 +53,6 @@ Here the useful program output is written to a file, by redirection `>`. So we c
 
 ## Logging and Log Levels
 
-![Photo by [Edvard Alexander Rølvaag](https://unsplash.com/@edvardr?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/hierarchy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8302/1*whdOswlacQ_B_cpFkYssEw.jpeg)
-
 Logging can happen for different reasons. These reasons are separated into levels of severity as following.
 
 * **DEBUG**: Debug information for developers such as computed values, estimated parameters, URLs, API calls, etc.
@@ -68,8 +66,6 @@ The most common types of logs are **DEBUG**, **INFO**, and **ERROR**. However, y
 ## Configuring the Logger and Log Handlers
 
 The loggers can be configured under different parameters. The logger can be configured to follow a particular log level, a file name, file mode, and a format to print the log output.
-
-![Image by [2427999](https://pixabay.com/users/2427999-2427999/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3714727) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3714727)](https://cdn-images-1.medium.com/max/2560/1*VCxgsxAXIXkGAnHzMxzoHw.jpeg)
 
 #### Configuring the Logger Parameters
 
@@ -145,13 +141,11 @@ logger.addHandler(fileHandler)
 logger.addHandler(consoleHeader)
 ```
 
-![Image by [Bruno /Germany](https://pixabay.com/users/Bru-nO-1161770/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1006172) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1006172)](https://cdn-images-1.medium.com/max/2560/1*irOTu97Vs_YYWyqsivxu2Q.png)
-
 #### Loggin with Multithreading
 
 The logging module is made with thread safety in mind. Hence no special action is required when you’re logging from different threads except very few exceptions (out of the main scope of this article).
 
-I hope this is a simple but useful article for many budding programmers and engineers. The following are a few more python tutorials that you might like having a look at. Happy reading. Cheers! :-)
+I hope this is a simple but useful article for many budding programmers and engineers. Happy reading. Cheers! :-)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
