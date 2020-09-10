@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/react-vs-sveltejs-the-war-between-virtual-and-real-dom.md](https://github.com/xitu/gold-miner/blob/master/article/2020/react-vs-sveltejs-the-war-between-virtual-and-real-dom.md)
 > * 译者：[niayyy](https://github.com/nia3y)
-> * 校对者：
+> * 校对者：[Alfxjx](https://github.com/Alfxjx)、[x1ny](https://github.com/x1ny)
 
 # React vs. Svelte: 虚拟与真实 DOM 间的战争
 
