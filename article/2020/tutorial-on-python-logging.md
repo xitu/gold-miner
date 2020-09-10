@@ -7,8 +7,6 @@
 
 # Tutorial on Python Logging
 
-#### Python logging and code snippets for you to use right away
-
 Logging is a very important functionality for a programmer. For both debugging and displaying run-time information, logging is equally useful. In this article, I will present why and how you could use the python’s logging module in your programs.
 
 ![Photo by [Chris Ried](https://unsplash.com/@cdr6934?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/codes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12032/1*1X0-98EiQNkwBJj2vnTTqQ.jpeg)
@@ -17,7 +15,7 @@ Logging is a very important functionality for a programmer. For both debugging a
 
 There is a key difference between a print statement and logging output. Usually, print statements write to **stdout** (standard output) which is expected to be the useful information or the output of the program. However, logs are written into **stderr** (standard error). We can demonstrate this scenario as follows.
 
-```
+```py
 import logging
 
 logging.basicConfig(level=logging.INFO) #We'll talk about this soon!
@@ -77,7 +75,7 @@ The loggers can be configured under different parameters. The logger can be conf
 
 The logger can be configured as follows.
 
-```
+```py
 import logging
 
 logging.basicConfig(filename='program.log', filemode='w', level=logging.DEBUG)
@@ -90,7 +88,7 @@ The above setting asks the logger to output the log into a file named `program.l
 
 Although the above approach is straightforward for a simple application we need a comprehensive logging process for a production-ready software or a service. This is because it might be quite difficult to find for a particular **ERROR** log amidst millions of **DEBUG** logs. Furthermore, we need to use a single logger throughout the program and modules. This way we’ll correctly append the logs to the same file. For this, we can use handlers with different configurations for this task.
 
-```
+```py
 import logging
 
 logger = logging.getLogger("My Logger")
@@ -113,7 +111,7 @@ Next, we create two handlers for **console** and **file** writing. For each hand
 
 Logging is not merely print our own message. Sometimes we need to print other information such as time, log level, and process ids. For this task, we can use log formatting. Let’s see the following code.
 
-```
+```py
 console_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
 file_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -145,8 +143,6 @@ fileHandler.setFormatter(formatter)
 
 logger.addHandler(fileHandler)
 logger.addHandler(consoleHeader)
-
-
 ```
 
 ![Image by [Bruno /Germany](https://pixabay.com/users/Bru-nO-1161770/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1006172) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1006172)](https://cdn-images-1.medium.com/max/2560/1*irOTu97Vs_YYWyqsivxu2Q.png)
@@ -156,10 +152,6 @@ logger.addHandler(consoleHeader)
 The logging module is made with thread safety in mind. Hence no special action is required when you’re logging from different threads except very few exceptions (out of the main scope of this article).
 
 I hope this is a simple but useful article for many budding programmers and engineers. The following are a few more python tutorials that you might like having a look at. Happy reading. Cheers! :-)
-[**Python Decorators**
-**Tutorial on how to use python decorator syntax for cleaner coding**levelup.gitconnected.com](https://levelup.gitconnected.com/python-decorators-b530bff0f3e3)
-[**Python Generators**
-**A tutorial on developing python generator functions using the yield keyword**towardsdatascience.com](https://towardsdatascience.com/python-generators-393455aa48a3)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
