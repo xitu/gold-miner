@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/6-ways-to-speed-up-your-vue-js-application.md](https://github.com/xitu/gold-miner/blob/master/article/2020/6-ways-to-speed-up-your-vue-js-application.md)
 > * 译者：[黄梵高](https://github.com/MangoTsing)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)
 
 # 加速 Vue.js 应用的六种绝技
 
