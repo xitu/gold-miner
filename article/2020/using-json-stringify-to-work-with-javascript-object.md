@@ -7,20 +7,9 @@
 
 # Using JSON.stringify to Work with JavaScript Object
 
-#### JavaScript
-
-## Filter Object Properties by Using JSON.stringify
-
-#### A simple technique to filter JavaScript object properties by using replacer as an array or a function.
-
 ![Photo by [Hanny Naibaho](https://unsplash.com/@hannynaibaho?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/coffee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9282/1*Kiz9V-noKpoSaIAdYyzWNA.jpeg)
 
 In this article, I will share about using replacers with JSON.stringify().
-
-1. Syntax Re-introduction
----
-
-2. Using Replacer Argument
 
 ## Syntax Re-introduction
 
@@ -59,8 +48,6 @@ How about `Object` instance such as `Map`, `Set`, `WeakMap`, and `WeakSet`?
 Note:
 
 * `Infinity` and `NaN`, `null`, are all considered `null`.
----
-
 * **Object property names**, as well as **string**, are double-quoted after encoding.
 
 ## Using Replacer Argument
@@ -88,17 +75,15 @@ So, we write a function to filter the property value by following a data type or
 
 ![excluding object properties by function replacer](https://cdn-images-1.medium.com/max/2000/1*u3xjA0lr8z8doKYIz9JxwQ.png)
 
-**Using the replacer is helpful for some simple case that we want to get some certain properties from an object.**
+Using the replacer is helpful for some simple case that we want to get some certain properties from an object.
 
----
+Sometimes, we work on the old project that we don’t have any superpower tool that supports us to filter the property from a big JSON object.
 
-**Sometimes, we work on the old project that we don’t have any superpower tool that supports us to filter the property from a big JSON object.**
-
-I hope you found this article useful! You can follow me on [Medium](https://medium.com/@transonhoang?source=post_page---------------------------). I am also on [Twitter](https://twitter.com/transonhoang). Feel free to leave any questions in the comments below. I’ll be glad to help out!
+I hope you found this article useful! Feel free to leave any questions in the comments below. I’ll be glad to help out!
 
 ## References
 
-[1]Json Stringify: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+[1] Json Stringify: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
