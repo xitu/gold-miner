@@ -2,8 +2,8 @@
 > * 原文作者：[bitfish](https://medium.com/@bf2)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/function-in-javascript-has-much-more-secrets-than-you-think.md](https://github.com/xitu/gold-miner/blob/master/article/2020/function-in-javascript-has-much-more-secrets-than-you-think.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Isildur46](https://github.com/Isildur46)
+> * 校对者：[Chorer](https://github.com/Chorer)
 
 # JavaScript 函数中一些你不知道的秘密
 
