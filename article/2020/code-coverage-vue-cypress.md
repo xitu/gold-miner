@@ -9,11 +9,11 @@
 
 ![](https://vuejsdevelopers.com/images/posts/versions/code_coverage_1200.webp)
 
-让我们像 [bahmutov/vue-calculator](https://github.com/bahmutov/vue-calculator) 应用一样，借助 [Vue CLI](https://cli.vuejs.org/) 来搭建一个 Vue 应用脚手架。在本文中，我将展示如何测量应用的源代码以收集其代码覆盖率信息。其后我们将利用该代码覆盖率报告来引导端到端测试的编写。
+让我们像 [bahmutov/vue-calculator](https://github.com/bahmutov/vue-calculator) 应用一样，借助 [Vue CLI](https://cli.vuejs.org/) 来搭建一个 Vue 应用脚手架。在本文中，我将展示如何检测应用的源代码以收集其代码覆盖率信息。其后我们将利用该代码覆盖率报告来引导端到端测试的编写。
 
 ## 应用
 
-示例应用可在 [bahmutov/vue-calculator](https://github.com/bahmutov/vue-calculator) 找到，该仓库 fork 自脚手架阶段使用了 Vue CLI 默认模版的 [kylbutlr/vue-calculator](https://github.com/kylbutlr/vue-calculator) 项目。其代码使用如下 `babel.config.js`  文件转译：
+示例应用可在 [bahmutov/vue-calculator](https://github.com/bahmutov/vue-calculator) 仓库中找到，该仓库 fork 自使用 Vue CLI 默认模版构建的 [kylbutlr/vue-calculator](https://github.com/kylbutlr/vue-calculator) 项目。其代码使用如下 `babel.config.js`  文件转译：
 
 ```js
 // babel.config.js
@@ -40,9 +40,9 @@ module.exports = {
 
 搞定！你可以计算任何想要的东西了。
 
-## 测量源代码
+## 检测源代码
 
-我们可以通过向 Babel 配置文件导出对象中添加 `plugins` 列表来测量应用代码。该插件列表应包含 [babel-plugin-istanbul](https://github.com/istanbuljs/babel-plugin-istanbul) 。
+我们可以通过向导出的 Babel 配置文件中添加 `plugins` 列表来检测应用代码。该插件列表应包含 [babel-plugin-istanbul](https://github.com/istanbuljs/babel-plugin-istanbul) 。
 
 ```js
 // babel.config.js
@@ -62,7 +62,7 @@ module.exports = {
 
 不过上面展示的覆盖率对象，仅包含了单一条目 `src/main.js`，却缺失了 `src/App.vue` 和 `src/components/Calculator.vue` 两个文件。
 
-让我们来告诉 `babel-plugin-istanbul` 我们想要同时测量 `.js` 和 `.vue` 文件吧。
+让我们来告诉 `babel-plugin-istanbul` 我们想要同时检测 `.js` 和 `.vue` 文件吧。
 
 ```js
 // babel.config.js
@@ -82,13 +82,13 @@ module.exports = {
 
 当我们重启应用后，得到了一个包含 `.js` 和 `.vue` 文件条目的新 `window.__coverage__` 对象。
 
-![被测量的 JS 和 Vue 文件](https://vuejsdevelopers.com/images/posts/code_coverage/vue-covered.png)
+![被检测的 JS 和 Vue 文件](https://vuejsdevelopers.com/images/posts/code_coverage/vue-covered.png)
 
-## 条件性测量
+## 条件性检测
 
-如果你观察应用的打包结果，就会看到测量所做的事情。其围绕每条语句都插入了计数器，用以保持跟踪一条语句被执行了多少次。对于每一个函数和每一个分支路径，也有单独的计数器。
+如果你观察应用的打包代码，就会看到测量所做的事情。其围绕每条语句都插入了计数器，用以保持跟踪一条语句被执行了多少次。对于每一个函数和每一个分支路径，也有单独的计数器。
 
-![被测量的源代码](https://vuejsdevelopers.com/images/posts/code_coverage/instrumented.png)
+![被检测的源代码](https://vuejsdevelopers.com/images/posts/code_coverage/instrumented.png)
 
 我们并不想测量生产环境代码。应仅在 `NODE_ENV=test` 时测量代码，好利用收集到的代码覆盖率帮助我们编写更好的测试。
 
@@ -212,7 +212,7 @@ $ open coverage/lcov-report/index.html
 
 ![Calculator.vue 中已覆盖/未覆盖的行](https://vuejsdevelopers.com/images/posts/code_coverage/covered-lines.png)
 
-源码中高亮为红色的行正是测试中遗漏的。可以看到，虽然我们已经测试了录入数字和除法等，但仍需编写一个测试以覆盖“清理当前数字”、“改变正负号”、“设置小数点”、“乘法”等功能。代码覆盖率因此变为了编写端到端测试的向导；增加测试，直到所有红色标记的行都被干掉为止！
+源码中高亮为红色的行正是测试中遗漏的。可以看到，虽然我们已经测试了录入数字和除法等，但仍需编写一个测试以覆盖“清除当前数字”、“改变正负号”、“设置小数点”、“乘法”等功能。代码覆盖率因此变为了编写端到端测试的向导；增加测试，直到所有红色标记的行都被干掉为止！
 
 ```
   Calculator
@@ -240,7 +240,7 @@ it('decimal', () => {
 
 ![Decimal 测试失败](https://vuejsdevelopers.com/images/posts/code_coverage/decimal-fails.png)
 
-Cypress 测试的一个强大之处就在于其运行在真实浏览器中。让我们来调试失败的测试。在 `src/components/Calculator.vue` 放置一个端点。
+Cypress 测试的一个强大之处就在于其运行在真实浏览器中。让我们来调试失败的测试。在 `src/components/Calculator.vue` 放置一个断点。
 
 ```js
 decimal() {
@@ -312,7 +312,7 @@ it('decimal', () => {
 ## 总结
 
 * 向已经使用了 Babel 转译源代码的 Vue 项目添加代码测量工具很简单。向插件列表中添加 `babel-plugin-istanbul` 就能在 `window.__coverage__`  对象中获知代码覆盖率信息。
-* 为避免减慢生产环境运行的代码，你可能只想在运行测试时测量源代码。
+* 为了避免减慢生产环境代码的打包速度，你可能只想在测试时检测源代码。
 * 因为运行了完整的应用，端到端测试对于覆盖大量代码非常有效。
 * 由 `@cypress/code-coverage` 插件产生的代码覆盖率报告可以引导你编写测试以确保所有特性都被测试到
 
