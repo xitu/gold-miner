@@ -2,86 +2,122 @@
 > * 原文作者：[TRAN SON HOANG](https://medium.com/@transonhoang)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/using-json-stringify-to-work-with-javascript-object.md](https://github.com/xitu/gold-miner/blob/master/article/2020/using-json-stringify-to-work-with-javascript-object.md)
-> * 译者：
+> * 译者：[Inchill](https://github.com/Inchill)
 > * 校对者：
 
 # Using JSON.stringify to Work with JavaScript Object
+# 使用 JSON.stringify 处理 JavaScript 对象
 
 ![Photo by [Hanny Naibaho](https://unsplash.com/@hannynaibaho?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/coffee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9282/1*Kiz9V-noKpoSaIAdYyzWNA.jpeg)
 
 In this article, I will share about using replacers with JSON.stringify().
+在这篇文章，我将会分享如何使用 JSON.stringify() 的第二个参数 replacer。
 
 ## Syntax Re-introduction
+## 语法复习
 
 I think that most of us know the **`JSON.stringify()`** first argument. But, only some people know about there is a second argument called a **replacer**. So I want to re-introduce again the method syntax.
+我相信大多数人都知道 **`JSON.stringify()`** 的第一个参数。但是，只有一些人知道这里还有第二个参数叫做 **replacer**。所以我想重新介绍这个方法的使用语法。
 
 The `**JSON.stringify()**` method will do 2 things:
+`**JSON.stringify()**` 方法将会做 2 件事：
 
 1. convert the value to a JSON string.
 2. replace values if a replacer function is specified.
+1. 将值转换成一个 JSON 字符串。
+2. 如果有指定的 replacer 转换函数则继续转换该值。
 
 ```
 JSON.stringify(value[, replacer[, space]])
 ```
 
 There are 3 parameters:
+这里有 3 个参数：
 
 1. **value**
 The value to convert to a JSON string.
 2. **replacer**
 A function that alters the behavior of the stringification process.
-3. **space
-**Add space to output.
+3. **space**
+Add space to output.
+1. **value**
+将要被转换成 JSON 字符串的值。
+2. **replacer**
+更改字符串序列化过程的自定义处理函数。
+3. **space**
+添加输出时缩进用的空白字符串。
+
 
 The value supports many kinds of data such as Objects, Arrays, and Primitives.
+value 支持多种数据类型，比如对象、数组和基本数据类型。
 
 ![JSON stringify with some basic data types](https://cdn-images-1.medium.com/max/2000/1*5E21LFldSmAu59S8nuxEjQ.png)
 
 Some values that return `undefined` such as **function properties**, **symbolic properties**, and `undefined`.
+有些 value 值会返回 `undefined`，比如函数、Symbol 类型和 `undefined`。
 
 ![JSON stringify return undefined for some specific input](https://cdn-images-1.medium.com/max/2000/1*rouzCb86i62XKCX4Ucy_9g.png)
 
 How about `Object` instance such as `Map`, `Set`, `WeakMap`, and `WeakSet`?
+那么 `Object` 实例，例如 Map，Set，WeakMap 和 WeakSet 会返回什么呢？
 
 ![JSON stringify with Object instance](https://cdn-images-1.medium.com/max/2000/1*zmsGDy7_pc_4bs2YSBfofw.png)
 
 Note:
+注意：
 
 * `Infinity` and `NaN`, `null`, are all considered `null`.
 * **Object property names**, as well as **string**, are double-quoted after encoding.
+* `Infinity` 和 `NaN`, `null`, 都将被视作 `null`。
+* 编码后，对象属性名以及字符串都将被双引号引起来。
 
 ## Using Replacer Argument
+## 使用 Replacer 参数
 
 The object is recursively stringified into the JSON string, calling the `replacer` function on each property. This will help a lot when working with the object in JavaScript.
+该对象被递归化为 JSON 字符串，在每个属性上调用 `replacer` 函数。在 JavaScript 中使用对象时，这将有很大帮助。
 
 There is 2 types of **replacers**:
+**replacers** 有 2 种类型：
 
 * array
 * function
+* 数组
+* 函数
 
 #### replacer, as an array
+#### replacer 作为一个数组
 
 When we need to filter out object properties, we can apply replacer as an array.
+当需要过滤对象属性时，可以将 replacer 作为数组应用。
 
 Only these properties that we pass into the array will be encoded.
+只有传递给数组的这些属性将被编码。
 
 ![excluding object properties by array replacer](https://cdn-images-1.medium.com/max/2000/1*9z346wFbRjwhSoKyjKkJHA.png)
 
 #### replacer as a function
+#### replacer 作为一个函数
 
 We can use the replacer as a function in the case that we don’t know exactly the property name or cannot list out all properties because there are too many.
+如果我们不知道确切的属性名称，或者因为有太多属性而无法列出所有属性，则可以将 replacer 用作函数。
 
 So, we write a function to filter the property value by following a data type or a certain pattern.
+因此，我们编写了一个函数，来过滤那些遵循某个数据类型或者特定模式的属性值。
 
 ![excluding object properties by function replacer](https://cdn-images-1.medium.com/max/2000/1*u3xjA0lr8z8doKYIz9JxwQ.png)
 
 Using the replacer is helpful for some simple case that we want to get some certain properties from an object.
+对于某些我们想从一个对象中获取某些属性的简单情况，使用 replacer 很有用。
 
 Sometimes, we work on the old project that we don’t have any superpower tool that supports us to filter the property from a big JSON object.
+有时，我们在维护老项目时，是没有任何优秀的工具可以支持我们从大型 JSON 对象中过滤属性的。
 
 I hope you found this article useful! Feel free to leave any questions in the comments below. I’ll be glad to help out!
+我希望这篇文章对你有所帮助！您可以随时在下面的评论中留下您的任何问题。我很乐意提供帮助！
 
 ## References
+## 参考
 
 [1] Json Stringify: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 
