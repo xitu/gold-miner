@@ -59,8 +59,6 @@ Below, you can find a component implementing a general use case (a simple data f
 
 How do we refactor this component and improve it? Let’s go step-by-step and make this component more readable and reusable.
 
----
-
 #### Vue Composition API
 
 Thanks to the new Vue Composition API, we can pull out some logic in order to re-use it, without losing reactivity or features provided by Vue components.
@@ -159,8 +157,6 @@ As you noticed, our component is containing the setup method as well, which invo
 
 In this example, I am using the **fetchData** function in the mounted lifecycle hook but it could be invoked wherever you desire. Whenever something is evaluated/changed by that invoked function, the result will be reflected in our component since they are reactive properties.
 
----
-
 #### JSX and TSX
 
 Now let’s suppose we want to pass the data to an inner component. There are multiple ways to do so with VueJS but I would like to refactor this to use **TSX** (or **JSX** if you prefer) instead:
@@ -194,8 +190,6 @@ Now let’s suppose we want to pass the data to an inner component. There are mu
         }
     });
 </script>
-
-
 ```
 
 I know that this might look very similar to React but I believe this opens a lot of doors to composition in a better way.
