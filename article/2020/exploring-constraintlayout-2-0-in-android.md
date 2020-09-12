@@ -7,11 +7,7 @@
 
 # Exploring ConstraintLayout 2.0 in Android
 
-#### Flow, Layer, and Motion layouts
-
 ![Photo by [rafzin p](https://unsplash.com/@rafzin?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8942/0*goSdyD-yGtjIfUCP)
-
----
 
 ## Introduction
 
@@ -36,8 +32,6 @@ Helper objects are the objects that are not visible to the user but come in hand
 
 To learn more about `ConstraintLayout` v1.0, read this [article](https://medium.com/better-programming/essential-components-of-constraintlayout-7f4026a1eb87).
 
----
-
 ## ConstraintLayout 2.0
 
 Enough with the history lessons. It’s time to integrate v2.0 of `ConstraintLayout` into your project. To do so, add the following line under the dependencies tag in `build.gradle` file.
@@ -47,8 +41,6 @@ implementation “androidx.constraintlayout:constraintlayout:2.0.1”
 ```
 
 This version brings several new features to `ConstraintLayout`; let’s start digging into them without any delay.
-
----
 
 ## Flow
 
@@ -121,8 +113,6 @@ Similar to `Group`, `Flow` also takes the reference view IDs and creates a `Chai
         app:layout_constraintTop_toTopOf="parent"
         android:text="Button 5"/>
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
@@ -131,8 +121,6 @@ This feature seems simple, but we can create flow layouts using `ConstraintLayou
 Before `ConstraintLayout` 2.0, we had to calculate the remaining space after rendering each view to make sure the next view fits in there, else we’ve to align it in the next line. But now we need to use `Flow`.
 
 To learn more about `Flow`, [read the official docs](https://developer.android.com/reference/androidx/constraintlayout/helper/widget/Flow).
-
----
 
 ## Layer
 
@@ -150,8 +138,6 @@ It’s similar to a `Group` helper, where we can bind multiple views and perform
         app:constraint_referenced_ids="btn6, btn7"
         />
 ```
-
----
 
 ## MotionLayout
 
