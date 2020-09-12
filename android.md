@@ -3,12 +3,12 @@
 * [如何在安卓应用中使用 TensorFlow Mobile](https://juejin.im/post/5afb8dc5518825426c690236)（[luochen1992](https://github.com/luochen1992) 翻译）
 * [用 Flutter 开发你的第一个应用程序](https://juejin.im/post/5aa9e31ef265da238d506eb5)（[mysterytony](https://github.com/mysterytony) 翻译）
 * [Flutter — 五个你会爱上它的原因](https://juejin.im/post/5a9e7e89f265da2381552542)（[rockzhai](https://github.com/rockzhai) 翻译）
-* [在 Android Instant App安卓即时应用程序中启用 ProGuard混淆](https://juejin.im/post/5aaf1078f265da238e0d8857)（[JayZhaoBoy](https://github.com/JayZhaoBoy) 翻译）
+* [在 Android Instant App（安卓即时应用程序）中启用 ProGuard（混淆）](https://juejin.im/post/5aaf1078f265da238e0d8857)（[JayZhaoBoy](https://github.com/JayZhaoBoy) 翻译）
 * [Android 生命周期备忘录 — 第一部分: 单一 Activities](https://juejin.im/post/5a77c9aef265da4e6f17bd51)（[IllllllIIl](https://github.com/IllllllIIl) 翻译）
-* [理解音频焦点第3/3部分：三个步骤实现音频聚焦](https://juejin.im/post/5a153ee7f265da432717e070)（[oaosj](https://github.com/oaosj) 翻译）
-* [Workcation App – 第四部分. 场景Scenes和 RecyclerView 的可共享的转场动画Shared Element Transition](https://juejin.im/post/5934bc22a0bb9f0058e27e88)（[stormrabbit](https://github.com/stormrabbit) 翻译）
-* [大战 RxJava2 和 Java8 Stream  Android RxJava2 ] 这到底是什么 第四部分](https://juejin.im/post/58f44a705c497d006c95436b)（[boileryao](https://github.com/boileryao) 翻译）
-* [Android 开发者如何使用函数式编程 一](https://gold.xitu.io/entry/58b7b301570c35006c466c85/)（[skyar2009](https://github.com/skyar2009) 翻译）
+* [理解音频焦点（第3/3部分）：三个步骤实现音频聚焦](https://juejin.im/post/5a153ee7f265da432717e070)（[oaosj](https://github.com/oaosj) 翻译）
+* [Workcation App – 第四部分. 场景（Scenes）和 RecyclerView 的可共享的转场动画（Shared Element Transition）](https://juejin.im/post/5934bc22a0bb9f0058e27e88)（[stormrabbit](https://github.com/stormrabbit) 翻译）
+* [大战 RxJava2 和 Java8 Stream [ Android RxJava2 ] （这到底是什么） 第四部分](https://juejin.im/post/58f44a705c497d006c95436b)（[boileryao](https://github.com/boileryao) 翻译）
+* [Android 开发者如何使用函数式编程 （一）](https://gold.xitu.io/entry/58b7b301570c35006c466c85/)（[skyar2009](https://github.com/skyar2009) 翻译）
 * [2019 年的 Android 网络 —— Retrofit 与 Kotlin 协程](https://juejin.im/post/5d3c2758f265da1b934e4a8c)（[Feximin](https://github.com/Feximin) 翻译）
 * [Android 模拟器：Project Marble 中的改进](https://juejin.im/post/5d3870c66fb9a07f04208b41)（[qiuyuezhong](https://github.com/qiuyuezhong) 翻译）
 * [Kotlin Clean 架构](https://juejin.im/post/5d33e13be51d4555fd20a41b)（[JasonWu1111](https://github.com/JasonWu1111) 翻译）
@@ -24,9 +24,9 @@
 * [WorkManager 基础入门](https://juejin.im/post/5ce4da6a6fb9a07ea712e712)（[gs666](https://github.com/gs666) 翻译）
 * [C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63)（[Feximin](https://github.com/Feximin) 翻译）
 * [Room 🔗 Coroutines](https://juejin.im/post/5cd12adef265da03634564e1)（[Feximin](https://github.com/Feximin) 翻译）
-* [谷歌寻踪圣诞老人应用Santa Tracker迁移到 Android App Bundle 记录](https://juejin.im/post/5cd62bcef265da03ad056f2a)（[phxnirvana](https://github.com/phxnirvana) 翻译）
+* [谷歌寻踪圣诞老人应用（Santa Tracker）迁移到 Android App Bundle 记录](https://juejin.im/post/5cd62bcef265da03ad056f2a)（[phxnirvana](https://github.com/phxnirvana) 翻译）
 * [通过 Play Cloud 的 ART 优化配置提升应用性能](https://juejin.im/post/5cc297f36fb9a0323d6e0be2)（[nanjingboy](https://github.com/nanjingboy) 翻译）
-* [用 Flutter 打造一个圆形滑块Slider](https://juejin.im/post/5cbec995f265da03576ec5a1)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
+* [用 Flutter 打造一个圆形滑块（Slider）](https://juejin.im/post/5cbec995f265da03576ec5a1)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
 * [Kotlin 标准方法备忘](https://juejin.im/post/5cc290e6e51d456e7b3720db)（[Feximin](https://github.com/Feximin) 翻译）
 * [依赖注入在多模块工程中的应用](https://juejin.im/post/5cc15dae5188252dcf5d4c68)（[Mirosalva](https://github.com/Mirosalva) 翻译）
 * [Workmanager 简介](https://juejin.im/post/5ca3463bf265da308939f9b1)（[gs666](https://github.com/gs666) 翻译）
@@ -35,7 +35,7 @@
 * [Android 生命周期备忘录 — 第三部分：Fragments](https://juejin.im/post/5ca3517a6fb9a05e462b967a)（[Qiuk17](https://github.com/Qiuk17) 翻译）
 * [Android 生命周期备忘录 —— 第四部分：ViewModels、半透明 Activities 及启动模式](https://juejin.im/post/5caeccb2f265da037418674a)（[xiaxiayang](https://github.com/xiaxiayang) 翻译）
 * [在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c)（[YueYongDev](https://github.com/YueYongDev) 翻译）
-* [MDC-104 Flutter：Material 高级组件Flutter](https://juejin.im/post/5c99bcd0f265da60d42900d6)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
+* [MDC-104 Flutter：Material 高级组件（Flutter）](https://juejin.im/post/5c99bcd0f265da60d42900d6)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
 * [Android 生命周期备忘录 — 第二部分：多 Activity](https://juejin.im/post/5c8e018d51882545ca77d857)（[gs666](https://github.com/gs666) 翻译）
 * [Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)（[nanjingboy](https://github.com/nanjingboy) 翻译）
 * [转化通用安卓音乐播放器为 instant 应用](https://juejin.im/post/5c89d2e05188257e1f292958)（[Mirosalva](https://github.com/Mirosalva) 翻译）
@@ -45,8 +45,8 @@
 * [Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)（[hongruqi](https://github.com/hongruqi) 翻译）
 * [我与 Flutter 的一年](https://juejin.im/post/5c5aeb8a6fb9a04a027acddf)（[ssshooter](https://github.com/ssshooter) 翻译）
 * [为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86)（[Mirosalva](https://github.com/Mirosalva) 翻译）
-* [Android Dev Summit 2018 应用instant app 的总结 + 开源](https://juejin.im/post/5c6798486fb9a049e660c839)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
-* [MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型Flutter](https://juejin.im/post/5c45bb026fb9a049e3086bbc)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
+* [Android Dev Summit 2018 应用（instant app 的总结 + 开源）](https://juejin.im/post/5c6798486fb9a049e660c839)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
+* [MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）](https://juejin.im/post/5c45bb026fb9a049e3086bbc)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
 * [PWA 会取代原生移动应用吗？](https://juejin.im/post/5c627f76f265da2deb6a8828)（[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译）
 * [13 个你应该选择/考虑使用 Flutter 的理由](https://juejin.im/post/5c4fcd54e51d45527201db80)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [充分利用多摄像头 API](https://juejin.im/post/5c3da4f76fb9a04a0c2eb3fc)（[xiaxiayang](https://github.com/xiaxiayang) 翻译）
@@ -55,15 +55,15 @@
 * [Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)（[gs666](https://github.com/gs666) 翻译）
 * [格子拼贴 — 关于模块化的故事](https://juejin.im/post/5c31e7aee51d4543805e6a96)（[snpmyn](https://github.com/snpmyn) 翻译）
 * [Android 中的 MVP：如何使 Presenter 层系统化](https://juejin.im/post/5c203323f265da6110370dec)（[Moosphan](https://github.com/Moosphan) 翻译）
-* [MDC-102 Flutter：Material 结构和布局Flutter](https://juejin.im/post/5c24504d518825124e2767fc)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
-* [MDC-101 Flutter：Material ComponentsMDC基础Flutter](https://juejin.im/post/5c1758e6e51d451a77161ab5)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
+* [MDC-102 Flutter：Material 结构和布局（Flutter）](https://juejin.im/post/5c24504d518825124e2767fc)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
+* [MDC-101 Flutter：Material Components（MDC）基础（Flutter）](https://juejin.im/post/5c1758e6e51d451a77161ab5)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
 * [使用自定义文件模板加快你的应用开发速度](https://juejin.im/post/5c204bcdf265da611b585bcd)（[nanjingboy](https://github.com/nanjingboy) 翻译）
 * [当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)（[Moosphan](https://github.com/Moosphan) 翻译）
 * [了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)（[HarderChen](https://github.com/HarderChen) 翻译）
 * [Android 内核控制流完整性](https://juejin.im/post/5c1740dcf265da614a3a66c1)（[nanjingboy](https://github.com/nanjingboy) 翻译）
 * [同时使用多个相机流](https://juejin.im/post/5c1071ece51d4570b57af8c8)（[zx-Zhu](https://github.com/zx-Zhu) 翻译）
 * [Kotlin 协程高级使用技巧](https://juejin.im/post/5c0f11986fb9a049be5d53eb)（[nanjingboy](https://github.com/nanjingboy) 翻译）
-* [使用 Flutter，Material Theming 和官方材质组件MDC构建美观，灵活的用户界面](https://juejin.im/post/5c07d8a7518825778a56b80f)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
+* [使用 Flutter，Material Theming 和官方材质组件（MDC）构建美观，灵活的用户界面](https://juejin.im/post/5c07d8a7518825778a56b80f)（[DevMcryYu](https://github.com/DevMcryYu) 翻译）
 * [为用户提供安全可靠的体验](https://juejin.im/post/5bf66114e51d45229468d659)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [在 Android 上实现 Google Inbox 的样式动画](https://juejin.im/post/5bee3a45e51d451dca475a43)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [回答有关 Flutter App 开发的问题](https://juejin.im/post/5be98784518825170200254e)（[YueYongDev](https://github.com/YueYongDev) 翻译）
@@ -103,9 +103,9 @@
 * [如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072)（[bobmayuze](https://github.com/bobmayuze) 翻译）
 * [Android 应用和游戏的无障碍开发介绍](https://juejin.im/post/5b31ea42e51d455882380119)（[geniusq1981](https://github.com/geniusq1981) 翻译）
 * [如何用 Android vitals 解决应用程序的质量问题](https://juejin.im/post/5b3229a7f265da598c09dd4a)（[LeeSniper](https://github.com/LeeSniper) 翻译）
-* [在 SnackBar，Navigation 和其他事件中使用 LiveDataSingleLiveEvent 案例](https://juejin.im/post/5b2b1b2cf265da5952314b63)（[wzasd](https://github.com/wzasd) 翻译）
+* [在 SnackBar，Navigation 和其他事件中使用 LiveData（SingleLiveEvent 案例）](https://juejin.im/post/5b2b1b2cf265da5952314b63)（[wzasd](https://github.com/wzasd) 翻译）
 * [PWA 再进化，可以生成一个安卓原生的 WebAPK 了](https://juejin.im/post/5b2fb7f2e51d4558b46667be)（[Yuhanlolo](https://github.com/Yuhanlolo) 翻译）
-* [如何针对 Android 优化您的应用Go 版](https://juejin.im/post/5b21cd246fb9a01e754642f3)（[androidxiao](https://github.com/androidxiao) 翻译）
+* [如何针对 Android 优化您的应用（Go 版）](https://juejin.im/post/5b21cd246fb9a01e754642f3)（[androidxiao](https://github.com/androidxiao) 翻译）
 * [带你领略 ConstraintLayout 1.1 的新功能](https://juejin.im/post/5b013e6f51882542c760dc7b)（[Moosphan](https://github.com/Moosphan) 翻译）
 * [在 Android P 中使用默认的 TLS 来保护你的用户](https://juejin.im/post/5b29030551882574b4094a6f)（[hanliuxin5](https://github.com/hanliuxin5) 翻译）
 * [介绍 Google Play 上新的优质 Android 应用与游戏](https://juejin.im/post/5ae978d151882567370633ca)（[sisibeloved](https://github.com/sisibeloved) 翻译）
@@ -126,7 +126,7 @@
 * [利用 Android 构建 TV 的未来](https://juejin.im/post/5a964061f265da4e914b8f88)（[JayZhaoBoy](https://github.com/JayZhaoBoy) 翻译）
 * [使用 leanback 的 DiffCallback：和 DiffUtil 回调之间的区别](https://juejin.im/post/5a9218ee5188257a5c60892a)（[LeeSniper](https://github.com/LeeSniper) 翻译）
 * [为 JavaScript 程序员准备的 Flutter 指南](https://juejin.im/post/5ac43c536fb9a028da7cbd59)（[lsvih](https://github.com/lsvih) 翻译）
-* [使用MVI构建响应式 APP — 第七部分 — TIMING SINGLELIVEEVENT 问题](https://juejin.im/post/5ac47f0bf265da23793c60be)（[pcdack](https://github.com/pcdack) 翻译）
+* [使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)](https://juejin.im/post/5ac47f0bf265da23793c60be)（[pcdack](https://github.com/pcdack) 翻译）
 * [Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)（[JayZhaoBoy](https://github.com/JayZhaoBoy) 翻译）
 * [从 SQLite 逐步迁移到 Room](https://juejin.im/post/5ab857396fb9a028c812d62c)（[IllllllIIl](https://github.com/IllllllIIl) 翻译）
 * [使用 MVI 编写响应式 APP—第六部分—状态恢复](https://juejin.im/post/5ab4c028518825557e7853a1)（[pcdack](https://github.com/pcdack) 翻译）
@@ -135,12 +135,12 @@
 * [使用 MVI 编写响应式 APP — 第 5 部分 — 简单的调试](https://juejin.im/post/5aafa3e851882555627d1842)（[pcdack](https://github.com/pcdack) 翻译）
 * [使用 MODEL-VIEW-INTENT 第四部分 — 独立 UI 组件](https://juejin.im/post/5a9debfbf265da23830a6230)（[pcdack](https://github.com/pcdack) 翻译）
 * [第三方 SDK 的信任问题](https://juejin.im/post/5aa72655f265da238b7daa74)（[CACppuccino](https://github.com/CACppuccino) 翻译）
-* [使用 MVI 开发响应式 APP — 第三部分 — 状态折叠器state reducer](https://juejin.im/post/5a955c50f265da4e853d856a)（[pcdack](https://github.com/pcdack) 翻译）
-* [大话Observable 向 Observer 求婚之我与 Rx Observable Android RxJava2]这是什么鬼第七话](https://juejin.im/post/5a9683be5188257a6d63b52d)（[dieyidezui](https://github.com/dieyidezui) 翻译）
-* [Subject 和 Observable + Observer 的混淆指北 Android RxJava2 ]  这什么鬼系列  第八话](https://juejin.im/post/5a96d44af265da4e951918ed)（[rockzhai](https://github.com/rockzhai) 翻译）
+* [使用 MVI 开发响应式 APP — 第三部分 — 状态折叠器（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)（[pcdack](https://github.com/pcdack) 翻译）
+* [大话（Observable 向 Observer 求婚）之我与 Rx Observable [Android RxJava2]（这是什么鬼）第七话](https://juejin.im/post/5a9683be5188257a6d63b52d)（[dieyidezui](https://github.com/dieyidezui) 翻译）
+* [Subject 和 Observable + Observer 的混淆指北[ Android RxJava2 ] ( 这什么鬼系列 ) 第八话](https://juejin.im/post/5a96d44af265da4e951918ed)（[rockzhai](https://github.com/rockzhai) 翻译）
 * [Android 生命周期备忘录 — 第一部分: 单一 Activities](https://juejin.im/post/5a77c9aef265da4e6f17bd51)（[IllllllIIl](https://github.com/IllllllIIl) 翻译）
 * [玩转 Android paths](https://juejin.im/post/5a7c05e7f265da4e7f358cf2)（[IllllllIIl](https://github.com/IllllllIIl) 翻译）
-* [大话Summer vs winter Observable之我与 Rx ObservableAndroid RxJava2]这是什么鬼第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a)（[hanliuxin5](https://github.com/hanliuxin5) 翻译）
+* [大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a)（[hanliuxin5](https://github.com/hanliuxin5) 翻译）
 * [如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)（[hanliuxin5](https://github.com/hanliuxin5) 翻译）
 * [开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则](https://juejin.im/post/5a728eef6fb9a01ca0722990)（[tanglie1993](https://github.com/tanglie1993) 翻译）
 * [开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)（[lsvih](https://github.com/lsvih) 翻译）
@@ -150,20 +150,20 @@
 * [像奥利奥一样的双重安全措施，尽在 Android Oreo](https://juejin.im/post/5a5376b06fb9a01c927e8be0)（[XPGSnail](https://github.com/XPGSnail) 翻译）
 * [ProGuard 在 Android 上的使用姿势](https://juejin.im/post/5a5c08ca6fb9a01ca47a7834)（[dieyidezui](https://github.com/dieyidezui) 翻译）
 * [智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)（[pot-code](https://github.com/pot-code) 翻译）
-* [Android MVP 架构必要知识：第三部分Dialog，ViewPager，RecyclerView 以及 Adapters](https://juejin.im/post/5a45fe846fb9a0450c49bba0)（[woitaylor](https://github.com/woitaylor) 翻译）
+* [Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)（[woitaylor](https://github.com/woitaylor) 翻译）
 * [app 里的 A／B 测试简介](https://juejin.im/post/5a2df63551882531ba10e313)（[mnikn](https://github.com/mnikn) 翻译）
 * [从应用探索者到初次购买者](https://juejin.im/post/5a24b9fc6fb9a04519696a06)（[ppp-man](https://github.com/ppp-man) 翻译）
 * [用 CoordinatorLayout 处理滚动](https://juejin.im/post/5a27b353f265da430d57e36e)（[Feximin](https://github.com/Feximin) 翻译）
-* [Android 开发者如何函数式编程 三](https://juejin.im/post/5a3765eaf265da430945415d)（[miguoer](https://github.com/miguoer) 翻译）
-* [全新 Android 注入器 : Dagger 2三](https://juejin.im/post/5a3e49eb5188252582279839)（[woitaylor](https://github.com/woitaylor) 翻译）
-* [全新 Android 注入器 : Dagger 2二](https://juejin.im/post/5a3a1883f265da4321542fc1)（[woitaylor](https://github.com/woitaylor) 翻译）
-* [全新 Android 注入器 : Dagger 2一](https://juejin.im/post/5a39f26df265da4324809685)（[MummyDing](https://github.com/MummyDing) 翻译）
+* [Android 开发者如何函数式编程 （三）](https://juejin.im/post/5a3765eaf265da430945415d)（[miguoer](https://github.com/miguoer) 翻译）
+* [全新 Android 注入器 : Dagger 2（三）](https://juejin.im/post/5a3e49eb5188252582279839)（[woitaylor](https://github.com/woitaylor) 翻译）
+* [全新 Android 注入器 : Dagger 2（二）](https://juejin.im/post/5a3a1883f265da4321542fc1)（[woitaylor](https://github.com/woitaylor) 翻译）
+* [全新 Android 注入器 : Dagger 2（一）](https://juejin.im/post/5a39f26df265da4324809685)（[MummyDing](https://github.com/MummyDing) 翻译）
 * [缩小 APK，增加下载量](https://juejin.im/post/5a388c73518825696f7e1ddb)（[tanglie1993](https://github.com/tanglie1993) 翻译）
 * [在 Android O 上用到 MediaStyle 的提醒功能](https://juejin.im/post/5a015d696fb9a04524053bce)（[ppp-man](https://github.com/ppp-man) 翻译）
-* [ViewModel：持久化、onSaveInstanceState、UI 状态恢复和 Loader](https://juejin.im/post/5a17b3965188255ea95ba2d9)（[Feximin](https://github.com/Feximin) 翻译）
-* [理解音频焦点第3/3部分：在应用中实施音频聚焦的 3 个步骤](https://juejin.im/post/5a153ee7f265da432717e070)（[oaosj](https://github.com/oaosj) 翻译）
-* [理解音频焦点第2/3部分：更多的音频焦点用例](https://juejin.im/post/5a153a906fb9a044fa198228)（[oaosj](https://github.com/oaosj) 翻译）
-* [理解音频焦点第1/3部分：常见的音频焦点用例](https://juejin.im/entry/5a0e6f3a5188251c1140315b)（[oaosj](https://github.com/oaosj) 翻译）
+* [ViewModel：持久化、onSaveInstanceState()、UI 状态恢复和 Loader](https://juejin.im/post/5a17b3965188255ea95ba2d9)（[Feximin](https://github.com/Feximin) 翻译）
+* [理解音频焦点（第3/3部分）：在应用中实施音频聚焦的 3 个步骤](https://juejin.im/post/5a153ee7f265da432717e070)（[oaosj](https://github.com/oaosj) 翻译）
+* [理解音频焦点（第2/3部分）：更多的音频焦点用例](https://juejin.im/post/5a153a906fb9a044fa198228)（[oaosj](https://github.com/oaosj) 翻译）
+* [理解音频焦点（第1/3部分）：常见的音频焦点用例](https://juejin.im/entry/5a0e6f3a5188251c1140315b)（[oaosj](https://github.com/oaosj) 翻译）
 * [ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98)（[huanglizhuo](https://github.com/huanglizhuo) 翻译）
 * [ViewModel 和 LiveData：为设计模式打 Call 还是唱反调？](https://juejin.im/post/5a040585f265da43346f5d57)（[boileryao](https://github.com/boileryao) 翻译）
 * [管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)（[phxnirvana](https://github.com/phxnirvana) 翻译）
@@ -171,9 +171,9 @@
 * [将 Android 项目迁移到 Kotlin 语言](https://juejin.im/post/599b8cd9f265da24874d0226?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[wilsonandusa](https://github.com/wilsonandusa) 翻译）
 * [函数式响应编程入门指南](https://juejin.im/post/5996faa46fb9a024747edce4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
 * [安卓界面导航初识](https://juejin.im/post/5992f8c1518825242238b77b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[horizon13th](https://github.com/horizon13th) 翻译）
-* [探索 Kotlin 的隐性成本第三部分](https://juejin.im/post/597eb2e26fb9a03c4844e2e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[phxnirvana](https://github.com/phxnirvana) 翻译）
-* [探索 Kotlin 中的隐性成本第二部分](https://juejin.im/post/5970432c6fb9a06bb34f551b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Feximin](https://github.com/Feximin) 翻译）
-* [探索 Kotlin 中的隐性成本第一部分](https://juejin.im/post/596774c96fb9a06bb95ae46a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Feximin](https://github.com/Feximin) 翻译）
+* [探索 Kotlin 的隐性成本（第三部分）](https://juejin.im/post/597eb2e26fb9a03c4844e2e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[phxnirvana](https://github.com/phxnirvana) 翻译）
+* [探索 Kotlin 中的隐性成本（第二部分）](https://juejin.im/post/5970432c6fb9a06bb34f551b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Feximin](https://github.com/Feximin) 翻译）
+* [探索 Kotlin 中的隐性成本（第一部分）](https://juejin.im/post/596774c96fb9a06bb95ae46a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Feximin](https://github.com/Feximin) 翻译）
 * [将 Kotlin 应用于现有 Java 代码的策略](https://juejin.im/post/5966ed4e51882568b4630f71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Luolc](https://github.com/Luolc) 翻译）
 * [第一次走进 Android 中的 Kotlin 协程](https://juejin.im/post/596308af5188250d8860f6dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Feximin](https://github.com/Feximin) 翻译）
 * [Android 中的定时任务调度](https://juejin.im/post/595c9061f265da6c22119084?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[phxnirvana](https://github.com/phxnirvana) 翻译）
@@ -182,43 +182,43 @@
 * [当设计模式遇上 Kotlin](https://juejin.im/post/594b2ac00ce4630057425bd5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[boileryao](https://github.com/boileryao) 翻译）
 * [Kotlin 中我讨厌什么](https://juejin.im/entry/594335c18d6d810058ce06a0/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Zhiw](https://github.com/Zhiw) 翻译）
 * [再谈如何安全地在 Android 中存储令牌](https://juejin.im/post/5938f81e5c497d006b6187ea?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[lovexiaov](https://github.com/lovexiaov) 翻译）
-* [Workcation App – 第四部分. 场景Scenes和 RecyclerView 的共享元素转场动画Shared Element Transition](https://juejin.im/post/5934bc22a0bb9f0058e27e88?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
-* [Workcation App – 第三部分. 带有动画的标记Animated Markers 与 RecyclerView 的互动](https://juejin.im/post/5934bb10ac502e0068aa7598?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
-* [Workcation App – 第二部分 .带有动画的标记Animating Markers 与 MapOverlayLayout](https://juejin.im/post/5934ba6aa22b9d0058ed37c5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
+* [Workcation App – 第四部分. 场景（Scenes）和 RecyclerView 的共享元素转场动画（Shared Element Transition）](https://juejin.im/post/5934bc22a0bb9f0058e27e88?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
+* [Workcation App – 第三部分. 带有动画的标记（Animated Markers） 与 RecyclerView 的互动](https://juejin.im/post/5934bb10ac502e0068aa7598?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
+* [Workcation App – 第二部分 .带有动画的标记（Animating Markers） 与 MapOverlayLayout](https://juejin.im/post/5934ba6aa22b9d0058ed37c5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
 * [Workcation App – 第一部分 . 自定义 Fragment 转场动画](https://juejin.im/post/5934b96c570c35005b548218?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
 * [使用 Espresso 和 Mockito 测试 MVP](https://juejin.im/post/5924e5740ce4630069757f75?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
 * [用 Dagger 2 实现依赖注入](https://github.com/xitu/gold-miner/blob/master/TODO/Dependency-Injection-with-Dagger-2.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
 * [如何创建 BubblePicker – Android 多彩菜单动画](https://juejin.im/post/591e734d2f301e006bea5243?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[hackerkevin](https://github.com/hackerkevin) 翻译）
 * [通过测试来解耦Activity](https://juejin.im/post/59143d7c8d6d81005854d982?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[mnikn](https://github.com/mnikn) 翻译）
-* [函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式 - 响应式编程 ［Android RxJava 2］这到底是什么第三部分](https://juejin.im/entry/591298eea0bb9f0058b35c7f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
-* [开发者也就是我与Rx Observable 类的对话  Android RxJava2 ]  这到底是什么？ 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
+* [函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式 - 响应式编程 ［Android RxJava 2］（这到底是什么）第三部分](https://juejin.im/entry/591298eea0bb9f0058b35c7f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
+* [开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[stormrabbit](https://github.com/stormrabbit) 翻译）
 * [使用 Espresso 隔离测试视图](https://juejin.im/post/59088d650ce463006182a07/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[yazhi1992](https://github.com/yazhi1992) 翻译）
 * [RxJava 中的多线程](https://juejin.im/post/58ff6259da2f60005dd81459/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[phxnirvana](https://github.com/phxnirvana) 翻译）
 * [Android 如何实现气泡选择动画](https://juejin.im/post/58e5ec838d6d8100616d82e2/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
 * [一个人的 Android 开发](https://juejin.im/entry/58dca515b123db00603887fd/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[BoilerYao](https://github.com/BoilerYao) 翻译）
 * [我是如何做到在 5 分钟之内将应用大小减少 60% 的](https://juejin.im/post/58d9b6a1a22b9d0064719f9e/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jifaxu](https://github.com/jifaxu) 翻译）
-* [拉模式和推模式，命令式和响应式 – 响应式编程 Android RxJava2]这到底是什么：第二部分](https://juejin.im/entry/58d78547a22b9d006465ca57/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
+* [拉模式和推模式，命令式和响应式 – 响应式编程 [Android RxJava2]（这到底是什么）：第二部分](https://juejin.im/entry/58d78547a22b9d006465ca57/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
 * [离线支持：不再『稍后重试』](https://juejin.im/post/58d491a8128fe1006cb6e750/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
 * [当发布安卓开源库时我希望知道的东西](https://juejin.im/post/58d247b00ce4630057e92e9c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jifaxu](https://github.com/jifaxu) 翻译）
 * [单元测试试图告诉我们关于 Activity 的什么事情：第二部分](https://gold.xitu.io/entry/58cf988b2f301e007e54c434/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
 * [面向无神论安卓开发：如何和为什么要干掉上帝对象](https://gold.xitu.io/entry/58c748891b69e6006be9f834/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Danny1451](https://github.com/Danny1451) 翻译）
-* [Android 开发者如何使用函数式编程 二](https://gold.xitu.io/entry/58c7db7c570c3500584639a3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
+* [Android 开发者如何使用函数式编程 （二）](https://gold.xitu.io/entry/58c7db7c570c3500584639a3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
 * [单元测试试图告诉我们关于 Activity 的什么事情：第一部分](https://gold.xitu.io/entry/58bc1d51128fe1006447531e/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
-* [Android 开发者如何使用函数式编程一](https://gold.xitu.io/entry/58b7b301570c35006c466c85/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
-* [Constraint Layout 动画 |动态 Constraint |用 Java 实现的 UIPart3]](https://gold.xitu.io/entry/58b2fd59570c350069704265?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[siegeout](https://github.com/siegeout) 翻译）
+* [Android 开发者如何使用函数式编程（一）](https://gold.xitu.io/entry/58b7b301570c35006c466c85/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
+* [Constraint Layout 动画 |动态 Constraint |用 Java 实现的 UI[Part3]](https://gold.xitu.io/entry/58b2fd59570c350069704265?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[siegeout](https://github.com/siegeout) 翻译）
 * [RxJava 中的 Subscriptions 是怎样泄露内存的](https://gold.xitu.io/entry/58b43c908ac2475ccb5d8e39?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
-* [ConstraintLayout 可视化Design]编辑器 这到底是什么第四部分]](https://gold.xitu.io/entry/58b0e0381b69e60058a49455?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[yazhi1992](https://github.com/yazhi1992) 翻译）
+* [ConstraintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]](https://gold.xitu.io/entry/58b0e0381b69e60058a49455?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[yazhi1992](https://github.com/yazhi1992) 翻译）
 * [Android Nougat 中通过 Intents 共享文件，你准备好了吗？](https://gold.xitu.io/entry/58aa665b8d6d810058b534f9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
-* [观察者模式 – 响应式编程 Android RxJava2]这到底是什么：第一部分](https://gold.xitu.io/entry/58ada9738fd9c5006704f5a1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Zhiwei YuZhiw](https://github.com/Zhiw) 翻译）
+* [观察者模式 – 响应式编程 [Android RxJava2]（这到底是什么）：第一部分](https://gold.xitu.io/entry/58ada9738fd9c5006704f5a1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Zhiwei Yu（Zhiw）](https://github.com/Zhiw) 翻译）
 * [为什么 Android 测试如此困难：历史版本](https://gold.xitu.io/entry/58ac5b3b570c35006bc9e52c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
-* [ConstraintLayout  这到底是什么  小贴士及小技巧 第二部分](https://gold.xitu.io/entry/58aaedd5ac502e006974e868?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jamweak](https://github.com/jamweak) 翻译）
+* [ConstraintLayout ( 这到底是什么 ) (小贴士及小技巧) 第二部分](https://gold.xitu.io/entry/58aaedd5ac502e006974e868?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jamweak](https://github.com/jamweak) 翻译）
 * [Android MVP 架构必要知识：第二部分](https://gold.xitu.io/entry/58a5992961ff4b006c4455e3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993) 翻译）
 * [RecyclerView 数据预取](https://gold.xitu.io/entry/58a3f4f62f301e0069908d8f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[tanglie1993](https://github.com/tanglie1993) 翻译）
 * [Android MVP 架构必要知识：第一部分](https://gold.xitu.io/entry/58a27b2d2f301e006958d4aa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jifaxu](https://github.com/jifaxu) 翻译）
 * [安卓应用栏的滚动效果](https://gold.xitu.io/entry/5899cd1361ff4b006b2280ce/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
-* [ConstraintLayout 这到底是什么](https://gold.xitu.io/entry/589dc5382f301e0069c3791a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jifaxu](https://github.com/jifaxu) 翻译）
-* [如何搭建安卓开发持续化集成环境Ubuntu + Jenkins + SonarQube](https://gold.xitu.io/entry/589d1c251b69e60059ba04b5/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
-* [Model-View-Intent 模式下的响应式应用 － 第一部分 － Model模型](https://gold.xitu.io/entry/589c91935c497d0056211a19/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
+* [ConstraintLayout (这到底是什么)](https://gold.xitu.io/entry/589dc5382f301e0069c3791a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jifaxu](https://github.com/jifaxu) 翻译）
+* [如何搭建安卓开发持续化集成环境（Ubuntu + Jenkins + SonarQube）](https://gold.xitu.io/entry/589d1c251b69e60059ba04b5/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[skyar2009](https://github.com/skyar2009) 翻译）
+* [Model-View-Intent 模式下的响应式应用 － 第一部分 － Model（模型）](https://gold.xitu.io/entry/589c91935c497d0056211a19/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
 * [RxAndroid 中文教程](https://gold.xitu.io/entry/5884374e570c350062c1ac3b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jamweak](https://github.com/jamweak) 翻译）
 * [Android 响应式编程的未来展望：RxJava 2 版本前瞻](https://gold.xitu.io/entry/587f2ee0570c35220118c926/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Goshin](https://github.com/Goshin) 翻译）
 * [SOLID 原则：权威指南](https://gold.xitu.io/entry/587f1c331b69e6005853ecfa/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
@@ -226,24 +226,24 @@
 * [Android 写测试用例的注意事项](https://gold.xitu.io/entry/5875a757128fe1006b49151f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Zhiwei Yu](https://github.com/Zhiw) 翻译）
 * [使用约束控件创建界面](https://gold.xitu.io/entry/58652b381b69e6006cf8cd59/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[王子建](https://github.com/Romeo0906) 翻译）
 * [网络请求框架 Retrofit 2 使用入门](https://gold.xitu.io/entry/5861cbc461ff4b0058282a8f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Zhiw](https://github.com/Zhiw) 翻译）
-* [Android 中的 Effective Java速查表](https://gold.xitu.io/entry/5858efc1128fe10069b28de4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jamweak](https://github.com/jamweak) 翻译）
+* [Android 中的 Effective Java(速查表)](https://gold.xitu.io/entry/5858efc1128fe10069b28de4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jamweak](https://github.com/jamweak) 翻译）
 * [彻底理解引用在 Android 和 Java 中的工作原理](https://gold.xitu.io/entry/58476f2c128fe10058bae7ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jacksonke](https://github.com/jacksonke) 翻译）
 * [利用好 Android Studio 中的 APK Analyzer](https://gold.xitu.io/entry/58466c7e128fe1006c5897fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[XHShirley](https://github.com/XHShirley) 翻译）
 * [在 Android 应用中监测来电信息](https://gold.xitu.io/entry/5842ac36128fe1006c44b0b4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[PhxNirvana](https://github.com/phxnirvana) 翻译）
-* [Android 界面的性能优化 — 减少过度绘制](https://gold.xitu.io/entry/58398df2a22b9d006dc2bd7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[NicolasYifei Li](https://github.com/yifili09) 翻译）
-* [构建 Android APP 一定要绕过的 30 个坑](https://gold.xitu.io/entry/58217b84570c350060bc40f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[NicolasYifei Li](https://github.com/yifili09) 翻译）
-* [Android 开发者如何通过运动视觉 API 进行机器学习？Part 1 — 人脸检测](https://gold.xitu.io/entry/58200df62f301e005c237850?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[NicolasYifei Li](https://github.com/yifili09) 翻译）
+* [Android 界面的性能优化 — 减少过度绘制](https://gold.xitu.io/entry/58398df2a22b9d006dc2bd7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Nicolas(Yifei) Li](https://github.com/yifili09) 翻译）
+* [构建 Android APP 一定要绕过的 30 个坑](https://gold.xitu.io/entry/58217b84570c350060bc40f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Nicolas(Yifei) Li](https://github.com/yifili09) 翻译）
+* [Android 开发者如何通过运动视觉 API 进行机器学习？Part 1 — 人脸检测](https://gold.xitu.io/entry/58200df62f301e005c237850?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Nicolas(Yifei) Li](https://github.com/yifili09) 翻译）
 * [再见，汉堡菜单，我们有了新的 Android 交互设计方案](https://gold.xitu.io/entry/581b551a67f356005887c637?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Xiaonan Shen](https://github.com/shenxn) 翻译）
 * [Android Material 搜索框实现详细说明](https://gold.xitu.io/entry/581a9b660ce46300586bb8a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[siegeout](https://github.com/siegeout) 翻译）
 * [探索 Firebase 在 Android 和 iOS 的使用: 远程配置](https://gold.xitu.io/entry/5818154dc4c97100555a145f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jamweak](https://github.com/jamweak) 翻译）
 * [Android 动画的灵魂—— Interpolator](https://gold.xitu.io/entry/5817117967f356005868b8a8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[siegeout](https://github.com/siegeout) 翻译）
-* [探索 Firebase 在 Android 和 iOS 的使用: Analytics 分析模块](https://gold.xitu.io/entry/5816ac62a22b9d00678ee434?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[yifili09](https://github.com/yifili09) 翻译）
+* [探索 Firebase 在 Android 和 iOS 的使用: Analytics (分析模块)](https://gold.xitu.io/entry/5816ac62a22b9d00678ee434?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[yifili09](https://github.com/yifili09) 翻译）
 * [如何通过 ArrayMap 和 SparseArray 优化 Android App](https://gold.xitu.io/entry/580f57c52e958a005517c1a0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jamweak](https://github.com/jamweak) 翻译）
 * [Pury — 一个新的 Android App 性能分析工具](https://gold.xitu.io/entry/57fe4b92a22b9d005b1a8a2a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[owenlyn](https://github.com/owenlyn) 翻译）
 * [关于 Android Adapter，你的实现方式可能一直都有问题](https://gold.xitu.io/entry/57fda1fe5bbb50005b3fef76?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[siegeout](https://github.com/siegeout) 翻译）
 * [探索Android大杀器——Handler](https://gold.xitu.io/entry/57fc9e937db2a20059628aa6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[jamweak](https://github.com/jamweak) 翻译）
-* [如何测试 Android Service 里的 Singleton 2](https://gold.xitu.io/entry/57fcb8f68ac2470058c9f621?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[newt0n](https://github.com/newt0n) 翻译）
-* [如何测试 Android Service 里的 Singleton 1](https://gold.xitu.io/entry/57fb306da341310060135cbb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[newt0n](https://github.com/newt0n) 翻译）
+* [如何测试 Android Service 里的 Singleton (2)](https://gold.xitu.io/entry/57fcb8f68ac2470058c9f621?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[newt0n](https://github.com/newt0n) 翻译）
+* [如何测试 Android Service 里的 Singleton (1)](https://gold.xitu.io/entry/57fb306da341310060135cbb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[newt0n](https://github.com/newt0n) 翻译）
 * [APK 里有什么?](https://gold.xitu.io/entry/57f9de43a22b9d005bf7fab0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[newt0n](https://github.com/newt0n) 翻译）
 * [Activity 的正确打开方式](https://gold.xitu.io/entry/57b9bfc3c4c9710061481310?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Liz](https://github.com/lizwangying/) 翻译）
 * [如何创建高度模块化的 Android 应用](https://gold.xitu.io/entry/57b12cf4165abd00542a3ee1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[DeadLion](https://github.com/DeadLion/) 翻译）
@@ -254,22 +254,22 @@
 * [八个造成 Android 应用内存泄露的原因](https://gold.xitu.io/entry/5768b8da6be3ff006a3fcbc8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[zhangzhaoqi](https://github.com/joddiy) 翻译）
 * [怎样在 5 分钟内使 Drawer 在状态栏下可见？](http://gold.xitu.io/entry/5760c75e207703006bf2792a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Dwight](https://github.com/ldhlfzysys) 翻译）
 * [怎样用 JRebel 启动 Android](http://gold.xitu.io/entry/57599a282e958a0069c9ccfc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[edvardhua](https://github.com/edvardHua) 翻译）
-* [Vector For All slight return](http://gold.xitu.io/entry/5756697ea341310063dd532c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[huanglizhuo](https://github.com/huanglizhuo) 翻译）
-* [Vectors For All almost](http://gold.xitu.io/entry/574e8b192b51e900560074f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[edvardhua](https://github.com/edvardHua) 翻译）
-* [Vectors For All 最终篇](http://gold.xitu.io/entry/574d7894df0eea005bcfb10b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jaeger](https://github.com/laobie) 翻译）
+* [Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[huanglizhuo](https://github.com/huanglizhuo) 翻译）
+* [Vectors For All (almost)](http://gold.xitu.io/entry/574e8b192b51e900560074f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[edvardhua](https://github.com/edvardHua) 翻译）
+* [Vectors For All (最终篇)](http://gold.xitu.io/entry/574d7894df0eea005bcfb10b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jaeger](https://github.com/laobie) 翻译）
 * [为什么 Android 上 Canvas 画出的图形不够平滑？](http://gold.xitu.io/entry/5739909a79df5400601cfc71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Sausure](https://github.com/Sausure) 翻译）
 * [使用GCM网络管理工具优化电池使用](http://gold.xitu.io/entry/572b62c8c4c97100609dd6d9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[程大治](http://blog.chengdazhi.com/) 翻译）
 * [用工厂流水线的方式来理解 RxJava 的概念](http://gold.xitu.io/entry/571f2cc971cfe40057351e95?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Sausure](https://github.com/Sausure) 翻译）
 * [在 Android N 预览版中使用 Java 8 的新特性](http://gold.xitu.io/entry/5716fc67ebcb7d005cad214c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[markzhai](https://github.com/markzhai) 翻译）
-* [创建一个基于 Kotlin 的 Android 项目下集](http://gold.xitu.io/entry/570f52981ea493006b5cc9ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jing KE](https://github.com/jingkecn) 翻译）
-* [创建一个基于 Kotlin 的 Android 项目上集](http://gold.xitu.io/entry/56e3fdc3df0eea0054c7c61f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jing KE](https://github.com/jingkecn) 翻译）
+* [创建一个基于 Kotlin 的 Android 项目（下集）](http://gold.xitu.io/entry/570f52981ea493006b5cc9ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jing KE](https://github.com/jingkecn) 翻译）
+* [创建一个基于 Kotlin 的 Android 项目（上集）](http://gold.xitu.io/entry/56e3fdc3df0eea0054c7c61f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Jing KE](https://github.com/jingkecn) 翻译）
 * [使用 RxJava 封装现有的库](http://gold.xitu.io/entry/5705e94a2e958a0059c4479e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[尹述迪](http://yinshudi.com/) 翻译）
 * [在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Sausre](https://github.com/Sausure) 翻译）
 * [Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[edvardHua](https://github.com/edvardHua) 翻译）
-* [深入浅出 Android 权限二](http://gold.xitu.io/entry/56d802ab8ac2470054759796?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Hugo Xie](https://github.com/xcc3641) 翻译）
-* [深入浅出 Android 权限一](http://gold.xitu.io/entry/56d11137c24aa800544db479?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Hugo Xie](https://github.com/xcc3641) 翻译）
-* [世界级的 Android 测试流程一](http://gold.xitu.io/entry/56cd878d6be3ff005e506d43)（[markzhai](https://github.com/markzhai) 翻译）
-* [世界级的 Android 测试流程二](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[markzhai](https://github.com/markzhai) 翻译）
+* [深入浅出 Android 权限（二）](http://gold.xitu.io/entry/56d802ab8ac2470054759796?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Hugo Xie](https://github.com/xcc3641) 翻译）
+* [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Hugo Xie](https://github.com/xcc3641) 翻译）
+* [世界级的 Android 测试流程（一）](http://gold.xitu.io/entry/56cd878d6be3ff005e506d43)（[markzhai](https://github.com/markzhai) 翻译）
+* [世界级的 Android 测试流程（二）](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[markzhai](https://github.com/markzhai) 翻译）
 * [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/56cbde8ea3413100540bb7ef?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[kassadin](https://github.com/kassadin) 翻译）
 * [如何提高安卓代码的质量和语法](http://gold.xitu.io/entry/56cd6ebb99a6ce005a2887e3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[yinshudi](https://github.com/yinshudi) 翻译）
 * [如何更高效地使用 okhttp](http://gold.xitu.io/entry/56ca8873d342d300544bdbf8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Brucezz](https://github.com/brucezz) 翻译）
