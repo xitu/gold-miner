@@ -53,7 +53,7 @@ value 支持多种数据类型，比如对象、数组和基本数据类型。
 
 ## 使用 Replacer 参数
 
-该对象被递归化为 JSON 字符串，在每个属性上调用 `replacer` 函数。在 JavaScript 中使用对象时，这将有很大帮助。
+对象被递归地序列化成 `JSON` 字符串，同时在每个属性上调用 `replacer` 函数。在 JavaScript 中使用对象时，这将有很大帮助。
 
 **replacers** 有 2 种类型：
 
