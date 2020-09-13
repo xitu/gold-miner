@@ -72,7 +72,7 @@ value 支持多种数据类型，比如对象、数组和基本数据类型。
 
 如果我们不知道确切的属性名称，或者因为有太多属性而无法一一列出时，则可以将 replacer 用作函数。
 
-因此，我们编写了一个函数，来过滤那些遵循某个数据类型或者特定模式的属性值。
+因此，我们编写了一个函数，来过滤那些遵循某种数据类型或者特定模式的属性值。
 
 ![excluding object properties by function replacer](https://cdn-images-1.medium.com/max/2000/1*u3xjA0lr8z8doKYIz9JxwQ.png)
 
