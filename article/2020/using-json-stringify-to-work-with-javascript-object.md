@@ -64,7 +64,7 @@ value 支持多种数据类型，比如对象、数组和基本数据类型。
 
 当需要过滤对象属性时，可以将 replacer 作为数组应用。
 
-只有传递给数组的这些属性将被编码。
+只有传递给数组的这些属性才会被编码。
 
 ![excluding object properties by array replacer](https://cdn-images-1.medium.com/max/2000/1*9z346wFbRjwhSoKyjKkJHA.png)
 
