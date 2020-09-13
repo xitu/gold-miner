@@ -42,7 +42,7 @@ value 支持多种数据类型，比如对象、数组和基本数据类型。
 
 ![JSON stringify return undefined for some specific input](https://cdn-images-1.medium.com/max/2000/1*rouzCb86i62XKCX4Ucy_9g.png)
 
-那么 `Object` 实例，例如 Map，Set，WeakMap 和 WeakSet 会返回什么呢？
+那么 `Object` 实例，例如 Map、Set、WeakMap 和 WeakSet 会返回什么呢？
 
 ![JSON stringify with Object instance](https://cdn-images-1.medium.com/max/2000/1*zmsGDy7_pc_4bs2YSBfofw.png)
 
