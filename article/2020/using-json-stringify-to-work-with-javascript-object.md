@@ -48,7 +48,7 @@ value 支持多种数据类型，比如对象、数组和基本数据类型。
 
 注意：
 
-* `Infinity` 和 `NaN`, `null`, 都将被视作 `null`。
+* `Infinity`、`NaN` 和 `null`, 都将被视作 `null`。
 * 编码后，对象属性名以及字符串都将被双引号引起来。
 
 ## 使用 Replacer 参数
