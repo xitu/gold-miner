@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/using-json-stringify-to-work-with-javascript-object.md](https://github.com/xitu/gold-miner/blob/master/article/2020/using-json-stringify-to-work-with-javascript-object.md)
 > * 译者：[Inchill](https://github.com/Inchill)
-> * 校对者：[Chorer](https://github.com/Chorer)、[]()
+> * 校对者：[Chorer](https://github.com/Chorer)、[z0gSh1u](https://github.com/z0gSh1u)
 
 # 使用 JSON.stringify 处理 JavaScript 对象
 
