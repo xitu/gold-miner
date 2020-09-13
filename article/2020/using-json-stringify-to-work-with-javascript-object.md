@@ -76,7 +76,7 @@ value 支持多种数据类型，比如对象、数组和基本数据类型。
 
 ![excluding object properties by function replacer](https://cdn-images-1.medium.com/max/2000/1*u3xjA0lr8z8doKYIz9JxwQ.png)
 
-对于某些我们想从一个对象中获取某些属性的简单情况，使用 replacer 很有用。
+对于某些我们想从一个对象中获取部分属性的简单情况，使用 replacer 很有用。
 
 有时，我们在维护老项目时，是没有任何优秀的工具可以支持我们从大型 JSON 对象中过滤属性的。
 
