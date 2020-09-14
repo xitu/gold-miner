@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/improving-massively-imbalanced-datasets-in-machine-learning-with-synthetic-data.md](https://github.com/xitu/gold-miner/blob/master/article/2020/improving-massively-imbalanced-datasets-in-machine-learning-with-synthetic-data.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：
+> * 校对者：[司徒公子](https://github.com/todaycoder001)
 
 # 使用合成数据改善机器学习中的极度不平衡数据集
 
-我们将使用合成数据和SMOTE的一些概念来提高模型的准确性，防止欺诈，提高网络安全或改善任何只有非常有限样本的分类任务。
+我们将使用合成数据和一些来自 SMOTE 的一些概念来提高欺诈、网络安全或任何极少类别分类模型的准确性。
 
-在机器学习中处理不平衡的数据集是一项艰巨的挑战，并且可能涉及诸如支付欺诈，诊断癌症或疾病甚至网络安全等主题。所有这些的问题的共同点在于，实际上只有很小一部分实例是消极的，而这却正是我们真正在意并试图检测的。在这篇文章中，我们将通过训练一个生成额外欺诈记录的模型来大大提高算法在[ Kaggle 欺诈数据集](https://www.kaggle.com/mlg-ulb/creditcardfraud)上的准确率。独特的是，该模型将会合并来自欺诈记录以及与其相邻的足够相似的非欺诈记录的特征，显得更加难以分别。
+在机器学习中处理不平衡的数据集是一项艰巨的挑战，并且可能涉及诸如支付欺诈，诊断癌症或疾病甚至网络安全等主题。所有这些的共同之处在于，在整个交易过程中只有很小一部分是欺诈行为，而这些才是我们真正关心的。在这篇文章中，我们将通过训练一个生成额外欺诈记录的模型来大大提高算法在[ Kaggle 欺诈数据集](https://www.kaggle.com/mlg-ulb/creditcardfraud)上的准确率。独特的是，该模型将会合并来自欺诈记录以及与其相邻的足够相似的非欺诈记录的特征，显得更加难以分别。
 
 ![Feature image © Gretel.ai](https://cdn-images-1.medium.com/max/2880/1*ncKq5awHMpuwL6Ckv0QSXA.png)
 
 ## 我们的不平衡数据集
 
-在本文中，我们选择了 Kaggle 上较多使用的“[信用卡欺诈检测](https://www.kaggle.com/mlg-ulb/creditcardfraud)” 数据集。 此数据集包含2013年9月来自欧洲信用卡持有人的已标记交易记录。为了保护用户隐私，数据集使用降维方法将敏感的数据转化为27个浮点列（V1-27）以及一个时间列（本条记录与首条记录的时间差，秒为单位）。对于本文，我们将使用信用卡欺诈数据集中的前 1 万条记录-单击下面的内容以在 Google 合作实验室中生成以下图形。
+在本文中，我们选择了 Kaggle 上较多使用的“[信用卡欺诈检测](https://www.kaggle.com/mlg-ulb/creditcardfraud)” 数据集。 此数据集包含 2013 年 9 月来自欧洲信用卡持有人的已标记交易记录。为了保护用户隐私，数据集使用降维方法将敏感的数据转化为 27 个浮点列（V1-27）以及一个时间列（本条记录与首条记录的时间差，秒为单位）。对于本文，我们将使用信用卡欺诈数据集中的前 1 万条记录 - 单击下面的内容以在 Google 合作实验室中生成以下图形。
 
 [**欺诈数据的分类和可视化**](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_classify_and_visualize.ipynb)
 
@@ -27,20 +27,19 @@
 
 ![默认欺诈数据集的分类结果](https://cdn-images-1.medium.com/max/3960/1*E_C6xE2vKiCayWSgV_E_Xw.png)
 
-哇，检出率为 99.75％。太好了吧？ 也许模型整体的准确率仅反映了该模型在整个集合中的表现，而并没有反映我们在检测欺诈性记录方面的表现。要查看我们的实际效果如何，需要打印混淆矩阵和准确性报告。
+哇，准确率为 99.75％。太好了吧？ 也许模型整体的准确率仅反映了该模型在整个集合中的表现，而并没有反映我们在检测欺诈性记录方面的表现。要查看我们的实际效果如何，需要打印混淆矩阵和准确性报告。
 
 ![](https://cdn-images-1.medium.com/max/2604/1*RYVJjEOQ1qieAoI1zyN77w.png)
 
-> 从上面我们可以看到，尽管总体准确率为99.75％，但我们错过了测试集中43％的欺诈示例！
+> 从上面我们可以看到，尽管总体准确率为99.75％，但我们在测试集中错误的分类了 43% 的欺诈案例！
 
 ## 使用合成数据对欺诈示例进行增广
-
 
 在本节中，我们将重点介绍如何通过使用 [gretel-synthetics](https://github.com/gretelai/gretel-synthetics) 产生额外的欺诈记录样本以提高模型性能以及对欺诈记录的泛化能力。让我们从我们想要完成的事情开始 —— 我们的目标是生成额外的欺诈记录样本以提高我们分类器的泛化能力，更好地检测测试集中的欺诈记录。
 
 ## 合成少数类过采样技术
 
-数据科学界中一种实现此目标的流行技术称为 SMOTE(**S**ynthetic **M**inority **O**versampling **Te**chnique)，由 Nitesh Chawla 等人在他们 2002 年的[文章](https://arxiv.org/abs/1106.1813)中提出。 SMOTE 的原理是从少数群体中选择示例，找到它们在少数群体中的最近邻居，并在它们之间有效地插值新点。SMOTE无法合并少数群体类别之外的数据记录，而这在我们的示例中却可能包含有用的信息 —— 将类似欺诈或者错误标记的记录包含进去。
+数据科学界中一种实现此目标的流行技术称为 SMOTE(**S**ynthetic **M**inority **O**versampling **Te**chnique)，由 Nitesh Chawla 等人在他们 2002 年的[论文](https://arxiv.org/abs/1106.1813)中提出。 SMOTE 的原理是从少数群体中选择示例，找到它们在少数群体中的最近邻居，并在它们之间有效地插值新点。SMOTE无法合并少数群体类别之外的数据记录，而这在我们的示例中却可能包含有用的信息 —— 将类似欺诈或者错误标记的记录包含进去。
 
 ## 借鉴 SMOTE 的 Gretel synthetics
 
