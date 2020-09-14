@@ -7,8 +7,6 @@
 
 # NextJS vs. NuxtJS vs. GatsbyJS
 
-#### Which is the best JavaScript framework for server-side rendering?
-
 ![Photo by [Kara Eads](https://unsplash.com/@karaeads) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*nyUWEd-FwoOs3oyI)
 
 Server-side rendering is the process of taking a client-side JavaScript framework website and rendering it to static HTML and CSS on the server.
@@ -16,8 +14,6 @@ Server-side rendering is the process of taking a client-side JavaScript framewor
 Why is this important?
 
 Well, we all want fast-loading websites — server-side rendering is a tool to help you get your website rendered faster. So let’s take a moment to talk about the critical path in your website’s first render. The critical path is a reference to the process of delivering the most important pieces of content to the browser, so it can render your page. If we can deliver the most important assets quickly, then the browser can do its job and render the page quickly to the user.
-
----
 
 ## Understand What’s Behind
 
@@ -27,15 +23,11 @@ Once that’s done, the browser goes ahead and renders the page. That means that
 
 Now, the final part of this process is JavaScript. After the HTML document is parsed, the browser will download your JavaScript files. The download time of a JavaScript file can be significant if the file is large and the network is poor — and the browser needs to parse the JavaScript. On devices with low-powered hardware, this can take quite a bit of effort and time. Also, you could see slow load times if your first render is dependent on JavaScript. JavaScript should be considered an enhancement of HTML and CSS, since its loading can be deferred. However, it’s not always that simple. Some websites need complex features that rely heavily on JavaScript — these kinds of websites use JavaScript frameworks.
 
----
-
 ## Here Comes the Serverside Rendering
 
 JavaScript frameworks can be fast if you’re willing to put in the work. We can put this work in with server-side rendering — where we generate the HTML on the server and send that down to the browser.
 
 So, the user sees the HTML version of your app almost immediately, while the JavaScript app boots up in the background. This may not make your page load faster than a non-server-side rendered version, but it does give the user something to see as the JavaScript downloads in the background — a nice benefit.
-
----
 
 ## Surveys and Stats
 
@@ -60,8 +52,6 @@ According to the stats below, we can see the user attraction towards JavaScript-
 ![Figure 05: [https://github.com/gatsbyjs/gatsby](https://github.com/gatsbyjs/gatsby)](https://cdn-images-1.medium.com/max/3574/1*IfqEwUiWIPnxGdmU9YDj6A.png)
 
 According to these GitHub repositories, we can see that developers are becoming more attracted to NextJS — all watch numbers, folks, and the stars for the NextJS repository are higher. But Gatsby also has quite a similar popularity among developers.
-
----
 
 ## Why NextJS?
 
@@ -90,8 +80,6 @@ If you’re building a simple app, I suggest NextJS would be overkill.
 
 If you’re going to migrate a serverside app to the NextJS app, I would not suggest you do it at once, because you literally can’t — it’s a hell of a lot of work.
 
----
-
 ## Why Select NuxtJS?
 
 NuxtJS is a higher-level framework built on top of VueJS to help you build production-ready Vue applications.
@@ -115,8 +103,6 @@ If the timeline of your Vue app is strict yuo may have problems if you’re new 
 
 Debugging apps can be painful — this is a common issue among the developer community.
 
----
-
 ## Why Select GatsbyJS?
 
 Gatsby is also a React based static website generator, powered by graphQL. Most simply, Gatsby is a static site generator. What does that mean? The static site part means Gatsby produces static HTML files that we load on to a server. This works differently to how many websites work.
@@ -139,23 +125,13 @@ If you are going to use Gatsby with WordPress, you are going to use a lot of inb
 
 Since Gatsby sites are static, every single change needs a new deployment.
 
----
-
-> # “I believe that if you show people the problems and you show them the solutions they will be moved to act”
-
-> # — Bill Gates
-
 ![Photo by [Nathan Dumlao](https://unsplash.com/@nate_dumlao) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*6GkumIALsOYIX3Tj)
-
----
 
 ## Conclusion
 
 Based on the above pros and cons, and surveys, we can conclude that NextJS is the best serverside rendering framework for future implementations. However, if we look at the future for front end development, we can see that Vue is also doing well in the industry. Considering all the above factors, I suggest you learn and use NextJS.
 
 Thanks for reading!
-
----
 
 ## Resources
 
