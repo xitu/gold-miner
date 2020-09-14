@@ -7,10 +7,6 @@
 
 # 5 lesser-known features of Chrome Devtools
 
-## 5 Lesser-known Features of Chrome DevTools
-
-Improve Your Chrome DevTools Workflow With These Tips
-
 ![](https://cdn-images-1.medium.com/max/3850/1*426iOM0yGx-ihIAp1GD7RQ.png)
 
 ## 1. toggle classes
@@ -41,9 +37,9 @@ When you add a class using the `.cls` tab, it suggests similar classes that exis
 
 Edit everything directly by turning on the designMode
 
----
-
 ![](https://cdn-images-1.medium.com/max/NaN/0*bZm_fnZYh8CzTIe-.gif)
+
+---
 
 **That’s all folks!**
 
