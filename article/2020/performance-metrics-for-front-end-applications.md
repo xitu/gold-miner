@@ -123,8 +123,6 @@ This is the point where everything is stable enough to handle user interaction. 
 
 This is also known as the **Input Responsiveness**. It is the time from when the user interacts with your website and the time your website is able to respond to that interaction. This enhances the TTI as FID fills up the gap as to what happens when the user interacts with the website. This is a Real User Metric(RUM) and can be measured with the help of some JavaScript [libraries](https://github.com/GoogleChromeLabs/first-input-delay) on the browser.
 
-![Photo by [Taelynn Christopher](https://unsplash.com/@taelynnmae?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/5524/0*HkbEaNUJQ31hfhJa)
-
 #### Largest Contentful Paint (LCP)
 
 Denotes the point in the page lifecycle where the page’s important content has likely loaded. Although this is based on an assumption that the most important element of the page is the largest one visible in the user’s viewport. If the content has been rendered above and below the visible region(fold), only the one above is taken into consideration — the part which is visible to the user.
@@ -175,7 +173,7 @@ Each website is different with its own target audience. Depending on what your w
 
 For example, if you are a streaming provider, you should concentrate more on the key input responsiveness, memory usage and TTI as they are essential for your application. But if you are website with more readable content such as Wikipedia and Medium, you should focus more on the visual changes and the CPU metrics. If you have your own blog with integrated ads, you should also focus on the ad weight impact. Moreover, the frustration index can be applied to all the above examples, as the key goal of any website is to avoid user frustration as it can have a negative impact on user experience.
 
-> # You only get one chance to make a first impression. Make it count.
+> You only get one chance to make a first impression. Make it count.
 
 ---
 
