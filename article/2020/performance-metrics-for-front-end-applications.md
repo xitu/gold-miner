@@ -7,8 +7,6 @@
 
 # Performance Metrics for Front-End Applications
 
-#### Better UX by focusing on the right metrics
-
 ![](https://cdn-images-1.medium.com/max/2560/1*V7jvAKZ4UKLwQ3ET2r9CuQ.jpeg)
 
 The web has become an integral part of our daily lives. According to [CreditLoan](https://www.creditloan.com/blog/how-the-world-spends-its-time-online/), an average user would spend 7.6 hours online and spend around 20% of their time surfing the web. You can only imagine the extent of the numbers right now, when everyone is at home, during this devastating year of 2020.
@@ -16,18 +14,6 @@ The web has become an integral part of our daily lives. According to [CreditLoan
 These numbers show how much of am impact the mighty web has on us. To fully utilize this huge opportunity, websites should be of a very high standard. It is easy for someone to build a good-looking website. But it is quite tricky for it to be of great performance. This is because of the numerous bottlenecks present in web development such as expensive JavaScript, slow web font delivery, heavy images, etc.
 
 You can have the most beautiful and engaging website in the world, but if it performs poorly on the user’s browser, people would disregard it.
-
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/NaN/0*q28muiT0ZiR49KG6.gif)
-
----
 
 ## User-centric Performance and Why is It Important?
 
@@ -48,8 +34,6 @@ Therefore it is important to be precise and to refer to performance in terms of 
 Traditionally, page events such as `load` were used to measure performance. But in fact, this does not necessarily correspond with anything the user cares about.
 
 For example, a website may “load” a minimal page immediately, but then defers fetching content and takes several seconds to display any useful content on the page. This may happen after the page load event. Despite technically having a faster “**load time**”, that time does not relate to the actual user experience as the useful content takes several more seconds to exist.
-
----
 
 ## Metrics — Grouped
 
@@ -127,8 +111,6 @@ Rendering metrics help you fill the gaps from the milestone metrics by revealing
 
 * Comparing with competitors as the metrics are unique to your website. For example, “Time to First Tweet” metric of Twitter cannot be compared with a custom metric of Facebook as they do not mean the same thing.
 
----
-
 ## Key Metrics — Highlights
 
 As we are now aware of the groups of metrics, let us look at some key metrics which belong to these groups.
@@ -187,8 +169,6 @@ If your web site has advertisements to generate revenue, it is essential for you
 
 We spoke about a lot of different metrics. But one of the issues with all of the above metrics is consistency. The variance in your results shows how reliable your web site is across the network. This would also signify as to how much attention you must give to your system and infrastructure to provide a streamlined service. Specific pages can give a bigger variance due to some external scripts which are pretty unreliable. As Vitaly says, it is also a good idea to keep track of the browser versions supported to get a better idea on performance.
 
----
-
 ## Why Should You Consider a Combination of Metrics for Your Website?
 
 Each website is different with its own target audience. Depending on what your website does, whom it caters to, you should focus more on specific metrics.
@@ -201,20 +181,13 @@ For example, if you are a streaming provider, you should concentrate more on the
 
 That’s it for this article. I highly recommend you go through the below resources as they are highly educative regarding this vast domain of web performance.
 
-## Learn More
-[**Optimize Your React Functional Components with useCallback and useMemo**
-**Learn how to use useCallback and useMemo to optimize performance**blog.bitsrc.io](https://blog.bitsrc.io/optimize-your-react-functional-components-with-usecallback-and-usememo-34bb52bc9a13)
-[**10 Tricks to Optimize Your Angular App**
-**Here, I collected a list of practices that will help us boost the performance of your Angular applications.**blog.bitsrc.io](https://blog.bitsrc.io/10-tricks-to-optimize-your-angular-app-44208f616bf0)
-[**10 Ways to Optimize Your React App’s Performance**
-**How to optimize performance to deliver an awesome user experience.**blog.bitsrc.io](https://blog.bitsrc.io/10-ways-to-optimize-your-react-apps-performance-e5e437c9abce)
 
-**Resources
-**[Front-End Performance Checklist 2020 by Vitaly Friedman](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
-[Presentation by Marcos Iglesias](https://docs.google.com/presentation/d/e/2PACX-1vTk8geAszRTDisSIplT02CacJybNtrr6kIYUCjW3-Y_7U9kYSjn_6TbabEQDnk9Ao8DX9IttL-RD_p7/pub?start=false&loop=false&delayms=10000&slide=id.g3ccc19d32d_0_98)
-[Article by Steve Souders](https://speedcurve.com/blog/rendering-metrics/)
-[Article by Philip Walton](https://web.dev/user-centric-performance-metrics/)
-[Article by Mat Ball](https://blog.newrelic.com/product-news/monitor-frontend-performance-with-user-centric-performance-metrics/)
+**Resources**
+- [Front-End Performance Checklist 2020 by Vitaly Friedman](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
+- [Presentation by Marcos Iglesias](https://docs.google.com/presentation/d/e/2PACX-1vTk8geAszRTDisSIplT02CacJybNtrr6kIYUCjW3-Y_7U9kYSjn_6TbabEQDnk9Ao8DX9IttL-RD_p7/pub?start=false&loop=false&delayms=10000&slide=id.g3ccc19d32d_0_98)
+- [Article by Steve Souders](https://speedcurve.com/blog/rendering-metrics/)
+- [Article by Philip Walton](https://web.dev/user-centric-performance-metrics/)
+- [Article by Mat Ball](https://blog.newrelic.com/product-news/monitor-frontend-performance-with-user-centric-performance-metrics/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
