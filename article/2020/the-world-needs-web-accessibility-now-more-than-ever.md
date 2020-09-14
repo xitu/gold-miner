@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-world-needs-web-accessibility-now-more-than-ever.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-world-needs-web-accessibility-now-more-than-ever.md)
 > * 译者：[tonylua](tonylua@sina.com)（[掘金主页](https://juejin.im/user/3034307821311895)）
-> * 校对者：
+> * 校对者：[rachelcdev](https://github.com/rachelcdev)
 
 # 世界比以往任何时候都更需要 Web 可访问性
 
