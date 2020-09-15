@@ -2,48 +2,48 @@
 > * 原文作者：[Shesh](http://www.sheshbabu.com/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md](https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md)
-> * 译者：
+> * 译者：[Derek](https://github.com/derekdick)
 > * 校对者：
 
-# Single Page Applications using Rust
+# 使用 Rust 构建单页应用
 
-WebAssembly (wasm) allows code written in languages other than JavaScript to run on browsers. If you haven't been paying attention, all the major browsers support wasm and [globally more than 90% of users](https://caniuse.com/#feat=wasm) have browsers that can run wasm.
+WebAssembly (wasm) 使得各种除了 JavaScript 以外的语言编写的代码能够在浏览器中运行。你可能还没有注意到，所有的主流浏览器都支持 wasm 并且 [全球超过 90% 的用户](https://caniuse.com/#feat=wasm) 使用的浏览器都可以运行 wasm。
 
-Since Rust compiles to wasm, is it possible to build SPAs (Single Page Applications) purely in Rust and without writing a single line of JavaScript? The short answer is YES! Read on to learn more or visit the [demo site](https://rustmart-yew.netlify.app) if you can't contain your excitement!
+既然 Rust 能够编译成 wasm，那么是不是有可能只用 Rust 而不使用任何一行 JavaScript 代码来构建 SPA （Single Page Applications，单页应用）呢？简短的答案是**肯定的**！请继续阅读以了解更多信息，或者如果你无法抑制激动的心情，请访问 [演示站点](https://rustmart-yew.netlify.app)。
 
-We'll be building a simple ecommerce site called "RustMart" that will have 2 pages:
+我们将搭建一个叫作「RustMart」的简单的电子商务网站，包括两个页面：
 
-- HomePage - list all the products that the customer can add to cart
-- ProductDetailPage - show the product details when a product card is clicked
+- 主页 —— 列出所有顾客可以添加到购物车的产品
+- 产品详情页 —— 单击产品卡片时展示该产品的详细信息
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-1.png)
 
-I'm using this example as it tests the minimal set of capabilities required to build modern SPAs:
+我这里使用这个例子是因为它测试了构建现代 SPA 所需要的最小功能集合：
 
-- Navigate between multiple pages without page reload
-- Make network requests without page reload
-- Ability to reuse UI components across multiple pages
-- Update components in different layers of the UI hierarchy
+- 在多个页面之间导航而无需重新加载页面
+- 发起网络请求而无需重新加载页面
+- 能够跨多个页面重用 UI 组件
+- 更新 UI 层次结构不同层中的组件
 
-## Setup
+## 建立
 
-Follow this [link](https://www.rust-lang.org/tools/install) to install Rust if you haven't done so already.
+如果您尚未安装 Rust，请点击此 [链接](https://www.rust-lang.org/tools/install) 进行安装。
 
-Install these Rust tools:
+安装这些 Rust 工具：
 
 ```shell
-$ cargo install wasm-pack          # Compile Rust to Wasm and generate JS interop code
+$ cargo install wasm-pack          # 将 Rust 编译为 wasm 并生成 JS 互操作代码
 $ cargo install cargo-make         # Task runner
-$ cargo install simple-http-server # Simple server to serve assets
+$ cargo install simple-http-server # 提供 assets 的简单服务器
 ```
 
-Create a new project:
+创建一个新项目：
 
 ```shell
 $ cargo new --lib rustmart && cd rustmart
 ```
 
-We'll be using the [`Yew`](https://yew.rs) library to build UI components. Let's add this and wasm dependencies to `Cargo.toml`:
+我们将使用 [`Yew`](https://yew.rs) 库来构建 UI 组件。让我们将这个库和 wasm 的依赖添加到： `Cargo.toml` 中：
 
 ```toml
 [lib]
@@ -54,7 +54,7 @@ yew = "0.17"
 wasm-bindgen = "0.2"
 ```
 
-Create a new file named `Makefile.toml` and add this:
+新建文件 `Makefile.toml` 并添加如下代码：
 
 ```toml
 [tasks.build]
@@ -67,19 +67,19 @@ command = "simple-http-server"
 args = ["-i", "./static/", "-p", "3000", "--nocache", "--try-file", "./static/index.html"]
 ```
 
-Start the build task:
+开始构建任务：
 
 ```shell
 $ cargo make build
 ```
 
-If you're new to Rust, I've written some [guides for beginners](http://www.sheshbabu.com/tags/Rust-Beginners/) which will help you follow this post better.
+如果您不熟悉 Rust，我已经写了一些 [初学者指南](http://www.sheshbabu.com/tags/Rust-Beginners/)，可以帮助您更好地阅读本文。
 
 ## Hello World
 
-Let's start with a simple "hello world" example:
+让我们从简单的 「hello world」例子开始：
 
-Create `static/index.html` and add this:
+创建 `static/index.html` 并添加如下代码：
 
 ```html
 <!DOCTYPE html>
@@ -97,7 +97,7 @@ Create `static/index.html` and add this:
 </html>
 ```
 
-Add this to `src/lib.rs`:
+然后将这些添加到 `src/lib.rs` 中：
 
 ```rust
 // src/lib.rs
@@ -133,9 +133,9 @@ pub fn run_app() {
 }
 ```
 
-Lot of things going on but you can see that we're creating a new component named "Hello" that renders `<span>Hello World!</span>` into the DOM. We'll learn more about Yew components later.
+发生了很多，但是你可以看到我们正在创建一个叫 「Hello」的新组件，它将 `<span>Hello World!</span>` 渲染进 DOM。我们稍后会进一步了解 Yew 组件。
 
-Start the serve task in a new terminal and load `http://localhost:3000` in your browser
+在新终端中启动服务任务，然后在浏览器中加载 `http://localhost:3000`
 
 ```shell
 $ cargo make serve
@@ -143,15 +143,15 @@ $ cargo make serve
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-1.png)
 
-It works!! It's only "hello world" but this is fully written in Rust.
+成功了！这只是「hello world」，但这完全用 Rust 编写。
 
-Let's learn about components and other SPA concepts before proceeding further.
+在继续进行之前，让我们了解一下组件和其他 SPA 概念。
 
-## Thinking in Components
+## 用组件思考
 
-Building UIs by composing components and passing data in a unidirectional way is a paradigm shift in the frontend world. It's a huge improvement in the way we reason about UI and it's very hard to go back to imperative DOM manipulation once you get used to this.
+使用组件来构建 UI 和单向数据流是前端世界的一个范式转变。这是我们处理 UI 方式的一个巨大进步，一旦习惯了，就很难回到命令式 DOM 操作。
 
-A `Component` in libraries like React, Vue, Yew, Flutter etc have these features:
+在像 React、Vue、Yew、Flutter 等等的库中，一个 `Component` （组件）有这些特性：
 
 - Ability to be composed into bigger components
 - `Props` - Pass data and callbacks from that component to its child components.
@@ -1849,7 +1849,7 @@ We've successfully built a SPA fully in Rust!
 
 I've hosted the demo [here](https://rustmart-yew.netlify.app) and the code is in this [GitHub repo](https://github.com/sheshbabu/rustmart-yew-example). If you have questions or suggestions, please contact me at sheshbabu [at] gmail.com.
 
-## Conclusion
+## 总结
 
 The Yew community has done a good job designing abstractions like `html!`, `Component` etc so someone like me who's familiar with React can immediately start being productive. It definitely has some rough edges like FetchTask, lack of [_predictable_](https://redux.js.org/introduction/motivation) state management and the documentation is sparse, but has potential to become a good alternative to React, Vue etc once these issues are fixed.
 
