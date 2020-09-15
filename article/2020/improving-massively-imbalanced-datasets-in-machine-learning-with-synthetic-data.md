@@ -141,7 +141,7 @@ df_synthetic = df_synthetic[df_synthetic['Class'] == 1]
 
 ![Adding 852 synthetic examples reduces our negative/positive ratio from 257 to 9x!](https://cdn-images-1.medium.com/max/3908/1*_65jW8aRrX1ZvSo9zBrvmw.png)
 
-在增强数据集上训练 XGBoost，在测试数据集上运行模型并查看混淆矩阵。
+在增强后的数据集上训练 XGBoost，在测试数据集上运行模型并查看混淆矩阵。
 
 ![14% boost in fraud detection with the additional fraud example detection!](https://cdn-images-1.medium.com/max/2094/1*3AkwQxkfC9tck5kVrxfYDg.png)
 
