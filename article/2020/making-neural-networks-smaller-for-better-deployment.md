@@ -3,33 +3,33 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md](https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md)
 > * 译者：[PingHGao](https://github.com/PingHGao/gold-miner/edit/translate/making-neural-networks-smaller-for-better-deployment/article/2020/making-neural-networks-smaller-for-better-deployment.md)
-> * 校对者：
+> * 校对者：[samyu2000](https://github.com/samyu2000)
 
 # 让神经网络变得更小巧以方便部署
 
 ![Credit [JC Gellidon](https://unsplash.com/@jcgellidon?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*tGuAv2o2UGUDsC1RDtLPFA.jpeg)
 
-数据科学和机器学习领域存在一种明显地训练越来越大模型的趋势。这些模型的性能接近人类，但通常太大，无法部署在资源受限的设备上，例如手机或无人机。这是阻碍AI在我们日常生活中广泛使用的主要障碍之一。
+数据科学和机器学习领域存在一种明显趋势，训练的模型越来越大。这些模型的性能接近人类，但通常太大，以至于无法部署在资源有限的设备上，例如手机或无人机。这是阻碍AI在我们日常生活中广泛使用的主要障碍之一。
 
 **我如何在 15Mb 的移动应用程序中安装 98Mb 的 ResNet 模型？**
 
-在安卓上，应用程序平均大小为 15Mb。而由 Google 发布的最先进的图像分类模型 NASNet （在 ImageNet —— 著名的图像分类竞赛 —— 上可达到 80％ 的精度），其大型版本大小为 355Mb，移动优化版本也有 21.4Mb。
+在安卓上，一个应用程序平均大小为 15 Mb。而由 Google 发布的最先进的图像分类模型 NASNet （在 ImageNet —— 著名的图像分类竞赛 —— 上可达到 80％ 的精度），其大型版本大小为 355 Mb，针对移动操作系统的优化版本也有 21.4 Mb。
 
-如果您是一位数据科学家，试图将高性能的模型安装到资源有限的设备中，那么本文将为您提供实用的技巧，如何仅使用Keras和NumPy将模型大小压缩到70％，而又不损失性能。
+如果您是一位数据科学家，试图将高性能的模型安装到资源有限的设备中，本文可以为您提供一些实用技巧，指导您在不损失性能的情况下，使用 Keras 和 NumPy 将模型大小压缩到 70%。
 
 ---
 
-在过去的几年中，如何是模型更小以高效的使用训练资源以及在资源有限的设备上进行应用的问题受到了极大地关注。主要存在两种方法：
+在过去的几年中，人们非常关注如何压缩模型，使其适合在资源有限的设备上进行训练和推理的问题。主要存在两种方法：
 
-第一种也是最流行的方法是设计训练轻便的神经网络。Google 的 MobileNet 就是一个很好的例子。MobileNet 的架构仅具有420万个参数，而 ImageNet 的准确率达到了 70％。这种压缩可保持合理的性能，是通过引入有助于减小模型的大小和复杂性的深度卷积层来实现的。
+第一种常见方法是从设计入手，训练轻量级的神经网络。Google 的 MobileNet 就是一个很好的例子。MobileNet 的架构仅具有420万个参数，而 ImageNet 的准确率达到了 70％。这种压缩可保持合理的性能，是通过引入有助于减小模型的大小和复杂性的深度卷积层来实现的。
 
 另一种方法是利用预先训练的大型神经网络，对其进行压缩以减小大小，同时最大程度地降低性能损失。本文将重点对卷积神经网络（CNN）压缩技术进行回顾和实现。
 
 特别地，我们将专注于剪枝技术，一种较为容易实现的神经网络压缩技术。网络剪枝旨在消除神经网络中的特定权重及其各自的联系，以压缩网络大小。尽管剪枝技术不如其他方法流行，但它取得了很好的效果，并且很容易实现，正如接下来我们将在文章看到的那样。
 
-> **“简化的能力意味着消除不必要的东西，从而使必要的东西可以发声。” Hans Hoffman**
+> **“简化意味着去掉不必要的元素，让必要元素凸显。” Hans Hoffman**
 
-从神经网络消除权重并不会严重损害其性能，这似乎很奇怪。尽管如此，在 1991 年，Y.LeCun 等人在一篇名为 **[Optimal Brain Damage](http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf)** 的论文证明，可以通过选择性删除神经网络权重来减小神经网络的大小。他们发现有可能通过删除一半的神经网络权重，最终得到一个重量轻，性能有时更好的网络。
+消除神经网络中的权重并不会影响其性能，这似乎令人难以理解。尽管如此，Y.LeCun 等人于1991年在一篇名为 Optimal Brain Damage 的论文中证明，可以通过选择性删除神经网络权重来减小神经网络的大小。他们发现有可能通过删除一半的神经网络权重，最终得到一个轻量级、性能更好的网络。
 
 在CNN这一特殊领域下，大多数方法不是除去单个权重，而是专注于从卷积层中除去整个滤波器及其对应的特征图。这种方法的主要优点是它不会在网络的权重矩阵中引入任何稀疏性。这一点很重要，因为包括 Keras 在内的大多数深度学习框架都不支持稀疏的权重层。
 
@@ -72,7 +72,7 @@
 
 在本实验中，我们将同时使用卷积过滤器的 **L1 范数**和**平均零激活百分比（APoZ）**来对重要性进行排名。
 
-由于我们将使用 L1 范数来比较大小不同的滤波器，因此我们必须使用归一化的 L1 范数：
+由于我们将使用 L1 范数来比较大小不同的过滤器，因此我们必须使用归一化的 L1 范数：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*oYZbmKC0v67e5TiT)
 
@@ -227,9 +227,9 @@ def biggest_indices(array, N):
 
 **2. 剪枝：修剪掉滤波器**
 
-现在，既然我们已经确定了要删除的卷积滤波器，我们就得戴上脑外科医生的帽子并从网络中删除相应的滤波器。我们仍需谨慎，并在网络的更深层中删除相应的输出通道。
+现在，既然我们已经确定了要删除的卷积滤波器，我们就得戴上脑外科医生的帽子并去实施相关操作。我们仍需谨慎，并在网络的更深层中删除相应的输出通道。
 
-值得庆幸的是，keras-surgeon 库提供了非常简单的方法来有效地修改经过训练的 Keras 模型。基于 Keras 的简易性，keras-surgeon 使您可以使用简单的 delete_channels_method（）从层中轻松删除神经元或通道。该库还具有一个识别模块，可让您计算特定层中神经元的 APoZ 指标。Keras-surgeon 库很棒，几乎可以在任何 Keras 模型上工作（不仅限于 CNN），请为他的工作向 Ben Whetton 致敬。这是该[项目]（https://github.com/BenWhetton/keras-surgeon）的链接。
+值得庆幸的是，keras-surgeon 库提供了非常简单的方法来有效地修改经过训练的 Keras 模型。基于 Keras 的简易性，keras-surgeon 使您可以使用简单的 delete_channels_method（）从层中轻松删除神经元或通道。该库还具有一个识别模块，可让您计算特定层中神经元的 APoZ 指标。Keras-surgeon 库很棒，几乎可以在任何 Keras 模型上工作（不仅限于 CNN），让我们向 Keras-surgeon 库的作者 Ben Whetton 致敬。这是该[项目]（https://github.com/BenWhetton/keras-surgeon）的链接。
 
 让我们实现 keras-surgeon 来修剪掉上一节中确定的通道。在对模型进行修剪后，我们还必须使用 Keras 中标准的 .compile（）模块对模型重新编译。
 
@@ -268,7 +268,7 @@ def prune_multiple_layers(model, pruned_matrix, opt):
 
 ```
 
-我们可以使用一个漂亮的 prune_model() 函数来进行封装。
+我们可以写一个满意的 prune_model() 函数对其进行封装。
 
 ```Python
 def prune_model(model, perc, opt, method='l1', layer=None):
