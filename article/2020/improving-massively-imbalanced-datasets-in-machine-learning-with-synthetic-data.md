@@ -39,7 +39,7 @@
 
 ## 合成少数类过采样技术
 
-数据科学界中一种实现此目标的流行技术称为 SMOTE(**S**ynthetic **M**inority **O**versampling **Te**chnique)，由 Nitesh Chawla 等人在他们 2002 年的[论文](https://arxiv.org/abs/1106.1813)中提出。 SMOTE 的原理是从少数群体中选择示例，找到它们在少数群体中的最近邻居，并在它们之间有效地插值新点。SMOTE无法合并少数群体类别之外的数据记录，而这在我们的示例中却可能包含有用的信息 —— 将类似欺诈或者错误标记的记录包含进去。
+数据科学界中一种实现此目标的流行技术称为 SMOTE(**S**ynthetic **M**inority **O**versampling **Te**chnique)，由 Nitesh Chawla 等人在他们 2002 年的[论文](https://arxiv.org/abs/1106.1813)中提出。SMOTE 的原理是从少样本类别中选择样本，找到它们在少样本类别中的最近邻居，并在它们之间有效地插值新点。虽然 SMOTE 不能插入少样本类别之外的数据记录，但在我们的情景中却可能包含有用的信息 —— 它可以将疑似欺诈或者标注错误的记录引入数据集中。
 
 ## 借鉴 SMOTE 的 Gretel synthetics
 
