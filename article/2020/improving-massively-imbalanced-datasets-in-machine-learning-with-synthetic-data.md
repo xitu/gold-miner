@@ -147,7 +147,7 @@ df_synthetic = df_synthetic[df_synthetic['Class'] == 1]
 
 如我们所见，训练机器学习模型以准确检测极端少数群体是一个艰巨的挑战。但是，合成数据创建了一种提高准确性并潜在地提高模型泛化到新数据集的能力的方法，并且可以将整个数据集中的特征和相关性独特地合并到合成欺诈示例中。
 
-对于下一步，请尝试在自己的数据集上运行上面的笔记本。想更多地了解合成数据？点[此处](https://towardsdatascience.com/reducing-ai-bias-with-synthetic-data-7bddc39f290d)和[此处](https://towardsdatascience.com/dont-stop-at-ensembles-unconventional-deep-learning-techniques-for-tabular-data-8d4e154f1053)查阅提及到了 Gretel-Synthetics 的关于数据科学的一些文章。
+对于下一步，请尝试在自己的数据集上运行上面的 notebook。想更多地了解合成数据？点[此处](https://towardsdatascience.com/reducing-ai-bias-with-synthetic-data-7bddc39f290d)和[此处](https://towardsdatascience.com/dont-stop-at-ensembles-unconventional-deep-learning-techniques-for-tabular-data-8d4e154f1053)查阅提及到了 Gretel-Synthetics 的关于数据科学的一些文章。
 
 ## 结束语
 
