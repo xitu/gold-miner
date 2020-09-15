@@ -7,7 +7,7 @@
 
 # Easy Dark Mode Switch with React and localStorage
 
-![Cover image for Easy Dark Mode Switch with React and localStorage](https://res.cloudinary.com/practicaldev/image/fetch/s--lHC3LOAh--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/7x4y32vfxgcyhx8rggob.png)
+![7x4y32vfxgcyhx8rggob](https://user-images.githubusercontent.com/5164225/93171400-990be680-f75b-11ea-809a-0dac5d0f83a8.jpeg)
 
 Having a dark mode on a website or application has become very popular. Many big websites and applications are coming up with their own version of it and if you want to make one for your own React app you can easily do so with very little JavaScript code and a bit of custom CSS.
 
