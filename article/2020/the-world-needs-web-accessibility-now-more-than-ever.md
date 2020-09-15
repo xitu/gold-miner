@@ -2,49 +2,50 @@
 > * 原文作者：[KBronJohn](https://medium.com/@kbronjohncompinclus)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-world-needs-web-accessibility-now-more-than-ever.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-world-needs-web-accessibility-now-more-than-ever.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tonylua](tonylua@sina.com)（[掘金主页](https://juejin.im/user/3034307821311895)）
+> * 校对者：[Chorer](https://github.com/Chorer), [rachelcdev](https://github.com/rachelcdev)
 
-# The World Needs Web Accessibility Now More Than Ever
+# 世界比以往任何时候都更需要 Web 可访问性
 
 ![](https://cdn-images-1.medium.com/max/2158/1*fM91JgfWigiKGZLA5hYC5w.jpeg)
 
-I attended a talk last year by [Mike Gifford](https://openconcept.ca/users/mike) where he said, “the web has actually become LESS accessible since 2011.”
+我注意到 [Mike Gifford](https://openconcept.ca/users/mike) 在去年的一次谈话中说到：“实际上从 2011 年起 web 就变得缺少可访问性了。”
 
-It’s cheap and easy for anyone to create a website these days, and hardly anyone considers accessibility. And why would you? If it’s not in your daily purview, it’s not going into your list of website requirements. Heck, most people don’t even think of the end user, Disabled or not, when creating a website. Especially not when they use a “drag and drop” style website creation platform. Nothing against those, just that those platforms often don’t have accessibility built in, and it’s very difficult to make them so, even if you had the desire.
+如今任何人创建一个网站都是廉价和容易的，而谁都难以考虑到可访问性（accessibility）。那为什么你要考虑这个呢？如果其本就不在你的视野中，那它也不会出现在你的网站需求列表里。糟糕的是，大多数人在创建一个网站时，的确不会考虑其终端用户是不是残障人士。特别是当他们使用一个“拖放”式的网站创建平台时，就更顾及不到。我并不是反对那些平台，只不过它们常常不会内置可访问性功能，即便你有意愿，要做到这点也十分困难。
 
-The other aspect working against website accessibility is when you say the word, ‘accessibility’ not every even has a concept of what that means. I asked a website designer recently if he makes accessible websites, and he said, “yes…we add alt-tags to all our images.” Ummmm, OK. Great. But can a screen reader read your website?
+对网站可访问性不利的另一个方面是，当你说出“可访问性”这个词时，并非每个人都对其意味着什么有个清楚的概念。最近我曾询问过一位网站设计师是否做了可访问性站点的工作，然后他说，“是的…… 我们为所有图片增添了 `alt` 属性。”嗯…… OK。很棒。但一个屏幕阅读器能读出你的网站吗？
 
-So let’s dispel some myths and dive a bit into the world of what it means to implement web accessibility.
+那么，接下来让我们消除一些谬误，并深入理解一下实现 web 可访问性意味着什么吧。
 
-First off, it’s important to note that the USA actually has very clear legislation regarding accessibility. It’s called the Americans With Disabilities Act, and it includes websites. US-based companies should be aware that not having a minimally accessible business website can leave you open to a law suit and fines. I’m Canadian with a Canadian registered company, so I do not actually have to worry about getting sued for not having an accessible website, but bonus, I have one anyway! I’ll explain why it’s beneficial to have an accessible website even if you are not a US-based company.
+首先很重要的一点是，美国实际上拥有非常明确的针对可访问性的立法。在这部被称为美国残疾人法（Americans with Disabilities Act）的法案中，也涉及到了网站。美国公司应该意识到，业务网站若是连最低限度的可访问性都没达到，公司是会面临法律诉讼和罚款的。我是一名在加拿大注册的公司内工作的加拿大人，所以实际上我并不用真的担心因为缺乏一个可访问的网站而被起诉，但我还真额外的有一个可访问性网站！下面，我将解释拥有一个可访问的网站的益处，而这无关乎你是否在一家美国公司工作。
 
-A little reminder when people are concerned about the trouble or potential cost of creating an accessible website is that [accessibility benefits everyone](https://medium.com/@kbronjohn_2775/accessibility-makes-everyones-life-easier-98af7efaea4e). If we get down to the nitty gritty, we know 22% of Canadians have a disability of some sort (18% in the USA), and without doing the math, that’s a lot of people. **A lot of people who want to shop online, buy your products, learn about your services, or take your online classes**. Disabled people have been connected online, breaking isolation, and working remotely for years before the pandemic hit. This is old hat for us. So now that the pandemic lockdown has given everyone some insight into what it’s like to be stuck at home (lots of online shopping, educational webinars, arts and entertainment), maybe we can all appreciate how important being able to access the web easily actually is.
+当人们担忧创建一个可访问网站的麻烦或其潜在成本时，不如提醒自己看看这篇文章： [可访问性会造福每个人](https://medium.com/@kbronjohn_2775/accessibility-makes-everyones-life-easier-98af7efaea4e)。如果我们追根溯源，就会知道 22% 的加拿大人都有某类缺陷（美国则是 18%），用不着做数学计算，就能知道那是很多的人。**很多想线上购物、购买你的商品、了解你的服务，或学习你的在线课程的人**。早在疫情的数年之前，残障人士就已经能够上网、打破隔离，并远程工作了。这对于我们来说并不新鲜。所以，既然如今的疫情封锁让每个人都对呆在家里有了一些了解（大量的线上购物、线上教育研讨会、艺术和娱乐活动），也许我们都能认识到，能够轻松访问网络是多么重要。
 
-Like I said, accessibility makes everyone’s life easier, and if you’re trying to make a business case for it, you’re not just creating a website for that 18–22% of the population; you should be thinking about the whole population. **Do you want to limit the amount of potential customers you can attract?** It would be like having a physical store and saying, ‘I don’t actually want people to come in and shop here. I think they should go to the competitor’. Which is your prerogative, and your business, and of course there are many reasons a business may choose to filter their clients from the get-go. **However, I’m speaking specifically about creating barriers for people who otherwise would be your target customer, but you’ve shut the door on them inadvertently**.
+正如我所说，可访问性让每个人的生活更便利，并且如果你已经尝试为此做一个商业案例，你并不只是为人口的 18-22% 创建一个网站；而应该着眼全部人口。**你想限制你能吸引的潜在消费者的数量吗？** 这就像是有个商店，而老板在说：“我真的不想让人们进来并在这儿购物。他们应该去我的竞争对手那”。权力在于你，业务也在于你，企业当然有许多理由让他们从一开始就过滤部分客户。**但是，我此刻强调的是，你已无意中为那些本来是你的目标客户的人设置了障碍，把他们拒之门外了**。
 
-With all of that out of the way, let’s look at what web accessibility really entails. It all comes down to user-experience and you want everyone to have the best and most positive experience with your brand.
+了解了上述这些事情后，让我们来看看 web 可访问性到底需要什么。所有这些都可以归结为用户体验问题，毕竟你想让每一位用户对你的品牌有最好和最积极的体验。
 
-To be accessible, website visitors should, **at a minimum**, be able to do a few key things:
+以**最低要求**来衡量，要做到可访问，网站访问者应该能够做到下面这些关键的事情：
 
-* browse your website in the language they prefer
-* change the font style or font size
-* change the background contrast
-* navigate the site using a screen reader
-* navigate the site without the use of a mouse
-* turn off/stop any music, video, or rotating picture carousels
-* know what a link contains before clicking on it
-* have captions on any videos contained on the site
-* hear accurate and relevant image descriptions on pictures or icons
-* have colourblind friendly colours on any graphs or important images
+* 用他们更喜欢的语言浏览你的网站
+* 更改字体样式或字号
+* 更改背景对比度
+* 使用一个屏幕阅读器导航站点
+* 不用鼠标就能导航站点
+* 停止/关闭任何音乐、视频，或图片轮播
+* 在点击一条链接之前就了解其包含了什么
+* 站点中包含的任何视频都有字幕
+* 在图片或图标上获得准确并相关的图像描述
+* 在任何图表或关键的图片上有适合色盲症的配色
 
-This is just a start, but it should be a nice jumping point. Again, thinking about the end user first, and realizing that your end users have a variety of needs. **Also, test your site with real people** (and pay them). Yes, there are simulators and there are sites where you can input your website URL and it gives you a score, but having real feedback from real users will give you valuable insight that is priceless. Gather a focus group of people from different age groups, people with different Disabilities, and different backgrounds, and take their opinions seriously. I guarantee you will create an excellent experience and build a positive reputation for your brand.
+这只是个开始，但应该成为一个好的起点。在这之后，仍要首先考虑终端用户，并认识到他们有各自不同的需求。**同时，由真实的人群测试你的站点**（向其付费）。是的，你可以借助模拟器，也可以借助部分输入你网站的 URL 后就能给你评分的站点，但只有来自真实用户的真实反馈才会带给你宝贵的、甚至是无价的见解。从来自不同年龄层、有着不同缺陷、背景各异的目标人群中收集意见并认真研究。我保证你可以打造杰出的体验，并为你的品牌赢得一个好名声。
 
-Not to mention, search engines will rank your site higher if it has clear and easy navigation. What is good for people is good for search engine robots. It’s a win-win!
+更不必说，如果你的站点拥有清晰且易用的导航，搜索引擎会将其排名提得更高。对用户友好的事情之于搜索引擎程序也是友好的。这是个双赢之事！
 
-Look at web accessibility as opening doors for new clients, new relationships, satisfied customers, and increased profits. Also, it’s just the right thing to do.
+将 web 可访问性视为吸引新客户、建立新关系、使客户满意，和增加盈利之门。同时，这也是正确的应做之事。
 
-> The author is the founder of [**Completely Inclusive**](https://compinclus.ca/), a consultancy devoted to helping businesses create inclusive and accessible workplaces and spaces.
+> 作者为 [**Completely Inclusive**](https://compinclus.ca/) 的创始人，这是一家致力于帮助企业创造包容性和无障碍的工作场所和空间的咨询公司。
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
