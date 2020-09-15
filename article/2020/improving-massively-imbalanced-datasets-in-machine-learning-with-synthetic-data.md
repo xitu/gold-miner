@@ -15,7 +15,7 @@
 
 ## 我们的不平衡数据集
 
-在本文中，我们选择了 Kaggle 上较多使用的“[信用卡欺诈检测](https://www.kaggle.com/mlg-ulb/creditcardfraud)” 数据集。 此数据集包含 2013 年 9 月来自欧洲信用卡持有人的已标记交易记录。为了保护用户隐私，数据集使用降维方法将敏感的数据转化为 27 个浮点列（V1-27）以及一个时间列（本条记录与首条记录的时间差，秒为单位）。对于本文，我们将使用信用卡欺诈数据集中的前 1 万条记录 - 单击下面的内容以在 Google 合作实验室中生成以下图形。
+在本文中，我们选择了 Kaggle 上较多使用的“[信用卡欺诈检测](https://www.kaggle.com/mlg-ulb/creditcardfraud)”数据集。此数据集包含 2013 年 9 月来自欧洲信用卡持有人的标注好的交易记录。为了保护用户隐私，数据集使用降维方法将敏感的数据转化为 27 个浮点列（V1-27）以及一个时间列（本条记录与首条记录的时间差，单位为秒）。对于本文，我们将使用信用卡欺诈数据集中的前 1 万条记录 - 单击下面的内容以在 Google Colaboratory 中生成以下图形。
 
 [**欺诈数据的分类和可视化**](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_classify_and_visualize.ipynb)
 
