@@ -48,7 +48,7 @@
 [**gretel-synthetics-generate-fraud-data**
 colab.research.google.com](https://colab.research.google.com/github/gretelai/gretel-synthetics/blob/master/examples/research/synthetics_knn_generate.ipynb)
 
-通过借鉴SMOTE的方法找到欺诈集合中最接近的记录，同时从主要类别中吸纳一些高度相似的记录，我们既有机会扩展我们的训练集，又可以将一些类似欺诈（**让我们称它们为阴险**）的记录纳入到学习中。这一方法不会要求对 [Gretel Synthetics](https://github.com/gretelai/gretel-synthetics) 做任何改变，我们只是智能地从欺诈记录 + 类似的非欺诈（阴险）记录选择数据。让我们开始吧！
+通过借鉴 SMOTE 的方法找到欺诈集合中最接近的记录，同时从主要类别中吸纳一些高度相似的记录，我们既有机会扩展我们的训练集，又可以将一些类似欺诈（**让我们称它们为阴险**）的记录纳入到学习中。这一方法不会对 [Gretel Synthetics](https://github.com/gretelai/gretel-synthetics) 进行修改，我们只是智能地从欺诈记录 + 疑似欺诈（阴险）的记录中选择数据。让我们开始吧！
 
 ```Python
 #!pip install s3fs smart_open pandas sklearn
