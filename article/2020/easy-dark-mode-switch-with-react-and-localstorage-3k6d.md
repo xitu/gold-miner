@@ -13,8 +13,6 @@ Having a dark mode on a website or application has become very popular. Many big
 
 I am going to show you how you can make a simple, yet versatile React component which you can use to change your website's mode from light to dark. If you want you can later expand it to handle multiple application skins or themes.
 
-If you prefer a video version you can watch me create this Dark Mode component on Youtube:
-
 I started a new create-react-app project and I've modified it a bit by adding some HTML to the App component. There is a simple nav bar, some text paragraphs and an image div that we will use to show how to switch image backgrounds between different page modes.
 
 I also created a new component in the components folder and named it DarkMode.js. We will also add a CSS file for styling it which we will call DarkMode.css. We can import both of them in the App component right away.  
