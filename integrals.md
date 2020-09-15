@@ -7950,10 +7950,11 @@
 |推荐英文文章一篇|奖励|1|
 |[误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）](https://juejin.im/post/5c223f4ce51d452626296b5d)|校对|1.5|
 
-## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：2.5 当前积分：2.5
+## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：7.5 当前积分：7.5 二零二零：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|翻译|5|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
 ## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：34 当前积分：34 二零二零：2
@@ -8892,10 +8893,14 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：58.5 当前积分：48.5 二零二零：29
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：66 当前积分：56 二零二零：36.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|校对|2|
+|[颜色为何成为数据可视化的关键，怎样使用它？](https://juejin.im/post/6872238362233831432)|校对|2.5|
+|[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|校对|2|
+|[JavaScript 生成器：何时用 yield，何时用 yield* ？](https://juejin.im/post/6867036974441005063)|校对|1|
 |[Javascript 应用中引入 CSS 的几种方式](https://juejin.im/post/6867054761741549576)|校对|3|
 |[使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)|校对|3|
 |[如何利用 Polyfill 和转译在所有浏览器中使用最新 JavaScript 特性](https://juejin.im/post/6868513605055643662)|校对|2|
@@ -9646,10 +9651,11 @@
 |[设置 git 别名](https://juejin.im/post/5dafc502f265da5b783f1ae1)|校对|1.5|
 |[使用 `import()` 执行 JavaScript 代码](https://juejin.im/post/5dafc573e51d4524bb096393)|校对|1|
 
-## 译者：[Alfxjx](https://github.com/Alfxjx) 历史贡献积分：11 当前积分：11 二零二零：3
+## 译者：[Alfxjx](https://github.com/Alfxjx) 历史贡献积分：13 当前积分：13 二零二零：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)|校对|2|
 |[在 Vue 中编写 SVG 图标组件](https://juejin.im/post/5e4fc62de51d4527110a85dd)|校对|2|
 |[使用 Web Workers 优化事件监听器](https://juejin.im/post/5e241bb9f265da3e46090215)|校对|1|
 |[设计离线优先的网络应用](https://juejin.im/post/5dd608eef265da47f12cb018)|校对|2.5|
@@ -9988,10 +9994,12 @@
 |------|-------|-------|
 |[你不需要 passport.js — node.js 认证指南](https://juejin.im/post/5e060589f265da33b0718f55)|校对|2|
 
-## 译者：[rachelcdev](https://github.com/rachelcdev) 历史贡献积分：24.5 当前积分：24.5 二零二零：24.5
+## 译者：[rachelcdev](https://github.com/rachelcdev) 历史贡献积分：27.5 当前积分：27.5 二零二零：27.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|校对|2|
+|[JavaScript 生成器：何时用 yield，何时用 yield* ？](https://juejin.im/post/6867036974441005063)|校对|1|
 |[前端开发 8 大性能分析工具](https://juejin.im/post/6860664312504320014)|校对|3|
 |[给前端开发者的 14 个 JavaScript 代码优化建议](https://juejin.im/post/6859562506721951751)|校对|4|
 |[我的 React 组件会渲染两次，我快疯了](https://juejin.im/post/6858508463274885134)|校对|1.5|
@@ -10060,10 +10068,11 @@
 |[什么是无障碍？为什它对于用户体验很重要？](https://juejin.im/post/5ebf96a5f265da7b9754dd7d)|校对|1|
 |[我是如何用 20 小时学会 Sass 的以及为什么你也应该这么做](https://juejin.im/post/5ede14f6e51d4578885ca8fc)|翻译|3.5|
 
-## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：87 当前积分：55 二零二零：87
+## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：91.5 当前积分：59.5 二零二零：91.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)|翻译|4.5|
 |[如何在字符串中隐藏秘密 —— JavaScript 中的现代文本隐藏](https://juejin.im/post/6856737400396349454)|翻译|7|
 |兑换水杯 1 个，笔记本 1 个|减去积分|14|
 |兑换小黄鸭 6 个|减去积分|18|
@@ -10107,10 +10116,11 @@
 |------|-------|-------|
 |[如何写一份能让你获得面试机会的前端求职简历](https://juejin.im/post/5ef5ef41f265da22ff543630)|校对|4|
 
-## 译者：[x1ny](https://github.com/x1ny) 历史贡献积分：6.5 当前积分：6.5 二零二零：6.5
+## 译者：[x1ny](https://github.com/x1ny) 历史贡献积分：8.5 当前积分：8.5 二零二零：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)|校对|2|
 |[如何且为何要在单页应用中防止跨域资源共享](https://juejin.im/entry/5ec4ab64e51d45788a6d4f92/detail)|校对|2.5|
 |[关于 JavaScript 中 Symbol 数据类型你需要了解的一切](https://juejin.im/post/5ebd353c5188256d9433b103)|校对|4|
 
@@ -10142,18 +10152,22 @@
 |------|-------|-------|
 |[用 Python 写一个俄罗斯方块游戏](https://juejin.im/post/6844904183456350221)|校对|3|
 
-## 译者：[rocwong-cn](https://github.com/rocwong-cn) 历史贡献积分：12 当前积分：12 二零二零：12
+## 译者：[rocwong-cn](https://github.com/rocwong-cn) 历史贡献积分：18 当前积分：18 二零二零：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[让你的 Web 应用和移动应用选择 PWA 的 5 个理由](https://juejin.im/post/6868084125195042823)|翻译|6|
 |[TypeScript 4.0 终于发布了我一直在等待的东西](https://juejin.im/post/6864473591770152968)|翻译|3|
 |[使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)|翻译|6|
 |[打包用于分发的 UI 库 —— 当你要发布一个 UI 组件库时，你可能需要遵守的指南](https://juejin.im/post/6863091746113323021)|校对|3|
 
-## 译者：[Isildur46](https://github.com/Isildur46) 历史贡献积分：2 当前积分：2 二零二零：2
+## 译者：[Isildur46](https://github.com/Isildur46) 历史贡献积分：12.5 当前积分：12.5 二零二零：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|翻译|5|
+|[让你的 Web 应用和移动应用选择 PWA 的 5 个理由](https://juejin.im/post/6868084125195042823)|校对|2.5|
+|[JavaScript 生成器：何时用 yield，何时用 yield* ？](https://juejin.im/post/6867036974441005063)|翻译|3|
 |[如何利用 Polyfill 和转译在所有浏览器中使用最新 JavaScript 特性](https://juejin.im/post/6868513605055643662)|校对|2|
 
 ## 译者：[HeroXiaozheng](https://github.com/HeroXiaozheng) 历史贡献积分：3 当前积分：3 二零二零：3
@@ -10185,3 +10199,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[TypeScript 4.0 终于发布了我一直在等待的东西](https://juejin.im/post/6864473591770152968)|校对|1|
+
+## 译者：[Misszhu](https://github.com/Misszhu) 历史贡献积分：2.5 当前积分：2.5 二零二零：2.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[让你的 Web 应用和移动应用选择 PWA 的 5 个理由](https://juejin.im/post/6868084125195042823)|校对|2.5|
+
+## 译者：[Amy-Designer](https://github.com/Amy-Designer) 历史贡献积分：6 当前积分：6 二零二零：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[颜色为何成为数据可视化的关键，怎样使用它？](https://juejin.im/post/6872238362233831432)|翻译|6|
+
+## 译者：[CaptainWang98](https://github.com/CaptainWang98) 历史贡献积分：2 当前积分：2 二零二零：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|校对|2|
