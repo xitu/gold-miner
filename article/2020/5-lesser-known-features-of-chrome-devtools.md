@@ -2,48 +2,48 @@
 > * 原文作者：[Manan Tank](https://medium.com/@manantankm)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-lesser-known-features-of-chrome-devtools.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-lesser-known-features-of-chrome-devtools.md)
-> * 译者：
+> * 译者：[贺雪](https://github.com/Amy-Designer)
 > * 校对者：
 
-# 5 lesser-known features of Chrome Devtools
+# 5个鲜为人知的 Chrome 开发工具的特性
 
 ![](https://cdn-images-1.medium.com/max/3850/1*426iOM0yGx-ihIAp1GD7RQ.png)
 
-## 1. toggle classes
+## 1. 切换类
 
-Go to `.cls` tab and toggle the classes
+跳转到 `.cls` 选项卡，可以进行类的切换
 
 ![](https://cdn-images-1.medium.com/max/2000/0*xMFl7REC8Ve1YiJF.gif)
 
-## 2. scroll to view
+## 2. 滚动到视图
 
-Are you going through HTML and don’t know where the particular thing is on the page? Well, just scroll that into view!
+你是否在查看 HTML 源码的时候无法定位至页面上的对应元素？嘿，只需要滚动到视图就可以了！
 
 ![](https://cdn-images-1.medium.com/max/2000/0*RNNCkKfY2hotSxJD.gif)
 
-## 3. Create and run code snippets
+## 3. 创建并运行代码段
 
-Do you want to run some javascript code, but the code is too big and pasting that into console feels weird? Well, you can create code snippets and run that snippet!
+你是否想运行一些 javascript 代码，但是碍于内容太多，把它粘贴到控制台会感觉很奇怪吗？嘿，你其实可以创建代码段，然后运行它！
 
 ![](https://cdn-images-1.medium.com/max/2000/0*heDLZmGRXJQqiZDO.gif)
 
-## 4. Adding classes and auto-suggestion
+## 4. 添加类和自动建议
 
-When you add a class using the `.cls` tab, it suggests similar classes that exist in the CSS, which quickly lets you compare them
+当您使用 `.cls` 选项卡添加类时，它会联想一些已存在CSS中相似的类，以便于你将他们快速进行比较
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ta6DU34T77aLDwQV.gif)
 
-## 5. designMode
+## 5. 设计模式
 
-Edit everything directly by turning on the designMode
+打开设计模式，你可以直接编辑所有内容
 
 ![](https://cdn-images-1.medium.com/max/NaN/0*bZm_fnZYh8CzTIe-.gif)
 
 ---
 
-**That’s all folks!**
+**先这样吧，伙计们!**
 
-Hope you find one or two new things that can improve your dev tools workflow. Cheers!
+希望你能找到一两个新玩意儿来改进你的开发工具的工作流程。干杯！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
