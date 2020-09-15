@@ -19,7 +19,7 @@ I started a new create-react-app project and I've modified it a bit by adding so
 
 I also created a new component in the components folder and named it DarkMode.js. We will also add a CSS file for styling it which we will call DarkMode.css. We can import both of them in the App component right away.  
 
-```
+```jsx
 import React from "react"
 import "./styles/App.css"
 import DarkMode from "./components/DarkMode"
@@ -55,12 +55,11 @@ function App() {
   )
 }
 export default App
-
 ```
 
 We will start building out the component by making it a constant with no inputs and export it as a default. Its basic functionality is going to be returning a button element which we will use to change the mode or theme. Lets import the CSS file right away and we will change its contents later.  
 
-```
+```jsx
 import React from "react";
 import "../styles/DarkMode.css";
 
@@ -71,12 +70,11 @@ const DarkMode = () => {
 };
 
 export default DarkMode;
-
 ```
 
 For everything to work we need to set up a few properties.  
 
-```
+```jsx
 import React from "react";
 import "../styles/DarkMode.css";
 
@@ -93,7 +91,6 @@ const DarkMode = () => {
 };
 
 export default DarkMode;
-
 ```
 
 The body is the document's body element. We need a reference to it so we can apply different styling to it once we click the dark mode button. Light theme and dark theme are going to be the class names that we will apply to the body. Theme is a local property which we will use to handle the currently selected theme or mode.
@@ -102,7 +99,7 @@ The clicked class is going to be applied to the button when we click on it. This
 
 In terms of JavaScript - the local storage is an object which is a part of the window object, so we can access it directly and try to find an item that's stored inside. For this we use the getItem function and pass in the property we are looking for.  
 
-```
+```jsx
 import React from "react";
 import "../styles/DarkMode.css";
 
@@ -129,14 +126,13 @@ const DarkMode = () => {
 };
 
 export default DarkMode;
-
 ```
 
 In this case we will be expecting to find one of the two values - light or dark, because these are the values we will be setting in the local storage. If we find such value we will add that CSS class to the document body. If not we will default to not using the dark mode by setting the light class. Of course, if you want dark mode to be the default value you can do that too.
 
 To make our button do something on click we need to set up an on click event for it which we'll call the switchTheme function. We will also add an id to it so we can style it more easily later, and we will add the clicked class to it if the dark mode is on.  
 
-```
+```jsx
 import React from "react";
 import "../styles/DarkMode.css";
 
@@ -181,7 +177,6 @@ const DarkMode = () => {
 };
 
 export default DarkMode;
-
 ```
 
 The switch theme function is going to check which theme is currently active and do a couple of different things depending on that. If the dark mode is currently on it will replace the dark theme body class with the light one. It will remove the clicked class from the dark mode button and set the local storage theme property to light. Finally, we will set the theme property to light theme, since dark mode will no longer be active.
@@ -190,7 +185,7 @@ In case the dark mode was already off we will want to turn it on. To do that we 
 
 With this, our component is finished and we can import it inside of the App component. Now we need to set up its CSS.  
 
-```
+```css
 #darkMode {
   background: transparent url("../moon.png") no-repeat center;
   background-size: 30px 30px;
@@ -213,7 +208,6 @@ With this, our component is finished and we can import it inside of the App comp
   filter: none !important;
   background-color: black;
 }
-
 ```
 
 Our button has the dark mode Id so that's what we will use to style it. For the background image I am using a [moon icon that I found on flaticon.com](https://www.flaticon.com/free-icon/moon_768442). I am setting its dimensions and borders so it's shaped like a circle and I'm adding it a grayscale filter so it looks grayed-out when in default non-clicked state.
@@ -222,53 +216,49 @@ For hover and focus states we are going to remove the filter and set the backgro
 
 Our components CSS is now set up and we need to take care of the two body classes, one for dark mode and one for light mode. To change between two different looks we will use CSS variables. You can declare them anywhere you want if the body element has access to them. As as start we will add two color variables in the root selector.  
 
-```
+```css
 :root {
   --blue: rgb(26, 57, 87);
   --white: rgb(236, 236, 236);
 }
-
 ```
 
 To simplify the example I will use the white color for background and the blue color for text in light mode and we will switch between them when we turn on the dark mode. To do so we will add more CSS variables inside of the light class selector, which will use the variables from the root. We will also modify the font weight when switching themes, as well as the background image below the hello world heading. This is not something I recommend doing, especially for the background image, but it is an option if you want to play around with it.  
 
-```
+```css
 body.light {
   --background-color: var(--white);
   --text-color: var(--blue);
   --font-weight: 400;
   --image: url("../day.jpg");
 }
-
 ```
 
 For the dark mode class we will do something similar. We will switch the colors for background and text, give the font a bit more weight and we'll use a different night time image.  
 
-```
+```css
 body.dark {
   --background-color: var(--blue);
   --text-color: var(--white);
   --font-weight: 500;
   --image: url("../night.jpg");
 }
-
 ```
 
 Now that we have dark and light mode classes set up we need to make the body selector use them, which is easy enough. Just set your properties to use the correct CSS variables. We can also set our background and color transition so the mode switch isn't so sudden.  
 
-```
+```css
 body {
   background: var(--background-color);
   color: var(--text-color);
   font-weight: var(--font-weight);
   transition: background 0.3s ease-in-out, color 0.6s ease-in-out;
 }
-
 ```
 
 Of course, we also need to set up the image container to use the image variable.  
 
-```
+```css
 #image {
   width: 100%;
   height: 300px;
@@ -279,12 +269,11 @@ Of course, we also need to set up the image container to use the image variable.
   transition: background-image 0.7s ease-in-out;
   background-image: var(--image);
 }
-
 ```
 
 If we want to take this a bit further, we can also set up the nav bar to change the background and text color in different modes.  
 
-```
+```css
 nav {
   padding: 1rem 25%;
   margin: 0 auto;
