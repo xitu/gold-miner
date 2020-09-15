@@ -153,7 +153,7 @@ df_synthetic = df_synthetic[df_synthetic['Class'] == 1]
 
 在 [Gretel.ai](https://gretel.ai/)， 我们对使用合成数据扩充训练集来创建 ML 和 AI 模型，使得模型能够更好地泛化到未知的数据上同时减少算法的偏差的可能性感到非常兴奋。我们很想听听您的经历-请随时通过评论，[twitter](https://twitter.com/gretel_ai) 和 [hi@gretel.ai](mailto:hi@gretel.ai) 与我们联系，以进行更深入的讨论。 关注我们以掌握合成数据最新的发展方向。
 
-对使用自己的数据训练感兴趣？[Gretel-synthetics](https://github.com/gretelai/gretel-synthetics) 是开源且免费的， 并且通过 [Colaboratory](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667) 你能够马上开始实验. 如果你喜欢 gretel-synthetics 请在 [GitHub](https://github.com/gretelai/gretel-synthetics) 给我们一个⭐!
+对使用自己的数据训练感兴趣？[Gretel-synthetics](https://github.com/gretelai/gretel-synthetics) 是开源且免费的，并且通过 [Colaboratory](https://camo.githubusercontent.com/52feade06f2fecbf006889a904d221e6a730c194/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667) 你能够马上开始实验. 如果你喜欢 gretel-synthetics 请在 [GitHub](https://github.com/gretelai/gretel-synthetics) 给我们一个⭐!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
