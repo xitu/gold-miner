@@ -2,31 +2,30 @@
 > * 原文作者：[Alen Vlahovljak](https://medium.com/@AlenVlahovljak)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-handle-comparison-corner-cases.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-handle-comparison-corner-cases.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tonylua](https://github.com/tonylua)
+> * 校对者：[Alfxjx](https://github.com/Alfxjx), [nia3y](https://github.com/nia3y)
 
-# How to handle JavaScript comparison corner cases
+# 如何处理 JavaScript 比较中的临界情况
 
-![Photo by [Joshua Aragon](https://unsplash.com/@goshua13?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/javascript?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7622/1*cNArmsLDeouV0GoryF4IlA.jpeg)
+![由 [Joshua Aragon](https://unsplash.com/@goshua13?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄并发布在 [Unsplash](https://unsplash.com/s/photos/javascript?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7622/1*cNArmsLDeouV0GoryF4IlA.jpeg)
 
-**“Any sufficiently advanced technology is indistinguishable from magic.”** — Arthur C. Clarke (3rd Clarke’s law)
+**“在任何一项足够先进的技术和魔法之间，我们无法做出区分。”** — Arthur C. Clarke （[克拉克基本定律三](https://zh.wikipedia.org/wiki/%E5%85%8B%E6%8B%89%E5%85%8B%E5%9F%BA%E6%9C%AC%E5%AE%9A%E5%BE%8B)）
 
-Before we start to get familiar with JavaScript corner cases, I’d like to make a distinction between **Corner Case** and **Edge Case**.
+在我们开始熟悉 JavaScript 的临界情况之前，我想先区分一下 **临界情况（Corner Case）** 和 **边界情况（Edge Case）**。
 
-We can say that **Edge Case is an issue that can occur only at minimum or maximum parameters**. Predicting it can be a significant task since those situations may be neglected or underestimated. For example, a PC at full power can overheat, and its performance may deteriorate a little.
+我们可以说 **边界情况（Edge Case）是一种仅在最小或最大参数时发生的问题**。预测这种问题很重要，因为这些情况可能会被忽视或低估。比如，一台全力运转的 PC 可能会过热，可能会导致性能有所折损。
 
-I’d love to introduce a **Boundary Case** also (a subject of the doubt too). It can occur if one of the parameters is beyond the minimum or maximum limits.
+我也想介绍另一种 **边界情况（Boundary Case）**（这也是一个值得怀疑的问题）。它可能会发生在其中一个参数超出最小或最大限制的时候。
 
-What about **Corner Cases**? I won’t give any definition since you’ll be able to do by yourself after you take a look at the next examples.
+那么 **临界情况** 呢？我并不想给出任何定义，因为在你看过下面的例子之后，你将能自己做到这点。
 
-## You won’t believe this
+## 你将难以置信
 
-If I ask you can something be coercive equal to the negation of itself, what would be your answer? You’d probably said that is a nonsense question, but:
+如果我问你是否有值能强制等于自己的否定，你的答案会是什么？你肯定会说这是一派胡言，但是：
 
 ```JavaScript
 var arr1 = [];
 var arr2 = [];
-
 
 if (arr1 == !arr2) {
     console.log("Yes, it's true!");
@@ -37,11 +36,11 @@ if (arr1 != arr2) {
 }
 ```
 
-You may think that JS is a crazy language, and this should not happen for a popular language like JS. This example is silly because you will never compare value to the negation of itself in a real example. **But this is a great example to help you clarify and adopt the right mental model.**
+你可能会认为 JS 是一个疯狂的语言，并且这本不应该发生在 JS 这样流行的语言中。这个例子看起来很愚蠢，因为你在实际中绝不会对变量去比较其自身的否定。**但这是个帮助你理清思绪的绝佳例子。**
 
-**You won’t ever have a situation where are you comparing array with negative arrays.** You won’t ever design code on this way. That is an excellent example of how you don’t want to manage the codebase.
+**你压根不应该比较数组和数组的否定。** 不应该以这种方式设计代码。上例就是个绝佳的反例。
 
-In the next example, I’ll explain what happens in great details, so you can have a clear image of what an algorithm is doing:
+在下一个例子中，我将细致地解释发生了什么，会让你清楚的认识到运算规则做了什么：
 
 ```JavaScript
 var arr1 = [];
@@ -57,11 +56,11 @@ var arr2 = [];
 if (true) console.log("Yes, it's true!");
 ```
 
-Firstly, I’ll refer to the [documentation](http://documentation). On line 6, we have a comparison of primitive and non-primitive value. In this case, the rule №11 applied. **The result of this algorithm is an empty string.**
+首先，我将引用 [文档](https://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison) 中的规则。在以上代码的第 6 行，比较了一个基本类型值和一个非基本类型值。在这种情况下，采用规则 №11 。**该运算的结果是一个空字符串。**
 
-In the next step, we’re comparing an empty string with **false**. According to the algorithm, rule №9 applied. The next step (line 8) is to apply rule №5. The 5th step is to compare two numbers. Since we’re using equality comparison, **we’re going to call strict equality comparison algorithm**.
+在下一步中，将一个空字符串和 **false** 相比较。根据运算规则，采用规则 №9 。再下一步（第 8 行）则采用规则 №5 。第 5 步成了比较两个数字。因为使用了相等性比较，**我们将会调用严格相等性比较算法**。
 
-The last step is to return a **true** from the strict equality comparison. The second example is a bit more practical because we’re using not equals (double equality negation) - **checking if is not coercively equal**:
+最后一步从严格相等性比较中返回了一个 **true**。第二个例子更实用一点，因为我们使用了不等于（双等于号的否定）- **检查是否强制相等**:
 
 ```JavaScript
 var arr1 = [];
@@ -74,11 +73,11 @@ var arr2 = [];
 if (true) console.log("It's true again!");
 ```
 
-**As we are comparing two non-primitive types, it means that we’re going to perform an identity comparison.** The same applies when using strict equality comparison.
+**鉴于我们比较的是两个非基本类型，这意味着会比较变量的标识符。** 等同于采用了严格相等性比较。
 
-## Don’t mess with Booleans
+## 别惹布尔值
 
-Let’s talk about booleans and their connections to abstract equality. That is something you work with a lot. We should take a look at corner cases that can occur:
+让我们谈谈布尔值及其与抽象相等性的联系。这是你会经常碰到的问题。我们应该看看会发生的临界情况：
 
 ```JavaScript
 var students = [];
@@ -97,9 +96,9 @@ if (students == false) {
 }
 ```
 
-**Being explicit can sometimes produce unnecessary problems.** In the second if-clause, we compare array with boolean. You may have thought that the result of this operation is boolean **true**, but it isn’t. **The same effect will be with strict equality.**
+**明确的比较有时反倒会带来不必要的麻烦。** 在第二个 if 子句中，我们将数组和布尔值做了比较。你可能认为该操作的结果应当为布尔值 **true**，但并非如此。**严格相等性比较也有同样的效果。**
 
-Comparison of an array and a boolean value will go throughout lots of corner cases. Before we take a look at examples, I’ll give you a hint: **Don’t ever use double equals with boolean (true and false)**. Let’s analyze how the algorithm works:
+比较一个数组和一个布尔值会引起许多临界情况。在我们看例子之前，我要给你个提示： **永远不要对布尔值（true 和 false）使用双等于号**。让我们分析下是如何运算的：
 
 ```JavaScript
 var students = [];
@@ -123,15 +122,15 @@ if (false) console.log("You can't see this message!");
 if (true) console.log("Working!");
 ```
 
-The first if-clause is self-explanatory, so I won’t waste time explaining. Like in the previous example, **I refer to the [documentation](https://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison)**. Comparing array and boolean is going to invoke [**ToPrimitive()**](https://www.ecma-international.org/ecma-262/#sec-toprimitive) abstract operation (rule №11) as one of the compared values is a non-primitive type.
+首个 if 子句是自解释的，所以我不会费时赘述。一如之前的例子，**我引用了 [文档](https://www.ecma-international.org/ecma-262/#sec-abstract-equality-comparison)** 中的规则。当其中一个被比较的值是非基本类型时，比较数组和布尔值会调用 [**ToPrimitive()**](https://www.ecma-international.org/ecma-262/#sec-toprimitive) 抽象操作（规则 №11）。
 
-Next three steps are straight forward. Firstly, we convert a boolean to a number (rule №9: [**ToNumber(true)**](https://www.ecma-international.org/ecma-262/#sec-tonumber)), in the next step the string becomes number (rule №5: [**ToNumber(“”)**](https://www.ecma-international.org/ecma-262/#sec-tonumber)), and the last step is to perform a strict equality comparison. The third clause is the same as the previous.
+之后的三步（译注：第二个 if 子句）直接了当。首先，将一个布尔值转换为一个数字（规则 №9：[**ToNumber(true)**](https://www.ecma-international.org/ecma-262/#sec-tonumber)），接下来字符串变为数字（规则 №5：[**ToNumber(“”)**](https://www.ecma-international.org/ecma-262/#sec-tonumber)），最后一步则是执行一次严格相等性比较。第三个子句同样如此。
 
-One of the downsides of the coercion is an abstract operation **ToNumber()**. I’m not sure that converting an empty string to a number should return **0**. **It would be much better to return NaN since NaN is representing an invalid number.**
+强制转换的风险之一就是抽象操作 **ToNumber()**。我不确定将空字符串转换为数字是否应该返回 **0**。**返回 NaN 其实会更好，因为 NaN 表示了一个非法的数字。**
 
-Conclusion: **Senseless input will always produce senseless output. We don’t have to be explicit all time. Implicitly can sometimes be better than explicitly.**
+推论：**无意识的输入总会产生无意识的输出。不必总是显式比较，隐式比较有时比前者更佳。**
 
-The best thing you could do when you’re checking the existence of the values in the array is to be more explicit and check the presence of `.length` to make sure it’s a string or an array:
+检查数组值的存在性最好的办法就是明确的检查 `.length` 以确定其是个字符串还是个数组：
 
 ```JavaScript
 const arr1 = [1, 2, 3];
@@ -156,21 +155,21 @@ if (arr2.length) {
 }
 ```
 
-Deep checking is more reliable. As you can see, an empty array is going to return **true** (after boolean coercion). The same thing adopts for objects - **always do deep checking**. When we make sure that the type is a string or an array, we’ll use the `typeof` operator (or `Array.isArray()` method).
+深层检测更为可靠。如你所见，一个空数组将返回 **true** （强制转换为布尔值之后）。对于对象也应采用同样的办法 -- **总是做深层检查**。当我们想要确定类型是字符串还是数组时，使用 `typeof` 操作符（或 `Array.isArray()` 方法）。
 
-## Clarification
+## 说明
 
-There are guidelines you have to follow to avoid falling into the traps of corner cases. **Using double equals everywhere can be a two-edged sword.** Have on mind that using double equals when either side of compared values is **0**, an empty string or string with only white-space is a bad practice.
+你必须遵守若干准则以避免陷入临界情况的陷阱。**随处使用的非严格相等是把双刃剑。** 应谨记当两侧进行比较的值是 **0**、空字符串或只包含空格的字符串时，使用非严格相等是个不好的做法。
 
-The next big thing to memorise is to avoid using double equals with non-primitive types. **The only time you can use it is for identity comparison.** I cannot say that this is 100% safe as it’s close enough to corner case that it’s not worth it.
+下一件应牢记之事是避免对非基本类型使用非严格相等。**唯一能使用它的时机是一致性检查时。** 但我也不能说 100% 安全，因为它已经足够接近临界情况，不值得冒险。
 
-[ECMAScript 6](https://www.w3schools.com/js/js_es6.asp) introduced a new utility [**Object.is()**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is). With this method, we can finally perform identity comparison without the risk of side effects. In the end, we can say that using double equals is only safe with primitive types, but not with non-primitives.
+[ECMAScript 6](https://www.w3schools.com/js/js_es6.asp) 引入了一个新的工具方法 [**Object.is()**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)。借助该方法，我们终于可以在无副作用的情况下执行一致性比较。最后我们可以讲，使用非严格相等只对基本类型安全，对非基本类型则不安全。
 
-Last but not least is to avoid using double equals with booleans (**true** and **false**). It’s much better to allow implicit boolean coercion (invoke **ToBoolean()** abstract operation). If you cannot enable implicit coercion, and you’re limited to use double equals with booleans (**true** and **false**), then **use triple equals**.
+最后但也是最重要的是要避免对布尔值（**true** 和 **false**）使用非严格相等。允许隐式的布尔值强制转换（调用 **ToBoolean()** 抽象操作）会更好。如果不能启用隐式强制转换，则只在两边都为布尔值（**true** 和 **false**）的时候使用非严格相等，其他情况应该 **改为严格相等**。
 
-#### Conclusion
+#### 总结
 
-Most of the corner case can be avoided by refactoring our codebase.
+大多数临界情况都能通过重构代码得以避免。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
