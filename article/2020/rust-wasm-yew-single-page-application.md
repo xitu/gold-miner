@@ -153,23 +153,23 @@ $ cargo make serve
 
 在像 React、Vue、Yew、Flutter 等等的库中，一个 `Component` （组件）有这些特性：
 
-- Ability to be composed into bigger components
-- `Props` - Pass data and callbacks from that component to its child components.
-- `State` - Manipulate state local to that component.
-- `AppState` - Manipulate global state.
-- Listen to lifecycle events like "Instantiated", "Mounted in DOM" etc
-- Perform side effects like fetching remote data, manipulating localstorage etc
+- 能够组成更大的组件
+- `Props` —— 从该组件向其子组件传递数据和回调
+- `State` —— 操作该组件本地的状态
+- `AppState` —— 操作全局状态
+- 监听生命周期事件，例如「Instantiated」、「Mounted in DOM」等等
+- 执行次要功能，例如获取远程数据、操作 localstorage 等等
 
-A component gets updated (re-rendered) when one of the following happens:
+当下列情况之一发生时，组件会被更新（重新渲染）：
 
-- Parent component is re-rendered
-- `Props` changes
-- `State` changes
-- `AppState` changes
+- 父组件被重新渲染
+- `Props` 改变
+- `State` 改变
+- `AppState` 改变
 
-So, instead of imperatively updating the UI when user interaction, network requests etc happen, we update the data (Props, State, AppState) and the UI is updated based on this data. This what someone means when they say "UI is a function of state".
+所以，我们更新数据（Props, State, AppState）然后 UI 会基于此数据被更新，而不是在用户交互、网络请求等等发生时命令式地更新 UI。这就是通常我们说的「UI 是状态的函数」。
 
-The exact details differ across different libraries but this should give you a general idea. If you're new to this, this way of thinking might take sometime to "click" and get used to.
+不同的库在具体的细节上会有所不同，但这应该能够给你一个总体的思想。如果你是新手，这种思维方式可能需要一段时间才能「点击」并习惯。
 
 ## HomePage
 
