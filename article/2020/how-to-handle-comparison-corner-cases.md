@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-handle-comparison-corner-cases.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-handle-comparison-corner-cases.md)
 > * 译者：[tonylua](https://github.com/tonylua)
-> * 校对者：
+> * 校对者：[Alfxjx](https://github.com/Alfxjx), [nia3y](https://github.com/nia3y)
 
 # 如何处理 JavaScript 比较中的临界情况
 
@@ -77,7 +77,7 @@ if (true) console.log("It's true again!");
 
 ## 别惹布尔值
 
-让我们谈谈布尔值极其与抽象相等性的联系。这是你会经常碰到的问题。我们应该看看会发生的临界情况：
+让我们谈谈布尔值及其与抽象相等性的联系。这是你会经常碰到的问题。我们应该看看会发生的临界情况：
 
 ```JavaScript
 var students = [];
@@ -96,7 +96,7 @@ if (students == false) {
 }
 ```
 
-**明确的比较有时反倒会带来不必要的麻烦。** 在第二个 if 子句中，我们将数组和布尔值做了比较。你可能认为该操作的结果应当为布尔值 **true**，但并非如此。**严格相等性比较也有同样但效果。**
+**明确的比较有时反倒会带来不必要的麻烦。** 在第二个 if 子句中，我们将数组和布尔值做了比较。你可能认为该操作的结果应当为布尔值 **true**，但并非如此。**严格相等性比较也有同样的效果。**
 
 比较一个数组和一个布尔值会引起许多临界情况。在我们看例子之前，我要给你个提示： **永远不要对布尔值（true 和 false）使用双等于号**。让我们分析下是如何运算的：
 
