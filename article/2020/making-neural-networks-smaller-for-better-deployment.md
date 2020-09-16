@@ -2,8 +2,8 @@
 > * 原文作者：[Vincent Houdebine](https://medium.com/@vhoudebine)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md](https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md)
-> * 译者：[PingHGao](https://github.com/PingHGao/gold-miner/edit/translate/making-neural-networks-smaller-for-better-deployment/article/2020/making-neural-networks-smaller-for-better-deployment.md)
-> * 校对者：[samyu2000](https://github.com/samyu2000)
+> * 译者：[PingHGao](https://github.com/PingHGao)
+> * 校对者：[samyu2000](https://github.com/samyu2000), [lsvih](https://github.com/lsvih)
 
 # 让神经网络变得更小巧以方便部署
 
