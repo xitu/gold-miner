@@ -134,7 +134,7 @@ def get_filters_l1(model, layer=None):
 
 ![](https://cdn-images-1.medium.com/max/2912/0*lJEZuER30NWzlfmE)
 
-以下的代码为一个卷积层完成上述工作：
+以下的代码为对一个卷积层完成上述工作：
 
 ```Python
 def compute_apoz(model, layer_ix, nb_filters, generator):
