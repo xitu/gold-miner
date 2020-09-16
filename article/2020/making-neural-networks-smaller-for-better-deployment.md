@@ -229,7 +229,7 @@ def biggest_indices(array, N):
 
 现在，既然我们已经确定了要删除的卷积滤波器，我们就得戴上脑外科医生的帽子并去实施相关操作。我们仍需谨慎，并在网络的更深层中删除相应的输出通道。
 
-值得庆幸的是，keras-surgeon 库提供了非常简单的方法来有效地修改经过训练的 Keras 模型。基于 Keras 的简易性，keras-surgeon 使您可以使用简单的 delete_channels_method（）从层中轻松删除神经元或通道。该库还具有一个识别模块，可让您计算特定层中神经元的 APoZ 指标。Keras-surgeon 库很棒，几乎可以在任何 Keras 模型上工作（不仅限于 CNN），让我们向 Keras-surgeon 库的作者 Ben Whetton 致敬。这是该[项目]（https://github.com/BenWhetton/keras-surgeon）的链接。
+值得庆幸的是，keras-surgeon 库提供了非常简单的方法来有效地修改经过训练的 Keras 模型。基于 Keras 的简易性，keras-surgeon 使您可以使用简单的 delete_channels_method() 从层中轻松删除神经元或通道。该库还具有一个识别模块，可让您计算特定层中神经元的 APoZ 指标。Keras-surgeon 库很棒，几乎可以在任何 Keras 模型上工作（不仅限于 CNN），让我们向 Keras-surgeon 库的作者 Ben Whetton 致敬。这是该[项目]（https://github.com/BenWhetton/keras-surgeon）的链接。
 
 让我们实现 keras-surgeon 来修剪掉上一节中确定的通道。在对模型进行修剪后，我们还必须使用 Keras 中标准的 .compile（）模块对模型重新编译。
 
