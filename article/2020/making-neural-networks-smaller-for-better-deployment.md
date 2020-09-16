@@ -9,7 +9,7 @@
 
 ![Credit [JC Gellidon](https://unsplash.com/@jcgellidon?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*tGuAv2o2UGUDsC1RDtLPFA.jpeg)
 
-数据科学和机器学习领域存在一种明显趋势，训练的模型越来越大。这些模型的性能接近人类，但通常太大，以至于无法部署在资源有限的设备上，例如手机或无人机。这是阻碍AI在我们日常生活中广泛使用的主要障碍之一。
+数据科学和机器学习领域存在一种明显趋势，训练的模型越来越大。这些模型的性能接近人类，但通常太大，以至于无法部署在手机或无人机之类的资源有限的设备上。这是导致我们无法在日常生活中广泛使用 AI 的主要障碍之一。
 
 **我如何在 15Mb 的移动应用程序中安装 98Mb 的 ResNet 模型？**
 
