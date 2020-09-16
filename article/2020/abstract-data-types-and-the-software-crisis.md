@@ -124,7 +124,7 @@ The stack axioms deal primarily with stack and item identity, the sequence of th
 
 Pushing and popping have no side-effects. If you push to a stack and immediately pop from the same stack, the stack should be in the state it was before you pushed.
 
-```
+```js
 pop(push(a, stack())) = [a, stack()]
 ```
 
@@ -135,7 +135,7 @@ pop(push(a, stack())) = [a, stack()]
 
 Popping from the stack should respect the sequence: Last In, First Out (LIFO).
 
-```
+```js
 pop(push(b, push(a, stack())) = [b, stack(a)]
 ```
 
@@ -146,7 +146,7 @@ pop(push(b, push(a, stack())) = [b, stack(a)]
 
 Popping from an empty stack results in an undefined item value. In concrete terms, this could be defined with a Maybe(item), Nothing, or Either. In JavaScript, it’s customary to use `undefined`. Popping from an empty stack should not change the stack.
 
-```
+```js
 pop(stack()) = [undefined, stack()]
 ```
 
@@ -157,7 +157,7 @@ pop(stack()) = [undefined, stack()]
 
 An abstract data type could have many concrete implementations, in different languages, libraries, frameworks, etc. Here is one implementation of the above stack ADT, using an encapsulated object, and pure functions over that object:
 
-```
+```js
 const stack = (...items) => ({
   push: item => stack(...items, item),
   pop: () => {
@@ -181,7 +181,7 @@ const pop = stack => stack.pop();
 
 And another that implements the stack operations in terms of pure functions over JavaScript’s existing `Array` type:
 
-```
+```js
 const stack = (...elements) => [...elements];
 
 const push = (a, stack) => stack.concat([a]);
@@ -195,7 +195,7 @@ const pop = stack => {
 
 Both versions satisfy the following axiom proofs:
 
-```
+```js
 // A simple assert function which will display the results
 // of the axiom tests, or throw a descriptive error if an
 // implementation fails to satisfy an axiom.
