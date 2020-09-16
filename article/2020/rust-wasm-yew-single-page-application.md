@@ -823,9 +823,9 @@ pub fn get_products(callback: FetchCallback<Vec<Product>>) -> FetchTask {
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-3.png)
 
-## Splitting into reusable components
+## 拆分为可重用组件
 
-Let's extract the "product card" component into its own module so we can reuse it in other pages.
+让我们将 "product card" 组件提取到他自己的模块中以便我们在其他页面中使用它。
 
 ```rust
 // src/components/product_card.rs
@@ -930,10 +930,10 @@ pub use product_card::ProductCard;
   }
 ```
 
-Pretty straightforward, except for `Properties`, `Callback` and `reform`.
+除了 `Properties`、`Callback` 和 `reform` 以外都非常直接。
 
-- `Properties` - As mentioned in the beginning of the post, "Properties" or "Props" are input to a component. If you think of components as functions, then Props are the function arguments.
-- For the `ProductCard` component, we're passing the `Product` struct as well as a `on_add_to_cart` callback. This component doesn't hold any state, so when user clicks on the "Add To Cart" button, this component calls the parent component to update the `cart_products` state. This callback is represented using the `Callback<T>` type and to call this from child component, we either use `emit` or `reform` methods on the callback.
+- `Properties` —— 正如本文开头提到的，"Properties" 或 "Props" 是一个组件的输入。如果你将组件看作函数，那么 Props 就是函数的参数。
+- 对于 `ProductCard` 组件，我们将 `Product` 结构体和一个 `on_add_to_cart` 回调传递给他。这个组件不存储任何状态，所以当用户单击「添加到购物车」按钮时，该组件调用其父组件来更新 `cart_products` 状态。这个回调以 `Callback<T>` 类型呈现，而要从子组件中调用它，我们在回调上使用 `emit` 或 `reform` 方法。
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-4.png)
 
