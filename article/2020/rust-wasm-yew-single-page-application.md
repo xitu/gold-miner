@@ -937,15 +937,15 @@ pub use product_card::ProductCard;
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-4.png)
 
-## Styling
+## 样式
 
-The UI looks barebones as we haven't added any styles.
+由于我们尚未添加任何样式，因此 UI 看起来像很简陋。
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-3.png)
 
-We can either use the [class attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class) or [inline styles](https://developer.mozilla.org/en-US/docs/Web/API/ElementCSSInlineStyle/style) with Yew. Let's add some styles so the UI looks good.
+我们可以在 Yew 中使用 [类属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class) 或 [内联样式](https://developer.mozilla.org/en-US/docs/Web/API/ElementCSSInlineStyle/style)。让我们添加一些样式来让 UI 好看起来吧。
 
-Let's create a new CSS file `static/styles.css`, add it to `static/index.html` and then we can start using the classes in our components.
+我们创建一个新的 CSS 文件 `static/styles.css`，将其添加到 `static/index.html` 中然后我们就可以开始在我们的组件中使用类了。
 
 ```diff
   // src/pages/home.rs
@@ -982,11 +982,11 @@ Let's create a new CSS file `static/styles.css`, add it to `static/index.html` a
   }
 ```
 
-After adding the styles and a few more products, here's how the UI looks like:
+添加了样式和更多产品之后，UI 如下所示：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-4.png)
 
-CSS changes are outside the scope of this post, please refer to the [GitHub repo](https://github.com/sheshbabu/rustmart-yew-example).
+CSS 更改不在本文讨论范围之内，请参考 [该 GitHub 仓库](https://github.com/sheshbabu/rustmart-yew-example)。
 
 ## Routing
 
