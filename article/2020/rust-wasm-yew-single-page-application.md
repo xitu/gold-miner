@@ -1104,11 +1104,11 @@ impl Component for App {
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-5.png)
 
-## ProductDetailPage
+## 产品详情页
 
-Now that we have a router in place, let's use it to navigate from one page to another. Since it's a SPA, we should avoid page reload while navigating.
+既然我们有了路由，就让我们用它来从一个页面导航到另外一个。由于这是一个 SPA，因此我们应该避免在导航时重新加载页面。
 
-Let's add a route for ProductDetailPage under `/product/:id`. When the user clicks on a `ProductCard`, it will go to its detail page with the `id` in the route passed as a Prop.
+我们为产品详情页在 `/product/:id` 下面添加一个路由。当用户单击一个 `ProductCard`，将会转到其详情页，其中路由中的 `id` 将会作为 Prop 被传进去。
 
 ```diff
   // src/route.rs
@@ -1123,9 +1123,9 @@ Let's add a route for ProductDetailPage under `/product/:id`. When the user clic
   }
 ```
 
-Note that the order of the routes above determines which page gets rendered first. For example, the url `/product/2` matches both `/product/{id}` and `/` but since we wrote `/product/{id}` first, the `ProductDetail` page gets rendered instead of `Home`.
+请注意，上述路由的顺序决定了哪个页面会首先被渲染。比如，网址 `/product/2` 既匹配 `/product/{id}` 也匹配 `/`，但是我们将 `/product/{id}` 写在前，所以将会渲染 `ProductDetail` 页面而不是 `Home`。
 
-Add this route to `app.rs`:
+将这个路由添加到 `app.rs` 中：
 
 ```diff
   use yew::prelude::*;
@@ -1153,7 +1153,7 @@ Add this route to `app.rs`:
   }
 ```
 
-Let's update the `ProductCard` so clicking on the product image, name or price takes us to this new page:
+让我们更新 `ProductCard`，来让单击产品图片、名称或价格时会导航到这个新页面：
 
 ```diff
   // src/components/product_card.rs
@@ -1185,9 +1185,9 @@ Let's update the `ProductCard` so clicking on the product image, name or price t
   }
 ```
 
-Notice how we used `classes` instead of `class` for `Anchor`.
+注意到，我们对于 `Anchor` 是如何使用 `classes` 而不是 `class`。
 
-We'll create files named `static/products/1.json`, `static/products/2.json` etc with mock data:
+我们将创建名为 `static/products/1.json`、`static/products/2.json` 等包含模拟数据的文件：
 
 ```json
 {
@@ -1199,7 +1199,7 @@ We'll create files named `static/products/1.json`, `static/products/2.json` etc 
 }
 ```
 
-Let's update the `api.rs` module with the new route:
+让我们用新的路由来更新 `api.rs` 模块：
 
 ```diff
   use crate::types::Product;
@@ -1228,7 +1228,7 @@ Let's update the `api.rs` module with the new route:
 + }
 ```
 
-Finally, here's the `ProductDetail` page component:
+最后，这是 `ProductDetail` 页面组件：
 
 ```rust
 // src/pages/product_detail.rs
@@ -1344,7 +1344,7 @@ impl Component for ProductDetail {
 }
 ```
 
-Very similar to the HomePage component. Let's also add this file to the module tree:
+和主页组件非常相似。让我们也将这个文件加入到模块树中：
 
 ```diff
   // src/pages/mod.rs
@@ -1355,43 +1355,43 @@ Very similar to the HomePage component. Let's also add this file to the module t
 + pub use product_detail::ProductDetail;
 ```
 
-This is how it looks like:
+（现在）是这样的：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-5.png)
 
-We can now move between multiple pages without refreshing the page!
+现在我们可以在多个页面之间移动而无需重新加载页面了！
 
-## State Management
+## 状态管理
 
-One thing you might have noticed in the `ProductDetail` page is that clicking on the "Add To Cart" button doesn't update the cart. This is because the state that holds the list of products in cart `cart_products` currently resides inside `Home` page component:
+您可能已经注意到一点：在 `ProductDetail` 页面中，单击「添加到购物车」按钮并没有更新购物车。这是因为存储购物车 `cart_products` 里产品列表的状态目前在 `Home` 页面组件中：
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-6.png)
 
-To share state between two components, we can either:
+我们可以通过下面任意一种方式来在两个组件之间共享状态：
 
-- Hoist the state to a common ancestor
-- Move state to global app state
+- 将状态提升到一个共同的祖先里
+- 将状态移动到全局应用状态里
 
-The `App` component is a common ancestor to both `ProductDetail` and `Home`. We can move the `cart_products` state there and pass it as props to `ProductDetail` and `Home`.
+`App` 组件是 `ProductDetail` 和 `Home` 的一个共同祖先。我们可以将 `cart_products` 状态移动到那里，然后将其作为 props 传向 `ProductDetail` 和 `Home`。
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-7.png)
 
-This works fine for shallow component hierarchies but when you have deep component hierarchy (which is common in larger SPAs), you'll need to pass this state through multiple layers of components (which might not have use for this prop) to reach the desired node. This is called "Prop Drilling".
+这适用于浅层组件层次结构，但是当您具有深层组件层次结构（这在较大 SPA 中很常见），你将需要通过多层组件（可能并不使用该 prop）传递状态来抵达目标节点。这被称为「Prop Drilling」。
 
-You can see that `cart_products` is now passed from `App` to `AddToCart` component via `ProductDetail` and `Home` even though they have no use for this state. Imagine the same scenario with components many layers deep.
+您可以看到 `cart_products` 现在通过 `ProductDetail` 和 `Home` 从 `App` 传到了 `AddToCart` 组件，即使他们用不到这个状态。想象一下相同的场景，其中的组件有很多层。
 
-This is the problem the global state solves. Here's how it would look like:
+这就是全局状态所解决的问题。它是这样的：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-8.png)
 
-Notice how there's a direct link between the components that need this state and the global state.
+请注意在那些需要该状态的组件和全局状态之间是如何存在一个直接链接的。
 
-Unfortunately, Yew doesn't seem to have a [good solution](https://github.com/yewstack/yew/issues/576) for this. The recommended solution is to use `Agents` for broadcasting state changes via pubsub. This is something I stay away from as it gets messy fast. I hope in future we see something similar to React's [Context](https://reactjs.org/docs/context.html), Redux or Mobx etc.
+不幸的是，Yew 对此似乎没有一个 [好的解决方案](https://github.com/yewstack/yew/issues/576)。推荐的解决方案是使用 `Agents` 通过 pubsub（发布订阅）来广播状态变化。这是我不愿做的事，因为它会很快变得难以处理。我希望在未来我们能够看到一些像 React 的 [Context](https://reactjs.org/docs/context.html)、Redux 或 Mobx 等等。
 
-Let's solve our problem by hoisting the state.
+让我们来通过提升状态（所处的层级）来解决我们的问题。
 
-## Hoisting State
+## 提升状态
 
-We'll be refactoring our code by moving `cart_products` state to `App` and extracting `Navbar` and `AtcButton` as separate components:
+我们将重构我们的代码，将 `cart_products` 状态移动到 `App` 并将 `Navbar` 和 `AtcButton` 提取为单独组件：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-9.png)
 
@@ -1443,7 +1443,7 @@ impl Component for Navbar {
 }
 ```
 
-Notice how we started using the `change` lifecycle methods in the `Navbar` component. When the props sent from parent changes, we need to update the props inside the component so the UI re-renders.
+注意到我们如何在 `Navbar` 组件中开始使用 `change` 生命周期方法。当从父（组件）传来的 props 发生变化，我们需要更新该组件中的 props 以让 UI 重新渲染。
 
 ```rust
 // src/components/atc_button.rs
@@ -1506,7 +1506,7 @@ impl Component for AtcButton {
   pub use product_card::ProductCard;
 ```
 
-Use the new `AtcButton` in `ProductCard` and `ProductDetail`:
+在 `ProductCard` 和 `ProductDetail` 中使用新的 `AtcButton`：
 
 ```diff
   // src/components/product_card.rs
@@ -1589,7 +1589,7 @@ Use the new `AtcButton` in `ProductCard` and `ProductDetail`:
   }
 ```
 
-Finally, move the `cart_products` state from `Home` to `App`:
+最后，将 `cart_products` 状态从 `Home` 移动到 `App`：
 
 ```diff
   // src/app.rs
@@ -1840,20 +1840,20 @@ Finally, move the `cart_products` state from `Home` to `App`:
   }
 ```
 
-Now we can finally add to cart from `ProductDetail` page and we can also see the navbar in all pages
+现在我们终于能够在 `ProductDetail` 页面添加（产品）到购物车并且我们也能够在所有页面看到导航栏
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-6.png)
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-4.png)
 
-We've successfully built a SPA fully in Rust!
+我们已经用 Rust 成功搭建了一个 SPA！
 
-I've hosted the demo [here](https://rustmart-yew.netlify.app) and the code is in this [GitHub repo](https://github.com/sheshbabu/rustmart-yew-example). If you have questions or suggestions, please contact me at sheshbabu [at] gmail.com.
+我已经将 demo 托管到 [这里](https://rustmart-yew.netlify.app) 并且代码在这个 [GitHub 仓库](https://github.com/sheshbabu/rustmart-yew-example)。如果您有问题或建议，请通过 sheshbabu [at] gmail.com 联系我。
 
 ## 总结
 
-The Yew community has done a good job designing abstractions like `html!`, `Component` etc so someone like me who's familiar with React can immediately start being productive. It definitely has some rough edges like FetchTask, lack of [_predictable_](https://redux.js.org/introduction/motivation) state management and the documentation is sparse, but has potential to become a good alternative to React, Vue etc once these issues are fixed.
+Yew 社区已经在设计像 `html!`、`Component` 等等的抽象做得很好，所以像我这种熟悉 React 的人可以立即开始工作。它肯定有一些像 FetchTask、缺乏 [**可预测性**](https://redux.js.org/introduction/motivation) 状态管理以及文档较少的粗糙的点，但是一旦这些问题被解决，他是有潜力成为 React、Vue 等的一个很好的替代品的。
 
-Thanks for reading! Feel free to follow me in [Twitter](https://twitter.com/sheshbabu) for more posts like this :)
+感谢阅读！ Thanks for reading! 欢迎关注我的 [Twitter](https://twitter.com/sheshbabu) 以阅读更多类似的文章 :)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
