@@ -7,8 +7,6 @@
 
 # Abstract Data Types and the Software Crisis
 
-#### How Abstractions Help Us Manage Software Complexity
-
 ![Image: [MattysFlicks — Smoke Art — Cubes to Smoke](https://www.flickr.com/photos/68397968@N07/11432696204) ([CC BY 2.0](https://creativecommons.org/licenses/by/2.0/))](https://cdn-images-1.medium.com/max/4096/1*DSu4IJYOeNzJbQIip9oTVg.jpeg)
 
 > **Note:** This is part of the “Composing Software” serie**s [(now a book!)](https://leanpub.com/composingsoftware)** on learning functional programming and compositional software techniques in JavaScriptES6+ from the ground up. Stay tuned. There’s a lot more of this to come!**
