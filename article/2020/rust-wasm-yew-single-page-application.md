@@ -988,20 +988,20 @@ pub use product_card::ProductCard;
 
 CSS 更改不在本文讨论范围之内，请参考 [该 GitHub 仓库](https://github.com/sheshbabu/rustmart-yew-example)。
 
-## Routing
+## 路由
 
-In server rendered pages (Jinja, ERB, JSP etc), each page the user sees is mapped to a different template file. For example, when the user navigates to "/login", it's rendered in server using "login.html" and when the user goes to "/settings", it's rendered using "settings.html". Using unique urls for different UI pages is also useful for bookmarking and sharing.
+在服务端渲染的页面中（Jinja、ERB、JSP 等等），每个用户看到的页面都映射到不同的模板文件。例如，当用户导航到「/login」时，（页面）是使用「login.html」在服务器上渲染出来的；而当用户转到「/settings」页面，是使用「settings.html」渲染出来的。不同的 UI 页面使用唯一的网址也有助于（收藏）书签和共享。
 
-Since SPAs only have one html page (the "Single Page" in SPA), we should be able to replicate the above behavior. This is done using a `Router`. A Router maps different url paths (with query params, fragments etc) to different page components and helps in navigating between multiple pages without reloading.
+由于 SPA 中仅有一个 html 页面（SPA 中的「Single Page」，「单个页面」），所以我们应该能够复制上述行为。这是通过一个 `Router`（路由）完成的。路由将不同的网址路径（带有查询参数、片段等）映射到不同的页面组件，并有助于在多个页面之间导航而无需重新加载。 
 
-For our application, we'll be using this mapping:
+对于我们的应用，我们将使用如下映射：
 
 ```diff
 /            => HomePage
 /product/:id => ProductDetailPage
 ```
 
-Let's install `yew-router`:
+让我们安装 `yew-router`：
 
 ```diff
   [package]
@@ -1023,7 +1023,7 @@ Let's install `yew-router`:
   serde = { version = "1.0", features = ["derive"] }
 ```
 
-Let's add the routes in a dedicated file so it's easier to see all available routes at a glance:
+让我们将路由添加到一个专用的文件中，以便一目了然地查看所有可用路由：
 
 ```rust
 // src/route.rs
@@ -1037,9 +1037,9 @@ pub enum Route {
 
 ```
 
-For the time being, it only has one route. We'll add more later.
+目前只有一个路由。我们稍后会添加更多。
 
-Let's create a new file called `src/app.rs` to replace `HomePage` as the new root component:
+我们创建一个新文件 `src/app.rs` 来替代 `HomePage` 作为根组件：
 
 ```rust
 use yew::prelude::*;
@@ -1078,7 +1078,7 @@ impl Component for App {
 }
 ```
 
-Let's make the corresponding change in `lib.rs`:
+让我们在 `lib.rs` 中做相应的改动：
 
 ```diff
   mod api;
@@ -1100,7 +1100,7 @@ Let's make the corresponding change in `lib.rs`:
   }
 ```
 
-This is how our component hierarchy looks like so far:
+到目前为止，这就是我们的组件层次结构：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-5.png)
 
