@@ -171,11 +171,11 @@ $ cargo make serve
 
 不同的库在具体的细节上会有所不同，但这应该能够给你一个总体的思想。如果你是新手，这种思维方式可能需要一段时间才能「点击」并习惯。
 
-## HomePage
+## 主页
 
-Let's build the HomePage first. We'll be building the HomePage as a monolithic component and later decompose it into smaller reusable components.
+我们先构建主页。我们先将主页构建为一个整体的组件，然后再把它分解成更小的可重用组件。 
 
-Let's create the following files:
+让我们创建以下文件：
 
 ```rust
 // src/pages/home.rs
@@ -212,7 +212,7 @@ mod home;
 pub use home::Home;
 ```
 
-Let's update the `src/lib.rs` to import the HomePage component:
+让我们更新 `src/lib.rs` 来导入主页组件：
 
 ```diff
   // src/lib.rs
@@ -252,14 +252,14 @@ Let's update the `src/lib.rs` to import the HomePage component:
   }
 ```
 
-Now, you should see "Home Sweet Home!" instead of "Hello World!" rendered in your browser.
+现在，你应该看到「Home Sweet Home!」而不是「Hello World!」渲染在你的浏览器中。
 
-Let's start designing the `State` of this component:
+让我们开始设计这个组件的 `State`（状态）：
 
-- We need to store a list of products retrieved from server
-- Store the products the user has added to cart
+- 我们需要存储一个从服务器获取的产品列表
+- 存储用户已经添加到到购物车的产品
 
-We create a simple struct to hold the `Product` details:
+我们创建一个简单的结构体来存储 `Product` 的详细信息：
 
 ```rust
 struct Product {
@@ -270,7 +270,7 @@ struct Product {
 }
 ```
 
-We then create a new struct `State` with field called `products` to hold the products from server:
+我们接着创建一个新的结构体 `State`，它包含 `products` 字段来存储从服务器获取的产品：
 
 ```rust
 struct State {
@@ -278,7 +278,7 @@ struct State {
 }
 ```
 
-Here's the full list of changes in the HomePage component:
+这是主页组件中更改的完整列表：
 
 ```diff
   use yew::prelude::*;
@@ -360,19 +360,19 @@ Here's the full list of changes in the HomePage component:
   }
 ```
 
-The `create` lifecycle method is invoked when the component is created and this is where we set the initial state. For the time being, we've created a mock list of products and assigned it to the `products` inside the state as initial value. Later, we'll fetch this list using network request.
+当组件被创建时， `create` 生命周期方法会被调用，这就是我们设置初始状态的地方。目前，我们已经创建了一个产品模拟列表并将其赋值到状态中的 `products` 字段作为初始状态。稍后，我们将使用网络请求获取这个列表。
 
-The `view` lifecycle method is invoked when the component is rendered. Here we've iterated over `products` inside state to generate product cards. If you're familiar with React, this is same as the `render` method and the `html!` macro is similar to `JSX`.
+当组件被渲染时， `view` 生命周期方法会被调用。这就是我们遍历状态中的 `products` 字段来生成产品卡片的地方。如果你熟悉 React，这和 `render` 方法是一样的，而且 `html!` 宏和 `JSX` 是类似的。
 
-Save some random images as `static/products/apple.png` and `static/products/banana.png` and you'll get this UI:
+将一些随机图片存储为 `static/products/apple.png` 和 `static/products/banana.png` 然后你将得到如下 UI：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-2.png)
 
-Let's implement the "add to cart" functionality:
+让我们来实现「添加到购物车」的功能：
 
-- We keep track of all products added to cart in a new state field called `cart_products`
-- We render a "add to cart" button for each product
-- Add logic to update the `cart_products` state when "add to cart" button is clicked
+- 我们在一个新的叫作 `cart_products` 的字段记录所有被添加到购物车的产品
+- 我们为每一个产品渲染一个「添加到购物车」的按钮
+- 增加当「添加到购物车」按钮被单击时更新 `cart_products` 状态的逻辑
 
 ```diff
   use yew::prelude::*;
@@ -509,15 +509,15 @@ Let's implement the "add to cart" functionality:
 
 ```
 
-- `clone` - We've derived the [`Clone`](https://doc.rust-lang.org/std/clone/trait.Clone.html) trait in `Product` struct so we can save the cloned `Product` into `CartProduct` whenever the user adds them to cart.
-- `update` - This method is the place where the logic to update the component `State` or perform side-effects (like network requests) exist. It is invoked using a `Message` enum that contains all the actions the component supports. When we return `true` from this method, the component is re-rendered. In the above code, when the user clicks the "Add To Cart" button, we send a `Msg::AddToCart` message to `update`. Inside `update`, this either adds the product to `cart_product` if it doesn't exist or it increments the quantity.
-- `link` - This allows us to register callbacks that can trigger our `update` lifecycle method.
+- `clone` —— 我们派生 `Product` 结构体中的 [`Clone`](https://doc.rust-lang.org/std/clone/trait.Clone.html) trait，因此只要用户将产品添加到购物车，我们就可以将克隆的 `Product` 存储到 `CartProduct` 中。
+- `update` —— 此方法就是更新组件 `State` 或执行次要功能（比如网络请求）的逻辑所在。它使用包含组件支持所有动作的 `Message` 枚举来调用。当我们从这个方法返回 `true` 时，该组件会被重新渲染。在上面的代码中，当用户单击「添加到购物车」按钮时，我们发送一个 `Msg::AddToCart` 消息到 `update`。在 `update` 内部，这会将产品添加到 `cart_product` 中（如果不存在）或增加其数量。
+- `link` —— 这使得我们注册可以触发我们 `update` 生命周期方法的回调。
 
-If you've used [Redux](https://redux.js.org) before, `update` is similar to [`Reducer`](https://redux.js.org/basics/reducers) (for state updates) and [`Action Creator`](https://redux.js.org/basics/actions#action-creators) (for side-effects), `Message` is similar to [`Action`](https://redux.js.org/basics/actions) and `link` is similar to [`Dispatch`](https://redux.js.org/basics/store#dispatching-actions).
+如果你之前用过 [Redux](https://redux.js.org)，`update` 类似于 [`Reducer`](https://redux.js.org/basics/reducers) (对于状态更新) 和 [`Action Creator`](https://redux.js.org/basics/actions#action-creators) (对于次要功能)，`Message` 类似于 [`Action`](https://redux.js.org/basics/actions)，`link` 类似于 [`Dispatch`](https://redux.js.org/basics/store#dispatching-actions)。
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-2.png)
 
-Here's how the UI looks like, try clicking the "Add To Cart" button and see the changes in "Cart Value":
+UI 如下所示，试试单击「添加到购物车」按钮然后看看「购物车价值」的变化：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-3.png)
 
