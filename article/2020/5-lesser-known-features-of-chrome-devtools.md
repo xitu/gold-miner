@@ -37,7 +37,7 @@
 
 打开设计模式，你可以直接编辑所有内容
 
-![](https://cdn-images-1.medium.com/max/NaN/0*bZm_fnZYh8CzTIe-.gif)
+![0*bZm_fnZYh8CzTIe-](https://user-images.githubusercontent.com/5164225/93283292-d2e3f800-f802-11ea-85ee-6959bdea35ba.gif)
 
 ---
 
