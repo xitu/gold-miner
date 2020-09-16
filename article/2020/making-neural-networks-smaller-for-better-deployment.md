@@ -317,7 +317,7 @@ def prune_model(model, perc, opt, method='l1', layer=None):
 
 ![逐步增加使用 L1 范数，APOZ 和 随机剪裁技术修剪模型权重百分比的模型性能变化](https://cdn-images-1.medium.com/max/2612/1*bva_R5vv7xKJFbrm2PJb0A.png)
 
-在几篇论文中已经观察到了这一点，并且可以将其解释为 post-training network regularization。即使您不想压缩模型，你也可以尝试把剪枝技术作为提高模型泛化能力的一种方法。
+在几篇论文中已经观察到了这一点，并且可以将其解释为对神经网络训练后的再正则化（post-training network regularization）。即使您不想压缩模型，你也可以尝试把剪枝技术作为提高模型泛化能力的一种方法。
 
 **4. 再训练！**
 
