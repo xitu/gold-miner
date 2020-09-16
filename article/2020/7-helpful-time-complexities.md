@@ -186,7 +186,7 @@ def find_duplicates(list_: List[Any]) -> Set[Any]:
 
 ```Python
 def nth_fibonacci_term(n: int) -> int:
-    """递归的计算斐波纳契数列的第 n 项。假设 n 是整数。"""
+    """递归计算斐波纳契数列的第 n 项。假设 n 是整数。"""
     # 基本情况 —— 前两项的值为 {0，1}
     if n <= 2:
         return n - 1
