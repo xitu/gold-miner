@@ -509,7 +509,7 @@ struct State {
 
 ```
 
-- `clone` —— 我们派生 `Product` 结构体中的 [`Clone`](https://doc.rust-lang.org/std/clone/trait.Clone.html) trait，因此只要用户将产品添加到购物车，我们就可以将克隆的 `Product` 存储到 `CartProduct` 中。
+- `clone` —— 我们派生 `Product` 结构体中的 [`Clone`](https://doc.rust-lang.org/std/clone/trait.Clone.html) 接口，因此只要用户将产品添加到购物车，我们就可以将克隆的 `Product` 存储到 `CartProduct` 中。
 - `update` —— 此方法就是更新组件 `State` 或执行次要功能（比如网络请求）的逻辑所在。它使用包含组件支持所有动作的 `Message` 枚举来调用。当我们从这个方法返回 `true` 时，该组件会被重新渲染。在上面的代码中，当用户单击「添加到购物车」按钮时，我们发送一个 `Msg::AddToCart` 消息到 `update`。在 `update` 内部，这会将产品添加到 `cart_product` 中（如果不存在）或增加其数量。
 - `link` —— 这使得我们注册可以触发我们 `update` 生命周期方法的回调。
 
@@ -521,9 +521,9 @@ UI 如下所示，试试单击「添加到购物车」按钮然后看看「购�
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-3.png)
 
-## Fetching Data
+## 获取数据
 
-We'll move the product data from the `create` function to `static/products/products.json` and query it using the [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) api.
+我们将产品数据从 `create` 函数移动到 `static/products/products.json` 并使用 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) api 进行查询。
 
 ```json
 [
@@ -544,7 +544,7 @@ We'll move the product data from the `create` function to `static/products/produ
 ]
 ```
 
-Yew exposes common browser apis like fetch, localstorage etc through something called ["services"](https://docs.rs/yew/0.17.2/yew/services/index.html). We can use the `FetchService` to make network requests. It requires `anyhow` and `serde` crates, let's install them:
+Yew 通过叫作 ["services"](https://docs.rs/yew/0.17.2/yew/services/index.html) 的东西来暴露常见的浏览器 api，比如 fetch、localstorage 等等。我们可以使用 `FetchService` 来发起网络请求。这需要 `anyhow` 和 `serde` 库，我们来安装他们：
 
 ```diff
   [package]
@@ -563,7 +563,7 @@ Yew exposes common browser apis like fetch, localstorage etc through something c
 + serde = { version = "1.0", features = ["derive"] }
 ```
 
-Let's extract the `Product` and `CartProduct` to `src/types.rs` so we can share it across multiple files:
+我们将 the `Product` 和 `CartProduct` 提取到 `src/types.rs`，以此我们可以跨文件共享他们：
 
 ```rust
 use serde::{Deserialize, Serialize};
@@ -585,9 +585,9 @@ pub struct CartProduct {
 
 ```
 
-We've made both structs and their fields public, and have derived the `Deserialize` and `Serialize` traits.
+我们已经将两个结构体和它们的字段公开了，并且派生了 `Deserialize` 和 `Serialize` 接口。
 
-We'll use the [API module pattern](http://www.sheshbabu.com/posts/organizing-http-requests-using-api-module-pattern/) and create a separate module called `src/api.rs` to hold our fetch logic:
+我们将使用 [API 模块模式](http://www.sheshbabu.com/posts/organizing-http-requests-using-api-module-pattern/) 并创建一个单独的叫作 `src/api.rs` 的模块来存储我们的获取逻辑：
 
 ```rust
 // src/api.rs
@@ -609,9 +609,9 @@ pub fn get_products(callback: FetchCallback<Vec<Product>>) -> FetchTask {
 }
 ```
 
-The `FetchService` api is a bit awkward - it takes in a request object and callback as arguments and returns something called a "FetchTask". One surprising gotcha here is that the network request gets aborted if this "FetchTask" is dropped. So we return this and store it in our component.
+`FetchService` api 有一点奇怪 —— 他接收一个请求对象和回调作为参数并返回一个叫作 "FetchTask" 的东西。这里有一个令人惊讶的陷阱：如果该 "FetchTask" 被遗弃了，那么网络请求将被中止。所以我们将它返回并保存在我们的组件中。
 
-Let's update `lib.rs` to add these new modules into the [module tree](http://www.sheshbabu.com/posts/rust-module-system/):
+让我们更新 `lib.rs` 来添加这些新模块到 [模块树](http://www.sheshbabu.com/posts/rust-module-system/) 中：
 
 ```diff
   // src/lib.rs
@@ -629,7 +629,7 @@ Let's update `lib.rs` to add these new modules into the [module tree](http://www
   }
 ```
 
-Finally, let's update our HomePage component:
+最后，我们来更新我们的主页组件：
 
 ```diff
 + use crate::api;
@@ -814,12 +814,12 @@ Finally, let's update our HomePage component:
 
 ```
 
-Quite a number of changes, but you should be able to understand most of them.
+有很多更改，但您应该能够理解他们中的大部分。
 
-- We've replaced the hardcoded products list in `create` with an empty array. We're also sending a message `Msg::GetProducts` to `update` which calls the `get_products` method in the `api` module. The returned `FetchTask` is stored in `task`.
-- When the network request succeeds, the `Msg::GetProductsSuccess` message is called with products list or `Msg::GetProductsError` with error.
-- These two messages set the `products` and `get_products_error` fields in state respectively. They also set the `get_products_loaded` state to true after the request is fulfilled.
-- In the `view` method, we've used conditional rendering to render either the loading view, error view or products view based on the component's state.
+- 我们已经将 `create` 中硬编码的产品列表替换为了一个空的数组。我们还向 `update` 发送 `Msg::GetProducts`，它将调用 `api` 模块中的 `get_products` 方法。返回的 `FetchTask` 会被存储到 `task` 中。
+- 当网络请求成功时， `Msg::GetProductsSuccess` 消息与（相应的）产品列表会被调用，或者 `Msg::GetProductsError` 与（相应的）错误会被调用.
+- 这两个消息分别设置了状态中的 `products` 和 `get_products_error` 字段。在请求完成后，他们还会将状态中的 `get_products_loaded` 赋值为真。
+- 在 `view` 方法中，我们使用了条件渲染基于组件的状态来渲染正在加载视图、错误视图或产品视图。
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/rust-wasm-yew-single-page-application-3.png)
 
