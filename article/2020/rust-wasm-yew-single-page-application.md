@@ -1853,7 +1853,7 @@ impl Component for AtcButton {
 
 Yew 社区已经在设计像 `html!`、`Component` 等等的抽象做得很好，所以像我这种熟悉 React 的人可以立即开始工作。它肯定有一些像 FetchTask、缺乏 [**可预测性**](https://redux.js.org/introduction/motivation) 状态管理以及文档较少的粗糙的点，但是一旦这些问题被解决，他是有潜力成为 React、Vue 等的一个很好的替代品的。
 
-感谢阅读！ Thanks for reading! 欢迎关注我的 [Twitter](https://twitter.com/sheshbabu) 以阅读更多类似的文章 :)
+感谢阅读！欢迎关注我的 [Twitter](https://twitter.com/sheshbabu) 以阅读更多类似的文章 :)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
