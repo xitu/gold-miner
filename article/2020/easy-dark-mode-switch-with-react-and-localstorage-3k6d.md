@@ -223,7 +223,6 @@ In case the dark mode was already off we will want to turn it on. To do that we 
 }
 ```
 
-To simplify the example I will use the white color for background and the blue color for text in light mode and we will switch between them when we turn on the dark mode. To do so we will add more CSS variables inside of the light class selector, which will use the variables from the root. We will also modify the font weight when switching themes, as well as the background image below the hello world heading. This is not something I recommend doing, especially for the background image, but it is an option if you want to play around with it.  
 为了简化示例，我将在浅色模式下使用白色作为背景，蓝色用于文本，我们将在打开暗模式时在它们之间切换。为此，我们将在 light 类选择器中添加更多 CSS 变量，后者将使用来自根的变量。我们还将在切换主题时修改字体权重，以及 hello world 标题下的背景图像。我不建议这样做，尤其是对于背景图像，但如果您想使用它，这是一个选项。
 
 ```css
