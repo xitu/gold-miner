@@ -5,7 +5,7 @@
 > * 译者：[Inchill](https://github.com/Inchill)
 > * 校对者：
 
-# 使用 React 和 localStorage 实现的简易 Dark Mode 切换
+# 使用 React 和 localStorage 实现的简易 Dark Mode 开关
 
 ![7x4y32vfxgcyhx8rggob](https://user-images.githubusercontent.com/5164225/93171400-990be680-f75b-11ea-809a-0dac5d0f83a8.jpeg)
 
