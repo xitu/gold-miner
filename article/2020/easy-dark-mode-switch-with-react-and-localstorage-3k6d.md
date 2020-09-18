@@ -2,20 +2,20 @@
 > * 原文作者：[Aleks Popovic](https://dev.to/alekswritescode)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/easy-dark-mode-switch-with-react-and-localstorage-3k6d.md](https://github.com/xitu/gold-miner/blob/master/article/2020/easy-dark-mode-switch-with-react-and-localstorage-3k6d.md)
-> * 译者：
+> * 译者：[Inchill](https://github.com/Inchill)
 > * 校对者：
 
-# Easy Dark Mode Switch with React and localStorage
+# 使用 React 和 localStorage 实现的简易 Dark Mode 切换
 
 ![7x4y32vfxgcyhx8rggob](https://user-images.githubusercontent.com/5164225/93171400-990be680-f75b-11ea-809a-0dac5d0f83a8.jpeg)
 
-Having a dark mode on a website or application has become very popular. Many big websites and applications are coming up with their own version of it and if you want to make one for your own React app you can easily do so with very little JavaScript code and a bit of custom CSS.
+在网站或应用程序上使用深色模式已经非常流行。许多大型网站和应用程序都在开发自己的版本，如果您想为自己的 React 应用程序制作一个版本，只需很少的 JavaScript 代码和一些自定义 CSS 就可以轻松实现。
 
-I am going to show you how you can make a simple, yet versatile React component which you can use to change your website's mode from light to dark. If you want you can later expand it to handle multiple application skins or themes.
+我将向您展示如何制作一个简单但多功能的 React 组件，您可以使用该组件将网站的模式从浅色更改为深色。如果需要，您之后可以扩展它来处理多个应用程序皮肤或主题。
 
-I started a new create-react-app project and I've modified it a bit by adding some HTML to the App component. There is a simple nav bar, some text paragraphs and an image div that we will use to show how to switch image backgrounds between different page modes.
+我启动了一个新的 create-react-app 项目，并通过向 App 组件中添加一些 HTML 对其进行了一些修改。里面有一个简单的导航栏，一些文本段落和一个图像 div，我们将使用它们来演示如何在不同页面模式之间切换图像背景。
 
-I also created a new component in the components folder and named it DarkMode.js. We will also add a CSS file for styling it which we will call DarkMode.css. We can import both of them in the App component right away.  
+我还在 components 文件夹中创建了一个新组件，并将其命名为 DarkMode.js。我们还将添加一个 CSS 样式文件，称为 DarkMode.css。我们可以立即将它们都导入 App 组件中。 
 
 ```jsx
 import React from "react"
@@ -55,7 +55,7 @@ function App() {
 export default App
 ```
 
-We will start building out the component by making it a constant with no inputs and export it as a default. Its basic functionality is going to be returning a button element which we will use to change the mode or theme. Lets import the CSS file right away and we will change its contents later.  
+我们将通过使该组件成为没有输入的常量来开始构建该组件，并将其默认导出。它的基本功能是返回一个按钮元素，我们将使用它来更改模式或主题。让我们立即导入 CSS 文件，稍后我们将更改其内容。
 
 ```jsx
 import React from "react";
@@ -70,7 +70,7 @@ const DarkMode = () => {
 export default DarkMode;
 ```
 
-For everything to work we need to set up a few properties.  
+为了使一切正常，我们需要设置一些属性。
 
 ```jsx
 import React from "react";
@@ -91,11 +91,12 @@ const DarkMode = () => {
 export default DarkMode;
 ```
 
-The body is the document's body element. We need a reference to it so we can apply different styling to it once we click the dark mode button. Light theme and dark theme are going to be the class names that we will apply to the body. Theme is a local property which we will use to handle the currently selected theme or mode.
+body 是文档的 body 元素。我们需要对其进行引用，因此当我们点击深色模式按钮时，便可以对其应用不同的样式。浅色主题和深色主题将成为我们应用于 body 的类名称。主题是一个本地属性，我们将使用它来处理当前选择的主题或模式。
 
 The clicked class is going to be applied to the button when we click on it. This way we will signal the change of its state. Since we are mentioning state you may be wondering if we will use React's state to set up our logic and the answer is no, we will not. We could, but it's a really simple use case that doesn't require it. What we will do is use the local storage, which is browser's internal memory space designed just for stuff like this. It has a limited memory capacity and it's not considered secure, but it's perfect for a situation like this where you just need to keep track of a single property value. Local storage is also very handy because its values persist when you switch the page or close the browser altogether, so you can set the values and not worry about them getting deleted or expiring.
+当我们单击按钮时，clicked 类将被应用于按钮。这样，我们将发出信号通知其状态变更。既然我们提到了状态，您可能会想知道我们是否会使用 React 的状态来建立我们的逻辑，答案是不，我们不会。我们可以，但这是一个非常简单的用例，并不需要它。我们要做的是使用本地存储，这是浏览器的内部存储空间，专为这样的东西而设计。它的内存容量有限，并且被认为是不安全的，但它非常适合这样一种情况，即只需要跟踪单个属性值。本地存储也非常方便，因为当您切换页面或完全关闭浏览器时，它的值将保持不变，因此您可以设置这些值，而不必担心它们被删除或过期。
 
-In terms of JavaScript - the local storage is an object which is a part of the window object, so we can access it directly and try to find an item that's stored inside. For this we use the getItem function and pass in the property we are looking for.  
+就 JavaScript 而言，本地存储是一个对象，它是 window 对象的一部分，因此我们可以直接访问它并尝试查找存储在其中的项。为此，我们使用 getItem 函数并传入要查找的属性。
 
 ```jsx
 import React from "react";
@@ -126,9 +127,9 @@ const DarkMode = () => {
 export default DarkMode;
 ```
 
-In this case we will be expecting to find one of the two values - light or dark, because these are the values we will be setting in the local storage. If we find such value we will add that CSS class to the document body. If not we will default to not using the dark mode by setting the light class. Of course, if you want dark mode to be the default value you can do that too.
+在本例中，我们希望找到两个值中的一个 —— 亮或暗，因为这是我们将在本地存储中设置的值。如果我们找到这样的值，我们将把 CSS 类添加到文档 body 中。如果没有，我们将通过设置 light 类默认不使用深色模式。当然，如果您想要深色模式作为默认值，您也可以这么做。
 
-To make our button do something on click we need to set up an on click event for it which we'll call the switchTheme function. We will also add an id to it so we can style it more easily later, and we will add the clicked class to it if the dark mode is on.  
+为了使我们的按钮能够在点击时执行某些操作，我们需要为其设置一个点击事件，我们将其称为 switchTheme 函数。我们还将向其添加一个 id，以便以后可以更轻松地对其进行样式设置；如果启用了深色模式，我们将向它添加 clicked 类。
 
 ```jsx
 import React from "react";
@@ -177,11 +178,12 @@ const DarkMode = () => {
 export default DarkMode;
 ```
 
-The switch theme function is going to check which theme is currently active and do a couple of different things depending on that. If the dark mode is currently on it will replace the dark theme body class with the light one. It will remove the clicked class from the dark mode button and set the local storage theme property to light. Finally, we will set the theme property to light theme, since dark mode will no longer be active.
+switchtheme 函数将检查哪个主题当前处于活动状态，并根据该主题执行一些不同的操作。如果当前处于深色模式，它将用浅色模式替换深色主题 body 类。它将从深色模式按钮中删除单击的类，并将本地存储主题属性设置为 light。最后，我们将 theme 属性设置为 light theme，因为深色模式将不再处于活动状态。
 
 In case the dark mode was already off we will want to turn it on. To do that we will do almost the same thing as before. We replace the light theme body class with the dark one, mark the button as clicked, set the local storage property to dark and finally set the theme to dark.
+如果深色模式已经关闭，而我们想要打开它。为了做到这一点，我们将做几乎和以前一样的事情。我们将 light 主题 body 类替换为 dark，将按钮标记为 clicked，将local storage 属性设置为 dark，最后将主题设置为 dark。
 
-With this, our component is finished and we can import it inside of the App component. Now we need to set up its CSS.  
+这样，我们的组件就完成了，我们可以将其导入到 App 组件中。现在我们需要设置它的 CSS。
 
 ```css
 #darkMode {
@@ -208,11 +210,11 @@ With this, our component is finished and we can import it inside of the App comp
 }
 ```
 
-Our button has the dark mode Id so that's what we will use to style it. For the background image I am using a [moon icon that I found on flaticon.com](https://www.flaticon.com/free-icon/moon_768442). I am setting its dimensions and borders so it's shaped like a circle and I'm adding it a grayscale filter so it looks grayed-out when in default non-clicked state.
+我们的按钮具有深色模式 ID，因此我们将使用它来设置其样式。对于背景图像，我使用在 [flaticon.com 上找到的月亮图标](https://www.flaticon.com/free-icon/moon_768442)。我正在设置其尺寸和边框，使其形状像一个圆形，并为其添加了灰度过滤器，因此在默认的非点击状态下，它看起来是变灰的。
 
-For hover and focus states we are going to remove the filter and set the background to black, so the icon looks like a yellow moon and stars with a night sky background. We will do the same for the clicked button class.
+对于悬停和聚焦状态，我们将移除过滤器并将背景设置为黑色，这样图标看起来就像一个黄色的月亮和星星，背景是夜空。我们将对 clicked button 类执行相同的操作。
 
-Our components CSS is now set up and we need to take care of the two body classes, one for dark mode and one for light mode. To change between two different looks we will use CSS variables. You can declare them anywhere you want if the body element has access to them. As as start we will add two color variables in the root selector.  
+我们的组件 CSS 现在已经设置好了，我们需要处理两个 body 类，一个用于深色模式，一个用于浅色模式。为了在两种不同的外观之间改变，我们将使用 CSS 变量。如果 body 元素可以访问它们，那么可以在任何地方声明它们。首先，我们将在根选择器中添加两个颜色变量。
 
 ```css
 :root {
@@ -222,6 +224,7 @@ Our components CSS is now set up and we need to take care of the two body classe
 ```
 
 To simplify the example I will use the white color for background and the blue color for text in light mode and we will switch between them when we turn on the dark mode. To do so we will add more CSS variables inside of the light class selector, which will use the variables from the root. We will also modify the font weight when switching themes, as well as the background image below the hello world heading. This is not something I recommend doing, especially for the background image, but it is an option if you want to play around with it.  
+为了简化示例，我将在浅色模式下使用白色作为背景，蓝色用于文本，我们将在打开暗模式时在它们之间切换。为此，我们将在 light 类选择器中添加更多 CSS 变量，后者将使用来自根的变量。我们还将在切换主题时修改字体权重，以及 hello world 标题下的背景图像。我不建议这样做，尤其是对于背景图像，但如果您想使用它，这是一个选项。
 
 ```css
 body.light {
@@ -232,7 +235,7 @@ body.light {
 }
 ```
 
-For the dark mode class we will do something similar. We will switch the colors for background and text, give the font a bit more weight and we'll use a different night time image.  
+对于深色模式类，我们将做类似的事情。我们将切换背景和文本的颜色，赋予字体更大的权重，我们将使用不同的夜间图像。
 
 ```css
 body.dark {
@@ -243,7 +246,7 @@ body.dark {
 }
 ```
 
-Now that we have dark and light mode classes set up we need to make the body selector use them, which is easy enough. Just set your properties to use the correct CSS variables. We can also set our background and color transition so the mode switch isn't so sudden.  
+现在我们已经设置了深色模式和浅色模式类，我们需要让主体选择器使用它们，这很简单。只需设置属性以使用正确的 CSS 变量。我们也可以设置背景和颜色过渡，这样模式切换就不会那么突然。
 
 ```css
 body {
@@ -254,7 +257,7 @@ body {
 }
 ```
 
-Of course, we also need to set up the image container to use the image variable.  
+当然，我们还需要设置图像容器以使用 image 变量。
 
 ```css
 #image {
@@ -269,7 +272,7 @@ Of course, we also need to set up the image container to use the image variable.
 }
 ```
 
-If we want to take this a bit further, we can also set up the nav bar to change the background and text color in different modes.  
+如果我们想更进一步，我们也可以设置导航栏来改变不同模式下的背景和文本颜色。
 
 ```css
 nav {
@@ -290,6 +293,7 @@ nav a {
 ```
 
 If you followed through everything you should now have your own functioning customizable dark mode switch built in React. If you want to take a closer look at the project code you can grab the source files on [GitHub](https://github.com/alekspopovic/DarkMode) along with all of the images I used for it.
+如果您遵循了所有步骤，现在应该在 React 中拥有自己的功能自定义的深色模式开关。如果您想仔细查看项目代码，可以在 [GitHub](https://github.com/alekspopovic/DarkMode) 上获取源文件以及我使用的所有图像。
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
