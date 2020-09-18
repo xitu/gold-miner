@@ -93,7 +93,6 @@ export default DarkMode;
 
 body 是文档的 body 元素。我们需要对其进行引用，因此当我们点击深色模式按钮时，便可以对其应用不同的样式。浅色主题和深色主题将成为我们应用于 body 的类名称。主题是一个本地属性，我们将使用它来处理当前选择的主题或模式。
 
-The clicked class is going to be applied to the button when we click on it. This way we will signal the change of its state. Since we are mentioning state you may be wondering if we will use React's state to set up our logic and the answer is no, we will not. We could, but it's a really simple use case that doesn't require it. What we will do is use the local storage, which is browser's internal memory space designed just for stuff like this. It has a limited memory capacity and it's not considered secure, but it's perfect for a situation like this where you just need to keep track of a single property value. Local storage is also very handy because its values persist when you switch the page or close the browser altogether, so you can set the values and not worry about them getting deleted or expiring.
 当我们单击按钮时，clicked 类将被应用于按钮。这样，我们将发出信号通知其状态变更。既然我们提到了状态，您可能会想知道我们是否会使用 React 的状态来建立我们的逻辑，答案是不，我们不会。我们可以，但这是一个非常简单的用例，并不需要它。我们要做的是使用本地存储，这是浏览器的内部存储空间，专为这样的东西而设计。它的内存容量有限，并且被认为是不安全的，但它非常适合这样一种情况，即只需要跟踪单个属性值。本地存储也非常方便，因为当您切换页面或完全关闭浏览器时，它的值将保持不变，因此您可以设置这些值，而不必担心它们被删除或过期。
 
 就 JavaScript 而言，本地存储是一个对象，它是 window 对象的一部分，因此我们可以直接访问它并尝试查找存储在其中的项。为此，我们使用 getItem 函数并传入要查找的属性。
@@ -180,7 +179,6 @@ export default DarkMode;
 
 switchtheme 函数将检查哪个主题当前处于活动状态，并根据该主题执行一些不同的操作。如果当前处于深色模式，它将用浅色模式替换深色主题 body 类。它将从深色模式按钮中删除单击的类，并将本地存储主题属性设置为 light。最后，我们将 theme 属性设置为 light theme，因为深色模式将不再处于活动状态。
 
-In case the dark mode was already off we will want to turn it on. To do that we will do almost the same thing as before. We replace the light theme body class with the dark one, mark the button as clicked, set the local storage property to dark and finally set the theme to dark.
 如果深色模式已经关闭，而我们想要打开它。为了做到这一点，我们将做几乎和以前一样的事情。我们将 light 主题 body 类替换为 dark，将按钮标记为 clicked，将local storage 属性设置为 dark，最后将主题设置为 dark。
 
 这样，我们的组件就完成了，我们可以将其导入到 App 组件中。现在我们需要设置它的 CSS。
@@ -291,7 +289,6 @@ nav a {
 
 ```
 
-If you followed through everything you should now have your own functioning customizable dark mode switch built in React. If you want to take a closer look at the project code you can grab the source files on [GitHub](https://github.com/alekspopovic/DarkMode) along with all of the images I used for it.
 如果您遵循了所有步骤，现在应该在 React 中拥有自己的功能自定义的深色模式开关。如果您想仔细查看项目代码，可以在 [GitHub](https://github.com/alekspopovic/DarkMode) 上获取源文件以及我使用的所有图像。
 
 
