@@ -179,7 +179,7 @@ export default DarkMode;
 
 switchTheme 函数将检查哪个主题当前处于活动状态，并根据该主题执行一些不同的操作。如果当前处于深色模式，它将用浅色模式替换深色主题 body 类。它将从深色模式按钮中删除 clicked 类，并将本地存储 theme 属性设置为 light。最后，我们将 theme 属性设置为 lightTheme，因为深色模式将不再处于活动状态。
 
-如果深色模式已经关闭，而我们想要打开它。为了做到这一点，我们将做几乎和以前一样的事情。我们将 light 主题 body 类替换为 dark，将按钮标记为 clicked，将localStorage 属性设置为 dark，最后将 theme 设置为 dark。
+如果深色模式已经关闭，而我们想要打开它。为了做到这一点，我们将做几乎和以前一样的事情。我们将 light 主题 body 类替换为 dark，将按钮标记为 clicked，将 localStorage 属性设置为 dark，最后将 theme 设置为 darkTheme。
 
 这样，我们的组件就完成了，我们可以将其导入到 App 组件中。现在我们需要设置它的 CSS。
 
