@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/better-composition-in-vue.md](https://github.com/xitu/gold-miner/blob/master/article/2020/better-composition-in-vue.md)
 > * 译者：[tonylua](https://github.com/tonylua)
-> * 校对者：
+> * 校对者：[Gesj\-yean](https://github.com/Gesj-yean), [dupanpan](https://github.com/dupanpan)
 
 # VueJS 中更好的组件组合方式
 
@@ -61,11 +61,11 @@
 
 #### Vue Composition API
 
-感谢新的 Vue Composition API，使得我们可以在不丢失由 Vue 组件提供的反应性或其它特性的前提下，抽出一些逻辑以对其复用。 
+感谢新的 Vue Composition API，使得我们可以在不丢失由 Vue 组件提供的反应性或其它特性的前提下，抽出一些逻辑以来复用它。 
 
 这种方式有助于组织代码、让组件更易读，并有助于降低总体复杂度。作为一种建议，我相信这些应该是重构巨大、复杂和混乱的组件时的首要之事。
 
-我们将抽取与获取数据有关的部分及相关的变量（**loading、error** 等……），当我并不想谈论什么是 Composition API 以及其特性、优点和缺点。
+我们将抽取与获取数据有关的部分及相关的变量（**loading、error** 等……），但我并不想谈论什么是 Composition API 以及其特性、优点和缺点。
 
 让我们来创建一个提供了获取数据必要功能及若干反应式变量的简单函数：
 
