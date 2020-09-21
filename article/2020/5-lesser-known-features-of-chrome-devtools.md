@@ -5,13 +5,13 @@
 > * 译者：[贺雪](https://github.com/Amy-Designer)
 > * 校对者：
 
-# 5个鲜为人知的 Chrome 开发工具的特性
+# 5个鲜为人知的 Chrome 开发者工具的特性
 
 ![](https://cdn-images-1.medium.com/max/3850/1*426iOM0yGx-ihIAp1GD7RQ.png)
 
-## 1. 切换类
+## 1. 切换类名
 
-跳转到 `.cls` 选项卡，可以进行类的切换
+跳转到 `.cls` 选项卡，可以进行类名的切换
 
 ![](https://cdn-images-1.medium.com/max/2000/0*xMFl7REC8Ve1YiJF.gif)
 
@@ -27,15 +27,15 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*heDLZmGRXJQqiZDO.gif)
 
-## 4. 添加类和自动建议
+## 4. 添加类名和自动建议
 
-当您使用 `.cls` 选项卡添加类时，它会联想一些已存在CSS中相似的类，以便于你将他们快速进行比较
+当您使用 `.cls` 选项卡添加类名时，它会联想一些已存在CSS中相似的类，以便于你将他们快速进行比较
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ta6DU34T77aLDwQV.gif)
 
-## 5. 设计模式
+## 5. designMode
 
-打开设计模式，你可以直接编辑所有内容
+使用designMode，你可以直接编辑所有内容
 
 ![0*bZm_fnZYh8CzTIe-](https://user-images.githubusercontent.com/5164225/93283292-d2e3f800-f802-11ea-85ee-6959bdea35ba.gif)
 
@@ -43,7 +43,7 @@
 
 **先这样吧，伙计们!**
 
-希望你能找到一两个新玩意儿来改进你的开发工具的工作流程。干杯！
+希望你能找到一两个新玩意儿来改进你的开发者工具的工作流程。干杯！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
