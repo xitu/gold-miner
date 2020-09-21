@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-lesser-known-features-of-chrome-devtools.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-lesser-known-features-of-chrome-devtools.md)
 > * 译者：[贺雪](https://github.com/Amy-Designer)
-> * 校对者：
+> * 校对者：[calali](https://github.com/calali)   [Xiny](https://github.com/x1ny)
 
-# 5个鲜为人知的 Chrome 开发者工具的特性
+# 5 个鲜为人知的 Chrome 开发者工具的特性
 
 ![](https://cdn-images-1.medium.com/max/3850/1*426iOM0yGx-ihIAp1GD7RQ.png)
 
@@ -35,7 +35,7 @@
 
 ## 5. designMode
 
-使用designMode，你可以直接编辑所有内容
+使用 designMode，你可以直接编辑所有内容
 
 ![0*bZm_fnZYh8CzTIe-](https://user-images.githubusercontent.com/5164225/93283292-d2e3f800-f802-11ea-85ee-6959bdea35ba.gif)
 
