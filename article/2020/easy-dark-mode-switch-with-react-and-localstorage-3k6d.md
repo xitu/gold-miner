@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/easy-dark-mode-switch-with-react-and-localstorage-3k6d.md](https://github.com/xitu/gold-miner/blob/master/article/2020/easy-dark-mode-switch-with-react-and-localstorage-3k6d.md)
 > * 译者：[Inchill](https://github.com/Inchill)
-> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)、[HurryOwen](https://github.com/HurryOwen)
 
 # 使用 React 和 localStorage 实现的简易 Dark Mode 开关
 
