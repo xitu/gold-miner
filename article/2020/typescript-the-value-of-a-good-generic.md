@@ -26,7 +26,6 @@ In other words, Generics provide you with a way of using Types without having to
 The classic example of this used to explain the power of a Generic, is the identity function. This function essentially returns whatever you pass as a parameter, there is nothing fancy about, but if you think about it, how can you define such a function in a typed language?
 
 ```TypeScript
-
 function identity(value: number):number {
   return value;
 }
@@ -35,7 +34,6 @@ function identity(value: number):number {
 The above function works great for numbers, but what about strings? Or booleans? What about custom types? These are all possibilities inside TypeScript, so the obvious choice is to go with the `any` type:
 
 ```TypeScript
-
 function identity(value: any): any {
   return value
 }
@@ -52,31 +50,17 @@ console.log(myVar.length) //this works great!
 myVar = identity(23)
 
 console.log(myVar.length) //this also works, although it prints "undefined" 
-
 ```
 
 Now since we don’t have type information, the compiler is unable to check anything related to our function and our variable, thus we’re running into an unwanted “undefined” (which if we extrapolate this example into a real-world scenario with more complex logic would probably turn into the worst problem).
 
 How do we fix this then and avoid using the `any` type?
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/NaN/0*q1LXHfxl5dnY4pmi.gif)
-
----
-
 #### TypeScript Generics to the Rescue
 
 Like I **tried** to say before: a Generic is like a variable for our types, which means we can define a variable that represents any type, but that keeps the type information at the same time. That last part is key, because that’s exactly what `any` wasn’t doing. With this in mind, we can now re-define our identity function like this:
 
 ```TypeScript
-
 function identity<T>(value: T): T {
   return value;
 }
@@ -104,7 +88,6 @@ The previous example is commonly known as the **“Hello World”** of Generics,
 This one has got to be my favorite thing to do with generics. Consider the following scenario: you have a fixed structure (i.e an object) and you’re trying to access a property of if dynamically. We’ve all done it before, something like:
 
 ```JavaScript
-
 function get(obj, prop) {
   if(!obj[prop]) return null;
   return obj[prop]
@@ -114,7 +97,6 @@ function get(obj, prop) {
 I could’ve used `hasOwnProperty` or something like that, but you get the point, you need to perform a basic structural check to make sure you control the use case in which the property you’re trying to access does not belong to the object. Now, let’s move this into the type-safety land of TypeScript and see how Generics can help us:
 
 ```TypeScript
-
 type Person = {
     name: string,
     age: number,
@@ -124,8 +106,6 @@ type Person = {
 function getPersonProp<K extends keyof Person>(p:Person, key: K): any {
     return p[key]
 }
-
-
 ```
 
 Now, notice how I’m using the Generics notation: I’m not only declaring a generic type K, but I’m also saying it **extends the type of a key of Person.** This is amazing! You can declaratively state you’re either going to pass a value that matches the strings `name` , `age` or `city`. Essentially you declared an enum, which if you think about it, is less exciting than before. But you don’t have to stop there, you can make this more exciting by re-defining this function like this:
@@ -196,7 +176,7 @@ In a nutshell, what Variadic Tuples allow you to do, is to use Generics to defin
 
 A normal tuple definition would yield a fixed-size array with predefined types for all of its elements:
 
-```
+```TypeScript
 type MyTuple = [string, string, number]
 
 let myList:MyTuple = ["Fernando", "Doglio", 37]
@@ -205,7 +185,6 @@ let myList:MyTuple = ["Fernando", "Doglio", 37]
 Now, thanks to Generics and Variadic Tuples, you can do something like this:
 
 ```TypeScript
-
 type MyTuple<T extends unknown[]> = [string, string, ...T, number]
 
 let myList:MyTuple<[boolean, number]> = ["Fernando", "Doglio", true, 3, 37]
@@ -215,7 +194,6 @@ let myList:MyTuple<[number, number, number]> = ["Fernando", "Doglio", 1,2,3,4]
 If you notice, we used a Generic `T` (which extends an array of `unknown`) to put a variable section inside the tuple. Since `T` is a list of `unknown` type, you can put anything in there. You could, potentially, define it to be a list of a single type, like this:
 
 ```TypeScript
-
 type anotherTuple<T extends number[]> = [boolean, ...T, boolean];
 
 let oneNumber: anotherTuple<[number]> = [true, 1, true];
@@ -230,16 +208,6 @@ Sky is the limit here, essentially you can define a form of template tuple, whic
 Generics is a very powerful tool and although sometimes reading code that makes use of them might feel like reading hieroglyphs, it’s just a matter of taking it slow at first. Take your time, parse the code mentally and you’ll start seeing the potential built-in inside it.
 
 So what about you? Have you used Generics in the past? Did I leave a major use for the out? Share it in the comments for others!
-
-**See you in the next one!**
-
-## Learn More
-[**React TypeScript: Basics and Best Practices**
-**An updated handbook/cheat sheet for working with React.js with TypeScript.**blog.bitsrc.io](https://blog.bitsrc.io/react-typescript-cheetsheet-2b6fa2cecfe2)
-[**11 JavaScript and TypeScript Shorthands You Should Know**
-**Some very useful (and sometimes cryptic) JS/TS shorthands to use or at least understand when reading others’ code.**blog.bitsrc.io](https://blog.bitsrc.io/11-javascript-and-typescript-shorthands-you-should-know-690a002674e0)
-[**4 New Exciting Features Coming in ECMAScript 2021**
-**Let’s face it, 2020 has probably earned its place in the top 5 worst years in history list. And don’t get me wrong, we…**blog.bitsrc.io](https://blog.bitsrc.io/the-4-new-features-coming-in-ecmascript-2021-6fa24684b99b)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
