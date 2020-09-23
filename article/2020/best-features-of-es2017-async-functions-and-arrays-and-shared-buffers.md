@@ -21,7 +21,7 @@ In this article, we’ll look at the best features of ES2017.
 
 For instance, if we have:
 
-```
+```js
 async function downloadContent(urls) {
   urls.forEach(async url => {
     const content = await makeRequest(url);
@@ -34,7 +34,7 @@ then we won’t get all the results of the promises because `forEach` doesn’t 
 
 Instead, we want to use the for-of loop to iterate through each async function to get our result:
 
-```
+```js
 async function downloadContent(urls) {
   for (const url of urls) {
     const content = await makeRequest(url);
@@ -47,7 +47,7 @@ The for-of loop is aware of the `await` operator so we can use it loop run all t
 
 If we want to run the async functions in parallel, we can use `Promise.all` :
 
-```
+```js
 async function downloadContent(urls) {
   await Promise.all(urls.map(
     async url => {
@@ -67,7 +67,7 @@ We can create async functions that are run immediately.
 
 For instance, instead of writing:
 
-```
+```js
 async function foo() {
   console.log(await promiseFunc());
 }
@@ -76,7 +76,7 @@ foo();
 
 We can write:
 
-```
+```js
 (async function () {
   console.log(await promiseFunc());
 })();
@@ -84,7 +84,7 @@ We can write:
 
 It can also be an arrow function:
 
-```
+```js
 (async () => {
   console.log(await promiseFunc());
 })();
@@ -98,7 +98,7 @@ This is because browsers report them to us when we encounter them.
 
 For instance, we can write:
 
-```
+```js
 async function foo() {
   throw new Error('error');
 }
@@ -119,7 +119,7 @@ We can share data between workers quickly and coordination between workers is si
 
 For instance, we can create a shared array buffer by writing:
 
-```
+```js
 const worker = new Worker('worker.js');
 
 const sharedBuffer = new SharedArrayBuffer(
@@ -144,7 +144,7 @@ To access the buffer’s data, we create a new `Int32Array` instance.
 
 Then in the `worker.js` worker, we get the buffer by writing:
 
-```
+```js
 self.addEventListener('message', (event) => {
   const {
     sharedBuffer
@@ -165,10 +165,6 @@ Then we can access it the same way.
 Async functions don’t work well with existing array instance methods.
 
 Also, we can use shared array buffers to share data between the main and worker threads.
-
-#### JavaScript In Plain English
-
-Did you know that we have three publications and a YouTube channel? Find links to everything at [**plainenglish.io**](https://plainenglish.io/)!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
