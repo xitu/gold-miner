@@ -77,11 +77,11 @@ Since the problem was complicated, he tried to write a complicated solution. Let
 
 Note that, just like in real life, he got incomplete instructions: The function `addWeirdStuff` is supposed to return a new array containing the items from `arrayOne` followed by the items from `arrayTwo`.
 
-He initially tried to solve it with a single `[for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for)` loop, which was setting himself up for failure. That’s a complex cognitive task guaranteed to challenge your working memory, and he was getting nowhere with it.
+He initially tried to solve it with a single [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loop, which was setting himself up for failure. That’s a complex cognitive task guaranteed to challenge your working memory, and he was getting nowhere with it.
 
-This particular individual had contacted me previously for help with another coding challenge where he’d accidentally put the return statement into the body of a complex `[for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for)` loop. He’s not ready to write concise code just yet.
+This particular individual had contacted me previously for help with another coding challenge where he’d accidentally put the return statement into the body of a complex [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loop. He’s not ready to write concise code just yet.
 
-I told him that he needed to use two separate `[for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for)` loops and that he should make them `[for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)` loops for simplicity’s sake. Here’s the JavaScript code, including the tests he was given to check if the code works:
+I told him that he needed to use two separate [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loops and that he should make them [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loops for simplicity’s sake. Here’s the JavaScript code, including the tests he was given to check if the code works:
 
 ![[View the raw code](https://gist.github.com/djD-REK/9c0ac6c85465c28c8e1d800436c89cf0) as a GitHub gist](https://cdn-images-1.medium.com/max/3004/1*-ALV_1zyyKAnmKUr1ekiIg.png)
 
@@ -105,13 +105,13 @@ In this version of the first draft, I added [the reducer pattern](https://reedba
 
 Remember: “Perfect is the enemy of good.” This is just your first draft, and you can edit it again! That’s the leapfrogging process.
 
-I’m also prioritizing readability over performance since I now call `[.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)` inside each iteration of a loop. That’s a loop within a loop, for [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) run-time. For small arrays, that won’t matter a bit, but it probably won’t get you that job at Google. It’s also trivial to refactor out in my next edit of this first draft.
+I’m also prioritizing readability over performance since I now call [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) inside each iteration of a loop. That’s a loop within a loop, for [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) run-time. For small arrays, that won’t matter a bit, but it probably won’t get you that job at Google. It’s also trivial to refactor out in my next edit of this first draft.
 
-I made one more round of changes to add the `[.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)` method before I decided I was done with my “simple first draft:”
+I made one more round of changes to add the [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method before I decided I was done with my “simple first draft:”
 
 ![[View the raw code](https://gist.github.com/djD-REK/b93a5480e648778fd27284980e937f6b) as a GitHub gist](https://cdn-images-1.medium.com/max/3108/1*Yluuogf6Co9gsr5tTtgybw.png)
 
-That’s a “polished first draft.” I’ve changed two `[for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)` loops to a `[.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)`, a `[.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)`, and a `[.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)`. I prefer this style of coding, but honestly, there was nothing “wrong” with my very first draft — it worked, didn’t it?
+That’s a “polished first draft.” I’ve changed two [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loops to a [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), a [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some), and a [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map). I prefer this style of coding, but honestly, there was nothing “wrong” with my very first draft — it worked, didn’t it?
 
 Now, this would be a great time to switch tasks and plan to review this particular code again tomorrow.
 
@@ -119,9 +119,9 @@ Now, this would be a great time to switch tasks and plan to review this particul
 
 In our real work, we often receive confusing instructions combined with deadline pressure, particularly when working with new APIs. Every coder wonders at times, “Why doesn’t this code work the way it should?”
 
-For the student I was mentoring, he went from being unable to conceptualize a problem to solving it easily because he started with simple `[for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)` loops. Instead of feeling challenged and like a failure, he was left feeling successful and accomplished, all thanks to the “simple first draft.”
+For the student I was mentoring, he went from being unable to conceptualize a problem to solving it easily because he started with simple [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loops. Instead of feeling challenged and like a failure, he was left feeling successful and accomplished, all thanks to the “simple first draft.”
 
-If you’re more experienced, and writing `[.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)` the first time feels natural, go for it! But if you need to look up the syntax, see if you can do without it and then refactor to it later. In coding, you can always edit later.
+If you’re more experienced, and writing [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) the first time feels natural, go for it! But if you need to look up the syntax, see if you can do without it and then refactor to it later. In coding, you can always edit later.
 
 Similarly, you will probably want to go back to add [type checking](https://medium.com/javascript-in-plain-english/the-best-way-to-type-check-in-vanilla-js-55197b4f45ec) if you’re working in JavaScript. For a coding challenge, that’s not going to be necessary, but that’s something to consider adding the next day.
 
