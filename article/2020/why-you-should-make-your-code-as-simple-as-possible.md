@@ -7,8 +7,6 @@
 
 # Why You Should Make Your Code as Simple as Possible
 
-#### You’ll program faster if you try to make your code simple, even repetitive, when you first write it
-
 ![Photo by [Simon Berger](https://unsplash.com/@8moments?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/wallpapers/design/simple?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7844/1*Fe3m631Fw9jUsAPM7rTu0g.jpeg)
 
 Programming is a lot like writing — you should start with a “[bad first draft](https://medium.com/@jeffgoins/dont-waste-your-words-how-to-write-a-first-draft-that-is-crappy-but-usable-c5dbf977f5a5)” that solves the problem, then immediately edit it two or three times before you move on to the next problem.
@@ -20,8 +18,6 @@ Software developers have the luxury of working in the most creative type of engi
 Working in a creative profession means that you can learn a great deal from writers whose words will never execute. And one of the best pieces of writing advice is something typically recommended to solve writer’s block.
 
 Let me introduce you to the “bad first draft” — because it will make you a much faster coder than ever before.
-
----
 
 ## The “Bad First Draft” Method
 
@@ -37,8 +33,6 @@ Sure, at the end of the day, you may still end up with 50 lines of perfect code 
 
 **You’ll write code and have fun doing it!** What beats that?
 
----
-
 ## How I Approach First Drafts
 
 I prefer to think that I should aim to start with a “simple first draft” because a “bad first draft” seems to carry a negative judgment about my abilities.
@@ -52,8 +46,6 @@ If you’ve ever copied a code sample and then tweaked it for your own use, then
 When using a code sample, you inevitably change things quite a bit, but the key is to get it working first and then immediately improve upon it.
 
 You can use the concept of a “simple first draft” to complete any programming task — whether you’re brand new to coding or already an expert.
-
----
 
 ## Why the “Simple First Draft” Works
 
@@ -70,8 +62,6 @@ Writing coach [August Birch](undefined) calls this “[leapfrog writing](https:/
 Here’s where programming differs from writing, though: Developers know when the first draft is “good enough” because the code executes successfully. When your code works, that’s your cue to immediately edit your “simple first draft,” polishing it up a few times before you move on.
 
 For anyone just learning to code, this approach improves two crucial skills: writing code that works, and improving existing code without breaking it.
-
----
 
 ## A Code Example
 
@@ -99,8 +89,6 @@ It’s ugly, and it performs poorly, but it works! And it’s super-readable, es
 
 The next step is to polish up this “simple first draft.”
 
----
-
 ## Time to Refactor
 
 Refactoring, love it or hate it, is better known to writers as the editing process. In both programming and other types of writing, editing is easier when you’ve written the text yourself, especially when done right away.
@@ -127,8 +115,6 @@ That’s a “polished first draft.” I’ve changed two `[for…of](https://de
 
 Now, this would be a great time to switch tasks and plan to review this particular code again tomorrow.
 
----
-
 ## The Application to Real Code
 
 In our real work, we often receive confusing instructions combined with deadline pressure, particularly when working with new APIs. Every coder wonders at times, “Why doesn’t this code work the way it should?”
@@ -144,8 +130,6 @@ The other real-world carryover of the “simple first draft” approach to codin
 You’ll appreciate having the commits if you find a bug when working on the code later because you’ll have a few solutions to review in the repository.
 
 Plus, making commits **feels** super productive to me, especially when I’m working as part of a remote team. There’s that positive psychology again.
-
----
 
 ## What About Testing?
 
@@ -163,8 +147,6 @@ The fastest way I know to write code is to do exactly the following:
 Personally, I find that focusing on a “bad first draft” (or a “simple first draft” as I like to say) makes me much more likely to write tests in the first place because I’m not worried about writing perfect tests.
 
 You might even consider testing to be creating a “second draft” of your work and put off that task until tomorrow. Do whatever works for you, your project, and your organization — just don’t forget about testing.
-
----
 
 ## Conclusion
 
