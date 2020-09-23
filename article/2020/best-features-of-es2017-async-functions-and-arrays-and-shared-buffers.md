@@ -158,8 +158,6 @@ We listen to the `message` event and get the `sharedBuffer` property of `event.d
 
 Then we can access it the same way.
 
-![Photo by [Jenn Kosar](https://unsplash.com/@foodwithaview?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6912/0*fwSBAfnXl3cfbX0o)
-
 ## Conclusion
 
 Async functions don’t work well with existing array instance methods.
