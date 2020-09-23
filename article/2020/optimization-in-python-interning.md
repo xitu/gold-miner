@@ -80,7 +80,7 @@ Python 启动之时在内存中预加载了一系列 Integer 对象，这些对�
 
 ---
 
-感谢你抽出时间阅读本文。你还可以关注我的领英账号(https://www.linkedin.com/in/chetanambi/)。
+感谢你抽出时间阅读本文。你还可以关注[我的领英账号](https://www.linkedin.com/in/chetanambi/)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
