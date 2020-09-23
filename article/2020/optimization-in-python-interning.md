@@ -2,18 +2,18 @@
 > * 原文作者：[Chetan Ambi](https://medium.com/@chetan.ambi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/optimization-in-python-interning.md](https://github.com/xitu/gold-miner/blob/master/article/2020/optimization-in-python-interning.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[caiyundong](https://github.com/caiyundong)
 
 # Python的优化 — 驻留机制
 
 ![Photo by [George Stewart](https://unsplash.com/@_stewart_) on [Unsplash](https://unsplash.com/photos/D8gtlT7j1v4)](https://cdn-images-1.medium.com/max/2000/0*TVH3cYeJ4s6F-4F3)
 
-如今有几种不同的 Python 解释器，包括 CPython，Jython，IronPython 等。我们现在讨论的优化技术是跟 CPython 这种标准的 Python 解释器有关的。
+如今有几种不同的 Python 解释器，包括 CPython、Jython、IronPython 等。我们现在讨论的优化技术是跟 CPython 这种标准的 Python 解释器有关的。
 
 ## 驻留机制
 
-**Interning(驻留机制)是指根据需要重用对象** ，而不是创建新对象。我们通过一些例子来理解 Integer 类型对象和 String 类型对象的驻留机制。
+**Interning（驻留机制）是指根据需要重用对象** ，而不是创建新对象。我们通过一些例子来理解 Integer 类型对象和 String 类型对象的驻留机制。
 
 **is** - is 是一种运算符，用于比较两个 Python 对象的内存位置。
 **id** - id 用于获取对象的十进制形式的内存位置。
@@ -64,7 +64,7 @@ Python 启动之时在内存中预加载了一系列 Integer 对象，这些对�
 
 在 Python 3.6 中，所有合法的、长度不大于 20 的字符串都是驻留的。但在 Python 3.7 中，长度上限变为 4096。所以正如我以前提到的，这些标准因 Python 版本而异。
 
-由于不是所有的 String 对象都被驻留，Python 提供了强制驻留字符串的方法 sys.intern()。这个方法除非确实需要，不建议使用。使用方法参考下面的代码。
+由于不是所有的 String 对象都被驻留，Python 提供了强制驻留字符串的方法 sys.intern()。这个方法除非确实需要，否则不建议使用。使用方法参考下面的代码。
 
 ![Image by Author](https://cdn-images-1.medium.com/max/2000/1*XlY1DoTzGDFaLSdYa1MaIw.png)
 
@@ -74,9 +74,9 @@ Python 启动之时在内存中预加载了一系列 Integer 对象，这些对�
 
 ## 结论
 
-阅读本文后，你应该理解 Python 的驻留机制。如果你要获得更多关于 Python 和数据科学的文章，请关注我的账号。
+阅读本文后，你应该理解 Python 的驻留机制。
 
-如果对 Python 的易变性和不变性感兴趣，请点击(https://towardsdatascience.com/mutability-immutability-in-python-b698bc592cbc)查看我的文章。
+如果对 Python 的易变性和不变性感兴趣，请[点击](https://towardsdatascience.com/mutability-immutability-in-python-b698bc592cbc)查看我的文章。
 
 ---
 
