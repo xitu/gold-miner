@@ -7,10 +7,6 @@
 
 # Microservices: The Right Solution for You?
 
-## Microservices: 5 Questions to Ask before Making that Decision
-
-#### 5 questions you should ask yourself before jumping into Microservices.
-
 I have been writing about Microservices for quite a few years, both its benefits and its downside. I also raised the flag for newbies not to jump into Microservices without having a proper understanding of the complexity they are getting into, by merely following the trend.
 
 When it comes to Microservices, the success stories and the concepts are truly mesmerizing. Having a collection of services of each doing one thing in the business domain builds a perfect image of a lean architecture. However, we shouldn’t forget that these services need to work together to deliver business value to their end-users.
@@ -29,11 +25,11 @@ Knowing the business domain inside out and the experience with the domain-driven
 
 ## Entering the world of Distributed Systems
 
-> # “Distributed Systems are Hard” — Anonymous
+> “Distributed Systems are Hard” — Anonymous
 
 But what’s the relationship between distributed systems and Microservices. The connection is simple, and when you build Microservices, you directly dive into the realm of distributed systems kind of in advanced mode. They may solve specific problems, but will also introduce others.
 
-> # In fact, its likely not to experience any of the issues with Monoliths, in your software product lifetime, that are worth solved with Microservices.
+> In fact, its likely not to experience any of the issues with Monoliths, in your software product lifetime, that are worth solved with Microservices.
 
 #### Question 2: What are you trying to achieve by adopting Microservices Architecture?
 
@@ -47,7 +43,7 @@ Working with a distributed system will put you in challenges such as distributed
 
 I have seen famous case studies from Amazon, Netflix absorbing Microservices. You might also feel that why not step up and follow their success paths to the next big thing. You might even get the buying from your business counterparts. The fun part is the non-tech people will also provoke you by asking why not consider Microservices?
 
-> # At the end of the day, who doesn’t want to become Amazon or Netflix and follow their paths, right?
+> At the end of the day, who doesn’t want to become Amazon or Netflix and follow their paths, right?
 
 These influences might set an extremely positive impression on Microservices. You might buy the point from the case study or watching the video and convince your self that Monoliths are evil and Microservices are the way to the future.
 
@@ -59,7 +55,7 @@ You might miss the point of how much effort and time it took for them to migrate
 
 I have talked with some people who have followed full-fledge Microservices from the beginning and experiencing delays than usual, still convinced that it will solve the problem in the future.
 
-> # Microservices will slow you down, take my word for it. If time to market is important, it’s better to go with a Monolith.
+> Microservices will slow you down, take my word for it. If time to market is important, it’s better to go with a Monolith.
 
 Dealing with Distributed systems, Microservices communication, extra effort on data consistency, extra effort on DevOps efforts, are overheads for software development.
 
@@ -91,10 +87,6 @@ If you are into Microservices and Microfrontends, it’s essential to use the ri
 
 If you are using a public cloud provider, it would be a lifesaver to use the middleware available in the cloud. These will help to reduce the total cost of ownership when using Gateways, Async Communication, Data Storage, Monitoring for Microservices.
 
-Similarly, if you adopt Microfrontends along the way, you can use [Bit](https://bit.dev/) ([Github](https://github.com/teambit/bit)) for sharing and managing independent UI components. It will also improve your overall developer experience (DX) by handling the DevOps complexities around independent components.
-
-![React components shared on [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*T6i0a9d9RykUYZXNh2N-DQ.gif)
-
 Besides, its important to structure your projects correctly to improve developer productivity. You can go for either a distributed repository or a monorepo approach, and setup DevOps around the structure for fast releases.
 
 ## Summary
@@ -102,14 +94,6 @@ Besides, its important to structure your projects correctly to improve developer
 Finally, I want to finish this article by saying that be cautious if you decide to follow the Microservices approach from the beginning of a project. The journey seems to be more challenging than you think unless you have a solid case of following Microservices (For example, building an application for a specification or a given standard where you already know the bounded contexts, reducing overall risks). Or else, start with a Monolith.
 
 I hope I have made the points clear to you. If you have any questions or don’t agree with the facts, please leave a comment. I would be happy to reply as soon as I can.
-
-## Learn More
-[**How We Build Micro Frontends**
-**Building micro-frontends to speed up and scale our web development process.**blog.bitsrc.io](https://blog.bitsrc.io/how-we-build-micro-front-ends-d3eeeac0acfc)
-[**A Better Way to Share Code Between Your Node.js Projects**
-**Learn why you’ve probably been sharing code modules the wrong way.**blog.bitsrc.io](https://blog.bitsrc.io/a-better-way-to-share-code-between-your-node-js-projects-af6fbadc3102)
-[**Can We Use Serverless Functions to Build Microservices?**
-**Over the past decade, serverless technologies have evolved tremendously. Today, any software running in the cloud, uses…**blog.bitsrc.io](https://blog.bitsrc.io/aws-serverless-building-blocks-for-microservices-728a6c2ef6e)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
