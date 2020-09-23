@@ -9,8 +9,6 @@
 
 ![](https://cdn-images-1.medium.com/max/5000/1*RIYK4LcwRn_GCm_A3Mg1JA.jpeg)
 
-#### An instructional codewalk of the classic game-playing algorithm.
-
 This article is a follow-up to [the previous one](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238), but I’ll provide enough context so that it’s possible to drop in on this one. Be forewarned that this one’s going to be more technical. All code is available in [this GitHub repo](https://github.com/quasimik/medium-mcts/).
 
 As with the previous article, this one also assumes some computer science knowledge on the reader’s part, in particular how the **tree data structure** works. Intermediate knowledge of **JavaScript** (ES6+) is required.
@@ -27,7 +25,7 @@ Let’s begin.
 
 In `game.js`:
 
-```
+```js
 /** Class representing the game board. */
 class Game {
 
@@ -61,7 +59,7 @@ module.exports = Game
 
 In `monte-carlo.js`:
 
-```
+```js
 /** Class representing the Monte Carlo search tree. */
 class MonteCarlo {
 
@@ -82,7 +80,7 @@ module.exports = MonteCarlo
 
 In `index.js`:
 
-```
+```js
 const Game = require('./game.js')
 const MonteCarlo = require('./monte-carlo.js')
 
@@ -146,7 +144,7 @@ Maybe think about it for a while. Or you could just get the completed `[play-c4.
 
 Phew! That was a lot of work, wasn’t it? (It was — at least for me.) The code requires some knowledge of [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference), but should be quite readable after some squinting. The most work goes into `Game_C4.winner()`, which builds runs of points in four separate boards, all in `checkBoards`. Each check board accounts a possible winning orientation (horizontal / vertical / left diagonal / right diagonal). The check boards are one larger than the actual game board on 3 sides to provide convenient zero padding for the algorithm.
 
-I’m sure there are better ways to do this. The run-time performance of `Game.winner()` is not great; specifically, in [big-O notation](http://interactivepython.org/runestone/static/pythonds/AlgorithmAnalysis/BigONotation.html), it’s O(rows*cols) not great. This could be drastically improved by storing `checkBoards` within the state object, and only updating `checkBoards` with the last played cell (which would also be included in the state object). Maybe you can try this optimization later.
+I’m sure there are better ways to do this. The run-time performance of `Game.winner()` is not great; specifically, in [big-O notation](http://interactivepython.org/runestone/static/pythonds/AlgorithmAnalysis/BigONotation.html), it’s O(rows\*cols) not great. This could be drastically improved by storing `checkBoards` within the state object, and only updating `checkBoards` with the last played cell (which would also be included in the state object). Maybe you can try this optimization later.
 
 ## Play Connect Four
 
@@ -188,7 +186,7 @@ Reading [the previous article](https://medium.com/@quasimik/monte-carlo-tree-sea
 
 At this point, invoke your knowledge of [trees](https://en.wikipedia.org/wiki/Tree_(data_structure)). MCTS is a **tree search**, so it’s no surprise that we’ll need **tree nodes**. We will implement these nodes in their own class `MonteCarloNode`, in `monte-carlo-node.js`. Then, we’ll use that to build the search tree in `MonteCarlo`.
 
-```
+```js
 /** Class representing a node in the search tree. */
 class MonteCarloNode {
 
@@ -228,7 +226,7 @@ Note that two `State` objects should be considered different by `State.hash()` �
 
 We’ll now add member methods to `MonteCarloNode`.
 
-```
+```js
   ...
 
   /** Get the MonteCarloNode corresponding to the given play. */
@@ -294,7 +292,7 @@ In particular, `MonteCarloNode.getUCB1()` is an almost direct translation of the
 
 The current version is [monte-carlo-v1.js](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-v1.js), a mere skeleton. The first update to the class is to include `MonteCarloNode` and to add a constructor.
 
-```
+```js
 const MonteCarloNode = require('./monte-carlo-node.js')
 
 /** Class representing the Monte Carlo search tree. */
@@ -311,7 +309,7 @@ class MonteCarlo {
 
 `MonteCarlo.nodes` allows us to get any node given its state; this will be useful. As for the other member variables, it just makes sense for them to be associated with `MonteCarlo`.
 
-```
+```js
   ...
 
   /** If given state does not exist, create dangling node. */
@@ -328,7 +326,7 @@ class MonteCarlo {
 
 This lets us create the root node. It also lets us create arbitrary nodes, which could be useful. Maybe.
 
-```
+```js
   ...
 
   /** From given state, repeatedly run MCTS to build statistics. */
@@ -362,7 +360,7 @@ Finally, we arrive at the heart of the algorithm. Quoting verbatim from [the fir
 
 This 4-phase algorithm is run repeatedly until enough information is gathered to produce a good move.
 
-```
+```js
   ...
 
   /** Get the best move from available statistics. */
@@ -404,7 +402,7 @@ Here are stub methods that we’ll fill in shortly. We’re now at version [mont
 
 > Starting from the root node of the search tree, we go down the tree by repeatedly (1) selecting a legal move and (2) advancing to the corresponding child node. If one, several, or all of the legal moves in a node does not have a corresponding node in the search tree, we stop selection.
 
-```
+```js
   ...  
 
   /** Phase 1, Selection: Select until not fully expanded OR leaf */
@@ -443,7 +441,7 @@ When the loop terminates, the selected node is guaranteed to have at least one u
 
 > After selection stops, there will be at least one unexpanded move in the search tree. Now, we randomly choose one of them and we then create the child node corresponding to that move (bolded in the diagram). We add this node as a child to the last selected node in the selection phase, expanding the search tree. The statistics information in the node is initialized with 0 wins out of 0 simulations.
 
-```
+```js
   ...
 
   /** Phase 2, Expansion: Expand a random unexpanded child node */
@@ -476,7 +474,7 @@ What does it mean to backpropagate with a 0 winner? Does it really work okay wit
 
 > Continuing from the newly-created node in the expansion phase, moves are selected randomly and the game state is repeatedly advanced. This repeats until the game is finished and a winner emerges. No new nodes are created in this phase.
 
-```
+```js
   ...
   
   /** Phase 3, Simulation: Play game to terminal state, return winner */
@@ -508,7 +506,7 @@ Looking at `MonteCarlo.runSearch()` again, simulation is done within the same ch
 
 > After the simulation phase, the statistics on all the visited nodes (bolded in the diagram) are updated. Each visited node has its simulation count incremented. Depending on which player wins, its win count may also be incremented. In the diagram, **blue** wins, so each visited **red** node’s win count is incremented. This flip is due to the fact that each node’s statistics are used for its **parent** node’s choice, not its own.
 
-```
+```js
   ...
 
   /** Phase 4, Backpropagation: Update ancestor statistics */
@@ -537,7 +535,7 @@ Think a while about what it means to backpropagate with a 0 winner. This corresp
 
 > The beauty of MCTS(UCT) is that, due to its asymmetrical nature, the tree selection and growth gradually converges to better moves. At the end, you get the child node with the highest number of simulations and that’s your best move according to MCTS.
 
-```
+```js
   ...
   
   /** Get the best move from available statistics. */  
@@ -576,7 +574,7 @@ Right now, you should be able to run `node index.js` on the current version `[in
 
 In `monte-carlo.js`:
 
-```
+```js
   ...  
   
   // Utility Methods
@@ -672,10 +670,6 @@ Beautiful.
 It’s been a wonderful journey, and I hope you’ve enjoyed it. The next post will be about optimization, and the current state of the art in MCTS.
 
 I’ll see you then.
-
----
-
-Edit (12 Jul 2018): Update graphics.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
