@@ -7,11 +7,7 @@
 
 # Mastering JavaScript ES6 Symbols
 
-#### A mighty addition to the primitive data type
-
 ![](https://cdn-images-1.medium.com/max/2560/1*E5bxT-J688MnfPJ92Zr25A.png)
-
----
 
 JavaScript is one of the cores of web development. JavaScript, also known as ECMAScript was standardized in 1997. Since then, the below primitive values were present in the language.
 
@@ -26,8 +22,6 @@ JavaScript is one of the cores of web development. JavaScript, also known as ECM
 
 But with the release of ES6 in 2015, a newer primitive type — **Symbol**, was added. They were quite different from the previous primitives. They were simply values, not strings, nor numbers nor even Objects. They were just **Symbols**.
 
----
-
 ## What is This New Primitive All About?
 
 The Symbol primitive is all about uniqueness. Its value is a unique identifier. You can simply call `Symbol()` and get a unique identifier. Optionally, you can pass a description as well.
@@ -38,24 +32,12 @@ A lot of people think of Symbols as a way of receiving a unique value. But only 
 
 In other words, your Symbol would not give a unique value like an ID which might look like **285af1ae40223348538204f8c3a58f34**. But rather, when you console a Symbol, you will receive `Symbol()` or `Symbol(description)` . Remember that it would not be a string, rather a plain old **Symbol.**
 
-```
+```js
 typeof Symbol()
 "symbol"
 ```
 
 You can obtain a string by calling the `toString()` method on the Symbol. But that too would only give you a string representation of the previously obtained value.
-
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*y89lp3ml07YUVEes.gif)
-
----
 
 ## Things to keep in mind
 
@@ -67,7 +49,7 @@ The `window.alert()` receives a parameter of type string. But even if you do pas
 
 Take a look at the below code.
 
-```
+```js
 let id = Symbol("id");
 
 let obj = {
@@ -78,7 +60,7 @@ let obj = {
 
 In the above example, although we have assigned a `id` property to our `obj` object, it is not the `id` variable we had defined the line before. In order to set the `id` variable as a key, we should use `[ ]` .
 
-```
+```js
 let id = Symbol("id");
 
 let obj = {
@@ -88,7 +70,7 @@ let obj = {
 
 Similarly, you can’t access symbol-keyed properties using the dot-syntax. You have to use square brackets like above.
 
-```
+```js
 console.log(obj.id);
 //undefined
 
@@ -102,8 +84,6 @@ As Symbols were designed to avoid collisions, Symbolic properties are skipped in
 
 Also note that Symbol properties of an object are ignored when you use `JSON.stringify()`.
 
----
-
 ## Global Symbol Registry
 
 As we have seen above, Symbols are unique, even with the same descriptions we pass as parameters. But there might be instances where you need multiple web pages or multiple modules within the same web page to share a Symbol. At moments like this, you can use the **Global Symbol Registry.**
@@ -114,11 +94,34 @@ Although it sounds like a complicated system, the interface is quite simple to u
 
 This method searches for existing symbols in the **global symbol registry** with the provided key and returns it if found. If not found, it would create a Symbol with the key in the **global symbol registry** and returns it.
 
+```js
+let userId = Symbol.for('user_id');
+//read from global registry
+//create Symbol if not exists
+
+let userID = Symbol.for('user_id');
+//read from global registry
+
+
+console.log(userID === userId);
+//true
+```
+
 #### Symbol.keyFor(sym)
 
 This method performs the reverse of the `Symbol.for()` method. This retrieves a shared symbol key from the global symbol registry for the given symbol.
 
----
+```js
+//read from global registry
+let userId = Symbol.for('user_id');
+let userName = Symbol.for('username');
+
+console.log(Symbol.keyFor(userId));
+//user_id
+
+console.log(Symbol.keyFor(userName));
+//username
+```
 
 ## Use Cases
 
@@ -134,7 +137,7 @@ Rather than implementing a solution that would be an overkill, we can simply set
 
 The implementation would look somewhat similar to this.
 
-```
+```js
 if (list.isSorted) {
   sortAlgorithm(list);
 }
@@ -148,6 +151,50 @@ Although the above implementation does its job perfectly, it fails under certain
 * If you were the owner of the library and a clever developer tries to set the flag themself, it would be similar to the above scenario.
 
 In a situation like this, Symbols would be perfect as they avoid collisions.
+
+```js
+let id = Symbol('id');
+
+let user = {
+	name:"Jane Doe",
+  	[id]:1
+};
+
+console.log(user[id]);
+//1
+
+// ---------------------------------
+
+//someone tries to add their own ID to user
+
+user.id = '124C';
+
+
+console.log(user[id]);
+//1
+
+
+console.log(user.id);
+//'124C'
+
+// ---------------------------------
+  
+//someone tries to add their own ID to user as a Symbol
+let id2 = Symbol('id');
+
+user[id2] = '9990X';
+
+
+console.log(user[id]);
+//1
+
+
+console.log(user.id);
+//'124C'
+
+console.log(user[id2]);
+//'9990X'
+```
 
 #### System Symbols
 
@@ -166,13 +213,11 @@ You can read more about them over [**here**](https://tc39.es/ecma262/#sec-well-k
 
 You can still users methods such as Object.getOwnPropertySymbols(obj) and `Reflect.ownKeys(obj)` to receive the Symbols used as Object keys. You might wonder why. I personally feel that Symbols were created to avoid **unintentional naming collisions**. If someone really wanted to overwrite the Symbolic property key, then I think it would be possible for them to do so.
 
----
-
 ## Popular Issue Raised in React Regarding Symbols
 
-During the discussion with the editor of Bits and Pieces, I was asked to address an issue raised in React JS involving Symbols. Below is a link to the raised issue.
-[**Symbols as keys in children as arrays or iterators · Issue #11996 · facebook/react**
-**Do you want to request a feature or report a bug? I want to request a feature What is the current behavior? Using…**github.com](https://github.com/facebook/react/issues/11996)
+During the discussion with the editor of [Bits and Pieces](https://blog.bitsrc.io/?source=post_page-----2b6fa2cecfe2----------------------&gi=39b41a3c39ac), I was asked to address an issue raised in React JS involving Symbols. Below is a link to the raised issue.
+
+[Symbols as keys in children as arrays or iterators · Issue #11996 · facebook/react, github.com](https://github.com/facebook/react/issues/11996)
 
 #### Feature being requested
 
@@ -206,6 +251,15 @@ First of all, there can be instances where you would be handling a list of data 
 
 There is something fundamentally wrong in the proposal. Have a look at the below code example.
 
+```ts
+<ul>
+  <li key={Symbol()}>1</li>
+  <li key={Symbol()}>2</li>
+  <li key={Symbol()}>3</li>
+  <li key={Symbol()}>1</li>
+</ul>
+```
+
 As you can see, all 4 keys are unique. When there is a change in an element value, React knows which one has changed, and triggers a rebuild. But when the tree is rebuilt, the key of that specific element would change again as `Symbol()` would give a unique value every time it is called as it is being used inline. The `key` would be different on every render, which would force React to re-mount the element/component.
 
 If you are not clear on how the tree building process and change detection work in the above scenario, please go through this [explanation given in the docs](https://reactjs.org/docs/reconciliation.html).
@@ -220,7 +274,26 @@ There is something wrong with this approach too. For you to retrieve a Symbol fr
 
 But there was a solution provided by [Eduardo](https://github.com/esanzgar) where you initialize the object or array once with the Symbols and then they are never re-initialized. Which means the value will not be re-calculated on each render and therefore the values(Symbols) will always be the same. This approach can work on certain situations only.
 
----
+```ts
+import React from 'react';
+
+const TODO = [
+  {id: Symbol(), content: 'Wake up'},
+  {id: Symbol(), content: 'Go to sleep'},
+];
+
+const App = () => {
+  return (
+    <>
+      {TODO.map(({id, content}) => (
+        <p key={id}>{content}</p>
+      ))}
+    </>
+  );
+};
+
+export default App;
+```
 
 You should note that all of the given solutions would work, but they would trigger unnecessary re-mounts and cause unwanted load on the memory and CPU. The goal is to come up with a solution using Symbols that can be efficient as well.
 
@@ -228,20 +301,13 @@ If you have any comments, please feel free to drop them below.
 
 Thank you for reading and happy coding.
 
-## Learn More
-[**The Ultimate Guide to the ES2020 Nullish Coalescing Operator**
-**Perhaps the most interesting aspect of logical operators in JavaScript is their ability to execute code conditionally…**blog.bitsrc.io](https://blog.bitsrc.io/the-ultimate-guide-to-the-es2020-nullish-coalescing-operator-231d2b64dfde)
-[**JavaScript Finally Has Support for Native Private Fields and Methods**
-**Hashtag(#) your way to private fields and methods**blog.bitsrc.io](https://blog.bitsrc.io/javascript-finally-has-support-for-native-private-fields-and-methods-d758fdcfd320)
-[**ES2020 Has Been Finalized. Here is What I’m Excited About**
-**Features that would have made my life easier If I had used them before**blog.bitsrc.io](https://blog.bitsrc.io/es2020-has-been-finalized-here-is-what-im-excited-about-414959bc2f7f)
+**Resources**
 
-**Resources
-**[JavaScript Info](https://javascript.info/symbol)
-[Mozilla Blog](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)
-[MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
-[ECMA Script Specs](https://tc39.es/ecma262/#sec-well-known-symbols)
-[React Docs](https://reactjs.org/docs/lists-and-keys.html#keys)
+- [JavaScript Info](https://javascript.info/symbol)
+- [Mozilla Blog](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)
+- [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
+- [ECMA Script Specs](https://tc39.es/ecma262/#sec-well-known-symbols)
+- [React Docs](https://reactjs.org/docs/lists-and-keys.html#keys)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
