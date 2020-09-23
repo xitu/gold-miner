@@ -7,15 +7,11 @@
 
 # Working With Emoji in Swift
 
-#### Emoji aren’t just simple strings
-
 ![Photo by [Gaby Prestes Nekrasova](https://www.instagram.com/gabypres2808/) on Instagram.](https://cdn-images-1.medium.com/max/2560/1*ITyYFzjAq7_ZP-RoIApDqg.jpeg)
 
 Emoji have become a big part of our life. iPhones and iPads have a special emoji keyboard (unless it’s turned off). We see them on websites, in mobile and desktop apps, and we enter them when writing texts and filling in forms.
 
 How do we control them? How do we prevent users from entering emoji in `UITextField`? How do we parse emoji in the JSON response from a server? Let’s discuss it all.
-
----
 
 ## A Little Bit of Theory
 
@@ -33,8 +29,6 @@ Emoji have appeared in Unicode since version 6.0 back in 2010. All modern iPhone
 
 As you can see, emoji can be included in any string in Swift.
 
----
-
 ## Emoji in macOS
 
 As we write Swift code mostly in macOS, let’s see how to add emoji to our code.
@@ -44,8 +38,6 @@ In any app with text editing capability, including Xcode, you can click on the *
 Another way is to use the hotkey ⌃⌘Space (ctrl + cmd + space).
 
 ![Emoji in macOS](https://cdn-images-1.medium.com/max/2000/1*i7GRMKH_QpI7CMBPN7xmBQ.png)
-
----
 
 ## Detecting Emoji in Strings
 
@@ -64,18 +56,15 @@ extension Character {
 
     var isEmoji: Bool { isSimpleEmoji || isCombinedIntoEmoji }
 }
-
 ```
 
 Now you can check if `String` has an emoji:
 
-```
+```swift
 "Alex 😊".containsEmoji // true
 
 "Alex 😊".containsOnlyEmoji // false
 ```
-
----
 
 ## Forbidding Emoji in UITextField
 
@@ -94,7 +83,7 @@ It can be useful for entering usernames or passwords, but names and other data c
 3. In a delegate, override the method **func** textField(**_** textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool.
 4. Get updated text:
 
-```
+```swift
 if let text = textField.text,
     let textRange = Range(range, in: text) {
     let updatedText = text.replacingCharacters(in: textRange, with: string)
@@ -116,12 +105,9 @@ func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange
     }
     return true
 }
-
 ```
 
 Now when the user tries to insert an emoji in a text string, there will be no effect. If you want to make it clearer for the user, add an alert with a message.
-
----
 
 ## Decoding Emoji in API Response
 
@@ -129,13 +115,13 @@ If you’ve worked with a REST API in Swift, you may know that sometimes you get
 
 The safest way to go is to get `Data` from the API and convert it to the type you need:
 
-```
+```swift
 let str = String(data: data, encoding: .utf8)
 ```
 
 Same with JSON. It’s better to decode them manually from data:
 
-```
+```swift
 let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
 ```
 
@@ -160,7 +146,6 @@ class API {
         }
     }
 }
-
 ```
 
 Alamofire gets regular updates, so maybe it will return emoji in the `responseString` handler. It’s possibly already done, but when I tested it, I got `String` in return without any emoji. If you use another library, this trick will be also handy. Remember that you always receive a buffer of bytes from any web request. The closest to it in Swift is a `Data` object. All other types are converted from it. You should always prefer `Data` if you want full control.
@@ -171,8 +156,6 @@ This is not exactly about Swift, but as we are talking about emoji in API, I’l
 
 1. Set the character set of the whole database, table, or a separate field to `utf8mb4`. Simple `utf8` won’t let you store emoji in string fields.
 2. Run `SET NAMES utf8mb4` before running other SQL requests.
-
----
 
 ## Emoji Variables
 
@@ -191,7 +174,6 @@ func ＋(_ 🐶: Int, _ 🐮: Int) -> Int {
 let 🌸🌸🌸 = ＋(🌸🌸, 🌸)
 
 print(🌸🌸🌸)
-
 ```
 
 Never do it in production code — it’s very uncomfortable to type, search, or share. But it can be useful, for example, to teach children. Looks funny, right?
@@ -200,11 +182,9 @@ Never do it in production code — it’s very uncomfortable to type, search, or
 
 A more common practice is to include emoji in `Strings`:
 
-```
+```swift
 let errorText = "Sorry, something went wrong 😢"
 ```
-
----
 
 ## Conclusion
 
