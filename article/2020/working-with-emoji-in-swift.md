@@ -25,7 +25,7 @@ There are three standard modifications of Unicode. All of them are constantly ev
 
 Emoji have appeared in Unicode since version 6.0 back in 2010. All modern iPhones and Macs support much newer versions, so by adding emoji to your apps, you can be sure that users will see them.
 
-> # “An `NSString` object encodes a Unicode-compliant text string, represented as a sequence of UTF–16 code units.” — [Apple Developer](https://developer.apple.com/documentation/foundation/nsstring)
+> “An `NSString` object encodes a Unicode-compliant text string, represented as a sequence of UTF–16 code units.” — [Apple Developer](https://developer.apple.com/documentation/foundation/nsstring)
 
 As you can see, emoji can be included in any string in Swift.
 
@@ -80,7 +80,7 @@ It can be useful for entering usernames or passwords, but names and other data c
 
 1. Set keyboard type to **Default**.
 2. Set a delegate. Usually, it’s your `UIViewController`.
-3. In a delegate, override the method **func** textField(**_** textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool.
+3. In a delegate, override the method `func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool`.
 4. Get updated text:
 
 ```swift
