@@ -2,8 +2,8 @@
 > * 原文作者：[Anuradha Wickramarachchi](https://medium.com/@anuradhawick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/tutorial-on-python-logging.md](https://github.com/xitu/gold-miner/blob/master/article/2020/tutorial-on-python-logging.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[wangqinggang](https://github.com/wangqinggang)
 
 # Python Logging 使用指南
 
@@ -13,7 +13,7 @@
 
 ## 为什么要使用 Logging 而不使用 print()
 
-print()语句跟 Logging 输出存在本质上的不同。一般地，print 语句用于向终端输出有用的信息或程序需要输出的信息。然而 Logging 一般是输出某些错误信息。我们可以通过下面的例子来演示。
+print 语句跟 Logging 输出存在本质上的不同。一般地，print 语句用于向 stdout （标准输出） 写入有用的信息或程序需要输出的信息。然而 Logging 将这些信息写入 stderr （标准错误输出）。
 
 ```py
 import logging
@@ -49,7 +49,7 @@ $ cat program_output.txt
 This is the program output
 ```
 
-在这里，需要输出的信息写入了一个文件。所以我们能看到终端的运行情况，也可以方便地从文件中得到输出信息。现在我们来了解日志等级！
+在这里，需要输出的信息通过重定向符 > 写入到一个文件。所以我们能看到终端的运行情况，也可以方便地从文件中得到输出信息。现在我们来了解日志等级！
 
 ## Logging 和日志等级
 
@@ -63,13 +63,13 @@ This is the program output
 
 最常用的日志类型有：**DEBUG**、 **INFO** 和 **ERROR**。然而，经常会出现因 Python 版本不匹配抛出警告的情况。
 
-## Handlers配置Logger和日志处理程序
+## 配置 Logger 和日志处理程序
 
-Logger可以在不同的参数下配置，可以配置日志的输出形式，包括日志等级、日志文件名、文件模式、日志内容的格式。
+Logger 可以配置不同的参数，可以配置特定日志等级、日志文件名、文件模式和日志打印的输出格式。
 
-#### 配置Logger的参数
+#### 配置 Logger 的参数
 
-下面是配置Logger的代码。
+Logger 可采用如下配置。
 
 ```py
 import logging
@@ -78,11 +78,11 @@ logging.basicConfig(filename='program.log', filemode='w', level=logging.DEBUG)
 logging.warning('You are given a warning!')
 ```
 
-上面的代码向 program.log 文件输出日志。filemode='w'用于设置文件读写模式。filemode='w'表示需要打开一个新文件并覆盖原来的内容。该参数默认设置为'a'，此时会打开相应文件，并追加日志内容，因为有时需要获取历史日志。表示等级的参数 level用于确定日志的最低等级。例如，当设置 level 为 **INFO**，程序就不会输出 **DEBUG** 级别的日志。你可能知道，需要设置'verbose=debug'才能获取一些参数。日志等级默认为 **INFO**。
+上面的代码向 program.log 文件输出日志。filemode='w' 用于设置文件读写模式。filemode='w' 表示需要打开一个新文件并覆盖原来的内容。该参数默认设置为 'a'，此时会打开相应文件，并追加日志内容，因为有时需要获取历史日志。表示等级的参数 level 用于确定日志的最低等级。例如，当设置 level 为 **INFO**，程序就不会输出 **DEBUG** 级别的日志。你可能知道，需要设置 'verbose=debug' 才能获取一些参数。日志等级默认为 **INFO**。
 
 #### 创建日志处理器
 
-虽然上述方法直接明了，满足了一个简单的应用程序的需求，但对于一个软件产品或服务来说，需要全面的日志处理流程。因为很难在数以百万计的 **DEBUG** 级日志中找到某个 **ERROR** 级日志。此外，在整个程序和模块中，我们应当使用单一的 Logger。所以我们可以使用 Handler 来解决配置不同的问题。
+虽然上述方法直接明了，满足了一个简单的应用程序的需求，但对于一个软件产品或服务来说，需要全面的日志处理流程。因为很难在数以百万计的 **DEBUG** 级日志中找到某个 **ERROR** 级日志。此外，在整个程序和模块中，我们应当使用单一的 Logger。这样我们就可以正确地把日志添加到同一文件中。所以我们可以使用具有不同配置的 Handler 来处理这种任务。
 
 ```py
 import logging
@@ -101,11 +101,11 @@ logger.addHandler(file_handler)
 
 可以看出，我们首先通过名称获取到一个 Logger。以此可以在程序的其他任意地方使用同一个 Logger。我们把全局的 Logging 等级设为最低的 **DEBUG**，这样我们就可以在其他日志处理器中设置任意日志等级。
 
-Next, we create two handlers for **console** and **file** writing. For each handler, we provide a log level. This can help reduce the overhead on console output and transfer them to the file handler. Makes it easy to deal with debugs later.接着，我们创建两个日志处理器，分别用于 **console** 和 **file** 形式的输出，并设置各自的日志等级。这可以减少控制台输出的开销，转而在文件中输出。这方便了以后的调试。
+接着，我们创建两个日志处理器，分别用于 **console** 和 **file** 形式的输出，并设置各自的日志等级。这可以减少控制台输出的开销，转而在文件中输出。这方便了以后的调试。
 
 ## 对输出日志进行格式化
 
-Logging 不是只用来打印我们自己的信息的。有时候我们需要打印其他信息，例如时间、日志等级、进程ID。因此我们需要对日志进行格式化。我们来看下面的代码。
+Logging 不是只用来打印我们自己的信息的。有时候我们需要打印其他信息，例如时间、日志等级、进程 ID。因此我们需要对日志进行格式化。我们来看下面的代码。
 
 ```py
 console_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
