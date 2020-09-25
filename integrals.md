@@ -1429,10 +1429,11 @@
 |[好的与坏的，Swift 语言面面观（一）](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91)|校对|1|
 |[Android 中美腻的下划线](http://gold.xitu.io/entry/578705faa34131005b46e9c2)|校对|1|
 
-## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：94.5 当前积分：94.5 二零二零：9.5
+## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：96.5 当前积分：96.5 二零二零：11.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[分享我喜欢的十五条 JavaScript 编程技巧](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)|校对|2|
 |[我的 React 组件会渲染两次，我快疯了](https://juejin.im/post/6858508463274885134)|翻译|3|
 |8 月推荐前端文章 1 篇|奖励|1|
 |[Deno 会对 Node 造成威胁吗？](https://juejin.im/post/5ecf6f166fb9a047d77cbe35)|校对|2|
@@ -8893,10 +8894,11 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：66 当前积分：56 二零二零：36.5
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：68 当前积分：58 二零二零：38.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[分享我喜欢的十五条 JavaScript 编程技巧](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)|校对|2|
 |[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|校对|2|
 |[颜色为何成为数据可视化的关键，怎样使用它？](https://juejin.im/post/6872238362233831432)|校对|2.5|
 |[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|校对|2|
@@ -9994,10 +9996,11 @@
 |------|-------|-------|
 |[你不需要 passport.js — node.js 认证指南](https://juejin.im/post/5e060589f265da33b0718f55)|校对|2|
 
-## 译者：[rachelcdev](https://github.com/rachelcdev) 历史贡献积分：27.5 当前积分：27.5 二零二零：27.5
+## 译者：[rachelcdev](https://github.com/rachelcdev) 历史贡献积分：29.5 当前积分：29.5 二零二零：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)|校对|2|
 |[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|校对|2|
 |[JavaScript 生成器：何时用 yield，何时用 yield* ？](https://juejin.im/post/6867036974441005063)|校对|1|
 |[前端开发 8 大性能分析工具](https://juejin.im/post/6860664312504320014)|校对|3|
@@ -10136,10 +10139,13 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：12 当前积分：12 二零二零：12
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：25 当前积分：25 二零二零：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)|翻译|4|
+|[分享我喜欢的十五条 JavaScript 编程技巧](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)|翻译|4|
+|[你应该了解的八种浏览器 API](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)|翻译|5|
 |[如何在字符串中隐藏秘密 —— JavaScript 中的现代文本隐藏](https://juejin.im/post/6856737400396349454)|校对|3|
 |[使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)|校对|3|
 |[打包用于分发的 UI 库 —— 当你要发布一个 UI 组件库时，你可能需要遵守的指南](https://juejin.im/post/6863091746113323021)|校对|3|
@@ -10182,22 +10188,25 @@
 |------|-------|-------|
 |[写给工程师的《系统性能兵法》](https://juejin.im/post/6858061688386617358)|校对|2.5|
 
-## 译者：[loststar](https://github.com/loststar) 历史贡献积分：1 当前积分：1 二零二零：1
+## 译者：[loststar](https://github.com/loststar) 历史贡献积分：1.5 当前积分：1.5 二零二零：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python：使用 locals() 和 globals() 巧妙编程](https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md)|校对|0.5|
 |[JavaScript 技巧 —— 子代构造函数，文本选择，内联 Workers 等等](https://juejin.im/post/6854573219622420488)|校对|1|
 
-## 译者：[onlinelei](https://github.com/onlinelei) 历史贡献积分：0.5 当前积分：0.5 二零二零：0.5
+## 译者：[onlinelei](https://github.com/onlinelei) 历史贡献积分：2.5 当前积分：2.5 二零二零：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[你应该了解的八种浏览器 API](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)|校对|2|
 |[8 个有用的 SCSS 最佳实践](https://juejin.im/post/6862499761351163911)|校对|0.5|
 
-## 译者：[Inchill](https://github.com/Inchill) 历史贡献积分：1 当前积分：1 二零二零：1
+## 译者：[Inchill](https://github.com/Inchill) 历史贡献积分：3 当前积分：3 二零二零：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[你应该了解的八种浏览器 API](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)|校对|2|
 |[TypeScript 4.0 终于发布了我一直在等待的东西](https://juejin.im/post/6864473591770152968)|校对|1|
 
 ## 译者：[Misszhu](https://github.com/Misszhu) 历史贡献积分：2.5 当前积分：2.5 二零二零：2.5
@@ -10217,3 +10226,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|校对|2|
+
+## 译者：[actini](https://github.com/actini) 历史贡献积分：1 当前积分：1 二零二零：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Python：使用 locals() 和 globals() 巧妙编程](https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md)|翻译|1|
+
+## 译者：[jacob-lcs](https://github.com/jacob-lcs) 历史贡献积分：2 当前积分：2 二零二零：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)|校对|2|
+
+## 译者：[whatwewant](https://github.com/whatwewant) 历史贡献积分：2 当前积分：2 二零二零：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)|校对|2|
