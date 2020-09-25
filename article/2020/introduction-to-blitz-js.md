@@ -29,20 +29,6 @@ With these blitz.js makes us far more productive than we ever dreamed was possib
 
 Now, we have known why we need blitz.js. Let’s see more detailed features of it.
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*VEkV4XIfo_FtdM9s.gif)
-
----
-
 ## Blitz.js
 
 Blitz.js is a full-stack React framework with a zero-API data layer built on Next.js Inspired by Ruby on Rails.
@@ -61,7 +47,7 @@ Note that Blitz.js runs on Nodejs v12+.
 
 We install the Blitz.js CLI tool globally in our machine.
 
-```
+```bash
 npm install -g blitz
 ```
 
@@ -69,7 +55,7 @@ With this, we can use the `blitz` command from any directory in our machine.
 
 To create a new Blitzjs app we use the new arg in the blitz command:
 
-```
+```bash
 blitz new blitz-app
 ```
 
@@ -127,7 +113,7 @@ Then, Blitzjs will have the following folders and files in the pages directory
 
 `pages/post/index.js` this exports a component that will be rendered when is the route "/post" is navigated to.
 
-```
+```js
 // pages/post/index.js
 
 function Post() {
@@ -139,7 +125,7 @@ export default Post
 
 pages/profile/index.js maps to the `/profile` route. The pages/profile/index.js exports a React component that will render when the route is navigated to.
 
-```
+```js
 // pages/profile/index.js
 
 function Profile() {
@@ -151,7 +137,7 @@ export default Profile
 
 `pages/about/index.js` maps to the `/about` route.
 
-```
+```js
 // pages/about/index.js
 function About() {
     return <div>About</div>
@@ -162,7 +148,7 @@ export default About
 
 The `db/` is where the app's database configuration goes. By default, Blitz uses Prisma 2 which is a strongly-typed database client. You can use anything you want, such as Mongo, TypeORM, etc. By default, Blitz uses the local SQLite as the database.
 
-```
+```ts
 datasource db {
     provider = "sqlite"
     url = env("DATABASE_URL")
@@ -171,7 +157,7 @@ datasource db {
 
 The `provider` tells Prisma that the app uses the SQLite database. If we want to use other databases like Postgres for example we will change the value of `provider` from `sqlite` to `postgres`.
 
-```
+```ts
 datasource db {
     provider = "postgres"
     url = env("DATABASE_URL")
@@ -180,7 +166,7 @@ datasource db {
 
 In this schema.prisma file we can define our models:
 
-```
+```ts
 datasource db {
     provider = "postgres"
     url = env("DATABASE_URL")
@@ -207,7 +193,7 @@ The `utils/` directory houses the utility files that can be shared or used in th
 
 We can start the Blitz server to serve our project by running the command:
 
-```
+```bash
 blitz start
 ```
 
@@ -247,7 +233,7 @@ The `\<type>` can have the following values:
 
 Example:
 
-```
+```bash
 blitz generate all blogPost
 ```
 
@@ -304,7 +290,7 @@ The mutations do the CUD in CRUD, they can create, update, or delete a blog post
 
 Example:
 
-```
+```bash
 blitz generate resource blogPost
 ```
 
@@ -322,7 +308,7 @@ app/blogPosts/mutations/updateBlogPost.ts
 
 Example:
 
-```
+```bash
 blitz generate crud blogPost
 ```
 
@@ -340,7 +326,7 @@ app/blogPosts/mutations/updateBlogPost.ts
 
 Example:
 
-```
+```bash
 blitz generate queries blogPost
 ```
 
@@ -355,7 +341,7 @@ app/blogPosts/queries/getBlogPosts.ts
 
 Example:
 
-```
+```bash
 blitz generate mutations blogPost
 ```
 
@@ -371,7 +357,7 @@ app/blogPosts/mutations/updateBlogPost.ts
 
 Example:
 
-```
+```bash
 blitz generate pages blogPost
 ```
 
@@ -401,19 +387,10 @@ If you have any questions regarding this or anything I should add, correct or re
 
 Thanks !!!
 
-## Learn More
-[**Maximizing Code Reuse in React**
-**How to speed-up development by sharing ReactJS components from any codebase, using Bit**blog.bitsrc.io](https://blog.bitsrc.io/maximizing-code-reuse-in-react-35ee20ad362c)
-[**11 Useful Custom React Hooks for Your Next Web App**
-**Top 11 recommended ReactJS custom Hooks — with examples.**blog.bitsrc.io](https://blog.bitsrc.io/11-useful-custom-react-hooks-for-your-next-app-c66307cf0f0c)
-[**14 JavaScript Code Optimization Tips for Front-End Developers**
-**Tips and tricks to increase performance and website load time**blog.bitsrc.io](https://blog.bitsrc.io/14-javascript-code-optimization-tips-for-front-end-developers-a44763d3a0da)
-
 ## Blitz resources
-[**Blitz.js — The Fullstack React Framework | Blitz.js ⚡️**
-**“Zero-API” data layer lets you import server code directly into your React components instead of having to manually add…**blitzjs.com](https://blitzjs.com)
-[**Getting Started with Blitz | Blitz.js ⚡️**
-**Before getting started, you should know this is alpha software. Blitz is incomplete. There are rough spots and bugs…**blitzjs.com](https://blitzjs.com/docs/getting-started)
+
+[Blitz.js — The Fullstack React Framework](https://blitzjs.com)
+[Getting Started with Blitz](https://blitzjs.com/docs/getting-started)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
