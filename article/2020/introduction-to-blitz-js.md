@@ -2,20 +2,20 @@
 > * 原文作者：[Chidume Nnamdi 🔥💻🎵🎮](https://medium.com/@kurtwanger40)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/introduction-to-blitz-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/introduction-to-blitz-js.md)
-> * 译者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
-# Introduction to Blitz.js
+# Blitz.js 简介
 
 ![](https://cdn-images-1.medium.com/max/2800/0*UyEKhRBaINAtNNiB.png)
 
-Yet another framework on the block. It is no news that the JavaScript community has been growing steadily and with that hundreds of frameworks have been reeled out more than we can comprehend and keep up with.
+Yet another framework on the block. JavaScript 社区一直在稳步发展，这已经不是什么新闻了，并且已经推出了数百个框架，这无疑超出了我们的理解和掌握范围。
 
-Now, most of the stable JavaScript frameworks have also frameworks built on top of them, to make them more sophisticated and highly performant.
+现在，大多数稳定的框架都有基于其构建的框架，使其更复杂以及具有更高的性能。
 
-In this post, we will be introducing the Blitz.js framework.
+在本文，我们将会简单介绍 Blitz.js 框架。
 
-## Why do we need this blitz.js framework?
+## 为什么我们需要 blitz.js 框架？
 
 Yes, React supercharges the way we build apps these days. The [component driven design](https://bit.dev) makes it very easy to build our app from a single unit of view upwards.
 
@@ -39,7 +39,7 @@ Let’s see the main features and goodies of Blitz.js according to its creator�
 2. Includes everything you need for production apps. Everything end-to-end from the database to the frontend.
 3. Brings back the simplicity and conventions of frameworks like Ruby on Rails while preserving everything we love about React
 
-#### Installation & Basic usage
+#### 安装 & 基础用法
 
 To get started with Blitz.js we first have to install the CLI tool.
 
@@ -372,7 +372,7 @@ app/blogPosts/pages/blogPosts/new.tsx
 
 The `\<model_name>` argument is the model name to generate files for.
 
-## Conclusion
+## 总结
 
 Let’s tick them off. Blitz.js offers us:
 
@@ -385,11 +385,12 @@ Blitzjs is awesome. How it made everything simple for us is quite amazing. Just 
 
 If you have any questions regarding this or anything I should add, correct or remove, feel free to comment, email, or DM me.
 
-Thanks !!!
+谢谢！！！
 
-## Blitz resources
+## Blitz 的相关资源
 
 [Blitz.js — The Fullstack React Framework](https://blitzjs.com)
+
 [Getting Started with Blitz](https://blitzjs.com/docs/getting-started)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
