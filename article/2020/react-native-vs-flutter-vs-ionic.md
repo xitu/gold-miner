@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# React Native vs. Flutter vs. Ionic
-
-#### Which is the best choice for a cross-platform framework?
+# Which is the best choice for a cross-platform framework? React Native vs. Flutter vs. Ionic
 
 ![](https://cdn-images-1.medium.com/max/2000/1*g2nPc0B5swtS6pQniBdevw.jpeg)
 
@@ -41,8 +39,6 @@ Now the real challenge comes here when you need to choose between these three le
 
 Let’s begin with a short intro of each framework.
 
----
-
 ## The Baseline of Open Source Cross-Platform Mobile App Development Frameworks
 
 #### Overview
@@ -68,8 +64,6 @@ Ionic was introduced in 2013 as an open source SDK for cross-platform mobile app
 Major clients: Being in the market for a long time, it has been used to build such apps Sworkit, JustWatch, MarketWatch, and more.
 
 Now let’s move towards the major points that help you understand the pros and cons of each framework with this simple comparison.
-
----
 
 ## Comparing the Major Attributes of React Native, Flutter, and Ionic
 
@@ -149,8 +143,6 @@ With plenty of advanced features, Flutter has already impressed approximately 39
 
 **Ionic:** It is a free, open source cross-platform mobile app framework, but for a professional development environment, you need to go for the paid version. However, Iconic Pro can easily expedite the development process and make it easier for developers to create an application in real time.
 
----
-
 ## Which Framework Will You Choose for Cross-Platform App Development?
 
 After all these metrics and comparison, you need to first decide whether you want to stick with native languages, like Swift, Object C, C++, and Java, and want to proceed with the hassle of learning and mastering two different languages for developing two different apps. Or do you want to choose one framework that works well on multiple platforms?
@@ -165,13 +157,11 @@ Secondly, if performance and the need to access a wide range of native device fe
 
 Rest easy — everything has been explained in detail above.
 
----
-
 ## Final Thoughts
 
 To wrap up this article, it’s worth saying that our aim is not to announce the winner of the cross-platform app development frameworks. Instead, the simple aim of this article is to help you understand the strengths and limitations of these three top cross-platform frameworks so you can make a perfect choice for your app development.
 
-After evaluating various survey reports and statistics, this article has analyzed the information and carried out a detailed comparison between these three titans. If you still have doubts about any framework or which options best suit your needs, then it’s recommended that you get in touch with a leading [**software development company**](https://www.xicom.biz/).
+After evaluating various survey reports and statistics, this article has analyzed the information and carried out a detailed comparison between these three titans.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
