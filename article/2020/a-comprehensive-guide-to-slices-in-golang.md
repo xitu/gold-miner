@@ -5,60 +5,62 @@
 > * 译者：
 > * 校对者：
 
-# A Comprehensive Guide to Slices in Golang
+# Golang 切片综合指南
 
-![Photo by [Paweł Czerwiński](https://unsplash.com/@pawel_czerwinski) on [Unsplash](https://unsplash.com/s/photos/array)](https://cdn-images-1.medium.com/max/12000/1*i7lsjZyVnJxDEIg8Qibdlw.jpeg)
+![由于 [Paweł Czerwiński](https://unsplash.com/@pawel_czerwinski) 拍摄于 [Unsplash](https://unsplash.com/s/photos/array)](https://cdn-images-1.medium.com/max/12000/1*i7lsjZyVnJxDEIg8Qibdlw.jpeg)
 
-In this article, we will go over the concept of a “slice” which is an important data structure used in Golang. A slice is a data structure that provides a way for you to work with — and manage collections of — data. Slices are built around the concept of dynamic arrays that can grow and shrink as you see fit.
+在这篇文章中，我们将复习「切片」的概念，它是 Golang 中一个重要的数据结构，这一数据结构为你提供了处理与管理数据集合的方法。切片是围绕着动态数组的概念构建的，它与动态数组相似，可以根据你的需要而伸缩。
 
-* Slices are **dynamic** in terms of growth because they have their own built-in function called **append** which can grow a slice quickly and efficiently.
-* You can also reduce the size of a slice by slicing out a part of the underlying memory.
-* Slices give you all the benefits of indexing, iteration, and garbage collection optimizations because the underlying memory is allocated in contiguous blocks.
+* 就增长而言，切片是**动态**的，因为它们有自己的内置函数 **`append`**，可以快速高效地增长切片。
+* 你还可以通过切割底层内存来减少切片的大小。
+* 在底层内存中切片是在连续的块上分配的，因此切片为你提供的便利之处包括索引、迭代与垃圾回收优化。
 
 #### Slice representation
+#### 切片的表示
 
-* A slice doesn’t store any data; it just describes a section of an underlying array.
+* 切片不存储任何数据，它仅描述底层数组的一部分。
 * The slice is represented using a three filed structure name pointer to the underlying array, length, and capacity.
-* This data structure works like a descriptor of the slice.
+* 切片使用一个包含三个字段的结构表示：指向底层数组的指针（pointer）、长度（length）与容量（capacity）。
+* 这个数据结构类似于切片的描述符。
 
-![Image 1: Slice representation](https://cdn-images-1.medium.com/max/2000/1*PW4Y8P0_gTspgYwcxfDrtQ.png)
+![图 1：切片的表示](https://cdn-images-1.medium.com/max/2000/1*PW4Y8P0_gTspgYwcxfDrtQ.png)
 
-* **Pointer:** The pointer is used to point to the first element of the array that is accessible through the slice. Here, it is not necessary that the pointed element is the first element of the array.
-* **Length:** The length is the total number of elements present in the array.
-* **Capacity:** The capacity represents the maximum size up to which it can expand.
+* **指针（Pointer）：**指针用于指向数组的第一个元素，这个元素可以通过切片进行访问。在此处，指向的元素不必是数组的第一个元素。
+* **长度（Length）：**长度代表数组中所有元素的总数。
+* **容量（Capacity）：**容量表示切片可扩展的最大大小。 
 
-#### Declare a slice using the length
+#### 使用长度声明一个切片
 
-When you just specify the length, the capacity of the slice is the same.
+在声明切片过程中，当你仅指定长度（Length）时，容量（Capacity）值与长度（Length）值相同。
 
-![Image 2: Declare a slice using the length.](https://cdn-images-1.medium.com/max/2000/1*5ssbGNTliiFWF_rcxN6RRg.png)
+![图 2：使用长度声明一个切片。](https://cdn-images-1.medium.com/max/2000/1*5ssbGNTliiFWF_rcxN6RRg.png)
 
 ```Go
-// Declaring a slice by length. Create a slice of int. 
-// Contains a length and capacity of 5 elements. 
+// 使用长度声明一个切片。创建一个整型切片。
+// 包含 5 个元素的长度和容量。
 slice := make([]int, 5)
-fmt.Println(len(slice)) // Print 5
-fmt.Println(cap(slice)) // Print 5
+fmt.Println(len(slice)) // 打印结果 5
+fmt.Println(cap(slice)) // 打印结果 5
 ```
 
-#### Declare a slice with length and capacity
+#### 使用长度和容量声明一个切片
 
-When you specify the length and capacity separately, you can create a slice with the capacity available in the underlying array that you didn’t have access to initially.
+在声明切片过程中，当你分别指定长度（Length）和容量（Capacity）时，可以使用底层数组中最初无法访问的可用容量创建一个切片。
 
 ```Go
 /* 
- Declaring a slice by length and capacity
- Create a slice of integers. 
- Contains a length of 3 and has a capacity of 5 elements.
+ 使用长度和容量声明一个切片
+ 创建一个整型切片。
+ 包含长度为 3 容量为 5 的元素。
 */
 slice := make([]int, 3, 5)
-fmt.Println(len(slice)) // Print 3
-fmt.Println(cap(slice)) // Print 5
+fmt.Println(len(slice)) // 打印结果 3
+fmt.Println(cap(slice)) // 打印结果 5
 ```
 
-![Image 3: Declare a slice with length and capacity.](https://cdn-images-1.medium.com/max/2000/1*6OLPqO2Z2x-QKPU_9EDA2A.png)
+![图 3：使用长度和容量声明一个切片。](https://cdn-images-1.medium.com/max/2000/1*6OLPqO2Z2x-QKPU_9EDA2A.png)
 
-Please note, however, that trying to create a slice with a capacity that’s smaller than the length is not allowed.
+但请注意，尝试创建容量小于长度的切片是不允许的。
 
 #### Create a slice with a slice literal
 
