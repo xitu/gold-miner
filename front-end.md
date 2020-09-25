@@ -1,3 +1,14 @@
+* [JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)（[Isildur46](https://github.com/Isildur46) 翻译）
+* [React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)（[nia3y](https://github.com/nia3y) 翻译）
+* [让你的 Web 应用和移动应用选择 PWA 的 5 个理由](https://juejin.im/post/6868084125195042823)（[rocwong-cn](https://github.com/rocwong-cn) 翻译）
+* [JavaScript 生成器：何时用 yield，何时用 yield* ？](https://juejin.im/post/6867036974441005063)（[Isildur46](https://github.com/Isildur46) 翻译）
+* [TypeScript 4.0 终于发布了我一直在等待的东西](https://juejin.im/post/6864473591770152968)（[rocwong-cn](https://github.com/rocwong-cn) 翻译）
+* [如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)（[zenblo](https://github.com/zenblo) 翻译）
+* [8 个有用的 SCSS 最佳实践](https://juejin.im/post/6862499761351163911)（[snowyYU](https://github.com/snowyYU) 翻译）
+* [你应该了解的八种浏览器 API](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)（[zenblo](https://github.com/zenblo) 翻译）
+* [分享我喜欢的十五条 JavaScript 编程技巧](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)（[zenblo](https://github.com/zenblo) 翻译）
+* [前端开发 8 大性能分析工具](https://juejin.im/post/6860664312504320014)（[IAMSHENSH](https://github.com/IAMSHENSH) 翻译）
+* [给前端开发者的 14 个 JavaScript 代码优化建议](https://juejin.im/post/6859562506721951751)（[Gesj-yean](https://github.com/Gesj-yean) 翻译）
 * [如何利用 Polyfill 和转译在所有浏览器中使用最新 JavaScript 特性](https://juejin.im/post/6868513605055643662)（[MangoTsing](https://github.com/MangoTsing) 翻译）
 * [Javascript 应用中引入 CSS 的几种方式](https://juejin.im/post/6867054761741549576)（[thisisandy](https://github.com/thisisandy) 翻译）
 * [使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)（[rocwong-cn](https://github.com/rocwong-cn) 翻译）
