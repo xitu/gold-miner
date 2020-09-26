@@ -54,7 +54,7 @@ yew = "0.17"
 wasm-bindgen = "0.2"
 ```
 
-新建文件 `Makefile.toml` 并添加如下代码：
+新建名为 `Makefile.toml` 的文件并添加如下代码：
 
 ```toml
 [tasks.build]
