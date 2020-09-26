@@ -943,7 +943,7 @@ pub use product_card::ProductCard;
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-3.png)
 
-我们可以在 Yew 中使用 [类属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class) 或 [内联样式](https://developer.mozilla.org/en-US/docs/Web/API/ElementCSSInlineStyle/style)。让我们添加一些样式来让 UI 好看起来吧。
+我们可以在 Yew 中使用 [类属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class) 或 [内联样式](https://developer.mozilla.org/en-US/docs/Web/API/ElementCSSInlineStyle/style)。让我们添加一些样式使 UI 好看起来吧。
 
 我们创建一个新的 CSS 文件 `static/styles.css`，将其添加到 `static/index.html` 中然后我们就可以开始在我们的组件中使用类了。
 
