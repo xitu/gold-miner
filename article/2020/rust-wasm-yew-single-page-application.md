@@ -544,7 +544,7 @@ UI 如下所示，试试单击「添加到购物车」按钮然后看看「购�
 ]
 ```
 
-Yew 通过叫作 ["services"](https://docs.rs/yew/0.17.2/yew/services/index.html) 的东西来暴露常见的浏览器 api，比如 fetch、localstorage 等等。我们可以使用 `FetchService` 来发起网络请求。这需要 `anyhow` 和 `serde` 库，我们来安装他们：
+Yew 通过叫作 ["services"](https://docs.rs/yew/0.17.2/yew/services/index.html) 的模块来暴露常见的浏览器 api，比如 fetch、localstorage 等等。我们可以使用 `FetchService` 来发起网络请求。这需要 `anyhow` 和 `serde` 库，让我们安装这些库：
 
 ```diff
   [package]
