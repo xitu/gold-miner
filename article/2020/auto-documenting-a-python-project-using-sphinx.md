@@ -67,7 +67,7 @@ Sphinx 默认的主题是 [alabaster](https://alabaster.readthedocs.io/en/latest
 
 ## 4. 自动生成 rst 文件
 
-Sphinx 从 reStructruedText(rst) 文件生成 HTML 文档。这些 rst 文件是对每个页面的描述，也可能会包含一些 autodoc 指令，并且最终会根据注释内容自动生成文档。由于可以自动生成这些文档，所以就没必要靠人工去给每个类或者模块去手写 autodoc 指令啦。
+Sphinx 会根据 reStructruedText（rst）文件生成 HTML 文档。这些 rst 文件是对每个页面的描述，也可能会包含一些 autodoc 指令，并且最终会根据注释内容自动生成文档。由于可以自动生成这些文档，所以就没必要靠人工去给每个类或者模块去手写 autodoc 指令啦。
 
 `sphinx-autodoc` 命令会根据代码生成包含 [autodoc 指令](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) 的 rst 文件。一旦 rst 文件生成之后，只有在项目中添加了新的模块时才需要重新运行这个命令。
 
