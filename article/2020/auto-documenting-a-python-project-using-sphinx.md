@@ -9,7 +9,7 @@
 
 ![Photo by [Jason Blackeye](https://unsplash.com/photos/nyL-rzwP-Mk) on [Unsplash](https://unsplash.com/photos/nyL-rzwP-Mk)](https://cdn-images-1.medium.com/max/12000/1*KOMqHlHUwgvf0RgqXUHMgA.jpeg)
 
-虽说给长有必要好好写项目文档，但写文档这个事儿还是经常被一拖再拖，并且大家都觉得它很繁琐、优先级也很低。开发人员也常常会想“既然对自己写的代码了如指掌，为啥还要写文档呢？”另外，随着代码的不断更新，维护文档也变成了一项繁重的负担。
+虽说非常有必要好好写项目文档，但写文档这个事儿还是经常被一拖再拖，并且大家都觉得它很繁琐、优先级也很低。开发人员也常常会想“既然对自己写的代码了如指掌，为啥还要写文档呢？”另外，随着代码的不断更新，维护文档也变成了一项繁重的负担。
 
 好消息，得益于 [Sphinx](https://www.sphinx-doc.org/en/master/) 的强大功能，我们无须再手动写文档了，Sphinx 可以从代码的注释中自动生成项目文档。
 
