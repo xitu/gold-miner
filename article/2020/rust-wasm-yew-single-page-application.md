@@ -133,7 +133,7 @@ pub fn run_app() {
 }
 ```
 
-发生了很多，但是你可以看到我们正在创建一个叫 「Hello」的新组件，它将 `<span>Hello World!</span>` 渲染进 DOM。我们稍后会进一步了解 Yew 组件。
+这里我们做了很多事情，但是显而易见我们正在创建一个叫 「Hello」的新组件，它将 `<span>Hello World!</span>` 渲染进 DOM。我们稍后会进一步了解 Yew 组件。
 
 在新终端中启动服务任务，然后在浏览器中加载 `http://localhost:3000`
 
