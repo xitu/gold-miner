@@ -2,25 +2,25 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/mastering-javascript-es6-symbols.md](https://github.com/xitu/gold-miner/blob/master/article/2020/mastering-javascript-es6-symbols.md)
-> * 译者：
+> * 译者：[Inchill](https://github.com/Inchill)
 > * 校对者：
 
-# Mastering JavaScript ES6 Symbols
+# 掌握 JavaScript ES6 中的 Symbol 类型
 
 ![](https://cdn-images-1.medium.com/max/2560/1*E5bxT-J688MnfPJ92Zr25A.png)
 
-JavaScript is one of the cores of web development. JavaScript, also known as ECMAScript was standardized in 1997. Since then, the below primitive values were present in the language.
+JavaScript 是 Web 开发的核心之一。JavaScript，也被称为 ECMAScript，于 1997 年标准化。至此以后，该语言中出现了下述原始值。
 
 * Undefined
 * Null
-* Big Int(newly added in ES2020)
+* Big Int(ES2020 中新增)
 * Boolean
 * Number
 * String
 
-`null` is labeled as one of the primitive values in JavaScript, since its action is apparently primitive. But in some situations, `null` is not as “primitive” as it first seems! Every Object is derived from `null` value, and therefore `typeof` operator returns an object for it.
+`null` 被标记为 JavaScript 中的原始值之一，因为它的作用显然是原始的。但是在某些情况下，`null` 并不像它最初看起来那样“原始”。每个 Object 都是从 `null` 值派生的，因此 `typeof` 运算符将为其返回一个对象。
 
-But with the release of ES6 in 2015, a newer primitive type — **Symbol**, was added. They were quite different from the previous primitives. They were simply values, not strings, nor numbers nor even Objects. They were just **Symbols**.
+但是随着 2015 年 ES6 的发布，一个更新的原始类型 —— **Symbol**，被添加了进去。它们与以前的原始值相比有很大的不同。它们只是值，不是字符串，也不是数字甚至对象。它们只是 **Symbols**。
 
 ## What is This New Primitive All About?
 
