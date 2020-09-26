@@ -17,51 +17,51 @@ Yet another framework on the block. JavaScript 社区一直在稳步发展，这
 
 ## 为什么我们需要 blitz.js 框架？
 
-Yes, React supercharges the way we build apps these days. The [component driven design](https://bit.dev) makes it very easy to build our app from a single unit of view upwards.
+是的，React 增强了我们现在构建应用的方式。[组件驱动设计](https://bit.dev) 使得我们从单个的单元向上构建应用更加容易。
 
-But then, building apps is more than stacks of components in React. We have to think through how to set up the configuration, the best design pattern to follow, how to set up our folder structure, how the app structure is organized, the routes/pages of the app, what database to use, and the server and the database schema model to use.
+但是，构建应用并不仅是在 React 中堆叠组件。我们必须思考，如何设置配置、遵循最佳设计模式、建立文件夹结构，组织应用的结构、规划应用的路由/页面以及使用什么数据库，服务器以及数据库模式模型。
 
-Deciding on all these things before writing even a single line of code is a serious headache.
+在编写代码前就要决定好上述的所有事情，实在是令人头疼。
 
-Blitz.js plugs all these holes for us, it scaffolds a full-stack monolithic server-side rendered(with Next.js) React app with all the configurations and backend already baked in. Just like the Rails framework does on Ruby.
+Blitz.js 为我们解决了以上的所有问题，它提供了一个全栈整体的服务器端渲染 React 应用程序脚手架，并内置了相应的配置和后端。就像 Rails 框架在 Ruby 上所做的。
 
-With these blitz.js makes us far more productive than we ever dreamed was possible.
+通过 blitz.js 带来的好处，所提高的生产力将远远超出我们的想象。
 
-Now, we have known why we need blitz.js. Let’s see more detailed features of it.
+现在，我们已经知道为什么需要 blitz.js 了。让我们来看看更加详细的功能。
 
 ## Blitz.js
 
-Blitz.js is a full-stack React framework with a zero-API data layer built on Next.js Inspired by Ruby on Rails.
+Blitz.js 是受 Ruby on Rails 启发，基于 Next.js 构建的零-API（Zero-API）数据层全栈 React 框架。
 
-Let’s see the main features and goodies of Blitz.js according to its creator’s words:
+让我们根据框架作者的话来看看 Blitz.js 的主要功能和优点：
 
-1. “Zero-API” data layer lets you import server code directly into your React components instead of having to manually add API endpoints and do the client-side fetching and caching.
-2. Includes everything you need for production apps. Everything end-to-end from the database to the frontend.
-3. Brings back the simplicity and conventions of frameworks like Ruby on Rails while preserving everything we love about React
+1. “Zero-API” 数据层让你无需手动添加 API 端点（API endpoints）或进行客户端访问和缓存（fetching and caching）就能直接将服务器代码导入到 React 组件中。
+2. 包含了产品级应用所需的一切事物。从数据库到前端的一切的端对端事物。
+3. 带来 Ruby on Rails 框架的简洁和约定的同时，保留了我们对 React 中所热爱的一切事物。
 
 #### 安装 & 基础用法
 
-To get started with Blitz.js we first have to install the CLI tool.
+要开始使用 Blitz.js ，首先，我们需要安装命令行工具。
 
-Note that Blitz.js runs on Nodejs v12+.
+Blitz.js 需运行在 Nodejs v12+。
 
-We install the Blitz.js CLI tool globally in our machine.
+我们在计算机上全局安装 Blitz.js 的命令行工具。
 
 ```bash
 npm install -g blitz
 ```
 
-With this, we can use the `blitz` command from any directory in our machine.
+安装以后，我们就可以在任意目录中使用 `blitz` 命令了。
 
-To create a new Blitzjs app we use the new arg in the blitz command:
+为了创建一个新的 Blitzjs 应用，在 blitz 命令中加上 new 参数：
 
 ```bash
 blitz new blitz-app
 ```
 
-The `new` sub-command creates a new Blitz project with `blitz-app` as its name.
+`new` 子命令（sub-command）会创建一个以 `blitz-app` 为名的 Blitz 新项目。
 
-Let’s look at the `blitz-app` directory:
+来看看 `blitz-app` 目录结构:
 
 ```
 blitz-app
@@ -97,21 +97,21 @@ blitz-app
 └── yarn.lock
 ```
 
-The `app/` directory is the main container for most of your projects. This is where your application components, pages, routes stay. It is just like the `src` of your app.
+`app/` 目录是大多数项目的主要容器。就是放置应用组件，页面和路由的地方。如同你的应用中 `src` 目录。
 
-The `app/components` directory is where presentational will reside. Presentational components are independent single view units, they only work is to display the data passed to them by the container components.
+`app/components` 目录用来存放展示组件（presentational components）。展示组件是独立的视图单元，它们唯一的用处就是显示容器组件（container components）传递给它们的数据。
 
-The `app/pages` directory is where the routes reside. Each page is associated with a route based on its file name. In Blitz, a page is a React Component exported from a `.js`, `.jsx`, `.ts`, or `.tsx` file in a pages directory.
+`app/pages` 目录用来存放页面路由。每个页面都是基于文件名和路由产生关联。在 Blitz 中，页面就源于从 pages 目录中 `.js`、`.jsx`、`.ts` 或 `.tsx` 文件导出的 React 组件。
 
-For example, if we have routes in our app like this:
+举个例子，如果在我们的应用中有如下的路由：
 
 * /post
 * /profile
 * /about
 
-Then, Blitzjs will have the following folders and files in the pages directory
+那么，在 Blitzjs 的 pages 目录中应有如下的文件夹和文件。
 
-`pages/post/index.js` this exports a component that will be rendered when is the route "/post" is navigated to.
+当导航到 "/post" 路由时，`pages/post/index.js` 导出的组件会被渲染。
 
 ```js
 // pages/post/index.js
@@ -123,7 +123,7 @@ function Post() {
 export default Post
 ```
 
-pages/profile/index.js maps to the `/profile` route. The pages/profile/index.js exports a React component that will render when the route is navigated to.
+`pages/profile/index.js` 映射到 `/profile` 路由。`pages/profile/index.js` 导出的组件会在路由被导航到时渲染。
 
 ```js
 // pages/profile/index.js
@@ -135,7 +135,7 @@ function Profile() {
 export default Profile
 ```
 
-`pages/about/index.js` maps to the `/about` route.
+`pages/about/index.js` 映射到 `/about` 路由。
 
 ```js
 // pages/about/index.js
