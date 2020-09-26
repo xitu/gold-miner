@@ -23,7 +23,7 @@ Sphinx 官网上也讲了其他的安装方式，根据你的实际情况自由�
 
 ## 2. 初始化 Sphinx 配置
 
-在项目根目录下运行 `sphinx-quickstart` 来初始化 sphinx 的 `source` 目录并创建默认的配置。命令执行过程中，需要你填写一些基本的配置内容，比如是否创建单独的 `source` 和 `build` 目录、项目d鹅名称、作者以及版本。
+在项目根目录下运行 `sphinx-quickstart` 来初始化 sphinx 的 `source` 目录并创建默认的配置。命令执行过程中，需要你填写一些基本的配置内容，比如是否创建单独的 `source` 和 `build` 目录、项目的名称、作者以及版本。
 
 ![使用 **sphinx-quickstart** 初始化 sphinx 配置](https://cdn-images-1.medium.com/max/2412/1*NiE2w5uY6KtD8DII_vnYmA.png)
 
