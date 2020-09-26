@@ -151,7 +151,7 @@ $ cargo make serve
 
 使用组件来构建 UI 和单向数据流是前端世界的一个范式转变。这是我们处理 UI 方式的一个巨大进步，一旦习惯了，就很难回到命令式 DOM 操作。
 
-在像 React、Vue、Yew、Flutter 等等的库中，一个 `Component` （组件）有这些特性：
+在像 React、Vue、Yew、Flutter 等等的库中， `Component` （组件）有这些特性：
 
 - 能够组成更大的组件
 - `Props` —— 从该组件向其子组件传递数据和回调
