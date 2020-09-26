@@ -77,7 +77,7 @@ $ cargo make build
 
 ## Hello World
 
-让我们从简单的 「hello world」例子开始：
+让我们从简单的「hello world」例子开始：
 
 创建 `static/index.html` 并添加如下代码：
 
@@ -133,7 +133,7 @@ pub fn run_app() {
 }
 ```
 
-这里我们做了很多事情，但是显而易见我们正在创建一个叫 「Hello」的新组件，它将 `<span>Hello World!</span>` 渲染进 DOM。我们稍后会进一步了解 Yew 组件。
+这里我们做了很多事情，但是显而易见我们正在创建一个叫「Hello」的新组件，它将 `<span>Hello World!</span>` 渲染进 DOM。我们稍后会进一步了解 Yew 组件。
 
 在新终端中启动服务任务，然后在浏览器中加载 `http://localhost:3000`
 
