@@ -939,7 +939,7 @@ pub use product_card::ProductCard;
 
 ## 样式
 
-由于我们尚未添加任何样式，因此 UI 看起来像很简陋。
+由于我们尚未添加任何样式，所以 UI 看起来像很简陋。
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-3.png)
 
