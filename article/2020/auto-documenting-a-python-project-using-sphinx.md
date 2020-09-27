@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/auto-documenting-a-python-project-using-sphinx.md](https://github.com/xitu/gold-miner/blob/master/article/2020/auto-documenting-a-python-project-using-sphinx.md)
 > * 译者：[Herman](https://github.com/actini)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 使用 Shpinx 为 Python 项目自动生成文档
 
