@@ -7,13 +7,9 @@
 
 # MVC vs MVP vs MVVM
 
-#### Thought Programmer
-
-#### What’s different between them?
-
 ![Photo by [Edwin Andrade](https://unsplash.com/@theunsteady5?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10098/0*zrwD7OZp_Lz0Trzm)
 
-Nowadays we have many options when it comes to architecture design patterns. After developing many apps using Model-View- ViewModel (MVVM), Model-View-Presenter (MVP), and Model-View-Controller (MVC), I finally feel qualified to talk about the differences between them. For easier to understand, we can use a simple example like developing a screen to search books in the **BookSearch** App.
+Nowadays we have many options when it comes to architecture design patterns. After developing many apps using Model-View-ViewModel (MVVM), Model-View-Presenter (MVP), and Model-View-Controller (MVC), I finally feel qualified to talk about the differences between them. For easier to understand, we can use a simple example like developing a screen to search books in the **BookSearch** App.
 
 Let’s begin now…!
 
@@ -55,7 +51,7 @@ MVP is a derivative of the MVC design pattern which focuses on improving present
 Although MVP is a derivation of MVC, they do have their slight differences.
 
 * **Model** — The Model represents a set of classes that describes the business logic and data. It also defines business rules for data means how the data can be changed and manipulated.
-* ****View** **— The View is used for making interactions with users like XML, Activity, fragments. It has got nothing to do with the logic that is to be implemented in the process.
+* **View** — The View is used for making interactions with users like XML, Activity, fragments. It has got nothing to do with the logic that is to be implemented in the process.
 * **Presenter** — The presenter gets the input from the View, processes the data with the help of the Model, and passes the results back to the View after the processing is done.
 
 ![MVP on Android](https://cdn-images-1.medium.com/max/2730/1*naMJ_Kfe8sLShjoBwDfjzg.png)
