@@ -2,7 +2,7 @@
 > * 原文作者：[Radhakishan Surwase](https://medium.com/@rksurwase)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/a-comprehensive-guide-to-slices-in-golang.md](https://github.com/xitu/gold-miner/blob/master/article/2020/a-comprehensive-guide-to-slices-in-golang.md)
-> * 译者：
+> * 译者：[JalanJiang](http://jalan.space/)
 > * 校对者：
 
 # Golang 切片综合指南
@@ -62,139 +62,141 @@ fmt.Println(cap(slice)) // 打印结果 5
 
 但请注意，尝试创建容量小于长度的切片是不允许的。
 
-#### Create a slice with a slice literal
+#### 使用切片字面量创建切片
 
-An idiomatic way of creating a **slice** is to use a **slice literal**. It’s similar to creating an array, except you don’t specify a value inside of the [ ] operator. The initial length and capacity will be based on the number of elements you initialize.
+创建**切片**的惯用方法是使用**切片字面量**。它与创建数组相似，只是它不需要在 `[ ]` 操作符中指定值。你初始化切片时所用元素数量将决定切片的初始长度与容量。
 
 ```Go
-// Create a slice of strings. 
-// Contains a length and capacity of 5 elements. 
+// 创建字符串类型切片。
+// 包含 5 个元素的长度与容量。
 slice := []string{"Red", "Blue", "Green", "Yellow", "Pink"} 
-fmt.Println(len(slice)) //Print 5
-fmt.Println(cap(slice)) //Print 5
-// Create a slice of integers. 
-// Contains a length and capacity of 3 elements. 
+fmt.Println(len(slice)) // 打印结果 5
+fmt.Println(cap(slice)) // 打印结果 5
+// 创建蒸型切片。
+// 包含 3 个元素的长度与容量。
 intSlice:= []int{10, 20, 30}
-fmt.Println(len(intSlice)) //Print 3
-fmt.Println(cap(intSlice)) //Print 3
+fmt.Println(len(intSlice)) // 打印结果 3
+fmt.Println(cap(intSlice)) // 打印结果 3
 ```
 
-#### Declare a slice with index positions
+#### 声明一个带有索引位置的切片
 
 When using a slice **literal**, you can set the initial **length** and **capacity**. All you need to do is initialize the **index** that represents the length and capacity you need. The following syntax will create a slice with a length and capacity of 100 elements.
+当使用切片**字面量**时，你可以初始化切片的**长度**与**容量**。你所需要做的就是初始化表示所需长度和容量的**索引**。下面的语法将创建一个长度和容量都为 100 个元素的切片。
 
 ```Go
-// Create a slice of strings.
-// Initialize the 100th element with an empty string.
+// 创建字符串类型切片。
+// 用空字符串初始化第 100 个元素。
 slice := []int{99: 88}
 fmt.Println(len(slice)) 
-// Print 100
+// 打印结果 100
 fmt.Println(cap(slice)) 
-// Print 100
+// 打印结果 100
 ```
 
-![Image 4: Declare a slice with index positions.](https://cdn-images-1.medium.com/max/2000/1*nG722TP5WDx3hZOHBpcFyQ.png)
+![图 4: 声明一个带有索引位置的切片。](https://cdn-images-1.medium.com/max/2000/1*nG722TP5WDx3hZOHBpcFyQ.png)
 
-#### Differences between the declaration of arrays and slices
+#### 数组与切片声明的区别
 
-* If you specify a value inside the [ ] operator, you’re creating an array.
-* If you don’t specify a value, you’re creating a slice.
+* 如果你使用 `[ ]` 操作符中指定一个值，那么你在创建一个数组。
+* 如果你不在 `[ ]` 中指定值，则创建一个切片。
 
 ```Go
-// Create an array of three integers. 
+// 创建一个包含三个整数的数组。
 array := [3]int{10, 20, 30} 
 
-//Create a slice of integers with a length and capacity of three.
+// 创建一个长度和容量均为 3 的整型切片。
 slice := []int{10, 20, 30}
 
 ```
 
-#### Declare a nil slice
+#### 声明一个 nil 切片
 
-* The zero value of a slice is `nil`.
-* A nil slice has a length and capacity of 0 and has no underlying array.
+* 切片用 `nil` 代表零值。
+* 一个空切片的长度和容量等于 0，且没有底层数组。
 
 ```Go
-// Create a nil slice of integers. 
+// 创建一个整型 nil 切片。
 var slice []int32
 fmt.Println(slice == nil) 
-//This line will print true
+// 此行将打印 true
 fmt.Println(len(slice))   
-// This line will print 0
+// 此行将打印 0
 fmt.Println(cap(slice))
-// This line will print 0
+// 此行将打印 0
 ```
 
-![Image 5: Declare a nil slice.](https://cdn-images-1.medium.com/max/2000/1*2KWa4gM4_M_47eBcKISK9w.png)
+![图 5：声明 nil 切片。](https://cdn-images-1.medium.com/max/2000/1*2KWa4gM4_M_47eBcKISK9w.png)
 
-#### Declare an empty slice
+#### 声明一个空切片
 
-You can also create an empty slice by declaring a slice with initialization.
+还可以通过初始化声明切片创建一个空切片。
 
 ```Go
-// Use make to create an empty slice of integers.
+// 使用 make 来创建一个整型空切片。
 sliceOne := make([]int, 0)
-// Use a slice literal to create an empty slice of integers.
+// 使用切片字面量创建一个整型空切片。
 sliceTwo := []int{}
-fmt.Println(sliceOne == nil) // This will print false
-fmt.Println(len(sliceOne))   // This will print 0 
-fmt.Println(cap(sliceOne))   // This will print 0
-fmt.Println(sliceTwo == nil) // This will print false
-fmt.Println(len(sliceTwo))   // This will print 0
-fmt.Println(cap(sliceTwo))   // This will print 0
+fmt.Println(sliceOne == nil) // 这将打印 false
+fmt.Println(len(sliceOne))   // 这将打印 0 
+fmt.Println(cap(sliceOne))   // 这将打印 0
+fmt.Println(sliceTwo == nil) // 这将打印 false
+fmt.Println(len(sliceTwo))   // 这将打印 0
+fmt.Println(cap(sliceTwo))   // 这将打印 0
 ```
 
-![Image 6: Declare an empty slice.](https://cdn-images-1.medium.com/max/2000/1*x3dfcqD71X5M0G2F4D7QoQ.png)
+![图 6：声明一个空切片。](https://cdn-images-1.medium.com/max/2000/1*x3dfcqD71X5M0G2F4D7QoQ.png)
 
-#### Assign a value to any specific index
+#### 为任何特定索引赋值
 
-To change the value of an individual element, use the [ ] operator.
+要修改单个元素的值，请使用 `[ ]` 操作符。
 
 ```Go
-// Create a slice of integers.
-// Contains a length and capacity of 4 elements.
+// 创建一个整型切片。
+// 包含 4 个元素的长度和容量。
 slice := []int{10, 20, 30, 40}
-fmt.Println(slice) //This will print [10 20 30 40]
-slice[1] = 25 // Change the value of index 1.
-fmt.Println(slice) // This will print [10 25 30 40]
+fmt.Println(slice) // 这将打印 [10 20 30 40]
+slice[1] = 25 // 改变索引 1 的值。
+fmt.Println(slice) // 这将打印 [10 25 30 40]
 ```
 
-![Image 7: Assign a value to any specific index.](https://cdn-images-1.medium.com/max/2000/1*E-LTi2XYMjW0m5RGwzfktQ.png)
+![图 7：为任何特定索引赋值。](https://cdn-images-1.medium.com/max/2000/1*E-LTi2XYMjW0m5RGwzfktQ.png)
 
-#### Take a slice of a slice
+#### 对切片进行切片
 
 Slices are called such because you can slice a portion of the underlying array to create a new slice.
+之所以这样称呼切片，是因为你可以通过对底层数组的一部分进行切片来创建一个新的切片。
 
 ```Go
-/* Create a slice of integers. Contains a 
-length and capacity of 5 elements.*/
+/* 创建一个整型切片。
+长度和容量均为 5。*/
 slice := []int{10, 20, 30, 40, 50}
-fmt.Println(slice)  // Print [10 20 30 40 50]
-fmt.Println(len(slice)) // Print  5
-fmt.Println(cap(slice)) // Print  5
-/* Create a new slice.Contains a length 
-of 2 and capacity of 4 elements.*/
+fmt.Println(slice)  // 打印 [10 20 30 40 50]
+fmt.Println(len(slice)) // 打印 5
+fmt.Println(cap(slice)) // 打印 5
+/* 创建一个新切片。
+长度为 2，容量为 4。*/
 newSlice := slice[1:3]
-fmt.Println(slice)  //Print [10 20 30 40 50]
-fmt.Println(len(newSlice))  //Print 2
-fmt.Println(cap(newSlice))  //Print 4
+fmt.Println(slice)  // 打印 [10 20 30 40 50]
+fmt.Println(len(newSlice))  // 打印 2
+fmt.Println(cap(newSlice))  // 打印 4
 ```
 
-![Image 8: Take a slice of a slice.](https://cdn-images-1.medium.com/max/2000/1*7g5CJ002CXIEo9iQn-Dp6A.png)
+![图 8：对切片进行切片。](https://cdn-images-1.medium.com/max/2000/1*7g5CJ002CXIEo9iQn-Dp6A.png)
 
-After the slicing operation is performed, we have two slices that are sharing the same underlying array. However, each slice views the underlying array in a different way. The original slice views the underlying array as having a capacity of five elements, but the view of newSlice is different. For newSlice, the underlying array has a capacity of four elements. newSlice can’t access the elements of the underlying array that are prior to its pointer. As far as newSlice is concerned, those elements don’t even exist. Calculating the length and capacity for any newSlice is performed using the following formula.
+在执行切片操作之后，我们拥有两个共享同一底层数组的切片。然而，这两个切片以不同的方式查看底层数组。原始切片认为底层数组的容量为 5，但 `newSlice` 与之不同，对 `newSlice` 而言，底层数组的容量为 4。`newSlice` 无法访问位于其指针之前的底层数组元素。就 `newSlice` 而言，这些元素甚至并不存在。下面我们将介绍计算新切片长度和容量的公式。
 
-#### How is the length and capacity calculated?
+#### 切片的长度与容量如何计算？
 
-> For **slice[i:j]** with an **underlying array of capacity k** 
-Length : j - i 
-Capacity : k - i
+> 切片 **slice[i:j]** 的**底层数组容量为 k** 
+长度（Length）：j - i 
+容量（Capacity）：k - i
 
-**Calculating the new length and capacity**
+**计算新的长度和容量**
 
-> For **slice[1:3]** with an **underlying array of capacity 5** 
-Length : 3 - 1 = 2 
-Capacity : 5 - 1 = 4
+> 切片 **slice[1:3]** 的**底层数组容量为 5** 
+长度（Length）：3 - 1 = 2 
+容量（Capacity）：5 - 1 = 4
 
 #### The consequences of making changes to a slice
 
