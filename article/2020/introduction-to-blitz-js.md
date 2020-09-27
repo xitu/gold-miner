@@ -146,7 +146,7 @@ function About() {
 export default About
 ```
 
-The `db/` is where the app's database configuration goes. By default, Blitz uses Prisma 2 which is a strongly-typed database client. You can use anything you want, such as Mongo, TypeORM, etc. By default, Blitz uses the local SQLite as the database.
+`db/` 目录用于存放应用的数据库配置。默认情况下，Blitz 使用 Prisma 2（一个强类型（strongly-typed）数据库客户端）。你可以使用你想用的任何东西，比如：Mongo，TypeORM 等待。默认情况下，Blitz 使用 SQLite 作为数据库。
 
 ```ts
 datasource db {
@@ -155,7 +155,7 @@ datasource db {
 }
 ```
 
-The `provider` tells Prisma that the app uses the SQLite database. If we want to use other databases like Postgres for example we will change the value of `provider` from `sqlite` to `postgres`.
+`provider` 告诉 Prisma 应用使用 SQLite 数据库。如果我们想使用其他的数据库，以 Postgres 为例，我们可以将 `provider` 的值从 `sqlite` 改成 `postgres`。
 
 ```ts
 datasource db {
@@ -164,7 +164,7 @@ datasource db {
 }
 ```
 
-In this schema.prisma file we can define our models:
+在 schema.prisma 文件中，我们可以定义我们的模型（module）：
 
 ```ts
 datasource db {
@@ -179,27 +179,27 @@ model BlogPost {
 }
 ```
 
-The models map to the tables in the database.
+模型（models）映射到数据库中的表（tables）。
 
-The `node_modules/` directory holds the dependencies installed in your project. This is very much quite heavy in size.
+`node_modules/` 目录存放了你的项目中安装的所有依赖。它的文件体积非常大。
 
-The `public/` directory holds the static assets. The static assets are media files like images, music, video files, favicons, etc.
+`public/` 目录用于存放静态资产（assets）。静态资产是一些像图片，音乐，视频，图标等的媒体文件。
 
-The `utils/` directory houses the utility files that can be shared or used in the whole app.
+`utils/` 目录存放了可以在整个应用中共享或使用的实用文件。
 
-`blitz.config.js` is a Blitzjs configuration file. All the custom configurations for your Blitz app is set here. It extends `next.config.js`.
+`blitz.config.js` 是 Blitzjs 的配置文件。所有用于 Blitz 应用的自定义配置都在这里设置。此文件继承了 `next.config.js` 文件。
 
-## Server
+## 服务器（Server）
 
-We can start the Blitz server to serve our project by running the command:
+我们可以通过以下的命令开启 Blitz 服务器来运行我们的项目： 
 
 ```bash
 blitz start
 ```
 
-Note: you must be inside the `blitz-app` directory for the command to load and serve our app.
+注意：你必须位于 `blitz-app` 目录中，才能让命令能加载和运行我们的应用。
 
-Now, we will see the following output:
+现在，我们将会看到以下的输出：
 
 ```
 ✔ Prepped for launch
@@ -211,33 +211,33 @@ Now, we will see the following output:
 [ ready ] compiled successfully - ready on http://localhost:3000
 ```
 
-We see that Blitz has compiled and started a server at localhost:3000 to serve our app. Now navigate to [http://localhost:3000](http://localhost:3000) to see the Blitz rendered.
+我们看到 Blitz 编译成功并开启了一个服务器在 localhost:3000 运行我们的应用程序。现在浏览 [http://localhost:3000](http://localhost:3000) 来看看 Blitz 渲染的结果。
 
-## Blitz generate
+## Blitz 生成（generate）
 
-The Blitz CLI tool is quite automated. With this CLI tool, we can use the `generate` sub-command to scaffold all code we want in our Blitz app.
+Blitz 的命令行工具具有高度的自动化。通过使用命令行工具，我们可以用 `generate` 子命令（sub-command）以在我们的 Blitz 应用中为所有的代码提供脚手架。
 
-It goes like this:
+命令的格式如下：
 
 ```
 blitz generate <type> <model_name>
 ```
 
-The blitz ‘generate’ command can scaffold/generate Prisma models, mutations, queries, pages.
+blitz ‘generate’ 命令可以 scaffold/生成 Prisma 模型（models），变化（mutations），序列（queries），页面（pages）。
 
-The `\<type>` argument specifies the type of file to generate.
+`\<type>` 参数指定要生成的文件的类型。
 
-The `\<type>` can have the following values:
+`\<type>` 可以有如下的取值：
 
-`all`: These generate model, queries, mutations, pages files.
+`all`：生成 模型（models），变化（mutations），序列（queries），页面（pages）文件。
 
-Example:
+举例：
 
 ```bash
 blitz generate all blogPost
 ```
 
-See we used the `all` sub-command. This command will generate these files:
+我们使用了 `all` 子命令（sub-command）。这个命令会生成如下的文件：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -252,7 +252,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-The `all` sub-command generates pages for the blogPost:
+`all` 子命令（sub-command）为 blogPost 生成页面（pages）：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -261,22 +261,22 @@ app/blogPosts/pages/blogPosts/index.tsx
 app/blogPosts/pages/blogPosts/new.tsx
 ```
 
-All these files export components that will be rendered when the route matching the page is navigated to.
+当路由匹配浏览到的页面时，这些文件导出的对应组件就会被渲染。
 
-app/blogPosts/pages/blogPosts/index.tsx will be loaded when the route `/blogPosts` is navigated to in the browser. It will render all blog posts in the database.
+`app/blogPosts/pages/blogPosts/index.tsx` 会被加载，当在浏览器中导航至 `/blogPosts` 路由时。它会渲染数据库中所有的博客文章。
 
-app/blogPosts/pages/blogPosts/new.tsx will be loaded on `/blogPosts/new` route navigation. The page will be to create a new blog post.
+`app/blogPosts/pages/blogPosts/new.tsx` 会在导航至 `/blogPosts/new` 路由时被加载。这个页面用来创建一个新的博客文章。
 
-app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx will be loaded on `/blogPosts/[blogPostId]/edit` route navigation. This will be to edit a blog post with its id `[blogPostId]`.
+`app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx` 会加载，当导航至 `/blogPosts/[blogPostId]/edit` 路由。这个用于编辑 id 为 `[blogPostId]` 的博客文章。
 
-app/blogPosts/pages/blogPosts/[blogPostId].tsx will be loaded on `/blogPosts/[blogPostId]` route navigation. This will render the blog post by its id `[blogPostId]`.
+`app/blogPosts/pages/blogPosts/[blogPostId].tsx` 在导航至 `/blogPosts/[blogPostId]` 路由时加载。它会渲染 id 为 `[blogPostId]` 的博客文章。
 
 ```
 app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-The queries houses files that retrieve a blog post or blog posts. app/blogPosts/queries/getBlogPost.ts returns a blog post given the blog post id. app/blogPosts/queries/getBlogPosts.ts retrieves all the blog posts in the database.
+`queries` 目录存放用于检索博客文章的文件。 `app/blogPosts/queries/getBlogPost.ts` 基于博客文章的 id 返回一篇博客 `app/blogPosts/queries/getBlogPosts.ts` 用于获取数据库中所有的博客文章。
 
 ```
 app/blogPosts/mutations/createBlogPost.ts
@@ -284,7 +284,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-The mutations do the CUD in CRUD, they can create, update, or delete a blog post. app/blogPosts/mutations/createBlogPost.ts this file creates a new blog post. app/blogPosts/mutations/deleteBlogPost.ts delete a blog post given the id. app/blogPosts/mutations/updateBlogPost.ts edit a given blog post.
+`mutations` 做着 CRUD 中 CUD 的事情，它们可以创建，更新或删除一篇博客文章。 `app/blogPosts/mutations/createBlogPost.ts` 文件用于创建博客文章。 `app/blogPosts/mutations/deleteBlogPost.ts` 基于给定的 id 删除博客文章。 `app/blogPosts/mutations/updateBlogPost.ts` 编辑指定的博客文章。
 
 `resource`: This sub-command creates model, queries, and mutations.
 
