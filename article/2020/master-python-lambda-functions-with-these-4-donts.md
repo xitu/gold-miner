@@ -7,8 +7,6 @@
 
 # Master Python Lambda Functions With These 4 Don’ts
 
-#### Use lambdas, but don’t misuse them
-
 ![Photo by [Khachik Simonian](https://unsplash.com/@khachiksimonian?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/10944/0*9slRkVkDa86YSSIk)
 
 Lambda functions are anonymous functions in Python. Using them is a handy technique in a local environment when you need to perform a small job. Some people simply refer to them as lambdas, and they have the following syntax:
@@ -20,8 +18,6 @@ lambda arguments: expression
 The creation of a lambda function is signaled by the `lambda` keyword, followed by the list of arguments and a single expression separated by a colon. For instance, `lambda x: 2 * x` simply multiplies any input number by two, while `lambda x, y: x+y` simply calculates the sum of two numbers. The syntax is pretty straightforward, right?
 
 With the assumption that you know what a lambda function is, this article is intended to provide some general guidelines on how to use lambda functions properly.
-
----
 
 ## 1. Don’t Return Any Value
 
@@ -42,8 +38,6 @@ SyntaxError: invalid syntax
 This mistake probably arises due to the inability to differentiate expressions from statements. Statements like those involving `return`, `try`, `with`, and `if` perform particular actions. However, expressions are those that can be evaluated to a single value, such as a number or other Python objects.
 
 With lambda functions, the single expression will evaluate a single value that is used subsequently, such as being sorted by the `sorted` function.
-
----
 
 ## 2. Don’t Forget About Better Alternatives
 
@@ -79,10 +73,7 @@ dtype: int64
 2    8
 3    9
 dtype: int64
-
 ```
-
----
 
 ## 3. Don’t Assign It to a Variable
 
@@ -128,8 +119,6 @@ ZeroDivisionError: division by zero
 
 Related to this, if you have the temptation to use a lambda function more than once, the best practice is to use a regular function using the `def` keyword, which will also allow you to have docstrings.
 
----
-
 ## 4. Don’t Forget About List Comprehension
 
 Some people like to use lambda functions with higher-order functions, such as `map` or `filter`. Consider the following example for this usage:
@@ -154,8 +143,6 @@ Instead of using the lambda function, we can use list comprehension, which has b
 >>> [x for x in numbers if x % 2]
 [1, 3, -3]
 ```
-
----
 
 ## Conclusion
 
