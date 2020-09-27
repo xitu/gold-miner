@@ -22,22 +22,22 @@ JavaScript 是 Web 开发的核心之一。JavaScript，也被称为 ECMAScript�
 
 但是随着 2015 年 ES6 的发布，一个更新的原始类型 —— **Symbol**，被添加了进去。它们与以前的原始值相比有很大的不同。它们只是值，不是字符串，也不是数字甚至对象。它们只是 **Symbols**。
 
-## What is This New Primitive All About?
+## 这个新的原始类型是关于什么的？
 
-The Symbol primitive is all about uniqueness. Its value is a unique identifier. You can simply call `Symbol()` and get a unique identifier. Optionally, you can pass a description as well.
+Symbol 原始类型是关于唯一性的。它的值是一个唯一的标识符。您可以简单地调用 `Symbol()` 并获得唯一的标识符。作为可选项，您也可以传递描述作为参数。
 
-One of the key things you should remember is that, Symbols are always unique. Even if you pass the same description to two Symbols, they will still be different.
+您应该记住的一点是，Symbol 始终是唯一的。即使您将相同的描述传递给两个 Symbol，它们还是会有所不同。
 
-A lot of people think of Symbols as a way of receiving a unique value. But only part of this is true. Although Symbols are unique, you will never receive the unique value by console logging it. You can only assign it to a variable and use that variable as a unique identifier.
+许多人认为 Symbol 是一种获得唯一值的方式。但是只有一部分是对的。尽管 Symbol 是唯一的，但是您永远不会通过控制台记录它来获得唯一的值。您只能将其分配给一个变量，并将该变量用作唯一标识符。
 
-In other words, your Symbol would not give a unique value like an ID which might look like **285af1ae40223348538204f8c3a58f34**. But rather, when you console a Symbol, you will receive `Symbol()` or `Symbol(description)` . Remember that it would not be a string, rather a plain old **Symbol.**
+换句话说，Symbol 不会给出唯一的值，例如一个可能看起来像 **285af1ae40223348538204f8c3a58f34** 的 ID。但是与此相反，当您打印一个 Symbol 时，您将收到 `Symbol()` 或 `Symbol(description)`。请记住，它不是字符串，而是普通的旧 **Symbol**。
 
 ```js
 typeof Symbol()
 "symbol"
 ```
 
-You can obtain a string by calling the `toString()` method on the Symbol. But that too would only give you a string representation of the previously obtained value.
+您可以通过在 Symbol 上调用 `toString()` 方法来获取字符串。但这也只会为您提供先前获得的值的字符串表示形式。
 
 ## Things to keep in mind
 
