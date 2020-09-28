@@ -39,15 +39,15 @@ typeof Symbol()
 
 您可以通过在 Symbol 上调用 `toString()` 方法来获取字符串。但这也只会为您提供先前获得的值的字符串表示形式。
 
-## Things to keep in mind
+## 注意事项
 
-#### No auto-conversion to string
+#### 不会自动转换为字符串
 
-The `window.alert()` receives a parameter of type string. But even if you do pass a `number` or even `null`, you will not receive an error. Rather JavaScript implicitly converts the data type into a string and displays it. But with the case of Symbols, JavaScript does not implicitly convert it to a string. It is to keep these two separate as they are fundamentally different and should not accidentally convert one into another.
+`window.alert()` 接收一个字符串类型的参数。但是，即使您传递了一个 `number` 甚至是 `null`，您也不会收到错误提示。JavaScript 会隐式地将数据类型转换为字符串并显示它。但是对于 Symbol，JavaScript 不会将其隐式地转换为字符串。这是为了保持这两个分开，因为它们根本上是不同的，不应该意外地将一个转换成另一个。
 
-#### Using Symbols as keys in an Object literal
+#### 在对象字面量中使用 Symbol 作为键
 
-Take a look at the below code.
+看一下下面的代码。
 
 ```js
 let id = Symbol("id");
@@ -55,10 +55,10 @@ let id = Symbol("id");
 let obj = {
   id: 1
 };
-//This is string "id" as key. Not our Symbol
+// 这是字符串 “id” 作为键。而不是 Symbol
 ```
 
-In the above example, although we have assigned a `id` property to our `obj` object, it is not the `id` variable we had defined the line before. In order to set the `id` variable as a key, we should use `[ ]` .
+在上述例子中，尽管我们将一个 `id` 属性赋值给 `obj` 对象，但是它不是我们在前一行定义的 `id` 变量。为了将 `id` 变量设置为键，我们应该使用 `[]`。
 
 ```js
 let id = Symbol("id");
@@ -69,6 +69,7 @@ let obj = {
 ```
 
 Similarly, you can’t access symbol-keyed properties using the dot-syntax. You have to use square brackets like above.
+同样地，您不能使用点语法访问以 Symbol 为键的属性。您必须使用上述提到的方括号。
 
 ```js
 console.log(obj.id);
@@ -78,11 +79,11 @@ console.log(obj[id]);
 //1
 ```
 
-#### Symbols are skipped by common object inspection features
+#### 通用对象检查功能会跳过 Symbol
 
-As Symbols were designed to avoid collisions, Symbolic properties are skipped in JavaScript’s most common object-inspection features such as `for-in` loop. Symbols as property keys are also ignored in `Object.keys(obj)` and Object.getOwnPropertyNames(obj) .
+由于 Symbol 是为了避免冲突而设计的，因此在 JavaScript 最常见的对象检查功能(例如 `for-in` 循环)中会跳过 Symbol 属性。在 `Object.keys(obj)`和`Object.getOwnPropertyNames(obj)` 中也将忽略作为属性键的 Symbol。
 
-Also note that Symbol properties of an object are ignored when you use `JSON.stringify()`.
+还要注意，当您使用 `JSON.stringify()` 时，将忽略对象的 Symbol 属性。
 
 ## Global Symbol Registry
 
