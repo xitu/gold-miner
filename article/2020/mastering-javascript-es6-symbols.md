@@ -209,7 +209,6 @@ JavaScript 使用几个内部 Symbol 来微调它在各个方面的性能。其�
 
 ---
 
-**Note: Symbols are not 100% totally hidden**
 **注意：Symbol 不是 100％ 完全隐藏**
 
 您仍然可以使用 `Object.getOwnPropertySymbols(obj)` 和 `Reflect.ownKeys(obj)` 之类的方法来接收用作对象键的 Symbol。您可能想知道为什么。我个人认为 Symbol 被创立是为了避免 **意外的命名冲突**。如果有人真的想覆盖 Symbol 属性键，那么我认为他们有可能这样做。
