@@ -84,43 +84,43 @@ console.log(obj[id]);
 
 还要注意，当您使用 `JSON.stringify()` 时，将忽略对象的 Symbol 属性。
 
-## Global Symbol Registry
+## 全局 Symbol 注册表
 
-As we have seen above, Symbols are unique, even with the same descriptions we pass as parameters. But there might be instances where you need multiple web pages or multiple modules within the same web page to share a Symbol. At moments like this, you can use the **Global Symbol Registry.**
+正如我们在上面看到的，即使将相同的描述作为参数传递给 Symbol，Symbol 也是唯一的。但是在某些情况下，您需要在多个网页或同一网页中的多个模块间来共享一个 Symbol。在这种情况下，您可以使用**全局 Symbol 注册表**。
 
-Although it sounds like a complicated system, the interface is quite simple to use.
+虽然这听起来像一个复杂的系统，但它的界面使用起来相当简单。
 
 #### Symbol.for(key)
 
-This method searches for existing symbols in the **global symbol registry** with the provided key and returns it if found. If not found, it would create a Symbol with the key in the **global symbol registry** and returns it.
+这个方法会在**全局 Symbol 注册表**中搜索既有的 Symbol，并在找到后返回。如果未找到，它将使用传递的健在**全局 Symbol 注册表**中创建一个 Symbol 并将其返回。
 
 ```js
 let userId = Symbol.for('user_id');
-//read from global registry
-//create Symbol if not exists
+// 从全局 Symbol 表中读取
+// 如果未找到则创建一个 Symbol
 
 let userID = Symbol.for('user_id');
-//read from global registry
+// 从全局 Symbol 表中读取
 
 
 console.log(userID === userId);
-//true
+// true
 ```
 
 #### Symbol.keyFor(sym)
 
-This method performs the reverse of the `Symbol.for()` method. This retrieves a shared symbol key from the global symbol registry for the given symbol.
+此方法与 `Symbol.for()` 方法相反。这将从全局 Symbol 注册表中检索给定 Symbol 的共享 Symbol 键。
 
 ```js
-//read from global registry
+// 从全局 Symbol 表中读取
 let userId = Symbol.for('user_id');
 let userName = Symbol.for('username');
 
 console.log(Symbol.keyFor(userId));
-//user_id
+// user_id
 
 console.log(Symbol.keyFor(userName));
-//username
+// username
 ```
 
 ## Use Cases
