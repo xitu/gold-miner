@@ -286,15 +286,15 @@ app/blogPosts/mutations/updateBlogPost.ts
 
 `mutations` 做着 CRUD 中 CUD 的事情，它们可以创建，更新或删除一篇博客文章。 `app/blogPosts/mutations/createBlogPost.ts` 文件用于创建博客文章。 `app/blogPosts/mutations/deleteBlogPost.ts` 基于给定的 id 删除博客文章。 `app/blogPosts/mutations/updateBlogPost.ts` 编辑指定的博客文章。
 
-`resource`: This sub-command creates model, queries, and mutations.
+`resource`：这个子命令（sub-command）用于创建模型（models），变化（mutations），序列（queries）。
 
-Example:
+例子：
 
 ```bash
 blitz generate resource blogPost
 ```
 
-This command will generate these files:
+这个命令会创建如下的文件：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
@@ -304,15 +304,15 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`crud`: This will create queries and mutations. Unlike `resource` it will generate the Prisma model.
+`crud`：用于创建变化（mutations）和序列（queries）。不同于 `resource` ，它会生成 Prisma model（模型）。
 
-Example:
+示例：
 
 ```bash
 blitz generate crud blogPost
 ```
 
-This command will generate these files:
+这个命令会生成如下的文件：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
@@ -322,30 +322,30 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`queries` and `query`: This sub-commands will only generate queries files:
+`queries` 和 `query`：这个子命令（sub-commands）只会生成序列（queries）文件：
 
-Example:
+示例：
 
 ```bash
 blitz generate queries blogPost
 ```
 
-This command will generate these files:
+这个命令会生成如下的文件：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-`mutations`: This sub-command will generate mutations files only. No queries, pages, and models.
+`mutations`：这个子命令（sub-command）只会生成变化（mutations）文件。没有序列（queries），页面（pages）和模型（models）。
 
-Example:
+举例：
 
 ```bash
 blitz generate mutations blogPost
 ```
 
-This command will generate these files:
+此命令会生成如下文件：
 
 ```
 app/blogPosts/mutations/createBlogPost.ts
@@ -353,15 +353,15 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`pages`: This sub-command will generate only pages files.
+`pages`：这个子命令（sub-command）只会生成页面（pages）文件。
 
-Example:
+示例：
 
 ```bash
 blitz generate pages blogPost
 ```
 
-This command will generate these files:
+这个命令只会生成下面的文件：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -370,20 +370,18 @@ app/blogPosts/pages/blogPosts/index.tsx
 app/blogPosts/pages/blogPosts/new.tsx
 ```
 
-The `\<model_name>` argument is the model name to generate files for.
+`\<model_name>` 参数是待生成的文件的模型（model）名。
 
 ## 总结
 
-Let’s tick them off. Blitz.js offers us:
+让我们来总结以下，Blitz.js 为我们提供了：
 
-* Easy page routing
-* Database setup and integration
-* SSR-enabled application
-* Built-in authentication
+* 易用的页面路由（page routing）
+* 数据库设与集成
+* 支持服务器端渲染（SSR）
+* 内置认证（authentication）
 
-Blitzjs is awesome. How it made everything simple for us is quite amazing. Just scaffold your project and your good to go!!
-
-If you have any questions regarding this or anything I should add, correct or remove, feel free to comment, email, or DM me.
+Blitzjs 是一个非常好的框架。它让一切事情变得简单起来真是令人惊奇。只需用脚手架开发你的项目就可以了！！
 
 谢谢！！！
 
