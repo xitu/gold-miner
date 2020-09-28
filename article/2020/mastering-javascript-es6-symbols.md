@@ -123,19 +123,19 @@ console.log(Symbol.keyFor(userName));
 // username
 ```
 
-## Use Cases
+## 用例
 
-#### Hidden properties
+#### 隐藏属性
 
-Let’s imagine that you want to develop a library to sort a list of items.
+假设您要开发一个库来对项目列表进行排序。
 
-How can you solve this?
+您会如何解决呢？
 
-You have many ways of solving this. You can ignore whether the list is sorted and re-sort it. Although the end result would be a sorted list, it will be inefficient as the algorithm implements the actual sorting process on an already sorted array.
+您有多种解决方法。您可以忽略列表是否已排序并对它重新进行排序。尽管最终结果将是一个已排序列表，但是由于该算法对已排序的数组实施了实际的排序过程，因此效率不高。
 
-Rather than implementing a solution that would be an overkill, we can simply set a flag to denote whether the list has been sorted or not. This would easily allow us to sort our list only when it has not been sorted.
+我们可以简单地设置一个标志来表示列表是否已排序，而不是实施一个过大的解决方案。这很容易使我们仅在未排序列表时对其进行排序。
 
-The implementation would look somewhat similar to this.
+该实现看起来与此类似。
 
 ```js
 if (list.isSorted) {
@@ -144,74 +144,75 @@ if (list.isSorted) {
 list.isSorted = true;
 ```
 
-Although the above implementation does its job perfectly, it fails under certain aspects.
+尽管以上实现可以很好地完成其工作，但是在某些方面却失败了。
 
-* Any other code accessing your list can stumble over your property when using `for-in` or `Object.keys()` .
-* If you are using a library to implement the sort algorithm, the clever library owner might have set a `isSorted` flag already. You doing the same thing would be an overkill if the context was bigger.
-* If you were the owner of the library and a clever developer tries to set the flag themself, it would be similar to the above scenario.
+* 使用 `for-in`或 `Object.keys()` 时，访问列表的任何其他代码都可能使您的属性绊倒。
+* 如果您使用一个库来实现排序算法，那么聪明的库所有者可能已经设置了 `isSorted` 标志。如果上下文更大，那么您做同样的事情将过犹不及。
+* 如果您是该库的所有者，一个聪明的开发者会尝试自己设置该标志，这类似于上述情况。
 
-In a situation like this, Symbols would be perfect as they avoid collisions.
+在这种情况下，Symbol 会很完美，因为它们可以避免冲突。
 
 ```js
 let id = Symbol('id');
 
 let user = {
-	name:"Jane Doe",
-  	[id]:1
+	name: "Jane Doe",
+  [id]: 1
 };
 
 console.log(user[id]);
-//1
+// 1
 
 // ---------------------------------
 
-//someone tries to add their own ID to user
+// 有人尝试向 user 添加自己的 ID
 
 user.id = '124C';
 
 
 console.log(user[id]);
-//1
+// 1
 
 
 console.log(user.id);
-//'124C'
+// '124C'
 
 // ---------------------------------
   
-//someone tries to add their own ID to user as a Symbol
+// 有人试图将自己的 ID 作为 Symbol 添加到 user
 let id2 = Symbol('id');
 
 user[id2] = '9990X';
 
 
 console.log(user[id]);
-//1
+// 1
 
 
 console.log(user.id);
-//'124C'
+// '124C'
 
 console.log(user[id2]);
-//'9990X'
+// '9990X'
 ```
 
-#### System Symbols
+#### 系统 Symbol
 
-JavaScript uses several internal Symbols to fine tune it’s performance under various aspects. Some of them are,
+JavaScript 使用几个内部 Symbol 来微调它在各个方面的性能。其中一些是，
 
 * Symbol.asyncIterator
 * Symbol.hasInstance
 * Symbol.isConcatSpreadable
 * Symbol.iterator
 
-You can read more about them over [**here**](https://tc39.es/ecma262/#sec-well-known-symbols).
+您可以在[**这里**](https://tc39.es/ecma262/#sec-well-known-symbols)读到更多相关资料。
 
 ---
 
 **Note: Symbols are not 100% totally hidden**
+**注意：Symbol 不是 100％ 完全隐藏**
 
-You can still users methods such as Object.getOwnPropertySymbols(obj) and `Reflect.ownKeys(obj)` to receive the Symbols used as Object keys. You might wonder why. I personally feel that Symbols were created to avoid **unintentional naming collisions**. If someone really wanted to overwrite the Symbolic property key, then I think it would be possible for them to do so.
+您仍然可以使用 `Object.getOwnPropertySymbols(obj)` 和 `Reflect.ownKeys(obj)` 之类的方法来接收用作对象键的 Symbol。您可能想知道为什么。我个人认为 Symbol 被创立是为了避免 **意外的命名冲突**。如果有人真的想覆盖 Symbol 属性键，那么我认为他们有可能这样做。
 
 ## Popular Issue Raised in React Regarding Symbols
 
