@@ -68,8 +68,7 @@ let obj = {
 };
 ```
 
-Similarly, you can’t access symbol-keyed properties using the dot-syntax. You have to use square brackets like above.
-同样地，您不能使用点语法访问以 Symbol 为键的属性。您必须使用上述提到的方括号。
+同样地，您不能使用点语法访问以 Symbol 为键的属性。您必须使用上述提到的方括号来访问属性。
 
 ```js
 console.log(obj.id);
