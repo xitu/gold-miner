@@ -249,7 +249,6 @@ Dan Abramov 评论并关闭了此 issue，并提到“**除误解外，我看不
 
 #### 但是....
 
-There is something fundamentally wrong in the proposal. Have a look at the below code example.
 该提案有根本上的错误。请看下面的代码。
 
 ```ts
@@ -273,8 +272,7 @@ There is something fundamentally wrong in the proposal. Have a look at the below
 
 #### 注意
 
-But there was a solution provided by [Eduardo](https://github.com/esanzgar) where you initialize the object or array once with the Symbols and then they are never re-initialized. Which means the value will not be re-calculated on each render and therefore the values(Symbols) will always be the same. This approach can work on certain situations only.
-但是 Eduardo 提供了一种解决方案，一旦使用 Symbol 初始化了对象或数组，那么它们就永远不会被重新初始化。这意味着值在每次渲染时不会被重新计算，因此值( Symbol )将始终相同。此方法只能在某些情况下起作用。
+但是 [Eduardo](https://github.com/esanzgar) 提供了一种解决方案，一旦使用 Symbol 初始化了对象或数组，那么它们就永远不会被重新初始化。这意味着值在每次渲染时不会被重新计算，因此值( Symbol )将始终相同。此方法只能在某些情况下起作用。
 
 ```ts
 import React from 'react';
@@ -297,14 +295,13 @@ const App = () => {
 export default App;
 ```
 
-You should note that all of the given solutions would work, but they would trigger unnecessary re-mounts and cause unwanted load on the memory and CPU. The goal is to come up with a solution using Symbols that can be efficient as well.
 您应该注意，所有给定的解决方案都可以使用，但是它们会触发不必要的重新挂载，并在内存和 CPU 上造成不必要的负载。我们的目标是想出一个解决方案，使用 Symbol 也可以是高效的。
 
 如果您有任何意见，请随时在下面评论。
 
 感谢您的阅读，祝您编码愉快。
 
-**资源**
+**参考文档**
 
 - [JavaScript Info](https://javascript.info/symbol)
 - [Mozilla Blog](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)
