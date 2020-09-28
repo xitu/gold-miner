@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/best-features-of-es2017-async-functions-and-arrays-and-shared-buffers.md](https://github.com/xitu/gold-miner/blob/master/article/2020/best-features-of-es2017-async-functions-and-arrays-and-shared-buffers.md)
 > * 译者：[tonylua](https://github.com/tonylua)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer), [dupanpan](https://github.com/dupanpan)
 
-# ES2017 最佳特性  —  数组中的异步函数以及共享缓冲
+# ES2017 最佳特性 -- 数组中的异步函数以及共享缓冲区
 
 ![照片由 [Elaine Casap](https://unsplash.com/@ecasap?utm_source=medium&utm_medium=referral) 拍摄并发表在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 上](https://oscimg.oschina.net/oscnet/up-1da089eee95145e809f80d9ce4b883ce7b3.JPEG)
 
@@ -57,9 +57,9 @@ async function downloadContent(urls) {
 }
 ```
 
-我们将 URLs 映射为异步函数的集合，这样一来就能在 promise 数组上调用 `Promise.all` 了。
+我们将多个 URL 映射为异步函数的集合，这样一来就能在 promise 数组上调用 `Promise.all` 了。
 
-返回的包含了 resolved value 的 promise 结果，则是一个由每个内层 promise 的 resolved value 组成的数组。
+调用该方法后会返回一个 promise，其解决值（resolved value）是一个包含了每一个 promise 解决值的数组。
 
 ## 立即调用异步函数表达式
 
@@ -74,7 +74,7 @@ async function foo() {
 foo();
 ```
 
-还可以写成：
+我们可以这么写：
 
 ```js
 (async function () {
@@ -90,9 +90,9 @@ foo();
 })();
 ```
 
-## 未处理过的 rejections
+## 未处理过的 rejection
 
-在使用异步函数时，并不用担心未处理过的 rejections 。
+在使用异步函数时，并不用担心未处理过的 rejection 。
 
 这是因为当浏览器遇到它们时会自动报告。
 
@@ -109,15 +109,15 @@ foo();
 
 ## Shared Array Buffers
 
-ES2017 引入的 shared array buffers 使得我们可以构建并发的应用了。
+ES2017 引入的共享数组缓冲区（shared array buffers）使得我们可以构建并发的应用了。
 
-这使得一个 `SharedArrayBuffer` 对象的字节数据可以在多个 worker 和主线程之间被共享。
+这让我们可以在多个 worker 和主线程之间共享 `SharedArrayBuffer` 对象的字节数据。
 
-被共享的缓冲由一个 typed array 包裹，这样就能访问到它们了。
+被共享的缓冲由一个类型化数组（typed array）包裹，这样就能访问到它们了。
 
 我们可以快速在 worker 间共享数据，而跨 worker 的数据协同也变得简便了。
 
-举例来说，可以编写如下代码来创建一个 shared array buffer ：
+举例来说，可以编写如下代码来创建一个共享数组缓冲区：
 
 ```js
 const worker = new Worker('worker.js');
@@ -138,9 +138,9 @@ const sharedArray = new Int32Array(sharedBuffer);
 
 它包含 100 个元素。
 
-然后为了与其它 worker 共享，我们调用了 `postMessage` 以发送缓冲数据。
+接着，为了与其它 worker 共享缓冲区，我们调用了 `postMessage` 以发送缓冲数据。
 
-要访问缓冲中的数据，就得创建一个新的 `Int32Array` 实例。
+要访问缓冲区中的数据，就得创建一个新的 `Int32Array` 实例。
 
 接下来在 `worker.js` worker 中，这样编写以获得缓冲数据：
 
@@ -162,7 +162,7 @@ self.addEventListener('message', (event) => {
 
 异步函数并不适配既有的数组实例方法。
 
-同时，我们可以使用 shared array buffers 在主线程和 worker 线程之间共享数据。
+同时，我们可以使用共享数组缓冲区在主线程和 worker 线程之间共享数据。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
