@@ -213,43 +213,44 @@ JavaScript 使用几个内部 Symbol 来微调它在各个方面的性能。其�
 
 您仍然可以使用 `Object.getOwnPropertySymbols(obj)` 和 `Reflect.ownKeys(obj)` 之类的方法来接收用作对象键的 Symbol。您可能想知道为什么。我个人认为 Symbol 被创立是为了避免 **意外的命名冲突**。如果有人真的想覆盖 Symbol 属性键，那么我认为他们有可能这样做。
 
-## Popular Issue Raised in React Regarding Symbols
+## React 中关于 Symbol 的普遍问题
 
-During the discussion with the editor of [Bits and Pieces](https://blog.bitsrc.io/?source=post_page-----2b6fa2cecfe2----------------------&gi=39b41a3c39ac), I was asked to address an issue raised in React JS involving Symbols. Below is a link to the raised issue.
+在关于 [Bits and Pieces](https://blog.bitsrc.io/?source=post_page-----2b6fa2cecfe2----------------------&gi=39b41a3c39ac) 编辑器的讨论中，我被要求解决 React JS 中涉及 Symbol 的问题。以下是所提出问题的链接。
 
-[Symbols as keys in children as arrays or iterators · Issue #11996 · facebook/react, github.com](https://github.com/facebook/react/issues/11996)
+[在子项中作为键的 Symbol 作为数组或迭代器 · Issue #11996 · facebook/react, github.com](https://github.com/facebook/react/issues/11996)
 
-#### Feature being requested
+#### 正被要求实现的特性
 
-For those who did not go through the above link or did not understand what was happening, below is a summary for you.
+对于那些没有通过上面的链接或不了解正在发生的事情的人，以下是为您提供的摘要。
 
-React developers should be familiar with the concept of keys. Below is an extract from the [glossary](https://reactjs.org/docs/glossary.html#keys) of React docs.
+React 开发人员应该熟悉键的概念。以下是截取自 React 文档的[术语表](https://reactjs.org/docs/glossary.html#keys)。
 
-> A “key” is a special string attribute you need to include when creating arrays of elements. Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside an array to give the elements a stable identity.
+> “键”是创建元素数组时需要包括的特殊字符串属性。键可帮助 React 识别哪些项目已更改，添加或删除。应该为数组中的元素提供键，以使元素具有稳定的标识。
 
-I believe the above passage explains what keys are.
+我相信以上片段解释了什么是键。
 
-The fundamental reason for keys is uniqueness. It is needed to be able to identify sibling elements in an array uniquely. This sounds like a great use case for Symbols as they are unique and can be used to identify each sibling element in an array uniquely.
+键存在的根本原因是唯一性。它需要能够唯一地标识数组中的同级元素。这听起来是一个很好的 Symbol 用例，因为它们是唯一的，可以用来唯一地标识数组中的每个同级元素。
 
-But when you add a Symbol as a key to an array element, you will receive the following error. You can view the source code for the below example over [here](https://codesandbox.io/s/happy-wright-07ryi?file=/src/App.js).
+但是，当您将 Symbol 添加为数组元素的键时，您将收到[以下](https://codesandbox.io/s/happy-wright-07ryi?file=/src/App.js)错误。
 
 ![Error Screenshot by Author](https://cdn-images-1.medium.com/max/2238/1*JJAf4BVLrMt61Rj4wc9-zQ.png)
 
-The reason for the above error is that keys are expected to be of type **string**. If you remember what we had gone through, Symbols are not of string type and they do not implicitly convert themselves unlike other primitive data types.
+出现上述错误的原因是键的类型应为 **string**。如果您还记得我们前文所经历的，那么就会知道 Symbol 不是字符串类型，而且它们不会像其他原始数据类型那样隐式地转换自己。
 
-**The feature being requested is to allow support for Symbols as keys natively because they do not auto convert themselves to strings.**
+**大家正在要求实现的特性是允许原生支持 Symbol 作为键来使用，因为它们不会自动将自身转换为字符串。**
 
-#### Why the team refused and closed this issue
+#### 为什么团队拒绝并关闭了这个 issue
 
-Dan Abramov commented and closed down this issue mentioning “**I don’t see a practical use case for allowing Symbols, except a misunderstanding**”. He also mentions that you can simply use the “**customer ID, or username**” or something that comes with the data you’re handling.
+Dan Abramov 评论并关闭了此 issue，并提到“**除误解外，我看不到允许这么使用 Symbol 的实际用例**”。他还提到，您可以简单地使用“**自定义 ID 或用户名**”或您处理数据的地方附带的内容。
 
-**I would like to voice out my opinion from both perspectives.**
+**我想从两个角度发表我的观点。**
 
-First of all, there can be instances where you would be handling a list of data without an ID as such. This can happen when the data is collected from the front-end and displayed as a list. Think of the number list example I had used in the demo. What if the numbers were entered by the user? You would have to set a counter to assign a unique key to each entry. Some would take the approach of assigning the array index to each element, but that is known to be a [really bad idea](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318). You cannot make the input value as a key because there can be duplicate inputs. As proposed, Symbols would make an easier alternative.
+首先，在某些情况下，您可能会在没有 ID 的情况下处理数据列表。当从前端收集数据并显示为列表时，可能会发生这种情况。想想我在演示中使用的数字列表示例。如果数字是由用户输入的呢？您将必须设置一个计数器，以便为每个条目分配唯一的键。有些人会采用为每个元素分配数组索引的方法，但这是一个[非常糟糕的主意](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318)。您不能将输入值作为键，因为可能有重复的输入。正如所建议的那样，Symbol 将成为一种更简单的选择。
 
-#### But….
+#### 但是....
 
 There is something fundamentally wrong in the proposal. Have a look at the below code example.
+该提案有根本上的错误。请看下面的代码。
 
 ```ts
 <ul>
@@ -260,19 +261,20 @@ There is something fundamentally wrong in the proposal. Have a look at the below
 </ul>
 ```
 
-As you can see, all 4 keys are unique. When there is a change in an element value, React knows which one has changed, and triggers a rebuild. But when the tree is rebuilt, the key of that specific element would change again as `Symbol()` would give a unique value every time it is called as it is being used inline. The `key` would be different on every render, which would force React to re-mount the element/component.
+如您所见，所有 4 个键都是唯一的。当元素值发生变化时，React 知道是哪一个发生了变化，并触发重建。但是当 DOM 树重建时，该特定元素的键将再次更改，因为 `Symbol()` 每次在被内联使用时都会被赋予唯一值。每一次渲染的`键`都不同，这将迫使 React 重新挂载元素或组件。
 
-If you are not clear on how the tree building process and change detection work in the above scenario, please go through this [explanation given in the docs](https://reactjs.org/docs/reconciliation.html).
+如果您不清楚在上述情况下 DOM 树的构建过程和变更检测是如何工作的，请仔细阅读这份[文档中的说明](https://reactjs.org/docs/reconciliation.html)。
 
-You can avoid this re-render issue by using the global symbol registry — `Symbol.for(key)` as every time you call for a Symbol, you would look for the Symbol in the global registry and if found, it will be returned.
+通过使用全局 Symbol 注册表 —— `Symbol.for(key)`，可以避免这个重新渲染问题，因为每次调用 Symbol 时，都会在全局注册表中查找 Symbol，如果找到，它将被返回。
 
-#### But again….
+#### 但是又一次....
 
-There is something wrong with this approach too. For you to retrieve a Symbol from the global registry, you should provide the key of the Symbol which itself is unique. If you think about it, that key itself is unique to identify each element. Then why do we need to create a Symbol at that instance?
+这种方法也有问题。若要从全局注册表检索 Symbol，您应该提供 Symbol 的键，该键本身是唯一的。如果您仔细想想，这个键本身对于标识每个元素是唯一的。那么我们为什么需要在那个实例上创建一个 Symbol 呢？
 
-#### NOTE
+#### 注意
 
 But there was a solution provided by [Eduardo](https://github.com/esanzgar) where you initialize the object or array once with the Symbols and then they are never re-initialized. Which means the value will not be re-calculated on each render and therefore the values(Symbols) will always be the same. This approach can work on certain situations only.
+但是 Eduardo 提供了一种解决方案，一旦使用 Symbol 初始化了对象或数组，那么它们就永远不会被重新初始化。这意味着值在每次渲染时不会被重新计算，因此值( Symbol )将始终相同。此方法只能在某些情况下起作用。
 
 ```ts
 import React from 'react';
@@ -296,12 +298,13 @@ export default App;
 ```
 
 You should note that all of the given solutions would work, but they would trigger unnecessary re-mounts and cause unwanted load on the memory and CPU. The goal is to come up with a solution using Symbols that can be efficient as well.
+您应该注意，所有给定的解决方案都可以使用，但是它们会触发不必要的重新挂载，并在内存和 CPU 上造成不必要的负载。我们的目标是想出一个解决方案，使用 Symbol 也可以是高效的。
 
-If you have any comments, please feel free to drop them below.
+如果您有任何意见，请随时在下面评论。
 
-Thank you for reading and happy coding.
+感谢您的阅读，祝您编码愉快。
 
-**Resources**
+**资源**
 
 - [JavaScript Info](https://javascript.info/symbol)
 - [Mozilla Blog](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)
