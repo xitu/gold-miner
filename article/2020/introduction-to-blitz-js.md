@@ -9,25 +9,25 @@
 
 ![](https://cdn-images-1.medium.com/max/2800/0*UyEKhRBaINAtNNiB.png)
 
-Yet another framework on the block. JavaScript 社区一直在稳步发展，这已经不是什么新闻了，并且已经推出了数百个框架，这无疑超出了我们的理解和掌握范围。
+JavaScript 社区一直在稳步发展，并且已经推出了数百个框架，这无疑超出了我们的理解和掌握范围，但是这并不是新鲜事。
 
-现在，大多数稳定的框架都有基于其构建的框架，使其更复杂以及具有更高的性能。
+现在，大多数稳定的框架都有基于其进一步构建的框架，同时也变得更加复杂并具有更好的性能。
 
-在本文，我们将会简单介绍 Blitz.js 框架。
+在本文中，我们将会简单介绍 Blitz.js 框架。
 
-## 为什么我们需要 blitz.js 框架？
+## 为什么我们需要 Blitz.js 框架？
 
-是的，React 增强了我们现在构建应用的方式。[组件驱动设计](https://bit.dev) 使得我们从单个的单元向上构建应用更加容易。
+是的，React 增强了我们现在构建应用的方式。[组件驱动设计](https://bit.dev)使得我们从独立的单元向上构建应用更加容易。
 
-但是，构建应用并不仅是在 React 中堆叠组件。我们必须思考，如何设置配置、遵循最佳设计模式、建立文件夹结构，组织应用的结构、规划应用的路由/页面以及使用什么数据库，服务器以及数据库模式模型。
+但是，构建应用并不仅是在 React 中堆叠组件。我们还必须思考，如何设置配置、遵循最佳设计模式、设置文件夹结构、组织应用的结构、规划应用的路由/页面以及使用什么数据库，服务器和数据库模式模型。
 
 在编写代码前就要决定好上述的所有事情，实在是令人头疼。
 
-Blitz.js 为我们解决了以上的所有问题，它提供了一个全栈整体的服务器端渲染 React 应用程序脚手架，并内置了相应的配置和后端。就像 Rails 框架在 Ruby 上所做的。
+Blitz.js 为我们解决了以上的所有问题，它提供了一个完整的全栈服务器端渲染（Next.js） React 应用程序脚手架，并内置了相应的配置和后端。就像 Rails 框架在 Ruby 上所做的那样。
 
-通过 blitz.js 带来的好处，所提高的生产力将远远超出我们的想象。
+Blitz.js 带来的种种好处，所提高的生产力将远远超出我们的想象。
 
-现在，我们已经知道为什么需要 blitz.js 了。让我们来看看更加详细的功能。
+现在，我们已经知道为什么需要 Blitz.js 了。让我们来看看详细的功能。
 
 ## Blitz.js
 
@@ -59,7 +59,7 @@ npm install -g blitz
 blitz new blitz-app
 ```
 
-`new` 子命令（sub-command）会创建一个以 `blitz-app` 为名的 Blitz 新项目。
+`new` 次级命令（sub-command）会创建一个以 `blitz-app` 为名的 Blitz 新项目。
 
 来看看 `blitz-app` 目录结构:
 
@@ -97,7 +97,7 @@ blitz-app
 └── yarn.lock
 ```
 
-`app/` 目录是大多数项目的主要容器。就是放置应用组件，页面和路由的地方。如同你的应用中 `src` 目录。
+`app/` 目录是项目文件的主要容器，是放置应用组件，页面和路由的地方。如同你的应用中 `src` 目录。
 
 `app/components` 目录用来存放展示组件（presentational components）。展示组件是独立的视图单元，它们唯一的用处就是显示容器组件（container components）传递给它们的数据。
 
@@ -146,7 +146,7 @@ function About() {
 export default About
 ```
 
-`db/` 目录用于存放应用的数据库配置。默认情况下，Blitz 使用 Prisma 2（一个强类型（strongly-typed）数据库客户端）。你可以使用你想用的任何东西，比如：Mongo，TypeORM 等待。默认情况下，Blitz 使用 SQLite 作为数据库。
+`db/` 目录用于存放应用的数据库配置。默认情况下，Blitz 使用 Prisma 2（一个强类型数据库客户端）。你可以使用你想用的任何数据库，比如：Mongo，TypeORM 等等。默认情况下，Blitz 使用 SQLite 作为它的数据库。
 
 ```ts
 datasource db {
@@ -155,7 +155,7 @@ datasource db {
 }
 ```
 
-`provider` 告诉 Prisma 应用使用 SQLite 数据库。如果我们想使用其他的数据库，以 Postgres 为例，我们可以将 `provider` 的值从 `sqlite` 改成 `postgres`。
+`provider` 告诉 Prisma，应用使用 SQLite 数据库。如果我们想使用其他的数据库，以 Postgres 为例，我们可以将 `provider` 的值从 `sqlite` 改成 `postgres`。
 
 ```ts
 datasource db {
@@ -164,7 +164,7 @@ datasource db {
 }
 ```
 
-在 schema.prisma 文件中，我们可以定义我们的模型（module）：
+在 schema.prisma 文件中，我们可以定义我们的模型（models）：
 
 ```ts
 datasource db {
@@ -179,15 +179,15 @@ model BlogPost {
 }
 ```
 
-模型（models）映射到数据库中的表（tables）。
+模型（models）映射到位于数据库中的表（tables）。
 
 `node_modules/` 目录存放了你的项目中安装的所有依赖。它的文件体积非常大。
 
-`public/` 目录用于存放静态资产（assets）。静态资产是一些像图片，音乐，视频，图标等的媒体文件。
+`public/` 目录用于存放静态资源（assets）文件，主要是一些图片，音乐，视频，图标等的媒体文件。
 
-`utils/` 目录存放了可以在整个应用中共享或使用的实用文件。
+`utils/` 目录存放了可以在整个应用中共享或使用的通用文件。
 
-`blitz.config.js` 是 Blitzjs 的配置文件。所有用于 Blitz 应用的自定义配置都在这里设置。此文件继承了 `next.config.js` 文件。
+`blitz.config.js` 是 Blitzjs 的配置文件。所有用于 Blitz 应用的自定义配置都可以在这里设置。此文件继承了 `next.config.js` 文件。
 
 ## 服务器（Server）
 
@@ -215,7 +215,7 @@ blitz start
 
 ## Blitz 生成（generate）
 
-Blitz 的命令行工具具有高度的自动化。通过使用命令行工具，我们可以用 `generate` 子命令（sub-command）以在我们的 Blitz 应用中为所有的代码提供脚手架。
+Blitz 的命令行工具具有高度的自动化。通过使用命令行工具，我们可以用 `generate` 次级命令以在我们的 Blitz 应用中为所有的代码提供脚手架。
 
 命令的格式如下：
 
@@ -223,13 +223,13 @@ Blitz 的命令行工具具有高度的自动化。通过使用命令行工具�
 blitz generate <type> <model_name>
 ```
 
-blitz ‘generate’ 命令可以 scaffold/生成 Prisma 模型（models），变化（mutations），序列（queries），页面（pages）。
+`generate` 命令可以生成 Prisma 的 models，mutations，queries 以及 pages 文件。
 
 `\<type>` 参数指定要生成的文件的类型。
 
 `\<type>` 可以有如下的取值：
 
-`all`：生成 模型（models），变化（mutations），序列（queries），页面（pages）文件。
+`all`：用于生成 models，mutations，queries 以及 pages 文件。
 
 举例：
 
@@ -237,7 +237,7 @@ blitz ‘generate’ 命令可以 scaffold/生成 Prisma 模型（models），�
 blitz generate all blogPost
 ```
 
-我们使用了 `all` 子命令（sub-command）。这个命令会生成如下的文件：
+我们使用了 `all` 次级命令。这个命令会生成如下的文件：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -252,7 +252,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`all` 子命令（sub-command）为 blogPost 生成页面（pages）：
+`all` 次级命令为 blogPost 生成 pages：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -265,18 +265,18 @@ app/blogPosts/pages/blogPosts/new.tsx
 
 `app/blogPosts/pages/blogPosts/index.tsx` 会被加载，当在浏览器中导航至 `/blogPosts` 路由时。它会渲染数据库中所有的博客文章。
 
-`app/blogPosts/pages/blogPosts/new.tsx` 会在导航至 `/blogPosts/new` 路由时被加载。这个页面用来创建一个新的博客文章。
+`app/blogPosts/pages/blogPosts/new.tsx` 会在导航至 `/blogPosts/new` 路由时被加载，此页面用来创建一个新的博客文章。
 
-`app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx` 会加载，当导航至 `/blogPosts/[blogPostId]/edit` 路由。这个用于编辑 id 为 `[blogPostId]` 的博客文章。
+`app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx` 会在导航至 `/blogPosts/[blogPostId]/edit` 路由时被加载，用于编辑 id 为 `[blogPostId]` 的博客文章。
 
-`app/blogPosts/pages/blogPosts/[blogPostId].tsx` 在导航至 `/blogPosts/[blogPostId]` 路由时加载。它会渲染 id 为 `[blogPostId]` 的博客文章。
+`app/blogPosts/pages/blogPosts/[blogPostId].tsx` 在导航至 `/blogPosts/[blogPostId]` 路由时加载，相应的页面会渲染 id 为 `[blogPostId]` 的博客文章。
 
 ```
 app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-`queries` 目录存放用于检索博客文章的文件。 `app/blogPosts/queries/getBlogPost.ts` 基于博客文章的 id 返回一篇博客 `app/blogPosts/queries/getBlogPosts.ts` 用于获取数据库中所有的博客文章。
+`queries` 目录存放用于检索博客文章的文件。 `app/blogPosts/queries/getBlogPost.ts` 基于博客文章的 id 返回一篇博客。 `app/blogPosts/queries/getBlogPosts.ts` 用于获取数据库中所有的博客文章。
 
 ```
 app/blogPosts/mutations/createBlogPost.ts
@@ -284,9 +284,9 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`mutations` 做着 CRUD 中 CUD 的事情，它们可以创建，更新或删除一篇博客文章。 `app/blogPosts/mutations/createBlogPost.ts` 文件用于创建博客文章。 `app/blogPosts/mutations/deleteBlogPost.ts` 基于给定的 id 删除博客文章。 `app/blogPosts/mutations/updateBlogPost.ts` 编辑指定的博客文章。
+`mutations` 做着 CRUD 中 CUD 的事情，可以用于创建，更新或删除一篇博客文章。 `app/blogPosts/mutations/createBlogPost.ts` 文件用于创建博客文章。 `app/blogPosts/mutations/deleteBlogPost.ts` 基于给定的 id 删除博客文章。 `app/blogPosts/mutations/updateBlogPost.ts` 用于编辑指定的博客文章。
 
-`resource`：这个子命令（sub-command）用于创建模型（models），变化（mutations），序列（queries）。
+`resource`：这个次级命令用于创建 models，mutations 以及 queries 文件。
 
 例子：
 
@@ -294,7 +294,7 @@ app/blogPosts/mutations/updateBlogPost.ts
 blitz generate resource blogPost
 ```
 
-这个命令会创建如下的文件：
+命令创建的文件如下：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
@@ -304,7 +304,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`crud`：用于创建变化（mutations）和序列（queries）。不同于 `resource` ，它会生成 Prisma model（模型）。
+`crud`：用于创建 mutations 和 queries。不同于 `resource` ，它不会生成 Prisma 的 model 文件。
 
 示例：
 
@@ -312,7 +312,7 @@ app/blogPosts/mutations/updateBlogPost.ts
 blitz generate crud blogPost
 ```
 
-这个命令会生成如下的文件：
+命令生成的文件如下：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
@@ -322,7 +322,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`queries` 和 `query`：这个子命令（sub-commands）只会生成序列（queries）文件：
+`queries` 和 `query`：这个次级命令只会生成 queries 文件：
 
 示例：
 
@@ -337,7 +337,7 @@ app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-`mutations`：这个子命令（sub-command）只会生成变化（mutations）文件。没有序列（queries），页面（pages）和模型（models）。
+`mutations`：这个次级命令只会生成 mutations 文件。没有 queries，pages 和 models 文件。
 
 举例：
 
@@ -345,7 +345,7 @@ app/blogPosts/queries/getBlogPosts.ts
 blitz generate mutations blogPost
 ```
 
-此命令会生成如下文件：
+命令生成的文件如下：
 
 ```
 app/blogPosts/mutations/createBlogPost.ts
@@ -353,7 +353,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`pages`：这个子命令（sub-command）只会生成页面（pages）文件。
+`pages`：这个次级命令只会生成 pages 文件。
 
 示例：
 
@@ -370,18 +370,18 @@ app/blogPosts/pages/blogPosts/index.tsx
 app/blogPosts/pages/blogPosts/new.tsx
 ```
 
-`\<model_name>` 参数是待生成的文件的模型（model）名。
+`\<model_name>` 参数是待生成的文件的 model 名。
 
 ## 总结
 
-让我们来总结以下，Blitz.js 为我们提供了：
+让我们来总结一下，Blitz.js 为我们提供了：
 
 * 易用的页面路由（page routing）
-* 数据库设与集成
+* 数据库的设置与集成
 * 支持服务器端渲染（SSR）
 * 内置认证（authentication）
 
-Blitzjs 是一个非常好的框架。它让一切事情变得简单起来真是令人惊奇。只需用脚手架开发你的项目就可以了！！
+Blitzjs 是一个非常好的框架。它让一切事情都变得简单起来了，这真的是令人惊叹。只需用相应的脚手架开发你的项目就可以了！！
 
 谢谢！！！
 
