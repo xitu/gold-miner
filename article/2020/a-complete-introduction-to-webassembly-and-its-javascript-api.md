@@ -62,11 +62,44 @@ To fully exploit the features of WebAssembly, we have to integrate it with our J
 
 The WebAssembly code resides in a `.wasm` file. This file should be compiled to machine code that is specific to the machine it is running on. You can use the `WebAssembly.compile` method to compile your WebAssembly module. After receiving the compiled module, you can use the `WebAssembly.instantiate` method to instantiate your compiled module. Alternatively, you can pass the array buffer you obtain from fetching `.wasm` file into the `WebAssembly.instantiate` method as well. This too works as the instantiate method has two overloads.
 
+```js
+let exports;
+
+fetch('sample.wasm').then(response =>
+  response.arrayBuffer();
+).then(bytes =>
+  WebAssembly.instantiate(bytes);
+).then(results => {
+  exports = results.instance.exports;
+});
+```
+
 One of the downsides of the above approach is that these methods don’t directly access the byte code, so require an extra step to turn the response into an `ArrayBuffer` before compiling/instantiating the `wasm` module.
 
 Instead, we can use the `WebAssembly.compileStreaming` / WebAssembly.instantiateStreaming methods to achieve the same functionality as above, with an advantage being able to access the byte code directly without the need for turning the response into an `ArrayBuffer` .
 
+```js
+let exports;
+
+WebAssembly.instantiateStreaming(fetch('sample.wasm'))
+.then(obj => {
+  exports = obj.instance.exports;
+})
+```
+
 You should note that the `WebAssembly.instantiate` and WebAssembly.instantiateStreaming return the instance as well as the compiled module as well, which can be used to spin up instances of the module quickly.
+
+```js
+let exports;
+let compiledModule;
+
+WebAssembly.instantiateStreaming(fetch('sample.wasm'))
+.then(obj => {
+  exports = obj.instance.exports;
+  //access compiled module
+  compiledModule = obj.module;
+})
+```
 
 #### Import Object
 
@@ -97,6 +130,21 @@ The global constructor accepts two parameters.
 * An object containing properties describing the data type and mutability of the global variable. The allowed data types are `i32`, `i64`, `f32`, or `f64`
 * The initial value of the actual variable. This value should be of the type mentioned in parameter 1. For example, if you mention the type as `i32` , your variable should be a 32-bit integer. Likewise, if you mention `f64` as the type, then your variable should be a 64-bit float.
 
+```js
+const global = new WebAssembly.Global({
+    value: 'i64',
+    mutable: true
+}, 20);
+
+let importObject = {
+    js: {
+        global
+    }
+};
+
+WebAssembly.instantiateStreaming(fetch('global.wasm'), importObject)
+```
+
 **The global instance should be passed onto the `importObject` in order for it to be accessible in the WebAssembly module instance.**
 
 #### Memory
@@ -123,7 +171,55 @@ Similarly, I am doing some string manipulation in `wasm` . You must note that `w
 
 **JavaScript file**
 
+```js
+let exports;
+let buffer;
+(async() => {
+  let response = await fetch('../out/main.wasm');
+  let results = await WebAssembly.instantiate(await response.arrayBuffer());
+  //or
+  // let results = await WebAssembly.instantiateStreaming(fetch('../out/main.wasm'));
+  let instance = results.instance;
+  exports = instance.exports;
+  buffer = new Uint8Array(exports.memory.buffer);
+
+  findPower(5,3);
+  
+  printHelloWorld();
+  
+})();
+
+const findPower = (base = 0, power = 0) => {
+  console.log(exports.power(base,power));
+}
+
+const printHelloWorld = () => {
+  let pointer = exports.helloWorld();
+  let str = "";
+  for(let i = pointer;buffer[i];i++){
+    str += String.fromCharCode(buffer[i]);
+  }
+  console.log(str);
+}
+```
+
 **C file**
+
+```c
+#define WASM_EXPORT __attribute__((visibility("default")))
+#include <math.h>
+
+
+WASM_EXPORT
+double power(double number,double power_value) {
+  return pow(number,power_value);
+}
+
+WASM_EXPORT
+char* helloWorld(){
+  return "hello world";
+}
+```
 
 ## Use Cases
 
