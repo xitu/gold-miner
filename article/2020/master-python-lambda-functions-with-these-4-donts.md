@@ -2,26 +2,26 @@
 > * 原文作者：[Yong Cui, Ph.D.](https://medium.com/@yong.cui01)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/master-python-lambda-functions-with-these-4-donts.md](https://github.com/xitu/gold-miner/blob/master/article/2020/master-python-lambda-functions-with-these-4-donts.md)
-> * 译者：
+> * 译者：[loststar](https://github.com/loststar)
 > * 校对者：
 
-# Master Python Lambda Functions With These 4 Don’ts
+# 通过“四不要”掌握 Python 中的 Lambda 函数
 
 ![Photo by [Khachik Simonian](https://unsplash.com/@khachiksimonian?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/10944/0*9slRkVkDa86YSSIk)
 
-Lambda functions are anonymous functions in Python. Using them is a handy technique in a local environment when you need to perform a small job. Some people simply refer to them as lambdas, and they have the following syntax:
+Lambda 函数是 Python 中的匿名函数。当你需要完成一件小工作时，在本地环境中使用它们可以让工作得心应手。有些人将它们简称为 lambdas，它们的语法如下：
 
 ```
 lambda arguments: expression
 ```
 
-The creation of a lambda function is signaled by the `lambda` keyword, followed by the list of arguments and a single expression separated by a colon. For instance, `lambda x: 2 * x` simply multiplies any input number by two, while `lambda x, y: x+y` simply calculates the sum of two numbers. The syntax is pretty straightforward, right?
+`lambda` 关键字可以用来创建一个 lambda 函数，紧跟其后的是参数列表和用冒号分割开的单个表达式。例如，`lambda x: 2 * x` 只是将任何输入的数乘2，而 `lambda x, y: x+y` 只是计算两个数字的和。语法十分直截了当，对吧？
 
-With the assumption that you know what a lambda function is, this article is intended to provide some general guidelines on how to use lambda functions properly.
+假设您知道什么是 lambda 函数，本文旨在提供有关如何正确使用 lambda 函数的一些常规准则。
 
-## 1. Don’t Return Any Value
+## 1. 不要返回任何值
 
-Looking at the syntax, you may notice that we don’t return anything for the lambda function. It’s all because lambda functions can only contain a single expression. However, the use of the `return` keyword will constitute a statement that is incompatible with the required syntax, as shown below:
+看看语法，您可能会注意到我们在 lambda 函数中并没有返回任何内容。这都是因为 lambda 函数只能包含一个表达式。然而，使用 `return`  关键字会构成不符合规定语法的语句，就行下面展示的一样：
 
 ```Python
 >>> integers = [(3, -3), (2, 3), (5, 1), (-4, 4)]
@@ -35,13 +35,13 @@ Looking at the syntax, you may notice that we don’t return anything for the la
 SyntaxError: invalid syntax
 ```
 
-This mistake probably arises due to the inability to differentiate expressions from statements. Statements like those involving `return`, `try`, `with`, and `if` perform particular actions. However, expressions are those that can be evaluated to a single value, such as a number or other Python objects.
+该错误可能是由于无法区分表达式和语句而引起的。像是包含 `return`、`try`、 `with` 以及 `if` 的语句会执行特殊动作。然而，表达式指的是那些可以被计算出一个值的表达，例如数值或其他 Python 对象。
 
-With lambda functions, the single expression will evaluate a single value that is used subsequently, such as being sorted by the `sorted` function.
+通过使用 lambda 函数，单个表达式会被计算为一个值并且参与后续的计算，例如由 `sorted` 函数排序。
 
-## 2. Don’t Forget About Better Alternatives
+## 2. 不要忘记更好的选择
 
-One of the most common use cases is to set a lambda function to the `key` argument of some built-in utility functions, such as `sorted()` and `max()`, as shown above. Depending on the situation, we can use other alternatives. Consider the following examples:
+lambda 函数最常见的使用场景是将它作为一些内置工具函数中 `key` 的实参，比如上面展示的 `sorted()` 和 `max()`。根据情况，我们可以使用其他替代方法。思考下面的例子：
 
 ```Python
 >>> integers = [-4, 3, 7, -5, -2, 6]
@@ -56,7 +56,7 @@ One of the most common use cases is to set a lambda function to the `key` argume
 (93, 100)
 ```
 
-In data science, many people use the [pandas](https://pandas.pydata.org/) library to process data. We can use the lambda function to create new data from existing data using the `map()` function, as shown below. Instead of using a lambda function, we can simply use the arithmetic function directly because it’s supported in pandas:
+在数据科学领域，很多人使用 [pandas](https://pandas.pydata.org/) 库来处理数据。如下所示，我们可以使用 lambda 函数通过  `map()`  函数从现有数据中创建新数据。除了使用 lambda 函数外，我们还可以直接使用算术函数，因为 pandas 是支持的：
 
 ```Python
 >>> import pandas as pd
@@ -75,9 +75,9 @@ dtype: int64
 dtype: int64
 ```
 
-## 3. Don’t Assign It to a Variable
+## 3. 不要将它赋值给变量
 
-I’ve seen some people mistakenly think that a lambda function is an alternative way to declare a simple function, and you may have seen people do the following:
+我曾见过一些人将 lambda 函数误认为是简单函数的另一种声明方式，您可能也见过有人像下面这么做：
 
 ```Python
 >>> doubler = lambda x: 2 * x
@@ -89,9 +89,9 @@ I’ve seen some people mistakenly think that a lambda function is an alternativ
 <class 'function'>
 ```
 
-The only use of naming a lambda function is probably for teaching purposes to show that a lambda function is indeed a function just like other functions — to be called and having a type of function. Other than that, we shouldn’t assign a lambda function to a variable.
+对 lambda 函数命名的唯一作用可能是出于教学目的，以表明 lambda 函数的确是和其他函数一样的函数——可以被调用并且具有某种功能。除此之外，我们不应该将 lambda 函数赋值给变量。
 
-The problem with naming a lambda function is that it makes debugging less straightforward. Unlike other functions that are created using the regular `def` keyword, lambda functions don’t have names, which is why they’re sometimes referred to as anonymous functions. Consider the following trivial example to see this nuance:
+为 lambda 函数命名的问题在于这使得调试不那么直观。与其他的使用常规 `def` 关键字创建的函数不同，lambda 函数没有名字，这也是为什么有时它们被称为匿名函数的原因。思考下面简单的例子，找出细微的区别：
 
 ```Python
 >>> inversive0 = lambda x: 1 / x
@@ -114,14 +114,14 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-* When your code has problems with a lambda function (i.e. `inversive0`), the `Traceback` error information can only tell you that a lambda function has bugs.
-* By contrast, with a regularly defined function, the `Traceback` will clearly inform you of the problematic function (i.e. `inversive1`).
+* 当您的代码存在关于 lambda 函数的问题（即 `inversive0`），`Traceback` 错误信息只会提示您 lambda 函数存在问题。
+* 相比之下，使用正常定义的函数，`Traceback`会清晰地提示您有问题的函数（即 `inversive1`）。
 
-Related to this, if you have the temptation to use a lambda function more than once, the best practice is to use a regular function using the `def` keyword, which will also allow you to have docstrings.
+与此相关，如果您想多次使用 lambda 函数，最佳实践是使用通过 `def` 定义的允许使用文档字符串的常规函数。
 
-## 4. Don’t Forget About List Comprehension
+## 4. 不要忘记列表推导式
 
-Some people like to use lambda functions with higher-order functions, such as `map` or `filter`. Consider the following example for this usage:
+有些人喜欢将 lambda 函数和高阶函数一起使用，比如 `map` 或 `filter`。思考下面用法示例：
 
 ```Python
 >>> # Create a list of numbers
@@ -134,7 +134,7 @@ Some people like to use lambda functions with higher-order functions, such as `m
 [1, 3, -3]
 ```
 
-Instead of using the lambda function, we can use list comprehension, which has better readability. As shown below, we use list comprehension to create the same list objects. As you can see, the previous usage of `map` and `filter` functions with lambda functions is more cumbersome compared to list comprehension. So you should consider using list comprehension when you’re creating lists involving higher-order functions.
+我们可以使用可读性更强的列表推导式代替 lambda 函数。如下所示，我们使用列表推导式来创建相同的列表对象。如您所见，与列表推导式相比，之前将 `map` 或 `filter` 函数与 lambda 函数一起使用更麻烦。因此，在创建涉及高阶函数的列表时，应考虑使用列表推导式。
 
 ```Python
 >>> # Use list comprehensions
@@ -144,11 +144,11 @@ Instead of using the lambda function, we can use list comprehension, which has b
 [1, 3, -3]
 ```
 
-## Conclusion
+## 结论
 
-In this article, we reviewed four common mistakes that someone may make with lambda functions. By avoiding these mistakes, you should be able to use lambda functions properly in your code.
+在本文中，我们回顾了使用 lambda 函数可能会犯的四个常见错误。通过避免这些错误，您应该能在代码中正确使用 lambda 函数。
 
-The rule of thumb for using lambda functions is to keep it simple and use them just once locally.
+使用 lambda 函数的经验准则是保持简单以及只在本地使用一次。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
