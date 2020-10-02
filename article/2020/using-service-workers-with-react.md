@@ -7,8 +7,6 @@
 
 # Using Service Workers with React
 
-## Using Service Workers with create-react-app
-
 ![Image by [200 Degrees](https://pixabay.com/users/200degrees-2051452/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2165376) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2165376)](https://cdn-images-1.medium.com/max/2560/1*WAsSdE5Mh8fHLlDQDVYnSA.png)
 
 If you use React for front end development, chances are that you have heard of service workers. If you are not sure what they do, or how to configure them properly, this beginner’s guide to service workers in React should serve as a good first step in creating feature-rich, offline experiences in React.
@@ -18,22 +16,6 @@ Service workers are scripts that are run by the browser. They do not have any di
 Service workers are scripts that are run by the browser of a client. They do not have any direct relationship with the DOM. They provide many out of the box network-related features. Service workers are the foundation of building an offline experience. They enable features such as push notifications and background sync.
 
 If you develop the ability to activate and properly configure service workers in React, you can utilize endless possibilities by judiciously intercepting and managing network requests. In React, service workers are automatically added when you create your application through the `create-react-app` command, through `SWPrecacheWebpackPlugin`. Service workers ensure that the network is not a bottleneck to serve new requests.
-
----
-
-Let us look at the constituents of a service worker, and then explore how you can configure them to utilize their full potential.
-
-Tip: **Share reusable components between projects using [Bit](https://bit.dev/)** ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
----
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*9qC3-eVso_h4o_KD.gif)
 
 ## Service Workers: Use Cases
 
@@ -91,13 +73,13 @@ At this stage, your service worker is not registered, so you will have to first 
 
 To register the service worker, navigate to the `src/index.js` file, and look for the following line:
 
-```
+```js
 serviceWorker.unregister();
 ```
 
 Change it to the following line.
 
-```
+```js
 serviceWorker.register();
 ```
 
@@ -126,7 +108,7 @@ CRA’s default `service-worker.js` caches all static assets. To add any new fun
 
 Around line 34 in the `serviceWorker.js` file, look for the `load()` even listener and add your custom file to it.
 
-```
+```js
 window.addEventListener('load', () => {
      const swUrl = `${process.env.PUBLIC_URL}/custom-service-worker.js`;
      ...
@@ -146,13 +128,13 @@ Next, update the `package.json` file as below.
 
 In this step, we will invoke [Google’s Workbox plugin](https://developers.google.com/web/tools/workbox/guides/codelabs/webpack).
 
-```
+```bash
 npm install --save-dev workbox-build
 ```
 
 Next, you need to create a config file to instruct CRA to insert our custom service worker.
 
-```
+```js
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 module.exports = function override(config, env) {
   config.plugins = config.plugins.map((plugin) => {
@@ -170,7 +152,7 @@ module.exports = function override(config, env) {
 
 You can then proceed to create the custom service worker to cache a particular directory as shown below.
 
-```
+```js
 workbox.routing.registerRoute(
   new RegExp("/path/to/cache/directory/"),
   workbox.strategies.NetworkFirst()
@@ -183,16 +165,6 @@ Ensure that you build your application again for the changes to take effect.
 ## Final Thoughts
 
 In this post, we covered what service workers are, why they should be used, and the process of using and configuring service workers in your React application. Service workers form a critical part of modern web development and it is a good idea to incorporate them into your existing React applications.
-
-In case you are interested to explore this further, here is a complete tutorial on [creating a progressive web app in React](https://blog.bitsrc.io/build-progressive-web-apps-with-react-part-1-63f1fbc564a6).
-
-## Learn More
-[**Maximizing Code Reuse in React**
-**How to speed-up development by sharing ReactJS components from any codebase, using Bit**blog.bitsrc.io](https://blog.bitsrc.io/maximizing-code-reuse-in-react-35ee20ad362c)
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
-[**Building with React for All Platforms: Top Frameworks and Tools**
-**5 recommended frameworks and tools that will help you use React to build for all platforms.**blog.bitsrc.io](https://blog.bitsrc.io/building-with-react-for-all-platforms-5-top-frameworks-and-tools-affd5baf3de3)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
