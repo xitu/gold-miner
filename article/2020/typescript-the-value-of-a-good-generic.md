@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/typescript-the-value-of-a-good-generic.md](https://github.com/xitu/gold-miner/blob/master/article/2020/typescript-the-value-of-a-good-generic.md)
 > * 译者：[tonylua](https://github.com/tonylua)
-> * 校对者：
+> * 校对者：[Alfxjx](https://github.com/Alfxjx)
 
 # TypeScript：一个好泛型的价值
 
 ![](https://oscimg.oschina.net/oscnet/up-d1c0028db6c739e0c0ec9b6772abe63794f.png)
 
-在软件开发领域，我们总是致力于创建可复用的组件，架构被设计为可适应多种情境，并且我们始终在寻找一种自动让逻辑即便在面临未知情况时也能正确行事的方法。
+在软件开发领域，我们总是致力于创建可复用的组件，架构被设计为可适应多种情境，并且我们始终在寻找一种即便在面临未知情况时，也能自动让逻辑正确行事的方法。
 
 尽管在某些情境下可能并不总是易于做到甚或根本不可行，但我们心里总想找到能被复现并变为可被应付的通用算法的某些模式。所谓 **泛型（Generics）** 的概念就是该行为的另一个例子，只是，这次我们不诉诸宏大，而是在代码层面的细枝末节中试图找出并描绘上述的模式。
 
@@ -39,7 +39,7 @@ function identity(value: any): any {
 }
 ```
 
-这还挺行得通的，但此刻你的函数实际上丢失了所有类型的概念，你将不能在本该有真实类型信息的地方使用它们了。本质上来说现在你可以传入任何值而编译器将一言不发，这和你使用普通的 JavaScript 就没有区别了（即无论怎样都没有类型信息了）：
+这还挺行得通的，但此刻你的函数实际上丢失了所有类型的概念，你将不能在本该有确定类型信息的地方使用它们了。本质上来说现在你可以传入任何值而编译器将一言不发，这和你使用普通的 JavaScript 就没有区别了（即无论怎样都没有类型信息了）：
 
 ```TypeScript
 
