@@ -9,21 +9,21 @@
 
 ![](https://cdn-images-1.medium.com/max/2800/0*UyEKhRBaINAtNNiB.png)
 
-JavaScript 社区一直在稳步发展，并且已经推出了数百个框架，这无疑超出了我们的理解和掌握范围，但是这并不是新鲜事。
+JavaScript 社区一直在稳步发展，并且已经推出了数百个框架，这无疑超出了我们的理解和掌握范围，但这并不是新鲜事。
 
-现在，大多数稳定的框架都有基于其进一步构建的框架，同时也变得更加复杂并具有更好的性能。
+现在，大多数稳定的框架都有基于其进一步构建的框架，同时具有更好的性能以及变得更加复杂。
 
 在本文中，我们将会简单介绍 Blitz.js 框架。
 
 ## 为什么我们需要 Blitz.js 框架？
 
-是的，React 增强了我们现在构建应用的方式。[组件驱动设计](https://bit.dev)使得我们从独立的单元向上构建应用更加容易。
+React 增强了我们现在构建应用的方式。[组件驱动设计](https://bit.dev)使得我们从独立的单元向上构建应用更加容易。
 
 但是，构建应用并不仅是在 React 中堆叠组件。我们还必须思考，如何设置配置、遵循最佳设计模式、设置文件夹结构、组织应用的结构、规划应用的路由/页面以及使用什么数据库，服务器和数据库模式模型。
 
 在编写代码前就要决定好上述的所有事情，实在是令人头疼。
 
-Blitz.js 为我们解决了以上的所有问题，它提供了一个完整的全栈服务器端渲染（Next.js） React 应用程序脚手架，并内置了相应的配置和后端。就像 Rails 框架在 Ruby 上所做的那样。
+Blitz.js 为我们解决了以上的所有问题，它提供了一个完整的全栈服务器端渲染（基于 Next.js）React 应用程序脚手架，并内置了相应的配置和后端。就像 Rails 框架在 Ruby 上所做的那样。
 
 Blitz.js 带来的种种好处，所提高的生产力将远远超出我们的想象。
 
@@ -43,7 +43,7 @@ Blitz.js 是受 Ruby on Rails 启发，基于 Next.js 构建的零-API（Zero-AP
 
 要开始使用 Blitz.js ，首先，我们需要安装命令行工具。
 
-Blitz.js 需运行在 Nodejs v12+。
+Blitz.js 需运行在 Nodejs v12+ 的环境下。
 
 我们在计算机上全局安装 Blitz.js 的命令行工具。
 
@@ -276,7 +276,7 @@ app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-`queries` 目录存放用于检索博客文章的文件。 `app/blogPosts/queries/getBlogPost.ts` 基于博客文章的 id 返回一篇博客。 `app/blogPosts/queries/getBlogPosts.ts` 用于获取数据库中所有的博客文章。
+`queries` 目录存放用于检索博客文章的文件。`app/blogPosts/queries/getBlogPost.ts` 基于博客文章的 id 返回一篇博客。`app/blogPosts/queries/getBlogPosts.ts` 用于获取数据库中所有的博客文章。
 
 ```
 app/blogPosts/mutations/createBlogPost.ts
@@ -284,7 +284,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`mutations` 做着 CRUD 中 CUD 的事情，可以用于创建，更新或删除一篇博客文章。 `app/blogPosts/mutations/createBlogPost.ts` 文件用于创建博客文章。 `app/blogPosts/mutations/deleteBlogPost.ts` 基于给定的 id 删除博客文章。 `app/blogPosts/mutations/updateBlogPost.ts` 用于编辑指定的博客文章。
+`mutations` 做着 CRUD 中 CUD 的事情，可以用于创建，更新或删除一篇博客文章。`app/blogPosts/mutations/createBlogPost.ts` 文件用于创建博客文章。`app/blogPosts/mutations/deleteBlogPost.ts` 基于给定的 id 删除博客文章。`app/blogPosts/mutations/updateBlogPost.ts` 用于编辑指定的博客文章。
 
 `resource`：这个次级命令用于创建 models，mutations 以及 queries 文件。
 
@@ -337,7 +337,7 @@ app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-`mutations`：这个次级命令只会生成 mutations 文件。没有 queries，pages 和 models 文件。
+`mutations`：这个次级命令只会生成 mutations 文件。没有 queries，pages 或 models 文件。
 
 举例：
 
