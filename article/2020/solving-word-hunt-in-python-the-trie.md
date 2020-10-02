@@ -7,13 +7,11 @@
 
 # Solving Word Hunt in Python: The Trie
 
-#### Data structure for word prediction and dictionary searching
+![Photo by [John Jennings](https://unsplash.com/@john_jennings?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/B6yDtYs2IgY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/2800/0*_x8QAcEWRmerd9-_)
 
 Word Hunt is a popular game in which you’re given a list of letters and told to find as many words as possible from those letters. In variations of the game, you can reuse the letters as many times as possible (this game is known as Word Hunt) or use them only once (in a game called Word Scrambles). You get more points for longer words and maximum points for using all the letters.
 
 This kind of game is **great** for computers to solve, and can highlight a pretty useful data structure known as the “Trie”.
-
-![Photo by [John Jennings](https://unsplash.com/@john_jennings?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/B6yDtYs2IgY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/2800/0*_x8QAcEWRmerd9-_)
 
 ## Solution Strategy
 
@@ -184,10 +182,6 @@ It’s inefficient to recreate this Trie each time for a single word, so it woul
 ## Conclusion
 
 Hopefully, this article provided you with a basic introduction to using a Trie to solve word problems. Tries are a great structure to use when you need any kind of autocomplete. Text messaging, searches, even directions, can use a Trie built from data in the system to help predict what a user wants to input next. As we’ve seen here, they’re also a great structure to use to search a large number of existing paths; in this case, the path being valid words.
-
----
-
-[Citizen Upgrade](https://medium.com/@citizenupgrade) is a community of experts covering technology, society, and personal development. Visit us at our [website](https://citizenupgrade.com), on [Facebook](https://www.facebook.com/citizenupgrade), or on [Twitter](https://twitter.com/CitizenUpgrade).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
