@@ -7951,10 +7951,11 @@
 |推荐英文文章一篇|奖励|1|
 |[误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）](https://juejin.im/post/5c223f4ce51d452626296b5d)|校对|1.5|
 
-## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：7.5 当前积分：7.5 二零二零：5
+## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：12 当前积分：12 二零二零：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)|翻译|4.5|
 |[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|翻译|5|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
@@ -8894,10 +8895,12 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：68 当前积分：58 二零二零：38.5
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：74 当前积分：64 二零二零：44.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 函数中一些你不知道的秘密](https://juejin.im/post/6871101056642711559)|校对|3|
+|[加速 vue.js 应用的六种绝技](https://juejin.im/post/6870808442911588365)|校对|3|
 |[分享我喜欢的十五条 JavaScript 编程技巧](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)|校对|2|
 |[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|校对|2|
 |[颜色为何成为数据可视化的关键，怎样使用它？](https://juejin.im/post/6872238362233831432)|校对|2.5|
@@ -9653,10 +9656,11 @@
 |[设置 git 别名](https://juejin.im/post/5dafc502f265da5b783f1ae1)|校对|1.5|
 |[使用 `import()` 执行 JavaScript 代码](https://juejin.im/post/5dafc573e51d4524bb096393)|校对|1|
 
-## 译者：[Alfxjx](https://github.com/Alfxjx) 历史贡献积分：13 当前积分：13 二零二零：5
+## 译者：[Alfxjx](https://github.com/Alfxjx) 历史贡献积分：15 当前积分：15 二零二零：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)|校对|2|
 |[React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)|校对|2|
 |[在 Vue 中编写 SVG 图标组件](https://juejin.im/post/5e4fc62de51d4527110a85dd)|校对|2|
 |[使用 Web Workers 优化事件监听器](https://juejin.im/post/5e241bb9f265da3e46090215)|校对|1|
@@ -10033,10 +10037,11 @@
 |[鲜为人知的 GraphQL 特性](https://juejin.im/post/5edbaf2751882543281f73fc)|校对|1|
 |[使用 Deno 和 Oak 构建 CRUD API](https://juejin.im/post/5ed711086fb9a0479a801362)|翻译|1.5|
 
-## 译者：[MangoTsing](https://github.com/MangoTsing) 历史贡献积分：7.5 当前积分：7.5 二零二零：7.5
+## 译者：[MangoTsing](https://github.com/MangoTsing) 历史贡献积分：13.5 当前积分：13.5 二零二零：13.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[加速 vue.js 应用的六种绝技](https://juejin.im/post/6870808442911588365)|翻译|6|
 |[如何利用 Polyfill 和转译在所有浏览器中使用最新 JavaScript 特性](https://juejin.im/post/6868513605055643662)|翻译|5|
 |[可以用来构建 Deno Web 应用程序的 7 个模块](https://juejin.im/post/5ed46435e51d45788619c778)|校对|2|
 |[使用 Deno 和 Oak 构建 CRUD API](https://juejin.im/post/5ed711086fb9a0479a801362)|校对|0.5|
@@ -10071,10 +10076,11 @@
 |[什么是无障碍？为什它对于用户体验很重要？](https://juejin.im/post/5ebf96a5f265da7b9754dd7d)|校对|1|
 |[我是如何用 20 小时学会 Sass 的以及为什么你也应该这么做](https://juejin.im/post/5ede14f6e51d4578885ca8fc)|翻译|3.5|
 
-## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：91.5 当前积分：59.5 二零二零：91.5
+## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：93.5 当前积分：61.5 二零二零：93.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)|校对|2|
 |[React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)|翻译|4.5|
 |[如何在字符串中隐藏秘密 —— JavaScript 中的现代文本隐藏](https://juejin.im/post/6856737400396349454)|翻译|7|
 |兑换水杯 1 个，笔记本 1 个|减去积分|14|
@@ -10167,10 +10173,11 @@
 |[使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)|翻译|6|
 |[打包用于分发的 UI 库 —— 当你要发布一个 UI 组件库时，你可能需要遵守的指南](https://juejin.im/post/6863091746113323021)|校对|3|
 
-## 译者：[Isildur46](https://github.com/Isildur46) 历史贡献积分：12.5 当前积分：12.5 二零二零：12.5
+## 译者：[Isildur46](https://github.com/Isildur46) 历史贡献积分：19.5 当前积分：19.5 二零二零：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 函数中一些你不知道的秘密](https://juejin.im/post/6871101056642711559)|翻译|7|
 |[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|翻译|5|
 |[让你的 Web 应用和移动应用选择 PWA 的 5 个理由](https://juejin.im/post/6868084125195042823)|校对|2.5|
 |[JavaScript 生成器：何时用 yield，何时用 yield* ？](https://juejin.im/post/6867036974441005063)|翻译|3|
