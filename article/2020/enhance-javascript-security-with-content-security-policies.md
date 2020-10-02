@@ -13,29 +13,19 @@ How confident you feel that your JavaScript code is secured against the attacker
 
 Though we have minimal control over the execution environment, it's vital to ensure the security of JavaScript and have control over the execution happening there.
 
-> # Do you know whether you can instruct the browser to comply with a set of guidelines and execute your JavaScript code?
+> Do you know whether you can instruct the browser to comply with a set of guidelines and execute your JavaScript code?
 
 After reading this article, you’ll come to know the common attributes of Content Security Policies and how you can use them to secure your JavaScript code at runtime.
 
 ## Content Security Policy
 
-> # **Content Security Policy** ([CSP](https://developer.mozilla.org/en-US/docs/Glossary/CSP)) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting ([XSS](https://developer.mozilla.org/en-US/docs/Glossary/XSS)) and data injection attacks. These attacks are used for everything from data theft to site defacement to distribution of malware.
+> **Content Security Policy** ([CSP](https://developer.mozilla.org/en-US/docs/Glossary/CSP)) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting ([XSS](https://developer.mozilla.org/en-US/docs/Glossary/XSS)) and data injection attacks. These attacks are used for everything from data theft to site defacement to distribution of malware.
 
 As the name suggests, CSP is a set of instructions you can send with your JavaScript code to the browser to control its execution. For example, you can set up a CSP to restrict the execution of JavaScript to a set of whitelisted domains and ignore any inline scripts and event handlers to protect from XSS attacks. In addition, you can specify that all the scripts should load via HTTPS to reduce the risk of packet sniffing attacks.
 
-> # So how should I configure a CSP for a web application?
+So how should I configure a CSP for a web application?
 
 There are two ways to configure a CSP. One approach is to return a specific HTTP Header`[Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy).` The other is to specify a `[\<meta>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta)` element in your HTML page.
-
----
-
-**Tip:** Use [**Bit**](https://bit.dev/) ([Github](https://girhub.com/teambit/bit)) to share, document, and manage reusable components from different projects. It’s a great way to increase code reuse, speed up development, and build apps that scale.
-
-[Bit](https://bit.dev/) supports Vanilla JS, TypeScript, React, Angular, Vue, and many more.
-
-![Example: exploring shared React components on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*tuZunBjzA03ELk4a.gif)
-
----
 
 ## Let's look at a Sample CSP
 
@@ -47,7 +37,7 @@ Content-Security-Policy: default-src 'self'; script-src 'self' https://example.c
 
 Then, this will **allow** loading JavaScripts like from `https://example.com/js/*` but will **block**[ https://someotherexample.com/js/*](https://otherurl.com/js/*) by the browser as specified in the CSP. Furthermore, any Inline Scripts are also blocked by default, unless you use hashes or nonces to allow them to execute.
 
-> # If you haven’t heard of Hashes or Nounces, I would highly recommend to refer [this example link](https://content-security-policy.com/examples/allow-inline-script/) to realize the true potential of it.
+> If you haven’t heard of Hashes or Nounces, I would highly recommend to refer [this example link](https://content-security-policy.com/examples/allow-inline-script/) to realize the true potential of it.
 
 In a nutshell, with the hash operation, you can specify the hash of the JavaScript file as an attribute to the Script block where the browser will first validate the hash before executing it.
 
@@ -65,7 +55,7 @@ Content-Security-Policy: default-src 'self'; report-uri /csp-incident-reports
 
 If we include a JavaScript or Style outside the sites own origin (e.g; otherdomain.com), let's say by accident when we visit the site URL (e.g; example.com), the above policy will reject it from loading to the browser and submit the following violation report as the HTTP POST payload.
 
-```
+```json
 {
   "csp-report": {
     "document-uri": "http://example.com/index.html",
@@ -94,14 +84,6 @@ After observing several projects, Content Security Policy is something you often
 However, it’s also important to do a proper analysis of all the resources used in the application before creating the CSP. With this, you can create a better restrictive CSP by whitelisting all the known resources and blocking others by default.
 
 I do hope that you will feel free to ask any questions on this or make your suggestions. You can mention them in the comment box below.
-
----
-[**JavaScript Security Issues and Best Practices**
-**Understanding XSS & CSRF**blog.bitsrc.io](https://blog.bitsrc.io/javascript-security-issues-and-best-practices-37e78df4dce4)
-[**Why Using Tokens and Cookies together is Better for Web Apps**
-**Why you should consider using JWT and Cookies together to implement a solid authentication foundation for your Web…**blog.bitsrc.io](https://blog.bitsrc.io/why-using-tokens-and-cookies-together-is-better-for-web-apps-9d205b7c1961)
-[**HTTPS: an awesome, secure tale (pt 1)**
-**Understanding the security protocol which powers the internet starts here!**blog.bitsrc.io](https://blog.bitsrc.io/https-an-awesome-secure-tale-pt-1-32d2ba5ac0c1)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
