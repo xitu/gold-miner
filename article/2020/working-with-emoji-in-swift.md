@@ -5,21 +5,21 @@
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
 > * 校对者：
 
-# Working With Emoji in Swift
+# 在 Swift 中玩转 emoji
 
 ![照片来自 Instagram 用户 [Gaby Prestes Nekrasova](https://www.instagram.com/gabypres2808/)](https://cdn-images-1.medium.com/max/2560/1*ITyYFzjAq7_ZP-RoIApDqg.jpeg)
 
-emoji 已经成为我们生活中的一大部分。iPhone 和 iPad 都拥有一个 emoji 专有的输入键盘（除非这个功能被关闭了）。我们会在网站上、移动端或桌面端应用中见到 emoji，我们也会在编辑文本或填写表格时输入 emoji。
+emoji 已经成为我们生活中的一大部分。iPhone 和 iPad 都拥有 emoji 的专用键盘（除非这个功能被关闭了）。我们会在网站、移动端或桌面端应用中见到 emoji，我们也会在编辑文本或填写表格时输入 emoji。
 
-我们怎么管理 emoji？如何阻止用户在 `UITextField` 中输入 emoji？我们又如何从服务器的 JSON 返回体中解析 emoji？这就让我们来谈个明白。
+我们怎么管理 emoji？如何阻止用户在 `UITextField` 中输入 emoji？我们又如何从服务器的 JSON 返回体中解析 emoji？这就让我们来探个明白。
 
 ## 一些前置理论知识
 
-emoji 属于当今 Unicode 的一部分。计算机的运转依靠的是比特位和字节 —— 并不依靠微笑符号或其他小的图形。文本中的每个字母、数字或特殊字符都是由一个或多个字节编码而成。emoji 也是如此。它们本质上就是一些符号。
+emoji 是当今 Unicode 的一部分。计算机的运转依靠的是比特位和字节 —— 并不依靠微笑符号或其他小图形。文本中的每个字母、数字或特殊字符都是由一个或多个字节编码而成。emoji 也是如此。它们本质上就是一些符号。
 
-Unicode 有三种标准的编码变形。它们都在不断发展，加入新的符号，包含新的语言。当然 Unicode 的编码形式是多于 3 种的，但对于我们开发者来说，了解以下三种编码标准显得极为重要：
+Unicode 有三种标准的编码变形。它们都在不断发展，会加入新的符号，和包含新的语言。当然 Unicode 的编码形式是多于 3 种的，但对于我们开发者来说，了解以下 3 种编码标准显得更为重要：
 
-1. UTF-8（Unicode Transformation Format 8-bit）： 在这种编码下，每个符号由 1 个或多个字节表示。简单的拉丁字符、数字和部分符号只占用 1 个字节（8位）。如果字符的第 1 个比特位是 0，我们可以知道这就是个 1 字节符号。当编码俄语、汉字、阿拉伯文或 emoji 时，每个字符占用 1 或更多个字节，并且首比特位为 1。
+1. UTF-8（Unicode Transformation Format 8-bit）： 在这种编码下，每个符号由 1 个或多个字节表示。简单的拉丁字符、数字和部分符号只占用 1 个字节（8位）。如果字符的第 1 个比特位是 0，我们可以知道这就是个 1 字节符号。当编码俄语、汉字、阿拉伯文或 emoji 时，每个字符占用多个字节，此时比特位首位为 1。
 2. UTF-16（Unicode Transformation Format 16-bit）：所有符号使用 2 个或 4 个字节进行编码。2 个字节可以组合出 65536 种不同的值，基本可以涵盖常用字符。emoji 通常占用 2 个字节，不过部分 emoji 的变种字符（不同颜色的皮肤或头发）会占用更多的数据位。
 3. UTF-32（Unicode Transformation Format 32-bit）：这是最容易理解的编码方式，不过内存空间的利用效率比较低。每个字符都用 4 个字节表示。
 
@@ -68,7 +68,7 @@ extension Character {
 
 ## 在 UITextField 中禁用 emoji
 
-通常，我们并不会允许用户输入 emoji。例如，当我们想获取用户合法姓名或其他数据时。
+通常，我们并不会允许用户输入 emoji。例如，当我们想获取用户合法姓名或其他类似数据时。
 
 这里有两种限制用户的方法 —— 严格的和稍宽松的。
 
@@ -107,11 +107,11 @@ func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange
 }
 ```
 
-现在，当用户再尝试输入 emoji 时，输入框不会有任何反应了。如果你想显式提醒用户，可以添加一个弹窗提示信息。
+现在，当用户再尝试输入 emoji 时，输入框不会有任何反应了。如果你想显式提醒用户，可以添加一个提示信息的弹窗。
 
 ## 解析 API 响应中的 emoji
 
-如果你曾经在 Swift 中调用过 REST API，你应该遇到过有时虽然拿到了接口返回却丢掉了 emoji。`String` 和 JSON 兼容类型间的转换，像 `Array` 和 `Dictionary`，都会丢失 emoji。
+如果你曾经在 Swift 中调用过 REST API，你应该遇到过这种情况，虽然拿到了接口返回值却丢掉了其中的 emoji。`String` 和 JSON 兼容类型间的转换，像 `Array` 和 `Dictionary`，都会丢失 emoji。
 
 最安全有效的方法就是从 API 中获取 `Data`，并把它转换成你想要的类型：
 
@@ -154,7 +154,7 @@ Alamofire 会定期更新代码，所以很有可能未来就会在 `responseStr
 
 这部分与 Swift 无关，不过我们已经谈到了 API 中的 emoji，我就再啰嗦几句。如果你计划在 SQL 数据库（如 MySQL）中存储 emoji，你需要做两件事：
 
-1. 将整个数据库、数据库表或单个字段的字符集设置为 `utf8mb4`。简单的 `utf8` 无允许你在字符串字段中存储 emoji。
+1. 将整个数据库、数据库表或单个字段的字符集设置为 `utf8mb4`。简单的 `utf8` 无法允许你在字符串字段中存储 emoji。
 2. 在运行其他 SQL 请求前运行 `SET NAMES utf8mb4` 命令。
 
 ## emoji 变量
@@ -176,7 +176,7 @@ let 🌸🌸🌸 = ＋(🌸🌸, 🌸)
 print(🌸🌸🌸)
 ```
 
-千万别在生产环境中这么写代码 —— 这样的代码难以输入、检索或分享。不过它也能很有用，比如，教小孩子编程时。看起来就很有趣，对吧？
+千万别在生产环境中这么写代码 —— 这样的代码难以输入、检索或分享。不过它也能很有用，比如，教小孩子编程时。这样的代码看起来就很有趣，对吧？
 
 ![使用了 emoji 的源代码](https://cdn-images-1.medium.com/max/2000/1*AAn9SWmyTdOd-pTiTxAsRA.png)
 
