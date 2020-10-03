@@ -11,20 +11,18 @@
 
 如果你在前端开发中使用 React，那么你有可能听说过 service workers。如果你不确定它们是做什么的，或者不知道如何适当的配置它们，这份在 React 中使用 service workers 的初学者指南将会让你拥有在 React 中实现功能丰富的离线体验的良好开端。
 
-Service workers are scripts that are run by the browser. They do not have any direct relationship with the DOM. They provide many out of the box network-related features. Service workers are the foundation of building an offline experience. They enable features such as push notifications and background sync.
+Service workers 是由客户端浏览器运行的脚本。它们和 DOM 没有任何的直接关系。它们提供了许多开箱即用且与网络相关的功能。Service workers 是构建离线应用的基础。它们具有推送通知和后台同步等功能。
 
-Service workers are scripts that are run by the browser of a client. They do not have any direct relationship with the DOM. They provide many out of the box network-related features. Service workers are the foundation of building an offline experience. They enable features such as push notifications and background sync.
-
-If you develop the ability to activate and properly configure service workers in React, you can utilize endless possibilities by judiciously intercepting and managing network requests. In React, service workers are automatically added when you create your application through the `create-react-app` command, through `SWPrecacheWebpackPlugin`. Service workers ensure that the network is not a bottleneck to serve new requests.
+如果你能在 React 中启用并正确配置 service workers，你就可以明智地通过拦截和管理网络请求以探索无尽的可能。当你用 `create-react-app` 命令创建 React 应用时，service workers 会通过内置的 `SWPrecacheWebpackPlugin` 的插件自动被添加进应用。Service workers 确保了网络不再是响应请求的瓶颈。
 
 ## Service Workers：使用案例
 
-The loss of network is a common issue that developers face in ensuring a seamless connection. Thus, in recent times, the concept of offline applications to ensure superior user experience is gaining popularity. Service workers provide web developers with a lot of benefits:
+网络的丢失是开发者在确保稳定连接时面临的常见问题。因此，近些年来，通过离线应用以确保良好的用户体验的概念逐渐流行起来。Service workers 为 web 开发者提供了诸多好处：
 
-* They improve the performance of your website. Caching key parts of your website only helps in making it load faster.
-* Enhances user experience through an offline-first outlook. Even if one loses connectivity, one can continue to use the application normally.
-* They enable notification and push APIs, which are not available through traditional web technologies.
-* They enable you to perform background sync. You can defer certain actions until network connectivity is restored to ensure a seamless experience to the user.
+* 提升网站性能，可以缓存让网站加载得更快的关键部分
+* 通过离线优先来增强用户体验，即使用户失去了网络连接，也能正常使用应用
+* 具有通知和推送功能的 API，这是传统 web 技术实现不了的
+* 具有后台同步功能。你可以推迟某些操作直到网络连接恢复以确保持续的用户体验
 
 ## Service Workers：生命周期
 
