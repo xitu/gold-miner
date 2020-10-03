@@ -2,14 +2,14 @@
 > * 原文作者：[Shaumik Daityari](https://medium.com/@ds_mik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/using-service-workers-with-react.md](https://github.com/xitu/gold-miner/blob/master/article/2020/using-service-workers-with-react.md)
-> * 译者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
-# Using Service Workers with React
+# 在 React 中使用 Service Workers
 
 ![Image by [200 Degrees](https://pixabay.com/users/200degrees-2051452/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2165376) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2165376)](https://cdn-images-1.medium.com/max/2560/1*WAsSdE5Mh8fHLlDQDVYnSA.png)
 
-If you use React for front end development, chances are that you have heard of service workers. If you are not sure what they do, or how to configure them properly, this beginner’s guide to service workers in React should serve as a good first step in creating feature-rich, offline experiences in React.
+如果你在前端开发中使用 React，那么你有可能听说过 service workers。如果你不确定它们是做什么的，或者不知道如何适当的配置它们，这份在 React 中使用 service workers 的初学者指南将会让你拥有在 React 中实现功能丰富的离线体验的良好开端。
 
 Service workers are scripts that are run by the browser. They do not have any direct relationship with the DOM. They provide many out of the box network-related features. Service workers are the foundation of building an offline experience. They enable features such as push notifications and background sync.
 
@@ -17,7 +17,7 @@ Service workers are scripts that are run by the browser of a client. They do not
 
 If you develop the ability to activate and properly configure service workers in React, you can utilize endless possibilities by judiciously intercepting and managing network requests. In React, service workers are automatically added when you create your application through the `create-react-app` command, through `SWPrecacheWebpackPlugin`. Service workers ensure that the network is not a bottleneck to serve new requests.
 
-## Service Workers: Use Cases
+## Service Workers：使用案例
 
 The loss of network is a common issue that developers face in ensuring a seamless connection. Thus, in recent times, the concept of offline applications to ensure superior user experience is gaining popularity. Service workers provide web developers with a lot of benefits:
 
@@ -26,7 +26,7 @@ The loss of network is a common issue that developers face in ensuring a seamles
 * They enable notification and push APIs, which are not available through traditional web technologies.
 * They enable you to perform background sync. You can defer certain actions until network connectivity is restored to ensure a seamless experience to the user.
 
-## Service Workers: Lifecycle
+## Service Workers：生命周期
 
 The lifecycle of a service worker is not linked to that of your web application. You install a service worker by registering it using JavaScript. This instructs the browser to begin installing it in the background. This is also the time when you get to cache your required assets. When the installation step is successful, the activation process starts. Once activated, the service worker is associated with any page in its scope. Unless it is invoked by an event, it will be terminated.
 
@@ -34,7 +34,7 @@ The lifecycle of a service worker typically needs to be coded by the developer. 
 
 ![Service Worker Lifecycle ([Source](https://developers.google.com/web/fundamentals/primers/service-workers))](https://cdn-images-1.medium.com/max/2000/1*HUnu3nbBSq2lDoOSllBkiA.png)
 
-## React Service Workers: Key Considerations
+## React Service Workers：关键因素
 
 Before you jump onto the activation and configuration of a React service worker, let us look at the principles and considerations that govern the usage of service workers.
 
@@ -43,7 +43,7 @@ Before you jump onto the activation and configuration of a React service worker,
 * They are not tied to a particular page, and therefore, can be reused.
 * Service workers are event-driven. This means that service workers can not retain any information once they shut down. In order to access information from earlier states, you need to use the [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API).
 
-## Activate React Service Workers
+## 启用 React Service Workers
 
 When you create a React application through the `create-react-app` command, the project layout looks like the structure shown below:
 
@@ -87,7 +87,7 @@ This single line change will now enable you to use service workers in your React
 
 In a general web application, you would have to code the whole lifecycle of a service worker. However, React enables service workers by default and allows a developer to directly get into working with them. Navigate to the `src/serviceWorker.js` file and you will notice that the underlying methods of a service worker are present.
 
-## Working with React Service Workers in Development Environment
+## 在开发中使用 React Service Workers
 
 If you explore the function `register()` in the file `serviceWorker.js`, you would notice that by default, it works only in production mode (process.env.NODE_ENV === 'production' is set as one of the conditions). There are two workarounds to it.
 
@@ -102,7 +102,7 @@ $ serve -s build
 
 Head over to `localhost:5000` in a browser to check the served application.
 
-## Configure a Custom Service Worker to CRA
+## 在 CRA 中配置自定义 Service Worker
 
 CRA’s default `service-worker.js` caches all static assets. To add any new functionality to your service workers, you need to create a new file `custom-service-worker.js` and then modify the `register()` function to load your custom file.
 
@@ -162,9 +162,9 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
 
 Ensure that you build your application again for the changes to take effect.
 
-## Final Thoughts
+## 总结回顾
 
-In this post, we covered what service workers are, why they should be used, and the process of using and configuring service workers in your React application. Service workers form a critical part of modern web development and it is a good idea to incorporate them into your existing React applications.
+在本文中，我们介绍了 service workers 是什么，使用它们的原因以及在 React 应用中使用和配置 service workers 的过程。Service workers 是现代 web 开发的关键部分，在现有的 React 应用中加上 service workers 是一个非常棒的主意。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
