@@ -26,24 +26,24 @@ Service workers 是由客户端浏览器运行的脚本。它们和 DOM 没有�
 
 ## Service Workers：生命周期
 
-The lifecycle of a service worker is not linked to that of your web application. You install a service worker by registering it using JavaScript. This instructs the browser to begin installing it in the background. This is also the time when you get to cache your required assets. When the installation step is successful, the activation process starts. Once activated, the service worker is associated with any page in its scope. Unless it is invoked by an event, it will be terminated.
+Service worker 的生命周期与 web 应用的生命周期无关。你可以通过使用 JavaScript 来注册 service worker 以安装它。这会指示浏览器开始在后台安装  service worker。这也是用来缓存必需的资源文件的时间。当安装的步骤成功后，激活的过程就开始了。一旦被激活后，它将与范围内的所有页面产生关联。除非被事件所调用，否则它将不会中止。
 
-The lifecycle of a service worker typically needs to be coded by the developer. In case of service workers in React, the life cycle management is handled by React itself, which makes the process easier for a developer to enable and use service workers.
+Service worker 的生命周期显然需要开发人员编码来完成。在 React 中的 service workers 的生命周期是由 React 自身来处理，这让开发者启用 service workers 的过程变得更加简单了。
 
 ![Service Worker Lifecycle ([Source](https://developers.google.com/web/fundamentals/primers/service-workers))](https://cdn-images-1.medium.com/max/2000/1*HUnu3nbBSq2lDoOSllBkiA.png)
 
 ## React Service Workers：关键因素
 
-Before you jump onto the activation and configuration of a React service worker, let us look at the principles and considerations that govern the usage of service workers.
+在进行 React service worker 的配置和激活前，让我们来看一下使用 service workers 的准则和注意事项。
 
-* Service workers are executed by the browser in their own global script context. This means that you do not have direct access to your page’s DOM elements. Therefore, you need an indirect way for service workers to communicate with pages that they are supposed to control. This is handled through the `[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage)` interface.
-* Service workers run only on the `HTTPS` protocol. The only exception here is when you run it in localhost.
-* They are not tied to a particular page, and therefore, can be reused.
-* Service workers are event-driven. This means that service workers can not retain any information once they shut down. In order to access information from earlier states, you need to use the [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API).
+* Service workers 被浏览器在其全局脚本上下文环境中执行。这意味着你不能直接访问页面中的 DOM 元素。因此，你需要一个间接的方式来让 service workers 与它控制的页面进行通信。这个是由 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) 接口来处理的。
+* Service workers 只能运行在 `HTTPS` 协议下，例外是在 localhost 下运行时。
+* 它们不限于特定的页面，因此可以被重复使用。
+* Service workers 是事件驱动的。这意味着一旦它们运行结束就不能保留任何信息。为了访问先前状态的信息，你需要使用 [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)。
 
 ## 启用 React Service Workers
 
-When you create a React application through the `create-react-app` command, the project layout looks like the structure shown below:
+当你通过 `create-react-app` 命令创建 React 应用时，项目的结构应该如下面所示：
 
 ```
 ├── README.md
@@ -65,32 +65,32 @@ When you create a React application through the `create-react-app` command, the 
     └── serviceWorker.js
 ```
 
-Notice the `serviceWorker.js` file in the `src` directory. By default, this file is generated when you create a React application.
+注意到 `serviceWorker.js` 文件位于 `src` 目录。默认情况下，这个文件会随你创建 React 应用时一同被创建。
 
-At this stage, your service worker is not registered, so you will have to first register it before utilizing it in your application.
+现在，service worker 还没有注册，所以，你应该先注册它,然后再将它用于你的应用。
 
-To register the service worker, navigate to the `src/index.js` file, and look for the following line:
+为了注册 service worker，打开 `src/index.js` 文件，然后找到下面这一行代码：
 
 ```js
 serviceWorker.unregister();
 ```
 
-Change it to the following line.
+将代码改成下面这样。
 
 ```js
 serviceWorker.register();
 ```
 
-This single line change will now enable you to use service workers in your React application.
+现在，这一行代码就能让你在 React 应用中使用 service workers。
 
-In a general web application, you would have to code the whole lifecycle of a service worker. However, React enables service workers by default and allows a developer to directly get into working with them. Navigate to the `src/serviceWorker.js` file and you will notice that the underlying methods of a service worker are present.
+在一般的 web 应用中，你需要自己编写 service worker 的整个生命周期的代码。然而，React 默认启用了 service workers 并且能让开发者直接使用它。打开 `src/serviceWorker.js` 文件，你会注意到 service worker 的底层方法都是现成的。
 
 ## 在开发中使用 React Service Workers
 
-If you explore the function `register()` in the file `serviceWorker.js`, you would notice that by default, it works only in production mode (process.env.NODE_ENV === 'production' is set as one of the conditions). There are two workarounds to it.
+当你在 `serviceWorker.js` 文件中查看 `register()` 函数时，你会注意到，默认情况下，它只在生产环境中有用 `(process.env.NODE_ENV === 'production' is set as one of the conditions)`。如下有两个变通的方法。
 
-* You can remove this condition from the function `register()` to enable it in development mode. However, this could potentially lead to some caching issues.
-* A cleaner way of enabling service workers is to create a production version of your React app, and then serve it. You can run the following commands to do so:
+* 你可以在 `register()` 函数中去掉判断条件以在开发模式下启用它。但是，这可能会导致某些缓存问题。
+* 一个更简单的方法是，创建生产版本的 React 应用并运行在本地服务器上。你可以通过运行以下的命令来实现：
 
 ```
 $ yarn global add serve
@@ -98,13 +98,13 @@ $ yarn build
 $ serve -s build
 ```
 
-Head over to `localhost:5000` in a browser to check the served application.
+在浏览器中打开 `localhost:5000` 来看看具体效果。
 
 ## 在 CRA 中配置自定义 Service Worker
 
-CRA’s default `service-worker.js` caches all static assets. To add any new functionality to your service workers, you need to create a new file `custom-service-worker.js` and then modify the `register()` function to load your custom file.
+CRA 的默认 `service-worker.js` 文件缓存所有的静态资源文件（aeests）。为了给 service workers 添加新的功能，你需要创建一个 `custom-service-worker.js` 文件，然后修改 `register()` 函数来加载你的自定义文件。
 
-Around line 34 in the `serviceWorker.js` file, look for the `load()` even listener and add your custom file to it.
+看到 `serviceWorker.js` 文件的第 34 行，找到 `load()` 事件监听器然后在里面添加你的自定义文件。
 
 ```js
 window.addEventListener('load', () => {
@@ -113,7 +113,7 @@ window.addEventListener('load', () => {
 }
 ```
 
-Next, update the `package.json` file as below.
+接着，像下面这样更新 `package.json` 文件。
 
 ```
 "scripts": {
@@ -124,13 +124,13 @@ Next, update the `package.json` file as below.
 },
 ```
 
-In this step, we will invoke [Google’s Workbox plugin](https://developers.google.com/web/tools/workbox/guides/codelabs/webpack).
+安装 [Google’s Workbox plugin](https://developers.google.com/web/tools/workbox/guides/codelabs/webpack)
 
 ```bash
 npm install --save-dev workbox-build
 ```
 
-Next, you need to create a config file to instruct CRA to insert our custom service worker.
+然后，你需要创建一个配置文件以指示 CRA 来插入你的自定义 service worker。
 
 ```js
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
@@ -148,7 +148,7 @@ module.exports = function override(config, env) {
 };
 ```
 
-You can then proceed to create the custom service worker to cache a particular directory as shown below.
+如下所示，你可以创建一个自定义 service worker 来缓存特定的目录。
 
 ```js
 workbox.routing.registerRoute(
@@ -158,7 +158,7 @@ workbox.routing.registerRoute(
 workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
 ```
 
-Ensure that you build your application again for the changes to take effect.
+确保重新构建你的应用以让更改生效。
 
 ## 总结回顾
 
