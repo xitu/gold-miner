@@ -79,44 +79,42 @@ This plugin is packed with features and ready for use, but also highly customiza
 仓库地址: [https://pub.dev/packages/shared_preferences](https://pub.dev/packages/shared_preferences)
 支持平台: iOS, Android, Web, Linux
 
-This package wraps platform-specific persistent storage libraries. It’s indented for simple data, like user preferences, and it uses:
-这个库将各个系统平台的持久缓存库进行了包装，一般用来存储想用户设置这样简单的数据，其在各个系统平台的原生实现如下：
+这个库将对个系统平台的持久缓存库进行了包装，一般用来存储想用户设置这样简单的数据，其在各个系统平台的原生实现如下：
 
 * iOS 和 macOS 采用 `NSUserDefaults` 实现
 * Android 采用 `SharedPreferences`实现
 * Web 环境采用 `LocalStorage` 实现
 * Linux 环境下使用一个本地的 JSON 文件来存储
 
-Data may be persisted to disk asynchronously, and there is no guarantee that writes will be persisted to disk after returning, so this plugin is not meant for storing critical data. For that look into sqflite (see below).
-这个库一般情况下回异步将数据做本地持久缓存，但无法保证一定100%缓存成功，因此其一般用于存储那些非关键性的数据，对于 APP 关键数据请采用 sqflite 来实现。
+这个库一般情况下会异步将数据做本地持久缓存，但无法保证一定100%缓存成功，因此其一般用于存储那些非关键性的数据，对于 APP 中关键数据请采用下面介绍的 sqflite 来实现。
 
 ## 4. sqflite
 
-URL: [https://pub.dev/packages/sqflite](https://pub.dev/packages/sqflite)
+仓库地址: [https://pub.dev/packages/sqflite](https://pub.dev/packages/sqflite)
 支持平台: iOS, Android, MacOS
 
-This is the SQLite plugin for Flutter. It supports iOS, Android, and MacOS. The web is not supported since there is no SQL-based persistence system in web browsers. Some of its features are:
+这是一个 Flutter 版的 SQLite 插件，同时支持 iOS、Android、MacOS 系统。值得注意的是因为 web 端没有基于 SQL 的数据存储实现，这个库是不支持在 web 端使用的。以下是它的一些特性：
 
-* Support for transactions and batches
-* Automatic version management
-* Helpers for insert/query/update/delete queries
-* Operations are executed in a background thread on iOS and Android to prevent the UI from locking up
+* 支持事务和批处理
+* 自动进行版本管理
+* 提供了 CRUD 工具函数
+* 在 Android 和 iOS 环境下数据库操作是在后台独立线程进行避免了 UI 线程阻塞
 
-If you need more than basic (`shared_preferences`) data storage, look no further.
+如果你期望的不仅仅是 `shared_preferences` 库能提供的基本数据存储功能，可以不用深入研究这个库了。
 
 ## 5. url_launcher
 
-URL: [https://pub.dev/packages/url_launcher](https://pub.dev/packages/url_launcher)
+仓库地址: [https://pub.dev/packages/url_launcher](https://pub.dev/packages/url_launcher)
 支持平台: iOS, Android, Web
 
-This plugin helps you launch a URL. URLs can be of the following types:
+这个插件可以帮你快速打开一个 URL，URL 地址可以是以下几个类型之一：
 
-* HTTP: [http://example.org](http://example.org) and [https://example.org](https://example.org)
-* E-mail: mailto:\<e-mail address>
-* Phone numbers: tel:\<phone number>
-* SMS text message: sms:\<phone number>
-
-Basic usage is very straightforward:
+* HTTP: 例如 `http://example.org` 和 `https://example.org`
+* 邮箱: mailto:\<e-mail 地址>
+* 拨打电话: tel:\<phone 手机号>
+* SMS短信: sms:\<phone 手机号>
+ 
+基本使用非常简单，如下示例：
 
 ```dart
 const url = 'https://flutter.dev';
@@ -130,24 +128,25 @@ if (await canLaunch(url)) {
 
 ## 6. video_player
 
-URL: [https://pub.dev/packages/video_player](https://pub.dev/packages/video_player)
+仓库地址: [https://pub.dev/packages/video_player](https://pub.dev/packages/video_player)
 支持平台: iOS, Android, Web
 
-![Image and sample video from [pub.dev](https://pub.dev/packages/video_player)](https://cdn-images-1.medium.com/max/2000/1*ZLGqM8PidJjpjdapQFA3Tw.gif)
+![图片和示例视频来自[pub.dev](https://pub.dev/packages/video_player)](https://cdn-images-1.medium.com/max/2000/1*ZLGqM8PidJjpjdapQFA3Tw.gif)
 
-Many formats are supported, but it all depends on the platform you’re running. For example, the backing libraries differ for iOS and Android. Also, on the web, the supported formats depend on the browser you’re using.
+这个库支持多种视频格式播放，其能否完美支持各种视频格式取决于应用程序最终运行时所在的系统平台。例如，iOS 和 Android 系统背后所依赖的库是不一样，其视频格式支持程度也不相同。同样的，在 web 端这个库所支持的视频格式取决于用户所使用的的浏览器。
 
-Note that even though it’s called video_player, this plugin can also play audio. Since the plugin is pretty mature and has reached API stability, it’s not a bad idea to use this for audio over some of the alternatives.
+虽然这个库叫做 `video_player`，但是它也是支持音频播放的。另外这个库已经相当成熟，其 API 已经足够稳定，因此这个库也可以作为音频播放器的替代者。
 
-This plugin can play video from a local file (assets) and a remote server (e.g., a website). For some example code, head over to [this page](https://pub.dev/packages/video_player/example).
+这个库同时支持本地文件和远程服务器文件的播放，示例代码可以参考[这个](https://pub.dev/packages/video_player/example)。
 
 ## 7. crypto
 
-支持平台: All platforms
+仓库地址: [https://pub.dev/packages/crypto](https://pub.dev/packages/crypto)
+支持平台: 所有平台
 
-Comping from the Dart team itself, this is a set of cryptographic hashing functions implemented in pure Dart. This means you don’t need external libraries to make this work.
+这是使用纯 Dart 语言开发的一套实现哈希加密的函数，这也意味着这个库可以独立使用不依赖于额外的第三方库。
 
-The following hashing algorithms are supported:
+这个库支持的加密算法如下：
 
 * SHA-1
 * SHA-224
@@ -155,9 +154,9 @@ The following hashing algorithms are supported:
 * SHA-384
 * SHA-512
 * MD5
-* HMAC (i.e. HMAC-MD5, HMAC-SHA1, HMAC-SHA256)
+* HMAC (例如：HMAC-MD5, HMAC-SHA1, HMAC-SHA256)
 
-Since this is not a GUI tool but simply a crypto library, it 支持平台 all supported platforms.
+由于这是一个单纯的加密算法库并非 GUI 工具库，因此其支持全部平台。
 
 ## 8. carousel_slider
 
