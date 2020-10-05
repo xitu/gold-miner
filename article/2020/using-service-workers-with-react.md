@@ -36,7 +36,7 @@ Service Worker 的生命周期显然需要开发人员编码来完成。在 Reac
 
 在进行 React Service Worker 的配置和激活前，让我们来看一下使用 Service Worker 的规则和注意事项。
 
-* Service Worker 被浏览器在其全局脚本上下文环境中执行。这意味着你不能直接访问页面中的 DOM 元素。因此，需要一个间接的方式来让 Service Worker 与它控制的页面进行通信。这个可以通过使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) 接口来处理。
+* Service Worker 被浏览器在其全局脚本上下文环境中执行。这意味着你不能直接访问页面中的 DOM 元素。因此，需要一个间接的方式来让 Service Worker 与它控制的页面进行通信。这个可以通过使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) 接口来实现。
 * Service Worker 只能运行在 `HTTPS` 协议下，例外是在 localhost 下运行时。
 * Service Worker 不限于特定的页面，因此可以被重复使用。
 * Service Worker 是事件驱动的。这意味着一旦它们运行结束就不能保留任何信息。为了访问先前状态的信息，你需要使用 [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)。
