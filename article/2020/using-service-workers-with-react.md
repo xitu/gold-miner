@@ -87,7 +87,7 @@ serviceWorker.register();
 
 ## 在开发中使用 React Service Worker
 
-当你在 `serviceWorker.js` 文件中查看 `register()` 函数时，你会注意到，默认情况下，它只在生产环境中有用 `(process.env.NODE_ENV === 'production' is set as one of the conditions)`。如下有两个变通的方法。
+当你在 `serviceWorker.js` 文件中查看 `register()` 函数时，你会注意到，默认情况下，它只在生产环境中有用 （`process.env.NODE_ENV === 'production'` 是被设置的条件之一）。如下有两个变通的方法。
 
 * 你可以在 `register()` 函数中去掉判断条件以在开发模式下启用它。但是，这可能会导致某些缓存问题。
 * 一个更简单的方法是，创建生产版本的 React 应用并运行在本地服务器上。你可以通过运行以下的命令来实现：
