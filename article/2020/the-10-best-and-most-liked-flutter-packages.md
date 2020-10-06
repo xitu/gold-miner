@@ -6,21 +6,17 @@
 > * 校对者：
 
 # The 10 Best and Most Liked Flutter Packages
-# 10 个质量最佳且最受欢迎的 Flutter 工具库
+# 10 款质量最佳最受欢迎的 Flutter 工具库
 
-![Illustration by author](https://cdn-images-1.medium.com/max/2000/1*MI0cApYdiUIa0ZcmvhIAdQ.png)
+![由作者供图](https://cdn-images-1.medium.com/max/2000/1*MI0cApYdiUIa0ZcmvhIAdQ.png)
 
-[Flutter](https://flutter.dev/) is “Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.”
 [Flutter](https://flutter.dev/) 是谷歌为实现一套代码编译至移动端、web 端及桌面端应用而推出的一套 UI 开发框架。
 
-Flutter is based on the Dart programming language. It has a large and lively community on [Dart.dev](https://pub.dev/), offering both officially supported and third-party packages to make Flutter development even more productive.
-Flutter 是基于 Dart 编程语言来做开发，同时 Flutter 的开放社区——[Dart.dev](https://pub.dev/)也非常活跃，官方也在社区上提供技术支持，并且已经有大量的第三方工具包可供使用，这一切使得采用 Flutter 具有非常高的生产力。
+Flutter 是基于 Dart 编程语言来做开发的，同时 Flutter 的开放社区——[Dart.dev](https://pub.dev/)也非常活跃，官方也在社区上提供技术支持，并且已经有大量的第三方工具包可供使用，这一切使得采用 Flutter 具有非常高的生产力。
 
-This article lists the most promising and most popular packages to give you an idea of Flutter’s maturity as a platform.
 这篇文章将列举最热门口碑最佳的 10 个 Flutter 工具库，以此来展示 Flutter 作为一种新型的软件开发平台的成熟程度。
 
-If you haven’t done so already, [read my introductory article](https://medium.com/tech-explained/your-first-steps-with-flutter-dffa77378bd0) first. It will get you set up and running with a basic Flutter project in no time. This allows you to try out the packages you like most quickly!
-如果你还没有使用过 Flutter，不妨先读一读我发布在 medium 上的[这篇文章](https://medium.com/tech-explained/your-first-steps-with-flutter-dffa77378bd0)，可以学会如何最快速地试用你自己喜欢的 Flutter 工具库。
+如果你还没有使用过 Flutter，不妨先读一读我发布在 medium 上的[这篇文章](https://medium.com/tech-explained/your-first-steps-with-flutter-dffa77378bd0)，可以学会如何最快速地使用你自己喜欢的 Flutter 工具库。
 
 ## 1. HTTP
 
@@ -28,16 +24,14 @@ If you haven’t done so already, [read my introductory article](https://medium.
 
 支持平台: iOS, Android, Web
 
-Everything is web-based these days, so a robust HTTP library is a must-have. This Dart package contains a set of high-level functions and classes that make it easy to consume HTTP resources. It’s well developed and actively maintained by the Dart team. It has been around since 2012, so it should be rock-solid!
-如今，所有的内容都基于网络，因此一款功能强大的 HTTP 请求库必不可少。这个工具库有 Dart 团队开发并还在积极维护者，其包含一系列的操作 HTTP 请求的高级函数和类。这个工具库始于 2012 年，绝对是非常靠谱的。
+如今，所有的内容都基于网络，因此一款功能强大的 HTTP 请求库必不可少。这个工具库由 Dart 团队开发并还在积极维护着，其包含一系列的操作 HTTP 请求的高级函数和类。这个工具库始于 2012 年，绝对是非常靠谱的。
 
-The library offers top-level functions that make it easy to work with HTTP:
 此工具库提供的用于操作 HTTP 请求的高级函数用法实例:
 
 ```dart
 import 'package:http/http.dart' as http;
 
-# Posting data
+# POST请求
 var url = 'https://example.com/whatsit/create';
 var data = {'name': 'Jack', 'age': 38};
 
@@ -46,7 +40,7 @@ var response = await http.post(url, body: data);
 print('Response status: ${response.statusCode}');
 print('Response body: ${response.body}');
 
-# A simple GET request
+# GET请求
 print(await http.read('https://example.com/foobar.txt'));
 ```
 
@@ -56,22 +50,20 @@ print(await http.read('https://example.com/foobar.txt'));
 
 支持平台: iOS, Android, Web
 
-![flutter_slidable 用法示例 ([source](https://pub.dev/packages/flutter_slidable))](https://cdn-images-1.medium.com/max/2000/1*-lxI0VkO5MCC3PW74VaLWA.gif)
+![flutter_slidable 用法示例 ([查看源码](https://pub.dev/packages/flutter_slidable))](https://cdn-images-1.medium.com/max/2000/1*-lxI0VkO5MCC3PW74VaLWA.gif)
 
-The flutter_slidable plugin adds a feature-rich slider widget to your project. Sliders like this are often seen in scrollable lists. The Gmail app is a notable example, in which sliding list items offer a significant productivity enhancement.
-这款 Flutter 插件能给你的项目添加一个功能丰富的最常在可滚动列表中用到的 slider 组件。Gmail 这款 APP 对 slider 组件的应用就非常广泛，足以说明其对用户操作便利性的帮助之大。
+用就非常广泛，足以说明其对用户操作便利性的帮助之大。
 
-This plugin is packed with features and ready for use, but also highly customizable if needed. Some of the listed features are:
-这个插件自带有很多开箱即用的特性，同时这不限制开发者对你进行个性化的定制，列举其重点特性如下：
+这个插件自带有很多开箱即用的特性，同时这不限制开发者对其进行个性化的定制，以下是其主要特性：
 
-* Accepts primary (left/top) and secondary (right/bottom) widget lists as slide actions
+* 接受primary（左/上）和secondary（右/下）窗口小部件列表作为操作列表
 * 滑动状态可以取消
 * 内建有四个操作按钮位
 * 内建有两个滑动部件
 * 内置滑动动画
 * 轻松创建自定义布局与动画
-* 点击操作按钮后自动关闭滑动状态（可以被覆写）
-* Closes when the nearest `Scrollable` starts to scroll (overridable)
+* 点击操作按钮后自动关闭滑动状态（可被重写）
+* 最近的“Scrollable”开始滚动时关闭（可被重写）
 * 可通过配置关闭左右滑动特性
 
 ## 3. Shared Preferences
@@ -79,7 +71,7 @@ This plugin is packed with features and ready for use, but also highly customiza
 仓库地址: [https://pub.dev/packages/shared_preferences](https://pub.dev/packages/shared_preferences)
 支持平台: iOS, Android, Web, Linux
 
-这个库将对个系统平台的持久缓存库进行了包装，一般用来存储想用户设置这样简单的数据，其在各个系统平台的原生实现如下：
+这个库将对个系统平台的持久缓存库进行了包装，一般用来存储想用户设置这样的简单数据，其在各个系统平台的原生实现如下：
 
 * iOS 和 macOS 采用 `NSUserDefaults` 实现
 * Android 采用 `SharedPreferences`实现
@@ -160,18 +152,18 @@ if (await canLaunch(url)) {
 
 ## 8. carousel_slider
 
-URL: [https://pub.dev/packages/carousel_slider](https://pub.dev/packages/carousel_slider)
+仓库地址: [https://pub.dev/packages/carousel_slider](https://pub.dev/packages/carousel_slider)
 支持平台: iOS, Android, Web
 
-![Sample carousel from [pub.dev](https://pub.dev/packages/carousel_slider)](https://cdn-images-1.medium.com/max/2000/1*lcQGQt_SoyfnQOLqWWlCKA.gif)
+![轮播示例图来自 [pub.dev](https://pub.dev/packages/carousel_slider)](https://cdn-images-1.medium.com/max/2000/1*lcQGQt_SoyfnQOLqWWlCKA.gif)
 
-A carousel slider is part of many apps and websites. The carousel_slider plugin offers an excellent and customizable carousel that 支持平台 multiple platforms.
+轮播图在各个 APP 和网站中非常常见，这个轮播图插件库提供了出色的可定制的轮播插件，同时支持了多个平台。
 
-Because the carousel accepts widgets as content, you can slide anything that can be a widget.
+这个插件接受 widget 部件作为轮播的内容项，因此一切可以作为 widget 部件模块都可以作为轮播插件的轮播项。
 
-For live examples, you can visit [this website](https://serenader2014.github.io/flutter_carousel_slider/#/), which uses Flutter web to demo the plugin.
+[这个网站](https://serenader2014.github.io/flutter_carousel_slider/#/)是使用 Flutter 开发的 web 端网站，使用了此插件实现了一些轮播效果的 demo，可以点击查看。
 
-Here’s an example of how to create a carousel in your app:
+以下是在 APP 开发中使用此插件的示例：
 
 ```dart
 CarouselSlider(
@@ -193,20 +185,20 @@ CarouselSlider(
 )
 ```
 
-The carousel has several configurable options, like:
+此插件有非常多的可配置参数，例如：
 
-* the height and aspect ratio
-* enabling infinite scrolling
-* reversing the carousel
-* enabling autoplay with a configurable interval, animation duration
-* defining the scroll direction (vertical, horizontal)
+* 高度和宽高比
+* 支持无限滚动
+* 反转滚动方向
+* 支持自动开始滚动，支持配置滚动间隔，支持滚动动画持续时间
+* 支持配置滚动方向为：水平或垂直
 
 ## 9. path
 
-URL: [https://pub.dev/packages/path](https://pub.dev/packages/path)
+仓库地址: [https://pub.dev/packages/path](https://pub.dev/packages/path)
 支持平台: iOS, Android, Web
 
-Paths are both easy and incredibly complex because they differ from platform to platform. To make sure you don’t introduce bugs or security vulnerabilities in your code, always use the path library when dealing with paths. To join a directory and a file with the file separator for the current OS, use:
+路径处理既简单又异常复杂，因为在不同系统平台处理方式有所不同。要保证不引入 bug 和安全漏洞，通常需要使用路径解析库来专门处理路径。使用这个库可以非常方便的拼接路径、文件名及当前系统对应的分隔符，示例如下：
 
 ```dart
 import 'package:path/path.dart' as p;
@@ -215,16 +207,16 @@ p.join('directory', 'file.txt');
 
 ## 10. location
 
-URL: [https://pub.dev/packages/location](https://pub.dev/packages/location)
+仓库地址: [https://pub.dev/packages/location](https://pub.dev/packages/location)
 支持平台: iOS, Android, Web, MacOS
 
-One of the great things about phones is their mobility combined with the ability to accurately track location. This has already given us many useful applications. The location plugin for Flutter makes it easy to get access to the current location. It provides callbacks when the location has changed. It also offers API endpoints to properly request access to a user’s location.
+手机的一大优点是它的便携性与精确定位能力相结合，这一能力已经为我们创造了非常多的应用。这款location定位插件使得定位用户当前位置变得更新简单轻松。它既支持监听用户定位改变的回调，又提供了 API 接口以便在适当时机向系统申请用户地址访问权限。
 
-![Example Flutter app using location plugin ([source](https://pub.dev/packages/location))](https://cdn-images-1.medium.com/max/2000/1*8QvqbmxMjOoj9aOsbjRbiw.gif)
+![ Flutter 应用中使用 location 插件示例图片 ([访问源码](https://pub.dev/packages/location))](https://cdn-images-1.medium.com/max/2000/1*8QvqbmxMjOoj9aOsbjRbiw.gif)
 
 ---
 
-This is my top ten. What are your favorite Flutter packages? Let me know in the comments!
+以上是我推荐的 10 款最受欢迎的 Flutter 工具库，如果你有更好的 Flutter 工具库推荐，欢迎在底下评论区留言！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
