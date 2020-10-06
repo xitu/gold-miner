@@ -2,24 +2,24 @@
 > * 原文作者：[John Au-Yeung](https://medium.com/@hohanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/best-features-of-es2017-async-functions-and-arrays-and-shared-buffers.md](https://github.com/xitu/gold-miner/blob/master/article/2020/best-features-of-es2017-async-functions-and-arrays-and-shared-buffers.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tonylua](https://github.com/tonylua)
+> * 校对者：[Chorer](https://github.com/Chorer), [dupanpan](https://github.com/dupanpan)
 
-# Best Features of ES2017 — Async Functions and Arrays and Shared Buffers
+# ES2017 最佳特性 -- 数组中的异步函数以及共享缓冲区
 
-![Photo by [Elaine Casap](https://unsplash.com/@ecasap?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*Eb7At4j_2a-MLzuS)
+![照片由 [Elaine Casap](https://unsplash.com/@ecasap?utm_source=medium&utm_medium=referral) 拍摄并发表在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 上](https://oscimg.oschina.net/oscnet/up-1da089eee95145e809f80d9ce4b883ce7b3.JPEG)
 
-Since 2015, JavaScript has improved immensely.
+自 2015 年起，JavaScript 可谓突飞猛进。
 
-It’s much more pleasant to use it now than ever.
+现在使用它比过去要舒服多了。
 
-In this article, we’ll look at the best features of ES2017.
+在本文中，我们将着眼于 ES2017 的最佳特性。
 
-## Async Functions and Array.prototype.forEach()
+## 异步函数（Async Functions）和 Array.prototype.forEach()
 
-`Array.prototype.forEach` doesn’t work with the `async` and `await` syntax.
+`Array.prototype.forEach` 并不适用 `async` 和 `await` 语法。
 
-For instance, if we have:
+举例来说，如果有如下代码：
 
 ```js
 async function downloadContent(urls) {
@@ -30,9 +30,9 @@ async function downloadContent(urls) {
 }
 ```
 
-then we won’t get all the results of the promises because `forEach` doesn’t wait for each promise to finish.
+那么并不会得到包含若干 promise 的结果，因为 `forEach` 不会等待每个 promise 完成。
 
-Instead, we want to use the for-of loop to iterate through each async function to get our result:
+取而代之的是，可以用 for-of 循环来迭代每个异步函数以获取结果：
 
 ```js
 async function downloadContent(urls) {
@@ -43,9 +43,9 @@ async function downloadContent(urls) {
 }
 ```
 
-The for-of loop is aware of the `await` operator so we can use it loop run all the async functions sequentially.
+for-of 循环能感知 `await` 操作符，所以可以用它循序运行所有异步函数。
 
-If we want to run the async functions in parallel, we can use `Promise.all` :
+若要并行运行若干异步函数，可以使用 `Promise.all`：
 
 ```js
 async function downloadContent(urls) {
@@ -57,15 +57,15 @@ async function downloadContent(urls) {
 }
 ```
 
-We mapped the URLs to async functions so that we can call `Promise.all` on the array of promises.
+我们将多个 URL 映射为异步函数的集合，这样一来就能在 promise 数组上调用 `Promise.all` 了。
 
-And we return a promise with the resolved value being an array of the promises’ resolved values.
+调用该方法后会返回一个 promise，其解决值（resolved value）是一个包含了每一个 promise 解决值的数组。
 
-## Immediately Invoked Async Function Expressions
+## 立即调用异步函数表达式
 
-We can create async functions that are run immediately.
+我们也可以创建立即运行的异步函数。
 
-For instance, instead of writing:
+举例来说，相比于以下写法：
 
 ```js
 async function foo() {
@@ -74,7 +74,7 @@ async function foo() {
 foo();
 ```
 
-We can write:
+我们可以这么写：
 
 ```js
 (async function () {
@@ -82,7 +82,7 @@ We can write:
 })();
 ```
 
-It can also be an arrow function:
+也可以写成箭头函数：
 
 ```js
 (async () => {
@@ -90,13 +90,13 @@ It can also be an arrow function:
 })();
 ```
 
-## Unhandled Rejections
+## 未处理过的 rejection
 
-We don’t have to worry about unhandled rejections when we use async functions.
+在使用异步函数时，并不用担心未处理过的 rejection 。
 
-This is because browsers report them to us when we encounter them.
+这是因为当浏览器遇到它们时会自动报告。
 
-For instance, we can write:
+举例来说，我们可以这样写：
 
 ```js
 async function foo() {
@@ -105,19 +105,19 @@ async function foo() {
 foo();
 ```
 
-Then we’ll see the error logged in the console.
+而后我们将在控制台中看到被记录的报错信息。
 
 ## Shared Array Buffers
 
-ES2017 introduced shared array buffers which lets us build concurrent apps.
+ES2017 引入的共享数组缓冲区（shared array buffers）使得我们可以构建并发的应用了。
 
-They let us share the bytes of a `SharedArrayBuffer` object between multiple workers and the main thread.
+这让我们可以在多个 worker 和主线程之间共享 `SharedArrayBuffer` 对象的字节数据。
 
-The buffer us shared and is wrapped in a typed array so we can access them.
+被共享的缓冲由一个类型化数组（typed array）包裹，这样就能访问到它们了。
 
-We can share data between workers quickly and coordination between workers is simple and fast.
+我们可以快速在 worker 间共享数据，而跨 worker 的数据协同也变得简便了。
 
-For instance, we can create a shared array buffer by writing:
+举例来说，可以编写如下代码来创建一个共享数组缓冲区：
 
 ```js
 const worker = new Worker('worker.js');
@@ -132,17 +132,17 @@ worker.postMessage({
 const sharedArray = new Int32Array(sharedBuffer);
 ```
 
-We created a worker in `worker.js` .
+我们在 `worker.js`  中创建了一个 worker。
 
-Then we created a shared buffer with the `SharedArrayBuffer` .
+之后我们用 `SharedArrayBuffer` 创建了一个 shared buffer。
 
-It can contain 100 elements.
+它包含 100 个元素。
 
-Then to share the buffer with the worker, we call `postMessage` to pass the buffer to the worker,.
+接着，为了与其它 worker 共享缓冲区，我们调用了 `postMessage` 以发送缓冲数据。
 
-To access the buffer’s data, we create a new `Int32Array` instance.
+要访问缓冲区中的数据，就得创建一个新的 `Int32Array` 实例。
 
-Then in the `worker.js` worker, we get the buffer by writing:
+接下来在 `worker.js` worker 中，这样编写以获得缓冲数据：
 
 ```js
 self.addEventListener('message', (event) => {
@@ -154,15 +154,15 @@ self.addEventListener('message', (event) => {
 });
 ```
 
-We listen to the `message` event and get the `sharedBuffer` property of `event.data` .
+我们监听了 `message` 事件并从 `event.data` 中取得了 `sharedBuffer` 属性。
 
-Then we can access it the same way.
+之后就能用与先前相同的方式访问它了。
 
-## Conclusion
+## 总结
 
-Async functions don’t work well with existing array instance methods.
+异步函数并不适配既有的数组实例方法。
 
-Also, we can use shared array buffers to share data between the main and worker threads.
+同时，我们可以使用共享数组缓冲区在主线程和 worker 线程之间共享数据。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
