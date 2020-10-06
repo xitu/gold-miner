@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/mastering-javascript-es6-symbols.md](https://github.com/xitu/gold-miner/blob/master/article/2020/mastering-javascript-es6-symbols.md)
 > * 译者：[Inchill](https://github.com/Inchill)
-> * 校对者：
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)
 
 # 掌握 JavaScript ES6 中的 Symbol 类型
 
@@ -20,7 +20,7 @@ JavaScript 是 Web 开发的核心之一。JavaScript，也被称为 ECMAScript�
 
 `null` 被标记为 JavaScript 中的原始值之一，因为它的作用显然是原始的。但是在某些情况下，`null` 并不像它最初看起来那样“原始”。每个 Object 都是从 `null` 值派生的，因此 `typeof` 运算符将为其返回一个对象。
 
-但是随着 2015 年 ES6 的发布，一个更新的原始类型 —— **Symbol**，被添加了进去。它们与以前的原始值相比有很大的不同。它们只是值，不是字符串，也不是数字甚至对象。它们只是 **Symbols**。
+但是随着 2015 年 ES6 的发布，一个新的原始类型 —— **Symbol**，被添加了进去。它们与以前的原始值相比有很大的不同。它们只是值，不是字符串，也不是数字或者对象。它们只是 **Symbols**。
 
 ## 这个新的原始类型是关于什么的？
 
@@ -37,7 +37,7 @@ typeof Symbol()
 "symbol"
 ```
 
-您可以通过在 Symbol 上调用 `toString()` 方法来获取字符串。但这也只会为您提供先前获得的值的字符串表示形式。
+您可以通过在 Symbol 上调用 `toString()` 方法来获取字符串。但这也只会为您提供先前获得的值的字符串。
 
 ## 注意事项
 
@@ -78,9 +78,9 @@ console.log(obj[id]);
 //1
 ```
 
-#### 通用对象检查功能会跳过 Symbol
+#### 常见的对象检查功能会跳过 Symbol
 
-由于 Symbol 是为了避免冲突而设计的，因此在 JavaScript 最常见的对象检查功能(例如 `for-in` 循环)中会跳过 Symbol 属性。在 `Object.keys(obj)`和`Object.getOwnPropertyNames(obj)` 中也将忽略作为属性键的 Symbol。
+由于 Symbol 是为了避免冲突而设计的，因此在 JavaScript 最常见的对象检查功能（例如 `for-in` 循环）中会跳过 Symbol 属性。在 `Object.keys(obj)` 和 `Object.getOwnPropertyNames(obj)` 中也将忽略作为属性键的 Symbol。
 
 还要注意，当您使用 `JSON.stringify()` 时，将忽略对象的 Symbol 属性。
 
@@ -88,7 +88,7 @@ console.log(obj[id]);
 
 正如我们在上面看到的，即使将相同的描述作为参数传递给 Symbol，Symbol 也是唯一的。但是在某些情况下，您需要在多个网页或同一网页中的多个模块间来共享一个 Symbol。在这种情况下，您可以使用**全局 Symbol 注册表**。
 
-虽然这听起来像一个复杂的系统，但它的界面使用起来相当简单。
+虽然这听起来像一个复杂的系统，但它的接口使用起来相当简单。
 
 #### Symbol.for(key)
 
@@ -138,7 +138,7 @@ console.log(Symbol.keyFor(userName));
 该实现看起来与此类似。
 
 ```js
-if (list.isSorted) {
+if (!list.isSorted) {
   sortAlgorithm(list);
 }
 list.isSorted = true;
@@ -156,7 +156,7 @@ list.isSorted = true;
 let id = Symbol('id');
 
 let user = {
-	name: "Jane Doe",
+  name: "Jane Doe",
   [id]: 1
 };
 
@@ -211,37 +211,37 @@ JavaScript 使用几个内部 Symbol 来微调它在各个方面的性能。其�
 
 **注意：Symbol 不是 100％ 完全隐藏**
 
-您仍然可以使用 `Object.getOwnPropertySymbols(obj)` 和 `Reflect.ownKeys(obj)` 之类的方法来接收用作对象键的 Symbol。您可能想知道为什么。我个人认为 Symbol 被创立是为了避免 **意外的命名冲突**。如果有人真的想覆盖 Symbol 属性键，那么我认为他们有可能这样做。
+您仍然可以使用 `Object.getOwnPropertySymbols(obj)` 和 `Reflect.ownKeys(obj)` 之类的方法来接收用作对象键的 Symbol。您可能想知道为什么。我个人认为 Symbol 被创立是为了避免**意外的命名冲突**。如果有人真的想覆盖 Symbol 属性键，那么我认为他们有可能这样做。
 
 ## React 中关于 Symbol 的普遍问题
 
 在关于 [Bits and Pieces](https://blog.bitsrc.io/?source=post_page-----2b6fa2cecfe2----------------------&gi=39b41a3c39ac) 编辑器的讨论中，我被要求解决 React JS 中涉及 Symbol 的问题。以下是所提出问题的链接。
 
-[在子项中作为键的 Symbol 作为数组或迭代器 · Issue #11996 · facebook/react, github.com](https://github.com/facebook/react/issues/11996)
+[将 Symbol 用于数组或迭代器的子项的键 · Issue #11996 · facebook/react, github.com](https://github.com/facebook/react/issues/11996)
 
 #### 正被要求实现的特性
 
-对于那些没有通过上面的链接或不了解正在发生的事情的人，以下是为您提供的摘要。
+对于那些没有浏览过上面的链接或不了解正在发生的事情的人，以下是为您提供的摘要。
 
 React 开发人员应该熟悉键的概念。以下是截取自 React 文档的[术语表](https://reactjs.org/docs/glossary.html#keys)。
 
-> “键”是创建元素数组时需要包括的特殊字符串属性。键可帮助 React 识别哪些项目已更改，添加或删除。应该为数组中的元素提供键，以使元素具有稳定的标识。
+> “键”是创建元素数组时需要包括的特殊字符串属性。键可帮助 React 识别哪些项已更改，添加或删除。应该为数组中的元素提供键，以使元素具有稳定的标识。
 
 我相信以上片段解释了什么是键。
 
 键存在的根本原因是唯一性。它需要能够唯一地标识数组中的同级元素。这听起来是一个很好的 Symbol 用例，因为它们是唯一的，可以用来唯一地标识数组中的每个同级元素。
 
-但是，当您将 Symbol 添加为数组元素的键时，您将收到[以下](https://codesandbox.io/s/happy-wright-07ryi?file=/src/App.js)错误。
+但是，当您将 Symbol 添加为数组元素的键时，您将收到以下[错误](https://codesandbox.io/s/happy-wright-07ryi?file=/src/App.js)。
 
 ![Error Screenshot by Author](https://cdn-images-1.medium.com/max/2238/1*JJAf4BVLrMt61Rj4wc9-zQ.png)
 
-出现上述错误的原因是键的类型应为 **string**。如果您还记得我们前文所经历的，那么就会知道 Symbol 不是字符串类型，而且它们不会像其他原始数据类型那样隐式地转换自己。
+出现上述错误的原因是键的类型应为 **string**。如果您还记得我们前文所提及的，那么就会知道 Symbol 不是字符串类型，而且它们不会像其他原始数据类型那样隐式地转换自己。
 
 **大家正在要求实现的特性是允许原生支持 Symbol 作为键来使用，因为它们不会自动将自身转换为字符串。**
 
-#### 为什么团队拒绝并关闭了这个 issue
+#### 为什么 react 团队拒绝并关闭了这个 issue
 
-Dan Abramov 评论并关闭了此 issue，并提到“**除误解外，我看不到允许这么使用 Symbol 的实际用例**”。他还提到，您可以简单地使用“**自定义 ID 或用户名**”或您处理数据的地方附带的内容。
+Dan Abramov 评论并关闭了此 issue，并提到“**除非是误解，否则我看不出允许这么使用 Symbol 的实际用例**”。他还提到，您可以简单地使用“**自定义 ID 或用户名**”或您处理数据的地方附带的内容。
 
 **我想从两个角度发表我的观点。**
 
@@ -260,7 +260,7 @@ Dan Abramov 评论并关闭了此 issue，并提到“**除误解外，我看不
 </ul>
 ```
 
-如您所见，所有 4 个键都是唯一的。当元素值发生变化时，React 知道是哪一个发生了变化，并触发重建。但是当 DOM 树重建时，该特定元素的键将再次更改，因为 `Symbol()` 每次在被内联使用时都会被赋予唯一值。每一次渲染的`键`都不同，这将迫使 React 重新挂载元素或组件。
+如您所见，这 4 个键都是唯一的。当元素值发生变化时，React 知道是哪一个发生了变化，并触发重建。但是当 DOM 树重建时，该特定元素的键将再次更改，因为 `Symbol()` 每次在被内联使用时都会被赋予唯一值。每一次渲染的`键`都不同，这将迫使 React 重新挂载元素或组件。
 
 如果您不清楚在上述情况下 DOM 树的构建过程和变更检测是如何工作的，请仔细阅读这份[文档中的说明](https://reactjs.org/docs/reconciliation.html)。
 
@@ -295,7 +295,7 @@ const App = () => {
 export default App;
 ```
 
-您应该注意，所有给定的解决方案都可以使用，但是它们会触发不必要的重新挂载，并在内存和 CPU 上造成不必要的负载。我们的目标是想出一个解决方案，使用 Symbol 也可以是高效的。
+您应该注意，所有给定的解决方案都可以使用，但是它们会触发不必要的重新挂载，并在内存和 CPU 上造成不必要的负载。我们的目标是想出一个解决方案，让使用 Symbol 也可以是高效的。
 
 如果您有任何意见，请随时在下面评论。
 
