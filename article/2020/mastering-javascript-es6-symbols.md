@@ -272,7 +272,7 @@ Dan Abramov 评论并关闭了此 issue，并提到“**除非是误解，否则
 
 #### 注意
 
-但是 [Eduardo](https://github.com/esanzgar) 提供了一种解决方案，一旦使用 Symbol 初始化了对象或数组，那么它们就永远不会被重新初始化。这意味着值在每次渲染时不会被重新计算，因此值( Symbol )将始终相同。此方法只能在某些情况下起作用。
+但是 [Eduardo](https://github.com/esanzgar) 提供了一种解决方案，一旦使用 Symbol 初始化了对象或数组，那么它们就永远不会被重新初始化。这意味着值在每次渲染时不会被重新计算，因此值 (Symbol) 将始终相同。此方法只能在某些情况下起作用。
 
 ```ts
 import React from 'react';
