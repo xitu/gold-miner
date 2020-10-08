@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/using-service-workers-with-react.md](https://github.com/xitu/gold-miner/blob/master/article/2020/using-service-workers-with-react.md)
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
-> * 校对者：
+> * 校对者：[loststar](https://github.com/loststar)
 
 # 在 React 中使用 Service Worker
 
@@ -19,7 +19,7 @@ Service Worker 是由客户端浏览器运行的脚本。它们和 DOM 没有直
 
 网络连接的丢失是开发者在确保稳定连接时面临的常见问题。因此，近些年来，通过离线应用以确保良好的用户体验的概念逐渐流行起来。Service Worker 为 web 开发者提供了诸多好处：
 
-* 提升网站性能，可以缓存让网站加载得更快的关键部分
+* 提升网站性能，仅缓存让网站加载得更快的关键部分
 * 通过离线优先来增强用户体验，即使用户失去了网络连接，也能正常使用应用
 * 具有通知和推送功能的 API，这是传统 web 技术所没有的
 * 具有后台同步功能，你可以推迟某些操作直到网络连接恢复以确保持续的用户体验
@@ -37,7 +37,7 @@ Service Worker 的生命周期显然需要开发人员编码来完成。在 Reac
 在进行 React Service Worker 的配置和激活前，让我们来看一下使用 Service Worker 的规则和注意事项。
 
 * Service Worker 被浏览器在其全局脚本上下文环境中执行。这意味着你不能直接访问页面中的 DOM 元素。因此，需要一个间接的方式来让 Service Worker 与它控制的页面进行通信。这个可以通过使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) 接口来实现。
-* Service Worker 只能运行在 `HTTPS` 协议下，例外是在 localhost 下运行时。
+* 除了在 localhost 下运行时，Service Worker 只能运行在 `HTTPS` 协议下。
 * Service Worker 不限于特定的页面，因此可以被重复使用。
 * Service Worker 是事件驱动的。这意味着一旦它们运行结束就不能保留任何信息。为了访问先前状态的信息，你需要使用 [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)。
 
@@ -65,7 +65,7 @@ Service Worker 的生命周期显然需要开发人员编码来完成。在 Reac
     └── serviceWorker.js
 ```
 
-注意到 `serviceWorker.js` 文件位于 `src` 目录。默认情况下，这个文件会随你创建 React 应用时一同被创建。
+注意位于 `src` 目录下的 `serviceWorker.js` 文件。默认情况下，这个文件会随你创建 React 应用时一同被创建。
 
 现在，Service Worker 还没有注册。所以，你应该先注册它,然后再将它用于你的应用。
 
@@ -85,7 +85,7 @@ serviceWorker.register();
 
 在一般的 web 应用中，你需要自己编写 Service Worker 的整个生命周期的代码。然而，React 默认提供了 Service Worker 并且能让开发者直接使用它。打开 `src/serviceWorker.js` 文件，你会注意到 Service Worker 的底层方法都是现成的。
 
-## 在开发中使用 React Service Worker
+## 在开发环境中使用 React Service Worker
 
 当你在 `serviceWorker.js` 文件中查看 `register()` 函数时，你会注意到，默认情况下，它只在生产环境中有用 （`process.env.NODE_ENV === 'production'` 是被设置的条件之一）。如下有两个变通的方法。
 
