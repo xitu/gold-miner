@@ -7,23 +7,17 @@
 
 # How to Create Charts from External Data Sources with D3.js
 
-#### Learn how to create amazing data visualizations using D3.Js version 5
-
 ![](https://cdn-images-1.medium.com/max/12032/1*_2y7jPirLNtPHduWzlgphQ.jpeg)
 
 Forbes estimated in mid 2018 that humankind collectively generates [about 2.5 quintillion bytes of data every day](https://www.forbes.com/sites/bernardmarr/2018/05/21/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/). While a lot of effort goes into analyzing this data through machine learning algorithms, powerful visualizations help narrate the findings and put things in the right perspective. Visualizing data also helps the audience process the data faster and remember key takeaways. Over the last decade, the demand for specialists in visualizations has increased too.
 
 D3 is a library in JavaScript to create visualizations for the web. The first version of D3 was released back in 2011 and it has matured with increasing community support. While the learning curve was a little steep for earlier versions of D3, the latest versions have been easier for JavaScript beginners. Most visualizations built for the web rely on dynamic data sources — therefore the target of this post is to enable you to create charts in D3 with external data sources.
 
-**Tip**: Use [**Bit**](https://bit.dev) to build, share and sync your chart components (or any other JS component) between your different apps. Stop wasting time configuring packages or copy-pasting code. [Give it a try.](https://bit.dev)
-
-![Example: A React chart component pushed to Bit’s cloud](https://cdn-images-1.medium.com/max/2000/1*eby7DKoLT-OCpOswu2HEbw.gif)
-
 ## A Bar Chart in D3
 
 Before we load data externally in D3, let us create a basic bar chart and replicate the same after loading the data externally. First, load the D3 script by including the following line in your code.
 
-```
+```html
 <script src="https://d3js.org/d3.v5.min.js"></script>
 ```
 
@@ -33,7 +27,7 @@ The [D3.js changelog](https://github.com/d3/d3/blob/master/CHANGES.md#selections
 
 First, let us define the title and data.
 
-```
+```js
 var title = "Comments on Posts",
   data = [{type: "Post A", amount: 4},
          {type: "Post B", amount: 2},
@@ -45,7 +39,7 @@ var title = "Comments on Posts",
 
 As you have already included the D3 script, you can perform any D3 related action using the global variable `d3`. Next, create a title for the chart by appending a header element within the `body` tag. If you are creating the chart within a certain `div` element, you may wish to select that elect before creating the header element for the title. Alternately, if you know that the header is going to be the same, you may add it during page load without the use of D3.
 
-```
+```js
 d3.select("body")
   .append("h3")
   .text(title);
@@ -53,7 +47,7 @@ d3.select("body")
 
 Before you proceed, you may wish to add some custom CSS.
 
-```
+```css
 body {
   background-color: #3c3c3c;
   color: #cfcfcf;
@@ -68,7 +62,7 @@ div {
 
 At this point, you would notice that a heading has appeared on the page. You can define custom styling to this header in your spreadsheet. Next, create horizontal bars using divisions with widths based on the values of the data points and a constant height.
 
-```
+```js
 d3.select("body")
   .selectAll("div")
   .data(data)
@@ -99,7 +93,7 @@ Post E,6
 
 To read a CSV file through D3, you can use the `csv()` function. We additionally use the `d3.autoType` parsing function to convert the rows in the data set to JavaScript objects. The [documentation](https://github.com/d3/d3-dsv/blob/master/README.md#autoType) lists down the reassignment rules (like empty becomes `null`). To see the converted object, you can print the data on the console once it has been loaded using the `then()` function.
 
-```
+```js
 d3.csv('https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
   d3.autoType)
   .then(function (data) {
@@ -130,7 +124,7 @@ __proto__: Array(0)
 
 A similar function exists to load other types of external files. To load a text file without a parser, use the following code:
 
-```
+```js
 d3.text("/path/to/file.txt").then(function(text) {
   // do something
 });
@@ -138,7 +132,7 @@ d3.text("/path/to/file.txt").then(function(text) {
 
 If your file is separated by a different delimiter, you can use the `dsv()` function. The only difference here is the first argument, which is the delimiter for the file. You can also use the `dsv()` function to load a CSV file using the comma delimiter.
 
-```
+```js
 d3.dsv(',', 'https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
   d3.autoType)
   .then(function (data) {
@@ -157,7 +151,7 @@ Additionally, the following functions are also at your disposal:
 
 Now that you have successfully loaded the data from an external source, let us create the chart.
 
-```
+```js
 d3.csv('https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv', d3.autoType).then(function (data) {
   d3.select("body")
     .selectAll("div")
@@ -186,20 +180,6 @@ Here is a demonstration of this process [using Python and websockets](https://me
 ## Final Thoughts
 
 With this, we come to the end of the tutorial on creating charts from external data sources with D3. We first created a simple bar chart with D3, explored various ways of reading data from external data sources and finally, created a chart with the newly loaded data.
-
-Also, feel free to check out these chart components on Bit’s cloud (install them using NPM or import them using Bit to develop them in your own project):
-[**chart - primereact · Bit**
-**Chart components are based on Charts.js, an open source HTML5 based charting library. Tags: Chart, Graph, React, UI…**bit.dev](https://bit.dev/primefaces/primereact/chart)
-[**composed-chart - recharts · Bit**
-**Composed chart React component is used to combine multiple chart types like bar and line. Tags: Chart, Graph, UI…**bit.dev](https://bit.dev/recharts/recharts/composed-chart)
-[**bubble-chart - cscs · Bit**
-**Tags: Angular, Chart, Graph, UI Components. Dependencies: d3-color, d3-hierarchy, d3-interpolate, d3-scale. Built with…**bit.dev](https://bit.dev/yangming/cscs/bubble-chart)
-
-## Learn More
-[**Let Everyone In Your Company Share Your Reusable Components**
-**Share your existing technology in a visual way to help R&D, Product, Marketing and everyone else build together.**blog.bitsrc.io](https://blog.bitsrc.io/let-everyone-in-your-company-see-your-reusable-components-270cd3213fe9)
-[**Meet Bit’s Component Cloud**
-**Share atomic code in the cloud to build modular software without limits.**blog.bitsrc.io](https://blog.bitsrc.io/meet-bits-atomic-component-cloud-521160de4f0c)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
