@@ -9,7 +9,8 @@
 
 ![Image: [MattysFlicks — Smoke Art — Cubes to Smoke](https://www.flickr.com/photos/68397968@N07/11432696204) ([CC BY 2.0](https://creativecommons.org/licenses/by/2.0/))](https://cdn-images-1.medium.com/max/4096/1*DSu4IJYOeNzJbQIip9oTVg.jpeg)
 
-> **注：** 这是“创作软件”系列的一部分[（现在是一本书！）](https://leanpub.com/composingsoftware)。从基础开始学 JavaScriptES6+ 函数式编程和软件技术。敬请关注，还有很多这样的事情！[购买此书](https://leanpub.com/composingsoftware) | [索引](https://medium.com/javascript-scene/composing-software-the-book-f31c77fc3ddc) | [\< 上一篇](https://medium.com/javascript-scene/abstraction-composition-cb2849d5bdd6) | [下一篇 >](https://medium.com/javascript-scene/functors-categories-61e031bac53f)
+> **注：** 这是“创作软件”系列的一部分[（现在是一本书！）](https://leanpub.com/composingsoftware)。从基础开始学 JavaScriptES6+ 函数式编程和软件技术。敬请关注，还有很多这样的事情！
+[购买此书](https://leanpub.com/composingsoftware) | [索引](https://medium.com/javascript-scene/composing-software-the-book-f31c77fc3ddc) | [\< 上一篇](https://medium.com/javascript-scene/abstraction-composition-cb2849d5bdd6) | [下一篇 >](https://medium.com/javascript-scene/functors-categories-61e031bac53f)
 
 ## 抽象数据类型
 
