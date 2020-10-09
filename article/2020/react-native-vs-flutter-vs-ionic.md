@@ -75,7 +75,7 @@ Ionic 在 2013 年作为开源的跨平台移动开发 SDK 推出。由于它使
 
 **React Native：** 在选择是哪种编程语言的框架时，React Native 可能是开发人员的首选，因为它基于 JavaScript，而 JavaScript 是目前开发混合应用程序最流行且具有动态性的语言之一。此外，这款框架结合了 JavaScript 和 React 的所有优点，并得到了 Facebook 的支持。React Native 使它与其他编程语言区分开来的地方在于，它可以在需要的时提供用 Swift、Objective-C 或 Java 编写一些组件的能力。
 
-**Flutter：** 由于 Flutter 是 Google 的一个小宝贝，因此它使用了一个内部编程语言，[Dart](https://dart.dev/),可以帮助你开发 Android、iOS 和 web 应用程序。相比于 JavaScript，Dart 仍然是一种罕见的编程语言。但是尽管这是一个新语言，但在未来几年中仍然具有极大的潜力席卷整个行业。
+**Flutter：** 由于 Flutter 是 Google 的一个新生儿，因此它使用了一个内部编程语言，[Dart](https://dart.dev/),可以帮助你开发 Android、iOS 和 web 应用程序。相比于 JavaScript，Dart 仍然是一种罕见的编程语言。但是尽管这是一个新语言，但在未来几年中依然具有极大的潜力席卷整个行业。
 
 **Ionic：** 它使用多种技术（包括 HTML5、CSS 以及 JavaScript）来开发和运行应用程序，并且可以通过 [Cordova wrapper](https://cordova.apache.org/) 来使用原生平台的一些控制器。为了提高代码的质量，你还可以使用 Ionic 的同时使用 TypeScript。
 
@@ -83,23 +83,23 @@ Ionic 在 2013 年作为开源的跨平台移动开发 SDK 推出。由于它使
 
 **总览：** 在为跨平台应用程序招聘跨平台应用开发者时，代码的可复用性是公司最关心的一点。这三个框架都使用不同的代码执行策略。React Native 遵循 「 learn once and write anywhere 」，Ionic 使用 「 one code base, any platform 」，而 Flutter 为你提供了一组高级功能可以提升你的编程速度。
 
-**React Native:** The prime principle of writing code with React Native is clearly portrayed for you: A single code base can be used to develop multiple apps for various platforms including Android, iOS, and Windows. This will help developers to build better apps in a short time span.
+**React Native：** 使用 React Native 编写代码的主要原因已经十分清晰：单个代码库可以用作开发多种多样不同平台的应用程序，包括 Android、iOS 和 Windows 等。这可以让开发人员构建更快更好应用程序的时间大幅度缩减。
 
-**Flutter:** The standard reason behind the increasing popularity of Flutter is that it provides a comprehensive toolkit that helps developers create modern apps with ready-to-use widgets, APIs, and its own rendering engine. By leveraging the rich feature set of Flutter, developers can create beautiful mobile experiences.
+**Flutter：** Flutter 越来越受欢迎的真实原因是，它提供了一个全面的工具包，可以帮助开发者使用现成的小组件，API 以及独特的渲染引擎来创建现代应用程序。通过使用 Flutter 丰富的功能，开发者可以得到一个很美好的开发体验。
 
-**Ionic:** Its simple mantra of “one code base, any platform” provides the privilege of reusing the code base for various applications. By using the same code base, developers can build a highly interactive app in a quick time frame.
+**Ionic：** 它的简单标语 「 one code base, any platform 」 也说明了对于各种应用程序都可以复用代码库的优点。通过使用相同的代码，开发者可以在短时间内构建高度交互的应用程序。
 
-#### 3. Popularity and Community
+#### 3. 流行度和社区文化
 
-**Overview:** If you are assuming that the oldest framework has the highest popularity and community support, then you might be mistaken at this point. According to [Statista](https://www.statista.com/statistics/869224/worldwide-software-developer-working-hours/), React Native is used by 42% of developers, whereas Flutter, despite being a new framework, is used by 39% of developers, and Ionic is used by 18% of developers. If we compare all these three frameworks, then React Native might be at the top position. However, it has the same percentage of developers as in 2019, and Ionic has been reduced from 28% to 18%, whereas Flutter has shown a bar rising from 30% to 39%.
+**总览：** 如果你假设最老的框架有着最高的知名度和社区支持度，那么你可能对这一点存在误解。根据 [Statista](https://www.statista.com/statistics/869224/worldwide-software-developer-working-hours/)，React Native 被 42% 的开发者使用，而 Flutter 尽管是一个新框架也被 39% 的开发者使用，而 Ionic 被 18% 的开发者使用。如果我们比较这三个框架，那么 React Native 可能处于最高的位置。然而，它的开发人员比例与 2019 年相同，并且 Ionic 已从 28% 降低到 18%，而 Flutter 的比例已从 30% 上升到 39%。
 
-**React Native:** While evaluating the community support of frameworks, undoubtedly React Native will easily steal the show. Since it’s based on the most essential web development language, JavaScript, and utilizes popular React libraries, the network of developers is speedily growing as compared to Flutter and Ionic. But according to [Github](https://github.com/facebook/react-native), React Native has 89.7K stars, 3.7K watches, and 19.9K forks.
+**React Native：** 在评估社区对框架对支持程度时，毫无疑问 React Native 将会轻松夺走冠军。由于它基于最基本的 web 开发语言 JavaScript，并且使用了流行的 React 库，因此与 Flutter 和 Ionic 相比，开发者成员正在迅速壮大。同时根据 [Github](https://github.com/facebook/react-native) 的数据，React Native 拥有 89.7K stars，3.7K 关注以及 19.9K forks。
 
-**Flutter:** Flutter is a recently launched framework for the community, so compared to React Native and Ionic, it has a small community. But the fact that it’s intensely advertised by Google and is rapidly increasing in popularity will soon make this framework a major thing in the mobile world. Moreover, in just a short timeframe, [Flutter](https://github.com/flutter/flutter) has achieved 99.2K stars, 13.7K forks, and is watched by 3K developers, leaving aside React Native and Ionic.
+**Flutter：** Flutter 是社区近期发布的一个框架，因此和 React Native 与 Ionic 相比，Flutter 的社区很小。但是由于 Google 的大力宣传以及迅速普及，使它很快就成为移动开发框架中的佼佼者。此外，在短时间内 [Flutter](https://github.com/flutter/flutter) 已经收获 99.2K stars，13.7K forks 以及超过 3K 的开发者正在关注它，超过了 React Native 和 Ionic。
 
-**Ionic:** Being one of the oldest frameworks, Ionic has often improved its framework. It has the second-highest community support and a great marketplace. In terms of [popularity](https://github.com/ionic-team/ionic-framework), it has 41.6K stars, 13.3K forks, and is watched by 1.8K developers.
+**Ionic：** 作为最古老的框架之一，Ionic 经常改进自己的代码。它拥有第二高的社区支持和广阔的市场。从[流行程度](https://github.com/ionic-team/ionic-framework) 而言，它拥有 41.6K stars，13.3K forks 以及超过 1.8K 的开发者正在关注。
 
-#### 4. Performance
+#### 4. 性能
 
 **Overview:** For any business, app performance is one of the most crucial deciding factors. The performance of the app depends on various factors, including the efficiency of writing code in that particular framework. But here we will evaluate performance by simply analyzing the runtime of the app.
 
