@@ -16,18 +16,6 @@ There are two ways to support routing in single-page apps:
 
 In this article, you will learn the pros and cons of these two approaches, and it will help you decide on the better one for your use case.
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: browsing through React components shared on [Bit](https://bit.dev/) ([Github](https://github.com/teambit/bit))](https://cdn-images-1.medium.com/max/2000/0*A14HrKv055f99_7c.gif)
-
----
-
 ## Ordinary URL paths
 
 From their appearance, you can identify that the following are ordinary URLs.
@@ -99,14 +87,6 @@ Even if you use ordinary URLs for the application, any Single Page App framework
 I hope this article gives an overview of using these two types of URLs and broadens your understanding. If you come across any questions, you can put them in the comment below.
 
 The choice is yours!
-
-## Learn More
-[**Using the URL Object in JavaScript**
-**Learn everything there is to know about the URL object**blog.bitsrc.io](https://blog.bitsrc.io/using-the-url-object-in-javascript-5f43cd743804)
-[**Revolutionizing Micro Frontends with Webpack 5, Module Federation, and Bit**
-**See how the upcoming Module Federation plugin will change the way micro frontend works**blog.bitsrc.io](https://blog.bitsrc.io/revolutionizing-micro-frontends-with-webpack-5-module-federation-and-bit-99ff81ceb0)
-[**React Router VS Reach Router**
-**Which React Routing Library Should You Use?**blog.bitsrc.io](https://blog.bitsrc.io/react-router-vs-reach-router-d26fe706d8db)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
