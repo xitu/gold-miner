@@ -2,30 +2,30 @@
 > * 原文作者：[Shaumik Daityari](https://medium.com/@ds_mik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-charts-from-external-data-sources-with-d3-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-charts-from-external-data-sources-with-d3-js.md)
-> * 译者：
+> * 译者：[Alfxjx](https://github.com/Alfxjx)
 > * 校对者：
 
-# How to Create Charts from External Data Sources with D3.js
+# 如何基于 D3.js 使用外部数据源创建图表
 
 ![](https://cdn-images-1.medium.com/max/12032/1*_2y7jPirLNtPHduWzlgphQ.jpeg)
 
-Forbes estimated in mid 2018 that humankind collectively generates [about 2.5 quintillion bytes of data every day](https://www.forbes.com/sites/bernardmarr/2018/05/21/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/). While a lot of effort goes into analyzing this data through machine learning algorithms, powerful visualizations help narrate the findings and put things in the right perspective. Visualizing data also helps the audience process the data faster and remember key takeaways. Over the last decade, the demand for specialists in visualizations has increased too.
+福布斯于 2018 年年中的统计显示，人类[每天约产生 2.5EB](https://www.forbes.com/sites/bernardmarr/2018/05/21/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/) 的数据。 随着对如此海量数据的机器学习算法的研究，强大的可视化技术有助于将所见以一个正确的方式呈现出来。数据可视化还可以帮助读者更快地处理数据并记住数据的关键特征。在过去的十年中，对可视化专家的需求也在增加。
 
-D3 is a library in JavaScript to create visualizations for the web. The first version of D3 was released back in 2011 and it has matured with increasing community support. While the learning curve was a little steep for earlier versions of D3, the latest versions have been easier for JavaScript beginners. Most visualizations built for the web rely on dynamic data sources — therefore the target of this post is to enable you to create charts in D3 with external data sources.
+D3 是一个运行于 web 端的 Javascript 可视化库。D3 的第一个版本发布于 2011 年，并且随着社区支持的增加而成熟。 对于早期版本的 D3，学习曲线有些陡峭，但对于 JavaScript 初学者来说，最新版本学习起来更容易。 大多数为 Web 构建的可视化都依赖于动态数据源——因此，本文的目的是使您能够在 D3 中使用外部数据源创建图表。
 
-## A Bar Chart in D3
+## D3 中的柱状图
 
-Before we load data externally in D3, let us create a basic bar chart and replicate the same after loading the data externally. First, load the D3 script by including the following line in your code.
+在 D3 中加载外部数据之前，让我们创建一个基本的柱状图，并在加载外部数据后，重新绘制该柱状图。 首先，通过下面的一行代码来加载D3 脚本。
 
 ```html
 <script src="https://d3js.org/d3.v5.min.js"></script>
 ```
 
-You would find that most tutorials on the web for D3 are based on versions 3 and 4. However, we will use the latest version of D3, v5, which was released in early 2018. The [latest release of D3](https://github.com/d3/d3/releases/tag/v5.12.0) was about a month ago.
+你可能会发现，网络上的绝大部分的 D3 教程都是基于 v3 或者是 v4 版本的。但是本文中我们会使用在 2018 年的早期发布的 v5 版本的 D3 库。[最新版本的D3库]((https://github.com/d3/d3/releases/tag/v5.12.0))大概是一个月前发布的（译注：最新版本的 D3 发布于 2019 年的 9 月）。
 
-The [D3.js changelog](https://github.com/d3/d3/blob/master/CHANGES.md#selections-d3-selection) maintains detailed changes through versions. For the purpose of this post, you should note that the way data is loaded in version 4 is different from version 5.
+[D3.js 的 changelog](https://github.com/d3/d3/blob/master/CHANGES.md#selections-d3-selection) 记录了版本之间的改动。就本文而言，需要注意 v4 中的数据加载方式与 v5 中的加载方式不同。
 
-First, let us define the title and data.
+首先让我们定义标题和数据。
 
 ```js
 var title = "Comments on Posts",
@@ -37,7 +37,7 @@ var title = "Comments on Posts",
 ;
 ```
 
-As you have already included the D3 script, you can perform any D3 related action using the global variable `d3`. Next, create a title for the chart by appending a header element within the `body` tag. If you are creating the chart within a certain `div` element, you may wish to select that elect before creating the header element for the title. Alternately, if you know that the header is going to be the same, you may add it during page load without the use of D3.
+  在引入 D3 的脚本库之后，你可以使用全局变量 `d3` 来进行任意的有关 D3 库的操作。接着，通过将一个标题元素追加到 `body` 标签中，从而给图标添加了一个标题。如果你是在某一个确定的 `div` 标签之中创建图表的话，可在创建标题的元素之前选中该元素。另外，如果你知道标题将会保持不变，那么应该不使用 D3 而是在页面加载的时候就将其添加进来。
 
 ```js
 d3.select("body")
@@ -45,7 +45,7 @@ d3.select("body")
   .text(title);
 ```
 
-Before you proceed, you may wish to add some custom CSS.
+在继续操作之前，先添加一些自定义CSS。
 
 ```css
 body {
@@ -60,7 +60,7 @@ div {
 }
 ```
 
-At this point, you would notice that a heading has appeared on the page. You can define custom styling to this header in your spreadsheet. Next, create horizontal bars using divisions with widths based on the values of the data points and a constant height.
+此时，页面上出现了标题。 你可以在样式表中为此标题定义自定义样式。 接下来，在保持宽度一定的情况下，根据数据的大小设置水平柱状图的长度，创建水平柱状图。
 
 ```js
 d3.select("body")
@@ -72,15 +72,15 @@ d3.select("body")
   .style("height", "15px");
 ```
 
-You simple bar graph is ready. You can view the chart on [CodePen](https://codepen.io/shaumik/pen/RwwNLQb). To further add labels to the bars, you would need to loop through the data and add a text element to the respective `div` element representing the bar.
+这样一来你的简单柱状图就设置完成了。你可以在 [CodePen](https://codepen.io/shaumik/pen/RwwNLQb) 上查看它。 若是需要再向柱状条添加标签，可以遍历数据源从而给对应的表示柱状条的 `div` 元素再添加一个文本元素。
 
-Let us now try and work with external file sources.
+现在让我们尝试使用外部文件源。
 
-## Loading Data from External Data Source
+## 从外部数据源加载数据
 
-When data is large enough compared to the size of a webpage (~ 2 MB on average), it may create inconvenience by increasing load times if you declare this data inline. Therefore, it is a good practice to save it in a file. The same data in a CSV (Comma Separated Values) file would something like this.
+如果数据与网页大小（平均约 2 MB），相比足够大，那么如果您声明此数据为内联，可能会通过增加加载时间而带来不便。 因此，将其保存在文件中是一个好习惯。 CSV（逗号分隔值）文件中的数据结构如下所示。
 
-The data that we used to create a bar graph above has been [uploaded on GitHub](https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv) to act as an external source. A CSV (comma separated values) file contains values separated by commas. The contents of the file are as follows:
+我们用于创建柱状图的外部[数据](https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv)已经上传到了 Github 中，CSV（逗号分隔值）文件以逗号分隔保存的数据。文件的内容如下所示：
 
 ```
 type,amount
@@ -91,7 +91,7 @@ Post D,5
 Post E,6
 ```
 
-To read a CSV file through D3, you can use the `csv()` function. We additionally use the `d3.autoType` parsing function to convert the rows in the data set to JavaScript objects. The [documentation](https://github.com/d3/d3-dsv/blob/master/README.md#autoType) lists down the reassignment rules (like empty becomes `null`). To see the converted object, you can print the data on the console once it has been loaded using the `then()` function.
+在 D3 中读取 CSV 文件，可以使用 `csv()` 方法。除此之外我们还使用了 `d3.autoType` 解析函数来将文件中的行数据转换成了 JavaScript 的对象。[这个文档](https://github.com/d3/d3-dsv/blob/master/README.md#autoType)列举了诸如将空值转换成 `null` 等之类的转换规则。你可以在加载完成之后的 `then()` 方法中用控制台打印的方式来观察转换之后的对象。
 
 ```js
 d3.csv('https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
@@ -101,7 +101,7 @@ d3.csv('https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.
   });
 ```
 
-Here is the output from the console of the Chrome Developer Tools, which shows the JavaScript object after conversion.
+下面展示的是在 Chrome 开发者工具的控制台中显示的转换之后的 Javascript 对象。
 
 ```
 (5) [{…}, {…}, {…}, {…}, {…}, columns: Array(2)]
@@ -122,7 +122,7 @@ columns: Array(2)
 __proto__: Array(0)
 ```
 
-A similar function exists to load other types of external files. To load a text file without a parser, use the following code:
+存在类似的功能来加载其他类型的外部文件。要加载文本文件，请使用以下代码：
 
 ```js
 d3.text("/path/to/file.txt").then(function(text) {
@@ -130,7 +130,7 @@ d3.text("/path/to/file.txt").then(function(text) {
 });
 ```
 
-If your file is separated by a different delimiter, you can use the `dsv()` function. The only difference here is the first argument, which is the delimiter for the file. You can also use the `dsv()` function to load a CSV file using the comma delimiter.
+如果您的文件由其他分隔符分隔，则可以使用 `dsv()` 函数。唯一的区别是第一个参数，用于表明文件的分隔符。您也可以使用 `dsv()` 函数并使用逗号分隔符参数来加载 CSV 文件。
 
 ```js
 d3.dsv(',', 'https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
@@ -140,16 +140,16 @@ d3.dsv(',', 'https://raw.githubusercontent.com/sdaityari/my_git_project/master/p
   });
 ```
 
-Additionally, the following functions are also at your disposal:
+另外，以下的几个方法也是可选择的：
 
 * `json()`: to load a file containing data in JSON format
 * `xml()`: to load a file containing XML data
 * `image()`: to load an image
 * `svg()`: to load vector graphics
 
-## Creating a Chart with External Data Source
+## 使用外部数据源创建图表
 
-Now that you have successfully loaded the data from an external source, let us create the chart.
+现在您已经成功地从外部源加载了数据，让我们创建图表。
 
 ```js
 d3.csv('https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv', d3.autoType).then(function (data) {
@@ -163,23 +163,23 @@ d3.csv('https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.
 });
 ```
 
-The only difference with the previous function is that the `data()` call can be made within the `csv()` function. Since the column names are the same, the rest of the code remains unchanged.
+与前一个函数的唯一区别在于，需要在 `csv()` 函数中进行 `data()` 调用。由于列名相同，因此其余代码保持不变。
 
-Here is the [CodePen demo](https://codepen.io/shaumik/pen/mGWRzm) for the same bar chart with an external data source.
+利用外部数据绘制的同样的柱状图可以在 [CodePen](https://codepen.io/shaumik/pen/mGWRzm) 查看。
 
-## Real-Time Data
+## 实时数据
 
-An advantage of D3 allows you to update charts in real time by changing the element that contains the chart after an event is triggered. The process flow for updating a chart is as follows:
+D3的一个优点是可以通过在触发事件后更改包含图表的元素来实时更新图表。 更新图表的流程如下：
 
-* Catch the trigger of an event and call a function
-* Overwrite or update the existing data
-* Refresh the visual element containing the chart
+* 捕获到事件的触发，并调用函数；
+* 覆盖或更新现有数据；
+* 刷新包含图表的可视元素；
 
-Here is a demonstration of this process [using Python and websockets](https://medium.com/@benjaminmbrown/real-time-data-visualization-with-d3-crossfilter-and-websockets-in-python-tutorial-dba5255e7f0e).
+这里是使用 Python 和 Websockets 描述的整个过程的[示例](https://medium.com/@benjaminmbrown/real-time-data-visualization-with-d3-crossfilter-and-websockets-in-python-tutorial-dba5255e7f0e)。
 
-## Final Thoughts
+## 最后的思考
 
-With this, we come to the end of the tutorial on creating charts from external data sources with D3. We first created a simple bar chart with D3, explored various ways of reading data from external data sources and finally, created a chart with the newly loaded data.
+这样，我们就完成了使用 D3 从外部数据源创建图表的教程。我们首先使用 D3 创建了一个简单的柱状图，探索了从外部数据源读取数据的各种方法，最后，使用新加载的数据创建了一个图表。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
