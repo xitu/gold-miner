@@ -7,7 +7,7 @@
 
 # Implementing Heaps in JavaScript
 
-![Photo by [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/heap?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7680/1*QaLcagYMG4iC9W6qjuHpDA.jpeg)
+![](https://miro.medium.com/max/1400/1*QaLcagYMG4iC9W6qjuHpDA.jpeg)
 
 Most of the programming languages support some specific data types, for example, `int`, `string`, `boolean`, etc. We can define our custom data type for storing groups of data and this data type can also have functions/operations. These functions/operations can be applied to the data points to get meaningful results. The logical model for the custom data type is called **Abstract Data Type (ADT)** and the physical implementation of these types is called a D**ata Structure**. Data Structures are the most fundamental unit in computer science and it is very important to use the correct data structure for solving problems efficiently. Some of the popular data structures are **Arrays**, **Stacks**, **Queue**, **LinkedList**, **Trees**, **Heaps**, etc. Unlike other high-level languages, most of these data types don’t come bundled with the native JavaScript runtime.
 
