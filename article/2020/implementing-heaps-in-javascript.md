@@ -29,12 +29,13 @@ We’ll get to the unknown heap property in a moment. Here’s how a binary heap
 
 A heap is essentially used to get the highest priority element at any point in time. There are two types of heaps, based on the heap property — **MinHeap** and **MaxHeap**.
 
-**MinHeap**: The parent node is always less than the child nodes.
-**MaxHeap**: The parent node is always greater than or equal to the child nodes.
+- **MinHeap**: The parent node is always less than the child nodes.
+- **MaxHeap**: The parent node is always greater than or equal to the child nodes.
 
 ![Representation of MinHeap & MaxHeap](https://cdn-images-1.medium.com/max/2000/1*5-_bPyIEw3-XtPVi3lCVzA.png)
 
 In **MinHeap**, the root node `10` is smaller than its two child nodes `23` and `36` while `23` and `36` are smaller than their respective child nodes. 
+
 In **MaxHeap**, the root node `57` is greater than its two child nodes `38` and `45 `while `38` and `45` are greater than their respective child nodes.
 
 ## Why do we need something like Heaps?
