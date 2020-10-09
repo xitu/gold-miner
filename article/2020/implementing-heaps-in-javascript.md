@@ -7,23 +7,15 @@
 
 # Implementing Heaps in JavaScript
 
-#### Learn what Heaps are and what sort of problems they help solve
-
 ![Photo by [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/heap?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7680/1*QaLcagYMG4iC9W6qjuHpDA.jpeg)
 
 Most of the programming languages support some specific data types, for example, `int`, `string`, `boolean`, etc. We can define our custom data type for storing groups of data and this data type can also have functions/operations. These functions/operations can be applied to the data points to get meaningful results. The logical model for the custom data type is called **Abstract Data Type (ADT)** and the physical implementation of these types is called a D**ata Structure**. Data Structures are the most fundamental unit in computer science and it is very important to use the correct data structure for solving problems efficiently. Some of the popular data structures are **Arrays**, **Stacks**, **Queue**, **LinkedList**, **Trees**, **Heaps**, etc. Unlike other high-level languages, most of these data types don’t come bundled with the native JavaScript runtime.
 
 In this article, we’re going to look at one of the interesting data structures — Heaps!
 
-> # Heaps data structure, unlike Object, Map, and Set is not supported natively in JavaScript.
+> Heaps data structure, unlike Object, Map, and Set is not supported natively in JavaScript.
 
 We’re going to implement heaps from scratch. But first, let’s try to understand what heaps are and what sort of computer science problems can Heaps solve?
-
-## Tip: Share and reuse utility and UI components
-
-Use **[Bit](https://bit.dev/)** to ****easily publish, install and update small individual modules across different JavaScript projects. Don’t install entire libraries and don’t copy-paste code, when you can build faster with small reusable modules. [Take a look](https://bit.dev/).
-
-![Bit: Easily reuse and sync small modules and utils across JS projects](https://cdn-images-1.medium.com/max/2000/1*khzSvcvQfKy0mrxjy_gdvQ.gif)
 
 ## What is a Heap data structure?
 
@@ -50,9 +42,10 @@ In **MaxHeap**, the root node `57` is greater than its two child nodes `38` and 
 Heaps is primarily used for getting the minimum or the maximum value present in a heap in `O(1)` time. The linear data structures like **Arrays** or **LinkedList** can get you this value in `O(n)` time while non-linear data structures like Binary Search Trees(BST) can get you this value in `O(log n)` time where `n` is the number of elements.
 
 Here’s the time complexity of various operations performed on a heap with `n` elements:
-**Access the min/max value**: `O(1)`
-**Inserting an element**: `O(log n)`
-**Removing an element**: `O(log n)`
+
+- **Access the min/max value**: `O(1)`
+- **Inserting an element**: `O(log n)`
+- **Removing an element**: `O(log n)`
 
 Heaps make it blazing fast to access the priority-level elements. The [Priority Queue](https://en.wikipedia.org/wiki/Priority_queue) data structure is implemented using Heaps. As the name suggests, you can access elements on a priority basis in `O(1)` time using a Priority Queue. It is commonly used in [Dijkstra’s Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), [Huffman Coding](https://en.wikipedia.org/wiki/Huffman_coding). Don’t worry if you don’t know these algorithms yet! We’ll cover them in detail in the next set of articles.
 
@@ -225,7 +218,7 @@ We first store the minimum element at index `1` in the variable `smallest`. We�
 
 Now, let’s get onto the humongous `if` block which is doing the majority of the work. We first put the last element at index `1` and then remove the last element from the heap as:
 
-```
+```js
 this.heap[1] = this.heap[this.heap.length-1]
 this.heap.splice(this.heap.length - 1)
 ```
@@ -238,7 +231,7 @@ The condition in the while block looks big but it is not doing much! It simply c
 
 The values of `leftChildIndex` and `rightChildIndex` are also changed as:
 
-```
+```js
 leftChildIndex = current * 2 // i* 2
 rightChildIndex = current * 2 + 1 // i * 2 + 1
 ```
@@ -337,14 +330,6 @@ Try writing the code for MaxHeap on your own. It should not be difficult, you ju
 ## Wrapping Up
 
 We learned that the Heaps data structure is an almost complete tree that satisfies the heap property. We can access the min/max elements in `O(1)` from the heap. We can implement Priority Queue using heaps which are essentially used for accessing the elements on a priority basis. In the next article, we’ll look at some of the popular interview questions on heaps.
-
-## Learn More
-[**Let Everyone In Your Company Share Your Reusable Components**
-**Share your existing technology in a visual way to help R&D, Product, Marketing and everyone else build together.**blog.bitsrc.io](https://blog.bitsrc.io/let-everyone-in-your-company-see-your-reusable-components-270cd3213fe9)
-[**Increase Code Reuse. Reduce Overhead.**
-**How to reduce duplicate code, and scale code-reuse with OSS platform Bit.**blog.bitsrc.io](https://blog.bitsrc.io/increase-code-reuse-reduce-overhead-d40bd045344d)
-[**How to Avoid Duplicate Code with Git+Bit**
-**Leveraging a Git+Bit+NPM workflow to easily scale code sharing.**blog.bitsrc.io](https://blog.bitsrc.io/how-to-avoid-duplicate-code-with-git-bit-fe19ceaa65e3)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
