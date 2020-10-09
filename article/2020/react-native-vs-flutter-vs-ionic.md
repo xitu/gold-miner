@@ -97,71 +97,71 @@ Ionic 在 2013 年作为开源的跨平台移动开发 SDK 推出。由于它使
 
 **Flutter：** Flutter 是社区近期发布的一个框架，因此和 React Native 与 Ionic 相比，Flutter 的社区很小。但是由于 Google 的大力宣传以及迅速普及，使它很快就成为移动开发框架中的佼佼者。此外，在短时间内 [Flutter](https://github.com/flutter/flutter) 已经收获 99.2K stars，13.7K forks 以及超过 3K 的开发者正在关注它，超过了 React Native 和 Ionic。
 
-**Ionic：** 作为最古老的框架之一，Ionic 经常改进自己的代码。它拥有第二高的社区支持和广阔的市场。从[流行程度](https://github.com/ionic-team/ionic-framework) 而言，它拥有 41.6K stars，13.3K forks 以及超过 1.8K 的开发者正在关注。
+**Ionic：** 作为最古老的框架之一，Ionic 经常改进自己的代码。它拥有第二高的社区支持和广阔的市场。从[流行程度](https://github.com/ionic-team/ionic-framework)而言，它拥有 41.6K stars，13.3K forks 以及超过 1.8K 的开发者正在关注。
 
 #### 4. 性能
 
-**Overview:** For any business, app performance is one of the most crucial deciding factors. The performance of the app depends on various factors, including the efficiency of writing code in that particular framework. But here we will evaluate performance by simply analyzing the runtime of the app.
+**总览：** 对于任何企业来说，应用程序的性能都是最重要的关键因素之一。应用程序的性能取决于各种因素，比如使用框架的编程效率。但在这里我们将通过简单分析应用程序的运行时间来评估性能。
 
-**React Native:** Since this framework uses native APIs and components, it helps you build an application that provides a native look and feel.
+**React Native：** 由于这款框架使用原生 API 和组件，它能帮你构建一款拥有原生外观的应用程序。
 
-**Ionic:** Unlike other frameworks, Ionic uses advanced web technologies, like HTML, CSS, JavaScript, that help in creating high performing hybrid apps. But it requires plugins and third-party packages to wrap your application in a native cover.
+**Ionic：** 与其他框架不同，Ionic 使用了高级的 web 技术，例如 HTML、CSS、JavaScript。借助它们来创建高性能的混合应用程序。但它需要插件和第三方包才能将应用程序包装成为原生系统支持的应用程序。
 
-**Flutter:** Undoubtedly React Native and Ionic both deliver excellent performance, but Flutter goes a step ahead as it provides ready-to-use plugins, a wide range of widgets, and its own rendering engine that helps in building beautiful, high-performance cross-platform applications.
+**Flutter：** 毫无疑问，React Native 和 Ionic 都提供了出色的性能，但 Flutter 更领先一步的是，为了帮助构建漂亮、高性能的跨平台应用程序，它提供了开箱即用的插件，广泛的小组件，以及它专属的渲染引擎。
 
-#### 5. User interface
+#### 5. 用户界面
 
-**Overview:** It’s only the app design and the user interface of the app that help users determine whether they will continue using this app further or uninstall it. React Native uses the React library to organize the UI and Ionic makes use of HTML and CSS, whereas Flutter ensures the best user interface comparatively to others.
+**总览：** 应用程序的设计和用户界面才能用户决定继续使用这款应用还是将它卸载。React Native 使用 React 这个库来组织 UI，而 Ionic 使用 HTML 和 CSS，不同的是 Flutter 和其他框架相比，确保了自适应系统的最佳用户界面。
 
-**React Native:** To deliver a native-like app experience, React Native utilizes React libraries that offer amazing UI.
+**React Native：** 为了能提供近似原生应用的体验，React Native 利用 React 库来提供让人惊艳的 UI。
 
-**Ionic:** Ionic is totally dependant upon web technologies, like HTML and CSS, to deliver a native-type app experience, but it also accesses Cordova to gain the look and feel of native apps.
+**Ionic：** Ionic 完全依赖 HTML 和 CSS 等 web 技术，支持原生类型的应用程序体验。同时它也使用 Cordova 获得原生应用程序的外观。
 
-**Flutter:** Undoubtedly, Flutter provides the [best user interface](https://flutter.dev/docs/development/ui) by simply skipping interactive bridges with native components, which is why a large number of mobile app development companies prefer to use Flutter for developing cross-platform apps. It’s true that Ionic can provide a cross-platform application, but as it uses Cordova for running JavaScript, it fails to beat the efficiency and performance of Flutter and React Native.
+**Flutter：** 毫无疑问，Flutter 通过跃过和原生组件的交互连接桥，提供了[最佳的用户界面](https://flutter.dev/docs/development/ui)。这也是为什么有数量十分庞大的移动应用开发者会选择 Flutter 作为跨平台应用的开发框架。Ionic 确实可以支持跨平台的应用程序，但由于它使用 Cordova 来运行 JavaScript，因此无法打败 Flutter 和 React Native 的效率和性能。
 
-#### 6. Current state of usage
+#### 6. 使用现状
 
-**Overview:** It’s perfectly fine to get impressed with any technology, but how the real world uses that framework or thinks about it is what really matters.
+**总览：** 当然可以对所有的技术都留一个深刻的印象，但现实生活中怎么使用或思考框架才是真正重要的。
 
-**React Native:** Whether it's about mobile or web app development, JavaScript is the king of programming languages. It has not only maintained its position in the top five programming languages but also keeps its importance in the app development industry. React Native is based on Javascript, and this is why a couple of leading companies, including Facebook, and Airbnb, have adopted this framework for development.
+**React Native：** 无论是移动还是 web 应用开发，JavaScript 都是编程语言中的王者。它不仅保持了在编程语言前五名的位置，而且在应用程序开发行业中保持着重要的地位。React Native 就是基于 JavaScript 的，并且这就是为什么包括 Facebook 和 Airbnb 在内的几家领先的公司采用此框架开发的原因。
 
-However, on the other side, you can’t ignore the fact that [Airbnb](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c) later switched to another technology. And because of this movement, the React Native team is working on getting rid of some of the documented limitations and problems.
+然而另一方面，你很难忽略关于 [Airbnb](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c) 改用另一种技术的事情。由于这次活动，React Native 团队正在努力摆脱已经记录在案的限制和问题。
 
-**Flutter:** Despite being relatively new, Flutter has already set the benchmark in the development industry by simply providing a complete software development kit to developers. With Flutter, not only is it easier to build beautiful apps, but it’s also quicker to edit code with the hot reload feature.
+**Flutter：** 尽管相比之下比较新，但 Flutter 只是简单的通过向开发者提供一份完整的软件开发工具包就在行业内树立了标杆。使用 Flutter，不仅可以轻松构建精美的应用程序，而且还可以通过热重载功能快速地编辑代码。
 
-With plenty of advanced features, Flutter has already impressed approximately 39% of developers and has been used to build some major applications, including Google’s AdWords. The way Flutter is rising in popularity and usage, it’s safe to predict that more great apps will be developed with Flutter. All you need is to hire an app developer with a solid command of this framework.
+Flutter 具有十分多的高级功能，已经让大约 39% 的开发者印象深刻，并已经用于一些重要应用程序的构建，包括 Google 的 AdWords。Flutter 越来越受欢迎，并且越来越多的人使用它，可以肯定的说 Flutter 将开发出更多出色的应用。你需要做的就是招聘能对这个框架有足够掌控力的开发者。
 
-**Ionic:** Comparatively, Ionic is the oldest framework, but still it has not developed any groundbreaking, outstanding app. Still, [86,400 development teams](https://ionicframework.com/customers) have leveraged Ionic to develop Android and iOS apps.
+**Ionic：** 相比之下，Ionic 是最老的框架，但它仍然没有开发过任何突破性、出色的应用程序。尽管如此，仍然有 [86,400 开发团队](https://ionicframework.com/customers)利用 Ionic 来开发 Android 和 iOS 应用程序。
 
-#### 7. Cost of app development
+#### 7. 应用开发成本
 
-**Overview**: Whether you are a startup or an entrepreneur, app development cost is one of everyone’s major concerns. The cost of app development is directly related to how long it takes to develop the app, the cost of the developer, and the libraries used.
+**总览：** 无论你是初创企业还是企业家，应用开发成本都是每个人主要担忧的问题之一。应用程序开发的成本与开发应用需要多长时间、开发人员的成本以及所使用的库直接相关。
 
-**React Native:** React Native is an open source framework and allows developers to access a wide choice of libraries for free. All you need to do to reap the maximum benefits of this framework is to hire a software development company that has a skilled team.
+**React Native:** React Native 是一款开源框架，允许开发人员免费接入各种各样的库。如果想将好处发挥到极致，你需要做的就是雇佣一支拥有熟练技术的软件开发团队。
 
-**Flutter:** Flutter is also an open source platform that allows developers to access a wide choice of widgets, libraries, and APIs for free. Moreover, you can easily find Flutter app developers with a starting price of $18 to $35+ all across the world.
+**Flutter：** Flutter 也是一个允许开发者免费接入小组件、库、API 的开源平台。此外，你也可以轻松地在全球各地找到 18 至 35 美元的 Flutter 开发者。
 
-**Ionic:** It is a free, open source cross-platform mobile app framework, but for a professional development environment, you need to go for the paid version. However, Iconic Pro can easily expedite the development process and make it easier for developers to create an application in real time.
+**Ionic：** 它是一个免费的，开源的跨平台移动应用框架，然而对于专业的开发环境，你需要购买付费版本。但是，Ionic 可以轻松加快开发进度，并且可以让开发者更轻松地实时创建应用程序。
 
-## Which Framework Will You Choose for Cross-Platform App Development?
+## 你最终将为跨平台应用程序开发选择哪种框架？
 
-After all these metrics and comparison, you need to first decide whether you want to stick with native languages, like Swift, Object C, C++, and Java, and want to proceed with the hassle of learning and mastering two different languages for developing two different apps. Or do you want to choose one framework that works well on multiple platforms?
+在完成所有的指标比较之后，你需要先确定是否仍然想使用 Swift、Object-C、C++ 和 Java 等原生语言，并继续麻烦的学习和掌握两种不同语言，用来开发两种不同系统的应用程序。或者你想选择一种可以在多个平台上正常工作的框架？
 
-Let’s assume you are ready to go with a cross-platform app development framework. How will you decide which is the best technology fit for you, even after reading this entire article?
+假设你已经准备好使用跨平台框架来开发应用程序。在阅读了整篇文章，你如何决定最适合你的技术框架呢？
 
-Let’s make it simple for you.
+让我稍微简化一下。
 
-If you’re looking for wrapped app solutions, then Ionic is the perfect solution for you. But as Ionic uses third-party components or Cordova to give a native-like feel to the app, it fails to beat the efficiency and performance of Flutter and React Native. On the other hand, Ionic ensures you a super-fast development experience and enables you to build two apps with one stack in less time.
+如果你正在寻找给应用程序包装的解决方案，那么 Ionic 是你的理想选择。但是由于 Ionic 使用第三方组件且由 Cordova 为应用程序提供了模拟原生的感觉，因此它从效率和性能上来说，无法打败 Flutter 和 React Native。另一方面，Ionic 可以确保你获得一个超级快速的开发体验，并使你能够在更少的时间内，同时构建两个应用程序。
 
-Secondly, if performance and the need to access a wide range of native device features are priorities, then Flutter and React Native can be the ultimate choice for you.
+其次，如果性能和使用数量众多的原生设备功能是当务之急，那么 Flutter 和 React Native 可能是你的最终选择。
 
-Rest easy — everything has been explained in detail above.
+放轻松，上面已经详细解释了关于它们的所有内容。
 
-## Final Thoughts
+## 最后的想法
 
-To wrap up this article, it’s worth saying that our aim is not to announce the winner of the cross-platform app development frameworks. Instead, the simple aim of this article is to help you understand the strengths and limitations of these three top cross-platform frameworks so you can make a perfect choice for your app development.
+总结一下这篇文章，不得不提的是，我们的目的不是宣传跨平台应用开发框架哪个获胜。相反，本文简单的目的是帮助你理解这三个跨平台框架的优点和局限性，以便你能够为应用程序开发框架做出一个完美的选择。
 
-After evaluating various survey reports and statistics, this article has analyzed the information and carried out a detailed comparison between these three titans.
+在评估了各种调查报告后和统计数据之后，本文对信息进行了分析，并对这三个框架中的巨头进行了详细的比较。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
