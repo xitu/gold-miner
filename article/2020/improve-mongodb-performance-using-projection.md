@@ -15,7 +15,7 @@
 
 ## 问题描述
 
-这篇文章的灵感来源于我在工作中使用[映射](https://docs.mongodb.com/manual/reference/glossary/#term-projection)在 MongoDB 数据库中查询数据时。映射就是**在文档中查询时指定返回的结果集字段**具体可以查看 MongoDB 的官方[文档](https://docs.mongodb.com/manual/reference/glossary/#term-projection)
+这篇文章的灵感来源于我曾在工作中使用[映射](https://docs.mongodb.com/manual/reference/glossary/#term-projection)在 MongoDB 数据库中查询数据。映射就是**“在文档中查询时指定返回的结果集字段”**具体可以查看 MongoDB 的官方[文档](https://docs.mongodb.com/manual/reference/glossary/#term-projection)
 
 就像在麦当劳里买汉堡一样，我们可以选择单点一些菜品，而不是选择包含饮料和薯条的套餐。
 
@@ -23,7 +23,7 @@
 
 #### 主要目标：
 
-* 查询 MongoDB 时使用映射是否能提高查询性能。
+* 检测 MongoDB 时使用映射是否能提高查询性能。
 * 寻找 MongoDB 中使用映射查询的最佳方案。
 
 ## 解决方案分析
@@ -39,16 +39,16 @@
 
 上面这张截图中可以看到，我们已经生成了 50 万条用下面这些字段组成的文档：
 
-* `booking_no` - 航班编号
-* `origin` - 始发地
-* `destination` - 目的地
-* `persons` - 由包含 `姓`, `名` 和 `出生日期` 对象组成的数组
+* `booking_no` — 航班编号
+* `origin` — 始发地
+* `destination` — 目的地
+* `persons` — 由包含 `姓`、 `名` 和 `出生日期` 对象组成的数组
 
 ## 性能试验
 
-在开始性能试验之前，请确保所有的配置正确。除了 `_id` 索引以外，没有创建其他的索引。
+在开始性能试验之前，请确保所有的配置正确。除了默认的 `_id` 字段以外，没有创建其他的索引。
 
-下面是我想做的实验：
+下面是我想演示的实验：
 
 * 实验 1：查询的性能会因为映射字段的减少而提高吗？
 * 实验 2：如果减少字段不能提高查询性能，还有哪些方法能够提升查询性能？
@@ -57,7 +57,7 @@
 
 不幸的是，性能并没有提高。但是如果把所有查询的字段加上索引，会提高查询性能，我将在下一章节讨论这一点。
 
-在这次实验中，我们查询所有购买了目的地为 “Gerlachmouth” 的订单。在 50 万笔订单中，满足条件的有 93 个订单。我们来看下需要多少时间。
+在这次实验中，我们查询所有目的地为 “Gerlachmouth” 的航班订单。在 50 万笔订单中，满足条件的有 93 个订单。我们来看下需要多少时间。
 
 为了查看消耗的时间，我使用了 Mongo Shell Explain 函数。
 
@@ -69,7 +69,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1jXiJv35xCeu0cYVUtsuZQ.png)
 
-在查询中使用映射，实验 1 的结论是 - 性能没有提高。👎👎
+在查询中使用映射，实验 1 的结论是 —— 性能没有提高。👎👎
 
 ## 实验 2：如果减少字段不能提高查询性能，还有哪些方法能够提升查询性能？
 
@@ -86,7 +86,7 @@
 根据上面知道的这些信息，我们可以创建两个索引。
 
 * 目的地 — 在 `目的地` 字段上创建索引。
-* 目的地, 始发地, 和 航班号。 — 我们可以在字段 `目的地`, `始发地` 和 `航班号` 上创建联合索引。
+* 目的地、 始发地 和 航班号。 — 我们可以在字段 `目的地`、 `始发地` 和 `航班号` 上创建联合索引。
 
 如何创建索引，请参考下面的命令。
 
@@ -120,9 +120,9 @@
 
 ## 参考
 
-* 查询项目所需的字段 — MongoDB [文档](https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/)
-* StackOverflow 中给出的 [详细解释](https://dba.stackexchange.com/questions/198444/how-mongodb-projection-affects-performance)
-* 结果说明 — MongoDB [文档](https://docs.mongodb.com/manual/reference/explain-results/#executionstats)
+* Projects Field From Query — MongoDB [Documentation](https://docs.mongodb.com/manual/tutorial/project-fields-from-query-results/)
+* A Thorough Explanation from [StackOverflow](https://dba.stackexchange.com/questions/198444/how-mongodb-projection-affects-performance)
+* Explain Output — MongoDB [Documentation](https://docs.mongodb.com/manual/reference/explain-results/#executionstats)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
