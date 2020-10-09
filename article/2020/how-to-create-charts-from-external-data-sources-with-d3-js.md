@@ -11,19 +11,19 @@
 
 福布斯于 2018 年年中的统计显示，人类[每天约产生 2.5EB](https://www.forbes.com/sites/bernardmarr/2018/05/21/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/) 的数据。 随着对如此海量数据的机器学习算法的研究，强大的可视化技术有助于将所见以一个正确的方式呈现出来。数据可视化还可以帮助读者更快地处理数据并记住数据的关键特征。在过去的十年中，对可视化专家的需求也在增加。
 
-D3 是一个运行于 web 端的 Javascript 可视化库。D3 的第一个版本发布于 2011 年，并且随着社区支持的增加而成熟。 对于早期版本的 D3，学习曲线有些陡峭，但对于 JavaScript 初学者来说，最新版本学习起来更容易。 大多数为 Web 构建的可视化都依赖于动态数据源——因此，本文的目的是使您能够在 D3 中使用外部数据源创建图表。
+D3 是一个运行于 web 端的 Javascript 可视化库。D3 的第一个版本发布于 2011 年，并且随着社区支持的增加而成熟。 对于早期版本的 D3，学习曲线有些陡峭，但对于 JavaScript 初学者来说，最新版本学习起来更容易。大多数为 Web 构建的可视化都依赖于动态数据源 —— 因此，本文的目的是使您能够在 D3 中使用外部数据源创建图表。
 
 ## D3 中的柱状图
 
-在 D3 中加载外部数据之前，让我们创建一个基本的柱状图，并在加载外部数据后，重新绘制该柱状图。 首先，通过下面的一行代码来加载D3 脚本。
+在 D3 中加载外部数据之前，让我们创建一个基本的柱状图，并在加载外部数据后，重新绘制该柱状图。 首先，通过下面的一行代码来加载 D3 脚本。
 
 ```html
 <script src="https://d3js.org/d3.v5.min.js"></script>
 ```
 
-你可能会发现，网络上的绝大部分的 D3 教程都是基于 v3 或者是 v4 版本的。但是本文中我们会使用在 2018 年的早期发布的 v5 版本的 D3 库。[最新版本的D3库]((https://github.com/d3/d3/releases/tag/v5.12.0))大概是一个月前发布的（译注：最新版本的 D3 发布于 2019 年的 9 月）。
+你可能会发现，网络上的绝大部分的 D3 教程都是基于 v3 或者是 v4 版本的。但是本文中我们会使用在 2018 年的早期发布的 v5 版本的 D3 库。[最新版本的 D3 库](https://github.com/d3/d3/releases/tag/v5.12.0)大概是一个月前发布的（译注：最新版本的 D3 发布于 2019 年的 9 月）。
 
-[D3.js 的 changelog](https://github.com/d3/d3/blob/master/CHANGES.md#selections-d3-selection) 记录了版本之间的改动。就本文而言，需要注意 v4 中的数据加载方式与 v5 中的加载方式不同。
+[D3.js 的 changelog](https://github.com/d3/d3/blob/master/CHANGES.md#selections-d3-selection) 记录了版本之间的改动。就本文而言，需要注意 v4 与 v5 的加载方式不同。
 
 首先让我们定义标题和数据。
 
@@ -72,7 +72,7 @@ d3.select("body")
   .style("height", "15px");
 ```
 
-这样一来你的简单柱状图就设置完成了。你可以在 [CodePen](https://codepen.io/shaumik/pen/RwwNLQb) 上查看它。 若是需要再向柱状条添加标签，可以遍历数据源从而给对应的表示柱状条的 `div` 元素再添加一个文本元素。
+这样一来你的简单柱状图就设置完成了。你可以在 [CodePen](https://codepen.io/shaumik/pen/RwwNLQb) 上查看它。 若是需要再向柱状条添加标签，可以遍历数据源从而给与之对应柱状条的 `div` 元素再添加一个文本元素。
 
 现在让我们尝试使用外部文件源。
 
@@ -80,7 +80,7 @@ d3.select("body")
 
 如果数据与网页大小（平均约 2 MB），相比足够大，那么如果您声明此数据为内联，可能会通过增加加载时间而带来不便。 因此，将其保存在文件中是一个好习惯。 CSV（逗号分隔值）文件中的数据结构如下所示。
 
-我们用于创建柱状图的外部[数据](https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv)已经上传到了 Github 中，CSV（逗号分隔值）文件以逗号分隔保存的数据。文件的内容如下所示：
+我们用于创建柱状图的外部数据已经[上传到 Github](https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv)，CSV（逗号分隔值）文件以逗号分隔保存的数据。文件的内容如下所示：
 
 ```
 type,amount
@@ -130,7 +130,7 @@ d3.text("/path/to/file.txt").then(function(text) {
 });
 ```
 
-如果您的文件由其他分隔符分隔，则可以使用 `dsv()` 函数。唯一的区别是第一个参数，用于表明文件的分隔符。您也可以使用 `dsv()` 函数并使用逗号分隔符参数来加载 CSV 文件。
+如果您的文件由其他分隔符分隔，则可以使用 `dsv()` 函数。唯一的区别是第一个参数，用于表明文件的分隔符。您也可以使用 `dsv()` 函数并使用逗号作为分隔符参数来加载 CSV 文件。
 
 ```js
 d3.dsv(',', 'https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.csv',
@@ -165,7 +165,7 @@ d3.csv('https://raw.githubusercontent.com/sdaityari/my_git_project/master/posts.
 
 与前一个函数的唯一区别在于，需要在 `csv()` 函数中进行 `data()` 调用。由于列名相同，因此其余代码保持不变。
 
-利用外部数据绘制的同样的柱状图可以在 [CodePen](https://codepen.io/shaumik/pen/mGWRzm) 查看。
+利用外部数据绘制的相同柱状图可以在 [CodePen](https://codepen.io/shaumik/pen/mGWRzm) 查看。
 
 ## 实时数据
 
