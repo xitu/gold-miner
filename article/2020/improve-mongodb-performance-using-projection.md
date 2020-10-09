@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/improve-mongodb-performance-using-projection.md](https://github.com/xitu/gold-miner/blob/master/article/2020/improve-mongodb-performance-using-projection.md)
 > * 译者：[onlinelei](https://github.com/onlinelei)
-> * 校对者：[ivileey](https://github.com/ivileey)
+> * 校对者：[ivileey](https://github.com/ivileey)，[loststar](https://github.com/loststar)
 
 # 利用映射提高 MongoDB 性能
 
