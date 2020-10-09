@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/12032/1*_2y7jPirLNtPHduWzlgphQ.jpeg)
 
-福布斯于 2018 年年中的统计显示，人类[每天约产生 2.5EB](https://www.forbes.com/sites/bernardmarr/2018/05/21/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/) 的数据。 随着对如此海量数据的机器学习算法的研究，强大的可视化技术有助于将所见以一个正确的方式呈现出来。数据可视化还可以帮助读者更快地处理数据并记住数据的关键特征。在过去的十年中，对可视化专家的需求也在增加。
+福布斯于 2018 年年中的统计显示，人类[每天约产生 2.5EB](https://www.forbes.com/sites/bernardmarr/2018/05/21/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/) 的数据。随着对如此海量数据的机器学习算法的研究，强大的可视化技术有助于将所见以一个正确的方式呈现出来。数据可视化还可以帮助读者更快地处理数据并记住数据的关键特征。在过去的十年中，对可视化专家的需求也在增加。
 
 D3 是一个运行于 web 端的 Javascript 可视化库。D3 的第一个版本发布于 2011 年，并且随着社区支持的增加而成熟。 对于早期版本的 D3，学习曲线有些陡峭，但对于 JavaScript 初学者来说，最新版本学习起来更容易。大多数为 Web 构建的可视化都依赖于动态数据源 —— 因此，本文的目的是使您能够在 D3 中使用外部数据源创建图表。
 
