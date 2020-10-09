@@ -2,185 +2,185 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/performance-metrics-for-front-end-applications.md](https://github.com/xitu/gold-miner/blob/master/article/2020/performance-metrics-for-front-end-applications.md)
-> * 译者：
+> * 译者：[niayyy](https://github.com/nia3y)
 > * 校对者：
 
-# Performance Metrics for Front-End Applications
+# 前端应用的性能指标
 
 ![](https://cdn-images-1.medium.com/max/2560/1*V7jvAKZ4UKLwQ3ET2r9CuQ.jpeg)
 
-The web has become an integral part of our daily lives. According to [CreditLoan](https://www.creditloan.com/blog/how-the-world-spends-its-time-online/), an average user would spend 7.6 hours online and spend around 20% of their time surfing the web. You can only imagine the extent of the numbers right now, when everyone is at home, during this devastating year of 2020.
+网络已经成为我们日常生活中不可或缺的一部分。根据 [CreditLoan](https://www.creditloan.com/blog/how-the-world-spends-its-time-online/) 调查显示，用户平均每天花费 7.6 小时上网，其中 20% 的时间用来网上冲浪。在 2020 年这个充满灾难的一年，你可以想象现在每人在家上网的时间数是多少。
 
-These numbers show how much of am impact the mighty web has on us. To fully utilize this huge opportunity, websites should be of a very high standard. It is easy for someone to build a good-looking website. But it is quite tricky for it to be of great performance. This is because of the numerous bottlenecks present in web development such as expensive JavaScript, slow web font delivery, heavy images, etc.
+这些数字体现了网络对我们有多么重大的影响。为了充分利用这个大的机会，网站应该有非常高的标准。构建一个好看的网站是容易的，但是要获得出色的性能是非常困难的。这是因为 Web 开发中存在许多瓶颈，像：昂贵的 JavaScript、缓慢的网络字体交付、大型的图片等。
 
-You can have the most beautiful and engaging website in the world, but if it performs poorly on the user’s browser, people would disregard it.
+你可以拥有世界上最美丽、最吸引人的网站，但是如果对于用户浏览器来说，网站性能表现非常差，人们也不会去使用它。
 
-## User-centric Performance and Why is It Important?
+## 以用户为中心的性能及其重要性
 
-Now we know why we should start improving the performance of our websites.
+现在我们知道为什么我们应该开始改善我们网站的性能了。
 
-> According to [Vitaly](https://www.smashingmagazine.com/author/vitaly-friedman/), as a general rule of thumb, you should aim to be at least 20% faster than your fastest competitor.
+> 通过 [Vitaly](https://www.smashingmagazine.com/author/vitaly-friedman/)，一般而言，你的目标应该是要比最快的竞争对手快至少 20%。
 
-But when we talk about performance, what do we really mean?
+但是当我们讨论性能时，我们真正的目的是什么？
 
-As [Philip](https://web.dev/authors/philipwalton/) says, “performance is relative”. There can be instances where your site would load super fast on a user’s device, while it is sluggish on another. Two websites can take the same time to load, yet one can seem to load faster by loading content progressively. This creates the illusion of the page already being loaded and ready while it is actually loading in the background.
+正如 [Philip](https://web.dev/authors/philipwalton/) 所说，“性能是相对的”。在某些情况下，你的网站可以在用户手机上加载的非常快，而在其他设备上却很缓慢。两个网站可能花费相同的时间来加载，但一个网站似乎可以通过渐进式加载来更快地显示内容。这会造成页面已经被加载并准备就绪的错觉。
 
-On another instance, the web page can actually load fast, but it can take a long time for it to become responsive as there are several blocking processes running in the background.
+另一种情况是，Web 页面能够快速加载，但是后台运行着多个阻塞进程，因此可能需要很长时间页面才能响应。
 
-Therefore it is important to be precise and to refer to performance in terms of objective criteria that can be quantitatively measured.
+因此，最重要的是要精确并根据可以定量测量的客观标准来衡量性能。
 
-#### Why is it important?
+#### 为什么是重要的？
 
-Traditionally, page events such as `load` were used to measure performance. But in fact, this does not necessarily correspond with anything the user cares about.
+传统意义上，页面事件，像 `load` 被用来衡量性能。但是实际上，这不一定符合用户关心的事情。
 
-For example, a website may “load” a minimal page immediately, but then defers fetching content and takes several seconds to display any useful content on the page. This may happen after the page load event. Despite technically having a faster “**load time**”, that time does not relate to the actual user experience as the useful content takes several more seconds to exist.
+例如，一个网站可能立刻 `load` 一个最小的页面，但随后推迟获取内容，并需要花费几秒钟的时间在页面上显示有用的内容。这可能发生在页面 `load` 事件之后。尽管从技术上讲，“**加载时间**”更短，但加载时间与实际的用户体验无关，因为有用的内容还需要几秒钟的时间才能显示。
 
-## Metrics — Grouped
+## 指标 —— 分类
 
-The performance metrics can be grouped under several categories.
+性能指标可能被分为一下几类。
 
-* Quantity-based metrics
-* Milestone metrics
-* Rendering metrics
-* Custom metrics
+* 基于数量的指标
+* 里程碑指标
+* 渲染指标
+* 自定义指标
 
-#### Quantity-based metrics
+#### 基于数量的指标
 
-Measures the number of HTTP requests, weight due to resources such as images, styles, JavaScript, HTML.
+衡量 HTTP 请求的数量，尺寸取决于图片、样式、JavaScript、HTML 等资源。
 
-**Useful for**
+**有用的**
 
-* Raising alarms — they let you know of how healthy your website is by letting you know whether your web application exceeds the performance budget. They also help monitor your web application over time and is considered one of the simplest metrics.
+* 发出警报 —— 他们通过让你知道的 Web 应用程序是否超出性能预算来告知你网站的运行状况。它也能帮助监控你的 Web 应用程序是否超时并被认为是最简单的性能指标。
 
-**Not useful for**
+**无用的**
 
-* Knowing the user experience — they are unable to elaborate on the user-perceived information as these metrics are mostly concerned on the straightforward attributes.
+* 了解用户体验 —— 他们无法详细说明用户感知的信息，因为这些指标主要与直接属性有关。
 
-#### Rule-based metrics
+#### 基于规则的指标
 
-These metrics are generated by web applications and browser extensions based on predefined rules. You would receive either a single output value/score or a series of ratings to your site. Applications such as Google Pagespeed Insights and Lighthouse provide rule-based metrics.
+这些指标由 Web 应用程序和浏览器扩展根据预定义规则生成的。你将获得单个输出值/分数或一系列站点评级。谷歌 Pagespeed Insights 和 Lighthouse 等应用程序提供基于规则的指标。
 
-**Useful for**
+**有用的**
 
-* Scores make it easier to communicate, measure, and track performance as they are easily representable. In other words, it is easily interpretable as higher scores directly imply better performance.
-* Provide “action items” or rather tips on how to improve each score or rating.
+* 分数很容易表示，因此可以更简单地交流、衡量和跟踪绩效。换句话说，它很容易解释，因为更高的分数直接表明了更好的性能。
+* 提供“活动项”或关于如何提高每项分数或评级的提示。
 
-**Not useful for**
+**无用的**
 
-* Knowing the user experience — similar to quantity-based metrics, these metrics are unable to elaborate on the user-perceived information as these metrics are based on predefined rules which are known to change over time. There are some applications and extensions which do provide user-centric feedback.
+* 知道用户体验 —— 与基于数量的指标类似，这些指标无法详细说明用户感知的信息，因为这些指标基于随时间变化的已知规则。有一些应用程序和扩展确实提供了以用户为中心的反馈。
 
-#### Milestone metrics
+#### 里程碑指标
 
-These metrics are usually time-based and can be easily viewed from your browser developer tool’s network tab. Metrics such as ‘**Page Load**’ ‘**DOMContentLoaded**’ are a part of milestone metrics. The ‘**Time to First Byte**’ metric which is also a part of this group, helps you understand the speed of your backend server.
+这些指标通常是基于时间的，可以从浏览器开发者工具的网络标签轻松查看。像“**页面加载**”、“DOMContentLoaded” 之类的指标是里程碑指标的一部分。“**获取第一个字节的时间**”指标也是这组的一部分，可帮助了解后端服务器的响应速度。
 
-Another new addition to this group of metrics is ‘**Time to Interactive**’. This metric tells you when your page is ready for user interaction. In other words, when your page becomes ready for users to interact with it. This is an important addition as a loaded page which is not ready for user interaction is equal to an unloaded page.
+这组的另一个新增指标是“可交互时间”。这个指标告诉你页面何时可以进行用户交互。换句话说，当页面准备好供用户进行交互时。这是一个重要的补充，因为尚未准备好进行用户交互的已加载页面等于未加载页面。
 
-**Useful for**
+**有用的**
 
-* Describe user experience as the milestones are from the user’s end and depict the user’s perception.
-* Easy to track as the metrics are based on time.
-* Visualizations are simple and easily understandable.
+* 将用户端的用户体验描述为里程碑，并描述用户的感知。
+* 基于时间的指标易于跟踪。
+* 可视化很简单，很容易理解。
 
-**Not useful for**
+**无用的**
 
-* Does not reveal the whole picture — what the user sees between the milestones are not captured in these metrics.
+* 不能显示整体情况 —— 这些指标未捕获用户在里程碑之间看到的内容。
 
-#### Rendering metrics
+#### 渲染指标
 
-Rendering metrics help you fill the gaps from the milestone metrics by revealing the user’s visual experience as to what they see on the screen. This combined with milestone metrics can be very powerful.
+呈现指标通过揭示用户在屏幕上看到的内容的视觉体验，来帮助填补里程碑指标的空白。结合里程碑指标将会非常强大。
 
-**Useful for**
+**有用的**
 
-* Describing the user experience as they are capable of handling the visual experience from the user’s perspective
-* Identify your rendering performance
+* 描述用户体验，因为他们能够从用户的角度处理视觉体验
+* 标识渲染性能
 
-**Not useful for**
+**无用的**
 
-* Prioritizing pixels — they do not know which pixels are important. In other words, it does not know to disregard visual content with no real value to the user such as ads and popups.
-* Cannot identify interactivity — does not know when the user can interact with the visual content.
+* 像素优先级 —— 他们不知道哪些像素是重要的。换句话说，它不知道忽略对用户没有任何实际价值的视觉内容，例如广告和弹窗。
+* 无法识别交互性 —— 不知道用户何时能与视觉内容进行交互。
 
-#### Custom metrics
+#### 自定义指标
 
-[Custom metrics](https://web.dev/user-centric-performance-metrics/#custom-metrics) are triggered when something happens for your user’s experience. You will use APIs such as the User Timing API to get the metrics from the browser and pass them onto your servers.
+当用户体验发生变化时，将触发[自定义指标](https://web.dev/user-centric-performance-metrics/#custom-metrics)。使用诸如 User Timing 之类的 API 从浏览器获取指标并将其传递到服务器上。
 
-**Useful for**
+**有用的**
 
-* Describe the user experience as the metrics are focused on the user’s real data.
+* 描述指标集中于用户的真实数据时的用户体验。
 
-**Not useful for**
+**无用的**
 
-* Comparing with competitors as the metrics are unique to your website. For example, “Time to First Tweet” metric of Twitter cannot be compared with a custom metric of Facebook as they do not mean the same thing.
+* 与竞争对手相比，因为你的网站的指标是独一无二的。例如，Twitter 的“首次发布时间”指标不能与 Facebook 的自定义指标进行比较，因为它们并不意味着同一件事。
 
-## Key Metrics — Highlights
+## 关键指标 —— 重点
 
-As we are now aware of the groups of metrics, let us look at some key metrics which belong to these groups.
+现在我们知道了指标组，让我们看一下属于这些组的一些关键指标。
 
-#### Time to Interactive(TTI)
+#### 可交互时间（TTI）
 
-This is the point where everything is stable enough to handle user interaction. In other words, when the layout has stabilized, key web fonts are visible, and the main thread is available free enough to handle user input. This metric is key to understand how long the user has to wait in order to interact with the website without any delay or lag.
+在这一点上，一切都足够稳定，可以处理用户交互。换句话说，当布局稳定后，将显示关键的 Web 字体，并且主线程有足够的空闲时间来处理用户输入。这个指标对于理解用户需要等待多长时间才能与网站进行无延迟或延迟的交互至关重要。
 
-#### First Input Delay (FID)
+#### 首次输入延迟（FID）
 
-This is also known as the **Input Responsiveness**. It is the time from when the user interacts with your website and the time your website is able to respond to that interaction. This enhances the TTI as FID fills up the gap as to what happens when the user interacts with the website. This is a Real User Metric(RUM) and can be measured with the help of some JavaScript [libraries](https://github.com/GoogleChromeLabs/first-input-delay) on the browser.
+这也称为**输入响应性**。从用户与网站进行交互到网站能够响应交互的时间。由于 FID 填补了用户与网站交互时发生的空白，因此增强了 TTI。这是一个真实用户指标（RUM），可以在浏览器中的一些 JavaScript [库](https://github.com/GoogleChromeLabs/first-input-delay)的帮助下进行测量。
 
-#### Largest Contentful Paint (LCP)
+#### 最大内容绘制（LCP）
 
-Denotes the point in the page lifecycle where the page’s important content has likely loaded. Although this is based on an assumption that the most important element of the page is the largest one visible in the user’s viewport. If the content has been rendered above and below the visible region(fold), only the one above is taken into consideration — the part which is visible to the user.
+表示页面生命周期中页面的重要内容可能已加载的位置。尽管这是基于以下假设：页面的最重要元素是用户视口中可见的最大元素。如果内容已在可见区域（折叠）的上方和下方渲染，则只考虑上面的内容 —— 用户可见的部分。
 
-#### Total Blocking Time (TBT)
+#### 总阻塞时间（TBT）
 
-TBT is a metric that helps quantify the severity of how long a web page takes to be interactive. TBT measures the time between the first paint and Time to Interactive (TTI). A lower TBT is an indicator of good performance.
+TBT是一个帮助量化web页面交互时间的严重性的指标。TBT 测量的是第一次绘制和可交互时间（TTI）之间的时间。较低的 TBT 表示较好的性能。
 
-#### Cumulative Layout Shift (CLS)
+#### 累积布局偏移（CLS）
 
-CLS examines how unstable the website elements are. It highlights how often users experience unexpected layout shifts (**reflows**) and their impact on the overall user experience.
+CLS 检查网站元素的不稳定程度。它突出了用户多久遇到意外布局的偏移（回流）及其对整体用户体验的影响。
 
-Let’s have a look at how unexpected layout shifts can have a negative impact on the UX.
+让我们看一下意外的布局偏移如何对用户体验产生负面影响。
 
 ![Source: [Web.dev](https://web.dev/cls/)](https://cdn-images-1.medium.com/max/2632/1*lbPHYbFOBwMs7yN4hcmjeA.gif)
 
-#### Speed Index
+#### 速度指数
 
-The speed index measures how quickly the page contents are visually filled. This score is computed based on the visual progress yet it is merely a calculation. As this metric is concerned on the visual perspective, the viewport size has a direct impact on the speed index. Therefore you need to define your viewport sizes to match your target audience to get a more meaningful score.
+速度指数衡量页面内容在视觉上的填充速度。这个分数是根据视觉进度计算出来的，但这仅仅是一个计算。由于此度量标准是从视觉角度考虑的，因此视口大小直接影响速度指标。因此，需要定义视口大小以匹配目标受众，以获得更有意义的分数。
 
-#### CPU time spent
+#### 花费的 CPU 时间
 
-This metric reveals the time the main thread is blocked. It shows **how often** and **how long** the CPU/main thread is blocked for tasks such as painting, rendering, scripting and loading. If your web application has a high CPU time, it would give the user an unpleasant laggy experience. Can be calculated with the help of WebPageTest.
+这个指标显示了主线程被阻塞的时间。它显示了 CPU/主线程被阻止执行的**频率**和**时间**，例如绘制、渲染、脚本和加载。如果你的 Web 应用程序具有很高的 CPU 时间，它将给用户带来不愉快的延迟体验。可以借助 WebPageTest 进行计算。
 
-#### Component-Level CPU Costs
+#### 组件级 CPU 成本
 
-Similar to the CPU time spent, this metric focuses on the cost of JavaScript. The overall idea is to use CPU instruction count per component in understanding its impact on the overall experience, in isolation.
+与花费的 CPU 时间类似，此指标侧重于JavaScript 的成本。总体思路是使用每个组件的 CPU 指令计数，以了解其对总体体验的影响。
 
-Can be implemented with the help of [Puppeteer](https://calendar.perfplanet.com/2019/javascript-component-level-cpu-costs/).
+可以通过 [Puppeteer](https://calendar.perfplanet.com/2019/javascript-component-level-cpu-costs/) 实施。
 
-#### Frustration Index
+#### 挫折指数
 
-When a user gets frustrated, they leave your web page. All of the above-discussed metrics focus on individual events. But the frustration index by [Tim Vereecke](https://calendar.perfplanet.com/2019/frustrationindex-mind-the-gap/) concentrates on the **gaps** between metrics instead of looking at them individually. This metric takes a look at the key milestones in the page and calculates the level of frustration the user will endure during the page load, as a score.
+当用户感到沮丧时，他们会离开你的网页。上面讨论的所有指标都针对单个事件。但是 [Tim Vereecke](https://calendar.perfplanet.com/2019/frustrationindex-mind-the-gap/) 的沮丧指数集中在指标之间的**差距**上，而不是单独进行查看。这个指标查看页面中的关键里程碑，并计算用户在页面加载期间承受的挫败程度，以此作为得分。
 
-This is a key performance indicator for user experience as it wholely focuses on the user.
+这是用户体验的关键性能指标，因为它完全关注用户。
 
-#### Ad Weight Impact
+#### 广告权重影响
 
-If your web site has advertisements to generate revenue, it is essential for you to know the extra burden it would cause the user as it can degrade the performance of your web page. A [script](https://calendar.perfplanet.com/2017/measuring-adweight/) created by Paddy Ganti helps you find out the weight of your ad-related code.
+如果您的网站上通过广告来产生收入，那么你必须知道它会给用户带来的额外负担，因为它可能会使网页性能下降，这对你至关重要。由 Paddy Ganti 创建的一个[脚本](https://calendar.perfplanet.com/2017/measuring-adweight/)可以帮助你找出广告相关代码的权重。
 
-#### Deviation metrics
+#### 偏差指标
 
-We spoke about a lot of different metrics. But one of the issues with all of the above metrics is consistency. The variance in your results shows how reliable your web site is across the network. This would also signify as to how much attention you must give to your system and infrastructure to provide a streamlined service. Specific pages can give a bigger variance due to some external scripts which are pretty unreliable. As Vitaly says, it is also a good idea to keep track of the browser versions supported to get a better idea on performance.
+我们谈到了许多不同的指标。但是上述所有指标的问题都存在的问题是一致性。结果的差异表明你的网站在整个网络中的可靠性。这也表示你必须对系统和基础结构给予多少关注才能提供简化的服务。由于某些外部脚本非常不可靠，因此特定页面的差异可能更大。正如 Vitaly 所说，跟踪受支持的浏览器版本也是一个好主意，可便于更好地了解性能。
 
-## Why Should You Consider a Combination of Metrics for Your Website?
+## 为什么要为你的网站考虑指标组合？
 
-Each website is different with its own target audience. Depending on what your website does, whom it caters to, you should focus more on specific metrics.
+每个网站都有自己的目标受众。根据网站的功能和服务对象，你应将重点更多地放在特定指标上。
 
-For example, if you are a streaming provider, you should concentrate more on the key input responsiveness, memory usage and TTI as they are essential for your application. But if you are website with more readable content such as Wikipedia and Medium, you should focus more on the visual changes and the CPU metrics. If you have your own blog with integrated ads, you should also focus on the ad weight impact. Moreover, the frustration index can be applied to all the above examples, as the key goal of any website is to avoid user frustration as it can have a negative impact on user experience.
+例如，如果您是流媒体提供商，则应将更多的精力放在输入响应性、内存使用率和 TTI 这些关键点上，因为它们对于你的应用程序至关重要。但是，如果您的网站上的内容更关注可读性，例如 Wikipedia 和 Medium，则应更多地关注外观变化和 CPU 指标。如果你自己的博客中集成了广告，则还应该关注广告权重的影响。此外，挫折指数可以应用于所有上述示例，因为任何网站的主要目标都是避免用户受挫，因为它可能对用户体验产生负面影响。
 
-> You only get one chance to make a first impression. Make it count.
+> 你只有一次机会给人留下第一印象。使其计数你只有一次留下深刻印象的机会。使其发挥作用。
 
 ---
 
-That’s it for this article. I highly recommend you go through the below resources as they are highly educative regarding this vast domain of web performance.
+这是本文的全部内容。我强烈建议你阅读以下资源，因为它们对于 Web 性能这个广泛的领域非常有教育意义。
 
 
-**Resources**
+**资源**
 - [Front-End Performance Checklist 2020 by Vitaly Friedman](https://www.smashingmagazine.com/2020/01/front-end-performance-checklist-2020-pdf-pages/)
 - [Presentation by Marcos Iglesias](https://docs.google.com/presentation/d/e/2PACX-1vTk8geAszRTDisSIplT02CacJybNtrr6kIYUCjW3-Y_7U9kYSjn_6TbabEQDnk9Ao8DX9IttL-RD_p7/pub?start=false&loop=false&delayms=10000&slide=id.g3ccc19d32d_0_98)
 - [Article by Steve Souders](https://speedcurve.com/blog/rendering-metrics/)
