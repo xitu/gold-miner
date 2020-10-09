@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# I built the same API with & without Express. Here are the differences.
-
-#### And ran a benchmark
+# Express vs. http - API Benchmark
 
 ![Source: The author](https://cdn-images-1.medium.com/max/2794/1*UwjbdzSkB6KnS9SCM-wx3Q.png)
 
@@ -34,7 +32,33 @@ Then the two responses of the different servers should be exactly the same size.
 
 **The Express.js API:**
 
+```js
+const express = require("express")
+const app = express()
+app.disable('x-powered-by');
+app.get("/api", (req, res) => {
+  res.end(`Hey ${req.query.name} ${req.query.lastname}`)
+})
+
+app.listen(5000)
+```
+
 **The API without Express.js:**
+
+```js
+const http = require("http")
+const url = require("url")
+
+const app = http.createServer((req, res) => {
+    const parsedURL = url.parse(req.url, true)
+    if(parsedURL.pathname === "/api") {
+        res.end(`Hey ${parsedURL.query.name} ${parsedURL.query.lastname}`)
+    }
+})
+
+
+app.listen(5000)
+```
 
 Logically, both APIs do absolutely the same thing. They only respond to the **/api-route** and return the query parameters they receive.
 
@@ -135,12 +159,6 @@ The documentation and resources found on the Internet for Express alone are nume
 Sending 10000 requests to a server in such a short time is also a rather unrealistic scenario — of course, the response time with Express is also higher, but under normal circumstances, this should not cause any problems for anyone.
 
 Thank you for reading!
-
-More about Express.js:
-[**3 Express.js features you need to know**
-**Almost all major Node.js apps rely on the Express.js framework, here are a few important features that you should know.**medium.com](https://medium.com/javascript-in-plain-english/3-express-js-features-you-need-to-know-8f78b0035f33)
-
-[**Join my mailing list to stay in touch**](http://eepurl.com/hacY0v)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
