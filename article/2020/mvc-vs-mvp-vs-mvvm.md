@@ -9,93 +9,93 @@
 
 ![Photo by [Edwin Andrade](https://unsplash.com/@theunsteady5?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10098/0*zrwD7OZp_Lz0Trzm)
 
-Nowadays we have many options when it comes to architecture design patterns. After developing many apps using Model-View-ViewModel (MVVM), Model-View-Presenter (MVP), and Model-View-Controller (MVC), I finally feel qualified to talk about the differences between them. For easier to understand, we can use a simple example like developing a screen to search books in the **BookSearch** App.
+当下有很多种设计模式可供我们选择。 在分别使用 Model-View-ViewModel (MVVM)，Model-View-Presenter (MVP)，和 Model-View-Controller (MVC)，模式开发了一些 app 后，我觉得是时候聊聊它们间的区别了。为了方便理解，这里我们举一个例子：开发一个用于查找书籍的 **BookSearch** 应用
 
-Let’s begin now…!
+让我们开始吧
 
-## MV(X) essentials
+## MV(X) 基本概念
 
-First of all, we need to understand briefly MVC, MVP, and MVVM architecture before dive into them.
+在深入研究 MVC，MVP 和 MVVM 架构之前，我们要简要的了解下它们。
 
-#### Why Model-View-(C or P or VM)?
+#### 为什么会诞生 Model-View-(C or P or VM)?
 
-The aim of these architectures is to separate the responsibilities of visualizing, processing, and data management for UI applications.
+最初这些架构的目的都是为了将带有图形界面的应用解构成各司其职的几块：视图，处理程序，数据管理。
 
 ![separate the responsibilities of visualizing, processing, and data management](https://cdn-images-1.medium.com/max/2730/1*EyHs4py3rl8WsAKhno-oSw.png)
 
-Their goals are to increase.
+现在有了更多的目标
 
-* Modularity
-* Flexibility
-* Testability
-* Maintainability
+* 模块化
+* 灵活性
+* 可测性
+* 可维护性
 
 ## Model-View-Controller
 
-Or MVC for short is a widely used design pattern for architecting software apps. The pattern was originally designed by [Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug) during his time working on Smalltalk-80 (1979) where it was initially called Model-View-Controller-Editor. MVC went on to be described in depth in [“Design Patterns: Elements of Reusable Object- Oriented Software”](https://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612) (The “GoF” book) in 1994, which played a role in popularizing its use. The pattern breaks an app up into three components.
+简称 MVC，它是架构软件应用程序的一种广泛使用的设计模式。该模式最初是由 [Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug) 在他从事 Smalltalk-80（1979）的工作期间设计的，最初被称为 Model-View-Controller-Editor。1994年在 [“设计模式 : 可复用面向对象软件的基础”](https://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612)（又名 “GoF”）一书中对 MVC 进行了更深入的描述，该书在推广其使用方面发挥了作用。 该模式将应用程序分为三个部分。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*C6X8ZQf3grq0ifscFvMugw.png)
 
-* **Model** — is responsible for the business logic of the application. It manages the state of the application. This also includes reading and writing data, persisting application state, and it may even include tasks related to data management such as networking and data validation.
-* **View** — this component has two important tasks: presenting data to the user and handling user interaction.
-* **Controller** — the view layer and the model layer are glued together by one or more controllers.
+* **Model** — 负责应用的业务逻辑。它管理着应用的状态。这还包括读取和写入数据，持久化应用程序状态，甚至可能包括与数据管理相关的任务，例如网络和数据验证。
+* **View** — 这部分有两个重要的任务：向用户展示数据和处理用户和应用的交互。
+* **Controller** — view 层和 model 层经由一个或多个 controller 绑定在一起。
 
 ![MVC on Android](https://cdn-images-1.medium.com/max/2730/1*KuqHoiiiIAU9olKqlkFujA.png)
 
 ## Model–View–Presenter
 
-MVP is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named [Taligent](http://Model-view-presenter (MVP) is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named Taligent in the early 1990s while they were working on a model for a C++ CommonPoint environment.) in the early 1990s while they were working on a model for a C++ CommonPoint environment.
+MVP 是 MVC 设计模式的衍生品，该模式专注于改进展示逻辑。它起源于 1990 年代初的一家名为 [Taligent](http://Model-view-presenter (MVP) is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named Taligent in the early 1990s while they were working on a model for a C++ CommonPoint environment.) 的公司，当时他们正在开发一个运行于 C ++ CommonPoint 环境的模型。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*ru_qYzPdhTnOoFGOcU6qOA.png)
 
-Although MVP is a derivation of MVC, they do have their slight differences.
+虽然 MVP 是 MVC 的衍生品，但它们相差不大。
 
-* **Model** — The Model represents a set of classes that describes the business logic and data. It also defines business rules for data means how the data can be changed and manipulated.
-* **View** — The View is used for making interactions with users like XML, Activity, fragments. It has got nothing to do with the logic that is to be implemented in the process.
-* **Presenter** — The presenter gets the input from the View, processes the data with the help of the Model, and passes the results back to the View after the processing is done.
+* **Model** — model 代表一组描述业务逻辑和数据的类。它制定了更改和操作数据的规则。
+* **View** — view 负责与用户进行交互，就如下图中 XML，Activity，fragments 部分。它与流程中要实现的逻辑无关。
+* **Presenter** — presenter 从 View 获取输入，在 model 的帮助下处理数据，并在处理完成后将结果传递回 view。
 
 ![MVP on Android](https://cdn-images-1.medium.com/max/2730/1*naMJ_Kfe8sLShjoBwDfjzg.png)
 
 ## Model-View-ViewModel
 
-MVVM was originally defined by Microsoft for use with Windows Presentation Foundation (WPF) and Silverlight, having been officially announced in 2005 by John Grossman in a blog post about Avalon (the codename for WPF). This pattern based on MVC and MVP which attempts to more clearly separate the development of UI from that of the business logic and behavior in an application.
+MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation（WPF）和 Silverlight，由 John Grossman 于2005年在有关 Avalon（WPF的代号）的博客文章中正式提出。这种基于 MVC 和 MVP 的模式致力于将应用中 UI 的开发与业务逻辑的开发分离。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*j6dM1iDMAn3d94g4tvuLFg.png)
 
-It has three main components as follows.
+它由如下的三部分组成。
 
-* **Model** — the Model used in MVVM is similar to the model used in MVC, consisting of the basic data required to run the software.
-* **View** — the View is a graphical interface between the user and the design pattern, similar to the one in MVC. It displays the output of the data processed.
-* **View-Model** — the View-Model is on one side an abstraction of the View and, on the other, provides a wrapper of the Model data to be linked. That is, it comprises a Model that is converted to a View, and it also contains commands that the View can use to influence the Model.
+* **Model** — MVVM 中的 model 层和 MVC 中的 model 层非常相似，包含了供应用正常运转所需的基本数据。
+* **View** — view 层是用户和设计模式之间的图形界面，类似于 MVC 中的 view 层。用来展示处理后的数据。
+* **View-Model** — view-model 既是视图层的抽象，又提供了要访问的模型数据的包装。 也就是说，它包含一个可以被转换为视图的模型，并且还包含了一些命令，视图层可以使用这些命令更改模型。
 
 ![MVVM on Android](https://cdn-images-1.medium.com/max/2730/1*XRtDb_FlcGjwvXjLqra94w.png)
 
 ## MVC vs MVP vs MVVM
 
-Let’s find out MVC Vs MVP Vs MVVM, main points of differences.
+让我们来看下 MVC，MVP 和 MVVM 间的主要区别。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*sIwF6PKHDQl59SdKOYbsPA.jpeg)
 
-**Performance Evaluation** — When we are testing the UI performance, MVP turns out to be the one with the highest reliability and lowest hindrance when it comes to rendering frames. Data binding in MVVM creates an additional overload that could drastically affect its performance when performing complex tasks.
+**性能上的评估** — 当我们测试 UI 的性能时，就渲染帧而言，可以认为 MVP 是其中可靠性最高，阻塞最小的了。MVVM 中的数据绑定会产生额外的过载，很可能导致在执行复杂任务时性能严重下降。
 
-**Compatibility** — When testing the patterns based on their compatibility, MVVM was the best of the lot due to its data binding which had a positive impact. MVP fared better than MVC, which had serious restating issues.
+**兼容性** — 当测试它们的兼容性时，MVVM 是其中最好的，这得益于它的数据绑定。MVP 的表现要好于 MVC，后者存在严重的重启问题。
 
-**Modifiability** — When we talk about design patterns, it is evident that it should be modifiable since that gives us the option of adding new features and strategies into our app.
+**拓展性** — 说起设计模式，它们必须要有一定的拓展性，因此我们才可以在应用中不断添加新的功能和策略。
 
-* Based on these factors, we observed that changes are very less in MVP and MVVM, with MVVM contributing a lot towards maintainability.
-* MVC tends to increase the number of changes in the majority of the cases.
+* 由以上几点得知，MVP 和 MVVM 的区别较小，不过 MVVM 的可维护性略胜一筹。
+* 多数情况下，每次后续的拓展，采用 MVC 模式的应用需要改动更多的地方。
 
-**References** — In MVC, the View doesn’t have reference to the Controller while in MVP, the View has reference to the presenter and in MVVM, the View has reference to the View-Model.
+**引用** — 在 MVC 中，view 未直接引用 controller，而在 MVP 中，视图引用了 presenter，在 MVVM 中，view 引用了 view-model。
 
-**Entry Point** — For MVC, the entry point to the application is the Controller whereas, for MVP and MVVM, the entry point is the View.
+**应用入口** — 对于 MVC，应用程序的入口是 controller，而对于 MVP 和 MVVM，入口是 view。
 
-## Implement the example by various architectures
+## 使用不同的架构来完成上文的示例
 
-You can implement the BookSearch application to understand by using one of three architecture as the following diagram.
+尝试使用如下的架构之一开发 BookSearch 应用，这有助于你对上文的理解。
 
 ![MVC vs MVP vs MVVM implementation for the BookSearch application](https://cdn-images-1.medium.com/max/2730/1*if_3uYnoFmxfWXkKYpDNqw.png)
 
-Easy, right? Can you implement it yourself?
+很简单吧？你现在可以自个儿尝试实现一下。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
