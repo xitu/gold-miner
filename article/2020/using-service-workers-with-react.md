@@ -36,7 +36,7 @@ Service Worker 的生命周期显然需要开发人员编码来完成。在 Reac
 
 在进行 React Service Worker 的配置和激活前，让我们来看一下使用 Service Worker 的规则和注意事项。
 
-* Service Worker 被浏览器在其全局脚本上下文环境中执行。这意味着你不能直接访问页面中的 DOM 元素。因此，需要一个间接的方式来让 Service Worker 与它控制的页面进行通信。这个可以通过使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) 接口来实现。
+* Service Worker 被浏览器在其自己的全局脚本上下文环境中执行。这意味着你不能直接访问页面中的 DOM 元素。因此，需要一个间接的方式来让 Service Worker 与它控制的页面进行通信。这个可以通过使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) 接口来实现。
 * 除了在 localhost 下运行时，Service Worker 只能运行在 `HTTPS` 协议下。
 * Service Worker 不限于特定的页面，因此可以被重复使用。
 * Service Worker 是事件驱动的。这意味着一旦它们运行结束就不能保留任何信息。为了访问先前状态的信息，你需要使用 [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)。
@@ -87,7 +87,7 @@ serviceWorker.register();
 
 ## 在开发环境中使用 React Service Worker
 
-当你在 `serviceWorker.js` 文件中查看 `register()` 函数时，你会注意到，默认情况下，它只在生产环境中有用 （`process.env.NODE_ENV === 'production'` 是被设置的条件之一）。如下有两个变通的方法。
+当你在 `serviceWorker.js` 文件中查看 `register()` 函数时，你会注意到，默认情况下，它只在生产环境中有用（`process.env.NODE_ENV === 'production'` 是被设置的条件之一）。如下有两个变通的方法：
 
 * 你可以在 `register()` 函数中去掉判断条件以在开发模式下启用它。但是，这可能会导致某些缓存问题。
 * 一个更简单的方法是，创建生产版本的 React 应用并运行在本地服务器上。你可以通过运行以下的命令来实现：
@@ -162,7 +162,7 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
 
 ## 总结回顾
 
-在本文中，我们介绍了 Service Worker 是什么，使用它的原因以及在 React 应用中使用和配置 Service Worker 的过程。Service Worker 是现代 web 开发的关键部分，在现有的 React 应用中加上  Service Worker 是一个非常棒的主意。
+在本文中，我们介绍了 Service Worker 是什么，使用它的原因以及在 React 应用中使用和配置 Service Worker 的过程。Service Worker 是现代 web 开发的关键部分，在现有的 React 应用中加上 Service Worker 是一个非常棒的主意。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
