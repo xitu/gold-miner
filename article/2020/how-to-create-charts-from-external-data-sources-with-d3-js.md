@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-charts-from-external-data-sources-with-d3-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-charts-from-external-data-sources-with-d3-js.md)
 > * 译者：[Alfxjx](https://github.com/Alfxjx)
-> * 校对者：
+> * 校对者：[qq1037305420](https://github.com/qq1037305420)
 
 # 如何基于 D3.js 使用外部数据源创建图表
 
