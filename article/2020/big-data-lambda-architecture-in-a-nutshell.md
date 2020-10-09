@@ -7,8 +7,6 @@
 
 # Big Data: Lambda Architecture in a nutshell
 
-#### Thought Programmer
-
 #### How do we beat the CAP theorem?
 
 ![the CAP theorem](https://cdn-images-1.medium.com/max/2730/1*ZyXE41bENSEUP29slqpQyQ.png)
@@ -29,7 +27,7 @@ In 2011, Nathan Marz proposed an important approach to tackling the limitations 
 
 Let’s take a closer look at the Lambda architecture. There are three layers in the Lambda architecture: batch layer, speed layer, and serving layer.
 
-> # It combines real-time and batches processing of the same data.
+> It combines real-time and batches processing of the same data.
 
 **Firstly**, an incoming real-time data stream is stored in the master dataset at the batch layer as well as being kept in a memory cache at a speed layer. Data in the batch layer is **then** indexed and made available through batch views. While real-time data in the speed layer is exposed through real-time views. **Finally**, both batch and real-time views can be queried either independently or together to answer any historical or realtime questions.
 
@@ -116,11 +114,9 @@ Easy, right?
 
 ## References
 
-[1] [http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html](http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html)
-
-[2] [http://www.slideshare.net/Hadoop_Summit/interactive-analytics-in-human-time?next_slideshow=1](http://www.slideshare.net/Hadoop_Summit/interactive-analytics-in-human-time?next_slideshow=1)
-
-[3] [https://netflixtechblog.com/announcing-suro-backbone-of-netflixs-data-pipeline-5c660ca917b6](https://netflixtechblog.com/announcing-suro-backbone-of-netflixs-data-pipeline-5c660ca917b6)
+- [1] [http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html](http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html)
+- [2] [http://www.slideshare.net/Hadoop_Summit/interactive-analytics-in-human-time?next_slideshow=1](http://www.slideshare.net/Hadoop_Summit/interactive-analytics-in-human-time?next_slideshow=1)
+- [3] [https://netflixtechblog.com/announcing-suro-backbone-of-netflixs-data-pipeline-5c660ca917b6](https://netflixtechblog.com/announcing-suro-backbone-of-netflixs-data-pipeline-5c660ca917b6)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
