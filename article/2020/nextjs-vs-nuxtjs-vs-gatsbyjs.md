@@ -2,48 +2,48 @@
 > * 原文作者：[Mr Herath](https://medium.com/@keith95)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/nextjs-vs-nuxtjs-vs-gatsbyjs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/nextjs-vs-nuxtjs-vs-gatsbyjs.md)
-> * 译者：
+> * 译者：[z0gSh1u](https://github.com/z0gSh1u)
 > * 校对者：
 
 # NextJS vs. NuxtJS vs. GatsbyJS
 
 ![Photo by [Kara Eads](https://unsplash.com/@karaeads) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*nyUWEd-FwoOs3oyI)
 
-Server-side rendering is the process of taking a client-side JavaScript framework website and rendering it to static HTML and CSS on the server.
+所谓服务端渲染，就是将原先运行在客户端的 JavaScript 框架的渲染过程放在服务器上，渲染出静态的 HTML 和 CSS 的过程。
 
-Why is this important?
+为什么说它很重要呢？
 
-Well, we all want fast-loading websites — server-side rendering is a tool to help you get your website rendered faster. So let’s take a moment to talk about the critical path in your website’s first render. The critical path is a reference to the process of delivering the most important pieces of content to the browser, so it can render your page. If we can deliver the most important assets quickly, then the browser can do its job and render the page quickly to the user.
+我们都想要让网站能快点加载 —— 服务端渲染就是能帮助你的网站渲染得快一点的工具。让我们花点时间聊聊你的网站第一次渲染时的关键路径。 关键路径是指传送网页内容的最重要的部分给浏览器的过程，这样它才能渲染你的页面。如果我们能很快地传送重要的素材，浏览器就能很快地完成它的工作，快速地把页面渲染给用户。
 
-## Understand What’s Behind
+## 了解背后的原理
 
-How fast the browser renders your app depends on how you build it. The first thing the browser receives is an HTML document. This document contains references to other assets —such as images, CSS, and JavaScript. The browser knows to go fetch and download these assets when it parses this HTML document. So, even though the browser has your HTML, it can’t actually render the website until its corresponding CSS has finished parsing.
+浏览器渲染你的应用的速度，取决于你如何构建它。浏览器收到的第一个东西是 HTML 文档。文档包括了指向各种资源的引用 —— 如图片、CSS 和 JavaScript 代码。在浏览器解析 HTML 文档时，它知道要去获取并下载这些资源。所以，即使浏览器得到了你的 HTML，在 CSS 解析结束前，它也没办法渲染你的网站。
 
-Once that’s done, the browser goes ahead and renders the page. That means that with just HTML and CSS, the browser can render the page. As we know the browser is good at this, so it does it very fast.
+一旦 CSS 解析结束，浏览器便进一步地渲染页面。也就是说，只需要 HTML 和 CSS，浏览器就能渲染页面。我们都知道浏览器就擅长这个，所以这个过程是很快的。
 
-Now, the final part of this process is JavaScript. After the HTML document is parsed, the browser will download your JavaScript files. The download time of a JavaScript file can be significant if the file is large and the network is poor — and the browser needs to parse the JavaScript. On devices with low-powered hardware, this can take quite a bit of effort and time. Also, you could see slow load times if your first render is dependent on JavaScript. JavaScript should be considered an enhancement of HTML and CSS, since its loading can be deferred. However, it’s not always that simple. Some websites need complex features that rely heavily on JavaScript — these kinds of websites use JavaScript frameworks.
+现在，最后的部分是 JavaScript。HTML 文档解析结束后，浏览器会下载你的 JavaScript 文件。如果文件很大，或者网络状况很差，那下载时间会很长，而且浏览器还得解析 JavaScript。在硬件配置较差的设备上，这部分的时间消耗会很可观。并且，如果你的首次渲染依赖于 JavaScript，你还会多次地看到慢的加载过程。JavaScript 应被看作 HTML 和 CSS 的一个增强，因为它的加载是可以延迟的。然而，情况并不总是这么简单。有的网站需要一些严重依赖于 JavaScript 的功能 —— 这类网站使用了 JavaScript 框架。
 
-## Here Comes the Serverside Rendering
+## 服务端渲染来袭
 
-JavaScript frameworks can be fast if you’re willing to put in the work. We can put this work in with server-side rendering — where we generate the HTML on the server and send that down to the browser.
+如果你愿意下一些工夫，JavaScript 框架可以快起来。我们可以在服务端渲染上做点工作 —— 在服务端生成 HTML，然后再把它下发给浏览器。
 
-So, the user sees the HTML version of your app almost immediately, while the JavaScript app boots up in the background. This may not make your page load faster than a non-server-side rendered version, but it does give the user something to see as the JavaScript downloads in the background — a nice benefit.
+所以，用户几乎能立刻看到你的应用的 HTML 版，同时 JavaScript 在后台启动执行。这不一定能让你的页面比非服务端渲染的版本加载的要快，但它确实能在 JavaScript 还在后台下载的过程中给用户一些能看到的内容 —— 这挺好的。
 
-## Surveys and Stats
+## 调查与统计
 
-Before discussing further, let’s see some stats from different online sources.
+在我们进一步讨论之前，让我们来看看一些来自不同网站的统计信息。
 
-#### State of JavaScript
+#### JavaScript 的情况
 
-According to a survey on the state of JavaScript, we can see that Next is at the top of both Nuxt and Gatsby. Here, we do not want to consider Express since we only consider JavaScript frameworks for server-side rendering.
+根据一项关于 JavaScript 情况的调查，我们可以看到，Next 排在了 Nuxt 和 Gatsby 之前。在本文中，我们不会考虑 Express 等，因为我们只关注用于服务端渲染的 JavaScript 框架。
 
 ![Figure 01: [https://2019.stateofjs.com/back-end/](https://2019.stateofjs.com/back-end/)](https://cdn-images-1.medium.com/max/4244/1*-aPRuVhkDAfMp6chL8hjlQ.png)
 
-According to the stats below, we can see the user attraction towards JavaScript-related backend frameworks. We can see that NextJS has higher usage and interest than NuxtJS and GatsbyJS.
+根据下面的统计，我们可以看到用户对与 JavaScript 相关的后端框架的关注度。可以看出，NextJS 比起 NuxtJS 和 GatsbyJS，用户的使用量和兴趣都是最高的。
 
 ![Figure 02: [https://2019.stateofjs.com/back-end/](https://2019.stateofjs.com/back-end/)](https://cdn-images-1.medium.com/max/4398/1*VTcI2ldavQoqePTHdyenhg.png)
 
-#### GitHub repository stats
+#### GitHub 仓库统计信息
 
 ![Figure 03: [https://github.com/vercel/next.js/](https://github.com/vercel/next.js/)](https://cdn-images-1.medium.com/max/3562/1*TFDg_2S1N2e4RFtQ2muCwQ.png)
 
@@ -51,89 +51,89 @@ According to the stats below, we can see the user attraction towards JavaScript-
 
 ![Figure 05: [https://github.com/gatsbyjs/gatsby](https://github.com/gatsbyjs/gatsby)](https://cdn-images-1.medium.com/max/3574/1*IfqEwUiWIPnxGdmU9YDj6A.png)
 
-According to these GitHub repositories, we can see that developers are becoming more attracted to NextJS — all watch numbers, folks, and the stars for the NextJS repository are higher. But Gatsby also has quite a similar popularity among developers.
+依据这些 GitHub 仓库，我们可以看到开发者越来越被 NextJS 所吸引 —— 不管是 Watch、Fork 还是 Star 数，NextJS 都来得高一些。但 Gatsby 在开发者之间也差不多受欢迎。
 
-## Why NextJS?
+## 为什么选 NextJS？
 
-Next is one of the fastest growing React frameworks, especially for serverside rendering. The creators call NextJS a lightweight framework — personally, I think it’s more appropriate to think of it as a platform or perhaps even boilerplate.
+Next 是快速成长的 React 框架之一，尤其是在服务端渲染方面。作者把 NextJS 称作一个轻量级框架。我个人认为把它看作一个平台或者是起手模板，更合适些。
 
 ![Figure 06: [https://2019.stateofjs.com/back-end/nextjs/](https://2019.stateofjs.com/back-end/nextjs/)](https://cdn-images-1.medium.com/max/4398/1*1byrI3kvuO35-xQSdB5D5Q.png)
 
-#### Pros of NextJS
+#### NextJS 的优点
 
-* It uses a web-pack on both client and server with hot module replacement by default. Babel also compiles your code using a bunch of presets like env or JSX by default.
-* Everything is server-side rendered by default.
-* You can start creating a somewhat complex React application inliterally four minutes. Also learning Next is no problem at all — the official site has its own learning page. You can also use the GitHub page.
-* You can create routing by only creating JavaScript files inside one specific folder. Of course you can also create custom routing.
-* The server uses node and you can do anything you want. For example, using Express.
-* It automatically splits your application based on imports — unnecessary code is never loaded
-* Fetching data is incredibly simple.
-* Imagine you learn NextJS — what can you do with it? If you’re a freelancer, you can start a new project in no time. If you want to start a large project with potential, NextJS will be useful.
-* You can configure anything you want from page initialization and route to your web pack and Babel configurations.
-* You can deploy the NextJS app anywhere Node is supported.
-* Completely handle search engine optimization for you.
-* Overall NextJS does an incredible number of things for you.
+* 它默认在用户端和服务器端都使用支持热重载的 Webpack。Babel 也默认用诸如 env 或 JSX 的 preset 来编译你的代码。
+* 所有东西默认都是服务端渲染的。
+* 你可以在四分钟内起手写一个略为复杂的 React 应用。另外，学习 Next 也没有任何问题 —— 官方网站有专门的学习页面。你也可以看看它的 GitHub。
+* 你只需要在一个特定的目录下新建 JavaScript 文件，就能创建路由。当然你也可以自定义路由。
+* 服务器端用的是 Node，你可以做任何你想做的事，比如用 Express。
+* 它能基于 import 自动地拆分你的应用 —— 不必要的代码不会被加载。
+* 获取数据极其简单。
+* 想像一下你要学习 NextJS —— 你可以用它做什么？如果你是一个自由开发者，你可以很快开始一个新项目；如果你要构建一个会变得很大的项目，NextJS 也会很有用。
+* 你可以配置你需要的任何东西 —— 从页面初始化和路由，到 Webpack 和 Babel 配置。
+* 在任何支持 Node 的环境都可以部署 NextJS 应用。
+* 为你完整地处理了搜索引擎优化（SEO）。
+* 总的来说，NextJS 为你做了大量的事情。
 
-#### Where not to use NextJS
+#### 不该用 NextJS 的地方
 
-If you’re building a simple app, I suggest NextJS would be overkill.
+如果你在构建一个简单的应用，我估计 NextJS 会过犹不及。
 
-If you’re going to migrate a serverside app to the NextJS app, I would not suggest you do it at once, because you literally can’t — it’s a hell of a lot of work.
+如果你打算把一个服务端的应用集成到 NextJS 应用中，我建议你不要一次性做完，因为实际上是做不到的 —— 工作量太大了。
 
-## Why Select NuxtJS?
+## 为什么选 NuxtJS？
 
-NuxtJS is a higher-level framework built on top of VueJS to help you build production-ready Vue applications.
+NuxtJS 是在 VueJS 上层构建的高层次框架，能帮助你构建适用于生产环境的 Vue 应用。
 
 ![Figure 07: [https://2019.stateofjs.com/back-end/nuxt/](https://2019.stateofjs.com/back-end/nuxt/)](https://cdn-images-1.medium.com/max/4404/1*nZe9YP8gl0d3FmZwoxaDsw.png)
 
-#### Pros of NuxtJS
+#### NuxtJS 的优点
 
-* Building a production-ready Vue application is difficult. Not only does Nuxt come pre-configured with Vuex, Vue Router, and Vue-meta. But it sets up your project with intelligent defaults based on well-researched best practices that Vue doesn’t give you out-of-the-box.
-* Creating the Nuxt app is as easy. The Nuxt starter kit will ask you for the libraries you want to start with such as eslint or which CSS framework to use.
-* Vue default build gives you assets and components in your source directory while Nuxt sets you up with additional folders, based on best practices such as the pages directory for your applications, views, and routes and a bunch of folders and default conventions.
-* Since everything has its place, moving from one Nuxt application to another and getting up to speed as a developer is simple.
-* Routing configuration can get lengthy in a big VueJS application. With Nuxt, you simply place your single file Vue components in the pages directory and Nuxt automatically generates your routes with zero configuration.
-* Vue applications are not SEO friendly and you’re going to want certain pages of your applications properly indexed by search engines so they’re easily discoverable. One of the best solutions is to pre-render your view pages on the server. But this can be tricky to set up on your own. Nuxt is pre-configured to generate your application on the server along with powering up your routes to make it easy to add SEO related tags.
+* 构建一个可用于生产环境的 Vue 应用是困难的。Nuxt 不仅预先配置好了 Vuex、Vue Router 和 Vue-meta，还聪明地使用基于充分的研究得来的最佳实践，来预设你的项目。 这些，Vue 并没有以开箱即用的方式提供给你。
+* 创建 Nuxt 应用很简单。Nuxt 脚手架会问你要安装哪些库，比如 ESLint ，或者某个要用的 CSS 框架。
+* Vue 的默认项目结构会把素材文件和组件文件放在你的源代码目录，而 Nuxt 把你的应用的页面、视图、路由和其他文件夹放在另外的、基于最佳实践的位置。
+* 由于每样东西都有它自己的位置，在 Nuxt 应用之间迁移和让开发者尽快上手项目是很简单的。
+* 在大的 Vue 项目中，路由配置会很长。使用 Nuxt，你只需要把你的单文件组件放在页面目录下，Nuxt 就会自动零配置地生成路由。
+* Vue 应用并不是 SEO 友好的，而你会希望你的应用的某些页面能被搜索引擎恰当地索引，从而更容易被人找到。最好的解决方案之一是在服务器端预渲染你的页面，但靠自己来配置，可能需要很强的技巧性。而 Nuxt 已经被预设好了，能够借助路由配置在服务器端生成你的应用，并更容易添加 SEO 相关的 tag。
 
-#### Where not to use NuxtJS
+#### 不该使用 NuxtJS 的地方
 
-If you are building your application by using custom libraries, working with Nuxt can be challenging.
+如果你使用自定义的库来构建应用，使用 Nuxt 可能会颇具挑战性。
 
-If the timeline of your Vue app is strict yuo may have problems if you’re new to Nuxt.
+如果你新用 Nuxt，同时你的 Vue 应用的排期比较紧，你可能会遇到一些问题。
 
-Debugging apps can be painful — this is a common issue among the developer community.
+应用调试会很痛苦 —— 这是开发者社区中的常见问题。
 
-## Why Select GatsbyJS?
+## 为什么选 GatsbyJS？
 
-Gatsby is also a React based static website generator, powered by graphQL. Most simply, Gatsby is a static site generator. What does that mean? The static site part means Gatsby produces static HTML files that we load on to a server. This works differently to how many websites work.
+Gatsby 也是一个基于 React 的、GraphQL 驱动的静态站点生成器。更简单地说，Gatsby 是一个静态站点生成器。这是什么意思呢？静态站点的意思是 Gatsby 生成的、我们放在服务器上的东西，是静态的 HTML 文件。这与许多网站的工作方式不同。
 
-It’s important to point out that static sites does not mean non-interactive or non-dynamic. We can load JavaScript into the HTML files that Gatsby serves, as well as make API calls, do interactions and build incredibly rich and immersive sites, even though they’re static.
+需要指出的是，静态站点并不意味着不可互动和非动态。我们可以在 Gatsby 服务器上的 HTML 文件中加载 JavaScript，发起 API 请求、 互动、构建丰富大型的网站等，尽管它们是静态的。
 
 ![Figure 08: [https://2019.stateofjs.com/back-end/gatsby/](https://2019.stateofjs.com/back-end/gatsby/)](https://cdn-images-1.medium.com/max/4472/1*Gih1W60mstqRA1lnPxQJjg.png)
 
-#### Pros of GatsbyJS
+#### GatsbyJS 的优点
 
-* Gatsby uses the graph QL querying language, graphQL, to get data from anywhere. However, the more exciting part of this is that we can get our data into a Gatsby site from anywhere.
-* We can use markdown files we get access databases, we could hook into common CMS’s like WordPress and other headless CMS. However, Gatsby is not going to handle our data for us — rather it gets that data pulled into Gatsby and generates the site from that data.
-* Gatsby also uses React and CSS, which hopefully you’re familiar with. React will be used for all of the templates and CSS for the styling. So, graphQL will pull in our data, React will take care of what the template should look like and the styling is what CSS, and then finally everything will be exported into the static Gatsby site.
-* Gatsby is built with a plug-in architecture — this is a great system because we’re serving up a static site.
-* Gatsby has a solid team open-source community and great documentation. It’s also an open-source project so has great potential for growth through community contribution.
+* Gatsby 使用 GraphQL 来从各个地方获取数据 —— 最激动人心的是我们可以从任何地方导入数据到 Gatsby 站点。
+* 我们可以使用从数据库中获取到的 Markdown 文件，可以接入常见的 CMS，例如 WordPress 或者其他的 Headless CMS。然而，Gatsby 并不会为我们处理数据 —— 它只是获取拉取到 Gastby 中的数据，并从数据中生成站点。
+* Gatsby 也使用 React 和 CSS，你应该会很熟悉。在所有模板和 CSS 样式中，会使用 React。也就是说，GraphQL 会拉取来我们的数据，React 会处理应该使用何种模板、样式采用何种 CSS。最后，所有东西都会被导出到静态的 Gatsby 站点。
+* Gatsby 是基于插件架构的 —— 由于我们在构建一个静态站点，这是一个很好的架构。
+* Gatsby 有一个强大的团队、开源社区和完善的文档。它是一个开源项目，所以也很有从社区贡献中获得成长的潜力。
 
-#### Where not to use GatsbyJS
+#### 不该使用 GatsbyJS 的地方
 
-If you are going to use Gatsby with WordPress, you are going to use a lot of inbuilt WordPress functionalities — for example, you can’t use theme hooks.
+如果你要和 WordPress 一起使用 Gatsby，你需要换用很多 WordPress 内建的功能 —— 比如，你不能使用 Theme Hooks。
 
-Since Gatsby sites are static, every single change needs a new deployment.
+由于 Gatsby 站点是静态的，所以每个改动都需要一次新的部署。
 
 ![Photo by [Nathan Dumlao](https://unsplash.com/@nate_dumlao) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*6GkumIALsOYIX3Tj)
 
-## Conclusion
+## 结论
 
-Based on the above pros and cons, and surveys, we can conclude that NextJS is the best serverside rendering framework for future implementations. However, if we look at the future for front end development, we can see that Vue is also doing well in the industry. Considering all the above factors, I suggest you learn and use NextJS.
+基于上面的优缺点和调查，我们可以得出结论：NextJS 是未来最好的服务端渲染框架。然而，如果我们看看前端开发的未来，我们可以看到，Vue 在工业界也做得不错。基于上面的各项因素，我建议你学习和使用 NextJS。
 
-Thanks for reading!
+感谢阅读。
 
-## Resources
+## 资源
 
 * [https://2019.stateofjs.com/back-end/](https://2019.stateofjs.com/back-end/gatsby/)
 * [https://github.com/vercel/next.js/](https://github.com/vercel/next.js/)
