@@ -7,8 +7,6 @@
 
 # The Do’s and Don’ts of Python List Comprehension
 
-#### Write better Python without confusing your teammates
-
 ![Photo by [Michael Herren](https://unsplash.com/@mdherren?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*OMREOHfwYkIKRpRF)
 
 List comprehension is a topic that is usually not offered to beginners because its syntax is not very intuitive, even to people who have a coding background in other programming languages.
@@ -16,8 +14,6 @@ List comprehension is a topic that is usually not offered to beginners because i
 When we have a chance to get in touch with list comprehension, we learn something here and something there, and thus we do not have a systemic view of how we should use list comprehension in various scenarios.
 
 In this article, I’d like to provide possible use guidelines as comprehensively as possible. I hope that this article can become your one-stop-shopping place for the techniques related to list comprehension.
-
----
 
 ## Do’s
 
@@ -153,8 +149,6 @@ Some people are more used to functional programming. One particular application 
 
 As shown in the above example, list comprehension has much more readable syntax then higher order functions, which have more complicated embedded structures.
 
----
-
 ## Don’ts
 
 #### 1. Don’t forget about the list() constructor
@@ -223,8 +217,6 @@ As shown above, the list object occupies 81528032 bytes. Let’s consider the sa
 ```
 
 Compared to the solution using the list comprehension, the solution using a generator expression involves a much smaller object, which is only 96 bytes. The reason is simple — generators don’t need to capture all their elements. Instead, they just need to know where they are in the sequence and simply create the next applicable element and render it without the need of keeping the elements in the memory.
-
----
 
 ## Conclusions
 
