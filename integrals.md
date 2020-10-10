@@ -7957,10 +7957,12 @@
 |推荐英文文章一篇|奖励|1|
 |[误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）](https://juejin.im/post/5c223f4ce51d452626296b5d)|校对|1.5|
 
-## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：19 当前积分：19 二零二零：16.5
+## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：28 当前积分：28 二零二零：25.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TypeScript：一个好泛型的价值](https://juejin.im/post/6878868818836488205)|翻译|6|
+|[ES2017 最佳特性  —  数组中的异步函数以及共享缓冲区](https://juejin.im/post/6878849121269055501)|翻译|3|
 |[VueJS 中更好的组件组合方式](https://juejin.im/post/6875236830984437768)|翻译|3|
 |[Vue 应用的代码覆盖率](https://juejin.im/post/6872653403177254919)|翻译|4|
 |[如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)|翻译|4.5|
@@ -8904,10 +8906,11 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：75 当前积分：65 二零二零：45.5
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：76.5 当前积分：66.5 二零二零：47
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES2017 最佳特性  —  数组中的异步函数以及共享缓冲区](https://juejin.im/post/6878849121269055501)|校对|1.5|
 |[使用 JSON.stringify 处理 JavaScript 对象](https://juejin.im/post/6871807169562902541)|校对|1|
 |[JavaScript 函数中一些你不知道的秘密](https://juejin.im/post/6871101056642711559)|校对|3|
 |[加速 vue.js 应用的六种绝技](https://juejin.im/post/6870808442911588365)|校对|3|
@@ -9668,10 +9671,11 @@
 |[设置 git 别名](https://juejin.im/post/5dafc502f265da5b783f1ae1)|校对|1.5|
 |[使用 `import()` 执行 JavaScript 代码](https://juejin.im/post/5dafc573e51d4524bb096393)|校对|1|
 
-## 译者：[Alfxjx](https://github.com/Alfxjx) 历史贡献积分：15 当前积分：15 二零二零：7
+## 译者：[Alfxjx](https://github.com/Alfxjx) 历史贡献积分：18 当前积分：18 二零二零：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TypeScript：一个好泛型的价值](https://juejin.im/post/6878868818836488205)|校对|3|
 |[如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)|校对|2|
 |[React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)|校对|2|
 |[在 Vue 中编写 SVG 图标组件](https://juejin.im/post/5e4fc62de51d4527110a85dd)|校对|2|
@@ -9865,10 +9869,11 @@
 |[密码哈希的方法：PBKDF2，Scrypt，Bcrypt 和 ARGON2](https://juejin.im/post/5e70c152518825491949886e)|校对|1.5|
 |[2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)|校对|3|
 
-## 译者：[chaingangway](https://github.com/chaingangway) 历史贡献积分：83.5 当前积分：83.5 二零二零：83.5
+## 译者：[chaingangway](https://github.com/chaingangway) 历史贡献积分：87.5 当前积分：87.5 二零二零：87.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[学习 SwiftUI 框架中 Text 和 Label 控件的用法（iOS 14）](https://juejin.im/post/6881526224934420488)|翻译|4|
 |[异步编程和多线程，我该选择哪个方案？](https://juejin.im/post/6844904168159707150)|翻译|6|
 |[在 SwiftUI 中构建服务端驱动的 UI 组件](https://juejin.im/post/6844904186862108679)|翻译|4.5|
 |[在 Swift 中使用 MVVM 架构实现无限滚动和图片加载](https://juejin.im/post/5ecb8115e51d4578540fcacd)|翻译|7|
@@ -9942,10 +9947,11 @@
 |------|-------|-------|
 |[Go 发布新版 Protobuf API](https://juejin.im/post/5e83e1176fb9a03c80278e6d)|校对|3|
 
-## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：17.5 当前积分：17.5 二零二零：17.5
+## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：20.5 当前积分：20.5 二零二零：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python 的优化 — 驻留机制](https://juejin.im/post/6875879902902485005)|翻译|3|
 |[让神经网络变得更小巧以方便部署](https://juejin.im/post/6873068232505458701)|校对|5|
 |[什么是无障碍？为什它对于用户体验很重要？](https://juejin.im/post/5ebf96a5f265da7b9754dd7d)|校对|1|
 |[你理解数据库死锁发生的原因吗？](https://juejin.im/post/5ed9ac93e51d45783f10fd25)|校对|2|
@@ -10133,10 +10139,13 @@
 |[2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)|校对|3|
 |[关于 icon 设计的 7 大准则](https://juejin.im/post/5e5dbd3e6fb9a07cd323dd2b)|校对|3|
 
-## 译者：[plusmultiply0](https://github.com/plusmultiply0) 历史贡献积分：19.5 当前积分：19.5 二零二零：19.5
+## 译者：[plusmultiply0](https://github.com/plusmultiply0) 历史贡献积分：31 当前积分：31 二零二零：31
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 React 中使用 Service Worker](https://juejin.im/post/6881616183158636552)|翻译|5|
+|[掌握 JavaScript ES6 中的 Symbol 类型](https://juejin.im/post/6880485630501978126)|校对|4|
+|[使用 React 和 localStorage 实现的简易 Dark Mode 开关](https://juejin.im/post/6875538309934743560)|校对|2.5|
 |[给前端开发者的 14 个 JavaScript 代码优化建议](https://juejin.im/post/6859562506721951751)|校对|5|
 |[JavaScript 技巧 —— 子代构造函数，文本选择，内联 Workers 等等](https://juejin.im/post/6854573219622420488)|翻译|3|
 |[写给工程师的《系统性能兵法》](https://juejin.im/post/6858061688386617358)|校对|2.5|
@@ -10225,24 +10234,29 @@
 |------|-------|-------|
 |[写给工程师的《系统性能兵法》](https://juejin.im/post/6858061688386617358)|校对|2.5|
 
-## 译者：[loststar](https://github.com/loststar) 历史贡献积分：1.5 当前积分：1.5 二零二零：1.5
+## 译者：[loststar](https://github.com/loststar) 历史贡献积分：5.5 当前积分：5.5 二零二零：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 React 中使用 Service Worker](https://juejin.im/post/6881616183158636552)|校对|2|
+|[利用映射提高 MongoDB 性能](https://juejin.im/post/6881503834737213454)|校对|2|
 |[Python：使用 locals() 和 globals() 巧妙编程](https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md)|校对|0.5|
 |[JavaScript 技巧 —— 子代构造函数，文本选择，内联 Workers 等等](https://juejin.im/post/6854573219622420488)|校对|1|
 
-## 译者：[onlinelei](https://github.com/onlinelei) 历史贡献积分：2.5 当前积分：2.5 二零二零：2.5
+## 译者：[onlinelei](https://github.com/onlinelei) 历史贡献积分：6.5 当前积分：6.5 二零二零：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用映射提高 MongoDB 性能](https://juejin.im/post/6881503834737213454)|翻译|4|
 |[你应该了解的八种浏览器 API](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)|校对|2|
 |[8 个有用的 SCSS 最佳实践](https://juejin.im/post/6862499761351163911)|校对|0.5|
 
-## 译者：[Inchill](https://github.com/Inchill) 历史贡献积分：5.5 当前积分：5.5 二零二零：5.5
+## 译者：[Inchill](https://github.com/Inchill) 历史贡献积分：19.5 当前积分：19.5 二零二零：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[掌握 JavaScript ES6 中的 Symbol 类型](https://juejin.im/post/6880485630501978126)|翻译|9|
+|[使用 React 和 localStorage 实现的简易 Dark Mode 开关](https://juejin.im/post/6875538309934743560)|翻译|5|
 |[使用 JSON.stringify 处理 JavaScript 对象](https://juejin.im/post/6871807169562902541)|翻译|2.5|
 |[你应该了解的八种浏览器 API](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)|校对|2|
 |[TypeScript 4.0 终于发布了我一直在等待的东西](https://juejin.im/post/6864473591770152968)|校对|1|
@@ -10295,10 +10309,11 @@
 |------|-------|-------|
 |[如何在悬停时创建菜单图像动画](https://juejin.im/post/6878561756793454599)|校对|3|
 
-## 译者：[dupanpan](https://github.com/dupanpan) 历史贡献积分：1.5 当前积分：1.5 二零二零：1.5
+## 译者：[dupanpan](https://github.com/dupanpan) 历史贡献积分：3 当前积分：3 二零二零：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES2017 最佳特性  —  数组中的异步函数以及共享缓冲区](https://juejin.im/post/6878849121269055501)|校对|1.5|
 |[VueJS 中更好的组件组合方式](https://juejin.im/post/6875236830984437768)|校对|1.5|
 
 ## 译者：[Shirley-He-Maker](https://github.com/Shirley-He-Maker) 历史贡献积分：1 当前积分：1 二零二零：1
@@ -10312,3 +10327,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[5 个鲜为人知的 Chrome 开发者工具的特性](https://juejin.im/post/6875240551390642189)|校对|0.5|
+
+## 译者：[HurryOwen](https://github.com/HurryOwen) 历史贡献积分：2.5 当前积分：2.5 二零二零：2.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[使用 React 和 localStorage 实现的简易 Dark Mode 开关](https://juejin.im/post/6875538309934743560)|校对|2.5|
+
+## 译者：[caiyundong](https://github.com/caiyundong) 历史贡献积分：2 当前积分：2 二零二零：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Python 的优化 — 驻留机制](https://juejin.im/post/6875879902902485005)|校对|2|
+
+## 译者：[ivileey](https://github.com/ivileey) 历史贡献积分：2 当前积分：2 二零二零：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[利用映射提高 MongoDB 性能](https://juejin.im/post/6881503834737213454)|校对|2|
