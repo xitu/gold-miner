@@ -5,11 +5,11 @@
 > * 译者：
 > * 校对者：
 
-# MVC vs MVP vs MVVM
+# MVC，MVP，MVVM 对比 
 
 ![Photo by [Edwin Andrade](https://unsplash.com/@theunsteady5?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10098/0*zrwD7OZp_Lz0Trzm)
 
-当下有很多种设计模式可供我们选择。 在分别使用 Model-View-ViewModel (MVVM)，Model-View-Presenter (MVP)，和 Model-View-Controller (MVC)，模式开发了一些 app 后，我觉得是时候聊聊它们间的区别了。为了方便理解，这里我们举一个例子：开发一个用于查找书籍的 **BookSearch** 应用
+当下有很多种设计模式可供我们选择。 在分别使用 Model-View-ViewModel (MVVM)，Model-View-Presenter (MVP)，和 Model-View-Controller (MVC)，模式开发了一些 app 后，我觉得是时候聊聊它们间的区别了。为了方便理解，这里我们举一个例子：开发一个用于查找书籍的 **BookSearch** 应用。
 
 让我们开始吧
 
@@ -36,9 +36,9 @@
 
 ![](https://cdn-images-1.medium.com/max/2730/1*C6X8ZQf3grq0ifscFvMugw.png)
 
-* **Model** — 负责应用的业务逻辑。它管理着应用的状态。这还包括读取和写入数据，持久化应用程序状态，甚至可能包括与数据管理相关的任务，例如网络和数据验证。
-* **View** — 这部分有两个重要的任务：向用户展示数据和处理用户和应用的交互。
-* **Controller** — view 层和 model 层经由一个或多个 controller 绑定在一起。
+* **Model** —— 负责应用的业务逻辑。它管理着应用的状态。这还包括读取和写入数据，持久化应用程序状态，甚至可能包括与数据管理相关的任务，例如网络和数据验证。
+* **View** —— 这部分有两个重要的任务：向用户展示数据和处理用户和应用的交互。
+* **Controller** —— view 层和 model 层经由一个或多个 controller 绑定在一起。
 
 ![MVC on Android](https://cdn-images-1.medium.com/max/2730/1*KuqHoiiiIAU9olKqlkFujA.png)
 
@@ -50,9 +50,9 @@ MVP 是 MVC 设计模式的衍生品，该模式专注于改进展示逻辑。�
 
 虽然 MVP 是 MVC 的衍生品，但它们相差不大。
 
-* **Model** — model 代表一组描述业务逻辑和数据的类。它制定了更改和操作数据的规则。
-* **View** — view 负责与用户进行交互，就如下图中 XML，Activity，fragments 部分。它与流程中要实现的逻辑无关。
-* **Presenter** — presenter 从 View 获取输入，在 model 的帮助下处理数据，并在处理完成后将结果传递回 view。
+* **Model** —— model 代表一组描述业务逻辑和数据的类。它制定了更改和操作数据的规则。
+* **View** —— view 负责与用户进行交互，就如下图中 XML，Activity，fragments 部分。它与流程中要实现的逻辑无关。
+* **Presenter** —— presenter 从 View 获取输入，在 model 的帮助下处理数据，并在处理完成后将结果传递回 view。
 
 ![MVP on Android](https://cdn-images-1.medium.com/max/2730/1*naMJ_Kfe8sLShjoBwDfjzg.png)
 
@@ -64,9 +64,9 @@ MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation�
 
 它由如下的三部分组成。
 
-* **Model** — MVVM 中的 model 层和 MVC 中的 model 层非常相似，包含了供应用正常运转所需的基本数据。
-* **View** — view 层是用户和设计模式之间的图形界面，类似于 MVC 中的 view 层。用来展示处理后的数据。
-* **View-Model** — view-model 既是视图层的抽象，又提供了要访问的模型数据的包装。 也就是说，它包含一个可以被转换为视图的模型，并且还包含了一些命令，视图层可以使用这些命令更改模型。
+* **Model** —— MVVM 中的 model 层和 MVC 中的 model 层非常相似，包含了供应用正常运转所需的基本数据。
+* **View** —— view 层是用户和设计模式之间的图形界面，类似于 MVC 中的 view 层。用来展示处理后的数据。
+* **View-Model** —— view-model 既是视图层的抽象，又提供了要访问的模型数据的包装。 也就是说，它包含一个可以被转换为视图的模型，并且还包含了一些命令，视图层可以使用这些命令更改模型。
 
 ![MVVM on Android](https://cdn-images-1.medium.com/max/2730/1*XRtDb_FlcGjwvXjLqra94w.png)
 
@@ -76,18 +76,18 @@ MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation�
 
 ![](https://cdn-images-1.medium.com/max/2730/1*sIwF6PKHDQl59SdKOYbsPA.jpeg)
 
-**性能上的评估** — 当我们测试 UI 的性能时，就渲染帧而言，可以认为 MVP 是其中可靠性最高，阻塞最小的了。MVVM 中的数据绑定会产生额外的过载，很可能导致在执行复杂任务时性能严重下降。
+**性能上的评估** —— 当我们测试 UI 的性能时，就渲染帧而言，可以认为 MVP 是其中可靠性最高，阻塞最小的了。MVVM 中的数据绑定会产生额外的过载，很可能导致在执行复杂任务时性能严重下降。
 
-**兼容性** — 当测试它们的兼容性时，MVVM 是其中最好的，这得益于它的数据绑定。MVP 的表现要好于 MVC，后者存在严重的重启问题。
+**兼容性** —— 当测试它们的兼容性时，MVVM 是其中最好的，这得益于它的数据绑定。MVP 的表现要好于 MVC，后者存在严重的重启问题。
 
-**拓展性** — 说起设计模式，它们必须要有一定的拓展性，因此我们才可以在应用中不断添加新的功能和策略。
+**拓展性** —— 说起设计模式，它们必须要有一定的拓展性，因此我们才可以在应用中不断添加新的功能和策略。
 
 * 由以上几点得知，MVP 和 MVVM 的区别较小，不过 MVVM 的可维护性略胜一筹。
 * 多数情况下，每次后续的拓展，采用 MVC 模式的应用需要改动更多的地方。
 
-**引用** — 在 MVC 中，view 未直接引用 controller，而在 MVP 中，视图引用了 presenter，在 MVVM 中，view 引用了 view-model。
+**引用** —— 在 MVC 中，view 未直接引用 controller，而在 MVP 中，视图引用了 presenter，在 MVVM 中，view 引用了 view-model。
 
-**应用入口** — 对于 MVC，应用程序的入口是 controller，而对于 MVP 和 MVVM，入口是 view。
+**应用入口** —— 对于 MVC，应用程序的入口是 controller，而对于 MVP 和 MVVM，入口是 view。
 
 ## 使用不同的架构来完成上文的示例
 
