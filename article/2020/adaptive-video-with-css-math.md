@@ -24,7 +24,7 @@ Width and height in custom properties must be used without px, otherwise we canâ
 
 Second we need to calculate aspect ratio:
 
-```
+```css
 .video {
   --aspect-ratio: calc(var(--height) / var(--width));
 }
@@ -32,7 +32,7 @@ Second we need to calculate aspect ratio:
 
 And to add units to height:
 
-```
+```css
 .video {
   --aspect-ratio: calc(var(--height) / var(--width));
   --height-with-units: calc(var(--height) * 1px);
@@ -41,7 +41,7 @@ And to add units to height:
 
 On mobile iframe must fit to window, so I added this:
 
-```
+```css
 .video {
   --aspect-ratio: calc(var(--height) / var(--width));
   --height-with-units: calc(var(--height) * 1px);
@@ -52,13 +52,13 @@ On mobile iframe must fit to window, so I added this:
 
 The last step is a little tricky, but not too much. On mobile devices iframe will be squeezed by width, but how we can get actual width? If iframe is stretched to page width, the page width will be approximately equal to window width, so we can use viewport units to express width of iframe, it will be equal to `100vw`. Using actual iframe width and aspect ratio we can calculate height like this:
 
-```
+```css
 calc(100vw * var(--aspect-ratio))
 ```
 
 But this expression will works only for mobile where width of iframe is equal to window width, what about desktop? Letâ€™s add some CSS math to get appropriate height for iframe depending on screen size. I used `min()` to choose which of heights fits better:
 
-```
+```css
 height: min(calc(100vw * var(--aspect-ratio)), var(--height-with-units));
 ```
 
@@ -79,7 +79,6 @@ Final CSS:
      or height calculated from window width */
   height: min(calc(100vw * var(--aspect-ratio)), var(--height-with-units));
 }
-
 ```
 
 Open [**live demo**](https://codepen.io/yoksel/pen/oNxmgYq?editors=0100) and resize the window to see how it works.
