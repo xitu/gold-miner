@@ -2973,10 +2973,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：427.5 当前积分：361.5 二零二零：42.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：427.5 当前积分：347.5 二零二零：42.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|由于 [7130](https://github.com/xitu/gold-miner/pull/7130) 减去积分|减去积分|14|
 |[从头开始到最初的 10 个客户：我是如何设计并推出一个 SaaS 产品](https://juejin.im/post/6860850397293232141)|校对|5|
 |[JavaScript 技巧 —— 子代构造函数，文本选择，内联 Workers 等等](https://juejin.im/post/6854573219622420488)|校对|1|
 |[Javascript 应用中引入 CSS 的几种方式](https://juejin.im/post/6867054761741549576)|翻译|3|
@@ -9120,10 +9121,11 @@
 |[Android中的简易协程：viewModelScope](https://juejin.im/post/5cf35ec76fb9a07ed657bbcd)|翻译|3|
 |[C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63)|翻译|2|
 
-## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：34 当前积分：34 二零二零：8
+## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：42 当前积分：42 二零二零：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[最常用的 4 种 JavaScript 设计模式](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)|翻译|8|
 |[给 NodeJS 的 Logs 点颜色看看！](https://juejin.im/post/5e6f01b151882549422ef315)|校对|1|
 |[停止在任何地方使用 ===](https://juejin.im/post/5e5fb5e951882549522ac8a2)|翻译|7|
 |[如何将 SVG 图标用做 React 组件？](https://juejin.im/post/5df22bf7f265da33ea009225)|校对|1|
@@ -10076,10 +10078,11 @@
 |[什么是无障碍？为什它对于用户体验很重要？](https://juejin.im/post/5ebf96a5f265da7b9754dd7d)|校对|1|
 |[我是如何用 20 小时学会 Sass 的以及为什么你也应该这么做](https://juejin.im/post/5ede14f6e51d4578885ca8fc)|翻译|3.5|
 
-## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：93.5 当前积分：61.5 二零二零：93.5
+## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：97.5 当前积分：65.5 二零二零：97.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[最常用的 4 种 JavaScript 设计模式](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)|校对|4|
 |[如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)|校对|2|
 |[React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)|翻译|4.5|
 |[如何在字符串中隐藏秘密 —— JavaScript 中的现代文本隐藏](https://juejin.im/post/6856737400396349454)|翻译|7|
@@ -10251,3 +10254,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)|校对|2|
+
+## 译者：[CuteSunLee](https://github.com/CuteSunLee) 历史贡献积分：4 当前积分：4 二零二零：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[最常用的 4 种 JavaScript 设计模式](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)|校对|4|
