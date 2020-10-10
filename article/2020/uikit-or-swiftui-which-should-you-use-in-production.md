@@ -7,8 +7,6 @@
 
 # UIKit or SwiftUI: Which Should You Use in Production?
 
-#### Is SwiftUI ready to go live?
-
 ![Photo by [Mario Dobelmann](https://unsplash.com/@mariodobelmann?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11516/0*uqSWA_30Auiz_7F4)
 
 Apple has recently released iOS 14, which means SwiftUI already has a required one-year buffer for being adopted not only by enthusiasts in their pet projects but actually by enterprise teams in their business apps.
@@ -29,8 +27,6 @@ In this article, I elaborate on how to structure the project in two scenarios:
 
 1. You’re supporting iOS 11 or 12 but consider migrating the app to SwiftUI in a foreseeable future.
 2. You’re supporting iOS 13+ but want to control the risks related to SwiftUI and be able to fall back to UIKit seamlessly.
-
----
 
 ## Sticky UI Frameworks
 
@@ -72,9 +68,7 @@ Is there a way to protect our codebase from these barbarian APIs?
 
 Certainly!
 
-(*) Screaming APIs are usually a good thing — the programmer has fewer chances of making a mistake. However, such APIs become a huge problem when they don’t work properly, as is the case with SwiftUI’s problematic programmatic navigation, for example.
-
----
+(\*) Screaming APIs are usually a good thing — the programmer has fewer chances of making a mistake. However, such APIs become a huge problem when they don’t work properly, as is the case with SwiftUI’s problematic programmatic navigation, for example.
 
 ## Estranging the UI Layer
 
@@ -107,8 +101,6 @@ Now. Which reactive framework should we use for the ViewModel? We know that Swif
 Either way is possible, so this depends on whether you can support iOS 13 (Combine) and how much you love RxSwift.
 
 Let’s consider both!
-
----
 
 ## Bridge Between RxSwift and SwiftUI
 
@@ -156,8 +148,6 @@ There are two ways we can make it work:
 
 1. Define a new `ObservableObject` with `@Published` variables bound to `Driver` (or `Observable`) from the original ViewModel.
 2. Adapt each `Driver` to `Publisher` and bind to `@State` inside the SwiftUI's view.
-
----
 
 ## Binding Observable to @Published
 
@@ -282,8 +272,6 @@ extension Driver {
 }
 ```
 
----
-
 ## Connecting UIKit With Combine
 
 If you have the luxury of supporting iOS 13+, you can consider using Combine for building the networking and other non-UI modules in the app.
@@ -346,8 +334,6 @@ class HomeViewController: UIViewController {
 
 And when it’s time to rebuild this screen in SwiftUI, everything will be set up for you: Nothing has to be changed in ViewModel.
 
----
-
 ## Thoughts About Routing
 
 In the past, I’ve explored how [programmatic navigation](https://nalexn.github.io/swiftui-deep-linking/) works in SwiftUI, and from my experience, this is the part of SwiftUI that still suffers from all kinds of glitches and crashes and lacks animation customization.
@@ -357,8 +343,6 @@ As time passes, this will be fixed for sure, but as of now, I wouldn’t trust S
 There is not much that we lose when opting out of SwiftUI’s routing. As long as SwiftUI is backed by UIKit, there will be no positive performance difference compared to what we can achieve with UIKit.
 
 In the sample project I built for this article, I used the traditional Coordinator pattern (MVVM-R) that worked just fine for screens built with `UIHostingController` from SwiftUI.
-
----
 
 ## Conclusion
 
