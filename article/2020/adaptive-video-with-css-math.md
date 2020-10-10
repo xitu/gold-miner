@@ -7,8 +7,6 @@
 
 # Adaptive video with CSS Math
 
-## Adaptive video with custom properties and CSS Math
-
 When I was digging into [CSS math functions](https://www.w3.org/TR/css-values-4/#calc-notation), I had thought about responsive iframes. Some solutions already exist, like [this](https://css-tricks.com/fluid-width-video/), but there we need to use an additional wrapper or JS. What if we could achieve the same behaviour without wrapper and with pure CSS?
 
 First we need to get aspect ratio. We can’t get them from attributes (this approach [exists](https://www.w3.org/TR/css-values-3/#attr-notation) in spec, but is not supported by browsers), so need to use custom properties:
@@ -89,8 +87,6 @@ Open [**live demo**](https://codepen.io/yoksel/pen/oNxmgYq?editors=0100) and res
 **Note:** if you will try to use this code with preprocessors, they could not handle `min()` with different units. To force preprocessors ignore CSS math functions, in SCSS function name must be started with uppercase letter: `Min(…)` and for Less must be wrapped like this:`~”min(…)”`.
 
 I did not use this solution on production, but I hope, it will be useful : )
-
-In russian: [css.yoksel.ru/adaptive-video-with-css-math](http://css.yoksel.ru/adaptive-video-with-css-math/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
