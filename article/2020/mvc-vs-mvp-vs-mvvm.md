@@ -9,7 +9,7 @@
 
 ![Photo by [Edwin Andrade](https://unsplash.com/@theunsteady5?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10098/0*zrwD7OZp_Lz0Trzm)
 
-当下有很多种设计模式可供我们选择。 在分别使用 Model-View-ViewModel (MVVM)，Model-View-Presenter (MVP)，和 Model-View-Controller (MVC)，模式开发了一些 app 后，我觉得是时候聊聊它们间的区别了。为了方便理解，这里我们举一个例子：开发一个用于查找书籍的 **BookSearch** 应用。
+当下有很多种设计模式可供我们选择。 在分别使用 Model-View-ViewModel (MVVM)，Model-View-Presenter (MVP)，和 Model-View-Controller (MVC)，模式开发了一些 app 后，我觉得是时候聊聊它们间的区别了。为了方便理解，这里我们举一个例子：开发一个查找书籍的小功能，其实就是那些 **BookSearch** 应用中的搜索功能。
 
 让我们开始吧
 
