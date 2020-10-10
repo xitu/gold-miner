@@ -5968,10 +5968,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：260.5 当前积分：240.5 二零二零：4
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：261.5 当前积分：241.5 二零二零：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐前端文章 1 篇|奖励|1|
 |5 月推荐前端文章 1 篇|奖励|1|
 |4 月推荐前端文章一篇|奖励|1|
 |2020 年 2 月推荐文章 1 篇|奖励|1|
@@ -7966,10 +7967,11 @@
 |[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|翻译|5|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：34 当前积分：34 二零二零：2
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：35 当前积分：35 二零二零：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐前端文章 1 篇|奖励|1|
 |8 月推荐前端文章 2 篇|奖励|2|
 |[监测与调试 Vue.js 的响应式系统：计算属性树（Computed Tree）](https://juejin.im/post/5c9ca62e5188251d80672b0d)|翻译|5|
 |[网速敏感的视频延迟加载方案](https://juejin.im/post/5c7b84356fb9a049ab0e5630)|翻译|3|
@@ -10168,10 +10170,11 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：31 当前积分：31 二零二零：31
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：32 当前积分：32 二零二零：32
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐前端文章 1 篇|奖励|1|
 |[如何在悬停时创建菜单图像动画](https://juejin.im/post/6878561756793454599)|翻译|6|
 |[如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)|翻译|4|
 |[分享我喜欢的十五条 JavaScript 编程技巧](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)|翻译|4|
