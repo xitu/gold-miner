@@ -27,7 +27,7 @@ Blitz.js 为我们解决了以上的所有问题，它提供了一个完整的�
 
 Blitz.js 带来的种种好处，所提高的生产力将远远超出我们的想象。
 
-现在，我们已经知道为什么需要 Blitz.js 了。让我们来看看详细的功能。
+现在，我们已经知道为什么需要 Blitz.js 了。让我们来看看它的详细功能。
 
 ## Blitz.js
 
@@ -35,7 +35,7 @@ Blitz.js 是受 Ruby on Rails 启发，基于 Next.js 构建的零-API（Zero-AP
 
 让我们根据框架作者的话来看看 Blitz.js 的主要功能和优点：
 
-1. “Zero-API” 数据层让你无需手动添加 API 端点（API endpoints）或进行客户端访问和缓存（fetching and caching）就能直接将服务器代码导入到 React 组件中。
+1. “Zero-API” 数据层让你无需手动添加 API 端点（API endpoints）或进行客户端访问和缓存就能直接将服务器代码导入到 React 组件中。
 2. 包含了产品级应用所需的一切事物。从数据库到前端的一切的端对端事物。
 3. 带来 Ruby on Rails 框架的简洁和约定的同时，保留了我们对 React 中所热爱的一切事物。
 
@@ -164,7 +164,7 @@ datasource db {
 }
 ```
 
-在 schema.prisma 文件中，我们可以定义我们的模型（models）：
+在 schema.prisma 文件中，我们可以定义我们的数据库模型：
 
 ```ts
 datasource db {
@@ -183,7 +183,7 @@ model BlogPost {
 
 `node_modules/` 目录存放了你的项目中安装的所有依赖。它的文件体积非常大。
 
-`public/` 目录用于存放静态资源（assets）文件，主要是一些图片，音乐，视频，图标等的媒体文件。
+`public/` 目录用于存放静态资源文件，主要是一些图片，音乐，视频，图标等的媒体文件。
 
 `utils/` 目录存放了可以在整个应用中共享或使用的通用文件。
 
@@ -376,10 +376,10 @@ app/blogPosts/pages/blogPosts/new.tsx
 
 让我们来总结一下，Blitz.js 为我们提供了：
 
-* 易用的页面路由（page routing）
+* 易用的页面路由
 * 数据库的设置与集成
 * 支持服务器端渲染（SSR）
-* 内置认证（authentication）
+* 内置用户权限认证
 
 Blitzjs 是一个非常好的框架。它让一切事情都变得简单起来了，这真的是令人惊叹。只需用相应的脚手架开发你的项目就可以了！！
 
