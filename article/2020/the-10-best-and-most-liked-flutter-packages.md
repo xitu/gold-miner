@@ -12,7 +12,7 @@
 
 [Flutter](https://flutter.dev/) 是谷歌为实现一套代码编译至移动端、web 端及桌面端应用而推出的一套 UI 开发框架。
 
-Flutter 是基于 Dart 编程语言来做开发的，同时 Flutter 的开放社区——[Dart.dev](https://pub.dev/)也非常活跃，官方也在社区上提供技术支持，并且已经有大量的第三方工具包可供使用，这一切使得采用 Flutter 具有非常高的生产力。
+Flutter 是基于 Dart 编程语言来做开发的，同时 Flutter 的开放社区——[Dart.dev](https://pub.dev/)也非常活跃，官方也在社区上提供技术支持，并且已经有大量的第三方工具包可供使用，这一切使得 Flutter 开发框架具有非常高的生产力。
 
 这篇文章将列举最热门口碑最佳的 10 个 Flutter 工具库，以此来展示 Flutter 作为一种新型的软件开发平台的成熟程度。
 
