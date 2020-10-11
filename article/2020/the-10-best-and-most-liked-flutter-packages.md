@@ -71,7 +71,7 @@ print(await http.read('https://example.com/foobar.txt'));
 仓库地址: [https://pub.dev/packages/shared_preferences](https://pub.dev/packages/shared_preferences)
 支持平台: iOS, Android, Web, Linux
 
-这个库将对个系统平台的持久缓存库进行了包装，一般用来存储想用户设置这样的简单数据，其在各个系统平台的原生实现如下：
+这个库将对个系统平台的持久缓存库进行了包装，一般用来存储像用户设置这样的简单数据，其在各个系统平台的原生实现如下：
 
 * iOS 和 macOS 采用 `NSUserDefaults` 实现
 * Android 采用 `SharedPreferences`实现
