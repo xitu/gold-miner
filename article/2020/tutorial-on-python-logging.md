@@ -13,7 +13,7 @@
 
 ## 为什么要使用 Logging 而不使用 print()
 
-print 语句跟 Logging 输出存在本质上的不同。一般地，print 语句用于向 stdout （标准输出） 写入有用的信息或程序需要输出的信息。然而 Logging 将这些信息写入 stderr （标准错误输出）。
+print 语句跟 Logging 输出存在本质上的不同。一般地，print 语句用于向 stdout（标准输出）写入有用的信息或程序需要输出的信息。然而 Logging 将这些信息写入 stderr（标准错误输出）。
 
 ```py
 import logging
@@ -61,7 +61,7 @@ This is the program output
 * **ERROR**: 报告由于用户操作不当或程序运行时发生的错误。
 * **CRITICAL**: 最高等级的日志输出，通常用于某些关键问题（取决于具体情况）。
 
-最常用的日志类型有：**DEBUG**、 **INFO** 和 **ERROR**。然而，经常会出现因 Python 版本不匹配抛出警告的情况。
+最常用的日志类型有：**DEBUG**、**INFO** 和 **ERROR**。然而，经常会出现因 Python 版本不匹配抛出警告的情况。
 
 ## 配置 Logger 和日志处理程序
 
