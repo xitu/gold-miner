@@ -102,7 +102,7 @@ print(await http.read('https://example.com/foobar.txt'));
 这个插件可以帮你快速打开一个 URL，URL 地址可以是以下几个类型之一：
 
 * HTTP: 例如 `http://example.org` 和 `https://example.org`
-* 邮箱: mailto:\<e-mail 地址>
+* 邮箱：mailto:\<e-mail 地址>
 * 拨打电话: tel:\<phone 手机号>
 * SMS短信: sms:\<phone 手机号>
  
