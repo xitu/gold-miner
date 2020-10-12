@@ -121,7 +121,7 @@ if (await canLaunch(url)) {
 ## 6. video_player
 
 仓库地址：[https://pub.dev/packages/video_player](https://pub.dev/packages/video_player)
-支持平台: iOS, Android, Web
+支持平台：iOS、Android、Web
 
 ![图片和示例视频来自[pub.dev](https://pub.dev/packages/video_player)](https://cdn-images-1.medium.com/max/2000/1*ZLGqM8PidJjpjdapQFA3Tw.gif)
 
