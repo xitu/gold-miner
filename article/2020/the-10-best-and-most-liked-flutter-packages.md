@@ -153,7 +153,7 @@ if (await canLaunch(url)) {
 ## 8. carousel_slider
 
 仓库地址: [https://pub.dev/packages/carousel_slider](https://pub.dev/packages/carousel_slider)
-支持平台: iOS, Android, Web
+支持平台：iOS、Android、Web
 
 ![轮播示例图来自 [pub.dev](https://pub.dev/packages/carousel_slider)](https://cdn-images-1.medium.com/max/2000/1*lcQGQt_SoyfnQOLqWWlCKA.gif)
 
