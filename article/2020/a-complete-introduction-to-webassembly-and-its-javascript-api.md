@@ -2,44 +2,44 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/a-complete-introduction-to-webassembly-and-its-javascript-api.md](https://github.com/xitu/gold-miner/blob/master/article/2020/a-complete-introduction-to-webassembly-and-its-javascript-api.md)
-> * 译者：
+> * 译者：[JohnieXu](https://github.com/JohnieXu)
 > * 校对者：
 
-# A Complete Introduction to WebAssembly and It’s JavaScript API
+# WebAssembly 及其 JavaScript API 的完整介绍
 
-![Photo by [Louis Hansel @shotsoflouis](https://unsplash.com/@louishansel?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*HV8EPAnwvRa8_4JH)
+![[Louis Hansel @shotsoflouis](https://unsplash.com/@louishansel?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*HV8EPAnwvRa8_4JH)
 
-Since the introduction of computers, there has been a massive improvement in the performance of native applications. Comparatively, web applications were quite slow due to the fact that JavaScript was not initially built for speed. But with heavy competition amongst the browsers and the rapid development of JavaScript engines such as V8, enabled JavaScript to run very fast on machines. But it was still not able to beat the performance of native applications. This was mainly due to the fact that the JavaScript code had to undergo several processes to result in machine code.
+自计算机诞生以来，原生应用程序的性能有了很大的提高。相比之下，由于 JavaScript 最初不是为了运行速度而创造的，因此 web 应用程序非常慢。但是，由于浏览器之间的激烈竞争以及诸如 V8 之类的 JavaScript 引擎的快速发展，使 JavaScript 能够在计算机上快速运行。但是它仍然无法超越原生应用程序的性能。这主要是由于 JavaScript 代码必须经过多个过程才能生成机器代码这一事实。
 
-![Average time spent by a JS engine — Source: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/fd3c55e9-3dda-473b-a76b-0ba4d0e039ad/08-diagram-now01-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*bGwF1hjg50k_o2C0.png)
+![JS 引擎各阶段平均耗时统计 — 来自于: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/fd3c55e9-3dda-473b-a76b-0ba4d0e039ad/08-diagram-now01-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*bGwF1hjg50k_o2C0.png)
 
-With the introduction of WebAssembly, everything we know as the modern web is expected to be revolutionized. This piece of technology is blazingly fast. Let’s have a look at what WebAssembly is and how we can integrate with JavaScript to build blazingly fast applications.
+随着 WebAssembly 的到来，我们所知道的作为现代网络的一切都有望发生革命性的变化。这项技术运行速度非常快。让我们看一下什么是 WebAssembly，以及如何与 JavaScript 集成以构建运行速度惊人的应用程序。
 
-## What is WebAssembly?
+## 什么是 WebAssembly?
 
-**Before understanding WebAssembly, let’s have a look at what Assembly is.**
+**在理解 WebAssembly 之前，让我们先看看什么是汇编（Assembly）。**
 
-Assembly is a low-level programming language that has a very close connection to the architecture’s machine-level instructions. In other words, it is just one process away from being converted to machine understandable code known as machine code. This conversion process is referred to as the **assembly**.
+汇编语言是一种低级编程语言，与底层的机器指令有非常密切的联系。换句话说， 汇编就是将这种语言转换为机器可理解的代码 (称为机器码) 的一个过程。
 
-**WebAssembly** can simply be referred to as the Assembly for the web. It is a low-level assembly-like language with a compact binary format that enables you to run web applications at native-like speeds. It also provides languages such as C, C++ and Rust with a compilation target and thereby enabling client applications to run on the web with near-native performance.
+**WebAssembly** 可以简单地理解是在 web 使用的汇编语言。它是一种低级的类似汇编的语言，具有紧凑的二进制格式，使您能够以接近原生的速度运行 web 应用程序。它还为诸如 C、C + + 和 Rust 之类的语言提供了编译目标，从而使客户端应用程序能够以近乎原生的性能在 web 上运行。
 
-Furthermore, WebAssembly is designed to run alongside JavaScript, not to replace it. With the WebAssembly JavaScript APIs, you can run code from either language interchangeably, back and forth without any issue. This provides you with applications that utilize the power and performance of WebAssembly and the versatility and adaptability of JavaScript. This opens up a whole new world of web applications that can run code and functionalities that were not intended for the web in the first place.
+此外，WebAssembly 旨在与 JavaScript 一起运行，而不是替换它。使用 WebAssembly JavaScript api，您可以交替地来回运行来自任一语言的代码，而不会出现任何问题。这为您提供了利用 WebAssembly 的功能和性能以及 JavaScript 的多功能性和适应性的应用程序。这开启了一个全新的 web 应用程序世界，该应用程序可以运行最初不打算用于 web 的代码和功能。
 
-## What Difference Does It Make
+## WebAssembly 有何不同
 
-[Lin Clark](https://www.smashingmagazine.com/author/linclark/) predicts that the introduction of WebAssembly in 2017 may trigger a new inflexion point in the life of web development. This event comes after inflexion caused by the introduction of JIT compilation in modern browsers which increased the speed of JavaScript by almost 10 times.
+[Lin Clark](https://www.smashingmagazine.com/author/linclark/) 预测在2017年引入 WebAssembly 可能会在 web 开发的生命中引发一个新的拐点。这一事件发生在现代浏览器中引入 JIT 编译导致的拐点之后，这种拐点将 JavaScript 的速度提高了近10倍。
 
-![JavaScript performance — Source: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5961531-2863-4e2a-afac-a3fafd927aa2/03-perf-graph10-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*Py-XN25Ym7msk12v.png)
+![JavaScript 性能统计 — 来自于: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5961531-2863-4e2a-afac-a3fafd927aa2/03-perf-graph10-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*Py-XN25Ym7msk12v.png)
 
-If you compare the compilation process of WebAssembly with that of JavaScript, you will note that several processes have been stripped off and the rest have been trimmed. This is a visual comparison of how these two processes would look like.
+如果仔细比较 JavaScript 与 WebAssembly 代码编译为机器码过程，可以明显看到在 WebAssembly 的编译过程中有多个过程被剥离了出来，同时还有几个过程被去掉了。下面是两个编译过程的对比。
 
-![Approximate visualization of how WebAssembly would compare for a typical web application — Source: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/01483767-04a0-4438-be58-f7e6512f1b39/10-diagram-future01-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*A4PPwrXlDXzU4rpL.png)
+![JS 代码编译与 WebAssembly 代码编译过程大致对比 — 来自于: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/01483767-04a0-4438-be58-f7e6512f1b39/10-diagram-future01-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*A4PPwrXlDXzU4rpL.png)
 
-If you closely compare the above two visualizations, you will note that the re-optimization part in the WebAssembly has completely been stripped off. This is mainly due to the fact that the compiler does not need to make any assumptions regarding the WebAssembly code because things such as data types are explicitly mentioned in the code.
+如果仔细比较以上两个过程，您会注意到 WebAssembly 中的重新优化部分已被完全剥离。这主要是因为编译器不需要对WebAssembly代码做出任何假设，因为代码中明确提到了诸如数据类型之类的事情。
 
-But this would not be the case with JavaScript as the JIT should make assumptions to run the code and if the assumptions fail, it should reoptimize its code.
+但是 JavaScript 并非如此，因为 JIT 应该做出假设来运行代码，如果假设失败，它应该重新优化其代码。
 
-## How to Get WebAssembly Code
+## 如何获取 WebAssembly 代码
 
 Now comes the important question for web developers. WebAssembly is a great piece of technology. But how do you utilize the power of WebAssembly?
 
