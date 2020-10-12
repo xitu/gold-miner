@@ -1,3 +1,6 @@
+* [Python 的优化 — 驻留机制](https://juejin.im/post/6875879902902485005)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [利用映射提高 MongoDB 性能](https://juejin.im/post/6881503834737213454)（[onlinelei](https://github.com/onlinelei) 翻译）
+* [Python：使用 locals() 和 globals() 巧妙编程](https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md)（[actini](https://github.com/actini) 翻译）
 * [如何创建一个可复用的网页爬虫](https://juejin.im/post/6860354555759869966)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [写给工程师的《系统性能兵法》](https://juejin.im/post/6858061688386617358)（[lhd951220](https://github.com/lhd951220) 翻译）
 * [记一次 —— 构建 API 网关服务的经历](https://juejin.im/post/5ef078666fb9a0589364a46b)（[todaycoder001](https://github.com/todaycoder001) 翻译）
