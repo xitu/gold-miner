@@ -208,7 +208,7 @@ p.join('directory', 'file.txt');
 ## 10. location
 
 仓库地址：[https://pub.dev/packages/location](https://pub.dev/packages/location)
-支持平台: iOS, Android, Web, MacOS
+支持平台：iOS、Android、Web、MacOS
 
 手机的一大优点是它的便携性与精确定位能力相结合，这一能力已经为我们创造了非常多的应用。这款location定位插件使得定位用户当前位置变得更新简单轻松。它既支持监听用户定位改变的回调，又提供了 API 接口以便在适当时机向系统申请用户地址访问权限。
 
