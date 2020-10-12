@@ -196,7 +196,7 @@ CarouselSlider(
 ## 9. path
 
 仓库地址：[https://pub.dev/packages/path](https://pub.dev/packages/path)
-支持平台: iOS, Android, Web
+支持平台：iOS、Android、Web
 
 路径处理既简单又异常复杂，因为在不同系统平台处理方式有所不同。要保证不引入 bug 和安全漏洞，通常需要使用路径解析库来专门处理路径。使用这个库可以非常方便的拼接路径、文件名及当前系统对应的分隔符，示例如下：
 
