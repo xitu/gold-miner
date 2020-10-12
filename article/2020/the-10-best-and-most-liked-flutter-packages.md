@@ -134,7 +134,7 @@ if (await canLaunch(url)) {
 ## 7. crypto
 
 仓库地址：[https://pub.dev/packages/crypto](https://pub.dev/packages/crypto)
-支持平台: 所有平台
+支持平台：所有平台
 
 这是使用纯 Dart 语言开发的一套实现哈希加密的函数，这也意味着这个库可以独立使用不依赖于额外的第三方库。
 
