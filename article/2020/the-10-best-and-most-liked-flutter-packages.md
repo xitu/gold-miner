@@ -97,7 +97,7 @@ print(await http.read('https://example.com/foobar.txt'));
 ## 5. url_launcher
 
 仓库地址：[https://pub.dev/packages/url_launcher](https://pub.dev/packages/url_launcher)
-支持平台: iOS, Android, Web
+支持平台：iOS、Android、Web
 
 这个插件可以帮你快速打开一个 URL，URL 地址可以是以下几个类型之一：
 
