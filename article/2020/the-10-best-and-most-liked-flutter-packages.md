@@ -20,7 +20,7 @@ Flutter 是基于 Dart 编程语言来做开发的，同时 Flutter 的开放社
 
 ## 1. HTTP
 
-仓库地址: [https://pub.dev/packages/http](https://pub.dev/packages/http)
+仓库地址：[https://pub.dev/packages/http](https://pub.dev/packages/http)
 
 支持平台：iOS、Android、Web
 
