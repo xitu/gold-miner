@@ -82,7 +82,7 @@ print(await http.read('https://example.com/foobar.txt'));
 
 ## 4. sqflite
 
-仓库地址: [https://pub.dev/packages/sqflite](https://pub.dev/packages/sqflite)
+仓库地址：[https://pub.dev/packages/sqflite](https://pub.dev/packages/sqflite)
 支持平台: iOS, Android, MacOS
 
 这是一个 Flutter 版的 SQLite 插件，同时支持 iOS、Android、MacOS 系统。值得注意的是因为 web 端没有基于 SQL 的数据存储实现，这个库是不支持在 web 端使用的。以下是它的一些特性：
