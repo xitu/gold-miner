@@ -48,7 +48,7 @@ print(await http.read('https://example.com/foobar.txt'));
 
 仓库地址: [https://pub.dev/packages/flutter_slidable](https://pub.dev/packages/flutter_slidable)
 
-支持平台: iOS, Android, Web
+支持平台：iOS、Android、Web
 
 ![flutter_slidable 用法示例 ([查看源码](https://pub.dev/packages/flutter_slidable))](https://cdn-images-1.medium.com/max/2000/1*-lxI0VkO5MCC3PW74VaLWA.gif)
 
