@@ -22,7 +22,7 @@ Flutter 是基于 Dart 编程语言来做开发的，同时 Flutter 的开放社
 
 仓库地址: [https://pub.dev/packages/http](https://pub.dev/packages/http)
 
-支持平台: iOS, Android, Web
+支持平台：iOS、Android、Web
 
 如今，所有的内容都基于网络，因此一款功能强大的 HTTP 请求库必不可少。这个工具库由 Dart 团队开发并还在积极维护着，其包含一系列的操作 HTTP 请求的高级函数和类。这个工具库始于 2012 年，绝对是非常靠谱的。
 
