@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-10-best-and-most-liked-flutter-packages.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-10-best-and-most-liked-flutter-packages.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)
-> * 校对者：
+> * 校对者：[juu574](https://github.com/juu574)
 
 # The 10 Best and Most Liked Flutter Packages
 # 10 款质量最佳最受欢迎的 Flutter 工具库
