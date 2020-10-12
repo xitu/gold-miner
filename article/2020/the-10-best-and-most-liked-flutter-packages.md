@@ -103,7 +103,7 @@ print(await http.read('https://example.com/foobar.txt'));
 
 * HTTP：例如 `http://example.org` 和 `https://example.org`
 * 邮箱：mailto:\<e-mail 地址>
-* 拨打电话: tel:\<phone 手机号>
+* 拨打电话：tel:\<phone 手机号>
 * SMS短信: sms:\<phone 手机号>
  
 基本使用非常简单，如下示例：
