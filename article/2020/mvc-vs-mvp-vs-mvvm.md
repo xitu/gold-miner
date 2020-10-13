@@ -32,7 +32,7 @@
 
 ## Model-View-Controller
 
-简称 MVC，它是架构软件应用程序的一种广泛使用的设计模式。该模式最初是由 [Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug) 在他从事 Smalltalk-80（1979）的工作期间设计的，最初被称为 Model-View-Controller-Editor。1994年在 [“设计模式 : 可复用面向对象软件的基础”](https://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612)（又名 “GoF”）一书中对 MVC 进行了更深入的描述，该书在推广其使用方面发挥了作用。 该模式将应用程序分为三个部分。
+简称 MVC，它是架构软件应用程序的一种广泛使用的设计模式。该模式最初是由 [Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug) 在从事 Smalltalk-80（1979）的工作期间设计的，最初被称为 Model-View-Controller-Editor。1994年在 [“设计模式 : 可复用面向对象软件的基础”](https://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612)（又名 “GoF”）一书中对 MVC 进行了更深入的描述，该书在推广其使用方面发挥了作用。 该模式将应用程序分为三个部分。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*C6X8ZQf3grq0ifscFvMugw.png)
 
@@ -44,21 +44,21 @@
 
 ## Model–View–Presenter
 
-MVP 是 MVC 设计模式的衍生品，该模式专注于改进展示逻辑。它起源于 1990 年代初的一家名为 [Taligent](http://Model-view-presenter (MVP) is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named Taligent in the early 1990s while they were working on a model for a C++ CommonPoint environment.) 的公司，当时他们正在开发一个运行于 C ++ CommonPoint 环境的模型。
+MVP 是 MVC 设计模式的衍生品，该模式专注于改进展示逻辑。它起源于 1990 年代初的一家名为 [Taligent](https://en.wikipedia.org/wiki/Taligent) 的公司，当时他们正在开发一个运行于 C ++ CommonPoint 环境的模型。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*ru_qYzPdhTnOoFGOcU6qOA.png)
 
-虽然 MVP 是 MVC 的衍生品，但它们相差不大。
+虽然 MVP 是 MVC 的衍生品，但它们也有细微的差别。
 
 * **Model** —— model 代表一组描述业务逻辑和数据的类。它制定了更改和操作数据的规则。
-* **View** —— view 负责与用户进行交互，就如下图中 XML，Activity，fragments 部分。它与流程中要实现的逻辑无关。
+* **View** —— view 负责与用户进行交互，就如下图中 XML、Activity、fragments 部分。它与流程中要实现的逻辑无关。
 * **Presenter** —— presenter 从 View 获取输入，在 model 的帮助下处理数据，并在处理完成后将结果传递回 view。
 
 ![MVP on Android](https://cdn-images-1.medium.com/max/2730/1*naMJ_Kfe8sLShjoBwDfjzg.png)
 
 ## Model-View-ViewModel
 
-MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation（WPF）和 Silverlight，由 John Grossman 于2005年在有关 Avalon（WPF的代号）的博客文章中正式提出。这种基于 MVC 和 MVP 的模式致力于将应用中 UI 的开发与业务逻辑的开发分离。
+MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation（WPF）和 Silverlight，由 John Grossman 于 2005 年在有关 Avalon（WPF的代号）的博客文章中正式提出。这种基于 MVC 和 MVP 的模式致力于将应用中 UI 的开发与业务逻辑的开发分离。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*j6dM1iDMAn3d94g4tvuLFg.png)
 
@@ -72,7 +72,7 @@ MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation�
 
 ## MVC vs MVP vs MVVM
 
-让我们来看下 MVC，MVP 和 MVVM 间的主要区别。
+让我们来看下 MVC、MVP 和 MVVM 间的主要区别。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*sIwF6PKHDQl59SdKOYbsPA.jpeg)
 
