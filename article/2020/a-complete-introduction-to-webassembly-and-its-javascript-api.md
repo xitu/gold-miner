@@ -41,26 +41,26 @@
 
 ## 如何获取 WebAssembly 代码
 
-Now comes the important question for web developers. WebAssembly is a great piece of technology. But how do you utilize the power of WebAssembly?
+接下来的才是开发者要面临的最重要的问题。WebAssembly 是一项非常伟大的技术，那开发者应该如何充分使用它的能力呢？
 
-You have several approaches.
+有如下几种使用方法。
 
-* Write the WebAssembly code from scratch — this is not recommended at all unless you know the basics really well.
-* Compile from C to WebAssembly
-* Compile from C++ to WebAssembly
-* Compile from Rust to WebAssembly
-* Use [AssemblyScript](https://github.com/AssemblyScript/assemblyscript) to compile a strict variant of Typescript to WebAssembly. This is a great option for web developers who are not familiar with C/C++ or Rust.
-* There are more language options supported. We will mention them below.
+* 从头开始编写 WebAssembly 代码-除非您非常了解基础知识，否则不建议这样做。
+* 从 C 编译到 WebAssembly
+* 从 C++ 编译到 WebAssembly
+* 从 Rust 编译到 WebAssembly
+* 使用 [AssemblyScript](https://github.com/AssemblyScript/assemblyscript) 将严格变体版的 Typescript 编译到 WebAssembly。对于不熟悉 C/C++ 或 Rust 的 web 开发人员来说，这是一个很不错的选择。
+* 同时还支持更多的语言编译可供选择，下面将会讲到。
 
-Moreover, there are tools such as [Emscripten](https://emscripten.org/) and [WebAssembly Studio](https://webassembly.studio/) that help you with the above process.
+此外，还有一些工具，例如 [Emscripten](https://emscripten.org/) 和 [WebAssembly Studio](https://webassembly.studio/) 可以帮助完成上述代码编译的过程。
 
-## JavaScript’s WebAssembly API
+## JavaScript 的 WebAssembly API
 
-To fully exploit the features of WebAssembly, we have to integrate it with our JavaScript code. This can be done with the help of the JavaScript WebAssembly API.
+为了充分利用 WebAssembly 的特性，我们必须将其与 JavaScript 代码集成。这可以借助 JavaScript WebAssembly API 来实现。
 
-#### Module Compilation and Instantiation
+#### 模块编译和实例化
 
-The WebAssembly code resides in a `.wasm` file. This file should be compiled to machine code that is specific to the machine it is running on. You can use the `WebAssembly.compile` method to compile your WebAssembly module. After receiving the compiled module, you can use the `WebAssembly.instantiate` method to instantiate your compiled module. Alternatively, you can pass the array buffer you obtain from fetching `.wasm` file into the `WebAssembly.instantiate` method as well. This too works as the instantiate method has two overloads.
+WebAssembly 代码位于后缀名为 `.wasm` 的文件中，这个文件需要在客户端被编译至应用运行时所在系统对应的机器码。可以通过 `WebAssembly.compile` 方法来编译 WebAssembly 模块。接收到编译好的 WebAssembly 模块后可以使用 `WebAssembly.instantiate` 方法来将其实例化。或者，也可以通过将获取到的 `.wasm` 文件内容转换为 ArrayBuffer 传递至 `WebAssembly.instantiate` 的方式来进行实例化。
 
 ```js
 let exports;
@@ -74,9 +74,9 @@ fetch('sample.wasm').then(response =>
 });
 ```
 
-One of the downsides of the above approach is that these methods don’t directly access the byte code, so require an extra step to turn the response into an `ArrayBuffer` before compiling/instantiating the `wasm` module.
+上述方法有一个缺点是：因 `WebAssembly.instantiate` 方法不能直接访问字节码，因此需要将获取的模块文件内容转换为 `ArrayBuffer` 再进行编译、实例化操作。
 
-Instead, we can use the `WebAssembly.compileStreaming` / WebAssembly.instantiateStreaming methods to achieve the same functionality as above, with an advantage being able to access the byte code directly without the need for turning the response into an `ArrayBuffer` .
+还有另外一种方法，使用 `WebAssembly.compileStreaming` 和 `WebAssembly.instantiateStreaming` 方法来实现上面编译、实例化的功能，这种方式的优点是能够直接访问字节码，而无需先将文件内容转换为 `ArrayBuffer`
 
 ```js
 let exports;
@@ -87,7 +87,7 @@ WebAssembly.instantiateStreaming(fetch('sample.wasm'))
 })
 ```
 
-You should note that the `WebAssembly.instantiate` and WebAssembly.instantiateStreaming return the instance as well as the compiled module as well, which can be used to spin up instances of the module quickly.
+值得注意的是上述两种实例化 WebAssembly 模块的方法都会返回编译好的模块实例对象，以便加速模块实例的唤起。
 
 ```js
 let exports;
@@ -101,22 +101,22 @@ WebAssembly.instantiateStreaming(fetch('sample.wasm'))
 })
 ```
 
-#### Import Object
+#### 导入对象（Import Object）
 
-When we instantiate a WebAssembly module instance, we can optionally pass an import object that would contain the values to be imported into the newly created module instance. These can be of 4 types.
+完成 WebAssembly 模块实例化后，可以向模块实例传入一个导入对象（Import Object），这个导入对象的属性值可以是以下 4 种类型。
 
-* global values
-* functions
-* memory
-* tables
+* 全局变量（Globals）
+* 函数（Function）
+* 内存（Memory）
+* 表（Table）
 
-The import object can be considered as the tools supplied to your module instance to help it achieve its task. If an import object is not provided, the compiler will assign default values.
+导入对象可以理解为是想模块实例上附加的一系列用于实现特定功能的辅助工具方法，如果未提供导入对象，编译器将会分配默认值。
 
-#### Globals
+####  全局变量（Globals）
 
-WebAssembly allows you to create global variable instances that can be accessed from your JavaScript and WebAssembly modules. You can import/export these variables and use them across one or more WebAssembly module instances.
+WebAssembly 可以创建可从 JavaScript 和 WebAssembly 模块访问的全局变量，并且可以导入、导出这些变量，同时可以在一个或多个 WebAssembly 模块实例中使用它们。
 
-You can create a global instance by using the `WebAssembly.Global()` constructor.
+可以使用构造函数 `WebAssembly.Global()` 来创建全局变量实例。
 
 ```js
 const global = new WebAssembly.Global({
@@ -125,10 +125,10 @@ const global = new WebAssembly.Global({
 }, 20);
 ```
 
-The global constructor accepts two parameters.
+该构造函数接收两个参数，分别如下：
 
-* An object containing properties describing the data type and mutability of the global variable. The allowed data types are `i32`, `i64`, `f32`, or `f64`
-* The initial value of the actual variable. This value should be of the type mentioned in parameter 1. For example, if you mention the type as `i32` , your variable should be a 32-bit integer. Likewise, if you mention `f64` as the type, then your variable should be a 64-bit float.
+* 第一个参数是一个对象，其 value 属性表示表示值的类型，其 mutable 属性表示值是否可以修改，允许的值类型有：`i32`、`i64`、`f32` 和 `f64`；
+* 第二个参数是变量的值，并值的类型必须与第一个参数中指定的类型一致，例如：如果参数一中类型是 `i32`，则值的类型必须是 32 位整数，如果参数一中类型是 `f64`，则值的类型必须是 64 位浮点型。
 
 ```js
 const global = new WebAssembly.Global({
@@ -145,15 +145,15 @@ let importObject = {
 WebAssembly.instantiateStreaming(fetch('global.wasm'), importObject)
 ```
 
-**The global instance should be passed onto the `importObject` in order for it to be accessible in the WebAssembly module instance.**
+**上面创建的全局对象实例必须通过 `WebAssembly.instantiateStreaming` 或 `WebAssembly.instantiate` 方法传入到 WebAssembly 实例对象的导入对象上，才能确保 WebAssembly 实例对象可以正确访问。**
 
-#### Memory
+####  内存（Memory）
 
 At the point of instantiation, the WebAssembly module would need a memory object allocated. This memory object should be passed with the `importObject`. If you fail to do so, the JIT compiler would create and attach a memory object to the instance automatically with the default values.
 
 The memory object attached to the module instance would simply be an `ArrayBuffer`. This enables for easy memory access by simply using index values. Furthermore, because of being a simple `ArrayBuffer` , values can simply be passed and shared between JavaScript and WebAssembly.
 
-#### Table
+#### 表（Table）
 
 A WebAssembly Table is a resizable array that lives outside of the WebAssembly’s memory. The values of the table are function references. Although this sounds similar to the WebAssembly Memory, the major difference between them is that Memory array is of raw bytes while the Table array is of references.
 
@@ -161,7 +161,7 @@ The main reason for the introduction of Table is improved security.
 
 You can use the methods `set()` , `grow()` , and `get()` to manipulate your table.
 
-## Demo
+## 一个示例
 
 For my demonstration, I will be using the WebAssembly Studio application to compile my C file into `.wasm` . You can have a look at the demo over [here](https://webassembly.studio/?f=wne209a6cxq).
 
