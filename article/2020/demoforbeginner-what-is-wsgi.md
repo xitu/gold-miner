@@ -11,9 +11,7 @@ PEP-3333 describes the WSGI protocol specification in detail. WSGI is the abbrev
 
 ![](https://cdn-images-1.medium.com/max/3314/1*PHVAYtkTLNcEl-OqhpsUUA.png)
 
----
-
-#### Let`s talk about application and server.
+Let\`s talk about application and server.
 
 #### Application
 
@@ -21,7 +19,7 @@ PEP-3333 describes the WSGI protocol specification in detail. WSGI is the abbrev
 * The application must be called multiple times, because all servers/gateway (except CGI) will issue such repeated requests.
 * environ is a dictionary parameter that contains CGI-style environment variables. It must use the built-in Python dictionary type and allow the application to modify it in any way it wants. The dictionary also includes certain WSGI variables, and their naming needs to comply with corresponding specifications. Such as
 
-```
+```py
 environ = {k: v for k, v in os.environ.items()}
 environ['wsgi.input'] = self.rfile
 environ['wsgi.errors'] = sys.stderr
@@ -47,9 +45,7 @@ response_headers is a list of tuples describing HTTP Response Headers(header_nam
 
 A single object may play the role of a server with respect to some application(s), while also acting as an application with respect to some server(s).For WSGI application it is equivalent to WSGI server, and for WSGI server it is equivalent to WSGI application.
 
----
-
-#### Let`t make a demo code by handwriting.
+#### Let\`t make a demo code by handwriting.
 
 All the handwritten codes can be obtained in my github repository, as shown below：
 
@@ -59,7 +55,6 @@ All the handwritten codes can be obtained in my github repository, as shown belo
 
 The following lists three forms of implementing application：
 
-```Markdown
 ```python
 def simple_app(environ, start_response):
     '''a application by define a function'''
@@ -95,9 +90,7 @@ class InstSimpleApp(object):
             ('Content-type', 'text/plain; charset=utf-8'),
         ]
         start_response(status, response_headers)
-        yield 'hello,world\n'.encode('utf-8')
-        
-```
+        yield 'hello,world\n'.encode('utf-8')     
 ```
 
 #### MiddleWare
@@ -137,11 +130,9 @@ The custom server module is more complicated and mainly uses the python native l
 
 Regarding custom server, Python actually has a library that implements the WSGI protocol for the use in the development environment, such as wsgiref. I write server here is just to better understand how to implement a WSGI server.
 
----
+#### Let\’s take a peek at wsgiref.
 
-#### Let’s take a peek at wsgiref.
-
-wsgiref based on the lib of **socketserver**, so let`s look at socketserver first.
+wsgiref based on the lib of **socketserver**, so let\`s look at socketserver first.
 
 the class diagram of socketserver below:
 
@@ -151,16 +142,14 @@ Based on the analysis and understanding of socketserver, the wsgi protocol on ho
 
 ![](https://cdn-images-1.medium.com/max/3776/1*kI7Xtyw0pzpv6BjpVEsNHg.png)
 
----
-
-#### let`s make a summary.
+#### let\`s make a summary.
 
 * PEP3333 make a specification of wsgi
 * we have been talk about the wsgi server and application
 * we take a look at wsgiref and understand the proceduce of interactive process for WSGIServer and WSGIRequestHandler.
 * According to the description of the wsgi protocol, we implement an application and server by handwriting code.
 
-#### That`s all for this post, and hope it helps you. If you like this original article, please click claps. Welcome to comment. THX
+That\`s all for this post, and hope it helps you. If you like this original article, please click claps. Welcome to comment. THX
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
