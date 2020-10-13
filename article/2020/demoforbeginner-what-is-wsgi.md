@@ -47,9 +47,7 @@ A single object may play the role of a server with respect to some application(s
 
 #### Let\`t make a demo code by handwriting.
 
-All the handwritten codes can be obtained in my github repository, as shown below：
-
-[wsgi_demo](https://github.com/ZosionLee/DemoForBeginner/blob/develop/wsgi/wsgi_handwrite.py)
+All the handwritten codes can be obtained in my [github repository](https://github.com/ZosionLee/DemoForBeginner/blob/develop/wsgi/wsgi_handwrite.py), as shown below：
 
 #### Application
 
