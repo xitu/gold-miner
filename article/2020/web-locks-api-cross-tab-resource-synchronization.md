@@ -100,8 +100,6 @@ try {
 
 I believe the above code snippet is self-explanatory. But there are some additional parameters that can be passed on to the `request()` function. Let’s have a look at them.
 
----
-
 ## Optional Parameters
 
 #### Mode
@@ -170,8 +168,6 @@ One let down of this API is browser compatibility. Although there was a polyfill
 ![Source: [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API#Browser_compatibility)](https://cdn-images-1.medium.com/max/2010/1*qnGOiC-_s5tFzP0N0moG8A.png)
 
 ![Source: [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API#Browser_compatibility)](https://cdn-images-1.medium.com/max/2006/1*N6uF2s2tQHABBv5SsESNbg.png)
-
----
 
 The Web Locks API is a highly useful feature with several use cases that make it a very important addition. Its limited support, however, can discourage developers from learning and implementing it. But with the level of impact this API can have on modern web applications, I personally believe it is essential for web developers to know their way around this new feature. Furthermore, since this API is experimental, you can expect changes in the future.
 
