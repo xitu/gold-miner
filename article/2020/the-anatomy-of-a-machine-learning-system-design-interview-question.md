@@ -7,11 +7,7 @@
 
 # The Anatomy of a Machine Learning System Design Interview Question
 
-#### Break down the structure of the question so you can answer it well
-
 ![Image credit: Author](https://cdn-images-1.medium.com/max/2048/1*Ep0crcTbOZBLZwVW8W3JDQ.png)
-
-**Written by Educative Co-Founder, Fahim ul Haq.**
 
 Machine learning system design interviews have become increasingly common as more industries adopt ML systems. While similar in some ways to generic system design interviews, ML interviews are different enough to trip up even the most seasoned developers. The most common problem is to get stuck or intimidated by the large scale of most ML solutions.
 
@@ -24,8 +20,6 @@ Today we’ll prepare you for your next ML system design interview by breaking d
 * Five steps to solve any ML system design problem
 * Wrapping up and resources
 
----
-
 ## What’s Different About the ML System Design Interview
 
 The general setup of a machine learning system design interview is similar to a generic SDI. For both, you’ll be placed with an interviewer for 45 to 60 minutes and be asked to think through the components of a program.
@@ -36,15 +30,11 @@ In ML interviews, you’ll be asked high-level questions on how you’d set up e
 
 For the machine learning SDI, you’ll be expected to explain how your program acquires data and achieves scalability.
 
----
-
 ## How to Prepare for an ML System Design Interview
 
 An ML system design interview will test your knowledge of two things: your knowledge of the setups and design choices behind large-scale ML systems and your ability to articulate ML concepts as you apply them.
 
 Let’s look at three ways to prepare both your knowledge and articulation.
-
----
 
 ## Know the Common ML Interview Questions
 
@@ -59,8 +49,6 @@ The best way to prepare for these questions is to practice ML SDI problems on yo
 * “Design an ML system that identifies bad actors in a social network.”
 
 Search in the target job’s description for mentions of specific systems you’d work with and study similar systems for the interview. For jobs without a clear leaning toward any question type, focus on the media feed and recommendation systems, as these are the two most asked questions.
-
----
 
 ## Focus on the 4 Parts of Every ML Solution
 
@@ -81,8 +69,6 @@ For **signals**, what metric does your program use to determine relevant data? W
 
 For **metrics**, what metrics will you track for success and program learning? How would you measure the success of your system? How will you validate your hypothesis?
 
----
-
 ## Practice Explaining Out Loud
 
 Many interviewees will study concepts and algorithms but fail to practice the spoken component of the interview.
@@ -96,8 +82,6 @@ Also, practice your answers to common probing questions. The interviewer will as
 * How will this program perform at scale?
 * How will you acquire your training data?
 * What will you do to keep latency low?
-
----
 
 ## 5 Steps to Solve Any ML System Design Problem
 
@@ -209,8 +193,6 @@ Our relevancy-based feed will increase user engagement by 0.5%. We’ll first us
 
 Once we move online, we’ll track posts with the keywords “update” and “relevance” to determine effectiveness.
 
----
-
 ## 5-Step Summary
 
 Step 1. Clarify requirements (5 minutes)
@@ -222,8 +204,6 @@ Step 3. Data deep dive (10 minutes)
 Step 4. Machine learning algorithms (10 minutes)
 
 Step 5. Experimentation (5 minutes)
-
----
 
 ## Wrapping Up and Resources
 
