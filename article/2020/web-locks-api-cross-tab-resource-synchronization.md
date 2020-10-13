@@ -135,6 +135,17 @@ This property is a boolean and is `false` by default. If true, the lock request 
 
 But please note that when `null` is returned, the function will not be synchronous. Rather the callback would receive the value `null` which can be handled by the developer.
 
+```js
+await navigator.locks.request('resource', {ifAvailable: true}, async lock => {
+  if (!lock) {
+    // Didn't receive lock. Handle appropriately
+    return;
+  }
+  
+  //If lock received, use here.
+});
+```
+
 ## Risks of Using Locks
 
 There are several risks associated with the implementation of locks. These are more or less due to the concept of locks themselves, not because of any bugs in the API.
@@ -158,6 +169,35 @@ But keep in mind that this controversial feature is supposed to be used only in 
 Since there is a possibility of hidden states involved, there can be problems related to debugging. To fix this, a `query` method was introduced. This method returns the state of the lock manager at that specific instant. The result would contain details of pending and currently held locks. It would also contain details of the type of lock, resource in which the lock is held/requested and the clientId of the request.
 
 The `clientId` is simply the corresponding value to the unique context (frame/worker) the lock was requested from. This is the same value used in Service Workers.
+
+```JSON
+{
+    "held": [
+      {
+        "clientId": "da2deeaa-8bac-4d1d-97e7-6b1ee46b6730",
+        "mode": "exclusive",
+        "name": "resource_1"
+      }
+    ],
+    "pending": [
+        {
+            "clientId": "da2deeaa-8bac-4d1d-97e7-6b1ee46b6730",
+            "mode": "shared",
+            "name": "resource_1"
+        },
+        {
+            "clientId": "76384678-c5b6-452e-84f0-00c2ef65109e",
+            "mode": "exclusive",
+            "name": "resource_1"
+        },
+        {
+            "clientId": "76384678-c5b6-452e-84f0-00c2ef65109e",
+            "mode": "shared",
+            "name": "resource_1"
+        }
+    ]
+}
+```
 
 You must also note that this method should not be used by the application to make decisions on locks being held/requested as this output contains the state of the lock manager at that **specific instant** as I’ve mentioned before. This means that a lock could be released by the time your code makes a decision.
 
