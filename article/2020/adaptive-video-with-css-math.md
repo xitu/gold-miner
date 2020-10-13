@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Adaptive video with CSS Math
+# Adaptive video with custom properties and CSS Math
 
 When I was digging into [CSS math functions](https://www.w3.org/TR/css-values-4/#calc-notation), I had thought about responsive iframes. Some solutions already exist, like [this](https://css-tricks.com/fluid-width-video/), but there we need to use an additional wrapper or JS. What if we could achieve the same behaviour without wrapper and with pure CSS?
 
