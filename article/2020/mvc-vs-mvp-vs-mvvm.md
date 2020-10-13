@@ -2,8 +2,8 @@
 > * 原文作者：[Trung Anh Dang](https://medium.com/@dangtrunganh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/mvc-vs-mvp-vs-mvvm.md](https://github.com/xitu/gold-miner/blob/master/article/2020/mvc-vs-mvp-vs-mvvm.md)
-> * 译者：
-> * 校对者：
+> * 译者：[snowyYU](https://github.com/snowyYU)
+> * 校对者：[onlinelei](https://github.com/onlinelei)，[z0gSh1u](https://github.com/z0gSh1u)
 
 # MVC，MVP，MVVM 对比 
 
