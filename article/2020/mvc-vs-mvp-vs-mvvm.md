@@ -32,7 +32,7 @@
 
 ## Model-View-Controller
 
-简称 MVC，它是架构软件应用程序的一种广泛使用的设计模式。该模式最初是由 [Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug) 在从事 Smalltalk-80（1979）的工作期间设计的，最初被称为 Model-View-Controller-Editor。1994年在 [“设计模式 : 可复用面向对象软件的基础”](https://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612)（又名 “GoF”）一书中对 MVC 进行了更深入的描述，该书在推广其使用方面发挥了作用。 该模式将应用程序分为三个部分。
+简称 MVC，它是架构软件应用程序的一种广泛使用的设计模式。该模式最初是由 [Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug) 在从事 Smalltalk-80（1979）的工作期间设计的，最初被称为 Model-View-Controller-Editor。1994 年在 [“设计模式 : 可复用面向对象软件的基础”](https://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612)（又名 “GoF”）一书中对 MVC 进行了更深入的描述，该书在推广其使用方面发挥了作用。 该模式将应用程序分为三个部分。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*C6X8ZQf3grq0ifscFvMugw.png)
 
