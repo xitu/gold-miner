@@ -1,5 +1,5 @@
 > * 原文地址：[clamp() for Responsive Design](https://calebhearth.com/clamp-for-responsive-design)
-> * 原文作者：[]()
+> * 原文作者：[Caleb Hearth](https://calebhearth.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/clamp-for-responsive-design.md](https://github.com/xitu/gold-miner/blob/master/article/2020/clamp-for-responsive-design.md)
 > * 译者：
@@ -25,14 +25,13 @@ Let’s take a look at how we might scale font-size. The above example is pretty
 body {
   font-size: clamp(100%, calc(1rem + 2vw), 1.375rem);
 }
-
 ```
 
 Breaking that down, `100%` simply means “the current base size” which for font-size usually means 16px. `calc(1rem + 2vw)` uses root ems (again, 16px) plus 2/100ths of the viewport width as the calculation. `1.375rem` is a hard-coded value for my desired max size of 22px.
 
 The support `clamp()`, as well as its correlated functions `min()` and `max()`, is pretty good at the time of this writing:
 
- ![Data on support for the css-math-functions feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/css-math-functions.jpg) 
+![Data on support for the css-math-functions feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/css-math-functions.jpg) 
 
 [According to MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp), `clamp()` should be useable anywhere you’d use a number, percentage, or other length unit. Strangely, when I tried to apply this approach to [`line-height`](https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/) I found that Safari 14 seemed to support `line-height: clamp(...)` (I tried `@supports`), but was falling back to the base line-height, which was too cramped. I ended up using `line-height: min(calc(1.1em + 1vw), 32px)` to get responsive line-height locked down to roughly what the line height would be for my max content width. I don’t need to enforce a minimum here because at no width I tested was the value too small, but if I did, I could wrap the whole thing in `max()`: `line-height: max(100%, min(calc(1.1em + 1vw), 32px))`.
 
