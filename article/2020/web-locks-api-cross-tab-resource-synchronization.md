@@ -7,11 +7,7 @@
 
 # Web Locks API: Cross-Tab Resource Synchronization
 
-#### Share resources amongst several tabs/workers without any synchronization issues.
-
 ![Image by [MasterTux](https://pixabay.com/users/mastertux-470906/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3348307) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3348307)](https://cdn-images-1.medium.com/max/3840/1*voZnUOIRnDc4kc_nfm4bEQ.jpeg)
-
----
 
 ## What are Locks?
 
@@ -20,8 +16,6 @@ As computers have now become more powerful, they use several CPU threads to proc
 If you are familiar with threads, you would be aware of the concept of locks. Locks are a method of synchronization that enforces access restrictions to threads such that multiple threads cannot access a single resource at the same time. Although a variant of locks allows multiple threads to access a resource at an instant, it still limits the access to read-only. I highly advise you to read a few resources to understand the concepts of locks in the operating system.
 
 ![Single-thread and Multi-thread processes — Source: [Dave Kurtz](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_01_ThreadDiagram.jpg)](https://cdn-images-1.medium.com/max/2000/0*iW0a4sDyFt4hsBfQ.jpg)
-
----
 
 ## What is the Web Locks API?
 
@@ -57,20 +51,6 @@ Well, they represent an abstract resource. It is simply a name we come up with, 
 
 In other words, in the above example, I can refer to `resource X` as the database where I have stored my data. Or it can even be the `localStorage`.
 
----
-
-Tip: **Share reusable components between projects using [Bit](https://bit.dev/)** ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*tkmUBtAgpPDH9HAr.gif)
-
----
-
 ## Why is Resource Coordination Important?
 
 It is quite rare to find the need for resource coordination in simple web applications. However more complex, JavaScript-heavy web applications may have a need for resources to be coordinated.
@@ -82,8 +62,6 @@ Although the above example might result in data loss, there can be instances whe
 Furthermore, there can be an instance where a user has opened two tabs of a stock investment web application. If the user buys a certain number of shares using one of the opened tabs, it is essential for both the tabs to be in sync to avoid situations where the customer would mistakenly do the transaction again. An easy alternative would be to only allow one tab or window of the application at a time. But mind that this can be overcome by using private browsing sessions.
 
 Although APIs such as SharedWorker, BroadcastChannel, localStorage, sessionStorage, postMessage, unload handler can be used to manage tab communication and synchronization, they each have their shortcomings and require workarounds, which decreases code maintainability. The Web Locks API tries to simplify this process by bringing in a more standardized solution.
-
----
 
 ## Using the Web Locks API
 
@@ -159,8 +137,6 @@ This property is a boolean and is `false` by default. If true, the lock request 
 
 But please note that when `null` is returned, the function will not be synchronous. Rather the callback would receive the value `null` which can be handled by the developer.
 
----
-
 ## Risks of Using Locks
 
 There are several risks associated with the implementation of locks. These are more or less due to the concept of locks themselves, not because of any bugs in the API.
@@ -187,8 +163,6 @@ The `clientId` is simply the corresponding value to the unique context (frame/wo
 
 You must also note that this method should not be used by the application to make decisions on locks being held/requested as this output contains the state of the lock manager at that **specific instant** as I’ve mentioned before. This means that a lock could be released by the time your code makes a decision.
 
----
-
 ## Browser Compatibility
 
 One let down of this API is browser compatibility. Although there was a polyfill for unsupported browsers, it was later removed.
@@ -203,17 +177,10 @@ The Web Locks API is a highly useful feature with several use cases that make it
 
 Head over to this simple [demo](https://mahdhir.github.io/Web-Locks-API-demo/) to get a hands-on experience on how this works. You can view the [source code](https://github.com/Mahdhir/Web-Locks-API-demo) here.
 
-## Learn More
-[**14 JavaScript Code Optimization Tips for Front-End Developers**
-**Tips and tricks to increase performance and website load time**blog.bitsrc.io](https://blog.bitsrc.io/14-javascript-code-optimization-tips-for-front-end-developers-a44763d3a0da)
-[**Revolutionizing Micro Frontends with Webpack 5, Module Federation and Bit**
-**See how the upcoming Module Federation plugin will change the way micro frontend works**blog.bitsrc.io](https://blog.bitsrc.io/revolutionizing-micro-frontends-with-webpack-5-module-federation-and-bit-99ff81ceb0)
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
+**Resources**
 
-**Resources
-**[MDN Docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API)
-[Web Locks Explainer](https://github.com/WICG/web-locks/blob/main/EXPLAINER.md)
+- [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API)
+- [Web Locks Explainer](https://github.com/WICG/web-locks/blob/main/EXPLAINER.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
