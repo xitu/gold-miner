@@ -10,9 +10,8 @@
 CSS `clamp()` provides a method for setting numerical values with a minimum, maximum, and a calculated value between the two. The syntax is `calc([min], [calculated], [max])` and it’s useful for times when you want to scale some value based on the size of the screen by using the `vw` length unit.
 
 This technique is useful when your goal is to have a design that is attractive across many different screen sizes. The usual option is to use media queries to style pages differently depending on the screen width. Doing so means that you define styles either “mobile-first” for small screens and scale up or “desktop-first” for large screens and scale down. By using `clamp()`, we can reduce our reliance on breakpoints, which need to be checked at many different widths for consistency, and replace them with known good largest and smallest values and a scaling range between them.
-
- [![A time series of a boat moving through a canal, first at a high water mark, then between the locks while the water level is lowered, then leaving the canal at the lower level.](/assets/canal-locks-c50accce1389ea47a5c85c8e9046c6876bf4593aa795a2064db6f53bb58cd260.png "A time series of a boat moving through a canal, first at a high water mark, then between the locks while the water level is lowered, then leaving the canal at the lower level.")](/assets/canal-locks-c50accce1389ea47a5c85c8e9046c6876bf4593aa795a2064db6f53bb58cd260.png) 
-
+ 
+![image](https://user-images.githubusercontent.com/5164225/95879008-7562ad00-0da8-11eb-9b5a-01dd31d575d8.png)
 Canal locks allow boats to pass between bodies of water at different water levels
 
 To understand how `clamp()` works, I like to use the metaphor of a canal lock. Canal locks use two walls that can be raised and lowered to allow boats to move over them. Once a boat is between the locks, water is either added from the high water side or drained to the low water side to raise or lower the water between the locks, respectively. This allows the boat to gently float with the water level and move between a minimum and maximum water level.
