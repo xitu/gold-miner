@@ -2,91 +2,91 @@
 > * 原文作者：[Viduni Wickramarachchi](https://medium.com/@viduniwickramarachchi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/using-hashed-vs-nonhashed-url-paths-in-single-page-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2020/using-hashed-vs-nonhashed-url-paths-in-single-page-apps.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# Using Hashed vs. Non-Hashed URL Paths in Single Page Apps
+# 单页应用程序的哈希 URL 与普通 URL
 
 ![Image by [Eric Binder](https://pixabay.com/users/Yivra-1836258/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2998837) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2998837)](https://cdn-images-1.medium.com/max/3840/1*jAhsrJZmP8gM3gwZmSrliQ.jpeg)
 
-There are two ways to support routing in single-page apps:
+在单页应用程序中有两种方法可以支持路由：
 
-* Hashed URL Paths — We break the URL path with a # (Hash) so that the browser understands it’s just a virtual fragment
-* Ordinary URL Paths (Non-Hashed URL Paths) — The server needs to intercept the request and return the index.html.
+* 哈希 URL 路径 - 我们使用 ＃（哈希）分隔网址路径，以便浏览器识别它只是一个虚拟片段。
+* 普通 URL 路径（非哈希 URL 路径）- 服务器需要拦截请求并返回 index.html。
 
-In this article, you will learn the pros and cons of these two approaches, and it will help you decide on the better one for your use case.
+在本文中，您将学习这两种方法的优缺点，并将帮助您为自己的应用程序选择更好的方法。
 
-## Ordinary URL paths
+## 普通 URL 路径
 
-From their appearance, you can identify that the following are ordinary URLs.
+从它们的外观中，您可以确定以下是普通 URL。
 
 ```
 https://mysite.com/dashboard
 https://mysite.com/shopping-cart
 ```
 
-#### Advantages
+#### 优点
 
-* Ordinary URLs look pretty and clean.
-* These types of URLs have a better advantage in terms of SEO.
-* The scaffolding of web apps using frameworks like Angular supports this by default.
-* Modern Development Servers (e.g., ng serve in Angular) also support this.
+* 普通的 URL 看起来很干净。
+* 就 SEO 而言，这些类型的 URL 具有更好的优势。
+* 默认情况下，使用 Angular 之类框架的 Web 应用脚手架也支持此功能。
+* 现代开发服务器（例如在 Angular 中的 ng 服务器）也支持此功能。
 
-All in all, you can see that using ordinary URLs is the better option considering the support available. However, these advantages come with a cost.
+总而言之，考虑到实际的支持使用，您可以看到使用普通 URL 是更好的选择。但是，这些优点是有代价的。
 
-#### Challenges
+#### 挑战
 
-When we consider ordinary URLs for Single Page Apps, you need to configure your webserver to support it.
+当我们考虑在单页应用程序使用普通 URL 时，您需要配置 Web 服务器以支持它运行。
 
-* Need to configure the webserver to serve the index.html for SPA Route Paths.
-* Since it’s not practical to whitelist each SPA Route Path in the web server, it needs to have a separate pattern for API to distinguish them from SPA Routes (e.g.,/api/* allocated for API).
-* Needs to take special care when defining URL path links in SPA since it could lead to full page reloads.
-* In some cases, like hosting the frontend and backend separately, you will need a Gateway to do the serverside path-based Routing.
+* 需要配置 Web 服务器以便为 SPA 路由路径提供 index.html。
+* 将 Web 服务器中的每个 SPA 路由路径列入白名单是不切实际的，因此需要为 API 提供单独的模式，以将其与 SPA 路由区分开（例如，/api/* 为分配 API ）。
+* 在 SPA 中定义 URL 路径链接时需要特别小心，因为它可能导致重新加载整个页面。
+* 在某些情况下，例如分别托管前端和后端，您将需要网关来执行服务器端基于路径的路由。
 
-## Hashed URL Paths
+## 哈希 URL 路径
 
-Hashed URLs will take the following format. The portion separated by the hash is called a fragment or an anchor.
+哈希 URL 将采用以下格式，由哈希分隔的部分称为片段或锚点。
 
 ```
 https://mysite.com/#/dashboard
 https://mysite.com/#/cart
 ```
 
-If you started working with SPAs several years ago, Hashed URL paths were the norm back then. But, things have changed over the past few years. SPAs have become the standard for web development, and tools and technology advancement supported this. This is why now it’s hard to see a distinguished URL scheme than ordinary for SPA. However, there are several advantages with Hashed URLs that are worth knowing.
+如果您是几年前开始使用 SPA 的，那时候的 URL 哈希路径就很普遍了。但是，在过去几年中，情况发生了变化。SPA 已成为 Web 开发的标准，并且工具和技术进步对此提供了支持。这就是为什么现在很难看到与普通 SPA 不同的 URL 方案。但是，哈希 URL 有几个优点是值得了解的。
 
-#### Advantages
+#### 优势
 
-* Browsers don’t consider the path fragment after the hash as a separate page. This behavior of the browser is ideal for Single Page Apps since a page refresh will reload the index.html.
-* Defining links with hash in the frontend is safe, as it won’t reload the page.
-* Sever configuration is simple and easy to distinguish between API and frontend requests (Still, we need to plan frontend asset paths).
+* 浏览器不会将哈希之后的路径片段视为单独的页面。浏览器的这种行为非常适合单页应用程序，因为刷新页面会重新加载 index.html。
+* 在前端用哈希定义链接是安全的，因为它不会重新加载页面。
+* 服务器配置很简单，很容易区分 API 和前端请求（不过，我们需要计划前端资源路径）。
 
-#### Disadvantages
+#### 缺点
 
-When it comes to Hashed URLs, the main disadvantage is its appearance.
+当使用哈希网址时，主要缺点是不太美观。
 
-* Some users might consider it to be unusual.
-* Not the best for SEO.
+* 一些用户可能认为这是不常见的。
+* 对于 SEO 来说不是最好的。
 
-Otherwise, it is the easiest to implement for SPA.
+否则，这对于 SPA 来说是最容易实现的。
 
-## Handling URL Paths in SPA
+## 在 SPA 中处理 URL 路径
 
-Today, almost all the modern SPA frameworks contain a Routing module with the inbuilt support to handle URL or fragment changes.
+如今，几乎所有现代 SPA 框架都包含一个路由模块，该模块内置有对 URL 或片段更改的支持。
 
-Otherwise, you will have to develop a custom solution to track the URL changes in the SPA. To implement a custom Router, you could use the following browser APIs.
+否则，您将必须开发一个自定义解决方案来跟踪 SPA 中的 URL 更改。要实现自定义路由器，可以使用以下浏览器 API。
 
-* [The History API](https://developer.mozilla.org/en-US/docs/Web/API/History) — This gives direct access to your browser’s history interface. It allows you to conduct URL manipulation without hashes. It has methods such as `back()` , `forward()` which allows you to navigate to previous states or next states based on browsing history.
-* [The Location AP](https://developer.mozilla.org/en-US/docs/Web/API/Location)I along with the [onHashChange](https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onhashchange) event listener — In this method, the browser will trigger the `onHashChange` every time it sees a hash change in the URL. You can easily manage hash changes without communicating with the server using this method.
+* [历史记录 API](https://developer.mozilla.org/en-US/docs/Web/API/History) — 可直接访问浏览器的历史记录界面。它允许您进行 URL 操作而不会产生哈希。它具有诸如 `back()`、`forward()` 之类的方法，该方法使您可以基于浏览历史记录导航到上一个状态或下一个状态。
+* [位置 API](https://developer.mozilla.org/en-US/docs/Web/API/Location) 和 [onHashChange](https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onhashchange) 事件侦听器 — 在此方法中，浏览器 `onHashChange` 每次在 URL 中看到哈希更改时都会触发一次。您可以轻松管理哈希更改，而无需使用此方法与服务器进行通信。
 
-## Summary
+## 总结
 
-You can use either Hashed URLs or ordinary URLs for Single Page Apps. Considering the pros and cons of these two approaches, you will agree with me that both options are technically viable.
+您可以对单个页面应用程序使用哈希 URL 或普通 URL。考虑到这两种方法的利弊，您将同意我的观点，即这两种方法在技术上都是可行的。
 
-Even if you use ordinary URLs for the application, any Single Page App framework or library will support it. Therefore, you don’t need to worry about the complexities that come with Routing. But you might need to look into the server-side setup to support this.
+即使您为应用程序使用普通的 URL，任何单页应用程序框架或库都将支持它。因此，您不必担心路由带来的复杂性。但是您可能需要研究服务器端设置以支持此设置。
 
-I hope this article gives an overview of using these two types of URLs and broadens your understanding. If you come across any questions, you can put them in the comment below.
+我希望本文能概述使用这两种类型的 URL，并加深您的理解。如果您有任何疑问，可以在下面进行评论。
 
-The choice is yours!
+选择使用哪种类型 URL 取决于你！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
