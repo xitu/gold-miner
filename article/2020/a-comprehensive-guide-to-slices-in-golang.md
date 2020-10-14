@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/a-comprehensive-guide-to-slices-in-golang.md](https://github.com/xitu/gold-miner/blob/master/article/2020/a-comprehensive-guide-to-slices-in-golang.md)
 > * 译者：[JalanJiang](http://jalan.space/)
-> * 校对者：
+> * 校对者：[Emin](https://github.com/Eminlin)，[Samuel Jie](https://github.com/suhanyujie)
 
 # Golang 切片综合指南
 
@@ -43,7 +43,7 @@ fmt.Println(cap(slice)) // 打印结果 5
 
 #### 使用长度和容量声明一个切片
 
-在声明切片过程中，当你分别指定长度（Length）和容量（Capacity）时，可以使用底层数组中最初无法访问的可用容量创建一个切片。
+在声明切片过程中，当你分别指定长度（Length）和容量（Capacity）时，这将初始化一段无法访问的底层数组来创建一个具有可用容量的切片。
 
 ```Go
 /* 
@@ -70,7 +70,7 @@ fmt.Println(cap(slice)) // 打印结果 5
 slice := []string{"Red", "Blue", "Green", "Yellow", "Pink"} 
 fmt.Println(len(slice)) // 打印结果 5
 fmt.Println(cap(slice)) // 打印结果 5
-// 创建蒸型切片。
+// 创建一个整型切片。
 // 长度与容量均为 3。
 intSlice:= []int{10, 20, 30}
 fmt.Println(len(intSlice)) // 打印结果 3
@@ -93,7 +93,7 @@ fmt.Println(cap(slice))
 
 ![图 4: 声明一个带有索引位置的切片。](https://cdn-images-1.medium.com/max/2000/1*nG722TP5WDx3hZOHBpcFyQ.png)
 
-#### 数组与切片声明的区别
+#### 声明数组与切片的区别
 
 * 如果你使用 [ ] 操作符中指定一个值，那么你在创建一个数组。
 * 如果你不在 [ ] 中指定值，则创建一个切片。
@@ -180,7 +180,7 @@ fmt.Println(cap(newSlice))  // 打印 4
 
 ![图 8：对切片进行切片。](https://cdn-images-1.medium.com/max/2000/1*7g5CJ002CXIEo9iQn-Dp6A.png)
 
-在执行切片操作之后，我们拥有两个共享同一底层数组的切片。然而，这两个切片以不同的方式查看底层数组。原始切片认为底层数组的容量为 5，但 newSlice 与之不同，对 newSlice 而言，底层数组的容量为 4。newSlice 无法访问位于其指针之前的底层数组元素。就 newSlice 而言，这些元素甚至并不存在。下面我们将介绍计算新切片长度和容量的公式。
+在执行切片操作之后，我们拥有两个共享同一底层数组的切片。然而，这两个切片以不同的方式查看底层数组。原始切片认为底层数组的容量为 5，但 newSlice 与之不同，对 newSlice 而言，底层数组的容量为 4。newSlice 无法访问位于其指针之前的底层数组元素。就 newSlice 而言，这些元素甚至并不存在。使用下面的方式可以为任意切片后的 newSlice 计算长度和容量。
 
 #### 切片的长度与容量如何计算？
 
@@ -210,7 +210,7 @@ newSlice := slice[1:3]
 newSlice[1] = 35
 ```
 
-将元素 35 分配给 newSlice 的第二个元素后，该更改也可以在原始切片的元素中被看到。
+将数值 35 分配给 newSlice 的第二个元素后，该更改也可以在原始切片的元素中被看到。
 
 #### 运行时错误显示索引超出范围
 
@@ -242,7 +242,7 @@ panic: runtime error: index out of range
 * **append** 函数总会增加新切片的长度。
 * 另一方面，容量可能会受到影响，也可能不会受到影响，这取决于源切片的可用容量。
 
-#### 使用 append 向切片添加元素
+#### 使用 append 向切片追加元素
 
 ```Go
 /* 创建一个整型切片。
@@ -262,7 +262,7 @@ fmt.Println(len(newSlice)) // 打印 3
 fmt.Println(cap(newSlice)) // 打印 4
 ```
 
-当切片的底层数组没有可用容量时，append 函数将创建一个新的底层数组，复制正在引用的现有值，然后再分配新值。
+当切片的底层数组没有可用容量时，append 函数将创建一个新的底层数组，拷贝正在引用的现有值，然后再分配新值。
 
 #### 使用 append 增加切片的长度和容量
 
@@ -282,7 +282,7 @@ fmt.Println(cap(newSlice)) // 打印 8
 
 ![图 9：增加切片的长度和容量](https://cdn-images-1.medium.com/max/2000/1*GeiklLBspOlv_qxzw5GCVA.png)
 
-在 append 操作后，newSlice 被给予属于它自身的底层数组，该底层数组的容量是原底层数组容量的两倍。在增加底层数组容量时，append 操作十分聪明。举个例子，当切片的容量低于 1,000 个元素时，容量增长总是翻倍的。一旦元素的数量超过 1,000 个，容量就会增长 1.25 倍，即 25%。随着时间的推移，这种增长算法可能会在 Golang 中发生变化。
+在 append 操作后，newSlice 被给予一个自有的底层数组，该底层数组的容量是原底层数组容量的两倍。在增加底层数组容量时，append 操作十分聪明。举个例子，当切片的容量低于 1,000 个元素时，容量增长总是翻倍的。一旦元素的数量超过 1,000 个，容量就会增长 1.25 倍，即 25%。随着时间的推移，这种增长算法可能会在 Golang 中发生变化。
 
 更改新切片不会对旧切片产生任何影响，因为新切片现在有一个不同的底层数组，它的指针指向一个新分配的数组。
 
@@ -299,7 +299,7 @@ fmt.Println(append(slice1, slice2...))
 // 输出：[1 2 3 4]
 ```
 
-#### 对切片执行索引命令
+#### 对切片执行索引
 
 * 通过指定一个下限和一个上限来形成切片，例如：`a[low:high]`。这将选择一个半开范围，其中包含切片的第一个元素，但不包含切片的最后一个元素。
 * 你可以省略上限或下限，这将使用它们的默认值。下限的默认值是 0，上限的默认值是切片的长度。
