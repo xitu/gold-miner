@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/enhance-javascript-security-with-content-security-policies.md](https://github.com/xitu/gold-miner/blob/master/article/2020/enhance-javascript-security-with-content-security-policies.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[HurryOwen](https://github.com/HurryOwen)
 
 # 基于内容安全策略增强 JavaScript 安全性
 
@@ -41,11 +41,11 @@
 
 简而言之，通过散列操作，您可以将 JavaScript 文件的散列指定为 Script 块的属性，在该脚本块中，浏览器将在执行散列之前首先对其进行验证。
 
-对于随机数，我们可以生成一个随机数并在 CSP 标头中指定，同时在 Script 块中引用相同的随机数时也是如此。
+对于随机数也是如此，我们可以生成一个随机数并在 CSP 标头中指定，同时在 Script 块中引用相同的随机数。
 
 ## 如何判断是否存在任何违反 CSP 的行为？
 
-CSP 的优点在于它涵盖了将违规情况报告给您的情况。作为 CSP 的一部分，您可以定义一个 URL，用户浏览器将在其中将违规报告自动发送回服务器以进行进一步分析。
+CSP 的优点在于它涵盖了将违规情况报告给您的情况。作为 CSP 的一部分，你可以定义一个URL，用户浏览器将会自动根据URL发送违规报告给你的服务器以进行进一步分析。
 
 为此，您需要设置一个端点来处理由浏览器作为 CSP 违规报告发送的 POST 负载。以下显示了指定 `/csp-incident-reports` 接收违规报告有效负载的路径的示例。
 
