@@ -110,7 +110,7 @@ WebAssembly.instantiateStreaming(fetch('sample.wasm'))
 * 内存（Memory）
 * 表（Table）
 
-导入对象可以理解为是想模块实例上附加的一系列用于实现特定功能的辅助工具方法，如果未提供导入对象，编译器将会分配默认值。
+导入对象可以理解为是向模块实例上附加的一系列用于实现特定功能的辅助工具方法，如果未提供导入对象，编译器将会分配默认值。
 
 ####  全局变量（Globals）
 
@@ -128,7 +128,7 @@ const global = new WebAssembly.Global({
 该构造函数接收两个参数，分别如下：
 
 * 第一个参数是一个对象，其 value 属性表示表示值的类型，其 mutable 属性表示值是否可以修改，允许的值类型有：`i32`、`i64`、`f32` 和 `f64`；
-* 第二个参数是变量的值，并值的类型必须与第一个参数中指定的类型一致，例如：如果参数一中类型是 `i32`，则值的类型必须是 32 位整数，如果参数一中类型是 `f64`，则值的类型必须是 64 位浮点型。
+* 第二个参数是变量的值，其值的类型必须与第一个参数中指定的类型一致，例如：如果参数一中类型是 `i32`，则值的类型必须是 32 位整型，如果参数一中类型是 `f64`，则值的类型必须是 64 位浮点型。
 
 ```js
 const global = new WebAssembly.Global({
@@ -149,27 +149,27 @@ WebAssembly.instantiateStreaming(fetch('global.wasm'), importObject)
 
 ####  内存（Memory）
 
-At the point of instantiation, the WebAssembly module would need a memory object allocated. This memory object should be passed with the `importObject`. If you fail to do so, the JIT compiler would create and attach a memory object to the instance automatically with the default values.
+WebAssembly 模块模块对象在实例化过程时需要通过导入对象传递一个已经分配好内存空间的对象。如果不传递这么一个对象，JIT 在编译时将会自动传入默认内存对象。
 
-The memory object attached to the module instance would simply be an `ArrayBuffer`. This enables for easy memory access by simply using index values. Furthermore, because of being a simple `ArrayBuffer` , values can simply be passed and shared between JavaScript and WebAssembly.
+传入的内存对象也可以是 `ArrayBuffer`，这样就可以通过索引值轻松访问存储的内存值。因此，通过内存对象传递的数据值可以在 JavaScript 和 WebAssembly 之间共享。
 
 #### 表（Table）
 
-A WebAssembly Table is a resizable array that lives outside of the WebAssembly’s memory. The values of the table are function references. Although this sounds similar to the WebAssembly Memory, the major difference between them is that Memory array is of raw bytes while the Table array is of references.
+表是位于 WebAssembly 内存之外的一种可变长度的数组型数据，表存储的值是对数据的引用（指针）。看起来可以内存对象（Memory）很相似，其实两者最大的区别在于内存对象存储的数据是原始字节，而表存储的内存数据的指针。
 
-The main reason for the introduction of Table is improved security.
+表这种 WebAssembly 数据结构的引入是处于提高运行的安全性目的。
 
-You can use the methods `set()` , `grow()` , and `get()` to manipulate your table.
+可以使用 `set()`、`grow()` 和 `get()` 方法来操作表。
 
 ## 一个示例
 
-For my demonstration, I will be using the WebAssembly Studio application to compile my C file into `.wasm` . You can have a look at the demo over [here](https://webassembly.studio/?f=wne209a6cxq).
+下面我将使用 WebAssembly Studio 创建的一个应用编译为 `.wasm` 文件，来演示如何使用 WebAssembly，你也可以在线查看这个[demo](https://webassembly.studio/?f=wne209a6cxq)。
 
-I have created a function to calculate the power of a number in the `wasm` file. I am passing the necessary values to the function and receiving the output in JavaScript.
+这里创建了对数字进行幂运算的函数，传递必要的参数给这个函数其将会把计算结果传入 JavaScript。
 
-Similarly, I am doing some string manipulation in `wasm` . You must note that `wasm` does not have a type for strings. Hence it will work with the ASCII values. The value returned to the JavaScript would be pointing the memory location where the output is stored. Since the memory object is an ArrayBuffer, I am iterating until I receive all of the characters in the string.
+在 wasm 中对字符串进行操作时需要额外注意了。wasm 里面不存在字符串这一数据类型，字符串在 wasm 里面采用 ASCII 码来处理。传递给 JavaScript 的是存储计算结果的内存地址。另外，由于内存对象是 `ArrayBuffer`，因此需要对齐进行遍历来转换为字符串。
 
-**JavaScript file**
+**JavaScript 文件**
 
 ```js
 let exports;
@@ -177,7 +177,7 @@ let buffer;
 (async() => {
   let response = await fetch('../out/main.wasm');
   let results = await WebAssembly.instantiate(await response.arrayBuffer());
-  //or
+  // 或者
   // let results = await WebAssembly.instantiateStreaming(fetch('../out/main.wasm'));
   let instance = results.instance;
   exports = instance.exports;
@@ -221,13 +221,13 @@ char* helloWorld(){
 }
 ```
 
-## Use Cases
+## 使用场景
 
-The introduction of WebAssembly opened up a world of opportunities.
+WebAssembly 技术的引入打开了另一个充满各种可能性的世界。
 
-* **Ability to use existing libraries/code written in languages such as C/C++ in the web environment.**
+* **赋给了 web 环境使用 c、c++ 等语言开发的现成的库或者项目的能力**
 
-For example, if you were unable to find a library for JavaScript that implements a certain functionality, you would have to write the library from scratch and implement it. But if you can find a library that implements the same functionality, but written in a different language, you can use the power of WebAssembly to run it in your web app. This is a major breakthrough as it would save lots of time from the developers perspective.
+比如，如果找不到某个功能的 JavaScript 版本实现，你以往可能需要从头开始使用 JavaScript 实现这个功能。而现在，如果能找到别的语言实现这一功能的库，则可以借助 WebAssembly 的能力直接复用这个库。从技术开发的角度来看，这将是对节省开发时间的巨大突破。
 
 The [Squoosh](https://squoosh.app/) app uses WebAssembly to fulfil its QR and image detection functionality. This allowed them to support these, even on older browsers, with native-like speeds. Furthermore, [eBay](https://tech.ebayinc.com/engineering/webassembly-at-ebay-a-real-world-use-case/) was able to implement barcode scanning functionality to their web application by compiling the C++ library used it it’s native applications, into WebAssembly.
 
