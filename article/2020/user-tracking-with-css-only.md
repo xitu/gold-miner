@@ -20,8 +20,6 @@ So, the rule is that JavaScript is used for such analytics tools — so most of 
 That’s why there are more and more ways to block tracker tools in the browser. Browsers like the Brave Browser or certain chrome extensions block the loading of trackers like google analytics. 
 The trick is that, e.g., Google Analytics is always externally integrated — so the JavaScript comes from a Google CDN. The URL for embedding is almost always the same — so it can easily be blocked.
 
-![Source: [Brave Browser](https://brave.com/whats-brave-done-for-my-privacy-lately-episode1/#:~:text=One%20of%20many%20ways%20Brave,from%20recording%20your%20online%20activity.)](https://cdn-images-1.medium.com/max/4228/1*iyfFqlTl8QnmnHrYkI1wGg.png)
-
 So tracking almost always has something to do with JavaScript. And even if you block trackers by URL, the site owner might have embedded JavaScript code on the page. The strongest protection is to deactivate JavaScript — even if the price you pay for it is very high.
 
 In the end, we can still track some things without JavaScript — with some CSS tricks that were certainly not meant for that. Let’s get started.
@@ -34,7 +32,31 @@ The whole magic behind all our CSS trackers is the attributes for which we can c
 
 But in the end, nobody forces us to make sure that there really is an image behind the URL. The server doesn’t even have to answer the request, but we can still make a database entry in response to a GET request, for example.
 
+```js
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
+
+app.get("/mobile", (req, res) => {
+  console.log("is mobile")
+  res.end()
+)}
+        
+app.listen(8080)
+```
+
 As a backend, I use an Express.js server here. It delivers a simple HTML website; the/mobile-route is called if the device is a smartphone. So our backend is the only place where we use JavaScript.
+
+```css
+@media only screen and (max-width: 768px) {
+  body {
+    background-image: url("http://localhost:8080/mobile");
+  }
+}
+```
 
 In our index.html, we then have the CSS code from above. The background image is only requested if the user’s device matches the media query.
 
@@ -46,9 +68,20 @@ And since we do not send a picture in reply, nothing on the website will change.
 
 Now it gets even crazier — we can find out the user’s operating system roughly with the fonts it supports. In CSS, we can create fallbacks, i.e., specify multiple fonts. If the first one does not work on the system, the browser will try the second one.
 
-font-family: BlinkMacSystemFont, "Arial"; — when I embed this code into our website, my Macbook uses the first font — the Apple standard font, which is only available on Mac OS. On my Windows PC, Arial is used.
+`font-family: BlinkMacSystemFont, "Arial";` — when I embed this code into our website, my Macbook uses the first font — the Apple standard font, which is only available on Mac OS. On my Windows PC, Arial is used.
 
 With a font face, we can define a custom font and specify a source for it. Google Fonts works the same way — if we use the defined font somewhere, it must be loaded from the server first. We can use this again.
+
+```css
+ @font-face {
+  font-family: Font2;
+  src: url("http://localhost:8080/notmac");
+ }
+
+body {
+  font-family: BlinkMacSystemFont, Font2, "Arial";
+}
+```
 
 Here we set the font for the entire body. Logically you can only use one font. So on a Macbook, the first font is used, the system’s own font. On all other systems like Windows, we check if the font exists. Of course, this fails, so the next font is tried — the one we have defined ourselves. It still has to be loaded from the server, so our CSS code fires a GET request again.
 
@@ -60,9 +93,35 @@ What we have done so far is to evaluate information as soon as the user arrives 
 
 For this, we can use, e.g., Hover or active-events.
 
+```html
+<head>
+  <style>
+    #one:hover {
+      background-image: url("http://localhost:8080/one-hovered/");
+    }
+  </style>
+</head>
+<body>
+  <button id="one">Hover me</button>
+</body>
+```
+
 When the button is hovered, it tries again to set a background image. A GET-request is sent again.
 
 We can do the same when the button is clicked. In CSS, this is the active-event.
+
+```html
+<head>
+  <style>
+    #one:active {
+      background-image: url("http://localhost:8080/one-clicked/");
+    }
+  </style>
+</head>
+<body>
+  <button id="one">Click me</button>
+</body>
+```
 
 There is a whole series of other events. And, e.g., the hover-event works for almost every element. So theoretically, we could track almost every movement of the user.
 
@@ -71,6 +130,17 @@ There is a whole series of other events. And, e.g., the hover-event works for al
 With a little more code, we can also combine the events and learn more, not only which events have happened.
 
 It is interesting for many website owners to see how long users have hesitated to click on something after seeing or hovered over the element. With the following code, we can measure the time it took the user to click after hovering.
+
+```js
+let counter;
+app.get("/one-hovered", (req, res) => {
+  counter = Date.now();
+});
+
+app.get("/one-active", (req, res) => {
+  console.log("Clicked after", (Date.now() - counter) / 1000, "seconds");
+});
+```
 
 As soon as the user hovers, the counter goes off. In the end, we spend the seconds until the click.
 
@@ -86,6 +156,15 @@ In the end, the complete front-end code is visible to everyone.
 Instead of using such obvious terms for the individual routes, you can also use keywords that you have thought of yourself — in the end, only the URL in the front-end and the one in the back-end must match.
 
 For the examples above, I always used my own routes for the GET requests. Simple so that it is easier to understand. A more elegant way is to use URL parameters or queries, which also works in CSS.
+
+```css
+@font-face {
+  font-family: Font2;
+  src: url("http://192.168.2.110:8080/os/mac");
+  /* or: */ 
+  src: url("http://192.168.2.110:8080/?os=mac");
+}
+```
 
 For a detailed tutorial on query and URL parameters in Express.js, you can look here:
 
