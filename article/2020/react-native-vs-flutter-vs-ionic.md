@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/react-native-vs-flutter-vs-ionic.md](https://github.com/xitu/gold-miner/blob/master/article/2020/react-native-vs-flutter-vs-ionic.md)
 > * 译者：[黄梵高](https://github.com/mangotsing)
-> * 校对者：
+> * 校对者：[HurryOwen](https://github.com/HurryOwen)
 
 # 哪个跨平台框架才是最好的选择？React Native、Flutter 还是 Ionic。
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlly1gj7mdcoaldj30m80eut9w.jpg)
 
-无论你是计划投资一个移动应用，还是打算将线下实体店改成网店，你最关心的一定是为你的业务使用最佳的解决方案。
+无论你是计划为你的初创公司投资一个移动应用，还是打算将线下实体店改成网店，你最关心的一定是为你的业务找到最佳的解决方案。
 
-你注意到了吗？在 Google Play 里面大约的 280 万个应用，以及在 Apple App Store 里面的 220 万个应用里，仅仅只有很少的一些应用成为行业龙头。
+你注意到了吗？在 Google Play 里面的大约 280 万个应用，以及在 Apple App Store 里面的 220 万个应用里，仅仅只有很少的一些应用成为行业龙头。
 
 在这些行业的不同领域内，有一些龙头品牌占领了市场最大的份额，例如：
 
@@ -25,9 +25,9 @@
 
 有太多的因素会影响成功，包括功能，复杂性，UX/UI 设计，后端，前端，开发人员的技术等等。但真正的成功在于他们选择开发应用使用的技术。
 
-不管你的应用有多么出色的创意，以及有什么独特的东西融入你的应用，如果你选择了老旧、乏力、过时的编程语言，那可能会让你的全部投入增加风险。
+不管你的应用有多么出色的创意，以及有什么独特的东西融入你的应用，如果你选择了老旧、乏力、过时的编程语言，那可能会让你的全部投入置于风险之中。
 
-而且如果我们考虑到移动应用程序的趋势，和业务增长带来的需求，那么可以肯定的说，现在的企业家对跨平台移动应用更感兴趣。由于混合应用可以帮助通过不同的平台，大规模的找到用户定位，因此企业家都渴望雇佣一支拥有开发跨平台应用经验都开发者团队。
+而且如果我们考虑到移动应用程序的趋势，和业务增长带来的需求，那么可以肯定的说，现在的企业家对跨平台移动应用更感兴趣。由于混合应用有助于通过多个平台大规模地锁定用户，因此企业家都渴望雇佣一支拥有开发跨平台应用经验都开发者团队。
 
 还有一个关键问题：你应该选择哪种编程语言来开发应用程序？
 
@@ -43,7 +43,7 @@
 
 #### 总览
 
-Flutter 和 React Native 都是高级软件开发的成套工具，但是 Flutter 是由 Google 开发和支持，而 React Native 是由 Facebook 开发。Ionic 是最古老的编程语言之一，由 Driffy Co 开发。
+Flutter 和 React Native 都是高级软件开发工具包，但是 Flutter 是由 Google 开发和支持，而 React Native 是由 Facebook 开发。Ionic 是最古老的编程语言之一，由 Driffy Co 开发。
 
 #### React Native
 
@@ -75,7 +75,7 @@ Ionic 在 2013 年作为开源的跨平台移动开发 SDK 推出。由于它使
 
 **React Native：** 在选择是哪种编程语言的框架时，React Native 可能是开发人员的首选，因为它基于 JavaScript，而 JavaScript 是目前开发混合应用程序最流行且具有动态性的语言之一。此外，这款框架结合了 JavaScript 和 React 的所有优点，并得到了 Facebook 的支持。React Native 使它与其他编程语言区分开来的地方在于，它可以在需要的时提供用 Swift、Objective-C 或 Java 编写一些组件的能力。
 
-**Flutter：** 由于 Flutter 是 Google 的一个新生儿，因此它使用了一个内部编程语言，[Dart](https://dart.dev/),可以帮助你开发 Android、iOS 和 web 应用程序。相比于 JavaScript，Dart 仍然是一种罕见的编程语言。但是尽管这是一个新语言，但在未来几年中依然具有极大的潜力席卷整个行业。
+**Flutter：** 由于 Flutter 是 Google 的一个新生儿，因此它使用了一个内部编程语言，[Dart](https://dart.dev/)，可以帮助你开发 Android、iOS 和 web 应用程序。相比于 JavaScript，Dart 仍然是一种不常见的编程语言。但是尽管这是一个新语言，但在未来几年中依然具有极大的潜力席卷整个行业。
 
 **Ionic：** 它使用多种技术（包括 HTML5、CSS 以及 JavaScript）来开发和运行应用程序，并且可以通过 [Cordova wrapper](https://cordova.apache.org/) 来使用原生平台的一些控制器。为了提高代码的质量，你还可以使用 Ionic 的同时使用 TypeScript。
 
@@ -117,7 +117,7 @@ Ionic 在 2013 年作为开源的跨平台移动开发 SDK 推出。由于它使
 
 **Ionic：** Ionic 完全依赖 HTML 和 CSS 等 web 技术，支持原生类型的应用程序体验。同时它也使用 Cordova 获得原生应用程序的外观。
 
-**Flutter：** 毫无疑问，Flutter 通过跃过和原生组件的交互连接桥，提供了[最佳的用户界面](https://flutter.dev/docs/development/ui)。这也是为什么有数量十分庞大的移动应用开发者会选择 Flutter 作为跨平台应用的开发框架。Ionic 确实可以支持跨平台的应用程序，但由于它使用 Cordova 来运行 JavaScript，因此无法打败 Flutter 和 React Native 的效率和性能。
+**Flutter：** 毫无疑问，Flutter 通过跃过和原生组件的交互连接桥，提供了[最佳的用户界面](https://flutter.dev/docs/development/ui)。这也是为什么有数量十分庞大的移动应用开发者会选择 Flutter 作为跨平台应用的开发框架的原因。Ionic 确实可以支持跨平台的应用程序，但由于它使用 Cordova 来运行 JavaScript，因此比不过 Flutter 和 React Native 的效率和性能。
 
 #### 6. 使用现状
 
@@ -151,7 +151,7 @@ Flutter 具有十分多的高级功能，已经让大约 39% 的开发者印象�
 
 让我稍微简化一下。
 
-如果你正在寻找给应用程序包装的解决方案，那么 Ionic 是你的理想选择。但是由于 Ionic 使用第三方组件且由 Cordova 为应用程序提供了模拟原生的感觉，因此它从效率和性能上来说，无法打败 Flutter 和 React Native。另一方面，Ionic 可以确保你获得一个超级快速的开发体验，并使你能够在更少的时间内，同时构建两个应用程序。
+如果你正在寻找给应用程序包装的解决方案，那么 Ionic 是你的理想选择。但是由于 Ionic 使用第三方组件且由 Cordova 为应用程序提供了模拟原生的感觉，因此它从效率和性能上来说，无法打败 Flutter 和 React Native。另一方面，Ionic 可以确保你获得一个超级快速的开发体验，并使你能够在更少的时间内，用一个栈同时构建两个应用程序。
 
 其次，如果性能和使用数量众多的原生设备功能是当务之急，那么 Flutter 和 React Native 可能是你的最终选择。
 
