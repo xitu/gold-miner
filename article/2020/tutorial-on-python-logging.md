@@ -2,18 +2,18 @@
 > * 原文作者：[Anuradha Wickramarachchi](https://medium.com/@anuradhawick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/tutorial-on-python-logging.md](https://github.com/xitu/gold-miner/blob/master/article/2020/tutorial-on-python-logging.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[wangqinggang](https://github.com/wangqinggang)
 
-# Tutorial on Python Logging
+# Python Logging 使用指南
 
 ![Photo by [Chris Ried](https://unsplash.com/@cdr6934?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/codes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12032/1*1X0-98EiQNkwBJj2vnTTqQ.jpeg)
 
-Logging is a very important functionality for a programmer. For both debugging and displaying run-time information, logging is equally useful. In this article, I will present why and how you could use the python’s logging module in your programs.
+对程序员来说，Logging 是一种非常重要的功能。无论调试程序还是程序运行时的信息显示，Logging 都很有用。在本文中，我会演示为什么要使用以及如何使用 Python 中的 Logging 模块。
 
-## Why Logging and not print()
+## 为什么要使用 Logging 而不使用 print()
 
-There is a key difference between a print statement and logging output. Usually, print statements write to **stdout** (standard output) which is expected to be the useful information or the output of the program. However, logs are written into **stderr** (standard error). We can demonstrate this scenario as follows.
+print 语句跟 Logging 输出存在本质上的不同。一般地，print 语句用于向 stdout（标准输出）写入有用的信息或程序需要输出的信息。然而 Logging 将这些信息写入 stderr（标准错误输出）。
 
 ```py
 import logging
@@ -27,7 +27,7 @@ logging.error('Aw snap! Everything failed.')
 print("This is the program output")
 ```
 
-Now if I run this program, I will see the following in the command line.
+如果我运行这段程序，可以看到命令行输出了如下信息。
 
 ```
 $ python log_test.py
@@ -37,7 +37,7 @@ ERROR:root:Aw snap! Everything failed.
 This is the program output
 ```
 
-However, for the usual user, the information is too much. Though this is actually displayed all together in the command line the data is written into two separate streams. So a typical user should do the following.
+然而对于普通用户来说，信息太多了。虽然这些都在命令行显示，但数据却被分开了。所以用户应当这样运行程序。
 
 ```
 $ python log_test.py > program_output.txt
@@ -49,27 +49,27 @@ $ cat program_output.txt
 This is the program output
 ```
 
-Here the useful program output is written to a file, by redirection `>`. So we can see what's happening on the terminal and get the output conveniently on a file. Now let’s try to understand the log levels!
+在这里，需要输出的信息通过重定向符 > 写入到一个文件。所以我们能看到终端的运行情况，也可以方便地从文件中得到输出信息。现在我们来了解日志等级！
 
-## Logging and Log Levels
+## Logging 和日志等级
 
-Logging can happen for different reasons. These reasons are separated into levels of severity as following.
+需要使用 Logging 的原因各有不同。这些原因可以根据严重性的不同分为如下几类。
 
-* **DEBUG**: Debug information for developers such as computed values, estimated parameters, URLs, API calls, etc.
-* **INFO**: Information, nothing serious.
-* **WARNING**: Warnings to users about inputs, parameters, etc.
-* **ERROR**: Reports an error caused by something that the user did or occurred within the program.
-* **CRITICAL**: The highest priority log output. Used for critical concerns (Depends on the use-case).
+* **DEBUG**: 开发者调试信息，包括经计算得到的值、参数估值、URL、API 调用信息等。
+* **INFO**: 一般性的信息。
+* **WARNING**: 关于输入、参数等的警告。
+* **ERROR**: 报告由于用户操作不当或程序运行时发生的错误。
+* **CRITICAL**: 最高等级的日志输出，通常用于某些关键问题（取决于具体情况）。
 
-The most common types of logs are **DEBUG**, **INFO**, and **ERROR**. However, you can easily end up with scenarios where python throws warnings for version mismatches.
+最常用的日志类型有：**DEBUG**、**INFO** 和 **ERROR**。然而，经常会出现因 Python 版本不匹配抛出警告的情况。
 
-## Configuring the Logger and Log Handlers
+## 配置 Logger 和日志处理程序
 
-The loggers can be configured under different parameters. The logger can be configured to follow a particular log level, a file name, file mode, and a format to print the log output.
+Logger 可以配置不同的参数，可以配置特定日志等级、日志文件名、文件模式和日志打印的输出格式。
 
-#### Configuring the Logger Parameters
+#### 配置 Logger 的参数
 
-The logger can be configured as follows.
+Logger 可采用如下配置。
 
 ```py
 import logging
@@ -78,11 +78,11 @@ logging.basicConfig(filename='program.log', filemode='w', level=logging.DEBUG)
 logging.warning('You are given a warning!')
 ```
 
-The above setting asks the logger to output the log into a file named `program.log`. The `filemode=’w’` defines the nature of writing to file. For example, `'w'` open a new file overwriting whatever that was there. By default, this parameter is `'a'` which will open the log file in append mode. Sometimes it is useful to have a log history. The level parameter defines the lowest severity for logging. For example, if you set this to **INFO**, **DEBUG** logs will not be printed. You may have seen programs needs to be run in`verbose=debug` mode to see some parameters. By default the level is **INFO**.
+上面的代码向 program.log 文件输出日志。filemode='w' 用于设置文件读写模式。filemode='w' 表示需要打开一个新文件并覆盖原来的内容。该参数默认设置为 'a'，此时会打开相应文件，并追加日志内容，因为有时需要获取历史日志。表示等级的参数 level 用于确定日志的最低等级。例如，当设置 level 为 **INFO**，程序就不会输出 **DEBUG** 级别的日志。你可能知道，需要设置 'verbose=debug' 才能获取一些参数。日志等级默认为 **INFO**。
 
-#### Creating a Log Handler
+#### 创建日志处理器
 
-Although the above approach is straightforward for a simple application we need a comprehensive logging process for a production-ready software or a service. This is because it might be quite difficult to find for a particular **ERROR** log amidst millions of **DEBUG** logs. Furthermore, we need to use a single logger throughout the program and modules. This way we’ll correctly append the logs to the same file. For this, we can use handlers with different configurations for this task.
+虽然上述方法直接明了，满足了一个简单的应用程序的需求，但对于一个软件产品或服务来说，需要全面的日志处理流程。因为很难在数以百万计的 **DEBUG** 级日志中找到某个 **ERROR** 级日志。此外，在整个程序和模块中，我们应当使用单一的 Logger。这样我们就可以正确地把日志添加到同一文件中。所以我们可以使用具有不同配置的 Handler 来处理这种任务。
 
 ```py
 import logging
@@ -99,13 +99,13 @@ logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 ```
 
-You can see that we first get a logger passing a name. This enables us to reuse the same logger everywhere else in the program. We set the global logging level to be **DEBUG**. This is the lowest log level, hence enables us to use any log level in other handlers.
+可以看出，我们首先通过名称获取到一个 Logger。以此可以在程序的其他任意地方使用同一个 Logger。我们把全局的 Logging 等级设为最低的 **DEBUG**，这样我们就可以在其他日志处理器中设置任意日志等级。
 
-Next, we create two handlers for **console** and **file** writing. For each handler, we provide a log level. This can help reduce the overhead on console output and transfer them to the file handler. Makes it easy to deal with debugs later.
+接着，我们创建两个日志处理器，分别用于 **console** 和 **file** 形式的输出，并设置各自的日志等级。这可以减少控制台输出的开销，转而在文件中输出。这方便了以后的调试。
 
-## Formatting the Log Output
+## 对输出日志进行格式化
 
-Logging is not merely print our own message. Sometimes we need to print other information such as time, log level, and process ids. For this task, we can use log formatting. Let’s see the following code.
+Logging 不是只用来打印我们自己的信息的。有时候我们需要打印其他信息，例如时间、日志等级、进程 ID。因此我们需要对日志进行格式化。我们来看下面的代码。
 
 ```py
 console_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
@@ -115,11 +115,11 @@ console_handler.setFormatter(console_format)
 file_handler.setFormatter(file_format)
 ```
 
-Before we add handlers to the logger we can format the log outputs as above. There are many more parameters that you can use for this. You can find them all [here](https://docs.python.org/3/library/logging.html#logrecord-attributes).
+添加 Handler 之前，我们可以像上面的代码那样设置日志输出的格式。可以用于设置日志格式的参数远不止这些，你可以访问(https://docs.python.org/3/library/logging.html#logrecord-attributes)获取详细资料。
 
-## A Code for Reuse
+## 可重用的代码
 
-The following is a code snippet for logging that I continue to use in many of my applications. Thought it might be useful for you as the reader.
+下面是我在许多应用程序中都用到的代码段。它可能会对你有所帮助。
 
 ```Python
 import logging
@@ -141,11 +141,11 @@ logger.addHandler(fileHandler)
 logger.addHandler(consoleHeader)
 ```
 
-#### Loggin with Multithreading
+#### Logging 与多线程有关的特征
 
-The logging module is made with thread safety in mind. Hence no special action is required when you’re logging from different threads except very few exceptions (out of the main scope of this article).
+记住，Logging 模块是线程安全的。所以除了极少数例外情况（不在本文讨论范围内）使用 Logging 不需要为多线程编写额外的处理逻辑。
 
-I hope this is a simple but useful article for many budding programmers and engineers. Happy reading. Cheers! :-)
+本文虽然短小、简单，但我也希望它对初级程序员有所帮助。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

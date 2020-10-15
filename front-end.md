@@ -1,3 +1,28 @@
+* [在 React 中使用 Service Worker](https://juejin.im/post/6881616183158636552)（[plusmultiply0](https://github.com/plusmultiply0) 翻译）
+* [掌握 JavaScript ES6 中的 Symbol 类型](https://juejin.im/post/6880485630501978126)（[Inchill](https://github.com/Inchill) 翻译）
+* [TypeScript：一个好泛型的价值](https://juejin.im/post/6878868818836488205)（[tonylua](https://github.com/tonylua) 翻译）
+* [ES2017 最佳特性  —  数组中的异步函数以及共享缓冲区](https://juejin.im/post/6878849121269055501)（[tonylua](https://github.com/tonylua) 翻译）
+* [使用 React 和 localStorage 实现的简易 Dark Mode 开关](https://juejin.im/post/6875538309934743560)（[Inchill](https://github.com/Inchill) 翻译）
+* [VueJS 中更好的组件组合方式](https://juejin.im/post/6875236830984437768)（[tonylua](https://github.com/tonylua) 翻译）
+* [5 个鲜为人知的 Chrome 开发者工具的特性](https://juejin.im/post/6875240551390642189)（[Shirley-He-Maker](https://github.com/Shirley-He-Maker) 翻译）
+* [使用 JSON.stringify 处理 JavaScript 对象](https://juejin.im/post/6871807169562902541)（[Inchill](https://github.com/Inchill) 翻译）
+* [加速 vue.js 应用的六种绝技](https://juejin.im/post/6870808442911588365)（[MangoTsing](https://github.com/MangoTsing) 翻译）
+* [JavaScript 函数中一些你不知道的秘密](https://juejin.im/post/6871101056642711559)（[Isildur46](https://github.com/Isildur46) 翻译）
+* [如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)（[tonylua](https://github.com/tonylua) 翻译）
+* [如何在悬停时创建菜单图像动画](https://juejin.im/post/6878561756793454599)（[zenblo](https://github.com/zenblo) 翻译）
+* [Vue 应用的代码覆盖率](https://juejin.im/post/6872653403177254919)（[tonylua](https://github.com/tonylua) 翻译）
+* [最常用的 4 种 JavaScript 设计模式](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)（[ZavierTang](https://github.com/ZavierTang) 翻译）
+* [JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)（[Isildur46](https://github.com/Isildur46) 翻译）
+* [React vs. Svelte：虚拟与真实 DOM 间的战争](https://juejin.im/post/6870858079513247758)（[nia3y](https://github.com/nia3y) 翻译）
+* [让你的 Web 应用和移动应用选择 PWA 的 5 个理由](https://juejin.im/post/6868084125195042823)（[rocwong-cn](https://github.com/rocwong-cn) 翻译）
+* [JavaScript 生成器：何时用 yield，何时用 yield* ？](https://juejin.im/post/6867036974441005063)（[Isildur46](https://github.com/Isildur46) 翻译）
+* [TypeScript 4.0 终于发布了我一直在等待的东西](https://juejin.im/post/6864473591770152968)（[rocwong-cn](https://github.com/rocwong-cn) 翻译）
+* [如何实现交互式 WebGL 悬停效果](https://github.com/xitu/gold-miner/blob/master/article/2020/interactive-webgl-hover-effects.md)（[zenblo](https://github.com/zenblo) 翻译）
+* [8 个有用的 SCSS 最佳实践](https://juejin.im/post/6862499761351163911)（[snowyYU](https://github.com/snowyYU) 翻译）
+* [你应该了解的八种浏览器 API](https://github.com/xitu/gold-miner/blob/master/article/2020/8-unheard-of-browser-apis-you-should-be-aware-of.md)（[zenblo](https://github.com/zenblo) 翻译）
+* [分享我喜欢的十五条 JavaScript 编程技巧](https://github.com/xitu/gold-miner/blob/master/article/2020/my-favorite-javascript-tips-and-tricks.md)（[zenblo](https://github.com/zenblo) 翻译）
+* [前端开发 8 大性能分析工具](https://juejin.im/post/6860664312504320014)（[IAMSHENSH](https://github.com/IAMSHENSH) 翻译）
+* [给前端开发者的 14 个 JavaScript 代码优化建议](https://juejin.im/post/6859562506721951751)（[Gesj-yean](https://github.com/Gesj-yean) 翻译）
 * [如何利用 Polyfill 和转译在所有浏览器中使用最新 JavaScript 特性](https://juejin.im/post/6868513605055643662)（[MangoTsing](https://github.com/MangoTsing) 翻译）
 * [Javascript 应用中引入 CSS 的几种方式](https://juejin.im/post/6867054761741549576)（[thisisandy](https://github.com/thisisandy) 翻译）
 * [使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)（[rocwong-cn](https://github.com/rocwong-cn) 翻译）
