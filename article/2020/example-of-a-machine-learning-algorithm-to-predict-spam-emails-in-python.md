@@ -7,15 +7,13 @@
 
 # Email Spam Detector in Python
 
-#### How to Build a Model to Predict if the Email is a Spam or Ham
-
 ![Image by Unsplash](https://cdn-images-1.medium.com/max/2000/0*cNPIeopNeCpoyXUk.jpg)
 
 ## Ham or Spam
 
 One of the most common projects, especially for teaching purposes, is to build models to predict if a message is spam or not. Our dataset called [Spam](https://drive.google.com/file/d/1A9k6fF8a1ND1v6cTIWQuPWSQMAhIZwMV/view?usp=sharing) contains the subject lines and the target which takes values `0` and `1` for ham and spam respectively.
 
-```
+```py
 import pandas as pd
 import numpy as np
 from sklearn.metrics import roc_auc_score
@@ -35,7 +33,7 @@ Output:
 
 ## Split the Data into Train and Test Dataset
 
-```
+```py
 X_train, X_test, y_train, y_test = train_test_split(spam_data['text'], 
                  spam_data['target'], 
                  random_state=0)
@@ -45,7 +43,7 @@ X_train, X_test, y_train, y_test = train_test_split(spam_data['text'],
 
 Fit and transform the training data `X_train` using a Tfidf Vectorizer ignoring terms that have a document frequency strictly lower than **5** and using **word n-grams from n=1 to n=3** (unigrams, bigrams, and trigrams)
 
-```
+```py
 vect = TfidfVectorizer(min_df=5, ngram_range=(1,3)).fit(X_train) X_train_vectorized = vect.transform(X_train)
 ```
 
@@ -53,7 +51,7 @@ vect = TfidfVectorizer(min_df=5, ngram_range=(1,3)).fit(X_train) X_train_vectori
 
 We apart from the tokens, we can add features such as the **number of digits**, the **dollar sign** , the **length** of the subject line and the **number of characters** (anything other than a letter, digit or underscore) . Let’s create a function for that.
 
-```
+```py
 def add_feature(X, feature_to_add):
     """
     Returns sparse feature matrix with added feature.
@@ -83,7 +81,7 @@ X_test_transformed = add_feature(vect.transform(X_test), [add_length_t, add_digi
 
 We will build the Logistic Regression Model and we will report the `AUC` score on the test dataset:
 
-```
+```py
 clf = LogisticRegression(C=100, solver='lbfgs', max_iter=1000)
 
 clf.fit(X_train_transformed, y_train)
@@ -104,7 +102,7 @@ Output:
 
 We will show the **50** most important features which lead to either **Ham** of **Spam** respectively.
 
-```
+```py
 feature_names = np.array(vect.get_feature_names() + ['lengthc', 'digit', 'dollars', 'n_char'])
 sorted_coef_index = clf.coef_[0].argsort()
 smallest = feature_names[sorted_coef_index[:50]]
@@ -119,7 +117,7 @@ largest
 
 Output:
 
-```
+```py
 array(['text', 'sale', 'free', 'uk', 'content', 'tones', 'sms', 'reply', 'order', 'won', 'ltd', 'girls', 'ringtone', 'to', 'comes', 'darling', 'this message', 'what you', 'new', 'www', 'co uk', 'std', 'co', 'about the', 'strong', 'txt', 'your', 'user', 'all of', 'choose', 'service', 'wap', 'mobile', 'the new', 'with', 'sexy', 'sunshine', 'xxx', 'this', 'hot', 'freemsg', 'ta', 'waiting for your', 'asap', 'stop', 'll have', 'hello', 'http', 'vodafone', 'of the'], dtype='<U31')
 ```
 
@@ -131,17 +129,13 @@ smallest
 
 Output:
 
-```
+```py
 array(['ì_ wan', 'for 1st', 'park', '1st', 'ah', 'wan', 'got', 'say', 'tomorrow', 'if', 'my', 'ì_', 'call', 'opinion', 'days', 'gt', 'its', 'lt', 'lovable', 'sorry', 'all', 'when', 'can', 'hope', 'face', 'she', 'pls', 'lt gt', 'hav', 'he', 'smile', 'wife', 'for my', 'trouble', 'me', 'went', 'about me', 'hey', '30', 'sir', 'lovely', 'small', 'sun', 'silent', 'me if', 'happy', 'only', 'them', 'my dad', 'dad'], dtype='<U31')
 ```
 
 ## Discussion
 
 We provided a practical and reproducible example of how you can build a decent Ham or Spam algorithm. This is one of the main tasks in the field of NLP. Our model achieved an **AUC score of 97%** on the test dataset which is really good. We were also able to add features and also to identify the features which are more likely to appear in a Spam email and vice versa.
-
----
-
-**Originally published at [https://predictivehacks.com](https://predictivehacks.com/example-of-a-machine-learning-algorithm-to-predict-spam-emails-in-python/).**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
