@@ -7,8 +7,6 @@
 
 # User-Tracking With CSS Only
 
-#### Device type, operating system & movements on the website
-
 ![Source: The author](https://cdn-images-1.medium.com/max/2800/1*5AecJjiH3Z50F_BfOIaEYw.png)
 
 User Tracking in the browser causes discussions about privacy and data protection time and again. Tools like Google Analytics can find out almost everything — origin, language, device, retention time, and so on.
@@ -90,10 +88,8 @@ Instead of using such obvious terms for the individual routes, you can also use 
 For the examples above, I always used my own routes for the GET requests. Simple so that it is easier to understand. A more elegant way is to use URL parameters or queries, which also works in CSS.
 
 For a detailed tutorial on query and URL parameters in Express.js, you can look here:
-[**Query vs. URL Parameters in Express.js**
-**The differences and when to use which**medium.com](https://medium.com/javascript-in-plain-english/query-strings-url-parameters-d1a35b9a694f)
 
-[**Join my newsletter to stay in touch**](http://eepurl.com/hacY0v)
+[**Query vs. URL Parameters in Express.js**](https://medium.com/javascript-in-plain-english/query-strings-url-parameters-d1a35b9a694f)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
