@@ -28,7 +28,7 @@ In the end, we can still track some things without JavaScript — with some CSS 
 
 Media queries should be known to every web developer. With them, we can activate CSS code only for certain screen conditions. So we can write our own Queries for smartphones or tablets.
 
-The whole magic behind all our CSS trackers is the attributes for which we can call a URL as value. A good example is a background-image attribute, which allows us to set a background image for an element. The image is retrieved from a URL — it is first requested during execution, so a GET request is sent to the URL: background-image: url('/dog.png');
+The whole magic behind all our CSS trackers is the attributes for which we can call a URL as value. A good example is a background-image attribute, which allows us to set a background image for an element. The image is retrieved from a URL — it is first requested during execution, so a GET request is sent to the URL: `background-image: url('/dog.png');`
 
 But in the end, nobody forces us to make sure that there really is an image behind the URL. The server doesn’t even have to answer the request, but we can still make a database entry in response to a GET request, for example.
 
