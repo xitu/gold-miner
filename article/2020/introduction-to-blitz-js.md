@@ -5,7 +5,7 @@
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：[JohnieXu](https://github.com/JohnieXu)
 
-# Blitz.js 简介
+# Blitz.js 简介：一个新兴的 React 全栈框架
 
 ![](https://cdn-images-1.medium.com/max/2800/0*UyEKhRBaINAtNNiB.png)
 
