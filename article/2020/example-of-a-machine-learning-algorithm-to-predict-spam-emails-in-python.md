@@ -11,7 +11,7 @@
 
 ## Ham or Spam
 
-One of the most common projects, especially for teaching purposes, is to build models to predict if a message is spam or not. Our dataset called [Spam](https://drive.google.com/file/d/1A9k6fF8a1ND1v6cTIWQuPWSQMAhIZwMV/view?usp=sharing) contains the subject lines and the target which takes values `0` and `1` for ham and spam respectively.
+One of the most common projects, especially for teaching purposes, is to build models to predict if a message is spam or not. Our dataset called [Spam](https://github.com/lsvih/spam_email/blob/main/spam.csv.zip) contains the subject lines and the target which takes values `0` and `1` for ham and spam respectively.
 
 ```py
 import pandas as pd
