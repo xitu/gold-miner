@@ -7,15 +7,13 @@
 
 # Design Patterns: Structural Patterns of Design Classes and Objects
 
-#### Though Programmer
-
-#### Adapter, Decorator, Proxy, Information Expert, Composite, Bridge, Low Coupling, Flyweight, Protected Variations and Facade
-
 ![Structural patterns of design classes and objects](https://cdn-images-1.medium.com/max/2730/1*ZQBbxCUNxO7McfVcgL7B3w.png)
+
+> Adapter, Decorator, Proxy, Information Expert, Composite, Bridge, Low Coupling, Flyweight, Protected Variations and Facade
 
 Structural design patterns are concerned with how classes and objects can be composed, to form larger structures. They enable you to create systems without rewriting or customizing the code because these patterns provide the system with enhanced reusability and robust functionality.
 
-> # Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice. —**Christopher Alexander**
+> Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice. —**Christopher Alexander**
 
 There are following 10 types of structural design patterns.
 
@@ -59,7 +57,7 @@ The following code solves this problem. It defines a `HighVoltagePlug` (adapter)
 
 **Target**: Plug.java
 
-```
+```java
 public interface Plug {
     public int recharge();
 }
@@ -67,7 +65,7 @@ public interface Plug {
 
 **Adaptee**: HighVoltagePlug.java
 
-```
+```java
 public class HighVoltagePlug{
     public int recharge() {
         //Power is 220 Voltage
@@ -78,7 +76,7 @@ public class HighVoltagePlug{
 
 **Adapter**: AdapterPlug.java
 
-```
+```java
 public class AdapterPlug implements Plug {
     @Override
     public int recharge() {
@@ -92,7 +90,7 @@ public class AdapterPlug implements Plug {
 
 **AdapterClient**: AdapterClient.java
 
-```
+```java
 public class AdapterClient {
     public static void main(String[] args) {
         HighVoltagePlug oldPlug = new HighVoltagePlug();
@@ -139,7 +137,7 @@ Different people can wear different clothes such as man, woman, boy, and girl.
 
 **AbstractionImpl**: Person.java
 
-```
+```java
 public abstract class Person {
 
     protected String name;
@@ -170,7 +168,7 @@ public abstract class Person {
 
 **Implementor**: Clothing.java
 
-```
+```java
 public abstract class Clothing {
 
     protected String name;
@@ -191,7 +189,7 @@ public abstract class Clothing {
 
 **ConcreateImplementor**: Jacket.java
 
-```
+```java
 public class Jacket extends Clothing {
 
     public Jacket(String name) {
@@ -202,7 +200,7 @@ public class Jacket extends Clothing {
 
 **RefinedAbstraction**: Woman.java
 
-```
+```java
 public class Woman extends Person {
     
     public Woman(String name) {
@@ -218,7 +216,7 @@ public class Woman extends Person {
 
 **Client**: BridgeClient.java
 
-```
+```java
 public class BridgeClient {
     public static void main(String[] args) {
 
@@ -264,7 +262,7 @@ In an organization, It has general managers and under general managers, there ca
 
 **Component**: IEmployee.java
 
-```
+```java
 interface IEmployee {
     
     void printStructures();
@@ -275,7 +273,7 @@ interface IEmployee {
 
 **Composite**: CompositeEmployee.java
 
-```
+```java
 class CompositeEmployee implements IEmployee {
 
     private int employeeCount=0;
@@ -330,7 +328,7 @@ class CompositeEmployee implements IEmployee {
 
 **Leaf**: Employee.java
 
-```
+```java
 class Employee implements IEmployee{
 
     private String name;
@@ -488,7 +486,7 @@ Assign a responsibility to the class that has the information needed to fulfill 
 
 Consider the Monopoly game. Suppose an object wants to reference a Square, given its name. Who is responsible for knowing the Square, given its name?
 
-> # The most likely candidate is the Board because it is composed of Squares.
+> The most likely candidate is the Board because it is composed of Squares.
 
 Since the Board is composed of Squares, it is the object that is best suited to produce a particular square given the square’s name — the Board is the Information Expert, it has all of the information needed to fulfill this responsibility.
 
@@ -511,8 +509,6 @@ How to design objects, subsystems, and systems so that the variations or instabi
 Identify points of predicted variation or instability, assign responsibilities to create a stable interface around them.
 
 The “Don’t talk to strangers” principle, which states that an object’s methods should only send messages (i.e. use methods) of objects that it is directly familiar with.
-[**The Law of Demeter**
-**It often is forgotten or ignored 😔**levelup.gitconnected.com](https://levelup.gitconnected.com/the-law-of-demeter-4bd40aa21cbe)
 
 **Real-world example**
 
