@@ -510,6 +510,8 @@ Identify points of predicted variation or instability, assign responsibilities t
 
 The “Don’t talk to strangers” principle, which states that an object’s methods should only send messages (i.e. use methods) of objects that it is directly familiar with.
 
+Related reading: [The Law of Demeter](https://github.com/xitu/gold-miner/blob/master/article/2020/the-law-of-demeter.md)
+
 **Real-world example**
 
 Data encapsulation, interfaces, polymorphism, indirection, and standards are motivated by Protected Variations.
