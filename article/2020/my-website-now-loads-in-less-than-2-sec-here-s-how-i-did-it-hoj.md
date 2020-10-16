@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-website-now-loads-in-less-than-2-sec-here-s-how-i-did-it-hoj.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-website-now-loads-in-less-than-2-sec-here-s-how-i-did-it-hoj.md)
 > * 译者：[wangqinggang](https://github.com/wangqinggang)
-> * 校对者：[Chorer](https://github.com/Chorer)   [Inchill](https://github.com/Inchill)
+> * 校对者：[Chorer](https://github.com/Chorer), [Inchill](https://github.com/Inchill)
 
 # 我的网站加载时间不到 1 秒，这是我如何做到的！
 
@@ -27,7 +27,7 @@
 
 * 内存性能
 
-使用 `document.querySelectorAll ('li')` 等通用查询选择器会存储对多个节点的引用，消耗设备的内存。
+使用 `document.querySelectorAll('li')` 等通用查询选择器会存储对多个节点的引用，消耗设备的内存。
 
 * 网络效率和负载性能
 
@@ -42,7 +42,7 @@
 > 我的作品集网站总的网络负载大小只有 764 KB。
 
 你的网站的有效载荷总大小应低于 1600 KB。 
-为了保持低负载水平，你可以做以下操作:
+为了保持低负载水平，你可以做以下操作：
 
 * 推迟请求，直到需要请求为止。
 * 缩小和压缩网络负载。
@@ -52,15 +52,15 @@
 
 # 技巧 3 不要使用 GIF
 
-不要使用 GIF ，而是使用 PNG / WebP 格式显示静态图像。如果你想要显示动画内容，那么就不要使用大的 gif （低效和像素化） ，而是考虑使用 MPEG4/WebM 视频格式。
+不要使用 GIF ，而是使用 PNG/ WebP 格式显示静态图像。如果你想要显示动画内容，那么就不要使用大的 gif（低效和像素化），而是考虑使用 MPEG4/WebM 视频格式。
 
-现在，你会说，如果我想要他们具有如下功能:
+现在，你会说，如果我想要他们具有如下功能：
 
 * 自动播放
 * 连续循环
 * 没有音频
 
-好吧，让我把你从这些问题中解救出来，HTML5 `< video >` 元素允许重新创建这些行为。
+好吧，让我把你从这些问题中解救出来，HTML5 `<video>` 元素允许重新创建这些行为。
 
 ```html
 <video autoplay loop muted playsinline>
