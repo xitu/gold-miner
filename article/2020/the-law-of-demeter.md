@@ -7,8 +7,6 @@
 
 # The Law of Demeter
 
-#### It often is forgotten or ignored 😔
-
 ![the law of Demeter](https://cdn-images-1.medium.com/max/2800/1*Q2hIGRJoa-s-CNx9KpZPeQ.jpeg)
 
 The law of Demeter, known as LoD or the principle of least knowledge. This so-called law has three core ideas as follows.
@@ -23,7 +21,7 @@ It is very useful to learn and apply to your program but it is sad 😔 that it 
 
 We’ve all seen long chain of functions like these.
 
-```
+```java
 obj.getX()
       .getY()
         .getZ()
@@ -32,7 +30,7 @@ obj.getX()
 
 We ask then ask before we tell anything. The call to doSomething() propagates outwards till it gets to Z. These long chains of queries violate something called the Law of Demeter. Wouldn’t it look better like as follows?
 
-```
+```java
 obj.doSomething();
 ```
 
@@ -40,7 +38,7 @@ In other words, we can understand this law: an object should only invoke methods
 
 Next, let’s take some simple examples of defining `Customer` and `CustomerWallet` class.
 
-```
+```java
 public class Customer {
     
     ...
@@ -58,7 +56,7 @@ public class CustomerWallet {
 
 Invoke itself and its parameters.
 
-```
+```java
 public class CustomerWallet {
 
     ...
@@ -75,7 +73,7 @@ public class CustomerWallet {
 
 It's okay to call methods on any objects we create or any directly held component objects.
 
-```
+```java
 public class Customer {
     
     private CustomerWallet wallet;
@@ -88,7 +86,7 @@ public class Customer {
 
 Looking further. We take a simplified version of an interaction between the Shopkeeper and the Customer may go wrong as follows.
 
-```
+```java
 public class ShopKeeper {
     public void processPurchase(Product product, Customer customer){
         static price = product.price();
@@ -105,7 +103,7 @@ It’s immediately obvious that this would never be a socially appropriate inter
 
 The shopkeeper here should not have knowledge of the customer’s wallet and so should not be talking to it. So, we should re-write our program as follows.
 
-```
+```java
 public class ShopKeeper {
     public void processPurchase(Product product, Customer customer){
         static float price = product.price();
