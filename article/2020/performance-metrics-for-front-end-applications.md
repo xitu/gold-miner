@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/performance-metrics-for-front-end-applications.md](https://github.com/xitu/gold-miner/blob/master/article/2020/performance-metrics-for-front-end-applications.md)
 > * 译者：[niayyy](https://github.com/nia3y)
-> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)、[HurryOwen](https://github.com/HurryOwen)
 
 # 前端应用的性能指标
 
@@ -17,7 +17,7 @@
 
 ## 以用户为中心的性能及其重要性
 
-现在我们知道为什么我们应该开始改善我们网站的性能了。
+现在我们知道为什么应该开始改善网站的性能了。
 
 > 通过 [Vitaly](https://www.smashingmagazine.com/author/vitaly-friedman/)，一般而言，你的目标应该是要比最快的竞争对手快至少 20%。
 
