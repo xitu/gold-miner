@@ -1,5 +1,5 @@
-> * 原文地址：[Comparing API Architectural Styles: SOAP vs REST vs GraphQL vs RPC](https://levelup.gitconnected.com/comparing-api-architectural-styles-soap-vs-rest-vs-graphql-vs-rpc-84a3720adefa)
-> * 原文作者：[AltexSoft Inc](https://medium.com/@altexsoft)
+> * 原文地址：[Comparing API Architectural Styles: SOAP vs REST vs GraphQL vs RPC](https://www.altexsoft.com/blog/soap-vs-rest-vs-graphql-vs-rpc/)
+> * 原文作者：[AltexSoft Inc](https://www.altexsoft.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/comparing-api-architectural-styles-soap-vs-rest-vs-graphql-vs-rpc.md](https://github.com/xitu/gold-miner/blob/master/article/2020/comparing-api-architectural-styles-soap-vs-rest-vs-graphql-vs-rpc.md)
 > * 译者：
@@ -232,10 +232,6 @@ REST has the highest abstraction and best modeling of the API. But it tends to b
 GraphQL is a big step forward in terms of data fetching but not everyone has enough time and effort to get the hang of it.
 
 At the end of the day, it makes sense to try a few small use cases with a particular style, and see if it fits your use case and solves your problems. If it does, try expanding and see if it fits more use cases.
-
----
-
-**Originally published at AltexSoft tech blog “[Comparing API Architectural Styles: SOAP vs REST vs GraphQL vs RPC](https://www.altexsoft.com/blog/soap-vs-rest-vs-graphql-vs-rpc/?utm_source=MediumCom&utm_medium=referral&utm_campaign=shared)”**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
