@@ -15,13 +15,13 @@ Though sadly, such issues are common amongst those who use nonsensical trash lik
 
 The laugh is this is actually quite simple to implement. Let’s say you want 1em font-size as the minimum, 4em as the largest, and the scale to the largest size to be based on 75rem. 75rem being 1200px for 16px/normal users, 1500px for 20px/large font users like myself, and 2400px on a lot of 4k devices.
 
-```
+```css
 font-size:max(1em, min(4em, calc(100vw * 4 / 75)));
 ```
 
 You could also just “do the math yourself”
 
-```
+```css
 font-size:max(1em, min(4em, 5.333vw));
 ```
 
@@ -45,7 +45,7 @@ Likewise this is 100% EM based, so you aren’t pissing on usability and accessi
 
 Take a simple page section:
 
-```
+```html
 <section>
   <h2>Sample Section</h2>
   <p>
@@ -58,7 +58,7 @@ Take a simple page section:
 
 First we make some variables to handle our various desired minimum and maximum sizes:
 
-```
+```css
 :root {
  --base-scale:calc(100vw / 75);
  --h2-font-size:max(1em, min(4em, calc(var(--base-scale) * 4)));
@@ -74,7 +74,7 @@ Again, the “max(value” is actually your minimum size, your “min(value” i
 
 To apply them is as simple as:
 
-```
+```css
 main section {
  max-width:40em;
  padding:var(--padding-size);
@@ -100,15 +100,14 @@ Whilst when small:
 …the padding, border-radius, heading size, and so forth all shrink.
 
 ## Live Demo
-[**Rescale Sections with Vanilla CSS**
-**This card uses a relatively simple CSS calculation to rescale margin, padding, font-size, and border-radius between a…**cutcodedown.com](https://cutcodedown.com/for_others/medium_articles/responsiveRescale/responsiveRescale.html)
+
+[**Rescale Sections with Vanilla CSS**](https://cutcodedown.com/for_others/medium_articles/responsiveRescale/responsiveRescale.html)
 
 As with all my examples, the directory:
+
 [https://cutcodedown.com/for_others/medium_articles/responsiveRescale/](https://cutcodedown.com/for_others/medium_articles/responsiveRescale/)
 
 Is wide open for easy access to the gooey bits and pieces, and contains a .rar of the whole shebang for easy download, testing, and play.
-
-For those of you who prefer codepen:
 
 There you go.
 
