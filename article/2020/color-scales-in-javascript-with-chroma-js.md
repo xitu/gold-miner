@@ -7,8 +7,6 @@
 
 # Color Scales in JavaScript with Chroma.js
 
-#### Coloring your app with this powerful tiny JavaScript library!
-
 ![Photo by [Daniele Levis Pelusi](https://unsplash.com/@yogidan2012?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10806/0*8vuqBAz5TLSVD38h)
 
 Many developers design Color codes and scale with the CSS, pick the color from some online color palette. However, it is not everyone's favorite tool. The good news is we have the Chroma.js, a small library that can be a big help with generating the color scale within the JavaScript code. This means you can plug it into your JavaScript framework directly!
@@ -19,13 +17,13 @@ Many developers design Color codes and scale with the CSS, pick the color from s
 
 In your web application, you can use a link from CDNJS in your HTML doc
 
-```
+```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js" integrity="sha512-yocoLferfPbcwpCMr8v/B0AB4SWpJlouBwgE0D3ZHaiP1nuu5djZclFEIj9znuqghaZ3tdCMRrreLoM8km+jIQ==" crossorigin="anonymous"></script>
 ```
 
 Or, you can install it using the NPM as well.
 
-```
+```bash
 $ npm install chroma-js
 ```
 
@@ -35,13 +33,13 @@ You can simply create a color scale within your JavaScript code with chroma.scal
 
 For example, you can create a color scale from yellow to red with the following script:
 
-```
+```js
 var color_scale = chroma.scale([‘yellow’, ‘red’]);
 ```
 
 Then, you can access the color in RGB or in HEX code by
 
-```
+```js
 color_scale(0).rgb()    // [255, 255, 0]
 color_scale(0.1).rgb()  // [255, 230, 0]
 color_scale(0.2).rgb()  // [255, 204, 0]
@@ -65,19 +63,19 @@ There are many more options you can do with the color scale, for example, the co
 
 Here are some more examples:
 
-```
+```js
 chroma.scale('Spectral');
 ```
 
 ![**10 classes of Color Scale output from chroma.scale(‘Spectral’)** (by Author)](https://cdn-images-1.medium.com/max/2000/1*PpS1nMb_piYOuk4ENWWBWA.png)
 
-```
+```js
 chroma.scale('RdPu');
 ```
 
 ![**10 classes of Color Scale output from chroma.scale(‘RdPu’)** (by Author)](https://cdn-images-1.medium.com/max/2116/1*11Y1xrUSthjj1yNvMMJyzA.png)
 
-```
+```js
 chroma.scale('RdPu').domain([1,0]); // reverse color scales
 ```
 
@@ -88,10 +86,6 @@ chroma.scale('RdPu').domain([1,0]); // reverse color scales
 If you like this tool, you can find more advanced tutorials at [https://gka.github.io/chroma.js/](https://gka.github.io/chroma.js/) if you need color manipulation combining in the scaling methods. Overall, I hope you like this article and be able to apply this tool to your application or project.
 
 Be **Safe** and **Healthy**! Have fun coding!
-
-**Thank you for Reading. 👋**😄
-
-![](https://cdn-images-1.medium.com/max/2554/0*hOOIt9JjQXekqlXg.png)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
