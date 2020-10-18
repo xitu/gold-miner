@@ -17,7 +17,7 @@ Over time, different API architectural styles have been released. Each of them h
 
 ![**API styles over time, Source: [Rob Crowley](https://twitter.com/robdcrowley?lang=en)**](https://cdn-images-1.medium.com/max/2000/0*FjEhEvgBVHUPbO2o.png)
 
-Today, many API consumers refer to REST as “ **REST in peace** “ and cheer for GraphQL, while ten years ago it was a reverse story with REST as the winner to replace SOAP. The problem with these opinions is that they are one-sided picking a technology itself instead of considering how its actual properties and characteristics match the situation at hand.
+Today, many API consumers refer to REST as “**REST in peace**“ and cheer for GraphQL, while ten years ago it was a reverse story with REST as the winner to replace SOAP. The problem with these opinions is that they are one-sided picking a technology itself instead of considering how its actual properties and characteristics match the situation at hand.
 
 In this article, we’ll stay objective and discuss the four major API styles in the order of their appearance, compare their strong and weak sides, and highlight the scenarios where each of them fits best.
 
