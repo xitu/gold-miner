@@ -5,7 +5,7 @@
 > * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：[HurryOwen](https://github.com/HurryOwen)
 
-# 基于内容安全策略增强 JavaScript 安全性
+# 内容安全策略提升 JavaScript 安全性
 
 ![Image by [Free-Photos](https://pixabay.com/photos/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=690286) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=690286)](https://cdn-images-1.medium.com/max/3840/1*s3SfHFu0tszfPURFr9mOFQ.jpeg)
 
