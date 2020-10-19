@@ -1,3 +1,6 @@
+* [知识的极限](https://juejin.im/post/6874475968325484552)（[QinRoc](https://github.com/QinRoc) 翻译）
+* [让神经网络变得更小巧以方便部署](https://juejin.im/post/6873068232505458701)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [使用合成数据改善机器学习中的极度不平衡数据集](https://juejin.im/post/6872609287802388488)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)（[rocwong-cn](https://github.com/rocwong-cn) 翻译）
 * [机器学习中的主动学习](https://juejin.im/post/5eaa71435188256d6c594746)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [目标检测评价标准](https://juejin.im/post/5eaa67f55188256d9c259bd0)（[PingHGao](https://github.com/PingHGao) 翻译）
