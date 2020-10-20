@@ -2,58 +2,58 @@
 > * 原文作者：[Trung Anh Dang](https://medium.com/@dangtrunganh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/design-patterns-structural-patterns-of-design-classes-and-objects.md](https://github.com/xitu/gold-miner/blob/master/article/2020/design-patterns-structural-patterns-of-design-classes-and-objects.md)
-> * 译者：
+> * 译者：[lhd951220](https://github.com/lhd951220)
 > * 校对者：
 
-# Design Patterns: Structural Patterns of Design Classes and Objects
+# 设计模式: 设计类和对象的结构性模式
 
 ![Structural patterns of design classes and objects](https://cdn-images-1.medium.com/max/2730/1*ZQBbxCUNxO7McfVcgL7B3w.png)
 
-> Adapter, Decorator, Proxy, Information Expert, Composite, Bridge, Low Coupling, Flyweight, Protected Variations and Facade
+> 适配器，装饰器，代理，信息专家，组合，桥接，低耦合，亨元，受保护变化和门面
 
-Structural design patterns are concerned with how classes and objects can be composed, to form larger structures. They enable you to create systems without rewriting or customizing the code because these patterns provide the system with enhanced reusability and robust functionality.
+结构性设计模式主要关注如何组合类与对象，以形成更大的结构。它们允许你在不重写或者自定义代码的情况下创建系统，因为这些模式给系统提供了增强的复用性和强大的功能。
 
-> Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice. —**Christopher Alexander**
+> 每一个模式都描述了在我们环境中反复发生的问题，然后描述了这些问题的解决方案的核心，通过这样的方式，你可以频繁的使用这些解决方案，而不需要使用相同的方式执行两次。— **克里斯托佛·亚历山大**
 
-There are following 10 types of structural design patterns.
+有以下 10 种类型的结构型设计模式。
 
-* Adapter Pattern
-* Bridge Pattern
-* Composite Pattern
-* Decorator Pattern
-* Low Coupling
-* Flyweight Pattern
-* Facade Pattern
-* Proxy Pattern
-* Information Expert
-* Protected Variations
+* 适配器模式
+* 桥接模式
+* 组合模式
+* 装饰器模式
+* 低耦合模式
+* 亨元模式
+* 门面模式
+* 代理模式
+* 信息专家
+* 受保护变化
 
-## ABCD (Adapter, Bridge, Composite, Decorator)
+## ABCD (适配器，桥接，组合，装饰器)
 
-#### Adapter Pattern
+#### 适配器模式
 
-**Intent**
+**目的**
 
-The Adapter Pattern is a structural design pattern that allows objects with **incompatible** interfaces to work together.
+适配器模式是结构性设计模式，它允许具有**不兼容**接口的对象一起工作。
 
-**Solution**
+**解决方案**
 
-It implements an interface known to its clients and provides access to an instance of a class not known to its clients.
+它实现了一个客户端已知的接口，然后提供一个客户端未知的类实例的访问。
 
-* **AdapterClient**: the code client.
-* **Adapter**: the Adapter class that forwards the calls to the adaptee.
-* **Adaptee**: the old code needs to be adapted.
-* **Target**: the new interface to support.
+* **AdapterClient**：客户端代码。
+* **Adapter**：将调用转发到 adaptee 的适配器类。
+* **Adaptee**：需要被适配的旧代码。
+* **Target**：支持的新接口。
 
 ![adapter pattern](https://cdn-images-1.medium.com/max/2730/1*9hpD88w1qqsHPqHzDcNRlg.png)
 
-**Real-world example**
+**现实世界案例**
 
-The original power is 220 voltages, and it needs to be adapted to 100 voltages to work.
+原始的电压是 220V，然后需要适配到 100V 来进行工作。
 
 ![a real-world example](https://cdn-images-1.medium.com/max/2730/1*gw2KaBMjy4x5k4FM1JRsRQ.png)
 
-The following code solves this problem. It defines a `HighVoltagePlug` (adapter), a `Plug` interface (target), a `AdapterPlug` (adapter).
+接下来的代码会解决这个问题。它定义了一个 `HighVoltagePlug` （被适配者），一个 `Plug` 接口（新接口），一个 `AdapterPlug`（适配器）。
 
 **Target**: Plug.java
 
@@ -68,7 +68,7 @@ public interface Plug {
 ```java
 public class HighVoltagePlug{
     public int recharge() {
-        //Power is 220 Voltage
+        // 电力是 220V
         return 220; 
     }
 }
@@ -102,36 +102,34 @@ public class AdapterClient {
 }
 ```
 
-**Use-cases**
+**用例**
 
-When you want to use an existing class, and its interface does not match the interface you need.
+当你想要使用一个已经存在的类，但是它实现的接口并不匹配你需要的接口。
 
-When you want to create a reusable class that cooperates with unrelated
-or unforeseen classes that are classes that don’t necessarily have
-compatible interfaces.
+当你想要创建一个可复用的类并且这个类要与不相关的类进行合作，或者是一个无法确定的类，这个类不需要有兼容性的接口。
 
-Where interface translation among multiple sources must occur.
+必须在多个源之间进行接口转换的地方。
 
-#### Bridge Pattern
+#### 桥接模式
 
-**Intent**
+**目的**
 
-It divides a complex component into two separate but related inheritance hierarchies: the functional **abstraction** and theinternal **implementation**.
+它将复杂的组件分为两部分但具有相关的继承层次结构，这两部分是功能的**抽象**和内置的**实现**。
 
-**Solution**
+**解决方案**
 
-The following diagram shows a possible bridge implementation.
+下面的图展示了一个可能的桥接实现。
 
-* **Abstraction**: this is the abstraction component.
-* **Implementor**: this is the abstract implementation.
-* **RefinedAbstraction**: this is the refined component.
-* **ConcreateImplementors**: those are the concrete implementations.
+* **Abstraction**： 这是抽象组件。
+* **Implementor**： 这是抽象的实现。
+* **RefinedAbstraction**： 这是精致的组件。
+* **ConcreateImplementors**： 这些是具体的实现。
 
 ![bridge pattern](https://cdn-images-1.medium.com/max/2730/1*fViusZWf4tVGdQ4BxBHilQ.png)
 
-**Real-world example**
+**现实世界案例**
 
-Different people can wear different clothes such as man, woman, boy, and girl.
+不同的人可以穿不同的衣服，比如：男人、女人、男孩、女孩。
 
 ![a real-world example](https://cdn-images-1.medium.com/max/2730/1*t-Omjr5bWSlEtwCtEBfzQA.png)
 
@@ -224,30 +222,30 @@ public class BridgeClient {
 
         Clothing jacket = new Jacket("Jacket");
 
-        // a woman wear jacket
+        // 一个妇女穿夹克
         woman.setCloth(jacket); 
         woman.dress();
     }
 }
 ```
 
-**Use-cases**
+**用例**
 
-Avoiding a permanent binding between an abstraction and its implementation.
+避免将抽象和它的实现永久绑定。
 
-Both the abstractions and their implementations should be extensible using subclasses.
+抽象和它们的实现应该使用子类来扩展。
 
-Changes in the implementation of an abstraction should have no impact on clients; that is, you should not have to recompile their code.
+改变抽象中的实现不应该对客户端产生影响；也就是说，你不能重新编译客户端的代码。
 
-#### Composite Pattern
+#### 组合模式
 
-**Intent**
+**目的**
 
-The Composite pattern enables you to create hierarchical tree structures of varying complexity while allowing every element in the structure to operate with a uniform interface.
+当你允许结构中的每一个元素都有统一的接口进行操作，组合模式可以使你创建具有变化复杂性的阶级式树结构。
 
-**Solution**
+**解决方案**
 
-The Composite pattern combines objects into tree structures to represent either the whole hierarchyor a part of the hierarchy.
+组合模式通过树结构将对象进行组合，以此来表现整个等级结构或部分等级结构。
 
 ![composite pattern](https://cdn-images-1.medium.com/max/2730/1*_qUxlkDYSv9MVdNEeVPuDw.png)
 
@@ -256,9 +254,9 @@ The Composite pattern combines objects into tree structures to represent either 
 * The **Composite** store child components in addition to implementing methods defined by the component interface. Composites implement methods defined in the Component interface by delegating to child components. In addition, composites provide additional methods for adding, removing, as well as getting components.
 * The **Client** manipulates objects in the hierarchy using the component interface.
 
-**Real-world example**
+**现实世界案例**
 
-In an organization, It has general managers and under general managers, there can be managers and under managers there can be developers. Now you can set a tree structure and ask each node to perform common operation like `printStructures()`.
+在一个组织中，它有总经理，在总经理之下，他们可以是管理者，在管理者之下，他们可以是开发商。现在，你可以设置一个树结构，然后你可以要求每个节点执行通用的操作，比如：`printStructures()`。
 
 **Component**: IEmployee.java
 
@@ -280,7 +278,7 @@ class CompositeEmployee implements IEmployee {
     private String name;
     private String dept;
 
-    //The container for child objects
+    // 子对象的容器
     private List<IEmployee> controls;
 
     public CompositeEmployee(String name, String dept){
@@ -356,19 +354,19 @@ class Employee implements IEmployee{
 }
 ```
 
-**Use-cases**
+**用例**
 
 You want to represent the whole hierarchy or a part of the hierarchy of objects; where clients to be able to ignore the difference between compositions of objects and individual objects.
 
 You can apply this pattern with a structure that can have any level of complexity.
 
-#### Decorator Pattern
+#### 装饰器模式
 
-**Intent**
+**目的**
 
-The Decorator pattern enables you to add or remove object functionality without changing the external appearance or function of the object.
+装饰器模式允许你为对象添加和删除功能，而不需要改变对象的外观和已有功能。
 
-**Solution**
+**解决方案**
 
 ![decorator pattern](https://cdn-images-1.medium.com/max/2730/1*dMtzsvYbWYueZi2_1qQa-g.png)
 
@@ -379,11 +377,11 @@ It changes the functionality of an object in a way that is transparent to its cl
 * The **Decorator** maintains a reference to a Component object and defines an interface that conforms to Component’s interface.
 * The **ConcreteDecorators** extend the functionality of the component by adding state or adding behavior.
 
-**Real-world example**
+**现实世界案例**
 
 You already own a house. Now you have decided to build an additional floor on top of it. You may want to change the design of the architecture for the newly added floor without affecting the existing architecture such as don’t change the architecture of the ground floor (or existing floors).
 
-**Use-cases**
+**用例**
 
 When adding responsibilities to individual objects dynamically and transparently that is without affecting other objects.
 
@@ -391,15 +389,15 @@ When you want to add responsibilities to the object that you might want to chang
 
 Where extension by static subclassing is impractical.
 
-## F2P (Flyweight, Facade, Proxy)
+## F2P (亨元，门面，代理)
 
-#### Flyweight Pattern
+#### 亨元模式
 
-**Intent**
+**目的**
 
 The Flyweight pattern reduces the number of low-level, detailed objects within a system by sharing objects.
 
-**Solution**
+**解决方案**
 
 The following diagram shows that the flyweight object is returned from the pool and to function, it needs the external state passed as an argument.
 
@@ -410,11 +408,11 @@ The following diagram shows that the flyweight object is returned from the pool 
 
 ![flyweight pattern](https://cdn-images-1.medium.com/max/2730/1*71BoJ6z40DNVCHCKcPfcUw.png)
 
-**Real-world example**
+**现实世界案例**
 
 A classic example of this usage is in a word processor. Here, each character is a flyweight object which shares the data needed for the rendering. As a result, only the position of the character inside the document takes up additional memory.
 
-**Use-cases**
+**用例**
 
 You should use the Flyweight pattern when all of the following are true.
 
@@ -422,23 +420,23 @@ You should use the Flyweight pattern when all of the following are true.
 * Storage costs are high because of the quantity of objects.
 * The application doesn’t depend on object identity.
 
-#### Facade Pattern
+#### 门面模式
 
-**Intent**
+**目的**
 
 The Façade pattern provides a unified interface to a group of interfaces in a subsystem.
 
-**Solution**
+**解决方案**
 
 It defines a higher-level interfacethat makes the subsystem easier to use because you have only one interface.
 
 ![facade pattern](https://cdn-images-1.medium.com/max/2730/1*yXOdKZ9BnVZzjmLAgnXzHg.png)
 
-**Real-world example**
+**现实世界案例**
 
 The Facade defines a unified, higher-level interface to a subsystem that makes it easier to use. Consumers encounter a Facade when ordering from a catalog. The consumer calls one number and speaks with a customer service representative. The customer service representative acts as a Facade, providing an interface to the order fulfillment department, the billing department, and the shipping department.
 
-**Use-cases**
+**用例**
 
 When you want to provide a simple interface to a complex subsystem.
 
@@ -446,43 +444,43 @@ In case that there are many dependencies between clients and the implementation 
 
 When you want to layer your subsystems.
 
-#### Proxy Pattern
+#### 代理模式
 
 There are several types of implementations of the Proxy pattern, with the Remote proxy and Virtual proxy being the most common.
 
-**Intent**
+**目的**
 
 The Proxy pattern provides a surrogate or placeholder object to control access to the original object.
 
-**Solution**
+**解决方案**
 
 ![proxy pattern](https://cdn-images-1.medium.com/max/2730/1*Nak08MGZrTUImZyG28zWUg.png)
 
-**Real-world example**
+**现实世界案例**
 
 A real-world example can be a cheque or credit card is a proxy for what is in our bank account. It can be used in place of cash and provides a means of accessing that cash when required. And that’s exactly what the Proxy pattern does — “Controls and manage access to the object they are protecting“.
 
-**Use-cases**
+**用例**
 
 You need a more versatile or sophisticated referenceto an object than a simple pointer.
 
-## GRASP patterns
+## GRASP 模式
 
 GRASP names and describes basic principles to assign responsibilities.
 
-#### Information Expert
+#### 信息专家
 
 We look at the Expert Pattern (or Information Expert Pattern). This one is pretty simple and yet very important.
 
-**Intent**
+**目的**
 
 What is a basic principle for assigning responsibilities to objects?
 
-**Solution**
+**解决方案**
 
 Assign a responsibility to the class that has the information needed to fulfill it.
 
-**Real-world example**
+**现实世界案例Real-world example**
 
 Consider the Monopoly game. Suppose an object wants to reference a Square, given its name. Who is responsible for knowing the Square, given its name?
 
@@ -490,7 +488,7 @@ Consider the Monopoly game. Suppose an object wants to reference a Square, given
 
 Since the Board is composed of Squares, it is the object that is best suited to produce a particular square given the square’s name — the Board is the Information Expert, it has all of the information needed to fulfill this responsibility.
 
-**Use-cases**
+**用例**
 
 Think of the objects in your design model as workers that you manage. If you have a task to assign, who do you give it to?
 
@@ -498,13 +496,13 @@ Think of the objects in your design model as workers that you manage. If you hav
 * Occasionally the knowledge to do the task is spread over several objects
 Interact via several messages to do the work, but there is usually one object responsible for the completion of the task.
 
-#### Protected Variations
+#### 受保护变化
 
-**Intent**
+**目的**
 
 How to design objects, subsystems, and systems so that the variations or instability in these elements does not have an undesirable impact on other elements?
 
-**Solution**
+**解决方案**
 
 Identify points of predicted variation or instability, assign responsibilities to create a stable interface around them.
 
@@ -512,15 +510,15 @@ The “Don’t talk to strangers” principle, which states that an object’s m
 
 Related reading: [The Law of Demeter](https://github.com/xitu/gold-miner/blob/master/article/2020/the-law-of-demeter.md)
 
-**Real-world example**
+**现实世界案例**
 
 Data encapsulation, interfaces, polymorphism, indirection, and standards are motivated by Protected Variations.
 
-**Use-cases**
+**用例**
 
 Protected Variations is a root principle motivating most of the mechanisms and patterns in programming and design to provide flexibility and protection from variations in data, behavior, hardware, software components, operating systems, and more.
 
-## Conclusion
+## 总结
 
 Structural patterns affect applications in a variety of ways, for example, the Adapter pattern enables two incompatible systems to communicate, whereas the Facade pattern enables you to present a simplified interface to a user without removing all the options available in the system.
 
