@@ -2,86 +2,86 @@
 > * 原文作者：[Chris Banes](https://medium.com/@chrisbanes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-binding-lessons-learnt.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-binding-lessons-learnt.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
+> * 校对者：[DevMcryYu](https://github.com/DevMcryYu)
 
-# Data Binding — Lessons Learnt
+# Data Binding 库使用的经验教训
 
-![Photo by [rawpixel](https://unsplash.com/photos/uQkwbaP0UrI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/13000/1*eAr7ibH_sGkMk51fm7dZIg.jpeg)
+![由 [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 平台的用户 [rawpixel](https://unsplash.com/photos/uQkwbaP0UrI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄](https://cdn-images-1.medium.com/max/13000/1*eAr7ibH_sGkMk51fm7dZIg.jpeg)
 
-The [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/) (referred to as the ‘DB library’ for the rest of this post) offers a flexible and powerful way to bind data to your UIs, but to use an old cliché: ‘with great power comes great responsibility’. Just because you’re using data binding does not mean that you can avoid being a good UI citizen.
+[Data Binding 库](https://developer.android.com/topic/libraries/data-binding/)（下文中以『DB 库』词语来指代）提供了一个灵活强大的方式来绑定数据到 UI 界面。但是要用一句陈词滥调：『能力越大，责任越大』，仅仅是使用数据绑定，并不意味着你可以避免成为一个优秀 UI 开发者。
 
-I’ve been using data binding on Android for the past few years and this post details some of the things which I’ve learnt along the way.
+过去的几年我一直在 Android 开发中使用 data binding 库，本文会写出我这一路上了解到的与它有关的一些内容细节。
 
-## Use the standard bindings when possible
+## 尽可能使用 bindings 
 
-[Custom binding adapters](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) are a great way to easily add custom functionality to Views. Like a lot of developers, I went a bit far with binding adapters and ended up with a class full of [15 adapters](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt) of varying quality.
+[自定义 binding adapter](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) 是一种给 View 控件轻松提供自定义功能的好方法。和许多开发者一样，我对 binding adapter 研究得稍微深入，最终总结出一套包含 [15 种不同用途的适配器](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt)的类集。
 
-The worst culprits were a number of adapters which generated formatted strings and set them on `TextViews`. The adapters were usually referenced in just one layout:
+最糟糕的实践是这类适配器，它们生成格式化的字符串并设置到 `TextViews` 控件，这些适配器通常仅在同一个布局文件中使用：
 
-While this may look clever there are three big downsides:
+虽然这可能看起来很聪明，但是有三大缺点：
 
-1. **Organizing them is a pain**. Unless you’re exceptionally well organised, you’re likely to have one large file containing all of your adapter methods. The antithesis of cohesive and decoupled.
+1. **优化它们的过程太痛苦**。除非你把代码组织得非常好，否则你可能会有一个包含所有适配器方法的大文件，这与代码内聚和解耦原则相违背。
 
-2. **You need to use instrumentation to test**. By definition, your binding adapters do not return a value, they take an input and then set properties on views. That means you have to use a instrumentation to test your custom logic, which makes testing slower and possibly harder to maintain.
+2. **你需要使用 instrumentation 工具来做测试**。根据定义，你的 binding adapter 不会有返回值，它们接收一个输入参数后设置 view 的属性。这就意味着你必须使用 instrumentation 来测试你的自定义逻辑，这样会使得测试变得既缓慢又难以维护。
 
-3. **Custom binding adapter code is (usually) not optimal.** If you look at the built-in text binding [[here](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], you’ll see that it does a **lot** of checks to avoid calling [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence)), thus saving wasted layout passes. I fell into the trap of thinking that the DB Library would automagically optimise my view updates. And it does, **but only if** you use the built-in binding adapters which are carefully optimised.
+3. **自定义 binding adapter 代码（通常）不是最佳选项**。如果你查看内建文本绑定[[参考这里](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)]，你将会看到已经做了许多检查来避免调用 [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence))，这样就节省了被浪费的布局检测。我觉得自己陷入了这样的思维困境：DB 库将会自动优化我的 view 更新。它确实可以做到，但**仅限于**你使用被谨慎优化的内建 binding adapter的情况。
 
-Instead, abstract your methods logic into cohesive classes (I call these text creators), then pass them into the binding. From there you can call your text creator and use the built-in view bindings:
+相反的，把你的方法的逻辑抽象为内聚类（我称之为文本创建者类），然后将它们传递给 binding。这样你就可以调用你的文本创建者类并使用内建 view binding：
 
-This way, we get all of the efficiency from the built-in binding, and we can quite easily unit test the code which creates our formatted strings.
+这样我们可以从内建的绑定操作过程中提高效率，并且我们可以非常轻松地对创建格式化字符串的代码进行单元测试。
 
-## Make your custom binding adapters efficient
+## 让你的自定义 binding 适配器变得高效
 
-If you really need to use a custom adapter, because the functionality you want does not exist, then try to make it as efficient as possible. By that I mean to use all of the standard Android UI optimizations: avoid triggering measure/layout when at all possible.
+如果你确实需要使用自定义适配器，因为你所需的功能不存在，请尽量使其变得高效。我的意思是使用所有标准的 Android UI 优化：尽可能避免触发测量/布局操作。
 
-This can be as simple as checking what the view is currently using vs. what you’re setting. Here’s a example where we re-implement the standard ImageView adapter for `android:drawable`:
+这可以像检查当前使用的视图以及你设置的内容一样简单。这里有一个我们为 `android:drawable` 重新实现了标准 ImageView adapter 的样例：
 
-Unfortunately views are not always able to expose state for what we need to check. Here’s an example which sets a toggling max-lines on TextView. It works toggling by changing a TextView’s `maxLines` property, along with a [delayed layout transition](https://developer.android.com/reference/androidx/transition/TransitionManager.html#beginDelayedTransition(android.view.ViewGroup)).
+遗憾的是，视图并不总是能够显示我们需要检查的状态。这里有一个在 TextView 上设置切换最大行的示例。它通过改变 TextView 的 `maxLines` 属性以及一个[延时布局转换](https://developer.android.com/reference/androidx/transition/TransitionManager.html#beginDelayedTransition)(android.view.ViewGroup)来实现切换。
 
-![Just so you get an idea of what it does](https://cdn-images-1.medium.com/max/2000/1*1EFkuX5VCoVr3tZ7OhUdYg.gif)
+![这样你就可以了解它的作用](https://cdn-images-1.medium.com/max/2000/1*1EFkuX5VCoVr3tZ7OhUdYg.gif)
 
-Previously the binding adapter was simple and always set the `maxLines` property, along with a click listener. TextView will always trigger a layout when `[setMaxLines()](https://developer.android.com/reference/android/widget/TextView.html#setMaxLines(int))` is called, which means that every time the binding adapter is run, a layout is triggered.
+之前 binding adapter 比较简单并且总是设置了 `maxLines` 属性和一个点击监听对象。TextView 在 [`setMaxLines()`](https://developer.android.com/reference/android/widget/TextView.html#setMaxLines(int)) 被调用后总会触发一次布局，这就意味着每次 binding adapter 启动，一次布局就会被触发。
 
-So let’s fix it. Since this functionality is completely separate to TextView (we’re just calling `setMaxLines()` with different values when clicked) we need to store the reference the current state. Luckily, the ‘DB Library’ provides a handy way for us to receive this in the binding adapter. By providing the parameter twice, the first parameters receives the **current** value, and the second parameter receives the **new** value.
+让我们改变这个情况。由于此功能与 TextView 是完全分开的（我们只是在单击时使用不同的值调用 `setMaxLines()`），我们需要将引用存储为当前状态。幸运的是，『DB 库』为我们提供了一个手工方式去在 binding adapter 中接收状态。通过提供参数两次：第一个参数接收**当前**值，第二个参数接收**新**值。
 
-So here we’re just comparing the **current** and **new**`collapsedMaxLines` values. If the value actually changes we call `setMaxLines()`, etc.
+所以这里我们只需比较**当前的**和**新的** `collapsedMaxLines` 值。如果值实际发生了改变，我们才去调用 `setMaxLines()` 等方法。
 
-**Edit: Thanks to [Alexandre Gianquinto](undefined) for mentioning about the ‘double parameters’ functionality in the comments.**
+**编辑按: 感谢 Alexandre Gianquinto 在评论中提到『double parameters』功能。**
 
-## Be careful with what you’re providing as variables
+## 谨慎对待你提供的变量
 
-I’ve been slowly re-architecting [Tivi](https://tivi.app) using something which is MVI-like, using the excellent [MvRx library](https://github.com/airbnb/MvRx) to formalise it. What that means in practice is that my fragment/view subscribes to a [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel), and receives ViewState instances. Those instances contain all of the state necessary to display the UI.
+我一直在慢慢的重新设计 [Tivi](https://tivi.app)，使用类似 MVI 的东西，使用优秀的 [MvRx 库](https://github.com/airbnb/MvRx)来使它变得规范化。这在实践中意味着我的 fragment/view 订阅到 [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel)对象，并且接收 ViewStates 的实例。这些实例包含所有用于显示 UI 的必要状态。
 
-Here’s an example state class from Tivi ([link](https://github.com/chrisbanes/tivi/blob/master/app/src/main/java/app/tivi/showdetails/details/ShowDetailsViewState.kt)):
+这是一个展示 Tivi（[链接](https://github.com/chrisbanes/tivi/blob/master/app/src/main/java/app/tivi/showdetails/details/ShowDetailsViewState.kt)）中类的样例：
 
-You can see that it’s just a simple data class which contains all of the things which the UI requires to show a details UI about a TV show.
+你可以看到它仅仅是一个简单的数据类，包含了 UI 需要在一个 TV 秀界面上显示的所有细节 UI 元素。
 
-Sounds like a perfect candidate to pass to our data binding instance, and let our binding expressions update the UI, right? Well yes, that does indeed work nicely, but there are a few things to be aware of, and it’s due to how the ‘DB Library’ works.
+听起来像是传递我们的 data binding 实例对象的完美选项，让我们的 binding 表达式来去更新 UI，对吧？好吧这确实有效，但是有一些需要注意的地方，这是由于『DB 库』的工作机制。
 
-In data binding you declare inputs, via the `\<variable>` tag, and then write binding expressions referencing those variables on views (attributes). When any of the dependent variables change, the ‘DB Library’ will run your binding expressions (and thus updates views). This change-detection is a great optimization which you get for free.
+在 data binding 中你通过 `<variable>` 标签声明了输入，然后在书写 binding 表达式时在 view 属性处引用了这些输入变量。当任何被依赖的变量发生变化，『DB 库』都会运行你的 binding 表达式（接着会更新 view）。这个变化检测就是你可以免费获取的很棒的优化。
 
-So back to my scenario. My layouts ended up looking like this:
+所以回到我的场景，我的布局最终看起来是这样的：
 
-So I end up having a big global ViewState instance which contains the entire UI state, and as you can imagine these change quite **a lot**. Any small change in the UI state results in a brand new ViewState being generated and passed to our data binding instance.
+所以我最终获取一个包含所有 UI 状态的全局 ViewState 实例，并且你可以想象出这些状态**经常**会发生变化。UI 状态的任何轻微变化都会产生一个全新的 ViewState，并被传递到我们的 data binding 实例。
 
-So what’s the problem? Well since we only have one input variable, all of the binding expressions will reference that variable, which means that the ‘DB Library’ can no longer selectively chose which expressions to run. In practice this means that every time the variable changes (no matter how small) every binding expression is run.
+所以问题是什么？由于我们只有一个输入变量，所有的 binding 表达式将会引用变量，这就意味着『DB 库』将无法自由选择运行哪个表达式。在实际过程中，这意味着每次变量变化（不管多小的变化）发生时所有的 binding 表达式都会运行。
 
-**This problem isn’t related to MVI in particular, it’s just an artifact of combining state and using that with data binding.**
+**这个问题与 MVI 这点无关，特别是它只是组合状态的 artifact，与data binding 结合在一起使用。**
 
-### So what can you do instead?
+### 那么你能怎么做呢？
 
-An alternative is to explicitly declare each variable from your ViewState in your layout, and then explicitly pass through the values from your combined state instance, like so:
+有种替代方法是在布局中显式声明 ViewState 中的每个变量，然后显式传递组合状态实例中的值，如下所示：
 
-This is obviously lot more code for you as the developer to maintain and keep in sync, but it does mean that the ‘DB Library’ can optimise which expressions are run. I would use this pattern if your UI state does not change very often (maybe a few times when created) and the number of variables is low.
+这显然会使开发人员维护和同步更多的代码，但它确实意味着『DB 库』可以优化去运行哪些表达式。如果你的 UI 状态不经常变化（可能在创建时有一些次）并且变量数量较少时，我会推荐使用此模式。
 
-Personally I’ve kept using a single variable in my layouts, passing in my ViewState instances, and relying on the fact that our view bindings do the right thing. This is why making our view bindings efficient is really important.
+我个人一直在布局中使用单个变量，传入我的 ViewState 实例，并依赖于我们的视图绑定合理地运行。这就是为什么让视图绑定变得高效非常重要。
 
-**Another thing to note is that Tivi is a heavy user of [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview), with [Epoxy](https://github.com/airbnb/epoxy) + [Data Binding](https://github.com/airbnb/epoxy/wiki/Data-Binding-Support), meaning that there is an additional level of change calculation happening in [DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil). So if your UIs are largely made up of RecyclerViews too, you’re getting a similar optimization for free anyway.**
+**另一个需要注意的是 Tivi 是 [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview) 的重度使用者，还有 [Epoxy](https://github.com/airbnb/epoxy) 和 [Data Binding](https://github.com/airbnb/epoxy/wiki/Data-Binding-Support)，意思就是在 [DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil) 中会额外有一些变化相关的计算发生。所以如果你的 UI 也有大量的 RecyclerView 组成，你可以类似上文描述不费事地获取计算这方面的优化。**
 
-## Small wins add up
+## 小步迭代
 
-Hopefully this post has highlighted some of the small things you can do to optimise your data binding implementations. Knowing a little of how the ‘DB Library’ works internally can go a long way in helping you make your data binding efficient, and increase the performance of your UIs.
+希望这篇文章强调了一些可以优化数据绑定实现方案中的一些小事。了解『DB 库』的内部机制可以帮助你提高数据绑定效率，并提高你的 UI 性能。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
