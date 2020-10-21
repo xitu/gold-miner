@@ -2,35 +2,35 @@
 > * 原文作者：[Louis Petrik](https://medium.com/@louispetrik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/user-tracking-with-css-only.md](https://github.com/xitu/gold-miner/blob/master/article/2020/user-tracking-with-css-only.md)
-> * 译者：
+> * 译者：[黄梵高](https://github.com/mangotsing)
 > * 校对者：
 
-# User-Tracking With CSS Only
+# 只使用 CSS 进行用户追踪
 
-![Source: The author](https://cdn-images-1.medium.com/max/2800/1*5AecJjiH3Z50F_BfOIaEYw.png)
+![来源：作者](https://tva1.sinaimg.cn/large/007S8ZIlly1gjuhozerabj312w0t6ab1.jpg)
 
-User Tracking in the browser causes discussions about privacy and data protection time and again. Tools like Google Analytics can find out almost everything — origin, language, device, retention time, and so on.
+在浏览器里进行用户追踪会引发关于隐私和数据保护一次又一次的讨论。类似 Google 分析之类的工具几乎可以抓到所有需要的内容，包括来源，语言，设备，停留时间等等。
 
-But to get some interesting information, you don’t need any external trackers — and not even JavaScript. This article will show you how to track user behavior even if the user has JavaScript disabled.
+但是，想获取一些感兴趣的信息，你可能不需要任何外部追踪器，甚至不需要 JavaScript。本文将向你展示，即便用户禁用了 JavaScript，依然可以跟踪用户的行为。
 
-## How trackers normally work
+## 追踪器通常如何工作
 
-So, the rule is that JavaScript is used for such analytics tools — so most of the information is very easy to read and can be sent immediately to a server.
+如题，追踪器运行通常是通过 JavaScript 使用这些分析工具。因此，大多数等信息可以十分轻松的读取，并且可以立刻发送到服务端。
 
-That’s why there are more and more ways to block tracker tools in the browser. Browsers like the Brave Browser or certain chrome extensions block the loading of trackers like google analytics. 
-The trick is that, e.g., Google Analytics is always externally integrated — so the JavaScript comes from a Google CDN. The URL for embedding is almost always the same — so it can easily be blocked.
+这就是为什么越来越多的方式来阻止浏览器中跟踪器的原因。某些勇敢的浏览器或者某些 chrome 扩展程序会阻止跟踪器的加载，例如 google 分析。
+其中一个诀窍是，例如 Google 分析总是从外部集成的，一段来自 Google CDN 的 JavaScript 代码。嵌入的 URL 总是相同的，因此可以轻松的将它阻止掉。
 
-So tracking almost always has something to do with JavaScript. And even if you block trackers by URL, the site owner might have embedded JavaScript code on the page. The strongest protection is to deactivate JavaScript — even if the price you pay for it is very high.
+因此追踪器总是会用 JavaScript 做些什么。甚至如果你通过阻止 URL 限制了追踪器，网站拥有者可能会通过将 JavaScript 代码嵌入页面的方式继续使用。最强有力的保护措施就是禁用 JavaScript，虽然这可能会付出非常大的代价。
 
-In the end, we can still track some things without JavaScript — with some CSS tricks that were certainly not meant for that. Let’s get started.
+最后，我们仍然可以不使用 JavaScript 追踪一些内容，使用一些 CSS 技巧。当然 CSS 并不是为追踪使用的，让我们开始实践吧。
 
-## Finding out the device type
+## 找到设备类型信息
 
-Media queries should be known to every web developer. With them, we can activate CSS code only for certain screen conditions. So we can write our own Queries for smartphones or tablets.
+媒体查询应该是每一个 web 开发者都知道的。有了这个，我们可以让 CSS 代码只在某些确定的屏幕条件下执行。所以我们可以为智能手机或平板电脑等，编写自己的查询条件。
 
-The whole magic behind all our CSS trackers is the attributes for which we can call a URL as value. A good example is a background-image attribute, which allows us to set a background image for an element. The image is retrieved from a URL — it is first requested during execution, so a GET request is sent to the URL: `background-image: url('/dog.png');`
+我们所有 CSS 追踪器背后的魔法就是它们的属性，比如我们可以将一段 URL 作为属性值。有一个比较好的例子是 background-image 的属性，它允许我们为一个元素设置一张背景图片。这张图片从一段 URL 获取，并且在执行过程中，它是优先请求的，因此会向这个 URL 地址： `background-image: url('/dog.png');` 发送一个 GET 请求。
 
-But in the end, nobody forces us to make sure that there really is an image behind the URL. The server doesn’t even have to answer the request, but we can still make a database entry in response to a GET request, for example.
+但是最后，没人强制我们必须确保这段 URL 链接确实能访问到图片。服务器甚至不需要对请求进行应答，但我们仍然可以响应 GET 请求，向数据库输入数据。
 
 ```js
 const express = require("express");
@@ -48,7 +48,7 @@ app.get("/mobile", (req, res) => {
 app.listen(8080)
 ```
 
-As a backend, I use an Express.js server here. It delivers a simple HTML website; the/mobile-route is called if the device is a smartphone. So our backend is the only place where we use JavaScript.
+至于后端，我使用 Express.js 作为服务器。它提供了一个简单的 HTML 网站；如果访问设备是智能手机，则会调用 mobile 路由。并且我们的后端是唯一使用 JavaScript 的地方。
 
 ```css
 @media only screen and (max-width: 768px) {
@@ -58,19 +58,19 @@ As a backend, I use an Express.js server here. It delivers a simple HTML website
 }
 ```
 
-In our index.html, we then have the CSS code from above. The background image is only requested if the user’s device matches the media query.
+在我们的 index.html 文件中，我们有了上面的 CSS 代码。只有在用户设备与媒体查询匹配的时候，才请求背景图片。
 
-If a smartphone now calls the page, the media query is executed, the background image is requested, and the server outputs that it is a smartphone — fully without JavaScript.
+如果现在一部智能手机访问这个页面，媒体查询会执行，并发送请求背景图片的请求，同时服务端会输出它是智能手机。而这些完全没有 JavaScript。
 
-And since we do not send a picture in reply, nothing on the website will change.
+并且由于我们不会发送一张图片作为回复，在这个网站上将不会有任何改变。
 
-## Finding out the Operating System
+## 找到操作系统信息
 
-Now it gets even crazier — we can find out the user’s operating system roughly with the fonts it supports. In CSS, we can create fallbacks, i.e., specify multiple fonts. If the first one does not work on the system, the browser will try the second one.
+现在变得更加疯狂，我们能大致找到用户操作系统通过它支持的字体。在 CSS 中，我们可以使用多种后备方案，换句话说，可以指定多种字体。如果第一个在系统上不起作用，浏览器将会尝试第二个。
 
-`font-family: BlinkMacSystemFont, "Arial";` — when I embed this code into our website, my Macbook uses the first font — the Apple standard font, which is only available on Mac OS. On my Windows PC, Arial is used.
+`font-family: BlinkMacSystemFont, "Arial";` 当我在我们的网站嵌入这句代码时，我的 MacBook 使用第一种苹果标准字体，这字体只可以在 Mac OS 上使用。当在我的 Windows PC 上，Arial 正常使用。
 
-With a font face, we can define a custom font and specify a source for it. Google Fonts works the same way — if we use the defined font somewhere, it must be loaded from the server first. We can use this again.
+当使用字体时，我们可以定义自定义字体以及从什么地方加载它。Google 字体的工作方式相同，如果我们要从某处使用自定义的字体，必须先从服务器加载它。并且我们可以多次使用字体。
 
 ```css
  @font-face {
@@ -83,15 +83,15 @@ body {
 }
 ```
 
-Here we set the font for the entire body. Logically you can only use one font. So on a Macbook, the first font is used, the system’s own font. On all other systems like Windows, we check if the font exists. Of course, this fails, so the next font is tried — the one we have defined ourselves. It still has to be loaded from the server, so our CSS code fires a GET request again.
+这里我们为了全部的 body 部分设置了字体。从逻辑上讲，你只能使用一种字体。以至于在 MacBook 上，使用的是第一种字体，即系统自己的字体。在类似 Windows 的其他系统上，系统检查字体是否存在。当然，肯定不存在，因此尝试使用下一种我们自己定义的字体。它仍然不得不从服务端加载，因此我们的 CSS 代码会再次触发 GET 请求。
 
-Since **Font2** is, of course, not a real font, we keep trying — Arial will be used. Despite everything, we can still use a reasonable font — the user doesn’t notice anything.
+由于 **Font2** 当然不是一个真正的字体，因此我们继续尝试，最终将使用 Arial 字体。尽管如此，我们仍然可以在用户无感知的情况下，使用一个合理的字体。
 
-## Tracking elements
+## 追踪元素信息
 
-What we have done so far is to evaluate information as soon as the user arrives on the site. Of course, we can also react to individual events with CSS.
+到目前为止，我们所做的事情就是当用户抵达网站，立即对信息进行分析。当然，我们也可以利用 CSS 对单独的事件做出应对。
 
-For this, we can use, e.g., Hover or active-events.
+如下所示，我们可以使用下面的例子，来分析鼠标悬停或活动事件。
 
 ```html
 <head>
@@ -106,9 +106,9 @@ For this, we can use, e.g., Hover or active-events.
 </body>
 ```
 
-When the button is hovered, it tries again to set a background image. A GET-request is sent again.
+当鼠标每次悬停在按钮上，它会一次又一次的设置背景图片，一个 GET 请求也随之发出。
 
-We can do the same when the button is clicked. In CSS, this is the active-event.
+我们可以在按钮被点击时，做相同的事情。在 CSS 中，这就是活动事件。
 
 ```html
 <head>
@@ -123,13 +123,13 @@ We can do the same when the button is clicked. In CSS, this is the active-event.
 </body>
 ```
 
-There is a whole series of other events. And, e.g., the hover-event works for almost every element. So theoretically, we could track almost every movement of the user.
+还有一系列其他事件。例如，悬停事件几乎适用在每一个元素上。因此从理论上来讲，我们可以追踪用户的每一个行为。
 
-#### A hesitation counter
+#### 犹豫的时间
 
-With a little more code, we can also combine the events and learn more, not only which events have happened.
+使用更多的代码，我们可以组合这些事件并且了解更多信息，而不仅仅是发生了那些事件。
 
-It is interesting for many website owners to see how long users have hesitated to click on something after seeing or hovered over the element. With the following code, we can measure the time it took the user to click after hovering.
+对于许多网站主来说，更感兴趣的是，用户在看到或悬停在元素上犹豫了多久才点击某个元素。通过下面的代码，我们可以测量用户悬停后点击所花费的时间。
 
 ```js
 let counter;
@@ -142,20 +142,20 @@ app.get("/one-active", (req, res) => {
 });
 ```
 
-As soon as the user hovers, the counter goes off. In the end, we spend the seconds until the click.
+用户一旦悬停，计数器就会启动。最后，我们可以算出直到点击过了几秒。
 
-You might think that because it is embedded in CSS code, it might be imprecise — but it is not. The requests are tiny, and therefore immediately at the server. I tested several times and measured the time — what the server finally spits out is incredibly precise.
+你可能会认为由于它嵌入在 CSS 代码中，统计的可能并不准确，但事实并非如此。由于请求的体积十分小，并且立即作用在服务器上。我试了几次并测量了时间，最终测量的结果非常精确。
 
-Scary, isn’t it?
+很惊人，不是吗？
 
-## Making the whole thing more beautiful
+## 让整件事情更漂亮
 
-In order not to get caught, it makes sense to use less obvious URLs. 
-In the end, the complete front-end code is visible to everyone.
+为了不被发现，使用不显眼的 URL 是十分有意义的。
+最后，每个人都可以看到完整的前端代码。
 
-Instead of using such obvious terms for the individual routes, you can also use keywords that you have thought of yourself — in the end, only the URL in the front-end and the one in the back-end must match.
+你也可以使用自己想到的关键词，代替个别特别显眼的路由单词。最后，前端和后端的 URL 必须匹配。
 
-For the examples above, I always used my own routes for the GET requests. Simple so that it is easier to understand. A more elegant way is to use URL parameters or queries, which also works in CSS.
+对于上面的示例，我始终将我自己的路由用作 GET 请求。这样十分清晰明白。一种更优雅的方式是使用 URL 的查询，这在 CSS 当中也适用。
 
 ```css
 @font-face {
@@ -166,9 +166,9 @@ For the examples above, I always used my own routes for the GET requests. Simple
 }
 ```
 
-For a detailed tutorial on query and URL parameters in Express.js, you can look here:
+有关 Express.js 中 URL 查询与参数的相关的详细教程可以在这里查看：
 
-[**Query vs. URL Parameters in Express.js**](https://medium.com/javascript-in-plain-english/query-strings-url-parameters-d1a35b9a694f)
+[**在 Express.js 中 URL 的查询与参数**](https://medium.com/javascript-in-plain-english/query-strings-url-parameters-d1a35b9a694f)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
