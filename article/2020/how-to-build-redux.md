@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-redux.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-redux.md)
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
-> * 校对者：
+> * 校对者：[nia3y](https://github.com/nia3y), [JohnieXu](https://github.com/JohnieXu)
 
 # 自己写一个 Redux
 
 Redux 是一个简单的库，可以帮助你管理 JavaScript 应用的状态。虽然很简单，在学习过程中还是很容易犯错的。我经常需要解释 Redux，而且几乎总是以我会如何实现它来开头的。所以在此我们就会这样做：从头开始写一个能用的 Redux 实现。我们的实现不会考虑所有的情况，但可以揭示大部分的原理。
 
-注意，实际上我们将会实现的是 [Redux](https://github.com/reactjs/redux?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) **和** [React Redux](https://github.com/reactjs/react-redux?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier)。在这里，我们把 Redux with 和著名的 UI 库 [React](https://facebook.github.io/react/) 相结合，而这正是在实际场景中最为常见的组合。哪怕你把 Redux 和其他东西组合，这里讲解的所有东西几乎也还是一样的。
+注意，实际上我们将会实现的是 [Redux](https://github.com/reactjs/redux?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) **和** [React Redux](https://github.com/reactjs/react-redux?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier)。在这里，我们把 Redux 和著名的 UI 库 [React](https://facebook.github.io/react/) 相结合，而这正是在实际场景中最为常见的组合。哪怕你把 Redux 和其他东西组合，这里讲解的所有东西几乎也还是一样的。
 
 我们开始吧！
 
 ## 实现自己的状态对象
 
-大多数有用的应用从服务端获取状态。但我们先从本地创建状态开始。哪怕我们从服务端获取，也要用一些东西把应用先初始化的。我们的应用将会是一个简单的笔记应用。这主要是为了防止写一个新的清单应用，但是它也可以迫使我们做一个有趣的关于状态的决定。
+大多数有用的应用从服务端获取状态。但我们先从本地创建状态开始。哪怕我们从服务端获取，也要先用一些状态初始化应用。我们的应用将会是一个简单的笔记应用。这主要是为了防止写另一个清单应用，但是它也可以迫使我们做一个有趣的关于状态的决定。
 
 ```js
 const initialState = {
@@ -24,17 +24,17 @@ const initialState = {
 };
 ```
 
-所以首先，注意我们的数据只是一个简单的 JS 对象。 Redux 帮助我们 **管理状态的改变**，但它并不太关心状态本身。
+首先，注意我们的数据只是一个简单的 JS 对象。 Redux 帮助我们 **管理状态的改变**，但它并不太关心状态本身。
 
-## 为什么是 Redux?
+## 为何使用 Redux？
 
-在我们继续深入之前，首先来看看不使用 Redux 开发我们的应用是什么样。直接开始，把我们的 `initialState` 对象绑定到 `window` 上，像这样：
+在我们继续深入之前，首先来看看不使用 Redux 要怎样开发我们创建的应用。直接开始，把我们的 `initialState` 对象绑定到 `window` 上，像这样：
 
 ```js
 window.state = initialState;
 ```
 
-嘣，这就是我们的 store！我们不需要什么 Redux。来做一个添加新笔记的组件吧。
+嘣，这就是我们的 store！我们不需要什么 Redux，下面来添加一个新的笔记组件吧。
 
 ```jsx
 const onAddNote = () => {
@@ -115,7 +115,7 @@ const renderApp = () => {
 renderApp();
 ```
 
-不是一个很有用的应用，但是能用。看起来我们已经证明了不用 Redux 也行。所以这个帖子已经结束了，对吧？
+不是一个很有用的应用，但是能正常工作。看起来我们已经证明了不用 Redux 也行。所以这篇文章已经完成了，对吧？
 
 还没有…
 
@@ -1053,9 +1053,9 @@ ReactDOM.render(
 3. 我们在测试涉及到数据获取的状态变化时，必须要通过组件来测试。我们应该尽量把数据获取解耦。
 4. 又有一些工具不能用了。
 
-Redux 是同步的，我们应该怎么做呢？把一些东西放在 dispatch 操作之间，并用来改变 store 状态。这些东西就是中间件。
+Redux 是同步的，我们应该怎么做呢？把一些东西放在 dispatch 和改变 store 状态的操作之间。这就是中间件。
 
-我们需要把中间件传给 store 的一种方式。所以我们开始干吧。
+我们需要一种把中间件传给 store 的方式。所以我们开始干吧。
 
 ```js
 const createStore = (reducer, middleware) => {
@@ -1104,15 +1104,13 @@ if (middleware) {
 }
 ```
 
-我们创建一个 "重新dispatch" 的函数。
+我们创建一个“重新 dispatch ”的函数。
 
 ```js
 const dispatch = action => store.dispatch(action);
 ```
 
-如果中间件决定要发出一个新的 action，这个 action 将会通过中间件传递下去。
-我们需要创建这个函数，因为我们即将修改 store 的 `dispatch` 方法。 
-这是另一个修改对象的例子，它可以简化问题。Redux 可以破坏规则，只要它能够帮助开发者遵循规则。:-)
+如果中间件决定要发出一个新的 action，这个 action 将会通过中间件传递下去。我们需要创建这个函数，因为我们即将修改 store 的 `dispatch` 方法。 这是另一个修改对象的例子，它可以简化问题。Redux 可以破坏规则，只要它能够帮助开发者遵循规则。:-)
 
 ```js
 store.dispatch = middleware({
@@ -1121,7 +1119,7 @@ store.dispatch = middleware({
 })(coreDispatch);
 ```
 
-这调用了中间件，传给它一个能访问 "重新dispatch" 函数和 `getState` 函数的对象。这个中间件应该返回一个新的函数，它接收调用下一个 dispatch 函数的函数（在这里就是原始的 dispatch 函数）。如果你读到这里觉得头晕了，不要担心。创建和使用中间件实际上是很容易的。
+这调用了中间件，传给它一个能进行“re-dispatch ”的函数和 `getState` 的函数。这个中间件应该返回一个新的函数，拥有用来接收调用下一个 dispatch 函数的能力（在这里就是原始的 dispatch 函数）。如果你读到这里觉得头晕了，不要担心。创建和使用中间件实际上是很容易的。
 
 Okay, 我们来创建一个延迟一秒再 dispatch 的中间件。很没用，但是能够说明异步的原理。
 
@@ -1404,7 +1402,7 @@ const frozenReducer = process.env.NODE_ENV === 'production' ? reducer : (
 
 ### Store 增强
 
-就好像我们的高阶函数还是不够多一样，Redux 还有一个我们遗漏掉的。"store 增强器" 是一个高阶函数，接收一个 store 创建器并返回一个 "增强版" store 创建器。这不是一个常见的操作，但它可以被用来创造 Redux 开发者工具之类的东西。 `applyMidleware` [**真正的**实现](https://github.com/reactjs/redux/blob/4d8700c9631b152f0dff384d528a6c7f74024418/src/applyMiddleware.js?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) 就是一个 store 增强器。
+就好像我们的高阶函数还是不够多一样，Redux 还有一个我们遗漏掉的。“store 增强器” 是一个高阶函数，接收一个 store 创建器并返回一个 “增强版” store 创建器。这不是一个常见的操作，但它可以被用来创造 Redux 开发者工具之类的东西。 `applyMidleware` [**真正的**实现](https://github.com/reactjs/redux/blob/4d8700c9631b152f0dff384d528a6c7f74024418/src/applyMiddleware.js?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) 就是一个 store 增强器。
 
 ### 测试
 
@@ -1414,7 +1412,7 @@ const frozenReducer = process.env.NODE_ENV === 'production' ? reducer : (
 
 我们在有数字键的对象中保存我们的笔记。这意味着每一个 JS 引擎都会按照创建的顺序来给它们排序。如果我们的服务器返回 GUID 或者其它未排序的键，我们将很难排序。我们不想把笔记存放在数组中，因为要通过 id 获取特定笔记就不容易了。所以对于真实应用而言，我们可能需要用数组存放排好序的 id。另外，我们也可能可以使用数组，如果用 `reselect` 来缓存 `find` 操作结果的话。
 
-### 副作用和 Action 创建器
+### Action 创建器的副作用
 
 有时候，你可能会想要创建一些这样的中间件：
 
@@ -1422,7 +1420,7 @@ const frozenReducer = process.env.NODE_ENV === 'production' ? reducer : (
 store.dispatch(fetch('/something'));
 ```
 
-别这样做。一个返回了 promise 的函数已经开始做这个操作了(除非它是个不正常的懒 promise)。这意味着我们阻止了任何中间件来处理这个 action。比如，我们就不能使用节流中间件。另外我们也不能正常使用回放，因为这需要关闭 dispatch 函数。但是任何调用这个 `dispatch` 的代码都已经完成了工作，所以不能把它停掉。
+别这样做。一个返回了 promise 的函数已经开始做这个操作了(除非它是个不正常的延迟 promise)。这意味着我们阻止了任何中间件来处理这个 action。比如，我们就不能使用节流中间件。另外我们也不能正常使用回放，因为这需要关闭 dispatch 函数。但是任何调用这个 `dispatch` 的代码都已经完成了工作，所以不能把它停掉。
 
 确保你的 action 是对副作用的一种描述，本身不是副作用。Thunk 是不透明的，不是最好的描述，但是他们是对副作用的描述而不是副作用本身。
 
