@@ -9,7 +9,7 @@
 
 WebAssembly (wasm) 使得各种除了 JavaScript 以外的语言编写的代码能够在浏览器中运行。你可能还没有注意到，所有的主流浏览器都支持 wasm 并且 [全球超过 90% 的用户](https://caniuse.com/#feat=wasm) 使用的浏览器都可以运行 wasm。
 
-既然 Rust 能够编译成 wasm，那么是不是有可能只用 Rust 而不使用任何一行 JavaScript 代码来构建 SPA （Single Page Applications，单页应用）呢？简短的答案是**肯定的**！请继续阅读以了解更多信息，或者如果你无法抑制激动的心情，请访问 [演示站点](https://rustmart-yew.netlify.app)。
+既然 Rust 能够编译成 wasm，那么是不是有可能只用 Rust 而不使用任何一行 JavaScript 代码来构建 SPA （Single Page Applications，单页应用）呢？简短的答案是**可以**！请继续阅读以了解更多信息，或者如果你无法抑制激动的心情，请访问 [演示站点](https://rustmart-yew.netlify.app)。
 
 我们将搭建一个叫作「RustMart」的简单的电子商务网站，包括两个页面：
 
@@ -169,7 +169,7 @@ $ cargo make serve
 
 所以，我们更新数据（Props, State, AppState）然后 UI 会基于此数据被更新，而不是在用户交互、网络请求等等发生时命令式地更新 UI。这就是通常我们说的「UI 是状态的函数」。
 
-不同的库在具体的细节上会有所不同，但这应该能够给你一个总体的思想。如果你是新手，这种思维方式可能需要一段时间才能「点击」并习惯。
+不同的库在具体的细节上会有所不同，但这应该能够给你一个总体的思想。如果你是新手，这种思维方式可能需要一段时间才能「领悟」并习惯。
 
 ## 主页
 
@@ -1355,7 +1355,7 @@ impl Component for ProductDetail {
 + pub use product_detail::ProductDetail;
 ```
 
-（现在）是这样的：
+（现在）可以看到如下结果：
 
 ![](https://raw.githubusercontent.com/sheshbabu/Blog/master/source/images/2020-rust-wasm-yew-single-page-application/image-5.png)
 
