@@ -104,7 +104,7 @@ List 对象中还可以使用 if-else 形式的条件判断，语法如下。
 ```
 [expression for item_outer in iterable for item_inner in item_outer]
 
-# Equivalent to
+# 与下面的代码等同
 for item_outer in iterable:
     for item_inner in item_outer:
         expression
