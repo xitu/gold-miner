@@ -2,42 +2,42 @@
 > * 原文作者：[Joe T. Santhanavanich](https://medium.com/@joets)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/color-scales-in-javascript-with-chroma-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/color-scales-in-javascript-with-chroma-js.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# Color Scales in JavaScript with Chroma.js
+# JavaScript 颜色处理库 Chroma.js 的应用
 
 ![Photo by [Daniele Levis Pelusi](https://unsplash.com/@yogidan2012?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10806/0*8vuqBAz5TLSVD38h)
 
-Many developers design Color codes and scale with the CSS, pick the color from some online color palette. However, it is not everyone's favorite tool. The good news is we have the Chroma.js, a small library that can be a big help with generating the color scale within the JavaScript code. This means you can plug it into your JavaScript framework directly!
+许多开发人员用 CSS 设计颜色代码和比例，从一些在线调色板中选择颜色。然而，它并不是每个人都喜欢的工具。好消息是我们有 Chroma.js，这是一个很小的库，对于在 JavaScript 代码中生成色阶有很大帮助。这意味着您可以直接将其插入到 JavaScript 代码框架中！
 
-#### Let’s get started!
+#### 让我们开始吧！
 
-## Install
+## 启动安装
 
-In your web application, you can use a link from CDNJS in your HTML doc
+在 web 应用程序中，可以在 HTML 文档中使用 CDNJS 的链接。
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js" integrity="sha512-yocoLferfPbcwpCMr8v/B0AB4SWpJlouBwgE0D3ZHaiP1nuu5djZclFEIj9znuqghaZ3tdCMRrreLoM8km+jIQ==" crossorigin="anonymous"></script>
 ```
 
-Or, you can install it using the NPM as well.
+或者，也可以使用 NPM 安装它。
 
 ```bash
 $ npm install chroma-js
 ```
 
-## Example Usage
+## 示例用法
 
-You can simply create a color scale within your JavaScript code with chroma.scale([\<color1>,\<color2>, ... , \<color n>]) function which will create the color scale between the colors you assign.
+您只需在 JavaScript 代码中使用色度标度（`[\<color1>,\<color2>, ... , \<color n>]`）函数，将在指定的颜色之间创建色阶。
 
-For example, you can create a color scale from yellow to red with the following script:
+例如，可以使用以下 JavaScript 代码创建从黄色到红色的颜色比例：
 
 ```js
 var color_scale = chroma.scale([‘yellow’, ‘red’]);
 ```
 
-Then, you can access the color in RGB or in HEX code by
+然后，您可以通过以下方式访问 RGB 或十六进制代码中的颜色：
 
 ```js
 color_scale(0).rgb()    // [255, 255, 0]
@@ -59,9 +59,9 @@ color_scale(1.0).hex()  // "#ff0000"
 
 ![**10 classes of Color Scale output from chroma.scale([‘yellow’, ‘red’])** (by Author)](https://cdn-images-1.medium.com/max/2112/1*RJ74UXMa6nqmEUyGIZI4Pg.png)
 
-There are many more options you can do with the color scale, for example, the color scale based on the [ColorBrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3). Mixing more color codes.
+您可以使用色阶执行更多选项，例如，基于 [ColorBrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) 的色阶，混合更多颜色代码。
 
-Here are some more examples:
+以下是更多示例：
 
 ```js
 chroma.scale('Spectral');
@@ -76,16 +76,16 @@ chroma.scale('RdPu');
 ![**10 classes of Color Scale output from chroma.scale(‘RdPu’)** (by Author)](https://cdn-images-1.medium.com/max/2116/1*11Y1xrUSthjj1yNvMMJyzA.png)
 
 ```js
-chroma.scale('RdPu').domain([1,0]); // reverse color scales
+chroma.scale('RdPu').domain([1,0]); // 反转色阶
 ```
 
 ![**10 classes of Color Scale output from chroma.scale(‘RdPu’).domain([1,0])** (by Author)](https://cdn-images-1.medium.com/max/2118/1*zqTLSKzHFpZ4VhYBhW7s4w.png)
 
-#### That’s about it!
+#### 应用总结
 
-If you like this tool, you can find more advanced tutorials at [https://gka.github.io/chroma.js/](https://gka.github.io/chroma.js/) if you need color manipulation combining in the scaling methods. Overall, I hope you like this article and be able to apply this tool to your application or project.
+如果您喜欢这个颜色处理库，可以在 [https://gka.github.io/chroma.js/](https://gka.github.io/chroma.js/) 查找更多高级教程，例如在缩放方法中结合颜色处理等等。总的来说，我希望您喜欢本文，并能够将此颜色处理库应用到您的应用程序或项目中。
 
-Be **Safe** and **Healthy**! Have fun coding!
+保持健全安康！快乐写代码！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
