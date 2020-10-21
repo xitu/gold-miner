@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# Python List 使用注意事项
+# Python 列表推导式使用注意事项
 
 ![Photo by [Michael Herren](https://unsplash.com/@mdherren?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*OMREOHfwYkIKRpRF)
 
-List 由于语法复杂，关于它的综合应用经常会难倒初学者，即便有的人使用过其他编程语言，要掌握 List 的使用也非易事。
+Python 列表推导式并不是给初学者用的，因为它非常反直觉，甚至对于有其他编程语言背景的人也是如此。
 
-我们接触到 List 的使用时，学习的内容都是零散的，不成体系。所以我们缺少一个关于如何在各种各样的场景下使用 List 的知识体系。
+我们接触到 List 的使用时，学习的内容都是零散的。所以我们缺少一个关于如何在各种各样的场景下使用 List 的知识体系。
 
 本文提供了一些 List 的使用指南，尽可能涵盖各个方面。希望本文可以成为你的一站式实用手册。
 
-## Do’s使用建议
+## 使用建议
 
 #### 1.建议使用迭代的方式
 
@@ -28,9 +28,9 @@ List 由于语法复杂，关于它的综合应用经常会难倒初学者，即
 下面这段代码展示了一个使用列表相关技术创建 List 对象的例子。在这个例子中，我们定义了一个 Integer 列表，并基于这个对象创建了保存每个数字的平方数和立方数的 List 对象。
 
 ```Python
->>> # A list of integers
+>>> # 创建一个 Integer 列表
 >>> integers = [1, 2, 3, 4, 5, 6]
->>> # Create a list of squares and cubes
+>>> # 创建平方数和立方数列表
 >>> powers = [(x*x, pow(x, 3)) for x in integers]
 >>> print(powers)
 [(1, 1), (4, 8), (9, 27), (16, 64), (25, 125), (36, 216)]
@@ -40,11 +40,11 @@ List 由于语法复杂，关于它的综合应用经常会难倒初学者，即
 上面的例子把 List 对象当作迭代器使用。我们应该知道，许多类型的对象也是可迭代的，比如 List、Set、Dictionary 和 String 等等。其他数据类型，像 range、map、filter，以及 pandas 包中的 Series、DataFrame，都是可迭代的。下面的代码演示了某些对象的使用方法。
 
 ```Python
->>> # Use the range object
+>>> # 使用 range 对象
 >>> integer_range = range(5)
 >>> [x*x for x in integer_range]
 [0, 1, 4, 9, 16]
->>> # Use the Series object
+>>> # 使用 Series 对象 
 >>> import pandas as pd
 >>> pd_series = pd.Series(range(5))
 >>> print(pd_series)
@@ -69,9 +69,9 @@ dtype: int64
  `if` 语句用来实现条件判断。下面的代码展示了这种用法的一个简单示例。
 
 ```Python
->>> # The same list of integers
+>>> # 同样创建一个 Integer 列表
 >>> integers = [1, 2, 3, 4, 5, 6]
->>> # Create a list of squares for even numbers only
+>>> # 筛选出偶数，创建一个这些偶数的平方数列表
 >>> squares_of_evens = [x*x for x in integers if x % 2 == 0]
 >>> print((squares_of_evens))
 [4, 16, 36]
@@ -79,7 +79,7 @@ dtype: int64
 
 #### 3.使用条件判断语句
 
-The list comprehension can also work with conditional assignment, which has the following syntax.List 对象中还可以使用 if-else 形式的条件判断，语法如下。
+List 对象中还可以使用 if-else 形式的条件判断，语法如下。
 
 ```
 [expression0 if condition else expression1 for item in iterable]
@@ -88,10 +88,10 @@ The list comprehension can also work with conditional assignment, which has the 
 这跟前面的那种用法有些类似，别把这两种用法混淆。在本例中，条件语句本身是一个整体。下面的代码提供了一个例子。
 
 ```Python
->>> # The list of integers
+>>> # 创建一个 Integer 列表
 >>> integers = [1, 2, 3, 4, 5, 6]
->>> # Create a list of numbers, when the item is even, take the square
->>> # when the item is odd, take the cube
+>>> # 遍历 integers 中的元素，如果是偶数，取平方数存入新的列表
+>>> # 如果是奇数，取立方数存入新的列表
 >>> custom_powers = [x*x if x % 2 == 0 else pow(x, 3) for x in integers]
 >>> print(custom_powers)
 [1, 4, 27, 16, 125, 36]
@@ -113,9 +113,9 @@ for item_outer in iterable:
 上面的代码展示了使用`for`实现嵌套循环的例子。
 
 ```Python
->>> # A list of tuples
+>>> # 创建一个包含元组的列表
 >>> prices = [('$5.99', '$4.99'), ('$3.5', '$4.5')]
->>> # Flattened list of prices
+>>> # 获取元组中的每个价格，以此创建一个一维列表
 >>> prices_formatted = [float(x[1:]) for price_group in prices for x in price_group]
 >>> print(prices_formatted)
 [5.99, 4.99, 3.5, 4.5]
@@ -126,21 +126,21 @@ for item_outer in iterable:
 有的人比较习惯函数式编程，比如使用高阶函数也是这种习惯的表现之一。特别说明一下，高阶函数是那些需要使用输入或输出参数的函数。在 Python 中，常用的高阶函数有 `map()` 和 `filter()`。
 
 ```Python
->>> # A list of integers
+>>> # 创建一个 integer 类型的列表
 >>> integers = [1, 2, 3, 4, 5]
->>> # Use map
+>>> # 使用 map 创建平方数列表
 >>> squares_mapped = list(map(lambda x: x*x, integers))
 >>> squares_mapped
 [1, 4, 9, 16, 25]
->>> # Use list comprehension
+>>> # 使用列表推导式创建平方数列表
 >>> squares_listcomp = [x*x for x in integers]
 >>> squares_listcomp
 [1, 4, 9, 16, 25]
->>> # Use filter
+>>> # 使用 filter 取得 integers 中的偶数列表
 >>> filtered_filter = list(filter(lambda x: x % 2 == 0, integers))
 >>> filtered_filter
 [2, 4]
->>> # Use list comprehension
+>>> # 使用列表推导式取得 integers 中的偶数列表
 >>> filterd_listcomp = [x for x in integers if x % 2 == 0]
 >>> filterd_listcomp
 [2, 4]
@@ -153,14 +153,14 @@ for item_outer in iterable:
 
 #### 1.不要忘了定义构造函数
 
-有人认为这些 list 的综合性应用很酷炫，是 Python 特有的功能，所以为了炫耀自己的 Python 水平，即使有更好替代方案也要使用这些 list 的高级用法。 
+有人认为列表推导式很酷炫，是 Python 特有的功能，所以为了炫耀自己的 Python 水平，即使有更好替代方案也要使用它。 
 
 ```Python
->>> # Create a list from a range object
+>>> # 使用 range 创建列表对象
 >>> numbers = [x for x in range(5)]
 >>> print(numbers)
 [0, 1, 2, 3, 4]
->>> # Create a list of lower-case characters from a string
+>>> # 以一个字符串为基础，创建一个小写字母的字符列表
 >>> letters = [x.lower() for x in 'Smith']
 >>> print(letters)
 ['s', 'm', 'i', 't', 'h']
@@ -169,11 +169,11 @@ for item_outer in iterable:
 上述例子中，我们使用了 range 和 string，这两种数据结构都是可迭代的，`list()`构造函数可以直接使用 iterable 创建一个 list 对象。下面的代码提供了更合理的解决方案。
 
 ```Python
->>> # Create a list from a range object
+>>> # 使用 range 创建列表对象
 >>> numbers = list(range(5))
 >>> print(numbers)
 [0, 1, 2, 3, 4]
->>> # Create a list of lower-case characters from a string
+>>> # 以一个字符串为基础，创建一个小写字母的字符列表
 >>> letters = list('Smith'.lower())
 >>> print(letters)
 ['s', 'm', 'i', 't', 'h']
@@ -195,9 +195,9 @@ for item_outer in iterable:
 考虑下面这个例子。我们要计算前一百万个数字的平方和。如果使用 list 来实现，方法如下。
 
 ```Python
->>> # Create the squares
+>>> # 创建列表对象 squares 
 >>> squares = [x*x for x in range(10_000_000)]
->>> # Calculate their sum
+>>> # 计算它们的总和
 >>> sum(squares)
 333333283333335000000
 >>> squares.__sizeof__()
@@ -207,16 +207,16 @@ for item_outer in iterable:
 如上所示，list 对象占据 81528032 字节。我们考虑使用 generator 进行相同的操作，代码如下。
 
 ```Python
->>> # Create the squares generator
+>>> # 创建 generator 对象，保存每个数的平方数
 >>> squares_gen = (x*x for x in range(10_000_000))
->>> # Calculate their sum
+>>> # 计算它们的总和
 >>> sum(squares_gen)
 333333283333335000000
 >>> squares_gen.__sizeof__()
 96
 ```
 
-跟使用 list 相比，使用 generator 内存开销小得多，只有 96 字节。原因很简单———— generator 不需要获取所有的元素。相反，它只需要获取各个元素在序列中的位置，并创建下一个元素并呈现它，而且不必保存在内存中。
+跟使用 list 相比，使用 generator 内存开销小得多，只有 96 字节。原因很简单———— generator 不需要获取所有的元素。相反，它只需要获取各个元素在序列中的位置，创建下一个元素并呈现它，而且不必保存在内存中。
 
 ## 结论
 
