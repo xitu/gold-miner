@@ -29,7 +29,7 @@ $ npm install chroma-js
 
 ## 示例用法
 
-您只需在 JavaScript 代码中使用色度标度（`[\<color1>,\<color2>, ... , \<color n>]`）函数，将在指定的颜色之间创建色阶。
+您只需在 JavaScript 代码中使用 chroma.scale([\<color1>,\<color2>, ... , \<color n>]) 函数，将在指定的颜色之间创建色阶。
 
 例如，可以使用以下 JavaScript 代码创建从黄色到红色的颜色比例：
 
