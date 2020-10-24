@@ -23,7 +23,7 @@
 
 **WebAssembly** 可以简单地理解是在 web 使用的汇编语言。它是一种低级的类似汇编的语言，具有紧凑的二进制格式，使您能够以接近原生的速度运行 web 应用程序。它还为诸如 C、C++ 和 Rust 之类的语言提供了编译目标，从而使客户端应用程序能够以近乎原生的性能在 web 上运行。
 
-此外，WebAssembly 旨在与 JavaScript 一起运行，而不是替换它。使用 WebAssembly JavaScript api，你可以交替地来回运行来自任一语言的代码，而不会出现任何问题。这为您提供了利用 WebAssembly 的功能和性能以及 JavaScript 的多功能性和适应性的应用程序。这开启了一个全新的 web 应用程序世界，该应用程序可以运行最初不打算用于 web 的代码和功能。
+此外，WebAssembly 旨在与 JavaScript 一起运行，而不是替换它。使用 WebAssembly JavaScript API，你可以交替地来回运行来自任一语言的代码，而不会出现任何问题。这为您提供了利用 WebAssembly 的功能和性能以及 JavaScript 的多功能性和适应性的应用程序。这开启了一个全新的 web 应用程序世界，该应用程序可以运行最初不打算用于 web 的代码和功能。
 
 ## WebAssembly 有何不同
 
