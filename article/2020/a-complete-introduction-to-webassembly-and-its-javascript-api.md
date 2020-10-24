@@ -233,7 +233,7 @@ WebAssembly 的诞生打开了另一个充满各种可能性的世界。
 
 * **对现有的 C、C++ 项目进行很少的修改就可以让其运行在 web 环境，并且同时拥有接近原生的速度**
 
-像 [AutoCAD](https://www.autodesk.com/products/autocad-web-app/overview?linkId=68719474)、[QT](https://www.qt.io/qt-examples-for-webassembly) 以及 [Google Earth](https://medium.com/google-earth/earth-on-web-the-road-to-cross-browser-7338e0f46278) 这些应用简单修改现有代码库就可以以接近原生的性能运行在 web 端，这些最终都要归功于 WebAssembly 的能力。
+像 [AutoCAD](https://www.autodesk.com/products/autocad-web-app/overview?linkId=68719474)、[QT](https://www.qt.io/qt-examples-for-webassembly) 以及 [Google Earth](https://medium.com/google-earth/earth-on-web-the-road-to-cross-browser-7338e0f46278) 这些应用简单修改现有代码库就可以凭借接近原生的性能运行在 web 端，这些最终都要归功于 WebAssembly 的能力。
 
 * **由 C、C++ 或 Rust 等语言开发的库可以借助 WebAssembly 来编译至 web 运行，即使相应的库可能已有 JavaScript 版本的实现，但是通过编译至 WebAssembly 来运行的方法应用运行速度将更快**
 
