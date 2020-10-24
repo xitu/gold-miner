@@ -45,7 +45,7 @@
 
 有如下几种使用方法。
 
-* 从头开始编写 WebAssembly 代码-除非您非常了解基础知识，否则不建议这样做。
+* 从头开始编写 WebAssembly 代码——除非您非常了解基础知识，否则不建议这样做。
 * 从 C 编译到 WebAssembly
 * 从 C++ 编译到 WebAssembly
 * 从 Rust 编译到 WebAssembly
