@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/introduction-to-blitz-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/introduction-to-blitz-js.md)
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
-> * 校对者：[JohnieXu](https://github.com/JohnieXu)
+> * 校对者：[JohnieXu](https://github.com/JohnieXu)、[zenblo](https://github.com/zenblo)
 
 # Blitz.js 简介：一个新兴的 React 全栈框架
 
