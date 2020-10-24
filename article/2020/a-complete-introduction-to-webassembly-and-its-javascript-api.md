@@ -27,7 +27,7 @@
 
 ## WebAssembly 有何不同
 
-[Lin Clark](https://www.smashingmagazine.com/author/linclark/) 预测在2017年引入 WebAssembly 可能会在 web 开发的生命中引发一个新的拐点。这一事件发生在现代浏览器中引入 JIT 编译导致的拐点之后，这种拐点将 JavaScript 的速度提高了近10倍。
+[Lin Clark](https://www.smashingmagazine.com/author/linclark/) 预测在 2017 年引入 WebAssembly 可能会在 web 开发的生命中引发一个新的拐点。这一事件发生在现代浏览器中引入 JIT 编译导致的拐点之后，这种拐点将 JavaScript 的速度提高了近10倍。
 
 ![JavaScript 性能统计 — 来自于: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5961531-2863-4e2a-afac-a3fafd927aa2/03-perf-graph10-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*Py-XN25Ym7msk12v.png)
 
