@@ -237,7 +237,7 @@ WebAssembly 的诞生打开了另一个充满各种可能性的世界。
 
 * **由 C、C++ 或 Rust 等语言开发的库可以借助 WebAssembly 来编译至 web 运行，即使相应的库可能已有 JavaScript 版本的实现，但是通过编译至 WebAssembly 来运行的方法应用运行速度将更快**
 
-谷歌团队曾在 [Squoosh](https://squoosh.app/) 应用中将类似 C 或 C++ 开发的 JPEG、MozJPEG 等解码器编译成了 WebAssembly 版本，替换了之前的解码器。编译之后的解码器在不牺牲图片质量的情况下进一步缩减了图片文件的体积。
+谷歌团队曾在 [Squoosh](https://squoosh.app/) 应用中将类似 C 或 C++ 开发的 JPEG、MozJPEG 等解码器编译成了 WebAssembly 版本，替换了之前的解码器。编译之后的解码器在不牺牲图片质量的情况下，进一步缩减了图片文件的体积。
 
 #### 支持的编程语言
 
