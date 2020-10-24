@@ -149,7 +149,7 @@ WebAssembly.instantiateStreaming(fetch('global.wasm'), importObject)
 
 #### 内存（Memory）
 
-WebAssembly 模块模块对象在实例化过程时需要通过导入对象传递一个已经分配好内存空间的对象。如果不传递这么一个对象，JIT 在编译时将会自动传入默认内存对象。
+WebAssembly 模块对象在实例化过程时需要通过导入对象传递一个已经分配好内存空间的对象。如果不传递这么一个对象，JIT 在编译时将会自动传入默认内存对象。
 
 传入的内存对象也可以是 `ArrayBuffer`，这样就可以通过索引值轻松访问存储的内存值。因此，通过内存对象传递的数据值可以在 JavaScript 和 WebAssembly 之间共享。
 
