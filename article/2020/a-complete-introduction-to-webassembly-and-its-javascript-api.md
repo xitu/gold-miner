@@ -239,7 +239,7 @@ WebAssembly 的诞生打开了另一个充满各种可能性的世界。
 
 谷歌团队曾在 [Squoosh](https://squoosh.app/) 应用中将类似 C 或 C++ 开发的 JPEG、MozJPEG 等解码器编译成了 WebAssembly 版本，替换了之前的解码器。编译之后的解码器在不牺牲图片质量的情况下进一步缩减了图片文件的体积。
 
-#### 编程语言支持程度
+#### 支持的编程语言
 
 不仅仅只有 C、C++ 或 Rust 语言支持编译至 WebAssembly，许多其他语言正在积极努力地争取支持 WebAssembly 编译。以下是当前支持编译 WebAssembly 的编程语言列表。
 
