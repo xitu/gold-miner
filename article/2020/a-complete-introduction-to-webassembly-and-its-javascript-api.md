@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/a-complete-introduction-to-webassembly-and-its-javascript-api.md](https://github.com/xitu/gold-miner/blob/master/article/2020/a-complete-introduction-to-webassembly-and-its-javascript-api.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)
-> * 校对者：
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)
 
 # WebAssembly 及其 JavaScript API 的完整介绍
 
