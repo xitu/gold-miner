@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/working-with-emoji-in-swift.md](https://github.com/xitu/gold-miner/blob/master/article/2020/working-with-emoji-in-swift.md)
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
-> * 校对者：
+> * 校对者：[Godlowd](https://github.com/Godlowd)、[zenblo](https://github.com/zenblo)
 
 # 在 Swift 中玩转 emoji
 
@@ -188,7 +188,7 @@ let errorText = "Sorry, something went wrong 😢"
 
 ## 结语
 
-在多数情况下，应用应允许用户输入 emoji。不过这若不是你所期望的行为，你可以添加一些限制。如今有越来越多的用户界面使用了 emoji。
+在多数情况下，应用应允许用户输入 emoji。倘若你不想让用户输入 emoji，你可以添加一些限制。如今有越来越多的用户界面使用了 emoji。
 
 同时，除非特别需要，不要在源代码中使用 emoji。Swift 允许你这么做，不过这实在不是什么好习惯。即使 emoji 是字符串常量的一部分，也最好把它们存放到单独的文件里。
 
