@@ -23,7 +23,7 @@
 
 **WebAssembly** 可以简单地理解是在 web 使用的汇编语言。它是一种低级的类似汇编的语言，具有紧凑的二进制格式，使您能够以接近原生的速度运行 web 应用程序。它还为诸如 C、C++ 和 Rust 之类的语言提供了编译目标，从而使客户端应用程序能够以近乎原生的性能在 web 上运行。
 
-此外，WebAssembly 旨在与 JavaScript 一起运行，而不是替换它。使用 WebAssembly JavaScript api，你可以交替地来回运行来自任一语言的代码，而不会出现任何问题。这为您提供了利用 WebAssembly 的功能和性能以及 JavaScript 的多功能性和适应性的应用程序。这开启了一个全新的 web 应用程序世界，该应用程序可以运行最初不打算用于 web 的代码和功能。
+此外，WebAssembly 旨在与 JavaScript 一起运行，而不是替换它。使用 WebAssembly JavaScript API，你可以交替地来回运行来自任一语言的代码，而不会出现任何问题。这为您提供了利用 WebAssembly 的功能和性能以及 JavaScript 的多功能性和适应性的应用程序。这开启了一个全新的 web 应用程序世界，该应用程序可以运行最初不打算用于 web 的代码和功能。
 
 ## WebAssembly 有何不同
 
@@ -45,7 +45,7 @@
 
 有如下几种使用方法。
 
-* 从头开始编写 WebAssembly 代码-除非您非常了解基础知识，否则不建议这样做。
+* 从头开始编写 WebAssembly 代码——除非您非常了解基础知识，否则不建议这样做。
 * 从 C 编译到 WebAssembly
 * 从 C++ 编译到 WebAssembly
 * 从 Rust 编译到 WebAssembly
@@ -76,7 +76,7 @@ fetch('sample.wasm').then(response =>
 
 上述方法有一个缺点是：因 `WebAssembly.instantiate` 方法不能直接访问字节码，因此需要将获取的模块文件内容转换为 `ArrayBuffer` 再进行编译、实例化操作。
 
-还有另外一种方法，使用 `WebAssembly.compileStreaming` 和 `WebAssembly.instantiateStreaming` 方法来实现上面编译、实例化的功能，这种方式的优点是能够直接访问字节码，而无需先将文件内容转换为 `ArrayBuffer`
+还有另外一种方法，使用 `WebAssembly.compileStreaming` 和 `WebAssembly.instantiateStreaming` 方法来实现上面编译、实例化的功能，这种方式的优点是能够直接访问字节码，而无需先将文件内容转换为 `ArrayBuffer`。
 
 ```js
 let exports;
@@ -149,7 +149,7 @@ WebAssembly.instantiateStreaming(fetch('global.wasm'), importObject)
 
 #### 内存（Memory）
 
-WebAssembly 模块模块对象在实例化过程时需要通过导入对象传递一个已经分配好内存空间的对象。如果不传递这么一个对象，JIT 在编译时将会自动传入默认内存对象。
+WebAssembly 模块对象在实例化过程时需要通过导入对象传递一个已经分配好内存空间的对象。如果不传递这么一个对象，JIT 在编译时将会自动传入默认内存对象。
 
 传入的内存对象也可以是 `ArrayBuffer`，这样就可以通过索引值轻松访问存储的内存值。因此，通过内存对象传递的数据值可以在 JavaScript 和 WebAssembly 之间共享。
 
@@ -233,13 +233,13 @@ WebAssembly 的诞生打开了另一个充满各种可能性的世界。
 
 * **对现有的 C、C++ 项目进行很少的修改就可以让其运行在 web 环境，并且同时拥有接近原生的速度**
 
-像 [AutoCAD](https://www.autodesk.com/products/autocad-web-app/overview?linkId=68719474)、[QT](https://www.qt.io/qt-examples-for-webassembly) 以及 [Google Earth](https://medium.com/google-earth/earth-on-web-the-road-to-cross-browser-7338e0f46278) 这些应用简单修改现有代码库就可以以接近原生的性能运行在 web 端，这些最终都要归功于 WebAssembly 的能力。
+像 [AutoCAD](https://www.autodesk.com/products/autocad-web-app/overview?linkId=68719474)、[QT](https://www.qt.io/qt-examples-for-webassembly) 以及 [Google Earth](https://medium.com/google-earth/earth-on-web-the-road-to-cross-browser-7338e0f46278) 这些应用简单修改现有代码库就可以凭借接近原生的性能运行在 web 端，这些最终都要归功于 WebAssembly 的能力。
 
 * **由 C、C++ 或 Rust 等语言开发的库可以借助 WebAssembly 来编译至 web 运行，即使相应的库可能已有 JavaScript 版本的实现，但是通过编译至 WebAssembly 来运行的方法应用运行速度将更快**
 
-谷歌团队曾在 [Squoosh](https://squoosh.app/) 应用中将类似 C 或 C++ 开发的 JPEG、MozJPEG 等解码器编译成了 WebAssembly 版本，替换了之前的解码器。编译之后的解码器在不牺牲图片质量的情况下进一步缩减了图片文件的体积。
+谷歌团队曾在 [Squoosh](https://squoosh.app/) 应用中将类似 C 或 C++ 开发的 JPEG、MozJPEG 等解码器编译成了 WebAssembly 版本，替换了之前的解码器。编译之后的解码器在不牺牲图片质量的情况下，进一步缩减了图片文件的体积。
 
-#### 编程语言支持程度
+#### 支持的编程语言
 
 不仅仅只有 C、C++ 或 Rust 语言支持编译至 WebAssembly，许多其他语言正在积极努力地争取支持 WebAssembly 编译。以下是当前支持编译 WebAssembly 的编程语言列表。
 
@@ -273,7 +273,7 @@ WebAssembly 使得程序可以直接执行编译好的二进制文件，这同�
 
 众望所归，可以毫不保留地说 WebAssembly 的出现将会给更多类型的 web 应用开发铺平道路。
 
-> “虽然无法预测这些性能上的提升能促使哪些新应用诞生，但是只要现在或过去稍有一丝迹象，未来一定会令我们惊喜。” —— Link Clark
+> “虽然无法预测这些性能上的提升能促使哪些新应用诞生，但是只要现在或过去稍有一丝迹象，未来一定会令我们惊喜。” —— Lin Clark
 
 ## 参考文章
 
