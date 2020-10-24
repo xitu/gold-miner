@@ -3,39 +3,39 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/a-complete-introduction-to-webassembly-and-its-javascript-api.md](https://github.com/xitu/gold-miner/blob/master/article/2020/a-complete-introduction-to-webassembly-and-its-javascript-api.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)
-> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)
+> * 校对者：[samyu2000](https://github.com/samyu2000)、[plusmultiply0](https://github.com/plusmultiply0)
 
 # WebAssembly 及其 JavaScript API 的完整介绍
 
 ![[Louis Hansel @shotsoflouis](https://unsplash.com/@louishansel?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*HV8EPAnwvRa8_4JH)
 
-自计算机诞生以来，原生应用程序的性能有了很大的提高。相比之下，由于 JavaScript 最初不是为了运行速度而创造的，因此 web 应用程序非常慢。但是，由于浏览器之间的激烈竞争以及诸如 V8 之类的 JavaScript 引擎的快速发展，使 JavaScript 能够在计算机上快速运行。但是它仍然无法超越原生应用程序的性能。这主要是由于 JavaScript 代码必须经过多个过程才能生成机器代码这一事实。
+自计算机诞生以来，原生应用程序的性能有了很大的提高。相比之下，由于 JavaScript 不是为了提高运行速度而发明的，因此 web 应用程序非常慢。但是，由于浏览器之间的激烈竞争以及诸如 V8 之类的 JavaScript 引擎的快速发展，使 JavaScript 能够在计算机上快速运行。但是它仍然无法超越原生应用程序的性能。其中的主要原因在于，JavaScript 代码需要经过多次编译才能生成机器代码。
 
 ![JS 引擎各阶段平均耗时统计 — 来自于: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/fd3c55e9-3dda-473b-a76b-0ba4d0e039ad/08-diagram-now01-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*bGwF1hjg50k_o2C0.png)
 
-随着 WebAssembly 的诞生，我们所知道的作为现代网络的一切都有望发生革命性的变化。这项技术运行速度非常快。让我们看一下什么是 WebAssembly，以及如何与 JavaScript 集成以构建运行速度惊人的应用程序。
+随着 WebAssembly 的诞生，我们所熟悉的 Web 应用程序有望发生革命性的变化。它能使 Web 应用程序运行加快。让我们看一下什么是 WebAssembly，以及如何与 JavaScript 集成以构建运行速度惊人的应用程序。
 
 ## 什么是 WebAssembly?
 
 **在理解 WebAssembly 之前，让我们先看看什么是汇编（Assembly）。**
 
-汇编语言是一种低级编程语言，与底层的机器指令有非常密切的联系。换句话说， 汇编就是将这种语言转换为机器可理解的代码 (称为机器码) 的一个过程。
+汇编语言是一种底层的编程语言，与底层的机器指令有非常密切的联系。换句话说， 汇编就是将这种语言转换为机器可理解的代码 (称为机器码) 的一个过程。
 
-**WebAssembly** 可以简单地理解是在 web 使用的汇编语言。它是一种低级的类似汇编的语言，具有紧凑的二进制格式，使您能够以接近原生的速度运行 web 应用程序。它还为诸如 C、C++ 和 Rust 之类的语言提供了编译目标，从而使客户端应用程序能够以近乎原生的性能在 web 上运行。
+**WebAssembly** 可以通俗地理解为在 web 应用程序中使用的汇编语言。它是一种低级的类似汇编的语言，具有紧凑的二进制格式，使您能够以接近原生的速度运行 web 应用程序。它还为诸如 C、C++ 和 Rust 之类的语言提供了编译目标，从而使客户端应用程序能够以近乎原生的性能在 web 上运行。
 
-此外，WebAssembly 旨在与 JavaScript 一起运行，而不是替换它。使用 WebAssembly JavaScript API，你可以交替地来回运行来自任一语言的代码，而不会出现任何问题。这为您提供了利用 WebAssembly 的功能和性能以及 JavaScript 的多功能性和适应性的应用程序。这开启了一个全新的 web 应用程序世界，该应用程序可以运行最初不打算用于 web 的代码和功能。
+此外，WebAssembly 的初衷是与 JavaScript 协同运行，而不是替换它。使用 WebAssembly JavaScript API，你的应用程序既可凭借 WebAssembly 获得优良性能，又可使用 JavaScript 实现多功能、多兼容性。这开启了 web 应用程序的全新篇章，一些原来不能用于 Web 系统的代码和功能如今也可以运行在 Web 系统上。
 
 ## WebAssembly 有何不同
 
-[Lin Clark](https://www.smashingmagazine.com/author/linclark/) 预测在 2017 年引入 WebAssembly 可能会在 web 开发的生命中引发一个新的拐点。这一事件发生在现代浏览器中引入 JIT 编译导致的拐点之后，这种拐点将 JavaScript 的速度提高了近10倍。
+[Lin Clark](https://www.smashingmagazine.com/author/linclark/) 预测，于 2017 年推出的 WebAssembly 可能会使 Web 开发进入一个拐点。它是在现代浏览器引入 JIT 编译器之后发生的，由于 JIT 将 JavaScript 的速度提高了近10倍，JIT 的引入也是一个拐点。
 
 ![JavaScript 性能统计 — 来自于: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5961531-2863-4e2a-afac-a3fafd927aa2/03-perf-graph10-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*Py-XN25Ym7msk12v.png)
 
-如果仔细比较 JavaScript 与 WebAssembly 代码编译为机器码过程，可以明显看到在 WebAssembly 的编译过程中有多个过程被剥离了出来，同时还有几个过程被去掉了。下面是两个编译过程的对比。
+如果仔细比较 JavaScript 与 WebAssembly 代码编译的过程，你应该可以注意到 WebAssembly 的编译过程中有几个过步骤被剥离了出来，同时还有几个步骤被去掉了。下面是两个编译过程的对比。
 
 ![JS 代码编译与 WebAssembly 代码编译过程大致对比 — 来自于: [Lin Clark](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/01483767-04a0-4438-be58-f7e6512f1b39/10-diagram-future01-large-opt.png)](https://cdn-images-1.medium.com/max/2400/0*A4PPwrXlDXzU4rpL.png)
 
-如果仔细比较以上两个过程，您会注意到 WebAssembly 中的重新优化部分已被完全剥离。这主要是因为编译器不需要对 WebAssembly 代码做出任何假设，因为代码中明确提到了诸如数据类型之类的事情。
+如果仔细比较以上两个过程，您会注意到 WebAssembly 中的重新优化部分已被完全剥离。这主要是因为编译器不需要对 WebAssembly 代码做出任何假设，因为代码中诸如数据类型等需要明确定义的东西已经明确定义了。
 
 但是 JavaScript 并非如此，因为 JIT 应该做出假设来运行代码，如果假设失败，它应该重新优化其代码。
 
@@ -60,7 +60,7 @@
 
 #### 模块编译和实例化
 
-WebAssembly 代码位于后缀名为 `.wasm` 的文件中，这个文件需要在客户端被编译至应用运行时所在系统对应的机器码。可以通过 `WebAssembly.compile` 方法来编译 WebAssembly 模块。接收到编译好的 WebAssembly 模块后可以使用 `WebAssembly.instantiate` 方法来将其实例化。或者，也可以通过将获取到的 `.wasm` 文件内容转换为 ArrayBuffer 传递至 `WebAssembly.instantiate` 的方式来进行实例化。
+WebAssembly 代码位于后缀名为 `.wasm` 的文件中，这个文件需要在客户端被编译至相应系统对应的机器码。可以通过 `WebAssembly.compile` 方法来编译 WebAssembly 模块。接收到编译好的 WebAssembly 模块后可以使用 `WebAssembly.instantiate` 方法来将其实例化。或者，也可以通过将获取到的 `.wasm` 文件内容转换为 ArrayBuffer 并传递至 `WebAssembly.instantiate` 的方式来进行实例化。
 
 ```js
 let exports;
@@ -87,7 +87,7 @@ WebAssembly.instantiateStreaming(fetch('sample.wasm'))
 })
 ```
 
-值得注意的是上述两种实例化 WebAssembly 模块的方法都会返回编译好的模块实例对象，以便加速模块实例的唤起。
+值得注意的是，上述两种实例化 WebAssembly 模块的方法都会返回编译好的模块实例对象，以便快速启动模块实例。
 
 ```js
 let exports;
@@ -114,7 +114,7 @@ WebAssembly.instantiateStreaming(fetch('sample.wasm'))
 
 #### 全局变量（Globals）
 
-WebAssembly 可以创建可从 JavaScript 和 WebAssembly 模块访问的全局变量，并且可以导入、导出这些变量，同时可以在一个或多个 WebAssembly 模块实例中使用它们。
+使用 WebAssembly 可以创建全局变量，这些全局变量可以在 JavaScript 和 WebAssembly 模块中访问。并且可以导入、导出这些变量，同时可以在一个或多个 WebAssembly 模块实例中使用它们。
 
 可以使用构造函数 `WebAssembly.Global()` 来创建全局变量实例。
 
@@ -125,7 +125,7 @@ const global = new WebAssembly.Global({
 }, 20);
 ```
 
-该构造函数接收两个参数，分别如下：
+该构造函数接收两个参数，分别是：
 
 * 第一个参数是一个对象，其 value 属性表示表示值的类型，其 mutable 属性表示值是否可以修改，允许的值类型有：`i32`、`i64`、`f32` 和 `f64`；
 * 第二个参数是变量的值，其值的类型必须与第一个参数中指定的类型一致，例如：如果参数一中类型是 `i32`，则值的类型必须是 32 位整型，如果参数一中类型是 `f64`，则值的类型必须是 64 位浮点型。
@@ -155,19 +155,19 @@ WebAssembly 模块对象在实例化过程时需要通过导入对象传递一�
 
 #### 表（Table）
 
-表是位于 WebAssembly 内存之外的一种可变长度的数组型数据，表存储的值是对数据的引用（指针）。看起来可以内存对象（Memory）很相似，其实两者最大的区别在于内存对象存储的数据是原始字节，而表存储的内存数据的指针。
+表是位于 WebAssembly 内存之外的一种可变长度的数组型数据，表存储的值是对数据的引用（指针）。看起来与内存对象（Memory）很相似，两者最大的区别在于内存对象存储的数据是原始字节，而表存储的内存数据的指针。
 
-表这种 WebAssembly 数据结构的引入是处于提高运行的安全性目的。
+表（Table）这种 WebAssembly 数据结构的引入是为了提高运行时的安全性。
 
 可以使用 `set()`、`grow()` 和 `get()` 方法来操作表。
 
 ## 一个示例
 
-下面我将使用 WebAssembly Studio 创建的一个应用编译为 `.wasm` 文件，来演示如何使用 WebAssembly，你也可以在线查看这个[demo](https://webassembly.studio/?f=wne209a6cxq)。
+下面我将使用 WebAssembly Studio 创建的一个应用编译为 `.wasm` 文件，来演示如何使用 WebAssembly，你也可以在线查看这个 [demo](https://webassembly.studio/?f=wne209a6cxq)。
 
-这里创建了对数字进行幂运算的函数，传递必要的参数给这个函数其将会把计算结果传入 JavaScript。
+这里创建了对数字进行幂运算的函数，这个函数需要先传入一个值，然后在 JavaScript 程序中接收输出结果。
 
-在 wasm 中对字符串进行操作时需要额外注意了。wasm 里面不存在字符串这一数据类型，字符串在 wasm 里面采用 ASCII 码来处理。传递给 JavaScript 的是存储计算结果的内存地址。另外，由于内存对象是 `ArrayBuffer`，因此需要对齐进行遍历来转换为字符串。
+在 wasm（译者注：此处 wasm 指的是上文 WebAssembly 的实例，下同）中对字符串进行操作时需要额外注意了。wasm 里面不存在字符串（string）这一数据类型，字符串在 wasm 里面采用 ASCII 码来处理。传递给 JavaScript 的是存储计算结果的内存地址。另外，由于内存对象是 `ArrayBuffer`，因此需要对齐其进行遍历来转换为字符串。
 
 **JavaScript 文件**
 
@@ -225,17 +225,17 @@ char* helloWorld(){
 
 WebAssembly 的诞生打开了另一个充满各种可能性的世界。
 
-* **赋给了 web 环境使用 c、c++ 等语言开发的现成库或者项目的能力**
+* **赋给了 web 环境使用 c、C++ 等语言开发的现成库或者项目的能力**
 
-比如，如果找不到某个功能的 JavaScript 版本实现，你以往可能需要从头开始使用 JavaScript 实现这个功能。而现在，如果能找到别的语言实现这一功能的库，则可以借助 WebAssembly 的能力直接复用这个库。从技术开发的角度来看，这将是对节省开发时间的巨大突破。
+比如，如果找不到某个功能的 JavaScript 版本实现，以前没有 WebAssembly，你需要从头开始变成，使用 JavaScript 来实现这个功能。而现在，如果能找到别的语言实现这一功能的库，则可以借助 WebAssembly 的能力直接复用这个库。从技术开发的角度来看，这会大幅度节省开发时间，带来巨大的突破。
 
-[Squoosh](https://squoosh.app/) 应用采用 WebAssembly 实现了二维码和图片识别功能，并且保证了应用在低版本浏览器中以接近原生的速度运行。另外，[eBay](https://tech.ebayinc.com/engineering/webassembly-at-ebay-a-real-world-use-case/) 也通过编译原有的 c++ 库至 WebAssembly 从而实现了条码扫描功能。
+[Squoosh](https://squoosh.app/) 应用采用 WebAssembly 实现了二维码和图片识别功能，应用程序因此也能在低版本浏览器中以接近原生的速度运行。另外，[eBay](https://tech.ebayinc.com/engineering/webassembly-at-ebay-a-real-world-use-case/) 也通过编译原有的 C++ 库至 WebAssembly 从而实现了条码扫描功能。
 
-* **对现有的 C、C++ 项目进行很少的修改就可以让其运行在 web 环境，并且同时拥有接近原生的速度**
+* **对现有的 C、C++ 项目稍作修改就可以让其运行在 web 环境，并且同时拥有接近原生的速度**
 
 像 [AutoCAD](https://www.autodesk.com/products/autocad-web-app/overview?linkId=68719474)、[QT](https://www.qt.io/qt-examples-for-webassembly) 以及 [Google Earth](https://medium.com/google-earth/earth-on-web-the-road-to-cross-browser-7338e0f46278) 这些应用简单修改现有代码库就可以凭借接近原生的性能运行在 web 端，这些最终都要归功于 WebAssembly 的能力。
 
-* **由 C、C++ 或 Rust 等语言开发的库可以借助 WebAssembly 来编译至 web 运行，即使相应的库可能已有 JavaScript 版本的实现，但是通过编译至 WebAssembly 来运行的方法应用运行速度将更快**
+* **由 C、C++ 或 Rust 等语言开发的库可以借助 WebAssembly 来编译至 web 端可运行的库，即使相应的库可能已有 JavaScript 版本的实现，但是通过编译至 WebAssembly 来运行，应用的运行速度将加快并且可以具有更好的性能**
 
 谷歌团队曾在 [Squoosh](https://squoosh.app/) 应用中将类似 C 或 C++ 开发的 JPEG、MozJPEG 等解码器编译成了 WebAssembly 版本，替换了之前的解码器。编译之后的解码器在不牺牲图片质量的情况下，进一步缩减了图片文件的体积。
 
@@ -259,7 +259,7 @@ WebAssembly 的诞生打开了另一个充满各种可能性的世界。
 
 ## 不足之处
 
-WebAssembly 使得程序可以直接执行编译好的二进制文件，这同时提出了很多安全性的问题。例如，这个[漏洞可以被利用](vulnerabilities can be exploited](https://www.virusbulletin.com/virusbulletin/2018/10/dark-side-webassembly/)的问题就很难被发现，甚至都没办法通过栈进行跟踪。尽管 WebAssembly 本身已经做了部分安全性功能，但我个人认为这个功能都还不够，还需要进一步改进。使用这些新的功能将导致传统的防护层（如防病毒和 URL 过滤等）根本无法应对。这也就意味着普通浏览器在未来将更加不安全。
+WebAssembly 使得程序可以直接执行编译好的二进制文件，这同时也引入了很多安全性的问题。例如，这个例子——[漏洞可以被利用](vulnerabilities can be exploited](vulnerabilities can be exploited](https://www.virusbulletin.com/virusbulletin/2018/10/dark-side-webassembly/)的问题就很难被发现，甚至都无法通过栈进行跟踪。尽管 WebAssembly 本身已经做了部分安全性功能，但我个人认为这个功能都还不够，还需要进一步改进。使用这些新的功能将导致传统的防护层（如防病毒和 URL 过滤等）失效。如果不能解决这些问题，意味着在未来这些普通浏览器的安全性将大大降低。
 
 你可以阅读下面的文章了解更多关于 WebAssembly 安全性的问题。
 
@@ -269,7 +269,7 @@ WebAssembly 使得程序可以直接执行编译好的二进制文件，这同�
 
 ## 总结一下
 
-虽然网上有炒作说 WebAssembly 即将替代 JavaScript，但是我认为这种说法不对。WebAssembly 的诞生是为了同 JavaScript 一同协作的，而非替代 JavaScript。此外，调试 JavaScript 代码比调试 WebAssembly 代码容易太多，并且 JavaScript 的那些自由灵活的语法在 WebAssembly 中是不支持的。
+虽然网上有炒作说 WebAssembly 即将替代 JavaScript，但是我不赞成 JavaScript 将被替代的这种说法。WebAssembly 的诞生是为了同 JavaScript 一同协作的，而非替代 JavaScript。此外，调试 JavaScript 代码比调试 WebAssembly 代码容易得多，并且 JavaScript 的那些自由灵活的语法在 WebAssembly 中是不支持的。
 
 众望所归，可以毫不保留地说 WebAssembly 的出现将会给更多类型的 web 应用开发铺平道路。
 
