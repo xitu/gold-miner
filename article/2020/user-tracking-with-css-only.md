@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/user-tracking-with-css-only.md](https://github.com/xitu/gold-miner/blob/master/article/2020/user-tracking-with-css-only.md)
 > * 译者：[黄梵高](https://github.com/mangotsing)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)
 
 # 只使用 CSS 进行用户追踪
 
