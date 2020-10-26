@@ -2,117 +2,117 @@
 > * 原文作者：[Trung Anh Dang](https://medium.com/@dangtrunganh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/big-data-lambda-architecture-in-a-nutshell.md](https://github.com/xitu/gold-miner/blob/master/article/2020/big-data-lambda-architecture-in-a-nutshell.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jackwener](https://github.com/jackwener)
+> * 校对者：[zenblo](https://github.com/zenblo)、[bljessica](https://github.com/bljessica)
 
-# Big Data: Lambda Architecture in a nutshell
+# 大数据：简述 Lambda 架构
 
-#### How do we beat the CAP theorem?
+#### 我们如何对抗 CAP 理论？
 
-![the CAP theorem](https://cdn-images-1.medium.com/max/2730/1*ZyXE41bENSEUP29slqpQyQ.png)
+![CAP 理论](https://cdn-images-1.medium.com/max/2730/1*ZyXE41bENSEUP29slqpQyQ.png)
 
-There is one theorem in computer science called the CAP theorem states that it is impossible for a distributed data store to simultaneously provide more than two out of the following three guarantees.
+计算机科学中有一个 CAP 定理，分布式数据存储不可能同时提供以下三个保证中的两个以上。
 
-* **Consistency**: every read receives the most recent write or an error.
-* **Availability**: every request receives a (non-error) response, without the guarantee that it contains the most recent write.
-* **Partition tolerance**: the system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.
+* **一致性**：每个节点读取的是最新结果或者是报错。
+* **可用性**：每个请求都会收到一个（非错误）响应，但不保证它包含最新的写入。
+* **分区容错**：尽管节点之间的网络丢弃（或延迟了）任意数量的消息，系统仍继续运行。
 
-## A Brief of History
+## 简史
 
-In 2011, Nathan Marz proposed an important approach to tackling the limitations of the CAP theorem in his blog¹, it called the Lambda architecture.
+2011年，内森·马兹（Nathan Marz）在他的博客中提出了一种解决 CAP 定理局限性的重要方法，即 Lambda 架构。
 
-![the Lambda architecture](https://cdn-images-1.medium.com/max/2730/1*RX4WviL_wF7vVChcQUgyzg.png)
+![Lambda架构](https://cdn-images-1.medium.com/max/2730/1*RX4WviL_wF7vVChcQUgyzg.png)
 
-## How it works?
+## 工作原理
 
-Let’s take a closer look at the Lambda architecture. There are three layers in the Lambda architecture: batch layer, speed layer, and serving layer.
+让我们仔细看看 Lambda 架构。Lambda 架构分为三层: 批处理层（batch layer），加速层（speed layer），和服务层（serving layer）。
 
-> It combines real-time and batches processing of the same data.
+> 它结合了对同一数据的实时（real-time）和批量（batches）处理。
 
-**Firstly**, an incoming real-time data stream is stored in the master dataset at the batch layer as well as being kept in a memory cache at a speed layer. Data in the batch layer is **then** indexed and made available through batch views. While real-time data in the speed layer is exposed through real-time views. **Finally**, both batch and real-time views can be queried either independently or together to answer any historical or realtime questions.
+**首先**，传入的实时数据流在批处理层（batch layer）存储在主数据集中，并在加速层（speed layer）存储在内存缓存中。**然后**对批处理层中的数据建索引，且通过批处理视图使之可用。加速层（speed layer）中的实时数据通过实时视图（real-time views）暴露出来。 **最后**，批处理视图和实时视图都可以独立查询，也可以一起查询，以回答任何历史的或实时的问题。
 
-#### Batch layer
+#### 批处理层（Batch layer）
 
-This layer is responsible for managing the master data set. Data in the master dataset must hold three properties as follows.
+该层负责管理主数据集。主数据集中的数据必须具有以下三个属性。
 
-* Data is raw
-* Data is immutable
-* Data is eternally true
+- 数据是原始的
+- 数据是不可变的
+- 数据永远是真实的
 
-The master dataset is the source of truth. Even if you were to lose all your serving layer datasets and speed layer datasets, you could re-construct your application from the master dataset.
+主数据集是正确性的保证（source of truth）。即使丢失所有服务层数据集和加速层数据集，也可以从主数据集中重建应用程序。
 
-The batch layer also pre-computes the master dataset into batch views so that queries can be resolved with low-latency.
+批处理层还将主数据集预计算到批处理视图（batch views）中，以便能进行低延迟查询。
 
-![the pre-computation of batch views](https://cdn-images-1.medium.com/max/2730/1*0fEm3ceh7KurPVJ027S2TA.png)
+![批处理视图的预计算](https://cdn-images-1.medium.com/max/2730/1*0fEm3ceh7KurPVJ027S2TA.png)
 
-Because our master dataset is continually growing, we must have a strategy for managing our batch views when new data becomes available.
+由于我们的主数据集在不断增长，因此我们必须制定一种策略，以便在有新数据可用时管理批处理视图（batch views）。
 
-* **Re-computation algorithms**: throwing away the old batch views and re-computing functions over the entire master dataset.
-* **Incremental algorithms**: updating the views directly when new data arrives.
+* **重新计算法**：抛弃旧的批处理视图，重新计算整个主数据集的函数。
+* **增量算法**：当新数据到达时，直接更新视图。
 
-#### Speed layer
+#### 加速层（Speed layer）
 
-The speed layer indexes the batch views for fast ad hoc queries. It stores the realtime-views and processing the incoming data stream so as to update these views. The underlying storage layer must meet the following conditions.
+加速层批处理视图建立索引便于能快速的即席查询（Ad hoc queries），它存储实时视图并处理传入的数据流，以便更新这些视图。基础存储层必须满足以下场景。
 
-* **Random reads**: supporting fast random reads to answer queries quickly.
-* **Random writes**: to support incremental algorithms, it must also be possible to modify a real-time view with low latency.
-* **Scalability**: the real-time views should scale with the amount of data they store and the read/write rates required by the application.
-* **Fault tolenrance**: if a machine crashes, a real-time view should continue to function normally.
+* **随机读**：支持快速随机读取以快速响应查询。
+* **随机写**：为了支持增量算法，必须尽可能的以低延迟修改实时视图。
+* **可伸缩性**：实时视图应随它们存储的数据量和应用程序所需的读/写速率进行缩放。
+* **容错性**：当机器故障，实时视图应还能继续正常运行。
 
-#### Serving layer
+#### 服务层（Serving layer）
 
-This layer provides low-latency access to the results of calculations performed on the master dataset. This process can be facilitated by additional indexing of the data in order to speed up the reads. Similar to the speed layer, this layer must meet the following requirements such as random reads, batch writes, scalability, and fault tolerance.
+该层提供了主数据集上执行的计算结果的低延迟访问。读取速度可以通过数据附加的索引来加速。与加速层类似，该层也必须满足以下要求，例如随机读取，批量写入，可伸缩性和容错能力。
 
-## The Lambda architecture satisfies almost all properties
+##  Lambda 架构几乎可以满足所有属性
 
-The Lambda architecture is based on several assumptions: fault tolerance, support of ad hoc queries, scalability, extensibility.
+Lambda 体系结构基于几个假定：容错、即席查询、可伸缩性、可扩展性。
 
-* **Fault tolerance**: the Lambda architecture provides human fault tolerance capability to the big data system because when a mistake is made, we can fix the algorithms or re-compute the views from scratch.
-* **Ad hoc queries:** the batch layer allows for ad-hoc querying against any data.
-* **Scalability:** all the batch layer, speed layer, and serving layers are easily scalable. Since they are all fully distributed systems, we can scale them easily as adding new machines.
-* ****Extensibility**: **adding a new view is easy as adding a new function of the master dataset.
+* **容错：**   Lambda 架构为大数据系统提供了更友好的容错能力，一旦发生错误，我们可以修复算法或从头开始重新计算视图。
+* **即席查询：** 批处理层允许针对任何数据进行临时查询。
+* **可伸缩性：** 所有的批处理层、加速层和服务层都很容易扩展。因为它们都是完全分布式的系统，我们可以通过增加新机器来轻松地扩大规模。
+* **扩展：** 添加视图是容易的，只是给主数据集添加几个新的函数。
 
-## Some questions to ask?
+## 一些问题
 
-#### How has the code be synchronized between layers?
+#### 层之间的代码如何同步
 
-One of the approaches to tackle this issue is to have a common code base for the layers by using common libraries or introducing some kind of abstraction shared between the flows. Examples of such frameworks are Summingbird or Lambdoop. Casado
+解决此问题的方法之一是通过使用通用库或引入流之间共享的某种抽象来为各层提供通用代码库。譬如 Summingbird or Lambdoop，Casado 这些框架
 
-#### Can we remove speed layer?
+#### 我们可以移除速度层（speed layer）吗?
 
-Yes, the speed layer is in many applications not necessary. If we shorten the batch cycles, the latency in data availability can be reduced. On the other hand, new faster tools for accessing the data stored on Hadoop such as Impala, Drill, or new versions of Tez, etc., make it possible to take some actions on the data in a reasonable time.
+是的，在许多应用程序中都不需要速度层（speed layer）。如果我们缩短批处理周期，则可以减少数据可用性中的延迟。另一方面，用于访问存储在 Hadoop 上的数据的新的更快的工具（例如 Impala ， Drill 或 Tez 的新版本等），使在合理时间内对数据执行某些操作成为可能。
 
-#### Can we give up the batch layer and process everything in the speed layer?
+#### 我们可以丢弃批处理层（batch layer）并处理速度层（speed layer）中的所有内容吗？
 
-Yes, an example of such an architecture, called Kappa Kreps, proposes that incoming data be processed in streaming and whenever a larger history is needed, it can be re-streamed from Kafka buffers, or if we have to go back even further, from the historical data cluster.
+是的，一个例子是 Kappa Kreps 架构，它的示例建议在流中处理传入的数据，并且每当需要更大的历史记录时，它将从 Kafka 缓冲区中重新流化，或者如果我们必须进一步追溯到历史数据集群。
 
-## How to implement the Lambda architecture?
+## 如何实现 Lambda 架构？
 
-We can implement this architecture in the real-world by using Hadoop data lakes, where HDFS can be used to store the master dataset, Spark (or Storm) can form the speed layer, HBase (or Cassandra) can be the serving layer, and Hive creates views that can be queried.
+我们可以使用 Hadoop 数据湖在现实世界中实现此架构，在该数据湖中，HDFS 用于存储主数据集， Spark（或 Storm）可构成速度层（speed layer）， HBase（或 Cassandra）作为服务层，由 Hive 创建可查询的视图。
 
-![an example implementation of the Lambda architecture](https://cdn-images-1.medium.com/max/2730/1*4oItXvPnvE04LCB9Z2-BZw.png)
+![Lambda 架构实现的一个例子](https://cdn-images-1.medium.com/max/2730/1*4oItXvPnvE04LCB9Z2-BZw.png)
 
-## Lambda architecture in use
+## 使用 Lambda 架构的公司
 
 #### Yahoo
 
-For running analytics on its advertising data warehouse, Yahoo has taken a similar approach, also using Apache Storm, Apache Hadoop, and Druid².
+为了在广告数据仓库上进行分析，雅虎采取了类似的方法，也使用了 Apache Storm，Apache Hadoop 和 Druid²。
 
 #### Netflix
 
-The Netflix Suro project is the backbone of Netflix’s Data Pipeline that has separate processing paths for data but does not strictly follow lambda architecture since the paths may be intended to serve different purposes and not necessarily to provide the same type of views³.
+Netflix Suro 项目是 Netflix 数据管道的主干，该管道有独立的数据处理路径，但不严格遵循 lambda 体系结构，因为这些路径可能用于不同的目的，不一定提供相同类型的视图（views）。
 
 **LinkedIn**
 
-Bridging offline and nearline computations with Apache Calcite.
+使用 Apache Calcite 来桥接离线和近线计算。
 
-## Conclusion
+## 总结
 
-Keep in mind that: batch view = function (all data), realtime view = function (real-time view, new data) and query = function (batch view, real-time view).
+请记住: batch view = function (all data) realtime view = function (real-time view new data) and query = function (batch view real-time view).
 
-Easy, right?
+很容易，对吧？
 
-## References
+## 参考文献
 
 - [1] [http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html](http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html)
 - [2] [http://www.slideshare.net/Hadoop_Summit/interactive-analytics-in-human-time?next_slideshow=1](http://www.slideshare.net/Hadoop_Summit/interactive-analytics-in-human-time?next_slideshow=1)
