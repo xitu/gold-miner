@@ -7,15 +7,11 @@
 
 # How to Avoid WiFi Throttling on Android Devices
 
-#### Continuing the discussion about Google’s limitations and how to bypass them
-
 ![Photo by [Gaspart](https://dribbble.com/Gaspart) on [Dribbble](https://dribbble.com/).](https://cdn-images-1.medium.com/max/3200/0*LvG0BzxbMunbCN3Z.png)
 
 Today, I want to discuss WiFi scan throttling in new Android versions and how to avoid it. [Previously, I wrote an article](https://proandroiddev.com/android-wifi-scanning-frustrations-799d1d942aea) about a new scan mechanism on the recently released Android R. If you read that article, you know that Google limits developers’ opportunities to scan WiFi as in previous Android versions.
 
 So let’s start our article by reviewing how it worked earlier and how to get similar results now with new Android R.
-
----
 
 ## How It Worked Earlier
 
@@ -42,8 +38,6 @@ mContext.registerReceiver(mWifiBroadcastReceiver, new IntentFilter(WifiManager.S
 You just register the broadcast receiver in your context for getting scan results and parse them. Then you call the `start scan` method on your WiFi manager and it works like a charm. There was a time when Android allowed scanning WiFi up to ten times per second. Just imagine the potential that opens up for high-quality navigation.
 
 But then everything went wrong and Google introduced WiFi scan restrictions.
-
----
 
 ## Android 9 and 10
 
@@ -75,8 +69,6 @@ if (!mWifiScanning && timeNow > mWifiLastTime + WIFI_SLEEP_TIMEOUT)
 
 By the way, Google introduced a solution with the release of Android 10. They added a button that allows you to turn off the WiFi scan throttling in the Developer settings, so now you can turn it off and scan without restrictions. But if you write the common solution for all the devices, then you will not know if this option is turned off or not. And the main problem is devices with a custom OS (e.g. Huawei, Xiaomi, etc.) because they do not have the option for turning off throttling.
 
----
-
 ## Android R and the Solution
 
 Android R was released a few weeks ago and Google introduced the new scan because the old one was deprecated with the release of Android 9. So now they added a function for checking if the throttling is turned off:
@@ -88,12 +80,9 @@ if (!mWifiManager.isScanThrottleEnabled()) {
   // scan without any restrictions
 }
 ..
-
 ```
 
 You just need to check that throttle is disabled and you can scan without any restrictions. By the way, this solution is only good if you test your local application. For distributing it through Play Market and other platforms, this solution could be very bad because users will need to turn on the Developer mode and find this option there.
-
----
 
 ## Conclusion
 
