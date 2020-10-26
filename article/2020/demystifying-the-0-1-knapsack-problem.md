@@ -7,8 +7,6 @@
 
 # Demystifying the 0-1 Knapsack Problem
 
-#### The top solutions, explained
-
 ![Image credit: Author](https://cdn-images-1.medium.com/max/2048/1*q3OBnVDmaPAk__W_7n0cDA.png)
 
 In any dynamic programming coding interview you take, you’ll likely encounter the **knapsack problem.** This question is often a source of anxiety to interviewees because of the complexity of the solution and the number of variants of the problem.
@@ -24,8 +22,6 @@ Today, we’ll get you comfortable with the knapsack problem in multiple languag
 4. What to learn next
 ```
 
----
-
 ## What’s the Knapsack Problem?
 
 The knapsack problem is one of the top dynamic programming interview questions for computer science.
@@ -36,8 +32,6 @@ The problem statement is:
 
 You’re a burglar with a knapsack that can hold a total weight of `capacity`. You have a set of items (`n` items), each with fixed weight capacities and values. The weight and value are represented in an integer array. Create a function, `knapsack()`, that finds a subset or number of these items that’ll maximize value but whose total weight doesn’t exceed the given number `capacity`.
 
----
-
 ## Knapsack Question Variants
 
 There are two major variants of this question: **fractional** or **0-1.** The fractional variant allows you to break items to maximize the value in the pack. The 0-1 variant doesn’t allow you to break items.
@@ -45,8 +39,6 @@ There are two major variants of this question: **fractional** or **0-1.** The fr
 Another common variant is the **constrained** knapsack problem that restricts your program so you can’t select any item more than once. When an element is selected, the program must decide if it should place it in the pack or leave it.
 
 At senior-level interviews, you’ll encounter variants that add volume as a constrained attribute. In this case, each item also has a fixed volume, and the knapsack has a volume limit.
-
----
 
 ## What Skills Does It Test?
 
@@ -67,19 +59,15 @@ For example, combinatorial optimization is used in solutions like:
 
 You can expect this question to be asked for any role that manages or creates automated optimization software.
 
----
-
 ## Brute-Force Recursive Solution
 
 The most obvious solution to this problem is brute-force recursive. This solution is brute-force because it evaluates the total weight and value of all possible subsets, then selects the subset with the highest value that’s still under the weight limit.
 
 While this is an effective solution, it’s not optimal because the time complexity is exponential. Use this solution if you’re asked for a recursive approach. It can also be a good starting point for the dynamic solution.
 
-**Time complexity:** O(2^{n})**O**(2​**n**​​), due to the number of calls with overlapping subcalls
+**Time complexity:** O(2^{n})O(2n), due to the number of calls with overlapping subcalls
 
-**Auxiliary space:** O(1)**O**(1), no additional storage is needed
-
----
+**Auxiliary space:** O(1)O(1), no additional storage is needed
 
 ## Solution
 
@@ -113,8 +101,6 @@ return the set from the above two sets with higher profit
 
 This program contains many overlapping subproblems, but they’re calculated each time rather than stored. Repeated calculations increase runtime drastically. To avoid recalculating, we can instead use dynamic programming to memoize the solution to subproblems for reuse.
 
----
-
 ## Optimized Dynamic Programming Solution
 
 Now, we’ll optimize our recursive solution through the addition of top-down dynamic programming to handle the overlapping subproblems.
@@ -125,11 +111,11 @@ This is the optimal solution for the knapsack problem in both time and space com
 
 #### Time complexity
 
-O(N*C)**O**(**N**∗**C**): our memoization table stores results for all subproblems and will have a maximum of N*C**N**∗**C** subproblems.
+O(N\*C)O(N∗C): our memoization table stores results for all subproblems and will have a maximum of N\*CN∗C subproblems.
 
 #### Auxiliary space
 
-O(N*C + N)**O**(**N**∗**C**+**N**), O(N*C)**O**(**N**∗**C**) space for the memoization table and O(N)**O**(**N**) space for the recursion call stack.
+O(N\*C+N)O(N∗C+N), O(N\*C)O(N∗C) space for the memoization table and O(N)O(N) space for the recursion call stack.
 
 **Tip:** During the interview, make sure to talk through your thought process with the interviewer so they can see your problem-solving skills.
 
@@ -155,21 +141,6 @@ In line 38, we calculate the maximum possible value of the bag if we include the
 
 In line 39, we return the item that makes the highest knapsack value. This is a partial result that ends one recursive call before the next begins. Once this has occurred for all possible combinations, the first call will return the actual result.
 
----
-
-## What to Learn Next
-
-Thanks for completing this deep dive into the 0-1 knapsack problem. Confidence with dynamic programming coding interview questions comes from practice and exposure to popular problem variants.
-
-As you’re preparing for your next coding interview, here are some more DP questions you’ll want to study:
-
-* Longest common substring problem
-* Palindrome subsequence problem
-* Fibonacci numbers problem
-* Staircase problem
-* Coin change problem
-
-Happy interviewing!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
