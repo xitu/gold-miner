@@ -7,8 +7,6 @@
 
 # Understanding The Web History API in JavaScript
 
-#### The JavaScript Web History API With Practical Examples
-
 ![Photo by [Kevin Ku](https://unsplash.com/@ikukevk?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9184/0*wBiqieIBMgVIDeJ_)
 
 ## What is a Web API?
@@ -30,7 +28,6 @@ As you can see, the “**window.history**” object has some useful methods on i
 The history **back** method loads the previous **URL** in the history list. It is the same as clicking the “back arrow” in your browser. Let’s have a look at the example below:
 
 ```HTML
-
 <button onclick="myFunction()">Go Back</button>
 
 <script>
@@ -47,7 +44,6 @@ When we click the button it will take us to the previous link(URL) in our histor
 The **go()** method allows us to load a specific URL in our browser history list. Let’s have a look at the example below:
 
 ```HTML
-
 <button onclick="myFunction()">Go Back 2 Pages</button>
 
 <script>
@@ -64,7 +60,6 @@ So, when we click the button element, we will go 2 pages back as we specified in
 The **forward()** method Loads the next URL in the history list. Below this, there is an example of how to use it.
 
 ```HTML
-
 <button onclick="myFunction()">Go Back</button>
 
 <script>
