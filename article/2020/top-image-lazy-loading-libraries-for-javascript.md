@@ -7,11 +7,7 @@
 
 # Top Image Lazy Loading Libraries for JavaScript
 
-#### Choosing what‘s best for your audience
-
 ![Photo by [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6000/0*IeWD36cpByaa0F2d)
-
----
 
 ## Why Lazy Load Images?
 
@@ -23,30 +19,14 @@ According to [Jakob Nielson](https://www.nngroup.com/articles/website-response-t
 
 * Under 100 milliseconds is perceived as instantaneous.
 * A 100ms to 300ms delay is perceptible.
-* **4**7% of consumers expect a web page to load in two seconds or less
+* 47% of consumers expect a web page to load in two seconds or less
 * 40% of consumers will wait no more than three seconds for a web page to render before abandoning the site.
-
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/)
-
-[Bit](https://bit.dev/) ([GitHub](https://github.com/teambit/bit)) makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*t_r9L9TcAg6VY5S9.gif)
-
----
 
 ## What is Lazy Loading?
 
 There are several strategies that can be implemented to help you serve your images efficiently and effectively without compromising on performance and quality. Lazy loading is one of them. The concept of lazy loading loads only the required content and delays the remaining until needed. This concept can be applied to images, videos, text, and other types of data. But mostly it is applied to heavy content such as images.
 
 There are several ways of implementing lazy-loaded images on your website. You can use the Intersection Observer API, or even use event handlers to determine whether an element is in view. There are several powerful libraries available that use several methods of lazy loading images according to the need and compatibility. Let’s have a look at them.
-
----
 
 ## Lazy Sizes
 
@@ -67,8 +47,6 @@ You can view the demo over [here](http://afarkas.github.io/lazysizes/#examples).
 
 ![LazySizes Repo — Screenshot by Author](https://cdn-images-1.medium.com/max/2682/1*Ifefl4QqsSO-zNmfCiPJPg.png)
 
----
-
 ## Lozad.js
 
 [Lozad.js](https://github.com/ApoorvSaxena/lozad.js) supports lazy loading for images, iframes, ads, videos, and other elements. It has almost 6.4K stars on Github and is very popular amongst the community. According to the team, this library is used by several brands such as Tesla, Dominos, Xiaomi, and BBC on their web applications. It is very light with a size of [1.1kB](https://bundlephobia.com/result?p=lozad@1.16.0) minified and gzipped. It supports almost 92% of browser users as it uses the `IntersectionObserver` API and the `MutationObserver` API.
@@ -86,8 +64,6 @@ You can view the demo over [here](https://apoorv.pro/lozad.js/demo/).
 
 ![Lozad.js Repo — Screenshot by Author](https://cdn-images-1.medium.com/max/2690/1*qFRDVwpjSbhaoT7b-cIhbA.png)
 
----
-
 ## Lazyload by Tuupola
 
 [Lazyload by Tuupola](https://github.com/tuupola/lazyload) is another popular image lazy loading library with almost 8.4K stars on Github. It uses the `IntersectionObserver` API and simple and easy to use. The minified and gzipped script is [956 bytes](https://bundlephobia.com/result?p=lazyload@2.0.0-rc.2) and smaller than the rest. But this can be attributed due to the use of only the `IntersectionObserver` API as other libraries use a combination of other libraries to achieve better compatibility and performance. Furthermore, due to this, it is supported by 92% of browser users present currently.
@@ -97,8 +73,6 @@ You can view the demo over [here](https://apoorv.pro/lozad.js/demo/).
 * Includes a jQuery wrapper for convenience
 * Includes support for LQIPs and responsive images
 * The core `IntersectionObserver` API can be configured by passing additional parameters
-
----
 
 ## Vanilla Lazyload by Andrea Verlicchi
 
@@ -114,8 +88,6 @@ You can view the demo over [here](https://apoorv.pro/lozad.js/demo/).
 
 You can view the demos over [here](https://github.com/verlok/vanilla-lazyload/tree/master/demos).
 
----
-
 ## Yall.js
 
 [Yall.js](https://github.com/malchata/yall.js) too is another JavaScript library that solely uses the `IntersectionObserver` API to lazy load images, videos, iframes, and CSS background images. The repository has around 1.1K stars and is used by almost 91 users in their repos. The size of the library comes gzipped and minified at [1kB](https://bundlephobia.com/result?p=yall-js@3.2.0). As we saw in previous libraries, yall.js too supports 92% of browsers because of the `IntersectionObserver` API. You must note that there is no fallback if the browser does not support the `IntersectionObserver` API. You must use a polyfill in that case.
@@ -126,8 +98,6 @@ You can view the demos over [here](https://github.com/verlok/vanilla-lazyload/tr
 * Optimizes browser idle time with the help of the `requestIdleCallback` method
 * Supports a direct implementation of LQIP via `src` property
 * Supports lazy loading CSS backgrounds
-
----
 
 ## Layzr.js
 
@@ -142,8 +112,6 @@ You can view the demos over [here](https://github.com/verlok/vanilla-lazyload/tr
 You can view the demo over [here](http://callmecavs.com/layzr.js/).
 
 ![Layzr.js Demo — Screenshot by Author](https://cdn-images-1.medium.com/max/2654/1*nHQAXoOiLy5CGfsE5pdT8g.png)
-
----
 
 ## Blazy.js
 
@@ -165,8 +133,6 @@ You can view the demo over [here](http://dinbror.dk/blazy/?ref=github).
 
 ![Blazy.js Demo — Screenshot by Author](https://cdn-images-1.medium.com/max/2650/1*mJsrNbt7H3GpZDTEog4b_g.png)
 
----
-
 ## Responsively Lazy
 
 [Responsively lazy](https://github.com/ivopetkov/responsively-lazy) is a lazy loading library for images. It is very compact at a size of 1.1kB minified and gzipped. This library stands out from the crowd due to its syntax implementation. Most of the above libraries we’ve discussed require you to use the `noscript` tag for browsers that have javascript disabled, ignore `src` attribute, etc. But responsively lazy allows you to work with the traditional `src` attribute and add a `srcset` and `data-src` attributes for supported browsers. This enables this library to be SEO friendly. This library also uses Element.getBoundingClientRect() and therefore the forced layout reflows will be present in this library as well.
@@ -183,8 +149,6 @@ Furthermore, this library has almost 1.1K stars on Github and is supported by al
 You can view the demo over [here](http://ivopetkov.github.io/responsivelyLazy/).
 
 ![Responsively lazy demo — Screenshot by Author](https://cdn-images-1.medium.com/max/2000/1*Z3WoOAwwTdEsGJhPcEzQ0Q.png)
-
----
 
 ## LazyestLoad.js
 
@@ -211,8 +175,6 @@ Native lazy loading is supported in most modern browsers with support for Safari
 
 You might still need to implement one of the libraries if necessary using dynamic imports just to be safe.
 
----
-
 ## Why Should You Know Your Target Audience?
 
 If you sharply analyze all of the above-given libraries, you would notice that they heavily compete under three aspects: Performance, Size, and Browser Compatibility(User coverage). They often have to sacrifice at least one to get better at another.
@@ -232,19 +194,6 @@ This approach would help you use a well-performing implementation, keep the libr
 We have briefly discussed lazy loading libraries for JavaScript and some approaches for better efficiency and user experience. Let me know your thoughts in the comments below.
 
 Thank you for reading & happy coding!!
-
-## Learn More
-[**8 Performance Analysis Tools for Front-End Development**
-**Recommended tools to test and analyze your frontend code performance.**blog.bitsrc.io](https://blog.bitsrc.io/performance-analysis-tools-for-front-end-development-a7b3c1488876)
-[**Performance Metrics for Front-End Applications**
-**Better UX by focusing on the right metrics**blog.bitsrc.io](https://blog.bitsrc.io/performance-metrics-for-front-end-applications-a04fdfde217a)
-[**Website Optimization with New Media Formats**
-**Build faster, richer and engaging websites without any heavy burden on your consumers**blog.bitsrc.io](https://blog.bitsrc.io/website-optimization-with-media-formats-such-as-webp-and-webm-1df43bd252d)
-
-**Resources
-**[Web Dev](https://web.dev/native-lazy-loading/)
-[MDN Docs](https://developer.mozilla.org/en-US/)
-[Layout Reflows](https://gist.github.com/paulirish/5d52fb081b3570c81e3a)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
