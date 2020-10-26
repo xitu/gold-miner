@@ -2,10 +2,10 @@
 > * 原文作者：[Christian Hubbs](https://medium.com/@christiandhubbs)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md)
-> * 译者：
+> * 译者：[JohnieXu](https://github.com/JohnieXu)
 > * 校对者：
 
-# A Beginner’s Guide to Simulating Dynamical Systems with Python
+# 用 Python 模拟动力系统的初学者指南
 
 > Numerically Integrate ODEs in Python
 
