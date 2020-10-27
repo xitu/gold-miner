@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/responsive-font-size-using-vanilla-css.md](https://github.com/xitu/gold-miner/blob/master/article/2020/responsive-font-size-using-vanilla-css.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[HurryOwen](https://github.com/HurryOwen)、[JohnieXu](https://github.com/JohnieXu)
 
-# 使用原生 CSS 设置“响应式”字体
+# 使用原生 CSS 设置响应式字体
 
-有时需要根据屏幕宽度将字体大小比例进行适配操作。奇怪的是，我见过有人由于不能实现这个功能而烦躁地上蹿下跳。虽然有 [Ahmed Sakr](undefined) 在 [Medium](https://medium.com/javascript-in-plain-english/automatically-scale-font-sizes-with-rfs-ca22549cc802) 文章中所写的“RFS” ，尽管他的文章写得很好，概述了它是如何工作的，但在 CSS3 计算和比较时代，[RFS 本身却是过时的淘汰品](https://github.com/twbs/rfs)。
+有时需要根据屏幕宽度将字体大小比例进行适配操作。奇怪的是，我见过有人为了实现这个功能经历了重重困难。例如 [Ahmed Sakr](undefined) 在他的文章 [Medium](https://medium.com/javascript-in-plain-english/automatically-scale-font-sizes-with-rfs-ca22549cc802) 中概述的“ RFS ”的使用，尽管他很好地概述了“ RFS ”如何工作的，但在 CSS3 计算和比较时代，[RFS 本身却是过时的淘汰品](https://github.com/twbs/rfs)。
 
-尽管可悲的是，还有很多人在此类问题中存在使用 CSS 预处理器之类的荒谬做法，在这种情况下 — **与框架非常类似** — 创建此类系统的人**和使用这些系统的人**显然不够格编写 HTML 代码，更不用说应用 CSS 了，然后大言不惭地告诉别人如何做。
+不幸的是，这些问题在那些使用 CSS 预处理器的人中间很常见，而这些程序很像**框架**。 — 创建此类系统的人**和使用这些系统的人**显然不够格编写 HTML 代码，更不用说应用 CSS 了，然后大言不惭地告诉别人如何做。
 
 ## 数学计算
 
