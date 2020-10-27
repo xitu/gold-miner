@@ -2,66 +2,66 @@
 > * 原文作者：[Chidume Nnamdi 🔥💻🎵🎮](https://medium.com/@kurtwanger40)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/introduction-to-blitz-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/introduction-to-blitz-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
+> * 校对者：[JohnieXu](https://github.com/JohnieXu)、[zenblo](https://github.com/zenblo)
 
-# Introduction to Blitz.js
+# Blitz.js 简介：一个新兴的 React 全栈框架
 
 ![](https://cdn-images-1.medium.com/max/2800/0*UyEKhRBaINAtNNiB.png)
 
-Yet another framework on the block. It is no news that the JavaScript community has been growing steadily and with that hundreds of frameworks have been reeled out more than we can comprehend and keep up with.
+JavaScript 社区一直在稳步发展，并且已经推出了数百个框架，这无疑超出了我们的理解和掌握范围，但这并不是新鲜事。
 
-Now, most of the stable JavaScript frameworks have also frameworks built on top of them, to make them more sophisticated and highly performant.
+现在，大多数稳定的框架都有基于其进一步构建的框架，同时具有更好的性能以及变得更加复杂。
 
-In this post, we will be introducing the Blitz.js framework.
+在本文中，我们将会简单介绍 Blitz.js 框架。
 
-## Why do we need this blitz.js framework?
+## 为什么我们需要 Blitz.js 框架？
 
-Yes, React supercharges the way we build apps these days. The [component driven design](https://bit.dev) makes it very easy to build our app from a single unit of view upwards.
+React 增强了我们现在构建应用的方式。[组件驱动设计](https://bit.dev)使得我们更加容易从独立的单元向上构建应用。
 
-But then, building apps is more than stacks of components in React. We have to think through how to set up the configuration, the best design pattern to follow, how to set up our folder structure, how the app structure is organized, the routes/pages of the app, what database to use, and the server and the database schema model to use.
+但是，构建应用并不仅是在 React 中堆叠组件。我们还必须思考，如何设置配置、遵循最佳设计模式、设置文件夹结构、组织应用的结构、规划应用的路由/页面以及使用什么数据库，服务器和数据库模式模型。
 
-Deciding on all these things before writing even a single line of code is a serious headache.
+在编写代码前就要决定好上述的所有事情，实在是令人头疼。
 
-Blitz.js plugs all these holes for us, it scaffolds a full-stack monolithic server-side rendered(with Next.js) React app with all the configurations and backend already baked in. Just like the Rails framework does on Ruby.
+Blitz.js 为我们解决了以上的所有问题，它提供了一个完整的全栈服务器端渲染（基于 Next.js）React 应用程序脚手架，并内置了相应的配置和后端。就像 Rails 框架在 Ruby 上所做的那样。
 
-With these blitz.js makes us far more productive than we ever dreamed was possible.
+Blitz.js 带来的种种好处，所提高的生产力将远远超出我们的想象。
 
-Now, we have known why we need blitz.js. Let’s see more detailed features of it.
+现在，我们已经知道为什么需要 Blitz.js 了。让我们来看看它的详细功能。
 
 ## Blitz.js
 
-Blitz.js is a full-stack React framework with a zero-API data layer built on Next.js Inspired by Ruby on Rails.
+Blitz.js 是受 Ruby on Rails 启发，基于 Next.js 构建的零-API（Zero-API）数据层全栈 React 框架。
 
-Let’s see the main features and goodies of Blitz.js according to its creator’s words:
+让我们根据框架作者的话来看看 Blitz.js 的主要功能和优点：
 
-1. “Zero-API” data layer lets you import server code directly into your React components instead of having to manually add API endpoints and do the client-side fetching and caching.
-2. Includes everything you need for production apps. Everything end-to-end from the database to the frontend.
-3. Brings back the simplicity and conventions of frameworks like Ruby on Rails while preserving everything we love about React
+1. “Zero-API” 数据层让你无需手动添加 API 端点（API endpoints）或进行客户端访问和缓存就能直接将服务器代码导入到 React 组件中。
+2. 包含了产品级应用所需的一切事物。从数据库到前端的一切的端对端事物。
+3. 带来 Ruby on Rails 框架的简洁和约定的同时，保留了我们对 React 中所热爱的一切事物。
 
-#### Installation & Basic usage
+#### 安装 & 基础用法
 
-To get started with Blitz.js we first have to install the CLI tool.
+在开始使用 Blitz.js 之前，我们需要安装命令行工具。
 
-Note that Blitz.js runs on Nodejs v12+.
+Blitz.js 需运行在 Nodejs v12+ 的环境下。
 
-We install the Blitz.js CLI tool globally in our machine.
+我们在计算机上全局安装 Blitz.js 的命令行工具。
 
 ```bash
 npm install -g blitz
 ```
 
-With this, we can use the `blitz` command from any directory in our machine.
+安装以后，我们就可以在任意目录中使用 `blitz` 命令了。
 
-To create a new Blitzjs app we use the new arg in the blitz command:
+为了创建一个新的 Blitzjs 应用，在 blitz 命令中加上 new 参数：
 
 ```bash
 blitz new blitz-app
 ```
 
-The `new` sub-command creates a new Blitz project with `blitz-app` as its name.
+`new` 次级命令（sub-command）会创建一个以 `blitz-app` 为名的 Blitz 新项目。
 
-Let’s look at the `blitz-app` directory:
+来看看 `blitz-app` 目录结构:
 
 ```
 blitz-app
@@ -97,21 +97,21 @@ blitz-app
 └── yarn.lock
 ```
 
-The `app/` directory is the main container for most of your projects. This is where your application components, pages, routes stay. It is just like the `src` of your app.
+`app/` 目录是项目文件的主要容器，是放置应用组件，页面和路由的地方。如同你的应用中 `src` 目录。
 
-The `app/components` directory is where presentational will reside. Presentational components are independent single view units, they only work is to display the data passed to them by the container components.
+`app/components` 目录用来存放展示组件（presentational components）。展示组件是独立的视图单元，它们唯一的用处就是显示容器组件（container components）传递给它们的数据。
 
-The `app/pages` directory is where the routes reside. Each page is associated with a route based on its file name. In Blitz, a page is a React Component exported from a `.js`, `.jsx`, `.ts`, or `.tsx` file in a pages directory.
+`app/pages` 目录用来存放页面路由。每个页面都是基于文件名和路由产生关联。在 Blitz 中，页面就源于从 pages 目录中 `.js`、`.jsx`、`.ts` 或 `.tsx` 文件导出的 React 组件。
 
-For example, if we have routes in our app like this:
+举个例子，如果在我们的应用中有如下的路由：
 
 * /post
 * /profile
 * /about
 
-Then, Blitzjs will have the following folders and files in the pages directory
+那么，在 Blitzjs 的 pages 目录中应有如下的文件夹和文件。
 
-`pages/post/index.js` this exports a component that will be rendered when is the route "/post" is navigated to.
+当导航到 "/post" 路由时，`pages/post/index.js` 导出的组件会被渲染。
 
 ```js
 // pages/post/index.js
@@ -123,7 +123,7 @@ function Post() {
 export default Post
 ```
 
-pages/profile/index.js maps to the `/profile` route. The pages/profile/index.js exports a React component that will render when the route is navigated to.
+`pages/profile/index.js` 映射到 `/profile` 路由。`pages/profile/index.js` 导出的组件会在路由被导航到时渲染。
 
 ```js
 // pages/profile/index.js
@@ -135,7 +135,7 @@ function Profile() {
 export default Profile
 ```
 
-`pages/about/index.js` maps to the `/about` route.
+`pages/about/index.js` 映射到 `/about` 路由。
 
 ```js
 // pages/about/index.js
@@ -146,7 +146,7 @@ function About() {
 export default About
 ```
 
-The `db/` is where the app's database configuration goes. By default, Blitz uses Prisma 2 which is a strongly-typed database client. You can use anything you want, such as Mongo, TypeORM, etc. By default, Blitz uses the local SQLite as the database.
+`db/` 目录用于存放应用的数据库配置。默认情况下，Blitz 使用 Prisma 2（一个强类型数据库客户端）。你可以使用你想用的任何数据库，比如：Mongo，TypeORM 等等。默认情况下，Blitz 使用 SQLite 作为它的数据库。
 
 ```ts
 datasource db {
@@ -155,7 +155,7 @@ datasource db {
 }
 ```
 
-The `provider` tells Prisma that the app uses the SQLite database. If we want to use other databases like Postgres for example we will change the value of `provider` from `sqlite` to `postgres`.
+`provider` 告诉 Prisma，应用使用 SQLite 数据库。如果我们想使用其他的数据库，以 Postgres 为例，我们可以将 `provider` 的值从 `sqlite` 改成 `postgres`。
 
 ```ts
 datasource db {
@@ -164,7 +164,7 @@ datasource db {
 }
 ```
 
-In this schema.prisma file we can define our models:
+在 schema.prisma 文件中，我们可以定义我们的数据库模型：
 
 ```ts
 datasource db {
@@ -179,27 +179,27 @@ model BlogPost {
 }
 ```
 
-The models map to the tables in the database.
+模型（models）映射到位于数据库中的表（tables）。
 
-The `node_modules/` directory holds the dependencies installed in your project. This is very much quite heavy in size.
+`node_modules/` 目录存放了你的项目中安装的所有依赖。它的文件体积非常大。
 
-The `public/` directory holds the static assets. The static assets are media files like images, music, video files, favicons, etc.
+`public/` 目录用于存放静态资源文件，主要是一些图片、音乐、视频、图标等的媒体文件。
 
-The `utils/` directory houses the utility files that can be shared or used in the whole app.
+`utils/` 目录存放了可以在整个应用中共享或使用的通用文件。
 
-`blitz.config.js` is a Blitzjs configuration file. All the custom configurations for your Blitz app is set here. It extends `next.config.js`.
+`blitz.config.js` 是 Blitzjs 的配置文件。所有用于 Blitz 应用的自定义配置都可以在这里设置。此文件继承了 `next.config.js` 文件。
 
-## Server
+## 服务器（Server）
 
-We can start the Blitz server to serve our project by running the command:
+我们可以通过以下的命令开启 Blitz 服务器来运行我们的项目： 
 
 ```bash
 blitz start
 ```
 
-Note: you must be inside the `blitz-app` directory for the command to load and serve our app.
+注意：你必须位于 `blitz-app` 目录中，才能让命令能加载和运行我们的应用。
 
-Now, we will see the following output:
+现在，我们将会看到以下的输出：
 
 ```
 ✔ Prepped for launch
@@ -211,33 +211,33 @@ Now, we will see the following output:
 [ ready ] compiled successfully - ready on http://localhost:3000
 ```
 
-We see that Blitz has compiled and started a server at localhost:3000 to serve our app. Now navigate to [http://localhost:3000](http://localhost:3000) to see the Blitz rendered.
+我们看到 Blitz 编译成功并开启了一个服务器在 localhost:3000 运行我们的应用程序。现在浏览 [http://localhost:3000](http://localhost:3000) 来看看 Blitz 渲染的结果。
 
-## Blitz generate
+## Blitz 生成（generate）
 
-The Blitz CLI tool is quite automated. With this CLI tool, we can use the `generate` sub-command to scaffold all code we want in our Blitz app.
+Blitz 的命令行工具具有高度的自动化。通过使用命令行工具，我们可以用 `generate` 次级命令以在我们的 Blitz 应用中为所有的代码提供脚手架。
 
-It goes like this:
+命令的格式如下：
 
 ```
 blitz generate <type> <model_name>
 ```
 
-The blitz ‘generate’ command can scaffold/generate Prisma models, mutations, queries, pages.
+`generate` 命令可以生成 Prisma 的 models，mutations，queries 以及 pages 文件。
 
-The `\<type>` argument specifies the type of file to generate.
+`\<type>` 参数指定要生成的文件的类型。
 
-The `\<type>` can have the following values:
+`\<type>` 可以有如下的取值：
 
-`all`: These generate model, queries, mutations, pages files.
+`all`：用于生成 models，mutations，queries 以及 pages 文件。
 
-Example:
+举例：
 
 ```bash
 blitz generate all blogPost
 ```
 
-See we used the `all` sub-command. This command will generate these files:
+我们使用了 `all` 次级命令。这个命令会生成如下的文件：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -252,7 +252,7 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-The `all` sub-command generates pages for the blogPost:
+`all` 次级命令为 blogPost 生成 pages：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -261,22 +261,22 @@ app/blogPosts/pages/blogPosts/index.tsx
 app/blogPosts/pages/blogPosts/new.tsx
 ```
 
-All these files export components that will be rendered when the route matching the page is navigated to.
+当路由匹配浏览到的页面时，这些文件导出的对应组件就会被渲染。
 
-app/blogPosts/pages/blogPosts/index.tsx will be loaded when the route `/blogPosts` is navigated to in the browser. It will render all blog posts in the database.
+`app/blogPosts/pages/blogPosts/index.tsx` 会被加载，当在浏览器中导航至 `/blogPosts` 路由时。它会渲染数据库中所有的博客文章。
 
-app/blogPosts/pages/blogPosts/new.tsx will be loaded on `/blogPosts/new` route navigation. The page will be to create a new blog post.
+`app/blogPosts/pages/blogPosts/new.tsx` 会在导航至 `/blogPosts/new` 路由时被加载，此页面用来创建一个新的博客文章。
 
-app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx will be loaded on `/blogPosts/[blogPostId]/edit` route navigation. This will be to edit a blog post with its id `[blogPostId]`.
+`app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx` 会在导航至 `/blogPosts/[blogPostId]/edit` 路由时被加载，用于编辑 id 为 `[blogPostId]` 的博客文章。
 
-app/blogPosts/pages/blogPosts/[blogPostId].tsx will be loaded on `/blogPosts/[blogPostId]` route navigation. This will render the blog post by its id `[blogPostId]`.
+`app/blogPosts/pages/blogPosts/[blogPostId].tsx` 在导航至 `/blogPosts/[blogPostId]` 路由时加载，相应的页面会渲染 id 为 `[blogPostId]` 的博客文章。
 
 ```
 app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-The queries houses files that retrieve a blog post or blog posts. app/blogPosts/queries/getBlogPost.ts returns a blog post given the blog post id. app/blogPosts/queries/getBlogPosts.ts retrieves all the blog posts in the database.
+`queries` 目录存放用于检索博客文章的文件。`app/blogPosts/queries/getBlogPost.ts` 基于博客文章的 id 返回一篇博客。`app/blogPosts/queries/getBlogPosts.ts` 用于获取数据库中所有的博客文章。
 
 ```
 app/blogPosts/mutations/createBlogPost.ts
@@ -284,17 +284,17 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-The mutations do the CUD in CRUD, they can create, update, or delete a blog post. app/blogPosts/mutations/createBlogPost.ts this file creates a new blog post. app/blogPosts/mutations/deleteBlogPost.ts delete a blog post given the id. app/blogPosts/mutations/updateBlogPost.ts edit a given blog post.
+`mutations` 做着 CRUD 中 CUD 的事情，可以用于创建，更新或删除一篇博客文章。`app/blogPosts/mutations/createBlogPost.ts` 文件用于创建博客文章。`app/blogPosts/mutations/deleteBlogPost.ts` 基于给定的 id 删除博客文章。`app/blogPosts/mutations/updateBlogPost.ts` 用于编辑指定的博客文章。
 
-`resource`: This sub-command creates model, queries, and mutations.
+`resource`：这个次级命令用于创建 models，mutations 以及 queries 文件。
 
-Example:
+例子：
 
 ```bash
 blitz generate resource blogPost
 ```
 
-This command will generate these files:
+命令创建的文件如下：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
@@ -304,15 +304,15 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`crud`: This will create queries and mutations. Unlike `resource` it will generate the Prisma model.
+`crud`：用于创建 mutations 和 queries。不同于 `resource` ，它不会生成 Prisma 的 model 文件。
 
-Example:
+示例：
 
 ```bash
 blitz generate crud blogPost
 ```
 
-This command will generate these files:
+命令生成的文件如下：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
@@ -322,30 +322,30 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`queries` and `query`: This sub-commands will only generate queries files:
+`queries` 和 `query`：这个次级命令只会生成 queries 文件：
 
-Example:
+示例：
 
 ```bash
 blitz generate queries blogPost
 ```
 
-This command will generate these files:
+这个命令会生成如下的文件：
 
 ```
 app/blogPosts/queries/getBlogPost.ts
 app/blogPosts/queries/getBlogPosts.ts
 ```
 
-`mutations`: This sub-command will generate mutations files only. No queries, pages, and models.
+`mutations`：这个次级命令只会生成 mutations 文件。没有 queries，pages 或 models 文件。
 
-Example:
+举例：
 
 ```bash
 blitz generate mutations blogPost
 ```
 
-This command will generate these files:
+命令生成的文件如下：
 
 ```
 app/blogPosts/mutations/createBlogPost.ts
@@ -353,15 +353,15 @@ app/blogPosts/mutations/deleteBlogPost.ts
 app/blogPosts/mutations/updateBlogPost.ts
 ```
 
-`pages`: This sub-command will generate only pages files.
+`pages`：这个次级命令只会生成 pages 文件。
 
-Example:
+示例：
 
 ```bash
 blitz generate pages blogPost
 ```
 
-This command will generate these files:
+这个命令只会生成下面的文件：
 
 ```
 app/blogPosts/pages/blogPosts/[blogPostId]/edit.tsx
@@ -370,26 +370,25 @@ app/blogPosts/pages/blogPosts/index.tsx
 app/blogPosts/pages/blogPosts/new.tsx
 ```
 
-The `\<model_name>` argument is the model name to generate files for.
+`\<model_name>` 参数是待生成的文件的 model 名。
 
-## Conclusion
+## 总结
 
-Let’s tick them off. Blitz.js offers us:
+让我们来总结一下，Blitz.js 为我们提供了：
 
-* Easy page routing
-* Database setup and integration
-* SSR-enabled application
-* Built-in authentication
+* 易用的页面路由
+* 数据库的设置与集成
+* 支持服务器端渲染（SSR）
+* 内置用户权限认证
 
-Blitzjs is awesome. How it made everything simple for us is quite amazing. Just scaffold your project and your good to go!!
+Blitzjs 是一个非常好的框架。它让一切事情都变得简单起来了，这真的是令人惊叹。只需用相应的脚手架就可以开发你的项目了！！
 
-If you have any questions regarding this or anything I should add, correct or remove, feel free to comment, email, or DM me.
+感谢您的阅读！！！
 
-Thanks !!!
-
-## Blitz resources
+## Blitz 的相关资源
 
 [Blitz.js — The Fullstack React Framework](https://blitzjs.com)
+
 [Getting Started with Blitz](https://blitzjs.com/docs/getting-started)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
