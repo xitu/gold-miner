@@ -7,8 +7,6 @@
 
 # Why Deno is Perfectly Ready To Take Over Node.js Now
 
-#### 6 reasons why Deno is better than Node.js
-
 ![Photo by [Thao Le Hoang](https://unsplash.com/@h4x0r3) on [Unsplash](https://unsplash.com/).](https://cdn-images-1.medium.com/max/2000/0*NGYfX_xdVnytqcM1)
 
 Deno is a brand new way to write server-side JavaScript. It solves many of the same problems as Node.js. It was even created by the same programmer who created Node.js. Much like Node, it uses the v8 JavaScript engine under the hood. However, the rest of the runtime is implemented in Rust and JavaScript. Since it was announced, Deno has managed to achieve quite a bit of popularity. You can see it by checking its GitHub repository.
@@ -17,19 +15,19 @@ Deno is a brand new way to write server-side JavaScript. It solves many of the s
 
 Before digging in, let’s set up our machine with the mighty and secure Deno. For Mac and Linux using the shell, run:
 
-```
+```bash
 curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
 For Windows using power shell, run:
 
-```
+```cmd
 iwr https://deno.land/x/install/install.ps1 -useb | iex
 ```
 
 Also, you can install Deno using package managers such as Homebrew (Mac), [Chocolatey](https://chocolatey.org/packages/deno) (Windows), scoop(Windows), and cargo:
 
-```
+```bash
 brew install deno
 
 choco install deno
@@ -43,13 +41,13 @@ Our journey into Deno begins in a single TypeScript file. In this file, we have 
 
 Let’s create a TypeScript file named main.ts in a working directory. Then, console.log the current working directory of the file system:
 
-```
+```js
 console.log(Deno.cwd());
 ```
 
 We can execute our script with the following command:
 
-```
+```bash
 deno run main.ts
 ```
 
@@ -65,7 +63,7 @@ Deno takes a great stance on security by having these permissions built-in. You 
 
 So, we need to give permission to perform different actions in the runtime. Here, we can use the allow-read flag to allow this operation:
 
-```
+```bash
 deno run — allow-read main.ts
 ```
 
@@ -77,7 +75,7 @@ It feels as though Deno’s developers have given much more attention to securit
 
 As you can see, we can make a network request using the fetch API just like we do it in the browser. Because it supports top-level wait, we don’t even need an async function here. Not only that, but we can also start resolving promises without any extra boilerplate code:
 
-```
+```js
 const url = Deno.args[0];
 
 const res = await fetch(url);
@@ -87,13 +85,13 @@ const res = await fetch(url);
 
 Deno contains a window object with lifecycle events that developers can listen to. Obviously, this makes the developer’s life easier:
 
-```
+```js
 window.onload = e => console.log(‘good bye nodejs’);
 ```
 
 Oh, wait! I forgot to mention that it can also execute web assembly binaries. According to [its own website](https://webassembly.org/), “WebAssembly (abbreviated **Wasm**) is a binary instruction format for a stack-based virtual machine.”
 
-```
+```js
 const wbs = new Uint8Array([61,63,73]);
 
 const wsm = new WebAssembly.Module(wbs);
@@ -113,7 +111,7 @@ Instead, we import packages using the modern ES module syntax. Here, remote modu
 
 As I mentioned before, there is no Node modules folder. All of that is just handled in the background for you. All of your dependencies are saved in a central location on your computer, so you don’t have to worry about having this massive modules folder or this really unwieldy package.json:
 
-```
+```js
 import { Response } from “https://deno.land/std@0.63.0/http/server.ts";
 
 import { Server } from “https://deno.land/std@0.63.0/http/server.ts";
