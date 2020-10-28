@@ -7,11 +7,7 @@
 
 # A High-Level Overview of Load Balancing Algorithms
 
-#### Which one is right for your deploy needs?
-
 ![Photo by [Martin Sanchez](https://unsplash.com/@martinsanchez?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*5Q1kzxdcs6WZv19y)
-
----
 
 ## Introduction
 
@@ -21,8 +17,6 @@
 * Prevents server overloading
 * Performs health checks for the servers
 * Provisions new server instances in the face of large traffic
-
----
 
 ## Types of Load Balancing Algorithms
 
@@ -34,8 +28,6 @@ The different types of LB algorithms are effective in distributing the network t
 
 * The network layer traffic is routed by LB based on TCP port, IP addresses, etc.
 * The application layer traffic is routed based on various additional attributes like HTTP header, SSL, and it even provides content switching capabilities to LBs.
-
----
 
 ## Network Layer Algorithms
 
@@ -73,15 +65,11 @@ There are a few other algorithms as well, which are as follows:
 * **Least-packets algorithm:** Similar to above, the server that is transmitting the least number of packets is chosen by the load balancer to redirect traffic.
 * **Custom-load algorithm:** The load balancer selects the server based on the current load on it, which can be determined by memory, processing unit usage, response time, number of requests, etc.
 
----
-
 ## Application Layer Algorithms
 
 At this layer, traffic can be distributed based on the contents of the request; hence, a much more informed decision can be made by LBs. The server response can be tracked as well since it has traveled all the way from the server, and this helps in determining the server load much more effectively.
 
 One of the most significant algorithms used at this layer is the **least-pending-request algorithm**. This algorithm directs the traffic of pending HTTP(s) requests to the most available server. This algorithm is helpful in adjusting the sudden spike in requests by monitoring the server load.
-
----
 
 ## Conclusion
 
