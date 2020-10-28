@@ -7,10 +7,6 @@
 
 # Is Deno Already Dead?
 
-#### Dev Opinions
-
-#### Some reasons for the disappeared hype
-
 ![Source: the author](https://cdn-images-1.medium.com/max/2800/1*UH9zLe8rjJI9lFpj44yYDA.png)
 
 In May of this year, not only was the coronavirus in the center of attention — in the JavaScript and backend-development community, Deno spread. The first stable version was there, and already a huge hype broke out. I, too, immediately got involved with Deno and was looking forward to trying something new.
