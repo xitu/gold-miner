@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/top-image-lazy-loading-libraries-for-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/top-image-lazy-loading-libraries-for-javascript.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[rocwong-cn](https://github.com/rocwong-cn)
 
 # 分享九个流行 JavaScript 图片懒加载库
 
@@ -13,7 +13,7 @@
 
 在 web 应用程序中性能至关重要。你可以拥有世界上最漂亮、最吸引人的网站，但如果它不能在浏览器上快速加载，人们会倾向于略过它。要想使你的网站表现得非常好，可能相当棘手。这是因为 web 开发中存在许多瓶颈，例如高代价的 JavaScript、缓慢的 web 字体显示、笨重的图片资源等等。
 
-本文我们主要关注图片资源对网站的影响。根据 [Jecelyn](https://twitter.com/jecelynyeen) 研究，一个网页仅用于加载图片平均就要消耗 5MB 的数据。这对用户来说可能是一个沉重的负担，因为在某些国家，特别是在移动数据方面的耗费可能非常昂贵。用户也会遇到站点加载时间过久的问题，尤其是在网速较慢的情况下。这些都会对你的网站产生负面影响。
+本文我们主要关注图片资源对网站的影响。根据 [Jecelyn](https://twitter.com/jecelynyeen) 研究，一个网页仅用于加载图片平均就要消耗 5MB 的数据。这对用户来说可能是一个沉重的负担，因为某些国家的移动数据非常昂贵。用户也会遇到站点加载时间过久的问题，尤其是在网速较慢的情况下。这些都会对你的网站产生负面影响。
 
 根据 [Jakob Nielson](https://www.nngroup.com/articles/website-response-times/) 研究，以下是一些你应该记住的重要统计数据：
 
@@ -22,7 +22,7 @@
 * 47% 的消费者希望网页在两秒钟或更短的时间内加载完成。
 * 40% 的消费者在放弃网站之前，将等待不超过 3 秒加载时间。
 
-## 图片懒加载是什么
+## 懒加载是什么
 
 有几种策略可以为网站的图片资源提供高效服务，而不会影响性能和质量，懒加载就是其中之一。懒加载是指只加载所需的内容，并将其余内容延迟到需要的时候。这个策略可以应用于图片、视频、文本和其他类型的数据。但大多数情况下，它适用于图片资源等笨重内容。
 
@@ -35,7 +35,7 @@
 #### 特点
 
 * 包含对响应式图片的支持。
-* 通过用户代理检测优化搜索引擎并立即加载所有图片。
+* 通过在用户代理的帮助下检测搜索引擎并立即加载所有图像，从而优化 SEO。
 * 基于高效实用的代码。
 * 当网络连接空闲时预先加载资源。
 * 包含对 LQIPs 的支持。
@@ -49,7 +49,7 @@
 
 ## Lozad.js
 
-[Lozad.js](https://github.com/ApoorvSaxena/lozad.js) 支持图片、`iframe`、广告、视频和其他元素的懒加载。它在 Github 上拥有近 6.4K 收藏，在社区里非常受欢迎。据研究小组称，这个库被特斯拉、多米诺、小米和 BBC 等几个品牌的网络应用程序所使用。它非常小巧，压缩后只有 [1.1kB](https://bundlephobia.com/result?p=lozad@1.16.0)。它支持几乎 92% 的浏览器用户，因为它使用 `IntersectionObserver` API 和 `MutationObserver` API。
+[Lozad.js](https://github.com/ApoorvSaxena/lozad.js) 支持图片、`iframe`、广告、视频和其他元素的懒加载。它在 Github 上拥有近 6.4K 收藏，在社区里非常受欢迎。据研究小组称，这个库被特斯拉、多米诺、小米和 BBC 等几个品牌的网络应用程序所使用。它非常小巧，压缩后只有 [1.1kB](https://bundlephobia.com/result?p=lozad@1.16.0)。由于它使用 `IntersectionObserver` API 和 `MutationObserver` API，所以它支持大约 92% 的浏览器用户。
 
 #### 特点
 
@@ -58,7 +58,7 @@
 * 完全使用 JavaScript。
 * 包含对 LQIPs 和响应图片的支持。
 * 比使用 `getBoundingClientRect()` 的库更高效。
-* 可以在不受支持的浏览器上使用。
+* Polyfills 可以在不受支持的浏览器上使用。
 
 你可以在[这里](https://apoorv.pro/lozad.js/demo/)查看示例。
 
@@ -66,20 +66,20 @@
 
 ## Tuupola 的 Lazyload
 
-[Tuupola 的 Lazyload](https://github.com/tuupola/lazyload) 是 Github 上另一个流行的图片懒加载库，有近 8.4K 收藏。它使用了 `IntersectionObserver` API，并且简单易用。压缩后仅有 [956 bytes](https://bundlephobia.com/result?p=lazyload@2.0.0-rc.2)，比其他的库都小。但这可以归因于只使用了 `IntersectionObserver` API，因为其他库使用别的组合来实现更好的兼容性和性能。此外，由于这一点，目前 92% 的浏览器用户都支持它。
+[Tuupola 的 Lazyload](https://github.com/tuupola/lazyload) 是 Github 上另一个流行的图片懒加载库，有近 8.4K 收藏。它使用了 `IntersectionObserver` API，并且简单易用。压缩后仅有 [956 bytes](https://bundlephobia.com/result?p=lazyload@2.0.0-rc.2)，比其他的库都小。这可以归功于它只使用了 `IntersectionObserver` API，因为其他库使用了别的组合来实现更好的兼容性和性能。此外，由于这一点，目前 92% 的浏览器用户都支持它。
 
 #### 特点
 
-* 为了方便起见，包含一个 jQuery 包装器。
+* 为了方便起见，它包含了一个 jQuery 包装器。
 * 包括对 LQIPs 和响应图片的支持。
 * 可以通过传递其他参数来配置核心 `IntersectionObserver` API。
 
 ## Andrea Verlicchi 的 Vanilla Lazyload
 
-[Vanilla lazy load](https://github.com/verlok/vanilla-lazyload) 是另一个用于延迟加载图片、视频和框架的纯粹 JavaScript 库。它在 Github 上非常受欢迎，有将近 1500 个存储库和包可供使用。它在 NPM 中每年有超过 190 万次的下载。把它压缩后仅有 [2.7kB](https://bundlephobia.com/result?p=vanilla-lazyload@17.1.2)。与其他库类似，该库使用 `IntersectionObserver` API，92% 的浏览器用户支持该库。
+[Vanilla lazy load](https://github.com/verlok/vanilla-lazyload) 是另一个用于延迟加载图片、视频和 iframe 的纯粹 JavaScript 库。它在 Github 上非常受欢迎，有将近 1500 个存储库和包可供使用。它在 NPM 中每年有超过 190 万次的下载。把它压缩后仅有 [2.7kB](https://bundlephobia.com/result?p=vanilla-lazyload@17.1.2)。与其他库类似，该库使用 `IntersectionObserver` API，92% 的浏览器用户支持该库。
 
 * 搜索引擎优化友好，因为库不从搜索引擎覆盖图片。
-* 支持不稳定的连接，因为库会在连接中断后自动重新加载图片。
+* 支持不稳定的网络连接，因为库会在连接中断后自动重新加载图片。
 * 如果图片退出视口，则取消加载图片。
 * 包含对 LQIPs 和响应图片的支持。
 * 完全使用 JavaScript。
@@ -90,7 +90,7 @@
 
 ## Yall.js
 
-[Yall.js](https://github.com/malchata/yall.js) 是另外一个 JavaScript 库，也只使用 `IntersectionObserver` API 来延迟加载图片、视频、`iframe` 和 CSS 背景图片。这个库大约有 1.1K 收藏，并且有 91 个用户在其项目库中使用。这个库可以压缩到 [1kB](https://bundlephobia.com/result?p=yall-js@3.2.0)。正如我们在以前的库中所见，因为使用了 `IntersectionObserver` API，Yall.js 也支持 92% 的浏览器用户。必须注意，如果浏览器不支持 `IntersectionObserver` API，则不会有备份。在那种情况下你必须用 `polyfill` 填充。
+[Yall.js](https://github.com/malchata/yall.js) 是另外一个 JavaScript 库，也只使用 `IntersectionObserver` API 来延迟加载图片、视频、`iframe` 和 CSS 背景图片。这个库大约有 1.1K 收藏，并且有 91 个用户在其项目库中使用。这个库可以压缩到 [1kB](https://bundlephobia.com/result?p=yall-js@3.2.0)。正如我们在以前的库中所见，因为使用了 `IntersectionObserver` API，Yall.js 也支持 92% 的浏览器用户。必须注意，如果浏览器不支持 `IntersectionObserver` API，则不会有备份。在那种情况下你必须用 `polyfill` 。
 
 #### 特点
 
@@ -135,13 +135,13 @@
 
 ## Responsively Lazy
 
-[Responsively lazy](https://github.com/ivopetkov/responsively-lazy) 也是用于图片的懒加载库。它非常紧凑，压缩后只有 1.1kB。由于它的鲜明语法实现，这个库从众多库中脱颖而出。上面我们讨论过的大多数库都要求您对禁用 javascript 的浏览器使用 `noscript` 标记，忽略 `src` 属性等。但是 lazy 可以使用传统的 `src` 属性，并为受支持的浏览器添加 `srcset` 和 `data-src` 属性。这使得这个库对搜索引擎优化（SEO）友好。这个库也使用 `Element.getBoundingClientRect()` 因此，因此强制布局重排也将出现在该库中。
+[Responsively lazy](https://github.com/ivopetkov/responsively-lazy) 也是用于图片的懒加载库。它的内容简洁，压缩后只有 1.1kB。由于它良好的语法实现，让其从众多库中脱颖而出。上面我们讨论过的大多数库都要求您对禁用 javascript 的浏览器使用 `noscript` 标记，忽略 `src` 属性等。但是 lazy 可以使用传统的 `src` 属性，并为受支持的浏览器添加 `srcset` 和 `data-src` 属性。这使得这个库对搜索引擎优化（SEO）友好。这个库也使用 `Element.getBoundingClientRect()` 因此，因此强制布局重排也将出现在该库中。
 
 此外，这个库在 Github 上有近 1.1K 收藏，几乎 95% 的浏览器用户都支持这个库。
 
 #### 特点
 
-* 支持响应图片。
+* 支持响应式图片。
 * 支持 webp。
 * 对搜索引擎优化（SEO）友好。
 * 可用的自定义项不多。
@@ -152,7 +152,7 @@
 
 ## LazyestLoad.js
 
-[LazyestLoad.js](https://github.com/Paul-Browne/lazyestload.js) 是此列表中最小的库之一。它以 700 字节和 639 字节的压缩大小提供服务。这个库有两个版本，`lazyload` 和 `lazyestload`。它们都有不同的用法，`lazyload` 版本的工作方式与普通库类似，图片将在其即将进入视口时加载；但是 `lazyestload` 版本只在用户停止滚动时才加载图片，当图片在视口中或在 100 像素以内时。这有助于减少网络负荷，如果用户只是滚动而不暂停看图片。
+[LazyestLoad.js](https://github.com/Paul-Browne/lazyestload.js) 是此列表中最小的库之一。它只有 700 字节，压缩后仅仅 639 字节。这个库有两个版本，`lazyload` 和 `lazyestload`。它们都有不同的用法，`lazyload` 版本的工作方式与普通库类似，图片将在其即将进入视口时加载；但是 `lazyestload` 版本只在用户停止滚动且图片在视口中或在 100 像素以内时，才会加载图片。这有助于减少网络负荷，如果用户只是滚动而不暂停看图片。
 
 它主要使用 `Element.getBoundingClientRect()` 方法，与其他实现相比效率不高，还有众所周知的[触发布局重排](https://gist.github.com/paulirish/5d52fb081b3570c81e3a)。
 
@@ -162,16 +162,16 @@
 
 * 简单直截了当。
 * 不允许像其他库一样进行大量自定义。
-* 支持响应图片。
-* 记录不充分。
+* 支持响应式图片。
+* 文档不够详细。
 
 你可以查看 [lazyload 示例](https://rawgit.com/Paul-Browne/lazyestload.js/master/dist/lazyload.html)和查看 [lazyestload 示例](https://rawgit.com/Paul-Browne/lazyestload.js/master/dist/lazyestload.html)。
 
 ---
 
-由于大多数现代浏览器都支持本机懒加载，因此建议使用本机实现。这种实现消除了对我们上面讨论过的任何其他库的需要。本机懒加载还可以确保即使在浏览器中禁用 JavaScript，图片也可以延迟加载。只需在 `img` 标记中使用 `loading="lazy"` 属性，就可以省去所有麻烦。
+随着大多数现代浏览器都将支持原生的懒加载，因此建议使用原生实现。原生懒加载还可以确保即使在浏览器中禁用 JavaScript，图片也可以延迟加载。只需在 `img` 标记中使用 `loading="lazy"` 属性，就可以省去所有麻烦。
 
-大多数现代浏览器都支持本机懒加载，对 Safari 的支持都很接近。目前，浏览器支持率为 [74%](https://caniuse.com/loading-lazy-attr)，如果浏览器不支持本机实现则可以使用 [polyfill](https://github.com/mfranzke/loading-attribute-polyfill) 或者上述懒加载库中的某个库。
+大多数现代浏览器都支持原生懒加载，并且也即将支持 Safari 浏览器。目前，浏览器的支持率为 [74%](https://caniuse.com/loading-lazy-attr)，如果浏览器不支持原生实现则可以使用 [polyfill](https://github.com/mfranzke/loading-attribute-polyfill) 或者上述懒加载库中的某个库。
 
 为了安全起见，您可能仍需要使用动态导入来实现其中一个库。
 
@@ -185,7 +185,7 @@
 
 **如何将兼容性问题降至最低并最大限度地提高性能？**
 
-可以通过了解目标受众及其浏览器使用情况来改进这些方面。如果你知道你的读者和他们使用的浏览器，你可以确保你的延迟加载的实现更适合那些浏览器版本。这将减少对不受支持的浏览器包含 `polyfill` 的需要，因为已经知道需要关注哪些浏览器。当你有一个异常值（不支持的浏览器），图片可以直接加载没有任何延迟或延迟。如果你对受众有很好的了解，那么这些异常值的数量将可以忽略不计。
+可以通过了解目标受众及其浏览器使用情况来改进这些方面。如果你知道你的目标受众和他们使用的浏览器，你可以确保你的延迟加载的实现更适合那些浏览器版本。这将减少对不受支持的浏览器包含 `polyfill` 的需要，因为已经知道需要关注哪些浏览器。当你有一个异常值（不支持的浏览器），图片可以直接加载没有任何延迟或延迟。如果你对受众有很好的了解，那么这些异常值的数量将可以忽略不计。
 
 这种方法将有助于使用性能良好的实现库，通过忽略浏览器异常将库大小保持在最小值，并支持目标用户的浏览器版本。
 
