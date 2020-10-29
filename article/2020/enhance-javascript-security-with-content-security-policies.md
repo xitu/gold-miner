@@ -1,3 +1,4 @@
+> * 原文地址：[Enhance JavaScript Security with Content Security Policies](https://blog.bitsrc.io/enhance-javascript-security-with-content-security-policies-5847e5def227)
 > * 原文作者：[Ashan Fernando](https://medium.com/@ashan.fernando)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/enhance-javascript-security-with-content-security-policies.md](https://github.com/xitu/gold-miner/blob/master/article/2020/enhance-javascript-security-with-content-security-policies.md)
@@ -12,11 +13,14 @@
 
 尽管我们对执行环境的控制很少，但至关重要的是确保 JavaScript 的安全性并对执行的操作进行控制。
 
-> 您是否可以确保操作浏览器遵守一系列准则并执行 JavaScript 代码？阅读本文之后，您将了解内容安全策略的常见属性，以及如何使用它们在运行时保护 JavaScript 代码。
+> 您是否可以确保操作浏览器遵守一系列准则并执行 JavaScript 代码？
+
+阅读本文之后，您将了解内容安全策略的常见属性，以及如何使用它们在运行时保护 JavaScript 代码。
 
 ## 内容安全策略
 
 > **内容安全策略** （[CSP](https://developer.mozilla.org/en-US/docs/Glossary/CSP)）是安全性的附加层，有助于检测和缓解某些类型的攻击，包括跨站点脚本（[XSS](https://developer.mozilla.org/en-US/docs/Glossary/XSS)）和数据注入攻击。这些攻击可用于从盗窃数据、破坏站点到分发恶意软件等所有方面。
+
 顾名思义，CSP 是可以与 JavaScript 代码一起发送到浏览器以控制其执行的一组指令。例如，您可以设置 CSP 以将 JavaScript 的执行限制在一组列入白名单的域中，而忽略任何内联脚本和事件处理程序以防止受到 XSS 攻击。此外，您可以指定所有脚本都应通过 HTTPS 加载，以降低数据包嗅探攻击的风险。
 
 那么我应该如何为 Web 应用程序配置 CSP？
@@ -34,6 +38,7 @@
 然后，这将允许加载 JavaScript，例如来自 `https://example.com/js/*` 但会被 CSP 中指定的浏览器阻止 [https://someotherexample.com/js/*](https://otherurl.com/js/*)。此外，默认情况下，所有内联脚本也都被阻止，除非您使用哈希或随机数允许它们执行。
 
 > 如果您还没有听说过哈希或随机数，我强烈建议您[参考此示例](https://content-security-policy.com/examples/allow-inline-script/)以了解其真正的潜力。
+
 简而言之，通过散列操作，您可以将 JavaScript 文件的散列指定为 Script 块的属性，在该脚本块中，浏览器将在执行散列之前首先对其进行验证。
 
 对于随机数也是如此，我们可以生成一个随机数并在 CSP 标头中指定，同时在 Script 块中引用相同的随机数。
@@ -52,7 +57,13 @@ CSP 的优点在于它涵盖了将违规情况报告给您的情况。作为 CSP
 
 ```json
 {
-@@ -67,23 +67,23 @@ If we include a JavaScript or Style outside the sites own origin (e.g; otherdoma
+  "csp-report": {
+    "document-uri": "http://example.com/index.html",
+    "referrer": "",
+    "blocked-uri": "http://otherdomain.com/css/style.css",
+    "violated-directive": "default-src 'self'",
+    "original-policy": "default-src 'self'; report-uri /csp-incident-reports"
+  }
 }
 ```
 
