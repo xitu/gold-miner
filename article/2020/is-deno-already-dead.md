@@ -2,40 +2,41 @@
 > * 原文作者：[Louis Petrik](https://medium.com/@louispetrik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-already-dead.md](https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-already-dead.md)
-> * 译者：
+> * 译者：[Inchill](https://github.com/Inchill)
 > * 校对者：
 
-# Is Deno Already Dead?
+# Deno 已经死了吗？
 
 ![Source: the author](https://cdn-images-1.medium.com/max/2800/1*UH9zLe8rjJI9lFpj44yYDA.png)
 
-In May of this year, not only was the coronavirus in the center of attention — in the JavaScript and backend-development community, Deno spread. The first stable version was there, and already a huge hype broke out. I, too, immediately got involved with Deno and was looking forward to trying something new.
+在今年 5 月，不止冠状病毒成为人们关注的焦点，在 JavaScript 和后端开发社区中，Deno 也受到同样的关注并迅速传播开来。第一个稳定版本已经出现，而且引发了一场巨大的炒作。我也一样，迅速地参与到 Deno 并且期望能尝试点新东西。
 
-[An article](https://medium.com/javascript-in-plain-english/deno-vs-node-js-here-are-the-most-important-differences-62b547443be1) I wrote about it got thousands of hits only via Google — so the interest was really huge.
+[一篇文章](https://medium.com/javascript-in-plain-english/deno-vs-node-js-here-are-the-most-important-differences-62b547443be1) 我写了这篇文章，仅仅通过谷歌它就获得了数千的点击量 —— 显而易见大家对于 Deno 的兴趣是真的很浓厚。
 
-But what is left of it? Where are the voices that perhaps even thought that Deno could replace Node.js? There is obviously not much left of the hype — Google confirms this:
+但是炒作之后剩下了什么呢？那些甚至认为 Deno 可以取代 Node.js 的声音在哪里？显然，炒作已经所剩无几了 —— 谷歌证实了这一点：
 
 ![Source: [Google Trends](https://trends.google.com/trends/explore?q=deno)](https://cdn-images-1.medium.com/max/4592/1*nbOAGzuHmHB7vr00J7xOjw.png)
 
-As you can see from Google Trends, the search term Deno is no longer as much there as it was in the original hype at the end of spring and beginning of summer — it should also be noted that Google Trends for Deno does not include the category theme or programming language. Other Google searches for Deno, which have nothing to do with the technology, are still included in the statistics.
+正如你从谷歌趋势中看到的那样，搜索词 Deno 已经不再像春末夏初的时候那么流行了 —— 还应该注意的是，谷歌 Deno 趋势不包括类别主题或编程语言。谷歌对 Deno 的其它搜索结果与这项技术无关，但仍包含在统计数据中。
 
-## The rise of other technology
+## 其它技术的兴起
 
-This year already had a lot to offer — in the front-end area, it was Svelte, in the back-end Deno. And also, many programming languages, in general, have gained a lot of attention. Rust and Julia are good examples of this — while JavaScript has no growth in its popularity.
+今年已经有很多东西可以提供 —— 在前端领域是 Svelte，在后端领域是 Deno。而且，总体而言，许多编程语言都得到了广泛的关注。Rust 和 Julia 就是很好的例子 —— 而 JavaScript 的普及率没有增长。
 
-New technologies always bring with them new possibilities — and new frameworks & libraries. Of course, they all want to be tried out — and so, for example, Rust’s Actix Web gained attention, if only in the Rust community, and among the people interested in it.
+新技术总是带来新的可能性 —— 以及新框架和库。当然，他们都想经受住考验 —— 因此，举例来说，Rust 的 Actix Web 获得了关注，即使只是在 Rust 社区，以及对它感兴趣的人中。
 
-In my opinion, Deno didn’t have the room for even more hype — but that’s also because it never had the ambition to turn the web world upside down — and that’s exactly what became clear very quickly.
+在我看来，Deno 之所以没有了更大的炒作空间 —— 是因为它从来没有颠倒 web 世界的野心 —— 而这正是很快就变得清楚的地方。
 
-## Nothing earth-shattering new
+## 没有惊天动地的新东西
 
 In my article about the differences between Deno and Node.js, I already mentioned this. These are the essential, special features Deno offers:
+在我关于 Deno 和 Node.js 之间的差异的文章中，我就提到了这一点。以下是 Deno 展现出的极其重要的、独特的特性：
 
-* No NPM support
-* Permissions
-* Top-level-Await
-* Support for the window-object
-* TypeScript-support out of the box
+* 不支持 NPM
+* 权限
+* 顶层 Await
+* 对 window 对象的支持
+* 开箱即用的 TypeScript 支持
 
 That was the essential feature mentioned in a breath of air with Deno.
 
