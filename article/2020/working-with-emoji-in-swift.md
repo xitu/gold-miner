@@ -2,46 +2,46 @@
 > * 原文作者：[Alex Nekrasov](https://medium.com/@alex_nekrasov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/working-with-emoji-in-swift.md](https://github.com/xitu/gold-miner/blob/master/article/2020/working-with-emoji-in-swift.md)
-> * 译者：
-> * 校对者：
+> * 译者：[刘嘉一](https://github.com/lcx-seima)
+> * 校对者：[Godlowd](https://github.com/Godlowd)、[zenblo](https://github.com/zenblo)
 
-# Working With Emoji in Swift
+# 在 Swift 中玩转 emoji
 
-![Photo by [Gaby Prestes Nekrasova](https://www.instagram.com/gabypres2808/) on Instagram.](https://cdn-images-1.medium.com/max/2560/1*ITyYFzjAq7_ZP-RoIApDqg.jpeg)
+![照片来自 Instagram 用户 [Gaby Prestes Nekrasova](https://www.instagram.com/gabypres2808/)](https://cdn-images-1.medium.com/max/2560/1*ITyYFzjAq7_ZP-RoIApDqg.jpeg)
 
-Emoji have become a big part of our life. iPhones and iPads have a special emoji keyboard (unless it’s turned off). We see them on websites, in mobile and desktop apps, and we enter them when writing texts and filling in forms.
+emoji 已经成为我们生活中的一大部分。iPhone 和 iPad 都拥有 emoji 的专用键盘（除非这个功能被关闭了）。我们会在网站、移动端或桌面端应用中见到 emoji，我们也会在编辑文本或填写表格时输入 emoji。
 
-How do we control them? How do we prevent users from entering emoji in `UITextField`? How do we parse emoji in the JSON response from a server? Let’s discuss it all.
+我们怎么管理 emoji？如何阻止用户在 `UITextField` 中输入 emoji？我们又如何从服务器的 JSON 返回体中解析 emoji？这就让我们来探个明白。
 
-## A Little Bit of Theory
+## 一点点理论知识
 
-Emoji are a part of modern Unicode. Computers work with bits and bytes — not with smiles and other small pictures. Letters, numbers, and special characters in a text are all encoded in one or more bytes each. The same goes for emoji. They’re just symbols.
+emoji 是当今 Unicode 的一部分。计算机的运转依靠的是比特位和字节 —— 并不依靠微笑符号或其他小图形。文本中的每个字母、数字或特殊字符都是由一个或多个字节编码而成。emoji 也是如此。它们本质上就是一些符号。
 
-There are three standard modifications of Unicode. All of them are constantly evolving, new symbols appear, new languages are included. So there are actually more than three versions, but for us developers, it’s important to know three different standards:
+Unicode 有三种标准的编码变形。它们都在不断发展，会加入新的符号，和包含新的语言。所以事实上 Unicode 的编码方式是多于三种的，但对于我们开发者来说，了解以下 3 种编码标准显得更为重要：
 
-1. UTF-8 (Unicode Transformation Format eight bits): Each symbol in this encoding is presented as one or more bytes. Simple latin characters, digits, and some other symbols take only one byte (eight bits). If the first bit is 0, we know that it’s a one-byte symbol. If it’s a Russian, Chinese, or Arabic symbol or an emoji, it will start with bit 1 and have more than one byte.
-2. UTF-16 (Unicode Transformation Format 16 bits): All symbols are encoded into two or four bytes. Two bytes make 65,536 combinations, which include almost all known characters. Emoji usually take two bytes, but they can have modifiers (colour of skin or hair). In that case, it uses extra space.
-3. UTF-32 (Unicode Transformation Format 32 bits): The simplest for understanding encoding, but the least memory-efficient. Each symbol takes exactly four bytes.
+1. UTF-8（Unicode Transformation Format 8-bit）： 在这种编码下，每个符号由 1 个或多个字节表示。简单的拉丁字符、数字和部分符号只占用 1 个字节（8位）。如果字符的第 1 个比特位是 0，我们可以知道这就是个 1 字节符号。当编码俄语、汉字、阿拉伯文或 emoji 时，每个字符占用多个字节，此时比特位首位为 1。
+2. UTF-16（Unicode Transformation Format 16-bit）：所有符号使用 2 个或 4 个字节进行编码。2 个字节可以组合出 65536 种不同的值，基本可以涵盖常用字符。emoji 通常占用 2 个字节，不过部分 emoji 的变种字符（不同颜色的皮肤或头发）会占用更多的数据位。
+3. UTF-32（Unicode Transformation Format 32-bit）：这是最容易理解的编码方式，不过内存空间的利用效率比较低。每个字符都用 4 个字节表示。
 
-Emoji have appeared in Unicode since version 6.0 back in 2010. All modern iPhones and Macs support much newer versions, so by adding emoji to your apps, you can be sure that users will see them.
+从 2010 年开始，Unicode 6.0 版本加入了 emoji 字符。当前所有的 iPhone 和 Mac 都支持更新的 Unicode 版本，所以你可以放心地在应用中使用 emoji，它们会正确地展示给用户。
 
-> “An `NSString` object encodes a Unicode-compliant text string, represented as a sequence of UTF–16 code units.” — [Apple Developer](https://developer.apple.com/documentation/foundation/nsstring)
+> “`NSString` 对象编码符合 Unicode 的文本字符串，并表示为一系列的 UTF-16 代码单元。” —— [Apple Developer](https://developer.apple.com/documentation/foundation/nsstring)
 
-As you can see, emoji can be included in any string in Swift.
+如你所见，emoji 可以出现在 Swift 的任何字符串中。
 
-## Emoji in macOS
+## macOS 中的 emoji
 
-As we write Swift code mostly in macOS, let’s see how to add emoji to our code.
+因为我们主要用 macOS 来编写 Swift 代码，这就让我们看看怎么在代码中添加 emoji。
 
-In any app with text editing capability, including Xcode, you can click on the **Edit** menu, then **Emoji & Symbols**. You’ll see a panel with emoji. Choose any of them and they will appear in your code.
+在任何有文本编辑能力的应用，包括 Xcode，你可以点击 **编辑** 菜单，再点击 **表情与符号**。你便能看到 emoji 表情输入面板。从中挑选一个 emoji 点击后即可添加到代码中。
 
-Another way is to use the hotkey ⌃⌘Space (ctrl + cmd + space).
+另外你也可以使用快捷键 ⌃⌘Space（ctrl + cmd + space）呼出 emoji 面板。
 
-![Emoji in macOS](https://cdn-images-1.medium.com/max/2000/1*i7GRMKH_QpI7CMBPN7xmBQ.png)
+![macOS 中的 emoji](https://cdn-images-1.medium.com/max/2000/1*i7GRMKH_QpI7CMBPN7xmBQ.png)
 
-## Detecting Emoji in Strings
+## 检测 String 中的 emoji
 
-Before we continue, let’s add several extensions to our project. They will allow us to check if `String` has emoji, if it has only emoji, if `Character` is an emoji, and so on.
+在开始之前，让我们添加一些 extension 到项目中。它们会帮助我们判断一个 `String` 是否含有 emoji、是否全是 emoji，或 `Character` 是否是 emoji 等功能。
 
 ```Swift
 import Foundation
@@ -58,7 +58,7 @@ extension Character {
 }
 ```
 
-Now you can check if `String` has an emoji:
+现在你可以检查 `String` 中是否含有 emoji 了：
 
 ```swift
 "Alex 😊".containsEmoji // true
@@ -66,22 +66,22 @@ Now you can check if `String` has an emoji:
 "Alex 😊".containsOnlyEmoji // false
 ```
 
-## Forbidding Emoji in UITextField
+## 在 UITextField 中禁用 emoji
 
-Oftentimes, we shouldn’t allow the user to enter emoji. For example, if we want to know their legal name or other data.
+通常，我们并不会允许用户输入 emoji。例如，当我们想获取用户合法姓名或其他类似数据时。
 
-There are two ways to do so — a more restrictive one and less restrictive one.
+这里有两种限制用户的方法 —— 严格的和稍宽松的。
 
-The more restrictive (but easier) way is to choose the **ASCII Capable** keyboard type. It will remove all symbols that are not included in the first 128 symbols of the Unicode set. If you still remember details about UTF-8, it has one-byte, two-byte, and four-byte characters. This option will allow only one-byte characters (starting with bit 0).
+严格的方法（易实现）需要把 UITextField 的 Keyboard Type 设置为 **ASCII Capable**。这样它只会包含 Unicode 字符集中的前 128 个符号。如果你还记得 UTF-8 的细节，它分为 1 字节、2 字节和 4 字节字符。选项开启后会只包含 1 字节字符（首比特位为 0）。
 
-![Changing keyboard type](https://cdn-images-1.medium.com/max/2000/1*CEqiLQSZKydzqqMwCDK6FA.png)
+![修改 keyboard Type](https://cdn-images-1.medium.com/max/2000/1*CEqiLQSZKydzqqMwCDK6FA.png)
 
-It can be useful for entering usernames or passwords, but names and other data can have diacritic, non-Latin, and other characters. In this case, we use the second way. It has several steps:
+虽然这种方法在输入用户名、密码的场景下非常实用，不过名字和其他数据很可能会包含音调符号、非拉丁字母或其他字符。这种情况下，我们就需要选择第二种方法了。具体步骤如下：
 
-1. Set keyboard type to **Default**.
-2. Set a delegate. Usually, it’s your `UIViewController`.
-3. In a delegate, override the method `func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool`.
-4. Get updated text:
+1. 设置 keyboard Type 为 **Default**。
+2. 设置 delegate。通常指向你的 `UIViewController`。
+3. 在 delegate 中，重写 `func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool` 方法。
+4. 获取更新的文本：
 
 ```swift
 if let text = textField.text,
@@ -90,9 +90,9 @@ if let text = textField.text,
 }
 ```
 
-5. Check that `updatedText` doesn’t have emoji and return `false` if it does.
+5. 检查 `updatedText` 是否包含 emoji，如果包含则返回 `false`。
 
-That’s how it looks:
+完整的代码如下：
 
 ```Swift
 func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -107,25 +107,25 @@ func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange
 }
 ```
 
-Now when the user tries to insert an emoji in a text string, there will be no effect. If you want to make it clearer for the user, add an alert with a message.
+现在，当用户尝试插入 emoji 到字符串时，输入框不会有任何反应了。如果你想显式提醒用户，可以添加一个提示信息的弹窗。
 
-## Decoding Emoji in API Response
+## 解析 API 响应中的 emoji
 
-If you’ve worked with a REST API in Swift, you may know that sometimes you get a response without emoji. Conversions between `Strings` and JSON-compatible types, like `Array` and `Dictionary`, may also lose emoji.
+如果你曾经在 Swift 中调用过 REST API，你应该遇到过这种情况，虽然拿到了接口返回值却丢掉了其中的 emoji。`String` 和 JSON 兼容类型间的转换，像 `Array` 和 `Dictionary`，都会丢失 emoji。
 
-The safest way to go is to get `Data` from the API and convert it to the type you need:
+最安全有效的方法就是从 API 中获取 `Data`，并把它转换成你想要的类型：
 
 ```swift
 let str = String(data: data, encoding: .utf8)
 ```
 
-Same with JSON. It’s better to decode them manually from data:
+JSON 也是如此。我们最好手动解析返回的数据：
 
 ```swift
 let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
 ```
 
-Let’s have a look at this example with the popular library [Alamofire](https://github.com/Alamofire/Alamofire):
+让我们试试使用知名的 [Alamofire](https://github.com/Alamofire/Alamofire) 库来解决本例问题：
 
 ```Swift
 import Foundation
@@ -148,20 +148,20 @@ class API {
 }
 ```
 
-Alamofire gets regular updates, so maybe it will return emoji in the `responseString` handler. It’s possibly already done, but when I tested it, I got `String` in return without any emoji. If you use another library, this trick will be also handy. Remember that you always receive a buffer of bytes from any web request. The closest to it in Swift is a `Data` object. All other types are converted from it. You should always prefer `Data` if you want full control.
+Alamofire 会定期更新代码，所以很有可能未来就会在 `responseString` 处理器中返回 emoji 字符串了。可能此时 Alamofire 已经支持这个功能了，不过在我试的时候，它返回的 `String` 里没有包含 emoji。如果你使用的是其他请求库，上面的方法同样适用。你只需记得从网络请求中获取到的响应都是一堆字节数据。对应到 Swift 中，与之最接近的就是 `Data` 对象。它能转换为其他类型的数据。如果你想完全掌握数据的转换，你一定要优先选择 `Data` 类型。
 
-#### Note about MySQL and other SQL databases
+#### MySQL 及其他 SQL 数据库小记
 
-This is not exactly about Swift, but as we are talking about emoji in API, I’ll mention this too. If you plan to have emoji in a SQL database (e.g. MySQL), you should do two things:
+这部分与 Swift 无关，不过我们已经谈到了 API 中的 emoji，我就再啰嗦几句。如果你计划在 SQL 数据库（如 MySQL）中存储 emoji，你需要做两件事：
 
-1. Set the character set of the whole database, table, or a separate field to `utf8mb4`. Simple `utf8` won’t let you store emoji in string fields.
-2. Run `SET NAMES utf8mb4` before running other SQL requests.
+1. 将整个数据库、数据库表或单个字段的字符集设置为 `utf8mb4`。简单的 `utf8` 无法允许你在字符串字段中存储 emoji。
+2. 在运行其他 SQL 请求前运行 `SET NAMES utf8mb4` 命令。
 
-## Emoji Variables
+## emoji 变量
 
-I’ll give some credit to Apple for their sense of humour. You can use emoji in the names of functions or variables.
+我非常欣赏 Apple 伙计们的幽默感。你可以用 emoji 给函数或变量命名。
 
-For example, this is a valid Swift code:
+例如，这些是合法的 Swift 语句：
 
 ```Swift
 let 🌸 = 1
@@ -176,23 +176,23 @@ let 🌸🌸🌸 = ＋(🌸🌸, 🌸)
 print(🌸🌸🌸)
 ```
 
-Never do it in production code — it’s very uncomfortable to type, search, or share. But it can be useful, for example, to teach children. Looks funny, right?
+千万别在生产环境中这么写代码 —— 这样的代码难以输入、检索或分享。不过它也能很有用，比如，教小孩子编程时。这样的代码看起来就很有趣，对吧？
 
-![Source code with emoji](https://cdn-images-1.medium.com/max/2000/1*AAn9SWmyTdOd-pTiTxAsRA.png)
+![使用了 emoji 的源代码](https://cdn-images-1.medium.com/max/2000/1*AAn9SWmyTdOd-pTiTxAsRA.png)
 
-A more common practice is to include emoji in `Strings`:
+一种更常见的做法是在 `String` 中插入 emoji：
 
 ```swift
 let errorText = "Sorry, something went wrong 😢"
 ```
 
-## Conclusion
+## 结语
 
-In most cases, apps should allow users to enter emoji. But if it’s not a desired behaviour, it’s always possible to add restrictions. Using emoji in the user interface is also getting more and more popular these days.
+在多数情况下，应用应允许用户输入 emoji。倘若你不想让用户输入 emoji，你可以添加一些限制。如今有越来越多的用户界面使用了 emoji。
 
-At the same time, don’t use emoji in your source code unless it’s really necessary. Swift allows it, but it’s not a good practice. Even if it’s a part of a string constant, it’s better to put it in a separate file.
+同时，除非特别需要，不要在源代码中使用 emoji。Swift 允许你这么做，不过这实在不是什么好习惯。即使 emoji 是字符串常量的一部分，也最好把它们存放到单独的文件里。
 
-See you next time and happy coding!
+祝大家开心编码，我们下次再见！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

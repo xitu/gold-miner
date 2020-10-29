@@ -2,24 +2,24 @@
 > * 原文作者：[Anupam Chugh](https://medium.com/@anupamchugh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/learn-about-swiftui-text-and-label-in-ios-14.md](https://github.com/xitu/gold-miner/blob/master/article/2020/learn-about-swiftui-text-and-label-in-ios-14.md)
-> * 译者：
+> * 译者：[chaingangway](https://github.com/chaingangway)
 > * 校对者：
 
-# Learn About SwiftUI Text and Label in iOS 14
+# 学习 SwiftUI 框架中 Text 和 Label 控件的用法（iOS 14）
 
 ![Photo by [Prateek Katyal](https://unsplash.com/@prateekkatyal?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*ooJiyXobPr83YYhC)
 
-Apple didn’t exactly call the second iteration of SwiftUI a 2.0, but there were really some crackling updates announced during WWDC 2020.
+虽然苹果并没有将 SwiftUI 的第二个版本称为 2.0，但是在 WWDC 2020 大会上确实宣布了一些重大更新。
 
-Besides the introduction of `Grids` and `MatchedGeometryEffect`, SwiftUI `Text` also got a huge boost. In addition to that, `Label`, `Link`, and `TextEditor` were introduced to allow the building of forms, buttons, and fancy text to be a whole lot easier.
+除了引入 `Grids` 和 `MatchedGeometryEffect` 之外，`Text` 控件也获得了巨大的提升。除此之外，还引入了 `Label`，`Link` 和 `TextEditor`，这些控件可以让开发者更加容易构建表单，按钮和精美的文本。
 
-In the next few sections, we’ll look at what you can achieve with the new `Text` controls in SwiftUI in iOS 14.
+在下面的几节中，我们将学习 iOS 14 系统下 SwiftUI 的新控件 `Text`。
 
-## SwiftUI Text Now Supports Powerful Interpolation
+## SwiftUI Text 支持更强大的插入元素
 
-SwiftUI `Text` has been bumped up this year with new initializers to let you format dates, interpolate strings with images, and add `Text` within `Text`.
+在今年的更新中，`Text` 控件有了新的初始化方法，可以让您在 `Text` 内部设置日期格式，在图像中插入字符，以及添加 `Text`。
 
-Let’s look at how to wrap images with SF symbols in SwiftUI `Text`:
+让我们看看如何在 `Text` 中插入 SF 符号图像：
 
 ```swift
 Text("Hello, \(Image(systemName: "heart.fill"))
@@ -27,43 +27,43 @@ Text("Hello, \(Image(systemName: "heart.fill"))
 Text(Image(systemName:))
 ```
 
-The following examples show what we can achieve by concatenating a few SwiftUI `Text`s:
+下面的示例中展示了将几个 `Text` 控件联结的效果：
 
 ![](https://cdn-images-1.medium.com/max/2032/1*SfNGGiAV9nVfBhNJGrp15A.png)
 
-SwiftUI `Text` has also gotten two initializers for wrapping dates in strings — namely a date interval and a date range, with an optional argument to set the style.
+`Text` 控件有两个初始化方法，以字符串的形式插入日期 —— 即日期间隔和日期区间，还有一个可选参数来设置样式。
 
-Let’s look at the different ways to set and format dates in Swift `Text`:
+下面是用两种不同的方式在 `Text` 控件中设置并格式化日期：
 
 ```swift
 Text(Date().addingTimeInterval(600))
 Text(Date().addingTimeInterval(3600),style: .time)
 ```
 
-`addTimeInterval` accepts absolute values only, so the above two snippets set the date at `T + 10` minutes and `T + 1` hour in different styles.
+`addTimeInterval` 方法只能接受真实的数值参数，所以上面两句代码中，第一句设置日期为 `T + 10` 分钟，另一句设置日期为 `T + 1` 小时，并用不同的样式来展示。
 
-What’s amazing about the new semantic API is it lets you set a counter or timer within the SwiftUI `Text` initializer using the styles `relative`, `timer`, and `offset`.
+API 新语义的神奇之处在于，可以在 `Text` 初始化方法中使用 `relative`，`timer` 和 `offset` 样式设置计数器或计时器。
 
 ```swift
 //countdown timer to update every minute
 Text(Date().addingTimeInterval(60),style: .offset)
 ```
 
-Now, you might be wondering if setting a timer will trigger the SwiftUI view body to refresh every seconds, but that isn’t the case.
+现在您可能会觉得设置计时器会触发 SwiftUI 视图主体的秒刷机制，但事实并非如此。
 
-SwiftUI `Text` considers the counter as an animation, which means it interpolates values between the start and end date. Let’s look at different kinds of `Text`s:
+`Text` 将计数器视为动画，这意味着它将在时间区间内插入值。让我们看一下几种不同的 `Text`：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*O75Bp3RQwMUsiQrHytKPSw.gif)
 
-Pay heed to how the three different styles of `Timer` behave differently. And also that they autoreverse at the end of the counter.
+请注意三种不同样式的 `Timer` 的行为方式。它们会在计数器的末尾自动反转。
 
-SwiftUI `Text` also makes it possible to interpolate `Text` within `Text` while preserving each of their identities. Like “Inception.”
+`Text` 还可以在保留其各自身份的同时，在 `Text` 内插 `Text`。就像“盗梦空间”。
 
-## SwiftUI Labels to Display Text and Images Together
+## 用 SwiftUI 中的 Label 实现图文混排
 
-SwiftUI `Label`s are an out-of the box substitute for a view we were using a lot: wrapping text and image in `stack`s.
+SwiftUI 中的 `Label` 组件可以替代我们常用的 view：把图文包装在 `栈` 里。
 
-Here’s how to define the all-new SwiftUI `Label`:
+下面是使用 `Label` 的方法：
 
 ```swift
 Label("Hello Label", systemImage: "sun.min")
@@ -73,21 +73,21 @@ Label("Hello Label", image: "asset_image")
 Label(title: {Text("..")}, icon: {Image(..)})
 ```
 
-Labels also provide a `labelStyle` modifier that comes with two built-in variants — `TitleOnlyLabelStyle` and `IconOnlyLabelStyle`. Though you can create your own custom label style configuration as well.
+Label 控件也提供了 `labelStyle` 方法，它有两个内置变量 `TitleOnlyLabelStyle` 和 `IconOnlyLabelStyle`。当然，你也可以自定义标签的样式。
 
-In the below screen grab, we’re showing the different types of `Label`s and how to use them in a `ContextMenu`:
+在下面的截图中，展示了不同种类的 `Label` 以及它们在 `ContextMenu` 中使用方法：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*wtKfv_zgpAc83QGdmkWJww.gif)
 
-`Label`s largely reduce the unnecessary `Text` and `Image` views we had to define in `ContextMenu` buttons.
+`Label` 的这种特性可以让我们在实现 `ContextMenu` 按钮时不用去定义多余的 `Text` 和 `Image`。
 
-Though it’d be a dream to get a SwiftUI button initializer that lets us set images as well.
+当然，我们也希望 SwiftUI 的按钮组件能设置图片。
 
-## Creating Your Own Label Style
+## 自定义 Label 样式
 
-We can create custom styles for our labels by conforming to the `LabelStyle`.
+通过遵守 `LabelStyle` 协议，我们可以创建自定义样式。
 
-The below code looks to set the icon and text vertically, instead of being horizontally aligned.
+下面的代码是让图标和文本垂直布局。
 
 ```swift
 struct VLabelStyle: LabelStyle {
@@ -100,17 +100,17 @@ struct VLabelStyle: LabelStyle {
 }
 ```
 
-You can now set it inside the view modifier as `.labelStyle(VLabelStyle())`.
+现在可以在 view 的修改器中使用 `.labelStyle(VLabelStyle())`。
 
-## Conclusion
+## 总结
 
-SwiftUI `Text` now supports more powerful interpolations that let you set timers in a single line (in fact, just a few words).
+`Text` 组件现在可以支持在一行代码中（实际上只用几个单词）设置定时器。
 
-SwiftUI `Label`s are handy inside outlined lists and context menus.
+`Label` 组件在 context menus 中的使用更加便利。
 
-You can view or download the source code of everything we covered from this [gist link](https://gist.github.com/anupamchugh/e4df9b9734634a5cf59b51f784e08610).
+你可以在 [gist link](https://gist.github.com/anupamchugh/e4df9b9734634a5cf59b51f784e08610) 中阅读或者下载本文的所有代码。
 
-That’s it for this one. Thanks for reading.
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
