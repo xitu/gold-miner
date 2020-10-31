@@ -22,8 +22,6 @@ New features that are added to JavaScript each year go through a four-stage proc
 * Intl.ListFormat
 * dateStyle and timeStyle options for Intl.DateTimeFormat
 
----
-
 ## String.prototype.replaceAll
 
 In JavaScript, **replace()** method only replaces the first instance of a pattern in a string. If we want to replace all the matches of a pattern in a string, the only way to achieve that is by using global regexp.
@@ -38,10 +36,7 @@ console.log(str)
 
 /****  Output  ****/
 // I use windows, I love windows
-
 ```
-
----
 
 ## Promise.any
 
@@ -79,13 +74,11 @@ Promise.any([
 // AggregateError: All promises were rejected
 ```
 
----
-
 ## Logical Operators and Assignment Expressions
 
 In JavaScript, there are many assignment operators and Logical operators like the following basic example:
 
-```
+```js
 // Assignment Operator Example
 let num = 5
 num+=10
@@ -158,8 +151,6 @@ console.log(num1) // false
 // num1 ?? (num1 = num2)
 ```
 
----
-
 ## Numeric Separators
 
 The introduction of Numeric Separators will make it easier to read numeric values by using the `_` (underscore) character to provide a separation between groups of digits. For example:
@@ -172,8 +163,6 @@ console.log(number)
 /****  Output  ****/
 // 100000
 ```
-
----
 
 ## Intl.ListFormat
 
@@ -227,8 +216,6 @@ console.log(obj.format(arr))
 // Pen, Pencil und Paper
 ```
 
----
-
 ## dateStyle and timeStyle options for Intl.DateTimeFormat
 
 The Intl.DateTimeFormat object is a constructor for objects that enable language-sensitive date and time formatting. The proposed **dateStyle** and **timeStyle** options can be used to request a locale-specific date and time of a given length.
@@ -270,7 +257,6 @@ console.log(o.format(Date.now()))
 o = new Intl.DateTimeFormat('en' , { dateStyle: 'long'})
 console.log(o.format(Date.now()))
 // October 6, 2020
-
 ```
 
 **dateStyle** and **timeStyle** options used together with different language tags, as shown in the example below:
@@ -295,8 +281,6 @@ abc = new Intl.DateTimeFormat('de' , { timeStyle: 'short', dateStyle: 'long'})
 console.log(abc.format(Date.now()))
 // 6. Oktober 2020 um 23:40
 ```
-
----
 
 ## Conclusion
 
