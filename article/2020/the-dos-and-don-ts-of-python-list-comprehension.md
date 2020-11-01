@@ -2,49 +2,49 @@
 > * 原文作者：[Yong Cui, Ph.D.](https://medium.com/@yong.cui01)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-dos-and-don-ts-of-python-list-comprehension.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-dos-and-don-ts-of-python-list-comprehension.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[shixi-li](https://github.com/shixi-li)
 
-# The Do’s and Don’ts of Python List Comprehension
+# Python 列表推导式使用注意事项
 
 ![Photo by [Michael Herren](https://unsplash.com/@mdherren?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*OMREOHfwYkIKRpRF)
 
-List comprehension is a topic that is usually not offered to beginners because its syntax is not very intuitive, even to people who have a coding background in other programming languages.
+Python 列表推导式并不是给初学者用的，因为它非常反直觉，甚至对于有其他编程语言背景的人也是如此。
 
-When we have a chance to get in touch with list comprehension, we learn something here and something there, and thus we do not have a systemic view of how we should use list comprehension in various scenarios.
+我们接触到 List 的使用时，学习的内容都是零散的。所以我们缺少一个关于如何在各种各样的场景下使用 List 的知识体系。
 
-In this article, I’d like to provide possible use guidelines as comprehensively as possible. I hope that this article can become your one-stop-shopping place for the techniques related to list comprehension.
+本文提供了一些 List 的使用指南，尽可能涵盖各个方面。希望本文可以成为你的一站式实用手册。
 
-## Do’s
+## 使用建议
 
-#### 1. Do use any iterable in list comprehension
+#### 1.建议使用迭代的方式
 
-The most basic form of list comprehension is to create a list object from an iterable — any Python object that you can iterate its items. The syntax is shown below.
+使用 List 最基本的方式是以一个可迭代对象为基础，创建一个 List 对象，这个可迭代对象可以是任意可以迭代元素的 Python 对象。使用方法如下。
 
 ```
 [expression for item in iterable]
 ```
 
-The following code snippet shows you a simple example of creating list objects using the list comprehension technique. In the example, we started with a list of integers and using this iterable, we created a list of tuples of squares and cubes for each of these integers.
+下面这段代码展示了一个使用列表相关技术创建 List 对象的例子。在这个例子中，我们定义了一个 Integer 列表，并基于这个对象创建了保存每个数字的平方数和立方数的 List 对象。
 
 ```Python
->>> # A list of integers
+>>> # 创建一个 Integer 列表
 >>> integers = [1, 2, 3, 4, 5, 6]
->>> # Create a list of squares and cubes
+>>> # 创建平方数和立方数列表
 >>> powers = [(x*x, pow(x, 3)) for x in integers]
 >>> print(powers)
 [(1, 1), (4, 8), (9, 27), (16, 64), (25, 125), (36, 216)]
 
 ```
 
-The previous example uses the list object as the iterable. However, we should be aware that many types of objects are iterables. We know that common data types, such as lists, sets, dictionaries, and strings, are all iterables. Other data types, such as `range `****objects, `map `****objects, `filter `****objects, and [pandas](https://pandas.pydata.org/)’ `Series` and `DataFrame` objects are all iterables. The following code shows you some examples of using some of these objects.
+上面的例子把 List 对象当作迭代器使用。我们应该知道，许多类型的对象也是可迭代的，比如 List、Set、Dictionary 和 String 等等。其他数据类型，像 range、map、filter，以及 pandas 包中的 Series、DataFrame，都是可迭代的。下面的代码演示了某些对象的使用方法。
 
 ```Python
->>> # Use the range object
+>>> # 使用 range 对象
 >>> integer_range = range(5)
 >>> [x*x for x in integer_range]
 [0, 1, 4, 9, 16]
->>> # Use the Series object
+>>> # 使用 Series 对象 
 >>> import pandas as pd
 >>> pd_series = pd.Series(range(5))
 >>> print(pd_series)
@@ -58,177 +58,177 @@ dtype: int64
 [0, 1, 4, 9, 16]
 ```
 
-#### 2. Do apply a conditional criterion if only some items are needed
+#### 2.如果只需用到其中的某些元素，应当使用条件判断语句
 
-Suppose that you want to create a list of objects from the iterable only when the element meets a particular criterion. The syntax is shown below.
+假设你需要将符合某种条件的元素归集起来，并创建一个 list。下面展示了相关的语法。
 
 ```
 [expression for item in iterable if condition]
 ```
 
-The conditional check is achieved with the `if` statement that follows the iterable. The following code shows you a trivial example of this usage.
+ `if` 语句用来实现条件判断。下面的代码展示了这种用法的一个简单示例。
 
 ```Python
->>> # The same list of integers
+>>> # 同样创建一个 Integer 列表
 >>> integers = [1, 2, 3, 4, 5, 6]
->>> # Create a list of squares for even numbers only
+>>> # 筛选出偶数，创建一个这些偶数的平方数列表
 >>> squares_of_evens = [x*x for x in integers if x % 2 == 0]
 >>> print((squares_of_evens))
 [4, 16, 36]
 ```
 
-#### 3. Do use a conditional expression
+#### 3.使用条件判断语句
 
-The list comprehension can also work with conditional assignment, which has the following syntax.
+List 对象中还可以使用 if-else 形式的条件判断，语法如下。
 
 ```
 [expression0 if condition else expression1 for item in iterable]
 ```
 
-It looks a little bit similar to the previous usage, but don’t get confused with these two. In this usage, the conditional expression is a whole part itself. The following code shows you an example.
+这跟前面的那种用法有些类似，别把这两种用法混淆。在本例中，条件语句本身是一个整体。下面的代码提供了一个例子。
 
 ```Python
->>> # The list of integers
+>>> # 创建一个 Integer 列表
 >>> integers = [1, 2, 3, 4, 5, 6]
->>> # Create a list of numbers, when the item is even, take the square
->>> # when the item is odd, take the cube
+>>> # 遍历 integers 中的元素，如果是偶数，取平方数存入新的列表
+>>> # 如果是奇数，取立方数存入新的列表
 >>> custom_powers = [x*x if x % 2 == 0 else pow(x, 3) for x in integers]
 >>> print(custom_powers)
 [1, 4, 27, 16, 125, 36]
 ```
 
-#### 4. Do use nested for loops if you have a nested structure for the iterable
+#### 4.如果有嵌套结构，可以使用嵌套的循环
 
-Although it’s not too common, it’s likely that the elements in the iterable can be iterables too. If you’re interested in dealing with the elements of the nested iterables, you can use nested `for` loops. It has the following syntax.
+有可能可迭代对象中的元素自身也是可迭代的，尽管这种情况不太常见。如果你对嵌套的可迭代对象有兴趣，可以使用 `for` 来实现循环嵌套。语法如下。
 
 ```
 [expression for item_outer in iterable for item_inner in item_outer]
 
-# Equivalent to
+# 与下面的代码等同
 for item_outer in iterable:
     for item_inner in item_outer:
         expression
 ```
 
-The following code shows you an example of a list comprehension involving nested `for` loops.
+上面的代码展示了使用`for`实现嵌套循环的例子。
 
 ```Python
->>> # A list of tuples
+>>> # 创建一个包含元组的列表
 >>> prices = [('$5.99', '$4.99'), ('$3.5', '$4.5')]
->>> # Flattened list of prices
+>>> # 获取元组中的每个价格，以此创建一个一维列表
 >>> prices_formatted = [float(x[1:]) for price_group in prices for x in price_group]
 >>> print(prices_formatted)
 [5.99, 4.99, 3.5, 4.5]
 ```
 
-#### 5. Do replace higher order functions
+#### 5.替换高阶函数
 
-Some people are more used to functional programming. One particular application is to use higher order functions. Specifically, higher order functions are those that use other functions as input or output arguments. Some common higher order functions in Python are `map()` and `filter()`.
+有的人比较习惯函数式编程，比如使用高阶函数也是这种习惯的表现之一。特别说明一下，高阶函数是那些需要使用输入或输出参数的函数。在 Python 中，常用的高阶函数有 `map()` 和 `filter()`。
 
 ```Python
->>> # A list of integers
+>>> # 创建一个 integer 类型的列表
 >>> integers = [1, 2, 3, 4, 5]
->>> # Use map
+>>> # 使用 map 创建平方数列表
 >>> squares_mapped = list(map(lambda x: x*x, integers))
 >>> squares_mapped
 [1, 4, 9, 16, 25]
->>> # Use list comprehension
+>>> # 使用列表推导式创建平方数列表
 >>> squares_listcomp = [x*x for x in integers]
 >>> squares_listcomp
 [1, 4, 9, 16, 25]
->>> # Use filter
+>>> # 使用 filter 取得 integers 中的偶数列表
 >>> filtered_filter = list(filter(lambda x: x % 2 == 0, integers))
 >>> filtered_filter
 [2, 4]
->>> # Use list comprehension
+>>> # 使用列表推导式取得 integers 中的偶数列表
 >>> filterd_listcomp = [x for x in integers if x % 2 == 0]
 >>> filterd_listcomp
 [2, 4]
 
 ```
 
-As shown in the above example, list comprehension has much more readable syntax then higher order functions, which have more complicated embedded structures.
+从上面的例子可以看出，使用 list 的某些特性比使用高阶函数更具有可读性，而且也能实现较复杂的嵌套结构。
 
-## Don’ts
+## 使用禁忌
 
-#### 1. Don’t forget about the list() constructor
+#### 1.不要忘了定义构造函数
 
-Some people may think that list comprehension is a cool and Pythonic feature to show off their Python skills, and they tend to use it even when there are better alternatives. One such case is the use of the `list()` constructor. Consider some trivial examples below.
+有人认为列表推导式很酷炫，是 Python 特有的功能，所以为了炫耀自己的 Python 水平，即使有更好替代方案也要使用它。 
 
 ```Python
->>> # Create a list from a range object
+>>> # 使用 range 创建列表对象
 >>> numbers = [x for x in range(5)]
 >>> print(numbers)
 [0, 1, 2, 3, 4]
->>> # Create a list of lower-case characters from a string
+>>> # 以一个字符串为基础，创建一个小写字母的字符列表
 >>> letters = [x.lower() for x in 'Smith']
 >>> print(letters)
 ['s', 'm', 'i', 't', 'h']
 ```
 
-In the above example, we use a range and string, respectively, as the iterables. However, both types of objects are iterables, and the `list()` constructor can take iterables directly to create a new list object. Better and cleaner solutions are shown below.
+上述例子中，我们使用了 range 和 string，这两种数据结构都是可迭代的，`list()`构造函数可以直接使用 iterable 创建一个 list 对象。下面的代码提供了更合理的解决方案。
 
 ```Python
->>> # Create a list from a range object
+>>> # 使用 range 创建列表对象
 >>> numbers = list(range(5))
 >>> print(numbers)
 [0, 1, 2, 3, 4]
->>> # Create a list of lower-case characters from a string
+>>> # 以一个字符串为基础，创建一个小写字母的字符列表
 >>> letters = list('Smith'.lower())
 >>> print(letters)
 ['s', 'm', 'i', 't', 'h']
 
 ```
 
-#### 2. Don’t forget about generator expression
+#### 2.不要忘了生成器表达式
 
-In Python, generators are a special kind of iterators, which render an element lazily until they’re asked to do so. As a result, it’s a very memory-efficient way to deal with a large amount of data. By contrast, a list object needs to have all its elements created upfront such that its elements can be counted and indexed. Compared to generators, lists involving the same number of elements require more memory for storage.
+在 Python 中，生成器是一种特殊的可迭代对象，它会延迟加载元素，直到被请求才会加载。这在处理大量数据时会非常高效，它能提升存储效率。相比之下，list 对象为了方便计数和索引，一次性创建所有的元素。所以跟生成器相比，在元素个数相同时，list 需要占用更多内存。
 
-To create a generator, we can define a generator function. However, we can also use the following syntax to create a generator — a technique termed **generator expression**.
+我们可以定义一个生成器函数来创建生成器。我们也可以使用下面的语句来创建生成器，这是一种称为**生成器表达式**的方法。
 
 ```
 (expression for item in iterable)
 ```
 
-As you may have noticed, the syntax is very similar to list comprehension, except for the use of parentheses as opposed to square brackets. So it’s also important to differentiate generator expression from list comprehension.
+你可能会注意到，除了使用圆括号外，它的语法跟使用 list 的语句很相似。所以需要注意区分。
 
-Consider the following trivial example. We need to calculate the sum of squares for the first million whole numbers. If we use a list comprehension, here’s our solution.
+考虑下面这个例子。我们要计算前一百万个数字的平方和。如果使用 list 来实现，方法如下。
 
 ```Python
->>> # Create the squares
+>>> # 创建列表对象 squares 
 >>> squares = [x*x for x in range(10_000_000)]
->>> # Calculate their sum
+>>> # 计算它们的总和
 >>> sum(squares)
 333333283333335000000
 >>> squares.__sizeof__()
 81528032
 ```
 
-As shown above, the list object occupies 81528032 bytes. Let’s consider the same operations with a generator, as shown below.
+如上所示，list 对象占据 81528032 字节。我们考虑使用 generator 进行相同的操作，代码如下。
 
 ```Python
->>> # Create the squares generator
+>>> # 创建 generator 对象，保存每个数的平方数
 >>> squares_gen = (x*x for x in range(10_000_000))
->>> # Calculate their sum
+>>> # 计算它们的总和
 >>> sum(squares_gen)
 333333283333335000000
 >>> squares_gen.__sizeof__()
 96
 ```
 
-Compared to the solution using the list comprehension, the solution using a generator expression involves a much smaller object, which is only 96 bytes. The reason is simple — generators don’t need to capture all their elements. Instead, they just need to know where they are in the sequence and simply create the next applicable element and render it without the need of keeping the elements in the memory.
+跟使用 list 相比，使用 generator 内存开销小得多，只有 96 字节。原因很简单———— generator 不需要获取所有的元素。相反，它只需要获取各个元素在序列中的位置，创建下一个元素并呈现它，而且不必保存在内存中。
 
-## Conclusions
+## 结论
 
-In this article, we reviewed several key guidelines for using list comprehension. As you have seen, these do’s and don’ts are pretty straightforward. I guess that you should be able to use list comprehension in the desired scenarios. Here’s a quick recap.
+本文中，我们整理了 list 应用的一些关键要领。这些该做的和不该做的都非常清晰明了。我估计你会在合适的场景中用到它。下面是本文内容的小结。
 
-* **Do use any iterable in list comprehension.** Many types of iterables exist in Python and you should go beyond the basic ones, such as lists and tuples.
-* **Do apply a filtering condition in list comprehension** if you’re interested in keeping some of the elements in the iterable.
-* **Do use a conditional expression** if you want an alternative way to assign the value to the resulting element.
-* **Do use a nested `for` loop** if you’re dealing with nested iterables.
-* **Do use list comprehension to replace the use of higher order functions** in many use cases.
-* **Don’t forget about the list constructor**, which takes an iterable for the creation of a new list object. It’s the recommended way, compared to list comprehension, if you’re working with an iterable directly.
-* **Don’t forget about generator expression**, which is syntactically similar to list comprehension. It’s a memory-efficient way to deal with a large sequence of objects. Unlike generators, lists have to be created upfront for later indexing and accessing, which consumes a considerable amount of memory if the list has many elements.
+* **使用迭代的方式。** Python 中有许多类型的 iterable，你应当在掌握基础（list 和 tuple）的同时融会贯通。
+* **使用条件判断语句。** 如果你对在 iterable 中筛选某些元素感兴趣，可以多多研究条件判断。
+* **使用条件判断表达式。** 如果你需要有选择性地获取某些数据，可以使用条件判断表达式。
+* **使用嵌套的循环。** 如果你要处理嵌套的 iterable，可以使用嵌套的循环结构。
+* **用 list 替代高阶函数** 在很多情况下，可以用 list 替代高阶函数。
+* **不要忘记 list 的构造函数** 定义 list 的构造函数，可以使用 iterable 创建一个 list 对象。如果你直接使用 iterable，推荐用这个方法。
+* **不要忘了生成器表达式** 它的语法与 list 中的语法相似。在处理大量的对象时，这是一种节省内存开销的办法。list 和 generator 不同的是，为了日后的索引和访问， list 必须提前创建，如果元素个数很多，就会消耗很大的内存。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
