@@ -7,8 +7,6 @@
 
 ## Damn Cool Algorithms: Log structured storage
 
-Posted by Nick Johnson | Filed under [tech](/tag/tech), [damn-cool-algorithms](/tag/damn-cool-algorithms)
-
 Typically, if you're designing a storage system - such as a filesystem, or a database - one of your major concerns is how to store the data on disk. You have to take care of allocating space for the objects to be stored, as well as storing the indexing data; you have to worry about what happens when you want to extend an existing object (eg, appending to a file), and you have to take care of fragmentation, which happens when old objects are deleted, and new ones take their place. All of this adds up to a lot of complexity, and the solutions are often buggy or inefficient.
 
 Log structured storage is a technique that takes care of all of these issues. It originated as [Log Structured File Systems](http://en.wikipedia.org/wiki/Log-structured_file_system) in the 1980s, but more recently it's seeing increasing use as a way to structure storage in database engines. In its original filesystem application, it suffers from some shortcomings that have precluded widespread adoption, but as we'll see, these are less of an issue for database engines, and Log Structured storage brings additional advantages for a database engine over and above easier storage management.
@@ -63,16 +61,6 @@ With me singing its praises so loudly, you may be wondering what systems already
 * The [App Engine](http://code.google.com/appengine/) datastore is based on Bigtable, which takes a different approach to on-disk storage, but the transactional layer uses optimistic concurrency.
 
 If you know of other database systems that use the ideas detailed in this post, let us know in the comments!
-
-14 December, 2009
-
-[Previous Post](/2009/12/Naked-domains-on-App-Engine) [Next Post](/2009/12/No-post-today)
-
-### Comments
-
-[View the discussion thread.](http://disqus.com/forums/notdot-blog/?url=ref)
-
-[blog comments powered by Disqus](http://disqus.com)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
