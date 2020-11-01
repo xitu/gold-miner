@@ -5,33 +5,34 @@
 > * 译者：[JohnieXu](https://github.com/JohnieXu)
 > * 校对者：
 
-# 用 Python 模拟动力系统的初学者指南
+# Python 模拟动力系统的初学者指南
 
 > Numerically Integrate ODEs in Python
 
-![Photo by [Dan Meyers](https://unsplash.com/@dmey503?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*GZYR2gufn9IzhkSu)
+![图由 [Dan Meyers](https://unsplash.com/@dmey503?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*GZYR2gufn9IzhkSu)
 
-Consider the simple pendulum.
+回想一下以下单摆模型。
 
 ![](https://cdn-images-1.medium.com/max/2048/0*7CYBv0aAMnMcHQr9.png)
 
-We’ve just got a mass of m hanging from a string with length L that is swinging back and forth.
+一根长度为 L 的绳子下方悬挂一个质量为 m 的重物，来回往复摆动。
 
-It’s basically as simple of a system as we can work with. Don’t let this simplicity fool you though, it can create some interesting dynamics. We’ll use this as a starting point to introduce some control theory and compare that to continuous control reinforcement learning. Before we get to that, we need to spend some time understanding the dynamics of the system and how to simulate it!
+这是非常简单的系统足够我们上手实践，但是也不能被其表象上的简易程度所蒙蔽，因为这套系统可以创建一个有趣的动力系统。我们将以此为起点来介绍一些基本的控制理论以及对比学习更深入的连续控制理论。在此之前，我们有必要先花点时间了解下单摆的运动模型以及如何对其进行运动仿真。
 
-## TL;DR
+## 全文总结
 
-We derive the dynamics of the mass and pendulum system, and build two separate simulation models using one of Python’s integration packages and using Euler’s Method. This provides a good stepping stone for more complex systems; many joints and systems in robotic control can even be modeled as pendulums that are linked together.
+我们推导出了单摆系统的动力学模型，并且分别使用 Python 的集成包和欧拉法创建了两个仿真模型。机器控制系统中的许多关节和系统都可以采用单摆进行建模，因此这里的仿真模型可以作为分析复杂系统的垫脚石。
 
-You can also view the [original post here](https://www.datahubbs.com/simulating-dynamical-systems-with-python/) where the equations are formatted much more nicely than Medium allows.
+原文对文章的公式显示更友好，你可以[点击这里](https://www.datahubbs.com/simulating-dynamical-systems-with-python/)阅读。
 
-## Dynamics of Swinging
+## 摇摆动力学
 
-If we want to simulate this system, we need to understand the dynamics. To start, we’ll draw a free-body diagram (FBD) of the simple pendulum where we show the length, mass, gravity, and force vectors acting on the system.
+若要对单摆系统进行仿真，则首先需要理解摇摆动力学。首先，我们画出单摆系统的受力分析图。其中摆绳的长度、小球的质量、重力及力的方向如下图所示。
 
 ![Free-body diagram of the simple pendulum.](https://cdn-images-1.medium.com/max/2000/0*8vEjw63JJBOSvML0)
 
 Drawing the FBD helps to make all of the forces explicit to ensure we don’t miss anything. Once we have that, we can use Newton’s 2nd Law of Motion to get the dynamics. You’re probably familiar with the F=ma form, but we’ll modify this slightly for [rotational motion](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/) by writing it as:
+绘制受力分析图有助于明确所有力，以确保我们不会有所遗漏。接下来就可以使用牛顿第二运动定律来分析其动力学。牛顿第二运动定律的形式为 `F = ma`，我们使用其变体——[转动定律]](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/)表达如下:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3xMMMwDVq4IbHx-ku6Z-0g.png)
 
@@ -113,7 +114,7 @@ We have no friction or other force in our model, so the pendulum is just going t
 
 ## Semi-Implicit Euler Method
 
-Solving the model via integration is relatively easy, but integration can be very expensive, particularly for larger models. If we want to see the long-term dynamics of the model, we can use [Euler’s Method](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) to integrate and simulate the system instead. This is how control problems such as Cart-Pole are solved in OpenAI and allows us to set-up problems for RL control.
+Solving the model via integration is relatively easy, but integration can be very expensive, particularly for larger models. If we want to see the long-term dynamics of the model, we can use [欧拉法](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) to integrate and simulate the system instead. This is how control problems such as Cart-Pole are solved in OpenAI and allows us to set-up problems for RL control.
 
 To do this, we need to get the [Taylor Series Expansion](https://en.wikipedia.org/wiki/Taylor_series) (TSE) of our ODE’s. The TSE is just a way to approximate a function. You get more accurate the more you expand the series. For our purposes, we’re only going to expand to the first derivative and truncate the higher order terms.
 
