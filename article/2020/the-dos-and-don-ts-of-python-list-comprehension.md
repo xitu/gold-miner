@@ -2,8 +2,8 @@
 > * 原文作者：[Yong Cui, Ph.D.](https://medium.com/@yong.cui01)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-dos-and-don-ts-of-python-list-comprehension.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-dos-and-don-ts-of-python-list-comprehension.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[shixi-li](https://github.com/shixi-li)
 
 # Python 列表推导式使用注意事项
 
@@ -19,7 +19,7 @@ Python 列表推导式并不是给初学者用的，因为它非常反直觉，�
 
 #### 1.建议使用迭代的方式
 
-使用 List 最基本的方式是以一个可迭代对象为基础，创建一个 List 对象，这个可迭代对象可以是任意可以迭代元素的Python对象。使用方法如下。
+使用 List 最基本的方式是以一个可迭代对象为基础，创建一个 List 对象，这个可迭代对象可以是任意可以迭代元素的 Python 对象。使用方法如下。
 
 ```
 [expression for item in iterable]
