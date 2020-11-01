@@ -9,7 +9,7 @@
 
 ## With LocalStorage
 
-There are a number of ways to persist users in a React or Single Page Appplication. A lot of times, devs generally use localStorage to store user data and load the data from there when required. While this approach works, it's not the most effective way as it leaves users vulnerable to attacks. Using cookies is a little safer although it's still not the safest option. Personally, I prefer a mixture of using cookies and JWT's[JSON Web tokens](https://jwt.io/) with expiry to persist user session and to force a user to re-login when their session expires. Using JWT's is out of the scope of this article.
+There are a number of ways to persist users in a React or Single Page Appplication. A lot of times, devs generally use localStorage to store user data and load the data from there when required. While this approach works, it's not the most effective way as it leaves users vulnerable to attacks. Using cookies is a little safer although it's still not the safest option. Personally, I prefer a mixture of using cookies and JWT's [JSON Web tokens](https://jwt.io/) with expiry to persist user session and to force a user to re-login when their session expires. Using JWT's is out of the scope of this article.
 
 As LocalStorage is undefined on the server-side(since localStorag does not exist on the server), it's impossible to access localStorage before rendering a route. As such, our best bet is to check if a user's cookie is valid on the server side before rendering a route.
 
