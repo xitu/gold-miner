@@ -5,7 +5,7 @@
 > * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：[rocwong-cn](https://github.com/rocwong-cn)
 
-# 分享九个流行 JavaScript 图片懒加载库
+# 分享九个 JavaScript 图片懒加载库
 
 ![Photo by [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6000/0*IeWD36cpByaa0F2d)
 
