@@ -71,14 +71,6 @@ To run and test your workflow, just open a pull request. This will trigger and r
 
 If you go deeper with Github Actions and start to manage a lot of workflows in multiple repositories, you are always free to try the dashboarding solution [Meercode](https://meercode.io/) we mentioned before.
 
-## Learn More
-[**Publishing your Deno modules using GitHub**
-**With Deno’s lack of package manager and intent of simply “linking to files anywhere on the internet”, a lot of people…**blog.bitsrc.io](https://blog.bitsrc.io/publishing-your-deno-modules-using-github-f2bd86173392)
-[**What are GitHub Actions and How to Use Them**
-**Intro to GitHub Actions**blog.bitsrc.io](https://blog.bitsrc.io/what-are-github-actions-and-how-to-use-them-e89904201a41)
-[**Github Actions: How to deploy Angular App to Firebase Hosting**
-**Cloud-Powered Apps with Angular & Firebase**blog.bitsrc.io](https://blog.bitsrc.io/github-actions-how-to-deploy-angular-app-to-firebase-hosting-89a93f9c4fe1)
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
