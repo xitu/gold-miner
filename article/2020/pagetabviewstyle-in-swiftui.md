@@ -7,15 +7,11 @@
 
 # PageTabViewStyle in SwiftUI
 
-#### Change tabs in your app with style
-
 ![Photo by [Charles Deluvio](https://unsplash.com/@charlesdeluvio?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8512/0*HuDzGczsUftDGQKL)
 
 At the recent WWDC 2020, Apple introduced an additional style for `TabView` called `PageTabViewStyle`. This is equivalent to Horizontal Paging Scroll, which is commonly used for the onboarding screen.
 
-> # **“A `TabViewStyle` that implements a paged scrolling `TabView`.” — [Apple Documentation](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
-
----
+> **“A `TabViewStyle` that implements a paged scrolling `TabView`.” — [Apple Documentation](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
 
 ## Prerequisites
 
@@ -25,8 +21,6 @@ To follow along with this tutorial, you’ll need some basic knowledge in:
 * At least Xcode 12+
 
 **Note: This only supports iOS 14+.**
-
----
 
 ## Getting Started With PageTabViewStyle
 
