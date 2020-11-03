@@ -32,7 +32,7 @@
 
 为了演示如何简单地在 Github Actions 上创建工作流，我们想展示一个真实的例子。
 
-任务很简单，对于 Github 上的一个项目库，我们需要一个[ AppCenter ](https://appcenter.ms/)在发出 pull 请求时生成触发回应。幸运的是，AppCenter 有一个公用的 REST API，可以用来启动构建。
+任务很简单，对于 Github 上的一个项目库，我们需要一个 [AppCenter](https://appcenter.ms/) 在发出 pull 请求时生成触发回应。幸运的是，AppCenter 有一个公用的 REST API，可以用来启动构建。
 
 我们要创建的操作应该在以下场景触发：
 
@@ -57,7 +57,7 @@
 
 **“runs-on:”** 和 **“matrix:”** 属性指定 action 将在其上运行的环境。“**steps**:” 将定义同步步骤：
 
-* 第一步，从 Action 仓库调取[其它 action ](https://github.com/mdecoleman/pr-branch-name)检索 **“pull request name”** 以便下一步使用。
+* 第一步，从 Action 仓库调取[其它 action](https://github.com/mdecoleman/pr-branch-name) 检索 **“pull request name”** 以便下一步使用。
 * 第二步，我们将初始化应用程序并运行测试。如果测试运行成功，则继续下一步 action。
 * 接着使用 curl 命令调用 **AppCenter API**，为相应的分支名称配置构建。我们使用第一步中的分支名称来构建相应的 **URI**。
 
@@ -69,7 +69,7 @@
 
 要运行和测试工作流，只需打开一个 pull 请求。这将自动触发并运行 action。要查看结果，则可以转到项目库的 **“Actions”** 选项卡，选择相应的工作流并运行。
 
-如果想更深入地使用 Github 操作并开始在多个项目库中管理大量工作流，那么可以随时尝试之前提到过的仪表盘解决方案[ Meercode](https://meercode.io/)。
+如果想更深入地使用 Github 操作并开始在多个项目库中管理大量工作流，那么可以随时尝试之前提到过的仪表盘解决方案 [Meercode](https://meercode.io/)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
