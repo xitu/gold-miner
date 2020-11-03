@@ -32,7 +32,7 @@ body {
 
 ![来自 caniuse.com 的跨主要浏览器的 css-math-functions 功能支持数据](https://caniuse.bitsofco.de/image/css-math-functions.jpg) 
 
-[在 MDN 中](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp), `clamp()` 适用于任何使用了数字、百分数以及其他长度单位的样式中。但奇怪的是，当我尝试将其应用到[ `line-height` ](https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/)时，我发现 Safari 14 应该是支持 `line-height: clamp(...)` 这样的写法的（我尝试了 `@supports`），但是实际情况却是回退到了基准的 `line-height` ，非常令人费解。最终我使用 `line-height: min(calc(1.1em + 1vw), 32px)` 从而实现了 `line-height` 响应式地根据我的内容高度来确定。这里不需要设置一个最小值，因为我测试的宽度都不是很小，但是如果有最小值的需求的话，可以在最外层包裹一个 `max()`： `line-height: max(100%, min(calc(1.1em + 1vw), 32px))`。
+[在 MDN 中](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp)，`clamp()` 适用于任何使用了数字、百分数以及其他长度单位的样式中。但奇怪的是，当我尝试将其应用到[ `line-height` ](https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/)时，我发现 Safari 14 应该是支持 `line-height: clamp(...)` 这样的写法的（我尝试了 `@supports`），但是实际情况却是回退到了基准的 `line-height` ，非常令人费解。最终我使用 `line-height: min(calc(1.1em + 1vw), 32px)` 从而实现了 `line-height` 响应式地根据我的内容高度来确定。这里不需要设置一个最小值，因为我测试的宽度都不是很小，但是如果有最小值的需求的话，可以在最外层包裹一个 `max()`：`line-height: max(100%, min(calc(1.1em + 1vw), 32px))`。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
