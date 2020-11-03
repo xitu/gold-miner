@@ -32,35 +32,35 @@
 ![Free-body diagram of the simple pendulum.](https://cdn-images-1.medium.com/max/2000/0*8vEjw63JJBOSvML0)
 
 Drawing the FBD helps to make all of the forces explicit to ensure we don’t miss anything. Once we have that, we can use Newton’s 2nd Law of Motion to get the dynamics. You’re probably familiar with the F=ma form, but we’ll modify this slightly for [rotational motion](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/) by writing it as:
-绘制受力分析图有助于明确所有力，以确保我们不会有所遗漏。接下来就可以使用牛顿第二运动定律来分析其动力学。牛顿第二运动定律的形式为 `F = ma`，我们使用其变体——[转动定律]](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/)表达如下:
+绘制受力分析图有助于明确所有力，以确保我们不会有所遗漏。接下来就可以使用牛顿第二运动定律来分析其动力学。牛顿第二运动定律的形式为 `F = ma`，我们使用其变体——[转动定律](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/)表达如下:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3xMMMwDVq4IbHx-ku6Z-0g.png)
 
-n this case, τ is the torque about the origin, III is the rotational inertia, and α is the angular acceleration. The torque is given by the perpendicular component of force applied to the mass (the moment about the origin), rotational inertia is just I=mL², and the angular acceleration is the second time derivative of θ. We can plug these values into Newton’s 2nd Law above, and we get:
+在这种情况下，τ 是关于原点的扭矩，III 是旋转惯性，α 是角加速度。扭矩由施加在质量上的力的垂直分量 (关于原点的力矩) 给出，旋转惯性仅为 `I = mL²`，角加速度是 θ 的二阶导数。我们可以将这些值代入到上面的牛顿第二定律，可以得到:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZY8xoZWK0WQw6Kr78RlTvQ.png)
 
-For completeness, we can also consider friction on the pendulum, which gives us:
+为了完整性，我们还可以考虑钟摆上的摩擦，这样就得到:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*GfLPH68C4RaMzFkjE_y51Q.png)
 
-The first thing to notice, we have a second-order ODE (ordinary differential equation) on our hands by virtue of the second derivative (θ¨) in our equation. We want to reduce this to a first-order system to integrate and simulate it. This comes at a cost of complexity because we will break our single, second-order system into two first-order equations. The cost is relatively minor in this case, but for more complicated models (which we’ll get to in future posts) this can become hairy.
+首先要注意的是，由于方程中存在二阶导数 (θ)，所以这是一个二阶常微分方程（ODE）。我们希望能将其简化为一阶系统以便对其进行集成和模拟。基于复杂性代价的考虑，我们将单二阶系统分解成两个一阶方程。在我们现在分析的这种情况下，复杂度的成本并不大，但是对于更复杂的模型，这样处理可能会适得其反。
 
-To do this, we need to introduce two new variables, we’ll call them θ_1​ and θ_2​ and define them as:
+为此，我们需要引入两个新变量，分别命名为 θ_1 和 θ_2，并将它们定义为:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mnqoP1R59QrU_emUHwK4aw.png)
 
-This helps because we now can say θ˙_2=θ¨ and reduce the order of our equation.
+我们定义 `θ˙_2=θ¨` 来简化上述等式
 
-Now, we have:
+于是可以得出：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_lCFpvFSWmxw1zShrZ4eaQ.png)
 
-With our equations set up, let’s turn to the code to model this.
+上面的方程式已经准备好了，下面将通过编码来对其进行建模。
 
-## Simulating the Pendulum Dynamics
+## 模拟单摆动力学
 
-Start by importing the relevant libraries.
+首先导入相关库。
 
 ```python
 import numpy as np
@@ -68,10 +68,10 @@ from scipy import integrate
 import matplotlib.pyplot as plt
 ```
 
-We need to set some of our values. Let the mass and length be 1 kg and 1 m respectively, and for now at least, we’ll ignore friction by setting b=0. We’ll simulate the pendulum swinging starting from π/2 (raised 90 degrees to the right) and released with no initial velocity. We can simulate this for 10 seconds with a time discretization (Δt) of 0.02 seconds.
+需要先定义一些常量，让质量和长度分别为 1kg 和 1m，至少现在，当前先暂且忽略摩擦，假设 b=0 。我们将模拟单摆从 π/2 (向右升高90度) 的位置开始摆动，并在没有初始速度的情况下释放。我们可以用 0.02s 作为间隔（Δt）来离散化 10s 的时间段。
 
 ```python
-# Input constants 
+# 定义常量
 m = 1 # mass (kg)
 L = 1 # length (m)
 b = 0 # damping value (kg/m^2-s)
@@ -81,15 +81,15 @@ t_max = 10 # max sim time (seconds)
 theta1_0 = np.pi/2 # initial angle (radians)
 theta2_0 = 0 # initial angular velocity (rad/s)
 theta_init = (theta1_0, theta2_0)
-# Get timesteps
+# 时间序列
 t = np.linspace(0, t_max, t_max/delta_t)
 ```
 
-We’ll demonstrate two ways to simulate this, first by numerical integration using `scipy`, and then again using Euler’s method.
+我们将演示两种模拟方法，首先使用 `scipy` 库进行数值积分，然后再次使用欧拉方法。
 
-## Scipy Integration
+## Scipy 数值积分
 
-To integrate using `scipy`, we need to build a function for our model. We’ll call it `int_pendulum_sim` for our integrated simulation. This model will take our initial values for θ_1​ and θ_2​ (labeled `theta_init` above) and integrate for a single time step. It then returns the resulting theta values. The function itself is just going to be two equations for θ˙_1​ and θ˙_2​ that we derived above.
+使用 scipy 进行数值积分方法，我们需要为模型构建一个积分函数，称为 `int_pendulum_sim`。该模型将采用 θ_1 和 θ_2 的初始值 (代码中记为 `theta_init`) 对时间间隔（Δt）进行积分，然后返回对应的 theta 值。这个函数正好就是我们上面推导出的 θ˙_ 1 和 θ˙_ 2 的两个方程。
 
 ```python
 def int_pendulum_sim(theta_init, t, L=1, m=1, b=0, g=9.81):
@@ -98,21 +98,22 @@ def int_pendulum_sim(theta_init, t, L=1, m=1, b=0, g=9.81):
     return theta_dot_1, theta_dot_2
 ```
 
-We can simulate our system by passing our function as an argument to `scipy.integrate.odeint`. In addition, we need to give our initial values and the time to simulate over.
+我们可以通过上述将函数作为参数传递给 `scipy.integrate.odeint`。并且，还需要给出初始值和模拟时长。
 
 ```python
 theta_vals_int = integrate.odeint(int_pendulum_sim, theta_init, t)
 ```
 
-The `odeint` function takes these inputs and integrates our θ˙\dot{\theta}θ˙ values for us, then feeds those results back into the function again as the initial conditions for the next time step. This gets repeated until we’ve integrated over all of the time steps t.
+`odeint` 函数将传入的参数与 θ˙ 进行积分运算，计算结果又作为初始值传入该函数自身以进行下一个时间间隔（Δt）的迭代运算，如此递归直至所有时间间隔集合被遍历完成。
 
-We can plot θ and θ˙ to see how the position and velocity evolve over time.
+θ 和 θ˙ 随时间变化可以绘制成如下图。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*eYACTeCtD68Nw88v)
 
 We have no friction or other force in our model, so the pendulum is just going to oscillate back and forth indefinitely between −π/2 and π/2. If you increase the initial velocity, to say, 10 rad/s, you’ll see the position continue to increase as the model shows it circling around again and again.
+我们的模型中是没有考虑摩擦力或其他力的，所以钟摆只会在 -π/2 和 π/2 之间往复地来回摆动。如果你增加初始速度，比如：10rad/s，会看到单摆的运动位置会随着往复来回摆动不断增加。
 
-## Semi-Implicit Euler Method
+## 半隐式欧拉法
 
 Solving the model via integration is relatively easy, but integration can be very expensive, particularly for larger models. If we want to see the long-term dynamics of the model, we can use [欧拉法](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) to integrate and simulate the system instead. This is how control problems such as Cart-Pole are solved in OpenAI and allows us to set-up problems for RL control.
 
