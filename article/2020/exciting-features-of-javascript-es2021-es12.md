@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/exciting-features-of-javascript-es2021-es12.md](https://github.com/xitu/gold-miner/blob/master/article/2020/exciting-features-of-javascript-es2021-es12.md)
 > * 译者：[tonylua](https://github.com/tonylua)
-> * 校对者：
+> * 校对者：[samyu2000](https://github.com/samyu2000), [@HurryOwen](https://github.com/HurryOwen)
 
 # JavaScript ES2021 中激动人心的特性
 
@@ -24,7 +24,7 @@
 
 ## String.prototype.replaceAll
 
-在 JavaScript 中，**replace()** 方法仅替换一个字符串中某模式（pattern）的首个实例。如果我们要替换一个字符串中某模式的所有匹配项，唯一的方法就是使用一个有全局标记的正则。
+在 JavaScript 中，**replace()** 方法仅替换一个字符串中某模式（pattern）的首个实例。如果我们要替换一个字符串中某模式的所有匹配项，唯一的方法就是使用有全局标记的正则。
 
 拟议的方法 **replaceAll()** 会返回一个新字符串，该字符串中用一个替换项替换了原字符串中所有匹配了某模式的部分。模式可以是一个字符串或一个正则表达式，而替换项可以是一个字符串或一个应用于每个匹配项的函数。
 
@@ -153,7 +153,7 @@ console.log(num1) // false
 
 ## 数值分隔符
 
-数字分隔符（Numeric Separators）的引入将通过使用 `_`（下划线）符号在数字分组间提供一个隔离以简化数值的阅读。例如：
+数字分隔符（Numeric Separators）的引入将通过使用 `_`（下划线）符号在数字分组间提供一个隔离以便于阅读数值。例如：
 
 ```JavaScript
 let number = 100_000 
@@ -173,7 +173,7 @@ ListFormat 对象的构造方法有两个参数，皆为可选。首个参数是
 new Intl.ListFormat([locales[, options]])
 ```
 
-Intl.ListFormat 有一个叫做 **format()** 的方法，接受一个数组作为参数，并因 locale 和选项而异以不同方式格式化该参数数组。
+Intl.ListFormat 有一个叫做 **format()** 的方法，接受一个数组作为参数，并因 locale 和选项而异以相应的方式格式化该参数数组。
 
 以下给出的是一些结合了不同 locale 和选项的例子。
 
@@ -285,7 +285,7 @@ console.log(abc.format(Date.now()))
 
 ## 总结
 
-作为一个开发者，追踪一门语言的新特性很重要。若你忽略了 ES2020 的新升级，我推荐你阅读这篇文章 -— [ES2020 已至](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6)。
+作为一个开发者，追踪一门语言的新特性很重要。若你错过了 ES2020 中更新的特性，我推荐你阅读这篇文章 -— [ES2020 已至](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6)。
 
 感谢你的阅读，如果你有感兴趣的主题，请在下方评论！
 
