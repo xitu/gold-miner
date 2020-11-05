@@ -2,48 +2,48 @@
 > * 原文作者：[Jason Knight](https://medium.com/@deathshadow)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/responsive-font-size-using-vanilla-css.md](https://github.com/xitu/gold-miner/blob/master/article/2020/responsive-font-size-using-vanilla-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[HurryOwen](https://github.com/HurryOwen)、[JohnieXu](https://github.com/JohnieXu)
 
-# “Responsive” Font-Size Using Vanilla CSS
+# 使用原生 CSS 设置响应式字体
 
-There are times where it’s desirable to have the font size scale between two extremes based on the screen width. The strange part is the hoops I’ve seen people jump through to accomplish this, such as the use of “RFS” as outlined in [Ahmed Sakr](undefined)’s article [here on Medium.](https://medium.com/javascript-in-plain-english/automatically-scale-font-sizes-with-rfs-ca22549cc802) Whilst his article well written in outlining how it works, [RFS itself is a bloated wreck](https://github.com/twbs/rfs) of how NOT to do this in the age of CSS3 calculations and comparisons.
+有时需要根据屏幕宽度将字体大小比例进行适配操作。奇怪的是，我见过有人为了实现这个功能经历了重重困难。例如 [Ahmed Sakr](undefined) 在他的文章 [Medium](https://medium.com/javascript-in-plain-english/automatically-scale-font-sizes-with-rfs-ca22549cc802) 中概述的 `RFS` 的使用，尽管他很好地概述了 `RFS` 如何工作的，但在 CSS3 计算和比较时代，[RFS 本身却是过时的淘汰品](https://github.com/twbs/rfs)。
 
-Though sadly, such issues are common amongst those who use nonsensical trash like CSS pre-processors, where — **much like frameworks** — it becomes painfully apparent those who created such systems —**and those who use them** — are clearly unqualified to write a single blasted line of HTML, much less apply CSS to it and then have the unmitigated gall to tell others how to do so.
+不幸的是，这些问题在那些使用 CSS 预处理器的人中间很常见，而这些程序很像**框架**。 — 创建此类系统的人**和使用这些系统的人**显然不够格编写 HTML 代码，更不用说应用 CSS 了，然后大言不惭地告诉别人如何做。
 
-## The Math
+## 字体单位计算
 
-The laugh is this is actually quite simple to implement. Let’s say you want 1em font-size as the minimum, 4em as the largest, and the scale to the largest size to be based on 75rem. 75rem being 1200px for 16px/normal users, 1500px for 20px/large font users like myself, and 2400px on a lot of 4k devices.
+值得高兴的是，这实际上很容易实现。假设想要最小的字体为 1em，最大的字体为 4em，最大字体的缩放比例基于 75rem。75rem 对应 1600px（适用于普通用户，1rem 代表 16px），1500px（适用于大字体用户，例如我本人，1rem 代表 20px）和 2400px（常用于 4k 设备上，1rem 代表 32px）。
 
 ```css
 font-size:max(1em, min(4em, calc(100vw * 4 / 75)));
 ```
 
-You could also just “do the math yourself”
+你也可以自己计算
 
 ```css
 font-size:max(1em, min(4em, 5.333vw));
 ```
 
-That 4 in the math simply needing to match your 4em in the min calculation.
+数学中的 4 仅需与 min 计算中的 4em 相匹配。
 
-You don’t need some giant derpy framework or garbage pre-processor, or any of that junk anymore. This is simple math that CSS is more than capable of on its own.
+您不再需要大型的 derpy 框架或垃圾预处理器，也不会有任何内存垃圾。这是 CSS 本身足以处理的计算功能。
 
-CSS variables can then be leveraged to store the various values to make them easier to apply in your layout.
+然后还可以利用 CSS 变量存储各种值，以使其在布局中更容易应用。
 
-## Major Differences From Other Implementations
+## 与其他实现对比
 
-Rather than use media queries to have to manually state the maximum size somewhere else, we are able with min/max to hardcode both our minimum and maximum sizes into the formula. One simple call handles it all. Rather than have to think (or write code) to say (max-width:1200px) or some such as a separate media query with the maximum value in it, we just put it all in one declaration.
+不必使用媒体查询来手动在其他地方声明最大尺寸，我们可以使用 min、max 将最小和最大尺寸硬编码到公式中。一个简单的调用就可以解决所有问题，不必考虑（或编写代码）说（max-width：1200px）或代码带有最大值的单独媒体查询之类的，我们只需将它们全部放入一个声明中即可。
 
-It also allows things to **actually reach the minimum.** Most such attempts at this just add a base size to a fraction of the body width, meaning the minimum size you say isn’t the minimum size you get or the layout could ever reach.
+它还允许事物**实际达到最小值**。大多数这样的尝试只会将基本尺寸增加到显示宽度的一小部分，这意味着最小尺寸不是所需要获得的最小尺寸或布局可能达到的最小尺寸。
 
-Likewise this is 100% EM based, so you aren’t pissing on usability and accessibility by sleazing things out in pixels. Again, as I’ve said thousands of times the past decade and a half, if you use EM/% font-sizes, your padding, margins, and media queries should ALL be EM based as well. Don’t mix and match, it WILL end up broken for non-standard font-size users… Like myself who has 20px == 1REM on my laptop and workstation, and 32px == 1EM on my media center.
+同样，这是基于 100％EM 的，因此您不会以像素为单位精简可用性和可访问性。再次，正如我在过去的十五年中多次说过的那样，如果您使用 EM 和 ％ 作为字体大小控制单位，则内边距 padding、外边距 margin 和媒体查询也全部都应该基于 EM，不要混用。对于非标准字体大小的用户来说，它最终会混乱崩掉的。就像我这样，我的笔记本电脑和工作站上的像素为 20px == 1REM，媒体中心的像素为 32px == 1EM。
 
-> # It would seem the universe does not like its **peas** mixed with its porridge. — R. Lutece
+> **似乎所有人都不喜欢豌豆和粥混合在一起。— R. Lutece**
 
-## So Let’s Do It!
+## 原生 CSS 代码
 
-Take a simple page section:
+使用简单的页面展示：
 
 ```html
 <section>
@@ -56,7 +56,7 @@ Take a simple page section:
  </section>
 ```
 
-First we make some variables to handle our various desired minimum and maximum sizes:
+首先，我们创建一些变量来处理各种所需的最小和最大尺寸：
 
 ```css
 :root {
@@ -68,11 +68,11 @@ First we make some variables to handle our various desired minimum and maximum s
 }
 ```
 
-You want a different width for the maximum size base, just change that 75 to whatever it is you want (in em). We just apply our calculations as desired.
+不同的显示屏幕具有不同的宽度，只需将 75 更改为所需的宽度（以 em 为单位）即可。我们只是根据需要来进行计算。
 
-Again, the “max(value” is actually your minimum size, your “min(value” is your maximum size, and the multiplication value at the end should match your “min(value”
+同样，`max(value)` 实际上是你设备的最大尺寸，`min(value)` 是你设备的最小尺寸，并且最后的计算值应该是你设备屏幕显示的最小尺寸 `min(value)`。
 
-To apply them is as simple as:
+实际应用很简单：
 
 ```css
 main section {
@@ -89,45 +89,45 @@ h2 {
 }
 ```
 
-The result? When the page is really big:
+结果如何呢？当页面很大时：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*NdMmS0zWfYXuARtPoY6gMg.png)
 
-Whilst when small:
+当页面很小时：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qC9Zj2yrRKpKGuBvl-Nnhg.png)
 
-…the padding, border-radius, heading size, and so forth all shrink.
+padding、border-radius、heading 的尺寸大小等都会缩小。
 
-## Live Demo
+## 在线演示
 
-[**Rescale Sections with Vanilla CSS**](https://cutcodedown.com/for_others/medium_articles/responsiveRescale/responsiveRescale.html)
+[**使用原生 CSS 设置响应式字体**](https://cutcodedown.com/for_others/medium_articles/responsiveRescale/responsiveRescale.html)
 
-As with all my examples, the directory:
+与我所有的示例一样，该目录为：
 
 [https://cutcodedown.com/for_others/medium_articles/responsiveRescale/](https://cutcodedown.com/for_others/medium_articles/responsiveRescale/)
 
-Is wide open for easy access to the gooey bits and pieces, and contains a .rar of the whole shebang for easy download, testing, and play.
+这个项目是开放的，可以轻松访问，并且包含整个项目的 .rar 文件，也可以轻松下载、测试。
 
-There you go.
+随你怎么喜欢怎么操作！
 
-## Drawbacks
+## 不足之处
 
-There’s really only one. Legacy browsers choke on it. You know what? **OH FREAKING WELL!!!**
+真正的不足只有一个：旧版浏览器不支持。你知道是哪个吧？**哦，真想好起来！！！**
 
-But if you’re worried about that, as always check with “caniuse”
+但是，如果对此感到担心，请一如既往地查阅 “caniuse”。
 
 [https://caniuse.com/css-math-functions](https://caniuse.com/css-math-functions)
 
-Apart from that, I had a few people say that it’s “too hard to remember”. Seriously? ^C^V people!
+除此之外，还有些人会说这太难记了。认真的吗？复制粘贴的工具人！
 
-## Conclusion
+## 结论
 
-I’m often amazed at the amount of code people will throw at things to “make it simpler”, in the process oft removing the amount of control you have over the result. Even if one were to do this sort of thing with pre-processor or scripting assistance, it should be as easy as plugging the values into the above formula. Honestly though, if you think throwing 9k of SCSS at trying to do this is worth your time… well, might be time to back away from the keyboard and take up something a bit less detail oriented like macramé.
+我经常惊讶于人们为了“使它更简单”而投入大量的代码，在这个过程中，你常常会取消对结果的控制。即便使用预处理器或辅助脚本来完成这类操作，也应该很容易将值插入到上面的公式中。不过，老实说，如果你认为花 9k 的 SCSS 来做这件事是值得的...那么，也许是时候离开键盘，开始一些不太注重细节的东西了，比如 macramé。
 
-But to be fair, “min” and “max” are **REALLY new** CSS features — at least as of 2020 — despite being strongly supported by all current/recent browser engines. A lot of what that pre-processor time-wasting junk was designed to do is fill in gaps in the specifications. Gaps that often no longer exist.
+但说实话，“min” 和 “max” 是**非常新的** CSS 特性 —— 至少在 2020 年是这样 —— 尽管目前的所有浏览器引擎都能够支持。大量预处理 css 样式文件及其他耗时的处理都是为了弥补规范中的空白，确保浏览器兼容性。
 
-**Just look at how superior native CSS variables are to pre-compiled ones, since you can change them on the fly and it will impact everything calling it. With pre-processors they’re compiled out. With LESS/SASS/SCSS I labeled them as useless junk for people too lazy to figure out how to search/replace. The native implementation is actually useful!**
+**CSS 变量比预编译语言（LESS、SASS、SCSS）中定义变量的方式更优秀，因为你可以动态地更改它们，它会影响调用它的所有东西。通过预处理器，它们被编译出来。对于那些懒得去寻找替换的人来说，我把它们标记为无用的垃圾。实际上本文代码实现很有用！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
