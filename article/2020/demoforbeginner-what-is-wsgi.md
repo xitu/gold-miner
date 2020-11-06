@@ -34,6 +34,7 @@ environ['wsgi.url_scheme'] = 'http'
 * `start_response` 必须返回一个 callable，这个 callable 需要一个位置参数：一个二进制字符串作为 HTTP 响应的主体。
 * 如果应用程序返回的迭代对象拥有一个关闭方法，则无论请求是否正常完成，服务器必须在当前请求结束后调用该方法。
   
+
 #### 服务器
 
 * 接收 HTTP 请求并返回 HTTP 响应。
