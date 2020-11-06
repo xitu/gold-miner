@@ -2,18 +2,18 @@
 > * 原文作者：[Adebola](https://dev.to/debosthefirst)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-use-cookies-for-persisting-users-in-nextjs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-use-cookies-for-persisting-users-in-nextjs.md)
-> * 译者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
-# How to use cookies for persisting users in Nextjs
+# 如何在 Nextjs 中使用 cookies 来持久化保存用户信息
 
-## With LocalStorage
+## 使用 LocalStorage
 
 There are a number of ways to persist users in a React or Single Page Appplication. A lot of times, devs generally use localStorage to store user data and load the data from there when required. While this approach works, it's not the most effective way as it leaves users vulnerable to attacks. Using cookies is a little safer although it's still not the safest option. Personally, I prefer a mixture of using cookies and JWT's [JSON Web tokens](https://jwt.io/) with expiry to persist user session and to force a user to re-login when their session expires. Using JWT's is out of the scope of this article.
 
 As LocalStorage is undefined on the server-side(since localStorag does not exist on the server), it's impossible to access localStorage before rendering a route. As such, our best bet is to check if a user's cookie is valid on the server side before rendering a route.
 
-## Getting started using cookies in React/NextJS
+## 在 React/NextJS 中使用 cookies
 
 To use cookies in NextJS, we need to install 2 packages. For this tutorial, we'll be using **cookie** and **react-cookie**. **React-cookie** allows us set the cookie from the client side while the **cookie** package lets us access the set cookie from the server-side. Install both packages by running  
 
@@ -23,7 +23,7 @@ npm install react-cookie cookie
 
 [Cookie-cutter](https://npmjs.com/package/cookie-cutter) is a tiny package that does the same thing as react-cookie.
 
-## Setting a cookie
+## 设置 cookie
 
 With both packages installed, It's time to set a cookie. Usually, we set a cookie for a user once they've succesfully signed in or signed up to our application. To set a cookie on Sign in, follow the example below.  
 
@@ -66,7 +66,7 @@ make a request to sign in a user by calling a function to log the user in. We ta
 
 We also pass some additional options to the cookie including **path** \- makes sure your cookie is accessible in all routes, **maxAge**, how long from the time the cookie is set till it expires and **sameSite**. Samesite indicates that this cookie can only be used on the site it originated from - It is important to set this to true to avoid errors within firefox logs.
 
-## Giving your app access to the Cookie
+## 赋予 Cookie 访问应用的权限
 
 To ensure that every route in our application has access to the cookie, we need to wrap our APP component in a cookie provider.
 
@@ -85,7 +85,7 @@ export default function MyApp({ pageProps }) {
 }
 ```
 
-## [](#setting-up-the-function-to-parse-the-cookie)Setting up the function to parse the cookie
+## [](#setting-up-the-function-to-parse-the-cookie)设置解析 cookie 的函数
 
 Next, we need to setup a function that will check if the cookie exists on the server, parse the cookie and return it. Created a new folder called **helpers** and within that add an **index.js** file.
 
@@ -103,7 +103,7 @@ export function parseCookies(req) {
 
 The function above accepts a request object and checks the request headers to find the cookie stored.
 
-## Accessing the cookie within your component
+## 在组件中访问 cookie
 
 Finally, we will use `getInitialProps` in our component to check if the user already has a valid cookie on the server side before rendering the requested route. An alternative to this approach is using `getServerSideProps`.  
 
