@@ -7,8 +7,6 @@
 
 # 5 Useful Things The Spread Operator Can Do in JavaScript
 
-#### Write a Better and Clean JavaScript Code with The Spread Operator
-
 ![Image Created with ❤️️ By Mehdi Aoussiad.](https://cdn-images-1.medium.com/max/3980/1*IhLMLpHPrIWgtsBuh5Tueg.jpeg)
 
 ## Introduction
@@ -98,10 +96,6 @@ There are many ways to do that, but the spread operator makes it easier with a c
 The spread operator is one of the useful features in JavaScript. It is easy to use and it also keeps our code clean, and easy to maintain.
 
 Thank you for reading this article, I hope you found it useful.
-
-## Further Reading
-[**7 Beginner JavaScript Interview Questions That You Should Know**
-**7 JavaScript Interview Questions with Answers**medium.com](https://medium.com/javascript-in-plain-english/7-beginner-javascript-interview-questions-that-you-should-know-54fc3e15abf9)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
