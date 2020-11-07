@@ -15,10 +15,6 @@ The spread operator is one of the important and useful features that has been ad
 
 In this short article, we will explore some use cases of the spread operator `**{…}** `in JavaScript.
 
-![Photo by [Zan](https://unsplash.com/@zanilic?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*mdNOvCPmZVeY0g9T)
-
-So, let’s get started.
-
 ## 1. Combine Two Objects
 
 We can merge two objects using the spread operator in JavaScript. Have a look at the example below:
