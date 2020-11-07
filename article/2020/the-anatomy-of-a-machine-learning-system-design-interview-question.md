@@ -2,7 +2,7 @@
 > * 原文作者：[The Educative Team](https://medium.com/@educative)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-anatomy-of-a-machine-learning-system-design-interview-question.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-anatomy-of-a-machine-learning-system-design-interview-question.md)
-> * 译者：
+> * 译者：[caiyundong]{http://github.com/caiyundong}
 > * 校对者：
 
 # 机器学习系统设计相关面试问题的剖析
