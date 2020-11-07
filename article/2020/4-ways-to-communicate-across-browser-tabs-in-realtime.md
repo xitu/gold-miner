@@ -7,8 +7,6 @@
 
 # 4 Ways to Communicate Across Browser Tabs in Realtime
 
-#### Get to know different ways of communicating across Browser Tabs in Realtime
-
 ![Photo by [JOHN TOWNER](https://unsplash.com/@heytowner?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8192/0*7c6YTCKtlLMAjuOn)
 
 Over the years, Web Browser capabilities have ever increased due to the demands coming from web applications. As a result, we can find multiple ways of achieving similar functionality. One such feature we rarely look at is the ability to communicate across Browser Tabs. Let’s look at a few scenarios where you need this.
@@ -25,13 +23,13 @@ You might have already used LocalStorage, which is accessible across Tabs within
 
 For example, let’s say in one Tab, we execute the following JavaScript code.
 
-```
+```js
 window.localStorage.setItem("loggedIn", "true");
 ```
 
 The other Tabs which listen to the event will receive it, as shown below.
 
-```
+```js
 window.addEventListener('storage', (event) => {
  if (event.storageArea != localStorage) return;
  if (event.key === 'loggedIn') {
@@ -51,14 +49,14 @@ You can find more information in [MDN documentation for Storage Events](https://
 
 The Broadcast Channel API allows communication between Tabs, Windows, Frames, Iframes, and [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API). One Tab can create and post to a channel as follows.
 
-```
+```js
 const channel = new BroadcastChannel('app-data');
 channel.postMessage(data);
 ```
 
 And other Tabs can listen to channel as follows.
 
-```
+```js
 const channel = new BroadcastChannel('app-data');
 
 channel.addEventListener ('message', (event) => {
@@ -68,25 +66,13 @@ channel.addEventListener ('message', (event) => {
 
 This way, Browser [contexts](https://developer.mozilla.org/en-US/docs/Glossary/browsing_context) (**Windows**, **Tabs**, **Frames**, or **Iframes**) can communicate. Even though this is a convenient way of communication between Browser Tabs, safari and IE does not support this. You can find more details in [MDN documentation for BroadcastChannel](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API).
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*0AvuR5M5ITjjFjpE.gif)
-
----
-
 ## 3. Service Worker Post Message
 
 You might wonder, how Service Workers comes in to the picture. Basically, Service Workers also supports sending messages, which we can use to communicate across Browser Tabs.
 
 Using Service Workers, you can send a message like shown below.
 
-```
+```js
 navigator.serviceWorker.controller.postMessage({
  broadcast: data
 });
@@ -94,7 +80,7 @@ navigator.serviceWorker.controller.postMessage({
 
 And in the receiving Worker in the other Browser Tab can listen to the event.
 
-```
+```js
 addEventListener('message', async (event) => {
  if ('boadcast' in event.data ) {
   const allClients = await clients.matchAll();
@@ -111,13 +97,13 @@ This method gives more control and is a reliable way of passing messages. But im
 
 One of the traditional ways of communicating across Browser Tabs, Popups, and Iframes is `Window.postMessage()` method. You can send the message as follows.
 
-```
+```js
 targetWindow.postMessage(message, targetOrigin)
 ```
 
 And the target window can listen to the events, as shown below.
 
-```
+```js
 window.addEventListener("message", (event) => {
   if (event.origin !== "http://localhost:8080")
     return;
@@ -136,14 +122,6 @@ In addition to the methods discussed, we can also use Websockets and Server-Sent
 Thank You for reading along. And please share if you find any other mechanisms, and don’t forget to comment if you have any questions or doubts.
 
 Happy Coding !!! ❤️
-
-## Learn More
-[**Chrome’s Web Locks API: Cross-Tab Resource Synchronization**
-**Share resources amongst several tabs/workers without any synchronization issues**blog.bitsrc.io](https://blog.bitsrc.io/web-locks-api-cross-tab-resource-synchronization-54326e079756)
-[**Build a Command-Line Real-Time Chat App using SocketIO**
-**Learn how to build a command-line chat app using SocketIO.**blog.bitsrc.io](https://blog.bitsrc.io/build-a-command-line-real-time-chat-app-using-socketio-f2e3553d6228)
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
