@@ -7,8 +7,6 @@
 
 # Build a GraphQL Server With Spring Boot and MySQL
 
-#### Building a GraphQL server from scratch
-
 ![Photo modified by me using resources of [John Peel](https://unsplash.com/@johnpeel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/3840/1*zttc2YOayk-LuiTYy18c9A.png)
 
 Have you ever wondered that a client can impact an API request? Can he request what he actually needs and get exactly that? If you’re surprised by the questions, I can confirm that you’ve never heard about GraphQL.
@@ -17,13 +15,11 @@ So the answer to the above questions will be a definite yes because it’s 100% 
 
 I hope that you are familiar with the Java programming language, the Spring Boot framework, and REST APIs in general. No prior GraphQL experience is required to continue. I know already you are excited about this topic. So why are we waiting? But before moving to the coding, I’ll give a quick overview of GraphQL and the reasons that make it so special.
 
----
-
 ## The First Step to GraphQL
 
 I know what your mind is struggling to find right now. What the heck is this GraphQL? Take a deep breath and let me explain. Simply it’s a data query and manipulation language for your API.
 
-GraphQL ****exposes a single endpoint that ****receives a query from the front-end as part of the request, returning exactly the requested parts of data in a single response. Of course, I must say: Don’t underestimate the power of a common client.
+GraphQL exposes a single endpoint that receives a query from the front-end as part of the request, returning exactly the requested parts of data in a single response. Of course, I must say: Don’t underestimate the power of a common client.
 
 You can get a clear idea by viewing this GIF. Also, this is a part of the app that we are about to implement today.
 
@@ -32,8 +28,6 @@ You can get a clear idea by viewing this GIF. Also, this is a part of the app th
 GraphQL is used in production by hundreds of organizations of all sizes including Facebook (Actually GraphQL was internally developed by Facebook in 2012 and then it publicly open-sourced in 2015 ), Credit Karma, GitHub, Intuit, PayPal, the New York Times, and many more.
 
 Hey, wait a minute! What’s about REST then. Isn’t it worthy enough anymore? Check this out!
-
----
 
 ## The Battle: GraphQL Vs REST
 
@@ -74,8 +68,6 @@ However, if you want an article on implementing a GraphQL server with Node.js, p
 
 Okay, enough talking. Let’s go to some practical stuff. Nothing better than getting a hands-on experience.
 
----
-
 ## The Foundation: Setting Up the Project
 
 As a simple scenario, I’m creating an app for fetching users and their posts. I am naming this as **WriteUp** and hoping to further develop it in the future.
@@ -96,8 +88,6 @@ reduces the boilerplate code required by JPA.
 ![Screenshot provided by the author.](https://cdn-images-1.medium.com/max/2740/1*gj881gOHnanEEmyWoStkEw.png)
 
 All okay. Take a quick break and let the IntelliJ to resolve the dependencies.
-
----
 
 ## The Essentials: Configuring the Basics
 
@@ -263,8 +253,6 @@ All right! Let’s do a quick demo run to check whether all are working fine.
 
 Great. As you can see our basic structure has worked as expected. Let’s move on to the big step.
 
----
-
 ## Releasing The Beast: Setting Up GraphQL
 
 First things first! You need to add GraphQL dependencies to the project.
@@ -378,7 +366,6 @@ public class UserService implements GraphQLQueryResolver {
     }
     
 }
-
 ```
 
 I created a new service called `UserService` and implement `GraphQLQueryResolver` interface that comes as a library interface in `graphql-java-tools`
@@ -441,7 +428,6 @@ type User {
     address:String,
     postId : Int,
 }
-
 ```
 
 I added a SQL query to the user repository to update the user from incoming parameters.
@@ -465,7 +451,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int updateUserAddress(String address, Integer user_id);
 
 }
-
 ```
 
 In the user service, we have to implement another interface called `GraphQLMutationResolver` Then we can define our `updateUserAdress` method there. Make sure that all the methods can be publicly accessible. So the final `UserService` will be as follows.
@@ -504,7 +489,6 @@ public class UserService implements GraphQLQueryResolver, GraphQLMutationResolve
     }
 
 }
-
 ```
 
 All right! We defined our mutation also. Now do the testing as usual. You can confirm the API is working perfectly by checking the database.
@@ -521,15 +505,11 @@ This is extremely useful when notifying your client in real-time about alteratio
 
 Also, there are many more things to cover up in GraphQL like error handling, spring-security, validation, etc. So I’ll intend to have separate articles on these topics as well.
 
----
-
 ## Inner Peace: The Conclusion
 
-Here is a small demonstration of what we built today and the complete source code of the project can be seen below.
+Here is a [small demonstration](https://youtu.be/D_YDhxLtjpI) of what we built today and the complete source code of the project can be seen below.
 
-Resources: Source code of the [WriteUp](https://github.com/Yasas4D/WriteUp) Application.
-[**Yasas4D/WriteUp**
-**You can't perform that action at this time. You signed in with another tab or window. You signed out in another tab or…**github.com](https://github.com/Yasas4D/WriteUp)
+Resources: [Source code of the WriteUp](https://github.com/Yasas4D/WriteUp) Application.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
