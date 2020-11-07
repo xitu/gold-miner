@@ -7,8 +7,6 @@
 
 # Functional Programming Explained in Python, JavaScript, and Java
 
-#### Learn about functional programming, regardless of your language background
-
 ![Image source: Author](https://cdn-images-1.medium.com/max/2048/1*CWuM2vAxWNcitQStHD7eUg.png)
 
 Functional programming (FP) is the process of building software by composing pure functions. Nowadays, employers are looking for programmers who can draw on multiple paradigms to solve problems. Functional programming especially is gaining in popularity due to its efficiency and scalability to solve modern problems.
@@ -26,8 +24,6 @@ Today, we’ll explore the core concepts of functional programming and show you 
 * Functional programming with JavaScript
 * Functional programming with Java
 * What to learn next
-
----
 
 ## What Is Functional Programming?
 
@@ -47,8 +43,6 @@ Some common uses of functional programming are AI design, ML classification algo
 
 **Simplified:** Functional programs execute many pure, single-purpose functions in sequence to solve complex mathematical or non-physical problems.
 
----
-
 ## Advantages of Functional programming
 
 * **Easy debugging**: Pure functions and immutable data make it easy to find where variable values are set. Pure functions have fewer factors influencing them and therefore allow you to find the bugged section easier.
@@ -56,8 +50,6 @@ Some common uses of functional programming are AI design, ML classification algo
 * **Modular**: Pure functions do not rely on external variables or states to function, meaning they’re easily reused across the program. Also, functions will only complete a single operation or computation to ensure you can reuse that function without accidentally importing extra code.
 * **Enhanced readability**: Functional programs are easy to read because the behavior of each function is immutable and isolated from the program’s state. As a result, you can predict what each function will do often just by the name.
 * **Parallel programming**: It’s easier to create parallel programs with a functional programming approach because immutable variables reduce the amount of change within the program. Each function only has to deal with user input and can trust that the program state will remain mostly the same.
-
----
 
 ## Functional Programming Languages
 
@@ -76,8 +68,6 @@ Not all programming languages support functional programming. Some languages, li
 * **JavaScript**: While not functional-first, JS stands out for functional programming due to its asynchronous nature. JavaScript also supports essential functional programming features like lambda expressions and destructuring. Together these attributes mark JS as a top language for functional programming among other multi-paradigm languages.
 * **Python, PHP, C++**: These multi-paradigm languages support functional programming but have incomplete support compared to Scala and JavaScript.
 * **Java**: Java is a general-purpose language but forefronts class-based OOP. The addition of lambda expressions allows you to pursue a more functional style in a limited way. Java is ultimately an OOP language that **can** achieve functional programming but is missing key features to make the shift worth it.
-
----
 
 ## Concepts of Functional Programming
 
@@ -124,8 +114,6 @@ Higher-order functions can accept other functions as parameters or return functi
 
 Functions can be sequentially executed to complete complex operations. The result of each function is passed to the next function as an argument. This allows you to call a series of functions with just a single function call.
 
----
-
 ## Functional Programming With Python
 
 Python has partial support for functional programming as a multi-paradigm language. Some Python solutions of mathematical programs can be more easily accomplished with a functional approach.
@@ -149,7 +137,7 @@ Many of Python’s built-in data structures are immutable by default:
 
 Tuples are especially useful as an immutable form of an array.
 
-```
+```py
 # Python code to test that  
 # tuples are immutable  
 
@@ -162,7 +150,7 @@ This code causes an error because it attempts to reassign an immutable tuple obj
 
 The following is a pure function because it has no side effects and will always return the same output:
 
-```
+```py
 def add_1(x):
     return x + 1
 ```
@@ -173,14 +161,14 @@ Functions are treated as objects in Python. Here’s our quick guide on how you 
 
 **Functions as objects**
 
-```
+```py
 def shout(text): 
     return text.upper()
 ```
 
 **Pass function as parameter**
 
-```
+```py
 def shout(text): 
     return text.upper() 
 
@@ -194,7 +182,7 @@ greet(shout)
 
 **Return function from another function**
 
-```
+```py
 def create_adder(x): 
     def adder(y): 
         return x+y 
@@ -206,7 +194,7 @@ def create_adder(x):
 
 To compose functions in Python, we’ll use a `lambda function` call. This allows us to call any number of arguments in a single call.
 
-```
+```py
 import functools
 
 def compose(*functions):
@@ -220,8 +208,6 @@ At **line 5**, we return a new function that represents the composition of `f` a
 
 Finally, at **line 6**, we return the results of our composition function.
 
----
-
 ## Functional Programming in JavaScript
 
 JavaScript has long offered functional capabilities due to its support for first-class functions. Functional programming has recently become more popular in JavaScript because it boosts performance when used in frameworks like Angular and React.
@@ -234,7 +220,7 @@ To start creating pure functions in JavaScript we’ll have to use functional al
 
 The `let` keyword sets a mutable variable. Declaring with `const` instead guarantees that the variable is immutable because it prevents reassignment.
 
-```
+```js
 const heightRequirement = 46;
 
 function canRide (height){
@@ -246,14 +232,14 @@ We also need to use functional alternatives to manipulate arrays. The `push()` m
 
 Instead we’ll use the functional equivalent, `concat()`. This method returns a new array that contains all original elements as well as the newly added element, The original array is not modified when using `concat()`.
 
-```
+```js
 const a = [1, 2]
 const b = [1, 2].concat(3)
 ```
 
 To remove an item from an array, we’d usually use the `pop()` and `slice()` methods. However, these are not functional as they modify the original array. Instead, we'll use `filter()` that creates a new array that contains all elements that pass a conditional test.
 
-```
+```js
 const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
 
 const result = words.filter(word => word.length > 6);
@@ -265,14 +251,14 @@ JavaScript supports first-class functions by default. Here’s a quick guide of 
 
 **Assign function to variable**
 
-```
+```js
 const f = (m) => console.log(m)
 f('Test')
 ```
 
 **Add function to array**
 
-```
+```js
 const a = [
   m => console.log(m)
 ]
@@ -281,7 +267,7 @@ a[0]('Test')
 
 **Pass function as argument**
 
-```
+```js
 const f = (m) => () => console.log(m)
 const f2 = (f3) => f3()
 f2(f('Test'))
@@ -289,7 +275,7 @@ f2(f('Test'))
 
 **Return function from another function**
 
-```
+```js
 const createF = () => {
   return (m) => console.log(m)
 }
@@ -301,14 +287,14 @@ f('Test')
 
 In JavaScript, we can compose functions with chained function calls:
 
-```
+```js
 obj.doSomething()
    .doSomethingElse()
 ```
 
 Alternatively, we can pass a function execution into the next function:
 
-```
+```js
 obj.doSomething(doThis())
 ```
 
@@ -316,7 +302,7 @@ If we want to compose more functions, we can instead use `lodash` to simplify th
 
 The first function in the list uses the original argument as its input. Later functions inherit an input argument from the return value of the function before it.
 
-```
+```js
 import { compose } from 'lodash/fp'
 
 const slugify = compose(
@@ -328,8 +314,6 @@ const slugify = compose(
 
 slufigy('Hello World') // hello-world
 ```
-
----
 
 ## Functional Programming in Java
 
@@ -349,7 +333,7 @@ Several of Java’s built-in data structures are immutable:
 
 You can also create your own immutable classes with the `final` keyword.
 
-```
+```java
 // An immutable class 
 public final class Student 
 { 
@@ -382,7 +366,7 @@ Java can use lambda functions to achieve first-class functions. Lambda takes in 
 
 We can use lambda expressions in place of functions as they are treated as standard class objects that can be passed or returned.
 
-```
+```java
 // FIRST-CLASS
 Supplier<String> lambda = myObject::toString;
 // HIGHER-ORDER
@@ -397,7 +381,7 @@ Supplier<String> higherOrder(Supplier<String> fn) {
 Java contains an interface, `java.util.function.Function`, that gives methods for functional composition. The `compose` method executes the passed function first (`multiplyByTen`) then passes the return to the external function (`square`).
 The `andThen` method executes the external function first **and then** the function within its parameters.
 
-```
+```java
 Function<Integer, Integer> square = (input) -> input * input;
 Function<Integer, Integer> multiplyByTen = (input) -> input * 10;
 
@@ -412,8 +396,6 @@ At **lines 1 and 2**, we first create two functions, `square` and `multiplyByTen
 Next at **lines 5 and 8**, we make two composite functions, `multiplyByTenAndSquare` and `squareAndMultiplyByTen`, that each takes two arguments (to satisfy `square`).
 
 These composite functions each complete both original functions but in different orders. You can now call the composite functions to execute both original functions on the same input.
-
----
 
 ## What to Learn Next
 
