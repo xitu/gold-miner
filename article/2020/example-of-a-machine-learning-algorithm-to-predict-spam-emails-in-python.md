@@ -11,7 +11,7 @@
 
 ## 垃圾邮件（Spam）与有效邮件（Ham）
 
-创建一个预测文本是否是垃圾邮件的模型是最最常见的应用，尤其是出于教学目的。原始数据集来自于这个——[Spam](https://github.com/lsvih/spam_email/blob/main/spam.csv.zip)，里面数据包含以后标题行，拥有两列，第一列为 text 表示邮件内容，第二列为 target 值为 spam 或 ham 分别表示垃圾邮件与非垃圾邮件。
+对于检测是否为垃圾邮件的模型，最常见的应用是创建一个预测文本的模型。原始数据集来自于这个——[Spam](https://github.com/lsvih/spam_email/blob/main/spam.csv.zip)，里面数据包含以后标题行，拥有两列，第一列为 text 表示邮件内容，第二列为 target 值为 spam 或 ham 分别表示垃圾邮件与非垃圾邮件。
 
 ```py
 import pandas as pd
@@ -41,7 +41,7 @@ X_train, X_test, y_train, y_test = train_test_split(spam_data['text'],
 
 ## 在 N-gram 上构建 tf-idf
 
-使用 sklearn 库中的 `TfidfVectorizer` 来转换并训练数据 `X_train`，忽略掉数据字典中出现频次小于 **5** 的数据，同时让 **n-grams 取值从 1 到 3**。
+使用 sklearn 库中的 `TfidfVectorizer` 来转换并训练数据 `X_train`，忽略掉数据字典中出现频次小于 **5** 的数据，同时让 **n-grams 从 1 到 3 取值**（单个字、双元组和三元组）。
 
 ```py
 vect = TfidfVectorizer(min_df=5, ngram_range=(1,3)).fit(X_train) X_train_vectorized = vect.transform(X_train)
@@ -79,7 +79,7 @@ X_test_transformed = add_feature(vect.transform(X_test), [add_length_t, add_digi
 
 ## 训练逻辑回归模型
 
-下面将简历逻辑回归模型，并统计测试集的 `AUC` 得分（译者注：[AUC 指的是 ROC 曲线下与坐标轴围成的面积，取值一般在 0.5和 1 之间，越接近 1 表示数据越真实有效](https://baike.baidu.com/item/AUC/19282953)）。
+下面将建立逻辑回归模型，并统计测试集的 `AUC` 得分（译者注：[AUC 指的是 ROC 曲线下与坐标轴围成的面积，取值一般在 0.5和 1 之间，越接近 1 表示数据越真实有效](https://baike.baidu.com/item/AUC/19282953)）。
 
 ```py
 clf = LogisticRegression(C=100, solver='lbfgs', max_iter=1000)
@@ -109,7 +109,7 @@ smallest = feature_names[sorted_coef_index[:50]]
 largest = feature_names[sorted_coef_index[:-51:-1]]
 ```
 
-***影响判断为垃圾邮件的特征词排名前 50**
+**影响判断为垃圾邮件的特征词排名前 50**
 
 ```
 largest
@@ -135,7 +135,7 @@ array(['ì_ wan', 'for 1st', 'park', '1st', 'ah', 'wan', 'got', 'say', 'tomorrow
 
 ## 总结
 
-这里提供了一个使用且可复现的用于预测是否垃圾邮件的算法示例，类似这样的预测算法正式自然语言处理（NLP）领域的主要任务之一。我们上面开发的这个模型 AUC 得分高达 0.97，这已经相当不错了。这套模型还可以继续添加测试用特征词，以便更准确的识别出垃圾邮件中经常特征词，反之亦然。
+这里提供了一个实用且可复现的检测垃圾邮件的算法示例，类似这样的预测算法正是自然语言处理（NLP）领域的主要任务之一。我们上面开发的这个模型 AUC 得分高达 0.97，这已经相当不错了。这套模型还可以继续添加测试用特征词，以便更准确的识别出垃圾邮件中经常特征词，反之亦然。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
