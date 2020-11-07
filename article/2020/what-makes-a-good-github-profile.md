@@ -7,10 +7,6 @@
 
 # What Makes a Good Github Profile?
 
-## What Makes a Good GitHub Profile?
-
-#### Tips to make your GitHub application-ready
-
 ![Photo by [AltumCode](https://unsplash.com/@altumcode?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10000/0*iwSXtYiyA_BR6bmg)
 
 When I was applying to internships in college, I definitely underrated GitHub. I coded a lot of projects in my college classes. I even had to include long-winded writeups about each project that could be easily translated into a README. But I didn’t bother to upload and maintain these projects on my GitHub profile. I quickly realized that it was a missed opportunity.
@@ -82,7 +78,6 @@ Remember that [GitHub is not your resume](https://blog.jcoglan.com/2013/11/15/wh
 * Stay professional and informative in your commit messages. Include something more meaningful than “fix bug” or “why won’t this work??”
 * Have clear contributing guidelines if you are looking to have others contribute to your project.
 * Remove clutter such as forked repositories that you haven’t worked on.
----
 
 * Get involved in the community — contribute to open source projects!
 
