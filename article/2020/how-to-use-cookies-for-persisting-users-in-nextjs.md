@@ -9,19 +9,19 @@
 
 ## 使用 LocalStorage
 
-There are a number of ways to persist users in a React or Single Page Appplication. A lot of times, devs generally use localStorage to store user data and load the data from there when required. While this approach works, it's not the most effective way as it leaves users vulnerable to attacks. Using cookies is a little safer although it's still not the safest option. Personally, I prefer a mixture of using cookies and JWT's [JSON Web tokens](https://jwt.io/) with expiry to persist user session and to force a user to re-login when their session expires. Using JWT's is out of the scope of this article.
+在 React 或单页应用中有许多方式来持久化保存用户信息。大多数时候，开发者通常使用 localStorage 来保存以及按需加载用户数据。虽然这个方法可行，但不是最好的方法，因为它会让用户易于遭到攻击。使用 cookies 会相对安全但仍不是最安全的选择。就个人而言，我倾向于混合使用 cookies 和 JWT's [JSON Web tokens](https://jwt.io/) 来持久化用户会话和强制用户重新登陆当会话过期时。如何使用 JWT's [JSON Web tokens](https://jwt.io/) 不在本文的介绍范围内。
 
-As LocalStorage is undefined on the server-side(since localStorag does not exist on the server), it's impossible to access localStorage before rendering a route. As such, our best bet is to check if a user's cookie is valid on the server side before rendering a route.
+由于 LocalStorage 在服务器端是未定义的（因为服务器端没有 LocalStorage），所以在渲染路由前是不可能访问到 localStorage 的。如前所述，我们最好的做法是，在渲染路由前检查用户的 cookie 是否可用。
 
 ## 在 React/NextJS 中使用 cookies
 
-To use cookies in NextJS, we need to install 2 packages. For this tutorial, we'll be using **cookie** and **react-cookie**. **React-cookie** allows us set the cookie from the client side while the **cookie** package lets us access the set cookie from the server-side. Install both packages by running  
+为了在 NextJS 中使用 cookies，我们需要安装两个 packages。在本文中，我们将会使用 **cookie** 和 **react-cookie**。**React-cookie** 允许我们能从客户端设置 cookie 而 **cookie** 则让我们能访问于服务器端设置的 cookie。运行以下命令安装 packages。
 
 ```bash
 npm install react-cookie cookie
 ```
 
-[Cookie-cutter](https://npmjs.com/package/cookie-cutter) is a tiny package that does the same thing as react-cookie.
+[Cookie-cutter](https://npmjs.com/package/cookie-cutter) 功能类似 react-cookie，但是体积更小。
 
 ## 设置 cookie
 
