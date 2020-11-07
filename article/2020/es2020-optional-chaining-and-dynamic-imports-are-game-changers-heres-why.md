@@ -323,7 +323,7 @@ The above code, imports the modules dynamically as per the need, with the help o
 
 The above two highly anticipated features immensely help you write easier and cleaner code without sacrificing overall performance. Let me know your thoughts in the comments.
 
-**Resources
+#### Resources
 
 - [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
 - [ES2020 Proposal](https://github.com/tc39)
