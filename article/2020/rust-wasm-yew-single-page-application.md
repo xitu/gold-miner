@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md](https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md)
 > * 译者：[Derek](https://github.com/derekdick)
 > * 校对者：[loststar](https://github.com/loststar)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 使用 Rust 构建单页应用
 
