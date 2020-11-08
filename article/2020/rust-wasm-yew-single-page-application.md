@@ -564,7 +564,7 @@ Yew 通过叫作 ["services"](https://docs.rs/yew/0.17.2/yew/services/index.html
 + serde = { version = "1.0", features = ["derive"] }
 ```
 
-我们将 the `Product` 和 `CartProduct` 提取到 `src/types.rs`，以此我们可以跨文件共享他们：
+我们将 `Product` 和 `CartProduct` 提取到 `src/types.rs`，以此我们可以跨文件共享他们：
 
 ```rust
 use serde::{Deserialize, Serialize};
