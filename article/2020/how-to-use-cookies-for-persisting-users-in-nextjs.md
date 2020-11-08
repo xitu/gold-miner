@@ -25,7 +25,7 @@ npm install react-cookie cookie
 
 ## 设置 cookie
 
-With both packages installed, It's time to set a cookie. Usually, we set a cookie for a user once they've succesfully signed in or signed up to our application. To set a cookie on Sign in, follow the example below.  
+安装了两个 packages 后，现在来设置 cookie。通常，我们会在用户成功注册或登录应用时设置 cookie。要在登陆时设置 cookie，可以遵循下面的例子。  
 
 ```js
 // pages/login.js
@@ -36,7 +36,7 @@ const Login = () => {
 
   const handleSignIn = async () => {
     try {
-      const response = await yourLoginFunction(username) //handle API call to sign in here.
+      const response = await yourLoginFunction(username) //执行用以登录的 API 调用
       const data = response.data
 
       setCookie("user", JSON.stringify(data), {
@@ -61,16 +61,16 @@ const Login = () => {
 export default Login
 ```
 
-In the snippet above, we call the `setCookie` hook from `react-cookies` and set it to a default name. In our case, that's **user**. We then  
-make a request to sign in a user by calling a function to log the user in. We take the response from that API call, stringify the data(cookies are formatted as text) and store that data in a cookie.
+在上面的代码片中，我们调用了 `react-cookies` 包中的 `setCookie` 钩子并为其设置了默认值。在我们的示例中，默认值为 **user**。然后，
+我们通过调用登陆函数，发起一个请求用以用户登陆。我们从 API 调用中获取 response 后，将 response.data 字符串化（cookies 应格式化为文本）并存储在 cookie 中。
 
-We also pass some additional options to the cookie including **path** \- makes sure your cookie is accessible in all routes, **maxAge**, how long from the time the cookie is set till it expires and **sameSite**. Samesite indicates that this cookie can only be used on the site it originated from - It is important to set this to true to avoid errors within firefox logs.
+我们同样传递了额外的选项到 cookie 中，包括 **path**，确保你的 cookie 在所有的路由中均可访问； **maxAge**，定义了从设置 cookie 开始到过期的时间，即 cookie 的有效期；**sameSite**，Samesite 指示 cookie 仅能用于设置了 cookie 的站点——将其设置为 true 非常重要，因为可以避免其在 firefox 日志出现错误。
 
 ## 赋予 Cookie 访问应用的权限
 
-To ensure that every route in our application has access to the cookie, we need to wrap our APP component in a cookie provider.
+为了确保应用中的所有路由都能访问到 cookie，我们需要将我们的 App 组件包装在提供 cookie 的组件内。
 
-Inside `_app.js`, add the following bit of code.  
+在 `_app.js` 文件中，添加下列代码。  
 
 ```js
 // pages/_app.js
@@ -87,9 +87,9 @@ export default function MyApp({ pageProps }) {
 
 ## [](#setting-up-the-function-to-parse-the-cookie)设置解析 cookie 的函数
 
-Next, we need to setup a function that will check if the cookie exists on the server, parse the cookie and return it. Created a new folder called **helpers** and within that add an **index.js** file.
+接下来，我们需要设置一个函数用来检查 cookie 是否存在于服务器上，（存在的话）解析 cookie 并将其作为返回值。新建一个名为 **helpers** 的文件夹，并在里面添加一个 **index.js** 文件。
 
-Inside this file, add the following piece of code.  
+在文件内，添加如下代码。
 
 ```js
 // helpers/index.js
@@ -101,11 +101,11 @@ export function parseCookies(req) {
 }
 ```
 
-The function above accepts a request object and checks the request headers to find the cookie stored.
+上面的函数接收一个 request 对象，然后检查 request 的 headers 以找到存储的 cookie。
 
 ## 在组件中访问 cookie
 
-Finally, we will use `getInitialProps` in our component to check if the user already has a valid cookie on the server side before rendering the requested route. An alternative to this approach is using `getServerSideProps`.  
+最后，在渲染请求的路由前，我们将使用组件中的 `getInitialProps` 来检查用户在服务器端是否存在有效的 cookie。另外，你可以使用 `getServerSideProps` 作为替代。
 
 ```js
 import { parseCookies } from "../helpers/"
@@ -137,15 +137,15 @@ if (res) {
 }
 ```
 
-Within `getInitialProps`, we're passing in the request object(req) that's available to us on the server-side in NextJS to the `parseCookies` function. This function returns the cookie to us which we can then send back to the client as props.
+在 `getInitialProps` 中，我们把在 NextJS 服务器端可用的 request 对象（req）传递给 `parseCookies` 函数。 该函数将 cookie 返回给我们，我们可以将其作为参数发送给客户端。
 
-We also do a check on the server to see if the response object is available. The **res** object is only available on the server. If a user hits the **HomePage** route using **next/link** or **next/router**, the **res** object will not be available.
+我们同样会在服务器端检查 response 对象是否可用。**res** 对象仅在服务器端可用。如果用户使用 **next/link** 或 **next/router** 访问到 **HomePage** 路由，**res** 对象将不可用。
 
-Using the **res** object, we check if there are cookies and if they're still valid. We do this check using the `res` object. If the `data` object is empty, it means the cookie isn't valid. If the cookie isn't valid, we then redirect the user back to the index page rather than showing a flash of the **HomePage** before redirecting the user.
+通过使用 **res** 对象，我们可以检查是否存在 cookies 以及它们是否有效。我们将通过使用 `res` 来检查。如果 `data` 是空对象，则意味着 cookie 无效。如果 cookie 无效，我们将重定向用户返回至主页而不是在重定向用户前显示一闪而过的主页。
 
-Note that subsequent requests to pages containing `getInitialProps` **using next/link** or **next/router** will be done from the client side. i.e The cookie will be extracted from the client rather than the server side for other routes that are accessed via **using next/link** or **next/router**
+注意到，使用 **next/link** 或 **next/router** 以及包含 `getInitialProps` 的页面请求会在客户端被完成。也就是说，对于通过使用 **next/link** 或 **next/router** 访问的其他路由，cookie 会从客户端提取而不是服务器端。
 
-And with that, you can now store cookies for users in your application, expire those cookies and secure your app to a good extent.
+这样，你可以在应用中存储用户的 cookies，过期无效 cookies 以及很好地保证应用的安全。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
