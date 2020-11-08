@@ -826,7 +826,7 @@ pub fn get_products(callback: FetchCallback<Vec<Product>>) -> FetchTask {
 
 ## 拆分为可重用组件
 
-让我们将 "product card" 组件提取到他自己的模块中以便我们在其他页面中使用它。
+让我们将”product card“组件提取到他自己的模块中以便我们在其他页面中使用它。
 
 ```rust
 // src/components/product_card.rs
