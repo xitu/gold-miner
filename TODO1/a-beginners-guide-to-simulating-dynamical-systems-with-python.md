@@ -11,13 +11,13 @@
 
 ![图由 [Dan Meyers](https://unsplash.com/@dmey503?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*GZYR2gufn9IzhkSu)
 
-回想一下以下单摆模型。
+考察这样一个单摆模型。
 
 ![](https://cdn-images-1.medium.com/max/2048/0*7CYBv0aAMnMcHQr9.png)
 
 一根长度为 L 的绳子下方悬挂一个质量为 m 的重物，来回往复摆动。
 
-这是非常简单的系统足够我们上手实践，但是也不能被其表象上的简易程度所蒙蔽，因为这套系统可以创建一个有趣的动力系统。我们将以此为起点来介绍一些基本的控制理论以及对比学习更深入的连续控制理论。在此之前，我们有必要先花点时间了解下单摆的运动模型以及如何对其进行运动仿真。
+这基本上是我们能够上手实践的最简单的系统，但是也不能被其表象上的简易程度所蒙蔽，因为它可以创建一个有趣的动力系统。我们将以此为起点来介绍一些基本的控制理论并将其和连续控制强化学习做对比。在此之前，我们有必要先花点时间了解下单摆的运动模型以及如何对其进行运动仿真。
 
 ## 全文总结
 
@@ -27,25 +27,25 @@
 
 ## 摇摆动力学
 
-若要对单摆系统进行仿真，则首先需要理解摇摆动力学。首先，我们画出单摆系统的受力分析图。其中摆绳的长度、小球的质量、重力及力的方向如下图所示。
+若要对单摆系统进行仿真，则首先需要理解摇摆动力学。首先，我们画出单摆系统的受力分析图。其中摆绳的长度、小球的质量、重力及其他作用在这个系统上的力如下图所示。
 
 ![Free-body diagram of the simple pendulum.](https://cdn-images-1.medium.com/max/2000/0*8vEjw63JJBOSvML0)
 
-绘制受力分析图有助于明确所有力，以确保我们不会有所遗漏。接下来就可以使用牛顿第二运动定律来分析其动力学。牛顿第二运动定律的形式为 `F = ma`，我们使用其变体——[转动定律](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/)表达如下:
+绘制受力分析图有助于明确所有力，以确保我们不会有所遗漏。接下来就可以使用牛顿第二运动定律来分析其动力学。牛顿第二运动定律的形式为 `F = ma`，我们使用其变体——[转动定律](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/)表达如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3xMMMwDVq4IbHx-ku6Z-0g.png)
 
-在这种情况下，τ 是关于原点的扭矩，III 是旋转惯性，α 是角加速度。扭矩由施加在质量上的力的垂直分量 (关于原点的力矩) 给出，旋转惯性仅为 `I = mL²`，角加速度是 θ 的二阶导数。我们可以将这些值代入到上面的牛顿第二定律，可以得到:
+在这种情况下，τ 是关于原点的扭矩，I 是旋转惯性，α 是角加速度。扭矩由施加在重物上的力的垂直分量 (关于原点的力矩) 给出，旋转惯性即为 `I = mL²`，角加速度是 θ 的二阶导数。我们可以将这些值代入到上面的牛顿第二定律，可以得到：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZY8xoZWK0WQw6Kr78RlTvQ.png)
 
-为了完整性，我们还可以考虑钟摆上的摩擦，这样就得到:
+为了完整性，我们还可以考虑钟摆上的摩擦，这样就得到：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*GfLPH68C4RaMzFkjE_y51Q.png)
 
-首先要注意的是，由于方程中存在二阶导数 (θ)，所以这是一个二阶常微分方程（ODE）。我们希望能将其简化为一阶系统以便对其进行集成和模拟。基于复杂性代价的考虑，我们将单二阶系统分解成两个一阶方程。在我们现在分析的这种情况下，复杂度的成本并不大，但是对于更复杂的模型，这样处理可能会适得其反。
+首先要注意的是，由于方程中存在二阶导数 (θ)，所以这是一个二阶常微分方程（ODE）。我们希望能将其简化为一阶系统以便对其进行积分和模拟。但这是以复杂度为代价的，因为我们要把单个二阶系统分解成两个一阶方程。在我们现在分析的这种情况下，复杂度的成本并不大，但是对于更复杂的模型，这样处理可能会适得其反。
 
-为此，我们需要引入两个新变量，分别命名为 θ_1 和 θ_2，并将它们定义为:
+为此，我们需要引入两个新变量，分别命名为 θ_1 和 θ_2，并将它们定义为：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mnqoP1R59QrU_emUHwK4aw.png)
 
@@ -67,28 +67,28 @@ from scipy import integrate
 import matplotlib.pyplot as plt
 ```
 
-需要先定义一些常量，让质量和长度分别为 1kg 和 1m，至少现在，当前先暂且忽略摩擦，假设 b=0 。我们将模拟单摆从 π/2 (向右升高90度) 的位置开始摆动，并在没有初始速度的情况下释放。我们可以用 0.02s 作为间隔（Δt）来离散化 10s 的时间段。
+需要先定义一些常量，让质量和长度分别为 1kg 和 1m，至少现在，我们会暂且忽略摩擦，假设 b=0 。我们将模拟单摆从 π/2 (向右升高90度) 的位置开始摆动，并在没有初始速度的情况下释放。我们可以用 0.02s 作为间隔（Δt）来离散化 10s 的时间段。
 
 ```python
 # 定义常量
-m = 1 # mass (kg)
-L = 1 # length (m)
-b = 0 # damping value (kg/m^2-s)
-g = 9.81 # gravity (m/s^2)
-delta_t = 0.02 # time step size (seconds)
-t_max = 10 # max sim time (seconds)
-theta1_0 = np.pi/2 # initial angle (radians)
-theta2_0 = 0 # initial angular velocity (rad/s)
+m = 1 # 质量 (kg)
+L = 1 # 长度 (m)
+b = 0 # 摩擦因素 (kg/m^2-s)
+g = 9.81 # 重力加速度 (m/s^2)
+delta_t = 0.02 # 时间间隔 (s)
+t_max = 10 # 最大模拟时长 (s)
+theta1_0 = np.pi/2 # 初始角度 (rad)
+theta2_0 = 0 #  初始角加速度 (rad/s)
 theta_init = (theta1_0, theta2_0)
 # 时间序列
 t = np.linspace(0, t_max, t_max/delta_t)
 ```
 
-我们将演示两种模拟方法，首先使用 `scipy` 库进行数值积分，然后再次使用欧拉方法。
+我们将演示两种模拟方法，首先使用 `scipy` 库进行数值积分，然后再使用欧拉方法。
 
 ## Scipy 数值积分
 
-使用 scipy 进行数值积分方法，我们需要为模型构建一个积分函数，称为 `int_pendulum_sim`。该模型将采用 θ_1 和 θ_2 的初始值 (代码中记为 `theta_init`) 对时间间隔（Δt）进行积分，然后返回对应的 theta 值。这个函数正好就是我们上面推导出的 θ˙_ 1 和 θ˙_ 2 的两个方程。
+使用 `scipy` 进行数值积分方法，我们需要为模型构建一个积分函数，称为 `int_pendulum_sim`。该模型将采用 θ_1 和 θ_2 的初始值 (代码中记为 `theta_init`) 对时间间隔（Δt）进行积分，然后返回对应的 theta 值。这个函数正好就是我们上面推导出的 θ˙_ 1 和 θ˙_ 2 的两个方程。
 
 ```python
 def int_pendulum_sim(theta_init, t, L=1, m=1, b=0, g=9.81):
@@ -97,36 +97,36 @@ def int_pendulum_sim(theta_init, t, L=1, m=1, b=0, g=9.81):
     return theta_dot_1, theta_dot_2
 ```
 
-我们可以通过上述将函数作为参数传递给 `scipy.integrate.odeint`。并且，还需要给出初始值和模拟时长。
+我们可以通过上述将函数作为参数传递给 `scipy.integrate.odeint` 来对我们的系统进行模拟。并且，还需要给出初始值和模拟时长。
 
 ```python
 theta_vals_int = integrate.odeint(int_pendulum_sim, theta_init, t)
 ```
 
-`odeint` 函数将传入的参数与 θ˙ 进行积分运算，计算结果又作为初始值传入该函数自身以进行下一个时间间隔（Δt）的迭代运算，如此递归直至所有时间间隔集合被遍历完成。
+函数 `odeint` 将传入的参数与 θ˙ 进行积分运算，计算结果又作为初始值传入该函数自身以进行下一个时间间隔（Δt）的迭代运算，如此递归直至所有时间间隔集合被遍历完成。
 
 θ 和 θ˙ 随时间变化可以绘制成如下图。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*eYACTeCtD68Nw88v)
 
-我们的模型中是没有考虑摩擦力或其他力的，所以钟摆只会在 -π/2 和 π/2 之间往复地来回摆动。如果你增加初始速度，比如：10rad/s，会看到单摆的运动位置会随着往复来回摆动不断增加。
+我们的模型中是没有考虑摩擦力或其他力的，所以钟摆只会在 -π/2 和 π/2 之间往复地来回摆动。如果你增加初始速度，比如：10 rad/s，会看到单摆的运动位置会随着往复来回摆动不断增加。
 
 ## 半隐式欧拉法
 
 Solving the model via integration is relatively easy, but integration can be very expensive, particularly for larger models. If we want to see the long-term dynamics of the model, we can use [欧拉法](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) to integrate and simulate the system instead. This is how control problems such as Cart-Pole are solved in OpenAI and allows us to set-up problems for RL control.
-通过数值积分来分析这类模型比较简单，但是积分计算的成本相对较大，尤其是处理较大的模型。如果我们想看到模型的长期动态图，我们可以使用[欧拉法](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method)代替数值积分法来进行模拟。欧拉法也是在 OpenAI 中解决像 [Card-Pole](https://gym.openai.com/envs/CartPole-v1/) 这类控制问题的方法，以及解决强化学习（RL）中的控制问题。
+通过数值积分来分析这类模型比较简单，但是积分计算的成本相对较大，尤其是处理较大的模型。如果我们想看到模型的长期动态图，我们可以使用[欧拉法](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method)代替数值积分法来进行模拟。欧拉法也是在 OpenAI 中解决像 [Card-Pole](https://gym.openai.com/envs/CartPole-v1/) 这类控制问题的方法，它能解决强化学习（RL）中的控制问题。
 
-首先需要得到上述常微分方程的[泰勒级数展开式](https://en.wikipedia.org/wiki/Taylor_series)。 这种计算方法是一种近似法，因此展开式项越多得出的结果也越准确。考虑到当我们当前的场景，只需要扩展到一阶导数并截去高阶项。
+首先需要得到上述常微分方程的[泰勒级数展开式](https://en.wikipedia.org/wiki/Taylor_series)。这种计算方法是一种近似法，因此展开式项越多得出的结果也越准确。考虑到当我们当前的场景，只需要扩展到一阶导数并截去高阶项。
 
 首先，需要注意的是我们需要一个关于 θ(t) 的函数。如果我们将 θ(t) 和 t-t_0 代入到泰勒级数展开式（TSE）中，将得到：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Vq7-kN8luxga9VlEK1tJGg.png)
 
-其中 O(t²) 表示我们的高阶项，可以在不失去太多准确度的情况下将其删除。请注意，这仅遵循泰勒展开式（TSE）通用公式。有了这个方程，我们可以参考上面的常微分方程进行替换，即：
+其中 O(t²) 表示我们的高阶项，可以在不失去太多准确度的情况下将其删除。请注意，这仅遵循泰勒展开式（TSE）通用公式。有了这个方程，我们可以参考上面的常微分方程代换式，即：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Nlr4LpUi78LWH3Cw1nBHTA.png)
 
-因此，可以将泰勒展开式与常微分方程关联起来：
+借此，可以将泰勒展开式与常微分方程关联起来：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BwSlCyQugIxY_XuSpdFA2A.png)
 
@@ -134,7 +134,7 @@ Solving the model via integration is relatively easy, but integration can be ver
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JT45PanYmNHq0-o6brpZnQ.png)
 
-在模拟中遍历的过程中，我们将更新 t0t_0t0 作为上一个时间步，因此我们将逐步向前移动模型。另外，请注意，这是**半隐式欧拉方法** ,这意味着在我们的第二个方程中，我们使用的是最新的 θ_1(t) 而非 θ_1(t_0) 带入到泰勒展开式（TSE）中。我们做出这种微妙的替代是因为，如果没有它，我们的模型将会分叉。本质上，我们使用泰勒展开式（TSE）进行的近似计算有一些误差（还记得，前面提到丢弃了那些高阶项）。在这个应用中，这些错误将新能量引入到了的单摆上 -- 这显然违反了热力学第一定律。进行这种替换可以解决所有这些问题。
+在模拟中遍历的过程中，我们将更新 t_0 作为上一个时间步，因此我们将逐步向前移动模型。另外，请注意，这是**半隐式欧拉方法** ,这意味着在我们的第二个方程中，我们使用的是最新的 θ_1(t) 而非 θ_1(t_0) 带入到泰勒展开式（TSE）中。我们做出这种微妙的替代是因为，如果没有它，我们的模型将会发散。本质上，我们使用泰勒展开式（TSE）进行的近似计算有一些误差（还记得，前面提到丢弃了那些高阶项）。在这个应用中，这些错误将新能量引入到了的单摆上 -- 这显然违反了热力学第一定律。进行这种替换可以解决所有这些问题。
 
 ```python
 def euler_pendulum_sim(theta_init, t, L=1, g=9.81):
@@ -172,9 +172,9 @@ MSE Position:	0.0009
 MSE Velocity:	0.0000
 ```
 
-不同方法之间的均方误差非常接近，这说明我们计算结果的近似值误差是很小的。
+不同方法之间的均方误差非常接近，这说明我们得到了一个很好的近似值。
 
-我们使用了两种不同的方法，分别为常微分方法法和欧拉法，其中欧拉法要比常微分方程法计算速度快。下面我们来测试并验证一下是否真的速度要快些。
+我们使用了两种不同的方法，分别为常微分方法法和欧拉法，其中欧拉法要比常微分方程法 `odeint` 求解速度快。下面我们来测试并验证一下是否真的速度要快些。
 
 ```
 %timeit euler_pendulum_sim(theta_init, t)
