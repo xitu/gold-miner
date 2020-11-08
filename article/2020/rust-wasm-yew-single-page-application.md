@@ -610,7 +610,7 @@ pub fn get_products(callback: FetchCallback<Vec<Product>>) -> FetchTask {
 }
 ```
 
-`FetchService` api 有一点奇怪 —— 他接收一个请求对象和回调作为参数并返回一个叫作 "FetchTask" 的东西。这里有一个令人惊讶的陷阱：如果该 "FetchTask" 被遗弃了，那么网络请求将被中止。所以我们将它返回并保存在我们的组件中。
+`FetchService` api 有一点奇怪 —— 他接收一个请求对象和回调作为参数并返回一个叫作“FetchTask”的东西。这里有一个令人惊讶的陷阱：如果该“FetchTask”被遗弃了，那么网络请求将被中止。所以我们将它返回并保存在我们的组件中。
 
 让我们更新 `lib.rs` 来添加这些新模块到 [模块树](http://www.sheshbabu.com/posts/rust-module-system/) 中：
 
