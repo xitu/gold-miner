@@ -48,7 +48,7 @@
 - **插入一个元素**: `O(log n)`
 - **删除一个元素**: `O(log n)`
 
-堆使得访问优先级元素的速度非常快。[优先队列](https://en.wikipedia.org/wiki/Priority_queue) 数据结构就是用堆来实现的。顾名思义，你可以使用优先队列在 `O(1)` 时间内按优先级访问元素。它通常用在[Dijkstra 算法](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)，[Huffman 编码](https://en.wikipedia.org/wiki/Huffman_coding)中。如果你不知道这些算法也不用担心！接下来的文章中将会详细介绍它们。
+堆使得访问优先级元素的速度非常快。[优先队列](https://en.wikipedia.org/wiki/Priority_queue) 数据结构就是用堆来实现的。顾名思义，你可以使用优先队列在 `O(1)` 时间内按优先级访问元素。它通常用在 [Dijkstra 算法](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)，[Huffman 编码](https://en.wikipedia.org/wiki/Huffman_coding)中。如果你不知道这些算法也不用担心！接下来的文章中将会详细介绍它们。
 
 **我们已经知道了，堆可以让我们更快地访问到最大或最小的元素，但是，首先为什么我们需要这些元素？**
 
