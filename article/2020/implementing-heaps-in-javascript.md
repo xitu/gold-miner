@@ -25,14 +25,14 @@
 
 马上我们就会讲到未知的堆属性。现在先来看看二叉堆是什么样子：
 
-![Representation of a Binary Heap](https://cdn-images-1.medium.com/max/2000/1*ahBuj8eiKkIALwvlxJdzeQ.png)
+![二叉堆示意图](https://cdn-images-1.medium.com/max/2000/1*ahBuj8eiKkIALwvlxJdzeQ.png)
 
 堆基本上是用来及时地获取在任何位置的优先级最高的元素。基于堆的属性有两种类型的堆 —— **小顶堆（MinHeap）**和**大顶堆（MaxHeap）**。
 
 - **小顶堆**: 父母结点都小于子节点
 - **大顶堆**: 父母结点都大于或等于子节点
 
-![Representation of MinHeap & MaxHeap](https://cdn-images-1.medium.com/max/2000/1*5-_bPyIEw3-XtPVi3lCVzA.png)
+![小顶堆、大顶堆示意图](https://cdn-images-1.medium.com/max/2000/1*5-_bPyIEw3-XtPVi3lCVzA.png)
 
 在**小顶堆**中，根结点 `10` 小于它的两个子节点 `23` 和 `36`，并且 `23` 和 `36` 也小于它们各自的子节点。
 
@@ -55,14 +55,14 @@
 下面是一些使用堆的真实案例：
 
 1. 操作系统使用堆按优先级调度作业。
-2. 生产者消费者模型可以用堆来实现，让消费者先访问高优先级的元素。在 [阻塞优先队列](https://www.geeksforgeeks.org/priorityblockingqueue-class-in-java/) 的实现中用到了。
+2. 生产者消费者模型可以用堆来实现，让消费者先访问高优先级的元素。在[阻塞优先队列](https://www.geeksforgeeks.org/priorityblockingqueue-class-in-java/)的实现中用到了。
 3. 其他运用包括，在数组中找到第 K 小或者第 K 大的元素这样的顺序统计、堆排序算法、Dijkstra 这样的找到最短路径的图算法，以及 Prim 最小生成树。
 
 ## 怎么实现堆？
 
 我们用树来表示堆，但是它们并不像树那样存储在内存中。让我们尝试把堆转换成数组，看看结果如何：
 
-![Implementing Binary Heaps using Arrays](https://cdn-images-1.medium.com/max/2000/1*ZyMG4K50VjgBVkY_Bfcxaw.png)
+![使用数组实现二进制堆](https://cdn-images-1.medium.com/max/2000/1*ZyMG4K50VjgBVkY_Bfcxaw.png)
 
 请注意我在数组中添加元素的顺序。元素 `10` 在位置 `0`，它的两个孩子在位置 `1` 和 `2` 。然后我添加了 `23` 的孩子结点 —— `32` & `38`。在这些结点之后，又添加了 `36` 的两个孩子结点。我一层一层地在数组中添加这些元素，同样得到了大顶堆！
 
@@ -72,7 +72,7 @@
 
 如果父母结点在第 `0` 个位置，它的两个孩子结点在这个数组的第 `1` 和第 `2` 个位置。这就是父母结点和孩子结点在二叉堆中的关系：
 
-![Relationship of array indices of the parent and the child node in a Binary Heap](https://cdn-images-1.medium.com/max/2000/1*VzH_-Gq0LOMRLTktzflc5g.png)
+![二进制堆中父节点和子节点的数组索引关系](https://cdn-images-1.medium.com/max/2000/1*VzH_-Gq0LOMRLTktzflc5g.png)
 
 通过上图，我们可以推断在第 `i` 个位置的任意元素的孩子结点分别位于 `2*i + 1` 和 `2*i + 2`。同时我们也可以通过公式 `i/2` 反推出第 `i` 个位置的元素的父母结点。请注意：这仅适用于二叉堆。
 
@@ -101,7 +101,7 @@ class MinHeap {
 
 前面提到，堆除了最后一层都是完全二叉树。从左往右插入新结点，并且每次每次插入都要维护堆属性。让我们看看实际操作：
 
-![Insertion in Binary Heap](https://cdn-images-1.medium.com/max/2000/1*to65iKzq3VLUYPyOclk2lQ.png)
+![二叉堆中插入元素](https://cdn-images-1.medium.com/max/2000/1*to65iKzq3VLUYPyOclk2lQ.png)
 
 上图清晰的揭示了二叉堆中的插入，但为了更好的理解，让我用语言来表达：
 
@@ -141,13 +141,13 @@ insert (node) {
 
 现在我们开始检查当前元素及其父元素。如果当前节点比父母结点小，就交换他们的位置。请注意：当前节点的索引为 `current`，其父母节点的索引为` current/2`。我们用 **ES6 的数组结构语法**来交换着两个元素。插入或删除元素之后平衡堆的过程叫做**堆化（heapify）**。当我们遍历堆去给新结点找到合适的位置时，通常叫做**往上堆化（heapifyUp）**。
 
-往一个有 `n` 个元素二叉堆插入一个新元素的时间复杂度是 `O(log n)`。在每次迭代中要比较的元素减少一半，因此是 `log n` 。
+往一个有 `n` 个元素二叉堆插入一个新元素的时间复杂度是 `O(log n)`。在每次迭代中要比较的元素减少一半，因此是 `log n`。
 
 现在，让我们看看从堆中删除一个元素会发生什么：
 
-![Removing the minimum element from a binary heap](https://cdn-images-1.medium.com/max/2042/1*STrcM_P_ns8nxv0cktdRWw.png)
+![从二进制堆中删除最小元素](https://cdn-images-1.medium.com/max/2042/1*STrcM_P_ns8nxv0cktdRWw.png)
 
-纠正上图：第四幅图的标题应该删除改为 —— **57比它的两个孩子结点32和38大，所以32和57交换**
+纠正上图：第四幅图的标题应该删除改为 —— **57 比它的两个孩子结点 32 和 38 大，所以 32 和 57 交换**
 
 在这里，我们移除了堆中的最小结点`10`。
 根结点移除后，最右的结点（`57`）就放在了根结点的位置上。你可以看到第二幅图上结点 `57` 变成了根结点。我们必须恢复小顶堆的属性。
@@ -310,7 +310,7 @@ class MinHeap {
             }
         }
 
-        /* 如果数组中只有两个元素，我们直接把第一个元素splice出去 */
+        /* 如果数组中只有两个元素，我们直接把第一个元素 splice 出去 */
 
         else if (this.heap.length === 2) {
             this.heap.splice(1, 1)
