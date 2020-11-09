@@ -2,74 +2,74 @@
 > * 原文作者：[Meercode](https://medium.com/@meercode)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/building-and-monitoring-your-first-github-actions-workflow.md](https://github.com/xitu/gold-miner/blob/master/article/2020/building-and-monitoring-your-first-github-actions-workflow.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)、[HurryOwen](https://github.com/HurryOwen)
 
-# Building and Monitoring Your First Github Actions Workflow
+# Github Actions 工作流的创建与跟踪
 
 ![](https://cdn-images-1.medium.com/max/2400/1*BZ_jv-xjX_FfJR5fQH_6UQ.png)
 
-**Github Actions** is Github’s native solution to CI/CD, which is available to the developer’s community since it was launched in 2019. **Action’s** simple, flexible, and affordable nature made many teams migrate from existing **CI/CD** solutions to unlock the endless possibilities of the new platform.
+**Github Actions** 是 Github 对 CI/CD 的原生解决方案，自 2019 年推出以来，它就可供社区开发者使用。**Action** 简单、灵活和低成本等特性使许多团队从现有的 **CI/CD** 解决方案中迁移过来，并且探索新平台的无限可能。
 
-My team has been of the early adopters of **Github Actions**. As a group of highly **Javascript** focused developers, we were able to automate tens of pipelines for our frontend and backend projects. Thanks to **Javascript/Typescript** support of the platform, we created many **Actions** (like **plugins** in traditional build tools) to extend the functionality according to our needs.
+我的团队是 **Github Actions** 的早期使用者。作为一群大量使用 **Javascript** 的开发人员，我们能够自动化处理前端和后端项目的数十条工作流。由于平台支持 **Javascript/Typescript**，我们创建了大量 **Actions**（就像传统构建工具中的**插件**），以便根据我们的需要扩展功能。
 
-After 1 year of experience with Github Actions, we discovered the following advantages of the tool in comparison to former CI/CD solutions we tested:
+在使用 Github Actions 一年之后，我们发现该工具与之前测试的 CI/CD 解决方案相比具有以下优势：
 
-* Zero management costs (no need for any agents or master nodes)
-* Easy to learn and master
-* You can keep your workflows in your source code
-* A rich **Action** (plugin) library. It’s easy to develop your custom **Actions**.
-* Sensible pricing model: 3000 free minutes for premium users of private repositories. Public repositories are completely free!
-* It has a rich action library and it is very easy to develop your actions.
-* Supports **Linux**, **Windows**, and **macOS** platforms. (**macOS** support is a rare feature among competitors)
-* With a self-hosted runner, it’s possible to run a free version on your own infrastructure.
+* 零管理成本（不需要任何代理或主节点）。
+* 容易学习和掌握。
+* 可以在源代码中保留工作流。
+* 丰富的 **Action**（插件）库，易于开发自定义 **Action**。
+* 合理的定价模式：为私有存储库的高级用户提供 3000 分钟的免费时间。公共存储库是完全免费的！
+* 它有一个丰富的 action 库，很容易开发自定义 Action。
+* 支持 **Linux**、**Windows** 和 **macOS** 平台。（支持 **macOS** 在竞争对手中是罕见的）。
+* 借助自托管运行工具，可以在自己的设备上运行免费版本。
 
-A minor disadvantage of the platform was the lack of monitoring tools you can watch the status of your workflows. The problem got bigger with the increasing number of repositories and pipelines we had to manage. In the end, we decided to develop our own dashboarding solution.
+该平台的一个小瑕疵是缺少可以跟踪工作流状态的监控工具。随着我们必须管理的项目库和工作流数量的增加，问题变得更棘手。最后，我们决定开发自己的仪表盘作为解决方案。
 
-It started as a **React** frontend and **NestJS** backend to consume relevant Github API’s and display it in a clean way. The tool was appreciated among our team members and we continued developing new features.
+借助 **React** 前端和 **NestJS** 后端，使用相关的 Github API 并以简洁的方式显示。这个工具在我们的团队成员中很受欢迎，我们会为其继续开发新的功能。
 
-Recently we released our dashboarding tool as **SaaS** project and started a public beta program to share it with the developer’s community. If you are interested, you can read more about Meercode’s [story on this blog post ](https://dev.to/pankod/public-beta-meercode-a-beautiful-dashboard-and-monitoring-tool-for-github-actions-466g)or visit [meercode.io ](http://meercode.io)to try the product.
+最近，我们将仪表盘工具作为 **SaaS** 项目发布，然后启动一个公开的测试程序，并且分享在开发者社区。如果你感兴趣，你可以阅读 Meercode 的[关于此博客文章的故事](https://dev.to/pankod/public-beta-meercode-a-beautiful-dashboard-and-monitoring-tool-for-github-actions-466g)或访问 [meercode.io](http://meercode.io) 试用产品。
 
-To demonstrate how you simply create your workflows on Github Actions, we want to go over a real-life example.
+为了演示如何简单地在 Github Actions 上创建工作流，我们想展示一个真实的例子。
 
-The task is simple. For one of our repositories on Github, we wanted an [AppCenter](https://appcenter.ms/) build to be triggered whenever a pull request is made. Fortunately, AppCenter has a public REST API we can use to start the builds.
+任务很简单，对于 Github 上的一个项目库，我们需要 [AppCenter](https://appcenter.ms/) 在发出 pull request 时触发构建。幸运的是，AppCenter 有一个公开的 REST API，可以用来启动构建。
 
-The action we are going to create should be triggered when
+我们要创建的操作应该在以下场景触发：
 
-1. A pull request is opened or re-opened,
-2. Unit tests are passing.
+1. pull request 被打开或重新打开。
+2. 通过了单元测试。
 
-If all conditions are met, we’ll start the build on the AppCenter. So let’s start creating our action.
+如果满足所有条件，我们将在 AppCenter 上开始构建。下面开始创造我们的 action。
 
-From your repository on GitHub, create a new file in the .**github/workflows** directory named **app_center_pull_request.yml.**
+从 GitHub 上的存储库中，在 .**github/workflows** 目录中创建一个名为 **app_center_pull_request.yml.** 的文件。
 
 ![](https://cdn-images-1.medium.com/max/2684/0*iyCUtUXoh8MF11Rm)
 
-We give our action the name “Pull Request Opened [App]” by using the **“name:”** attribute.
+通过使用 **“name:”** 属性，我们将 action 命名为 “Pull Request Opened [App]”。
 
-To get our action triggered on pull requests we are going to use native Github workflow events. You can configure workflows to run for one or more events using the **“on:”** syntax. A complete list of workflow events you can use in your actions is documented on this [reference page.](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows)
+为了在 pull request 时触发我们的 action，我们将使用原生 Github 工作流事件。当然，也可以使用 **“on:”** 语法将工作流配置为针对一个或多个事件运行。还可以把 action 中可以使用的工作流事件完整列表记录在[参考页](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows)。
 
-In the next step, we are going to tell our action what to do when the “**pull_request**” event is triggered.
+接下来我们将说明，当触发 `pull_request` 事件时，action 要做什么
 
 ![](https://cdn-images-1.medium.com/max/2684/0*upqVeOmReybteXcC)
 
-Under the “**jobs:**” attribute, we can add an arbitrary number of jobs to run. We label our first job with **“build:”** attribute and configure it as seen above.
+在 “**jobs:**” 属性下，我们可以添加任意数量的要运行的作业。我们用 **“build:”** 属性标记第一个作业，并按上面所示进行配置。
 
-**“runs-on:”** and **“matrix:”** attributes specify the environment the action will run on. “**steps**:” will define the synchronous steps:
+**“runs-on:”** 和 **“matrix:”** 属性指定 action 将运行的环境。“**steps**:” 定义了同时运行的步骤：
 
-* The first step makes use of [another action](https://github.com/mdecoleman/pr-branch-name) from “Actions Marketplace”. It retrieves **“pull request name”** that we can use in the next steps.
-* In the second step, we’ll init our app and run the tests. The action will proceed to the next step if the tests run successfully.
-* Now, we’ll configure the build for the corresponding branch name by calling the **AppCenter API** with a curl command. We are using the branch name from the first step to build the **URI** of the relevant branch.
+* 第一步，从 Action 仓库（Actions Marketplace）调取[其它 action](https://github.com/mdecoleman/pr-branch-name) 检索 **“pull request name”** 以便下一步使用。
+* 第二步，我们将初始化应用程序并运行测试。如果测试运行成功，则继续下一步 action。
+* 接着使用 curl 命令调用 **AppCenter API**，为相应的分支名称配置构建。我们使用第一步中的分支名称来构建相应的 **URI**。
 
 ![](https://cdn-images-1.medium.com/max/2684/0*Pppq6J46U6HfxvIS)
 
-* Finally, we trigger a build for both iOS and Android versions of the application:
+* 最后，我们为 iOS 和 Android 版本触发构建：
 
 ![](https://cdn-images-1.medium.com/max/2684/0*jazO_rGHuFgFg4y0)
 
-To run and test your workflow, just open a pull request. This will trigger and run the action automatically. To view the results, you can go to the **“Actions”** tab of the repository and select your workflow and the corresponding run.
+要运行和测试工作流，只需打开一个 pull request。这将自动触发并运行 action。要查看结果，则可以转到项目库的 **“Actions”** 选项卡，选择相应的工作流并运行。
 
-If you go deeper with Github Actions and start to manage a lot of workflows in multiple repositories, you are always free to try the dashboarding solution [Meercode](https://meercode.io/) we mentioned before.
+如果想更深入地使用 Github Actions 或者需要在多个项目库中管理大量工作流，那么可以随时尝试之前提到过的仪表盘解决方案 [Meercode](https://meercode.io/)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
