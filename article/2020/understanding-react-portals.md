@@ -7,8 +7,6 @@
 
 # Understanding React Portals
 
-## Understanding React Portals and Its Use-Cases
-
 ![Photo by [Daniel Jerez](https://unsplash.com/@danieljerez?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*FjXAcqaJwbGxRLfV)
 
 React Portal is a first-class way to render child components into a DOM node outside of the parent DOM hierarchy defined by the component tree hierarchy. The Portal's most common use cases are when the child components need to visually break out of the parent container as shown below.
@@ -22,7 +20,7 @@ A Portal can be created using ReactDOM.createPortal(child, container). Here the 
 
 Following is a sample modal component created using the above API.
 
-```
+```jsx
 const Modal =({ message, isOpen, onClose, children })=> {
   if (!isOpen) return null
   return ReactDOM.createPortal(    
@@ -36,10 +34,6 @@ const Modal =({ message, isOpen, onClose, children })=> {
 
 Even though a Portal is rendered outside of the parent DOM element, it behaves similarly to a regular React component within the application. It can access **props** and the **context** API. This is because the Portal resides inside the React Tree hierarchy.
 
-For a real-life example of React Portals, check out this [component](https://bit.dev/semantic-org/semantic-ui-react/portal) shared on [Bit](https://bit.dev)’s component hub (you can use Bit to share and reuse components too):
-
-![Example: [React Component using React Portal — shared on Bit.dev](https://bit.dev/semantic-org/semantic-ui-react/portal)](https://cdn-images-1.medium.com/max/3586/1*AIUJUZ_ycRY6w691xVsTIw.gif)
-
 ## Why do we need it?
 
 When we use a modal inside a particular element (a parent component), the modal's height and width will be inherited from the component in which the modal resides. So there is a possibility that the modal will be cropped and not be shown properly in the application. A traditional modal will require CSS properties like `overflow:hidden` and `z-index` to avoid this issue.
@@ -52,7 +46,7 @@ The above code example will result in rendering the modal inside the nested comp
 
 Let's see how React Portal can be used here. The following code will resolve this issue using the **createPortal()** to create a DOM node outside of the **root** tree hierarchy.
 
-```
+```jsx
 const Modal =({ message, isOpen, onClose, children })=> {
   if (!isOpen) return null;
   return ReactDOM.createPortal(
@@ -108,14 +102,6 @@ Thank you for taking the time to read this. I would like to see your questions a
 ---
 
 Cheers!
-
-## Learn More
-[**Build a full-featured Modal dialog Form with React**
-**How to create a form in a modal that pops on click.**blog.bitsrc.io](https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571)
-[**React 16 Lifecycle Methods: How and When to Use Them**
-**A revised and up-to-date guide to the new React component lifecycle**blog.bitsrc.io](https://blog.bitsrc.io/react-16-lifecycle-methods-how-and-when-to-use-them-f4ad31fb2282)
-[**8 Tips for Building Awesome Reusable React Components**
-**Tips for building reusable and shareable React components.**blog.bitsrc.io](https://blog.bitsrc.io/9-tips-for-building-awesome-reusable-react-components-b91f4846a30a)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
