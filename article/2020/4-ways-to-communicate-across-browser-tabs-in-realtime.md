@@ -2,7 +2,7 @@
 > * 原文作者：[Dilantha Prasanjith](https://medium.com/@dilanthaprasanjith)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/4-ways-to-communicate-across-browser-tabs-in-realtime.md](https://github.com/xitu/gold-miner/blob/master/article/2020/4-ways-to-communicate-across-browser-tabs-in-realtime.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
 # 4 Ways to Communicate Across Browser Tabs in Realtime
