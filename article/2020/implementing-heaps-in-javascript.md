@@ -202,7 +202,7 @@ remove() {
         [this.heap[current], this.heap[leftChildIndex]] = [this.heap[leftChildIndex], this.heap[current]]
     }
     
-    /* 如果数组中只有两个元素，我们直接把第一个元素splice出去 */
+    /* 如果数组中只有两个元素，我们直接把第一个元素 splice 出去 */
     
     else if (this.heap.length === 2) {
         this.heap.splice(1, 1)
