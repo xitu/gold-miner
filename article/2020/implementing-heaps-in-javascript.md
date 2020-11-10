@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-heaps-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-heaps-in-javascript.md)
 > * 译者：[HurryOwen](https://github.com/HurryOwen)
-> * 校对者：
+> * 校对者:[z0gSh1u](https://github.com/z0gSh1u)、[kezhenxu94](https://github.com/kezhenxu94)、[JohnieXu](https://github.com/JohnieXu)
 
 # 用 JavaScript 实现堆
 
