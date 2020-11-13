@@ -7,8 +7,6 @@
 
 # Create a Private PostgreSQL Database for Your Development Environment in Seconds
 
-#### Define a PostgreSQL database and monitoring tool that you can create and destroy quickly using Docker Compose
-
 ![Photo by [Roi Dimor](https://unsplash.com/@roi_dimor?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/5948/0*msfDTPGlbTAD6DCs)
 
 When starting a new project, many developers use a JSON, CSV, or other flat file to simulate the data that might live in a database. Developers are torn between the hassle of creating their own database and the limitations associated with not having a real database. Why not define a PostgreSQL database **and monitoring tool** that you can create, destroy, and recreate in a matter of seconds using Docker Compose?
@@ -19,8 +17,6 @@ The Docker commands for creating two containers with just the right settings are
 
 `Up` will create a PostgreSQL database at a specified version and a GUI-based tool for management. `Down` will shut down and remove them.
 
----
-
 ## Benefits of a Private Container-Based Database
 
 * There are behavioral and feature differences between versions of PostgreSQL, so developers should develop against the database version they will be supporting long-term. It could be 9.6.12 on one project and 12.4 on another.
@@ -28,8 +24,6 @@ The Docker commands for creating two containers with just the right settings are
 * Different stages of a project necessitate different types of storage. In the early stages of a project, a non-persistent database minimizes headaches. In the later stages of a project, a persistent database provides more realistic scenarios.
 
 ![Create and recreate a database with simple commands](https://cdn-images-1.medium.com/max/2000/0*oFz9LrOPfZNQdhcw)
-
----
 
 ## Build the Dev Stack
 
@@ -147,8 +141,6 @@ NETWORK ID          NAME                DRIVER              SCOPE
 3892b16dca2d        none                null                local
 ```
 
----
-
 ## Docker and docker-compose Commands
 
 Here is where I have to admit that I oversimplified the commands in my introduction, but only slightly.
@@ -210,8 +202,6 @@ cursor.execute("SELECT * FROM Employee")
 print(cursor.fetchall())
 ```
 
----
-
 ## Using pgAdmin
 
 Simply connect to [http://localhost:8080](http://localhost:8080) to access the login page, and use the username and passwords specified in `docker-compose.yml` (`user@domain.com` and `admin` in our example).
@@ -225,8 +215,6 @@ If you specified connection details in a `servers.json` file as discussed earlie
 You should now be able to view and manipulate the database.
 
 ![](https://cdn-images-1.medium.com/max/2248/1*DRpjQBkotrGn8QryDRjQ7w.png)
-
----
 
 ## Getting to PSQL
 
@@ -250,8 +238,6 @@ public | peak         | table | postgres
 public | climb        | table | postgres
 public | climber      | table | postgres
 ```
-
----
 
 ## Alternative to pgAdmin
 
