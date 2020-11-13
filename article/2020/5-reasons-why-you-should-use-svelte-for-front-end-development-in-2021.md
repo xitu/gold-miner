@@ -7,10 +7,6 @@
 
 # 5 reasons why you should use Svelte for Front End Development in 2021
 
-## 5 reasons why you should use Svelte for Front End Development
-
-#### It is almost beyond React, Angular, and Vue
-
 ![A Photo By [Randy Fath](https://unsplash.com/@randyfath) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*Ri1Sl9cP2_ry2vYJ)
 
 Svelte is a front-end JavaScript framework that was developed by Rich Harris in 2016. Currently, it is using in many software companies as their main frontend framework because many things offer by Svelte to which make developer’s life way less complicated.
@@ -25,13 +21,13 @@ So, In this article, I’m going to be talking about 5 reasons why Svelte is the
 
 Step 1. Run the following command to create a simple project.
 
-```
+```bash
 npx degit sveltejs/template my-startup
 ```
 
 Step 2. Run the project. Here you need to go inside the project directory and install all the packages and run your project.
 
-```
+```bash
 cd my-startup
 npm install
 npm run dev
@@ -53,7 +49,7 @@ The bundle's size can be said as tiny when compared to Angular like other framew
 
 Lines of codes are what really drew most developers fall for Svelte. Because the lines of code are so low and you will see it is about half the size of Vue and it’s about half the size of React and Angular. So it is obviously making an overall better experience for the developer. Just check out the “Hello world” example.
 
-```
+```html
 <script>
  let wish = ‘Make me a better developer’;
 </script>
@@ -74,7 +70,7 @@ Other than that, there are 40k Github starts for the Svelte repository. With com
 
 So, the last part is the developer experience. Svelte is all HTML and it is just much more intuitive.
 
-```
+```html
 <style>
  p {
   color: red;
@@ -94,8 +90,8 @@ It React you have to have your class to be extended and then you got a render an
 So those are my 5 reasons for preferring Svelte over others. I think as it becomes more popular it will be adopted more. Finally, I think it is a great compiler framework which is so helpful.
 
 You can use this useful link to practice and get a better idea about coding.
-[**Svelte examples**
-**Interactive example Svelte apps**svelte.dev](https://svelte.dev/examples#hello-world)
+
+[Svelte examples](https://svelte.dev/examples#hello-world)
 
 Thank you!
 
