@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-useful-things-the-spread-operator-can-do-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-useful-things-the-spread-operator-can-do-in-javascript.md)
 > * 译者：[Alfxjx](https://github.com/Alfxjx)
-> * 校对者：
+> * 校对者：[HayleyLL](https://github.com/HayleyLL)
 
 # 对象展开运算符在 JavaScript 中的 5 大应用
 
@@ -31,7 +31,7 @@ console.log(summary);
 
 ## 2. 合并数组
 
-对象展开运算符的另一个优点是可以合并数组，或以任何索引将一个数组的所有元素插入另一个数组。
+对象展开运算符的另一个优点是可以合并数组，或在一个数组的任意索引处插入另一个数组的所有元素。
 
 对象展开的语法使得下面的操作变得异常的简单：
 
@@ -73,7 +73,7 @@ const arr = [6, 89, 3, 45];
 const maximus = Math.max(...arr); // returns 89
 ```
 
-`**...arr**` 返回了数组的各个元素集合，也就是说它**展开**了这个数组。
+`**...arr**` 返回了一个数组元素的集合，也就是说它**展开**了这个数组。
 
 ## 5. 将字符串转换成数组
 
