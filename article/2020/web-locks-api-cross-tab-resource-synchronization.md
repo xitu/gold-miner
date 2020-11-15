@@ -1,79 +1,78 @@
-> * 原文地址：[Web Locks API: 跨 Tab 资源同步](https://blog.bitsrc.io/web-locks-api-cross-tab-resource-synchronization-54326e079756)
+> * 原文地址：[Web Locks API: Cross-Tab Resource Synchronization](https://blog.bitsrc.io/web-locks-api-cross-tab-resource-synchronization-54326e079756)
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/web-locks-api-cross-tab-resource-synchronization.md](https://github.com/xitu/gold-miner/blob/master/article/2020/web-locks-api-cross-tab-resource-synchronization.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：
+> * 校对者：[plusmultiply0](https://github.com/plusmultiply0)、[JohnieXu](https://github.com/JohnieXu)
 
 # Web Locks API: 跨 Tab 资源同步
 
-![Image by [MasterTux](https://pixabay.com/users/mastertux-470906/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3348307) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3348307)](https://cdn-images-1.medium.com/max/3840/1*voZnUOIRnDc4kc_nfm4bEQ.jpeg)
+![图由 [MasterTux](https://pixabay.com/users/mastertux-470906/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3348307) 发布于 [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3348307)](https://cdn-images-1.medium.com/max/3840/1*voZnUOIRnDc4kc_nfm4bEQ.jpeg)
 
 ## 什么是锁（Locks）？
 
-随着计算机变得越来越强大，会使用多个 CPU 线程来对数据进行处理。多个线程访问单个资源的时候可能会受同步问题的困扰，也催生出了有关资源共享的新问题。
+计算机变得越来越强大，而且可以使用多个 CPU 线程来对数据进行处理。多个线程访问单个资源的时候可能会受同步问题的困扰，因此催生出了有关资源共享的新问题。
 
-如果你对线程熟悉的话，那么你自然会知晓锁的概念。锁是一种同步方法，，可强制对线程执行访问限制，防止多个线程同时访问单个资源。还有一种锁的变体，允许多个线程同时访问单个资源，不过仍将访问限制为只读。我强烈建议你去阅读一些材料，理解操作系统中锁的概念。
+如果你对线程熟悉的话，那么你应该也了解锁的概念。锁是一种同步方法，可强制对线程进行数据访问限制，防止多个线程同时访问单个资源。还有一种锁的变体，允许多个线程同时访问单个资源，不过仍将访问限制为只读。我强烈建议你去查阅一些文献，理解操作系统中锁的概念。
 
 ![单线程和多线程 — 来自 [Dave Kurtz](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_01_ThreadDiagram.jpg)](https://cdn-images-1.medium.com/max/2000/0*iW0a4sDyFt4hsBfQ.jpg)
 
 ## 什么是 Web Locks API？
 
-Web Locks API 将锁整体应用于 web 应用。这个 API 允许一个脚本异步持有对资源的锁定，直到其处理完成之后再释放。当持有锁时，除一种特殊情况外，其他在同域下的脚本无法获得相同资源的锁。接下来我们就说说这个特殊情况。
+Web Locks API 将上面提到的锁（Locks）应用于 web 应用。这个 API 允许一个脚本异步持有对资源的锁定，直到其处理完成之后再释放。当持有锁时，除一种特殊情况外，其他在同域下的脚本无法获得相同资源的锁。接下来我们就说说这个特殊情况。
 
 #### 执行流程是什么样子的呢？
 
-1.申请锁。
+1. 申请锁。
 2. 在异步任务中锁定时完成工作。
 3. 任务完成时候锁自动释放。
 4. 允许其他脚本申请锁。
 
-当资源上有锁时，如果处在相同的执行上下文或者其他 Tab/Work 的脚本请求相同资源的锁的时候，锁请求就会进行排队。当锁释放时候，队列中的第一个请求将被授予锁并可以访问资源。
+当资源上有锁时，如果处在相同的执行上下文或者其他 Tab/Worker 的脚本请求相同资源的锁的时候，锁请求就会进行排队。当锁释放时候，队列中的第一个请求将被授予锁并可以访问资源。
 
 #### 锁以及其作用域
 
 关于 Web Locks API 的作用域可能会很令人困惑。这仅仅是一个摘要，以供你更好地理解。
-The scopes on how the Web Locks API can be quite confusing. Hence here is a summary for you to understand it better.
 
-* 根据文档，锁的作用域限制在同源。
+* 根据文档说明，锁的作用域同样存在同源限制。
 
-> Tab 从 https://example.com 获得的锁对选项卡从 https://example.org 获得的锁没有影响，因为它们的不同源。
+> Tab 从 https://example.com 获得的锁对 Tab 从 https://example.org 获得的锁没有影响，因为它们不同源。
 
-* 浏览器中单独用户配置被视为单独的用户代理，视为在作用域之外。因此，即使他们的同源，也不会共享锁管理器。
-* 私有模式的浏览会话（隐身模式）被视为单独的用户代理，视为在作用域之外。因此，及时他们的同源，也不会共享锁管理器。
-* 在同源且同一个上下文中的脚本视为在作用域之内，并共享锁管理器。例如，一个网页上的两个函数尝试对同一资源加锁。
+* 浏览器中单个用户配置被视为独立的用户代理，视为在作用域之外。因此，即使他们的同源，也不会共享锁管理器。
+* 私有模式的浏览会话（隐身模式）被视为单独的用户代理，视为在作用域之外。因此，即使他们的同源，也不会共享锁管理器。
+* 在同源且同一个上下文中的脚本视为在作用域之内，并共享锁管理器。例如，一个网页上的两个函数尝试获得同一资源的锁。
 * 打开在同一个用户代理的同源页面和 Workers（agents）共享锁管理器，即使他们不在相关的浏览上下文中。
 
-假设如果 `脚本 A` 属于 `锁管理器 A`，`脚本 B` 属于 `锁管理器 B`。`脚本 A` 尝试获得 `资源 X` 的锁，成功获得锁并执行异步任务。同时，`脚本 B` 也尝试获得 `资源X` 的锁，它将会成功，因为两个脚本属于不同的锁管理器。但是如果他们属于同一个锁管理器，那么将会有一个队列来获取对 `资源 X` 的锁。希望这个点我已经说明白了。
+假设如果 `脚本 A` 属于 `锁管理器 A`，`脚本 B` 属于 `锁管理器 B`。`脚本 A` 尝试获得 `资源 X` 的锁，成功获得锁并执行异步任务。同时，`脚本 B` 也尝试获得 `资源 X` 的锁，它将会成功，因为两个脚本属于不同的锁管理器。但是如果他们属于同一个锁管理器，那么将会有一个队列来获取对 `资源 X` 的锁。希望这个点我已经说明白了。
 
-#### 这些资源是什么？
+#### 上面提到的这些资源是什么？
 
-好吧，它们代表了一种抽象资源。它只是我们想出的一个名称，指的是我们想要保留的资源。它在调度算法之外没有任何意义。
+好吧，它们代表了一种抽象资源。只是我们想出的一个名称，指的是我们想要保留的资源。它们在调度算法之外没有任何意义。
 
-换言之，在上面的例子中，我们可以将 `资源 X` 认为成存储我数据的数据库，或者可以是 `localStorage`。
+换言之，在上面的例子中，我们可以将 `资源 X` 看成存储我数据的数据库，或者是 `localStorage`。
 
 
 ## 为什么资源协调很重要？
 
-在简单的Web应用程序中很少需要进行资源协调。但是，更复杂，使用大量 JavaScript 的 Web 应用程序可能需要进行资源协调。
+在简单的 Web 应用程序中很少需要进行资源协调。但是，哪些大量使用 JavaScript 的复杂 Web 应用程序可能需要进行资源协调。
 
-如果你使用跨多个 Tab 的应用程序并且可以执行 CRUD 操作，你将必须保持选项卡同步以避免问题。如果用户在一个 Tab 上打开了文本编辑的 Web 应用程序，而忘记了另一个 Tab 打开同一应用程序。现在，他具有正在运行的同一应用程序的两个 Tab。如果他在一个 Tab 上执行一项操作，并尝试在另一 Tab 上执行完全不同的操作，则当同一资源上被两个不同的进程操作时，服务器上可能会发生冲突。在这种情况下，建议获取对资源的锁定并进行同步。
+如果你使用跨多个 Tab 的应用程序并且其可以执行 CRUD 操作，你将必须保持选项卡同步以避免问题。如果用户在一个 Tab 上打开了文本编辑的 Web 应用程序，而忘记了另一个 Tab 也打开了同一应用程序。现在，他具有正在运行的同一应用程序的两个 Tab。如果他在一个 Tab 上执行一项操作，并尝试在另一 Tab 上执行完全不同的操作，则当同一资源上被两个不同的进程操作时，服务器上可能会发生冲突。在这种情况下，建议获取对资源的锁定并进行同步。
 
-此外，可能存在用户打开了股票投资Web应用程序的两个 Tab 的情况。 如果用户使用其中一个打开的 Tab 购买了一定数量的股票，则两个 Tab 必须保持同步，以避免出现客户错误地再次进行交易的情况。 一个简单的选择是一次只允许应用程序的一个 Tab 或窗口。 但是请注意，可以通过使用私人浏览会话来绕过这个限制。
+此外，可能存在用户打开了股票投资 Web 应用程序的两个 Tab 的情况。如果用户使用其中一个打开的 Tab 购买了一定数量的股票，则两个 Tab 必须保持同步，以避免出现客户错误地再次进行交易的情况。一个简单的选择是一次只允许应用程序的一个 Tab 或窗口。 但是请注意，可以通过使用隐身模式来绕过这个限制。
 
-尽管可以使用诸如 SharedWorker，BroadcastChannel，localStorage，sessionStorage，postMessage，卸载 handler 之类的 API 来管理选项卡通信和同步，但它们各自都有缺点，并且需要变通办法，这降低了代码的可维护性。 Web Locks API 试图通过引入更标准化的解决方案来简化此过程。
+尽管可以使用诸如 SharedWorker，BroadcastChannel，localStorage，sessionStorage，postMessage，unload handler 之类的 API 来管理选项卡通信和同步，但它们各自都有缺点，并且需要变通办法，这降低了代码的可维护性。 Web Locks API 试图通过引入更标准化的解决方案来简化此过程。
 
 ## 使用 Web Locks API
 
-这个 API 使用起来比较直接了当，但是你必须要确定浏览器支持该 API。`request()` 方法经常用来请求对资源的锁定。
+这个 API 使用起来比较直接了当，但是你必须要确定浏览器支持该 API。`request()` 方法经常用来请求资源的锁。
 
-方法接收三个参数。
+该方法接收三个参数。
 
 * 资源名称（必须传入的第一个参数）—— 字符串
-* 回调（必须传入的最后一个参数）—— 当请求成功时候会被调用的一个回调。建议传递 `async` 回调，这样它会返回一个 Promise。及时你没有传入异步回调，它也会包进一个 Promise 中。
-* 选项（回调之前传递的可选第二个参数）—— 具有特定属性的对象，我们将在稍后讨论。
+* 回调（必须传入的最后一个参数）—— 当请求成功时候会被调用的一个回调。建议传递 `async` 回调，这样它会返回一个 Promise。即使你没有传入异步回调，它也会包进一个 Promise 中。
+* 选项（回调之前传递的可选第二个参数）—— 一个具有特定属性的对象，我们将在稍后讨论。
 
-这个方法返回的 promise 会在资源被获得后 resolve 掉， 你可以使用 `then..catch ..` 方法，或者选择 `await` 方法来用同步的方式写异步代码。
+这个方法返回的 promise 会在资源被获得后 resolve 掉，你可以使用 `then..catch ..` 方法，或者选择 `await` 方法来用同步的方式写异步代码。
 
 ```JavaScript
 const requestForResource1 = async() => {
@@ -110,11 +109,11 @@ try {
 
 当在资源上请求互斥锁，且如果该资源已经持有了“互斥”或“共享”锁，锁将不会被授予。 但是，如果在持有“共享”锁的资源上请求“共享”锁，则该请求将被批准。 但是，当持有的锁是“互斥”锁时，情况就不会如此。请求将由锁管理器排队。下表总结了这一点。
 
-![Source: [Shun Yan Cheung](http://www.mathcs.emory.edu/~cheung/Courses/554/Syllabus/7-serializability/compat-mat.html)](https://cdn-images-1.medium.com/max/2000/0*6-VW3zuoya_NHYsP.gif)
+![源自: [Shun Yan Cheung](http://www.mathcs.emory.edu/~cheung/Courses/554/Syllabus/7-serializability/compat-mat.html)](https://cdn-images-1.medium.com/max/2000/0*6-VW3zuoya_NHYsP.gif)
 
 #### 信号
 
-信号属性传入一个 [中止信号](https://dom.spec.whatwg.org/#interface-AbortSignal)。这允许一个在队列中的锁请求被中止。如果在特定时间段内未批准锁定请求，则可以使用超时来中止锁定请求。
+信号属性传入一个[中止信号](https://dom.spec.whatwg.org/#interface-AbortSignal)。这允许一个在队列中的锁请求被中止。如果在特定时间段内未批准锁定请求，则可以使用超时来中止锁定请求。
 
 ```JavaScript
 const controller = new AbortController();
@@ -128,11 +127,11 @@ try {
 }
 ```
 
-#### 如果可用
+#### 如果可用（ifAvailable）
 
 这个属性是一个默认值为 `false` 的布尔值。如果是 true，则锁请求仅在不需要排队时才会被授予。换句话说，在没有任何其他等待的情况下，锁请求才会被授予，否则将返回 `null`。
 
-但是请注意，当返回 `null` 时，该函数将不同步。而是回调将接收值 `null`，值可以由开发者进行处理。
+但是请注意，当返回 `null` 时，该函数将不会同步执行。而是回调将接收值 `null`，值可以由开发者进行处理。
 
 ```js
 await navigator.locks.request('resource', {ifAvailable: true}, async lock => {
@@ -145,28 +144,28 @@ await navigator.locks.request('resource', {ifAvailable: true}, async lock => {
 });
 ```
 
-## 用锁的风险
+## 使用锁的风险
 
 与应用锁相关的风险有很多。这些或多或少是由于锁本身的概念，而不是由于 API 中的任何错误。
 
 #### 死锁
 
-死锁的概念与并发关联。当进程由于每个部分都在因请求无法满足而等待导致的无法继续执行时，就会发生死锁。
+死锁的概念与并发关联。当进程由于每个部分都在因请求无法满足而等待，导致的无法继续执行时，就会发生死锁。
 
-![Illustration by Author](https://cdn-images-1.medium.com/max/2840/1*DQI5-XUHL9L8e-32d_ufxg.png)
+![图由作者提供](https://cdn-images-1.medium.com/max/2840/1*DQI5-XUHL9L8e-32d_ufxg.png)
 
-为了避免死锁，在获取锁时我们必须遵循严格的模式。可以使用很多种技术，例如避免嵌套锁定，确保锁定顺序正确，甚至使用 signal 可选参数来使锁定请求超时。说一千道一万，精心设计的 API 将是避免死锁的最佳解决方案。你可以在[此处](https://en.wikipedia.org/wiki/Deadlock_prevention_algorithms)上阅读有关死锁预防的更多信息。
+为了避免死锁，在获取锁时我们必须遵循严格的模式。可以使用很多种技术，例如避免嵌套锁，确保锁的顺序正确，甚至使用 signal 可选参数来使锁定请求超时。说一千道一万，精心设计的 API 将是避免死锁的最佳解决方案。你可以在[此处](https://en.wikipedia.org/wiki/Deadlock_prevention_algorithms)上阅读有关死锁预防的更多信息。
 
 #### Tabs 无响应
 
-在某些情况下，您会发现其中一个 Tab 变得无响应。如果在选项卡持有锁的状态下发生这种情况，则可能会非常棘手。 可以引入一个 `steal` 布尔值（参数），就是我们之前谈到的可选参数的一部分。尽管默认情况下取值为`false`，但如果将其传递为 `true`，则无论资源队列中锁请求有多少，任何资源上的锁都会被立即释放，并且将立即授予此新锁请求。
+在某些情况下，您会发现其中一个 Tab 变得无响应。如果在选项卡持有锁的状态下发生这种情况，则可能会非常棘手。可以引入一个 `steal` 布尔值（参数），就是我们之前谈到的可选参数的一部分。尽管默认情况下取值为`false`，但如果将其传递为 `true`，则无论资源队列中锁请求有多少，任何资源上的锁都会被立即释放，并且将立即授予此新锁请求。
 
 但是请记住，此有争议的功能仅应在特殊情况下使用。您可以在[这儿]（https://github.com/WICG/web-locks/issues/23）上阅读有关此功能的更多信息。
 
 #### Debug 困难
-由于可能存在隐藏状态，因此可能存在与调试有关的问题。为了解决这个问题，引入了一种 `query` 方法。此方法在该特定时刻返回锁管理器的状态。结果中将包含未决和当前持有的锁的详细信息。它还将包含锁类型，持有/请求到锁的资源以及请求的 clientId 详细信息。 
+由于可能存在隐藏状态，因此可能存在与调试有关的问题。为了解决这个问题，引入了 `query` 方法。此方法在该特定时刻返回锁管理器的状态。结果中将包含等待和当前持有的锁的详细信息。它还包含锁类型，持有/请求到锁的资源以及请求的 clientId 详细信息。 
 
-`clientId` 仅仅只是请求锁定的唯一上下文（框架/ worker ）的对应值。这是在 Service Workers 中使用相同的值。
+`clientId` 仅仅只是请求锁定的唯一上下文（frame/worker）的对应值。相同的值可用在 Service Workers 中。
 
 ```JSON
 {
