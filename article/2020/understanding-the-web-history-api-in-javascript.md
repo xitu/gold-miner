@@ -2,30 +2,30 @@
 > * 原文作者：[Mehdi Aoussiad](https://medium.com/@mehdiouss315)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-the-web-history-api-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-the-web-history-api-in-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Understanding The Web History API in JavaScript
+# 浏览器 Web History API 的应用
 
 ![Photo by [Kevin Ku](https://unsplash.com/@ikukevk?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9184/0*wBiqieIBMgVIDeJ_)
 
-## What is a Web API?
+## Web API 的介绍
 
-**API** stands for **A**pplication **P**rogramming **I**nterface. It is some kind of interface that has a set of functions that allow programmers to access specific features or data of an application, operating system, or other services. A **Web API** is an application programming interface for the web, It could be for a web browser or a web server. We can build our own Web API using different technologies such as Java or Node and etc. There is also another type of API called Third Party API, It is not built into your browser. you will have to download the code from the Web in order to use it, such as the Youtube API or the Twitter API. So in this article, I decided to give you some knowledge about the Web History API.
+**API** 是指应用程序接口（**A**pplication **P**rogramming **I**nterface），它是一些预先定义的函数接口，允许程序员访问应用程序、操作系统或其他服务的特定功能或数据。**Web API** 是用于 Web 开发的应用程序接口，它可以用于 Web 浏览器或 Web 服务器。我们可以使用 Java 或 Node 等不同的技术来构建我们自己的 Web API。还有一种 API 叫做第三方 API，它不是内置在浏览器中的。你必须从网上下载代码才能使用它，比如 Youtube API 或 Twitter API。在本文中，主要是介绍关于 Web API 中的 History API 的使用。
 
 ![Photo by [Joshua Aragon](https://unsplash.com/@goshua13?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/5492/0*crcbHF8nQYE3cCwp)
 
-## The Web History API
+## History API 的介绍
 
-The web history API is supported by all the browsers. The **window.history** object has some useful methods on its prototype which I’m going to show you below. It contains all the websites visited by the user. Let’s open up our console to see this object. Have a look at the example below:
+所有浏览器都支持 History API。在 **window.history** 对象及其原型上有一些可用的方法，接下来将展示这些方法。它还包含用户访问的所有网站记录。打开浏览器控制台来查看这个对象。请看下面的示例：
 
 ![The **window.history** Object in the console.](https://cdn-images-1.medium.com/max/2000/1*CF4GD-BAFVbCyyvkX96P7g.png)
 
-As you can see, the “**window.history**” object has some useful methods on its prototype. I will show you some of them in a second.
+显而易见，**window.history** 对象及其原型上有一些可用的方法，接下来将依次介绍。
 
-## The History back Method
+## History.back() 方法
 
-The history **back** method loads the previous **URL** in the history list. It is the same as clicking the “back arrow” in your browser. Let’s have a look at the example below:
+`History.back()` 方法可以加载历史记录列表中以前访问过的 **URL**。这与在浏览器中单击“后退箭头”相同。再来看下面的例子：
 
 ```HTML
 <button onclick="myFunction()">Go Back</button>
@@ -37,11 +37,11 @@ function myFunction() {
 </script>
 ```
 
-When we click the button it will take us to the previous link(URL) in our history list in the browser.
+当用户点击按钮时，它将跳转到浏览器历史记录列表中的上一个链接（URL）。
 
-## The History go Method
+## History.go() 方法
 
-The **go()** method allows us to load a specific URL in our browser history list. Let’s have a look at the example below:
+`History.go()` 方法允许用户在浏览器历史记录列表中加载特定的 URL。再来看下面的例子：
 
 ```HTML
 <button onclick="myFunction()">Go Back 2 Pages</button>
@@ -53,11 +53,11 @@ function myFunction() {
 </script>
 ```
 
-So, when we click the button element, we will go 2 pages back as we specified in the above example(-2).
+当用户点击按钮时，将返回到上面示例中指定的第 2 页。
 
-## The History forward Method
+## History.forward() 方法
 
-The **forward()** method Loads the next URL in the history list. Below this, there is an example of how to use it.
+`History.forward()` 方法加载历史记录列表中的下一个 URL。下面是如何使用它的示例：
 
 ```HTML
 <button onclick="myFunction()">Go Back</button>
@@ -69,11 +69,11 @@ function myFunction() {
 </script>
 ```
 
-Clicking on the button will load the next URL in our browser history list.
+当用户点击按钮时，将加载浏览器历史记录列表中的下一个 URL。
 
-## Conclusion
+## 结论
 
-As you can see, The History Web API is so useful and important when it comes to traveling from a page to another on our website. Make sure that we didn’t cover everything about this web API, that’s why you will need to learn more about it from other resources. I hope you learned something new today.
+总而言之，当用户使用网站从一个页面到另一个页面时，History Web API 是非常有用和重要的，所以很有必要掌握它的使用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

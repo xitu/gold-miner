@@ -2,31 +2,31 @@
 > * 原文作者：[Taran](https://medium.com/@taranpreet_94321)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/exciting-features-of-javascript-es2021-es12.md](https://github.com/xitu/gold-miner/blob/master/article/2020/exciting-features-of-javascript-es2021-es12.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tonylua](https://github.com/tonylua)
+> * 校对者：[samyu2000](https://github.com/samyu2000), [@HurryOwen](https://github.com/HurryOwen)
 
-# JavaScript ES2021 Exciting Features
+# JavaScript ES2021 中激动人心的特性
 
-![](https://cdn-images-1.medium.com/max/2000/1*TK3lUqXrmh82x3Mjb3Oa0A.png)
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b62ca0ebbcd0499fa895e95e85e68bc7~tplv-k3u1fbpfcp-watermark.image)
 
-Every year, JavaScript update adds new features. This year ES2020 or ES11 was released ([Read ES2020 features article](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6)), with ES2021 or ES12 expected to be released in mid-2021.
+每年，JavaScript 都会增添新的特性。今年的 ES2020 或称 ES11 业已发布 ([参阅这篇 ES2020 特性的文章](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6))，而 ES2021 或者说是 ES12 预计将于 2021 年中旬发布。
 
-New features that are added to JavaScript each year go through a four-stage process, with the fourth stage being the last one. In this article, I will discuss the features that have already reached stage four and are added to the Google Chrome V8 engine.
+每年被增添到 JavaScript 中的特性都会经历一个四阶段的过程，第四阶段也就是最终的一个。在本文中，我将讨论已经到达第四阶段并已被增添到 Google Chrome V8 引擎中的特性。
 
-#### List of the new features discussed in this article
+#### 本文讨论新特性的列表
 
 * String.prototype.replaceAll
 * Promise.any
-* Logical Operators and Assignment Expressions
-* Numeric Separators
+* 逻辑操作符和赋值表达式
+* 数值分隔符
 * Intl.ListFormat
-* dateStyle and timeStyle options for Intl.DateTimeFormat
+* Intl.DateTimeFormat 的 dateStyle 和 timeStyle 选项 
 
 ## String.prototype.replaceAll
 
-In JavaScript, **replace()** method only replaces the first instance of a pattern in a string. If we want to replace all the matches of a pattern in a string, the only way to achieve that is by using global regexp.
+在 JavaScript 中，**replace()** 方法仅替换一个字符串中某模式（pattern）的首个实例。如果我们要替换一个字符串中某模式的所有匹配项，唯一的方法就是使用有全局标记的正则。
 
-The proposed method **replaceAll()** returns a new string with all matches of a pattern replaced by a replacement. The pattern can be a string or a regular expression, and the replacement can be a string or a function that gets executed for each match.
+拟议的方法 **replaceAll()** 会返回一个新字符串，该字符串中用一个替换项替换了原字符串中所有匹配了某模式的部分。模式可以是一个字符串或一个正则表达式，而替换项可以是一个字符串或一个应用于每个匹配项的函数。
 
 ```JavaScript
 let str = 'I use linux, I love linux'
@@ -34,17 +34,17 @@ str = str.replaceAll('linux', 'windows');
 
 console.log(str)
 
-/****  Output  ****/
+/****  输出  ****/
 // I use windows, I love windows
 ```
 
 ## Promise.any
 
-ES2021 will introduce **Promise.any()** method which short-circuits and returns a value, as soon as it hits the first resolved promise from the list/array of promises **(as explained in Example 1a)**. If all the promises are rejected then it will throw an aggregated error message **(as illustrated in Example 1b)**.
+ES2021 将引入 **Promise.any()** 方法，一旦该方法从 promise 列表或数组中命中首个 resolve 的 promise **（正如 Example 1a 中所解释的那样）**，就会短路并返回一个值。如果所有 promise 都被 reject ，该方法则将抛出一个聚合的错误信息 **（在 Example 1b 里有所展示）**。
 
-It is different from **[Promise.race()](https://codeburst.io/javascript-promise-methods-introduction-cb0379e9dad)** as that method short-circuits once one of the given promises either resolves or rejects.
+其区别于 **[Promise.race()](https://codeburst.io/javascript-promise-methods-introduction-cb0379e9dad)** 之处在于，后者在某个 promise 率先 resolve 或 reject 后都会短路。
 
-****Example 1a**: Even though a promise is rejected earlier than a resolved promise, **Promise.any()** will return the first resolved promise.**
+****Example 1a**: 尽管某个 promise 的 reject 早于另一个 promise 的 resolve，**Promise.any()** 仍将返回那个首先 resolve 的 promise。**
 
 ```JavaScript
 Promise.any([
@@ -55,11 +55,11 @@ Promise.any([
 .then(value => console.log(`Result: ${value}`))
 .catch (err => console.log(err))
 
-/****  Output  ****/
+/****  输出  ****/
 // Result: Second
 ```
 
-****Example 1b**: When all the promises are rejected, AggregateError is thrown.**
+****Example 1b**: 当所有 promise 都被 reject 后，AggregateError 即被抛出。**
 
 ```JavaScript
 Promise.any([
@@ -70,21 +70,21 @@ Promise.any([
 .then(value => console.log(`Result: ${value}`))
 .catch (err => console.log(err))
 
-/****  Output  ****/
+/****  输出  ****/
 // AggregateError: All promises were rejected
 ```
 
-## Logical Operators and Assignment Expressions
+## 逻辑操作符和赋值表达式
 
-In JavaScript, there are many assignment operators and Logical operators like the following basic example:
+在 JavaScript 中，有许多赋值表达式和逻辑操作符，如下所示：
 
 ```js
-// Assignment Operator Example
+// 赋值表达式例子
 let num = 5
 num+=10
 console.log(num) // 15
 
-// Logical Operator Example
+// 逻辑操作符例子
 
 let num1 = 6
 let num2 = 3
@@ -93,14 +93,14 @@ console.log(num1 === 6 && num2 === 2) // false
 console.log(num1 === 6 || num2 === 2) // true
 ```
 
-With the new proposal, we will be able to combine logical operators and assignment operators. Below are some examples of &&, || and ?? operators:
+在新提案里，我们将有能力结合逻辑操作符和赋值表达式。下面是一些 `&&`、 `||` 和 `??` 的例子：
 
-#### Logical Assignment Operator with && operator
+#### `&&` 逻辑赋值操作符
 
-It assign RHS variable value to LHS variable, only if LHS value is truthy.
+该操作符用来在仅当左侧（译注：原文为 LHS，即 Left-hand Side）变量为真值（truthy）时，才将右侧（RHS）变量赋值给左侧变量。
 
 ```JavaScript
-// Logical Assignment Operator with && operator
+// `&&` 逻辑赋值操作符
 let num1 = 5
 let num2 = 10
 
@@ -108,17 +108,17 @@ num1 &&= num2
 
 console.log(num1) // 10
 
-// Line 5 can also be written as following ways
+// 行 5 也可写作以下方式
 // 1. num1 && (num1 = num2)
 // 2. if (num1) num1 = num2
 ```
 
-#### Logical Assignment Operator with || operator
+#### `||` 逻辑赋值操作符
 
-It assign RHS variable value to LHS variable, only if LHS value is falsy.
+该操作符用来在仅当左侧变量为虚值（falsy）时，才将右侧变量赋值给左侧变量。
 
 ```JavaScript
-// Logical Assignment Operator with || operator
+// `||` 逻辑赋值操作符
 let num1
 let num2 = 10
 
@@ -126,17 +126,17 @@ num1 ||= num2
 
 console.log(num1) // 10
 
-// Line 5 can also be written as following ways
+// 行 5 也可写作以下方式
 // 1. num1 || (num1 = num2)
 // 2. if (!num1) num1 = num2
 ```
 
-#### Logical Assignment Operator with ?? operator
+#### `??` 逻辑赋值操作符
 
-[ES2020 ](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6)has introduced the Nullish Coalescing operator, this operator can be combined with assignment operators as well. It assign RHS variable value to LHS variable, only if LHS is undefined or null only.
+[ES2020](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6) 已经引入了空值合并操作符（Nullish Coalescing operator，即 `??`），该操作符亦可与赋值表达式结合。在仅当左侧变量为 undefined 或 null 时，该操作符才将右侧变量赋值给左侧变量。
 
 ```JavaScript
-// Logical Assignment Operator with ?? operator
+// `??` 逻辑赋值操作符
 let num1
 let num2 = 10
 
@@ -147,34 +147,35 @@ num1 = false
 num1 ??= num2
 console.log(num1) // false
 
-// Line 5 can also be written as following ways
+// 行 5 也可写作以下方式
 // num1 ?? (num1 = num2)
 ```
 
-## Numeric Separators
+## 数值分隔符
 
-The introduction of Numeric Separators will make it easier to read numeric values by using the `_` (underscore) character to provide a separation between groups of digits. For example:
+数字分隔符（Numeric Separators）的引入将通过使用 `_`（下划线）符号在数字分组间提供一个隔离以便于阅读数值。例如：
 
 ```JavaScript
 let number = 100_000 
 
 console.log(number)
 
-/****  Output  ****/
+/****  输出  ****/
 // 100000
 ```
 
 ## Intl.ListFormat
 
-The ListFormat Object takes two parameters, both of them are optional. First parameter is language (locale) and second parameter is an options object that has two properties — style and type.
+ListFormat 对象的构造方法有两个参数，皆为可选。首个参数是一个语言标识（locale），而第二个参数是一个选项对象 -- 包含了 style 和 type 两个属性。
 
-```
+
+```JavaScript
 new Intl.ListFormat([locales[, options]])
 ```
 
-The Intl.ListFormat has a method called **format()**, which receives an array as an argument and format it in different ways that are language dependent.
+Intl.ListFormat 有一个叫做 **format()** 的方法，接受一个数组作为参数，并因 locale 和选项而异以相应的方式格式化该参数数组。
 
-Given below are some examples which has combination of different locales and options.
+以下给出的是一些结合了不同 locale 和选项的例子。
 
 ```JavaScript
 const arr = ['Pen', 'Pencil', 'Paper']
@@ -182,111 +183,111 @@ const arr = ['Pen', 'Pencil', 'Paper']
 let obj = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' })
 console.log(obj.format(arr)) 
 
-/****  Output  ****/
+/****  输出  ****/
 // Pen, Pencil, & Paper
 
 
 obj = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' })
 console.log(obj.format(arr)) 
 
-/****  Output  ****/
+/****  输出  ****/
 // Pen, Pencil, and Paper
 
 
 obj = new Intl.ListFormat('en', { style: 'narrow', type: 'conjunction' })
 console.log(obj.format(arr)) 
 
-/****  Output  ****/
+/****  输出  ****/
 // Pen, Pencil, Paper
 
 
-// Passing in Italy language tag
+// 传入意大利语标识
 obj = new Intl.ListFormat('it', { style: 'short', type: 'conjunction' })
 console.log(obj.format(arr)) 
 
-/****  Output  ****/
+/****  输出  ****/
 // Pen, Pencil e Paper
 
 
-// Passing in German language tag
+// 传入德语标识
 obj = new Intl.ListFormat('de', { style: 'long', type: 'conjunction' })
 console.log(obj.format(arr)) 
 
-/****  Output  ****/
+/****  输出  ****/
 // Pen, Pencil und Paper
 ```
 
-## dateStyle and timeStyle options for Intl.DateTimeFormat
+## Intl.DateTimeFormat 的 dateStyle 和 timeStyle 选项
 
-The Intl.DateTimeFormat object is a constructor for objects that enable language-sensitive date and time formatting. The proposed **dateStyle** and **timeStyle** options can be used to request a locale-specific date and time of a given length.
+Intl.DateTimeFormat 对象是一个支持语言敏感日期和时间格式化的构造器。拟议的 **dateStyle** 和 **timeStyle** 选项可被用于获取一个 locale 特有的日期和给定长度的时间。
 
-Some examples of different options and language(locale) are illustrated below:
+一些不同选项和语言（locale）的例子展示在此：
 
 ```JavaScript
-// Time only with short format
+// 短格式的时间
 let o = new Intl.DateTimeFormat('en' , { timeStyle: 'short' })
 console.log(o.format(Date.now()))
 // 11:27 PM
 
 
-// Time only with medium format
+// 中等格式的时间
 o = new Intl.DateTimeFormat('en' , { timeStyle: 'medium'})
 console.log(o.format(Date.now()))
 // 11:27:57 PM
 
 
-// Time only with long format
+// 长格式的时间
 o = new Intl.DateTimeFormat('en' , { timeStyle: 'long' })
 console.log(o.format(Date.now()))
 // 11:27:57 PM GMT+11
 
 
-// Date only with short format
+// 短格式的日期
 o = new Intl.DateTimeFormat('en' , { dateStyle: 'short'})
 console.log(o.format(Date.now()))
 // 10/6/20
 
 
-// Date only with medium format
+// 中等格式的日期
 o = new Intl.DateTimeFormat('en' , { dateStyle: 'medium'})
 console.log(o.format(Date.now()))
 // Oct 6, 2020
 
 
-// Date only with long format
+// 长格式的日期
 o = new Intl.DateTimeFormat('en' , { dateStyle: 'long'})
 console.log(o.format(Date.now()))
 // October 6, 2020
 ```
 
-**dateStyle** and **timeStyle** options used together with different language tags, as shown in the example below:
+**dateStyle** 和 **timeStyle** 选项共用并结合不同语言标识的例子，如下所示：
 
 ```JavaScript
 let abc
 
-// English language
+// 英语
 abc = new Intl.DateTimeFormat('en' , { timeStyle: 'short', dateStyle: 'long'})
 console.log(abc.format(Date.now()))
 // October 6, 2020 at 11:40 PM
 
 
-// Italian language
+// 意大利语
 abc = new Intl.DateTimeFormat('it' , { timeStyle: 'short', dateStyle: 'long'})
 console.log(abc.format(Date.now()))
 // 6 ottobre 2020 23:40
 
 
-// German language
+// 德语
 abc = new Intl.DateTimeFormat('de' , { timeStyle: 'short', dateStyle: 'long'})
 console.log(abc.format(Date.now()))
 // 6. Oktober 2020 um 23:40
 ```
 
-## Conclusion
+## 总结
 
-As a developer, it is important to stay up to date with the new features of a language. If you have missed the ES2020 features update, I recommend that you read this article — [ES2020 has Arrived](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6).
+作为一个开发者，追踪一门语言的新特性很重要。若你错过了 ES2020 中更新的特性，我推荐你阅读这篇文章 -— [ES2020 已至](https://codeburst.io/javascript-es2020-is-here-360a8304b0e6)。
 
-Thank you for reading, please comment below if there is a topic that you would like me to cover!
+感谢你的阅读，如果你有感兴趣的主题，请在下方评论！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
