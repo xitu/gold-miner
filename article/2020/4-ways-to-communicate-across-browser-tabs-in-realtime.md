@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/4-ways-to-communicate-across-browser-tabs-in-realtime.md](https://github.com/xitu/gold-miner/blob/master/article/2020/4-ways-to-communicate-across-browser-tabs-in-realtime.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[HurryOwen](https://github.com/HurryOwen)
 
 # 四种跨浏览器选项卡实时通信方法
 
@@ -21,7 +21,7 @@
 
 通过使用 LocalStorage，可以使得同一应用程序源中的选项卡之间进行通信。同时 LocalStorage 也支持事件，可以使用此功能跨浏览器选项卡进行通信，存储更新后，其他选项卡将接收事件。
 
-例如，在一个 JavaScript 选项卡中执行以下内容：
+例如，在一个选项卡中执行以下 JavaScript 代码。
 
 ```js
 window.localStorage.setItem("loggedIn", "true");
