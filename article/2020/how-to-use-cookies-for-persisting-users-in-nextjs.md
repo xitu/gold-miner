@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-use-cookies-for-persisting-users-in-nextjs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-use-cookies-for-persisting-users-in-nextjs.md)
 > * 译者：[plusmultiply0](https://github.com/plusmultiply0)
-> * 校对者：
+> * 校对者：[Liusq-Cindy](https://github.com/Liusq-Cindy)、[HurryOwen](https://github.com/HurryOwen)
 
 # 如何在 Nextjs 中使用 cookies 来持久化保存用户信息
 
-## 使用 localStorage
+## 使用 LocalStorage
 
-在 React 或单页应用中有许多方式来持久化保存用户信息。大多数时候，开发者通常使用 localStorage 来保存以及按需加载用户数据。虽然这个方法可行，但不太好，因为它会让用户易于遭到攻击。使用 cookies 会相对安全的选择。就个人而言，我倾向于混合使用 cookies 和 JWT 的 [JSON Web tokens](https://jwt.io/) 来持久化用户会话以及，当会话过期时，强制用户重新登陆。如何使用 JWT 的 [JSON Web tokens](https://jwt.io/) 不在了本文的介绍范围内。
+在 React 或单页应用中有许多方式来持久化保存用户信息。大多数时候，开发者通常使用 localStorage 来保存以及按需加载用户数据。虽然这个方法可行，但不太好，因为它会让用户易于遭到攻击。使用 cookies 会是相对安全的选择。就个人而言，我倾向于混合使用 cookies 和 JWT 的 [JSON Web tokens](https://jwt.io/) 来持久化用户会话以及，当会话过期时，强制用户重新登录。如何使用 JWT 的 [JSON Web tokens](https://jwt.io/) 不在本文的介绍范围内。
 
-由于 localStorage 在服务器端是未定义的（因为服务器端没有 localStorage），所以在渲染路由前是不可能访问到 localStorage 的。如前所述，我们最好的做法是，在渲染路由前检查用户的 cookie 是否可用。
+由于 localStorage 在服务器端是未定义的（因为服务器端没有 localStorage），所以在渲染路由前是不可能访问到 localStorage 的。如前所述，我们最好的做法是，在渲染路由前，检查用户的 cookie 是否可用。
 
 ## 在 React/NextJS 中使用 cookies
 
