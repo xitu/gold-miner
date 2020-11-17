@@ -2,143 +2,143 @@
 > * 原文作者：[Mohan Sundar](https://medium.com/@itsmohanpierce)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-hide-secrets-in-strings-modern-text-hiding-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-hide-secrets-in-strings-modern-text-hiding-in-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[niayyy](https://github.com/nia3y)
+> * 校对者：[FateZeros](https://github.com/FateZeros)、[zenblo](https://github.com/zenblo)
 
-# How to Hide Secrets in Strings — Modern Text hiding in JavaScript
+# 如何在字符串中隐藏秘密 —— JavaScript 中的现代文本隐藏
 
 ![**All Hallows’ Eve — Illustrated by [Kaiseir](https://dribbble.com/kaiseir)**](https://cdn-images-1.medium.com/max/2000/1*HOGI5cdt1MJ9MBo1qTc1zA.jpeg)
 
-> Sometimes the best hiding place is the one that’s in plain sight.
+> 最危险的地方就是最安全的地方。
 
-If you were a spy in a hostile country, merely sending a message back to the US would be incriminating. If that message was encrypted, it’d probably be a whole bunch more incriminating, and things would only get worse when you, the spy, refused to decrypt the message for the authorities. **Steganography**, which literally means “hidden writing”, is about hiding the existence of a message.
+如果你是一个在敌对国家的间谍，那么仅向美国发送信息便是犯罪。如果消息是加密的，那可能导致更大的罪名，当你拒绝为当局解密消息时，情况会变得更糟。**隐写术**，字面意思是“隐藏的文字”，是指隐藏消息的存在。
 
-Chet Hosmer, founder of [**Python Forensics**](http://python-forensics.org/) pointed out that
+[**Python Forensics**](http://python-forensics.org/) 的创始人 Chet Hosmer 指出：
 
-> Steganography hides the mere existence of the communication. Unlike its cousin cryptography, which is easy to detect but difficult to break, steganography provides the most interesting element of all ‘To Hide in Plain sight’.
+> 隐写术掩盖了信息的存在。不像它的表亲密码学一样容易检测，难以破解，隐写术提供最有趣的特点在于“藏在众目睽睽之下”。(Steganography hides the mere existence of the communication. Unlike its cousin cryptography, which is easy to detect but difficult to break, steganography provides the most interesting element of all ‘To Hide in Plain sight’.)
 
 ![Cloak of invisibility](https://cdn-images-1.medium.com/max/2000/1*Ze0Yy0Op7kqT8fJ3Le5FSg.gif)
 
-**Did you know that the steganography quote above, has a hidden secret that is invisible?** Would you have been able to detect its existence if I hadn’t mentioned it? Well, check out the rest of the article, to make sense out of it.
+**你是否知道上面的隐写术引用中有一个不为人知的隐藏秘密？** 如果我没有提到它，你是否能够感知它的存在？好吧，请阅读本文的其余部分，以理解其中的意义。
 
-## Invisible characters in Unicode
+## Unicode 中的不可见字符
 
-Zero Width Characters are non-printing characters, a part of the Unicode table. As the name suggests they don’t even show their presence. They are used to enable line wrapping in long words, joining emojis, combine two characters into a ligature, keep them from joining, etc.
+零宽度字符是非打印字符，是 Unicode 表的一部分。顾名思义，他们甚至不展示自己的存在。它们用于使长句换行，连接表情符号，将两个字符连接起来，防止它们结合等。
 
 ![The characters `zwj` join the emoji’s but they are not visible](https://cdn-images-1.medium.com/max/2000/1*ATrlUYwomSvUtygin5ndIA.png)
 
-These characters have increasingly found their way in-text hiding, their complete invisibility being a remarkable selling point. They cannot be blocked as they are integral in multiple languages and emojis. And it also turns out that ZWCs aren’t the only characters which are invisible, eg. Invisible separator — U+2063.
+这些字符越来越多地发现其隐藏在文本中的方式，它们的完全隐形性是一个了不起的特点。由于它们在多种语言和表情符号中不可或缺，因此无法屏蔽它们。而且，事实证明，ZWC 并不是唯一不可见的字符。例如：隐形的分隔符 —— U+2063。
 
 ![The table that contains mostly used invisible characters](https://cdn-images-1.medium.com/max/2000/1*eP3yPonDN-Px68R1gO0PXw.png)
 
-One small problem with this table tho! Gmail blocks U+200B ( Zero width space ). Not to mention, Twitter is known for blacklisting unnecessary invisible characters, none of the characters in the table except U+200C, U+200D and U+180e works. So we now have three characters!
+但是这个表格有一个小问题，Gmail 会屏蔽 U+200B（零宽度空格）。更不用说其它软件，Twitter 会将不必要的不可见字符列入黑名单，除 U+200C，U+200D 和 U+180e 之外，表中的所有字符均不起作用。因此，现在我们有了三个字符！
 
 ![](https://cdn-images-1.medium.com/max/2160/1*pnl_e3gWWQ3z1l58LTxaBg.jpeg)
 
-Oh, wait, U+180e is not invisible and renders weirdly in iOS devices. We are now down to only 2 characters.
+哦，等等，U+180e 不是不可见的，并且在 iOS 设备中呈现异常。现在我们只有 2 个字符。
 
-So we tore apart the Unicode table and started to test each possible Invisible character for its cross-platform / web invisibility. Fortunately, we were able to add 4 more characters to our arsenal, a total of 6 invisible characters that we can now use to hide our secrets in strings. All set! Ready to strike ..!
+因此，我们打开 Unicode 表，并开始测试每个可能的不可见字符是否具有跨平台 / Web 可见性。幸运的是，我们能够在表格中再添加 4 个字符，总共 6 个不可见字符，我们现在可以使用它们在字符串中的隐藏秘密。可以了，好了！准备战斗..！
 
 ![Assemble!](https://cdn-images-1.medium.com/max/2000/1*HSPg4C9SGIT9-O6GWK0img.gif)
 
-## What is StegCloak and how it works?
+## StegCloak 是什么以及如何工作？
 
-StegCloak is a pure JavaScript steganography module that can be used to hide secrets inside plain text after going through two layers of maximum possible compression and a layer of encryption. So not only does it cloak the secret, but it also protects it with a password of your choice along with an array of other features. **[Check out our demo here](https://www.youtube.com/watch?v=RBDqZwcGvQk).**
+StegCloak 是一个纯 JavaScript 的隐写模块，在经过两层最大可能压缩和一层加密后，可用于在纯文本中隐藏秘密。因此，它不仅掩盖了秘密，而且还通过你选择的密码以及一系列其他特性来进行保护。**[在这查看我们的演示](https://www.youtube.com/watch?v=RBDqZwcGvQk)。**
 
-#### Hide
+#### 隐藏
 
 ![Hiding secrets in tweets](https://cdn-images-1.medium.com/max/2000/1*i-woBuZ902ZSMsrj9xSnoA.gif)
 
-#### Reveal
+#### 显示
 
 ![Extracting hidden secret from the tweet](https://cdn-images-1.medium.com/max/2000/1*DqpMYkBY5NUdbw5wUKXliw.gif)
 
-#### A brief idea of how StegCloak hides your secrets and compresses it
+#### StegCloak 如何隐藏你的秘密并将其压缩的简要说明
 
-Step 1: **Compress and Encrypt** the secret.
+步骤 1：**压缩并加密**秘密。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ALhxrbOw6UBJf858ckg9ew.png)
 
-Security never played a role in these kinds of “hacks” and with StegCloak we wanted it to satisfy [**Kerckhoff’s principle](https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle)** which states:
+安全策略从未在这些系统入侵事件中发挥作用，我们希望借助 StegCloak 来满足 **[Kerckhoff 原则](https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle)**，其中指出：
 
-> An ideal crypto-system should be secure even if everything about the system is exposed to the public except the secret key.
+> 理想的加密系统应当具备很强的安全保障，能够在除密钥之外的系统全部内容都对外公开的情况下也是安全的。
 
-Even if the attacker identifies how the algorithm works, it should not be possible to reveal the secret message.
+即使攻击者识别出了算法的工作原理，也应该不可能破解秘密消息。
 
-#### Satisfying the principle
+#### 满足原则
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Bqj9PFww4K_VhaWfODqgMg.png)
 
-For this, we need password-based symmetric encryption. Considering human tendencies to use small and weak passwords and also their preference to use the same password multiple times, we decided to derive a strong key from the given password and also increase the randomness of the key by introducing random salts. Randomness in the key is required to prevent attacks based on the analysis of multiple ciphertexts generated with the same key. Now, the usual block cipher modes in AES like ECB or CBC resulted in additional padding of a minimum of 16 bytes block. So to send “Hi” CBC mode pads 0’s to make it 16 in length, and removes them during extraction. This is bad. Therefore, we used the stream cipher mode CTR (padding less cipher)to generate the ciphertext.
+为此，我们需要基于密码的对称加密。鉴于人们总是习惯使用简单脆弱的密码，以及他们倾向于多次使用相同的密码，我们决定从给定的密码中得出强密钥，并通过引入随机盐来增加密钥的随机性。根据对使用同一密钥生成的多个密文的分析，密钥需要具有随机性以防止攻击。现在，AES 中的常规块密码模式像 ECB 或 CBC 导致至少填充 16 个字节的块。 比如，发送 “Hi” CBC 模式填充 0 使其长度为 16，并在提取过程中将其删除，但这并不是好方法。因此，我们使用流密码模式 CTR（填充较少的密码）来生成密文。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*b_0-voMOjqM2Jk1EKCZ1Fw.png)
 
-Step 2: **Encode and compress again** with the extra two characters.
+第 2 步：使用额外的两个字符**再次编码和压缩**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*FEstcl9rEF0eX8Q3n0u4pg.png)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HfXp1u543ZaLCC5MaQ05_w.png)
 
-As shown in the above figure, even though we had six ZWC characters only 4 were used as 6 is not a power of 2.The two extra characters (U+2063, U+2064) are used to do an additional layer of abstracted Huffman compression reducing redundancy. After the secret has been converted to ZWCs, the two most repeating ZWCs in the stream are determined, say U+200D and U+200C. Now every two consecutive occurrences of U+200Ds and U+200Cs are replaced with one U+2063 or U+2064. This saves a lot as redundancy was frequently observed.
+如上图所示，即使我们有 6 个 ZWC 字符，也只有 4 个被使用，因为 6 不是 2 的幂。两个额外的字符（U+2063，U+2064）被用来做一个额外的抽象霍夫曼层压缩减少冗余。将机密转换为 ZWC 后，将确定流中两个重复最多的 ZWC，例如 U+200D 和 U+200C。现在，每两个连续出现的 U+200D 和 U+200C 被一个 U+2063 或 U+2064 替换。由于经常观察到冗余，因此可以节省很多。
 
-Step 3: **Embed the invisible stream** to the first space of the cover text.
+步骤 3：**将不可见的流嵌入**封面文字的开头。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*23avUCEVPdvmQr62z1eCzw.gif)
 
-`Hi` is now hidden in hello world as 6 characters, so now the total length of this string is
+`Hi` 现在隐藏在了 6 个字符的 hello world 中，因此该字符串的总长度为
 
-10 + 6 = 16 characters
+10 + 6 = 16 个字符
 
-#### Extraction
+#### 提取
 
 ![](https://cdn-images-1.medium.com/max/2000/1*19IYY7Rw7rL76YX0NnmL5Q.gif)
 
-Just the vice versa, nothing complicated but given that the payload’s length increases when we add features like encryption and invisibility, we do two layers of compression ( before and after ) to minimize the cost as much as we can. So it’s just a small price to pay for salvation.
+反之亦然，没有什么复杂的，但考虑到当我们添加如加密和不可见性之类的特性时，有效载荷的长度会增加，因此我们进行了两层压缩(之前和之后)以最大程度地降低成本。因此，提取只付出很小代价。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*p2dPqMPTmSxW9ndw7OjMKw.gif)
 
-You can at any point of time turn off certain features to reduce the payload length, we designed StegCloak to be flexible to user needs.
+你可以在任何时间关闭某些特性以减少有效载荷长度，我们设计了 StegCloak 以灵活满足用户需求。
 
-## Style of the module
+## 模块风格
 
-> Life is much more easier when you can visualise your functions as a curve in a graph — Kyle simpson
+> 当你可以将函数可视化为图形中的曲线时，生活会更加轻松 —— Kyle simpson
 
-StegCloak follows the functional programming paradigm and as a whole consists of only two functions: hide and reveal. These two functions are built using multiple small Lego pieces. These pieces are nothing but Pure functions or Different versions of the same pure function that was curried etc. StegCloak has only one impure function which is `encrypt()` as it generates a random salt for increasing the security of the cipher.
+StegCloak 遵循编函数式编程范例，并且总体上仅包含两个功能：隐藏和显示。这两个功能是将许多代码段如堆积木般构建而成。这些片段不过是纯函数或柯里化后相同纯函数的不同版本。StegCloak 仅具有 `encrypt()` 不是纯函数，因为它会生成随机盐来增加密码的安全性。
 
-#### Flow
+#### 流
 
 ![How it works!](https://cdn-images-1.medium.com/max/2000/1*krNVCV3uhVJ2QTHKczM43w.png)
 
-In my perspective, having a functional approach makes your program look more like a flow chart thus increasing its readability.
+在我看来，采用函数式方法会使你的程序看起来更像流程图，从而提高其可读性。
 
 ![**Hide( )** in stegcloak.js](https://cdn-images-1.medium.com/max/3940/1*Vn7gxNmZVkVPQqgZuwOIOQ.png)
 
 ![**Reveal( )** in stegcloak.js](https://cdn-images-1.medium.com/max/4096/1*aN2AczUqvlXG6XtijJPNfA.png)
 
-StegCloak uses a functional programming library called RamdaJS. The R.Pipe takes in functions and passes the arguments to the first function where its output is given as the input to the next function in the pipe. You can see that the pieces can be proxied to another pipe or operated on before being sent to the next pipe. Readability and point-free style were one of the biggest focus of the design
+StegCloak 使用称为 RamdaJS 的函数式编程库。R.Pipe 接受输入函数并将参数传递给第一个函数，然后将其输出作为管道中下一个函数的输入。你会看到，可以将这些代码片段代理到另一个管道或在之前对其进行操作，然后再发送到下一个管道。可读性和隐式编程风格是设计的最大重点之一
 
-## Unfolding the mystery of the quote
+## 揭开引用句的奥秘
 
-* Copy Chet Hosmer’s quote above and visit [stegcloak.surge.sh](https://stegcloak.surge.sh)
-* Type the password — “Aparecium” in Reveal
+*复制上面 Chet Hosmer 的引用句，并访问[stegcloak.surge.sh](https://stegcloak.surge.sh)
+*在 Reveal 中输入密码 —— “Aparecium”
 
 ![](https://cdn-images-1.medium.com/max/2000/1*k5OSMLvm-vZesGylNImJEA.png)
 
-* Paste the copied quote in the STEGCLOAKED MESSAGE text box
+* 将复制的句子粘贴到 STEGCLOAKED MESSAGE 文本框中
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9Qd64_Y8acVK4uP9E9e9fg.png)
 
-* Click **GET SECRET** and Voila!
+* 单击**获取机密**，看!
 
-## Conclusion
+## 结论
 
-This was built by [myself](https://www.linkedin.com/in/mohan-sundar-9881a7180/) and two of my friends [Jyothishmathi CV](https://www.linkedin.com/in/c-v-jyothishmathi-791578181/), [Kandavel](https://www.linkedin.com/in/ak5123/)
+它是由[我](https://www.linkedin.com/in/mohan-sundar-9881a7180/)和我的两个朋友 [Jyothishmathi CV](https://www.linkedin.com/in/c-v-jyothishmathi-791578181/)、[Kandavel](https://www.linkedin.com/in/ak5123/) 建立的
 
-We hope you enjoy it as much as we did building it!
+我们希望你像我们构建它一样喜欢它!
 
-Checkout [StegCloak](https://stegcloak.surge.sh/) in [Github](https://github.com/KuroLabs/stegcloak) or visit [https://stegcloak.surge.sh](https://stegcloak.surge.sh).
+在 [Github](https://github.com/KuroLabs/stegcloak) 上搜索 [StegCloak](https://stegcloak.surge.sh/)或访问 [https://stegcloak.surge.sh](https://stegcloak.surge.sh)。
 
-Thank you for reading this article 🖤.
+感谢你阅读本文 🖤。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
