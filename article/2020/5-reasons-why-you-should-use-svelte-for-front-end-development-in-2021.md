@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-reasons-why-you-should-use-svelte-for-front-end-development-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-reasons-why-you-should-use-svelte-for-front-end-development-in-2021.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[Liusq-Cindy](https://github.com/Liusq-Cindy)
+> * 校对者：[Liusq-Cindy](https://github.com/Liusq-Cindy)、[regon-cao](https://github.com/regon-cao)
 
 # 使用 Svelte 开发前端应用的五个理由
 
@@ -11,11 +11,11 @@
 
 Svelte 是由 Rich Harris 于 2016 年开发的一个前端 JavaScript 框架。目前，许多软件公司都在使用它作为主要前端框架，因为 Svelte 提供了很多便利，降低程序员开发前端应用的复杂度。
 
-因此，本文将介绍 Svelte 是用于前端应用开发最好的 js 框架或编译器的五个理由。
+因此，本文将介绍 Svelte 是用于前端应用开发最好的 JavaScript 框架或编译器的五个理由。
 
 ## 什么是 Svelte
 
-**它是一种新的 JavaScript 框架，更确切地说是一个编译器，它可以将应用组件转换成相应高质量的 JavaScript。**
+**它是一种新的 JavaScript 框架，更确切地说是一个编译器，它可以将应用组件转换成高效的 JavaScript 代码。**
 
 ## 两步即可开发应用
 
@@ -60,15 +60,15 @@ Svelte 是一个经过优化的框架，它的性能得分比 Angular 或 React 
 
 ### 4. 人气
 
-显然，Svelte 并不是大多数读者心目中最受欢迎的。但是，如果仔细看下面的调查，会发现 Svelte 在开发者的兴趣和满意度方面排名第二。
+显然，Svelte 并不是大多数读者心目中最受欢迎的。但是，如果仔细看下面的调查，你会发现 Svelte 在开发者的兴趣和满意度方面排名第二。
 
 ![Source: [https://2019.stateofjs.com/front-end-frameworks/](https://2019.stateofjs.com/front-end-frameworks/)](https://cdn-images-1.medium.com/max/4270/1*Xfe9crp6fWvzlh4AAftQsQ.png)
 
-除此之外，Svelte 在 Github 上还有 40k 个 star。与 Angular、React 和 Vue 相比，它是如此的少。但是，在 2019 年，Svelte 拥有 18k star，到 2020 年它翻了一番。所以它越来越吸引人，我想随着时间的推移，它的 star 会变得更多。
+除此之外，Svelte 在 Github 上还有 40k 个 star。与 Angular、React 和 Vue 相比，它是如此的少。但是，在 2019 年，Svelte 拥有 18k star，到 2020 年它翻了一番。所以它正在获得人们更多的关注，我想随着时间的推移，它的 star 会变得越来越多。
 
-### 5. 开发者经验
+### 5. 开发者体验
 
-最后一部分是开发者经验。Svelte 完全是 HTML，它更加直观。
+最后一部分是开发者体验。Svelte 完全是 HTML，它更加直观。
 
 ```html
 <style>
