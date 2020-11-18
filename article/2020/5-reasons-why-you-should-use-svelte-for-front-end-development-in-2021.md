@@ -2,30 +2,30 @@
 > * 原文作者：[Eric Bandara](https://medium.com/@ericbandara95)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-reasons-why-you-should-use-svelte-for-front-end-development-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-reasons-why-you-should-use-svelte-for-front-end-development-in-2021.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[Liusq-Cindy](https://github.com/Liusq-Cindy)、[regon-cao](https://github.com/regon-cao)
 
-# 5 reasons why you should use Svelte for Front End Development in 2021
+# 使用 Svelte 开发前端应用的五个理由
 
 ![A Photo By [Randy Fath](https://unsplash.com/@randyfath) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*Ri1Sl9cP2_ry2vYJ)
 
-Svelte is a front-end JavaScript framework that was developed by Rich Harris in 2016. Currently, it is using in many software companies as their main frontend framework because many things offer by Svelte to which make developer’s life way less complicated.
+Svelte 是由 Rich Harris 于 2016 年开发的一个前端 JavaScript 框架。目前，许多软件公司都在使用它作为主要前端框架，因为 Svelte 提供了很多便利，降低程序员开发前端应用的复杂度。
 
-So, In this article, I’m going to be talking about 5 reasons why Svelte is the best JavaScript framework or a compiler or whatever you want to call it that.
+因此，本文将介绍 Svelte 是用于前端应用开发最好的 JavaScript 框架或编译器的五个理由。
 
-## What is Svelte?
+## 什么是 Svelte
 
-**It is a new kind of a JavaScript framework or rather a compiler which work behind to turn your component into awesomely optimized JavaScript.**
+**它是一种新的 JavaScript 框架，更确切地说是一个编译器，它可以将应用组件转换成高效的 JavaScript 代码。**
 
-## Run your first App in just 2 steps
+## 两步即可开发应用
 
-Step 1. Run the following command to create a simple project.
+第 1 步，运行以下命令创建一个简单的项目。
 
 ```bash
 npx degit sveltejs/template my-startup
 ```
 
-Step 2. Run the project. Here you need to go inside the project directory and install all the packages and run your project.
+第 2 步，进入项目中，安装依赖包并运行项目。
 
 ```bash
 cd my-startup
@@ -33,21 +33,21 @@ npm install
 npm run dev
 ```
 
-Your Svelte app will be up on [http://localhost:5000/](http://localhost:5000/).
+Svelte 应用程序将在 [http://localhost:5000/](http://localhost:5000/) 启动。
 
-## Why you should use Svelte
+## 为何应使用 Svelte
 
-#### 1. Performance
+### 1. 性能
 
-Svelte has fairly a high score than Angular or React. The main reason for that is it is a well-optimized framework that offers flexibility to produce high-quality code during the compile time. In other words, it is basically a compiler. This minimizes the runtime overhead that further leads to faster loading and interface navigation.
+Svelte 是一个经过优化的框架，它的性能得分比 Angular 或 React 高得多，其主要原因是它提供了在编译期间生成高质量代码的灵活性。换句话说，它基本上是一个编译器。这将使得运行时开销最小化，从而进一步加快加载和接口导航性能。
 
-#### 2. Bundle size
+### 2. bundle 大小
 
-The bundle's size can be said as tiny when compared to Angular like other frameworks. The bundle is what you are shipping to the client. So, it is always better to be small what you’re sending over the Internet to your client. Assume that, if someone has a slow connection. Svelte is going to make a difference and because it significantly lower in size than Vue and four times smaller than Angular.
+与其他框架相比，Svelte 的 bundle 可以说是很小的。bundle 类似于要运送给客户的包裹。所以，通过互联网发送给客户的包裹最好是把它变得小一些。即使是很慢的网络连接速度，Svelte 也能运行良好，因为它的 bundle 大小明显低于 Vue，也比 Angular 小 4 倍。
 
-#### 3. Lines of code
+### 3. 代码量
 
-Lines of codes are what really drew most developers fall for Svelte. Because the lines of code are so low and you will see it is about half the size of Vue and it’s about half the size of React and Angular. So it is obviously making an overall better experience for the developer. Just check out the “Hello world” example.
+代码量才是 Svelte 真正吸引大多数开发人员的地方。Svelte 代码量很少，能看到它只有 Vue 的一半，也只有 React 和 Angular 的一半。显然它为开发者提供了一个更好的开发体验。看看 `Hello world` 这个例子。
 
 ```html
 <script>
@@ -56,19 +56,19 @@ Lines of codes are what really drew most developers fall for Svelte. Because the
 <h1>Good day, {wish}!</h1>
 ```
 
-But what if you are going to use Angular, Vue, or react?
+如果是使用 Angular、Vue 或 React，就会有更多的代码。
 
-#### 4. Popularity
+### 4. 人气
 
-Obviously, Svelte is not the most popular in many readers' minds. But, If you look at the following survey, you can see that Svelte is in second place of developer interest and satisfaction ratio.
+显然，Svelte 并不是大多数读者心目中最受欢迎的。但是，如果仔细看下面的调查，你会发现 Svelte 在开发者的兴趣和满意度方面排名第二。
 
 ![Source: [https://2019.stateofjs.com/front-end-frameworks/](https://2019.stateofjs.com/front-end-frameworks/)](https://cdn-images-1.medium.com/max/4270/1*Xfe9crp6fWvzlh4AAftQsQ.png)
 
-Other than that, there are 40k Github starts for the Svelte repository. With compared to Angular, React, and Vue it is so less. But, During 2019 Svelte had 18k stars and it has doubled in 2020. So it’s gaining a lot of attraction and I think it will get just a lot bigger with time.
+除此之外，Svelte 在 Github 上还有 40k 个 star。与 Angular、React 和 Vue 相比，它是如此的少。但是，在 2019 年，Svelte 拥有 18k star，到 2020 年它翻了一番。所以它正在获得人们更多的关注，我想随着时间的推移，它的 star 会变得越来越多。
 
-#### 5. Developer Experience
+### 5. 开发者体验
 
-So, the last part is the developer experience. Svelte is all HTML and it is just much more intuitive.
+最后一部分是开发者体验。Svelte 完全是 HTML，它更加直观。
 
 ```html
 <style>
@@ -81,19 +81,19 @@ So, the last part is the developer experience. Svelte is all HTML and it is just
 <p>Styled paragraph!</p>
 ```
 
----
 
-It React you have to have your class to be extended and then you got a render and return. Then you got a constructor and many things to care in one file of code. Vue is a little bit better. But, you still have all this stuff which are necessarily intuitive. But Svelte is just completely intuitive. If you already know HTML and it’s less line of code lines of code and obviously easy.
 
-## Conclusion
+在 React 中，必须扩展组件类，然后获得渲染并返回，在项目文件中得到一个构造函数以及其它要处理的内容。Vue 更好一点，但仍然存在所有这些必须直观的东西。Svelte 完全是直观的，如果已经了解 HTML，那么它的代码行就更少了，显然很容易使用。
 
-So those are my 5 reasons for preferring Svelte over others. I think as it becomes more popular it will be adopted more. Finally, I think it is a great compiler framework which is so helpful.
+## 结论
 
-You can use this useful link to practice and get a better idea about coding.
+以上就是本文主要介绍使用 Svelte 开发前端应用的五个理由。未来它会变得越来越流行，将被更多地开发团队采用。Svelte 是一个很棒的编译器框架，非常有用。
 
-[Svelte examples](https://svelte.dev/examples#hello-world)
+可以使用下面的链接来练习并更好地了解 Svelte。
 
-Thank you!
+[Svelte 示例](https://svelte.dev/examples#hello-world)
+
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
