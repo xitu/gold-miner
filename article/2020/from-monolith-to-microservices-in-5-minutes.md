@@ -7,9 +7,7 @@
 
 # From Monolith to Microservices in 5 Minutes
 
-#### SOFTWARE ARCHITECTURE & REFACTORING
-
-#### “A microservice architectural style is an approach to developing a single application as a suite of small services.” — Martin Fowler.
+> “A microservice architectural style is an approach to developing a single application as a suite of small services.” — Martin Fowler.
 
 ![Monolithic Architecture vs. Microservice Architecture](https://cdn-images-1.medium.com/max/6486/1*prvtMgGd36b-smjFPbAcLQ.png)
 
@@ -27,8 +25,6 @@ Communication between components is happening mostly by the method invocation. I
 
 Until you divide the backend into more deployment units, you are still using Monolithic Architecture in my eyes.
 
----
-
 ## Single Domain Model
 
 > “A domain is the targeted subject area of a computer program. Formally it represents the target subject of a specific programming project.” — Wikipedia
@@ -44,8 +40,6 @@ Sales and Catalog subdomains contain the single **Product** entity. This leads t
 Forcing one entity for more concerns does not feel right. The entity contains unused properties in both contexts. Sales don’t need to know the product’s category, and the Catalog doesn’t have any usage for information on how the product was delivered to the customer.
 
 To avoid this problem, we need to find Sales and Catalog contexts' boundaries to split them apart. This leads us to a Bounded Context.
-
----
 
 ## Bounded Context
 
@@ -63,8 +57,6 @@ This is a visualization of part ripped from the online shop’s domain with divi
 
 ![Multi-Domain Model](https://cdn-images-1.medium.com/max/5106/1*-DKOV0a4q4Cy9ZcuNBfNmg.png)
 
----
-
 ## Microservice Architecture
 
 Microservice Architecture is also known as Microservices. It is the subdivided monolith. Microservices divide the large systems into smaller pieces.
@@ -79,8 +71,6 @@ Each microservice has its clearly-defined interface, mostly realized by JSON ove
 
 Without a proper message passing tool, the Microservice must know other microservices' locations, and locations can be easily changed.
 
----
-
 ## Summary
 
 The cost curve of development in Microservice Architecture is flattered at large applications. The small applications don’t benefit from microservices and should stay monolithic.
@@ -89,37 +79,11 @@ With microservices comes distributed system costs like load balancing and networ
 
 As a next step, I would recommend the [Pluralsight course from Mark Heath — Microservices Fundamentals](https://app.pluralsight.com/library/courses/microservices-fundamentals/table-of-contents).
 
-If you like the article, give it a few claps. Thank you for your time.
-
----
-
 ## Sources
 
 * [Martin Fowler’s blog post about microservices.](https://martinfowler.com/microservices/)
 * [Martin Fowler’s blog post about Bounded Context.](https://martinfowler.com/bliki/BoundedContext.html)
 * [Pluralsight course Clean architecture patterns, practices, and principles](https://app.pluralsight.com/library/courses/clean-architecture-patterns-practices-principles/table-of-contents).
-
----
-
-## Further Reading
-[**Functional Organization of Folders & Screaming Architecture**
-**The architecture should scream the intent of the system — Uncle Bob**levelup.gitconnected.com](https://levelup.gitconnected.com/let-me-hear-you-screaming-architecture-3adcc02f2ca3)
-[**Layers in Software Architecture that Every Sofware Architect should Know**
-**“All architectures have the same objective - the separation of concerns. They all achieve it by dividing the software…**levelup.gitconnected.com](https://levelup.gitconnected.com/layers-in-software-architecture-that-every-sofware-architect-should-know-76b2452b9d9a)
-[**3 CQRS Architectures that Every Software Architect Should Know**
-**Separation of concerns is a technique for the effective ordering of one’s thoughts. It would be best if you focused one’s attention…**levelup.gitconnected.com](https://levelup.gitconnected.com/3-cqrs-architectures-that-every-software-architect-should-know-a7f69aae8b6c)
-[**3 Domain-Centric Architectures Every Software Developer Should Know**
-**The first concern of the architect is to make sure that the house is usable. It is not to ensure that the house is made…**levelup.gitconnected.com](https://levelup.gitconnected.com/3-domain-centric-architectures-every-software-developer-should-know-a15727ada79f)
-[**How to Rewrite your Code to Achieve More Flexible Design**
-**The ultimate guide with an example of how to break class and separate concerns using the Single Responsibility…**levelup.gitconnected.com](https://levelup.gitconnected.com/how-to-rewrite-your-code-to-achieve-more-flexible-design-3c86dad822e)
-
----
-[**Daniel Rusnok’s Newsletter**
-**Every month I will send you an email about a list of my newest articles. Of course, it will be the friendly links…**www.danielrusnok.com](https://www.danielrusnok.com/daniel-rusnoks-newsletter)
-
-![](https://cdn-images-1.medium.com/max/2000/1*yzOQeIJSJCaRDN_oP5OidA.png)
-
-![](https://cdn-images-1.medium.com/max/2000/1*mLQH7u1-b2HPVcLURnQ9NQ.png)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
