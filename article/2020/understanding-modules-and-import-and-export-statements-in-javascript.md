@@ -7,7 +7,7 @@
 
 # Understanding Modules and Import and Export Statements in JavaScript
 
-![](https://community-cdn-digitalocean-com.global.ssl.fastly.net/variants/oeA9NrDb3X2kvxEVNtbkjXhv/6a540d0de9b44df9962f62205489ba6e2a5beab748fa47e816b60597a256ba9b)
+![](https://user-images.githubusercontent.com/5164225/99609213-6b3c6a00-2a4a-11eb-9fce-6d7b3091a4e9.png)
 
 ### Introduction
 
@@ -94,7 +94,7 @@ document.getElementById('division').textContent = quotient(x, y)
 
 After setting up these files and saving them, you can [open `index.html` in a browser](https://www.digitalocean.com/community/tutorials/how-to-use-and-understand-html-elements#how-to-view-an-offline-html-file-in-your-browser) to display your website with all the results:
 
-![Rendered HTML with the values 10 and 5 and the results of the functions.js operations.](https://assets.digitalocean.com/articles/67560/1.png)
+![Rendered HTML with the values 10 and 5 and the results of the functions.js operations.](https://user-images.githubusercontent.com/5164225/99609235-72fc0e80-2a4a-11eb-93a9-dcf4505f4fd1.png)
 
 For websites with a few small scripts, this is an effective way to divide the code. However, there are some issues associated with this approach, including:
 
