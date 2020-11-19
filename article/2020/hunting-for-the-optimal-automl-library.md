@@ -140,13 +140,9 @@ Thus if you could only afford to train 20 models, you would have a better model 
 ## References
 
 1. Zöller, M.-A. & Huber, M. F. Benchmark and Survey of Automated Machine Learning Frameworks. (2019).
-
 2. Bergstra, J. & Bengio, Y. Random search for hyper-parameter optimization. **J. Mach. Learn. Res.** **13**, 281–305 (2012).
-
 3. Casalicchio, G., Hutter, F., Mantovani, R. G. & Vanschoren, J. OpenML Benchmarking Suites and the OpenML100. 1–6 [arXiv:1708.03731v1](https://arxiv.org/abs/1708.03731v1)
-
 4. Casalicchio, G., Hutter, F. & Mantovani, R. G. OpenML Benchmarking Suites. 1–6 [arXiv:1708.03731v2](https://arxiv.org/abs/1708.03731v2)
-
 5. Gijsbers, P. **et al.** An Open Source AutoML Benchmark. 1–8 (2019).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
