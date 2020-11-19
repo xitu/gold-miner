@@ -2,22 +2,22 @@
 > * 原文作者：[Zosionlee](https://medium.com/@zosionlee.chou)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/demoforbeginner-what-is-wsgi.md](https://github.com/xitu/gold-miner/blob/master/article/2020/demoforbeginner-what-is-wsgi.md)
-> * 译者：
+> * 译者：[JalanJiang](http://jalan.space/)
 > * 校对者：
 
-# DemoForBeginner: What is WSGI?
+# 给初学者的示例: 什么是 WSGI？
 
-PEP-3333 describes the WSGI protocol specification in detail. WSGI is the abbreviation of Python Web Server Gateway Interface, and is an interface specification that describes how to interact between a Web server and a Python application. Therefore, we discuss and understand how to implement the WSGI protocol in the form of code.All the original codes can be obtained in my github repository
+PEP-3333 详细描述了 WSGI 协议规范。WSGI 是 Python Web Server Gateway Interface（Python 服务器网关协议）的缩写，是一个描述如何在 Web 服务器与 Python 应用之间交互的接口规范。因此，我们将讨论并理解如何以代码的形式实现 WSGI 协议。你可以在我的 GitHub 仓库中获得所有的源码。
 
 ![](https://cdn-images-1.medium.com/max/3314/1*PHVAYtkTLNcEl-OqhpsUUA.png)
 
-Let\`s talk about application and server.
+让我们一起来探讨应用程序与服务器吧。
 
-#### Application
+#### 应用程序
 
-* The application is a callable that must and can only receive two parameters, like application(environ, start_response). And these two parameters can only be passed in as positional parameters.
-* The application must be called multiple times, because all servers/gateway (except CGI) will issue such repeated requests.
-* environ is a dictionary parameter that contains CGI-style environment variables. It must use the built-in Python dictionary type and allow the application to modify it in any way it wants. The dictionary also includes certain WSGI variables, and their naming needs to comply with corresponding specifications. Such as
+* 应用程序是可调用的，它有且仅接收两个参数，例如 `application(environ, start_response)`。并且这两个参数只能作为位置参数传入。
+* 应用程序必须被多次调用，因为所有的服务器/网关（除了 CGI）都将发出这种重复的请求。
+* `environ` 是一个字典参数，它包含 CGI 风格的环境变量。它必须使用 Python 内置的字典类型，并允许应用程序以任何方式修改它。字典还包括某些 WSGI 变量，它的命名需要符合相应的规范，例如：
 
 ```py
 environ = {k: v for k, v in os.environ.items()}
@@ -30,32 +30,32 @@ environ['wsgi.run_once'] = True
 environ['wsgi.url_scheme'] = 'http'
 ```
 
-* The start_response parameter is also a callable, which receives two necessary unknown parameters(status and response_header) and one optional parameter(exc_info=None). The status is a status string and
-response_headers is a list of tuples describing HTTP Response Headers(header_name, header_value)
-* start_response must return a write callable, this callable requires a positional parameter: a bytestring to be part of the HTTP response body
-* If the iterable returned by the application has a close method, the server must call it after the current request is completed, regardless of whether the request is completed normally
+* `start_response` 参数也是一个可调用参数，它接收两个必须的未知的参数（`status` 和 `response_header`）和一个可选参数（`exc_info=None`）。`status` 是一个 HTTP 状态字符串，`response_headers` 是一个描述了 HTTP 响应头部（`header_name`，`header_value`）的元组列表。
+* `start_response` 必须返回一个 callable，这个 callable 需要一个位置参数：一个二进制字符串作为 HTTP 响应的主体。
+* 如果应用程序返回的迭代对象拥有一个关闭方法，则无论请求是否正常完成，服务器必须在当前请求结束后调用该方法。
+  
 
-#### Server
+#### 服务器
 
-* Receive HTTP request and return HTTP response
-* Provide environ data and implement the callback function start_response
-* Invoke the WSGI application and pass in environ and start_response as parameters
+* 接收 HTTP 请求并返回 HTTP 响应。
+* 提供 `environ` 数据并执行回调函数 `start_response`。
+* 调用 WSGI 应用程序并传递 `environ` 和 `start_response` 参数。
 
-#### MiddleWare
+#### 中间件
 
-A single object may play the role of a server with respect to some application(s), while also acting as an application with respect to some server(s).For WSGI application it is equivalent to WSGI server, and for WSGI server it is equivalent to WSGI application.
+对于某些应用程序，单个对象可能扮演着服务器的角色，同时也可以作为某些服务器相关的应用程序。WSGI 应用程序相当于 WSGI 服务器，WSGI 服务器又等效于 WSGI 应用程序。
 
-#### Let\`t make a demo code by handwriting.
+#### 让我们手写一个示例代码
 
-All the handwritten codes can be obtained in my [github repository](https://github.com/ZosionLee/DemoForBeginner/blob/develop/wsgi/wsgi_handwrite.py), as shown below：
+所有手写代码都在我的 [GitHub 仓库](https://github.com/ZosionLee/DemoForBeginner/blob/develop/wsgi/wsgi_handwrite.py) 中，代码如下所示：
 
-#### Application
+#### 应用程序
 
-The following lists three forms of implementing application：
+以下列出执行应用程序的三种方式：
 
 ```python
 def simple_app(environ, start_response):
-    '''a application by define a function'''
+    '''通过定义函数实现应用程序'''
 
     status = '200 OK'
     headers = [('Content-type', 'text/plain; charset=utf-8')]
@@ -64,7 +64,7 @@ def simple_app(environ, start_response):
 
 
 class IterSimpleApp(object):
-    '''iterable class'''
+    '''可迭代类'''
 
     def __init__(self, environ, start_response):
         self.environ = environ
@@ -80,7 +80,7 @@ class IterSimpleApp(object):
 
 
 class InstSimpleApp(object):
-    '''callable instance'''
+    '''可调用实例'''
 
     def __call__(self, environ, start_response):
         status = '200 OK'
@@ -91,13 +91,13 @@ class InstSimpleApp(object):
         yield 'hello,world\n'.encode('utf-8')     
 ```
 
-#### MiddleWare
+#### 中间件
 
-A middleware demo for authetication as below:
+一个用于认证的中间件示例代码如下所示：
 
 ```Python
 class AuthMiddleware(object):
-    '''A middleware demo to filter authentication'''
+    '''用于认证过滤的中间件示例'''
 
     def __init__(self,app):
         self.app=app
@@ -115,39 +115,39 @@ class AuthMiddleware(object):
         return self.app(environ, start_response)
 ```
 
-#### Server
+#### 服务器
 
-The custom server module is more complicated and mainly uses the python native library as below:
+自定义服务器模块比较复杂，主要使用了下列 Python 原生库：
 
-* use os module to get environ
-* use sys to set err output
-* selectors to make IO multiplex by event loop
-* socket to communication
+* 使用 `os` 模块获取 `environ`。
+* 使用 `sys` 来设置错误输出。
+* 通过事件循环实现 IO 多路复用的选择器。
+* 使用 socket 通信。
 
 ![](https://cdn-images-1.medium.com/max/3702/1*wKZbKXmlXr-dx9QaXgI20w.png)
 
-Regarding custom server, Python actually has a library that implements the WSGI protocol for the use in the development environment, such as wsgiref. I write server here is just to better understand how to implement a WSGI server.
+关于定制服务器，实际上 Python 实现了一个 WSGI 协议库，用于在开发环境中使用，例如 wsgiref。我在这里阐述服务器只是为了方便你更好地理解 WSGI 服务器是如何实现的。
 
-#### Let\’s take a peek at wsgiref.
+#### 让我们来看看 wsgiref
 
-wsgiref based on the lib of **socketserver**, so let\`s look at socketserver first.
+wsgiref 基于 **socketserver** 库，所以让我们先来看看 socketserver。
 
-the class diagram of socketserver below:
+socketserver 的类图如下：
 
 ![](https://cdn-images-1.medium.com/max/3726/1*ZeEVOdTcTBdMtF7huJydow.png)
 
-Based on the analysis and understanding of socketserver, the wsgi protocol on how wsgiref is implemented is as follows：
+基于对 socketserver 的分析和理解，wsgiref 是这样实现 WSGI 协议的： 
 
 ![](https://cdn-images-1.medium.com/max/3776/1*kI7Xtyw0pzpv6BjpVEsNHg.png)
 
-#### let\`s make a summary.
+#### 让我们总结一下
 
-* PEP3333 make a specification of wsgi
-* we have been talk about the wsgi server and application
-* we take a look at wsgiref and understand the proceduce of interactive process for WSGIServer and WSGIRequestHandler.
-* According to the description of the wsgi protocol, we implement an application and server by handwriting code.
+* PEP-3333 详细描述了 WSGI。
+* 我们已经讨论了 WSGI 服务器与应用程序。
+* 我们大致地看了 wsgiref，并了解了 WSGIServer 和 WSGIRequestHandler 的交互过程。
+* 根据 WSGI 协议的描述，我们手写代码实现了应用程序与服务器。
 
-That\`s all for this post, and hope it helps you. If you like this original article, please click claps. Welcome to comment. THX
+这就是文章的所有内容，希望它对你有所帮助。如果你喜欢这篇原创文章，请点击 claps。欢迎留言。谢谢。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
