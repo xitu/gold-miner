@@ -2,20 +2,20 @@
 > * 原文作者：[Yong Cui, Ph.D.](https://medium.com/@yong.cui01)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/6-things-to-know-to-get-started-with-python-data-classes.md](https://github.com/xitu/gold-miner/blob/master/article/2020/6-things-to-know-to-get-started-with-python-data-classes.md)
-> * 译者：
+> * 译者：[JalanJiang](http://jalan.space/)
 > * 校对者：
 
-# 6 Things to Know to Get Started With Python Data Classes
+# 上手 Python 数据类前需要知道的 6 件事
 
-![Photo by [Philipp Katzenberger](https://unsplash.com/@fantasyflip?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*p3gDT4yY_Ej-8fyA)
+![图源 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)，摄影者 [Philipp Katzenberger](https://unsplash.com/@fantasyflip?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*p3gDT4yY_Ej-8fyA)
 
-Data are the most essential element in any programming project. All programs are destined to have certain interactions with data. For instance, if your project is a website, you have to present data (e.g., texts and images) in a user-friendly manner. If your project uses machine learning to predict financial trends, you have to prepare data that can be learned by your models.
+在任何程序项目中，数据都是最重要的元素。所有的程序都必然会与数据进行某些互动。例如，你的项目是一个 Web 站点，你就需要以一个用户友好的方式展现数据（文本或图片）。如果你的项目使用机器学习来预测经济趋势，你就需要以模型可学习的方式来准备数据。
 
-As a general-purpose programming language, Python has evolved to have a versatile battery of tools to support the management of data in your projects. Among these tools, data classes are a useful yet easy-to-grasp technique. In this article, I’d like to introduce you to the data class model with the key highlights that allow you to get started with this data management tool.
+作为一个多用途的编程语言，Python 已发展出多种工具，以便于支持你项目中的数据管理。在这些工具中，数据类是一种有用且易于掌握的技术。在这篇文章中，我想向你介绍数据类模型，并突出重点，让你能够上手这一数据管理工具。
 
-## 1. Define a Data Class
+## 1. 定义一个数据类
 
-Data-class-related functionalities are defined in the `dataclasses` module, which is part of the standard Python library. The most important element of this module is the `dataclass` decorator. The following code shows you how we use the `dataclass` decorator for our custom class that we define to manage bills in a restaurant.
+Python 的标准库 `dataclasses` 模块定义了数据与类关联的功能。这个模块最重要的元素是 `dataclass` 装饰器。下面的代码向你展示了如何使用 `dataclass` 装饰器来定义一个用于管理餐厅账单的自定义类。
 
 ```Python
 from dataclasses import dataclass
@@ -29,9 +29,9 @@ class Bill:
     tip_amount: float = 0.0
 ```
 
-Specifically, we use the `dataclass` decorator to decorate the custom class that we’re defining. In the defined class, we specify the attributes (termed fields for data classes) that belong to the class.
+具体而言，我们使用 `dataclass` 装饰器装饰了自定义类。在被定义的类中，我们列举了类的属性（数据类的术语）。
 
-You may ask why we bother using the `dataclass` decorator. It’s because this decorator can help us get rid of some boilerplates, such as `__init__` and `__repr__`. In other words, using this decorator for our custom class, we don’t need to implement these functions — instead, the decorator will take care of that for us, as shown below.
+你可能会问，为什么我们要如此麻烦地使用 `dataclass` 装饰器？这是因为 `dataclass` 装饰器可以帮助我们摆脱一些样板代码，例如 `__init__` 和 `__repr__`。换句话说，在我们的自定义类上使用该装饰器，我们就不再需要实现这些函数 —— 取而代之的是，装饰器会帮我们实现它们，就像下面这样。
 
 ```Python
 >>> bill0 = Bill(table_number=5, meal_amount=50.5, served_by="John", tip_amount=7.5)
@@ -39,22 +39,22 @@ You may ask why we bother using the `dataclass` decorator. It’s because this d
 Today's first bill: Bill(table_number=5, meal_amount=50.5, served_by='John', tip_amount=7.5)
 ```
 
-As shown above, without explicitly defining the initialization and representation methods, both are idiomatically implemented. Isn’t it cool?
+就像上面展示的那样，无需明确定义构造与展示方法，两种方法都按惯例被实现了。是不是很酷？
 
-## 2. Type Annotations and Default Field Values
+## 2. 类型注释与默认字段值
 
-In the data class shown above, its fields all have type annotations to clearly indicate their types. After all, data classes are developed to mostly handle data, and it makes sense that we’re explicit about the types of data that the data class holds.
+在上面所展示的数据类中，所有字段都拥有类型注释，清晰地表明了它们的类型。毕竟数据类主要用于数据处理，我们明确地标出数据类所包含的数据类型是有意义的。
 
-Mechanistically speaking, the data class’s fields are required to have type annotations. Otherwise, your code can’t execute. Under the hood, the `dataclass` decorator generates fields based on the annotations of your class, which can be retrieved using the `__annotations__` special method.
+请容我机械地重复一遍，数据类的字段必须有类型注释。否则，我们的代码将无法执行。`dataclass` 装饰器在幕后根据类中的注释生成字段，这些字段可以使用 `__annotations__` 特殊方法进行检索。
 
-```
+```Python
 >>> Bill.__annotations__
 {'table_number': <class 'int'>, 'meal_amount': <class 'float'>, 'served_by': <class 'str'>, 'tip_amount': <class 'float'>}
 ```
 
-Another thing to note is that for the fields that you’re defining for the data class, you can have default values. As you may have noticed, the `tip_amount` field has the default value of 0.0. It’s important to know that when you don’t define default values for all the fields, the ones with default values should come after the ones without. You don’t want to see the following error.
+另一件值得注意的事情是，你在数据类中定义的字段可以拥有默认值。你可能注意到了，`tip_amount` 字段的默认值是 0.0。重要的是你需要知道，当你没有为所有字段指定默认值时，有默认值的字段应当放在在没有默认值的字段之后。你必然不想看到以下错误。
 
-```
+```Python
 @dataclass
 ... class SpecialBill:
 ...     table_number: int = 888
@@ -170,7 +170,7 @@ As shown in the above code snippet, the `dataclass` decorator will consider the 
 
 Because of the order of these fields in the subclass and the requirement that data classes’ fields with default values should precede those without default values, the implication is that if a base class has fields with default values, the subclasses’ added fields should have default values, too. Otherwise, you may see the following error — the same error that we’ve seen previously.
 
-```
+```Python
 @dataclass
 ... class BaseBill:
 ...     meal_amount: float = 20
@@ -209,7 +209,7 @@ The above code shows you that when your function uses a mutable default value, y
 
 Within the context of data classes, the question is how we can specify a default value for the mutable fields. We shouldn’t do the following, and a `ValueError` exception will be raised.
 
-```
+```Python
 @dataclass
 class IncorrectBill:
     costs_by_dish: list = []
