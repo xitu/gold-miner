@@ -7,8 +7,6 @@
 
 # 10 Tips and Shortcuts You Should Be Using Right Now in Xcode
 
-#### A collection of shortcuts and tips that will help you master Xcode and write code faster
-
 ![Image source: Author](https://cdn-images-1.medium.com/max/2800/1*-xfCo4HM6bQ4kieiOHOTGQ.png)
 
 Over the course of my career as an iOS developer, I’ve picked up a few habits that make working within [Xcode](https://developer.apple.com/xcode/resources/) much easier and faster. Most of them revolve around making good use of the great variety of shortcuts that are already in place but that we might not be aware of, or even have forgotten exist.
@@ -17,13 +15,11 @@ That is why I’ve gathered a few of my favourites to share with all of you.
 
 Let’s begin!
 
----
-
 ## 1. Quick Auto-Indent
 
 Whenever your code is misaligned, this shortcut will come in very handy.
 
-> # control + i / ⌃ + i
+> ### control + i / ⌃ + i
 
 This will auto-indent the line where the cursor is. However, if you highlight a section of the code, or even the entire file, and then trigger that shortcut, it will fix the indentation for the entire file.
 
@@ -31,43 +27,35 @@ This will auto-indent the line where the cursor is. However, if you highlight a 
 
 This helps keep the code organised instantly.
 
----
-
 ## 2. Edit All in Scope
 
 Let’s say you found yourself in a situation where there’s an error in the name of a method or a variable and you have to fix it. Of course, the thought of having to go one by one is never crossing your mind because you already know that there’s a refactor option to rename it. But sometimes, Xcode can be a bit noncooperative when using refactor.
 
 That’s when you can use the following shortcut to highlight all the uses of that variable within the file you are in.
 
-> # command + control + e / ⌘ + ⌃ + e
+> ### command + control + e / ⌘ + ⌃ + e
 
 This will highlight all the uses and will let you change the name on the fly.
 
 ![Demo of ⌘ + ⌃ + e](https://cdn-images-1.medium.com/max/2000/1*-NKhqBvn7jLQk2nVOMbObA.gif)
 
----
-
 ## 3. Find Next Occurrence
 
 Now let’s say that instead of editing the name of a variable within the entire scope, all you need is to locate the next use of it, or you want to rename it just within a function and not the entire class, or something like this. Well, there's a very similar shortcut for this.
 
-> # option + control + e / ⌥ + ⌃ + e
+> ### option + control + e / ⌥ + ⌃ + e
 
 ![Demo of ⌥ + ⌃ + e](https://cdn-images-1.medium.com/max/2000/1*T9oXtmeKZ9-fH5A-6tqtiA.gif)
 
 When you highlight some value and hit those keys, Xcode will highlight just the next occurrence of that same string. Meaning that if some variables and/or functions share those highlighted characters, it will happen that the next use might not be what you expected.
 
----
-
 ## 4. Find Previous Occurrence
 
 While the previous shortcut looks for the next occurrence, if you add one more key, then it will look for the previous ones.
 
-> # shift + option + control + e / ⇧ + ⌥ + ⌃ + e
+> ### shift + option + control + e / ⇧ + ⌥ + ⌃ + e
 
 ![Demo of ⇧ + ⌥ + ⌃ + e](https://cdn-images-1.medium.com/max/2000/1*3KQPZ1zDdgAreauSlXKMgw.gif)
-
----
 
 ## 5. Move Line Up or Down
 
@@ -75,11 +63,11 @@ We might find ourselves doing a bit of reordering in the file. One way to do it 
 
 **Going up:**
 
-> # option + command + [ / ⌥ + ⌘ + [
+> ### option + command + [ / ⌥ + ⌘ + [
 
 **Going down:**
 
-> # option + command + ] / ⌥ + ⌘ + ]
+> ### option + command + ] / ⌥ + ⌘ + ]
 
 ![Demo of ⌥ + ⌘ + [ and ⌥ + ⌘ + ]](https://cdn-images-1.medium.com/max/2000/1*RejIpD9jKgE8HOtKD_JsCA.gif)
 
@@ -89,27 +77,21 @@ If we use the same shortcut as before but highlight several lines, then those li
 
 ![Demo of previous shortcut moving several lines as block](https://cdn-images-1.medium.com/max/2000/1*NNCsSDveGTd_O0TBLrHbjQ.gif)
 
----
-
 ## 6. Multiline Cursor (With the Mouse)
 
 It has happened that sometimes you need to write the same thing in different parts of the file and you are annoyed at the fact that you have to write it once and copy-paste it a couple of times. Well, fret no more. You can write on multiple lines at once with this simple shortcut.
 
-> # shift + control + click / ⇧ + ⌃ + click
+> ### shift + control + click / ⇧ + ⌃ + click
 
 ![Demo of ⇧ + ⌃ + click](https://cdn-images-1.medium.com/max/2000/1*SIOMgVWDQ477m5pjfSJiHw.gif)
-
----
 
 ## 7. Multiline Cursor (With the Keyboard)
 
 This shortcut is basically the same as the one before but instead of using the mouse to select where to put the cursor, we can use the arrow keys to move up or down.
 
-> # shift + control + up or down /⇧ + ⌃ + ↑ or ↓
+> ### shift + control + up or down /⇧ + ⌃ + ↑ or ↓
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1vC7b4sj4U_rIGvbM94fMw.gif)
-
----
 
 ## 8. Quickly Create an Init With Several Parameters
 
@@ -129,27 +111,21 @@ Here’s an example of how to do it:
 
 ![How to add a key binding](https://cdn-images-1.medium.com/max/2000/1*Rg1nkinvgq2hAfG4XLdWog.gif)
 
----
-
 ## 9. Go Back to Where the Cursor Is
 
 Sometimes you might be working on a very large file. It happens that when we scroll up to check something, we might get lost and can’t find our way back to where we were. Well, with this shortcut, as long as we haven’t moved the cursor away, we can quickly jump back to it.
 
-> # option + command + L / ⌥ + ⌘ + L
+> ### option + command + L / ⌥ + ⌘ + L
 
 ![Demo of ⌥ + ⌘ + L](https://cdn-images-1.medium.com/max/2000/1*Cg9aSw5-Pcl75WJg859Wxw.gif)
-
----
 
 ## 10. Jump to Line
 
 Related to the one before, if we know exactly at which line we want to be, then with this shortcut we can jump straight back to it.
 
-> # command + L / ⌘ + L
+> ### command + L / ⌘ + L
 
 ![Demo of ⌘ + L](https://cdn-images-1.medium.com/max/2000/1*N_UIb2ZCgPQQphMF5EIqjw.gif)
-
----
 
 ## Final Thoughts
 
@@ -167,7 +143,7 @@ You can always go to Xcode > Preferences… > Key Bindings and check the binding
 
 #### Extra tip! Quickly open preferences
 
-> # command + , / ⌘ + ,
+> ### command + , / ⌘ + ,
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
