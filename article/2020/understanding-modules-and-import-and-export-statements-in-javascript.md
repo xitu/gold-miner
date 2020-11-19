@@ -7,9 +7,7 @@
 
 # Understanding Modules and Import and Export Statements in JavaScript
 
-[Development](/community/tags/development)[JavaScript](/community/tags/javascript)
-
-*  [![](https://community-cdn-digitalocean-com.global.ssl.fastly.net/variants/oeA9NrDb3X2kvxEVNtbkjXhv/6a540d0de9b44df9962f62205489ba6e2a5beab748fa47e816b60597a256ba9b)](/community/users/taniarascia) 
+![](https://community-cdn-digitalocean-com.global.ssl.fastly.net/variants/oeA9NrDb3X2kvxEVNtbkjXhv/6a540d0de9b44df9962f62205489ba6e2a5beab748fa47e816b60597a256ba9b)
 
 ### Introduction
 
