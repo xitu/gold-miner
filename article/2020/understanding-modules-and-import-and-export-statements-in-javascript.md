@@ -25,8 +25,6 @@ Before the concept of modules appeared in JavaScript, when a developer wanted to
 
 The `index.html` file will display the sum, difference, product, and quotient of two numbers, and link to the two JavaScript files in `script` tags. Open `index.html` in a text editor and add the following code:
 
-index.html
-
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -57,14 +55,11 @@ index.html
     <script src="script.js"></script>
   </body>
 </html>
-
 ```
 
 This HTML will display the value of variables `x` and `y` in an `h2` header, and the value of operations on those variables in the following `p` elements. The `id` attributes of the elements are set for [DOM manipulation](https://www.digitalocean.com/community/tutorial_series/understanding-the-dom-document-object-model), which will happen in the `script.js` file; this file will also set the values of `x` and `y`. For more information on HTML, check out our [How To Build a Website with HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) series.
 
 The `functions.js` file will contain the mathematical functions that will be used in the second script. Open the `functions.js` file and add the following:
-
-functions.js
 
 ```js
 function sum(x, y) {
@@ -82,15 +77,11 @@ function product(x, y) {
 function quotient(x, y) {
   return x / y
 }
-
 ```
 
 Finally, the `script.js` file will determine the values of `x` and `y`, apply the functions to them, and display the result:
 
-script.js
-
 ```js
-
 const x = 10
 const y = 5
 
@@ -101,7 +92,6 @@ document.getElementById('addition').textContent = sum(x, y)
 document.getElementById('subtraction').textContent = difference(x, y)
 document.getElementById('multiplication').textContent = product(x, y)
 document.getElementById('division').textContent = quotient(x, y)
-
 ```
 
 After setting up these files and saving them, you can [open `index.html` in a browser](https://www.digitalocean.com/community/tutorials/how-to-use-and-understand-html-elements#how-to-view-an-offline-html-file-in-your-browser) to display your website with all the results:
@@ -136,8 +126,6 @@ To demonstrate how to use this, update your `functions.js` file to be a module a
 
 Add the following highlighted code to your file:
 
-functions.js
-
 ```js
 export function sum(x, y) {
   return x + y
@@ -154,7 +142,6 @@ export function product(x, y) {
 export function quotient(x, y) {
   return x / y
 }
-
 ```
 
 Now, in `script.js`, you will use `import` to retrieve the code from the `functions.js` module at the top of the file.
@@ -163,10 +150,7 @@ Now, in `script.js`, you will use `import` to retrieve the code from the `functi
 
 Add the following highlighted code to `script.js`:
 
-script.js
-
 ```js
-
 import { sum, difference, product, quotient } from './functions.js'
 
 const x = 10
@@ -179,27 +163,22 @@ document.getElementById('addition').textContent = sum(x, y)
 document.getElementById('subtraction').textContent = difference(x, y)
 document.getElementById('multiplication').textContent = product(x, y)
 document.getElementById('division').textContent = quotient(x, y)
-
 ```
 
 Notice that individual functions are imported by naming them in curly braces.
 
 In order to ensure this code gets loaded as a module and not a regular script, add `type="module"` to the `script` tags in `index.html`. Any code that uses `import` or `export` must use this attribute:
 
-index.html
-
 ```html
 ...
 <script type="module" src="functions.js"></script>
 <script type="module" src="script.js"></script>
-
 ```
 
 At this point, you will be able to reload the page with the updates and the website will now use modules. Browser support is very high, but [caniuse](https://caniuse.com/?search=modules) is available to check which browsers support it. Note that if you are viewing the file as a direct link to a local file, you will encounter this error:
 
 ```
 OutputAccess to script at 'file:///Users/your_file_path/script.js' from origin 'null' has been blocked by CORS policy: Cross-origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.
-
 ```
 
 Because of the [CORS policy](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), Modules must be used in a server environment, which you can set up locally with [http-server](https://www.npmjs.com/package/http-server) or on the internet with a hosting provider.
@@ -219,26 +198,18 @@ Next, you will explore some more ways in which the `import` and `export` syntax 
 
 As demonstrated earlier, using the `export` syntax will allow you to individually import values that have been exported by their name. For example, take this simplified version of `functions.js`:
 
-functions.js
-
 ```js
 export function sum() {}
 export function difference() {}
-
 ```
 
 This would let you import `sum` and `difference` by name using curly braces:
 
-script.js
-
 ```js
 import { sum, difference } from './functions.js'
-
 ```
 
 It is also possible to use an alias to rename the function. You might do this to avoid naming conflicts within the same module. In this example, `sum` will be renamed to `add` and `difference` will be renamed to `subtract`.
-
-script.js
 
 ```js
 import {
@@ -247,21 +218,17 @@ import {
 } from './functions.js'
 
 add(1, 2) // 3
-
 ```
 
 Calling `add()` here will yield the result of the `sum()` function.
 
 Using the `*` syntax, you can import the contents of the entire module into one object. In this case, `sum` and `difference` will become methods on the `mathFunctions` object.
 
-script.js
-
 ```js
 import * as mathFunctions from './functions.js'
 
 mathFunctions.sum(1, 2) // 3
 mathFunctions.difference(10, 3) // 7
-
 ```
 
 Primitive values, function expressions and definitions, [asynchronous functions](https://www.digitalocean.com/community/tutorials/understanding-the-event-loop-callbacks-promises-and-async-await-in-javascript#async-functions-with-asyncawait), [classes](https://www.digitalocean.com/community/tutorials/understanding-classes-in-javascript), and instantiated classes can all be exported, as long as they have an identifier:
@@ -296,7 +263,6 @@ export class Book {
 
 // Instantiated class
 export const book = new Book('Lord of the Rings', 'J. R. R. Tolkien')
-
 ```
 
 All of these exports can be successfully imported. The other type of export that you will explore in the next section is known as a default export.
@@ -307,79 +273,56 @@ In the previous examples, you exported multiple named exports and imported them 
 
 For example, take the following contents for the `functions.js` file:
 
-functions.js
-
 ```js
 export default function sum(x, y) {
   return x + y
 }
-
 ```
 
 In the `script.js` file, you could import the default function as `sum` with the following:
-
-script.js
 
 ```js
 import sum from './functions.js'
 
 sum(1, 2) // 3
-
 ```
 
 This can be dangerous, as there are no restrictions on what you can name a default export during the import. In this example, the default function is imported as `difference` although it is actually the `sum` function:
-
-script.js
 
 ```js
 import difference from './functions.js'
 
 difference(1, 2) // 3
-
 ```
 
 For this reason, it is often preferred to use named exports. Unlike named exports, default exports do not require an identifier—a primitive value by itself or anonymous function can be used as a default export. Following is an example of an object used as a default export:
-
-functions.js
 
 ```js
 export default {
   name: 'Lord of the Rings',
   author: 'J. R. R. Tolkien',
 }
-
 ```
 
 You could import this as `book` with the following:
 
-script.js
-
 ```js
 import book from './functions.js'
-
 ```
 
 Similarly, the following example demonstrates exporting an anonymous [arrow function](https://www.digitalocean.com/community/tutorials/understanding-arrow-functions-in-javascript) as the default export:
 
-functions.js
-
 ```js
 export default () => 'This function is anonymous'
-
 ```
 
 This could be imported with the following `script.js`:
 
-script.js
-
 ```js
 import anonymousFunction from './functions.js'
-
 ```
 
 Named exports and default exports can be used alongside each other, as in this module that exports two named values and a default value:
-
-functions.js
 
 ```js
 export const length = 10
@@ -388,18 +331,14 @@ export const width = 5
 export default function perimeter(x, y) {
   return 2 * (x + y)
 }
-
 ```
 
 You could import these variables and the default function with the following:
-
-script.js
 
 ```js
 import calculatePerimeter, { length, width } from './functions.js'
 
 calculatePerimeter(length, width) // 30
-
 ```
 
 Now the default value and named values are both available to the script.
