@@ -47,7 +47,7 @@ environ['wsgi.url_scheme'] = 'http'
 
 #### 让我们手写一个示例代码
 
-所有手写代码都在我的 [GitHub 仓库](https://github.com/ZosionLee/DemoForBeginner/blob/develop/wsgi/wsgi_handwrite.py) 中, 代码如下所示：
+所有手写代码都在我的 [GitHub 仓库](https://github.com/ZosionLee/DemoForBeginner/blob/develop/wsgi/wsgi_handwrite.py) 中，代码如下所示：
 
 #### 应用程序
 
