@@ -7,19 +7,13 @@
 
 # JavaScript Decorators From Scratch
 
-#### Understanding all varieties of decorator functions
-
 ![Photo by [Manja Vitolic](https://unsplash.com/@madhatterzone?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*9zWhtS-gknJ6IVc3)
-
----
 
 ## What is a Decorator?
 
 A decorator is simply a way of wrapping a function with another function to extend its existing capabilities. You “decorate” your existing code by wrapping it with another piece of code. This concept will not be new to those who are familiar with functional composition or higher-order functions.
 
 Decorators aren’t something new. They have been present in other languages such as Python and even in JavaScript under functional programming. We will speak about this later on.
-
----
 
 ## Why Use a Decorator?
 
@@ -28,18 +22,6 @@ Decorators allow you to write cleaner code and achieve composition. It also help
 Decorators also allow your code to be less distracting as it removes all the feature enhancing code away from the core function. It also enables you to add features without making your code complex.
 
 Being in the stage 2 proposal, there can be many additions to the class decorator proposal which can be beneficial.
-
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*zx9ObuwmLjM9H2KD.gif)
-
----
 
 ## Function Decorators
 
@@ -97,8 +79,6 @@ multiply('',4);
 
 Later, we assign a function that multiplies two numbers to a variable named `multiply`. We pass this multiply function to the `allArgsValid` decorator function which returns another function as we saw earlier. This returned function is assigned to the `multiply` variable again. This makes it easier for it to be reused whenever required.
 
----
-
 ## TC39 Class Decorator Proposal
 
 Function decorators have been existing in JavaScript for a long time under functional programming. The proposed class decorators are in stage 2.
@@ -117,9 +97,7 @@ We also have to pass the bookObj into the log decorator function, in order to be
 
 **Although this solution works perfectly, it’s kind of like a workaround. With the new proposal, the syntax is more streamlined making it easier to implement these solutions.**
 
-**Note — In order to run the below examples, you can use Babel. Jsfiddle is an easier alternative for you to try out these examples online. Since these proposals are not finalized, you should avoid using them in production as there can be changes in the future and the performance at the moment is not perfect.**
-
----
+> **Note — In order to run the below examples, you can use Babel. Jsfiddle is an easier alternative for you to try out these examples online. Since these proposals are not finalized, you should avoid using them in production as there can be changes in the future and the performance at the moment is not perfect.**
 
 ## Class Decorators
 
@@ -138,8 +116,6 @@ Let’s look at an example involving the Book class we had used previously.
 As you can see above, the `log` decorator receives the `target` argument and returns an anonymous function that performs a log statement and creates and returns a new instance of the `target` which is basically the Book Class. You can also add prototypes to the `target` by using `target.prototype.property` .
 
 Furthermore, several decorator functions can be used on a Class as shown below.
-
----
 
 ## Class Property Decorators
 
@@ -166,7 +142,7 @@ The above example uses a `readOnly` decorator function which makes the `getBook`
 
 If the writable property was not manipulated, you can easily overwrite the getBook property as below.
 
-```
+```js
 obj.getBook = "Hello";
 
 console.log(obj.getBook);
@@ -184,8 +160,6 @@ Moreover, the `writable` attribute of the descriptor object, will not be present
 Let’s look at an example to understand this further. We will again use our `Book` class.
 
 The above example converts the value of the `id` property to uppercase. It uses a decorator function called upperCase which checks whether the initializer is present to be sure that the value is not `undefined`, checks whether the value is truthy and then converts it into uppercase. When the `getId` method is called, the uppercase value can be seen. Similar to other decorator functions, you can pass parameters when decorators are used on class fields as well.
-
----
 
 ## Use Cases
 
@@ -211,7 +185,7 @@ This library comes with decorators such as “@readonly”, “@time”, “@dep
 
 The Redux library for React contains a `connect` method that allows you to connect a React component to a Redux store. The library allows for the `connect` method to be used as a decorator as well.
 
-```
+```js
 //Before decorator
 class MyApp extends React.Component {
   // ...define your main app here
@@ -234,22 +208,6 @@ Furthermore, although `connect` supports the decorator syntax, it has been disco
 Decorators are a powerful tool that enables you to create code that is very flexible. There is a very high chance you will come across them quite often in the near future.
 
 Thank you for reading & happy coding
-
-## Learn More
-[**5 Reasons to Use TypeScript with React**
-**Know the benefits you can gain by using TypeScript with React**blog.bitsrc.io](https://blog.bitsrc.io/5-strong-reasons-to-use-typescript-with-react-bc987da5d907)
-[**Decorators: JavaScript and TypeScript Hidden Gems**
-**Although still an experimental feature, you can already play around with decorators and start seeing what you’ll be…**blog.bitsrc.io](https://blog.bitsrc.io/decorators-javascript-and-typescript-hidden-gems-600038bcbd44)
-[**Why Should You Use Top-level Await in JavaScript?**
-**A feature that can change the way we JavaScript**blog.bitsrc.io](https://blog.bitsrc.io/why-should-you-use-top-level-await-in-javascript-a3ba8139ef23)
-
-**Resources
-**[Proposal Docs](https://github.com/tc39/proposal-decorators)
-[Blog post by Graham](https://www.sitepoint.com/javascript-decorators-what-they-are/)
-[Blog post by Joel](https://dev.to/joelnet/function-decorators-part-2-javascript-4km9)[
-Blog post by Uday](https://medium.com/jspoint/a-minimal-guide-to-ecmascript-decorators-55b70338215e)
-[Blog post by Rupesh](https://www.telerik.com/blogs/decorators-in-javascript)
-[Blog post by Cristian](https://www.freecodecamp.org/news/how-to-use-decorators-with-factory-functions-373fb972b6d4/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
