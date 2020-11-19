@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo)
 
 # 如何避免 Android 设备的 WiFi 扫描节流
 
@@ -11,7 +11,7 @@
 
 今天我想讨论一下关于 Android 新版本上的 WiFi 扫描节流以及该如何避免它。[我曾经写过一篇文章](https://proandroiddev.com/android-wifi-scanning-frustrations-799d1d942aea)是关于最近发布的 Android R 版本的扫描机制的。如果你读过这篇文章，你会了解与之前的 Android 版本相比，Google 限制了开发者们在新版本上调用 WiFi 扫描的频率。
 
-接下来让我们了解 WiFi 扫描之前的工作方式以及如何在 Android R 的版本上得到与之前一样的效果。
+作为本文开始，我们先了解之前 WiFi 扫描的工作方式以及如何在 Android R 版本上得到与之前一样的效果。
 
 ## 之前的工作方式
 
@@ -41,7 +41,7 @@ mContext.registerReceiver(mWifiBroadcastReceiver, new IntentFilter(WifiManager.S
 
 ## Android 9 和 10
 
-在 Andorid 9 的发布上，Google 给了所有开发者一个 “惊喜”。现在 120 秒只能扫描 4 次 WiFi。如果你试图提高扫描次数，也还是会被节流的。
+在 Andorid 9 的发布上，Google 给了所有开发者一个 “惊喜”。WiFi 扫描被尽可能地限制了，现在 120 秒只能扫描 4 次 WiFi。
 
 在之前的文章中，我描述了一个等间隔扫描和 WiFi RTT 工作的解决方案，但是值得注意的是，它并不能完全避免节流。
 
@@ -82,7 +82,7 @@ if (!mWifiManager.isScanThrottleEnabled()) {
 ..
 ```
 
-在判断节流关闭后我们就可以不受限制的调用扫描了。这个方法在你测试本地应用的时候是可以的。对于通过应用市场或其他平台发布的应用, 用户体验会很糟糕因为他们需要打开设备的调试模式并找到开关在哪里。
+在判断节流关闭后我们就可以不受限制的调用扫描了。与此同时，这个方法只在本地测试应用的时候是可行的。对于通过应用市场或其他平台发布的应用, 用户体验会很糟糕因为他们需要打开设备的调试模式并找到开关在哪里。
 
 ## 结论
 
