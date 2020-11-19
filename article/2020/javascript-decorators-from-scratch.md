@@ -79,6 +79,25 @@ multiply('',4);
 
 Later, we assign a function that multiplies two numbers to a variable named `multiply`. We pass this multiply function to the `allArgsValid` decorator function which returns another function as we saw earlier. This returned function is assigned to the `multiply` variable again. This makes it easier for it to be reused whenever required.
 
+```js
+//ordinary add function
+let add = function(a,b){
+	return a+b;
+}
+
+//decorated add function that only accepts the required number of params and only integers
+add = allArgsValid(add);
+
+add(6, 8);
+//14
+
+add(3, null);
+//TypeError: Argument cannot be a non-integer
+
+add('',4);
+//TypeError: Argument cannot be a non-integer
+```
+
 ## TC39 Class Decorator Proposal
 
 Function decorators have been existing in JavaScript for a long time under functional programming. The proposed class decorators are in stage 2.
@@ -89,9 +108,65 @@ Now we can come to the conclusion that classes are simply functions. You might n
 
 Let’s have a look at an example of how this can be implemented.
 
+```js
+function log(fn) {
+  return function() {
+    console.log("Execution of " + fn.name);
+    console.time("fn");
+    let val = fn();
+    console.timeEnd("fn");
+    return val;
+  }
+}
+
+class Book {
+  constructor(name, ISBN) {
+    this.name = name;
+    this.ISBN = ISBN;
+  }
+
+  getBook() {
+    return `[${this.name}][${this.ISBN}]`;
+  }
+}
+
+let obj = new Book("HP", "1245-533552");
+let getBook = log(obj.getBook);
+console.log(getBook());
+//TypeError: Cannot read property 'name' of undefined
+```
+
 The reason for the error is because, when the `getBook` method is called, it actually calls the anonymous function returned by the `log` decorator function. Within this anonymous function, the `obj.getBook` method is called. But the value of `this` within the anonymous function refers to the global object, not the book object. Hence, we receive the Type error.
 
 We can fix this issue by passing the book object instance to the `getBook` method.
+
+```js
+function log(classObj, fn) {
+  return function() {
+    console.log("Execution of " + fn.name);
+    console.time("fn");
+    let val = fn.call(classObj);
+    console.timeEnd("fn");
+    return val;
+  }
+}
+
+class Book {
+  constructor(name, ISBN) {
+    this.name = name;
+    this.ISBN = ISBN;
+  }
+
+  getBook() {
+    return `[${this.name}][${this.ISBN}]`;
+  }
+}
+
+let obj = new Book("HP", "1245-533552");
+let getBook = log(obj, obj.getBook);
+console.log(getBook());
+//[HP][1245-533552]
+```
 
 We also have to pass the bookObj into the log decorator function, in order to be able to pass it as `this` to the `obj.getBook` method.
 
@@ -113,9 +188,58 @@ Being able to access the target argument, you can modify the class as per your r
 
 Let’s look at an example involving the Book class we had used previously.
 
+```js
+function log(target) {
+  return function(...args) {
+    console.log("Constructor called");
+    return new target(...args);
+  };
+}
+
+@log
+class Book {
+  constructor(name, ISBN) {
+    this.name = name;
+    this.ISBN = ISBN;
+  }
+
+  getBook() {
+    return `[${this.name}][${this.ISBN}]`;
+  }
+}
+
+let obj = new Book("HP", "1245-533552");
+//Constructor Called
+console.log(obj.getBook());
+//HP][1245-533552]
+```
+
 As you can see above, the `log` decorator receives the `target` argument and returns an anonymous function that performs a log statement and creates and returns a new instance of the `target` which is basically the Book Class. You can also add prototypes to the `target` by using `target.prototype.property` .
 
 Furthermore, several decorator functions can be used on a Class as shown below.
+
+```js
+function logWithParams(...params) {
+  return function(target) {
+    return function(...args) {
+      console.table(params);
+      return new target(...args);
+    }
+  }
+}
+
+@log
+@logWithParams('param1', 'param2')
+class Book {
+	//Class implementation as before
+}
+
+let obj = new Book("HP", "1245-533552");
+//Constructor called
+//Params will be consoled as a table
+console.log(obj.getBook());
+//[HP][1245-533552]
+```
 
 ## Class Property Decorators
 
@@ -138,6 +262,30 @@ It is the descriptor argument that will be manipulated most of the time to fulfi
 
 Let’s have a look at an example involving our Book class.
 
+```js
+//readonly decorator function
+function readOnly(target, name, descriptor) {
+  descriptor.writable = false;
+  return descriptor;
+}
+
+class Book {
+  //Implementation here
+  @readOnly
+  getBook() {
+    return `[${this.name}][${this.ISBN}]`;
+  }
+
+}
+
+let obj = new Book("HP", "1245-533552");
+
+obj.getBook = "Hello";
+
+console.log(obj.getBook());
+//[HP][1245-533552]
+```
+
 The above example uses a `readOnly` decorator function which makes the `getBook` method in the `Book` class read-only. This is achieved by setting the writable property of the descriptor to `false` . This property is set to `true` by default.
 
 If the writable property was not manipulated, you can easily overwrite the getBook property as below.
@@ -158,6 +306,35 @@ The arguments passed on to a decorator function when used on class fields are th
 Moreover, the `writable` attribute of the descriptor object, will not be present when the field value is undefined.
 
 Let’s look at an example to understand this further. We will again use our `Book` class.
+
+```js
+function upperCase(target, name, descriptor) {
+  if (descriptor.initializer && descriptor.initializer()) {
+    let val = descriptor.initializer();
+    descriptor.initializer = function() {
+      return val.toUpperCase();
+    }
+  }
+
+}
+
+class Book {
+  
+  @upperCase
+  id = "az092b";
+
+  getId() {
+    return `${this.id}`;
+  }
+
+  //other implementation here
+}
+
+let obj = new Book("HP", "1245-533552");
+
+console.log(obj.getId());
+//AZ092B
+```
 
 The above example converts the value of the `id` property to uppercase. It uses a decorator function called upperCase which checks whether the initializer is present to be sure that the value is not `undefined`, checks whether the value is truthy and then converts it into uppercase. When the `getId` method is called, the uppercase value can be seen. Similar to other decorator functions, you can pass parameters when decorators are used on class fields as well.
 
