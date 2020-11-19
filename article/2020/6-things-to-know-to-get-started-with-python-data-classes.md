@@ -7,15 +7,11 @@
 
 # 6 Things to Know to Get Started With Python Data Classes
 
-#### Get rid of some boilerplate code in your custom classes
-
 ![Photo by [Philipp Katzenberger](https://unsplash.com/@fantasyflip?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*p3gDT4yY_Ej-8fyA)
 
 Data are the most essential element in any programming project. All programs are destined to have certain interactions with data. For instance, if your project is a website, you have to present data (e.g., texts and images) in a user-friendly manner. If your project uses machine learning to predict financial trends, you have to prepare data that can be learned by your models.
 
 As a general-purpose programming language, Python has evolved to have a versatile battery of tools to support the management of data in your projects. Among these tools, data classes are a useful yet easy-to-grasp technique. In this article, I’d like to introduce you to the data class model with the key highlights that allow you to get started with this data management tool.
-
----
 
 ## 1. Define a Data Class
 
@@ -41,12 +37,9 @@ You may ask why we bother using the `dataclass` decorator. It’s because this d
 >>> bill0 = Bill(table_number=5, meal_amount=50.5, served_by="John", tip_amount=7.5)
 >>> print(f"Today's first bill: {bill0!r}")
 Today's first bill: Bill(table_number=5, meal_amount=50.5, served_by='John', tip_amount=7.5)
-
 ```
 
 As shown above, without explicitly defining the initialization and representation methods, both are idiomatically implemented. Isn’t it cool?
-
----
 
 ## 2. Type Annotations and Default Field Values
 
@@ -73,8 +66,6 @@ Traceback (most recent call last):
   ...some traceback info omitted
 TypeError: non-default argument 'meal_amount' follows default argument
 ```
-
----
 
 ## 3. Equality/Inequality Comparisons
 
@@ -114,12 +105,9 @@ How about inequality comparisons, such as greater than and less than? They’re 
 ... 
 Is bill1 less than bill2? True
 Is bill2 less than bill3? True
-
 ```
 
 Similar to the equality comparisons, data class instances are compared as if they’re tuples of these fields, and they’re compared as tuples lexicographically. For a proof of concept, the above code only includes two fields, and as you can see, the comparison results are based on the tuple’s order.
-
----
 
 ## 4. Mutability Consideration
 
@@ -159,10 +147,7 @@ Traceback (most recent call last):
   File "<input>", line 1, in <module>
   File "<string>", line 4, in __setattr__
 dataclasses.FrozenInstanceError: cannot assign to field 'tip_amount'
-
 ```
-
----
 
 ## 5. Inheritance Considerations
 
@@ -198,8 +183,6 @@ Traceback (most recent call last):
   ... some traceback info omitted
 TypeError: non-default argument 'tip_amount' follows default argument
 ```
-
----
 
 ## 6. Mutable Fields With Default Values
 
@@ -252,14 +235,11 @@ Bill 0 costs: [5]
 Bill 1 costs: [7]
 >>> bill0.costs_by_dish is bill1.costs_by_dish
 False
-
 ```
 
 * We import the `field` function from the `dataclasses` module.
 * In the `field` function, we specify the `list` to be the `default_factory` parameter. In essence, this parameter sets the default factory function, which is a zero-parameter function to be used when the instance is to be created. In this case, the `list` function is the construction method for a list object that creates a new list object when we call `list()`.
 * As you can see, in both instances, they have distinct list objects for the `costs_by_dish` attribute, as expected.
-
----
 
 ## Conclusions
 
