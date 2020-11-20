@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/create-a-private-postgresql-database-for-your-development-environment-in-seconds.md](https://github.com/xitu/gold-miner/blob/master/article/2020/create-a-private-postgresql-database-for-your-development-environment-in-seconds.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo)
 
 # 在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库
 
@@ -71,11 +71,11 @@ services:
 
 #### PostgreSQL 的版本
 
-在定义 Postgres 容器的这一行中，你需要准确指定所需的 Postgres 版本。在这里，version 是一个标签，而`9.6.12-alpine`就是我们示例中的版本。点击[这里查看其他可用的版本](https://hub.docker.com/_/postgres?tab=tags)。
+在定义 Postgres 容器的这一行中，你需要准确指定所需的 Postgres 版本。在这里，version 是一个标签，而 `9.6.12-alpine` 就是示例中使用的版本。点击[这里查看其他可用的版本](https://hub.docker.com/_/postgres?tab=tags)。
 
 #### Postgres 的存储
 
-上面的`docker-compose.yml` 文件为 Postgres 指定了两个映射卷。 这两个映射将使 Postgres 可以访问你计算机上的目录。
+上面的`docker-compose.yml` 文件为 Postgres 指定了两个映射。 这两个映射将使 Postgres 可以访问你计算机上的目录。
 
 1. 被映射到`/docker-entrypoint-initdb.d`的文件夹包含了初始化 Postgres 将会用到的 SQL 文件。将所需的 SQL 文件和 Shell 脚本放在该目录中，它们将会按字母顺序自动执行。
 2. 被映射到`/var/lib/postgresql/data`的文件夹存放了数据库持久化存储所需要的真实文件。
@@ -84,7 +84,7 @@ services:
 
 ![](https://cdn-images-1.medium.com/max/2024/0*nMQaPxUKmYq67hAa)
 
-你是否需要挂载这两个目录？这个得视情况而定。下表描述了通过分别映射 Postgres 的两个卷中的一个而预期的行为。
+你是否需要挂载这两个目录？这个得视情况而定。下表描述了通过 Postgres 的两个不同映射得到的一个预期结果。
 
 ![](https://cdn-images-1.medium.com/max/3492/1*gsuTB2Ge04sCccMKLzW6ww.png)
 
@@ -104,7 +104,7 @@ COPY Employee FROM '/docker-entrypoint-initdb.d/emp.csv'
 
 尽管 pgAdmin 只是一个用于查看和配置数据库的工具，但必须配置其与数据库的连接。 这可以通过可视化工具中的`add server`指令完成。这里需要注意的是，主机名（the hostname）是我们在 YML 文件中配置的 `container_name` 这一参数的名称，即 `some-postgres`。同样地，密码也已经在 YML 文件中指定了，即 `mysecret`。
 
-另一种方法是通过在 JSON 文件中指定这些配置（除了密码之外的所有配置），通过这种方式可以免去大量的单击和输入操作。为了避免手动配置 pgAdmin 连接到 Postgres，我们需要将该 JSON 文件映射到容器的`/pgadmin4/servers.json`上（在示例 YML 文件中的第 22 行）。
+另一种方法是通过在 JSON 文件中指定这些配置（除了密码之外的所有配置），通过这种方式可以免去大量的单击和输入操作。为了避免手动配置 pgAdmin 连接到 Postgres，我们需要将该 JSON 文件映射到容器的 `/pgadmin4/servers.json`上（在示例 YML 文件中的第 22 行）。
 
 设置文件可以指定 pgAdmin 和 Postgres 之间的多个连接（以不同用户的身份连接或者连接到多个不同的数据库）。下面是只有一个数据库连接的示例。
 
@@ -143,7 +143,7 @@ NETWORK ID          NAME                DRIVER              SCOPE
 
 ## Docker 和 docker-compose 命令
 
-在这里，我必须承认我在介绍中过分简化了命令，但只是稍微简化了一点。
+在这里，我必须承认我在前言中过于简化了命令操作，但只是稍微简化了一点。
 
 **为了启动容器**，可以使用 `docker-compose up -d`。`-d` 参数指定这是一个 `detached` 模式，它将会在后台运行，并且不会影响你在命令提示符中执行其他命令。
 
@@ -263,9 +263,9 @@ pgAdmin 是 PostgreSQL 最常见的 GUI 管理工具，但我们还有其他选�
         max_attempts: 3
 ```
 
-## 引用
+## 参考资料
 
-所有优秀的开发者都依赖于产品文档和其他人员的经验。 这是我在创建工作流程和编写本文时引用的来源。
+所有优秀的开发者都依赖于产品文档和其他人员的经验。 这是我在创建工作流程和编写本文时引用的参考资料。
 
 - [https://hub.docker.com/\_/postgres](https://hub.docker.com/_/postgres)
 - [https://hub.docker.com/\_/adminer](https://hub.docker.com/_/adminer)
