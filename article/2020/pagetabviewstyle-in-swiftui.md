@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/pagetabviewstyle-in-swiftui.md](https://github.com/xitu/gold-miner/blob/master/article/2020/pagetabviewstyle-in-swiftui.md)
 > * 译者：[Franz Wang](https://github.com/FranzWang666)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)
 
 # SwiftUI 中的 PageTabViewStyle
 
 ![Photo by [Charles Deluvio](https://unsplash.com/@charlesdeluvio?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8512/0*HuDzGczsUftDGQKL)
 
-在最近的 WWDC 2020 大会上，苹果为“TabView”新增了名为“PageTabViewStyle”的样式，相当于水平分页滚动，常被用于引导页。
+在最近的 WWDC 2020 大会上，苹果为“TabView”新增了名为“PageTabViewStyle”的样式，类似于水平分页滚动效果，常被用于引导页。
 
-> **“一种实现了分页 `TabView` 的  `TabViewStyle`  。” — [苹果官方文档](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
+> **“一种实现了 `TabView` 分页的  `TabViewStyle`  。” — [苹果官方文档](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
 
-## 前提
+## 预备知识
 
 学习本教程前，你需要掌握以下基础知识：
 
@@ -24,9 +24,9 @@
 
 ## PageTabViewStyle 入门
 
-我们来快速实现一个 `TabView`，在选中和未选中时，底部显示不同图标.
+我们来快速实现一个 `TabView`，底部显示不同图标，选中时填充图片或未选中时不填充.
 
-你需要一个 `state` 来表示是否被选中:
+你需要一个 `state` 来判断是否选中:
 
 ```
 @State private var selected = 0
@@ -74,11 +74,11 @@ TabView() {
 
 有多种方法解决这个问题，你可以换一个背景色，也可以改变 page indicator 的参数。
 
-把背景设置为绿色，可以看到 page indicator，它显示了 tab 对应的图片。
+把背景设置为绿色，可以看到页面指示器，它显示了 tab 对应的图片。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*i406IS9gsRrYLpxZEWPotw.gif)
 
-你也可以改用默认的 page indicator。只需注释掉 tab 的 image。
+你也可以改用默认的页面指示器。只需注释掉 tab 的图标（image）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QJtPwUw7piYoTKs03Dg3NQ.gif)
 
@@ -90,7 +90,7 @@ TabView() {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-06MmT2edIdUxd3pscmxtg.gif)
 
-有了SwiftUI，实现水平滚动视图变得如此简单。这绝对值得庆祝。
+有了 SwiftUI，实现水平滚动视图变得如此简单。这绝对值得庆祝。
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
