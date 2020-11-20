@@ -375,7 +375,7 @@ export default class MyApp extends React.Component {
 
 Felix Kling 的 Stack Overflow 的[回答](https://stackoverflow.com/a/32675956) 解释了这一点。
 
-此外，尽管 `connect` 支持装饰器语法，但 redux 团队目前并不支持它，主要是因为处于 stage 2 提案的装饰器未来可能会变化。
+此外，尽管 `connect` 支持装饰器语法，但 redux 团队并不鼓励这样做，主要是因为处于 stage 2 提案的装饰器未来可能会变化。
 
 ---
 
