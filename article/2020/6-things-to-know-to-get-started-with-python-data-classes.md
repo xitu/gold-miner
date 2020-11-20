@@ -31,7 +31,7 @@ class Bill:
 
 具体而言，我们使用 `dataclass` 装饰器装饰了自定义类。在被定义的类中，我们列举了类的属性（数据类的术语）。
 
-你可能会问，为什么我们要如此麻烦地使用 `dataclass` 装饰器？这是因为 `dataclass` 装饰器可以帮助我们摆脱一些样板代码，例如 `__init__` 和 `__repr__`。换句话说，在我们的自定义类上使用该装饰器，我们就不再需要实现这些函数 —— 取而代之的是，装饰器会帮我们实现它们，就像下面这样。
+你可能会问，为什么我们要如此麻烦地使用 `dataclass` 装饰器？这是因为 `dataclass` 装饰器可以帮助我们摆脱一些样板代码，例如 `__init__` 和 `__repr__`。换句话说，在我们的自定义类上使用该装饰器，我们就不再需要实现这些函数 —— 取而代之的是，装饰器会帮助我们实现它们，就像下面这样。
 
 ```Python
 >>> bill0 = Bill(table_number=5, meal_amount=50.5, served_by="John", tip_amount=7.5)
@@ -67,9 +67,9 @@ Traceback (most recent call last):
 TypeError: non-default argument 'meal_amount' follows default argument
 ```
 
-## 3. Equality/Inequality Comparisons
+## 3. 相等/不相等的比较
 
-Besides the initialization and representation methods, the `dataclass` decorator also implements the comparison-related functionalities for us. We know that for a regular custom class, we can’t have meaningful comparisons between instances if we don’t define the comparison behaviors. Consider the following custom class that doesn’t use the `dataclass` decorator.
+除了构造与展示方法，`dataclass` 装饰器还为我们实现了比较相关的功能。我们知道，对自定义类而言，如果没有定义用于比较的方法，我们不能在实例之间进行有意义的比较。思考以下没有使用 `dataclass` 装饰器的自定义类。
 
 ```Python
 >>> old_bill0 = OldBill(table_number=3, meal_amount=20.5, served_by="Dan", tip_amount=5)
@@ -84,11 +84,11 @@ Comparison Between Regular Instances: False
 Comparison Between Data Class Instances: True
 ```
 
-As shown above, with a regular class, two instances with the same values for all attributes are evaluated to be unequal because these custom class instances are compared by their identities by default. In this case, these two instances are two distinct objects, and they’re deemed to be unequal.
+如上所示，在常规的类中，两个所有属性值都相等的实例会被评估为不相等。因为在默认情况下，自定义类的实例是根据其标识进行比较的。在这种情况下，这两个实例是两个截然不同的对象，因此它们被认为是不相等的。
 
-However, with a data class, such an equality comparison evaluates `True`. This is because the `dataclass` decorator will also automatically generate the `__eq__` special method for us. Specifically, equality comparison is conducted as if each of these instances is a tuple that contains the fields in the order that is defined. Because the two data class instances have the fields of the same values, they’re considered equal.
+然而，在数据类中，同等的比较将被判定为 `True`。这是因为 `dataclass` 装饰器会为我们自动生成特殊方法 `__eq__`。准确地说，进行相等比较时，视每个实例为一个元组，元组内包含按顺序定义的字段。因为这两个数据类的字段拥有相同值，所以它们被认为是相等的。
 
-How about inequality comparisons, such as greater than and less than? They’re also possible with the `dataclass` decorator by specifying the `order` parameter for the decorator, as shown below in Line 1.
+那么不相等的比较呢，例如大于和小于，又应当如何呢？我们也可以使用 `dataclass` 装饰器，在使用装饰器时指定 `order` 参数，如下面的第 1 行所示。
 
 ```Python
 >>> @dataclass(order=True)
@@ -107,7 +107,7 @@ Is bill1 less than bill2? True
 Is bill2 less than bill3? True
 ```
 
-Similar to the equality comparisons, data class instances are compared as if they’re tuples of these fields, and they’re compared as tuples lexicographically. For a proof of concept, the above code only includes two fields, and as you can see, the comparison results are based on the tuple’s order.
+与相等比较类似，数据类实例被当作这些字段的元组，并按字典顺序进行比较。为了验证这一概念，上面的代码只包含两个字段，如你所见，比较结果基于元组的顺序。
 
 ## 4. Mutability Consideration
 
