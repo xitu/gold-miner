@@ -9,11 +9,11 @@
 
 ![Photo by [Thao Le Hoang](https://unsplash.com/@h4x0r3) on [Unsplash](https://unsplash.com/).](https://cdn-images-1.medium.com/max/2000/0*NGYfX_xdVnytqcM1)
 
-Deno 是一个编写服务端 JavaScript 的新工具。它的功能与 Node 不相上下。它的发明者同时也是 Node.js 的发明者。跟 Node.js 类似，它使用的是 v8 JavaScript 引擎。 也有一部分功能基于 Rust 和 JavaScript 实现。Deno自面世以来就非常受欢迎。你可以通过访问它的 Github 仓库来了解相关内容。
+Deno 是一个编写服务端 JavaScript 的新工具。它的功能与 Node 不相上下。它的发明者同时也是 Node.js 的发明者。跟 Node.js 类似，它使用的是 v8 JavaScript 引擎。也有一部分功能基于 Rust 和 JavaScript 实现。Deno自面世以来就非常受欢迎。你可以通过访问它的 Github 仓库来了解相关内容。
 
 ![图 1: [GitHub repository](https://github.com/denoland/deno)](https://cdn-images-1.medium.com/max/2668/1*rqRR-dNjpDO0qcF1pfEB4g.png)
 
-我们先在我们的机器上安装 Deno 环境，然后再研究如何使用它。在 Mac 和 Linux 操作系统中，我们使用 shell 运行命令:
+在深入研究之前，我们需要先在计算机上安装 Deno 环境。在 Mac 和 Linux 操作系统中，我们使用 shell 运行命令:
 
 ```bash
 curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -37,7 +37,7 @@ scoop install deno
 cargo install deno
 ```
 
-现在，我们从一个简单的 TypeScript 文件开始，研究 Deno 的使用。 在这个文件中，我们可以使用运行时环境中的一切数据类型。也就是说，我们可以编写强类型的代码，直接获取 IDE 的相关文档，而且不需要处理 ts 配置文件的相关事宜。这一特征可以从 Deno 的名称空间中访问。
+现在，我们从一个简单的 TypeScript 文件开始，研究 Deno 的使用。 在这个文件中，我们可以使用运行时环境中的一切数据类型。这意味着我们可以编写强类型的代码，直接从 IDE 获得文档提示，而且不需要创建 TS 的配置文件。运行时的特性可以从 Deno 的命名空间中获得。
 
 我们在工作目录中创建一个 TypeScript 文件，命名为 main.ts。接着，使用 console.log 输出当前目录的绝对路径：
 
@@ -45,7 +45,7 @@ cargo install deno
 console.log(Deno.cwd());
 ```
 
-使用以下命令来运行我们的程序:
+我们可以使用以下命令来执行脚本:
 
 ```bash
 deno run main.ts
@@ -55,13 +55,13 @@ deno run main.ts
 
 #### 1. 内置的权限系统
 
-运行上述代码，结果抛出了错误，这是因为 Deno 默认启动了安全模式。Deno 在安全性处理方面优于 Node。例如，为了正常运行上述程序，需要声明开启访问文件系统或网络的权限。
+运行上述代码，结果抛出了错误，这是因为 Deno 默认启动了安全模式。Deno 在安全性处理方面优于 Node。例如，为了正常运行上述程序，需要授予访问文件系统或网络的权限。
 
 在 Node 中，如果你导入一个被别人篡改过的包，而且这个包注入了恶意代码，可能导致整台机器上的文件都被删除。而在 Deno 中，除非你声明允许程序删除所有文件，被篡改的包在没有得到授权的情况下是无法执行任何操作的。
 
 Deno 非常重视安全性，因此设计了内嵌的权限系统。你不必担心其他包在你的机器或服务器上执行违背你的意图的任何操作。
 
-所以，我们需要在运行程序时声明各种权限。现在我们使用 allow-read ,声明允许读取文件系统：
+所以，我们需要在运行程序时授予各种权限。现在我们使用 allow-read ,声明允许读取文件系统：
 
 ```bash
 deno run — allow-read main.ts
@@ -71,9 +71,9 @@ deno run — allow-read main.ts
 
 #### 2. 基于 Promise
 
-使用 Deno 的开发人员似乎更加关注安全性。但我认为 Deno 的亮点在于，任何异步操作都基于 Promise。
+使用 Deno 的开发人员似乎更加关注安全性。但我认为 Deno 的亮点在于，任何异步操作都基于 Promise（再见，回调函数）。
 
-你知道的，我们可以使用 fetch API 发起网络请求，跟我们使用浏览器类似。由于 Deno 支持顶级 wait，我们甚至不需要定义异步函数。而且我们还可以在没有额外的样板代码的情况下对 promise 进行解析:
+如你所见，我们可以使用 fetch API 发起网络请求，跟我们使用浏览器类似。由于 Deno 支持顶级 wait，我们甚至不需要定义异步函数。而且我们还可以在没有额外的样板代码的情况下对 promise 进行解析:
 
 ```js
 const url = Deno.args[0];
@@ -81,7 +81,7 @@ const url = Deno.args[0];
 const res = await fetch(url);
 ```
 
-#### 3. Deno 提供对浏览器的自适应
+#### 3. Deno 旨在使代码尽可能兼容各种浏览器
 
 Deno 提供了 window 对象，这个对象包含了可监听的生命周期事件。很显然，这使程序的生命周期管理更方便:
 
@@ -105,9 +105,9 @@ const wsm = new WebAssembly.Module(wbs);
 
 **“优良的代码应该是短小、简洁、匀称的，难点在于理解如何达到这种标准。” — Sean Parent**
 
-#### 5. 没有繁杂的节点模块文件夹
+#### 5. 没有大量的 Node Modules 包
 
-相反的，我们使用现代的 ES Module 语法导入包。远程的模块以其 URL 来表示。你第一次运行脚本时，程这些程序包会下载到本地并缓存。JSON 包是不存在的，代码可以从任何的 URL 引用。这跟浏览器的工作原理很相似。
+相反的，我们使用现代的 ES Module 语法导入包。远程的模块以其 URL 来表示。你第一次运行脚本时，这些程序会下载到本地并缓存。JSON 包是不存在的，代码可以从任何的 URL 引用。这跟浏览器的工作原理很相似。
 
 正如我前面提到的，Deno 中不存在模块目录。所有的跟模块有关的配置都在后台进行。一切依赖关系也保存在本地，所以你不必为繁杂的模块目录或笨重的 package.json 文件发愁。
 
