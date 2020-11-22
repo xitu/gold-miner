@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/adaptive-video-with-css-math.md](https://github.com/xitu/gold-miner/blob/master/article/2020/adaptive-video-with-css-math.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[regon-cao](https://github.com/regon-cao)
 
 # 使用原生 CSS 实现自适应视频
 
-在研究 [CSS 数学函数](https://www.w3.org/TR/css-values-4/#calc-notation)时，曾考虑过响应式 iframe，也能找到一些现有的解决方案，例如[这个](https://css-tricks.com/fluid-width-video/)，但是需要使用包装器或 JavaScript。假如没有包装器，只使用原生 CSS 能实现相同的功能吗？
+我在研究 [CSS 数学函数](https://www.w3.org/TR/css-values-4/#calc-notation)时，曾考虑过响应式 iframe，也能找到一些现有的解决方案，例如[这个](https://css-tricks.com/fluid-width-video/)，但是需要使用包装器或 JavaScript。假如没有包装器，只使用原生 CSS 能实现相同的功能吗？
 
 首先，我们需要获取视频的宽高比。然而无法从属性中获取视频的宽高比（此方法[存在](https://www.w3.org/TR/css-values-3/#attr-notation)于规范中，但浏览器不支持），因此需要使用自定义属性：
 
@@ -81,9 +81,9 @@ height: min(calc(100vw * var(--aspect-ratio)), var(--height-with-units));
 }
 ```
 
-打开[**在线示例**](https://codepen.io/yoksel/pen/oNxmgYq?editors=0100)并调整窗口大小进行查看其工作方式。
+打开[**在线示例**](https://codepen.io/yoksel/pen/oNxmgYq?editors=0100)并通过调整窗口大小来查看其工作方式。
 
-**注意：** 如果在预处理器（SCSS、Less）中使用以上代码，要避免在不同的计量单位下处理 `min()`，要使得预处理程序强制忽略 CSS 数学函数。在 SCSS 中，函数名必须以大写字母：`Min(…)` 开头；而对于 Less 函数，必须这样包装：`~”min(…)”`。
+**注意：** 如果在预处理器（SCSS、Less）中使用以上代码，要避免在不同的计量单位下处理 `min()`。使得预处理器强制忽略 CSS 数学函数，在 SCSS 中，函数名必须以大写字母：`Min(…)` 开头；而对于 Less 函数，必须这样包装：`~”min(…)”`。
 
 我没有在实际项目中使用过这个解决方案，但希望它会有用。
 
