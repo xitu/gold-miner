@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-already-dead.md](https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-already-dead.md)
 > * 译者：[Inchill](https://github.com/Inchill)
-> * 校对者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[samyu2000](https://github.com/samyu2000)、[regon-cao](https://github.com/regon-cao)
 
 # Deno 已经死了吗？
 
@@ -11,7 +11,7 @@
 
 在今年 5 月，不止冠状病毒成为人们关注的焦点，在 JavaScript 和后端开发社区中，Deno 也成为了热点话题。Deno 的第一个稳定版本已经发布，业界对此大力宣传。我也一样，迅速地参与到 Deno 并且期望能尝试点新东西。
 
-[一篇文章](https://medium.com/javascript-in-plain-english/deno-vs-node-js-here-are-the-most-important-differences-62b547443be1) 我写了这篇文章，仅仅通过谷歌它就获得了数千的点击量 —— 显然，大家对 Deno 都非常有兴趣。
+我写的一篇关于 Deno 的[文章](https://medium.com/javascript-in-plain-english/deno-vs-node-js-here-are-the-most-important-differences-62b547443be1)，仅仅通过谷歌它就获得了数千的点击量 —— 显然，大家对 Deno 都非常有兴趣。
 
 但是炒作之后剩下了什么呢？那些甚至认为 Deno 可以取代 Node.js 的声音在哪里？显然，炒作已经所剩无几了 —— 谷歌的统计数据证实了这一点：
 
@@ -45,7 +45,7 @@
 
 ## 迁移非常昂贵 —— 而且部分毫无意义
 
-当然，Deno 和 Node.js 非常相似。在 Deno 中，您不会仅仅依赖 TypeScript。JavaScript 同样开箱即用地支持它。
+当然，Deno 和 Node.js 非常相似。在 Deno 中，您不仅可以使用 TypeScript，JavaScript 也同样开箱即用。
 
 但是您一看到 JavaScript 一词，会立马想到 JS 社区中分布的许多库和框架。其中一些在 Node.js 中也可用。只需想一下诸如 Express.js，Koa，Sails，Axios，Lodash 或 Sequelize。所有这些库经常在 Node.js 项目中使用，并且可以通过 NPM 轻松安装。
 
@@ -88,7 +88,7 @@ NPM 是让您想起 Deno 的关键字 —— 因为本来 Deno 的设计初衷�
 
 Deno 不错，有它存在的价值。
 
-Node.js 在其第一个版本中并未被大肆宣传，所以仍然有足够的时间去改进。因此，Deno 有进一步发展的可能。
+Node.js 在其第一个版本中并未被大肆宣传，并且仍然有时间去改进。因此，Deno 也可以继续去完善。
 
 特别是关于 node.js 我们尚不了解的性能和功能，可能会有很多变化。 因此，我对 Deno 未来的动向很感兴趣，并且我将持续关注 Deno 的版本更新以及它的更新内容。
 
