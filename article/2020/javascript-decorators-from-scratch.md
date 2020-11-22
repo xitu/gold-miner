@@ -13,7 +13,7 @@
 
 装饰器只是一种用另一个函数包装一个函数以扩展其现有功能的函数。您可以使用另一段代码来“装饰”现有代码。对于那些熟悉函数组合或高阶函数的人来说，这个概念并不陌生。
 
-装饰器并不是什么新鲜事物。它已经出现在其他语言中，比如 Python，甚至在函数式编程的 JavaScript 中。我们稍后再谈论这个话题。
+装饰器并不是什么新鲜事物。它已经出现在 Python 等其他语言中，甚至在 JavaScript 函数式编程中。我们稍后再谈论这个话题。
 
 ## 为何使用装饰器?
 
@@ -21,7 +21,7 @@
 
 装饰器还可以减少代码的相互干扰，因为它可以将所有增强特性的代码从核心函数中移除。它还使您能够在不增加代码复杂度的情况下添加新的特性。
 
-在 stage 2 的提案中，可能会有很多对类装饰器有用的提议。
+在第 2 阶段的提案中，可能会有很多对类装饰器有用的提议。
 
 ## 函数装饰器
 
@@ -75,7 +75,7 @@ multiply('',4);
 //TypeError: Argument cannot be a non-integer
 ```
 
-`allArgsValid` 是一个装饰器函数，它接收一个函数作为参数。这个装饰器函数返回另一个封装了函数参数的函数。而且，当传递进来的函数的参数是有效整数时它就会调用参数函数。否则，将抛出错误。它还检查传递的参数数量，并确保不会超过所需的参数数量。
+`allArgsValid` 是一个装饰器函数，它接收一个函数作为参数。这个装饰器函数返回另一个封装了函数参数的函数。而且，当传递进来的函数的参数是有效整数时它就会调用参数函数。否则，将抛出错误。它还检查传递的参数数量，并确保不会超过所需的参数个数。
 
 随后，我们将一个将两个数字相乘的函数赋给一个名为 `multiply` 的变量。我们将这个乘法函数传递给 `allArgsValid`，并将返回的新函数再次赋值给 `multiply` 变量。这使得它在需要时更容易被重用。
 
@@ -98,9 +98,9 @@ add("", 4);
 //TypeError: Argument cannot be a non-integer
 ```
 
-## TC39 类装饰器提案
+## TC39类装饰器提案
 
-在 JavaScript 函数式编程领域，函数装饰器已经存在了很长时间。类装饰器的提案目前处在 stage 2。
+在 JavaScript 函数式编程领域，函数装饰器已经存在了很长时间。类装饰器的提案目前处在第 2 阶段。
 
 JavaScript 类并不是真正的类，它们只是原型模式的语法糖。只是类语法让开发人员使用起来更简单方便些。
 
@@ -174,7 +174,7 @@ console.log(getBook());
 
 > **注意 —— 运行下面的例子需要使用 Babel。在线尝试这些例子 Jsfiddle 是一个不错的选择。由于这些提案还没有最终定稿，您应该避免在生产环境中使用它们，因为未来可能会发生变化，而且目前的性能也并不完美。**
 
-## 类 装饰器
+## 类装饰器
 
 在新的提案中装饰器采用以 `@` 符号为前缀的特殊语法。我们将采用新的语法来调用 log 装饰器。
 
@@ -209,7 +209,7 @@ class Book {
 }
 
 let obj = new Book("HP", "1245-533552");
-//Constructor Called
+//调用 Constructor
 console.log(obj.getBook());
 //HP][1245-533552]
 ```
@@ -231,21 +231,21 @@ function logWithParams(...params) {
 @log
 @logWithParams("param1", "param2")
 class Book {
-  //Class implementation as before
+  //和之前一样的代码
 }
 
 let obj = new Book("HP", "1245-533552");
-//Constructor called
-//Params will be consoled as a table
+//调用 Constructor 
+//参数被打印成 table
 console.log(obj.getBook());
 //[HP][1245-533552]
 ```
 
-## 类 属性 装饰器
+## 类属性装饰器
 
 类属性装饰器和类装饰器语法差不多，都是采用 `“@”` 作为前缀。您也可以给装饰器传递参数作为类的属性。
 
-#### 类 方法 装饰器
+#### 类方法装饰器
 
 传递给类方法装饰器的参数与类装饰器的参数不同。类方法装饰器接收三个参数而不是一个参数。具体如下：
 
@@ -263,14 +263,14 @@ console.log(obj.getBook());
 让我们再看一下 Book 类的例子。
 
 ```js
-//readonly decorator function
+//只读装饰器函数
 function readOnly(target, name, descriptor) {
   descriptor.writable = false;
   return descriptor;
 }
 
 class Book {
-  //Implementation here
+  //在这调用
   @readOnly
   getBook() {
     return `[${this.name}][${this.ISBN}]`;
@@ -296,9 +296,9 @@ console.log(obj.getBook);
 //Hello
 ```
 
-#### 类 字段 装饰器
+#### 类字段装饰器
 
-与类方法一样，类字段也可以被修饰。typescript 已经支持类字段，但它仍在 JavaScript 的 stage 3 提案中。
+与类方法一样，类字段也可以被修饰。typescript 已经支持类字段，但它仍在 JavaScript 的第 3 阶段提案中。
 
 类字段装饰器接收的参数和类方法装饰器是一样的，唯一的区别在于描述符对象。与类方法不同，描述符对象在类字段上使用时不包括 `value` 属性，而是被替换成了一个叫做 `initializer` 的函数。由于类字段仍然在提案阶段，你可以在[文档](https://github.com/tc39/proposal-class-fields#execution-of-initializer-expressions)中阅读更多关于 initializer 的信息。initializer 函数将返回类字段变量的初始值。
 
@@ -324,7 +324,7 @@ class Book {
     return `${this.id}`;
   }
 
-  //other implementation here
+  //其他代码
 }
 
 let obj = new Book("HP", "1245-533552");
@@ -351,37 +351,37 @@ MobX 在版本 6 之前大力推崇和使用了 “@observable”，“@computed
 
 #### Core Decorators JS
 
-这个 JavaScript 库提供了现成的装饰器。尽管此库基于 stage 0 的装饰器提案，但库的作者要等到 stage 3 提案时才更新库。
+这个 JavaScript 库提供了现成的装饰器。尽管此库基于第 0 阶段的装饰器提案，但库的作者要等到第 3 阶段提案时才更新库。
 
 这个库附带了诸如 “@readonly”、“@time”、“@deprecate” 等装饰器。你可以通过[这里](https://github.com/jayphelps/core-decorators)了解更多。
 
 #### Redux Library in React
 
-React 的 Redux 库包含一个 “connect” 方法，允许您将 React 组件连接到 Redux 仓库。该库还允许将 “connect” 方法用作装饰器。
+React 的 Redux 库包含一个 `connect` 方法，允许您将 React 组件连接到 Redux 仓库。该库还允许将 `connect` 方法用作装饰器。
 
 ```js
-//Before decorator
+//使用装饰器之前
 class MyApp extends React.Component {
-  // ...define your main app here
+  // ...定义您自己的应用
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyApp);
 
-//After decorator
+//使用装饰器之后
 @connect(mapStateToProps, mapDispatchToProps)
 export default class MyApp extends React.Component {
-  // ...define your main app here
+  // ...定义您自己的应用
 }
 ```
 
 Felix Kling 的 Stack Overflow 的[回答](https://stackoverflow.com/a/32675956) 解释了这一点。
 
-此外，尽管 `connect` 支持装饰器语法，但 redux 团队并不鼓励这样做，主要是因为处于 stage 2 提案的装饰器未来可能会变化。
+此外，尽管 `connect` 支持装饰器语法，但 redux 团队并不鼓励这样做，主要是因为处于第 2 阶段提案的装饰器未来可能会变化。
 
 ---
 
 总之，装饰器是一个可以让您编写出灵活代码的有力工具。在不久的将来您会经常遇到它。
 
-感谢阅读&快乐编码。
+感谢阅读，编码快乐！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
