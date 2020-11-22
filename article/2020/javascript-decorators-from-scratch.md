@@ -40,7 +40,7 @@
 但是对几个函数重复相同的过程会导致代码重复。您可以简单地使用装饰器来帮助您进行验证，并在需要进行参数验证的地方复用它。
 
 ```JavaScript
-//decorator function
+//装饰器函数
 const allArgsValid = function(fn) {
   return function(...args) {
   if (args.length != fn.length) {
@@ -54,12 +54,12 @@ const allArgsValid = function(fn) {
   }
 }
 
-//ordinary multiply function
+//普通的乘法函数
 let multiply = function(a,b){
 	return a*b;
 }
 
-//decorated multiply function that only accepts the required number of params and only integers
+//装饰乘法函数，只接收指定数量的且为整数的参数
 multiply = allArgsValid(multiply);
 
 multiply(6, 8);
@@ -80,12 +80,12 @@ multiply('',4);
 随后，我们将一个将两个数字相乘的函数赋给一个名为 `multiply` 的变量。我们将这个乘法函数传递给 `allArgsValid`，并将返回的新函数再次赋值给 `multiply` 变量。这使得它在需要时更容易被重用。
 
 ```js
-//ordinary add function
+//普通加法函数
 let add = function (a, b) {
   return a + b;
 };
 
-//decorated add function that only accepts the required number of params and only integers
+//装饰加法函数，只接收指定数量的且为整数的参数
 add = allArgsValid(add);
 
 add(6, 8);
