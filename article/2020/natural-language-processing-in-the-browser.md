@@ -7,8 +7,6 @@
 
 # Natural Language Processing in the Browser
 
-#### How to build a serverless NLP chatbot for your website
-
 ![Image source: Author](https://cdn-images-1.medium.com/max/3192/1*X-jYECtYbLdX_c7GRz_DTQ.png)
 
 It is possible to build a chatbot for your own website without dependency on a third-party service like [Dialogflow](https://cloud.google.com/dialogflow/docs) or [Watson](https://www.ibm.com/watson), and without a server. I will show you how to build a chatbot that will completely run in the browser.
@@ -23,25 +21,21 @@ The final project can be found on my GitHub repository: [https://github.com/Meet
 
 Every true developer nowadays should have some experience with artificial intelligence, and what is more sci-fi than talking to your computer using something that you have developed yourself.
 
----
-
 ## Install Packages
 
 Create a new npm project in any folder and install NLP packages:
 
-```
+```bash
 npm i -D @nlpjs/core @nlpjs/lang-en-min @nlpjs/nlp @nlpjs/request-rn@nlpjs/request-rn
 ```
 
 We will also need [browserify](https://github.com/browserify/browserify#usage) and [terser](https://terser.org/docs/cli-usage) to be able to build NLP for browser use:
 
-```
+```bash
 npm i -D browserify terser
 ```
 
 Enjoy the smell of a new project with freshly installed packages. You deserve it.
-
----
 
 ## Build NLP
 
@@ -79,13 +73,11 @@ We are using only the core of NLP and a small English package. To build everythi
 
 Now run the build:
 
-```
+```bash
 npm run build
 ```
 
 You should end up with `./dist/bundle.js` with just about 137 KB. It is also good to note that NLP has a [very impressive list of supported languages](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages). However, only English has an optimized version for a browser.
-
----
 
 ## Train NLP in a Browser
 
@@ -192,8 +184,6 @@ The training is super fast and makes the trained model available to your chatbot
 
 It feels great to train your first machine learning code. You have just become a legend and one of few people on the planet that can say: “Yeah, I trained an AI once, it was no big deal.”
 
----
-
 ## Chatbot HTML
 
 Now we will make the chatbot form work. Extend your `index.html` by adding the `onChatSubmit` function:
@@ -253,8 +243,6 @@ Now you can play with your new chatbot:
 Explore your corpus or the corpus on [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) to learn what conversation topics are supported.
 
 Now this is something that you can show your friends in a pub and easily get their admiration, for now you are a true hacker.
-
----
 
 ## Adding Hooks to Intents
 
@@ -328,7 +316,7 @@ You might want your chatbot to be able to call some additional code with each in
 
 To our `setupNLP` we added a line:
 
-```
+```js
 nlp.onIntent = onIntent;
 ```
 
@@ -338,15 +326,11 @@ And we created the `onIntent` function. Notice that `onIntent` logs the response
 
 Isn’t this awesome? High five if you are rightfully feeling ready to create your own AI startup.
 
----
-
 ## Known Limitations
 
 Please notice that the browser version of NLP does not support some common natural language processing features, such as named entities or entity extractions that are available in the full library.
 
 NLP as a library also currently doesn’t support stories or follow-up intents. These are part of the current development of chatbot orchestration, but the feature is still experimental at the time of writing this article.
-
----
 
 ## Security and Privacy Considerations
 
