@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-decorators-from-scratch.md](https://github.com/xitu/gold-miner/blob/master/article/2020/javascript-decorators-from-scratch.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo)
 
 # 从零开始了解 JavaScript 装饰器
 
