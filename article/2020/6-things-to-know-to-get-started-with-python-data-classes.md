@@ -109,9 +109,10 @@ Is bill2 less than bill3? True
 
 与相等比较类似，数据类实例被当作这些字段的元组，并按字典顺序进行比较。为了验证这一概念，上面的代码只包含两个字段，如你所见，比较结果基于元组的顺序。
 
-## 4. Mutability Consideration
+## 4. 仔细考虑可变性
 
 By default, the fields of data classes can be modified, and thus we can say that data class instances are mutable. This is why some people refer to data classes as **mutable named tuples**. Consider the following contrast between named tuples and data classes regarding their mutability.
+正常情况下，数据类的字段可以被修改，因此我们可以说数据类实例是易变的。这也是为什么有些人将数据类称为**可变的具名元组**。考虑具名元组和数据类之间关于可变性的以下对比。
 
 ```Python
 >>> from collections import namedtuple
@@ -131,9 +132,9 @@ AttributeError: can't set attribute
 >>> dataclass_bill.tip_amount = 6
 ```
 
-As shown above, you can’t set the attribute of a named tuple. However, we can do that with a data class instance, which highlights the advantages of supporting mutability of data classes.
+就像上面展示的那样，你不能设置具名元组的属性。然而，我们可以对数据类实例执行以上操作，这突出了数据类支持数据可变性的优点。
 
-However, data mutability isn’t always desired. In some cases, you don’t want your data to be mutable. In such a scenario, you can consider specifying the `frozen` parameter to be `True` when you use the `dataclass` decorator. A trivial example is shown below.
+然而，数据可变性并非总是理想的。在一些场景中，你不希望数据可以被改变。在这种情况下，可以考虑在使用 `dataclass` 装饰器时将 `frozen` 参数设置为 `True`。下面是一个简单的例子：
 
 ```Python
 >>> @dataclass(frozen=True)
@@ -149,9 +150,9 @@ Traceback (most recent call last):
 dataclasses.FrozenInstanceError: cannot assign to field 'tip_amount'
 ```
 
-## 5. Inheritance Considerations
+## 5. 继承的注意事项
 
-At its core, a data class has the same extensibility as other regular custom classes. Thus, we can subclass a data class if we have such a need.
+究其核心，数据类和其他常规自定义类一样，具有相同的可扩展性。因此，如果有需要，我们可以将继承数据类。
 
 ```Python
 >>> @dataclass
@@ -166,9 +167,9 @@ At its core, a data class has the same extensibility as other regular custom cla
 >>> tipped_bill = TippedBill(meal_amount=20, tip_amount=5)
 ```
 
-As shown in the above code snippet, the `dataclass` decorator will consider the base class’s fields for the subclass. In other words, as you can see from the initialization of the subclass, it automatically has the signature of the fields from the base class and the subclass itself. Notably, the order is based on the definition order — the base class’s fields go first and the subclass’s fields go next and so on if you have multiple generations of subclassing.
+如上面的代码段所示，`dataclass` 装饰器将为子类考虑基类的字段。换而言之，在子类的初始化中可以看出，它自动拥有来自基类的字段和它本身的字段。值得注意的是，字段的顺序基于它们定义的顺序 —— 基类的字段排在第一位，子类的字段紧随其后，如果你有多代子类则依此类推。
 
-Because of the order of these fields in the subclass and the requirement that data classes’ fields with default values should precede those without default values, the implication is that if a base class has fields with default values, the subclasses’ added fields should have default values, too. Otherwise, you may see the following error — the same error that we’ve seen previously.
+由于这些字段在子类中的顺序，以及数据类要求有默认值的字段应在没有默认值的字段之后。这意味着如果基类包含具有默认值的字段，则子类所添加的字段也应具有默认值。否则，你可能会看到如下错误 —— 与我们之前看到的错误相同。
 
 ```Python
 @dataclass
