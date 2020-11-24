@@ -13,15 +13,15 @@
 
 ![Image source: Author](https://cdn-images-1.medium.com/max/2068/0*DHWuzy6UNQ4T1_zl)
 
-正确创建配置两个容器的 Docker 命令过于冗长。而使用 Docker Compose，你只需要记住`up`命令和`down`命令！
+正确创建配置两个容器的 Docker 命令过于冗长。而使用 Docker Compose，你只需要记住 `up` 命令和 `down` 命令！
 
-`Up`命令将创建指定版本的 PostgreSQL 数据库和一个 GUI 管理工具。 `Down`命令会将其关闭并删除。
+`Up` 命令将创建指定版本的 PostgreSQL 数据库和一个 GUI 管理工具。`Down` 命令会将其关闭并删除。
 
 ## 基于私有容器的数据库的好处
 
 - 不同版本的 PostgreSQL 在行为和功能上存在差异，因此开发人员应针对一个数据库版本进行长期开发。你可以选择的一个版本是 9.6.12，另一个可以是 12.4。
 - 大多数程序员都不是数据库管理员或 SQL 专家。可视化工具可以让他们直观地验证其代码的运行效果并支持手动修改数据。
-- 项目的不同阶段需要不同类型的存储方案。 在项目早期，非持久型数据库可以最大程度地减少麻烦。 在项目的后期阶段，持久型数据库提供了更实际的方案。
+- 项目的不同阶段需要不同类型的存储方案。在项目早期，非持久型数据库可以最大程度地减少麻烦。在项目的后期阶段，持久型数据库提供了更实际的方案。
 
 ![Create and recreate a database with simple commands](https://cdn-images-1.medium.com/max/2000/0*oFz9LrOPfZNQdhcw)
 
@@ -65,22 +65,22 @@ services:
 
 #### Docker Compose 的文件结构
 
-该文件定义了两个要创建的“服务”：Postgres 和 pgAdmin。 每个服务都包含一个从 Docker Hub 拉取的容器。 Postgres 和 pgAdmin 将分别开放 5432 端口和 8080 端口。将你写的任何程序指向主机名“ localhost”，然后用浏览器访问[http://localhost:8080](http://localhost:8080) 即可访问 pgAdmin。
+该文件定义了两个要创建的“服务”：Postgres 和 pgAdmin。每个服务都包含一个从 Docker Hub 拉取的容器。Postgres 和 pgAdmin 将分别开放 5432 端口和 8080 端口。将你写的任何程序指向主机名“localhost”，然后用浏览器访问 [http://localhost:8080](http://localhost:8080/) 即可访问 pgAdmin。
 
 继续阅读有关如何将 pgAdmin 指向 Postgres 的说明。
 
 #### PostgreSQL 的版本
 
-在定义 Postgres 容器的这一行中，你需要准确指定所需的 Postgres 版本。在这里，version 是一个标签，而 `9.6.12-alpine` 就是示例中使用的版本。点击[这里查看其他可用的版本](https://hub.docker.com/_/postgres?tab=tags)。
+在定义 Postgres 容器的这一行中，你需要准确指定所需的 Postgres 版本。在这里，版本是一个标签，而 `9.6.12-alpine` 就是示例中使用的版本。点击[这里查看其他可用的版本](https://hub.docker.com/_/postgres?tab=tags)。
 
 #### Postgres 的存储
 
-上面的`docker-compose.yml` 文件为 Postgres 指定了两个映射。 这两个映射将使 Postgres 可以访问你计算机上的目录。
+上面的 `docker-compose.yml` 文件为 Postgres 指定了两个 volume 映射。这两个映射将使 Postgres 可以访问你计算机上的目录。
 
-1. 被映射到`/docker-entrypoint-initdb.d`的文件夹包含了初始化 Postgres 将会用到的 SQL 文件。将所需的 SQL 文件和 Shell 脚本放在该目录中，它们将会按字母顺序自动执行。
-2. 被映射到`/var/lib/postgresql/data`的文件夹存放了数据库持久化存储所需要的真实文件。
+1. 被映射到 `/docker-entrypoint-initdb.d` 的文件夹包含了初始化 Postgres 将会用到的 SQL 文件。将所需的 SQL 文件和 Shell 脚本放在该目录中，它们将会按字母顺序自动执行。
+2. 被映射到 `/var/lib/postgresql/data` 的文件夹存放了数据库持久化存储所需要的实际文件。
 
-当 Postgres 启动时，他的运行流程如下图所示。 如果数据库中没有数据，那么它将执行被映射到`/docker-entrypoint-initdb.d`目录中的每个 SQL 文件和 Shell 脚本（按字母顺序）。如果被映射到 `/var/lib/postgresql/data`的文件夹中有数据，那么它将会忽略掉这些文件。
+当 Postgres 启动时，他的简单运行流程如下图所示。如果数据库中没有数据，那么它将执行被映射到 `/docker-entrypoint-initdb.d` 目录中的每个 SQL 文件和 Shell 脚本（按字母顺序）。如果被映射到 `/var/lib/postgresql/data` 目录的文件夹中有数据，那么它将会忽略掉这些文件。
 
 ![](https://cdn-images-1.medium.com/max/2024/0*nMQaPxUKmYq67hAa)
 
@@ -88,7 +88,7 @@ services:
 
 ![](https://cdn-images-1.medium.com/max/3492/1*gsuTB2Ge04sCccMKLzW6ww.png)
 
-我的建议是对这两个文件目录都做映射。如果你不想再初始化你的数据库，你可以从 init 目录中删除文件。你也可以在你的计算机上删除任何可能已经持久化的数据（当你下一次运行`docker-compose up`命令时，Docker 将会在其位置重新创建一个空文件夹）。
+我的建议是对这两个文件目录都做映射。如果你不想再初始化你的数据库，你可以从 init 目录中删除文件。你也可以在你的计算机上删除任何可能已经持久化的数据（当你下一次运行 `docker-compose up` 命令时，Docker 将会在其位置重新创建一个空文件夹）。
 
 **专业提示**：你可以将 CSV 文件放在计算机的 init 文件夹中，然后在 init 目录中通过适当的 SQL 命令将 CSV 文件中的数据填充到数据表中。
 
@@ -98,13 +98,13 @@ COPY Employee FROM '/docker-entrypoint-initdb.d/emp.csv'
     WITH (FORMAT CSV, HEADER);
 ```
 
-#### pgAdmin 存储
+#### pgAdmin 的存储
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pXNa6oSZ72IOr6DCodBWsQ.png)
 
-尽管 pgAdmin 只是一个用于查看和配置数据库的工具，但必须配置其与数据库的连接。 这可以通过可视化工具中的`add server`指令完成。这里需要注意的是，主机名（the hostname）是我们在 YML 文件中配置的 `container_name` 这一参数的名称，即 `some-postgres`。同样地，密码也已经在 YML 文件中指定了，即 `mysecret`。
+尽管 pgAdmin 只是一个用于查看和配置数据库的工具，但必须配置其与数据库的连接。这可以通过可视化工具中的 `add server`指令完成。这里需要注意的是，主机名（the hostname）是我们在 YML 文件中配置的 `container_name` 这一参数的名称，即 `some-postgres`。同样地，密码也已经在 YML 文件中指定了，即 `mysecret`。
 
-另一种方法是通过在 JSON 文件中指定这些配置（除了密码之外的所有配置），通过这种方式可以免去大量的单击和输入操作。为了避免手动配置 pgAdmin 连接到 Postgres，我们需要将该 JSON 文件映射到容器的 `/pgadmin4/servers.json`上（在示例 YML 文件中的第 22 行）。
+另一种方法是通过在 JSON 文件中指定这些配置（除了密码之外的所有配置），通过这种方式可以免去大量的单击和输入操作。为了避免手动配置 pgAdmin 到 Postgres 的连接，我们需要将该 JSON 文件映射到容器 `/pgadmin4/servers.json` 上（在示例 YML 文件中的第 22 行）。
 
 设置文件可以指定 pgAdmin 和 Postgres 之间的多个连接（以不同用户的身份连接或者连接到多个不同的数据库）。下面是只有一个数据库连接的示例。
 
@@ -130,7 +130,7 @@ COPY Employee FROM '/docker-entrypoint-initdb.d/emp.csv'
 
 ![](https://cdn-images-1.medium.com/max/2000/0*U5ZE2OtxU4JKmWTq)
 
-内部网络的名称可以在 compose 文件中指定，但是为一个从未被代码引用的网络命名没有任何价值！如果你还是好奇，可以随时查看你的私人及临时网络的名称。在下面的代码片段中，我从桌面运行了 Docker Compose，因此将该网络命名为`desktop_default`。
+内部网络的名称可以在 compose 文件中指定，但是为一个从未被代码引用的网络命名没有任何价值！如果你还是好奇，可以随时查看你的私人及临时网络的名称。在下面的代码片段中，我从桌面运行了 Docker Compose，因此将该网络命名为 `desktop_default`。
 
 ```
 $ docker network ls
@@ -155,7 +155,7 @@ Creating some-pgadmin  ... done
 $
 ```
 
-**为了关闭并删除容器**，你可以使用 `docker-compose down -v`。`-v` 参数表示删除容器在运行时使用的卷。这个**不会**删除容器映射到计算机上的目录。
+**为了关闭并删除容器**，你可以使用 `docker-compose down -v`。`-v` 参数表示删除容器在运行时使用的 volume。这个**不会**删除计算机映射到容器上的目录。
 
 ```
 $ docker-compose down -v
@@ -166,7 +166,7 @@ Removing some-postgres ... done
 Removing network desktop_default
 ```
 
-随着时间的推移，如果不使用 `-v` 标志，就会累积不必要的卷。你可以使用 `docker volume ls` 来验证这一点。
+随着时间的推移，如果不使用 `-v` 标志，就会累积不必要的 volume。你可以使用 `docker volume ls` 来验证这一点。
 
 如果要调试一个没有正确启动的容器，请使用 `docker logs [container_name]`。例如，由于 init 目录中的一个 SQL 文件中出现错误，数据库可能无法正确初始化。通过执行 `docker logs some-postgres` 命令，可以生成容器启动时记录的日志，通过对该日志的查阅，我在一个特殊命名的 SQL 文件中发现一个错误：
 
@@ -178,7 +178,7 @@ psql:/docker-entrypoint-initdb.d/broken.sql:1: ERROR:  syntax error at end of in
 LINE 1: CREATE TABLE Song(id, name, year
 ```
 
-日志告诉我在 `broken.sql` 文件的第 1 行有一个错误。该命令缺少闭括号和分号。我可以修复这个错误，并使用 `down` 和 `up` 来验证。
+日志告诉我在 `broken.sql` 文件的第 1 行有一个错误。该命令缺少右括号和分号。我可以修复这个错误，并使用 `down` 和 `up` 来验证。
 
 ---
 
@@ -208,7 +208,7 @@ print(cursor.fetchall())
 
 ![](https://cdn-images-1.medium.com/max/2248/1*-OLNPQfPVcaVcm55_endYQ.png)
 
-如果你使用的是本文之前讨论的 `servers.json` 文件来指定连接细节，你将会在展开用户界面左侧的导航树时，收到系统要求你输入 Postgres 数据库的密码的提示。在我们示例的 `docker-compose.yml` 文件中，这个密码是 `mysecret` 。如果你并没有创建 `servers.json` 文件或文件中有错误，你就必须手动添加服务器。
+如果你使用的是本文之前讨论的 `servers.json` 文件来指定连接细节，你将会在展开用户界面左侧的导航树时，收到系统要求你输入 Postgres 数据库的密码的提示。在我们示例的 `docker-compose.yml` 文件中，这个密码是 `mysecret`。如果你并没有创建 `servers.json` 文件或文件中有错误，你就必须手动添加服务器。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sMq0Cmnkvn35uUO3pImD4A.png)
 
@@ -218,7 +218,7 @@ print(cursor.fetchall())
 
 ## 进入 PSQL
 
-有时候，开发者需要一个熟悉的命令行。 Docker 使得访问 PSQL 和执行高级用户命令等操作变得更加容易。 执行下面的命令进入 PSQL 命令行。
+有时候，开发者需要一个熟悉的命令行。Docker 使得访问 PSQL 和执行高级用户命令等操作变得更加容易。执行下面的命令进入 PSQL 命令行。
 
 ![](https://cdn-images-1.medium.com/max/2156/0*yYxwukbBZY7poPVw)
 
@@ -243,9 +243,9 @@ public | climber      | table | postgres
 
 ![Adminer is a much simpler interface](https://cdn-images-1.medium.com/max/2248/1*m5zp3RSC4VN9_0-IaeSjBg.png)
 
-pgAdmin 是 PostgreSQL 最常见的 GUI 管理工具，但我们还有其他选择。 Adminer 的使用更加简单，并且你可能已经拥有使用它的经验了，因为它支持多种风格的 SQL。 如果你是刚开始使用 PostgreSQL 或者只有非常简单的需求，那么它可能是一个更合适你的工具。
+pgAdmin 是 PostgreSQL 最常见的 GUI 管理工具，但我们还有其他选择。Adminer 的使用更加简单，并且你可能已经拥有使用它的经验了，因为它支持多种风格的 SQL。如果你是刚开始使用 PostgreSQL 或者只有非常简单的需求，那么它可能是一个更合适你的工具。
 
-在登录界面上，设置主机名为 `some-postgres` ，密码为`mysecret`。
+在登录界面上，设置主机名为 `some-postgres` ，密码为 `mysecret`。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iTf4Z6_ATNyE1VW3CTI5dg.png)
 
@@ -265,7 +265,7 @@ pgAdmin 是 PostgreSQL 最常见的 GUI 管理工具，但我们还有其他选�
 
 ## 参考资料
 
-所有优秀的开发者都依赖于产品文档和其他人员的经验。 这是我在创建工作流程和编写本文时引用的参考资料。
+所有优秀的开发者都依赖于产品文档和其他人员的经验。这是我在创建工作流程和编写本文时引用的参考资料。
 
 - [https://hub.docker.com/\_/postgres](https://hub.docker.com/_/postgres)
 - [https://hub.docker.com/\_/adminer](https://hub.docker.com/_/adminer)
