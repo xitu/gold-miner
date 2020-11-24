@@ -7,21 +7,15 @@
 
 # How to useRef to Fix React Performance Issues
 
-#### And how we stopped our React context from re-rendering everything
-
 ![Photo by the author.](https://cdn-images-1.medium.com/max/3208/1*ychn1nsfNdNxt4fRIz2qkw@2x.png)
 
 Refs are a seldom-used feature in React. If you’ve read the [official React guide](https://reactjs.org/docs/refs-and-the-dom.html), they’re introduced as an “escape hatch” out of the typical React data flow with a warning to use them sparingly. They’re primarily billed as the correct way to access a component’s underlying DOM element.
 
 But alongside the concept of Hooks, the React team introduced the `[useRef](https://reactjs.org/docs/hooks-reference.html#useref)` Hook, which extends this functionality:
 
-> # “`useRef()` is useful for more than the `ref` attribute. It’s [handy for keeping any mutable value around](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) similar to how you’d use instance fields in classes.” — [React’s documentation](https://reactjs.org/docs/hooks-reference.html)
+> “`useRef()` is useful for more than the `ref` attribute. It’s [handy for keeping any mutable value around](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) similar to how you’d use instance fields in classes.” — [React’s documentation](https://reactjs.org/docs/hooks-reference.html)
 
 While I overlooked this point when the new Hook APIs launched, it proved to be surprisingly useful.
-
-👉 [Click here to skip to the solution and code snippets](#f356).
-
----
 
 ## The Problem
 
@@ -49,11 +43,9 @@ The problem was whenever the user selected a cell or opened the side drawer, the
 
 The reason behind this is a key feature of context — the very reason why it’s better to use in React as opposed to global JavaScript variables:
 
-> # “All consumers that are descendants of a Provider will re-render whenever the Provider’s `value` prop changes.” — [React’s documentation](https://reactjs.org/docs/context.html)
+> “All consumers that are descendants of a Provider will re-render whenever the Provider’s `value` prop changes.” — [React’s documentation](https://reactjs.org/docs/context.html)
 
 While this Hook into React’s state and lifecycle had served us well so far, it seems we had now shot ourselves in the foot.
-
----
 
 ## The Aha Moment
 
@@ -65,15 +57,13 @@ We first explored a few different solutions (from [Dan Abramov’s post](https:/
 
 While reading through the Hook APIs and `useMemo` a few more times, I finally came across that point about `useRef`:
 
-> # “`useRef()` is useful for more than the `ref` attribute. It’s [handy for keeping any mutable value around](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) similar to how you’d use instance fields in classes.” — [React’s documentation](https://reactjs.org/docs/hooks-reference.html)
+> “`useRef()` is useful for more than the `ref` attribute. It’s [handy for keeping any mutable value around](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) similar to how you’d use instance fields in classes.” — [React’s documentation](https://reactjs.org/docs/hooks-reference.html)
 
 And more importantly:
 
-> # “`useRef` **doesn’t** notify you when its content changes. Mutating the `.current` property **doesn’t cause a re-render**.” — [React’s documentation](https://reactjs.org/docs/hooks-reference.html)
+> “`useRef` **doesn’t** notify you when its content changes. Mutating the `.current` property **doesn’t cause a re-render**.” — [React’s documentation](https://reactjs.org/docs/hooks-reference.html)
 
 And that’s when it hit me: We didn’t need to store the side drawer’s state. We only needed a reference to the function that sets that state.
-
----
 
 ## The Solution
 
@@ -108,8 +98,6 @@ This solution proved to be the best since:
 3. When either the current cell or open states are updated, it only triggers a re-render for the side drawer component and not any other component throughout the app.
 
 You can see how this is used in Firetable [on GitHub](https://github.com/AntlerVC/firetable/blob/master/www/src/components/SideDrawer/index.tsx#L37).
-
----
 
 ## When to useRef
 
