@@ -3,13 +3,13 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/create-a-private-postgresql-database-for-your-development-environment-in-seconds.md](https://github.com/xitu/gold-miner/blob/master/article/2020/create-a-private-postgresql-database-for-your-development-environment-in-seconds.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：[zenblo](https://github.com/zenblo)
+> - 校对者：[zenblo](https://github.com/zenblo),[hncboy](https://github.com/hncboy)
 
 # 在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库
 
 ![Photo by [Roi Dimor](https://unsplash.com/@roi_dimor?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/5948/0*msfDTPGlbTAD6DCs)
 
-通常很多开发者在开始一个项目的时候，会使用一个 JSON，CSV 或者其他文件来模拟真实存放在数据库中的数据。这是因为他们总是在没有真实的数据库环境限制和是否需要自己创建模拟数据库之间左右为难。既然这样，为什么不使用 Docker Compose 创建一个可以在几秒钟内创建、销毁和重新创建的 PostgreSQL 数据库**和监视工具**？
+很多开发者在开始一个新项目的时候，通常会使用 JSON，CSV 或者其他 Flat File 来模拟真实存放在数据库中的数据。这是因为他们总是在没有真实的数据库环境限制和是否需要自己创建模拟数据库之间左右为难。既然这样，为什么不使用 Docker Compose 定义一个可以在几秒钟内创建、销毁和重新创建的 PostgreSQL 数据库**和监视工具**？
 
 ![Image source: Author](https://cdn-images-1.medium.com/max/2068/0*DHWuzy6UNQ4T1_zl)
 
