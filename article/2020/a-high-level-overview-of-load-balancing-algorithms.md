@@ -2,78 +2,78 @@
 > * 原文作者：[Aastikta Sharma](https://medium.com/@aastiktasharma)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/a-high-level-overview-of-load-balancing-algorithms.md](https://github.com/xitu/gold-miner/blob/master/article/2020/a-high-level-overview-of-load-balancing-algorithms.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jackwener](https://github.com/jackwener)
+> * 校对者：[lsvih](https://github.com/lsvih)，[zenblo](https://github.com/zenblo)
 
-# A High-Level Overview of Load Balancing Algorithms
+# 简述网络层与应用层的负载均衡算法
 
 ![Photo by [Martin Sanchez](https://unsplash.com/@martinsanchez?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*5Q1kzxdcs6WZv19y)
 
-## Introduction
+## 负载均衡的简介
 
-**Load balancing** is the process of evenly distributing your network load across several servers. It helps in scaling the demand during peak traffic hours by helping spread the work uniformly. The server can be present in a cloud or a data center or on-premises. It can be either a physical server or a virtual one. Some of the main functions of a load balancer (LB) are:
+**负载平衡**是将网络负载均匀分布在多个服务器上的过程。它有助于处理流量高峰时的任务统一分配及扩大需求。服务器可以存在于云数据中心或本地。它可以是物理服务器，也可以是虚拟服务器。负载均衡器（LB）的一些主要功能包括：
 
-* Routes data efficiently
-* Prevents server overloading
-* Performs health checks for the servers
-* Provisions new server instances in the face of large traffic
+* 高效路由数据
+* 防止服务器过载
+* 检查服务器执行运行状况
+* 在面对大流量时提供新的服务器实例
 
-## Types of Load Balancing Algorithms
+## 负载均衡算法分类
 
-In the seven-layer OSI model, load balancing occurs from layers 4 (transport layer) to 7 (application layer).
+在 OSI 七层模型中，负载均衡主要应用在第 4 层（传输层）到第 7 层（应用层）。
 
 ![](https://cdn-images-1.medium.com/max/2808/1*A9uYwKDdWjmPVEPiKzSE0A.png)
 
-The different types of LB algorithms are effective in distributing the network traffic based on how the distribution of traffic looks, i.e., whether it’s network layer traffic or application layer traffic.
+根据流量的分布情况（譬如流量是网络层流量还是应用层流量），不同类型的负载均衡算法可以有效地分配网络流量。
 
-* The network layer traffic is routed by LB based on TCP port, IP addresses, etc.
-* The application layer traffic is routed based on various additional attributes like HTTP header, SSL, and it even provides content switching capabilities to LBs.
+* 负载均衡器根据TCP端口，IP底层路由网络层流量。
+* 应用层流量根据各种其他属性（如 HTTP 头，SSL）进行路由，甚至为负载均衡器提供内容交换功能。
 
-## Network Layer Algorithms
+## 网络层算法
 
-#### 1. Round-robin algorithm
+#### 1. 轮询算法（Round-robin algorithm）
 
-The traffic load is distributed to the first available server, and then that server is pushed down into the queue. If the servers are identical and there are no persistent connections, this algorithm can prove effective. There are two major types of round-robin algorithms:
+流量负载被分配到第一个可用的服务器，然后该服务器推到队列底。如果服务器是相同的，并且没有持久的连接，这个算法可以证明是有效的。主要有两种类型的循环算法：
 
-* **Weighted round-robin:** If the servers are not of identical capacity, then this algorithm can be used to distribute load. Some weights or efficiency parameters can be assigned to all the servers in a pool and based on that, in a similar cyclic fashion, load is distributed.
-* **Dynamic round-robin:** The weights that are assigned to a server to identify its capacity can also be calculated on runtime. Dynamic round-robin helps in sending the requests to a server based on runtime weight.
+* **加权轮询算法：**如果服务器容量不一样，可以用此算法分配负载。分配权重或者效率参数给池中的服务器并基于这些参数，以类似的循环方式分配负载
+* **动态轮询算法：**也可以在运行时计算分配给服务器以标识其容量的权重。动态轮询机制有助于根据运行时权重将请求发送到服务器
 
-#### 2. Least-connections algorithm
+#### 2. 最少连接算法（Least-connections algorithm）
 
-This algorithm calculates the number of active connections per server during a certain time and directs the incoming traffic to the server with the least connections. This is super helpful in the scenarios where a persistent connection is required.
+此算法计算特定时间内每个服务器的活动连接数，并将传入流量定向到连接最少的服务器。这在需要持久连接的情况下非常有用。
 
-#### 3. Weighted least-connections algorithm
+#### 3. 加权最小连接算法（Weighted least-connections algorithm）
 
-This is similar to the least-connections algorithm above but apart from the number of active connections to a server, it also keeps in mind the server capacity.
+这与上面的最少连接算法相似，但是除了考虑与服务器的活动连接数量外，它还考虑服务器容量。
 
-#### 4. Least-response-time algorithm
+#### 4. 最小响应时间算法（Least-response-time algorithm）
 
-This is again similar to the least-connections algorithm, but it also considers the response time of servers. The request is sent to the server with the least response time.
+这也类似于最少连接算法，但是它也考虑了服务器的响应时间。该请求以最短的响应时间发送到服务器。
 
-#### 5. Hashing algorithm
+#### 5. 哈希算法（Hashing algorithm）
 
-The different request parameters are used to determine where the request will be sent. The different types of algorithms based on this are:
+不同的请求参数决定请求将被发送到哪。基于此的不同类型的算法有：
 
-* **Source/destination IP hash:** The source and destination IP addresses are hashed together to determine the server that will serve the request. In case of a dropped connection, the same request can be redirected to the same server upon retry.
-* **URL hash:** The request URL is used for performing hashing, and this method helps in reducing duplication of server caches by avoiding storing the same request object in many caches.
+* **源/目的地址哈希：**源和目标 IP 地址一起哈希，确定为请求提供服务的服务器。如果连接断开，可以在重试时将同一请求重定向到同一服务器。
+* **URL 哈希：**哈希请求的 URL，此方法避免相同请求对象存储在许多缓存中，从而帮助减少服务器缓存的重复。
 
-#### 6. Miscellaneous algorithms
+#### 6. 其他算法（Miscellaneous algorithms）
 
-There are a few other algorithms as well, which are as follows:
+也有一些其他的算法，如下：
 
-* **Least-bandwidth algorithm:** The server with the least consumption of bandwidth in the last 14 minutes is selected by the load balancer.
-* **Least-packets algorithm:** Similar to above, the server that is transmitting the least number of packets is chosen by the load balancer to redirect traffic.
-* **Custom-load algorithm:** The load balancer selects the server based on the current load on it, which can be determined by memory, processing unit usage, response time, number of requests, etc.
+* **最小带宽算法：** 负载均衡器选择在过去 14 分钟内带宽消耗最少的服务器。
+* **最少数据包算法：** 类似上面，负载均衡器选择传输数据包数量最少的服务器以重定向流量。
+* **自定义负载算法：** 负载均衡器根据服务器上的当前负载来选择服务器，该负载可由内存，处理单元使用情况，响应时间，请求数等确定。
 
-## Application Layer Algorithms
+## 应用层算法
 
-At this layer, traffic can be distributed based on the contents of the request; hence, a much more informed decision can be made by LBs. The server response can be tracked as well since it has traveled all the way from the server, and this helps in determining the server load much more effectively.
+在这一层，可以根据请求的内容分配流量。因此，负载均衡器可以做出更明智的决定。由于它已经连接了所有从服务器来的路径，因此也可以跟踪服务器响应，这有助于更有效地确定服务器负载。
 
-One of the most significant algorithms used at this layer is the **least-pending-request algorithm**. This algorithm directs the traffic of pending HTTP(s) requests to the most available server. This algorithm is helpful in adjusting the sudden spike in requests by monitoring the server load.
+在此层使用的最重要的算法之一是**最少等待请求算法**。此算法将待处理的 HTTP 请求的流量定向到最可用的服务器。该算法有助于通过监视服务器负载来调整请求流量的突峰。
 
-## Conclusion
+## 总结
 
-These are some of the known load balancing algorithms, and while selecting the most desirable algorithm, a number of factors need to be considered, e.g., high traffic or sudden spikes. A good selection of algorithm helps in maintaining the reliability and performance of any application. Hence, a good understanding of these will prove helpful when designing large-scale distributed systems.
+这些是一些已知的负载均衡算法。在选择适用的算法时，需要考虑许多因素，例如，高流量或突然的峰值。好的算法选择有助于维持应用程序的可靠性和较高性能。因此，对这些内容有良好了解，将在设计大型分布式系统时很有帮助。。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
