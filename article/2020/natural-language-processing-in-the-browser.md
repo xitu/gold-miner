@@ -119,7 +119,7 @@ npm run build
 </html>
 ```
 
-函数 `setupNLP` 处理库的安装和训练。语料库是一个 JSON 文件，它以下面的格式定义聊天机器人的对话:
+函数 `setupNLP` 负责处理库的安装和训练。语料库是一个 JSON 文件，它以下面的格式定义了聊天机器人的对话:
 
 ```JSON
 {
@@ -168,7 +168,7 @@ npm run build
 }
 ```
 
-**intent** 是会话节点的唯一标识符，它的值应该代表与机器人对话的用户的意图。 **Utterances** 是一系列关于用户可以说什么来触发意图的培训示例. **Answers** 是一组聊天机器人可以从里面随机选择的回答。
+**intent** 是会话节点的唯一标识符，它的值应该代表与机器人对话的用户的意图。 **Utterances** 是一系列关于用户可以说什么来触发意图的培训示例。 **Answers** 是一组聊天机器人可以从里面随机选择的回答。
 
 为了训练聊天机器人，我们从 [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) 借用更大的语料库。你也可以为你的用例随意创建自己的语料库。只要记住一点，库需要从 URL 读取语料库。
 
