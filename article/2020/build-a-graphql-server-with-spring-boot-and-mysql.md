@@ -5,25 +5,25 @@
 > * 译者：
 > * 校对者：
 
-# 使用 SPringBoot 和 MySQL 构建 GraphQL 服务端应用程序
+# 使用 SpringBoot 和 MySQL 构建 GraphQL 服务端应用程序
 
 ![Photo modified by me using resources of [John Peel](https://unsplash.com/@johnpeel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/3840/1*zttc2YOayk-LuiTYy18c9A.png)
 
-你是否考虑过客户端直接控制 API 请求？客户端能否请求其所需要的数据并精确获取？如果你对这些问题感到惊讶，我敢肯定你从来没了解过 GraphQL。
+你是否考虑过客户端直接控制 API 请求？客户端能否请求其实际需要的数据并精确获取？如果你对这些问题感到惊讶，我敢肯定你从来没听说过 GraphQL。
 
 上述问题的答案是肯定的，因为使用 GraphQL 就可以实现。如果你没听说过，不必担心。我将带领你走进最新的、令人惊叹的 GraphQL 世界，并且如果本文给你带来巨大的收益，你就不会感到遗憾。
 
-一般来说，你需要熟悉 Java 语言、Spring Boot 框架和 REST APIs 相关知识。不需要你有过使用 GraphQL 的经历。你可能对这个话题非常有兴趣。那还等什么呢？但在编码之前，我会大致介绍 GraphQL，以及它如此别具一格的原因。
+一般来说，你需要熟悉 Java 语言、Spring Boot 框架和 REST APIs 相关知识。不需要你有过使用 GraphQL 的经历。你可能对这个话题非常有兴趣。那还等什么呢？但在上手实践之前，我会大致介绍 GraphQL，以及它独具特色的原因。
 
 ## 入手 GraphQL 的第一步
 
 我想，你可能在努力寻找关于 GraphQL 的相关信息吧。GraphQL 到底是什么呢？深呼吸一下，听我道来。简单的来说，它是一种数据查询和操作语言，可以在 API 中使用。
 
-GraphQL 暴露了一个简易的终端，可以用于从前端接收查询请求，并返回相应的查询结果，而且可以根据需要，精准获取部分数据。所以我不得不说：不要低估这个通用客户端的功能。
+GraphQL 提供了一个简易的终端，可以用于从前端接收查询请求，并返回相应的查询结果，而且可以根据需要，精准获取部分数据。所以我不得不说：不要低估这个通用客户端的功能。
 
 看了这幅 GIF 图片，就清晰明了了。这也是我们将要实现的应用程序的一部分功能。
 
-![GraphQL如何运行](https://cdn-images-1.medium.com/max/3472/1*aXd1Atpt9B8QI2s9r3r_Ew.gif)
+![GraphQL 如何运行](https://cdn-images-1.medium.com/max/3472/1*aXd1Atpt9B8QI2s9r3r_Ew.gif)
 
 GraphQL 如今在数以百计、大大小小的公司广泛使用，包括 Facebook（GraphQL 本来就是由 Facebook 于2012年发明的，并于2015年开源）、Credit Karma、GitHub、Intuit、PayPal、the New York Times 等等。
 
@@ -31,11 +31,11 @@ GraphQL 如今在数以百计、大大小小的公司广泛使用，包括 Faceb
 
 ## GraphQL 与 REST 的对比
 
-由于 RESTAPI 的广泛使用，我们都对它很熟悉。但如今，使用 GraphQL 是大势所趋，因为它更灵活、性能更好。
+由于 REST API 的广泛使用，我们都对它很熟悉。但如今，使用 GraphQL 是大势所趋，因为它更灵活、性能更好。
 
 那么，REST 和 GraphQL 本质上有什么不同呢？REST 是一种开发网络应用程序的架构思想。而 GraphQL 是一种查询语言、一种技术规范和一系列单点操作工具的集合。我来举个例子，让大家更好地了解这些内容。
 
-假定你需要查询书本信息。同时，你还要查询作者信息（书本和作者是两个不同地实体）。典型的方法是发送两个 GET 类型的请求。
+假定你需要查询书本信息。同时，你还要查询作者信息（书本和作者是两个不同的实体）。典型的方法是发送两个 GET 类型的请求。
 
 ```
 localhost:8080/book/:id
@@ -49,7 +49,7 @@ localhost:8080/author/:id
 localhost:8080/graphql
 ```
 
-正如前面的那幅 GIF 图片中那样，如果你要在一个终端把一些信息归集起来，可以过滤某些不需要的字段。但如果使用 REST，只能得到全部的数据集，不能获取某些指定的字段。
+正如前面的那幅 GIF 图片中那样，如果你要在一个终端把一些信息归集起来，可以过滤某些不需要的字段。但如果使用 REST，只能得到全部的数据集，无法过滤某些数据。
 
 
 有时候，响应的数据不能直接使用（比如嵌套的数据），你为了获取实际需要的数据只得另行请求。但另一方面，响应的数据有很多是你并不需要的，你只需要一两个字段。
@@ -60,7 +60,7 @@ localhost:8080/graphql
 
 使用 GraphQL 的一个额外好处是，由于不需要处理大量数据，应用程序的性能将会大幅度提升。任何性能上的提升都是巨大的胜利。
 
-许多编程语言，比如 Java、JavaScript、Python、Scala等等，都支持 GraphQL。你可以访问[GraphQL 官网](https://graphql.org/code/)了解各种服务端和客户端语言的相关信息。
+许多编程语言，比如 Java、JavaScript、Python、Scala 等等，都支持 GraphQL。你可以访问[GraphQL 官网](https://graphql.org/code/)了解各种服务端和客户端语言的相关信息。
 
 由于我比较熟悉 Java 和 JavaScript，关于这些技术的文章较少，我考虑写一个 Spring Boot 应用程序。也有一些关于 Node.js 的文章和手册，实现它并不难。
 
@@ -81,7 +81,7 @@ localhost:8080/graphql
 确保项目中添加了这些依赖。
 
 
-1. JPA: 用于处理大多数基于 JDBC 的数据库访问操作，减少 JPA 中的模板文件代码
+1. Spring Data JPA: 用于处理大多数基于 JDBC 的数据库访问操作，减少 JPA 中的模板文件代码
 2. MySQL Driver: 用于管理 Java 程序与 MySQL 数据库的连接
 3. Lombok: 减少模型对象类中的代码，使用 Lombok 注解可以自动创建 get/set 方法。
 
@@ -253,10 +253,10 @@ spring.jpa.hibernate.ddl-auto=create
 
 好，你可以看到，项目的基础架构正常运行。我们继续后面的步骤。
 
-## 释放野性：为项目装配 GraphQL 相关功能
+## 重点环节：为项目装配 GraphQL 相关功能
 
 先做重要的事！你需要为项目添加 GraphQL 依赖。
-在 pom.xml 文件的 dependencies 节点中加入这两个依赖包，并点击右上角的**m**图标，更新项目。
+在 pom.xml 文件的 dependencies 节点中加入这两个依赖包，并点击右上角的 **m** 图标，更新项目。
 
 ```
 <!-- GraphQL dependencies -->
@@ -288,7 +288,7 @@ type Director {
 
 在 Java 等语言中，有很多原始的和非原始的数据类型。但在这里我们只需要了解这几个数据类型(也可称为 Scalar 类型)。
 
-* Int: 有符号的32位整型
+* Int: 有符号的 32 位整型
 * Float: 有符号的双精度浮点值
 * String: 使用 UTF-8 编码的字符串
 * Boolean: 取值范围为 true/false
@@ -302,7 +302,7 @@ type Director {
 1. Query: 获取数据的入口
 2. Mutation: 更新数据的入口
 
-关于这些概念，你可以访问[GraphQL 官网](https://graphql.org)了解更多。
+关于这些概念，你可以访问 [GraphQL 官网](https://graphql.org)了解更多。
 
 OK，我们来定义模式。需要在资源目录下创建 graphql 目录，并在 graphql 目录中创建一个 schema.graphqls 文件。（需要确保文件的扩展名为 .graphqls，它是一个模式文件）
 
@@ -372,7 +372,7 @@ public class UserService implements GraphQLQueryResolver {
 
 然后，为了获取数据库连接，我把 UserRepository 类的对象自动注入到 UserService 中。(当然这种注入方式不建议在最终版本中使用。你应该点击 Autowired 注解，接着代码区域左侧会出现黄色图标，再点击这个黄色图标，会弹出推荐的做法，然后根据系统推荐的做法修改代码)
 
-现在你应该想到 GraphQL 模式文件中的 `getALlUsers` 字段。它跟 UserService类中的方法名一样。所以我在这个类中定义此方法，并像模式文件中声明的那样返回 User 对象的列表。
+现在你应该想到 GraphQL 模式文件中的 `getALlUsers` 字段。它跟 UserService 类中的方法名一样。所以我在这个类中定义此方法，并像模式文件中声明的那样返回 User 对象的列表。
  
 ![Folder structure and the service layer](https://cdn-images-1.medium.com/max/2672/1*dFmcMBaBBUTF8YAJkKweYg.png)
 
@@ -499,13 +499,13 @@ public class UserService implements GraphQLQueryResolver, GraphQLMutationResolve
 
 除了 Query 和 Mutation，GraphQL 还支持一种操作类型，叫做 **subscriptions**。
 
-与 Query 类似,subscription 提供数据查询功能。但它跟 Query 又有所不同，它跟 GraphQL 服务端保持着连接（通俗的来说是使用 Web Socket 维持连接）。它能提供服务端主动推送更新消息的功能。
+与 Query 类似，subscription 提供数据查询功能。但它跟 Query 又有所不同，它跟 GraphQL 服务端保持着连接（通俗的来说是使用 Web Socket 维持连接）。它能提供服务端主动推送更新消息的功能。
 
 如果需要把后台更新的数据实时通知到客户端，比如用户通知、重要更新、文件修改等，subscription 很有用。
 
 关于 GraphQL 的使用，还有很多话题可以讨论，比如错误处理、跟 spring-security 的整合、文本验证等等。关于这些话题，我也会发一些文章，供大家学习参考。
 
-## 小结
+## 总结
 
 这是关于本文内容的一个[小型示范项目](https://youtu.be/D_YDhxLtjpI)，项目完整的源代码见下面的 Github 仓库。
 
