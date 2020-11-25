@@ -7,8 +7,6 @@
 
 # Dark Theme: A Modern UI Design
 
-#### Using black correctly in UI design
-
 ![Photo by [Mathew Schwartz](https://unsplash.com/@cadop?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6500/0*-6vxFqCRAb7BkbAE)
 
 User Experience and User Interface are the fundamental concern of any successful software. Thus, developers have identified and adopted the dark themed interfaces (as an optional theme) to serve users and help them reduce eye strain, especially in low-light or in the dark.
@@ -29,8 +27,6 @@ Why people prefer dark mode:
 * Fewer eye strains mean fewer headaches and better work experience.
 
 As much as high color contrasts can improve readability, pure black and white contrasts can take more time to read by the user.
-
----
 
 ## Choosing the color palette
 
@@ -56,33 +52,29 @@ To get the dark theme is **not** to simply invert the colors. Some colors in the
 
 Using the same color for all layers hinders good UI design practice and may result in poor readability. Therefore, using lighter shades for higher layers and darkening towards the lower layers is recommended. This creates a visual hierarchy that goes from the most used elements in your display to the least.
 
----
-
 ## Suggested background colors for white text
 
 A survey by the [American Optometric Association’s](https://www.aoa.org/?sso=y) (AOA)has found that 58% of the adult in the US have experienced eye strain from working on computers. Therefore, here are a few suggestions by [Rushabh Kulkarni](https://www.instagram.com/rushabhuix/?hl=en) from [UX Bucket](https://uxbucket.com/author/rushabh-kulkarni/) for designing dark themes.
 
 I suggest viewing these colors in the dark mode on the Medium mobile app (beta) for better visual clarity. Sadly, dark mode is not available for the web. However, you can achieve it by installing a [chrome extension](https://chrome.google.com/webstore/detail/medium-dark-mode/kofkfocgjmlajkbkecljhbalihcpliih?hl=en).
 
-#### #303030
-[**HEX color #303030, Color name: Night Rider, RGB(48,48,48), Windows: 3158064. - HTML CSS Color**
-**303030 (or 0x303030) is unknown color: approx Night Rider. HEX triplet: 30, 30 and 30. RGB value is (48,48,48). Sum of…**www.htmlcsscolor.com](https://www.htmlcsscolor.com/hex/303030)
+#### \#303030
 
-#### #2B2B2B
-[**HEX color #2B2B2B, Color name: Night Rider, RGB(43,43,43), Windows: 2829099. - HTML CSS Color**
-**2B2B2B (or 0x2B2B2B) is unknown color: approx Night Rider. HEX triplet: 2B, 2B and 2B. RGB value is (43,43,43). Sum of…**www.htmlcsscolor.com](https://www.htmlcsscolor.com/hex/2B2B2B)
+[**HEX color #303030, Color name: Night Rider, RGB(48,48,48), Windows: 3158064](https://www.htmlcsscolor.com/hex/303030)
 
-#### #1F1F1F
-[**HEX color #1F1F1F, Color name: Nero, RGB(31,31,31), Windows: 2039583. - HTML CSS Color**
-**1F1F1F (or 0x1F1F1F) is unknown color: approx Nero. HEX triplet: 1F, 1F and 1F. RGB value is (31,31,31). Sum of RGB…**www.htmlcsscolor.com](https://www.htmlcsscolor.com/hex/1F1F1F)
+#### \#2B2B2B
 
-#### #1B1C1E
-[**HEX color #1B1C1E, Color name: Black Russian, RGB(27,28,30), Windows: 1973275. - HTML CSS Color**
-**1B1C1E (or 0x1B1C1E) is unknown color: approx Black Russian. HEX triplet: 1B, 1C and 1E. RGB value is (27,28,30). Sum…**www.htmlcsscolor.com](https://www.htmlcsscolor.com/hex/1B1C1E)
+[**HEX color #2B2B2B, Color name: Night Rider, RGB(43,43,43), Windows: 2829099](https://www.htmlcsscolor.com/hex/2B2B2B)
+
+#### \#1F1F1F
+
+[**HEX color #1F1F1F, Color name: Nero, RGB(31,31,31), Windows: 2039583](https://www.htmlcsscolor.com/hex/1F1F1F)
+
+#### \#1B1C1E
+
+[**HEX color #1B1C1E, Color name: Black Russian, RGB(27,28,30), Windows: 1973275](https://www.htmlcsscolor.com/hex/1B1C1E)
 
 As you can see for yourself, these shades aren't pure black and white and are much readable. And scrolling down from #303030 to #1B1C1E, we can visualize that the background color gets deeper and darker when scrolling down.
-
----
 
 ## The dark mode is not black mode!
 
@@ -111,8 +103,6 @@ Instagram uses a theme with more black compared to other apps. The black is comp
 As I have mentioned above, there are other big companies like Google, Facebook, Apple, etc., that have introduced dark mode to their products with their preferred matching colors.
 
 Therefore, dark mode isn't always shades of black and white. It can be different and customized to the color combination of the business, organization, or client’s preference.
-
----
 
 ## Conclusion
 
