@@ -2,8 +2,8 @@
 > * 原文作者：[Shesh](http://www.sheshbabu.com/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md](https://github.com/xitu/gold-miner/blob/master/article/2020/rust-wasm-yew-single-page-application.md)
-> * 译者：[Derek](https://github.com/derekdick)
-> * 校对者：[loststar](https://github.com/loststar), [lsvih](https://github.com/lsvih)
+> * 译者：[Jianfeng Hou](https://github.com/derekdick)
+> * 校对者：[loststar](https://github.com/loststar), [zenblo](https://github.com/zenblo), [lsvih](https://github.com/lsvih)
 
 # 使用 Rust 构建单页应用
 
