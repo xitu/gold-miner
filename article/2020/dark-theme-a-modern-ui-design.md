@@ -60,19 +60,19 @@ I suggest viewing these colors in the dark mode on the Medium mobile app (beta) 
 
 #### \#303030
 
-[**HEX color #303030, Color name: Night Rider, RGB(48,48,48), Windows: 3158064](https://www.htmlcsscolor.com/hex/303030)
+[HEX color #303030, Color name: Night Rider, RGB(48,48,48), Windows: 3158064](https://www.htmlcsscolor.com/hex/303030)
 
 #### \#2B2B2B
 
-[**HEX color #2B2B2B, Color name: Night Rider, RGB(43,43,43), Windows: 2829099](https://www.htmlcsscolor.com/hex/2B2B2B)
+[HEX color #2B2B2B, Color name: Night Rider, RGB(43,43,43), Windows: 2829099](https://www.htmlcsscolor.com/hex/2B2B2B)
 
 #### \#1F1F1F
 
-[**HEX color #1F1F1F, Color name: Nero, RGB(31,31,31), Windows: 2039583](https://www.htmlcsscolor.com/hex/1F1F1F)
+[HEX color #1F1F1F, Color name: Nero, RGB(31,31,31), Windows: 2039583](https://www.htmlcsscolor.com/hex/1F1F1F)
 
 #### \#1B1C1E
 
-[**HEX color #1B1C1E, Color name: Black Russian, RGB(27,28,30), Windows: 1973275](https://www.htmlcsscolor.com/hex/1B1C1E)
+[HEX color #1B1C1E, Color name: Black Russian, RGB(27,28,30), Windows: 1973275](https://www.htmlcsscolor.com/hex/1B1C1E)
 
 As you can see for yourself, these shades aren't pure black and white and are much readable. And scrolling down from #303030 to #1B1C1E, we can visualize that the background color gets deeper and darker when scrolling down.
 
