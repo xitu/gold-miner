@@ -58,8 +58,6 @@ const { name } = me
 
 在上面的例子中，我们声明了一个名为 `name` 的变量，该变量将从对象 `me` 中获得相同名称的初始化属性，因此当我们测试 `name` 的值时，我们得到 `Juan`。厉害！同样可以应用到其它对象。回到我们的例子：
 
-
-
 ```js
 const { title, rating, author: { name } } = article
 ```
