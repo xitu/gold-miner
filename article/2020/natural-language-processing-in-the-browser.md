@@ -9,13 +9,13 @@
 
 ![Image source: Author](https://cdn-images-1.medium.com/max/3192/1*X-jYECtYbLdX_c7GRz_DTQ.png)
 
-在不依赖诸如[Dialogflow](https://cloud.google.com/dialogflow/docs)等第三方服务和服务端的情况下，搭建自己网站的聊天机器人也是可行的。我会教你如何搭建一个完全运行在浏览器中的聊天机器人。
+在不依赖诸如 [Dialogflow](https://cloud.google.com/dialogflow/docs) 等第三方服务和服务端的情况下，搭建自己网站的聊天机器人也是可行的。我会教你如何搭建一个完全运行在浏览器中的聊天机器人。
 
 我假设你对 JavaScript 和自然语言处理的工作原理有一定的了解。其他高级的知识或机器学习经验都不需要。
 
 如果有人告诉你在浏览器中使用 JavaScript 进行机器学习简直是疯了，不要理他，因为很快你就会明白。
 
-我们的代码基于[NLP.js](https://github.com/axa-group/nlp.js) 版本 4。[NLP](https://github.com/axa-group/nlp.js) 是一个用 JavaScript 编写的用于自然语言处理的开源库。该项目将允许您从语料库直接在浏览器中训练 NLP，并添加一个钩子以编程方式更改答案。
+我们的代码基于 [NLP.js](https://github.com/axa-group/nlp.js) 版本 4。[NLP](https://github.com/axa-group/nlp.js) 是一个用 JavaScript 编写的用于自然语言处理的开源库。该项目将允许您从语料库直接在浏览器中训练 NLP，并添加一个钩子以编程方式更改答案。
 
 完整的项目在我的 GitHub 仓库: [https://github.com/MeetMartin/nlpjs-web](https://github.com/MeetMartin/nlpjs-web)。 你可以下载并打开 index.html 就可以和聊天机器人玩耍了。
 
@@ -77,7 +77,7 @@ window.nlpjs = { ...core, ...nlp, ...langenmin, ...requestrn };
 npm run build
 ```
 
-你应该得到了一个大约有 137 KB 的 `./dist/bundle.js`。 值得注意的是 NLP 拥有一个 [非常棒的受支持的语言列表](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages)。然而，只有英文才有针对浏览器优化的版本。
+你应该得到了一个大约有 137 KB 的 `./dist/bundle.js`。 值得注意的是 NLP 拥有一个[非常棒的受支持的语言列表](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages)。然而，只有英文才有针对浏览器优化的版本。
 
 ## 在浏览器中训练 NLP
 
