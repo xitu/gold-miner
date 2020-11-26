@@ -2,98 +2,98 @@
 > * 原文作者：[Yasas Sandeepa](https://medium.com/@yasassandeepa007)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-graphql-server-with-spring-boot-and-mysql.md](https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-graphql-server-with-spring-boot-and-mysql.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[zenblo](https://github.com/zenblo), [regon-cao](https://github.com/regon-cao)
 
-# Build a GraphQL Server With Spring Boot and MySQL
+# 使用 SpringBoot 和 MySQL 构建 GraphQL 服务端应用程序
 
 ![Photo modified by me using resources of [John Peel](https://unsplash.com/@johnpeel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/3840/1*zttc2YOayk-LuiTYy18c9A.png)
 
-Have you ever wondered that a client can impact an API request? Can he request what he actually needs and get exactly that? If you’re surprised by the questions, I can confirm that you’ve never heard about GraphQL.
+你是否考虑过客户端直接控制 API 请求？客户端能否请求其实际需要的数据并精确获取？如果你对这些问题感到惊讶，我敢肯定你从来没听说过 GraphQL。
 
-So the answer to the above questions will be a definite yes because it’s 100% possible with GraphQL. If you have not heard about it, don’t worry. I’ll walk you through this newest and amazing GraphQL world and you won’t be regret if you get the maximum benefit from this article.
+上述问题的答案是肯定的，因为使用 GraphQL 就可以实现。如果你没听说过，不必担心。我将带领你走进最新的、令人惊叹的 GraphQL 世界，并且如果本文给你带来巨大的收益，你就不会感到遗憾。
 
-I hope that you are familiar with the Java programming language, the Spring Boot framework, and REST APIs in general. No prior GraphQL experience is required to continue. I know already you are excited about this topic. So why are we waiting? But before moving to the coding, I’ll give a quick overview of GraphQL and the reasons that make it so special.
+一般来说，你需要熟悉 Java 语言、Spring Boot 框架和 REST APIs 相关知识。不需要你有过使用 GraphQL 的经历。你可能对这个话题非常有兴趣。那还等什么呢？但在上手实践之前，我会大致介绍 GraphQL，以及它独具特色的原因。
 
-## The First Step to GraphQL
+## 入手 GraphQL 的第一步
 
-I know what your mind is struggling to find right now. What the heck is this GraphQL? Take a deep breath and let me explain. Simply it’s a data query and manipulation language for your API.
+我想，你可能在努力寻找关于 GraphQL 的相关信息吧。GraphQL 到底是什么呢？深呼吸一下，听我道来。简单的来说，它是一种数据查询和操作语言，可以在 API 中使用。
 
-GraphQL exposes a single endpoint that receives a query from the front-end as part of the request, returning exactly the requested parts of data in a single response. Of course, I must say: Don’t underestimate the power of a common client.
+GraphQL 提供了一个简易的终端，可以用于从前端接收查询请求，并返回相应的查询结果，而且可以根据需要，精准获取部分数据。所以我不得不说：不要低估这个通用客户端的功能。
 
-You can get a clear idea by viewing this GIF. Also, this is a part of the app that we are about to implement today.
+看了这幅 GIF 图片，就清晰明了了。这也是我们将要实现的应用程序的一部分功能。
 
-![How GraphQL works](https://cdn-images-1.medium.com/max/3472/1*aXd1Atpt9B8QI2s9r3r_Ew.gif)
+![GraphQL 如何运行](https://cdn-images-1.medium.com/max/3472/1*aXd1Atpt9B8QI2s9r3r_Ew.gif)
 
-GraphQL is used in production by hundreds of organizations of all sizes including Facebook (Actually GraphQL was internally developed by Facebook in 2012 and then it publicly open-sourced in 2015 ), Credit Karma, GitHub, Intuit, PayPal, the New York Times, and many more.
+GraphQL 如今在数以百计、大大小小的公司广泛使用，包括 Facebook（GraphQL 本来就是由 Facebook 于2012年发明的，并于2015年开源）、Credit Karma、GitHub、Intuit、PayPal、the New York Times 等等。
 
-Hey, wait a minute! What’s about REST then. Isn’t it worthy enough anymore? Check this out!
+嘿，等等。需要介绍一下 REST。难道它还不够有用吗？我们来了解一下这个。
 
-## The Battle: GraphQL Vs REST
+## GraphQL 与 REST 的对比
 
-Mostly we are familiar with REST APIs in web developments as it is widely using all over the world. But recently, there is a tendency to move to GraphQL because of its flexibility and performance.
+由于 REST API 的广泛使用，我们都对它很熟悉。但如今，使用 GraphQL 是大势所趋，因为它更灵活、性能更好。
 
-So what is the core difference between REST and GraphQL? REST is an architectural concept for network-based software. GraphQL, on the other hand, is a query language, a specification, and a set of tools that operates over a single endpoint. Let me clear this up with an example.
+那么，REST 和 GraphQL 本质上有什么不同呢？REST 是一种开发网络应用程序的架构思想。而 GraphQL 是一种查询语言、一种技术规范和一系列单点操作工具的集合。我来举个例子，让大家更好地了解这些内容。
 
-Imagine you would like to request information from a book entity. At the same time, you’d like to request information about the author (which is a different entity). Typically this is done by sending two requests to the REST API (two GET requests). Endpoints for books and authors might be:
+假定你需要查询书本信息。同时，你还要查询作者信息（书本和作者是两个不同的实体）。典型的方法是发送两个 GET 类型的请求。
 
 ```
 localhost:8080/book/:id
 localhost:8080/author/:id
 ```
 
-But with GraphQL, we can fetch not only these two but any information
-from one single API endpoint.
+
+但使用 GraphQL 就可以通过一个单一的 API 端点获取到所有信息。
 
 ```
 localhost:8080/graphql
 ```
 
-Also as you saw in my previous GIF, if you wanted to gather some information from a specific endpoint, we can limit the fields that the GraphQL API returns. But in REST, you’ll always get a complete data set and impossible to limit.
+正如前面的那幅 GIF 图片中那样，如果你要在一个终端把一些信息归集起来，可以过滤某些不需要的字段。但如果使用 REST，只能得到全部的数据集，无法过滤某些数据。
 
-Sometimes the response data are insufficient (like nested results) and you
-have to make another request to get what you actually needed. On the other hand, incoming response data are too much (not necessary) and you are only using one or two data fields.
 
-This phenomenon is referred to as under-fetching and over-fetching. GraphQL resolves these issues and optimizes your application. By comparing REST with GraphQL, it’s like a restaurant without a waiter.
+有时候，响应的数据不能直接使用（比如嵌套的数据），你为了获取实际需要的数据只得另行请求。但另一方面，响应的数据有很多是你并不需要的，你只需要一两个字段。
 
-However with GraphQL, there is a learning curve, which is not nearly as established as REST APIs, but that learning curve is worth it. When creating user-friendly large applications, the user will be more delighted if he received only the data he requested and nothing else.
+这种现象称为读取不足和过度读取。GraphQL 可以解决这些问题，优化你的程序。REST 跟 GraphQL 相比，REST 就像是一家没有服务员的餐厅。
 
-As an added bonus, the performance of your application will tremendously increase because you’re not having to process a large amount of data. (The best example is the Facebook app) At scale, any performance improvements you can gain are big wins.
+无论如何，使用 GraphQL 必然存在学习曲线，它与 REST API 固然存在一些差别，但是它确实值得学习。如果你能开发用户友好的大型应用程序，用户只获取到他需要的数据，没有其他多余的东西，也是令人满意的。
 
-Many different programming languages support GraphQL like Java, JavaScript, Python, Scala, etc. You can find more info on the server and client-side languages by visiting [GraphQL official site](https://graphql.org/code/).
+使用 GraphQL 的一个额外好处是，由于不需要处理大量数据，应用程序的性能将会大幅度提升。任何性能上的提升都是巨大的胜利。
 
-As I’m more familiar with Java and JavaScript, I thought of going Spring Boot application as there are a lesser number of supportive articles to that technology. There are reasonable articles/tutorials on Node.js and it’s not hard to implement with it.
+许多编程语言，比如 Java、JavaScript、Python、Scala 等等，都支持 GraphQL。你可以访问[GraphQL 官网](https://graphql.org/code/)了解各种服务端和客户端语言的相关信息。
 
-However, if you want an article on implementing a GraphQL server with Node.js, please drop a message in the comments section and I’m extremely happy to write up a separate article on that as well.
+由于我比较熟悉 Java 和 JavaScript，关于这些技术的文章较少，我考虑写一个 Spring Boot 应用程序。也有一些关于 Node.js 的文章和手册，实现它并不难。
 
-Okay, enough talking. Let’s go to some practical stuff. Nothing better than getting a hands-on experience.
+如果你需要了解如何使用 Node.js 实现 GraphQL 服务端，请在评论区留言，我也很愿意就此话题写一篇文章。
 
-## The Foundation: Setting Up the Project
+好，讨论够了。我们进入实践环节。没有什么比亲自动手实践更好的方法了。
 
-As a simple scenario, I’m creating an app for fetching users and their posts. I am naming this as **WriteUp** and hoping to further develop it in the future.
+## 基础：创建项目
 
-I’ll be implementing this from scratch. If you are familiar with spring boot, go through this quickly by skipping the basics. So as the first thing, create your new Spring Boot application either through [Spring Initializr](https://start.spring.io/) or with IntelliJ idea.
+我正着手开发一个 APP，实现获取用户和他们发的帖子的功能。我把这个项目命名为 **WriteUp**，以后还要进行二次开发。
 
+我从头开始开发这个 APP。如果你熟悉 Spring Boot，可以快速浏览这部分基础的内容。第一步，我们需要使用 [Spring Initializr](https://start.spring.io/) 或IntelliJ idea 新建 Spring Boot 工程。
+ 
 ![](https://cdn-images-1.medium.com/max/3190/1*DEPldJV7a6gZfG_VGlr1HQ.png)
 
 ![Screenshots provided by the author.](https://cdn-images-1.medium.com/max/3384/1*ZueIgy3oLM7lND_Eo-4leQ.png)
 
-Make sure to add these dependencies.
+确保项目中添加了这些依赖。
 
-1. Spring Data JPA: Handles most of the complexity of JDBC-based database access and ORM (Object Relational Mapping)
-reduces the boilerplate code required by JPA.
-2. MySQL Driver: Java MySQL connector for connecting with SQL database.
-3. Lombok: Reduce boilerplate code for model/data objects. It can automatically generate getters and setters (and many more) for those objects by using Lombok annotations.
+
+1. Spring Data JPA: 用于处理大多数基于 JDBC 的数据库访问操作，减少 JPA 中的模板文件代码
+2. MySQL Driver: 用于管理 Java 程序与 MySQL 数据库的连接
+3. Lombok: 减少模型对象类中的代码，使用 Lombok 注解可以自动创建 get/set 方法。
 
 ![Screenshot provided by the author.](https://cdn-images-1.medium.com/max/2740/1*gj881gOHnanEEmyWoStkEw.png)
 
-All okay. Take a quick break and let the IntelliJ to resolve the dependencies.
+一切就绪。我们休息一会儿，等待 IntelliJ 为项目配置依赖。
 
-## The Essentials: Configuring the Basics
+## 要点：配置基础
 
-As for the initial setup, we can create the entity models and add some dummy data to our MySQL database.
+至于初始化设置，我们可以创建实体模型并向 MySQL 数据库添加一些虚拟数据。
 
-For that, I created a new package in the root folder and named it as the model, and inside that package, I define my two models user and post. With Lombok, code is clean and no need of generating setters and getters as they can be inserted with annotations. But remember, you have to create a constructor without id fields as it will be required when instantiating.
+我创建了一个包，命名为 model，在这个包中定义了 User 和 Post 两个类，代码较为简洁，由于有注解，get/set 方法会自动生成，就不需要定义了。但切记，你必须创建一个不包含 ID 字段的构造方法，这个构造方法在实例化时会被调用。
 
 ![User and Post Entities](https://cdn-images-1.medium.com/max/3840/1*rSxPRxwWgyq1ZF5AiwF2OQ.png)
 
@@ -143,9 +143,9 @@ public class User {
 }
 ```
 
-Let’s create a repository layer to connect with the database. So, I created a new package named repository, and inside of that, I created two interfaces for the entities and extends with `JpaRepository` . Make sure to add the type of entity and ID specifically in the generic parameters on `JpaRepository`.
+我们来创建 repository 层，它是用于与数据库建立连接的。我新建一个名为 repository 的包，在此包中创建两个 JpaRepository 的子接口，分别对应于 User 和 Post。
 
-We can extend with `CrudRepository`, but I mostly prefer `JpaRepository` because it’s returning a list in find methods rather than an iterable list provided by the curd one. (Also if you want to find more info about these repositories, you can use [this](https://stackoverflow.com/questions/14014086/what-is-difference-between-crudrepository-and-jparepository-interfaces-in-spring) thread.)
+可以继承 CrudRepository，但我更倾向于继承 JpaRepository，因为它的 find 方法返回一个普通列表对象，不像 CrudRepository 那样返回可迭代列表对象。(欲详细了解这些 Repository 接口，可以点击查看[这里](https://stackoverflow.com/questions/14014086/what-is-difference-between-crudrepository-and-jparepository-interfaces-in-spring))。
 
 ```Java
 package com.example.writeup.repository;
@@ -161,7 +161,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 ```
 
-Then I implemented a component to add some dummy data to our database. For that, I created a service package, and inside of that, I define a data loader service. This will add the specified data when initializing the project.
+接着，我写一个组件类，向数据库添加虚拟数据。还需要创建 service 包，在这个包里定义一个 DataLoader 类。这个类负责在应用程序初始化时添加某些虚拟数据。
 
 ```Java
 package com.example.writeup.service;
@@ -229,7 +229,7 @@ public class DataLoader {
 
 ```
 
-Okay great! Now you have to do the configuration in `application.properties` Make sure to create a new database named as writeup and provide correct credentials to connect with MySQL database.
+好了。现在你需要在 application.properties 文件中进行配置。同时也要确保已经创建了数据库，并且在应用程序中设置了可与 MySQL 数据库建立连接的凭证。
 
 ```Java Properties
 server.port=7000
@@ -243,20 +243,20 @@ spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=create
 ```
 
-All the basic structure is done. Hey, what about the controller? If you are thinking I forgot it, you are absolutely wrong. In REST API’s, we use controllers to handle multiple endpoints. But as you already know in GraphQL, you only need one API endpoint. So you don’t need any controllers to handle that.
+已经完成了基础的架构。嘿，控制器呢？如果你认为需要有控制器而我忘了，你就完全错了。在 REST API 中，我们使用控制器是为了处理多个端点。但在 GraphQL 中，你也了解的，只需要一个 API 端点，所以控制器是不需要的。
 
-All right! Let’s do a quick demo run to check whether all are working fine.
+好，我们来做一个例子，检验是否一切正常。
 
 ![](https://cdn-images-1.medium.com/max/3630/1*ntnM4Gn6fdr7kIthZbGvWw.png)
 
 ![Screenshots provided by the author.](https://cdn-images-1.medium.com/max/2016/1*MSaXfP1WhsFaMrPT94A8FA.png)
 
-Great. As you can see our basic structure has worked as expected. Let’s move on to the big step.
+好，你可以看到，项目的基础架构正常运行。我们继续后面的步骤。
 
-## Releasing The Beast: Setting Up GraphQL
+## 重点环节：为项目装配 GraphQL 相关功能
 
-First things first! You need to add GraphQL dependencies to the project.
-So in the `pom.xml` add these two dependencies inside the `\<dependencies>` section and update the project (resolve dependencies) by clicking the **m** icon in the top right corner.
+先做重要的事！你需要为项目添加 GraphQL 依赖。
+在 pom.xml 文件的 dependencies 节点中加入这两个依赖包，并点击右上角的 **m** 图标，更新项目。
 
 ```
 <!-- GraphQL dependencies -->
@@ -274,9 +274,9 @@ So in the `pom.xml` add these two dependencies inside the `\<dependencies>` sect
 
 ![Screenshot provided by the author.](https://cdn-images-1.medium.com/max/3406/1*I6ecTzyeFI8UQL4ica3lcg.png)
 
-GraphQL has two main building blocks: schema and resolver. As the first step of implementing GraphQL to our app, we need to define a schema.
+GraphQL 有两个主要的构建模块：模式和解析程序。在应用程序中实现 GraphQL 的第一步是定义一个模式。
 
-The most basic components of a GraphQL schema are object types, which represent an object (like student, animal, etc.) that you can fetch from your service, and what fields it has.
+GraphQL 模式中最基础的组件是 type, 它代表一个对象(类似于学生、动物等)和对象的属性，你可以从你开发的程序中获取这些对象。
 
 ```
 type Director {
@@ -286,32 +286,32 @@ type Director {
 }
 ```
 
-As you know there are so many primitive and non-primitive data types in languages like java. But here we can see only a limited number of data types (known as scalar types).
+在 Java 等语言中，有很多原始的和非原始的数据类型。但在这里我们只需要了解这几个数据类型(也可称为 Scalar 类型)。
 
-* Int: A signed 32‐bit integer.
-* Float: A signed double-precision floating-point value.
-* String: A UTF‐8 character sequence.
-* Boolean: true or false.
-* ID: A unique identifier
+* Int: 有符号的 32 位整型
+* Float: 有符号的双精度浮点值
+* String: 使用 UTF-8 编码的字符串
+* Boolean: 取值范围为 true/false
+* ID: 唯一性的标识符
 
-However, you can define custom scalars according to your preference.
-(like Date, Currency, etc..)
+当然，你也可以根据你的需要定义 Scalar 类型。
+(例如 Date, Currency 等等)
 
-Most types in your schema will just be normal object types, but there are two types that are special within a schema.
+在模式中大多数数据类型不过是普通的类型，但有两种类型较为特殊。
 
-1. Query: Entry point of data fetching (Read)
-2. Mutation: Entry point of data modifying (Write)
+1. Query: 获取数据的入口
+2. Mutation: 更新数据的入口
 
-You can learn more about these concepts by visiting the [official GraphQL web site](https://graphql.org).
+关于这些概念，你可以访问 [GraphQL 官网](https://graphql.org)了解更多。
 
-Okay. Let’s define our schema. For that, I created a directory named `graphql` inside the resource folder and created a `schema.graphqls` file inside of it. (Make sure the extension should be `.graphqls` as it’s a schema file.)
+OK，我们来定义模式。需要在资源目录下创建 graphql 目录，并在 graphql 目录中创建一个 schema.graphqls 文件。（需要确保文件的扩展名为 .graphqls，它是一个模式文件）
 
-If you already installed the GraphQL plugin to IntelliJ, you can see the GraphQL icon after creating the file. It can easily install by searching in the plug-in section. It would be so much useful when doing the
-development of a GraphQL schema file.
+
+如果你在 IntelliJ 中已经安装了 GraphQL 插件，你创建文件后就能看到 GraphQL 的图标。通过在插件面板中搜索，就可以安装这个插件。它对 GraphQL 模式文件的开发很有用。
 
 ![Screenshot provided by the author.](https://cdn-images-1.medium.com/max/3308/1*9m9djB1PukLtoQCU348zbQ.png)
 
-Here is the schema that I defined for my writeup application. First I go with a query and it will be easy to understand the things from it and then I’ll explain the mutation.
+以下是我定义的模式文件。首先我定义了 query 属性，这些代码很容易理解。后面我还会讲解 Mutation 类型。
 
 ```
 schema {
@@ -333,17 +333,17 @@ type User {
 }
 ```
 
-Make sure to add comments as here. For the reason that, we can view those descriptions when testing the server with third-party tools like Altair (Mostly we are using this client for testing GraphQL endpoints instead of postman.)
+请确保在代码种添加这些注释。这样做的目的是为了使用第三方工具测试服务端时可以查看相关的描述信息。(我们在大多数情况下会使用 Altair 客户端来测试，不会使用 Postman)
 
-Now we have to define our resolvers. (If you are curious about what is this `getAllUsers` method [not a method but a field] and where it’s referencing, wait this is it)
+现在我们需要定义解析器。(如果你不理解这里的 `getAllUsers` 是什么(它不是方法，而是一个字段)以及它代表什么，等会儿会解释)
 
-Resolvers are per field functions that are given a parent object, arguments, and the execution context. They are responsible for returning the corresponding data result for that field.
+解析器是给定了父对象、参数和执行上下文的函数字段。他们负责返回对应函数的结果给这个字段。
 
-We can implement this in multiple ways. Most larger projects (Industry standard) tend to create a separate `graphql` package inside the root layer and inside that, it will define resolver interfaces and implementations. Also, mapping types for requests and responses can be defined in separate packages.
+实现解析器的方法有若干种。很多行业级的大型项目的做法是在根目录创建一个名为 `graphql` 的包，在这个包中定义解析器接口和相应的实现。请求和响应的映射类型也可以在这些包中定义。
 
 ![Industry Standard for defining resolvers](https://cdn-images-1.medium.com/max/3840/1*eqGqp_oqVxsE1at4tSwFVA.png)
 
-As this is for understanding the concepts, I’ll implement this on the service layer.
+因为这是为了帮助大家理解概念，我就在项目的 service 包内实现它。
 
 ```Java
 package com.example.writeup.service;
@@ -368,15 +368,15 @@ public class UserService implements GraphQLQueryResolver {
 }
 ```
 
-I created a new service called `UserService` and implement `GraphQLQueryResolver` interface that comes as a library interface in `graphql-java-tools`
+我新建一个名为 `UserService` 的类，在这个类中提供 `GraphQLQueryResolver` 的具体实现，GraphQLQueryResolver 是 `graphql-java-tools` 库中的接口。
 
-Then I auto-wired the user repository to get a connection with the database. (However, this field injection is not recommended in the latest versions. What you can do is, click on the yellow color bulb icon in the left corner when appears by clicking on the Autowired annotation and reformat as idea suggest.)
+然后，为了获取数据库连接，我把 UserRepository 类的对象自动注入到 UserService 中。(当然这种注入方式不建议在最终版本中使用。你应该点击 Autowired 注解，接着代码区域左侧会出现黄色图标，再点击这个黄色图标，会弹出推荐的做法，然后根据系统推荐的做法修改代码)
 
-Now hope you remember that `getAllUsers` field we defined in the GraphQL schema. That should exactly tally with the method of this class. So I defined that method here and returned the user list as expected.
-
+现在你应该想到 GraphQL 模式文件中的 `getALlUsers` 字段。它跟 UserService 类中的方法名一样。所以我在这个类中定义此方法，并像模式文件中声明的那样返回 User 对象的列表。
+ 
 ![Folder structure and the service layer](https://cdn-images-1.medium.com/max/2672/1*dFmcMBaBBUTF8YAJkKweYg.png)
 
-Finally, we have to define our GraphQL configurations in the `application.properties` file.
+最后，我们需要在 `application.properties` 中配置 GraphQL 相关属性。
 
 ```
 #graphql properties
@@ -385,23 +385,23 @@ graphql.servlet.mapping=/graphql
 graphql.servlet.enabled=true
 ```
 
-As you can see from the configs, `/graphql` endpoint will be handling all the requests. So you don’t need to define a controller.
+从配置中可以看出， `/graphql` 端点可以接收请求。所以不需要定义控制器。
 
-All set! Our server is ready now. Give a test run and voila: you will be seeing such a message like “**Started WriteupApplication...(JVM running…)”**
+一切都准备就绪了。我们的服务器在等待访问。测试一下，你应该看到类似于这样的信息：**Started WriteupApplication...(JVM running…)**。
 
-So now the testing. As I mentioned previously, you can use Altair client to test those endpoints. It comes as a desktop app and as well as a browser extension. You can add this to your machine as your preference by clicking [here](https://altair.sirmuel.design/docs/).
+现在继续进行测试。我前面提到过，可以使用 Altair 客户端对那些端点进行测试。Altair 既有桌面版，也有相应的浏览器插件，都可以用来进行测试。你可以点击[这里](https://altair.sirmuel.design/docs/)下载安装 Altair 客户端。 
 
-Now go to the server endpoint using Altair.
+我们现在使用 Altair 访问服务器上的端点。
 
 ![[http://localhost:7000/graphql](http://localhost:7000/graphql)](https://cdn-images-1.medium.com/max/3316/1*nbDmknJv8-rYGJo2u9N2gA.png)
 
-If you reload the docs section, you can see the fields with the comment message. You can click it and look for more details. Write a query inside the left corner. You can see the Altair giving the auto-completion. By clicking the run query or send request buttons, you can get the results.
+如果你重新加载文档部分，可以看到带注释的字段。点击它可以了解更多详细信息。在左侧输入查询语句，可以发现 Altair 提供了输入内容自动完成。点击运行查询或发送请求按钮，就可以得到查询结果。
 
 ![Screenshot provided by the author.](https://cdn-images-1.medium.com/max/3264/1*-BT7ol2I85_R2NtYeCRoBQ.png)
 
-Look, how cool is that! We can get the details as we request. I hope now you all clear with the concept as well as the practical. I’ll explain about mutation as well as for the completion of my article.
+看，多么酷炫。使用 GraphQL，我们能得到所需要的信息。我估计现在你应该理解相关概念，并能够使用它们了。下面我要介绍 Mutation 类型了。
 
-As the first thing, you can add a mutation to the schema file. I have done the update user address as an example. For that, I added the mutation to the schema and defined the mutation as below. So the final schema will be as follows.
+第一步，你可以在模式文件中添加一个 Mutation 类型字段。我已经开发了更新地址的功能，作为示例。如下所示，我已经在模式文件中添加了 mutation。下面是完整的模式文件代码。
 
 ```GraphQL
 schema {
@@ -430,7 +430,7 @@ type User {
 }
 ```
 
-I added a SQL query to the user repository to update the user from incoming parameters.
+我在 UserRepository 中加入了更新用户的查询操作，相应的 SQL 语句带有输入参数，由方法的参数代入。 
 
 ```Java
 package com.example.writeup.repository;
@@ -453,7 +453,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 }
 ```
 
-In the user service, we have to implement another interface called `GraphQLMutationResolver` Then we can define our `updateUserAdress` method there. Make sure that all the methods can be publicly accessible. So the final `UserService` will be as follows.
+在 UserService 中，需要实现 GraphQLMutationResolver 接口声明的方法。我们在这个类中还定义了 updateUserAdress 方法。所有的方法的访问权限都是 public，无访问限制。UserService 类的代码如下。 
 
 ```Java
 package com.example.writeup.service;
@@ -491,25 +491,25 @@ public class UserService implements GraphQLQueryResolver, GraphQLMutationResolve
 }
 ```
 
-All right! We defined our mutation also. Now do the testing as usual. You can confirm the API is working perfectly by checking the database.
+好了。我们也定义了 mutation。现在进行测试。可以通过查看数据库确认相关功能是否实现。
 
 ![Screenshot provided by the author.](https://cdn-images-1.medium.com/max/3456/1*voqYoBAxQ6UyQdvfiX2SDw.png)
 
-Great! You have completed most concepts in GraphQL. But there are plenty of things we need to explore in this amazing world. Wait, I’ll reveal some more things.
+太好了。你已经掌握了 GraphQL 中的大多数概念。但值得我们探索的还有很多。等等，我还有些东西要补充。
 
-In addition to queries and mutations, GraphQL supports a third operation type called **subscriptions**.
+除了 Query 和 Mutation，GraphQL 还支持一种操作类型，叫做 **subscriptions**。
 
-Like queries, subscriptions enable you to fetch data. Unlike queries, subscriptions maintain an active connection to your GraphQL server. (Most commonly via a Web Socket) This enables your server to push updates to the subscription’s result over time.
+与 Query 类似，subscription 提供数据查询功能。但它跟 Query 又有所不同，它跟 GraphQL 服务端保持着连接（通俗的来说是使用 Web Socket 维持连接）。它能提供服务端主动推送更新消息的功能。
 
-This is extremely useful when notifying your client in real-time about alterations to back-end data, such as user notifications, important updates, changes in files, etc.
+如果需要把后台更新的数据实时通知到客户端，比如用户通知、重要更新、文件修改等，subscription 很有用。
 
-Also, there are many more things to cover up in GraphQL like error handling, spring-security, validation, etc. So I’ll intend to have separate articles on these topics as well.
+关于 GraphQL 的使用，还有很多话题可以讨论，比如错误处理、跟 spring-security 的整合、文本验证等等。关于这些话题，我也会发一些文章，供大家学习参考。
 
-## Inner Peace: The Conclusion
+## 总结
 
-Here is a [small demonstration](https://youtu.be/D_YDhxLtjpI) of what we built today and the complete source code of the project can be seen below.
+这是关于本文内容的一个[小型示范项目](https://youtu.be/D_YDhxLtjpI)，项目完整的源代码见下面的 Github 仓库。
 
-Resources: [Source code of the WriteUp](https://github.com/Yasas4D/WriteUp) Application.
+资源：[WriteUp 项目源代码](https://github.com/Yasas4D/WriteUp)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
