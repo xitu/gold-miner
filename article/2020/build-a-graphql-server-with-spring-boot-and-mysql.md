@@ -2,8 +2,8 @@
 > * 原文作者：[Yasas Sandeepa](https://medium.com/@yasassandeepa007)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-graphql-server-with-spring-boot-and-mysql.md](https://github.com/xitu/gold-miner/blob/master/article/2020/build-a-graphql-server-with-spring-boot-and-mysql.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[zenblo](https://github.com/zenblo), [regon-cao](https://github.com/regon-cao)
 
 # 使用 SpringBoot 和 MySQL 构建 GraphQL 服务端应用程序
 
