@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/natural-language-processing-in-the-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2020/natural-language-processing-in-the-browser.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo) [NieZhuZhu](https://github.com/NieZhuZhu)
 
 # 在浏览器中处理自然语言
 
