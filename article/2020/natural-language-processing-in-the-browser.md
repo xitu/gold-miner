@@ -17,7 +17,7 @@
 
 我们的代码基于 [NLP.js](https://github.com/axa-group/nlp.js) 版本 4。[NLP](https://github.com/axa-group/nlp.js) 是一个用 JavaScript 编写的用于自然语言处理的开源库。该项目将允许您从语料库直接在浏览器中训练 NLP，并添加一个钩子以编程方式更改答案。
 
-完整的项目在我的 GitHub 仓库: [https://github.com/MeetMartin/nlpjs-web](https://github.com/MeetMartin/nlpjs-web)。 你可以下载并打开 index.html 就可以和聊天机器人玩耍了。
+完整的项目在我的 GitHub 仓库：[https://github.com/MeetMartin/nlpjs-web](https://github.com/MeetMartin/nlpjs-web)。你可以下载并打开 index.html 就可以和聊天机器人玩耍了。
 
 如今每一个真正的开发者都应该有一些人工智能的经验，还有什么比用你自己开发的东西和你的电脑说话更科幻的了。
 
@@ -29,7 +29,7 @@
 npm i -D @nlpjs/core @nlpjs/lang-en-min @nlpjs/nlp @nlpjs/request-rn@nlpjs/request-rn
 ```
 
-我们还需要安装 [browserify](https://github.com/browserify/browserify#usage) 和 [terser](https://terser.org/docs/cli-usage) 来构建浏览器使用的 NLP:
+我们还需要安装 [browserify](https://github.com/browserify/browserify#usage) 和 [terser](https://terser.org/docs/cli-usage) 来构建浏览器使用的 NLP：
 
 ```bash
 npm i -D browserify terser
@@ -50,7 +50,7 @@ const requestrn = require('@nlpjs/request-rn');
 window.nlpjs = { ...core, ...nlp, ...langenmin, ...requestrn };
 ```
 
-我们只使用 NLP 的核心代码和一个小的英语语言包。要构建所有内容，只需要向你的 `package.json` 里加入以下命令:
+我们只使用 NLP 的核心代码和一个小的英语语言包。要构建所有内容，只需要向你的 `package.json` 里加入以下命令：
 
 ```JSON
 {
@@ -71,17 +71,17 @@ window.nlpjs = { ...core, ...nlp, ...langenmin, ...requestrn };
 
 ```
 
-现在运行下面的命令:
+现在运行下面的命令：
 
 ```bash
 npm run build
 ```
 
-你应该得到了一个大约有 137 KB 的 `./dist/bundle.js`。 值得注意的是 NLP 拥有一个[非常棒的受支持的语言列表](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages)。然而，只有英文才有针对浏览器优化的版本。
+你应该得到了一个大约有 137 KB 的 `./dist/bundle.js`。值得注意的是 NLP 拥有一个[非常棒的受支持的语言列表](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages)。然而，只有英文才有针对浏览器优化的版本。
 
 ## 在浏览器中训练 NLP
 
-现在我们已经创建了包，我们可以在浏览器中训练 NLP 了。创建 `index.html`:
+现在我们已经创建了包，我们可以在浏览器中训练 NLP 了。创建 `index.html`：
 
 ```HTML
 <html>
@@ -119,7 +119,7 @@ npm run build
 </html>
 ```
 
-函数 `setupNLP` 负责处理库的安装和训练。语料库是一个 JSON 文件，它以下面的格式定义了聊天机器人的对话:
+函数 `setupNLP` 负责处理库的安装和训练。语料库是一个 JSON 文件，它以下面的格式定义了聊天机器人的对话：
 
 ```JSON
 {
@@ -168,7 +168,7 @@ npm run build
 }
 ```
 
-**intent** 是会话节点的唯一标识符，它的值应该代表与机器人对话的用户的意图。 **Utterances** 是一系列关于用户可以说什么来触发意图的培训示例。 **Answers** 是一组聊天机器人可以从里面随机选择的回答。
+**intent** 是会话节点的唯一标识符，它的值应该代表与机器人对话的用户的意图。**Utterances** 是一系列关于用户可以说什么来触发意图的培训示例。**Answers** 是一组聊天机器人可以从里面随机选择的回答。
 
 为了训练聊天机器人，我们从 [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) 借用更大的语料库。你也可以为你的用例随意创建自己的语料库。只要记住一点，库需要从 URL 读取语料库。
 
@@ -236,7 +236,7 @@ npm run build
 </html>
 ```
 
-现在你可以和聊天机器人互动了:
+现在你可以和聊天机器人互动了：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uxgIOaFQgJD-w3NEFL_UgQ.png)
 
