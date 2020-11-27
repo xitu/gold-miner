@@ -5,21 +5,21 @@
 > - 译者：[regon-cao](https://github.com/regon-cao)
 > - 校对者：[zenblo](https://github.com/zenblo) [NieZhuZhu](https://github.com/NieZhuZhu)
 
-# 在浏览器中处理自然语言
+# 在浏览器中做自然语言处理
 
 ![Image source: Author](https://cdn-images-1.medium.com/max/3192/1*X-jYECtYbLdX_c7GRz_DTQ.png)
 
 在不依赖诸如 [Dialogflow](https://cloud.google.com/dialogflow/docs) 等第三方服务和服务端的情况下，搭建自己网站的聊天机器人也是可行的。我会教你如何搭建一个完全运行在浏览器中的聊天机器人。
 
-我假设你对 JavaScript 和自然语言处理的工作原理有一定的了解。其他高级的知识或机器学习经验都不需要。
+我假设你对 JavaScript 和自然语言处理的工作原理有一定的了解。完成这项任务不需要其他高级的知识或机器学习经验。
 
-如果有人告诉你在浏览器中使用 JavaScript 进行机器学习简直是疯了，不要理他，因为很快你就会明白。
+如果有人告诉你在浏览器中使用 JavaScript 进行机器学习简直是疯了，不要理他，因为很快你就会明白该怎么做。
 
-我们的代码基于 [NLP.js](https://github.com/axa-group/nlp.js) 版本 4。[NLP](https://github.com/axa-group/nlp.js) 是一个用 JavaScript 编写的用于自然语言处理的开源库。该项目将允许您从语料库直接在浏览器中训练 NLP，并添加一个钩子以编程方式更改答案。
+我们的代码基于 [NLP.js](https://github.com/axa-group/nlp.js) 第 4 版。[NLP](https://github.com/axa-group/nlp.js) 是一个用 JavaScript 编写的用于自然语言处理的开源库。该项目可以让你直接在浏览器从语料库中训练 NLP 模型，并能添加一个钩子以编程方式更改答案。
 
 完整的项目在我的 GitHub 仓库：[https://github.com/MeetMartin/nlpjs-web](https://github.com/MeetMartin/nlpjs-web)。你可以下载并打开 index.html 就可以和聊天机器人玩耍了。
 
-如今每一个真正的开发者都应该有一些人工智能的经验，还有什么比用你自己开发的东西和你的电脑说话更科幻的了。
+如今每一个真正的开发者都应该有一些人工智能的开发经验。还有什么事会比用你自己开发的东西和你的电脑说话更科幻呢？
 
 ## 安装软件包
 
@@ -29,7 +29,7 @@
 npm i -D @nlpjs/core @nlpjs/lang-en-min @nlpjs/nlp @nlpjs/request-rn@nlpjs/request-rn
 ```
 
-我们还需要安装 [browserify](https://github.com/browserify/browserify#usage) 和 [terser](https://terser.org/docs/cli-usage) 来构建浏览器使用的 NLP：
+我们还需要安装 [browserify](https://github.com/browserify/browserify#usage) 和 [terser](https://terser.org/docs/cli-usage) 来构建浏览器使用的 NLP 包：
 
 ```bash
 npm i -D browserify terser
@@ -168,9 +168,9 @@ npm run build
 }
 ```
 
-**intent** 是会话节点的唯一标识符，它的值应该代表与机器人对话的用户的意图。**Utterances** 是一系列关于用户可以说什么来触发意图的培训示例。**Answers** 是一组聊天机器人可以从里面随机选择的回答。
+**intent** 是会话节点的唯一标识符，它的值应该代表与机器人对话的用户的意图。**Utterances** 是一系列关于用户可以说什么来触发意图的训练样本。**Answers** 是一组聊天机器人可以从里面随机选择的回答。
 
-为了训练聊天机器人，我们从 [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) 借用更大的语料库。你也可以为你的用例随意创建自己的语料库。只要记住一点，库需要从 URL 读取语料库。
+为了训练聊天机器人，我们从 [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) 借用更大的语料库。你也可以为你的用例随意创建自己的语料库。只要记住一点，NLP 库需要从 URL 读取语料库。
 
 当你在浏览器中打开 `index.html`，你应该看到了一个简单的啥都没做的聊天机器人。
 
@@ -328,15 +328,15 @@ nlp.onIntent = onIntent;
 
 ## 已知的局限
 
-请注意，NLP 的浏览器版本不支持一些常见的自然语言处理功能，例如完整库中可用的命名实体或实体提取。
+请注意，NLP 库的浏览器版本不支持一些常见的自然语言处理功能，例如完整库中可用的命名实体或实体提取。
 
-NLP 作为一个库目前也不支持故事或后续意图。这些都是当前开发聊天机器人编排的一部分，但在撰写本文时，该特性仍处于试验阶段。
+NLP 作为一个库目前暂不支持场景或流程控制对话。这些都是当前开发流程型聊天机器人的一部分，但在撰写本文时，该特性仍处于试验阶段。
 
 ## 安全和隐私考虑
 
 使用此方案时，请记住，所有访问你网站的人都可以在浏览器中使用整个语料库及其功能。这也让任何人都可以简单地下载、操作和使用你的语料库。请确保你的机器人不会暴露任何私人信息。
 
-采用纯浏览器方案有一定的优势，但也会缺失一些机会，您仍然需要一些后端解决方案，以便能够记录用户使用聊天机器人谈论的内容。同时，如果你记录了整个对话，请考虑隐私问题，尤其是在 GDPR 这样的立法背景下。
+采用纯浏览器方案有一定的优势，但也会缺失一些机会，您仍然需要一些后端解决方案，以便能够记录用户使用聊天机器人谈论的内容。同时，如果你记录了整个对话，请考虑隐私问题，尤其是在 GDPR 这样的法律背景下。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
