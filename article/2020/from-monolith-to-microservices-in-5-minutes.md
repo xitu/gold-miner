@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/from-monolith-to-microservices-in-5-minutes.md](https://github.com/xitu/gold-miner/blob/master/article/2020/from-monolith-to-microservices-in-5-minutes.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo)
 
 # 5 分钟内从单体架构迁移到微服务架构
 
@@ -11,11 +11,11 @@
 
 ![Monolithic Architecture vs. Microservice Architecture](https://cdn-images-1.medium.com/max/6486/1*prvtMgGd36b-smjFPbAcLQ.png)
 
-首先，我们需要明白什么是单体架构。因此，我将向你展示如何修改它的域以为微服务架构做好准备。最后，我将会简要地告诉你微服务架构的基础知识，并讨论其优缺点。
+首先，我们需要明白什么是单体架构。因此，我将向你展示如何修改它的域,，以便为微服务架构做好准备。最后，我将会简要地告诉你微服务架构的基础知识，并讨论其优缺点。
 
 ## 单体架构
 
-单体架构是每一种非垂直拆分的架构。软件设计中的垂直拆分意味着将应用程序划分为更多可部署的单元。这并不意味着单体架构不能[水平划分](https://levelup.gitconnecd.com/layes-in - architecture-that-everysofware-architect-should-know76b2452b9d9a)。
+每一种非垂直拆分的架构都是单体架构。软件设计中的垂直拆分意味着将应用程序划分为更多可部署的单元。这并不意味着单体架构不能[水平划分](https://levelup.gitconnected.com/layers-in-software-architecture-that-every-sofware-architect-should-know-76b2452b9d9a)。
 
 单体这个词指的是软件的体系结构是由一个后端单元组成。我之所以说后端，是因为我相信单体架构可以具有多个 UI（如 Web 和移动设备），并且仍然可以作为一个整体。
 
@@ -39,11 +39,11 @@ Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不�
 
 强迫一个实体承担更多的责任，显然是不合理的。实体在这两种上下文中都包含未使用的属性。Sales 不需要知道产品的类别，并且知道 Product 是如何将信息传递给客户对于 Catalog 来说没有任何用处。
 
-为了避免这个问题，我们需要找到 Sales 和 Catalog 上下文的边界来将它们分开。这就引出下一个话题了——限界上下文。
+为了避免这个问题，我们需要找到 Sales 和 Catalog 上下文的边界来将它们分开。这就引出接下来要说的限界上下文。
 
 ## 限界上下文
 
-> 限界上下文是上下文的边界 — [Idapwiki.com](https://ldapwiki.com/wiki/Bounded%20Context)
+> 限界上下文是上下文的边界，参考 [Idapwiki.com](https://ldapwiki.com/wiki/Bounded Context)
 
 要指定限界上下文，我们需要识别出一个模型仍然有效的上下文范围。
 
