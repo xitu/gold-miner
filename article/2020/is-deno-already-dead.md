@@ -2,100 +2,95 @@
 > * 原文作者：[Louis Petrik](https://medium.com/@louispetrik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-already-dead.md](https://github.com/xitu/gold-miner/blob/master/article/2020/is-deno-already-dead.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Inchill](https://github.com/Inchill)
+> * 校对者：[samyu2000](https://github.com/samyu2000)、[regon-cao](https://github.com/regon-cao)
 
-# Is Deno Already Dead?
+# Deno 已经死了吗？
 
 ![Source: the author](https://cdn-images-1.medium.com/max/2800/1*UH9zLe8rjJI9lFpj44yYDA.png)
 
-In May of this year, not only was the coronavirus in the center of attention — in the JavaScript and backend-development community, Deno spread. The first stable version was there, and already a huge hype broke out. I, too, immediately got involved with Deno and was looking forward to trying something new.
+在今年 5 月，不止冠状病毒成为人们关注的焦点，在 JavaScript 和后端开发社区中，Deno 也成为了热点话题。Deno 的第一个稳定版本已经发布，业界对此大力宣传。我也一样，迅速地参与到 Deno 并且期望能尝试点新东西。
 
-[An article](https://medium.com/javascript-in-plain-english/deno-vs-node-js-here-are-the-most-important-differences-62b547443be1) I wrote about it got thousands of hits only via Google — so the interest was really huge.
+我写的一篇关于 Deno 的[文章](https://medium.com/javascript-in-plain-english/deno-vs-node-js-here-are-the-most-important-differences-62b547443be1)，仅仅通过谷歌它就获得了数千的点击量 —— 显然，大家对 Deno 都非常有兴趣。
 
-But what is left of it? Where are the voices that perhaps even thought that Deno could replace Node.js? There is obviously not much left of the hype — Google confirms this:
+但是炒作之后剩下了什么呢？那些甚至认为 Deno 可以取代 Node.js 的声音在哪里？显然，炒作已经所剩无几了 —— 谷歌的统计数据证实了这一点：
 
 ![Source: [Google Trends](https://trends.google.com/trends/explore?q=deno)](https://cdn-images-1.medium.com/max/4592/1*nbOAGzuHmHB7vr00J7xOjw.png)
 
-As you can see from Google Trends, the search term Deno is no longer as much there as it was in the original hype at the end of spring and beginning of summer — it should also be noted that Google Trends for Deno does not include the category theme or programming language. Other Google searches for Deno, which have nothing to do with the technology, are still included in the statistics.
+正如你从谷歌趋势中看到的那样，搜索词 Deno 已经不再像春末夏初的时候那么流行了 —— 还应该注意的是，谷歌 Deno 趋势不包括类别主题或编程语言。有些搜索结果与这项技术无关，但仍包含在统计数据中。
 
-## The rise of other technology
+## 其它技术的兴起
 
-This year already had a lot to offer — in the front-end area, it was Svelte, in the back-end Deno. And also, many programming languages, in general, have gained a lot of attention. Rust and Julia are good examples of this — while JavaScript has no growth in its popularity.
+今年已经涌现了许多新技术 —— 在前端领域是 Svelte，在后端领域是 Deno。而且，总体而言，许多编程语言都得到了广泛的关注。Rust 和 Julia 就是很好的例子 —— 而 JavaScript 的普及率没有增长。
 
-New technologies always bring with them new possibilities — and new frameworks & libraries. Of course, they all want to be tried out — and so, for example, Rust’s Actix Web gained attention, if only in the Rust community, and among the people interested in it.
+新技术总是带来新的可能性 —— 以及新框架和库。当然，它们都需要经受市场的检验 —— 因此，举例来说，Rust 的 Actix Web 获得了关注，但这只是在 Rust 社区和对它感兴趣的人中，它的市场接受度并不高。
 
-In my opinion, Deno didn’t have the room for even more hype — but that’s also because it never had the ambition to turn the web world upside down — and that’s exactly what became clear very quickly.
+在我看来，Deno 之所以关注度上升空间不大 —— 是因为它并没有在 Web 世界掀起一场颠覆性革命的意图 —— 因此一切都变得清晰明了了。
 
-## Nothing earth-shattering new
+## 没有惊天动地的新东西
 
-In my article about the differences between Deno and Node.js, I already mentioned this. These are the essential, special features Deno offers:
+在我关于 Deno 和 Node.js 对比差异的文章中，我就提到了这一点。以下是 Deno 展现出的极其重要的、独特的特性：
 
-* No NPM support
-* Permissions
-* Top-level-Await
-* Support for the window-object
-* TypeScript-support out of the box
+* 不支持 NPM
+* 权限
+* 顶层 Await
+* 对 window 对象的支持
+* 开箱即用的 TypeScript 支持
 
-That was the essential feature mentioned in a breath of air with Deno.
+上述就是我以前所提到的 Deno 所带来的令人耳目一新的重要特性。
 
-After a lot of trial and error, most developers probably realized that it’s not features that turn their world upside down. Especially for existing backends, no huge incentive to change everything.
+经过大量的反复试验，大多数开发人员可能已经意识到，这些功能并不能给他们的开发工作带来多少改变。尤其是对于已有项目的后端开发而言，并不需要有太大的改变。
 
-This is also reflected in the professional use of Deno — according to [StackShare.io,](https://stackshare.io/deno) 7 companies use Deno.
+这也体现在对 Deno 的专业使用上 —— 根据 [StackShare.io,](https://stackshare.io/deno)，有 7 家公司使用 Deno。
 
-## Moving is expensive — and partly pointless
+## 迁移非常昂贵 —— 而且部分毫无意义
 
-Deno and Node.js are, of course, quite similar. In Deno, you are not only dependent on TypeScript. JavaScript also supports it out-of-the-box.
+当然，Deno 和 Node.js 非常相似。在 Deno 中，您不仅可以使用 TypeScript，JavaScript 也同样开箱即用。
 
-But where the word JavaScript comes up, you have to think of the many libraries and frameworks that are spread in the JS community. 
-Some of them are also available in the Node.js world. 
-Just think of Express.js, Koa, Sails, Axios, Lodash, or Sequelize. All of these libraries are often used in Node.js projects and can be easily installed via NPM.
+但是您一看到 JavaScript 一词，会立马想到 JS 社区中分布的许多库和框架。其中一些在 Node.js 中也可用。只需想一下诸如 Express.js，Koa，Sails，Axios，Lodash 或 Sequelize。所有这些库经常在 Node.js 项目中使用，并且可以通过 NPM 轻松安装。
 
-And NPM is the keyword that somehow makes you think of Deno — because using NPM modules with Deno is not intended per se, and therefore rather cumbersome. 
-This makes it rather difficult to move from Node.js to Deno. 
-Deno is also known for its security — for the fact that virtually everything requires the permission of the user. That’s not bad either, definitely a sensitive approach. But in my opinion, this is not a good argument to completely migrate an existing Node.js app to Deno.
 
-## No extra performance
+NPM 是让您想起 Deno 的关键字 —— 因为本来 Deno 的设计初衷并不是与 NPM 结合使用，因此两者难以结合起来。这使得从 Node.js 迁移到 Deno 变得相当困难。Deno 还以其安全性而闻名 —— 事实上，几乎所有内容都需要用户的许可。这也不错，可以提高应用程序的安全性。 但是我认为，这不是将现有 Node.js 应用程序完全迁移到 Deno 的好理由。
 
-At this point, I want to make it clear that I personally don’t think that Node.js should be placed above Deno just because of its performance.
+## 没有额外的表现
 
-As we measure it, performance is often rather unrealistic and can be completely neglected, especially for smaller applications with few users. Scalable service providers make it easy to adapt to your needs in terms of performance — you don’t have to install the fastest possible web server and database on a fixed root server.
+在这一点上，我想说明的是，我个人不认为仅仅因为 Node.js 的性能就应该将其放置在 Deno 之上。
 
-Nevertheless, one cannot neglect that many developers are interested in performance — even if there are differences only on paper. But in terms of performance, Deno does not do better than Node.js.
+当我们对其进行测量时，性能通常是相当不现实的，并且可以完全忽略，特别是对于用户很少的小型应用程序。 可扩展的服务提供商使您可以轻松地在性能方面适应您的需求 —— 您不必在固定的根服务器上安装最快的 Web 服务器和数据库。
 
-This should not be surprising. After all, Deno has never had the ambition to replace Node.js in terms of performance. It was much more about security and such things.
+但是，即使有纸面上的差异，也不能忽略许多开发人员对性能感兴趣。 但是就性能而言，Deno 的表现并不比 Node.js 好。
 
-You can find it on the official Deno website — benchmarks that prove that Deno is not the fastest framework. Not even compared to Node.js.
+这不足为奇。毕竟，就性能而言，Deno 从未有过取代 Node.js 的雄心。它更多关注的是安全性和与此相关的东西。
+
+您可以在 Deno 官方网站上找到它 —— 基准测试证明 Deno 不是最快的框架。更不用说与 Node.js 相比了。
 
 ![Source: [Deno Land — Benchmarks](https://deno.land/benchmarks)](https://cdn-images-1.medium.com/max/2924/1*H_5-f1ftdQirKClZzMFR1g.png)
 
-The standard HTTP request and response modules of Node.js and Deno are compared in the benchmark shown above. The benchmark shows that Node.js offers more performance.
+在上面显示的基准测试中比较了 Node.js 和 Deno 的标准 HTTP 请求和响应模块。该基准测试表明 Node.js 提供了更高的性能。
 
-I myself also did a benchmark between the two platforms — the result is the same. Node.js performs clearly better. 
-Even though Deno does not look bad all in all, many people are mainly looking for performance.
+我本人也在两个平台之间进行了基准测试 —— 结果是相同的。Node.js 的性能明显更好。尽管 Deno 看上去并不十分糟糕，但性能还是很多人主要关心的问题。
 
-Of course, performance should not be the only decisive component when choosing a technology. Frameworks and technologies like Fastify, or HTTP libraries for Go and Rust, which shine through their performance, are of great interest. So you can clearly say that many developers are interested in a good performance, and Deno does not offer exactly that compared to Node.js.
+当然，性能不是选择技术时唯一的决定性因素。诸如 Fastify 或用于 Go 和 Rust 的 HTTP 库等框架和技术凭借它们优良的性能获得了用户的青睐。因此，您可以认为，许多开发人员都对良好的性能感兴趣，并且与 Node.js 相比，Deno 不能提供完全相同的性能。
 
-## It is too early
+## 为时过早
 
-New technologies always quickly create hype. Everyone wants to try something new, now is the best time to produce content for it. As a result, topics inflate to the extreme without most people trying to have serious intentions.
+新技术总是迅速引起炒作。每个人都想尝试一些新事物，现在是为其提供内容的最佳时机。结果，话题膨胀到了极点，而大多数人却没有认真的意图。
 
-Some have gone so far as to see the end of Node.js with the release of Deno — of course, this is content that attracts a lot of attention and is therefore valuable for the creators — but of course, this was a complete exaggeration.
+到目前为止，有的人会认为 Deno 的面世意味着 Node.js 的终结 —— 当然，这个话题会吸引很多人的注意力，因此对于创造者来说很有价值 —— 但是，当然，这完全是夸张的。
 
-The result is a pompous narrative that has nothing to do with reality anymore, and everyone wants to check on his own if Deno means the end of Node.js. 
-Everything else would be illogical. I didn’t decide to rewrite my existing Node.js apps with Deno before I tried it.
+结果是一个浮夸的叙述，与现实不再相关，每个人都想自己检查 Deno 是否意味着 Node.js 的结束。其他一切都是不合逻辑的。在尝试之前，我还没有决定使用 Deno 重写现有的 Node.js 应用。
 
-At the time when Node.js was announced and released in 2010, the interest was not very high. Early versions of projects always seem a bit bloody and daunting.
+在 2010 年宣布并发布 Node.js 时，人们对此并不十分感兴趣。项目的早期版本似乎总是有点血腥和令人生畏。
 
-Some technologies may be ahead of their time — in 2 years, the world may look very different after the one or other scandal around Node.js. In the past, there have been serious cases of security problems with NPM packages. But in a crisis, there are always those who profit — maybe Deno will be the big one.
+某些技术可能会过时 —— 在2年内，围绕 Node.js 的一场或其他丑闻后，世界看起来可能会大不相同。 过去，NPM 软件包存在严重的安全问题。但是在危机中，总会有人获利 —— 也许 Deno 会是大赢家。
 
-## Summing up
+## 总结
 
-Deno is not bad and has its justification.
+Deno 不错，有它存在的价值。
 
-Node.js was not a bit hyped in its first version, and there is still time for improvements. So Deno will probably continue to evolve.
+Node.js 在其第一个版本中并未被大肆宣传，并且仍然有时间去改进。因此，Deno 也可以继续去完善。
 
-Especially concerning performance and features that we don’t know from node.js yet, a lot can change. So I’m curious about what will happen to Deno, and I will always check back and see what will be released with the new version.
+特别是关于 node.js 我们尚不了解的性能和功能，可能会有很多变化。 因此，我对 Deno 未来的动向很感兴趣，并且我将持续关注 Deno 的版本更新以及它的更新内容。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
