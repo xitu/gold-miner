@@ -37,9 +37,9 @@ npm i -D browserify terser
 
 享受一下刚安装完软件包的新项目带来的愉悦吧。这是你应得的。
 
-## 构建 NLP
+## 构建 NLP 包
 
-第一步是使用 browserify 和 terser 构建 NLP。为此我们只需要在 buildable.js 里创建基础代码：
+第一步是使用 browserify 和 terser 构建 NLP 包。为此我们只需要在 buildable.js 里创建基础代码：
 
 ```JavaScript
 const core = require('@nlpjs/core');
@@ -77,11 +77,11 @@ window.nlpjs = { ...core, ...nlp, ...langenmin, ...requestrn };
 npm run build
 ```
 
-你应该得到了一个大约有 137 KB 的 `./dist/bundle.js`。值得注意的是 NLP 拥有一个[非常棒的受支持的语言列表](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages)。然而，只有英文才有针对浏览器优化的版本。
+你应该得到了一个大约有 137 KB 的 `./dist/bundle.js`。值得注意的是 NLP 包拥有一个[非常棒的支持语言列表](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages)。然而，只有英文才有针对浏览器优化的版本。
 
-## 在浏览器中训练 NLP
+## 在浏览器中训练 NLP 模型
 
-现在我们已经创建了包，我们可以在浏览器中训练 NLP 了。创建 `index.html`：
+现在我们已经创建了包，我们可以在浏览器中训练 NLP 模型了。创建 `index.html`：
 
 ```HTML
 <html>
