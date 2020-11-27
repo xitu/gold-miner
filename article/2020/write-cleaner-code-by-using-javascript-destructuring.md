@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/write-cleaner-code-by-using-javascript-destructuring.md](https://github.com/xitu/gold-miner/blob/master/article/2020/write-cleaner-code-by-using-javascript-destructuring.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[NieZhuZhu](https://github.com/NieZhuZhu)
 
 # 使用 JavaScript 解构让代码更优雅
 
@@ -88,7 +88,7 @@ Juan
 Uncaught ReferenceError: author is not defined
 ```
 
-上面的示例怎么回事？如果解构了 `author`，为什么没有定义？其实挺简单的。当我们要求 JavaScript 也对 `author` 对象进行解构时，绑定本身并没有被创建，取而代之的是我们可以访问我们选择的所有 `author` 属性，请记住这点。
+上面的示例怎么回事？如果解构了 `author`，但是它为什么没有被定义？其实挺简单的。当我们要求 JavaScript 也对 `author` 对象进行解构时，绑定本身并没有被创建，取而代之的是我们可以访问我们选择的所有 `author` 属性，请记住这点。
 
 展开运算符（`...`）：
 
@@ -203,7 +203,7 @@ Output
 
 请注意，在 `,` 之间留一个空格会跳过元素。这是小细节，但对结果有很大影响。
 
-你还能做什么？您也可以使用扩展运算符 `...` 进行如下操作：
+你还能做什么？你也可以使用扩展运算符 `...` 进行如下操作：
 
 ```JavaScript
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -219,7 +219,7 @@ Output
 (7) [4, 5, 6, 7, 8, 9, 10]
 ```
 
-在这种情况下，`z` 将获得 `b` 之后的所有值成为数组。或者你有一个更具体的需求，你想在数组中的特定位置解构。没问题。JavaScript 已经介绍过了：
+在这种情况下，`z` 将获得 `b` 之后的所有值成为数组。或者你有一个更具体的需求，你想在数组中的特定位置解构。没问题，JavaScript 依然可以做到：
 
 ```JavaScript
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -233,7 +233,7 @@ Output
 10
 ```
 
-如果我们把一个数组当作一个对象来解构，我们可以把索引作为属性，从而访问数组中的任何位置。
+如果我们把一个数组当作一个对象来解构，我们可以把索引作为属性，来访问数组中的任何位置的值。
 
 ### 缺少属性
 
@@ -257,7 +257,7 @@ missing c
 []
 ```
 
-当解构数组时，也可以为 `undefined` 属性设置默认值。但是，当我们有扩展运算符 `...` 时，不可能设置默认值。在 `undefined` 情况下，它将返回一个空数组：
+当解构数组时，也可以为 `undefined` 属性设置默认值。但是，当我们使用扩展运算符 `...` 时，则不能为变量设置默认值。在使用 `...` 解构 `undefined` 时，它将返回一个空数组：
 
 ## 交换变量
 
@@ -293,11 +293,11 @@ Output
 Juan
 ```
 
-通过使用 `[]` 之间的变量，我们可以在赋值之前测试它的值。因此，可以进行动态解构，尽管必须为这个新变量提供一个名称：
+通过在 `[]` 中使用变量，我们可以在赋值之前计算它的值。因此，尽管必须为该新变量提供名称，但可以进行动态解构。
 
 ## 解构函数参数
 
-解构变量可以放在我们可以声明变量的任何地方(例如，通过使用 `let`、`const` 或 `var`)，但是也可以解构函数参数。这是一个简单的示例：
+解构变量可以在我们声明变量的任何地方使用（例如，通过使用 `let`、`const` 或 `var`），也可以解构函数参数。这是一个简单的示例：
 
 ```JavaScript
 const me = { name: "Juan" }
