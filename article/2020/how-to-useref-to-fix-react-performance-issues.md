@@ -9,13 +9,13 @@
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/3208/1*ychn1nsfNdNxt4fRIz2qkw@2x.png)
 
-Refs 是 React 中很少会使用到的功能. 如果你已经读过了官方的 [React Ref Guide](https://reactjs.org/docs/refs-and-the-dom.html)，你会从中了解到 Refs 被描述成区别于典型 React 数据的 “逃生舱门”，需谨慎使用。Refs 被视为访问组件的基础 DOM 元素的正确方法。
+Refs 是 React 中很少会使用到的特性。如果你已经读过了官方的 [React Ref Guide](https://reactjs.org/docs/refs-and-the-dom.html)，你会从中了解到 Refs 被描述成区别于典型 React 数据的 “逃生舱门”，需谨慎使用。Refs 被视为访问组件的基础 DOM 元素的正确方法。
 
 伴随着 React Hooks 的到来, React 团队引入了 `[useRef](https://reactjs.org/docs/hooks-reference.html#useref)` Hook，它扩展了这个功能：
 
-> “`useRef()` 比 ref 属性更有用。它通过类似在 class 中使用实例字段的方式，[`非常方便地`](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) 保存任何可变值。” —— [React 文档](https://reactjs.org/docs/hooks-reference.html)
+> “`useRef()` 比 ref 属性更有用。它通过类似在 class 中使用实例字段的方式，[非常方便地](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) 保存任何可变值。” —— [React 文档](https://reactjs.org/docs/hooks-reference.html)
 
-新的 React Hooks API 落地的时候，我的确忽略了这一点，事实证明 useRef 真的非常有用。
+新的 React Hooks API 发布的时候，我的确忽略了这一点，事实证明 useRef 真的非常有用。
 
 ## 面临的问题
 
@@ -27,7 +27,7 @@ Refs 是 React 中很少会使用到的功能. 如果你已经读过了官方的
 
 将这行数据的状态的放在侧抽屉组件内部是最符合逻辑的，因为当用户选择其他单元格时，它应该**仅**影响侧边的抽屉组件。 然而：
 
-- 我们需要 **存储** 的数据状态来自于表格组件。 我们用的是 `[react-data-grid](https://github.com/adazzle/react-data-grid)` 渲染表格，并且它接收一个当用户点击一个单元格时会触发的回调。就目前来看，这是我们能从表格中获取选中行数据的唯一途径。
+- 我们需要**存储**的数据状态来自于表格组件。 我们用的是 `[react-data-grid](https://github.com/adazzle/react-data-grid)` 渲染表格，并且它接收一个当用户点击一个单元格时会触发的回调。就目前来看，这是我们能从表格中获取选中行数据的唯一途径。
 - 但是侧边抽屉组件和表格组件是同级（兄弟）组件，所以不能直接访问彼此的数据状态。
 
 React 的推荐做法是 [上升数据状态](https://reactjs.org/docs/lifting-state-up.html) 到俩组件最近的父级节点 (以这个为例，父级节点为 `TablePage`)。但是我们决定不将状态迁移到这个组件，理由是：
@@ -37,17 +37,17 @@ React 的推荐做法是 [上升数据状态](https://reactjs.org/docs/lifting-s
 
 **注意：即使我们将数据状态放在了 `TablePage`，无论如何我们都将面临下面这个相同的问题。**
 
-问题就是每当用户选择一个单元格或打开侧面抽屉时，全局 context 的更新会使得整个应用发生 re-render。table 组件可以一次显示数十个单元格，并且每个单元格都有自己的编辑器组件。这会导致大约 650ms 的渲染时间，这个时间太长以至于在打开侧边抽屉的时候会感受到明显的延迟。
+问题就是每当用户选择一个单元格或打开侧面抽屉时，全局 context 的更新会使得整个应用发生重新渲染。table 组件可以一次显示数十个单元格，并且每个单元格都有自己的编辑器组件。这会导致大约 650ms 的渲染时间，这个时间太长以至于在打开侧边抽屉的时候会感受到明显的延迟。
 
 ![注意单击打开按钮到侧面抽屉动画打开之间的延迟](https://cdn-images-1.medium.com/max/2560/1*DPrtPDYRTq3IBR9_Hsh6dQ.gif)
 
 罪魁祸首是 context —— 这就是为什么要在 React 中使用而不是在全局 JavaScript 对象中使用：
 
-> ”只要提供给 Provider 的 `值` 发生变化，所有消费到了 Provider 的后代组件都会发生重渲染。“ — [React Context](https://reactjs.org/docs/context.html)
+> ”只要提供给 Provider 的值发生变化，所有消费到了 Provider 的后代组件都会发生重渲染。“ — [React Context](https://reactjs.org/docs/context.html)
 
 到目前为止，虽然我们已经足够了解 React 的状态和生命周期，但现在看来我们依旧陷入了困境。
 
-## 茅塞顿开
+## 顿悟时刻
 
 在决定使用 `useRef` 之前，我们尝试了几种不同的解决方案。([Dan Abramov 的文章](https://github.com/facebook/react/issues/15156#issuecomment-474590693)) :
 
@@ -57,7 +57,7 @@ React 的推荐做法是 [上升数据状态](https://reactjs.org/docs/lifting-s
 
 当再次阅读 Hook APIs 和 `useMemo` 文档的时候，我终于遇到了 `useRef` 相关内容。
 
-> “`useRef()` 比 ref 属性更有用。它通过像在 class 中使用实例字段的方式，[`非常方便地`](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) 保存任何可变值。” —— [React 文档](https://reactjs.org/docs/hooks-reference.html)
+> “`useRef()` 比 ref 属性更有用。它通过像在 class 中使用实例字段的方式，[非常方便地](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) 保存任何可变值。” —— [React 文档](https://reactjs.org/docs/hooks-reference.html)
 
 更重要的是：
 
