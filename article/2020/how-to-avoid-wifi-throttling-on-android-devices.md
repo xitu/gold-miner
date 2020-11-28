@@ -3,19 +3,19 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：[zenblo](https://github.com/zenblo)
+> - 校对者：[zenblo](https://github.com/zenblo) [NieZhuZhu](https://github.com/NieZhuZhu)
 
 # 如何避免 Android 设备的 WiFi 扫描节流
 
 ![Photo by [Gaspart](https://dribbble.com/Gaspart) on [Dribbble](https://dribbble.com/).](https://cdn-images-1.medium.com/max/3200/0*LvG0BzxbMunbCN3Z.png)
 
-今天我想讨论一下关于 Android 新版本上的 WiFi 扫描节流以及该如何避免它。[我曾经写过一篇文章](https://proandroiddev.com/android-wifi-scanning-frustrations-799d1d942aea)是关于最近发布的 Android R 版本的扫描机制的。如果你读过这篇文章，你会了解与之前的 Android 版本相比，Google 限制了开发者们在新版本上调用 WiFi 扫描的频率。
+今天我想讨论一下关于新版本 Android 的 WiFi 扫描节流以及该如何避免它。[我曾经写过一篇文章](https://proandroiddev.com/android-wifi-scanning-frustrations-799d1d942aea)是关于最近发布的 Android R 版本的扫描机制。如果你读过这篇文章，你会了解到，与之前的 Android 版本相比，Google 限制了开发者们在新版本上调用 WiFi 扫描的频率。
 
-作为本文开始，我们先了解之前 WiFi 扫描的工作方式以及如何在 Android R 版本上得到与之前一样的效果。
+我们首先了解之前 WiFi 扫描的工作方式，然后再阐述如何在 Android R 版本上得到与之前一样的效果。
 
-## 之前的工作方式
+## 之前的做法
 
-它很简单而且没有任何节流，包括 Android Oreo 在内可以时刻都在扫描。下面一段简单的代码解释了之前的工作方式：
+之前的做法很简单而且没有任何节流限制，包括 Android Oreo 在内都可以不被限制的每秒扫描一次。下面一段简单的代码解释了之前的工作方式：
 
 ```Java
 mWifiBroadcastReceiver = new BroadcastReceiver()
@@ -37,7 +37,7 @@ mContext.registerReceiver(mWifiBroadcastReceiver, new IntentFilter(WifiManager.S
 
 你只需要在上下文中注册一个广播接收者用来获得和解析扫描结果，然后在 WiFi 管理器上调用 `start scan` 方法，一切就 OK 了。此时的 Android 允许 1 秒钟扫描 10 次 WiFi。你可以想象一下为高精度导航开辟的潜力。
 
-但是事情变的不对劲了，因为 Google 引入了对 WiFi 扫描的节流。
+Google 引入了对 WiFi 扫描的节流之后，事情就变的不对劲了。
 
 ## Android 9 和 10
 
@@ -86,7 +86,7 @@ if (!mWifiManager.isScanThrottleEnabled()) {
 
 ## 结论
 
-Google 限制了 WiFi 扫描的频繁调用但是又为我们提供了关闭限制的选项。他们似乎发现了决策失误并正在试图修复它。然而这一举动还是给开发者和用户带来了不少的麻烦。
+Google 限制了 WiFi 的扫描频率，但是又为我们提供了关闭这个限制的选项。他们似乎意识到了这个决策的问题并正在试图修复它。然而这一举动还是给开发者和用户带来了不少的麻烦。
 
 另一方面，在 iOS 上是不能调用 WiFi 扫描的，所以我们应该感激我们所拥有的。
 
