@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/write-cleaner-code-by-using-javascript-destructuring.md](https://github.com/xitu/gold-miner/blob/master/article/2020/write-cleaner-code-by-using-javascript-destructuring.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[NieZhuZhu](https://github.com/NieZhuZhu)
+> * 校对者：[NieZhuZhu](https://github.com/NieZhuZhu)、[regon-cao](https://github.com/regon-cao)
 
 # 使用 JavaScript 解构让代码更优雅
 
@@ -34,7 +34,7 @@ Output
 "My Article" by Juan had 5 stars
 ```
 
-现在，JavaScript 解构已经被使用一段时间了，或许是在构建 React 应用程序的时候用到了解构，但是并不完全了解 JavaScript 解构。对其他人来说，这可能是第一次用到解构。因此，本文将从头到尾完成整个过程，以便在本文结束时大家都了解 JavaScript 解构。
+现在，一部分人已经采用解构开发了一段时间，或许是在构建 React 应用时候，但是他们并不完全了解它。对其他人来说，这可能是第一次用到解构。因此，本文将从头到尾完成整个过程，最终使得大家对解构的认知都能达到同一水平。
 
 ## 解构对象
 
@@ -46,7 +46,7 @@ const { title, rating, author: { name } } = article
 
 现在，在表达式左侧使用这样的大括号似乎有点奇怪，但这就是我们告诉 JavaScript 正在分解对象的方式。
 
-解构对象使得可以绑定到对象的不同属性。让我们从一个更简单的示例开始：
+解构对象可以绑定到对象里的任一层级的任何属性上。让我们从一个更简单的示例开始：
 
 ```js
 const me = {
@@ -56,13 +56,13 @@ const me = {
 const { name } = me
 ```
 
-在上面的例子中，我们声明了一个名为 `name` 的变量，该变量将从对象 `me` 中获得相同名称的初始化属性，因此当我们测试 `name` 的值时，我们得到 `Juan`。厉害！同样可以应用到其它对象。回到我们的例子：
+在上面的例子中，我们声明了一个名为 `name` 的变量，该变量将从对象 `me` 中获得相同名称的初始化属性，因此当我们对 `name` 求值时，我们得到 `Juan`。太棒了！这个操作同样适用于任意层级的属性。回到我们的例子：
 
 ```js
 const { title, rating, author: { name } } = article
 ```
 
-对于 `title` 和 `rating`，和我们之前的讲解一样。但是在 `author` 这里，事情有点不同。当我们得到一个对象或数组的属性时，我们可以选择是创建一个变量 `author` 的引用对象 `article.author`，或者进行深度解构并立即访问内部对象的属性。
+对于 `title` 和 `rating`，和我们之前的讲解一样。但是在 `author` 这里，事情有点不同。当我们遇到一个是对象或数组的属性时，我们可以选择是创建一个变量 `author` 的引用对象 `article.author`，或者进行深度解构并立即访问内部对象的属性。
 
 访问对象属性：
 
@@ -90,7 +90,7 @@ Uncaught ReferenceError: author is not defined
 
 上面的示例怎么回事？如果解构了 `author`，但是它为什么没有被定义？其实挺简单的。当我们要求 JavaScript 也对 `author` 对象进行解构时，绑定本身并没有被创建，取而代之的是我们可以访问我们选择的所有 `author` 属性，请记住这点。
 
-展开运算符（`...`）：
+扩展运算符（`...`）：
 
 ```JavaScript
 const article = {
@@ -127,7 +127,7 @@ Output
 Juan
 ```
 
-通过在一个属性上使用 `:` 我们可以为它提供一个新的名称（在我们的例子中是 `newName`）。然后我们可以在代码中访问这个变量。需要注意的是，不会定义具有原始属性 `name` 的变量。
+通过在一个属性上使用 `:` 我们可以为它提供一个新的名称（在我们的例子中是 `newName`）。然后我们可以在代码中访问这个变量。需要注意的是，原始属性 `name` 的变量并没有被定义。
 
 ### 缺少属性
 
@@ -142,7 +142,7 @@ Output
 undefined
 ```
 
-在这种情况下，变量是用未定义的值创建的。
+在这种情况下，变量的值是 `undefined`。
 
 ### 默认值
 
@@ -167,9 +167,9 @@ some string here
 
 这些都是解构对象赋值的例子，默认值仅在属性 `undefined` 分配。例如，如果属性的值为 `null` 或 `string`，则不会分配默认值，但属性的实际值会被分配。
 
-## 解构数组和数据项
+## 解构数组和可迭代对象
 
-我们已经看到了一些解构对象的例子，但是同样的例子也适用于数组或者数据项。让我们从一个例子开始：
+我们已经看到了一些解构对象的例子，但是同样的例子也适用于数组或可迭代对象。让我们从一个例子开始：
 
 ```JavaScript
 const arr = [1, 2, 3]
@@ -315,7 +315,7 @@ Juan
 
 ## 结论
 
-在开始使用解构时可能会不舒服，但一旦你习惯了，就再也回不去了。它真的可以让你的代码更简洁，这是一个很好的特性。
+在开始使用解构时可能会不舒服，但一旦你习惯了，就再也回不去了。它真的可以让你的代码更简洁，这是一个需要了解的概念。
 
 你知道在导入模块时也可以使用解构吗？看看我关于这个话题的[文章](https://levelup.gitconnected.com/an-intro-to-javascript-modules-36c07c5d4c9c)。
 
