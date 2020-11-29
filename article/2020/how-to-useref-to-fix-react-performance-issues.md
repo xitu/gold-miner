@@ -9,7 +9,7 @@
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/3208/1*ychn1nsfNdNxt4fRIz2qkw@2x.png)
 
-Refs 是 React 中很少会使用到的特性。如果你已经读过了官方的 [React Ref Guide](https://reactjs.org/docs/refs-and-the-dom.html)，你会从中了解到 Refs 被描述成区别于典型 React 数据的 “逃生舱门”，需谨慎使用。Refs 被视为访问组件的基础 DOM 元素的正确方法。
+Refs 是 React 中很少会使用到的特性。如果你已经读过了官方的 [React Ref Guide](https://reactjs.org/docs/refs-and-the-dom.html)，你会从中了解到 Refs 被描述为重要的 React 数据流的 “逃生舱门”，需谨慎使用。Refs 被视为访问组件的基础 DOM 元素的正确方法。
 
 伴随着 React Hooks 的到来, React 团队引入了 `[useRef](https://reactjs.org/docs/hooks-reference.html#useref)` Hook，它扩展了这个功能：
 
@@ -19,7 +19,7 @@ Refs 是 React 中很少会使用到的特性。如果你已经读过了官方�
 
 ## 面临的问题
 
-我是一名 [Firetable](https://firetable.io/?utm_source=Medium&utm_medium=blog&utm_campaign=How%20to%20useRef%20to%20Fix%20React%20Performance%20Issues&utm_content=MediumArticle) 的软件开发工程师。Firetable 是一个开源的 React 电子表格应用，结合了 Firestore 和 Firebase 的主要功能。 其中有一个主要功能是侧面抽屉，它是一种类似于窗体的 UI，用于编辑在主表上滑动的那一行。
+我是一名 [Firetable](https://firetable.io/?utm_source=Medium&utm_medium=blog&utm_campaign=How%20to%20useRef%20to%20Fix%20React%20Performance%20Issues&utm_content=MediumArticle) 的软件开发工程师。Firetable 是一个开源的 React 电子表格应用，结合了 Firestore 和 Firebase 的主要功能。其中有一个主要功能是侧面抽屉，它是一种类似于窗体的 UI，用于编辑在主表上滑动的那一行。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*1h6w52_v9rflIGJ9WlDPGw.gif)
 
@@ -27,10 +27,10 @@ Refs 是 React 中很少会使用到的特性。如果你已经读过了官方�
 
 将这行数据的状态的放在侧抽屉组件内部是最符合逻辑的，因为当用户选择其他单元格时，它应该**仅**影响侧边的抽屉组件。 然而：
 
-- 我们需要**存储**的数据状态来自于表格组件。 我们用的是 `[react-data-grid](https://github.com/adazzle/react-data-grid)` 渲染表格，并且它接收一个当用户点击一个单元格时会触发的回调。就目前来看，这是我们能从表格中获取选中行数据的唯一途径。
+- 我们需要在表格组件里**设置**这个数据状态。我们用的是 `[react-data-grid](https://github.com/adazzle/react-data-grid)` 渲染表格，并且它接收一个当用户点击一个单元格时会触发的回调。就目前来看，这是我们能从表格中获取选中行数据的唯一途径。
 - 但是侧边抽屉组件和表格组件是同级（兄弟）组件，所以不能直接访问彼此的数据状态。
 
-React 的推荐做法是 [上升数据状态](https://reactjs.org/docs/lifting-state-up.html) 到俩组件最近的父级节点 (以这个为例，父级节点为 `TablePage`)。但是我们决定不将状态迁移到这个组件，理由是：
+React 的推荐做法是 [提升状态](https://reactjs.org/docs/lifting-state-up.html) 到俩组件最近的父级节点 (以这个为例，父级节点为 `TablePage`)。但是我们决定不将状态迁移到这个组件，理由是：
 
 1. `TablePage` 不保存状态，主要是放置 table 和 side drawer 组件的容器, 两者都不接收任何的 props。我们倾向于保持这种做法。
 2. 我们已经在组件树的顶层使用 [React Context](https://reactjs.org/docs/context.html) 来共享了许多的全局数据，并且我们觉得应该将这个状态上升到全局 store。
@@ -51,7 +51,7 @@ React 的推荐做法是 [上升数据状态](https://reactjs.org/docs/lifting-s
 
 在决定使用 `useRef` 之前，我们尝试了几种不同的解决方案。([Dan Abramov 的文章](https://github.com/facebook/react/issues/15156#issuecomment-474590693)) :
 
-1. 拆分 context (i.e. 创建新的 `SideDrawerContext`) —— table 组件仍然会消费到新的 context，在打开侧边抽屉的时候依旧会 [导致 table 组件的不必要的重新渲染](https://reactjs.org/docs/hooks-reference.html#usecontext)。
+1. 拆分 context (也就是创建新的 `SideDrawerContext`) —— table 组件仍然会消费到新的 context，在打开侧边抽屉的时候依旧会 [导致 table 组件的不必要的重新渲染](https://reactjs.org/docs/hooks-reference.html#usecontext)。
 2. 将 table 组件放在 `React.memo` 或 `useMemo` 中 —— table 组件依旧是需要通过 `useContext` 拿到侧边抽屉组件的状态，[两种 API 均无法阻止其重新渲染](https://reactjs.org/docs/react-api.html#reactmemo)。
 3. 将用于渲染表格的 `react-data-grid` 组件进行 memo —— 这将使我们的代码更加的冗长。我们还发现它阻止了 “必要” 的重新渲染，要求我们花费更多的时间完全修复或者重构我们的代码来实现侧边抽屉。
 
@@ -89,7 +89,7 @@ export function FiretableContextProvider({ children }) {
 }
 ```
 
-**注意：由于功能组件在重新渲染时会运行整个功能主体，所以每当 “单元” 或 “打开” 状态更新（并导致重新渲染）时，“sideDrawerRef” 总是能在在 “.current” 中获取到最新值。**
+**注意：由于函数组件在重新渲染时会运行整个函数体，所以每当 “单元” 或 “打开” 状态更新（并导致重新渲染）时，“sideDrawerRef” 总是能在 “.current” 中获取到最新值。**
 
 事实证明，此解决方案是最佳的：
 
