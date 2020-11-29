@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/abstract-data-types-and-the-software-crisis.md](https://github.com/xitu/gold-miner/blob/master/article/2020/abstract-data-types-and-the-software-crisis.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[leexgh](https://github.com/leexgh)、[landiy](https://github.com/landiy)
+> * 校对者：[leexgh](https://github.com/leexgh)、[landiy](https://github.com/landiy)、[lsvih](https://github.com/lsvih)
 
 # 抽象数据类型与软件危机
 
@@ -16,7 +16,7 @@
 
 > **不要与以下内容混淆：**
 >
-> **代数数据类型**（有时缩写为 ADT 或 AlgDT）。代数数据类型是指编程语言中的复杂类型（例如 Rust、Haskell、F＃），这些类型表现出的特性之一是具有特定的代数结构，例如，总数类型和产品类型。
+> **代数数据类型**（有时缩写为 ADT 或 AlgDT）。代数数据类型是指编程语言中的复杂类型（例如 Rust、Haskell、F＃），这些类型表现出的特性之一是具有特定的代数结构，例如，积（product）与和（sum）类型。
 >
 > **代数结构。** 代数结构是从抽象代数研究和应用而来的，抽象代数与 ADT 一样，通常也使用代数公理来进行描述，但它的应用范围却远不止计算机和代码。有些代数结构是不能在软件中完全地建模的。相比之下，抽象数据类型可以作为规范和指南来正式验证软件运行。
 
@@ -47,7 +47,7 @@ ADT 可以表达许多有用的代数结构，包括半群，monoid，函子，�
 
 他所指的问题是软件非常复杂。NASA 的阿波罗登月舱和制导系统的印刷版大约是文件柜的高度。如此大量的代码，想象一下试图阅读和理解其中的每一行代码的困难程度。
 
-现代软件要复杂几个数量级。Facebook在2015年大约有 [6200 万行代码](https://www.informationisbeautiful.net/visualizations/million-lines-of-code/)。如果每页打印 50 行，则将填满 124 万页。如果堆叠这些页面，则每英尺或 688 英尺可获得约 1800 页。这比撰写本文时所在的旧金山最高住宅大楼[千禧塔](https://en.wikipedia.org/wiki/Millennium_Tower_(San_Francisco))还要高。
+现代软件要复杂几个数量级。Facebook 在 2015 年大约有 [6200 万行代码](https://www.informationisbeautiful.net/visualizations/million-lines-of-code/)。如果每页打印 50 行，则将填满 124 万页。如果堆叠这些页面，则每英尺或 688 英尺可获得约 1800 页。这比撰写本文时所在的旧金山最高住宅大楼[千禧塔](https://en.wikipedia.org/wiki/Millennium_Tower_(San_Francisco))还要高。
 
 管理软件复杂性是几乎每个软件开发人员都面临的主要挑战之一。在 1960 年代和 1970 年代，他们没有我们今天认为理所当然的程序语言、模式或工具。诸如 linters、intellisense 甚至静态分析工具之类的东西也尚未发明出来。
 
@@ -134,7 +134,7 @@ pop(push(a, stack())) = [a, stack()]
 从堆栈中弹出应该遵循以下顺序：后进先出（LIFO）。
 
 ```js
-pop(push(b, push(a, stack())) = [b, stack(a)]
+pop(push(b, push(a, stack()))) = [b, stack(a)]
 ```
 
 * 给定：推入 `a` 进堆栈，然后推入 `b` 进堆栈，然后从堆栈弹出。
