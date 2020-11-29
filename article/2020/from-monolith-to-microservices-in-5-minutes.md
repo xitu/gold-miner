@@ -9,7 +9,7 @@
 
 > “微服务架构是一种将单体应用程序开发为一套小型服务的方法。”——马丁 · 福勒。
 
-![Monolithic Architecture vs. Microservice Architecture](https://cdn-images-1.medium.com/max/6486/1*prvtMgGd36b-smjFPbAcLQ.png)
+![Monolithic Architecture vs. Microservice Architecture](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3oixi4ktj318x0u0e81.jpg)
 
 首先，我们需要明白什么是单体架构。因此，我将向你展示如何修改它的域,，以便为微服务架构做好准备。最后，我将会简要地告诉你微服务架构的基础知识，并讨论其优缺点。
 
@@ -19,9 +19,9 @@
 
 单体这个词指的是软件的体系结构是由一个后端单元组成。我之所以说后端，是因为我认为单体架构可以在具有多个 UI（如 Web 和移动设备）的同时，仍然可以被看作为一个整体。
 
-![Monolithic Architecture](https://cdn-images-1.medium.com/max/2000/1*ypN7hg56LlEkL8mXwwG7_g.png)
+![Monolithic Architecture](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3oiyfcgrj309h0e7dgg.jpg)
 
-组件之间的通信主要通过方法的调用。 如果你的前端和后端是在物理上隔离的，但是它们仍然是一个整体，例如 API 和 Web 客户端。
+组件之间的通信主要通过方法的调用。如果你的前端和后端是在物理上隔离的，但是它们仍然是一个整体，例如 API 和 Web 客户端。
 
 除非你将后端划分为更多部署单元，否则在我看来你依旧是在使用单体架构。
 
@@ -33,7 +33,7 @@
 
 下图是一个将在线商城域可视化的结果。
 
-![Single-Domain Model](https://cdn-images-1.medium.com/max/4086/1*4V6XEE4UXoADirlpZwNbvQ.png)
+![Single-Domain Model](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3oj5uhidj31kr0siwfk.jpg)
 
 Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不可取的，因为这将导致一个地方出现更多的问题。这违反了[关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns)。
 
@@ -49,13 +49,13 @@ Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不�
 
 我们可以通过对域中的每个实体问一个简单的问题来验证模型，即：**这个实体对于哪个上下文有效？**
 
-![Specifying Entities Contexts](https://cdn-images-1.medium.com/max/4422/1*_n14MElHRUXeDkhTyW_ytA.png)
+![Specifying Entities Contexts](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3oj7fmupj31pf0riwgp.jpg)
 
 当一个实体对多个上下文有效时，那么它应该被划分到多个上下文中。每个实体都具有与上下文相对应的属性。这一步结束后，你的应用就准备好迁移到**微服务架构**了。
 
 下图是从在线商城域中对 Product 分离的实体类的可视化结果。
 
-![Multi-Domain Model](https://cdn-images-1.medium.com/max/5106/1*-DKOV0a4q4Cy9ZcuNBfNmg.png)
+![Multi-Domain Model](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3ojbxttfj31yx0sfab7.jpg)
 
 ## 微服务架构
 
@@ -63,7 +63,7 @@ Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不�
 
 限界上下文帮助我们找到一个微服务的最佳大小。微服务应具有足够小的模型，以最大程度减少与外部世界的通信，而出于存在的原因，则应足够大。
 
-![Microservices](https://cdn-images-1.medium.com/max/3546/1*N4hWH5yRLsrsv0cI703mGQ.png)
+![Microservices](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3ojcifbtj30y10u0gs9.jpg)
 
 微服务架构使项目具有独立性。该架构支持分离的开发团队、不同的操作系统、不同的编程语言以及不同的业务层架构，例如 [CQRS](https://levelup.gitconnected.com/3-cqrs-architectures-that-every-software-architect-should -know-a7f69aae8b6c)。
 
@@ -75,7 +75,7 @@ Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不�
 
 在大型应用程序中，微服务体系结构的开发成本曲线较好。小型应用程序无法从微服务中受益，因此应保持单体架构。
 
-微服务会有分布式系统的成本，比如负载平衡和网络延迟。这些问题可以通过任务编排器很好的解决，例如 [Kubernetes ](https://kubernetes.io/) 和  [Azure Service Fabric](https://azure.microsoft.com/cs-cz/services/service-fabric/)。
+微服务会有分布式系统的成本，比如负载平衡和网络延迟。这些问题通过任务编排器可以很好的解决，常见的有 [Kubernetes ](https://kubernetes.io/) 和  [Azure Service Fabric](https://azure.microsoft.com/cs-cz/services/service-fabric/)。
 
 有了对以上这些内容的理解，接下来我推荐你去阅读 [Pluralsight course from Mark Heath — Microservices Fundamentals](https://app.pluralsight.com/library/courses/microservices-fundamentals/table-of-contents)。
 
