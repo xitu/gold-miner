@@ -5,7 +5,7 @@
 > * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：[leexgh](https://github.com/leexgh)、[landiy](https://github.com/landiy)
 
-# 抽象数据类型 ADT 与软件危机
+# 抽象数据类型与软件危机
 
 ![Image: [MattysFlicks — Smoke Art — Cubes to Smoke](https://www.flickr.com/photos/68397968@N07/11432696204) ([CC BY 2.0](https://creativecommons.org/licenses/by/2.0/))](https://cdn-images-1.medium.com/max/4096/1*DSu4IJYOeNzJbQIip9oTVg.jpeg)
 
