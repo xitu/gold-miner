@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/from-monolith-to-microservices-in-5-minutes.md](https://github.com/xitu/gold-miner/blob/master/article/2020/from-monolith-to-microservices-in-5-minutes.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：[zenblo](https://github.com/zenblo),[NieZhuZhu](https://github.com/NieZhuZhu)
+> - 校对者：[zenblo](https://github.com/zenblo)，[NieZhuZhu](https://github.com/NieZhuZhu)
 
 # 5 分钟内从单体架构迁移到微服务架构
 
@@ -11,7 +11,7 @@
 
 ![Monolithic Architecture vs. Microservice Architecture](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3oixi4ktj318x0u0e81.jpg)
 
-首先，我们需要明白什么是单体架构。因此，我将向你展示如何修改它的域,，以便为微服务架构做好准备。最后，我将会简要地告诉你微服务架构的基础知识，并讨论其优缺点。
+首先，我们需要明白什么是单体架构。因此，我将向你展示如何修改它的域，以便为微服务架构做好准备。最后，我将会简要地告诉你微服务架构的基础知识，并讨论其优缺点。
 
 ## 单体架构
 
@@ -27,7 +27,7 @@
 
 ## 单域模型
 
-> “域是计算机程序的目标主题领域。 形式上，它代表特定编程项目的目标主题。”—— 维基百科
+> “域是计算机程序的目标主题领域。形式上，它代表特定编程项目的目标主题。”—— 维基百科
 
 用我的话说，域就是软件存在的原因和目的。我在 [3 Domain-Centric Architectures Every Software Developer should Know](https://levelup.gitconnected.com/3-domain-centric-architectures-every-software-developer-should-know-a15727ada79f) 这篇文章中写了有关域的几个观点。
 
@@ -43,7 +43,7 @@ Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不�
 
 ## 限界上下文
 
-> 限界上下文是上下文的边界，参考 [Idapwiki.com](https://ldapwiki.com/wiki/Bounded Context)
+> 限界上下文是上下文的边界，参考 [Idapwiki.com](https://ldapwiki.com/wiki/Bounded%20Context)
 
 要指定限界上下文，我们需要识别出一个模型仍然有效的上下文范围。
 
@@ -61,7 +61,7 @@ Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不�
 
 微服务架构是因为微服务从而闻名。它是不断细分的单体。微服务将大型系统划分为较小的部分。
 
-限界上下文帮助我们找到一个微服务的最佳大小。微服务应具有足够小的模型，以最大程度减少与外部世界的通信，而出于存在的原因，则应足够大。
+限界上下文帮助我们找到一个微服务的最佳大小。微服务的模型应当尽可能小，以最大程度减少与外部世界的通信；但也不能过于小而失去存在的必要性。
 
 ![Microservices](https://tva1.sinaimg.cn/large/0081Kckwgy1gl3ojcifbtj30y10u0gs9.jpg)
 
@@ -75,7 +75,7 @@ Sales 和 Catalog 子域包含单个的 **Product** 实体。这种做法是不�
 
 在大型应用程序中，微服务体系结构的开发成本曲线较好。小型应用程序无法从微服务中受益，因此应保持单体架构。
 
-微服务会有分布式系统的成本，比如负载平衡和网络延迟。这些问题通过任务编排器可以很好的解决，常见的有 [Kubernetes ](https://kubernetes.io/) 和  [Azure Service Fabric](https://azure.microsoft.com/cs-cz/services/service-fabric/)。
+微服务会有分布式系统的成本，比如负载平衡和网络延迟。这些问题通过任务编排器可以很好的解决，常见的有 [Kubernetes ](https://kubernetes.io/) 和 [Azure Service Fabric](https://azure.microsoft.com/cs-cz/services/service-fabric/)。
 
 有了对以上这些内容的理解，接下来我推荐你去阅读 [Pluralsight course from Mark Heath — Microservices Fundamentals](https://app.pluralsight.com/library/courses/microservices-fundamentals/table-of-contents)。
 
