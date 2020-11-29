@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-useref-to-fix-react-performance-issues.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-useref-to-fix-react-performance-issues.md)
 > - 译者：[NieZhuZhu「弹铁蛋同学」](https://github.com/NieZhuZhu)
-> - 校对者：
+> - 校对者：[regon-cao](https://github.com/regon-cao)、[zenblo](https://github.com/zenblo)
 
 # 如何使用 useRef 修复 React 性能问题
 
@@ -11,7 +11,7 @@
 
 Refs 是 React 中很少会使用到的特性。如果你已经读过了官方的 [React Ref Guide](https://reactjs.org/docs/refs-and-the-dom.html)，你会从中了解到 Refs 被描述为重要的 React 数据流的 “逃生舱门”，需谨慎使用。Refs 被视为访问组件的基础 DOM 元素的正确方法。
 
-伴随着 React Hooks 的到来, React 团队引入了 `[useRef](https://reactjs.org/docs/hooks-reference.html#useref)` Hook，它扩展了这个功能：
+伴随着 React Hooks 的到来，React 团队引入了 `[useRef](https://reactjs.org/docs/hooks-reference.html#useref)` Hook，它扩展了这个功能：
 
 > “`useRef()` 比 ref 属性更有用。它通过类似在 class 中使用实例字段的方式，[非常方便地](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) 保存任何可变值。” —— [React 文档](https://reactjs.org/docs/hooks-reference.html)
 
