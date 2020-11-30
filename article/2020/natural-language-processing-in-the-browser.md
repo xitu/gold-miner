@@ -1,45 +1,45 @@
-> * 原文地址：[Natural Language Processing in the Browser](https://medium.com/better-programming/natural-language-processing-in-the-browser-8ca5fdf2488b)
-> * 原文作者：[Martin Novák](https://medium.com/@ragnarecek)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/natural-language-processing-in-the-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2020/natural-language-processing-in-the-browser.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Natural Language Processing in the Browser](https://medium.com/better-programming/natural-language-processing-in-the-browser-8ca5fdf2488b)
+> - 原文作者：[Martin Novák](https://medium.com/@ragnarecek)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/natural-language-processing-in-the-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2020/natural-language-processing-in-the-browser.md)
+> - 译者：[regon-cao](https://github.com/regon-cao)
+> - 校对者：[zenblo](https://github.com/zenblo) [NieZhuZhu](https://github.com/NieZhuZhu) [lsvih](https://github.com/lsvih)
 
-# Natural Language Processing in the Browser
+# 在浏览器中做自然语言处理
 
 ![Image source: Author](https://cdn-images-1.medium.com/max/3192/1*X-jYECtYbLdX_c7GRz_DTQ.png)
 
-It is possible to build a chatbot for your own website without dependency on a third-party service like [Dialogflow](https://cloud.google.com/dialogflow/docs) or [Watson](https://www.ibm.com/watson), and without a server. I will show you how to build a chatbot that will completely run in the browser.
+在不依赖诸如 [Dialogflow](https://cloud.google.com/dialogflow/docs) 等第三方服务和服务端的情况下，搭建自己网站的聊天机器人也是可行的。我会教你如何搭建一个完全运行在浏览器中的聊天机器人。
 
-I will assume that you have some understanding of JavaScript and insight into how natural language processing works. No advanced knowledge or machine learning experience is needed.
+我假设你对 JavaScript 和自然语言处理的工作原理有一定的了解。完成这项任务不需要其他高级的知识或机器学习经验。
 
-If anyone tells you that it’s crazy to do machine learning in a browser using JavaScript, then don’t listen to that, because soon you will know better yourself.
+如果有人告诉你在浏览器中使用 JavaScript 进行机器学习简直是疯了，不要理他，因为很快你就会明白该怎么做。
 
-Our code will be based on [NLP.js](https://github.com/axa-group/nlp.js) version 4. [NLP](https://github.com/axa-group/nlp.js) is an open source library for natural language processing written in JavaScript. The project will allow you to train the NLP directly in a browser from a corpus and add a Hook to any intent to programmatically change the answer.
+我们的代码基于 [NLP.js](https://github.com/axa-group/nlp.js) 第 4 版。[NLP](https://github.com/axa-group/nlp.js) 是一个用 JavaScript 编写的用于自然语言处理的开源库。该项目可以让你直接在浏览器从语料库中训练 NLP 模型，并能添加一个钩子以编程方式更改答案。
 
-The final project can be found on my GitHub repository: [https://github.com/MeetMartin/nlpjs-web](https://github.com/MeetMartin/nlpjs-web). You can download it, open index.html, and just play with the final chatbot.
+完整的项目在我的 GitHub 仓库：[https://github.com/MeetMartin/nlpjs-web](https://github.com/MeetMartin/nlpjs-web)。你可以下载并打开 index.html 就可以和聊天机器人玩耍了。
 
-Every true developer nowadays should have some experience with artificial intelligence, and what is more sci-fi than talking to your computer using something that you have developed yourself.
+如今每一个真正的开发者都应该有一些人工智能的开发经验。还有什么事会比用你自己开发的东西和你的电脑说话更科幻呢？
 
-## Install Packages
+## 安装软件包
 
-Create a new npm project in any folder and install NLP packages:
+在任一文件夹中创建新的 npm 项目并安装 NLP 包：
 
 ```bash
 npm i -D @nlpjs/core @nlpjs/lang-en-min @nlpjs/nlp @nlpjs/request-rn@nlpjs/request-rn
 ```
 
-We will also need [browserify](https://github.com/browserify/browserify#usage) and [terser](https://terser.org/docs/cli-usage) to be able to build NLP for browser use:
+我们还需要安装 [browserify](https://github.com/browserify/browserify#usage) 和 [terser](https://terser.org/docs/cli-usage) 来构建浏览器使用的 NLP 包：
 
 ```bash
 npm i -D browserify terser
 ```
 
-Enjoy the smell of a new project with freshly installed packages. You deserve it.
+享受一下刚安装完软件包的新项目带来的愉悦吧。这是你应得的。
 
-## Build NLP
+## 构建 NLP 包
 
-The first step is to build NLP using browserify and terser. For that we just need to create a basic setup in buildable.js:
+第一步是使用 browserify 和 terser 构建 NLP 包。为此我们只需要在 buildable.js 里创建基础代码：
 
 ```JavaScript
 const core = require('@nlpjs/core');
@@ -50,7 +50,7 @@ const requestrn = require('@nlpjs/request-rn');
 window.nlpjs = { ...core, ...nlp, ...langenmin, ...requestrn };
 ```
 
-We are using only the core of NLP and a small English package. To build everything, just add a build command into your `package.json`:
+我们只使用 NLP 的核心代码和一个小的英语语言包。要构建所有内容，只需要向你的 `package.json` 里加入以下命令：
 
 ```JSON
 {
@@ -71,17 +71,17 @@ We are using only the core of NLP and a small English package. To build everythi
 
 ```
 
-Now run the build:
+现在运行下面的命令：
 
 ```bash
 npm run build
 ```
 
-You should end up with `./dist/bundle.js` with just about 137 KB. It is also good to note that NLP has a [very impressive list of supported languages](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages). However, only English has an optimized version for a browser.
+你应该得到了一个大约有 137 KB 的 `./dist/bundle.js`。值得注意的是 NLP 包拥有一个[非常棒的支持语言列表](https://github.com/axa-group/nlp.js/blob/master/docs/v4/language-support.md#supported-languages)。然而，只有英文才有针对浏览器优化的版本。
 
-## Train NLP in a Browser
+## 在浏览器中训练 NLP 模型
 
-Now that we have created our bundle, we can train our NLP in a browser. Create this `index.html`:
+现在我们已经创建了包，我们可以在浏览器中训练 NLP 模型了。创建 `index.html`：
 
 ```HTML
 <html>
@@ -119,7 +119,7 @@ Now that we have created our bundle, we can train our NLP in a browser. Create t
 </html>
 ```
 
-The function `setupNLP` for us takes care of the setup of the library as well as the training. A corpus is a JSON file that defines the conversation for our chatbot in this format:
+函数 `setupNLP` 负责处理库的安装和训练。语料库是一个 JSON 文件，它以下面的格式定义了聊天机器人的对话：
 
 ```JSON
 {
@@ -168,25 +168,25 @@ The function `setupNLP` for us takes care of the setup of the library as well as
 }
 ```
 
-The **intent** is a unique identifier of a conversation node, and its name should represent the intention of the user that the chatbot reacts to. **Utterances** are a set of training examples of what a user can say to trigger the intent. **Answers** are then an array of responses that the chatbot will randomly choose from.
+**intent** 是会话节点的唯一标识符，它的值应该代表与机器人对话的用户的意图。**Utterances** 是一系列关于用户可以说什么来触发意图的训练样本。**Answers** 是一组聊天机器人可以从里面随机选择的回答。
 
-To train our chatbot, we are borrowing a larger corpus from the libraries’ examples: [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json). But for your use case, feel free to create your own corpus. Just remember that the library expects to read the corpus from some URL.
+为了训练聊天机器人，我们从 [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) 借用更大的语料库。你也可以为你的用例随意创建自己的语料库。只要记住一点，NLP 库需要从 URL 读取语料库。
 
-When you open `index.html` in a browser, you should see a simple chat form that doesn’t do anything yet.
+当你在浏览器中打开 `index.html`，你应该看到了一个简单的啥都没做的聊天机器人。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jcgI1OlIsUD8VcGVzxAiYw.png)
 
-But if you open a browser console, you can already see successful training output:
+但是如果你打开了浏览器控制台，你已经可以看到成功的训练输出了：
 
 ![](https://cdn-images-1.medium.com/max/2828/1*GddApxHIsJ5K4AzzjEIiOw.png)
 
-The training is super fast and makes the trained model available to your chatbot in the browser. This is a more efficient approach because a corpus file is significantly smaller than the resulting model.
+训练速度非常快，你的聊天机器人可以在浏览器中使用训练过的模型。因为语料库文件比生成的模型小得多所以是一种更有效的方法。
 
-It feels great to train your first machine learning code. You have just become a legend and one of few people on the planet that can say: “Yeah, I trained an AI once, it was no big deal.”
+训练你的第一个机器学习代码感觉很太棒了。你刚刚成为了一个传奇，是这个星球上为数不多的可以说“是的，我曾经训练过一个人工智能，没什么大不了的。“的人之一。
 
-## Chatbot HTML
+## 聊天机器人 HTML
 
-Now we will make the chatbot form work. Extend your `index.html` by adding the `onChatSubmit` function:
+我们让这个聊天机器人表单开始工作。在你的 `index.html` 加入 `onChatSubmit` 函数：
 
 ```HTML
 <html>
@@ -236,17 +236,17 @@ Now we will make the chatbot form work. Extend your `index.html` by adding the `
 </html>
 ```
 
-Now you can play with your new chatbot:
+现在你可以和聊天机器人互动了：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uxgIOaFQgJD-w3NEFL_UgQ.png)
 
-Explore your corpus or the corpus on [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) to learn what conversation topics are supported.
+查看你的语料库或者 [https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json](https://raw.githubusercontent.com/jesus-seijas-sp/nlpjs-examples/master/01.quickstart/02.filecorpus/corpus-en.json) 去了解哪些对话是被支持的。
 
-Now this is something that you can show your friends in a pub and easily get their admiration, for now you are a true hacker.
+现在，这是一个你可以向你的朋友展示，并且很容易得到他们的羡慕的东西。现在你是个真正的黑客。
 
-## Adding Hooks to Intents
+## 给 Intents 添加钩子
 
-You might want your chatbot to be able to call some additional code with each intent or replace the answer for some intent with some API calls. Let's extend our `index.html` to its final version.
+你可能希望你的聊天机器人能够在处理每个意图的时候附加一些代码，或者用一些 API 调用替换某些意图的答案。我们来把 `index.html` 扩展到最终版。
 
 ```HTML
 <html>
@@ -314,29 +314,29 @@ You might want your chatbot to be able to call some additional code with each in
 </html>
 ```
 
-To our `setupNLP` we added a line:
+我们在 `setupNLP` 函数里添加了一行：
 
 ```js
 nlp.onIntent = onIntent;
 ```
 
-And we created the `onIntent` function. Notice that `onIntent` logs the response object into your console for each intent. It also adds logic to `greetings.hello` intent by replacing its output with an answer based on the current time of the user. In my case it is now afternoon:
+我们创建了 `onIntent` 函数。注意 `onIntent` 在控制台里打印了每次会话的相应对象。 在 `greetings.hello` 意图里添加了逻辑，将当前用户的时间作为回答替换了原来的输出。在我的例子里现在是下午：
 
 ![](https://cdn-images-1.medium.com/max/2770/1*2mIHjtgl0fjEYs2xJaolgw.png)
 
-Isn’t this awesome? High five if you are rightfully feeling ready to create your own AI startup.
+是不是很棒？如果你已经准备好创建自己的人工智能创业公司，让我们来击个掌吧！
 
-## Known Limitations
+## 已知的局限
 
-Please notice that the browser version of NLP does not support some common natural language processing features, such as named entities or entity extractions that are available in the full library.
+请注意，NLP 库的浏览器版本不支持一些常见的自然语言处理功能，例如完整库中可用的命名实体或实体提取。
 
-NLP as a library also currently doesn’t support stories or follow-up intents. These are part of the current development of chatbot orchestration, but the feature is still experimental at the time of writing this article.
+NLP 作为一个库目前暂不支持场景或流程控制对话。这些都是当前开发流程型聊天机器人的一部分，但在撰写本文时，该特性仍处于试验阶段。
 
-## Security and Privacy Considerations
+## 安全和隐私考虑
 
-When using this solution, please keep in mind that the whole corpus and its functionality are available in the browser to anyone who will visit your website. That also gives anyone the ability to simply download your corpus, manipulate it, and otherwise use it. Make sure that your bot doesn’t expose any private information.
+使用此方案时，请记住，所有访问你网站的人都可以在浏览器中使用整个语料库及其功能。这也让任何人都可以简单地下载、操作和使用你的语料库。请确保你的机器人不会暴露任何私人信息。
 
-Using a browser-only solution gives certain advantages but also removes some opportunities, as you would still need some back-end solution in order to be able to record what users are talking about with your chatbot. At the same time, if you record whole conversations, please consider privacy implications, especially in the context of legislation like GDPR.
+采用纯浏览器方案有一定的优势，但也会缺失一些机会，您仍然需要一些后端解决方案，以便能够记录用户使用聊天机器人谈论的内容。同时，如果你记录了整个对话，请考虑隐私问题，尤其是在 GDPR 这样的法律背景下。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
