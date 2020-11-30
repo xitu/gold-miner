@@ -7,17 +7,13 @@
 
 # Page Lifecycle API: A Browser API Every Frontend Developer Should Know
 
-## Deep Dive into Page Lifecycle API
-
-#### Browser API Every Frontend Developer Should Know
-
 ![Photo by [Jeremy Perkins](https://unsplash.com/@jeremyperkins?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11120/0*s7XvAqERxLnWWPbS)
 
 As users, we always like to multi-task while browsing web pages. So it’s common to have several browser tabs open as it helps to get things done in parallel. However, at the same time, each of these tabs consumes system resources like memory and CPU.
 
 Since it’s impossible to limit users from opening new browser tabs and leaving them behind, browsers have taken several measures to deallocate resources when the browser tabs aren’t active.
 
-> # Modern browsers today will sometimes suspend pages or discard them entirely when system resources are constrained — Philip Walton
+> Modern browsers today will sometimes suspend pages or discard them entirely when system resources are constrained — Philip Walton
 
 #### So you might wonder why we need to worry about this, as it is taken care of by the browser?
 
@@ -50,7 +46,7 @@ If a webpage has been hidden for a long time and the user does not close the pag
 
 Suppose a webpage is in a frozen state for a long time. In that case, the browser will automatically unload the page into the discarded state, releasing some memory. And If the user re-visits a discarded page, the browser will reload the page to return to the Active State.
 
-> # It’s worth noticing that the users will typically experience the discarded state in devices with resource constraints.
+> It’s worth noticing that the users will typically experience the discarded state in devices with resource constraints.
 
 Apart from the above two states, there are four other states introduced in the API as,
 
@@ -67,7 +63,7 @@ You can find the lifecycle states and the transition in detail by looking at the
 
 Now that we understand the Page Lifecycle API, let’s see how we can respond to each event.
 
-> # The most important thing here is identifying what needs to remain and what needs to be stopped when the application reaches each state.
+> The most important thing here is identifying what needs to remain and what needs to be stopped when the application reaches each state.
 
 * **Active State** — Since the user is fully active on the page, your webpage should be fully responsive to user inputs. Any UI blocking tasks should be de-prioritized, such as synchronous and blocking network requests.
 * **Passive State** — Even though the user does not interact with the page at this stage, they can still see it. Therefore your webpage should run all UI updates and animations smoothly.
@@ -80,21 +76,11 @@ Now that we understand the Page Lifecycle API, let’s see how we can respond to
 
 Okay, so now that we know what to be done at each state, let’s see how we can capture each state within our applications.
 
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, collaborate as a team, speed delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
----
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*E4k-LWGQzXlFxWKC.gif)
-
 ## How to Capture Lifecycle States in Your Code
 
 You can use the following JavaScript function to determine the Active, Passive, and Hidden states of a given page.
 
-```
+```js
 const getState = () => {
   if (document.visibilityState === 'hidden') {
     return 'hidden';
@@ -108,7 +94,7 @@ const getState = () => {
 
 With the release of Chrome 68, developers can observe when a hidden tab is frozen and unfrozen by listening to the `freeze` and `resume` events on `document` object.
 
-```
+```js
 document.addEventListener('freeze', (event) => {
   // The page is now frozen.
 });
@@ -120,7 +106,7 @@ document.addEventListener('resume', (event) => {
 
 To determine whether a page is discarded while in a hidden tab, the following code can be used.
 
-```
+```js
 if (document.wasDiscarded) {
 // Page was previously discarded by the browser while in a hidden tab.
 } 
@@ -149,16 +135,6 @@ Web pages shouldn’t consume excessive resources while the user is not actively
 ---
 
 Although it is relevant more for the advanced use cases, we could develop efficient web applications by knowing its capabilities. As a result, we could provide a better experience to the end-users.
-
-## Learn More
-[**Tiny Components: What Can Go Wrong?**
-**Using the Single Responsibility Principle to build better apps**blog.bitsrc.io](https://blog.bitsrc.io/tiny-components-what-can-go-wrong-d6aa42d71370)
-[**7 New Chrome APIs You Should Know**
-**7 top Chrome features that blur the lines between native apps and web apps**blog.bitsrc.io](https://blog.bitsrc.io/7-new-chrome-apis-you-should-know-cf2dcb9f42dc)
-[**Chrome’s Web Locks API: Cross-Tab Resource Synchronization**
-**Share resources amongst several tabs/workers without any synchronization issues**blog.bitsrc.io](https://blog.bitsrc.io/web-locks-api-cross-tab-resource-synchronization-54326e079756)
-[**How We Build Micro Frontends**
-**Building micro-frontends to speed up and scale our web development process.**blog.bitsrc.io](https://blog.bitsrc.io/how-we-build-micro-front-ends-d3eeeac0acfc)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
