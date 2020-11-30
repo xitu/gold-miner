@@ -23,7 +23,7 @@ If we used a regular property access, `myObj.property` , and myObj was undefined
 
 This is incredibly useful to avoid errors, but sometimes we want a default case. For instance, what if we have a text field that the user never activates, and thus the inner text is undefined? We don’t want to send `undefined` to the backend. We can chain the **optional access operator** (what we just learned, `.?` ) with the **null coalescence operator.** It’d look something like this:
 
-```
+```ts
 sendFieldToServer(textField?.text ?? '')
 ```
 
@@ -41,7 +41,7 @@ That is, if `dog` is in scope.
 
 If we exported `dog` in `dog.ts` with a default export, like this:
 
-```
+```ts
 default export interface Dog {
      bark: () => void,
 }
@@ -49,7 +49,7 @@ default export interface Dog {
 
 then the import can be anything. I can import `dog` as `cat` from another file, if I’d like:
 
-```
+```ts
 import cat from 'dog.ts'
 
 cat.bark()
@@ -57,7 +57,7 @@ cat.bark()
 
 That’s valid TypeScript code. That means that if we do:
 
-```
+```ts
 let t: dog = {
    bark: () => console.log('woof!')
 }
@@ -67,7 +67,7 @@ TypeScript doesn’t know what `dog` is. There’ll be a little red line under `
 
 This is where regular exports come in. Exporting `dog` like this:
 
-```
+```ts
 export interface dog {..} //export without 'default'
 ```
 
@@ -83,7 +83,9 @@ Enums are this planet's gift to programmers, so when JavaScript decided to not h
 
 While TypeScript has enums on its own, it might be surprising to say that… you don’t 100% need them. Enums add a little bit of overhead by having to define it. TypeScript has something even better.
 
+```ts
 t: "left" | "right" | "middle" = "middle"
+```
 
 This functionally operates as an enum. You can switch on it, you can’t assign t to anything but those 3 values. But we defined it in a single line, and TypeScript knows not to allow anything else in there. If I tried to do `t="center"` , TypeScript would error out. I can 100% be certain that the value of `t` is one of those 3 values, so I can do things like switch on those 3 strings and not have to worry about a default.
 
@@ -102,7 +104,9 @@ You can also do the same thing in TypeScript, and allow the value to be any, but
 
 Instead, there exists `Map`. It exists in JS too, but in JS it’s not type constrained so it’s not as useful. Here’s how it works:
 
-let myMap: Map\<string, string> = new Map()
+```ts
+let myMap: Map<string, string> = new Map()
+```
 
 This creates a map that solves all the problems that I mentioned with prototype-based mapping.
 
