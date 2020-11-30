@@ -7,8 +7,6 @@
 
 # Best Static Site Generators for Vue.js
 
-#### Get to know Nuxt.js, VuePress, Gridsome, and Saber in comparison
-
 ![Photo by [Igor Son](https://unsplash.com/@igorson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/green?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9180/1*xKSrtHfuh8uTPcNyZmxjGw.jpeg)
 
 Over the past few years, Vue.js has become a popular choice for web application development. With its popularity, the framework has expanded its reach to static site generation, an area once dominated by React.
@@ -16,8 +14,6 @@ Over the past few years, Vue.js has become a popular choice for web application 
 Like Gatsby and NextJS that uses React, you can find several frameworks using Vue.js that supports static site generation. However, choosing one isn’t that easy considering the features they provide.
 
 Therefore, in this article, I will introduce the top four Vue.js frameworks for static site generation with a detailed comparison to find the right match for your use case.
-
----
 
 ## 1. Nuxt.js — 32000 Stars & 280+ Contributors
 
@@ -29,7 +25,7 @@ Nuxt.js follows a robust modular architecture, and there are more than 50 differ
 
 One of the biggest strengths of Nuxt.js comes with the `nuxt generate` command.
 
-> # With this command, you can generate a completely static version of your website with minimum effort.
+> With this command, you can generate a completely static version of your website with minimum effort.
 
 If we look into the stats about Nuxt.js, it has more than 32000 stars and 280+ contributors. Companies like GitLab, NESPRESSO, and UBISOFT have started their journey with Nuxt.js.
 
@@ -47,8 +43,6 @@ If we look into the stats about Nuxt.js, it has more than 32000 stars and 280+ c
 * There can be challenges in using custom libraries.
 * There are many issues reported regarding the ease of debugging.
 * Large community but still behind Gatsby and Next.js.
-
----
 
 ## 2. VuePress — Optimized for Content Centric Static Sites
 
@@ -82,25 +76,13 @@ If we consider the GitHub stats, VuePress has more than 17800 stars and 340+ con
 * New in comparison and not yet established like Nuxt.js.
 * VuePress isn’t installed on most shared hosting providers.
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, collaborate as a team, speed delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*TGZuXdpfuFXkwLGS.gif)
-
----
-
 ## 3.Gridsome — Data-Driven Framework with GraphQL
 
 ![Source: [https://gridsome.org/](https://gridsome.org/)](https://cdn-images-1.medium.com/max/3122/1*fmNKCcOC47EB-KAdeXfD0g.png)
 
 Third on our list is Gridsome, and it is known for building lighting fast static websites. Similar to Gatsby in React, Gridsome is a data-driven framework. Gridsome uses a GraphQL layer to get content from the sources and then dynamically generates pages from it.
 
-> # GraphQL acts as a content management system for Gridsome.
+> GraphQL acts as a content management system for Gridsome.
 
 You can explore this GraphQL data layer at **localhost:8080/___explore** by running the project locally using `gridsome develop` command.
 
@@ -122,15 +104,13 @@ If we went through the GitHub statistics of Gridsome, it only has 7000 stars and
 * Need to have basic knowledge of GraphQL.
 * New in comparison and not yet established like Nuxt.js, VuePress.
 
----
-
 ## 4. Saber — Extract Data from Different File Systems
 
 ![Source: [https://saber.land/](https://saber.land/)](https://cdn-images-1.medium.com/max/2702/1*OR9DwoeaIjrjEAuPF0FhqA.png)
 
 Saber.js is another static site generator with a large number of built-in features to play with.
 
-> # After going through Saber.js for a while, I feel that it is more like a combination of Gatsby, Gridsome, and Nuxt.js.
+> After going through Saber.js for a while, I feel that it is more like a combination of Gatsby, Gridsome, and Nuxt.js.
 
 Similar to Gatsby and Gridsome, Saber allows you to create static web sites with the data you want. You can extract data from different file systems. With Saber, you won’t need to worry about GraphQL.
 
@@ -151,8 +131,6 @@ Since Saber is still new to the business, it only has 2000 stars in its GitHub r
 * Don’t have a CLI.
 * Still at the Beta version.
 
----
-
 ## Conclusion
 
 When it comes to static site generators, React was the number 1 choice and dominated the space. However, Vue.js was able to change that situation with those fantastic frameworks we discussed above. Besides, some of them have been a real threat to React-based frameworks.
@@ -170,14 +148,6 @@ However, when comparing the above four frameworks, Nuxt.js and VuePress are at t
 However, we shouldn’t forget that each of these frameworks has unique features in its arsenal. For example, Saber has the potential to be a global hit since it has plans to extend support for React.
 
 I hope this article has helped you to find the right framework for your use case. If you have any questions, please mention them in the comments below.
-
----
-[**4 Best Practices for Large Scale Vue.js Projects**
-**Building enterprise-level Vue.js projects.**blog.bitsrc.io](https://blog.bitsrc.io/4-best-practices-for-large-scale-vue-js-projects-9a533450bdb2)
-[**Quasar vs. Vutify vs. Bootstrap Vue: Choosing the Right Vue.js UI Library**
-**Insight to determine the best UI library for your Vue project**blog.bitsrc.io](https://blog.bitsrc.io/quasar-vs-vutify-vs-bootstrap-vue-choosing-the-right-vuejs-ui-library-cf566f61bc4)
-[**11 Vue UI Component Libraries You Should Know In 2019**
-**11 Vue.js component libraries tools and frameworks for your next app in 2019.**blog.bitsrc.io](https://blog.bitsrc.io/11-vue-js-component-libraries-you-should-know-in-2018-3d35ad0ae37f)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
