@@ -7,8 +7,6 @@
 
 # Is Virtual DOM Derived From Document Fragments?
 
-#### An interview guide for DOM, document fragments, virtual DOM, React fragments, incremental DOM, and shadow DOM
-
 ![Photo by [Manuel Sardo](https://unsplash.com/@manuelsardo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*DPFY7vtuIvJOsS0x)
 
 The [virtual DOM](https://reactjs.org/docs/faq-internals.html) is a core concept of React. It’s a representation of the UI that’s kept in memory and synced with the actual DOM. The [React DOM](https://github.com/facebook/react/tree/master/packages/react-dom) maintains the virtual DOM by reconciling the differences locally. The changes are inserted into the actual DOM based on the React pulling schedule.
@@ -18,8 +16,6 @@ The [virtual DOM](https://reactjs.org/docs/faq-internals.html) is a core concept
 The virtual DOM and document fragments use the same concept to improve the UI performance. Is the virtual DOM derived from document fragments?
 
 Let’s take a look at these JavaScript, React, and Angular concepts in depth.
-
----
 
 ## What’s a DOM?
 
@@ -62,8 +58,6 @@ Do you want to evaluate performance while under the pressure of loading 1,000,00
 The time duration varies for each run, but it's approximately 2.5 seconds.
 
 DOM manipulation is an expensive operation. Adding/removing an element results in intermediate repaints and reflows of the content.
-
----
 
 ## Why Are Document Fragments Used?
 
@@ -111,8 +105,6 @@ The time duration varies for each run, but it’s approximately 1.5 seconds.
 After appending children to the actual DOM (line 25), the document fragment becomes empty. If you want to reuse the updated contents, clone the document fragment before appending it to the DOM.
 
 Interestingly, the empty document fragment can be reused to build future updates.
-
----
 
 ## How Does a Virtual DOM Work?
 
@@ -250,8 +242,6 @@ The left `select` is directly rendered to the DOM. The recreation makes it impos
 
 The right `select` is rendered to the virtual DOM first. The frequent recreation happens on the virtual DOM instead of the actual DOM. Therefore, the `select` element works properly.
 
----
-
 ## About React Fragment
 
 To make the situation more interesting, React created a syntax to group a list of children without adding extra nodes to the DOM. This syntax is called `React.Fragment`. The following is an example of `React.Fragment`.
@@ -332,8 +322,6 @@ Using the `renderPart` function from above, the `patch` function can be used to 
 patch(document.getElementById('someId'), renderPart);
 ```
 
----
-
 ## What’s Shadow DOM?
 
 Shadow DOM is a technique ensuring that the code, styling, and structure are encapsulated in a separate, hidden DOM tree. Shadow DOM can be attached to an element in a DOM. The Shadow DOM is part of Web Components, a suite of different technologies to create reusable custom elements.
@@ -375,15 +363,11 @@ Lines 8-18 define an element class in Shadow DOM. This class is defined as a new
 
 Before Angular Ivy, the old compiler and runtime was View Engine, which used Shadow DOM.
 
----
-
 ## Conclusion
 
 We have answered the question “is a virtual DOM derived from document fragments?”
 
 For the long answer, we’ve walked though DOMs, document fragments, the virtual DOM, React fragments, Incremental DOM, and Shadow DOM. This knowledge is useful for interviews as well as for daily coding.
-
-Thanks for reading. I hope this was helpful. You can see my other Medium publications [here](https://medium.com/@jenniferfubook/jennifer-fus-web-development-publications-1a887e4454af).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
