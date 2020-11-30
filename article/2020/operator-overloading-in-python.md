@@ -25,84 +25,22 @@ This change in behaviour of `**+**` operator according to type of operands provi
 
 Can `+` operator add any two object? Let’s see.
 
-```Jupyter Notebook
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 1,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "class Vector:\n",
-    "\n",
-    "    def __init__(self, x, y):\n",
-    "        self.x = x\n",
-    "        self.y = y"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "v1 = Vector(3, 4)\n",
-    "v2 = Vector(5, 6)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 3,
-   "metadata": {},
-   "outputs": [
-    {
-     "ename": "TypeError",
-     "evalue": "unsupported operand type(s) for +: 'Vector' and 'Vector'",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-3-08104d7e1232>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mv1\u001b[0m \u001b[1;33m+\u001b[0m \u001b[0mv2\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;31mTypeError\u001b[0m: unsupported operand type(s) for +: 'Vector' and 'Vector'"
-     ]
-    }
-   ],
-   "source": [
-    "v1 + v2"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.7.6"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 4
-}
+```py
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+v1 = Vector(3, 4)
+v2 = Vector(5, 6)
+v1 + v2
+
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-3-08104d7e1232> in <module>
+----> 1 v1 + v2
+
+TypeError: unsupported operand type(s) for +: 'Vector' and 'Vector'
 ```
 
 Running the above will give you error. why? because `+` does not know how to add two objects of Vector class.
@@ -129,89 +67,22 @@ Now make our Vector class support `+` operator
 
 When we call `**+**` operator, Python interpreter invoke **__add__(self, other)** special method. In that case, to support + operator we need to implement __add__() special method in our class.
 
-```Jupyter Notebook
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "class Vector:\n",
-    "\n",
-    "    def __init__(self, x, y):\n",
-    "        self.x = x\n",
-    "        self.y = y\n",
-    "\n",
-    "    def __add__(self, other):\n",
-    "        return Vector(self.x + other.x , self.y + other.y)\n",
-    "\n",
-    "    def __repr__(self):\n",
-    "        return f'Vector({self.x}, {self.y})'"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "v1 = Vector(3, 4)\n",
-    "v2 = Vector(5, 6)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 6,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "Vector(8, 10)"
-      ]
-     },
-     "execution_count": 6,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "v1 + v2"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.7.6"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 4
-}
+```py
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+    def __add__(self, other):
+        return Vector(self.x + other.x , self.y + other.y)
+
+    def __repr__(self):
+        return f'Vector({self.x}, {self.y})'
+
+v1 = Vector(3, 4)
+v2 = Vector(5, 6)
+v1 + v2
+>>> Output: Vector(8, 10)
 ```
 
 Now you can see our class support `+` operator , we have also implemented __repr__() method, when we use print(), interpreter invoke __str__() method, if it is not implemented it will call __repr__() method.
@@ -222,113 +93,29 @@ Take one more example of overloading operator
 
 When we use `**==**` operator, Python interpreter invoke __eq__(self, other) special method, in that case by implementing __eq__() method we can support `==` operator.
 
-```Jupyter Notebook
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 7,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "class Vector:\n",
-    "\n",
-    "    def __init__(self, x, y):\n",
-    "        self.x = x\n",
-    "        self.y = y\n",
-    "\n",
-    "    def __add__(self, other):\n",
-    "        return Vector(self.x + other.x , self.y + other.y)\n",
-    "\n",
-    "    def __repr__(self):\n",
-    "        return f'Vector({self.x}, {self.y})'\n",
-    "    \n",
-    "    def __eq__(self, other):\n",
-    "        return self.x == other.x and self.y == other.y"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 8,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "v1 = Vector(3, 4)\n",
-    "v2 = Vector(5, 6)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 9,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "False"
-      ]
-     },
-     "execution_count": 9,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "v1 == v2"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 11,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "True"
-      ]
-     },
-     "execution_count": 11,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "v3 = Vector(3,4)\n",
-    "v1 == v3"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.7.6"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 4
-}
+```py
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+    def __add__(self, other):
+        return Vector(self.x + other.x , self.y + other.y)
+
+    def __repr__(self):
+        return f'Vector({self.x}, {self.y})'
+    
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+v1 = Vector(3, 4)
+v2 = Vector(5, 6)
+v1 == v2
+>>> Output: False
+
+v3 = Vector(3,4)
+v1 == v3
+>>> Output: True
 ```
 
 Operator overloading in python is easy to implement using special methods. The key is to understand the Python data model and Special methods.
