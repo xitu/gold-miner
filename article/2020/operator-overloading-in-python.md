@@ -7,15 +7,11 @@
 
 # Operator overloading in Python
 
-## Operator Overloading in Python
-
-#### How to make your object play well with built-in operators
-
 ![pic credits LocalNav](https://cdn-images-1.medium.com/max/2000/1*n54WXtELB8VR8qC-AJphhg.jpeg)
 
 Each operator can be used in different way for different types of operands. for example when `+` is used with integers, it add integers to give result and when `+` is used with string, it concatenates the provided strings.
 
-```
+```py
 x, y = 10, 20
 print(x + y) # 30
 
