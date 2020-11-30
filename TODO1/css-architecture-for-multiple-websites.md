@@ -2,63 +2,63 @@
 > * 原文作者：[Elad Shechter](https://medium.com/@elad)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/css-architecture-for-multiple-websites.md](https://github.com/xitu/gold-miner/blob/master/TODO1/css-architecture-for-multiple-websites.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Baddyo](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[lgh757079506](https://github.com/lgh757079506)
 
-# CSS Architecture for Multiple Websites
+# 多网站项目的 CSS 架构
 
-> CSS Architecture — Part 3
+> CSS 架构 —— 第三部分
 
-Complex CSS architecture is not something you learn in any formal institution.
+复杂的 CSS 架构，可不是你在科班里能学到的东西。
 
-My fourth job in the web industry was as a CSS/HTML expert, in one of the leading media news companies in my country, and my primary mission was to write reusable and scalable CSS for multiple websites.
+我在互联网行业的第四份工作，是在我国一家领先的媒体新闻公司中任职一名 CSS/HTML 专家，我的主要职责就是开发可重用的、可扩展的、用于多网站的 CSS 架构。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WreGgi4zIgKz_cb5vRjGTA.png)
 
-In this post, I will share with you the knowledge and experience I gained in this field of constructing a multiple website architecture.
+在本文中，我将与大家分享我在构建多网站架构领域中积累的知识和经验。
 
-Side note: nowadays, a proper project uses a CSS preprocessor. In this post, I will be using the SASS preprocessor.
+附注：如今，正规的项目都会用到 CSS 预处理器。而在本文中，我会使用 Sass 预处理器。
 
-This post is the third in a series of articles I’m writing about CSS architecture. To understand this post better, I recommend that you read at least the second post in this series, “[CSS Architecture — Folders & Files Structure](https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b)”.
+本文是我写的讨论 CSS 架构的系列文章中的第三篇。建议大家最好先读读此系列的第二篇 —— [《CSS 架构：文件夹和文件结构》](https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b)，有助于加深对本文的理解。
 
-## Layers World
+## 用层构建世界
 
-Starting a large-scale project requires thinking globally and defining what things the sites have in common. It begins with little things, like normalize, mixins, shared icons, and the partials layer (elements, components, sequences, entities, pages, and more).
+在开始开发一个大型项目之前，我们应该放眼全局，把多个网站的共同之处提炼出来。高楼大厦始于一砖一瓦，而项目的基石就是样式规格化、混入（Mixins）、通用图标以及局部模块层（元素、组件、图形逻辑、实体、页面……不一而足）等。
 
-For the projects (sites) to work correctly, you have to decide which styles appear in enough of the sites to warrant defining them in the base layer, and which styles aren’t, and therefore should be defined in the specific project in which they appear. It’s a practice you will achieve by trial and error. It often happens that you move styles from layer to layer when your perspective changes, until you get them balanced in a way that suits you.
+为了使多重项目（即多个网站）正常运转，我们必须决定哪些样式是通用样式、哪些是专有样式 —— 通用样式写进基础层，而专有样式写在与其对应的层中。这是一条充满摸索和碰壁的实践之路。每当思考的角度发生变化，我们都需要逐层地挪动样式代码，直到我们觉得顺眼为止，这都是家常便饭了。
 
-After understanding this principle, you can begin making the underlying global layer. This global layer will be the starting point for all the projects (sites).
+理解了这项原则后，我们就可以开始着手构建作为基础的全局层了。这个全局层是整个多重项目（多个网站）的起始点。
 
-Here’s an example of a diagram that demonstrates the requirements of the company I worked for at that time.
+下面的示例图向我们演示了彼时我司的项目需求。
 
-![Layer Structures](https://cdn-images-1.medium.com/max/2000/1*zYZV-QHyYrA_1XwxibQw2A.png)
+![层架构](https://cdn-images-1.medium.com/max/2000/1*zYZV-QHyYrA_1XwxibQw2A.png)
 
-The base layer should be thin, only containing CSS resets, base SASS mixins, shared icons, general font (if needed), utility classes, and maybe shared grids if it suits all projects. For the `_partials.scss` layer (elements, components, etc.), you will mostly use the `_elements.scss` layer which has partials like common-popup, common forms, and common titles. You only add styles that are shared by all, or most, of the lower layers. ([More about Folders & Files Structure is detailed in my previous post](https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b))
+基础层要保持轻量，其中只包含 CSS 初始化、基本的 SASS mixins、通用图标、通用字体（如需）以及功能类，如果某些网格布局适用于所有网站，就将其作为通用网格添加到基础层中。在 `_partials.scss` 层（元素、组件等）中，我们主要用到的是 `_elements.scss` 层，该层中包含诸如通用弹窗、通用表单和通用标题等此类局部模块。我们应该在基础样式中添加的是所有（或者大多数）底层样式共有的部分。（更多关于文件夹和文件结构的细节，参见我的[上一篇文章](https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b)）
 
-#### How to Structure the Layers
+#### 如何组织多个层
 
-In our architecture, each layer has at least three files; 2 private files (local and config; I call them private because they don’t get compiled into a CSS file) and one public file (the primary layer file). The layer’s configuration file, **`_config.scss`** usually contains variables. The **`_local.scss`** file includes the content styles and acts as a kind of controller or a package manager for the layer. **The third** file **calls** those first two files **(layer-name.scss**).
+在我们的架构中，每个层都至少包含三个文件：两个私有文件（局部样式文件和配置文件，称之为私有是因为它们不会被编译成一个 CSS 文件）和一个公共文件（本层的主文件）。每层的配置文件 **`_config.scss`** 通常包含变量。**`_local.scss`** 文件则包含内容样式，为当前层充当控制器或者包管理器的角色。而**第三个**文件（layer-name.scss）会**调用**前二者。
 
-**layer-name.scss file:**
+**layer-name.scss 文件：**
 
 ```
 @import "config";
 @import "local";
 ```
 
-Another principle that we should set for ourselves is to try and divide everything into the smallest parts (small files) possible. This principle will become very handy when you get to refactoring.
+另外一个我们要给自己定下的原则就是，尽可能把每个文件都拆分成尽可能小的部分（小文件）。这个原则会让重构非常方便。
 
-In every layer, **compile only the layer-name.scss** file. You should do this even in layers representing a ‘Virtual Project’ like the ‘Base Layer Framework’ in the above diagram.
+在每一层中，都要保证**只编译 layer-name.scss 文件**，即使某些层代表的是一个“虚拟项目”（如上面示例图中的“基础层框架”）。
 
-For the private files, which aren’t compiled to a separate CSS file, we use an underscore (“`_`”) as a prefix in all file names. The underscore symbols a file which can’t stand on its own.
+对于不会被编译成单独文件的私有文件，我们用一个下划线（`_`）作为其文件名的前缀。这里的下划线代表着此文件不能单独存在。
 
-**Notice:** When importing private files, you can write their names without the underscore prefix.
+**注意：**当导入私有文件时，我们书写其文件名时可以不必带上前缀下划线。
 
-**Example of layer structure:**
+**层架构示例：**
 
-![The **_local.scss file includes all *.scss files in the local folder**, which, in turn, calls **all *.scss files in the private folders**. The **_config.scss file calls all files in the config folders**.](https://cdn-images-1.medium.com/max/2000/1*0hwUrfXGWkZR-aTVfoojyA.png)
+![**_local.scss 文件导入了 local 文件夹中所有的 *.scss 文件**，而这些 local 文件夹中的 *.scss 文件按序调用私有文件夹中所有的 *.scss 文件。同理，**_config.scss 文件调用 config 文件夹中所有的 *.scss 文件**。](https://cdn-images-1.medium.com/max/2000/1*0hwUrfXGWkZR-aTVfoojyA.png)
 
-**How it looks in the folders**
+**文件夹结构长这样：**
 
 ```
 sass/ 
@@ -68,19 +68,19 @@ sass/
      |- local/
      |- _config.scss
      |- _local.scss
-     |- base-layer.css  (compiled layer style)
+     |- base-layer.css  (编译后的层样式)
      |- base-layer.scss
 ```
 
-## Inheritance
+## 继承
 
-Imagine we want to create a project from the base layer. We will have to build a parallel folder with the project’s name. In the following example, we’ll call it **inherited-project**.
+假设我们想要从基础层开始创建一个项目。我们需要根据 base-layer 文件夹的内部结构，用新项目的名称照猫画虎地克隆一套出来。在后续例子中，我们把这个新项目称为 **inherited-project**。
 
-**Note**: Locate all layers and projects in the SASS root folder.
+**提示**：把所有的层目录和项目目录都放在 Sass 的根目录中。
 
-The project has at least one **`_config.scss`** file, one **`_local.scss`** file, and the layer’s central sass file named, in our example, **`inherited-project.scss`**.
+该项目至少包含一个 **`_config.scss`** 文件、一个 **`_local.scss`** 文件和此层的核心 Sass 文件 —— 在本例中即为 **`inherited-project.scss`**。
 
-All layers/projects sit in the root folder of SASS.
+所有的层和项目都位于 Sass 的根目录中。
 
 ```
 sass/ 
@@ -90,7 +90,7 @@ sass/
  |   |- local/
  |   |- _config.scss
  |   |- _local.scss
- |   |- base-layer.css  (compiled layer style)
+ |   |- base-layer.css  (编译后的层样式)
  |   |- base-layer.scss 
  |
  |- inherited-project
@@ -98,59 +98,59 @@ sass/
      |- local/
      |- _config.scss
      |- _local.scss
-     |- inherited-project.css  (compiled layer style)
+     |- inherited-project.css  (编译后的层样式)
      |- inherited-project.scss
 ```
 
-The **inherited-project**’s config file imports the **base-layer**’s config file. This way, we can add new variables, or override existing ones from the layer above (**base-layer**).
+项目 **inherited-project** 的配置文件引入了 **base-layer** 中的配置文件。这样一来，我们就能增加新变量或者覆写上层（**base-layer**）中的已有变量了。
 
-Here’s an **example** of the- **inherited-project/_config.scss**:
+以下为 **inherited-project/_config.scss** 的一个**例子**：
 
 ```
-/*load base-layer configuration */
+/*加载 base-layer 配置信息 */
 @import "../base-layer/config.scss";
 
-/** local Config layer (add or override variables if needed)**/
+/** 局部的 Config 层 (按需添加或覆写变量)**/
 @import "config/directions.scss";
 ```
 
-The same goes for the **inherited-project/_local.scss** content files of the layer.
+内容样式文件 **inherited-project/_local.scss** 亦同理：
 
 ```
-/* import base-layer local components  */
+/* 导入 base-layer 局部组件  */
 @import "../base-layer/local.scss";
 
-/* local font */
+/* 局部字体 */
 @import "local/font-almoni.scss";
 
-/* local components*/
+/* 局部组件 */
 @import "local/elements.scss";
 @import "local/components.scss";
 ```
 
-Inheriting from the base-project folder is the right way to build a new layer that has its unique style, based on the inheritance from the base layer.
+如果要创建的新层既有通用样式又有独特样式，那么从 `base-layer` 文件夹继承基础层样式再合适不过了。
 
-This layer will create one CSS file, called **`inherited-project.css`**.
+这一层会创建一个名为 **`inherited-project.css`** 的 CSS 文件。
 
-#### Override variable in inner layer
+#### 在内部层中覆写变量
 
-It’s straightforward to override variables using the ‘layers’ method.
+使用“层”的方式覆写变量非常简单。
 
-Let’s say we have a variable named **`$base-color`** in the base layer and its value is blue (**`$base-color: blue`**;). Overriding this variable requires updating its value in the **local** `_config.scss`. Now all the components that use this variable — whether inherited from the **base layer** or defined in the **local layer** — will be updated with the value of the overridden color.
+比方说在基础层中有一个名为 **`$base-color`** 的变量，其值为 blue（**`$base-color: blue;`**）。要想覆写此变量，就需要在**局部文件** `_config.scss` 中更新它的值。现在，所有使用该变量的组件 —— 不论是继承于**基础层**还是定义于**局部层** —— 都会更新对应变量的的颜色值。
 
-## Global Story
+## Global Story 全局
 
-Some partials aren’t used in all layers, and therefore if you define them in the base layer, the other projects will import unnecessary code. To solve this problem, I implemented another idea of **global partials** concept.
+某些模块并非在所有层中都会用到，因此如果你在基础层中定义它们，其他项目就会导入冗余代码。为了解决这个问题，我走了另一条路线，采用了**全局模块**的概念。
 
-This concept is that partials which are used only in some layers will be placed in another new root folder (`_partials`) outside of any layer. Then, any layer that needs these partials can import them from the `_partials` global folder.
+这个概念是说，把仅用于某些层的模块放置于一个新的根目录（`_partials`）中，这个新的根目录位于所有层之外。然后，任何层都可以从全局目录 `_partials` 中导入所需模块。
 
-**This diagram** illustrates **an example** of separated partials:
+**下图**展示了将模块分离的例子：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*F43F_4fEqXCCTLNz07nrqg.png)
 
-Every layer can call a single partial or multiple ones from the global **`_partials`** folder, as needed.
+每一层都可以按需从全局目录 **`_partials`** 中调用一个或多个模块。
 
-**Example of a global _partials folder:**
+**全局目录 **`_partials`** 示例：**
 
 ```
 sass/ 
@@ -160,45 +160,45 @@ sass/
  |- inherited-project/
 ```
 
-**local.scss file view of — import global partial:**
+**从 **`_partials`** 导入模块的 local.scss 文件：**
 
 ```
-/* import base-layer local components */
+/* 导入 base-layer 中的局部组件 */
 @import "../base-layer/local.scss";
 
-/*local components*/
+/* 局部组件 */
 @import "local/partials.scss";
 
-/* add global partial */
+/* 添加全局模块 */
 @import "../_partials/last-connection";
 ```
 
-**Few extra guidelines**
+**些许额外忠告**
 
-* **Be well organized**. Always organize your projects and maintain the best structure in a way that fits your needs.
-* **Don’t repeat yourself**. You can import other layers’ components by simply `@import`ing them directly. For example, let’s say some components are defined in the ‘sports’ project, and they’re relevant to the ‘news’ site of another project. We can `@import` those components to the ‘news’ site. (site = layer = project)
-* **Utilize IDE shortcuts**. Use a code editor that enables easy refactoring without causing errors or bugs.
-* **Make sure you don’t break anything while you work**. Compile all root SASS files while working and continuously refactor the code to see that nothing breaks.
+* **组织结构要有条理**。要一直记得以满足需求的方式规划项目、保持最佳结构。
+* **别重蹈覆辙**。仅用 `@import` 即可轻松导入另一层的组件。比如说，某些组件定义在一个“体育”项目中，而这些组件与另一个项目中的“新闻”网站有关联。那我们就可以直接把这些组件 `@import` 进“新闻”网站中。（网站 = 层 = 项目）
+* **充分利用 IDE 快捷方式**。选用一款便于重构的编辑器，免于导致报错或故障。
+* **立新不可破旧**。在开发和后续重构中，每次都要把所有 Sass 根文件一同编译，以免新旧脱节。
 
-## To Summarize
+## 总结
 
-In this post, I showed my CSS Architecture approach for a multiple-websites architecture, based on the knowledge and experience I’ve gained over the years.
+在本文中，我向大家展示了针对多网站项目的 CSS 体系结构的构建方法，这套思想提炼于我经年积累的知识和经验。
 
-This post is the third in a **new series of articles on CSS Architecture** I have written, and I will share with you every few weeks.
+本文是系列文章 **CSS 架构文章新篇**的第三篇，我会每隔几周跟大家分享后续篇章。
 
-If it is interesting you , you are welcome to follow me on [**twitter**](https://twitter.com/eladsc) or [**medium**](https://medium.com/@elad).
+如果觉得本文有趣，欢迎在 [**twitter**](https://twitter.com/eladsc) 上或者 [**medium**](https://medium.com/@elad) 上关注我。
 
-## My CSS Architecture Series:
+## 我的 CSS 架构系列文章：
 
-1. [Normalize CSS or CSS Reset?!](https://medium.com/@elad/normalize-css-or-css-reset-9d75175c5d1e)
-2. [CSS Architecture — Folders & Files Structure](https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b)
-3. [CSS Architecture for Multiple Websites](https://medium.com/@elad/css-architecture-for-multiple-websites-ad696c9d334)
+1. [规格化 CSS 还是 CSS 重置？！](https://medium.com/@elad/normalize-css-or-css-reset-9d75175c5d1e)
+2. [CSS 架构 —— 文件夹和文件架构](https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b)
+3. [多网站项目的 CSS 架构](https://medium.com/@elad/css-architecture-for-multiple-websites-ad696c9d334)
 
-## Final Words
+## 结束语
 
-That’s all;
-I hope you’ve enjoyed this article and learned from my experience.
-If you like this post, I would appreciate applause and sharing :-)
+好了，这次就分享到这里。
+衷心希望大家喜欢本文，并能从我的经验中获益一二。
+如果你喜欢本文，请点赞并和大家分享你的心得，我将不胜感激。:-)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

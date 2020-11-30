@@ -2,366 +2,363 @@
 > * 原文作者：[@gilbouhnick](https://twitter.com/GilBouhnick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[江五渣](http://jalan.space)
+> * 校对者：[shinichi4849](https://github.com/shinichi4849)，[IT-rosalyn](https://github.com/IT-rosalyn)
 
-# 84 cognitive biases you should exploit to design better products - Part 3
+# 利用 84 种认知偏见设计更好的产品 —— 第三部分
 
 ![](https://2.bp.blogspot.com/-JvOvFjdlVfE/XMhvVVa0R4I/AAAAAAAAPrM/KaVBcSKDdPgb1PLug4TlVOx07uY6YHShQCLcBGAs/s640/Cognitive%2Bbiases.png)
 
 ---
 
-> * [84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * [84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
-> * **[84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
+> * **[利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)**
 
 ---
 
-## Not as smart either…
+## 也没有那么聪明……
 
-I mean, of course we are! But if you want your product to succeed, show how George Clooney uses it and make it sound like rhyme…
+我的意思是，我们当然是聪明的！但是如果你想要让你的产品获得成功，请展示乔治·克鲁尼是如何使用你的产品的，并让你的产品听起来十分押韵……
 
-### 46. Halo Effect
+### 46. 晕轮效应
 
-The "halo effect" is when one quality of a person (or thing) is used to make an overall judgment of that person or thing. In other words, our initial impression of a person, product, company or brand affects our interpretation of its character in its entirety. For example, a tall or good-looking person will be perceived as being intelligent and trustworthy, and so on…
+“晕轮效应”是指用一个人（或物）的某种品质对这个人（或物）做出整体的判断。换句话说，我们对一个人、一个产品、一家公司或一个品牌的最初印象会影响我们对其整体特征的解读。举个例子，一个高大或英俊的人会被认为是聪明或值得信赖的，等等……
 
-**How to use**: take advantage of this heuristic by using authoritative photos and visuals that build trust.
+**如何使用**：通过使用权威照片和可建立信任关系的视觉效果来充分利用这种具有启发式的方法。
 
-### 47. Decoy Effect
+### 47. 诱饵效应
 
-Consumers will tend to have a specific change in preference between two options when a third, asymmetrically dominating option is added.
+当添加第三个非主导选项时，消费者在其他两个选项之间的偏好往往会发生显著的变化。
 
-**How to use**: define your alternatives wisely, and regardless of the number of options you plan to have - make sure they end up being 3.
+**如何使用**：明智地定义你的备用选项，无论你计划拥有多少个选项 —— 请确保最终的选项数量为 3 个。
 
 ![](https://alexdenk.eu/blogtouch?id=1BHhkMPSCtigBtF-xy5eOiZg15llyrFl7)
 
-### 48. The Humor Effect
+### 48. 幽默效应
 
-We remember information better when that information is perceived as funny or humorous.
+我们更容易记住那些被认为是有趣或幽默的信息。
 
-This can help in conversion rates of products and in business in general.
-How NOT to use it: don’t use humor in situations where the user might be frustrated.
+这有助于产品转化率和一般业务。在何种情况避免使用：不要在用户可能感到沮丧的情况下使用幽默。
 
-For instance, if your app is not compatible with an old device - don’t say it in a funny way because the user is probably too frustrated at that point to laugh.
+例如，当你的应用程序与一个旧设备不兼容时，不要用幽默的口吻描述它，因为用户可能会因为过于沮丧而笑不出来。
 
-### 49. Rhyme-as-Reason Effect
+### 49. 押韵效应
 
-If you thought the halo effect is lame - wait till you read this one:
+也许你认为晕轮效应没有说服力 —— 直到你读到这个押韵效应时：
 
-Rhyming statements are perceived as more truthful.
+押韵的陈述被认为更加真实。
 
-Or as they say: “What sobriety conceals, alcohol reveals”.
+或如他们所言：“酒精揭示了清醒所隐瞒的一切（What sobriety conceals, alcohol reveals）。”
 
-**How to use**: don’t.
+**如何使用**：别使用它。
 
-### 50. Illusory Truth Effect
+### 50. 虚幻真实效应
 
-The more something is repeated, the more we believe it.
+事情重复发生越多次，我们就会越相信它。
 
-**How to use**: Repeat your message (key benefit, main differentiator) again and again: in your ads, website, App Store page, during onboarding, newsletters, etc.
+**如何使用**：在你的广告、网站、应用程序商店页、引导流程、新闻稿等地方不断重复你的信息（产品的主要优点、与其他产品的区别）。
 
-### 51. The Availability Cascade
+### 51. 虚幻真相效应
 
-Repeat something long enough and it’ll become true.
+当一件事重复足够长的时间，它就会变成事实。
 
-**How to use**: create a catchy slogan and make sure to repeat it enough to make it stick.
+**如何使用**：创造一个吸引人的口号，并确保重复足够多次，使其可信。
 
-Oh, and if by any chance this slogan ends with a rhyme - it might work even better.
+噢，如果这个口号以押韵结尾的话 —— 它的效果可能会更好。
 
-## Intelligent people are easily tricked as well
+## 聪明的人也容易被欺骗
 
-### 52. The False Consensus Bias
+### 52. 错误共识效应
 
-We tend to overestimate how much other people are like us and share our opinions, beliefs, preferences, values, and habits, and as a result - think the same way as we do.
+我们总是高估他人与我们的相似度，并和其他人分享我们的观点、信仰、偏好、价值观和习惯，这因此导致 —— 其他人以与我们相同的方式思考。
 
-**Question**: Without getting into politics (or specific countries), were you recently surprised by your country’s election results?
+**问**：在没有涉足政坛（或特定国家）的情况下，你最近对你所在国家的选举结果是否感到惊讶？
 
-### 53. Curse of Knowledge
+### 53. 知识的诅咒
 
-When we are experts in a certain field, we often fail to realize the people we talk to don’t have the background we assume they have in this field.
+当我们是某个领域的专家时，我们常常不会意识到和我们交谈的人缺少这一领域的背景知识。
 
-**UI/UX tip**: Think about the majority of your users: they are probably less technical than you think and less familiar with the things you are well familiar with.
+**UI/UX 技巧**：想想你的大多数用户：他们可能没有你想的那么专业，也不太熟悉你所熟悉的东西。
 
-![Curse of knowledge in UI error messages](https://alexdenk.eu/blogtouch?id=1pPvzI7yorcHkNBm_jP7x6-lT8kLyR48K "Curse of knowledge in UI error messages")
+![UI 错误消息中的知识诅咒](https://alexdenk.eu/blogtouch?id=1pPvzI7yorcHkNBm_jP7x6-lT8kLyR48K "UI 错误消息中的知识诅咒")
 
-### 54. Projection Bias (Empathy Gap)
+### 54. 投射偏误（移情隔阂）
 
-We assume that our current tastes and preferences to things will remain the same over time.
+我们认为，随着时间的推移，我们当前对事物的品味和偏好会保持不变。
 
-We are not able to place ourselves in the emotional state of our future selves, and thus make future commitments that suit our current state.
+我们无法将自己置于未来的情感状态中，从只能而做出符合当前状态的未来承诺。
 
-### 55. The Forer (or Barnum) Effect
+### 55. 弗拉（或巴纳姆）效应
 
-We tend to give high accuracy ratings to positive personality and value descriptions that we believe are written ‘just for us’, when they are typically vague and general enough to apply to anybody.
+对于积极的性格和价值观描述，我们往往以为那些话精准到“这写的就是我”，然而这些描述往往含糊不清且适用于任何人。
 
-**How to use it**: In UX Writing - approach your users/visitors directly using words such as: ‘you’, ‘your’.
+**如何使用**：在 UX 设计中 —— 使用诸如“你”、“你的”之类的词来拉近和用户/访问者之间的距离。
 
-### 56. Restraint Bias
+### 56. 自制偏差
 
-We have the tendency to overestimate our ability to show restraint in the face of temptation or addiction.
+我们倾向于高估自己在面对诱惑时的自制力。
 
-**How to use**: We all think clickbait titles are lame, but we all fall for them, don’t we?
+**如何使用**：我们都认为“标题党”十分蹩脚，但我们还是陷入其中，不是吗？
 
-![Restraint Bias - We all think clickbait titles are lame, but we all fall for them, don’t we?](https://alexdenk.eu/blogtouch?id=1bh_eqirdcaDDYkoXiQyReb0N2dHHdHZy "Restraint Bias - We all think clickbait titles are lame, but we all fall for them, don’t we?")
+![自制偏差 —— 我们都认为“标题党”十分蹩脚，但我们还是陷入其中，不是吗？](https://alexdenk.eu/blogtouch?id=1bh_eqirdcaDDYkoXiQyReb0N2dHHdHZy "自制偏差 —— 我们都认为“标题党”十分蹩脚，但我们还是陷入其中，不是吗？")
 
-Clickbait titles are lame, but we all fall for them...
+我们都认为“标题党”十分蹩脚，但我们还是陷入其中……
 
-### 57. Optimism Bias
+### 57. 乐观偏误
 
-We often to overestimate the odds of our own success compared to other people's.
+我们经常认为自己比别人拥有更高的成功几率。
 
-**Product tip**: Make sure your product doesn’t hide any unpleasant surprises that might break the optimism bias (such as extra costs, possible delays, etc.)
+**产品技巧**：确保你的产品没有任何会打破乐观偏误、令人不悦的潜在意外（例如额外的开销、可能发生的延误等）。
 
-**Work-related tip**: When planning, force yourself to be pessimistic:
+**工作相关技巧**：当制定计划时，强迫自己变得悲观：
 
-1. If you believe 60% of your downloads will convert into actual users - assume 50% in your calculations.
-2. If you believe a new user will cost $4, round it up to $5.
-3. If your business works badly during winters - plan for long winters.
-4. If your plan includes resource availability - didn’t be over-optimistic about their capacity and performance.
+1. 如果你认为 60% 的下载量会转化为真实用户 —— 那么计算时按 50% 假定。
+2. 如果你认为获得一个新用户将花费你 4 美元，那么就把它四舍五入到 5 美元。
+3. 如果你的业务处于寒冬时期 —— 为漫长的寒冬做好准备吧。
+4. 如果你的计划包含资源的可用性 —— 不要对资源的容量和性能过于乐观。
 
-A plan that is conservative and still demonstrates success, is much better than an over-pessimistic one.
+保守但能证明成功的计划，比一个过于悲观的计划要好得多。
 
-> Think optimistically.
-> Plan pessimistically.
-> Execute uncompromisingly.
+> 乐观地思考。
+> 悲观地计划。
+> 坚决地执行。
 
-### 58. Planning Fallacy
+### 58. 规划谬误
 
-We tend to underestimate the time needed to complete a task. It’s one of the reasons why plans often break and projects get delayed. Breaking large tasks into smaller pieces helps to deal with this phenomena.
+我们往往低估完成任务所需要的时间。这也是计划经常中断和项目经常延期的原因之一。把大任务拆分成小块可以帮助解决这种现象。
 
-**Work tip**: multiply your initial estimations in 2, no, actually make it 3.
-Do it not because you’re lazy, but because your estimations are probably wrong…
+**工作技巧**：将你最初预估的任务完成时间乘以 2，不，实际上要乘以 3。这不是因为你的懒散，而是因为你预估的时间可能是错误的。
 
-### 59. Parkinson's Law of Triviality
+### 59. 帕金森琐碎定理
 
-We tend to waste too much time on trivial topics and leave too little time to the important stuff.
+我们往往把太多时间浪费在琐事上，而为重要的事情留下很少的时间。
 
-Work tip: This one happens a lot in meetings: the first 1-2 items take longer than needed, not leaving enough time for the rest of the items.
+工作技巧：这种情况经常发生在会议上：最先的 1～2 个议题花费的时间比实际需要的时间长，导致没有为接下来的议题留出足够的时间。
 
-A timed agenda can help fix this annoying phenomenon.
+定时议程可以帮助解决这个恼人的现象。
 
-Read: [How to maintain your product momentum when you’re out of development budget](https://www.mobilespoon.net/2019/05/maintain-product-momentum-with-no.html)
+阅读：[如何在超出开发预算时保持产品势头](https://www.mobilespoon.net/2019/05/maintain-product-momentum-with-no.html)
 
-### 60. Dunning–Kruger Effect
+### 60. 达克效应
 
-We are unable to recognize our lack of ability.
+我们无法认识到我们的能力不足。
 
-“Our inability to recognize our lack of ability to recognize our inability. “
+“我们的认知缺陷使我们无法意识到自身能力的不足。”
 
-**Career tip**: When you join a new team or a new company, remember that there are many things you don’t know, and many things you don’t even know you don’t know…
+**职业技巧**：当你加入一个新的团队或公司时，牢记你知之甚少，对于许多事情你甚至不知道自己一无所知……
 
-Start low, get familiar with the people involved. Talk less and observe more.
+从底层开始，熟悉相关人员。少说话，多观察。
 
-Keep a low profile until you are no longer a novice.
+保持低调，直到你不再是一个新手。
 
-### 61. Insensitivity to Sample Size
+### 61. 对样本数不敏锐
 
-We often ignore the sample size and jump to conclusions even though the sample size is not enough statistically.
+我们经常忽略样本大小并贸然下结论，即使样本数量还未达到足够的统计量。
 
-**Product management tip**: Talking to customers is important, but don’t base your product assumptions on a few interviews. Work with big numbers and base your product decisions on real data rather than assumptions.
+**产品管理技巧**：与客户沟通很重要，但不要把产品设想建立在几次面谈的基础上。使用大量数据，并根据实际数据而非假设来做出产品决策。
 
-**Illusion of Control**
+**控制错觉**
 
-We tend to overestimate our degree of influence over external events.
+我们往往高估自己对外部事件的影响程度。
 
-## Double or nothing!
+## 成倍收获或一无所有！
 
-Weirdly enough, when we realize we’re about to lose, and maybe because we hate losing so much - we tend to invest more on the failing option.
+奇怪的是，当我们意识到我们即将失败时，也许是因为我们不愿失去已经付出的成本 —— 我们往往会在这个失败的选择上投入更多。
 
-### 62. Choice-Supportive Bias (Post-Purchase Rationalization)
+### 62. 支持选择偏差（购后合理化）
 
-Once a decision is made, we tend to praise the option we selected and demote the other options.
+一旦做出决定，我们倾向于称赞我们的所选项，并贬低其他选项。
 
-**Product/UX hack**: Whenever a user goes through a significant step in the conversion funnel - show an affirming message, praise them, and congratulate them for achieving this step.
+**产品/UX hack**：当用户在转化漏斗中经历一个重要的步骤时 —— 显示一个肯定的消息，称赞他们，并祝贺他们完成了这一步骤。
 
-**Virality tip**: A great timing to ask a user to share the product (or add a review) is right after the user makes a decision to purchase that leads to a successful transaction. This moment combines a successful experience with the choice-supportive bias.
+**病毒营销技巧**：用户做出购买决定并成功交易后，是让用户分享产品（或添加评论）的最佳时机。这一刻是成功经验与支持选择偏差的结合。
 
-![Choice-Supportive Bias (Post-Purchase Rationalization)](https://alexdenk.eu/blogtouch?id=1hQBoTtxdgExY1Rllc9OLHBg8T9xvj4XP "Choice-Supportive Bias (Post-Purchase Rationalization)")
+![支持选择偏差（购后合理化）](https://alexdenk.eu/blogtouch?id=1hQBoTtxdgExY1Rllc9OLHBg8T9xvj4XP "支持选择偏差（购后合理化）")
 
-Praise your users and congratulate them for achieving significant steps 
+称赞你的用户，并祝贺他们实现了重要的步骤
 
-### 63. The Sunk Cost Fallacy
+### 63. 沉没成本谬误
 
-The more we invest in something the harder it becomes to abandon it.
+我们在某件事上投入越多就越难放弃它。
 
-As a result, we often continue with a failing course of action, only because of the time, money or effort that we’ve already invested in it in the past.
+因此，我们往往会继续执行这个走向失败的行动，仅仅是因为我们过去已经在此投入了过多的时间、金钱或精力。
 
-**Onboarding tip**: Make it easy for your users to start with a small commitment which is fun and engaging. This will pave the way for bigger commitments later on.
+**引导流程技巧**：让用户从一个有趣且吸引人的小投入开始。这将为今后用户更大的投入铺平道路。
 
-**Life tip**: When you feel you’re about to go “all in” on something - take a break (few minutes, few hours, or even sleep on it) - you’ll see things differently when you are back.
+**生活技巧**：当你感觉自己即将在某些事情上“全身心投入”时 —— 稍作整顿再出发（停歇几分钟、几小时，甚至睡上一觉），你将会看到不一样的东西。
 
-### 64. Irrational Escalation (Escalation of Commitment)
+### 64. 不理性增值（承诺升级）
 
-We continue rationalizing a previous decision we made by repeating it (or investing even more in it), and by doing so, prove that our previous decision was correct.
+我们通过重复执行（或投入更多）使之前做出的决定合理化，并以此来证明我们之前做的决定是正确的。
 
-**Life tip**: Don’t fall in love with your ideas just because you already invested in them. Cut your losses on time.
+**生活技巧**：不要仅仅因为你已经在想法上投入许多而倾心于它。要及时止损。
 
-**Product rule**: Measure and analyze the performance of every new feature you release. Don’t trust your instincts and always be suspicious about your own decisions.
+**产品规则**：度量和分析你发布的每个新特性的性能。不要相信你的直觉，要始终对自己的决定持怀疑态度。
 
-![Irrational Escalation - provide free trials to hook the user through escalation of commitment](https://alexdenk.eu/blogtouch?id=1Eyv1r4bxniXE0hRV8gPYeomBV5UeWgYQ "Irrational Escalation - provide free trials to hook the user through escalation of commitment")
+![不理性增值 —— 提供免费试用，通过逐步升级用户投入来留住用户](https://alexdenk.eu/blogtouch?id=1Eyv1r4bxniXE0hRV8gPYeomBV5UeWgYQ "不理性增值 —— 提供免费试用，通过逐步升级用户投入来留住用户")
 
-Provide free trials to hook the users through escalation of commitment
+提供免费试用，通过逐步升级用户投入来留住用户
 
-### 65. The Ostrich Effect
+### 65. 鸵鸟效应
 
-We deliberately avoid negative information (or feedback that isn't aligned with our hopes), thinking that if we bury our head in the sand - they will disappear.
+我们故意逃避负面信息（或不符合我们期望的反馈），认为如果我们把头埋在沙子里 —— 它们就会消失。
 
-**Question**: Have you ever received really bad customer feedback, and thought "It's just one customer, it doesn’t mean anything"?
+**问**：你是否收到过非常糟糕的客户反馈，并认为“这只是众多客户中的其中一个，并不意味着什么”？
 
-**Product management tip**: Work alongside customer support: do it proactively, see what customers are struggling with. There’s a lot to learn from going over user complaints.
+**产品管理技巧**：在用户的支持下工作：看看用户在使用产品的过程中遇到什么困难，并积极主动地解决它。从用户的投诉中可以学到很多东西。
 
-### 66. Disposition Effect
+### 66. 处置效应
 
-The disposition effect is an anomaly discovered in behavioral finance. It relates to the tendency of investors to sell assets that have increased in value while keeping assets that have dropped in value.
+处置效应是在行为金融学中发现的一种异常现象。它与投资者倾向于出售增值资产，同时保留贬值资产有关。
 
-## But don’t push it!
+## 但不要强迫！
 
-Persuading people might seem easier than expected, but don’t push it though. 
+说服人们似乎比预期要容易，但不要强迫任何人。
 
-Building trust is a process, and if the users feel something is wrong - they become over defensive, and this is when your battle is lost.
+建立信任需要一个过程，如果用户感觉有什么不对劲 —— 他们就会过度防御，这时你就输掉了这场用户争夺战。
 
-### 67. Reactance
+### 67. 对抗心理
 
-Reactance occurs when we feel that someone (or something) is trying to constrain our freedom by taking away our choices and limit our alternatives. When it happens, we feel an urge to resist it and do the opposite.
+当我们感到有人（或物）试图通过剥夺和限制我们的选择来限制我们的自由时就会产生对抗心理。当限制自由发生时，我们会有一种抵制它的冲动，并采取相反的行动。
 
-**Product tip**: be careful when you “argue” with a user about his selected choice.
+**产品技巧**：当你与用户“争论”他的选择时要额外小心。
 
-Nudges must be gentle and elegant, and must never harm the user’s confidence.
+必须轻柔且优雅地推动用户，绝不能伤害用户的信任。
 
-### 68. Single Option Aversion
+### 68. 厌恶单一选项
 
-We are unwilling to choose an option (regardless of how attractive it is) when there are no other competing options.
+当没有其他竞争性选项存在时，我们不愿意去选择一个单一的选项（无论它有多吸引人）。
 
-**Conversion tip**: Without creating too many options - set 3 options so your customers will have alternatives, without becoming confused.
+**转化技巧**：不用创建过多的选项 —— 设置 3 个选项，这样你的客户就有了其他选择，不至于感到困惑。
 
 ![](https://alexdenk.eu/blogtouch?id=1qQ1KSJIV1t_5qU0Lbzly40KYvGhtc4ot)
 
-### 69. Analysis Paralysis (Choice Overload)
+### 69. 分析瘫痪（选择过多）
 
-This bias rhymes, which means it’s probably true:
+这个偏见很押韵，这意味着它可能是真的：
 
-When too many options are presented, our brain shuts down and we are having a hard time choosing.
+当太多选项呈现在我们面前时，我们的大脑就会停止思考，很难做出选择。
 
-Think about overloaded restaurant menus and how overwhelming (and not fun!) they can get.
+想想餐厅菜单上数不胜数的菜品，它让人难以承受（而且一点也不有趣！）。
 
-**Product rule**: Too many options = poor conversion rate.
+**产品规则**：选项过多 = 低转化率。
 
-![Analysis Paralysis - Too many options lead to poor conversion rate](https://alexdenk.eu/blogtouch?id=1ec1f6hMhATAPtGe7Cb0JidAhj-F-HNLQ "Analysis Paralysis - Too many options lead to poor conversion rate")
+![分析瘫痪 —— 过多的选项导致低转化率](https://alexdenk.eu/blogtouch?id=1ec1f6hMhATAPtGe7Cb0JidAhj-F-HNLQ "分析瘫痪 —— 过多的选项导致低转化率")
 
-Too many options = poor conversion rate
+选项过多 = 低转化率
 
-### 70. Ambiguity Effect
+### 70. 不明确性效应
 
-We tend to avoid the unknown and do not select options that are missing information or clarity.
+我们通常会避免未知，不去选择缺少信息或不够清晰的选项。
 
-Minimize ambiguity by adding reassuring details and your conversion rates will improve.
+通过添加可靠的细节将歧义最小化，这将提高你的转化率。
 
-**Product tip**: if you sell products - invest in the description, photos, price and delivery options.
+**产品 hack**：如果你销售产品 —— 在描述、图片、价格和交付选项上投入精力。
 
-**UI hack**: CTA buttons should include informative labels next to them, designed to clear possible uncertainties.
+**UI hack**：CTA 按钮应包含旁边的信息标签，旨在清除可能存在的不确定性。
 
-![Ambiguity Effect - Clarity is key for improving conversion rates](https://alexdenk.eu/blogtouch?id=1gKRA6UopJl-tl2b-cRLx948praM3e1UR "Ambiguity Effect - Clarity is key for improving conversion rates")
+![不明确性效应 —— 信息清晰是提高转化率的关键](https://alexdenk.eu/blogtouch?id=1gKRA6UopJl-tl2b-cRLx948praM3e1UR "不明确性效应 —— 信息清晰是提高转化率的关键")
 
-Clarity is key for improving conversion rates
+信息清晰是提高转化率的关键
 
-### 71. Risk Compensation
+### 71. 风险代偿
 
-We become more careful where we sense greater risk and less careful when we feel more protected.
+当我们感受到风险时我们会倍加小心，当我们感觉安全时我们会冒更大的风险。
 
-**Product tip**: Workflows should be designed to minimize friction.
+**产品技巧**：尽量减少工作流中的摩擦。
 
-### 72. Peltzman Effect
+### 72. 佩兹曼效应
 
-We are more likely to act in a risky way when we know all security measures have been taken.
+当我们知道已经采取了所有的安全措施时，我们更有可能冒险行事。
 
-**UI tip**: Let your users feel as safe as possible with your product - let them gain confidence and trust, especially before making a purchase or singing-up.
+**UI 技巧**：让你的用户在使用你的产品时尽可能地感到安全 —— 让他们获得信心和信任，特别是在购买和登录之前。
 
-### 73. Backfire Effect
+### 73. 逆火效应
 
-We can’t change people’s beliefs that easily: evidence and argumentation in opposite to an entrenched belief will not help and will only strengthen their position.
+我们无法轻易改变人们的信念：与根深蒂固的信念相反的论据和论证不仅无济于事，反而会强化原有的信念。
 
-**Work-related tip**: win people’s behavior through emotional arguments (look around you! There’s a list of relevant techniques right here!) and don’t try to change their beliefs.
+**工作相关技巧**：通过情感上的因素改变人们的行为（看看上下文！这里有一个相关技术的清单！），而不要试图改变他们的信念。
 
-## Some more mind tricks before we wrap
+## 在我们结束之前还有一些心理技巧
 
-### 74. The Frequency Illusion (Baader-Meinhoff phenomenon)
+### 74. 频率错觉（巴德尔-迈因霍夫现象）
 
-We see new information, names, ideas or patterns 'everywhere' soon after they're first brought to our attention. For instance, if someone is thinking of buying a new car, it’s common that he suddenly sees this car everywhere.
+在新的信息、名字、想法或模式第一次引起我们的注意后，我们很快就会发现它们无处不在。例如，如果有人想买一辆新车，他就会突然发现这辆车无处不在。
 
-**Marketing tip**: When pushing a campaign - make sure to expose your visitors to the same content in different marketing channels and with retargeting techniques.
+**销售技巧**：当推动活动时 —— 通过重定向技术，确保让你的访问者在不同的营销渠道看到相同的内容。
 
-### 75. Placebo Effect
+### 75. 安慰剂效应
 
-Our behavior, attitude or feelings can change when we are convinced we’ve received something attributable to the change (i.e. a fake treatment).
+当我们确信我们得到了某种可改变行为、态度或感觉的东西时（即虚假治疗），我们的行为、态度或感觉就会发生改变。
 
-**Marketing tip**: Belief and experience create a reality.
-These stories your customers tell about your product are how your placebo effect spreads and becomes real to more and more people.
+**营销技巧**：信念与经验造就了现实。当你的顾客开始讲述关于你的产品的故事时，安慰剂效应开始传播蔓延，且越来越多的人认为这些故事是真实的。
 
-### 76. Peak-End Rule
+### 76. 峰终定律
 
-We judge an experience based on how we felt at its’ peak and at its’ end, rather than based on the average or the total sum of it.
+我们会基于一段经历的“顶峰”和“结束”时的感受来评价该段经历，而非它的平均或整体感受
 
-**Product tip**: Maintain your competitive advantage and raise your product peak moments by making your best features even better.
+**产品技巧**：通过让最佳功能更加出色来提升产品的巅峰时刻并保持你的竞争优势。
 
-**Another product tip**: Don’t neglect the “after-purchase” experience of your product. Make sure to end the experience with a superb taste.
+**另一个产品技巧**：不要忽视产品的“售后”体验。一定要让用户以极好的感受结束这次体验。
 
-![Peak-End Rule - identify your product peaks and make them even better!](https://alexdenk.eu/blogtouch?id=1HLU8ZomiiyarMPsfXCjtfjgYKGYOKueg "Peak-End Rule - identify your product peaks and make them even better!")
+![峰终定律 —— 确定产品的峰值并使其更好！](https://alexdenk.eu/blogtouch?id=1HLU8ZomiiyarMPsfXCjtfjgYKGYOKueg "峰终定律 —— 确定产品的峰值并使其更好！")
 
-### 77. Distinction Bias
+### 77. 差异偏差
 
-When comparing options side-by-side, we become hypersensitive to small differences, while in fact, those differences are not so big.
+当我们并排比较选项时，我们会对细微的差别十分敏感，而事实上，这些差异并不是很大。
 
-**Marketing tip**: Show your product advantages next to your competitors so the visitors can notice the differences. Even the small ones.
+**销售技巧**：在竞争对手旁边展示你的产品的优势，这样访问者就可以关注到不同之处，即使二者差距甚微。
 
-### 78. Self-Relevance Effect
+### 78. 自身相关效应
 
-We remember events that are related to us much better than events related to others.
+我们容易想起与自己相关的事，不易想起与他人相关的事。
 
-Makes sense…
+言之有理……
 
-### 79. Primacy Effect
+### 79. 首因效应
 
-Items at the beginning and at the end of a list are more easily recalled than items in the middle.
+人们更容易回想起列表开头和结尾的项目而非中间的项目。
 
-**UI tip**: if you plan to show a long list of items - make sure the first one is your most important item.
+**UI 技巧**：如果你想要显示一个长长的项目列表 —— 确保第一项是你最重要的项目。
 
-### 80. Cheerleader Effect (Group Attractiveness)
+### 80. 啦啦队效应（群体归因）
 
-We think individuals are more attractive when they are in a group but then when we go through each one of them individually - they seem far less attractive.
+我们认为，当一个人在群体中时，他更具有吸引力。但当我们逐一分析群体中的每个人时，他就不那么有吸引力了。
 
-**Marketing tip**: Use cases, testimonials, blog posts - make sure to have a few of them before you publish.
+**销售技巧**：确保在产品发布之前能有一些使用案例、推荐信和博客文章。
 
-![Cheerleader Effect (Group Attractiveness)](https://alexdenk.eu/blogtouch?id=1Kn-TO7co7DkRKA83fGsRZfOQBTB-3SgP "Cheerleader Effect (Group Attractiveness)")
+![啦啦队效应（群体归因）](https://alexdenk.eu/blogtouch?id=1Kn-TO7co7DkRKA83fGsRZfOQBTB-3SgP "啦啦队效应（群体归因）")
 
-### 81. Bias Blind Spot
+### 81. 偏见盲点
 
-We notice the impact of biases on the judgment of others, but we fail to see the impact of these same biases on ourselves.
+我们注意到偏见对他人判断的影响，但我们看不见这些偏见对我们自己的影响。
 
-![Bias Blind Spot - we all have them](https://alexdenk.eu/blogtouch?id=1T-DGmrFq8A05qXtcq88akYwVG1svxr1O "Bias Blind Spot - we all have them")
+![偏见盲点 —— 我们每个人都受其影响](https://alexdenk.eu/blogtouch?id=1T-DGmrFq8A05qXtcq88akYwVG1svxr1O "偏见盲点 —— 我们每个人都受其影响")
 
-### 82. Actor-Observer Bias
+### 82. 行为者 - 观察者偏差
 
-We tend to attribute others’ undesirable behavior to their (shitty) character, but our undesirable behavior to our circumstances.
+我们倾向于把别人的不良行为归因于他们的性格，而把我们自己的不良行为归因于我们的环境。
 
-Work tip: learn to control this bias and try to understand the other side: it can be external people (i.e. customers, partners) vs. internal people, but can also happen internally: one team vs. another, one role vs. another, etc.
+工作技巧：学习控制这种偏见，并试着去理解对方：这可能发生在外部人员（即顾客、合作伙伴）与内部人员之间，也可能发生在内部：一个团队与另一个团队之间、一个角色与另一个角色之间。
 
-### 83. Egocentric Bias
+### 83. 自我中心偏差
 
-We satisfy our ego by thinking we contributed to a group effort much more than we actually did.
+我们认为我们对团队的贡献远远大于实际的贡献，以达到自我满足。
 
-“Hey! did you see my last shot-blocker? It gave us the victory!”
+“嘿！你看到我的最后一个盖帽了吗？它为我们带来了胜利！”
 
 ![](https://alexdenk.eu/blogtouch?id=1GMj97tRgnKz2f6Kz2R8vaC0GiP_Vx2wJ)
 
-### 84. Observer-Expectancy Effect
+### 84. 观察者期望效应
 
-Happens when a researcher's cognitive bias causes them to subconsciously influence the participants of an experiment.
+当研究者的认知偏见导致他们下意识地影响实验参与者时，就会发生这种情况。
 
-Wait… if that’s true… then… who guarantees it didn’t happen in all the researches that led to this list?
+等等……如果这是真的……那么……谁能保证这个清单中的所有研究项没有发生这种情况呢？
 
 😱
 
-Follow me on twitter [@gilbouhnick](https://twitter.com/GilBouhnick), or [subscribe to my newsletter](https://mailchi.mp/b9c664dfafa3/mobilespoon) to get some occasional posts directly to your inbox.
+在 Twitter 上关注我 [@gilbouhnick](https://twitter.com/GilBouhnick)，或 [订阅我的简报](https://mailchi.mp/b9c664dfafa3/mobilespoon)，可以将帖子直接发送到你的收件箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

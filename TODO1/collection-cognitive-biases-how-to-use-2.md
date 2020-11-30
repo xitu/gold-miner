@@ -2,305 +2,306 @@
 > * 原文作者：[@gilbouhnick](https://twitter.com/GilBouhnick)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[江五渣](http://jalan.space)
+> * 校对者：[shinichi4849](https://github.com/shinichi4849)，[Moonliujk](https://github.com/Moonliujk)
 
-# 84 cognitive biases you should exploit to design better products - Part 2
+# 利用 84 种认知偏见设计更好的产品 —— 第二部分
 
 ![](https://2.bp.blogspot.com/-JvOvFjdlVfE/XMhvVVa0R4I/AAAAAAAAPrM/KaVBcSKDdPgb1PLug4TlVOx07uY6YHShQCLcBGAs/s640/Cognitive%2Bbiases.png)
 
 ---
 
-> * [84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * **[84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
-> * [84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
+> * **[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
 
 ---
 
-## Easily convinced
+## 易被说服
 
-The art of persuasion! Here are some (cheap?) tricks to help you better convey your message.
+说服的艺术！这里有一些（性价比高的？）技巧可以帮助你更好地传达你的信息。
 
-### 22. Anchoring Effect:
+### 22. 锚定效应
 
-We tend to rely too heavily on the first piece of information presented to us (the “anchor”) to make subsequent decisions.
+我们常常过分依赖最初获得的讯息（“锚定”）来做出后续的决策。
 
-**How to use it**: The oldest trick in the book: you add a high price as the anchor and then cross it out and set a much lower price next to it.
+**如何使用**：书中最老套的把戏是：把一个高的价格作为锚，然后划掉它，在它旁边设定一个更低的价格。
 
-Looking at how Steve Jobs used it with the iPad launch I must ask: did it really work?
+看看史蒂夫·乔布斯在 iPad 发布会上是如何使用它的，我必须问问：它真的有效吗？
 
-![Anchoring Effect - Performed by Apple's Steve Jobs during the iPad launch](https://alexdenk.eu/blogtouch?id=1hE2NPk3sVnoS3eO1RqMCAltJj9qtDTR2 "Anchoring Effect - Performed by Apple's Steve Jobs during the iPad launch")
+![锚定效应 —— 由苹果公司的斯蒂夫·乔布斯在 iPad 发布会上展示](https://alexdenk.eu/blogtouch?id=1hE2NPk3sVnoS3eO1RqMCAltJj9qtDTR2 "锚定效应 —— 由苹果公司的斯蒂夫·乔布斯在 iPad 发布会上展示")
 
-Steve Jobs demonstrating the Anchoring Effect
+史蒂夫·乔布斯展示了锚定效应
 
-Nevertheless, here’s my take on the Anchoring Effect: 
+然而，这是我对锚定效应的看法：
 
-![Anchoring Effect Example - The Mobile Spoon](https://alexdenk.eu/blogtouch?id=1p3CIvG4gYfBNWVzo04dM1K280ABxyah0 "Anchoring Effect Example - The Mobile Spoon")
+![锚定效应示例 —— The Mobile Spoon](https://alexdenk.eu/blogtouch?id=1p3CIvG4gYfBNWVzo04dM1K280ABxyah0 "锚定效应示例 —— The Mobile Spoon")
 
-Anchoring Effect in product pricing
+产品定价中的锚定效应
 
-### 23. Hyperbolic Discounting
+### 23. 双曲贴现
 
-We prefer an immediate payoff (even if it’s small) rather than a larger-later reward.
+我们更喜欢及时的回报（尽管回报很小），而不是更大的后期回报。
 
-**Tip**: offer a small discount (or free shipment) for immediate purchase, rather than a larger discount for future purchases.
+**技巧**: 为立即支付提供小额折扣（或免费送货服务），而不是为将来的购买行为提供大额折扣。
 
-![Hyperbolic Discounting - Offer small discounts for an immediate purchase](https://alexdenk.eu/blogtouch?id=1qjNmi6biEjEB9hP8HexcdV_d410gyVKo "Hyperbolic Discounting - Offer small discounts for an immediate purchase")
+![双曲贴现 —— 为立即支付提供小额折扣](https://alexdenk.eu/blogtouch?id=1qjNmi6biEjEB9hP8HexcdV_d410gyVKo "双曲贴现 —— 为立即支付提供小额折扣")
 
-Offer small discounts for an immediate purchase 
+为立即支付提供小额折扣
 
-### 24. Social Proof
+### 24. 社会认同
 
-If people like us are using it - it must be good!
+如果像我们这样的人正在使用它 —— 它一定是好的产品！
 
-Right?
+这对吗?
 
-**How to use it**: Social proof is a great way to build trust. Here are a few examples that can be used in your website, [App Store product page](http://www.mobilespoon.net/2019/04/lessons-learned-app-store-screenshots.html "Lessons learned from our app store screenshots redesign - the mobile spoon"):
+**如何使用**：社会认同是建立信任的好方法。以下是一些可以在网站、[应用商店页](http://www.mobilespoon.net/2019/04/lessons-learned-app-store-screenshots.html "根据从应用商店截图中汲取的经验教训重新设计 —— the mobile spoon") 中使用的示例：
 
-1. Well known customer logos
-2. Well known partner logos
-3. Testimonials and authentic recommendations by customers (from the target audience)
-4. Counters (number of customers, deals, sessions - whatever works)
-5. Media mentions and quotes (“as seen on…”)
-6. Awards by well-known organizations (i.e. hottest startup by WIRED)
-7. Certifications
-8. Links to case studies with actual numbers
+1. 知名客户标识
+2. 知名合作伙伴标识
+3. 客户的推荐（来自目标受众）
+4. 数据（客户数据、交易数据、会话数据 —— 来自任何工作方式）
+5. 媒体提及和引用（“如……所见”）
+6. 知名机构的赞扬（即 WIRED 最热门创业公司）
+7. 认证
+8. 与实际数字关联的研究案例
 
-![Social Proof - Build trust using counters and customer logos](https://alexdenk.eu/blogtouch?id=1Q9lHYKquIMlrpRXvWohwcC1Rp4-g7kiG "Social Proof - Build trust using counters and customer logos")
+![社会认同 —— 使用数据和客户标识建立信任](https://alexdenk.eu/blogtouch?id=1Q9lHYKquIMlrpRXvWohwcC1Rp4-g7kiG "社会认同 —— 使用数据和客户标识建立信任")
 
-Don’t say: “we are awesome because… “, and instead, let others testify:
+不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点：
 
-![Social Proof - Don’t say “We are awesome because…” and instead, let others testify](https://alexdenk.eu/blogtouch?id=1XaHyFHqHFmG-XlW_81CF8ZZlh24iVW7m "Social Proof - Don’t say “We are awesome because…” and instead, let others testify")
+![社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点](https://alexdenk.eu/blogtouch?id=1XaHyFHqHFmG-XlW_81CF8ZZlh24iVW7m "社会认同 —— 不要说：“我们太赞了，因为……”，相反地，让别人来证明这一点")
 
-### 25. Authority Bias 
+### 25. 权威偏差
 
-We attribute greater accuracy to the opinion of an authority figure and be more influenced by that opinion (even if the subject is unrelated to the person’s authority).
+我们认为权威人士给出的建议准确性更高，并且更容易受到该建议的影响（即使事物主体与该人物的权威性无关）。
 
-**How to use**: Build your authority by promoting your famous references:
+**如何使用**：通过宣传产品的知名推荐来建立权威:
 
-1. Contact influencers and give them free access to your product or service
-2. Highlight famous customers or brands
-3. Testimonials by famous people and celebrities
-4. Use authority figures in your visuals and statements (i.e. doctors, professors, etc.)
+1. 联系有影响力的人，让他们免费使用你的产品或服务
+2. 突出显示知名客户或品牌
+3. 展示来自社会名流的推荐语
+4. 在产品展示和陈述中使用权威人物（例如医生、教授等）
 
-![Authority Bias - Promote your strongest references](https://alexdenk.eu/blogtouch?id=1nU53Zted9Esavdatf_VCeoiAFP1f8ps9 "Authority Bias - Promote your strongest references")
+![权威偏见 —— 宣传最有力的推荐](https://alexdenk.eu/blogtouch?id=1nU53Zted9Esavdatf_VCeoiAFP1f8ps9 "权威偏见 —— 宣传最有力的推荐")
 
-### 26. Bandwagon Effect (Herd Behavior)
+### 26. 从众效应（羊群效应）
 
-We often do things only because “everyone is doing it!” (Ketogenic diet anyone?).
+我们做某件事的原因经常只是因为“每个人都在做这件事！”（每个人都是生酮饮食者吗？）
 
-We change our opinions, according to the number of people thinking the same way.
+我们会根据支持观点人数多寡来改变自己的想法。
 
-**Marketing tip**: convince that everyone is using your product and more people will indeed use it.
+**营销技巧**：使人们相信每个人都在使用你的产品，那么更多的人将会使用它。
 
-![Bandwagon Effect - Convince that others are using it](https://alexdenk.eu/blogtouch?id=1eV9oOXnVE-fNunuBH4vryKtwWQinGLoc)
+![从众效应 —— 使人们相信其他人都在使用它](https://alexdenk.eu/blogtouch?id=1eV9oOXnVE-fNunuBH4vryKtwWQinGLoc)
 
-And here’s another example for the using the Bandwagon Effect in your product:
+这是在产品中使用从众效应的另一个例子：
 
-![Bandwagon Effect - The “Most Popular” Example](https://alexdenk.eu/blogtouch?id=1rcPAf96BP_A9YfBa8AdFJJnd4eSRli9r "Bandwagon Effect - The “Most Popular” Example")
+![从众效应 —— “最流行”的案例](https://alexdenk.eu/blogtouch?id=1rcPAf96BP_A9YfBa8AdFJJnd4eSRli9r "从众效应 —— “最流行”的案例")
 
-The “Most Popular” example 
+“最流行”的案例
 
-### 27. Belonging Bias
+### 27. 归属偏差
 
-We are all social creatures and in order to feel part of a group we often act like other members in that group. If all the software developers are using Slack - you probably should too, right?
+我们都是社会性动物，为了成为群体的一部分，我们经常像群体内其他成员一样行事。如果所有开发人员都在使用 Slack —— 你可能也应该这样做，对吧？
 
-**Copy tip**: Use counters such as the number of customers, sessions, services provided, to convince the audience that your product is a standard.
+**模仿技巧**：使用数据，例如客户数量、会话数量、提供的服务次数，来说服群众你的产品是标配。
 
-### 28. In-group Bias
+### 28. 团体偏差
 
-Once we are part of a group, we almost “automatically” favor members in our group over members in other groups.
+一旦我们成为某个群体中的一部分，我们几乎会“自动”倾向于我们群体中的成员，而不是其他群体中的成员。
 
-In-group favoritism also means we help members of our group more often than those in other groups.
+群体内的偏袒也意味着我们更经常帮助自己群体内的成员。
 
-![In-group Bias](https://alexdenk.eu/blogtouch?id=1f8GJpWMyrUWOlAr1PctUrs-B2BLJlABp "In-group Bias")
+![团体偏差](https://alexdenk.eu/blogtouch?id=1f8GJpWMyrUWOlAr1PctUrs-B2BLJlABp "团体偏差")
 
-### 29. Not-Invented-Here Syndrome
+### 29. 非我所创
 
-We avoid using (or buying) already existing products, because of their external origins, and prefer to invent similar products internally.
+我们避免使用（或购买）已经存在的产品，因为它们来源于外部，我们更愿意自己发明类似的产品。
 
-Example: When your engineering team prefers to develop something from scratch instead of using an existing product.
+举个例子：当你的工程团队倾向于从零开始开发某些东西而不是使用现有产品时。
 
-**Management tip**: Tackle this phenomenon by complimenting your team. Their expertise is needed to develop the core of the product and their precious time cannot be “wasted” on side modules, or services that are already invented by others.
+**管理技巧**：通过赞美你的团队来遏制这一现象。他们的专业知识需要用来开发产品的核心功能，而不能“浪费”在“造轮子”上。
 
-Read: [11 lessons learned while trying to become a data-driven company](https://www.mobilespoon.net/2019/06/11-data-related-lessons-we-learned-hard.html)
+阅读：[在尝试成为数据驱动型公司中学到的 11 个经验教训](https://www.mobilespoon.net/2019/06/11-data-related-lessons-we-learned-hard.html)
 
-### 30. Belief Bias
+### 30. 信念偏差
 
-We are more likely to accept an argument that supports a conclusion that aligns with our prior knowledge while rejecting counter-arguments to the conclusion.
+我们更容易接受一个与我们先前所知知识一致的结论，同时拒绝接受与该结论相悖的论点。
 
-**Writing tip**: When talking about the benefits of your product - don’t exaggerate.
+**写作技巧**：当谈论产品好处时，不要夸大其词。
 
-If it’s too good to be true - people will not believe it.
+如果好得令人难以置信，人们就会怀疑它的真实性。
 
-### 31. Foot-in-the-door Technique
+### 31. 登门坎效应
 
-A small agreement creates a bond between us and the requester and potentially makes it easier for us to agree on bigger agreements.
+当我们与用户通过小的协议建立起联系后，我们更容易与用户在更大的协议上达成一致。
 
-**Subscription tip**: Give your users a free trial to hook them up with something small.
+**订阅技巧**：通过提供免费试用与用户建立联系。
 
-**Onboarding UX tip**: Don’t overwhelm the user with over-complicated onboarding tasks.
+**引导流程 UX 设计技巧**：不要用过于复杂的引导流程让用户感到不耐烦。
 
-Break it into small/easy chunks to achieve small wins and keep the user happy and engaged.
+把大块的内容分解成小块或容易解决的内容，让用户保持开心和参与度。
 
-![Foot-in-the-door Technique - Make onboarding easy by creating “small wins"](https://alexdenk.eu/blogtouch?id=1MpxTvnkZoqBD8Wtqy3gx708rpl0axjxa "Foot-in-the-door Technique - Make onboarding easy by creating “small wins"")
+![登门坎效应 —— 通过创造“小成就”让引导流程变得容易](https://alexdenk.eu/blogtouch?id=1MpxTvnkZoqBD8Wtqy3gx708rpl0axjxa "登门坎效应 —— 通过创造“小成就”让引导流程变得容易")
 
-Achieve small wins during the onboarding process 
+在引导流程中取得小成就
 
-### 32. Variable Reward
+### 32. 多变的奖赏
 
-Our joy from getting rewards increases when the rewards are unexpected.
+我们能从意外之礼中收获更多的快乐。
 
-**Product tip:** Hook your users with daily offers, free bonuses, reputation points, prizes and more. 
+**产品技巧：**用每日优惠、免费奖金、荣誉积分等奖品吸引用户。 
 
-The more “action” you create on a daily basis - the more your users will feel connected and hooked to the product.
+用户每天的“行为”越多，越会觉得自己与产品的联系密切。
 
-![Variable Reward - Hook your users with daily offers, free bonuses, reputation points, prizes and more.](https://alexdenk.eu/blogtouch?id=1aNyfch7QCQln-rC_IhxZY077ucAyDX14 "Variable Reward - Hook your users with daily offers, free bonuses, reputation points, prizes and more.")
+![多变的奖赏 —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。](https://alexdenk.eu/blogtouch?id=1aNyfch7QCQln-rC_IhxZY077ucAyDX14 "多变的奖赏 —— 用每日优惠、免费奖金、荣誉积分等奖品吸引用户。")
 
-Hook your users with daily offers, free bonuses, reputation points, prizes and more 
+用每日优惠、免费奖金、荣誉积分等奖品吸引用户
 
-## Not as rational as we think
+## 并非我们所想的那么理性
 
-Make rational decisions is not as easy as it seems.
+做出理性的选择并不像看上去那么容易。
 
-### 33. The Gambler's Fallacy
+### 33. 赌徒谬误
 
-We mistakenly believe that if something happens more frequently than normal during a given period, it will happen less frequently in the future.
+我们错误地认为，如果在某一时间段一件事发生的频率高于常态，那么在将来它的发生频率就会降低。
 
-**Work-related tip**: Stick with facts. Less intuition, more numbers.
+**工作相关技巧**：坚持事实论据。依赖数据而非直觉。
 
-### 34. Confirmation Bias:
+### 34. 确认偏差
 
-We seek and favorite information that confirms our initial belief and preconception.
+我们搜寻和偏爱那些能印证我们最初想法与先入之见的信息。
 
-**Question**: Did you ever manipulated your KPI reports, again and again, switching from weeks to months, from months to quarters, until finding the conclusion you were looking for?
+**问**：你是否反复操作过你的 KPI 报告，从几周到几个月，从几个月再到几个季度，直到找到你想要的结论？
 
-### 35. Disconfirmation Bias
+### 35. 不确定偏差
 
-We tend to dismiss evidence that refutes our beliefs.
+我们倾向于忽视与我们想法相悖的证据。
 
-**Question**: Did you ever like a candidate (during a job interview) so much that you ignored some warning signs?
+**问**：你是否曾（在面试中）非常青睐一位候选人，以至于忽略了一些他/她的缺点？
 
-Read: [5 product management lessons I've learned when moving from B2B to B2C](https://www.mobilespoon.net/2018/04/5-things-i-learned-in-transition-from.html)
+阅读：[从 B2B 到 B2C 的 5 个 产品管理经验](https://www.mobilespoon.net/2018/04/5-things-i-learned-in-transition-from.html)
 
-### 36. Framing Effect
+### 36. 框架效应
 
-Our decision-making processes are not always as rational as we think and we are influenced by the way the information is presented (positive vs negative frames).
+我们抉择的过程并非总能如想象中那样理性，我们会受到信息呈现方式的影响（正面与负面框架）。
 
-Product tip: In most cases, positive frames (i.e. glass is half full) convert better.
+产品技巧：在大多数情况下，正面框架（即玻璃杯是半满，而非半空）有更高的转化率。
 
-![Framing Effect - Try to present the full half of the cup for better conversion](https://alexdenk.eu/blogtouch?id=1Lc6vP6HPyktJ8kk2XaoPVqLQKxiu7LNO "Framing Effect - Try to present the full half of the cup for better conversion")
+![框架效应 —— 尝试使用“玻璃杯半满”的表达方式来提高转换率](https://alexdenk.eu/blogtouch?id=1Lc6vP6HPyktJ8kk2XaoPVqLQKxiu7LNO "框架效应 —— 尝试使用“玻璃杯半满”的表达方式来提高转换率")
 
-A positive frame in action 
+正面框架的实践
 
-### 37. Context Effect
+### 37. 境联效应
 
-Our perception of things is influenced by the context in which they are presented or happening.
+我们对事物的感知受到事物呈现或发生时所在场景的影响。
 
-In visual design, a color or a size of an object can be perceived differently depending on where and how they are presented.
+在视觉设计中，人们对物体的颜色或大小的感知因其呈现位置与方式的不同而不同。
 
-![Context Effect in design](https://alexdenk.eu/blogtouch?id=1HGFPufdKBckl6ADB9QPFEYgrBiq1SBSX "Context Effect in design")
+![设计中的境联效应](https://alexdenk.eu/blogtouch?id=1HGFPufdKBckl6ADB9QPFEYgrBiq1SBSX "设计中的境联效应")
 
-### 38. Selective Perception
+### 38. 选择性知觉
 
-Our perception of things is highly influenced by our expectations.
+我们对事物的看法很大程度上受到我们期望的影响。
 
-**Product & marketing tip**: Your product’s conversion funnel doesn’t begin when the user boards, it begins when the user sees your ad for the first time.
+**产品和营销技巧**：产品的转化漏斗并非从用户登录开始，而是从用户第一次看到你的广告时就开始了。
 
-Misalignment between the marketing message and what the product delivers will disappoint your users and result in poor conversion rates.
+营销信息与产品提供内容之间的不一致会让你的用户大失所望，从而导致转化率的下降。
 
-Aligning the messages across all media (and stages of the funnel) will bring users with the right expectations and as a result - improve conversion rates.
+在所有媒介上（漏斗的各个阶段）的消息一致将为用户带来正确的期望，从而提高转化率。
 
-### 39. Hot-hand Fallacy
+### 39. 热手谬误
 
-A fallacious belief that a person who has experienced success has a greater chance of further success in additional attempts.
+一种错误的观点认为一个经历过成功的人更有机会取得进一步的成功。
 
-**How to use**: Emphasize a list of successes stories to build your strong brand.
+**如何使用**：强调一系列成功案例来打造品牌。
 
-![Hot Hand Fallacy - If Ashton Kutcher invested in this startup it must be good, right? ](https://alexdenk.eu/blogtouch?id=1USmoXr5h3-KqGtaLIoi4XWV6V9MuASsj "Hot Hand Fallacy - If Ashton Kutcher invested in this startup it must be good, right? ")
+![热手谬误 —— 如果阿什顿·库彻投资这家创业公司，那这家公司一定不错，对吧？](https://alexdenk.eu/blogtouch?id=1USmoXr5h3-KqGtaLIoi4XWV6V9MuASsj "热手谬误 —— 如果阿什顿·库彻投资这家创业公司，那这家公司一定不错，对吧？")
 
-If Ashton Kutcher invested in this startup it must be good, right? 
+如果阿什顿·库彻投资这家创业公司，那这家公司一定不错，对吧？
 
-### 40. Anticipation:
+### 40. 期待
 
-Our brain is wired to anticipate positive experiences. Anticipation contributes to our happiness.
+期待积极的体验使我们的大脑感到兴奋，这有助于提升我们的幸福感。
 
-**Examples**: Waiting a few months for a big vacation contributes to the overall experience. Buying early tickets to Avengers: Endgame makes us all excited and happy.
+**例如**：需要等上几个月的假期往往有更好的体验。提前买好《复仇者联盟·终局之战》的电影票让我们感到兴奋和快乐。
 
-**Product tip**: Create anticipation for your new product (or release) by announcing it ahead of time. Create a positive buzz, something to look forward to, ensuring your audience will remain excited.
+**产品技巧**：通过提前宣布（或发布）你的新产品来创造预期。创造一个积极的话题和一些值得期待的东西，确保你的观众对此感到兴奋。
 
-### 41. Information Bias
+### 41. 信息偏倚
 
-We seek information even when it cannot affect our action.
+即使信息无法影响我们的行为，我们也会寻求信息。
 
-**Product tip**: When presenting products or services (in your website or within your product itself) - make sure to include photos a detailed description. The more information you can pile on to product description, the greater the assurance your users will get.
+**产品技巧**：当展示产品或服务时（在你的网站或在你的产品上）—— 请务必在照片中附上详细说明。你在产品描述中添加的信息越多，你的用户获得的保证就越大。
 
-## Not as thorough as we say we are
+## 并非我们所说的那样确信
 
-Sure, we did the research before making the decisions, we just forgot a few things along the way, that's all... 
+当然，我们在做出决定前做了些研究，我们只是在前行的路上忘记了一些事情，就是这样……
 
-### 42. Availability Heuristic (Availability Bias)
+### 42. 获得性启发（获得性偏差）
 
-We think that things that jump quickly to mind are more common and important than the things that do not easily come to mind. As a result, what’s recent, frequent, extreme, remembered, is more influential than the majority of information.
+我们认为那些迅速跃入脑海的事情比那些不容易想起的事情更为常见和重要。因此，最近发生的、频繁发生的、极端的、被记住的事情比大多数信息更有影响力。
 
-**UI tip**: make your design rememberable by creating something unique that stands out (without compromising on consistency and familiarity).
+**UI 技巧**：通过创建一些与众不同的东西（在不影响一致性和熟悉度的情况下）让你的设计被记住。
 
-![Availability Heuristic (Availability Bias)](https://alexdenk.eu/blogtouch?id=1OPjCDK5T34-JUt-9UcwnMvql4CgLkBP4 "Availability Heuristic (Availability Bias)")
+![获得性启发（获得性偏差）](https://alexdenk.eu/blogtouch?id=1OPjCDK5T34-JUt-9UcwnMvql4CgLkBP4 "获得性启发（获得性偏差）")
 
-### 43. Attentional Bias
+### 43. 注意力偏误
 
-When examining all possible outcomes - we tend to focus on a few that seem rational and familiar and ignore all others.
+在检查所有可能的结果时 —— 我们倾向于关注那些看起来理性而熟悉的，从而忽略了其他影响。
 
-**Question**: Did you ever release a feature thinking that it would lead to a certain outcome only to discover it caused a side effect you failed to anticipate?
+**问**：你是否曾经发布过一项功能，你认为它会带来确切的结果，但却发现它带来了你未能预料到的副作用？
 
-![Attentional Bias](https://alexdenk.eu/blogtouch?id=1SKWO5ipZk7aZbiy1pxDIGIoa7SyWx8a8 "Attentional Bias")
+![注意力偏误](https://alexdenk.eu/blogtouch?id=1SKWO5ipZk7aZbiy1pxDIGIoa7SyWx8a8 "注意力偏误")
 
-### 44. Fluency Heuristic
+### 44. 流畅性启发
 
-We give higher value to things that are processed faster, fluently, and smoothly.
+我们认为那些处理速度更快、更流畅、更顺利的事物具有更高的价值。
 
-Sometimes illogical argument, if communicated well (by someone who has authority and experience presenting things) might win.
+有时不合逻辑的论点在沟通良好的情况下（由有权威和经验的人提出）也可能会赢得胜利。
 
-![Fluency heuristic](https://alexdenk.eu/blogtouch?id=1w7igcsMZwzEdFPgPCfrzXnTrlYjZ9p80 "Fluency heuristic")
+![流畅性启发](https://alexdenk.eu/blogtouch?id=1w7igcsMZwzEdFPgPCfrzXnTrlYjZ9p80 "流畅性启发")
 
-A related term here is “**Mental Shortcuts**” - people frequently use heuristics to make decisions; you should use them to your advantage in your design.
+这里有一个相关术语“**心理捷径**” —— 人们经常使用启发式来做决定，你应该在你的设计中充分利用它们。
 
-**Product tips:**
+**产品技巧：**
 
-1. Make things easy for your users (fast, simple and easy navigation)
-2. Make content easily scannable (images, readable fonts)
-3. Create “mental shortcuts” that will hook your users and promote the preferred behavior.
-4. Provide meaningful defaults, because users assume you have their best interests in mind and will select the default options whenever possible.
-5. Add a powerful cross-product search to ease the finding of specific topics.
+1. 为用户提供便利（快捷、简单和易于理解的导航）
+2. 使内容易于浏览（图像，易读的字体）
+3. 创建“心理捷径”，它将吸引用户，促使他们把你的产品作为首选
+4. 提供有意义的默认选项，因为用户会认为你考虑了他们的最大利益，并将尽可能选择默认选项
+5. 添加功能强大的跨产品搜索，以简化特定主题的查找
 
-Examples:
+举例：
 
-Here are 2 examples for making things easier for the user, in order to promote the preferred behavior for the business.
+下面是为用户提供便利的两个示例，促使他们把你的产品作为首选。
 
-![Users expect products to provide ready-to-use defaults](https://alexdenk.eu/blogtouch?id=1VqWeo2F654LMST8Ipcko1KUgNeMmwZ1r "Users expect products to provide ready-to-use defaults")
+![用户希望产品可以提供现成的默认值](https://alexdenk.eu/blogtouch?id=1VqWeo2F654LMST8Ipcko1KUgNeMmwZ1r "用户希望产品可以提供现成的默认值")
 
-Users expect products to provide ready-to-use defaults
+用户希望产品可以提供现成的默认值
 
-![Fluency Heuristic in product design - providing easy shortcuts for recent activity](https://alexdenk.eu/blogtouch?id=1Wg1I6YLnShB81rgKM2JVQ_L0FYPTwhJw "Fluency Heuristic in product design - providing easy shortcuts for recent activity")
+![产品设计中的流畅性启发 —— 为最近的操作提供简单的快捷方式](https://alexdenk.eu/blogtouch?id=1Wg1I6YLnShB81rgKM2JVQ_L0FYPTwhJw "产品设计中的流畅性启发 —— 为最近的操作提供简单的快捷方式")
 
-Provide simple shortcuts for recent activities 
+为最近的操作提供简单的快捷方式
 
-**Work-related tip**: Always do your homework: collect enough data, write down your points, think about how to present your points, invest in the design of things.
+**工作相关技巧**：一定要做好功课：收集足够的数据，写下你的观点并思考如何表达你的观点，在设计上下苦功。
 
-### 45. The Google Effect (AKA: Digital Amnesia)
+### 45. 谷歌效应（亦名：数码失忆）
 
-We forget information that can be easily found online.
-**Question**: Do you remember the phone number of your best friend or kid?
+我们可以在网上轻松找回遗忘的信息。
+
+**问**：你还记得你最好的朋友或孩子的电话号码吗？
 
 ---
 
-> * [84 cognitive biases you should exploit to design better products - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
-> * **[84 cognitive biases you should exploit to design better products - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
-> * [84 cognitive biases you should exploit to design better products - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
+> * [利用 84 种认知偏见设计更好的产品 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-1.md)
+> * **[利用 84 种认知偏见设计更好的产品 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-2.md)**
+> * [利用 84 种认知偏见设计更好的产品 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/collection-cognitive-biases-how-to-use-3.md)
 
 ---
 
-Follow me on twitter [@gilbouhnick](https://twitter.com/GilBouhnick), or [subscribe to my newsletter](https://mailchi.mp/b9c664dfafa3/mobilespoon) to get some occasional posts directly to your inbox.
+在 Twitter 上关注我 [@gilbouhnick](https://twitter.com/GilBouhnick)，或 [订阅我的简报](https://mailchi.mp/b9c664dfafa3/mobilespoon)，可以将帖子直接发送到你的收件箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

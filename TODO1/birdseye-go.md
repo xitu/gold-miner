@@ -2,110 +2,110 @@
 > * 原文作者：[Axel Wagner](https://blog.merovius.de)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/birdseye-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/birdseye-go.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JackEggie](https://github.com/JackEggie)
+> * 校对者：[40m41h42t](https://github.com/40m41h42t), [JalanJiang](https://github.com/JalanJiang)
 
-# A bird's eye view of Go
+# Go 语言概览
 
-**tl;dr: I provide a very high-level overview of what Go-the-language means vs. Go-the-ecosystem vs. Go-an-implementation. I also try to provide specific references to what documentation is most useful for what purpose. See the bottom-most section for that.**
+**本文摘要：本文非常笼统地总结了 Go 语言的定义、生态系统和实现方式，也尽力给出了与不同的需求所对应的参考文档，详情参见本文末尾。**
 
-When we talk about "Go", depending on context, we can mean very different things. This is my attempt at providing a very high-level overview of the language and ecosystem and to link to the relevant documentation about how each part fits together (it's also a bit of a hodgepodge though, addressing individual random questions I encountered recently). So, let's dive in:
+每当我们说起“Go 语言”的时候，可能会因为场景的不同聊到很多完全不同的东西。因此，我尝试着对 Go 语言和其生态系统做一个概述，并在各部分内容中都列出相关的文档（这可能有点像是大杂烩，其中还包含了我最近实际遇到的许多问题）。让我们开始吧：
 
-#### The Go programming language
+#### Go 编程语言
 
-The bottom turtle is Go, the programming language. It defines the format and meaning of source code and the authoritative source is [the Go language specification](https://golang.org/ref/spec). If something doesn't conform to the spec, it's not "Go". And conversely, if something **isn't** mentioned in the spec it's not part of the language. The language spec is maintained by the Go team and versioned, with a new release roughly every six months. At the time I wrote this post, the newest release was version `1.12`.
+Go 语言是一种编程语言。作为一种权威，[Go 语言规范](https://golang.org/ref/spec)中定义了代码的格式规范和代码所代表的含义。不符合该规范的都不是 Go 语言。同样地，该规范中**没有**提到的内容不视为该语言的一部分。目前由 Go 语言开发团队维护该规范，每半年发布一个新版本。在我写这篇文章的时候最新的版本是 `1.12`。
 
-The domain of the spec are
+Go 语言规范规定了：
 
-* The grammar of the language
-* Types, values and their semantics
-* What identifiers are predeclared and what their meaning is
-* How Go programs get executed
-* The special package [unsafe](https://golang.org/ref/spec#Package_unsafe) (though not all of its semantics)
+* 语法
+* 变量的类型、值，及其语义
+* 预先声明的标识符及其含义
+* Go 程序的运行方式
+* 特殊的 [unsafe 包](https://golang.org/ref/spec#Package_unsafe)（虽然没有包含所有的语义）
 
-The spec alone **should** enable you to write a compiler for Go. And indeed, there are many different compilers.
+该规范**应该**已经足够让你实现一个 Go 语言的编译器了。实际上，已经有很多人基于此实现了许多不同的编译器。
 
-#### A Go compiler and runtime
+#### Go 编译器及其运行时
 
-The language spec is a text document, which is not useful in and of itself. For that you need software that actually implements these semantics. This is done by a compiler (which analyzes and checks the source code and transforms it into an executable format) and a runtime (which provides the necessary environment to actually run the code). There are many such combinations and they all differ a bit more or a bit less. Examples are
+该语言规范只是一份文本文档，它本身不太有用。你需要的是实现了这些语义的软件，即编译器（分析、检查源代码，并将其转换为可执行的形式）和运行时（提供运行代码时所需的环境）。有很多这样的软件组合，他们都或多或少有些不同。示例如下：
 
-* `gc`, a compiler and runtime written in pure Go (with some assembly) by the Go team themselves and versioned and released together with the language. Unlike other such tools, `gc` doesn't **strictly** separate the compiler, assembler and linker - they end up sharing a lot of code and some of the classical responsibilities move or are shared between them. As such, it's in general not possible to e.g. link packages compiled by different versions of `gc`.
-* [gccgo and libgo](https://golang.org/doc/install/gccgo), a frontend for gcc and a runtime. It's written in C and maintained by the Go team. It lives in the gcc organization though and is released according to the gcc release schedule and thus often lags a bit behind the "latest" version of the Go spec.
-* [llgo](https://llvm.org/svn/llvm-project/llgo/trunk/README.TXT), a frontend for LLVM. I don't know much else about it.
-* [gopherjs](https://github.com/gopherjs/gopherjs), compiling Go code into javascript and using a javascript VM plus some custom code as a runtime. Long-term, it'll probably be made obsolete by `gc` gaining native support for WebAssembly.
-* [tinygo](https://tinygo.org/), an incomplete implementation targeting small code size. Runs on either bare-metal micro-controllers or WebAssembly VMs, with a custom runtime. Due to its limitations it doesn't **technically** implement Go - notably, it doesn't include a garbage collector, concurrency or reflection.
+* `gc`，Go 语言开发团队自己开发的纯 Go 语言实现的（有一小部分汇编实现）编译器和运行时。它随着 Go 语言一起发布。与其他此类工具不同的是，`gc` 并不**严格**区分编译器、组装器和链接器 —— 它们在实现的时候共享了大量的代码，并且会共享或传递一些重要职责。因此，通常无法链接由不同版本的 `gc` 所编译的包。
+* [gccgo 和 libgo](https://golang.org/doc/install/gccgo)，gcc 的前端和其运行时。它是用 C 实现的，并且也由 Go 开发团队维护。然而，由于它是 gcc 组织的一部分，并根据 gcc 的发布周期发布，因此通常会稍微落后于 Go 语言规范的“最新”版本。
+* [llgo](https://llvm.org/svn/llvm-project/llgo/trunk/README.TXT)，LLVM 的前端。我对其不太了解。
+* [gopherjs](https://github.com/gopherjs/gopherjs)，将 Go 代码编译为 JavaScript，并使用一个 JavaScript VM 和一些自定义代码作为运行时。长远来看，由于 `gc` 获得了 WebAssembly 的原生支持，它有可能会被淘汰。
+* [tinygo](https://tinygo.org/)，针对小规模编程的不完整实现。它可以通过自定义一个运行时运行在微控制器（裸机）或者 WebAssembly 虚拟机上。由于它的局限性，**技术上来说**它并没有实现 Go 语言的所有特性 —— 主要体现在它缺少垃圾回收器、并发和反射。
 
-There are more, but this gives you an overview over the variety of implementations. Each of these made potentially different choices for how to implement the language and have their own idiosyncrasies. Examples (some of them a bit exotic, to illustrate) where they might differ are:
+还有更多其他的实现，但这已经足以让你了解不同的实现方式。以上每一种方法都使用了不同的方式来实现 Go 语言，并具有自己与众不同的特性。他们可能存在的不同之处有（为了说明这一点，下面的某些说法可能会有点奇特）：
 
-* Size of `int`/`uint` \- the language allows them to be either 32 or 64 bit wide.
-* How fundamental functionalities of the runtime, like allocation, garbage collection or concurrency are implemented.
-* The order of ranging over a `map` isn't defined in the language - `gc` famously explicitly randomizes it, `gopherjs` uses (last time I checked) whatever the javascript implementation you are running on uses.
-* How much extra space `append` allocates if it needs to - **not** however, **when** it allocates extra space.
-* How conversions between `unsafe.Pointer` and `uintptr` happen. `gc`, in particular, comes with its own [set of rules](https://godoc.org/unsafe#Pointer) regarding when these conversions are valid and when they aren't. In general, the `unsafe` package is virtual and implemented in the compiler.
+* `int`/`uint` 的大小 —— 长度可能为 32 位或 64 位。
+* 运行时中基础功能的实现方式，如内存分配、垃圾回收和并发的实现。
+* 遍历 `map` 的顺序并没有在 Go 语言中定义 —— `gc` 显然会将这类操作随机化，而 `gopherjs` 会用你使用的 JavaScript 实现遍历。
+* `append` 操作分配的所需额外内存空间大小 —— 但是，**在分配额外空间时**，**不会**再次分配更多的内存空间。
+* `unsafe.Pointer` 与 `uintptr` 之间的转换方式。特别指出，`gc` 对于该转换何时应该生效有自己的[规则](https://godoc.org/unsafe#Pointer)。通常情况下，`unsafe` 包是虚拟的，它会在编译器中被实现。
 
-In general, relying on details not mentioned in the spec (in particular the ones mentioned here) makes your program **compile** with different compilers, but not **work** as expected. So you should avoid it if possible.
+一般来说，根据规范中没有提到的某些细节（尤其是上面提到的那些细节）可以使你的程序用不同的编译器也能**编译**，但往往程序不会像你预期的那样**正常工作**。因此，你应该尽力避免此类事情发生。
 
-If you install Go via a "normal" way (by downloading it from the website, or installing it via a package manager), you'll get `gc` and the official runtime by the Go team. And if the context doesn't imply otherwise, when we talk about how "Go does things", we usually refer to `gc`. It's the main implementation.
+如果你的 Go 语言是通过“正常”渠道安装的话（在官网上下载安装，或是通过软件包管理器安装），那么你会得到 Go 开发团队提供的 `gc` 和正式的运行时。在本文中，当我们在讨论“Go 是如何做的”时，若没有在上下文特别指明，我们通常就是在谈论 `gc`。因为它是最重要的一个实现。
 
-#### The standard library
+#### 标准库
 
-[The standard library](https://golang.org/pkg/#stdlib) is a set of packages that come with Go and can be relied upon to immediately build useful applications with. It too is maintained by the Go team and versioned and released together with the language and compiler. In general the standard library of one implementation will only work with the compiler it comes with. The reason is that most (but not all) of the runtime is part of the standard library (mainly in the packages `runtime`, `reflect`, `syscall`). As the compiler needs to generate code compatible with the used runtime, both need to come from the same version. The **API** of the standard library is stable and won't change in incompatible ways, so a Go program written against a given version of the standard library will continue to work as expected with future versions of the compiler.
+[标准库](https://golang.org/pkg/#stdlib)是 Go 语言中附带的一组依赖包，它可以被用来立即构建许多实用的应用程序。它也由 Go 开发团队维护，并且会随着 Go 语言和编译器一起发布。一般来说，标准库的某种实现只能依赖与其共同发布的编译器才能正常使用。因为大部分（但不是所有）运行时都是标准库的一部分（主要包含在 `runtime`、`reflect`、`syscall` 包中）。由于编译器在编译时需要兼容当前使用的运行时，因此它们的版本要相同。标准库的 **API** 是稳定的，不会以不兼容的方式改变，所以基于某个指定版本的标准库编写的 Go 程序在编译器的未来版本中也可以正常运行。
 
-Some implementations use their own version of some or all of the standard library - in particular, the `runtime`, `reflect`, `unsafe` and `syscall` packages are completely implementation-defined. As an example, I believe that [AppEngine Standard](https://cloud.google.com/appengine/docs/standard/go/) used to re-define parts of the standard library for security and safety. In general, implementations try to make that transparent to the user.
+有些标准库会完全自己实现整个库中的所有内容，而有些则只实现一部分 —— 开发者尤其会在 `runtime`、`reflect`、`unsafe` 和 `syscall` 包中实现自定义的功能。举个例子，我相信 [AppEngine 标准库](https://cloud.google.com/appengine/docs/standard/go/)是出于安全考虑重新实现了标准库的部分功能的。这类重新实现的部分通常会尽量对用户保持透明。
 
-There is also a [separate set of repositories](https://golang.org/pkg/#subrepo), colloquially referred to as `x` or "the subrepositories". They contain packages which are developed and maintained by the Go team with all the same processes, but are **not** on the same release schedule as the language and have less strict compatibility guarantees (and commitment to maintainership) than [Go itself](https://golang.org/doc/go1compat). The packages in there are either experimental (for potential future inclusion in the standard library), not widely useful enough to be included in the standard library or, in rare cases, a way for people on the Go team to work on code using the same review processes they are used to.
+还存在一种[标准库以外的独立库](https://golang.org/pkg/#subrepo)，通俗地说这就是 `x` 或者说是“扩展库”。这种库包含了 Go 开发团队同时开发和维护的部分代码，但是**不会**与 Go 语言有相同的发布周期，并且相比于 [Go 语言本身](https://golang.org/doc/go1compat)，兼容性也会较差（功能性和维护性也会较差）。其中的代码要么是实验性的（在未来可能会包含在标准库中），要么是比起标准库中的功能还不够泛用，或者是在某些罕见的情况下，提供一种开发者们可以与 Go 开发团队同步进行代码审查的方式。
 
-Again, when referring to "the standard library" devoid of extra context, we mean the officially maintained and distributed one, hosted on [golang.org](https://golang.org/pkg).
+再一次强调，如果没有额外地指出，在提到“标准库”时，我们指的是官方维护和发布的、托管在 [golang.org](https://golang.org/pkg) 上的 Go 标准库。
 
-#### The build tool
+#### 代码构建工具
 
-To make the language user-friendly, you need a build tool. The primary role of this tool is to find the package you want to compile, find all of its dependencies, and execute the compiler and linker with the arguments necessary to build them. Go (the language) has [support for packages](https://golang.org/ref/spec#Packages), which combine multiple source files into one unit of compilation. And it defines how to import and use other packages. But importantly, it doesn't define how import paths map to source files or how they are laid out on disk. As such, each build tool comes with its own ideas for this. It's possible to use a generic build tool (like Make) for this purpose, but there are a bunch of Go-specific ones:
+我们需要代码构建工具来使 Go 语言易于使用。构建工具的主要职责是找到需要编译的包和所有的依赖项，并依据必要的参数调用编译器和链接器。Go 语言有[对包的支持](https://golang.org/ref/spec#Packages)，允许在编译时把多个源代码文件视为一个单元。这也定义了导入和使用其他包的方式。但重要的是，这并没有定义导入包的路径与源文件的映射方式，也没有定义导入包在磁盘中的位置。因此，每种构建工具对于该问题都有不同的处理方式。你可以使用通用构建工具（如 Make 命令），但也有许多专门为 Go 语言而生的构建工具：
 
-* [The go tool](https://golang.org/cmd/go/)<sup><a href="#note1">[1]</a></sup> is the build tool officially maintained by the Go team. It is versioned and released with the language (and `gc` and the standard library). It expects a directory called `GOROOT` (from an environment variable, with a compiled default) to contain the compiler, the standard library and various other tools. And it expects all source code in a single directory called `GOPATH` (from an environment variable, defaulting to `$HOME/go` or equivalent). Specifically, package `a/b` is expected to have its source at `$GOPATH/src/a/b/c.go` etc. And `$GOPATH/src/a/b` is expected to **only** contain source files of one package. It also has a mechanism to [download a package and its dependencies recursively from an arbitrary server](https://golang.org/cmd/go/#hdr-Remote_import_paths), in a fully decentralized scheme, though it does not support versioning or verification of downloads. The go tool also contains extra tooling for testing Go code, reading documentation ([golang.org](https://golang.org) is served by the Go tool), file bugs, run various tools…
-* [gopherjs](https://github.com/gopherjs/gopherjs) comes with its own build tool, that largely mimics the Go tool.
-* [gomobile](https://github.com/golang/go/wiki/Mobile) is a build tool specifically to build Go code for mobile operating systems.
-* [dep](https://github.com/golang/dep), [gb](https://getgb.io/), [glide](https://glide.sh/),… are community-developed build-tools and dependency managers, each with their own approach to file layout (some are compatible with the go tool, some aren't) and dependency declarations.
-* [bazel](https://bazel.build/) is the open source version of Google's own build system. While it's not actually Go-specific, I'm mentioning it explicitly due to common claims that idiosyncrasies of the go tool are intended to serve Google's own use cases, in conflict with the needs of the community. However, the go tool (and many public tools) can't be used at Google, because bazel uses an incompatible file layout.
+* [Go 语言工具](https://golang.org/cmd/go/)<sup><a href="#note1">[1]</a></sup>是 Go 开发团队官方维护的构建工具。它与 Go 语言（`gc` 和标准库）有相同的发布周期。它需要一个名为 `GOROOT` 的目录（该值从环境变量中获取，会在安装时产生一个默认值）来存放编译器、标准库和其他各种工具。它要求所有的源代码都要存放在一个名为 `GOPATH` 的目录下（该值也从环境变量中获取，默认为 `$HOME/go` 或是一个与其相等的值）。举例来说，包 `a/b` 的源代码应该位于诸如 `$GOPATH/src/a/b/c.go` 的路径下。并且 `$GOPATH/src/a/b` 路径下应该**只**包含一个包下的源文件。在分布式的模式下，有一种机制可以[从任意服务器上递归地下载某个包及其依赖项](https://golang.org/cmd/go/#hdr-Remote_import_paths)，即使这种机制不支持版本控制或是下载校验。Go 语言工具中也包含了许多其他工具包，包括用于测试 Go 代码的工具、阅读文档的工具（[golang.org](https://golang.org) 是用 Go 语言工具部署的）、提交 bug 的工具和其他各种小工具。
+* [gopherjs](https://github.com/gopherjs/gopherjs) 自带的构建工具，它在很大程度上模仿了 Go 语言工具。
+* [gomobile](https://github.com/golang/go/wiki/Mobile) 是一个专门为移动操作系统构建 Go 代码的工具。
+* [dep](https://github.com/golang/dep)、[gb](https://getgb.io/)、[glide](https://glide.sh/) 等等是社区开发的构建和依赖项管理工具，它们各自都有自己独特的文件布局方式（有些可以与 Go 语言工具兼容，有些则不兼容）和依赖项声明方式。
+* [bazel](https://bazel.build/) 是谷歌内部构建工具的开源版本。虽然它的使用实际上并不限于 Go 语言，但我之所以把它列为单独的一项，是因为人们常说 Go 语言工具旨在为谷歌服务，而与社区的需求相冲突。然而，Go 语言工具（和其他许多开放的工具）是无法被谷歌所使用的，原因是 bazel 使用了不兼容的文件布局方式。
 
-The build tool is what most users directly interface with and as such, it's what largely determines aspects of the **Go ecosystem** and how packages can be combined and thus how different Go programmers interact. As above, the go tool is what's implicitly referred to (unless other context is specified) and thus its design decisions significantly influence public opinion about "Go". While there are alternative tools and they have wide adoption for use cases like company-internal code, the open source community **in general** expects code to conform to the expectations of the go tool, which (among other things) means:
+代码构建工具是大多数用户在编写代码时直接使用的重要工具，因此它很大程度上决定了 **Go 语言生态系统**的方方面面，也决定了包的组合方式，这也将影响 Go 程序员之间的沟通和交流方式。如上所述，Go 语言工具是被隐式引用的（除非指定了其他的运行环境），因此它的设计会让公众对 “Go 语言”的看法造成很大的影响。虽然有许多替代工具可供使用，这些工具也已经在如公司内部使用等场景被广泛使用，但是开源社区**通常**希望 Go 语言工具与 Go 语言的使用方式相契合，这意味着：
 
-* Be available as source code. The go tool has little support for binary distribution of packages, and what little it has is going to be removed soon.
-* Be documented according to [the godoc format](https://blog.golang.org/godoc-documenting-go-code).
-* [Have tests](https://golang.org/pkg/testing/#pkg-overview) that can be run via `go test`.
-* Be fully compilable by a `go build` (together with the next one, this is usually called being "go-gettable"). In particular, to use [go generate](https://golang.org/pkg/cmd/go/internal/generate/) if generating source-code or metaprogramming is required and commit the generated artifacts.
-* Namespace import paths with a domain-name as the first component and have that domain-name either be a well-known code hoster or have a webserver running on it, so that [go get works](https://golang.org/cmd/go/#hdr-Remote_import_paths) and can find the source code of dependencies.
-* Have one package per directory and use [build constraints](https://golang.org/pkg/go/build/#hdr-Build_Constraints) for conditional compilation.
+* 可以获取源代码。Go 语言工具对包的二进制分发只做了极其有限的支持，并且仅有的支持将会在将来的版本中移除。
+* 要依据 [Go 官方文档编排格式](https://blog.golang.org/godoc-documenting-go-code)来撰写文档。
+* 要[包含测试用例](https://golang.org/pkg/testing/#pkg-overview)，并且能通过 `go test` 运行测试。
+* 可以完全通过 `go build` 来编译（与后面所述的特征共同被称为“可以通过 Go 得到的” —— “go-gettable”）。特别指出，如果需要生成源代码或是元编程，则使用 [go generate](https://golang.org/pkg/cmd/go/internal/generate/) 并提交生成的构件。
+* 通过命名空间导入的路径其第一部分是一个域名，该域名可以是一个代码托管服务器或者是该服务器上运行的一个 Web 服务，则 Go 代码可以找到源代码和其依赖，并且可以[正常工作](https://golang.org/cmd/go/#hdr-Remote_import_paths)。
+* 每个目录都只有一个包，并且可以使用[代码构建约束条件](https://golang.org/pkg/go/build/#hdr-Build_Constraints)进行条件编译。
 
-The [documentation of the go tool](https://golang.org/cmd/go) is very comprehensive and probably a good starting point to learn how Go implements various ecosystem aspects.
+[Go 语言工具的文档](https://golang.org/cmd/go)非常全面，它是一个学习 Go 如何实现各种生态系统的良好起点。
 
-#### Tools
+#### 其他工具
 
-Go's standard library includes [several packages to interact with Go source code](https://golang.org/pkg/go/) and the [x/tools subrepo contains even more](https://godoc.org/golang.org/x/tools/go). As a result (and due to a strong desire to keep the canonical Go distribution lean), Go has developed a strong culture of developing third-party tools. In general, these tools need to know where to find source code, and might need access to type information. The [go/build](https://golang.org/pkg/go/build/) package implements the conventions used by the Go tool, and can thus also serve as documentation for parts of its build process. The downside is that tools built on top of it sometimes don't work with code relying on other build tools. That's why there is a [new package in development](https://godoc.org/golang.org/x/tools/go/packages) which integrates nicely with other build tools.
+Go 语言的标准库包含了[一些可以与 Go 源代码交互的包](https://golang.org/pkg/go/)和[包含了更多功能的 x/tools 扩展库](https://godoc.org/golang.org/x/tools/go)。Go 语言也因此在社区中有非常强的第三方工具开发文化（由于官方强烈地想要保持 Go 语言本身的精简）。这些工具通常需要知道源代码的位置，可能还需要获取类型信息。[go/build](https://golang.org/pkg/go/build/) 包遵循了 Go 语言工具的约定，因此它本身就可以作为其部分构建过程的文档。缺点则是，构建在它之上的工具有时与基于其他构建工具的代码不兼容。因此有[一个新的包正在开发中](https://godoc.org/golang.org/x/tools/go/packages)，它可以与其他构建工具很好地集成。
 
-By its nature the list of Go tools is long and everybody has their own preferences. But broadly, they contain:
+实际上 Go 语言的工具有非常多，并且每个人都有自己的偏好。但大致如下：
 
-* [Tools developed by the Go team and released as part of the distribution](https://golang.org/cmd/).
-* This includes tools for [automatically formatting source code](https://golang.org/cmd/gofmt/), [coverage testing](https://golang.org/cmd/cover/), [runtime tracing](https://golang.org/cmd/trace/) and [profiling](https://golang.org/cmd/pprof/), a [static analyzer for common mistakes](https://golang.org/cmd/vet/) and [a mostly obsolete tool to migrate code to new Go versions](https://golang.org/cmd/fix/). These are generally accesed via `go tool <cmd>`.
-* [Tools developed by the Go team and maintained out-of-tree](https://godoc.org/golang.org/x/tools/cmd). This includes tools to [write blog posts and presentations](https://godoc.org/golang.org/x/tools/cmd/present), [easily do large refactors](https://godoc.org/golang.org/x/tools/cmd/eg), [automatically find and fix import paths](https://godoc.org/golang.org/x/tools/cmd/goimports) and a [language server](https://godoc.org/golang.org/x/tools/cmd/gopls).
-* Third-party tools - too many to count. There are many lists of these; [here is one](https://github.com/avelino/awesome-go#tools).
+* [Go 语言开发团队所研发的工具，与 Go 语言有相同的发布周期](https://golang.org/cmd/)。
+* 它包含[代码自动格式化工具](https://golang.org/cmd/gofmt/)、[测试覆盖率工具](https://golang.org/cmd/cover/)、[运行时追踪工具](https://golang.org/cmd/trace/)、[信息收集工具](https://golang.org/cmd/pprof/)、[针对常见错误的静态分析器](https://golang.org/cmd/vet/)、[一款已经废弃的 Go 代码升级工具](https://golang.org/cmd/fix/)。这些工具都可以通过 `go tool <cmd>` 命令来访问。
+* [由 Go 开发团队所维护，但不随 Go 语言一起发布的工具](https://godoc.org/golang.org/x/tools/cmd)。[博客文章编写工具和演示工具](https://godoc.org/golang.org/x/tools/cmd/present)、[大型代码重构工具](https://godoc.org/golang.org/x/tools/cmd/eg)、[导入路径自动修正工具](https://godoc.org/golang.org/x/tools/cmd/goimports)和[语言服务器](https://godoc.org/golang.org/x/tools/cmd/gopls)。
+* 第三方工具 —— 实在太多了。有很多关于第三方工具的列表，例如[这个](https://github.com/avelino/awesome-go#tools)。
 
-#### In Summary
+#### 总结
 
-I wanted to end this with a short list of references for beginners who feel lost. So this is where you should go, if you:
+我想用一个简短的参考文献列表来结束这篇文章，列表的内容是为那些感到迷茫的初学者准备的。请点击下面的链接：
 
-* [Want to start learning Go](https://tour.golang.org/welcome/1).
-* [Want to understand how a specific language construct works](https://golang.org/doc/effective_go.html).
-* [Want to nitpick what is or is not valid Go and why](https://golang.org/ref/spec).
-* [Want documentation about what the go tool does](https://golang.org/cmd/go/) Also available via `go help`. It sometimes references other topics, that you can also [see on the web](https://golang.org/pkg/cmd/go/internal/help/), but not nicely.
-* [Want to write code that adheres to community standards](https://github.com/golang/go/wiki/CodeReviewComments).
-* [Want to test your code](https://golang.org/pkg/testing/#pkg-overview).
-* [Want to find new packages or look at documentation of public packages](https://godoc.org/).
+* [开始学习 Go 语言](https://tour.golang.org/welcome/1)。
+* [理解 Go 语言的工作方式](https://golang.org/doc/effective_go.html)。
+* [什么是合法的 Go 代码及其原因](https://golang.org/ref/spec)。
+* [Go 语言工具及其文档](https://golang.org/cmd/go/)，也可以通过 `go help` 查看。有时会涉及到其他内容，你也可以查看[这些不够精细的内容](https://golang.org/pkg/cmd/go/internal/help/)。
+* [编写符合社区标准的代码](https://github.com/golang/go/wiki/CodeReviewComments)。
+* [对代码进行测试](https://golang.org/pkg/testing/#pkg-overview)。
+* [寻找新的依赖包或查看公用包的文档](https://godoc.org/)。
 
-There are many more useful supplementary documents, but this should serve as a good start. Please [let me know on Twitter](https://twitter.com/TheMerovius) if you are a beginner and there's an area of Go you are missing from this overview (I might follow this up with more specific topics), or a specific reference you found helpful. You can also drop me a note if you're a more experienced Gopher and think I missed something important (but keep in mind that I intentionally left out most references, so as to keep the ways forward crisp and clear :) ).
+除此以外还有许多有价值的文档可以作为补充，但这些应该已经足够让你有一个良好的开端了。作为一个 Go 语言的初学者，如果你发现本文有任何遗漏之处（我可能会补充更多的细节）或者你找到了任何有价值的参考资料，请[通过 Twitter 联系我](https://twitter.com/TheMerovius)。如果你已经是一个经验丰富的 Go 语言开发者，并且你发现我遗漏了某些重要的内容（但是我有意忽略了一些重要的参考资料，使得初学者们可以感受到 Go 语言学习中的新鲜感:smile:），也请给我留言。
 
 ---
 
-\[1\]<a name="note1"></a>  Note: The Go team is currently rolling out support for **modules**, which is a unit of code distribution above packages, including support for versioning and more infrastructure to solve some issues with the "traditional" go tool. With that, basically everything in that paragraph becomes obsolete. However, **for now** the module support exists but is opt-in. And as the point of this article is to provide an overview of the separation of concerns, which doesn't actually change, I felt it was better to stay within ye olden days - **for now**.
+[1]<a name="note1"></a> 注：Go 开发团队目前正在对**模块**做一些支持，模块是包之上的代码分发单元，这些支持包括版本控制和一些可以使“传统” Go 语言工具解决问题的基础工作。等这些支持完成以后，这一段中的所有内容基本上就都过时了。对模块的支持**目前**是有的，但还不是 Go 语言的一部分。由于本文的核心内容是对 Go 语言的不同组成部分进行简要介绍，这些内容是不太容易发生变化的，**目前来看**我认为理解这些历史问题也是很有必要的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

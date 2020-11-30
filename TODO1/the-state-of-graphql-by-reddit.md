@@ -2,117 +2,129 @@
 > * 原文作者：[Robert Matyszewski](https://twitter.com/intent/follow?screen_name=iamrobmat)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-graphql-by-reddit.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-graphql-by-reddit.md)
-> * 译者：
-> * 校对者：
+> * 译者：[TiaossuP](https://github.com/TiaossuP)
+> * 校对者：[yangxy81118](https://github.com/yangxy81118)
 
-# The state of GraphQL by Reddit
+# 从 Reddit 讨论中看到的 GraphQL 现状
 
-There’s a lot of hype on GraphQL and debate to compare it to REST. GraphQL is in the early stage of adoption globally and no one exactly knows where it will end. Researching on the internet, I was able to find many positive articles presenting this new piece of tech. Is it just a hype of the first impression?
+一提到 GraphQL，就会看到各类炒作文章以及将它与 REST 进行比较的争论。GraphQL 现在处于全球流行、全面使用的早期阶段，没有人确切知道它会在哪里在止步。通过在互联网上的调研，我发现了许多对这项新技术的安利文章。这只是对第一印象的炒作吗？
 
-I’ve researched Reddit and selected the most upvoted comments on GraphQL. My goal was to write down as much transparent and objective article on the topic. I’ve used discussions and arguments between users to present a different point of view on each aspect. Each comment quoter below has a link to its author and number of upvotes in (). Keep in mind that upvote numbers might change since I’ve written this article.
+我研究了 Reddit 上关于 GraphQL 的评论，并挑选了其中一些最受欢迎的内容。本文旨在以透明、客观的态度来讨论这个主题，所以对于每个派别的不同观点，我都挑选了一些用户的探讨与争论的内容。下面的每个评论引用都有一个指向其作者的链接，同时（）中的为该评论的点赞 **（译注：原文为 upvote）** 数量。不过要注意，我撰写与发表本文以后，点赞数字可能会发生变化。
 
-## Agenda
+## 议程
 
-* General review
-* React & Apollo review
-* Big Boys & GraphQL
-* Caching
-* Data Fetching
-* Summary.
+* 整体状况
+* React & Apollo 状况
+* 大公司 & GraphQL
+* 缓存
+* 请求数据
+* 总结
 
-# General review
+# 整体状况
 
-Starting from a general view I’ve chosen two cases. First, one - [SwiftOneSpeaks](https://www.reddit.com/user/SwiftOneSpeaks/) shows front end developer perspective and potential improvements in time to market. Secondly, [Scruffles360](https://www.reddit.com/user/scruffles360/) presents strategy trends on how teams adapt graphql and which one they used. Later on you’ll find more about his case. The second comment was the least upvoted one that I’ve chosen in the article.
+从整体出发，我选择了两个实践例子。首先，[SwiftOneSpeaks](https://www.reddit.com/user/SwiftOneSpeaks/) 显示了前端开发人员的视角和潜在的市场改进。其次，[Scruffles360](https://www.reddit.com/user/scruffles360/) 展示了团队如何适应 graphql 以及他们使用具体工具的策略趋势。稍后您会发现更多他的评论。第二个评论是本文中选择的赞最少的评论。
 
-[SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (23) says:
+[SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/)（23）说：
 
-> **When I was working with a backend dev team, they were far more willing to provide new queries to match my needs because it didn’t impact existing queries they had to support. (That said, I have no idea how well this scales over time). It also reduced the number of crappy responses I had to reparse into usable (for my needs) data structures. (example, I’d get 3 arrays back that I had to relate and zip together into a single set of objects. With GraphQL, I had more ability to demand data in a useful shape, though the backend still has to do their part).**
+> 当我与后端开发团队合作时，他们更倾向于提供新的查询来满足我的需求，因为这不会影响他们必须支持的现有查询。（也就是说，我不知道随着时间的推移，这个查询的扩展性会怎样）。GraphQL 还减少了我必须重新解析为可用（满足我的需要）的数据结构的糟糕响应的数量。（例如，我得到了 3 个数组，我必须将它们关联起来并压缩到一组对象中。尽管后端仍然需要有一些工作要做，但使用 GraphQL，我可以有更丰富的能力来要求数据格式。）
 
-[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enpb6fg/) (8) explains his three trends in GraphQL scope:
+[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enpb6fg/)（8）描述了他在 GraphQL 领域内看到的三个发展方向：
 
-> * The monolith - which is what Apollo is pushing now. Every company has one and only one api endpoint and schema that proxies to everything else ([https://principledgraphql.com/](https://principledgraphql.com/)). I disagree with this wholeheartedly, but won’t repeat my arguments here (you can dig through my comment history if you want)
-> * The database api - for some strange reason people have started adding plugins to databases that give you direct database access via graphql. Graphql is wonderful for so many reasons, but it doesn’t come close to competing with a native database query language. More importantly, this takes away your business layer giving callers direct access to your store. No one should have access to your store except one single microservice. Everyone else should be calling through your api.
-> * The medium approach - The classic API approach where each app has their own API (graphql in this case). It might isolate business logic or proxy to microservices (via rest or by schema stitching another Graphql schema). That’s the route we went, and I don’t regret a thing.
+> * 巨石应用：这就是阿波罗现在所推动的。每家公司都有一个且只有一个 api endpoint 和 schema 代理其他所有东西（[https://principledgraphql.com/](https://principledgraphql.com/)）。我完完全全不同意这个思路，但不会在这里重复我的论点（如果想了解的话，您可以挖掘我的评论历史）
+> * 数据库 api：出于一些奇怪的原因，人们已经开始向数据库添加插件，这些插件可以通过 graphql 直接访问数据库。由于很多原因，Graphql 非常棒，但是它还不能与原生数据库查询语言相媲美。更重要的是，这去掉了您的业务层，使调用者可以直接访问您的 store。除了一个微服务应用，其余任何人都不应拥有访问store的权限 —— 其他人应该通过您的 api 调用服务。
+> * 中间路线：经典的 API 做法，每个应用程序都有自己的 API（在本例中为 GraphQL）。它可能将业务逻辑或代理隔离到微服务（通过 rest 或通过 schema stitching 到另一个 Graphql 架构）。这是我们走的路，目前为止还没让我后悔。
 
-# React & Apollo review
+# React & Apollo 状况
 
-React & Apollo combination review request gained a lot of attention. Additionally [Wronglyzorro](https://www.reddit.com/user/wronglyzorro/) and [Livelierepeat](https://www.reddit.com/user/livelierepeat/) argued about why backend developers might not like GraphQL. The response from more experienced developer gained triple more upvotes! Additionally I’ve choosen one longer but very detailed review.
+React 和 Apollo 的组合获得了很多关注。此外 [Wronglyzorro](https://www.reddit.com/user/wronglyzorro/) 和 [Livelierepeat](https://www.reddit.com/user/livelierepeat/) 讨论为什么后端开发可能不喜欢 GraphQL。一位更有经验的开发人员的回应获得了更多的赞。另外，我选择了一个更长但非常详细的评论。
 
-[Wronglyzorro](https://www.reddit.com/r/reactjs/comments/9nmj0w/what_is_your_experience_with_react_apollo_graphql/e7nkk73/) (12) says:
+[Wronglyzorro](https://www.reddit.com/r/reactjs/comments/9nmj0w/what_is_your_experience_with_react_apollo_graphql/e7nkk73/)（12）：
 
-> **We strictly use react + apollo on our web app. We’re also forcing the mobile clients to use it as well. It’s incredible and the future. Backend devs of course hate it because they are set in their ways and don’t like change. However over the last year when there have been any sort of outages it was never graphql that was a point of weakness. It was always the legacy backend services that crapped out.**
+> 我们在网络应用程序上严格使用 react + apollo。我们也强迫移动客户端也使用它。虽然听起来有些荒诞，但这确实是大趋势。后端开发人员当然讨厌它，因为他们习惯了自己原有的方式，不喜欢改变。然而，在我们过去一年中出现的故障中，从没有 GraphQL 导致的，崩溃的总是遗留的后端服务。
 
-[Livelierepeat](https://www.reddit.com/r/reactjs/comments/9nmj0w/what_is_your_experience_with_react_apollo_graphql/e7o92o5/) (40) responded:
+[Livelierepeat](https://www.reddit.com/r/reactjs/comments/9nmj0w/what_is_your_experience_with_react_apollo_graphql/e7o92o5/)（40）回复：
 
-> **You might want to gain a little more insight that that. I used to be a young dev who used all of the latest tools and scoffed at those who “couldn’t adapt”. I’ve learned that there are often much more interesting reasons than, “people hate change”. Like does GraphQl create burdensome abstractions? What is getting added to their workload that they are resisting? At some point using all of the latest tools loses its luster. More power comes from understanding the code and the people processes as well.**
+> 后端开发人员当然讨厌它，因为他们习惯了自己原有的方式，不喜欢改变。
+>
+> 您可能想要了解我的观点，我曾经是一个年轻的开发人员，使用所有最新的工具，并嘲笑那些「适应不了」的人。我了解到，通常有比「人们讨厌改变」更有趣的原因。比如 GraphQL 的抽象是否太过复杂？他们抗拒工作量的增加，可究竟增加了什么？
+>
+> 有时，所有的工具都是最新的，反而可能不能让这些工具的效用得到最大凸显。更关键的还是在于理解代码和参与开发的人。
 
-[Capaj](https://www.reddit.com/r/reactjs/comments/9nmj0w/what_is_your_experience_with_react_apollo_graphql/e7nlgrn/) (11) detailed review:
+[Capaj](https://www.reddit.com/r/reactjs/comments/9nmj0w/what_is_your_experience_with_react_apollo_graphql/e7nlgrn/) （11）的详细总结：
 
-> **We use it in production since May. We’re a fullstack team so we’re not on the mercy of some other team doing the backend. It wasn’t easy persuading everyone, but with a single sample feature built in GQL everyone agreed it looked way better than REST. Graphiql helped a lot with that. It’s been quite good. We have apollo engine enabled on the backend and I really enjoy using metrics to hunt API bugs in prod. We use decapi to decorate our objection.js DB models. We have a single place where we define our models and GQL gets generated almost for free. On the frontend we use apollo-client, but we don’t use caching so far. Our FE focus is on getting rid of our legacy angular.js code, so we don’t have time yet to experiment with FE caching. I don’t event consider using apollo for client side state management, because all the feedback I’ve heard so far was that it’s not production ready yet. Also I have to say it looks quite verbose for what it really does. Instead I am hoping I can extend [https://github.com/mhaagens/gql-to-mobx](https://github.com/mhaagens/gql-to-mobx) and use that for our state management needs. MST works wonders with typescript. If we can generate MST models from our queries on the fly while editing our GQL queries we can boost our productivity considerably.**
+> 我们从五月开始在生产环境中使用 GraphQL。我们是一个全栈团队，所以我们不需要仰仗合作的后端团队的怜悯。说服每个人并不容易，不过 GQL 内置了一个示例，每个人都认为它看起来比 REST 更好。Graphiql 对此有很大帮助。
+>
+> 这挺好的。我们在后端使用 apollo 引擎，我非常喜欢在生产环境中使用指标捕捉 API 错误。我们使用 [decapi](https://github.com/capaj/decapi) 来装饰我们的 [objection.js](https://github.com/Vincit/objection.js) DB Model。我们在单独的地方定义 model，然后不需要做什么就可以自动生成 GQL。
+>
+> 在前端，我们使用 apollo-client，但到目前为止我们还没有使用缓存。我们的前端重点是摆脱之前的 angular.js 代码，所以我们还没有时间去试验前端缓存。
+>
+> 我尚未使用 apollo 进行客户端状态管理，因为到目前为止我听到的所有反馈都表明它尚未准备好面对生产环境。另外，我不得不说它看起来很啰嗦，写起来也很啰嗦。相反，我希望我可以扩展 https://github.com/mhaagens/gql-to-mobx 并将其用于我们的状态管理需求。MST 使用 typescript 表现的很好。如果我们可以在编辑 GQL 查询时动态地从查询中生成 MST 模型，我们可以大大提高我们的工作效率。
 
-# Caching
+# 缓存
 
-I’ve found a lot of great and upvoted comments from [SwiftOneSpeaks](https://www.reddit.com/user/SwiftOneSpeaks/) and [Scruffles360](https://www.reddit.com/user/scruffles360/) which had been already mentioned here. Here’s what they discussed on lack of caching and potential solution.
+我已经从 [SwiftOneSpeaks](https://www.reddit.com/user/SwiftOneSpeaks/) 和 [Scruffles360](https://www.reddit.com/user/scruffles360/) 中看到了很多很棒的和高赞的评论，这些评论已经在上文提到了。以下是他们讨论的缓存问题和潜在解决方案。
 
-[SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (23) writes:
+[SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (23) 写道：
 
-> **While you can configure GraphQL to work differently, as a practical matter they will always be POST requests. Which means all your browser/CDN/proxy caches that rely on GET being idempotent and POST not being now don’t work by default. Everything is treated as a new request. You can set the client to do more smart caching, but that’s literally solving a problem you created.**
+> 虽然您可以将 GraphQL 配置为以各种方式工作，但实际上它们始终是 POST 请求。这意味着所有依赖于 GET 幂等而 POST 不幂等这一约定的浏览器缓存、CDN 缓存、代理缓存在默认情况下都将失效。一切都被视为新请求。虽然您可以在客户端自行做一些更智能的缓存，但这实际上只是在解决您自己产生（指引入GraphQL）的问题。
 
-[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enokkzb/) (11) respoded:
+[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enokkzb/) (11) 回复：
 
-> **Apollo has a solution for this. I haven’t tried it, but its called Dynamic Persisted Queries if you want to read up. Basically the client makes a GET call with a hash of the query and if it fails, falls back to POST. The next GET call will succeed and populate any proxy caches.**
+> 阿波罗有一个解决方案 —— 「动态持久化查询」，不过我还没有尝试过。大致来说，客户端将使用 GET 请求（将 query 哈希），如果失败，则回退到 POST。接下来的 GET 调用将成功并应用到任何代理缓存。
 
-# Data Fetching
+# 请求数据
 
-Those guys also presented a different points of view on data fetching. In the [original article](https://www.imaginarycloud.com/blog/graphql-vs-rest/) writer describes an example of blog app with multiple authors and possibility of using GraphQL vs REST.
+这些人还对数据提取提出了不同的观点。在 [graphql-vs-rest](https://www.imaginarycloud.com/blog/graphql-vs-rest/) **（[译文在此](https://juejin.im/post/59793f625188253ded721c70)）** 中，作者描述了一个具有多个作者的博客应用程序示例以及使用 GraphQL 与 REST 的可能性。
 
-[SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (23) says:
+[SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (23) 说：
 
-> **Everyone emphasizes the “over fetching” problem. I feel like that’s a red herring outside of poorly designed services (and that sort of points out the flaw - don’t expect GraphQL services from poor service developers to suddenly not be poor) It’s easy to resolve if you put a service in front - GraphQL can be that service, but so can something else. The issue isn’t over fetching vs not, it’s having a central service AND solving the caching issues.**
+> 每个人都强调「过度请求」问题 **（译注：原文为 Over fetching，意指请求的数据中有很多您并不需要的字段。还有一个类似的概念：Under fetching，意指某个接口的返回数据不够，部分字段缺失，导致还需要请求第二个接口，这两种情况的问题都在于浪费了不必要的网络资源）** 问题。我觉得这根本不是设计出糟糕服务的借口（事实上问题在于 —— 如果开发者一直很菜，那么他写出来的 GraphQL 服务也不可能就突然好用了）。这很容易解决，只需要在原有服务前面加一个服务就行 —— GraphQL 可以胜任这项工作，但用别的东西也可以。问题不在于是否过度请求，而是中央服务**与**解决缓存问题。
 
-[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enokkzb/) (12) responded:
+[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enokkzb/)（12）回复：
 
-> **Over fetching is a real problem. When you have hundreds of clients, each calling your system in different ways, adding a property to a rest api causes massive inefficiencies. Many people point out using client-centric facades for their mobile client vs web for example, but that doesn’t scale. My project is called by hundreds of clients, each asking for slightly different data in different ways.**
+> 过度请求确实是一个问题。当您有数百个客户端时，每个客户端都以不同的方式调用您的系统，则向 rest api 添加一个属性就会导致极大的效率降低。许多人提出为移动客户端和 web 端提供不同的门面接口，但这样扩展性很差。我的项目由数百个客户端调用，每个客户端的请求方式与请求内容都有些许不同。
 
-# Big Boys & GraphQL
+# 大公司 & GraphQL
 
-Everyone is interested in big companies like Facebook, Netflix and Coursera and their adaptation of GraphQL. In the [article](https://www.imaginarycloud.com/blog/graphql-vs-rest/) commented on Reddit we can find two main reasons as an author - states. The first comment presented was the most upvoted comment that I’ve found.
+每个人都对 Facebook、Netflix 和 Coursera 等大公司以及他们对 GraphQL 的使用情况感兴趣。对于这篇 [graphql-vs-rest](https://www.imaginarycloud.com/blog/graphql-vs-rest/) 在 Reddit 中的评论中，我们可以找到两个主要原因作为作者 - 状态。提出的第一条评论是我发现的最受欢迎的评论。
 
-* In the early 2010s there was a boom in mobile usage, which led to some issues with low-powered devices and sloppy networks. REST isn’t optimal to deal with those problems;
-* As mobile usage increased, so did the number of different front-end frameworks and platforms that run client applications. Given REST’s inflexibility, it was harder to develop a single API that could fit the requirements of every client.
+* 在 2010 年初，移动用户数量激增，出现了与低功耗设备和缓慢网络相关的一些问题。REST 不是处理这些问题的最佳选择；
+* 随着移动使用量的增加，运行客户端应用程序的不同前端框架和平台的数量也在增加。由于 REST 不够灵活，导致我们更难开发出一个能够满足所有终端应用需求的单一 API。
 
-[Greulich](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/ennt7ak/) (62) responded to article:
+[Greulich](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/ennt7ak/)（62）回复这篇文章：
 
-> * This is so tangential as to be pointless. A different method of structuring your requests, does not render the network on which those requests better or worse.
-> * I think the author means endpoint rather than API, because any endpoint, no matter how many there are, is part of the API. Assuming that is the case, why do we NEED only one endpoint?
+> 这离题太远，没有意义。构造请求的另一种方法不会使这些请求所在的网络更好或更差。
+> 我认为作者的描述的是 endpoint 而不是 API，因为任何 endpoint，无论有多少 endpoint，都只是 API 的一部分。假设是这样，为什么我们只需要一个 endpoint？
 
-[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enohrog/) (16) responded to Greulich:
+[Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enohrog/)（16）回复 Greulich：
 
-> **The first two points weren’t worded well in the article, but are still valid. A REST API can either be generic and reusable or crafted specifically for a known client. In the first case, you aren’t going to get good performance when you keep making calls back to the system for more data (especially on high-latency networks like we had on mobile 10 years ago). If you craft your API for a specific client, you obviously run into scalability problems.**
+> 文章中的前两点措辞并不好，但仍然是正确的。REST API 可以是通用、可复用的，也可以是专门为已知客户端设计。在第一种情况下，当您需要不断再次调用系统以获取更多数据时 **（译者注：即上面提到的 Under fetching）**（尤其是像10年前我们在移动设备上那样的高延迟网络），将无法获得良好的性能。如果您为特定客户端制作 API，则显然会遇到可扩展性问题。
 
-# Summary
+# 总结
 
-There’s a lot to say or choose when picking the right comment to summarize the state of GraphQL. **Till today the most popular submissions on reddit are case studies of facebook or netflix yet they aren’t much commented**. This gives us already a good summary on reddit’s view on GraphQL. From a daily developer life I couldn’t skip what [Kdesign](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enn9sdf/) (36) wrote:
+在选择正确的评论来总结 GraphQL 的状态时，有很多话要说或选择。**直到今天关于 reddit 的最受欢迎的 submissions 是 facebook 或 netflix 的案例研究**，但这些 submission 的评论并不多。这给了我们以 reddit 对 GraphQL 的看法的一个很好的总结。想到各位开发者的日常生活后，我无法忽略 Kdesign（36）写下的内容：
 
-> ### **GraphQL provides job security, that’s for sure**.
+> ### **GraphQL 让您的工作更安全，这是肯定的。**
+>
+> 您必须花时间在前端和实际数据存储之间的所有 N 多层中，寻找数据的位置。
 
-[Kollektiv](https://www.reddit.com/r/node/comments/bozsb1/graphql_vs_rest_putting_rest_to_rest/enng3ba/) (44) stated a great list of GraphQL issues:
+[Kollektiv](https://www.reddit.com/r/node/comments/bozsb1/graphql_vs_rest_putting_rest_to_rest/enng3ba/)（44）列出了很多GraphQL问题：
 
-> * Things like query rate limiting and credit estimation are difficult.
-> * The way type and dataloaders work, it’s difficult to bind queries to the database layer in an efficient way by grouping queries without writing a full module for it.
-> * Validation only checks types so you still need some kind of JSON schema to do additional format validation.
-> * GraphQL queries only allow for left joins so recreating SQL like INNER JOINs together with filters quickly becomes awkward.
-> * The imposed pagination (connections) from frameworks like Relay are a mess.
+> * 查询限速和权限评估等很难实现。
+> * 类型和数据加载器的工作方式，如果不编写完整的 module 就分组查询，则难以有效的方式将查询绑定到数据库层。
+> * 验证仅检查类型，因此您仍需要某种 JSON  schema 来执行其他格式验证。
+> * GraphQL 查询只允许 left join，因此像 INNER JOIN 加过滤这种重新创建 SQL 就变得很棘手了。
+> * 来自像 Relay 这样的框架强加的分页（连接）还是一团糟。
 
-Regarding my initial research on GraphQL [SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (24) wrote:
+关于我对GraphQL的初步研究 [SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/)（24）写道：
 
-> I expect many of the “GraphQL is great” reports we are seeing is mainly because ANY new service is great - they only get klunky over time, as assumptions are violated and needs change and code changes accrue. This doesn’t mean GraphQL won’t be great - it just means I can’t trust early reports too much.
+> 我认为我们看到了很多「GraphQL 很棒」报告主要是因为**任何新服务都很棒** —— 随着时间的推移，因为假设条件被违背 **（译注：假设条件的概念可以参考[浅谈Architectural Assumption（软件架构设计的假设条件）](https://blog.csdn.net/ytomc/article/details/80728132)）**、需求变更和代码变更，它们肯定会变得逐渐笨拙。不过这并不意味着 GraphQL不好 —— 只是说意味着我不能过多地信任早期报告。
 
-And finally, I’ve chosen [Mando0975](https://www.reddit.com/r/node/comments/bozsb1/graphql_vs_rest_putting_rest_to_rest/enopzpk/) (28) opinion to summarize this article:
+最后，我选择了 [Mando0975](https://www.reddit.com/r/node/comments/bozsb1/graphql_vs_rest_putting_rest_to_rest/enopzpk/) （28）的观点来总结这篇文章：
 
-> **Development should always be about picking the right tool for the job. GraphQL isn’t always the right tool. REST isn’t dead and GraphQL isn’t going to kill it.**
+> **开发始终是为工作挑选合适的工具。GraphQL 不是银弹。REST 并没有死，GraphQL 也不会杀掉它。**
 
-### What’s your experience with GraphQL?
+### 您的 GraphQL 体验如何？
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

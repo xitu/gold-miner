@@ -1,91 +1,88 @@
-> * 原文地址：[Android Emulator : Project Marble Improvements](https://medium.com/androiddevelopers/android-emulator-project-marble-improvements-1175a934941e)
+> * 原文地址：[Android Emulator: Project Marble Improvements](https://medium.com/androiddevelopers/android-emulator-project-marble-improvements-1175a934941e)
 > * 原文作者：[Android Developers](https://medium.com/@AndroidDev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/android-emulator-project-marble-improvements.md](https://github.com/xitu/gold-miner/blob/master/TODO1/android-emulator-project-marble-improvements.md)
-> * 译者：
-> * 校对者：
+> * 译者：[qiuyuezhong](https://github.com/qiuyuezhong)
 
-# Android Emulator : Project Marble Improvements
-
-Posted by: Sam Lin, Product Manager, Android
+# Android 模拟器：Project Marble 中的改进
 
 ![](https://cdn-images-1.medium.com/max/3200/0*YXbEJNUcY1n4S5N1)
 
-This is the third in a series of blog posts by the Android Studio team diving into some of the details and behind the scenes of [Project Marble](https://android-developers.googleblog.com/2019/01/android-studio-33.html). The following post was written by Sam Lin (product manager), Lingfeng Yang (tech lead), and Bo Hu (tech lead) on the Emulator team.
+这是 Android Studio 团队一系列博客文章中第三篇，深入探讨了 [Project Marble](https://android-developers.googleblog.com/2019/01/android-studio-33.html) 中的细节和幕后情况。本文是由模拟器团队的 Sam Lin（产品经理），Lingfeng Yang（技术主管）和 Bo Hu（技术主管）撰写的。
 
-Today we are excited to give you an update on the progress we have made in the Android Emulator during Project Marble. One of the core goals we have is to make the Android Emulator the go-to device for app development. Physical Android devices are great, but we aim to add features and performance that make you even more efficient when developing and testing your Android apps.
+今天我们很高兴地向您介绍我们在 Project Marble 期间在 Android 模拟器上取得的最新进展。我们的核心目标之一是使 Android 模拟器成为应用程序开发的必选设备。物理 Android 设备非常棒，但我们的目标是增加功能和性能，使您在开发和测试 Android 应用程序时更加高效。
 
-We have heard that many app developers like the recent improvements we have made to the emulator, from 2 second start time, GPU graphics acceleration, to [snapshots](https://developer.android.com/studio/run/emulator#snapshots). However, we have also heard that the Android Emulator consumes too many system resources on your development computer. To address this issue, we created an effort in Project Marble to optimize the CPU usage for the Android Emulator. Without deviating from the original design principles, we’ve made significant improvements to the power efficiency and draw rate of the Android Emulator over the last few months during Project Marble. In this post, we will shed some light on the progress we release so far in Android Emulator 28.1 on [the canary channel](https://developer.android.com/studio/preview/install-preview#change_your_update_channel).
+我们听说很多应用程序开发者喜欢我们最近对模拟器所做的改进，从 2 秒的启动时间，GPU 图形加速，再到[屏幕快照](https://developer.android.com/studio/run/emulator#snapshots)。然而，我们也听说 Android 模拟器消耗了您开发电脑上的太多系统资源。为了解决这个问题，我们在 Project Marble 中创建了一个任务来优化 Android 模拟器的 CPU 使用率。在过去几个月的 Project Marble 中，在不违背原本设计原则的情况下，Android 模拟器的能效和绘制速度有了显著提升。在本文中，我们将介绍到目前为止在 [Canary Channel](https://developer.android.com/studio/preview/install-preview#change_your_update_channel) 上 Android Emulator 28.1 发布的一些进展。
 
-## Preserving Design Principles While Reducing Overhead
+## 在减少开销的同时保持原本设计原则
 
-The main benefit of the Android Emulator is to provide developers a scalable way to test the latest Android APIs across a variety of device configurations and screen resolutions, without buying physical devices for every configuration. As such, testing apps on Android Emulator should be as close as possible as testing on a physical device, while keeping the benefits of virtual devices.
+Android 模拟器的最大好处在于为开发者提供了一种可扩展的方法，通过各种设备配置和屏幕分辨率来测试最新 Android API，而无需为每个配置购买物理设备。因此，在 Android 模拟器上测试应用程序应该尽可能贴近在物理设备上的测试，并同时保持虚拟设备的优势。
 
-In order to support the latest system images as soon as they are developed, we intentionally decided to design Android Emulator to be as close to a physical device as possible, as an emulator not a simulator. This approach ensures API correctness and high fidelity of Android system behaviors and interaction. When a new Android version comes out, we only need to ensure that our hardware abstraction layers (HALs) and kernel are compatible with the emulator and new system images, rather than have to re-implement all changes in the Android API for the new Android version from scratch ourselves. The net result of this architecture is that it greatly speeds up adoption of new system images for emulators.
+为了支持最新的系统映像，我们特意设计一个尽可能接近物理设备的 Android 模拟器，而不只是一个仿真器，这种方法可以确保 API 的正确性以及 Android 系统行为和交互的高保真度。当一个新的 Android 版本推出时，我们只需要确保我们的硬件抽象层（HALs）和内核与模拟器和新的系统映像兼容，而不需要从头开始为新的 Android 版本重新实现 Android API 中的所有更改。这种体系结构最终大大地加快了模拟器采用新的系统映像的速度。
 
-However, such a full system emulation approach imposes overhead in both CPU cycles and memory access. In contrast, a simulator based approach would wrap analogous APIs on the host system with possibly less overhead. Therefore, our challenge is to preserve the accuracy and maintenance benefits of full system emulation while reducing the CPU and memory overhead.
+然而，这种完整的系统模拟方法在 CPU 周期和内存访问上的开销都会增加。相比之下，基于模拟器的方法在主机系统上包装类似的 API，开销可能会更低。因此，我们的挑战在于，在降低 CPU 和内存开销的同时，保持完整系统模拟的准确性和维护优势。
 
-## Investigation into the Android Emulator Architecture
+## 对 Android 模拟器架构的研究
 
-The Android Emulator runs the Android operating system in a virtual machine called an Android Virtual Device (AVD). The AVD contains the full [Android software stack](https://source.android.com/devices/architecture), and it runs as if it were on a physical device. The high-level architecture diagram is as follows.
+Android 模拟器在称为 Android 虚拟设备（AVD）的虚拟机上运行 Android 操作系统。AVD 包含了完整的 [Android 软件栈](https://source.android.com/devices/architecture)，运行时就像在物理设备上一样。总体架构图如下。
 
 ![**Android Emulator System Architecture**](https://cdn-images-1.medium.com/max/2262/0*H8Y7VKtH1vckbx5M)
 
-Since the entire Android OS runs separately from the host OS, running the Android Emulator can cause background activity on the host’s machine even without any user input. After doing some technical investigation, the following tasks were some of the major consumers of CPU cycles when an AVD is idle:
+由于整个 Android 操作系统的运行和主机的操作系统完全分离，因此运行 Android 模拟器可能会导致主机机器上的后台活动，即便没有任何输入。在进行了一些技术调查之后发现，当 AVD 空闲时，如下一些任务是 CPU 周期的主要消耗者：
 
-* Google Play Store — app updates happen automatically when new versions are available.
-* Background services — several on-demand services kept the CPU usage high when it assume the device was charging.
-* Animations — such as [Live wallpapers](https://android-developers.googleblog.com/2010/02/live-wallpapers.html).
+* Google Play Store —— 当有新版本时，应用程序会自动更新。
+* 后台服务 —— 当它认为设备在充电时，一些响应式的服务会使 CPU 使用率保持在较高水平。
+* 动画 —— 例如[实况壁纸](https://android-developers.googleblog.com/2010/02/live-wallpapers.html)
 
-For these areas we did a deep set of technical investigations and landed on the following top five solutions to optimize the Android Emulator.
+对于这些领域我们进行了更深入的技术研究并找到了以下 5 个解决方案来优化 Android 模拟器。
 
-1. Battery mode by default
-2. Emulator pause/resume
-3. Draw call overhead reduction
-4. macOS main loop IO overhead reduction
-5. Headless Build
+1. 默认电池模式
+2. 模拟器的暂停/恢复
+3. 减少绘制调用的开销
+4. 减少 macOS 上主循环的 IO 开销
+5. Headless 构建
 
-> Improvement #1 — Battery mode by default
+### 改进 #1 —— 默认电池模式
 
-Previously, the Android Emulator set the AVD’s battery charging mode to be on [AC power](https://developer.android.com/reference/android/os/BatteryManager.html#BATTERY_STATUS_CHARGING). After thoughtful discussions and data analysis, we concluded that it is best to set an AVD on battery mode by default. This is because most of the Android framework, services and apps are optimized to save battery life, and these optimizations only kick in if the device (either physical or virtual) thinks it’s using the battery rather than charging off AC power.
+之前，Android 模拟器把 AVD 的电池模式设置为[充电模式](https://developer.android.com/reference/android/os/BatteryManager.html#BATTERY_STATUS_CHARGING)。经过深思熟虑的讨论和数据分析，我们得出结论，最好将 AVD 默认设置为电池模式。因为大多数 Android framework，服务和应用程序都经过了优化以节省电池寿命，这些优化都只在设备（物理设备或虚拟设备）认为它在使用电池而不是充电时才开始。
 
-However, it’s not enough to just default the AVD to use battery. That’s because being on battery mode also causes the screen to turn off automatically after a period of time. This can be confusing to users who are using the emulator on laptops or desktop, where there is an expectation that apps don’t randomly go to sleep and need to be woken up. To avoid this condition, Android Emulator will set screen off timeout using an [ADB shell command](https://developer.android.com/reference/android/provider/Settings.System#SCREEN_OFF_TIMEOUT) to the maximum (~24 days) at each cold boot complete.
+然而，仅仅默认 AVD 使用电池还不够。因为处于电池模式会导致屏幕在一段时间之后自动关闭。这对于在笔记本电脑或者台式机上使用 Android 模拟器的用户来说会有一点困惑，因为他们期望应用程序不会随机进入睡眠状态，需要被唤醒。为了防止这种情况，Android 模拟器将在每次冷启动完成时用 [ADB shell 命令](https://developer.android.com/reference/android/provider/Settings.System#SCREEN_OFF_TIMEOUT)将屏幕关闭的时间设置为最大值（~24 天）。
 
-With these changes, Google Play Store will not update apps automatically on the battery mode, and avoid overloading the system. However, [the auto-updating of apps](https://support.google.com/googleplay/answer/113412?hl=en) can still be triggered by switching back to AC charging mode. This actually gives developers control on when to update apps automatically. Which can prevent interference in critical use cases, such as when the user simply wants to build and test a single app. The following chart compares CPU usage on battery versus on AC power:
+有了这些改变，Google Play Store 不会在电池模式再自动更新应用程序，避免了系统开销。然而，在切回充电模式之后，[应用程序的自动升级]  (https://support.google.com/googleplay/answer/113412?hl=en) 仍然可以被触发。这实际上让开发者可以控制何时自动更新应用程序。这可以防止对关键用例的干扰，比如当用户只想构建和测试单个应用程序的时候。下表比较了电池模式和充电模式下的 CPU 使用状况：
 
 ![**AVD CPU Usage: Auto-update app vs Idle**](https://cdn-images-1.medium.com/max/2444/0*gt4ov7MOkjcvhFYP)
 
-> Improvement #2 — Emulator pause/resume
+### 改进 #2 —— 模拟器暂停/恢复
 
-In many cases, you may want an immediate guarantee that the emulator isn’t chewing up CPU cycles in the background during critical tasks such as the edit and build steps of the edit / build / deploy loop. To address this, we’re working on a console command and interface for pausing the emulator’s CPU usage completely. This can be accomplished by following console commands to pause/resume the AVD explicitly.
+在很多情况下，你可能需要立即保证模拟器不会在关键任务期间（比如编辑/生成/部署）在后台占用 CPU 周期。为了解决这个问题，我们正在研究一个控制台命令和接口，用于完全暂停模拟器 CPU 的使用。这可以通过以下控制台命令显示暂停/恢复 AVD 来完成。
 
 ![**Android Emulator: Pause command line options**](https://cdn-images-1.medium.com/max/2808/1*Q77jcfo5jiRqRwhW2l2NgA.png)
 
-The challenge here is how to coordinate this Android Emulator state change with Android Studio. So when an app deploy happens, we auto resume the emulator. We are still working on this mechanism, and happy to hear your [thoughts and feedback](https://source.android.com/setup/contribute/report-bugs#developer-tools).
+这里的挑战是如何协调 Android Studio 和 Android 模拟器状态的改变。所以当在部署应用程序时，我们会自动恢复模拟器。我们还在研究这个机制，很高兴听到您的[想法和反馈](https://source.android.com/setup/contribute/report-bugs#developer-tools)。
 
-> Improvement #3 — Draw call overhead reduction
+### 改进 #3 —— 减少绘制调用的开销
 
-We’ve also made changes in the Android Emulator engine that make it more efficient at drawing, which results in a smoother user experience when testing graphics-heavy apps with many objects on screen. For example, Emulator v28.1.10 draws 8% faster on [GPU emulation stress test app](https://github.com/google/gpu-emulation-stress-test) compared with that in v28.0.23. We are also working on further optimizations in Android Q, and will share additional updates during the [Android Q preview](https://developer.android.com/preview).
+我们还对 Android 模拟器的引擎进行了修改，使其更高效的绘图，从而在测试屏幕上有很多对象的图形密集型应用程序时获得更流畅的用户体验。比如，模拟器 v28.1.10 在[GPU 模拟压力测试应用程序](https://github.com/google/gpu-emulation-stress-test)上的绘制速度比 v28.0.23 提升了 8%。我们还在 Android Q 上进行进一步的优化，并将在 [Android Q preview](https://developer.android.com/preview) 期间共享其他更新。
 
 ![**Emulator OpenGL ES FPS: 28.0.23 vs 28.1.10**](https://cdn-images-1.medium.com/max/3200/0*9SgQAdVAIYAHR_eD)
 
-> Improvement #4 — macOS main loop IO overhead reduction
+### 改进 #4 —— 减少 macOS 上主循环的 IO 开销
 
-A full system emulator must maintain some kind of method to notify the virtual OS that I/O operations on disk & network complete. Android Emulator is based on [QEMU](https://www.qemu.org/), and uses a main loop and iothreads to accomplish this. It has low overhead on Linux and Windows. However on macOS, we have seen higher CPU usage of the main loop due to its usage of the select() system call. Which is often not implemented efficiently. macOS does provide a low overhead method to wait on I/O: [kqueue](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/kqueue.2.html). We’ve found that the main I/O loop, that is currently based on select() can be replaced with a main I/O loop based on [kqueue](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/kqueue.2.html). This greatly decreased the CPU usage of the main loop, from ~10% to ~3%. Since this does not account for all idle CPU usage, the chart (below) does not show much change. Nevertheless, the difference is still observable.
+完整的系统模拟器必须维护一些方法，以通知虚拟操作系统磁盘和网络上的 I/O 已经完成。Android 模拟器基于 [QEMU](https://www.qemu.org/)，使用主循环和 IO 线程来做到这一点。这在 Linux 和 Windows 上的开销都比较低。然而在 macOS 上我们看到，由于使用了 select() 系统调用，主循环的 CPU 使用率更高。这通常没有高效的实现方式。macOS 提供了一个低开销的方式来等待 I/O：[kqueue](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/kqueue.2.html)。我们发现当前基于 select() 主 I/O 循环，可以替换为基于 [kqueue](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/kqueue.2.html) 的主 I/O 循环。这大幅降低了主循环中的 CPU 使用率，从 10% 降低到 3%。由于这并不能说明所有空闲 CPU 使用率的情况，下面的图表没有显示太多的变化。然而，这种差异仍然是可以观察到的。
 
 ![AVD Idle CPU Usage — Emulator 28.0.23 vs 28.1.10](https://cdn-images-1.medium.com/max/2444/0*O_gCbgpsbOadRFV9)
 
-> Improvement #5 — Headless Build
+### 改进 #5 —— Headless 构建
 
-For those of you using continuous integration systems for your Android app builds, we also worked on performance improvements in this area as well. By turning off the user interface in the Android Emulator, you can use access a new emulator-headless mode. This new mode runs tests in the background and uses less memory. It also takes about 100MB less, mainly because the [Qt](https://www.qt.io/) libraries we use for the user interface are not loaded. This is also a good choice to run automated tests when UI and user interactions are not required. The delta can be measured by starting 2 Emulator AVD instances as follows. Note that, the command line example specifies host GPU mode explicitly to ensure the comparison is under the same conditions.
+对于那些在 Android 应用程序构建中使用持续集成系统的用户，我们也在这方面进行了性能改进。通过关闭 Android 模拟器的用户界面，您可以使用新的模拟器 Headless 模式。这种新的模式在后台运行测试，并使用更少的内存。它大概还需要 100MB，主要是因为我们在用户界面使用的 [Qt](https://www.qt.io/) 库没有加载。当不需要用户界面和交互时，这也是运行自动化测试的一个好选择。增量可以类似如下那样启动两个模拟器 AVD 实例来测量。注意，命令行示范显式地指定主机的 GPU 模式，以确保在相同的条件下进行比较。
 
 ![**Android Emulator: Headless emulator command line option**](https://cdn-images-1.medium.com/max/2808/1*qhp25FXwP_K4gE8ggOQQbQ.png)
 
 ![**AVD Idle Memory Usage — emulator vs emulator-headless**](https://cdn-images-1.medium.com/max/2402/0*DZ20pZNiqKnaydzW)
 
-> Next Steps
+### 接下来
 
-To use the performance and resource optimization covered in this blog, download Android Emulator 28.1 available today on [the canary channel](https://developer.android.com/studio/preview/install-preview#change_your_update_channel). We are excited to share this early checkin-in on the progress with you, but we are definitely not done yet. We invite you to try the latest updates of Android Emulator today, and send us your [feedback](https://developer.android.com/studio/report-bugs.html#emulator-bugs).
+要使用本文中介绍的性能和资源优化，请在 [Canary Channel](https://developer.android.com/studio/preview/install-preview#change_your_update_channel) 下载 Android Emulator 28.1。我们很高兴能与您分享这次提前的进展，但我们肯定还没有完成。我们今天邀请您尝试 Android Emulator 的最新更新，并向我们发送您的[反馈](https://developer.android.com/studio/report-bugs.html#emulator-bugs)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

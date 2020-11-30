@@ -2,141 +2,141 @@
 > * 原文作者：[Zakaria Jaadi](https://medium.com/@zakaria.jaadi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-step-by-step-explanation-of-principal-component-analysis.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-step-by-step-explanation-of-principal-component-analysis.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Ultrasteve](https://github.com/Ultrasteve)
+> * 校对者：[kasheemlew](https://github.com/kasheemlew), [TrWestdoor](https://github.com/TrWestdoor)
 
-# A step by step explanation of Principal Component Analysis
+# 由浅入深理解主成分分析
 
 ![](https://cdn-images-1.medium.com/max/2360/0*MCObvpuCqWS5-z2m)
 
-The purpose of this post is to provide a complete and simplified explanation of Principal Component Analysis, and especially to answer how it works step by step, so that everyone can understand it and make use of it, without necessarily having a strong mathematical background.
+这篇文章的目的是对主成分分析（PCA）做一个完整且简单易懂的介绍，重点会一步一步的讲解它是怎么工作的。看完这篇文章后，相信即使没有很强的数学背景的人，都能理解并使用它。
 
-PCA is actually a widely covered method on the web, and there are some great articles about it, but only few of them go straight to the point and explain how it works without diving too much into the technicalities and the ‘why’ of things. That’s the reason why i decided to make my own post to present it in a simplified way.
+网上已经有很多介绍 PCA 的文章，其中一些质量也很高，但很少文章会直截了当的去介绍它是怎么工作的，通常它们会过度的拘泥于 PCA 背后的技术及原理。因此，我打算以我自己的方式，来向各位简单易懂的介绍 PCA 。
 
-Before getting to the explanation, this post provides logical explanations of what PCA is doing in each step and simplifies the mathematical concepts behind it, as standardization, covariance, eigenvectors and eigenvalues without focusing on how to compute them.
+在解释 PCA 之前，这篇文章会先富有逻辑性的介绍 PCA 在每一步是做什么的，同时我们会简化其背后的数学概念。我们会讲到标准化，协方差，特征向量和特征值，但我们不会专注于如何计算它们。
 
-## So what is Principal Component Analysis ?
+## 什么是 PCA？
 
-Principal Component Analysis, or PCA, is a dimensionality-reduction method that is often used to reduce the dimensionality of large data sets, by transforming a large set of variables into a smaller one that still contains most of the information in the large set.
+PCA 是一种降维方法，常用于对高维数据集作降维。它会将一个大的变量集合转化为更少的变量集合，同时保留大的变量集合中的大部分信息。
 
-Reducing the number of variables of a data set naturally comes at the expense of accuracy, but the trick in dimensionality reduction is to trade a little accuracy for simplicity. Because smaller data sets are easier to explore and visualize and make analyzing data much easier and faster for machine learning algorithms without extraneous variables to process.
+减少数据的维度天然会牺牲一些精度，但降维算法的诀窍是牺牲很少的精度进行简化。这是因为维度更小的数据能更容易被探索和可视化，在数据的分析和机器学习算法中，我们将不用去处理额外的变量，这让整个过程变得高效。
 
-So to sum up, the idea of PCA is simple — reduce the number of variables of a data set, while preserving as much information as possible.
+总的来说，PCA 的中心思想十分简单 —— 减少数据集的变量数目，同时尽可能保留它的大部分信息。
 
-## Step by step explanation
+## 逐步解释
 
-### Step 1: Standardization
+### 步骤一：标准化
 
-The aim of this step is to standardize the range of the continuous initial variables so that each one of them contributes equally to the analysis.
+为了让每一个维度对分析的结果造成同样的影响，我们需要对连续的初始变量的范围作标准化。
 
-More specifically, the reason why it is critical to perform standardization prior to PCA, is that the latter is quite sensitive regarding the variances of the initial variables. That is, if there are large differences between the ranges of initial variables, those variables with larger ranges will dominate over those with small ranges (For example, a variable that ranges between 0 and 100 will dominate over a variable that ranges between 0 and 1), which will lead to biased results. So, transforming the data to comparable scales can prevent this problem.
+更具体的说，在 PCA 之前作数据标准化的原因是，后续的结果对数据的方差十分敏感。也就是说，那些取值范围较大的维度会比相对较小的维度造成更大的影响（例如，一个在 1 到 100 之间变化的维度对结果的影响，比一个 0 到 1 的更大），这会导致一个偏差较大的结果。所以，将数据转化到比较的范围可以预防这个问题。
 
-Mathematically, this can be done by subtracting the mean and dividing by the standard deviation for each value of each variable.
+从数学上来讲，我们可以通过减去数据的平均值并除以它的标准差来进行数据标准化。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*AgmY9auxftS9BI73.png)
 
-Once the standardization is done, all the variables will be transformed to the same scale.
+一旦我们完成数据标准化，所有的数据会在同一个范围内。
 
 ***
 
-if you want to get an in-depth understanding about standardization, i invite you to read this simple article i wrote about it.
+如果你想更深入的了解数据标准化，我推荐你阅读我写的这篇小短文。
 
-* [**When and why to standardize your data ? A simple guide on when to standardize your data and when not to.**](https://github.com/xitu/gold-miner/blob/master/TODO1/when-to-standardize-your-data.md)
+* [**什么时候进行数据标准化？为什么？一篇简单的指南教你是否应该标准化你的数据。**](https://github.com/xitu/gold-miner/blob/master/TODO1/when-to-standardize-your-data.md)
 
-### Step 2: Covariance Matrix computation
+### 步骤二：计算协方差矩阵
 
-The aim of this step is to understand how the variables of the input data set are varying from the mean with respect to each other, or in other words, to see if there is any relationship between them. Because sometimes, variables are highly correlated in such a way that they contain redundant information. So, in order to identify these correlations, we compute the covariance matrix.
+这一步的目标是理解数据集中的变量是如何从平均值变化过来的，不同的特征之间又有什么关系。换句话说，我们想要看看特征之间是否存在某种联系。有时特征之间高度相关，因此会有一些冗余的信息。为了了解这一层关系，我们需要计算协方差矩阵。
 
-The covariance matrix is a **p** × **p**** **symmetric matrix (where** p **is the number of dimensions) that has as entries the covariances associated with all possible pairs of the initial variables. For example, for a 3-dimensional data set with 3 variables** x**,** y**, and** z**, the covariance matrix is a 3×3 matrix of this from:
+协方差矩阵是一个 **p** × **p** 的对称矩阵（**p** 是维度的数量）它涵盖了数据集中所有元组对初始值的协方差。例如，对于一个拥有三个变量 **x**、**y**、**z** 和三个维度的数据集，协方差矩阵将是一个 3 × 3 的矩阵：
 
-![Covariance matrix for 3-dimensional data](https://cdn-images-1.medium.com/max/2000/0*xTLQtW2XQY6P3mZf.png)
+![三个维度数据的协方差矩阵](https://cdn-images-1.medium.com/max/2000/0*xTLQtW2XQY6P3mZf.png)
 
-Since the covariance of a variable with itself is its variance (Cov(a,a)=Var(a)), in the main diagonal (Top left to bottom right) we actually have the variances of each initial variable. And since the covariance is commutative (Cov(a,b)=Cov(b,a)), the entries of the covariance matrix are symmetric with respect to the main diagonal, which means that the upper and the lower triangular portions are equal.
+由于变量与自身的协方差等于它的方差（Cov(a,a)=Var(a)），在主对角线（左上到右下）上我们已经计算出各个变量初始值的方差。又因为协方差满足交换律（Cov(a,b)=Cov(b,a)），协方差矩阵的每一个元组关于主对角线对称，这意味着上三角部分和下三角部分是相等的。
 
-**What do the covariances that we have as entries of the matrix tell us about the correlations between the variables?**
+**协方差矩阵中的元素告诉了我们变量间什么样的关系呢？**
 
-It’s actually the sign of the covariance that matters :
+让我们来看看协方差取值的含义：
 
-* if positive then : the two variables increase or decrease together (correlated)
-* if negative then : One increases when the other decreases (Inversely correlated)
+* 如果值为正：那么两个变量呈正相关（同增同减）
+* 如果值为负数：那么两个变量呈负相关（增减相反）
 
-Now, that we know that the covariance matrix is not more than a table that summaries the correlations between all the possible pairs of variables, let’s move to the next step.
+现在，我们知道了协方差矩阵不仅仅是对于变量之间的协方差的总结，让我们进入到下一步吧。
 
-### Step 3: Compute the eigenvectors and eigenvalues of the covariance matrix to identify the principal components
+### 步骤三：通过计算协方差矩阵的特征向量和特征值来计算出主成分
 
-Eigenvectors and eigenvalues are the linear algebra concepts that we need to compute from the covariance matrix in order to determine the **principal components** of the data. Before getting to the explanation of these concepts, let’s first understand what do we mean by principal components.
+特征值和特征向量是线性代数里面的概念，为了计算出数据的**主成分**，我们需要通过协方差矩阵来计算它们。在解释如何计算这两个值之前，让我们来看看主成分的意义是什么。
 
-Principal components are new variables that are constructed as linear combinations or mixtures of the initial variables. These combinations are done in such a way that the new variables (i.e., principal components) are uncorrelated and most of the information within the initial variables is squeezed or compressed into the first components. So, the idea is 10-dimensional data gives you 10 principal components, but PCA tries to put maximum possible information in the first component, then maximum remaining information in the second and so on, until having something like shown in the scree plot below.
+主成分是一个新的变量，它是初始变量的线性组合。这些新的变量之间是不相关的。第一主成分中包含了初始变量的大部分信息，是初始变量的压缩和提取。例如，虽然在一个 10 维的数据集中我们算出了 10 个主成分，但大部分的信息都会被压缩在第一主成分中，剩下的大部分信息又被压缩到第二主成分中，以此类推，我们得到了下面这张图：
 
-![Percentage of variance (information) for by each PC](https://cdn-images-1.medium.com/max/2304/1*JLAVaWW5609YZoJ-NYkSOA.png)
+![每一个主成分包含着多少信息](https://cdn-images-1.medium.com/max/2304/1*JLAVaWW5609YZoJ-NYkSOA.png)
 
-Organizing information in principal components this way, will allow you to reduce dimensionality without losing much information, and this by discarding the components with low information and considering the remaining components as your new variables.
+这种通过主成分来管理信息的方式，能够使我们降维的同时不会损失很多信息，同时还帮我们排除了那些信息量很少的变量。如此一来，我们就只用考虑那些主成分中压缩过的信息就可以了。
 
-An important thing to realize here is that, the principal components are less interpretable and don’t have any real meaning since they are constructed as linear combinations of the initial variables.
+需要注意的一点是，这些主成分是难以解读的，由于它们是原变量的线性组合，通常它们没有实际的意义。
 
-Geometrically speaking, principal components represent the directions of the data that explain a **maximal amount of variance**, that is to say, the lines that capture most information of the data. The relationship between variance and information here, is that, the larger the variance carried by a line, the larger the dispersion of the data points along it, and the larger the dispersion along a line, the more the information it has. To put all this simply, just think of principal components as new axes that provide the best angle to see and evaluate the data, so that the differences between the observations are better visible.
+从理论方面来说，主成分代表着蕴含**最大方差的方向**。对于主成分来说，变量的方差越大，空间中点就越分散，空间中的点越分散，那么它包含的信息就越多。简单的讲，主成分就是一条更好的阐述数据信息的新坐标轴，因此我们更容易从中观测到差异。
 
-### How PCA constructs the Principal Components?
+### PCA 算法是怎么算出主成分的？
 
-As there are as many principal components as there are variables in the data, principal components are constructed in such a manner that the first principal component accounts for the **largest possible variance** in the data set. For example, let’s assume that the scatter plot of our data set is as shown below, can we guess the first principal component ? Yes, it’s approximately the line that matches the purple marks because it goes through the origin and it’s the line in which the projection of the points (red dots) is the most spread out. Or mathematically speaking, it’s the line that maximizes the variance (the average of the squared distances from the projected points (red dots) to the origin).
+有多少个变量就有多少个主成分。对于第一主成分来说沿着对应的坐标轴变化意味着有**最大的方差**。例如，我们将数据集用下列的散点图表示，现在你能够直接猜测出主成分应该是沿着哪一个方向的吗？这很简单，大概是图中紫色线的方向。因为它穿过了原点，而且数据映射在这条线上后，如红点所示，有着最大的方差（各点与原点距离的均方）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UpFltkN-kT9aGqfLhOR9xg.gif)
 
-The second principal component is calculated in the same way, with the condition that it is uncorrelated with (i.e., perpendicular to) the first principal component and that it accounts for the next highest variance.
+第二主成分也是这样计算的，它与第一主成分互不相关（即互为垂直），表示了下一个方差最大的方向。
 
-This continues until a total of p principal components have been calculated, equal to the original number of variables.
+我们重复以上步骤直到我们从原始数据中计算出所有主成分。
 
-Now that we understood what we mean by principal components, let’s go back to eigenvectors and eigenvalues. What you firstly need to know about them is that they always come in pairs, so that every eigenvector has an eigenvalue. And their number is equal to the number of dimensions of the data. For example, for a 3-dimensional data set, there are 3 variables, therefore there are 3 eigenvectors with 3 corresponding eigenvalues.
+现在我们知道了主成分的含义，让我们回到特征值和特征向量。你需要知道的是，它们通常成对出现，每一个特征向量对应一个特征值。它们各自的数量相等，等于原始数据的维度。例如，在一个三维数据集中，我们有三个变量，因此我们会有三个特征向量与三个特征值。
 
-Without further ado, it is eigenvectors and eigenvalues who are behind all the magic explained above, because the eigenvectors of the Covariance matrix are actually **the** **directions of the axes where there is the most variance** (most information) and that we call Principal Components. And eigenvalues are simply the coefficients attached to eigenvectors, which give the **amount of variance carried in each Principal Component**.
+简单地说，特征矩阵和特征向量就是主成分分析背后的秘密。协方差矩阵的特征向量其实就是一系列的坐标轴，将数据映射到这些坐标轴后，我们将得到**最大的方差**（这意味这更多的信息），它们就是我们要求的主成分。特征值其实就是特征向量的系数，它代表了每个特征向量**包含了多少信息量**。
 
-By ranking your eigenvectors in order of their eigenvalues, highest to lowest, you get the principal components in order of significance.
+你可以根据特征值的大小对特征向量作排序，你将知道哪一个是最重要的主成分，哪一个不是。
 
-**Example:**
+**例如：**
 
-let’s suppose that our data set is 2-dimensional with 2 variables **x,y** and that the eigenvectors and eigenvalues of the covariance matrix are as follows:
+现在我们有一个数据集，有两个变量两个维度 **x,y**，它们的特征值与特征向量如下所示：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3OAdlot1vJcK6qzCePlq9Q.png)
 
-If we rank the eigenvalues in descending order, we get λ1>λ2, which means that the eigenvector that corresponds to the first principal component (PC1) is **v1** and the one that corresponds to the second component (PC2) is **v2.**
+如果我们从大到小的排序特征值，我们得到 λ1>λ2，这意味着我们需要的第一主成分（PC1）是 **v1** ，第二主成分（PC2）是 **v2**。
 
-After having the principal components, to compute the percentage of variance (information) accounted for by each component, we divide the eigenvalue of each component by the sum of eigenvalues. If we apply this on the example above, we find that PC1 and PC2 carry respectively 96% and 4% of the variance of the data.
+在得到主成分后，我们将每个特征值除以特征值的和，这样我们就得到了一个百分数。在上面的例子中，我们可以看到 PC1 和 PC2 各自携带了 96% 和 4% 信息。
 
-### Step 4: Feature vector
+### 步骤四：主成分向量
 
-As we saw in the previous step, computing the eigenvectors and ordering them by their eigenvalues in descending order, allow us to find the principal components in order of significance. In this step, what we do is, to choose whether to keep all these components or discard those of lesser significance (of low eigenvalues), and form with the remaining ones a matrix of vectors that we call **Feature vector**.
+正如我们在前面步骤所看到的，通过计算出特征向量并让他们根据特征值的降序排列，我们能知到每个主成分的重要性。在这一步中，我们将会讨论我们是应该保留最重要的几个主成分，还是保留所有主成分。在排除那些不需要的主成分后，剩下的我们称作**主成分向量**。
 
-So, the feature vector is simply a matrix that has as columns the eigenvectors of the components that we decide to keep. This makes it the first step towards dimensionality reduction, because if we choose to keep only **p** eigenvectors (components) out of **n**, the final data set will have only **p** dimensions.
+主成分向量仅仅是一个矩阵，里面有那些我们决定保留的特征向量。这是数据降维的第一步，因为如果我们只打算在 **n** 个中保留 **p** 个特征向量（成分），那么当我们把数据映射到这些新的坐标轴上时，最后数据将只有 **p** 个维度。
 
-**Example**:
+**例如：**
 
-Continuing with the example from the previous step, we can either form a feature vector with both of the eigenvectors **v**1 and **v**2:
+继续看上一步的例子，我们可以只用 **v1** 和 **v2** 来形成主成分向量：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*DwiYbyXZXvU20DjB.png)
 
-Or discard the eigenvector **v**2, which is the one of lesser significance, and form a feature vector with **v**1 only:
+因为 **v2** 没那么重要，我们丢弃掉它，只保留 **v1**：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*YKNYKGQaNAYf6Iln.png)
 
-Discarding the eigenvector **v2** will reduce dimensionality by 1, and will consequently cause a loss of information in the final data set. But given that **v**2 was carrying only 4% of the information, the loss will be therefore not important and we will still have 96% of the information that is carried by **v**1.
+丢弃掉 **v2** 会使结果降低一个维度，当然也会造成数据的损失。但由于 **v2** 只保留了 4% 的信息，这个损失时可以忽略不计的。因为我们保留了 **v1** ，我们仍然有 96% 的信息。
 
 ***
 
-So, as we saw in the example, it’s up to you to choose whether to keep all the components or discard the ones of lesser significance, depending on what you are looking for. Because if you just want to describe your data in terms of new variables (principal components) that are uncorrelated without seeking to reduce dimensionality, leaving out lesser significant components is not needed.
+如我们在结果中所见，是否丢弃没有那么重要的成分完全取决于你。如果你只想根据主成分来重新表示数据，不想进行数据将维，那么丢弃掉不重要的成分是不必要的。
 
-### Last step : Recast the data along the principal components axes
+### 最后一步：将数据映射到新的主成分坐标系中
 
-In the previous steps, apart from standardization, you do not make any changes on the data, you just select the principal components and form the feature vector, but the input data set remains always in terms of the original axes (i.e, in terms of the initial variables).
+在前一步中，除了标准化数据，你并没有对数据作任何改变。你仅仅是选取了主成分，形成了主成分向量，但原始数据仍然在用原来的坐标系表示。
 
-In this step, which is the last one, the aim is to use the feature vector formed using the eigenvectors of the covariance matrix, to reorient the data from the original axes to the ones represented by the principal components (hence the name Principal Components Analysis). This can be done by multiplying the transpose of the original data set by the transpose of the feature vector.
+在这最后一步中，我们将使用那些从协方差矩阵中算出来的特征向量形成主成分矩阵，并将原始数据映射到主成分矩阵对应的坐标轴上 —— 这就叫做主成分分析。具体的做法便是用原数据矩阵的转置乘以主成分矩阵的转置。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*D02r0HjB8WtCq3Cj.png)
 
 ***
 
-If you enjoyed this story, please click the 👏 button as many times as you think it deserves. And share to help others find it! Feel free to leave a comment below.
+如果你喜欢这篇文章，请点击 👏 按钮。并转发让更多人看到！你也可以在下面留言。
 
-### References:
+### 参考文献：
 
 * [**Steven M. Holland**, **Univ. of Georgia**]: Principal Components Analysis
 * [**skymind.ai**]: Eigenvectors, Eigenvalues, PCA, Covariance and Entropy
