@@ -7,10 +7,6 @@
 
 # SwiftUI Dark Mode — the Easiest Way
 
-#### iOS Dev
-
-#### Adding dark and light mode in SwiftUI based iOS app
-
 ![[https://apps.apple.com/us/app/id1527918864#?platform=iphone](https://apps.apple.com/us/app/id1527918864#?platform=iphone) | Created by the Author](https://cdn-images-1.medium.com/max/8892/1*LC-CTl772dBIs3uQkV30OQ.png)
 
 Starting this year when I started developing my [iOS app](https://apps.apple.com/us/app/id1527918864#?platform=iphone) using SwiftUI, I decided to support both light and dark mode. In this tutorial, I will teach you, how you could implement the light and dark mode user interface in SwiftUI based iOS application.
@@ -60,7 +56,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
 ```
 
 If you run the app, or just see the preview, you will see the following user interface for the app now.
@@ -105,8 +100,6 @@ extension Color {
         Color("background1")
     }
 }
-
-
 ```
 
 An extension is a good way to add some functionality to the existing class. So here you created two static methods, which will return a Color instance where the Color will be coming from the color assets. In this case, you’re just using the name of the colors you created within the color asset.
@@ -161,7 +154,6 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
-
 ```
 
 * `Line 15, 16` — You update the `CardView` view by adding 2 color reference
@@ -174,8 +166,8 @@ Now you will see the following output in the preview file.
 ![Screenshot created bu the author](https://cdn-images-1.medium.com/max/4428/1*8z7UNF0r2QKSZI8IXOg1-A.png)
 
 If you run the app, and if you change the setting of your iPhone/iPad to light or dark mode, you will see your app will automatically show the color you decided for each mode.
-[**Source-Code**
-github.com](https://github.com/mahmudahsan/iOS-Swift-SwiftUI/tree/master/SwiftUI/lightdarkmode/LightDarkMode)
+
+[**Source-Code**](https://github.com/mahmudahsan/iOS-Swift-SwiftUI/tree/master/SwiftUI/lightdarkmode/LightDarkMode)
 
 ## Conclusion
 
