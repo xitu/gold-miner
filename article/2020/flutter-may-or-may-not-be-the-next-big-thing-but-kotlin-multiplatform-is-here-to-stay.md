@@ -7,8 +7,6 @@
 
 # Flutter May or May Not Be the Next Big Thing, But Kotlin Multiplatform Is Here to Stay
 
-#### The rise of Flutter shouldn’t worry native Android developers
-
 ![Photo by [Marc Reichelt](https://unsplash.com/@mreichelt?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8064/0*p9BRbpAgNsMKNKJS)
 
 Google’s Flutter framework has gained huge momentum in the past year. It’s become the talk of the town with some touting it as the next big thing, while others are passing it off as just another shiny new technology.
@@ -41,8 +39,6 @@ Thankfully, Kotlin’s platform-independent support means Android developers nee
 
 Before we dig deep into Kotlin’s promising future, let's take a step back and analyze why Google introduced Flutter (a competing technology to native Android) in the first place.
 
----
-
 ## Flutter Was Not Introduced to Kill Native Android. Instead, It’s Here to Save It for a Rainy Day
 
 For the uninitiated, Flutter is Google’s cross-platform framework to build apps that run on Android, iOS, the web, and desktop. It uses Google’s Dart language and doesn’t offer any compatibility with Java Virtual Machines (JVM).
@@ -58,8 +54,6 @@ Hence in a bid to get total control over its software ecosystem, Google brought 
 At the same time, Fuschia OS is perhaps Google’s effort to move away from Linux-based devices and ensure that the future of Android development is preserved with Flutter.
 
 But that doesn’t mean the current lot of Kotlin developers are left at bay.
-
----
 
 ## Kotlin Multiplatform Has a Bright Future in Mobile App Development
 
@@ -78,8 +72,6 @@ Nevertheless, Kotlin’s ability to support multiple runtime targets — much li
 In fact, Jetpack Compose (Android’s declarative UI framework) strongly indicates platform-independent support in the future, which makes Kotlin Multiplatforms a contender for cross-platform app development.
 
 Lastly, in case Fuschia OS does replace Android, Kotlin developers would still be around. Android is a much bigger ecosystem than Flutter and one wouldn’t really be surprised if JetBrains added Kotlin-to-Dart transpiler support, thereby ensuring Kotlin targets the future OS.
-
----
 
 ## Takeaway
 
