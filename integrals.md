@@ -2973,10 +2973,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：444.5 当前积分：364.5 二零二零：59.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：445 当前积分：365 二零二零：60
 
 |文章|类型|积分|
 |------|-------|-------|
+|[浏览器 Web History API 的应用](https://juejin.cn/post/6891500768973553672)|校对|0.5|
 |[抽象数据类型与软件危机](https://juejin.cn/post/6900761312532529166)|校对|5|
 |[使用 Shpinx 为 Python 项目自动生成文档](https://juejin.cn/post/6882904677373968397)|校对|2|
 |[让神经网络变得更小巧以方便部署](https://juejin.im/post/6873068232505458701)|校对|5|
@@ -3984,7 +3985,7 @@
 |[结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9)|校对|1|
 |[iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59)|校对|1|
 
-## 译者：[laampui](https://github.com/laampui) 历史贡献积分：52.5 当前积分：37.5
+## 译者：[lampui](https://github.com/lampui) 历史贡献积分：52.5 当前积分：37.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4414,10 +4415,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：127.5 当前积分：44.5 二零二零：15.5
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：136.5 当前积分：53.5 二零二零：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Web Locks API：跨 Tab 资源同步](https://juejin.cn/post/6895792867080405005)|翻译|9|
 |[使用 JavaScript ES2020 中所有的 7 个新特性构建 App](https://juejin.im/post/5e9a685951882573834edc9e)|校对|3|
 |[防止 Git 泄漏的 5 种最佳做法](https://juejin.im/post/5e9e971851882573b047541e)|校对|2|
 |[Kafka vs. RabbitMQ：为什么使用 Kafka？](https://juejin.im/post/5e9e29c8f265da47a831421a)|校对|2|
@@ -7963,10 +7965,11 @@
 |推荐英文文章一篇|奖励|1|
 |[误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）](https://juejin.im/post/5c223f4ce51d452626296b5d)|校对|1.5|
 
-## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：28 当前积分：28 二零二零：25.5
+## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：30 当前积分：30 二零二零：27.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript ES2021 中激动人心的特性](https://juejin.cn/post/6892246810250477575)|翻译|2|
 |[TypeScript：一个好泛型的价值](https://juejin.im/post/6878868818836488205)|翻译|6|
 |[ES2017 最佳特性  —  数组中的异步函数以及共享缓冲区](https://juejin.im/post/6878849121269055501)|翻译|3|
 |[VueJS 中更好的组件组合方式](https://juejin.im/post/6875236830984437768)|翻译|3|
@@ -9957,10 +9960,11 @@
 |------|-------|-------|
 |[Go 发布新版 Protobuf API](https://juejin.im/post/5e83e1176fb9a03c80278e6d)|校对|3|
 
-## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：30 当前积分：30 二零二零：30
+## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：31 当前积分：31 二零二零：31
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript ES2021 中激动人心的特性](https://juejin.cn/post/6892246810250477575)|校对|1|
 |[Python List 使用注意事项](https://juejin.cn/post/6886633614717485070)|翻译|5|
 |[Python logging 使用指南](https://juejin.im/post/6881981250203353095)|翻译|4.5|
 |[Python 的优化 — 驻留机制](https://juejin.im/post/6875879902902485005)|翻译|3|
@@ -10017,10 +10021,12 @@
 |[如何且为何要在单页应用中防止跨域资源共享](https://juejin.im/entry/5ec4ab64e51d45788a6d4f92/detail)|翻译|5|
 |[5 个优化技巧助你提高移动 Web 应用的用户留存率](https://juejin.im/post/5eb2a377f265da7bb563871f)|校对|2|
 
-## 译者：[JohnieXu](https://github.com/JohnieXu) 历史贡献积分：24 当前积分：24 二零二零：24
+## 译者：[JohnieXu](https://github.com/JohnieXu) 历史贡献积分：29 当前积分：29 二零二零：29
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Web Locks API：跨 Tab 资源同步](https://juejin.cn/post/6895792867080405005)|校对|4|
+|[使用原生 CSS 设置响应式字体](https://juejin.cn/post/6888471725080903687)|校对|1|
 |[单页应用程序的哈希 URL 与普通 URL](https://juejin.cn/post/6884805346582331399)|校对|1.5|
 |[NextJS vs. NuxtJS vs. GatsbyJS](https://juejin.cn/post/6882994530149203981)|校对|3|
 |[10 款质量最佳最受欢迎的 Flutter 工具库](https://juejin.cn/post/6883102672044441613)|翻译|5|
@@ -10158,10 +10164,12 @@
 |[2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)|校对|3|
 |[关于 icon 设计的 7 大准则](https://juejin.im/post/5e5dbd3e6fb9a07cd323dd2b)|校对|3|
 
-## 译者：[plusmultiply0](https://github.com/plusmultiply0) 历史贡献积分：33 当前积分：33 二零二零：33
+## 译者：[plusmultiply0](https://github.com/plusmultiply0) 历史贡献积分：41 当前积分：41 二零二零：41
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Web Locks API：跨 Tab 资源同步](https://juejin.cn/post/6895792867080405005)|校对|4|
+|[如何在 Nextjs 中使用 cookies 来持久化保存用户信息](https://juejin.cn/post/6896062683263860749)|翻译|4|
 |[Github Actions 工作流的创建与跟踪](https://juejin.cn/post/6892248874669309965)|校对|2|
 |[在 React 中使用 Service Worker](https://juejin.im/post/6881616183158636552)|翻译|5|
 |[掌握 JavaScript ES6 中的 Symbol 类型](https://juejin.im/post/6880485630501978126)|校对|4|
@@ -10199,10 +10207,13 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：57 当前积分：57 二零二零：57
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：64.5 当前积分：64.5 二零二零：64.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)|翻译|3|
+|[浏览器 Web History API 的应用](https://juejin.cn/post/6891500768973553672)|翻译|1.5|
+|[使用原生 CSS 设置响应式字体](https://juejin.cn/post/6888471725080903687)|翻译|3|
 |[Github Actions 工作流的创建与跟踪](https://juejin.cn/post/6892248874669309965)|翻译|4|
 |[大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)|校对|2|
 |[单页应用程序的哈希 URL 与普通 URL](https://juejin.cn/post/6884805346582331399)|翻译|3|
@@ -10358,10 +10369,13 @@
 |------|-------|-------|
 |[5 个鲜为人知的 Chrome 开发者工具的特性](https://juejin.im/post/6875240551390642189)|校对|0.5|
 
-## 译者：[HurryOwen](https://github.com/HurryOwen) 历史贡献积分：6.5 当前积分：6.5 二零二零：6.5
+## 译者：[HurryOwen](https://github.com/HurryOwen) 历史贡献积分：10.5 当前积分：10.5 二零二零：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 Nextjs 中使用 cookies 来持久化保存用户信息](https://juejin.cn/post/6896062683263860749)|校对|2|
+|[JavaScript ES2021 中激动人心的特性](https://juejin.cn/post/6892246810250477575)|校对|1|
+|[使用原生 CSS 设置响应式字体](https://juejin.cn/post/6888471725080903687)|校对|1|
 |[Github Actions 工作流的创建与跟踪](https://juejin.cn/post/6892248874669309965)|校对|2|
 |[基于内容安全策略增强 JavaScript 安全性](https://juejin.cn/post/6885887317609807886)|校对|2|
 |[使用 React 和 localStorage 实现的简易 Dark Mode 开关](https://juejin.im/post/6875538309934743560)|校对|2.5|
@@ -10432,3 +10446,16 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)|校对|2|
+
+## 译者：[Liusq-Cindy](https://github.com/Liusq-Cindy) 历史贡献积分：3 当前积分：3 二零二零：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)|校对|1|
+|[如何在 Nextjs 中使用 cookies 来持久化保存用户信息](https://juejin.cn/post/6896062683263860749)|校对|2|
+
+## 译者：[regon-cao](https://github.com/regon-cao) 历史贡献积分：1 当前积分：1 二零二零：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)|校对|1|
