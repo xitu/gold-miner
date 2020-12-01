@@ -1,21 +1,21 @@
-> * 原文地址：[How to Avoid WiFi Throttling on Android Devices](https://medium.com/better-programming/how-to-avoid-wifi-throttling-on-android-devices-494a0cc29dd8)
-> * 原文作者：[Elvina Sh](https://medium.com/@navigine)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[How to Avoid WiFi Throttling on Android Devices](https://medium.com/better-programming/how-to-avoid-wifi-throttling-on-android-devices-494a0cc29dd8)
+> - 原文作者：[Elvina Sh](https://medium.com/@navigine)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-avoid-wifi-throttling-on-android-devices.md)
+> - 译者：[regon-cao](https://github.com/regon-cao)
+> - 校对者：[zenblo](https://github.com/zenblo) [NieZhuZhu](https://github.com/NieZhuZhu)
 
-# How to Avoid WiFi Throttling on Android Devices
+# 如何避免 Android 设备的 WiFi 扫描节流
 
 ![Photo by [Gaspart](https://dribbble.com/Gaspart) on [Dribbble](https://dribbble.com/).](https://cdn-images-1.medium.com/max/3200/0*LvG0BzxbMunbCN3Z.png)
 
-Today, I want to discuss WiFi scan throttling in new Android versions and how to avoid it. [Previously, I wrote an article](https://proandroiddev.com/android-wifi-scanning-frustrations-799d1d942aea) about a new scan mechanism on the recently released Android R. If you read that article, you know that Google limits developers’ opportunities to scan WiFi as in previous Android versions.
+今天我想讨论一下关于新版本 Android 的 WiFi 扫描节流以及该如何避免它。[我曾经写过一篇文章](https://proandroiddev.com/android-wifi-scanning-frustrations-799d1d942aea)是关于最近发布的 Android R 版本的扫描机制。如果你读过这篇文章，你会了解到，与之前的 Android 版本相比，Google 限制了开发者们在新版本上调用 WiFi 扫描的频率。
 
-So let’s start our article by reviewing how it worked earlier and how to get similar results now with new Android R.
+我们首先了解之前 WiFi 扫描的工作方式，然后再阐述如何在 Android R 版本上得到与之前一样的效果。
 
-## How It Worked Earlier
+## 之前的做法
 
-This part of the article will be simple and without any restrictions. There were not any restrictions including Android Oreo and you could scan every second without any throttling. Here is a simple code snippet explaining how it worked earlier:
+之前的做法很简单而且没有任何节流限制，包括 Android Oreo 在内都可以不被限制的每秒扫描一次。下面一段简单的代码解释了之前的工作方式：
 
 ```Java
 mWifiBroadcastReceiver = new BroadcastReceiver()
@@ -24,7 +24,7 @@ mWifiBroadcastReceiver = new BroadcastReceiver()
   {
     try
     {
-      // Your code here
+      // 写上你的代码
     }
     catch (Throwable e)
     {
@@ -35,15 +35,15 @@ mWifiBroadcastReceiver = new BroadcastReceiver()
 mContext.registerReceiver(mWifiBroadcastReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 ```
 
-You just register the broadcast receiver in your context for getting scan results and parse them. Then you call the `start scan` method on your WiFi manager and it works like a charm. There was a time when Android allowed scanning WiFi up to ten times per second. Just imagine the potential that opens up for high-quality navigation.
+你只需要在上下文中注册一个广播接收者用来获得和解析扫描结果，然后在 WiFi 管理器上调用 `start scan` 方法，一切就 OK 了。此时的 Android 允许 1 秒钟扫描 10 次 WiFi。你可以想象一下为高精度导航开辟的潜力。
 
-But then everything went wrong and Google introduced WiFi scan restrictions.
+Google 引入了对 WiFi 扫描的节流之后，事情就变的不对劲了。
 
-## Android 9 and 10
+## Android 9 和 10
 
-Upon the release of Android 9, Google presented a surprise to all developers. The WiFi scan was cropped as much as possible. Now you can start the scan only four times every 120 seconds. If you try to start the scan more times, then all your attempts will be throttled.
+在 Andorid 9 的发布上，Google 给了所有开发者一个 “惊喜”。WiFi 扫描被尽可能地限制了，现在 120 秒只能扫描 4 次 WiFi。
 
-In my previous article, I described a solution for scanning with equal intervals and working with WiFi RTT, but it’s worth noting that you cannot avoid throttling altogether.
+在之前的文章中，我描述了一个等间隔扫描和 WiFi RTT 工作的解决方案，但是值得注意的是，它并不能完全避免节流。
 
 ```Java
 if (!mWifiScanning && timeNow > mWifiLastTime + WIFI_SLEEP_TIMEOUT)
@@ -53,13 +53,13 @@ if (!mWifiScanning && timeNow > mWifiLastTime + WIFI_SLEEP_TIMEOUT)
     mContext.registerReceiver(mWifiBroadcastReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
     mWifiRegistered = true;
   }
-  
-  if (mWifiManager.startScan()) 
+
+  if (mWifiManager.startScan())
   {
     mWifiTime = timeNow;
 
-    try 
-    { 
+    try
+    {
       mContext.unregisterReceiver(mWifiBroadcastReceiver);
       mWifiRegistered = false;
     } catch (Throwable e) { }
@@ -67,28 +67,28 @@ if (!mWifiScanning && timeNow > mWifiLastTime + WIFI_SLEEP_TIMEOUT)
 }
 ```
 
-By the way, Google introduced a solution with the release of Android 10. They added a button that allows you to turn off the WiFi scan throttling in the Developer settings, so now you can turn it off and scan without restrictions. But if you write the common solution for all the devices, then you will not know if this option is turned off or not. And the main problem is devices with a custom OS (e.g. Huawei, Xiaomi, etc.) because they do not have the option for turning off throttling.
+顺便提一下，在 Android 10 中 Google 提供了一个解决方案。在开发者模式下他们提供了一个可以关闭 WiFi 节流的按钮，所以你可以关闭它并且不再受到节流的限制。但是如果你为所有设备编写一套通用的解决方案，你事先并不知道设备有没有关闭节流限制，最主要的问题是一些自定义的操作系统（例如华为，小米等）并没有提供关闭节流限制的选项。
 
-## Android R and the Solution
+## Android R 的解决方案
 
-Android R was released a few weeks ago and Google introduced the new scan because the old one was deprecated with the release of Android 9. So now they added a function for checking if the throttling is turned off:
+在几周前发布的 Android R 中，Google 引入了新的扫描机制，旧的扫描机制在 Android 9 中已经被废弃了。现在我们只需要添加一个检测节流是否关闭的方法即可：
 
 ```Java
 
 ..
 if (!mWifiManager.isScanThrottleEnabled()) {
-  // scan without any restrictions
+  // 扫描不再受限制
 }
 ..
 ```
 
-You just need to check that throttle is disabled and you can scan without any restrictions. By the way, this solution is only good if you test your local application. For distributing it through Play Market and other platforms, this solution could be very bad because users will need to turn on the Developer mode and find this option there.
+在判断节流关闭后我们就可以不受限制的调用扫描了。与此同时，这个方法只在本地测试应用的时候是可行的。对于通过应用市场或其他平台发布的应用, 用户体验会很糟糕因为他们需要打开设备的调试模式并找到开关在哪里。
 
-## Conclusion
+## 结论
 
-Google restricted frequent WiFi scans but added the option for turning off throttling. It looks like they understood their poor decision-making and are trying to somehow fix it. However, this still creates difficulties for both developers and users.
+Google 限制了 WiFi 的扫描频率，但是又为我们提供了关闭这个限制的选项。他们似乎意识到了这个决策的问题并正在试图修复它。然而这一举动还是给开发者和用户带来了不少的麻烦。
 
-On the other hand, there is no way to scan WiFi on iOS at all, so we should be grateful for what we have.
+另一方面，在 iOS 上是不能调用 WiFi 扫描的，所以我们应该感激我们所拥有的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
