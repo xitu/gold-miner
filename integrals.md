@@ -10207,10 +10207,12 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：64.5 当前积分：64.5 二零二零：64.5
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：67.5 当前积分：67.5 二零二零：67.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|11 月推荐前端文章 1 篇|奖励|1|
+|10 月推荐前端文章 2 篇|奖励|2|
 |[使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)|翻译|3|
 |[浏览器 Web History API 的应用](https://juejin.cn/post/6891500768973553672)|翻译|1.5|
 |[使用原生 CSS 设置响应式字体](https://juejin.cn/post/6888471725080903687)|翻译|3|
@@ -10435,10 +10437,11 @@
 |------|-------|-------|
 |[在 Swift 中玩转 emoji](https://juejin.cn/post/6887739774254841863)|校对|3|
 
-## 译者：[jackwener](https://github.com/jackwener) 历史贡献积分：4 当前积分：4 二零二零：4
+## 译者：[jackwener](https://github.com/jackwener) 历史贡献积分：5 当前积分：5 二零二零：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|10 月推荐算法文章 1 篇|奖励|1|
 |[大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)|翻译|4|
 
 ## 译者：[bljessica](https://github.com/bljessica) 历史贡献积分：2 当前积分：2 二零二零：2
