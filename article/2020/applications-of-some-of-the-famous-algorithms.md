@@ -5,78 +5,78 @@
 > * 译者：
 > * 校对者：
 
-# Applications of Some of The Famous Algorithms
+# 一些知名算法的应用
 
 ![Photo by [Kaleidico](https://unsplash.com/@kaleidico?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10804/0*d-YSolz0sbA5uAkw)
 
-#### Do you know the practical use cases behind learning these algorithms?
+#### 你了解这些算法的实际应用案例吗？
 
-During my college days, I started learning programming by practicing most of the famous algorithms. I never tried to understand how these algorithms can be helpful in the real world. There must be some reason why we start learning them, right?
+在读大学期间，我练习过一些知名算法，开启了学习编程的道路。我从未了解这些算法在实际工作中的应用。不过，我们学习这些内容，一定是有目的的，对吗？
 
-As a software developer, I used many of these algorithms today in my projects. It is interesting to find a practical implementation behind those algorithms that I once learning for the sake of getting a job.
+如今作为一名软件开发人员，我常常在项目中使用这些算法。曾经为了得到一份工作而学习的算法，后来在实际工作中也有用武之地，这是一件非常有趣的事。
 
-In this article, I am going to share some of the practical scenarios where we use some of these algorithms. Beginners can find it interesting to relate while learning, whereas it might refresh the memory of experienced programmers.
+在本文中，我会分享这些算法的实际使用场景。初学者可以感受到学以致用的乐趣，有经验的开发者也可以借此加深印象。
 
 ---
 
-Let’s take a closer look.
+我们来深入了解下。
 
-## Fibonacci Sequence
+## Fibonacci 数列
 
-Almost every developer has gone through the algorithm for the Fibonacci series. The [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_number) is the series of numbers: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, and 55 on to infinity.
+几乎所有的开发者都了解过 Fibonacci 数列相关的算法。[Fibonacci 数列](https://en.wikipedia.org/wiki/Fibonacci_number) 是这样的一组序列：0, 1, 1, 2, 3, 5, 8, 13, 21, 34......
 
-Have you ever wondered what could be the possible scenario in our world where we can utilize this algorithm?
+你想过没有，这样的算法在现实世界有什么应用场景？
 
-The sequence has a series of interesting properties. The sum of any two consecutive numbers equals the next highest number. Coincidentally, it works as a nearly-accurate converter between miles and kilometers.
+这个数列有几个有趣的特性。任意两个相邻的数之和等于下一个数。巧合的是，它可以用于英里跟公里之间的近乎精确的换算。
 
-Consider any number in the Fibonacci sequence as miles. The next number in the sequence is approximately that same distance in kilometers. For example, 8 miles is about 13 kilometers. 13 miles is about the same as 21 kilometers.
+考虑将 Fibonacci 数列中的某个数作为英里数，它的下一个数就是近似的公里数。比如，8 英里约等于 13 公里，13 英里约等于 21 公里。
 
-Among many of the features of Fibonacci sequences, investors have harnessed their power to predict **stock prices**. The most popular Fibonacci-based investment system is the [Elliot Wave Theory](https://elitecurrensea.com/education/elliott-wave-patterns-fibonacci-relationships-core-reference-guide/).
+在 Fibonacci 数列的诸多特性中，投资者会用一些数的幂函数来预测股价。最著名的基于 Fibonacci 的投资模型是 [Elliot Wave Theory](https://elitecurrensea.com/education/elliott-wave-patterns-fibonacci-relationships-core-reference-guide/)。
 
-## Palindrome Algorithm
+## 回文算法
 
-This is another common algorithm that is recursively asked in interviews. A palindrome is a string that reads the same forward and backward. For example — radar, toot, and madam.
+这也是一种常见算法，面试时会考到。回文是指正向读取和反向读取结果都一样的字符串。比如，radar、toot、madam，它们都是回文。
 
-Now many of us believe what could be the possible practical implementation of this algorithm besides testing logical ability, but there’s more to it. It is useful in [DNA sequence processing](https://pubmed.ncbi.nlm.nih.gov/11700586/).
+现在我们认为，除了考查逻辑能力外，这种算法也可能有其实际应用价值，但其实还不止于此。例如，它可以用于 [DNA 序列的处理](https://pubmed.ncbi.nlm.nih.gov/11700586/)。
 
-Today, more DNA sequences are becoming available. The information about DNA sequences is stored in molecular biology databases. The size and importance of these databases will be bigger in the future. Therefore this information must be stored or communicated efficiently.
+如今，越来越多的 DNA 序列正被破解。DNA 序列的相关信息存储于分子生物学数据库。这些数据库未来会变得越来越大，越来越有用。因此这些信息需要高效地存储和交互。
 
-CTW (Context Tree Weighting Method) can compress DNA sequences less than two bits per symbol. Two characteristic structures of DNA sequences are known. One is called Palindromes or reverse complements, and the other structure is approximate repeats.
+CTW（上下文树加权法）可以把 DNA 序列压缩到每个符号小于 2 比特。我们知道，有两种典型的 DNA 序列结构，一种称为回文或反向互补，另一种是近似重复。
 
-Before encoding the next symbol, the algorithm searches an approximate repeat and palindrome using hash and dynamic programming. If there is a palindrome or an approximate repeat with enough length, then our algorithm represents it with length and distance.
+在对下一个符号编码前，程序会用哈希法和动态规划搜索 DNA 序列中的近似重复和回文。如果存在足够长度的近似重复或回文，程序会用相应的长度和距离来表示它。
 
-## Binary Search Algorithm
+## 二分查找算法
 
-It is also known as half-interval search, logarithmic search, or binary chop, is a search algorithm that finds the position of a target value within a sorted array.
+这种算法也可以称为半区间搜索法、对数搜索法，它是一种在已排序的数组种查找某个目标值位置的算法。
 
-The method is to compare the middle element with the targeted value (key element) if they are unequal. The half in which the target cannot lie is eliminated, and the search continues on the remaining half until it is successful or the remaining half is empty.
+这种方法需要把中位数跟目标值作比较。目标值不在范围内的那一半被剔除，然后继续搜索剩下的一半，直至搜索到目标值或剩下的一半为空，结束查找。
 
-This seems to be a quite effective method since it escapes the redundancy of going over every element and instead narrows down the searching range efficiently.
+由于避免了反复查找每个元素，缩小了查找范围，这是一种非常高效的算法。
 
-Every programmer is taught that binary search is a good and fast way to search an ordered list of data. There are many textbook examples of using binary search, but where do we actually use it in real life?
+程序员都了解，二分查找是一种又快又好的、在已排序列表中进行查找的方法。很多教材上都有使用二分查找的例子，但是在实际开发中，它有用武之地吗？
 
-One practical application to this algorithm is validating user credentials in an application. You might have seen how applications with millions of users validate your credential within a fraction of seconds. That’s all possible due to the binary search.
+这种算法的实际应用案例之一就是验证用户凭据。你可能也了解过百万用户级别的应用如何在几秒内进行用户凭据的验证。有了二分查找算法才能实现它。
 
-Binary search is used **everywhere**. Take any sorted collection from any language library (Java, .NET, C++ STL, and so on), and they all will use (or have the option to use) binary search to find values.
+二分查找到处都会用到。任何语言（Java、.NET、C++ 等）都可以创建已排序的集合，它们都可以使用（或选择使用）二分查找法来搜索相应元素。
 
-## Merge Sort Algorithm
+## 合并排序算法
 
-Merge sort is a sorting technique based on the **divide and conquer** technique. It works on two basic principles:
+合并排序是一种基于**分而治之**思想的排序法。它的两个基本原理是：
 
-* Sorting a smaller list is faster than sorting a larger list.
-* Combining two sorted sublists is faster than two unsorted lists.
+* 对元素少的数组排序比对元素多的数组排序要快。
+* 两个已排序数组的合并比未排序的要快。
 
-Merge sort is used mostly undersize constraints.
+合并排序一般用于小于某个值的约束。
 
-In any e-commerce website, we usually have a section — **You might like**. They have maintained an array for all the user accounts. Whichever has the least number of inversion with our array of choices, they start recommending what they have bought or like.
+电子商务网站通常有一个叫做**你可能喜欢**的版块。这里为每个用户保存一个列表。任何我们选择过的列表中浏览后回退次数最少的商品，都会进行推荐。
 
-This is one of the most common implementations of merge sort in today’s world.
+这是如今合并排序法应用得最普遍的案例之一。
 
-## Armstrong Number
+## 阿姆斯特朗数
 
-A number is called an Armstrong number if the sum of cubes of digits of a number is equal to the number itself.
+如果有一个数，其各个数位上的数的 n 次方之和等于这个数本身，这个数就称为阿姆斯特朗数。
 
-For example, 153 is an Armstrong number as −
+例如，135 就是一个阿姆斯特朗数。
 
 ```
 153 = (1)3 + (5)3 + (3)3
@@ -84,19 +84,19 @@ For example, 153 is an Armstrong number as −
 153 = 153
 ```
 
-There is no direct implementation of Armstrong number in real-world applications, but it is extensively used in security algorithms for data encryption and decryption.
+在实际应用中，没有直接的关于阿姆斯特朗数的应用程序，但阿姆斯特朗数在数据的加密解密中广泛使用。
 
 ---
 
-Here’s a [link to a paper](https://www.ijitee.org/download/volume-1-issue-1/) where using Armstrong numbers for wireless sensor networks are discussed. They have used Armstrong number-based security algorithm in which a 128-bit key is generated using the Armstrong number and which is used in the [AES algorithm](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) for data encryption and decryption.
+这是一篇讨论阿姆斯特朗数在无线传感器网络中的应用的[论文](https://www.ijitee.org/download/volume-1-issue-1/)。该论文使用基于阿姆斯特朗数的安全算法，其中阿姆斯特朗数用于生成128位密钥，并在 [AES algorithm](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) 用于加密和解密。
 
-## Final thoughts
+## 结语
 
-We have seen practical use cases of some of the most commonly seen programming algorithms. Many of us have already worked on them as a beginner without much awareness of their real-world applications.
+我们已经了解了这些最常见的算法的实际应用案例。很多人已是从事该领域工作的新手，却没有了解这些算法的应用价值。
 
 ---
 
-It is a good approach to understand the benefits before learning something, as it will help us to understand the algorithm better. There are several other algorithms that we use in our day-to-day life. I would leave that up to you to find out their practical use cases.
+在学习某些知识之前了解其应用价值是一个好方法，它有助于加深理解。其他有些算法，也颇有应用价值。我把这个话题留给你，让你去发现它们吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
