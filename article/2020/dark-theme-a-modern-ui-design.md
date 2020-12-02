@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md](https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[regon-cao](https://github.com/regon-cao)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[regon-cao](https://github.com/regon-cao)、[lsvih](https://github.com/lsvih)
 
 # 黑暗主题 — 现代 UI 设计
 
@@ -44,7 +44,7 @@
 
 当在黑暗的表面上观察时，完全饱和的颜色会“**振动**”，妨碍可读性，让人非常不舒服。因此，请避免使用完全饱和的颜色。请用不饱和的颜色比如白色和灰色的柔和色调来替换它。
 
-#### 不要直接倒置
+#### 不要直接反转颜色
 
 获得黑暗主题**不是**简单地反转颜色。UI 中的一些颜色具有一定的心理学意义，直接反转这些颜色可能会变得毫无意义并很荒谬。因此，在为你的调色板选择颜色时，一定要考虑周全。
 
