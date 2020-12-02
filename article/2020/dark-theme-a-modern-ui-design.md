@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md](https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[regon-cao](https://github.com/regon-cao)
 
 # 黑暗主题 — 现代 UI 设计
 
@@ -11,22 +11,22 @@
 
 用户体验和用户界面是任何成功的软件应用的基本考虑因素。因此，开发者们已经决定采用黑暗主题界面（作为可选主题）为用户提供服务，让用户减轻眼睛疲劳（尤其是在弱光或黑暗环境下）。
 
-昏暗的灯光主要是减轻压力和节省能源。黑暗主题是使用较暗的颜色（通常是黑色或灰色阴影）作为其主要背景颜色的低光界面。这是设计师多年来使用的默认白色 UI 的一种颠覆。
+昏暗的灯光主要是减轻压力和节省能源。黑暗主题是使用较暗的颜色（通常是黑色或灰色阴影）作为其主要背景颜色的低光界面。这是对设计师多年来一直使用的默认白色 UI 的一种颠覆。
 
 夜间模式和黑暗主题已成为现代 UI 设计中的一种新兴形式，许多大公司（如 [WhatsApp](https://faq.whatsapp.com/iphone/account-and-profile/how-to-use-dark-mode/?lang=fb)，[Instagram](https://www.facebook.com/help/instagram/897760233943762?helpref=search&sr=1&query=dark%20mode&search_session_id=b3d02d9c67450e4b3c3ade2ee6125d3a)，[Google](https://support.google.com/chrome/answer/9275525?co=GENIE.Platform%3DAndroid&hl=en#:~:text=Turn%20on%20Dark%20theme,Dark%20theme%20in%20device%20settings.)，[Facebook](https://www.facebook.com/help/community/question/?id=126591948482539) 和 [Apple](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/dark-mode)）已经采纳了这种新趋势。
 
 ## 为什么选择黑暗主题
 
-作为软件工程师，我们的主要目标之一就是要让客户满意，而这又取决于终端用户的体验效果。这意味着应该用简单朴素的方式设计和实现 UI。
+作为软件工程师，我们的主要目标之一就是要让客户满意，而这又取决于终端用户的体验效果。这意味着应该用简单易用的方式设计和实现 UI。
 
-人们为什么喜欢黑暗主题：
+人们为什么更喜欢黑暗模式：
 
 * 屏幕使用时长增加
 * 在弱光或黑暗情况下缓解眼睛疲劳
 * 增加弱光环境下照明的可见度
 * 更少的眼睛疲劳意味着更少的头痛和更好的工作体验
 
-虽然高对比度可以提高可读性，但是纯黑白对比反而让用户读起来更费劲。
+虽然高色彩对比可以提高可读性，但是纯黑白对比反而让用户读起来更费劲。
 
 ## 选择调色板
 
@@ -42,11 +42,11 @@
 
 #### 使用去饱和的颜色
 
-当在黑暗的表面上观察时，完全饱和的颜色会“**振动**”，妨碍可读性，让人非常不舒服。因此，请避免使用完全饱和的颜色。请用不饱和的颜色来替换它，灰色和白色在内的柔和色调。
+当在黑暗的表面上观察时，完全饱和的颜色会“**振动**”，妨碍可读性，让人非常不舒服。因此，请避免使用完全饱和的颜色。请用不饱和的颜色比如白色和灰色的柔和色调来替换它。
 
 #### 不要直接倒置
 
-获得黑暗主题**不是**简单地反转颜色。UI 中的一些颜色具有一定的心理学意义，直接反转这些颜色可能会变得毫丧失这种意义并变得荒谬。因此，在为你的调色板选择颜色时，一定要考虑周全。
+获得黑暗主题**不是**简单地反转颜色。UI 中的一些颜色具有一定的心理学意义，直接反转这些颜色可能会变得毫无意义并很荒谬。因此，在为你的调色板选择颜色时，一定要考虑周全。
 
 #### 可视化层次结构
 
@@ -100,7 +100,7 @@ Twitter 使用了**深蓝色**和较浅黑色的奇妙混合。此外，请注�
 
 Instagram 使用的主题比其他应用程序更黑。黑色与较深的灰色阴影妥协，将主控件推向更高的级别，将内容推向更深的层次。
 
-正如我上面提到的，还有其他大公司，比如 Google、Facebook、Apple 等。他们将深色模式引入到产品中，并提供了他们推荐的配色方案。
+正如我上面提到的，还有其他大公司，比如 Google、Facebook、Apple 等。他们将黑暗模式引入到产品中，并提供了他们推荐的配色方案。
 
 因此，黑暗模式并不总是黑白的。它可以根据业务、组织或客户偏好的颜色组合进行不同的定制。
 
