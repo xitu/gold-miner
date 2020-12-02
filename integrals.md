@@ -3985,7 +3985,7 @@
 |[结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9)|校对|1|
 |[iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59)|校对|1|
 
-## 译者：[lampui](https://github.com/lampui) 历史贡献积分：52.5 当前积分：37.5
+## 译者：[laampui](https://github.com/laampui) 历史贡献积分：52.5 当前积分：37.5
 
 |文章|类型|积分|
 |------|-------|-------|
