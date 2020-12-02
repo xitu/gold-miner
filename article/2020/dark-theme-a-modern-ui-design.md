@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md](https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[regon-cao](https://github.com/regon-cao)、[lsvih](https://github.com/lsvih)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[regon-cao](https://github.com/regon-cao)
 
 # 黑暗主题 — 现代 UI 设计
 
