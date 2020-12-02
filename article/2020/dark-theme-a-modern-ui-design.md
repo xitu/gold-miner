@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md](https://github.com/xitu/gold-miner/blob/master/article/2020/dark-theme-a-modern-ui-design.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)
 
 # 黑暗主题 — 现代 UI 设计
 
 ![Photo by [Mathew Schwartz](https://unsplash.com/@cadop?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6500/0*-6vxFqCRAb7BkbAE)
 
-任何成功软件应用都把用户体验和用户界面作为基本考虑因素。因此，开发人员已经决定并采用了黑暗主题界面（作为可选主题）来为用户提供服务，并帮助他们减轻眼睛疲劳，尤其是在弱光或黑暗环境下。
+用户体验和用户界面是任何成功的软件应用的基本考虑因素。因此，开发者们已经决定采用黑暗主题界面（作为可选主题）为用户提供服务，让用户减轻眼睛疲劳（尤其是在弱光或黑暗环境下）。
 
-昏暗的灯光主要是减轻压力和节省能源。暗模式是使用较暗的颜色（通常是黑色或灰色阴影）作为其主要背景颜色的低光界面。这是设计师多年来使用的默认白色 UI 的一种颠覆。
+昏暗的灯光主要是减轻压力和节省能源。黑暗主题是使用较暗的颜色（通常是黑色或灰色阴影）作为其主要背景颜色的低光界面。这是设计师多年来使用的默认白色 UI 的一种颠覆。
 
-夜间模式和黑暗主题已成为现代 UI 设计中的一种新兴形式，许多大公司（如 [WhatsApp](https://faq.whatsapp.com/iphone/account-and-profile/how-to-use-dark-mode/?lang=fb)，[Instagram](https://www.facebook.com/help/instagram/897760233943762?helpref=search&sr=1&query=dark%20mode&search_session_id=b3d02d9c67450e4b3c3ade2ee6125d3a)，[Google](https://support.google.com/chrome/answer/9275525?co=GENIE.Platform%3DAndroid&hl=en#:~:text=Turn%20on%20Dark%20theme,Dark%20theme%20in%20device%20settings.)，[Facebook](https://www.facebook.com/help/community/question/?id=126591948482539) 和 [Apple](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/dark-mode)）已经采用了这种新趋势。
+夜间模式和黑暗主题已成为现代 UI 设计中的一种新兴形式，许多大公司（如 [WhatsApp](https://faq.whatsapp.com/iphone/account-and-profile/how-to-use-dark-mode/?lang=fb)，[Instagram](https://www.facebook.com/help/instagram/897760233943762?helpref=search&sr=1&query=dark%20mode&search_session_id=b3d02d9c67450e4b3c3ade2ee6125d3a)，[Google](https://support.google.com/chrome/answer/9275525?co=GENIE.Platform%3DAndroid&hl=en#:~:text=Turn%20on%20Dark%20theme,Dark%20theme%20in%20device%20settings.)，[Facebook](https://www.facebook.com/help/community/question/?id=126591948482539) 和 [Apple](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/dark-mode)）已经采纳了这种新趋势。
 
 ## 为什么选择黑暗主题
 
-作为软件工程师，我们的主要目标之一就是要让客户满意，而这又取决于最终用户的体验效果。这意味着应该用简单朴素的方式设计和实现 UI。
+作为软件工程师，我们的主要目标之一就是要让客户满意，而这又取决于终端用户的体验效果。这意味着应该用简单朴素的方式设计和实现 UI。
 
 人们为什么喜欢黑暗主题：
 
@@ -26,37 +26,37 @@
 * 增加弱光环境下照明的可见度
 * 更少的眼睛疲劳意味着更少的头痛和更好的工作体验
 
-高色彩对比度可以增强可读性，而纯黑白对比度可能需要用户花费更多时间来阅读。
+虽然高对比度可以提高可读性，但是纯黑白对比反而让用户读起来更费劲。
 
 ## 选择调色板
 
-纯黑色和纯白色都不合适。白色为 100％，黑色为 0％。因此，这种差异会产生强烈的光线效果，从而过度刺激眼睛。眼睛的这种不适会引起眼睛疲劳，因此很多人都不喜欢。填充调色板时，请考虑以下几点建议：
+纯黑色和纯白色都不合适。因为白色相当于 100％，而黑色相当于 0％。因此，这种差异会产生强烈的光线效果，从而过度刺激眼睛。眼睛的这种不适会引起眼睛疲劳，令很多人反感。在填充你的调色板时，有以下几点建议：
 
 #### 避免纯黑色
 
-没有书是用纯黑或纯白的。这是因为黑白直接对比过于鲜明，迫使读者眯眼，最终导致读者头痛，体验不好。因此，避免使用纯黑色作为背景色。
+没有书是用纯黑或纯白的。这是因为黑白对比过于鲜明，让读者只得眯眼阅读。这终将导致读者头痛，体验不好。因此，请避免使用纯黑色作为背景色。
 
 #### 使用适当的对比度
 
-黑暗模式背景必须足够暗，以显示白色文本。否则，对用户来说文本就不太可读了。[谷歌材料设计](https://material.io/design/color/dark-theme.html)建议使用至少 `15.8:1` 的文本-背景对比度。因此，最好明智地选择你的调色板。
+黑暗模式背景必须足够暗，以显示白色文本。否则，对用户来说文本的可读性就不高了。[谷歌材料设计](https://material.io/design/color/dark-theme.html)建议使用至少 `15.8:1` 的文本-背景对比度。因此，最好明智地调整你的调色板的对比度。
 
 #### 使用去饱和的颜色
 
-当在黑暗的表面上观察时，完全饱和的颜色会“**振动**”，妨碍可读性，并使其非常不舒服。因此，避免使用完全饱和的颜色。用不饱和的颜色来替换它，比如粉彩和包括灰色和白色的阴影。
+当在黑暗的表面上观察时，完全饱和的颜色会“**振动**”，妨碍可读性，让人非常不舒服。因此，请避免使用完全饱和的颜色。请用不饱和的颜色来替换它，灰色和白色在内的柔和色调。
 
-#### 不要立即倒置
+#### 不要直接倒置
 
-获得黑暗主题**不是**简单地颠倒颜色。用户界面中的一些颜色具有心理目的，这些颜色的直接反转可能会使它变得毫无意义和荒谬。因此，在为你的调色板选择颜色时，一定要考虑周全。
+获得黑暗主题**不是**简单地反转颜色。UI 中的一些颜色具有一定的心理学意义，直接反转这些颜色可能会变得毫丧失这种意义并变得荒谬。因此，在为你的调色板选择颜色时，一定要考虑周全。
 
 #### 可视化层次结构
 
-对所有层使用相同的颜色会妨碍良好的用户界面 UI 设计实践，并可能导致可读性差。因此，建议对较高层使用较浅的阴影，对较低层使用较暗的阴影。这将创建一个视觉层次结构，从最常用的元素到最不常用的元素都显示。
+对所有层使用相同的颜色会妨碍良好的 UI 设计实践，并可能导致可读性差。因此，建议对较高层使用较浅的色调，对较低层使用较暗的色调。这将创建一个从你的界面中最常用的元素到最不常用的元素的视觉层次结构。
 
 ## 白色文本的背景颜色建议
 
-美国验光师协会（AOA）的一项调查发现，美国 58% 的成年人因使用电脑而眼睛疲劳。对此，参考来自 [UX Bucket](https://uxbucket.com/author/rushabh-kulkarni/) 的 [Rushabh Kulkarni](https://www.instagram.com/rushabhuix/?hl=en) 对设计黑暗主题的一些建议：
+美国验光师协会（[AOA](https://www.aoa.org/?sso=y)）的一项调查发现，美国 58% 的成年人因使用电脑而眼睛疲劳。对此，参考来自 [UX Bucket](https://uxbucket.com/author/rushabh-kulkarni/) 的 [Rushabh Kulkarni](https://www.instagram.com/rushabhuix/?hl=en) 有一些关于设计黑暗主题的建议：
 
-我建议在中型手机应用程序（测试版）上以黑暗模式查看这些颜色，以获得更好的视觉清晰度。可悲的是，黑暗模式在网络上是不可用的。但是，你可以通过安装一个 [chrome 扩展](https://chrome.google.com/webstore/detail/medium-dark-mode/kofkfocgjmlajkbkecljhbalihcpliih?hl=en)来实现。
+我建议在中型手机应用程序（测试版）上以黑暗模式查看这些颜色，以获得更好的视觉清晰度。可悲的是，黑暗模式在网页上是不可用的。但是，你可以通过安装一个 [chrome 扩展](https://chrome.google.com/webstore/detail/medium-dark-mode/kofkfocgjmlajkbkecljhbalihcpliih?hl=en)来达成这一功能。
 
 #### \#303030
 
@@ -74,13 +74,13 @@
 
 [HEX color #1B1C1E, Color name: Black Russian, RGB(27,28,30), Windows: 1973275](https://www.htmlcsscolor.com/hex/1B1C1E)
 
-正如你所看到的，这些阴影不是纯黑白的，可读性很强。并且从 `#303030` 向下滚动到 `#1B1C1E`，我们可以直观的看到向下滚动时背景颜色越来越深。
+正如你所看到的，这些颜色不是纯黑白的，可读性很强。并且从 `#303030` 向下滚动到 `#1B1C1E`，我们可以直观的看到向下滚动时背景颜色越来越深。
 
 ## 黑暗模式不等同黑色模式
 
-以上建议为纯黑白。然而，当谈到黑暗模式，也有与其他颜色组合。这可以是任何背景颜色中较暗的一种。
+以上建议主要针对使用纯黑白色的方案。然而，当谈到黑暗模式时，也有使用其他颜色组合的方案。方案中可以以任何深色调的颜色作为背景。
 
-我将浏览一些我最喜欢和最常用的应用程序，以及它们的黑暗模式功能。让我们快速浏览它们，如下所示：
+我将过一下我最喜欢和最常用的应用程序，以及它们的黑暗模式功能。让我们快速浏览它们，如下所示：
 
 #### Whatsapp
 
@@ -98,9 +98,9 @@ Twitter 使用了**深蓝色**和较浅黑色的奇妙混合。此外，请注�
 
 ![Image Source: [https://miro.medium.com/max/16424/1*d8-4IYqquJ0yGIKZ3bjzWg.png](https://miro.medium.com/max/16424/1*d8-4IYqquJ0yGIKZ3bjzWg.png)](https://cdn-images-1.medium.com/max/8000/1*0Nm6mbqGpnGD8xUmtVVYrg.png)
 
-Instagram 使用的主题比其他应用程序更黑。黑色与较深的灰色阴影妥协，将主控件推向更高的级别，将内容推向更深的级别。
+Instagram 使用的主题比其他应用程序更黑。黑色与较深的灰色阴影妥协，将主控件推向更高的级别，将内容推向更深的层次。
 
-正如我上面提到的，还有其他大公司，比如 Google、Facebook、Apple 等。他们将深色模式引入到产品中，并提供了首选的配色方案。
+正如我上面提到的，还有其他大公司，比如 Google、Facebook、Apple 等。他们将深色模式引入到产品中，并提供了他们推荐的配色方案。
 
 因此，黑暗模式并不总是黑白的。它可以根据业务、组织或客户偏好的颜色组合进行不同的定制。
 
