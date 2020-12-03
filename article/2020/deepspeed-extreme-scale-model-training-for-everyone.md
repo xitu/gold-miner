@@ -22,12 +22,6 @@ This blog post explores these four lines of technology in greater depth. We have
 
  [![A graphic showing some of the researchers featured on Microsoft research webinars.](https://www.microsoft.com/en-us/research/uploads/prod/2020/07/MSR_WebinarCollage1400x788.png)](https://www.microsoft.com/en-us/research/webinar/) 
 
-## Microsoft research webinars
-
-Lectures from Microsoft researchers with live Q&A and on-demand viewing.
-
-[Register today](https://www.microsoft.com/en-us/research/webinar/)
-
 ## 3D parallelism: Scaling to trillion-parameter models
 
 With the rapid growth of compute available on modern GPU clusters, training a powerful trillion-parameter model with incredible capabilities is no longer a far-fetched dream but rather a near-future reality. DeepSpeed has combined three powerful technologies to enable training trillion-scale models and to scale to thousands of GPUs: data parallel training, model parallel training, and pipeline parallel training. This symbiosis scales deep learning training far beyond what each of the strategies can offer in isolation. 3D parallelism simultaneously addresses the two fundamental challenges toward training trillion-parameter models: **memory efficiency** and **compute efficiency**. As a result, DeepSpeed can scale to fit the most massive models in memory without sacrificing speed.
@@ -89,7 +83,7 @@ Figure 1: Example 3D parallelism with 32 workers. Layers of the neural network a
 
 Figure 2: Mapping of workers in Figure 1 to GPUs on a system with eight nodes, each with four GPUs. Coloring denotes GPUs on the same node.
 
-Learn more about how 3D parallelism enlists each type of parallelism to train trillion-parameter models
+##### Learn more about how 3D parallelism enlists each type of parallelism to train trillion-parameter models
 
 A trillion-parameter model could be scaled across 4,096 NVIDIA A100 GPUs using 8-way model parallelism, 64-way pipeline parallelism, and 8-way data parallelism.
 
@@ -193,7 +187,7 @@ Figure 10: Variable Sparsity structure
 
 Figure 11: Maximum possible sequence length for BERT models (left); Training time of BERT-Base (center) and BERT-Large (right) on a single NVIDIA V100 GPU with varying sequence length.
 
-Learn how SA obtains comparable or higher accuracy than full attention
+##### Learn how SA obtains comparable or higher accuracy than full attention
 
 Related works along the line of sparse attention ([Sparse Transformer](https://arxiv.org/pdf/1904.10509.pdf), [Longformer](https://arxiv.org/pdf/2004.05150.pdf), [BigBird](https://arxiv.org/pdf/2007.14062.pdf)) have shown comparable or higher accuracy than full attention. Our experience is well aligned. In addition to lower memory overhead and faster computation, we also observe cases in production models where SA reaches higher accuracy and faster convergence. The following chart illustrates the accuracy of training a production model based on BERT for **long document comprehension** (2,048 sequence length). The experiment is performed in three settings: dense starting from scratch, SA starting from scratch, and SA continued training from a checkpoint of using dense with a sequence length of 512. We have observed that, for pretraining from scratch, SA converges faster with higher accuracy compared with dense. Furthermore, continuing training from a pretrained checkpoint with SA performs even better, with respect to both time and accuracy.
 
@@ -201,7 +195,7 @@ Related works along the line of sparse attention ([Sparse Transformer](https://a
 
 Figure 12: Accuracy of long document comprehension application
 
-Learn how SA compares with state-of-the-art LongFormer
+##### Learn how SA compares with state-of-the-art LongFormer
 
 We compared SA with Longformer, a state-of-the-art sparse structure and implementation. In our experiment, SA uses “[Fixed](https://arxiv.org/pdf/1904.10509.pdf)” sparsity, and two implementations have comparable accuracy. On system performance, SA outperforms Longformer both in training and inference:
 
@@ -218,7 +212,7 @@ Communication compression is an important technique to reduce training time on s
 
 For a powerful optimizer like Adam, the non-linear dependency on gradient (in the variance term) makes it challenging to develop error compensation-based compression techniques, limiting the practical value of the state-of-the-art communication compression techniques.
 
-Understand the background on classic compression techniques
+##### Understand the background on classic compression techniques
 
 One way of communication compression is 1-bit compression, which can be expressed as:
 
@@ -236,7 +230,7 @@ Where \\(C(⋅)\\) is the 1-bit compression operator. The good thing about doing
 
 This strategy has been proven to work for all optimization algorithms that are linearly dependent on the gradient, such as SGD and Momentum SGD.
 
-Learn about the challenges in applying error-compensation to Adam
+##### Learn about the challenges in applying error-compensation to Adam
 
 We provide an overview of the Adam algorithm below. The update rules are as follows.
 
@@ -254,7 +248,7 @@ To compress communication while using the Adam optimizer, we develop **1-bit Ada
 
 The compression stage of the algorithm is controlled by a threshold parameter (as shown in Figure 14). When we detect that the change in “variance” falls below a certain threshold, we switch to the compression stage. Our study shows that only 15-20% of the overall training steps are needed for the warmup stage.
 
-Learn more about how 1-bit Adam works under the hood
+##### Learn more about how 1-bit Adam works under the hood
 
 The weight update rule for 1-bit Adam is governed by the following equations. For the **i** th worker, in the compression stage:
 
@@ -276,7 +270,7 @@ Besides the algorithmic challenge, there are two system challenges in applying 1
 
 Figure 15: Scalability of 1-bit Adam for BERT-Large Pretraining (left) and SQuAD Fine-tuning (right) on NVIDIA V100 GPUs. The batch sizes are 16/GPU and 3/GPU for BERT pretraining and SQuAD fine-tuning, respectively.
 
-Dive deeper into 1-bit Adam evaluation results
+##### Dive deeper into 1-bit Adam evaluation results
 
 **Same convergence as Adam**: One major question for using 1-bit Adam is the convergence speed, and we find that 1-bit Adam can achieve the same convergence speed and comparable testing performance using the same number of training samples as shown in Figure 16.
 
@@ -309,6 +303,8 @@ Figure 17: Performance of 1-bit Adam for BERT-Large training on 40 Gbps Ethernet
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-6_Section-5-1024x316.jpg)
 
 Figure 18: Performance of 1-bit Adam for SQuAD fine-tuning on 40 Gbps Ethernet (left) and InfiniBand (right) interconnect during the compression stage.
+
+------
 
 Please visit [DeepSpeed website](https://www.microsoft.com/en-us/research/project/deepspeed/) and [Github repository](https://github.com/microsoft/DeepSpeed) for the codes, tutorials and documentations about these new technologies! We are also integrating some of these techniques into [ONNX Runtime](http://aka.ms/onnxruntime).
 
