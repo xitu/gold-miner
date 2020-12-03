@@ -1,3 +1,9 @@
+* [5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)（[jackwener](https://github.com/jackwener) 翻译）
+* [MVC，MVP，MVVM 对比](https://juejin.cn/post/6883088734699388941)（[snowyYU](https://github.com/snowyYU) 翻译）
+* [知识的极限](https://juejin.im/post/6874475968325484552)（[QinRoc](https://github.com/QinRoc) 翻译）
+* [世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)（[tonylua](https://github.com/tonylua) 翻译）
+* [从头开始到最初的 10 个客户：我是如何设计并推出一个 SaaS 产品](https://juejin.im/post/6860850397293232141)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [使用 Node.js 控制树莓派 4 的 GPIO](https://juejin.im/post/6868946182325043207)（[Weirdochr](https://github.com/Weirdochr) 翻译）
 * [如何写一份能让你获得面试机会的前端求职简历](https://juejin.im/post/5ef5ef41f265da22ff543630)（[febrainqu](https://github.com/febrainqu) 翻译）
 * [Deno 会对 Node 造成威胁吗？](https://juejin.im/post/5ecf6f166fb9a047d77cbe35)（[ZiXYu](https://github.com/ZiXYu) 翻译）
