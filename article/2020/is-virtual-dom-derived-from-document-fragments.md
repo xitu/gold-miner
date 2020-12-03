@@ -3,17 +3,17 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/is-virtual-dom-derived-from-document-fragments.md](https://github.com/xitu/gold-miner/blob/master/article/2020/is-virtual-dom-derived-from-document-fragments.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：[zenblo](https://github.com/zenblo)
+> - 校对者：[zenblo](https://github.com/zenblo) [Usualminds](https://github.com/Usualminds)
 
-# 虚拟 DOM 来源于文档片段吗?
+# 虚拟 DOM 源自文档片段吗?
 
 ![Photo by [Manuel Sardo](https://unsplash.com/@manuelsardo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*DPFY7vtuIvJOsS0x)
 
-[虚拟 DOM](https://reactjs.org/docs/faq-internals.html) 是 React 的一个核心概念。它是 UI 的一种表现形式，保留在内存中并与实际 DOM 同步。[React DOM](https://github.com/facebook/react/tree/master/packages/react-dom) 通过在本地消除差异并根据 React 的拉取计划将变更插入到实际的 DOM 中。
+[虚拟 DOM](https://reactjs.org/docs/faq-internals.html) 是 React 的一个核心概念。它是保留在内存中并与实际 DOM 同步的 UI 的表现形式。[React DOM](https://github.com/facebook/react/tree/master/packages/react-dom) 通过本地协调差异来维护虚拟 DOM，其更改基于 React 拉取计划并插入到实际 DOM 中。
 
-`[DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment)` 是一个没有父对象的最小文档对象的接口。它被当作轻量级的 `Document` ，可以用来存储 DOM 对象。文档片段不影响实际的 DOM，但它的子节点可以根据需要插入到实际的 DOM 里。
+`[DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment)` 是一个定义了最小文档对象而没有父对象的接口。它被当作轻量级的 `Document` ，用来存储 DOM 对象。文档片段对实际 DOM 没有影响，但其子节点可以按需插入到实际的 DOM 里。
 
-虚拟 DOM 和文档片段采用相同的理念去提升 UI 的性能。这能说明虚拟 DOM 来源于文档片段吗？
+虚拟 DOM 和文档片段采用相同的理念去提升 UI 的性能。这能说明虚拟 DOM 源自文档片段吗？
 
 让我们来深入了解 JavaScript、React 和 Angular 里的相关概念。
 
@@ -57,13 +57,13 @@
 
 每次运行的加载时间都有些变化，但基本都在 2.5 秒左右。
 
-DOM 操作的代价很昂贵，添加和删除元素会导致页面内容的重绘和回流。
+DOM 操作的代价很昂贵，添加和删除元素会导致页面内容的重绘和重排。
 
 ## 为什么使用文档片段?
 
-`document.createDocumentFragment()` 创建了一个空的 `DocumentFragment`，可以添加不被屏幕渲染的 DOM 节点进去。在离屏 DOM 树创建之后，`DocumentFragment` 的子节点可以随时更新到真正的 DOM 中去。
+`document.createDocumentFragment()` 创建了一个空的 `DocumentFragment`，可以添加不被屏幕渲染的 DOM 节点进去。在离屏 DOM 树创建之后，`DocumentFragment` 的子节点可以按需更新到真正的 DOM 中去。
 
-因为文档片段存在内存中，并非实际 DOM 的一部分，给它添加子元素不会引起页面回流（元素的位置和几何形状的计算）。通过文档片段批处理变更以减少更新次数或许能获得更好的性能。
+因为文档片段存在内存中，并非实际 DOM 的一部分，给它添加子元素不会引起页面回流（元素的位置和几何形状的计算）。通过文档片段批量更新减少了更新次数，从而更有可能提升性能。
 
 下面是如何使用文档片段的例子：
 
@@ -108,11 +108,11 @@ DOM 操作的代价很昂贵，添加和删除元素会导致页面内容的重�
 
 ## 虚拟 DOM 是如何工作的?
 
-虚拟 DOM 来源于文档片段吗?
+虚拟 DOM 源自文档片段吗?
 
 答案是否定的，虚拟 DOM 不使用任何文档片段。
 
-当然，虚拟 DOM 来源于使用虚构的 DOM 来提高性能的这一概念。但是虚拟 DOM 是为大规模更新而设计的。它也可以应用于不存在 DOM 的环境，比如 Node.js。React 是第一个使用虚拟 DOM 的主流框架。此外，Vue、Ember、Preact 和 Mithril 都采用了虚拟 DOM 技术。
+当然，虚拟 DOM 源自使用虚构的 DOM 来提高性能的这一概念。但是虚拟 DOM 是为大规模更新而设计的。它也可以应用于不存在 DOM 的环境，比如 Node.js。React 是第一个使用虚拟 DOM 的主流框架。此外，Vue、Ember、Preact 和 Mithril 都采用了虚拟 DOM 技术。
 
 React 在第 16 版之后一直使用 [Fiber 架构](https://github.com/acdlite/react-fiber-architecture)。
 
@@ -125,9 +125,9 @@ React 在第 16 版之后一直使用 [Fiber 架构](https://github.com/acdlite/
 React 具有一些独立的消除差异和渲染的阶段。
 
 - **处理差异:** React 用来区分两棵树之间差异的算法决定了哪些内容需要修改。不同的组件被认为是不同的树。React 不会试图区分它们，而是完全替换旧树。列表的差异是用键来区分的。键应该是稳定的，可预测的，独一无二的。
-- **渲染:** 程序使用差异信息去真正地更新渲染过的应用程序。它可以将渲染工作分割成块，并将块分散到多个帧上执行。它使用一个虚拟的栈帧来控制工作，给不同类型的工作设置优先级，重复执行之前完成的工作，终止不再需要的工作。
+- **渲染:** 渲染过程根据差异点来实际更新和渲染应用程序。它可以将渲染工作分割成块，并将块分散到多个帧上执行。它使用一个虚拟的栈帧来控制工作，给不同类型的工作设置优先级，重复执行之前完成的工作，终止不再需要的工作。
 
-这种分割让 React DOM 和 React Native 在共享同一个协调器的时候可以使用自身的渲染器。
+这种分割让 React DOM 和 React Native 在共享同一个协调器的同时可以使用各自的渲染器。
 
 下面是一个展示虚拟 DOM 优势的例子。这是 [Create React App](https://medium.com/better-programming/10-fun-facts-about-create-react-app-eb7124aa3785) 里经过修改的 `public/index.html`：
 
@@ -364,7 +364,7 @@ patch(document.getElementById('someId'), renderPart);
 
 ## 总结
 
-我们已经回答了 “虚拟 DOM 源于文档片段吗？” 这个问题。
+我们已经回答了 “虚拟 DOM 源自文档片段吗？” 这个问题。
 
 在这一长串的回答中，我们探讨了 DOMs，文档片段，虚拟 DOM，React 片段，增量 DOM 和 影子 DOM。这些知识对我们面试和日常编码都有用处。
 
