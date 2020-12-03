@@ -26,7 +26,7 @@ This blog post explores these four lines of technology in greater depth. We have
 
 With the rapid growth of compute available on modern GPU clusters, training a powerful trillion-parameter model with incredible capabilities is no longer a far-fetched dream but rather a near-future reality. DeepSpeed has combined three powerful technologies to enable training trillion-scale models and to scale to thousands of GPUs: data parallel training, model parallel training, and pipeline parallel training. This symbiosis scales deep learning training far beyond what each of the strategies can offer in isolation. 3D parallelism simultaneously addresses the two fundamental challenges toward training trillion-parameter models: **memory efficiency** and **compute efficiency**. As a result, DeepSpeed can scale to fit the most massive models in memory without sacrificing speed.
 
-Learn the challenges of obtaining memory and compute efficiency for gigantic models
+##### Learn the challenges of obtaining memory and compute efficiency for gigantic models
 
 **Memory Efficiency:** The memory requirements to train a trillion-parameter model are far beyond what is available in a single GPU device. Training using the Adam optimizer in mixed precision requires approximately 16 terabytes (TB) of memory just to store the model states (parameters, gradients, and optimizer states). For comparison, the state-of-the-art NVIDIA A100 GPUs have just 40 gigabytes (GB) of memory. It would require the collective memory of 400 such GPUs just to store the model states.
 
@@ -40,7 +40,7 @@ While large super-computing GPU clusters can have well over 4,000 GPUs, achievin
 
 One of the largest models in the world, [GPT-3](https://arxiv.org/abs/2005.14165), was trained using a batch size of about 1,500. With 4,000 GPUs, even a liberal batch size of 4,000 would only allow for a batch size of 1 per GPU and limit scalability.
 
-Understand the tradeoffs of data, model, and pipeline parallelism
+##### Understand the tradeoffs of data, model, and pipeline parallelism
 
 **Data parallelism** is a ubiquitous technique in deep learning in which each input batch of training data is split among the data parallel workers. Gradients must be communicated and aggregated after backward propagation to ensure that consistent steps are taken by the optimizer. Data parallelism has several distinct advantages, including compute efficiency and minimal implementation effort. However, data parallelism relies on scaling the batch size with the number of data parallel workers, which cannot be done indefinitely without affecting convergence.
 
@@ -144,7 +144,7 @@ The key technology behind ZeRO-Offload is our new capability to offload optimize
 
 Figure 7: ZeRO-Offload overview.
 
-Learn how ZeRO-Offload enables multi-billion parameter training on a single GPU
+##### Learn how ZeRO-Offload enables multi-billion parameter training on a single GPU
 
 Training multi-billion-parameter models like GPT and T5 require many GPUs to fit the model and its states in GPU memory. Large model training has been mostly carried out with model parallelism across multiple GPU devices to solve the memory limitation problem. Recently, we released ZeRO, a memory efficient optimizer that partitions model states (optimizer states, gradients, and model weights) across data parallel GPUs, allowing multi-billion-parameter models to be trained without requiring model parallelism. However, ZeRO still requires a large number of data parallel GPUs to hold the partitioned model states, limiting the access of large model training to a few with access to such resources.
 
@@ -152,7 +152,7 @@ ZeRO-Offload democratizes large model training by making it possible even on a s
 
 Once the gradients are available on the CPU, optimizer state partitions are updated in parallel by each data parallel process directly on the CPU (**p update** in Figure 7). After the update, parameter partitions are moved back to GPU followed by an all-gather operation on the GPU to gather all the updated parameters (**g swap** in Figure 7). ZeRO-Offload also exploits overlapping between communication (such as **g offload** and **g swap**) and computation (such as the backward pass and **p update**) using separate CUDA streams to maximize training efficiency.
 
-See the benefits of ZeRO-Offload on model scale, training speed, and scalability
+##### See the benefits of ZeRO-Offload on model scale, training speed, and scalability
 
 **10x model scale:** On a single 32 GB V100 GPU, Figure 6 shows that the biggest model that can be trained by PyTorch has 1.3 billion parameters, while ZeRO-Offload allows for training models of 13 billion parameters, which is 10 times bigger. This is because ZeRO-Offload keeps the optimizer states (which consume a large portion of GPU memory) in host memory during the entire training process while also offloading gradients to CPU as they are computed in the backward pass. As a result, the saved GPU memory can be used in hosting bigger models for training.
 
