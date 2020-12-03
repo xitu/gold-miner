@@ -3,19 +3,19 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/is-virtual-dom-derived-from-document-fragments.md](https://github.com/xitu/gold-miner/blob/master/article/2020/is-virtual-dom-derived-from-document-fragments.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo)
 
 # 虚拟 DOM 来源于文档片段吗?
 
 ![Photo by [Manuel Sardo](https://unsplash.com/@manuelsardo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*DPFY7vtuIvJOsS0x)
 
-[虚拟 DOM](https://reactjs.org/docs/faq-internals.html) 是 React 的一个核心概念。它是一种存储在内存里并和实际 DOM 同步的 UI。[React DOM](https://github.com/facebook/react/tree/master/packages/react-dom) 通过在本地消除差异并根据 React 的拉取计划将变更插入到实际的 DOM 中。
+[虚拟 DOM](https://reactjs.org/docs/faq-internals.html) 是 React 的一个核心概念。它是 UI 的一种表现形式，保留在内存中并与实际 DOM 同步。[React DOM](https://github.com/facebook/react/tree/master/packages/react-dom) 通过在本地消除差异并根据 React 的拉取计划将变更插入到实际的 DOM 中。
 
 `[DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment)` 是一个没有父对象的最小文档对象的接口。它被当作轻量级的 `Document` ，可以用来存储 DOM 对象。文档片段不影响实际的 DOM，但它的子节点可以根据需要插入到实际的 DOM 里。
 
-虚拟 DOM 和文档片段采用相同的理念去提升 UI 的性能。那么虚拟 DOM 来源于文档片段吗？
+虚拟 DOM 和文档片段采用相同的理念去提升 UI 的性能。这能说明虚拟 DOM 来源于文档片段吗？
 
-让我们来深入了解 JavaScript，React，和 Angular 里的相关概念。
+让我们来深入了解 JavaScript、React 和 Angular 里的相关概念。
 
 ## 什么是 DOM?
 
@@ -57,7 +57,7 @@
 
 每次运行的加载时间都有些变化，但基本都在 2.5 秒左右。
 
-DOM 操作是一个昂贵的操作，添加和删除元素会导致页面内容的重绘和回流。
+DOM 操作的代价很昂贵，添加和删除元素会导致页面内容的重绘和回流。
 
 ## 为什么使用文档片段?
 
@@ -112,7 +112,7 @@ DOM 操作是一个昂贵的操作，添加和删除元素会导致页面内容�
 
 答案是否定的，虚拟 DOM 不使用任何文档片段。
 
-当然，虚拟 DOM 来源于使用虚构的 DOM 来提高性能的这一概念。但是虚拟 DOM 是为大规模更新而设计的。它也可以应用于不存在 DOM 的环境，比如 Node.js。React 是第一个使用虚拟 DOM 的主流框架。此外，Vue，Ember， Preact，和 Mithril 都采用了虚拟 DOM 技术。
+当然，虚拟 DOM 来源于使用虚构的 DOM 来提高性能的这一概念。但是虚拟 DOM 是为大规模更新而设计的。它也可以应用于不存在 DOM 的环境，比如 Node.js。React 是第一个使用虚拟 DOM 的主流框架。此外，Vue、Ember、Preact 和 Mithril 都采用了虚拟 DOM 技术。
 
 React 在第 16 版之后一直使用 [Fiber 架构](https://github.com/acdlite/react-fiber-architecture)。
 
@@ -120,7 +120,7 @@ React 在第 16 版之后一直使用 [Fiber 架构](https://github.com/acdlite/
 >
 > 不同的更新有不同的优先级 — 比如动画的更新应该优先于数据的更新被完成。
 >
-> 基于推送的方式要求应用(你, 开发者) 去决定如何安排更新计划。基于拉取的方式让框架（React）变的聪明了，它可以替你做出决定。” — [GitHub 上的 React Fiber 架构](https://github.com/acdlite/react-fiber-architecture)
+> 基于推送的方式要求应用(实际是开发者) 去决定如何安排更新计划。基于拉取的方式让框架（React）变的聪明了，它可以替你做出决定。” — [GitHub 上的 React Fiber 架构](https://github.com/acdlite/react-fiber-architecture)
 
 React 具有一些独立的消除差异和渲染的阶段。
 
@@ -267,7 +267,7 @@ return (
 );
 ```
 
-直接用带有键的 `\<React.Fragment>` 申明一个 React 片段。这是 [官方文档](https://reactjs.org/docs/fragments.html) 提供的一个例子：
+直接用带有键的 `\<React.Fragment>` 申明一个 React 片段。这是[官方文档](https://reactjs.org/docs/fragments.html)提供的一个例子：
 
 ```JavaScript
 function Glossary(props) {
@@ -295,9 +295,9 @@ function Glossary(props) {
 
 增量 DOM 移除了 DOM 的额外拷贝。这样减少了内存使用量，但也降低了寻找 DOM 树差异的速度。减少内存使用量对于手机或者其他内存受限的设备至关重要。
 
-增量 DOM 主要用作模板语言（如 Angular）的编译目标。从第 9 版开始，Angular 采用了 Angular Ivy，它是一个使用增量 DOM 的编译器和运行时。
+增量 DOM 主要用作模板语言（如 Angular）的编译目标。从第 9 版开始，Angular 采用了 Angular Ivy，它是一个编译器并且在运行时使用增量 DOM。
 
-这是来自 [官方网站](http://google.github.io/incremental-dom/) 的例子：
+这是来自[官方网站](http://google.github.io/incremental-dom/)的例子：
 
 ```JavaScript
 function renderPart() {
@@ -366,7 +366,7 @@ patch(document.getElementById('someId'), renderPart);
 
 我们已经回答了 “虚拟 DOM 源于文档片段吗？” 这个问题。
 
-在这一长串的回答中，我们分析了 DOMs，文档片段，虚拟 DOM，React 片段，增量 DOM 和 影子 DOM。这些知识对我们面试和日常编码都有用处。
+在这一长串的回答中，我们探讨了 DOMs，文档片段，虚拟 DOM，React 片段，增量 DOM 和 影子 DOM。这些知识对我们面试和日常编码都有用处。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
