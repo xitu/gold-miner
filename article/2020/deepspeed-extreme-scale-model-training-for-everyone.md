@@ -60,7 +60,7 @@ Understand the tradeoffs of data, model, and pipeline parallelism
     
 * **Compute efficiency:** Pipeline parallelism has the lowest communication volume since it only communicates data proportional to the activation size of the layers between stage boundaries. However, it cannot scale indefinitely. Like model parallelism, increasing the pipeline size decreases the computation per pipeline stage, which also decreases the compute-to-communication ratio. Pipeline parallelism also requires each of its stages to be perfectly load balanced to achieve good efficiency.  
       
-    Furthermore, pipeline parallelism incurs a bubble overhead from filling and emptying the pipeline at the beginning and end of each training batch. Training with gradient accumulation steps (and thus batch size) that is 4x or 8x the number of pipeline stages achieves 81% and 90% scaling efficiency from one pipeline stage, respectively.
+Furthermore, pipeline parallelism incurs a bubble overhead from filling and emptying the pipeline at the beginning and end of each training batch. Training with gradient accumulation steps (and thus batch size) that is 4x or 8x the number of pipeline stages achieves 81% and 90% scaling efficiency from one pipeline stage, respectively.
 
 ### Achieving both memory and compute efficiency with 3D parallelism
 
@@ -109,7 +109,7 @@ Dive deeper into how 3D parallelism accelerates training at the scale of GPT-3
 
 Figure 4: System performance using 800 GPUs to train a GPT-3 scale model with 180 billion parameters using 2D and 3D parallelism. The model has 100 Transformer layers with hidden dimension 12,288 and 96 attention heads. The model is trained with batch size 2,048 and sequence length 2,048. ZeRO-1 is enabled alongside data parallelism. P, M, and D denote the pipeline, model, and data parallel dimensions, respectively.
 
-In Figure 4, we use the recent [GPT-3](https://arxiv.org/abs/2005.14165) model architecture, with over 175 billion parameters, as a benchmark for 3D parallelism: ­
+In Figure 4, we use the recent [GPT-3](https://arxiv.org/abs/2005.14165) model architecture, with over 175 billion parameters, as a benchmark for 3D parallelism: 
 
 * We first evaluate the **2D configurations** (C1-C3). Configurations C1 and C2 use only pipeline and model parallelism—they can train the model but achieve low throughput due to over-decomposing the problem and having low GPU utilization. C3 attempts to use only pipeline and data parallelism but is unable to fit the problem in memory without reducing the size of activations via Megatron’s model parallelism.
 * The **3D configurations** (C4-C10) are arranged by increasing degree of pipeline parallelism; the best performance is achieved by the middle configurations that balance the parallelism in order to be memory-, computation-, and communication-efficient.
@@ -120,11 +120,8 @@ See how hybrid parallelism accelerates training GPT-2 on low-bandwidth clusters 
 We demonstrate the communication benefits of hybrid parallelism in Figure 5 while training a 1.5-billion-parameter GPT-2 model. We train on four nodes of a cluster with low inter-node bandwidth in order to emphasize the communication stages of training:
 
 * **Model parallelism** is not advantageous in this case due to the low intra-node bandwidth and smaller model size.  
-    
 * **Pipeline parallelism** communicates over an order of magnitude less volume than the data and model parallel configurations and is 7x faster at small batch sizes.  
-    
 * **Data parallelism** uses gradient accumulation to amortize communication overhead as the batch size increases, but pipeline parallel configurations still achieve over twice the performance of data parallelism at larger batch sizes.  
-    
 * The **hybrid pipeline and data parallel configuration** avoids the gradient communication bottleneck by restricting data parallel groups to GPUs within a node, so gradient communications benefit from the faster intra-node bandwidth.
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-4_Section-1.jpg)
