@@ -7,8 +7,6 @@
 
 # Aspect-Oriented Programming in JavaScript
 
-#### We all know about Object-Oriented Programming and Functional Programming, but have you heard about Aspect-Oriented Programming before?
-
 ![Image by [Arturs Budkevics](https://pixabay.com/users/artursfoto-3533503/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1744952) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1744952)](https://cdn-images-1.medium.com/max/3840/1*sfjo3NiG4oHxwXQpdqCu9g.jpeg)
 
 We all know about Object-Oriented Programming, and we’ve probably, at least, heard of Functional Programming in the JavaScript world, but have you ever heard of Aspect-Oriented Programming?
@@ -16,8 +14,6 @@ We all know about Object-Oriented Programming, and we’ve probably, at least, h
 I know, it sounds like something you would hear in an episode of Power Rangers Mystic Force. However, AOP is a thing, and not only that, it’s a thing we’re not using and could use for several common use cases we see every day.
 
 And the best part of it all is that just like with OOP and FP in JavaScript, you can use a mixture of AOP with FP or OOP without breaking a sweat. So let’s first understand what this aspect deal is, and how useful it can really be for JavaScript developers.
-
----
 
 ## A brief introduction to AOP
 
@@ -39,8 +35,6 @@ In order to formalize a bit the definition above, let’s take the example of th
 
 With this explanation, you could argue that creating an AOP-based library to add logging logic to existing OOP-based business logic (for example) is relatively easy. All you’d have to do is replace the existing matching methods of the target object, with a custom function that would add the aspect’s logic at the right time and then call the original method.
 
----
-
 ## A basic implementation
 
 Just because I’m a visual learner, I think showing a basic example of how you’d go about implementing a sort of `inject` method to add AOP-based behavior would come a long way.
@@ -48,7 +42,6 @@ Just because I’m a visual learner, I think showing a basic example of how you�
 The following example should clarify both, how easy it is to implement it and the type of benefits it brings to your code.
 
 ```JavaScript
-
 /** Helping function used to get all methods of an object */
 const getMethods = (obj) => Object.getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(item => typeof obj[item] === 'function')
 
@@ -88,8 +81,6 @@ module.exports = {
             })
         }
     }
-
-    
 }
 ```
 
@@ -145,8 +136,6 @@ And to close this example here is the output you’d get:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9KZBwObbqAEuJAv1GWSryg.png)
 
----
-
 ## Benefits of AOP
 
 Now that you’ve seen what it is and what it does, you’ve probably guessed why people would want to use Aspect-Oriented Programming, but let’s quickly do a round-up:
@@ -167,7 +156,7 @@ However, it does provide you with the ability to do whatever you want, and that,
 
 And without trying to sound too cliched here, paraphrasing Uncle Ben:
 
-> # With big power, comes great responsibility
+> With big power, comes great responsibility
 
 And with AOP comes the obligation to understand software development best practices if you want to use it correctly.
 
