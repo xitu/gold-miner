@@ -2,152 +2,152 @@
 > * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/best-static-site-generators-for-vue-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/best-static-site-generators-for-vue-js.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# Best Static Site Generators for Vue.js
+# 四个优秀 Vue.js 静态站点生成器
 
 ![Photo by [Igor Son](https://unsplash.com/@igorson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/green?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9180/1*xKSrtHfuh8uTPcNyZmxjGw.jpeg)
 
-Over the past few years, Vue.js has become a popular choice for web application development. With its popularity, the framework has expanded its reach to static site generation, an area once dominated by React.
+在过去几年里，Vue.js 已经成为 web 应用程序开发的热门选择。随着它的流行，该框架已经扩展到静态网页生成器，这是一个曾经由 React 主导的领域。
 
-Like Gatsby and NextJS that uses React, you can find several frameworks using Vue.js that supports static site generation. However, choosing one isn’t that easy considering the features they provide.
+类似 React.js 静态网页生成器 Gatsby 和 NextJS，你可以找到几个支持生成静态网页的 Vue.js 框架。然而，考虑到它们的功能特性，选择一个合适的并不容易。
 
-Therefore, in this article, I will introduce the top four Vue.js frameworks for static site generation with a detailed comparison to find the right match for your use case.
+因此，在本文中，我将介绍四个最佳 Vue.js 静态网页生成器框架，并进行详细的比较，以便你找到合适的框架进行使用。
 
-## 1. Nuxt.js — 32000 Stars & 280+ Contributors
+## 1. Nuxt.js — 32k stars 和 280+ 贡献者
 
 ![Source: [https://nuxtjs.org/](https://nuxtjs.org/)](https://cdn-images-1.medium.com/max/3296/1*XyZK_B7uum1Da-Q0VZ6Niw.png)
 
-First on our list is Nuxt.js, an open-source, high-level framework built on top of Vue.js. Nuxt.js simplifies web development by abstracting away client-server distribution details.
+首先要介绍的是 Nuxt.js，这是一个建立在 Vue.js 之上的开源框架。Nuxt.js 通过抽象客户-服务器分布细节来简化 web 开发。
 
-Nuxt.js follows a robust modular architecture, and there are more than 50 different modules to get started. These modules will provide the inbuilt support to bring in PWA features and standard functionalities such as Google analytics into your application.
+Nuxt.js 遵循健壮的模块化架构来设计，有 50 多个不同的模块可供使用。这些模块将提供内置支持，将 PWA 功能和标准功能（如谷歌分析）引入应用程序。
 
-One of the biggest strengths of Nuxt.js comes with the `nuxt generate` command.
+Nuxt.js 最大的优点之一是带有 `nuxt generate` 命令。
 
-> With this command, you can generate a completely static version of your website with minimum effort.
+> 有了这个命令，你可以用很少的精力完成一个纯静态的网站版本。
 
-If we look into the stats about Nuxt.js, it has more than 32000 stars and 280+ contributors. Companies like GitLab, NESPRESSO, and UBISOFT have started their journey with Nuxt.js.
+查看 Nuxt.js 的统计数据，你会发现它有 32k star 和 280+ 贡献者。例如 GitLab、NESPRESSO 和 UBISOFT 这些公司已经开始使用 Nuxt.js。
 
-#### Pros
+#### 优点
 
-* Optimization support.
-* Server-side rendering.
-* Fast development and runtime.
-* Well-define project structure.
-* Support serverless static site generation.
-* Automatic code splitting.
+* 优化支持。
+* 服务器端渲染。
+* 快速开发和运行快。
+* 明确的项目结构
+* 支持无服务器静态站点生成。
+* 自动代码拆分。
 
-#### Cons
+#### 缺点
 
-* There can be challenges in using custom libraries.
-* There are many issues reported regarding the ease of debugging.
-* Large community but still behind Gatsby and Next.js.
+* 使用自定义库可能会有一些问题。
+* 关于调试的使用有很多提交处理的问题。
+* 有大型社区但仍比不上 Gatsby 和 Next.js。
 
-## 2. VuePress — Optimized for Content Centric Static Sites
+## 2. VuePress — 针对以内容为中心的静态网站进行优化
 
 ![Source: [https://vuepress.vuejs.org/](https://vuepress.vuejs.org/)](https://cdn-images-1.medium.com/max/2468/1*6rBV7Id9ZvogzPotQBP9cA.png)
 
-VuePress is another static site generator power by Vue.js, and this was first developed as a document generation system. However, after the release of version 1.x, VuePress was considered as a static file generator.
+VuePress 是 Vue.js 的另一个静态站点生成器，这是作为一个文档生成系统开发的。然而，1.x 版本发布后，VuePress 被认为是一个静态文件生成器。
 
-In VuePress, each page is considered a markdown file, and they are rendered into an HTML page and act as a single page application when the page is loaded.
+在 VuePress 中，每个页面都被视为一个标记文件，它们被呈现为一个 HTML 页面，并在页面加载时充当单页面应用程序。
 
-According to their official documentation, VuePress consists of 2 major parts:
+根据官方文件，VuePress 主要由两部分组成：
 
-1. Static site generator with a Vue.js-based theme system.
-2. Plugin API to add global level functionality and a default theme that is optimized for documentation.
+1. 带有基于 Vue.js 主题系统的静态站点生成器。
+2. 添加全局功能以及针对文档优化的默认主题的插件 API。
 
-If we compare VuePress with Nuxt.js, we can see that Nuxt.js can almost do everything that VuePress is capable of.
+如果我们把 VuePress 和 Nuxt.js 进行比较，可以看到 Nuxt.js 几乎可以做到 VuePress 所能做到的一切。
 
-> # However, VuePress is more optimized for content-centric static site creation, while Nuxt.js focuses more on web application development.
+> **然而，VuePress 更适合以内容为中心的静态网站创建，而 Nuxt.js 更侧重于网络应用程序开发。**
 
-If we consider the GitHub stats, VuePress has more than 17800 stars and 340+ contributors in its repository. It is also used by companies like FinTech Consortium, IADC, and Directus.
+查看在 GitHub 的统计数据，VuePress 的项目仓库中有 17k stars 和 340+ 贡献者。它还被一些公司使用，例如 FinTech Consortium、IADC 和 Directus。
 
-#### Pros
+#### 优点
 
-* Better loading performance.
-* SEO friendly.
-* Provide built-in markdown extensions.
-* Includes powerful plugins for searching, PWA features, Google analytics, etc.
-* Handle markdown to HTML conversion by default.
+* 更好的加载性能。
+* SEO 友好。
+* 提供内置 markdown 扩展。
+* 包含强大的搜索插件、PWA 功能、谷歌分析等。
+* 带有 markdown 到 HTML 的默认转换处理。
 
-#### Cons
+#### 缺点
 
-* New in comparison and not yet established like Nuxt.js.
-* VuePress isn’t installed on most shared hosting providers.
+* 相比之下是新技术，还没有像 Nuxt.js 那样发布。
+* 大多数共享主机提供商都没有安装 VuePress。
 
-## 3.Gridsome — Data-Driven Framework with GraphQL
+## 3.Gridsome — 基于 GraphQL 的数据驱动框架
 
 ![Source: [https://gridsome.org/](https://gridsome.org/)](https://cdn-images-1.medium.com/max/3122/1*fmNKCcOC47EB-KAdeXfD0g.png)
 
-Third on our list is Gridsome, and it is known for building lighting fast static websites. Similar to Gatsby in React, Gridsome is a data-driven framework. Gridsome uses a GraphQL layer to get content from the sources and then dynamically generates pages from it.
+接下来要介绍的是 Gridsome，它以建立快速轻量静态网站而闻名。类似于 React 中的 Gatsby，Gridsome 是一个数据驱动的框架。Gridsome 使用一个 GraphQL 数据层从数据源中获取内容，然后动态生成页面。
 
-> GraphQL acts as a content management system for Gridsome.
+> GraphQL 充当 Gridsome 的内容管理系统。
 
-You can explore this GraphQL data layer at **localhost:8080/___explore** by running the project locally using `gridsome develop` command.
+你可以通过使用 `gridsome develop` 命令在本地运行项目，在 **localhost:8080/___explore** 上浏览这个 GraphQL 数据层。
 
-Similarly, you can build your website using `gridsome build`, ****and it will generate production-ready optimized HTML files.
+同样，你可以使用 `gridsome build` 构建网站，它将生成可用于生产环境的优化 HTML 文件。
 
-If we went through the GitHub statistics of Gridsome, it only has 7000 stars and 100 odd contributors. Besides, Gridsome brings some unique features with it to compete with others.
+查看 Gridsome 的 GitHub 统计，它只有 7k stars 和 100+ 贡献者。此外，Gridsome 还有一些独特的功能来与其它项目进行竞争。
 
-#### Pros
+#### 优点
 
-* Easy local development setup with hot reloading.
-* Provides code-splitting, asset optimization, progressive images out of the box to Increase performance.
-* PWA ready.
-* SEO friendly.
-* Well defined structure and automatic routing.
-* Rich plugins.
+* 便捷的本地开发设置和热重载。
+* 提供开箱即用的代码拆分、资源优化和渐进式图片展示，以提高性能。
+* 支持 PWA 功能。
+* SEO 友好。
+* 结构清晰和自动配置路由。
+* 丰富的插件。
 
-#### Cons
+#### 缺点
 
-* Need to have basic knowledge of GraphQL.
-* New in comparison and not yet established like Nuxt.js, VuePress.
+* 需要掌握 GraphQL 基础知识。
+* 相比之下是新技术，还没有像 Nuxt.js、VuePress 那样发布。
 
-## 4. Saber — Extract Data from Different File Systems
+## 4. Saber — 从不同的文件系统中提取数据
 
 ![Source: [https://saber.land/](https://saber.land/)](https://cdn-images-1.medium.com/max/2702/1*OR9DwoeaIjrjEAuPF0FhqA.png)
 
-Saber.js is another static site generator with a large number of built-in features to play with.
+Saber.js 是另一个静态站点生成器，有大量的内置特性可以使用。
 
-> After going through Saber.js for a while, I feel that it is more like a combination of Gatsby, Gridsome, and Nuxt.js.
+> 大概浏览一下 Saber.js，感觉更像是 Gatsby、Gridsome 和 Nuxt.js 的结合。
 
-Similar to Gatsby and Gridsome, Saber allows you to create static web sites with the data you want. You can extract data from different file systems. With Saber, you won’t need to worry about GraphQL.
+类似于 Gatsby 和 Gridsome，Saber 允许你用想要的数据创建静态网站。你可以从不同的文件系统中提取数据。使用 Saber，你就不用担心不会用 GraphQL。
 
-Saber uses its file system as the routing API (which is very similar to Nuxt.js), and it is highly extensible. Although it only supports Vue.js for now, the Saber team has planned to extend the support for React as well.
+Saber 使用其文件系统作为路由 API(与 Nuxt.js 非常类似)，具有很高的可扩展性。虽然 Saber 团队目前只支持 Vue.js，但它也计划扩展对 React 的支持。
 
-Since Saber is still new to the business, it only has 2000 stars in its GitHub repo. I’m sure that these numbers will improve once the framework gets stable.
+由于 Saber 对这项业务来说仍然是新技术，它的 GitHub 项目也只有2k stars。我相信 Saber 框架只要稳定下来，它的 star 数量肯定会增加。
 
-#### Pros
+#### 优点
 
-* Automatic code splitting.
-* File-system based routing.
-* Hot code reloading.
-* Built-in Markdown support.
-* Support i18n.
+* 自动代码拆分。
+* 基于文件系统的路由。
+* 热代码重载。
+* 内置 Markdown 支持。
+* 支持 i18n。
 
-#### Cons
+#### 缺点
 
-* Don’t have a CLI.
-* Still at the Beta version.
+* 没有 CLI。
+* 还处于 Beta 版本。
 
-## Conclusion
+## 结论
 
-When it comes to static site generators, React was the number 1 choice and dominated the space. However, Vue.js was able to change that situation with those fantastic frameworks we discussed above. Besides, some of them have been a real threat to React-based frameworks.
+在静态网站生成器领域，React 是首选，并占据了整个空间。然而，Vue.js 能够用我们上面讨论的那些优秀的框架来改变这种情况。此外，它们中的一些框架已经对基于 React 的框架构成了真正的威胁。
 
-For example, Gatsby and Gridsome look pretty much similar in the way they behave. Besides, Gridsome has been able to keep up with Gatsby in terms of performance, learning curve, community size, etc.
+例如，Gatsby 和 Gridsome 在功能特性上看起来非常相似。除此之外，Gridsome 在使用表现、学习曲线、社区规模等方面已经能够追上 Gatsby。
 
-Let’s compare Vue.js based ones with React-based static site generators. We can see that frameworks like Nuxt.js, VuePress, and Gridsome have the capacity to compete with Gatsby and NextJS.
+让我们比较一下基于 Vue.js 的和基于 React 的静态站点生成器，可以看到像 Nuxt.js、VuePress、Gridsome 这样的框架有能力和 Gatsby、NextJS 竞争。
 
-However, when comparing the above four frameworks, Nuxt.js and VuePress are at the top based on their GitHub and [npmtrends.com](https://www.npmtrends.com/) statistics.
+然而，当比较上述四个框架时，基于 GitHub 和 [npmtrends.com](https://www.npmtrends.com/) 统计数据，看到 Nuxt.js 和 VuePress 是位于顶部。
 
 ![[npmtrends.com Stat Comparison](https://www.npmtrends.com/gridsome-vs-nuxt-vs-vuepress-vs-saber)](https://cdn-images-1.medium.com/max/2684/1*NsUUJyOV9gsT2Hwjmy-sbw.png)
 
 ![GitHub Statistics](https://cdn-images-1.medium.com/max/2000/1*2ydbJAirl8vJ3J8JA1M6xA.png)
 
-However, we shouldn’t forget that each of these frameworks has unique features in its arsenal. For example, Saber has the potential to be a global hit since it has plans to extend support for React.
+但是，我们不应该忘记，这些框架中的每一个都有其独特的功能。例如，Saber 有可能成为全球热门，因为它计划扩大对 React 的支持。
 
-I hope this article has helped you to find the right framework for your use case. If you have any questions, please mention them in the comments below.
+我希望这篇文章能帮助你找到合适的框架。如果你有任何问题，请在下面的评论中提及。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
