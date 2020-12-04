@@ -20,8 +20,6 @@ Today, we are happy to share our new advancements that not only push deep learni
 
 This blog post explores these four lines of technology in greater depth. We have been making all of these exciting new optimizations available in [open-source library, DeepSpeed](https://github.com/microsoft/DeepSpeed).
 
- [![A graphic showing some of the researchers featured on Microsoft research webinars.](https://www.microsoft.com/en-us/research/uploads/prod/2020/07/MSR_WebinarCollage1400x788.png)](https://www.microsoft.com/en-us/research/webinar/) 
-
 ## 3D parallelism: Scaling to trillion-parameter models
 
 With the rapid growth of compute available on modern GPU clusters, training a powerful trillion-parameter model with incredible capabilities is no longer a far-fetched dream but rather a near-future reality. DeepSpeed has combined three powerful technologies to enable training trillion-scale models and to scale to thousands of GPUs: data parallel training, model parallel training, and pipeline parallel training. This symbiosis scales deep learning training far beyond what each of the strategies can offer in isolation. 3D parallelism simultaneously addresses the two fundamental challenges toward training trillion-parameter models: **memory efficiency** and **compute efficiency**. As a result, DeepSpeed can scale to fit the most massive models in memory without sacrificing speed.
@@ -97,7 +95,7 @@ Model parallelism can reduce the effective batch size to be less than 1 per GPU.
 
 ### Powering trillion-parameter model training with linear efficiency scaling
 
-DeepSpeed can train a language model with one ****trillion**** parameters using as few as 800 NVIDIA V100 GPUs (Figure 3). We demonstrate simultaneous memory and compute efficiency by scaling the size of the model and observing linear growth, both in terms of the size of the model and the throughput of the training. In every configuration, we can train approximately 1.4 billion parameters per GPU, which is the largest model size that a single GPU can support without running out of memory, indicating perfect memory scaling. We also obtain close to perfect-linear compute efficiency scaling and a throughput of 47 teraflops per V100 GPU. This is impressive scaling and throughput for the given hardware.
+DeepSpeed can train a language model with one **trillion** parameters using as few as 800 NVIDIA V100 GPUs (Figure 3). We demonstrate simultaneous memory and compute efficiency by scaling the size of the model and observing linear growth, both in terms of the size of the model and the throughput of the training. In every configuration, we can train approximately 1.4 billion parameters per GPU, which is the largest model size that a single GPU can support without running out of memory, indicating perfect memory scaling. We also obtain close to perfect-linear compute efficiency scaling and a throughput of 47 teraflops per V100 GPU. This is impressive scaling and throughput for the given hardware.
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-3_Section-1-1024x508.jpg)
 
