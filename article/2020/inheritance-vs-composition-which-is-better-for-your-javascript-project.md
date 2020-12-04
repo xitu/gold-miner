@@ -205,7 +205,7 @@ Sorry to disappoint but I truly think there are perfect use cases for each of th
 
 Inheritance makes sense because we tend to relate OOP concepts to real-world objects and then we try to generalize their behavior by generalizing their nature.
 
-In other words, we don’t think of a cat and a doc as having 4 legs and a set of organs that allow them to either bark or meow. We think of them as **animals,** which translates to inheritance.
+In other words, we don’t think of a cat and a doc as having 4 legs and a set of organs that allow them to either bark or meow. We think of them as **animals**, which translates to inheritance.
 
 And because of that, the ideal use case for going with inheritance is having 80% of your code being common between two or more classes and at the same time, having the specific code being **very** different. Not only that, but having the certainty that there is no case where you’d need to swap the specific code with each other. Then inheritance is definitely the way to go, with it you’ll have a simpler internal architecture and less code to think about.
 
