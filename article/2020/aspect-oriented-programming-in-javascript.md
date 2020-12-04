@@ -2,50 +2,50 @@
 > * 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/aspect-oriented-programming-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/aspect-oriented-programming-in-javascript.md)
-> * 译者：
+> * 译者：[Liusq-Cindy](https://github.com/Liusq-Cindy)
 > * 校对者：
 
-# Aspect-Oriented Programming in JavaScript
+# JavaScript 的面向切面编程
 
 ![Image by [Arturs Budkevics](https://pixabay.com/users/artursfoto-3533503/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1744952) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1744952)](https://cdn-images-1.medium.com/max/3840/1*sfjo3NiG4oHxwXQpdqCu9g.jpeg)
 
-We all know about Object-Oriented Programming, and we’ve probably, at least, heard of Functional Programming in the JavaScript world, but have you ever heard of Aspect-Oriented Programming?
+我们都知道面向对象编程，或者至少听说过 JavaScript 领域的函数式编程，但是，你听说过面向切面编程吗？
 
-I know, it sounds like something you would hear in an episode of Power Rangers Mystic Force. However, AOP is a thing, and not only that, it’s a thing we’re not using and could use for several common use cases we see every day.
+我知道，它听起来像是某种神秘力量。然而，AOP 是一个事物，不仅如此，它是我们现在还没有使用，但可以被应用于我们日常每天都可能见到的一些用例中。
 
-And the best part of it all is that just like with OOP and FP in JavaScript, you can use a mixture of AOP with FP or OOP without breaking a sweat. So let’s first understand what this aspect deal is, and how useful it can really be for JavaScript developers.
+它最大的优势，就像 JavaScript 中的 OOP 和 FP 一样，你可以毫不费力的将 AOP 与 FP 或 OOP 结合使用。 因此，首先让我们了解这个切面的作用，以及它对 JavaScript 开发人员的实际用途。
 
-## A brief introduction to AOP
+## AOP 简介
 
-Aspect-Oriented Programming provides a way for us to inject code into existing functions or objects, without modifying the target logic.
+面向切面编程给我们提供了一个方法，让我们可以在不修改目标逻辑的情况下，将代码注入到现有的函数或对象中。
 
-The injected code, although not required, is meant to have cross-cutting concerns, such as adding logging functionality, debugging metadata, or something less generic, but that could inject extra behavior without affecting the original code.
+注入的代码，虽然不是必须的，但意味着具有横切关注点，比如添加日志功能、调试元数据或其他不太通用的但可以注入额外的行为，而不影响原始代码的内容。
 
-To give you a good example, imagine having written your business logic but now you realize that you have no logging code. The normal approach to this would be to centralize your logging logic inside a new module and the go function by function adding logging information.
+给你举一个合适的例子，假设你已经写好了业务逻辑，但是现在你意识到没有添加日志代码。通常的方法是将日志逻辑集中到一个新的模块中，然后逐个函数添加日志信息。
 
-However, if you could grab that same logger and inject it into every method you’re looking to log, at very specific points during their execution with a single line of code, then this would definitely give you a lot of value. Wouldn’t you agree?
+然而，如果你可以获取同一个日志程序，在您想要记录的每个方法执行过程中的特定节点，只需一行代码就可将程序注入，那么这肯定会给您带来很多便利。你不同意吗？
 
-#### Aspects, Advice, and Pointcuts or What, When, and Where
+#### 切面、建议和切入点或什么、何时、何地
 
-In order to formalize a bit the definition above, let’s take the example of the logger and cover these 3 concepts about AOP that are going to help you out if you decide to look further into this paradigm:
+为了使上面的定义更形式化一点，让我们以日志程序为例，介绍有关 AOP 的三个概念，如果你决定进一步研究这个范例，这些将对你有所帮助：
 
-* **Aspects (**What**):** These are the “aspects” or behavior you’re looking to inject into your target code. In our context (JavaScript), these will be functions that encapsulate the behavior you’re looking to add.
-* **Advice (**When**):** When do you want the aspect to run? They specify some common moments when you want your aspect’s code to be executed, such as “before”, “after”, “around”, “whenThrowing”, and the like. They, in turn, refer to the moment in time-related to the execution of the code. For the ones referring to after the code is executed, the aspects will intercept the returned value and potentially overwrite it if they needed to.
-* **Pointcut (**Where**):** They reference the place in your target code where you want to inject the aspect. In theory, you could pinpoint anywhere in your target code when you want your code to be executed. In practice, this is not that realistic, but you can potentially specify things such as: “all methods of my object”, or “only this particular method”, or we could even get fancy with something like “all methods starting with get_”.
+* **切面 (**什么**):** 这是你想要注入到你的目标代码的 “切面” 或者说行为。在我们（JavaScript）的上下文环境中，这指的是封装了你想要添加的行为的函数。
+* **建议 (**何时**):** 你希望这个切面什么时候执行？他们指定了你想要执行切入代码的一些常见的时刻，比如 “before”，“after”，“around”，“whenThrowing” 等等。反过来，它们指的是与代码执行相关的时间点。对于在代码执行后引用的部分，这个切面将截取返回值，并可能在需要时覆盖它。
+* **切入点 (**何地**):** 他们引用了你想要注入的切面在你的目标代码中的位置。理论上，你希望当切入代码被执行时，你可以精确定位到目标代码中的任何位置。实际上这并不现实，但你可以潜在地指定，比如：“我的对象中的所有方法”，或者“仅仅是这一个特定方法”，或者我们甚至可以使用“所有以 get_ 开头的方法”之类的内容。
 
-With this explanation, you could argue that creating an AOP-based library to add logging logic to existing OOP-based business logic (for example) is relatively easy. All you’d have to do is replace the existing matching methods of the target object, with a custom function that would add the aspect’s logic at the right time and then call the original method.
+有了这些解释，你可以认为创建一个基于 AOP 的库来向现有的基于 OOP 的业务逻辑（举个例子）添加日志逻辑是相对容易的。你所要做的就是用一个定制函数替换目标对象现有的匹配方法，该定制函数会在适当的时间点添加切入的逻辑然后再调用原始的方法。
 
-## A basic implementation
+## 基本实现
 
-Just because I’m a visual learner, I think showing a basic example of how you’d go about implementing a sort of `inject` method to add AOP-based behavior would come a long way.
+因为我是一个视觉学习者，所以我想展示一个基本的例子说明如何实现一种 `切面` 方法来添加基于 AOP 的行为将是个很长的过程。
 
-The following example should clarify both, how easy it is to implement it and the type of benefits it brings to your code.
+下面的示例将阐明实现它有多容易以及它给你的代码带来的好处。
 
 ```JavaScript
-/** Helping function used to get all methods of an object */
+/** 用于获取一个对象中所有方法的帮助函数 */
 const getMethods = (obj) => Object.getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(item => typeof obj[item] === 'function')
 
-/** Replace the original method with a custom function that will call our aspect when the advice dictates */
+/** 将原始方法替换为自定义函数，该函数将在通知指示时调用我们的切面 */
 function replaceMethod(target, methodName, aspect, advice) {
     const originalCode = target[methodName]
     target[methodName] = (...args) => {
@@ -65,7 +65,7 @@ function replaceMethod(target, methodName, aspect, advice) {
 }
 
 module.exports = {
-    //Main method exported: inject the aspect on our target when and where we need to
+    // 导出的主要方法：在需要的时间和位置将切面注入目标
     inject: function(target, aspect, advice, pointcut, method = null) {
         if(pointcut == "method") {
             if(method != null) {
@@ -84,11 +84,11 @@ module.exports = {
 }
 ```
 
-Very simple, as I mentioned, the above code doesn’t cover every use case, but it should be enough to cover the next example.
+非常简单，正如我提到的，上面的代码并没有涵盖所有的用例，但是它应该足以涵盖下一个示例。
 
-But before we move forward, notice the `replaceMethod` function, that’s where all the magic happens. That’s where the new function is created and where we decide when to call our aspect and what to do with its returned value.
+但是在我们往下看之前，注意到这个 `replaceMethod` 函数，这就是奇迹发生的地方。那就是创建新函数的地方，也是我们决定何时调用我们的切面以及如何处理它的返回值的地方。
 
-And here is how you’d use our new library:
+接下来是你如何使用我们的新库：
 
 ```JavaScript
 const AOP = require("./aop.js")
@@ -130,43 +130,43 @@ o.concat("hello", "goodbye")
 o.power(2, 3)
 ```
 
-Nothing too fancy, a basic object with 3 methods. We want to inject two aspects that are generic to all of them. One to log the attributes received and one to analyze their returned value and log their type. Two aspects, two lines of code (instead of the six we would need).
+没什么特别的，一个包含三个方法的基本对象。我们想要去注入两个通用的切面。一个用于记录接收到的属性，另一个用于分析他们的返回值并记录他们的类型。两个切面，两行代码（而不是我们需要的六行代码）。
 
-And to close this example here is the output you’d get:
+结束这个示例，这里是你将得到的输出：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9KZBwObbqAEuJAv1GWSryg.png)
 
-## Benefits of AOP
+## AOP 的优点
 
-Now that you’ve seen what it is and what it does, you’ve probably guessed why people would want to use Aspect-Oriented Programming, but let’s quickly do a round-up:
+现在你已经知道了它是什么以及他做了什么，你可能已经猜到了为什么人们会想要使用面向切面编程，但是让我们快速做一个汇总：
 
-* **Great way to encapsulate cross-cutting concerns**. I’m a big fan of encapsulation because it means you get easier to read and easier to maintain code that can be re-used all across your project.
-* **Flexible logic**. The logic around your implementation of the advice and pointcuts can give you a lot of flexibility when it comes to injecting your aspects. This in turn can help to dynamically turn on and off different aspects (pun definitely intended) of your logic.
-* **Re-use aspects across projects.** You can think of aspects as components, small and decoupled pieces of code that can run anywhere. If you write your aspects correctly, you can share them across different projects with ease.
+* **封装横切关注点的好方法**。我非常喜欢封装，因为它意味着更容易阅读和维护可以在整个项目中重复使用的代码。
+* **灵活的逻辑。**。在注入切面时，围绕通知和切入点实现的逻辑可以为你提供很大的灵活性。反之这又有助于你动态地打开和关闭代码逻辑的不同切面（有意的双关）。
+* **跨项目重复使用切面**。你可以将切面视为组件、可以在任何地方运行的小的、解耦的代码片段。如果您正确地编写了切面，就可以轻松地在不同的项目中共享它们。
 
-## The main problem with AOP
+## AOP 的主要问题
 
-Because not everything is perfect, some detractors speak against this paradigm.
+因为并非每件事都是完美的，一些批评者反对这种模式。
 
-Their main problem with it is that its main benefit is actually hiding logic and complexity, potentially causing side effects without being too clear about it.
+他们提出的主要问题是，它的主要的优势实际上隐藏了代码逻辑和复杂性，在不太清楚的情况下可能会产生副作用。
 
-And if you think about it, they’re kind of right, AOP gives you a lot of power to add unrelated behavior into existing methods or even replace their entire logic. Of course, that might not be exactly why this pattern was introduced, and it’s certainly not the intention of the example I provided above.
+如果你仔细想想，他们说的有一定道理，AOP 给了你很多能力，可以将无关的行为添加到现有的方法中，甚至可以替换它们的整个逻辑。当然，这可能不是引入此模式的确切原因，而且它肯定不是我上面提供的示例的意图。
 
-However, it does provide you with the ability to do whatever you want, and that, coupled with a lack of understanding of good programming practices, can cause a really big mess.
+然而，它确实为您提供了做任何您想做的事情的能力，再加上缺乏对良好编程实践的理解，可能会导致非常大的混乱。
 
-And without trying to sound too cliched here, paraphrasing Uncle Ben:
+为了不让自己听起来太老套，我改述一下 Uncle Ben 的话:
 
-> With big power, comes great responsibility
+> 实力越大，责任越大
 
-And with AOP comes the obligation to understand software development best practices if you want to use it correctly.
+如果您想正确地使用 AOP ，那么就必须理解软件开发的最佳实践。
 
-But if you ask me, just because with this tool you can cause a lot of harm, it doesn’t mean it’s bad, because you can also cause a lot of good (i.e you can extract a lot of common logic into a centralized location and inject it wherever you need, with a single line of code). That to me is a powerful tool worth learning about and definitely, worth using.
+如果你问我，仅仅因为使用这个工具，你可能会带来很大的损害，但这并不意味着这个工具是不好的，因为它也会带来很多的好处（即你可以将很多常见的逻辑提取到一个集中的位置，并可以在你需要的任何地方用一行代码注入它）。对我来说，这是一个强大的工具，值得学习也绝对值得使用。
 
 ---
 
-Aspect-Oriented Programming is a perfect complement to OOP, especially thanks to JavaScript’s dynamic nature, we can implement it very easily (as demonstrated here). It provides a great level of power, the ability to modularize and decouple a lot of logic that you can later even share with other projects.
+面向切面编程是 OOP 的完美补充，特别是得益于 JavaScript 的动态特性，我们可以非常容易地实现它（如这里的代码演示）。它提供了强大的功能，能够对大量逻辑进行模块化和解耦，以后甚至可以与其他项目共享这些逻辑。
 
-You can make a mess if you don’t use it properly, yes, but you can definitely take advantage of it to simplify and clean a lot of code. That’s what I think about AOP anyway, what about you? Have you heard of AOP before? Have you used it in the past? Leave a comment down below and share your thoughts about it!
+如果你不正确地使用它，你会把事情搞得一团糟，是的，但是你绝对可以利用它来简化和清理大量的代码。这就是我对 AOP 的看法，你呢？你曾经听说过 AOP 吗？你以前使用过它吗？请在下面留言并分享你的想法！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
