@@ -7,21 +7,13 @@
 
 # GitHub Package Registry: Is it Worth Trying Out?
 
-#### Get to know GitHub Package Registry and its Core Features
-
 ![Photo by [Nana Smirnova](https://unsplash.com/@nananadolgo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10392/0*5jrNYn-hF3R_LkQi)
 
 GitHub Package Registry was developed and introduced in mid-2019 by Microsoft. With the GitHub and NPM acquisitions, this feature seems to be an excellent move by Microsoft to expand the GitHub ecosystem. At the same time, GitHub uses the following tagline to emphasize this fact.
 
-> # “Your packages, at home with their code” — GitHub
+> “Your packages, at home with their code” — GitHub
 
 But is this alone worth enough to try it out? And do we really need another package manager in the first place?
-
-The answer to these questions is not that clear, especially when taking into consideration trending JavaScript registries like [Bit](https://bit.dev).
-
-![[Bit](https://bit.dev) components: a “super-set” of node packages](https://cdn-images-1.medium.com/max/3678/0*rv1slOFFspZp5dqn.gif)
-
-Bit components are a super-set of node packages. They can be consumed as standard packages but they also carry their source-code, history, and other configurations that make it possible to maintain them as independent projects. So, if we’re looking to couple a package to its repository, Github Packages is not the only option out there.
 
 Let’s find out more.
 
@@ -31,7 +23,7 @@ If you are one of the 40 million using GitHub, accessing it is just one “Tab�
 
 ![Screenshot of GitHub Package Registry under my profile](https://cdn-images-1.medium.com/max/2538/1*PowgC6YYeQ7J7oN1edD9Vw.png)
 
-> # When I tried it out for the first time, I found it intuitive and easy to start with. I have started with the Free plan, and it seems to be sufficient for a small project with few private packages.
+> When I tried it out for the first time, I found it intuitive and easy to start with. I have started with the Free plan, and it seems to be sufficient for a small project with few private packages.
 
 However, you might wonder whether the GitHub Package Manager will standout as a core feature on its own? So far, GitHub has placed it smartly in its core product portfolio. Besides, they have already fulfilled a set of high-impact features for us to get started.
 
@@ -45,7 +37,7 @@ Unlike NPM, focused on NodeJS packages, the GitHub Package Registry supports a r
 
 We can expect more support tools and clients in upcoming updates as well.
 
-> # [Support for Swift](https://github.blog/2019-06-03-github-package-registry-will-support-swift-packages/) is already in its Beta stage, and we could expect it to go live in a few months.
+> [Support for Swift](https://github.blog/2019-06-03-github-package-registry-will-support-swift-packages/) is already in its Beta stage, and we could expect it to go live in a few months.
 
 Since the GitHub package registry supports multiple package formats, it brings convenience for you to host different software packages in one place. This also works perfectly well with Microservices, where the technology could differ from project to project.
 
@@ -55,7 +47,7 @@ Combining GitHub APIs, GitHub Actions, and WebHooks allows you to develop a full
 
 ![GitHub Package Management Tasks in GitHub Actions Marketplace](https://cdn-images-1.medium.com/max/2000/1*PECyA1fWltGS1dZo9g7f-w.png)
 
-> # You can already find prebuilt tasks in GitHub Actions to simplify your work with GitHub Package Management.
+> You can already find prebuilt tasks in GitHub Actions to simplify your work with GitHub Package Management.
 
 In a nutshell, with the native integration with GitHub Actions, you can automate the entire package lifecycle and its operations in one place.
 
@@ -63,7 +55,7 @@ In a nutshell, with the native integration with GitHub Actions, you can automate
 
 This allows managing permission across the code repositories and packages in one place. It also simplifies the access control for CI/CD pipelines as well. Besides, GitHub authentication can be used to access both source code and private packages.
 
-> # Since GitHub packages inherit the permissions associated with the repository you don’t need to maintain separate package registry permissions.
+> Since GitHub packages inherit the permissions associated with the repository you don’t need to maintain separate package registry permissions.
 
 You can also choose between hosting your package as public or private depending on the requirements.
 
@@ -71,11 +63,9 @@ You can also choose between hosting your package as public or private depending 
 
 Similar to other package managers, the GitHub package registry allows you to view package contents, download statistics, version history to get a better understanding before you download.
 
-> # Since we can see GitHub stars and forks to understand its activity, it works perfectly well to find active packages before using them in our code.
+> Since we can see GitHub stars and forks to understand its activity, it works perfectly well to find active packages before using them in our code.
 
 Even with NPM packages, I used to go to GitHub and see how many stars are there, number of contributors and look for the last commit date, which now you can find in one place.
-
----
 
 ## But where should I start if I’m already hosting packages elsewhere?
 
@@ -117,7 +107,7 @@ After that, you need to verify your package’s name and add the repository in y
 
 **Note**: Here you need to create your own repository and add its details to the below file.
 
-```
+```json
 {
    "name": "@ChameeraD/pkg-git-demo",
    "version": "1.0.0",
@@ -181,17 +171,7 @@ Publishing a package into GitHub Package Registry is a whole new experience with
 
 With the current focus of supporting many types of packages (already supporting several), it seems that GitHub Package Registry drives towards universally supporting all the package types. Besides, if you use GitHub already for source repositories, using GitHub Package Registry is a no brainer.
 
-Thank you for Reading !!!
-
----
-
-## Learn More
-[**A Better Way to Share Code Between Your Node.js Projects**
-**Learn why you’ve probably been sharing code modules the wrong way.**blog.bitsrc.io](https://blog.bitsrc.io/a-better-way-to-share-code-between-your-node-js-projects-af6fbadc3102)
-[**NPM Clients That Are Better Than The Original**
-**For all of its pros, npm has several flaws. These 3 alternatives try to improve upon them and offer alternatives to…**blog.bitsrc.io](https://blog.bitsrc.io/npm-clients-that-are-better-than-the-original-cd54ed0f5fe7)
-[**Meet Bit’s GitHub Integration to Ensure Latest Component Versions**
-**Keep your projects synced with automated GitHub pull requests on new component versions.**blog.bitsrc.io](https://blog.bitsrc.io/announcing-auto-github-prs-for-component-version-bumping-74e7768bcd8a)
+Thank you for Reading !
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
