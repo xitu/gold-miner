@@ -5,7 +5,7 @@
 > - 译者：[regon-cao](https://github.com/regon-cao)
 > - 校对者：[zenblo](https://github.com/zenblo) [Usualminds](https://github.com/Usualminds)
 
-# 虚拟 DOM 源自文档片段吗?
+# 虚拟 DOM 源自文档片段吗？
 
 ![Photo by [Manuel Sardo](https://unsplash.com/@manuelsardo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*DPFY7vtuIvJOsS0x)
 
@@ -19,13 +19,13 @@
 
 ## 什么是 DOM?
 
-[文档对象模型 (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) 是由 web 文档结构和内容组成的数据对象。DOM 是 HTML 和 XML 的一个接口，我们可以通过它来修改文档结构、样式和内容。DOM 将文档表示为节点和对象，这样 JavaScript 之类的编程语言就可以访问 web 页面了。
+[文档对象模型 (DOM) ](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) 是由 web 文档结构和内容组成的数据对象。DOM 是 HTML 和 XML 的一个接口，我们可以通过它来修改文档结构、样式和内容。DOM 将文档表示为节点和对象，这样 JavaScript 之类的编程语言就可以访问 web 页面了。
 
 这是一个 DOM 树的例子：
 
 ![Image credit: Wikipedia](https://cdn-images-1.medium.com/max/2000/0*TKQ3K93zzwrqDFcb.png)
 
-你想测试一下页面加载 1,000,000 个节点的性能吗? 尝试下面的 `index.html`：
+你想测试一下页面加载 1,000,000 个节点的性能吗？尝试下面的 `index.html`：
 
 ```HTML
 <!DOCTYPE html>
@@ -59,7 +59,7 @@
 
 DOM 操作的代价很昂贵，添加和删除元素会导致页面内容的重绘和重排。
 
-## 为什么使用文档片段?
+## 为什么使用文档片段？
 
 `document.createDocumentFragment()` 创建了一个空的 `DocumentFragment`，可以添加不被屏幕渲染的 DOM 节点进去。在离屏 DOM 树创建之后，`DocumentFragment` 的子节点可以按需更新到真正的 DOM 中去。
 
@@ -102,13 +102,13 @@ DOM 操作的代价很昂贵，添加和删除元素会导致页面内容的重�
 
 每次运行的加载时间都有些变化，但基本都在 1.5 秒左右。
 
-在子元素插入到实际 DOM 之后（第 25 行 ），文档片段会变成空对象。如果你想复用更新的内容，在插入 DOM 之前先克隆一下文档片段。
+在子元素插入到实际 DOM 之后（第 25 行），文档片段会变成空对象。如果你想复用更新的内容，在插入 DOM 之前先克隆一下文档片段。
 
 有趣的是，可以利用空文档片段来重复构建将来的更新。
 
-## 虚拟 DOM 是如何工作的?
+## 虚拟 DOM 是如何工作的？
 
-虚拟 DOM 源自文档片段吗?
+虚拟 DOM 源自文档片段吗？
 
 答案是否定的，虚拟 DOM 不使用任何文档片段。
 
@@ -255,7 +255,7 @@ return (
 );
 ```
 
-`React.Fragment` 可以被简写成空标签:
+`React.Fragment` 可以被简写成空标签：
 
 ```JavaScript
 return (
