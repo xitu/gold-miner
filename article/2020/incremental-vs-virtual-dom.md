@@ -7,8 +7,6 @@
 
 # Incremental vs Virtual DOM
 
-#### Will Incremental DOM Replace Virtual DOM in the Near Future
-
 ![Photo by [Cristina Gottardi](https://unsplash.com/@cristina_gottardi?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9666/0*ivwXO-FM6XbH3ugm)
 
 If you are familiar with React, you have probably heard of the concept of Virtual DOM. It is one of the main contributors to React’s popularity by increasing UI performance.
@@ -16,8 +14,6 @@ If you are familiar with React, you have probably heard of the concept of Virtua
 However, when Angular released their new renderer Angular Ivy back in 2019, many wondered why they chose a concept known as Incremental DOM over Virtual DOM. And still, Angular sticks with the idea. So you might wonder why Angular uses Incremental DOM in the first place and keeps on using it. Let’s find it out.
 
 First and foremost, let’s start with Virtual DOM and understand how it works.
-
----
 
 ## How Virtual DOM Works
 
@@ -41,23 +37,11 @@ The main idea behind this Incremental DOM concept is to compile every component 
 
 ![Authors’ Work: How Incremental DOM Works](https://cdn-images-1.medium.com/max/2000/1*GHX157rdwWEP1pqfpgMfDQ.png)
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, collaborate as a team, speed delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*OTf_ptpgJROwbhlM.gif)
-
----
-
 ## What Makes Incremental DOM So Special?
 
 After going through the above explanations, you must have concluded that the Incremental DOM approach is much simpler. And that’s not all.
 
-> # The real benefit of the Incremental DOM is its optimized usage of memory.
+> The real benefit of the Incremental DOM is its optimized usage of memory.
 
 This optimization becomes very handy when it comes to devices with low memory capacity like mobile phones. Besides, optimization of memory usage is not an easy task. Also, the memory usage of an application purely depends on the **bundle size** and the **memory footprint**.
 
@@ -87,9 +71,7 @@ It seems that Incremental DOM has a solution to reduce the memory footprint in V
 
 Although Incremental DOM reduces memory usage by following a more efficient method to calculate the difference, that method is more time-consuming than Virtual DOM.
 
-> # So, there is a tradeoff between speed and memory usage when deciding between Incremental DOM and Virtual DOM.
-
----
+> So, there is a tradeoff between speed and memory usage when deciding between Incremental DOM and Virtual DOM.
 
 ## Final Thoughts
 
@@ -107,11 +89,11 @@ Let’s look at some main advantages of Virtual DOM,
 * Lightweight.
 * Allows building applications without thinking about state transitions.
 
-> # Although It is Fast and Efficient, There is a Catch
+> Although It is Fast and Efficient, There is a Catch
 
 This diffing process indeed reduces the workload on real DOM. And it needs to compare the current Virtual DOM state with the previous one to identify the changes. To understand this better, let’s take a small React code example:
 
-```
+```jsx
 function WelcomeMessage(props) {
   return (
     <div className="welcome">
@@ -125,7 +107,7 @@ Assume that the name prop’s initial value was “Chameera,” and it was chang
 
 We can see an enormous amount of minor changes like that in a development process, and comparing each element in the UI is undoubtedly an overhead. This can be recognized as one of the main disadvantages of Virtual DOM.
 
-> # However, Incremental DOM has a solution for this higher memory usage problem.
+> However, Incremental DOM has a solution for this higher memory usage problem.
 
 #### Pros and Cons of Incremental DOM
 
@@ -137,23 +119,13 @@ So, this is the main advantage of using Incremental DOM over Virtual DOM, and we
 * Its’ simple API makes it powerful for targeting template engines.
 * Suitable for mobile device-based applications.
 
-> # In most of these cases, Incremental DOM is not the fastest as Virtual DOM.
+> In most of these cases, Incremental DOM is not the fastest as Virtual DOM.
 
 Although Incremental DOM brings a solution to reduce the memory usage, that solution impacts Incremental DOMs speed since difference calculation takes more time than the Virtual DOM approach. So, we can recognize this as the main disadvantage of using Incremental DOM.
 
 Both these DOMs have strengths of their own, and we can’t just say Virtual DOM is better, or Incremental DOM is better. However, what I can say for sure is that both Virtual DOM and Incremental DOM are excellent options to have, and they can handle dynamic DOM updates without any issue.
 
 So let me stop there and thank you very much for reading this article !!!
-
----
-
-## Learn More
-[**React vs. Svelte: The War Between Virtual and Real DOM**
-**A quick look at the approaches taken by Svelte and React to build user interfaces and how they perform against each…**blog.bitsrc.io](https://blog.bitsrc.io/react-vs-sveltejs-the-war-between-virtual-and-real-dom-59cbebbab9e9)
-[**DOM Selectors Explained**
-**Understanding DOM selectors to write better code in JavaScript.**blog.bitsrc.io](https://blog.bitsrc.io/dom-selectors-explained-70260049aaf0)
-[**The Hidden Case of the Shadow DOM**
-**This article speaks to how shadow DOMs were used for the front-end web app development by my team, later bewildering…**blog.bitsrc.io](https://blog.bitsrc.io/the-hidden-case-of-the-shadow-dom-65d7e211c959)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
