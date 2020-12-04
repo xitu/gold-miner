@@ -17,7 +17,7 @@
 
 让我们来深入了解 JavaScript、React 和 Angular 里的相关概念。
 
-## 什么是 DOM?
+## 什么是 DOM？
 
 [文档对象模型 (DOM) ](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) 是由 web 文档结构和内容组成的数据对象。DOM 是 HTML 和 XML 的一个接口，我们可以通过它来修改文档结构、样式和内容。DOM 将文档表示为节点和对象，这样 JavaScript 之类的编程语言就可以访问 web 页面了。
 
