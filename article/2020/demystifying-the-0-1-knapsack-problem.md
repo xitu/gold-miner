@@ -2,78 +2,78 @@
 > * 原文作者：[The Educative Team](https://medium.com/@educative)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/demystifying-the-0-1-knapsack-problem.md](https://github.com/xitu/gold-miner/blob/master/article/2020/demystifying-the-0-1-knapsack-problem.md)
-> * 译者：
+> * 译者：[Usualminds](https://github.com/Usualminds)
 > * 校对者：
 
-# Demystifying the 0-1 Knapsack Problem
+# 揭开 0-1 背包问题的神秘面纱
 
 ![Image credit: Author](https://cdn-images-1.medium.com/max/2048/1*q3OBnVDmaPAk__W_7n0cDA.png)
 
-In any dynamic programming coding interview you take, you’ll likely encounter the **knapsack problem.** This question is often a source of anxiety to interviewees because of the complexity of the solution and the number of variants of the problem.
+在你经历过的所有动态编程的面试里，可能经常会遇到 **背包问题** 。因为其解决方法复杂且问题变种数量多，所以常常让面试者感到焦虑。
 
-Today, we’ll get you comfortable with the knapsack problem in multiple languages by exploring two popular solutions: the **recursive solution** and the **top-down dynamic programming algorithm solution**. By the end of the article, you’ll have the experience needed to solve the knapsack problem with confidence.
+今天，我们将探索两种流行的解决方案：**递归解决方案** 和 **自顶向下动态编程算法解决方案**，让你熟悉多语言中的背包问题。在本文结束时，你将自信地拥有解决背包问题所需的经验。
 
-#### Here’s what we’ll cover today
+#### 这是我们今天要讲的
 
 ```
-1. What's the knapsack problem?
-2. Brute-force recursive solution
-3. Optimized dynamic programming solution
-4. What to learn next
+1.什么是背包问题？
+2.暴力递归解决方案
+3.优化的动态编程解决方案
+4.接下来要学什么
 ```
 
-## What’s the Knapsack Problem?
+## 什么是背包问题？
 
-The knapsack problem is one of the top dynamic programming interview questions for computer science.
+背包问题是计算机科学中最热门的动态编程面试问题之一。
 
-The problem statement is:
+问题可以这样描述：
 
 ![Image credit: Author](https://cdn-images-1.medium.com/max/4298/1*4b1qYRRYPnPvOhT5UIYP1g.png)
 
-You’re a burglar with a knapsack that can hold a total weight of `capacity`. You have a set of items (`n` items), each with fixed weight capacities and values. The weight and value are represented in an integer array. Create a function, `knapsack()`, that finds a subset or number of these items that’ll maximize value but whose total weight doesn’t exceed the given number `capacity`.
+假设你是一个带着背包的小偷，你的背包可以容纳的总重量为 `capacity` 。 有多个（n个）不同的物品，每个物品都有固定的重量和价值。 重量和价值都以整数数组表示。 现在创建一个函数 `knapsack()` ，来找到这些物品的子集或数量，使它们的总价值最大，同时总重量不超过背包给定的值 `capacity` 。
 
-## Knapsack Question Variants
+## 背包问题变体
 
-There are two major variants of this question: **fractional** or **0-1.** The fractional variant allows you to break items to maximize the value in the pack. The 0-1 variant doesn’t allow you to break items.
+这个问题有两个主要的变体: **部分** 和 **0-1** 背包问题。部分背包允许你选取物品的一部分以最大化背包的价值。0-1背包不允许你选取物品的一部分。只能选取某个物品或者不选。
 
-Another common variant is the **constrained** knapsack problem that restricts your program so you can’t select any item more than once. When an element is selected, the program must decide if it should place it in the pack or leave it.
+另一个常见的变体是 **约束** 背包问题，它限制了你的程序，使你不能选择多个物品。当一个物品被选中时，程序必须决定将其放置在背包中还是丢弃。
 
-At senior-level interviews, you’ll encounter variants that add volume as a constrained attribute. In this case, each item also has a fixed volume, and the knapsack has a volume limit.
+在更高级别的面试中，你会遇到增加体积作为另一个受限属性。这种情况下，每个物品都有一个固定的体积，背包也有一个体积限制。
 
-## What Skills Does It Test?
+## 它测试什么技能？
 
-This problem is so popular because it tests many desired skills at once and can be altered to throw interviewees off balance. In other words, you have to really understand the logic of the problem and code. Simple memorization won’t take you far.
+这个问题之所以受欢迎，是因为它一次性考察了很多必需的技能，并且可以通过改变维度，让面试者失去题目重心。换句话说，你必须真正理解问题和代码的逻辑。简单的记忆不会让你走得很远。
 
-The optimal solution for the knapsack problem is always a dynamic programming solution. The interviewer can use this question to test your dynamic programming skills and see if you work for an optimized solution.
+背包问题的最佳解决方案始终是动态编程解决方案。 面试官可以使用此问题来测试你的动态编程技能，从而深入了解到你是否为优化的解决方案而工作。
 
-Another popular solution to the knapsack problem uses recursion. Interviewers may ask you to produce both a recursive and dynamic solution if they value both skill sets. This is a popular choice because interviewers can see how well you shift from a recursive to a dynamic solution.
+背包问题的另一个流行解决方案是使用递归。如果面试官重视这两种技能的话。他们可能会要求你使用递归和动态编程解决方案，这是一个很受欢迎的选择，因为面试官可以看到你从递归到动态解决方案之间的切换过程。
 
-The knapsack problem also tests how well you approach **combinatorial optimization** problems. This has many practical applications in the workplace, as all combinatorial optimization problems seek maximum benefit within constraints.
+背包问题也测试你如何处理 **组合优化** 问题。这在工作中有许多实际的应用，因为所有的组合优化问题都是寻求在约束条件下的最大收益。
 
-For example, combinatorial optimization is used in solutions like:
+例如，组合优化用于解决以下问题：
 
-* Determine the best programs to run on a limited resource cloud system
-* Optimize water distribution across a fixed pipe network
-* Automatically plan the best package delivery route
-* Optimize the company’s supply chain
+* 确定在有限资源云系统上运行的最佳程序
+* 优化固定管网的供水
+* 自动计划最佳包裹运送路线
+* 优化公司的供应链
 
-You can expect this question to be asked for any role that manages or creates automated optimization software.
+上述问题你可能会被从事管理或自动化软件相关的面试官问到
 
-## Brute-Force Recursive Solution
+## 暴力递归解决方案
 
-The most obvious solution to this problem is brute-force recursive. This solution is brute-force because it evaluates the total weight and value of all possible subsets, then selects the subset with the highest value that’s still under the weight limit.
+这个问题最常见的解决方案是暴力递归。这个解决方案是暴力的，因为它计算所有可能子集的总重量和价值，然后选择在最大背包容量限制之下的具有最高价值的子集。
 
-While this is an effective solution, it’s not optimal because the time complexity is exponential. Use this solution if you’re asked for a recursive approach. It can also be a good starting point for the dynamic solution.
+虽然这是一个有效的解决方案，但它不是最优解，因为其时间复杂度是指数级的。如果要求使用递归方法，请使用此解决方案。对于动态解决方案，这也可以是一个很好的起点。
 
-**Time complexity:** O(2^{n})O(2n), due to the number of calls with overlapping subcalls
+**时间复杂度：** O(2^{n})O(2n), 由于有重复子调用的数量
 
-**Auxiliary space:** O(1)O(1), no additional storage is needed
+**空间复杂度：** O(1)O(1), 不需要额外存储
 
-## Solution
+## 解决方案
 
-Here’s a visual representation of our algorithm.
+这是我们算法的直观表示。
 
-**Note:** All red-item subsets exceed our pack’s capacity; light green are within capacity but aren’t the highest value.
+**注意：** 所有红色物品的子集都超出了我们背包的容量；浅绿色在容量范围内，但不是最高值。
 
 ![Knapsack brute-force recursion](https://cdn-images-1.medium.com/max/4774/1*UvpCzvWCSHRRPdALmuXu0g.png)
 
@@ -81,47 +81,47 @@ Here’s a visual representation of our algorithm.
 
 ---
 
-## Explanation
+## 说明
 
-On line 14, we start from the beginning of the weight array and check if the item is within the maximum capacity. If it is, we call the `knapsack()` function recursively with the item and save the result in `profit1`.
+在第14行，我们从权重数组的开头开始，检查物品是否在最大容量内。如果是，我们递归地调用 `knapsack()` 函数并将结果保存在 `profit1` 中。
 
-Then we recursively call the function, exclude the item, and save the result in the `profit2` variable. On line 21, we return the greater of `profit1` and `profit2`.
+然后递归地调用该函数，排除该物品，并将结果保存在 `profit2` 变量中。在第21行，我们返回 `profit1` 和 `profit2` 中较大的一个。
 
-#### Pseudocode
+#### 伪代码
 
-Here’s a pseudocode explanation of how this program functions.
+这是该程序如何运行的伪代码说明。
 
 ```
-for each item 'i' starting from the end
-  create a new set which INCLUDES item 'i' if the total weight does not exceed the capacity, and recursively process the remaining capacity and items
-  create a new set WITHOUT item 'i', and recursively process the remaining items 
+对于每一项 'i' 从末尾开始
+  如果总权重不超过背包容量，则创建一个包含 'i' 的新集合，并递归处理剩余的容量和选项
+  创建一个没有 'i' 的新集合，然后递归处理剩余的项
  
-return the set from the above two sets with higher profit
+从上述两个集合中返回收益更高的一个
 ```
 
-This program contains many overlapping subproblems, but they’re calculated each time rather than stored. Repeated calculations increase runtime drastically. To avoid recalculating, we can instead use dynamic programming to memoize the solution to subproblems for reuse.
+这个程序包含许多重复的子问题，但它们都是每次进行计算而非存储。 重复计算会大大增加程序运行时间。 为了避免重复计算，我们可以改用动态编程来保存子问题的解决方法以供重用。
 
-## Optimized Dynamic Programming Solution
+## 最优动态规划解
 
-Now, we’ll optimize our recursive solution through the addition of top-down dynamic programming to handle the overlapping subproblems.
+现在，我们将通过添加自上而下的动态编程来优化递归解决方案，以处理重复的子问题。
 
-Since we have two changing values (`capacity` and `currentIndex`) in our recursive function `knapsackRecursive()`, we can use a two-dimensional array to store the results of all the solved subproblems. As mentioned above, we need to store results for every subarray (i.e., for every possible index `i`) and for every possible capacity `c`.
+由于递归函数 `knapsackRecursive()` 中有两个变化的值（`capacity` 和 `currentIndex`），因此我们可以使用二维数组来存储所有已知子问题的结果。 如上所述，我们需要存储每个子数组（即每个可能的索引 `i` ）和每个可能的容量 `c` 的结果。
 
-This is the optimal solution for the knapsack problem in both time and space complexity.
+这是背包问题在时间和空间复杂度上的最优解。
 
-#### Time complexity
+#### 时间复杂度
 
-O(N\*C)O(N∗C): our memoization table stores results for all subproblems and will have a maximum of N\*CN∗C subproblems.
+O(N\*C)O(N∗C): 我们的记忆表存储所有子问题的结果，并且最多有 N\*CN∗C 个子问题。
 
-#### Auxiliary space
+#### 空间复杂度
 
-O(N\*C+N)O(N∗C+N), O(N\*C)O(N∗C) space for the memoization table and O(N)O(N) space for the recursion call stack.
+O(N\*C+N)O(N∗C+N), O(N\*C)O(N∗C) 用于记忆表的空间和用于递归调用堆栈的 O(N)O(N) 空间。
 
-**Tip:** During the interview, make sure to talk through your thought process with the interviewer so they can see your problem-solving skills.
+**小贴士:** 在面试时，一定要和面试官谈谈你的想法，这样他们可以看到你解决问题的能力。
 
 ---
 
-## Solution
+## 解决方案
 
 ![Visualization of dynamic programming with memoization](https://cdn-images-1.medium.com/max/4828/1*yUbDTle-uPoqvQZtDtGn9A.png)
 
@@ -129,17 +129,17 @@ O(N\*C+N)O(N∗C+N), O(N\*C)O(N∗C) space for the memoization table and O(N)O(N
 
 ---
 
-## Explanation
+## 说明
 
-To implement dynamic programming, we only need to change five lines.
+要实现动态规划，我们只需要修改五行代码。
 
-In line 9, we create a two-dimensional array, `dp`, to hold the results of any solved subproblem. This allows us to use these memoized solutions later, rather than recalculating the answer.
+在第9行中，我们创建了一个二维数组 `dp`，用于保存任何已知子问题的结果。这允许我们以后使用这些二位数组，而不是重新计算答案。
 
-In lines 22 and 23, we create a case that checks `dp` to see if the current subproblem’s solution has already been found. If we have it, we return the memoized solution and move onto the next subproblem.
+在第22和23行中，我们创建了一个检查 `dp` 的例子，以查看是否已经找到了当前子问题的解法。 如果有，我们将返回已保存的解法并移至下一个子问题。
 
-In line 38, we calculate the maximum possible value of the bag if we include the current item in `profit1` and the maximum value of the bag if we exclude the current item in `profit2`. We then save the higher of these in our two-dimensional array, `dp`.
+在第38行中，如果在 `profit1` 中包含当前项，我们将计算包的最大可能值;如果在 `profit2` 中排除当前项，我们将计算背包的最大可能值。然后将其中较大的保存到二维数组 `dp` 中。
 
-In line 39, we return the item that makes the highest knapsack value. This is a partial result that ends one recursive call before the next begins. Once this has occurred for all possible combinations, the first call will return the actual result.
+在第39行中，我们返回背包价值最高的物品。 这是部分结果，该结果在下一个递归调用开始之前就结束了。 对于所有可能的组合，一旦发生这种情况，第一个调用将返回实际结果。
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
