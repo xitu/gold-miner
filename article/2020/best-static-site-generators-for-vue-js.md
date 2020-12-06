@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/best-static-site-generators-for-vue-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/best-static-site-generators-for-vue-js.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[NieZhuZhu](https://github.com/NieZhuZhu)
+> * 校对者：[NieZhuZhu](https://github.com/NieZhuZhu)、[wynn-w](https://github.com/wynn-w)
 
 # 四个优秀 Vue.js 静态站点生成器
 
 ![Photo by [Igor Son](https://unsplash.com/@igorson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/green?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9180/1*xKSrtHfuh8uTPcNyZmxjGw.jpeg)
 
-在过去几年里，Vue.js 已经成为 web 应用程序开发的热门选择。随着它的流行，该框架已经扩展到静态网页生成器，这是一个曾经由 React 主导的领域。
+在过去几年里，Vue.js 已经成为 web 应用程序开发的热门选择。随着它的流行，该框架已经扩展到曾经以 React 为主导的静态站点生成器领域。
 
 像  Gatsby 和 NextJS 等这类 React.js 的静态网页生成器，你可以找到几个支持生成静态网页的 Vue.js 框架。然而，考虑到它们的功能特性，选择一个合适的并不容易。
 
@@ -25,7 +25,7 @@ Nuxt.js 遵循健壮的模块化架构设计，有 50 多个不同的模块可�
 
 Nuxt.js 最大的优点之一是具有 `nuxt generate` 命令。
 
-> 有了这个命令，你可以只话费很少的精力就能完成一个纯静态的网站版本。
+> 通过这个命令，你只要花费很少的精力就能开发一个纯静态的网站。
 
 通过查看 Nuxt.js 的统计数据，你会发现它有 32k stars 和 280+ 贡献者。例如 GitLab、NESPRESSO 和 UBISOFT 这些公司已经开始使用 Nuxt.js。
 
@@ -41,7 +41,7 @@ Nuxt.js 最大的优点之一是具有 `nuxt generate` 命令。
 #### 缺点
 
 * 使用自定义库可能会有一些问题。
-* 关于调试的使用有很多提交处理的问题。
+* 关于调试的使用存在很多待解决 issue。
 * 有大型社区但仍比不上 Gatsby 和 Next.js。
 
 ## 2. VuePress — 针对以内容为中心的静态网站进行优化
@@ -59,7 +59,7 @@ VuePress 是作为一个文档生成系统开发的另一个 Vue.js 静态站点
 
 如果我们把 VuePress 和 Nuxt.js 进行比较，可以看到 Nuxt.js 几乎可以做到 VuePress 所能做到的一切。
 
-> **然而，更适合用来创建以内容为中心的静态网站，而 Nuxt.js 更侧重于网络应用程序开发。**
+> **然而，VuePress 更适合用来创建以内容为中心的静态网站，而 Nuxt.js 更侧重于网络应用程序开发。**
 
 查看在 GitHub 的统计数据，VuePress 的项目仓库中有 17k stars 和 340+ 贡献者。它还被一些公司使用，例如 FinTech Consortium、IADC 和 Directus。
 
@@ -73,7 +73,7 @@ VuePress 是作为一个文档生成系统开发的另一个 Vue.js 静态站点
 
 #### 缺点
 
-* 相比之下是新技术，还没有像 Nuxt.js 那样成熟。
+* 相比之下是新技术，还不如 Nuxt.js 那样完备。
 * 大多数共享主机提供商都没有安装 VuePress。
 
 ## 3.Gridsome — 基于 GraphQL 的数据驱动框架
@@ -88,7 +88,7 @@ VuePress 是作为一个文档生成系统开发的另一个 Vue.js 静态站点
 
 同样，你可以使用 `gridsome build` 构建网站，它将生成可用于生产环境的优化 HTML 文件。
 
-查看 Gridsome 的 GitHub 统计，它只有 7k stars 和 100+ 贡献者。此外，Gridsome 还有一些独特的具有竞争力的功能特性。
+查看 Gridsome 的 GitHub 统计，它只有 7k stars 和 100+ 贡献者。但这并不妨碍 Gridsome 拥有一些独特且竞争力强的功能特性。
 
 #### 优点
 
@@ -102,7 +102,7 @@ VuePress 是作为一个文档生成系统开发的另一个 Vue.js 静态站点
 #### 缺点
 
 * 需要掌握 GraphQL 基础知识。
-* 相比之下是新技术，还没有像 Nuxt.js、VuePress 那样成熟。
+* 相比之下是新技术，还不如 Nuxt.js、VuePress 那样完备。
 
 ## 4. Saber — 从不同的文件系统中提取数据
 
