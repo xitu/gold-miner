@@ -2,44 +2,44 @@
 > * 原文作者：[Anthony Oleinik](https://medium.com/@anth-oleinik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-tips-for-better-typescript-code.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-tips-for-better-typescript-code.md)
-> * 译者：
+> * 译者：[Zavier](https://github.com/zaviertang)
 > * 校对者：
 
-# 5 Tips for Better TypeScript Code
+# TypeScript 的 5 个建议
 
 ![5 Tips for Better TypeScript](https://cdn-images-1.medium.com/max/2000/1*VGWjFbzekvE7WD3e5fGQHQ.png)
 
-JavaScript has a lot of problems. TypeScript has a lot of solutions — But some of them take a little bit of digging to find.
+原生的 JavaScript 存在有不少的问题，TypeScript 对此也有许多解决方案，其中也有一些特别值得我们注意的。
 
-Very early in my frontend journey, I figured out that TypeScript was the solution to a lot of problems JavaScript had. Passing incorrect parameters, unorganized switches, or null access all came up daily during my development.
+在我刚开始学习前端的时候，我了解到 TypeScript 是用来解决 JavaScript 存在的各种问题的。比如：允许不按预期地传递参数、过度使用 switch、访问为空等每天都会遇到的问题。
 
-Adding a TypeScript layer on top of my JavaScript skyrocketed my productivity. I’ve been learning the ins and outs of TypeScript, and I’m here to share what I’ve learned with you.
+使用 TypeScript 让我的开发效率大大提高。同时，我也一直在学习和研究 TypeScript 的细节，这里和大家分享我所学到的一些内容。
 
-## 1. Null Coalescence
+## 1. 空值合并运算符
 
-Sometimes automatically, TypeScript will insert a question mark into a property access field. Something like `let t = myObj?.property `and then `t` ends up with the value: `property | undefined` . This is great, but it’s important to know exactly what’s happening here so that you can use it as a tool, rather than a byproduct of TypeScript autocomplete.
+有时，在访问属性时 TypeScript 会自动帮你插入可选链操作符。类似 `let t = myObj?.property `，这样的话变量 `t` 将被赋值为 `property` 或 `undefined`。这样做非常棒，但重要的是我们要确切地知道这里发生了什么，这样你就可以得心应手的使用它，而不只是把它当作是 TypeScript 自动完成的功能。
 
-If we used a regular property access, `myObj.property` , and myObj was undefined, we’d get an error: Cannot access property 'property' of undefined. This clearly isn’t want we want, so using the `.?` means that if `myObj` is undefined, we “stop looking” there and just assign `t` as undefined.
+如果我们使用常规的方式访问属性，像这样：`myObj.property`，如果 `myObj` 是`undefined`，将会报错：“Cannot access property 'property' of undefined”。这显然不是我们预期的，所以使用 `?.` 意思是如果 `myObj` 是 `undefined`，我们就停止访问属性并把 `t` 赋值为 `undefined`。
 
-This is incredibly useful to avoid errors, but sometimes we want a default case. For instance, what if we have a text field that the user never activates, and thus the inner text is undefined? We don’t want to send `undefined` to the backend. We can chain the **optional access operator** (what we just learned, `.?` ) with the **null coalescence operator.** It’d look something like this:
+这对于避免错误是非常有用，但有时我们需要一个默认的值。例如，如果我们有一个用户从未访问的文本域，这样内部的值是 `undefined`，该怎么办？我们预期不是传送 `undefined` 给后端。我们可以使用**可选链操作符**（我们刚刚提及的 `?.` ）配合**空值合并运算符**。如下：
 
 ```ts
 sendFieldToServer(textField?.text ?? '')
 ```
 
-This is incredibly resilient code, that handles lots of cases very safely. Infact, it’s **impossible for undefined to be passed into the function.** TypeScript is aware of that, so if `sendFieldToServer` takes a property of `string` , it’d work!
+这是非常优雅的方式，可以很安全地处理很多边界情况。也就是说，它保证了 `undefined` 不可能传递给函数，TypeScript 会将一个字符串传递给 `sendFieldToServer` 函数。
 
-This is because the null coalescence operator makes it so that if what is on the left-hand side is `undefined`, we instead pass in what’s on the right, an empty string.
+这是因为当左边的值是 `undefined` 时空值合并运算符会将右边的值传递给函数，也就是一个空字符串。
 
-In JavaScript, it’d be easy to forget all the places where your code could possibly be undefined. Thankfully, TS handles this and would warn you here that `sendFieldToServer` can’t take undefined. By using the question mark operators, you now have code that is 100% safe.
+在 JavaScript 中，很容易忽略代码中可能是 `undefined` 的值。幸运的是，TS 会帮我们发现错误，并警告你 `sendFieldToServer` 不能接受 `undefined` 作为参数。同时我们使用可选链操作符和空值合并运算符来保证代码的严谨性。
 
-## 2. Don’t use default imports
+## 2. 不要使用默认导出
 
-One reason why TypeScript is superior to JavaScript is the code autocomplete. because in TypeScript, the compiler knows exactly what object you’re working with at the time, it knows exactly what properties are available to you. If you have a `dog` object, we know we can access the `bark()` method.
+TypeScript 优于 JavaScript 的一个原因是代码的自动补全能力。因为在 TypeScript 中，你的编辑器能够确切地知道你访问的对象以及对象包含的属性。比如你有一个 `dog` 对象，编辑器将提示你可以访问它的 `bark` 属性方法。
 
 That is, if `dog` is in scope.
 
-If we exported `dog` in `dog.ts` with a default export, like this:
+如果我们在 `dog.ts` 中默认导出 `Dog`，如下：
 
 ```ts
 default export interface Dog {
@@ -47,7 +47,7 @@ default export interface Dog {
 }
 ```
 
-then the import can be anything. I can import `dog` as `cat` from another file, if I’d like:
+然后，我们导入时可以给它并名为任何单词。比如可以从其他文件中导入 dog 命名为 cat，如下：
 
 ```ts
 import cat from 'dog.ts'
@@ -55,7 +55,7 @@ import cat from 'dog.ts'
 cat.bark()
 ```
 
-That’s valid TypeScript code. That means that if we do:
+这是正确的 TypeScript 代码。这意味着如果我们这样：
 
 ```ts
 let t: dog = {
@@ -63,77 +63,77 @@ let t: dog = {
 }
 ```
 
-TypeScript doesn’t know what `dog` is. There’ll be a little red line under `dog` saying `dog` is not defined. You’d have the find where dog was defined, and import it manually — and then make sure to name it dog.
+TypeScript 不知道 `dog` 是什么。在 `dog` 下面会有一条红线表示 `dog` 没有定义。你将找到定义 `dog` 的位置，并手动导入它——然后确保将其命名为 `dog`。
 
-This is where regular exports come in. Exporting `dog` like this:
+这就是默认导出导致的效果。像如下这样导出 `dog`：
 
 ```ts
 export interface dog {..} //export without 'default'
 ```
 
-Means that now, in our other file, when we type `let t: dog`, typescript knows to look for an interface called `dog`! That means that you’ll get the import placed in your file automatically, and that TypeScript knows that you can bark.
+这意味着现在，在我们的另一个文件中，当我们键入 `let t: dog` 时，TypeScript 知道去寻找一个叫做 `Dog` 的接口。编辑器将自动为你导入文件，TypeScript 也知道你可以访问 bark。
 
-Code autocomplete is a great feature. I find that there’s no reason to prefer default export, as the regular export system is actually much more useful. Even if you’re only exporting one thing, regular export still handles that with a breeze.
+代码补全是一个很好的特性。我发现没有理由选择默认的导出方式，因为常规导出实际上更有用。即使你只需导出一个，常规导出仍然可以轻松地处理。
 
-eslint has a `no default export` rule that can make it so that any default export gets flagged.
+eslint 有一个 `no default export` 规则，它可以发现任何的默认导出。
 
-## 3. Use constrained string fields
+## 3. 限制字符串的可选值
 
-Enums are this planet's gift to programmers, so when JavaScript decided to not have enums, it went from an S tier language to a B at best.
+枚举算是编程语言中非常棒的能力了，当 JavaScript 决定不使用枚举时，可以说它的优越性大大下降。
 
-While TypeScript has enums on its own, it might be surprising to say that… you don’t 100% need them. Enums add a little bit of overhead by having to define it. TypeScript has something even better.
+虽然 TypeScript 本身就有枚举类型，但你并不是一定需要使用它们。定义枚举类型也要一定的开销。TypeScript 还有更好的方式。
 
 ```ts
 t: "left" | "right" | "middle" = "middle"
 ```
 
-This functionally operates as an enum. You can switch on it, you can’t assign t to anything but those 3 values. But we defined it in a single line, and TypeScript knows not to allow anything else in there. If I tried to do `t="center"` , TypeScript would error out. I can 100% be certain that the value of `t` is one of those 3 values, so I can do things like switch on those 3 strings and not have to worry about a default.
+这样做也算是枚举。这里，你只能给 `t` 赋值给限定的这 3 个值。这里我们在一行代码中定义了它，TypeScript 会限制不能给 `t` 赋值其他任何值。如果我们尝试 `t="center"`， TypeScript 会报错。我们可以 100% 确定 `t` 的值是这三个值中的一个，所以当我们在访问 `t` 时，可以推断 `t` 的值是什么。
 
-As a bonus, t is still **just a string.** So if we wanted to display the value to a user, we could pass it into string fields and it’d work just fine.
+同时，`t` 仍然只不过是一个普通的字符串。我们可以正常的将它和其他字符串拼接，显示到界面上。
 
-## 4. use Map\<T>
+## 4. 使用 Map\<T>
 
-One thing JavaScript does have going for it is the flexible prototyping system. You can add any key onto any object without even batting an eye. myObj.nonExistantField = "Is This" + 12312 + "A string or a number? Who Cares!" * 4 is valid. But, let me in one some secrets…
+JavaScript 的一个优点是它有一个灵活的原型机制。你可以在任何对象上添加任何属性。`myObj.nonExistantField = "Is This" + 12312 + "A string or a number? Who Cares!" * 4`，但是，我们忽略了一些，比如：
 
-1. It’s not fast.
-2. It’s not easy to iterate through (you need `Object.keys(myObj)` or similar)
-3. It’s hard to work with if every programmer is just tacking on fields to their objects
-4. The existence of a field does not mean its value is defined
+1. 原型访问相对较慢；
+2. 不容易遍历（你需要使用 `Object.keys(myOjb)` 或其他方式）；
+3. 如果其他同事也只是简单的直接向对象中添加属性，这是很难处理的；
+4. 可能存在未定义的属性。
 
-You can also do the same thing in TypeScript, and allow the value to be any, but I’m not even going to show you how to do it because I don’t want you to.
+你也可以在 TypeScript 中做同样类似的事情，比如允许值的类型为 any，但不推荐这么做。
 
-Instead, there exists `Map`. It exists in JS too, but in JS it’s not type constrained so it’s not as useful. Here’s how it works:
+反而，我们可以使用 `Map`。它也存在于原生 JS 中，但在 JS 中它没有类型限制，所以它没有那么有用。如下：
 
 ```ts
 let myMap: Map<string, string> = new Map()
 ```
 
-This creates a map that solves all the problems that I mentioned with prototype-based mapping.
+这将创建一个映射，可以解决我提到的基于原型的 key-value 映射所存在的问题。
 
-1. It’s fast: HashMaps are O(1) to check and are fast to add to.
-2. It’s easy to iterate through, with `map.forEach()`
-3. You can still throw anything in there, as long as the key and value are of the the correct type
-4. undefined cannot be in it (as long as you don’t define the typing as undefined)
+1. 它访问非常快：HashMap 只需要 O(1) 的时间复杂度，添加也是；
+2. 使用 `map.forEach()`，可以很方便地进行遍历；
+3. 只要键和值的类型正确，你可以将任何内容放入其中；
+4. 可以避免 undefined（只要限制类型不包括 undefined 即可）。
 
-Maps are great, and there’s a reason they’re the most commonly asked about data structure in interviews. They’re, in my opinion, strictly better than prototype based mapping. If you’re ever trying to allow the user to define the keys of an Object, perhaps you’re working with the wrong data structure.
+Map 很有用，在面试中它也是最常被问及的数据结构的问题。在我看来，它们比基于原型的映射要好得多。如果你试图允许随意定义对象的键，那么可能使用了错误的数据结构。
 
-## 5. Figure out your eslint config / tsconfig
+## 5. 配置 eslint config / tsconfig
 
-The greatest part about TS and JS in general is the amount of customization that you can have in the code. For instance, I come from python, where I am partial to the no-semicolon style. So I said “no semicolons!” in my eslint config, and now my compiler yells at me when I accidently put in a semicolon.
+一般来说，使用 eslint 或 tsconfig 配置代码格式是很有必要的。例如，我之前使用的是 python，我比较喜欢行末无分号的风格。我进行了 eslint 的相关配置，所以当我不小心输入了分号时，编辑器将会立刻警告我。
 
-keeping double quotes consistent makes the code look prettier, in my opinion, because you often use ‘ in strings but not “. So I made it so that in my eslint config, I have to use double quotes.
+在我看来，保持双引号的一致性可以让代码看起来更漂亮，所以我也在 eslint 中添加了双引号的配置。
 
 I am a big fan of forcing exhaustion in pattern matching, so I made that be mandated in my tsconfig.
 
-I prefer no-default-export, so I made that be forced.
+我更喜欢 no-default-export，所以我也把它设置到我的配置当中。
 
-I highly recommend you take an hour out of your day to go through all the values in a `.tsconfig` and `.eslintrc` file and set all options to what you like. Then, save those files somewhere on your computer where you can easily paste it in when you start a new project.
+我强烈地建议你花些时间来检查一下 `.tsconfig` 或者 `.eslintrc` 中所有的配置，并进行个性化地设置。然后，将这些文件备份，当你开始一个新项目时，就可以轻松地粘贴到那里。
 
-I’m much happier with my code, and I find it much cleaner when all these rules are enforced — as an added bonus, anyone working on your project has to abide by the agreed upon style in the `eslintrc` and the agreed upon functionality in the `tsconfig` , so you can guarantee consistency thought the project.
+有时，当我看到我的代码都保持着统一的风格时，我会感到非常的欣慰。同时还有另一个好处，就是当有其他人参与到这个项目时，他也要遵循在 `.tsconfig` 和 `.eslintrc` 约定的规则，这样我们就可以保证整个项目代码风格的一致性。
 
 ---
 
-And that’s it! That’s my 5 tips for TypeScript code. I’m always on the lookout for more advice, so if you have anything that you find important, please let me know!
+好了！这就是我对 TypeScript 的 5 个建议。同时我也一直在寻找更多的建议，所以如果你有任何你认为值得关注的点，可以给我留言！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
