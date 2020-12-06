@@ -73,7 +73,7 @@ VuePress 是作为一个文档生成系统开发的另一个 Vue.js 静态站点
 
 #### 缺点
 
-* 相比之下是新技术，还不如 Nuxt.js 那样完备。
+* 相比之下是新技术，还不如 Nuxt.js 那样受认可。
 * 大多数共享主机提供商都没有安装 VuePress。
 
 ## 3.Gridsome — 基于 GraphQL 的数据驱动框架
@@ -102,7 +102,7 @@ VuePress 是作为一个文档生成系统开发的另一个 Vue.js 静态站点
 #### 缺点
 
 * 需要掌握 GraphQL 基础知识。
-* 相比之下是新技术，还不如 Nuxt.js、VuePress 那样完备。
+* 相比之下是新技术，还不如 Nuxt.js、VuePress 那样受认可。
 
 ## 4. Saber — 从不同的文件系统中提取数据
 
