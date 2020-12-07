@@ -11,9 +11,9 @@
 
 作为用户，我们在浏览网页时总是喜欢开启多个任务。因此，打开多个浏览器标签页是很常见的，因为这有助于我们并行地完成任务。但同时，这些标签页每一个都会消耗系统资源，如内存和 CPU。
 
-由于不可能限制用户打开新标签页并将其留下，所以浏览器在标签页非激活态时采取了一些措施来重新分配资源。
+由于不可能限制用户打开新标签页，也不能放任不管新标签页.所以浏览器在标签页非激活态时采取了一些措施来重新分配资源。
 
-> 现在的现代浏览器有时会在系统资源有限的情况下，暂停页面或完全丢弃页面。—— Philip Walton
+> 如今的现代浏览器有时会在系统资源有限的情况下，暂停页面或完全丢弃页面。—— Philip Walton
 
 ### 那么你可能会有疑问，既然浏览器已经处理好了，我们为什么还要担心这个问题呢？
 
@@ -21,9 +21,9 @@
 
 ## 页面生命周期 API
 
-顾名思义，页面生命周期 API 向 JavaScript 暴露了网页生命周期的钩子。然而，这不是一个全新的概念。[Page Visibility API（页面可见性 API）](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) 已经存在一段时间了，为 JavaScript 提供了一些页面可见性事件。
+顾名思义，页面生命周期 API 向 JavaScript 暴露了网页生命周期的钩子。然而，这不是一个全新的概念。[页面可见性 API（Page Visibility API）](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) 已经存在一段时间了，为 JavaScript 提供了一些页面可见性事件。
 
-然而，如果你恰好需要在这两者之间作出抉择，值得一提的是页面可见性 API 有一些限制。
+然而，如果你恰好需要在这两者之间作出抉择，就需要考虑一下页面可见性 API 的一些限制。
 
 * 它只提供了网页显示和隐藏的状态
 * 它不能捕获被操作系统抛弃的页面（安卓、IOS 和最新的 Windows 系统可以终止后台进程以保存系统资源）
@@ -121,7 +121,7 @@ if (document.wasDiscarded) {
 #### 已知的兼容性问题
 
 * 一些浏览器在切换标签时不触发 `blur` 事件，这样可以避免页面进入到被动态。
-* 老版本的 IE（10以下）没有实现 `visibilityChange` 事件。
+* 老版本的 IE（10 以下）没有实现 `visibilityChange` 事件。
 * 当关闭标签页时，Safari 浏览器不会一定确保能触发 `pagehide` 或 `visibilitychange` 事件。
 
 为了解决跨浏览器不兼容性问题，Google 已经开发了一个名叫 [Pagelifecycle.js](https://github.com/GoogleChromeLabs/page-lifecycle) 的库，为以下浏览器做补充使用。
