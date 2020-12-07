@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/aspect-oriented-programming-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/aspect-oriented-programming-in-javascript.md)
 > * 译者：[Liusq-Cindy](https://github.com/Liusq-Cindy)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)、[nia3y](https://github.com/nia3y)
 
 # JavaScript 的面向切面编程
 
