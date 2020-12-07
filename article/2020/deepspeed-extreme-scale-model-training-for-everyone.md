@@ -3,316 +3,316 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/deepspeed-extreme-scale-model-training-for-everyone.md](https://github.com/xitu/gold-miner/blob/master/article/2020/deepspeed-extreme-scale-model-training-for-everyone.md)
 > * 译者：
-> * 校对者：
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)
 
-# DeepSpeed: Extreme-scale model training for everyone
+# DeepSpeed：所有人都能用的超大规模模型训练工具
 
-In February, [we announced DeepSpeed](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/), an open-source deep learning training optimization library, and ZeRO (Zero Redundancy Optimizer), a novel memory optimization technology in the library, which vastly advances large model training by improving scale, speed, cost, and usability. DeepSpeed has enabled researchers to create Turing Natural Language Generation ([Turing-NLG](https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-billion-parameter-language-model-by-microsoft)), the largest language model with 17 billion parameters and state-of-the-art accuracy at the time of its release. In May, [we released ZeRO-2](https://www.microsoft.com/en-us/research/blog/zero-2-deepspeed-shattering-barriers-of-deep-learning-speed-scale/)—supporting model training of 200 billion parameters up to 10x faster compared to state of the art—along with a list of compute, I/O, and convergence optimizations powering the fastest BERT training. From there, we have been continuing to innovate at a fast rate, pushing the boundaries of speed and scale for deep learning training.
+我们于今年2月份[发布了DeepSpeed](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)，一个开源深度学习训练优化库，以及库中包含的一个新的显存优化技术——ZeRO（零冗余优化器），通过提升规模、速度，控制成本，提升可用性，极大地推进了大模型训练能力。DeepSpeed让研究人员能创造出图灵自然语言生成模型([Turing-NLG](https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-billion-parameter-language-model-by-microsoft))，其在发表时为世界上最大的语言模型（拥有170亿参数），并有着最佳的精度。我们在5月份[发布了ZeRO-2](https://www.microsoft.com/en-us/research/blog/zero-2-deepspeed-shattering-barriers-of-deep-learning-speed-scale/)——支持以10倍于当前最先进水平的速度训练有2000亿参数的模型——以及一系列计算、IO和收敛优化功能，从而助力最快速的BERT训练。自那时起，我们持续高速地进行创新，向前推动着深度学习模型训练的速度和规模的边界。
 
-Today, we are happy to share our new advancements that not only push deep learning training to the extreme, but also democratize it for more people—from data scientists training on massive supercomputers to those training on low-end clusters or even on a single GPU. More specifically, DeepSpeed adds four new system technologies that further the [AI at Scale](https://www.microsoft.com/en-us/research/project/ai-at-scale/) initiative to innovate across Microsoft’s AI products and platforms. These offer extreme compute, memory, and communication efficiency, and they power model training with billions to trillions of parameters. The technologies also allow for extremely long input sequences and power on hardware systems with a single GPU, high-end clusters with thousands of GPUs, or low-end clusters with very slow ethernet networks.
+今天，我们非常开心地来分享一些新的进展，这些进展不仅将深度学习训练推至极限，同时也让这份技术的使用范围更加广泛——上至数据科学家们在超算上训练，下至在低端集群甚至仅仅一张GPU上训练。具体来说，DeepSpeed加入了4项系统性新技术来进一步拓展我们的[AI at Scale](https://www.microsoft.com/en-us/research/project/ai-at-scale/)倡议。它们也为微软的AI产品与平台提供创新。这些技术提供了极为高效的计算、显存和通信的利用效率，并助力我们训练十亿至万亿量级的模型。这些技术也让超长序列化输入变得可能，并从GPU单卡、至千卡级别的高端集群、至慢速以太网上的低端集群上均可以使用。
 
-* **Trillion parameter model training with 3D parallelism:** DeepSpeed enables a flexible combination of three parallelism approaches—ZeRO-powered data parallelism, pipeline parallelism, and tensor-slicing model parallelism. 3D parallelism adapts to the varying needs of workload requirements to power **extremely large models** with over a **trillion** parameters while achieving near-perfect memory-scaling and throughput-scaling efficiency. In addition, its improved communication efficiency allows users to train multi-billion-parameter models 2–7x faster on regular clusters with limited network bandwidth.
-* **10x bigger model training on a single GPU with ZeRO-Offload:** We extend ZeRO-2 to leverage both CPU and GPU memory for training large models. Using a machine with **a single NVIDIA V100 GPU**, our users can run **models of up to 13 billion parameters** without running out of memory, 10x bigger than the existing approaches, while obtaining competitive throughput. This feature democratizes multi-billion-parameter model training and opens the window for many deep learning practitioners to explore bigger and better models.
-* **Powering 10x longer sequences and 6x faster execution through DeepSpeed Sparse Attention:** DeepSpeed offers sparse attention kernels—an instrumental technology to support long sequences of model inputs, whether for text, image, or sound. Compared with the classic dense Transformers, it powers **an order-of-magnitude longer input sequence** and obtains up to 6x faster execution with comparable accuracy. It also outperforms state-of-the-art sparse implementations with 1.5–3x faster execution. Furthermore, our sparse kernels support efficient execution of flexible sparse format and empower users to innovate on their custom sparse structures.
-* **1-bit Adam with up to 5x communication volume reduction:** Adam is an effective and (probably the most well-utilized) optimizer for training many large-scale deep learning models. However, Adam is generally not compatible with communication-efficient optimization algorithms. Therefore, the communication cost could become a bottleneck while scaling across distributed devices. We introduce a new algorithm, 1-bit Adam with efficient implementation, which **reduces communication volume by up to 5x** while achieving similar convergence efficiency to Adam. We observe up to 3.5x faster distributed training in communication-constrained scenarios, allowing for scaling to different types of GPU clusters and networks.
+* **用3D并行化实现万亿参数模型训练：** DeepSpeed实现了三种并行方法的灵活组合：ZeRO支持的数据并行，流水线并行和张量切片模型并行。3D并行性适应了不同工作负载的需求，以支持具有**万亿**参数的**超大型模型**，同时实现了近乎完美的显存扩展性和吞吐量扩展效率。此外，其提高的通信效率使用户可以在网络带宽有限的常规群集上以2-7倍的速度训练有数十亿参数的模型。
+* **用ZeRO-Offload让单卡能够训练10倍大的模型：** 我们扩展了ZeRO-2以利用CPU和GPU内存来训练大型模型。使用带有**单张英伟达V100 GPU**的机器，我们的用户在不耗尽显存的情况下运行**多达130亿个参数的模型**，模型规模扩展至现有方法的10倍，并保持有竞争力的吞吐量。此功能使数十亿参数的模型训练更加亲民，并为许多深度学习从业人员打开了一扇探索更大更好的模型的窗户。
+* **通过DeepSpeed Sparse Attention用6倍速度执行10倍长的序列：** DeepSpeed提供了稀疏attention kernel——一种工具性技术，可支持长序列的模型输入，包括文本输入，图像输入和语音输入。与经典的稠密Transformer相比，它支持的**输入序列长一个数量级**，并在保持相当的精度下获得最高6倍的执行速度提升。它还比最新的稀疏实现快1.5–3倍。此外，我们的稀疏kernel灵活支持稀疏格式，使用户能够通过自定义稀疏结构进行创新。
+* **1比特Adam减少5倍通信量：** Adam是一个训练大规模深度学习模型的有效的（也许是最广为应用的）优化器。然而，它与通信效率优化算法往往不兼容。因此，在跨设备进行分布式扩展时，通信开销可能成为瓶颈。我们推出了一种1比特Adam新算法，以及其高效实现。该算法**最多可减少5倍通信量**，同时实现了与Adam相似的收敛率。在通信受限的场景下，我们观察到3.5倍的分布式训练速度提升，这使得该算法可以扩展到不同类型的GPU群集和网络环境。
 
 [![a screenshot of a cell phone](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_MainHero_HighRes-1024x636.jpg)](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_MainHero_HighRes-1024x636.jpg)
 
-This blog post explores these four lines of technology in greater depth. We have been making all of these exciting new optimizations available in [open-source library, DeepSpeed](https://github.com/microsoft/DeepSpeed).
+这篇博文将深入探究这4项技术。我们已经将这些激动人心的优化技术公布在了[开源项目DeepSpeed](https://github.com/microsoft/DeepSpeed)中。
 
-## 3D parallelism: Scaling to trillion-parameter models
+## 3D并行：拓宽至万亿参数模型
 
-With the rapid growth of compute available on modern GPU clusters, training a powerful trillion-parameter model with incredible capabilities is no longer a far-fetched dream but rather a near-future reality. DeepSpeed has combined three powerful technologies to enable training trillion-scale models and to scale to thousands of GPUs: data parallel training, model parallel training, and pipeline parallel training. This symbiosis scales deep learning training far beyond what each of the strategies can offer in isolation. 3D parallelism simultaneously addresses the two fundamental challenges toward training trillion-parameter models: **memory efficiency** and **compute efficiency**. As a result, DeepSpeed can scale to fit the most massive models in memory without sacrificing speed.
+随着现代GPU群集上计算量的快速增长，训练具有令人难以置信的功能的强大万亿参数模型不再是遥不可及的梦想，而是不远的将来。DeepSpeed结合了三项强大的技术，可以训练数万亿规模的模型并扩展到数千个GPU：数据并行训练，模型并行训练和流水线并行训练。这三者的共生让深度学习训练的规模远远超出了单独使用每种策略可以企及的。3D并行同时解决了训练万亿参数模型的两个基本挑战：**显存效率**和**计算效率**。因此，DeepSpeed可以扩展至在显存中放下最巨大的模型，而不会牺牲速度。
 
-##### Learn the challenges of obtaining memory and compute efficiency for gigantic models
+##### 了解训练巨大模型的显存和计算效率的挑战
 
-**Memory Efficiency:** The memory requirements to train a trillion-parameter model are far beyond what is available in a single GPU device. Training using the Adam optimizer in mixed precision requires approximately 16 terabytes (TB) of memory just to store the model states (parameters, gradients, and optimizer states). For comparison, the state-of-the-art NVIDIA A100 GPUs have just 40 gigabytes (GB) of memory. It would require the collective memory of 400 such GPUs just to store the model states.
+**显存效率：** 训练万亿参数模型所需的显存远远超出了单张GPU所能承载的。在使用Adam优化器进行混合精度训练时的模型状态量（参数、梯度和优化器状态量）就需要约16TB的显存。作为比较，最先进的英伟达A100 GPU只有40 GB的显存。仅仅为了存储模型状态，就需要400张这样的GPU。
 
-Activations consume additional memory that increases with the batch size. A trillion-parameter model trained with only unit batch size produces over 1 TB of activation memory. Activation **checkpointing** reduces this memory to approximately 20 GB by trading for additional compute, but the memory requirements remain prohibitively large for training.
+激活函数额外消耗的显存随batch大小而增加。batch设置为1的情况下，训练万亿参数模型就会产生超过1 TB的激活函数用的显存（后文称为激活显存）。用**checkpoint**处理激活显存，用计算来换显存，可以将该显存减少到大约20 GB，但是对于训练而言仍然过高了。
 
-The model states and activations must be efficiently partitioned across the available multiple GPU devices to enable such a model to even begin training without running out of memory.
+必须在多个GPU设备之间有效地划分模型状态量和激活显存，才能让这种样的大模型在不耗尽显存的情况下开始训练。
 
-**Compute Efficiency:** Training a trillion-parameter model end-to-end requires approximately 5,000 zettaflops (that’s 5 with **24 zeros** after it; based on the [laws of scaling](https://arxiv.org/abs/2001.08361) work from OpenAI). It would take 4,000 NVIDIA A100 GPUS running at 50% compute efficiency about 100 days to train such a model.
+**计算效率：**经估算端到端训练一个万亿参数的模型大约需要5000 Zflops（即5后面带有** 24个零**；这个估算结果基于OpenAI的研究[law of scaling](https://arxiv.org/abs/2001.08361)）。这意味着训练这样一个模型需要4000张A100以50％的计算效率运行大约100天。
 
-While large super-computing GPU clusters can have well over 4,000 GPUs, achieving high compute efficiency at this scale is challenging due to the batch size constraints. Compute efficiency increases as the computation time increases over the communication time. This ratio is proportional to the batch size. However, the batch size that a model can be trained with has an upper bound—beyond that the convergence efficiency deteriorates rapidly.
+尽管大型超级计算GPU集群可以拥有超过4000个GPU，但是由于batch大小的限制，要在这种规模上实现高计算效率仍然是一项挑战。计算效率随着计算时间对通信时间的比例的增加而增加。该比例与batch大小成正比。但是，训练模型的batch大小有一个上限——超过这个上限收敛情况会明显变差。
 
-One of the largest models in the world, [GPT-3](https://arxiv.org/abs/2005.14165), was trained using a batch size of about 1,500. With 4,000 GPUs, even a liberal batch size of 4,000 would only allow for a batch size of 1 per GPU and limit scalability.
+实际上最大的模型之一，[GPT-3](https://arxiv.org/abs/2005.14165)是用约1500的batch大小训练的。用大约4000张GPU, 即使我们可以自由设置batch大小为4000，每张卡上的batch大小也只有1，这将影响扩展性。
 
-##### Understand the tradeoffs of data, model, and pipeline parallelism
+##### 了解数据，模型和流水线并行性的权衡
 
-**Data parallelism** is a ubiquitous technique in deep learning in which each input batch of training data is split among the data parallel workers. Gradients must be communicated and aggregated after backward propagation to ensure that consistent steps are taken by the optimizer. Data parallelism has several distinct advantages, including compute efficiency and minimal implementation effort. However, data parallelism relies on scaling the batch size with the number of data parallel workers, which cannot be done indefinitely without affecting convergence.
+**数据并行**是深度学习中的一种普遍使用的技术。在该技术中，每批输入的训练数据都在数据并行的worker之间平分。反向传播后需要通信并规约梯度，以保证优化器在各个worker上进行相同的更新。数据并行性具有几个明显的优势，包括计算效率高和实现起来工作量小。但是，数据并行性依赖扩展batch大小来提高worker数量，而我们往往无法在不影响收敛性的情况下一直增加batch大小。 
 
-* **Memory efficiency:** Data parallelism replicates the model and optimizer across all workers, and therefore is not memory efficient. DeepSpeed developed [ZeRO](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/), a collection of optimizations that improve the memory efficiency of data parallelism. This work relies on ZeRO stage 1, which partitions the optimizer states among data parallel workers to reduce redundancy.  
-    
-* **Compute efficiency:** The amount of computation performed by each worker is constant as we increase the degree of parallelism. Data parallelism can achieve near-perfect scaling at small scales. However, the communication cost of aggregating gradients among data parallel workers scales with the model size and limits compute efficiency on large models or systems with low communication bandwidth. **Gradient accumulation** is a common strategy for amortizing this communication cost by further increasing the batch size and performing multiple forward and backward propagations on **micro-batches** while locally accumulating gradients before aggregating and taking an optimizer step.
+* **显存效率：**数据并行性会在所有worker之间复制模型和优化器，因此显存效率不高。DeepSpeed开发了[ZeRO]（https://www.microsoft.com/zh-cn/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-billion-parameters/ ），一系列用于提高数据并行的显存效率的优化器。 这项工作依赖于ZeRO的阶段1，该阶段在worker之间划分优化器状态量以减少冗余。
 
-**Model Parallelism** is a broad class of techniques that partitions the individual layers of the model across workers. By its nature, the computations and communications of model parallelism are specific to a model architecture and therefore can have large initial implementation effort. DeepSpeed leverages NVIDIA’s [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) in this work for massive model-parallel Transformer-based language models. Model parallelism reduces the memory proportional to the number of workers. Model parallelism is the most memory efficient among the three types of parallelism at the cost of the lowest compute efficiency.
+* **计算效率：**随着我们提高并行度，每个worker执行的计算量是恒定的。数据并行可以在小规模上实现近乎线性扩展。但是，在worker之间规约梯度的通信开销随模型大小扩张。这限制了大型模型或在通信带宽很低的系统上的计算效率。**梯度累计**是一种用来均摊通信成本的一种常用策略。它会进一步增加batch大小，在本地使用**micro-batch**多次进行正向和反向传播积累梯度后，再进行梯度规约和优化器更新。
 
-* **Memory efficiency:** Model parallelism reduces the memory footprint proportional to the number of workers. Crucially, it is the only approach that reduces the activation memory for individual network layers. DeepSpeed further improves memory efficiency by partitioning the activation memory among model-parallel workers.  
-    
-* **Compute efficiency:** Model parallelism has poor computational efficiency due to additional communication of activations in each forward and backward propagation. Model parallelism requires high communication bandwidth to be efficient and does not scale well beyond a single node where the communication bandwidth is limited. Furthermore, each model-parallel worker decreases the amount of computation performed between each communication stage, impacting compute efficiency. Model parallelism is often used in conjunction with data parallelism to trade between memory and compute efficiency.
+**模型并行**是包含范围很广的一类技术。它会在多个worker之间划分模型的各个层。就其本质而言，模型并行性的计算和通信对于模型结构有着特异性，因此在实现上有很大的工作量。DeepSpeed借用了英伟达的[Megatron-LM](https://github.com/NVIDIA/Megatron-LM)来为基于Transformer的语言模型提供大规模模型并行功能。模型并行会根据worker数量成比例地减少显存使用量，也是这三种并行度中显存效率最高的。但是其代价是计算效率最低。
+  
+* **显存效率：**模型并行会根据worker数量成比例地减少显存使用量。至关重要的是，这是减少单个网络层的激活显存的唯一方法。DeepSpeed通过在模型并行worker之间划分激活显存来进一步提高显存效率。
 
-**Pipeline parallelism** training engine is included in this release of DeepSpeed! Pipeline parallelism divides the layers of the model into **stages** that can be processed in parallel. As one stage completes the forward pass for a micro-batch, the activation memory is communicated to the next stage in the pipeline. Similarly, as the next stage completes its backward propagation, gradients are communicated backwards through the pipeline. Multiple micro-batches must be kept in flight to ensure pipeline stages compute in parallel. Several approaches, such as [PipeDream](https://www.microsoft.com/en-us/research/blog/pipedream-a-more-effective-way-to-train-deep-neural-networks-using-pipeline-parallelism/), have been developed to trade off memory and compute efficiency as well as convergence behavior. The DeepSpeed approach extracts parallelism through gradient accumulation to maintain the same convergence behavior as traditional data- and model-parallel training with the same total batch size.
+* **计算效率：**由于每次前向和后向传播中都需要额外通信激活值，模型并行的计算效率很低。模型并行需要高通信带宽，并且不能很好地扩展到通信带宽受限的节点。此外，每个模型并行worker都会减少每个通信阶段之间执行的计算量，从而影响计算效率。模型并行性通常与数据并行性结合使用，以在内存和计算效率之间进行权衡。
 
-* **Memory efficiency:** Pipeline parallelism reduces memory proportional to the number of pipeline stages, allowing model size to scale linearly with the number of workers. However, pipeline parallelism does not reduce the memory footprint for the activations of each layer. Additionally, each worker must store the activations for all micro-batches in flight. In effect, the activation memory on the first stage of the pipeline is approximately the same as the total activation memory for a single micro-batch. A trillion-parameter model would need approximately 19 GB of memory for the activations of a micro-batch, consuming almost half the available memory of the new NVIDIA A100 GPU.  
-    
-* **Compute efficiency:** Pipeline parallelism has the lowest communication volume since it only communicates data proportional to the activation size of the layers between stage boundaries. However, it cannot scale indefinitely. Like model parallelism, increasing the pipeline size decreases the computation per pipeline stage, which also decreases the compute-to-communication ratio. Pipeline parallelism also requires each of its stages to be perfectly load balanced to achieve good efficiency.  
-      
-Furthermore, pipeline parallelism incurs a bubble overhead from filling and emptying the pipeline at the beginning and end of each training batch. Training with gradient accumulation steps (and thus batch size) that is 4x or 8x the number of pipeline stages achieves 81% and 90% scaling efficiency from one pipeline stage, respectively.
+**流水线并行**训练引擎也被包含在了这次发布的DeepSpeed中！流水线并行将模型的各层划分为可以并行处理的**阶段**。当一个阶段完成一个micro-batch的正向传递时，激活内存将被通信至流水线的下一个阶段。类似地，当下一阶段完成反向传播时，将通过管道反向通信梯度。必须同时计算多个micro-batch以确保流水线的各个阶段能并行计算。目前已经开发出了几种用于权衡内存和计算效率以及收敛行为的方法，例如[PipeDream](https://www.microsoft.com/zh-cn/research/blog/pipedream-a-more-effective-way-to-train-deep-neural-networks-using-pipeline-parallelism/)。DeepSpeed采用的方法是通过梯度累积来实现并行，并保持与传统数据并行和模型并行训练在相同的总batch大小下相同的收敛情况。
 
-### Achieving both memory and compute efficiency with 3D parallelism
+* **显存效率：**流水线并行减少的显存与流水线的阶段数成正比，使模型的大小可以随worker的数量线性扩展。但是，流水线并行不会减少每一层的激活函数的显存占用量。此外，每个worker必须存储同时运行的各个micro-batch的激活值。这导致流水线第一阶段的激活内存与单个mirco batch的总激活内存大致相同。一个万亿参数模型将需要为一个micro batch提供大约19 GB的显存的激活内存，这几乎占到新推出的英伟达A100 GPU总显存的一半。 
 
-Data, model, and pipeline parallelism each perform a specific role in improving memory and compute efficiency. Figure 1 illustrates our 3D strategy.
+* **计算效率：**流水线并行具有最低的通信量，因为它的通信量只和在各阶段边界的各层的激活值大小成正比。但是，它不能无限扩展。像模型并行一样，增加流水线大小会减少每个流水线阶段的计算量，这会降低计算与通信的比率。如果要实现好的计算效率，流水线并行还要求其每个阶段的计算负载完美的均衡。
 
-**Memory Efficiency:** The layers of the model are divided into pipeline stages, and the layers of each stage are further divided via model parallelism. This 2D combination simultaneously reduces the memory consumed by the model, optimizer, and activations. However, we cannot partition the model indefinitely without succumbing to communication overheads which limits compute efficiency.
+此外，流水线并行性会在每个batch的开始和结束时因为需要重新填充或排空流水线而产生bubble overhead。使用流水线阶段数的4倍或8倍的梯度累积步骤（以及batch大小）进行训练，相较于只有一个流水线阶段分别达到了81％和90％的扩展性。
 
-**Compute Efficiency:** To allow the number of workers to scale beyond model and pipeline parallelism without sacrificing compute efficiency, we use ZeRO-powered data parallelism (ZeRO-DP). ZeRO-DP not only improves memory efficiency further via optimizer state partition, but also allows scaling to arbitrarily large number of GPUs with minimal communication overhead by exploiting topology aware mapping.
+### 通过3D并行同时实现高内存效率和高计算效率
 
-**Topology aware 3D mapping** (Figure 2)**:** Each dimension in 3D parallelism is carefully mapped onto the workers to achieve maximum compute efficiency by exploiting two key architectural properties.
+数据，模型和流水线并行在提高内存和计算效率方面均起到特定的作用。图1说明了我们的3D策略。
 
-1. **Optimizing for intra- and inter-node communication bandwidth**: Model parallelism has the largest communication overhead of the three strategies, and so we prioritize placing model parallel groups within a node to utilize the larger intra-node bandwidth. Here we apply NVIDIA Megatron-LM for tensor-slicing style of model parallelism. Data parallel groups are placed within a node when model parallelism does not span all the workers in a node.  Otherwise, they are placed across nodes.  Pipeline parallelism has the lowest communication volume, and so we can schedule pipeline stages across nodes without being limited by the communication bandwidth.
-2. **Bandwidth amplification via parallelism in communication:** The size of the gradients communicated by each data parallel group decreases linearly via both pipeline and model parallelism, and thus the total communication volume is decreased from pure data parallelism.  Furthermore, each data parallel group performs its communication independently and in parallel among a subset of localized workers. As a result, the effective bandwidth for data parallel communication is amplified by a combination of reduced communication volume and increased locality and parallelism.
+**显存效率：**先将模型的各层划分到不同的流水线阶段，并进一步把每个阶段的层通过模型并行进行划分。这种2D组合同时减少了模型，优化器和激活函数所消耗的内存。不过，我们不能在不引入通信开销的情况下无限地划分模型，而通信开销会限制计算效率。
 
-![Diagram showing Example 3D parallelism with 32 workers. Layers of the neural network are divided among four pipeline stages. Layers within each pipeline stage are further partitioned among four model parallel workers. Lastly, each pipeline is replicated across two data parallel instances, and ZeRO partitions the optimizer states across the data parallel replicas.](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-1024x615.png)
+**计算效率：**为了在不牺牲计算效率的情况下将worker数量扩展至超出模型和流水线并行能支持的规模，我们使用了ZeRO支持的数据并行功能（ZeRO-DP）。ZeRO-DP不仅可以通过划分优化器状态量进一步提高显存利用效率，而且还可以通过利用基于通信拓扑的映射关系，以最小的通信开销扩展到任意数量的GPU。
 
-Figure 1: Example 3D parallelism with 32 workers. Layers of the neural network are divided among four pipeline stages. Layers within each pipeline stage are further partitioned among four model parallel workers. Lastly, each pipeline is replicated across two data parallel instances, and ZeRO partitions the optimizer states across the data parallel replicas.
+**基于通信拓扑的3D映射**（图2）**：**：通过利用两个关键的架构属性，我们将3D并行中的每个维度仔细地映射到worker上，以实现最大的计算效率。
 
-![Colorful blocks showing  Mapping of workers in Figure 1 to GPUs on a system with eight nodes, each with four GPUs. Coloring denotes GPUs on the same node.](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure2_highres.png)
+1. **优化节点内和节点间的通信带宽**：模型并行是这三种策略中通信开销最大的，因此我们优先考虑将模型并行worker组放置在节点内以利用更大的节点内带宽。这里我们基于英伟达Megatron-LM进行了张量切分式的模型并行。当模型并行组不占满节点内的所有worker时，我们选择将数据并行组放置在节点内。不然就跨节点进行数据并行。流水线并行的通信量最低，因此我们可以跨节点调度流水线的各个阶段阶段，而不受通信带宽的限制。
+2. **通过并行通信增大带宽：**每个数据并行组需要通信的梯度量随着流水线和模型并行的规模线性减小，因此总通信量少于单纯使用数据并行。此外，每个数据并行组会在局部的一小部分worker内部独立进行通信，组间通信可以相互并行。这样的结果是，通过减少通信量和增加局部性与并行性，数据并行通信的有效带宽被增大了。
 
-Figure 2: Mapping of workers in Figure 1 to GPUs on a system with eight nodes, each with four GPUs. Coloring denotes GPUs on the same node.
+![该图显示了一个有32个worker进行3D并行的例子。神经网络的各层分为四个流水线阶段。每个流水线阶段中的层在四个模型并行worker之间进一步划分。最后，每个流水线阶段有两个数据并行实例，且ZeRO在这2个副本之间划分优化器状态量。](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure-1_highres-1024x615.png)
 
-##### Learn more about how 3D parallelism enlists each type of parallelism to train trillion-parameter models
+图1：一个有32个worker进行3D并行的例子。神经网络的各层分为四个流水线阶段。每个流水线阶段中的层在四个模型并行worker之间进一步划分。最后，每个流水线阶段有两个数据并行实例，且ZeRO在这2个副本之间划分优化器状态量。
 
-A trillion-parameter model could be scaled across 4,096 NVIDIA A100 GPUs using 8-way model parallelism, 64-way pipeline parallelism, and 8-way data parallelism.
+![彩色块显示图1中的worker到八个节点（每个节点有四个GPU）的系统上的GPU的映射。同一颜色的GPU在同一节点上。](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure2_highres.png)
 
-By combining model parallelism and pipeline parallelism, 3D parallelism achieves excellent memory efficiency and compute efficiency across multiple nodes. Model parallelism brings memory efficiency for the activations and model states within a node, while pipeline parallelism allows for memory efficiency of model states across nodes without sacrificing compute efficiency compared to using model parallelism alone. In our trillion-parameter example with a micro-batch size of 1, our model would consume 30 GB of memory for model states and 2.5 GB for partitioned activations after activation checkpointing with the aforementioned 3D parallelism. This results in a total memory footprint of 32.5 GB. With such a configuration, NVIDIA A100 GPUs with 40 GB of memory have more than enough space to fit and train such a model.
+图2：图1中的worker到八个节点（每个节点有四个GPU）的系统上的GPU的映射。同一颜色的GPU在同一节点上。
 
-Combining model parallelism with pipeline parallelism also allows pipeline parallelism to achieve high compute efficiency with minimal bubble overhead even at very small batch sizes. With 8-way model parallelism, using a micro-batch of 1 per model would result in an effective micro-batch of 1/8 per GPU. Therefore, pipeline parallelism can achieve a 90% compute efficiency using a gradient accumulation step of 8x the pipeline parallelism degree and with an aggregate per-GPU batch size of only 1. When combined with data parallelism, this results in an effective batch size of 4,096 on 4,096 GPUs, which can still achieve 90% pipeline efficiency.
+##### 有关训练万亿参数模型是如何使用3D并行性的更多信息
 
-**But what compute efficiency results from data parallelism? Doesn’t data parallelism require large batch per GPU to remain efficient?**
+使用8路模型并行，64路流水线并行和8路数据并行，可以在4096个英伟达A100 GPU上扩展训练一个万亿参数模型。
 
-Model parallelism can reduce the effective batch size to be less than 1 per GPU. This allows pipeline parallelism to hide the pipeline bubble overhead even with small batch sizes. Note that by using pipeline parallelism across nodes, we are effectively allowing communication between data parallel nodes at each stage of the pipeline to happen independently and in parallel with the other pipeline stages. In fact, in a fully connected network topology common in high-end GPU clusters, this has a significant implication on the effective communication bandwidth available for data parallel training. Since each node at a pipeline stage can communicate in parallel with its corresponding data parallel nodes, the effective communication bandwidth is directly proportional to the number of pipeline stages. With 64 pipeline-parallel stages, the effective bandwidth is 64x the bandwidth to and from a single node. With such large effective bandwidth pipeline parallelism enables data parallelism to scale effectively, even at small batch sizes where the compute-to-communication ratio is very low.
+通过结合模型并行和流水线并行，3D并行可实现出色的内存效率和跨多个节点的高效计算效率。模型并行性提高了节点内的激活内存和模型状态量的存储效率，而流水线并行，相较于仅使用模型并行，则可以在不牺牲计算效率的情况下，跨节点高效存储模型状态。在micro-batch大小为1的万亿参数例子中，在使用激活值checkpoint以及上述3D并行后，模型状态量会消耗30 GB的显存，划分后的激活值消耗2.5 GB的内存。这样总显存占用为32.5 GB，就能够使用具有40 GB内存的英伟达A100 GPU来容纳和训练这样的模型了。
 
-### Powering trillion-parameter model training with linear efficiency scaling
+结合模型并行与流水线并行，可以使流水线并行在非常小的batch下以最小的bubble overhead实现高计算效率。在8路模型并行下，每个模型使用micro-batch为1个微批处理将导致每个GPU的有效micro-batch大小为1/8。因此，使用8倍于管道并行度的梯度累加步骤，只会让每张GPU上的总累计batch大小为1，并且流水并行处理可以实现90％的计算效率。与数据并行性结合使用时，这让4096张GPU上的总有效batch大小为4096，并仍然可以达到90％的流水线效率。
 
-DeepSpeed can train a language model with one **trillion** parameters using as few as 800 NVIDIA V100 GPUs (Figure 3). We demonstrate simultaneous memory and compute efficiency by scaling the size of the model and observing linear growth, both in terms of the size of the model and the throughput of the training. In every configuration, we can train approximately 1.4 billion parameters per GPU, which is the largest model size that a single GPU can support without running out of memory, indicating perfect memory scaling. We also obtain close to perfect-linear compute efficiency scaling and a throughput of 47 teraflops per V100 GPU. This is impressive scaling and throughput for the given hardware.
+**但是数据并行会怎样影响计算效率呢？难道数据并行不是需要每张GPU都有大batch才能保持高效吗？**
+
+模型并行可以将每张GPU上的有效batch大小减小到小于1。这使流水线并行即使在小batch下仍可以隐藏流水线bubble overhead。请注意，通过跨节点使用流水线并行性，我们就可以让流水线每个阶段的数据并行节点之间的独立进行通信，并且与其他流水线阶段并行进行。实际上，在高端GPU集群中常见的完全连接的网络拓扑中，这对可用于数据并行训练的有效通信带宽具有重要意义。由于流水线阶段中的每个节点都可以与其对应的数据并行节点并行通信，因此有效的通信带宽与流水线阶段数成正比。通过设置64个并行流水线阶段，有效带宽将变为往返单个节点的带宽的64倍。流水线并行带给数据并行如此大的有效带宽，这使数据并行在计算与通信比率非常低的小batch情况下，也能实现高效扩展。
+
+### 在线性扩展性下训练万亿参数模型
+
+DeepSpeed可以只用800张英伟达V100 GPU来训练具有一个**万亿**参数的语言模型（图3）。我们展示了模型大小和训练吞吐量，可以观察到显存和计算效率同时随模型的大小的扩展线性增长。在各种配置中，我们可以在每个GPU上训练大约14亿个参数，这是单个GPU在不耗尽内存的情况下可以支持的最大模型大小，这表明了完美的显存扩展性。我们还获得了接近完美的线性计算效率扩展，每张V100 GPU的吞吐量为47 Tflops。对于上述的硬件，这是令人印象深刻的扩展性和吞吐量。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-3_Section-1-1024x508.jpg)
 
-Figure 3: Model size (in billions of parameters) and training throughput (in petaflops) as a function of GPUs. DeepSpeed can train a model with 1 trillion parameters using 800 NVIDIA V100 Tensor Core GPUs with 32 GB of memory. Each configuration uses 16-way model parallelism provided by [NVIDIA Megatron-LM](https://github.com/NVIDIA/Megatron-LM), and the remaining GPUs are arranged using pipeline parallelism. The trillion-parameter model has 298 layers of Transformers with a hidden dimension of 17,408 and is trained with sequence length 2,048 and batch size 2,048. For smaller models, we decrease the number of Transformer layers and the batch size proportionally to the number of GPUs.
+图3：模型大小（以十亿个参数为单位）和训练吞吐量（以Pflops为单位）关于GPU数量的图表。DeepSpeed可以使用800张具有32 GB内存的英伟达V100 Tensor Core GPU训练有1万亿个参数的模型。每种配置都使用[NVIDIA Megatron-LM](https://github.com/NVIDIA/Megatron-LM)提供的16路模型并行性，剩余的GPU负责进行流水线并行。万亿参数模型具有298层Transformer，其隐藏层大小为17408，训练的序列长度为2048，batch大小2048。对于较小的模型，我们根据GPU数量按比例减少了Transformer层的数量。
 
-Dive deeper into how 3D parallelism accelerates training at the scale of GPT-3
+##### 深入研究3D并行如何加速训练GPT-3规模的模型
 
 [![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-2-_section-2.jpg)](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 
-Figure 4: System performance using 800 GPUs to train a GPT-3 scale model with 180 billion parameters using 2D and 3D parallelism. The model has 100 Transformer layers with hidden dimension 12,288 and 96 attention heads. The model is trained with batch size 2,048 and sequence length 2,048. ZeRO-1 is enabled alongside data parallelism. P, M, and D denote the pipeline, model, and data parallel dimensions, respectively.
+图4：使用2D和3D并行使用800个GPU训练具有1800亿参数的GPT-3规模模型的系统性能。该模型具有100个Transformer层，隐藏层尺寸为12288并有96个attention head。训练使用的batch大小为2048，序列长度为2048。我们在数据并行之余也使用可ZeRO-1。P，M和D分别表示流水线，模型和数据并行维度。
 
-In Figure 4, we use the recent [GPT-3](https://arxiv.org/abs/2005.14165) model architecture, with over 175 billion parameters, as a benchmark for 3D parallelism: 
+在图4中，我们使用具有超过1,750亿个参数的最新[GPT-3](https://arxiv.org/abs/2005.14165)模型架构作为3D并行性的基准：
 
-* We first evaluate the **2D configurations** (C1-C3). Configurations C1 and C2 use only pipeline and model parallelism—they can train the model but achieve low throughput due to over-decomposing the problem and having low GPU utilization. C3 attempts to use only pipeline and data parallelism but is unable to fit the problem in memory without reducing the size of activations via Megatron’s model parallelism.
-* The **3D configurations** (C4-C10) are arranged by increasing degree of pipeline parallelism; the best performance is achieved by the middle configurations that balance the parallelism in order to be memory-, computation-, and communication-efficient.
-* The best 3D approaches achieve 49 teraflops per GPU, over 40% of the theoretical hardware peak.
+* 我们首先评估了**2D配置**（C1-C3）。配置C1和C2仅使用流水线和模型并行——它们可以训练模型，但由于过度分解模型导致吞吐量较低，GPU利用率较低。C3尝试仅使用流水线和数据并行，但无法在不使用Megatron的模型并行来减少激活量的情况下解决模型无法放进显存中的问题。
+* **3D配置**（C4-C10）依次增加了流水线并行度；中间的平衡了并行性的配置可以实现最佳性能，实现了显存，计算和通信效率三高。
+* 最佳的3D方法每个GPU可实现49 Tflops，超过硬件的理论峰值的40％。
 
-See how hybrid parallelism accelerates training GPT-2 on low-bandwidth clusters up to 7x
+##### 看看混合并行如何在低带宽集群上7倍加速训练GPT-2
 
-We demonstrate the communication benefits of hybrid parallelism in Figure 5 while training a 1.5-billion-parameter GPT-2 model. We train on four nodes of a cluster with low inter-node bandwidth in order to emphasize the communication stages of training:
+我们训练了一个15亿参数的GPT-2模型，并在图5中展示了混合并行的通信优势。为了强调训练的通信阶段，训练在节点间带宽较低的四节点的群集上进行：
 
-* **Model parallelism** is not advantageous in this case due to the low intra-node bandwidth and smaller model size.  
-* **Pipeline parallelism** communicates over an order of magnitude less volume than the data and model parallel configurations and is 7x faster at small batch sizes.  
-* **Data parallelism** uses gradient accumulation to amortize communication overhead as the batch size increases, but pipeline parallel configurations still achieve over twice the performance of data parallelism at larger batch sizes.  
-* The **hybrid pipeline and data parallel configuration** avoids the gradient communication bottleneck by restricting data parallel groups to GPUs within a node, so gradient communications benefit from the faster intra-node bandwidth.
+* **模型并行**在这种情况下没有优势，因为模型较小，且节点内带宽较低。
+* **流水线并行**的通信量比配置数据和模型并行的情况小一个数量级。在小batch时，训练速度快7倍。
+* **数据并行**使用通过梯度累积增加batch大小来均摊通信开销，但是在更大的batch大小下，配置了流水线并行的情况的性能仍是数据并行的两倍。
+* **混合流水线和数据并行配置**通过将数据并行组限制在节点内的GPU上，避免了梯度通信瓶颈，因此梯度通信受益于更快的节点内带宽。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-4_Section-1.jpg)
 
-Figure 5: Throughput as a function of batch size while training GPT-2 (1.5B parameters) with sequence length 1,024. Training uses four nodes, each with four NVIDIA V100 GPUs with 16 GB of memory. The GPUs are connected with 50 Gigabits-per-second (Gbps) intra-node bandwidth and 4 Gbps inter-node bandwidth. DP denotes data parallelism with ZeRO-1 enabled. All methods scale batch size via increasing steps of gradient accumulation.
+图5：在训练序列长度为1024的GPT-2（1.5B参数）时，吞吐量与batch大小的关系。使用四个节点，每个节点配备四个具有16 GB内存的V100 GPU训练。GPU之间用每秒50 Gbps的节点内带宽和4 Gbps的节点间带宽连接。DP表示启用ZeRO-1的数据并行性。所有方法都通过增加梯度累积的步数来扩展批量大小。
 
-## ZeRO-Offload: 10x bigger model training using a single GPU
+## ZeRO-Offload：单GPU训练10倍大的模型
 
-ZeRO-Offload pushes the boundary of the maximum model size that can be trained efficiently using minimal GPU resources, by exploiting computational and memory resources on both GPUs and their host CPUs. It allows training up to 13-billion-parameter models on a single NVIDIA V100 GPU, 10x larger than the state-of-the-art while retaining high training throughput of over 30 teraflops per GPU.
+ZeRO-Offload通过同时利用GPU和宿主机CPU的计算和存储资源，提升了少GPU资源下可以高效训练的最大模型规模。它让我们可以在单张V100上进行最高至1300亿参数的模型训练，10倍于当前最高水平，同时保持每GPU 30Tflop的高训练吞吐量。
 
-By enabling multi-billion-parameter model training on a single GPU, ZeRO-Offload democratizes large model training, making it accessible to deep learning practitioners with limited resources.
+通过让在单GPU上可以训练数十亿参数的模型，ZeRO-Offload让大模型训练变得亲民，让只有有限资源的深度学习从业者也可以参与其中。
 
-![Bar graph showing largest models can be trained using default PyTorch and ZeRO-Offload on a single GPU.](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_deepspeed3_figure6_highres-1024x552.jpg)
+![在单GPU上使用默认的PyTorch和ZeRO-Offload能训练的最大模型规模的柱状图。](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_deepspeed3_figure6_highres-1024x552.jpg)
 
-Figure 6: The largest models can be trained using default PyTorch and ZeRO-Offload on a single GPU.
+图6：可以在单GPU上使用默认的PyTorch和ZeRO-Offload训练的最大的模型规模。
 
-The key technology behind ZeRO-Offload is our new capability to offload optimizer states and gradients onto CPU memory, building on top of [ZeRO-2](https://www.microsoft.com/en-us/research/blog/zero-2-deepspeed-shattering-barriers-of-deep-learning-speed-scale/). This approach allows ZeRO-Offload to minimize the compute efficiency loss from CPU offloading while also achieving the same, and sometimes even better, efficiency of the original ZeRO-2. The figure below shows the architecture of ZeRO-Offload.
+ZeRO-Offload背后的核心技术是在[ZeRO-2](https://www.microsoft.com/en-us/research/blog/zero-2-deepspeed-shattering-barriers-of-deep-learning-speed-scale/)的基础上将优化器状态和梯度卸至CPU内存。这个方法让ZeRO-Offload可以最小化拷贝至CPU导致的计算效率损失，同时达到和ZeRO-2相同，甚至有时超过的效率。下图展示了Zero-OffLoad的架构：
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-2_section-1-1024x546.png)
 
-Figure 7: ZeRO-Offload overview.
+图7: ZeRO-Offload概述。
 
-##### Learn how ZeRO-Offload enables multi-billion parameter training on a single GPU
+##### 了解ZeRO-Offload是如何在单GPU上训练数十亿参数模型的
 
-Training multi-billion-parameter models like GPT and T5 require many GPUs to fit the model and its states in GPU memory. Large model training has been mostly carried out with model parallelism across multiple GPU devices to solve the memory limitation problem. Recently, we released ZeRO, a memory efficient optimizer that partitions model states (optimizer states, gradients, and model weights) across data parallel GPUs, allowing multi-billion-parameter models to be trained without requiring model parallelism. However, ZeRO still requires a large number of data parallel GPUs to hold the partitioned model states, limiting the access of large model training to a few with access to such resources.
+训练GPT和T5这样有数十亿参数的模型需要多GPU来存储模型和状态量。大模型训练大多通过跨GPU的模型并行来解决显存限制问题。最近，我们发布了ZeRO，一个高效利用显存的优化器，它会将模型状态量（优化器状态量、梯度和模型参数）分布在多个并行GPU上，让数十亿参数模型可以在不使用模型并行的情况下进行训练。然而，ZeRO还是需要大量数据并行的GPU来保存划分后的模型状态量，使得只有少数有大量GPU资源的人才有能力进行这种模型训练。
 
-ZeRO-Offload democratizes large model training by making it possible even on a single GPU. To allow training multi-billion-parameter models without using multiple GPUs, ZeRO-Offload inherits the optimizer state and gradient partitioning from ZeRO-2. Unlike ZeRO-2, instead of having each GPU keep a partition of the optimizer state and gradients, ZeRO-Offload offloads both to host CPU memory. Optimizer states are kept in CPU memory for the entire training. Gradients, on the other hand, are computed and averaged using reduce-scatter on the GPUs during the backward pass, and each data-parallel process then offloads the averaged gradients belonging to its partition to the CPU memory (**g offload** in Figure 7) while discarding the rest.
+ZeRO-Offload让单GPU可以进行大模型训练，从而使这种训练变得平民化。为了在不使用多个GPU的情况下训练数十亿个参数的模型，ZeRO-Offload继承了ZeRO-2的划分优化器状态量和梯度的方法。和ZeRO-2不同的地方在于，ZeRO-Offload并没有在每个GPU上保存一部分优化器状态量和梯度，而是把两者都移到了本机内存上。Optimizer状态在整体训练过程中都保存在内存中。梯度则是在反向计算过程中在GPU上进行计算并通过reduce-scatter进行平均，之后每个数据并行进程把自己的那份平均后的梯度卸到CPU上（图7中的g offload）并弃掉不属于自己负责的部分。
 
-Once the gradients are available on the CPU, optimizer state partitions are updated in parallel by each data parallel process directly on the CPU (**p update** in Figure 7). After the update, parameter partitions are moved back to GPU followed by an all-gather operation on the GPU to gather all the updated parameters (**g swap** in Figure 7). ZeRO-Offload also exploits overlapping between communication (such as **g offload** and **g swap**) and computation (such as the backward pass and **p update**) using separate CUDA streams to maximize training efficiency.
+一旦梯度到了CPU上，划分后的优化状态量就会并行地在CPU上进行更新(图7中的**p update**)。在更新进行完后，划分后的参数就被移回GPU并用all gather操作进行更新 (图7中的**g swap**）。Zero-Offload也通过使用不同CUDA stream来重叠通信（如**g offload**和**g swap**）和计算（如反向传播和**p update**) 以提高训练效率。
 
-##### See the benefits of ZeRO-Offload on model scale, training speed, and scalability
+##### 从模型规模，训练速度和扩展性看ZeRO-Offload的优势
 
-**10x model scale:** On a single 32 GB V100 GPU, Figure 6 shows that the biggest model that can be trained by PyTorch has 1.3 billion parameters, while ZeRO-Offload allows for training models of 13 billion parameters, which is 10 times bigger. This is because ZeRO-Offload keeps the optimizer states (which consume a large portion of GPU memory) in host memory during the entire training process while also offloading gradients to CPU as they are computed in the backward pass. As a result, the saved GPU memory can be used in hosting bigger models for training.
+**10倍模型扩展：**在单张32GB V100 GPU上，图6显示可以由PyTorch训练的最大模型有13亿个参数，而ZeRO-Offload允许训练130亿个参数的模型，10倍于PyTorch能支持的。这是因为ZeRO-Offload在整个训练过程中将消耗了大部分GPU显存的优化器状态保留在本机内存中，同时还在反向传播过程中将计算出来的梯度移至CPU。因此，节省的GPU显存可用于训练更大的模型。
 
-**Efficient training throughput**: Figure 8 shows that when training a 10-billion-parameter model, ZeRO-Offload provides over 30 teraflops throughput per GPU even when training with only a single GPU, and its throughput increases close to perfect linearly with the increasing number of GPUs. 
+**高效的训练吞吐量：**如图8所示，在训练100亿参数模型时，即使仅使用单个GPU进行训练，使用ZeRO-Offload仍可让每个GPU有超过30 Tflops的吞吐量，并且其吞吐量随GPU数量增长呈近完美的线性增长。
 
-ZeRO-Offload complements ZeRO-2 well, supporting efficient training of large models on a small number of GPUs. From 1 to 16 GPUs, ZeRO-Offload turns the model training from infeasible to feasible by leveraging CPU memory, reducing GPU memory required for the model. On 32 GPUs, ZeRO-Offload slightly outperforms ZeRO-2; the improvement comes from additional memory savings on GPU from ZeRO-Offload, which allows training with larger batch sizes and increases the GPU computation efficiency despite the overhead of CPU offloading. With more GPUs (such as 64 and 128), ZeRO-2 outperforms ZeRO-Offload since both can now run similar batch sizes. On one hand, though, ZeRO-2 does not have the overhead of moving data to CPU, while on the other hand, the optimizer step calculation on GPU is much faster than on CPU. In summary, ZeRO-Offload complements ZeRO-2 and extends ZeRO family of optimizations to cover the full spectrum of large model training from a single device to thousands of devices. 
+ZeRO-Offload是ZeRO-2的完美补充，支持在少量GPU上高效训练大型模型。通过利用CPU内存来减少了模型所需的GPU显存，ZeRO-Offload让在1到16个GPU上训练大模型变得可行。在32个GPU上，ZeRO-Offload的性能略高于ZeRO-2; 性能提升来源于ZeRO-Offload节省的GPU显存，它们让我们可以在更大batch下训练了模型，从而才在有拷贝至CPU的开销的基础上仍带来了更高的GPU计算效率。在有更多的GPU（例如64和128）的情况下，ZeRO-2的性能优于ZeRO-Offload，因为两者现在都可以运行类似大小的batch，ZeRO-2没有将数据移至CPU的开销，并且GPU上进行优化器更新要比CPU上快得多。总而言之，ZeRO-Offload是ZeRO-2的补充，并将ZeRO家族的优化范围扩展至从单个设备到数千个设备的整个大型模型训练。
 
-![Bar graph showing The training throughput is compared for ZeRO-Offload and ZeRO-2 using 128 GPUs to train a 10-billion parameter GPT-2 model. ](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure8_HighRes-1024x403.jpg)
+![使用ZeRO-Offload和ZeRO-2在128张GPU上训练有100亿参数的GPT-2模型的的吞吐量的柱状图。](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure8_HighRes-1024x403.jpg)
 
-Figure 8: The training throughput is compared for ZeRO-Offload and ZeRO-2 using 128 GPUs to train a 10-billion parameter GPT-2 model.
+图8：使用128张GPU训练100亿参数GPT-2模型的ZeRO-Offload和ZeRO-2的训练吞吐量比较。
 
-## DeepSpeed Sparse Attention: Powering 10x longer sequences with 6x faster execution
+## DeepSpeed稀疏注意力机制：用6倍更快的执行速度来执行10倍长的序列
 
-Attention-based deep learning models, such as Transformers, are highly effective in capturing relationships between tokens in an input sequence, even across long distances. As a result, they are used with text, image, and sound-based inputs, where the sequence length can be in thousands of tokens. However, despite the effectiveness of attention modules to capture long term dependencies, in practice their application to long sequence input is limited by compute and memory requirements of the attention computation that grow quadratically, \\(O(n^2 )\\), with the sequence length \\(n\\).
+基于注意力机制的深度学习模型（例如，Transformers）在捕获输入序列中的token之间的关系（即使是两者之间距离很长）方面非常有效。因此，它们常与文本，图像和语音相关的输入配合使用。这些输入的序列长度可至数千token。然而，尽管注意力模块有效地捕获了长期依赖关系，在实际应用中，对长序列输入的支持受计算量和显存的限制。计算量和显存需求关于序列长度\\(n\\)呈二次方级增长。
 
-To address this limitation, **DeepSpeed offers a suite of sparse attention kernels**—an instrumental technology that can reduce the compute and memory requirement of attention computation by orders of magnitude via block-sparse computation. The suite not only alleviates the memory bottleneck of attention calculation, but also performs sparse computation efficiently. Its APIs allow convenient integration with any transformer-based models. Along with providing a wide spectrum of sparsity structures, it has the flexibility of handling any user-defined block-sparse structures.
+为了解决此限制，**DeepSpeed提供了一套稀疏attention kernel**——一种工具性技术，可以通过块状稀疏计算将attention计算的计算和显存需求降低几个数量级。这套工具不仅缓解了注意力计算的内存瓶颈，而且其稀疏计算非常高效。它的API可以方便地继承进任何基于Transformer的模型。除了提供各种稀疏结构外，它还可以灵活处理任何用户自定义的块状稀疏结构。
 
-More specifically, sparse attention (SA) can be designed to compute local attention between nearby tokens, or global attention via summary tokens computed with local attention. Moreover, SA can also allow random attention or any combination of local, global, and random attention as shown in Figure 10 with blue, orange, and green blocks, respectively. As a result, SA decreases the memory footprint to \\(O (wn)\\), in which 1\\(<w ≤ n\\) is a parameter, whose value depends on the attention structure.
+更具体地说，稀疏attention（SA）可以设计为计算靠近的token之间的局部attention，或通过使用局部attention计算的summary token来计算全局attention。此外，SA还可以允许随机attention或局部，全局和随机attention的任意组合，如图10中的蓝色，橙色和绿色块。这使SA将内存占用减小到\\(O(wn)\\)，其中1\\(<w≤n \\)是一个参数，其值取决于attention结构。
 
-![Box of colorful small blocks that shows the Variable Sparsity structure](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure10_Sparse-Attention_highres.jpg)
+![彩色小方块显示可变的稀疏度结构](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure10_Sparse-Attention_highres.jpg)
 
-Figure 10: Variable Sparsity structure
+图10：可变稀疏结构
 
-**Efficient implementation on GPUs:** While a basic implementation of sparse attention may show a benefit of memory savings, computationally it can be even worse than full computation. This is mainly due to the divergence and un-coalesced memory access that sparse data adds to the full picture. In general, developing efficient sparse kernels, particularly on GPUs, is challenging. DeepSpeed offers efficient sparse attention kernels developed in [Triton](https://github.com/ptillet/triton). These kernels are structured in block-sparse paradigm that enables aligned memory access, alleviates thread divergence, and balances workloads on processors.
+**在GPU上的高效实现：**尽管稀疏attention的基本实现会节省显存，但在计算上，它可能会比稠密计算要差。这主要是由于稀疏数据整体增加了分支和内存访问分散。开发高效的稀疏内核通常是颇具挑战性的，尤其是在GPU上。DeepSpeed提供了在[Triton](https://github.com/ptillet/triton)中开发的高效的稀疏attention kernel。这些kernel呈块状稀疏范式结构，可实现对齐的内存访问，减少GPU线程分支并平衡处理器上的工作负载。
 
-**System performance:** SA powers over **10x longer sequences** and **up to 6.3x faster computation** as shown in Figure 11. The left figure shows the longest sequence length runnable in BERT-Base and BERT-Large models under three settings: dense, dense with activation checkpoint, and sparse (SA) with activation checkpoint. SA empowers 10x and 16x longer sequences when compared with dense for BERT-Base and BERT-Large, respectively. Furthermore, SA reduces total computation compared with dense and improves training speed: the boost is higher with increased sequence length, and it is up to 6.3x faster for BERT-Base and 5.3x for BERT-Large.
+**系统性能：** 如图11所示，SA支持**10倍长的序列**和**最高6.3倍的计算提速**。左图显示了可在BERT-Base和BERT-Large中运行的最长序列长度。我们的实验有以下三种设置：稠密模式，具有激活checkpoint的稠密模式和具有激活checkpoint的稀疏（SA）模式。与BERT-Base和BERT-Large的稠密模式相比，SA的序列分别长10倍和16倍。 此外，与稠密模式相比，SA减少了总计算量，并提高了训练速度：提高的效率随着序列长度的增加而提高，对于BERT-Base而言，提升速度高达6.3倍，而对于BERT-Large，则高达5.3倍。
 
 [![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-11_final-1024x576.jpg)](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure11_updated-v3-1024x465.jpg)
 
-Figure 11: Maximum possible sequence length for BERT models (left); Training time of BERT-Base (center) and BERT-Large (right) on a single NVIDIA V100 GPU with varying sequence length.
+图11：BERT模型的可支持的最大序列长度（左）；在单英伟达V100 GPU上训练具有不同序列长度的BERT-Base（中）和BERT-Large（右）的时间。
 
-##### Learn how SA obtains comparable or higher accuracy than full attention
+##### 了解SA如何获得比全稠密attention相当甚至更高的准确性
 
-Related works along the line of sparse attention ([Sparse Transformer](https://arxiv.org/pdf/1904.10509.pdf), [Longformer](https://arxiv.org/pdf/2004.05150.pdf), [BigBird](https://arxiv.org/pdf/2007.14062.pdf)) have shown comparable or higher accuracy than full attention. Our experience is well aligned. In addition to lower memory overhead and faster computation, we also observe cases in production models where SA reaches higher accuracy and faster convergence. The following chart illustrates the accuracy of training a production model based on BERT for **long document comprehension** (2,048 sequence length). The experiment is performed in three settings: dense starting from scratch, SA starting from scratch, and SA continued training from a checkpoint of using dense with a sequence length of 512. We have observed that, for pretraining from scratch, SA converges faster with higher accuracy compared with dense. Furthermore, continuing training from a pretrained checkpoint with SA performs even better, with respect to both time and accuracy.
+涉及稀疏attention的相关工作（[Sparse Transformer](https://arxiv.org/pdf/1904.10509.pdf)，[Longformer](https://arxiv.org/pdf/2004.05150.pdf)，[BigBird](https://arxiv.org/pdf/2007.14062.pdf)）均显示出比全attention高的准确性。我们的经验与其一致。除了降低内存开销和加快计算速度外，我们还在生产模型中观察到SA有更高准确性并更快收敛的情况。下图说明了训练基于BERT的**长文本理解**（序列长度2048）生产模型的准确性。该实验在以下三种设置中进行：从头开始进行稠密训练，从头开始进行SA训练，以及从使用序列长度为512的密集型checkpoint继续进行SA训练。我们已经观察到，对于从头开始进行预训练，SA较于稠密设置收敛的速度更高，精度更好。此外，就时间和准确性而言，从用SA继续训练预先训练好的checkpoint的效果甚至更好。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-12_update-1024x717.jpg)
 
-Figure 12: Accuracy of long document comprehension application
+图12：长文本理解应用的准确性
 
-##### Learn how SA compares with state-of-the-art LongFormer
+##### 了解SA与最新的LongFormer的比较情况
 
-We compared SA with Longformer, a state-of-the-art sparse structure and implementation. In our experiment, SA uses “[Fixed](https://arxiv.org/pdf/1904.10509.pdf)” sparsity, and two implementations have comparable accuracy. On system performance, SA outperforms Longformer both in training and inference:
+我们将SA与Longformer（一种最新的稀疏结构及其实现）进行了比较。在我们的实验中，SA使用“[Fixed](https://arxiv.org/pdf/1904.10509.pdf)”稀疏性。两种实现的准确性相当。在系统性能方面，SA在训练和推断方面均优于Longformer：
 
-* 1.5x faster execution pretraining MLM on Wikitext103
-* 3x faster execution inference on BERT-Base (batch size 1, sequence length 2,048)
+* 运行Wikitext103上的预训练MLM的速度提高了1.5倍
+* BERT-Base的推理速度提高3倍（batch大小1，序列长度2,048）
 
-**Flexibility to handle any block-sparse structure:** DeepSpeed sparse attention suite does not target any specific sparse structure but enables model scientists to explore any block sparse structure with efficient system support. Currently, we have added popular sparse structures, like [Fixed](https://arxiv.org/pdf/1904.10509.pdf) (from OpenAI Sparse Transformer), [BigBird](https://arxiv.org/pdf/2007.14062.pdf) (from Google), and BSLongformer (Block-Sparse implementation of AI2 [Longformer](https://arxiv.org/pdf/2004.05150.pdf)). We also define a template to have “variable” structure, shown in Figure 10, which can be used to simply customize any block-sparse random, local, or global attention pattern.
+**处理任何块状稀疏结构的灵活性：** DeepSpeed稀疏attention套件不针对任何特定的稀疏结构，使模型研究人员能够在有效的系统支持下探索任何块稀疏结构。当前，我们添加了流行的稀疏结构，例如[Fixed](https://arxiv.org/pdf/1904.10509.pdf)（来自OpenAI稀疏Transformer），[BigBird](https://arxiv.org/pdf/2007.14062 .pdf)（来自Google）和BSLongformer（AI2 [Longformer](https://arxiv.org/pdf/2004.05150.pdf)的块稀疏实现）。我们还定义了一个具有“可变”结构的模板，如图10所示，该模板可用于简单地自定义任何随机，局部或全局attention模式的块状稀疏结构。
 
-## 1-bit Adam: 5x less communication and 3.4x faster training
+## 1比特Adam：减少5倍的通信量并提升3.4倍的训练速度
 
-Scalable training of large models (like BERT and GPT-3) requires careful optimization rooted in model design, architecture, and system capabilities. From a system standpoint, communication has become a major bottleneck, especially on commodity systems with standard TCP interconnects that offer limited network bandwidth.
+大型模型（如BERT和GPT-3）的扩展训练需要基于模型设计，体系结构和系统功能的仔细优化。从系统的角度来看，通信已成为主要的瓶颈，尤其是在使用标准TCP且网络带宽有限的商用系统上。
 
-Communication compression is an important technique to reduce training time on such systems. One of the most effective ways to compress communication is via error compensation compression, which offers robust convergence speed, even under 1-bit compression. However, state-of-the-art error compensation techniques only work with basic optimizers like Stochastic Gradient Descent (SGD) and momentum SGD, which are linearly dependent on the gradients. They do not work with non-linear gradient-based optimizers like Adam, which offers state-of-the-art convergence efficiency and accuracy for many tasks, including training of BERT-like models.
+通信压缩是减少在此类系统上的训练时间的重要技术。压缩通信的最有效方法之一是误差补偿压缩，即使在1比特压缩下，它也可以提供稳定的收敛速度。但是，最新的误差补偿技术仅适用于一些和梯度线性相关的简单优化器，例如随机梯度下降（SGD）和Momentum SGD。这些技术无法和Adam之类的非线性优化器一起使用，后者在许多任务（包括训练类似BERT的模型）中带来了最好的收敛率和精度。
 
-For a powerful optimizer like Adam, the non-linear dependency on gradient (in the variance term) makes it challenging to develop error compensation-based compression techniques, limiting the practical value of the state-of-the-art communication compression techniques.
+对于像Adam之类的强大优化器而言，对梯度的非线性依赖性（在方差项上）使开发基于误差补偿的压缩技术面临挑战，从而限制了实际应用最先进的通信压缩技术。
 
-##### Understand the background on classic compression techniques
+##### 理解经典压缩技术的背景
 
-One way of communication compression is 1-bit compression, which can be expressed as:
+通信压缩的一种方法是1比特压缩，它可以被表示为：
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/LaTex-Equation-1_DeepSpeed-1.jpg)
 
-With this compression, we could achieve a 32x reduction of memory size by representing each number using one bit. The problem is that using this straightforward method would significantly degrade the convergence speed, which makes this method inapplicable. To solve this problem, recent studies show that by using error compensation compression, we could expect almost the same convergence rate with communication compression.
+在这种压缩中，我们用1比特表示每个数字，从而将内存需求减少32倍。问题在于，这种直接的方法会大大降低收敛速度，从而无法实际使用。为了解决这个问题，最近的研究表明，通过使用误差补偿压缩，我们可以期待在通信压缩下保证几乎相同的收敛率。
 
-The idea of error compensation can be summarized as: 1) doing compression, 2) memorizing the compression error, and then 3) adding the compression error back in during the next iteration. For SGD, doing error compression leads to:
+误差补偿的思想可以概括为：1）进行压缩，2）记忆压缩误差，然后3）在下一次迭代中把压缩误差加回来。 对于SGD，误差压缩相当于：
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/LaTex-Equation_2_DeepSpeed.jpg)
 
-Where \\(C(⋅)\\) is the 1-bit compression operator. The good thing about doing this error compensation is that the history compression error \\(e\_t\\) and \\(e\_t-1\\) would be canceled by itself eventually, which can be seen by:
+其中\\(C(⋅)\\)是1比特压缩算子。这种误差压缩的优点在于压缩误差的历史值\\(e\_t\\)和\\(e\_t-1\\)最终会相互抵消, 这使得：
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/LaTex-Equation-3_DeepSpeed.jpg)
 
-This strategy has been proven to work for all optimization algorithms that are linearly dependent on the gradient, such as SGD and Momentum SGD.
+该策略已经被证明适用于所有线性依赖于梯度的优化算法，例如SGD和Momentum SGD。
 
-##### Learn about the challenges in applying error-compensation to Adam
+##### 了解将误差补偿应用于Adam的挑战
 
-We provide an overview of the Adam algorithm below. The update rules are as follows.
+我们在下面提供了Adam算法的概述。更新规则如下：
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/LaTex-Equations-3_DeepSpeed.jpg)
 
-As shown in the equations above, the variance term \\(v\_t\\) is nonlinearly dependent on the gradient \\(g\_t\\). If we apply basic error compensation compression to Adam, we observe that Adam will not converge as shown in Figure 13.
+如上图的公式所示，方差项\\(v\_t\\)和梯度\\(g\_t\\)呈非线程关系。如果我们对Adam进行普通的误差补偿，我们会发现（见图13）Adam将无法收敛。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-1-_Section-5.png)
 
-Figure 13: Inapplicability of Error-compensation Compression for Adam due to non-linear dependence on the gradient
+图13：由于对梯度的非线性依赖，误差补偿压缩不适用于Adam
 
-#### Compressing communication with 1-bit Adam
+#### 用1比特Adam压缩通信
 
-To compress communication while using the Adam optimizer, we develop **1-bit Adam**, which addresses the non-linearity in gradients via preconditioning. We observe that the magnitude of changes on the non-linear term, variance (\\(v\_t\\)), decrease significantly after a few epochs of training and setting \\(v\_t\\) constant afterwards will not change the convergence speed. The proposed 1-bit Adam optimizer, as shown in Figure 14, consists of two parts: the **warmup** stage, which is essentially the vanilla Adam algorithm; and the **compression** stage, which keeps the variance term constant and compresses the remaining linear term, that is the momentum, into 1-bit representation.
+为了在使用Adam优化器时压缩通信，我们开发了**1比特Adam**，它通过预处理解决了梯度中的非线性问题。我们观察到非线性项方差（\\(v\_t\\)）的变化幅度在几个训练周期后显著降低，之后将\\(v\_t\\)设置为常数不改变收敛速度。所以提出的1位Adam优化器由两部分组成（如图14所示）：预热阶段，本质上就是原始的Adam算法。压缩阶段，使方差项保持恒定，并将剩余的线性项（即动量）压缩为1位表示形式。
 
-The compression stage of the algorithm is controlled by a threshold parameter (as shown in Figure 14). When we detect that the change in “variance” falls below a certain threshold, we switch to the compression stage. Our study shows that only 15-20% of the overall training steps are needed for the warmup stage.
+该算法的压缩阶段由阈值参数控制（如图14所示）。当我们检测到“方差”的变化降至某个阈值以下时，我们切换到压缩阶段。我们的研究表明，热身阶段只需要全部训练步骤的15-20％。
 
-##### Learn more about how 1-bit Adam works under the hood
+##### 进一步了解1比特Adam在底层机制
 
-The weight update rule for 1-bit Adam is governed by the following equations. For the **i** th worker, in the compression stage:
+1比特Adam的权重按以下公式进行更新。对于第**i**个worker，在压缩阶段：
 
 ![a screenshot of text](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Equations-5_Latex-1024x392.jpg)
 
 ![a screenshot of a cell phone](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-2_Section-4.png)
 
-Figure 14: Comparison of distributed training steps in classic Adam and the proposed 1-bit compressed Adam algorithm
+图14：使用经典Adam和我们提出的的1比特压缩Adam算法进行分布式训练的流程比较
 
-#### Addressing system challenges for 1-bit Adam
+#### 应对1比特Adam的系统挑战
 
-Besides the algorithmic challenge, there are two system challenges in applying 1-bit Adam in training systems. First, we need efficient kernels that convert the momentum to 1-bit representations. Second, we need efficient communication schemes to exchange this compressed momentum across different GPUs. The goal of compression is to reduce the overall training time so that commodity systems with bandwidth-limited interconnects can be used to train large models. We address these challenges in DeepSpeed and introduce a fully optimized 1-bit Adam implementation for training on communication-constrained systems.
+除了算法上的挑战外，在训练系统中应用1比特Adam还有两个系统挑战。首先，我们需要能将动量高效转换为1比特表示形式的kernel。其次，我们需要高效的通信方案来在不同的GPU之间传输压缩后的动量。压缩的目的是减少总体训练时间，以使带宽受限的商品系统可以用来训练大型模型。我们在DeepSpeed中解决了这些挑战，并引入了针对在通信受限上系统进行训练场景进行了完全优化的1比特Adam实现。
 
-#### Benefits of 1-bit Adam on communication-constrained systems
+#### 1比特Adam在通信受限系统上的优势
 
-1-bit Adam offers the same convergence as Adam, incurs up to **5x less communication** that enables up to **3.5x higher throughput** for BERT-Large pretraining and up to **2.7x higher throughput** for SQuAD fine-tuning. This end-to-end throughput improvement is enabled by the 6.6x (Figure 15 left) and 6.2x (Figure 15 right) speedup observed during the compression stage. It is worth mentioning that our 1-bit Adam optimizer scales so well on a 40 Gigabit Ethernet system that its performance is comparable to Adam’s scalability on a 40 Gigabit InfiniBand QDR system. We note that the effective bandwidth on 40 Gigabit Ethernet is 4.1 Gbps based on iPerf benchmarks, whereas InfiniBand provides near-peak bandwidth of 32 Gbps based on InfiniBand perftest microbenchmarks.
+1位Adam提供了和Adam相同的收敛能力，并最多可以减少**5倍的通信量**，从而为BERT-Large预训练任务带来了**最高3.5倍的吞吐量**，以及为SQuAD fine-tuning任务带来了**高达2.7倍的高吞吐量**。端到端吞吐量的提高来源于在压缩阶段观察到的6.6倍（图15左）和6.2倍（图15右）速度提升。值得一提的是，我们的1位Adam优化器在40 Gb以太网系统上的扩展性非常好，其性能可与Adam在40 Gb InfiniBand QDR系统上的扩展性相媲美。我们注意到，基于iPerf基准，40 Gb以太网上的有效带宽为4.1 Gbps，而基于InfiniBand perftest微基准，InfiniBand提供了32 Gbps的近峰带宽。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3-Figure-3-Section-4-1024x349.jpg)
 
-Figure 15: Scalability of 1-bit Adam for BERT-Large Pretraining (left) and SQuAD Fine-tuning (right) on NVIDIA V100 GPUs. The batch sizes are 16/GPU and 3/GPU for BERT pretraining and SQuAD fine-tuning, respectively.
+图15：NVIDIA V100 GPU上的BERT-Large预训练（左）和SQuAD fine-tuning（右）的1比特Adam扩展性。BERT预训练的batch大小为16/GPU，SQuAD fine-tuning为3/GPU。
 
-##### Dive deeper into 1-bit Adam evaluation results
+##### 深入1比特Adam的评测结果
 
-**Same convergence as Adam**: One major question for using 1-bit Adam is the convergence speed, and we find that 1-bit Adam can achieve the same convergence speed and comparable testing performance using the same number of training samples as shown in Figure 16.
+**与Adam相同的收敛性**：使用1比特Adam的一个主要问题是收敛速度。我们发现在使用相同数量的训练样本时，1比特Adam可以达到相同的收敛速度和相当的性能，见图16。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-4_Section-5.png)
 
-Figure 16: 1-bit Adam converges like Adam using the same number of training samples.
+图16：使用相同数量的训练样本，1比特Adam可以像Adam一样收敛。
 
-Detailed BERT-Base and BERT-Large results are shown in Table 1. We see that the scores are on par with or better than the original model for both the uncompressed and compressed cases.
+表1显示了BERT-Base和BERT-Large的详细结果。我们看到，对于未压缩和压缩情况，1比特Adam的性能均与原始模型相当，有些则优于原始模型。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed_Table-1.png)
 
-Table 1: Verifying correctness of 1-bit Adam on various testing tasks
+表1：在各种测试任务上验证1比特Adam的正确性
 
-**Up to 5x less communication:** 1-bit Adam provides the same convergence as Adam and reduces the communication volume by 16x during the compression stage for 16-bit (FP16) training. For BERT pretraining, this leads to an overall communication reduction of 5x as we observed the warmup stage to be just 15% of the end-to-end training time.
+**最多可减少5倍的通信量：** 1比特Adam提供了与Adam相同的收敛能力，并且在压缩阶段（对于16位（FP16）训练）将通信量减少了16倍。 对于BERT预训练模型，由于我们观察到预热阶段仅为端到端训练时间的15％，因此总体通信减少了5倍。
 
-The formula to calculate the communication volume ratio of the original versus 1-bit Adam is as follows:
+原始Adam和1比特Adam的通信量之比的公式如下：
 
 1 / (warmup + (1 – warmup)/16)
 
-**1-bit Adam is 3.5x faster for training BERT-Large:** We present two main results for training BERT-Large on systems with two different bandwidth-limited interconnects: 1) 40 Gbps Ethernet (Figure 17 left) and 2) 40 Gbps InfiniBand QDR (Figure 17 right). During the compression phase, we observe up to 6.6x higher throughput on the system with Ethernet and up to 2x higher throughput on the system with InfiniBand, resulting in end-to-end speed up (including both warmup and compression stages) of 3.5x and 2.7x, respectively. The major benefit of 1-bit Adam comes from the communication volume reduction—enabled by our compressed momentum exchange—and from our custom **allreduce** operation that implements efficient 1-bit communication using non-blocking gather operations followed by an **allgather** operation.
+**1比特Adam使训练BERT-Large的速度快3.5倍：** 我们提供了在两个具有有限带宽限制的系统上训练BERT-Large的结果：1）40 Gbps以太网（图17左）和2）40 Gbps InfiniBand QDR（图17右）。在压缩阶段，我们发现使用以太网的系统吞吐量提高了6.6倍，使用InfiniBand的系统吞吐量提高了2倍，端到端的速度（包括预热和压缩阶段）分别提高了3.5倍和2.7倍。1比特Adam的主要收益来源于通信量减少（因为对动量通信的压缩实现）以及我们自定义的**allreduce**操作，该操作通过高效的1比特无阻塞gather和一个**allgather**操作实现。
 
-It is important to note that one can also increase total batch size to reduce communication using optimizers like LAMB instead of Adam for BERT pretraining. However, 1-bit Adam avoids the need for rigorous hyperparameter tuning, which is often more difficult for large batches from our experience. Furthermore, 1-bit Adam also works very well for workloads that have small critical batch size (cannot converge well with large batch size) like many fine-tuning tasks.
+值得注意的是，可以使用LAMB而不是Adam优化器进行BERT预训练，通过增加总batch大小以减少通信量。但是，1比特的Adam避免了这种要求严格的超参数调参。根据我们的经验，大batch下进行调参通常会更加困难。此外，1比特Adam对于临界批处理量较小（无法在大batch下良好收敛，例如许多fine-tuning任务）的工作也非常适用。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-5_Section-5-1024x343.jpg)
 
-Figure 17: Performance of 1-bit Adam for BERT-Large training on 40 Gbps Ethernet (left) and InfiniBand (right) interconnect during the compression stage.
+图17：在压缩阶段，在40 Gbps以太网（左）和InfiniBand（右）上进行BERT-Large训练时1比特Adam的性能。
 
-**1-bit Adam is 2.7x faster for SQuAD fine-tuning:** 1-bit Adam offers scalability not only on large-scale training tasks but also on tasks like SQuAD fine-tuning. As shown in Figure 18, 1-bit Adam scales well on both Ethernet- and InfiniBand-based systems and offers up to 6.2x higher throughput (during the compression stage) on the Ethernet-based system, resulting in 2.7x end-to-end speedup (25% warmup plus 75% compression stage). For SQuAD fine-tuning, we observed that a total batch size of 96 offers the best F1 score. Batch sizes larger than this value lower the convergence rate and require additional hyperparameter tuning. Therefore, in order to scale to 32 GPUs, we can only apply a small batch size of 3-4 per GPU. This makes fine-tuning tasks communication intensive and hard to scale. 1-bit Adam addresses the scaling challenge well, obtaining 3.4x communication reduction without enlarging batch size, and it results in a 2.7x end-to-end speedup.
+**1比特Adam使SQuAD fine-tuning任务加速2.7倍：** 1比特Adam不仅在大规模训练任务上提供扩展性，而且在SQuAD微调之类的任务上也有效果。如图18所示，1比特Adam可在基于以太网和基于InfiniBand的系统上很好地扩展，并且在基于以太网的系统上提供高达6.2倍的高吞吐量（在压缩阶段），从而带来端到端的2.7倍提速（预热阶段占25％，压缩阶段占75％）。对于SQuAD fine-tuning，我们观察到总batch大小为96时，F1得分最高。 batch大小大于此值会降低收敛率，并需要额外的超参数调整。因此，为了扩展到32个GPU，我们在每个GPU上运行3-4的小batch。这使得fine-tuning任务的通信强度大且难以扩展。1比特Adam很好地解决了扩展性的难题，在不增加批量的情况下减少了3.4倍的通信量，从而实现了2.7倍的端到端加速。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-6_Section-5-1024x316.jpg)
 
-Figure 18: Performance of 1-bit Adam for SQuAD fine-tuning on 40 Gbps Ethernet (left) and InfiniBand (right) interconnect during the compression stage.
+图18：在40 Gbps以太网（左）和InfiniBand（右）上的SQuAD fine-tuning任务中使用1比特Adam时，压缩阶段的性能。
 
 ------
 
-Please visit [DeepSpeed website](https://www.microsoft.com/en-us/research/project/deepspeed/) and [Github repository](https://github.com/microsoft/DeepSpeed) for the codes, tutorials and documentations about these new technologies! We are also integrating some of these techniques into [ONNX Runtime](http://aka.ms/onnxruntime).
+请访问[DeepSpeed网站](https://www.microsoft.com/en-us/research/project/deepspeed/)以及[Github仓库](https://github.com/microsoft/DeepSpeed)以获取这些新技术的代码、教程和文档！我们也把部分技术整合进了[ONNX Runtime](http://aka.ms/onnxruntime)。
 
-### About our great collaborators:
+### 关于我们出色的合作者们：
 
-* We would like to acknowledge our academic collaborator, Philippe Tillet from Harvard University, for helping us co-develop sparse attention kernels through [Triton](http://www.eecs.harvard.edu/~htk/publication/2019-mapl-tillet-kung-cox.pdf) compiler.
-* ZeRO-Offload was co-developed with our intern Jie Ren from UC Merced. We would also like to thank Dong Li from UC Merced, as well as Bharadwaj Pudipeddi and Maral Mesmakhouroshahi from Microsoft [L2L work](https://arxiv.org/abs/2002.05645), for their discussions on the topic.
-* 1-bit Adam was co-developed with our intern Hanlin Tang from University of Rochester.
-* We would like to thank the great collaboration from NVIDIA, especially the Megatron-LM team.
+* 我们在此致谢学界合作者，来自哈佛大学的Philippe Tillet。他通过[Triton](http://www.eecs.harvard.edu/~htk/publication/2019-mapl-tillet-kung-cox.pdf)编译器和我们一同开发了稀疏注意力算法的kernel。
+* ZeRO-Offload是和来自UC Merced的实习生Jie Ren共同开发的。我们同时也感谢来自UC Merced的Dong Li，以及来自微软的的Bharadwaj Pudipeddi和Maral Mesmakhouroshahi [L2L work](https://arxiv.org/abs/2002.05645)，感谢他们在这个主题上的讨论。
+* 1-bit Adam由来自罗切斯特大学的实习生Hanlin Tang共同开发。
+* 我们同时感谢来自英伟达的强力合作，尤其是Megatron-LM团队。
 
-### About the DeepSpeed Team:
+### 关于DeepSpeed团队：
 
-We are a group of system researchers and engineers—Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, Reza Yazdani Aminabadi, Elton Zheng, Arash Ashari, Jing Zhao, Minjia Zhang, Niranjan Uma Naresh, Shaden Smith, Ammar Ahmad Awan, Conglong Li, Yuxiong He (team lead) — who are enthusiastic about performance optimization of large-scale systems. We have recently focused on deep learning systems, optimizing deep learning’s speed to train, speed to convergence, and speed to develop!
+我们是一群热衷于大规模系统性能优化的研究员和工程师——Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, Reza Yazdani Aminabadi, Elton Zheng, Arash Ashari, Jing Zhao, Minjia Zhang, Niranjan Uma Naresh, Shaden Smith, Ammar Ahmad Awan, Conglong Li, Yuxiong He (team lead)。最近我们专注于深度学习系统，优化深度学习系统的训练速度、收敛速度以及开发速度！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
