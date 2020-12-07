@@ -2,96 +2,96 @@
 > * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/incremental-vs-virtual-dom.md](https://github.com/xitu/gold-miner/blob/master/article/2020/incremental-vs-virtual-dom.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# Incremental vs Virtual DOM
+# 增量 DOM 与虚拟 DOM 的对比使用
 
 ![Photo by [Cristina Gottardi](https://unsplash.com/@cristina_gottardi?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9666/0*ivwXO-FM6XbH3ugm)
 
-If you are familiar with React, you have probably heard of the concept of Virtual DOM. It is one of the main contributors to React’s popularity by increasing UI performance.
+如果你熟悉 React，你大概听说过虚拟 DOM 的概念。React 受欢迎的主要原因之一就是通过虚拟 DOM 提高用户界面性能。
 
-However, when Angular released their new renderer Angular Ivy back in 2019, many wondered why they chose a concept known as Incremental DOM over Virtual DOM. And still, Angular sticks with the idea. So you might wonder why Angular uses Incremental DOM in the first place and keeps on using it. Let’s find it out.
+然而，当 Angular 在 2019 年发布他们的新渲染器 Angular Ivy 时，许多人想知道为什么他们选择了一个被称为增量 DOM 的特性而不是虚拟 DOM。尽管如此，Angular 还是坚持这个想法。所以你可能会想，为什么 Angular 一开始就使用增量 DOM，并且还在继续使用。请跟随本文一探究竟。
 
-First and foremost, let’s start with Virtual DOM and understand how it works.
+首先，让我们从虚拟 DOM 开始，了解它是如何工作的。
 
-## How Virtual DOM Works
+## 虚拟 DOM 的工作方式
 
-Virtual DOM’s main concept is to keep a virtual representation of UI in the memory and sync it with real DOM using the [reconciliation](https://reactjs.org/docs/reconciliation.html) process. This process consist of 3 main steps:
+虚拟 DOM 的主要概念是在内存中保留 UI 的虚拟表示，并使用[协调（reconciliation）](https://reactjs.org/docs/reconciliation.html)过程将其与真实 DOM 同步。该过程包括三个主要步骤：
 
-1. Rendering the entire UI into Virtual DOM when there’s a change in UI.
-2. Calculating the difference between previous and current Virtual DOM representations.
-3. Updating the real DOM with the changes.
+1. 当用户 UI 发生变化时，将整个用户 UI 渲染到虚拟 DOM 中。
+2. 计算之前虚拟 DOM 和当前虚拟 DOM 表示形式之间的差异。
+3. 根据变化差异更新真实 DOM。
 
 ![Authors’ Work: How Virtual DOM Works](https://cdn-images-1.medium.com/max/2000/1*8OCCATi8_5HmWI1QpjrRNA.png)
 
----
 
-Since you got a basic understanding of Virtual DOM, let’s dive deep into Incremental DOM.
 
-## How Incremental DOM Works
+现在你已经对虚拟 DOM 有了一个基本的了解，接下来让我们来深入了解一下增量 DOM。
 
-Incremental DOM brings a more straightforward approach than Virtual DOM by using real DOM to locate code changes. So, there won’t be any virtual representation of the real DOM in memory to calculate the difference, and real DOM is used to diff against new trees.
+## 增量 DOM 的工作方式
 
-The main idea behind this Incremental DOM concept is to compile every component into a set of instructions. Then, these instructions are used to create the DOM tree and make changes to it.
+增量 DOM 通过使用真实 DOM 来定位代码更改，带来了一种比虚拟 DOM 更简单的方法。因此，内存中不会有任何真实 DOM 的虚拟表示来计算差异，真实 DOM 仅用于与新 DOM 树进行差异比较。
+
+这个增量 DOM 概念背后的主要思想是将每个组件编译成一组指令。然后，这些指令用于创建 DOM 树并对其进行更改。
 
 ![Authors’ Work: How Incremental DOM Works](https://cdn-images-1.medium.com/max/2000/1*GHX157rdwWEP1pqfpgMfDQ.png)
 
-## What Makes Incremental DOM So Special?
+## 增量 DOM 如此特别的原因
 
-After going through the above explanations, you must have concluded that the Incremental DOM approach is much simpler. And that’s not all.
+看完上面的解释后，你一定已经得出结论，认为增量 DOM 要简单得多。这还不是全部。
 
-> The real benefit of the Incremental DOM is its optimized usage of memory.
+> 增量 DOM 的真正优点是它优化了内存的使用。
 
-This optimization becomes very handy when it comes to devices with low memory capacity like mobile phones. Besides, optimization of memory usage is not an easy task. Also, the memory usage of an application purely depends on the **bundle size** and the **memory footprint**.
+当涉及到手机这类低内存容量的设备时，这种优化变得非常方便。而且，优化内存使用不是一件容易的事情。此外，应用程序的内存使用完全取决于**包大小（bundle size）**和**内存占用（memory footprint）**。
 
-Let’s see how Incremental DOM has helped to reduce these two parameters.
+让我们看看增量 DOM 是如何帮助减少这两个因素影响的。
 
-#### 1. Incremental DOM is Tree-Shakable
+### 1. 增量 DOM 可抖动 DOM 树
 
-Tree shaking is not a new thing. It refers to the steps of removing unwanted codes during the build process.
+抖动 DOM 树（tree shaking）不是什么新事物。它是指在构建 DOM 树过程中删除不需要的代码。
 
-Incremental DOM makes the most out of this since it uses an instructions based approach. As mentioned earlier, Incremental DOM compiles each component to a set of instructions before the compilation, and this helps to identify the unused instructions. So, they can be removed at the compilation time.
+增量 DOM 充分利用了这一点，因为它使用了基于指令的方法。如前所述，增量 DOM 在编译之前将每个组件编译成一组指令，这有助于识别未使用的指令。因此，它们可以在编译时进行删除操作。
 
 ![Authors’ Work: Tree Shaking](https://cdn-images-1.medium.com/max/3026/1*kgsIwDbufdFqoPnmWf15MQ.png)
 
-Virtual DOM is not tree-shakable since it uses an interpreter, and there is no way to get to know about unused codes at the compile time.
+虚拟 DOM 不可抖动 DOM 树（tree-shakable），因为它使用解释器，并且没有办法在编译时识别未使用的代码。
 
-#### 2. Reduces Memory Usage
+### 2. 减少内存使用
 
-If you understand the main difference between Virtual DOM and incremental DOM, you should already know the secret behind this.
+如果你明白虚拟 DOM 和增量 DOM 的主要区别，你就应该已经知道这背后的秘密了。
 
-Unlike the Virtual DOM, Incremental DOM doesn’t generate a copy of real DOM when re-rendering the application UI. Besides, Incremental DOM won’t allocate any memory if there are no changes in the application UI. Most of the time, we re-render the applications without any significant modifications. So following this approach can drastically save the device’s memory.
+与虚拟 DOM 不同，增量 DOM 在重新呈现应用程序 UI 时不会生成真实 DOM 的副本。此外，如果应用程序 UI 没有变化，增量 DOM 就不会分配任何内存。大多数情况下，我们都是在没有任何重大修改的情况下重新呈现应用程序 UI。因此，按照这种方法可以极大地节省设备的内存使用。
 
 ![Authors’ Work: Reduced Memory usage in Incremental DOM](https://cdn-images-1.medium.com/max/2168/1*4P1uTqoBoU_gd4Z3i6r7sA.png)
 
-It seems that Incremental DOM has a solution to reduce the memory footprint in Virtual DOM. But you might wonder why other frameworks aren’t using it?
+增量 DOM 似乎有一个减少虚拟 DOM 内存占用的解决方案。但是你可能想知道为什么其他框架不使用它？
 
-#### There is a Tradeoff
+### 这里存在一个权衡
 
-Although Incremental DOM reduces memory usage by following a more efficient method to calculate the difference, that method is more time-consuming than Virtual DOM.
+虽然增量 DOM 通过按照更有效的方法来计算差异，从而减少了内存使用，但是该方法比虚拟 DOM 更耗时。
 
-> So, there is a tradeoff between speed and memory usage when deciding between Incremental DOM and Virtual DOM.
+> 因此，在选择使用增量 DOM 和虚拟 DOM 时，会对运行速度和内存使用之间进行权衡。
 
-## Final Thoughts
+## 最终思考
 
-Out of these two Document Object Models(DOMs), Virtual DOM has been the front runner for a long time. One can argue that saying “Virtual DOM is popular because of React,” and on the other hand, React has mainly been benefited from this Virtual DOM concept.
+在这两种文档对象模型（DOM）中，虚拟 DOM 长期以来一直处于领先地位。可以说“虚拟 DOM 之所以流行是因为 React 流行”，另一方面 React 主要得益于这个虚拟 DOM 的特性。
 
-Therefore it is evident that the speed and performance boost provided by Virtual DOM has helped React to compete with its rivals.
+因此，很明显虚拟 DOM 提供的速度和性能提升有助于 React 与其它框架竞争。
 
-#### Pros and Cons of Virtual DOM
+### 虚拟 DOM 的优缺点
 
-Let’s look at some main advantages of Virtual DOM,
+让我们看一下虚拟 DOM 的一些主要优点：
 
-* Efficient “diffing” algorithm.
-* Simple and help to boost Performance.
-* It can be used without React.
-* Lightweight.
-* Allows building applications without thinking about state transitions.
+* 高效的 diff 算法。
+* 简单且有助于提升性能。
+* 没有 React 也能使用。
+* 轻量。
+* 允许构建应用程序且不考虑状态转换。
 
-> Although It is Fast and Efficient, There is a Catch
+> 虽然虚拟 DOM 快速高效，但有一个缺点：
 
-This diffing process indeed reduces the workload on real DOM. And it needs to compare the current Virtual DOM state with the previous one to identify the changes. To understand this better, let’s take a small React code example:
+这个区分过程（diffing process）确实减少了真实 DOM 的工作量。但它需要将当前的虚拟 DOM 状态与之前的状态进行比较，以识别变化。为了更好地理解这一点，让我们举一个小的 React 代码示例：
 
 ```jsx
 function WelcomeMessage(props) {
@@ -103,29 +103,29 @@ function WelcomeMessage(props) {
 }
 ```
 
-Assume that the name prop’s initial value was “Chameera,” and it was changed to “Reader” later. The only change in the whole code is the prop, and there is no need to change the DOM node or compare attributes inside the **\<div>** tag. However, with the diffing method, it is necessary to go through all the steps to identify the changes.
+假设 `props.name` 的初始值是 `Chameera` ，后来改成了 `Reader`。整个代码中唯一的变化就是 `props`，不需要改变 DOM 节点或者比较 **`<div>`** 标签内部的属性。然而，使用 diff 算法，有必要检查所有步骤来识别变化。
 
-We can see an enormous amount of minor changes like that in a development process, and comparing each element in the UI is undoubtedly an overhead. This can be recognized as one of the main disadvantages of Virtual DOM.
+我们在开发过程中可以看到大量这样的微小变化，比较用户 UI 中的每个元素无疑是一种开销。这可以被认为是虚拟 DOM 的主要缺点之一。
 
-> However, Incremental DOM has a solution for this higher memory usage problem.
+> 然而，增量 DOM 为这个大量内存使用问题提供了一个解决方案。
 
-#### Pros and Cons of Incremental DOM
+### 增量 DOM 的优缺点
 
-As I have mentioned earlier, Incremental DOM brings a solution to reduce the memory consumption in Virtual DOM by using real DOM to track changes. This approach has **reduced the calculating overhead drastically and improved the memory usage** of the applications as well.
+正如我前面提到的，增量 DOM 通过使用真实 DOM 跟踪变化，提供了一个减少虚拟 DOM 内存消耗的解决方案。**这种方法大大降低了计算开销，也优化了应用程序的内存使用。**
 
-So, this is the main advantage of using Incremental DOM over Virtual DOM, and we can list down a few other benefits of Incremental DOM as follows:
+所以，这是使用增量 DOM 相对于虚拟 DOM 的主要优势，我们可以列出增量 DOM 的其他优点：
 
-* Easy to integrates with many other frameworks.
-* Its’ simple API makes it powerful for targeting template engines.
-* Suitable for mobile device-based applications.
+* 易于与许多其他框架结合使用。
+* 简单的 API 使其成为强大的目标模板引擎。
+* 适合基于移动设备的应用程序。
 
-> In most of these cases, Incremental DOM is not the fastest as Virtual DOM.
+> 在大多数情况下，增量 DOM 不如虚拟 DOM 运行快。
 
-Although Incremental DOM brings a solution to reduce the memory usage, that solution impacts Incremental DOMs speed since difference calculation takes more time than the Virtual DOM approach. So, we can recognize this as the main disadvantage of using Incremental DOM.
+虽然增量 DOM 带来了减少内存使用的解决方案，但是该解决方案影响了增量 DOM 的速度，因为增量 DOM 的差异计算比虚拟 DOM 方法耗费更多时间。因此，我们可以认为这是使用增量 DOM 的主要缺点。
 
-Both these DOMs have strengths of their own, and we can’t just say Virtual DOM is better, or Incremental DOM is better. However, what I can say for sure is that both Virtual DOM and Incremental DOM are excellent options to have, and they can handle dynamic DOM updates without any issue.
+这两种 DOM 各有特色，我们不能只说虚拟 DOM 更好，或者增量 DOM 更好。然而，我可以肯定地说，虚拟 DOM 和增量 DOM 都是很好的选项，它们可以毫无问题地处理动态 DOM 更新。
 
-So let me stop there and thank you very much for reading this article !!!
+以上就是本文全部内容，感谢大家阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
