@@ -1,31 +1,31 @@
-> * 原文地址：[Inheritance vs Composition: Which is Better for Your JavaScript Project?](https://blog.bitsrc.io/inheritance-vs-composition-which-is-better-for-your-javascript-project-16f4a077de9)
-> * 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/inheritance-vs-composition-which-is-better-for-your-javascript-project.md](https://github.com/xitu/gold-miner/blob/master/article/2020/inheritance-vs-composition-which-is-better-for-your-javascript-project.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Inheritance vs Composition: Which is Better for Your JavaScript Project?](https://blog.bitsrc.io/inheritance-vs-composition-which-is-better-for-your-javascript-project-16f4a077de9)
+> - 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/inheritance-vs-composition-which-is-better-for-your-javascript-project.md](https://github.com/xitu/gold-miner/blob/master/article/2020/inheritance-vs-composition-which-is-better-for-your-javascript-project.md)
+> - 译者：[regon-cao](https://github.com/regon-cao)
+> - 校对者：
 
-# Inheritance vs Composition: Which is Better for Your JavaScript Project?
+# 继承 vs 组合：哪一个更适合你的 JavaScript 项目？
 
 ![Image by [Christo Anestev](https://pixabay.com/users/anestiev-2736923/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2737108) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2737108)](https://cdn-images-1.medium.com/max/3840/1*mp9gh6RXvw3TMbBun2_fAg.jpeg)
 
-Extending behavior is something we, as developers, have been doing for a long time, in a lot of different languages and programming paradigms. However, a secret war has been waging right in front of our eyes, and only a very select group has actually noticed it:
+扩展行为是我们作为开发人员在很多不同的语言和编程范例中做了很长时间的事情。但是，一场秘密战争就在我们眼前进行，只有极少数人真正注意到了这一点：
 
-> Should you do it through inheritance or is it better to extend and add new behavior through composition?
+> 你应该通过继承来实现，还是通过组合来扩展和添加新的行为？
 
-These are two very old techniques that, at first glance, give us the same result, however, there are differences to the trained eye, and I’m here to shed some light on them.
+这是两种非常古老的技术，乍一看可以得到相同的结果，然而，在一些训练有素的眼睛里他们是有差异的，我在这里给他们作出一些解释。
 
 ---
 
-With that intro out of the way, let us begin our journey with some basic definitions so we’re all starting at the same place.
+介绍完之后，让我们从一些基本的定义开始我们的旅程，这样我们就可以从同一个地方开始。
 
-## Definitions
+## 定义
 
-As I said, both of these concepts aren’t precisely new, but in my case, I learned programming back in the day thinking that if you needed to extend behavior you did it by sub-classing, and because of that, inheritance was my only tool when it came to extending and adding behavior to a class. Let’s start there.
+正如我所说的，这两个概念并不是全新的，但在我学习编程的时候，我认为如果需要扩展行为，就可以通过子类来实现，因此，继承是我在扩展和添加行为到类时的唯一工具。让我们从这里开始吧。
 
-#### Inheritance
+#### 继承
 
-Essentially, in an object oriented context, Inheritance is a technique we can use to create derived classes that borrow everything from their parents, meaning every public and protected property and method, leaving out private ones. This allows you to maintain a relation with the parent class that updates the moment its code changes, making it a better alternative than just copying its code and extending it manually.
+本质上，在面向对象的上下文中，继承可以创建出子类，子类从父类借用除了私有属性和方法外所有公共的和受保护的属性和方法。这么做可以维持和父类的一个关系，在父类代码更新时有更好的选择而不是手动地去复制扩展代码。
 
 ```TypeScript
 type TypePos = {
@@ -45,14 +45,14 @@ class FourLeggedAnimal {
         this.color = "white"
 
         this.position = {
-            x: 0, 
+            x: 0,
             y: 0
         }
     }
 
    speak():string|null {
     return null;
-   } 
+   }
 }
 
 
@@ -71,11 +71,10 @@ class Cat extends FourLeggedAnimal {
 }
 ```
 
-The above TypeScript code shows the basics of inheritance. Both the `Dog` and `Cat` classes extend or inherit from `FourLeggedAnimal`, which means they take on all their properties and methods, we don’t have to re-define them unless, like in my example, we want to overwrite what they do. What inheritance allows us is to abstract common behavior a state (in other words, methods and properties) into a single place where we can pull from (the parent class).
+上面的 TypeScript 代码是一个基础的继承的例子。`Dog` 和 `Cat` 类扩展（或者说是继承）自 `FourLeggedAnimal`，这意味着它们拥有 `FourLeggedAnimal` 所有的属性和方法，我们不需要重新去定义它们，除非我们想覆盖原来的实现，就像上面的例子一样。继承允许我们将公共行为、状态（方法和属性）抽象到一个单独的地方，在那里我们可以从（父类）提取。
 
-Some programming languages allow for multiple inheritances, such as JAVA, which in turn, let you to do what we just did but from multiple sources.
-
-Another big benefit from the inheritance, mainly on strongly typed languages such as JAVA, TypeScript and others, is that variables declared with the type of your parent class can hold objects from its child classes as well. In other words:
+一些编程语言允许多重继承，比如 JAVA，它可以让你从多个来源完成我们刚才所做的事情。
+继承的另一大好处是用父类的类型声明的变量也可以兼容来自子类的对象，主要体现在 JAVA，TypeScript 等强类型语言。比如：
 
 ```TypeScript
 let animals:FourLeggedAnimal[] = [
@@ -90,29 +89,29 @@ Woof!
 */
 ```
 
-Following with the same class definitions from before, this example declares a list of element of type `FourLeggedAnimals` while in reality, it contains a `Cat` and a `Dog`. This is possible because both objects have the same parent class. the same goes for the fact that we’re able to call the `speak` method safely on line 6. Thanks to the fact that this method is already defined in the parent class, we know all of our objects will have it (we can’t know specifically the implementation that will be used unless we’ve seen the code, but we can be sure this line will not error out due to a missing method error).
+紧接着之前定义的类，这个例子声明了一组 `FourLeggedAnimals` 类型的元素，包含了一个 `Cat` 和 一个 `Dog`。这是可行的，因为两个对象有相同的父类。同样，我们可以在第 6 行安全地调用 `speak` 方法。因为这个方法已经在父类中定义了，我们知道所有的对象都有它（我们不能明确的知道方法的具体实现除非我们见过代码，但我们能确定这一行不会因为缺失方法而抛错）。
 
-#### What about composition?
+#### 组合怎么样？
 
-Although as you’ll see, both tools can yield a very similar result, composition is a whole different beast from inheritance. Instead of sub-typing like we did before, composition allows us to model a **has one** relationship between objects.
+如你所见，虽然两种工具可以产出相似的结果，组合和继承完全是两码事。和我们之前见过的子类不同，组合允许我们建立一个在对象之间的**拥有一个**关系。
 
-This in turn, helps you to encapsulate state and behavior inside a **component** and then use that component from other classes, formally known as **composite.**
+它帮助你将状态和行为封装在**组件**中，然后在别的类中使用该组件，这种行为正式地被称为**组合**。
 
-If we go back to our animals example, we can re-think our internal architecture and have something like this:
+回到之前的 animals 例子种，我们重新思考我们的内部结构可以得到下面的：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Im_UTAJhD-0lnSYrViUmXA.png)
 
-Essentially we now have three different components where we’ve encapsulated behavior in two of them (the `Barker` and the `Meower` components) and state on the `AnimalProperties` we’ve encapsulated our state. We no longer have a common class for `Dog` and `Cat` to inherit from.
+现在有三个不同的组件，我们在其中的两个(`Barker`和 `Meower` 组件)封装了行为，在 `AnimalProperties` 上封装了状态。我们不再拥有提供给 `Dog` 和 `Cat` 继承的普通类。
 
-The point of a component-based approach is that you can now easily maintain and modify the code for any of them without affecting the main classes or their code. These type of relationship is called **loosely coupled**.
+基于组件的方法的关键点在于，你现在可以轻松地维护和修改其中任何一个类的代码，而不会影响主类或它们的代码。这种类型的关系被称为**松耦合**。
 
-Now, we can take this to the next level and by adding a simple interface, we can simplify our code even further.
+现在，我们通过添加一个接口来进一步地简化我们的代码。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*NyOXVnzwja0qwkDyfkL1dQ.png)
 
-Check that out, we’re back to having only one animal class that contains our main logic. And just to clarify, the interface only lets us generalize our object shape, it’s not implementing anything (interfaces don’t really implement code, only define their API). With it we can create a common “type” if you will that describes the shape of our object, which in turn lets us define a variable to carry any of them inside (see the `actor` property inside the `Animal` class).
+确认一下，我们只有一个包含主要逻辑的动物类。说明一下，接口只是让我们泛化对象的形状，它没有实现任何东西（接口不实现代码，只定义 API）。通过它我们可以创建一个通用类型来描述对象的形状，这反过来又让我们定义一个变量来将它们包含在其中(参见 `Animal` 类中的 `actor` 属性)。
 
-How do we create either a `Dog` or a `Cat` then? Let me show you:
+此时我们怎么创建一个 `Dog` 或者 `Cat` 呢? 让我来给你展示一下：
 
 ```TypeScript
 interface IAction {
@@ -167,11 +166,11 @@ let listOfAnimals: Animal[] = [aDog, aCat]
 listOfAnimals.forEach(a => console.log(a.speak()))
 ```
 
-First things first: notice that the end result is the same. We’re able to create a generic list of animals, iterate over it and call the same method with 100% certainty that all objects will have it. Again, we don’t know how it will be implemented, because that’s where the components (in this case) come into play.
+先说重要的：最终的结果是一致的。我们能够创建一个动物的泛型列表，对它进行循环，并调用 100% 确定所有对象都拥有的同一个方法。同样，我们不知道它将如何实现，因为这是由组件(在本例中)决定的。
 
-The main difference here is that instead of having two different classes to describe our animals, we only have one, which mind you, it so malleable that can be turned into any animal given the right set of components.
+这里的主要区别是，我们没有两个不同的类来描述我们的动物，我们只有一个，请注意，它具有很强的可塑性，只要有正确的组件集，就可以变成任何动物。
 
-And if you haven’t noticed yet, although the same effect can be achieved by either inheritance or composition, the first one happens during compilation (or interpretation) time, however the second one happens during execution time. How is this important? It is actually **very** important, you see, given the right set of methods, you can turn a `Cat` into a `Dog` or even into a brand new animal during execution, something you couldn’t do with inheritance.
+如果你还没有注意到，尽管继承或组合都可以实现同样的效果，但继承发生在编译(或解释)阶段，而组合发生在执行阶段。这有多重要呢？实际上它真的**非常**重要，你看，只要有一组正确的方法，你就可以把一只 `Cat` 变成一只 `Dog`，甚至在执行阶段变成一种全新的动物，而继承是做不到这一点的。
 
 ```TypeScript
 class Animal {
@@ -193,37 +192,37 @@ class Animal {
 }
 ```
 
-With the new `setActor` method, you can change the barker for a moewer at any given point and while that behavior might seem a bit odd, there could be use cases where this level of dynamism is perfect for your logic.
+使用新的 `setActor` 方法，你可以在任何给定的时间点为 moewer 更改调用器，尽管这种行为可能看起来有点奇怪，但在某些情况下，这种级别的动态性非常适合你的逻辑。
 
-## Which one is better then?
+## 哪一个更好呢?
 
-Now that we understand what they are and how can they be used, the truth is: they’re both great!
+现在我们了解了它们是什么以及如何使用它们，事实是：它们都很棒！
 
-Sorry to disappoint but I truly think there are perfect use cases for each of them.
+很抱歉让你失望了，但是我真的认为它们每个都有完美的使用场景。
 
-#### The case for Inheritance
+#### 继承的使用场景
 
-Inheritance makes sense because we tend to relate OOP concepts to real-world objects and then we try to generalize their behavior by generalizing their nature.
+继承是有意义的，因为我们倾向于将 OOP 概念与真实的对象联系起来，然后通过概括它们的性质来归纳它们的行为。
 
-In other words, we don’t think of a cat and a doc as having 4 legs and a set of organs that allow them to either bark or meow. We think of them as **animals**, which translates to inheritance.
+换句话说，我们不会认为拥有四条腿和一套能让他们吠叫或喵喵的器官的就是一只猫或一只狗。我们认为他们是**动物**，而这些特征被解释为继承。
 
-And because of that, the ideal use case for going with inheritance is having 80% of your code being common between two or more classes and at the same time, having the specific code being **very** different. Not only that, but having the certainty that there is no case where you’d need to swap the specific code with each other. Then inheritance is definitely the way to go, with it you’ll have a simpler internal architecture and less code to think about.
+正因为如此，使用继承的理想场景是两个或更多类之间 80% 的代码是相同的，同时特定的代码又**非常**的不同。不仅如此，还要确保不存在需要彼此交换特定代码的情况。此时继承肯定是最合适的工具，有了它，你的内部架构将更简单，你需要考虑的代码会更少。
 
-#### The case for composition
+#### 组合的使用场景
 
-As we’ve seen so far, composition is a **very flexible** tool. You definitely have to change your mindset a bit, especially if you, like me, have been taught all about inheritance in the past and how that is the only solution to code-reuse inside an OOP context.
+正如我们目前所看到的，组合是一个非常灵活的工具。你肯定需要稍微改变一下思维方式，特别是如果你像我一样，以前学习过关于继承的知识，认为继承是 OOP 环境中实现代码重用的唯一解决方案。
 
-However, now that you’ve seen the light (you’re welcome by the way), you know that’s not true. Not only that, you also know that the generic code can also be abstracted into different components, which in turn can be as complex as they need (as long as they keep their public interface the same) and that we can swap them during runtime, which is something that to me, is amazingly flexible.
+然而，现在你已经看到了光明（顺便说一句不用谢），你知道那不是真的。不仅如此，你也知道泛型代码也可以抽象成不同的组件，进而可以根据你的需要变的很复杂（只要保持公共接口是相同的），我们可以在运行时交换他们,这对我来说真的是非常的灵活。
 
-The other great benefit I see is that while with inheritance, if you need to create a new specific class (like adding a `Lion` class now), you’d have to understand the code of the `FourLeggedAnimal` class to make sure you now what you’re getting from it. And this would be just so that you can implement a different version of the `speak` method. However, if you went with composition, all you’d have to do is create a new class implementing the new logic for the `speak` method, unaware of anything else, and that’s it.
+我看到的另一个好处是，当使用继承时，如果你需要创建一个新的特定类(比如现在添加一个 `Lion` 类)，你必须理解 `FourLeggedAnimal` 类的代码，以确保你知道从它获得了什么。这样你就能实现一个不同版本的 `speak` 方法。然而，如果你使用组合，你所需要做的就是创建一个新类来实现 `speak` 方法的逻辑，而不需要知道其他的东西，仅此而已。
 
-Of course, withing the context of this example, the extra cognitive load of reading a very simple class might seem irrelevant, however, consider a real-world scenario where you’d have to go through hundreds of lines of code just to make sure you understand a base class. That’s definitely not ideal.
+当然，在这个例子中，阅读一个非常简单的类所带来的额外认知负担可能看起来无关紧要，但是，考虑一个真实的场景，在这个场景中，你将不得不遍历数百行代码来确保你理解一个基类。那肯定不太好。
 
 ---
 
-In my book, composition wins 8 out of 10 times, however, there is a case for inheritance and the simple implementation it provides, so I tend to leave a door open, just in case.
+在我的书中，组合 10 次中有 8 次胜出，然而，继承和它提供的简单实现是有道理的，所以我倾向于留下一扇门，以防万一。
 
-What about you? Is there a clear winner in your case? Do you prefer one over the other? Leave a comment down below and share which one you think is the best one and why!
+你呢？你的代码中有明显的赢家吗？你更喜欢其中哪一种呢？请在下方留言，分享你认为哪个是最好的，以及为什么。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
