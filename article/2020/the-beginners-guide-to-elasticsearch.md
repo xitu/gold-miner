@@ -7,8 +7,6 @@
 
 # The Beginners Guide to Elasticsearch
 
-#### A breakdown of the concepts to get started on this mighty analytical search engine.
-
 ![Photo by [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*a75ztDiDQX1fhNKE)
 
 Elasticsearch is a distributed, scalable analytical search engine that supports complex aggregations for unstructured data.
@@ -75,7 +73,7 @@ Elasticsearch can get a little complicated to understand. The confusion is mainl
 
 Most resources on the internet compare an index with an individual, relational database. Now, you might be thinking, **“Isn’t an index more like a table rather than a database?”**
 
-You’re right. It does seem similar to a table. However, up until Elasticsearch v.6, there use to be the concept of mapping **types**. Types represented the type of document within an index. For example, if “**twitter”** is an index, then one could describe two types of **“twitter”** documents: “**tweet”** ****and** “user.” **There were many problems with types that I won’t delve into in this article, but essentially, types mimic relational database tables.
+You’re right. It does seem similar to a table. However, up until Elasticsearch v.6, there use to be the concept of mapping **types**. Types represented the type of document within an index. For example, if “**twitter”** is an index, then one could describe two types of **“twitter”** documents: “**tweet”** and “**user**.” There were many problems with types that I won’t delve into in this article, but essentially, types mimic relational database tables.
 
 **My word of advice is not to make the connections with relational databases. It will confuse you, just as much as it confused me.**
 
@@ -85,7 +83,7 @@ You’re right. It does seem similar to a table. However, up until Elasticsearch
 
 To get started with Elasticsearch, install Docker and create a directory `data/elasticsearch`. Then run the following docker command to download the Elasticsearch Docker image and start the container.
 
-```
+```bash
 docker run --restart=always -d --name elasticsearch \\
     -e "discovery.type=single-node"  \\
     -v ~/data/elasticsearch:/usr/share/elasticsearch/data \\
@@ -102,7 +100,7 @@ You can create documents in one of two ways, through a PUT request or POST reque
 
 We can create an empty index as follows:
 
-PUT [http://localhost:9200](http://localhost:9200)/products
+PUT http://localhost:9200/products
 
 We can also create an index by inserting a document under the index name we desire, as shown below:
 
@@ -173,7 +171,7 @@ GET http://localhost:9200/_cat/
 
 #### Searching Indices
 
-Elasticsearch's vast search capabilities are impossible to summarize in a few paragraphs. I’ll provide two basics to get you started: ******fetching all documents in an index and fetch a document by its identifier. ****I’ll cover more complex and interesting search queries in another article.**
+Elasticsearch's vast search capabilities are impossible to summarize in a few paragraphs. I’ll provide two basics to get you started: **fetching all documents in an index and fetch a document by its identifier.** I’ll cover more complex and interesting search queries in another article.
 
 We can request all documents in an index with the following request:
 
@@ -192,8 +190,6 @@ Fetching a single document by its identifier is just as simple as adding a docum
 ```
 GET http://localhost:9200/product_entity/_doc/1
 ```
-
----
 
 #### Final Thoughts
 
