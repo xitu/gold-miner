@@ -15,15 +15,9 @@ All the complexity. All the trouble. For what? Your frontend is outdated anyway 
 
 Good chance you either agree to the first or second paragraph. However, as always in software development the answer is somewhere in the middle:
 
-> # It depends!
+> It depends!
 
 Everyone who knows me knows that I’m a **big fan of a monolith**. Yes, I do a lot of development on micro frontends these days and I’ve even created a [neat framework called Piral](https://github.com/smapiot/piral) to help in creating large micro frontend solutions. But even here we are not blindly using it or advocating it without knowing that it fits to the problem.
-
-To get a real sense of what it's like to compose a frontend app using independent components, read [this article](https://blog.bitsrc.io/how-we-build-micro-front-ends-d3eeeac0acfc) by [Jonathan Saring](undefined).
-
-It tells the story of [Bit.dev](https://bit.dev), as they went through the challenges and successes of building their own frontend app with micro frontends, integrated at build-time (and doing so, using their own product — [Bit](https://github.com/teambit/bit)).
-[**How We Build Micro Frontends**
-**Building micro-frontends to speed up and scale our web development process.**blog.bitsrc.io](https://blog.bitsrc.io/how-we-build-micro-front-ends-d3eeeac0acfc)
 
 ## Reasons for a Monolith
 
@@ -104,14 +98,6 @@ Choosing between a monolith and a micro frontend does not need to be difficult. 
 Nevertheless, there are advantages and disadvantages for both kinds of projects. We should always try to find the sweet spot that solves our problem the best. If that’s a monolith — great! If we end up with micro frontends — great, too!
 
 **Don’t** worry about people telling you what’s modern and what’s best practice. Think about the real challenges of your problem and try to come up with the best solution. There is also more than just a technical and business perspective. The team setup (i.e., what is the background of everyone in the team, how open are they for the different solutions, etc.) should never be neglected, too.
-
-## Learn More
-[**How We Build Micro Frontends**
-**Building micro-frontends to speed up and scale our web development process.**blog.bitsrc.io](https://blog.bitsrc.io/how-we-build-micro-front-ends-d3eeeac0acfc)
-[**Distributed Web Development Teams: Productivity Through Autonomy**
-**Getting the most out of a distributed workforce with independent components and Bit.dev.**blog.bitsrc.io](https://blog.bitsrc.io/distributed-web-development-teams-productivity-through-autonomy-ca2a783ef28f)
-[**How to Develop Microfrontends Using React: Step by Step Guide**
-**A practical guide for Microfrontends using React, with just enough details to understand the underlying concepts…**blog.bitsrc.io](https://blog.bitsrc.io/how-to-develop-microfrontends-using-react-step-by-step-guide-47ebb479cacd)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
