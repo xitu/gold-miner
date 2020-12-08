@@ -47,15 +47,15 @@
 
 让我们看看增量 DOM 是如何帮助我们减少包的大小以及降低内存使用的。
 
-### 1. 增量 DOM 可抖动 DOM 树
+### 1. 增量 DOM 可以 Tree Shaking
 
-抖动 DOM 树（tree shaking）不是什么新事物。它是指在构建 DOM 树过程中删除不需要的代码。
+Tree Shaking 不是什么新事物。它是指在构建 DOM 树过程中删除不需要的代码。
 
 增量 DOM 充分利用了这一点，因为它使用了基于指令的方法。如前所述，增量 DOM 在编译之前将每个组件编译成一组指令，这有助于识别未使用的指令。因此，它们可以在编译时进行删除操作。
 
 ![Authors’ Work: Tree Shaking](https://cdn-images-1.medium.com/max/3026/1*kgsIwDbufdFqoPnmWf15MQ.png)
 
-虚拟 DOM 不可抖动 DOM 树（tree-shakable），因为它使用解释器，并且没有办法在编译时识别未使用的代码。
+虚拟 DOM 不能够 Tree Shaking，因为它使用解释器，并且没有办法在编译时识别未使用的代码。
 
 ### 2. 减少内存使用
 
