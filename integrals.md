@@ -2085,10 +2085,11 @@
 |[理解 iOS 应用程序的代码签名 (CODE SIGN) 机制](http://gold.xitu.io/entry/5826ef85570c3500586b241d/)|校对|1|
 |[Swift 3 语言中的全模块优化](http://gold.xitu.io/entry/5818b6f52f301e005cf0ef8e/)|校对|1|
 
-## 译者：[Herman](https://github.com/actini) 历史贡献积分：149 当前积分：54
+## 译者：[Herman](https://github.com/actini) 历史贡献积分：149 当前积分：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 8 月 兑换 米家 LED 智能台灯 1 个|减去积分|35|
 |[理解数据库分片](https://juejin.im/entry/5c791672f265da2da67c46eb)|翻译|7|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|14|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|9.5|
@@ -4417,10 +4418,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：136.5 当前积分：40.5 二零二零：24.5
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：136.5 当前积分：5.5 二零二零：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 5 月 兑换 小米台灯 1 个|减去积分|35|
 |2020 年 10 月 兑换 鼠标垫 1 个|减去积分|13|
 |[Web Locks API：跨 Tab 资源同步](https://juejin.cn/post/6895792867080405005)|翻译|9|
 |[使用 JavaScript ES2020 中所有的 7 个新特性构建 App](https://juejin.im/post/5e9a685951882573834edc9e)|校对|3|
@@ -7652,10 +7654,11 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：135.5 当前积分：83.5
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：135.5 当前积分：23.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 8 月 兑换 树莓派套餐 1 个|减去积分|60|
 |[Xcode 和 LLDB 高级调试教程：第 3 部分](https://juejin.im/post/5d383c7d5188257dab043145)|校对|1|
 |[Web 端的 SwiftUI：SwiftWebUI](https://juejin.im/post/5d35e0ac5188257dc103e364)|校对|1.5|
 |[Xcode 和 LLDB 高级调试教程：第 2 部分](https://juejin.im/post/5d2321eee51d454f71439d64)|校对|1|
@@ -8347,10 +8350,11 @@
 |------|-------|-------|
 |[谷歌迈出了消除 URL 的第一步](https://juejin.im/post/5c643cb7e51d450dfc6eec1e)|校对|1|
 
-## 译者：[iceytea](https://github.com/iceytea) 历史贡献积分：46.5 当前积分：46.5 二零二零：2
+## 译者：[iceytea](https://github.com/iceytea) 历史贡献积分：46.5 当前积分：28.5 二零二零：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 4 月 兑换 掘金纪念水杯 1 个、掘金 T 恤白色 1 件、虚拟比特币 1 个|减去积分|18|
 |[8 个有用的 SCSS 最佳实践](https://juejin.im/post/6862499761351163911)|校对|0.5|
 |[如何创建一个可复用的网页爬虫](https://juejin.im/post/6860354555759869966)|校对|1.5|
 |[设计的变革 —— 从用户体验到个人体验](https://juejin.im/post/5e00d1b4f265da33b636145a)|校对|1.5|
@@ -9152,10 +9156,11 @@
 |[Android中的简易协程：viewModelScope](https://juejin.im/post/5cf35ec76fb9a07ed657bbcd)|翻译|3|
 |[C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63)|翻译|2|
 
-## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：42 当前积分：42 二零二零：16
+## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：42 当前积分：22 二零二零：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 12 月 兑换 掘金笔记本 1 本、掘金纪念水杯 2 个|减去积分|20|
 |[最常用的 4 种 JavaScript 设计模式](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)|翻译|8|
 |[给 NodeJS 的 Logs 点颜色看看！](https://juejin.im/post/5e6f01b151882549422ef315)|校对|1|
 |[停止在任何地方使用 ===](https://juejin.im/post/5e5fb5e951882549522ac8a2)|翻译|7|
@@ -9223,10 +9228,11 @@
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|40|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
 
-## 译者：[smilemuffie](https://github.com/smilemuffie) 历史贡献积分：10 当前积分：10
+## 译者：[smilemuffie](https://github.com/smilemuffie) 历史贡献积分：10 当前积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 7 月 兑换 8p 白色手机壳 1 个|减去积分|6|
 |[Web 流式文字排版的现状](https://juejin.im/post/5d267d9de51d45773d4686ab)|校对|2|
 |[TypeScript 3.0: unknown 类型](https://juejin.im/post/5d04ac745188250a8b1fd203)|校对|1|
 |[JavaScript 简明代码 — 最佳实践](https://juejin.im/post/5d07abcc6fb9a07eda031858)|校对|1|
@@ -9259,10 +9265,11 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：105 当前积分：92 二零二零：23
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：105 当前积分：32 二零二零：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 3 月 兑换 树莓派三 1 个|减去积分|60|
 |2020 年 9 月 兑换 鼠标垫 1 个|减去积分|13|
 |[给初学者的示例：什么是 WSGI？](https://juejin.cn/post/6896716356054417416)|翻译|3|
 |[Golang 切片综合指南](https://juejin.cn/post/6883398632071462919)|翻译|7|
@@ -9534,10 +9541,11 @@
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：112.5 当前积分：112.5 二零二零：70.5
+## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：112.5 当前积分：69.5 二零二零：70.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 1 月 兑换 小米台灯 1 个、掘金笔记本 1 本|减去积分|43|
 |[使用合成数据改善机器学习中的极度不平衡数据集](https://juejin.im/post/6872609287802388488)|校对|2|
 |[Syslog：系统管理员完整指南](https://juejin.im/post/6858168312388386824)|校对|1|
 |[贪心算法，你入门了吗？](https://juejin.im/post/5ebc0f626fb9a043383d7c2b)|校对|2|
@@ -9748,10 +9756,11 @@
 |------|-------|-------|
 |[为什么自己动手写代码能让你成为更好的开发者](https://juejin.im/post/5de88ed16fb9a016470c151a)|校对|1.5|
 
-## 译者：[PingHGao](https://github.com/PingHGao) 历史贡献积分：91.5 当前积分：91.5 二零二零：86.5
+## 译者：[PingHGao](https://github.com/PingHGao) 历史贡献积分：91.5 当前积分：74.5 二零二零：86.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 3 月 兑换 鲁班锁 1 个|减去积分|17|
 |[7 种有用的时间复杂度](https://juejin.im/post/6873379647125553159)|翻译|6.5|
 |[让神经网络变得更小巧以方便部署](https://juejin.im/post/6873068232505458701)|翻译|11|
 |[使用合成数据改善机器学习中的极度不平衡数据集](https://juejin.im/post/6872609287802388488)|翻译|5|
@@ -10142,10 +10151,11 @@
 |[什么是无障碍？为什它对于用户体验很重要？](https://juejin.im/post/5ebf96a5f265da7b9754dd7d)|校对|1|
 |[我是如何用 20 小时学会 Sass 的以及为什么你也应该这么做](https://juejin.im/post/5ede14f6e51d4578885ca8fc)|翻译|3.5|
 
-## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：100.5 当前积分：68.5 二零二零：100.5
+## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：100.5 当前积分：20.5 二零二零：100.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2020 年 8 月 兑换 掘金桌垫 1 个、台灯 1 个|减去积分|48|
 |[NextJS vs. NuxtJS vs. GatsbyJS](https://juejin.cn/post/6882994530149203981)|校对|3|
 |[最常用的 4 种 JavaScript 设计模式](https://github.com/xitu/gold-miner/blob/master/article/2020/4-useful-javascript-design-patterns-you-should-know.md)|校对|4|
 |[如何处理 JavaScript 比较中的临界情况](https://juejin.im/post/6872682987859738632)|校对|2|
