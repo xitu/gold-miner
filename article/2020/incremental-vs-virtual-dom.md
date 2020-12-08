@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/incremental-vs-virtual-dom.md](https://github.com/xitu/gold-miner/blob/master/article/2020/incremental-vs-virtual-dom.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[regon-cao](https://github.com/regon-cao)、[Usualminds](https://github.com/Usualminds)
 
 # 增量 DOM 与虚拟 DOM 的对比使用
 
@@ -33,7 +33,7 @@
 
 增量 DOM 通过使用真实 DOM 来定位代码更改，带来了一种比虚拟 DOM 更简单的方法。因此，内存中不会有任何真实 DOM 的虚拟表示来计算差异，真实 DOM 仅用于与新 DOM 树进行差异比较。
 
-这个增量 DOM 概念背后的主要思想是将每个组件编译成一组指令。然后，这些指令用于创建 DOM 树并对其进行更改。
+增量 DOM 概念背后的主要思想是将每个组件编译成一组指令。然后，这些指令用于创建 DOM 树并对其进行更改。
 
 ![Authors’ Work: How Incremental DOM Works](https://cdn-images-1.medium.com/max/2000/1*GHX157rdwWEP1pqfpgMfDQ.png)
 
@@ -43,9 +43,9 @@
 
 > 增量 DOM 的真正优点是它优化了内存的使用。
 
-当涉及到手机这类低内存容量的设备时，这种优化变得非常方便。而且，优化内存使用不是一件容易的事情。此外，应用程序的内存使用完全取决于**包大小（bundle size）**和**内存占用（memory footprint）**。
+当涉及到手机这类低内存容量的设备时，这种优化变得非常有用。而且，优化内存使用不是一件容易的事情。此外，应用程序的内存使用完全取决于**包的大小**和**内存使用**。
 
-让我们看看增量 DOM 是如何帮助减少这两个因素影响的。
+让我们看看增量 DOM 是如何帮助我们减少包的大小以及降低内存使用的。
 
 ### 1. 增量 DOM 可抖动 DOM 树
 
