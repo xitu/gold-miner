@@ -7,8 +7,6 @@
 
 # 5 Chrome Extensions For Improving Developers’ Productivity
 
-#### Five Chrome Extensions to stay focused and to facilitate your daily workflow as a developer.
-
 ![](https://cdn-images-1.medium.com/max/2070/1*uPEdYbuRJZtwpa8YfgBefw.jpeg)
 
 **Extensions** are small programs that personalize and add new features to your browser. You can customize **Chrome** and your browsing experience by adding extensions from the [Chrome Web Store.](https://chrome.google.com/webstore/category/extensions?hl=en)
@@ -37,7 +35,7 @@ Here are five Chrome extensions that I use to stay focused and to boost my produ
 
 ![](https://cdn-images-1.medium.com/max/3840/1*awSwn72zqNg4SIPodMylog.png)
 
-**[FocusMe](https://chrome.google.com/webstore/detail/focusme-a-pomodoro-timer/koebbleaefghpjjmghelhjboilcmfpad?hl=en)** is ****a productivity app that forces you to stay focused. It is based on the Pomodoro technique for time management and includes the ability to block distracting websites so you can stay focused on your work.
+**[FocusMe](https://chrome.google.com/webstore/detail/focusme-a-pomodoro-timer/koebbleaefghpjjmghelhjboilcmfpad?hl=en)** is a productivity app that forces you to stay focused. It is based on the Pomodoro technique for time management and includes the ability to block distracting websites so you can stay focused on your work.
 
 ## 5. Momentum⁣
 
@@ -46,6 +44,7 @@ Here are five Chrome extensions that I use to stay focused and to boost my produ
 [**Momentum**](https://chrome.google.com/webstore/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca?hl=en) allows you to turn the new tab page into a highly productive and customized control panel.
 
 When you open a new tab in Chrome, this extension will welcome you with a beautiful picture, motivational phrase, and the question: **“What is your main focus for today?”
+
 **You can also add a widget for your to-do list and links to your favorite sites.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
