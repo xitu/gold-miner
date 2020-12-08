@@ -43,9 +43,9 @@ Here are five Chrome extensions that I use to stay focused and to boost my produ
 
 [**Momentum**](https://chrome.google.com/webstore/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca?hl=en) allows you to turn the new tab page into a highly productive and customized control panel.
 
-When you open a new tab in Chrome, this extension will welcome you with a beautiful picture, motivational phrase, and the question: **“What is your main focus for today?”
+When you open a new tab in Chrome, this extension will welcome you with a beautiful picture, motivational phrase, and the question: **“What is your main focus for today?”** 
 
-**You can also add a widget for your to-do list and links to your favorite sites.
+You can also add a widget for your to-do list and links to your favorite sites.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
