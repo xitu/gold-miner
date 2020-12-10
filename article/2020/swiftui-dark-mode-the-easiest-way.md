@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md](https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md)
 > * 译者：[zhuzilin](https://github.com/zhuzilin)
-> * 校对者：
+> * 校对者：[keepmovingljzy](https://github.com/keepmovingljzy)
 
-# SwiftUI黑暗模式——最简单的方法
+# SwiftUI 黑暗模式——最简单的方法
 
 ![[https://apps.apple.com/us/app/id1527918864#?platform=iphone](https://apps.apple.com/us/app/id1527918864#?platform=iphone) | Created by the Author](https://cdn-images-1.medium.com/max/8892/1*LC-CTl772dBIs3uQkV30OQ.png)
 
-今年我开始用SwiftUI开发我的[iOS应用](https://apps.apple.com/us/app/id1527918864#?platform=iphone)的时候，我决定同时支持明暗模式。在本教程中，我会教你如何能在基于SwiftUI的iOS应用中实现用户界面的明暗模式。
+今年我开始用 SwiftUI 开发我的[iOS应用](https://apps.apple.com/us/app/id1527918864#?platform=iphone)的时候，我决定同时支持明暗模式。在本教程中，我会教你如何能在基于 SwiftUI 的 iOS 应用中实现用户界面的明暗模式。
 
 ## 1. 创建新项目
 
-让我们创建一个新的XCode项目。选择SwiftUI作为接口
+让我们创建一个新的 XCode 项目。选择 SwiftUI 作为接口
 
 ![作者的截图](https://cdn-images-1.medium.com/max/3076/1*_8O1KIZtxqQY4RjmXKy8VA.png)
 
@@ -64,28 +64,28 @@ struct ContentView_Previews: PreviewProvider {
 
 ## 3. 创建颜色
 
-现在在XCode中选择**Assets.xcassets**
+现在在 XCode 中选择 **Assets.xcassets**
 
 ![作者的截图](https://cdn-images-1.medium.com/max/5276/1*rNLYzlepGHGfhUkxIYe-zQ.png)
 
-* 创建一个新颜色集，并把它命名为**foregroundTitle1**
-* 选择**Any Appearance**，在颜色属性中，把**Input Method**设置为**8-bit Hexadecimal**并把**Hex**值设为`#0974B8`
-* 然后选择**Dark Appearance**，并设置为`#E0F2FD`
+* 创建一个新颜色集，并把它命名为 **foregroundTitle1**
+* 选择 **Any Appearance** ，在颜色属性中，把 **Input Method** 设置为 **8-bit Hexadecimal** 并把 **Hex** 值设为 `#0974B8`
+* 然后选择 **Dark Appearance** ，并设置为 `#E0F2FD`
 
-简单来说，对于**foregroundTitle1**，您为明暗2种模式创建了2种不同的color assets。
+简单来说，对于 **foregroundTitle1** ，您为明暗2种模式创建了2种不同的 color assets。
 
 下面，按照相同的步骤，再为卡片的背景颜色创建一组颜色。
 
 ![作者的截图](https://cdn-images-1.medium.com/max/5204/1*1RCPFYlfxnXoho9onw7E0Q.png)
 
-* 颜色集的名字是**background1**
-* 为**Any Appearance**设置8位16进制值`#C9CED9`，**Dark Appearance**设置为`#333333`。
+* 颜色集的名字是 **background1**
+* 为 **Any Appearance** 设置8位16进制值 `#C9CED9`，**Dark Appearance** 设置为 `#333333` 。
 
 至此你创建了两套前景和背景颜色。
 
 ## 4. Creating Color Extensions
 
-新建文件`Extensions.swift`，并写入下面的代码：
+新建文件 `Extensions.swift` ，并写入下面的代码：
 
 ```Swift
 import SwiftUI
@@ -102,11 +102,11 @@ extension Color {
 }
 ```
 
-扩展是向现有类添加功能的好方法。这里你创建了两个静态方法，它们都会返回一个Color实例，其中Color会从color assets中取值。在这种情况下，你只用color asset中创建的名称就可以了。
+使用扩展是向现有类添加功能的一种很好的方式。这里你创建了两个静态方法，它们都会返回一个 Color 实例，其中 Color 会从 color assets 中取值。在这种情况下，你只用 color asset 中创建的名称就可以了。
 
 ## 5. 更新前景和背景颜色
 
-再次用下面的代码替换`ContentView.swift`文件中的所有代码。
+再次用下面的代码替换 `ContentView.swift` 文件中的所有代码。
 
 ```Swift
 import SwiftUI
@@ -156,22 +156,22 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
-* `15, 16行` —— 通过添加2个颜色引用来更新`CardView`视图
-* `25, 26行` —— 加上刚刚添加的`foregroundColor`和`backgroundColor`
-* `6, 7行`   —— 把颜色引用传给你在扩展中创建的`CardView`
-* `35-43行`  —— 通过向`colorScheme`传入`.light`和`.dark`已查看2组预览
+* `15, 16行` —— 通过添加2个颜色引用来更新 `CardView` 视图
+* `25, 26行` —— 加上刚刚添加的 `foregroundColor` 和 `backgroundColor`
+* `6, 7行`   —— 把颜色引用传给你在扩展中创建的 `CardView`
+* `35-43行`  —— 通过向 `colorScheme` 传入 `.light` 和 `.dark` 已查看2组预览
 
-你会在预览文件中看到和下图相同的输出。
+你将会在预览文件中看到如下内容。
 
 ![作者的截图](https://cdn-images-1.medium.com/max/4428/1*8z7UNF0r2QKSZI8IXOg1-A.png)
 
-运行该应用程序的时候，将iPhone/iPad的设置更改为明亮或黑暗模式，你会看到应用自动显示你为每种模式选择的颜色。
+运行该应用程序的时候，将 iPhone / iPad 的设置更改为明亮或黑暗模式，你会看到应用自动显示你为每种模式选择的颜色。
 
 [**源码**](https://github.com/mahmudahsan/iOS-Swift-SwiftUI/tree/master/SwiftUI/lightdarkmode/LightDarkMode)
 
-## 结论
+## 总结
 
-这是一种在使用SwiftUI的iOS应用中创建明暗模式的简单方法。如果你开发的应用程序希望同时支持两种颜色模式，那么你应该应从一开始就支持它们，或者为这些颜色创建一些扩展。这样也会让之后的更新变得非常简单。
+这只是一个在使用 SwiftUI 的 iOS 应用中创建明暗模式的简单方法。如果你希望开发的应用程序同时支持两种颜色模式，那么你应该从一开始就支持它们，或者创建一些扩展方式去支持颜色的扩展。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
