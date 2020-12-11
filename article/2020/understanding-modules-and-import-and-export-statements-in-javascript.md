@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md)
 > - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
-> - 校对者：[zenblo](https://github.com/zenblo)、[Qiaoj](https://github.com/Usualminds)
+> - 校对者：[zenblo](https://github.com/zenblo)、[Qiaoj](https://github.com/Usualminds)、(lsvih)[https://github.com/lsvih]
 
 # 理解 JavaScript 中模块的导入和导出
 
@@ -13,7 +13,7 @@
 
 早期的 Web 网站主要由 [HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) 和 [CSS](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-css) 组成。 如果有任何 JavaScript 的代码需要在页面中执行，通常是以小的代码片段的形式来提供功能和交互性。结果就是通常 JavaScript 的代码都会被编写在一个文件中，然后通过 `script` 标签加载到页面中。开发人员可以将 JavaScript 代码拆分成多个 js 文件，但是所有 JavaScript 变量和[函数](<(https://www.digitalocean.com/community/tutorials/how-to-define-functions-in-javascript)>)都会被添加到全局[作用域](https://www.digitalocean.com/community/tutorials/understanding-variables-scope-hoisting-in-javascript)中。
 
-但是随着 [Angular](https://www.digitalocean.com/community/tags/angularjs)、[React](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-react-js) 以及 [Vue](https://www.digitalocean.com/community/tags/vue-js) 等 Web 框架技术的发展，以及大部分公司都在开发更高级的的 Web 应用而不是桌面应用，JavaScript 就变得越来越重要了。将能够复用的代码逻辑封装成公共代码，并且在避免全局命名空间污染的前提下，将其模块化，这一需求就成为了必要。
+但是随着 [Angular](https://www.digitalocean.com/community/tags/angularjs)、[React](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-react-js) 以及 [Vue](https://www.digitalocean.com/community/tags/vue-js) 等 Web 框架技术的发展，并且大部分公司都在开发高级 Web 应用而非桌面应用，JavaScript 就变得越来越重要了。将能够复用的代码逻辑封装成公共代码，并且在避免全局命名空间污染的前提下，将其模块化，这一需求就成为了必要。
 
 [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) 规范引入了允许使用 `import` 和 `export` 语句的 **modules** 概念。在本教程中，你将学习什么是 JavaScript 模块以及如何使用 `import` 和` export` 管理代码结构。
 
