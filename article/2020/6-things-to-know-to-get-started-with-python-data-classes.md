@@ -9,7 +9,7 @@
 
 ![图源 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)，摄影者 [Philipp Katzenberger](https://unsplash.com/@fantasyflip?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*p3gDT4yY_Ej-8fyA)
 
-在任何程序项目中，数据都是最重要的元素。所有的程序都必然会与数据进行某些互动。例如，你的项目是一个 Web 站点，你就需要以一个用户友好的方式展现数据（文本或图片）。如果你的项目使用机器学习来预测经济趋势，你就需要以模型可学习的方式来准备数据。
+在任何程序项目中，数据都是最重要的元素。所有的程序都必然会与数据进行某些互动。例如，你的项目是一个 Web 站点，你就需要以一个用户友好的方式展现数据（文本或图片）。如果你的项目使用机器学习来预测经济趋势，你就需要用模型可以学习的方式来准备数据。
 
 作为一个多用途的编程语言，Python 已发展出多种工具，以便于支持你项目中的数据管理。在这些工具中，数据类是一种有用且易于掌握的技术。在这篇文章中，我想向你介绍数据类模型，并突出重点，让你能够上手这一数据管理工具。
 
@@ -52,7 +52,7 @@ Today's first bill: Bill(table_number=5, meal_amount=50.5, served_by='John', tip
 {'table_number': <class 'int'>, 'meal_amount': <class 'float'>, 'served_by': <class 'str'>, 'tip_amount': <class 'float'>}
 ```
 
-另一件值得注意的事情是，你在数据类中定义的字段可以拥有默认值。你可能注意到了，`tip_amount` 字段的默认值是 0.0。重要的是你需要知道，当你没有为所有字段指定默认值时，有默认值的字段应当放在在没有默认值的字段之后。你必然不想看到以下错误。
+另一件值得注意的事情是，你在数据类中定义的字段可以拥有默认值。你可能注意到了，`tip_amount` 字段的默认值是 0.0。重要的是，你需要知道，当你没有为所有字段指定默认值时，有默认值的字段应当放在在没有默认值的字段之后。你必然不想看到以下错误。
 
 ```Python
 @dataclass
@@ -111,8 +111,7 @@ Is bill2 less than bill3? True
 
 ## 4. 仔细考虑可变性
 
-By default, the fields of data classes can be modified, and thus we can say that data class instances are mutable. This is why some people refer to data classes as **mutable named tuples**. Consider the following contrast between named tuples and data classes regarding their mutability.
-正常情况下，数据类的字段可以被修改，因此我们可以说数据类实例是易变的。这也是为什么有些人将数据类称为**可变的具名元组**。考虑具名元组和数据类之间关于可变性的以下对比。
+正常情况下，数据类的字段可以被修改，因此我们可以说数据类实例是易变的。这也是为什么有些人将数据类称为**可变的具名元组**。考虑以下具名元组和数据类之间关于可变性的对比。
 
 ```Python
 >>> from collections import namedtuple
@@ -152,7 +151,7 @@ dataclasses.FrozenInstanceError: cannot assign to field 'tip_amount'
 
 ## 5. 继承的注意事项
 
-究其核心，数据类和其他常规自定义类一样，具有相同的可扩展性。因此，如果有需要，我们可以将继承数据类。
+究其核心，数据类和其他常规自定义类一样，具有相同的可扩展性。因此，如果有需要，我们可以继承数据类。
 
 ```Python
 >>> @dataclass
@@ -185,9 +184,9 @@ Traceback (most recent call last):
 TypeError: non-default argument 'tip_amount' follows default argument
 ```
 
-## 6. Mutable Fields With Default Values
+## 6. 具有默认值的可变字段
 
-In the above examples, the fields are all immutable data types, such as floats and strings. What should we do if we need to use mutable data as data class’s fields? Consider the following code snippet involving some mistakes that Python programmers can make.
+在上面的例子中，字段都是不可变的数据类型，例如浮点数和字符串。如果我们需要使用可变数据作为数据类的字段，我们应当怎么做呢？思考下面的代码片段，这其中包括一些 Python 程序员可能会犯的错误。
 
 ```Python
 >>> class IncorrectBill:
@@ -206,9 +205,9 @@ Bill 1 costs: [5, 7]
 True
 ```
 
-The above code shows you that when your function uses a mutable default value, you can’t really set the default value using a mutable instance because this object will be shared by all callers who don’t specify the parameter. In the above example, as you can see, both instances are sharing the same underlying list object, which causes undesired side effects.
+由上面的代码可知，当你的函数使用了可变默认值时，你实际上并不能给可变实例设置默认值，因为这个可变对象被所有未指定参数的调用者共享。在上面的示例中，如你所见，两个实例共享底层的列表对象，这导致了我们不愿看到的结果。
 
-Within the context of data classes, the question is how we can specify a default value for the mutable fields. We shouldn’t do the following, and a `ValueError` exception will be raised.
+问题是我们要如何在数据类的上下文中为可变字段指定默认值。我们不应该执行以下操作，这会引发 `ValueError` 异常。
 
 ```Python
 @dataclass
@@ -218,7 +217,7 @@ class IncorrectBill:
 ValueError: mutable default <class 'list'> for field costs_by_dish is not allowed: use default_factory
 ```
 
-The error message tells us the solution, which involves using the `default_factory` when we specify the field. The code below shows you how it works.
+错误信息告诉了我们解决方案，方案包括在指定字段时使用 `default_factory` 方法。下面的代码向你展示了它是如何工作的。
 
 ```Python
 >>> from dataclasses import field
@@ -238,13 +237,13 @@ Bill 1 costs: [7]
 False
 ```
 
-* We import the `field` function from the `dataclasses` module.
-* In the `field` function, we specify the `list` to be the `default_factory` parameter. In essence, this parameter sets the default factory function, which is a zero-parameter function to be used when the instance is to be created. In this case, the `list` function is the construction method for a list object that creates a new list object when we call `list()`.
-* As you can see, in both instances, they have distinct list objects for the `costs_by_dish` attribute, as expected.
+* 我们从 `dataclasses` 模块中引入 `field` 函数。
+* 在 `field` 函数中，我们将 `list` 指定为 `default_factory` 参数。实际上，这个参数设置了默认的工厂函数，这是要在创建实例的时使用的零参数函数。在本例中，`list` 函数是列表对象的构造方法，当我们调用 `list()` 时会创建一个新的列表对象。
+* 如你所见，在这两个实例中，它们的 `costs_by_dish` 属性都具有不同的列表对象，这和预期的结果一样。
 
-## Conclusions
+## 总结
 
-In this article, we reviewed six of the most basic elements that we should know to get started with data classes in Python. In essence, they’re very useful to store data, and the `dataclass` decorator takes care of many boilerplates for us. Compared to named tuples, they’re more flexible, by allowing mutability.
+在这篇文章中，我们回顾了在开始使用 Python 数据类时应该知道的 6 个基本事项。从大体上看，它们对数据存储非常有用，并且 `dataclass` 装饰器为我们提供了许多代码样板。与具名元组相比，`dataclass` 装饰器也更加灵活。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
