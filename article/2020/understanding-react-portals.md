@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-react-portals.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-react-portals.md)
 > - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo)
 
 # 了解 React Portals（传送门）
 
@@ -16,7 +16,7 @@ React Portal 提供了一种将子节点渲染到父组件以外的 DOM 节点�
 - 悬浮卡
 - 加载动画
 
-可以使用 `ReactDOM.createPortal(child,container)` 创建一个 Portal。这里的 **child** 是一个 React 元素，fragment 片段，或者是一个字符串，**container** 是 Portal 要插入的 DOM 节点的位置。
+可以使用 `ReactDOM.createPortal(child,container)` 创建一个 Portal。这里的 **child** 是一个 React 元素，fragment 片段或者是一个字符串，**container** 是 Portal 要插入的 DOM 节点的位置。
 
 下面是使用 `ReactDOM.createPortal(child,container)` 创建的一个简单 modal 组件。
 
@@ -33,7 +33,7 @@ const Modal = ({ message, isOpen, onClose, children }) => {
 };
 ```
 
-即使 Portal 是在父级 DOM 元素之外呈现的，他的表现行为也跟平常我们在 React 组件中使用是一样的。它能够接受 **props** 以及 **context** API。这是因为 Portal 驻留在 React Tree 层次结构内（也就是保持在同一颗 React Tree 上）。
+即使 Portal 是在父级 DOM 元素之外呈现的，他的表现行为也跟平常我们在 React 组件中使用是一样的。它能够接受 **props** 以及 **context** API。这是因为 Portal 驻留在 React Tree 层次结构内（也就是保证在同一颗 React Tree 上）。
 
 ## 为什么我们需要它呢
 
@@ -86,7 +86,7 @@ function Component() {
 
 ## 什么时候使用 Portal 呢
 
-使用 React Portal 时，你应该注意几个方面。除非你了解 React Portal，否则下面这些行为不是显而易见的。因此，在这里提及。
+使用 React Portal 时，你应该注意几个方面。除非你了解 React Portal，否则下面这些行为不容易被察觉。因此，在这里提及。
 
 - **事件冒泡会正常工作** —— 通过将事件传播到 React 树的祖先，事件冒泡将按预期工作，而与 DOM 中的 Portal 节点位置无关。
 - **React 可以控制 Portal 节点及其生命周期** — 当通过 Portal 渲染子元素时，React 仍然可以控制它们的生命周期。
