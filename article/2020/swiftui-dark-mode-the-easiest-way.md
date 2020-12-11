@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md](https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md)
 > * 译者：[zhuzilin](https://github.com/zhuzilin)
-> * 校对者：[keepmovingljzy](https://github.com/keepmovingljzy)
+> * 校对者：[keepmovingljzy](https://github.com/keepmovingljzy)、[zenblo](https://github.com/zenblo)
 
 # SwiftUI 黑暗模式——最简单的方法
 
 ![[https://apps.apple.com/us/app/id1527918864#?platform=iphone](https://apps.apple.com/us/app/id1527918864#?platform=iphone) | Created by the Author](https://cdn-images-1.medium.com/max/8892/1*LC-CTl772dBIs3uQkV30OQ.png)
 
-今年我开始用 SwiftUI 开发我的[iOS应用](https://apps.apple.com/us/app/id1527918864#?platform=iphone)的时候，我决定同时支持明暗模式。在本教程中，我会教你如何能在基于 SwiftUI 的 iOS 应用中实现用户界面的明暗模式。
+今年我开始用 SwiftUI 开发我的 [iOS 应用](https://apps.apple.com/us/app/id1527918864#?platform=iphone)的时候，我决定同时支持明暗模式。在本教程中，我会教你如何能在基于 SwiftUI 的 iOS 应用中实现用户界面的明暗模式。
 
 ## 1. 创建新项目
 
@@ -19,7 +19,7 @@
 
 ## 2. 创建用户界面
 
-用下面的代码替换`ContentView.swift`文件中的所有代码，这将创建一个有2个卡片视图的页面。
+用下面的代码替换 `ContentView.swift` 文件中的所有代码，这将创建一个有 2 个卡片视图的页面。
 
 ```Swift
 import SwiftUI
@@ -72,14 +72,14 @@ struct ContentView_Previews: PreviewProvider {
 * 选择 **Any Appearance** ，在颜色属性中，把 **Input Method** 设置为 **8-bit Hexadecimal** 并把 **Hex** 值设为 `#0974B8`
 * 然后选择 **Dark Appearance** ，并设置为 `#E0F2FD`
 
-简单来说，对于 **foregroundTitle1** ，您为明暗2种模式创建了2种不同的 color assets。
+简单来说，对于 **foregroundTitle1** ，您为明暗 2 种模式创建了 2 种不同的 color assets。
 
 下面，按照相同的步骤，再为卡片的背景颜色创建一组颜色。
 
 ![作者的截图](https://cdn-images-1.medium.com/max/5204/1*1RCPFYlfxnXoho9onw7E0Q.png)
 
 * 颜色集的名字是 **background1**
-* 为 **Any Appearance** 设置8位16进制值 `#C9CED9`，**Dark Appearance** 设置为 `#333333` 。
+* 为 **Any Appearance** 设置 8 位 16 进制值 `#C9CED9`，**Dark Appearance** 设置为 `#333333` 。
 
 至此你创建了两套前景和背景颜色。
 
@@ -156,16 +156,16 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
-* `15, 16行` —— 通过添加2个颜色引用来更新 `CardView` 视图
-* `25, 26行` —— 加上刚刚添加的 `foregroundColor` 和 `backgroundColor`
-* `6, 7行`   —— 把颜色引用传给你在扩展中创建的 `CardView`
-* `35-43行`  —— 通过向 `colorScheme` 传入 `.light` 和 `.dark` 已查看2组预览
+* `15, 16 行` —— 通过添加2个颜色引用来更新 `CardView` 视图
+* `25, 26 行` —— 加上刚刚添加的 `foregroundColor` 和 `backgroundColor`
+* `6, 7 行`   —— 把颜色引用传给你在扩展中创建的 `CardView`
+* `35-43 行`  —— 通过向 `colorScheme` 传入 `.light` 和 `.dark` 已查看2组预览
 
 你将会在预览文件中看到如下内容。
 
 ![作者的截图](https://cdn-images-1.medium.com/max/4428/1*8z7UNF0r2QKSZI8IXOg1-A.png)
 
-运行该应用程序的时候，将 iPhone / iPad 的设置更改为明亮或黑暗模式，你会看到应用自动显示你为每种模式选择的颜色。
+运行该应用程序的时候，将 iPhone 或 iPad 的设置更改为明亮或黑暗模式，你会看到应用自动显示你为每种模式选择的颜色。
 
 [**源码**](https://github.com/mahmudahsan/iOS-Swift-SwiftUI/tree/master/SwiftUI/lightdarkmode/LightDarkMode)
 
