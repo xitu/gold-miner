@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md)
 > - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo)
 
 # 理解 JavaScript 中模块的导入和导出
 
@@ -11,17 +11,17 @@
 
 ### 简介
 
-在 Web 的早期，网站主要由 [HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) 和 [CSS](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-css) 组成。 如果有任何 JavaScript 的代码需要在页面中执行，通常是以小的代码片段的形式来提供功能和交互性。结果就是通常 JavaScript 的代码都会被编写在一个文件中，然后通过 `script` 标签加载到页面中。开发人员可以将 JavaScript 代码拆分成多个 js 文件，但是所有 JavaScript 变量和[函数](<(https://www.digitalocean.com/community/tutorials/how-to-define-functions-in-javascript)>)都会被添加到全局[作用域](https://www.digitalocean.com/community/tutorials/understanding-variables-scope-hoisting-in-javascript)中。
+早期的 Web 网站主要由 [HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) 和 [CSS](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-css) 组成。 如果有任何 JavaScript 的代码需要在页面中执行，通常是以小的代码片段的形式来提供功能和交互性。结果就是通常 JavaScript 的代码都会被编写在一个文件中，然后通过 `script` 标签加载到页面中。开发人员可以将 JavaScript 代码拆分成多个 js 文件，但是所有 JavaScript 变量和[函数](<(https://www.digitalocean.com/community/tutorials/how-to-define-functions-in-javascript)>)都会被添加到全局[作用域](https://www.digitalocean.com/community/tutorials/understanding-variables-scope-hoisting-in-javascript)中。
 
 但是随着 [Angular](https://www.digitalocean.com/community/tags/angularjs)、[React](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-react-js) 以及 [Vue](https://www.digitalocean.com/community/tags/vue-js) 等 Web 框架技术的发展，以及大部分公司都在开发更高级的的 Web 应用而不是桌面应用，JavaScript 就变得越来越重要了。将能够复用的代码逻辑封装成公共代码，并且在避免全局命名空间污染的前提下，将其模块化，这一需求就成为了必要。
 
-[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) 规范引入了允许使用 `import` 和 `export` 语句的 **modules** 概念。在本教程中，您将学习什么是 JavaScript 模块以及如何使用 `import` 和` export` 来组织代码。
+[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) 规范引入了允许使用 `import` 和 `export` 语句的 **modules** 概念。在本教程中，您将学习什么是 JavaScript 模块以及如何使用 `import` 和` export` 管理代码结构。
 
 ## 模块化编程
 
 在 JavaScript 引入模块化概念之前，当开发人员想要将代码分装时，需要创建多个文件并将这个文件链接为单独的脚本。作者为了说明这一点，创建了一个示例：`index.html` 文件和两个 `JavaScript` 文件，`functions.js` 和`script.js`。
 
-`index.html` 文件将显示两个数字的和，差，乘积和商，并在脚本标签中链接到两个 `JavaScript` 文件。 在文本编辑器中新建 `index.html` 并添加以下代码：
+`index.html` 文件将显示两个数字的和，差，乘积和商的结果，并在脚本标签中链接到两个 `JavaScript` 文件。 在文本编辑器中新建 `index.html` 并添加以下代码：
 
 ```html
 <!DOCTYPE html>
@@ -55,7 +55,7 @@
 </html>
 ```
 
-该 HTML 将在 `h2` 标头中显示变量 `x` 和 `y` 的值，并在以下 `p` 元素中显示这些变量的运算值。元素 `id` 属性为了方便 `script.js` 文件中的 [DOM 操作](https://www.digitalocean.com/community/tutorial_series/understanding-the-dom-document-object-model)，`script.js` 文件还会设置 `x` 和 `y` 的值。HTML 相关内容可以参考我的 [How To Build a Website with HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) 系列文章。
+该 HTML 将在 `h2` 标头中显示变量 `x` 和 `y` 的值，并在以下 `p` 元素中显示这些变量的运算值。元素 `id` 属性为了方便 `script.js` 文件中的 [DOM 操作](https://www.digitalocean.com/community/tutorial_series/understanding-the-dom-document-object-model)，`script.js` 文件还会设置 `x` 和 `y` 的值。更多 HTML 相关内容可以参考我的[如何使用 HTML 创建网站](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html)系列文章。
 
 `functions.js` 文件则提供第二个脚本中将要使用到的数学函数。打开 `functions.js` 文件并添加以下内容：
 
@@ -92,20 +92,20 @@ document.getElementById("multiplication").textContent = product(x, y);
 document.getElementById("division").textContent = quotient(x, y);
 ```
 
-完成上述代码之后, 可以在浏览器中打开 [`index.html`](https://www.digitalocean.com/community/tutorials/how-to-use-and-understand-html-elements#how-to-view-an-offline-html-file-in-your-browser) 查看运行结果:
+完成上述操作之后, 可以在浏览器中打开 [`index.html`](https://www.digitalocean.com/community/tutorials/how-to-use-and-understand-html-elements#how-to-view-an-offline-html-file-in-your-browser) 查看运行结果:
 
 ![Rendered HTML with the values 10 and 5 and the results of the functions.js operations.](https://user-images.githubusercontent.com/5164225/99609235-72fc0e80-2a4a-11eb-93a9-dcf4505f4fd1.png)
 
-对应小型的网站应用，这是个很高效的代码拆分方案。然而，但是这种做法会存在一些问题：
+对于只有少量 `script` 文件的网站应用，这是个很高效的代码拆分方案。然而，但是这种做法会存在一些问题：
 
-- **污染全局命名空间**：在脚本中创建的所有变量包括 `sum`, `difference` 等等，都会存在 全局 [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) 对象中。如果试图在一个文件中使用一个名为 `sum` 的变量，那么就会很难知晓我们使用的是在哪个脚本中的 `sum`，因为它们都是使用的相同全局 `window.sum` 变量。DOM 中的名为 `x` 的 `id` 属性和 `var id` 的变量同样会存在冲突（因为如果在 DOM 中使用了 `id` 属性，浏览器会声明一个同名的全局变量）。将变量私有话的唯一方法就是将变量放入函数作用域中。
-- **依赖管理**：必须从上到下依次加载 `script`，以确保变量正确可用。将 `<script>` 分成不同文件依次引入会给人分离的错觉，但本质上这种方式与在浏览器页面中写单个 `<script>` 来内敛代码是相同的。
+- **污染全局命名空间**：在脚本中创建的所有变量包括 `sum`, `difference` 等等，都会存在全局 [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) 对象中。如果试图在一个文件中使用一个名为 `sum` 的变量，那么就会很难知晓我们使用的是在哪个脚本中的 `sum`，因为它们都是使用的相同全局 `window.sum` 变量。将变量私有化的唯一方法就是将变量放入函数作用域中。DOM 中的名为 `x` 的 `id` 属性和 `var id` 的变量也会存在冲突（因为如果在 DOM 中使用了 `id` 属性，浏览器会声明一个同名的全局变量）。
+- **依赖管理**：必须从上到下依次加载 `script`，以确保变量正确可用。将 `<script>` 分成不同文件依次引入会给人分离的错觉，但本质上这种方式与在浏览器页面中使用单个 `<script>` 来引入脚本代码是相同效果的。
 
 在 ES6 将原生模块概念添加到 JavaScript 语言之前，社区尝试了几种解决方案。第一个解决方案就是通过普通的 JavaScript 对象实现的，比如将所有代码写在 [objects](https://www.digitalocean.com/community/tutorials/understanding-objects-in-javascript) 或者[立即调用的函数表达式（IIFE）](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)并将它们放在全局中作用域中的单个对象中。这是对多脚本方法的一种改进，但是仍然会存在将至少一个对象放入全局名称空间的相同问题，并且始终没有让各个脚本之间共享代码的问题变得更加容易。
 
 之后，出现了一些模块化解决方案：[CommonJS](https://en.wikipedia.org/wiki/CommonJS)，是在 [Node.js](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-node-js) 实现的同步加载模块的方法，[异步模块定义（AMD）](https://en.wikipedia.org/wiki/Asynchronous_module_definition)则是非同步加载模块，还有[通用模块定义（UMD）](https://github.com/umdjs/umd)，旨在成为能够支持两种加载模式的通用的解决方案
 
-这些解决方案的问世使得开发人员可以更轻松地以 **package** —— 可以分发和共享的模块形式共享和重用代码，列如一些能在 [npm](https://www.npmjs.com/) 上找到的 packages。但是, 由于有如此多的解决方案并且没有一个是 JavaScript 原生的，所以为了能在浏览其中使用模块，一些工具相应的问世了，比如 [Babel](https://babeljs.io/)、[Webpack](https://webpack.js.org/) 以及 [Browserify](http://browserify.org/)。
+这些解决方案的问世使得开发人员可以更轻松地以 **package** —— 可以分发和共享的模块形式共享和重用代码，例如一些能在 [npm](https://www.npmjs.com/) 上找到的 packages。但是, 由于有如此多的解决方案并且没有一个是 JavaScript 原生的，所以为了能在浏览其中使用模块，一些相应的工具出现了，比如 [Babel](https://babeljs.io/)、[Webpack](https://webpack.js.org/) 以及 [Browserify](http://browserify.org/)。
 
 由于多文件方案存在许多问题，并且所提出的解决方案很复杂，因此开发人员对将[模块化编程](https://en.wikipedia.org/wiki/Modular_programming)引入 JavaScript 语言很感兴趣。因此，ECMAScript 2015 支持 JavaScript 模块的使用。
 
@@ -144,9 +144,9 @@ export function quotient(x, y) {
 
 现在，在 `script.js` 中，你可以在 `functions.js` 文件的顶部使用 `import` 从其他模块引入代码。
 
-**注意**：`import` 必须始终位于文件的顶部。在这个例子中并且还必须使用相对路径（`./`）。
+**注意**：`import` 必须始终位于文件的顶部。在这个例子中并且还必须使用相对路径（本示例为 `./`）。
 
-将以代码添加到 `script.js` 中：
+将以下代码添加到 `script.js` 中：
 
 ```js
 import { sum, difference, product, quotient } from "./functions.js";
@@ -201,7 +201,7 @@ export function sum() {}
 export function difference() {}
 ```
 
-这将允许使用花括号按名称导入 `sum`和 `difference`：
+这将允许使用花括号按名称导入 `sum` 和 `difference`：
 
 ```js
 import { sum, difference } from "./functions.js";
@@ -340,7 +340,7 @@ calculatePerimeter(length, width); // 30
 
 ## 总结
 
-模块化编程设计实践可以将代码分成单独的组件，这有助于使代码可以重复使用和可兼容，同时还可以保护全局名称空间不被污染。一个模块的接口可以在 JavaScript 中通过关键字 `import` 和 `export` 来实现。
+模块化编程设计实践可以将代码分成单独的组件，这有助于增强代码复用性和兼容性，同时还可以保护全局名称空间不被污染。一个模块的接口可以在 JavaScript 中通过关键字 `import` 和 `export` 来实现。
 
 通过本文的学习，你了解了 JavaScript 中模块的历史、如何将 JavaScript 文件分离为多个脚本以及如何使用模块化方法按命名的 `import`、`export` 和默认的 `import`、`export` 语法来更新这些文件。
 
