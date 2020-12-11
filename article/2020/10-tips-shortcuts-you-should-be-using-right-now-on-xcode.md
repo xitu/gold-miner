@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/10-tips-shortcuts-you-should-be-using-right-now-on-xcode.md](https://github.com/xitu/gold-miner/blob/master/article/2020/10-tips-shortcuts-you-should-be-using-right-now-on-xcode.md)
 > * 译者：[Franz Wang](https://github.com/Franz-Wang)
-> * 校对者：
+> * 校对者：[NieZhuZhu](https://github.com/NieZhuZhu) [zenblo](https://github.com/zenblo)
 
 # 你不可错过的 10 个 Xcode 技巧和快捷键
 
@@ -21,13 +21,13 @@
 
 > ### control + i / ⌃ + i
 
-它会自动缩进光标所在的行。如果你选中了一些代码，甚至整个文件，这个快捷键则会调整选中部分的缩进。
+它会自动缩进光标所在的行。如果你选中了一些代码，甚至整个文件，这个快捷键就会调整选中部分的缩进。
 
 ![Demo of ⌃ + i](https://cdn-images-1.medium.com/max/2000/1*WPbPnBUY-SUzLEE9AiDPkA.gif)
 
 这对及时保持代码整洁非常有帮助。
 
-## 2. 在所有作用域中修改（Edit All in Scope）
+## 2. 在所有作用域中修改
 
 假设你发现某个方法或变量名有错误，你想要修复它。当然你不会一个个去修改，因为你知道有重构（Refactor）功能可以批量重命名，但有时候 Xcode 的重构功能可能不太靠谱。
 
@@ -137,7 +137,7 @@
 
 如果你已经知道了这些快捷键，或者还不知道，都可以与我交流，我会很高兴。也欢迎和我分享你用到的其他有用的快捷键。
 
-#### 小声明
+#### 小贴士
 
 理想情况下，你可以使用同样的快捷键，来实现前面提到的所有技巧。但是也可能取决于你的操作系统语言设置，其中一些可能略有不同。
 
