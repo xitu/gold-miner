@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md](https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md)
 > * 译者：[zhuzilin](https://github.com/zhuzilin)
-> * 校对者：[keepmovingljzy](https://github.com/keepmovingljzy)、[zenblo](https://github.com/zenblo)
+> * 校对者：[keepmovingljzy](https://github.com/keepmovingljzy)、[zenblo](https://github.com/zenblo)、[lsvih](https://github.com/lsvih)
 
 # SwiftUI 黑暗模式——最简单的方法
 
@@ -13,7 +13,7 @@
 
 ## 1. 创建新项目
 
-让我们创建一个新的 XCode 项目。选择 SwiftUI 作为接口
+让我们创建一个新的 XCode 项目，选择使用 SwiftUI 构造界面（Inference）。
 
 ![作者的截图](https://cdn-images-1.medium.com/max/3076/1*_8O1KIZtxqQY4RjmXKy8VA.png)
 
@@ -69,10 +69,10 @@ struct ContentView_Previews: PreviewProvider {
 ![作者的截图](https://cdn-images-1.medium.com/max/5276/1*rNLYzlepGHGfhUkxIYe-zQ.png)
 
 * 创建一个新颜色集，并把它命名为 **foregroundTitle1**
-* 选择 **Any Appearance** ，在颜色属性中，把 **Input Method** 设置为 **8-bit Hexadecimal** 并把 **Hex** 值设为 `#0974B8`
-* 然后选择 **Dark Appearance** ，并设置为 `#E0F2FD`
+* 选择 **Any Appearance**，在颜色属性中，把 **Input Method** 设置为 **8-bit Hexadecimal** 并把 **Hex** 值设为 `#0974B8`
+* 然后选择 **Dark Appearance**，并设置为 `#E0F2FD`
 
-简单来说，对于 **foregroundTitle1** ，您为明暗 2 种模式创建了 2 种不同的 color assets。
+简单来说，对于 **foregroundTitle1** ，你为明暗 2 种模式创建了 2 种不同的 color assets。
 
 下面，按照相同的步骤，再为卡片的背景颜色创建一组颜色。
 
@@ -83,9 +83,9 @@ struct ContentView_Previews: PreviewProvider {
 
 至此你创建了两套前景和背景颜色。
 
-## 4. Creating Color Extensions
+## 4. 创建颜色拓展
 
-新建文件 `Extensions.swift` ，并写入下面的代码：
+新建文件 `Extensions.swift`，并写入下面的代码：
 
 ```Swift
 import SwiftUI
@@ -102,7 +102,7 @@ extension Color {
 }
 ```
 
-使用扩展是向现有类添加功能的一种很好的方式。这里你创建了两个静态方法，它们都会返回一个 Color 实例，其中 Color 会从 color assets 中取值。在这种情况下，你只用 color asset 中创建的名称就可以了。
+使用扩展是向现有类添加功能的一种很好的方式。这里你创建了两个静态方法，它们会分别返回一个 Color 实例，用于从 color assets 中取值。这样，只需要使用你在 color asset 中创建的颜色的名称就可以应用指定颜色集了。
 
 ## 5. 更新前景和背景颜色
 
@@ -156,7 +156,7 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
-* `15, 16 行` —— 通过添加2个颜色引用来更新 `CardView` 视图
+* `15, 16 行` —— 通过添加 2 个颜色引用来更新 `CardView` 视图
 * `25, 26 行` —— 加上刚刚添加的 `foregroundColor` 和 `backgroundColor`
 * `6, 7 行`   —— 把颜色引用传给你在扩展中创建的 `CardView`
 * `35-43 行`  —— 通过向 `colorScheme` 传入 `.light` 和 `.dark` 已查看2组预览
