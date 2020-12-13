@@ -46,13 +46,13 @@ implementation “androidx.constraintlayout:constraintlayout:2.0.1”
 
 `Flow` 是 v2 版本中新增的虚拟布局方式，类似于v1版本中的 `group` 。它是 `Chain` 和 `Group` 布局的一个结合，具有特殊的功能。简而言之就是 `Flow` 在运行时根据布局的动态大小链接视图。
 
-与 `Group` 类似，`Flow` 同样也是通过获取视图的ID并创建 `Chain` 所具有的行为。使用 `Flow` 布局重要优势之一是 `wrapMode`（一种在视图溢出时配置视图的方法）。添加该布局属性即可使用，我们提供三种模式供您选择：`none`，`aligned`和`chain`。
+与 `Group` 类似，`Flow` 同样也是通过获取视图的ID并创建 `Chain` 所具有的行为。使用 `Flow` 布局重要优势之一是 `wrapMode`（一种在视图溢出时配置视图的方法）。添加该布局属性即可使用，我们提供三种模式供您选择：`none`，`aligned` 和 `chain`。
 
 ![Flow mode : none, chain and aligned](https://cdn-images-1.medium.com/max/2000/0*RK2f87Te_cm259Gg)
 
 - `[wrap none](https://developer.android.com/reference/androidx/constraintlayout/helper/widget/Flow#wrap_none) `: 所有引用的视图形成一条链
 - `[wrap chain](https://developer.android.com/reference/androidx/constraintlayout/helper/widget/Flow#wrap_chain)` : 仅当引用的视图不适合时才创建多个链（一个接一个）
-- `[wrap aligned](https://developer.android.com/reference/androidx/constraintlayout/helper/widget/Flow#wrap_aligned)` : 与`wrap chain`类似，但是将通过创建行和列来对齐视图
+- `[wrap aligned](https://developer.android.com/reference/androidx/constraintlayout/helper/widget/Flow#wrap_aligned)` : 与 `wrap chain` 类似，但是将通过创建行和列来对齐视图
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -116,15 +116,15 @@ implementation “androidx.constraintlayout:constraintlayout:2.0.1”
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
-这个功能看起来很简单，不过我们可以使用`ConstraintLayout` 2.0 创建流式布局。不再需要使用其他流式布局库。          
+这个功能看起来很简单，不过我们可以使用 `ConstraintLayout` 2.0 创建流式布局。不再需要使用其他流式布局库。          
 
-在 `ConstraintLayout` 2.0 之前，我们必须在渲染每个视图之后计算剩余空间，来确定下一个视图是否有足够的空间适合存放，否则我们必须将其对齐到下一行。但是现在我们只要使用`Flow`就可以了。
+在 `ConstraintLayout` 2.0 之前，我们必须在渲染每个视图之后计算剩余空间，来确定下一个视图是否有足够的空间适合存放，否则我们必须将其对齐到下一行。但是现在我们只要使用 `Flow` 就可以了。
 
-要了解有关`Flow`的更多信息，请[阅读官方文档](https://developer.android.com/reference/androidx/constraintlayout/helper/widget/Flow)。
+要了解有关 `Flow` 的更多信息，请[阅读官方文档](https://developer.android.com/reference/androidx/constraintlayout/helper/widget/Flow)。
 
 ## Layer
 
-`Layer` 是 `ConstraintLayout` 2.0 中的新增的辅助布局方式，类似于 `Guideline` 和 `Barrier` 的辅助布局方式。我们可以通过创建一个虚拟图层，类似与一个父视图(Layer)中有多个子视图的方式。一旦子视图引用了父视图，我们就可以使用`Layer`对这些视图进行转换。
+`Layer` 是 `ConstraintLayout` 2.0 中的新增的辅助布局方式，类似于 `Guideline` 和 `Barrier` 的辅助布局方式。我们可以通过创建一个虚拟图层，类似与一个父视图(Layer)中有多个子视图的方式。一旦子视图引用了父视图，我们就可以使用 `Layer` 对这些视图进行转换。
 
 它类似于 `Group` 布局，我们可以通过它绑定多个视图并设置其可见性（可见和消失）等基本操作。一旦视图被 `Layer` 引用，我们的视图就可以使用 `Layer` 给我们带来的那些转换功能了。
 
