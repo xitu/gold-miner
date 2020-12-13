@@ -25,13 +25,13 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 ![图 1: 机器学习管道的自动创建可以分为对管道结构的搜索以及组合的算法选择和超参数优化。[1]](https://cdn-images-1.medium.com/max/2000/0*xrpOs9x1LxmjK6xT)
 
-在本文中，他们将工具划分为 CASH 和管道维护如图 2 所示 和能够搜索更复杂管道的方法，例如数据并行处理和数据重组，例如图 3。 以上就是图 1 中的结构搜索。
+在本文中，他们将工具分成了以下几部分：执行 CASH 和 维持一个线性管道，如图 2 所示；能够搜索更复杂的管道的，包括平行分支和数据重组，如图 3 所示。以上就是图 1 中的结构搜索。
 
 ![图 2: 固定管道的示例，包括数据预处理以及模型选择和调整。这是本文中基准的所有 CASH 工具创建的管道。[1]](https://cdn-images-1.medium.com/max/2000/0*DbRoH4JKItL7d-IY)
 
 ![图 3: 专为特定任务设计的更复杂管道的示例。这种类型的管道是由本文中基准的 AutoML 平台创建的。[1]](https://cdn-images-1.medium.com/max/2000/0*Tn6lLnLFi5nzb1wm)
 
-在他们的实验中，他们发现 CASH 算法的性能更好。我们将在这里重点介绍这些工具。
+他们在实验过程中发现 CASH 算法的性能更好。我们将在这里重点介绍这些工具。
 
 ## 算法概述
 
@@ -39,9 +39,9 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 #### 网格搜索和随机搜索
 
-首先最简单的方法：对超参数值进行<b>网格搜索</b>操作简单，可以帮你快速找到最佳模型参数。
+首先最简单的方法：对超参数值进行**网格搜索**操作简单，可以帮你快速找到最佳模型参数。
 
-接下来是<b>随机搜索</b>，按照指定分布和范围内生成超参数的随机组合。
+接下来是**随机搜索**，按照指定分布和范围内生成超参数的随机组合。
 
 如图 4 所示，这样做的好处就是不会丢失最优解（如果它们介于两个网格点之间），如果无限期运行，则将任意接近最最优解，这与网格搜索不同。
 
@@ -49,7 +49,7 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 ![图 4: 在超参数搜索中使用固定的网格可能会丢失某些超参数的最佳值，这中情况在高维搜索中变得更加明显。[2]](https://cdn-images-1.medium.com/max/2000/0*TmRzOwAVCP55ZG90)
 
-#### 基于模型的搜索优化方法
+#### 基于序列模型的优化搜索
 
 因此我们有了一系列模型优化方法 ([SMBO](https://papers.nips.cc/paper/4443-algorithms-for-hyper-parameter-optimization.pdf))。
 算法目标是在评估完成时从中学习，类似于数据科学家如何构造超参数搜索。这些算法在每次评估后都会学习一个替代模型，然后使用一个查询函数来查询替代模型，以决定下一个评估点。查询代理模型比训练模型以获取真实的性能值要快得多。
@@ -64,9 +64,9 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 #### 其他搜索方法
 
-还可以将<b>多臂 bandit 学习与贝叶斯优化相结合</b>，类别参数的选择由 bandit 处理，并将空间分成称为超分区的子空间，每个子空间仅包含通过贝叶斯优化的参数。为此基准选择了基于贝叶斯和 Bandits（[BTB](https://github.com/HDI-Project/BTB))。
+还可以将**多臂 bandit 学习与贝叶斯优化相结合**，类别参数的选择由 bandit 处理，并将空间分成称为超分区的子空间，每个子空间仅包含通过贝叶斯优化的参数。为此基准选择了基于贝叶斯和 Bandits（[BTB](https://github.com/HDI-Project/BTB))。
 
-另一种方法是使用进化算法。有多种不同的基于人口的算法正在使用，例如<b>粒子群优化</b>。 在此基准测试中使用了 [Optunity](https://github.com/claesenm/optunity) 算法。
+另一种方法是使用进化算法。有多种不同的基于人口的算法正在使用，例如**粒子群优化**。 在此基准测试中使用了 [Optunity](https://github.com/claesenm/optunity) 算法。
 
 #### 性能提升
 
@@ -84,19 +84,19 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 另一种方法是使用您以前可能在其他数据集上进行的超参数搜索的结果。如果可以确定数据集相似，则可以使用该任务中的最佳超参数来开始搜索-这被称为热启动搜索。
 
-[auto-sklearn](https://automl.github.io/auto-sklearn/master/) 实现了这个方案, 更多关于评价数据集相似性的方法可以参考他们的[论文](http://papers.nips.cc/paper/5872-efficient-and-robust-automated-machine-learning.pdf).
+[auto-sklearn](https://automl.github.io/auto-sklearn/master/) 实现了这个方案, 更多关于评价数据集相似性的方法可以参考他们的[论文](http://papers.nips.cc/paper/5872-efficient-and-robust-automated-machine-learning.pdf)。
 
 #### 基准实验
 
-此次基准测试的数据是 OpenML100[3]，OpenML-CC18[4]和 AutoML Benchmark[5]的组合，总共 <b>137 个分类数据集</b>。
+此次基准测试的数据是 OpenML100[3]，OpenML-CC18[4]和 AutoML Benchmark[5]的组合，总共 **137 个分类数据集**。
 
-所有库都进行 <b>325 次迭代</b>，因为确定该时间足够使所有算法收敛，并且任何单个模型训练都限于 10 分钟。
+所有库都进行 **325 次迭代**，因为确定该时间足够使所有算法收敛，并且任何单个模型训练都限于 10 分钟。
 
-这些库具有 <b>13 种不同的算法</b>，总共有 <b>58 个超参数</b>可以优化。 使用四折交叉验证评估每种配置的性能，并使用不同的随机种子将实验重复 10 次。
+这些库具有 **13 种不同的算法**，总共有 **58 个超参数**可以优化。使用四折交叉验证评估每种配置的性能，并使用不同的随机种子将实验重复 10 次。
 
 #### 结论
 
-为了比较具有不同难度级别的数据集的准确性，使用了两个基线模型。一个是[虚拟分类器](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html)，另一个是简单的未调优随机森林算法。然后将这些基准的结果用于归一化结果，以使虚拟分类器的性能变为零，而未调整的随机森林的性能变为1。 因此，任何库的性能都比 1 好，这意味着它的性能要比未调整的随机森林好。
+为了比较具有不同难度级别的数据集的准确性，使用了两个基线模型。一个是[虚拟分类器](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html)，另一个是简单的未调优随机森林算法。然后将这些基准的结果用于归一化结果，以使虚拟分类器的性能变为零，而未调整的随机森林的性能变为1。因此，任何库的性能都比 1 好，这意味着它的性能要比未调整的随机森林好。
 
 ![图 6: 本文 [1] 中测试的所有 CASH 求解器的标准化性能都得到了扩展，其中 0.5 到 1.5 之间的区域被拉伸以提高可读性。](https://cdn-images-1.medium.com/max/2432/0*12T-aS3AlyDPgLKG)
 
@@ -126,11 +126,11 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 尽管最终目标是获得最佳的模型，但实际上在计算资源和时间上还有其他限制，尤其是当我们在行业中使用大量数据时，可能无法训练数百种模型。
 
-在这种情况下，重要的考虑因素是算法可以多快的速度接近最佳模型。当有足够的资源来训练数百个模型时，诸如模型开销之类的标准就很重要，但是，如果你只能负担例如 20 个模型的训练，那么<b>收敛速度</b>将成为非常重要的标准 。
+在这种情况下，重要的考虑因素是算法可以多快的速度接近最佳模型。当有足够的资源来训练数百个模型时，诸如模型开销之类的标准就很重要，但是，如果你只能负担例如 20 个模型的训练，那么**收敛速度**将成为非常重要的标准 。
 
 为了更好地说明这一点，请参考以下图 8 中的曲线。
 
-在 [OpenML dataset Higgs](https://www.openml.org/d/23512) 上，使用四种搜索算法来优化仅一个算法（随机森林）的四个超参数。绘制了每次迭代的最佳损耗。第一条垂直线表示第 20次 迭代。
+在 [OpenML dataset Higgs](https://www.openml.org/d/23512) 上，使用四种搜索算法来优化仅一个算法（随机森林）的四个超参数。绘制了每次迭代的最佳损耗。第一条垂直线表示第 20 次迭代。
 
 至此，所有基于模型的优化算法都不再执行随机搜索，而是根据自己的模型选择要评估的点。在这里和第二个垂直线之间的 50 次迭代之间，我们看到，与所有算法完成 325 次迭代都达到收敛后的情况对比，这些算法发现的模型的性能之间存在更大的差异。
 
@@ -138,7 +138,7 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 因此，如果你只能负担训练 20 个模型的费用，那么选择使用基于 Tree Parzen 预估器的算法，例如在 [Optuna](https://optuna.org/) 中实现的算法，则将拥有一个更好的模型。
 
-## 附录
+## 参考
 
 1. Zöller, M.-A. & Huber, M. F. Benchmark and Survey of Automated Machine Learning Frameworks. (2019).
 2. Bergstra, J. & Bengio, Y. Random search for hyper-parameter optimization. **J. Mach. Learn. Res.** **13**, 281–305 (2012).
