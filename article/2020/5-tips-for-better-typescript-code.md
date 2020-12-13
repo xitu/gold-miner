@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-tips-for-better-typescript-code.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-tips-for-better-typescript-code.md)
 > * 译者：[Zavier](https://github.com/zaviertang)
-> * 校对者：
+> * 校对者：[regonCao](https://github.com/regon-cao)、[niayyy](https://github.com/nia3y)
 
 # TypeScript 的 5 个建议
 
