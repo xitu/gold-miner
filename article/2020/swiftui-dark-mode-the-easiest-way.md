@@ -2,24 +2,24 @@
 > * 原文作者：[Mahmud Ahsan](https://medium.com/@mahmudahsan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md](https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-dark-mode-the-easiest-way.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhuzilin](https://github.com/zhuzilin)
+> * 校对者：[keepmovingljzy](https://github.com/keepmovingljzy)、[zenblo](https://github.com/zenblo)、[lsvih](https://github.com/lsvih)
 
-# SwiftUI Dark Mode — the Easiest Way
+# SwiftUI 黑暗模式——最简单的方法
 
 ![[https://apps.apple.com/us/app/id1527918864#?platform=iphone](https://apps.apple.com/us/app/id1527918864#?platform=iphone) | Created by the Author](https://cdn-images-1.medium.com/max/8892/1*LC-CTl772dBIs3uQkV30OQ.png)
 
-Starting this year when I started developing my [iOS app](https://apps.apple.com/us/app/id1527918864#?platform=iphone) using SwiftUI, I decided to support both light and dark mode. In this tutorial, I will teach you, how you could implement the light and dark mode user interface in SwiftUI based iOS application.
+今年我开始用 SwiftUI 开发我的 [iOS 应用](https://apps.apple.com/us/app/id1527918864#?platform=iphone)的时候，我决定同时支持明暗模式。在本教程中，我会教你如何能在基于 SwiftUI 的 iOS 应用中实现用户界面的明暗模式。
 
-## 1. Create a New Project
+## 1. 创建新项目
 
-Let’s create a new XCode project. Select SwiftUI for the Interface.
+让我们创建一个新的 XCode 项目，选择使用 SwiftUI 构造界面（Inference）。
 
-![Screenshot created by the author](https://cdn-images-1.medium.com/max/3076/1*_8O1KIZtxqQY4RjmXKy8VA.png)
+![作者的截图](https://cdn-images-1.medium.com/max/3076/1*_8O1KIZtxqQY4RjmXKy8VA.png)
 
-## 2. Create the User Interface
+## 2. 创建用户界面
 
-Now replace all the code in `ContentView.swift` file and write the following code on there. You will create a screen with two card views.
+用下面的代码替换 `ContentView.swift` 文件中的所有代码，这将创建一个有 2 个卡片视图的页面。
 
 ```Swift
 import SwiftUI
@@ -58,34 +58,34 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
-If you run the app, or just see the preview, you will see the following user interface for the app now.
+运行或者预览应用，你将看到下图中的用户界面：
 
-![Screenshot created by the author](https://cdn-images-1.medium.com/max/4304/1*BOR-JpVnjbcRDDJ042-mNA.png)
+![作者的截图](https://cdn-images-1.medium.com/max/4304/1*BOR-JpVnjbcRDDJ042-mNA.png)
 
-## 3. Creating Colors
+## 3. 创建颜色
 
-Now in the XCode select **Assets.xcassets**
+现在在 XCode 中选择 **Assets.xcassets**
 
-![Screenshot created by the author](https://cdn-images-1.medium.com/max/5276/1*rNLYzlepGHGfhUkxIYe-zQ.png)
+![作者的截图](https://cdn-images-1.medium.com/max/5276/1*rNLYzlepGHGfhUkxIYe-zQ.png)
 
-* Create a new Color Set named **foregroundTitle1**
-* Select **Any Appearance** and in the Color property, set the **Input Method** as **8-bit Hexadecimal** and for the **Hex** value use `#0974B8`
-* Then select the Dark Appearance and use the value `#E0F2FD`
+* 创建一个新颜色集，并把它命名为 **foregroundTitle1**
+* 选择 **Any Appearance**，在颜色属性中，把 **Input Method** 设置为 **8-bit Hexadecimal** 并把 **Hex** 值设为 `#0974B8`
+* 然后选择 **Dark Appearance**，并设置为 `#E0F2FD`
 
-So basically for the **foregroundTitle1**, you created a color asset with 2 different colors for light and dark mode.
+简单来说，对于 **foregroundTitle1** ，你为明暗 2 种模式创建了 2 种不同的 color assets。
 
-Now following the same procedure, create one more color which we will be using for the card’s background.
+下面，按照相同的步骤，再为卡片的背景颜色创建一组颜色。
 
-![Screenshot created by the author](https://cdn-images-1.medium.com/max/5204/1*1RCPFYlfxnXoho9onw7E0Q.png)
+![作者的截图](https://cdn-images-1.medium.com/max/5204/1*1RCPFYlfxnXoho9onw7E0Q.png)
 
-* The color set name will be **background1**
-* Select 8-bit Hexadecimal value `#C9CED9` for **Any Appearance** and `#333333` for the **Dark Appearance**.
+* 颜色集的名字是 **background1**
+* 为 **Any Appearance** 设置 8 位 16 进制值 `#C9CED9`，**Dark Appearance** 设置为 `#333333` 。
 
-So you created two sets of foreground and background color.
+至此你创建了两套前景和背景颜色。
 
-## 4. Creating Color Extensions
+## 4. 创建颜色拓展
 
-Now create a new file `Extensions.swift` file and write the following code.
+新建文件 `Extensions.swift`，并写入下面的代码：
 
 ```Swift
 import SwiftUI
@@ -102,11 +102,11 @@ extension Color {
 }
 ```
 
-An extension is a good way to add some functionality to the existing class. So here you created two static methods, which will return a Color instance where the Color will be coming from the color assets. In this case, you’re just using the name of the colors you created within the color asset.
+使用扩展是向现有类添加功能的一种很好的方式。这里你创建了两个静态方法，它们会分别返回一个 Color 实例，用于从 color assets 中取值。这样，只需要使用你在 color asset 中创建的颜色的名称就可以应用指定颜色集了。
 
-## 5. Updating Foreground and Background Colors
+## 5. 更新前景和背景颜色
 
-Now again remove all the code from the `ContentView.swift` file and write the following code
+再次用下面的代码替换 `ContentView.swift` 文件中的所有代码。
 
 ```Swift
 import SwiftUI
@@ -156,22 +156,22 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
-* `Line 15, 16` — You update the `CardView` view by adding 2 color reference
-* `Line 25, 26` — You add the `foregroundColor` and `backgroundColor` with the previous references
-* `Line 6, 7` — You pass the color references to the `CardView` that you created in the extension
-* `Line 35-43` — You add 2 groups of views by passing a `colorScheme` of `.light` and `.dark` to see the previews
+* `15, 16 行` —— 通过添加 2 个颜色引用来更新 `CardView` 视图
+* `25, 26 行` —— 加上刚刚添加的 `foregroundColor` 和 `backgroundColor`
+* `6, 7 行`   —— 把颜色引用传给你在扩展中创建的 `CardView`
+* `35-43 行`  —— 通过向 `colorScheme` 传入 `.light` 和 `.dark` 已查看2组预览
 
-Now you will see the following output in the preview file.
+你将会在预览文件中看到如下内容。
 
-![Screenshot created bu the author](https://cdn-images-1.medium.com/max/4428/1*8z7UNF0r2QKSZI8IXOg1-A.png)
+![作者的截图](https://cdn-images-1.medium.com/max/4428/1*8z7UNF0r2QKSZI8IXOg1-A.png)
 
-If you run the app, and if you change the setting of your iPhone/iPad to light or dark mode, you will see your app will automatically show the color you decided for each mode.
+运行该应用程序的时候，将 iPhone 或 iPad 的设置更改为明亮或黑暗模式，你会看到应用自动显示你为每种模式选择的颜色。
 
-[**Source-Code**](https://github.com/mahmudahsan/iOS-Swift-SwiftUI/tree/master/SwiftUI/lightdarkmode/LightDarkMode)
+[**源码**](https://github.com/mahmudahsan/iOS-Swift-SwiftUI/tree/master/SwiftUI/lightdarkmode/LightDarkMode)
 
-## Conclusion
+## 总结
 
-This is just a simple way to show you how you can create light and dark mode easily for your iOS app developed using SwiftUI. If you develop your app and want to support both color modes, from the beginning you should add support or create some extensions to support the color. Later if you want to update, it will be super easy to do.
+这只是一个在使用 SwiftUI 的 iOS 应用中创建明暗模式的简单方法。如果你希望开发的应用程序同时支持两种颜色模式，那么你应该从一开始就支持它们，或者创建一些扩展方式去支持颜色的扩展。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
