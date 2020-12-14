@@ -5,31 +5,31 @@
 > * 译者：
 > * 校对者：
 
-# The Beginners Guide to Elasticsearch
+# Elasticsearch 新手指南
 
-![Photo by [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*a75ztDiDQX1fhNKE)
+![图片来自 [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*a75ztDiDQX1fhNKE)
 
-Elasticsearch is a distributed, scalable analytical search engine that supports complex aggregations for unstructured data.
+Elasticsearch 是一种支持非结构化数据的复杂聚合的分布式、可扩展的分析类搜索引擎。
 
-**Akin to NoSQL data stores, Elasticsearch is built to handle unstructured data formats and dynamically determine fields’ data types.** Its primary data format is JSON **(Javascript Object Notation)** documents. JSON’s schema-less format allows for flexible data storage and ease of adding data without managing or creating relations.
+**类似于 NoSQL 数据库，Elasticsearch 是为处理非架构化数据格式并动态确定字段数据类型而创建的。** 它处理的主要数据格式是 JSON **(Javascript Object Notation)** 文档。JSON schema-less 的数据格式使得数据存储变得很灵活，并且易于添加数据而无需管理或者创建数据关系。
 
-However, Elasticsearch isn’t necessarily interchangeable to NoSQL databases. **Elasticsearch differs from NoSQL databases and has its own set of limitations.** For example, Elasticsearch distributed system adds a layer of complexity when performing transactions. Although it isn’t impossible to do distributed transactions, it’s ideal to avoid them if possible to simplify the process.
+然而，Elasticsearch 并不一定能作为 NoSQL 数据库使用。**Elasticsearch 与 NoSQL 是有差别的，而且它也有自身的一些局限性。** 例如，Elasticsearch 分布式系统在执行事务的时候会增加一层复杂性。尽管完成分布式事务也不是不可能，但为了简化流程还是尽可能避免使用它的分布式事务处理。
 
-Elasticsearch also assumes enough memory is provided to its instances. Therefore it’s not too keen on handling OutOfMemory errors. As a result, it makes Elasticsearch less robust than other data storage systems.
+Elasticsearch 还会认为提供给节点的内存是足够的。因此它不擅长处理内存溢出。这就使得 Elasticsearch 相比于其他的数据存储系统鲁棒性更低。
 
-Elasticsearch is commonly used as a secondary tool alongside other types of databases. **And it’s crucial to remember Elasticsearch is built for speed. It’s ideal for searching and filtering documents.**
+Elasticsearch 常被用来作为其他类型数据库的辅助工具。 **记住 Elasticsearch 是为速度而生的这一点很重要。它是搜索和过滤文档的理想之选。**
 
-#### Nodes and Clusters.
+#### 节点和集群
 
-**Elasticsearch is made up of multiple nodes** (also known as Elasticsearch instances), **and a set of connected nodes is called a cluster.** All nodes within a cluster are knowledgeable about other nodes within that same cluster. Every node within a cluster can perform CRUD operations via HTTP requests **(POST, GET, PUT, DELETE)**. This model allows nodes to transfer client requests to other nodes that can fulfill the request.
+**Elasticsearch 由多个节点构成** （也叫做 Elasticsearch 实例），**一组连接在一起的节点则被称为集群。** 一个集群内的所有节点都知道集群内的其他节点的信息。集群内的每个节点都可以通过 HTTP 请求 **（POST, GET, PUT, DELETE）** 来执行增删改查操作。这种模式使得节点可以将客户请求转交其他节点来完成。
 
-![1 cluster, three nodes (ES instances), five shards](https://cdn-images-1.medium.com/max/4096/1*s51gp1IMLoTpsDHfGUimGg.png)
+![1 个包含 3 个节点 (ES 实例) 和 5 个分片的集群](https://cdn-images-1.medium.com/max/4096/1*s51gp1IMLoTpsDHfGUimGg.png)
 
-#### Index and Shards
+#### 索引和分片
 
-Index are sometimes misunderstood for relational database indices. However, it’s crucial to understand the difference. **An Elasticsearch index is a collection of shards, and documents are evenly distributed among shards.** If not specified, then by default, Elasticsearch allocates five primary shards per index. The model is illustrated in the diagram above.
+Elasticsearch 的索引有时候会被误认为跟关系型数据库中的索引是一样的。但是，理解它们之间的区别至关重要。**Elasticsearch 索引是一组分片的集合，而文档则均匀分布在这些分片上的。** 如果没有特别说明，Elasticsearch 默认为每个索引分配 5 个主分片。上图可见这种分配模式。
 
-For instance, you might define `products` as an index. Within that index, there exists different product documents, like the following:
+例如，你可能会定义一个名为 `products` 的索引。这个索引里存在不同的产品文档，如下所示:
 
 ```
 [{
@@ -55,33 +55,33 @@ For instance, you might define `products` as an index. Within that index, there 
 }]
 ```
 
-When documents are added to an index, Elasticsearch will determine which shard will hold that document. **Shards are evenly distributed amongst the nodes in the cluster.** If new nodes are added to the system, Elasticsearch will redistribute the shards evenly within the cluster.
+当文档被添加到一个索引时， Elasticsearch 会决定哪个分片用来装载这些文档。**分片是均匀分布在集群内的节点上的。** 如果新的节点加入到集群中，Elasticsearch 将在集群里重新均匀地分配分片。
 
-![Notice an extra node was added to the cluster, and now the shards are redistributed as evenly.](https://cdn-images-1.medium.com/max/4096/1*QOQTNHjwiqe7KYj1IZ5cYw.png)
+![注意一个额外的节点被添加到了集群，现在这些分片被重新均匀分布了。](https://cdn-images-1.medium.com/max/4096/1*QOQTNHjwiqe7KYj1IZ5cYw.png)
 
-There’s also something to be said about “**active**” shards. **Active shards are somewhat self-explanatory. They’re shards that are actively holding data.** If there aren’t enough documents to utilize all the shards, some shards aren’t considered active even though they’ve been allocated for that index. You’ll see an example of this later on in the reading.
+Elasticsearch 的 “**活跃**” 分片也值得提一下。**活跃分片正如它的名字所表达的，指的是活跃着的保存有数据的分片。** 如果文档不够多，不足以充分使用所有的分片，那么其中一些分片尽管是分配给这个索引的，也不会被认为是活跃的。稍后你将看到一个例子。
 
-#### Replicas
+#### 副本
 
-Replicas are a type of shard, except they’re used to improve search performance and act as a backup for primary shards. **A complete replica is composed of five replica shards.** Therefore it’s often said there’s one replica per index.
+副本是分片的一种类型，只不过它是用来提高搜索性能并作为主分片的备份的。**一个完整的副本由 5 个副本分片组成。** 因此我们通常可以认为每个索引拥有一个副本。
 
-Replica shards are a reliable fail-over because they’re never allocated on the same node as the shard they’re replicating. If you’re familiar with RAID **(Redundant Array of Independent Disks)**, then replica shards should sound somewhat similar. Data is mirrored onto a redundant disk or, in this case, shard. And because the shard is on a separate node, if nodes containing the primary shards fail, then the replicas will still be available. And the risk for nodes with replica and primary shards simultaneously failing is relatively low.
+副本分片可以作为可靠的故障转移，因为它们不会跟它所复制的数据被分配到同一个节点。如果你熟悉 RAID **（冗余独立磁盘阵列）**，那副本分片跟它基本类似。数据被镜像拷贝到一个冗余的磁盘，在 Elasticsearch 里其实就是镜像拷贝到一个分片。并且由于分片在一个独立的节点上，如果含有主分片的节点故障了，副本仍然是可用的。而副本分片的节点和主分片的节点同时故障的风险相对较小。
 
-#### Clarifying the “Relational Database” Analogy
+#### 阐明与 “关系型数据库” 的类比
 
-Elasticsearch can get a little complicated to understand. The confusion is mainly due to the inaccurate analogy the Elasticsearch team used to describe these concepts. Since then, the Elasticsearch team has tried to rectify the misinterpretation.
+Elasticsearch 理解起来可能会有点复杂。这些困惑主要是 Elasticsearch 团队在描述这些概念时所使用的一些不准确的类比造成的。在那以后，Elasticsearch 团队也试图解释这些误解。
 
-Most resources on the internet compare an index with an individual, relational database. Now, you might be thinking, **“Isn’t an index more like a table rather than a database?”**
+大多数互联网上的资料都把一个索引和一个单独的关系型数据库做比较。那现在你可能会想，**与其说索引像一个数据库，它难道不更像一张表吗？**
 
-You’re right. It does seem similar to a table. However, up until Elasticsearch v.6, there use to be the concept of mapping **types**. Types represented the type of document within an index. For example, if “**twitter”** is an index, then one could describe two types of **“twitter”** documents: “**tweet”** and “**user**.” There were many problems with types that I won’t delve into in this article, but essentially, types mimic relational database tables.
+你的理解是正确的，索引确实跟一张表类似。然而，在 Elasticsearch v.6 以及之前的版本中，一直有 **类型** 映射的概念。类型是用来表示一个索引内文档的类别的。举个例子，如果 **”twitter”** 是一个索引，那么我们可以描述 **“twitter”** 文档里的两种类型: “**tweet”** 和 “**user**”。 这个类型的概念存在太多问题，因此我不会在这篇文章中深入探讨，但本质上，Elasticsearch 的类型是模仿了关系型数据库表。
 
-**My word of advice is not to make the connections with relational databases. It will confuse you, just as much as it confused me.**
+**我个人建议不要把 Elasticsearch 跟关系型数据库关联起来。这样只会让你更困惑，其实我也同样因此感到困惑。**
 
-## Installing and Getting Started.
+## 安装和入门
 
-**As previously noted, the primary way to interact with Elasticsearch is through HTTP requests (RESTFUL APIs).** In this section, we’ll review some basic methods for indexing into Elasticsearch instances to get you started.
+**如前文所述，与 Elasticsearch 交互的主要方式是通过 HTTP 请求（RESTFUL APIs）。** 在本节内容里，作为入门，我们会回顾一些在 Elasticsearch 实例中创建索引的基本方法。
 
-To get started with Elasticsearch, install Docker and create a directory `data/elasticsearch`. Then run the following docker command to download the Elasticsearch Docker image and start the container.
+开始使用 Elasticsearch 之前，需要安装 Docker 并创建一个名为 `data/elasticsearch` 的文件夹。然后运行下面的 docker 命令下载 Elasticsearch 的 docker 镜像文件并启动 docker 容器。
 
 ```bash
 docker run --restart=always -d --name elasticsearch \\
@@ -92,17 +92,19 @@ docker run --restart=always -d --name elasticsearch \\
     docker.elastic.co/elasticsearch/elasticsearch:7.9.2
 ```
 
-You can now access all the Elasticsearch API’s via`[http://localhost:9200](http://localhost:9200)`
+现在你就可以通过 `[http://localhost:9200](http://localhost:9200)` 访问 Elasticsearch 所有的 API 了。
 
-#### Creating a New Index
+#### 创建一个新索引
 
-You can create documents in one of two ways, through a PUT request or POST request. Since I’ll be using Elasticsearch v.7, I’ll avoid the topic of types. We’ll stick with Elasticsearch default type `_doc`. And work with indexes and documents.
+你可以用下面两种方法中的任意一种来创建文档，通过 PUT 请求或者 POST 请求。因为我要使用的是 Elasticsearch v.7 版本，所以我会避免提到上文提及的与类型有关的话题。我会坚持使用 Elasticsearch 的默认类型 `_doc` 来操作索引和文档。
 
-We can create an empty index as follows:
+我们可以用如下方式创建一个空索引：
 
+```
 PUT http://localhost:9200/products
+```
 
-We can also create an index by inserting a document under the index name we desire, as shown below:
+我们也可以通过在我们想要的索引中插入一个文档的方式来创建索引，如下所示:
 
 ```
 POST: http://localhost:9200/product/_doc/
@@ -116,7 +118,7 @@ POST: http://localhost:9200/product/_doc/
 }
 ```
 
-The above request will yield the following response:
+上面的请求将产生如下响应报文:
 
 ```
 {
@@ -136,66 +138,66 @@ The above request will yield the following response:
 }
 ```
 
-The response above randomly generates an identifier `_id` for the document inserted. However, if you want to specify an identifier, change the POST request to a PUT request, and add the identifier to the end of the request as shown below:
+在上面的响应报文里，每个插入的文档都有一个随机生成的识别码 `_id`。但是如果你想指定识别码，就需要把 POST 请求改为一个 PUT 请求，并如下所示在请求的末尾添加一个识别码:
 
 ```
 PUT: http://localhost:9200/product/_doc/1
 ```
 
-Going back to the response, notice there’s a total of two shards, one of which yielded a success. As I’ve briefly mentioned before, active shards contain data, and replica shards contain a copy. Therefore, this response informs us that data was fetched from one shard out of a total of two active shards **(one of which is a replica shard)**.
+再次回到上面的响应报文，我们注意到一共有 2 个分片，而其中一个分片在结果中显示是成功的。我在前文有简要的提及，活跃分片装载了数据，而副本分片装载了一份数据的拷贝。因此，这段响应报文告诉我们数据是从 2 个活跃分片 **（其中一个是副本分片）** 中的一个获取的。
 
-We can verify the number of shards by performing a CAT **(compact and align text)** API call, as shown below:
+我们可以执行一个 CAT **(压缩并对齐文本)** API 调用来验证分片数量，如下所示:
 
 ```
 GET http://localhost:9200/_cat/shards/product
 ```
 
-CAT API requests are statistical inquires about our Elasticsearch cluster. We can inquire about nodes, shards, indices, templates, and other Elasticsearch features.
+CAT API 是用来对 Elasticsearch 集群进行统计查询的。我们可以查询关于节点，集群，索引，模板以及其它的 Elasticsearch 特征。
 
-The result of the above requests yields the following:
+上面的请求会产生如下结果:
 
 ```
 product 0 p STARTED    4 7kb 1xx.xx.x.x a6ffefa157e8
 product 0 r UNASSIGNED
 ```
 
-This response tells us that at index `product`, the shard identified **(in this case, they’re both labeled 0)** is either a replica **r** or primary **p,** and it has the state **STARTED** or **UNASSIGNED.** It also tells us the number of documents within the shard, the size on disk, the IP address, and the node id.
+这段响应报文告诉我们在索引 `product` 里找到的分片 **（在此它们都被标记为 0）** 要么是副本 **r**, 要么是主分片 **p**，并且状态是 **STARTED** 或者 **UNASSIGNED**。 这段响应也告诉了我们分片里的文档数量，磁盘大小，IP 地址和节点 id。
 
-To get a complete list of CAT API requests, we can make the following request:
+要得到 CAT API 请求的完整列表，我们需要做如下请求:
 
 ```
 GET http://localhost:9200/_cat/
 ```
 
-**I recommend keeping this request nearby. It’s convenient while you’re learning.**
+**我推荐把这个请求保存到你易于访问的地方。因为这个 API 可以方便你学习 Elasticsearch 。**
 
-#### Searching Indices
+#### 搜索索引
 
-Elasticsearch's vast search capabilities are impossible to summarize in a few paragraphs. I’ll provide two basics to get you started: **fetching all documents in an index and fetch a document by its identifier.** I’ll cover more complex and interesting search queries in another article.
+Elasticsearch 强大的搜索功能是很难用几个段落就总结完的。我这里会提供 2 个基本的搜索功能以便你们入门: **获取索引里的所有文档和通过识别码获取一个文档**。 我会在其他的文章里讨论更复杂、更有趣的搜索查询。
 
-We can request all documents in an index with the following request:
+我们可以用下面的请求获取一个索引里的全部文档:
 
 ```
 GET http://localhost:9200/product/_search
 ```
 
-However, by default, Elasticsearch will return only 45 documents at a time. But we can increase that limit by specifying the query string, `size` as shown below:
+然而，在默认情况下，Elasticsearch 每次只会返回 45 个文档。但是我们可以在查询字串中提高这个限制值，正如下面请求里的 `size` 字段:
 
 ```
 GET http://localhost:9200/product/_search?size=100
 ```
 
-Fetching a single document by its identifier is just as simple as adding a document except we change the POST request to a GET request, like as shown below:
+通过识别码获取单一文档跟上文提到的添加一个文档的请求方法很类似，只不过要将 POST 请求改成 GET 请求，如下所示:
 
 ```
 GET http://localhost:9200/product_entity/_doc/1
 ```
 
-#### Final Thoughts
+#### 结语
 
-Elasticsearch is a mighty analytical search engine. However, it can be very complex to maneuver.
+Elasticsearch 是一个强大的分析类搜索引擎。但是它操作起来会很复杂。
 
-In this article, I’ve covered some fundamental concepts to get you started. Still, I highly recommend looking through the [Elasticsearch v.7.9 or higher documentation](https://www.elastic.co/guide/en/elasticsearch/reference/7.9/index.html) and the [Elasticsearch blog](https://www.elastic.co/blog/) to expand your understanding.
+我在本文介绍了一些帮助你们入门的基础概念。但我还是强烈推荐你们浏览 [Elasticsearch v.7.9 或更高版本的文档](https://www.elastic.co/guide/en/elasticsearch/reference/7.9/index.html) 以及 [Elasticsearch 博客](https://www.elastic.co/blog/) 来加深和拓展你的理解。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
