@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/monolith-vs-micro-frontend.md](https://github.com/xitu/gold-miner/blob/master/article/2020/monolith-vs-micro-frontend.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[Usualminds](https://github.com/Usualminds)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[regon-cao](https://github.com/regon-cao)
 
 # 单体应用与微前端开发对比
 
@@ -37,11 +37,11 @@
 
 微前端应该是只有大企业才能驾驭的巨型应用。虽然所有这些属性都支持使用微前端，但它们不是必需的。如果合适的话，即使是一个小型应用程序也可以从微前端开发中受益。例如，我们可能有一个登录页面应用程序，它每天都需要更新一些内容。当然，我们可以将这个连接到后端处理，但是就为了发布一个(可能非常普通的)内容片段，突然之间我们需要维护很多东西。相反，将其作为前端组件发布并直接使用可能是很好的解决方案。
 
-对于大型应用程序，我们要担心的是“遗留问题”。带有遗留代码或者不能使用最新最好工具都会使软件项目最终失败。要么是错过了关键的更新，要么是未能吸引到新的开发人员。微前端支持项目中使用多个不同的技术栈，提供了一种很好的解决方案。
+对于大型应用程序，我们要担心的是“遗留问题”。包含遗留代码或者不能使用最新最好的工具都会使软件项目最终失败。要么是错过了关键的更新，要么是未能吸引到新的开发人员。微前端支持项目中使用多个不同的技术栈，提供了一种很好的解决方案。
 
 ![Micro frontends can outperform their monolithic ancestors — given the right problem statement.](https://cdn-images-1.medium.com/max/2000/1*iVLtTGNKeVjX3p2dmtPmRA.png)
 
-微前端解决方案在很多方面都很灵活。因此，与传统前端相比，它面临着各种挑战。如果这些挑战（性能或一致性等）得到解决，那么微前端就不一定比单体应用方案更复杂。实际上，单个部分（即真正的微前端）更容易理解和维护。事实上，这能大幅减少加载时间，使得开发人员运用更加友好的解决方案。
+微前端解决方案在很多方面都很灵活。因此，与传统前端相比，它面临着各种挑战。如果这些挑战（性能或一致性等）得到解决，那么微前端就不一定比单体应用方案更复杂。实际上，单个部分（即真正的微前端）更容易理解和维护。事实上，这能大幅减少加载时间，是对开发人员更加友好的解决方案。
 
 简而言之：
 
@@ -57,7 +57,7 @@
 
 ![Different teams producing different artifacts.](https://cdn-images-1.medium.com/max/2000/1*TM5WFttKghAGLdcZ02sv2w.png)
 
-相比之下，单体应用由一个团队或一个大型集中式团队开发，部分功能在小团队中开发。然而，在任何情况下都会有规整校对。有一种情况是，辅助的团队规模实际上也相当大，并且有自己的流程。这就是像 nexus（Maven 仓库管理器）或大规模敏捷团队（scrum of scrums）概念出现的地方。一旦我们听到这些术语，我们就知道正在发生大量的规整校对，正在进行很多会议，导致效率大幅下降。
+相比之下，单体应用由一个独立团队开发，或者一个大的中心团队负责主功能，部分功能由小团队开发。然而，在任何情况下都会有规整校对。有一种情况是，辅助的团队规模实际上也相当大，并且有自己的流程。这就是像 nexus（Maven 仓库管理器）或大规模敏捷团队（scrum of scrums）概念出现的地方。一旦我们听到这些术语，我们就知道正在发生大量的规整校对，正在进行很多会议，导致效率大幅下降。
 
 ![One large team producing a single application.](https://cdn-images-1.medium.com/max/2000/1*Sj8vdinS7TjOb48sb7-5qQ.png)
 
