@@ -19,8 +19,6 @@ And it’s not due to warnings. If you work in the open-source universe, within 
 
 Today, it’s way more accessible for small and medium companies to afford security tools (or perhaps whole platforms) to assist their developers with the gaps in their code and apps.
 
-> 👋 As you’re exploring security best practices for Node.js, you might want to explore [AppSignal for Node.js](https://appsignal.com/nodejs) as well. [We provide you with out-of-the-box support for Node.js Core, Express, Next.js, Apollo Server, node-postgres and node-redis](https://blog.appsignal.com/2020/10/07/launching-appsignal-monitoring-for-nodejs.html).
-
 Nevertheless, whether you use or don’t use such security platforms, understanding and being aware of the security threats that your apps may suffer from and fighting against them through simple (but powerful) best practices is the main goal of this article.
 
 Actually, we’ll pick Node.js as the analysis guinea pig, but many of the items here perfectly align with other platforms as well.
