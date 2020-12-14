@@ -11,8 +11,6 @@ Memory leaks are something every developer has to eventually face. They are comm
 
 In this blog post, we will look at what memory leaks are and how you can avoid them in your NodeJS application. Though this is more focused on NodeJS, it should generally apply to JavaScript and TypeScript as well. Avoiding memory leaks helps your application use resources efficiently and it also has performance benefits.
 
-> 👋 As you’re exploring memory leaks in Node.js, you might want to explore [AppSignal for Node.js](https://appsignal.com/nodejs) as well. [We provide you with out-of-the-box support for Node.js Core, Express, Next.js, Apollo Server, node-postgres and node-redis](https://blog.appsignal.com/2020/10/07/launching-appsignal-monitoring-for-nodejs.html).
-
 ## Memory Management in JavaScript
 
 To understand memory leaks, we first need to understand how memory is managed in NodeJS. This means understanding how memory is managed by the JavaScript engine used by NodeJS. NodeJS uses the **[V8 Engine](https://v8.dev/)** for JavaScript. You should check out [Visualizing memory management in V8 Engine](https://dev.to/deepu105/visualizing-memory-management-in-v8-engine-javascript-nodejs-deno-webassembly-105p) to get a better understanding of how memory is structured and utilized by JavaScript in V8.
@@ -55,17 +53,7 @@ Since global variables are never garbage collected, it’s best to ensure you do
 
 When you assign a value to an undeclared variable, JavaScript automatically hoists it as a global variable in default mode. This could be the result of a typo and could lead to a memory leak. Another way could be when assigning a variable to [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this), which is still a holy grail in JavaScript.
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-
+```js
 // This will be hoisted as a global variable
 function hello() {
     foo = "Message";
@@ -76,22 +64,11 @@ function hello() {
 function hello() {
     this.foo = "Message";
 }
+```
 
 To avoid such surprises, always write JavaScript in strict mode using the `'use strict';` annotation at the top of your JS file. In strict mode, the above will result in an error. When you use ES modules or transpilers like TypeScript or Babel, you don’t need it as it’s automatically enabled. In recent versions of NodeJS, you can enable strict mode globally by passing the `--use_strict` flag when running the `node` command.
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-
+```
 "use strict";
 
 // This will not be hoisted as global variable
@@ -104,20 +81,17 @@ function hello() {
 function hello() {
     this.foo = "Message";
 }
+```
 
 When you use arrow functions, you also need to be mindful not to create accidental globals, and unfortunately, strict mode will not help with this. You can use the `no-invalid-this` rule from ESLint to avoid such cases. If you are not using ESLint, just make sure not to assign to `this` from global arrow functions.
 
-1
-2
-3
-4
-5
-
+```js
 // This will also become a global variable as arrow functions
 // do not have a contextual \`this\` and instead use a lexical \`this\`
 const hello = () => {
     this.foo = 'Message";
 }
+```
 
 Finally, keep in mind not to bind global `this` to any functions using the `bind` or `call` method, as it will defeat the purpose of using strict mode and such.
 
@@ -136,20 +110,7 @@ Using stack variables as much as possible helps with memory efficiency and perfo
 1. Avoid heap object references from stack variables when possible. Also, don’t keep unused variables.
 2. Destructure and use fields needed from an object or array rather than passing around entire objects/arrays to functions, closures, timers, and event handlers. This avoids keeping a reference to objects inside closures. The fields passed might mostly be primitives, which will be kept in the stack.
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-
+```js
 function outer() {
     const obj = {
         foo: 1,
@@ -163,6 +124,7 @@ function outer() {
 }
 
 function myFunc(foo) {}
+```
 
 ### Use Heap Memory Effectively
 
@@ -178,21 +140,7 @@ It’s not possible to avoid using heap memory in any realistic application, but
 
 As we saw earlier, closures, timers and event handlers are other areas where memory leaks can occur. Let’s start with closures as they are the most common in JavaScript code. Look at the code below from the Meteor team. This leads to a memory leak as the `longStr` variable is never collected and keeps growing memory. The details are explained in [this blog post](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156).
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-
+```js
 var theThing = null;
 var replaceThing = function () {
     var originalThing = theThing;
@@ -207,6 +155,7 @@ var replaceThing = function () {
     };
 };
 setInterval(replaceThing, 1000);
+```
 
 The code above creates multiple closures, and those closures hold on to object references. The memory leak, in this case, can be fixed by nullifying `originalThing` at the end of the `replaceThing` function. Such cases can also be avoided by creating copies of the object and following the immutable approach mentioned earlier.
 
@@ -225,12 +174,6 @@ Memory leaks in JavaScript are not as big of a problem as they used to be, due t
 * [Cross-Browser Event Handling Using Plain ole JavaScript](https://docs.microsoft.com/en-us/previous-versions/msdn10/ff728624(v=msdn.10))
 * [Four types of leaks in your JavaScript code and how to get rid of them](https://auth0.com/blog/four-types-of-leaks-in-your-javascript-code-and-how-to-get-rid-of-them/)
 * [An interesting kind of JS memory leak](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)
-
-**P.S. If you liked this post, [subscribe to our new JavaScript Sorcery list](https://blog.appsignal.com/javascript-sorcery) for a monthly deep dive into more magical JavaScript tips and tricks.**
-
-**P.P.S. If you’d love an all-in-one APM for Node or you’re already familiar with AppSignal, go and [check out the first version of AppSignal for Node.js](https://docs.appsignal.com/nodejs/).**
-
-**Our guest author [Deepu K Sasidharan](https://twitter.com/deepu105) is the co-lead of the [JHipster](https://www.jhipster.tech/) platform. He is a polyglot developer and Cloud-Native Advocate currently working as a Developer Advocate at Adyen. He is also a published author, conference speaker, and blogger.**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
