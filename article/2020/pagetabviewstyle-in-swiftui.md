@@ -11,7 +11,7 @@
 
 在最近的 WWDC 2020 大会上，苹果为“TabView”新增了名为“PageTabViewStyle”的样式，类似于水平分页滚动效果，常被用于引导页。
 
-> **“一种实现了 `TabView` 分页的  `TabViewStyle`  。” — [苹果官方文档](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
+> **“一种实现了 `TabView` 分页的 `TabViewStyle`。” — [苹果官方文档](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
 
 ## 预备知识
 
@@ -24,9 +24,9 @@
 
 ## PageTabViewStyle 入门
 
-我们来快速实现一个 `TabView`，底部显示不同图标，选中时填充图片或未选中时不填充.
+我们来快速实现一个 `TabView`，底部显示不同图标，选中时填充图片或未选中时不填充。
 
-你需要一个 `state` 来判断是否选中:
+你需要一个 `state` 来判断是否选中：
 
 ```
 @State private var selected = 0
@@ -57,7 +57,7 @@ TabView() {
 
 ![](https://cdn-images-1.medium.com/max/2484/1*sKnXiZdPNgiSLQwyjh7auQ.png)
 
-做完这些之后，你只需要一个简单的 modifier，就可以实现水平滚动页面。在 `TabView` 后面添加 `.tabViewStyle(PageTabViewStyle())`
+做完这些之后，你只需要一个简单的 modifier，就可以实现水平滚动页面。在 `TabView` 后面添加 `.tabViewStyle(PageTabViewStyle())`：
 
 ```
 TabView() {
