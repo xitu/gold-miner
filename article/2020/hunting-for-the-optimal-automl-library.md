@@ -2,16 +2,16 @@
 > * 原文作者：[Aimee Coelho](https://medium.com/@aimee.coelho_27638)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/hunting-for-the-optimal-automl-library.md](https://github.com/xitu/gold-miner/blob/master/article/2020/hunting-for-the-optimal-automl-library.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhusimaji](https://github.com/zhusimaji)
+> * 校对者：[regon-cao](https://github.com/regon-cao)、[lsvih](https://github.com/lsvih)
 
 # 寻找最优化 AutoML 库
 
-在过去的几年中，已经对如何自动化构建机器学习模型做了大量的研究。现在业内提供许多 AutoML 的开源库。它们之间存在何种联系，更重要的是，如何去比较他们的优劣？为此，我们需要一个独立的团队基于广泛的数据集在可控的条件下测试所有软件包。
+在过去的几年中，关于如何自动化构建机器学习模型已经有了大量的研究。现在业内有许多提供了 AutoML 功能的开源库。这些库之间存在何种联系，更重要的是，如何去比较他们的优劣？为此，我们需要一个独立的团队基于广泛的数据集在可控的条件下测试所有软件包。
 
 Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Automated Machine Learning Frameworks](https://arxiv.org/abs/1904.12054)，已经进行全部的基准测试。我们发现他们的测试方案非常有趣，这也是我们想在这里分享的。请注意：
 
-> 平均来说，除网格搜索之外的所有算法都会生成性能相似的模型。
+> 一般来说，除网格搜索之外的所有算法都会生成性能相似的模型。
 
 ![训练最佳模型要求损失最小(Credit [Pexels](https://www.pexels.com/photo/mountain-ranges-covered-in-snow-714258/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels))](https://cdn-images-1.medium.com/max/2560/1*bJwQ4KSfW8ICsDOGBMCIMg.jpeg)
 
@@ -118,7 +118,7 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 作者总结到
 
-> 平均来说，除网格搜索之外的所有算法都会生成性能相似的模型。
+> 一般来说，除网格搜索之外的所有算法都会生成性能相似的模型。
 
 他们还得出结论，在大多数数据集上，准确性的绝对差值均小于 1％，因此，仅基于性能对这些算法进行排名是不合理的。对于将来的算法排名，应考虑其他标准（例如模型开销或可伸缩性）。
 
