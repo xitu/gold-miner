@@ -89,7 +89,7 @@ When you use arrow functions, you also need to be mindful not to create accident
 // This will also become a global variable as arrow functions
 // do not have a contextual \`this\` and instead use a lexical \`this\`
 const hello = () => {
-    this.foo = 'Message";
+    this.foo = "Message";
 }
 ```
 
