@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/inheritance-vs-composition-which-is-better-for-your-javascript-project.md](https://github.com/xitu/gold-miner/blob/master/article/2020/inheritance-vs-composition-which-is-better-for-your-javascript-project.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo) [ZavierTang](https://github.com/ZavierTang)
 
 # 继承 vs 组合：哪一个更适合你的 JavaScript 项目？
 
