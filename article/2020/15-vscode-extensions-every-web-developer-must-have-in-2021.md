@@ -5,13 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 15 VSCode extensions every Web Developer must have in 2021.
-
-## 15 VSCode extensions every Web Developer must have in 2021
-
-Here is a list of uncommon VSCode extensions that developers should use to boost their productivity.
-
----
+# 15 VSCode extensions every Web Developer must have in 2021
 
 ![Photo by [Ash Edmonds](https://unsplash.com/@badashproducts?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*shB6jCQ3DNaz7TzO)
 
@@ -178,12 +172,6 @@ You can find it [here](https://marketplace.visualstudio.com/items?itemName=humao
 ![](https://cdn-images-1.medium.com/max/3786/1*uFiFhMR3tOp6KXMkQ4gy-w.png)
 
 Thank you for reading!.
-
-## Next Read:
-[**Build a Google Maps Clone in less than 20 minutes.**
-**A step by step tutorial to building a Google Maps Clone using Vanilla JS & MapBox API**medium.com](https://medium.com/javascript-in-plain-english/build-a-google-maps-clone-in-less-than-20-minutes-6f7c68db13e)
-
-👋 **Hey, let’s be friends!** Connect with me on [LinkedIn](https://www.linkedin.com/in/shashank-mv/). Don’t forget to follow me here on [Medium](https://medium.com/@mv.shashank123) as well for more content like this.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
