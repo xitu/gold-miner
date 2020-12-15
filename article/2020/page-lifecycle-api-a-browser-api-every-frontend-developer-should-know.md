@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/page-lifecycle-api-a-browser-api-every-frontend-developer-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2020/page-lifecycle-api-a-browser-api-every-frontend-developer-should-know.md)
 > * 译者：[Sam](https://github.com/xutaogit)
-> * 校对者：[ZavierTang](https://github.com/ZavierTang),[zenblo](https://github.com/zenblo)
+> * 校对者：[ZavierTang](https://github.com/ZavierTang)，[Zenblo](https://github.com/zenblo)
 
 # 页面生命周期 API：每一个前端开发者都应该知道的浏览器 API
 
