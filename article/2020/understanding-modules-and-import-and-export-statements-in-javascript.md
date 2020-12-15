@@ -1,27 +1,27 @@
-> * 原文地址：[Understanding Modules and Import and Export Statements in JavaScript](https://www.digitalocean.com/community/tutorials/understanding-modules-and-import-and-export-statements-in-javascript)
-> * 原文作者：[Tania Rascia](https://www.digitalocean.com/community/users/taniarascia)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Understanding Modules and Import and Export Statements in JavaScript](https://www.digitalocean.com/community/tutorials/understanding-modules-and-import-and-export-statements-in-javascript)
+> - 原文作者：[Tania Rascia](https://www.digitalocean.com/community/users/taniarascia)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-modules-and-import-and-export-statements-in-javascript.md)
+> - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
+> - 校对者：[zenblo](https://github.com/zenblo)、[Qiaoj](https://github.com/Usualminds)、[lsvih](https://github.com/lsvih)
 
-# Understanding Modules and Import and Export Statements in JavaScript
+# 理解 JavaScript 中模块的导入和导出
 
 ![](https://user-images.githubusercontent.com/5164225/99609213-6b3c6a00-2a4a-11eb-9fce-6d7b3091a4e9.png)
 
-### Introduction
+## 简介
 
-In the early days of the Web, websites consisted primarily of [HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) and [CSS](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-css). If any JavaScript loaded into a page at all, it was usually in the form of small snippets that provided effects and interactivity. As a result, JavaScript programs were often written entirely in one file and loaded into a `script` tag. A developer could break the JavaScript up into multiple files, but all variables and [functions](https://www.digitalocean.com/community/tutorials/how-to-define-functions-in-javascript) would still be added to the global [scope](https://www.digitalocean.com/community/tutorials/understanding-variables-scope-hoisting-in-javascript).
+早期的 Web 网站主要由 [HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) 和 [CSS](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-css) 组成。如果有任何 JavaScript 的代码需要在页面中执行，通常是以小的代码片段的形式来提供功能和交互性。结果就是通常 JavaScript 的代码都会被编写在一个文件中，然后通过 `script` 标签加载到页面中。开发人员可以将 JavaScript 代码拆分成多个 js 文件，但是所有 JavaScript 变量和[函数](<(https://www.digitalocean.com/community/tutorials/how-to-define-functions-in-javascript)>)都会被添加到全局[作用域](https://www.digitalocean.com/community/tutorials/understanding-variables-scope-hoisting-in-javascript)中。
 
-But as websites have evolved with the advent of frameworks like [Angular](https://www.digitalocean.com/community/tags/angularjs), [React](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-react-js), and [Vue](https://www.digitalocean.com/community/tags/vue-js), and with companies creating advanced web applications instead of desktop applications, JavaScript now plays a major role in the browser. As a result, there is a much greater need to use third-party code for common tasks, to break up code into modular files, and to avoid polluting the global namespace.
+但是随着 [Angular](https://www.digitalocean.com/community/tags/angularjs)、[React](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-react-js) 以及 [Vue](https://www.digitalocean.com/community/tags/vue-js) 等 Web 框架技术的发展，并且大部分公司都在开发高级 Web 应用而非桌面应用，JavaScript 就变得越来越重要了。将能够复用的代码逻辑封装成公共代码，并且在避免全局命名空间污染的前提下，将其模块化，这一需求就成为了必要。
 
-The [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) specification introduced **modules** to the JavaScript language, which allowed for the use of `import` and `export` statements. In this tutorial, you will learn what a JavaScript module is and how to use `import` and `export` to organize your code.
+[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) 规范引入了允许使用 `import` 和 `export` 语句的 **modules** 概念。在本教程中，你将学习什么是 JavaScript 模块以及如何使用 `import` 和` export` 管理代码结构。
 
-## Modular Programming
+## 模块化编程
 
-Before the concept of modules appeared in JavaScript, when a developer wanted to organize their code into segments, they would create multiple files and link to them as separate scripts. To demonstrate this, create an example `index.html` file and two JavaScript files, `functions.js` and `script.js`.
+在 JavaScript 引入模块化概念之前，当开发人员想要将代码封装时，需要创建多个文件并将这些文件链接为单独的脚本。作者为了说明这一点，创建了一个示例：`index.html` 文件和两个 `JavaScript` 文件，`functions.js` 和`script.js`。
 
-The `index.html` file will display the sum, difference, product, and quotient of two numbers, and link to the two JavaScript files in `script` tags. Open `index.html` in a text editor and add the following code:
+`index.html` 文件将显示两个数字的和，差，乘积和商的结果，并在脚本标签中链接到两个 `JavaScript` 文件。 在文本编辑器中新建 `index.html` 并添加以下代码：
 
 ```html
 <!DOCTYPE html>
@@ -55,117 +55,117 @@ The `index.html` file will display the sum, difference, product, and quotient of
 </html>
 ```
 
-This HTML will display the value of variables `x` and `y` in an `h2` header, and the value of operations on those variables in the following `p` elements. The `id` attributes of the elements are set for [DOM manipulation](https://www.digitalocean.com/community/tutorial_series/understanding-the-dom-document-object-model), which will happen in the `script.js` file; this file will also set the values of `x` and `y`. For more information on HTML, check out our [How To Build a Website with HTML](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html) series.
+该 HTML 将在 `h2` 标签中显示变量 `x` 和 `y` 的值，并在其下 `p` 元素中显示这些变量的运算值。元素 `id` 属性为了方便 `script.js` 文件中的 [DOM 操作](https://www.digitalocean.com/community/tutorial_series/understanding-the-dom-document-object-model)，`script.js` 文件还会设置 `x` 和 `y` 的值。更多 HTML 相关内容可以参考我的[如何使用 HTML 创建网站](https://www.digitalocean.com/community/tutorial_series/how-to-build-a-website-with-html)系列文章。
 
-The `functions.js` file will contain the mathematical functions that will be used in the second script. Open the `functions.js` file and add the following:
+`functions.js` 文件则提供第二个脚本中将要使用到的数学函数。打开 `functions.js` 文件并添加以下内容：
 
 ```js
 function sum(x, y) {
-  return x + y
+  return x + y;
 }
 
 function difference(x, y) {
-  return x - y
+  return x - y;
 }
 
 function product(x, y) {
-  return x * y
+  return x * y;
 }
 
 function quotient(x, y) {
-  return x / y
+  return x / y;
 }
 ```
 
-Finally, the `script.js` file will determine the values of `x` and `y`, apply the functions to them, and display the result:
+最后，`script.js` 文件将计算出 `x` 和 `y` 的值，并显示结果：
 
 ```js
-const x = 10
-const y = 5
+const x = 10;
+const y = 5;
 
-document.getElementById('x').textContent = x
-document.getElementById('y').textContent = y
+document.getElementById("x").textContent = x;
+document.getElementById("y").textContent = y;
 
-document.getElementById('addition').textContent = sum(x, y)
-document.getElementById('subtraction').textContent = difference(x, y)
-document.getElementById('multiplication').textContent = product(x, y)
-document.getElementById('division').textContent = quotient(x, y)
+document.getElementById("addition").textContent = sum(x, y);
+document.getElementById("subtraction").textContent = difference(x, y);
+document.getElementById("multiplication").textContent = product(x, y);
+document.getElementById("division").textContent = quotient(x, y);
 ```
 
-After setting up these files and saving them, you can [open `index.html` in a browser](https://www.digitalocean.com/community/tutorials/how-to-use-and-understand-html-elements#how-to-view-an-offline-html-file-in-your-browser) to display your website with all the results:
+完成上述操作之后, 可以在浏览器中打开 [`index.html`](https://www.digitalocean.com/community/tutorials/how-to-use-and-understand-html-elements#how-to-view-an-offline-html-file-in-your-browser) 查看运行结果:
 
 ![Rendered HTML with the values 10 and 5 and the results of the functions.js operations.](https://user-images.githubusercontent.com/5164225/99609235-72fc0e80-2a4a-11eb-93a9-dcf4505f4fd1.png)
 
-For websites with a few small scripts, this is an effective way to divide the code. However, there are some issues associated with this approach, including:
+对于只有少量 `script` 文件的网站应用，这是个很高效的代码拆分方案。然而，这种做法会存在一些问题：
 
-* **Polluting the global namespace**: All the variables you created in your scripts—`sum`, `difference`, etc.—now exist on the [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) object. If you attempted to use another variable called `sum` in another file, it would become difficult to know which value would be used at any point in the scripts, since they would all be using the same `window.sum` variable. The only way a variable could be private was by putting it within a function scope. There could even be a conflict between an `id` in the DOM named `x` and `var x`.
-* **Dependency management**: Scripts would have to be loaded in order from top to bottom to ensure the correct variables were available. Saving the scripts as different files gives the illusion of separation, but it is essentially the same as having a single inline `<script>` in the browser page.
+- **污染全局命名空间**：在脚本中创建的所有变量包括 `sum`, `difference` 等等，都会存在全局 [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) 对象中。如果试图在一个文件中使用一个名为 `sum` 的变量，那么就会很难知晓我们使用的是在哪个脚本中的 `sum`，因为它们都是使用的相同全局 `window.sum` 变量。将变量私有化的唯一方法就是将变量放入函数作用域中。DOM 中的名为 `x` 的 `id` 属性和 `var id` 的变量也会存在冲突（因为如果在 DOM 中使用了 `id` 属性，浏览器会声明一个同名的全局变量）。
+- **依赖管理**：必须从上到下依次加载 `script`，以确保变量正确可用。将 `<script>` 分成不同文件依次引入会给人分离的错觉，但本质上这种方式与在浏览器页面中使用单个 `<script>` 来引入脚本代码是相同效果的。
 
-Before ES6 added native modules to the JavaScript language, the community attempted to come up with several solutions. The first solutions were written in vanilla JavaScript, such as writing all code in [objects](https://www.digitalocean.com/community/tutorials/understanding-objects-in-javascript) or [immediately invoked function expressions (IIFEs)](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) and placing them on a single object in the global namespace. This was an improvement on the multiple script approach, but still had the same problems of putting at least one object in the global namespace, and did not make the problem of consistently sharing code between third parties any easier.
+在 ES6 将原生模块概念添加到 JavaScript 语言之前，社区尝试了几种解决方案。第一个解决方案就是通过普通的 JavaScript 对象实现的，比如将所有代码写在 [objects](https://www.digitalocean.com/community/tutorials/understanding-objects-in-javascript) 或者[立即调用的函数表达式（IIFE）](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)并将它们放在全局中作用域中的单个对象中。这是对多脚本方法的一种改进，但是仍然会存在将至少一个对象放入全局名称空间的相同问题，并且始终没有解决多个脚本之间共享代码的问题。
 
-After that, a few module solutions emerged: [CommonJS](https://en.wikipedia.org/wiki/CommonJS), a synchronous approach that was implemented in [Node.js](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-node-js), [Asynchronous Module Definition (AMD)](https://en.wikipedia.org/wiki/Asynchronous_module_definition), which was an asynchronous approach, and [Universal Module Definition (UMD)](https://github.com/umdjs/umd), which was intended to be a universal approach that supported both previous styles.
+之后，出现了一些模块化解决方案：[CommonJS](https://en.wikipedia.org/wiki/CommonJS)，是在 [Node.js](https://www.digitalocean.com/community/tutorial_series/how-to-code-in-node-js) 实现的同步加载模块的方法，[异步模块定义（AMD）](https://en.wikipedia.org/wiki/Asynchronous_module_definition)则是非同步加载模块，还有[通用模块定义（UMD）](https://github.com/umdjs/umd)，旨在成为能够支持两种加载模式的通用的解决方案
 
-The advent of these solutions made it easier for developers to share and reuse code in the form of **packages**, modules that can be distributed and shared, such as the ones found on [npm](https://www.npmjs.com/). However, since there were many solutions and none were native to JavaScript, tools like [Babel](https://babeljs.io/), [Webpack](https://webpack.js.org/), or [Browserify](http://browserify.org/) had to be implemented to use modules in browsers.
+这些解决方案的出现使得开发人员更容易地以 **package** 的形式共享和重用代码，这些模块也可以被转发和共享，例如一些能在 [npm](https://www.npmjs.com/) 上找到的 packages。但是, 由于有如此多的解决方案并且没有一个是 JavaScript 原生的，所以为了能在浏览其中使用模块，一些相应的工具出现了，比如 [Babel](https://babeljs.io/)、[Webpack](https://webpack.js.org/) 以及 [Browserify](http://browserify.org/)。
 
-Due to the many problems with the multiple file approach and the complexity of the solutions proposed, developers were interested in bringing the [modular programming](https://en.wikipedia.org/wiki/Modular_programming) approach to the JavaScript language. Because of this, ECMAScript 2015 supports the use of JavaScript modules.
+由于多文件方案存在许多问题，并且所提出的解决方案很复杂，因此开发人员对将[模块化编程](https://en.wikipedia.org/wiki/Modular_programming)引入 JavaScript 语言很感兴趣。因此，ECMAScript 2015 支持 JavaScript 模块的使用。
 
-A **module** is a bundle of code that acts as an interface to provide functionality for other modules to use, as well as being able to rely on the functionality of other modules. A module **exports** to provide code and **imports** to use other code. Modules are useful because they allow developers to reuse code, they provide a stable, consistent interface that many developers can use, and they do not pollute the global namespace.
+一个**模块**是一段可以为其他模块提供函数功能的代码块，同时也可以依赖别的模块里的功能。模块中 **exports** 用以导出， **imports** 用来引用。模块之所以有用，是因为它们允许开发人员复用代码，它们提供许多开发人员可以使用的稳定、一致的接口，并且它们还不会污染全局命名空间。
 
-Modules (sometimes referred to as ECMAScript modules or ES Modules) are now available natively in JavaScript, and in the rest of this tutorial you will explore how to use and implement them in your code.
+模块（有时称为 ECMAScript 模块或 ES 模块）现在可以在 JavaScript 中直接使用，在本教程的剩余部分中，你将探索如何在代码中使用和实现它们。
 
-## Native JavaScript Modules
+## 原生 JavaScript 模块
 
-Modules in JavaScript use the `import` and `export` keywords:
+JavaScript 中的模块使用 `import` 和 `export` 关键字:
 
-* `import`: Used to read code exported from another module.
-* `export`: Used to provide code to other modules.
+- `import`: 用于读取从另一个模块导出的代码。
+- `export`: 用于向其他模块提供代码。
 
-To demonstrate how to use this, update your `functions.js` file to be a module and export the functions. You will add `export` in front of each function, which will make them available to any other module.
+为了演示如何使用模块的导入导出，请将 `functions.js` 文件中函数使用模块导出。在每个函数的前面添加 `export` 关键字，这可以让导出的函数在其他模块使用。
 
-Add the following highlighted code to your file:
+将以下的代码添加到文件中：
 
 ```js
 export function sum(x, y) {
-  return x + y
+  return x + y;
 }
 
 export function difference(x, y) {
-  return x - y
+  return x - y;
 }
 
 export function product(x, y) {
-  return x * y
+  return x * y;
 }
 
 export function quotient(x, y) {
-  return x / y
+  return x / y;
 }
 ```
 
-Now, in `script.js`, you will use `import` to retrieve the code from the `functions.js` module at the top of the file.
+现在，在 `script.js` 中，你可以在 `functions.js` 文件的顶部使用 `import` 从其他模块引入代码。
 
-**Note**: `import` must always be at the top of the file before any other code, and it is also necessary to include the relative path (`./` in this case).  
+**注意**：`import` 必须始终位于文件的顶部。在这个例子中并且还必须使用相对路径（本示例为 `./`）。
 
-Add the following highlighted code to `script.js`:
+将以下代码添加到 `script.js` 中：
 
 ```js
-import { sum, difference, product, quotient } from './functions.js'
+import { sum, difference, product, quotient } from "./functions.js";
 
-const x = 10
-const y = 5
+const x = 10;
+const y = 5;
 
-document.getElementById('x').textContent = x
-document.getElementById('y').textContent = y
+document.getElementById("x").textContent = x;
+document.getElementById("y").textContent = y;
 
-document.getElementById('addition').textContent = sum(x, y)
-document.getElementById('subtraction').textContent = difference(x, y)
-document.getElementById('multiplication').textContent = product(x, y)
-document.getElementById('division').textContent = quotient(x, y)
+document.getElementById("addition").textContent = sum(x, y);
+document.getElementById("subtraction").textContent = difference(x, y);
+document.getElementById("multiplication").textContent = product(x, y);
+document.getElementById("division").textContent = quotient(x, y);
 ```
 
-Notice that individual functions are imported by naming them in curly braces.
+请注意，通过在花括号中命名单个函数来导入它们。
 
-In order to ensure this code gets loaded as a module and not a regular script, add `type="module"` to the `script` tags in `index.html`. Any code that uses `import` or `export` must use this attribute:
+为了确保此代码作为模块而不是常规脚本加载，请在 `index.html` 中的 `script` 标签中添加 `type ="module"`。任何使用 `import` 或 `export` 的代码都必须使用这个属性：
 
 ```html
 ...
@@ -173,181 +173,178 @@ In order to ensure this code gets loaded as a module and not a regular script, a
 <script type="module" src="script.js"></script>
 ```
 
-At this point, you will be able to reload the page with the updates and the website will now use modules. Browser support is very high, but [caniuse](https://caniuse.com/?search=modules) is available to check which browsers support it. Note that if you are viewing the file as a direct link to a local file, you will encounter this error:
+刷新页面以重新加载代码，这时页面就会使用模块进行加载。虽然浏览器对模块的支持度很高，但是我们可以通过 [caniuse](https://caniuse.com/?search=modules) 检查不同浏览器的支持度。请注意，如果将文件作为本地文件的的直链，就会遇到这个错误：
 
 ```
 OutputAccess to script at 'file:///Users/your_file_path/script.js' from origin 'null' has been blocked by CORS policy: Cross-origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.
 ```
 
-Because of the [CORS policy](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), Modules must be used in a server environment, which you can set up locally with [http-server](https://www.npmjs.com/package/http-server) or on the internet with a hosting provider.
+由于[跨域资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)，模块必须在服务器环境中使用，可以本地使用 [http-server](https://www.npmjs.com/package/http-server) 也可以通过托管服务提供商在 Internet 上进行设置。
 
-Modules are different from regular scripts in a few ways:
+模块与常规脚本的区别：
 
-* Modules do not add anything to the global (`window`) scope.
-* Modules always are in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode).
-* Loading the same module twice in the same file will have no effect, as modules are only executed once.
-* Modules require a server environment.
+- 模块不会向全局（`window`）作用域添加任何内容。
+- 模块始终处于[严格模式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)。
+- 在同一文件中引用同一模块多次将无效，因为模块只会被执行一次。
+- 模块需要运行在服务器环境。
 
-Modules are still often used alongside bundlers like Webpack for increased browser support and additional features, but they are also available for use directly in browsers.
+模块也会经常与打包工具（如 Webpack）一起使用，以增加对浏览器的支持和一些附加功能，但它们也可以直接在浏览器中使用。
 
-Next, you will explore some more ways in which the `import` and `export` syntax can be used.
+接下来，我们将探索更多使用 `import` 和 `export` 语法的方式。
 
-## Named Exports
+## 按名称导出
 
-As demonstrated earlier, using the `export` syntax will allow you to individually import values that have been exported by their name. For example, take this simplified version of `functions.js`:
+如前所述，使用 `export` 语法将允许分别导入按名称导出的值。例如，使用以下简化版本的 `function.js`：
 
 ```js
 export function sum() {}
 export function difference() {}
 ```
 
-This would let you import `sum` and `difference` by name using curly braces:
+这将允许使用花括号按名称导入 `sum` 和 `difference`：
 
 ```js
-import { sum, difference } from './functions.js'
+import { sum, difference } from "./functions.js";
 ```
 
-It is also possible to use an alias to rename the function. You might do this to avoid naming conflicts within the same module. In this example, `sum` will be renamed to `add` and `difference` will be renamed to `subtract`.
+也可以使用别名来重命名该函数以避免在同一模块中命名冲突。在此示例中，`sum` 将重命名为 `add`，`difference` 将重命名为 `subtract`。
 
 ```js
-import {
-  sum as add,
-  difference as subtract
-} from './functions.js'
+import { sum as add, difference as subtract } from "./functions.js";
 
-add(1, 2) // 3
+add(1, 2); // 3
 ```
 
-Calling `add()` here will yield the result of the `sum()` function.
+在这里调用 `add()` 将产生 `sum()` 函数的结果。
 
-Using the `*` syntax, you can import the contents of the entire module into one object. In this case, `sum` and `difference` will become methods on the `mathFunctions` object.
+使用 `*` 语法，可以将整个模块的内容导入到一个对象中。在下面这种情况下，`sum` 和 `difference` 将成为 `mathFunctions` 对象上的方法。
 
 ```js
-import * as mathFunctions from './functions.js'
+import * as mathFunctions from "./functions.js";
 
-mathFunctions.sum(1, 2) // 3
-mathFunctions.difference(10, 3) // 7
+mathFunctions.sum(1, 2); // 3
+mathFunctions.difference(10, 3); // 7
 ```
 
-Primitive values, function expressions and definitions, [asynchronous functions](https://www.digitalocean.com/community/tutorials/understanding-the-event-loop-callbacks-promises-and-async-await-in-javascript#async-functions-with-asyncawait), [classes](https://www.digitalocean.com/community/tutorials/understanding-classes-in-javascript), and instantiated classes can all be exported, as long as they have an identifier:
+基础类型、函数表达式、函数定义式、[异步函数](https://www.digitalocean.com/community/tutorials/understanding-the-event-loop-callbacks-promises-and-async-await-in-javascript#async-functions-with-asyncawait)、[类](https://www.digitalocean.com/community/tutorials/understanding-classes-in-javascript)以及类的实例也可以被导出，只要它们具有标识符即可：
 
 ```js
-// Primitive values
-export const number = 100
-export const string = 'string'
-export const undef = undefined
-export const empty = null
-export const obj = { name: 'Homer' }
-export const array = ['Bart', 'Lisa', 'Maggie']
+// 基础类型值
+export const number = 100;
+export const string = "string";
+export const undef = undefined;
+export const empty = null;
+export const obj = { name: "Homer" };
+export const array = ["Bart", "Lisa", "Maggie"];
 
-// Function expression
-export const sum = (x, y) => x + y
+// 函数表达式
+export const sum = (x, y) => x + y;
 
-// Function definition
+// 函数定义式
 export function difference(x, y) {
-  return x - y
+  return x - y;
 }
 
-// Asynchronous function
+// 箭头函数
 export async function getBooks() {}
 
-// Class
+// 类
 export class Book {
   constructor(name, author) {
-    this.name = name
-    this.author = author
+    this.name = name;
+    this.author = author;
   }
 }
 
-// Instantiated class
-export const book = new Book('Lord of the Rings', 'J. R. R. Tolkien')
+// 类的实例
+export const book = new Book("Lord of the Rings", "J. R. R. Tolkien");
 ```
 
-All of these exports can be successfully imported. The other type of export that you will explore in the next section is known as a default export.
+所有这些 `exports` 都可以成功地 `import`。 下一小节我们将探讨的另一种导出类型 —— 默认导出。
 
-## Default Exports
+## 默认导出
 
-In the previous examples, you exported multiple named exports and imported them individually or as one object with each export as a method on the object. Modules can also contain a default export, using the `default` keyword. A default export will not be imported with curly brackets, but will be directly imported into a named identifier.
+在前面的示例中，我们进行了多个命名的导出，并将它们分别导入或者作为一个对象进行了导入，以及也尝试了将导出看做一个对象，每次导出均作为该对象的方法。模块也可以使用关键字 `default` 包含默认导出。默认导出不是使用大括号导入，而是直接导入到命名标识符中。
 
-For example, take the following contents for the `functions.js` file:
+例如，将以下内容添加至 `functions.js` 文件：
 
 ```js
 export default function sum(x, y) {
-  return x + y
+  return x + y;
 }
 ```
 
-In the `script.js` file, you could import the default function as `sum` with the following:
+在 `script.js` 文件中，你可以使用以下命令将默认函数导入为 `sum`：
 
 ```js
-import sum from './functions.js'
+import sum from "./functions.js";
 
-sum(1, 2) // 3
+sum(1, 2); // 3
 ```
 
-This can be dangerous, as there are no restrictions on what you can name a default export during the import. In this example, the default function is imported as `difference` although it is actually the `sum` function:
+这很危险，因为在导入过程中对默认导出的命名没有任何限制。在下面这个例子中，默认函数被导入为 `difference`，尽管它实际上是 `sum` 函数：
 
 ```js
-import difference from './functions.js'
+import difference from "./functions.js";
 
-difference(1, 2) // 3
+difference(1, 2); // 3
 ```
 
-For this reason, it is often preferred to use named exports. Unlike named exports, default exports do not require an identifier—a primitive value by itself or anonymous function can be used as a default export. Following is an example of an object used as a default export:
+因此，通常首选应该使用按命名导出。与按命名导出不同，默认导出不需要标识符 —— 基础类型的值或匿名函数都可以用作默认导出。下面是用作默认导出的对象的示例：
 
 ```js
 export default {
-  name: 'Lord of the Rings',
-  author: 'J. R. R. Tolkien',
-}
+  name: "Lord of the Rings",
+  author: "J. R. R. Tolkien",
+};
 ```
 
-You could import this as `book` with the following:
+你可以使用以下命令将其作为 `book` 导入：
 
 ```js
-import book from './functions.js'
+import book from "./functions.js";
 ```
 
-Similarly, the following example demonstrates exporting an anonymous [arrow function](https://www.digitalocean.com/community/tutorials/understanding-arrow-functions-in-javascript) as the default export:
+同样地，下面例子展示了[箭头函数](https://www.digitalocean.com/community/tutorials/understanding-arrow-functions-in-javascript)的默认导出：
 
 ```js
-export default () => 'This function is anonymous'
+export default () => "This function is anonymous";
 ```
 
-This could be imported with the following `script.js`:
+可以像下面这样引入 `script.js` 中的箭头函数：
 
 ```js
-import anonymousFunction from './functions.js'
+import anonymousFunction from "./functions.js";
 ```
 
-Named exports and default exports can be used alongside each other, as in this module that exports two named values and a default value:
+按命名导出和默认导出可以同时使用，比如在下面这个模块中，导出两个命名值和一个默认值：
 
 ```js
-export const length = 10
-export const width = 5
+export const length = 10;
+export const width = 5;
 
 export default function perimeter(x, y) {
-  return 2 * (x + y)
+  return 2 * (x + y);
 }
 ```
 
-You could import these variables and the default function with the following:
+我们可以使用以下代码导入这些变量和默认函数：
 
 ```js
-import calculatePerimeter, { length, width } from './functions.js'
+import calculatePerimeter, { length, width } from "./functions.js";
 
-calculatePerimeter(length, width) // 30
+calculatePerimeter(length, width); // 30
 ```
 
-Now the default value and named values are both available to the script.
+现在，默认值和命名值都可以在 `script` 中使用。
 
-## Conclusion
+## 总结
 
-Modular programming design practices allow you to separate code into individual components that can help make your code reusable and consistent, while also protecting the global namespace. A module interface can be implemented in native JavaScript with the `import` and `export` keywords.
+模块化编程设计实践可以将代码拆分到单独的组件中，从而提高代码的复用率和一致性，同时还可以保护全局命名空间不被污染。模块化接口可以用原生 JavaScript 的关键字 `import` 和 `export` 来实现。
 
-In this article, you learned about the history of modules in JavaScript, how to separate JavaScript files into multiple top-level scripts, how to update those files using a modular approach, and the `import` and `export` syntax for named and default exports.
+通过本文的学习，你了解了 JavaScript 中模块的历史、如何将 JavaScript 文件分离为多个脚本以及如何使用模块化方法按命名的 `import`、`export` 和默认的 `import`、`export` 语法来更新这些文件。
 
-To learn more about modules in JavaScript, read [Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) on the Mozilla Developer Network. If you’d like to explore modules in Node.js, try our [How To Create a Node.js Module tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-node-js-module).
+了解更多有关 JavaScript 中模块的信息，请阅读 [Mozilla Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)。如果你想探索 Node.js 中的模块，可以阅读 [How To Create a Node.js Module tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-node-js-module)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
