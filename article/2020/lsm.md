@@ -1,7 +1,7 @@
 > * 原文地址：[Understanding LSM Trees: What Powers Write-Heavy Databases](https://yetanotherdevblog.com/lsm/)
 > * 原文作者：[Braden Groom](https://yetanotherdevblog.com/author/author/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/.md](https://github.com/xitu/gold-miner/blob/master/article/2020/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/lsm.md](https://github.com/xitu/gold-miner/blob/master/article/2020/lsm.md)
 > * 译者：
 > * 校对者：
 
