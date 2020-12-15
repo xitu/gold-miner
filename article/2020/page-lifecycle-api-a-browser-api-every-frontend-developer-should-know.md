@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/page-lifecycle-api-a-browser-api-every-frontend-developer-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2020/page-lifecycle-api-a-browser-api-every-frontend-developer-should-know.md)
 > * 译者：[Sam](https://github.com/xutaogit)
-> * 校对者：
+> * 校对者：[ZavierTang](https://github.com/ZavierTang),[zenblo](https://github.com/zenblo)
 
 # 页面生命周期 API：每一个前端开发者都应该知道的浏览器 API
 
@@ -68,8 +68,8 @@ API 中介绍的状态有 6 种，其中，有两个状态和我们开发息息�
 * **激活态** —— 由于用户在页面上是完全活跃的，所以你的网页应该完全响应用户的输入。任何 UI 阻塞任务都应该去掉优先级，比如同步和阻塞网络请求。
 * **被动态** —— 即便用户在这个阶段不和页面发生交互，他们仍然可以看到页面。因此你的网页应当流畅地运行所有 UI 更新和动画效果。
 * **隐藏态** —— 隐藏状态应视为用户在网页上的会话结束。此时可以将未保存的应用状态持久化，并停止任何用户不需要在后台运行的 UI 更新或任务。
-* **冻结态** ——  任何可能影响其他标签的定时器和连接都应在此阶段终止。例如，你应该关闭所有打开的 IndexedDB 连接，任何打开的 Web Socket 连接，释放任何被持有的 Web 锁，等等。
-* **终止态** ——  由于会话结束逻辑是在隐藏状态下处理的，所以（该阶段）一般不需要操作。
+* **冻结态** —— 任何可能影响其他标签的定时器和连接都应在此阶段终止。例如，你应该关闭所有打开的 IndexedDB 连接，任何打开的 Web Socket 连接，释放任何被持有的 Web 锁，等等。
+* **终止态** —— 由于会话结束逻辑是在隐藏状态下处理的，所以（该阶段）一般不需要操作。
 * **废弃态** —— 这种状态是应用程序无法观测到的。因此，任何可能丢弃的准备工作都应该在隐藏或冻结状态下进行。然而，你可以在页面加载时通过检查 `document.wasDiscarded` 对页面的任何恢复做出响应。
 
 ---
