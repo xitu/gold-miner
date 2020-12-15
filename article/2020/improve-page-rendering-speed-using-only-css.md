@@ -7,8 +7,6 @@
 
 # Improve Page Rendering Speed Using Only CSS
 
-#### 4 Important CSS tips for faster page rendering
-
 ![Image by [Arek Socha](https://pixabay.com/users/qimono-1962238/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153)](https://cdn-images-1.medium.com/max/2560/1*o38gRq5SvLMtgjMMo5Ph7A.jpeg)
 
 Users love fast web apps. They expect the page to load fast and to function smoothly. If there are breaking animations or lags when scrolling, there is a high chance of users leaving your website. As a developer, you could do many things to improve the user experience. This article will focus on 4 CSS tips you can use to improve the page rendering speed.
@@ -25,7 +23,7 @@ Let's consider the following page that contains many cards with different info. 
 
 As the next step, you can add `content-visibility` to all cards.
 
-> # In this example, after adding `content-visibility` to the page, rendering time dropped to 150ms. That's more than **6x** performance improvement.
+> In this example, after adding `content-visibility` to the page, rendering time dropped to 150ms. That's more than **6x** performance improvement.
 
 ![With content-visibility](https://cdn-images-1.medium.com/max/2402/1*zL8hg1aj4ztMVDHe_W7BLQ.png)
 
@@ -44,7 +42,7 @@ Since elements are initially rendered with 0px height, whenever you scroll down,
 
 To fix the scroll bar issue, you can use another CSS property called `contain-intrinsic-size`. It specifies the natural size of an element. Therefore the element will be rendered with the given height instead of 0px.
 
-```
+```css
 .element{
     content-visibility: auto;
     contain-intrinsic-size: 200px;
@@ -54,18 +52,6 @@ To fix the scroll bar issue, you can use another CSS property called `contain-in
 However, while experimenting, I noticed that even with `containt-intrinsic-size`, if we are having a large number of elements with `content-visibility` set to `auto` you will still have smaller scroll bar issues.
 
 Therefore, my recommendation is to plan your layout, decompose it into a few sections and then use content-visibility on those sections for better scrollbar behavior.
-
----
-
-**Tip: Share your reusable components between projects using [Bit](https://bit.dev/) ([Github](https://github.com/teambit/bit)).**
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, collaborate as a team, speed delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, React Native, React, Vue, Angular, and more.
-
-![Example: React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*wX7aqf12JHg5d12f.gif)
-
----
 
 ## 2. Will-change property
 
@@ -77,7 +63,7 @@ What happens underneath is that the browser will create a separate layer for the
 
 Consider the following CSS class:
 
-```
+```css
 // In stylesheet
 .animating-element {
   will-change: opacity;
@@ -92,7 +78,7 @@ Consider the following CSS class:
 
 When rendering the above snippet in the browser, it will recognize the `will-change` property and optimize future opacity-related changes.
 
-> # According to a performance benchmark done by [Maximillian Laumeister](https://www.maxlaumeister.com/articles/css-will-change-property-a-performance-case-study/), you can see that he has obtained over 120FPS rendering speed with this one-line change, which initially was at roughly 50FPS.
+> According to a performance benchmark done by [Maximillian Laumeister](https://www.maxlaumeister.com/articles/css-will-change-property-a-performance-case-study/), you can see that he has obtained over 120FPS rendering speed with this one-line change, which initially was at roughly 50FPS.
 
 ![Without using will-change; Image by Maximilian](https://cdn-images-1.medium.com/max/2000/0*KP2Dz1t5MCjqapBm.png)
 
@@ -105,7 +91,7 @@ While `will-change` is intended to improve performance, it also can degrade web 
 * **Using**` will-change `**indicates that the element will change in the future.** 
 So if you try to use `will-change` along with an animation simultaneously, it will not give you the optimization. Therefore, it is recommended to use will-change on the parent element and the animation on the child element.
 
-```
+```css
 .my-class{
   will-change: opacity;
 }
@@ -125,9 +111,9 @@ One last thing to keep in mind is that it is advisable to remove will-change fro
 Today, many web apps must cater to many form factors, including PCs, Tablets, & Mobile Phones, etc. To accomplish this responsive nature, we must write new styles according to the media sizes. When it comes to the page rendering, it cannot start the rendering phase until the 
 CSS Object Model (CSSOM) is ready. Depending on your web application, you may have a large stylesheet that caters to all device form factors.
 
-> # However, suppose we split it up into multiple stylesheets depending on the form factor. In that case, we can let only the main CSS file block the critical path and have it downloaded as a high priority and let other stylesheets download in a low priority manner.
+> However, suppose we split it up into multiple stylesheets depending on the form factor. In that case, we can let only the main CSS file block the critical path and have it downloaded as a high priority and let other stylesheets download in a low priority manner.
 
-```
+```html
 <link rel="stylesheet" href="styles.css">
 ```
 
@@ -135,7 +121,7 @@ CSS Object Model (CSSOM) is ready. Depending on your web application, you may ha
 
 After decomposing it to multiple stylesheets:
 
-```
+```html
 <!-- style.css contains only the minimal styles needed for the page rendering -->
 <link rel="stylesheet" href="styles.css" media="all" />
 
@@ -151,9 +137,9 @@ As you can see, having stylesheets decomposed according to form factors can redu
 
 With `@import`, we can include a stylesheet in another stylesheet. When we are working on a large project, having `@import` makes the code cleaner.
 
-> # The critical fact about `@import` is that it is a blocking call as it has to make a network request to fetch the file, parse it, and include it in the stylesheet. If we have nested `@import` within stylesheets, it will hinder the rendering performance.
+> The critical fact about `@import` is that it is a blocking call as it has to make a network request to fetch the file, parse it, and include it in the stylesheet. If we have nested `@import` within stylesheets, it will hinder the rendering performance.
 
-```
+```css
 # style.css
 @import url("windows.css");
 
@@ -171,21 +157,9 @@ Instead of using `@import` we can achieve the same with much better performance 
 
 Apart from the 4 areas we discussed in this article, there are few other ways we can use CSS to improve the performance of the web page. One of the recent features of CSS, `content-visibility,` looks so promising in the years to come as it gives a multi-fold performance gain with page rendering.
 
-> # The most important thing is, we gained all the performance without writing a single statement of JavaScript.
+> The most important thing is, we gained all the performance without writing a single statement of JavaScript.
 
 I am confident that you can incorporate some of the above features and build better-performing web apps for end-users. I hope the article is useful and if you know any CSS tips to improve web app performance, please mention them in the comments below. Thanks!
-
----
-
-## Learn More
-[**Performance Metrics for Front-End Applications**
-**Better UX by focusing on the right metrics**blog.bitsrc.io](https://blog.bitsrc.io/performance-metrics-for-front-end-applications-a04fdfde217a)
-[**8 Performance Analysis Tools for Front-End Development**
-**Recommended tools to test and analyze your frontend code performance.**blog.bitsrc.io](https://blog.bitsrc.io/performance-analysis-tools-for-front-end-development-a7b3c1488876)
-[**Creating morphing animations with CSS clip-path**
-**Learn how to implement morphing, a technique for transforming one appearance into another, using CSS.**blog.bitsrc.io](https://blog.bitsrc.io/creating-morphing-animations-with-css-clip-path-3c3bf5e4335f)
-[**4 Ways to Remove Unused CSS**
-**How to remove unused CSS to reduce your app’s bundle size and maintain a clear and simple code.**blog.bitsrc.io](https://blog.bitsrc.io/4-ways-to-remove-unused-css-647828ca629b)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
