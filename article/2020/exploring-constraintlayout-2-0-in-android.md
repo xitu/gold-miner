@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/exploring-constraintlayout-2-0-in-android.md](https://github.com/xitu/gold-miner/blob/master/article/2020/exploring-constraintlayout-2-0-in-android.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> - 校对者：
+> - 校对者：[regon-cao](https://github.com/regon-cao)、[happySteveQi](https://github.com/happySteveQi)
 
 # 探索 Android 中的 ConstraintLayout 2.0
 
