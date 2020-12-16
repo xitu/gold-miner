@@ -10411,7 +10411,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[用 JavaScript 实现堆](https://github.com/xitu/gold-miner/issues/6576)|翻译|8|
+|[用 JavaScript 实现堆](https://juejin.im/post/6893475005834330126/)|翻译|8|
 |[四种跨浏览器选项卡实时通信方法](https://juejin.cn/post/6896273264214179848)|校对|2|
 |[如何在 Nextjs 中使用 cookies 来持久化保存用户信息](https://juejin.cn/post/6896062683263860749)|校对|2|
 |[JavaScript ES2021 中激动人心的特性](https://juejin.cn/post/6892246810250477575)|校对|1|
