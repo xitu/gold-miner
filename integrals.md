@@ -10407,10 +10407,11 @@
 |------|-------|-------|
 |[5 个鲜为人知的 Chrome 开发者工具的特性](https://juejin.im/post/6875240551390642189)|校对|0.5|
 
-## 译者：[HurryOwen](https://github.com/HurryOwen) 历史贡献积分：12.5 当前积分：12.5 二零二零：12.5
+## 译者：[HurryOwen](https://github.com/HurryOwen) 历史贡献积分：20.5 当前积分：20.5 二零二零：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 JavaScript 实现堆](https://github.com/xitu/gold-miner/issues/6576)|翻译|8|
 |[四种跨浏览器选项卡实时通信方法](https://juejin.cn/post/6896273264214179848)|校对|2|
 |[如何在 Nextjs 中使用 cookies 来持久化保存用户信息](https://juejin.cn/post/6896062683263860749)|校对|2|
 |[JavaScript ES2021 中激动人心的特性](https://juejin.cn/post/6892246810250477575)|校对|1|
