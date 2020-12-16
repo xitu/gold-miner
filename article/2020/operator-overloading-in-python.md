@@ -2,8 +2,8 @@
 > * 原文作者：[aditya dhanraj tiwari](https://medium.com/@adityadhanrajtiwari898)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/operator-overloading-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/operator-overloading-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)
 
 # Python 中的运算符重载
 
@@ -23,7 +23,7 @@ print(a + b) # John Wick
 
 **运算符的功能因其操作数据的类型而异，我们称之为重载。**
 
-`+`运算符可以用于两个对象的相加吗？我们来试试看。
+`+`运算符可以用于任意两个对象的相加吗？我们来试试看。
 
 ```py
 class Vector:
@@ -43,14 +43,14 @@ TypeError                                 Traceback (most recent call last)
 TypeError: unsupported operand type(s) for +: 'Vector' and 'Vector'
 ```
 
-运行这段代码，结果报错了。为何报错？这是因为 `+` 运算符不知道如何把两个 Vector 类的对象相加。
+运行这段代码会报错。为什么呢？这是因为 `+` 运算符不知道如何把两个 Vector 类的对象相加。
 
 在本文中，我们将研究如何将既有的运算符用于自定义对象的操作，同时我们要牢记 Python 语言对操作符重载的一些限制性规则。
 
 这些限制性规则有：
 
-1. 不允许创建新的运算符，只能重载已有运算符
-2. 不允许重载已有数据类型的某些运算符操作
+1. 不允许创建新的运算符，只能重载已有的那些运算符
+2. 不允许重载已有数据类型（如 tuple 、 string 、 list）的某些运算符操作
 3. 某些运算符不能重载，例如 **is**, **or**, **and**, **not**
 
 在开始学习运算符重载前，我们需要了解 **Python 数据模型** 和 **特殊方法**。
@@ -59,13 +59,13 @@ Python 数据模型可以看作一种 “Python 设计方式”或 “Python 框
 
 **特殊方法** → 当你使用 len(collection)，Python 解释器调用的是 collection.__len__() 方法。这里的 __len__() 就是一个特殊方法。
 
-特殊方法开头和结尾都是 __ ，意为只能由 Python 解释器调用，除非进行元编程，程序员不可调用它。
+特殊方法开头和结尾都是 __ ，意为只能由 Python 解释器调用，除非你在进行元编程，不然不要直接调用它。
 
 在 Python 语言中，我们可以使用特殊方法来实现运算符重载。
 
 现在我们进行编码，使 Vector 对象支持 `+` 运算符。
 
-当我们调用 `**+**` 这个运算符时，Python 解释器调用了 **__add__(self, other)** 这个特殊方法。所以，在我们定义的类中，需要实现 __add__() 方法，就可以支持 + 运算符。
+当我们调用 `**+**` 这个运算符时，Python 解释器调用了 **__add__(self, other)** 这个特殊方法。所以，在我们定义的类中实现 __add__() 方法，就可以支持 + 运算符。
 
 ```py
 class Vector:
@@ -130,7 +130,7 @@ v1 == v3
 
 我们从理解什么是运算符重载开始，接着讨论了 Python 中运算符重载的一些限制条件、数据模型和特殊方法，然后在 Vector 类中实现了运算符重载。
 
-希望你喜欢这篇文章。祝你好运！
+希望你喜欢这篇文章。祝你工作顺利，好运连连！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
