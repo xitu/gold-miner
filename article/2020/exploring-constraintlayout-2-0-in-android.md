@@ -44,7 +44,7 @@ implementation “androidx.constraintlayout:constraintlayout:2.0.1”
 
 ## Flow
 
-`Flow` 是 v2 版本中新增的虚拟布局方式，类似于v1版本中的 `group` 。它是 `Chain` 和 `Group` 布局的一个结合，具有特殊的功能。简而言之就是 `Flow` 在运行时根据布局的动态大小链接视图。
+`Flow` 是 v2 版本中新增的虚拟布局方式，类似于v1版本中的 `group` 。它是 `Chain` 和 `Group` 布局的一个结合，具有特殊的功能。简而言之就是 `Flow` 在运行时根据布局的大小动态链接视图。
 
 与 `Group` 类似，`Flow` 同样也是通过获取视图的ID并创建 `Chain` 所具有的行为。使用 `Flow` 布局重要优势之一是 `wrapMode`（一种在视图溢出时配置视图的方法）。添加该布局属性即可使用，我们提供三种模式供您选择：`none`，`aligned` 和 `chain`。
 
@@ -126,7 +126,7 @@ implementation “androidx.constraintlayout:constraintlayout:2.0.1”
 
 `Layer` 是 `ConstraintLayout` 2.0 中的新增的辅助布局方式，类似于 `Guideline` 和 `Barrier` 的辅助布局方式。我们可以通过创建一个虚拟图层，类似与一个父视图(Layer)中有多个子视图的方式。一旦子视图引用了父视图，我们就可以使用 `Layer` 对这些视图进行转换。
 
-它类似于 `Group` 布局，我们可以通过它绑定多个视图并设置其可见性（可见和消失）等基本操作。一旦视图被 `Layer` 引用，我们的视图就可以使用 `Layer` 给我们带来的那些转换功能了。
+它类似于 `Group` 布局，我们可以通过它绑定多个视图并设置其可见性（可见和消失）等基本操作。一旦视图被 `Layer` 引用，我们的视图就可以使用 `Layer` 给我们带来的那些转换功能了。我们可以对多个视图做旋转，平移，缩放或者组合动画。
 
 ```XML
 <androidx.constraintlayout.helper.widget.Layer
@@ -143,7 +143,7 @@ implementation “androidx.constraintlayout:constraintlayout:2.0.1”
 
 `MotionLayout` 是 `ConstraintLayout` 的子类，继承了父类的所有的优秀功能，并且是完全声明性的，而且能够在 XML 中实现复杂的转换。它从 API 14 开始向后兼容，也就是说它兼容了 99％ 的应用。
 
-Android Studio 4.0 中新增加的 `MotionLayout` 编辑器让我们方便的使用 `MotionLayout`。它提供了一个很好的场景来实现转换，比如 `MotionScenes` 等。
+Android Studio 4.0 中新增加的 `MotionLayout` 编辑器让我们方便的使用 `MotionLayout`。它提供了一个很好的场景来实现过渡，比如 `MotionScenes` 等。
 
 要了解有关 `MotionLayout` 的更多信息，请阅读此[文章](https://medium.com/better-programming/beginners-guide-to-motion-layout-732395a7de7e)。
 
