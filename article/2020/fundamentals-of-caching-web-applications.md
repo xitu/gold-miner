@@ -7,19 +7,13 @@
 
 # Fundamentals of Caching Web Applications
 
-#### Enabling high performant applications with caching
-
 ![Photo by [Yuiizaa September](https://unsplash.com/@yuiizaa?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9458/0*0OwYJoWVEwP_rPjk)
-
----
 
 Web applications have come a long way from the early days. A typical web application development goes through several stages of design, development, and testing before it is ready for release. As soon as your web app gets released, it will be accessed by real-life users on a daily basis. If your web app becomes popular, it will be accessed by at least several million users on a daily basis. Although this sounds exciting, this would incur a lot of running costs.
 
 Apart from cost, complex calculations and R/W operations can take time for completion. This means that your user should wait for the completion of the operation which can be a bad user experience if the wait becomes too long.
 
 System designers use several strategies to rectify these issues. **Caching** is one of them. Let’s have a better look at caching.
-
----
 
 ## What is Caching in Web Applications?
 
@@ -28,18 +22,6 @@ A web cache is simply a component that is capable of storing HTTP responses temp
 Web caching is a key design feature of the HTTP protocol intended to reduce network traffic while enhancing the presumed responsiveness of the system as a whole. Caches are found at every stage of the content journey from the original server to the browser.
 
 In simple terms, web caching enables you to reuse HTTP responses that have been stored in the cache, with HTTP requests of similar nature. Let’s think of a simple example where a user requests a certain type of product(books) from the server. Assume that this whole process takes around 670 milliseconds to complete. If the user, later in the day, does this same query, rather than doing the same computation again and spending 670 milliseconds, the HTTP response stored in the cache can be returned to the user. This will reduce the response time drastically. In real-life scenarios, this can come under 50 milliseconds.
-
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, speed delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: browsing through React components shared on [Bit](https://bit.dev/) ([Github](https://github.com/teambit/bit))](https://cdn-images-1.medium.com/max/2000/0*uAzlvFAnE7Unxt70.gif)
-
----
 
 ## Advantages of Caching
 
@@ -63,8 +45,6 @@ When certain cache policies are used, content can be served to end users from th
 
 ![Photo by [Jakob Owens](https://unsplash.com/@jakobowens1?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10452/0*dEK-xrMBGaRzRq7j)
 
----
-
 ## Disadvantages of Caching
 
 Similar to the advantages, there are several disadvantages to caching as well.
@@ -76,8 +56,6 @@ Whenever your server is restarted, your cache data gets deleted as well. This is
 #### Serving Stale Data
 
 One of the main issues of caching is serving stale data. Stale data is data that is not updated and contains a previous version of the data. If you’ve cached a query of products, but in the meantime, the product manager has deleted four products, the users will get listings to products that don’t exist. This can be complicated to identify and fix.
-
----
 
 ## Where Can You Cache?
 
@@ -102,8 +80,6 @@ You can implement your own cache infrastructure in your backend services. In thi
 Read more about the `Cache-Control` header over [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#Controlling%20caching).
 
 ![Source: [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching)](https://cdn-images-1.medium.com/max/2000/0*QaYpasQXpfIKwiTV.png)
-
----
 
 ## What Can Be Cached?
 
@@ -133,8 +109,6 @@ The below type of content should never be cached as they can lead to security co
 * Highly sensitive content such as banking information, etc.
 * User-specific should most often not be cached as it is regularly updated.
 
----
-
 ## Why Do You Need a Caching Strategy?
 
 In a real-world situation, you cannot implement aggressive caching as it would probably return stale data most of the time. This is why a custom made caching policy should be in place to balance between implementing long-term caching and responding to the demands of a changing site by implementing suitable cache eviction algorithms. Since each system is unique and has its own set of requirements, adequate time should be spent on creating cache policies.
@@ -146,19 +120,6 @@ The key to a perfect caching policy is to tread a fine line that promotes aggres
 The intention of this article is to provide you with an introduction to the fundamentals of caching in web applications. I have skipped several topics such as control headers, caching infrastructures, guidelines for developing cache policies, etc as they are a tad too advanced for this introduction.
 
 You can learn more about caching by going through the below-given resources.
-
-## Learn More
-[**Understanding Service Workers and Caching Strategies**
-**This guide will make sure that you understand service workers and know when to use which caching strategy.**blog.bitsrc.io](https://blog.bitsrc.io/understanding-service-workers-and-caching-strategies-a6c1e1cbde03)
-[**5 Service Worker Caching Strategies for Your Next PWA App**
-**There are ways or strategies we can use in Service Workers to respond to “fetch” events. These strategies determine how…**blog.bitsrc.io](https://blog.bitsrc.io/5-service-worker-caching-strategies-for-your-next-pwa-app-58539f156f52)
-[**New JSX Enhancements in React 17**
-**What’s New for JSX in React 17 and Why You Should Care**blog.bitsrc.io](https://blog.bitsrc.io/new-jsx-enhancements-in-react-17-e5f64acbea89)
-
-**Resources
-**[MDN Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching)
-[Digital Ocean](https://www.digitalocean.com/community/tutorials/web-caching-basics-terminology-http-headers-and-caching-strategies)**
-**[Codementor](https://www.codementor.io/@meysamsamanpour/caching-in-web-applications-fz1gzizpa)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
