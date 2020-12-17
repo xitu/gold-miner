@@ -7,8 +7,6 @@
 
 # Will WebTransport Replace WebRTC in Near Future?
 
-#### Introducing WebTransport, the successor for WebRTC for real-time web communication
-
 ![Photo by [Gabriel Benois](https://unsplash.com/@gabrielbenois) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*4MaUNhpUTKLuBX14)
 
 Video and audio conferencing on the web have become popular in the modern era. In the good old days, it required an intermediary server to transfer data between two parties. Since it was slow and grainy, there were many innovations to improve the underlying technology to overcome its limitations.
@@ -35,7 +33,7 @@ This is the same problem that we have with HTTP/2. When using HTTP/2, multiple r
 
 Suppose two GET requests are having six packets each. While sending a GET request, if one packet is damaged or lost during the transmission, the TCP stream makes the entire stream wait until that packet is re-transmitted and received by the server. So the TCP HOL will occur.
 
-> # Don’t get confused between the TCP vs HTTP HOL. These are two things. Only TCP HOL becomes an issue here.
+> Don’t get confused between the TCP vs HTTP HOL. These are two things. Only TCP HOL becomes an issue here.
 
 Since WebRTC is built on top of HTTP/2, this issue can occur in any scenario such as file transmission, video conferencing.
 
@@ -47,39 +45,15 @@ However, HTTP push tried to get rid of this by creating a new stream. Here, the 
 
 So, to address these issues, here comes the all-new WebTransport.
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, speed delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: browsing through React components shared on [Bit](https://bit.dev/) ([Github](https://github.com/teambit/bit))](https://cdn-images-1.medium.com/max/NaN/0*uAzlvFAnE7Unxt70.gif)
-
----
-
 ## What is WebTransport?
 
 WebTransport is a pluggable protocol for client-server communication, built on top of HTTP/2, HTTP/3, and QUIC. It is designed to replace WebSockets going ‘QUIC-native.’
 
-> # You can think of it as WebRTC, but optimize for 80/20 Rule.
+> You can think of it as WebRTC, but optimize for 80/20 Rule.
 
 > QUIC is a web API that uses the QUIC protocol in a bidirectional, non-HTTP transport, which is served over UDP, similar to an independent TCP that drastically reduced connection setup latency. The main functionality is two-way communications between a web client and a QUIC server with steam APIs.
 
 Besides, WebTransport has the support for multiple streams, unidirectional streams, out-of-order delivery, reliable and unreliable transport.
-
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*vVYKJb3Dl8rfMiiM.gif)
-
----
 
 ## Overcoming the challenges with WebTransport
 
@@ -99,25 +73,13 @@ WebTransport supports unidirectional streams (indefinitely long streams of bytes
 
 So in the gaming industry, WebTransport will play a significant role because of its capability of receiving media pushed from the server with minimal latency.
 
----
-
 ## Conclusion
 
 In my opinion, WebRTC is doing quite well, and people use it for many years now. Obviously, with the changing technological world, there are situations where even the latency of milliseconds matters. As we discussed, industries like online gaming would reap the clear benefits of WebTransport.
 
-> # WebSocket based WebRTC is not the fastest approach anymore.
+> WebSocket based WebRTC is not the fastest approach anymore.
 
 In this case, the powerful WebTransport will address the issue of Web Socket based WebRTC. By considering all these advantages, I believe WebTransport will replace WebRTC. But it will take some time for people to adapt.
-
----
-
-## Learn More
-[**Build a webcam communication app using WebRTC**
-**Create a better user experience for your app using WebTRC**blog.bitsrc.io](https://blog.bitsrc.io/build-a-webcam-communication-app-using-webrtc-9737384e84be)
-[**How to Build a Simple iOS Home Screen PWA Camera Using Vue, Tailwind, and WebRTC on CodePen**
-**WebRTC finally comes to the iOS home screen**blog.bitsrc.io](https://blog.bitsrc.io/how-to-build-a-simple-ios-home-screen-pwa-camera-using-vue-tailwind-and-webrtc-on-codepen-2d61a9754d47)
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
