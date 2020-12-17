@@ -2,214 +2,214 @@
 > * 原文作者：[The Educative Team](https://medium.com/@educative)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-anatomy-of-a-machine-learning-system-design-interview-question.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-anatomy-of-a-machine-learning-system-design-interview-question.md)
-> * 译者：
-> * 校对者：
+> * 译者：[caiyundong](http://github.com/caiyundong)
+> * 校对者：[zenblo](http://github.com/zenblo), [NieZhuZhu](http://github.com/NieZhuZhu)
 
-# The Anatomy of a Machine Learning System Design Interview Question
+# 针对机器学习系统设计面试相关问题的剖析
 
 ![Image credit: Author](https://cdn-images-1.medium.com/max/2048/1*Ep0crcTbOZBLZwVW8W3JDQ.png)
 
-Machine learning system design interviews have become increasingly common as more industries adopt ML systems. While similar in some ways to generic system design interviews, ML interviews are different enough to trip up even the most seasoned developers. The most common problem is to get stuck or intimidated by the large scale of most ML solutions.
+随着越来越多的行业采用机器学习（Machine Learning, ML）系统，机器学习系统设计相关的面试变得越来越普遍。虽然机器学习系统设计的面试在某些方面与普通系统设计面试相似，但它们的差异足以难倒最老练的开发人员。最常见的问题是，面试者会被大规模的机器学习解决方案难倒。
 
-Today we’ll prepare you for your next ML system design interview by breaking down how they’re unique, what you should do to prepare, and the five steps you should use to solve any ML problem.
+今天我们通过学习机器学习系统设计的独特性、解决机器学习问题的五个步骤以及面试的准备工作来为你下一次机器学习系统设计的面试做好准备。
 
-**Today we’ll cover:**
+**今天我们将介绍：**
 
-* What’s different about the ML system design interview
-* How to prepare for an ML system design interview
-* Five steps to solve any ML system design problem
-* Wrapping up and resources
+* 机器学习系统设计的面试有什么不同
+* 如何准备机器学习系统设计面试
+* 解决任何机器学习系统设计问题的五个步骤
+* 本文总结
 
-## What’s Different About the ML System Design Interview
+## 机器学习系统设计的面试有什么不同
 
-The general setup of a machine learning system design interview is similar to a generic SDI. For both, you’ll be placed with an interviewer for 45 to 60 minutes and be asked to think through the components of a program.
+机器学习系统设计面试的一般设置与普通系统设计面试类似。对于这两种情况，面试官都会在 45 至 60 分钟的时间内，要求你仔细考虑系统的各个组成部分。
 
-ML interviews generally focus more on the macro-level (like architecture, recommendation systems, and scaling) and avoid deeper design discussions on topics like availability and reliability.
+机器学习系统设计面试通常更侧重于宏观层面（如体系结构，推荐系统和可扩展性），而尽量避免比如可用性和可靠性等更深入的设计讨论。
 
-In ML interviews, you’ll be asked high-level questions on how you’d set up each component of a system (data gathering, ML algorithm, signals) to handle a heavy workload and still adapt quickly.
+在机器学习系统设计面试中，你会遇到一些高层次面试问题，比如说明如何构建系统的每个组件（数据收集，机器学习算法，标志）用以处理繁重的工作量并能保持快速适应的能力。
 
-For the machine learning SDI, you’ll be expected to explain how your program acquires data and achieves scalability.
+对于机器学习系统设计面试，你需要能够解释算法程序如何获取数据并实现可扩展性。
 
-## How to Prepare for an ML System Design Interview
+## 如何准备机器学习系统设计面试
 
-An ML system design interview will test your knowledge of two things: your knowledge of the setups and design choices behind large-scale ML systems and your ability to articulate ML concepts as you apply them.
+机器学习系统设计面试主要评估两方面：对大型机器学习系统背后的构建和设计选择的相关知识，以及在应用机器学习概念时清楚表达的能力。
 
-Let’s look at three ways to prepare both your knowledge and articulation.
+接下来是关于面试前知识准备以及面试表达的三种方法。
 
-## Know the Common ML Interview Questions
+## 熟悉常见的机器学习面试问题
 
-The best way to prepare for these questions is to practice ML SDI problems on your own. There are only a few types of ML interview questions asked in modern ML SDIs.
+准备这些问题的最好方法是自己练习机器学习系统设计面试问题。在现代机器学习系统设计面试中，仅会询问几种类型的面试问题。
 
-**The most common are iterations of:**
+**最常见的是以下重点话题的变形问题：**
 
-* “Create a Twitter-style social media feed to display relevant posts to users.”
-* “Build a recommendation system to suggest products/services.”
-* “Design a Google-style search engine that tailors results to the user.”
-* “Build an advertising system that presents personalized ads to users.”
-* “Design an ML system that identifies bad actors in a social network.”
+* “创建一个 Twitter 风格的媒体反馈平台（Feed），以向用户展示他们感兴趣的帖子。”
+* “建立一个推荐系统来推荐产品或者服务。”
+* “设计一个 Google 风格的搜索引擎为用户量身定制结果。”
+* “建立一个向用户展示个性化广告的广告系统。”
+* “设计一个识别社交网络中不良行为者的机器学习系统。”
 
-Search in the target job’s description for mentions of specific systems you’d work with and study similar systems for the interview. For jobs without a clear leaning toward any question type, focus on the media feed and recommendation systems, as these are the two most asked questions.
+在目标职位的描述中搜索将要使用的特定系统，并研究类似的系统来准备面试。对于没有明确倾向于任何问题类型的工作，请专注于媒体反馈和推荐系统，因为这两个是最常见的问题。
 
-## Focus on the 4 Parts of Every ML Solution
+## 关注每个机器学习解决方案的四个部分
 
 ![Image source: Author](https://cdn-images-1.medium.com/max/2000/0*Dp0BQjXD6BO-tbnO)
 
-**Each ML solution has four major parts:**
+**每个机器学习解决方案都有四个主要部分：**
 
-* Machine learning algorithm
-* Training data
-* Signals (sometimes called **features**)
-* Validation and metrics
+* 机器学习算法
+* 训练数据
+* 标志（有时称为**特征**）
+* 验证和评价指标
 
-For **algorithms**, what algorithm will you choose and why? Deep learning, linear regression, random forest? What are the strengths and weaknesses of each? What do they accomplish per your system’s needs?
+对于**算法**，你将选择哪种算法，为什么选择？深度学习，线性回归，还是随机森林？每个算法的优点和缺点是什么？根据你的系统需求他们能完成什么工作？
 
-For **data**, where will you get test data? What data points will you draw from? How many data points will you handle?
+对于**数据**，你将在哪里获得测试数据？你将提取哪些数据点？你将处理多少数据点？
 
-For **signals**, what metric does your program use to determine relevant data? Will you signal to focus on one aspect of the data or synthesize it from multiple? How long does it take to determine data relevancy?
+对于**标志**，你的程序使用什么评价指标来确定相关数据？你会关注数据的某一方面还是将其从多个方面进行综合？确定数据相关性需要多长时间？
 
-For **metrics**, what metrics will you track for success and program learning? How would you measure the success of your system? How will you validate your hypothesis?
+对于**评价指标**，你将使用哪些指标跟踪模型是否训练成功和更新程序的学习？你将如何衡量系统的成功？你将如何验证你的假设？
 
-## Practice Explaining Out Loud
+## 进行大声讲解练习
 
-Many interviewees will study concepts and algorithms but fail to practice the spoken component of the interview.
+许多参加面试者对概念和算法做了很深入的研究，但没有练习面试时的表述能力。
 
-Practice explaining your system’s architecture aloud throughout the process. Narrate any decisions you make, briefly explaining why you made that choice. This is a great opportunity to show the interviewer how you think, not just what you know.
+练习在整个过程中大声地解释系统的体系结构。叙述你所做的任何决定，并简要解释你做出该选择的原因。这是一个向面试官展示你的想法，而不仅仅是你所知道的知识的绝好机会。
 
-Also, practice your answers to common probing questions. The interviewer will ask you to clarify any decision points or uncertainties in your program. Make sure you can justify the design choices you make at any point in the process.
+此外，练习常见问题的答案。面试官会要求你澄清程序中的任何决策点或不确定性。你要确保可以证明在过程中的任何时候所做的设计选择都是合理的。
 
-**Some common probe questions are:**
+**一些常见的探究问题：**
 
-* How will this program perform at scale?
-* How will you acquire your training data?
-* What will you do to keep latency low?
+* 该程序大规模执行的表现会怎么样？
+* 你将如何获取训练数据？
+* 你将如何保持较低的延迟？
 
-## 5 Steps to Solve Any ML System Design Problem
+## 解决任何机器学习系统设计问题的五个步骤
 
-An ML SDI interview will usually have a strict time limit of either 45 or 60 minutes, with five minutes at the start and end for introductions/wrap up.
+机器学习系统设计面试通常会有严格的时间限制，即 45 或 60 分钟，包含在开始和结束时用 5 分钟做介绍和总结。
 
-So generally, you’ll be expected to cover all key areas of your ML program in 35 to 50 minutes. It’s important to come with a structured plan of how you’ll draft the system, to ensure you stay on track.
+因此通常来讲，你需要在 35 到 50 分钟内描述清楚你的机器学习程序中的所有关键内容。因此如何介绍整个系统做一个结构化的计划很重要，以确保你能够让整个过程有序进行。
 
-Next, we’ll look at how to break up your time to ace any ML question. To help understand the process, we’ll also demonstrate each step through an example feed-type question in a 45-minute interview.
+接下来，我们将研究如何分配时间解决任何一个机器学习问题。为了帮助你了解这一过程，我们将展示一个 45 分钟的采访示例，通过一个反馈类型的问题，来演示每个步骤。
 
-You can adapt these steps to a 60-minute interview if you scale up the time of each step.
+如果你增加每个步骤的时间，则可以将这些步骤调整为 60 分钟的面试时间。
 
-**Our question is: Create a content feed to display personalized posts to users.**
+**我们的面试问题是：创建一个内容反馈以向用户显示个性化帖子。**
 
 ![](https://cdn-images-1.medium.com/max/4830/1*089x6xZcQvuXGZY3A9AtRQ.png)
 
-#### Step 1. Clarify requirements (5 minutes)
+#### 步骤 1：明确需求（5 分钟）
 
-For the first five minutes, we’ll clarify our **system goal** and **requirements** with the interviewer. These interview questions are deliberately vague to make you directly ask for the information you’ll need. Your clarifying questions will help steer your design and decide your system’s end goal.
+在最初的五分钟内，我们将向面试官明确我们的**系统目标**和**需求**。 这些面试问题往往刻意含糊不清，使得你需要直接要求必要的信息。你提出的澄清问题将有助于指导你的设计并确定系统的最终目标。
 
-**Some common clarifying questions would be:**
+**一些常见的澄清问题：**
 
-* How many users do we expect this program to handle?
-* What metrics are we currently tracking?
-* What do we want to achieve with this system? What do we want to optimize for?
-* What type of input do we expect?
+* 我们希望该程序可以处理多少个用户？
+* 我们当前正在跟踪哪些指标？
+* 我们想用这个系统实现什么？我们要优化什么？
+* 我们期望什么类型的输入？
 
-**Step 1. Example**
+**步骤 1 的示例**
 
-If we were clarifying the feed question, we’d ask:
+如果我们要讲解示例的内容反馈问题，我们可以问：
 
-* What type of feed will this be? Purely text? Text and images?
-* How many users do we expect to have? How many posts does each make per day?
-* What metric does our system optimize for? Do we want more engagement per post or to increase the number of posts?
-* Do we have a target latency?
-* How quickly will our system apply new learning?
+* 这将是哪种内容反馈？纯文字？文字和图片？
+* 我们期望有多少用户？每人每天发布多少个帖子？
+* 我们的系统针对什么指标需要进行优化？我们要增加每个帖子的参与度还是增加帖子的数量？
+* 我们有目标延迟吗？
+* 我们的系统将多快应用新的学习模型？
 
-#### Step 2. High-level design (5 minutes)
+#### 步骤 2：高层次设计（5 分钟）
 
-For the next five minutes, create a high-level design that handles data from input to use. Chart this visually and connect all components that interact. The interviewer will ask probing questions as you build, so look out for questions that suggest you’re missing a component.
+在接下来的五分钟内，创建一个高层设计来处理从输入到使用的数据。直观地绘制图表并连接所有交互的组件。面试官在构建时会询问一些探索性问题，因此请注意一些面试官提示你缺少组件的问题。
 
-Remember to keep this abstract: Decide how many layers, how data will enter the system, how data will be parsed, and how you will decide on relevant data.
+记住要保持概括：确定多少层，数据将如何进入系统，数据将如何解析以及如何决定相关数据。
 
-Make sure to explicitly mention any choices you make for scalability or response time.
+确保明确提及你为可扩展性或响应时间所做的任何选择。
 
-**Step 2. Example**
+**步骤 2 的示例**
 
-We’d write that our training data is from our current social media platform. Fresh live data will enter the system each time a new post is created, based on the creator’s location, the popularity of the creator’s past posts, and the accounts that follow that creator.
+我们会说我们的培训数据来自我们当前的社交媒体平台。每次创建新帖子时，根据创建者的地理位置，创建者过去的帖子的受欢迎程度以及帖子关注者的帐户，新的实时数据将进入系统。
 
-We’ll use these metrics to determine how relevant a post is to a user. Relevancy will be determined when the app is launched. Our goal is to increase engagement per post.
+我们将使用这些指标来确定帖子与用户的相关性。相关性将在启动应用程序时确定。我们的目标是增加每个帖子的参与度。
 
-#### Step 3: Data deep dive (10 minutes)
+#### 步骤 3：深入研究数据（10 分钟）
 
-For the next ten minutes, take a deep dive to explain your data. Make sure to cover both training data and live data. Think about how the data will need to transform through the process.
+在接下来的十分钟内，请深入解释下你的数据。确保同时涵盖训练数据和实时数据。思考在整个转换过程中需要什么样的数据。
 
-ML interviewers are looking for candidates who understand the importance of data sampling. You’ll be expected to clarify where you’d get the training data, what data points you’d use that are present within the current system, and what data you want to begin tracking.
+机器学习面试官更想要找到懂数据采样重要性的面试者。你需要表述清楚是从哪里获取的训练数据，当前系统使用到了哪些数据以及需要跟踪哪些数据。
 
-This differs from a generic SDI, where the interviewee only considers what happens to the data after it enters the program flow.
+这与普通的系统设计不同，普通的系统设计仅需要面试者考虑数据进入程序后会发生什么情况。
 
-**For training data, consider:**
+**对于训练数据，需要注意：**
 
-* What source will I get my training data from?
-* How will I ensure it is unbiased?
+* 我的训练数据源来自哪里？
+* 我如何确保它是无偏见的？
 
-**For live data, consider:**
+**对于实时数据，需要注意：**
 
-* What signal will I use in my data?
-* Why is this signal relevant?
-* Are there any situations in which this signal would not reflect my desired outcome?
-* How reactive is my algorithm? Will changes occur within ten minutes or ten hours, etc.?
-* How much data can my program handle at once? Does it perform worse with more input?
+* 我将在数据中使用什么标志（特征）？
+* 为什么和这个标志有关？
+* 是否有这个标志无法反映我想要的结果的情况？
+* 我的算法响应速度如何？是否会存在十分钟或者十小时的延时？
+* 我的程序一次可以处理多少数据？如果输入增多，效果会变差吗？
 
-**Step 3. Example**
+**步骤 3 的示例**
 
-We’ll expect each user to follow 300 accounts and each account to make an average of three posts per day. We’ll have three layers of data evaluation to keep latency low when the system evaluates the 1,000 posts. The first layer quickly cuts a majority of posts based on the posts’ popularity.
+我们希望每个用户关注 300 个帐户，并且每个帐户平均每天发布 3 条帖子。在系统评估 1000 个帖子时我们将分三层进行数据评估使延迟保持在较低水平。第一层会根据帖子的受欢迎程度快速去除大部分帖子。
 
-The second layer uses locational data to cut posts based on locality. This is our second-quickest layer. The third layer will be the longest and will cut posts using cross-engagement data between the follower and followed.
+第二层使用位置数据根据位置删除帖子。这是我们第二快的层。第三层将是耗时最长的，将使用关注者和被关注者之间的交叉参与数据来去除帖子。
 
-#### Step 4. Machine learning algorithms (10 minutes)
+#### 步骤 4：机器学习算法（10 分钟）
 
-For the next ten minutes, break down your choice of machine learning algorithm(s) to the interviewer. Each algorithm handles certain tasks differently, and the interviewer will want you to know the strengths and weaknesses of different algorithms.
+在接下来的十分钟内，将你选择的机器学习算法分解给面试官听。每种算法处理某些任务的方式都不同，面试官会希望你了解不同算法的优缺点。
 
-If you use several algorithms to handle scale, mention how their results will factor together and your reasons for choosing multiple algorithms.
+如果你使用多种算法来实现可扩展，请解释它们的结果如何被一起考虑以及你选择多种算法的原因。
 
-Make sure to mention how each algorithm utilizes your signals to create a cohesive solution. The same signal may not be as effective in one algorithm as it is in another.
+请务必提及每种算法如何利用你的标志来创建内聚的解决方案。同一标志在一种算法中可能不如在另一种算法中有效。
 
-**Step 4. Example**
+**步骤 4 的示例**
 
-We’ll use the feedforward neural network algorithm to predict relevancy. This algorithm works well with our creator/user interactions signal because it forms predictions from non-circular connection webs.
+我们将使用前馈神经网络算法来预测相关性。该算法与我们的创建者/用户互动标志配合得很好，因为它可以形成来自非环状连接网的预测。
 
-#### Step 5. Experimentation (5 minutes)
+#### 步骤 5：实验（5 分钟）
 
-In the final five minutes, stake a hypothesis of what your system will accomplish. This section is a sort of conclusion for your program where you can summarize how the components together achieve a certain goal.
+在最后的五分钟中，提出系统能够完成的假设。本节是你的程序的一种总结，你可以在其中总结组件如何共同实现特定目标。
 
-Your hypothesis may be broad, like “posts ordered by relevance will get more engagement than chronological,” or it may be specific, like “the addition of a location signal will increase engagement by 0.5%.”
+你的假设可能很宽泛，例如“按相关性排序的帖子比按时间顺序排列的参与度更高”，也可能很具体，例如“添加位置标志将使参与度提高 0.5％”。
 
-From here, explain how you’d test this hypothesis. Make sure to cover the initial offline evaluations and also how to evaluate online.
+从这里说明你要如何检验该假设。确保涵盖最初的离线评估以及如何在线评估。
 
-* What offline evaluations would you use?
-* How big an offline data set would you need?
-* When online, what will you do if there is a bug?
-* How will you track user satisfaction with the change?
-* Do you count engagement using comments or using any form of interaction with the post?
+* 你将使用哪些离线评估？
+* 你需要多大的离线数据集？
+* 在线时如果存在错误，你将怎么办？
+* 你将如何跟踪用户对变更的满意度？
+* 你是否通过评论或与帖子进行任何形式的互动来计算参与度？
 
-ML engineers constantly test out hypotheses in their day-to-day work. A focus on experimentation will set you apart from other applicants, as it shows that you can synthesize the functionality of your program and possess the right mindset for the job.
+机器学习工程师在日常工作中会不断检验假设。对于实验部分的专注将把你与其他面试者区分开，因为它表明你可以综合程序的功能并拥有正确的工作思路。
 
-**Step 5. Example**
+**步骤 5 的示例**
 
-Our relevancy-based feed will increase user engagement by 0.5%. We’ll first use offline models programmed to simulate users and see what types of posts come through to the feed.
+我们基于相关性的内容反馈将使用户参与度提高 0.5％。 我们将首先使用离线模型来模拟用户并查看将哪些类型的帖子发送到反馈系统。
 
-Once we move online, we’ll track posts with the keywords “update” and “relevance” to determine effectiveness.
+在上线之后，我们将通过“更新”和“相关性”这两个关键字来跟踪帖子，以确定效果。
 
-## 5-Step Summary
+## 五步骤总结
 
-Step 1. Clarify requirements (5 minutes)
+步骤 1：明确要求（5 分钟）
 
-Step 2. High-level design (5 minutes)
+步骤 2：高层次设计（5 分钟）
 
-Step 3. Data deep dive (10 minutes)
+步骤 3：深入研究数据（10 分钟）
 
-Step 4. Machine learning algorithms (10 minutes)
+步骤 4：机器学习算法（10 分钟）
 
-Step 5. Experimentation (5 minutes)
+步骤 5：实验（5 分钟）
 
-## Wrapping Up and Resources
+## 本文总结
 
-You now have everything you need to ace your next ML interview. By preparing ML study material and a timed solution plan, you’ll set yourself apart from others still unfamiliar with this rising interview type.
+现在，你拥有了完成一次机器学习面试所需要的一切。 通过准备机器学习的面试资料和 45 分钟计时的解决方案，你将从那些还不熟悉这种不断升级面试类型的面试者中脱颖而出。
 
-Happy interviewing!
+祝面试愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
