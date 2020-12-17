@@ -43,8 +43,6 @@ Due to the similar requests being catered by the cache, your server hardware can
 
 When certain cache policies are used, content can be served to end users from the cache for a short period of time, in the event of a server failure. This can be very helpful as it allows consumers to perform basic tasks without the failure of the origin server affecting them.
 
-![Photo by [Jakob Owens](https://unsplash.com/@jakobowens1?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10452/0*dEK-xrMBGaRzRq7j)
-
 ## Disadvantages of Caching
 
 Similar to the advantages, there are several disadvantages to caching as well.
@@ -118,8 +116,6 @@ The key to a perfect caching policy is to tread a fine line that promotes aggres
 ---
 
 The intention of this article is to provide you with an introduction to the fundamentals of caching in web applications. I have skipped several topics such as control headers, caching infrastructures, guidelines for developing cache policies, etc as they are a tad too advanced for this introduction.
-
-You can learn more about caching by going through the below-given resources.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
