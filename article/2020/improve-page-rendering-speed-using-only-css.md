@@ -2,45 +2,45 @@
 > * 原文作者：[Rumesh Eranga Hapuarachchi](https://medium.com/@rehrumesh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/improve-page-rendering-speed-using-only-css.md](https://github.com/xitu/gold-miner/blob/master/article/2020/improve-page-rendering-speed-using-only-css.md)
-> * 译者：
+> * 译者：[Usualminds](https://github.com/Usualminds)
 > * 校对者：
 
-# Improve Page Rendering Speed Using Only CSS
+# 使用 CSS 提升页面渲染速度
 
 ![Image by [Arek Socha](https://pixabay.com/users/qimono-1962238/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153)](https://cdn-images-1.medium.com/max/2560/1*o38gRq5SvLMtgjMMo5Ph7A.jpeg)
 
-Users love fast web apps. They expect the page to load fast and to function smoothly. If there are breaking animations or lags when scrolling, there is a high chance of users leaving your website. As a developer, you could do many things to improve the user experience. This article will focus on 4 CSS tips you can use to improve the page rendering speed.
+用户喜欢流畅的 Web 应用体验。他们希望页面可以快速加载并且平稳运行。如果用户在浏览网站过程中出现断断续续的动画或延迟，那么他们极有可能离开该网站。作为开发人员，我们可以在改善用户体验上做很多事情。本文将重点介绍4个 CSS 技巧，你可以通过使用这些技巧来提升页面渲染速度。
 
 ## 1. Content-visibility
 
-In general, most web apps have complex UI elements, and it expands beyond what the user sees in the browser view. On such occasions, we can use `content-visibility` to skip the rendering of the off-screen content. This will decrease the page rendering time drastically if you have a large amount of content off-screen.
+一般来说，大多数 Web 应用都有复杂的 UI 元素，其关联的内容超出了用户在浏览器视图中的可视范围。这种情况下，我们可以设置 `content-visibility` 属性来跳过对屏幕以外内容的渲染。如果有大量屏幕以外内容，这将大大减少页面渲染时间。
 
-This feature is one of the latest additions, and it is one of the most impactful features to improve rendering performance. While `content-visibility` accepts several values, we can use `content-visibility: auto;` on an element to obtain immediate performance gains.
+这是最新添加的特性之一，它是提高渲染性能最具影响力的特性之一。当 `content-visibility` 接收多个值时，我们可以在一个元素上使用  `content-visibility: auto;` 立即获得性能提升。
 
-Let's consider the following page that contains many cards with different info. While about 12 cards fit the screen, there are approximately 375 cards in the list. As you can see, the browser has taken 1037ms to render this page.
+让我们观察下面这个页面，它包含了多个不同信息的卡片。大约12张卡片适配屏幕，但列表中大约有375张卡片。如你所见，浏览器用了 1037ms 来加载这个页面。
 
 ![Regular HTML page](https://cdn-images-1.medium.com/max/2256/1*8IqnZPmf3Gmw65XnMmQ6YQ.png)
 
-As the next step, you can add `content-visibility` to all cards.
+接下来，你可以给所有卡片添加 `content-visibility` 属性。
 
-> In this example, after adding `content-visibility` to the page, rendering time dropped to 150ms. That's more than **6x** performance improvement.
+> 在这个例子中，在页面添加了 `content-visibility` 后，渲染时间下降到了150ms。有了 **6倍多** 的性能提升。
 
 ![With content-visibility](https://cdn-images-1.medium.com/max/2402/1*zL8hg1aj4ztMVDHe_W7BLQ.png)
 
-As you can see, content-visibility is pretty powerful and highly useful to improve the page rendering time. According to the things we discussed so far, you must be thinking of it as a silver bullet for page rendering.
+正如你所见，content-visibility 属性非常强大，对于改善页面加载时间非常有用。到目前为止，根据我们讨论的内容，你一定认为它是提升页面渲染速度的灵丹妙药。
 
-#### Limitations of content-visibility
+#### content-visibility 的局限性
 
-However, there are few areas content-visibility falls apart. I want to highlight two points for your consideration.
+然而, content-visibility 也有其不适合使用的场景。我想强调两点，请大家考虑。
 
-* **This feature is still experimental.** 
-As of this moment, Firefox (PC and Android versions), Internet Explorer (I don’t think they have plans to add this to IE) and, Safari (Mac and iOS) do not support content-visibility.
-* **Issues related to scroll-bar behavior**. 
-Since elements are initially rendered with 0px height, whenever you scroll down, these elements come into the screen. The actual content will be rendered, and the height of the element will be updated accordingly. This will make the scroll bar to behavior in an unintended manner.
+* **该特性仍处于实验阶段** 
+到目前为止，火狐(PC 和安卓版本)，IE(我不认为他们计划把这个特性添加到 IE 中)和 Safari (Mac 和 iOS)都不支持 content-visibility 属性。
+* **滚动条相关的异常问题**. 
+因为页面元素最初呈现的高度是 0px，所以当向下滚动时，这些元素就会出现在屏幕上。实际内容将被渲染，元素的高度也将相应地更新。这将使滚动条会存在异常表现。
 
 ![Scroll behavior with content-visibility](https://cdn-images-1.medium.com/max/2000/1*_PZdobRzoAhQkqG-Kq5B3A.gif)
 
-To fix the scroll bar issue, you can use another CSS property called `contain-intrinsic-size`. It specifies the natural size of an element. Therefore the element will be rendered with the given height instead of 0px.
+为了解决滚动条的问题，你可以使用另一个 CSS 属性 `container-intrinsic-size`。它可以指定一个元素的自然大小。因此元素将以指定的高度呈现，而不是以0px呈现。
 
 ```css
 .element{
@@ -49,47 +49,47 @@ To fix the scroll bar issue, you can use another CSS property called `contain-in
 }
 ```
 
-However, while experimenting, I noticed that even with `containt-intrinsic-size`, if we are having a large number of elements with `content-visibility` set to `auto` you will still have smaller scroll bar issues.
+然而，在实践过程中，我发现即使使用 `container-intrinsic-size`，如果有大量的元素将 `content-visibility` 设置为 `auto` ，依然会有小范围的滚动条问题。
 
-Therefore, my recommendation is to plan your layout, decompose it into a few sections and then use content-visibility on those sections for better scrollbar behavior.
+因此，我的建议是规划好页面布局，将其分解为多个模块，然后在这些模块上使用  content-visibility，从而使得滚动条表现正常。
 
-## 2. Will-change property
+## 2. Will-change 属性
 
-Animations on the browser aren’t a new thing. Usually, these animations are rendered regularly with other elements. However, browsers can now use GPU to optimize some of these animation operations.
+浏览器上的使用动画已经不是新鲜事了。通常，浏览器会按照一定规律渲染这些动画和其他页面元素。但是，现在可以使用 GPU 来优化其中的某些动画操作。
 
-> # With will-change CSS property, we can indicate that the element will modify specific properties and let the browser perform necessary optimizations beforehand.
+> # 使用 CSS 的 will-change 属性，我们可以指定该元素修改特定属性，从而使浏览器执行前进行必要性能的优化。
 
-What happens underneath is that the browser will create a separate layer for the element. After that, it delegates the rendering of that element to the GPU along with other optimizations. This will result in a smoother animation as GPU acceleration take over the rendering of the animation.
+其底层原理是浏览器为指定 will-change 属性的元素创建一个单独的层级。接着，它将元素的渲染和其他优化委托给 GPU。GPU 将加速接管动画的渲染，从而使得动画更加流畅。
 
-Consider the following CSS class:
+考虑以下 CSS:
 
 ```css
-// In stylesheet
+// stylesheet 文件
 .animating-element {
   will-change: opacity;
 }
 
-// In HTML
+// HTML 文件
 
 <div class="animating-elememt">
   Animating Child elements
 </div>
 ```
 
-When rendering the above snippet in the browser, it will recognize the `will-change` property and optimize future opacity-related changes.
+在浏览器中渲染以上代码片段时，它将识别出 `will-change` 属性，并在之后的渲染中优化与透明度相关的更改。
 
-> According to a performance benchmark done by [Maximillian Laumeister](https://www.maxlaumeister.com/articles/css-will-change-property-a-performance-case-study/), you can see that he has obtained over 120FPS rendering speed with this one-line change, which initially was at roughly 50FPS.
+> 根据 [Maximillian Laumeister](https://www.maxlaumeister.com/articles/css-will-change-property-a-performance-case-study/) 所做的性能基准测试，你可以看到，通过这一行修改，使得该元素获得了超过 120帧/秒 的渲染速度，最初大约是 50帧/秒。
 
 ![Without using will-change; Image by Maximilian](https://cdn-images-1.medium.com/max/2000/0*KP2Dz1t5MCjqapBm.png)
 
 ![With will-change; Image by Maximilian](https://cdn-images-1.medium.com/max/2000/0*SM3J13ZbiJeAfmRo.png)
 
-#### When not to use will-change
+#### will-change 不适宜使用的场景
 
-While `will-change` is intended to improve performance, it also can degrade web app performance if you misuse it.
+尽管 `will-change` 旨在提高渲染性能，但是如果你滥用它，也会降低 Web 应用的性能。
 
-* **Using**` will-change `**indicates that the element will change in the future.** 
-So if you try to use `will-change` along with an animation simultaneously, it will not give you the optimization. Therefore, it is recommended to use will-change on the parent element and the animation on the child element.
+* **使用** `will-change` **表示该元素将来会发生改变。**
+所以如果你试图将 `will-change` 和动画同时使用，这将不会带来任何优化。因此，建议在父元素上使用 will-change 属性，在子元素上使用动画。
 
 ```css
 .my-class{
@@ -101,17 +101,17 @@ So if you try to use `will-change` along with an animation simultaneously, it wi
 }
 ```
 
-* **Do not use elements that are not animating.** 
-When you use `will-change` on an element, the browser will try to optimize it by moving the element into a new layer and handing over the transformation to the GPU. If you have nothing to transform, it will result in a waste of resources.
+* **请不要在与动画无关的元素上使用。**
+在元素上使用 `will-change` 属性时，浏览器会将该元素转移到新的层级并转交给 GPU 对其进行优化。如果没有任何会发生改变的内容，将会导致资源浪费。
 
-One last thing to keep in mind is that it is advisable to remove will-change from an element after completing all the animations.
+最后，需要牢记的一点是：建议在完成所有动画后，从元素中移除 will-change 属性。
 
-## 3. Reducing the Render-blocking time
+## 3. 减少渲染阻塞时间
 
-Today, many web apps must cater to many form factors, including PCs, Tablets, & Mobile Phones, etc. To accomplish this responsive nature, we must write new styles according to the media sizes. When it comes to the page rendering, it cannot start the rendering phase until the 
-CSS Object Model (CSSOM) is ready. Depending on your web application, you may have a large stylesheet that caters to all device form factors.
+如今，许多 Web 应用程序必须适配多种机型的浏览器，包括PC，平板和手机等。要实现响应式布局，我们必须根据不同的媒体尺寸编写不同的样式。涉及到页面渲染时，在 CSS 对象模型（CSSOM）准备就绪前，浏览器无法启动渲染。
+根据你的Web应用程序，你可能会拥有一个比较大的样式表，以适应所有设备的外形尺寸。
 
-> However, suppose we split it up into multiple stylesheets depending on the form factor. In that case, we can let only the main CSS file block the critical path and have it downloaded as a high priority and let other stylesheets download in a low priority manner.
+> 但是，假设我们根据页面加载优先级将其拆分为多个样式表。在这种情况下，我们可以只让主要的 CSS 文件阻塞关键路径，并将其作为高优先级下载，而让其他样式表以较低优先级下载。
 
 ```html
 <link rel="stylesheet" href="styles.css">
@@ -119,25 +119,25 @@ CSS Object Model (CSSOM) is ready. Depending on your web application, you may ha
 
 ![Single stylesheet](https://cdn-images-1.medium.com/max/2000/1*0LtBYTLTuUcK7J8ArX4sZA.png)
 
-After decomposing it to multiple stylesheets:
+拆分成多个样式表后:
 
 ```html
-<!-- style.css contains only the minimal styles needed for the page rendering -->
+<!-- style.css 只包含渲染页面所需的最少样式表 -->
 <link rel="stylesheet" href="styles.css" media="all" />
 
-<!-- Following stylesheets have only the styles necessary for the form factor -->
+<!-- 下面的样式表只有低优先级所必需声明的样式 -->
 <link rel="stylesheet" href="sm.css" media="(min-width: 20em)" /><link rel="stylesheet" href="md.css" media="(min-width: 64em)" /><link rel="stylesheet" href="lg.css" media="(min-width: 90em)" /><link rel="stylesheet" href="ex.css" media="(min-width: 120em)" /><link rel="stylesheet" href="print.css" media="print" />
 ```
 
 ![](https://cdn-images-1.medium.com/max/2000/1*TiCgtB6JO9Ud5v0E0XblmQ.png)
 
-As you can see, having stylesheets decomposed according to form factors can reduce the render-blocking time.
+可以看得，根据样式加载优先级分解样式表可以减少渲染阻塞时间。
 
-## 4. Avoiding @import to include multiple stylesheets
+## 4. 避免 @import 包含多个样式表
 
-With `@import`, we can include a stylesheet in another stylesheet. When we are working on a large project, having `@import` makes the code cleaner.
+使用 `@import` 时，我们可以在一个样式表中加载另一个样式表。当我们在处理大型项目时，使用 `@import` 可使代码更简洁。
 
-> The critical fact about `@import` is that it is a blocking call as it has to make a network request to fetch the file, parse it, and include it in the stylesheet. If we have nested `@import` within stylesheets, it will hinder the rendering performance.
+> 关于 `@import` 的一个主要事实是，它是阻塞调用的，因为它必须发出网络请求以获取文件，解析文件并将其包含在样式表中。如果在样式表中嵌套了 `@import`，将会影响渲染性能。
 
 ```css
 # style.css
@@ -149,17 +149,17 @@ With `@import`, we can include a stylesheet in another stylesheet. When we are w
 
 ![Waterfall with imports](https://cdn-images-1.medium.com/max/2056/1*kmPjWDOBdfzyVLsiLYmENA.png)
 
-Instead of using `@import` we can achieve the same with much better performance by having multiple links as it allows us to load stylesheets in parallel.
+除了使用 `@import` 之外，我们还可以使用多个链接来获得更高的性能，因为它允许并行加载样式表。
 
 ![Waterfall with linking](https://cdn-images-1.medium.com/max/2106/1*-KPFrviQosYgL1KTZUQHYw.png)
 
-## Conclusion
+## 结论
 
-Apart from the 4 areas we discussed in this article, there are few other ways we can use CSS to improve the performance of the web page. One of the recent features of CSS, `content-visibility,` looks so promising in the years to come as it gives a multi-fold performance gain with page rendering.
+除了本文讨论的 4 个 CSS 技巧外，我们很难使用其他 CSS 方法来改善网页性能。CSS的最新功能之一，即 `content-visibility` ，在未来看起来很有希望，因为它可以通过页面渲染获得多方面的性能提升。
 
-> The most important thing is, we gained all the performance without writing a single statement of JavaScript.
+> 最重要的是，我们无需编写任何 JavaScript 代码即可获得性能提升。
 
-I am confident that you can incorporate some of the above features and build better-performing web apps for end-users. I hope the article is useful and if you know any CSS tips to improve web app performance, please mention them in the comments below. Thanks!
+我相信你可以结合上述的某些 CSS 功能，最终为用户构建性能更好的 Web 应用程序。希望本文对你能有所帮助，如果你知道其他任何可以提高 Web 应用程序的性能的 CSS 技巧，请在下面的评论中回复。谢谢！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
