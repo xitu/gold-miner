@@ -2,8 +2,8 @@
 > * 原文作者：[Trung Anh Dang](https://medium.com/@dangtrunganh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/the-law-of-demeter.md](https://github.com/xitu/gold-miner/blob/master/article/2020/the-law-of-demeter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[jackwener](https://github.com/jackwener), [kaikanwu](https://github.com/kaikanwu)
 
 # 迪米特法则
 
@@ -19,7 +19,7 @@
 
 学习并遵循这些法则来写程序，大有好处，但遗憾的是，程序员总是会忘记或忽略它们。这些法则更大程度上是关于降低代码的耦合性的指南，而不是原则。
 
-我们都见过这样的函数调用，它像链条一样。
+我们都见过这样冗长的链式函数调用。
 
 ```java
 obj.getX()
@@ -99,7 +99,7 @@ public class ShopKeeper {
 
 这段代码违背了迪米特法则。我们考虑这种交互在现实中的情况：营业员从顾客的口袋里拿出了钱包，接着打开钱包，在没有跟顾客进行任何互动的情况下直接拿走了钱。
 
-这显然是违背常识的。营业员的这种做法是超出他的职权范围的。顾客也有可能希望以其他的方式支付，甚至可能不用钱包。
+显而易见，在现实生活中，营业员的这种做法是不符合常识的。店主是在超越自己的职权进行操作。顾客也有可能希望以其他的方式支付，甚至可能不用钱包。
 
 在这里，营业员不应接触顾客的钱包，所以在代码中 ShopKeeper 对象也不该跟 CustomerWallet 直接交互。所以我们应当把代码改为：  
 
