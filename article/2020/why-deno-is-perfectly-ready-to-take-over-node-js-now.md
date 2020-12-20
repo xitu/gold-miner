@@ -2,8 +2,8 @@
 > * 原文作者：[Charuka Herath](https://medium.com/@charuka09)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-deno-is-perfectly-ready-to-take-over-node-js-now.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-deno-is-perfectly-ready-to-take-over-node-js-now.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[Inchill](https://github.com/Inchill), [regon-cao](https://github.com/regon-cao)
 
 # 为什么如今 Deno 正全面取代 Node.js
 
@@ -39,7 +39,7 @@ cargo install deno
 
 现在，我们从一个简单的 TypeScript 文件开始，研究 Deno 的使用。 在这个文件中，我们可以使用运行时环境中的一切数据类型。这意味着我们可以编写强类型的代码，直接从 IDE 获得文档提示，而且不需要创建 TS 的配置文件。运行时的特性可以从 Deno 的命名空间中获得。
 
-我们在工作目录中创建一个 TypeScript 文件，命名为 main.ts。接着，使用 console.log 输出当前目录的绝对路径：
+我们在工作目录中创建一个 TypeScript 文件，命名为 main.ts。接着，使用 console.log 输出当前文件系统的工作目录：
 
 ```js
 console.log(Deno.cwd());
@@ -73,7 +73,7 @@ deno run — allow-read main.ts
 
 使用 Deno 的开发人员似乎更加关注安全性。但我认为 Deno 的亮点在于，任何异步操作都基于 Promise（再见，回调函数）。
 
-如你所见，我们可以使用 fetch API 发起网络请求，跟我们使用浏览器类似。由于 Deno 支持顶级 wait，我们甚至不需要定义异步函数。而且我们还可以在没有额外的样板代码的情况下对 promise 进行解析:
+如你所见，我们可以像在浏览器中那样使用 fetch API 发起网络请求。由于 Deno 支持顶级 wait，我们甚至不需要定义异步函数。而且我们还可以在没有额外的样板代码的情况下对 promise 进行解析:
 
 ```js
 const url = Deno.args[0];
@@ -103,7 +103,7 @@ const wsm = new WebAssembly.Module(wbs);
 
 标准库的好处是你可以在一切项目中使用它，不需要从 npm 中导入模块。
 
-**“优良的代码应该是短小、简洁、匀称的，难点在于理解如何达到这种标准。” — Sean Parent**
+**“优良的代码应该是简短、简单且对称的，难点在于理解如何达到这种标准。” — Sean Parent**
 
 #### 5. 没有大量的 Node Modules 包
 
