@@ -2,84 +2,84 @@
 > * 原文作者：[Charuka E Bandara](https://medium.com/@charuka95)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/will-webtransport-replace-webrtc-in-near-future.md](https://github.com/xitu/gold-miner/blob/master/article/2020/will-webtransport-replace-webrtc-in-near-future.md)
-> * 译者：
+> * 译者：[Usualminds](https://github.com/Usualminds)
 > * 校对者：
 
-# Will WebTransport Replace WebRTC in Near Future?
+# WebTransport 会在不久的将来取代 WebRTC 吗？
 
 ![Photo by [Gabriel Benois](https://unsplash.com/@gabrielbenois) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*4MaUNhpUTKLuBX14)
 
-Video and audio conferencing on the web have become popular in the modern era. In the good old days, it required an intermediary server to transfer data between two parties. Since it was slow and grainy, there were many innovations to improve the underlying technology to overcome its limitations.
+目前，在网络上进行视频和音频会议已经很流行了。在过去，音视频会议往往需要一个中间服务器在双方之间进行数据传输。由于该传输过程缓慢且画质粗糙，所以有许多创新来改进其底层技术，以克服音视频传输的局限性。
 
 ![Diagram by the author: The basic architecture of the WebSockets](https://cdn-images-1.medium.com/max/2000/1*UZMYYV48pGhgjkcEh0lPNg.png)
 
-During 2010 the Google engineers introduced WebRTC to solve some of these challenges. Today we use it almost everywhere.
+从2010年开始，谷歌的工程师引入了 WebRTC 来解决这些问题。今天，我们在很多地方都使用它。
 
-## Introducing WebRTC
+## WebRTC 简介
 
-WebRTC, Web Real-time communication is the protocol (collection of APIs) that allows direct communication between browsers. These APIs support exchanging files, information, or any data. It sounds like WebSockets. However, it is not.
+WebRTC，即 Web 实时通信，它是一种允许浏览器之间直接进行通信的协议（API 集合）。这些 API 支持交换文件、信息或任何数据。听起来像 WebSockets。但是，事实并非如此。
 
 ![Diagram by the author: The basic architecture of WebRTC](https://cdn-images-1.medium.com/max/2140/1*ZtTqRURkQA2nqRgrrCjwTg.png)
 
-As we discussed, communication happens between browsers without requiring the direct involvement of the server. However, the server needs to facilitate sharing each other’s IP address at the beginning. Still, it’s faster than communicating through a server.
+像我们提到的，通信是发生在浏览器之间，它不需要服务器的直接参与。然而，服务器在开始时需要便捷地共享彼此的 IP 地址。尽管如此，它还是比经过服务器进行通信快的多。
 
-Then you might wonder, why do we need a new protocol? The reason is that as time passes, technologies evolve, and we can find some of its limitations coming to the surface.
+接下来你可能会好奇，为什么我们需要一个新的协议？那是因为随着时间的流逝和技术的不断发展，我们逐渐发现 WebRTC 传输方式的一些局限性。
 
-## So what are the limitations with WebRTC?
+## WebRTC 的局限性是什么？
 
-#### The head of the line blocking (HOL) at the TCP layer
+#### TCP层的队头阻塞（HOL）
 
-This is the same problem that we have with HTTP/2. When using HTTP/2, multiple requests will be sent to servers as encapsulated streams. Therefore in a given instance, multiple requests will use a single TCP connection.
+这和我们在 HTTP/2 协议中遇到的问题是一样的。当使用 HTTP/2 协议时，多个请求被封装成流发送到服务器。因此，在给定实例中，多个请求将使用一个TCP连接。
 
-Suppose two GET requests are having six packets each. While sending a GET request, if one packet is damaged or lost during the transmission, the TCP stream makes the entire stream wait until that packet is re-transmitted and received by the server. So the TCP HOL will occur.
+假设有两个 GET 请求，每个请求有六个数据包。在发送 GET 请求时，如果在传输过程中有一个包发生了损坏或丢包，TCP 流会让整个流等待，直到该包被服务器重新传输和接收。因此会发生 TCP HOL。
 
-> Don’t get confused between the TCP vs HTTP HOL. These are two things. Only TCP HOL becomes an issue here.
+> 不要混淆 TCP 和 HTTP HOL。这是两个不同的问题。在这里只有 TCP HOL 会造成 WebRTC 传输问题。
 
-Since WebRTC is built on top of HTTP/2, this issue can occur in any scenario such as file transmission, video conferencing.
+由于 WebRTC 是建立在 HTTP/2 协议之上，所以这个问题可能发生在任何场景，如文件传输，视频会议。
 
-#### Clients have to initiate the connection
+#### WebRTC 必须由客户端发起连接
 
-In this case, the limitation is tricky because the client has to initiate a connection to avoid networking issues or security issues. That is how things work. The challenge in WebRTC is that no one else can send any information without the client’s awareness.
+在这种情况（必须由客户端发起连接）下，传输的局限性就会凸显出来，因为客户端必须启动连接以避免网络问题或安全问题。事实也是这样。WebRTC 面临的挑战是，在客户端未授权的情况下，任何人都不能发送信息。
 
-However, HTTP push tried to get rid of this by creating a new stream. Here, the server creates a new stream and then push content to the client. However, it was not successful. So. lately, Google has removed that approach from Chrome.
+但是，HTTP 推送尝试通过创建新的数据流来解决这个问题。在这里，服务器创建一个新的流，然后将内容推送到客户端。 但是，它没有成功。所以最近 Google 从 Chrome 中删除了该方法。
 
-So, to address these issues, here comes the all-new WebTransport.
+因此，要解决这些问题，请使用全新的 WebTransport。
 
-## What is WebTransport?
+## WebTransport 是什么?
 
-WebTransport is a pluggable protocol for client-server communication, built on top of HTTP/2, HTTP/3, and QUIC. It is designed to replace WebSockets going ‘QUIC-native.’
+WebTransport 是一个可插拔的客户端-服务器通信协议，基于 HTTP/2、HTTP/3 和 QUIC 协议构建。其设计目的是取代 WebSockets 进而走向 “原生的 QUIC 协议”。
 
-> You can think of it as WebRTC, but optimize for 80/20 Rule.
+> 你可以将它看作 WebRTC，但针对 80/20 规则进行了优化。
 
-> QUIC is a web API that uses the QUIC protocol in a bidirectional, non-HTTP transport, which is served over UDP, similar to an independent TCP that drastically reduced connection setup latency. The main functionality is two-way communications between a web client and a QUIC server with steam APIs.
+> QUIC 是一种 web API，它在双向的非 HTTP 传输中使用 QUIC 协议，通过 UDP 提供服务，类似于一个独立的 TCP ，极大地减少了 TCP 建立连接所带来的延迟。主要功能是使用 steam api 在 web 客户端和 QUIC 服务器之间进行双向通信。
 
-Besides, WebTransport has the support for multiple streams, unidirectional streams, out-of-order delivery, reliable and unreliable transport.
+此外，WebTransport 还支持多数据流、单向数据流、无序传输、可靠和不可靠传输。
 
-## Overcoming the challenges with WebTransport
+## WebTransport 克服了这些难题
 
-#### WebTransport is on top of QUIC
+#### WebTransport 是基于 QUIC 协议
 
-WebTransport is an interface that can talk to HTTP/2 based, HTTP/3 based, and QUIC based protocols. So, it has the advantage that HTTP and non-HTTP traffic can share the same network port.
+WebTransport 是一个接口，它可以与基于 HTTP/2、HTTP/3 和 QUIC 的协议进行通信。因此，它的优点是 HTTP 和非 HTTP 流量都可以共享相同的网络端口。
 
-Besides, since QUIC operates over UDP, each stream is independent. Switching to UDP is an advantage to reduce the impact of TCP head of line blocking. Therefore any lost packet only halts the stream that it belongs to, while the other streams can go on.
+此外，由于 QUIC 是基于 UDP 的，所以其每个数据流都是独立的。使用 UDP 是它的一个优势，它规避了 TCP 的队头阻塞问题。因此，任何丢失的数据包都只会导致它所在的流暂停传输，而其他流仍然可以正常传输。
 
-#### WebTransport supports multiple protocols
+#### WebTransport 支持多种协议
 
-WebTransport supports unidirectional streams (indefinitely long streams of bytes in one direction), bidirectional streams (full-duplex streams), and datagrams (small/out-of-order/unreliable messages). So, there are some key usages of WebTransport which are,
+WebTransport 支持单向流(单向无限长的字节流)、双向流(全双工流)和数据报文(小的/无序的/不可靠的消息)。因此，WebTransport 有一些关键的用法：
 
-* WebTransport can request over HTTP and receiving data **pushed** **out-of-order** (reliably and unreliable) over the same network connection.
-* WebTransport can send data (reliable and unreliable) to the server using a QUIC unidirectional send stream.
-* WebTransport can receive data pushed from the server using unidirectional receive streams.
+* WebTransport 可以通过 HTTP 协议请求和接收数据 **可靠** **不可靠**(可靠和不可靠)，它们都是经过通过相同的网络连接。
+* WebTransport 可以使用 QUIC 协议单向发送流发送数据(可靠和不可靠)到服务器。
+* WebTransport 可以使用单向接收流从服务器进行数据推送。
 
-So in the gaming industry, WebTransport will play a significant role because of its capability of receiving media pushed from the server with minimal latency.
+所以在游戏行业中，WebTransport 将起到重要作用，因为它能够以最小的延迟接收来自服务器的数据推送。
 
-## Conclusion
+## 结论
 
-In my opinion, WebRTC is doing quite well, and people use it for many years now. Obviously, with the changing technological world, there are situations where even the latency of milliseconds matters. As we discussed, industries like online gaming would reap the clear benefits of WebTransport.
+在我看来，WebRTC 已经做得很好了，人们使用它已经很长一段时间了。很明显，随着技术世界的不断变化，在某些情况下，甚至毫秒级的延迟也很重要。正如我们所提到的，像线游戏这样的行业使用 WebTransport 将获得显著的优势。
 
-> WebSocket based WebRTC is not the fastest approach anymore.
+> 基于 WebSocket 的 WebRTC 已经不是最快的方法了。
 
-In this case, the powerful WebTransport will address the issue of Web Socket based WebRTC. By considering all these advantages, I believe WebTransport will replace WebRTC. But it will take some time for people to adapt.
+在这种情况下，强大的 WebTransport 将解决基于 WebRTC 的 Web 套接字的问题。考虑到所有这些优点，我相信 WebTransport 将取代 WebRTC。只不过人们需要一段时间来适应它。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
