@@ -9,7 +9,7 @@
 
 ![Photo by [Gabriel Benois](https://unsplash.com/@gabrielbenois) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*4MaUNhpUTKLuBX14)
 
-目前，在网络上进行视频和音频会议已经很流行了。在过去，音视频会议往往需要一个中间服务器在双方之间进行数据传输。由于该传输过程缓慢且画质粗糙，所以有许多创新来改进其底层技术，以克服音视频传输的局限性。
+目前，在网络上进行视频和音频会议已经很流行了。在过去，音视频会议往往需要一个中间服务器在双方之间进行数据传输。由于该传输过程缓慢且画质粗糙，所以有许多创新来改进其底层技术，以解决音视频传输的局限性。
 
 ![Diagram by the author: The basic architecture of the WebSockets](https://cdn-images-1.medium.com/max/2000/1*UZMYYV48pGhgjkcEh0lPNg.png)
 
@@ -75,7 +75,7 @@ WebTransport 支持单向流(单向无限长的字节流)、双向流(全双工�
 
 ## 结论
 
-在我看来，WebRTC 已经做得很好了，人们使用它已经很长一段时间了。很明显，随着技术世界的不断变化，在某些情况下，甚至毫秒级的延迟也很重要。正如我们所提到的，像线游戏这样的行业使用 WebTransport 将获得显著的优势。
+在我看来，WebRTC 已经做得很好了，人们使用它已经很长一段时间了。很明显，随着技术世界的不断变化，在某些情况下，甚至毫秒级的延迟也很重要。正如我们所提到的，像游戏这样的行业使用 WebTransport 将获得显著的优势。
 
 > 基于 WebSocket 的 WebRTC 已经不是最快的方法了。
 
