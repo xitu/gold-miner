@@ -86,7 +86,7 @@ const res = await fetch(url);
 Deno 提供了 window 对象，这个对象包含了可监听的生命周期事件。很显然，这使程序的生命周期管理更方便:
 
 ```js
-window.onload = e => console.log(‘good bye nodejs’);
+window.onload = e => console.log('good bye nodejs');
 ```
 
 哦，我想起来了。Deno 也可执行 WebAssembly 程序。正如 [WebAssembly 官网](https://webassembly.org/)上所说，“WebAssembly（缩写为Wasm）是一种基于堆栈的虚拟机的二进制指令格式。”
@@ -112,9 +112,9 @@ const wsm = new WebAssembly.Module(wbs);
 正如我前面提到的，Deno 中不存在模块目录。所有的跟模块有关的配置都在后台进行。一切依赖关系也保存在本地，所以你不必为繁杂的模块目录或笨重的 package.json 文件发愁。
 
 ```js
-import { Response } from “https://deno.land/std@0.63.0/http/server.ts";
+import { Response } from "https://deno.land/std@0.63.0/http/server.ts";
 
-import { Server } from “https://deno.land/std@0.63.0/http/server.ts";
+import { Server } from "https://deno.land/std@0.63.0/http/server.ts";
 ```
 
 ![Figure 4: Downloaded dependencies](https://cdn-images-1.medium.com/max/2000/1*27PO58pHOLatMzuHKkSn4A.png)
