@@ -11,19 +11,19 @@
 
 ## 为何 VSCode 如此受欢迎
 
-Visual Studio Code 在开发人员中已经迅速流行起来，在 [Stack Overflow 2019 年开发者调查](https://insights.stackoverflow.com/survey/2019) 总体排名为最受欢迎的开发环境。可定制化是其受欢迎的原因之一。
+Visual Studio Code 在开发人员中已经迅速流行起来，在 [Stack Overflow 2019 年开发者调查](https://insights.stackoverflow.com/survey/2019)中，它被评为最受欢迎的开发环境。可定制化是其受欢迎的原因之一。
 
 ![](https://cdn-images-1.medium.com/max/2414/1*_V5rABvXNNMtsvYfsQYECA.png)
 
 ---
 
-如果你正在使用 VSCode，这里有一份可以帮助你提升生产力的扩展列表。
+如果你正在使用 VSCode，本文就是一份可以帮助你提高效率的扩展列表。
 
 ## Git Lens
 
-当你和你的队友在一个项目里工作时，这个扩展可以帮助你一眼就看到代码的作者。它显示了提交或更改代码的时间以及作者。
+当你和别人协同开发项目时，这个扩展能让你一眼就看到代码是谁写的。它显示了提交或更改代码的时间以及作者。
 
-有时候，你的团队成员提交的代码可能会破坏项目的其他特性，这时它就很有帮助。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)。
+有时候，你的团队成员提交的代码可能会破坏项目的其他特性，这时它就很有帮助。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)了解详情。
 
 ---
 
@@ -32,7 +32,7 @@ Visual Studio Code 在开发人员中已经迅速流行起来，在 [Stack Overf
 ## Wallaby.js
 
 Wallaby.js 是一个智能的 JavaScript 测试运行器，可以连续运行你的测试。当你更改代码时(甚至不保存文件)，它将代码覆盖率和其他结果直接报告给你的代码编辑器。
-这个扩展有助于提高你的开发效率。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode)。
+这个扩展有助于提高你的开发效率。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode)了解详情。
 
 ---
 
@@ -40,9 +40,9 @@ Wallaby.js 是一个智能的 JavaScript 测试运行器，可以连续运行你
 
 ## TypeScript Hero
 
-TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaScript。当我们使用 TypeScript 时，这个扩展会派上用场。它通过一个名为 Light bulb 的特性对导入进行排序和组织，并修复代码错误。
+TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaScript。当我们使用 TypeScript 时，这个扩展很有用。它通过一个名为 Light bulb 的特性对导入的代码进行排序和组织，并修复代码错误。
 
-你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=rbbit.typescript-hero)。
+你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=rbbit.typescript-hero)了解详情。
 
 ---
 
@@ -50,9 +50,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Prettier Code Formatter
 
-当遇到代码格式化时，Prettier 的固定代码格式让开发人员很省心。你可以将其配置为保存时格式化，这样会在保存时自动格式化代码。
+当进行代码格式化时，Prettier 的固定代码格式的功能可以帮助开发人员提高效率。你可以将其配置为保存时格式化，这样会在保存时自动格式化代码。
 
-一旦你有了这个扩展，你将永远不必担心格式化代码，因为 Prettier 为你做了。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)。
+一旦你有了这个扩展，你将永远不必为格式化代码发愁，因为 Prettier 为你做了。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)了解详情。
 
 ---
 
@@ -60,8 +60,8 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Path Intellisense
 
-如果你使用的是 React 或 Angular 这样的 JavaScript 库，而你正在做的是大型项目，你就会知道在导入时找到组件的确切路径是多么烦人。这个扩展可以帮助你自动完成路径的导入。
-它还可以帮助你自动完成 HTML 文件中的文件引用。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)。
+如果你使用 React 或 Angular 这样的 JavaScript 库进行大型项目的开发，你就能感受到在导入时找到组件的确切路径是件多么令人厌烦的事。这个扩展可以帮助你自动完成路径的导入。
+它还可以帮助你自动完成 HTML 文件中的文件引用。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)了解详情。
 
 ---
 
@@ -69,9 +69,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Debugger for Chrome
 
-我们都知道有时调试是多么烦人，所以这个扩展可以用来帮助你调试 JavaScript 代码。这是微软开发的。我们可以设置断点，逐步执行代码，调试动态添加的脚本等。
+我们都知道，有时候调试程序是一件令人厌烦的事，这个扩展用于辅助你调试 JavaScript 代码。这是微软开发的扩展。我们可以设置断点，逐步执行代码，调试动态添加的脚本等。
 
-假设我们有一个函数，我们不确定它是否正在执行，这个扩展可以帮助执行时在调试处暂停。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)。
+假设我们有一个函数，我们不确定它是否正在执行，这个扩展可以设置断点，如果在断点处暂停，说明它正在执行。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)了解详情。
 
 ---
 
@@ -79,9 +79,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Bracket Pair Colorizer
 
-这个扩展通过颜色来标记配对的括号。当你进入调试会话或者工作在一个巨大的代码库，这个扩展可以说是救世主。
+这个扩展通过颜色来标记配对的括号。当你在进行调试，而且代码量很大时，这个扩展可以说是救世主。
 
-用户可以定义匹配的字符和使用的颜色。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer)。
+用户可以根据需要，定义某些字符的配对，还可以定义这些字符在代码中的颜色。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer)了解详情。
 
 ---
 
@@ -89,9 +89,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## JavaScript (ES6) Code Snippets
 
-如果你是一名 JavaScript 开发人员，这可以为你节省大量时间。当你想要快速构建新项目时它会有所帮助。不需要输入整个代码，它为 JavaScript 函数提供了很多预定义的片段。
+如果你是一名 JavaScript 开发人员，它可以为你节省大量时间。它能帮助你快速构建新项目。由于它为 JavaScript 函数提供了很多预定义的片段，所以你不需要手动输入所有代码。
 
-对 TypeScript，React，Vue 和 HTML 都有支持。如果你使用 React，有一个类似的扩展（ES7 React/Redux/GraphQL/React-Native snippets）。
+对 TypeScript，React，Vue 和 HTML 都提供支持。如果你使用 React，有一个类似的扩展（ES7 React/Redux/GraphQL/React-Native snippets）。
 
 这里是它们的链接：[JS snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)，[React Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)。
 
@@ -101,9 +101,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Live Share
 
-当你与你的团队成员一起解决一个问题，并希望在编辑器上共同处理相同的代码时，这有助于将你的代码编辑器的控制权交给你的团队成员，同时你可以工作。
+当你与团队成员共同解决一个问题，并希望在编辑器上共同处理相同的代码时，这个扩展可以帮助你把代码编辑器的控制权交给团队的其他成员，同时你仍然可以进行相关操作。
 
-您还可以共享终端实例、本地主机 web 应用程序、语音呼叫等等。这个扩展由微软提供。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)。
+您还可以共享终端实例、本地主机 web 应用程序、语音呼叫等等。这个扩展由微软提供。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)了解详情。
 
 ---
 
@@ -111,9 +111,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## ESLint
 
-由于 JavaScript 是一种高度灵活的语言，一些小错误可能导致大问题。因此，在处理庞大的代码库时，我们需要一个 linter 和一个 formatter。 这个扩展可以帮助你完成此项工作。这可以自动格式化你的代码，并发现代码里的错误。
+由于 JavaScript 是一种高度灵活的语言，一些小错误可能导致大问题。因此，在处理庞大的代码库时，我们需要一个 linter 和一个 formatter。这个扩展可以帮助你完成此项工作。它可以自动对你的代码进行某种格式的编排，还能发现代码里的错误。
 
-实现 ESLint 规则将让你离为代码库建立良好的标准更近一步。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)。
+遵循 ESLint 规则会让你离建立良好规范的代码库更近一步。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)了解详情。
 
 ---
 
@@ -121,9 +121,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Paste JSON as Code
 
-作为开发人员，你经常要处理接口。我们都知道 APIs 中最常用的数据结构是 JSON。为了避免一些可能破坏应用程序的类型错误，我们使用类或接口。这个扩展可以用 JSON 数据生成一个类。
+作为开发人员，你经常要处理接口。我们都知道 APIs 中最常用的数据结构是 JSON。为了避免一些可能造成应用程序崩溃的类型错误，我们需要定义类或接口。这个扩展可以用 JSON 数据生成一个类。
 
-因此，我们可以使用它来节省创建类的时间和负担，而不是手动编写类。这个扩展支持大多数流行的语言。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)。
+因此，我们可以使用它一键生成类，而不必手动编写类代码，因而节省了时间。这个扩展支持大多数流行的语言。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)了解详情。
 
 ---
 
@@ -131,9 +131,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Peacock
 
-当你在多个工作区工作时，这个扩展可以帮助你识别切换的或正在工作的工作区。
+当你在多个工作区进行开发时，这个扩展可以显示已经切换过的工作区以及当前所处的工作区。
 
-你可以点击[这里](http://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock)。
+你可以点击[这里](http://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock)了解详情。
 
 ---
 
@@ -143,7 +143,7 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 这个扩展可以帮助你在代码中创建更人性化的注释。它允许您为不同类型的注释提供不同的颜色代码，它们可能是待办事项、高亮显示、警报和其他类型的注释。
 
-强烈建议编写通常遵循的干净且文档化的代码。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)。
+强烈建议编写通常遵循的干净且文档化的代码。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)了解详情。
 
 ---
 
@@ -153,7 +153,7 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 当我们构建组件库或者在不同的应用里使用组件时，我们肯定会对 node modules 做一些修改。这个扩展可以让你快速浏览 node modules 目录中的文件。
 
-你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=jasonnutter.search-node-modules)。
+你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=jasonnutter.search-node-modules)了解详情。
 
 ---
 
@@ -163,7 +163,7 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 作为开发人员，我们每天都会使用 Postman 来检测来自 API 的响应。这个扩展可以让你直接在 VSCode 中发出 HTTP 请求并查看响应，而不是在两个应用程序之间切换。
 
-你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)。
+你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)了解详情。
 
 ---
 
