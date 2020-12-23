@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：
+> - 校对者：[samyu2000](https://github.com/samyu2000)
 
 # 2021 年 Web 开发者应该掌握的 15 个 VSCode 扩展
 
