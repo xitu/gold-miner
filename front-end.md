@@ -1,3 +1,22 @@
+* [如何使用 useRef 修复 React 性能问题](https://juejin.cn/post/6900510215851114509)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [使用 JavaScript 解构让代码更优雅](https://juejin.cn/post/6901081096260648974)（[zenblo](https://github.com/zenblo) 翻译）
+* [在浏览器中处理自然语言](https://juejin.cn/post/6899707995828174861)（[regon-cao](https://github.com/regon-cao) 翻译）
+* [使用原生 CSS 实现自适应视频](https://juejin.cn/post/6898144070125518856)（[zenblo](https://github.com/zenblo) 翻译）
+* [从零开始了解 JavaScript 装饰器](https://juejin.cn/post/6898189092652384270)（[regon-cao](https://github.com/regon-cao) 翻译）
+* [使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)（[zenblo](https://github.com/zenblo) 翻译）
+* [抽象数据类型与软件危机](https://juejin.cn/post/6900761312532529166)（[zenblo](https://github.com/zenblo) 翻译）
+* [四种跨浏览器选项卡实时通信方法](https://juejin.cn/post/6896273264214179848)（[zenblo](https://github.com/zenblo) 翻译）
+* [如何在 Nextjs 中使用 cookies 来持久化保存用户信息](https://juejin.cn/post/6896062683263860749)（[plusmultiply0](https://github.com/plusmultiply0) 翻译）
+* [浏览器 Web History API 的应用](https://juejin.cn/post/6891500768973553672)（[zenblo](https://github.com/zenblo) 翻译）
+* [分享九个 JavaScript 图片懒加载库](https://juejin.cn/post/6890325820200943629)（[zenblo](https://github.com/zenblo) 翻译）
+* [使用原生 CSS 设置响应式字体](https://juejin.cn/post/6888471725080903687)（[zenblo](https://github.com/zenblo) 翻译）
+* [Github Actions 工作流的创建与跟踪](https://juejin.cn/post/6892248874669309965)（[zenblo](https://github.com/zenblo) 翻译）
+* [JavaScript ES2021 中激动人心的特性](https://juejin.cn/post/6892246810250477575)（[tonylua](https://github.com/tonylua) 翻译）
+* [Web Locks API：跨 Tab 资源同步](https://juejin.cn/post/6895792867080405005)（[Raoul1996](https://github.com/Raoul1996) 翻译）
+* [JavaScript 颜色处理库 Chroma.js 的应用](https://juejin.cn/post/6886263418907688974)（[zenblo](https://github.com/zenblo) 翻译）
+* [单页应用程序的哈希 URL 与普通 URL](https://juejin.cn/post/6884805346582331399)（[zenblo](https://github.com/zenblo) 翻译）
+* [NextJS vs. NuxtJS vs. GatsbyJS](https://juejin.cn/post/6882994530149203981)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
+* [我的网站加载时间不到 1 秒，这是我如何做到的！](https://juejin.cn/post/6870329885034807310)（[wangqinggang](https://github.com/wangqinggang) 翻译）
 * [在 React 中使用 Service Worker](https://juejin.im/post/6881616183158636552)（[plusmultiply0](https://github.com/plusmultiply0) 翻译）
 * [掌握 JavaScript ES6 中的 Symbol 类型](https://juejin.im/post/6880485630501978126)（[Inchill](https://github.com/Inchill) 翻译）
 * [TypeScript：一个好泛型的价值](https://juejin.im/post/6878868818836488205)（[tonylua](https://github.com/tonylua) 翻译）

@@ -1,107 +1,109 @@
-> * 原文地址：[Understanding React Portals](https://blog.bitsrc.io/understanding-react-portals-ab79827732c7)
-> * 原文作者：[Madushika Perera](https://medium.com/@LMPerera)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-react-portals.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-react-portals.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Understanding React Portals](https://blog.bitsrc.io/understanding-react-portals-ab79827732c7)
+> - 原文作者：[Madushika Perera](https://medium.com/@LMPerera)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-react-portals.md](https://github.com/xitu/gold-miner/blob/master/article/2020/understanding-react-portals.md)
+> - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
+> - 校对者：[zenblo](https://github.com/zenblo)
 
-# Understanding React Portals
+# 了解 React Portals（传送门）
 
 ![Photo by [Daniel Jerez](https://unsplash.com/@danieljerez?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*FjXAcqaJwbGxRLfV)
 
-React Portal is a first-class way to render child components into a DOM node outside of the parent DOM hierarchy defined by the component tree hierarchy. The Portal's most common use cases are when the child components need to visually break out of the parent container as shown below.
+React Portal 提供了一种将子节点渲染到父组件以外的 DOM 节点的优秀解决方案。Portal 的最常见用例是子组件需要从视觉上脱离父容器，如下所示。
 
-* Modal dialog boxes
-* Tooltips
-* Hovercards
-* Loaders
+- 模态对话框
+- 工具提示
+- 悬浮卡
+- 加载动画
 
-A Portal can be created using ReactDOM.createPortal(child, container). Here the **child** is a React element, fragment, or a string, and the **container** is the DOM location(node) to which the portal should be injected.
+可以使用 `ReactDOM.createPortal(child,container)` 创建一个 Portal。这里的 **child** 是一个 React 元素，fragment 片段或者是一个字符串，**container** 是 Portal 要插入的 DOM 节点的位置。
 
-Following is a sample modal component created using the above API.
+下面是使用 `ReactDOM.createPortal(child,container)` 创建的一个简单 modal 组件。
 
 ```jsx
-const Modal =({ message, isOpen, onClose, children })=> {
-  if (!isOpen) return null
-  return ReactDOM.createPortal(    
+const Modal = ({ message, isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+  return ReactDOM.createPortal(
     <div className="modal">
       <span className="message">{message}</span>
       <button onClick={onClose}>Close</button>
     </div>,
-    domNode)
-}
+    domNode
+  );
+};
 ```
 
-Even though a Portal is rendered outside of the parent DOM element, it behaves similarly to a regular React component within the application. It can access **props** and the **context** API. This is because the Portal resides inside the React Tree hierarchy.
+即使 Portal 是在父级 DOM 元素之外呈现的，他的表现行为也跟平常我们在 React 组件中使用是一样的。它能够接受 **props** 以及 **context** API。这是因为 Portal 驻留在 React Tree 层次结构内（也就是保证在同一颗 React Tree 上）。
 
-## Why do we need it?
+## 为什么我们需要它呢
 
-When we use a modal inside a particular element (a parent component), the modal's height and width will be inherited from the component in which the modal resides. So there is a possibility that the modal will be cropped and not be shown properly in the application. A traditional modal will require CSS properties like `overflow:hidden` and `z-index` to avoid this issue.
+当我们在特定元素（父组件）中使用模态弹窗时，模态的高度和宽度就会从模态弹窗所在的组件继承，也就是说模态弹窗的样式可能会被父组件影响。传统的模态框需将需要 CSS 属性，例如 `overflow：hidden` 和 `z-index` 来避免这个问题。
 
 ![A typical modal where the parent component overrides the height and width](https://cdn-images-1.medium.com/max/2000/1*YHOfHKctYUVbUkZP7JtMSw.png)
 
-The above code example will result in rendering the modal inside the nested components under the root. When you inspect the application using your browser, it will display the elements, as shown below.
+上面的代码示例将导致模态框在 `root` 下的嵌套组件内部渲染。当使用浏览器检查元素时，如下所示。
 
 ![Modal rendered without React Portal.](https://cdn-images-1.medium.com/max/2000/1*ZXYIAy1ab0hCnGIg_CAfpw.png)
 
-Let's see how React Portal can be used here. The following code will resolve this issue using the **createPortal()** to create a DOM node outside of the **root** tree hierarchy.
+接下来，让我们看看 React Portal 是如何被使用的。下面的代码使用 **createPortal()** 在 **root** 树层次结构之外创建 DOM 节点来解决此问题。
 
 ```jsx
-const Modal =({ message, isOpen, onClose, children })=> {
+const Modal = ({ message, isOpen, onClose, children }) => {
   if (!isOpen) return null;
   return ReactDOM.createPortal(
-     <div className="modal">
+    <div className="modal">
       <span>{message}</span>
       <button onClick={onClose}>Close</button>
-     </div>
-    ,document.body);
-  }
+    </div>,
+    document.body
+  );
+};
 
 function Component() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   return (
     <div className="component">
       <button onClick={() => setOpen(true)}>Open Modal</button>
-      <Modal 
-       message="Hello World!" 
-       isOpen={open} 
-       onClose={() => setOpen(false)}
+      <Modal
+        message="Hello World!"
+        isOpen={open}
+        onClose={() => setOpen(false)}
       />
     </div>
-  )
+  );
 }
 ```
 
-Shown below is the DOM tree hierarchy, which will be resulted when using React Portals, where the modal will be injected outside of the **root,** and it will be at the same level as the **root**.
+下面显示的是 DOM 树层次结构，这是在使用 React Portal 时得到的，其中模态框组件将被注入 **root** 之外，并且与 **root** 处于同一层级。
 
 ![Modal rendered with React Portal](https://cdn-images-1.medium.com/max/2000/1*xR30uJTAiBlGwAp6cmLKEg.png)
 
-Since this modal is rendered outside of the root hierarchy, its dimensions would not be inherited or altered by the parent components.
+由于这个模态框是在根层次结构之外渲染的，因此模态框的大小不会因为继承父级组件而被更改。
 
 ![A model rendered as a Portal](https://cdn-images-1.medium.com/max/2000/1*xdXdvfFul8rrk4Ra1SzTEg.png)
 
-You can find this example through this [CodeSandbox](https://codesandbox.io/s/react-portals-l0sy5), where you can play around with the code, see how the portal works, and address the issues being discussed.
+你可在 [CodeSandbox](https://codesandbox.io/s/react-portals-l0sy5) 中找到这个例子，你可以在其中查看并修改代码以查看门户的工作方式，并解决我们讨论的问题。
 
-## Things to consider when using Portals
+## 什么时候使用 Portal 呢
 
-When using React Portals, there are several areas you should be mindful of. These behaviors are not visible directly unless you get to know them. Therefore I thought of mentioning them here.
+使用 React Portal 时，你应该注意几个方面。除非你了解 React Portal，否则下面这些行为不容易被察觉。因此，在这里提及。
 
-* **Event Bubbling will work as usual** — Event bubbling will work as expected by propagating events to the React tree ancestors, regardless of the Portal node location in the DOM.
-* **React has control over Portal nodes and its lifecycle** — When rendering child elements through Portals, React still has control over their lifecycle.
-* **Portals only affect the DOM structure** — Portals only affect the HTML DOM structure and not impact the React components tree.
-* **Predefine HTML mount point** — When using Portals, you need to define an HTML DOM element as the Portal component’s mount point.
+- **事件冒泡会正常工作** —— 通过将事件传播到 React 树的祖先，事件冒泡将按预期工作，而与 DOM 中的 Portal 节点位置无关。
+- **React 可以控制 Portal 节点及其生命周期** — 当通过 Portal 渲染子元素时，React 仍然可以控制它们的生命周期。
+- **React Portal 只影响 DOM 结构** —— Portal 只会影响 HTML DOM 结构，而不会影响 React 组件树。
+- **预定义的 HTML 挂载点** —— 使用 React Portal 时，你需要提前定义一个 HTML DOM 元素作为 Portal 组件的挂载。
 
-## Conclusion
+## 结论
 
-React Portal comes in handy when we need to render child components outside the normal DOM hierarchy without breaking the event propagation's default behavior through the React component tree hierarchy. This is useful when rendering components such as modals, tooltips, popup messages, and so much more.
+在我们需要在正常 DOM 层次结构之外呈现子组件而又不通过 React 组件树层次结构破坏事件传播的默认行为时，React Portal（传送门）会派上用场。比如在渲染模态框，工具提示，弹出消息之类的组件时，这很有用。
 
-You can find more information on Portals in the [React official documentation](https://reactjs.org/docs/portals.html).
+你可以在 [React 官方文档](https://reactjs.org/docs/portals.html)中找到更多关于 Portal 的描述。
 
-Thank you for taking the time to read this. I would like to see your questions and comments on this topic in the comments section below.
+感谢你抽出时间来阅读本文。我想在下面的评论部分中能看到你对这个主题的问题和评论。
 
 ---
 
-Cheers!
+干杯！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

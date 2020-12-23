@@ -1,3 +1,14 @@
+* [5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库](https://juejin.cn/post/6899674625325105159)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)（[zenblo](https://github.com/zenblo) 翻译）
+* [给初学者的示例：什么是 WSGI？](https://juejin.cn/post/6896716356054417416)（[JalanJiang](https://github.com/JalanJiang) 翻译）
+* [Github Actions 工作流的创建与跟踪](https://juejin.cn/post/6892248874669309965)（[zenblo](https://github.com/zenblo) 翻译）
+* [Deno 已经死了吗？](https://juejin.cn/post/6899332861414146055)（[Inchill](https://github.com/Inchill) 翻译）
+* [Python List 使用注意事项](https://juejin.cn/post/6886633614717485070)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [Golang 切片综合指南](https://juejin.cn/post/6883398632071462919)（[JalanJiang](https://github.com/JalanJiang) 翻译）
+* [通过“四不要”掌握 Python 中的 Lambda 函数](https://juejin.cn/post/6883389756269395975)（[loststar](https://github.com/loststar) 翻译）
+* [Python logging 使用指南](https://juejin.im/post/6881981250203353095)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [使用 Shpinx 为 Python 项目自动生成文档](https://juejin.cn/post/6882904677373968397)（[actini](https://github.com/actini) 翻译）
 * [Python 的优化 — 驻留机制](https://juejin.im/post/6875879902902485005)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [利用映射提高 MongoDB 性能](https://juejin.im/post/6881503834737213454)（[onlinelei](https://github.com/onlinelei) 翻译）
 * [Python：使用 locals() 和 globals() 巧妙编程](https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md)（[actini](https://github.com/actini) 翻译）

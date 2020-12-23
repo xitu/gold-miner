@@ -1,3 +1,4 @@
+* [在 Swift 中玩转 emoji](https://juejin.cn/post/6887739774254841863)（[lcx-seima](https://github.com/lcx-seima) 翻译）
 * [学习 SwiftUI 框架中 Text 和 Label 控件的用法（iOS 14）](https://juejin.im/post/6881526224934420488)（[chaingangway](https://github.com/chaingangway) 翻译）
 * [在 Swift 使用 User Defaults 的小技巧](https://juejin.im/post/5f0d09605188252e937bef4b)（[chaingangway](https://github.com/chaingangway) 翻译）
 * [Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)（[chaingangway](https://github.com/chaingangway) 翻译）
