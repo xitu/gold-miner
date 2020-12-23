@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：[samyu2000](https://github.com/samyu2000)
+> - 校对者：[samyu2000](https://github.com/samyu2000) [lsvih](https://github.com/lsvih)
 
 # 2021 年 Web 开发者应该掌握的 15 个 VSCode 扩展
 
@@ -31,7 +31,8 @@ Visual Studio Code 在开发人员中已经迅速流行起来，在 [Stack Overf
 
 ## Wallaby.js
 
-Wallaby.js 是一个智能的 JavaScript 测试运行器，可以连续运行你的测试。当你更改代码时(甚至不保存文件)，它将代码覆盖率和其他结果直接报告给你的代码编辑器。
+Wallaby.js 是一个智能的 JavaScript 测试运行器，可以持续运行你的测试。当你更改代码（甚至还没有保存文件）时，它就会将代码覆盖率和其他测试结果直接报告给你的代码编辑器。
+
 这个扩展有助于提高你的开发效率。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode)了解详情。
 
 ---
@@ -60,7 +61,8 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Path Intellisense
 
-如果你使用 React 或 Angular 这样的 JavaScript 库进行大型项目的开发，你就能感受到在导入时找到组件的确切路径是件多么令人厌烦的事。这个扩展可以帮助你自动完成路径的导入。
+如果你使用 React 或 Angular 这样的 JavaScript 库进行大型项目的开发，你就能感受到在导入组件时去找组件的具体路径是件多么令人厌烦的事。这个扩展可以帮助你在导入时自动补全组件的路径。
+
 它还可以帮助你自动完成 HTML 文件中的文件引用。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)了解详情。
 
 ---
@@ -89,9 +91,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## JavaScript (ES6) Code Snippets
 
-如果你是一名 JavaScript 开发人员，它可以为你节省大量时间。它能帮助你快速构建新项目。由于它为 JavaScript 函数提供了很多预定义的片段，所以你不需要手动输入所有代码。
+如果你是一名 JavaScript 开发人员，它能帮助你快速构建新项目并节省大量时间。由于它为许多通用的 JavaScript 函数提供了预定义的代码片段，所以你再不需要手动输入所有代码。
 
-对 TypeScript，React，Vue 和 HTML 都提供支持。如果你使用 React，有一个类似的扩展（ES7 React/Redux/GraphQL/React-Native snippets）。
+这个插件对对 TypeScript，React，Vue 和 HTML 都提供支持。如果你使用 React，还有一个类似的扩展（ES7 React/Redux/GraphQL/React-Native snippets）可以使用。
 
 这里是它们的链接：[JS snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)，[React Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)。
 
@@ -101,9 +103,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Live Share
 
-当你与团队成员共同解决一个问题，并希望在编辑器上共同处理相同的代码时，这个扩展可以帮助你把代码编辑器的控制权交给团队的其他成员，同时你仍然可以进行相关操作。
+当你与团队成员共同解决一个问题，并希望在编辑器上一起处理同一段代码时，这个扩展可以帮助你把代码编辑器的控制权交给团队的其他成员，同时你仍然可以进行操作。
 
-您还可以共享终端实例、本地主机 web 应用程序、语音呼叫等等。这个扩展由微软提供。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)了解详情。
+你还可以共享终端实例、本地主机 web 应用程序、语音呼叫等等。这个扩展由微软提供。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)了解详情。
 
 ---
 
@@ -111,9 +113,9 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## ESLint
 
-由于 JavaScript 是一种高度灵活的语言，一些小错误可能导致大问题。因此，在处理庞大的代码库时，我们需要一个 linter 和一个 formatter。这个扩展可以帮助你完成此项工作。它可以自动对你的代码进行某种格式的编排，还能发现代码里的错误。
+由于 JavaScript 是一种高度灵活的语言，一些小错误可能导致大问题。因此，在处理庞大的代码库时，我们需要一个 linter 和一个 formatter。这个扩展可以帮助你完成此项工作。它可以自动对你的代码进行格式化，还能发现代码里的错误。
 
-遵循 ESLint 规则会让你离建立良好规范的代码库更近一步。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)了解详情。
+遵循 ESLint 规则会让你的代码离良好的规范更近一步。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)了解详情。
 
 ---
 
@@ -121,7 +123,7 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Paste JSON as Code
 
-作为开发人员，你经常要处理接口。我们都知道 APIs 中最常用的数据结构是 JSON。为了避免一些可能造成应用程序崩溃的类型错误，我们需要定义类或接口。这个扩展可以用 JSON 数据生成一个类。
+作为开发人员，你经常要处理接口。我们都知道 API 中最常用的数据结构是 JSON。为了避免一些可能造成应用程序崩溃的类型错误，我们需要定义类或接口。这个扩展可以根据 JSON 数据生成一个类。
 
 因此，我们可以使用它一键生成类，而不必手动编写类代码，因而节省了时间。这个扩展支持大多数流行的语言。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)了解详情。
 
@@ -141,7 +143,7 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Better Comments
 
-这个扩展可以帮助你在代码中创建更人性化的注释。它允许您为不同类型的注释提供不同的颜色代码，它们可能是待办事项、高亮显示、警报和其他类型的注释。
+这个扩展可以帮助你在代码中创建更人性化的注释。它可以让你为不同类型的注释（比如待办事项、高亮显示、警报等）设定不同的颜色代码。
 
 强烈建议编写通常遵循的干净且文档化的代码。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)了解详情。
 
@@ -161,7 +163,7 @@ TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaS
 
 ## Rest Client
 
-作为开发人员，我们每天都会使用 Postman 来检测来自 API 的响应。这个扩展可以让你直接在 VSCode 中发出 HTTP 请求并查看响应，而不是在两个应用程序之间切换。
+作为开发人员，我们每天都会使用 Postman 来检测来自 API 的响应。这个扩展可以让你直接在 VSCode 中发出 HTTP 请求并查看响应，而无需在两个应用程序之间切换。
 
 你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)了解详情。
 
