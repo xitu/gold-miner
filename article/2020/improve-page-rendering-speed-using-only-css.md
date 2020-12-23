@@ -9,21 +9,21 @@
 
 ![Image by [Arek Socha](https://pixabay.com/users/qimono-1962238/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153)](https://cdn-images-1.medium.com/max/2560/1*o38gRq5SvLMtgjMMo5Ph7A.jpeg)
 
-用户喜欢流畅的 Web 应用体验。他们希望页面可以快速加载并且平稳运行。如果用户在浏览网站过程中出现断断续续的动画或延迟，那么他们极有可能离开该网站。作为开发人员，我们可以在改善用户体验上做很多事情。本文将重点介绍4个 CSS 技巧，你可以通过使用这些技巧来提升页面渲染速度。
+用户喜欢流畅的 Web 应用体验。他们希望页面可以快速加载并且平稳运行。如果用户在浏览网站过程中出现断断续续的动画或延迟，那么他们极有可能离开该网站。作为开发人员，你可以在改善用户体验上做很多事情。本文将重点介绍4个可以提升页面渲染速度的 CSS 技巧。
 
 ## 1. Content-visibility
 
 一般来说，大多数 Web 应用都有复杂的 UI 元素，其关联的内容超出了用户在浏览器视图中的可视范围。这种情况下，我们可以设置 `content-visibility` 属性来跳过对屏幕以外内容的渲染。如果有大量屏幕以外内容，这将大大减少页面渲染时间。
 
-这是最新添加的特性之一，它是提高渲染性能最具影响力的特性之一。当 `content-visibility` 接收多个值时，我们可以在一个元素上使用  `content-visibility: auto;` 立即获得性能提升。
+这是最新添加的特性之一，它是提高渲染性能最具影响力的特性之一。 `content-visibility` 接收多个值，我们可以在一个元素上使用  `content-visibility: auto;` 立即获得性能提升。
 
-让我们观察下面这个页面，它包含了多个不同信息的卡片。大约12张卡片适配屏幕，但列表中大约有375张卡片。如你所见，浏览器用了 1037ms 来加载这个页面。
+让我们观察下面这个页面，它包含了多个不同信息的卡片。虽然屏幕可以显示大约 12 张卡片，但列表中大约有375张卡片。如你所见，浏览器用了 1037ms 来加载这个页面。
 
 ![Regular HTML page](https://cdn-images-1.medium.com/max/2256/1*8IqnZPmf3Gmw65XnMmQ6YQ.png)
 
 接下来，你可以给所有卡片添加 `content-visibility` 属性。
 
-> 在这个例子中，在页面添加了 `content-visibility` 后，渲染时间下降到了150ms。有了 **6倍多** 的性能提升。
+> 在这个例子中，在页面添加了 `content-visibility` 后，渲染时间下降到了150ms。性能提升了 **6倍多**。
 
 ![With content-visibility](https://cdn-images-1.medium.com/max/2402/1*zL8hg1aj4ztMVDHe_W7BLQ.png)
 
@@ -31,16 +31,16 @@
 
 #### content-visibility 的局限性
 
-然而, content-visibility 也有其不适合使用的场景。我想强调两点，请大家考虑。
+然而, content-visibility 也有其不适合使用的场景。我想强调两点供你考虑。
 
 * **该特性仍处于实验阶段** 
 到目前为止，火狐(PC 和安卓版本)，IE(我不认为他们计划把这个特性添加到 IE 中)和 Safari (Mac 和 iOS)都不支持 content-visibility 属性。
 * **滚动条相关的异常问题**. 
-因为页面元素最初呈现的高度是 0px，所以当向下滚动时，这些元素就会出现在屏幕上。实际内容将被渲染，元素的高度也将相应地更新。这将使滚动条会存在异常表现。
+因为页面元素最初呈现的高度是 0px，所以当向下滚动时，这些元素就会出现在屏幕上。实际内容将被渲染，元素的高度也将相应地更新。这将使滚动条出现异常行为。
 
 ![Scroll behavior with content-visibility](https://cdn-images-1.medium.com/max/2000/1*_PZdobRzoAhQkqG-Kq5B3A.gif)
 
-为了解决滚动条的问题，你可以使用另一个 CSS 属性 `container-intrinsic-size`。它可以指定一个元素的自然大小。因此元素将以指定的高度呈现，而不是以0px呈现。
+为了解决滚动条的问题，你可以使用另一个 CSS 属性 `container-intrinsic-size`。它可以指定一个元素的自然大小。因此元素将以指定的高度呈现，而不是以 0px。
 
 ```css
 .element{
@@ -51,7 +51,7 @@
 
 然而，在实践过程中，我发现即使使用 `container-intrinsic-size`，如果有大量的元素将 `content-visibility` 设置为 `auto` ，依然会有小范围的滚动条问题。
 
-因此，我的建议是规划好页面布局，将其分解为多个模块，然后在这些模块上使用  content-visibility，从而使得滚动条表现正常。
+因此，我的建议是规划好页面布局，将其分解为多个模块，然后在这些模块上使用  content-visibility，从而使得滚动条行为正常。
 
 ## 2. Will-change 属性
 
