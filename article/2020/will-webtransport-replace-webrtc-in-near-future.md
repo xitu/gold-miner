@@ -9,19 +9,19 @@
 
 ![Photo by [Gabriel Benois](https://unsplash.com/@gabrielbenois) on [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/2000/0*4MaUNhpUTKLuBX14)
 
-目前，在网络上进行视频和音频会议已经很流行了。在过去，音视频会议往往需要一个中间服务器在双方之间进行数据传输。由于该传输过程缓慢且画质粗糙，所以有许多创新来改进其底层技术，以解决音视频传输的局限性。
+目前，在网络上进行视频和音频会议已经很流行了。在过去，音视频会议往往需要一个中间服务器在双方之间进行数据传输。由于该传输过程缓慢且画质粗糙，所以出现过许多创新来改进其底层技术，以解决音视频传输的局限性。
 
 ![Diagram by the author: The basic architecture of the WebSockets](https://cdn-images-1.medium.com/max/2000/1*UZMYYV48pGhgjkcEh0lPNg.png)
 
-从2010年开始，谷歌的工程师引入了 WebRTC 来解决这些问题。今天，我们在很多地方都使用它。
+从 2010 年开始，谷歌的工程师引入了 WebRTC 来解决这些问题。今天，我们在很多地方都使用它。
 
 ## WebRTC 简介
 
-WebRTC，即 Web 实时通信，它是一种允许浏览器之间直接进行通信的协议（API 集合）。这些 API 支持交换文件、信息或任何数据。听起来像 WebSockets。但是，事实并非如此。
+WebRTC，即 Web 实时通信，是一种允许浏览器之间直接进行通信的协议（API 集合）。这些 API 支持文件、信息或任何数据的传输。听起来像 WebSockets。但是，事实并非如此。
 
 ![Diagram by the author: The basic architecture of WebRTC](https://cdn-images-1.medium.com/max/2140/1*ZtTqRURkQA2nqRgrrCjwTg.png)
 
-像我们提到的，通信是发生在浏览器之间，它不需要服务器的直接参与。然而，服务器在开始时需要便捷地共享彼此的 IP 地址。尽管如此，它还是比经过服务器进行通信快的多。
+像我们提到的，通信是发生在浏览器之间，它不需要服务器的直接参与。然而，服务器需要在初始阶段借助浏览器获取对端的 IP 地址。尽管如此，它还是比经过服务器进行通信快的多。
 
 接下来你可能会好奇，为什么我们需要一个新的协议？那是因为随着时间的流逝和技术的不断发展，我们逐渐发现 WebRTC 传输方式的一些局限性。
 
@@ -35,7 +35,7 @@ WebRTC，即 Web 实时通信，它是一种允许浏览器之间直接进行通
 
 > 不要混淆 TCP 和 HTTP HOL。这是两个不同的问题。在这里只有 TCP HOL 会造成 WebRTC 传输问题。
 
-由于 WebRTC 是建立在 HTTP/2 协议之上，所以这个问题可能发生在任何场景，如文件传输，视频会议。
+由于 WebRTC 是建立在 HTTP/2 协议之上，所以任何场景都可能会触发这个问题，如文件传输，视频会议。
 
 #### WebRTC 必须由客户端发起连接
 
@@ -51,7 +51,7 @@ WebTransport 是一个可插拔的客户端-服务器通信协议，基于 HTTP/
 
 > 你可以将它看作 WebRTC，但针对 80/20 规则进行了优化。
 
-> QUIC 是一种 web API，它在双向的非 HTTP 传输中使用 QUIC 协议，通过 UDP 提供服务，类似于一个独立的 TCP ，极大地减少了 TCP 建立连接所带来的延迟。主要功能是使用 steam api 在 web 客户端和 QUIC 服务器之间进行双向通信。
+> QUIC 是一种 web API，它在双向的非 HTTP 传输中使用 QUIC 协议，通过 UDP 提供服务，类似于一个独立的 TCP，极大地减少了 TCP 建立连接所带来的延迟。主要功能是使用 steam api 在 web 客户端和 QUIC 服务器之间进行双向通信。
 
 此外，WebTransport 还支持多数据流、单向数据流、无序传输、可靠和不可靠传输。
 
@@ -67,7 +67,7 @@ WebTransport 是一个接口，它可以与基于 HTTP/2、HTTP/3 和 QUIC 的�
 
 WebTransport 支持单向流(单向无限长的字节流)、双向流(全双工流)和数据报文(小的/无序的/不可靠的消息)。因此，WebTransport 有一些关键的用法：
 
-* WebTransport 可以通过 HTTP 协议请求和接收数据 **可靠** **不可靠**(可靠和不可靠)，它们都是经过通过相同的网络连接。
+* WebTransport 可以通过 HTTP 协议请求和接收数据 **可靠** **不可靠**(可靠的或不可靠的)，它们都是经过通过相同的网络连接。
 * WebTransport 可以使用 QUIC 协议单向发送流发送数据(可靠和不可靠)到服务器。
 * WebTransport 可以使用单向接收流从服务器进行数据推送。
 
@@ -75,11 +75,11 @@ WebTransport 支持单向流(单向无限长的字节流)、双向流(全双工�
 
 ## 结论
 
-在我看来，WebRTC 已经做得很好了，人们使用它已经很长一段时间了。很明显，随着技术世界的不断变化，在某些情况下，甚至毫秒级的延迟也很重要。正如我们所提到的，像游戏这样的行业使用 WebTransport 将获得显著的优势。
+在我看来，WebRTC 已经做得很好了，人们使用它已经很长一段时间了。很明显，随着技术世界的不断变化，在某些情况下，甚至毫秒级的延迟也很重要。正如我们所提到的，像游戏这样的行业使用 WebTransport 将获得显著的收益。
 
 > 基于 WebSocket 的 WebRTC 已经不是最快的方法了。
 
-在这种情况下，强大的 WebTransport 将解决基于 WebRTC 的 Web 套接字的问题。考虑到所有这些优点，我相信 WebTransport 将取代 WebRTC。只不过人们需要一段时间来适应它。
+在这种情况下，强大的 WebTransport 将解决基于 WebRTC 的 WebSocket 问题。考虑到所有这些优点，我相信 WebTransport 将取代 WebRTC。只不过人们需要一段时间来适应它。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
