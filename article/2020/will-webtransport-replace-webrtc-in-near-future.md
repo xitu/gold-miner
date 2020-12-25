@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/will-webtransport-replace-webrtc-in-near-future.md](https://github.com/xitu/gold-miner/blob/master/article/2020/will-webtransport-replace-webrtc-in-near-future.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)
 
 # WebTransport 会在不久的将来取代 WebRTC 吗？
 
@@ -47,7 +47,7 @@ WebRTC，即 Web 实时通信，是一种允许浏览器之间直接进行通信
 
 ## WebTransport 是什么?
 
-WebTransport 是一个可插拔的客户端-服务器通信协议，基于 HTTP/2、HTTP/3 和 QUIC 协议构建。其设计目的是取代 WebSockets 进而走向 “原生的 QUIC 协议”。
+WebTransport 是一个可插拔的客户端-服务器通信协议，基于 HTTP/2、HTTP/3 和 QUIC 协议构建。其设计目的是取代 WebSockets 进而走向“原生的 QUIC 协议”。
 
 > 你可以将它看作 WebRTC，但针对 80/20 规则进行了优化。
 
@@ -65,10 +65,10 @@ WebTransport 是一个接口，它可以与基于 HTTP/2、HTTP/3 和 QUIC 的�
 
 #### WebTransport 支持多种协议
 
-WebTransport 支持单向流(单向无限长的字节流)、双向流(全双工流)和数据报文(小的/无序的/不可靠的消息)。因此，WebTransport 有一些关键的用法：
+WebTransport 支持单向流 (单向无限长的字节流) 、双向流 (全双工流) 和数据报文 (小的/无序的/不可靠的消息) 。因此，WebTransport 有一些关键的用法：
 
-* WebTransport 可以通过 HTTP 协议请求和接收数据 **可靠** **不可靠**(可靠的或不可靠的)，它们都是经过通过相同的网络连接。
-* WebTransport 可以使用 QUIC 协议单向发送流发送数据(可靠和不可靠)到服务器。
+* WebTransport 可以通过 HTTP 协议请求和接收数据 **可靠** **不可靠** (可靠的或不可靠的) ，它们都是经过通过相同的网络连接。
+* WebTransport 可以使用 QUIC 协议单向发送流发送数据 (可靠和不可靠) 到服务器。
 * WebTransport 可以使用单向接收流从服务器进行数据推送。
 
 所以在游戏行业中，WebTransport 将起到重要作用，因为它能够以最小的延迟接收来自服务器的数据推送。
