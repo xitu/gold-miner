@@ -3,23 +3,23 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md](https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md)
 > - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
-> - 校对者：[regon-cao](https://github.com/regon-cao)、[司徒公子](https://github.com/stuchilde)
+> - 校对者：
 
 # 爱 GraphQL 胜过 REST
 
 ![](https://cdn-images-1.medium.com/max/2240/1*ZxDw0j3ANBxpatoCdNW8JQ.png)
 
-自从 Facebook 开源 GraphQL 以来，GraphQL 越来越受欢迎，直到今天它已经是几乎无处不在。到底是什么使它如此受欢迎？它与 REST 架构设计规范的区别是什么？它会完全地取代 REST API 吗？下面是我对 GraphQL 的一些思考。
+自从 Facebook 开源 GraphQL 以来，GraphQL 的受欢迎程度一直持续增长，直到今天它已经是几乎无处不在。到底是什么使它如此受欢迎？它与 REST 架构设计规范的区别是什么？它会完全地取代 REST API 吗？下面是我对 GraphQL 的一些思考。
 
-当我第一次学习 GraphQL 时，我对它一无所知。但是我意识到我将要学习的是一个与 Rest API 完全不同的东西。并且在学习 GraphQL 的过程中，甚至在开始学习 GraphQL 之前，我的脑袋里就已经蹦出了一些不切实际的想法，其中最大的一个是：
+当我第一次学习 GraphQL 时，我对它的认知为零。但是我意识到我将要学习的是一个与 Rest API 完全不同的东西。并且在学习 GraphQL 的过程中，甚至在开始学习 GraphQL 之前，我的脑袋里就已经蹦出了一些不切实际的想法，其中最大的一个是：
 
 **GraphQL 是一个独立存在的，没有使用我们熟悉的 REST API 内容。**
 
-这个想法有点不切实际和滑稽，但这正是 GraphQL 给从未接触过它的人显露出的样子。
+这一点与现实而有趣有点距离，但这就是从未接触过 GraphQL 并只是从表面看到它的人们所看到的样子。
 
 #### 那么 GraphQL 到底是什么？
 
-如果要用最简单的术语来定义 GraphQL，我会说它是一个**规范**，是使用我们现有的网络技术非常酷的一种方式。GraphQL queries 本质是一个链接到后端 API 的简单 HTTP POST 请求。是的，它被设计成用一个包含 GraphQL queries 的 HTTP POST 请求去和后端通信的方式工作，让我们通过快速构建 GraphQL 服务器来查看示例。
+如果要我现在用最简单的术语来定义它，我会说它是一个**规范**。是一种使用我们现有的网络技术非常酷的方式。GraphQL queries 本质是一个链接到后端 API 的简单 HTTP POST 请求。是的，它被设计成用一个包含 GraphQL queries 的 HTTP POST 请求去和后端通信的方式工作，让我们通过快速构建 GraphQL 服务器来查看示例
 
 为了简单起见，我将使用 `Nodejs` 构建。因为 GraphQL 本身就有一个运行上下文，所以构建 API 所用的语言无关紧要。让我们快速安装依赖项：
 
@@ -68,9 +68,9 @@ server
 
 是的，如果您曾经接触过 GraphQL 训练场 就知道到我上面所说的是完全正确的。一个 GraphQL 客户端（包括 GraphQL 训练场）使用与上面类似的主体向指定的 API 端点/通道发送 POST 请求。GraphQL 运行上下文能够知道如何处理请求，因为它对将要获取和返回的数据的 `schema` 有感知。
 
-但是，当您想要返回类型定义中未指定值时，这通常会导致意想不到的行为，GraphQL 会自动地尝试对值进行类型转换，并在不起作用时崩溃。
+但是，当您想要返回类型定义中未指定值时，这通常会导致意外行为，GraphQL 会自动地尝试对值进行类型转换，如果无效则将其摧毁。
 
-> 快速说明 —— 对 GraphQL API 的每个请求都会被归类为查询，包括变更，订阅和查询（如果您知道它们是什么）。
+> 快速说明 —— 对 GraphQL API 的每个请求都会被归类为查询，包括 变更，订阅和查询（如果您知道它们是什么）。
 
 #### Schema 是 GraphQL 如此强大的唯一原因吗？
 
@@ -118,7 +118,7 @@ server
 
 对于小型应用，这个效果可能不会太明显。但是对于大型的应用来说，您总会想要一个最优的解决方案。仅查询需要的字段这个想法本身就非常厉害，因此这个想法一直都是传统 REST 架构中的一部分，并且为检索某些特定数据的解决方案指明了道路。这对于小型应用程序甚至在理论上都没有问题，但是随着应用程序大小的增加（比如 Facebook），数据传输的连接线会变得越来越复杂，最终您将不得不重新设计整个系统去使用 GraphQL 之类的解决方案，或者最终将导致重新写一个 GraphQL。
 
-GraphQL 还附带了许多很酷的功能（比如“订阅”），如果有机会我会写一篇文章谈一谈 GraphQL 是否比传统的 REST API 更好。
+而且 GraphQL 附带（还有“订阅”之类的东西）还有很多很酷的东西，如果有机会我会写一篇文章谈一谈 GraphQL 是否比传统的 REST API 更好。
 
 #### GraphQL 是否真的是更好的 REST，并将完全取代它？
 
