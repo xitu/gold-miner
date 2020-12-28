@@ -23,7 +23,7 @@
 
 接下来，你可以给所有卡片添加 `content-visibility` 属性。
 
-> 在这个例子中，在页面添加了 `content-visibility` 后，渲染时间下降到了150ms。性能提升了 **6倍多**。
+> 在这个例子中，在页面添加了 `content-visibility` 后，渲染时间下降到了 150ms。性能提升了 **6 倍多**。
 
 ![With content-visibility](https://cdn-images-1.medium.com/max/2402/1*zL8hg1aj4ztMVDHe_W7BLQ.png)
 
