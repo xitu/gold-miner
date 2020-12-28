@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/avoiding-memory-leaks-in-nodejs-best-practices-for-performance.md](https://github.com/xitu/gold-miner/blob/master/article/2020/avoiding-memory-leaks-in-nodejs-best-practices-for-performance.md)
 > * 译者： [laampui](https://github.com/laampui)
-> * 校对者：
+> * 校对者： [Usualminds](https://github.com/Usualminds), [regon-cao](https://github.com/regon-cao)
 
 # 在 Node.js 中避免内存泄漏：性能最佳实践
 
