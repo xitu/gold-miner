@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md](https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md)
 > - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
-> - 校对者：
+> - 校对者：[regon-cao](https://github.com/regon-cao)
 
 # 爱 GraphQL 胜过 REST
 
@@ -15,11 +15,11 @@
 
 **GraphQL 是一个独立存在的，没有使用我们熟悉的 REST API 内容。**
 
-这一点与现实而有趣有点距离，但这就是从未接触过 GraphQL 并只是从表面看到它的人们所看到的样子。
+这个想法有点不切实际和滑稽，但这正是 GraphQL 给从未接触过它的人显露出的样子。
 
 #### 那么 GraphQL 到底是什么？
 
-如果要我现在用最简单的术语来定义它，我会说它是一个**规范**。是一种使用我们现有的网络技术非常酷的方式。GraphQL queries 本质是一个链接到后端 API 的简单 HTTP POST 请求。是的，它被设计成用一个包含 GraphQL queries 的 HTTP POST 请求去和后端通信的方式工作，让我们通过快速构建 GraphQL 服务器来查看示例
+如果要用最简单的术语来定义 GraphQL，我会说它是一个**规范**，是使用我们现有的网络技术非常酷的一种方式。GraphQL queries 本质是一个链接到后端 API 的简单 HTTP POST 请求。是的，它被设计成用一个包含 GraphQL queries 的 HTTP POST 请求去和后端通信的方式工作，让我们通过快速构建 GraphQL 服务器来查看示例
 
 为了简单起见，我将使用 `Nodejs` 构建。因为 GraphQL 本身就有一个运行上下文，所以构建 API 所用的语言无关紧要。让我们快速安装依赖项：
 
@@ -118,7 +118,7 @@ server
 
 对于小型应用，这个效果可能不会太明显。但是对于大型的应用来说，您总会想要一个最优的解决方案。仅查询需要的字段这个想法本身就非常厉害，因此这个想法一直都是传统 REST 架构中的一部分，并且为检索某些特定数据的解决方案指明了道路。这对于小型应用程序甚至在理论上都没有问题，但是随着应用程序大小的增加（比如 Facebook），数据传输的连接线会变得越来越复杂，最终您将不得不重新设计整个系统去使用 GraphQL 之类的解决方案，或者最终将导致重新写一个 GraphQL。
 
-而且 GraphQL 附带（还有“订阅”之类的东西）还有很多很酷的东西，如果有机会我会写一篇文章谈一谈 GraphQL 是否比传统的 REST API 更好。
+GraphQL 还附带了许多很酷的功能（比如“订阅”），如果有机会我会写一篇文章谈一谈 GraphQL 是否比传统的 REST API 更好。
 
 #### GraphQL 是否真的是更好的 REST，并将完全取代它？
 
