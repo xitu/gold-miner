@@ -31,7 +31,7 @@
 
 #### content-visibility 的局限性
 
-然而, content-visibility 也有其不适合使用的场景。我想强调两点供你考虑。
+然而，content-visibility 也有其不适合使用的场景。我想强调两点供你考虑。
 
 * **该特性仍处于实验阶段** 
 到目前为止，火狐(PC 和安卓版本)，IE(我不认为他们计划把这个特性添加到 IE 中)和 Safari (Mac 和 iOS)都不支持 content-visibility 属性。
