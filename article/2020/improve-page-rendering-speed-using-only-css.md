@@ -40,7 +40,7 @@
 
 ![Scroll behavior with content-visibility](https://cdn-images-1.medium.com/max/2000/1*_PZdobRzoAhQkqG-Kq5B3A.gif)
 
-为了解决滚动条的问题，你可以使用另一个 CSS 属性 `container-intrinsic-size`。它可以指定一个元素的自然大小。因此元素将以指定的高度呈现，而不是以 0px。
+为了解决滚动条的问题，你可以使用另一个 CSS 属性 `container-intrinsic-size`。它可以指定一个元素的原始大小。因此元素将以指定的高度渲染，而不是以 0px。
 
 ```css
 .element{
