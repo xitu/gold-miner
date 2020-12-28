@@ -49,7 +49,7 @@
 }
 ```
 
-然而，在实践过程中，我发现即使使用 `container-intrinsic-size`，如果有大量的元素将 `content-visibility` 设置为 `auto` ，依然会有小范围的滚动条问题。
+然而，在实践过程中，我发现如果有大量的元素将 `content-visibility` 设置为 `auto` ，即使使用 `container-intrinsic-size`，依然存在滚动条相关的小问题。
 
 因此，我的建议是规划好页面布局，将其分解为多个模块，然后在这些模块上使用  content-visibility，从而使得滚动条行为正常。
 
