@@ -9,7 +9,7 @@
 
 ![Image by [Arek Socha](https://pixabay.com/users/qimono-1962238/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1726153)](https://cdn-images-1.medium.com/max/2560/1*o38gRq5SvLMtgjMMo5Ph7A.jpeg)
 
-用户喜欢流畅的 Web 应用体验。他们希望页面可以快速加载并且平稳运行。如果用户在浏览网站过程中出现断断续续的动画或延迟，那么他们极有可能离开该网站。作为开发人员，你可以在改善用户体验上做很多事情。本文将重点介绍4个可以提升页面渲染速度的 CSS 技巧。
+用户喜欢流畅的 Web 应用体验。他们希望页面可以快速加载并且平稳运行。如果用户在浏览网站过程中出现断断续续的动画或延迟，那么他们极有可能离开该网站。作为开发人员，你可以在改善用户体验上做很多事情。本文将重点介绍 4 个可以提升页面渲染速度的 CSS 技巧。
 
 ## 1. Content-visibility
 
