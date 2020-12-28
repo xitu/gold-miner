@@ -78,7 +78,7 @@
 
 在浏览器中渲染以上代码片段时，它将识别出 `will-change` 属性，并在之后的渲染中优化与透明度相关的更改。
 
-> 根据 [Maximillian Laumeister](https://www.maxlaumeister.com/articles/css-will-change-property-a-performance-case-study/) 所做的性能基准测试，你可以看到，通过这一行修改，使得该元素获得了超过 120帧/秒 的渲染速度，最初大约是 50帧/秒。
+> 根据 [Maximillian Laumeister](https://www.maxlaumeister.com/articles/css-will-change-property-a-performance-case-study/) 所做的性能基准测试，你可以看到，通过这一行修改，使得该元素获得了超过 120 帧/秒的渲染速度，最初大约是 50 帧/秒。
 
 ![Without using will-change; Image by Maximilian](https://cdn-images-1.medium.com/max/2000/0*KP2Dz1t5MCjqapBm.png)
 
