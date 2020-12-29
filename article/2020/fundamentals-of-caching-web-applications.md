@@ -1,121 +1,121 @@
-> * 原文地址：[Fundamentals of Caching Web Applications](https://blog.bitsrc.io/fundamentals-of-caching-web-applications-a215c4333cbb)
-> * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/fundamentals-of-caching-web-applications.md](https://github.com/xitu/gold-miner/blob/master/article/2020/fundamentals-of-caching-web-applications.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Fundamentals of Caching Web Applications](https://blog.bitsrc.io/fundamentals-of-caching-web-applications-a215c4333cbb)
+> - 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/fundamentals-of-caching-web-applications.md](https://github.com/xitu/gold-miner/blob/master/article/2020/fundamentals-of-caching-web-applications.md)
+> - 译者：[regon-cao](https://github.com/regon-cao)
+> - 校对者：[Usualminds](https://github.com/Usualminds) [ZavierTang](https://github.com/ZavierTang)
 
-# Fundamentals of Caching Web Applications
+# Web 应用缓存的基础知识
 
 ![Photo by [Yuiizaa September](https://unsplash.com/@yuiizaa?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9458/0*0OwYJoWVEwP_rPjk)
 
-Web applications have come a long way from the early days. A typical web application development goes through several stages of design, development, and testing before it is ready for release. As soon as your web app gets released, it will be accessed by real-life users on a daily basis. If your web app becomes popular, it will be accessed by at least several million users on a daily basis. Although this sounds exciting, this would incur a lot of running costs.
+Web 应用至今已经走过了漫长的道路。典型的 web 应用开发要经过设计、开发和测试之后才能发布。一旦你的 web 应用程序发布，现实生活中的用户每天都会访问它。如果你的 web 应用变得流行起来，每天至少会有数百万用户访问它。虽然这听起来令人兴奋，但这将耗费大量的运行成本。
 
-Apart from cost, complex calculations and R/W operations can take time for completion. This means that your user should wait for the completion of the operation which can be a bad user experience if the wait becomes too long.
+除了运行成本，复杂的计算和读写操作都需要花费时间去完成。这意味着用户需要等待这些操作完成，如果等待时间过长，用户体验会很糟糕。
 
-System designers use several strategies to rectify these issues. **Caching** is one of them. Let’s have a better look at caching.
+系统设计人员使用几种方案来改善这些问题。**缓存** 是其中的方案之一。让我们来更好地了解一下缓存。
 
-## What is Caching in Web Applications?
+## Web 应用里的缓存是什么？
 
-A web cache is simply a component that is capable of storing HTTP responses temporarily which can be used for subsequent HTTP requests as long as certain conditions are met.
+web 缓存只是一个能够临时存储 HTTP 响应的机制，只要满足某些条件，就可以将其用于后续的 HTTP 请求。
 
-Web caching is a key design feature of the HTTP protocol intended to reduce network traffic while enhancing the presumed responsiveness of the system as a whole. Caches are found at every stage of the content journey from the original server to the browser.
+Web 缓存是 HTTP 协议的一个关键设计特性，目的是减少网络流量，同时提升整个系统的预期响应速度。缓存存在于从服务器到浏览器的每一个阶段。
 
-In simple terms, web caching enables you to reuse HTTP responses that have been stored in the cache, with HTTP requests of similar nature. Let’s think of a simple example where a user requests a certain type of product(books) from the server. Assume that this whole process takes around 670 milliseconds to complete. If the user, later in the day, does this same query, rather than doing the same computation again and spending 670 milliseconds, the HTTP response stored in the cache can be returned to the user. This will reduce the response time drastically. In real-life scenarios, this can come under 50 milliseconds.
+简单地说，在接收到类似性质的 HTTP 请求时，web 缓存能够复用存储在缓存中的 HTTP 响应。让我们思考一个简单的例子，用户从服务器请求某种类型的产品(书籍)。假设整个过程大约需要 670 毫秒。如果这个用户在当天晚些时候执行相同的查询，不会再次执行相同的计算并花费 670 毫秒，而是将存储在缓存中的 HTTP 响应直接返回给用户。这将大大减少响应时间。在现实场景中，这个响应时间可能不到 50 毫秒。
 
-## Advantages of Caching
+## 缓存的优点
 
-There are several advantages of caching from the perspective of the consumer and provider.
+从用户和开发者的角度来看，缓存有几个优点。
 
-#### Decreased Bandwith Costs
+#### 降低带宽成本
 
-As mentioned before, content can be cached at various points in the path of the HTTP request from the consumer to the server. When the content is cached closer to the user, it would result in the request traveling a lesser distance that would lead to a reduction of bandwidth costs.
+如前所述，客户端到服务端的 HTTP 请求路径的各个点都可以缓存内容。内容缓存离客户越近，传输距离就越短，带宽消耗就越少。
 
-#### Improved Responsiveness
+#### 提升响应速度
 
-Since the caches are maintained closer to the user, this removes the need for a full round trip to the server. The closer the cache, the more instantaneous the response would be. This would directly have a positive impact on user experience.
+由于缓存维护在离用户更近的地方，因此不需要往返于服务器之间。缓存越近，响应就越快。这对提升用户体验有显著的效果。
 
-#### Increased Performance on the Same Hardware
+#### 提高了在同一硬件上的性能
 
-Due to the similar requests being catered by the cache, your server hardware can focus on requests which need the processing power. Aggressive caching can further increase this performance enhancement.
+由于缓存为类似的请求提供了服务，服务器硬件可以专注于其他需要处理能力的请求。主动缓存可以进一步提升这种性能。
 
-#### Content Availability Even During Network Failures
+#### 网络故障内容依然可访问
 
-When certain cache policies are used, content can be served to end users from the cache for a short period of time, in the event of a server failure. This can be very helpful as it allows consumers to perform basic tasks without the failure of the origin server affecting them.
+当使用某些缓存策略时，在服务器发生故障的情况下，可以在短时间内将内容从缓存提供给终端用户。这可能非常有用，因为它允许用户执行基本任务，而不会受到源服务器故障的影响。
 
-## Disadvantages of Caching
+## 缓存的缺点
 
-Similar to the advantages, there are several disadvantages to caching as well.
+与优点类似，缓存也有几个缺点。
 
-#### The Cache is Deleted During Server Restart
+#### 服务器重新启动时缓存会被删除
 
-Whenever your server is restarted, your cache data gets deleted as well. This is because cache is volatile and is lost when power is lost. But you can maintain policies where you write the cache to your disk at regular intervals to persist the cached data even during server restart.
+只要重新启动服务器，缓存数据也会被删除。这是因为缓存是不稳定的，当电源断掉时就会丢失。但是你可以维护策略，即你可以定期将缓存写入磁盘，以便在服务器重新启动期间持久化缓存的数据。
 
-#### Serving Stale Data
+#### 提供过期的数据
 
-One of the main issues of caching is serving stale data. Stale data is data that is not updated and contains a previous version of the data. If you’ve cached a query of products, but in the meantime, the product manager has deleted four products, the users will get listings to products that don’t exist. This can be complicated to identify and fix.
+缓存的主要问题之一是提供过期的数据。过期数据是指未更新且包含以前版本的数据。如果缓存了一个产品查询，但同时产品管理员删除了四个产品，用户将获得不存在的产品清单。这个问题很难识别和解决。
 
-## Where Can You Cache?
+## 缓存的应用场景
 
-As previously mentioned, content can be cached at various locations in the path of the request.
+如前所述，内容可以缓存在请求路径中的不同位置。
 
-#### Browser Cache
+#### 浏览器缓存
 
-Web browsers retain a small cache of their own. Usually, the browser sets the policy that determines the most important items to cache. This could be user-specific content or content that is perceived to be costly to download and likely to be recovered. To disable the caching of a resource, you can set the response header as below.
+Web 浏览器自身保留了一个小型缓存。通常，浏览器会通过设置策略来缓存最重要的内容。这可能是特定于用户的内容，或者下载成本较高且很可能被重新使用的内容。若要禁用资源的缓存，可以设置如下的响应头。
 
 ```
 Cache-Control: no-store
 ```
 
-#### Intermediary Caching Proxies
+#### 第三方缓存代理
 
-Any server that lies between the consumer device and your server infrastructure can cache content as desired. These caches may be maintained by ISPs or other independent parties.
+位于用户设备和服务器基础设施之间的任何服务器都可以根据需要缓存内容。这些缓存可能由 ISPs 或其他独立机构维护。
 
-#### Reverse Cache
+#### 反转缓存
 
-You can implement your own cache infrastructure in your backend services. In this approach, content can be served from the point of external contact, without proceeding through to your backend servers. You can use services like Redis, Memcache to achieve this.
+你可以在后端服务中实现自己的缓存基础设施。使用这种方法可以从外部连接点提供内容，而不需要经过后端服务器。你可以使用 Redis、Memcache 这样的服务来实现。
 
-Read more about the `Cache-Control` header over [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#Controlling%20caching).
+在[这里](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#Controlling%20caching)阅读更多的关于 `Cache-Control` 的知识。
 
 ![Source: [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching)](https://cdn-images-1.medium.com/max/2000/0*QaYpasQXpfIKwiTV.png)
 
-## What Can Be Cached?
+## 能缓存什么？
 
-All types of content are cacheable. Just because they are cacheable, does not mean that they should be cached.
+所有类型的内容都可以缓存。可以缓存并不意味着应该被缓存。
 
-#### Cache Friendly
+#### 应该缓存
 
-The below content are more cache-friendly as they do not change frequently and therefore can be cached for longer periods.
+下面的内容应该缓存，因为它们不经常变化，因此可以缓存更长的时间。
 
-* Media Content
-* JavaScript libraries
-* Style sheets
-* Images, Logos, Icons
+- 媒介内容
+- JavaScript 库
+- 样式表
+- 图片、Logo、图标
 
-#### Moderately Cache Friendly
+#### 适度缓存
 
-The below content can be cached, but extra caution should be taken as these type of content can change regularly.
+下面的内容可以缓存，但是要格外小心，因为这些类型的内容可能定期更改。
 
-* Frequently modified JS and CSS
-* HTML pages
-* Content request with authentication cookies
+- 经常修改的 JS 和 CSS
+- HTML 页面
+- 带有身份验证 cookie 的内容请求
 
-#### Never Cache
+#### 不应该缓存
 
-The below type of content should never be cached as they can lead to security concerns.
+以下类型的内容永远不应该被缓存，因为它们可能会导致安全问题。
 
-* Highly sensitive content such as banking information, etc.
-* User-specific should most often not be cached as it is regularly updated.
+- 高度敏感的内容，如银行信息等。
+- 特定于用户的通常不应该被缓存，因为它是经常更新的。
 
-## Why Do You Need a Caching Strategy?
+## 为什么需要缓存策略？
 
-In a real-world situation, you cannot implement aggressive caching as it would probably return stale data most of the time. This is why a custom made caching policy should be in place to balance between implementing long-term caching and responding to the demands of a changing site by implementing suitable cache eviction algorithms. Since each system is unique and has its own set of requirements, adequate time should be spent on creating cache policies.
+在实际情况中，你不能实现主动缓存，因为大多数时候它可能会返回未更新的数据。这就是为什么应该需要一个定制的缓存策略来平衡和实现长期缓存，并且通过实现与之匹配的缓存回收算法来响应站点的内容更新。由于每个系统都是独特的，并且有自己的一系列需求，因此应该花充足的时间来创建缓存策略。
 
-The key to a perfect caching policy is to tread a fine line that promotes aggressive caching whenever possible while leaving openings to invalidate entries in the future when changes are made.
+实现一个完美的缓存策略的关键是尽可能地促进积极有效的缓存，同时留出余地，在将来站点内容更新时使缓存失效。
 
 ---
 
-The intention of this article is to provide you with an introduction to the fundamentals of caching in web applications. I have skipped several topics such as control headers, caching infrastructures, guidelines for developing cache policies, etc as they are a tad too advanced for this introduction.
+本文的目的是向你介绍 web 应用程序中缓存的基本原理。我跳过了一些主题，如控制头、缓存基础配置、开发缓存策略的指导方针等，因为它们对于本文的介绍来说有点太高级了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
