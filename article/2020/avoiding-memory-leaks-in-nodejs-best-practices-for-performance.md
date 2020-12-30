@@ -2,113 +2,110 @@
 > * 原文作者：[Deepu K Sasidharan](https://twitter.com/deepu105)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/avoiding-memory-leaks-in-nodejs-best-practices-for-performance.md](https://github.com/xitu/gold-miner/blob/master/article/2020/avoiding-memory-leaks-in-nodejs-best-practices-for-performance.md)
-> * 译者：
-> * 校对者：
+> * 译者： [laampui](https://github.com/laampui)
+> * 校对者： [Usualminds](https://github.com/Usualminds), [regon-cao](https://github.com/regon-cao)
 
-# Avoiding Memory Leaks in Node.js: Best Practices for Performance
+# 在 Node.js 中避免内存泄漏：性能最佳实践
 
-Memory leaks are something every developer has to eventually face. They are common in most languages, even if the language automatically manages memory for you. Memory leaks can result in problems such as application slowdowns, crashes, high latency, and so on.
+内存泄漏是每一位开发者最终都会遇到的问题。它存在于大多数的编程语言里，即使是能够自动管理内存的语言也不例外。内存泄漏会导致一些如应用缓慢、崩溃、高延迟等问题。
 
-In this blog post, we will look at what memory leaks are and how you can avoid them in your NodeJS application. Though this is more focused on NodeJS, it should generally apply to JavaScript and TypeScript as well. Avoiding memory leaks helps your application use resources efficiently and it also has performance benefits.
+在这篇文章中，我们会了解到什么是内存泄漏以及如何在 Node.js 中避免它。虽然这篇文章着重点在 NodeJS，但应该也适用于 JavaScript 和 TypeScript。规避内存泄漏有助于你的应用更高效地利用资源同时也能带来性能提升。
 
-## Memory Management in JavaScript
+## JavaScript 中的内存管理
 
-To understand memory leaks, we first need to understand how memory is managed in NodeJS. This means understanding how memory is managed by the JavaScript engine used by NodeJS. NodeJS uses the **[V8 Engine](https://v8.dev/)** for JavaScript. You should check out [Visualizing memory management in V8 Engine](https://dev.to/deepu105/visualizing-memory-management-in-v8-engine-javascript-nodejs-deno-webassembly-105p) to get a better understanding of how memory is structured and utilized by JavaScript in V8.
+要理解内存泄漏，我们首先需要理解 NodeJS 是如何管理内存的。这意味着需要了解内存是如何被 NodeJS 的 JavaScript 引擎管理的。对于 JavaScript，NodeJS 使用 **[V8 引擎](https://v8.dev/)**，对于内存是如何被 V8 组织及利用，你可以参阅 [Visualizing memory management in V8 Engine](https://dev.to/deepu105/visualizing-memory-management-in-v8-engine-javascript-nodejs-deno-webassembly-105p) 来获得更好的理解。
 
-Let’s do a short recap from the above-mentioned post:
+总结上面提及的那篇参阅文章：
 
-Memory is mainly categorized into Stack and Heap memory.
+内存主要分为栈和堆。
 
-* **Stack**: This is where static data, including method/function frames, primitive values, and pointers to objects are stored. This space is managed by the operating system (OS).
-* **Heap**: This is where V8 stores objects or dynamic data. This is the biggest block of memory area and it’s where **Garbage Collection(GC)** takes place.
+* **栈**：存放静态数据，包括方法（函数）帧、原始值和指向对象的指针。这里的空间是被操作系统管理的。
+* **堆**：V8 存放对象或动态数据。这是内存区域中最大的一块并且这里是 **垃圾回收(GC)** 生效的地方。
 
-> V8 manages the heap memory through garbage collection. In simple terms, it frees the memory used by orphan objects, i.e, objects that are no longer referenced from the Stack, directly or indirectly (via a reference in another object), to make space for new object creation.
+> V8 通过垃圾收集管理堆内存。简单地说，它会释放没有被引用的对象。例如，没有被栈直接或间接引用（通过另一个对象引用）的对象，它的内存空间都会被释放以用于新对象的创建。都会被释放内存空间用于新对象的创建。
 > 
-> The garbage collector in V8 is responsible for reclaiming unused memory for reuse by the V8 process. V8 garbage collectors are generational (Objects in Heap are grouped by their age and cleared at different stages). There are two stages and three different algorithms used for garbage collection by V8.
+> V8 的垃圾收集器主要负责回收处理无用的内存，并提供给 V8 进程重复使用。V8 垃圾收集器是区分新老生代的（堆中的对象按它们的存放时间分组并会在不同的阶段被清理）。V8 的垃圾回收有两个阶段和三种算法。
 
 ![Mark-sweep-compact GC](https://d33wubrfki0l68.cloudfront.net/e3979bee7b7b51e6124594ea36dfde4eb7015da5/5c860/images/blog/2020-05/mark-sweep-compact.gif)
 
-## What Are Memory Leaks
+## 什么是内存泄漏
 
-In simple terms, a memory leak is nothing but an orphan block of memory on the heap that is no longer used by the application and hasn’t been returned to the OS by the garbage collector. So in effect, it’s a useless block of memory. An accumulation of such blocks over time could lead to the application not having enough memory to work with or even your OS not having enough memory to allocate, leading to slowdowns and/or crashing of the application or even the OS.
+简单来说，内存泄漏就是堆上的一块孤立内存，这小块内存不再被程序使用并且也没有被垃圾收集器释放回操作系统，所以，这是一块没有被使用的内存。这样的内存块持续增加可能会导致应用没有足够内存空间去支撑其继续工作，也可能会导致你的操作系统没有足够的内存可供分配，进而导致系统缓慢或崩溃。
 
-## What Causes Memory Leaks in JS
+## 什么导致了内存泄漏
 
-Automatic memory management like garbage collection in V8 aims to avoid such memory leaks, for example, circular references are no longer a concern, but could still happen due to unwanted references in the Heap and could be caused by different reasons. Some of the most common reasons are described below.
+自动内存管理（如 V8 中的垃圾收集机制）目的在于避免内存泄漏，像循环引用不再是一个需要开发者关注的问题，然而内存泄漏依然可能发生，也许是因为预料之外的堆中的引用亦或是各种原因。一些常见的原因列举如下。
 
-* **Global variables**: Since global variables in JavaScript are referenced by the root node (window or global `this`), they are never garbage collected throughout the lifetime of the application, and will occupy memory as long as the application is running. This applies to any object referenced by the global variables and all their children as well. Having a large graph of objects referenced from the root can lead to a memory leak.
-* **Multiple references**: When the same object is referenced from multiple objects, it might lead to a memory leak when one of the references is left dangling.
-* **Closures**: JavaScript closures have the cool feature of memorizing its surrounding context. When a closure holds a reference to a large object in heap, it keeps the object in memory as long as the closure is in use. Which means you can easily end up in situations where a closure holding such reference can be improperly used leading to a memory leak
-* **Timers & Events**: The use of setTimeout, setInterval, Observers and event listeners can cause memory leaks when heavy object references are kept in their callbacks without proper handling.
+* **全局变量**：因为 JavaScript 中的全局变量被根节点（window 或 global `this`）引用，所以它们在整个应用生命周期中不会被收集，即会一直占用内存。这同样也适用于那些被全局变量（或其子属性）引用的对象，通过根节点引用数量庞大的对象可能导致内存泄漏。
+* **多个引用**: 当同一个对象被多个对象引用时，当其中一个引用被挂起，可能会导致内存泄漏。
+* **闭包**: JavaScript 闭包有一个很酷的特性，就是能够保存被它关联的上下文，当一个闭包持有一个引用，该引用指向堆中的一个庞大对象时，闭包会令该庞大对象持续在内存中直到闭包不再使用它。这意味着你可能会轻易地陷入这种情况，即持有着一个引用的闭包被不正确地使用从而导致内存泄漏。
+* **定时器 & 事件**：使用 setTimeout、setInterval、Observers 和事件监听器时，如果没有妥当处理保存在它们回调函数中的庞大对象引用时，可能会导致内存泄漏。
 
-## Best Practices to Avoid Memory Leaks
+## 避免内存泄漏的最佳实践
 
-Now that we understand what causes memory leaks, let’s see how to avoid them and the best practices to use to ensure efficient memory use.
+现在我们理解了什么会导致内存泄漏，马上看看如何避免它们，以及了解确保高效使用内存的最佳实践。
 
-### Reduce Use of Global Variables
+### 减少全局变量的使用
 
-Since global variables are never garbage collected, it’s best to ensure you don’t overuse them. Below are some ways to ensure that.
+因为全局变量从不会被垃圾回收，所以最好不要过度使用它们，以下是一些方法：
 
-**Avoid Accidental Globals**
+**避免意外的全局变量**
 
-When you assign a value to an undeclared variable, JavaScript automatically hoists it as a global variable in default mode. This could be the result of a typo and could lead to a memory leak. Another way could be when assigning a variable to [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this), which is still a holy grail in JavaScript.
+当你赋值给一个未声明的变量时，在默认情况下 JavaScript 会自动提升它为全局变量。这可能是一种会导致内存泄漏的低级错误。另一种情况是赋值给 [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)（在 JavaScript 中依然很神圣的东西）。
 
 ```js
-// This will be hoisted as a global variable
+// foo 会被提升为全局变量
 function hello() {
     foo = "Message";
 }
 
-// This will also become a global variable as global functions have
-// global \`this\` as the contextual \`this\` in non strict mode
+// foo 同样会成为全局变量，因为在非严格模式下，全局函数里的 \`this\` 指向全局上下文
 function hello() {
     this.foo = "Message";
 }
 ```
 
-To avoid such surprises, always write JavaScript in strict mode using the `'use strict';` annotation at the top of your JS file. In strict mode, the above will result in an error. When you use ES modules or transpilers like TypeScript or Babel, you don’t need it as it’s automatically enabled. In recent versions of NodeJS, you can enable strict mode globally by passing the `--use_strict` flag when running the `node` command.
+为了避免这些意外，总是在 JS 文件顶部使用 `'use strict';` 在严格模式下编写 JavaScript。在严格模式下，上述例子会报错。当你使用 ES modules 或转译器（如 TypeScript 或 Babel），你不需要声明严格模式因为这些工具已经自动开启。在最近的 NodeJS 版本，你可以在使用 `node` 命令时加上 `--use_strict` 参数开启全局严格模式。
 
-```
+```javascript
 "use strict";
 
-// This will not be hoisted as global variable
+// foo 不会被提升到全局环境
 function hello() {
-    foo = "Message"; // will throw runtime error
+    foo = "Message"; // 会抛运行时错误
 }
 
-// This will not become global variable as global functions
-// have their own \`this\` in strict mode
+// foo 不会成为全局变量，因为严格模式下，全局函数的 \`this\` 指向自身
 function hello() {
     this.foo = "Message";
 }
 ```
 
-When you use arrow functions, you also need to be mindful not to create accidental globals, and unfortunately, strict mode will not help with this. You can use the `no-invalid-this` rule from ESLint to avoid such cases. If you are not using ESLint, just make sure not to assign to `this` from global arrow functions.
+当你使用箭头函数，你同样需要小心不要意外的创建全局变量，不幸的是，严格模式对这种情况没有帮助，你可以使用来自 ESLint 的 `no-invalid-this` 规则来避免这种情况。如果你不使用 ESLint，确保不要在全局箭头函数里向 `this`赋值。
 
 ```js
-// This will also become a global variable as arrow functions
-// do not have a contextual \`this\` and instead use a lexical \`this\`
+// foo 会成为全局变量，因为箭头函数没有 `this`，它会沿着词法作用域向上寻找最近的 `this`
 const hello = () => {
     this.foo = "Message";
 }
 ```
 
-Finally, keep in mind not to bind global `this` to any functions using the `bind` or `call` method, as it will defeat the purpose of using strict mode and such.
+最后，记住不要使用`bind` 或 `call` 方法绑定 `this` 到任何函数，因为这会违背使用严格模式的初衷。
 
-**Use Global Scope Sparingly**
+**谨慎地使用全局作用域**
 
-In general, it’s a good practice to avoid using the global scope whenever possible and to also avoid using global variables as much as possible.
+一般来说，尽可能地避免使用全局作用域和全局变量是一种好的实践。
 
-1. As much as possible, don’t use the global scope. Instead, use local scope inside functions, as those will be garbage collected and memory will be freed. If you have to use a global variable due to some constraints, set the value to `null` when it’s no longer needed.
-2. Use global variables only for constants, cache, and reusable singletons. Don’t use global variables for the convenience of avoiding passing values around. For sharing data between functions and classes, pass the values around as parameters or object attributes.
-3. Don’t store big objects in the global scope. If you have to store them, make sure to nullify them when they are not needed. For cache objects, set a handler to clean them up once in a while and don’t let them grow indefinitely.
+1. 尽可能地不要使用全局作用域，相反，利用函数的局部作用域，因为它们会被垃圾回收并且内存会被释放。如果你基于某些原因非要使用全局变量，当你不再使用它时将它的值设为 `null`。
+2. 只对常量、缓存和可复用的单例使用全局变量。不要因为传参麻烦而使用全局变量，对于在函数和类之间共享数据，可以通过参数或对象属性的方式传递。
+3. 不要在全局作用域存放大对象。如果你必须存放它们，当你不再需要它们时，确保将它们赋值为 null。对于缓存对象，可以写一个工具函数周期地清理它们，避免它们无限制地增长。
 
-### Use Stack Memory Effectively
+### 高效利用栈内存
 
-Using stack variables as much as possible helps with memory efficiency and performance as stack access is much faster than heap access. This also ensures that we don’t accidentally cause memory leaks. Of course, it’s not practical to only use static data. In real-world applications, we would have to use lots of objects and dynamic data. But we can follow some tricks to make better use of stack.
+尽可能地使用栈变量，这有助于内存和性能的提升，因为访问栈远远比访问堆要快，同时这也确保了我们不会意外地制造内存泄漏。当然，单纯使用静态数据是不现实的。在现实世界的应用里，我们会不得不使用大量的对象和动态数据，但我们可以学习一些技巧来更好地利用栈。
 
-1. Avoid heap object references from stack variables when possible. Also, don’t keep unused variables.
-2. Destructure and use fields needed from an object or array rather than passing around entire objects/arrays to functions, closures, timers, and event handlers. This avoids keeping a reference to objects inside closures. The fields passed might mostly be primitives, which will be kept in the stack.
+1. 避免从栈变量引用堆对象，同时，切勿保留未使用的变量。
+2. 使用解构从对象或数组中获取需要的字段，而不是将整个对象或数组传递给函数、闭包、定时器或事件处理函数。这避免了闭包保留一个对象的引用。获取的字段往往都是原始值，而原始值是存放在栈中的。
 
 ```js
 function outer() {
@@ -126,19 +123,19 @@ function outer() {
 function myFunc(foo) {}
 ```
 
-### Use Heap Memory Effectively
+### 高效利用堆内存
 
-It’s not possible to avoid using heap memory in any realistic application, but we can make them more efficient by following some of these tips:
+在实际的应用中使用堆内存往往是无法避免的，但是我们可以遵循以下几点来更高效地利用堆内存：
 
-1. Copy objects where possible instead of passing references. Pass a reference only if the object is huge and a copy operation is expensive.
-2. Avoid object mutations as much as possible. Instead, use object spread or `Object.assign` to copy them.
-3. Avoid creating multiple references to the same object. Instead, make a copy of the object.
-4. Use short-lived variables.
-5. Avoid creating huge object trees. If they are unavoidable, try to keep them short-lived in the local scope.
+1. 尽可能地拷贝对象而不是传递引用，只在对象较大且拷贝操作代价也大时才传递引用。
+2. 尽可能避免对象操作，相反，使用对象扩展或 `Object.assign` 来复制它们。
+3. 避免对同一个对象创建多个引用，相反，应拷贝一份这个对象。
+4. 使用短暂存活的变量。
+5. 避免创建嵌套过深的对象，如果无法避免，记得在当前作用域及时清理它们。
 
-### Properly Using Closures, Timers and Event Handlers
+### 适当地使用闭包、定时器和事件处理函数
 
-As we saw earlier, closures, timers and event handlers are other areas where memory leaks can occur. Let’s start with closures as they are the most common in JavaScript code. Look at the code below from the Meteor team. This leads to a memory leak as the `longStr` variable is never collected and keeps growing memory. The details are explained in [this blog post](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156).
+正如我们前面看到的，闭包、定时器和事件处理器是内存泄漏常发生的地方。让我们先从闭包开始，它是 JavaScript 中最常见的代码。看看以下来自 Meteor 团队的代码，因为 `longStr` 从未被回收并持续消耗内存，所以导致了内存泄漏，更多细节请阅读[这篇博客](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)。
 
 ```js
 var theThing = null;
@@ -157,17 +154,17 @@ var replaceThing = function () {
 setInterval(replaceThing, 1000);
 ```
 
-The code above creates multiple closures, and those closures hold on to object references. The memory leak, in this case, can be fixed by nullifying `originalThing` at the end of the `replaceThing` function. Such cases can also be avoided by creating copies of the object and following the immutable approach mentioned earlier.
+上面的代码创建了多个闭包，并且这些闭包持有对象引用。在这个情况下，可以通过在 `replaceThing` 函数末尾将 `originalThing` 的值设为 null 避免内存泄漏。这种情况同时也可以通过创建对象副本来避免，也可以参考前面提到的几种方法。
 
-When it comes to timers, always remember to pass copies of objects and avoid mutations. Also, clear timers when done, using `clearTimeout` and `clearInterval` methods.
+至于定时器，永远记住传递对象副本且避免对对象进行修改。同时，当定时器结束，记得使用 `clearTimeout` 和 `clearInterval` 方法。
 
-The same goes for event listeners and observers. Clear them once the job is done, don’t leave event listeners running forever, especially if they are going to hold on to any object reference from the parent scope.
+对于事件监听器和观察者也一样，当任务完成就清理它们，不要让事件监听器一直运行，特别是当它们持有父级作用域的对象引用时。
 
-## Conclusion
+## 总结
 
-Memory leaks in JavaScript are not as big of a problem as they used to be, due to the evolution of the JS engines and improvements to the language, but if we are not careful, they can still happen and will cause performance issues and even application/OS crashes. The first step in ensuring that our code doesn’t cause memory leaks in a NodeJS application is to understand how the V8 engine handles memory. The next step is to understand what causes memory leaks. Once we understand this, we can try to avoid creating those scenarios altogether. And when we do hit memory leak/performance issues, we will know what to look for. When it comes to NodeJS, some tools can help as well. For example, [Node-Memwatch](https://github.com/lloyd/node-memwatch) and [Node-Inspector](https://nodejs.org/en/docs/guides/debugging-getting-started/) are great for debugging memory issues.
+由于 JS 引擎的进化和对语言本身的优化，JavaScript 中的内存泄漏已不像以往那样是个大问题，但如果我们粗心大意，内存泄漏依然可能发生，并会导致性能问题甚至使得应用或操作系统崩溃。确保我们的代码不会发生内存泄漏的第一步是需要理解 V8 引擎是如何管理内存的。第二步是理解什么导致了内存泄漏。一旦我们理解了这两点，我们可以尽力避开导致内存泄漏的情景。当我们真的面对内存泄漏或性能问题时，我们会知道解决问题的方向在哪。至于 NodeJS，有些工具会有所帮助，例如，[Node-Memwatch](https://github.com/lloyd/node-memwatch) 和 [Node-Inspector](https://nodejs.org/en/docs/guides/debugging-getting-started/) 都是调试内存问题的优秀工具。
 
-## References
+## 参考
 
 * [Memory leak patterns in JavaScript](https://www.ibm.com/developerworks/web/library/wa-memleak/wa-memleak-pdf.pdf)
 * [Memory Management](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management)
