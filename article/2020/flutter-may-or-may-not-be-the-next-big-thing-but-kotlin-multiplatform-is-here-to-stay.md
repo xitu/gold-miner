@@ -35,15 +35,15 @@ Flutter 的迅速崛起无疑让 Android 开发人员的心里担忧，因为没
 
 虽然我们不确定 Flutter 是否为应用程序开发中的下一件大事。但现在 Kotlin 提供了跨平台支持，也就是说可以直接运行代码而忽略底层架构。这是革命性的发展成果，所以我想私下里把它称之为下一件大事。
 
-值得庆幸的是，Kotlin 对平台独立性的支持让 Android 开发人员不会太担心。尽管移动开发人员社区对 Flutter 赞不绝口，但是不管 Flutter 和 Fuschia 的未来如何，Kotlin 都会一直留下来。
+值得庆幸的是，Kotlin 对平台独立性的支持让 Android 开发人员不会太担心。尽管移动开发社区对 Flutter 赞不绝口，但是不管 Flutter 和 Fuschia 的未来如何，Kotlin 都会一直留下来。
 
-在深入探讨 Kotlin 充满希望的未来之前，让我们先分析一下 Google 为什么会先引入 Flutter（与原生 Android 竞争的技术）。
+在深入探讨 Kotlin 充满希望的未来之前，让我们先分析一下 Google 为什么会先引入 Flutter（一项与原生 Android 竞争的技术）。
 
 ## 引入Flutter不是为了消灭原生 Android 开发者，只是未雨绸缪。
 
 对于不了解它的人来说，Flutter 是 Google 的跨平台框架，用于构建可在 Android，iOS，Web 和 Desktop 上运行的应用。它使用 Google 的 Dart 语言，与 Java 虚拟机（JVM）不兼容。
 
-Google 引入独立框架并非要与自己的原生 Android 进行竞争。而是由于甲骨文给他们带来的噩梦，所以它打算通过引入它来对冲 Android 的风险。
+Google 引入独立框架并非要与自己的原生 Android 进行竞争。而是由于甲骨文给他们带来的噩梦，所以打算通过引入它来对冲 Android 的风险。
 
 对于那些不熟悉的人来说，因为 Android 设备中使用了某些Java API 和 JVM ，所以 Oracle 和 Google 多年来一直处于法律纠纷。
 
