@@ -5,27 +5,27 @@
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
 > - 校对者：
 
-# Flutter可能是下一个大事件，但Kotlin Multiplatform一直都是大事件
+# Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件
 
 ![Photo by [Marc Reichelt](https://unsplash.com/@mreichelt?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8064/0*p9BRbpAgNsMKNKJS)
 
 Google 的 Flutter 框架在过去的一年中取得了巨大的进展。它已经成为人们茶余饭后常谈的话题，有的人称它为下一个大事件，而另一些人则只是将其作为一项闪亮的新技术进行推广而已。
 
-Flutter 的兴起对于跨平台应用程序开发来说是一个好兆头，不过却让 Android 原生开发者感到困惑，也让许多刚起步的人不知所措：
+Flutter 的兴起对于跨平台应用程序开发来说是一个好兆头，不过却让 Android 原生开发者感到困惑，很多刚起步的 Android 原生开发者更是陷入两难境地：
 
-- 应该坚持使用原生的 Android 和 Kotlin 还是切换到 Flutter 和 Dart ？
+- 应该坚持使用原生的 Android 和 Kotlin 还是切换到 Flutter 和 Dart 呢 ？
 - Google 会大力支持 Flutter 而消灭 Android 原生开发吗？
 
 因为原生 Android 框架和 Flutter 框架都是来自 Google 自己的技术库，所以很难两者之间做出抉择。
 
-Google 对 Flutter 的强烈支持只会使 Android 开发人员更加担忧 Kotlin 在生态系统中的未来。
+Google 对 Flutter 的强烈支持只会使 Android 开发人员更加担忧 Kotlin 在生态中的未来。
 
 在讨论 Android 开发者的未来之前，我想先讨论两篇精彩的文章，它们分别对 Flutter 的未来提出了截然相反的看法。
 
 这里是它们的简要概括：
 
-- [Michael Long ](undefined) 在 “[isn’t the next big thing](https://medium.com/better-programming/why-flutter-isnt-the-next-big-thing-e268488521f4)” 文章中提到了一些挺有说服力的观点。Flutter 在 iOS  开发上永远都是二等公民，而且 Google 比任何人都擅长怎么杀死某项产品和技术。
-- [Erik van Baaren](undefined) 在 “[is in fact the next big thing](https://medium.com/better-programming/why-flutter-is-in-fact-the-next-big-thing-in-app-development-8f514dd3a252)” 文章中提到了 Dart 与 Fuchsia（也许是Android 系统的未来）兼容的方式，这是对上面意见的强烈反驳。
+- [Michael Long ](undefined) 在 “[isn’t the next big thing](https://medium.com/better-programming/why-flutter-isnt-the-next-big-thing-e268488521f4)” 文章中提到了一些挺有说服力的观点。Flutter 在 iOS  开发上永远都是二等公民，而且 Google 比任何人都擅长怎么快速杀死某项产品和技术。
+- [Erik van Baaren](undefined) 在 “[is in fact the next big thing](https://medium.com/better-programming/why-flutter-is-in-fact-the-next-big-thing-in-app-development-8f514dd3a252)” 文章中提到了 Dart 与 Fuchsia（也许是 Android 系统的未来）兼容的方式，这是对上面意见的强烈反驳。
 
 他们的争论虽然很有意思，但是谁也不能决定 Flutter 是否是下一件大事。
 
@@ -47,7 +47,7 @@ Google 引入独立框架并非要与自己的原生 Android 进行竞争。而�
 
 对于那些不熟悉的人来说，因为 Android 设备中使用了某些Java API 和 JVM ，所以 Oracle 和 Google 多年来一直处于法律纠纷。
 
-由 JetBrains 支持的 Kotlin 的推出以及之后 Google 宣布它为 Android 开发的首选语言并没有让 Google 不再担忧，这是因为Kotlin（与 Java 一样）仍然需要 JVM 虚拟机才能运行（当时，Kotlin / Native 尚处于萌芽状态） ）。
+由 JetBrains 推出的 Kotlin 以及之后 Google 宣布它为 Android 开发的首选语言并没有让 Google 不再担忧，这是因为 Kotlin（与 Java 一样）仍然需要 JVM 才能运行（当时，Kotlin / Native 尚处于萌芽状态） ）。
 
 所以为了完全控制其软件生态系统，Google 引入了 Flutter 框架和 Fuschia OS。 Dart 是一种可编译为机器码的语言，因此不需要依赖 Oracle 的 Java 虚拟机。
 
@@ -65,11 +65,11 @@ Google 引入独立框架并非要与自己的原生 Android 进行竞争。而�
 
 需要注意的是 Kotlin / Native 不使用通用 UI，而仅在业务逻辑模块使用。也就是说如果使用 Kotlin / Native 构建 iOS 应用，则只需编写特定的平台 API 和/或 UI 代码（SwiftUI / UIKit）。
 
-但是这并不能使 Kotlin / Native 暂时取代 Flutter，但可以确保构建 100％ 的原生应用程序 - 这是任何一个跨平台方案都没有做到的。
+虽然上述这些并不能让 Kotlin / Native 暂时取代 Flutter，但它可以确保构建 100％ 的原生应用程序 - 这是任何一个跨平台方案都没有做到的。
 
-不过Kotlin 通过支持多个运行时目标（类似于 Dart）确保了 JetBrains 的语言不会消失，并将继续成为 Android 开发人员的重要支撑。
+无论如何 Kotlin 通过支持多个运行时目标（类似于 Dart）确保了 JetBrains 的语言不会消失，并将继续成为 Android 开发人员的重要支撑。
 
-实际上，Jetpack Compose（Android 的声明式 UI 框架）的推出强烈表明了对平台无关性的支持，这使 Kotlin Multiplatforms 成为跨平台应用程序开发的有力选择方案。
+实际上，Jetpack Compose（Android 的声明式 UI 框架）的推出强烈表明了对平台无关性的支持，这使 Kotlin Multiplatforms 成为跨平台应用程序开发的有力竞争方案。
 
 最后，就算 Fuschia OS 取代了 Android， Kotlin 开发人员还是会继续存在。 Android 是一个比 Flutter 大得多的生态系统，如果 JetBrains 添加了 Kotlin-to-Dart 转译器支持，那么 Kotlin 自然就能够继续支持未来的操作系统。
 
