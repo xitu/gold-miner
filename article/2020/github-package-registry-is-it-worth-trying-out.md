@@ -5,7 +5,7 @@
 > * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# GitHub Package Registry 是否值得尝试
+# GitHub Package Registry 值得尝试吗
 
 ![Photo by [Nana Smirnova](https://unsplash.com/@nananadolgo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10392/0*5jrNYn-hF3R_LkQi)
 
