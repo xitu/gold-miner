@@ -7,8 +7,6 @@
 
 # The Different Types of Browser Storage
 
-#### Learn about the different tools available to you to save user data on your user’s browser
-
 ![[@kundeleknabiegunie](http://twitter.com/kundeleknabiegunie) unsplash.com](https://cdn-images-1.medium.com/max/2000/0*6UmrGOz0O2pvmwHT)
 
 Modern web browsers offer different options for storing website data on users’ browsers, allowing this data to be retrieved based on the need. This enables website owners to persist the data for long-term storage, save website content or documents for offline use, store user preferences, apply states, and more.
@@ -33,8 +31,6 @@ In this tutorial, let’s discuss the different types of browser storage availab
 * IndexedDB
 * Web SQL
 * Cache storage
-
----
 
 ## Cookies
 
@@ -88,8 +84,6 @@ Set-Cookie: test=test-value; Domain=example.com - the cookie is available for ex
 * Sharing data with third parties is allowed (e.g., third-party cookies)
 
 Cookies lead to multiple security issues, so it’s now recommended to use modern storage APIs wherever possible.
-
----
 
 ## Web Storage API
 
@@ -376,8 +370,6 @@ The database is private to an origin, so any other site can’t access another w
 </html>
 ```
 
----
-
 ## Web SQL Database
 
 > “Web SQL Database is a web page API for storing data in databases that can be queried using SQL variant.” — [Wikipedia](https://en.wikipedia.org/wiki/Web_SQL_Database)
@@ -497,8 +489,6 @@ Still, this can be used in supported browsers like Safari, Chrome, Opera, and Ed
 	</body>
 </html>
 ```
-
----
 
 ## CacheStorage
 
