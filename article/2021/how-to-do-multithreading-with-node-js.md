@@ -21,7 +21,7 @@ Even though non-blocking asynchronous callback could handle multiple operations 
 
 Typically in Node.js, the main thread handle all the operations. With the help of an example, here demonstrated how to create another thread for processing an operation. This example has two API, the first API will process the function on the main thread, and the other API will process the function on a separate thread. The below code snippet shows the basic structure of the example.
 
-```
+```js
 /*
 *  File Name: index.js
 *  Description: This is the main thread
@@ -47,7 +47,7 @@ console.log(`Example app listening at http://localhost:${port}`);
 
 As a first step, we add a function on the main thread, and as a next step, we add the same function on another thread. The function used will be getSum, which will return the cumulative sum up to the limit value given as an argument. After adding the getSum function to the main thread, the code snippet becomes like below.
 
-```
+```js
 /*
 *  File Name: index.js
 *  Description: This is the main thread
@@ -86,20 +86,20 @@ The next step is to add the same function on another thread, and it could do as 
 
 * Importing the worker thread module to the main thread.
 
-```
+```js
 const { Worker } = require("worker_threads");
 ```
 
 * Create another file, seprateThread.js, for defining the function getSum to run on another thread.
 * Create an instance of the worker thread module and provide the pathname to the newly created file.
 
-```
+```js
 const seprateThread = new Worker(__dirname + "/seprateThread.js");
 ```
 
 * Starting a new thread
 
-```
+```js
 seprateThread.on("message", (result) => {
 res.send(`Processed function getSum on seprate thread:  ${result}`);
 });
@@ -107,13 +107,13 @@ res.send(`Processed function getSum on seprate thread:  ${result}`);
 
 * Sending data to the new thread.
 
-```
+```js
 seprateThread.postMessage(1000);
 ```
 
 Finally, the main thread will be like the below code snippet.
 
-```
+```js
 /*
 *  File Name: index.js
 *  Description: This is the main thread
@@ -157,7 +157,7 @@ console.log(`Example app listening at http://localhost:${port}`);
 
 Thus a new thread is created from the main thread. Let us put the getSum function on the newly created thread, so defines that function on the file seprateThread.js. After defining, the new thread is supposed to send the result back to the main thread; check the below code for reference.
 
-```
+```js
 /*
 *  File Name: seprateThread.js
 *  Description: This is another thread
@@ -192,9 +192,9 @@ In the above example, you could see `seprateThread.postMessage()` function used 
 
 ## Conclusion
 
-This article’s motive is to give a brief idea about the basic implementation of multithreading on Node.js. Multithreading in Node.js is a little bit different from traditional multithreading. It is advised that for massive I/O operation main thread could do much better than worker threads. To understand more about multithreading, refer to the Node.js official [document ](https://nodejs.org/api/worker_threads.html)and the source code of the example available here.
-[**krishheii/Multithreading**
-**Multithreading using Node.js. Contribute to krishheii/Multithreading development by creating an account on GitHub.**github.com](https://github.com/krishheii/Multithreading)
+This article’s motive is to give a brief idea about the basic implementation of multithreading on Node.js. Multithreading in Node.js is a little bit different from traditional multithreading. It is advised that for massive I/O operation main thread could do much better than worker threads. To understand more about multithreading, refer to the Node.js official [document](https://nodejs.org/api/worker_threads.html) and the source code of the example available here:
+
+[**github.com/krishheii/Multithreading**](https://github.com/krishheii/Multithreading)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
