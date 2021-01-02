@@ -7,7 +7,7 @@
 
 # How to Become a Google Developer Expert (GDE) — A Practical Guide
 
-Becoming a [Google Developer Expert](https://developers.google.com/programs/experts/) (GDE) is not a goal I ever set out to achieve, but rather **it** found me. The following guide is for developers starting from scratch who want to someday join this career-changing invite-only program 👇
+Becoming a [Google Developer Expert](https://developers.google.com/programs/experts/)(GDE) is not a goal I ever set out to achieve, but rather **it** found me. The following guide is for developers starting from scratch who want to someday join this career-changing invite-only program 👇
 
 > A global program to recognize individuals who are experts and thought leaders in one or more Google technologies. These professionals actively contribute and support the developer and startup ecosystems around the world, helping them build and launch highly innovative apps.
 
@@ -49,7 +49,7 @@ If these goals drive you, continue ahead to Step 1.
 
 Set a clear mission. Something that you’re passionate about. The more specialized the better. I set out to be…
 
-> # The best consultant, YouTuber, content creator, and advanced resource for developers building apps with Angular & Firebase.
+> The best consultant, YouTuber, content creator, and advanced resource for developers building apps with Angular & Firebase.
 
 Your chances of standing out are much greater if you specialize. Big product areas like Web and Android are much harder to stand out in versus smaller areas like Google Pay, Assistant, Tensorflow, etc.
 
