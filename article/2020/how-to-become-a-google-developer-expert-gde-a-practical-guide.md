@@ -86,7 +86,7 @@ Most of the tech community prefers **Twitter** for professional networking. Use 
 
 In my case, the Googler who nominated me was familiar with my YouTube channel and reached out one day…
 
-> # “Yo! Do you have any interest in becoming a GDE?”
+> “Yo! Do you have any interest in becoming a GDE?”
 
 Umm, yes. I was highly skeptical I would even be qualified, but at that point the hard work was already done. Moral of the story — If you’re doing the right things the networking aspect should just fall into place.
 
