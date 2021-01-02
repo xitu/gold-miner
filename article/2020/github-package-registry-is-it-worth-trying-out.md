@@ -2,100 +2,100 @@
 > * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/github-package-registry-is-it-worth-trying-out.md](https://github.com/xitu/gold-miner/blob/master/article/2020/github-package-registry-is-it-worth-trying-out.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# GitHub Package Registry: Is it Worth Trying Out?
+# GitHub Package Registry 值得尝试吗
 
 ![Photo by [Nana Smirnova](https://unsplash.com/@nananadolgo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10392/0*5jrNYn-hF3R_LkQi)
 
-GitHub Package Registry was developed and introduced in mid-2019 by Microsoft. With the GitHub and NPM acquisitions, this feature seems to be an excellent move by Microsoft to expand the GitHub ecosystem. At the same time, GitHub uses the following tagline to emphasize this fact.
+GitHub Package Registry 是由微软于 2019 年年中开发并推出的。随着完成对 GitHub 和 NPM 的收购，这一功能似乎是微软扩展 GitHub 生态系统的绝佳举措。同时，GitHub 使用以下标语来强调这一事实：
 
-> “Your packages, at home with their code” — GitHub
+> GitHub Package Registry 能够更好地管理代码。 — GitHub
 
-But is this alone worth enough to try it out? And do we really need another package manager in the first place?
+但是仅凭这一点就值得去尝试吗？我们首先考虑是否真的需要另一个包管理器吗？
 
-Let’s find out more.
+让我们来了解更多内容。
 
-## Is it worth trying out?
+## 是否值得尝试
 
-If you are one of the 40 million using GitHub, accessing it is just one “Tab” away under your GitHub profile or under your GitHub Organization.
+如果你是 GitHub 的 4000 万用户中的一员，只需点击你的 `GitHub profile` 或 `GitHub Organization` 下的一个标签就可以访问 GitHub Package Registry。
 
 ![Screenshot of GitHub Package Registry under my profile](https://cdn-images-1.medium.com/max/2538/1*PowgC6YYeQ7J7oN1edD9Vw.png)
 
-> When I tried it out for the first time, I found it intuitive and easy to start with. I have started with the Free plan, and it seems to be sufficient for a small project with few private packages.
+> 当我第一次尝试使用 GitHub Package Registry 时，我发现它直观且容易上手。我是从免费版开始，这对于一个几乎没有私有软件包的小型项目来说似乎已经足够使用。
 
-However, you might wonder whether the GitHub Package Manager will standout as a core feature on its own? So far, GitHub has placed it smartly in its core product portfolio. Besides, they have already fulfilled a set of high-impact features for us to get started.
+然而，你可能想知道 GitHub 包管理器是否会作为一个核心特性脱颖而出？到目前为止，GitHub 已经巧妙地将它放在其核心产品组合中。此外，GitHub 已经实现了一套具有较高影响力的功能体系让我们启用。
 
-Let’s take a look at some of its features that pushes it to the next level.
+让我们来看一下它的一些特性，这些特性将它推向了一个新的高度。
 
-#### 1. Supports 5 Languages and Clients
+### 1. 支持 5 种语言和客户端
 
-Unlike NPM, focused on NodeJS packages, the GitHub Package Registry supports a range of package types and clients, as shown below.
+与专注于 NodeJS 包的 NPM 不同，GitHub 包注册中心支持一系列包类型和客户端，如下所示：
 
 ![Support for package registries, Source: [GitHub](http://Support for package registries)](https://cdn-images-1.medium.com/max/3056/1*CNuP0W1N0Uebuajvx46A1w.png)
 
-We can expect more support tools and clients in upcoming updates as well.
+在即将到来的版本更新中，我们可以期待支持更多的开发工具和客户端。
 
-> [Support for Swift](https://github.blog/2019-06-03-github-package-registry-will-support-swift-packages/) is already in its Beta stage, and we could expect it to go live in a few months.
+> [对 Swift 的支持](https://github.blog/2019-06-03-github-package-registry-will-support-swift-packages/)已经处于测试阶段，我们能预期它会在几个月后上线。
 
-Since the GitHub package registry supports multiple package formats, it brings convenience for you to host different software packages in one place. This also works perfectly well with Microservices, where the technology could differ from project to project.
+由于 GitHub Package Registry 支持多种包格式，从而为托管不同的软件包带来了方便，在有不同技术栈的微服务项目中也能很好地使用。
 
-#### 2. Workflow Integration coupled with GitHub Actions
+### 2. 集成工作流与 GitHub Actions
 
-Combining GitHub APIs, GitHub Actions, and WebHooks allows you to develop a fully integrated end to end DevOps workflow, including CI/CD pipelines. You can also customize pre and post publishing workflows with the use of GraphQL and WebHooks.
+结合 GitHub API、GitHub Actions 和 WebHooks，可以开发实现端到端 DevOps 工作流集成，包括 CI/CD 管道。你还可以使用 GraphQL 和 WebHooks 自定义发布前和发布后的工作流。
 
 ![GitHub Package Management Tasks in GitHub Actions Marketplace](https://cdn-images-1.medium.com/max/2000/1*PECyA1fWltGS1dZo9g7f-w.png)
 
-> You can already find prebuilt tasks in GitHub Actions to simplify your work with GitHub Package Management.
+> 你已经可以在 GitHub Actions 中找到预先构建的任务，以简化 GitHub Package Management 流程。
 
-In a nutshell, with the native integration with GitHub Actions, you can automate the entire package lifecycle and its operations in one place.
+简而言之，通过与 GitHub Actions 本地集成，你可以在一个地方自动化整个包生命周期及操作。
 
-#### 3. Access Control for Users and Tools
+### 3. 用户和工具的访问控制
 
-This allows managing permission across the code repositories and packages in one place. It also simplifies the access control for CI/CD pipelines as well. Besides, GitHub authentication can be used to access both source code and private packages.
+这允许在一个位置管理代码仓库和包。它还简化了 CI/CD 管道的访问控制。此外，GitHub 认证可以用来访问源代码和私有包。
 
-> Since GitHub packages inherit the permissions associated with the repository you don’t need to maintain separate package registry permissions.
+> 因为 GitHub 包继承了与代码仓库相关联的权限，你不需要维护单独的包注册表权限。
 
-You can also choose between hosting your package as public or private depending on the requirements.
+你还可以根据需求选择将包托管为公共或私有。
 
-#### 4. Code and Package Insights in One Place
+### 4. 在一个地方监管项目代码和包
 
-Similar to other package managers, the GitHub package registry allows you to view package contents, download statistics, version history to get a better understanding before you download.
+与其他包管理器类似，GitHub 包注册表允许在下载之前查看包内容、下载统计数据和历史版本，以便在下载前有更好地了解。
 
-> Since we can see GitHub stars and forks to understand its activity, it works perfectly well to find active packages before using them in our code.
+> 因为我们可以通过查看 GitHub 项目的 stars 和 forks 来理解它的活跃度，所以有助于找到合适的包以便我们在代码中使用。
 
-Even with NPM packages, I used to go to GitHub and see how many stars are there, number of contributors and look for the last commit date, which now you can find in one place.
+即使有了 NPM 包，我还是习惯去 GitHub 看项目的 star 数量、贡献者数量，并查看最近提交的日期记录，现在你可以在一个地方找到这些内容。
 
-## But where should I start if I’m already hosting packages elsewhere?
+**然而，如果我已经在其他地方托管包，我应该从哪里开始呢？**
 
-The good news is you don’t have to, especially for public packages. Suppose your private packages are dependent on any other public package registry like NPM. Those dependencies will still work seamlessly once you move your root packages to GitHub Package Registry. In fact, you only need to change the registry URL and the Access Control Mechanism once you move your NPM packages to GitHub Package Registry.
+好消息是你不必这样担心，特别是对于公共软件包。假设你的私有软件包依赖于任何其他公共软件包注册中心，例如 NPM。一旦将根软件包移至 GitHub Package Registry，这些依赖关系仍将完好保持运行。实际上，将 NPM 软件包移至 GitHub Package Registry 后，只需更改注册表 URL 地址和访问控制机制。
 
-Let’s go through a quick example to understand how we can use GitHub Package Registry to publish an NPM package and consume it step by step.
+让我们来看一个简单的示例，以便了解如何使用 GitHub Package Registry 发布 NPM 软件包并逐步使用它。
 
-#### Step 1: Authenticate to GitHub Package Registry
+### Step 1：验证 GitHub Package Registry
 
-First, you need to have a GitHub access token to authenticate your identity to the GitHub registry. Either you can use your existing token, or you can create one using [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new). Here I name my token as **githubReg.**
+首先，你需要有一个 GitHub 访问令牌才能向 GitHub 注册表验证你的身份。你既可以使用现有的令牌，也可以使用 [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new) 创建一个令牌。在这里，我将令牌命名为 **githubReg**。
 
 ![Screenshot by Author: Creating a new access token](https://cdn-images-1.medium.com/max/4046/1*mBJOGUKYRHObEQvd4c4iZA.png)
 
-You need to set up your .npmrc file, which is the configuration on how the NPM client talks to the NPM registry itself. Open the terminal and run `code .npmr`. It will open a blank file and replace the following line with your access_token.
+你需要设置 .npmrc 文件，该文件是有关 NPM 客户端如何与 NPM 注册表本身进行通信的配置。打开终端并运行 `code .npmr`。它将打开一个空白文件，并用你的 access_token 替换以下对应内容。
 
 ```
 //npm.pkg.github.com/:_authToken=TOKEN
 ```
 
-Then initialize a new NPM project and open it up with VSCode using `npm init`.
+然后初始化一个新的 NPM 项目，打开 VSCode 并使用 `npm init` 命令。
 
-#### Step 2: Publish the Package
+### Step 2：进行打包发布
 
-Create a local .nmprc file in the root directory of the project and add the following line. Here, replace OWNER ****with the name of the user or the organization.
+在项目的根目录中创建一个本地 .nmprc 文件，并添加以下内容。在这里，将 OWNER 替换为你的用户名或组织名。
 
 ```
 @OWNER:registry=https://npm.pkg.github.com/
 ```
 
-Create the main JavaScript file and write a small function. Here I made a file called index.js in the root directory to test the package.
+创建主要 JavaScript 文件并编写一个简单函数。在这里，我在根目录中创建了一个名为 index.js 的文件来测试该软件包。
 
 ```
 module.export = () => {
@@ -103,9 +103,9 @@ module.export = () => {
 }
 ```
 
-After that, you need to verify your package’s name and add the repository in your project’s package.json. Then push all changes to git.
+接着，你需要验证软件包的名称，并将项目仓库添加到项目 package.json 文件中，然后将所有更改推送到 git。
 
-**Note**: Here you need to create your own repository and add its details to the below file.
+**注意：** 这里你需要创建自己的项目仓库，并将其细节添加到下面的文件中。
 
 ```json
 {
@@ -127,51 +127,51 @@ After that, you need to verify your package’s name and add the repository in y
 }
 ```
 
-Finally, publish your package using `npm publish`.
+最后，使用 `npm publish` 发布包。
 
-> **Note:** It is possible to create GitHub packages that use other npm packages as dependencies as well. [eDEX-UI](https://github.com/GitSquared/edex-ui) is a cross-platform terminal emulator and system monitor that looks and feels like a sci-fi computer interface which is one of the tending packages which hosed in the GitHub registry. But if we look into the deep of the package implementations, they have used npm dependencies which are **“electron”, “electron-rebuild”, “node-abi”**, and **“node-json-minify”**.
+> **注意：** 可以创建使用其他 npm 包依赖的 GitHub 软件包。 [eDEX-UI](https://github.com/GitSquared/edex-ui) 是一个跨平台的终端仿真器和系统监视器，外观和给人感觉就像是科幻计算机界面，它是一个托管在 GitHub 注册表中的软件包。但是，如果深入研究软件包的实现，会发现它们使用 npm 依赖，像 **`electron`、`electron-rebuild`、`node-abi` 和 `node-json-minify`**。
 
-#### Step 03: Using the Package as a Dependency
+### Step 03：将包作为依赖项使用
 
-You can add your package to any of the projects.
+你可以将包添加到任何项目中。
 
-1. Create a local .npmrc file in your project root directory and add the line @**OWNER**:registry=https://npm.pkg.github.com/ similar to what we did it in package creation).
-2. Add the package to a project using Yarn or NPM. e.g: Using Yarn yarn add @ChameeraD/pkg-git-demo .
-3. Finally, you can import the package into your code and use it.
-import demoPkg from ‘@ChameeraD/pkg-git-demo’;
- demoPkg();
+1. 在项目根目录创建一个本地 .npmrc 文件，并添加 `@OWNER:registry=https://npm.pkg.github.com/`，这与我们在创建软件包时的操作类似。
+2. 使用 Yarn 或 NPM 将包添加到项目中。例如使用 Yarn：`yarn add @ChameeraD/pkg-git-demo`。
+3. 最后，可以将包导入到代码中并使用：
+`import demoPkg from ‘@ChameeraD/pkg-git-demo’;`
+`demoPkg();`
 
 ![Screenshot by Author: Output log by of the package](https://cdn-images-1.medium.com/max/2196/1*_xmY-6FUmxr8zJG6Znlh0w.png)
 
-Although GitHub Package Manager comes with lots of promises and feature set, it has its limitations.
+尽管 GitHub 包管理器具有很多功能特性，但它也有局限性。
 
-## GitHub Package Manager Limitations
+## GitHub 包管理器局限性
 
-To keep the list short and focused, I will only highlight those that affect most developers.
+为了保持内容简短集中，我将只列举那些影响大多数开发人员的内容。
 
-#### Only Supports Scoped NPM Packages
+### 仅支持特定范围的 NPM 包
 
-Migrating non-scoped packages from npm to the GitHub package registry can get tedious since GitHub only supported scoped packages for npm (e.g., npm install @source/my-package).
+将非作用域的软件包从 npm 迁移到 GitHub package registry 可能会很麻烦，因为 GitHub 仅支持 npm 作用域软件包（例如 `npm install @source/my-package`）。
 
-If you move any existing packages without scopes, you will need to add the scopes and modify the code’s imports for that to work.
+如果你想移动任何没有作用域的现存软件包，则需要添加作用域并修改代码的导入才能正常使用。
 
-#### Migration Challenges
+### 软件包迁移较困难
 
-Migrating from multiple package registries can be tedious because there are differences between technologies ([Docker](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages), [.NET](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages)).
+由于不同技术（[Docker](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages)、[.NET](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages)）之间存在差异，从多个软件包注册中心进行迁移可能很困难。
 
-If you already use any other package registry, version issues can occur due to package updates in the transition phase. For example, if you maintain a package both in the npm and GitHub registry you need to maintain its versions as well. So it is better to plan the migrations knowing the dependencies and go for a single package registry.
+如果你已经使用了任何其他包注册表，可能会由于包更新而出现版本问题。例如，如果你在 npm 和 GitHub 注册表中都维护一个包，那么你也需要维护它的版本。因此，最好在知道依赖关系的情况下规划迁移，并使用单个包注册表。
 
-#### Less Customizable.
+### 较差的自定义性
 
-It is less customizable, Users are not able to use custom authentication mechanisms, cannot have self-hosted registries. lack of this feature will limit developers working offline and in poor network conditions.
+它的自定义性较差，用户无法使用自定义身份验证机制，不能使用自托管注册表。缺少这些功能将限制开发人员离线和在较差网络条件下工作。
 
-## Conclusion
+## 结论
 
-Publishing a package into GitHub Package Registry is a whole new experience with the simplicity of keeping source code and packages in one place.
+将软件包发布到 GitHub Package Registry 是一种全新的体验，它具有将源代码和软件包保存在一个地方的简单性。
 
-With the current focus of supporting many types of packages (already supporting several), it seems that GitHub Package Registry drives towards universally supporting all the package types. Besides, if you use GitHub already for source repositories, using GitHub Package Registry is a no brainer.
+当前重点是支持多种类型的软件包（已经支持多种类型），而且 GitHub Package Registry 逐渐完善对所有软件包类型的支持。此外，如果你已经将 GitHub 作为项目仓库，那么使用 GitHub Package Registry 就更方便。
 
-Thank you for Reading !
+感谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
