@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md)
 > - 译者：[NieZhuZhu](https://github.com/NieZhuZhu)
-> - 校对者：[Yuxiao Alisa Shi](https://github.com/Yuxiao-Shi)
+> - 校对者：[Yuxiao Alisa Shi](https://github.com/Yuxiao-Shi)、[flashhu](https://github.com/flashhu)
 
 # 为什么要让你的代码尽可能简单
 
@@ -15,7 +15,7 @@
 
 软件开发人员从事着最具创意的工程类型的工作。毕竟，与构建桥梁的土木工程师相比，软件工程师在构建应用程序时可以发挥更多自己的创意。
 
-在具有创意性的行业中工作意味着你可以向那些写文章的作者身上学习到很多的东西。那些作家们解决写作中遇到的困难的方法也是最好的写作建议之一。
+在具有创意性的行业中工作意味着你可以向那些写文章的作者身上学习到很多的东西。那些常常被推荐用于解决写作困难的方法也是最好的写作建议之一。
 
 下面让我来向你推荐“不完美初稿”的技巧 —— 因为它让你成为效率更高的 “coder”。
 
@@ -29,7 +29,7 @@
 
 换句话说，你今天要在午饭前写完 100 行（有效）的不完美的代码还是 0 行的完美代码呢？
 
-当然，最后的结果都是，你会用以上任何一种方式完成 50 行完美的代码。但是编写“不完美的初稿”能带来心理上的优势：**你将在承受较少压力的情况下获得更大的成功。**
+当然，最后的结果都是，你会用以上任何一种方式完成 50 行完美的代码。但是编写“不完美的初稿”能带来心理上的优势：**你将在承受较少压力的情况下获得更大的成就感。**
 
 **你将会享受编码的快乐！**难道还有什么比这个更重要？
 
@@ -37,7 +37,7 @@
 
 我更倾向于以“简单的初稿”为编码的起点，因为“不完美的初稿”似乎是对我的编码能力的一种否认。
 
-你是否想成为一位写“不良代码”的“不良程序员”，因为你读过有关编写“不完美的初稿”的告诫？
+你是否想成为一位写“不良代码”的“不良程序员”，因为你读过有关编写“不完美的初稿”的建议？
 
 不，你想成为一名“成功的程序员”，编写“出色的代码”，因为你正在遵循从“简单的初稿”开始编码的技巧。
 
@@ -57,9 +57,9 @@
 
 诀窍是在有这些感觉时先喝点饮料，然后在追求简单的道路中勇往直前。等到代码生效后，你将立即对其进行重构 —— 在拥有能够正常工作的版本之后，你就可以让自己想法变得更加复杂。但是在这之前，请让事情尽可能的简单。
 
-写作教练[August Birch](undefined)把这个称作“[分步式写作](https://medium.com/@augustbirch/why-writing-crappy-first-drafts-is-terrible-advice-fa5d7f53cdd)”： 写下整个内容，然后立即对其进行编辑，并交替进行写作和修改编辑。
+写作教练[August Birch](undefined)把这个称作“[分步式写作](https://medium.com/@augustbirch/why-writing-crappy-first-drafts-is-terrible-advice-fa5d7f53cdd)”：写下整个内容，接着立即将它修改润色，完善和修改不断交替。
 
-但是在这一点上，编程和写作有所不同：因为代码必须可以成功执行，所以开发人员都知道什么时候第一稿算是“足够好”。当你的代码正常工作时，这就是立即编辑“简单的初稿”的信号，并在进行下一步之前对其进行多次的修改和完善。
+但是在这一点上，编程和写作有所不同：因为代码必须可以成功执行，所以开发人员都知道什么时候第一稿算是“足够好”。当你的代码正常工作时，这就是立即修改“简单的初稿”的信号，并在进行下一步之前对其进行多次的完善。
 
 对于任何只是学习编码的人，这个方法都会提高两项关键技能：编写有效的代码，并在不破坏正常运行的前提下改进代码。
 
@@ -69,7 +69,7 @@
 
 由于问题很复杂，所以他打算尝试编写一个复杂的解决方案。让我们来看看这个挑战：
 
-> “编写一个函数 `addWeirdStuff` ，该函数将 `arrayTwo` 中所有奇数的和与 `arrayOne` 中每个 10 以下的元素相加。
+> “编写一个函数 `addWeirdStuff`，该函数将 `arrayTwo` 中所有奇数的和与 `arrayOne` 中每个 10 以下的元素相加。
 >
 > 类似地，`addWeirdStuff` 还需要将 `arrayTwo` 中所有偶数之和与 `arrayOne` 中等于或大于 10 的那些元素相加。
 >
@@ -77,7 +77,7 @@
 
 值得注意的是，就像在现实生活中一样，他得到了不完整的需求说明：函数 `addWeirdStuff` 应该返回一个新数组，新数组包含来自 `arrayOne` 以及 `arrayTwo` 的项。
 
-他最开始尝试用一个 [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) 循环来解决这个问题，但是最终没有成功。 这是一项复杂的认知任务，对人的工作记忆（工作记忆是短期记忆的另一个称呼）一定是个挑战。
+他最开始尝试用一个 [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) 循环来解决这个问题，但是最终没有成功。 这是一项复杂的认知任务，对人的工作记忆（工作记忆是短期记忆的另一个称呼）一定是个挑战，而他对此一筹莫展。
 
 这个人曾经为了解决另一个代码难题联系过我，因为他不小心将 `return` 语句放入复杂的 [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) 循环中。他还没有准备好编写简洁的代码。
 
@@ -105,7 +105,7 @@
 
 记住：“完美是好的敌人。”这只是你的初稿，你可以再次编辑！那是分步式的过程。
 
-我还将可读性的优先级提高了，可读性高于性能， 因为我在每个内部循环中使用了 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)。这是 [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) 的双层循环。对于小型的数组矩阵，这读性能没什么影响，但是这样的操作可能会让你找不着工作。在我的下次一次重构的版本中，这也是不是重要的优化项。
+我还将可读性的优先级提高了，可读性高于性能， 因为我在每个内部循环中使用了 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)。这是 [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) 的双层循环。对于小型的数组矩阵，这对性能没什么影响，但是这样的操作可能会让你找不着工作。在我的下次一次重构的版本中，这也是不是重要的优化项。
 
 我决定在完成“简单的初稿”前，我又使用 [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) 进行了一轮变更：
 
@@ -125,7 +125,7 @@
 
 同样地，如果你用的是 JavaScript，你可能希望能在在返回中增加[类型检查](https://medium.com/javascript-in-plain-english/the-best-way-to-type-check-in-vanilla-js-55197b4f45ec)。这作为一个编码挑战，这不是必需的，可以第二天再考虑加上。
 
-在现实世界的其他场景中，“简单初稿”编码方法的缺点在于你将频繁进行 [git commit](https://www.git-tower.com/learn/git/commands/git-commit)：至少，在进行分步式开发时，需要频繁提交初稿的每个版本。在草拟第一稿之前，你可能已经提交了三四个工作版本。
+在现实世界的其他场景中，“简单初稿”编码方法的缺点在于你将频繁进行 [git commit](https://www.git-tower.com/learn/git/commands/git-commit)：至少，在进行分步式开发时，需要频繁提交初稿的每个版本。在完成初稿前，你可能已经提交了三四个工作版本。
 
 如果在后续的工作中发现了问题，你会对之前的多次提交感到庆幸，因为你可以根据提交发现问题所在并找到解决方案。
 
