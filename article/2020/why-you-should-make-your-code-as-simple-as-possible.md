@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md)
 > - 译者：[NieZhuZhu](https://github.com/NieZhuZhu)
-> - 校对者：[Yuxiao Alisa Shi](https://github.com/Yuxiao-Shi)、[flashhu](https://github.com/flashhu)
+> - 校对者：[Yuxiao Alisa Shi](https://github.com/Yuxiao-Shi)、[flashhu](https://github.com/flashhu)、[lsvih](https://github.com/lsvih)
 
 # 为什么要让你的代码尽可能简单
 
@@ -111,7 +111,7 @@
 
 ![[View the raw code](https://gist.github.com/djD-REK/b93a5480e648778fd27284980e937f6b) as a GitHub gist](https://cdn-images-1.medium.com/max/3108/1*Yluuogf6Co9gsr5tTtgybw.png)
 
-这是一个 “被改善的初稿”。我将两个 [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) 循环改成使用一次 [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), 一次 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some), 以及一次 [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)。我更喜欢这种编码风格。但是老实说，我的初稿没有什么“错”，因为它是能用的，不是吗？
+这是一个 “被改善的初稿”。我将两个 [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) 循环改成使用一次 [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)、一次 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)、以及一次 [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)。我更喜欢这种编码风格。但是老实说，我的初稿没有什么“错”，因为它是能用的，不是吗？
 
 现在，是切换编码任务并决定明天再次审阅此段代码的好时机。
 
@@ -154,7 +154,7 @@
 
 从一位技术作家那里获取经验，该作家去年使用 10 种编程语言撰写了 100,000 个有关 JavaScript 的文字 —— 这个写作技巧对开发人员和作家均适用。
 
-我对所有级别的程序员的真正建议是，你的初稿应该重复，甚至感觉像是“黑客”。 首先忘记[基本的编码原则](https://medium.com/dailyjs/principles-to-code-by-3c516ad61fcc)这篇文中所倡导的（不要自我重复），然后再坚持最基本的编码规则：
+我对所有级别的程序员的真正建议是，你的初稿应该重复，甚至感觉像是“黑客”。首先忘记[基本的编码原则](https://medium.com/dailyjs/principles-to-code-by-3c516ad61fcc)这篇文中所倡导的（不要自我重复），然后再坚持最基本的编码规则：
 
 **“KISS” (Keep It Simple, Stupid!)**
 
