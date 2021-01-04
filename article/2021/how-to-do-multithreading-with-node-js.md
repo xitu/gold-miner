@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-do-multithreading-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-do-multithreading-with-node-js.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[regon-cao](https://github.com/regon-cao)
 
 # 如何使用 Node.js 执行多线程
 
