@@ -3,15 +3,15 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/4-ways-to-reduce-cors-preflight-time-in-web-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/4-ways-to-reduce-cors-preflight-time-in-web-apps.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)
-> - 校对者：
+> - 校对者：[zenblo](https://github.com/zenblo) [Ashira97](https://github.com/Ashira97)
 
 # 减少 Web 应用程序中 CORS 预检时间的 4 种方法
 
 ![](https://cdn-images-1.medium.com/max/4480/1*JBeY4hI_q0S2Y-7AE7Eq7w.jpeg)
 
-[跨域资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)（CORS）是一个浏览器和服务器之间关于域的协议。它允许服务器规定哪些资源可以被外部的主域名和子域名访问，并通知浏览器遵循这些规则。
+[跨域资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)（CORS）是一个浏览器和服务器之间关于跨域问题的协议。它允许服务器规定哪些资源可以被外部的主域名和子域名访问，并通知浏览器遵循这些规则。
 
-> 例如，如果你的 web 应用托管在 myapp.com 中，并且前端请求 api.myapp.com 中的 API，那么你将会遇到 CORS。
+> 例如，如果你的 web 应用托管在 myapp.com 中，并且前端请求 api.myapp.com 中的 API，那么你将会遇到跨域资源共享问题。
 
 尽管出于安全目的使用 CORS 很重要，但大多数开发人员忽略了它对应用程序性能的影响。
 
@@ -25,7 +25,7 @@
 
 如前所述，预检请求对应用程序性能有影响。根据前端调用 API 的数量，很可能会发送许多预检请求。
 
-作为一种解决方案，预检缓存是减少影响的常用方法之一。这背后的概念很简单。
+作为一种解决方案，预检缓存是减少影响的常用方法之一。这背后的原理很简单。
 
 预检缓存的行为与任何其他缓存机制类似。每当浏览器发出预检请求时，它首先检查预检缓存，看看是否有对该请求的响应。如果浏览器找到了响应，它不会向服务器发送预检请求，而是使用缓存的响应。只有在预检缓存中没有找到响应时，浏览器才会发送预检请求。
 
@@ -33,7 +33,7 @@
 
 ![有和没有预检缓存的浏览器行为](https://cdn-images-1.medium.com/max/2000/1*zCXcC1VkBB16BDXUxkWoew.png)
 
-上面的图表显示了浏览器在使用预检缓存(第一次请求)和没有预检缓存(第二次请求)时的行为。
+上面的图表显示了浏览器在使用预检缓存（第一次请求）和没有预检缓存（第二次请求）时的行为。
 
 ## 2. 使用代理、网关或负载均衡实现服务器端缓存
 
@@ -45,7 +45,7 @@
 
 ![CloudFront 边缘位置缓存](https://cdn-images-1.medium.com/max/2000/1*cS016V1j7hUZt8ebOhNyow.png)
 
-例如，以 AWS CloudFront CDN 为例。它是一个代理，使用了一种被称为边缘位置（比原始服务器更接近用户的浏览器）的概念来拦截 HTTP 请求。
+例如，以 AWS CloudFront CDN 为示例。它是一个代理，使用了一种被称为边缘位置（比原始服务器更接近用户的浏览器）的概念来拦截 HTTP 请求。
 
 > 在这里，可以在边缘位置附近缓存预检响应，这样预检请求甚至不需要访问源服务器。
 
