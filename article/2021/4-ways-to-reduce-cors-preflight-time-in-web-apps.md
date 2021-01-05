@@ -55,7 +55,7 @@
 
 假设正在本地环境开发一个应用, 前端运行在 [http://localhost:4200](http://localhost:4200)，后端运行在 [http://localhost:3000/api](http://localhost:3000/api)。
 
-> 你可能有过类似经验，必须在后端开启 CORS 才能在二者之间通信。但是，你在前端通过简单的代理配置映射前端和后端后就可以地避免 CORS。
+> 你可能有过类似经验，必须在后端开启 CORS 才能在二者之间通信。但是，你可以在前端配置简单的代理以在前后端之间形成映射，这样就可以完全避免 CORS。
 
 你只需要定义一个代理配置来转发前往 `[http://localhost:3000](http://localhost:3000)` 的 `/api` 路径请求。然后在前端（[http://localhost:4200/api/](http://localhost:4200/api/)…）就可以请求同一域名下的后端 API，此时浏览器不会再发送任何预检请求。
 
@@ -66,7 +66,7 @@
 另一种避免预检请求的方法是使用**简单请求**。预检请求对于简单请求不是强制性的，根据 [w3c CORS 说明](https://www.w3.org/wiki/CORS)，如果 HTTP 请求满足以下条件，可以将其标记为简单请求。
 
 - 请求方式应该是 `GET`，`POST`，或者 `HEAD`。
-- 只有固定的几个头信息是被允许的，包括 `Accept`，`Accept-Language`，`Content-Language`，`Content-Type`，`DPR`，`Downlink`，`Save-Data`，`Viewport-Width` 和 `Width`。
+- 只允许携带几个固定的头信息，包括 `Accept`，`Accept-Language`，`Content-Language`，`Content-Type`，`DPR`，`Downlink`，`Save-Data`，`Viewport-Width` 和 `Width`。
 - 尽管 `Content-Type` 头被允许, 它只限于`application/x-www-form-urlencoded`，`multipart/form-data` 和 `text/plain`。
 
 > 你现在肯定很疑惑为什么我们不能总是使用简单请求呢？
