@@ -5,34 +5,48 @@
 > * 译者：
 > * 校对者：
 
-# Security Best Practices for Node.js
+#Security Best Practices for Node.js
+# Nodejs 安全编程的最佳实践
 
 Because a lot of systems are connected to the web these days (or, at least, communicate/integrate with it at some level), companies are giving more and more attention to web security.
+由于越来越多的系统与web相连，或者至少在某种程度上和web交互，因此互联网企业给予web安全更多的重视。
 
 Web security usually comes to public attention when certain events reach the news, for example, security leakages, hacker activities, and/or data-stealing over big companies, some of them really large (like Google, LinkedIn, etc.).
+web安全通常只有在某些新闻出现的时候才会来到大家的视野，比如说，安全泄露问题、黑客活动或者是大公司的数据泄露问题，有些数据窃取问题的规模真的非常大，像是 Google或者LinkdIn的数据窃取事件。
 
 Apart from that showbiz world of giant players that most of us are probably not working for, implementing security on your systems is not only important but impressively underestimated or even forgotten by many devs.
+除去那些我们大部分人都不为之工作的娱乐巨头们，在系统上实现安全措施不仅重要，而且被严重低估，甚至被许多开发者遗忘。
 
 Setup, best practices, performance, testing, and metrics are probably things that you consider in your daily programming life. However, unfortunately, that’s not the same for security best practices.
+安装、用最好的方法实现、关注性能、测试、度量很可能是你认为你的编程生涯中每天都在做的事情。然而，很不幸，这不等同于安全编程最佳实践。
 
 And it’s not due to warnings. If you work in the open-source universe, within GitHub’s protective arms, chances are that you’ve faced some of its [alerts](https://docs.github.com/en/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies) for vulnerable dependencies. The code community platform is becoming increasingly good – as well as worried – at detecting vulnerabilities in thousands of different libs across many different languages.
+这并不是危言耸听。如果你的工作是开源的，那么在Github的保护机制之下，你有可能会看到一些有缺陷的依赖的提示。Github代码平台变得越来越擅长-也越来越令人担心-在横跨众多语言的数千个依赖库中进行漏洞的探测。
 
 Today, it’s way more accessible for small and medium companies to afford security tools (or perhaps whole platforms) to assist their developers with the gaps in their code and apps.
+今天，对于中小企业来说，将它们的开发者的代码整合成为app的可负担的安全工具或者是整个平台越来越容易得到。
 
 Nevertheless, whether you use or don’t use such security platforms, understanding and being aware of the security threats that your apps may suffer from and fighting against them through simple (but powerful) best practices is the main goal of this article.
+不仅如此，无论你是否使用这些安全平台，帮助你理解并意识到这些你的应用可能遭受的安全威胁并且通过这些简单但强大的最佳实践来消除这些威胁时这篇文章的主要目的。
 
 Actually, we’ll pick Node.js as the analysis guinea pig, but many of the items here perfectly align with other platforms as well.
+事实上，虽然我们将Node.js选择作为实验对象，但是文中提到的很多概念都同样适用于其他平台。
 
 As a matter of reference, the [OWASP](https://owasp.org/) (**Open Web Application Security Project**) will guide us through its [Top Ten](https://owasp.org/www-project-top-ten/) most critical security risks for web applications, in general. It is a consensus board created out of the analysis of its broad list of members. Let’s face it under the light of Node then.
+通常，OWASP将会作为参考手册，通过其中的前十个web应用面临的最关键的安全威胁来引导我们。
 
 ## Injection Attacks
+## 注入攻击
 
 One of the most famous threats to web applications relates to the possibility of an attacker sending pieces of SQL to your back-end code.
+web应用面临的一个最著名的安全威胁与攻击者有可能把一段sql代码发送到后端。
 
 It usually happens when developers concatenate important SQL statements directly into their database layers, like so:
+这通常发生在开发者直接将重要的sql语句和数据库层相连的情况下，像这样：
 
 ```js
 // "id" comes directly from the request's params
+// "id" 直接来自于已请求参数
 db.query('select * from MyTable where id = ' + id);
    .then((users) => {
      // return the users into the response
@@ -40,12 +54,16 @@ db.query('select * from MyTable where id = ' + id);
 ```
 
 If the developer didn’t sanitize the input parameters arriving within the request, an attacker could pass more than a single integer id, like an SQL instruction that could retrieve sensitive information or even delete it (not to mention the importance of proper backup policies here).
+如果开发者没有对请求中携带的输入参数做校验，那么攻击者可以不仅仅只传一个整数ID，还可以传一个能够查询敏感信息甚至删除它的sql注入语句。（此处再次展示了合理备份策略的重要性）
 
 Most of the programming languages, and their respective ORM frameworks, provide ways to avoid SQL injection usually by parameterizing inputs into query statements that, before executing directly into the database, will be validated by the inner logic of your language libs machinery.
+大多数的编程语言和他们各自的对象关系映射框架都提供了避免sql注入的方法。这些方法通常是通过将直接在数据库中执行的查询语句的输入进行参数化。这一参数化的过程由编程语言可执行库中的内部逻辑完成。
 
 In this case, it’s very important to know your language/framework closely in order to learn how they do this.
+这种情况下，详细了解你的语言/框架来学习它们是怎么做到这一点的就非常重要。
 
 If you make use of [Sequelize](https://sequelize.org/), for example, a simple way to do it would be:
+比方说，如果你使用sequeluze来做这件事，那么一个简单的方法如下：
 
 ```js
 const { QueryTypes } = require('sequelize');
