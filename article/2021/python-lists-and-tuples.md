@@ -7,8 +7,6 @@
 
 # Lists and Tuples in Python
 
-#### Finding the right data structure is an art!
-
 Writing efficient programs involves understanding a couple of things, **first, what is the input to the program and second is selecting the best data structure to process that input.**
 
 In this blog post, we’ll try to understand the data structure, **List & Tuple** and the inputs it can efficiently process compared to other data structure like dict, set etc.
@@ -99,10 +97,6 @@ I hope, you liked reading the article !
 **Reference**
 
 [High Performance Python book](https://www.oreilly.com/library/view/high-performance-python/9781449361747/)
-
-**Connect with me for more articles:**
-
-**[LinkedIn](https://www.linkedin.com/in/mayur-jain-ds/) [Twitter](https://twitter.com/mayur__22) [Medium](https://mayur-ds.medium.com/)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
