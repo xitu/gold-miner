@@ -11,7 +11,7 @@ Writing efficient programs involves understanding a couple of things, **first, w
 
 In this blog post, we’ll try to understand the data structure, **List & Tuple** and the inputs it can efficiently process compared to other data structure like dict, set etc.
 
-List and tuples comes under a class of data structure called ***array***. Array is a collection of elements, and ordering or positioning of these element is as important as the element itself. Because given a position or index, it takes O(1) time complexity, to find a element.
+List and tuples comes under a class of data structure called **array**. Array is a collection of elements, and ordering or positioning of these element is as important as the element itself. Because given a position or index, it takes O(1) time complexity, to find a element.
 
 > List is a dynamic array, where we can modify and resize the data we are storing in it.
 >
@@ -25,7 +25,7 @@ When we create a list or a tuple, we need to allocate a block of system memory, 
 
 For instance, consider we have an array starting at **bucket number,** **S**, to find the 5th element in that array, we can directly search for bucket number **S + 5**, similarly for all the i element in an array. But if the bucket number is not available for the given array, then we need to perform a search of element throughout the array, the time complexity increases with increase in size of the array. This search is also called **Linear Search**. It’s worst case performance is O(n), n is total number of element in the list. Other efficient searching algorithms can be applied for searching a element in an array such as binary search algorithm provided the list is sorted.
 
-For searching and sorting, python has built in objects like ****__eq__**, **__lt__**** for comparison and **the lists in python have a built in sorting algorithm that uses Tim Sort**, its best case performance is O(n) and worst case performance is O(n log n).
+For searching and sorting, python has built in objects like **__eq__**, **__lt__** for comparison and **the lists in python have a built in sorting algorithm that uses Tim Sort**, its best case performance is O(n) and worst case performance is O(n log n).
 
 Once the sorting is done, we can perform **binary search**, whose average complexity is O(log n). It achieves this by first looking at the middle of the list and comparing this value with the desired value. If this midpoint’s value is less than our desired value, we consider the right half of the list, and we continue halving the list like this until the value is found, or until the value is known not to occur in the sorted list. As a result, we do not need to read all values in the list, as was necessary for the linear search; instead, we read only a small subset of them.
 
@@ -43,9 +43,9 @@ Consider a list A of size N, if a new item is appended to list A, then python cr
 M = (N >> 3) + (3 if N < 9 else 6)
 ```
 
-![**Overallocation in Lists**](https://cdn-images-1.medium.com/max/2134/1*mYYlsNHqfxdvdSUUmlSARQ.png)
+![Overallocation in Lists](https://cdn-images-1.medium.com/max/2134/1*mYYlsNHqfxdvdSUUmlSARQ.png)
 
-**Graph showing how many extra elements are being allocated to a list of a particular size. For example, if you create a list with 8,000 elements using appends, Python will allocate space for about 8,600 elements, overallocating 600 elements!**
+Graph showing how many extra elements are being allocated to a list of a particular size. For example, if you create a list with 8,000 elements using appends, Python will allocate space for about 8,600 elements, overallocating 600 elements!
 
 ![**Memory and time consequences of appends versus list comprehensions**](https://cdn-images-1.medium.com/max/2000/1*Tb-UGxpj6tL93pKUo8EXUg.png)
 
