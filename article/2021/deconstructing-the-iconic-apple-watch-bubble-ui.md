@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Deconstructing the  Iconic Apple Watch Bubble UI
-
-#### How does Apple’s bold, fluid, dynamic layout function behind the scenes?
+# Deconstructing the Iconic Apple Watch Bubble UI
 
 ![Photo by [Raagesh C](https://unsplash.com/@raagesh?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*N-GwBFwqZbDSNOYy)
 
