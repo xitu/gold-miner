@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-do-multithreading-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-do-multithreading-with-node-js.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[regon-cao](https://github.com/regon-cao)
+> * 校对者：[regon-cao](https://github.com/regon-cao)、[flashhu](https://github.com/flashhu)
 
 # 如何使用 Node.js 执行多线程
 
@@ -13,9 +13,9 @@
 
 ## 简介
 
-大部分 JavaScript 开发人员都认为 Node.js 是单线程的，通过非阻塞异步回调进程处理多个任务，不支持多线程，但现在已经不成立了。在 Node.js 第 13 版中，有一个名为工作线程（worker threads）的新模块是用于实现多线程。
+大部分 JavaScript 开发人员都认为 Node.js 是单线程的，通过非阻塞异步回调进程处理多个任务，不支持多线程，但现在已经不成立了。在 Node.js 第 13 版中，有一个名为工作线程（worker threads）的新模块可用于实现多线程。
 
-尽管非阻塞异步回调可以非常有效地处理多个任务，但是对于需要大量 CPU 使用率的功能（例如加密操作）会阻止其他进程执行，但在这种情况下，Node.js 的性能很弱。工作线程模块通过隔离该功能克服了这个不足，它将 CPU 使用率很高的任务放在一个独立的线程中并由后台处理，而不会阻塞其他进程。
+尽管非阻塞异步回调可以非常有效地处理多个任务，但是对于需要大量 CPU 使用率的功能（例如加密操作）会阻止其他进程执行，在这种情况下，Node.js 的性能很弱。工作线程模块通过隔离该功能克服了这个不足，它将 CPU 使用率很高的任务放在一个独立的线程中并由后台处理，而不会阻塞其他进程。
 
 ## 实现
 
@@ -179,7 +179,7 @@ parentPort.on("message", (limit) => {
 });
 ```
 
-在上面的示例中，可以看到主线程使用 `seprateThread.postMessage()` 函数与子线程通信。同样，子线程使用 `parentPort.postMessage()` 与主线程通信。下图说明了子线程和主线程之间的通信。
+在上面的示例中，可以看到主线程使用 `seprateThread.postMessage()` 函数与子线程通信。同样，子线程使用 `parentPort.postMessage()` 与主线程通信。下图说明了子线程和主线程之间的通信过程。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ydQqBzkh6FO4WUwHtGF7zA.png)
 
