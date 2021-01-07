@@ -126,7 +126,7 @@ Web Storage API 以键/值对形式存储数据。所有数据都存储为字符
 				      sessionStorage.setItem("testsession", "test Session Data");
 				      //sessionStorage.testsession=  "test Session Data";
 				   
-                      // 添加 JSON 对象到存储
+                                      // 添加 JSON 对象到存储
 				      var testObject = { 'test1': 1, 'test2': 2, 'test3': 3 };
 				      localStorage.setItem('testObject', JSON.stringify(testObject));
 				 }
@@ -136,7 +136,7 @@ Web Storage API 以键/值对形式存储数据。所有数据都存储为字符
 				      // 从本地存储中移除某键/值对
 				      localStorage.removeItem("testlocal");
 				  
-                      // 清空存储
+                                      // 清空存储
 				      //localStorage.clear();
   
 				      // 从会话存储中删除某键/值对
@@ -150,10 +150,10 @@ Web Storage API 以键/值对形式存储数据。所有数据都存储为字符
 				      // 从本地存储中读取数据
 				      document.getElementById("data").innerHTML= "Local Storage Data.."+localStorage.getItem("testlocal")+"<br />";
 				 
-                      // 从会话存储中读取数据
+                                      // 从会话存储中读取数据
 				      document.getElementById("data").innerHTML+="Session Storage Data.."+sessionStorage.getItem("testsession")+"<br />";
 				  
-                      // 从存储中获取 JSON 数据
+                                      // 从存储中获取 JSON 数据
 				      var retrievedObject = localStorage.getItem('testObject');
 				      document.getElementById("data").innerHTML+="JSON Data From Storage: "+JSON.stringify(retrievedObject);
 				 }
@@ -166,9 +166,9 @@ Web Storage API 以键/值对形式存储数据。所有数据都存储为字符
 		Welcome to Browser Storage Demos - Web Storage API	<br/> 
 
 		<p id="data"></p>
-        <button onclick = "readDataFromStrage()">Read</button>
-        <button onclick = "addToStorage()">Add data </button>
-        <button onclick = "removeFromStorage()">Delete data </button>
+                <button onclick = "readDataFromStrage()">Read</button>
+                <button onclick = "addToStorage()">Add data </button>
+                <button onclick = "removeFromStorage()">Delete data </button>
 	</body>
 </html> 
 ```
@@ -330,7 +330,7 @@ IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以�
 					};
 					request.onsuccess = function(event) {
 					 
-                     // 获取当前数据				 
+                                         // 获取当前数据				 
 					 var data = event.target.result;
 
 					  // 更新值
@@ -360,10 +360,10 @@ IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以�
 		Welcome to Browser Storage Demos - IndexDB API	<br/>
 		
 		<p id="data"></p>
-        <button onclick = "read()">Read </button>
-        <button onclick = "readAll()">Read all </button>
-        <button onclick = "add()">Add data </button>
-        <button onclick = "deleteData()">Delete data </button>
+                <button onclick = "read()">Read </button>
+                <button onclick = "readAll()">Read all </button>
+                <button onclick = "add()">Add data </button>
+                <button onclick = "deleteData()">Delete data </button>
 		<button onclick = "update()">Update data </button>
 	
 	</body>
@@ -372,7 +372,7 @@ IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以�
 
 ## Web SQL 数据库
 
-> “Web SQL 数据库是一个用于将数据存储在数据库中的 Web API，这些数据库可以使用 SQL 的变体进行查询。” — [维基百科](https://en.wikipedia.org/wiki/Web_SQL_Database)
+> “Web SQL 数据库是一个用于将数据存储在数据库中的 Web API，这些数据库可以使用 SQL 的变体进行查询。” —— [维基百科](https://en.wikipedia.org/wiki/Web_SQL_Database)
 
 该规范基于 SQLite。Web SQL 数据库未被所有浏览器支持 —— 该标准已被 W3C 否决，IndexDB 应该会成为替代品。
 
@@ -481,9 +481,9 @@ IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以�
 		Welcome to Browser Storage Demos - Web SQL API	<br/> 
 
 		<p id="data"></p>
-        <button onclick = "createDBAndTable()">Create DB/Table</button>
-        <button onclick = "insertData()">Insert data </button>
-        <button onclick = "readDataFromDB()">Read data </button>
+                <button onclick = "createDBAndTable()">Create DB/Table</button>
+                <button onclick = "insertData()">Insert data </button>
+                <button onclick = "readDataFromDB()">Read data </button>
 		<button onclick = "updateData()">Update data </button>
 		<button onclick = "deleteData()">Delete data </button>
 	</body>
@@ -494,7 +494,7 @@ IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以�
 
 > “CacheStorage 是一种浏览器中的存储机制，用于存储和查询网络请求和响应。它存储一对 Request 和 Response 对象，Request 作为键，Response 作为值。”
 >
-> — [Chidume Nnamdi](undefined) 的 [点点滴滴](https://blog.bitsrc.io/introduction-to-the-cache-storage-a-new-browser-cache-pwa-api-a5d7426a2456)
+> —— [Chidume Nnamdi](undefined) 的 [点点滴滴](https://blog.bitsrc.io/introduction-to-the-cache-storage-a-new-browser-cache-pwa-api-a5d7426a2456)
 
 CacheStorage API 可以在 Windows 上下文（DOM 上下文）中使用，也可以和 Service Worker API 一起使用以实现离线访问。在本教程中，我们将更多地讨论 DOM 上下文。
 
@@ -637,7 +637,7 @@ CacheStorage API 允许我们从跨域网站获取和缓存数据。CacheStorage
 		Welcome to Browser Storage Demos - Cache Storage API	<br/> 
 
 		<p id="data"></p>
-        <button onclick = "add()">Add to Cache </button> 
+                <button onclick = "add()">Add to Cache </button> 
 		<button onclick = "addAll()">Add All</button> 
 		<button onclick = "checkCacheStatus()">Cache Status </button>
 		<button onclick = "deleteCache()">Delete Cache </button> 
