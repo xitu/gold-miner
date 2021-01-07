@@ -78,37 +78,54 @@ await sequelize.query(
 ```
 
 ## Authentication Pitfalls
+## 身份验证失误
 
 Authentication is usually a part of the system that requires a lot of attention, especially if you make use of frameworks or tools that easily allow developers to expose sensitive user’s information.
+身份认证通常是一个系统中非常值得关注的一部分。在使用了开发者很轻易就能暴露敏感用户信息的框架或者工具的情况下，身份认证尤其值得关注。
 
 OWASP considers this item critical. Standards like [OAuth](https://oauth.net/) (on its 2nd version now, working on the [3rd](https://oauth.net/3/)) are constantly evolving in an attempt to embrace as much as possible the many different realities of the web world.
+OWASP认为身份认证很关键。像OAuth这样的标准（以第二版为准，第三版正在筹备中）一直以来都尝试尽可能多的考虑现实生活中的各种不同情况来确保身份验证是有效的。（？）
 
 Its implementation can be tricky, depending on your project’s scenarios or on how your company decides to customize the standard usage.
+它的实现很难以捉摸，取决于项目的业务场景或者是你的公司决定如何制定标准。
 
 If your team (and company) can afford to add big – and therefore, mature – players like [Auth0](https://auth0.com/), [Amazon Cognito](https://aws.amazon.com/cognito/), and [many others](https://stackshare.io/auth0/alternatives) in the market to your projects, that would be halfway there.
+如果你的团队或公司能够为项目购买大而成熟的安全服务，类似Auth0,Amazon Cognito 或者是其他许多，那么会有事半功倍的效果
 
 When it comes to [implementing OAuth2](https://blog.logrocket.com/implementing-oauth-2-0-in-node-js/) in Node.js, there’s plenty of compliant and open source options that can help you with not starting from scratch. Like the famous [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server) module.
+当你想要在nodejs的项目中实现OAuth2协议时，有很多开源和成熟的第三方库可供选择从而使你避免从头开始，就像是著名的node-oauth2-server模块。
 
 Make sure to always refer to the official docs of whatever module or framework you’re adding to your projects (whether it’s open source or paid). Plus, when adding security to your auth flows, never go with small and recent open-source projects (it’s too much of a critical part of the app to take that kind of risk).
+确保经常参考您所选用的模块或者框架的官方文档，无论它们是开源或者付费的。另外，当在认证过程中添加安全模块时，不要选用近期刚出现的小的开源项目。（很多app的重要组成部分都承担这种风险）
 
 ## Sensitive Data Exposure
+## 敏感信息泄露
 
 It’s important to define what sensitive data is. Depending on the type of project, it can vary. However, regardless of the app nature, things like credit card and document ids will always be sensitive, for sure.
+在这里，定义什么样的数据是敏感的很重要。这一定义随项目的类型而变化。然而，无论app的目的是要做什么，信用卡信息或者个人证件信息之类的信息一定总是敏感的。
 
 How is that information going to transit over to your system? Is it encrypted? No? Really?
+这样的信息如何传播到系统之外呢？是被窃取了嘛？（待考虑）
 
 After you’ve separated what’s “**really important**” from the rest, it’s time to decide what needs to be stored, and for how long.
+在你区分清楚真正重要的东西和其他部分之后，现在该决定什么需要存储，以及存储多长时间。
 
 You’d be amazed at the number of apps out there that store sensitive information for no further use, or worse, without the user’s consent. That can easily break the laws of data privacy which, by the way, are different depending on the country your app is running on (another thing to worry about).
+你会惊讶于这个世界上有数不清的app存储了无用的敏感信息，或者更糟糕，存储未经用户同意获取的敏感信息。这种行为有可能违背app使用当地国家的法律。
 
 Let’s go to the to-do (**aka** must-to) list:
 
 * Encrypt your sensitive data. Forget about MD5, your data deserves to be strongly protected under the right algorithms. So go for [Scrypt](https://www.npmjs.com/package/scrypt).
+* 加密敏感信息。MD5不够强大，你的数据应该有更强大的算法来加密，参见[]
 * Warn your users about how your application deals with sensitive info. You can periodically mail them with explaining infographics, pop up some informative modals when logging in, and yes, your terms of use must state this too.
+* 提醒用户app需要获取一部分敏感信息。你应该阶段性的发邮件给用户告知有关信息图标的东西，当用户登录的时候推送一些信息模型，当然，你对于信息的使用必须获得法律授权。
 * Go for HTTPS. Period. Google won’t like you nowadays if you’re not.
+* 选择使用HTTPS。如果不使用，Google可能未来不兼容你。
 * If you can, go a bit further and do [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security). It is a policy mechanism that enhances your web security against the famous [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacks.
+* 如果你可以更深入一点，进行HSTS。 HSTS是一个允许你的web应用抵御中间人攻击的机制/协议。
 
 Setting HSTS in a Node app is as easy as:
+nodejs应用中设置hsts像下面这样简单：
 
 ```js
 const hsts = require('hsts');
@@ -119,6 +136,7 @@ app.use(hsts({
 ```
 
 You can fine-tune your settings by defining, for example, if subdomains should be included or not:
+你可以通过定义中的配置项仔细调试设置，比如，你可以配置是否包含子域名：
 
 ```js
 app.use(hsts({
@@ -128,14 +146,19 @@ app.use(hsts({
 ```
 
 You’ll need, obviously, the [hsts](https://www.npmjs.com/package/hsts) npm package. Make sure to refer to its [official docs](https://helmetjs.github.io/docs/hsts/) for more info.
+很明显，你首先需要下载hsts的npm第三方库。请确保你经常查阅官方文档。
 
 ## Old XML External Entities (XXE)
+## XML外部实体注入
 
 [XXE attacks](https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing) occur by exploring the vulnerabilities that older XML processors have, in which they allow attackers to specify external entities and send them to applications that parse XML inputs.
+XXE外部实体注入发生在旧的XML处理器中，在这样的处理器中，攻击者可以指定外部实体并将它们送到解析xml输入的应用中。
 
 If the parser is weakly configured, the attacker could have access to sensitive information, confidential data like passwords in a server, among others.
+如果解析器的配置不够强大，攻击者就能够窃取类似服务器密码之类的敏感数据。
 
 Consider, as an example, an XML-based Web Service that receives the following XML content as input:
+举个例子，想象一下一个基于xml的web服务接收如下的xml内容作为输入：
 
 ```
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -146,6 +169,7 @@ Consider, as an example, an XML-based Web Service that receives the following XM
 ```
 
 At first sight, it looks just like all the other inputs you’ve seen so far. However, if your app that’s hosted on a server is not prepared to deal with attacks, something like this could be sent over:
+第一眼，这个输入就像你见过的其他输入一样平常。然而，如果你的app部署在一个没有处理这种攻击的服务器上，就可能会发生下面的情况：
 
 ```
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -160,24 +184,34 @@ At first sight, it looks just like all the other inputs you’ve seen so far. Ho
 ```
 
 And this would return in the response the **boot.ini** file content.
+这将在响应中返回 **boot.ini** 文件的内容。
 
 Another good example is if your app deals with uploading files. If, for example, you restrict it to only accepting some group of files, then XML-based formats like DOCX or the famous SVG for images could be accepted and carry on malicious code as well.
+另一个好例子是当你的app处理文件上传任务的情况。例如，如果你限制仅仅可以接收某些类型的文件，那么基于xml格式的文档，例如docx或者著名的svg格式的图片可以被接收，恶意代码同样也可以运行。
 
 The easiest way to prevent such attacks is by disabling your library’s parsing features. The [node-libxml](https://www.npmjs.com/package/node-libxml) npm package, for instance, provides a bunch of functions to validate your DTD and helps you secure your apps against these attacks.
+最简单的阻止这种攻击的方法就是禁用第三方库的解析特性。例如node-libxml第三方库，就提供了一系列方法来确认文件类型定义并且帮助你的app免于遭受这种攻击。
 
 ## Broken Access Control
+## 访问控制中断
 
 This item is mostly related to how well-tested an application has been when it comes to user permissions to different areas (or URLs) of it.
+这一问题很大程度上取决于这个应用在测试的时候有没有从不同的域或者是url测试用户权限。
 
 In other words, if you’re supposed to have restricted areas on the application, like an admin dashboard, for example, and ordinary users without a proper role can access it anyway, then you have an access vulnerability.
+换句话说，当你的应用中有受限访问的部分，比如说管理员面板，这种普通用户无权访问的页面，你就会有访问漏洞。
 
 It is easily correctable and doesn’t require any specific solution, you can go with whatever you’re using already. The only point is the attention to implement it correctly and cover it with proper tests that guarantee the coverage over new endpoints as well.
+这种漏洞不需要特别纠正，并且不需要任何特别的解决方案，你可以继续使用自己已经使用的代码。唯一需要注意的就是正确的实现权限控制并且用合适的测试流程测试到他来保证测试同样覆盖到了新的端点。
 
 Node provides plenty of libraries to help with that, as well as middleware to check for the current user’s permissions and you can also implement one on your own.
+node提供了一系列库来辅助这个工作，以及提供了一系列中间件来检查当前用户的权限。你同样也可以自己实现这些机制。
 
 ## Security Misconfiguration
+## 安全配置项错误
 
 It’s common, in the early stages of an app’s life, to define three major environments (development – or stage, QA, and production) and leave the settings equal among them.
+
 
 This type of misconfiguration sometimes goes on for ages without being noticed and can lead to critical attacks, since the app is vulnerable considering that staging and QA configurations are weakly protected most of the time.
 
