@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-different-types-of-browser-storage.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-different-types-of-browser-storage.md)
 > * 译者：[flashhu](https://github.com/flashhu)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 不同类型的浏览器存储
 
@@ -55,7 +55,7 @@ Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Strict
 Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Lax
 Set-Cookie: <cookie-name>=<cookie-value>; SameSite=None; Secure
 
-// 多属性也是可能的，例如:
+// 也可以同时提供多个属性，例如：
 Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
 ```
 
@@ -81,13 +81,13 @@ Set-Cookie: test=test-value; Domain=example.com - cookie 可用于 example.com �
 * 一个域下的 cookie 数量有限制，具体取决于浏览器（如 20 个）
 * 跨域 cookie 的总数有限制，具体取决于浏览器（如 300 个）。一旦达到限制数量，为存储新的 cookie，最老的 cookie 将被移除。
 * Cookie 数据在每次请求时都被会发到服务器。这将消耗额外的带宽并影响性能。
-* 允许和第三方共享数据（如第三方 cookie）
+* 可能被第三方读取数据（如第三方 cookie）
 
-Cookie 导致多种安全问题，因此现在建议尽可能使用现代存储 API。
+Cookie 会导致多种安全问题，因此现在建议尽可能使用现代存储 API。
 
 ## Web Storage API
 
-Web Storage API 允许 Web 应用在用户浏览器中本地存储数据。 这些 API 已作为 HTML5 标准的一部分。
+Web Storage API 允许 Web 应用在用户浏览器中本地存储数据。 这个 API 已作为 HTML5 标准的一部分。
 
 相比 cookie，这类存储的限制更多 —— 比如, 至少 5 MB（实际大小取决于浏览器）。这些信息只在客户端，不会和服务器共享。服务器没有任何访问权限来修改数据。
 
@@ -173,21 +173,21 @@ Web Storage API 以键/值对形式存储数据。所有数据都存储为字符
 </html> 
 ```
 
-Web Storage API 调用是同步的，因此它们可能会影响 UI 渲染。使用 Web Storage API 用于存储和查询少量数据。Web Storage API 易于在用户浏览器上存储及查询数据 —— 所有现代浏览器都支持 Web Storage API。
+Web Storage API 的调用是同步的，因此它们可能会影响 UI 渲染。也因为如此，我们仅应该使用 Web Storage API 存储和查询少量数据。在用户浏览器上使用 Web Storage API 存储及查询数据是便捷的 —— 所有现代浏览器都支持 Web Storage API。
 
 ---
 
 ## IndexedDB 存储
 
-IndexedDB 是一个基于 JavaScript的面向对象数据库。IndexedDB 允许你存储和查询键（主键，如 SSN）索引的对象。任何结构化克隆算法支持的对象（如，视频，图片）都可以被存储。IndexedDB 的使用比 Web Storage API 复杂得多。
+IndexedDB 是一个基于 JavaScript 的面向对象数据库。IndexedDB 允许你存储和查询键（主键，如 SSN）索引的对象。任何结构化克隆算法支持的对象（如：视频，图片）都可以被存储。IndexedDB 的使用比 Web Storage API 复杂得多。
 
-IndexedDB 是一种在用户浏览器中持久化存储大量数据的方法。IndexedDB 允许你创建具有高级功能的 Web 应用，而不用关心网络可用性。这些应用在线，离线都可以工作。IndexedDB 对需要存储大量数据的应用及工作时不要求网络持续连通的应用而言非常有用。
+IndexedDB 是一种在用户浏览器中持久化存储大量数据的方法。IndexedDB 允许你创建具有不用关心网络可用性这一高级功能的 Web 应用。这些应用在线、离线都可以工作。IndexedDB 对需要存储大量数据的应用及工作时不要求网络持续连通的应用而言非常有用。
 
-IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以支持对数据的高性能搜索。
+IndexedDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以支持对数据的高性能搜索。
 
-创建数据库模式及对象，打开数据库连接，然后在一系列事务中查询和更新数据。IndexDB 允许存储大量结构化数据。具体大小取决于浏览器。
+创建数据库模式及对象，打开数据库连接，然后在一系列事务中查询和更新数据。IndexedDB 允许存储大量结构化数据。具体大小取决于浏览器。
 
-数据库对源（域/协议/端口）是私有的，因此任何网站不能访问其他网站的 IndexDB 存储。
+数据库对源（域/协议/端口）是私有的，因此任何网站不能访问其他网站的 IndexedDB 存储。
 
 ```HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -374,7 +374,7 @@ IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以�
 
 > “Web SQL 数据库是一个用于将数据存储在数据库中的 Web API，这些数据库可以使用 SQL 的变体进行查询。” —— [维基百科](https://en.wikipedia.org/wiki/Web_SQL_Database)
 
-该规范基于 SQLite。Web SQL 数据库未被所有浏览器支持 —— 该标准已被 W3C 否决，IndexDB 应该会成为替代品。
+该规范基于 SQLite。Web SQL 数据库未被所有浏览器支持 —— 该标准已被 W3C 否决，IndexedDB 应该会成为替代品。
 
 尽管如此，它仍可以在支持的浏览器中使用，如 Safari，Chrome，Opera 及 Edge。
 
@@ -494,9 +494,9 @@ IndexDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以�
 
 > “CacheStorage 是一种浏览器中的存储机制，用于存储和查询网络请求和响应。它存储一对 Request 和 Response 对象，Request 作为键，Response 作为值。”
 >
-> —— [Chidume Nnamdi](undefined) 的 [点点滴滴](https://blog.bitsrc.io/introduction-to-the-cache-storage-a-new-browser-cache-pwa-api-a5d7426a2456)
+> —— [Chidume Nnamdi](undefined) 的 [Bits and Pieces](https://blog.bitsrc.io/introduction-to-the-cache-storage-a-new-browser-cache-pwa-api-a5d7426a2456) 专栏
 
-CacheStorage API 可以在 Windows 上下文（DOM 上下文）中使用，也可以和 Service Worker API 一起使用以实现离线访问。在本教程中，我们将更多地讨论 DOM 上下文。
+CacheStorage API 可以在 Window 上下文（DOM 上下文）中使用，也可以和 Service Worker API 一起使用以实现离线访问。在本教程中，我们将更多地讨论 DOM 上下文。
 
 CacheStorage 用于在网站中存储网络请求和响应，也可以作为存储工具。例如，我们可以存储个性化数据（如用户偏好）在缓存中，按需查询这些数据。`put` 方法可用于将个性化响应对象存储在缓存存储中。
 
@@ -650,17 +650,13 @@ CacheStorage API 允许我们从跨域网站获取和缓存数据。CacheStorage
 
 
 
-相关演示参见[浏览器存储演示](https://github.com/techforum-repo/youttubedata/tree/master/browser-storage-demos)（这个演示是在 Node.js 上构建的，使用 Express.js）。
+相关演示参见[浏览器存储演示](https://github.com/techforum-repo/youttubedata/tree/master/browser-storage-demos)（这个演示是在 Node.js 上使用 Express.js 构建的）。
 
 在用户浏览器上存储数据有多样的选择 —— 根据你的使用场景进行选择。
 
-使用 CacheStorage API 存储供离线访问的数据。
+你可以选择使用 CacheStorage API 存储供离线访问的数据，而在存储大量应用或用户生成的数据的情况下，IndexedDB 是更好的选择。当然，Cookie 仍可以用于存储用于服务器识别的小型数据。
 
-对于存储大量应用或用户生成的数据，IndexedDB 是更好的选择。
-
-Cookie 仍可以用于存储服务器识别状态所需的最小数据。
-
-本地存储（localStorage）和会话存储（sessionStorage）可用于存储少量数据。本地存储和会话存储的 API 是同步的，因此它们会影响 UI 渲染。但是 API 在项目中易于使用。
+本地存储（localStorage）和会话存储（sessionStorage）则可用于存储少量数据。本地存储和会话存储的 API 是同步的，因此它们会影响 UI 渲染。但与此同时，它们这两个 API 易于在项目中使用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
