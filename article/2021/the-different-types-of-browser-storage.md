@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-different-types-of-browser-storage.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-different-types-of-browser-storage.md)
 > * 译者：[flashhu](https://github.com/flashhu)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)，[k8scat](https://github.com/k8scat)
 
 # 不同类型的浏览器存储
 
@@ -18,7 +18,7 @@
 * 个性化网站偏好
 * 持久化站点活动
 * 存储登录状态
-* 本地保存数据和资源供离线时更快下载或使用
+* 本地保存数据和资源以便快速下载或离线使用
 * 本地保存 Web 应用生成的文档供离线使用
 * 提升网站性能
 * 减少对后端服务器的请求
@@ -38,7 +38,7 @@
 
 Cookie 保存客户端的数据，为网站访问者提供个性化的体验。Cookie 在服务端生成，随响应发到客户端，每次请求都会与服务器交换数据。服务器可以根据 cookie 中的数据向用户发送个性化的内容。
 
-Cookie 可以通过 JavaScript 中的 `document.cookie` 被创建，更新或读取。`HTTPOnly` cookie 标志可在 JavaScript 中被用于限制 cookie 访问，从而减少一些安全隐患，如跨站脚本（cookie 仅用于服务器访问）。
+Cookie 可以通过 JavaScript 中的 `document.cookie` 被创建，更新或读取。`HTTPOnly` cookie 标志可在 JavaScript 中被用于限制 cookie 访问，从而减少一些安全隐患，如被跨站脚本读取（这类 cookie 仅供服务器端访问）。
 
 #### Cookie 属性
 
@@ -77,13 +77,13 @@ Set-Cookie: test=test-value; Domain=example.com - cookie 可用于 example.com �
 
 #### Cookie 的局限性
 
-* 只能存储 4 KB 的数据 —— 此限制依据浏览器的实现方式会有所差异
+* 只能存储 4 KB 的数据，具体限制取决于浏览器
 * 一个域下的 cookie 数量有限制，具体取决于浏览器（如 20 个）
 * 跨域 cookie 的总数有限制，具体取决于浏览器（如 300 个）。一旦达到限制数量，为存储新的 cookie，最老的 cookie 将被移除。
 * Cookie 数据在每次请求时都被会发到服务器。这将消耗额外的带宽并影响性能。
 * 可能被第三方读取数据（如第三方 cookie）
 
-Cookie 会导致多种安全问题，因此现在建议尽可能使用现代存储 API。
+Cookie 会导致多种安全问题，因此现在建议尽可能使用现代化存储 API。
 
 ## Web Storage API
 
@@ -179,7 +179,7 @@ Web Storage API 的调用是同步的，因此它们可能会影响 UI 渲染。
 
 ## IndexedDB 存储
 
-IndexedDB 是一个基于 JavaScript 的面向对象数据库。IndexedDB 允许你存储和查询键（主键，如 SSN）索引的对象。任何结构化克隆算法支持的对象（如：视频，图片）都可以被存储。IndexedDB 的使用比 Web Storage API 复杂得多。
+IndexedDB 是一个基于 JavaScript 的面向对象数据库。IndexedDB 允许你存储和查询键（主键，如 SSN）索引的对象。任何结构化克隆算法支持的对象（如：视频、图片）都可以被存储。IndexedDB 的使用比 Web Storage API 复杂得多。
 
 IndexedDB 是一种在用户浏览器中持久化存储大量数据的方法。IndexedDB 允许你创建具有不用关心网络可用性这一高级功能的 Web 应用。这些应用在线、离线都可以工作。IndexedDB 对需要存储大量数据的应用及工作时不要求网络持续连通的应用而言非常有用。
 
