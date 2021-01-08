@@ -9,13 +9,13 @@
 
 ![Flutter 中的交织动画](https://cdn-images-1.medium.com/max/2000/1*icYuiagsCKqcRapvjiLbmw.png)
 
-交织动画由一个动画序列或重叠的动画组成，而要制作交织的动画，我们需要使用多个或多组动画对象。我们应该使用同一个 `AnimationController` 控制所有动画，每个动画对象都应该指定某个点或锚点在一段时间内的运动，并且对于要执行动画的每个属性，我们都应该创建一个补间。
+交织动画由一个动画序列或重叠的动画组成，而要制作交织的动画，我们需要使用多个或多组动画对象。我们应该使用同一个 `AnimationController` 控制所有动画，每个动画对象都应该指定某个点或锚点在一段时间内的运动，并且对于要执行的动画的每个属性，我们都应该创建一个补间。
 
 所谓交织动画，直接来说就是：视觉变化发生在一系列操作中，而不是一次性发生。这个动画纯粹可能只是一个顺序的，而在随后的动画中会发生一些变更，或者可能部分或完全重叠。当然，交织的动画同样可能会有一些地方空着，有着间隙，没有发生任何动画。
 
 [**这里是一段有关交织动画的样例视频**](https://youtu.be/0fFvnZemmh8)
 
-在这个视频中，您可以看到一个独立的控件的从一个带边框的，略微有圆角的蓝色矩形的出现开始的动画，这个矩形会按照以下顺序变化：
+在这个视频中，您可以看到单独一个控件从一个带边框的，略微有圆角的蓝色矩形的出现开始的动画，这个矩形会按照以下顺序变化：
 
 * 淡入
 * 水平上变宽
@@ -45,13 +45,13 @@
 
 * 为 `Tween` 设置不同的值。
 
-* `Tween` 的 `animate()` 方法需要一个控制器，并且同时用这些属性生成一个动画。
+* `Tween` 的 `animate()` 方法需要一个 `AnimationController` 来用这些属性生成一个动画。
 
-* 指定动画的 curve 属性的间隔
+* 指定动画的 `curve` 属性的间隔
 
 **如何在 Flutter 中使用交织动画:**
 
-下面的代码为 avatarSize 这一个属性制作了一个补间动画，它构造了一个  [**CurvedAnimation**](https://api.flutter.cn/flutter/animation/CurvedAnimation-class.html) 并且指定了动画曲线为一条 elasticOut 曲线. 要查看更多的预设动画**曲线**，请访问网页 [**Curves**](https://api.flutter.cn/flutter/animation/Curves-class.html) .
+下面的代码为 avatarSize 这一属性定义了一个补间动画。它构造了一个  [**CurvedAnimation**](https://api.flutter.cn/flutter/animation/CurvedAnimation-class.html) 动画类并且指定了动画曲线为一条 elasticOut 曲线. 要查看更多的预设动画曲线，请访问网页 [**Curves**](https://api.flutter.cn/flutter/animation/Curves-class.html) 。
 
 ```dart
 avatarSize = Tween<double>(
@@ -68,8 +68,8 @@ avatarSize = Tween<double>(
 ),
 ```
 
-> **`AnimationController`** 和 **`Animation`** 定义了类 **`AnimationController`** 的实例
-> 以下是 **`AnimateController`** 以及5个用于控制动画的进展的 **`Animation`** 的实例，其中 `<double>` 用于获取一个用于定义动画过程的数值，该数值必须在 0 到 1 之间。
+> `AnimationController` 和 `Animation` 定义了类 `AnimationController` 的实例
+> 以下是 `AnimateController` 以及5个用于控制动画的进展的 `Animation` 的实例，其中 `<double>` 用于获取一个用于定义动画过程的数值，该数值必须在 0 到 1 之间。
 
 ```dart
 final AnimationController controller;
@@ -80,9 +80,10 @@ final Animation<double> textOpacity;
 final Animation<double> imageOpacity;
 ```
 
-> 我们应该在控件的定义中覆写 `initState` 方法以在其中完成对 **`AnimationController`** 的初始化，在定义语句中，我们实际在设置动画的参数。下面的例子我们将动画时长设置为 3 秒.
+> 我们应该在控件的定义中覆写 `initState` 方法以在其中完成对 `AnimationController` 的初始化，在定义语句中，我们实际是在设置动画的参数。下面的例子我们将动画时长设置为 3 秒.
 
 ```dart
+// 译者注：代码从 Flutter 库中截取，路径 /lib/src/animation/animation_controller.dart:150
 @override
 void initState() {
     super.initState();
@@ -95,7 +96,7 @@ void initState() {
 
 **如何在 dart 文件中实现：**
 
-你需要分别在代码中实现它：
+您需要分别在代码中实现它：
 
 * 添加一个有状态的 `StatefulWidget` 控件，然后 mixin 这个控件与 `SingleTickerProviderStateMixin` ，以让 `AnimationController` 确定它的动画时长为 3500 毫秒。控制器播放一个动画，然后在 widget 树上创建一个无动画的部分。当在屏幕上检测到一个点击时，动画开始。动画向前播放，然后向后播放。
 
@@ -153,9 +154,9 @@ class _StaggeredTrekkingAnimationState extends State<StaggeredTrekkingAnimation>
 }
 ```
 
-在 Staggered Trekking Enter 动画中，我们使用了补间当前的值。
+在 Staggered Trekking Enter 动画中，我们使用了补间去决定动画的进展。
 
-接下来，你会完成一个无状态的空间的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** 。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html) 。同时，我们应该创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 **builder** 属性.
+接下来，您会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** 。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html) 。同时，我们应该创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 **builder** 属性.
 
 ```Dart
 import 'package:flutter/material.dart';
@@ -199,19 +200,18 @@ class StaggeredTrekkingEnterAnimation {
   final Animation<double> titleOpacity;
   final Animation<double> textOpacity;
   final Animation<double> imageOpacity;
-//final Animation<double> contactOpacity;
 }
 ```
 
-`AnimatedBuilder` 将侦听来自动画控制器的同志，然后会标记该控件的值的改变。对于动画的每一帧，这些值会因为调用 `_buildAnimation()` 而都被更新。
+`AnimatedBuilder` 将侦听来自动画控制器的通知，然后会标记该控件的值的改变。对于动画的每一帧，这些值会因为调用 `_buildAnimation()` 而都被更新。
 
-在下面发布的视频中，您将看到交织动画的工作方式。当您在屏幕上的任意位置点击时，它将启动动画并自动反向运行动画，您还可以控制动画的速度。
+在下面发布的视频中，您将看到交织动画的工作方式。当您在屏幕上的任意位置点击时，它将启动动画并在向前播放动画之后自动向后播放动画。在这代码中，您还可以控制动画播放的速度。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vQm1tBYamr7UZSaoApsAdg.gif)
 
-这就是交错动画的基本示例。在这里我们做了一个简单的示例，您可以学习它。
+这就是交织动画的基本示例。在这里我们做了一个简单的示例，您可以学习它。
 
-**单击下面的 GitHub 链接以找到交错动画的源代码:**
+**单击下面的 GitHub 链接以找到交织动画的源代码:**
 
 [**flutter-devs/Flutter-StaggeredAnimation**](https://github.com/flutter-devs/Flutter-StaggeredAnimation)
 
