@@ -2,76 +2,77 @@
 > * 原文作者：[George Seif](https://towardsdatascience.com/@george.seif94)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-most-famous-data-visualisation-ever-and-what-we-can-learn-from-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-most-famous-data-visualisation-ever-and-what-we-can-learn-from-it.md)
-> * 译者：
-> * 校对者：
+> * 译者：[AceLeeWinnie](https://github.com/AceLeeWinnie)
+> * 校对者：[shixi-li](https://github.com/shixi-li), [ziyin feng](https://github.com/Fengziyin1234)
 
-# The most famous data visualisation ever and what we can learn from it
+# 从著名数据数据可视化中我们可以学到什么
+
+> 译注：原文对拿破仑东征图存在多处事实错误，译者将保留可视化理解部分，修正事实错误部分。
+> 附拿破仑东征历史阅读材料 - [俄法战争](https://zh.wikipedia.org/wiki/%E4%BF%84%E6%B3%95%E6%88%98%E4%BA%89)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*V9sq--wHI1wm1zA3Gng1sg.png)
 
-Napoleon’s invasion of Russia
+拿破仑东征图
 
-### You need data visualisation
+### 数据可视化的重要性
 
-Data visualisation is a huge part of both Data Science and Machine Learning (ML), no doubt about it. Before creating your ML model, you need to _understand_ the data you’re going to feed it. This is usually done through an Exploratory Data Analysis (EDA); Kaggle has some great [examples](https://www.kaggle.com/kernels) of this!
+毋庸置疑，数据可视化是数据科学和机器学习（ML）的重要组成部分。在创建 ML 模型之前，你需要**了解**训练数据。这部分工作通常通过探索性数据分析（EDA）工具完成；对此，Kaggle 有很多很棒的[示例](https://www.kaggle.com/kernels)。
 
-Data visualisation is a part of EDA where we create a _visual graphic_, a specific **_depiction_** of our data in order to more clearly understand its features and properties. Visualising our data makes things so much easier because the information we are looking for can be emphasised right in front of us. Visualisations often use many different colours, shapes, sizes, and charts to trigger natural visual queues and convey a clearer picture of the data than nitty gritty numbers ever could!
+数据可视化是 EDA 的一部分，我们通过创建**视觉图形** —— 数据的一种特定描述，以便更清楚地理解数据的特征和属性。可视化数据使得这一目标更为简单，因为我们寻找的信息能够重点标注出来。可视化时常使用许多不同颜色，形状，大小和图表触发自然的视觉联想，并传达比实际数字更清晰的数据形态。
 
-Plain and simple, you need data visualisation.
+简单来说，你需要数据可视化。
 
-### The Invasion
+### 拿破仑东征图
 
-Perhaps the most famous data visualisation is that of Napoleon’s invasion of Russia shown above. It’s used in the introductory lecture of nearly every data visualisation course you’ll ever see.
+上面的拿破仑东征图可能是最著名的数据可视化图表了。几乎所有数据可视化课程的导论课上都会用到它。
 
-Now, French might not be your native language…. but that’s the beauty of this visualisation: you can understand everything in **picture form.**
+法语也许不是你的母语......但这就是这幅可视化作品的奥妙所在：你能**以图片的形式**理解所描述的一切内容。
 
-### The flow
+### 流
 
-Right off the get go you can see that there is a clear _flow_ to the picture from left to right. This naturally matches with how writing is done in most languages, offering an intuitive guide for reading and understanding what is depicted. It looks like Napoleon’s army started in Kowno and ended up in Moscow.
+可以看到画面从左到右有一个清晰的**流动**。这天然符合绝大多数语言的书写方向习惯，在阅读和理解所描述的内容提供了直观的引导。看起来拿破仑的军队行军起始于**科夫罗**，结束于**莫斯科**。
 
-_Positioning_ is also used as a visual queue to show the direction that the army travelled. We can see how the army started off on the left in the west and proceeded towards the north east. It wasn’t a fully direct path though.
+**定位**也用作一种视觉提示，显示了军队行进的方向。我们可以看到军队是如何从西边即左边开始向东北方向前进的。但这并不是直捣莫斯科的路。[译注]
 
-Perhaps the army had to manoeuvre around some rough terrain or obstacles, maybe even the boarders of enemy countries too. Either way we definitely know they took some type of indirect path.
+也许军队不得不绕过一些崎岖的地形或障碍，甚至是敌国的边境。不管怎样，可以看到他们采取了迂回包抄的作战方式。[译注]
 
-### Size, shape, and colour
+### 大小，形状和颜色
 
-_Size_ and _Shape_ also play key rolls in **quantifying**  certain key properties. On the left, the shape started out as very big and slowly got smaller and smaller. This would make sense either due to army defectors, death from war, or the harsh weather conditions (more on this later).
+**大小**和**形状**在**量化**重要属性时也发挥着关键作用。图中左侧，一开始线条非常粗，慢慢越来越细。这是可理解的为是士兵叛逃、战死或恶劣的天气条件（东征后期更是如此）造成的。
 
-Towards the beginning of the journey between _Kowno_ and _Wilna_, we see a small, almost vertical part join the larger part of the shape. This was probably some later joining reinforcements. As we move along to the right we later see that some of the army broke off and headed to _Polotrk_.
+在**科夫罗**和**维尔纽斯**段旅程开始的时候，一条细小、近乎垂直的分支从大部队中分离出去。当继续向右移动时，接着看到另一只部队分离出来向**波拉茨克**进发。[译注]
 
-_Colour_ and _shape_ are also combined as with the black shape of the visualisation. It is notably smaller than the other one. It does follow the same flow and reaches the same destination, but it takes a different path. Perhaps Napoleon had a separate army division which he used to attack the flanks!
+**颜色**用来区分军队行军方向，棕色表示进军，黑色表示撤军。相比棕色线，黑色线条显得太细了。它的路线虽然和进军方向相似，但却是撤退路线。[译注]
 
-It looks like some of the army that went to _Polotrk_ ended up joining this black coloured group midway through the trip!
+看来原先驻扎**波拉茨克**的军队在撤退时又与主力部队汇合了。[译注]
 
-We also see that the black group _grows_ in size as opposed to the other group, maybe because they joined in later and the weather was better (again, more on this later).
+我们还看到黑色线条从右到左越来越细，说明军队人数越来越少。底部的温度折线图反映了撤退途中人数发生锐减的几个转折点的温度变化。这也是战争后期导致士兵骤减的最大原因。[译注]
 
-We can probably say that Napoleon had 2 separate divisions to attack and that overall his army diminished in size quite greatly over time.
+从图中可以看到，拿破仑东征过程中在两个地方长期驻扎了军队，并且军队规模随着战争推进越来越小。[译注]
 
-### Using lines, numbers, and text to reveal details
+### 用线条，数字和文字标注细节
 
-Using text in a visualisation can often be quite dangerous, since the usual point of drawing a picture is to see things visually! But, this depiction of Napoleon’s invasion does it right.
+在可视化中使用文字很多时候都是非常危险的，因为绘图的主要目的就是要做形象化的展示！但是此图用上文字却是正确的选择。
 
-The numbers are sparsely and intelligently placed to further emphasise just the right details without over cluttering the picture. Numbers are placed beside the shapes for the army to exactly quantify it’s size, if you wanted that extra detail. The details are there if you want them, but not in your face if you don’t!
+图中数字并不多，但巧妙地放在了适当的位置，进一步强化了细节，同时又不会造成混淆。如果你需要额外的细节，数字就放在代表军队的线条旁边，以便精确地量化大小。便于查看细节，但不会干扰你的视线。
 
-The map’s scale on the right is well placed and not in anything’s way. Rivers are drawn roughly as to not be glaring and in your face. The author seems to have understood that the main purpose of drawing those rivers, in the context of depicting the march of an army, was to show their position.
+地图右边的比例尺位置很好，没有造成任何视觉阻碍。河流画得很简略，以免喧宾夺主。作者似乎明白，在描绘军队行军的背景下，画河流的主要目的是确定位置，标记行军路线。[译注]
 
-We can see that at the 2 right-most rivers, the size of the black coloured army grew! Perhaps they resupplied at the towns there. Either way the drawing of the rivers serves the right purpose of depicting their landmarks.
+由于低温造成人数骤减的关键节点均有一条直线垂直向下连接到下面温度折线图。这张图表描述了撤退过程的温度变化。因为它很简单，很直观，所以很容易阅读；图上越低的点表示温度越低!
 
-The lines at the bottom are drawn down to what looks like a vertical chart. The chart depicts the temperature throughout the journey. Because of it’s simplicity, it’s quite intuitive and easy to read; higher up on the chart means higher temperatures!
+我们可以从右到左看到，温度随时间变化越来越寒冷，最低温度竟低达零下三十多度。而拿破仑东征开始于夏季，结束于冬季。
 
-We can see from left to right that over time temperatures got warmer. We now know that the attack began in the Winter and ended in the Spring!
+### 总结：如何进行有效的可视化
 
-### TLDR: Or how to make an effective visualisation
+(1) 直观。诉诸于人类自然的视觉理解方式。从左至右，由上至下，从小到大或从大到小。
 
-(1) Make it intuitive. Appeal to the natural human way of understanding things visually. Left to right, up and down, bigger and smaller.
+(2) 使用最基本、最原始的视觉通道：尺寸，形状，颜色，位置。形状和位置适用于形容变化。颜色和形状适用于分组。尺寸适用于定量。这些都是一般规则。
 
-(2) Use the most basic and primitive visual queues: size, shape, colour, position. Shape and position are great for depicting flow. Colour and shape are for grouping. Size is for quantifying. All of these are general rules of course.
+(3) 使用文本，线条和数字强调重要细节。
 
-(3) Use text, lines, and numbers to emphasise important details.
+(4) 标注最重要的部分，弱化无关紧要的部分。
 
-(4) Know what’s important and emphasise it; know what isn’t and leave it out.
-
-(5) Don’t over clutter the picture, only show what’s necessary. Positioning is very important.
+(5) 不要过多地填满整个画面，只展示必要信息。定位尤其重要。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

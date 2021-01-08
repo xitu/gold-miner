@@ -2,20 +2,20 @@
 > * 原文作者：[Seva Zaikov](https://blog.bloomca.me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/alternatives-to-jsx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/alternatives-to-jsx.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[sunui](https://github.com/sunui)
 
-# Alternatives to JSX
+# JSX 的替代方案
 
-JSX is a very popular choice nowadays for templating in various frameworks, not just in React (or JSX inspired templates). However, what if you don’t like it, or have a project where you want to avoid using it, or just curious how you can write your React code without it? The simplest answer is to read the [official documentation](https://reactjs.org/docs/react-without-jsx.html), however, it is a bit short, and there are couple more options.
+如今，JSX 已经是一个非常受欢迎的框架模版了，它的应用也不仅仅局限于 React（或其他 JSX 衍生模版）。但是，如果你并不喜欢它，或者有某些想要避免使用它的项目，或者只是好奇不使用 JSX 该如何书写 React 代码的时候，该怎么办呢？最简单的方法就是去阅读[官方文档](https://reactjs.org/docs/react-without-jsx.html)，但是，官方文档很简短，而在本篇文章中我们为您提供了更多的选择。
 
-> Disclaimer: Personally, I like JSX and use it in all my projects with React. However, I researched this topic for a bit and would like to share my findings.
+> 免责声明：个人来说，我很喜欢 JSX，在我所有的 React 项目中我都使用了它。但是，我对本文主题重新进行了调研，并且希望和你分享我的所见。
 
-## What is JSX
+## 什么是 JSX
 
-First, we need to understand what JSX _is_ in order to write matching code in pure JavaScript. JSX is a [domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language), which means that we need to transform our code with JSX in order to get regular JavaScript, otherwise browsers won’t understand our code. In the bright future, if you want to use [modules](https://developers.google.com/web/fundamentals/primers/modules) and all required features are supported in your targeted browsers, you still won’t be able to drop transformation completely, which might be an issue.
+首先，我们需要明白什么是 JSX，这样我们才能在纯 JavaScript 中编写对应的代码。JSX 是一种[特定域编程语言](https://en.wikipedia.org/wiki/Domain-specific_language)，意味着我们需要将 JSX 代码转码，以便得到常规的 JavaScript，否则浏览器将无法解析代码。展望前景光明的未来，如果你想要使用 [modules](https://developers.google.com/web/fundamentals/primers/modules)，并且所有需要的功能都能被目标浏览器支持，你仍然不能完全丢弃转码这一步，这可能是一个问题。
 
-Probably the best way to understand what JSX is transpiled into is to actually do that using [babel repl](https://babeljs.io/repl). You’ll need to click on `presets` (should be in the left panel) and choose `react` there, so that it will parse it correctly. After that you’ll be able to see JavaScript code in real time on the right side. For example, you can type something like this:
+也许理解 JSX 将会被解析成什么最好的方法就是使用 [babel repl](https://babeljs.io/repl) 实际操作一次。你需要点击左侧面板的 `presets` 并且选择 `react`，这样解析器才能正确的解析代码。这之后，你就能在右侧实时看到编译生成的 JavaScript 代码。例如，你可以尝试下这段代码：
 
 ```
 class A extends React.Component {
@@ -30,7 +30,7 @@ class A extends React.Component {
 }
 ```
 
-For me, the resulted code is the following:
+我的运行结果如下：
 
 ```
 class A extends React.Component {
@@ -43,17 +43,17 @@ class A extends React.Component {
 }
 ```
 
-You can see that every `<%tag%>` construction was replaced with a function call [React.createElement](https://reactjs.org/docs/react-api.html#createelement). First parameter is either a react component or a string with built-in tag value (like `div` or `span`), second one is about props, and all the rest parameters are considered as children.
+可以看到，每个 `<%tag%>` 结构都被替换成了函数 [React.createElement](https://reactjs.org/docs/react-api.html#createelement)。第一个参数是 react 组件或者内建标签名字符串（比如 `div` 或 `span`），第二个参数则是组件属性，其他的参数则都被视作组件的子元素。
 
-I highly recommend to play a bit with different trees, to see, for example, how React renders properties with `true` or `false` values, arrays, components and so on: it is helpful even if you use only JSX and pretty content with it.
+我强烈推荐你使用不同结构的组件树反复尝试，来观察 React 如何渲染值为 `true`、`false`、数组、或者组件等的属性：即使你只尝试使用 JSX 和一些其他内容的代码，它也很有帮助。
 
-> To read about JSX in depth, there is an [offical docs page](https://reactjs.org/docs/jsx-in-depth.html)
+> 如果你想深入学习 JSX，可以参考[官方文档](https://reactjs.org/docs/jsx-in-depth.html)
 
-## Renaming
+## 重命名
 
-While the resulting code is perfectly valid, and we can write all our React code in this style, there are several problems with this approach.
+由于编译结果是固定的，我们其实也可以将所有的 React 代码直接以这种形式写出，但是其实这种方式存在一些问题。
 
-The first problem is that it is extremely verbose. Like _really_ verbose, and the main offender here is `React.createElement`. So the first solution is just to save it into a variable, usually named `h` after [hyperscript](https://github.com/hyperhype/hyperscript). This will already save you a lot of text, and make it more readable. To illustrate that, let’s rewrite out past example:
+第一个问题就是非常繁琐。**真的**相当繁琐，而罪魁祸首就是 `React.createElement`。所以这个问题的解决方案就是将它简写为一个变量，按照 [hyperscript](https://github.com/hyperhype/hyperscript) 的方式命名为 `h`。这种方式能节省很多代码量，并且可读性也更强。下面我们来重写上面的代码，以便说明：
 
 ```
 const h = React.createElement;
@@ -74,9 +74,9 @@ class A extends React.Component {
 
 ## Hyperscript
 
-If you play a bit with either `React.createElement` or `h`, you can see that it has several flaws. To start with, this function _requires_ 3 arguments, so in case there are no properties, you have to provide `null`, and `className`, probably the most common property, requires to write a new object every time.
+如果 `React.createElement` 或者 `h` 你都已经尝试过了，你就可以看出它们都存在一些缺点。首先，函数需要三个参数，所以在没有属性的情况下，你还是必须传递 `null` 作为参数，同时，`className` 作为一个很常用的属性，在每次使用的时候都需要新建一个对象。
 
-As an alternative, you can use [react-hyperscript](https://github.com/mlmorg/react-hyperscript) library. It does not require to provide empty props, and also allows you to specify classes and ids in emmet-like style (`div#main.content` -\> `<div id="main" class="content">`). So, our code will become slightly better:
+作为一个替代方案，你可以使用 [react-hyperscript](https://github.com/mlmorg/react-hyperscript) 库。它不需要你提供空属性，并且允许你用点号的方式定义 class 和 id（`div#main.content` -> `<div id="main" class="content">`）。这样，你的代码能优化为：
 
 ```
 class A extends React.Component {
@@ -91,9 +91,9 @@ class A extends React.Component {
 
 ## HTM
 
-If you are not against JSX per se, but don’t like the necessity to transpile your code, then there is a project called [htm](https://github.com/developit/htm). It aims to do the same (and look the same) as JSX, but using [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals). This definitely adds some overhead (you have to parse these templates in the runtime), but it might worth it in your case.
+如果你并不反感 JSX 本身，但是不喜欢必需的代码编译，那么你可以试试看 [htm](https://github.com/developit/htm) 这个项目。它的目标就是完成和 JSX 相同的事情（并且代码看上去也相同），但是使用的是[模版字符串](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)。它可能会带来一些开销（因为需要在运行时将模版解析），但是在某些情况下也许也是值得的。
 
-It works by wrapping element function, which is `React.createElement` in our case, but it can be any other library with similar API, and returns a function which will parse our template and return exactly the same code as babel did, but only in the runtime.
+它的工作方式是将元素函数包裹起来，也就相当于前面例子中的 `React.createElement`，但是它支持任何其他具有类似 API 的库，同时仅在运行时编译模版并返回和 babel 编译结果一样的代码。
 
 ```
 const html = htm.bind(React.createElement);
@@ -109,13 +109,13 @@ class A extends React.Component {
 }
 ```
 
-As you can see, it is _almost_ the same as real JSX, we just need to insert variables in a slightly different manner; however, these are mostly details, and if you want to show how to use React without any tool setup, this might be handy.
+如你所见，结果**几乎**和 JSX 一样，只是我们需要以略微不同的方式插入变量；但是，大部分区别都是很细节的地方，如果你想要展示如何不使用任何构建工具来使用 React，这个工具就很方便。
 
-## Lisp-like Syntax
+## 类 Lisp 语法
 
-The idea of this one is similar to hyperscript, however, it is an elegant approach worth looking at. There are many other similar helper libraries, so the choice is pure subjective; it might give an inspiration for your own projects.
+它的核心思想和 hyperscript 很类似，但它采用了一个很优雅的方式，值得一看。现如今，有很多类似的帮助库，所以到底选择哪个也因人而异；而它们都有可能能给你的项目带来些灵感。
 
-The library [ijk](https://github.com/lukejacksonn/ijk) brings the idea of writing your templates using only arrays, using positions as arguments. The main advantage is that you don’t need to write `h` constantly (yes, even that can be repetetive!). Here is an example how to use it:
+[ijk](https://github.com/lukejacksonn/ijk) 这个库的思路是只用数组来写模版，并将位置作为参数。这样写的优势在于你不需要总是写 `h`（是的，有时候总写 `h` 也会让人觉得很冗余！）。如下是一个使用案例：
 
 ```
 function render(structure) {
@@ -132,9 +132,9 @@ class A extends React.Component {
 }
 ```
 
-## Conclusion
+## 总结
 
-This article does not say that you should not use JSX, or whether it is a bad idea. You might wonder, though, how can you write your code without it, and how your code can possibly look like, and the goal of this article was to merely answer this question.
+这篇文章并不是建议你不使用 JSX，也不是说 JSX 有什么不好。但是你可能会好奇如果不用它，你要怎么写代码，还有你的代码可能会是什么样子，本文的目的就只是回答了这个问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
