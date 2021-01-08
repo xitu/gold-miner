@@ -15,15 +15,15 @@ Staggered animations movements are a direct idea: visual changes occur as a prog
 
 **Here is the demo video you can take a look staggered animation**
 
-**In this video, you will see the accompanying animation movement of a single widget, which starts as a bordered blue square with marginally adjusted corners. The square runs they will blur and afterward change in square was broaden in measure and afterward square becomes taller while moving upwards and they will changes into an outskirt circle and the progressions shading blue to orange,after walking forward, the activity runs backward.**
+In this video, you will see the accompanying animation movement of a single widget, which starts as a bordered blue square with marginally adjusted corners. The square runs they will blur and afterward change in square was broaden in measure and afterward square becomes taller while moving upwards and they will changes into an outskirt circle and the progressions shading blue to orange,after walking forward, the activity runs backward.
 
 #### Structure of a staggered animation
 
-> **The entire of the animations are pushed by methods for a similar Animation Controller.Regardless of the way extensive the animation movement keeps going in genuine time, the controller’s qualities should be among zero.0 and 1.0, comprehensive.**
->
-> **Every animation movement has an Interval among zero.Zero and 1.0, comprehensive.**
->
-> **For every having a place that animates in an interval, make a Tween. The Tween determines the beginning and give up values for that assets.The Tween produces a Animation thing that is made do with the guide of the controller.**
+The entire of the animations are pushed by methods for a similar Animation Controller.Regardless of the way extensive the animation movement keeps going in genuine time, the controller’s qualities should be among zero.0 and 1.0, comprehensive.
+
+Every animation movement has an Interval among zero.Zero and 1.0, comprehensive.
+
+For every having a place that animates in an interval, make a Tween. The Tween determines the beginning and give up values for that assets.The Tween produces a Animation thing that is made do with the guide of the controller.
 
 #### To set up the animation:
 
@@ -37,7 +37,7 @@ Staggered animations movements are a direct idea: visual changes occur as a prog
 
 The following code makes a tween for the avatarSize property. It constructs a [**CurvedAnimation**](https://api.flutter.dev/flutter/animation/CurvedAnimation-class.html), determining an elasticOut curve. See [**Curves**](https://api.flutter.dev/flutter/animation/Curves-class.html) for other accessible pre-characterized animation **Curves**.
 
-```
+```dart
 avatarSize = Tween<double>(
   begin: 50.0,
   end: 150.0,
@@ -52,9 +52,9 @@ avatarSize = Tween<double>(
 ),
 ```
 
-> ****Animation controller and Animation** define an instance of the class **AnimationController** for the animation controller and five instances of the class **Animation** to handle animations (double to get a progressive value from 0 to 1).**
+> **Animation controller and Animation** define an instance of the class **AnimationController** for the animation controller and five instances of the class **Animation** to handle animations (double to get a progressive value from 0 to 1).
 
-```
+```dart
 final AnimationController controller;
 final Animation<double> barHeight;
 final Animation<double> avatarSize;
@@ -63,9 +63,9 @@ final Animation<double> textOpacity;
 final Animation<double> imageOpacity;
 ```
 
-> ****Animation initializing** override the `initState` method and define the parameters for the animation. For this situation, the duration is set to three seconds.**
+> **Animation initializing** override the `initState` method and define the parameters for the animation. For this situation, the duration is set to three seconds.
 
-```
+```dart
 _controller = AnimationController(
   duration: const Duration(milliseconds: 3500),
   vsync: this,);
@@ -131,7 +131,7 @@ class _StaggeredTrekkingAnimationState extends State<StaggeredTrekkingAnimation>
 }
 ```
 
-In Staggered Trekking Enter Animation, using the tween’s current values and next you will make a Stateless widget**,[Staggered Trekking](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** make a **build()** function an [**AnimatedBuilder**](https://api.flutter.dev/flutter/widgets/AnimatedBuilder-class.html)—this widget for building animations. We create a function named **_buildAnimation()** and it work UI updates and assigns it to its **builder** property**.**
+In Staggered Trekking Enter Animation, using the tween’s current values and next you will make a Stateless widget, [Staggered Trekking](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** make a `build()` function an [**AnimatedBuilder**](https://api.flutter.dev/flutter/widgets/AnimatedBuilder-class.html)—this widget for building animations. We create a function named `_buildAnimation()` and it work UI updates and assigns it to its **builder** property.
 
 ```Dart
 import 'package:flutter/material.dart';
@@ -179,7 +179,7 @@ class StaggeredTrekkingEnterAnimation {
 }
 ```
 
-AnimatedBuilder will listen to the notifications from the animation controller will marking the widget for the values change. For each tick of the animation, the values were updated, resulting in a call to **_buildAnimation()**.
+AnimatedBuilder will listen to the notifications from the animation controller will marking the widget for the values change. For each tick of the animation, the values were updated, resulting in a call to `_buildAnimation()`.
 
 here in the video posted below, you will see how staggered animation were working and when you tap anywhere in that screen it starts animation and run reverse automatically animation, you can control the speed of animation also.
 
@@ -187,18 +187,9 @@ here in the video posted below, you will see how staggered animation were workin
 
 So this was the basic example of Staggered Animation where we did a simple example and you can learn it.
 
-**Click the GitHub link below to find the source code of the Staggered Animation.**
-[**flutter-devs/Flutter-StaggeredAnimation**
-**You can't perform that action at this time. You signed in with another tab or window. You signed out in another tab or…**github.com](https://github.com/flutter-devs/Flutter-StaggeredAnimation)
+**Click the GitHub link below to find the source code of the Staggered Animation:**
 
----
-
-Feel free to connect with us
-And read more articles from [FlutterDevs.com](http://flutterdevs.com/)
-
-FlutterDevs team of Flutter developers to build high-quality and functionally-rich apps. [Hire flutter developer](http://flutterdevs.com/) for your cross-platform Flutter mobile app project on hourly or full-time basis as per your requirement! You can connect with us on [Facebook](https://facebook.com/flutterdevs), [GitHub](https://github.com/flutter-devs), and [Twitter](https://twitter.com/TheFlutterDevs) for any flutter related queries.
-
-![](https://cdn-images-1.medium.com/max/5000/1*Bhe20lhPWC_kXm3lft_CyA.png)
+[**flutter-devs/Flutter-StaggeredAnimation**](https://github.com/flutter-devs/Flutter-StaggeredAnimation)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
