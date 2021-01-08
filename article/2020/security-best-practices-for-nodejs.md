@@ -226,14 +226,19 @@ The cultural aspects of your company may take place here as well. If you use [Sp
 在这个问题上，您的公司使用什么样的技术栈也是有影响的。例如，如果你使用splunk 或者其他日志工具，那么请确保设置了不允许生产环境打印敏感信息的配置或检测这种行为的方法，因为相比起来存储了同样数据的数据库，splunk是更容易接触到的。
 
 That reminds me of a time in a company in which the main database’s password went up to a public GitHub repo due to a developer that “innocently” copied one of the company’s repo to study at home. And don’t get me wrong… I’m not saying that the biggest error was his; it was not.
+这是我想起了有次一个公司的主要数据库密码泄露在了公共的Github仓库上，这是因为开发者“无意中”复制了公司的仓库回家学习。请注意，在这里我不是说最大的错误在于开发者本人。
 
 ## The Notorious XSS
+## 糟糕头顶的XSS
 
 XSS is a notorious rebel. Even though it’s insanely famous, everyday rush can easily make you forget about it.
+XSS臭名昭著的令人头疼，虽然它十分著名，但是每天的繁忙工作很容易让你忘掉它。
 
 The problem here resembles SQL injection. You have an endpoint in your web app that receives a request and returns a response. Not a big deal. However, it becomes one when you concatenate the request data with the response without sanitizing it.
+这个问题有点类似SQL注入。在你的应用上有一个端点接收请求并返回响应。这不是什么大问题，然而，当您将请求数据放在响应中而没有做处理时，问题就来了
 
 A classic example would be:
+经典案例如下：
 
 ```js
 app.get('/users', (req, res) => {
@@ -246,50 +251,72 @@ app.get('/users', (req, res) => {
 ```
 
 Guess what’s going to happen when the client sends a request with the following **id** param:
+猜猜当客户发送下面这段代码作为id参数会发生什么？
 
 ```html
 <script>alert(Uh la la, it's me! XSS!!)</script> 
 ```
 
 For now, it’s just an innocent alert message, but we all know that an attacker would put a bit more of JavaScript code in there.
+现在这只是一段无关紧要的alert信息，但是我们都知道攻击者会在代码中注入更多的javascript代码。
 
 Node’s [full of options](https://openbase.io/packages/top-nodejs-xss-libraries) to address this issue by simply adding a new middleware. Pick one, implement it properly, and move on.
+node通过使用一个新的中间件来解决这个问题。您可以选择其中一个中间件，适当实现一下，然后这个xss问题就不会再困扰您了。
 
 ## Insecure Deserialization
+## 不安全的反序列化
 
 This breach takes place mostly when applications accept serialized objects from untrusted sources that could be tampered with by attackers.
+这一情况大多发生在你的应用接受一个不可信来源的序列化对象的时候，这样的序列化对象有可能被攻击者篡改。
 
 Imagine, for example, that your Node web app communicates with the client and returns after the user has logged in, a serialized object to be persisted in a cookie that will work as the user’s session, storing data like the user id and permissions.
+例如，想象这样一个情况，你的node应用和客户端交互，在客户登陆之后返回一个序列化的对象长时间存储在cookie中用作用户的session，这里存放着用户的id和许可之类的信息
 
 An attacker could then change the cookie object and give an admin role to himself, for example.
+例如，一个攻击者能够篡改这样的cookie对象然后给自己赋一个管理员权限。
 
 Here’s where terms like [CSRF](https://github.com/pillarjs/understanding-csrf) (**Cross-site Request Forgery**) pop up. Basically, the server app generates a token (known as CSRF token) and sends it to the client in every request to be saved in a form’s hidden input.
+在这里csrf的概念出来了。基本上，服务器产生一个token（也被称作csrf的token）然后把它跟着每一次请求发送到客户端并存储作为一个表单的隐藏输入。（有问题）
 
 Every time the form is submitted it sends the token along and the server can check if it has changed or is absent. If that happens, the server will reject the request. In order to get this token, the attacker would have to make use of JavaScript code. If your app, however, doesn’t support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), the attacker has his hands tied and the threat is eliminated.
+表单每次提交的时候都会携带这个token一起，如果token被改变或者没有传，那服务器能够检测到。如果发生了这样的情况，那么服务器将会拒绝该请求。攻击者利用javascript代码去得到这个token。然而如果你的应用不支持跨域cors，那么攻击者就会束手无策，威胁也随之消除。
 
 Again, Node has some great middleware packages to help you out, like the [csurf](https://github.com/expressjs/csurf), one of the most famous. Within less than 2 minutes, you’re safe and sound.
+再次一提，node有很多很棒的中间件可以帮助你摆脱这样的威胁，其中一个最著名的就是csurf。使用这些中间件，用不了两分钟的时间您就可以安全而舒适。
 
 ## Insufficient Logging & Monitoring
+## 不充分的日志和监控
 
 This item speaks for itself. We’ve talked about Splunk before, but this is just the tip of the iceberg in terms of available options.
+见名知意。我们之前已经谈论过splunk了，但是这还只是可选择的冰山一角。
 
 Tons of different tools, plenty of them even integrating and talking to each other, provide the perfect layers to enhance your system’s protection, based on information.
+数以万计的不同工具，其中的很多甚至和其他的日志工具集成并交互，给你的应用提供了基于信息的更强的保护层。
 
 Information is crucial to analyze and detect possible invasions and vulnerabilities of your app. You can create lots of routines that execute based on some predefined behaviors of your system.
+信息对于分析和检测入侵以及应用的缺陷点是至关重要的。你可以创造一系列基于你的系统中预定义的行为的流程。
 
 The logs speak for what’s happening inside your app. So the monitoring represents the voice of it that’ll come at you whenever something wrong is detected.
+日志展示了你的app内部正在发生什么。所以当有错误被检测到的时候，这样的信息就会在监控中显示。
 
 Here, we won’t talk about specific tools. It’s an open field and you can play with the sea of great solutions out there.
+这里我们不会讨论具体的工具，有很多工具你可以选用。
 
 ## Wrapping Up
+## 总结
 
 We’ve taken a look at the [OWASP Top Ten](https://owasp.org/www-project-top-ten/) Web Application Security Risks at the time of writing. But obviously, they’re not the only ones you should pay attention to.
+我们已经看过了owasp最多的十个web安全漏洞。但很明显，我们不应该止步于此。
 
 The list works as a compass for developers, especially beginners, to better understand how threats exist on the web and how they can affect your apps, even though you disbelieve someone would try to hack you.
+这份清单是为开发者，尤其是新人开发者准备的指南，让开发者能够更好的理解web中的安全威胁以什么样的形式存在，以及它们如何能够影响应用，即使你不相信有人尝试攻破你的应用。
 
 Remember, the bigger and important your applications are, the more susceptible to security breaches and bad-intended people they are.
+牢记这一点，你的应用越大越重要，那么它就越容易受到安全威胁并且攻击者更多。
 
 As further reading, I’d very much recommend a tour over the [OWASP website](https://owasp.org/), as well as at its [Source Code Analysis Tools](https://owasp.org/www-community/Source_Code_Analysis_Tools) page. Good luck!
+作为延伸阅读材料，我推荐你浏览owasp网页，还有它的source code analysis tools工具页面。
+祝你好运~
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
