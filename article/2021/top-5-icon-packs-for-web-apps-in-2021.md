@@ -7,8 +7,6 @@
 
 # Top 5 Icon Packs for Web Apps in 2021
 
-#### Five recommended icon packs.
-
 ![](https://cdn-images-1.medium.com/max/5760/1*uPK9UAnb1ni6GDB690LYig.jpeg)
 
 Over the past decade, web and mobile applications have become a part of our day to day lives. Today, we can find many applications solving the same problem. Therefore, it’s clear that the functionality of an app isn’t the only differentiator anymore.
@@ -17,7 +15,7 @@ Besides, the overall user experience given by the application plays a significan
 
 As developers, we must ensure the look and feel of the application meets higher standards to attract new users and retain existing ones. I hope these facts convince you regarding the importance of UI design.
 
-> # When it comes to UI design, the Icons we use reflects its personality.
+> When it comes to UI design, the Icons we use reflects its personality.
 
 ## Icon Packs
 
@@ -28,13 +26,7 @@ Icons might be small in size, but provide a strong message to end-users, even wi
 * Most importantly, you can personalize your application by selecting a subset of icons that most users are already familiar with.
 * If you have an application suit, you can use these Icon Packs across the applications.
 
-Besides, if you plan to reuse icons with higher-order UI components across the application suite or microfrontends, you can also use [Bit](http://bit.dev/), to simplify sharing and improve the overall Developer Experience (DX).
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*N-XPFxRM4g6OE2R9.gif)
-
 In this article, I will discuss the usage, pros, and cons of some of the best Icon Packs available out there.
-
----
 
 ## 1. ICONS8
 
@@ -62,8 +54,6 @@ Besides, Icons8 eliminates the blurring effects by providing pixel-perfect icons
 * Need to register to download icons.
 * You have to double-check before downloading icons and using them in your projects since some icons require Attribution.
 
----
-
 ## 2. Flaticon
 
 ![Source: [https://www.flaticon.com/packs](https://www.flaticon.com/packs)](https://cdn-images-1.medium.com/max/3776/1*BGohqk4R6c5r42XK45mLvA.png)
@@ -90,8 +80,6 @@ If you are a guest user in Flaticon, you can only create a single collection and
 
 * Need to provide Attribution when using the free version.
 
----
-
 ## 3. Font Awesome
 
 ![Source: [https://fontawesome.com/icons?d=gallery](https://fontawesome.com/icons?d=gallery)](https://cdn-images-1.medium.com/max/3746/1*EIJXAiWtSbQW-JuFOpczSQ.png)
@@ -116,8 +104,6 @@ With the free package, you can only download a Solid version of the Icon you cho
 * Font Awesome global CDN and caching are available to load icons faster.
 * The standard package costs 99$ per year, including Auto-Subsetting, Human Tech Support, Pro Asset Downloads, Standard Pro License, and many other features.
 
----
-
 ## 4. Fontisto
 
 ![Source: [https://fontisto.com/icons](https://fontisto.com/icons)](https://cdn-images-1.medium.com/max/2784/1*cCFElZNhCB0BUvdKR1-WMQ.png)
@@ -128,13 +114,13 @@ Apart from that, Fontisto provides several methods to get started with your proj
 
 Using Fontisto CDN:
 
-```
+```html
 <link rel=“stylesheet” href=“https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css”></i>
 ```
 
 Using CSS:
 
-```
+```html
 <!DOCTYPE html> 
  <html lang="en">     
   <head>         
@@ -152,7 +138,7 @@ Using CSS:
 
 Using Package Managers:
 
-```
+```bash
 npm install fontisto                    //npm
 yarn add fontisto                       // yarn
 bower install fontisto                  // bower
@@ -168,8 +154,6 @@ composer require kenangundogan/fontisto //composer
 * Icons are Scalable.
 
 You can find more information about using Fontisto with your projects in their [documentation](https://fontisto.com/get-started).
-
----
 
 ## 5. Streamline Icons
 
@@ -190,8 +174,6 @@ You can find more information about using Fontisto with your projects in their [
 **Cons**
 
 * Attribution is required unless you purchase their Premium pack.
-
----
 
 ## Conclusion
 
