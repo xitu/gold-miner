@@ -29,7 +29,7 @@ Let’s go through some important Node.js buffer methods.
 
 This method will create a new buffer, but the size is not fixed. When you call this method at that time you can assign the size in bytes.
 
-```
+```js
 const buf = Buffer.alloc(6)  //This will create 6 bytes buffer
 
 console.log(buf)
@@ -40,7 +40,7 @@ console.log(buf)
 
 Now if you want to get the length of a buffer then simply call `Buffer.byteLength()`
 
-```
+```js
 var buf = Buffer.alloc(10)
 
 //check the length
@@ -54,7 +54,7 @@ console.log(buffLen)
 
 With `Buffer.compare()` you can compare two buffers and check that it’s identical or not. Return of this method will be one of this`-1`, `0`, or `1`,
 
-```
+```js
 var buf1 = Buffer.from('Harsh')
 var buf2 = Buffer.from('Harsg')
 var a = Buffer.compare(buf1, buf2)
@@ -76,7 +76,7 @@ console.log(a) //it will print 1
 
 As the name indicate you can join two buffer with this method. Like string, you can join more than one-two buffers as well.
 
-```
+```js
 var buffer1 = Buffer.from('x')
 var buffer2 = Buffer.from('y')
 var buffer3 = Buffer.from('z')
@@ -96,7 +96,7 @@ console.log(buf)
 
 `buf.entries()`will help you to loop through a buffer,
 
-```
+```js
 var buf = Buffer.from('xyz')
 
 for (a of buf.entries()) {
@@ -109,7 +109,7 @@ for (a of buf.entries()) {
 
 As the name indicates, it helps you to insert or fill data into a buffer using the `Buffer.fill()` method. For more see below,
 
-```
+```js
 const b = Buffer.alloc(10).fill('a')
 
 console.log(b.toString())
@@ -120,7 +120,7 @@ console.log(b.toString())
 
 Like string it will identify that If a buffer has that value or not. you can use the `buff.includes()` method to achieve that, given method return a boolean value, `true` or `false` depending on the search.
 
-```
+```js
 const buf = Buffer.from('this is a buffer')
 console.log(buf.includes('this'))
 // true
@@ -133,7 +133,7 @@ console.log(buf.includes(Buffer.from('a buffer example')))
 
 As you might know that binaries have to be encoded, To check If a data type supports the character encoding or not? You can use `Buffer.isEncoding()` method to confirm. It will return `true` if it supports.
 
-```
+```js
 console.log(Buffer.isEncoding('hex'))
 // true
 
@@ -151,7 +151,7 @@ console.log(Buffer.isEncoding('hey'))
 
 `buf.slice()` will be used to create a new buffer from selected elements of a buffer. When you slice a buffer, you create a new buffer with a list of items you want in the new buffer slice.
 
-```
+```js
 var a = Buffer.from('uvwxyz');
 var b = a.slice(2,5);
 
@@ -163,7 +163,7 @@ console.log(b.toString());
 
 `buf.swapX()`is used to swap the byte order of a buffer. Buffer has these methods `buf.swapX()`(here X can be 16,32,64) to swap the byte order of a 16-bit, 32-bit, and 64-bit buffer object.
 
-```
+```js
 const buf1 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8])
 console.log(buf1)
 // <Buffer 01 02 03 04 05 06 07 08>
@@ -188,7 +188,7 @@ console.log(buf1)
 
 It helps you to create json from a buffer, it will return json buffer object,
 
-```
+```js
 const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
 
 console.log(buf.toJSON());
@@ -198,10 +198,6 @@ console.log(buf.toJSON());
 ## Conclusion
 
 Now you need to have a solid, basic understanding of a buffer and how Node.js buffer works. You should also understand why you need to use the Node.js buffer section and the various Node.js buffer methods.
-
-If you love this article help me to buy a coffee: [https://www.buymeacoffee.com/harry1408](https://www.buymeacoffee.com/harry1408)
-
-Harsh Patel | Full-Stack Developer | [http://imharshpatel.com](http://imharshpatel.com/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
