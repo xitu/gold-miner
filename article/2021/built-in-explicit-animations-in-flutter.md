@@ -96,18 +96,9 @@ If I got something wrong? Let me know in the comments. I would love to improve.
 
 Clap 👏 If this article helps you.
 
-**Click the GitHub link below to find the source code of the Explicit Animation.**
-[**flutter-devs/ExplicitAnimations**
-**A new Flutter application. This project is a starting point for a Flutter application. A few resources to get you…**github.com](https://github.com/flutter-devs/ExplicitAnimations)
+**Click the GitHub link below to find the source code of the Explicit Animation:**
 
----
-
-Feel free to connect with us
-And read more articles from [FlutterDevs.com](http://flutterdevs.com/)
-
-FlutterDevs team of Flutter developers to build high-quality and functionally-rich apps. [Hire flutter developer](http://flutterdevs.com/) for your cross-platform Flutter mobile app project on an hourly or full-time basis as per your requirement! You can connect with us on [Facebook](https://facebook.com/flutterdevs), [GitHub](https://github.com/flutter-devs), and [Twitter](https://twitter.com/TheFlutterDevs) for any flutter related queries.
-
-![](https://cdn-images-1.medium.com/max/5000/1*Bhe20lhPWC_kXm3lft_CyA.png)
+[**flutter-devs/ExplicitAnimations**](https://github.com/flutter-devs/ExplicitAnimations)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
