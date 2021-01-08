@@ -13,7 +13,7 @@ A staggered animation includes consecutive or covering animations.To make an sta
 
 Staggered animations movements are a direct idea: visual changes occur as a progression of tasks, instead of at the same time. The activity may be simply consecutive, with one change occuring after the following, or it may somewhat or totally cover. It may likewise have holes, where no progressions happen.
 
-**Here is the demo video you can take a look staggered animation**
+[**Here is the demo video you can take a look staggered animation**](https://youtu.be/0fFvnZemmh8)
 
 In this video, you will see the accompanying animation movement of a single widget, which starts as a bordered blue square with marginally adjusted corners. The square runs they will blur and afterward change in square was broaden in measure and afterward square becomes taller while moving upwards and they will changes into an outskirt circle and the progressions shading blue to orange,after walking forward, the activity runs backward.
 
