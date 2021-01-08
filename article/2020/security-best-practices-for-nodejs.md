@@ -211,15 +211,19 @@ node提供了一系列库来辅助这个工作，以及提供了一系列中间�
 ## 安全配置项错误
 
 It’s common, in the early stages of an app’s life, to define three major environments (development – or stage, QA, and production) and leave the settings equal among them.
-
+在开发一个项目的早期，开发者需要定义开发环境、测试环境和生产环境，并且将这三个环境的设置定义成相同的。
 
 This type of misconfiguration sometimes goes on for ages without being noticed and can lead to critical attacks, since the app is vulnerable considering that staging and QA configurations are weakly protected most of the time.
+这种错误的配置可能持续存在很长时间都没有人注意，并且有可能导致严重的袭击事件。考虑到测试环境和生产环境的配置通常只提供了极弱的保护，所以这个应用是易受伤害的。
 
 When we talk about configurations, make sure to associate them to all types of dependencies (databases, external integrations, APIs, gateways, etc.).
+当我们谈论配置的时候，请确保我们讨论的是所有类型的依赖项（数据库，外部集成工具，API，网关等等）
 
 It’s fundamental to have well-defined setups, distinct and separated from each other. Also, consider storing your credentials (and sensitive setting’s data) in remote places apart from the project files.
+拥有定义完善的配置是很基础的，这样的配置通常域彼此之间不同且独立。通常，我们也会将证书或者敏感信息与项目文件分开存储到一个远程站点。
 
 The cultural aspects of your company may take place here as well. If you use [Splunk](https://www.splunk.com/), for example, or any other logging tool, make sure to have policies (and ways to check that) that force the devs to not log sensitive data since Splunk can be way more easily accessed than the database that stores the same data.
+在这个问题上，您的公司使用什么样的技术栈也是有影响的。例如，如果你使用splunk 或者其他日志工具，那么请确保设置了不允许生产环境打印敏感信息的配置或检测这种行为的方法，因为相比起来存储了同样数据的数据库，splunk是更容易接触到的。
 
 That reminds me of a time in a company in which the main database’s password went up to a public GitHub repo due to a developer that “innocently” copied one of the company’s repo to study at home. And don’t get me wrong… I’m not saying that the biggest error was his; it was not.
 
