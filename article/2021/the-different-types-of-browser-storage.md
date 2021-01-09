@@ -2,45 +2,45 @@
 > * 原文作者：[Albin Issac](https://medium.com/@techforum)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-different-types-of-browser-storage.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-different-types-of-browser-storage.md)
-> * 译者：
-> * 校对者：
+> * 译者：[flashhu](https://github.com/flashhu)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)，[k8scat](https://github.com/k8scat)
 
-# The Different Types of Browser Storage
+# 不同类型的浏览器存储
 
 ![[@kundeleknabiegunie](http://twitter.com/kundeleknabiegunie) unsplash.com](https://cdn-images-1.medium.com/max/2000/0*6UmrGOz0O2pvmwHT)
 
-Modern web browsers offer different options for storing website data on users’ browsers, allowing this data to be retrieved based on the need. This enables website owners to persist the data for long-term storage, save website content or documents for offline use, store user preferences, apply states, and more.
+现代浏览器为如何在用户浏览器中存储网站数据提供了多样的选择，允许按需查询这些数据。这使得网站所有者能长期保留数据，保存网页内容或文档供离线使用，存储用户偏好，应用状态等。
 
-In this tutorial, let’s discuss the different types of browser storage available for storing website data on a user’s browser.
+在本教程中，我们将讨论可以在用户浏览器上存储网站数据的不同类型的浏览器存储。
 
-#### Uses cases for browser storage
+#### 浏览器存储的使用场景
 
-* Personalizing site preferences
-* Persisting site activities
-* Storing the login state
-* Saving data and assets locally so a site will be quicker to download or usable without a network connection
-* Saving web application–generated documents locally for use offline
-* Improving website performance
-* Reducing requests to back-end servers
+* 个性化网站偏好
+* 持久化站点活动
+* 存储登录状态
+* 本地保存数据和资源以便快速下载或离线使用
+* 本地保存 Web 应用生成的文档供离线使用
+* 提升网站性能
+* 减少对后端服务器的请求
 
-#### Types of browser storage
+#### 浏览器存储的类型
 
 * Cookies
-* Local storage
-* Session storage
+* 本地存储（localStorage）
+* 会话存储（sessionStorage）
 * IndexedDB
 * Web SQL
-* Cache storage
+* 缓存存储（CacheStorage）
 
 ## Cookies
 
-This is the legacy approach for storing data on the client machine — this was the only option pre-HTML5 web storage.
+它是在客户端存储数据的传统方法，因为在 HTML5 出现前，这是浏览器存储的唯一选择。
 
-Cookies store client-side data to enable a personalized experience for the website’s visitors. Cookies are created on the server and are sent to the client on response, and the data is exchanged with the server on every request. The servers can use cookie data to send personalized content to users.
+Cookie 保存客户端的数据，为网站访问者提供个性化的体验。Cookie 在服务端生成，随响应发到客户端，每次请求都会与服务器交换数据。服务器可以根据 cookie 中的数据向用户发送个性化的内容。
 
-The cookies can be also created, updated, or read through JavaScript: `document.cookie`. The `HTTPOnly` cookie flag can be used to restrict the cookie access in JavaScript to mitigate some of the security issues — e.g., cross-site scripting (the cookies are only available for servers to access).
+Cookie 可以通过 JavaScript 中的 `document.cookie` 被创建，更新或读取。`HTTPOnly` cookie 标志可在 JavaScript 中被用于限制 cookie 访问，从而减少一些安全隐患，如被跨站脚本读取（这类 cookie 仅供服务器端访问）。
 
-#### Cookie attributes
+#### Cookie 属性
 
 ```
 Set-Cookie: <cookie-name>=<cookie-value>
@@ -55,55 +55,55 @@ Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Strict
 Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Lax
 Set-Cookie: <cookie-name>=<cookie-value>; SameSite=None; Secure
 
-// Multiple attributes are also possible, for example:
+// 也可以同时提供多个属性，例如：
 Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
 ```
 
-There are two types of cookies: session cookies and persistent cookies.
+Cookie 可分为两类：会话期 cookie 和持久性 cookie。
 
-**Session cookies**
+**会话期 cookie**
 
-Session cookies don’t specify the `Expires` or `Max-Age` attributes and are removed when the browser is closed.
+会话期 cookie 不需要指定 `Expires` 或 `Max-Age` 属性，在浏览器关闭时会被移除。
 
-**Persistent cookies**
+**持久性 cookie**
 
-Persistent cookies specify the `Expires` or `Max-Age` attributes. The cookies won’t be expired on closing the browser but will expire at a specific date (`Expires`) or length of time (`Max-Age`).
+持久性 cookie 指定 `Expires` 或 `Max-Age` 属性。Cookie 不会在浏览器关闭时过期，但是会在特定的日期（`Expires`）或时间长度（`Max-Age`）过期。
 
-The cookies set on one domain are accessible to other subdomains based on the domain setting in the cookie header.
+通过在 cookie 头部中设置 `domain` 选项，某个域中的 cookie 可以访问其他子域。
 
 ```
-Set-Cookie: test=test-value; Domain=example.com - the cookie is available for example.com and sub domains
+Set-Cookie: test=test-value; Domain=example.com - cookie 可用于 example.com 及子域
 ```
 
-#### Restriction for the cookies
+#### Cookie 的局限性
 
-* Can only store 4 KB of data — this limit will vary a little based on the browser implementation
-* The number of cookies allowed on a domain is restricted based on the browser implementation (e.g., 20)
-* The total number of cookies across domains is restricted (e.g., 300 ). The oldest cookie is removed once the limit has been reached in order to store the new cookie. The number is based on the browser implementation.
-* Cookie data is sent to the server on every request. This will consume the additional bandwidth and impact the performance.
-* Sharing data with third parties is allowed (e.g., third-party cookies)
+* 只能存储 4 KB 的数据，具体限制取决于浏览器
+* 一个域下的 cookie 数量有限制，具体取决于浏览器（如 20 个）
+* 跨域 cookie 的总数有限制，具体取决于浏览器（如 300 个）。一旦达到限制数量，为存储新的 cookie，最老的 cookie 将被移除。
+* Cookie 数据在每次请求时都被会发到服务器。这将消耗额外的带宽并影响性能。
+* 可能被第三方读取数据（如第三方 cookie）
 
-Cookies lead to multiple security issues, so it’s now recommended to use modern storage APIs wherever possible.
+Cookie 会导致多种安全问题，因此现在建议尽可能使用现代化存储 API。
 
 ## Web Storage API
 
-Web Storage API allows web applications to store data locally within the user browsers. The APIs are enabled as part of the HTML5 standards.
+Web Storage API 允许 Web 应用在用户浏览器中本地存储数据。 这个 API 已作为 HTML5 标准的一部分。
 
-Compared to cookies, the storage limit is larger — e.g., at least 5 MB (the actual size is based on the browser implementation). The information is client-side only and not shared to the server. The server won’t have any access to modify the data.E
+相比 cookie，这类存储的限制更多 —— 比如, 至少 5 MB（实际大小取决于浏览器）。这些信息只在客户端，不会和服务器共享。服务器没有任何访问权限来修改数据。
 
-The data can’t be shared between domains, including subdomains. Each origin (protocol and domain combination) will have unique storage — all of the API operations are performed in the origin-specific storage.
+数据不能在域之间共享，包括子域。每个源（协议或域的组合）都将有唯一的存储空间 —— 所有 API 操作都在源对应的存储空间中执行。
 
-Web Storage API provides two different objects for storing data on the users’ browsers: `sessionStorage` and `localStorage`.
+为了在用户浏览器中存储数据，Web Storage API 提供了两个不同的对象：`sessionStorage` 和 `localStorage`。
 
 #### localStorage
 
-The `localStorage` object stores the data with no expiration date. The data won’t be deleted when the browser is closed and will be available in the next day, week, or year — until deleted by the website or by the user.
+`localStorage` 对象存储没有过期日期的数据。这些数据在浏览器关闭时不会被删除，而且在之后的几天、几周、几年内均可用直到被网站或用户删除。
 
 #### sessionStorage
 
-The `sessionStorage` object is equal to the `localStorage` object except it stores the data for only one session. The data is deleted when the user closes the specific browser tab.
+`sessionStorage` 对象除只存储一个对话的数据外，与 `localStorage` 对象一致。 当用户关闭特定的浏览器标签页时，对应的数据会被删除。
 
-The Web Storage API stores the data as key/value pairs. All of the data is stored as a string, while all of the data added into the storage implicitly is converted into a string. It explicitly converts the data to the required type on retrieval. The `JSON.parse()` and `JSON.stringify()` methods can be used for serialization and deserialization of object data from/to storage.
+Web Storage API 以键/值对形式存储数据。所有数据都存储为字符串，所有被添加到存储空间中的数据会被隐式转换为字符串类型。在查询数据时，它将类型显式转换为所需类型。`JSON.parse()` 和 `JSON.stringify()` 方法可用于序列化和反序列化对象数据。
 
 ```HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -113,33 +113,33 @@ The Web Storage API stores the data as key/value pairs. All of the data is store
 		
 		<script type = "text/javascript">
 		
-			//Check for browser support
+			// 检查浏览器支持情况
 			if (typeof(Storage) !== "undefined") {
    
 				 function addToStorage()
 				 {
-				     //add data to the local storage by either one of the below option
+				     // 通过以下任一形式将数据添加至本地存储
 				     localStorage.setItem("testlocal", "test Local Data");
 				     //localStorage.testlocal= "test Local Data";
 				   
-				      //add data to the session storage by either one of the below option
+				      // 通过以下任一形式将数据添加至会话存储
 				      sessionStorage.setItem("testsession", "test Session Data");
 				      //sessionStorage.testsession=  "test Session Data";
 				   
-                                      //Add JSON object to the storage
+                                      // 添加 JSON 对象到存储
 				      var testObject = { 'test1': 1, 'test2': 2, 'test3': 3 };
 				      localStorage.setItem('testObject', JSON.stringify(testObject));
 				 }
  
 				 function removeFromStorage()
 				 {
-				      //Remove item from local storage
+				      // 从本地存储中移除某键/值对
 				      localStorage.removeItem("testlocal");
 				  
-                                      //Clear the storage
+                                      // 清空存储
 				      //localStorage.clear();
   
-				      //Remove item from session storage
+				      // 从会话存储中删除某键/值对
 				      sessionStorage.removeItem("testsession");
 				      //sessionStorage.clear();
 				 }
@@ -147,13 +147,13 @@ The Web Storage API stores the data as key/value pairs. All of the data is store
 				 function readDataFromStrage()
 				 {
   
-				      //Read data from local storage
+				      // 从本地存储中读取数据
 				      document.getElementById("data").innerHTML= "Local Storage Data.."+localStorage.getItem("testlocal")+"<br />";
 				 
-                                      //read data from session storage
+                                      // 从会话存储中读取数据
 				      document.getElementById("data").innerHTML+="Session Storage Data.."+sessionStorage.getItem("testsession")+"<br />";
 				  
-                                      //Reterive JSON data from storage
+                                      // 从存储中获取 JSON 数据
 				      var retrievedObject = localStorage.getItem('testObject');
 				      document.getElementById("data").innerHTML+="JSON Data From Storage: "+JSON.stringify(retrievedObject);
 				 }
@@ -173,21 +173,21 @@ The Web Storage API stores the data as key/value pairs. All of the data is store
 </html> 
 ```
 
-The Web Storage API calls are synchronous, so they may impact the UI rendering. Use the Web Storage API for storing and retrieving a minimal amount of data. The Web Storage API is very easy to use for storing and retrieving data on users’ browsers — all of the the modern browsers support the Web Storage API.
+Web Storage API 的调用是同步的，因此它们可能会影响 UI 渲染。也因为如此，我们仅应该使用 Web Storage API 存储和查询少量数据。在用户浏览器上使用 Web Storage API 存储及查询数据是便捷的 —— 所有现代浏览器都支持 Web Storage API。
 
 ---
 
-## IndexedDB Storage
+## IndexedDB 存储
 
-IndexedDB is a JavaScript-based object-oriented database. IndexedDB lets you store and retrieve objects that are indexed with a key (a primary key — e.g., a SSN). Any objects supported by the structured-clone algorithm (e.g., videos, images) can be stored. IndexedDB is much more complex to use than the Web Storage API.
+IndexedDB 是一个基于 JavaScript 的面向对象数据库。IndexedDB 允许你存储和查询键（主键，如 SSN）索引的对象。任何结构化克隆算法支持的对象（如：视频、图片）都可以被存储。IndexedDB 的使用比 Web Storage API 复杂得多。
 
-IndexedDB is a way for you to persistently store a large amount of data inside of a user’s browser. IndexedDB lets you create web applications with advanced abilities regardless of network availability. These applications can work both online and offline. IndexedDB is useful for applications that store a large amount of data and applications that don’t need persistent internet connectivity to work.
+IndexedDB 是一种在用户浏览器中持久化存储大量数据的方法。IndexedDB 允许你创建具有不用关心网络可用性这一高级功能的 Web 应用。这些应用在线、离线都可以工作。IndexedDB 对需要存储大量数据的应用及工作时不要求网络持续连通的应用而言非常有用。
 
-The IndexDB API is asynchronous, and it doesn’t block the UI rendering. This API uses indexes to enable high-performance searches of the data.
+IndexedDB API 是异步的，不会阻塞 UI 渲染。这个 API 使用索引以支持对数据的高性能搜索。
 
-Create a database schema and objects, open a connection to your database, and then retrieve and update data within a series of transactions. The IndexDB allows the storage of significant amounts of structured data. This size is based on the browser implementation.
+创建数据库模式及对象，打开数据库连接，然后在一系列事务中查询和更新数据。IndexedDB 允许存储大量结构化数据。具体大小取决于浏览器。
 
-The database is private to an origin, so any other site can’t access another website that IndexedDB stores.
+数据库对源（域/协议/端口）是私有的，因此任何网站不能访问其他网站的 IndexedDB 存储。
 
 ```HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -198,43 +198,43 @@ The database is private to an origin, so any other site can’t access another w
 		
 		<script type = "text/javascript">
 		
-			//Check for browser support
+			// 检查浏览器支持情况
 			if (window.indexedDB) {		    
 			
-				//Sample data
+				// 示例数据
 				const customerData = [{ ssn: "444-44-4444", name: "test1", age: 35, email: "test1@company.com" },
 									  { ssn: "555-55-5555", name: "test2", age: 32, email: "test2@home.org" }];
 				const dbName = "testDB";
 				var db;
-				//open the db, the db is created if not exist already
-				//Specify DB name and version, update the version number if the DB structure need to be modified
+				// 打开数据库，如果数据库不存在，则创建数据库
+				// 指定数据库名称和版本，如果需要修改数据库结构，则更新版本号
 				var request = indexedDB.open(dbName, 2);
 
-				//Error Handler
+				// 错误处理程序
 				request.onerror = function(event) {
 					console.log("error: ");
 				};
 				
-				//Success Handler
+				// 成功处理程序
 				request.onsuccess = function(event) {
 					db = request.result;
 					console.log("success: "+ db);
 				};
 
-				//Handler invoked on successful opening of database
-				//Upgrade the existing DB object if the version is different or create the objects
+				// 成功打开数据库时调用处理程序
+				// 如果版本不同，则更新已有数据库对象或创建对象
 				request.onupgradeneeded = function(event) {
 					var db = event.target.result;
 
-					// autoIncrement: true
-					//Create Object store with primary key
+					// 设置键生成器（autoIncrement: true），默认不开启
+					// 使用主键创建 object store
 					var objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
 					
-					//Define the required Indexes
+					// 定义需要的索引
 					objectStore.createIndex("name", "name", { unique: false });
 					objectStore.createIndex("email", "email", { unique: true });
 					
-					//Add data to the object
+					// 向对象添加数据
 					customerData.forEach(function(customer) {
 							objectStore.add(customer);
 					});
@@ -243,22 +243,22 @@ The database is private to an origin, so any other site can’t access another w
 				
 				function add() {
 				
-					//Retrieve the transaction for specific object, specify the mode - readonly, readwrite and versionchange
+					// 查询特定对象的事务，指定模式 - 只读，读写和版本变更
 					var transaction = db.transaction(["customers"], "readwrite");
 					
-					// Handler Invoked when all the data is added to the database.
+					// 当所有数据添加到数据库时调用处理程序
 					transaction.oncomplete = function(event) {
 						console.log("Add Completed!");
 					};
 
-					//Error Handler
+					// 错误处理程序
 					transaction.onerror = function(event) {
 						
 					};
 					
 					const customerDataNew = [{ ssn: "777-77-7777", name: "Test3", age: 32, email: "test3@home.org" }];
 					
-					//Add new customer data to the store
+					// 添加新的客户数据到 store 中
 					var objectStore = transaction.objectStore("customers");
 					customerDataNew.forEach(function(customer) {
 						var request = objectStore.add(customer);
@@ -269,7 +269,7 @@ The database is private to an origin, so any other site can’t access another w
 				}
 				
 				
-				//Delete data from the store through primary key and delete method
+				// 通过主键和 delete 方法从 store 中删除数据
 				function deleteData()
 				{
 					var request = db.transaction(["customers"], "readwrite")
@@ -280,14 +280,14 @@ The database is private to an origin, so any other site can’t access another w
 					};
 				}
 				
-				//Read data from the store through primary key and get method
+				// 通过主键和 get 方法从 store 中读取数据
 				function read()
 				{
 					var transaction = db.transaction(["customers"]);
 					var objectStore = transaction.objectStore("customers");
 					var request = objectStore.get("444-44-4444");
 					request.onerror = function(event) {
-						// Handle errors!
+						// 处理错误!
 					};
 					request.onsuccess = function(event) {
 						document.getElementById("data").innerHTML = "Name for SSN 444-44-4444 is " + request.result.name;
@@ -295,7 +295,7 @@ The database is private to an origin, so any other site can’t access another w
 				}
 
 
-				//Read all data from the store through cursor
+				// 通过游标从 store 中读取所有数据
 				function readAll()
 				{
 				
@@ -308,8 +308,8 @@ The database is private to an origin, so any other site can’t access another w
 					objectStore.openCursor().onsuccess = function(event) {
 					var cursor = event.target.result;
 						
-						//Iterate Cursor
-                                              if (cursor) {
+						// 迭代游标
+                        if (cursor) {
 							document.getElementById("data").innerHTML+="SSN: " + cursor.key + " Name: " + cursor.value.name +" Age: " + cursor.value.age+"<br />";
 							cursor.continue();
 						}
@@ -319,7 +319,7 @@ The database is private to an origin, so any other site can’t access another w
 					};
 				}
 				
-				//Update existing data through primary key and put method
+				// 通过主键和 put 方法更新已有数据
 				function update()
 				{
 
@@ -330,16 +330,16 @@ The database is private to an origin, so any other site can’t access another w
 					};
 					request.onsuccess = function(event) {
 					 
-                                         //Get the current data					 
+                                         // 获取当前数据				 
 					 var data = event.target.result;
 
-					  // update the value
+					  // 更新值
 					  data.age = 42;
 
-					  // Put the updated object to store.
+					  // 存储更新后的对象
 					  var requestUpdate = objectStore.put(data);
 					   requestUpdate.onerror = function(event) {
-						 // error
+						 // 错误
 					   };
 					   requestUpdate.onsuccess = function(event) {
 						 console.log("Success - the data is updated!");
@@ -370,13 +370,13 @@ The database is private to an origin, so any other site can’t access another w
 </html>
 ```
 
-## Web SQL Database
+## Web SQL 数据库
 
-> “Web SQL Database is a web page API for storing data in databases that can be queried using SQL variant.” — [Wikipedia](https://en.wikipedia.org/wiki/Web_SQL_Database)
+> “Web SQL 数据库是一个用于将数据存储在数据库中的 Web API，这些数据库可以使用 SQL 的变体进行查询。” —— [维基百科](https://en.wikipedia.org/wiki/Web_SQL_Database)
 
-The specification is based around SQLite. Web SQL Database isn’t supported by all browsers — this standard is now deprecated by W3C, and IndexDB should be an alternative
+该规范基于 SQLite。Web SQL 数据库未被所有浏览器支持 —— 该标准已被 W3C 否决，IndexedDB 应该会成为替代品。
 
-Still, this can be used in supported browsers like Safari, Chrome, Opera, and Edge.
+尽管如此，它仍可以在支持的浏览器中使用，如 Safari，Chrome，Opera 及 Edge。
 
 ```HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -386,20 +386,20 @@ Still, this can be used in supported browsers like Safari, Chrome, Opera, and Ed
 		
 		<script type = "text/javascript">
 		
-			//Check for browser support
+			// 检查浏览器支持情况
 			if (window.openDatabase) {
 			  
 				var db;
 				 
 				function createDBAndTable()
 				{
-					//Open database, create if not exists - db name, version, description and required storage
+					// 打开数据库，如果不存在，则创建数据库 - 数据库名称，版本，描述和所需存储空间
 					db = window.openDatabase('test_db', '1.0', 'Test DB', 1024*1024)
-					//transaction
+					// 事务
 					db.transaction(function (tx) {
-						//Delete the existing table
+						// 删除已有的表
 						tx.executeSql('DROP TABLE IF EXISTS CUSTOMERS');				
-						//Create the new table with required fields, define the primary key
+						// 包含必填字段创建新表，定义主键
 						tx.executeSql('CREATE TABLE IF NOT EXISTS CUSTOMERS(SSN TEXT PRIMARY KEY , NAME TEXT,AGE INTEGER ,EMAIL TEXT)', [], function(tx, result) {
 							console.log(result);
 							console.log('Table created Successfully!');
@@ -411,7 +411,7 @@ Still, this can be used in supported browsers like Safari, Chrome, Opera, and Ed
 				function insertData()
 				{
 					db.transaction(function (tx) { 										
-						 //Insert data to the table, dynamic variables can be used
+						 // 在表中插入数据，可使用动态变量
 						 tx.executeSql('INSERT INTO CUSTOMERS(SSN, NAME,AGE,EMAIL) VALUES (?,?,?,?)',["444-44-4444","Bill",35,"bill@company.com"], function(tx,result) {					 
 							console.log("Record Inserted Successfully "+result.insertId );    
 						},errorHandler);
@@ -429,7 +429,7 @@ Still, this can be used in supported browsers like Safari, Chrome, Opera, and Ed
 				{
 					
 					db.readTransaction(function (tx) { 			
-					//Read data from table and iterate through rows object
+					// 从表中读取数据并遍历行对象
 					tx.executeSql('SELECT * FROM CUSTOMERS', [], function (tx, results) { 
 						var len = results.rows.length, i; 
 						document.getElementById("data").innerHTML="";
@@ -445,7 +445,7 @@ Still, this can be used in supported browsers like Safari, Chrome, Opera, and Ed
 				function updateData()
 				{
 					db.transaction(function (tx) { 										
-						 //Update existing data
+						 // 更新已有数据
 						 tx.executeSql('UPDATE CUSTOMERS SET AGE=? WHERE SSN=?',[45,"444-44-4444"], function(tx,result) {					 
 							console.log("Record Updated Successfully" +result);    
 						},errorHandler);				
@@ -457,7 +457,7 @@ Still, this can be used in supported browsers like Safari, Chrome, Opera, and Ed
 				function deleteData()
 				{
 					db.transaction(function (tx) { 										
-						 //Delete data through primary key
+						 // 通过主键删除数据
 						 tx.executeSql('DELETE FROM CUSTOMERS WHERE SSN=?',["444-44-4444"], function(tx,result) {					 
 							console.log("Record Deleted Successfully" +result);    
 						},errorHandler);					
@@ -492,15 +492,15 @@ Still, this can be used in supported browsers like Safari, Chrome, Opera, and Ed
 
 ## CacheStorage
 
-> “CacheStorage is a storage mechanism in browsers for storing and retrieving network requests and responses. It stores a pair of Request and Response objects, the Request as the key and Response as the value.”
+> “CacheStorage 是一种浏览器中的存储机制，用于存储和查询网络请求和响应。它存储一对 Request 和 Response 对象，Request 作为键，Response 作为值。”
 >
-> — [Chidume Nnamdi](undefined) via [Bits and Pieces](https://blog.bitsrc.io/introduction-to-the-cache-storage-a-new-browser-cache-pwa-api-a5d7426a2456)
+> —— [Chidume Nnamdi](undefined) 的 [Bits and Pieces](https://blog.bitsrc.io/introduction-to-the-cache-storage-a-new-browser-cache-pwa-api-a5d7426a2456) 专栏
 
-The CacheStorage API can be used within a Windows context (DOM context) and also with the Service Worker API to enable offline access. In this tutorial, we’re talking more about the DOM context.
+CacheStorage API 可以在 Window 上下文（DOM 上下文）中使用，也可以和 Service Worker API 一起使用以实现离线访问。在本教程中，我们将更多地讨论 DOM 上下文。
 
-CacheStorage was created to enable websites to store network requests and responses, but it can also be used as a storage utility. For example, we can store custom data, like user preferences, into the cache, and they can be retrieved when required. The `put` method can be used to store the custom response objects to the cache storage.
+CacheStorage 用于在网站中存储网络请求和响应，也可以作为存储工具。例如，我们可以存储个性化数据（如用户偏好）在缓存中，按需查询这些数据。`put` 方法可用于将个性化响应对象存储在缓存存储中。
 
-The CacheStorage API allows us to fetch and cache the data from crossorigin websites. The CacheStorage API is asynchronous and won’t block the UI rendering. The CacheStorage option is the latest addition to browser storage, and some browsers still don’t support it.
+CacheStorage API 允许我们从跨域网站获取和缓存数据。CacheStorage API 是异步的，不会阻塞 UI 渲染。CacheStorage 选项是最新加入浏览器存储的，有些浏览器仍未支持。
 
 ```HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -510,29 +510,29 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 		
 		<script type = "text/javascript">
 		
-				//Check for browser support
+				// 检查浏览器支持情况
 				if('caches' in window) {
 				
 					function add()
 					{
-						//Open the cache store, create if not exists
+						// 打开缓存存储，如果不存在，则新建
 						caches.open('data_cache').then((cache) => {
 							
-							//Fetch data.json from origin server and add the response to the cache store 
-							//Cross origin response caching is allowed - specify complete Request URL
-							// Request object as the key
+							// 从源服务器获取 data.json，添加响应到缓存存储中
+							// 允许跨域响应缓存 —— 指定完整的请求 URL
+							// Request 对象作为键
 							cache.add(new Request('/data.json'));
 
 							var data={foo: "bar"};					
 							
-							//Add additional header option to the response object before caching
+							// 在缓存前将其他头选项加入响应对象
 							const jsonResponse = new Response(JSON.stringify(data), {
 								  headers: {
 									'content-type': 'application/json'
 								  }
 							});
 
-							//Add Custom JSON data to the cache store
+							// 将自定义 JSON 数据加入缓存存储
 							cache.put('/custom.json', jsonResponse);				
 
 						}).catch((err) => {
@@ -540,7 +540,7 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 						});
 					}	
 
-					//Add multiple URL's into the cache - browser fetches the responses from origin
+					// 将多个 URL 加入缓存 —— 浏览器从源获取数据
 					function addAll()
 					{
 						caches.open('data_cache').then((cache) => {				
@@ -552,7 +552,7 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 					}				
 					
 					
-					//Check Cache Store Status
+					// 检查缓存存储状态
 					function checkCacheStatus()
 					{
 						caches.has('data_cache').then((bool) => {
@@ -571,7 +571,7 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 					
 					}
 					
-					//Delete Cache Store
+					// 删除缓存存储
 					function deleteCache()
 					{		
 							caches.delete('data_cache').then((bool) => {			
@@ -580,7 +580,7 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 						})		
 					}
 					
-					//Delete specific object from cache store through cache key(request URL or object)
+					// 通过缓存键（请求 URL 或对象）从缓存中删除指定对象
 					function deleteCacheObject()
 					{		
 							caches.open('data_cache').then((cache) => {
@@ -592,7 +592,7 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 						});	
 					}
 					
-					//Get all cache keys from cache store
+					// 从缓存存储中获取所有缓存键
 					function getAllKeys()
 					{		
 							caches.open('data_cache').then((cache) => {
@@ -610,7 +610,7 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 						});	
 					}
 					
-					//Get Cache data from cache store
+					// 从缓存存储中获取缓存数据
 					function getCacheData()
 					{	
 						caches.open('data_cache').then((cache) => {
@@ -648,19 +648,15 @@ The CacheStorage API allows us to fetch and cache the data from crossorigin webs
 </html>
 ```
 
-Refer to the following video for more details on different storage options.
 
-Refer to [Browser Storage Demo](https://github.com/techforum-repo/youttubedata/tree/master/browser-storage-demos) for the storage demo (the demo is built on Node.js with Express.js.
 
-There are multiple options for storing data on a user’s browser — select the option based on your use case.
+相关演示参见[浏览器存储演示](https://github.com/techforum-repo/youttubedata/tree/master/browser-storage-demos)（这个演示是在 Node.js 上使用 Express.js 构建的）。
 
-Use the CacheStorage API to store the data for offline access.
+在用户浏览器上存储数据有多样的选择 —— 根据你的使用场景进行选择。
 
-IndexedDB is the better choice for storing a large amount of applications or user-generated data.
+你可以选择使用 CacheStorage API 存储供离线访问的数据，而在存储大量应用或用户生成的数据的情况下，IndexedDB 是更好的选择。当然，Cookie 仍可以用于存储用于服务器识别的小型数据。
 
-Cookies still can be used to store the minimal data the server requires to identify the state.
-
-The local storage and session storage can be used to store a minimal amount of data. Local storage and session storage APIs are synchronous, so they’ll impact the UI rendering. But it’s easy to enable the API into the project.
+本地存储（localStorage）和会话存储（sessionStorage）则可用于存储少量数据。本地存储和会话存储的 API 是同步的，因此它们会影响 UI 渲染。但与此同时，它们这两个 API 易于在项目中使用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

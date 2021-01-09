@@ -2,29 +2,29 @@
 > * 原文作者：[Krishnanunny H](https://medium.com/@krishnanunny)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-do-multithreading-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-do-multithreading-with-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[regon-cao](https://github.com/regon-cao)、[flashhu](https://github.com/flashhu)
 
-# How To Do Multithreading With Node.js
+# 如何使用 Node.js 执行多线程
 
-Node.js is capable of doing multithreading with the release of version 13 onwards.
+从 Node.js 的第 13 版开始，它就能够执行多线程。
 
 ![This cover has been designed using resources from [Freepik.com](https://www.freepik.com/)](https://cdn-images-1.medium.com/max/2000/1*XX-DmkhMjdr3AyDpvlk0Aw.png)
 
-## Introduction
+## 简介
 
-Most JavaScript developers believe Node.js is single-threaded, which handles multiple operations by non-blocking asynchronous callback processes and doesn’t support multithreading, but it is not valid anymore. On Node.js version 13, a new module called worker threads is there to implement multithreading.
+大部分 JavaScript 开发人员都认为 Node.js 是单线程的，通过非阻塞异步回调进程处理多个任务，不支持多线程，但现在已经不成立了。在 Node.js 第 13 版中，有一个名为工作线程（worker threads）的新模块可用于实现多线程。
 
-Even though non-blocking asynchronous callback could handle multiple operations very efficiently, functions requiring massive CPU utilization like encryption block other processes, Node.js’ performance is weak for such a scenario. The worker thread module overcomes that weakness by isolating the function, which takes high CPU usage into a separate thread and processing it in the background and won’t block any other process.
+尽管非阻塞异步回调可以非常有效地处理多个任务，但是对于需要大量 CPU 使用率的功能（例如加密操作）会阻止其他进程执行，在这种情况下，Node.js 的性能很弱。工作线程模块通过隔离该功能克服了这个不足，它将 CPU 使用率很高的任务放在一个独立的线程中并由后台处理，而不会阻塞其他进程。
 
-## Implementation
+## 实现
 
-Typically in Node.js, the main thread handle all the operations. With the help of an example, here demonstrated how to create another thread for processing an operation. This example has two API, the first API will process the function on the main thread, and the other API will process the function on a separate thread. The below code snippet shows the basic structure of the example.
+通常在 Node.js 中，主线程处理所有操作。借助以下示例来说明如何创建另一个线程来处理操作。示例中有两个 API，第一个 API 将在主线程上处理函数，另一个 API 将在单独的线程上处理函数。以下代码段显示了示例的基本结构。
 
 ```js
 /*
-*  File Name: index.js
-*  Description: This is the main thread
+*  文件名：index.js
+*  描述：这是一个主线程
 */
 
 const express = require("express");
@@ -45,12 +45,12 @@ console.log(`Example app listening at http://localhost:${port}`);
 });
 ```
 
-As a first step, we add a function on the main thread, and as a next step, we add the same function on another thread. The function used will be getSum, which will return the cumulative sum up to the limit value given as an argument. After adding the getSum function to the main thread, the code snippet becomes like below.
+首先，在主线程上添加一个函数。接下来，在另一个线程上添加相同的函数。使用的函数是 getSum，它将返回作为给定参数的极限值累加和。将 getSum 函数添加到主线程后，代码片段如下所示。
 
 ```js
 /*
-*  File Name: index.js
-*  Description: This is the main thread
+*  文件名：index.js
+*  描述：这是一个主线程
 */
 
 const express = require("express");
@@ -82,22 +82,22 @@ console.log(`Example app listening at http://localhost:${port}`);
 });
 ```
 
-The next step is to add the same function on another thread, and it could do as follow.
+下一步是在另一个线程上添加相同的函数，它可以执行以下操作。
 
-* Importing the worker thread module to the main thread.
+* 将工作线程模块导入到主线程。
 
 ```js
 const { Worker } = require("worker_threads");
 ```
 
-* Create another file, seprateThread.js, for defining the function getSum to run on another thread.
-* Create an instance of the worker thread module and provide the pathname to the newly created file.
+* 创建另一个文件 seprateThread.js，用于定义在另一个线程上运行的 getSum 函数。
+* 创建工作线程模块的实例，并提供新创建文件的路径名。
 
 ```js
 const seprateThread = new Worker(__dirname + "/seprateThread.js");
 ```
 
-* Starting a new thread
+* 启动新线程。
 
 ```js
 seprateThread.on("message", (result) => {
@@ -105,18 +105,18 @@ res.send(`Processed function getSum on seprate thread:  ${result}`);
 });
 ```
 
-* Sending data to the new thread.
+* 将数据发送到新线程。
 
 ```js
 seprateThread.postMessage(1000);
 ```
 
-Finally, the main thread will be like the below code snippet.
+最后，主线程将类似于下面的代码片段。
 
 ```js
 /*
-*  File Name: index.js
-*  Description: This is the main thread
+*  文件名：index.js
+*  描述：这是一个主线程
 */
 
 const express = require("express");
@@ -155,12 +155,12 @@ console.log(`Example app listening at http://localhost:${port}`);
 });
 ```
 
-Thus a new thread is created from the main thread. Let us put the getSum function on the newly created thread, so defines that function on the file seprateThread.js. After defining, the new thread is supposed to send the result back to the main thread; check the below code for reference.
+从主线程创建新线程，将 getSum 函数放在新创建的线程上，以便在 seprateThread.js 文件上定义该函数。定义完成后，新线程应该将结果发回主线程。可以参考下面的代码。
 
 ```js
 /*
-*  File Name: seprateThread.js
-*  Description: This is another thread
+*  文件名：seprateThread.js
+*  描述：这是一个另一个线程
 */
 
 const { parentPort } = require("worker_threads");
@@ -179,20 +179,20 @@ parentPort.on("message", (limit) => {
 });
 ```
 
-In the above example, you could see `seprateThread.postMessage()` function used by the main thread to communicate with the child thread. Likewise, `parentPort.postMessage()` used by the child thread to communicate with the main thread. The below figure illustrates the communication between the child and the main thread.
+在上面的示例中，可以看到主线程使用 `seprateThread.postMessage()` 函数与子线程通信。同样，子线程使用 `parentPort.postMessage()` 与主线程通信。下图说明了子线程和主线程之间的通信过程。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ydQqBzkh6FO4WUwHtGF7zA.png)
 
-## Features
+## 特点
 
-* Each thread has separate v8 engines.
-* Child threads could communicate with each other.
-* Child threads could share the same memory.
-* An initial value could be passed as an option while starting the new thread.
+* 每个线程都有单独的 V8 引擎。
+* 子线程可以相互通信。
+* 子线程可以共享相同的内存。
+* 初始值可以在启动新线程时作为选项传递。
 
-## Conclusion
+## 结论
 
-This article’s motive is to give a brief idea about the basic implementation of multithreading on Node.js. Multithreading in Node.js is a little bit different from traditional multithreading. It is advised that for massive I/O operation main thread could do much better than worker threads. To understand more about multithreading, refer to the Node.js official [document](https://nodejs.org/api/worker_threads.html) and the source code of the example available here:
+本文的目的是简要介绍 Node.js 上多线程的基本实现。Node.js 中的多线程与传统的多线程略有不同。对于大规模 I/O 操作，主线程可以比工作线程做得更好。要了解更多关于多线程的内容，请参考 Node.js 官方[文档](https://nodejs.org/api/worker_threads.html)和此处提供的示例源代码：
 
 [**github.com/krishheii/Multithreading**](https://github.com/krishheii/Multithreading)
 

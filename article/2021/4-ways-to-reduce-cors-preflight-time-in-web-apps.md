@@ -1,91 +1,91 @@
-> * 原文地址：[4 Ways to Reduce CORS Preflight Time in Web Apps](https://blog.bitsrc.io/4-ways-to-reduce-cors-preflight-time-in-web-apps-1f47fe7558)
-> * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/4-ways-to-reduce-cors-preflight-time-in-web-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/4-ways-to-reduce-cors-preflight-time-in-web-apps.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[4 Ways to Reduce CORS Preflight Time in Web Apps](https://blog.bitsrc.io/4-ways-to-reduce-cors-preflight-time-in-web-apps-1f47fe7558)
+> - 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/4-ways-to-reduce-cors-preflight-time-in-web-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/4-ways-to-reduce-cors-preflight-time-in-web-apps.md)
+> - 译者：[regon-cao](https://github.com/regon-cao)
+> - 校对者：[zenblo](https://github.com/zenblo) [Ashira97](https://github.com/Ashira97)
 
-# 4 Ways to Reduce CORS Preflight Time in Web Apps
+# 减少 Web 应用程序中 CORS 预检时间的 4 种方法
 
 ![](https://cdn-images-1.medium.com/max/4480/1*JBeY4hI_q0S2Y-7AE7Eq7w.jpeg)
 
-[Cross-origin resource sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS) is an agreement between web browsers and web servers across origins. This agreement allows servers to decide what resources are allowed to access outside it’s hosted domain/sub-domain and instruct the browsers to follow the rules.
+[跨域资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)（CORS）是一个浏览器和服务器之间关于跨域问题的协议。它允许服务器规定哪些资源可以被外部的主域名和子域名访问，并通知浏览器遵循这些规则。
 
-> For example, you will encounter CORS if your web application is hosted in myapp.com, and it accesses the API in api.myapp.com from the frontend.
+> 例如，如果你的 web 应用托管在 myapp.com 中，并且前端请求 api.myapp.com 中的 API，那么你将会遇到跨域资源共享问题。
 
-Although there is an importance of having CORS for security purposes, most developers overlook its impact on the application performance.
+尽管出于安全目的使用 CORS 很重要，但大多数开发人员忽略了它对应用程序性能的影响。
 
-Whenever you make an HTTP request from the frontend to a different domain, the browser will send another HTTP request ahead of that, sequentially to make sure the server grants it.
+当你从前端向不同的域发送 HTTP 请求时，浏览器会预先发送另一个 HTTP 请求，以确保服务器允许本次请求。
 
-> This additional request is called a Preflight request, and in most cases, it creates a significant delay in response time, affecting the performance of the web application.
+> 这个额外的请求被称为预检请求，在大多数情况下，它会对响应时间造成很大的延迟，从而影响 web 应用程序的性能。
 
-So, let’s find out how we can bypass the Preflight request or reduce the response time to enhance our web applications’ performance.
+因此，让我们看看如何绕过预检请求或者减少预检响应时间，以提高 web 应用程序的性能。
 
-## 1. Preflight Caching Using Browser
+## 1. 使用浏览器的预检缓存
 
-As I mentioned earlier, the Preflight request has an impact on application performance. It’s most likely that there will be many preflight requests sent, based on the number of API calls your frontend performs.
+如前所述，预检请求对应用程序性能有影响。根据前端调用 API 的数量，很可能会发送许多预检请求。
 
-As a solution, Preflight caching is one of the commonly used methods to reduce the impact. The concept behind this is straightforward.
+作为一种解决方案，预检缓存是减少影响的常用方法之一。这背后的原理很简单。
 
-Preflight cache behaves similarly to any other caching mechanism. Whenever the browser makes a Preflight request, it first checks in the Preflight cache to see if there is a response to that request. If the browser finds the response, it won’t send the Preflight request to the server, and instead, it uses the cached response. The browser will only send the Preflight request if there is no response in the Preflight cache.
+预检缓存的行为与任何其他缓存机制类似。每当浏览器发出预检请求时，它首先检查预检缓存，看看是否有对该请求的响应。如果浏览器找到了响应，它不会向服务器发送预检请求，而是使用缓存的响应。只有在预检缓存中没有找到响应时，浏览器才会发送预检请求。
 
-**`Access-Control-Max-Age`** response header indicates how long the result can be cached in the browser cache.
+**`Access-Control-Max-Age`** 响应头表示结果可以在浏览器缓存中缓存多长时间。
 
-![Browsers behavior with and without Preflight cache results.](https://cdn-images-1.medium.com/max/2000/1*zCXcC1VkBB16BDXUxkWoew.png)
+![有和没有预检缓存的浏览器行为](https://cdn-images-1.medium.com/max/2000/1*zCXcC1VkBB16BDXUxkWoew.png)
 
-The above diagrams show the browser’s behavior with Preflight cache (First Request) and without Preflight cache (Second Request).
+上面的图表显示了浏览器在使用预检缓存（第一次请求）和没有预检缓存（第二次请求）时的行为。
 
-## 2. Server-Side Caching using Proxies, Gateways, or Load balancers
+## 2. 使用代理、网关或负载均衡实现服务器端缓存
 
-In the previous method, we talked about the approach of caching Preflight requests in browsers, and now we are moving into Server-Side caching.
+在前面的方法中，我们讨论了在浏览器中缓存预检请求的方法，现在我们来看看服务器端缓存。
 
-Although this method is not specialized for Preflight request caching, we can use the default caching mechanism of Proxies, Gateways or even CDNs like AWS CloudFront to reduce Preflight requests’ latency.
+尽管这种方法不是专门用于预检请求缓存，但我们可以使用代理、网关甚至像 AWS CloudFront 这样的 CDN 的默认缓存机制来减少预检请求延迟时间。
 
-> The idea is to reduce the Preflight request response time by reducing the distance the Preflight request travels.
+> 其思想就是通过缩短预检请求的传输距离来减少响应时间。
 
-![CloudFront edge location caching](https://cdn-images-1.medium.com/max/2000/1*cS016V1j7hUZt8ebOhNyow.png)
+![CloudFront 边缘位置缓存](https://cdn-images-1.medium.com/max/2000/1*cS016V1j7hUZt8ebOhNyow.png)
 
-For example, let’s take AWS CloudFront CDN that also acts as a proxy. It uses a concept called edge locations (closer to the application user’s browser location than the original server) to intercept the HTTP requests.
+例如，以 AWS CloudFront CDN 为示例。它是一个代理，使用了一种被称为边缘位置（比原始服务器更接近用户的浏览器）的概念来拦截 HTTP 请求。
 
-> Here, it is possible to instruct to cache the Preflight response near the edge location even without hitting the origin server.
+> 在这里，可以在边缘位置附近缓存预检响应，这样预检请求甚至不需要访问源服务器。
 
-## 3. Avoid it using Proxies, Gateways, or Load balancers
+## 3. 使用代理、网关或负载均衡避免预检请求
 
-If we can serve both frontend and backend through the same domain, we can completely avoid Preflight requests since there is no need for CORS.
+如果你可以通过同一个域同时服务前端和后端，我们就可以完全避免预检请求，因为此时不存在 CORS。
 
-Let’s assume that you are developing a web application locally, and the frontend is running on [http://localhost:4200](http://localhost:4200), and the backend is running on [http://localhost:3000/api](http://localhost:3000/api).
+假设正在本地环境开发一个应用, 前端运行在 [http://localhost:4200](http://localhost:4200)，后端运行在 [http://localhost:3000/api](http://localhost:3000/api)。
 
-> As you may have experienced, it is necessary to enable CORS in your backend to communicate between these two. But you can easily avoid this by using a simple proxy configuration in your frontend to map your frontend and backend.
+> 你可能有过类似经验，必须在后端开启 CORS 才能在二者之间通信。但是，你可以在前端配置简单的代理以在前后端之间形成映射，这样就可以完全避免 CORS。
 
-You just need to define a proxy configuration to forward any requests coming for the path `/api` to `[http://localhost:3000](http://localhost:3000)`. Then you can access your backend API using the same domain and port used for the frontend ([http://localhost:4200/api/](http://localhost:4200/api/)…), and the browser won’t send any Preflight requests since there is no need for CORS.
+你只需要定义一个代理配置来转发前往 `[http://localhost:3000](http://localhost:3000)` 的 `/api` 路径请求。然后在前端（[http://localhost:4200/api/](http://localhost:4200/api/)…）就可以请求同一域名下的后端 API，此时浏览器不会再发送任何预检请求。
 
-Similarly, when it comes to the production environments, you can use API Gateways, Load balancers, Proxies or CDNs, like [NGINX](https://www.nginx.com/), [Traefik](https://containo.us/traefik/), [AWS CloudFront](https://aws.amazon.com/cloudfront/), [AWS Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html), [Azure Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/overview) to do the route base configuration for you.
+同样地, 在生产环境可以使用 API 网关，负载均衡，代理或者 CDN，比如 [NGINX](https://www.nginx.com/)，[Traefik](https://containo.us/traefik/)，[AWS CloudFront](https://aws.amazon.com/cloudfront/)，[AWS Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)，[Azure Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/overview) 来做基于路由的配置。
 
-## 4. Simple Requests
+## 4. 简单请求
 
-Another way to avoid Preflight requests is to use **simple requests**. Preflight requests are not mandatory for simple requests, and according to [w3c CORS specification](https://www.w3.org/wiki/CORS), we can label HTTP requests as simple requests if they meet the following conditions.
+另一种避免预检请求的方法是使用**简单请求**。预检请求对于简单请求不是强制性的，根据 [w3c CORS 说明](https://www.w3.org/wiki/CORS)，如果 HTTP 请求满足以下条件，可以将其标记为简单请求。
 
-* Request method should be `GET`, `POST`, or `HEAD`.
-* Only a limited number of headers are allowed, including `Accept`, `Accept-Language`, `Content-Language`, `Content-Type`, `DPR`, `Downlink`, `Save-Data`, `Viewport-Width`, and `Width`.
-* Although `Content-Type` header is allowed, it should only contain values types of application/x-www-form-urlencoded,`multipart/form-data `and `text/plain`.
+- 请求方式应该是 `GET`，`POST`，或者 `HEAD`。
+- 只允许携带几个固定的头信息，包括 `Accept`，`Accept-Language`，`Content-Language`，`Content-Type`，`DPR`，`Downlink`，`Save-Data`，`Viewport-Width` 和 `Width`。
+- 尽管 `Content-Type` 头被允许, 它只限于`application/x-www-form-urlencoded`，`multipart/form-data` 和 `text/plain`。
 
-> Now you must be wondering that why don’t we always use these simple requests?
+> 你现在肯定很疑惑为什么我们不能总是使用简单请求呢？
 
-The answer to that question is also simple. These restrictions are too tight for modern-day web applications, and we can’t lock ourselves within these boundaries and provide the best solutions for customers. For example, Authorization headers are not allowed in simple requests, and nowadays, we use authorization headers in almost all HTTP requests.
+答案也很简单。这些限制对于现代的 web 应用程序来说太过严格，我们不能限定在这些范围之内来为客户提供最佳的解决方案。例如，在简单请求中不允许使用授权头，现在几乎所有的 HTTP 请求都在使用授权头。
 
-So, if you’re going to use a simple request, you should be extremely cautious about your application’s requirements.
+所以，如果打算使用简单请求，你应该对应用的要求保持谨慎。
 
-## Final Thoughts
+## 最后的感想
 
-I hope now you understand the methods we can follow to improve or avoid CORS Preflight response time. However, before using these methods, you should have a good understanding of CORS and the reasons behinds its establishment. With that understanding and based on the project requirements, you will be able to decide whether you are going to use CORS or not.
+我希望你现在明白了我们可以遵循的降低或避免 CORS 预检响应时间的方法。但在使用这些方法之前，你应该对 CORS 和背后它出现的原因有充分的了解。有了这些了解再加上项目需求，你就能决定是否需要使用 CORS。
 
-With my experience, I would advise you to use CORS only if necessary because we can save a lot of development time while improving our projects’ latency by enabling same-origin access for your backend API. You can easily go with a proxy configuration, API gateway, or a load balancer to minimize the trouble in such situations.
+根据我的经验，我建议你只在必要时才使用 CORS，因为与启用后端 API 的同源访问来改善项目延迟的工作相比，我们可以节省大量开发时间。在这种情况下，你可以很容易地使用代理配置、API 网关或负载均衡来减少麻烦。
 
-But there are scenarios where you cannot avoid CORS. In these situations, you can easily follow browser caching or Server-Side caching mechanisms to minimize response time. I’m sure it will benefit your web application to gain an edge over performance.
+但有些情况下无法避免 CORS。此时，你可以简单地遵循浏览器缓存或服务器端缓存机制来最小化响应时间。我保证这将使你的 web 应用程序获得性能上的提升。
 
-So I invite you to try out these methods in your next web application to feel the difference.
+因此，我邀请你在下一个 web 应用程序中尝试这些方法，感受它们的不同。
 
-Thank you for Reading!!!
+感谢阅读！！！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
