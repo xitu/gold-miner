@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-become-a-google-developer-expert-gde-a-practical-guide.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-become-a-google-developer-expert-gde-a-practical-guide.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：
 
-# 如何成为谷歌开发专家（GDE）—实用指南
+# 如何成为谷歌开发专家（GDE）— 实用指南
 
 成为[谷歌开发专家](https://developers.google.com/programs/experts/)  (GDE) 并不是我当初想要实现的目标，而是 **它** 找到了我。以下指南是为那些从零开始，希望有一天能加入这个只接受邀请，而且会改变职业生涯的项目的开发人员准备的👇
 
