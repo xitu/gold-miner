@@ -1,29 +1,29 @@
-> * 原文地址：[15 VSCode extensions every Web Developer must have in 2021.](https://levelup.gitconnected.com/15-vscode-extensions-every-web-developer-must-have-in-2021-9388a38c70fc)
-> * 原文作者：[Shashank M V](https://medium.com/@shashankmv)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[15 VSCode extensions every Web Developer must have in 2021.](https://levelup.gitconnected.com/15-vscode-extensions-every-web-developer-must-have-in-2021-9388a38c70fc)
+> - 原文作者：[Shashank M V](https://medium.com/@shashankmv)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2020/15-vscode-extensions-every-web-developer-must-have-in-2021.md)
+> - 译者：[regon-cao](https://github.com/regon-cao)
+> - 校对者：[samyu2000](https://github.com/samyu2000) [lsvih](https://github.com/lsvih)
 
-# 15 VSCode extensions every Web Developer must have in 2021
+# 2021 年 Web 开发者应该掌握的 15 个 VSCode 扩展
 
 ![Photo by [Ash Edmonds](https://unsplash.com/@badashproducts?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*shB6jCQ3DNaz7TzO)
 
-## Why VSCode is so popular
+## 为何 VSCode 如此受欢迎
 
-Visual Studio Code has rapidly gained popularity among developers, ranking as the most popular development environment overall in [Stack Overflow’s 2019 Developer Survey](https://insights.stackoverflow.com/survey/2019). Customizability is one of the reasons for its popularity.
+Visual Studio Code 在开发人员中已经迅速流行起来，在 [Stack Overflow 2019 年开发者调查](https://insights.stackoverflow.com/survey/2019)中，它被评为最受欢迎的开发环境。可定制化是其受欢迎的原因之一。
 
 ![](https://cdn-images-1.medium.com/max/2414/1*_V5rABvXNNMtsvYfsQYECA.png)
 
 ---
 
-So if you are using VSCode here is a list of extensions you must have to improve your productivity.
+如果你正在使用 VSCode，本文就是一份可以帮助你提高效率的扩展列表。
 
 ## Git Lens
 
-When you are working with your teammates on a project this extension uses the power of VSCode and helps you to visualize code authorship at a glance. It shows when a particular code was committed or changed and who changed it.
+当你和别人协同开发项目时，这个扩展能让你一眼就看到代码是谁写的。它显示了提交或更改代码的时间以及作者。
 
-Sometimes your teammate might have committed code that might be breaking other features of the project this helps during that time. You can find it [here](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens).
+有时候，你的团队成员提交的代码可能会破坏项目的其他特性，这时它就很有帮助。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)了解详情。
 
 ---
 
@@ -31,9 +31,9 @@ Sometimes your teammate might have committed code that might be breaking other f
 
 ## Wallaby.js
 
-Wallaby.js is an intelligent test runner for JavaScript that continuously runs your tests. It reports code coverage and other results directly to your code editor immediately as you change your code (even without saving the file).
+Wallaby.js 是一个智能的 JavaScript 测试运行器，可以持续运行你的测试。当你更改代码（甚至还没有保存文件）时，它就会将代码覆盖率和其他测试结果直接报告给你的代码编辑器。
 
-This extension helps to improve your productivity in your development. You can find it [here](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode).
+这个扩展有助于提高你的开发效率。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode)了解详情。
 
 ---
 
@@ -41,9 +41,9 @@ This extension helps to improve your productivity in your development. You can f
 
 ## TypeScript Hero
 
-TypeScript is a superset of JavaScript that has optional typing and compiles to plain JavaScript. When we are using TypeScript this extension comes in handy. It sorts and organizes your imports and fixes coding errors with a feature called ‘Light bulb’.
+TypeScript 是 JavaScript 的超集，它有可选的类型并编译成纯 JavaScript。当我们使用 TypeScript 时，这个扩展很有用。它通过一个名为 Light bulb 的特性对导入的代码进行排序和组织，并修复代码错误。
 
-You can find it [here](https://marketplace.visualstudio.com/items?itemName=rbbit.typescript-hero).
+你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=rbbit.typescript-hero)了解详情。
 
 ---
 
@@ -51,9 +51,9 @@ You can find it [here](https://marketplace.visualstudio.com/items?itemName=rbbit
 
 ## Prettier Code Formatter
 
-Prettier is an opinionated code formatted which makes the lives of developers way easier when it comes to code formatting. You can configure it to Format on Save and this formats the code on save.
+当进行代码格式化时，Prettier 的固定代码格式的功能可以帮助开发人员提高效率。你可以将其配置为保存时格式化，这样会在保存时自动格式化代码。
 
-Once you have this extension you will never have to worry about formatting the code because it does it for you. You can find it [here](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+一旦你有了这个扩展，你将永远不必为格式化代码发愁，因为 Prettier 为你做了。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)了解详情。
 
 ---
 
@@ -61,9 +61,9 @@ Once you have this extension you will never have to worry about formatting the c
 
 ## Path Intellisense
 
-If you work on JavaScript libraries like React or Angular and you are working on large projects you know how annoying it is to find the exact path of the component while importing. This extension helps you auto-complete the path of the imports.
+如果你使用 React 或 Angular 这样的 JavaScript 库进行大型项目的开发，你就能感受到在导入组件时去找组件的具体路径是件多么令人厌烦的事。这个扩展可以帮助你在导入时自动补全组件的路径。
 
-It also helps you to auto-complete the file references in your HTML file. You can find it [here](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense).
+它还可以帮助你自动完成 HTML 文件中的文件引用。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)了解详情。
 
 ---
 
@@ -71,9 +71,9 @@ It also helps you to auto-complete the file references in your HTML file. You ca
 
 ## Debugger for Chrome
 
-We all know how annoying sometimes debugging gets so this extension is used to help you debug your JavaScript code. It’s developed by Microsoft. We can set breakpoints, step our way through the code, debug scripts added dynamically, and more.
+我们都知道，有时候调试程序是一件令人厌烦的事，这个扩展用于辅助你调试 JavaScript 代码。这是微软开发的扩展。我们可以设置断点，逐步执行代码，调试动态添加的脚本等。
 
-Suppose we have a function which we are not sure if it’s being executed or not this extension can help by pausing in the debugger when executed. You can find it [here](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome).
+假设我们有一个函数，我们不确定它是否正在执行，这个扩展可以设置断点，如果在断点处暂停，说明它正在执行。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)了解详情。
 
 ---
 
@@ -81,9 +81,9 @@ Suppose we have a function which we are not sure if it’s being executed or not
 
 ## Bracket Pair Colorizer
 
-This extension allows matching brackets to be identified by colors. When you are into a debugging session and working on a huge codebase this extension comes as a savior.
+这个扩展通过颜色来标记配对的括号。当你在进行调试，而且代码量很大时，这个扩展可以说是救世主。
 
-The user can define which characters to match, and which colors to use. You can find it [here](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer).
+用户可以根据需要，定义某些字符的配对，还可以定义这些字符在代码中的颜色。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer)了解详情。
 
 ---
 
@@ -91,11 +91,11 @@ The user can define which characters to match, and which colors to use. You can 
 
 ## JavaScript (ES6) Code Snippets
 
-If you are a JavaScript developer this could save you a ton of time. When you want to build new projects quickly this could help. Instead of typing the whole code, it has a lot of predefined snippets for the most common JavaScript functions.
+如果你是一名 JavaScript 开发人员，它能帮助你快速构建新项目并节省大量时间。由于它为许多通用的 JavaScript 函数提供了预定义的代码片段，所以你再不需要手动输入所有代码。
 
-This has support for TypeScript, React, Vue, and HTML. There is a similar extension if you work on React. (ES7 React/Redux/GraphQL/React-Native snippets).
+这个插件对对 TypeScript，React，Vue 和 HTML 都提供支持。如果你使用 React，还有一个类似的扩展（ES7 React/Redux/GraphQL/React-Native snippets）可以使用。
 
-Here’s the link for both the extensions: [JS snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets), [React Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets).
+这里是它们的链接：[JS snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets)，[React Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)。
 
 ---
 
@@ -103,9 +103,9 @@ Here’s the link for both the extensions: [JS snippets](https://marketplace.vis
 
 ## Live Share
 
-When you are pairing with your teammate to solve a problem and want to work together on the same code on the editor this helps you to give control to your Code Editor to your teammate and you can work on it simultaneously.
+当你与团队成员共同解决一个问题，并希望在编辑器上一起处理同一段代码时，这个扩展可以帮助你把代码编辑器的控制权交给团队的其他成员，同时你仍然可以进行操作。
 
-You can also share terminal instances, localhost web apps, voice calls, and more. This extension is by Microsoft. You can find it [here](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare).
+你还可以共享终端实例、本地主机 web 应用程序、语音呼叫等等。这个扩展由微软提供。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)了解详情。
 
 ---
 
@@ -113,9 +113,9 @@ You can also share terminal instances, localhost web apps, voice calls, and more
 
 ## ESLint
 
-Since JavaScript is a highly flexible language some minor mistakes might lead to huge problems. So while working on huge codebases we need a linter and a formatter. This extension helps you to do this. This can auto-format your code and finds bugs in your code as well.
+由于 JavaScript 是一种高度灵活的语言，一些小错误可能导致大问题。因此，在处理庞大的代码库时，我们需要一个 linter 和一个 formatter。这个扩展可以帮助你完成此项工作。它可以自动对你的代码进行格式化，还能发现代码里的错误。
 
-Implementing ESLint rules will get you one step closer to setting up good standards for your codebase. You can find it [here](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
+遵循 ESLint 规则会让你的代码离良好的规范更近一步。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)了解详情。
 
 ---
 
@@ -123,9 +123,9 @@ Implementing ESLint rules will get you one step closer to setting up good standa
 
 ## Paste JSON as Code
 
-As a developer, you would frequently be dealing with APIs. As we all know that the most common data structure used in APIs is JSON. To avoid some TypeErrors which might break our application, we use classes or interfaces. This extension can generate a class with the JSON data.
+作为开发人员，你经常要处理接口。我们都知道 API 中最常用的数据结构是 JSON。为了避免一些可能造成应用程序崩溃的类型错误，我们需要定义类或接口。这个扩展可以根据 JSON 数据生成一个类。
 
-So rather than manually writing the classes, we can use this to save us the time and burden of creating the classes. This extension has support for most of the popular languages. You can find it [here](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype).
+因此，我们可以使用它一键生成类，而不必手动编写类代码，因而节省了时间。这个扩展支持大多数流行的语言。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)了解详情。
 
 ---
 
@@ -133,9 +133,9 @@ So rather than manually writing the classes, we can use this to save us the time
 
 ## Peacock
 
-When you’re working on multiple workspaces this extension could help you to identify which exact workspace you have switched to or working on.
+当你在多个工作区进行开发时，这个扩展可以显示已经切换过的工作区以及当前所处的工作区。
 
-You can find it [here](http://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock).
+你可以点击[这里](http://marketplace.visualstudio.com/items?itemName=johnpapa.vscode-peacock)了解详情。
 
 ---
 
@@ -143,9 +143,9 @@ You can find it [here](http://marketplace.visualstudio.com/items?itemName=johnpa
 
 ## Better Comments
 
-This extension helps you create more human-friendly comments in your code. It allows you to give different color codes for different types of comments which could be TODOs, Highlights, Alerts, and other types of comments.
+这个扩展可以帮助你在代码中创建更人性化的注释。它可以让你为不同类型的注释（比如待办事项、高亮显示、警报等）设定不同的颜色代码。
 
-This is highly recommended writing clean and documented code is normally followed. You can find it [here](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments).
+强烈建议编写通常遵循的干净且文档化的代码。你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)了解详情。
 
 ---
 
@@ -153,9 +153,9 @@ This is highly recommended writing clean and documented code is normally followe
 
 ## Search node_modules
 
-When we are building component libraries and using the component in different applications we surely make some modifications to the node modules. This extension allows you to quickly navigate the file inside your project’s node_modules directory.
+当我们构建组件库或者在不同的应用里使用组件时，我们肯定会对 node modules 做一些修改。这个扩展可以让你快速浏览 node modules 目录中的文件。
 
-You can find it [here](https://marketplace.visualstudio.com/items?itemName=jasonnutter.search-node-modules).
+你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=jasonnutter.search-node-modules)了解详情。
 
 ---
 
@@ -163,15 +163,15 @@ You can find it [here](https://marketplace.visualstudio.com/items?itemName=jason
 
 ## Rest Client
 
-We as developers use Postman regularly on a daily basis to check the response from an API. This extension allows you to make an HTTP request and view the response in VSCode directly rather than switching between two application this extension does the work for you.
+作为开发人员，我们每天都会使用 Postman 来检测来自 API 的响应。这个扩展可以让你直接在 VSCode 中发出 HTTP 请求并查看响应，而无需在两个应用程序之间切换。
 
-You can find it [here](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
+你可以点击[这里](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)了解详情。
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/3786/1*uFiFhMR3tOp6KXMkQ4gy-w.png)
 
-Thank you for reading!.
+感谢阅读!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
