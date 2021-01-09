@@ -2,7 +2,7 @@
 > * 原文作者：[Mayur Jain](https://medium.com/@mayur-ds)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/python-lists-and-tuples.md](https://github.com/xitu/gold-miner/blob/master/article/2021/python-lists-and-tuples.md)
-> * 译者：
+> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
 > * 校对者：
 
 # Python 中的列表和元组
