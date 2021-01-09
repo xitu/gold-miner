@@ -5,7 +5,7 @@
 > * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
 > * 校对者：
 
-# Magic Numbers 并不那么奇幻
+# 幻数并没有我们想象中的那么奇幻
 
 > A better solution for hardcoded numbers
 
