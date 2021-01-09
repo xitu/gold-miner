@@ -12,7 +12,7 @@ Because a lot of systems are connected to the web these days (or, at least, comm
 由于越来越多的系统与网络相连，或者至少在某种程度上和网络交互，因此互联网企业正在给予网络安全更多的重视。
 
 Web security usually comes to public attention when certain events reach the news, for example, security leakages, hacker activities, and/or data-stealing over big companies, some of them really large (like Google, LinkedIn, etc.).
-Web 安全通常只有在某些新闻出现的时候才会被大家关注，比如说，安全泄露问题、黑客活动或者是大公司的数据泄露问题，有些数据窃取问题的规模真的非常大，像是 Google 或者 LinkdIn 的数据窃取事件。
+Web 安全通常只有在某些新闻出现的时候才会被大家关注，比如说，安全泄露问题、黑客活动或者是大公司的数据窃取问题。有些数据窃取问题的规模真的非常大，比如是 Google 或者 LinkdIn 的数据窃取事件。
 
 Apart from that showbiz world of giant players that most of us are probably not working for, implementing security on your systems is not only important but impressively underestimated or even forgotten by many devs.
 除去那些我们大部分人都不为之工作的娱乐巨头们的娱乐圈，在系统上实现安全措施不仅重要，而且被严重低估，甚至被许多开发者遗忘。
@@ -21,7 +21,7 @@ Setup, best practices, performance, testing, and metrics are probably things tha
 安装、最佳实践、性能、测试、指标很可能是您的的编程生涯中每天都在做的事情。然而，很不幸，它们不等同于安全编程最佳实践。
 
 And it’s not due to warnings. If you work in the open-source universe, within GitHub’s protective arms, chances are that you’ve faced some of its [alerts](https://docs.github.com/en/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies) for vulnerable dependencies. The code community platform is becoming increasingly good – as well as worried – at detecting vulnerabilities in thousands of different libs across many different languages.
-这并不是危言耸听。如果你的工作在开源的环境下，那么在 GitHub 的保护机制之下，你有可能会看到一些有缺陷的依赖的[提示](https://docs.github.com/en/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies)。GitHub 代码平台变得越来越擅长-也越来越让人担心-在许多不同语言编码的数千个依赖库中进行漏洞的探测。
+这并不是危言耸听。如果你的工作在开源的环境下，那么在 GitHub 的保护机制之下，你有机会看到一些有缺陷的依赖的[提示](https://docs.github.com/en/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies)。GitHub 代码平台变得越来越擅长-也越来越让人担心-在许多不同语言编码的数千个依赖库中进行漏洞的探测。（？）
 
 Today, it’s way more accessible for small and medium companies to afford security tools (or perhaps whole platforms) to assist their developers with the gaps in their code and apps.
 有很多安全工具或者平台可以帮助公司的开发者解决代码和应用程序中的漏洞。今天，对于中小企业来说，这样的工具甚至整个平台变得越来越触手可及。
@@ -33,7 +33,7 @@ Actually, we’ll pick Node.js as the analysis guinea pig, but many of the items
 事实上，虽然我们将 Node.js 选择作为实验对象，但是文中提到的很多概念都同样适用于其他平台。
 
 As a matter of reference, the [OWASP](https://owasp.org/) (**Open Web Application Security Project**) will guide us through its [Top Ten](https://owasp.org/www-project-top-ten/) most critical security risks for web applications, in general. It is a consensus board created out of the analysis of its broad list of members. Let’s face it under the light of Node then.
-通常，[OWASP](https://owasp.org/)(**开放网络应用安全项目**) 将会作为参考手册，通过其中的[前十个 Web 应用面临的最关键的安全威胁](https://owasp.org/www-project-top-ten/)来引导我们。这十大安全威胁来自于它的广大使用者经分析之后得出的共识。让我们以 Node 项目为例来看一看这些安全威胁。
+通常，[OWASP](https://owasp.org/) (**开放网络应用安全项目**)将会作为参考手册，通过其中的[前十个 Web 应用面临的最关键的安全威胁](https://owasp.org/www-project-top-ten/)来引导我们。这十大安全威胁来自于它的广大使用者经分析之后得出的共识。让我们以 Node 项目为例来看一看这些安全威胁。
 
 ## Injection Attacks
 ## 注入攻击
@@ -48,7 +48,7 @@ It usually happens when developers concatenate important SQL statements directly
 // "id" 来自于未经处理的请求参数
 db.query('select * from MyTable where id = ' + id);
    .then((users) => {
-     // return the users into the response
+     // 在响应中返回用户信息
    });
 ```
 
