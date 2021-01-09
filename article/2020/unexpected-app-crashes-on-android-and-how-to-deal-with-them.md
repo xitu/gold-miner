@@ -2,7 +2,7 @@
 > * 原文作者：[Kunal Chaubal](https://medium.com/@kunalchaubal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/unexpected-app-crashes-on-android-and-how-to-deal-with-them.md](https://github.com/xitu/gold-miner/blob/master/article/2020/unexpected-app-crashes-on-android-and-how-to-deal-with-them.md)
-> * 译者：
+> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
 > * 校对者：
 
 # Unexpected App Crashes on Android and How to Deal with Them
