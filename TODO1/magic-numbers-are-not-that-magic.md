@@ -2,7 +2,7 @@
 > * 原文作者：[Steven Popovich](https://medium.com/@steven.popovich)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md)
-> * 译者：
+> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
 > * 校对者：
 
 # Magic Numbers Are Not That Magic
