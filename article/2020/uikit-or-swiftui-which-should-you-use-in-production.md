@@ -2,12 +2,12 @@
 > * 原文作者：[Alexey Naumov](https://medium.com/@nalexn)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md](https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md)
-> * 译者：
+> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
 > * 校对者：
 
-# UIKit or SwiftUI: Which Should You Use in Production?
+# UIKit 和 SwiftUI：我该选择哪一个运用在实际产品开发中？
 
-![Photo by [Mario Dobelmann](https://unsplash.com/@mariodobelmann?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11516/0*uqSWA_30Auiz_7F4)
+![图自 [Mario Dobelmann](https://unsplash.com/@mariodobelmann?utm_source=medium&utm_medium=referral) 源于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11516/0*uqSWA_30Auiz_7F4)
 
 Apple has recently released iOS 14, which means SwiftUI already has a required one-year buffer for being adopted not only by enthusiasts in their pet projects but actually by enterprise teams in their business apps.
 
