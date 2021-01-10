@@ -9,24 +9,24 @@
 
 ![图自 [Mario Dobelmann](https://unsplash.com/@mariodobelmann?utm_source=medium&utm_medium=referral) 源于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11516/0*uqSWA_30Auiz_7F4)
 
-Apple 最近发布了 iOS 14，而这意味着 SwiftUI 已经有一年的时间给开发者们缓冲。而且意味着 SwiftUI 不仅可以被爱好者们在其闲余的热爱项目中使用，而且可以被企业团队在其业务应用中使用。
+Apple 最近刚发布了 iOS 14 —— 这意味着开发者们已经花了一年时间缓冲使用 SwiftUI 了。而且这意味着 SwiftUI 不仅可以被爱好者们在其闲余的项目中使用，而且可以被企业团队在其发布的应用中使用。
 
-从评论中字面上看，每个人都说编写 SwiftUI 代码很有趣，但是 SwiftUI 仅仅只能做一个玩具还是能充当一个专业的工具？如果我们需要在实际生产中使用 SwiftUI，那我们需要以对待一个专业工具而非玩具的态度，考虑稳定性和灵活性。
+从每个人的评论的字面上看，大家都说编写 SwiftUI 代码很有趣，但是 SwiftUI 究竟是仅仅只能充当一个玩具喂饱开发者们的好奇心，还是真的可以当作一个专业的工具在实际生产中使用？而如果我们需要在实际生产中使用 SwiftUI，那我们就需要以对待一个专业工具而非对待玩物的态度，开始着手考虑它的稳定性和灵活性了。
 
-那我们应该在什么时候开始在生产代码中使用 SwiftUI？
+那我们应该在什么时候开始在实际生产的应用的代码中使用 SwiftUI？
 
-如果您要在 2020 年至 2022 年之间开始一个新的重大项目，这个问题其实很难回答。
+如果您准备在 2020 年至 2022 年之间开始一个新的重大项目，这个问题着实很难回答。
 
-通过SwiftUI带来的所有创新，即使在 iOS 14 上，我们[仍然会遇到错误，并且缺乏自定义的灵活性](https://steipete.com/posts/state-of-swiftui/) 。
+SwiftUI 带来了不少创新，但是即使在 iOS 14 上，我们[仍然会遇到错误，并且 SwiftUI 缺少客制化的能力](https://steipete.com/posts/state-of-swiftui/) 。
 
-尽管可以通过同时保留 UIKit 能缓解这种情况，但您是否可以估计您在 UIKit 中编写了多少代码？从长远来看，SwiftUI 可能会成为负担吗？您是否应该使用 UIKit 编写所有内容？
+尽管可以通过同时使用 UIKit 来缓解这种情况，但您是否可以估计您在 UIKit 中编写的代码的数量与完全移植 SwiftUI 的耗时？从长远来看，SwiftUI 会不会有可能成为负担？您是否应该完全抛弃 UIKit 投身使用 SwiftUI 编写所有的代码？
 
-我们只能打赌 iOS 15 上的 SwiftUI 没有问题，这时候我们才能够放心使用 SwiftUI —— 这意味着只有到 2022 年（iOS 16 发行的时候） SwiftUI 已经没有任何问题的情况下，我们才能完全信任 SwiftUI。
+真要解决这个问题，我们只能打赌到了 iOS 15 的发布前后，SwiftUI 没有更多的问题出现。而只有这时候我们才敢放心使用 SwiftUI，而这意味着只有到 2022 年前后（iOS 16 发行的时候），在 SwiftUI 已经被证实没有任何问题的情况下，我们才能完全信任并将 SwiftUI 在生产中使用。
 
-在本文中，我将详细介绍如何在如下两种情况下构造项目：
+在本文中，我将详细介绍如何在如下两种情况下搭建项目：
 
-1.如果您希望让应用支持 iOS 11 或 12，但可以考虑在未来将应用程序迁移到 SwiftUI。
-2.如果您的应用仅支持 iOS 13+，但希望控制与 SwiftUI 相关的风险，并希望同时能够无缝使用 UIKit。
+1.如果您希望您的应用支持 iOS 11 或 iOS 12，但考虑在未来将应用程序迁移到 SwiftUI。
+2.如果您的应用只用支持 iOS 13+，但希望控制与 SwiftUI 相关的风险，并希望能够同时无缝使用 UIKit。
 
 ## 这是个粘性的 UI 框架
 
