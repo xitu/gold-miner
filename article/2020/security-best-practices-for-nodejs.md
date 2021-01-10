@@ -14,7 +14,7 @@ Because a lot of systems are connected to the web these days (or, at least, comm
 
 Web security usually comes to public attention when certain events reach the news, for example, security leakages, hacker activities, and/or data-stealing over big companies, some of them really large (like Google, LinkedIn, etc.).
 
-只有当新闻报道安全泄露问题、黑客活动或者是大公司（诸如 Google 或者 LinkedIn ）的数据窃取问题时，网络安全才会被大家关注。
+只有当新闻报道安全泄露问题、黑客活动或者是公司的数据窃取（其中不乏一些巨型公司，诸如 Google 或者 LinkedIn 等）的事件时，网络安全才会引起公众的注意。
 
 Apart from that showbiz world of giant players that most of us are probably not working for, implementing security on your systems is not only important but impressively underestimated or even forgotten by many devs.
 
