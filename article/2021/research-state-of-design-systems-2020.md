@@ -19,16 +19,15 @@ We also plan to interpret the results in a series of two articles. In this artic
 
 With that in mind, on we go!
 
-About the respondents
----------------------
+## About the respondents
 
 This year we heard from a high percentage of people who focus on design work (53%). We saw an increase from last year's survey in people who focus on development, up from 11% to 16%, and people who do both design and development, from 16% to 22%.
 
 We also saw a change in level of role experience in our respondents. Last year, a majority (57%) reported they have less than 4 years experience in their respective roles. This year the results were:
 
-1.  37% have less than 4 years experience
-2.  32% have 4-9 years experience
-3.  31% have more than 9 years experience
+1. 37% have less than 4 years experience
+2. 32% have 4-9 years experience
+3. 31% have more than 9 years experience
 
 Having a more even distribution gave us a wider breadth of experiences to learn from.
 
@@ -36,8 +35,7 @@ When considering the people involved in creating or using design systems, let's 
 
 Using these definitions, 76% of respondents could be identified as "creators," either as part of their organization's design system team or as members of the product team that contributed to a design system. So we have a high majority with hands-on experience who shared that experience via this survey.
 
-What's included in a design system?
------------------------------------
+## What's included in a design system?
 
 In last year's survey, we sought to understand which artifacts comprised an organization's design system. The most prevalent artifacts of a design system from last year included component libraries, style guides, design guidelines, and content guidelines.
 
@@ -45,9 +43,9 @@ This year, we expanded the question to include 9 options, adding things like des
 
 The top three design system artifacts shifted to:
 
-1.  Icon library (84%)
-2.  UI Kit (83%)
-3.  Style Guide (75%)
+1. Icon library (84%)
+2. UI Kit (83%)
+3. Style Guide (75%)
 
 Most respondents (74%) also reported their design system had a component code library.
 
@@ -59,8 +57,7 @@ There are two key items to consider here. First, 75% of the survey respondents a
 
 Second, documenting an organization's visual language is one of the first steps in a design systems development. An organization's visual language is expressed in the style guide and icons, and embedded into the UI Kit used during the product design phase. Having a high percentage of visual design artifacts, like the style guide and icons, aligns with the early design system evolution phase.
 
-What drives in-house design systems creation?
----------------------------------------------
+## What drives in-house design systems creation?
 
 In 2019, we asked, "What design systems or component libraries have you tried or used, if any?" In that survey, 58% of respondents selected "in-house design system" as one they had used or tried, ranking the option second behind Google's Material Design.
 
@@ -72,16 +69,15 @@ A majority of respondents (80%!) reported that their company built its own desig
 
 The top three stated reasons why companies created their in-house design system are:
 
-1.  Best represent their company's brand (27%)
-2.  Address their product's specific use cases (22%)
-3.  Framework or tech stack constraints (14%)
+1. Best represent their company's brand (27%)
+2. Address their product's specific use cases (22%)
+3. Framework or tech stack constraints (14%)
 
 ![Bar chart](https://lh3.googleusercontent.com/TdaJWw-tzmMC4eAaQCfRtRUfxDVOjKtdYs_G093UovcWgxxXppfbvXBMgh9zSYjCQKludbKCpfLqMTa3QQ3Gn2cUpbnVGimjOLqO5Q=w1064-v0)
 
 Figure 2: Percentage of responses providing reasons for creating in-house design systems (Responses=350)
 
-Which design systems have you used?
------------------------------------
+## Which design systems have you used?
 
 In last year's survey, when we asked, "what design systems have you used?" The top 3 design systems selected were: Google's Material Design (28%), In-house built design system (21%) and Apple's Human-Interface Guidelines (15%).
 
@@ -89,9 +85,9 @@ This year, when we asked, "what design systems have you used in the last 2 years
 
 The top three design systems used by our respondents over the last 2 years are:
 
-1.  Google's Material Design
-2.  Apple's Human-Interface Guidelines (HIG)
-3.  Bootstrap
+1. Google's Material Design
+2. Apple's Human-Interface Guidelines (HIG)
+3. Bootstrap
 
 ![Bar chart](https://lh3.googleusercontent.com/el4uqW9Lgy30RRxU91SJyFm_Xaql4D3uXi-EwjeZoElhjR6IVWaUSJzVUXsh5rSRBXFPJ-cEabCh7jmwCx4X68lrFAmJwg8_tMRNcw=w1064-v0)
 
@@ -103,16 +99,15 @@ When we take into consideration that a high majority (80%) of reported that thei
 
 This further confirms a finding documented in last year's survey that "...companies increasingly want to develop their own design systems, but will use off-the shelf design systems as a reference and an influence."^2^
 
-What are the top tools used for designing digital products?
------------------------------------------------------------
+## What are the top tools used for designing digital products?
 
 This year we added several questions around tooling for both design system creators and consumers. We asked respondents who focus on design work which tools they use to create designs.
 
 The top 3 tools selected by our respondents are:
 
-1.  Figma (23%)
-2.  Sketch (19%)
-3.  Illustrator (11%)
+1. Figma (23%)
+2. Sketch (19%)
+3. Illustrator (11%)
 
 ![Bar chart](https://lh3.googleusercontent.com/ouNvcv0kIuLx0qaApPGL3jzTx5K59PvtjM25KEI5PHB5ivO5qdTmk89OkySsTCmzAG_4nuweS6O11h2CLeMXpHL_hk5EjwNQsVSqxA=w1064-v0)
 
@@ -124,8 +119,7 @@ When we compare tool preference with company size (see Figure 5), Figma is the p
 
 Figure 5: Percentage of responses selecting a specific design tools used by the respondent's company size (Responses=453)
 
-What are the top tools used for design documentation and hand-off?
-------------------------------------------------------------------
+## What are the top tools used for design documentation and hand-off?
 
 The handoff between design and engineering is a key moment of collaboration and communication during product design and development process.
 
@@ -133,9 +127,9 @@ In last year's survey, this handoff was identified as a pain point that design l
 
 The top 3 tools selected by our respondents are:
 
-1.  Figma (26%)
-2.  InVision (18%)
-3.  Zeplin (13%)
+1. Figma (26%)
+2. InVision (18%)
+3. Zeplin (13%)
 
 ![Bar chart](https://lh3.googleusercontent.com/694HlV4aDWOjC3tNxm8q3AWQlDD1upPAjiug9eg-KNBo-MZVM_v2N6vjyZzT8B_5T0JgTseqS5oYXbApoBmMOLW65S3nl7KQtVMZLA=w1064-v0)
 
@@ -147,8 +141,7 @@ When we compare tools for hand-off of UX documentation usage with company size, 
 
 Figure 7: Percentage of responses selecting a specific hand-off tools used by the respondent's company size (Responses=451)
 
-What are the top tools used for managing design systems?
---------------------------------------------------------
+## What are the top tools used for managing design systems?
 
 As more organizations create design systems, there is a growing selection of tools to organize and manage design system artifacts and documentation.
 
@@ -164,16 +157,15 @@ Again, when we review design system management tool usage by company size, Figma
 
 Figure 9: Percentage of responses selecting design management tools by the respondent's company size (Responses=452)
 
-How do you support a design system?
------------------------------------
+## How do you support a design system?
 
 As design systems evolve within an organization, active support is needed to help them grow and succeed. This year's survey added a question about specific activities teams perform to support their design system's evolution.
 
 The top support activities reported include:
 
-1.  Individual and recurring design reviews (16%)
-2.  Onboarding for how to use the organization's design system (14%)
-3.  Ability to file bugs against the system (13%)
+1. Individual and recurring design reviews (16%)
+2. Onboarding for how to use the organization's design system (14%)
+3. Ability to file bugs against the system (13%)
 
 ![Bar chart](https://lh3.googleusercontent.com/_9KH_iW7Mho5RkAZsqxwV_lljdbvqRqWtRr5sMrFM0m4eDS1ZvjhxBDFXYnWnY3CnMb6Vr2OzmlsRJnjkqhWTtCXV6RDrjoNwE0dFg=w1064-v0)
 
@@ -183,8 +175,7 @@ After the launch of a design system, the next step toward success is adoption of
 
 Additionally, a stated goal for using a design system is maintaining product consistency. Having design system team members give feedback during product design reviews, or providing the product teams the capability to file bugs against the design system itself, provide mechanisms and opportunities to keep design systems and their associated products consistent and in-sync.
 
-What is the current growth trend for design systems?
-----------------------------------------------------
+## What is the current growth trend for design systems?
 
 In addition to learning more about in-house design systems growth trend, we also learned how long respondents' design systems had been in place at their organization. About 25% of respondents stated that their design system had been in place 1-2 years, making them fairly new.
 
@@ -200,18 +191,16 @@ More mid-size companies (50 - 1500 employees) are increasingly using design syst
 
 Figure 12: Count of design systems by respondent's company size (Responses=389)
 
-What's next?
-------------
+## What's next?
 
 Design systems are always evolving, whether at the team level, the organization level, or across the broader design systems community. As we apply these systems to our work, it is important to ask questions about how the systems are formed, how they are supported, and how they change. This way, teams that are new to the process can continue to learn from the community based on their challenges and successes. Stay tuned to the Material Design blog for a deeper dive in early 2021.
 
 Thanks, and good night.
 
-#### Cited
+## Cited
 
-### *[1] Klein, Nikolas. "The spectrum of maturity of design systems" [Editorial post] **Retrieved from <https://www.designsystems.com/the-spectrum-of-maturity-for-design-systems/>*
-
-### *[2] Yew, Jude (2019, Dec 23). "State of Design Systems 2019" [Editorial post] **Retrieved from <https://medium.com/google-design/state-of-design-systems-2019-ff5f26ada71>*
+* [1] Klein, Nikolas. "The spectrum of maturity of design systems" [Editorial post] **Retrieved from <https://www.designsystems.com/the-spectrum-of-maturity-for-design-systems/>**
+* [2] Yew, Jude (2019, Dec 23). "State of Design Systems 2019" [Editorial post] **Retrieved from <https://medium.com/google-design/state-of-design-systems-2019-ff5f26ada71>**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
