@@ -7,15 +7,11 @@
 
 # Why React Hooks Are the Wrong Abstraction
 
-#### And an alternative API that you can use
-
 ![Photo by the author.](https://cdn-images-1.medium.com/max/5576/1*LVjLXZ8-mBmhJZoJj3w_3w.png)
 
 Before I get started, I’d like to express how grateful I am for all of the work that the React team has put in over the years. They’ve created an awesome framework that, in many ways, was my introduction to the modern web. They have paved the path for me to believe in the ideas I’m about to present and I would not have arrived at these conclusions without their ingenuity.
 
 In today’s article, I would like to walk through my observed shortcomings of Hooks and propose an alternative API that is as capable but with fewer caveats. I’ll say right now that this [alternative API](https://malerba118.github.io/elementos-docs/) is a bit verbose, but it is less computationally wasteful, more conceptually accurate, and it’s framework-agnostic.
-
----
 
 ## Hooks Problem #1: Attached During Render
 
@@ -44,7 +40,6 @@ const App = () => {
     </button>
   );
 };
-
 ```
 
 This produces an error on the second render when the counter is incremented because the component will remove the second `useState` hook:
@@ -74,7 +69,6 @@ const App = createComponent(() => {
     </div>
   );
 });
-
 ```
 
 By attaching our Hooks to the component in a constructor, we wouldn’t have to worry about them shifting during re-renders.
@@ -83,15 +77,11 @@ If you’re thinking, “You can’t just move Hooks to a constructor. They **ne
 
 We can’t just move Hooks out of the render function because we will break them. That’s why we’ll have to replace them with something else. But first, the second major problem of Hooks.
 
----
-
 ## Hooks Problem #2: Assumed State Changes
 
 We know that any time a component’s state changes, React will re-render that component. This becomes problematic when our components become bloated with lots of state and logic. Say we have a component that has two unrelated pieces of state: A and B. If we update state A, our component re-renders due to the state change. Even though B has not changed, any logic that depends on it will re-run unless we wrap that logic with `useMemo`/`useCallback`.
 
 This is wasteful because React essentially says “OK, recompute all these values in the render function” and then it walks back that decision and bails out on bits and pieces whenever it encounters `useMemo` or `useCallback`. However, it would make more sense if React would only run exactly what it needed to run.
-
----
 
 ## Reactive Programming
 
@@ -135,8 +125,6 @@ count$.set(7)
 ```
 
 This is similar to our previous example, except now we will log a doubled count.
-
----
 
 ## Improving React With Reactivity
 
