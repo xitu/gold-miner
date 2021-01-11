@@ -225,8 +225,7 @@ extension HomeViewModel {
 ---
 
 ## `Observable` 到 `@State`
-
-第二种方法只需要设置较少的代码，并且基于 SwiftUI 变成可以消耗外部状态的另一种方式：使用 `onReceive` 的 View 的修饰符，用于将值分配给本地的 `@State`。
+第二种方法只需要设置较少的代码，并且基于 SwiftUI 变成可以使用外部状态的另一种方式：使用 View 的 `onReceive` 方法，将值分配给本地的 `@State`。
 
 这里的好处是我们可以直接在 SwiftUI 视图中使用原始的 ViewModel：
 
@@ -250,9 +249,9 @@ struct HomeView: View {
 }
 ```
 
-这里的 `viewModel.isLoadingData` 是驱动程序，因此我们需要将其从 Combine 转换为 `Publisher`。
+这里的 `viewModel.isLoadingData` 是是重要的程序，也因此我们需要将其从 Combine 转换为 `Publisher`。
 
-社区已经发布了 [RxCombine](https://github.com/CombineCommunity/RxCombine) 库，该库支持从 `Observable` 到 `Publisher` 桥接，因此使用该库支持 `Driver` 会很简单：
+开源社区中已经发布了 [RxCombine](https://github.com/CombineCommunity/RxCombine) 库，该库支持从 `Observable` 到 `Publisher` 的桥接，因此使用该库支持 `Driver` 会很简单：
 
 ```Swift
 import RxCombine
@@ -270,11 +269,11 @@ extension Driver {
 
 ## 将 UIKit 与 Combine 连接
 
-如果您有足够的支持 iOS 13+ 的功能，则可以考虑使用 Combine 在应用程序中构建网络和其他非 UI 模块。
+如果您有足够多支持 iOS 13+ 的功能，则可以考虑在应用程序中使用 Combine 构建网络和其他非 UI 模块。
 
-即使将 Combine 与 UIKit 绑定起来有些不便，但从长远来看，当项目完全迁移到 SwiftUI 时，选择 Combine 作为驱动应用程序中数据的核心框架应该会有所回报。
+即使将 Combine 与 UIKit 绑定起来有些不便，但从长远来看，当项目完全迁移到 SwiftUI 时，选择 Combine 作为驱动应用程序中数据的核心框架总是有所裨益的。
 
-同时，您可以在 `sink` 函数中更新 UIKit 视图：
+而且同时，您可以在 `sink` 函数中更新 UIKit 视图：
 
 ```Swift
 viewModel.$userName
@@ -284,7 +283,7 @@ viewModel.$userName
     .store(in: &cancelBag)
 ```
 
-或者，您可以利用上述 RxCombine 库将 RxCocoa 中可用的数据绑定的全部优势转换为 `Publisher` 或 `Observable`。
+或者，您可以利用上述 RxCombine 库将 RxCocoa 中可用的数据绑定转换为 `Publisher` 或 `Observable`。
 
 ```Swift
 viewModel.$userName // Publisher
@@ -295,7 +294,7 @@ viewModel.$userName // Publisher
 
 我应该注意，如果我们在应用程序中选择 Combine 作为主要的响应框架，则 RxSwift、RxCocoa 和 RxCombine 的使用应仅限于将数据绑定到 UIKit 视图，这样我们就可以轻松摆脱这些依赖关系以及应用程序中的最后一个 UIKit 视图。
 
-在这种情况下，ViewModel 应该仅使用 Combine 来构建（不要使用 `import RxSwift` !）。
+在这种情况下，ViewModel 应该仅使用 Combine 来构建（不要再使用 `import RxSwift` !）。
 
 让我们一起回到原始的示例：
 
@@ -332,11 +331,11 @@ class HomeViewController: UIViewController {
 
 ## 关于页面导航的想法
 
-过去，我曾探讨 [程序导航](https://nalexn.github.io/swiftui-deep-linking/) 在 SwiftUI 中的工作方式，根据我的经验，这是 SwiftUI 仍然遭受苦难的部分各种故障和崩溃，并且缺乏动画自定义功能。
+过去，我曾探讨 [程序导航](https://nalexn.github.io/swiftui-deep-linking/) 在 SwiftUI 中的工作方式，根据我的经验，这是 SwiftUI 中仍然充满着苦难的部分。这里发生着各种故障和崩溃，并且不支持自定义。
 
-随着时间的流逝，这肯定会得到解决，但是到目前为止，我不相信 SwiftUI 具有路由功能。
+随着时间与 SwiftUI 开发的推进，这肯定会得到解决，但是到目前为止，我丝毫不相信 SwiftUI 具有页面间导航功能。
 
-退出 SwiftUI 的路由后，我们不会损失太多。只要 SwiftUI 得到 UIKit 的支持，与我们使用 UIKit 所实现的性能相比，就不会有积极的性能差异。
+停止使用 SwiftUI 的页面导航后，我们其实并不会损失太多 —— 只要 SwiftUI 得到 UIKit 的支持，与我们使用 UIKit 所实现的性能相比，就不会有什么大的性能差异。
 
 在为本文构建的示例项目中，我使用了传统的协调器模式 （MVVM-R），该模式适用于使用 SwiftUI 中的 `UIHostingController` 构建的页面。
 
