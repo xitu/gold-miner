@@ -1,7 +1,7 @@
 > * 原文地址：[The State of Design Systems: 2020](https://material.io/blog/research-state-of-design-systems-2020)
 > * 原文作者：[Abla Hamilton](https://www.linkedin.com/in/hamilton/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/.md](https://github.com/xitu/gold-miner/blob/master/article/2021/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/research-state-of-design-systems-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/research-state-of-design-systems-2020.md)
 > * 译者：
 > * 校对者：
 
