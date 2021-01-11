@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/deepspeed-extreme-scale-model-training-for-everyone.md](https://github.com/xitu/gold-miner/blob/master/article/2020/deepspeed-extreme-scale-model-training-for-everyone.md)
 > * 译者：[zhuzilin](https://github.com/zhuzilin)
-> * 校对者：[samyu2000](https://github.com/samyu2000)、[luochen1992](https://github.com/luochen1992)
+> * 校对者：[samyu2000](https://github.com/samyu2000)、[luochen1992](https://github.com/luochen1992)、[lsvih](https://github.com/lsvih)
 
 # DeepSpeed：所有人都能用的超大规模模型训练工具
 
@@ -62,9 +62,9 @@
 
 ### 通过3D并行同时实现高内存效率和高计算效率
 
-数据，模型和流水线并行在提高内存和计算效率方面均起到特定的作用。图1说明了我们的3D策略。
+数据，模型和流水线并行在提高内存和计算效率方面均起到特定的作用。图 1 说明了我们的 3D 策略。
 
-**显存效率：**先将模型的各层划分到不同的流水线阶段，并进一步把每个阶段的层通过模型并行进行划分。这种 2D 组合同时减少了模型，优化器和激活函数所消耗的内存。不过，我们不能在不引入通信开销的情况下无限地划分模型，而通信开销会限制计算效率。
+**显存效率：**先将模型的各层划分到不同的流水线阶段，并进一步把每个阶段的层通过模型并行进行划分。这种 2D 组合同时减少了模型、优化器和激活函数所消耗的内存。不过，我们不能在不引入通信开销的情况下无限地划分模型，而通信开销会限制计算效率。
 
 **计算效率：**为了在不牺牲计算效率的情况下将 worker 数量扩展至超出模型和流水线并行能支持的规模，我们使用了 ZeRO 支持的数据并行功能（ZeRO-DP）。ZeRO-DP 不仅可以通过划分优化器状态量进一步提高显存利用效率，而且还可以通过利用基于通信拓扑的映射关系，以最小的通信开销扩展到任意数量的 GPU。
 
@@ -95,7 +95,7 @@
 
 ### 在线性扩展性下训练万亿参数模型
 
-DeepSpeed 可以只用 800 张英伟达 V100 GPU 来训练具有一个**万亿**参数的语言模型（图3）。我们展示了模型大小和训练吞吐量，可以观察到显存和计算效率同时随模型的大小的扩展线性增长。在各种配置中，我们可以在每个 GPU 上训练大约 14 亿个参数，这是单个 GPU 在不耗尽内存的情况下可以支持的最大模型大小，这表明了完美的显存扩展性。我们还获得了接近完美的线性计算效率扩展，每张 V100 GPU 的吞吐量为 47 Tflops。对于上述的硬件，这是令人印象深刻的扩展性和吞吐量。
+DeepSpeed 可以只用 800 张英伟达 V100 GPU 来训练具有一个**万亿**参数的语言模型（图 3）。我们展示了模型大小和训练吞吐量，可以观察到显存和计算效率同时随模型的大小的扩展线性增长。在各种配置中，我们可以在每个 GPU 上训练大约 14 亿个参数，这是单个 GPU 在不耗尽内存的情况下可以支持的最大模型大小，这表明了完美的显存扩展性。我们还获得了接近完美的线性计算效率扩展，每张 V100 GPU 的吞吐量为 47 Tflops。对于上述的硬件，这是令人印象深刻的扩展性和吞吐量。
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-3_Section-1-1024x508.jpg)
 
@@ -105,7 +105,7 @@ DeepSpeed 可以只用 800 张英伟达 V100 GPU 来训练具有一个**万亿**
 
 [![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-2-_section-2.jpg)](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 
-图 4：使用 2D 和 3D 并行使用 800 个 GPU 训练具有 1800 亿参数的 GPT-3 规模模型的系统性能。该模型具有 100 个 Transformer 层，隐藏层尺寸为 12288 并有 96 个 attention head。训练使用的 batch 大小为 2048，序列长度为 2048。ZeRO-1 也可以跟数据并行结合使用。P，M 和 D 分别表示流水线，模型和数据并行维度。
+图 4：使用 2D 和 3D 并行使用 800 个 GPU 训练具有 1800 亿参数的 GPT-3 规模模型的系统性能。该模型具有 100 个 Transformer 层，隐藏层尺寸为 12288 并有 96 个 attention head。训练使用的 batch 大小为 2048，序列长度为 2048。ZeRO-1 也可以跟数据并行结合使用。P、M 和 D 分别表示流水线，模型和数据并行维度。
 
 在图 4 中，我们使用具有超过 1,750 亿个参数的最新 [GPT-3](https://arxiv.org/abs/2005.14165) 模型架构作为 3D 并行性的基准：
 
