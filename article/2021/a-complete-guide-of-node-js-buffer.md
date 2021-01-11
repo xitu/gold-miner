@@ -9,28 +9,28 @@
 
 二进制流是大量的二进制数据的集合。由于它们的大小很大，因此二进制流不会一起运送，而会在运输前分成小块然后逐一发送。
 
-当数据处理单元不接受其他数据流时，多余的数据将保留在缓存中，直到数据处理单元准备好接收更多数据为止。
+当数据处理单元不接受其他数据流时，剩余的数据将保留在缓存中，直到数据处理单元准备好接收更多数据为止。
 
-Node.js 服务器通常需要在文件系统中进行读写。当然，文件存储在二进制文件中。此外，Node.js 可与 TCP 流配合使用，从而在将二进制数据各小块发送完全发送完之前保护收件人的通信
+Node.js 服务器通常需要在文件系统中进行读写。当然，文件存储在二进制文件中。此外，Node.js 可与 TCP 流配合使用，从而在将各小块二进制数据发送完之前保护收件人的通信
 
 发送给接收者的数据流需要缓冲，直到接收者准备接收更多要处理的数据为止。这就是 Node.js 处理临时数据部分的工作内容 —— 在 V8 引擎外部管理和存储二进制数据。
 
-让我们一起深入 Buffer 的各种缓冲方法，了解更多有关它们的信息以及一起学习如何在 Node.js 程序中使用它们吧。
+让我们一起深入缓冲区（Buffer）的各种使用方法，了解更多有关它们的信息以及一起学习如何在 Node.js 程序中使用它们吧。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*RbpNfHqVXY39GYeC.png)
 
 ## Node.js Buffer 的方法
 
-Node.js Buffer 模块的优点是它内置于 Node.js 中，因此您可以在任何地方使用它。
+Node.js 缓冲模块的优点是它内置于 Node.js 中，因此您可以在任何地方使用它。
 
-让我们一起浏览一些重要的 Node.js Buffer 方法吧。
+让我们一起浏览一些重要的 Node.js 缓冲模块的方法吧。
 
 #### `Buffer.alloc()`
 
 此方法将创建一个新的缓冲区，但是分配的大小不是固定的。当您调用此方法时，可以自行分配大小（以字节为单位）。
 
 ```js
-const buf = Buffer.alloc(6)  // 这回创建一个 6 字节的缓冲区
+const buf = Buffer.alloc(6)  // 这会创建一个 6 字节的缓冲区
 
 console.log(buf) // <Buffer 00 00 00 00 00 00>
 ```
@@ -48,7 +48,7 @@ console.log(buffLen)// <10>
 
 #### `Buffer.compare()`
 
-通过使用 `Buffer.compare()` 您可以比较两个缓冲区。此方法的返回值是 -1 0 1 中的其中一个。
+通过使用 `Buffer.compare()` 您可以比较两个缓冲区，此方法的返回值是 `-1`，`0`，`1` 中的一个
 
 译者注：
 ```js 
@@ -96,7 +96,7 @@ console.log(buf)
 
 #### `Buffer.entries()`
 
-`Buffer.entries()` 会用 buffer 的内容创建并返回一个 [index, byte] 形式的迭代器。
+`Buffer.entries()` 会用这一缓冲区的内容创建并返回一个 [index, byte] 形式的迭代器。
 
 ```js
 var buf = Buffer.from('xyz')
@@ -109,7 +109,7 @@ for (a of buf.entries()) {
 
 #### `Buffer.fill()`
 
-顾名思义，您可以使用 `Buffer.fill()` 方法将数据插入或填充到缓冲区中。有关更多信息，请参见下文，
+顾名思义，您可以使用 `Buffer.fill()` 方法将数据插入或填充到缓冲区中。更多信息请参见下文。
 
 ```js
 const b = Buffer.alloc(10).fill('a')
@@ -134,8 +134,6 @@ console.log(buf.includes(Buffer.from('a buffer example')))
 #### `Buffer.isEncoding()`
 
 您可能知道二进制文件必须进行编码，如果您要检查数据类型是否支持字符编码？您可以使用 `Buffer.isEncoding()` 方法进行确认。如果支持，它将返回 `true`。
-
-As you might know that binaries have to be encoded, To check If a data type supports the character encoding or not? You can use `Buffer.isEncoding()` method to confirm. It will return `true` if it supports.
 
 ```js
 console.log(Buffer.isEncoding('hex'))
@@ -167,8 +165,6 @@ console.log(b.toString());
 
 `Buffer.swapX()` 用于交换缓冲区的字节顺序。使用 `Buffer.swapX()` （此处 `X` 可以为 16, 32, 64）来交换16位，32位和64位缓冲区对象的字节顺序。
 
-is used to swap the byte order of a buffer. Buffer has these methods `buf.swapX()`(here X can be 16,32,64) to swap the byte order of a 16-bit, 32-bit, and 64-bit buffer object.
-
 ```js
 const buf1 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8])
 console.log(buf1)
@@ -192,7 +188,7 @@ console.log(buf1)
 
 #### `Buffer.json()`
 
-它可以帮助您从缓冲区创建 Json，而该方法将返回 Json 缓冲区对象，
+它可以帮助您从缓冲区创建 JSON 对象，而该方法将返回 JSON 缓冲区对象，
 
 ```js
 const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
