@@ -100,11 +100,11 @@ UI 框架在屏幕之间的导航的 API 是否会让视图粘合其他代码？
 
 ## 构建 RxSwift 和 SwiftUI 之间的桥梁
 
-从 iOS 13 开始我们就可以使用 Combine 套件，对于仍然需要支持 iOS 11 或 12 的用户来说这不是个好消息。
+从 iOS 13 开始我们就可以使用 Combine 套件，对于仍然需要支持 iOS 11 或 12 的用户来说这可不是个什么好消息。
 
 在这里，我将讨论一种将 UIKit + RxSwift 迁移到 SwiftUI + RxSwift 的简便方法。
 
-考虑以下的最小化的设置：
+考虑一下下面给出的极简配置：
 
 ```Swift
 class HomeViewModel {
@@ -138,11 +138,11 @@ class HomeViewController: UIViewController {
 
 这个视图是完全由数据驱动的 —— ViewModel 完全控制视图的状态、内容更改。
 
-让我们在不涉及 ViewModel 的代码的情况下将该界面迁移到 SwiftUI。
+那如果让我们在不涉及 ViewModel 的代码的情况下将该界面迁移到 SwiftUI？
 
 有两种方法可以尝试：
 
-1. 在原始 ViewModel 中给绑定了 `Driver` （或`Observable`）的 `@Published` 的变量定义一个新的 `ObservableObject`。
+1. 在原始 ViewModel 中给绑定了 `Driver` （或`Observable`）的 `@Published` 的变量绑定一个新的 `ObservableObject`。
 2.在 SwiftUI 的视图内，将每个 `Driver` 适配为 `Publisher` 并绑定到 `@State`。
 
 ## 由 `Observable` 到 `@Published` 的迁移
