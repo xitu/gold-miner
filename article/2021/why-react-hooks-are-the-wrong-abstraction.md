@@ -221,6 +221,8 @@ This is an elegant solution for several reasons:
 
 With a little hacking on the React API, we can make the code above a reality.
 
+[Try our demo in this sandbox!](https://codesandbox.io/s/alternate-react-api-kyutz)
+
 This is actually quite similar to the way Vue 3 works with its composition API. Though the naming is different, look how strikingly similar this Vue snippet is:
 
 ```JavaScript
