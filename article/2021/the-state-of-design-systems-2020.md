@@ -7,14 +7,14 @@
 
 # 2020 年的设计系统年终总结
 
-> 一个从想法到实施以及更多内容的的设计系统的社区调查，
+> 这是一个从想法到实施以及更多内容的的设计系统的社区调查，
 
 ![](https://lh3.googleusercontent.com/IDHMnQrBxc5SRlLGWdUf50WHjIFyT6TIRsAhZhRir83-cnxwJIYBvyGArfN7t1c5_fK68SfvpUSyq6Hlijrpiw5AC3An4XlSz30f7w=w1064-v0)
 
 我们使用的设计系统在不断发展。在今年的 "Design System State" 调查中，我们了解了设计系统是如何走向成熟的、设计系统中包含哪些内容以及如何使用人员与工具和流程管理设计系统。
 
 这是 Material Design 与设计系统会议 Clarity
-合作的第二年，着眼于设计系统的当前状态。想要看看上年的内容吗？阅读我们的去年针对社区的[调查摘要](https://medium.com/google-design/state-of-design-systems-2019-ff5f26ada71)
+合作的第二年，着眼于设计系统的当前状态。想要看看上年的内容吗？阅读我们的去年针对社区的[调查摘要](https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2019.md)
 。
 
 我们以几种方式更新了 2020 年的调查。首先，"Clarity 2020" 会议变成了在线形式。借助这一更改，我们预估了使用或创建设计系统的受访者的体验水平可能会发生变化。我们还通过 Material Design
@@ -188,12 +188,12 @@ Guidelines（15％）。
 无论是在团队级别，组织级别还是在更广泛的设计系统社区中，设计系统总是在不断发展。当我们将这些系统应用到我们的工作中时，重要的是要问有关系统如何形成，如何得到支持以及如何变化的问题。这样，对于流程新手来说，他们可以根据自己的挑战和成功继续向社区学习。敬请关注
 Material Design 博客，以在2021年初进行更深入的探讨。
 
-谢谢，晚安。
+感谢阅读，晚安～
 
 ## 引文
 
 * 1. <a name="ref1"></a> [Klein, Nikolas. “The spectrum of maturity of design systems” \[Editorial post\]](https://www.designsystems.com/the-spectrum-of-maturity-for-design-systems/)
-* 2. <a name="ref2"></a> [Yew, Jude (2019, Dec 23). “State of Design Systems 2019” \[Editorial post\]](https://medium.com/google-design/state-of-design-systems-2019-ff5f26ada71)
+* 2. <a name="ref2"></a> [Yew, Jude (2019, Dec 23). “State of Design Systems 2019” \[Editorial post\]](https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2020.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
