@@ -2,7 +2,7 @@
 > * 原文作者：[Changran Liu](https://medium.com/@liuchangran6106)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-a-recommendation-system-in-a-graph-database-using-a-latent-factor-model.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-a-recommendation-system-in-a-graph-database-using-a-latent-factor-model.md)
-> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[TrWestdoor](https://github.com/TrWestdoor)
 
 # 如何利用隐语义模型在图数据库中构建推荐系统
