@@ -34,26 +34,26 @@ Today, it’s way more accessible for small and medium companies to afford secur
 
 Nevertheless, whether you use or don’t use such security platforms, understanding and being aware of the security threats that your apps may suffer from and fighting against them through simple (but powerful) best practices is the main goal of this article.
 
-然而，无论你是否使用这些安全平台，帮助你理解并意识到你的应用可能遭受的安全威胁并且通过这些简单但强大的最佳实践来消除这些威胁是这篇文章的主要目的。
+然而，无论是否使用这些安全平台，帮助你理解并意识到应用可能遭受的安全威胁并且通过这些简单但强大的最佳实践来消除这些威胁是这篇文章的主要目的。
 
 Actually, we’ll pick Node.js as the analysis guinea pig, but many of the items here perfectly align with other platforms as well.
 
-事实上，虽然我们选择 Node.js 作为实验对象，但是文中提到的很多概念同样适用于其他平台。
+事实上，虽然我们选择 Node.js 作为目标对象，但是文中提到的很多概念同样适用于其他平台。
 
 As a matter of reference, the [OWASP](https://owasp.org/) (**Open Web Application Security Project**) will guide us through its [Top Ten](https://owasp.org/www-project-top-ten/) most critical security risks for web applications, in general. It is a consensus board created out of the analysis of its broad list of members. Let’s face it under the light of Node then.
 
-通常，[OWASP](https://owasp.org/) (**开放网络应用安全项目**)将会作为参考手册，通过其中的[前十个 Web 应用面临的最关键的安全威胁](https://owasp.org/www-project-top-ten/)来引导我们。这十大安全威胁来自于它的广大使用者经分析之后得出的共识。让我们以 Node 项目为例来看一看这些安全威胁。
+作为参考手册，[OWASP](https://owasp.org/) (**开放网络应用安全项目**)会通过其中的[前十个 Web 应用面临的最关键的安全威胁](https://owasp.org/www-project-top-ten/)来引导我们。这十大安全威胁来自于它的广大使用者经分析之后得出的共识。让我们以 Node 项目为例来看一看这些安全威胁。
 
 ## Injection Attacks
 ## 注入攻击
 
 One of the most famous threats to web applications relates to the possibility of an attacker sending pieces of SQL to your back-end code.
 
-Web 应用面临的一个最著名的安全威胁是攻击者有可能把一段sql代码发送到后端。
+Web 应用面临的一个最著名的安全威胁是攻击者有可能把一段 SQL 代码发送到后端。
 
 It usually happens when developers concatenate important SQL statements directly into their database layers, like so:
 
-这种情况通常发生在开发者直接将重要的sql语句和数据库层相连的时候，像这样：
+这种情况通常发生在开发者直接将重要的 SQL 语句和数据库层相连的时候，像这样：
 
 ```js
 // "id" 来自于未经处理的请求参数
@@ -69,15 +69,15 @@ If the developer didn’t sanitize the input parameters arriving within the requ
 
 Most of the programming languages, and their respective ORM frameworks, provide ways to avoid SQL injection usually by parameterizing inputs into query statements that, before executing directly into the database, will be validated by the inner logic of your language libs machinery.
 
-大多数的编程语言和他们各自的对象关系映射框架都提供了避免 SQL 注入的方法。这些方法通常是通过在直接连接数据库执行语句之前，对语句中的输入参数进行参数化。这一参数化的过程由编程语言可执行库中的内部逻辑完成。
+大多数的编程语言和他们各自的对象关系映射框架都提供了避免 SQL 注入的方法。这些方法通常是在直接连接数据库执行语句之前，对语句中的输入参数进行参数化。这一参数化的过程由编程语言可执行库中的内部逻辑完成。
 
 In this case, it’s very important to know your language/framework closely in order to learn how they do this.
 
-这种情况下，详细了解你的语言/框架来学习它们是怎么做到这一点的就非常重要。
+这时，详细了解你的语言/框架来学习它们是怎么做到这一点的就非常重要。
 
 If you make use of [Sequelize](https://sequelize.org/), for example, a simple way to do it would be:
 
-比方说，如果你使用 [Sequelize](https://sequelize.org/) 来做这件事，那么一个简单的实现如下：
+比方说，你使用 [Sequelize](https://sequelize.org/) 来做这件事，那么一个简单的实现如下：
 
 ```js
 const { QueryTypes } = require('sequelize');
@@ -96,11 +96,11 @@ await sequelize.query(
 
 Authentication is usually a part of the system that requires a lot of attention, especially if you make use of frameworks or tools that easily allow developers to expose sensitive user’s information.
 
-身份认证通常是一个系统中非常值得关注的一部分，尤其在使用了开发者很轻易就能暴露用户敏感信息的框架或者工具的情况下。
+身份认证是一个系统中非常值得关注的一部分，尤其是所使用的框架或者工具让开发者很容易就能暴露用户敏感信息的时候。
 
 OWASP considers this item critical. Standards like [OAuth](https://oauth.net/) (on its 2nd version now, working on the [3rd](https://oauth.net/3/)) are constantly evolving in an attempt to embrace as much as possible the many different realities of the web world.
 
-OWASP 认为身份认证很关键。像 [OAuth](https://oauth.net/) 这样的标准（以第二版为准，[第三版](https://oauth.net/3/)正在筹备中）正在不断发展并尝试尽可能多的考虑网络世界中的各种不同情况。
+OWASP 认为身份认证很关键。像 [OAuth](https://oauth.net/) 这样的标准（以第二版为准，[第三版](https://oauth.net/3/)正在筹备中）正在不断发展并尝试尽可能多地考虑网络世界中的不同情况。
 
 Its implementation can be tricky, depending on your project’s scenarios or on how your company decides to customize the standard usage.
 
@@ -112,11 +112,11 @@ If your team (and company) can afford to add big – and therefore, mature – p
 
 When it comes to [implementing OAuth2](https://blog.logrocket.com/implementing-oauth-2-0-in-node-js/) in Node.js, there’s plenty of compliant and open source options that can help you with not starting from scratch. Like the famous [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server) module.
 
-当您想要在 Node.js 的项目中[实现 OAuth2](https://blog.logrocket.com/implementing-oauth-2-0-in-node-js/) 协议时，有很多开源和成熟的第三方库可供选择，从而使您避免从头开始，比如著名的[node-oauth2-server](https://github.com/oauthjs/node-oauth2-server) 模块。
+当想要在 Node.js 的项目中[实现 OAuth2](https://blog.logrocket.com/implementing-oauth-2-0-in-node-js/) 协议时，您有很多开源和成熟的第三方库可供选择，从而避免从头开始，比如著名的 [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server) 模块。
 
 Make sure to always refer to the official docs of whatever module or framework you’re adding to your projects (whether it’s open source or paid). Plus, when adding security to your auth flows, never go with small and recent open-source projects (it’s too much of a critical part of the app to take that kind of risk).
 
-请确保经常参考您所选用的模块或者框架的官方文档，无论它们是开源或者付费的。另外，当在认证过程中添加安全模块时，不要选用近期刚出现的小的开源项目（这样的风险对于应用程序中的关键部分而言实在太大）。
+无论您所选用的模块或者框架是开源的还是付费的，请确保经常参考它们的官方文档。另外，当在认证过程中添加安全模块时，不要选用近期刚出现的小的开源项目（这样的风险对于应用程序中的关键部分而言实在太大）。
 
 ## Sensitive Data Exposure
 ## 敏感信息泄露
@@ -139,12 +139,12 @@ You’d be amazed at the number of apps out there that store sensitive informati
 
 Let’s go to the to-do (**aka** must-to) list:
 
-让我们看看待办（**也被称作** 一定要做的事情）列表：
+让我们看看待办（**也被称作**一定要做的事情）列表：
 
 * Encrypt your sensitive data. Forget about MD5, your data deserves to be strongly protected under the right algorithms. So go for [Scrypt](https://www.npmjs.com/package/scrypt).
 * 加密敏感信息。MD5不够强大，你的数据应该有更强大的算法来加密，请使用 [Scrypt](https://www.npmjs.com/package/scrypt) 进行加密。
 * Warn your users about how your application deals with sensitive info. You can periodically mail them with explaining infographics, pop up some informative modals when logging in, and yes, your terms of use must state this too.
-* 提醒用户应用程序是如何保护敏感信息的。你应该阶段性的发邮件给用户并附上信息解释图表，当用户登录的时候推送一些信息模式，当然，您的使用条款也必须说明这一点。
+* 提醒用户应用程序是如何保护敏感信息的。你应该阶段性的发邮件给用户并附上信息解释图表，在用户登录的时候推送一些信息模式，当然，您的使用条款也必须说明这一点。
 * Go for HTTPS. Period. Google won’t like you nowadays if you’re not.
 * 选择使用 HTTPS 。如果不使用，Google 可能不兼容你的应用。
 * If you can, go a bit further and do [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security). It is a policy mechanism that enhances your web security against the famous [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attacks.
@@ -175,7 +175,7 @@ app.use(hsts({
 
 You’ll need, obviously, the [hsts](https://www.npmjs.com/package/hsts) npm package. Make sure to refer to its [official docs](https://helmetjs.github.io/docs/hsts/) for more info.
 
-很明显，您首先需要通过 npm 下载 [hsts](https://www.npmjs.com/package/hsts) 包。请确保您经常通过[官方文档](https://helmetjs.github.io/docs/hsts/)查阅进一步的信息。
+很明显，您首先需要通过 npm 下载 [hsts](https://www.npmjs.com/package/hsts) 包。请您查阅[官方文档](https://helmetjs.github.io/docs/hsts/)获得进一步的信息。
 
 ## Old XML External Entities (XXE)
 ## （旧）XML外部实体注入
