@@ -9,7 +9,7 @@
 
 ![Photo by [Marc Reichelt](https://unsplash.com/@mreichelt?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8064/0*p9BRbpAgNsMKNKJS)
 
-Google 的 Flutter 框架在过去的一年中取得了巨大的进展。它已经成为人们茶余饭后常谈的话题，有的人称它为下一个大事件，而另一些人则只是将其作为一项闪亮的新技术进行推广而已。
+Google 的 Flutter 框架在过去的一年中取得了巨大的进展。它已经成为人们茶余饭后常谈的话题，有的人称它为下一个大事件，而另一些人则只是将其看作一项闪亮的新技术进行推广而已。
 
 Flutter 的兴起对于跨平台应用程序开发来说是一个好兆头，不过却让 Android 原生开发者感到困惑，很多刚起步的 Android 原生开发者更是陷入两难境地：
 
@@ -45,9 +45,9 @@ Flutter 的迅速崛起无疑让 Android 开发人员的心里担忧，因为没
 
 Google 引入独立框架并非要与自己的原生 Android 进行竞争。而是由于甲骨文给他们带来的噩梦，所以打算通过引入它来对冲 Android 的风险。
 
-对于那些不熟悉的人来说，因为 Android 设备中使用了某些Java API 和 JVM ，所以 Oracle 和 Google 多年来一直处于法律纠纷。
+对于那些不熟悉的人来说，因为 Android 设备中使用了某些 Java API 和 JVM ，所以 Oracle 和 Google 多年来一直处于法律纠纷。
 
-由 JetBrains 推出的 Kotlin 以及之后 Google 宣布它为 Android 开发的首选语言并没有让 Google 不再担忧，这是因为 Kotlin（与 Java 一样）仍然需要 JVM 才能运行（当时，Kotlin / Native 尚处于萌芽状态） ）。
+而 JetBrains 推出了 Kotlin 以及之后 Google 宣布它为 Android 开发的首选语言并没有让 Google 不再担忧，这是因为 Kotlin（与 Java 一样）仍然需要 JVM 才能运行（当时，Kotlin / Native 尚处于萌芽状态）。
 
 所以为了完全控制其软件生态系统，Google 引入了 Flutter 框架和 Fuschia OS。 Dart 是一种可编译为机器码的语言，因此不需要依赖 Oracle 的 Java 虚拟机。
 
@@ -59,7 +59,7 @@ Google 引入独立框架并非要与自己的原生 Android 进行竞争。而�
 
 适用于 Android 的 Kotlin 已经被全世界的开发人员所熟知，但这只是 JetBrains Kotlin Multiplatform 项目的一个方面。
 
-该项目的其他内容包括 Kotlin / JS（会转换 Kotlin 代码），Kotlin 标准库以及任何与 JavaScript 兼容的依赖项。
+该项目的其他内容包括 Kotlin / JS（会转换 Kotlin 代码），Kotlin 标准库以及任何与 JavaScript 兼容的依赖。
 
 但最重要的是有 Kotlin / Native 可以将 Kotlin 代码编译为本地二进制文件，而这些二进制文件无需虚拟机就可以运行。这实际上意味着可以将 Kotlin 代码用于 iOS Linux，macOS，Windows 和其他嵌入式设备。
 
@@ -67,7 +67,7 @@ Google 引入独立框架并非要与自己的原生 Android 进行竞争。而�
 
 虽然上述这些并不能让 Kotlin / Native 暂时取代 Flutter，但它可以确保构建 100％ 的原生应用程序 - 这是任何一个跨平台方案都没有做到的。
 
-无论如何 Kotlin 通过支持多个运行时目标（类似于 Dart）确保了 JetBrains 的语言不会消失，并将继续成为 Android 开发人员的重要支撑。
+无论如何 Kotlin 通过支持多个运行时目标（类似于 Dart）确保了 JetBrains 开发的语言不会消失，并将继续成为 Android 开发人员的重要支撑。
 
 实际上，Jetpack Compose（Android 的声明式 UI 框架）的推出强烈表明了对平台无关性的支持，这使 Kotlin Multiplatforms 成为跨平台应用程序开发的有力竞争方案。
 
