@@ -2,7 +2,7 @@
 > * 原文作者：[Jared Sinclair](https://jaredsinclair.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-cheat-sheet.md)
-> * 译者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
 # 我们应该在什么时候使用 \@State、\@Binding、\@ObservedObject、\@EnvironmentObject 和 \@Environment？
@@ -200,7 +200,7 @@ extension UIViewController {
 
 ### …将观察到的对象传递给视图所有祖先的所有构造器，这样太麻烦了
 
-Let’s return to the second example from the @ObservedObject section above, where an observable object is needed to carry out some tasks on behalf of your view, but your view is unable to initialize that object by itself. But let’s now imagine that your view is not a root view, but a descendant view that is deeply nested within many ancestor views. If none of the ancestors need the observed object, it would be painfully awkward to require every view in that chain of views to include the observed object in their initializer arguments, just so the one descendant view has access to it. Instead, you can provide that value indirectly by tucking it into the SwiftUI environment around your view. Your view can access that environment instance via the @EnvironmentObject wrapper. Note that once the @EnvironmentObject’s value is resolved, this use case is functionally identical to using an object wrapped in @ObservedObject.
+让我们回到上面 @ObservedObject 部分的第二个示例，其中需要一个可观察对象来代表你的视图执行某些任务，但是视图无法自己初始化该对象。但是现在让我们假设你的视图不是根视图，而是深深地嵌套在许多祖先视图中的后代视图。如果所有祖先视图都不需要该被观察对象，那么要求视图链中的每个视图都将被观察对象包含在它们的构造器参数中，只为了让一个后代视图能够访问它，这将非常尴尬的。相反，你可以通过将其放入视图周围的  SwiftUI 环境来间接提供该值。视图可以通过 @EnvironmentObject 包装器访问当前环境实例。注意，一旦 @EnvironmentObject 的值被解析，这个用例在功能上与使用包装在 @ObservedObject 中的对象是相同的。
 
 ```swift
 struct SomeChildView: View {
@@ -236,13 +236,13 @@ struct SomeGrandparentView: View {
 
 ### …这取决于是否符合 ObservableObject 类型。
 
-Sometimes your view will have a dependency on something that cannot conform to ObservableObject, but you wish it could because it’s too cumbersome to pass it as a initializer argument. There are a number of reasons why a dependency might not be able to conform to ObservableObject:
+有时候你的视图会依赖一些不符合 ObservableObject 的东西，但你希望它能够符合，因为把它作为构造器参数传递太麻烦了。一个依赖可能不能符合 ObservableObject 的原因有很多，比如：
 
-* The dependency is a value type (struct, enum, etc.)
-* The dependency is exposed to your view only as a protocol, not as a concrete type
-* The dependency is a closure
+* 依赖项是一个值类型（类似结构，枚举等）
+* 依赖项仅作为协议而不是具体类型向视图公开
+* 依赖关系是一个闭包
 
-In cases like these, your view would instead use the @Environment wrapper to obtain the required dependency. This requires some boilerplate to accomplish correctly.
+在这种情况下，视图将使用 @Environment 包装器来获得所需的依赖项。这需要一些样板才能正确完成。
 
 ```swift
 struct MyView: View {
@@ -286,9 +286,9 @@ extension EnvironmentValues {
 }
 ```
 
-### …your views are dependent upon more than one instance of the same type, as long as that type does not need to be used as an observable object.
+### …你的视图依赖于同一个类型的多个实例，只要该类型不需要被用作可观察对象。
 
-Since @EnvironmentObject only supports one instance per type, that idea is a non-starter. Instead if you need to register multiple instances of a given type using per-instance key paths, then you will need to use @Environment so that your views’ properties can specify their desired keypath.
+由于 @EnvironmentObject 每种类型仅支持一个实例，所以这种想法是行不通的。相反，如果您需要使用每个实例的键路径注册给定类型的多个实例，则需要使用 @Environment，以便视图的属性可以指定其所需的键路径。
 
 ```swift
 struct MyView: View {
@@ -348,10 +348,10 @@ extension EnvironmentValues {
 
 ## 一个 EnvironmentObject 的多实例的解决方案
 
-While it is **technically** possible to register an observable object using the `.environment()` modifier, changes to that object’s `@Published` properties will not trigger an invalidation or update of your view. Only `@EnvironmentObject` and `@ObservedObject` provide that. Unless something changes in the upcoming iOS 14 APIs, there is only one recourse I have found: a hacky but effective workaround using a custom property wrapper.
+虽然在**技术**上可以使用 `.environment()` 修饰符注册一个可观察对象，但对该对象的 `@Published` 属性的更改不会触发视图的失效或更新。只有使用 `@EnvironmentObject` 和 `@ObservedObject` 才能做到这一点。除非即将发布的 iOS 14 API 有所变化，否则我只能找到一种方法：使用自定义属性包装器来解决这个问题。
 
-* You must register each instance using the `.environment()` modifier, **not** the `.environmentObject()` modifier.
-* You need a custom property wrapper conforming to `DynamicProperty` that owns a private `@ObservedObject` property whose value is retrieved during initialization by pulling it from a single-shot instantiation of an `Environment<T>` struct (used as an instance, not as a property wrapper).
+* 你应该使用修饰符 `.environment()`  注册每个实例，而**不是**使用修饰符 `.environmentObject()`  注册。
+* 您需要一个符合 `DynamicProperty` 的自定义属性包装器，它拥有一个私有的 `@ObservedObject` 属性，该属性的值在初始化过程中通过从一个`Environment<T>` 结构的单次实例（用作实例，而不是属性包装器）中提取出来。
   
 
 这样，视图就可以观察同一类的多个对象：
