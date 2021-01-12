@@ -7,10 +7,10 @@
 
 # State of Design Systems 2019
 > A community survey on the emerging trends, evolving uses, and growing importance of design systems.
+> 
+> This article was co-written with Gregorio Convertino, [Susanna Zaraysky](https://medium.com/@szaraysky), Yasmine Evjen, Abla Hamilton, and Elizabeth Churchill from the Material Design team.
 
 ![2019 State of Design systems community survey](https://miro.medium.com/max/4800/1*enjt2O5aJAcmCeEn7To0uA.png)
-
-_This article was co-written with Gregorio Convertino,_ [_Susanna Zaraysky_](/@szaraysky)_, Yasmine Evjen, Abla Hamilton, and Elizabeth Churchill from the Material Design team._
 
 Design systems are fast becoming essential infrastructure for ensuring design quality and development efficiency at companies around the globe. But who, exactly, finds them most useful? And why?
 
@@ -18,25 +18,19 @@ Material Design teamed up with [Clarity](https://www.clarityconf.com/), a design
 
 Our findings show shifts in the design systems community, emerging trends like the growing prevalence of in-house design systems, and the important role of design systems in promoting collaboration between designers and developers.
 
-Research details
-----------------
-
+### Research details
 In collaboration with the organizers of Clarity, we published a survey of 28 questions for 10 days in August, 2019, getting a total of 1,513 responses. We also carried out 11 informal interviews with attendees of Clarity 2019, asking questions about why they came to the conference, the state of their company’s design system, the tools they used, and the pain points they experienced adopting a design system.
 
 Now, the findings…
 
-The future is interactive, accessible, and uses tokens
-======================================================
-
+## The future is interactive, accessible, and uses tokens
 Like last year’s State of Design Systems survey, we found that the main artifacts of a design system are still a component library, style guide, design guidelines, and content guidelines (in order of popularity). But this year we also provided respondents with an “Other” choice where they could note additional artifacts that should belong to a design system. A total of 8.4% of responses to this question selected this option. Respondents indicated that these top three artifacts should be in a design system:
 
 1.  Design token libraries
 2.  Interactive prototyping tools
 3.  Accessibility guidelines
 
-In-house systems are gaining steam
-==================================
-
+## In-house systems are gaining steam
 As can be seen in Figure 1, the top three design systems used by our respondents (n=1082) are:
 
 1.  Google’s Material Design
@@ -49,9 +43,7 @@ As can be seen in Figure 1, the top three design systems used by our respondents
 
 Figure 1: Popular tools used to manage Design Systems (n=1762)
 
-In-house systems build on brand identity
-========================================
-
+## In-house systems build on brand identity
 The second most popular design system is an in-house design system which is developed specifically for the respondents’ companies. In 9 out of the 11 informal interviews, subjects indicated that their companies were building their own design systems.
 
 The main reasons respondents gave for developing their own design systems were:
@@ -62,9 +54,7 @@ The main reasons respondents gave for developing their own design systems were:
 
 Even though these 9 interviews highlighted the development of in-house design systems, they also highlighted using Material Design’s component library and guidelines as a reference for their own design systems. According to a head of product design, his team is building their own design systems but “… \[we\] are still very early in the process. We use Material Design for reference … How can we leverage things in Material for our own design system?” When probed, interview subjects highlighted that the design guidelines and open-source components of established design systems provide inspiration and guidance as they build their own component libraries and specifications.
 
-Sketch is the top design system tool
-====================================
-
+## Sketch is the top design system tool
 The tools used to manage and develop with design systems have become increasingly important. The top 3 tools highlighted by our respondents are Sketch (32%), Figma (14.5%) and Storybook (13.4%). (See. Fig. 2.) The respondents preferred tools that allow rapid prototyping with drag and drop interfaces. In the informal interviews, subjects highlighted the importance of live editing, features that support collaboration, and platform-agnostic tools.
 
 ![Fig. 2 Bar chart that illustrates the popular design system tools being used by our respondents. Top tool used is Sketch](https://miro.medium.com/max/60/1*SOta6PguQN_EX9IBmzYm9A.png?q=20)
@@ -73,18 +63,14 @@ The tools used to manage and develop with design systems have become increasingl
 
 Figure 2: Popular tools used to manage Design Systems (n=1762)
 
-Design system users are mostly in junior roles…
-===============================================
-
+## Design system users are mostly in junior roles…
 The bulk of our respondents (45.9%) were relatively junior with 1–4 years of work experience in their respective roles. The top 3 roles were:
 
 1.  Design
 2.  Design and Development (a hybrid role)
 3.  Senior/lead roles
 
-…at companies that are either mid-sized or giant
-================================================
-
+## …at companies that are either mid-sized or giant
 The organizations (see Fig. 3) were either medium size companies/organizations sized 51–200 individuals (18.27%) or from very large multinational corporations sized 10,000 and above (17.96%).
 
 ![Fig. 3 Bar chart that illustrate the organization/company sizes of our respondents. A bi-modal distribution is seen in size.](https://miro.medium.com/max/60/1*Y3Rw8m9UEETUf6Bl_8oFcg.png?q=20)
@@ -93,9 +79,7 @@ The organizations (see Fig. 3) were either medium size companies/organizations s
 
 Figure 3: Size of respondents’ company/organization (n=980)
 
-Big companies want their own in-house systems
-=============================================
-
+## Big companies want their own in-house systems
 We dug deeper into the survey data breaking out the size of organizations by whether they have a dedicated design systems team or not. Figure 4 illustrates the results of this analysis and highlights a threshold in an organization’s size and whether they have a design systems team. Our analysis shows that smaller companies with 500 or fewer personnel are unlikely to have their own dedicated design teams are most likely startups or small-medium sized firms. We hypothesize that these companies are unlikely to have a dedicated design systems team and are _more likely_ to adopt an existing design system with off-the shelf components that they can just reuse, adapt or modify.
 
 ![Fig. 4 Bar chart that illustrates the size of an organization and whether they have a dedicated design systems team or not.](https://miro.medium.com/max/60/1*EiYXI9vS7qjKQjN1kCE82Q.png?q=20)
@@ -118,9 +102,7 @@ Figure 5: Percentage of users of each top 3 Design Systems x Dedicated Design Sy
 
 To justify developing an in-house design system, design system managers, developers, and designers need to quantify the design system’s impact on the product/organization. Among the 11 informal interviews conducted at Clarity, 4 of these interviews highlight that the measurement of impact and metrics as a major pain point in the work around design systems. For instance, in an interview with 3 design system managers, they highlighted that “the biggest issue for us is how to measure impact. Right now we are using a proxy of time saved _(as a measure of impact)_. However, it would be awesome if we had metrics around component use, that would be awesome!”
 
-Design systems make a valuable impact on efficiency and consistency
-===================================================================
-
+## Design systems make a valuable impact on efficiency and consistency
 As a part of this year’s survey we wanted to get a sense of the value and impact of adopting a design system. We asked our respondents to provide their ratings for:
 
 1) A set of motivations for adopting a design system
@@ -136,9 +118,7 @@ In general, the respondents were motivated by these factors:
 
 At the Clarity conference, a Senior Design Director justified her decision to build their own design system by saying, “(a design system) reinforces our brand, helps my team to move quickly and aligns the engineers and designers in the company to produce more consistent products.”
 
-Design systems improve products and team productivity
-=====================================================
-
+## Design systems improve products and team productivity
 There were two main themes about the impact of design systems:
 
 1) Product-centered outcomes (such as product consistency and quality)
@@ -146,18 +126,14 @@ There were two main themes about the impact of design systems:
 
 An informal interview with a product designer at the Clarity conference corroborated these 2 sets of impact as well. He highlighted that, “design systems really helped my company tackle the core issues of collaboration and communication in the development process. This allowed my company to scale our product offerings in a more consistent manner.”
 
-Final Takeaways
-===============
-
+## Final Takeaways
 Organizations with under 500 staff members are likely to adopt an existing design system with off-the shelf components that they can just reuse, adapt, or modify. Companies that are larger than 500 people tend to be able to afford their own design systems team and are also more likely to develop their own in-house design system.
 
 It’s clear from our findings that the adoption of design systems have a direct impact and benefit on not only a product’s design and development, but also on team processes and collaboration. In the informal interviews, almost all subjects said that they hoped adopting a design system would improve the pain point of handing off work between design and engineering. Often, when designers hand over their work for engineers to implement, there are issues around communication and consistency around the design and the code. According to a Design manager at the Clarity conference, “… the lack of consistency is the biggest pain point. This consumes time for both designer and engineer. Design systems help with this as they help hard-code some of our design/develop processes into the components and guidelines.” Design systems are not just an embodiment of aesthetics and brand identity, they represent an organization’s workflow and processes.
 
 There is clearly more work needed to track the evolution and trends around design systems, and we hope to continue the conversation about the State of Design Systems in the years to come.
 
-Acknowledgements
-================
-
+## Acknowledgements
 We would like to thank the following individuals for their invaluable assistance with this project:
 
 *   Susanna Zaraysky and Barbara Eldredge for their assistance and contributions to editing this article.
@@ -167,9 +143,7 @@ We would like to thank the following individuals for their invaluable assistance
 *   Alisa Weinstein for her contribution of survey questions around the value and impact of design systems.
 *   Michael Gilbert for driving foundational work on HCI principles in design systems.
 
-References
-==========
-
+## References
 1.  Churchill E. F. 2019. Scaling UX with design systems. Interactions 26, 5 (August 2019), 22–23. DOI: [https://doi.org/10.1145/3352681](https://doi.org/10.1145/3352681)
 2.  Suarez M., Anne J., Sylor-Miller K., Mounter D., and Stanfield R. (2018) Design System Handbook, [https://www.designbetter.co/design-systems-handbook/introducing-design-systems](https://www.designbetter.co/design-systems-handbook/introducing-design-systems) (accessed on 10/14/2019)
 3.  Design Systems Gallery — [https://designsystemsrepo.com/design-systems](https://designsystemsrepo.com/design-systems) (accessed on 10/14/2019)
