@@ -68,7 +68,7 @@
 
 **计算效率：**为了在不牺牲计算效率的情况下将 worker 数量扩展至超出模型和流水线并行能支持的规模，我们使用了 ZeRO 支持的数据并行功能（ZeRO-DP）。ZeRO-DP 不仅可以通过划分优化器状态量进一步提高显存利用效率，而且还可以通过利用基于通信拓扑的映射关系，以最小的通信开销扩展到任意数量的 GPU。
 
-**基于通信拓扑的 3D 映射**（图2）**：**：通过利用两个关键的架构属性，我们将 3D 并行中的每个维度仔细地映射到 worker 上，以实现最大的计算效率。
+**基于通信拓扑的 3D 映射**（图 2）**：**：通过利用两个关键的架构属性，我们将 3D 并行中的每个维度仔细地映射到 worker 上，以实现最大的计算效率。
 
 1. **优化节点内和节点间的通信带宽**：模型并行是这三种策略中通信开销最大的，因此我们优先考虑将模型并行 worker 组放置在节点内以利用更大的节点内带宽。这里我们基于英伟达 Megatron-LM 进行了张量切分式的模型并行。当模型并行组不占满节点内的所有 worker 时，我们选择将数据并行组放置在节点内。不然就跨节点进行数据并行。流水线并行的通信量最低，因此我们可以跨节点调度流水线的各个阶段，而不受通信带宽的限制。
 2. **通过并行通信增大带宽：**每个数据并行组需要通信的梯度量随着流水线和模型并行的规模线性减小，因此总通信量少于单纯使用数据并行。此外，每个数据并行组会在局部的一小部分 worker 内部独立进行通信，组间通信可以相互并行。这样的结果是，通过减少通信量和增加局部性与并行性，数据并行通信的有效带宽被增大了。
@@ -99,7 +99,7 @@ DeepSpeed 可以只用 800 张英伟达 V100 GPU 来训练具有一个**万亿**
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-3_Section-1-1024x508.jpg)
 
-图3：模型大小（以十亿个参数为单位）和训练吞吐量（以 Pflops 为单位）随 GPU 数量变化趋势的图表。DeepSpeed 可以使用 800 张具有 32 GB 内存的英伟达 V100 Tensor Core GPU 训练有 1 万亿个参数的模型。每种配置都使用 [NVIDIA Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 提供的16路模型并行性，剩余的GPU负责进行流水线并行。万亿参数模型具有 298 层 Transformer，其隐藏层大小为 17408，训练的序列长度为 2048，batch 大小 2048。对于较小的模型，我们根据 GPU 数量按比例减少了 Transformer 层的数量和 batch 大小。
+图 3 ：模型大小（以十亿个参数为单位）和训练吞吐量（以 Pflops 为单位）随 GPU 数量变化趋势的图表。DeepSpeed 可以使用 800 张具有 32 GB 内存的英伟达 V100 Tensor Core GPU 训练有 1 万亿个参数的模型。每种配置都使用 [NVIDIA Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 提供的16路模型并行性，剩余的GPU负责进行流水线并行。万亿参数模型具有 298 层 Transformer，其隐藏层大小为 17408，训练的序列长度为 2048，batch 大小 2048。对于较小的模型，我们根据 GPU 数量按比例减少了 Transformer 层的数量和 batch 大小。
 
 ##### 深入研究 3D 并行如何加速训练 GPT-3 规模的模型
 
@@ -140,15 +140,15 @@ ZeRO-Offload 背后的核心技术是在 [ZeRO-2](https://www.microsoft.com/en-u
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-2_section-1-1024x546.png)
 
-图7: ZeRO-Offload 概述。
+图 7: ZeRO-Offload 概述。
 
 ##### 了解 ZeRO-Offload 是如何在单GPU上训练数十亿参数模型的
 
 训练 GPT 和 T5 这样有数十亿参数的模型需要多个 GPU 来存储模型和状态量。大模型训练大多通过跨 GPU 的模型并行来解决显存限制问题。最近，我们发布了 ZeRO，一个高效利用显存的优化器，它会将模型状态量（优化器状态量、梯度和模型参数）分布在多个并行 GPU 上，让数十亿参数模型可以在不使用模型并行的情况下进行训练。然而，ZeRO 还是需要大量数据并行的 GPU 来保存划分后的模型状态量，因此只有少数人有条件进行这种模型训练。
 
-ZeRO-Offload 让单 GPU 可以进行大模型训练，从而使这种训练变得平民化。为了在不使用多个 GPU 的情况下训练数十亿个参数的模型，ZeRO-Offload 继承了 ZeRO-2 的划分优化器状态量和梯度的方法。和 ZeRO-2 不同之处在于，ZeRO-Offload 并没有在每个 GPU 上保存一部分优化器状态量和梯度，而是把两者都移到了本机内存上。Optimizer 状态在整体训练过程中都保存在内存中。梯度则是在反向计算过程中在 GPU 上进行计算并通过 reduce-scatter 进行平均，之后每个数据并行进程把自己的那份平均后的梯度卸到 CPU 上（图7中的 g offload）并弃掉不属于自己负责的部分。
+ZeRO-Offload 让单 GPU 可以进行大模型训练，从而使这种训练变得平民化。为了在不使用多个 GPU 的情况下训练数十亿个参数的模型，ZeRO-Offload 继承了 ZeRO-2 的划分优化器状态量和梯度的方法。和 ZeRO-2 不同之处在于，ZeRO-Offload 并没有在每个 GPU 上保存一部分优化器状态量和梯度，而是把两者都移到了本机内存上。Optimizer 状态在整体训练过程中都保存在内存中。梯度则是在反向计算过程中在 GPU 上进行计算并通过 reduce-scatter 进行平均，之后每个数据并行进程把自己的那份平均后的梯度卸到 CPU 上（图 7 中的 g offload）并弃掉不属于自己负责的部分。
 
-一旦梯度到了 CPU 上，划分后的优化状态量就会并行地在 CPU 上进行更新(图7中的 **p update**)。在更新进行完后，划分后的参数就被移回GPU并用 all gather 操作进行更新 (图7中的 **g swap**）。Zero-Offload 也通过使用不同 CUDA stream 来重叠通信（如 **g offload** 和 **g swap**）和计算（如反向传播和 **p update**) 以提高训练效率。
+一旦梯度到了 CPU 上，划分后的优化状态量就会并行地在 CPU 上进行更新(图 7 中的 **p update**)。在更新进行完后，划分后的参数就被移回GPU并用 all gather 操作进行更新 (图 7 中的 **g swap**）。Zero-Offload 也通过使用不同 CUDA stream 来重叠通信（如 **g offload** 和 **g swap**）和计算（如反向传播和 **p update**) 以提高训练效率。
 
 ##### 从模型规模，训练速度和扩展性看 ZeRO-Offload 的优势
 
@@ -176,11 +176,11 @@ ZeRO-Offload 是 ZeRO-2 的完美补充，支持在少量 GPU 上高效训练大
 
 **在 GPU 上的高效实现：**尽管稀疏注意力的基本实现会节省显存，但在计算上，它可能会比稠密计算要差。这主要是由于稀疏数据导致了内存访问的分散性。开发高效的稀疏内核通常是颇具挑战性的，尤其是在 GPU 上。DeepSpeed 提供了在 [Triton](https://github.com/ptillet/triton) 中开发的高效的稀疏注意力 kernel。这些 kernel 呈块状稀疏范式结构，可实现对齐的内存访问，减少GPU线程分支并平衡处理器上的工作负载。
 
-**系统性能：** 如图11所示，SA 支持 **10 倍长的序列**和**最高 6.3 倍的计算提速**。左图显示了可在 BERT-Base 和 BERT-Large 中运行的最长序列长度。我们的实验有以下三种设置：稠密模式，具有激活 checkpoint 的稠密模式和具有激活 checkpoint 的稀疏（SA）模式。与 BERT-Base 和 BERT-Large 的稠密模式相比，SA 的序列分别长 10 倍和 16 倍。 此外，与稠密模式相比，SA 减少了总计算量，并提高了训练速度：提高的效率随着序列长度的增加而提高，对于 BERT-Base 而言，提升速度高达 6.3 倍，而对于 BERT-Large，则高达 5.3 倍。
+**系统性能：** 如图 11 所示，SA 支持 **10 倍长的序列**和**最高 6.3 倍的计算提速**。左图显示了可在 BERT-Base 和 BERT-Large 中运行的最长序列长度。我们的实验有以下三种设置：稠密模式，具有激活 checkpoint 的稠密模式和具有激活 checkpoint 的稀疏（SA）模式。与 BERT-Base 和 BERT-Large 的稠密模式相比，SA 的序列分别长 10 倍和 16 倍。 此外，与稠密模式相比，SA 减少了总计算量，并提高了训练速度：提高的效率随着序列长度的增加而提高，对于 BERT-Base 而言，提升速度高达 6.3 倍，而对于 BERT-Large，则高达 5.3 倍。
 
 [![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-11_final-1024x576.jpg)](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure11_updated-v3-1024x465.jpg)
 
-图11：BERT 模型的可支持的最大序列长度（左）；在单英伟达 V100 GPU 上训练具有不同序列长度的 BERT-Base（中）和 BERT-Large（右）的时间。
+图 11：BERT 模型的可支持的最大序列长度（左）；在单英伟达 V100 GPU 上训练具有不同序列长度的 BERT-Base（中）和 BERT-Large（右）的时间。
 
 ##### 了解 SA 如何使其准确率与全稠密注意力相当甚至比它更高
 
@@ -188,7 +188,7 @@ ZeRO-Offload 是 ZeRO-2 的完美补充，支持在少量 GPU 上高效训练大
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-Figure-12_update-1024x717.jpg)
 
-图12：长文本理解应用的准确性
+图 12：长文本理解应用的准确性
 
 ##### 了解 SA 与最新的 LongFormer 的比较情况
 
@@ -235,7 +235,7 @@ ZeRO-Offload 是 ZeRO-2 的完美补充，支持在少量 GPU 上高效训练大
 
 ![](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/DeepSpeed-3_Figure-1-_Section-5.png)
 
-图13：由于对梯度的非线性依赖，误差补偿压缩不适用于 Adam
+图 13：由于对梯度的非线性依赖，误差补偿压缩不适用于 Adam
 
 #### 用 1 比特 Adam 压缩通信
 
