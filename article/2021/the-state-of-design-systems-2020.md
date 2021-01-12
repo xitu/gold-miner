@@ -1,4 +1,4 @@
-> * 原文地址：[The State of Design Systems: 2020](https://material.io/blog/research-state-of-design-systems-2020)
+ > * 原文地址：[The State of Design Systems: 2020](https://material.io/blog/research-state-of-design-systems-2020)
 > * 原文作者：[Abla Hamilton, Material Design Researcher](https://material.io/blog)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2020.md)
@@ -7,37 +7,35 @@
 
 # 2020 年的设计系统年终总结
 
-> 这是一个从想法到实施以及更多内容的的设计系统的社区调查，
+> 这是一个关于从想法到实施以及设计行为背后意图的的设计系统的社区调查，
 
 ![](https://lh3.googleusercontent.com/IDHMnQrBxc5SRlLGWdUf50WHjIFyT6TIRsAhZhRir83-cnxwJIYBvyGArfN7t1c5_fK68SfvpUSyq6Hlijrpiw5AC3An4XlSz30f7w=w1064-v0)
 
-我们使用的设计系统在不断发展。在今年的 "Design System State" 调查中，我们了解了设计系统是如何走向成熟的、设计系统中包含哪些内容以及如何使用人员与工具和流程管理设计系统。
+我们使用的设计系统在不断发展。在今年的 "Design System State" 调查中，我们就正好了解了设计系统是如何走向成熟、设计系统中包含哪些内容以及如何使用人员与工具和流程管理设计系统。
 
-2020 年是 Material Design 与设计系统峰会 Clarity 合作的第二年。我们着眼于调查设计系统的当前状态。想要看看上年的内容吗？阅读我们的去年针对社区的[调查摘要](https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2019.md) 。
+2020 年是 Material Design 与设计系统峰会 Clarity 合作的第二年。我们着眼于调查设计系统的当前状态。想要跟上我们的步伐了解下我们的调查内容吗？欢迎先阅读一下我们的去年的[调查摘要](https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2019.md) 。
 
-我们以几种方式更新了 2020 年的调查方式与内容：首先，"Clarity 2020" 会议变成了在线形式。也因此，我们预估了使用或创建设计系统的受访者的体验水平可能会变化。我们还通过 Material Design
-的时事通讯与社交媒体帐户添加了宣传渠道，扩大了没有参加今年会议的人群中的影响力。
+我们以几种方式更新了 2020 年的调查方式与内容：首先，"Clarity 2020" 会议变成了在线形式。也因此，我们也更改了对使用或创建设计系统的受访者的体验水平的预估。我们还通过使用 Material Design 的时事通讯与社交媒体帐户，扩大了没有参加今年会议的人群中的影响力。
 
-我们还计划在两篇文章中解释这些结果。在本文中，我们将对调查结果进行概述，并与去年的调查进行比较。在 2021 年初，我们将继续深入研究设计系统的发展。
+其次，我们计划在两篇文章中解释这些结果。在本文中，我们将对调查结果进行概述，并与去年的调查进行比较。而在 2021 年初，我们将再深入研究设计系统的发展。
 
-让我们记下这个理念，开始本文的旅程！
+让我们开始本文的旅程！
 
-## 关于受访者
+## 关于受访者的信息
 
-今年，我们听到了很大一部分专注于设计工作的人（53％）的意见。与去年的调查相比，专注于开发的人员从11％增加到16％，同时从事设计和开发的人员从16％增加到22％。
+今年，我们获得了很大一部分从事设计工作的（53％）的意见。与去年的调查相比，从事开发的人员从 11％ 增加到 16％，同时从事设计和开发的人员从 16％ 增加到 22％。
 
-我们还发现受访者的角色体验水平发生了变化。去年，大多数（57％）报告称，他们在各自角色中的经验不足4年。今年的结果是：
+我们还发现受访者的工作经验发生了变化。去年，大多数（57％）报告称，他们在各自领域中的工作经验不足 4 年。今年的结果是：
 
 * 37％ 的员工不到 4 年的经验
 * 32％ 具有 4 - 9 年的经验
 * 31％ 具有 9 年以上的经验
 
-受访人群的分布更加均匀，使我们有更可靠更广泛的数据可以进行总结。
+看来，这次受访的人群的分布更加均匀，这也提供给了我们更广泛的数据进行总结。
 
-在考虑参与创建或使用设计系统的人员时，让我们使用 Nikolas Klein
+在考虑参与创建或使用设计系统的人员时，让我们使用一下 Nikolas Klein
 在其文章[《设计系统的成熟度》](https://www.designsystems.com/the-spectrum-of-maturity-for-design-systems/)
-中的定义<a href='#ref1'><sup>[1]</sup></a>
-。他将创建者定义为“发明新模式或记录现有模式以供他人使用的人”，而将消费者定义为“使用先前定义的模式的人”。
+中的定义<a href='#ref1'><sup>[1]</sup></a> —— 他将创建者定义为"发明新模式或记录现有模式以供他人使用的人"，而将消费者定义为"使用先前定义的模式的人"。
 
 参考这些定义，我们可以将 76％ 的受访者确定为内容创造者，既可以当作是组织设计系统团队的一部分，也可以认为他们是对设计系统做出贡献的产品团队的成员。因此，有大量具有实际经验的人借助本次调查分享了这些经验。
 
