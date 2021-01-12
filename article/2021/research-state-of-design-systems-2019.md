@@ -1,30 +1,14 @@
-> * 原文地址：[The State of Design Systems: 2020](https://material.io/blog/research-state-of-design-systems-2020)
-> * 原文作者：[Abla Hamilton, Material Design Researcher](https://material.io/blog)
+> * 原文地址：[State of Design Systems 2019](https://medium.com/google-design/state-of-design-systems-2019-ff5f26ada71)
+> * 原文作者：[Jude Yew](https://medium.com/@jyew_22968)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2020.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/research-state-of-design-systems-2019.md](https://github.com/xitu/gold-miner/blob/master/article/2021/research-state-of-design-systems-2019.md)
 > * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
 > * 校对者：
 
-State of Design Systems 2019
-============================
+# State of Design Systems 2019
+> A community survey on the emerging trends, evolving uses, and growing importance of design systems.
 
-[![Jude Yew](https://miro.medium.com/fit/c/96/96/0*K6VlTwuquzaXfBnE)](/@jyew_22968?source=post_page-----ff5f26ada71--------------------------------)
-
-[Jude Yew](/@jyew_22968?source=post_page-----ff5f26ada71--------------------------------)
-
-Follow
-
-[Dec 23, 2019](/google-design/state-of-design-systems-2019-ff5f26ada71?source=post_page-----ff5f26ada71--------------------------------) · 9 min read
-
-A community survey on the emerging trends, evolving uses, and growing importance of design systems.
-
-![Image for post](https://miro.medium.com/max/60/1*enjt2O5aJAcmCeEn7To0uA.png?q=20)
-
-![Image for post](https://miro.medium.com/max/4800/1*enjt2O5aJAcmCeEn7To0uA.png)
-
-![Image for post](https://miro.medium.com/max/4800/1*enjt2O5aJAcmCeEn7To0uA.png)
-
-2019 State of Design systems community survey
+![2019 State of Design systems community survey](https://miro.medium.com/max/4800/1*enjt2O5aJAcmCeEn7To0uA.png)
 
 _This article was co-written with Gregorio Convertino,_ [_Susanna Zaraysky_](/@szaraysky)_, Yasmine Evjen, Abla Hamilton, and Elizabeth Churchill from the Material Design team._
 
